@@ -27,8 +27,6 @@
 			"./profile/tv/router/route/dynamic",
 			"./profile/wearable/router/history",
 			"./profile/wearable/expose",
-			"./profile/tv/widget/TextInput",
-			"./profile/tv/widget/Progress",
 			"./profile/tv/widget/Listdivider",
 			// Modules to be loaded after
 			"./core/init"

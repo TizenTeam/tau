@@ -84,7 +84,6 @@
 					case KEY_CODES.left:
 					case KEY_CODES.right:
 						self._pageWidget.disableKeyboardSupport();
-						showPopup(self);
 						break;
 				}
 			}
@@ -99,17 +98,23 @@
 				}
 			}
 
+			function onFocus(self) {
+				showPopup(self);
+			}
+
 			prototype._init = function(element) {
 				var pageElement = selectors.getClosestByClass(element, "ui-page");
 
 				if (typeof BaseSliderPrototype._init === FUNCTION_TYPE) {
 					BaseSliderPrototype._init.call(this, element);
 				}
+				this.enableKeyboardSupport();
 				this._pageWidget = ns.engine.getBinding(pageElement);
 			};
 
 			prototype._bindEvents = function(element) {
-				var callbacks = this._callbacks;
+				var container = this._ui.container,
+					callbacks = this._callbacks;
 
 				if (typeof BaseSliderPrototype._bindEvents === FUNCTION_TYPE) {
 					BaseSliderPrototype._bindEvents.call(this, element);
@@ -117,18 +122,23 @@
 
 				callbacks.onKeyup = onKeyup.bind(null, this);
 				callbacks.onKeydown = onKeydown;
+				callbacks.onFocus = onFocus.bind(null, this);
 
-				document.addEventListener("keyup", this, false);
-				this._ui.container.addEventListener("keyup", callbacks.onKeyup, false);
-				this._ui.container.addEventListener("keydown", callbacks.onKeydown, true);
+				this._bindEventKey();
+
+				container.addEventListener("keyup", callbacks.onKeyup, false);
+				container.addEventListener("keydown", callbacks.onKeydown, true);
+				this.handle.addEventListener("focus", callbacks.onFocus, true);
 			};
 
 			prototype._destroy = function() {
-				var callbacks = this._callbacks;
+				var container = this._ui.container,
+					callbacks = this._callbacks;
 
-				document.removeEventListener("keyup", this, false);
-				this._ui.container.removeEventListener("keyup", callbacks.onKeyup, false);
-				this._ui.container.removeEventListener("keydown", callbacks.onKeydown, false);
+				this._destroyEventKey();
+				container.removeEventListener("keyup", callbacks.onKeyup, false);
+				container.removeEventListener("keydown", callbacks.onKeydown, false);
+				this.handle.removeEventListener("focus", callbacks.onFocus, true);
 
 				if (typeof BaseSliderPrototype._destroy === FUNCTION_TYPE) {
 					BaseSliderPrototype._destroy.call(this);
