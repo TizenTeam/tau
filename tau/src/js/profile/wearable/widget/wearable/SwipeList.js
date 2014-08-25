@@ -179,7 +179,11 @@
 					this._animating = false;
 
 				},
-				prototype = new ns.widget.BaseWidget();
+				prototype = new ns.widget.BaseWidget(),
+
+				blockEvent = function(event) {
+					event.preventDefault();
+				};
 
 			prototype._configure = function () {
 
@@ -317,6 +321,7 @@
 
 				utilsEvents.on(this.element, "drag dragstart dragend dragcancel swipe", this);
 				utilsEvents.on(document, "scroll touchcancel", this);
+				utilsEvents.on(this.swipeElement, "touchstart touchmove touchend", blockEvent, false);
 			};
 
 			prototype._unbindEvents = function () {
@@ -324,6 +329,7 @@
 
 				utilsEvents.off(this.element, "drag dragstart dragend dragcancel swipe", this);
 				utilsEvents.off(document, "scroll touchcancel", this);
+				utilsEvents.off(this.swipeElement, "touchstart touchmove touchend", blockEvent, false);
 			};
 
 			prototype.handleEvent = function (event) {
