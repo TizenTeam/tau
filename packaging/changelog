@@ -1,4 +1,33 @@
 %changelog
+* Thu Aug 25 2014 Junyoung Park <jy-.park@samsung.com> 0.9.13
+	- Revert "[BUG] Path issue after change page"
+	- [jira] Block touch event while showing swipe element. [GSDK_SE-2799]
+	- Touch: taphold was triggered almost always
+	- Wearable: modify -webkit-highlight style to transparent.(GSDK_SE-2808)
+	- [jira] initialize canceled flag bug fix.(GSDK_SE-2798)
+	- Tests: API tests for frameworkData object
+	- TV: change stucture of popup
+	- Added TV button
+	- TV: add new variable @virtual_px for less
+	- [TV] KeybordSupport: eliminates from navigation element with visibility hidden
+	- TV: add file config.js for TV profile
+	- TV popup: add support focus on element after open popup
+	- TV: change style of buttons in popup
+	- TV: fixes in theme
+	- TV: VirtualGrid fixes
+	- TV: fix view of virtual list
+	- FrameworkData: Improved performance and readability
+	- TV: Support keyboard in popup
+	- TV profile: fixes for page with popups
+	- TV: fix problem with closing popups in application
+	- TV profile: init profile and demo app
+	- multiple: fix in documentation, change name of 2 widgets for compliance with naming rules
+	- documentation: mobile router and extendables
+	- IndexScrollbar: Lowest index in 2nd depth blinks unnecessarily
+	- documentation: animation utility package
+	- Page: fix for duplicated header divider
+	- wearable.IndexScrollbar: documentation
+
 * Thu Aug 21 2014 Junhyeon Lee <juneh.lee@samsung.com> 0.9.12
 	- [BUG][Wearable] router: fix problem with changing page on popup's closing
 
