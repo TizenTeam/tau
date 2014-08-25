@@ -357,13 +357,6 @@
 
 				eventUtils.trigger(element, self.widgetEventPrefix + "beforecreate");
 
-				// Append current widget name to data-tau-built and data-tau-name attributes
-				dataBuilt = !dataBuilt ? self.name : dataBuilt + engineDataTau.separator + self.name;
-				dataName = !dataName ? self.name : dataName + engineDataTau.separator + self.name;
-
-				element.setAttribute(engineDataTau.built, dataBuilt);
-				element.setAttribute(engineDataTau.name, dataName);
-
 				id = element.id;
 				if (id) {
 					self.id = id;
@@ -376,6 +369,14 @@
 				} else {
 					node = element;
 				}
+
+				// Append current widget name to data-tau-built and data-tau-name attributes
+				dataBuilt = !dataBuilt ? self.name : dataBuilt + engineDataTau.separator + self.name;
+				dataName = !dataName ? self.name : dataName + engineDataTau.separator + self.name;
+
+				element.setAttribute(engineDataTau.built, dataBuilt);
+				element.setAttribute(engineDataTau.name, dataName);
+
 				return node;
 			};
 

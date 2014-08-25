@@ -573,6 +573,8 @@
 					primaryCharacterSet = null,
 					secondCharacterSet = null,
 					popup = ui._popup,
+					popupStyle,
+					popupHeight,
 					shortcutsList = ui._shortcutsList,
 					shapItem,
 					shapItemSpan1,
@@ -737,10 +739,11 @@
 
 					ui._shortcutsContainer.style.top = shortcutsTop + "px";
 
-					popup.innerText = "M";
-					popup.style.width = popup.offsetHeight + 'px';
-					popup.style.marginLeft = -parseInt(popup.offsetWidth / 2) + 'px';
-					popup.style.marginTop = -parseInt(popup.offsetHeight / 2) + 'px';
+					popupHeight = DOMUtils.getElementHeight(popup);
+					popupStyle = popup.style;
+					popupStyle.width = popupHeight + 'px';
+					popupStyle.marginLeft = -parseInt(DOMUtils.getElementWidth(popup) / 2, 10) + 'px';
+					popupStyle.marginTop = -parseInt(popupHeight / 2, 10) + 'px';
 				}
 			}
 
@@ -840,13 +843,29 @@
 
 				parent_build.call(this, element);
 
-				if (this.options.fastscroll === true) {
+				// Make sure, that *this* has assigned correct element
+				// It is required for this.isBuilt checking.
+				this.element = element;
+
+				// @TODO This is bad solution and need to be fixed
+				// Since few widgets can be built on one html element
+				// every Listview 'plugin' can be built more than one.
+				// There is a problem with selectors and Listview
+				// plugins management
+				if (this.options.fastscroll === true
+					&& !(
+						this.isBuilt('FastScroll')
+						|| this.isBuilt('Listview')
+						|| this.isBuilt('ListviewFilter')
+						|| this.isBuilt('ListviewAutodivider')
+					)
+					) {
 					//FIXME Why class uiScrollviewClip is in Tabbar not in Scrollview?
 					scrollView = selectors.getClosestByClass(element, Tabbar.classes.uiScrollviewClip);
 					if (scrollView) {
 						shortcutsContainer = document.createElement("div");
 						shortcutsContainer.classList.add(listviewClasses.uiFastscroll);
-						shortcutsContainer.setAttribute("aria-label", "Fast scroll bar, double tap to fast scroll mode");
+						shortcutsContainer.setAttribute("aria-label", "Fast scrollbar, double tap to fast scroll mode");
 						shortcutsContainer.setAttribute("tabindex", 0);
 						shortcutsContainer.setAttribute("id", id + "-shortcutscontainer");
 						shortcutsContainer.style.maxHeight = scrollView.offsetHeight + "px";
