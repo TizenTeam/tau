@@ -211,7 +211,7 @@
 }
 
 .ui-footer.ui-bar-s {
-	height : 49 * @unit_base;
+	height : 72 * @unit_base;
 	text-align : center;
 	bottom : 0;
 	background : @color_bar_toolbar_bg;
@@ -263,62 +263,43 @@
 	}
 
 	[data-role="controlgroup"] {
-		margin-left : auto;
-		margin-right : auto;
-		margin-top : 0;
-		margin-bottom : 0;
-
-		[data-role="button"] {
-			background : transparent;
-			vertical-align : middle;
-			border-style : solid;
-			border-color : @color_bar_toolbar_divider;
-			border-top-width : 0;
-			border-bottom-width : 0;
-			border-left-width : 0;
-			border-right-width : 1px;
-
-			border-radius : 0 !important;
-
-			padding-top : 0;
-			padding-bottom : 0;
-			padding-right : 0;
-			padding-left : 0;
-			line-height : 49 * @unit_base;
-
-			margin-left : -4 * @unit_base;
-			margin-right : -4 * @unit_base;
-
-			&.ui-btn-down-s, .ui-btn-active-s {
-				background : @color_bar_toolbar_press;
-				.ui-btn-inner {
-					.ui-btn-text {
-						color : @color_bar_toolbar_button_text;
-					}
+		height: 100%;
+		margin: 0;
+		&.ui-tabbar-notext .ui-btn-inner .ui-icon {
+			top: 9 * @unit_base;
+		}
+		a.ui-btn {
+			&.ui-btn-up-s, &.ui-btn-hover-s {
+				.ui-icon {
+					background: @color_tabbar_btn_normal;
 				}
 			}
-
-			>.ui-btn-inner {
-				.LESSborder-radius-all(0);
-				border : 0 solid;
-				height: 100%;
-				line-height: 49 * @unit_base;
-				padding: 0;
+			&.ui-btn-down-s {
+				background : @color_tabbar_press;
+				.ui-btn-text {
+					background : @color_tabbar_press;
+				}
 			}
-			.ui-btn-text {
-				font-size: @font_size_bar_toolbar_button_text;
-				color: @color_bar_toolbar_button_text;
-			}
-
-			&.ui-corner-right {
-				border-right-width : 0;
-			}
-
-			&.ui-corner-left {
-				border-left-width : 0;
+			&.ui-btn-active {
+				color : @color_tabbar_text_selected;
+				.ui-icon {
+					background : @color_tabbar_btn_selected;
+				}
+				.ui-btn-inner.ui-btn-hastxt .ui-btn-text{
+					color: @color_tabbar_text_selected;
+				}
 			}
 		}
+		a.ui-btn .ui-btn-inner.ui-btn-hastxt {
+			padding: 0;
+			.ui-btn-text{
+				color: @color_tabbar_text_normal;
+				font-size: @font_size_tabbar_text;
+				line-height: 72 * @unit_base;
+			}
+
 		}
+	}
 
 	> p {
 		margin-top : 8 * @unit_base;
@@ -667,103 +648,3 @@ a.ui-link-inherit {
 	pointer-events: none;
 }
 
-
-
-/************************************************************************
-			Landscape mode
-************************************************************************/
-@media all and (orientation:landscape) and (device-aspect-ratio : 16/9) {
-
-.ui-header.ui-bar-s{
-	min-height : 45 * @unit_base;
-
-	.ui-title {
-		min-height: 25 * @unit_base;
-		max-height: 29 * @unit_base; /* tuning UX guide(title height too large)*/
-
-		color: @color_bar_title_text;
-		font-size: @font_size_bar_title_text;
-
-		margin: 12*@unit_base 13*@unit_base 4*@unit_base 13*@unit_base;/* tuning UX guide(title height too large)*/
-	}
-
-	> .ui-btn.ui-btn-back,
-	> .ui-btn.ui-btn-footer-down {
-		right : 13 * @unit_base;
-	}
-
-	img {
-		margin-top : 14 * @unit_base;
-		height: 23 * @unit_base;
-		width: 23 * @unit_base;
-	}
-
-	.ui-title-text-sub {
-		top : 26 * @unit_base;
-	}
-
-	> .ui-btn,
-	> .naviframe-button.ui-btn {
-		top : 8 * @unit_base;
-
-		height : 34 * @unit_base;
-		width : 34 * @unit_base;
-	}
-	&.ui-title-tabbar >.ui-btn {
-		top: 8 * @unit_base;
-	}
-
-	&.ui-title-multiline {
-		.ui-title {
-			min-height : 21 * @unit_base;
-			max-height : 21 * @unit_base; /* temporary UX strange */
-
-			color: @color_bar_title_landscape_multiline_text;
-			font-size  : @font_size_bar_title_landscape_multiline_text;
-			margin: 5*@unit_base 13*@unit_base 19*@unit_base 13*@unit_base;
-
-			display : block;
-		}
-
-		.ui-title-text-sub {
-			top : 26 * @unit_base;
-
-			color: @color_bar_title_landscape_sub_text;
-			font-size : @font_size_bar_title_landscape_sub_text;
-		}
-	}
-}
-
-.ui-footer.ui-bar-s {
-	>.ui-btn.ui-btn-back,
-	>.ui-btn.ui-btn-footer-down {
-		>.ui-btn-icon-only {
-			width : 56 * @unit_base;
-			height : 42 * @unit_base;
-		}
-	}
-
-	[data-role="controlgroup"] {
-		margin-top : 0;
-		margin-bottom : 0;
-		padding-left : 0;
-		padding-right : 58 * @unit_base;
-
-
-		[data-role="button"] {
-			padding-top : 0;
-			padding-bottom : 0;
-			padding-right : 0;
-			padding-left : 0;
-			line-height : 42 * @unit_base;
-
-			margin-left : -4 * @unit_base;
-			margin-right : -4 * @unit_base;
-			top : 0;
-		}
-	}
-
-
-}
-
-}

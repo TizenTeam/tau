@@ -56,7 +56,7 @@
 .ui-btn-icon-top .ui-btn-inner { padding-top: 27 * @unit_base; }
 .ui-header .ui-btn-icon-top .ui-btn-inner,
 .ui-footer .ui-btn-icon-top .ui-btn-inner,
-.ui-bar .ui-btn-icon-top .ui-btn-inner { padding-top: 27 * @unit_base; }
+.ui-bar .ui-btn-icon-top .ui-btn-inner { padding-top: 100%; }
 .ui-btn-icon-bottom .ui-btn-inner { padding-bottom: 33 * @unit_base; }
 .ui-header .ui-btn-icon-bottom .ui-btn-inner,
 .ui-footer .ui-btn-icon-bottom .ui-btn-inner,
@@ -67,7 +67,12 @@
 .ui-btn-icon-left .ui-icon, .ui-btn-icon-right .ui-icon, .ui-btn-icon-circle .ui-icon { position: absolute; /*top: 50%; margin-top: -9px;*/ } /* wongi_1018 : do not use. No more use 18px default icons. */
 
 
-.ui-btn-icon-top .ui-icon, .ui-btn-icon-bottom .ui-icon { position: absolute; left: 50%;  margin-left: -9px; }
+.ui-btn-icon-top .ui-icon, .ui-btn-icon-bottom .ui-icon {
+	position: absolute;
+	left: 50%;
+	transform: translate(-50%, 0);
+	-webkit-transform: translate(-50%, 0);
+}
 .ui-btn-icon-left .ui-icon { left: 7 * @unit_base; }
 .ui-btn-icon-circle .ui-icon {left: 0 * @unit_base; } /* wongi_1018 : for circle icon center positioning. */
 .ui-btn-icon-right .ui-icon { right: 4 * @unit_base; }
