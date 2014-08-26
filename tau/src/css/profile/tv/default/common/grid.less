@@ -1,8 +1,12 @@
-
+@basic_btn_txt_color_normal_icon: rgb(211, 211, 211);
 
 .ui-virtualgrid, .ui-grid {
 
 	margin: 20 * @virtual_px 0 0 20 * @virtual_px;
+
+	.ui-btn {
+		color: @basic_btn_txt_color_normal_icon;
+	}
 
 	.grid-icon {
 		width: 210 * @virtual_px;
@@ -22,7 +26,7 @@
 			background-size: 106 * @virtual_px 106 * @virtual_px;
 		}
 		&:not(.ui-focus) {
-			background-color: rgb(27, 64, 61);
+			background-color: rgb(28, 62, 59);
 		}
 	}
 	.grid-thumbnail {
@@ -150,13 +154,17 @@
 }
 
 .ui-grid {
+	overflow: hidden;
 	li {
 		float: left;
 	}
 }
 
 .ui-content {
-	>.ui-virtualgrid, .ui-grid {
-		margin: -@fixed_header_title_padding;
+	>.ui-virtualgrid, >.ui-grid {
+		margin-top: 20 * @virtual_px -@fixed_header_title_padding;
+		margin-right: -@fixed_header_title_padding;
+		margin-bottom: -@fixed_header_title_padding;
+		margin-left: 20 * @virtual_px - @fixed_header_title_padding;
 	}
 }

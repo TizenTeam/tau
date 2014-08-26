@@ -20,64 +20,77 @@
 </head>
 
 <body class="ui-pagecontainer" data-background="img/bg.jpg">
-<div class="ui-page ui-page-active" id="main" data-role="page">
-	<div data-role="drawer" data-position="left" id="left-drawer"
-		 data-width="301" data-close-on-click="false" data-overlay="false">
-		<a class="ui-btn ui-drawer-close"
-		   id="close" data-inline="true" data-role="button"></a>
-		<ul class="ui-listview ui-listview-first" data-role="listview">
-			<li class="ui-block">
-				<a href="#andrew" data-role="button"
-				   data-icon="source" data-iconpos="top"
-				   data-rel="dynamic"
-				   class="ui-btn ui-color-live">Andrew</a>
-			</li>
-			<li class="ui-block">
-				<a data-rel="dynamic" href="#live"
-				   data-role="button" data-icon="live" data-iconpos="top">Live</a>
-			</li>
-			<li class="ui-block">
-				<a href="popup/index.html"
-				   data-icon="tv-show" data-iconpos="top"
-				   data-role="button">Popups</a></li>
-			<li class="ui-block">
-				<a href="list/index.html"
-				   data-role="button" data-icon
-						="movie" data-iconpos="top">Lists</a></li>
-			<li class="ui-block">
-				<a data-rel="dynamic" href="#movies"
-				   data-role="button" data-icon
-						="app" data-iconpos="top">Apps</a></li>
-			<li class="ui-block">
-				<a href="virtualgrid/index.html"
-				   data-role="button" data-icon
-						="source" data-iconpos="top">Grid</a></li>
-			<li class="ui-block">
-			  <a href="buttons/buttons.html" data-role="button" data-icon="source" data-iconpos="top">Buttons</a>
-			</li>
-			<li class="ui-block">
-				<a href="textinput/entry.html"
-				   data-role="button" data-icon
-						="source" data-iconpos="top">Inputs</a></li>
-			<li class="ui-block">
-				<a href="list/list-divider_normal.html"
-				   data-role="button" data-icon
-						="source" data-iconpos="top">Chanel list</a></li>
-			<li class="ui-block">
-				<a href="slider/slider.html"
-				   data-role="button" data-icon
-						="source" data-iconpos="top">Slider</a></li>
-			<li class="ui-block">
-				<a href="checkboxradio/checkboxradio.html"
-				   data-role="button" data-icon
-						="source" data-iconpos="top">Checkbox / Radiobutton</a></li>
-			<li class="ui-block">
-				<a href="progress/progress.html"
-				   data-role="button" data-icon
-						="source" data-iconpos="top">Progress</a></li>
-		</ul>
+<div class="ui-page" id="pageTestVirtualList" data-role="page">
+	<header class="ui-header" data-role="header">
+		<h2 class="ui-title">Tizen Advanced UI TV Demo</h2>
+	</header>
+	<div class="ui-content" data-role="content" data-scroll="none">
+		<div class="ui-column-left">
+			<ul class="ui-listview">
+				<li><a href="#blocks" data-rel="dynamic">Basics</a></li>
+				<li><a href="#forms" data-rel="dynamic">Forms</a></li>
+				<li><a href="#containers" data-rel="dynamic">Containers</a></li>
+			</ul>
+		</div>
+		<div class="ui-column-right">
+			<ul class="ui-grid ui-dynamic-box ui-dynamic-box-active" id="blocks">
+				<li class="grid-icon"><a href="popup/index.html"
+										 data-role="button"
+										 data-icon="tv-show"
+										 data-iconpos="top"
+										 data-style="circleicon"
+										 data-corners="false">Popup</a></li>
+				<li class="grid-icon"><a href="progress/progress.html"
+										 data-role="button"
+										 data-icon="tv-show"
+										 data-iconpos="top"
+										 data-style="circleicon"
+										 data-corners="false">Progress</a></li>
+			</ul>
+			<ul class="ui-grid ui-dynamic-box" id="forms">
+				<li class="grid-icon"><a href="buttons/buttons.html"
+										 data-role="button" data-icon="tv-show"
+										 data-iconpos="top"
+										 data-style="circleicon"
+										 data-corners="false">Button</a></li>
+				<li class="grid-icon"><a href="textinput/entry.html"
+										 data-role="button"
+										 data-icon="tv-show"
+										 data-iconpos="top"
+										 data-style="circleicon"
+										 data-corners="false">Text Input</a>
+				</li>
+				<li class="grid-icon"><a href="slider/slider.html"
+										 data-role="button" data-icon="tv-show"
+										 data-iconpos="top"
+										 data-style="circleicon"
+										 data-corners="false">Slider</a></li>
+				<li class="grid-icon"><a href="checkboxradio/checkboxradio.html"
+										 data-role="button" data-icon="tv-show"
+										 data-iconpos="top"
+										 data-style="circleicon"
+										 data-corners="false">Checkbox</a></li>
+				<li class="grid-icon"><a href="checkboxradio/radio.html"
+										 data-role="button" data-icon="tv-show"
+										 data-iconpos="top"
+										 data-style="circleicon"
+										 data-corners="false">Radio</a></li>
+			</ul>
+			<ul class="ui-grid ui-dynamic-box" id="containers">
+				<li class="grid-icon"><a href="list/index.html"
+										 data-role="button" data-icon="tv-show"
+										 data-iconpos="top"
+										 data-style="circleicon"
+										 data-corners="false">List</a></li>
+				<li class="grid-icon"><a href="virtualgrid/index.html"
+										 data-role="button" data-icon="tv-show"
+										 data-iconpos="top"
+										 data-style="circleicon"
+										 data-corners="false">Virtual Grid</a>
+				</li>
+			</ul>
+		</div>
 	</div>
-</div>
 </div>
 </body>
 </html>
