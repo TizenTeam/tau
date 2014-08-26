@@ -171,45 +171,12 @@
 			 * @member ns.router.route.popup
 			 * @static
 			 */
-			routeDynamic.open = function (toPopup, options) {
-				var popup,
-					popupKey,
-					router = engine.getRouter(),
-					url = pathUtils.getLocation(),
-					removePopup = function () {
-						document.removeEventListener(routeDynamic.events.POPUP_HIDE, removePopup, false);
-						toPopup.parentNode.removeChild(toPopup);
-						routeDynamic.activePopup = null;
-					},
-					openPopup = function () {
-						document.removeEventListener(routeDynamic.events.POPUP_HIDE, openPopup, false);
-						popup = engine.instanceWidget(toPopup, 'popup', options);
-						popup.open();
-						routeDynamic.activePopup = popup;
-					},
-					documentUrl = path.getLocation().replace(popupHashKeyReg, ""),
-					activePage = router.container.getActivePage(),
-					container;
-
-				popupKey = popupHashKey;
-
-				if (!options.fromHashChange) {
-					url = path.addHashSearchParams(documentUrl, popupKey);
-					history.replace(options, "", url);
+			routeDynamic.open = function (toDynamic, options) {
+				var activeDynamic = document.querySelector(".ui-dynamic-box-active");
+				if (activeDynamic) {
+					activeDynamic.classList.remove("ui-dynamic-box-active");
 				}
-
-				if (DOM.getNSData(toPopup, "external") === true) {
-					container = options.container ? activePage.element.querySelector(options.container) : activePage.element;
-					container.appendChild(toPopup);
-					document.addEventListener(routeDynamic.events.POPUP_HIDE, removePopup, false);
-				}
-
-				if (routeDynamic._hasActivePopup()) {
-					document.addEventListener(routeDynamic.events.POPUP_HIDE, openPopup, false);
-					routeDynamic._closeActivePopup();
-				} else {
-					openPopup();
-				}
+				toDynamic.classList.add("ui-dynamic-box-active");
 			};
 
 
@@ -314,20 +281,6 @@
 			 */
 			routeDynamic._createDataUrl = function( absoluteUrl ) {
 				return path.convertUrlToDataUrl( absoluteUrl );
-			};
-
-			/**
-			 * Return true if active popup exists.
-			 * @method _hasActivePopup
-			 * @return {boolean}
-			 * @member ns.router.route.popup
-			 * @protected
-			 * @static
-			 */
-			routeDynamic._hasActivePopup = function () {
-				var popup = document.querySelector('.' + ns.widget.wearable.Popup.classes.active);
-				routeDynamic.activePopup = popup && engine.instanceWidget(popup, 'popup');
-				return !!routeDynamic.activePopup;
 			};
 
 			ns.router.route.dynamic = routeDynamic;
