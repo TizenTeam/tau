@@ -467,9 +467,7 @@
 	.ui-collapsible .ui-li-dialogue {
 		margin-left: 8 * @unit_base;
 		margin-right: 8 * @unit_base;
-		background-color: @color_list_dialogue_bg;
-		&.ui-btn-down-s { background-color: @color_list_press; }
-		border: 1px solid @color_dialogue_border;
+		border: 1px solid @color_list_border_bottom;
 		border-top-width: 0;
 
 		>.ui-btn-inner {
@@ -680,11 +678,9 @@
 	}
 
 	&[data-style="dialogue"] {
-		height: 42 * @unit_base;
-		padding-top: 16 * @unit_base;
-		padding-bottom: 3 * @unit_base;
-		padding-right: 18 * @unit_base;
-		padding-left: 18 * @unit_base;
+		margin-bottom: 5 * @unit_base;
+		padding-left: 13 * @unit_base;
+		padding-right: 13 * @unit_base;
 	}
 
 	&[data-style="check"] {
