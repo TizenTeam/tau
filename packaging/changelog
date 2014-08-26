@@ -1,4 +1,18 @@
 %changelog
+* Thu Aug 26 2014 Junyoung Park <jy-.park@samsung.com> 0.9.14
+	- Build: fix error with mobile gbs package build
+	- [TV] textinput: fix problem with events in textinput
+	- [TV] List style extened     - multiline support added     - checkbox/radio button support added
+	- [TV] Added checkbox and radiobutton implementation for TV profile
+	- TV: fix problem with color of Drawer's background
+	- [TV] Input support added
+	- TV: change opening popup in slider on focus
+	- [TV] Listdivider widget added
+	- TV: fix problem with popup in slider
+	- TV: add slider with popup
+	- [TV] Added style for slider
+	- TV: adding context popup for profile TV
+
 * Thu Aug 25 2014 Junyoung Park <jy-.park@samsung.com> 0.9.13
 	- Revert "[BUG] Path issue after change page"
 	- [jira] Block touch event while showing swipe element. [GSDK_SE-2799]
