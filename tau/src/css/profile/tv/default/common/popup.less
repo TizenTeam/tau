@@ -4,7 +4,7 @@
 @popup_border_radius: 10 * @virtual_px;
 @popup_header_padding_right: 64 * @virtual_px;
 @popup_header_padding_left: 64 * @virtual_px;
-
+@popup_shadow: rgba(0, 0, 0, 0.67);
 /***********************
 Normal Popup
 ***********************/
@@ -33,18 +33,33 @@ Normal Popup
 				width: initial;
 				min-width: 670 * @virtual_px;
 				height: 501 * @virtual_px;
+				padding: 0;
 				.ui-listview {
 					margin: 0;
+
+					li {
+						border-bottom-color: rgb(218, 218, 218);
+						color: rgb(89, 89, 89);
+						padding: 32 * @virtual_px 43 * @virtual_px ;
+						font-size: 22 * @virtual_px;
+
+						a.ui-btn {
+							margin: -32 * @virtual_px -43 * @virtual_px ;
+						}
+					}
 				}
 			}
 
 			footer {
 				float: left;
-				width: 256 * @virtual_px;
+				width: 273 * @virtual_px;
+				height: 501 * @virtual_px;
+				background-color: rgb(237, 237, 237) ;
 				> .ui-btn {
 					margin-left: 20 * @virtual_px;
 					margin-right: 20 * @virtual_px;
 					margin-top: 10 * @virtual_px;
+					width: 233 * @virtual_px;
 				}
 				> .ui-btn:first-child {
 					margin-top: 20 * @virtual_px;
@@ -71,6 +86,7 @@ Normal Popup
 	-webkit-border-radius: @popup_border_radius;
 	-moz-border-radius: @popup_border_radius;
 	border-radius: @popup_border_radius;
+	box-shadow: 0 2px 5px @popup_shadow;
 
 	header {
 		width: 100%;

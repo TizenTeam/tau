@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=9; IE=8">
+	<script build-remove="false">
+		var tauConfig = {
+			autoBuildOnPageChange: true
+		};
+	</script>
+	<script type="text/javascript" src="../../lib/tau/tv/js/tau.js" data-
+			build-remove="false"></script>
+	<link rel="stylesheet" href="../../lib/tau/tv/theme/default/tau.css">
+
+	<title>TV UI Demo</title>
+
+	<!-- for compatibility test -->
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+	<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+	<link rel="apple-touch-icon" href="../../icon-tizen.png"/>
+</head>
+
+<body class="ui-pagecontainer" data-background="img/bg.jpg">
+<div class="ui-page ui-page-active" id="main" data-role="page">
+	<div data-role="drawer" data-position="left" id="left-drawer"
+		 data-width="301" data-close-on-click="false" data-overlay="false">
+		<a class="ui-btn ui-drawer-close"
+		   id="close" data-inline="true" data-role="button"></a>
+		<ul class="ui-listview ui-listview-first" data-role="listview">
+			<li class="ui-block">
+				<a href="#andrew" data-role="button"
+				   data-icon="source" data-iconpos="top"
+				   data-rel="dynamic"
+				   class="ui-btn ui-color-live">Andrew</a>
+			</li>
+			<li class="ui-block">
+				<a data-rel="dynamic" href="#live"
+				   data-role="button" data-icon="live" data-iconpos="top">Live</a>
+			</li>
+			<li class="ui-block">
+				<a href="popup/index.html"
+				   data-icon="tv-show" data-iconpos="top"
+				   data-role="button">Popups</a></li>
+			<li class="ui-block">
+				<a href="list/index.html"
+				   data-role="button" data-icon
+						="movie" data-iconpos="top">Lists</a></li>
+			<li class="ui-block">
+				<a data-rel="dynamic" href="#movies"
+				   data-role="button" data-icon
+						="app" data-iconpos="top">Apps</a></li>
+			<li class="ui-block">
+				<a href="virtualgrid/index.html"
+				   data-role="button" data-icon
+						="source" data-iconpos="top">Grid</a></li>
+			<li class="ui-block">
+			  <a href="buttons/buttons.html" data-role="button" data-icon="source" data-iconpos="top">Buttons</a>
+			</li>
+			<li class="ui-block">
+				<a href="textinput/entry.html"
+				   data-role="button" data-icon
+						="source" data-iconpos="top">Inputs</a></li>
+			<li class="ui-block">
+				<a href="list/list-divider_normal.html"
+				   data-role="button" data-icon
+						="source" data-iconpos="top">Chanel list</a></li>
+			<li class="ui-block">
+				<a href="slider/slider.html"
+				   data-role="button" data-icon
+						="source" data-iconpos="top">Slider</a></li>
+			<li class="ui-block">
+				<a href="checkboxradio/checkboxradio.html"
+				   data-role="button" data-icon
+						="source" data-iconpos="top">Checkbox / Radiobutton</a></li>
+		</ul>
+		<div id="live" class="ui-dynamic-box">
+			<ul class="ui-listview ui-listview-first" data-role="listview">
+				<li class="ui-list-divider">Favorite</li>
+				<li class="ui-li-dynamic">
+					<a href="#">
+					<img src="img/bg.jpg" />
+					<footer>
+						<img src="img/ico_source_foc.png" />
+						<h3>CH 003</h3>
+						<h2>Eternal sunshine</h2>
+						<div>
+						<time class="ui-li-dynami-from">10:00PM</time> -
+						<time class="ui-li-dynami-to">12:00PM</time>
+						<progress max="100" value="40"></progress>
+						</div>
+					</footer>
+					</a>
+				</li>
+
+				<li class="ui-li-dynamic">
+					<a href="#">
+					<img src="img/bg.jpg" />
+					<footer>
+						<img src="img/ico_source_foc.png" />
+						<h3>CH 003</h3>
+						<h2>Eternal sunshine</h2>
+						<div>
+							<time class="ui-li-dynami-from">10:00PM</time> -
+							<time class="ui-li-dynami-to">12:00PM</time>
+							<progress max="100" value="40"></progress>
+						</div>
+					</footer>
+					</a>
+				</li>
+
+				<li class="ui-li-dynamic">
+					<a href="#">
+					<img src="img/bg.jpg" />
+					<footer>
+						<img src="img/ico_source_foc.png" />
+						<h3>CH 003</h3>
+						<h2>Eternal sunshine</h2>
+						<div>
+							<time class="ui-li-dynami-from">10:00PM</time> -
+							<time class="ui-li-dynami-to">12:00PM</time>
+							<progress max="100" value="40"></progress>
+						</div>
+					</footer>
+					</a>
+				</li>
+
+				<li class="ui-li-dynamic">
+					<a href="#">
+					<img src="img/bg.jpg" />
+					<footer>
+						<img src="img/ico_source_foc.png" />
+						<h3>CH 003</h3>
+						<h2>Eternal sunshine</h2>
+						<div>
+							<time class="ui-li-dynami-from">10:00PM</time> -
+							<time class="ui-li-dynami-to">12:00PM</time>
+							<progress max="100" value="40"></progress>
+						</div>
+					</footer>
+					</a>
+				</li>
+			</ul>
+		</div>
+		<div id="tv-shows" class="ui-dynamic-box">
+			<ul class="ui-listview ui-listview-first" data-role="listview">
+				<li class="ui-list-divider">TV Shows</li>
+				<li class="ui-li-dynamic ul-li-poster">
+					<img src="img/7572051.3.jpg" />
+					<footer>
+						<h2>Eternal sunshine</h2>
+					</footer>
+				</li>
+				<li class="ui-li-dynamic ul-li-poster">
+					<img src="img/7572051.3.jpg" />
+					<footer>
+						<h2>Eternal sunshine</h2>
+					</footer>
+				</li>
+				<li class="ui-li-dynamic ul-li-poster">
+					<img src="img/7572051.3.jpg" />
+					<footer>
+						<h2>Eternal sunshine</h2>
+					</footer>
+				</li>
+				<li class="ui-li-dynamic ul-li-poster">
+					<img src="img/7572051.3.jpg" />
+					<footer>
+						<h2>Eternal sunshine</h2>
+					</footer>
+				</li>
+				<li class="ui-li-dynamic ul-li-poster">
+					<img src="img/7572051.3.jpg" />
+					<footer>
+						<h2>Eternal sunshine</h2>
+					</footer>
+				</li>
+				<li class="ui-li-dynamic ul-li-poster">
+					<img src="img/7572051.3.jpg" />
+					<footer>
+						<h2>Eternal sunshine</h2>
+					</footer>
+				</li>
+				<li class="ui-li-dynamic ul-li-poster">
+					<img src="img/7572051.3.jpg" />
+					<footer>
+						<h2>Eternal sunshine</h2>
+					</footer>
+				</li>
+	</div>
+	<div class="ui-page-content">
+
+	</div>
+	<script>
+
+		(function () {
+			var mainPage = document.getElementById("main"),
+					closeButton = document.getElementById("close"),
+					drawerElement = document.getElementById("left-drawer"),
+					drawer = tau.widget.Drawer(drawerElement);
+
+			mainPage.addEventListener("pageshow", function () {
+				setTimeout(function() {
+					drawer.open();
+				}, 1000);
+			});
+			mainPage.addEventListener("click", function () {
+				if (!drawer.isOpen()) {
+					drawer.open();
+				}
+			});
+			closeButton.addEventListener("click", function () {
+				drawer.close();
+			});
+		}());
+	</script>
+</div>
+</body>
+</html>
