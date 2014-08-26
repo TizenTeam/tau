@@ -21,43 +21,29 @@
 			<h2 class="ui-title">Inputs</h2>
 		</header>
 		<div class="ui-content" data-role="content">
-			<div style="padding: 30px;">
-				<div class="fieldcontain">
-					<label for="name">Text Input:</label>
-					<input type="text" name="name" id="name" value=""  />
-				</div>
-				<div class="fieldcontain">
-					<label for="sname">Small Text Input:</label>
-					<input type="text" name="sname" id="name" value="" class="small" />
-				</div>
-				<div class="fieldcontain">
-					<label for="textarea">Textarea:</label>
-					<textarea cols="40" rows="8" name="textarea" id="textarea"></textarea>
-				</div>
-				<div class="fieldcontain">
-					<label for="password">Password:</label>
-					<input type="password" name="password" id="password" value="" />
-				</div>
-				<div class="fieldcontain">
-					<label for="pin">PIN:</label>
-					<input type="password" name="password" id="pin" value="" class="pin" maxlength="1"/>
-				</div>
-				<div class="fieldcontain">
-					<label for="email">Email:</label>
-					<input type="email" name="email" id="email" value="" />
-				</div>
-				<div class="fieldcontain">
-					<label for="url">Url:</label>
-					<input type="url" name="url" id="url" value="" />
-				</div>
-				<div class="fieldcontain">
-					<label for="tel">Tel:</label>
-					<input type="tel" name="tel" id="tel" value="" />
-				</div>
-				<div class="fieldcontain">
-					<label for="number">Number:</label>
-					<input type="number" placeholder="number here" name="number" id="number" value="" min="0" max="100"/>
-				</div>
+			<div class="ui-column-left">
+				<ul class="ui-listview">
+					<li>Text Input</li>
+					<li class="rowspan-2">Textarea</li>
+					<li>Password</li>
+					<li>PIN</li>
+					<li>Email</li>
+					<li>URL</li>
+					<li>Telephone</li>
+					<li>Number</li>
+				</ul>
+			</div>
+			<div class="ui-column-right">
+				<ul class="ui-listview">
+					<li><input type="text" name="name" value=""  /></li>
+					<li><textarea cols="40" rows="8" name="textarea" id="textarea"></textarea></li>
+					<li><input type="password" name="password" id="password" value="" /></li>
+					<li><input type="password" name="password" id="pin" value="" class="pin" maxlength="1"/></li>
+					<li><input type="email" name="email" id="email" value="" /></li>
+					<li><input type="url" name="url" id="url" value="" /></li>
+					<li><input type="tel" name="tel" id="tel" value="" /></li>
+					<li><input type="number" placeholder="number here" name="number" id="number" value="" min="0" max="100"/></li>
+				</ul>
 			</div>
 		</div><!-- /content -->
 </div><!-- /page -->

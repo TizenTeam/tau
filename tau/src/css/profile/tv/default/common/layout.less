@@ -1,3 +1,5 @@
+@page_border_radius: 10 * @virtual_px;
+
 /***************************************************************************
                    Common Style
 ***************************************************************************/
@@ -27,12 +29,24 @@ body {
 	&.ui-header-empty {
 		.ui-content {
 			margin-top: 59 * @virtual_px;
+			-webkit-border-top-left-radius: @page_border_radius;
+			-moz-border-top-left-radius: @page_border_radius;
+			border-top-left-radius: @page_border_radius;
+			-webkit-border-top-right-radius: @page_border_radius;
+			-moz-border-top-right-radius: @page_border_radius;
+			border-top-right-radius: @page_border_radius;
 		}
 	}
 
 	&.ui-footer-empty {
 		.ui-content {
 			margin-bottom: 59 * @virtual_px;
+			-webkit-border-bottom-left-radius: @page_border_radius;
+			-moz-border-bottom-left-radius: @page_border_radius;
+			border-bottom-left-radius: @page_border_radius;
+			-webkit-border-bottom-right-radius: @page_border_radius;
+			-moz-border-bottom-right-radius: @page_border_radius;
+			border-bottom-right-radius: @page_border_radius;
 		}
 	}
 }
@@ -50,6 +64,19 @@ body {
 	overflow: auto;
 	background-color: @color_content_bg;
 	.scrolling-mode-touch;
+	padding: @fixed_header_title_padding;
+
+	.ui-column-left {
+		width: 298 * @virtual_px;
+		float: left;
+		margin: -@fixed_header_title_padding 0 -@fixed_header_title_padding -@fixed_header_title_padding;
+	}
+
+	.ui-column-right {
+		width: 1340 * @virtual_px;
+		float: left;
+		margin: -@fixed_header_title_padding -@fixed_header_title_padding -@fixed_header_title_padding 0;
+	}
 }
 
 .ui-header {
@@ -59,6 +86,12 @@ body {
 	height: @fixed_header_height;
 	line-height: @fixed_header_line_height;
 	background-color: @color_actionbar_title_bg;
+	-webkit-border-top-left-radius: @page_border_radius;
+	-moz-border-top-left-radius: @page_border_radius;
+	border-top-left-radius: @page_border_radius;
+	-webkit-border-top-right-radius: @page_border_radius;
+	-moz-border-top-right-radius: @page_border_radius;
+	border-top-right-radius: @page_border_radius;
 
 	.ui-title {
 		color: @color_actionbar_title_text;
@@ -156,6 +189,12 @@ body {
 	position: absolute;
 	bottom: 0;
 	left: 0;
+	-webkit-border-bottom-left-radius: @page_border_radius;
+	-moz-border-bottom-left-radius: @page_border_radius;
+	border-bottom-left-radius: @page_border_radius;
+	-webkit-border-bottom-right-radius: @page_border_radius;
+	-moz-border-bottom-right-radius: @page_border_radius;
+	border-bottom-right-radius: @page_border_radius;
 }
 
 /***************************************************************************
