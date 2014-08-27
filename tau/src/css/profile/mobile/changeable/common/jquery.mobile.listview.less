@@ -82,10 +82,13 @@
 	[data-role="button"] {
 		&:not(.ui-slider-handle) {
 			position: absolute;
-			top: 20 * @unit_base;
+			top: 14 * @unit_base;
 			right: 15 * @unit_base;
 			margin: 0;
+			&.ui-btn-icon_only {
+				top: 22 * @unit_base;
 			}
+		}
 	}
 	.ui-toggle-switch {
 		position: absolute;
@@ -104,7 +107,7 @@
 					height: 45 * @unit_base;
 					margin-top: 0;
 					top: 0;
-					left: 0;
+					left: 1 * @unit_base;
 				}
 			}
 		}

@@ -34,33 +34,16 @@
 .ui-header .ui-btn, .ui-bar .ui-btn { display: inline-block; margin: 0; }
 .ui-btn-inline { display: inline-block; }
 .ui-btn-inner {
-	padding: 30 * @unit_base 20 * @unit_base 25 * @unit_base 20 * @unit_base;
 	display: block;
 	position: relative;
 	zoom: 1;
 	line-height: 38 * @unit_base;
+	padding-top: 9 * @unit_base;
+	padding-bottom: 9 * @unit_base;
 
 	.LESStext-ellipsis();
 }
 
-.ui-btn-icon-notext { width: 36 * @unit_base; height: 36 * @unit_base; }
-.ui-btn-icon-notext .ui-btn-inner { padding: 2 * @unit_base 1 * @unit_base 2 * @unit_base 3 * @unit_base; }
-.ui-btn-icon-notext .ui-btn-inner .ui-icon { margin-left: -16 * @unit_base; margin-top: -16 * @unit_base; }
-.ui-btn-icon-notext .ui-btn-text { position: absolute; left: -999 * @unit_base; }
-.ui-header .ui-btn-icon-left .ui-btn-inner,
-.ui-footer .ui-btn-icon-left .ui-btn-inner,
-.ui-bar .ui-btn-icon-left .ui-btn-inner { padding-left: 27 * @unit_base; }
-.ui-header .ui-btn-icon-right .ui-btn-inner,
-.ui-footer .ui-btn-icon-right .ui-btn-inner,
-.ui-bar .ui-btn-icon-right .ui-btn-inner { padding-right: 27 * @unit_base; }
-.ui-btn-icon-top .ui-btn-inner { padding-top: 27 * @unit_base; }
-.ui-header .ui-btn-icon-top .ui-btn-inner,
-.ui-footer .ui-btn-icon-top .ui-btn-inner,
-.ui-bar .ui-btn-icon-top .ui-btn-inner { padding-top: 100%; }
-.ui-btn-icon-bottom .ui-btn-inner { padding-bottom: 33 * @unit_base; }
-.ui-header .ui-btn-icon-bottom .ui-btn-inner,
-.ui-footer .ui-btn-icon-bottom .ui-btn-inner,
-.ui-bar .ui-btn-icon-bottom .ui-btn-inner { padding-bottom: 27 * @unit_base; }
 
 /*btn icon positioning*/
 .ui-btn-icon-notext .ui-icon { display: block; }
@@ -96,7 +79,7 @@
 	/*padding-left : 80px;*/	//wongi_1017
 	margin-left: auto;
 	margin-right: auto;
-	padding:0 1px; /* Webkit width(ellipsis) problem workaround */
+	padding:0 8px; /* Webkit width(ellipsis) problem workaround */
 }
 
 .ui-btn .ui-btn-inner.ui-btn-hastxt span.ui-btn-text
@@ -112,7 +95,7 @@
 
 .ui-li .ui-btn .ui-btn-inner.ui-btn-hastxt
 {
-	padding: 4 * @unit_base 10 * @unit_base;
+	padding: 9 * @unit_base 8 * @unit_base;
 }
 .ui-btn-icon-nobg.ui-btn-down-s .ui-btn-inner
 {
@@ -431,5 +414,4 @@
 {
 	.LESSbutton_edit_style;
 }
-
 
