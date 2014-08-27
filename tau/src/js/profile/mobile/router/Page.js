@@ -521,7 +521,15 @@
 						}
 
 						pageUrl = DOM.getNSData(toPage, "url");
-						pageRole = toPage ? DOM.getNSData(toPage, "role") : null;
+						if (toPage) {
+							pageRole = DOM.getNSData(toPage, "role");
+							if (!pageRole) {
+								pageRole = toPage.classList.contains("ui-page") ? "page" : null;
+								if (pageRole) { // set just in case ^_^
+									DOM.setNSData(toPage, "role", pageRole);
+								}
+							}
+						}
 
 						if (historyStateUrl !== pageUrl) {
 							if (pageRole === "dialog") {

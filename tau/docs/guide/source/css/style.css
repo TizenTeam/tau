@@ -1,0 +1,42 @@
+body {
+	padding: 0 5%;
+}
+
+.preview_buttons {
+	position: relative;
+}
+
+.preview_buttons > * {
+	position: relative;
+	vertical-align: middle;
+}
+
+.preview_buttons span {
+	text-transform: capitalize;
+}
+
+.preview_buttons span:after {
+	content: ":";
+}
+
+.preview_button {
+	width: 32px;
+	height: 32px;
+	background-size: 100%;
+	background-repeat: no-repeat;
+	display: inline-block;
+	cursor: pointer;
+	margin-left: 5px;
+}
+
+.preview_mobile {
+	background-image: url("/images/devices-mobile.svg");
+}
+
+.preview_wearable {
+	background-image: url("/images/devices-wearable.svg");
+}
+
+.preview_tv {
+	background-image: url("/images/devices-tv.svg");
+}

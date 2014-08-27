@@ -13,7 +13,6 @@ module.exports = function (grunt) {
 		fs = require('fs'),
 		dox = require('dox'),
 		async = require('async');
-	mu.root = __dirname + '/templates';
 
 	grunt.registerMultiTask('docs-html', '', function () {
 		var done = this.async(),
@@ -23,6 +22,8 @@ module.exports = function (grunt) {
 			template = this.data.template,
 			templateDir = template + "/",
 			next;
+
+		mu.root = __dirname + '/templates';
 
 		function createWidgetDoc(newFile, file, name, docsStructure, callback) {
 			var string = "",

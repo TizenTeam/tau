@@ -1,5 +1,5 @@
 /*global window, define, ns */
-/*jslint nomen: true */
+/*jslint nomen: true, plusplus: true */
 /*
 * Copyright  2010 - 2014 Samsung Electronics Co., Ltd.
 * License : MIT License V2
@@ -341,6 +341,9 @@
 				uiFooterBtn: "ui-footer-btn-",
 				uiPage: "ui-page",
 				uiPageActive: "ui-page-active",
+				uiPageContent: "ui-content",
+				uiPageHeader: "ui-header",
+				uiPageFooter: "ui-footer",
 				uiPageHeaderFullscreen: "ui-page-header-fullscreen",
 				uiPageFooterFullscreen: "ui-page-footer-fullscreen",
 				uiPageHeaderFixed: "ui-page-header-fixed",
@@ -411,7 +414,7 @@
 					headerBtnWidth = 0,
 					top = 0,
 					bottom = 0,
-					i = 0,
+					i,
 					footer,
 					len;
 
@@ -430,7 +433,7 @@
 							if (len) {
 								headerBtn = header.getElementsByClassName("ui-btn");
 								// Header divider exist
-								for(i; i < len; i++){
+								for (i = 0; i < len; i++) {
 									headerBtnWidth += headerBtn[i].offsetWidth;
 									headerDivider[i].style.right = headerBtnWidth + "px";
 								}
@@ -469,7 +472,10 @@
 					pageClassList.add(pageClasses.uiPageFooterFixed);
 				}
 
-				[].slice.call(pageElement.querySelectorAll("[data-role='header'],[data-role='content'],[data-role='footer']"))
+				[].slice.call(pageElement.querySelectorAll("[data-role='header'],[data-role='content'],[data-role='footer']," +
+						pageClasses.uiPageHeader +
+						"," + pageClasses.uiPageContent +
+						"," + pageClasses.uiPageFooter))
 					.forEach(function (section) {
 						var role = section.getAttribute("data-role"),
 							sectionTheme = section.getAttribute("data-theme"),
@@ -486,6 +492,18 @@
 							leftButton,
 							rightButton,
 							previousElementOfHeaderButton;
+
+						if (!role) {
+							if (sectionClassList.contains(pageClasses.uiPageHeader)) {
+								role = "header";
+							} else if (sectionClassList.contains(pageClasses.uiPageContent)) {
+								role = "content";
+							} else {
+								role = "footer";
+							}
+
+							section.setAttribute("data-role", role);
+						}
 
 						sectionClassList.add(pageClasses.uiPrefix + role);
 

@@ -458,6 +458,24 @@ module.exports = function(grunt) {
 				tvDefaultTheme: files.css.getDefault( "tv", "default" )
 			},
 
+			"developer-guide": {
+				"options": {
+					"sourceDir": "docs/guide/source",
+					"destinationDir": "docs/guide/built",
+					"sourceMarkdown": ["**/*.md"],
+					"sourceResources": [
+						"**/*.html",
+						"**/*.js",
+						"**/*.png",
+						"**/*.css",
+						"**/*.ttf",
+						"**/*.wot",
+						"**/*.svg",
+						"**/*.woff"
+					]
+				}
+			},
+
 			"string-replace": {
 				jsduck: {
 					files: {
