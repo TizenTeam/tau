@@ -285,13 +285,13 @@
 					 * @property {Object} options
 					 * @property {string|boolean} [options.header=false] Header content
 					 * @property {string|boolean} [options.footer=false] Footer content
+					 * @property {number} [options.minScreenHeight=320] Minimum height of device
 					 * @member ns.widget.wearable.Popup
 					 */
 					self.options = {
 						header: false,
 						footer: false,
-						maxHeightRatio: 0.79,
-						minScreenHeigth: 320
+						minScreenHeight: 320
 					};
 
 					/**
@@ -554,14 +554,16 @@
 					header = ui.header,
 					footer = ui.footer,
 					content = ui.content,
+					elementStyle = element.style,
+					contentStyle = content.style,
 					headerHeight = 0,
 					footerHeight = 0,
 					minScreenHeight = self.options.minScreenHeight,
+					screenHeight,
+					extraElementHeight,
+					elementHeight,
 					borderWidth,
-					contentHeight = 0,
-					contentStyle = content.style,
 					isToast = element.classList.contains(classes.toast),
-					elementStyle = element.style,
 					contentWidth = window.innerWidth - (parseInt(props["margin-left"], 10) + parseInt(props["margin-right"], 10));
 
 				elementStyle.width = contentWidth + "px";
@@ -578,17 +580,18 @@
 						footerHeight = footer.offsetHeight;
 					}
 
-					contentHeight = window.innerHeight - (parseInt(props["margin-top"], 10) + parseInt(props["margin-bottom"], 10));
+					extraElementHeight = headerHeight + footerHeight + borderWidth * 2 + parseFloat(props["padding-top"]) + parseFloat(props["padding-bottom"]);
+					screenHeight = window.innerHeight - (parseInt(props["margin-top"], 10) + parseInt(props["margin-bottom"], 10));
+					elementHeight = content.offsetHeight + extraElementHeight;
 
-					if (minScreenHeight) {
-						if (contentHeight > minScreenHeight) {
-							elementStyle.height = contentHeight * self.options.maxHeightRatio + "px";
-						} else { // Latest Wearable UI's Popup max height has set window height * 0.79 pixel. (when screen height > 320)
-							elementStyle.height = contentHeight + "px";
-						}
+					if (screenHeight > minScreenHeight && screenHeight > elementHeight) {
+						// When window height > 320, the height of popup varies by contents
+						elementStyle.height = elementHeight + "px";
+					} else {
+						elementStyle.height = screenHeight + "px";
+						contentStyle.height = screenHeight - extraElementHeight + "px";
 					}
 
-					contentStyle.height = (parseFloat(elementStyle.height) - headerHeight - footerHeight - borderWidth * 2 - (parseFloat(props["padding-top"]) + parseFloat(props["padding-bottom"]))) + "px";
 					contentStyle.overflowY = "scroll";
 				}
 			};
