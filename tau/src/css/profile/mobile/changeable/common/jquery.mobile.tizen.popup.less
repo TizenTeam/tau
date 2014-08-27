@@ -156,7 +156,7 @@
 	.center_liststyle_1btn {
 		.ui-popup-button-bg {
 			.ui-btn {
-				width: ~"calc(100% - @{popup-btn-area-margin})";
+				width: ~"-webkit-calc(100% - @{popup-btn-area-margin})";
 				padding: 0;
 				margin: 17 * @unit_base auto;
 			}
@@ -168,13 +168,13 @@
 	.center_liststyle_2btn {
 		.ui-popup-button-bg {
 			.ui-btn {
-				width: ~"calc((100% - @{popup-btn-area-margin} - @{popup-btn-middle-margin}) / 2)";
+				width: ~"-webkit-calc((100% - @{popup-btn-area-margin} - @{popup-btn-middle-margin}) / 2)";
 				padding: 0;
 				margin: 17 * @unit_base auto;
 				float: left;
 			}
 			.ui-btn:first-child {
-				margin-left: ~"calc(@{popup-btn-area-margin} / 2)";
+				margin-left: ~"-webkit-calc(@{popup-btn-area-margin} / 2)";
 				margin-right: @popup-btn-middle-margin;
 			}
 		}
