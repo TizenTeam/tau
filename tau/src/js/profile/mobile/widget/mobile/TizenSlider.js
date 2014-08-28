@@ -519,14 +519,10 @@
 					elemLeft = document.createElement("div");
 					elemLeft.classList.add(classes.uiSliderLeftPrefix + icon);
 
-					elemRight = document.createElement("div");
-					elemRight.classList.add(classes.uiSliderRightPrefix + icon);
-
 					slider.parentNode.insertBefore(elemLeft, slider);
-					slider.parentNode.appendChild(elemRight);
 
 					marginLeft = (DOM.getElementWidth(elemLeft) + 16) + "px";
-					marginRight = (DOM.getElementWidth(elemRight) + 16) + "px";
+					marginRight = "";
 					break;
 
 				case "text":
