@@ -12,159 +12,139 @@ Listview
 
 }
 
-.ui-listview li {
-	font-size: @font_size_list_item;
-	width: 100%;
-	border-bottom: 1 * @virtual_px solid @color_listview_border;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
-	position: relative;
-	color: @color_listview_text;
-
-
-	padding: 32 * @virtual_px 43 * @virtual_px ;
-
-	&.rowspan-2 {
-		height: 182 * @virtual_px;
-	}
-
-	a.ui-btn {
-		margin: -32 * @virtual_px -43 * @virtual_px ;
-	}
-	> * {
-		white-space: nowrap;
-		text-overflow: ellipsis;
-		overflow: hidden;
-		-webkit-user-select: none;
-		color: @color_listview_text;
-	}
-	a.ui-btn {
-		display: block;
-		text-align: left;
-		.ui-btn-inner {
-			margin: 21 * @virtual_px 32 * @virtual_px 26 * @virtual_px 38 * @virtual_px;
-			color: rgb(164, 167, 174);
-			.ui-btn-text {
-				margin: 11 * @virtual_px 0;
-				display: block;
-			}
-			.ui-icon {
-				background-color: rgb(164, 167, 174);
-			}
-		}
-		.LESSbox-boxsizing(content-box); // Change size calculation criteria
-	}
-	a.ui-btn.ui-focus {
-		.ui-btn-inner {
-			color: @list_btn_txt_color_focus;
-		}
-	}
-	label.ui-popup-radio-label,
-	label.ui-popup-checkbox-label {
-		width: 70%;
-		padding: 0;
-		float: left;
-	}
-	input[type="checkbox"],
-	input[type="radio"] {
-		position: absolute;
-		right: 8 * @virtual_px;
-		top: 0 * @virtual_px;
-		margin-top: 19 * @virtual_px;
-		float: right;
-		 & + label {
-				display: inline-block;
-				float: right;
-		 }
-	}
-	.li-text-sub {
-		display: block;
-		color: @list_sub_txt_color;
-		font-size: 24 * @virtual_px;
-		text-overflow: ellipsis;
-		overflow: hidden;
-		line-height: 30 * @virtual_px;
-	}
-	.li-has-multiline {
-		padding-top: 6 * @virtual_px;
-		padding-bottom: 5 * @virtual_px;
-		min-height: 90 * @virtual_px;
-		.disabled,
-		.disabled > * {
-			color: rgb(51, 51, 51);
-		}
-		.li-has-radio.disabled,
-		.li-has-radio.disabled .li-text-sub,
-		.li-has-checkbox.disabled,
-		.li-has-checkbox.disabled .li-text-sub {
-			color: @list_txt_color_disabled;
-		}
-	}
-	.li-has-multiline > a {
-		margin-top: -6 * @virtual_px;
-		margin-bottom: -6 * @virtual_px;
-		padding-top: 6 * @virtual_px;
-		padding-bottom: 6 * @virtual_px;
-	}
-	.li-has-multiline-sup {
-		padding-top: 6 * @virtual_px;
-		padding-bottom: 5 * @virtual_px;
-		min-height: 90 * @virtual_px;
-		.disabled,
-		.disabled > * {
-			color: rgb(51, 51, 51);
-		}
-	}
-	.li-has-multiline-sup > a {
-		margin-top: -36 * @virtual_px;
-		margin-bottom: -5 * @virtual_px;
-		padding-top: 36 * @virtual_px;
-		padding-bottom: 5 * @virtual_px;
-	}
-	&.li-has-checkbox label,
-	&.li-has-radio label{
-		display: block;
-		padding-bottom: 21 * @virtual_px;
-		padding-left: 16 * @virtual_px;
-		padding-right: 64 * @virtual_px;
-		padding-top: 21 * @virtual_px;
-		margin-top: -11 * @virtual_px;
-		margin-bottom: 10 * @virtual_px;
-		margin-left: -16 * @virtual_px;
-		margin-right: -16 * @virtual_px;
-		color: @list_radio_checkbox_label_color;
-	}
-}
-
-.ui-listview .ui-li-divider,
-.ui-listview .ui-li-divider-btn {
-	box-sizing: border-box;
-	height: 50 * @virtual_px;
-	padding-top: 18 * @virtual_px;
-	padding-bottom: 36 * @virtual_px;
-	font-size: @font_size_list_divider_text;
-	background-color: @list_bg_color_white;
-	color: @color_listview_text;
-	border: 0;
-
-	.ui-divider-normal-line {
-		position: absolute;
-		bottom: 0;
-		display: block;
+.ui-listview {
+	li {
+		font-size: @font_size_list_item;
 		width: 100%;
-		height: 2 * @virtual_px;
-		background-color: @color_list_divider_line_bg;
+		border-bottom: 1 * @virtual_px solid @color_listview_border;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		position: relative;
+		color: @color_listview_text;
+
+		padding: 32 * @virtual_px 43 * @virtual_px;
+
+		&.rowspan-2 {
+			height: 182 * @virtual_px;
+		}
+
+		> * {
+			white-space: nowrap;
+			text-overflow: ellipsis;
+			overflow: hidden;
+			-webkit-user-select: none;
+			color: @color_listview_text;
+		}
+		a.ui-btn {
+			display: block;
+			text-align: left;
+			margin: -32 * @virtual_px -43 * @virtual_px;
+			padding: 0;
+			.ui-btn-inner {
+				margin: 21 * @virtual_px 32 * @virtual_px 26 * @virtual_px 38 * @virtual_px;
+				color: rgb(164, 167, 174);
+				.ui-btn-text {
+					margin: 11 * @virtual_px 0;
+					display: block;
+				}
+				.ui-icon {
+					background-color: rgb(164, 167, 174);
+				}
+			}
+			.LESSbox-boxsizing(content-box); // Change size calculation criteria
+		}
+		a.ui-btn.ui-focus {
+			.ui-btn-inner {
+				color: @list_btn_txt_color_focus;
+			}
+		}
+		label.ui-popup-radio-label,
+		label.ui-popup-checkbox-label {
+			width: 70%;
+			padding: 0;
+			float: left;
+		}
+		input[type="checkbox"] + label,
+		input[type="radio"] + label {
+			position: absolute;
+			right: 32 * @virtual_px;
+			top: 0 * @virtual_px;
+			margin-top: 32 * @virtual_px;
+			float: right;
+		}
+		.li-text-sub {
+			display: block;
+			color: @list_sub_txt_color;
+			font-size: 24 * @virtual_px;
+			text-overflow: ellipsis;
+			overflow: hidden;
+			line-height: 30 * @virtual_px;
+		}
+		.li-has-multiline {
+			padding-top: 6 * @virtual_px;
+			padding-bottom: 5 * @virtual_px;
+			min-height: 90 * @virtual_px;
+			.disabled,
+			.disabled > * {
+				color: rgb(51, 51, 51);
+			}
+			.li-has-radio.disabled,
+			.li-has-radio.disabled .li-text-sub,
+			.li-has-checkbox.disabled,
+			.li-has-checkbox.disabled .li-text-sub {
+				color: @list_txt_color_disabled;
+			}
+		}
+		.li-has-multiline > a {
+			margin-top: -6 * @virtual_px;
+			margin-bottom: -6 * @virtual_px;
+			padding-top: 6 * @virtual_px;
+			padding-bottom: 6 * @virtual_px;
+		}
+		.li-has-multiline-sup {
+			padding-top: 6 * @virtual_px;
+			padding-bottom: 5 * @virtual_px;
+			min-height: 90 * @virtual_px;
+			.disabled,
+			.disabled > * {
+				color: rgb(51, 51, 51);
+			}
+			> a {
+				margin-top: -36 * @virtual_px;
+				margin-bottom: -5 * @virtual_px;
+				padding-top: 36 * @virtual_px;
+				padding-bottom: 5 * @virtual_px;
+			}
+		}
 	}
 
-	&>.ui-btn-text {
+	.ui-li-divider,
+	.ui-li-divider-btn {
 		box-sizing: border-box;
-		padding-left: 36 * @virtual_px;
-		padding-right: 36 * @virtual_px;
-		color: @color_list_divider_text;
+		padding-top: 18 * @virtual_px;
+		padding-bottom: 18 * @virtual_px;
+		font-size: @font_size_list_divider_text;
+		background-color: @list_bg_color_white;
+		color: @color_listview_text;
+		border: 0;
+
+		.ui-divider-normal-line {
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			display: block;
+			width: 100%;
+			height: 2 * @virtual_px;
+			background-color: @color_list_divider_line_bg;
+		}
+
+		&>.ui-btn-text {
+			box-sizing: border-box;
+			color: @color_list_divider_text;
+		}
 	}
 }
-
 
 .ui-content > .ui-listview  {
 	margin: -@fixed_header_title_padding;
