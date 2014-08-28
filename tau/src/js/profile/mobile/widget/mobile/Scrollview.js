@@ -955,7 +955,7 @@
 			ns.widget.mobile.Scrollview = Scrollview;
 			engine.defineWidget(
 				"Scrollview",
-				"[data-role='content']:not([data-scroll='none']):not([data-handler='true']):not(.ui-scrollview-clip):not(.ui-scrolllistview), [data-scroll]:not([data-scroll='none']):not([data-handler='true']), .ui-scrollview",
+				"[data-role='content']:not([data-scroll='none']):not([data-handler='true']):not(.ui-scrollview-clip):not(.ui-scrolllistview), [data-scroll]:not([data-scroll='none']):not([data-handler='true']), .ui-scrollview:not([data-scroll='none']):not([data-handler='true'])",
 				[
 					"scrollTo",
 					"ensureElementIsVisible",
