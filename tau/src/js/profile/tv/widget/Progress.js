@@ -49,6 +49,11 @@
  *      <div class="ui-progress-proportion">00/20</div>
  *      <div class="ui-progress-ratio">50%</div>
  *
+ * ### Controllable progress bar
+ * To implement this add class ui-progress-controllable
+ * @example
+ * <progress min="0" max="100" value="50" class="ui-progress-controllable"></progress>
+ *
  * ## JavaScript API
  *
  * Progress widget hasn't JavaScript API.
@@ -69,19 +74,139 @@
 			//>>excludeEnd("tauBuildExclude");
 
 			var CoreProgress = ns.widget.core.Progress,
+				CoreProgressPrototype = CoreProgress.prototype,
 				engine = ns.engine,
+				classes = {
+					disabled: "disabled",
+					focused: "ui-focus",
+					thumb: "ui-progress-thumb"
+				},
 
 				Progress = function () {
 					CoreProgress.call(self);
+					/**
+					 * Object with default options
+					 * @property {Object} options
+					 * @property {number} [options.value=0] value of progress
+					 * bar
+					 * @property {number} [options.min=0] minimal value of
+					 * progress bar
+					 * @property {number} [options.max=100] maximal value of
+					 * progress bar
+					 * @member ns.widget.tv.ProgressBar
+					 */
+					this.options = {
+						value: 0,
+						max: 100,
+						min: 0
+					};
 				},
-				classes = CoreProgress.classes,
+				FUNCTION_TYPE = "function",
 				prototype = new CoreProgress();
 
-
-
-
 			Progress.prototype = prototype;
-			Progress.classes = classes;
+
+			/**
+			 * Initializes progress
+			 * @method _init
+			 * @param {HTMLElement} element
+			 * @protected
+			 * @member ns.widget.tv.Progress
+			 */
+			prototype._init = function(element) {
+				var self = this,
+					min = parseInt(element.getAttribute("min"), 10),
+					max = parseInt(element.getAttribute("max"), 10),
+					value = parseInt(element.getAttribute("value"), 10),
+					options = self.options;
+				if (typeof CoreProgressPrototype._init === FUNCTION_TYPE) {
+					CoreProgressPrototype._init.call(self, element);
+				}
+
+				// remember attributes value
+				if (isNaN(min) || min === null) {
+					min = options.min || 0;
+				}
+				options.min = min;
+
+				if (isNaN(max) || max === null) {
+					max = options.max || 0;
+				}
+				options.max = max;
+
+				if (isNaN(value) || (value === null) || (value < min) || (value > max)) {
+					value = options.value || 0;
+					element.setAttribute("value", value);
+				}
+				options.value = value;
+
+				// if widget is disabled add proper class
+				if (element.getAttribute("disabled") === "disabled") {
+					element.classList.add(classes.disabled);
+				}
+			}
+
+			/**
+			 * Method sets ProgressBar value.
+			 * @method _setValue
+			 * @param {number} value
+			 * @return {boolean} True if value changed
+			 * @protected
+			 * @member ns.widget.tv.Progress
+			 */
+			Progress.prototype._setValue = function (value) {
+				var self = this,
+					options = self.options;
+				if ((typeof value === "number") && (value != options.value) && (value >= options.min) && (value <= options.max)) {
+					self.trigger("change");
+					if (value === self.maxValue) {
+						self.trigger("complete");
+					}
+					options.value = value;
+					self.element.setAttribute("value", value);
+					return true;
+				} else {
+					return false;
+				}
+			};
+
+			/**
+			 * Method gets ProgressBar value.
+			 * @method _getValue
+			 * @return {number}
+			 * @protected
+			 * @member ns.widget.tv.Progress
+			 */
+			Progress.prototype._getValue = function () {
+				return this.options.value;
+			};
+
+			/**
+			 * Method Focuses object
+			 * @method focus
+			 * @member ns.widget.tv.Progress
+			 */
+			Progress.prototype.focus = function () {
+				var classList = this.element.classList,
+					focused = classes.focused;
+				if (!classList.contains(focused)) {
+					classList.add(focused);
+				}
+			}
+
+			/**
+			 * Method unfocuses object
+			 * @method blur
+			 * @member ns.widget.tv.Progress
+			 */
+			Progress.prototype.blur = function () {
+				var classList = this.element.classList,
+					focused = classes.focused;
+				if (classList.contains(focused)) {
+					classList.remove(focused);
+				}
+			}
+
 			ns.widget.tv.Progress = Progress;
 
 			engine.defineWidget(
