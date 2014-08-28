@@ -484,6 +484,7 @@
 			function syncHandleWithScroll(self) {
 				var position = self.getScrollPosition(),
 					offsets = self._offsets,
+					direction = self.options.direction,
 					x = floor(min(position.x, self._availableOffsetX) / self._availableOffsetX * offsets.maxX),
 					y = floor(min(position.y, self._availableOffsetY) / self._availableOffsetY * offsets.maxY);
 
@@ -495,7 +496,11 @@
 					y = offsets.y;
 				}
 
-				translate(self, x, y);
+				translate(
+					self,
+						direction === "y" ? 0 : x,
+						direction === "x" ? 0 : y
+				);
 
 				offsets.x = x;
 				offsets.y = y;
@@ -687,13 +692,19 @@
 			 * @protected
 			 */
 			prototype._build = function (element) {
-				var node = ScrollviewBuild.call(this, element),
+				var node,
+					nodeStyle,
+					scrollviewViewStyle,
 					handler = document.createElement("div"),
 					handle = document.createElement("div"),
 					track = document.createElement("div"),
 					thumb = document.createElement("div"),
 					options = this.options,
 					ui = this.ui;
+
+				// Set scroll option for scrollview
+				options.scroll = options.direction === "y" ? "y" : "x";
+				node = ScrollviewBuild.call(this, element);
 
 				handler.className = classes.handler + " " + classes.themePrefix + options.handlerTheme + " " + classes.directionPrefix + options.direction;
 				handle.className = classes.handle;
@@ -708,6 +719,21 @@
 				handler.appendChild(track);
 
 				node.appendChild(handler);
+
+				// Hide native scrollbar, 2vw/vh should be enough.
+				// Force scrollview to be full width of container
+				nodeStyle = node.style;
+				scrollviewViewStyle = node.firstElementChild.style;
+				if (options.direction === "x") {
+					scrollviewViewStyle.display = "inline-block";
+					scrollviewViewStyle.minWidth = "100%";
+					nodeStyle.paddingBottom = "2vh";
+				}
+				if (options.direction === "y") {
+					scrollviewViewStyle.display = "block";
+					nodeStyle.paddingRight = "2vw";
+					nodeStyle.minWidth = "100%";
+				}
 
 				ui.handler = handler;
 				ui.handle = handle;
@@ -753,10 +779,6 @@
 				ui.page = page;
 
 				self.enableHandler(true);
-
-				if (page.classList.contains(PageClasses.uiPageActive)) {
-					self._refresh();
-				}
 			};
 
 			/**
@@ -771,19 +793,20 @@
 					offsets = self._offsets,
 					ui = self.ui,
 					handle = ui.handle,
+					handleStyle = handle.style,
 					parent = element.parentNode,
-					childrenWidth = 0,
 					childrenHeight = 0,
 					clipHeight = CSSUtils.getElementHeight(element, "inner", true),
 					clipWidth = CSSUtils.getElementWidth(element, "inner", true),
 					view = element.querySelector("." + Scrollview.classes.view),
+					viewHeight = CSSUtils.getElementHeight(view, "inner", true),
+					viewWidth = CSSUtils.getElementWidth(view, "inner", true),
 					marginTop = null,
 					child = parent.firstElementChild;
 
 				while (child) {
 					// filter out current scrollview
 					if (child !== element) {
-						childrenWidth += CSSUtils.getElementWidth(child, "inner", true);
 						childrenHeight += CSSUtils.getElementHeight(child, "inner", true);
 					} else if (marginTop === null) {
 						marginTop = childrenHeight;
@@ -793,15 +816,22 @@
 
 				marginTop = marginTop || 0;
 
-				offsets.maxX = floor(max(0, clipWidth - childrenWidth - (CSSUtils.getElementWidth(handle, "inner", true) / 2)));
-				offsets.maxY = floor(max(0, clipHeight - childrenHeight - (CSSUtils.getElementHeight(handle, "inner", true) / 2)));
-				self._availableOffsetX = max(0, CSSUtils.getElementWidth(view, "inner", true) - clipWidth);
-				self._availableOffsetY = max(0, CSSUtils.getElementHeight(view, "inner", true) - clipHeight);
+				if (self.options.direction === 'y') {
+					handleStyle.height = floor(clipHeight / viewHeight * clipHeight) + 'px';
+				} else {
+					handleStyle.width = floor(clipWidth / viewWidth * clipWidth) + 'px';
+				}
+
+				offsets.maxX = floor(max(0, clipWidth - CSSUtils.getElementWidth(handle, "inner", true)));
+				offsets.maxY = floor(max(0, clipHeight - CSSUtils.getElementHeight(handle, "inner", true)));
+
+				self._availableOffsetX = max(0, viewWidth - clipWidth);
+				self._availableOffsetY = max(0, viewHeight - clipHeight);
 				ui.handler.style.marginTop = marginTop + "px";
 			};
 
 			/**
-			 * Buinds the scrollhander and scrollview events
+			 * Binds the scrollhander and scrollview events
 			 * @param {HTMLElement} element
 			 * @method _bindEvents
 			 * @protected
