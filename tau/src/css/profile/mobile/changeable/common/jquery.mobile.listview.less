@@ -45,13 +45,16 @@
 		>.ui-btn-inner {
 			padding: 0;
 
-			.ui-btn-text >.ui-link-inherit {
-				display: block;
-				padding: 30 * @unit_base 15 * @unit_base;
-				line-height: 38 * @unit_base;
-				text-overflow: ellipsis;
-				white-space: nowrap;
-				overflow: hidden;
+			.ui-btn-text {
+				padding: 0;
+				>.ui-link-inherit {
+					display: block;
+					padding: 30 * @unit_base 15 * @unit_base;
+					line-height: 38 * @unit_base;
+					text-overflow: ellipsis;
+					white-space: nowrap;
+					overflow: hidden;
+				}
 			}
 		}
 	}
