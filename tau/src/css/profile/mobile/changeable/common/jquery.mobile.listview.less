@@ -155,7 +155,7 @@
 	.ui-checkbox:first-child,
 	.ui-radio:first-child {
 		position: absolute;
-		top: 29 * @unit_base;
+		top: 33 * @unit_base;
 		left: 15 * @unit_base;
 		width: 32 * @unit_base;
 		height: 32 * @unit_base;
@@ -617,24 +617,23 @@
 	}
 
 	&[data-style="check"] {
-		height: 41 * @unit_base;
 		padding-top: 0;
 		background-color: @color_searchbar_bg;
-		font-size: @font_size_list_check_divider_text;
 		.ui-divider-normal-line { display: none; }
 
 		.ui-btn-text {
 			padding: 0;
 			height: 0;
 			a {
-				padding-top: 7 * @unit_base;
-				padding-bottom: 7 * @unit_base;
+				padding-top: 0;
+				padding-bottom: 0;
+				padding-left: 61.5 * @unit_base;
 			}
 		}
 		.ui-checkbox:first-child {
 			position: absolute;
-			top: 7 * @unit_base;
-			left: 13 * @unit_base;
+			top: 9 * @unit_base;
+			left: 15 * @unit_base;
 			width: 31.5 * @unit_base;
 			height: 31.5 * @unit_base;
 		}

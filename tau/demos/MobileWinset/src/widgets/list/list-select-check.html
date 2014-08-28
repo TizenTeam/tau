@@ -1,4 +1,4 @@
-<div data-role="page" id="list">
+<div data-role="page" id="listcheck">
 	<div data-role="header" data-position="fixed">
 		<h1>Select List</h1>
 		<div data-role="button" onclick="checkAll()" data-icon="naviframe-selectall" class="naviframe-button"></div>
@@ -32,7 +32,7 @@
 		</ul>
 	</div>
 	<script>
-	$( "#list" ).on( "pageshow", function() {
+	$( "#listcheck" ).on( "pageshow", function() {
 		$( window ).on( "tizenhwkey", function ( ev ) {
 			if ( ev.originalEvent.keyName === "back" ) {
 				//bind callbacks to the H/W keys
@@ -40,7 +40,7 @@
 			}
 		});
 	});
-	$( "#list" ).on( "pagebeforehide", function() {
+	$( "#listcheck" ).on( "pagebeforehide", function() {
 		//unbind callbacks to the H/W keys
 		$( window ).off( "tizenhwkey" );
 	});
