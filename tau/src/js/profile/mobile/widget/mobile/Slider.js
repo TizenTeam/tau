@@ -601,9 +601,11 @@
 					* tagName containing lowered tagname
 					* type String
 					*/
+
 					tagName = element.nodeName.toLowerCase(),
 					selectClass =
 							tagName === "select" ? classes.sliderSwitch : "",
+
 					/*
 					* elementId get the id attribute
 					* type String
@@ -620,8 +622,7 @@
 							parseFloat(element.getAttribute("max")) :
 									element.querySelectorAll("option").length -
 											1,
-					/*TODO - will be used in long sliders*/
-					step = parseFloat(element.getAttribute("step")),
+
 
 					domHandle = document.createElement("a"),
 					domSlider = document.createElement("div"),
@@ -652,9 +653,7 @@
 				if (isNaN(max)) {
 					max = 0;
 				}
-				if (isNaN(step)) {
-					step = 1;
-				}
+
 				sliderBtnDownTheme = btnClasses.uiBtnDownThemePrefix +
 						trackTheme;
 				if (labelFor) {
@@ -666,11 +665,13 @@
 				}
 
 				domSlider.setAttribute("role", "application");
-				domSlider.setAttribute("id", elementId + "-slider");
+				domSlider.id = elementId + "-slider";
 				domSliderClassList.add(classes.slider);
+
 				if (selectClass) {
 					domSliderClassList.add(selectClass);
 				}
+
 				domSliderClassList.add(sliderBtnDownTheme);
 				domSliderClassList.add(btnClasses.uiBtnCornerAll);
 				if (options.inline) {
@@ -759,7 +760,8 @@
 					elementClassList.add(classes.theme + theme);
 					elementClassList.add(classes.sliderInput);
 					element.style.display = "none";
-				} else {
+				}
+				else {
 					element.classList.add(classes.sliderSwitch);
 				}
 
