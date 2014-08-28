@@ -146,12 +146,18 @@ module.exports = function (grunt) {
 					return method.isPublic && method.inherited;
 				});
 			grunt.log.ok("Start generating file for class ", file);
-			docsStructure.methods.sort(function (a, b) {
+			methods.sort(function (a, b) {
+				return a.name > b.name ? 1 : -1;
+			});
+			inheritedMethods.sort(function (a, b) {
 				return a.name > b.name ? 1 : -1;
 			});
 			docsStructure.properties.sort(function (a, b) {
 				return a.name > b.name ? 1 : -1;
 			});
+			if (docsStructure.description.full) {
+				docsStructure.description = docsStructure.description.full;
+			}
 			description = docsStructure.description.replace(/(<h([2-4])>)(.*?)(<\/h[2-4]>)/ig, function (match, p1, p2, p3, p4) {
 				var name = p3.replace(" ", "-").toLowerCase() + (Math.random()),
 					level = parseInt(p2, 10);
@@ -253,29 +259,46 @@ module.exports = function (grunt) {
 			rows.sort(function (a, b) {
 				return a.namespace > b.namespace ? 1 : -1;
 			});
-			var widgetsDoc = docsStructure["ns." + type] || docsStructure["ns." + type + ".mobile"] || docsStructure["ns." + type + ".wearable"] || docsStructure["ns." + type + ".tv"];
+			var widgetsDoc = docsStructure["ns." + type + ".mobile"] || docsStructure["ns." + type + ".wearable"] || docsStructure["ns." + type + ".tv"] || docsStructure["ns." + type];
 			grunt.log.ok("Started generating index for " + type + ".");
 			mu.compileAndRender(templateDir + 'index.mustache', {
 				title: widgetsDoc.title,
 				version: versionString,
-				description: widgetsDoc.description.full,
+				description: widgetsDoc.description.replace(/@example/g, "").replace(/\<pre\>\<code\>\s*\n/g, "<pre class=\"prettyprint\">").replace(/\<\/code\>/g, ""),
+				showSeeMore: widgetsDoc.seeMore,
 				seeMore: widgetsDoc.seeMore,
+				showTable: true,
 				table: {
-					caption: "Table: Tizen " + type,
+					caption: "Table: TAU " + type,
 					module: type,
 					rows: rows
 				},
-				breadcrumb: [
-					{href: "/dev-guide/2.2.1/org.tizen.web.appprogramming/html/cover_page.htm", title: "Tizen Web App Programming"},
-					{href: "/dev-guide/2.2.1/org.tizen.web.appprogramming/html/api_reference/api_reference.htm", title: "API References"},
-					{href: "../index.htm", title: "UI Framework Reference"}
-				],
 				basedir: ".."
 			}).on('data', function (data) {
 				string += data.toString();
 			}).on('end', function () {
 				grunt.file.write(newFile + "html/" + type + "/" + type + "_reference.htm", string);
 				grunt.log.ok("Finished generating index for " + type +".");
+				callback();
+			});
+		}
+
+		function createBlock(newFile, docsStructure, file, callback) {
+			var string = "";
+
+			var widgetsDoc = docsStructure;
+			grunt.log.ok("Started generating page for " + file + ".");
+			mu.compileAndRender(templateDir + 'index.mustache', {
+				title: docsStructure.title,
+				description: docsStructure.description.replace(/@example/g, "").replace(/\<pre\>\<code\>\s*\n/g, "<pre class=\"prettyprint\">").replace(/\<\/code\>/g, ""),
+				showSeeMore: docsStructure.seeMore,
+				seeMore: docsStructure.seeMore,
+				basedir: ".."
+			}).on('data', function (data) {
+				string += data.toString();
+			}).on('end', function () {
+				grunt.file.write(newFile + "html/" + file, string);
+				grunt.log.ok("Finished generating index for " + file +".");
 				callback();
 			});
 		}
@@ -300,11 +323,7 @@ module.exports = function (grunt) {
 					module: "Description",
 					rows: rows
 				},
-				breadcrumb: [
-					{href: "/dev-guide/2.2.1/org.tizen.web.appprogramming/html/cover_page.htm", title: "Tizen Web App Programming"},
-					{href: "/dev-guide/2.2.1/org.tizen.web.appprogramming/html/api_reference/api_reference.htm", title: "API References"},
-					{href: "../index.htm", title: "UI Framework Reference"}
-				],
+
 				basedir: ".."
 			}).on('data', function (data) {
 				string += data.toString();
@@ -328,17 +347,15 @@ module.exports = function (grunt) {
 			mu.compileAndRender(templateDir + 'index.mustache', {
 				title: classDoc.title,
 				version: versionString,
-				description: classDoc.description && classDoc.description.full,
+				description: classDoc.description,
+				showSeeMore: !!classDoc.seeMore,
 				seeMore: classDoc.seeMore,
+				showTable: rows.length,
 				table: {
 					caption: "Table: Tizen Advanced UI",
 					module: "Description",
 					rows: rows
 				},
-				breadcrumb: [
-					{href: "/dev-guide/2.2.1/org.tizen.web.appprogramming/html/cover_page.htm", title: "Tizen Web App Programming"},
-					{href: "/dev-guide/2.2.1/org.tizen.web.appprogramming/html/api_reference/api_reference.htm", title: "API References"}
-				],
 				basedir: "."
 			}).on('data', function (data) {
 				string += data.toString();
@@ -404,7 +421,8 @@ module.exports = function (grunt) {
 				}).forEach(function (tag) {
 					var pageObj = {
 						name: tag.string
-					};
+					},
+						descriptionArray;
 					docsStructure[tag.string] = pageObj;
 					pageObj.authors = block.tags.filter(function (tag) {
 						return tag.type === 'author';
@@ -417,7 +435,11 @@ module.exports = function (grunt) {
 						return tag.string;
 					})[0];
 					pageObj.type = 'page';
-					pageObj.description = block.description;
+					descriptionArray = (block.description.summary || "").split("\n");
+					pageObj.title = descriptionArray[0].replace(/\<.*?\>/g, "");
+					pageObj.brief = descriptionArray[2] && descriptionArray[2].replace(/\<.*?\>/g, "") || "";
+					pageObj.description = prepareNote(deleteBR(block.description.body));
+
 					pageObj.seeMore = block.tags.filter(function (tag) {
 						return tag.type === 'seeMore';
 					}).map(function (tag) {
@@ -426,6 +448,10 @@ module.exports = function (grunt) {
 							name = valueArray.join(" ");
 						return {file: file, name: name};
 					});
+					pageObj.methods = [];
+					pageObj.properties = [];
+					pageObj.events = [];
+					pageObj.options = [];
 				});
 				block.tags.filter(function (tag) {
 					return tag.type === 'class';
@@ -695,7 +721,7 @@ module.exports = function (grunt) {
 						namespaceArray = docsStructure[i].name.split(".").slice(1);
 						namespaceArray.unshift("tau");
 						docsStructure[i].name = namespaceArray.join(".");
-						grunt.log.ok(docsStructure[i].name);
+						grunt.log.ok("processing: ", i, docsStructure[i].name);
 						if (docsStructure[i].name.match(/^tau\.widget/) && !(docsStructure[i].isInternal && (template !== 'dld')) && docsStructure[i].type !== "page") {
 							file = docsStructure[i].name.replace(/\./g, "_") + ".htm";
 							filename = docsStructure[i].name.replace(/\./g, "/") + ".js";
@@ -713,7 +739,7 @@ module.exports = function (grunt) {
 							filename = docsStructure[i].name.replace(/\./g, "/") + ".js";
 							name = docsStructure[i].title;
 							description = docsStructure[i].brief || "";
-							rowsEvents.push({file: file,
+							rowsEvents.push({file: "../class/" + file,
 									namespace: docsStructure[i].name,
 									name: name,
 									filename: filename,
@@ -725,13 +751,15 @@ module.exports = function (grunt) {
 							filename = docsStructure[i].name.replace(/\./g, "/") + ".js";
 							name = docsStructure[i].title;
 							description = docsStructure[i].brief || "";
-							rowsUtil.push({file: file,
+							rowsUtil.push({file: "../class/" + file,
 									namespace: docsStructure[i].name,
 									name: name,
 									filename: filename,
 									description: description}
 							);
 							series.push(createClassDoc.bind(null, newFile, file, name, docsStructure[i]));
+						} else if (docsStructure[i].name.match(/^tau\.page/) && !(docsStructure[i].isInternal && (template !== 'dld'))) {
+							series.push(createBlock.bind(null, newFile, docsStructure[i], docsStructure[i].name.replace(/^tau/, "").replace(/\./g, "/") + ".htm"));
 						} else if (docsStructure[i].type !== "page") {
 							file = docsStructure[i].name.replace(/\./g, "_") + ".htm";
 							filename = docsStructure[i].name.replace(/\./g, "/") + ".js";
@@ -752,35 +780,7 @@ module.exports = function (grunt) {
 				series.push(createBlockIndex.bind(null, newFile, docsStructure, "event", rowsEvents));
 				series.push(createBlockIndex.bind(null, newFile, docsStructure, "util", rowsUtil));
 				series.push(createClassIndex.bind(null, newFile, docsStructure, rowsClasses));
-				series.push(createIndex.bind(null, newFile, {
-					title: "Tizen Advanced UI Framework",
-					description: "The Web UI framework provides tools, such as widgets, events, effects, and animations, for Web application development. You can leverage these tools by just selecting the required screen elements and creating applications."
-				}, [
-					{
-						file: "widget/widget_reference.htm",
-						name: "Widgets reference",
-						namespace: "widgets",
-						description: "Full list of widgets"
-					},
-					{
-						file: "event/event_reference.htm",
-						name: "Events reference",
-						namespace: "event",
-						description: "Full list of event"
-					},
-					{
-						file: "util/util_reference.htm",
-						name: "Utilities reference",
-						namespace: "util",
-						description: "Full list of utilities"
-					},
-					{
-						file: "class/class_reference.htm",
-						name: "Classes reference",
-						namespace: "classes",
-						description: "Full list of classes"
-					}
-				]));
+				series.push(createIndex.bind(null, newFile, docsStructure.ns, []));
 				series.push(done);
 
 				grunt.file.write(structureFile, "window.tauDocumentation = " + JSON.stringify(modules) + ";");

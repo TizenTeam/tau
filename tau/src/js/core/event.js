@@ -5,8 +5,11 @@
  * License : MIT License V2
  */
 /**
- * #Event namespace
- * Namespace contains all object connected with events support.
+ * #Events
+ *
+ * The Tizen Advanced UI (TAU) framework provides events optimized for the Tizen
+ * Web application. The following table displays the events provided by the TAU
+ * framework.
  * @class ns.event
  */
 (function (window, ns) {
