@@ -5,6 +5,12 @@
 	background-color : @color_tokentextarea_bg;
 	margin-left : -15 * @unit_base;
 	margin-right : -15 * @unit_base;
+	.ui-tokentextarea-input-area {
+		height: 53 * @unit_base;
+		.ui-text-line {
+			display: none;
+		}
+	}
 }
 
 .ui-scrollview-view > .ui-tokentextarea {
@@ -18,19 +24,18 @@
 	position : relative;
 	margin-left : 13 * @unit_base;
 	margin-right : 6 * @unit_base;
-	padding : .6em 0em;
+	padding : 23 * @unit_base 0;
 	color : @color_tokentextarea_label_text;
-	font-weight : bold;
 	text-align : center;
 	font-size : @font_size_tokentextarea_label_text;
 }
 
-.ui-tokentextarea-input {
+.ui-tokentextarea .ui-tokentextarea-input.ui-input-text {
+	height: 53 * @unit_base;
 	outline : none;
 	position : relative;
 	border : 0 !important;
 	padding : 0 !important;
-	margin : .5em;
 	color : @color_tokentextarea_input_text;
 	background-color : @color_tokentextarea_bg !important;
 	text-align : left;
@@ -55,15 +60,21 @@
 	color : @color_tokentextarea_block_text;
 	text-overflow : ellipsis;
 	white-space : nowrap;
-	margin: 8*@unit_base 2*@unit_base;
+	margin: 8 * @unit_base 2 * @unit_base;
 }
 
 div.ui-tokentextarea-block {
+	.core_button_bg();
 	background-color : @color_tokentextarea_block_bg;
+	margin-left: 15 * @unit_base;
+	margin-top: 12 * @unit_base;
 }
 
 div.ui-tokentextarea-sblock {
+	.core_button_bg_pressed();
 	background-color : @color_tokentextarea_press_bg;
+	margin-left: 15 * @unit_base;
+	margin-top: 12 * @unit_base;
 }
 
 .ui-tokentextarea .ui-tokentextarea-desclabel {
