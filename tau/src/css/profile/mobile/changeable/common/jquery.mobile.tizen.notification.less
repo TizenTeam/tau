@@ -1,12 +1,12 @@
 /* tickernoti */
 
-@ticker-height: 50 * @unit_base;
+@ticker_height: 72 * @unit_base;
 
 @-webkit-keyframes ui-ticker-show {
 	from {
 		opacity: 0;
-		-webkit-transform: translateY(-@ticker-height);
-		top: -@ticker-height;
+		-webkit-transform: translateY(-@ticker_height);
+		top: -@ticker_height;
 	} to {
 		opacity: 1;
 		-webkit-transform: translateY(0);
@@ -21,8 +21,8 @@
 		top: 0;
 	} to {
 		opacity: 0;
-		-webkit-transform: translateY(-@ticker-height);
-		top: -@ticker-height;
+		-webkit-transform: translateY(-@ticker_height);
+		top: -@ticker_height;
 	}
 }
 
@@ -31,7 +31,7 @@
 	display: none;
 	left: 0;
 	width: 100%;
-	height: @ticker-height;
+	height: @ticker_height;
 	z-index: @z_base_tickernoti;
 	background: @color_ticker_bg;
 }
@@ -56,10 +56,13 @@
 	-o-animation: ui-ticker-hide 0.8s 1 ease;
 	-ms-animation: ui-ticker-hide 0.8s 1 ease;
 	-webkit-animation: ui-ticker-hide 0.8s 1 ease;
-	top: -@ticker-height;
+	top: -@ticker_height;
 }
 
 .ui-ticker-btn {
+	.core_button_bg();
+	background-color: @color_button_bg;
+	color: @color_button_text_normal;
 	position: relative;
 	margin-top: 10 * @unit_base;
 	margin-left: 8 * @unit_base;
@@ -68,30 +71,33 @@
 	float: right;
 
 	.ui-btn-inner {
-		padding: 2.5 * @unit_base 0;
-
 		height: 28 * @unit_base;
 		width: 77 * @unit_base;
+		top: -4.5 * @unit_base;
+		.ui-btn-text {
+			padding: 0;
+		}
 	}
+}
+.ui-ticker-btn:active {
+	.core_button_bg_pressed();
+	background-color: @color_button_bg_press;
 }
 
 .ui-ticker-icon {
 	position: absolute;
 	top: 0;
-	height: 36 * @unit_base;
-	width: 36 * @unit_base;
-	margin-top: 9 * @unit_base;
-	margin-bottom: 9 * @unit_base;
-	margin-left: 8 * @unit_base;
-	margin-right: 8 * @unit_base;
+	height: 45 * @unit_base;
+	width: 45 * @unit_base;
+	margin: 14 * @unit_base 15 * @unit_base;
 	vertical-align: middle;
 }
 
 .ui-ticker-text1-bg {
 	position: absolute;
 	top: 0;
-	left: 52 * @unit_base;
-	margin-top: 5 * @unit_base;
+	left: 80 * @unit_base;
+	margin-top: 13 * @unit_base;
 	font-size: @font_size_ticker_text1;
 	color: @color_ticker_text1;
 	line-height: 18 * @unit_base;
@@ -100,8 +106,8 @@
 .ui-ticker-text2-bg {
 	position: absolute;
 	top: 0;
-	left: 52 * @unit_base;
-	margin-top: 23 * @unit_base;
+	left: 80 * @unit_base;
+	margin-top: 38 * @unit_base;
 	font-size: @font_size_ticker_text2;
 	color: @color_ticker_text2;
 	line-height: 22 * @unit_base;
