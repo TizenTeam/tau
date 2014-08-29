@@ -40,19 +40,25 @@ Listview
 			display: block;
 			text-align: left;
 			margin: -32 * @virtual_px -43 * @virtual_px;
-			padding: 0;
+			padding: 32 * @virtual_px;
+			border-radius: 0;
 			.ui-btn-inner {
-				margin: 21 * @virtual_px 32 * @virtual_px 26 * @virtual_px 38 * @virtual_px;
+				margin: 0;
 				color: rgb(164, 167, 174);
 				.ui-btn-text {
 					margin: 11 * @virtual_px 0;
 					display: block;
+					> img {
+						float: right;
+						height: 125 * @virtual_px;
+						margin: -32 * @virtual_px;;
+					}
 				}
 				.ui-icon {
 					background-color: rgb(164, 167, 174);
 				}
 			}
-			.LESSbox-boxsizing(content-box); // Change size calculation criteria
+
 		}
 		a.ui-btn.ui-focus {
 			.ui-btn-inner {
@@ -76,7 +82,7 @@ Listview
 		.li-text-sub {
 			display: block;
 			color: @list_sub_txt_color;
-			font-size: 24 * @virtual_px;
+			font-size: 68%;
 			text-overflow: ellipsis;
 			overflow: hidden;
 			line-height: 30 * @virtual_px;
@@ -116,6 +122,11 @@ Listview
 				padding-top: 36 * @virtual_px;
 				padding-bottom: 5 * @virtual_px;
 			}
+		}
+		progress {
+			display: block;
+			padding-left: 0;
+			padding-right: 0;
 		}
 	}
 

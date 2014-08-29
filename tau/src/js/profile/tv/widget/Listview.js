@@ -95,7 +95,7 @@
 
 			engine.defineWidget(
 				"Listview",
-				".ui-listview",
+				".ui-listview,[data-role=listview]",
 				[],
 				Listview,
 				"tv"

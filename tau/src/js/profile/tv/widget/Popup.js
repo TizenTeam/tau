@@ -227,6 +227,7 @@
 
 				if (!self._isOpen) {
 					checkLink(options);
+
 					if (typeof MobilePopupPrototype.open === FUNCTION_TYPE) {
 						MobilePopupPrototype.open.apply(self, arguments);
 					}
@@ -237,6 +238,7 @@
 					self._setActive(true, options);
 
 					self._setKeyboardSupport(options);
+
 				}
 			};
 

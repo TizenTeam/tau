@@ -234,6 +234,18 @@ Context Popup
 .ui-ctxpopup-container {
 	position: absolute;
 
+	.ui-ctxpopup {
+		box-shadow: none;
+		.ui-popup-content {
+			border-radius: 4 * @virtual_px;
+			li {
+				a.ui-btn {
+					color: inherit;
+				}
+			}
+		}
+	}
+
 	&.bottom {
 		margin-top: 24 * @virtual_px;
 	}

@@ -19,7 +19,7 @@
 	<link rel="apple-touch-icon" href="../../icon-tizen.png"/>
 </head>
 
-<body class="ui-pagecontainer" data-background="img/bg.jpg">
+<body class="ui-pagecontainer" data-background="../img/bg.jpg">
 <div class="ui-page ui-page-active" id="main" data-role="page">
 	<div data-role="drawer" data-position="left" id="left-drawer"
 		 data-width="301" data-close-on-click="false" data-overlay="false">
@@ -37,155 +37,245 @@
 				   data-role="button" data-icon="live" data-iconpos="top">Live</a>
 			</li>
 			<li class="ui-block">
-				<a href="popup/index.html"
+				<a href="#tv-shows"
 				   data-icon="tv-show" data-iconpos="top"
-				   data-role="button">Popups</a></li>
+				   data-role="button">TV shows</a></li>
 			<li class="ui-block">
-				<a href="list/index.html"
+				<a href="#movies"
 				   data-role="button" data-icon
-						="movie" data-iconpos="top">Lists</a></li>
+						="movie" data-iconpos="top">Movies</a></li>
 			<li class="ui-block">
-				<a data-rel="dynamic" href="#movies"
+				<a data-rel="dynamic" href="#apps"
 				   data-role="button" data-icon
 						="app" data-iconpos="top">Apps</a></li>
 			<li class="ui-block">
-				<a href="virtualgrid/index.html"
+				<a href="#source"
 				   data-role="button" data-icon
-						="source" data-iconpos="top">Grid</a></li>
-			<li class="ui-block">
-			  <a href="buttons/buttons.html" data-role="button" data-icon="source" data-iconpos="top">Buttons</a>
-			</li>
-			<li class="ui-block">
-				<a href="textinput/entry.html"
-				   data-role="button" data-icon
-						="source" data-iconpos="top">Inputs</a></li>
-			<li class="ui-block">
-				<a href="list/list-divider_normal.html"
-				   data-role="button" data-icon
-						="source" data-iconpos="top">Chanel list</a></li>
-			<li class="ui-block">
-				<a href="slider/slider.html"
-				   data-role="button" data-icon
-						="source" data-iconpos="top">Slider</a></li>
-			<li class="ui-block">
-				<a href="checkboxradio/checkboxradio.html"
-				   data-role="button" data-icon
-						="source" data-iconpos="top">Checkbox / Radiobutton</a></li>
+						="source" data-iconpos="top">Source</a></li>
 		</ul>
 		<div id="live" class="ui-dynamic-box">
-			<ul class="ui-listview ui-listview-first" data-role="listview">
+			<ul class="ui-listview" data-role="listview">
 				<li class="ui-list-divider">Favorite</li>
 				<li class="ui-li-dynamic">
 					<a href="#">
-					<img src="img/bg.jpg" />
+					<img src="../img/bg.jpg" />
 					<footer>
-						<img src="img/ico_source_foc.png" />
-						<h3>CH 003</h3>
+						<img src="../img/ico_source_foc.png" />
 						<h2>Eternal sunshine</h2>
+						<h3>CH 003</h3>
 						<div>
 						<time class="ui-li-dynami-from">10:00PM</time> -
 						<time class="ui-li-dynami-to">12:00PM</time>
+						</div>
 						<progress max="100" value="40"></progress>
-						</div>
 					</footer>
 					</a>
 				</li>
 
 				<li class="ui-li-dynamic">
 					<a href="#">
-					<img src="img/bg.jpg" />
-					<footer>
-						<img src="img/ico_source_foc.png" />
-						<h3>CH 003</h3>
-						<h2>Eternal sunshine</h2>
-						<div>
-							<time class="ui-li-dynami-from">10:00PM</time> -
-							<time class="ui-li-dynami-to">12:00PM</time>
+					<img src="../img/bg.jpg" />
+						<footer>
+							<img src="../img/ico_source_foc.png" />
+							<h2>Eternal sunshine</h2>
+							<h3>CH 003</h3>
+							<div>
+								<time class="ui-li-dynami-from">10:00PM</time> -
+								<time class="ui-li-dynami-to">12:00PM</time>
+							</div>
 							<progress max="100" value="40"></progress>
-						</div>
-					</footer>
+						</footer>
 					</a>
 				</li>
 
 				<li class="ui-li-dynamic">
 					<a href="#">
-					<img src="img/bg.jpg" />
-					<footer>
-						<img src="img/ico_source_foc.png" />
-						<h3>CH 003</h3>
-						<h2>Eternal sunshine</h2>
-						<div>
-							<time class="ui-li-dynami-from">10:00PM</time> -
-							<time class="ui-li-dynami-to">12:00PM</time>
+					<img src="../img/bg.jpg" />
+						<footer>
+							<img src="../img/ico_source_foc.png" />
+							<h2>Eternal sunshine</h2>
+							<h3>CH 003</h3>
+							<div>
+								<time class="ui-li-dynami-from">10:00PM</time> -
+								<time class="ui-li-dynami-to">12:00PM</time>
+							</div>
 							<progress max="100" value="40"></progress>
-						</div>
-					</footer>
+						</footer>
 					</a>
 				</li>
 
 				<li class="ui-li-dynamic">
 					<a href="#">
-					<img src="img/bg.jpg" />
-					<footer>
-						<img src="img/ico_source_foc.png" />
-						<h3>CH 003</h3>
-						<h2>Eternal sunshine</h2>
-						<div>
-							<time class="ui-li-dynami-from">10:00PM</time> -
-							<time class="ui-li-dynami-to">12:00PM</time>
+					<img src="../img/bg.jpg" />
+						<footer>
+							<img src="../img/ico_source_foc.png" />
+							<h2>Eternal sunshine</h2>
+							<h3>CH 003</h3>
+							<div>
+								<time class="ui-li-dynami-from">10:00PM</time> -
+								<time class="ui-li-dynami-to">12:00PM</time>
+							</div>
 							<progress max="100" value="40"></progress>
-						</div>
-					</footer>
+						</footer>
 					</a>
 				</li>
 			</ul>
 		</div>
-		<div id="tv-shows" class="ui-dynamic-box">
-			<ul class="ui-listview ui-listview-first" data-role="listview">
+		<div id="movies" class="ui-dynamic-box">
+			<ul class="ui-listview" data-role="listview">
 				<li class="ui-list-divider">TV Shows</li>
 				<li class="ui-li-dynamic ul-li-poster">
-					<img src="img/7572051.3.jpg" />
+					<a href="#">
+					<img src="../img/7572051.3.jpg" />
 					<footer>
 						<h2>Eternal sunshine</h2>
 					</footer>
+					</a>
 				</li>
 				<li class="ui-li-dynamic ul-li-poster">
-					<img src="img/7572051.3.jpg" />
+					<a href="#">
+					<img src="../img/7572051.3.jpg" />
 					<footer>
 						<h2>Eternal sunshine</h2>
 					</footer>
+						</a>
 				</li>
 				<li class="ui-li-dynamic ul-li-poster">
-					<img src="img/7572051.3.jpg" />
+					<a href="#">
+					<img src="../img/7572051.3.jpg" />
 					<footer>
 						<h2>Eternal sunshine</h2>
 					</footer>
+						</a>
 				</li>
 				<li class="ui-li-dynamic ul-li-poster">
-					<img src="img/7572051.3.jpg" />
+					<a href="#">
+					<img src="../img/7572051.3.jpg" />
 					<footer>
 						<h2>Eternal sunshine</h2>
 					</footer>
+						</a>
 				</li>
 				<li class="ui-li-dynamic ul-li-poster">
-					<img src="img/7572051.3.jpg" />
+					<a href="#">
+					<img src="../img/7572051.3.jpg" />
 					<footer>
 						<h2>Eternal sunshine</h2>
 					</footer>
+						</a>
 				</li>
 				<li class="ui-li-dynamic ul-li-poster">
-					<img src="img/7572051.3.jpg" />
+					<a href="#">
+					<img src="../img/7572051.3.jpg" />
 					<footer>
 						<h2>Eternal sunshine</h2>
 					</footer>
+						</a>
 				</li>
 				<li class="ui-li-dynamic ul-li-poster">
-					<img src="img/7572051.3.jpg" />
+					<a href="#">
+					<img src="../img/7572051.3.jpg" />
 					<footer>
 						<h2>Eternal sunshine</h2>
 					</footer>
+						</a>
 				</li>
+				</ul>
 	</div>
+		<div id="source" class="ui-dynamic-box">
+			<ul class="ui-listview" data-role="listview">
+				<li class="ui-list-divider">TV Shows</li>
+				<li class="ui-li-dynamic ul-li-icon ui-li-dark">
+					<a href="#">
+						<img src="../img/7572051.3.jpg" />
+						<footer>
+							<h2>Eternal sunshine</h2>
+						</footer>
+					</a>
+				</li>
+				<li class="ui-li-dynamic ul-li-icon ui-li-dark">
+					<a href="#">
+						<img src="../img/7572051.3.jpg" />
+						<footer>
+							<h2>Eternal sunshine</h2>
+						</footer>
+					</a>
+				</li>
+				<li class="ui-li-dynamic ul-li-icon ui-li-dark">
+					<a href="#">
+						<img src="../img/7572051.3.jpg" />
+						<footer>
+							<h2>Eternal sunshine</h2>
+						</footer>
+					</a>
+				</li>
+				<li class="ui-li-dynamic ul-li-icon ui-li-dark">
+					<a href="#">
+						<img src="../img/7572051.3.jpg" />
+						<footer>
+							<h2>Eternal sunshine</h2>
+						</footer>
+					</a>
+				</li>
+				<li class="ui-li-dynamic ul-li-icon ui-li-dark">
+					<a href="#">
+						<img src="../img/7572051.3.jpg" />
+						<footer>
+							<h2>Eternal sunshine</h2>
+						</footer>
+					</a>
+				</li>
+				<li class="ui-li-dynamic ul-li-icon ui-li-dark">
+					<a href="#">
+						<img src="../img/7572051.3.jpg" />
+						<footer>
+							<h2>Eternal sunshine</h2>
+						</footer>
+					</a>
+				</li>
+				<li class="ui-li-dynamic ul-li-icon ui-li-dark">
+					<a href="#">
+						<img src="../img/7572051.3.jpg" />
+						<footer>
+							<h2>Eternal sunshine</h2>
+						</footer>
+					</a>
+				</li>
+			</ul>
+		</div>
+		<div id="apps" class="ui-dynamic-box">
+			<ul class="ui-listview" data-role="listview">
+				<li class="ui-list-divider">ONGOING</li>
+				<li>
+					<a href="#">
+						Someone like you
+						<img src="../img/7572051.3.jpg" />
+						<span class="li-text-sub">Owl City | Playing</span>
+					</a>
+				</li>
+				<li>
+					<a href="#" data-icon="apps" data-iconpos="right">
+						1 USB device connected
+						<span class="li-text-sub">Select to go to connected device
+							list</span>
+					</a>
+				</li>
+				<li>
+					<a href="#" data-icon="facebook" data-iconpos="right">
+						Facebook
+						<progress value="50" min="0" max="100"></progress>
+					</a>
+				</li>
+				<li class="ui-list-divider">NOTIFICATION</li>
+				<li>
+					<a href="#" data-icon="tv-show" data-iconpos="right">
+						The tonight show
+						<span class="li-text-sub">09:20 PM</span>
+						<span class="li-text-sub">Completed update | FOX</span>
+					</a>
+				</li>
+			</ul>
+		</div>
 	<div class="ui-page-content">
 
 	</div>
@@ -202,12 +292,12 @@
 					drawer.open();
 				}, 1000);
 			});
-			mainPage.addEventListener("click", function () {
+			mainPage.addEventListener("vclick", function () {
 				if (!drawer.isOpen()) {
 					drawer.open();
 				}
 			});
-			closeButton.addEventListener("click", function () {
+			closeButton.addEventListener("vclick", function () {
 				drawer.close();
 			});
 		}());
