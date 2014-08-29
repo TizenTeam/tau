@@ -1,4 +1,46 @@
 %changelog
+* Fri Aug 29 2014 Hyeoncheol Choi <hc7.choi@samsung.com> 0.9.15
+	- Wearable: delete extra main text sample color values
+	- KIRAN: fixed Notification layout issues
+	- KIRAN: modify tabbar widget with scroller bugs
+	- KIRAN: apply KIRAN UX to tokentextarea
+	- KIRAN: listview border-bottom apply to all listview types
+	- KIRAN : fixed textarea issues
+	- KIRAN: modify example for using listview sample page
+	- [TAU KIRAN] modify style for bubble list
+	- [TV] Progress widget support added
+	- [TAU KIRAN] modify slider style sync new UX guide
+	- [TAU KIRAN] modify style for check-all list
+	- [TAU KIRAN] slider new ux guide
+	- [TAU KIRAN]: Progress style changes from UX Guide
+	- KIRAN: toggleswitch
+	- [TV] Scrollbar style added
+	- [TAU KIRAN] Listview: set padding value 0 when li tag has a link
+	- KIRAN : apply footer width button to KIRAN UI
+	- [TAU KIRAN] Listview: remove unused list view examples
+	- Tokentextarea: Defining a local variable for the key codes, removing unnecessary return
+	- KIRAN : delete listdivider border-bottom and fixed line value
+	- KIRAN: apply KIRAN UX to searchbar
+	- KIRAN : modify button layout bugs
+	- KIRAN: checkboxradio
+	- Wearable: modify Popup set content style calculation.
+	- Build: build rpms and install on device, path fix for build
+	- KIRAN: apply KIRAN UX of drawer
+	- [TAU KIRAN]Popup: modify calc to -webkit-calc
+	- [KIRAN] Empty state
+	- KIRAN: Textinput styles
+	- KIRAN : Context popup
+	- KIRAN: modify style for dialogue list
+	- [KIRAN] FastScroll: theme and base widget fix
+	- Utils: fix error during computing height of element
+	- [TAU KIRAN] POPUP theme for kiran
+	- KIRAN : apply button themes (3.1 Button)
+	- KIRAN : add kiran listview feature
+	- KIRAN : appy KIRAN GUI (1.Navigation elements)
+	- KIRAN : apply kiran theme (1.1 Title section)
+	- [TAU KIRAN] multiply (320/480) by @px_base.
+	- [TAU KIRAN] add xml files for Changeable Theme(0822)
+
 * Thu Aug 26 2014 Junyoung Park <jy-.park@samsung.com> 0.9.14
 	- Build: fix error with mobile gbs package build
 	- [TV] textinput: fix problem with events in textinput
