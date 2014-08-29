@@ -156,7 +156,6 @@
 	}
 
 	.ui-scrollview-view {
-		width: 100%;
 		.tabbar-scroll-ul {
 			margin: 0;
 			padding: 0;
@@ -174,10 +173,10 @@
 		.tabbar-scroll-li:not(:first-child) {
 			/*
 			* (-7 * @unit_base) value has decimal point.
-			* That was occured various element position in various browser in which include tizen webkit browser.
+			* That occured to element position incorrectly in various browser in which include tizen webkit browser.
 			* So, margin-left value should be fixed integer px unit.
 			*/
-			margin-left: -6 * @unit_base;
+			margin-left: -5px;
 		}
 	}
 }
