@@ -183,10 +183,6 @@
 					groupLegend = selectors.getChildrenByTag(element, 'legend'),
 					groupHeading = selectors.getChildrenByClass(element, classes.controlGroupLabel),
 					groupControls,
-					controlElements,
-					controlElementsLength,
-					widthSize,
-					i,
 					cornersClasses,
 					legend,
 					content;
@@ -236,18 +232,27 @@
 
 				//Make all the control group elements the same width
 				if(groupControls) {
-					controlElements = selectors.getChildrenByTag(groupControls, 'a');
-					controlElementsLength = controlElements.length;
-					widthSize = 100 / controlElementsLength;
-					for(i = 0; i < controlElementsLength; i++) {
-						engine.instanceWidget(controlElements[i], 'Button');
-						controlElements[i].style.width = widthSize + '%';
-					}
+					this._setWidthForButtons(groupControls);
 				}
+
 				flipClasses(content, cornersClasses);
 				flipClasses(slice.call(element.querySelectorAll('.ui-btn-inner')), cornersClasses);
 
 				return element;
+			};
+
+			Controlgroup.prototype._setWidthForButtons = function (groupControls) {
+				var controlElements,
+					controlElementsLength,
+					widthSize,
+					i;
+				controlElements = selectors.getChildrenByTag(groupControls, 'a');
+				controlElementsLength = controlElements.length;
+				widthSize = 100 / controlElementsLength;
+				for(i = 0; i < controlElementsLength; i++) {
+					engine.instanceWidget(controlElements[i], 'Button');
+					controlElements[i].style.width = widthSize + '%';
+				}
 			};
 
 			// definition

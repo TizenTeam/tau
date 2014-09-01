@@ -33,7 +33,7 @@
 			"../../../profile/wearable/widget/wearable/Page",
 			"../../../core/engine",
 			"../../../core/util/DOM/css",
-			"../../../core/util/DOM/manipulation",
+			"../../../core/util/DOM/attributes",
 			"../../../core/util/selectors",
 			"./BaseKeyboardSupport"
 		],
@@ -55,6 +55,7 @@
 
 			classes.uiHeaderEmpty = "ui-header-empty";
 			classes.uiFooterEmpty = "ui-footer-empty";
+			classes.uiTitle = "ui-title";
 
 			Page.events = WearablePage.events;
 			Page.classes = classes;
@@ -69,22 +70,65 @@
 				this._supportKeyboard = false;
 			};
 
+			prototype._buildButtonsInHeader = function (header) {
+				var headerButtons = [].slice.call(header.querySelectorAll("[data-role='button']")),
+					headerButtonsLength = headerButtons.length,
+					i;
+				for (i = 0; i < headerButtonsLength; i++) {
+					DOM.setNSData(headerButtons[i], "inline", "true");
+				}
+			};
+
+			prototype._buildTitleInHeader = function(header) {
+				var title = header.querySelector("h1,h2,h3,h4,h5,h6,h7,h8");
+				if (title) {
+					title.classList.add(classes.uiTitle);
+				}
+			};
+
+			prototype._buildHeader = function(element) {
+				var self = this,
+					header = selectors.getChildrenBySelector(element, "header,." + classes.uiHeader)[0];
+				// add class if header does not exist
+				if (!header) {
+					element.classList.add(classes.uiHeaderEmpty);
+				} else {
+					header.classList.add(classes.uiHeader);
+					self._buildButtonsInHeader(header);
+					self._buildTitleInHeader(header);
+				}
+			};
+
+			prototype._buildFooter = function(element) {
+				var footer = selectors.getChildrenBySelector(element, "footer,." + classes.uiFooter)[0];
+				// add class if footer does not exist
+				if (!footer) {
+					element.classList.add(classes.uiFooterEmpty);
+				} else {
+					footer.classList.add(classes.uiFooter);
+				}
+			};
+
+			prototype._buildContent = function(element) {
+				var content = selectors.getChildrenByClass(element, classes.uiContent)[0] || selectors.getChildrenByTag(element, "div")[0];
+				if (!content) {
+					content = document.createElement("div");
+					element.appendChild(content);
+				}
+				content.classList.add(classes.uiContent);
+			};
+
 			prototype._build = function(element) {
-				var header = selectors.getChildrenByClass(element, classes.uiHeader),
-					footer = selectors.getChildrenByClass(element, classes.uiFooter);
+				var self = this;
 
 				if (typeof WearablePagePrototype._build === FUNCTION_TYPE) {
-					WearablePagePrototype._build.call(this, element);
+					WearablePagePrototype._build.call(self, element);
 				}
 
-				// add class if header does not exist
-				if (!header.length) {
-					element.classList.add(classes.uiHeaderEmpty);
-				}
-				// add class if footer does not exist
-				if (!footer.length) {
-					element.classList.add(classes.uiFooterEmpty);
-				}
+				self._buildHeader(element);
+				self._buildContent(element);
+				self._buildFooter(element);
+
 				return element;
 			};
 

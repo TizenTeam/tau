@@ -139,8 +139,8 @@ body {
 	.ui-more {
 		display: block;
 		position: absolute;
-		top: 0 * @virtual_px;
-		right: 0 * @virtual_px;
+		top: 0;
+		right: 0;
 		width: @fixed_header_more_width;
 		height: 100%;
 		overflow: hidden;
@@ -184,21 +184,40 @@ body {
 		}
 	}
 
+	.ui-btn.ui-btn-inline {
+		float: right;
+		margin: 32 * @virtual_px;
+	}
+
+	.ui-btn.ui-btn-inline:nth-child(2) {
+		margin-right: 0;
+	}
+
 }
 
 .ui-footer {
-	width: 100%;
 	height: @fixed_footer_height;
 	margin: 0 141 * @virtual_px 59 * @virtual_px 141 * @virtual_px;
-	position: absolute;
-	bottom: 0;
-	left: 0;
 	-webkit-border-bottom-left-radius: @page_border_radius;
 	-moz-border-bottom-left-radius: @page_border_radius;
 	border-bottom-left-radius: @page_border_radius;
 	-webkit-border-bottom-right-radius: @page_border_radius;
 	-moz-border-bottom-right-radius: @page_border_radius;
 	border-bottom-right-radius: @page_border_radius;
+	background-color: @color_actionbar_title_bg;
+	.ui-controlgroup-controls {
+		.ui-btn {
+			float:left;
+			display: block;
+			margin: 32 * @virtual_px;
+		}
+		.ui-btn:nth-child(2) {
+			margin-left: 0;
+		}
+		.ui-btn:nth-child(3) {
+			margin-left: 0;
+		}
+	}
 }
 
 /***************************************************************************
