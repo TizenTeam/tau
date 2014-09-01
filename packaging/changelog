@@ -1,4 +1,21 @@
 %changelog
+* Mon Sep 01 2014 Heeju Joo <heeju.joo@samsung.com> 0.9.16
+	- [Popup] rem rendering bug fix.
+	- Popup documentation.
+	- Wearable: modify header title font size
+	- Wearable : Fixed Button css style
+	- Wearable: modify some styles for IndexScroll (UX sync)
+	- Wearable: modify icon position in swipe list
+	- Wearable : Fixed Popup css style Merged
+	- Wearable: fix listview height(sync UX guide)
+	- synchronize version number
+	- [Popup] Added modal popup option.
+	- [Popup] Added Option Popup Samples.
+	- [Router] added back option of data-rel attribute.
+	- [Popup] Added Option Popup.
+	- TAU Scrollview size issue
+	- IndexScrollbar: Fix logical bug showing 2nd indexbar(GSDK_SE-2830)
+
 * Fri Aug 29 2014 Hyeoncheol Choi <hc7.choi@samsung.com> 0.9.15
 	- Wearable: delete extra main text sample color values
 	- KIRAN: fixed Notification layout issues
