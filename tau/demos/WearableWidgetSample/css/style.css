@@ -13,15 +13,15 @@
 .ui-listview li .li-text-sub {
         display: block;
         color: rgb(189, 167, 146);
-        font-size: 24px;
+        font-size: 28px;
         text-overflow: ellipsis;
         overflow: hidden;
-        line-height: 30px;
+        line-height: 32px;
 }
 .ui-listview li.li-has-multiline {
         padding-top: 6px;
         padding-bottom: 5px;
-        min-height: 90px;
+        min-height: 100px;
 }
 .ui-listview li.li-has-radio.disabled,
 .ui-listview li.li-has-radio.disabled > *,
@@ -36,8 +36,8 @@
 .ui-listview li.li-has-multiline > a {
         margin-top: -6px;
         margin-bottom: -6px;
-        padding-top: 6px;
-        padding-bottom: 6px;
+        padding-top: 11px;
+        padding-bottom: 12px;
 }
 .ui-listview li.li-has-multiline.2lines > a {
         margin-bottom: -62px;
@@ -46,7 +46,7 @@
 .ui-listview li.li-has-multiline-sup {
         padding-top: 6px;
         padding-bottom: 5px;
-        min-height: 90px;
+        min-height: 100px;
 }
 .ui-listview li.li-has-multiline-sup > a {
         margin-top: -36px;
@@ -74,10 +74,10 @@
 .ui-listview li.li-has-checkbox label,
 .ui-listview li.li-has-radio label{
 	display: block;
-	padding-bottom: 21px;
+	padding-bottom: 25px;
 	padding-left: 16px;
 	padding-right: 64px;
-	padding-top: 21px;
+	padding-top: 24px;
 	margin-top: -21px;
 	margin-bottom: -21px;
 	margin-left: -16px;
@@ -86,10 +86,10 @@
 .ui-listview li.li-has-multiline.li-has-checkbox label,
 .ui-listview li.li-has-multiline.li-has-radio label {
         display: block;
-        padding-bottom: 6px;
+        padding-bottom: 12px;
         padding-left: 16px;
         padding-right: 64px;
-        padding-top: 6px;
+        padding-top: 11px;
         margin-top: -6px;
         margin-bottom: -6px;
         margin-left: -16px;
