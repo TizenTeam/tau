@@ -129,6 +129,25 @@
  *             <div class="ui-popup-content">Saving contacts to sim on Samsung</div>
  *         </div>
  *
+ * ### Create Option popup
+ *
+ * Popup inherits value of option positionTo from property data-position-to set in link.
+ *
+ *		@example
+ *		<!--definition of link, which opens popup and sets its position-->
+ *		<a href="#popupOptionText" data-rel="popup"  data-position-to="origin">Text</a>
+ *		<!--definition of popup, which inherites property position from link-->
+ *		<div id="popupOptionText" class="ui-popup">
+ *			<div class="ui-popup-content">
+ *				<ul class="ui-listview">
+ *				<li><a href="#">Option 1</a></li>
+ *				<li><a href="#">Option 2</a></li>
+ *				<li><a href="#">Option 3</a></li>
+ *				<li><a href="#">Option 4</a></li>
+ *				</ul>
+ *			</div>
+ *		</div>
+ *
  * ### Opening and closing popup
  *
  * To open popup from "a" link using html markup, use the following code:
@@ -308,6 +327,19 @@
 				self.content = null;
 			},
 
+			/**
+			 * @property {Object} defaults Object with default options
+			 * @property {string} [options.transition="none"] Sets the default transition for the popup.
+			 * @property {string} [options.positionTo="window"] Sets the element relative to which the popup will be centered.
+			 * @property {boolean} [options.dismissible=true] Sets whether to close popup when a popup is open to support the back button.
+			 * @property {boolean} [options.overlay=true] Sets whether to show overlay when a popup is open.
+			 * @property {string} [overlayClass=""] Sets the custom class for the popup background, which covers the entire window.
+			 * @property {boolean} [options.history=true] Sets whether to alter the url when a popup is open to support the back button.
+			 * @property {string} [options.arrow="l,t,r,b"] Sets directions of popup's placement by priority. First one has the highest priority, last the lowest.
+			 * @property {string} [options.positionTo="window"] Sets the element relative to which the popup will be centered.
+			 * @member ns.widget.Popup
+			 * @static
+			 */
 			defaults = objectUtils.merge({}, BasePopup.defaults, {
 				arrow:"l,t,r,b",
 				positionTo: "window"

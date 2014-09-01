@@ -65,6 +65,12 @@
 			},
 			/**
 			 * @property {Object} defaults Object with default options
+			 * @property {string} [options.transition="none"] Sets the default transition for the popup.
+			 * @property {string} [options.positionTo="window"] Sets the element relative to which the popup will be centered.
+			 * @property {boolean} [options.dismissible=true] Sets whether to close popup when a popup is open to support the back button.
+			 * @property {boolean} [options.overlay=true] Sets whether to show overlay when a popup is open.
+			 * @property {string} [overlayClass=""] Sets the custom class for the popup background, which covers the entire window.
+			 * @property {boolean} [options.history=true] Sets whether to alter the url when a popup is open to support the back button.
 			 * @member ns.widget.BasePopup
 			 * @static
 			 */
