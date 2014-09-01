@@ -37,7 +37,7 @@ Normal Popup
 		text-align: left;
 		color: @color_text;
 		background-color: @color_popup_bg;
-		padding: 10*@unit_base 16*@unit_base 9*@unit_base 16*@unit_base;
+		padding: 10*@px_base 16*@px_base 9*@px_base 16*@px_base;
 		overflow:auto;
 		.scrolling-mode-touch;
 
@@ -101,9 +101,13 @@ Option Popup
 		.ui-listview li {
 			color: @color_option_popup_list_text;
 			border-bottom: 1px solid @color_option_popup_list_border;
+			min-height: 90 * @px_base;
+			padding: 21*@px_base 8*@px_base 20*@px_base 16*@px_base;
 
 			a {
 				color: @color_option_popup_list_text;
+				margin: -21*@px_base -16*@px_base;	// Fill-up to the parent li
+				padding: 21*@px_base 16*@px_base;	// Compensate lost padding of li
 				&:active {
 					color: @color_option_popup_list_text_pressed;
 					background-color: @color_option_popup_list_bg_pressed;
@@ -207,6 +211,8 @@ Option Popup
 		overflow: hidden;
 		position: absolute;
 		display: none;
+		animation-duration: 0;
+		-webkit-animation-duration: 0;
 
 		span {
 			width: 20*@px_base;
@@ -214,50 +220,52 @@ Option Popup
 			background-color: @color_option_popup_bg;
 			border: 1px solid @color_option_popup_border;
 			position:absolute;
-			top:-12*@px_base;
+			top:6*@px_base;
 			left:8*@px_base;
 			-webkit-transform: rotate(55deg) skew(24deg);
 			transform: rotate(55deg) skew(24deg);
+			animation-duration: 0;
+			-webkit-animation-duration: 0;
 		}
 	}
 
 	&.ui-popup-arrow-t {
-		padding:20*@unit_base 20*@unit_base 0 20*@unit_base;
+		padding:20*@px_base 20*@px_base 0 20*@px_base;
 	}
 
 	&.ui-popup-arrow-b {
-		padding:0 20*@unit_base 20*@unit_base 20*@unit_base;
+		padding:0 20*@px_base 20*@px_base 20*@px_base;
 	}
 
 	&.ui-popup-arrow-l {
-		padding:20*@unit_base 0 20*@unit_base 20*@unit_base;
+		padding:20*@px_base 0 20*@px_base 20*@px_base;
 	}
 
 	&.ui-popup-arrow-r {
-		padding:20*@unit_base 20*@unit_base 20 0*@unit_base;
+		padding:20*@px_base 20*@px_base 20 0*@px_base;
 	}
 
 	&.ui-popup-arrow-t .ui-arrow {
 		display: block;
 		bottom:-14*@px_base;
+		-webkit-transform: rotate(180deg);
+		transform: rotate(180deg);
 	}
 	&.ui-popup-arrow-b .ui-arrow {
 		display: block;
 		top:-14*@px_base;
-		-webkit-transform: rotate(180deg);
-		transform: rotate(180deg);
 	}
 	&.ui-popup-arrow-l .ui-arrow {
 		display: block;
 		left:-14*@px_base;
-		-webkit-transform: rotate(90deg);
-		transform: rotate(90deg);
+		-webkit-transform: rotate(-90deg);
+		transform: rotate(-90deg);
 	}
 	&.ui-popup-arrow-r .ui-arrow {
 		display: block;
 		right:-14*@px_base;
-		-webkit-transform: rotate(-90deg);
-		transform: rotate(-90deg);
+		-webkit-transform: rotate(90deg);
+		transform: rotate(90deg);
 	}
 }
 
