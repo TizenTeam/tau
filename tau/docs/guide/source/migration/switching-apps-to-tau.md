@@ -45,13 +45,16 @@ tau/mobile/
 
 ```
 
-TAU library with minified version is located in folder `mobile/js`. Default theme TAU is located in folder `mobile/theme`.
-TAU are loaded the same way like previous version from device location `/usr/share/`.
+TAU library with minified version is located in folder `mobile/js`. Default
+ theme TAU is located in folder `mobile/theme`. TAU are loaded the same way like
+ previous version from device location `/usr/share/`.
 
 ###Default structure of application
 
-When you build some application in Tizen IDE, application have folder structure like below, all files are grouped in seperated folders.
-Folder _js_ is destination for application main files. Other files like images, templates or styles are collected in separated folders:
+When you build some application in Tizen IDE, application have folder structure
+ like below, all files are grouped in seperated folders.
+Folder js is destination for application main files. Other files like images,
+ templates or styles are collected in separated folders:
 
 ```
 
@@ -68,9 +71,11 @@ Application/
 
 ```
 
-In new version structure of application as similar to previous. The only thing is changed is location to tizen library.
+In new version structure of application as similar to previous. The only thing
+ is changed is location to tizen library.
 Library TAU is located in the folder lib with all needed files.
-Files `config.xml` and `index.html` are in the main folder of application. Recommended structure for application is below:
+Files `config.xml` and `index.html` are in the main folder of application.
+ Recommended structure for application is below:
 
 ```
 
@@ -89,10 +94,12 @@ Application/
 ### Build app with library TAU
 
 
-### Change to application with TAU for example Single Page Application, from Tizen SDK
+### Change existing app to app with library TAU for example Single Page
+ Application, from Tizen SDK
 
-If you want use the TAU library in existing app, you should add folder with these library and
- you should change source path to library from `tizen-web-ui-fw.js` to `tau.js` and also path to `jquery.js` like below:
+If you want use the TAU library in existing app, you should add folder with
+ these library and you should change source path to library from
+ `tizen-web-ui-fw.js` to `tau.js` and also path to `jquery.js` like below:
 
 Before:
 ``` mobile-wearable-tv
@@ -133,19 +140,20 @@ After:
 
 ```
 
-Adding this style css is not required, because if you do not add css library, the TAU loads the `tau.css` automatically.
+Adding this style css is not required, because if you do not add css library,
+ the TAU loads the `tau.css` automatically.
 
 
 ## Stay with jQuery Mobile syntax
 
-Using TAU doesn't mean that you need to resign from jQuery Mobile syntax. TAU supports
-jQuery syntax and lets you to define widgets in the same way.
+Using TAU doesn't mean that you need to resign from jQuery Mobile syntax.
+ TAU supports jQuery syntax and lets you to define widgets in the same way.
 
 ### Supported components and features
 
 DOM structure for widgets is same as widgets defined by jQuery.
-TAU widgets can be used like in jQuery Mobile. Currently in TAU there is 70% widgets,
-with same API and behavior like in jQuery Mobile
+TAU widgets can be used like in jQuery Mobile. Currently in TAU there is 70%
+ widgets, with same API and behavior like in jQuery Mobile.
 
 
 List of the common widgets for both frameworks:
@@ -227,17 +235,14 @@ List of the common widgets for both frameworks:
 </script>
 ```
 
-6. Flipswitch Widget (in TAU framework its implemented as a part of Slider widget)
+6. Flipswitch Widget (in TAU framework its implemented as a part of Slider 
+widget)
 ```mobile
-    <div class="ui-page">
-        <div class="ui-content" data-role="content">
-            <label for="flip-3">2. Text toggle switch:</label>
-            <select name="flip-3" id="flip-3" data-role="slider">
-                <option value="nope">Nope</option>
-                <option value="yep">Yep</option>
-            </select>
-        </div>
-    </div>
+<label for="flip-3">2. Text toggle switch:</label>
+<select name="flip-3" id="flip-3" data-role="slider">
+	<option value="nope">Nope</option>
+	<option value="yep">Yep</option>
+</select>
 <script>
     $('#lip-3').slider();
 </script>
@@ -384,10 +389,11 @@ List of the common widgets for both frameworks:
 </script>
 ```
 
-When jQuery is loaded then it's possible to control widgets behavior by calling public methods.
-Public methods can be called like in jQuery mobile.
+When jQuery is loaded then it's possible to control widgets behavior by calling
+ public methods. Public methods can be called like in jQuery mobile.
 
-For example let assume that we have popup widget and we want to close with jQuery syntax.
+For example let assume that we have popup widget and we want to close with
+ jQuery syntax.
 ```mobile
     <div class="ui-page">
         <div class="ui-content" data-role="content">
@@ -432,9 +438,122 @@ It contains eight sub-modules:
 
 ## Moving from jQuery Mobile to pure TAU
 
-### Why?
+It's very easy to move form jQuery Mobile to pure TAU. First of all,
+there is no need to changing the DOM structure of the application.
+
+To move away from jQuery you may use the TAU constructors for widgets (examples
+ in Supported components and features chapter or below).
+TAU library doesn't need jQuery to be included if you have only used it for
+ including Web UI widgets you may now remove it completely.
+
+Pure TAU which is similar to jQuery Mobile has a wide support for the additional
+ API.
+
+This APIs are highly optimized for Webkit engine. Thanks to this its a way faster.
+Which is very important for applications written for smaller devices.
+Handy methods are located in utils, events, theme objects.
+
 ### Handling syntax differences
+
+The jQuery constructors of widgets
+```mobile
+<div class="ui-page ui-page-active">
+    <div class="ui-content">
+        <div id="button">button</div>
+    </div>
+</div>
+<script>
+    $('#button').button({mini: true});
+</script>
+```
+
+With TAU native constructors like
+```mobile
+<div class="ui-page ui-page-active">
+    <div class="ui-content">
+        <div id="button">button</div>
+    </div>
+</div>
+<script>
+    var button,
+        buttonElement = document.getElementById("button");
+    button = tau.widget.Button(buttonElement, {mini: true});
+</script>
+```
+
+### Why?
+
+It's highly recommendable to switch intro pure TAU framework because:
+
+1. TAU is optimize for WebKit engine.
+2. Contains only the code written for WebKit. There is no code dependent on IE
+ and Geco.
+3. Thanks to the pre-build phase the applications start faster.
+4. Has a powerful APIs to handle DOM and Events.
+
 ### TAU Widget instance explained
+
+All the widgets inherit from BaseWidget. BaseWidget provides common methods
+ which are used to control widgets:
+1. `disable` - Disable widget.
+
+2. `enable` - Enables widget.
+
+3. `configure` - Configures widget object from definition.
+
+4. `build` - Builds widget
+
+5. `init` - Initializes widget.
+
+6. `bindEvents` - Binds widget events.
+
+7. `destroy` - Destroys widget.
+
+8. `refresh` - Refreshes widget.
+
+9. `option` - Gets or sets options of the widget.
+
+10. `value` - Gets or sets value of the widget
+
+11. `on` - Adds event listener to widget's element.
+
+12. `off` - Removes event listener from  widget's element.
+
+The instances of the widgets is created automatically when the first page is
+ loaded or during the navigation.
+
+
 ### TAU Utils / helpers
+
+Utils object contains:
+
+1. `animation` library - simplify using animations
+2. `DOM` manipulation APIs
+3. `anchor` enabling / disabling
+4. `array` manipulation methods
+5. `bezierCurve` calculation
+6. `handling callbacks`
+7. `colors` formats
+8. `data attributes managment` - getting / setting data for DOM elements
+9. `deffering events`
+10. `easing` utility - calculates time function for animations
+11. `globalize` - support for globalize options
+12. `grids` - helps to create grids
+13. `loading` external resources
+14. `object` API - helps to work with objects
+15. `paths` - helps with parsing of the URL addresses
+16. `selectors` - API to select DOM elements
+17. `zoom` - enabling and disabling zooming
+
+Events object contains:
+
+1. definition of `gestures`
+2. `hardwarekey` support
+3. adds `orientation change` support
+4. `page` - responsible for changing pages
+5. `pinch` - ads new events
+6. `throttledresize` - supports throttledresize event
+7. `touch` - reimplementation of jQuery Mobile touch events
+8. `virtual mouse events` - reimplementation of jQuery Mobile virtual mouse events
 
 ## Keeping old Web UI Framework
