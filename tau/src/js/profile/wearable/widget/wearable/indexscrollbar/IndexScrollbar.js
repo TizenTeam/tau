@@ -708,10 +708,11 @@
 					idx = iBar.getIndexByPosition( pos.y );
 					val = iBar.getValueByIndex( idx );
 					if(iBar === iBar2) {
-						// Update val
+						// Update val to make a concatenated string for indexIndicator
 						val = iBar1.getValueByIndex(iBar1.selectedIndex) + val;
-					} else {
-						// Set iBar2's paddingTop
+					} else if(iBar2 && !iBar2.isShown()) {
+						// iBar1 is selected.
+						// Set iBar2's paddingTop, only when the iBar2 isn't shown
 						iBar2.setPaddingTop(iBar1.getOffsetTopByIndex(iBar1.selectedIndex));
 					}
 

@@ -67,6 +67,7 @@
 					this.indexLookupTable = [];
 					this.indexElements = null;
 					this.selectedIndex = -1;
+					this.visiblity = "hidden";
 
 					this._setMaxIndexLen();
 					this._makeMergedIndices();
@@ -87,6 +88,7 @@
 					this.indexLookupTable.length = 0;
 					this.indexElements = null;
 					this.selectedIndex = -1;
+					this.visiblity = null;
 				},
 
 				/**
@@ -114,7 +116,8 @@
 				 * @member ns.widget.wearable.indexscrollbar.IndexBar
 				 */
 				show: function() {
-					this.element.style.visibility="visible";
+					this.visibility = "visible";
+					this.element.style.visibility = this.visibility;
 				},
 
 				/**
@@ -123,7 +126,17 @@
 				 * @member ns.widget.wearable.indexscrollbar.IndexBar
 				 */
 				hide: function() {
-					this.element.style.visibility="hidden";
+					this.visibility = "hidden";
+					this.element.style.visibility = this.visibility;
+				},
+
+				/**
+				 * Get if the visibility status is shown or not
+				 * @method isShown
+				 * @member ns.widget.wearable.indexscrollbar.IndexBar
+				 */
+				isShown: function() {
+					return "visible" === this.visibility;
 				},
 
 				_setMaxIndexLen: function() {
