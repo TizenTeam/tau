@@ -57,7 +57,7 @@
 					index: [],
 					verticalCenter: false,
 					moreChar: "*",
-					indexHeight: 36,
+					indexHeight: 41,
 					selectedClass: "ui-state-selected",
 					ulClass: null
 				},

@@ -376,7 +376,7 @@
 					 * "J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","1"]]
 					 * String with list of letters separate be delimiter or array of letters
 					 * @property {boolean} [options.maxIndexLen=0]
-					 * @property {boolean} [options.indexHeight=36]
+					 * @property {boolean} [options.indexHeight=41]
 					 * @property {boolean} [options.keepSelectEventDelay=50]
 					 * @property {?boolean} [options.container=null]
 					 * @property {?boolean} [options.supplementaryIndex=null]
@@ -393,7 +393,7 @@
 							"R", "S", "T", "U", "V", "W", "X", "Y", "Z", "1"
 						],
 						maxIndexLen: 0,
-						indexHeight: 36,
+						indexHeight: 41,
 						keepSelectEventDelay: 50,
 						container: null,
 						supplementaryIndex: null,
