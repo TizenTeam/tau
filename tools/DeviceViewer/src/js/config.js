@@ -54,15 +54,15 @@ var properties = {
 	 */
 	devList: [
 		{
-			name: "1:1",
-			displayWidth: 320,
-			displayHeight: 320,
+			name: "360 x 480",
+			displayWidth: 360,
+			displayHeight: 480,
 			pixelRatio: 1
 		},
 		{
-			name: "3:4",
+			name: "320 x 320",
 			displayWidth: 320,
-			displayHeight: 426,
+			displayHeight: 320,
 			pixelRatio: 1
 		}
 	],
@@ -82,7 +82,13 @@ var properties = {
 		 */
 		badges: [
 			{
-				name: '1:1',
+				name: "360 x 480",
+				displayWidth: 360,
+				displayHeight: 480,
+				pixelRatio: 1
+			},
+			{
+				name: "320 x 320",
 				displayWidth: 320,
 				displayHeight: 320,
 				pixelRatio: 1
@@ -93,9 +99,9 @@ var properties = {
 		 * Default settings of badge
 		 */
 		defaultBadge: {
-			name: '1:1',
-			displayWidth: 320,
-			displayHeight: 320,
+			name: "360 x 480",
+			displayWidth: 360,
+			displayHeight: 480,
 			pixelRatio: 1
 		}
 	}
