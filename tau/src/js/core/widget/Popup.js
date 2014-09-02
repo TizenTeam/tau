@@ -273,12 +273,7 @@
 	define(
 		[
 			"../engine",
-			"../event",
-			"../util/selectors",
 			"../util/object",
-			"../util/DOM/attributes",
-			"../util/DOM/manipulation",
-			"../util/DOM/css",
 			"./BasePopup"
 		],
 		function () {
@@ -288,32 +283,28 @@
 
 			BasePopup = ns.widget.BasePopup,
 
+			BasePopupPrototype = BasePopup.prototype,
+
 			engine = ns.engine,
-
-			selectors = ns.util.selectors,
-
-			domUtils = ns.util.DOM,
 
 			objectUtils = ns.util.object,
 
-			eventUtils = ns.event,
-
-			deferred = ns.util.deferred,
-
 			Popup = function () {
-				var self = this;
+				var self = this,
+					ui;
 
-				BasePopup.call(this);
+				BasePopup.call(self);
+
+				ui = self._ui || {};
 
 				self.options = objectUtils.merge({}, Popup.defaults);
 
-				self.element = null;
-				self.wrapper = null;
-				self.arrow = null;
+				ui.wrapper = null;
+				ui.arrow = null;
 
-				self.header = null;
-				self.footer = null;
-				self.content = null;
+				ui.header = null;
+				ui.footer = null;
+				ui.content = null;
 			},
 
 			/**
@@ -328,9 +319,10 @@
 			 * @property {string} [options.positionTo="window"] Sets the element relative to which the popup will be centered.
 			 * @member ns.widget.Popup
 			 * @static
+			 * @private
 			 */
 			defaults = objectUtils.merge({}, BasePopup.defaults, {
-				arrow:"l,t,r,b",
+				arrow: "l,t,r,b",
 				positionTo: "window"
 			}),
 
@@ -362,7 +354,7 @@
 			positionType = {
 				WINDOW: "window",
 				ORIGIN: "origin"
-			};
+			},
 
 			prototype = new BasePopup();
 
@@ -380,19 +372,20 @@
 			 */
 			prototype._build = function (element) {
 				var self = this,
-					options = this.options,
-					fragment = document.createDocumentFragment(),
+					ui = self._ui,
 					wrapper,
 					arrow;
 
-				BasePopup.prototype._build.call(this, element);
+				if (typeof BasePopupPrototype._build === "function") {
+					BasePopupPrototype._build.call(self, element);
+				}
 
 				// create wrapper
 				wrapper = document.createElement("div");
 				wrapper.classList.add(classes.wrapper);
-				self.wrapper = wrapper;
+				ui.wrapper = wrapper;
 
-				[].forEach.call([].slice.call(element.children), function(child) {
+				[].forEach.call(element.children, function(child) {
 					wrapper.appendChild(child);
 				});
 
@@ -400,14 +393,10 @@
 				arrow = document.createElement("div");
 				arrow.appendChild(document.createElement("span"));
 				arrow.classList.add(classes.arrow);
-				self.arrow = arrow;
+				ui.arrow = arrow;
 
 				element.appendChild(arrow);
 				element.appendChild(wrapper);
-
-				self.header = element.querySelector("." + classes.header);
-				self.footer = element.querySelector("." + classes.footer);
-				self.content = element.querySelector("." + classes.content);
 
 				return element;
 			};
@@ -420,6 +409,16 @@
 			 * @member ns.widget.mobile.Popup
 			 */
 			prototype._init = function(element) {
+				var self = this,
+					ui = self._ui;
+
+				if (typeof BasePopupPrototype._init === "function") {
+					BasePopupPrototype._init.call(this, element);
+				}
+
+				ui.header = element.querySelector("." + classes.header);
+				ui.footer = element.querySelector("." + classes.footer);
+				ui.content = element.querySelector("." + classes.content);
 			};
 
 			prototype._setActive = function (active) {
@@ -434,83 +433,96 @@
 			};
 
 			prototype._reposition = function(options) {
-				var element = this.element;
+				var self = this,
+					element = self.element,
+					elementClassList = element.classList;
 
-				options = {
-					x: options.x,
-					y: options.y,
-					positionTo: options.positionTo
-				};
+				options = objectUtils.copy(options);
 
-				this.trigger(events.beforeposition, null, false);
+				self.trigger(events.beforeposition, null, false);
 
-				element.classList.add(classes.build);
+				elementClassList.add(classes.build);
 
-				this._layout();
-				this._placementCoords(options);
+				self._layout();
+				self._placementCoords(options);
 
-				element.classList.remove(classes.build);
+				elementClassList.remove(classes.build);
 
 			};
 
-			function findBestPosition(clickedElement) {
-				var arrow = this.options.arrow,
-					element = this.element,
-					windowSize = {w: window.innerWidth, h: window.innerHeight},
-					popupSize = {w: element.offsetWidth, h: element.offsetHeight},
+			function findBestPosition(self, clickedElement) {
+				var arrow = self.options.arrow,
+					element = self.element,
+					windowWidth = window.innerWidth,
+					windowHeight = window.innerHeight,
+					popupWidth = element.offsetWidth,
+					popupHeight = element.offsetHeight,
 					clickElementRect = clickedElement.getBoundingClientRect(),
-					clickElementOffset = {
-						x: clickElementRect.left,
-						y: clickElementRect.top,
-						w: Math.min(clickElementRect.right - clickElementRect.left, windowSize.w - clickElementRect.left),
-						h: Math.min(clickElementRect.bottom - clickElementRect.top, windowSize.h - clickElementRect.top)
-					},
+					clickElementOffsetX = clickElementRect.left,
+					clickElementOffsetY = clickElementRect.top,
+					clickElementOffsetWidth = Math.min(clickElementRect.right - clickElementOffsetX,
+							windowWidth - clickElementOffsetX),
+					clickElementOffsetHeight = Math.min(clickElementRect.bottom - clickElementOffsetY,
+							windowHeight - clickElementOffsetY),
 					params = {
-						"l": {dir: "l", fixedField: "w", fixedPositionField: "x", fixedPositionFactor: -1, size: popupSize.w, max: clickElementOffset.x},
-						"r": {dir: "r", fixedField: "w", fixedPositionField: "x", fixedPositionFactor: 1, size: popupSize.w, max: windowSize.w - clickElementOffset.x - clickElementOffset.w},
-						"b": {dir: "b", fixedField: "h", fixedPositionField: "y", fixedPositionFactor: 1, size: popupSize.h, max: windowSize.h - clickElementOffset.y - clickElementOffset.h},
-						"t": {dir: "t", fixedField: "h", fixedPositionField: "y", fixedPositionFactor: -1, size: popupSize.h, max: clickElementOffset.y}
+						"l": {dir: "l", fixedField: "w", fixedPositionField: "x",
+							fixedPositionFactor: -1, size: popupWidth, max: clickElementOffsetX},
+						"r": {dir: "r", fixedField: "w", fixedPositionField: "x",
+							fixedPositionFactor: 1, size: popupWidth, max: windowWidth - clickElementOffsetX - clickElementOffsetWidth},
+						"b": {dir: "b", fixedField: "h", fixedPositionField: "y",
+							fixedPositionFactor: 1, size: popupHeight, max: popupHeight - clickElementOffsetY - clickElementOffsetHeight},
+						"t": {dir: "t", fixedField: "h", fixedPositionField: "y",
+							fixedPositionFactor: -1, size: popupHeight, max: clickElementOffsetY}
 					},
-					bestDirection = params["t"],
+					bestDirection = params.t,
 					direction,
 					bestOffsetInfo;
 
 				arrow.split(",").forEach(function(key){
-					if (direction) {
-						return;
-					}
-
-					if ( params[key].size < params[key].max ) {
-						direction = params[key];
-					} else if ( params[key].max > bestDirection.max ) {
-						bestDirection = params[key];
+					var param = params[key],
+						paramMax = param.max;
+					if (!direction) {
+						if (param.size < paramMax) {
+							direction = param;
+						} else if (paramMax > bestDirection.max) {
+							bestDirection = param;
+						}
 					}
 				});
 
 				if ( !direction ) {
 					direction = bestDirection;
-					popupSize[direction.fixedField] = direction.max;
+					if (direction.fixedField === "w") {
+						popupWidth = direction.max;
+					} else {
+						popupHeight = direction.max;
+					}
 				}
 
 				bestOffsetInfo = {
-					x: clickElementOffset.x + clickElementOffset.w/2 - popupSize.w/2,
-					y: clickElementOffset.y + clickElementOffset.h/2 - popupSize.h/2,
-					w: popupSize.w,
-					h: popupSize.h,
+					x: clickElementOffsetX + clickElementOffsetWidth / 2 - popupWidth / 2,
+					y: clickElementOffsetY + clickElementOffsetHeight / 2 - popupHeight / 2,
+					w: popupWidth,
+					h: popupHeight,
 					dir: direction.dir
 				};
 
-				bestOffsetInfo[direction.fixedPositionField] += (popupSize[direction.fixedField]/2 + clickElementOffset[direction.fixedField]/2) * direction.fixedPositionFactor;
+				bestOffsetInfo[direction.fixedPositionField] +=
+					(direction.fixedField === "w" ?
+						popupWidth + clickElementOffsetWidth * direction.fixedPositionFactor :
+						popupHeight + clickElementOffsetHeight * direction.fixedPositionFactor)
+						/ 2;
 
 				return bestOffsetInfo;
 			}
 
-			function adjustedPositionAndPlacementArrow(bestRect, x, y) {
-				var element = this.element,
-					wrapper = this.wrapper,
-					arrow = this.arrow,
+			function adjustedPositionAndPlacementArrow(self, bestRectangle, x, y) {
+				var ui = self._ui,
+					wrapper = ui.wrapper,
+					arrow = ui.arrow,
 					arrowStyle = arrow.style,
-					windowSize = {w: window.innerWidth, h: window.innerHeight},
+					windowWidth = window.innerWidth,
+					windowHeight = window.innerHeight,
 					wrapperRect = wrapper.getBoundingClientRect(),
 					arrowHalfWidth = arrow.offsetWidth/2,
 					params = {
@@ -519,37 +531,38 @@
 						"l": {pos: y, min: "top", max: "bottom", posField: "y", valField: "h", styleField: "top"},
 						"r": {pos: y, min: "top", max: "bottom", posField: "y", valField: "h", styleField: "top"}
 					},
-					p = params[bestRect.dir],
+					param = params[bestRectangle.dir],
 					surplus;
 
 				wrapperRect = {
-					left: wrapperRect.left + bestRect.x,
-					right: wrapperRect.right + bestRect.x,
-					top: wrapperRect.top + bestRect.y,
-					bottom: wrapperRect.bottom += bestRect.y
+					left: wrapperRect.left + bestRectangle.x,
+					right: wrapperRect.right + bestRectangle.x,
+					top: wrapperRect.top + bestRectangle.y,
+					bottom: wrapperRect.bottom += bestRectangle.y
 				};
 
-				if (wrapperRect[p.min] > p.pos - arrowHalfWidth) {
-					surplus = bestRect[p.posField];
+				if (wrapperRect[param.min] > param.pos - arrowHalfWidth) {
+					surplus = bestRectangle[param.posField];
 					if (surplus > 0) {
-						bestRect[p.posField] = Math.max(p.pos - arrowHalfWidth, 0);
-						p.pos = bestRect[p.posField] + arrowHalfWidth;
+						bestRectangle[param.posField] = Math.max(param.pos - arrowHalfWidth, 0);
+						param.pos = bestRectangle[param.posField] + arrowHalfWidth;
 					} else {
-						p.pos = wrapperRect[p.min] + arrowHalfWidth;
+						param.pos = wrapperRect[param.min] + arrowHalfWidth;
 					}
-				} else if (wrapperRect[p.max] < p.pos + arrowHalfWidth) {
-					surplus = windowSize[p.valField] - (bestRect[p.posField] + bestRect[p.valField]);
+				} else if (wrapperRect[param.max] < param.pos + arrowHalfWidth) {
+					surplus = (param.valField === "w" ? windowWidth : windowHeight)
+						- (bestRectangle[param.posField] + bestRectangle[param.valField]);
 					if (surplus > 0) {
-						bestRect[p.posField] += Math.min(surplus, (p.pos + arrowHalfWidth) - wrapperRect[p.max]);
-						p.pos = bestRect[p.posField] + bestRect[p.valField] - arrowHalfWidth;
+						bestRectangle[param.posField] += Math.min(surplus, (param.pos + arrowHalfWidth) - wrapperRect[param.max]);
+						param.pos = bestRectangle[param.posField] + bestRectangle[param.valField] - arrowHalfWidth;
 					} else {
-						p.pos = wrapperRect[p.max] - arrowHalfWidth;
+						param.pos = wrapperRect[param.max] - arrowHalfWidth;
 					}
 				}
 
-				arrowStyle[p.styleField] = (p.pos - arrowHalfWidth - bestRect[p.posField]) + "px";
+				arrowStyle[param.styleField] = (param.pos - arrowHalfWidth - bestRectangle[param.posField]) + "px";
 
-				return bestRect;
+				return bestRectangle;
 			}
 
 			prototype._placementCoords = function(options) {
@@ -558,9 +571,8 @@
 					x = options.x,
 					y = options.y,
 					element = self.element,
-					content = self.content,
 					elementStyle = element.style,
-					contentStyle = content.style,
+					elementClassList = element.classList,
 					elementWidth,
 					elementHeight,
 					clickedElement,
@@ -580,14 +592,14 @@
 
 				if (clickedElement) {
 
-					element.classList.add(classes.context);
+					elementClassList.add(classes.context);
 
 					elementHeight = element.offsetHeight;
-					bestRect = findBestPosition.call(this, clickedElement);
+					bestRect = findBestPosition(this, clickedElement);
 
-					element.classList.add(classes.arrowDir + bestRect.dir);
+					elementClassList.add(classes.arrowDir + bestRect.dir);
 
-					bestRect = adjustedPositionAndPlacementArrow.call(this, bestRect, x, y);
+					bestRect = adjustedPositionAndPlacementArrow(this, bestRect, x, y);
 
 					if (elementHeight > bestRect.h) {
 						this._layout(bestRect.h);
@@ -612,37 +624,37 @@
 					element = self.element,
 					content = self.content,
 					contentStyle = content.style,
-					contentHeight = 0,
-					elementOffsetHeight = 0;
+					contentHeight,
+					elementOffsetHeight;
 
-				if (!content) {
-					return;
-				}
+				if (content) {
 
-				if (contentStyle.height) {
-					contentStyle.height = "";
-					contentStyle.minHeight = "";
-				}
+					if (contentStyle.height) {
+						contentStyle.height = "";
+						contentStyle.minHeight = "";
+					}
 
-				maxHeight = maxHeight || window.innerHeight;
+					maxHeight = maxHeight || window.innerHeight;
 
-				contentHeight = content.offsetHeight;
-				elementOffsetHeight = element.offsetHeight;
+					contentHeight = content.offsetHeight;
+					elementOffsetHeight = element.offsetHeight;
 
-				if ( elementOffsetHeight > maxHeight ) {
-					contentHeight -= (elementOffsetHeight - maxHeight);
-					contentStyle.height = contentHeight + "px";
-					contentStyle.minHeight = contentHeight + "px";
+					if (elementOffsetHeight > maxHeight) {
+						contentHeight -= (elementOffsetHeight - maxHeight);
+						contentStyle.height = contentHeight + "px";
+						contentStyle.minHeight = contentHeight + "px";
+					}
 				}
 
 			};
 
 			prototype._onHide = function() {
-				var element = this.element,
-					content = this.content,
-					arrow = this.arrow;
+				var ui = this._ui,
+					element = this.element,
+					content = ui.content,
+					arrow = ui.arrow;
 
-				BasePopup.prototype._onHide.call(this);
+				BasePopupPrototype._onHide.call(this);
 
 				element.classList.remove(classes.context);
 				["l", "r", "b", "t"].forEach(function(key) {
@@ -656,24 +668,25 @@
 
 			prototype._destroy = function() {
 				var element = this.element,
-					wrapper = this.wrapper;
+					ui = this._ui,
+					wrapper = ui.wrapper;
 
-				BasePopup.prototype._destroy.call(this);
+				BasePopupPrototype._destroy.call(this);
 
-				[].forEach.call([].slice.call(wrapper.children), function(child) {
+				[].forEach.call(wrapper.children, function(child) {
 					element.appendChild(child);
 				});
 
 				wrapper.parentNode.removeChild(wrapper);
 
-				this.wrapper = null;
-				this.arrow = null;
+				ui.wrapper = null;
+				ui.arrow = null;
 			};
 
 			prototype._show = function(options) {
 				var openOptions = objectUtils.merge({}, options);
 				this._reposition( openOptions );
-				BasePopup.prototype._show.call(this, openOptions);
+				BasePopupPrototype._show.call(this, openOptions);
 			};
 
 			prototype.reposition = function(options/*{x,y,positionTo}*/) {
