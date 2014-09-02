@@ -20,7 +20,7 @@
 </head>
 
 <body class="ui-pagecontainer" data-background="img/bg.jpg">
-<div class="ui-page" id="pageTestVirtualList" data-role="page">
+<div class="ui-page" id="main" data-role="page">
 	<header class="ui-header" data-role="header">
 		<h2 class="ui-title">Tizen Advanced UI TV Demo</h2>
 	</header>
@@ -104,5 +104,20 @@
 		</div>
 	</div>
 </div>
+<script>
+	document.addEventListener("tizenhwkey" , function( event ) {
+		var tizen = window.tizen,
+			application = tizen.application;
+		if (event.keyName === "back"
+				&& tizen
+				&& application) {
+			if (tau.activePage.id === "main") {
+				application.getCurrentApplication().exit();
+			} else {
+				window.history.back();
+			}
+		}
+	});
+</script>
 </body>
 </html>

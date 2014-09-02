@@ -20,7 +20,7 @@
 </head>
 
 <body class="ui-pagecontainer" data-background="../img/bg.jpg">
-<div class="ui-page ui-page-active" id="main" data-role="page">
+<div class="ui-page ui-page-active" id="main-drawer" data-role="page">
 	<div data-role="drawer" data-position="left" id="left-drawer"
 		 data-width="301" data-close-on-click="false" data-overlay="false">
 		<a class="ui-btn ui-drawer-close"
@@ -282,7 +282,7 @@
 	<script>
 
 		(function () {
-			var mainPage = document.getElementById("main"),
+			var mainPage = document.getElementById("main-drawer"),
 					closeButton = document.getElementById("close"),
 					drawerElement = document.getElementById("left-drawer"),
 					drawer = tau.widget.Drawer(drawerElement);
