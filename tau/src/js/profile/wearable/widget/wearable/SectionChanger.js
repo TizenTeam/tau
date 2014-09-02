@@ -36,7 +36,7 @@
  *                     <section>
  *                         <h3>LEFT1 PAGE</h3>
  *                     </section>
- *                     <section class="section-active">
+ *                     <section class="ui-section-active">
  *                         <h3>MAIN PAGE</h3>
  *                     </section>
  *                     <section>
@@ -142,12 +142,12 @@
 					 * @property {boolean} [options.circular=false] Presents the sections in a circular scroll fashion.
 					 * @property {boolean} [options.useBouncingEffect=false] Shows a scroll end effect on the scroll edge.
 					 * @property {string} [options.items="section"] Defines the section element selector.
-					 * @property {string} [options.activeClass="section-active"] Specifies the CSS classes which define the active section element. Add the specified class (section-active) to a *section* element to indicate which section must be shown first. By default, the first section is shown first.
+					 * @property {string} [options.activeClass="ui-section-active"] Specifies the CSS classes which define the active section element. Add the specified class (ui-section-active) to a *section* element to indicate which section must be shown first. By default, the first section is shown first.
 					 * @member ns.widget.wearable.SectionChanger
 					 */
 					var options = this.options;
 					options.items = "section";
-					options.activeClass = "section-active";
+					options.activeClass = "ui-section-active";
 					options.circular = false;
 					options.animate = true;
 					options.animateDuration = 100;
