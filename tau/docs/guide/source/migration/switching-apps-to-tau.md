@@ -1,10 +1,14 @@
 # Switching your Apps to TAU
 
+It's highly recommendable to use our framework as it lets to optimize applications to the next level.
+This is a major fact for clients to be interested in applications.
+
+
 ## Basics
 
 ### How does the structure of folders changed
 In Previous version of library, default folder structure are:
-Structure of library tizen-web-ui-fw is like below:
+Structure of library `tizen-web-ui-fw` is like below:
 
 ```
 tizen-web-ui-fw/
@@ -46,15 +50,16 @@ tau/mobile/
 ```
 
 TAU library with minified version is located in folder `mobile/js`. Default
- theme TAU is located in folder `mobile/theme`. TAU are loaded the same way like
- previous version from device location `/usr/share/`.
+TAU theme is located in folder `mobile/theme`.
+TAU are loaded the same way like previous version from device location
+`/usr/share/`.
 
 ###Default structure of application
 
-When you build some application in Tizen IDE, application have folder structure
- like below, all files are grouped in seperated folders.
+When you build some application in Tizen IDE, application has folder structure
+like below, all files are grouped in seperated folders.
 Folder js is destination for application main files. Other files like images,
- templates or styles are collected in separated folders:
+templates or styles are collected in separated folders:
 
 ```
 
@@ -71,12 +76,10 @@ Application/
 
 ```
 
-In new version structure of application as similar to previous. The only thing
- is changed is location to tizen library.
-Library TAU is located in the folder lib with all needed files.
-Files `config.xml` and `index.html` are in the main folder of application.
- Recommended structure for application is below:
-
+In new version structure of the application structure in compare to previous,
+only location of tizen library changed. TAU library is located in the folder lib
+with all needed files. Files `config.xml` and `index.html` lie in the main
+folder of application. Recommended structure is below:
 ```
 
 Application/
@@ -94,12 +97,11 @@ Application/
 ### Build app with library TAU
 
 
-### Change existing app to app with library TAU for example Single Page
- Application, from Tizen SDK
+### Change existing app to app with library TAU for example Single Page Application, from Tizen SDK
 
-If you want use the TAU library in existing app, you should add folder with
- these library and you should change source path to library from
- `tizen-web-ui-fw.js` to `tau.js` and also path to `jquery.js` like below:
+If you want use the TAU library in existing app, you should add a folder library
+files and you should change source path to library from `tizen-web-ui-fw.js` to
+`tau.js` and also path to `jquery.js` like below:
 
 Before:
 ``` mobile-wearable-tv
@@ -140,25 +142,25 @@ After:
 
 ```
 
-Adding this style css is not required, because if you do not add css library,
- the TAU loads the `tau.css` automatically.
+Adding this css style is not required, because if you do not add css library, the framework loads the `tau.css` automatically.
 
 
 ## Stay with jQuery Mobile syntax
 
-Using TAU doesn't mean that you need to resign from jQuery Mobile syntax.
- TAU supports jQuery syntax and lets you to define widgets in the same way.
+Using TAU doesn't mean that you need to resign from jQuery Mobile syntax. Our Library supports
+jQuery syntax and lets you to define widgets in the same way. Regarding the API please refer to
+[jQuery UI API](http://api.jqueryui.com/).
 
 ### Supported components and features
 
 DOM structure for widgets is same as widgets defined by jQuery.
-TAU widgets can be used like in jQuery Mobile. Currently in TAU there is 70%
- widgets, with same API and behavior like in jQuery Mobile.
+Framework widgets can be used like in jQuery Mobile. Currently in TAU there is 70% widgets
+with same API and behaviour like in jQuery Mobile.
 
 
 List of the common widgets for both frameworks:
 
-1. Button Widget
+1. [Button Widget](widget/button.html)
 ```mobile
     <div class="ui-page">
         <div class="ui-content" data-role="content">
@@ -170,7 +172,7 @@ List of the common widgets for both frameworks:
 </script>
 ```
 
-2. Checkboxradio Widget
+2. [Checkboxradio Widget](widget/checkboxradio.html)
 ```mobile
     <div class="ui-page">
         <div class="ui-content" data-role="content">
@@ -183,7 +185,7 @@ List of the common widgets for both frameworks:
 </script>
 ```
 
-3. Collapsible Widget
+3. [Collapsible Widget](widget/callapsible.html)
 ```mobile
     <div class="ui-page">
         <div data-role="header">
@@ -198,7 +200,7 @@ List of the common widgets for both frameworks:
 </script>
 ```
 
-4. Collapsibleset Widget
+4. [Collapsibleset Widget](widget/collapsibleset.html)
 ```mobile
     <div class="ui-page">
         <div class="ui-content" data-role="content">
@@ -219,7 +221,7 @@ List of the common widgets for both frameworks:
 </script>
 ```
 
-5. Controlgroup Widget
+5. [Controlgroup Widget](widget/controlgroup.html)
 ```mobile
     <div class="ui-page">
         <div class="ui-content" data-role="content">
@@ -235,20 +237,23 @@ List of the common widgets for both frameworks:
 </script>
 ```
 
-6. Flipswitch Widget (in TAU framework its implemented as a part of Slider 
-widget)
+7. [Flipswitch Widget](widget/slider.html) (in TAU framework its implemented as a part of Slider widget)
 ```mobile
-<label for="flip-3">2. Text toggle switch:</label>
-<select name="flip-3" id="flip-3" data-role="slider">
-	<option value="nope">Nope</option>
-	<option value="yep">Yep</option>
-</select>
-<script>
-    $('#lip-3').slider();
-</script>
+    <div class="ui-page">
+        <div class="ui-content" data-role="content">
+            <label for="flip-3">2. Text toggle switch:</label>
+            <select name="flip-3" id="flip-3" data-role="slider">
+                <option value="nope">Nope</option>
+                <option value="yep">Yep</option>
+            </select>
+        </div>
+    </div>
+    <script>
+        $('#lip-3').slider();
+    </script>
 ```
 
-7. Footer Widget (it's a part of page widget)
+8. [Footer Widget](widget/page.html) (it's a part of page widget)
 ```mobile
     <div class="ui-page">
         <div data-role="footer">
@@ -257,7 +262,7 @@ widget)
     </div>
 ```
 
-8. Header Widget (it's a part of page widget)
+9. [Header Widget](widget/page.html) (it's a part of page widget)
 ```mobile
     <div class="ui-page">
         <div data-role="header">
@@ -266,7 +271,7 @@ widget)
     </div>
 ```
 
-9. Listview Widget
+10. [Listview Widget](widget/listview.html)
 ```mobile
     <div class="ui-page">
         <div class="ui-content" data-role="content">
@@ -283,7 +288,7 @@ widget)
 </script>
 ```
 
-10. Navbar Widget
+11. [Navbar Widget](widget/Navbar.html)
 ```mobile
     <div class="ui-page">
         <div class="ui-header" data-role="header">
@@ -300,7 +305,7 @@ widget)
 </script>
 ```
 
-11. Page Widget
+13. [Page Widget](widget/page.html)
 ```mobile
     <div id="myPage">Content</div>
 <script>
@@ -308,7 +313,7 @@ widget)
 </script>
 ```
 
-12. Popup Widget
+14. [Popup Widget](widget/popup.html)
 ```mobile
     <div class="ui-page">
         <div class="ui-content" data-role="content">
@@ -323,7 +328,7 @@ widget)
 </script>
 ```
 
-13. SelectMenu Widget
+15. [SelectMenu Widget](widget/selectmenu.html)
 ```mobile
     <div class="ui-page">
         <div class="ui-content" data-role="content">
@@ -338,7 +343,7 @@ widget)
 </script>
 ```
 
-14. Slider Widget
+16. [Slider Widget](widget/slider.html)
 ```mobile
     <div class="ui-page">
         <div class="ui-content" data-role="content">
@@ -353,7 +358,7 @@ widget)
 </script>
 ```
 
-15. Textinput Widget
+17. [Textinput Widget](widget/textinput.html)
 ```mobile
     <div class="ui-page" id="popupwindow-demo">
         <div class="ui-content" data-role="content">
@@ -368,7 +373,7 @@ widget)
 </script>
 ```
 
-16. Tabbar Widget
+18. [Toolbar Widget](widget/toolbar)
 ```mobile
     <div class="ui-page">
         <div class="ui-header">
@@ -384,13 +389,13 @@ widget)
             This page has three tabs in the header.
         </div>
     </div>
-<script>
-    $("#ready-for-tab-bar").tabbar();
-</script>
+    <script>
+        $("#ready-for-tab-bar").tabbar();
+    </script>
 ```
 
-When jQuery is loaded then it's possible to control widgets behavior by calling
- public methods. Public methods can be called like in jQuery mobile.
+When jQuery is loaded then it's possible to control their behaviour by calling public methods.
+Public methods can be called like in jQuery mobile.
 
 For example let assume that we have popup widget and we want to close with
  jQuery syntax.
@@ -423,11 +428,11 @@ For example let assume that we have popup widget and we want to close with
 
 ### Framework's jQM layer explained
 
-TAU framework contain jqm module which works as a proxy between TAU framework and jQuery Mobile.
+TAU framework contains jqm module which works as a proxy between TAU framework and jQuery Mobile.
 It contains eight sub-modules:
 
 1. `defaults` - add TAU framework properties to the jQuery object
-2. `widget` - register tau widgets in jQUery
+2. `widget` - register tau widgets in jQuery
 3. `engine` - maps engine object from TAU namespace to jQuery Mobile namespace
 4. `event` - proxy events between frameworks
 5. `loader` - loader widget API
@@ -438,20 +443,27 @@ It contains eight sub-modules:
 
 ## Moving from jQuery Mobile to pure TAU
 
-It's very easy to move form jQuery Mobile to pure TAU. First of all,
-there is no need to changing the DOM structure of the application.
+It's very easy to move from jQuery Mobile to pure TAU. First of all,
+there is no need of changing the DOM structure of the application.
 
-To move away from jQuery you may use the TAU constructors for widgets (examples
- in Supported components and features chapter or below).
-TAU library doesn't need jQuery to be included if you have only used it for
- including Web UI widgets you may now remove it completely.
+To move away from jQuery you may use the TAU constructors for widgets (examples in `supported` components and features chapter or below).
+TAU library doesn't need jQuery to be included if you have only used it for including Web UI widgets you may now remove it completely.
 
 Pure TAU which is similar to jQuery Mobile has a wide support for the additional
  API.
 
-This APIs are highly optimized for Webkit engine. Thanks to this its a way faster.
+This APIs are highly optimized for Webkit engine. This ensures that the library runs as fast as possible.
 Which is very important for applications written for smaller devices.
 Handy methods are located in utils, events, theme objects.
+
+### Why?
+
+It's recommended to switch intro pure TAU framework because:
+
+1. TAU Is optimize for WebKit engine.
+2. Contains only the code written for WebKit. There is no code dependent on IE and Geco.
+3. Thanks to the pre-build phase the applications start faster.
+4. Has a powerful APIs to handle DOM and Events.
 
 ### Handling syntax differences
 
@@ -557,3 +569,7 @@ Events object contains:
 8. `virtual mouse events` - reimplementation of jQuery Mobile virtual mouse events
 
 ## Keeping old Web UI Framework
+
+Old framework `Web UI Framework` is deprecated. Currently its provided on the devices and emulators but
+it will be removed anytime. If you still want to use it, then please make the copies of the framework.
+If the `Web UI Framework` will be removed then you will have to attach it manually.
