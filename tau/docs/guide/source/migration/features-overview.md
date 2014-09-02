@@ -81,7 +81,7 @@ jQuery syntax allows build widget on a collection of elements (or jQuery object)
 As the new UI Framework shares most of the widget with jQuery Mobile, developers expect to use the same API.
 And that's true. We have provided the same public API for all jQM-like widgets.
 
-Simple example below (using Popup).
+Simple example below (using `Popup` and `.open()` method).
 
 **jQuery**
 
@@ -99,6 +99,55 @@ instance.open();
 
 ## Framework flow
 
-!warning
-Section under development
-This section is not yet ready
+### First start
+
+In general we can separate few stages of framework start.
+
+1. Internal setup (including widget registration)
+1. Engine start and router initialization
+	1. First page initialization
+	1. Widget creation
+	1. Widget event binding
+
+In those stages engine does prepare all required widget definitions,
+ adds the core event listeners and afterwards opens first page and creates
+ all found widgets.
+
+More detailed description below:
+
+#### Internal setup
+
+In this stage we gain as much as possible information about the application to store it internally for faster lookups.
+Than we load the theme for the app if the CSS file was not included before.
+
+During initialization, the engine registers all widgets that use `engine.defineWidget()` and are shipped with
+ TAU library. You do not need to know the details how the whole process works. The most interesting
+ part is that after every widget registration a `widgetdefined` event is triggered on the `document` object.
+ While listening to that event you may know what widgets got loaded into the engine (this could be helpful when defining
+ your own widgets).
+
+#### Engine start and router initialization
+
+At first the engine starts by triggering `tauinit` event on `document` object.
+This event is responsible for many processes inside the library, one of the most important is the start of jQM layer.
+
+When using TAU with jQuery we do initialize the jQM layer (jQuery Mobile layer) for backward compatibility.
+There is a lot going on underneath including registering widgets inside jQuery namespace and initialization of the core
+ objects of jQM. Those operations take much time (when looking on the general TAU launch time) and that's why we
+ encourage you to use [pure TAU version](./switching-apps-to-tau.html#Moving-from-jQuery-Mobile-to-pure-TAU) in your
+ apps. The most important thing here is to mention that jQM layer triggers `mobileinit` event (which is very important
+ for all apps that stay with jQuery Mobile).
+
+Next comes the `beforerouterinit` event triggered right before the router starts processing.
+The router is one of the core components in TAU framework. It is responsible for changing `Pages` and handling `Popups`
+ and `Dialogs` routines. Just after engine start, router tries to find the first page to show. For the first page to
+ show Router component checks if it requires building (as it may not because of `TAU Builder`). In case something needs
+ to be build engine travels across the whole page in search of widgets and build them in tree order.
+
+Before each widget build a `[widgetname]beforecreate` event is triggered (eg. `buttonbeforecreate` in case of `Button`
+ widget).
+Later few other events appear, in following order:
+* `widgetbuilt` and `[widgetname]create` - after widget build phase (whole DOM should be ready)
+* `widgetbound` - after widget binding phase (widget event listeners are attached)
+
+In case of events mentioned above, you will get a widget instance reference as data inside the `Event` object.
