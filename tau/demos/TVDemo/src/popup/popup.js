@@ -11,8 +11,6 @@
 		document.getElementById('checkPopup-close').addEventListener('vclick', closePopup, false);
 		document.getElementById('listPopup-cancel').addEventListener('vclick', closePopup, false);
 		document.getElementById('listNoTitlePopup-cancel').addEventListener('vclick', closePopup, false);
-		document.querySelector('#listNoBtnPopup .ui-listview').addEventListener('vclick', closePopup, false);
-		document.querySelector('#listNoTitleNoBtnPopup .ui-listview').addEventListener('vclick', closePopup, false);
 	}, false);
 
 }());

@@ -127,6 +127,7 @@ Normal Popup
 		width: 100%;
 		height: @fixed_popup_footer_height;
 		background-color: @color_popup_bg;
+		margin: 0;
 
 		&.ui-grid-col-2 {
 			display: inline-flex;
@@ -147,15 +148,13 @@ Normal Popup
 			font-size: @fixed_popup_footer_btn_font_size;
 			width: 216 * @virtual_px;
 			height: 70 * @virtual_px;
+			padding-top: 21 * @virtual_px;
+			padding-bottom: 21 * @virtual_px;
 			margin-left: auto;
 			margin-right: auto;
 
 			.ui-btn-inner {
 				margin: 0;
-
-				.ui-btn-text {
-					line-height: 70 * @virtual_px;
-				}
 			}
 
 			&.ui-btn-up-s, &.ui-btn-hover-s {

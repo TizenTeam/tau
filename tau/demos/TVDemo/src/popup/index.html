@@ -36,8 +36,6 @@
 			<li><a href="#listPopup" class="ui-btn" data-rel="popup">List
 			popup1</a></li>
 			<li><a href="#listNoTitlePopup" class="ui-btn" data-rel="popup">List popup2</a></li>
-			<li><a href="#listNoBtnPopup" class="ui-btn" data-rel="popup">List popup3</a></li>
-			<li><a href="#listNoTitleNoBtnPopup" class="ui-btn" data-rel="popup">List popup4</a></li>
 		</ul>
 	</div>
 
@@ -73,34 +71,24 @@
 		<div style="overflow-y:scroll;">
 			<ul class="ui-listview">
 				<li class="li-has-radio">
-					<label>
-						Tone 1
-						<input type="radio" name="radioset" id="radio-1" checked="checked" />
-					</label>
+					<input type="radio" name="radioset" id="radio-1" checked="checked" />
+					<label for="radio-1"> Tone 1 </label>
 				</li>
 				<li class="li-has-radio">
-					<label>
-						Tone 2
-						<input type="radio" name="radioset" id="radio-2" />
-					</label>
+					<input type="radio" name="radioset" id="radio-2" />
+					<label for="radio-2"> Tone 2 </label>
 				</li>
 				<li class="li-has-radio">
-					<label>
-						Tone 3
-						<input type="radio" name="radioset" id="radio-3" />
-					</label>
+					<input type="radio" name="radioset" id="radio-3" />
+					<label for="radio-3"> Tone 3 </label>
 				</li>
 				<li class="li-has-radio">
-					<label>
-						Tone 4
-						<input type="radio" name="radioset" id="radio-4" />
-					</label>
+					<input type="radio" name="radioset" id="radio-4" />
+					<label for="radio-4"> Tone 4 </label>
 				</li>
 				<li class="li-has-radio">
-					<label>
-						Tone 5
-						<input type="radio" name="radioset" id="radio-5" />
-					</label>
+					<input type="radio" name="radioset" id="radio-5" />
+					<label for="radio-5"> Tone 5 </label>
 				</li>
 			</ul>
 		</div>
@@ -114,46 +102,32 @@
 		<div style="overflow-y:scroll;">
 			<ul class="ui-listview">
 				<li class="li-has-checkbox">
-					<label>
-						Monday
-						<input type="checkbox"/>
-					</label>
+					<input id="week-1" type="checkbox"/>
+					<label for="week-1">Monday</label>
 				</li>
 				<li class="li-has-checkbox">
-					<label>
-						Tuesday
-						<input type="checkbox"/>
-					</label>
+					<input id="week-2" type="checkbox"/>
+					<label for="week-2">Tuesday</label>
 				</li>
 				<li class="li-has-checkbox">
-					<label>
-						Wednesday
-						<input type="checkbox"/>
-					</label>
+					<input id="week-3" type="checkbox"/>
+					<label for="week-3">Wednesday</label>
 				</li>
 				<li class="li-has-checkbox">
-					<label>
-						Thursday
-						<input type="checkbox"/>
-					</label>
+					<input id="week-4" type="checkbox"/>
+					<label for="week-4">Thursday</label>
 				</li>
 				<li class="li-has-checkbox">
-					<label>
-						Friday
-						<input type="checkbox"/>
-					</label>
+					<input id="week-5" type="checkbox"/>
+					<label for="week-5">Friday</label>
 				</li>
 				<li class="li-has-checkbox">
-					<label>
-						Saturday
-						<input type="checkbox"/>
-					</label>
+					<input id="week-6" type="checkbox"/>
+					<label for="week-6">Saturday</label>
 				</li>
 				<li class="li-has-checkbox">
-					<label>
-						Sunday
-						<input type="checkbox"/>
-					</label>
+					<input id="week-7" type="checkbox"/>
+					<label for="week-7">Sunday</label>
 				</li>
 			</ul>
 		</div>
@@ -195,36 +169,9 @@
 		</footer>
 	</div>
 
-	<div id="listNoBtnPopup" data-role="popup" class="ui-popup-listview">
-		<header>Change to</header>
-		<div style="overflow-y:scroll;">
-			<ul class="ui-listview">
-				<li>Phone</li>
-				<li>Headset</li>
-				<li>Keyboard</li>
-				<li>Touchpad</li>
-				<li>Touchball</li>
-			</ul>
-		</div>
-	</div>
-
-	<div id="listNoTitleNoBtnPopup" data-role="popup" class="ui-popup-listview">
-		<div style="overflow-y:scroll;">
-			<ul class="ui-listview">
-				<li>Ringtones 1</li>
-				<li>Ringtones 2</li>
-				<li>Ringtones 3</li>
-				<li>Ringtones 4</li>
-				<li>Ringtones 5</li>
-				<li>Ringtones 6</li>
-				<li>Ringtones 7</li>
-			</ul>
-		</div>
-	</div>
-	
 	<div id="popupToast" data-role="popup" class="ui-popup-toast">
 		<div>
-			Saving contacts to sim on Samsung 
+			Saving contacts to sim on Samsung.
 		</div>
 	</div>
 	<script type="text/javascript" src="popup.js"></script>

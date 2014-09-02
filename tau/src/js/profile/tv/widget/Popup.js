@@ -58,7 +58,10 @@
 					footer: "footer"
 				},
 				prototype = new MobilePopup(),
-				FUNCTION_TYPE = "function";
+				FUNCTION_TYPE = "function",
+				KEY_CODES = {
+					enter: 13
+				};
 
 			Popup.events = MobilePopup.events;
 
@@ -204,12 +207,32 @@
 				});
 			};
 
+			function onKeydownClosing(self, event) {
+				var keyCode = event.keyCode;
+
+				if (keyCode === KEY_CODES.enter) {
+					self._onClickBound.call(self, event);
+				}
+			}
+
+			function closingOnKeydown(self, added) {
+				if (self.element.classList.contains(classes.toast)) {
+					if (added) {
+						self._onKeydownClosing = onKeydownClosing.bind(null, self);
+						document.addEventListener("keydown", self._onKeydownClosing, false);
+					} else {
+						document.removeEventListener("keydown", self._onKeydownClosing, false);
+					}
+				}
+			}
+
 			prototype._setKeyboardSupport = function (options) {
 				var self = this,
 					autoFocus = options.autofocus,
-					page = self._pageWidget;
+					page = self._pageWidget,
+					toastPopup = self.element.classList.contains(classes.toast);
 
-				if (self._getActiveLinks().length) {
+				if (self._getActiveLinks().length || toastPopup) {
 					// if there are links inside popup, we enable keyboard support on page
 					// and enable in popup
 					self.enableKeyboardSupport();
@@ -220,6 +243,8 @@
 						self.focus(autoFocus);
 					}
 				}
+
+				closingOnKeydown(self, true);
 			};
 
 			prototype.open = function(options) {
@@ -253,6 +278,8 @@
 
 					this.disableKeyboardSupport();
 					this._pageWidget.enableKeyboardSupport();
+
+					closingOnKeydown(this, false);
 				}
 			};
 

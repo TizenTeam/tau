@@ -1461,8 +1461,6 @@
 						if (uiArrow.style.display !== "none") {
 							correctionValue = this._setArrowPosition(arrowType, positionToElement, left, top, positionToElementOffset);
 						}
-					} else {
-						top = null;
 					}
 				} else {
 					// position to element which matches to options.positionTo selector
@@ -1472,7 +1470,7 @@
 					left = desired.left;
 				}
 
-				if ( top ) {
+				if (top) {
 					uiContainerStyle.left = left + correctionValue[0] + "px";
 					uiContainerStyle.top = top + correctionValue[1] + "px";
 				} else {
