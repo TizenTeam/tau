@@ -163,6 +163,7 @@
 			 * @member ns.widget.core.Drawer
 			 */
 			function onTransitionEnd(self) {
+				var _drawerOverlay = self._drawerOverlay;
 				// webkitTransitionEnd event handler
 				if (!self._isOpen) {
 					// not open -> transition -> open
@@ -170,8 +171,8 @@
 				} else {
 					// open -> transition -> close
 					self._isOpen = false;
-					if (self._drawerOverlay) {
-						self._drawerOverlay.style.visibility = "hidden";
+					if (_drawerOverlay) {
+						_drawerOverlay.style.visibility = "hidden";
 					}
 				}
 			}
@@ -232,7 +233,8 @@
 			 */
 			prototype._build = function (element) {
 				var self = this,
-					headerElement;
+					headerElement,
+					_drawerOverlay = self._drawerOverlay;
 				element.classList.add(classes.drawer);
 				self._drawerPage = selectors.getClosestByClass(element, this._pageSelector);
 				self._drawerPage.style.overflow = "hidden";
@@ -253,7 +255,9 @@
 
 				if (self.options.overlay) {
 					self._createOverlay(element);
-					self._drawerOverlay.style.visibility = "hidden";
+					if (_drawerOverlay) {
+						_drawerOverlay.style.visibility = "hidden";
+					}
 				}
 
 				return element;
@@ -315,7 +319,8 @@
 					headerHeight = self._headerElement && self._headerElement.offsetHeight,
 					drawerHeight = drawerElementParent.clientHeight,
 					drawerStyle = self.element.style,
-					overlayStyle = self._drawerOverlay && self._drawerOverlay.style;
+					_drawerOverlay = self._drawerOverlay,
+					overlayStyle = _drawerOverlay && _drawerOverlay.style;
 
 				drawerStyle.width = options.width + "px";
 				drawerStyle.height = drawerHeight + "px";
@@ -351,14 +356,16 @@
 			 * @member ns.widget.core.Drawer
 			 */
 			prototype._bindEvents = function() {
-				var self = this;
+				var self = this,
+					_drawerOverlay = self._drawerOverlay,
+					options = self.options;
 				self._onClickBound = onClick.bind(null, self);
 				self._onTransitionEndBound = onTransitionEnd.bind(null, self);
 				self._onResizeBound = onResize.bind(null, self);
 				self._onPageshowBound = onPageshow.bind(null, self);
 
-				if (self.options.overlay && self.options.closeOnClick) {
-					self._drawerOverlay.addEventListener("vclick", self._onClickBound, false);
+				if (options.overlay && options.closeOnClick && _drawerOverlay) {
+					_drawerOverlay.addEventListener("vclick", self._onClickBound, false);
 				}
 				self.element.addEventListener("webkitTransitionEnd", self._onTransitionEndBound, false);
 				self.element.addEventListener("transitionEnd", self._onTransitionEndBound, false);
@@ -383,9 +390,10 @@
 			prototype.open = function() {
 				var self = this,
 					options = self.options,
-					drawerClassList = self.element.classList;
-				if (self._drawerOverlay) {
-					self._drawerOverlay.style.visibility = "visible";
+					drawerClassList = self.element.classList,
+					_drawerOverlay = self._drawerOverlay;
+				if (_drawerOverlay) {
+					_drawerOverlay.style.visibility = "visible";
 				}
 				drawerClassList.remove(classes.close);
 				drawerClassList.add(classes.open);
@@ -421,8 +429,11 @@
 			 * @member ns.widget.core.Drawer
 			 */
 			prototype._destroy = function() {
-				var self = this;
-				self._drawerOverlay.removeEventListener("vclick", self._onClickBound, false);
+				var self = this,
+					_drawerOverlay = self._drawerOverlay;
+				if (_drawerOverlay) {
+					_drawerOverlay.removeEventListener("vclick", self._onClickBound, false);
+				}
 				self.element.removeEventListener("webkitTransitionEnd", self._onTransitionEndBound, false);
 				window.removeEventListener("resize", self._onResizeBound, false);
 				self._drawerPage.removeEventListener("pageshow", self._onPageshowBound, false);
