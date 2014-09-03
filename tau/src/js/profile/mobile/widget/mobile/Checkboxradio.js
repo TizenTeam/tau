@@ -339,7 +339,7 @@
 				label.setAttribute('data-bar', true);
 				engine.instanceWidget(label, "Button");
 				iconSpan = label.getElementsByClassName('ui-icon')[0];
-				iconSpanParent = iconSpan.parentElement;
+				iconSpanParent = iconSpan && iconSpan.parentElement;
 				iconWrapper = document.createElement("span");
 
 				if (iconSpan) {

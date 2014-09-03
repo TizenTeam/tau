@@ -41,9 +41,9 @@
 						view = content.children[0],
 						viewStyle = window.getComputedStyle(view);
 
-					equal(content.getAttribute('data-tau-bound'), 'true', 'Scrollview added');
+					equal(content.getAttribute('data-tau-bound'), 'Scrollview', 'Scrollview added');
 					ok(content.classList.contains("ui-scrollview-clip"), 'Scrollview created');
-					equal(clipStyle.getPropertyValue("overflow"), 'auto', 'Overflow auto');
+					equal(clipStyle.getPropertyValue("overflow"), 'scroll', 'Overflow is scroll');
 					equal(content.childNodes.length, 1, 'Content body wrapped in ui-scrollview-view');
 					view = content.children[0];
 					ok(view.classList.contains('ui-scrollview-view'), 'Content body wrapped in ui-scrollview-view');
@@ -62,8 +62,8 @@
 					var content = document.getElementById('content4'),
 						clipStyle = window.getComputedStyle(content);
 					equal(clipStyle.getPropertyValue("overflow-y"), "scroll", 'Added vertical scroll');
-					equal(clipStyle.getPropertyValue("overflow-x"), "auto", 'No horizontal scroll');
-					equal(clipStyle.getPropertyValue("overflow"), "auto", 'Main scroll not changed');
+					equal(clipStyle.getPropertyValue("overflow-x"), "hidden", 'No horizontal scroll');
+					equal(clipStyle.getPropertyValue("overflow"), "scroll", 'Main scroll not changed');
 				});
 
 				test('getScrolPosition', function () {

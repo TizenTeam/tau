@@ -1,11 +1,37 @@
-module("api.ej.widget.SplitView", {
+/*global jQuery, module, asyncTest, test, equal, deepEqual, ok, CustomEvent, start, stop */
+(function (tau) {
+	"use strict";
+
+	module("API widget.SplitView");
+
+	test("Static properties", 3, function () {
+		equal(typeof tau.widget.SplitView, 'function', 'Class tau.widget.SplitView exists');
+		equal(typeof tau.widget.mobile.SplitView, 'function', 'Class tau.widget.mobile.SplitView exists');
+		equal(typeof tau.widget.mobile.SplitView.classes, 'object', '.classes property exists');
 	});
-	test ( "API ej.widget.SplitView" , function () {
-		var widget;
-		equal(typeof ej, 'object', 'Class ej exists');
-		equal(typeof ej.widget, 'object', 'Class ej.widget exists');
-		equal(typeof ej.widget.SplitView, 'function', 'Class ej.widget.SplitView exists');
-		widget = new ej.widget.SplitView();
+
+	test("Static properties - classes property", 11, function () {
+		var classes = tau.widget.mobile.SplitView.classes,
+			classesThatShouldExist = {
+				uiPane :'ui-pane',
+				uiSplitView : 'ui-splitview',
+				uiDirectionHorizontal : 'ui-direction-horizontal',
+				uiDirectionVertical : 'ui-direction-vertical',
+				uiPageActive : 'ui-page-active',
+				uiSplitter : 'ui-spliter',
+				uiSplitterBar : 'ui-spliter-bar',
+				uiSplitterHandle : 'ui-spliter-handle',
+				uiSplitterActive : 'ui-spliter-active',
+				uiFixed : 'ui-fixed'
+			};
+		equal(Object.keys(classes).length, 10, '.classes property object contains 10 elements');
+		Object.keys(classesThatShouldExist).forEach(function (classKey) {
+			equal(classes[classKey], classesThatShouldExist[classKey], ".classes['" + classKey + "'] === '" + classesThatShouldExist[classKey] + "'");
+		});
+	});
+
+	test("Instance properties and methods", 19, function() {
+		var widget = new tau.widget.mobile.SplitView();
 
 		equal(typeof widget.configure, 'function', 'Method SplitView.configure exists');
 		equal(typeof widget.build, 'function', 'Method SplitView.build exists');
@@ -30,3 +56,4 @@ module("api.ej.widget.SplitView", {
 		equal(typeof widget.restore, 'function', 'Method SplitView.restore exists');
 		equal(typeof widget.maximize, 'function', 'Method SplitView.maximize exists');
 	});
+}(window.tau));

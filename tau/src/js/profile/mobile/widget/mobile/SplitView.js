@@ -480,9 +480,13 @@
 			 * @member ns.widget.mobile.SplitView
 			 */
 			prototype._refreshChildren = function() {
+				var instance;
 				this.panes.forEach(function(pane) {
 					if (DOM.getNSData(pane, 'role') === 'splitview') {
-						engine.getBinding(pane).refresh();
+						instance = engine.getBinding(pane);
+						if (instance) {
+							instance.refresh();
+						}
 					}
 				});
 			};
