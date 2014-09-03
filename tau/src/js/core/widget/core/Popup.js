@@ -264,16 +264,16 @@
  * Full list of available events is in [events list section](#events-list).
  *
  * @author Hyunkook Cho <hk0713.cho@samsung.com>
- * @class ns.widget.Popup
- * @extends ns.widget.BasePopup
+ * @class ns.widget.core.Popup
+ * @extends ns.widget.core.BasePopup
  */
 (function (window, document, ns) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../engine",
-			"../util/object",
+			"../../engine",
+			"../../util/object",
 			"./BasePopup"
 		],
 		function () {
@@ -281,31 +281,13 @@
 
 			var
 
-			BasePopup = ns.widget.BasePopup,
+			BasePopup = ns.widget.core.BasePopup,
 
 			BasePopupPrototype = BasePopup.prototype,
 
 			engine = ns.engine,
 
 			objectUtils = ns.util.object,
-
-			Popup = function () {
-				var self = this,
-					ui;
-
-				BasePopup.call(self);
-
-				ui = self._ui || {};
-
-				self.options = objectUtils.merge({}, Popup.defaults);
-
-				ui.wrapper = null;
-				ui.arrow = null;
-
-				ui.header = null;
-				ui.footer = null;
-				ui.content = null;
-			},
 
 			/**
 			 * @property {Object} defaults Object with default options
@@ -317,7 +299,7 @@
 			 * @property {boolean} [options.history=true] Sets whether to alter the url when a popup is open to support the back button.
 			 * @property {string} [options.arrow="l,t,r,b"] Sets directions of popup's placement by priority. First one has the highest priority, last the lowest.
 			 * @property {string} [options.positionTo="window"] Sets the element relative to which the popup will be centered.
-			 * @member ns.widget.Popup
+			 * @member ns.widget.core.Popup
 			 * @static
 			 * @private
 			 */
@@ -326,29 +308,41 @@
 				positionTo: "window"
 			}),
 
+			Popup = function () {
+				var self = this,
+					ui;
+
+				BasePopup.call(self);
+
+				ui = self._ui || {};
+
+				self.options = objectUtils.merge(self.options, defaults);
+
+				ui.wrapper = null;
+				ui.arrow = null;
+			},
+
 			/**
 			* @property {Object} classes Dictionary for popup related css class names
-			* @member ns.widget.Popup
+			* @member ns.widget.core.Popup
 			* @static
 			*/
+			CLASSES_PREFIX = "ui-popup",
 			classes = objectUtils.merge({}, BasePopup.classes, {
-				header: "ui-popup-header",
-				footer: "ui-popup-footer",
-				content: "ui-popup-content",
-				wrapper: "ui-popup-wrapper",
-				context: "ui-ctxpopup",
+				wrapper: CLASSES_PREFIX + "-wrapper",
+				context: CLASSES_PREFIX + "ui-ctxpopup",
 				arrow: "ui-arrow",
-				arrowDir: "ui-popup-arrow-",
+				arrowDir: CLASSES_PREFIX + "-arrow-",
 				build: "ui-build"
 			}),
 
 			/**
 			* @property {Object} events Dictionary for popup related events
-			* @member ns.widget.Popup
+			* @member ns.widget.core.Popup
 			* @static
 			*/
 			events = objectUtils.merge({}, BasePopup.events, {
-				beforeposition: "beforeposition"
+				before_position: "beforeposition"
 			}),
 
 			positionType = {
@@ -368,17 +362,13 @@
 			 * @param {HTMLElement} element
 			 * @return {HTMLElement}
 			 * @protected
-			 * @member ns.widget.Popup
+			 * @member ns.widget.core.Popup
 			 */
 			prototype._build = function (element) {
 				var self = this,
 					ui = self._ui,
 					wrapper,
 					arrow;
-
-				if (typeof BasePopupPrototype._build === "function") {
-					BasePopupPrototype._build.call(self, element);
-				}
 
 				// create wrapper
 				wrapper = document.createElement("div");
@@ -398,6 +388,10 @@
 				element.appendChild(arrow);
 				element.appendChild(wrapper);
 
+				if (typeof BasePopupPrototype._build === "function") {
+					BasePopupPrototype._build.call(self, wrapper);
+				}
+
 				return element;
 			};
 
@@ -416,9 +410,9 @@
 					BasePopupPrototype._init.call(this, element);
 				}
 
-				ui.header = element.querySelector("." + classes.header);
-				ui.footer = element.querySelector("." + classes.footer);
-				ui.content = element.querySelector("." + classes.content);
+				ui.wrapper = ui.wrapper || element.querySelector("." + classes.wrapper);
+
+				ui.container = ui.wrapper;
 			};
 
 			prototype._setActive = function (active) {
@@ -439,11 +433,11 @@
 
 				options = objectUtils.copy(options);
 
-				self.trigger(events.beforeposition, null, false);
+				self.trigger(events.before_position, null, false);
 
 				elementClassList.add(classes.build);
 
-				self._layout();
+				self._setContentHeight();
 				self._placementCoords(options);
 
 				elementClassList.remove(classes.build);
@@ -576,7 +570,7 @@
 					elementWidth,
 					elementHeight,
 					clickedElement,
-					bestRect;
+					bestRectangle;
 
 				if (typeof positionTo === "string") {
 					if (positionTo === positionType.ORIGIN && typeof x === "number" && typeof y === "number") {
@@ -595,18 +589,18 @@
 					elementClassList.add(classes.context);
 
 					elementHeight = element.offsetHeight;
-					bestRect = findBestPosition(this, clickedElement);
+					bestRectangle = findBestPosition(self, clickedElement);
 
-					elementClassList.add(classes.arrowDir + bestRect.dir);
+					elementClassList.add(classes.arrowDir + bestRectangle.dir);
 
-					bestRect = adjustedPositionAndPlacementArrow(this, bestRect, x, y);
+					bestRectangle = adjustedPositionAndPlacementArrow(self, bestRectangle, x, y);
 
-					if (elementHeight > bestRect.h) {
-						this._layout(bestRect.h);
+					if (elementHeight > bestRectangle.h) {
+						self._setContentHeight(bestRectangle.h);
 					}
 
-					elementStyle.left = bestRect.x + "px";
-					elementStyle.top = bestRect.y + "px";
+					elementStyle.left = bestRectangle.x + "px";
+					elementStyle.top = bestRectangle.y + "px";
 
 				} else {
 					elementWidth = element.offsetWidth;
@@ -619,17 +613,18 @@
 
 			};
 
-			prototype._layout = function(maxHeight) {
+			prototype._setContentHeight = function(maxHeight) {
 				var self = this,
 					element = self.element,
 					content = self.content,
-					contentStyle = content.style,
+					contentStyle,
 					contentHeight,
 					elementOffsetHeight;
 
 				if (content) {
+					contentStyle = content.style;
 
-					if (contentStyle.height) {
+					if (contentStyle.height || contentStyle.minHeight) {
 						contentStyle.height = "";
 						contentStyle.minHeight = "";
 					}
@@ -649,16 +644,20 @@
 			};
 
 			prototype._onHide = function() {
-				var ui = this._ui,
-					element = this.element,
+				var self = this,
+					ui = self._ui,
+					element = self.element,
+					elementClassList = element.classList,
 					content = ui.content,
 					arrow = ui.arrow;
 
-				BasePopupPrototype._onHide.call(this);
+				if (typeof BasePopupPrototype._onHide === "function") {
+					BasePopupPrototype._onHide.call(self);
+				}
 
-				element.classList.remove(classes.context);
+				elementClassList.remove(classes.context);
 				["l", "r", "b", "t"].forEach(function(key) {
-					element.classList.remove(classes.arrowDir + key);
+					elementClassList.remove(classes.arrowDir + key);
 				});
 
 				element.removeAttribute("style");
@@ -667,11 +666,14 @@
 			};
 
 			prototype._destroy = function() {
-				var element = this.element,
-					ui = this._ui,
+				var self = this,
+					element = self.element,
+					ui = self._ui,
 					wrapper = ui.wrapper;
 
-				BasePopupPrototype._destroy.call(this);
+				if (typeof BasePopupPrototype._destroy === "function") {
+					BasePopupPrototype._destroy.call(self);
+				}
 
 				[].forEach.call(wrapper.children, function(child) {
 					element.appendChild(child);
@@ -686,21 +688,42 @@
 			prototype._show = function(options) {
 				var openOptions = objectUtils.merge({}, options);
 				this._reposition( openOptions );
-				BasePopupPrototype._show.call(this, openOptions);
+				if (typeof BasePopupPrototype._show === "function") {
+					BasePopupPrototype._show.call(this, openOptions);
+				}
 			};
 
-			prototype.reposition = function(options/*{x,y,positionTo}*/) {
-				if ( this.active ) {
+			/**
+			 *
+			 * @param options
+			 * @param options.x
+			 * @param options.y
+			 * @param options.positionTo
+			 */
+			prototype.reposition = function(options) {
+				if ( this._isActive() ) {
 					this._reposition( options );
 				}
 			};
 
 			Popup.prototype = prototype;
-			ns.widget.Popup = Popup;
+			ns.widget.core.Popup = Popup;
+
+			engine.defineWidget(
+				"popup",
+				"[data-role='popup'], .ui-popup",
+				[
+					"open",
+					"close",
+					"reposition"
+				],
+				Popup,
+				"core"
+			);
 
 			engine.defineWidget(
 				"Popup",
-				"[data-role='popup'], .ui-popup",
+				"",
 				[
 					"open",
 					"close",

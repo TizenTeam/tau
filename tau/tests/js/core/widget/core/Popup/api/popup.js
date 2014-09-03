@@ -7,7 +7,7 @@
         popup1Link = null,
         popup1 = null,
         popup1Widget = null,
-        PopupClass = ej.widget.wearable.Popup,
+        PopupClass = ej.widget.core.Popup,
         engine = ej.engine;
 
     function testPopup(title, testCallback, noAutoStart) {
@@ -51,30 +51,29 @@
     });
     
     testPopup('test prototype', function () {
-        testPopupMethodApi(ej.widget.wearable.Popup.prototype);
+        testPopupMethodApi(ej.widget.core.Popup.prototype);
     });
 
     testPopup('test instance', function () {
-        var ui = null,
+        var ui,
             definition = engine.getWidgetDefinition('popup');
         popup1Link.click();
         popup1Widget = engine.getBinding(popup1);
         testPopupMethodApi(popup1Widget);
-        ui = popup1Widget.ui;
+        ui = popup1Widget._ui;
         equal(ui instanceof Object, true, 'ui object dictionary exists and is proper type');
         equal(ui.header instanceof Node, true, 'header element exists and is proper type');
         equal(ui.footer instanceof Node, true, 'footer element exists and is proper type');
         equal(ui.content instanceof Node, true, 'content element exists and is proper type');
-        equal(typeof popup1Widget.active, 'boolean', 'active flag exists and is boolean');
         equal(popup1Widget.options instanceof Object && popup1Widget.options !== null, true, 'options dictionary exists and is proper type');
         equal(PopupClass.classes instanceof Object && PopupClass.classes !== null, true, 'class property classes dictionary exists and is proper type');
-        equal(PopupClass.events instanceof Object, true && PopupClass.events !== null, 'class property events dictionary exists and is proper type');
+        equal(PopupClass.events instanceof Object, PopupClass.events !== null, 'class property events dictionary exists and is proper type');
 
         // definition check
         equal(definition instanceof Object && definition !== null, true, 'definition exists and is proper type');
         equal(definition.name, 'popup', 'definition.name exists and is proper type and value');
-        equal(definition.namespace, 'wearable', 'definition.namespace exists and is proper type and value');
-        equal(definition.selector, '.ui-popup', 'definition.selector exists, is proper type and value');
+        equal(definition.namespace, 'core', 'definition.namespace exists and is proper type and value');
+        equal(definition.selector, "[data-role='popup'], .ui-popup", 'definition.selector exists, is proper type and value');
         equal(definition.methods instanceof Array, true, 'definition.methods exists and is proper type');
     });
 

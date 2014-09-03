@@ -20,7 +20,7 @@
 			"../../../../core/util/object",
 			"../history",
 			"../route",
-			"../../../../core/widget/BasePopup"
+			"../../../../core/widget/core/BasePopup"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
@@ -31,7 +31,7 @@
 			 * @private
 			 * @static
 			 */
-			BasePopup = ns.widget.BasePopup,
+			BasePopup = ns.widget.core.BasePopup,
 
 			routePopup = {
 				/**
@@ -105,14 +105,6 @@
 			 * @static
 			 */
 			history = ns.router.history,
-			/**
-			 * Alias for {@link ns.util.path}
-			 * @property {Object} pathUtils
-			 * @member ns.router.route.popup
-			 * @private
-			 * @static
-			 */
-			pathUtils = ns.util.path,
 			/**
 			 * Alias for {@link ns.util.DOM}
 			 * @property {Object} DOM
@@ -241,13 +233,13 @@
 			 * @param {boolean} [options.dataUrl] Sets if page has url attribute.
 			 * @param {string} [options.container = null] Selector for container.
 			 * @param {boolean} [options.volatileRecord=true] Sets if the current history entry will be modified or a new one will be created.
+			 * @param {Event} event
 			 * @member ns.router.route.popup
 			 * @static
 			 */
 			routePopup.open = function (toPopup, options, event) {
 				var popup,
 					router = engine.getRouter(),
-					url = pathUtils.getLocation(),
 					events = routePopup.events,
 					removePopup = function () {
 						document.removeEventListener(events.POPUP_HIDE, removePopup, false);
@@ -269,7 +261,6 @@
 						popup.open(options);
 						routePopup.activePopup = popup;
 					},
-					documentUrl = path.getLocation().replace(popupHashKeyReg, ""),
 					activePage = router.container.getActivePage(),
 					container;
 

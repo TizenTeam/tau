@@ -13,8 +13,7 @@
 			"./core/engine",
 			// widget list
 			"./core/util/anchorHighlight",
-			"./core/widget/BasePopup",
-			"./core/widget/Popup",
+			"./core/widget/core/Popup",
 			"./profile/wearable/widget/wearable/Button",
 			"./profile/wearable/widget/wearable/Checkboxradio",
 			"./profile/wearable/widget/wearable/Listview",
@@ -40,7 +39,6 @@
 			"./core/init"
 		],
 		function ( ) {
-			return;
 		}
 	);
 }());
