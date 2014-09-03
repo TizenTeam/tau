@@ -20,7 +20,7 @@
 			"../../../../core/util/object",
 			"../history",
 			"../route",
-			"../../../../core/widget/core/BasePopup"
+			"../../../../core/widget/core/Popup"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
@@ -31,7 +31,7 @@
 			 * @private
 			 * @static
 			 */
-			BasePopup = ns.widget.core.BasePopup,
+			Popup = ns.widget.core.Popup,
 
 			routePopup = {
 				/**
@@ -54,7 +54,7 @@
 				 * @member ns.router.route.popup
 				 * @static
 				 */
-				filter: "." + BasePopup.classes.popup,
+				filter: "." + Popup.classes.popup,
 				/**
 				 * Storage variable for active popup
 				 * @property {?HTMLElement} activePopup

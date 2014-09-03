@@ -7,7 +7,7 @@
         popup1Link = null,
         popup1 = null,
         popup1Widget = null,
-        PopupClass = ej.widget.core.Popup,
+        PopupClass = ej.widget.core.ContextPopup,
         engine = ej.engine;
 
     function testPopup(title, testCallback, noAutoStart) {

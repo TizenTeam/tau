@@ -1,360 +1,230 @@
-/*global window, define */
+/*global window, define, ns */
 /* 
  * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
  * License : MIT License V2
  */
 /*jslint nomen: true, plusplus: true */
-
 /**
- * # Popup Widget
- * Shows a pop-up window.
- *
- * The popup widget shows in the middle of the screen a list of items in a pop-up window. It automatically optimizes the pop-up window size within the screen. The following table describes the supported popup classes.
- *
- * ## Default selectors
- * All elements with class *ui-popup* will be become popup widgets.
- *
- * The pop-up window can contain a header, content, and footer area like the page element.
- *
- * To open a pop-up window from a link, use the data-rel attribute in HTML markup as in the following code:
- *
- *      @example
- *      <a href="#popup" class="ui-btn" data-rel="popup">Open popup when clicking this element.</a>
- *
- * The following table shows examples of various types of popups.
- *
- * The popup contains header, content and footer area
- *
- * ###HTML Examples
- *
- * #### Basic popup with header, content, footer
- *
- *		@example
- *		<div class="ui-page">
- *		    <div class="ui-popup">
- *		        <div class="ui-popup-header">Power saving mode</div>
- *		        <div class="ui-popup-content">
- *		            Turning on Power
- *		            saving mode will
- *		            limit the maximum
- *		            per
- *		        </div>
- *		        <div class="ui-popup-footer">
- *		            <button id="cancel" class="ui-btn">Cancel</button>
- *		        </div>
- *		    </div>
- *		</div>
- *
- * #### Popup with 2 buttons in the footer
- *
- *      @example
- *         <div id="2btnPopup" class="ui-popup">
- *             <div class="ui-popup-header">Delete</div>
- *             <div class="ui-popup-content">
- *                 Delete the image?
- *             </div>
- *             <div class="ui-popup-footer ui-grid-col-2">
- *                 <button id="2btnPopup-cancel" class="ui-btn">Cancel</button>
- *                 <button id="2btnPopup-ok" class="ui-btn">OK</button>
- *             </div>
- *         </div>
- *
- * #### Popup with checkbox/radio
- *
- * If you want make popup with list checkbox(or radio) just include checkbox (radio) to popup and add class *ui-popup-checkbox-label* to popup element.
- *
- *		@example
- *         <div id="listBoxPopup" class="ui-popup">
- *             <div class="ui-popup-header">When?</div>
- *             <div class="ui-popup-content" style="height:243px; overflow-y:scroll">
- *                 <ul class="ui-listview">
- *                     <li>
- *                         <label for="check-1" class="ui-popup-checkbox-label">Yesterday</label>
- *                         <input type="checkbox" name="checkset" id="check-1" />
- *                     </li>
- *                     <li>
- *                         <label for="check-2" class="ui-popup-checkbox-label">Today</label>
- *                         <input type="checkbox" name="checkset" id="check-2" />
- *                     </li>
- *                     <li>
- *                         <label for="check-3" class="ui-popup-checkbox-label">Tomorrow</label>
- *                         <input type="checkbox" name="checkset" id="check-3" />
- *                     </li>
- *                 </ul>
- *                 <ul class="ui-listview">
- *                     <li>
- *                         <label for="radio-1" class="ui-popup-radio-label">Mandatory</label>
- *                         <input type="radio" name="radioset" id="radio-1" />
- *                     </li>
- *                     <li>
- *                         <label for="radio-2" class="ui-popup-radio-label">Optional</label>
- *                         <input type="radio" name="radioset" id="radio-2" />
- *                     </li>
- *                 </ul>
- *             </div>
- *             <div class="ui-popup-footer">
- *                 <button id="listBoxPopup-close" class="ui-btn">Close</button>
- *             </div>
- *         </div>
- *     </div>
- *
- * #### Popup with no header and footer
- *
- *      @example
- *         <div id="listNoTitleNoBtnPopup" class="ui-popup">
- *             <div class="ui-popup-content" style="height:294px; overflow-y:scroll">
- *                 <ul class="ui-listview">
- *                     <li><a href="">Ringtones 1</a></li>
- *                     <li><a href="">Ringtones 2</a></li>
- *                     <li><a href="">Ringtones 3</a></li>
- *                 </ul>
- *             </div>
- *         </div>
- *
- * #### Toast popup
- *
- *      @example
- *         <div id="PopupToast" class="ui-popup ui-popup-toast">
- *             <div class="ui-popup-content">Saving contacts to sim on Samsung</div>
- *         </div>
- *
- * ### Create Option popup
- *
- * Popup inherits value of option positionTo from property data-position-to set in link.
- *
- *		@example
- *		<!--definition of link, which opens popup and sets its position-->
- *		<a href="#popupOptionText" data-rel="popup"  data-position-to="origin">Text</a>
- *		<!--definition of popup, which inherites property position from link-->
- *		<div id="popupOptionText" class="ui-popup">
- *			<div class="ui-popup-content">
- *				<ul class="ui-listview">
- *				<li><a href="#">Option 1</a></li>
- *				<li><a href="#">Option 2</a></li>
- *				<li><a href="#">Option 3</a></li>
- *				<li><a href="#">Option 4</a></li>
- *				</ul>
- *			</div>
- *		</div>
- *
- * ### Opening and closing popup
- *
- * To open popup from "a" link using html markup, use the following code:
- *
- *		@example
- *      <div class="ui-page">
- *          <header class="ui-header">
- *              <h2 class="ui-title">Call menu</h2>
- *          </header>
- *          <div class="ui-content">
- *              <a href="#popup" class="ui-btn" data-rel="popup" >Open Popup</a>
- *          </div>
- *
- *          <div id="popup" class="ui-popup">
- *               <div class="ui-popup-header">Power saving mode</div>
- *                   <div class="ui-popup-content">
- *                       Turning on Power
- *                       saving mode will
- *                       limit the maximum
- *                       per
- *                   </div>
- *               <div class="ui-popup-footer">
- *               <button id="cancel" class="ui-btn">Cancel</button>
- *           </div>
- *       </div>
- *
- *  To open the popup widget from JavaScript use method *tau.openPopup(to)*
- *
- *          @example
- *          tau.openPopup("popup")
- *
- *  To close the popup widget from JavaScript use method *tau.openPopup(to)*
- *
- *          @example
- *          tau.closePopup("popup")
- *
- * To find the currently active popup, use the ui-popup-active class.
- *
- * To bind the popup to a button, use the following code:
- *
- *      @example
- *         <!--HTML code-->
- *         <div id="1btnPopup" class="ui-popup">
- *             <div class="ui-popup-header">Power saving mode</div>
- *             <div class="ui-popup-content">
- *             </div>
- *             <div class="ui-popup-footer">
- *                 <button id="1btnPopup-cancel" class="ui-btn">Cancel</button>
- *             </div>
- *         </div>
- *         <script>
- *             // Popup opens with button click
- *             var button = document.getElementById("button");
- *             button.addEventListener("click", function() {
- *                 tau.openPopup("#1btnPopup");
- *             });
- *
- *             // Popup closes with Cancel button click
- *             document.getElementById("1btnPopup-cancel").addEventListener("click", function() {
- *                 tau.closePopup();
- *             });
- *         </script>
- *
- * ## Manual constructor
- * For manual creation of popup widget you can use constructor of widget from **tau** namespace:
- *
- *		@example
- *		var popupElement = document.getElementById("popup"),
- *			popup = tau.widget.popup(buttonElement);
- *
- * Constructor has one require parameter **element** which are base **HTMLElement** to create widget. We recommend get this element by method *document.getElementById*.
- *
- * ## Options for Popup Widget
- *
- * Options for widget can be defined as _data-..._ attributes or give as parameter in constructor.
- *
- * You can change option for widget using method **option**.
- *
- * ## Methods
- *
- * To call method on widget you can use tau API:
- *
- *		@example
- *		var popupElement = document.getElementById("popup"),
- *			popup = tau.widget.popup(buttonElement);
- *
- *		popup.methodName(methodArgument1, methodArgument2, ...);
- *
- * ## Transitions
- *
- * By default, the framework doesn't apply transition. To set a custom transition effect, add the data-transition attribute to the link.
- *
- *		@example
- *		<a href="index.html" data-rel="popup" data-transition="slideup">I'll slide up</a>
- *
- * Global configuration:
- *
- *		@example
- *		gear.ui.defaults.popupTransition = "slideup";
- *
- * ### Transitions list
- *
- * - **none** Default value, no transition.
- * - **slideup** Makes the content of the pop-up slide up.
- *
- * ## Handling Popup Events
- *
- * To use popup events, use the following code:
- *
- *      @example
- *         <!--Popup html code-->
- *         <div id="popup" class="ui-popup">
- *             <div class="ui-popup-header"></div>
- *             <div class="ui-popup-content"></div>
- *         </div>
- *         </div>
- *         <script>
- *             // Use popup events
- *             var popup = document.getElementById("popup");
- *             popup.addEventListener("popupbeforecreate", function() {
- *                 // Implement code for popupbeforecreate event
- *             });
- *         </script>
- *
- * Full list of available events is in [events list section](#events-list).
+ * # BasePopup Widget
  *
  * @author Hyunkook Cho <hk0713.cho@samsung.com>
  * @class ns.widget.core.Popup
  * @extends ns.widget.core.BasePopup
  */
-(function (window, document, ns) {
+(function (ns) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
 			"../../engine",
 			"../../util/object",
-			"./BasePopup"
+			"../BaseWidget",
+			"../core"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
-
 			var
+				/**
+				 * @property {Function} BaseWidget Alias for {@link ns.widget.BaseWidget}
+				 * @member ns.widget.core.BasePopup
+				 * @private
+				 */
+				BaseWidget = ns.widget.BaseWidget,
+				/**
+				 * @property {ns.engine} engine Alias for class ns.engine
+				 * @member ns.widget.core.BasePopup
+				 * @private
+				 */
+				engine = ns.engine,
+				/**
+				 * @property {Object} objectUtils Alias for class ns.util.events
+				 * @member ns.widget.core.BasePopup
+				 * @private
+				 */
+				objectUtils = ns.util.object,
 
-			BasePopup = ns.widget.core.BasePopup,
+				Popup = function () {
+					var self = this,
+						ui;
+					ui = self._ui || {};
+					self.options = objectUtils.merge({}, Popup.defaults);
+					/**
+					 * @property {boolean} [active=false] Popup state flag
+					 * @member ns.widget.core.BasePopup
+					 * @instance
+					 */
+					ui.overlay = null;
+					ui.header = null;
+					ui.footer = null;
+					ui.content = null;
+					ui.container = null;
+					self._ui = ui;
+				},
+				/**
+				 * @property {Object} defaults Object with default options
+				 * @property {string} [options.transition="none"] Sets the default transition for the popup.
+				 * @property {string} [options.positionTo="window"] Sets the element relative to which the popup will be centered.
+				 * @property {boolean} [options.dismissible=true] Sets whether to close popup when a popup is open to support the back button.
+				 * @property {boolean} [options.overlay=true] Sets whether to show overlay when a popup is open.
+				 * @property {string} [overlayClass=""] Sets the custom class for the popup background, which covers the entire window.
+				 * @property {boolean} [options.history=true] Sets whether to alter the url when a popup is open to support the back button.
+				 * @member ns.widget.core.BasePopup
+				 * @static
+				 */
+				defaults = {
+					transition: "none",
+					dismissible: true,
+					overlay: true,
+					header: false,
+					footer: false,
+					overlayClass: "",
+					history: true
+				},
+				CLASSES_PREFIX = "ui-popup",
+				/**
+				 * @property {Object} classes Dictionary for popup related css class names
+				 * @member ns.widget.core.BasePopup
+				 * @static
+				 */
+				classes = {
+					popup: CLASSES_PREFIX,
+					active: CLASSES_PREFIX + "-active",
+					overlay: CLASSES_PREFIX + "-overlay",
+					header: CLASSES_PREFIX + "-header",
+					footer: CLASSES_PREFIX + "-footer",
+					content: CLASSES_PREFIX + "-content"
+				},
+				EVENTS_PREFIX = "popup",
+				/**
+				 * @property {Object} events Dictionary for popup related events
+				 * @member ns.widget.core.BasePopup
+				 * @static
+				 */
 
-			BasePopupPrototype = BasePopup.prototype,
+				events = {
+					/**
+					 * @event popupshow Triggered when the popup has been created in the DOM (via ajax or other) but before all widgets have had an opportunity to enhance the contained markup.
+					 * @member ns.widget.core.BasePopup
+					 */
+					show: EVENTS_PREFIX + "show",
+					/**
+					 * Triggered on the popup after the transition animation has completed.
+					 * @event popuphide
+					 * @member ns.widget.core.BasePopup
+					 */
+					hide: EVENTS_PREFIX + "hide",
+					/**
+					 * Triggered on the popup we are transitioning to, before the actual transition animation is kicked off.
+					 * @event popupbeforeshow
+					 * @member ns.widget.core.BasePopup
+					 */
+					before_show: EVENTS_PREFIX + "beforeshow",
+					/**
+					 * Triggered on the popup we are transitioning away from, before the actual transition animation is kicked off.
+					 * @event popupbeforehide
+					 * @member ns.widget.core.BasePopup
+					 */
+					before_hide: EVENTS_PREFIX + "beforehide"
+				},
 
-			engine = ns.engine,
+				prototype = new BaseWidget();
 
-			objectUtils = ns.util.object,
-
-			/**
-			 * @property {Object} defaults Object with default options
-			 * @property {string} [options.transition="none"] Sets the default transition for the popup.
-			 * @property {string} [options.positionTo="window"] Sets the element relative to which the popup will be centered.
-			 * @property {boolean} [options.dismissible=true] Sets whether to close popup when a popup is open to support the back button.
-			 * @property {boolean} [options.overlay=true] Sets whether to show overlay when a popup is open.
-			 * @property {string} [overlayClass=""] Sets the custom class for the popup background, which covers the entire window.
-			 * @property {boolean} [options.history=true] Sets whether to alter the url when a popup is open to support the back button.
-			 * @property {string} [options.arrow="l,t,r,b"] Sets directions of popup's placement by priority. First one has the highest priority, last the lowest.
-			 * @property {string} [options.positionTo="window"] Sets the element relative to which the popup will be centered.
-			 * @member ns.widget.core.Popup
-			 * @static
-			 * @private
-			 */
-			defaults = objectUtils.merge({}, BasePopup.defaults, {
-				arrow: "l,t,r,b",
-				positionTo: "window"
-			}),
-
-			Popup = function () {
-				var self = this,
-					ui;
-
-				BasePopup.call(self);
-
-				ui = self._ui || {};
-
-				self.options = objectUtils.merge(self.options, defaults);
-
-				ui.wrapper = null;
-				ui.arrow = null;
-			},
-
-			/**
-			* @property {Object} classes Dictionary for popup related css class names
-			* @member ns.widget.core.Popup
-			* @static
-			*/
-			CLASSES_PREFIX = "ui-popup",
-			classes = objectUtils.merge({}, BasePopup.classes, {
-				wrapper: CLASSES_PREFIX + "-wrapper",
-				context: CLASSES_PREFIX + "ui-ctxpopup",
-				arrow: "ui-arrow",
-				arrowDir: CLASSES_PREFIX + "-arrow-",
-				build: "ui-build"
-			}),
-
-			/**
-			* @property {Object} events Dictionary for popup related events
-			* @member ns.widget.core.Popup
-			* @static
-			*/
-			events = objectUtils.merge({}, BasePopup.events, {
-				before_position: "beforeposition"
-			}),
-
-			positionType = {
-				WINDOW: "window",
-				ORIGIN: "origin"
-			},
-
-			prototype = new BasePopup();
-
-			Popup.defaults = defaults;
 			Popup.classes = classes;
 			Popup.events = events;
+			Popup.defaults = defaults;
+
+			/**
+			 * Build the popup DOM tree
+			 * @method _build
+			 * @protected
+			 * @param {HTMLElement} element
+			 * @return {HTMLElement}
+			 * @member ns.widget.core.BasePopup
+			 */
+			prototype._buildContent = function ( element) {
+				var ui = this._ui,
+					content = element.querySelector("." + classes.content),
+					elementChildren = [].slice.call(element.children),
+					elementChildrenLength = elementChildren.length,
+					i,
+					node;
+
+				if (!content) {
+					content = document.createElement("div");
+					content.className = classes.content;
+					for (i = 0; i < elementChildrenLength; ++i) {
+						node = elementChildren[i];
+						if (node !== ui.footer && node !== ui.header) {
+							content.appendChild(node);
+						}
+					}
+					element.appendChild(content);
+					ui.content = content;
+				}
+			};
+
+			/**
+			 * Build the popup DOM tree
+			 * @method _build
+			 * @protected
+			 * @param {HTMLElement} element
+			 * @return {HTMLElement}
+			 * @member ns.widget.core.BasePopup
+			 */
+			prototype._buildHeader = function ( element) {
+				var ui = this._ui,
+					options = this.options,
+					content = ui.content,
+					header = ui.header || element.querySelector("." + classes.header);
+				if (!header && options.header !== false) {
+					header = document.createElement("div");
+					header.className = classes.header;
+					if (typeof options.header !== "boolean") {
+						header.innerHTML = options.header;
+					}
+					element.insertBefore(header, content);
+					ui.header = header;
+				}
+			};
+
+			prototype._setHeader = function ( element, value ) {
+				var self = this,
+					ui = self._ui,
+					header = ui.header;
+				if (header) {
+					header.parentNode.removeChild(header);
+					ui.header = null;
+				}
+				self.options.header = value;
+				self._buildHeader(ui.container);
+			};
+
+			prototype._buildFooter = function ( element) {
+				var ui = this._ui,
+					options = this.options,
+					footer = ui.footer || element.querySelector("." + classes.footer);
+				if (!footer && options.footer !== false) {
+					footer = document.createElement("div");
+					footer.className = classes.footer;
+					if (typeof options.footer !== "boolean") {
+						footer.innerHTML = options.footer;
+					}
+					element.appendChild(footer);
+					ui.footer = footer;
+				}
+			};
+
+			prototype._setFooter = function ( element, value ) {
+				var self = this,
+					ui = self._ui,
+					footer = ui.footer;
+				if (footer) {
+					footer.parentNode.removeChild(footer);
+					ui.footer = null;
+				}
+				self.options.footer = value;
+				self._buildFooter(ui.container);
+			};
 
 			/**
 			 * Build structure of Popup widget
@@ -362,37 +232,61 @@
 			 * @param {HTMLElement} element
 			 * @return {HTMLElement}
 			 * @protected
-			 * @member ns.widget.core.Popup
+			 * @member ns.widget.Popup
 			 */
 			prototype._build = function (element) {
 				var self = this,
-					ui = self._ui,
-					wrapper,
-					arrow;
+					ui = self._ui;
 
-				// create wrapper
-				wrapper = document.createElement("div");
-				wrapper.classList.add(classes.wrapper);
-				ui.wrapper = wrapper;
+				this._buildHeader(element);
+				this._buildFooter(element);
 
-				[].forEach.call(element.children, function(child) {
-					wrapper.appendChild(child);
-				});
+				this._buildContent(element);
 
-				// create arrow
-				arrow = document.createElement("div");
-				arrow.appendChild(document.createElement("span"));
-				arrow.classList.add(classes.arrow);
-				ui.arrow = arrow;
+				this._setOverlay(element, this.options.overlay);
 
-				element.appendChild(arrow);
-				element.appendChild(wrapper);
-
-				if (typeof BasePopupPrototype._build === "function") {
-					BasePopupPrototype._build.call(self, wrapper);
-				}
+				ui.container = element;
 
 				return element;
+			};
+
+			/**
+			 * Set overlay
+			 * @method _setOverlay
+			 * @param {HTMLElement} element
+			 * @param {boolean} enable
+			 * @protected
+			 * @member ns.widget.Popup
+			 */
+			prototype._setOverlay = function(element, enable) {
+				var self = this,
+					overlayClass = self.options.overlayClass,
+					ui = self._ui,
+					overlay = ui.overlay;
+
+				// create overlay
+				if (enable) {
+					if (!overlay) {
+						overlay = document.createElement("div");
+						element.parentNode.insertBefore(overlay, element);
+						ui.overlay = overlay;
+					}
+					overlay.className = classes.overlay + (overlayClass ? " " + overlayClass : "");
+				} else if (overlay) {
+					overlay.parentNode.removeChild(overlay);
+					ui.overlay = null;
+				}
+			};
+
+			/**
+			 * Returns the state of the popup
+			 * @method _isActive
+			 * @protected
+			 * @instance
+			 * @member ns.widget.core.BasePopup
+			 */
+			prototype._isActive = function () {
+				return this.element.classList.contains(classes.active);
 			};
 
 			/**
@@ -400,342 +294,259 @@
 			 * @method _init
 			 * @param {HTMLElement} element
 			 * @protected
-			 * @member ns.widget.mobile.Popup
+			 * @member ns.widget.core.Popup
 			 */
 			prototype._init = function(element) {
-				var self = this,
-					ui = self._ui;
+				var ui = this._ui;
 
-				if (typeof BasePopupPrototype._init === "function") {
-					BasePopupPrototype._init.call(this, element);
-				}
-
-				ui.wrapper = ui.wrapper || element.querySelector("." + classes.wrapper);
-
-				ui.container = ui.wrapper;
+				ui.header = ui.header || element.querySelector("." + classes.header);
+				ui.footer = ui.footer || element.querySelector("." + classes.footer);
+				ui.content = ui.content || element.querySelector("." + classes.content);
+				ui.container = element;
 			};
 
+			/**
+			 * Set the state of the popup
+			 * @method _setActive
+			 * @param {boolean} active
+			 * @protected
+			 * @instance
+			 * @member ns.widget.core.BasePopup
+			 */
 			prototype._setActive = function (active) {
-				var options = this.options;
-				// NOTE: popup's options object is stored in window.history at the router module,
-				// and this window.history can't store DOM element object.
-				if (typeof options.positionTo !== "string") {
-					options.positionTo = null;
-				}
-
-				BasePopup.prototype._setActive.call(this, active);
-			};
-
-			prototype._reposition = function(options) {
 				var self = this,
-					element = self.element,
-					elementClassList = element.classList;
-
-				options = objectUtils.copy(options);
-
-				self.trigger(events.before_position, null, false);
-
-				elementClassList.add(classes.build);
-
-				self._setContentHeight();
-				self._placementCoords(options);
-
-				elementClassList.remove(classes.build);
-
-			};
-
-			function findBestPosition(self, clickedElement) {
-				var arrow = self.options.arrow,
-					element = self.element,
-					windowWidth = window.innerWidth,
-					windowHeight = window.innerHeight,
-					popupWidth = element.offsetWidth,
-					popupHeight = element.offsetHeight,
-					clickElementRect = clickedElement.getBoundingClientRect(),
-					clickElementOffsetX = clickElementRect.left,
-					clickElementOffsetY = clickElementRect.top,
-					clickElementOffsetWidth = Math.min(clickElementRect.right - clickElementOffsetX,
-							windowWidth - clickElementOffsetX),
-					clickElementOffsetHeight = Math.min(clickElementRect.bottom - clickElementOffsetY,
-							windowHeight - clickElementOffsetY),
-					params = {
-						"l": {dir: "l", fixedField: "w", fixedPositionField: "x",
-							fixedPositionFactor: -1, size: popupWidth, max: clickElementOffsetX},
-						"r": {dir: "r", fixedField: "w", fixedPositionField: "x",
-							fixedPositionFactor: 1, size: popupWidth, max: windowWidth - clickElementOffsetX - clickElementOffsetWidth},
-						"b": {dir: "b", fixedField: "h", fixedPositionField: "y",
-							fixedPositionFactor: 1, size: popupHeight, max: popupHeight - clickElementOffsetY - clickElementOffsetHeight},
-						"t": {dir: "t", fixedField: "h", fixedPositionField: "y",
-							fixedPositionFactor: -1, size: popupHeight, max: clickElementOffsetY}
-					},
-					bestDirection = params.t,
-					direction,
-					bestOffsetInfo;
-
-				arrow.split(",").forEach(function(key){
-					var param = params[key],
-						paramMax = param.max;
-					if (!direction) {
-						if (param.size < paramMax) {
-							direction = param;
-						} else if (paramMax > bestDirection.max) {
-							bestDirection = param;
-						}
-					}
-				});
-
-				if ( !direction ) {
-					direction = bestDirection;
-					if (direction.fixedField === "w") {
-						popupWidth = direction.max;
-					} else {
-						popupHeight = direction.max;
-					}
-				}
-
-				bestOffsetInfo = {
-					x: clickElementOffsetX + clickElementOffsetWidth / 2 - popupWidth / 2,
-					y: clickElementOffsetY + clickElementOffsetHeight / 2 - popupHeight / 2,
-					w: popupWidth,
-					h: popupHeight,
-					dir: direction.dir
-				};
-
-				bestOffsetInfo[direction.fixedPositionField] +=
-					(direction.fixedField === "w" ?
-						popupWidth + clickElementOffsetWidth * direction.fixedPositionFactor :
-						popupHeight + clickElementOffsetHeight * direction.fixedPositionFactor)
-						/ 2;
-
-				return bestOffsetInfo;
-			}
-
-			function adjustedPositionAndPlacementArrow(self, bestRectangle, x, y) {
-				var ui = self._ui,
-					wrapper = ui.wrapper,
-					arrow = ui.arrow,
-					arrowStyle = arrow.style,
-					windowWidth = window.innerWidth,
-					windowHeight = window.innerHeight,
-					wrapperRect = wrapper.getBoundingClientRect(),
-					arrowHalfWidth = arrow.offsetWidth/2,
-					params = {
-						"t": {pos: x, min: "left", max: "right", posField: "x", valField: "w", styleField: "left"},
-						"b": {pos: x, min: "left", max: "right", posField: "x", valField: "w", styleField: "left"},
-						"l": {pos: y, min: "top", max: "bottom", posField: "y", valField: "h", styleField: "top"},
-						"r": {pos: y, min: "top", max: "bottom", posField: "y", valField: "h", styleField: "top"}
-					},
-					param = params[bestRectangle.dir],
-					surplus;
-
-				wrapperRect = {
-					left: wrapperRect.left + bestRectangle.x,
-					right: wrapperRect.right + bestRectangle.x,
-					top: wrapperRect.top + bestRectangle.y,
-					bottom: wrapperRect.bottom += bestRectangle.y
-				};
-
-				if (wrapperRect[param.min] > param.pos - arrowHalfWidth) {
-					surplus = bestRectangle[param.posField];
-					if (surplus > 0) {
-						bestRectangle[param.posField] = Math.max(param.pos - arrowHalfWidth, 0);
-						param.pos = bestRectangle[param.posField] + arrowHalfWidth;
-					} else {
-						param.pos = wrapperRect[param.min] + arrowHalfWidth;
-					}
-				} else if (wrapperRect[param.max] < param.pos + arrowHalfWidth) {
-					surplus = (param.valField === "w" ? windowWidth : windowHeight)
-						- (bestRectangle[param.posField] + bestRectangle[param.valField]);
-					if (surplus > 0) {
-						bestRectangle[param.posField] += Math.min(surplus, (param.pos + arrowHalfWidth) - wrapperRect[param.max]);
-						param.pos = bestRectangle[param.posField] + bestRectangle[param.valField] - arrowHalfWidth;
-					} else {
-						param.pos = wrapperRect[param.max] - arrowHalfWidth;
-					}
-				}
-
-				arrowStyle[param.styleField] = (param.pos - arrowHalfWidth - bestRectangle[param.posField]) + "px";
-
-				return bestRectangle;
-			}
-
-			prototype._placementCoords = function(options) {
-				var self = this,
-					positionTo = options.positionTo,
-					x = options.x,
-					y = options.y,
-					element = self.element,
-					elementStyle = element.style,
-					elementClassList = element.classList,
-					elementWidth,
-					elementHeight,
-					clickedElement,
-					bestRectangle;
-
-				if (typeof positionTo === "string") {
-					if (positionTo === positionType.ORIGIN && typeof x === "number" && typeof y === "number") {
-						clickedElement = document.elementFromPoint(x, y);
-					} else if (positionTo !== positionType.WINDOW) {
-						try {
-							clickedElement = document.querySelector(options.positionTo);
-						} catch(e) {}
-					}
+					activeClass = classes.active,
+					elementClassList = self.element.classList,
+					route = engine.getRouter().getRoute("popup"),
+					options = self.options;
+				if (active) {
+					// set global variable
+					route.setActive(self, options);
+					// add proper class
+					elementClassList.add(activeClass);
 				} else {
-					clickedElement = positionTo;
+					// no popup is opened, so set global variable on "null"
+					route.setActive(null, options);
+					// remove proper class
+					elementClassList.remove(activeClass);
 				}
-
-				if (clickedElement) {
-
-					elementClassList.add(classes.context);
-
-					elementHeight = element.offsetHeight;
-					bestRectangle = findBestPosition(self, clickedElement);
-
-					elementClassList.add(classes.arrowDir + bestRectangle.dir);
-
-					bestRectangle = adjustedPositionAndPlacementArrow(self, bestRectangle, x, y);
-
-					if (elementHeight > bestRectangle.h) {
-						self._setContentHeight(bestRectangle.h);
-					}
-
-					elementStyle.left = bestRectangle.x + "px";
-					elementStyle.top = bestRectangle.y + "px";
-
-				} else {
-					elementWidth = element.offsetWidth;
-					elementHeight = element.offsetHeight;
-
-					elementStyle.top = (window.innerHeight - elementHeight) + "px";
-					elementStyle.left = "50%";
-					elementStyle.marginLeft = -(elementWidth/2) + "px";
-				}
-
 			};
 
-			prototype._setContentHeight = function(maxHeight) {
+			prototype._bindEvents = function (element) {
+				var self = this;
+				window.addEventListener("pagebeforehide", self, false);
+				window.addEventListener("resize", self, false);
+				self._bindOverlayEvents();
+			};
+
+			prototype._bindOverlayEvents = function () {
+				var overlay = this._ui.overlay;
+				if (overlay) {
+					overlay.addEventListener("click", this, false);
+				}
+			};
+
+			prototype._unbindOverlayEvents = function () {
+				var overlay = this._ui.overlay;
+				if (overlay) {
+					overlay.removeEventListener("click", this, false);
+				}
+			};
+
+			prototype._unbindEvents = function (element) {
+				var self = this;
+				window.removeEventListener("pagebeforehide", self, false);
+				window.removeEventListener("resize", self, false);
+				self._unbindOverlayEvents();
+			};
+
+			/**
+			 * Open the popup
+			 * @method open
+			 * @param {Object=} [options]
+			 * @param {string=} [options.transition] options.transition
+			 * @instance
+			 * @member ns.widget.core.BasePopup
+			 */
+			prototype.open = function (options) {
 				var self = this,
-					element = self.element,
-					content = self.content,
-					contentStyle,
-					contentHeight,
-					elementOffsetHeight;
-
-				if (content) {
-					contentStyle = content.style;
-
-					if (contentStyle.height || contentStyle.minHeight) {
-						contentStyle.height = "";
-						contentStyle.minHeight = "";
+					newOptions = objectUtils.merge(self.options, options);
+				if (!self._isActive()) {
+					if (!newOptions.dismissible) {
+						engine.getRouter().lock();
 					}
-
-					maxHeight = maxHeight || window.innerHeight;
-
-					contentHeight = content.offsetHeight;
-					elementOffsetHeight = element.offsetHeight;
-
-					if (elementOffsetHeight > maxHeight) {
-						contentHeight -= (elementOffsetHeight - maxHeight);
-						contentStyle.height = contentHeight + "px";
-						contentStyle.minHeight = contentHeight + "px";
-					}
-				}
-
-			};
-
-			prototype._onHide = function() {
-				var self = this,
-					ui = self._ui,
-					element = self.element,
-					elementClassList = element.classList,
-					content = ui.content,
-					arrow = ui.arrow;
-
-				if (typeof BasePopupPrototype._onHide === "function") {
-					BasePopupPrototype._onHide.call(self);
-				}
-
-				elementClassList.remove(classes.context);
-				["l", "r", "b", "t"].forEach(function(key) {
-					elementClassList.remove(classes.arrowDir + key);
-				});
-
-				element.removeAttribute("style");
-				content.removeAttribute("style");
-				arrow.removeAttribute("style");
-			};
-
-			prototype._destroy = function() {
-				var self = this,
-					element = self.element,
-					ui = self._ui,
-					wrapper = ui.wrapper;
-
-				if (typeof BasePopupPrototype._destroy === "function") {
-					BasePopupPrototype._destroy.call(self);
-				}
-
-				[].forEach.call(wrapper.children, function(child) {
-					element.appendChild(child);
-				});
-
-				wrapper.parentNode.removeChild(wrapper);
-
-				ui.wrapper = null;
-				ui.arrow = null;
-			};
-
-			prototype._show = function(options) {
-				var openOptions = objectUtils.merge({}, options);
-				this._reposition( openOptions );
-				if (typeof BasePopupPrototype._show === "function") {
-					BasePopupPrototype._show.call(this, openOptions);
+					self._show(newOptions);
 				}
 			};
 
 			/**
-			 *
-			 * @param options
-			 * @param options.x
-			 * @param options.y
-			 * @param options.positionTo
+			 * Close the popup
+			 * @method close
+			 * @param {Object=} [options]
+			 * @param {string=} [options.transition]
+			 * @instance
+			 * @member ns.widget.core.BasePopup
 			 */
-			prototype.reposition = function(options) {
-				if ( this._isActive() ) {
-					this._reposition( options );
+			prototype.close = function (options) {
+				var self = this,
+					newOptions = objectUtils.merge(self.options, options);
+				if (self._isActive()) {
+					if (!newOptions.dismissible) {
+						engine.getRouter().unlock();
+					}
+					self._hide(newOptions);
 				}
 			};
 
+			prototype._show = function (options) {
+				var self = this,
+					transitionOptions = objectUtils.merge({}, options);
+
+				transitionOptions.ext = " in ";
+
+				self.trigger(events.before_show);
+				self._transition(transitionOptions, self._onShow.bind(self));
+			};
+
+			prototype._onShow = function() {
+				var self = this,
+					overlay = self._ui.overlay;
+				if (overlay) {
+					overlay.style.display = "block";
+				}
+				self._setActive(true);
+				self.trigger(events.show);
+			};
+
+			prototype._hide = function (options) {
+				var self = this,
+					transitionOptions = objectUtils.merge(self.options, options);
+
+				transitionOptions.ext = " out ";
+
+				self.trigger(events.before_hide);
+				self._transition(transitionOptions, self._onHide.bind(self));
+			};
+
+			prototype._onHide = function() {
+				var self = this,
+					overlay = self._ui.overlay;
+				if (overlay) {
+					overlay.style.display = "";
+				}
+				self._setActive(false);
+				self.trigger(events.hide);
+			};
+
+			prototype.handleEvent = function(event) {
+				var self = this;
+				switch(event.type) {
+					case "pagebeforehide":
+						self.close({transition: "none"});
+						break;
+					case "resize":
+						self._onResize(event);
+						break;
+					case "click":
+						if ( event.target === self._ui.overlay ) {
+							self._onClickOverlay(event);
+						}
+						break;
+				}
+			};
+
+			prototype._refresh = function() {
+				var self = this;
+				self._unbindOverlayEvents();
+				self._setOverlay(self.options.overlay, self.element);
+				self._bindOverlayEvents();
+			};
+
+			prototype._onClickOverlay = function(event) {
+				var options = this.options;
+
+				event.preventDefault();
+				event.stopPropagation();
+
+				if (options.dismissible) {
+					this.close();
+				}
+			};
+
+			prototype._onResize = function() {
+				if (this._isActive()) {
+					this._refresh();
+				}
+			};
+
+			/**
+			 * Animate popup opening/closing
+			 * @method _transition
+			 * @protected
+			 * @instance
+			 * @param {Object} [options]
+			 * @param {string=} [options.transition]
+			 * @param {string=} [options.ext]
+			 * @param {?Function} [resolve]
+			 * @member ns.widget.core.BasePopup
+			 */
+			prototype._transition = function (options, resolve) {
+				var self = this,
+					transition = options.transition || self.options.transition || "none",
+					transitionClass = transition + options.ext,
+					element = self.element,
+					overlay = self._ui.overlay,
+					elementClassList = element.classList,
+					deferred = {
+						resolve: resolve
+					},
+					animationEnd = function () {
+						element.removeEventListener("animationend", animationEnd, false);
+						element.removeEventListener("webkitAnimationEnd", animationEnd, false);
+						transitionClass.split(" ").forEach(function (cls) {
+							var _cls = cls.trim();
+							if (_cls.length > 0) {
+								elementClassList.remove(_cls);
+								if (overlay) {
+									overlay.classList.remove(_cls);
+								}
+							}
+						});
+						deferred.resolve();
+					};
+
+				if (transition !== "none") {
+					element.addEventListener("animationend", animationEnd, false);
+					element.addEventListener("webkitAnimationEnd", animationEnd, false);
+					transitionClass.split(" ").forEach(function (cls) {
+						var _cls = cls.trim();
+						if (_cls.length > 0) {
+							elementClassList.add(_cls);
+							if (overlay) {
+								overlay.classList.add(_cls);
+							}
+						}
+					});
+				} else {
+					window.setTimeout(deferred.resolve, 0);
+				}
+				return deferred;
+			};
+
+			prototype._destroy = function() {
+				var self = this,
+					element = self.element;
+
+				self._unbindEvents(element);
+				self._setOverlay(false, element);
+			};
+
 			Popup.prototype = prototype;
+
 			ns.widget.core.Popup = Popup;
-
-			engine.defineWidget(
-				"popup",
-				"[data-role='popup'], .ui-popup",
-				[
-					"open",
-					"close",
-					"reposition"
-				],
-				Popup,
-				"core"
-			);
-
-			engine.defineWidget(
-				"Popup",
-				"",
-				[
-					"open",
-					"close",
-					"reposition"
-				],
-				Popup,
-				"core"
-			);
-
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return Popup;
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
-}(window, window.document, ns));
+}(ns));

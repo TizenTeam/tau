@@ -13,7 +13,7 @@
 			"./core/engine",
 			// widget list
 			"./core/util/anchorHighlight",
-			"./core/widget/core/Popup",
+			"./core/widget/core/ContextPopup",
 			"./profile/wearable/widget/wearable/Button",
 			"./profile/wearable/widget/wearable/Checkboxradio",
 			"./profile/wearable/widget/wearable/Listview",
