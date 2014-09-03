@@ -1,9 +1,9 @@
 (function() {
-	var page = document.getElementById("pageTestVirtualList"),
+	var page = document.getElementById("page-vlist-icon-2lines"),
 		vlist;
 
 	document.addEventListener("pageshow", function() {
-		var elList = document.getElementById("vlist1");
+		var elList = document.getElementById("vlist-icon-2lines");
 		if (elList) {
 			vlist = tau.widget.VirtualGrid(elList, {
 				dataLength: JSON_DATA.length,
