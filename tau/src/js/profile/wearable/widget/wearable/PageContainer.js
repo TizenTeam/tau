@@ -33,6 +33,7 @@
 	define(
 		[
 			"../../../../core/engine",
+			"../../../../core/event",
 			"../../../../core/util/DOM/attributes",
 			"../../../../core/widget/BaseWidget",
 			"../wearable",
@@ -43,6 +44,7 @@
 			var BaseWidget = ns.widget.BaseWidget,
 				Page = ns.widget.wearable.Page,
 				util = ns.util,
+				eventUtils = ns.event,
 				DOM = util.DOM,
 				engine = ns.engine,
 				classes = {
@@ -157,15 +159,16 @@
 			 * @protected
 			 */
 			prototype._transition = function (toPageWidget, fromPageWidget, options) {
-				var element = this.element,
+				var self = this,
+					element = self.element,
 					elementClassList = element.classList,
 					transition = !fromPageWidget || !options.transition ? "none" : options.transition,
 					deferred = options.deferred,
 					reverse = "reverse",
 					clearClasses = [classes.in, classes.out, classes.uiPreIn, transition],
 					oldDeferredResolve,
-					target,
 					classlist,
+					classParam,
 					oneEvent;
 
 				if (options.reverse) {
@@ -174,49 +177,42 @@
 				elementClassList.add(classes.uiViewportTransitioning);
 				oldDeferredResolve = deferred.resolve;
 				deferred.resolve = function () {
-					var i,
-						clearClassesLength = clearClasses.length,
-						fromPageWidgetClassList = fromPageWidget && fromPageWidget.element.classList,
+					var fromPageWidgetClassList = fromPageWidget && fromPageWidget.element.classList,
 						toPageWidgetClassList = toPageWidget.element.classList;
-
 					elementClassList.remove(classes.uiViewportTransitioning);
-					for (i = 0; i < clearClassesLength; i++) {
-						if (fromPageWidgetClassList) {
-							fromPageWidgetClassList.remove(clearClasses[i]);
-						}
-						toPageWidgetClassList.remove(clearClasses[i]);
+					toPageWidgetClassList.remove.apply(toPageWidgetClassList, clearClasses);
+					if (fromPageWidgetClassList) {
+						fromPageWidgetClassList.remove.apply(fromPageWidgetClassList, clearClasses);
 					}
+					self._setActivePage(toPageWidget);
 					oldDeferredResolve();
 				};
 
 				if (transition !== "none") {
-					target = options.reverse ? fromPageWidget : toPageWidget;
 					oneEvent = function () {
-						target.element.removeEventListener(animationend, oneEvent, false);
-						target.element.removeEventListener(webkitAnimationEnd, oneEvent, false);
+						eventUtils.off(toPageWidget.element, [animationend, webkitAnimationEnd], oneEvent, false);
 						deferred.resolve();
 					};
-					target.element.addEventListener(animationend, oneEvent, false);
-					target.element.addEventListener(webkitAnimationEnd, oneEvent, false);
+					eventUtils.one(toPageWidget.element, [animationend, webkitAnimationEnd], oneEvent, false);
 
 					if (fromPageWidget) {
-						classlist = fromPageWidget.element.classList;
-						classlist.add(transition);
-						classlist.add(classes.out);
+						classParam = [];
+						classParam.push(transition, classes.out);
 						if (options.reverse) {
-							classlist.add(reverse);
+							classParam.push(reverse);
 						}
+						classlist = fromPageWidget.element.classList;
+						classlist.add.apply(classlist ,classParam);
 					}
 
-					classlist = target.element.classList;
-					classlist.add(transition);
-					classlist.add(classes.in);
+					classlist = toPageWidget.element.classList;
+					classParam = [];
+					classParam.push(transition, classes.in, classes.uiPreIn);
 					if (options.reverse) {
-						classlist.add(reverse);
+						classParam.push(reverse);
 					}
-					this._setActivePage(target);
+					classlist.add.apply(classlist, classParam);
 				} else {
-					this._setActivePage(toPageWidget);
 					window.setTimeout(deferred.resolve, 0);
 				}
 			};
