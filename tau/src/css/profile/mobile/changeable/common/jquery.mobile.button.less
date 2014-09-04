@@ -31,7 +31,7 @@
 }
 
 .ui-btn:focus, .ui-btn:active { outline: none; }
-.ui-header .ui-btn, .ui-bar .ui-btn { display: inline-block; margin: 0; }
+.ui-header > .ui-btn, .ui-bar > .ui-btn { display: inline-block; margin: 0; }
 .ui-btn-inline { display: inline-block; }
 .ui-btn-inner {
 	display: block;
@@ -61,13 +61,13 @@
 .ui-btn-icon-right .ui-icon { right: 4 * @unit_base; }
 .ui-btn-icon-top .ui-icon { top: 0 * @unit_base; margin-top: 0; }
 .ui-btn-icon-bottom .ui-icon { bottom: 0 * @unit_base; }
-.ui-header .ui-btn-icon-right .ui-icon,
+.ui-header > .ui-btn-icon-right .ui-icon,
 .ui-footer .ui-btn-icon-right .ui-icon,
 .ui-bar .ui-btn-icon-right .ui-icon { right: 4 * @unit_base; }
-.ui-header .ui-btn-icon-top .ui-icon,
+.ui-header > .ui-btn-icon-top .ui-icon,
 .ui-footer .ui-btn-icon-top .ui-icon,
 .ui-bar .ui-btn-icon-top .ui-icon { top: 4 * @unit_base; }
-.ui-header .ui-btn-icon-bottom .ui-icon,
+.ui-header > .ui-btn-icon-bottom .ui-icon,
 .ui-footer .ui-btn-icon-bottom .ui-icon,
 .ui-bar .ui-btn-icon-bottom .ui-icon { bottom: 4 * @unit_base; }
 
@@ -150,9 +150,9 @@
 	}
 }
 
-.ui-header .ui-btn-box-s:not(.ui-input-cancel):not(.ui-btn-search-front-icon),
-.ui-header .ui-btn-box-s:not(.ui-input-cancel):not(.ui-btn-search-front-icon) .ui-btn-inner,
-.ui-header .ui-btn.ui-btn-box-s.ui-btn-down-s:not(.ui-input-cancel):not(.ui-btn-search-front-icon) .ui-btn-inner,
+.ui-header > .ui-btn-box-s:not(.ui-input-cancel):not(.ui-btn-search-front-icon),
+.ui-header > .ui-btn-box-s:not(.ui-input-cancel):not(.ui-btn-search-front-icon) .ui-btn-inner,
+.ui-header > .ui-btn.ui-btn-box-s.ui-btn-down-s:not(.ui-input-cancel):not(.ui-btn-search-front-icon) .ui-btn-inner,
 .ui-btn.ui-btn-back.ui-btn-up-s .ui-btn-inner,
 .ui-btn.ui-btn-back.ui-btn-hover-s .ui-btn-inner,
 .ui-btn.ui-btn-back.ui-btn-down-s .ui-btn-inner,
@@ -164,7 +164,7 @@
 	box-shadow: none;
 }
 
-.ui-header .naviframe-button.ui-btn.ui-btn-box-s.ui-btn-down-s {
+.ui-header > .naviframe-button.ui-btn.ui-btn-box-s.ui-btn-down-s {
 	background : @color_bar_naviframe_press;
 }
 
