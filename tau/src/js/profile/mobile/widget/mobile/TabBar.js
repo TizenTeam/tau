@@ -365,12 +365,18 @@
 					iconpos,
 					i,
 					textpos,
-					instanceButtonOptions = {
+					instanceButtonOptions,
+					instanceButtonHeaderOptions = {
 						shadow: false,
 						corners: false,
 						inline: false,
-						bar: true,
-						role: 'button'
+						bar: true
+					},
+					instanceButtonFooterOptions = {
+						shadow: true,
+						inline: false,
+						corners: true,
+						bar: false
 					};
 
 				if (links.length) {
@@ -444,10 +450,16 @@
 				}
 
 				if (links.length) {
+					if (headers.length) {
+						instanceButtonOptions = instanceButtonHeaderOptions;
+					} else {
+						instanceButtonOptions = instanceButtonFooterOptions;
+					}
 					if (iconpos) {
 						instanceButtonOptions.iconpos = iconpos;
 					}
 					links.forEach(function (item) {
+						DOM.setNSData(item, "role", "button");
 						engine.instanceWidget(item, "Button", instanceButtonOptions);
 					});
 				}
@@ -473,13 +485,14 @@
 					li = slice.call(element.getElementsByTagName("li")),
 					innerWidth = window.innerWidth,
 					innerHeight = window.innerHeight,
+					inHeaders = !!(selectors.getParentsByClass(element, classes.uiHeader).length),
 					isLandscape = innerWidth > innerHeight;
 
 				if (li.length > 4) {
 					// tabbar elements should be showed maximum forth elements.
-					this._setWidth(li, innerWidth / 4);
+					this._setWidth(li, innerWidth / 4, inHeaders);
 				} else {
-					this._setWidth(li, innerWidth / li.length);
+					this._setWidth(li, innerWidth / li.length, inHeaders);
 				}
 
 				if (isLandscape) {
@@ -542,10 +555,11 @@
 			 * @method _setWidth
 			 * @param {Array} elements
 			 * @param {number} width
+			 * @param {boolean} setOnLink
 			 * @member ns.widget.mobile.TabBar
 			 * @protected
 			 */
-			TabBar.prototype._setWidth = function (elements, width) {
+			TabBar.prototype._setWidth = function (elements, width, setOnLink) {
 				var i,
 					length = elements.length,
 					element,
@@ -556,7 +570,7 @@
 					element = elements[i];
 					element.style.width = elementWidth;
 					linkElement = selectors.getChildrenByTag(element, "a")[0];
-					if (linkElement) {
+					if (linkElement && setOnLink) {
 						linkElement.style.width = linkWidth;
 					}
 				}

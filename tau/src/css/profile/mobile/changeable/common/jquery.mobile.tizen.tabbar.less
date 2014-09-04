@@ -7,6 +7,7 @@
 	a.ui-btn {
 		height: 104 * @unit_base;
 		.ui-btn-inner {
+			height: 104 * @unit_base;
 			.ui-icon {
 				height: 46 * @unit_base;
 				width: 46 * @unit_base;
@@ -64,6 +65,7 @@
 		.ui-btn-inner {
 			padding-top : 0;
 			padding-bottom : 0;
+			height: 72 * @unit_base;
 
 			&:not(.ui-btn-icon-only) .ui-btn-text-padding-top.ui-btn-text {
 				position:absolute;
@@ -180,45 +182,12 @@
 		}
 	}
 }
-.ui-footer .ui-tabbar.ui-navbar {
-	height: 100%;
-	&.ui-tabbar-notext .ui-btn-inner .ui-icon {
-		top: 26 * @unit_base;
-	}
-	a.ui-btn {
-		height: 100%;
-		.ui-btn-inner {
-			padding: 54 * @unit_base;
-		}
-		&.ui-btn-up-s, &.ui-btn-hover-s {
-			background-color: @color_tabbar_bg;
-			.ui-icon {
-				background: @color_tabbar_btn_normal;
-			}
-		}
-		&.ui-btn-down-s {
-			background : @color_tabbar_press;
-			.ui-btn-text {
-				background : @color_tabbar_press;
-			}
-		}
-		&.ui-btn-active {
-			color : @color_tabbar_text_selected;
-			.ui-icon {
-				background : @color_tabbar_btn_selected;
-			}
-			.ui-btn-inner.ui-btn-hastxt .ui-btn-text{
-				color: @color_tabbar_text_selected;
-			}
-		}
-	}
-	a.ui-btn .ui-btn-inner.ui-btn-hastxt {
-		padding: 20 * @unit_base;
-		.ui-btn-text{
-			color: @color_tabbar_text_normal;
-			font-size: @font_size_tabbar_text_only;
-			line-height: 72 * @unit_base;
+.ui-footer {
+	.ui-navbar {
+		li {
+			padding-left: 6 * @unit_base;
+			padding-right: 6 * @unit_base;
+			box-sizing: border-box;
 		}
 	}
 }
-

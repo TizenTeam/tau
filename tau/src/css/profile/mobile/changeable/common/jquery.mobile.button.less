@@ -10,11 +10,12 @@
 @width_buttonEdit:	@height_buttonEdit;
 
 .ui-btn {
-		display: block;
-		text-align: center;
-		cursor:pointer;
-		position: relative;
-		vertical-align: middle;
+	display: block;
+	text-align: center;
+	cursor:pointer;
+	position: relative;
+	vertical-align: middle;
+	text-decoration: none;
 } /* wongi_1018 : For button align. */
 
 .ui-footer, .ui-ticker-btn {
@@ -61,15 +62,44 @@
 .ui-btn-icon-right .ui-icon { right: 4 * @unit_base; }
 .ui-btn-icon-top .ui-icon { top: 0 * @unit_base; margin-top: 0; }
 .ui-btn-icon-bottom .ui-icon { bottom: 0 * @unit_base; }
-.ui-header > .ui-btn-icon-right .ui-icon,
-.ui-footer .ui-btn-icon-right .ui-icon,
-.ui-bar .ui-btn-icon-right .ui-icon { right: 4 * @unit_base; }
-.ui-header > .ui-btn-icon-top .ui-icon,
-.ui-footer .ui-btn-icon-top .ui-icon,
-.ui-bar .ui-btn-icon-top .ui-icon { top: 4 * @unit_base; }
-.ui-header > .ui-btn-icon-bottom .ui-icon,
-.ui-footer .ui-btn-icon-bottom .ui-icon,
-.ui-bar .ui-btn-icon-bottom .ui-icon { bottom: 4 * @unit_base; }
+
+.iconposition {
+	&.ui-btn-icon-right {
+		.ui-icon {
+			right: 4 * @unit_base;
+		}
+	}
+
+	&.ui-btn-icon-top {
+		.ui-icon {
+			top: 4 * @unit_base;
+		}
+
+		&.ui-btn-icon_only {
+			.ui-icon {
+				top: 10 * @unit_base;
+			}
+		}
+	}
+
+	&.ui-btn-icon-bottom {
+		.ui-icon {
+			bottom: 4 * @unit_base;
+		}
+	}
+}
+.ui-header {
+	> * {
+		.iconposition();
+	}
+}
+
+.ui-footer, .ui-bar {
+	* {
+		.iconposition();
+	}
+}
+
 
 /*hiding native button,inputs */
 .ui-btn-hidden { position: absolute; top: 0; left: 0; width: 100%; height: 100%; -webkit-appearance: button; opacity: .1; cursor: pointer; background: transparent; font-size: 1 * @unit_base; border: none; line-height: 999 * @unit_base; }
@@ -102,14 +132,10 @@
 	background: transparent ! important;
 }
 .ui-btn-box-s.ui-btn-up-s,
+.ui-btn-box-s.ui-focus,
 .ui-btn-box-s.ui-btn-hover-s {
-
-
-
-	&:not(.ui-btn-icon_only) {
-		.core_button_bg();
-		background-color: @color_button_bg;
-	}
+	.core_button_bg();
+	background-color: @color_button_bg;
 
 	&:not([data-style="nobg"]) .ui-icon {
 		background-color: @color_button_icon;
