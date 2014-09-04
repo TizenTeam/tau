@@ -31,18 +31,43 @@
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 
-			ns.defaults = {
-				autoInitializePage: true,
-				pageTransition: 'none',
-				popupTransition: 'none'
-			};
+			ns.defaults = {};
 
-			/**
-			 * Set dynamic base tag changes.
-			 * @property {boolean} [dynamicBaseEnabled=true]
-			 * @member ns.defaults
-			 */
-			ns.dynamicBaseEnabled = true;
+			Object.defineProperty(ns.defaults, "autoInitializePage", {
+				 get: function(){
+					 return ns.getConfig("autoInitializePage", true);
+				 },
+				 set: function(value){
+					 return ns.setConfig("autoInitializePage", value);
+				 }
+			});
+
+			Object.defineProperty(ns.defaults, "dynamicBaseEnabled", {
+				 get: function(){
+					 return ns.getConfig("dynamicBaseEnabled", true);
+				 },
+				 set: function(value){
+					 return ns.setConfig("dynamicBaseEnabled", value);
+				 }
+			});
+
+			Object.defineProperty(ns.defaults, "pageTransition", {
+				 get: function(){
+					 return ns.getConfig("pageTransition", "none");
+				 },
+				 set: function(value){
+					 return ns.setConfig("pageTransition", value);
+				 }
+			});
+
+			Object.defineProperty(ns.defaults, "popupTransition", {
+				 get: function(){
+					 return ns.getConfig("popupTransition", "none");
+				 },
+				 set: function(value){
+					 return ns.setConfig("popupTransition", value);
+				 }
+			});
 
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 		}

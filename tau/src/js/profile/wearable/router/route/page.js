@@ -104,7 +104,9 @@
 			 * @return {Object} default route options
 			 */
 			routePage.option = function () {
-				return routePage.defaults;
+				var defaults = object.merge({}, routePage.defaults);
+				defaults.transition = ns.getConfig('pageTransition', defaults.transition);
+				return defaults;
 			};
 
 			/**

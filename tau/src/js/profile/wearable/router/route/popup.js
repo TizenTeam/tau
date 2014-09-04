@@ -29,6 +29,7 @@
 			"../../../../core/engine",
 			"../../../../core/util/path",
 			"../../../../core/util/DOM/attributes",
+			"../../../../core/util/object",
 			"../history",
 			"../route",
 			"../../../../core/widget/BasePopup"
@@ -141,6 +142,14 @@
 			 */
 			slice = [].slice,
 			/**
+			 * Alias for Object utils
+			 * @method slice
+			 * @member ns.router.route.popup
+			 * @private
+			 * @static
+			 */
+			object = ns.util.object,
+			/**
 			 * Popup's hash added to url
 			 * @property {string} popupHashKey
 			 * @member ns.router.route.popup
@@ -192,7 +201,7 @@
 			 * @static
 			 */
 			routePopup.option = function () {
-				var defaults = routePopup.defaults;
+				var defaults = object.merge({}, routePopup.defaults);
 				defaults.transition = ns.getConfig('popupTransition', defaults.transition);
 				return defaults;
 			};
