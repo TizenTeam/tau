@@ -1403,7 +1403,7 @@
 			ns.widget.mobile.FastScroll = Listview;
 			engine.defineWidget(
 				"FastScroll",
-				"[data-role='listview'][data-fastscroll='true'], .ui-fastscroll",
+				"",
 				["indexString"],
 				Listview,
 				"tizen"
