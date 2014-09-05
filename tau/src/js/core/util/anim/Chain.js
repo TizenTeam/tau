@@ -138,7 +138,7 @@
 					 * @property {Array.<ns.util.anim.Animation>} animations The animations holder
 					 * @readonly
 					 */
-					self.animations = new Array(0);
+					self.animations = [];
 					/**
 					 * @property {number} totalTime
 					 * @readonly

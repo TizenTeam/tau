@@ -131,7 +131,7 @@
 					props = (prop + " " + vendors.join(uc_prop + " ") + uc_prop).split(" "),
 					key;
 
-				for (key in props) {
+				for (key = 0; key < props.length; key++) {
 					if (props.hasOwnProperty(key) && fakeBodyStyle[props[key]] !== undefined) {
 						return true;
 					}

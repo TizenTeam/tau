@@ -188,7 +188,8 @@
 						themePath = frameworkData.themePath,
 						themeName = "tau",
 						isMinified = frameworkData.minified,
-						jsPath;
+						jsPath,
+						cssPath;
 
 					if (frameworkData.frameworkName !== "tau") {
 						themeName = "tizen-web-ui-fw-theme";

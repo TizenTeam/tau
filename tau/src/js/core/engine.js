@@ -198,7 +198,7 @@
 					return selectorName.trim();
 				}
 				return selectorName.trim() + ":not([data-role='none'])";
-			};
+			}
 
 			/**
 			 * Function to define widget

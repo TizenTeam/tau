@@ -199,7 +199,7 @@
 							element: null,
 							from: null,
 							to: null,
-							steps: new Array(0),
+							steps: [],
 							duration: "0",
 							direction: "normal",
 							delay: "0",
@@ -219,7 +219,8 @@
 						element = opts.element;
 
 					if (opts.steps.length === 0) {
-						steps = new Array(101);
+						steps = [];
+						steps.length = 101;
 						if (opts.to) {
 							steps[100] = opts.to;
 						}

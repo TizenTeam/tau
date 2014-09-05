@@ -159,7 +159,9 @@
 				sliderInit,
 				sliderConfigure,
 				sliderBindEvents,
-				slider_refresh;
+				slider_refresh,
+				slider_setValue,
+				slider_getValue;
 
 			/**
 			 * Dictionary for TizenSlider related css class names

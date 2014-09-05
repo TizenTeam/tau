@@ -387,7 +387,7 @@
 						corners: true
 					});
 				}
-			};
+			}
 
 			/**
 			 * Set page active / unactive

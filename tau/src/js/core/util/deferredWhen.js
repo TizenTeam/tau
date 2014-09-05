@@ -65,9 +65,12 @@
 
 				// add listeners to Deferred subordinates; treat others as resolved
 				if (length > 1) {
-					progressValues = new Array(length);
-					progressContexts = new Array(length);
-					resolveContexts = new Array(length);
+					progressValues = [];
+					progressValues.length =  length;
+					progressContexts = [];
+					progressContexts.length = length;
+					resolveContexts = [];
+					resolveContexts.length = lnegth;
 					for ( ; i < length; i++ ) {
 						if (resolveValues[i] && (typeof resolveValues[i].promise === "function")) {
 							resolveValues[i].promise()
