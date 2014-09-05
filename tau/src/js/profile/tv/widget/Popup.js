@@ -20,44 +20,52 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../../../profile/mobile/widget/mobile/Popup",
+			"../../../core/widget/core/ContextPopup",
 			"../../../core/engine",
-			"../../../core/event"
+			"../../../core/event",
+			"../../../core/util/selectors",
+			"../../../core/util/object",
+			"./Page"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
-			var MobilePopup = ns.widget.mobile.Popup,
-				MobilePopupPrototype = MobilePopup.prototype,
-				BaseKeyboardSupport = ns.widget.tv.BaseKeyboardSupport,
-				classes = MobilePopup.classes,
-				Popup = function () {
-					MobilePopup.call(this);
-					BaseKeyboardSupport.call(this);
-				},
-				engine = ns.engine,
+			var engine = ns.engine,
+				utilSelectors = ns.util.selectors,
 				/**
-				* @property {Object} events Alias for class ns.event
-				* @member ns.widget.tv.Popup
-				* @private
-				*/
+				 * @property {Object} events Alias for class ns.event
+				 * @member ns.widget.tv.Popup
+				 * @private
+				 */
 				events = ns.event,
+				objectUtils = ns.util.object,
+				CorePopup = ns.widget.core.ContextPopup,
+				CorePopupPrototype = CorePopup.prototype,
+				BaseKeyboardSupport = ns.widget.tv.BaseKeyboardSupport,
+				Popup = function () {
+					var self = this;
+					self._ui = {};
+
+					CorePopup.call(self);
+					BaseKeyboardSupport.call(self);
+				},
+				classes = objectUtils.merge({}, CorePopup.classes, {
+					toast: "ui-popup-toast",
+					headerEmpty: "ui-header-empty",
+					footerEmpty: "ui-footer-empty",
+					content: "ui-popup-content",
+				}),
 				selectors = {
 					header: "header",
 					content: "div",
 					footer: "footer"
 				},
-				prototype = new MobilePopup(),
+				prototype = new CorePopup(),
 				FUNCTION_TYPE = "function",
 				KEY_CODES = {
 					enter: 13
 				};
 
-			Popup.events = MobilePopup.events;
-
-			classes.toast = "ui-popup-toast";
-			classes.headerEmpty = "ui-header-empty";
-			classes.footerEmpty = "ui-footer-empty";
-			classes.content = "ui-popup-content";
+			Popup.events = CorePopup.events;
 
 			Popup.classes = classes;
 
@@ -74,16 +82,17 @@
 			 * @member ns.widget.tv.Popup
 			 */
 			prototype._build = function ( element) {
-				var options = this.options,
+				var ui = this._ui,
+					options = this.options,
 					header = element.querySelector(selectors.header),
 					content = element.querySelector(selectors.content),
 					footer = element.querySelector(selectors.footer),
-					elementChildren = element.children,
+					elementChildren = element.childNodes,
 					length = elementChildren.length,
 					i,
 					node;
 
-				element.classList.add(classes.uiPopup);
+				element.classList.add(classes.popup);
 
 				if (!content) {
 					//if content does not exist, it is created
@@ -95,6 +104,7 @@
 						}
 					}
 					element.appendChild(content);
+					ui.content = content;
 				}
 				content.classList.add(classes.content);
 
@@ -105,6 +115,7 @@
 						header.innerHTML = options.header;
 						element.insertBefore(header, content);
 					}
+					ui.header = header;
 				} else {
 					element.classList.add(classes.headerEmpty);
 				}
@@ -116,84 +127,29 @@
 						footer.innerHTML = options.footer;
 						element.appendChild(footer);
 					}
+					ui.footer = footer;
 				} else {
 					element.classList.add(classes.footerEmpty);
 				}
 
-				if (typeof MobilePopupPrototype._build === FUNCTION_TYPE) {
-					MobilePopupPrototype._build.apply(this, arguments);
+				if (typeof CorePopupPrototype._build === FUNCTION_TYPE) {
+					CorePopupPrototype._build.apply(this, arguments);
 				}
 
 				return element;
 			};
 
-			/**
-			 * Set the state of the popup
-			 * @method _setActive
-			 * @param {boolean} active
-			 * @param {Object} options
-			 * @protected
-			 * @member ns.widget.wearable.Popup
-			 */
-			prototype._setActive = function (active, options) {
-				var activeClass = classes.uiPopupActive,
-					elementCls = this.element.classList,
-					route = ns.engine.getRouter().getRoute("popup");
-				if (active) {
-					// set global variable
-					route.setActive(this, options);
-					// add proper class
-					elementCls.add(activeClass);
-				} else {
-					// no popup is opened, so set global variable on "null"
-					route.setActive(null, options);
-					// remove proper class
-					elementCls.remove(activeClass);
-				}
-
-				this.active = elementCls.contains(activeClass);
-			};
-
 			prototype._init = function(element) {
-				if (typeof MobilePopupPrototype._init === FUNCTION_TYPE) {
-					MobilePopupPrototype._init.call(this, element);
+				var page;
+
+				if (typeof CorePopupPrototype._init === FUNCTION_TYPE) {
+					CorePopupPrototype._init.call(this, element);
 				}
 				if (element.classList.contains(classes.toast)) {
 					this._ui.container.classList.add(classes.toast);
 				}
-				this._pageWidget = engine.instanceWidget(element.parentElement.parentElement, "page");
-			};
-
-			function checkLink(options) {
-				var link = options && options.link,
-					linkElement = options && document.getElementById(link);
-
-				if (linkElement && linkElement.getAttribute("data-role") !== "button") {
-					options.link = null;
-				}
-			}
-
-			/**
-			* Animation's callback on completed opening
-			* @method _openPrereqsComplete
-			* @protected
-			* @member ns.widget.mobile.Popup
-			*/
-			prototype._openPrereqsComplete = function() {
-				var self = this,
-					container = self._ui.container;
-
-				container.classList.add(Popup.classes.uiPopupActive);
-				self._isOpen = true;
-				self._isPreOpen = false;
-
-				// Android appears to trigger the animation complete before the popup
-				// is visible. Allowing the stack to unwind before applying focus prevents
-				// the "blue flash" of element focus in android 4.0
-				setTimeout(function(){
-					container.setAttribute("tabindex", "0");
-					events.trigger(self.element, "popupafteropen");
-				});
+				page = utilSelectors.getClosestByClass(element, ns.widget.tv.Page.classes.uiPage);
+				this._pageWidget = engine.getBinding(page, "page");
 			};
 
 			function onKeydownClosing(self, event) {
@@ -236,34 +192,33 @@
 				closingOnKeydown(self, true);
 			};
 
+			prototype._placementCoordsWindow = function(element) {
+				// if popup is not a toast popup, we set position to the center
+				if (!element.classList.contains(classes.toast) &&
+					typeof CorePopupPrototype._placementCoordsWindow === FUNCTION_TYPE) {
+					CorePopupPrototype._placementCoordsWindow.call(this, element);
+					element.style.top = parseInt(element.style.top) / 2 + "px";
+				}
+			}
+
 			prototype.open = function(options) {
 				var self = this;
 
-				if (!self._isOpen) {
-					checkLink(options);
+				if (!self._isActive()) {
 
-					if (typeof MobilePopupPrototype.open === FUNCTION_TYPE) {
-						MobilePopupPrototype.open.apply(self, arguments);
+					if (typeof CorePopupPrototype.open === FUNCTION_TYPE) {
+						CorePopupPrototype.open.apply(self, arguments);
 					}
 
-					options = options || {};
-
-					//TODO after transition
-					self._setActive(true, options);
-
 					self._setKeyboardSupport(options);
-
 				}
 			};
 
 			prototype.close = function(options) {
-				if (this._isOpen) {
-					if (typeof MobilePopupPrototype.close === FUNCTION_TYPE) {
-						MobilePopupPrototype.close.apply(this, arguments);
+				if (this._isOpened()) {
+					if (typeof CorePopupPrototype.close === FUNCTION_TYPE) {
+						CorePopupPrototype.close.apply(this, arguments);
 					}
-
-					//TODO after transition
-					this._setActive(false, options || {});
 
 					this.disableKeyboardSupport();
 					this._pageWidget.enableKeyboardSupport();
@@ -272,25 +227,25 @@
 				}
 			};
 
-			prototype._bindEvents = function() {
-				if (typeof MobilePopupPrototype._bindEvents === FUNCTION_TYPE) {
-					MobilePopupPrototype._bindEvents.call(this);
+			prototype._bindEvents = function(element) {
+				if (typeof CorePopupPrototype._bindEvents === FUNCTION_TYPE) {
+					CorePopupPrototype._bindEvents.call(this, element);
 				}
 				this._bindEventKey();
 			};
 
 			prototype._destroy = function() {
 				this._destroyEventKey();
-				if (typeof MobilePopupPrototype._destroy === FUNCTION_TYPE) {
-					MobilePopupPrototype._destroy.call(this);
+				if (typeof CorePopupPrototype._destroy === FUNCTION_TYPE) {
+					CorePopupPrototype._destroy.call(this);
 				}
 			};
 
 			// definition
-			ns.widget.tv.Page = Popup;
+			ns.widget.tv.Popup = Popup;
 
 			engine.defineWidget(
-				"Popup",
+				"popup",
 				"[data-role='popup'], .ui-popup",
 				["setActive", "show", "hide", "open", "close"],
 				Popup,

@@ -247,7 +247,11 @@
 						routePopup.activePopup = null;
 					},
 					openPopup = function () {
-						options.positionTo = options["position-to"];
+						var positionTo = options["position-to"];
+						// add such option only if it exists
+						if (positionTo) {
+							options.positionTo = positionTo;
+						}
 						if (event && event.touches) {
 							options.x = event.touches[0].clientX;
 							options.y = event.touches[0].clientY;

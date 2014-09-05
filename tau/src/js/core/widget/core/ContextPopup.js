@@ -573,6 +573,16 @@
 				return bestRectangle;
 			}
 
+			prototype._placementCoordsWindow = function(element) {
+				var elementStyle = element.style,
+					elementWidth = element.offsetWidth;
+					elementHeight = element.offsetHeight;
+
+				elementStyle.top = (window.innerHeight - elementHeight) + "px";
+				elementStyle.left = "50%";
+				elementStyle.marginLeft = -(elementWidth / 2) + "px";
+			}
+
 			prototype._placementCoords = function(options) {
 				var self = this,
 					positionTo = options.positionTo,
@@ -581,7 +591,6 @@
 					element = self.element,
 					elementStyle = element.style,
 					elementClassList = element.classList,
-					elementWidth,
 					elementHeight,
 					clickedElement,
 					bestRectangle;
@@ -617,12 +626,7 @@
 					elementStyle.top = bestRectangle.y + "px";
 
 				} else {
-					elementWidth = element.offsetWidth;
-					elementHeight = element.offsetHeight;
-
-					elementStyle.top = (window.innerHeight - elementHeight) + "px";
-					elementStyle.left = "50%";
-					elementStyle.marginLeft = -(elementWidth / 2) + "px";
+					self._placementCoordsWindow(element);
 				}
 
 			};

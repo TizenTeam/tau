@@ -150,7 +150,7 @@
 			 */
 			prototype._buildContent = function ( element) {
 				var ui = this._ui,
-					content = element.querySelector("." + classes.content),
+					content = ui.content || element.querySelector("." + classes.content),
 					footer = ui.footer || element.querySelector("." + classes.footer),
 					elementChildren = [].slice.call(element.childNodes),
 					elementChildrenLength = elementChildren.length,

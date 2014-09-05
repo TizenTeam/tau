@@ -17,7 +17,7 @@
 			"../../../../core/engine",
 			"../../../../profile/wearable/router/route",
 			"../../../../profile/wearable/router/route/popup",
-			"../../../../profile/mobile/widget/mobile/Popup"
+			"../../../../profile/tv/widget/Popup"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
@@ -53,13 +53,14 @@
 			 * @param {boolean} [options.fromHashChange = false] Sets if will be changed after hashchange.
 			 * @param {boolean} [options.showLoadMsg = true] Sets if message will be shown during loading.
 			 * @param {number} [options.loadMsgDelay = 0] Sets delay time for the show message during loading.
-			 * @param {boolean} [options.volatileRecord = false] Sets if the current history entry will be modified or a new one will be created.
 			 * @param {boolean} [options.dataUrl] Sets if page has url attribute.
 			 * @param {string} [options.container = null] Selector for container.
+			 * @param {boolean} [options.volatileRecord=true] Sets if the current history entry will be modified or a new one will be created.
+			 * @param {Event} event
 			 * @member ns.router.route.popup
 			 * @static
 			 */
-			routePopup.open = function (toPopup, options) {
+			routePopup.open = function (toPopup, options, event) {
 				var popup,
 					router = engine.getRouter(),
 					events = routePopup.events,
@@ -69,8 +70,21 @@
 						routePopup.activePopup = null;
 					},
 					openPopup = function () {
+						var positionTo = options["position-to"];
+						// add such option only if it exists
+						if (positionTo) {
+							options.positionTo = positionTo;
+						}
+						if (event && event.touches) {
+							options.x = event.touches[0].clientX;
+							options.y = event.touches[0].clientY;
+						} else if (event){
+							options.x = event.clientX;
+							options.y = event.clientY;
+						}
+
 						document.removeEventListener(events.POPUP_HIDE, openPopup, false);
-						popup = engine.instanceWidget(toPopup, "Popup", options);
+						popup = engine.instanceWidget(toPopup, "popup", options);
 						popup.open(options);
 						routePopup.activePopup = popup;
 					},
