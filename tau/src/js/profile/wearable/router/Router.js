@@ -177,12 +177,6 @@
 					 * @member ns.router.Router
 					 */
 					self.settings = {};
-					/**
-					 * Rules for widget navigation
-					 * @property {Object} [rule]
-					 * @member ns.router.Router
-					 */
-					self.rule = {};
 				};
 
 			/**
@@ -736,7 +730,7 @@
 			 * @member ns.router.Router
 			 */
 			Router.prototype.hasActivePopup = function () {
-				var popup = this.rule.popup;
+				var popup = this.getRoute("popup");
 				return popup && popup.hasActive();
 			};
 
