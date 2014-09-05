@@ -64,7 +64,6 @@
 			"./core/core",
 			"./core/config",
 			"./profile/tv/config",
-			"./profile/wearable/defaults",
 			"./core/engine",
 			// widget list
 			"./core/util/anchorHighlight",

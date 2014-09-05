@@ -8,7 +8,6 @@
 			"./core/core",
 			"./core/config",
 			"./profile/wearable/config",
-			"./profile/wearable/defaults",
 			"./core/engine",
 			// widget list
 			"./core/util/anchorHighlight",

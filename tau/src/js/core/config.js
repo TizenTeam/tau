@@ -13,7 +13,8 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"./core"
+			"./core",
+			"./defaults"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
