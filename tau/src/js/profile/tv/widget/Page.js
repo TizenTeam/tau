@@ -118,14 +118,6 @@
 				 */
 				classes = WearablePage.classes,
 				/**
-				 * Alias for {@link ns.wearable.selectors}
-				 * @property {Object} selectors
-				 * @member ns.widget.tv.Page
-				 * @private
-				 * @static
-				 */
-				selectors = ns.wearable.selectors,
-				/**
 				 * Alias for {@link ns.util}
 				 * @property {Object} util
 				 * @member ns.widget.tv.Page
@@ -425,8 +417,6 @@
 
 			// definition
 			ns.widget.tv.Page = Page;
-
-			selectors.page = "[data-role=page],.ui-page";
 
 			engine.defineWidget(
 				"page",

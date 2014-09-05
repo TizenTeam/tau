@@ -15,14 +15,13 @@
 	define(
 		[
 			"../../../../core/engine",
-			"../../selectors",
-			"../route",
 			"../../../../core/util/DOM/attributes",
 			"../../../../core/util/path",
 			"../../../../core/util/selectors",
 			"../../../../core/util/object",
-			"../history",
-			"../../widget/wearable/Page"
+			"../../widget/wearable/Page",
+			"../route",
+			"../history"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
@@ -33,6 +32,7 @@
 				utilSelector = util.selectors,
 				history = ns.router.history,
 				engine = ns.engine,
+				Page = ns.widget.wearable.Page,
 				baseElement,
 				slice = [].slice,
 				routePage = {},
@@ -80,10 +80,9 @@
 			 * Property defining selector for filtering only page elements
 			 * @property {string} filter
 			 * @member ns.router.route.page
-			 * @inheritdoc ns.wearable.selectors#page
 			 * @static
 			 */
-			routePage.filter = ns.wearable.selectors.page;
+			routePage.filter = "." + Page.classes.uiPage;
 
 			/**
 			 * Returns default route options used inside Router.

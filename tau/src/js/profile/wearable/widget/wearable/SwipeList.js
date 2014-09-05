@@ -70,7 +70,8 @@
 			"../../../../core/util/selectors",
 			"../../../../core/util/DOM",
 			"../../../../core/widget/BaseWidget",
-			"../wearable"
+			"../wearable",
+			"./Page"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
@@ -218,7 +219,7 @@
 			};
 
 			prototype._init = function (element) {
-				var page = selectors.getClosestBySelector(element, ns.wearable.selectors.page),
+				var page = selectors.getClosestBySelector(element, "." + ns.widget.wearable.Page.classes.uiPage),
 					options = this.options,
 					swipeLeftElementBg,
 					swipeRightElementBg,

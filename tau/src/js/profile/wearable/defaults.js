@@ -14,7 +14,7 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"./selectors"
+			"../../core/core"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");

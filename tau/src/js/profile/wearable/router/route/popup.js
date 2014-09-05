@@ -19,9 +19,9 @@
 			"../../../../core/util/path",
 			"../../../../core/util/DOM/attributes",
 			"../../../../core/util/object",
+			"../../../../core/widget/core/Popup",
 			"../history",
-			"../route",
-			"../../../../core/widget/core/Popup"
+			"../route"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");

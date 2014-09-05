@@ -37,7 +37,7 @@
 						volatileRecord: true
 					},
 					/**
-					 * @property {string} filter Alias for {@link ns.wearable.selectors#popup}
+					 * @property {string} filter Alias
 					 * @member ns.router.route.popup
 					 * @static
 					 */

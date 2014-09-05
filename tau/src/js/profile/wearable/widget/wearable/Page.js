@@ -213,7 +213,6 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../../selectors",
 			"../../../../core/engine",
 			"../../../../core/util/DOM/css",
 			"../wearable",
@@ -229,14 +228,6 @@
 			 * @static
 			 */
 			var BaseWidget = ns.widget.BaseWidget,
-				/**
-				 * Alias for {@link ns.wearable.selectors}
-				 * @property {Object} selectors
-				 * @member ns.widget.wearable.Page
-				 * @private
-				 * @static
-				 */
-				selectors = ns.wearable.selectors,
 				/**
 				 * Alias for {@link ns.util}
 				 * @property {Object} util
@@ -350,49 +341,6 @@
 
 			Page.classes = classes;
 			Page.events = EventType;
-
-			/**
-			 * Selector for page element
-			 * @property {string} [page=".ui-page"]
-			 * @member ns.wearable.selectors
-			 */
-			selectors.page = "." + classes.uiPage;
-			/**
-			 * Selector for active page element
-			 * @property {string} [activePage=".ui-page-active"]
-			 * @member ns.wearable.selectors
-			 */
-			selectors.activePage = "." + classes.uiPageActive;
-			/**
-			 * Selector for section element
-			 * @property {string} [section=".ui-section"]
-			 * @member ns.wearable.selectors
-			 */
-			selectors.section = "." + classes.uiSection;
-			/**
-			 * Selector for header element
-			 * @property {string} [header=".ui-header"]
-			 * @member ns.wearable.selectors
-			 */
-			selectors.header = "." + classes.uiHeader;
-			/**
-			 * Selector for footer element
-			 * @property {string} [footer=".ui-footer"]
-			 * @member ns.wearable.selectors
-			 */
-			selectors.footer = "." + classes.uiFooter;
-			/**
-			 * Selector for content element
-			 * @property {string} [content=".ui-content"]
-			 * @member ns.wearable.selectors
-			 */
-			selectors.content = "." + classes.uiContent;
-			/**
-			 * Selector for page scroll element
-			 * @property {string} [pageScroll=".ui-page-scroll"]
-			 * @member ns.wearable.selectors
-			 */
-			selectors.pageScroll = "." + classes.uiPageScroll;
 
 			/**
 			 * Sets top-bottom css attributes for content element

@@ -28,8 +28,7 @@
 			"../../../core/util/path",
 			"../../../core/util/object",
 			"../widget/wearable/Page",
-			"../widget/wearable/PageContainer",
-			"../selectors"
+			"../widget/wearable/PageContainer"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
@@ -98,14 +97,6 @@
 				 */
 				routerMicro = ns.router,
 				/**
-				 * Local alias for ns.wearable.selectors
-				 * @property {Object} microSelectors Alias for {@link ns.wearable.selectors}
-				 * @member ns.router.Router
-				 * @static
-				 * @private
-				 */
-				microSelectors = ns.wearable.selectors,
-				/**
 				 * Local alias for ns.router.wearable.history
 				 * @property {Object} history Alias for {@link ns.router.wearable.history}
 				 * @member ns.router.Router
@@ -145,6 +136,8 @@
 				 * @private
 				 */
 				_isLock = false,
+
+				Page = ns.widget.wearable.Page,
 
 				Router = function () {
 					var self = this;
@@ -364,23 +357,26 @@
 					pages,
 					activePages,
 					location = window.location,
+					PageClasses = Page.classes,
+					uiPageClass = PageClasses.uiPage,
+					uiPageActiveClass = PageClasses.uiPageActive,
 					self = this;
 
 				body = document.body;
 				containerElement = ns.getConfig("pageContainer") || body;
-				pages = slice.call(containerElement.querySelectorAll(microSelectors.page));
+				pages = slice.call(containerElement.querySelectorAll("." + uiPageClass));
 				self.justBuild = justBuild;
 
 				if (ns.getConfig("autoInitializePage", true)) {
-					firstPage = containerElement.querySelector(microSelectors.activePage);
+					firstPage = containerElement.querySelector("." + uiPageActiveClass);
 					if (!firstPage) {
 						firstPage = pages[0];
 					}
 
 					if (firstPage) {
-						activePages = containerElement.querySelectorAll(microSelectors.activePage);
+						activePages = containerElement.querySelectorAll("." + uiPageActiveClass);
 						slice.call(activePages).forEach(function (page) {
-							page.classList.remove(microSelectors.activePage);
+							page.classList.remove("." + uiPageActiveClass);
 						});
 						containerElement = firstPage.parentNode;
 					}
@@ -400,7 +396,7 @@
 					if (location.hash) {
 						//simple check to determine if we should show firstPage or other
 						page = document.getElementById(location.hash.replace("#", ""));
-						if (page && selectors.matchesSelector(page, microSelectors.page)) {
+						if (page && selectors.matchesSelector(page, "." + uiPageClass)) {
 							firstPage = page;
 						}
 					}
