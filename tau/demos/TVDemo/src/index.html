@@ -113,8 +113,10 @@
 				&& application) {
 			if (tau.activePage.id === "main") {
 				application.getCurrentApplication().exit();
+			} else if (tau.engine.getRouter().hasActivePopup()) {
+				tau.closePopup();
 			} else {
-				window.history.back();
+				history.back();
 			}
 		}
 	});
