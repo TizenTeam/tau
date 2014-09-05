@@ -16,7 +16,7 @@ module.exports = function (grunt) {
 	m.setOptions({
 		renderer: new m.Renderer(),
 		gfm: true,
-		tables: false,
+		tables: true,
 		breaks: false,
 		pedantic: false,
 		sanitize: true,

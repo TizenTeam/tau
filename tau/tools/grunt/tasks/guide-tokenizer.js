@@ -458,6 +458,18 @@ block.tables = merge({}, block.gfm, {
 			return this.tokens;
 		};
 
+		marked.Renderer.prototype.table = function(header, body) {
+			return '<table class="table">\n'
+				+ '<thead>\n'
+				+ header
+				+ '</thead>\n'
+				+ '<tbody>\n'
+				+ body
+				+ '</tbody>\n'
+				+ '</table>\n';
+		};
+
+
 		marked.Parser.prototype.tok = function () {
 			switch (this.token.type) {
 			case 'baloon':
