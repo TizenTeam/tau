@@ -540,26 +540,20 @@
 
 								if (!leftButton && headerAnchors[0] && !headerAnchors[0].classList.contains(pageClasses.uiBtnRight)) {
 									leftButton = headerAnchors[0];
+									utilsDOM.setNSData(leftButton, "role", "button");
 									leftButton.classList.add(pageClasses.uiBtnLeft);
 								}
 
 								if (!rightButton && headerAnchors[1]) {
 									rightButton = headerAnchors[1];
+									utilsDOM.setNSData(rightButton, "role", "button");
 									rightButton.classList.add(pageClasses.uiBtnRight);
 								}
-
-								headerAnchors.reverse().forEach(function (element, index) {
-									element.classList.add(pageClasses.uiBtnRightPrefix + index);
-								});
 
 								headerButtons = selectors.getChildrenBySelector(section, "a,[data-role='button']");
 								if (headerButtons.length) {
 									headerButtons.forEach(function (button) {
-										engine.instanceWidget(button, "Button", {
-											corners: false,
-											bar: true,
-											role: "button"
-										});
+										engine.instanceWidget(button, "Button");
 										previousElementOfHeaderButton = button.previousElementSibling;
 										// @TODO move this calculation after page show
 										headerButtonsWidth += 90;//utilsDOM.getElementWidth(button, true) + 2;
@@ -598,7 +592,7 @@
 								title.setAttribute("role", "heading");
 								title.setAttribute("aria-level", 1);
 								title.setAttribute("aria-label", "title");
-								width = window.innerWidth - utilsDOM.getCSSProperty(title, "margin-left", 0, "integer") * 2 - headerButtonsWidth - headerImgsWidth * headerSrcNum * 4;
+								width = window.innerWidth - headerButtonsWidth - headerImgsWidth * headerSrcNum * 4;
 
 								titleStyle.width = width + "px";
 							});
