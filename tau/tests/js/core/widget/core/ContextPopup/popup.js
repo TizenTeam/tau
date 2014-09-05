@@ -65,16 +65,13 @@
 	}
 
 	function popuphide() {
-		var popupMarkup = popup1.outerHTML;
-
 		popup1.removeEventListener("popuphide", popuphide);
 
-		engine.removeBinding(popup1);
-
-		popup1.parentNode.innerHTML = popupMarkup;
+		popup1Widget.destroy();
 
 		popup1 = document.getElementById("popup1");
-		popup1Widget = engine.instanceWidget(popup1, "popup", {header: "testi content header", footer: "test footer content"});
+
+		popup1Widget = engine.instanceWidget(popup1, "Popup", {header: "test content header", footer: "test footer content"});
 
 		testPopupMarkup(popup1Widget, popup1);
 		popup1Widget.close();
@@ -100,7 +97,7 @@
 			popup1Widget = engine.getBinding(popup1);
 			equal(popup1Widget, null, "widget not created before user click");
 
-			engine.instanceWidget(popup1, "popup", {header: "testi content header", footer: "test footer content"});
+			engine.instanceWidget(popup1, "Popup", {header: "test content header", footer: "test footer content"});
 			popup1Link.click();
 		});
 		engine.run();

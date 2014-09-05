@@ -341,7 +341,7 @@
 			CLASSES_PREFIX = "ui-popup",
 			classes = objectUtils.merge({}, Popup.classes, {
 				wrapper: CLASSES_PREFIX + "-wrapper",
-				context: CLASSES_PREFIX + "ui-ctxpopup",
+				context: "ui-ctxpopup",
 				arrow: "ui-arrow",
 				arrowDir: CLASSES_PREFIX + "-arrow-",
 				build: "ui-build"
@@ -379,16 +379,19 @@
 				var self = this,
 					ui = self._ui,
 					wrapper,
-					arrow;
+					arrow,
+					child = element.firstChild;
 
 				// create wrapper
 				wrapper = document.createElement("div");
 				wrapper.classList.add(classes.wrapper);
 				ui.wrapper = wrapper;
+				ui.container = wrapper;
 
-				[].forEach.call(element.children, function(child) {
+				while (child) {
 					wrapper.appendChild(child);
-				});
+					child = element.firstChild;
+				}
 
 				// create arrow
 				arrow = document.createElement("div");
@@ -396,11 +399,11 @@
 				arrow.classList.add(classes.arrow);
 				ui.arrow = arrow;
 
-				element.appendChild(arrow);
 				element.appendChild(wrapper);
+				element.appendChild(arrow);
 
 				if (typeof BasePopupPrototype._build === "function") {
-					BasePopupPrototype._build.call(self, wrapper);
+					BasePopupPrototype._build.call(self, element);
 				}
 
 				return element;
@@ -495,7 +498,7 @@
 					}
 				});
 
-				if ( !direction ) {
+				if (!direction) {
 					direction = bestDirection;
 					if (direction.fixedField === "w") {
 						popupWidth = direction.max;
@@ -529,7 +532,7 @@
 					windowWidth = window.innerWidth,
 					windowHeight = window.innerHeight,
 					wrapperRect = wrapper.getBoundingClientRect(),
-					arrowHalfWidth = arrow.offsetWidth/2,
+					arrowHalfWidth = arrow.offsetWidth / 2,
 					params = {
 						"t": {pos: x, min: "left", max: "right", posField: "x", valField: "w", styleField: "left"},
 						"b": {pos: x, min: "left", max: "right", posField: "x", valField: "w", styleField: "left"},
@@ -619,7 +622,7 @@
 
 					elementStyle.top = (window.innerHeight - elementHeight) + "px";
 					elementStyle.left = "50%";
-					elementStyle.marginLeft = -(elementWidth/2) + "px";
+					elementStyle.marginLeft = -(elementWidth / 2) + "px";
 				}
 
 			};
@@ -698,7 +701,7 @@
 
 			prototype._show = function(options) {
 				var openOptions = objectUtils.merge({}, options);
-				this._reposition( openOptions );
+				this._reposition(openOptions);
 				if (typeof BasePopupPrototype._show === "function") {
 					BasePopupPrototype._show.call(this, openOptions);
 				}
@@ -712,8 +715,8 @@
 			 * @param options.positionTo
 			 */
 			prototype.reposition = function(options) {
-				if ( this._isActive() ) {
-					this._reposition( options );
+				if (this._isActive()) {
+					this._reposition(options);
 				}
 			};
 

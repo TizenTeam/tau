@@ -49,10 +49,11 @@
 					ui = self._ui || {};
 					self.options = objectUtils.merge({}, Popup.defaults);
 					/**
-					 * @property {boolean} [active=false] Popup state flag
+					 * @property {boolean} [state=null] Popup state flag
 					 * @member ns.widget.core.BasePopup
 					 * @instance
 					 */
+					self.state = states.CLOSED;
 					ui.overlay = null;
 					ui.header = null;
 					ui.footer = null;
@@ -79,6 +80,12 @@
 					footer: false,
 					overlayClass: "",
 					history: true
+				},
+				states = {
+					DURING_OPENING: 0,
+					OPENED: 1,
+					DURING_CLOSING: 2,
+					CLOSED: 3
 				},
 				CLASSES_PREFIX = "ui-popup",
 				/**
@@ -144,7 +151,8 @@
 			prototype._buildContent = function ( element) {
 				var ui = this._ui,
 					content = element.querySelector("." + classes.content),
-					elementChildren = [].slice.call(element.children),
+					footer = ui.footer || element.querySelector("." + classes.footer),
+					elementChildren = [].slice.call(element.childNodes),
 					elementChildrenLength = elementChildren.length,
 					i,
 					node;
@@ -158,9 +166,9 @@
 							content.appendChild(node);
 						}
 					}
-					element.appendChild(content);
-					ui.content = content;
+					element.insertBefore(content, footer);
 				}
+				ui.content = content;
 			};
 
 			/**
@@ -174,7 +182,7 @@
 			prototype._buildHeader = function ( element) {
 				var ui = this._ui,
 					options = this.options,
-					content = ui.content,
+					content = ui.content || element.querySelector("." + classes.content),
 					header = ui.header || element.querySelector("." + classes.header);
 				if (!header && options.header !== false) {
 					header = document.createElement("div");
@@ -183,8 +191,8 @@
 						header.innerHTML = options.header;
 					}
 					element.insertBefore(header, content);
-					ui.header = header;
 				}
+				ui.header = header;
 			};
 
 			prototype._setHeader = function ( element, value ) {
@@ -210,8 +218,8 @@
 						footer.innerHTML = options.footer;
 					}
 					element.appendChild(footer);
-					ui.footer = footer;
 				}
+				ui.footer = footer;
 			};
 
 			prototype._setFooter = function ( element, value ) {
@@ -229,23 +237,21 @@
 			/**
 			 * Build structure of Popup widget
 			 * @method _build
-			 * @param {HTMLElement} element
+			 * @param {HTMLElement} element of popup
 			 * @return {HTMLElement}
 			 * @protected
 			 * @member ns.widget.Popup
 			 */
 			prototype._build = function (element) {
 				var self = this,
-					ui = self._ui;
+					container = self._ui.container || element;
 
-				this._buildHeader(element);
-				this._buildFooter(element);
+				this._buildHeader(container);
+				this._buildFooter(container);
 
-				this._buildContent(element);
+				this._buildContent(container);
 
 				this._setOverlay(element, this.options.overlay);
-
-				ui.container = element;
 
 				return element;
 			};
@@ -286,7 +292,19 @@
 			 * @member ns.widget.core.BasePopup
 			 */
 			prototype._isActive = function () {
-				return this.element.classList.contains(classes.active);
+				var state = this.state;
+				return state === states.DURING_OPENING || state === states.OPENED;
+			};
+
+			/**
+			 * Returns true if popup is already opened and visible
+			 * @method _isActive
+			 * @protected
+			 * @instance
+			 * @member ns.widget.core.Popup
+			 */
+			prototype._isOpened = function () {
+				return this.state === states.OPENED;
 			};
 
 			/**
@@ -324,11 +342,15 @@
 					route.setActive(self, options);
 					// add proper class
 					elementClassList.add(activeClass);
+					// set state of popup 	358
+					self.state = states.OPENED;
 				} else {
 					// no popup is opened, so set global variable on "null"
 					route.setActive(null, options);
 					// remove proper class
 					elementClassList.remove(activeClass);
+					// set state of popup 	365
+					self.state = states.CLOSED;
 				}
 			};
 
@@ -375,6 +397,7 @@
 					if (!newOptions.dismissible) {
 						engine.getRouter().lock();
 					}
+					self.state = states.DURING_OPENING;
 					self._show(newOptions);
 				}
 			};
@@ -394,6 +417,7 @@
 					if (!newOptions.dismissible) {
 						engine.getRouter().unlock();
 					}
+					self.state = states.DURING_CLOSING;
 					self._hide(newOptions);
 				}
 			};
@@ -419,13 +443,12 @@
 			};
 
 			prototype._hide = function (options) {
-				var self = this,
-					transitionOptions = objectUtils.merge(self.options, options);
+				var self = this;
 
-				transitionOptions.ext = " out ";
+				options.ext = " out ";
 
 				self.trigger(events.before_hide);
-				self._transition(transitionOptions, self._onHide.bind(self));
+				self._transition(options, self._onHide.bind(self));
 			};
 
 			prototype._onHide = function() {
@@ -474,7 +497,7 @@
 			};
 
 			prototype._onResize = function() {
-				if (this._isActive()) {
+				if (this._isOpened()) {
 					this._refresh();
 				}
 			};
@@ -503,12 +526,12 @@
 					animationEnd = function () {
 						element.removeEventListener("animationend", animationEnd, false);
 						element.removeEventListener("webkitAnimationEnd", animationEnd, false);
-						transitionClass.split(" ").forEach(function (cls) {
-							var _cls = cls.trim();
-							if (_cls.length > 0) {
-								elementClassList.remove(_cls);
+						transitionClass.split(" ").forEach(function (currentClass) {
+							currentClass = currentClass.trim();
+							if (currentClass.length > 0) {
+								elementClassList.remove(currentClass);
 								if (overlay) {
-									overlay.classList.remove(_cls);
+									overlay.classList.remove(currentClass);
 								}
 							}
 						});
@@ -518,12 +541,12 @@
 				if (transition !== "none") {
 					element.addEventListener("animationend", animationEnd, false);
 					element.addEventListener("webkitAnimationEnd", animationEnd, false);
-					transitionClass.split(" ").forEach(function (cls) {
-						var _cls = cls.trim();
-						if (_cls.length > 0) {
-							elementClassList.add(_cls);
+					transitionClass.split(" ").forEach(function (currentClass) {
+						currentClass = currentClass.trim();
+						if (currentClass.length > 0) {
+							elementClassList.add(currentClass);
 							if (overlay) {
-								overlay.classList.add(_cls);
+								overlay.classList.add(currentClass);
 							}
 						}
 					});
@@ -538,7 +561,7 @@
 					element = self.element;
 
 				self._unbindEvents(element);
-				self._setOverlay(false, element);
+				self._setOverlay(element, false);
 			};
 
 			Popup.prototype = prototype;
