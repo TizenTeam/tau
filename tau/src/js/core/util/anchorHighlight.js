@@ -8,6 +8,7 @@
  * @class ns.util.anchorHighlight
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  * @author Damian Osipiuk <d.osipiuk@samsung.com>
+ * @author Konrad Lipner <k.lipner@samsung.com>
  */
 (function (document, window, ns) {
 	'use strict';
@@ -60,14 +61,6 @@
 				 * @static
 				 */
 				target,
-				/**
-				 * Length of touch
-				 * @property {number} touchLength
-				 * @member ns.util.anchorHighlight
-				 * @private
-				 * @static
-				 */
-				touchLength,
 				/**
 				 * Timer id of adding activeClass delay
 				 * @property {number} addActiveClassTimerID
@@ -224,9 +217,8 @@
 			function touchstartHandler(event) {
 				var touches = event.touches,
 					touch = touches[0];
-				touchLength = touches.length;
 
-				if (touchLength === 1) {
+				if (touches.length === 1) {
 					didScroll = false;
 					startX = touch.clientX;
 					startY = touch.clientY;
@@ -245,12 +237,13 @@
 			/**
 			 * Function invoked after touch
 			 * @method touchendHandler
+			 * @param {Event} event
 			 * @member ns.util.anchorHighlight
 			 * @private
 			 * @static
 			 */
-			function touchendHandler() {
-				if (touchLength === 1) {
+			function touchendHandler(event) {
+				if (event.touches.length === 0) {
 					clearTimeout(addActiveClassTimerID);
 					addActiveClassTimerID = null;
 					if (!didScroll) {
