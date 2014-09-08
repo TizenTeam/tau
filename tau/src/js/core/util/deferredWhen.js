@@ -70,7 +70,7 @@
 					progressContexts = [];
 					progressContexts.length = length;
 					resolveContexts = [];
-					resolveContexts.length = lnegth;
+					resolveContexts.length = length;
 					for ( ; i < length; i++ ) {
 						if (resolveValues[i] && (typeof resolveValues[i].promise === "function")) {
 							resolveValues[i].promise()
