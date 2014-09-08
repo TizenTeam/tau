@@ -660,7 +660,8 @@
 				 */
 				_onTouchStartHandler: function(event) {
 					pointerIsPressed = true;
-					if (event.touches && (event.touches.length > 1)) {
+					var touches = event.touches || event._originalEvent && event._originalEvent.touches;
+					if (touches && (touches.length > 1)) {
 						event.preventDefault();
 						event.stopPropagation();
 						return;
@@ -684,7 +685,8 @@
 				 * @member ns.widget.wearable.IndexScrollbar
 				 */
 				_onTouchMoveHandler: function(event) {
-					if (event.touches && event.touches.length > 1 || !pointerIsPressed) {
+					var touches = event._originalEvent && event._originalEvent.touches;
+					if (touches && (touches.length > 1) || !pointerIsPressed) {
 						event.preventDefault();
 						event.stopPropagation();
 						return;
@@ -733,15 +735,16 @@
 				/**
 				 * This method is executed on event "touchend"
 				 * @method _onTouchEndHandler
-				 * @param {Event} ev Event
+				 * @param {Event} event Event
 				 * @protected
 				 * @member ns.widget.wearable.IndexScrollbar
 				 */
 				_onTouchEndHandler: function( event ) {
-					var self = this;
+					var self = this,
+						touches = event._originalEvent && event._originalEvent.touches;
 
-					if (event.touches && (event.touches.length === 0) ||
-							!event.touches) {
+					if (touches && (touches.length === 0) ||
+							!touches) {
 						pointerIsPressed = false;
 					}
 					self.indicator.hide();

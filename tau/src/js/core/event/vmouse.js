@@ -339,6 +339,19 @@
 					//sets the threshold, based on which we consider if it was the touch-move event
 					moveThreshold = vmouse.eventDistanceThreshold;
 
+				/**
+				 * Ignore the touch which has identifier other than 0.
+				 * Only first touch has control others are ignored.
+				 * Patch for webkit behaviour where touchmove event
+				 * is triggered between touchend events
+				 * if there is multi touch.
+				 */
+				if (firstTouch.identifier > 0) {
+					evt.preventDefault();
+					evt.stopPropagation();
+					return;
+				}
+
 				didScroll = didScroll ||
 				//check in both axes X,Y if the touch-move event occur
 					(Math.abs(firstTouch.pageX - startX) > moveThreshold ||
