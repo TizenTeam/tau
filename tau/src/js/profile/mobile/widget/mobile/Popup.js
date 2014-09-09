@@ -1423,9 +1423,8 @@
 				}
 
 				if (positionToOption === "window") {
-					desired = this._placementCoords(desired || this._desiredCoords(positionToOption));
-					top = desired.top;
-					left = desired.left;
+					top = null;
+					uiContainerStyle.bottom = "0";
 				} else if (positionToOption === "origin") {
 					// popup with arrow
 					if (options.link) {
@@ -1473,8 +1472,6 @@
 				if (top) {
 					uiContainerStyle.left = left + correctionValue[0] + "px";
 					uiContainerStyle.top = top + correctionValue[1] + "px";
-				} else {
-					uiContainerStyle.bottom = "0";
 				}
 			};
 

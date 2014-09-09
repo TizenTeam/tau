@@ -60,6 +60,7 @@
 					self.activePage = null;
 					self.firstPage = null;
 					self.container = null;
+					self.lastClickedLink = null;
 					self.settings = {};
 					self.navreadyDeferred = new Deferred();
 					self.navreadyDeferred.done(function () {
@@ -169,8 +170,8 @@
 					popupWidget;
 
 				if (popup && DOM.getNSData(popup, "role") === "popup") {
-					linkId = DOM.getNSData(popup, "currentLinkId");
-					linkElement = document.getElementById(linkId);
+					linkElement = router.lastClickedLink;
+					linkId = linkElement.id;
 					if (ns.activePopup) {
 						ns.activePopup.close();
 					}
@@ -202,6 +203,7 @@
 					isHash = linkHref && (linkHref.charAt(0) === "#"),
 					options = {};
 
+				router.lastClickedLink = null;
 				if (link) {
 					event.preventDefault();
 					options.transition = DOM.getNSData(link, "transition");
@@ -210,7 +212,7 @@
 					if (isHash) {
 						element = document.getElementById(linkHref.substr(1));
 						if (element) {
-							DOM.setNSData(element, "currentLinkId", link.id);
+							router.lastClickedLink = link;
 							router.open(element);
 						}
 					} else if (linkHref) {
