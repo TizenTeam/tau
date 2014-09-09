@@ -23,13 +23,12 @@
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
-			var
-				/**
-				 * @property {Function} BaseWidget Alias for {@link ns.widget.BaseWidget}
-				 * @member ns.widget.core.BasePopup
-				 * @private
-				 */
-				BaseWidget = ns.widget.BaseWidget,
+			/**
+			 * @property {Function} BaseWidget Alias for {@link ns.widget.BaseWidget}
+			 * @member ns.widget.core.BasePopup
+			 * @private
+			 */
+			var	BaseWidget = ns.widget.BaseWidget,
 				/**
 				 * @property {ns.engine} engine Alias for class ns.engine
 				 * @member ns.widget.core.BasePopup

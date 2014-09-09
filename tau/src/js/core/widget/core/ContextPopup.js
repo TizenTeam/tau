@@ -308,15 +308,19 @@
 			 * @property {boolean} [options.overlay=true] Sets whether to show overlay when a popup is open.
 			 * @property {string} [overlayClass=""] Sets the custom class for the popup background, which covers the entire window.
 			 * @property {boolean} [options.history=true] Sets whether to alter the url when a popup is open to support the back button.
-			 * @property {string} [options.arrow="l,t,r,b"] Sets directions of popup's placement by priority. First one has the highest priority, last the lowest.
+			 * @property {string} [options.arrow="l,t,r,b"] Sets directions of popup's arrow by priority ("l" for left, "t" for top,
+			 * "r" for right, and "b" for bottom). The first one has the highest priority, the last one - the lowest. If you set arrow="t",
+			 * then arrow will be placed at the top of popup container and the whole popup will be placed under cliced element.
 			 * @property {string} [options.positionTo="window"] Sets the element relative to which the popup will be centered.
-			 * @member ns.widget.core.Popup
+			 * @property {number} [options.distance=0] Sets the extra distance in px from clicked element.
+			 * @member ns.widget.core.ContextPopup
 			 * @static
 			 * @private
 			 */
 			defaults = objectUtils.merge({}, Popup.defaults, {
-				arrow: "l,t,r,b",
-				positionTo: "window"
+				arrow: "l,b,r,t",
+				positionTo: "window",
+				distance: 0
 			}),
 
 			ContextPopup = function () {
@@ -325,12 +329,14 @@
 
 				Popup.call(self);
 
-				ui = self._ui || {};
-
+				// set options
 				self.options = objectUtils.merge(self.options, defaults);
 
+				// set ui
+				ui = self._ui || {};
 				ui.wrapper = null;
 				ui.arrow = null;
+				self._ui = ui;
 			},
 
 			/**
@@ -459,7 +465,8 @@
 			};
 
 			function findBestPosition(self, clickedElement) {
-				var arrow = self.options.arrow,
+				var options = self.options,
+					arrowsPriority = options.arrow.split(","),
 					element = self.element,
 					windowWidth = window.innerWidth,
 					windowHeight = window.innerHeight,
@@ -474,19 +481,22 @@
 							windowHeight - clickElementOffsetY),
 					params = {
 						"l": {dir: "l", fixedField: "w", fixedPositionField: "x",
-							fixedPositionFactor: -1, size: popupWidth, max: clickElementOffsetX},
-						"r": {dir: "r", fixedField: "w", fixedPositionField: "x",
 							fixedPositionFactor: 1, size: popupWidth, max: windowWidth - clickElementOffsetX - clickElementOffsetWidth},
+						"r": {dir: "r", fixedField: "w", fixedPositionField: "x",
+							fixedPositionFactor: -1, size: popupWidth, max: clickElementOffsetX},
 						"b": {dir: "b", fixedField: "h", fixedPositionField: "y",
-							fixedPositionFactor: 1, size: popupHeight, max: popupHeight - clickElementOffsetY - clickElementOffsetHeight},
+							fixedPositionFactor: -1, size: popupHeight, max: clickElementOffsetY},
 						"t": {dir: "t", fixedField: "h", fixedPositionField: "y",
-							fixedPositionFactor: -1, size: popupHeight, max: clickElementOffsetY}
+							fixedPositionFactor: 1, size: popupHeight, max: windowHeight - clickElementOffsetY - clickElementOffsetHeight}
 					},
-					bestDirection = params.t,
+					bestDirection,
 					direction,
 					bestOffsetInfo;
 
-				arrow.split(",").forEach(function(key){
+				// set value of bestDirection on the first possible type or top
+				bestDirection = params[arrowsPriority[0]] || params.b,
+
+				arrowsPriority.forEach(function(key){
 					var param = params[key],
 						paramMax = param.max;
 					if (!direction) {
@@ -517,9 +527,9 @@
 
 				bestOffsetInfo[direction.fixedPositionField] +=
 					(direction.fixedField === "w" ?
-						popupWidth + clickElementOffsetWidth * direction.fixedPositionFactor :
-						popupHeight + clickElementOffsetHeight * direction.fixedPositionFactor)
-						/ 2;
+						(popupWidth + clickElementOffsetWidth) * direction.fixedPositionFactor :
+						(popupHeight + clickElementOffsetHeight) * direction.fixedPositionFactor)
+						/ 2 + options.distance * direction.fixedPositionFactor;
 
 				return bestOffsetInfo;
 			}
@@ -546,7 +556,7 @@
 					left: wrapperRect.left + bestRectangle.x,
 					right: wrapperRect.right + bestRectangle.x,
 					top: wrapperRect.top + bestRectangle.y,
-					bottom: wrapperRect.bottom += bestRectangle.y
+					bottom: wrapperRect.bottom + bestRectangle.y
 				};
 
 				if (wrapperRect[param.min] > param.pos - arrowHalfWidth) {
@@ -575,13 +585,17 @@
 
 			prototype._placementCoordsWindow = function(element) {
 				var elementStyle = element.style,
-					elementWidth = element.offsetWidth;
+					elementWidth = element.offsetWidth,
 					elementHeight = element.offsetHeight;
 
 				elementStyle.top = (window.innerHeight - elementHeight) + "px";
 				elementStyle.left = "50%";
 				elementStyle.marginLeft = -(elementWidth / 2) + "px";
-			}
+			};
+
+			prototype._findClickedElement = function(x, y) {
+				return document.elementFromPoint(x, y);
+			};
 
 			prototype._placementCoords = function(options) {
 				var self = this,
@@ -597,7 +611,7 @@
 
 				if (typeof positionTo === "string") {
 					if (positionTo === positionType.ORIGIN && typeof x === "number" && typeof y === "number") {
-						clickedElement = document.elementFromPoint(x, y);
+						clickedElement = self._findClickedElement(x, y);
 					} else if (positionTo !== positionType.WINDOW) {
 						try {
 							clickedElement = document.querySelector(options.positionTo);
@@ -634,7 +648,7 @@
 			prototype._setContentHeight = function(maxHeight) {
 				var self = this,
 					element = self.element,
-					content = self.content,
+					content = self._ui.content,
 					contentStyle,
 					contentHeight,
 					elementOffsetHeight;
