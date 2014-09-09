@@ -28,7 +28,7 @@
 			 * @member ns.widget.core.BasePopup
 			 * @private
 			 */
-			var	BaseWidget = ns.widget.BaseWidget,
+			var BaseWidget = ns.widget.BaseWidget,
 				/**
 				 * @property {ns.engine} engine Alias for class ns.engine
 				 * @member ns.widget.core.BasePopup

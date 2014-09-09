@@ -47,7 +47,13 @@
 
 					CorePopup.call(self);
 					BaseKeyboardSupport.call(self);
+
+					self.options = objectUtils.merge(self.options, defaults);
 				},
+				defaults = objectUtils.merge({}, CorePopup.defaults, {
+					arrow: "t,b,l,r",
+					distance: 10
+				}),
 				classes = objectUtils.merge({}, CorePopup.classes, {
 					toast: "ui-popup-toast",
 					headerEmpty: "ui-header-empty",
@@ -156,7 +162,9 @@
 				var keyCode = event.keyCode;
 
 				if (keyCode === KEY_CODES.enter) {
-					self._onClickBound.call(self, event);
+					event.preventDefault();
+					event.stopPropagation();
+					setTimeout(self.close.bind(self), 10);
 				}
 			}
 
@@ -199,6 +207,13 @@
 					CorePopupPrototype._placementCoordsWindow.call(this, element);
 					element.style.top = parseInt(element.style.top) / 2 + "px";
 				}
+			}
+
+			prototype._findClickedElement = function(x, y) {
+				var clickedElement =  document.elementFromPoint(x, y),
+					button = utilSelectors.getClosestBySelector(clickedElement, engine.getWidgetDefinition("Button").selector);
+
+				return button || clickedElement;
 			}
 
 			prototype.open = function(options) {
