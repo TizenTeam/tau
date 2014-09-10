@@ -5,11 +5,11 @@
  */
 /*jslint nomen: true, plusplus: true */
 /**
- * # BasePopup Widget
+ * # Popup Widget
  *
  * @author Hyunkook Cho <hk0713.cho@samsung.com>
  * @class ns.widget.core.Popup
- * @extends ns.widget.core.BasePopup
+ * @extends ns.widget.Popup
  */
 (function (ns) {
 	"use strict";
@@ -24,35 +24,40 @@
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 			/**
-			 * @property {Function} BaseWidget Alias for {@link ns.widget.BaseWidget}
-			 * @member ns.widget.core.BasePopup
+			 * Alias for {@link ns.widget.BaseWidget}
+			 * @property {Function} BaseWidget
+			 * @member ns.widget.core.Popup
 			 * @private
 			 */
 			var BaseWidget = ns.widget.BaseWidget,
 				/**
-				 * @property {ns.engine} engine Alias for class ns.engine
-				 * @member ns.widget.core.BasePopup
-				 * @private
-				 */
+				* @property {ns.engine} engine Alias for class ns.engine
+				* @member ns.widget.core.Popup
+				* @private
+				*/
 				engine = ns.engine,
 				/**
-				 * @property {Object} objectUtils Alias for class ns.util.events
-				 * @member ns.widget.core.BasePopup
-				 * @private
-				 */
+				* @property {Object} objectUtils Alias for class ns.util.events
+				* @member ns.widget.core.Popup
+				* @private
+				*/
 				objectUtils = ns.util.object,
 
 				Popup = function () {
 					var self = this,
-						ui;
-					ui = self._ui || {};
+						ui = {};
+
+					self.selectors = selectors;
 					self.options = objectUtils.merge({}, Popup.defaults);
 					/**
-					 * @property {boolean} [state=null] Popup state flag
-					 * @member ns.widget.core.BasePopup
-					 * @instance
+					 * Popup state flag
+					 * @property {0|1|2|3} [state=null]
+					 * @member ns.widget.core.Popup
+					 * @private
 					 */
+
 					self.state = states.CLOSED;
+
 					ui.overlay = null;
 					ui.header = null;
 					ui.footer = null;
@@ -68,7 +73,7 @@
 				 * @property {boolean} [options.overlay=true] Sets whether to show overlay when a popup is open.
 				 * @property {string} [overlayClass=""] Sets the custom class for the popup background, which covers the entire window.
 				 * @property {boolean} [options.history=true] Sets whether to alter the url when a popup is open to support the back button.
-				 * @member ns.widget.core.BasePopup
+				 * @member ns.widget.core.Popup
 				 * @static
 				 */
 				defaults = {
@@ -88,10 +93,10 @@
 				},
 				CLASSES_PREFIX = "ui-popup",
 				/**
-				 * @property {Object} classes Dictionary for popup related css class names
-				 * @member ns.widget.core.BasePopup
-				 * @static
-				 */
+				* @property {Object} classes Dictionary for popup related css class names
+				* @member ns.widget.core.Popup
+				* @static
+				*/
 				classes = {
 					popup: CLASSES_PREFIX,
 					active: CLASSES_PREFIX + "-active",
@@ -100,35 +105,39 @@
 					footer: CLASSES_PREFIX + "-footer",
 					content: CLASSES_PREFIX + "-content"
 				},
+				selectors = {
+					header: "." + classes.header,
+					content: "." + classes.content,
+					footer: "." + classes.footer
+				},
 				EVENTS_PREFIX = "popup",
 				/**
-				 * @property {Object} events Dictionary for popup related events
-				 * @member ns.widget.core.BasePopup
-				 * @static
-				 */
-
+				* @property {Object} events Dictionary for popup related events
+				* @member ns.widget.core.Popup
+				* @static
+				*/
 				events = {
 					/**
 					 * @event popupshow Triggered when the popup has been created in the DOM (via ajax or other) but before all widgets have had an opportunity to enhance the contained markup.
-					 * @member ns.widget.core.BasePopup
+					 * @member ns.widget.core.Popup
 					 */
 					show: EVENTS_PREFIX + "show",
 					/**
 					 * Triggered on the popup after the transition animation has completed.
 					 * @event popuphide
-					 * @member ns.widget.core.BasePopup
+					 * @member ns.widget.core.Popup
 					 */
 					hide: EVENTS_PREFIX + "hide",
 					/**
 					 * Triggered on the popup we are transitioning to, before the actual transition animation is kicked off.
 					 * @event popupbeforeshow
-					 * @member ns.widget.core.BasePopup
+					 * @member ns.widget.core.Popup
 					 */
 					before_show: EVENTS_PREFIX + "beforeshow",
 					/**
 					 * Triggered on the popup we are transitioning away from, before the actual transition animation is kicked off.
 					 * @event popupbeforehide
-					 * @member ns.widget.core.BasePopup
+					 * @member ns.widget.core.Popup
 					 */
 					before_hide: EVENTS_PREFIX + "beforehide"
 				},
@@ -145,12 +154,14 @@
 			 * @protected
 			 * @param {HTMLElement} element
 			 * @return {HTMLElement}
-			 * @member ns.widget.core.BasePopup
+			 * @member ns.widget.core.Popup
 			 */
-			prototype._buildContent = function ( element) {
-				var ui = this._ui,
-					content = ui.content || element.querySelector("." + classes.content),
-					footer = ui.footer || element.querySelector("." + classes.footer),
+			prototype._buildContent = function (element) {
+				var self = this,
+					ui = self._ui,
+					selectors = self.selectors,
+					content = ui.content || element.querySelector(selectors.content),
+					footer = ui.footer || element.querySelector(selectors.footer),
 					elementChildren = [].slice.call(element.childNodes),
 					elementChildrenLength = elementChildren.length,
 					i,
@@ -167,6 +178,7 @@
 					}
 					element.insertBefore(content, footer);
 				}
+				content.classList.add(classes.content);
 				ui.content = content;
 			};
 
@@ -176,13 +188,15 @@
 			 * @protected
 			 * @param {HTMLElement} element
 			 * @return {HTMLElement}
-			 * @member ns.widget.core.BasePopup
+			 * @member ns.widget.core.Popup
 			 */
-			prototype._buildHeader = function ( element) {
-				var ui = this._ui,
-					options = this.options,
-					content = ui.content || element.querySelector("." + classes.content),
-					header = ui.header || element.querySelector("." + classes.header);
+			prototype._buildHeader = function (element) {
+				var self = this,
+					ui = self._ui,
+					options = self.options,
+					selectors = self.selectors,
+					content = ui.content || element.querySelector(selectors.content),
+					header = ui.header || element.querySelector(selectors.header);
 				if (!header && options.header !== false) {
 					header = document.createElement("div");
 					header.className = classes.header;
@@ -190,6 +204,9 @@
 						header.innerHTML = options.header;
 					}
 					element.insertBefore(header, content);
+				}
+				if (header) {
+					header.classList.add(classes.header);
 				}
 				ui.header = header;
 			};
@@ -206,10 +223,11 @@
 				self._buildHeader(ui.container);
 			};
 
-			prototype._buildFooter = function ( element) {
-				var ui = this._ui,
-					options = this.options,
-					footer = ui.footer || element.querySelector("." + classes.footer);
+			prototype._buildFooter = function (element) {
+				var self = this,
+					ui = self._ui,
+					options = self.options,
+					footer = ui.footer || element.querySelector(self.selectors.footer);
 				if (!footer && options.footer !== false) {
 					footer = document.createElement("div");
 					footer.className = classes.footer;
@@ -217,6 +235,9 @@
 						footer.innerHTML = options.footer;
 					}
 					element.appendChild(footer);
+				}
+				if (footer) {
+					footer.classList.add(classes.footer);
 				}
 				ui.footer = footer;
 			};
@@ -245,11 +266,12 @@
 				var self = this,
 					container = self._ui.container || element;
 
+				// build header, footer and content
 				this._buildHeader(container);
 				this._buildFooter(container);
-
 				this._buildContent(container);
 
+				// set overlay
 				this._setOverlay(element, this.options.overlay);
 
 				return element;
@@ -288,7 +310,7 @@
 			 * @method _isActive
 			 * @protected
 			 * @instance
-			 * @member ns.widget.core.BasePopup
+			 * @member ns.widget.core.Popup
 			 */
 			prototype._isActive = function () {
 				var state = this.state;
@@ -314,11 +336,13 @@
 			 * @member ns.widget.core.Popup
 			 */
 			prototype._init = function(element) {
-				var ui = this._ui;
+				var self = this,
+					selectors = self.selectors,
+					ui = self._ui;
 
-				ui.header = ui.header || element.querySelector("." + classes.header);
-				ui.footer = ui.footer || element.querySelector("." + classes.footer);
-				ui.content = ui.content || element.querySelector("." + classes.content);
+				ui.header = ui.header || element.querySelector(selectors.header);
+				ui.footer = ui.footer || element.querySelector(selectors.footer);
+				ui.content = ui.content || element.querySelector(selectors.content);
 				ui.container = element;
 			};
 
@@ -328,7 +352,7 @@
 			 * @param {boolean} active
 			 * @protected
 			 * @instance
-			 * @member ns.widget.core.BasePopup
+			 * @member ns.widget.core.Popup
 			 */
 			prototype._setActive = function (active) {
 				var self = this,
@@ -387,7 +411,7 @@
 			 * @param {Object=} [options]
 			 * @param {string=} [options.transition] options.transition
 			 * @instance
-			 * @member ns.widget.core.BasePopup
+			 * @member ns.widget.core.Popup
 			 */
 			prototype.open = function (options) {
 				var self = this,
@@ -407,7 +431,7 @@
 			 * @param {Object=} [options]
 			 * @param {string=} [options.transition]
 			 * @instance
-			 * @member ns.widget.core.BasePopup
+			 * @member ns.widget.core.Popup
 			 */
 			prototype.close = function (options) {
 				var self = this,
@@ -510,7 +534,7 @@
 			 * @param {string=} [options.transition]
 			 * @param {string=} [options.ext]
 			 * @param {?Function} [resolve]
-			 * @member ns.widget.core.BasePopup
+			 * @member ns.widget.core.Popup
 			 */
 			prototype._transition = function (options, resolve) {
 				var self = this,

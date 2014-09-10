@@ -388,6 +388,9 @@
 					arrow,
 					child = element.firstChild;
 
+				// set class for element
+				element.classList.add(classes.popup);
+
 				// create wrapper
 				wrapper = document.createElement("div");
 				wrapper.classList.add(classes.wrapper);

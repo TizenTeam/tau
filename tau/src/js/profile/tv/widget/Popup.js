@@ -43,12 +43,12 @@
 				BaseKeyboardSupport = ns.widget.tv.BaseKeyboardSupport,
 				Popup = function () {
 					var self = this;
-					self._ui = {};
 
 					CorePopup.call(self);
 					BaseKeyboardSupport.call(self);
 
 					self.options = objectUtils.merge(self.options, defaults);
+					self.selectors = selectors;
 				},
 				defaults = objectUtils.merge({}, CorePopup.defaults, {
 					arrow: "t,b,l,r",
@@ -75,8 +75,6 @@
 
 			Popup.classes = classes;
 
-			Popup.selectors = selectors;
-
 			Popup.prototype = prototype;
 
 			/**
@@ -87,59 +85,19 @@
 			 * @return {HTMLElement}
 			 * @member ns.widget.tv.Popup
 			 */
-			prototype._build = function ( element) {
-				var ui = this._ui,
-					options = this.options,
-					header = element.querySelector(selectors.header),
-					content = element.querySelector(selectors.content),
-					footer = element.querySelector(selectors.footer),
-					elementChildren = element.childNodes,
-					length = elementChildren.length,
-					i,
-					node;
-
-				element.classList.add(classes.popup);
-
-				if (!content) {
-					//if content does not exist, it is created
-					content = document.createElement(selectors.content);
-					for (i = 0; i < length; ++i) {
-						node = elementChildren[i];
-						if (node !== footer && node !== header) {
-							content.appendChild(elementChildren[i]);
-						}
-					}
-					element.appendChild(content);
-					ui.content = content;
-				}
-				content.classList.add(classes.content);
-
-				if (header || (options.header && typeof options.header !== "boolean")) {
-					if (!header) {
-						//if header does not exist, it is created
-						header = document.createElement(selectors.header);
-						header.innerHTML = options.header;
-						element.insertBefore(header, content);
-					}
-					ui.header = header;
-				} else {
-					element.classList.add(classes.headerEmpty);
-				}
-
-				if (footer || (options.footer && typeof options.footer !== "boolean")) {
-					if (!footer) {
-						//if footer does not exist, it is created
-						footer = document.createElement(selectors.footer);
-						footer.innerHTML = options.footer;
-						element.appendChild(footer);
-					}
-					ui.footer = footer;
-				} else {
-					element.classList.add(classes.footerEmpty);
-				}
+			prototype._build = function (element) {
+				var ui = this._ui;
 
 				if (typeof CorePopupPrototype._build === FUNCTION_TYPE) {
 					CorePopupPrototype._build.apply(this, arguments);
+				}
+
+				if (!ui.header) {
+					element.classList.add(classes.headerEmpty);
+				}
+
+				if (!ui.footer) {
+					element.classList.add(classes.footerEmpty);
 				}
 
 				return element;
