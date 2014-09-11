@@ -1,6 +1,5 @@
 <html>
 	<head>
-		<script type="text/javascript" src="../../build/tizen-web-ui-fw/latest/js/jquery.js"></script>
 		<script type="text/javascript" src="cookie.js"></script>
 		<script>
 			$(document).ready( function() {
