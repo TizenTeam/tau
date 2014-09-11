@@ -102,7 +102,7 @@
 					var self = this;
 					self.options = {
 						position : "left",
-						width : 290,
+						width : 240,
 						duration : 100,
 						closeOnClick: true,
 						overlay: true
