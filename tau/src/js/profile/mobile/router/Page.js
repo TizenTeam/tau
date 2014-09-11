@@ -202,7 +202,7 @@
 					isHash = linkHref && (linkHref.charAt(0) === "#"),
 					options = {};
 
-				if (link && linkHref && linkHref.length > 1) {
+				if (link) {
 					event.preventDefault();
 					options.transition = DOM.getNSData(link, "transition");
 					options.reverse = (DOM.getNSData(link, "direction") === "reverse");
