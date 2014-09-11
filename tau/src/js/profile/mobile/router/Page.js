@@ -201,7 +201,10 @@
 					linkHref = link ? link.getAttribute("href") : null,
 					element,
 					isHash = linkHref && (linkHref.charAt(0) === "#"),
-					options = {};
+					options = {},
+					inputInsideLink,
+					inputInsideLinkLength,
+					i;
 
 				router.lastClickedLink = null;
 				if (link) {
@@ -218,6 +221,19 @@
 					} else if (linkHref) {
 						// Open link only if it exists
 						router.open(linkHref, options);
+					}
+
+					//IMPORTANT / DEPRECIATED This following if statement
+					//should be removed as soon
+					//as we will stop to support controls tags like inputs
+					//inside anchors, which is against W3C standards
+					inputInsideLink = link.getElementsByClassName("ui-slider-switch-input");
+					if (inputInsideLink) {
+						inputInsideLinkLength = inputInsideLink.length;
+						for (i = 0; i < inputInsideLinkLength; i++) {
+							inputInsideLink[i].checked = !inputInsideLink[i].checked;
+							eventUtils.trigger(inputInsideLink[i], "change");
+						}
 					}
 				}
 			}
