@@ -5,7 +5,7 @@ module("Object");
 (function (ns) {
 	var SimpleObject = function (prop1) {
 		this.prop1 = prop1;
-	}
+	};
 	SimpleObject.prototype.protProp1 = "prototyp";
 
 	test("ns.util.object.copy - checking copy function", function () {
@@ -64,4 +64,39 @@ module("Object");
 		equal(newObject.prop2o, orgObject2.prop2o, "New Object has same properties as orgObject2 Object properties by copy");
 
 	});
-}(window.ej));
+
+	test("util.object.hasPropertiesOfValue", function (){
+		"use strict";
+
+		var objectUtils = ns.util.object,
+			obj = { a: 1, c: function() { return 1; }, test: "a"},
+			reference = obj,
+			emptyObject = {},
+			objectPropsFullOfUndefined = {a: undefined, b: undefined, c: undefined, d: undefined, e: undefined},
+			objectPropsFullOfNull = {a: null, b: null, c: null, d: null},
+			objectPropsFullOfStrings = {a: 'abc', b:'abc', c: 'abc', d: 'abc', e: 'abc', f: 'abc', g: 'abc'},
+			objectPropsFullOfNumbers = {a: 5, b: 5, c: 5, d: 5},
+			objectPropsFullOfObjectReferences = {a: reference, b: reference, c: reference, d: reference},
+			objectPropsFullOfObjectThatLookThatSame = {a: {a:1}, b: {a:1}, c: {a:1}},
+			objectPropsMixedNullZeroUndefined = {a: null, b: null, c: null, d: undefined, e: undefined, f: 0, g: 0},
+			objectPropsMixedReferenceUndefined = {a: reference, b: reference, c: undefined, d: reference},
+			objectPropsMixedReferenceNull = {a: reference, b: reference, c: null, d: reference};
+
+		strictEqual(objectUtils.hasPropertiesOfValue(emptyObject), false, "Empty object returns false");
+		strictEqual(objectUtils.hasPropertiesOfValue(objectPropsFullOfUndefined), true, "Object full of props `undefined` returns true");
+		strictEqual(objectUtils.hasPropertiesOfValue(objectPropsFullOfNull, null), true, "Object full of props `null` returns true");
+		strictEqual(objectUtils.hasPropertiesOfValue(objectPropsFullOfStrings, "abc"), true, "Object full of props `\"abc\"` asked for \"abc\" returns true");
+		strictEqual(objectUtils.hasPropertiesOfValue(objectPropsFullOfNumbers, 5), true, "Object full of props `5` asked for `5` returns true");
+		strictEqual(objectUtils.hasPropertiesOfValue(objectPropsFullOfNumbers, "5"), false, "Object full of props `5` asked for `\"5\"` returns false");
+		strictEqual(objectUtils.hasPropertiesOfValue(objectPropsFullOfObjectReferences, reference), true, "Object full of props with reference as value asked for that reference returns true");
+		strictEqual(objectUtils.hasPropertiesOfValue(objectPropsFullOfObjectThatLookThatSame, {a: 1}), false, "Object full of props with objects that look that same asked for that same object returns false");
+		strictEqual(objectUtils.hasPropertiesOfValue(objectPropsMixedNullZeroUndefined, null), false, "Object mixed (null, 0, undefined) asked for `null` return false");
+		strictEqual(objectUtils.hasPropertiesOfValue(objectPropsMixedNullZeroUndefined, undefined), false, "Object mixed (null, 0, undefined) asked for `undefined` return false");
+		strictEqual(objectUtils.hasPropertiesOfValue(objectPropsMixedNullZeroUndefined, 0), false, "Object mixed (null, 0, undefined) asked for `0` return false");
+		strictEqual(objectUtils.hasPropertiesOfValue(objectPropsMixedReferenceUndefined, undefined), false, "Object mixed (reference, undefined) asked for `undefined` return false");
+		strictEqual(objectUtils.hasPropertiesOfValue(objectPropsMixedReferenceUndefined, reference), false, "Object mixed (reference, undefined) asked for `undefined` return false");
+		strictEqual(objectUtils.hasPropertiesOfValue(objectPropsMixedReferenceNull, null), false, "Object mixed (reference, null) asked for `null` returns false");
+		strictEqual(objectUtils.hasPropertiesOfValue(objectPropsMixedReferenceNull, reference), false, "Object mixed (reference, null) asked for `reference` returns false");
+		strictEqual(objectUtils.hasPropertiesOfValue(objectPropsMixedReferenceNull, undefined), false, "Object mixed (reference, null) asked for `undefined` returns false");
+	});
+}(window.tau));
