@@ -143,6 +143,31 @@
 
 					Constructor.prototype = basePrototype;
 					Constructor.prototype.constructor = Constructor;
+				},
+
+				/**
+				 * Returns true if every property value corresponds value from 'value' argument
+				 * @method hasPropertiesOfValue
+				 * @param {Object} obj
+				 * @param {*} [value=undefined]
+				 * @return {boolean}
+				 */
+				hasPropertiesOfValue: function (obj, value) {
+					var keys = Object.keys(obj),
+						i = keys.length;
+
+					// Empty array should return false
+					if (i === 0) {
+						return false;
+					}
+
+					while (--i >= 0) {
+						if (obj[keys[i]] !== value) {
+							return false;
+						}
+					}
+
+					return true;
 				}
 			};
 			ns.util.object = object;

@@ -10,12 +10,14 @@
 	define(
 		[
 			"../util", // fetch namespace
+			"../util/object",
 			"../event"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 			var hashMap = {},
 				eventUtils = ns.event,
+				objectUtils = ns.util.object,
 				body = document.body,
 				/**
 				 * Return hash for object
@@ -164,12 +166,16 @@
 				remove: function (element, key) {
 					var hash = hashObject(element),
 						value;
+
 					if (hash && hashMap[hash] && hashMap[hash][key] !== undefined) {
 						value = hashMap[hash][key];
 
-						hashMap[hash][key] = null;
-						if (Object.keys(hashMap[hash]) === 0) {
-							hashMap[hash] = null;
+						// Delete keyword has a performance impact on the execution, that's why we assign undefined
+						hashMap[hash][key] = undefined;
+
+						// If any property is defined we cannot clear the hashMap[hash]
+						if (objectUtils.hasPropertiesOfValue(hashMap[hash], undefined)) {
+							hashMap[hash] = undefined;
 						}
 
 						if (element instanceof Element) {

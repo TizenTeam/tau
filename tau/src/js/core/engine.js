@@ -37,7 +37,8 @@
 			"require",
 			"./core",
 			"./event",
-			"./util/selectors"
+			"./util/selectors",
+			"./util/object"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
@@ -55,6 +56,7 @@
 				 * @member ns.engine
 				 */
 				eventUtils = ns.event,
+				objectUtils = ns.util.object,
 				selectors = ns.util.selectors,
 				/**
 				 * @property {Object} widgetDefs Object with widgets definitions
@@ -270,7 +272,7 @@
 				// Fetch group of widget defined for this element
 				binding = widgetBindingMap[id];
 
-				if (typeof binding === "object") {
+				if (binding && typeof binding === "object") {
 					// If name is defined it's possible to fetch it instantly
 					if (type) {
 						widgetInstance = binding.instances[type];
@@ -285,7 +287,7 @@
 						// NOTE: element can exists outside document
 						bindingElement = widgetInstance.element;
 						if (bindingElement && !bindingElement.ownerDocument.getElementById(bindingElement.id)) {
-							ns.warn("Element", bindingElement.id, "is outside DOM!");
+							ns.warn("Element ", bindingElement.id, " is outside DOM!");
 						}
 						//>>excludeEnd("tauDebug");
 
@@ -481,13 +483,16 @@
 									//>>excludeEnd("tauDebug");
 
 									// As we iterate over keys we are sure we want to remove this element
+									// NOTE: Removing property by delete is slower than assigning null value
 									bindingGroup[widgetName] = null;
 
 									fullSuccess = (fullSuccess && partialSuccess);
 								}
 							}
 
-							if(Object.keys(bindingGroup).length === 0) {
+							// If the object bindingGroup is empty or every key has a null value
+							if (objectUtils.hasPropertiesOfValue(bindingGroup, null)) {
+								// NOTE: Removing property by delete is slower than assigning null value
 								widgetBindingMap[id] = null;
 							}
 
@@ -496,7 +501,7 @@
 
 						partialSuccess = _removeSingleBinding(bindingGroup, type);
 
-						if(Object.keys(bindingGroup).length === 0) {
+						if (objectUtils.hasPropertiesOfValue(bindingGroup, null)) {
 							widgetBindingMap[id] = null;
 						}
 
