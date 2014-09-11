@@ -308,12 +308,7 @@
 	&.ui-li-has-radio>.ui-btn-inner>.ui-btn-text>.ui-link-inherit,
 	&.ui-li-static.ui-li-has-checkbox,
 	&.ui-li-static.ui-li-has-radio {
-		.ui-checkbox:first-child,
-		.ui-radio:first-child {
-			top: 20 * @unit_base;
-		}
-
-		.ui-li-text-sub { left: 52.5 * @unit_base; }
+		.ui-li-text-sub { left: 60 * @unit_base; }
 	}
 
 	/* multiline list has thumbnail and checkbox/radio */
@@ -321,7 +316,7 @@
 	&.ui-li-has-thumb.ui-li-has-radio>.ui-btn-inner>.ui-btn-text>.ui-link-inherit,
 	&.ui-li-static.ui-li-has-thumb.ui-li-has-checkbox,
 	&.ui-li-static.ui-li-has-thumb.ui-li-has-radio {
-		.ui-li-text-sub { left: 101 * @unit_base; }
+		.ui-li-text-sub { left: 108 * @unit_base; }
 	}
 
 	/* multiline list has thumbnail right */
@@ -397,6 +392,14 @@
 		border: 1px solid @color_list_border_bottom;
 		border-top-width: 0;
 
+		&.ui-li-has-multiline .ui-li-text-sub { left: 10.5 * @unit_base;}
+		&.ui-li-has-multiline.ui-li-has-checkbox,
+		&.ui-li-has-multiline.ui-li-has-radio {
+			>.ui-btn-inner>.ui-btn-text>.ui-link-inherit .ui-li-text-sub {
+				left: 69 * @unit_base;
+			}
+		}
+
 		>.ui-btn-inner {
 			padding-left: 10 * @unit_base;
 			padding-right: 10 * @unit_base;
@@ -410,9 +413,9 @@
 			padding-left: 5 * @unit_base;
 		}
 		/* dialogue list with thumb and checkbox/radio */
-		&.ui-li-has-thumb >.ui-btn-inner >.ui-btn-text >.ui-link-inherit { padding-left: 48.5 * @unit_base; }
+		&.ui-li-has-thumb >.ui-btn-inner >.ui-btn-text >.ui-link-inherit,
 		&.ui-li-has-checkbox >.ui-btn-inner >.ui-btn-text >.ui-link-inherit,
-		&.ui-li-has-radio >.ui-btn-inner >.ui-btn-text >.ui-link-inherit { padding-left: 39.5 * @unit_base; }
+		&.ui-li-has-radio >.ui-btn-inner >.ui-btn-text >.ui-link-inherit { padding-left: 48.5 * @unit_base; }
 	}
 	.ui-li-divider + .ui-li-dialogue,
 	.ui-li.ui-li-dialogue:first-child {
