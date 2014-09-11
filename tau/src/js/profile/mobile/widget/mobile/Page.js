@@ -531,7 +531,7 @@
 							section.setAttribute("role", role === "header" ? "banner" : "contentinfo");
 
 							if (role === "header") {
-								headerAnchors = selectors.getChildrenBySelector(section, "a, div.naviframe-button, button");
+								headerAnchors = selectors.getChildrenBySelector(section, "a, div.naviframe-button, button, [data-role=button]");
 								headerAnchors.forEach(function (anchor) {
 									var anchorClassList = anchor.classList;
 									leftButton = anchorClassList.contains(pageClasses.uiBtnLeft);

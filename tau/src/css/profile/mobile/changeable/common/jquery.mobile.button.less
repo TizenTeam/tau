@@ -141,7 +141,7 @@
 	&:not([data-style="nobg"]) .ui-icon {
 		background-color: @color_button_icon;
 	}
-	&:not([data-style="nobg"]):not([data-style="circle"]).ui-btn-icon_only {
+	&:not([data-style="nobg"]):not([data-style="circle"]).ui-btn-icon_only:not(.ui-btn-icon-naviframe-cancel):not(.ui-btn-icon-naviframe-done) {
 		.ui-icon {
 			width: 45 * @unit_base;
 			height: 45 * @unit_base;
@@ -198,20 +198,6 @@
 	}
 }
 
-.ui-header > .ui-btn-box-s:not(.ui-input-cancel):not(.ui-btn-search-front-icon),
-.ui-header > .ui-btn-box-s:not(.ui-input-cancel):not(.ui-btn-search-front-icon) .ui-btn-inner,
-.ui-header > .ui-btn.ui-btn-box-s.ui-btn-down-s:not(.ui-input-cancel):not(.ui-btn-search-front-icon) .ui-btn-inner,
-.ui-btn.ui-btn-back.ui-btn-up-s .ui-btn-inner,
-.ui-btn.ui-btn-back.ui-btn-hover-s .ui-btn-inner,
-.ui-btn.ui-btn-back.ui-btn-down-s .ui-btn-inner,
-.ui-btn.ui-btn-footer-down.ui-btn-up-s > .ui-btn-inner,
-.ui-btn.ui-btn-footer-down.ui-btn-hover-s > .ui-btn-inner,
-.ui-btn.ui-btn-footer-down.ui-btn-down-s > .ui-btn-inner
-{
-	background: transparent;
-	box-shadow: none;
-}
-
 .ui-header > .naviframe-button.ui-btn.ui-btn-box-s.ui-btn-down-s {
 	background : @color_bar_naviframe_press;
 }
@@ -258,9 +244,10 @@
 .tizen-icon-common
 {
 	/* Overlap original property */
-	width: 46 * @unit_base;
-	height: 46 * @unit_base;
+	width: 20 * @unit_base;
+	height: 20 * @unit_base;
 }
+
 .tizen-smallicon-common
 {
 	width: 20 * @unit_base ! important;
@@ -270,6 +257,14 @@
 	margin-top: -20 * @unit_base / 2 ! important;
 	margin-left: -20 * @unit_base / 2 ! important;
 }
+.ui-btn {
+	.ui-icon-bg, .ui-icon-arrow-l, .ui-icon-arrow-r, .ui-icon-arrow-u, .ui-icon-arrow-d,
+	.ui-icon-delete, .ui-icon-plus, .ui-icon-minus, .ui-icon-forward, .ui-icon-alert, .ui-icon-info,
+	.ui-icon-call, .ui-icon-rename, .ui-icon-star, .ui-icon-search, .ui-icon-scrolltop, .ui-icon-scrollleft,
+	.ui-icon-check, .ui-icon-gear, .ui-icon-refresh, .ui-icon-back, .ui-icon-grid, .ui-icon-home,
+	{
+		-webkit-mask-size: 100%;
+	}
 
 .ui-icon-bg, .ui-icon-arrow-l, .ui-icon-arrow-r, .ui-icon-arrow-u, .ui-icon-arrow-d,
 .ui-icon-delete, .ui-icon-plus, .ui-icon-minus, .ui-icon-forward, .ui-icon-alert, .ui-icon-info,
@@ -348,32 +343,32 @@
 	.tizen-smallicon-common;
 	-webkit-mask-image: url(images/controls/00_icon_jump_left.png);
 }
+	.ui-icon-check {
+		.tizen-icon-common;
+		-webkit-mask-image: url(images/controls/button/00_button_check.png);
+	}
 
-.ui-icon-check {
-	.tizen-icon-common;
-	-webkit-mask-image: url(images/controls/button/00_button_check.png);
+	.ui-icon-gear {
+		.tizen-icon-common;
+		-webkit-mask-image: url(images/controls/button/00_button_gear.png);
+	}
+	.ui-icon-refresh {
+		.tizen-icon-common;
+		-webkit-mask-image: url(images/controls/button/00_button_refresh.png);
+	}
+	.ui-icon-back {
+		.tizen-icon-common;
+		-webkit-mask-image: url(images/controls/button/00_button_back.png);
+	}
+	.ui-icon-grid {
+		.tizen-icon-common;
+		-webkit-mask-image: url(images/controls/button/00_button_grid.png);
+	}
+	.ui-icon-home {
+		.tizen-icon-common;
+		-webkit-mask-image: url(images/controls/button/00_button_home.png);
+	}
 }
-.ui-icon-gear {
-	.tizen-icon-common;
-	-webkit-mask-image: url(images/controls/button/00_button_gear.png);
-}
-.ui-icon-refresh {
-	.tizen-icon-common;
-	-webkit-mask-image: url(images/controls/button/00_button_refresh.png);
-}
-.ui-icon-back {
-	.tizen-icon-common;
-	-webkit-mask-image: url(images/controls/button/00_button_back.png);
-}
-.ui-icon-grid {
-	.tizen-icon-common;
-	-webkit-mask-image: url(images/controls/button/00_button_grid.png);
-}
-.ui-icon-home {
-	.tizen-icon-common;
-	-webkit-mask-image: url(images/controls/button/00_button_home.png);
-}
-
 .ui-btn-down-s .ui-icon-scrolltop {.tizen-icon-common; }
 .ui-btn-down-s .ui-icon-scrollleft {.tizen-icon-common; }
 
