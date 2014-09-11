@@ -70,26 +70,6 @@ Summary:    TAU : mobile
 /usr/share/tau/mobile/js
 
 ##############################
-%package -n tau-mobile-theme-black
-BuildArch:  noarch
-Summary:    TAU-mobile-theme : black
-%Description -n tau-mobile-theme-black
-	TAU mobile theme : black
-%files -n tau-mobile-theme-black
-%manifest tau-mobile-theme-black.manifest
-/usr/share/tau/mobile/theme/black
-
-##############################
-%package -n tau-mobile-theme-white
-BuildArch:  noarch
-Summary:    TAU-mobile-theme : white
-%Description -n tau-mobile-theme-white
-	TAU mobile theme : white
-%files -n tau-mobile-theme-white
-%manifest tau-mobile-theme-white.manifest
-/usr/share/tau/mobile/theme/white
-
-##############################
 %package -n tau-mobile-theme-changeable
 BuildArch:  noarch
 Summary:    TAU-mobile-theme : changeable
