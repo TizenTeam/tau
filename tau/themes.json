@@ -9,20 +9,6 @@
 				"src": "style.changeable.less",
 				"default": "true",
 				"changeable-path": "mobile/changeable/theme-changeable/"
-			},
-			{
-				"name": "black",
-				"images": "images/",
-				"src": "style.less",
-				"default": "false",
-				"default-path": "mobile/default/theme-black/"
-			},
-			{
-				"name": "white",
-				"images": "images/",
-				"src": "style.less",
-				"default": "false",
-				"default-path": "mobile/default/theme-white/"
 			}
 		],
 
@@ -33,13 +19,6 @@
 				"src": "style.changeable.less",
 				"default": "true",
 				"changeable-path": "wearable/changeable/theme-changeable/"
-			},
-			{
-				"name": "black",
-				"images": "images/",
-				"src": "style.less",
-				"default": "false",
-				"default-path": "wearable/default/theme-black/"
 			}
 		],
 
