@@ -481,14 +481,14 @@
 									//>>excludeEnd("tauDebug");
 
 									// As we iterate over keys we are sure we want to remove this element
-									delete bindingGroup[widgetName];
+									bindingGroup[widgetName] = null;
 
 									fullSuccess = (fullSuccess && partialSuccess);
 								}
 							}
 
 							if(Object.keys(bindingGroup).length === 0) {
-								delete widgetBindingMap[id];
+								widgetBindingMap[id] = null;
 							}
 
 							return fullSuccess;
@@ -497,7 +497,7 @@
 						partialSuccess = _removeSingleBinding(bindingGroup, type);
 
 						if(Object.keys(bindingGroup).length === 0) {
-							delete widgetBindingMap[id];
+							widgetBindingMap[id] = null;
 						}
 
 						return partialSuccess;

@@ -167,9 +167,9 @@
 					if (hash && hashMap[hash] && hashMap[hash][key] !== undefined) {
 						value = hashMap[hash][key];
 
-						delete hashMap[hash][key];
+						hashMap[hash][key] = null;
 						if (Object.keys(hashMap[hash]) === 0) {
-							delete hashMap[hash];
+							hashMap[hash] = null;
 						}
 
 						if (element instanceof Element) {

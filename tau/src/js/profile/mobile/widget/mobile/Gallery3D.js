@@ -793,7 +793,6 @@
 					if (node.texture) {
 						gl.deleteTexture(node.texture);
 						node.texture = null;
-						delete node.image;
 						node.image = null;
 					}
 				});
