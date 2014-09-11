@@ -1,4 +1,5 @@
 /*global window, define */
+/*jslint nomen: true */
 /* Copyright  2010 - 2014 Samsung Electronics Co., Ltd.
  * License : MIT License V2
  */
@@ -371,24 +372,17 @@
 			routePopup.parse = function (html, absUrl) {
 				var self = this,
 					popup,
-					dataUrl = self._createDataUrl(absUrl),
-					scripts,
-					all = document.createElement('div'),
-					scriptRunner = ns.util.runScript.bind(null, dataUrl);
+					dataUrl = self._createDataUrl(absUrl);
 
-				//workaround to allow scripts to execute when included in popup divs
-				all.innerHTML = html;
+				popup = html.querySelector(self.filter);
 
-				popup = all.querySelector(self.filter);
-
-				// TODO tagging a popup with external to make sure that embedded popups aren't
-				// removed by the various popup handling code is bad. Having popup handling code
-				// in many places is bad. Solutions post 1.0
-				DOM.setNSData(popup, 'url', dataUrl);
-				DOM.setNSData(popup, 'external', true);
-
-				scripts = popup.querySelectorAll('script');
-				slice.call(scripts).forEach(scriptRunner);
+				if (popup) {
+					// TODO tagging a popup with external to make sure that embedded popups aren't
+					// removed by the various popup handling code is bad. Having popup handling code
+					// in many places is bad. Solutions post 1.0
+					DOM.setNSData(popup, "url", dataUrl);
+					DOM.setNSData(popup, "external", true);
+				}
 
 				return popup;
 			};

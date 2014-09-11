@@ -1,5 +1,5 @@
-/*global window, define */
-/*jslint nomen: true */
+/*global window, define, XMLHttpRequest, console, Blob */
+/*jslint nomen: true, browser: true, plusplus: true */
 /* 
  * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
  * License : MIT License V2
@@ -11,7 +11,7 @@
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  * @author Krzysztof Antoszek <k.antoszek@samsung.com>
  */
-(function (window, ns) {
+(function (window, document, ns) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
@@ -34,7 +34,134 @@
 					function (callback) {
 						currentFrame = window.setTimeout(callback.bind(callback, +new Date()), 1000 / 60);
 					}).bind(window),
-				util = ns.util || {};
+				util = ns.util || {},
+				slice = [].slice;
+
+			/**
+			 * fetchSync retrieves a text document synchronously, returns null on error
+			 * @param {string} url
+			 * @param {=string} [mime=""] Mime type of the resource
+			 * @return {string|null}
+			 * @static
+			 * @member ns.util
+			 */
+			function fetchSync(url, mime) {
+				var xhr = new XMLHttpRequest(),
+					status;
+				xhr.open("get", url, false);
+				if (mime) {
+					xhr.overrideMimeType(mime);
+				}
+				xhr.send();
+				if (xhr.readyState === 4) {
+					status = xhr.status;
+					if (status === 200 || (status === 0 && xhr.responseText)) {
+						return xhr.responseText;
+					}
+				}
+
+				return null;
+			}
+			util.fetchSync = fetchSync;
+
+			/**
+			 * Removes all script tags with src attribute from document and returns them
+			 * @param {HTMLElement} container
+			 * @return {Array.<HTMLElement>}
+			 * @private
+			 * @static
+			 * @member ns.util
+			 */
+			function removeExternalScripts(container) {
+				var scripts = slice.call(container.querySelectorAll("script[src]")),
+					i = scripts.length,
+					script;
+
+				while (--i >= 0) {
+					script = scripts[i];
+					script.parentNode.removeChild(script);
+				}
+
+				return scripts;
+			}
+
+			/**
+			 * Evaluates code, reason for a function is for an atomic call to evaluate code
+			 * since most browsers fail to optimize functions with try-catch blocks, so this
+			 * minimizes the effect, returns the function to run
+			 * @param {string} code
+			 * @return {Function}
+			 * @static
+			 * @member ns.util
+			 */
+			function safeEvalWrap(code) {
+				return function () {
+					try {
+						window.eval(code);
+					} catch (e) {
+						if (typeof console !== "undefined") {
+							if (e.stack) {
+								console.error(e.stack);
+							} else if (e.name && e.message) {
+								console.error(e.name, e.message);
+							} else {
+								console.error(e);
+							}
+						}
+					}
+				};
+			}
+			util.safeEvalWrap = safeEvalWrap;
+
+			/**
+			 * Calls functions in supplied queue (array)
+			 * @param {Array.<Function>} functionQueue
+			 * @static
+			 * @member ns.util
+			 */
+			function batchCall(functionQueue) {
+				var i,
+					length = functionQueue.length;
+				for (i = 0; i < length; ++i) {
+					functionQueue[i].call(window);
+				}
+			}
+			util.batchCall = batchCall;
+
+			/**
+			 * Creates new script elements for scripts gathered from a differnt document
+			 * instance, blocks asynchronous evaluation (by renaming src attribute) and
+			 * returns an array of functions to run to evalate those scripts
+			 * @param {Array.<HTMLElement>} scripts
+			 * @param {HTMLElement} container
+			 * @return {Array.<Function>}
+			 * @private
+			 * @static
+			 * @member ns.util
+			 */
+			function createScriptsSync(scripts, container) {
+				var scriptElement,
+					scriptBody,
+					i,
+					length,
+					queue = [];
+
+				// proper order of execution
+				for (i = 0, length = scripts.length; i < length; ++i) {
+					scriptBody = fetchSync(scripts[i].src, "text/plain");
+					if (scriptBody) {
+						scriptElement = document.adoptNode(scripts[i]);
+						scriptElement.setAttribute("data-src", scripts[i].src);
+						scriptElement.removeAttribute("src"); // block evaluation
+						queue.push(safeEvalWrap(scriptBody));
+						if (container) {
+							container.appendChild(scriptElement);
+						}
+					}
+				}
+
+				return queue;
+			}
 
 			util.requestAnimationFrame = requestAnimationFrame;
 
@@ -52,8 +179,8 @@
 					function () {
 						// propably wont work if there is any more than 1
 						// active animationFrame but we are trying anyway
-						window.clearTimeout(currentFrame);
-					}).bind(window);
+					window.clearTimeout(currentFrame);
+				}).bind(window);
 
 			/**
 			 * Method make asynchronous call of function
@@ -63,6 +190,25 @@
 			 * @static
 			 */
 			util.async = requestAnimationFrame;
+
+			/**
+			 * Appends element from different document instance to current document in the
+			 * container element and evaluates scripts (synchronously)
+			 * @param {HTMLElement} element
+			 * @param {HTMLElement} container
+			 * @method importEvaluateAndAppendElement
+			 * @member ns.util
+			 * @static
+			 */
+			util.importEvaluateAndAppendElement = function (element, container) {
+				var externalScriptsQueue = createScriptsSync(removeExternalScripts(element), element),
+					newNode = document.importNode(element, true);
+
+				container.appendChild(newNode); // append and eval inline
+				batchCall(externalScriptsQueue);
+
+				return newNode;
+			};
 
 			/**
 			* Checks if specified string is a number or not
@@ -82,15 +228,16 @@
 			 * @param {string} baseUrl
 			 * @param {HTMLScriptElement} script
 			 * @member ns.util
+			 * @deprecated 2.3
 			 */
 			util.runScript = function (baseUrl, script) {
-				var newScript = document.createElement('script'),
+				var newScript = document.createElement("script"),
+					scriptData = null,
 					i,
-					scriptAttributes = script.attributes,
-					count = script.childNodes.length,
+					scriptAttributes = slice.call(script.attributes),
 					src = script.getAttribute("src"),
 					path = util.path,
-					xhrObj,
+					request,
 					attribute,
 					status;
 
@@ -100,38 +247,31 @@
 				}
 
 				//Copy script tag attributes
-				for (i = scriptAttributes.length - 1; i >= 0; i -= 1) {
+				i = scriptAttributes.length;
+				while (--i >= 0) {
 					attribute = scriptAttributes[i];
-					if (attribute.name !== 'src') {
+					if (attribute.name !== "src") {
 						newScript.setAttribute(attribute.name, attribute.value);
+					} else {
+						newScript.setAttribute("data-src", attribute.value);
 					}
 				}
 
-				// If external script exists, fetch and insert it inline
 				if (src) {
-					try {
-						// get some kind of XMLHttpRequest
-						xhrObj = new XMLHttpRequest();
-						// open and send a synchronous request
-						xhrObj.open('GET', src, false);
-						xhrObj.send('');
-						status = xhrObj.status;
-						if (status === 200 || status === 0) {
-							// add the returned content to a newly created script tag
-							newScript.type = "text/javascript";
-							newScript.text = xhrObj.responseText;
-						}
-						//>>excludeStart("tauDebug", pragmas.tauDebug);
-						if (xhrObj.status !== 200) {
-							ns.warn("Failed to fetch and append external script. URL: " + src + "; response status: " + xhrObj.status);
-						}
-						//>>excludeEnd("tauDebug");
-					} catch (ignore) {
+					scriptData = fetchSync(src, "text/plain");
+					//>>excludeStart("tauDebug", pragmas.tauDebug);
+					if (!scriptData) {
+						ns.warn("Failed to fetch and append external script. URL: " + src + "; response status: " + status);
 					}
+					//>>excludeEnd("tauDebug");
 				} else {
-					for (i = 0; i < count; i++) {
-						newScript.appendChild(script.childNodes[i]);
-					}
+					scriptData = script.textContent;
+				}
+
+				if (scriptData) {
+					// add the returned content to a newly created script tag
+					newScript.src = URL.createObjectURL(new Blob([scriptData], {type: "text/javascript"}));
+					newScript.textContent = scriptData; // for compatibility with some libs ex. templating systems
 				}
 				script.parentNode.replaceChild(newScript, script);
 			};
@@ -142,4 +282,4 @@
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
-}(window, ns));
+}(window, window.document, ns));

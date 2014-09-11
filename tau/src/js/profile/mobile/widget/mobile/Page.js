@@ -1,4 +1,4 @@
-/*global window, define, ns */
+
 /*jslint nomen: true, plusplus: true */
 /*
 * Copyright  2010 - 2014 Samsung Electronics Co., Ltd.
@@ -412,6 +412,7 @@
 					headerDivider,
 					headerBtn,
 					headerBtnWidth = 0,
+					pageClasses = Page.classes,
 					top = 0,
 					bottom = 0,
 					i,
@@ -419,13 +420,13 @@
 					len;
 
 				if (element && !self.pageSetHeight && element.classList.contains(Page.classes.uiPageActive)) {
-					content = element.querySelector("[data-role=content]");
+					content = element.querySelector("[data-role=content],." + pageClasses.uiPageContent);
 					if (content) {
 						//>>excludeStart("tauDebug", pragmas.tauDebug);
 						ns.log("Page (contentFill) on ", self.id, " styles was recalculated");
 						//>>excludeEnd("tauDebug");
 						contentStyle = content.style;
-						header = element.querySelector("[data-role=header]");
+						header = element.querySelector("[data-role=header],." + pageClasses.uiPageHeader);
 
 						if (header) {
 							headerDivider = header.getElementsByClassName("ui-header-divider");
@@ -441,7 +442,7 @@
 							top = utilsDOM.getElementHeight(header);
 						}
 
-						footer = element.querySelector("[data-role=footer]");
+						footer = element.querySelector("[data-role=footer],." + pageClasses.uiPageFooter);
 						bottom = utilsDOM.getElementHeight(footer);
 
 						contentStyle.top = top + "px";
@@ -472,10 +473,10 @@
 					pageClassList.add(pageClasses.uiPageFooterFixed);
 				}
 
-				[].slice.call(pageElement.querySelectorAll("[data-role='header'],[data-role='content'],[data-role='footer']," +
+				[].slice.call(pageElement.querySelectorAll("[data-role='header'],[data-role='content'],[data-role='footer'],." +
 						pageClasses.uiPageHeader +
-						"," + pageClasses.uiPageContent +
-						"," + pageClasses.uiPageFooter))
+						",." + pageClasses.uiPageContent +
+						",." + pageClasses.uiPageFooter))
 					.forEach(function (section) {
 						var role = section.getAttribute("data-role"),
 							sectionTheme = section.getAttribute("data-theme"),

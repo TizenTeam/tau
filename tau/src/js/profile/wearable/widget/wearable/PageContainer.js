@@ -102,7 +102,7 @@
 				// or active page is changed to another one.
 				if (!fromPageWidget || (fromPageWidget.element !== toPage)) {
 					if (toPage.parentNode !== self.element) {
-						self._include(toPage);
+						toPage = self._include(toPage);
 					}
 
 					toPage.classList.add(classes.uiBuild);
@@ -209,13 +209,15 @@
 			 * @method _include
 			 * @param {HTMLElement} page an element to add
 			 * @member ns.widget.wearable.PageContainer
+			 * @return {HTMLElement}
 			 * @protected
 			 */
 			prototype._include = function (page) {
 				var element = this.element;
 				if (page.parentNode !== element) {
-					element.appendChild(page);
+					page = util.importEvaluateAndAppendElement(page, element);
 				}
+				return page;
 			};
 			/**
 			 * This method sets currently active page.

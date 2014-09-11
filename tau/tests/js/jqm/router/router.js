@@ -1,6 +1,10 @@
-$().ready(function() {
-module("jqm.router", {});
-	$(document).one('pagechange', function() {
+/*global module, $, asyncTest, document, ok, start, window, test */
+$().ready(function () {
+	"use strict";
+
+	module("jqm.router", {});
+
+	if (!window.navigator.userAgent.match("PhantomJS")) {
 		asyncTest("$.mobile.changePage", 1, function () {
 			var page2 = $('#test2');
 
@@ -10,5 +14,9 @@ module("jqm.router", {});
 			});
 			$.mobile.changePage(page2);
 		});
-	});
+	} else {
+		test("PhantomJS does not support XMLHttpRequest.responseType = document", function () {
+			ok(true, "bypassing");
+		});
+	}
 });

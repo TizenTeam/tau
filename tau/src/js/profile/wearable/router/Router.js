@@ -1,4 +1,5 @@
-/*global window, define */
+/*global window, define, XMLHttpRequest */
+/*jslint nomen: true */
 /* Copyright  2010 - 2014 Samsung Electronics Co., Ltd.
  * License : MIT License V2
  */
@@ -404,7 +405,7 @@
 					}
 				}
 
-				pages.forEach(function(page) {
+				pages.forEach(function (page) {
 					if (!DOM.getNSData(page, "url")) {
 						DOM.setNSData(page, "url", page.id || location.pathname + location.search);
 					}
@@ -556,8 +557,8 @@
 
 				content = rule.find(absUrl);
 
-				if ( !content && path.isEmbedded( absUrl ) ) {
-					deferred.reject( detail );
+				if (!content && path.isEmbedded(absUrl)) {
+					deferred.reject(detail);
 					return;
 				}
 				// If the content we are interested in is already in the DOM,
@@ -575,21 +576,22 @@
 				}
 
 				// Load the new content.
-				try {
-					request = new XMLHttpRequest();
-					request.open("GET", absUrl, false);
-					request.onerror = self._loadError.bind(self, absUrl, options, deferred);
-					request.send("");
+				request = new XMLHttpRequest();
+				request.responseType = "document";
+				request.overrideMimeType("text/html");
+				request.open("GET", absUrl);
+				request.addEventListener("error", self._loadError.bind(self, absUrl, options, deferred));
+				request.addEventListener("load", function (event) {
+					var request = event.target;
 					if (request.readyState === 4) {
-						if (request.status === 200 || (request.status === 0 && request.responseText)) {
-							self._loadSuccess(absUrl, options, rule, deferred, request.responseText);
+						if (request.status === 200 || (request.status === 0 && request.responseXML)) {
+							self._loadSuccess(absUrl, options, rule, deferred, request.responseXML);
 						} else {
 							self._loadError(absUrl, options, deferred);
 						}
 					}
-				} catch (e) {
-					self._loadError(absUrl, options, deferred);
-				}
+				});
+				request.send();
 			};
 
 			/**

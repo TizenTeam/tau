@@ -43,6 +43,17 @@
 				object = util.object,
 				selectors = util.selectors,
 				Page = ns.widget.mobile.Page,
+				pageDefinition = engine.getWidgetDefinition("Page"),
+				dialogDefinition = engine.getWidgetDefinition("Dialog"),
+				pageSelectorWithData = pageDefinition
+					.selector
+					.split(",")
+					.map(
+						function (value) {
+							return value + "[data-url]";
+						}
+					)
+					.join(","),
 				body = document.body,
 				firstPage = null,
 				container = ns.getConfig("container") || body,
@@ -303,93 +314,96 @@
 				if ((ns.getConfig("allowCrossDomainPages") || path.isSameDomain(documentUrl, absUrl))) {
 					// Load the new page.
 					request = new XMLHttpRequest();
+					request.responseType = "document";
 					request.onreadystatechange = function () {
-						var all = document.createElement("div"),
-							html = request.responseText,
-							namespace = ns.getConfig("namespace") ? ns.getConfig("namespace") + "-" : "",
-							pageTmpContainer = document.createElement("div"),
-							newPageTitle,
-							pageElemRegex = new RegExp("(<[^>]+\\bdata-" + namespace + "role=[\"']?page[\"']?[^>]*>)"),
-							dataUrlRegex = new RegExp("\\bdata-" + namespace + "url=[\"']?([^\"'>]*)[\"']?"),
-							newPath,
-							elements,
+						var status,
+							requestedDocument = null,
+							title,
+							page,
+							url,
+							body,
+							scripts,
+							scriptRunner,
 							onPageCreate,
 							eventData = {},
-							scripts,
-							scriptRunner;
+							tempDoc,
+							newPath,
+							elements;
 						if (request.readyState === 4) {
-							if ((request.status === 200 || request.status === 0) &&
-									request.responseText !== undefined && request.responseText.length > 0) {
-								//pre-parse html to check for a data-url,
-								//use it as the new fileUrl, base path, etc
+							status = request.status;
+							requestedDocument = request.responseXML;
+							if ((status === 200 || status === 0) && requestedDocument) {
 
-								//page title regexp
-								newPageTitle = html.match(/<title[^>]*>([^<]*)/) && RegExp.$1;
-
-								// data-url must be provided for the base tag so resource requests can be directed to the
-								// correct url. loading into a temprorary element makes these requests immediately
-								if (pageElemRegex.test(html) && RegExp.$1 && dataUrlRegex.test(RegExp.$1) && RegExp.$1) {
-									pageTmpContainer.innerHTML = RegExp.$1;
-									url = pageTmpContainer.innerText;
-									url = fileUrl = path.getFilePath(url);
+								title = requestedDocument.querySelector("title");
+								if (title) {
+									title = title.textContent;
 								}
 
-								//dont update the base tag if we are prefetching
+								//@TODO add support for selecting a specific page with #hashtag
+								//in external page as the following algorithm does not support
+								// external/document.html#page url syntax
+
+								page = requestedDocument.querySelector(pageSelectorWithData);
+								if (page) {
+									url = path.getFilePath(DOM.getNSData(page, "url"));
+								} else {
+									url = absUrl;
+								}
 
 								if ((settings === undefined || settings.prefetch === undefined)) {
 									self.setBase(absUrl);
 								}
 
-						//workaround to allow scripts to execute when included in page divs
-								all.innerHTML = html;
-								page = selectors.getChildrenByDataNS(all, "role=page");
-								if (!page.length) {
-									page = selectors.getChildrenByDataNS(all, "role=dialog");
-								}
-								if (page.length) {
-									page = page[0];
-								} else {
-									page = document.createElement("div");
-									DOM.setNSData(page, "role", "page");
-									page.innerHTML = html.split(/<\/?body[^>]*>/gmi)[1];
+								// if no page with a proper data-url was found, find any other page
+								if (!page) {
+									page = requestedDocument.querySelector(pageDefinition.selector);
 								}
 
-								if (newPageTitle && DOM.getNSData(page, "title")) {
-									if (newPageTitle.indexOf("&") !== -1) {
-										pageTmpContainer.innerHTML = newPageTitle;
-										newPageTitle = pageTmpContainer.innerText;
+								// if page not found check if a dialog was requested
+								if (!page) {
+									page = requestedDocument.querySelector(dialogDefinition.selector);
+								}
+
+								// if still there is no page element, create one
+								if (!page) {
+									tempDoc = document.implementation.createDocument("http://www.w3.org/1999/xhtml", "html", null);
+									page = tempDoc.createElement("div");
+									DOM.setNSData(page, "role", "page");
+									body = tempDoc.importNode(requestedDocument.body, true);
+									while (body.firstChild) {
+										page.appendChild(body.firstChild);
 									}
-									DOM.setNSData(page, "title", newPageTitle);
+								}
+
+								// page specific title has the highest priority
+								if (DOM.hasNSData(page, "title")) {
+									title = DOM.getNSData(page, "title");
 								}
 
 								//rewrite src and href attrs to use a base url
 								if (!ns.getConfig("supportDynamicBaseTag")) {
-									newPath = path.get(fileUrl);
+									newPath = path.get(url);
 									elements = selectors.getChildrenByDataNS(page, "ajax='false'");
 									elements.concat(selectors.getChildrenBySelector(page, "[src], link[href], a[rel='external'], a[target]"));
 									elements.forEach(function (element) {
 										var thisAttr = element.href === undefined ? "href" : (element.src === undefined ? "action" : "src"),
 											thisUrl = element.getAttribute(thisAttr);
-
 										thisUrl = thisUrl.replace(location.protocol + "//" + location.host + location.pathname, "");
-
 										if (!/^(\w+:|#|\/)/.test(thisUrl)) {
 											element.setAttribute(thisAttr, newPath + thisUrl);
 										}
 									});
 								}
 
-								//append to page and enhance
+								page = util.importEvaluateAndAppendElement(page, settings.pageContainer);
+
+								// append to page and enhance
 								// TODO taging a page with external to make sure that embedded pages aren't removed
-								//	by the various page handling code is bad. Having page handling code in many
-								//	places is bad. Solutions post 1.0
-								dataUrl = path.convertUrlToDataUrl(fileUrl, dialogHashKey, documentBase);
+								// by the various page handling code is bad. Having page handling code in many
+								// places is bad. Solutions post 1.0
+								dataUrl = path.convertUrlToDataUrl(url, dialogHashKey, documentBase);
 								DOM.setNSData(page, "url", dataUrl);
 								DOM.setNSData(page, "external-page", true);
-								scripts = page.querySelectorAll("script");
-								scriptRunner = util.runScript.bind(null, dataUrl);
-								slice.call(scripts).forEach(scriptRunner);
-								settings.pageContainer.appendChild(page);
 
 								// wait for page creation to leverage options defined on widget
 								onPageCreate = function () {
@@ -416,7 +430,7 @@
 
 								// Add the page reference and xhr to our eventData.
 								eventData.xhr = request;
-								eventData.textStatus = request.status;
+								eventData.textStatus = status;
 								eventData.page = page;
 
 								// Let listeners know the page loaded successfully.
@@ -431,7 +445,7 @@
 
 								// Add error info to our eventData.
 								eventData.xhr = request;
-								eventData.textStatus = request.status;
+								eventData.textStatus = status;
 								eventData.errorThrown = null;//errorThrown;
 
 								// Let listeners know the page load failed.
@@ -456,7 +470,7 @@
 
 								deferred.reject(absUrl, settings);
 							}
-						}
+						} // if end
 					};
 					request.open(settings.type || "GET", fileUrl, true);
 					request.send(settings.data);

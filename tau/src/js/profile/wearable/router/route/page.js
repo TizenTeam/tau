@@ -1,4 +1,5 @@
 /*global window, define */
+/*jslint nomen: true */
 /* Copyright  2010 - 2014 Samsung Electronics Co., Ltd.
  * License : MIT License V2
  */
@@ -190,9 +191,9 @@
 				// We check for this case here because we don't want a first-page with
 				// an id falling through to the non-existent embedded page error case.
 				if (!page &&
-					path.isFirstPageUrl(dataUrl) &&
-					initialContent &&
-					initialContent.parentNode) {
+						path.isFirstPageUrl(dataUrl) &&
+						initialContent &&
+						initialContent.parentNode) {
 					page = initialContent;
 				}
 
@@ -212,19 +213,14 @@
 			routePage.parse = function (html, absUrl) {
 				var self = this,
 					page,
-					dataUrl = self._createDataUrl(absUrl),
-					scripts,
-					all = document.createElement("div");
+					dataUrl = self._createDataUrl(absUrl);
 
 				// write base element
 				// @TODO shouldn't base be set if a page was found?
 				self._setBase(absUrl);
 
-				//workaround to allow scripts to execute when included in page divs
-				all.innerHTML = html;
-
 				// Finding matching page inside created element
-				page = all.querySelector(self.filter);
+				page = html.querySelector(self.filter);
 
 				// If a page exists...
 				if (page) {
@@ -233,10 +229,6 @@
 					// in many places is bad. Solutions post 1.0
 					DOM.setNSData(page, "url", dataUrl);
 					DOM.setNSData(page, "external", true);
-
-					// Check if parsed page contains scripts
-					scripts = page.querySelectorAll("script");
-					slice.call(scripts).forEach(util.runScript.bind(null, dataUrl));
 				}
 				return page;
 			};

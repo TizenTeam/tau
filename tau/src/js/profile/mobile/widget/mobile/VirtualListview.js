@@ -603,7 +603,7 @@
 					$jqTmpl = self._ui.$jqTmpl,
 					templateElement;
 
-				if(typeof self.options.listItemUpdater === "function") {
+				if (typeof self.options.listItemUpdater === "function") {
 					self.options.listItemUpdater(element, index);
 				} else {
 					//@TODO THIS IS A JQUERY INCLUSION IN A TAU WIDGET!!!

@@ -23,9 +23,9 @@ When using TAU you will get many benefits usable in your code.
 * Application can be _built_ to dramatically improve startup performance
 * ECMAScript5 and HTML5 compliant
 * Large and open API, methods and core function (event utility functions) are available and not hidden to the developer
-* Customizable, easy to extend (and create new widgtets)
-* Optimized for wearable, mobile and tv devices
-* Supports device profiles (mobile, wearable and tv)
+* Customizable, easy to extend (and create new widgets)
+* Optimized for wearable, mobile and TV devices
+* Supports device profiles (mobile, wearable and TV)
 
 ## Simple example
 
@@ -55,7 +55,7 @@ framework profiles.
 
 !danger
 Example for profiles
-TAU Profiles (mobile, tv, wearable) have differences, so some of the examples will not have preview buttons for specific profiles.
+TAU Profiles (mobile, TV, wearable) have differences, so some of the examples will not have preview buttons for specific profiles.
 
 ## Where to get it
 

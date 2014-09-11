@@ -1,25 +1,40 @@
-/*global module, test, asyncTest, ok, equal, start, stop, ej, $ */
-asyncTest('By default first page is active', 6, function () {
-	function checkPage1 () {
-		var page = document.getElementById('page1');
-		document.body.addEventListener('pagechange', checkFirstPage);
-		equal(page.getAttribute('data-tau-bound'), "Page", 'Page1 is enhanced');
-		ok(page.classList.contains('ui-page-active'), 'Page1 is active');
-		equal(document.querySelectorAll('[data-role="page"].ui-page-active').length, 1, 'Only one page is active');
-		document.body.removeEventListener('pagechange', checkPage1);
-		start();
-	}
+/*global window, module, test, asyncTest, ok, equal, start, stop, ej, $ */
+(function (document) {
+	"use strict";
 
-	function checkFirstPage () {
-		var page = document.getElementById('first');
-		equal(page.getAttribute('data-tau-bound'), "Page", 'First page is enhanced');
-		ok(page.classList.contains('ui-page-active'), 'First page is active');
-		equal(document.querySelectorAll('[data-role="page"].ui-page-active').length, 1, 'Only one page is active');
-		document.body.removeEventListener('pagechange', checkFirstPage);
-		document.body.addEventListener('pagechange', checkPage1);
-		$.mobile.changePage('external/page1.html');
-	}
+	if (!window.navigator.userAgent.match("PhantomJS")) {
+		asyncTest('By default first page is active', 6, function () {
+			var body = document.body;
+			function checkPage1() {
+				var page = document.getElementById('page1');
+				page.removeEventListener('pagechange', checkPage1);
 
-	document.body.addEventListener('pagechange', checkFirstPage);
-	ej.engine.run();
-});
+				equal(page.getAttribute('data-tau-bound'), "Page", 'Page1 is enhanced');
+				ok(page.classList.contains('ui-page-active'), 'Page1 is active');
+				equal(document.querySelectorAll('[data-role="page"].ui-page-active').length, 1, 'Only one page is active');
+
+				start();
+			}
+
+			function checkFirstPage() {
+				var page = document.getElementById('first');
+
+				equal(page.getAttribute('data-tau-bound'), "Page", 'First page is enhanced');
+				ok(page.classList.contains('ui-page-active'), 'First page is active');
+				equal(document.querySelectorAll('[data-role="page"].ui-page-active').length, 1, 'Only one page is active');
+
+				body.removeEventListener('pagechange', checkFirstPage);
+				body.addEventListener('pagechange', checkPage1);
+
+				$.mobile.changePage('external/page1.html');
+			}
+
+			body.addEventListener('pagechange', checkFirstPage);
+			ej.engine.run();
+		});
+	} else {
+		test("PhantomJS does not support XMLHttpRequest.responseType = document", function () {
+			ok(true, "bypassing");
+		});
+	}
+}(window.document));
