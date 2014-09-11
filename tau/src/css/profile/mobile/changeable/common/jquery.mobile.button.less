@@ -161,13 +161,13 @@
 
 	text-shadow: none;
 
-	&:not(.ui-btn-icon_only, .ui-drawer-button) {
+	&:not(.ui-btn-icon_only):not(.ui-drawer-button) {
 		.core_button_bg_pressed();
 		background-color: @color_button_bg_press;
 	}
 
 	&:not([data-style="nobg"]) .ui-icon {
-		background-color: @color_button_icon_press;
+		background-color: @color_button_icon;
 	}
 	&:not([data-style="nobg"]):not([data-style="circle"]).ui-btn-icon_only {
 		.ui-icon {

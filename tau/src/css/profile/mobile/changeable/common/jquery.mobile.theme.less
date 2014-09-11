@@ -474,26 +474,28 @@ a.ui-link-inherit {
 	background-repeat: no-repeat;
 	background-size: 100% 100%;
 }
- .ui-header {
-	 > .ui-btn-up-s,
-	 > .ui-btn-hover-s {
-		 -webkit-mask-image: url(images/page/core_title_button_bg.png);
-		 -webkit-mask-size: 100% 100%;
-		 background-color: @color_bar_title_button_bg;
-		 .ui-icon {
-			 background-color: @color_bar_btn_normal;
-		 }
-	 }
+.ui-header {
+	> :not(.ui-drawer-button) {
+		&.ui-btn-up-s,
+		&.ui-btn-hover-s {
+			-webkit-mask-image: url(images/page/core_title_button_bg.png);
+			-webkit-mask-size: 100% 100%;
+			background-color: @color_bar_title_button_bg;
+			.ui-icon {
+				background-color: @color_bar_btn_normal;
+			}
+		}
 
-	 > .ui-btn-down-s {
-		 -webkit-mask-image: url(images/page/core_title_button_bg.png);
-		 -webkit-mask-size: 100% 100%;
-		 background-color: @color_bar_title_button_bg_press;
-		 .ui-icon {
-			 background-color: @color_bar_btn_press;
-		 }
-	 }
- }
+		&.ui-btn-down-s {
+			-webkit-mask-image: url(images/page/core_title_button_bg.png);
+			-webkit-mask-size: 100% 100%;
+			background-color: @color_bar_title_button_bg_press;
+			.ui-icon {
+				background-color: @color_bar_btn_press;
+			}
+	 	}
+	}
+}
 
 .ui-btn.ui-btn-up-s { /* less parsing problem : divide css */
 	.ui-icon.ui-icon-naviframe-cancel {
