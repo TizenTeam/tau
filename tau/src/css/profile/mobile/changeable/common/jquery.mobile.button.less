@@ -134,11 +134,10 @@
 .ui-btn-box-s.ui-btn-up-s,
 .ui-btn-box-s.ui-focus,
 .ui-btn-box-s.ui-btn-hover-s {
-	&:not(.ui-btn-icon_only) {
+	&:not(.ui-btn-icon_only):not(.ui-drawer-button) {
 		.core_button_bg();
 		background-color: @color_button_bg;
 	}
-
 	&:not([data-style="nobg"]) .ui-icon {
 		background-color: @color_button_icon;
 	}
@@ -168,7 +167,9 @@
 }
 .ui-btn-box-s.ui-btn-down-s {
 
-	&:not(.ui-btn-icon_only) {
+	text-shadow: none;
+
+	&:not(.ui-btn-icon_only, .ui-drawer-button) {
 		.core_button_bg_pressed();
 		background-color: @color_button_bg_press;
 	}
