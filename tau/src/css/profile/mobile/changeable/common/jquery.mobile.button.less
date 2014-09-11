@@ -134,14 +134,29 @@
 .ui-btn-box-s.ui-btn-up-s,
 .ui-btn-box-s.ui-focus,
 .ui-btn-box-s.ui-btn-hover-s {
-	.core_button_bg();
-	background-color: @color_button_bg;
+	&:not(.ui-btn-icon_only) {
+		.core_button_bg();
+		background-color: @color_button_bg;
+	}
 
 	&:not([data-style="nobg"]) .ui-icon {
 		background-color: @color_button_icon;
 	}
+	&:not([data-style="nobg"]):not([data-style="circle"]).ui-btn-icon_only {
+		.ui-icon {
+			width: 45 * @unit_base;
+			height: 45 * @unit_base;
+			background-color: @color_button_icon_nobg;
+			top: 20%;
+			left: 0;
+		}
+	}
 	&[data-style="nobg"] .ui-icon {
+		width: 45 * @unit_base;
+		height: 45 * @unit_base;
 		background-color: @color_button_icon_nobg;
+		top: 20%;
+		left: 0;
 	}
 	&[data-icon="plus"] .ui-icon {
 		background-color: @color_button_add;
@@ -153,26 +168,32 @@
 }
 .ui-btn-box-s.ui-btn-down-s {
 
-	text-shadow: none;
-
 	&:not(.ui-btn-icon_only) {
 		.core_button_bg_pressed();
 		background-color: @color_button_bg_press;
 	}
 
 	&:not([data-style="nobg"]) .ui-icon {
-		background-color: @color_button_icon;
+		background-color: @color_button_icon_press;
+	}
+	&:not([data-style="nobg"]):not([data-style="circle"]).ui-btn-icon_only {
+		.ui-icon {
+			width: 45 * @unit_base;
+			height: 45 * @unit_base;
+			background-color: @color_button_icon_nobg_press;
+			top: 20%;
+			left: 0;
+		}
 	}
 	&[data-style="nobg"] .ui-icon {
-		background-color: @color_button_icon_nobg;
+		background-color: @color_button_icon_nobg_press;
 	}
 	&[data-icon="plus"] .ui-icon {
-		background-color: @color_button_add;
+		background-color: @color_button_add_press;
 	}
 	&[data-icon="alert"] .ui-icon,
 	&[data-icon="minus"] .ui-icon {
-		background-color: @color_button_warning;
-		text-shadow: none;
+		background-color: @color_button_warning_press;
 	}
 }
 
@@ -251,7 +272,7 @@
 
 .ui-icon-bg, .ui-icon-arrow-l, .ui-icon-arrow-r, .ui-icon-arrow-u, .ui-icon-arrow-d,
 .ui-icon-delete, .ui-icon-plus, .ui-icon-minus, .ui-icon-forward, .ui-icon-alert, .ui-icon-info,
-.ui-icon-call, .ui-icon-rename, .ui-icon-star, .ui-icon-search, .ui-icon-scrolltop, .ui-icon-scrollleft,
+.ui-icon-call, .ui-icon-rename, .ui-icon-star, .ui-icon-favorite, .ui-icon-search, .ui-icon-scrolltop, .ui-icon-scrollleft,
 .ui-icon-check, .ui-icon-gear, .ui-icon-refresh, .ui-icon-back, .ui-icon-grid, .ui-icon-home,
 {
 	-webkit-mask-size: 100%;
@@ -310,7 +331,7 @@
 	.tizen-icon-common;
 	-webkit-mask-image: url(images/controls/button/00_button_rename.png);
 }
-.ui-icon-star {
+.ui-icon-star, .ui-icon-favorite {
 	.tizen-icon-common;
 	-webkit-mask-image: url(images/controls/00_icon_favorite_bg_72x72.png);
 }
@@ -387,7 +408,7 @@
 
 .ui-btn-inner.ui-btn-icon-only
 {
-	padding: 18 * @unit_base 18 * @unit_base;
+	padding: 22 * @unit_base 22 * @unit_base;
 }
 
 .ui-btn-icon-only .ui-btn-text
