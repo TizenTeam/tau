@@ -35,9 +35,6 @@
 		border-left-width: 0;
 		border-right-width: 0;
 	}
-	.ui-btn-text {
-		color: @color_text;
-	}
 
 	.ui-btn-inner,
 	.ui-btn-icon-left .ui-btn-inner {
@@ -46,39 +43,38 @@
 	.ui-btn-icon-right .ui-btn-inner {
 		padding-left: 8 * @unit_base;
 		padding-right: 40px;
-		padding-top: 15 * @unit_base;
-		padding-bottom: 15 * @unit_base;
+		padding-top: 10 * @unit_base;
+		padding-bottom: 10 * @unit_base;
+		color: @color_list_divider_text;
+		background-color: @color_list_divider_bg;
 	}
 	.ui-btn-icon-top .ui-btn-inner,
 	.ui-btn-icon-bottom .ui-btn-inner { padding-right: 40px; text-align: center; }
 
 	// Icons' animation
 	.ui-btn-inner > .ui-icon-arrow-d {
+		-webkit-mask-image: url(images/core_icon_expand_open.png);
+		-webkit-mask-repeat: no-repeat;
+		background-color: @color_list_collapsible_arrow;
+		width: 30px; height: 30px;
+
 		-webkit-transition: all 0.33s ease;
 		-moz-transition: all 0.33s ease;
 		-ms-transition: all 0.33s ease;
 		-o-transition: all 0.33s ease;
 		transition: all 0.33s ease;
+	}
+	.ui-btn-inner > .ui-icon-arrow-u {
+		-webkit-mask-image: url(images/core_icon_expand_open.png);
+		-webkit-mask-repeat: no-repeat;
+		background-color: @color_list_collapsible_arrow;
+		width: 30px; height: 30px;
 
 		-webkit-transform: rotate(180deg);
 		-moz-transform: rotate(180deg);
 		-ms-transform: rotate(180deg);
 		-o-transform: rotate(180deg);
 		transform: rotate(180deg);
-	}
-	.ui-btn-inner > .ui-icon-arrow-u {
-		background-image: url(images/controls/button/00_button_expand_closed.png);
-		-webkit-transition: all 0.33s ease;
-		-moz-transition: all 0.33s ease;
-		-ms-transition: all 0.33s ease;
-		-o-transition: all 0.33s ease;
-		transition: all 0.33s ease;
-
-		-webkit-transform: rotate(0deg);
-		-moz-transform: rotate(0deg);
-		-ms-transform: rotate(0deg);
-		-o-transform: rotate(0deg);
-		transform: rotate(0deg);
 	}
 
 	.ui-btn span.ui-btn {
@@ -106,7 +102,7 @@
 
 .ui-collapsible-content {
 	display: block;
-	margin: 0 -15px;	
+	margin: 0 -15px;
 	padding: 0px 15px;
 	border-left-width: 0;
 	border-right-width: 0;
@@ -122,10 +118,10 @@
 	transition: all 0.5s ease;
 
 	.ui-li-dialogue {
-		padding-left : 13 * @unit_base;
-		padding-right : 13 * @unit_base;
-		padding-top: 15 * @unit_base;
-		padding-bottom: 15 * @unit_base;
+		padding-left : 15 * @unit_base;
+		padding-right : 15 * @unit_base;
+		padding-top: 30 * @unit_base;
+		padding-bottom: 30 * @unit_base;
 
 		>.ui-li-text-sub {
 			right : 10 * @unit_base;
