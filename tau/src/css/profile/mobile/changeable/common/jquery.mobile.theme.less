@@ -435,12 +435,34 @@ a.ui-link-inherit {
 ***************************************************************************/
 .ui-header, .ui-footer {
 	.ui-tabbar {
-		.ui-btn .ui-btn-icon-only .ui-icon {
+		.ui-btn  .ui-btn-icon-only .ui-icon {
 			width: 46 * @unit_base;
 			height: 46 * @unit_base;
 			margin-left: 0;
 			top: 10 * @unit_base;
 			left: 50%;
+		}
+	}
+}
+
+.ui-footer {
+	.ui-tabbar {
+		.ui-btn-box-s.ui-btn-up-s,
+		.ui-btn-box-s.ui-focus,
+		.ui-btn-box-s.ui-btn-hover-s {
+			.core_button_bg();
+			background-color: @color_button_bg;
+			&:not([data-style="nobg"]):not([data-style="circle"]).ui-btn-icon_only:not(.ui-btn-icon-naviframe-cancel):not(.ui-btn-icon-naviframe-done) {
+				.ui-icon {
+					background-color: @color_button_icon;
+				}
+			}
+
+		}
+
+		.ui-btn-box-s.ui-btn-down-s {
+			.core_button_bg_pressed();
+			background-color: @color_button_bg_press;
 		}
 	}
 }
