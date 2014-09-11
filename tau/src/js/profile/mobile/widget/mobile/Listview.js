@@ -1080,7 +1080,7 @@
 			 * @member ns.widget.mobile.Listview
 			 */
 			function addRightBtnClasses(container) {
-				var btnAttr = container.querySelector("[data-role='button'],input[type='button'],select[data-role='slider']");
+				var btnAttr = container.querySelector("[data-role='button'],input[type='button'],select[data-role='slider'],input[type='submit'],input[type='reset'],button");
 				if (btnAttr) {
 					if (DOM.getNSData(btnAttr, "style") === "circle") {
 						container.classList.add(classes.uiLiHasRightCircleBtn);
