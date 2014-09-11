@@ -1,4 +1,75 @@
 %changelog
+* Mon Sep 12 2014 Heeju Joo <heeju.joo@samsung.com> 0.9.17
+	- event/vmouse: 2nd depth indexBar does not disappear after releasing the tap
+	- Controlgroup: remove color for ui-radio-on font-color
+	- Listview: modify some styles for listview checkbox position.
+	- Buttons: fixed button layout and position bugs
+	- TabBar: fix problem with icon only style in footer
+	- [KIRAN] Popup, router: fix problem with options which should be read from link
+	- Dialog tests: change source for valid theme tau, because test failed.
+	- Wearable : List action icon with divider
+	- TabBar: fix problem with font size
+	- Page, fix selector to find buttons in header
+	- TAU release script: modify path for mobile ide resource git
+	- [Kiran] router chnage page bug fixed on multi page template.
+	- Mobile : Applied style to button, input tags
+	- [Kiran] revert router bug that made by toggleswitch.
+	- Drawer : fixed drawer button position issue.
+	- Drawer: apply KIRAN drawer width value
+	- KIRAN: Button widget layout bug fixed
+	- Drawer: _destroy() bug fixed and remove redundant condition
+	- [Wearable] bug fixed that page transition animation not work.
+	- TAU build: remove black, white directory in built TAU package.
+	- Scrollview: delete duplicate css style (box-sizing: border-box)
+	- Mobile : Remove legacy script path
+	- Mobile: modify style for collapsible list
+	- [Wearable] support backwards compatibility for tau.defaults property.
+	- [Sectionchanger] bug fixed wrong class name of actived section.
+	- JSA : Fix code against coding rule
+	- Tests: fixed tests for Windows platform
+	- MobileWinset: Library CSS file changed to load from default
+	- Themes: Theme CSS is now loading as a link to the stylesheet
+	- Tabbar: fix style of tabbar in footer
+	- Fastscroll: fix for widget selector
+	- Page: Fix size of title in header and using buttons in header
+	- [BUG] Virtual List: fix problem with button
+	- [BUG] list: remove li with progressbar and button
+	- Buttons in header: apply style only for buttons being child of header
+	- [KIRAN] Scroll Handler
+	- DateTimePicker: fix a problem with dots in period button
+	- Scrollview: fix a problem with too big size of content when margin is set
+	- TV: fix problem with position and style of popup
+	- [TV] Fix for inputs.
+	- [TV] Demo: corrected back button support for popups
+	- [WEARABLE] Router: fix problem with function hasActivePopup
+	- [TV] Fix for demo application. Ids for pages and list have been changed
+	- [TV] Demo: corrected channel icons display style
+	- [TV] Corrected bug in _destroy() of Drawer core widget.
+	- FIX: fix problems found in tests
+	- JSA : Fix code against coding rule
+	- WearableWidgets: add version file (for sync web-ide-resource)
+	- docs generator: add event and utilities section
+	- DeviceViewer: modify badage name
+	- Add AUTHORS file(sync sdk git) and modify version file
+	- Modify TAU release script
+	- Wearable : Fixed OK button of 2btn Popup
+	- Mobile: add box-sizing:border-box style of .ui-scrollview-view
+	- [TV] Demo: add back button support
+	- [TV] Demo: add new features in drawer widget
+	- [TV] Demo: add many type of pages style with examples
+	- [TV] Demo: fix building of virtual grid
+	- [TV] demo: fix layout of lists
+	- Scrollview: fix class selector
+	- [TV] disable default scrolling on page content
+	- TV demo: change layout of first page
+	- TV: router: create universal dynamic route
+	- TV popup: add shadow to popups, change first page in demo
+	- [TV] input: fix style of inputs
+	- [TV] Demo: better look of page with buttons
+	- [TV] Multi: fix simple errors found by code inspector
+	- [TV] Drawer: eliminate problem with translate right drawer in refresh method
+	- [TV] Added controllable progress bar widget
+
 * Mon Sep 01 2014 Heeju Joo <heeju.joo@samsung.com> 0.9.16
 	- [Popup] rem rendering bug fix.
 	- Popup documentation.
