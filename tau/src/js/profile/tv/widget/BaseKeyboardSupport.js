@@ -45,6 +45,11 @@
 					down: 40,
 					enter: 13
 				},
+				MOVE_TYPE = {
+					XY: 0,
+					X: 1,
+					Y: 2
+				},
 				SELECTORS = ["a", "[tabindex]"],
 				/**
 				* @property {Array} Array containing number of registrations of each selector
@@ -115,49 +120,60 @@
 				if (currentLink) {
 					currentLinkOffset = offset(currentLink);
 					linksOffset = links.map(function (link) {
-						var linkOffset = offset(link);
+						var linkOffset = offset(link),
+							differentX = Math.abs(currentLinkOffset.left - linkOffset.left),
+							differentY = Math.abs(currentLinkOffset.top - linkOffset.top),
+							xyProportion = differentY  / differentX;
 						return {
 							offset: linkOffset,
 							element: link,
-							differentX: Math.abs(currentLinkOffset.left - linkOffset.left),
-							differentY: Math.abs(currentLinkOffset.top - linkOffset.top),
+							differentX: differentX,
+							differentY: differentY,
 							width: link.offsetWidth,
-							height: link.offsetHeight
+							height: link.offsetHeight,
+							xyProportion: xyProportion
 						};
 					});
 					top = linksOffset.filter(function (linkOffset) {
 						// filter only element upper in compare with current element
-						return linkOffset.offset.top + linkOffset.height <= currentLinkOffset.top;
+						return (linkOffset.offset.top < currentLinkOffset.top);
 					}).sort(function (linkOffset1, linkOffset2) {
 						// sort elements
-						return linkOffset1.offset.top === linkOffset2.offset.top ?
+						return (linkOffset1.differentX === linkOffset2.differentX) ?
 							// if elements have the same top position then on a
 							// top of list will be element with
-							(linkOffset1.differentX <= linkOffset2.differentX ? -1 : 1)
+							(linkOffset1.offset.top > linkOffset2.offset.top ? -1 : 1) :
+							(linkOffset1.differentX < linkOffset2.differentX ? -1 : 1)
 							// sort elements, elements with shortest distance are on top of list
-							: (linkOffset1.offset.top > linkOffset2.offset.top ? -1 : 1);
-					}).map(mapToElement)[0];
+							;
+					}).map(mapToElement);
+					top = top[0];
 					bottom = linksOffset.filter(function (linkOffset) {
-						return linkOffset.offset.top >= currentLinkOffset.top + currentLink.offsetHeight;
+						return (linkOffset.offset.top > currentLinkOffset.top);
 					}).sort(function (linkOffset1, linkOffset2) {
-						return linkOffset1.offset.top === linkOffset2.offset.top ?
-							(linkOffset1.differentX <= linkOffset2.differentX ? -1 : 1)
-							: (linkOffset1.offset.top < linkOffset2.offset.top ? -1 : 1);
-					}).map(mapToElement)[0];
+						return (linkOffset1.differentX === linkOffset2.differentX) ?
+							(linkOffset1.offset.top < linkOffset2.offset.top ? -1 : 1) :
+							(linkOffset1.differentX < linkOffset2.differentX ? -1 : 1)
+							;
+					});
+					bottom = bottom.map(mapToElement)[0];
 					left = linksOffset.filter(function (linkOffset) {
-						return linkOffset.offset.left + linkOffset.width <= currentLinkOffset.left;
+						return (linkOffset.offset.left  < currentLinkOffset.left);
 					}).sort(function (linkOffset1, linkOffset2) {
-						return linkOffset1.offset.left === linkOffset2.offset.left ?
-							(linkOffset1.differentY <= linkOffset2.differentY ? -1 : 1)
-							: (linkOffset1.offset.left > linkOffset2.offset.left ? -1 : 1);
+						return (linkOffset1.differentY === linkOffset2.differentY) ?
+							(linkOffset1.offset.left > linkOffset2.offset.left ? -1 : 1) :
+							(linkOffset1.differentY < linkOffset2.differentY ? -1 : 1)
+							;
 					}).map(mapToElement)[0];
 					right = linksOffset.filter(function (linkOffset) {
-						return linkOffset.offset.left >= currentLinkOffset.left + currentLink.offsetWidth;
+						return (linkOffset.offset.left > currentLinkOffset.left );
 					}).sort(function (linkOffset1, linkOffset2) {
-						return linkOffset1.offset.left === linkOffset2.offset.left ?
-							(linkOffset1.differentY <= linkOffset2.differentY ? -1 : 1)
-							: (linkOffset1.offset.left < linkOffset2.offset.left ? -1 : 1);
-					}).map(mapToElement)[0];
+						return (linkOffset1.differentY === linkOffset2.differentY) ?
+							(linkOffset1.offset.left < linkOffset2.offset.left ? -1 : 1) :
+							(linkOffset1.differentY < linkOffset2.differentY ? -1 : 1)
+							;
+					});
+					right = right.map(mapToElement)[0];
 				} else {
 					top = left = right = bottom = links[0];
 				}
