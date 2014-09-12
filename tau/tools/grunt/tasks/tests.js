@@ -3,6 +3,7 @@
  *
  * @author Michał Szepielak <m.szepielak@samsung.com>
  * @author Maciej Moczulski <m.moczulski@samsung.com>
+ * @author Piotr Karny <p.karny@samsung.com>
  * Licensed under the MIT license.
  */
 
@@ -31,9 +32,9 @@ module.exports = function (grunt) {
 						mainTestPattern = path.join('tests', testDirectory, '*.html'),
 						files = grunt.file.expand(mainTestPattern);
 					if (files.length) {
-						grunt.log.ok("tests exist for module ", testDirectory);
+						grunt.log.ok("Tests exist for module ", testDirectory);
 					} else {
-						grunt.log.warn("tests don't exist for module ", testDirectory);
+						grunt.log.warn("Tests don't exist for module ", testDirectory);
 					}
 					testModules.push(mainTestPattern);
 					jsAddTests.forEach(function (oneDirectory) {
@@ -53,6 +54,10 @@ module.exports = function (grunt) {
 		mobile: {
 			"qunit-main": true,
 			default: true
+		},
+		tv: {
+			"qunit-main": true,
+			default: false
 		},
 		jqm: {
 			"qunit-main": false,
@@ -86,6 +91,10 @@ module.exports = function (grunt) {
 	configProperty["test-libs-mobile"] = { files: [
 		{expand: true, cwd: path.join(buildFrameworkPath, "mobile", "js/"), src: "**", dest: path.join("tests", "libs", "dist", "js")},
 		{expand: true, cwd: path.join(buildFrameworkPath, "mobile", "theme/"), src: "**", dest: path.join("tests", "libs", "dist", "theme")}
+	]};
+	configProperty["test-libs-tv"] = { files: [
+		{expand: true, cwd: path.join(buildFrameworkPath, "tv", "js/"), src: "**", dest: path.join("tests", "libs", "dist", "js")},
+		{expand: true, cwd: path.join(buildFrameworkPath, "tv", "theme/"), src: "**", dest: path.join("tests", "libs", "dist", "theme")}
 	]};
 	configProperty["test-libs-jqm"] = configProperty["test-libs-mobile"];
 	configProperty["test-libs-jqm13"] = configProperty["test-libs-mobile"];
