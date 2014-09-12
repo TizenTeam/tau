@@ -809,7 +809,7 @@
 				self._type = element.tagName.toLowerCase();
 				self._labels = selectors.getChildrenByClass(self.slider,
 						Slider.classes.sliderLabel);
-				if ( self.options.center )
+				if ( self.options.center && self._ui.background )
 					self._ui.background.classList.add(
 							Slider.classes.sliderBgHasCenter);
 				refresh(self, self._getValue());
