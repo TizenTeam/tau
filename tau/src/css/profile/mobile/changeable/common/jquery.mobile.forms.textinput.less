@@ -154,12 +154,19 @@ textarea.ui-input-text.ui-focus {
 		left: auto;
 	}
 	.ui-btn {
-		top: 26 * @unit_base;
 
 		&.ui-btn-box-s.ui-btn-up-s,
 		&.ui-btn-box-s.ui-btn-hover-s {
 			.core_button_bg();
 			background-color: @color_button_bg;
+			top : 15 * @unit_base;
+			.ui-btn-inner.ui-btn-icon-only .ui-icon {
+				width: 30 * @unit_base;
+				height: 30 * @unit_base;
+				margin-left: -13.5 * @unit_base;
+				margin-top: -12 * @unit_base;
+				background-color: @color_button_icon;
+			}
 		}
 		.ui-icon {
 			margin: 0;
