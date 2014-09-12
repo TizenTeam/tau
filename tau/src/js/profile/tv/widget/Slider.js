@@ -32,17 +32,13 @@
 					BaseKeyboardSupport.call(self);
 					self._pageWidget = null;
 					self._callbacks = {};
+					self.status = false;
 				},
 				selectors = ns.util.selectors,
 				engine = ns.engine,
 				FUNCTION_TYPE = "function",
 				prototype = new BaseSlider(),
-				KEY_CODES = {
-					left: 37,
-					up: 38,
-					right: 39,
-					down: 40
-				};
+				KEY_CODES = BaseKeyboardSupport.KEY_CODES;
 
 			Slider.classes = BaseSlider.classes;
 			Slider.prototype = prototype;
@@ -59,28 +55,22 @@
 			}
 
 			function onKeyup(self, event) {
-				var keyCode = event.keyCode;
+				var status = self.status;
 
-				switch (keyCode) {
-					case KEY_CODES.up:
-					case KEY_CODES.down:
+				if (event.keyCode === KEY_CODES.enter) {
+					if (status) {
 						self._pageWidget.enableKeyboardSupport();
-						hidePopup(self);
-						break;
-					case KEY_CODES.left:
-					case KEY_CODES.right:
+					} else {
 						self._pageWidget.disableKeyboardSupport();
-						break;
+					}
+					self.status = !status;
 				}
 			}
 
-			function onKeydown(event) {
-				switch (event.keyCode) {
-					case KEY_CODES.up:
-					case KEY_CODES.down:
-						event.preventDefault();
-						event.stopPropagation();
-						break;
+			function onKeydown(self, event) {
+				if (event.keyCode !== KEY_CODES.enter && !self.status) {
+					event.preventDefault();
+					event.stopPropagation();
 				}
 			}
 
@@ -107,7 +97,7 @@
 				}
 
 				callbacks.onKeyup = onKeyup.bind(null, this);
-				callbacks.onKeydown = onKeydown;
+				callbacks.onKeydown = onKeydown.bind(null, this);
 				callbacks.onFocus = onFocus.bind(null, this);
 
 				this._bindEventKey();
