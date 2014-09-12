@@ -7,29 +7,43 @@
 
 		listenBatteryLowState: function(){
 			var self = this;
-			this.systeminfo.addPropertyValueChangeListener(
-				'BATTERY',
-				function change(battery){
-					if(!battery.isCharging) {
-						tizen.application.getCurrentApplication().exit();
-					}
-				},
-				{
-					lowThreshold : self.lowThreshold
-				}
-			);
+			try{
+				this.systeminfo.addPropertyValueChangeListener(
+					'BATTERY',
+					function change(battery){
+						if(!battery.isCharging) {
+							try {
+								tizen.application.getCurrentApplication().exit();
+							} catch (ignore) {
+							}
+						}
+					},
+					{
+						lowThreshold : self.lowThreshold
+					},
+					onError
+				);
+			} catch (ignore) {
+			}
 		},
 
 		checkBatteryLowState: function(){
 			var self = this;
-			this.systeminfo.getPropertyValue(
-				'BATTERY',
-				function(battery) {
-					if(battery.level < self.lowThreshold && !battery.isCharging) {
-						tizen.application.getCurrentApplication().exit();
-					}
-				},
-				null);
+			try {
+				this.systeminfo.getPropertyValue(
+					'BATTERY',
+					function(battery) {
+						if(battery.level < self.lowThreshold && !battery.isCharging) {
+							try {
+								tizen.application.getCurrentApplication().exit();
+							} catch (ignore) {
+							}
+						}
+					},
+					null);
+			} catch (ignore){
+			}
+
 		},
 
 		init: function(){
@@ -42,6 +56,10 @@
 				console.warn('tizen.systeminfo is not available.');
 			}
 		}
+	};
+
+	function onError(error){
+		console.warn( "An error occurred " + error.message );
 	};
 
 	systeminfo.init();
