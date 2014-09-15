@@ -4,7 +4,7 @@
                     NavigationBar
 ***************************************************************************/
 
-.ui-bar-s {
+.ui-header {
 	border: none;
 	background : @color_bar_naviframe_bg; /* Header Background */
 	color: @color_bar_title_text;
@@ -43,7 +43,7 @@
 }
 
 /* Header style */
-.ui-header.ui-bar-s{
+.ui-header {
 	position : fixed;
 	top : 0px;
 
@@ -256,7 +256,7 @@
 	
 }
 
-.ui-footer.ui-bar-s {
+.ui-footer {
 	height : 49 * @unit_base;
 	text-align : center;
 	bottom : 0px;
@@ -426,7 +426,7 @@
 ***************************************************************************/
 
 
-.ui-body-s {
+.ui-page {
 	border: 1px solid @color_bar_body_border;
 	background: 			@color_bg;
 	color: 					@color_text;
@@ -660,7 +660,7 @@ a.ui-link-inherit {
 			Landscape mode
 ************************************************************************/
 @media all and (orientation:landscape) and (device-aspect-ratio : 16/9) {
-.ui-bar-s {
+.ui-header {
 	> .ui-btn.ui-btn-back,
 	> .ui-btn.ui-btn-footer-down {
 		.ui-icon-header-back-btn {
@@ -669,7 +669,7 @@ a.ui-link-inherit {
 	}
 }
 
-.ui-header.ui-bar-s{
+.ui-header {
 	min-height : 45 * @unit_base;
 
 	.ui-title {
@@ -728,7 +728,7 @@ a.ui-link-inherit {
 	}
 }
 
-.ui-footer.ui-bar-s {
+.ui-footer {
 	height : 42 * @unit_base;
 	>.ui-btn.ui-btn-back,
 	>.ui-btn.ui-btn-footer-down,
