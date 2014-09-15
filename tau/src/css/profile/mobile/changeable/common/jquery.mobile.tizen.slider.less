@@ -127,49 +127,49 @@ div.ui-slider:not(.ui-toggle-switch) {
 	}
 }
 
-.ui-ctxpopup-container .ui-popup.ui-slider-popup {
-		position: static !important;
-		z-index: @z_base_slider_popup;
-		display: block;
+.ui-ctxpopup-container {
+		&.ui-slider-popup-container {
+			box-shadow: none;
+			background: transparent;
+			border: none;
+		}
+		.ui-popup.ui-slider-popup {
+			position: static !important;
+			z-index: @z_base_slider_popup;
+			display: block;
+			box-sizing: border-box;
+			margin-bottom: -8 * @unit_base;
+			padding-top: 15 * @unit_base;
 
-		min-width: @popup_width;
-		width: auto;
-		line-height: @popup_height;
-		padding-left: 5 * @unit_base;
-		padding-right: 5 * @unit_base;
+			width: 80 * @unit_base;
+			height: 92 * @unit_base;
+			line-height: @popup_height;
 
-		background-color: @color_slider_popup_bg;
-		color: @color_slider_popup_text;
-		text-align: center;
-		font-size: @font_size_slider_popup_text;
+			background-color: @color_slider_popup_bg;
+			color: @color_slider_popup_text;
+			text-align: center;
+			font-size: @font_size_slider_popup_text;
+			-webkit-mask-image: url(images/controls/core_slider_popup_bg.png);
+			-webkit-mask-size: 100%;
+			-webkit-mask-position: center center;
+			-webkit-mask-repeat: no-repeat;
 
-		.LESSborder-radius-all(.1em);
+			&:before {
+				content: "";
+				width: 77 * @unit_base;
+				height: 87.5 * @unit_base;
+				position: absolute;
+				top: 3 * @unit_base;
+				left: 1.5 * @unit_base;
+				background-color: @color_slider_popup_stroke;
+				-webkit-mask-image: url(images/controls/core_slider_popup_bg_stroke.png);
+				-webkit-mask-size: 100%;
+			}
 
-		&+.ui-arrow {
-			position: absolute;
-			border-width: 6 * @unit_base;
-			border-style: solid;
-			margin: 0;
-			width: 0;
-			height: 0;
-			background-color: initial;
-			-webkit-transform: initial;
-			z-index: initial;
-    }
-}
-
-.ui-slider-popup {
-	position: absolute !important;
-	z-index: @z_base_slider_popup;
-
-	width: @popup_width;
-	height: @popup_height;
-	padding-top: 0.1rem;
-	color: @color_slider_popup_text;
-	text-align: center;
-	font-size: @font_size_slider_popup_text;
-	background: url(images/controls/00_slider_popup_bg.png) no-repeat;
-	.LESSbackground-size(@popup_width, @popup_height);
+			&+.ui-arrow {
+	    			visibility: hidden;
+			}
+		}
 }
 
 a.ui-slider-handle {

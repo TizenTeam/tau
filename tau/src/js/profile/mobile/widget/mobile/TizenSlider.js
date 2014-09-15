@@ -318,56 +318,7 @@
 				newValue = parseInt(element.value, 10);
 
 				if (newValue !== self.currentValue) {
-
-					font_length = getValueLength(newValue);
-
-					// Set proper font-size for popup content
-					if (self.popup && self.popupVisible) {
-						switch (font_length) {
-						case 1:
-						case 2:
-							popup_width = POPUP_WIDTH.SMALL;
-							break;
-						case 3:
-							popup_width = POPUP_WIDTH.MEDIUM;
-							break;
-						default:
-							popup_width = POPUP_WIDTH.SMALL;
-							break;
-						}
-
-						popupStyle.width = popup_width;
-					}
-
-					switch (font_length) {
-					case 1:
-						font_size = FONT_SIZE.SMALL;
-						font_top = FONT_TOP.SMALL;
-						break;
-					case 2:
-						font_size = FONT_SIZE.MEDIUM;
-						font_top = FONT_TOP.MEDIUM;
-						break;
-					case 3:
-						font_size = FONT_SIZE.LARGE;
-						font_top = FONT_TOP.LARGE;
-						break;
-					default:
-						font_size = FONT_SIZE.DEFAULT;
-						font_top = FONT_TOP.DEFAULT;
-						break;
-					}
-
-					if (font_size !== self.handleText.style.fontSize) {
-						handleTextStyle.fontSize = font_size;
-						handleTextStyle.top = font_top;
-						handleTextStyle.position = "relative";
-					}
-
 					self.currentValue = newValue;
-					if (options.innerLabel) {
-						self.handleText.innerText = newValue;
-					}
 
 					// Set same value for popup element if it exists
 					if (popupElement) {
