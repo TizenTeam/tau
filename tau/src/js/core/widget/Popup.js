@@ -433,6 +433,17 @@
 			prototype._init = function(element) {
 			};
 
+			prototype._setActive = function (active) {
+				var options = this.options;
+				// NOTE: popup's options object is stored in window.history at the router module,
+				// and this window.history can't store DOM element object.
+				if (typeof options.positionTo !== "string") {
+					options.positionTo = null;
+				}
+
+				BasePopup.prototype._setActive.call(this, active);
+			};
+
 			prototype._reposition = function(options) {
 				var element = this.element;
 
