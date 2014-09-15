@@ -109,7 +109,7 @@
 			ns.widget.mobile.Drawer = Drawer;
 			engine.defineWidget(
 				"Drawer",
-				"[data-role='drawer'], ui-drawer",
+				"[data-role='drawer'], .ui-drawer",
 				[
 					"open",
 					"close",

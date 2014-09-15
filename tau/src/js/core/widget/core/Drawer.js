@@ -118,6 +118,8 @@
 					self._isOpen = false;
 
 					self._ui = {};
+
+					self._drawerOverlay = null;
 				},
 				/**
 				 * Dictionary object containing commonly used widget classes
