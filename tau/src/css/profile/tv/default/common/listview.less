@@ -48,9 +48,20 @@ Listview
 				.ui-btn-text {
 					margin: 11 * @virtual_px 0;
 					display: block;
+					> img {
+						margin: -32 * @virtual_px;
+						height: 125 * @virtual_px;
+						float: right;
+					}
 				}
 				.ui-icon {
 					background-color: rgb(164, 167, 174);
+				}
+			}
+			&.ui-btn-icon-right {
+				.ui-icon {
+					right: -2 * @virtual_px;
+					top: -4 * @virtual_px;
 				}
 			}
 
