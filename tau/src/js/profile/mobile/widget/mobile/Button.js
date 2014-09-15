@@ -706,6 +706,7 @@
 					buttonClassList,
 					buttonClassArray = [],
 					elementTagName,
+					elementTypeName,
 					innerClass = classes.uiBtnInner,
 					textClass = classes.uiBtnText,
 					options = this.options,
@@ -726,9 +727,10 @@
 				this.ui.buttonText = buttonText;
 
 				elementTagName = element.tagName.toLowerCase();
+				elementTypeName = element.type;
 				buttonClassList = element.classList;
 
-				if (elementTagName === "input" && element.type === "button") {
+				if (elementTagName === "input" && elementTypeName === "button") {
 					options.corners = true;
 				}
 				buttonClassArray.push(classes.uiBtn, classes.uiBtnUpThemePrefix + options.theme);
@@ -757,7 +759,7 @@
 						} else if (buttonClassList.contains(classes.uiBtnLeft)) {
 							container.classList.add(classes.uiBtnLeft);
 						}
-						if (element.type === "submit" || element.type === "reset") {
+						if (elementTypeName === "submit" || elementTypeName === "reset") {
 							container.classList.add(classes.uiSubmit);
 						}
 					} else {
@@ -772,8 +774,8 @@
 
 				container.setAttribute("tabindex", 0);
 				if ( (element.getAttribute("data-role") === "button" && !options.bar) ||
-					(element.tagName === "INPUT" && ((element.getAttribute("type") === "button") || (element.getAttribute("type") === "submit") || (element.getAttribute("type") === "reset")) ) ||
-					(element.tagName === "BUTTON") ) {
+					(elementTagName === "input" && ((elementTypeName === "submit") || (elementTypeName === "reset") || (elementTypeName === "button")) ) ||
+					(elementTagName === "button") ) {
 					buttonClassArray.push(classes.uiBtnBoxThemePrefix + options.theme);
 				}
 
