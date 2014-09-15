@@ -711,32 +711,6 @@ module.exports = function(grunt) {
 		}
 	})();
 
-	// append default theme to profile
-	(function() {
-		var requirejs = initConfig.requirejs,
-			defaultTheme,
-			profileName,
-			include,
-			ver;
-
-		// Add a dependency to the theme.js module
-		for (profileName in themes['device']) {
-			defaultTheme = findDefaultTheme(profileName);
-			for (ver in themeVersion) {
-				if (themeVersion.hasOwnProperty(ver)) {
-					if (defaultTheme !== undefined &&
-						requirejs["themejs_" + profileName + '_' + themeVersion[ver] + "_" + defaultTheme.name]) {
-						include = requirejs[profileName].options.include || [];
-						include.push(
-							path.join("..", "css", "profile", profileName, themeVersion[ver], "theme-" + defaultTheme.name, 'theme')
-						);
-					requirejs[profileName].options.include = include;
-					}
-				}
-			}
-		}
-	}());
-
 	function themesjs() {
 		var task;
 		for (task in initConfig.requirejs) {
