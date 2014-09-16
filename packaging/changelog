@@ -1,4 +1,17 @@
 %changelog
+* Tue Sep 16 2014 Heeju Joo <heeju.joo@samsung.com> 0.9.18
+	- Modify release script
+	- Modify tau release script
+	- [Jira] Wearable Popup auto hide bug when page is changed. (GSDK_SE-2871)
+	- [Wearable] Option Popup positionTo parameter bug fix.
+	- [Kiran] theme.js bug when embedded tau script inside body.
+	- KIRAN : modify tokentextarea plus button
+	- KIRAN : modify button with textinput position issue
+	- TizenSlider: modify style for popup-slider (sync new UX guide)
+	- TizenSlider: add exception for center-slider
+	- Engine: Logic for removing bindings changed
+	- TAU Build: modify build error
+
 * Mon Sep 12 2014 Heeju Joo <heeju.joo@samsung.com> 0.9.17
 	- event/vmouse: 2nd depth indexBar does not disappear after releasing the tap
 	- Controlgroup: remove color for ui-radio-on font-color
