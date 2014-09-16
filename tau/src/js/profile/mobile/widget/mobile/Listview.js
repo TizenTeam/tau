@@ -1515,20 +1515,21 @@
 
 				//@todo filter only visible
 				items.forEach(function (item, index) {
-					var itemTheme, isDivider, links, link,
+					var itemTheme,
+						links,
+						link,
 						itemClassList = item.classList;
 					if (create || !item.classList.contains(classes.uiLi)) {
 						itemClassList.add(classes.uiLi);
 						links = selectors.getChildrenByTag(item, "a");
 						itemTheme = DOM.getNSData(item, "theme") || theme;
-						isDivider = DOM.getNSData(item, "role") === "list-divider";
 
-						// check if item has a element with class for count
 						if (!!item.querySelector("." + classes.uiLiCount)) {
 							itemClassList.add(classes.uiLiHasCount);
 						}
 
-						if (isDivider) {
+						//becasue ListDivider is attached later then Listview I cannot make reference to ListDivider classes
+						if (selectors.matchesSelector(item, '[data-role="list-divider"],.ui-list-divider')) {
 							DOM.setNSData(item, "theme", dividerTheme);
 							engine.instanceWidget(item, "ListDivider");
 						} else {
