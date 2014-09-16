@@ -331,7 +331,7 @@
 			 * @method getLoader
 			 */
 			RouterPage.prototype.getLoader = function () {
-				var loaderElement = document.querySelector("[data-role=loader]");
+				var loaderElement = document.querySelector("[data-role=loader],.ui-loader");
 
 				if (!loaderElement) {
 					loaderElement = document.createElement("div");
