@@ -194,7 +194,7 @@
 			};
 
 			prototype._bindEvents = function (element) {
-				element.addEventListener("pagebeforehide", this, false);
+				window.addEventListener("pagebeforehide", this, false);
 				window.addEventListener("resize", this, false);
 				if (this.overlay) {
 					this.overlay.addEventListener("click", this);
@@ -202,7 +202,7 @@
 			};
 
 			prototype._unbindEvents = function (element) {
-				element.removeEventListener("pagebeforehide", this, false);
+				window.removeEventListener("pagebeforehide", this, false);
 				window.removeEventListener("resize", this, false);
 				if (this.overlay) {
 					this.overlay.removeEventListener("click", this);
@@ -286,7 +286,7 @@
 			prototype.handleEvent = function(event) {
 				switch(event.type) {
 				case "pagebeforehide":
-					this.hide();
+					this.close({transition: "none"});
 					break;
 				case "resize":
 					this._onResize(event);
