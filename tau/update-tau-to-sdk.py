@@ -90,11 +90,11 @@ jobs = {
 		webuifw,
 		sdkTizenWearable,
 		[
-			SrcDest("tau/demos/TemplateBasic", "samples/web/Template/Tizen/Wearable\ UI/Basic/project"),
-			SrcDest("tau/demos/TemplateList", "samples/web/Template/Tizen/Wearable\ UI/List/project"),
+			SrcDest("tau/demos/TemplateBasic", "addons/TAU/samples/web/Template/Tizen/Wearable\ UI/Basic/project"),
+			SrcDest("tau/demos/TemplateList", "addons/TAU/samples/web/Template/Tizen/Wearable\ UI/List/project"),
 			SrcDest("tau/demos/WearableWidgetSample", "addons/TAU/samples/web/Sample/Tizen/Web\ App/WearableWidgets/project"),
-			SrcDest("tau/dist/wearable", "samples/web/Template/Tizen/Wearable\ UI/Basic/project/lib/tau/wearable"),
-			SrcDest("tau/dist/wearable", "samples/web/Template/Tizen/Wearable\ UI/List/project/lib/tau/wearable"),
+			SrcDest("tau/dist/wearable", "addons/TAU/samples/web/Template/Tizen/Wearable\ UI/Basic/project/lib/tau/wearable"),
+			SrcDest("tau/dist/wearable", "addons/TAU/samples/web/Template/Tizen/Wearable\ UI/List/project/lib/tau/wearable"),
 			SrcDest("tau/dist/wearable", "addons/TAU/samples/web/Sample/Tizen/Web\ App/WearableWidgets/project/lib/tau/wearable")
 		], ["cd web-ui-fw/tau", "grunt build"],
 		[
