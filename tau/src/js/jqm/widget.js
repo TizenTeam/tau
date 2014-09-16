@@ -1,6 +1,6 @@
 /*global window, define */
 /*jslint plusplus: true, nomen: true */
-/* 
+/*
  * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
  * License : MIT License V2
  */
@@ -138,7 +138,9 @@
 									firstarg,
 									i,
 									options = {},
-									instanceWidgetName = definition.name;
+									instanceWidgetName = definition.name,
+									argsLength,
+									argument;
 
 								/*
 								 * NOTE:
@@ -193,6 +195,19 @@
 											// window.event is used because in Winset we open context popup by
 											// $("#pop_text_only").popup("open") after clicking on input
 											args[1] = window.event;
+										}
+										// transform jQuery arguments to HTMLElement
+										argsLength = args.length;
+										for (i = 0; i < argsLength; i++) {
+											argument = args[i];
+											if (argument instanceof jQuery) {
+												// convert jQuery object to array of HTMLElement
+												argument = argument.makeArray();
+												// if we have only one element we take only first element
+												if (argument.length === 1) {
+													argument = argument[0];
+												}
+											}
 										}
 										resultValue = instance[method].apply(instance, args);
 										if (resultValue !== undefined) {

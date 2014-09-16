@@ -1,6 +1,6 @@
 /*global window, define, console */
 /*jslint plusplus: true, nomen: true */
-/* 
+/*
  * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
  * License : MIT License V2
  */
@@ -21,7 +21,8 @@
 			"../core/util/object",
 			"../core/event",
 			"../core/util/zoom",
-			"../core/util/load"
+			"../core/util/load",
+			"../core/frameworkData"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
@@ -381,17 +382,19 @@
 						 */
 						document.addEventListener(ns.engine.eventType.WIDGET_BOUND, function (event) {
 							var originalEvent = event.originalEvent || event,
-								widget = originalEvent.detail;
-							if (widget && widget.element && widget.widgetName) {
+								widget = originalEvent.detail,
+								widgetName  = widget && widget.widgetName;
+							widgetName = widgetName && widgetName.toLowerCase();
+							if (widgetName && widget.element) {
 								try {
 									//>>excludeStart("tauDebug", pragmas.tauDebug);
-									ns.log("Running jqm constructor for " + widget.wigdetName);
+									ns.log("Running jqm constructor for " + widgetName);
 									//>>excludeEnd("tauDebug");
-									$(widget.element)[widget.widgetName]();
+									$(widget.element)[widgetName]();
 								} catch(e) {
 									// suppress errors in not debug mode
 									//>>excludeStart("tauDebug", pragmas.tauDebug);
-									ns.warning("could not call jqm constructor for " + widget.widgetName, widget, e);
+									ns.warning("could not call jqm constructor for " + widgetName, widget, e);
 									//>>excludeEnd("tauDebug");
 								}
 

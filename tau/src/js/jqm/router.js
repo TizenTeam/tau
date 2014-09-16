@@ -1,6 +1,6 @@
 /*global window, define, HTMLElement */
 /*jslint plusplus: true, nomen: true */
-/* 
+/*
  * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
  * License : MIT License V2
  */
@@ -63,6 +63,7 @@
 							document.addEventListener('pageshow', function (ev) {
 								$.mobile.activePage = $(ev.target);
 							}, true);
+							$.mobile.activePage = $();
 							$.mobile.firstPage = $(router.getFirstPage());
 							$.mobile.pageContainer = $(router.getContainer());
 							$.mobile.subPageUrlKey = ns.widget.mobile.Page.classes.uiPage;
@@ -137,7 +138,7 @@
 							pageWidget.focus();
 						};
 
-						$.mobile._bindPageRemove = $.mobile._bindPageRemove || router._bindPageRemove.bind(router);
+						$.mobile._bindPageRemove = $.mobile._bindPageRemove || (router._bindPageRemove && router._bindPageRemove.bind(router));
 						$.mobile.initializePage = router.init.bind(router);
 						container = router.getContainer();
 						$.mobile.pageContainer = $(container);
