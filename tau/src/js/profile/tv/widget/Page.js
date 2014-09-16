@@ -43,9 +43,10 @@
 				WearablePagePrototype = WearablePage.prototype,
 				BaseKeyboardSupport = ns.widget.tv.BaseKeyboardSupport,
 				classes = WearablePage.classes,
+				selectors = ns.wearable.selectors,
 				util = ns.util,
 				DOM = util.DOM,
-				selectors = util.selectors,
+				utilSelectors = util.selectors,
 				Page = function () {
 					BaseKeyboardSupport.call(this);
 				},
@@ -88,7 +89,7 @@
 
 			prototype._buildHeader = function(element) {
 				var self = this,
-					header = selectors.getChildrenBySelector(element, "header,." + classes.uiHeader)[0];
+					header = utilSelectors.getChildrenBySelector(element, "header,." + classes.uiHeader)[0];
 				// add class if header does not exist
 				if (!header) {
 					element.classList.add(classes.uiHeaderEmpty);
@@ -100,7 +101,7 @@
 			};
 
 			prototype._buildFooter = function(element) {
-				var footer = selectors.getChildrenBySelector(element, "footer,." + classes.uiFooter)[0];
+				var footer = utilSelectors.getChildrenBySelector(element, "footer,." + classes.uiFooter)[0];
 				// add class if footer does not exist
 				if (!footer) {
 					element.classList.add(classes.uiFooterEmpty);
@@ -110,7 +111,7 @@
 			};
 
 			prototype._buildContent = function(element) {
-				var content = selectors.getChildrenByClass(element, classes.uiContent)[0] || selectors.getChildrenByTag(element, "div")[0];
+				var content = utilSelectors.getChildrenByClass(element, classes.uiContent)[0] || utilSelectors.getChildrenByTag(element, "div")[0];
 				if (!content) {
 					content = document.createElement("div");
 					element.appendChild(content);
@@ -130,6 +131,12 @@
 				self._buildFooter(element);
 
 				return element;
+			};
+
+			prototype._clearHeaderFooterInfo = function(element) {
+				var elementClassList = element.classList;
+				elementClassList.remove(classes.uiHeaderEmpty);
+				elementClassList.remove(classes.uiFooterEmpty);
 			};
 
 			/**
@@ -197,10 +204,21 @@
 				WearablePagePrototype._destroy.call(this);
 			};
 
+			prototype._refresh = function(element) {
+				var self = this,
+					element = self.element;
+				WearablePagePrototype._refresh.call(self);
+				self._clearHeaderFooterInfo(element);
+				self._build(element);
+				self._contentFill();
+			};
+
 			Page.prototype = prototype;
 
 			// definition
 			ns.widget.tv.Page = Page;
+
+			selectors.page = "[data-role=page],.ui-page";
 
 			engine.defineWidget(
 				"page",

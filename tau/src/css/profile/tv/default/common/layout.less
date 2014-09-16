@@ -196,8 +196,12 @@ body {
 }
 
 .ui-footer {
+	position: relative;
 	height: @fixed_footer_height;
 	margin: 0 141 * @virtual_px 59 * @virtual_px 141 * @virtual_px;
+	bottom: 0;
+	left: 0;
+	background-color: @color_actionbar_title_bg;
 	-webkit-border-bottom-left-radius: @page_border_radius;
 	-moz-border-bottom-left-radius: @page_border_radius;
 	border-bottom-left-radius: @page_border_radius;
