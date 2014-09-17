@@ -485,6 +485,7 @@ module.exports = function(grunt) {
 						"**/*.html",
 						"**/*.js",
 						"**/*.png",
+						"**/*.jpg",
 						"**/*.css",
 						"**/*.ttf",
 						"**/*.wot",
