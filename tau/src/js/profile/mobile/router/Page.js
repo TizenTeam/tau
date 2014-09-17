@@ -158,7 +158,7 @@
 					popup = event.detail.toPage,
 					popupWidget;
 
-				if (popup && DOM.getNSData(popup, "role") === "popup") {
+				if (popup && selectors.matchesSelector(popup, '[data-role="popup"],.ui-popup')) {
 					linkElement = router.lastClickedLink;
 					linkId = linkElement.id;
 					if (ns.activePopup) {
