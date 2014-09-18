@@ -137,7 +137,7 @@
 
 								for (i = 0; i < this.length; i++) {
 									element = this.get(i);
-									instance = engine.getBinding(element);
+									instance = engine.getBinding(element, definition.name);
 									built = instance && instance.isBuilt();
 									firstarg = args.shift();
 									if (firstarg === undefined || typeof firstarg === 'object') {
