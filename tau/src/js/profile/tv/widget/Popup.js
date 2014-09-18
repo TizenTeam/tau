@@ -220,7 +220,7 @@
 			engine.defineWidget(
 				"popup",
 				"[data-role='popup'], .ui-popup",
-				["setActive", "show", "hide", "open", "close"],
+				["open", "close", "reposition"],
 				Popup,
 				"tv",
 				true

@@ -23,24 +23,26 @@
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
-			/**
-			 * Alias for {@link ns.widget.BaseWidget}
-			 * @property {Function} BaseWidget
-			 * @member ns.widget.core.Popup
-			 * @private
-			 */
+				/**
+				 * Alias for {@link ns.widget.BaseWidget}
+				 * @property {Function} BaseWidget
+				 * @member ns.widget.core.Popup
+				 * @private
+				 */
 			var BaseWidget = ns.widget.BaseWidget,
 				/**
-				* @property {ns.engine} engine Alias for class ns.engine
-				* @member ns.widget.core.Popup
-				* @private
-				*/
+				 * Alias for class ns.engine
+				 * @property {ns.engine} engine
+				 * @member ns.widget.core.Popup
+				 * @private
+				 */
 				engine = ns.engine,
 				/**
-				* @property {Object} objectUtils Alias for class ns.util.events
-				* @member ns.widget.core.Popup
-				* @private
-				*/
+				 * Alias for class ns.util.object
+				 * @property {Object} objectUtils
+				 * @member ns.widget.core.Popup
+				 * @private
+				 */
 				objectUtils = ns.util.object,
 
 				Popup = function () {
@@ -55,7 +57,6 @@
 					 * @member ns.widget.core.Popup
 					 * @private
 					 */
-
 					self.state = states.CLOSED;
 
 					ui.overlay = null;
@@ -66,11 +67,14 @@
 					self._ui = ui;
 				},
 				/**
-				 * @property {Object} defaults Object with default options
+				 * Object with default options
+				 * @property {Object} defaults
 				 * @property {string} [options.transition="none"] Sets the default transition for the popup.
 				 * @property {string} [options.positionTo="window"] Sets the element relative to which the popup will be centered.
 				 * @property {boolean} [options.dismissible=true] Sets whether to close popup when a popup is open to support the back button.
 				 * @property {boolean} [options.overlay=true] Sets whether to show overlay when a popup is open.
+				 * @property {boolean|string} [options.header=false] Sets content of header.
+				 * @property {boolean|string} [options.footer=false] Sets content of footer.
 				 * @property {string} [overlayClass=""] Sets the custom class for the popup background, which covers the entire window.
 				 * @property {boolean} [options.history=true] Sets whether to alter the url when a popup is open to support the back button.
 				 * @member ns.widget.core.Popup
@@ -93,10 +97,11 @@
 				},
 				CLASSES_PREFIX = "ui-popup",
 				/**
-				* @property {Object} classes Dictionary for popup related css class names
-				* @member ns.widget.core.Popup
-				* @static
-				*/
+				 * Dictionary for popup related css class names
+				 * @property {Object} classes
+				 * @member ns.widget.core.Popup
+				 * @static
+				 */
 				classes = {
 					popup: CLASSES_PREFIX,
 					active: CLASSES_PREFIX + "-active",
@@ -112,13 +117,26 @@
 				},
 				EVENTS_PREFIX = "popup",
 				/**
-				* @property {Object} events Dictionary for popup related events
-				* @member ns.widget.core.Popup
-				* @static
-				*/
+				 * Dictionary for popup related selectors
+				 * @property {Object} selectors
+				 * @member ns.widget.core.Popup
+				 * @static
+				 */
+				selectors = {
+					header: "." + classes.header,
+					content: "." + classes.content,
+					footer: "." + classes.footer
+				},
+				/**
+				 * Dictionary for popup related events
+				 * @property {Object} events
+				 * @member ns.widget.core.Popup
+				 * @static
+				 */
 				events = {
 					/**
-					 * @event popupshow Triggered when the popup has been created in the DOM (via ajax or other) but before all widgets have had an opportunity to enhance the contained markup.
+					 * Triggered when the popup has been created in the DOM (via ajax or other) but before all widgets have had an opportunity to enhance the contained markup.
+					 * @event popupshow
 					 * @member ns.widget.core.Popup
 					 */
 					show: EVENTS_PREFIX + "show",
@@ -149,11 +167,10 @@
 			Popup.defaults = defaults;
 
 			/**
-			 * Build the popup DOM tree
-			 * @method _build
-			 * @protected
+			 * Build the content of popup
+			 * @method _buildContent
 			 * @param {HTMLElement} element
-			 * @return {HTMLElement}
+			 * @protected
 			 * @member ns.widget.core.Popup
 			 */
 			prototype._buildContent = function (element) {
@@ -183,11 +200,10 @@
 			};
 
 			/**
-			 * Build the popup DOM tree
-			 * @method _build
-			 * @protected
+			 * Build the header of popup
+			 * @method _buildHeader
 			 * @param {HTMLElement} element
-			 * @return {HTMLElement}
+			 * @protected
 			 * @member ns.widget.core.Popup
 			 */
 			prototype._buildHeader = function (element) {
@@ -211,7 +227,16 @@
 				ui.header = header;
 			};
 
-			prototype._setHeader = function ( element, value ) {
+			/**
+			 * Set the header of popup.
+			 * This function is called by function "option" when the option "header" is set.
+			 * @method _setHeader
+			 * @param {HTMLElement} element
+			 * @param {boolean|string} value
+			 * @protected
+			 * @member ns.widget.core.Popup
+			 */
+			prototype._setHeader = function (element, value) {
 				var self = this,
 					ui = self._ui,
 					header = ui.header;
@@ -223,6 +248,13 @@
 				self._buildHeader(ui.container);
 			};
 
+			/**
+			 * Build the footer of popup
+			 * @method _buildFooter
+			 * @param {HTMLElement} element
+			 * @protected
+			 * @member ns.widget.core.Popup
+			 */
 			prototype._buildFooter = function (element) {
 				var self = this,
 					ui = self._ui,
@@ -242,7 +274,16 @@
 				ui.footer = footer;
 			};
 
-			prototype._setFooter = function ( element, value ) {
+			/**
+			 * Set the footer of popup.
+			 * This function is called by function "option" when the option "footer" is set.
+			 * @method _setFooter
+			 * @param {HTMLElement} element
+			 * @param {boolean|string} value
+			 * @protected
+			 * @member ns.widget.core.Popup
+			 */
+			prototype._setFooter = function (element, value) {
 				var self = this,
 					ui = self._ui,
 					footer = ui.footer;
@@ -309,7 +350,6 @@
 			 * Returns the state of the popup
 			 * @method _isActive
 			 * @protected
-			 * @instance
 			 * @member ns.widget.core.Popup
 			 */
 			prototype._isActive = function () {
@@ -321,7 +361,6 @@
 			 * Returns true if popup is already opened and visible
 			 * @method _isActive
 			 * @protected
-			 * @instance
 			 * @member ns.widget.core.Popup
 			 */
 			prototype._isOpened = function () {
@@ -351,7 +390,6 @@
 			 * @method _setActive
 			 * @param {boolean} active
 			 * @protected
-			 * @instance
 			 * @member ns.widget.core.Popup
 			 */
 			prototype._setActive = function (active) {
@@ -360,6 +398,14 @@
 					elementClassList = self.element.classList,
 					route = engine.getRouter().getRoute("popup"),
 					options = self.options;
+
+				// NOTE: popup's options object is stored in window.history at the router module,
+				// and this window.history can't store DOM element object.
+				if (typeof options.positionTo !== "string") {
+					options.positionTo = null;
+				}
+
+				// set state of popup and add proper class
 				if (active) {
 					// set global variable
 					route.setActive(self, options);
@@ -377,6 +423,13 @@
 				}
 			};
 
+			/**
+			 * Bind events
+			 * @method _bindEvents
+			 * @param {HTMLElement} element
+			 * @protected
+			 * @member ns.widget.core.Popup
+			 */
 			prototype._bindEvents = function (element) {
 				var self = this;
 				window.addEventListener("pagebeforehide", self, false);
@@ -384,6 +437,12 @@
 				self._bindOverlayEvents();
 			};
 
+			/**
+			 * Bind "click" event for overlay
+			 * @method _bindOverlayEvents
+			 * @protected
+			 * @member ns.widget.core.Popup
+			 */
 			prototype._bindOverlayEvents = function () {
 				var overlay = this._ui.overlay;
 				if (overlay) {
@@ -391,6 +450,12 @@
 				}
 			};
 
+			/**
+			 * Unbind "click" event for overlay
+			 * @method _bindOverlayEvents
+			 * @protected
+			 * @member ns.widget.core.Popup
+			 */
 			prototype._unbindOverlayEvents = function () {
 				var overlay = this._ui.overlay;
 				if (overlay) {
@@ -398,6 +463,13 @@
 				}
 			};
 
+			/**
+			 * Unbind events
+			 * @method _bindEvents
+			 * @param {HTMLElement} element
+			 * @protected
+			 * @member ns.widget.core.Popup
+			 */
 			prototype._unbindEvents = function (element) {
 				var self = this;
 				window.removeEventListener("pagebeforehide", self, false);
@@ -410,7 +482,6 @@
 			 * @method open
 			 * @param {Object=} [options]
 			 * @param {string=} [options.transition] options.transition
-			 * @instance
 			 * @member ns.widget.core.Popup
 			 */
 			prototype.open = function (options) {
@@ -430,7 +501,6 @@
 			 * @method close
 			 * @param {Object=} [options]
 			 * @param {string=} [options.transition]
-			 * @instance
 			 * @member ns.widget.core.Popup
 			 */
 			prototype.close = function (options) {
@@ -445,6 +515,13 @@
 				}
 			};
 
+			/**
+			 * Show popup.
+			 * @method _show
+			 * @param {object} options
+			 * @protected
+			 * @member ns.widget.core.Popup
+			 */
 			prototype._show = function (options) {
 				var self = this,
 					transitionOptions = objectUtils.merge({}, options);
@@ -455,6 +532,12 @@
 				self._transition(transitionOptions, self._onShow.bind(self));
 			};
 
+			/**
+			 * Show popup
+			 * @method _onShow
+			 * @protected
+			 * @member ns.widget.core.Popup
+			 */
 			prototype._onShow = function() {
 				var self = this,
 					overlay = self._ui.overlay;
@@ -465,6 +548,13 @@
 				self.trigger(events.show);
 			};
 
+			/**
+			 * Hide popup
+			 * @method _hide
+			 * @param {object} options
+			 * @protected
+			 * @member ns.widget.core.Popup
+			 */
 			prototype._hide = function (options) {
 				var self = this;
 
@@ -474,6 +564,12 @@
 				self._transition(options, self._onHide.bind(self));
 			};
 
+			/**
+			 * Hide popup
+			 * @method _onHide
+			 * @protected
+			 * @member ns.widget.core.Popup
+			 */
 			prototype._onHide = function() {
 				var self = this,
 					overlay = self._ui.overlay;
@@ -484,6 +580,12 @@
 				self.trigger(events.hide);
 			};
 
+			/**
+			 * Handle events
+			 * @method handleEvent
+			 * @param {Event} event
+			 * @member ns.widget.core.Popup
+			 */
 			prototype.handleEvent = function(event) {
 				var self = this;
 				switch(event.type) {
@@ -501,6 +603,12 @@
 				}
 			};
 
+			/**
+			 * Refresh structure
+			 * @method _refresh
+			 * @protected
+			 * @member ns.widget.core.Popup
+			 */
 			prototype._refresh = function() {
 				var self = this;
 				self._unbindOverlayEvents();
@@ -508,6 +616,13 @@
 				self._bindOverlayEvents();
 			};
 
+			/**
+			 * Callback function fires after clicking on overlay.
+			 * @method _onClickOverlay
+			 * @param {Event} event
+			 * @protected
+			 * @member ns.widget.core.Popup
+			 */
 			prototype._onClickOverlay = function(event) {
 				var options = this.options;
 
@@ -519,6 +634,12 @@
 				}
 			};
 
+			/**
+			 * Callback function fires on resizing
+			 * @method _onResize
+			 * @protected
+			 * @member ns.widget.core.Popup
+			 */
 			prototype._onResize = function() {
 				if (this._isOpened()) {
 					this._refresh();
@@ -529,7 +650,6 @@
 			 * Animate popup opening/closing
 			 * @method _transition
 			 * @protected
-			 * @instance
 			 * @param {Object} [options]
 			 * @param {string=} [options.transition]
 			 * @param {string=} [options.ext]
@@ -579,6 +699,12 @@
 				return deferred;
 			};
 
+			/**
+			 * Destroy popup
+			 * @method _destroy
+			 * @protected
+			 * @member ns.widget.core.Popup
+			 */
 			prototype._destroy = function() {
 				var self = this,
 					element = self.element;

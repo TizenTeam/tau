@@ -290,84 +290,83 @@
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 
-			var
+			var Popup = ns.widget.core.Popup,
 
-			Popup = ns.widget.core.Popup,
+				BasePopupPrototype = Popup.prototype,
 
-			BasePopupPrototype = Popup.prototype,
+				engine = ns.engine,
 
-			engine = ns.engine,
+				objectUtils = ns.util.object,
 
-			objectUtils = ns.util.object,
+				/**
+				 * Object with default options
+				 * @property {Object} defaults
+				 * @property {string} [options.transition="none"] Sets the default transition for the popup.
+				 * @property {string} [options.positionTo="window"] Sets the element relative to which the popup will be centered.
+				 * @property {boolean} [options.dismissible=true] Sets whether to close popup when a popup is open to support the back button.
+				 * @property {boolean} [options.overlay=true] Sets whether to show overlay when a popup is open.
+				 * @property {string} [overlayClass=""] Sets the custom class for the popup background, which covers the entire window.
+				 * @property {boolean} [options.history=true] Sets whether to alter the url when a popup is open to support the back button.
+				 * @property {string} [options.arrow="l,t,r,b"] Sets directions of popup's arrow by priority ("l" for left, "t" for top,
+				 * "r" for right, and "b" for bottom). The first one has the highest priority, the last one - the lowest. If you set arrow="t",
+				 * then arrow will be placed at the top of popup container and the whole popup will be placed under cliced element.
+				 * @property {string} [options.positionTo="window"] Sets the element relative to which the popup will be centered.
+				 * @property {number} [options.distance=0] Sets the extra distance in px from clicked element.
+				 * @member ns.widget.core.ContextPopup
+				 * @static
+				 * @private
+				 */
+				defaults = objectUtils.merge({}, Popup.defaults, {
+					arrow: "l,t,r,b",
+					positionTo: "window",
+					distance: 0
+				}),
 
-			/**
-			 * @property {Object} defaults Object with default options
-			 * @property {string} [options.transition="none"] Sets the default transition for the popup.
-			 * @property {string} [options.positionTo="window"] Sets the element relative to which the popup will be centered.
-			 * @property {boolean} [options.dismissible=true] Sets whether to close popup when a popup is open to support the back button.
-			 * @property {boolean} [options.overlay=true] Sets whether to show overlay when a popup is open.
-			 * @property {string} [overlayClass=""] Sets the custom class for the popup background, which covers the entire window.
-			 * @property {boolean} [options.history=true] Sets whether to alter the url when a popup is open to support the back button.
-			 * @property {string} [options.arrow="l,t,r,b"] Sets directions of popup's arrow by priority ("l" for left, "t" for top,
-			 * "r" for right, and "b" for bottom). The first one has the highest priority, the last one - the lowest. If you set arrow="t",
-			 * then arrow will be placed at the top of popup container and the whole popup will be placed under cliced element.
-			 * @property {string} [options.positionTo="window"] Sets the element relative to which the popup will be centered.
-			 * @property {number} [options.distance=0] Sets the extra distance in px from clicked element.
-			 * @member ns.widget.core.ContextPopup
-			 * @static
-			 * @private
-			 */
-			defaults = objectUtils.merge({}, Popup.defaults, {
-				arrow: "l,b,r,t",
-				positionTo: "window",
-				distance: 0
-			}),
+				ContextPopup = function () {
+					var self = this,
+						ui;
 
-			ContextPopup = function () {
-				var self = this,
-					ui;
+					Popup.call(self);
 
-				Popup.call(self);
+					// set options
+					self.options = objectUtils.merge(self.options, defaults);
 
-				// set options
-				self.options = objectUtils.merge(self.options, defaults);
+					// set ui
+					ui = self._ui || {};
+					ui.wrapper = null;
+					ui.arrow = null;
+					self._ui = ui;
+				},
 
-				// set ui
-				ui = self._ui || {};
-				ui.wrapper = null;
-				ui.arrow = null;
-				self._ui = ui;
-			},
+				/**
+				 * @property {Object} classes Dictionary for popup related css class names
+				 * @member ns.widget.core.Popup
+				 * @static
+				 */
+				CLASSES_PREFIX = "ui-popup",
+				classes = objectUtils.merge({}, Popup.classes, {
+					wrapper: CLASSES_PREFIX + "-wrapper",
+					context: "ui-ctxpopup",
+					arrow: "ui-arrow",
+					arrowDir: CLASSES_PREFIX + "-arrow-",
+					build: "ui-build"
+				}),
 
-			/**
-			* @property {Object} classes Dictionary for popup related css class names
-			* @member ns.widget.core.Popup
-			* @static
-			*/
-			CLASSES_PREFIX = "ui-popup",
-			classes = objectUtils.merge({}, Popup.classes, {
-				wrapper: CLASSES_PREFIX + "-wrapper",
-				context: "ui-ctxpopup",
-				arrow: "ui-arrow",
-				arrowDir: CLASSES_PREFIX + "-arrow-",
-				build: "ui-build"
-			}),
+				/**
+				 * @property {Object} events Dictionary for popup related events
+				 * @member ns.widget.core.Popup
+				 * @static
+				 */
+				events = objectUtils.merge({}, Popup.events, {
+					before_position: "beforeposition"
+				}),
 
-			/**
-			* @property {Object} events Dictionary for popup related events
-			* @member ns.widget.core.Popup
-			* @static
-			*/
-			events = objectUtils.merge({}, Popup.events, {
-				before_position: "beforeposition"
-			}),
+				positionType = {
+					WINDOW: "window",
+					ORIGIN: "origin"
+				},
 
-			positionType = {
-				WINDOW: "window",
-				ORIGIN: "origin"
-			},
-
-			prototype = new Popup();
+				prototype = new Popup();
 
 			ContextPopup.defaults = defaults;
 			ContextPopup.classes = classes;
@@ -397,6 +396,7 @@
 				ui.wrapper = wrapper;
 				ui.container = wrapper;
 
+				// move all children to wrapper
 				while (child) {
 					wrapper.appendChild(child);
 					child = element.firstChild;
@@ -408,9 +408,11 @@
 				arrow.classList.add(classes.arrow);
 				ui.arrow = arrow;
 
+				// add wrapper and arrow to popup element
 				element.appendChild(wrapper);
 				element.appendChild(arrow);
 
+				// build elements of popup, which are in wrapper
 				if (typeof BasePopupPrototype._build === "function") {
 					BasePopupPrototype._build.call(self, element);
 				}
@@ -423,7 +425,7 @@
 			 * @method _init
 			 * @param {HTMLElement} element
 			 * @protected
-			 * @member ns.widget.mobile.Popup
+			 * @member ns.widget.core.ContextPopup
 			 */
 			prototype._init = function(element) {
 				var self = this,
@@ -435,20 +437,17 @@
 
 				ui.wrapper = ui.wrapper || element.querySelector("." + classes.wrapper);
 
+				// set container of popup elements
 				ui.container = ui.wrapper;
 			};
 
-			prototype._setActive = function (active) {
-				var options = this.options;
-				// NOTE: popup's options object is stored in window.history at the router module,
-				// and this window.history can't store DOM element object.
-				if (typeof options.positionTo !== "string") {
-					options.positionTo = null;
-				}
-
-				Popup.prototype._setActive.call(this, active);
-			};
-
+			/**
+			 * Set positon and size of popup.
+			 * @method _reposition
+			 * @param {object} options
+			 * @protected
+			 * @member ns.widget.core.ContextPopup
+			 */
 			prototype._reposition = function(options) {
 				var self = this,
 					element = self.element,
@@ -460,13 +459,23 @@
 
 				elementClassList.add(classes.build);
 
+				// set height of content
 				self._setContentHeight();
+				// set position of popup
 				self._placementCoords(options);
 
 				elementClassList.remove(classes.build);
 
 			};
 
+			/**
+			 * Find the best positon of context popup.
+			 * @method findBestPosition
+			 * @param {ns.widget.core.ContextPopup} self
+			 * @param {HTMLElement} clickedElement
+			 * @private
+			 * @member ns.widget.core.ContextPopup
+			 */
 			function findBestPosition(self, clickedElement) {
 				var options = self.options,
 					arrowsPriority = options.arrow.split(","),
@@ -475,29 +484,39 @@
 					windowHeight = window.innerHeight,
 					popupWidth = element.offsetWidth,
 					popupHeight = element.offsetHeight,
+					// offset coordinates of clicked element
 					clickElementRect = clickedElement.getBoundingClientRect(),
 					clickElementOffsetX = clickElementRect.left,
 					clickElementOffsetY = clickElementRect.top,
-					clickElementOffsetWidth = Math.min(clickElementRect.right - clickElementOffsetX,
+					// width of visible part of clicked element
+					clickElementOffsetWidth = Math.min(clickElementRect.width,
 							windowWidth - clickElementOffsetX),
-					clickElementOffsetHeight = Math.min(clickElementRect.bottom - clickElementOffsetY,
+					// height of visible part of clicked element
+					clickElementOffsetHeight = Math.min(clickElementRect.height,
 							windowHeight - clickElementOffsetY),
+					// params for all types of popup
+					// "l" - popup with arrow on the left side, "r" - right, "b" - bottom, "t" - top
+					// dir - this letter is added as a suffix of class to popup's element
+					// fixedPositionField - specifies which coordinate is changed for this type of popup
+					// fixedPositionFactor - factor, which specifies if size should be added or subtracted
+					// size - available size, which is needed for this type of popup (width or height)
+					// max - maximum size of available place
 					params = {
-						"l": {dir: "l", fixedField: "w", fixedPositionField: "x",
-							fixedPositionFactor: 1, size: popupWidth, max: windowWidth - clickElementOffsetX - clickElementOffsetWidth},
-						"r": {dir: "r", fixedField: "w", fixedPositionField: "x",
-							fixedPositionFactor: -1, size: popupWidth, max: clickElementOffsetX},
-						"b": {dir: "b", fixedField: "h", fixedPositionField: "y",
-							fixedPositionFactor: -1, size: popupHeight, max: clickElementOffsetY},
-						"t": {dir: "t", fixedField: "h", fixedPositionField: "y",
-							fixedPositionFactor: 1, size: popupHeight, max: windowHeight - clickElementOffsetY - clickElementOffsetHeight}
+						"l": {dir: "l", fixedPositionField: "x", fixedPositionFactor: 1,
+							size: popupWidth, max: windowWidth - clickElementOffsetX - clickElementOffsetWidth},
+						"r": {dir: "r", fixedPositionField: "x", fixedPositionFactor: -1,
+							size: popupWidth, max: clickElementOffsetX},
+						"b": {dir: "b", fixedPositionField: "y", fixedPositionFactor: -1,
+							size: popupHeight, max: clickElementOffsetY},
+						"t": {dir: "t", fixedPositionField: "y", fixedPositionFactor: 1,
+							size: popupHeight, max: windowHeight - clickElementOffsetY - clickElementOffsetHeight}
 					},
 					bestDirection,
 					direction,
 					bestOffsetInfo;
 
 				// set value of bestDirection on the first possible type or top
-				bestDirection = params[arrowsPriority[0]] || params.b,
+				bestDirection = params[arrowsPriority[0]] || params.t,
 
 				arrowsPriority.forEach(function(key){
 					var param = params[key],
@@ -513,13 +532,14 @@
 
 				if (!direction) {
 					direction = bestDirection;
-					if (direction.fixedField === "w") {
+					if (direction.fixedPositionField === "x") {
 						popupWidth = direction.max;
 					} else {
 						popupHeight = direction.max;
 					}
 				}
 
+				// info about the best position without taking into account type of popup
 				bestOffsetInfo = {
 					x: clickElementOffsetX + clickElementOffsetWidth / 2 - popupWidth / 2,
 					y: clickElementOffsetY + clickElementOffsetHeight / 2 - popupHeight / 2,
@@ -528,8 +548,9 @@
 					dir: direction.dir
 				};
 
+				// check type of popup and correct value for "fixedPositionField" coordinate
 				bestOffsetInfo[direction.fixedPositionField] +=
-					(direction.fixedField === "w" ?
+					(direction.fixedPositionField === "x" ?
 						(popupWidth + clickElementOffsetWidth) * direction.fixedPositionFactor :
 						(popupHeight + clickElementOffsetHeight) * direction.fixedPositionFactor)
 						/ 2 + options.distance * direction.fixedPositionFactor;
@@ -537,6 +558,16 @@
 				return bestOffsetInfo;
 			}
 
+			/**
+			 * Find the best positon of arrow.
+			 * @method adjustedPositionAndPlacementArrow
+			 * @param {ns.widget.core.ContextPopup} self
+			 * @param {Object} bestRectangle
+			 * @param {number} x
+			 * @param {number} y
+			 * @private
+			 * @member ns.widget.core.ContextPopup
+			 */
 			function adjustedPositionAndPlacementArrow(self, bestRectangle, x, y) {
 				var ui = self._ui,
 					wrapper = ui.wrapper,
@@ -586,6 +617,13 @@
 				return bestRectangle;
 			}
 
+			/**
+			 * Set top, left and margin for popup's container.
+			 * @method _placementCoordsWindow
+			 * @param {HTMLElement} element
+			 * @protected
+			 * @member ns.widget.core.ContextPopup
+			 */
 			prototype._placementCoordsWindow = function(element) {
 				var elementStyle = element.style,
 					elementWidth = element.offsetWidth,
@@ -596,10 +634,25 @@
 				elementStyle.marginLeft = -(elementWidth / 2) + "px";
 			};
 
+			/**
+			 * Find clicked element.
+			 * @method _findClickedElement
+			 * @param {number} x
+			 * @param {number} y
+			 * @protected
+			 * @member ns.widget.core.ContextPopup
+			 */
 			prototype._findClickedElement = function(x, y) {
 				return document.elementFromPoint(x, y);
 			};
 
+			/**
+			 * Find and set the best position for popup.
+			 * @method _placementCoords
+			 * @param {object} options
+			 * @protected
+			 * @member ns.widget.core.ContextPopup
+			 */
 			prototype._placementCoords = function(options) {
 				var self = this,
 					positionTo = options.positionTo,
@@ -648,6 +701,13 @@
 
 			};
 
+			/**
+			 * Set height for popup's container.
+			 * @method _setContentHeight
+			 * @param {number} maxHeight
+			 * @protected
+			 * @member ns.widget.core.ContextPopup
+			 */
 			prototype._setContentHeight = function(maxHeight) {
 				var self = this,
 					element = self.element,
@@ -678,6 +738,12 @@
 
 			};
 
+			/**
+			 * Hide popup.
+			 * @method _onHide
+			 * @protected
+			 * @member ns.widget.core.ContextPopup
+			 */
 			prototype._onHide = function() {
 				var self = this,
 					ui = self._ui,
@@ -700,6 +766,12 @@
 				arrow.removeAttribute("style");
 			};
 
+			/**
+			 * Destroy popup.
+			 * @method _destroy
+			 * @protected
+			 * @member ns.widget.core.ContextPopup
+			 */
 			prototype._destroy = function() {
 				var self = this,
 					element = self.element,
@@ -720,6 +792,12 @@
 				ui.arrow = null;
 			};
 
+			/**
+			 * Show popup.
+			 * @method _destroy
+			 * @protected
+			 * @member ns.widget.core.ContextPopup
+			 */
 			prototype._show = function(options) {
 				var openOptions = objectUtils.merge({}, options);
 				this._reposition(openOptions);
@@ -729,11 +807,13 @@
 			};
 
 			/**
-			 *
+			 * Set new position for popup.
+			 * @method reposition
 			 * @param options
 			 * @param options.x
 			 * @param options.y
 			 * @param options.positionTo
+			 * @member ns.widget.core.ContextPopup
 			 */
 			prototype.reposition = function(options) {
 				if (this._isActive()) {
