@@ -208,8 +208,7 @@
 	}
 }
 
-.ui-ctxpopup-container
-{
+.ui-ctxpopup-container {
 	z-index: 1200;
 	display: inline-block;
 	position: absolute;
@@ -218,15 +217,16 @@
 	border: 1 * @unit_base solid @color_ctxpopup_background_border;
 	background: @color_ctxpopup_background;
 	box-shadow: 1 * @unit_base 2 * @unit_base 1 * @unit_base #333333;
-	.ui-popup
-	{
+	max-width: 100%;
+	box-sizing: border-box;
+	.ui-popup {
 		border: none;
 		border-color: inherit;
 		border-radius: 10 * @unit_base;
 		background: @color_ctxpopup_background;
 		padding : 0 8 * @unit_base 0;
 		position: relative;
-		&.ui-selectmenu{
+		&.ui-selectmenu {
 			padding: 0;
 		}
 	}
