@@ -746,6 +746,14 @@
 			 * @member ns.widget.mobile.SearchBar
 			 */
 
+			SearchBar.prototype.value = function (value) {
+				if (value) {
+					this._setValue(value);
+					return;
+				}
+				return this._getValue();
+			};
+
 			/**
 			 * Gets value for widget
 			 * @method _getValue
@@ -786,7 +794,9 @@
 			engine.defineWidget(
 				"SearchBar",
 				"input[type='search'],[data-type='search'], input[type=tizen-search],[data-type='tizen-search'], .ui-searchbar",
-				[],
+				[
+					"value"
+				],
 				SearchBar,
 				"tizen"
 			);
