@@ -36,7 +36,6 @@
 			"./core/event/throttledresize",
 			"./core/event/orientationchange",
 			"./core/event/touch",
-			"./core/event/pinch",
 			// widget list
 			"./profile/mobile/widget/mobile/Page",
 			"./profile/mobile/widget/mobile/Scrollview",
