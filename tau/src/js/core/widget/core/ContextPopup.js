@@ -292,7 +292,7 @@
 
 			var Popup = ns.widget.core.Popup,
 
-				BasePopupPrototype = Popup.prototype,
+				PopupPrototype = Popup.prototype,
 
 				engine = ns.engine,
 
@@ -413,9 +413,7 @@
 				element.appendChild(arrow);
 
 				// build elements of popup, which are in wrapper
-				if (typeof BasePopupPrototype._build === "function") {
-					BasePopupPrototype._build.call(self, element);
-				}
+				PopupPrototype._build.call(self, wrapper);
 
 				return element;
 			};
@@ -431,11 +429,10 @@
 				var self = this,
 					ui = self._ui;
 
-				if (typeof BasePopupPrototype._init === "function") {
-					BasePopupPrototype._init.call(this, element);
-				}
+				PopupPrototype._init.call(this, element);
 
 				ui.wrapper = ui.wrapper || element.querySelector("." + classes.wrapper);
+				ui.arrow = ui.arrow || element.querySelector("." + classes.arrow);
 
 				// set container of popup elements
 				ui.container = ui.wrapper;
@@ -752,9 +749,7 @@
 					content = ui.content,
 					arrow = ui.arrow;
 
-				if (typeof BasePopupPrototype._onHide === "function") {
-					BasePopupPrototype._onHide.call(self);
-				}
+				PopupPrototype._onHide.call(self);
 
 				elementClassList.remove(classes.context);
 				["l", "r", "b", "t"].forEach(function(key) {
@@ -778,9 +773,7 @@
 					ui = self._ui,
 					wrapper = ui.wrapper;
 
-				if (typeof BasePopupPrototype._destroy === "function") {
-					BasePopupPrototype._destroy.call(self);
-				}
+				PopupPrototype._destroy.call(self);
 
 				[].forEach.call(wrapper.children, function(child) {
 					element.appendChild(child);
@@ -801,9 +794,7 @@
 			prototype._show = function(options) {
 				var openOptions = objectUtils.merge({}, options);
 				this._reposition(openOptions);
-				if (typeof BasePopupPrototype._show === "function") {
-					BasePopupPrototype._show.call(this, openOptions);
-				}
+				PopupPrototype._show.call(this, openOptions);
 			};
 
 			/**
