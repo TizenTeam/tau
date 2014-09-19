@@ -1,4 +1,10 @@
 %changelog
+* Fri Sep 19 2014 Heeju Joo <heeju.joo@samsung.com> 0.9.20
+	- [jira] show black line when click list item in option popup.(GSDK_SE-2885)
+	- [Jira] wearable popup arrow bug (GSDK_SE-2886)
+	- Wearable: Color table (xml) changed
+	- [Kiran] Fix to make the controls tags to work inside anchor tags
+
 * Thu Sep 18 2014 Junhyeon Lee <juneh.ee@samsung.com> 0.9.19
 	- KIRAN: add max-width and box-sizing in context popup
 	- Remove Dependency for Mobile(Pinch)
