@@ -772,7 +772,7 @@
 
 				container.setAttribute("tabindex", 0);
 				if ( (element.getAttribute("data-role") === "button" && !options.bar) ||
-					(element.tagName === "INPUT" && ((element.getAttribute("type") === "submit") || (element.getAttribute("type") === "reset")) ) ||
+					(element.tagName === "INPUT" && ((element.getAttribute("type") === "button") || (element.getAttribute("type") === "submit") || (element.getAttribute("type") === "reset")) ) ||
 					(element.tagName === "BUTTON") ) {
 					buttonClassArray.push(classes.uiBtnBoxThemePrefix + options.theme);
 				}
