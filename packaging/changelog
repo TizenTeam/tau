@@ -1,4 +1,11 @@
 %changelog
+* Fri Sep 19 2014 Junyoung Park <jy-.park@samsung.com> 0.9.21
+	- Mobile : add external url routing method
+	- jQM: fixed getBinding missing arguments
+	- KIRAN: add value method to Searchbar
+	- [TV] Page: fix problem with refresh of page and recalculating header and footer
+	- [Kiran] Support external url option at router (NABI-722)
+
 * Fri Sep 19 2014 Heeju Joo <heeju.joo@samsung.com> 0.9.20
 	- [jira] show black line when click list item in option popup.(GSDK_SE-2885)
 	- [Jira] wearable popup arrow bug (GSDK_SE-2886)
