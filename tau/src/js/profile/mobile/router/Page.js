@@ -202,37 +202,41 @@
 					element,
 					isHash = linkHref && (linkHref.charAt(0) === "#"),
 					options = {},
+					useDefaultUrlHandling = false,
 					inputInsideLink,
 					inputInsideLinkLength,
 					i;
 
 				router.lastClickedLink = null;
 				if (link) {
-					event.preventDefault();
-					options.transition = DOM.getNSData(link, "transition");
-					options.reverse = (DOM.getNSData(link, "direction") === "reverse");
-					// Only swiching pages
-					if (isHash) {
-						element = document.getElementById(linkHref.substr(1));
-						if (element) {
-							router.lastClickedLink = link;
-							router.open(element);
+					useDefaultUrlHandling = (link.getAttribute("rel") === "external") || link.hasAttribute("target");
+					if (!useDefaultUrlHandling) {
+						event.preventDefault();
+						options.transition = DOM.getNSData(link, "transition");
+						options.reverse = (DOM.getNSData(link, "direction") === "reverse");
+						// Only swiching pages
+						if (isHash) {
+							element = document.getElementById(linkHref.substr(1));
+							if (element) {
+								router.lastClickedLink = link;
+								router.open(element);
+							}
+						} else if (linkHref) {
+							// Open link only if it exists
+							router.open(linkHref, options);
 						}
-					} else if (linkHref) {
-						// Open link only if it exists
-						router.open(linkHref, options);
-					}
 
-					//IMPORTANT / DEPRECIATED This following if statement
-					//should be removed as soon
-					//as we will stop to support controls tags like inputs
-					//inside anchors, which is against W3C standards
-					inputInsideLink = link.getElementsByClassName("ui-slider-switch-input");
-					if (inputInsideLink) {
-						inputInsideLinkLength = inputInsideLink.length;
-						for (i = 0; i < inputInsideLinkLength; i++) {
-							inputInsideLink[i].checked = !inputInsideLink[i].checked;
-							eventUtils.trigger(inputInsideLink[i], "change");
+						//IMPORTANT / DEPRECIATED This following if statement
+						//should be removed as soon
+						//as we will stop to support controls tags like inputs
+						//inside anchors, which is against W3C standards
+						inputInsideLink = link.getElementsByClassName("ui-slider-switch-input");
+						if (inputInsideLink) {
+							inputInsideLinkLength = inputInsideLink.length;
+							for (i = 0; i < inputInsideLinkLength; i++) {
+								inputInsideLink[i].checked = !inputInsideLink[i].checked;
+								eventUtils.trigger(inputInsideLink[i], "change");
+							}
 						}
 					}
 				}
