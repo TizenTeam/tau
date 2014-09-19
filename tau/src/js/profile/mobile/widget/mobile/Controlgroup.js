@@ -206,6 +206,11 @@
 				elementClassList.add(classes.controlGroup);
 				elementClassList.add(classes.typePrefix + options.type);
 
+				//Make all the control group elements the same width
+				if (groupControls) {
+					this._setWidthForButtons(groupControls);
+				}
+
 				content = slice.call(element.querySelectorAll('.ui-btn')).filter(function (item) {
 					//@todo filter visiblity when excludeInvisible option is set
 					return !item.classList.contains('ui-slider-handle');
@@ -217,11 +222,6 @@
 
 				if (options.mini) {
 					elementClassList.add(classes.mini);
-				}
-
-				//Make all the control group elements the same width
-				if(groupControls) {
-					this._setWidthForButtons(groupControls);
 				}
 
 				flipClasses(content, cornersClasses);

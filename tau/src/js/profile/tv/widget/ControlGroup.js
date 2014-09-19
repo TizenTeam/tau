@@ -22,7 +22,7 @@
 				selectors = ns.util.selectors,
 
 				ControlGroup = function () {
-					MobileControlGroup.call(self);
+					MobileControlGroup.call(this);
 				},
 				classes = MobileControlGroup.classes,
 				prototype = new MobileControlGroup();

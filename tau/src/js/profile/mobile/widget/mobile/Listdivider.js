@@ -122,8 +122,7 @@
 			"../../../../core/util/selectors",
 			"../mobile",
 			"./BaseWidgetMobile",
-			"./Button",
-			"./Listview"
+			"./Button"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
