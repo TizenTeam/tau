@@ -137,11 +137,28 @@
 									*/
 									firstarg,
 									i,
-									options = {};
+									options = {},
+									instanceWidgetName = definition.name;
 
+								/*
+								 * NOTE:
+								 * The loop below contains some fixes/hacks for TizenSlider, Listview with FastScroll and AutoDividers
+								 * and also Popup, please be aware while refactoring.
+								 */
 								for (i = 0; i < this.length; i++) {
 									element = this.get(i);
-									instance = engine.getBinding(element, definition.name);
+									switch(name){
+										// FastScroll has not real instance defined because it's build as an extension
+										case "fastscroll":
+											instance = engine.getBinding(element, "Listview");
+											break;
+										case "slider":
+											instance = engine.getBinding(element, "Slider") || engine.getBinding(element, "TizenSlider");
+											break;
+										default:
+											instance = engine.getBinding(element, instanceWidgetName);
+									}
+
 									built = instance && instance.isBuilt();
 									firstarg = args.shift();
 									if (firstarg === undefined || typeof firstarg === 'object') {
