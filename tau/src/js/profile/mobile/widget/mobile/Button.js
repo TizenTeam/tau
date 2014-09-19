@@ -596,7 +596,7 @@
 					element.setAttribute("title", element.textContent);
 				}
 				if (!buttonText.innerHTML.length && elementTagName !== "label") {
-					self._setValue(element, options.icon.replace("naviframe-", ""));
+					self._setValue(options.icon.replace("naviframe-", ""));
 				}
 			};
 
@@ -864,6 +864,7 @@
 					element.appendChild(buttonInner);
 				}
 
+				ui.container = container;
 				ui.inner = buttonInner;
 
 				self._setHasText(element);
@@ -979,7 +980,7 @@
 			 * @member ns.widget.mobile.Button
 			 */
 			prototype._getValue = function () {
-				return this.ui.buttonText.innerText;
+				return this.ui.buttonText.textContent;
 			};
 
 			/**
@@ -990,15 +991,17 @@
 			 * @protected
 			 * @member ns.widget.mobile.Button
 			 */
-			prototype._setValue = function (element, value) {
-				var elementTagName;
-				element = element || this.element;
+			prototype._setValue = function (value) {
+				var elementTagName,
+					ui = this.ui,
+					element = this.element || ui.container;
+
 				elementTagName = element.tagName.toLowerCase();
 
-				this.ui.buttonText.innerText = value;
+				ui.buttonText.textContent = value;
 
 				if (elementTagName === "button" || elementTagName === "input") {
-					element.innerText = value;
+					element.textContent = value;
 					element.value = value;
 				}
 			};
