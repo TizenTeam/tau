@@ -143,6 +143,7 @@
 					this._ui = {};
 					// @TODO recheck other properties for potential issues
 					// like this._ui
+					this._popup = null;
 				},
 				sliderBuild,
 				sliderInit,
@@ -280,26 +281,19 @@
 			 */
 			TizenSlider.prototype._updateSlider = function () {
 				var self = this,
-					font_size,
-					font_length,
-					font_top,
-					popup_width,
 					newValue,
 					options = self.options,
 					element = self.element,
-					handleTextStyle = self.handleText.style,
-					popupElement,
-					popupStyle;
+					popupElement;
 
 				// As the options.popup could change
 				// it may be required to create popup
 				if (self.options.popup){
-					if (!self.popup) {
-						self.popup = self._createPopup(self._ui.container);
+					if (!self._popup) {
+						self._popup = self._createPopup(self._ui.container);
 					}
 
-					popupElement = self.popup.element;
-					popupStyle = popupElement.style;
+					popupElement = self._popup.element;
 				}
 
 				self.handle.removeAttribute("title");
@@ -320,8 +314,8 @@
 				} else {
 					// If text doesn't change reposition only popup
 					// no need to run full refresh
-					if (self.popup) {
-						self.popup.refresh();
+					if (self._popup) {
+						self._popup.refresh();
 					}
 				}
 			};
@@ -336,7 +330,7 @@
 				var self = this;
 
 				if (self.options.popup && !self.popupVisible) {
-					self.popup.open();
+					self._popup.open();
 					self.popupVisible = true;
 				}
 			};
@@ -351,7 +345,7 @@
 				var self = this;
 
 				if (self.options.popup && self.popupVisible) {
-					self.popup.close();
+					self._popup.close();
 					self.popupVisible = false;
 				}
 			};
@@ -433,7 +427,7 @@
 
 				// Create popup for element
 				if (options.popup) {
-					self.popup = self._createPopup(sliderContainer);
+					self._popup = self._createPopup(sliderContainer);
 				}
 
 				if (options.center) {
@@ -634,7 +628,7 @@
 			 */
 			TizenSlider.prototype._refresh = function () {
 				var self = this,
-					popup = self.popup;
+					popup = self._popup;
 				// Call parent refresh method with all passed arguments
 				slider_refresh.apply(self, arguments);
 				if (popup && self.popupVisible) {

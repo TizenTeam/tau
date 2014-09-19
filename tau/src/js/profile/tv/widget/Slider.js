@@ -78,23 +78,27 @@
 				showPopup(self);
 			}
 
+			prototype._build = function(element) {
+				var pageElement = selectors.getClosestByClass(element, "ui-page");
+				this._pageWidget = engine.getBinding(pageElement, "page");
+
+				return BaseSliderPrototype._build.call(this, element);
+			};
+
 			prototype._init = function(element) {
 				var pageElement = selectors.getClosestByClass(element, "ui-page");
 
-				if (typeof BaseSliderPrototype._init === FUNCTION_TYPE) {
-					BaseSliderPrototype._init.call(this, element);
-				}
+				BaseSliderPrototype._init.call(this, element);
+
 				this.enableKeyboardSupport();
-				this._pageWidget = ns.engine.getBinding(pageElement);
+				this._pageWidget = this._pageWidget || engine.getBinding(pageElement, "page");
 			};
 
 			prototype._bindEvents = function(element) {
 				var container = this._ui.container,
 					callbacks = this._callbacks;
 
-				if (typeof BaseSliderPrototype._bindEvents === FUNCTION_TYPE) {
-					BaseSliderPrototype._bindEvents.call(this, element);
-				}
+				BaseSliderPrototype._bindEvents.call(this, element);
 
 				callbacks.onKeyup = onKeyup.bind(null, this);
 				callbacks.onKeydown = onKeydown.bind(null, this);
@@ -105,6 +109,86 @@
 				container.addEventListener("keyup", callbacks.onKeyup, false);
 				container.addEventListener("keydown", callbacks.onKeydown, true);
 				this.handle.addEventListener("focus", callbacks.onFocus, true);
+			};
+
+			/**
+			 * Creates popup element and appends it container passed as argument
+			 * @method _createPopup
+			 * @param {HTMLElement} container
+			 * @return {ns.widget.Popup} reference to new widget instance
+			 * @protected
+			 * TODO: use TizenSlider when Core Popup is used in mobile profile
+			 */
+			prototype._createPopup = function (container) {
+				var classes = Slider.classes,
+					pageElement,
+					popup,
+					popupInstance;
+
+				// Create element and append it to slider
+				popup = document.createElement("div");
+				pageElement = (this._pageWidget && this._pageWidget.element) || document.body;
+				pageElement.appendChild(popup);
+				// Create widget instance out of popup element
+				popupInstance = engine.instanceWidget(popup, "Popup", {
+					positionTo: "#" + this.handle.id, // positioned to slider's element
+					transition: "none",
+					overlay: false,
+					arrow: "b,t",
+					distance: 10,
+					specialContainerClass: classes.uiSliderPopupContainer
+				});
+				popup.classList.add(classes.uiSliderPopup);
+
+				return popupInstance;
+			};
+
+			/**
+			 * Updates popup state
+			 * @method _updateSlider
+			 * @protected
+			 * TODO: use TizenSlider when Core Popup is used in mobile profile
+			 */
+			prototype._updateSlider = function () {
+				var self = this,
+					newValue,
+					options = self.options,
+					element = self.element,
+					popupElement;
+
+				// As the options.popup could change
+				// it may be required to create popup
+				if (self.options.popup){
+					if (!self._popup) {
+						self._popup = self._createPopup(self._ui.container);
+					}
+
+					popupElement = self._popup.element;
+				}
+
+				self.handle.removeAttribute("title");
+
+				newValue = parseInt(element.value, 10);
+
+				if (newValue !== self.currentValue) {
+					self.currentValue = newValue;
+
+					// Set same value for popup element if it exists
+					if (popupElement) {
+						// @CHANGED now popup has wrapper and arrow, and value is set in container
+						self._popup._ui.container.innerHTML = newValue;
+					}
+
+					self._refresh();
+
+					self.trigger("update", newValue);
+				} else {
+					// If text doesn't change reposition only popup
+					// no need to run full refresh
+					if (self._popup) {
+						self._popup.reposition();
+					}
+				}
 			};
 
 			prototype._destroy = function() {

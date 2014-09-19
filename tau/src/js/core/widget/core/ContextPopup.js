@@ -450,7 +450,7 @@
 					element = self.element,
 					elementClassList = element.classList;
 
-				options = objectUtils.copy(options);
+				options = objectUtils.merge({}, self.options, options);
 
 				self.trigger(events.before_position, null, false);
 
@@ -792,9 +792,8 @@
 			 * @member ns.widget.core.ContextPopup
 			 */
 			prototype._show = function(options) {
-				var openOptions = objectUtils.merge({}, options);
-				this._reposition(openOptions);
-				PopupPrototype._show.call(this, openOptions);
+				this._reposition(options);
+				PopupPrototype._show.call(this, options);
 			};
 
 			/**
