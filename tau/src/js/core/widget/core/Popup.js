@@ -716,6 +716,18 @@
 			Popup.prototype = prototype;
 
 			ns.widget.core.Popup = Popup;
+
+			engine.defineWidget(
+				"Popup",
+				"[data-role='popup'], .ui-popup",
+				[
+					"open",
+					"close",
+					"reposition"
+				],
+				Popup,
+				"core"
+			);
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return Popup;
 		}

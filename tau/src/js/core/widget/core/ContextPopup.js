@@ -836,7 +836,8 @@
 					"reposition"
 				],
 				ContextPopup,
-				"core"
+				"core",
+				true
 			);
 
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
