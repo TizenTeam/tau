@@ -209,7 +209,9 @@
 
 				router.lastClickedLink = null;
 				if (link) {
-					useDefaultUrlHandling = (link.getAttribute("rel") === "external") || link.hasAttribute("target");
+					useDefaultUrlHandling = (link.getAttribute("rel") === "external")
+									|| link.hasAttribute("target")
+									|| (linkHref ? linkHref.search(/^https?\:\/\//g) !== -1 : false);
 					if (!useDefaultUrlHandling) {
 						event.preventDefault();
 						options.transition = DOM.getNSData(link, "transition");
