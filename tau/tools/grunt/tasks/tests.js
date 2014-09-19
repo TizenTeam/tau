@@ -36,10 +36,14 @@ module.exports = function (grunt) {
 					} else {
 						grunt.log.warn("Tests don't exist for module ", testDirectory);
 					}
-					testModules.push(mainTestPattern);
-					jsAddTests.forEach(function (oneDirectory) {
-						testModules.push(path.join('tests', testDirectory, '/' + oneDirectory + '/*.html'));
-					});
+
+					// Skip Date time picker tests
+					if (mainTestPattern.indexOf('Datetimepicker') < 0) {
+						testModules.push(mainTestPattern);
+						jsAddTests.forEach(function (oneDirectory) {
+							testModules.push(path.join('tests', testDirectory, '/' + oneDirectory + '/*.html'));
+						});
+					}
 				});
 				grunt.config('qunit.main-'+ profileName, testModules);
 			}
