@@ -216,7 +216,6 @@
 				setPaddingTop: function(paddingTop) {
 					var height = this.element.clientHeight,
 						oldPaddingTop = this.element.style.paddingTop,
-						oldPaddingBottom = this.element.style.paddingBottom,
 						containerHeight = this.container.clientHeight;
 
 					if(oldPaddingTop === "") {
@@ -224,15 +223,10 @@
 					} else {
 						oldPaddingTop = parseInt(oldPaddingTop, 10);
 					}
-					if(oldPaddingBottom === "") {
-						oldPaddingBottom = 0;
-					} else {
-						oldPaddingBottom = parseInt(oldPaddingBottom, 10);
-					}
 
-					height = height - oldPaddingTop - oldPaddingBottom;
+					height = height - oldPaddingTop;
 
-					if(paddingTop + height > containerHeight) {
+					if(height > containerHeight) {
 						paddingTop -= (paddingTop + height - containerHeight);
 					}
 					this.element.style.paddingTop = paddingTop + "px";
