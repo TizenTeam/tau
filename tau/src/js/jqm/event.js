@@ -15,7 +15,6 @@
 			"../core/event",
 			"../core/event/vmouse",
 			"../core/event/orientationchange",
-			"../core/event/pinch",
 			"../core/event/touch"
 		],
 		function () {
@@ -165,7 +164,6 @@
 						}
 
 						$.mobile = $.mobile || {};
-						$.mobile.pinch = eventUtils.pinch || {};
 						$.mobile.tizen = $.mobile.tizen || {};
 						$.mobile.tizen.documentRelativeCoordsFromEvent = null;
 						$.mobile.tizen.targetRelativeCoordsFromEvent = null;
