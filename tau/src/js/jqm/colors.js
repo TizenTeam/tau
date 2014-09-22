@@ -1,5 +1,9 @@
 /*global window, define */
 /*jslint plusplus: true, nomen: true */
+/* 
+ * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
+ * License : MIT License V2
+ */
 /**
  * #jQuery Mobile mapping colors
  * Object maps color support object from TAU namespace to

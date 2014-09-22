@@ -1,5 +1,9 @@
 /*global window, define */
 /*jslint nomen: true, plusplus: true */
+/* 
+ * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
+ * License : MIT License V2
+ */
 /**
  * #Easing Utility
  * Utility calculates time function for animations.

@@ -1,4 +1,8 @@
 /*global window, define, XMLHttpRequest */
+/* 
+ * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
+ * License : MIT License V2
+ */
 /**
  * #Load Utility
  * Object contains function to load external resources.

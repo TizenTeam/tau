@@ -1,4 +1,7 @@
 /*global window, define */
+/* Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
+* License : MIT License V2
+*/
 /**
  * #Touch events
  * Reimplementation of jQuery Mobile virtual mouse events.

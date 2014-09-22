@@ -1,4 +1,7 @@
 /*global window, define, ns */
+/* Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
+* License : MIT License V2
+*/
 /**
  * #Animation namespace
  * Namespace for animation utilities

@@ -1,5 +1,9 @@
 /*global window, define, Math, ns*/
 /*jslint bitwise: true */
+/* 
+ * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
+ * License : MIT License V2
+ */
 /**
  * #Theme object
  * Class with functions to set theme of application.

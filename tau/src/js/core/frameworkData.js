@@ -1,5 +1,9 @@
 /*global window, define, ns*/
 /*jslint bitwise: true */
+/* 
+ * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
+ * License : MIT License V2
+ */
 /**
  * #Framework Data Object
  * Object contains properties describing run time environment.

@@ -1,4 +1,8 @@
 /*global window, define */
+/* 
+ * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
+ * License : MIT License V2
+ */
 /**
  * #jQuery Mobile mapping namespace
  * Object maps all methods enabling jQuery Mobile API.

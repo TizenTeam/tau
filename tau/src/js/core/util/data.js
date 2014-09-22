@@ -1,4 +1,8 @@
 /*global window, define, Object, Element */
+/* 
+ * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
+ * License : MIT License V2
+ */
 /**
  * #Data Attributes Utility
  * Object menages data attributes

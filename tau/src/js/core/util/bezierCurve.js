@@ -1,4 +1,8 @@
 /*global window: false, define: false, Math: false */
+/* 
+ * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
+ * License : MIT License V2
+ */
 /**
  * #Bezier Curves Utility
  * Class supports calculating Bezier Curves.

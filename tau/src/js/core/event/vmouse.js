@@ -1,6 +1,8 @@
 /*global CustomEvent, define, window, ns */
 /*jslint plusplus: true, nomen: true, bitwise: true */
-
+/* Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
+* License : MIT License V2
+*/
 /**
  * #Virtual Mouse Events
  * Reimplementation of jQuery Mobile virtual mouse events.

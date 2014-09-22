@@ -1,5 +1,8 @@
 /*global window, define, ns */
 /*jslint nomen: true, plusplus: true */
+/* Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
+* License : MIT License V2
+*/
 /**
  * # Animation
  *
