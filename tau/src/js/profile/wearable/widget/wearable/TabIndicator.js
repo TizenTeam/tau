@@ -60,7 +60,7 @@
 					 * @member ns.widget.wearable.TabIndicator
 					 */
 					this.options = {
-						margin: 2,
+						margin: 4,
 						triggerEvent: false,
 						wrapperClass: "ui-tab-indicator",
 						itemClass: "ui-tab-item",
