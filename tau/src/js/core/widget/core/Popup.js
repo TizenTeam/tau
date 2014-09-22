@@ -18,6 +18,8 @@
 		[
 			"../../engine",
 			"../../util/object",
+			"../../util/deferred",
+			"../../util/selectors",
 			"../BaseWidget",
 			"../core"
 		],
@@ -44,6 +46,20 @@
 				 * @private
 				 */
 				objectUtils = ns.util.object,
+				/**
+				 * Alias for class ns.util.deferred
+				 * @property {Object} UtilDeferred
+				 * @member ns.widget.core.Popup
+				 * @private
+				 */
+				UtilDeferred = ns.util.deferred,
+				/**
+				 * Alias for class ns.util.selectors
+				 * @property {Object} utilSelector
+				 * @member ns.widget.core.Popup
+				 * @private
+				 */
+				utilSelector = ns.util.selectors,
 
 				Popup = function () {
 					var self = this,
@@ -65,6 +81,9 @@
 					ui.content = null;
 					ui.container = null;
 					self._ui = ui;
+
+					// event callbacks
+					self._callbacks = {};
 				},
 				/**
 				 * Object with default options
@@ -383,6 +402,8 @@
 				ui.footer = ui.footer || element.querySelector(selectors.footer);
 				ui.content = ui.content || element.querySelector(selectors.content);
 				ui.container = element;
+				// @todo - use selector from page's definition in engine
+				ui.page = utilSelector.getClosestByClass(element, "ui-page") || window;
 			};
 
 			/**
@@ -418,7 +439,7 @@
 					route.setActive(null, options);
 					// remove proper class
 					elementClassList.remove(activeClass);
-					// set state of popup 	365
+					// set state of popup
 					self.state = states.CLOSED;
 				}
 			};
@@ -432,7 +453,8 @@
 			 */
 			prototype._bindEvents = function (element) {
 				var self = this;
-				window.addEventListener("pagebeforehide", self, false);
+
+				self._ui.page.addEventListener("pagebeforehide", self, false);
 				window.addEventListener("resize", self, false);
 				self._bindOverlayEvents();
 			};
@@ -472,7 +494,7 @@
 			 */
 			prototype._unbindEvents = function (element) {
 				var self = this;
-				window.removeEventListener("pagebeforehide", self, false);
+				self._ui.page.removeEventListener("pagebeforehide", self, false);
 				window.removeEventListener("resize", self, false);
 				self._unbindOverlayEvents();
 			};
@@ -491,7 +513,6 @@
 					if (!newOptions.dismissible) {
 						engine.getRouter().lock();
 					}
-					self.state = states.DURING_OPENING;
 					self._show(newOptions);
 				}
 			};
@@ -506,11 +527,11 @@
 			prototype.close = function (options) {
 				var self = this,
 					newOptions = objectUtils.merge(self.options, options);
+
 				if (self._isActive()) {
 					if (!newOptions.dismissible) {
 						engine.getRouter().unlock();
 					}
-					self.state = states.DURING_CLOSING;
 					self._hide(newOptions);
 				}
 			};
@@ -524,11 +545,16 @@
 			 */
 			prototype._show = function (options) {
 				var self = this,
-					transitionOptions = objectUtils.merge({}, options);
+					transitionOptions = objectUtils.merge({}, options),
+					deferred;
 
+				// change state of popup
+				self.state = states.DURING_OPENING;
+				// set transiton
 				transitionOptions.ext = " in ";
 
 				self.trigger(events.before_show);
+				// start opening animation
 				self._transition(transitionOptions, self._onShow.bind(self));
 			};
 
@@ -556,12 +582,26 @@
 			 * @member ns.widget.core.Popup
 			 */
 			prototype._hide = function (options) {
-				var self = this;
+				var self = this,
+					isOpened = self._isOpened();
 
-				options.ext = " out ";
+				// change state of popup
+				self.state = states.DURING_CLOSING;
 
 				self.trigger(events.before_hide);
-				self._transition(options, self._onHide.bind(self));
+
+				if (isOpened) {
+					// popup is opened, so we start closing animation
+					options.ext = " out ";
+					self._transition(options, self._onHide.bind(self));
+				} else {
+					// popup is active, but not opened yet (DURING_OPENING), so
+					// we stop opening animation
+					self._callbacks.transitionDeferred.reject();
+					self._callbacks.animationEnd();
+					// and set popup as inactive
+					self._onHide();
+				}
 			};
 
 			/**
@@ -646,6 +686,44 @@
 				}
 			};
 
+			function clearAnimation(self, transitionClass, deferred) {
+				var element = self.element,
+					elementClassList = element.classList,
+					overlay = self._ui.overlay,
+					animationEndCallback = self._callbacks.animationEnd;
+
+				// remove callbacks on animation events
+				element.removeEventListener("animationend", animationEndCallback, false);
+				element.removeEventListener("webkitAnimationEnd", animationEndCallback, false);
+
+				// clear classes
+				transitionClass.split(" ").forEach(function (currentClass) {
+					currentClass = currentClass.trim();
+					if (currentClass.length > 0) {
+						elementClassList.remove(currentClass);
+						if (overlay) {
+							overlay.classList.remove(currentClass);
+						}
+					}
+				});
+				if (deferred.state() === "pending") {
+					// we resolve only pending (not rejected) deferred
+					deferred.resolve();
+				}
+			}
+
+			function setTransitionDeferred(self, resolve) {
+				var deferred = new UtilDeferred();
+
+				deferred.then(function() {
+					if (deferred === self._callbacks.transitionDeferred) {
+						resolve();
+					}
+				});
+
+				self._callbacks.transitionDeferred = deferred;
+				return deferred;
+			}
 			/**
 			 * Animate popup opening/closing
 			 * @method _transition
@@ -663,27 +741,20 @@
 					element = self.element,
 					overlay = self._ui.overlay,
 					elementClassList = element.classList,
-					deferred = {
-						resolve: resolve
-					},
-					animationEnd = function () {
-						element.removeEventListener("animationend", animationEnd, false);
-						element.removeEventListener("webkitAnimationEnd", animationEnd, false);
-						transitionClass.split(" ").forEach(function (currentClass) {
-							currentClass = currentClass.trim();
-							if (currentClass.length > 0) {
-								elementClassList.remove(currentClass);
-								if (overlay) {
-									overlay.classList.remove(currentClass);
-								}
-							}
-						});
-						deferred.resolve();
-					};
+					deferred,
+					animationEndCallback;
+
+				deferred = setTransitionDeferred(self, resolve);
 
 				if (transition !== "none") {
-					element.addEventListener("animationend", animationEnd, false);
-					element.addEventListener("webkitAnimationEnd", animationEnd, false);
+					// set animationEnd callback
+					animationEndCallback = clearAnimation.bind(null, self, transitionClass, deferred);
+					self._callbacks.animationEnd = animationEndCallback;
+
+					// add animation callbacks
+					element.addEventListener("animationend", animationEndCallback, false);
+					element.addEventListener("webkitAnimationEnd", animationEndCallback, false);
+					// add transition classes
 					transitionClass.split(" ").forEach(function (currentClass) {
 						currentClass = currentClass.trim();
 						if (currentClass.length > 0) {
