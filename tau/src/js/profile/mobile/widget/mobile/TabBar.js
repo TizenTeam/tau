@@ -192,6 +192,10 @@
 				TabBar = function () {
 					this.vclickCallback = null;
 					this._ui = {};
+					this.options = {
+						active: 0,
+						autoChange: true
+					};
 				},
 				/**
 				 * Object with class dictionary
@@ -258,25 +262,7 @@
 				});
 			}
 
-			/**
-			 * @method vclickEvent
-			 * @param {ns.widget.mobile.TabBar} self
-			 * @member ns.widget.mobile.TabBar
-			 * @static
-			 * @private
-			 */
-			function vclickEvent(self) {
-				/*
-					$tabbar.delegate( "a", "vclick", function ( event ) {
-						if ( $tabbtns.parents( "ul" ).is( ".tabbar-scroll-ul" ) ) {
-							$tabbtns.removeClass( "ui-tabbar-active" );
-							$( event.target ).parents( "a" ).addClass( "ui-tabbar-active" );
-						} else {
-							$tabbtns.not( ".ui-state-persist" ).removeClass( $.mobile.activeBtnClass );
-							$( this ).addClass( $.mobile.activeBtnClass );
-						}
-					});
-				*/
+			function setActive(self, index) {
 				var element = self.element,
 					uls = element.getElementsByTagName("ul"),
 					ul = uls[0],
@@ -287,7 +273,7 @@
 					buttonClasses,
 					btnActiveClass = ButtonClasses.uiBtnActive,
 					classes = TabBar.classes,
-					activatedButton = selectors.getClosestByTag(event.target, "a");
+					activatedButton = buttons.length > index ? buttons[index] : null;
 
 				while (!hasClass && ul) {
 					if (ul.classList.contains(classes.tabbarScrollUl)) {
@@ -306,6 +292,7 @@
 					*/
 					if (activatedButton) {
 						activatedButton.classList.add(classes.uiTabbarActive);
+						self.options.active = index;
 					}
 				} else {
 					for (i = 0, max = buttons.length; i < max; i++) {
@@ -320,7 +307,35 @@
 					*/
 					if (activatedButton) {
 						activatedButton.classList.add(btnActiveClass);
+						self.options.active = index;
 					}
+				}
+			}
+
+			/**
+			 * @method vclickEvent
+			 * @param {ns.widget.mobile.TabBar} self
+			 * @member ns.widget.mobile.TabBar
+			 * @static
+			 * @private
+			 */
+			function vclickEvent(self) {
+				var element = self.element,
+					buttons = element.getElementsByTagName("a"),
+					i = 0,
+					max,
+					activatedButton = selectors.getClosestByTag(event.target, "a"),
+					active = 0;
+
+				for (i = 0, max = buttons.length; i < max; i++) {
+					if (activatedButton === buttons[i]) {
+						active = i;
+						break;
+					}
+				}
+
+				if (self.options.autoChange) {
+					setActive(self, active);
 				}
 			}
 
@@ -481,12 +496,16 @@
 			 * @protected
 			 */
 			TabBar.prototype._init = function (element) {
-				var tabbarClassList = element.classList,
+				var self = this,
+					tabbarClassList = element.classList,
 					li = slice.call(element.getElementsByTagName("li")),
 					innerWidth = window.innerWidth,
 					innerHeight = window.innerHeight,
 					inHeaders = !!(selectors.getParentsByClass(element, classes.uiHeader).length),
-					isLandscape = innerWidth > innerHeight;
+					isLandscape = innerWidth > innerHeight,
+					btnActiveClass = ButtonClasses.uiBtnActive,
+					uiTabbarActive = classes.uiTabbarActive,
+					links = slice.call(element.getElementsByTagName('a'));
 
 				if (li.length > 4) {
 					// tabbar elements should be showed maximum forth elements.
@@ -502,6 +521,14 @@
 					tabbarClassList.remove(classes.uiLandscapeTabbar);
 					tabbarClassList.add(classes.uiPortraitTabbar);
 				}
+
+				[].forEach.call(links, function(element, index) {
+					if (element.classList.contains(btnActiveClass) || element.classList.contains(uiTabbarActive)) {
+						self.options.active = index;
+					}
+				});
+
+				setActive(self, self.options.active);
 			};
 
 			/**
@@ -674,12 +701,15 @@
 			};
 
 			/**
-			 * Refresh method is not supported in this widget.
+			 * Refresh Tabbar widget.
 			 *
 			 * @method refresh
 			 * @chainable
 			 * @member ns.widget.mobile.TabBar
 			 */
+			TabBar.prototype._refresh = function () {
+				setActive(this, this.options.active);
+			}
 
 			/**
 			 * Value method is not supported in this widget.
