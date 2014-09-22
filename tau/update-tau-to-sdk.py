@@ -67,9 +67,9 @@ jobs = {
 		webuifw,
 		sdkWearable,
 		[
-			SrcDest("tau/demos/TemplateBasic", "samples/web/Template/Tizen/Wearable\ UI/Basic/project"),
-			SrcDest("tau/demos/TemplateList", "samples/web/Template/Tizen/Wearable\ UI/List/project"),
-			SrcDest("tau/demos/WearableWidgetSample", "samples/web/Sample/Tizen/Web\ App/WearableWidgets/project"),
+			SrcDest("tau/demos/SDK/TemplateBasic", "samples/web/Template/Tizen/Wearable\ UI/Basic/project"),
+			SrcDest("tau/demos/SDK/TemplateList", "samples/web/Template/Tizen/Wearable\ UI/List/project"),
+			SrcDest("tau/demos/SDK/WearableWidgetSample", "samples/web/Sample/Tizen/Web\ App/WearableWidgets/project"),
 			SrcDest("tau/dist/wearable", "samples/web/Template/Tizen/Wearable\ UI/Basic/project/lib/tau/wearable"),
 			SrcDest("tau/dist/wearable", "samples/web/Template/Tizen/Wearable\ UI/List/project/lib/tau/wearable"),
 			SrcDest("tau/dist/wearable", "samples/web/Sample/Tizen/Web\ App/WearableWidgets/project/lib/tau/wearable")
@@ -90,9 +90,9 @@ jobs = {
 		webuifw,
 		sdkTizenWearable,
 		[
-			SrcDest("tau/demos/TemplateBasic", "addons/TAU/samples/web/Template/Tizen/Wearable\ UI/Basic/project"),
-			SrcDest("tau/demos/TemplateList", "addons/TAU/samples/web/Template/Tizen/Wearable\ UI/List/project"),
-			SrcDest("tau/demos/WearableWidgetSample", "addons/TAU/samples/web/Sample/Tizen/Web\ App/WearableWidgets/project"),
+			SrcDest("tau/demos/SDK/TemplateBasic", "addons/TAU/samples/web/Template/Tizen/Wearable\ UI/Basic/project"),
+			SrcDest("tau/demos/SDK/TemplateList", "addons/TAU/samples/web/Template/Tizen/Wearable\ UI/List/project"),
+			SrcDest("tau/demos/SDK/WearableWidgetSample", "addons/TAU/samples/web/Sample/Tizen/Web\ App/WearableWidgets/project"),
 			SrcDest("tau/dist/wearable", "addons/TAU/samples/web/Template/Tizen/Wearable\ UI/Basic/project/lib/tau/wearable"),
 			SrcDest("tau/dist/wearable", "addons/TAU/samples/web/Template/Tizen/Wearable\ UI/List/project/lib/tau/wearable"),
 			SrcDest("tau/dist/wearable", "addons/TAU/samples/web/Sample/Tizen/Web\ App/WearableWidgets/project/lib/tau/wearable")
@@ -111,12 +111,16 @@ jobs = {
 		webuifw,
 		sdkTizenMobile,
 		[
-			SrcDest("tau/demos/MobileWinset", "addons/TAU/samples/web/Sample/Tizen/Web\ App/TizenWinset/project"),
+			SrcDest("tau/demos/SDK/MobileWinset", "addons/TAU/samples/web/Sample/Tizen/Web\ App/TizenWinset/project"),
 			SrcDest("tau/dist/mobile", "addons/TAU/samples/web/Sample/Tizen/Web\ App/TizenWinset/project/lib/tau/mobile"),
 			SrcDest("tau/dist/mobile", "addons/TAU/samples/web/Template/Tizen/Tizen\ Web\ UI\ Framework/Tizen_Web_UI_FW_MasterDetail/project/lib/tau/mobile"),
+			SrcDest("tau/demos/SDK/Tizen_Web_UI_FW_MasterDetail", "addons/TAU/samples/web/Template/Tizen/Tizen\ Web\ UI\ Framework/Tizen_Web_UI_FW_MasterDetail/project"),
 			SrcDest("tau/dist/mobile", "addons/TAU/samples/web/Template/Tizen/Tizen\ Web\ UI\ Framework/Tizen_Web_UI_FW_MultiPage/project/lib/tau/mobile"),
+			SrcDest("tau/demos/SDK/Tizen_Web_UI_FW_MultiPage", "addons/TAU/samples/web/Template/Tizen/Tizen\ Web\ UI\ Framework/Tizen_Web_UI_FW_MultiPage/project"),
 			SrcDest("tau/dist/mobile", "addons/TAU/samples/web/Template/Tizen/Tizen\ Web\ UI\ Framework/Tizen_Web_UI_FW_NavigationView/project/lib/tau/mobile"),
+			SrcDest("tau/demos/SDK/Tizen_Web_UI_FW_NavigationView", "addons/TAU/samples/web/Template/Tizen/Tizen\ Web\ UI\ Framework/Tizen_Web_UI_FW_NavigationView/project"),
 			SrcDest("tau/dist/mobile", "addons/TAU/samples/web/Template/Tizen/Tizen\ Web\ UI\ Framework/Tizen_Web_UI_FW_SinglePage/project/lib/tau/mobile"),
+			SrcDest("tau/demos/SDK/Tizen_Web_UI_FW_SinglePage", "addons/TAU/samples/web/Template/Tizen/Tizen\ Web\ UI\ Framework/Tizen_Web_UI_FW_SinglePage/project"),
 		], ["cd web-ui-fw/tau", "grunt build"],
 		[
 			"addons/TAU/samples/web/Sample/Tizen/Web\ App/BluetoothChat/project",
