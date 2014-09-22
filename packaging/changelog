@@ -1,4 +1,7 @@
 %changelog
+* Mon Sep 22 2014 Heeju Joo <heeju.joo@samsung.com> 0.9.23
+	- Sample : delete unneccesary meta tags
+
 * Mon Sep 22 2014 Heeju Joo <heeju.joo@samsung.com> 0.9.22
 	- [Wearable] adjust interval of tab indicator .
 	- Wearable: modify IndexScrollBar 2nd depth position issue(GSDK_SE-2890)
