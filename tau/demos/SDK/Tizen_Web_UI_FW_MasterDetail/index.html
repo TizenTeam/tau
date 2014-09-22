@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=9; IE=8" >
+
+	<script src="./lib/jquery.js"></script>
+	<script type="text/javascript" src="./lib/tau/mobile/js/tau.js" data-build-remove="false"></script>
+	<link rel="stylesheet"  href="./lib/tau/mobile/theme/default/tau.css">
+
+	<script src="./js/main.js"></script>
+
+	<title>Tizen Web IDE - Template - Tizen - Tizen Web UI Framework - Master-Detail</title>
+	<link rel="stylesheet" type="text/css" href="./css/style.css"/>
+</head>
+
+<body>
+    <div data-role="page" id="main">
+        <div data-role="header" data-position="fixed">
+            <h1>Master-detail application</h1>
+        </div><!-- /header -->
+
+        <div data-role="content">
+            <div >
+                <h2>Introduction</h2>
+                <p>This template is for a master-detail structured application.</p>
+            </div>
+            <div>
+                    <h3>More in this section</h3>
+                    <ul data-role="listview">
+                        <li data-role="list-divider">Details</li>
+                        <li><a href="index.html">Introduction</a></li>
+                        <li><a href="section1.html">Section 1</a></li>
+                        <li><a href="section2.html">Section 2</a></li>
+                    </ul>
+            </div>
+        </div><!-- /content -->
+	<script>
+		$( "#main" ).on( "pageshow" , function() {
+			//bind callbacks to the H/W keys
+			$( window ).on( "tizenhwkey" , function( e ) {
+				if ( e.originalEvent.keyName == "back"
+						&& window.tizen
+						&& window.tizen.application ) {
+					window.tizen.application.getCurrentApplication().exit();
+					return false;
+				}
+			} );
+		} );
+		$( "#main" ).on( "pagebeforehide" , function() {
+			//unbind callbacks to the H/W keys
+			$( window ).off( "tizenhwkey" );
+		} );
+	</script>
+    </div><!-- /page -->
+</body>
+</html>
