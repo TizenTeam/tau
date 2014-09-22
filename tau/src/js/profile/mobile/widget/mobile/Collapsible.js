@@ -200,7 +200,33 @@
 					// because they may be overriden with collapsible-set options
 
 					this._eventHandlers = {};
+				},
+				/**
+				 * Dictionary object containing commonly used wiget classes
+				 * @property {Object} classes
+				 * @readonly
+				 * @static
+				 * @member ns.widget.mobile.Collapsible
+				 */
+				classes = {
+					uiCollapsible: "ui-collapsible",
+					uiCollapsibleContent: "ui-collapsible-content",
+					uiCollapsibleContentCollapsed: "ui-collapsible-content-collapsed",
+					uiCollapsibleCollapsed: "ui-collapsible-collapsed",
+					uiCollapsibleInset: "ui-collapsible-inset",
+					uiCollapsibleHeading: "ui-collapsible-heading",
+					uiCollapsibleHeadingCollapsed: "ui-collapsible-heading-collapsed",
+					uiCollapsibleHeadingStatus: "ui-collapsible-heading-status",
+					uiCollapsibleHeadingToggle: "ui-collapsible-heading-toggle",
+					uiCornerTop: "ui-corner-top",
+					uiCornerBottom: "ui-corner-bottom",
+					uiIcon: "ui-icon",
+					// Prefixes
+					uiBodyPrefix: "ui-body-",
+					uiIconPrefix: "ui-icon-",
+					uiDisabled: "ui-disabled"
 				};
+
 
 			Collapsible.prototype = new BaseWidget();
 
@@ -222,30 +248,7 @@
 				iconpos: "right"
 			};
 
-			/**
-			 * Dictionary object containing commonly used wiget classes
-			 * @property {Object} classes
-			 * @readonly
-			 * @static
-			 * @member ns.widget.mobile.Collapsible
-			 */
-			Collapsible.classes = {
-				uiCollapsible: "ui-collapsible",
-				uiCollapsibleContent: "ui-collapsible-content",
-				uiCollapsibleContentCollapsed: "ui-collapsible-content-collapsed",
-				uiCollapsibleCollapsed: "ui-collapsible-collapsed",
-				uiCollapsibleInset: "ui-collapsible-inset",
-				uiCollapsibleHeading: "ui-collapsible-heading",
-				uiCollapsibleHeadingCollapsed: "ui-collapsible-heading-collapsed",
-				uiCollapsibleHeadingStatus: "ui-collapsible-heading-status",
-				uiCollapsibleHeadingToggle: "ui-collapsible-heading-toggle",
-				uiCornerTop: "ui-corner-top",
-				uiCornerBottom: "ui-corner-bottom",
-				uiIcon: "ui-icon",
-				// Prefixes
-				uiBodyPrefix: "ui-body-",
-				uiIconPrefix: "ui-icon-"
-			};
+			Collapsible.classes = classes;
 
 			/**
 			 * Build widget structure
@@ -256,8 +259,7 @@
 			 * @member ns.widget.mobile.Collapsible
 			 */
 			Collapsible.prototype._build = function (element) {
-				var classes = Collapsible.classes,
-					defaults = Collapsible.defaultOptions,
+				var defaults = Collapsible.defaultOptions,
 					options = this.options,
 					elementClassList = element.classList,
 					header,
@@ -404,7 +406,6 @@
 			// @private
 			function toggleCollapsibleHandler(element, options, event) {
 				var elementClassList = element.classList,
-					classes = Collapsible.classes,
 					header = selectors.getChildrenByClass(element, classes.uiCollapsibleHeading)[0],
 					headerClassList = header.classList,
 					headerStatus = header.querySelector("." + classes.uiCollapsibleHeadingStatus),
@@ -483,8 +484,7 @@
 			 * @member ns.widget.mobile.Collapsible
 			 */
 			Collapsible.prototype._bindEvents = function (element) {
-				var classes = Collapsible.classes,
-					options = this.options,
+				var options = this.options,
 					eventHandlers = this._eventHandlers,
 					toggleHandler,
 					removeActiveClass,
@@ -609,7 +609,7 @@
 			 */
 			Collapsible.prototype._destroy = function () {
 				var element = this.element,
-					header = selectors.getChildrenByClass(element, Collapsible.classes.uiCollapsibleHeading)[0],
+					header = selectors.getChildrenByClass(element, classes.uiCollapsibleHeading)[0],
 					eventHandlers = this._eventHandlers,
 					toggleHandler = eventHandlers.toggleHandler,
 					removeActiveClassHandler = eventHandlers.removeActiveClass,
