@@ -67,18 +67,21 @@
 	// RUN TEST 2
 	test("ej.widget.micro.VirtualList scrollToIndex method", 6, function () {
 		var scrollview = elList.parentNode,
-			vList = tau.widget.VirtualListview(elList);
+			vList = tau.widget.VirtualListview(elList),
+			height = elList.firstElementChild.offsetHeight,
+			numberOfChild = JSON_DATA.length;
 
 		vList.scrollToIndex(100);
-		ok(scrollview.scrollTop >= 2000, 'scrollTop is set to >= 2000');
+		ok(scrollview.scrollTop >= height * 100, 'scrollTop is set to >= 100 * height');
 		vList.scrollToIndex(500);
-		ok(scrollview.scrollTop >= 10000, 'scrollTop is set to >= 10000');
+		ok(scrollview.scrollTop >= height * 500, 'scrollTop is set to >= 500 * height');
 		vList.scrollToIndex(1000);
-		ok(scrollview.scrollTop >= 20000, 'scrollTop is set to >= 20000');
+		ok(scrollview.scrollTop >= height * 1000, 'scrollTop is set to >= 1000 * height');
 		vList.scrollToIndex(0);
 		ok(scrollview.scrollTop === 0, 'scrollTop is set to 0');
 		vList.scrollToIndex(10000000);
-		ok(scrollview.scrollTop >= 20000, 'scrollTop is set to >= 20000');
+		// because virtual list calculate height approximately we have to add 15% for error correction
+		ok(scrollview.scrollTop <= height * (numberOfChild * 1.15), 'scrollTop is set to <= height * (numberOfChild * 1.15)');
 		vList.scrollToIndex(-200);
 		ok(scrollview.scrollTop === 0, 'scroll to negative index - scrollTop is set to 0');
 	});
@@ -87,15 +90,16 @@
 	test("ej.widget.micro.VirtualList on scroll action", 2, function () {
 		var scrollview = elList.parentNode,
 			li,
-			vList = tau.widget.VirtualListview(elList);
+			vList = tau.widget.VirtualListview(elList),
+			height = elList.firstElementChild.offsetHeight;
 
 		vList.scrollToIndex(0);
 		li = elList.children[1];
 		li.scrollIntoView();
-		ok(scrollview.scrollTop < 50, 'scrollTop is set to < 50');
+		ok(scrollview.scrollTop < 3 * height, 'scrollTop is set to < 50');
 		li = elList.children[elList.children.length/2];
 		li.scrollIntoView();
-		ok(scrollview.scrollTop > 50, 'scrollTop is set to > 50');
+		ok(scrollview.scrollTop > 3 * height, 'scrollTop is set to > 50');
 	});
 
 	// RUN TEST 4
@@ -143,7 +147,9 @@
 	// RUN TEST 5
 	test("ej.widget.micro.VirtualList scrollTo method",  function () {
 		var scrollview = elList.parentNode,
-			vList = tau.widget.VirtualListview(elList);
+			vList = tau.widget.VirtualListview(elList),
+			height = elList.firstElementChild.offsetHeight,
+			numberOfChild = JSON_DATA.length;
 
 		vList.scrollTo(0);
 		ns.event.trigger(scrollview, 'scroll');
@@ -176,7 +182,8 @@
 
 		vList.scrollTo(30000000);
 		ns.event.trigger(scrollview, 'scroll');
-		ok(scrollview.scrollTop > 30000 && scrollview.scrollTop < 20000000, 'scrollTop is set to max');
+		// because virtual list calculate height approximately we have to add 15% for error correction
+		ok(scrollview.scrollTop > height * (numberOfChild * 0.85) && scrollview.scrollTop < height * (numberOfChild * 1.15), 'scrollTop is set to max');
 	});
 
 	// RUN TEST 6
