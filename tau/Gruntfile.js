@@ -42,7 +42,8 @@ module.exports = function(grunt) {
 			"var ns = window."+ rootNamespace +" = {},\n" +
 			"nsConfig = window." + config + " = window." + config + " || {};\n" +
 			"nsConfig.rootNamespace = '" + rootNamespace + "';\n" +
-			"nsConfig.fileName = '" + fileName + "';\n",
+			"nsConfig.fileName = '" + fileName + "';\n" +
+			"ns.version = '" + version + "';\n",
 
 		wrapEnd = "}(window, window.document));\n",
 
