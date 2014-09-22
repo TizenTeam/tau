@@ -4,7 +4,7 @@
 	var engine = ns.engine,
 		BaseWidget = ns.widget.BaseWidget,
 		WidgetPage = (ns.widget.mobile && ns.widget.mobile.Page) || ns.widget.wearable.Page,
-		isWearable = (!ns.widget.mobile),
+		isMobile = !!ns.widget.mobile.Page,
 		testElement;
 
 	function _manualClean(elementId) {
@@ -121,12 +121,12 @@
 		tempBinding = engine.getBinding(testElement, "Test2");
 		ok(tempBinding === null, "'null' should be returned when a HTMLElement (that is bound) does not have a widget binding of a proper type");
 
-		tempBinding = engine.getBinding(testElement, (isWearable && "page") || "Page");
+		tempBinding = engine.getBinding(testElement, (isMobile && "Page") || "page");
 		ok(!!tempBinding, "Widget reference was returned");
 		ok(tempBinding instanceof BaseWidget, "Widget is a instanceof BaseWidget");
 		ok(tempBinding instanceof WidgetPage, "Widget is a instanceof Page");
 
-		tempBinding2 = engine.getBinding("page1", (isWearable && "page") || "Page");
+		tempBinding2 = engine.getBinding("page1", (isMobile && "Page") || "page");
 		ok(tempBinding === tempBinding2, "Passing HTMLElement reference and string ID returns that same object reference");
 	});
 
@@ -142,7 +142,7 @@
 
 		tempBindings = engine.getAllBindings(testElement);
 		equal(typeof tempBindings, "object", "Passing a proper reference gives a object");
-		if (!isWearable) {
+		if (isMobile) {
 			ok(!!tempBindings.Page, "Returned object contains proper widget property");
 			ok(tempBindings.Page instanceof WidgetPage, "Widget property is a proper reference to a widget object");
 
