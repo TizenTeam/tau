@@ -72,7 +72,7 @@ module.exports = function(grunt) {
 							exts.forEach(function( ext ) {
 								src = path.join( buildDir[device].js, name ) + ext;
 								licenseFiles.push({
-									src: [path.join( "license", "Flora" ) + ".txt", src],
+									src: [path.join( "license", "MIT" ) + ".txt", src],
 									dest: src
 								});
 							});
@@ -149,7 +149,7 @@ module.exports = function(grunt) {
 								exts.forEach(function( ext ) {
 									src = path.join( buildDir[device].theme, version, name ) + ext;
 									licenseFiles.push({
-										src: [path.join( "license", "Flora" ) + ".txt", src],
+										src: [path.join( "license", "MIT" ) + ".txt", src],
 										dest: src
 									});
 								});
@@ -393,8 +393,8 @@ module.exports = function(grunt) {
 				},
 
 				license: {
-					src: "LICENSE.Flora",
-					dest: path.join( dist, "LICENSE" ) + ".Flora"
+					src: "LICENSE.MIT",
+					dest: path.join( dist, "LICENSE" ) + ".MIT"
 				},
 
 				"globalize-mobile": {
