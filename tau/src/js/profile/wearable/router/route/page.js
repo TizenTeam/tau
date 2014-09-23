@@ -160,7 +160,9 @@
 					dataUrl = self._createDataUrl(absUrl),
 					initialContent = router.getFirstPage(),
 					pageContainer = router.getContainer(),
-					page;
+					page,
+					selector = "[data-url='" + dataUrl + "']",
+					filterRegexp = /,/gm;
 
 				if (/#/.test(absUrl) && path.isPath(dataUrl)) {
 					return null;
@@ -169,7 +171,9 @@
 				// Check to see if the page already exists in the DOM.
 				// NOTE do _not_ use the :jqmData pseudo selector because parenthesis
 				//      are a valid url char and it breaks on the first occurence
-				page = pageContainer.element.querySelector("[data-url='" + dataUrl + "']" + self.filter);
+				// prepare selector for new page
+				selector += self.filter.replace(filterRegexp, ",[data-url='" + dataUrl + "']");
+				page = pageContainer.element.querySelector(selector);
 
 				// If we failed to find the page, check to see if the url is a
 				// reference to an embedded page. If so, it may have been dynamically
