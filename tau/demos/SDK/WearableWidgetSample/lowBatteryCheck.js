@@ -60,7 +60,7 @@
 
 	function onError(error){
 		console.warn( "An error occurred " + error.message );
-	};
+	}
 
 	systeminfo.init();
 
