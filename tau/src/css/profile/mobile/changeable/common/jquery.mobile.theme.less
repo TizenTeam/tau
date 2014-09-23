@@ -228,7 +228,7 @@
 		width: 100%;
 		.ui-btn-inner {
 			height: 74 * @unit_base;
-			line-height: 49 * @unit_base;
+			line-height: 53 * @unit_base;
 		}
 	}
 	&.ui-footer-btn-1 {
@@ -331,8 +331,13 @@
 	padding: 1 * @unit_base;
 }
 
-.ui-btn.ui-btn-corner-all.ui-btn-box-s .ui-btn-inner {
-	.LESSborder-radius-all( 1.2rem );
+.ui-btn.ui-btn-corner-all.ui-btn-box-s {
+	.ui-btn-inner {
+		.LESSborder-radius-all( 1.2rem );
+	}
+	&.ui-btn-block .ui-btn-inner{
+		top: 6 * @unit_base;
+	}
 }
 
 .ui-header .ui-btn-box-s,
@@ -439,7 +444,7 @@ a.ui-link-inherit {
 			width: 46 * @unit_base;
 			height: 46 * @unit_base;
 			margin-left: 0;
-			top: 10 * @unit_base;
+			top: 6 * @unit_base;
 			left: 50%;
 		}
 	}

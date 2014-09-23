@@ -39,8 +39,8 @@
 	position: relative;
 	zoom: 1;
 	line-height: 38 * @unit_base;
-	padding-top: 9 * @unit_base;
-	padding-bottom: 9 * @unit_base;
+	padding-top: 3.5 * @unit_base;
+	padding-bottom: 3.5 * @unit_base;
 
 	.LESStext-ellipsis();
 }
@@ -104,31 +104,26 @@
 /*hiding native button,inputs */
 .ui-btn-hidden { position: absolute; top: 0; left: 0; width: 100%; height: 100%; -webkit-appearance: button; opacity: .1; cursor: pointer; background: transparent; font-size: 1 * @unit_base; border: none; line-height: 999 * @unit_base; }
 
-.ui-btn-text
-{
+.ui-btn-text {
 	/*padding-left : 80px;*/	//wongi_1017
 	margin-left: auto;
 	margin-right: auto;
 	padding:0 8px; /* Webkit width(ellipsis) problem workaround */
 }
 
-.ui-btn .ui-btn-inner.ui-btn-hastxt span.ui-btn-text
-{
+.ui-btn .ui-btn-inner.ui-btn-hastxt span.ui-btn-text {
 	line-height: 38 * @unit_base;
 }
 
-.ui-li .ui-btn.ui-btn-icon_only
-{
+.ui-li .ui-btn.ui-btn-icon_only {
 	top: 50%;
 	margin-top:  -18.5 * @unit_base;
 }
 
-.ui-li .ui-btn .ui-btn-inner.ui-btn-hastxt
-{
-	padding: 9 * @unit_base 8 * @unit_base;
+.ui-li .ui-btn .ui-btn-inner.ui-btn-hastxt {
+	padding: 3.5 * @unit_base 8 * @unit_base;
 }
-.ui-btn-icon-nobg.ui-btn-down-s .ui-btn-inner
-{
+.ui-btn-icon-nobg.ui-btn-down-s .ui-btn-inner {
 	background: transparent ! important;
 }
 .ui-btn-box-s.ui-btn-up-s,
@@ -190,12 +185,10 @@
 	background : @color_bar_naviframe_press;
 }
 
-.ui-btn-icon-top .ui-btn-inner.ui-btn-hastxt, .ui-li .ui-btn-icon-top .ui-btn-inner.ui-btn-hastxt
-{
+.ui-btn-icon-top .ui-btn-inner.ui-btn-hastxt, .ui-li .ui-btn-icon-top .ui-btn-inner.ui-btn-hastxt {
 	padding-top: 52 * @unit_base;
 }
-.ui-btn-icon-bottom .ui-btn-inner.ui-btn-hastxt, .ui-li .ui-btn-icon-bottom .ui-btn-inner.ui-btn-hastxt
-{
+.ui-btn-icon-bottom .ui-btn-inner.ui-btn-hastxt, .ui-li .ui-btn-icon-bottom .ui-btn-inner.ui-btn-hastxt {
 	padding-bottom: 52 * @unit_base;
 }
 
@@ -205,39 +198,45 @@
 .ui-btn.ui-btn-edit .ui-icon { width: @width_buttonEdit; height: @height_buttonEdit; }
 
 /* Padding for Icon with text */
-.ui-btn .ui-btn-text.ui-btn-text-padding-left { padding-left: 26 * @unit_base; }
-.ui-btn .ui-btn-text.ui-btn-text-padding-right { padding-right: 26 * @unit_base; }
+.ui-btn .ui-btn-text.ui-btn-text-padding-left {
+	padding-left: 56 * @unit_base;
+	padding-right: 30 * @unit_base
+}
+.ui-btn .ui-btn-text.ui-btn-text-padding-right {
+	padding-right: 56 * @unit_base;
+	padding-left: 30 * @unit_base
+}
 .ui-btn .ui-btn-text.ui-btn-text-padding-top {padding-top: 32 * @unit_base;}
-.ui-icon
-{
+.ui-icon {
 	background-repeat: no-repeat;
 	vertical-align: middle;
 	background-position: 0% 0%;
 	background-size: 100%;
 }
-.ui-btn-box.s .ui-icon
-{
+.ui-btn-box.s .ui-icon {
 	position: absolute;
 }
-.ui-btn-box-s.ui-btn-icon-left .ui-icon, .ui-btn-box-s.ui-btn-icon-right .ui-icon
-{
-	margin-top: -11 * @unit_base ;
+.ui-btn-box-s.ui-btn-icon-left .ui-icon {
+	margin-top: -15 * @unit_base ;
 	top: 50%;
+	left: 18 * @unit_base;
 }
-.ui-btn-box-s.ui-btn-icon-top .ui-icon, .ui-btn-box-s.ui-btn-icon-bottom .ui-icon
-{
+.ui-btn-box-s.ui-btn-icon-right .ui-icon {
+	margin-top: -15 * @unit_base ;
+	top: 50%;
+	right: 18 * @unit_base;
+}
+.ui-btn-box-s.ui-btn-icon-top .ui-icon, .ui-btn-box-s.ui-btn-icon-bottom .ui-icon {
 	margin-left: -10 * @unit_base ;
 	left: 50%;
 }
-.tizen-icon-common
-{
+.tizen-icon-common {
 	/* Overlap original property */
-	width: 20 * @unit_base;
-	height: 20 * @unit_base;
+	width: 30 * @unit_base;
+	height: 30 * @unit_base;
 }
 
-.tizen-smallicon-common
-{
+.tizen-smallicon-common {
 	width: 20 * @unit_base ! important;
 	height: 20 * @unit_base ! important;
 	top: 50% ! important;
@@ -254,83 +253,83 @@
 		-webkit-mask-size: 100%;
 	}
 
-.ui-icon-bg, .ui-icon-arrow-l, .ui-icon-arrow-r, .ui-icon-arrow-u, .ui-icon-arrow-d,
-.ui-icon-delete, .ui-icon-plus, .ui-icon-minus, .ui-icon-forward, .ui-icon-alert, .ui-icon-info,
-.ui-icon-call, .ui-icon-rename, .ui-icon-star, .ui-icon-favorite, .ui-icon-search, .ui-icon-scrolltop, .ui-icon-scrollleft,
-.ui-icon-check, .ui-icon-gear, .ui-icon-refresh, .ui-icon-back, .ui-icon-grid, .ui-icon-home,
-{
-	-webkit-mask-size: 100%;
-}
+	.ui-icon-bg, .ui-icon-arrow-l, .ui-icon-arrow-r, .ui-icon-arrow-u, .ui-icon-arrow-d,
+	.ui-icon-delete, .ui-icon-plus, .ui-icon-minus, .ui-icon-forward, .ui-icon-alert, .ui-icon-info,
+	.ui-icon-call, .ui-icon-rename, .ui-icon-star, .ui-icon-favorite, .ui-icon-search, .ui-icon-scrolltop, .ui-icon-scrollleft,
+	.ui-icon-check, .ui-icon-gear, .ui-icon-refresh, .ui-icon-back, .ui-icon-grid, .ui-icon-home,
+	{
+		-webkit-mask-size: 100%;
+	}
 
-.ui-icon-bg {
-	.tizen-icon-common;
-	-webkit-mask-image: url(images/00_circle_button_bg.png);
-	z-index:0;
-}
-.ui-icon-arrow-l {
-	.tizen-icon-common;
-	-webkit-mask-image: url(images/controls/button/00_button_left.png);
-}
-.ui-icon-arrow-r {
-	.tizen-icon-common;
-	-webkit-mask-image: url(images/controls/button/00_button_right.png);
-}
-.ui-icon-arrow-u {
-	.tizen-icon-common;
-	-webkit-mask-image: url(images/controls/button/00_button_expand_opened.png);
-}
-.ui-icon-arrow-d {
-	.tizen-icon-common;
-	-webkit-mask-image: url(images/controls/button/00_button_expand_closed.png);
-}
-.ui-icon-delete {
-	.tizen-icon-common;
-	-webkit-mask-image: url(images/controls/button/00_button_expand_cancel.png);
-}
-.ui-icon-plus {
-	.tizen-icon-common;
-	-webkit-mask-image: url(images/controls/button/00_button_add.png);
-}
-.ui-icon-minus {
-	.tizen-icon-common;
-	-webkit-mask-image: url(images/controls/button/00_button_delete.png);
-}
-.ui-icon-forward {
-	.tizen-icon-common;
-	-webkit-mask-image: url(images/controls/button/00_button_expand_send.png);
-}
-.ui-icon-alert {
-	.tizen-icon-common;
-	-webkit-mask-image: url(images/controls/button/00_button_warning.png);
-}
-.ui-icon-info {
-	.tizen-icon-common;
-	-webkit-mask-image: url(images/controls/button/00_button_info.png);
-}
-.ui-icon-call {
-	.tizen-icon-common;
-	-webkit-mask-image: url(images/controls/button/00_button_call.png);
-}
-.ui-icon-rename {
-	.tizen-icon-common;
-	-webkit-mask-image: url(images/controls/button/00_button_rename.png);
-}
-.ui-icon-star, .ui-icon-favorite {
-	.tizen-icon-common;
-	-webkit-mask-image: url(images/controls/00_icon_favorite_bg_72x72.png);
-}
-.ui-icon-search {
-	.tizen-icon-common;
-	-webkit-mask-image: url(images/page/00_icon_search.png);
-}
-.ui-icon-scrolltop {
-	.tizen-smallicon-common;
-	-webkit-mask-image: url(images/controls/00_icon_jump.png);
-}
-.ui-icon-scrollleft {
-	.tizen-smallicon-common;
-	-webkit-mask-image: url(images/controls/00_icon_jump_left.png);
-}
+	.ui-icon-bg {
+		.tizen-icon-common;
+		-webkit-mask-image: url(images/00_circle_button_bg.png);
+		z-index:0;
+	}
+	.ui-icon-arrow-l {
+		.tizen-icon-common;
+		-webkit-mask-image: url(images/controls/button/00_button_left.png);
+	}
+	.ui-icon-arrow-r {
+		.tizen-icon-common;
+		-webkit-mask-image: url(images/controls/button/00_button_right.png);
+	}
+	.ui-icon-arrow-u {
+		.tizen-icon-common;
+		-webkit-mask-image: url(images/controls/button/00_button_expand_opened.png);
+	}
+	.ui-icon-arrow-d {
+		.tizen-icon-common;
+		-webkit-mask-image: url(images/controls/button/00_button_expand_closed.png);
+	}
+	.ui-icon-delete {
+		.tizen-icon-common;
+		-webkit-mask-image: url(images/controls/button/00_button_expand_cancel.png);
+	}
+	.ui-icon-plus {
+		.tizen-icon-common;
+		-webkit-mask-image: url(images/controls/button/00_button_add.png);
+	}
+	.ui-icon-minus {
+		.tizen-icon-common;
+		-webkit-mask-image: url(images/controls/button/00_button_delete.png);
+	}
+	.ui-icon-forward {
+		.tizen-icon-common;
+		-webkit-mask-image: url(images/controls/button/00_button_expand_send.png);
+	}
+	.ui-icon-alert {
+		.tizen-icon-common;
+		-webkit-mask-image: url(images/controls/button/00_button_warning.png);
+	}
+	.ui-icon-info {
+		.tizen-icon-common;
+		-webkit-mask-image: url(images/controls/button/00_button_info.png);
+	}
+	.ui-icon-call {
+		.tizen-icon-common;
+		-webkit-mask-image: url(images/controls/button/00_button_call.png);
+	}
+	.ui-icon-rename {
+		.tizen-icon-common;
+		-webkit-mask-image: url(images/controls/button/00_button_rename.png);
+	}
+	.ui-icon-star, .ui-icon-favorite {
+		.tizen-icon-common;
+		-webkit-mask-image: url(images/controls/00_icon_favorite_bg_72x72.png);
+	}
+	.ui-icon-search {
+		.tizen-icon-common;
+		-webkit-mask-image: url(images/page/00_icon_search.png);
+	}
+	.ui-icon-scrolltop {
+		.tizen-smallicon-common;
+		-webkit-mask-image: url(images/controls/00_icon_jump.png);
+	}
+	.ui-icon-scrollleft {
+		.tizen-smallicon-common;
+		-webkit-mask-image: url(images/controls/00_icon_jump_left.png);
+	}
 	.ui-icon-check {
 		.tizen-icon-common;
 		-webkit-mask-image: url(images/controls/button/00_button_check.png);
@@ -390,13 +389,11 @@
 
 }
 
-.ui-btn-inner.ui-btn-icon-only
-{
+.ui-btn-inner.ui-btn-icon-only {
 	padding: 22 * @unit_base 22 * @unit_base;
 }
 
-.ui-btn-icon-only .ui-btn-text
-{
+.ui-btn-icon-only .ui-btn-text {
 	display: none;
 	width: 0;
 	height: 0;
@@ -404,13 +401,11 @@
 }
 
 /* No BG button : data-iconbg = "nobg" */
-.ui-btn.ui-btn-icon-nobg
-{
+.ui-btn.ui-btn-icon-nobg {
 	box-shadow: none;
 }
 
-.ui-btn.ui-btn-corner-circle
-{
+.ui-btn.ui-btn-corner-circle {
 	.core_button_bg();
 	background-color: @color_button_bg;
 	&.ui-btn-down-s {
@@ -421,28 +416,23 @@
 		background-color: @color_button_icon;
 	}
 }
-.ui-btn.ui-btn-round
-{
+.ui-btn.ui-btn-round {
 	.core_button_bg();
 	background-color: @color_button_bg;
 	.ui-icon, .ui-icon.ui-icon-plus {
 		background-color: @color_button_icon;
 	}
 }
-.ui-btn.ui-btn-icon-nobg, .ui-btn .ui-btn-icon-nobg
-{
+.ui-btn.ui-btn-icon-nobg, .ui-btn .ui-btn-icon-nobg {
 	background-color: transparent;
 	border: none;
 }
 
 /* Contact Edit Style */
-.ui-btn.ui-btn-edit .ui-btn-text
-{
+.ui-btn.ui-btn-edit .ui-btn-text {
 	color: @color_button_EditText;
 	font-size: @font_size_button_EditText;
 }
-.ui-btn.ui-btn-edit .ui-btn-inner
-{
+.ui-btn.ui-btn-edit .ui-btn-inner {
 	.LESSbutton_edit_style;
 }
-
