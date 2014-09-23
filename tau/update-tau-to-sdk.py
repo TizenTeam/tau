@@ -73,7 +73,7 @@ jobs = {
 			SrcDest("tau/dist/wearable", "samples/web/Template/Tizen/Wearable\ UI/Basic/project/lib/tau/wearable"),
 			SrcDest("tau/dist/wearable", "samples/web/Template/Tizen/Wearable\ UI/List/project/lib/tau/wearable"),
 			SrcDest("tau/dist/wearable", "samples/web/Sample/Tizen/Web\ App/WearableWidgets/project/lib/tau/wearable")
-		], ["cd web-ui-fw/tau", "grunt build"],
+		], ["cd web-ui-fw/tau", "grunt build", "theme dist/wearable/theme blue"],
 		[
 			"samples/web/Sample/Tizen/Web\ App/Altimeter/project",
 			"samples/web/Sample/Tizen/Web\ App/AnalogWatch/project",
@@ -96,7 +96,7 @@ jobs = {
 			SrcDest("tau/dist/wearable", "addons/TAU/samples/web/Template/Tizen/Wearable\ UI/Basic/project/lib/tau/wearable"),
 			SrcDest("tau/dist/wearable", "addons/TAU/samples/web/Template/Tizen/Wearable\ UI/List/project/lib/tau/wearable"),
 			SrcDest("tau/dist/wearable", "addons/TAU/samples/web/Sample/Tizen/Web\ App/WearableWidgets/project/lib/tau/wearable")
-		], ["cd web-ui-fw/tau", "grunt build"],
+		], ["cd web-ui-fw/tau", "grunt build", "theme dist/wearable/theme brown"],
 		[
 			"samples/web/Sample/Tizen/Web\ App/AnalogWatch/project",
 			"addons/TAU/samples/web/Sample/Tizen/Web\ App/Calendar/project",
@@ -112,15 +112,15 @@ jobs = {
 		sdkTizenMobile,
 		[
 			SrcDest("tau/demos/SDK/MobileWinset", "addons/TAU/samples/web/Sample/Tizen/Web\ App/TizenWinset/project"),
+			SrcDest("tau/demos/SDK/Tizen_Web_UI_FW_MasterDetail", "addons/TAU/samples/web/Template/Tizen/Tizen\ Web\ UI\ Framework/Tizen_Web_UI_FW_MasterDetail/project"),
+			SrcDest("tau/demos/SDK/Tizen_Web_UI_FW_MultiPage", "addons/TAU/samples/web/Template/Tizen/Tizen\ Web\ UI\ Framework/Tizen_Web_UI_FW_MultiPage/project"),
+			SrcDest("tau/demos/SDK/Tizen_Web_UI_FW_NavigationView", "addons/TAU/samples/web/Template/Tizen/Tizen\ Web\ UI\ Framework/Tizen_Web_UI_FW_NavigationView/project"),
+			SrcDest("tau/demos/SDK/Tizen_Web_UI_FW_SinglePage", "addons/TAU/samples/web/Template/Tizen/Tizen\ Web\ UI\ Framework/Tizen_Web_UI_FW_SinglePage/project"),
 			SrcDest("tau/dist/mobile", "addons/TAU/samples/web/Sample/Tizen/Web\ App/TizenWinset/project/lib/tau/mobile"),
 			SrcDest("tau/dist/mobile", "addons/TAU/samples/web/Template/Tizen/Tizen\ Web\ UI\ Framework/Tizen_Web_UI_FW_MasterDetail/project/lib/tau/mobile"),
-			SrcDest("tau/demos/SDK/Tizen_Web_UI_FW_MasterDetail", "addons/TAU/samples/web/Template/Tizen/Tizen\ Web\ UI\ Framework/Tizen_Web_UI_FW_MasterDetail/project"),
 			SrcDest("tau/dist/mobile", "addons/TAU/samples/web/Template/Tizen/Tizen\ Web\ UI\ Framework/Tizen_Web_UI_FW_MultiPage/project/lib/tau/mobile"),
-			SrcDest("tau/demos/SDK/Tizen_Web_UI_FW_MultiPage", "addons/TAU/samples/web/Template/Tizen/Tizen\ Web\ UI\ Framework/Tizen_Web_UI_FW_MultiPage/project"),
 			SrcDest("tau/dist/mobile", "addons/TAU/samples/web/Template/Tizen/Tizen\ Web\ UI\ Framework/Tizen_Web_UI_FW_NavigationView/project/lib/tau/mobile"),
-			SrcDest("tau/demos/SDK/Tizen_Web_UI_FW_NavigationView", "addons/TAU/samples/web/Template/Tizen/Tizen\ Web\ UI\ Framework/Tizen_Web_UI_FW_NavigationView/project"),
 			SrcDest("tau/dist/mobile", "addons/TAU/samples/web/Template/Tizen/Tizen\ Web\ UI\ Framework/Tizen_Web_UI_FW_SinglePage/project/lib/tau/mobile"),
-			SrcDest("tau/demos/SDK/Tizen_Web_UI_FW_SinglePage", "addons/TAU/samples/web/Template/Tizen/Tizen\ Web\ UI\ Framework/Tizen_Web_UI_FW_SinglePage/project"),
 		], ["cd web-ui-fw/tau", "grunt build"],
 		[
 			"addons/TAU/samples/web/Sample/Tizen/Web\ App/BluetoothChat/project",
@@ -210,6 +210,12 @@ def main():
 			for c in job.preprocess:
 				if c.split()[0] == "cd":
 					os.chdir(c.split()[1])
+				elif c.split()[0] == "theme":
+					dstlink = 'default'
+					srclink = c.split()[2]
+					os.chdir(c.split()[1])
+					cmd('rm default')
+					os.symlink(srclink, dstlink)
 				else:
 					cmd(c)
 			os.chdir(jobdir)

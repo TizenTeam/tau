@@ -46,17 +46,25 @@ function run(themeIndex, themeStyle, device) {
 		colorTable = {
 			colorList: [],
 			style: themeStyle
-		};
+		},
+		len = 1,
+		colors = [],
+		i;
 
-	//parse input color table of mobile
-	inputColorTable = parseTable(inputColorTable, tableType.INPUT_COLOR_TABLE, device);
-	//parse changeable color table of mobile
-	colorTable = parseTable(colorTable, tableType.COLOR_TABLE, device);
-	replaceTemplate(inputColorTable, colorTable, device);
+	if (device === "wearable") {
+		// In wearable version need to two color theme version, blue and brown.
+		colors = ["blue", "brown"];
+		len = colors.length;
+	}
+	for (i = 0; i < len; i++) {
+		inputColorTable = parseTable(inputColorTable, tableType.INPUT_COLOR_TABLE, device, colors[i]);
+		colorTable = parseTable(colorTable, tableType.COLOR_TABLE, device, colors[i]);
+		replaceTemplate(inputColorTable, colorTable, device, colors[i]);
+	}
 
 }
 
-function replaceTemplate(inputColorTable, colorTable, device) {
+function replaceTemplate(inputColorTable, colorTable, device, color) {
 	// replace color-code
 	var rgba = {r: 0, g: 0, b: 0, a: 1},
 		template = fs.readFileSync("dist/"+device+"/theme/changeable/changeable.template", "utf-8"),
@@ -68,10 +76,17 @@ function replaceTemplate(inputColorTable, colorTable, device) {
 
 		template = replaceColor(colorTable.colorList[i].$.id, rgba, template);
 	}
-	// write new tau.css
-	fs.writeFileSync("dist/"+device+"/theme/changeable/tau.css", template);
+	if (device === "mobile") {
+		fs.writeFileSync("dist/"+device+"/theme/changeable/tau.css", template);
+	} else {
+		if (color === "blue") {
+			fs.writeFileSync("dist/"+device+"/theme/changeable/tau.css", template);
+		}
+		fs.mkdirSync("dist/"+device+"/theme/" + color + "/");
+		fs.writeFileSync("dist/"+device+"/theme/" + color + "/tau.css", template);
+	}
 }
-function parseTable(table, tableType, device) {
+function parseTable(table, tableType, device, color) {
 	// table inputColor or changeable color
 	// tableType 1 is inputColor
 	// tableType 2 is changeableColor
@@ -89,7 +104,7 @@ function parseTable(table, tableType, device) {
 	if (device === "mobile") {
 		path = mobilePath;
 	} else {
-		path = wearablePath;
+		path = wearablePath + color + "/";
 	}
 	data = fs.readFileSync(path + fn);
 	parser.parseString(data, function(err, result) {

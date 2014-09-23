@@ -131,6 +131,7 @@ module.exports = function(grunt) {
 
 				getLicenseFiles: function( version ) {
 					var exts = [".css", ".min.css"],
+						wearableThemeColors = ["blue", "brown"],
 						licenseFiles = [],
 						i = 1,
 						device,
@@ -159,13 +160,26 @@ module.exports = function(grunt) {
 									exts.forEach(function( ext ) {
 										src = path.join( buildDir[device].theme, theme.name, name ) + ext;
 										licenseFiles.push({
-											src: [path.join( "license", "flora" ) + ".txt", src],
+											src: [path.join( "license", "MIT" ) + ".txt", src],
 											dest: src
 										});
 									});
 								}
 							}
 						}
+					}
+					if (version === "wearable") {
+						theme = themes.device[version];
+						exts.forEach(function( ext ) {
+							len = wearableThemeColors.length;
+							for (i = 0; i < len; i++) {
+								src = path.join( buildDir[version].theme, wearableThemeColors[i], name ) + ext;
+								licenseFiles.push({
+									src: [path.join( "license", "MIT" ) + ".txt", src],
+									dest: src
+								});
+							}
+						});
 					}
 
 					return licenseFiles;
@@ -310,7 +324,7 @@ module.exports = function(grunt) {
 
 				wearable: {
 					themeIndex: "0",
-					themeStyle: "Light",
+					themeStyle: "Dark",
 					device: "wearable"
 				},
 
@@ -497,6 +511,9 @@ module.exports = function(grunt) {
 				},
 				licenseChangeableCss: {
 					files: files.css.getLicenseFiles("changeable")
+				},
+				licenseWearableCss: {
+					files: files.css.getLicenseFiles("wearable")
 				}
 			},
 
@@ -754,7 +771,7 @@ module.exports = function(grunt) {
 	grunt.registerTask("image-changeable", [ "copy:wearableChangeableImages", "copy:mobileChangeableImages" ]);
 	grunt.registerTask("css", [ "clean:theme", "less", "themeConverter:all", "cssmin", "image", "image-changeable", "symlink" ]);
 	grunt.registerTask("js", [ "clean:js", "requirejs", "jsmin", "themesjs", "copy:globalize-mobile", "copy:globalize-tv", "copy:mobileJquery" ]);
-	grunt.registerTask("license", [ "concat:licenseJs", "concat:licenseDefaultCss", "concat:licenseChangeableCss", "copy:license" ]);
+	grunt.registerTask("license", [ "concat:licenseJs", "concat:licenseDefaultCss", "concat:licenseChangeableCss", "concat:licenseWearableCss", "copy:license" ]);
 	grunt.registerTask("sdk-docs", [ "docs-html:mobile", "docs-html:wearable", "copy:sdk-docs" ]);
 	grunt.registerTask("dld-docs", [ "docs-html:mobile-dld", "docs-html:wearable-dld"]);
 
