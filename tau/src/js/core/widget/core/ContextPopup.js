@@ -412,8 +412,8 @@
 				element.appendChild(wrapper);
 				element.appendChild(arrow);
 
-				// build elements of popup, which are in wrapper
-				PopupPrototype._build.call(self, wrapper);
+				// build elements of popup
+				PopupPrototype._build.call(self, element);
 
 				return element;
 			};
