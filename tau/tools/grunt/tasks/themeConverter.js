@@ -109,19 +109,28 @@ function parseTable(table, tableType, device, color) {
 	data = fs.readFileSync(path + fn);
 	parser.parseString(data, function(err, result) {
 		// result is parsing data
-		parseAttribute(result, table, tableType);
+		parseAttribute(result, table, tableType, device);
 	});
 	return table;
 }
 
-function parseAttribute(result, table, tableType) {
+function parseAttribute(result, table, tableType, device) {
 	// parse attribute from result
-	var value,
+	var value = [],
+		themesLength,
 		i;
 
 	if (tableType === 1) {
-		//input color
-		value = result.InputColorTable.Theme;
+		// input color
+		// It has a different xml structure to between mobile and wearable.
+		if (device === "mobile") {
+			themesLength = result.InputColorTable.Themes.length;
+			for (i = 0; i < themesLength; i++) {
+				value = value.concat(result.InputColorTable.Themes[i].Theme);
+			}
+		} else {
+			value = result.InputColorTable.Theme;
+		}
 		// value is input color array
 		for (i = 0; i < value.length; i++) {
 			if (value[i].$.index === table.index) {
@@ -203,7 +212,13 @@ function calculateColor(inputColorList, color) {
 			r: 0,
 			g: 0,
 			b: 0
-		};
+		},
+		maxHue = color.maxHue ? color.maxHue : 360,
+		minHue = color.minHue ? color.minHue : 0,
+		maxSaturation = color.maxSaturation ? color.maxSaturation : 100,
+		minSaturation = color.minSaturation ? color.minSaturation : 0,
+		maxValue = color.maxValue ? color.maxValue : 100,
+		minValue = color.minValue ? color.minValue : 0;
 
 	if (!color || !inputColorList)
 		return false;
@@ -228,16 +243,16 @@ function calculateColor(inputColorList, color) {
 	}
 
 	// determine color's hue
-	hue = (color.fixedHue === "true") ? (parseInt(color.hue, 10)) : (parseInt(inputColor.hue, 10) + parseInt(color.hue, 10));
-	hue = determineColorRange(hue, range.MAX_ANGLE, range.MIN_ANGLE, parseInt(color.maxHue, 10), parseInt(color.minHue, 10));
+	hue = Math.abs((color.fixedHue === "true") ? (parseInt(color.hue, 10)) : (parseInt(inputColor.hue, 10) + parseInt(color.hue, 10)));
+	hue = determineColorRange(hue, range.MAX_ANGLE, range.MIN_ANGLE, parseInt(maxHue, 10), parseInt(minHue, 10));
 
 	// determine color's saturation
-	saturation = (color.fixedSaturation === "true") ? (parseInt(color.saturation, 10)) : (parseInt(inputColor.saturation, 10) + parseInt(color.saturation, 10));
-	saturation = determineColorRange(saturation, range.MAX_PERCENTAGE, range.MIN_PERCENTAGE, parseInt(color.maxSaturation, 10), parseInt(color.minSaturation, 10));
+	saturation = Math.abs((color.fixedSaturation === "true") ? (parseInt(color.saturation, 10)) : (parseInt(inputColor.saturation, 10) + parseInt(color.saturation, 10)));
+	saturation = determineColorRange(saturation, range.MAX_PERCENTAGE, range.MIN_PERCENTAGE, parseInt(maxSaturation, 10), parseInt(minSaturation, 10));
 
 	// determine color's value
-	value = (color.fixedValue === "true") ? (parseInt(color.value, 10)) : (parseInt(inputColor.value, 10) + parseInt(color.value, 10));
-	value = determineColorRange(value, range.MAX_PERCENTAGE, range.MIN_PERCENTAGE, parseInt(color.maxValue, 10), parseInt(color.minValue, 10));
+	value = Math.abs((color.fixedValue === "true") ? (parseInt(color.value, 10)) : (parseInt(inputColor.value, 10) + parseInt(color.value, 10)));
+	value = determineColorRange(value, range.MAX_PERCENTAGE, range.MIN_PERCENTAGE, parseInt(maxValue, 10), parseInt(minValue, 10));
 
 	// check the range of alpha
 	if (parseInt(color.alpha, 10) > range.MAX_PERCENTAGE)

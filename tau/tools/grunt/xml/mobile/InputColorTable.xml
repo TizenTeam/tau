@@ -1,6 +1,190 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <InputColorTable>
-	<Theme index="0">
-		<InputColorInfo hue="199" saturation="86" value="58"/>
-	</Theme>
+	<Themes name="A">
+		<Theme index="100">
+			<InputColorInfo hue="5" saturation="67" value="95"/>
+		</Theme>
+		<Theme index="101">
+			<InputColorInfo hue="5" saturation="81" value="91"/>
+		</Theme>
+		<Theme index="102">
+			<InputColorInfo hue="357" saturation="77" value="76"/>
+		</Theme>
+		<Theme index="1">
+			<InputColorInfo hue="0" saturation="68" value="64"/>
+		</Theme>
+		<Theme index="2">
+			<InputColorInfo hue="340" saturation="100" value="40"/>
+		</Theme>
+	</Themes>
+	<Themes name="B">
+		<Theme index="200">
+			<InputColorInfo hue="349" saturation="66" value="100"/>
+		</Theme>
+		<Theme index="103">
+			<InputColorInfo hue="346" saturation="76" value="96"/>
+		</Theme>
+		<Theme index="104">
+			<InputColorInfo hue="344" saturation="77" value="90"/>
+		</Theme>
+		<Theme index="105">
+			<InputColorInfo hue="341" saturation="80" value="80"/>
+		</Theme>
+		<Theme index="3">
+			<InputColorInfo hue="336" saturation="84" value="64"/>
+		</Theme>
+	</Themes>
+	<Themes name="C">
+		<Theme index="201">
+			<InputColorInfo hue="73" saturation="100" value="70"/>
+		</Theme>
+		<Theme index="202">
+			<InputColorInfo hue="73" saturation="100" value="62"/>
+		</Theme>
+		<Theme index="106">
+			<InputColorInfo hue="77" saturation="72" value="52"/>
+		</Theme>
+		<Theme index="4">
+			<InputColorInfo hue="88" saturation="81" value="38"/>
+		</Theme>
+		<Theme index="5">
+			<InputColorInfo hue="112" saturation="63" value="27"/>
+		</Theme>
+	</Themes>
+	<Themes name="D">
+		<Theme index="203">
+			<InputColorInfo hue="134" saturation="83" value="71"/>
+		</Theme>
+		<Theme index="107">
+			<InputColorInfo hue="134" saturation="100" value="59"/>
+		</Theme>
+		<Theme index="108">
+			<InputColorInfo hue="137" saturation="100" value="47"/>
+		</Theme>
+		<Theme index="6">
+			<InputColorInfo hue="147" saturation="100" value="34"/>
+		</Theme>
+		<Theme index="7">
+			<InputColorInfo hue="166" saturation="100" value="22"/>
+		</Theme>
+	</Themes>
+	<Themes name="E">
+		<Theme index="204">
+			<InputColorInfo hue="36" saturation="77" value="100"/>
+		</Theme>
+		<Theme index="205">
+			<InputColorInfo hue="36" saturation="93" value="99"/>
+		</Theme>
+		<Theme index="206">
+			<InputColorInfo hue="31" saturation="93" value="93"/>
+		</Theme>
+		<Theme index="109">
+			<InputColorInfo hue="31" saturation="96" value="82"/>
+		</Theme>
+		<Theme index="8">
+			<InputColorInfo hue="27" saturation="87" value="70"/>
+		</Theme>
+	</Themes>
+	<Themes name="F">
+		<Theme index="207">
+			<InputColorInfo hue="20" saturation="77" value="98"/>
+		</Theme>
+		<Theme index="110">
+			<InputColorInfo hue="20" saturation="93" value="95"/>
+		</Theme>
+		<Theme index="111">
+			<InputColorInfo hue="19" saturation="91" value="79"/>
+		</Theme>
+		<Theme index="9">
+			<InputColorInfo hue="15" saturation="85" value="54"/>
+		</Theme>
+		<Theme index="10">
+			<InputColorInfo hue="16" saturation="75" value="42"/>
+		</Theme>
+	</Themes>
+	<Themes name="G">
+		<Theme index="208">
+			<InputColorInfo hue="207" saturation="76" value="100"/>
+		</Theme>
+		<Theme index="112">
+			<InputColorInfo hue="207" saturation="87" value="84"/>
+		</Theme>
+		<Theme index="11">
+			<InputColorInfo hue="207" saturation="100" value="65"/>
+		</Theme>
+		<Theme index="12">
+			<InputColorInfo hue="213" saturation="98" value="52"/>
+		</Theme>
+		<Theme index="13">
+			<InputColorInfo hue="233" saturation="78" value="35"/>
+		</Theme>
+	</Themes>
+	<Themes name="H">
+		<Theme index="209">
+			<InputColorInfo hue="207" saturation="60" value="88"/>
+		</Theme>
+		<Theme index="210">
+			<InputColorInfo hue="205" saturation="80" value="90"/>
+		</Theme>
+		<Theme index="113">
+			<InputColorInfo hue="204" saturation="100" value="92"/>
+		</Theme>
+		<Theme index="14">
+		<InputColorInfo hue="206" saturation="100" value="67"/>
+		</Theme>
+		<Theme index="15">
+			<InputColorInfo hue="207" saturation="100" value="40"/>
+		</Theme>
+	</Themes>
+	<Themes name="I">
+		<Theme index="211">
+			<InputColorInfo hue="173" saturation="99" value="82"/>
+		</Theme>
+		<Theme index="212">
+			<InputColorInfo hue="177" saturation="99" value="76"/>
+		</Theme>
+		<Theme index="114">
+			<InputColorInfo hue="182" saturation="99" value="68"/>
+		</Theme>
+		<Theme index="115">
+			<InputColorInfo hue="191" saturation="97" value="63"/>
+		</Theme>
+		<Theme index="0">
+			<InputColorInfo hue="199" saturation="86" value="58"/>
+		</Theme>
+	</Themes>
+	<Themes name="J">
+		<Theme index="116">
+			<InputColorInfo hue="290" saturation="59" value="85"/>
+		</Theme>
+		<Theme index="117">
+			<InputColorInfo hue="274" saturation="59" value="69"/>
+		</Theme>
+		<Theme index="118">
+			<InputColorInfo hue="290" saturation="71" value="54"/>
+		</Theme>
+		<Theme index="16">
+			<InputColorInfo hue="290" saturation="83" value="44"/>
+		</Theme>
+		<Theme index="17">
+			<InputColorInfo hue="291" saturation="80" value="34"/>
+		</Theme>
+	</Themes>
+	<Themes name="K">
+		<Theme index="119">
+			<InputColorInfo hue="206" saturation="21" value="46"/>
+		</Theme>
+		<Theme index="120" name="K_2">
+			<InputColorInfo hue="206" saturation="22" value="38"/>
+		</Theme>
+		<Theme index="121" name="K_3">
+			<InputColorInfo hue="205" saturation="23" value="32"/>
+		</Theme>
+		<Theme index="18" name="K_4">
+			<InputColorInfo hue="204" saturation="10" value="20"/>
+		</Theme>
+		<Theme index="19" name="K_5">
+			<InputColorInfo hue="200" saturation="14" value="8"/>
+		</Theme>
+	</Themes>
 </InputColorTable>
