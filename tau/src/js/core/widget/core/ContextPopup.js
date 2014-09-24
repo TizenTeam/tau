@@ -317,7 +317,7 @@
 				 * @private
 				 */
 				defaults = objectUtils.merge({}, Popup.defaults, {
-					arrow: "l,t,r,b",
+					arrow: "l,b,r,t",
 					positionTo: "window",
 					distance: 0
 				}),
