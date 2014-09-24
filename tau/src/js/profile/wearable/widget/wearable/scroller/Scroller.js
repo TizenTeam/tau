@@ -56,6 +56,13 @@
 					CANCEL: "scrollcancel"
 				},
 
+				/*
+				 * this option is related operation of scroll bar.
+				 * the value is true, scroll bar is shown during touching screen even if content doesn't scroll.
+				 * the value is false, scroll bar disappear when there is no movement of the scroll bar.
+				 */
+				_keepShowingScrollbarOnTouch = false,
+
 				Scroller = function () {
 				};
 
@@ -324,7 +331,8 @@
 
 			prototype._move = function (e, pos) {
 				var newX = this.startScrollerOffsetX,
-					newY = this.startScrollerOffsetY;
+					newY = this.startScrollerOffsetY,
+					autoHide = !_keepShowingScrollbarOnTouch;
 
 				if ( !this.enabled || this.scrollCanceled || !this.dragging ) {
 					return;
@@ -350,7 +358,7 @@
 					this.scrolled = true;
 
 					this._translate( newX, newY );
-					this._translateScrollbar( newX, newY, 0, false );
+					this._translateScrollbar( newX, newY, 0, autoHide );
 					// TODO to dispatch move event is too expansive. it is better to use callback.
 					this._fireEvent( eventType.MOVE );
 
@@ -361,7 +369,7 @@
 					if ( this.bouncingEffect ) {
 						this.bouncingEffect.drag( newX, newY );
 					}
-					this._translateScrollbar( newX, newY, 0, false );
+					this._translateScrollbar( newX, newY, 0, autoHide );
 				}
 			};
 

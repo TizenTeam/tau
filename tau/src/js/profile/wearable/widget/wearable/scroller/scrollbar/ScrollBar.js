@@ -138,7 +138,7 @@
 					barStyle,
 					endDelay;
 
-				if ( !this.wrapper || !this.type ) {
+				if ( !this.wrapper || !this.type || this.lastScrollPosition === offset ) {
 					return;
 				}
 
