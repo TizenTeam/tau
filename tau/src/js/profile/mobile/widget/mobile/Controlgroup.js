@@ -15,12 +15,12 @@
  *
  * ### Create Controlgroup
  *
- *	@example
- *	<div data-role="controlgroup">
- *		<a href="#" data-role="button">Yes</a>
- *		<a href="#" data-role="button">No</a>
- *		<a href="#" data-role="button">Cancel</a>
- *	</div>
+ *		@example
+ *		<div data-role="controlgroup">
+ *			<a href="#" data-role="button">Yes</a>
+ *			<a href="#" data-role="button">No</a>
+ *			<a href="#" data-role="button">Cancel</a>
+ *		</div>
  *
  * @class ns.widget.mobile.Controlgroup
  * @extends ns.widget.BaseWidget

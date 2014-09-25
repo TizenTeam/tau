@@ -14,27 +14,25 @@
  * ##Manual constructor
  * For manual creation of notification widget you can use constructor of widget:
  *
- *	@example
- *	<!-- Widget structure -->
- *	<div data-role="notification" id="notification" data-type="smallpoup">
- *		<p>Line of message</p>
- *	</div>
- *
- *	<script>
- *		var notification = tau.widget.Notification(document.getElementById("notification"));
- *	</script>
+ *		@example
+ *		<!-- Widget structure -->
+ *		<div data-role="notification" id="notification" data-type="smallpoup">
+ *			<p>Line of message</p>
+ *		</div>
+ *		<script>
+ *			var notification = tau.widget.Notification(document.getElementById("notification"));
+ *		</script>
  *
  * If jQuery library is loaded, this method can be used:
  *
- *	@example
- *	<!-- Widget structure -->
- *	<div data-role="notification" id="notification" data-type="smallpoup">
- *		<p>Line of message</p>
- *	</div>
- *
- *	<script>
- *		var notification = $("#notification").notification();
- *	</script>
+ *		@example
+ *		<!-- Widget structure -->
+ *		<div data-role="notification" id="notification" data-type="smallpoup">
+ *			<p>Line of message</p>
+ *		</div>
+ *		<script>
+ *			var notification = $("#notification").notification();
+ *		</script>
  *
  * ##HTML Examples
  *
@@ -43,129 +41,118 @@
  *
  * Running example in pure JavaScript:
  *
- *	@example
- *	<!-- Widget structure -->
- *	<div data-role="notification" id="notification" data-type="smallpoup">
- *		<p>Line of message</p>
- *	</div>
- *
- *	<script>
- *		// Get widget instance or create new instance if widget not exists.
- *		var notification = tau.widget.Notification(document.getElementById("notification"));
- *
- *		// Open notification
- *		notification.open();
- *	</script>
+ *		@example
+ *		<!-- Widget structure -->
+ *		<div data-role="notification" id="notification" data-type="smallpoup">
+ *			<p>Line of message</p>
+ *		</div>
+ *		<script>
+ *			// Get widget instance or create new instance if widget not exists.
+ *			var notification = tau.widget.Notification(document.getElementById("notification"));
+ *			// Open notification
+ *			notification.open();
+ *		</script>
  *
  * If jQuery library is loaded, this method can be used:
  *
- *	@example
- *	<!-- Widget structure -->
- *	<div data-role="notification" id="notification" data-type="smallpoup">
- *		<p>Line of message</p>
- *	</div>
- *
- *	<script>
- *		// Open widget using jQuery notation
- *		$( "#notification" ).notification( "open" )
- *	</script>
+ *		@example
+ *		<!-- Widget structure -->
+ *		<div data-role="notification" id="notification" data-type="smallpoup">
+ *			<p>Line of message</p>
+ *		</div>
+ *		<script>
+ *			// Open widget using jQuery notation
+ *			$( "#notification" ).notification( "open" )
+ *		</script>
  *
  * ###Create notification ticker
  * Notification ticker has maximum two lines of message, other messages will be hidden. Additionally you can set an icon. Notification ticker is default positioned to the top of the page.
  *
  * Running example in pure JavaScript:
  *
- *	@example
- *	<div data-role="notification" id="notification" data-type="ticker">
- *		<p>First line of message</p>
- *		<p>Second line of message</p>
- *	</div>
- *
- *	<script>
- *		// Get widget instance or create new instance if widget not exists.
- *		var notification = tau.widget.Notification(document.getElementById("notification"));
- *
- *		// Open notification
- *		notification.open();
- *	</script>
+ *		@example
+ *		<div data-role="notification" id="notification" data-type="ticker">
+ *			<p>First line of message</p>
+ *			<p>Second line of message</p>
+ *		</div>
+ *		<script>
+ *			// Get widget instance or create new instance if widget not exists.
+ *			var notification = tau.widget.Notification(document.getElementById("notification"));
+ *			// Open notification
+ *			notification.open();
+ *		</script>
  *
  * If jQuery library is loaded, this method can be used:
  *
- *	@example
- *	<div data-role="notification" id="notification" data-type="ticker">
- *		<p>First line of message</p>
- *		<p>Second line of message</p>
- *	</div>
- *
- *	<script>
- *		// Open widget using jQuery notation
- *		$( "#notification" ).notification( "open" )
- *	</script>
+ *		@example
+ *		<div data-role="notification" id="notification" data-type="ticker">
+ *			<p>First line of message</p>
+ *			<p>Second line of message</p>
+ *		</div>
+ *		<script>
+ *			// Open widget using jQuery notation
+ *			$( "#notification" ).notification( "open" )
+ *		</script>
  *
  * ###Create notification wih interval
  * Interval defines time to showing notification widget, after this it will close automatically. Values of _data-interval_ is a positive **number of miliseconds**, e.g. _data-interval="2000"_ (sets to close widget after 2 seconds). Otherwise widget will show infinietely.
  *
  * Running example in pure JavaScript:
  *
- *	@example
- *	<div data-role="notification" id="notification" data-type="ticker" data-interval="4000">
- *		<img src="icon.png">
- *		<p>I will close in 4* seconds!</p>
- *		<p>* starts counting from widget opening</p>
- *	</div>
- *
- *	<script>
- *		// Get widget instance or create new instance if widget not exists.
- *		var notification = tau.widget.Notification(document.getElementById("notification"));
- *
- *		// Open notification
- *		notification.open();
- *	</script>
+ *		@example
+ *		<div data-role="notification" id="notification" data-type="ticker" data-interval="4000">
+ *			<img src="icon.png">
+ *			<p>I will close in 4* seconds!</p>
+ *			<p>* starts counting from widget opening</p>
+ *		</div>
+ *		<script>
+ *			// Get widget instance or create new instance if widget not exists.
+ *			var notification = tau.widget.Notification(document.getElementById("notification"));
+ *			// Open notification
+ *			notification.open();
+ *		</script>
  *
  * If jQuery library is loaded, this method can be used:
  *
- *	@example
- *	<div data-role="notification" id="notification" data-type="ticker" data-interval="4000">
- *		<img src="icon.png">
- *		<p>I will close in 4* seconds!</p>
- *		<p>* starts counting from widget opening</p>
- *	</div>
- *
- *	<script>
- *		// Open widget using jQuery notation
- *		$( "#notification" ).notification( "open" )
- *	</script>
+ *		@example
+ *		<div data-role="notification" id="notification" data-type="ticker" data-interval="4000">
+ *			<img src="icon.png">
+ *			<p>I will close in 4* seconds!</p>
+ *			<p>* starts counting from widget opening</p>
+ *		</div>
+ *		<script>
+ *			// Open widget using jQuery notation
+ *			$( "#notification" ).notification( "open" )
+ *		</script>
  *
  * ###Create notification ticker with icon
  * !!!Icon is only supported with notification ticker.!!!
  *
  * Running example in pure JavaScript:
  *
- *	@example
- *	<div data-role="notification" id="notification" data-type="ticker">
- *		<img src="icon.png">
- *		<p>First line of message</p>
- *		<p>Second line of message</p>
- *	</div>
- *
- *	<script>
- *		// Open notification
- *		notification.open();
- *	</script>
+ *		@example
+ *		<div data-role="notification" id="notification" data-type="ticker">
+ *			<img src="icon.png">
+ *			<p>First line of message</p>
+ *			<p>Second line of message</p>
+ *		</div>
+ *		<script>
+ *			// Open notification
+ *			notification.open();
+ *		</script>
  *
  * If jQuery library is loaded, this method can be used:
  *
- *	@example
- *	<div data-role="notification" id="notification" data-type="ticker">
- *		<img src="icon.png">
- *		<p>First line of message</p>
- *		<p>Second line of message</p>
- *	</div>
- *
- *	<script>
- *		// Open widget using jQuery notation
- *		$( "#notification" ).notification( "open" )
- *	</script>
+ *		@example
+ *		<div data-role="notification" id="notification" data-type="ticker">
+ *			<img src="icon.png">
+ *			<p>First line of message</p>
+ *			<p>Second line of message</p>
+ *		</div>
+ *		<script>
+ *			// Open widget using jQuery notation
+ *			$( "#notification" ).notification( "open" )
+ *		</script>
  *
  * @class ns.widget.mobile.Notification
  * @extends ns.widget.mobile.BaseWidgetMobile

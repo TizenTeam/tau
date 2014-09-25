@@ -32,7 +32,7 @@
 			pwindow.close();
 		}
 
-		pwindow = window.open("/preview/" + type + ".html", "", windowOptions[type]);
+		pwindow = window.open("preview/" + type + ".html", "", windowOptions[type]);
 
 		pwindow.addEventListener("load", function () {
 			try {

@@ -15,9 +15,9 @@
  *
  * ### Create checkboxradio
  *
- *	@example
- *	<input type="checkbox" name="checkbox-yes" id="checkbox-yes" />
- *	<label for="checkbox-yes">Yes</label>
+ *		@example
+ *		<input type="checkbox" name="checkbox-yes" id="checkbox-yes" />
+ *		<label for="checkbox-yes">Yes</label>
  *
  * @class ns.widget.mobile.Checkboxradio
  * @extends ns.widget.BaseWidget

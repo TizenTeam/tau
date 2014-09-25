@@ -26,7 +26,7 @@ widget implementation.
 
 ## Whats in the `Page`?
 
-![Application UI Schema](/drawings/application_page_layout.svg "Application UI Schema")
+![Application UI Schema](drawings/application_page_layout.svg "Application UI Schema")
 
 The `Page` consist of:
 * Header area, best way to *mark* out to user what page is currently opened,
@@ -184,7 +184,7 @@ the container and `ui-block-a` on the first column and `ui-block-b` on the secon
 </div>
 ```
 
-![Grid class layout](/drawings/grid_layout.svg)
+![Grid class layout](drawings/grid_layout.svg)
 
 The grid container classes are named alphabetically, meaning that:
 * _two-column_ layout class is `ui-grid-a`

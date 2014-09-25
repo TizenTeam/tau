@@ -94,7 +94,6 @@
  *		<script>
  *			var inputElement = document.getElementById('text-1'),
  *				textInput = tau.widget.TextInput(inputElement);
- *
  *		 	// textInput.methodName(argument1, argument2, ...);
  *			// for example:
  *			textInput.value("text");
@@ -108,7 +107,6 @@
  *		<script>
  *			// $("#text-1").textinput('methodName', argument1, argument2, ...);
  *			// for example
- *
  *			$("#text-1").value("text");
  *		</script>
  *

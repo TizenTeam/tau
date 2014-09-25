@@ -785,10 +785,7 @@ module.exports = function (grunt) {
 
 				grunt.file.write(structureFile, "window.tauDocumentation = " + JSON.stringify(modules) + ";");
 				async.series(series);
-
-
 			}
-
 		}
 
 		this.files.forEach(function (f) {
@@ -801,5 +798,4 @@ module.exports = function (grunt) {
 			parseDox(next);
 		}
 	});
-
 };

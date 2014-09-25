@@ -9,16 +9,16 @@
  * Checkboxradio widget changes default browser checkboxes and radios to form more adapted to TV environment.
  *
  * ##Default selectors
- * In default all inputs with type _checkbox_ or _radio_ are changed to checkboxradio widget.
+ * In default all inputs with type _checkbox_ or _radio_ are changed to Checkboxradio widget.
  *
  * ##HTML Examples
  *
  * ### Create checkboxradio
  *
- *	@example
+ *		@example
  *		<input type="checkbox" name="checkbox-example" id="checkbox-example"/>
  *		<label for="checkbox-example">Example</label>
- *
+ *		<!-- Input type='radio' example -->
  *		<input type="radio" name="radio-example" id="radio-example" value="1">
  *		<label for="radio-example">Example</label>
  *

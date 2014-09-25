@@ -476,7 +476,42 @@ module.exports = function(grunt) {
 				tvDefaultTheme: files.css.getDefault( "tv", "default" )
 			},
 
-			"developer-guide": {
+			"developer-guide-extract": {
+				core: {
+					files: [{
+						src: ['src/js/core/**/*.js'],
+						dest: 'docs/guide/source/inline/core/',
+						// Part of the path removed in destination
+						destBase: 'src/js/core/'
+					}]
+				},
+				wearable: {
+					files: [{
+						src: ['src/js/profile/wearable/**/*.js'],
+						dest: 'docs/guide/source/inline/wearable/',
+						// Part of the path removed in destination
+						destBase: 'src/js/profile/wearable/'
+					}]
+				},
+				mobile: {
+					files: [{
+						src: 'src/js/profile/mobile/**/*.js',
+						dest: 'docs/guide/source/inline/mobile/',
+						// Part of the path removed in destination
+						destBase: 'src/js/profile/mobile/'
+					}]
+				},
+				tv: {
+					files: [{
+						src: ['src/js/profile/tv/**/*.js'],
+						dest: 'docs/guide/source/inline/tv/',
+						// Part of the path removed in destination
+						destBase: 'src/js/profile/tv/'
+					}]
+				}
+			},
+
+			"developer-guide-build": {
 				"options": {
 					"sourceDir": "docs/guide/source",
 					"destinationDir": "docs/guide/built",
@@ -564,6 +599,10 @@ module.exports = function(grunt) {
 				tmp: {
 					expand: true,
 					src: ['tmp']
+				},
+				guide: {
+					expand: true,
+					src: ['docs/guide/built', 'docs/guide/source/inline']
 				}
 			},
 
