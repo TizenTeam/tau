@@ -68,6 +68,7 @@
 						self._pageWidget.enableKeyboardSupport();
 					} else {
 						self._ui.handle.focus();
+						showPopup(self);
 						self._pageWidget.disableKeyboardSupport();
 					}
 					self.status = !status;
@@ -83,7 +84,6 @@
 
 			function onFocus(self) {
 				self._ui.container.classList.add("ui-focus");
-				showPopup(self);
 			}
 
 			function onBlur(self) {

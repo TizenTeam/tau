@@ -180,7 +180,7 @@ a.ui-slider-handle {
 
 	.LESSborder-radius-all(@border_radius);
 
-	&+.ui-arrow {
+	&>.ui-arrow {
 		border-width: 6 * @virtual_px;
 		background-color: @color_slider_popup_bg;
 	}
@@ -212,6 +212,7 @@ a.ui-slider-handle {
 			&.ui-slider-handle {
 				background: url(images/Slider/00_slider_handle_press.png) no-repeat;
 				.LESSbackground-size(@handle_width, @handle_height);
+				margin-left: -@handle_width/2;
 				-o-box-shadow: none;
 				-ms-box-shadow: none;
 				-moz-box-shadow: none;
