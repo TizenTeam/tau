@@ -1,4 +1,44 @@
 %changelog
+* Thu Sep 25 2014 Heeju Joo <heeju.joo@samsung.com> 0.9.24
+	- [Wearable] fixed more button active style in header.
+	- Wearable: change xml files for blue theme
+	- Wearable : modify copy images script of grunt
+	- ListviewFilter: Fixed undefined class
+	- KIRAN : modify scrollHandler width issue when content width changed
+	- Global: add framework version to TAU namespace
+	- KIRAN : fix Button height
+	- JSA : Fix code against coding rule (infos)
+	- [BUG] Wearable, popup: fix problem with closing popup during opening
+	- Converter: changed changeableUI xml files and build script
+	- [Wearable] scrollbar does not disappear during touch screen (GSDK_SE-2904)
+	- License: modify license notice for MobileWinset sample
+	- [DOCS] Developer Guide site
+	- [TV] Slider: fix for popup
+	- [Wearable] change default arrow position of Context Popup
+	- [Wearable] page route: fix problem with more complicated selector
+	- [wearable] Page: fix a problem with calculation of height
+	- Wearable : add blue and brown theme directory and modify build script
+	- License: modify copied license in Gruntfile
+	- Listdivider: Fix problem with isDivider check to work with classes
+	- Package: Fixed package version for dependencies
+	- [TV] popup: fix problem with overlay after merge
+	- Tests: Tests for util.object.hasPropertiesOfValue method
+	- Slider: change keyboard support, enable move only after enter
+	- jQM: Fix tests and method for TizenSlider
+	- [CORE] Popup: define popup widget and redefine context popup if is loaded
+	- [TV] Add globalize library to tv profile
+	- [CORE] Popup: delete checking of existing parent methods, fix binding of arrow in init
+	- [CORE] Popup, Context Popup: optimize code and add comments
+	- [TV] Popup: use function _build from Core Popup
+	- [TV] context popup: fix position and style of context popup
+	- [Core] context popup: change option "arrow"
+	- [TV] Popup: use core Popup in profile TV
+	- [core] Popup: fix problem with structure
+	- [core] Popup: rename widgets
+	- [core] Popup: fix API of widgets and enable old tests
+	- [CORE] Popup: optimize code and fix code style
+	- [FIX] Improper touchend handling
+
 * Mon Sep 22 2014 Heeju Joo <heeju.joo@samsung.com> 0.9.23
 	- Sample : delete unneccesary meta tags
 
