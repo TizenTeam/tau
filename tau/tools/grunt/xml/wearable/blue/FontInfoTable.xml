@@ -38,6 +38,7 @@
 	<FontInfo id="T0812" style="R" size="36" giant="true" />
 	<FontInfo id="T091" style="M" size="32" />
 	<FontInfo id="T092" style="R" size="36" giant="true" />
+	<FontInfo id="T092TS" style="R" size="36" giant="true" />
 	<FontInfo id="T093" style="R" size="32" />
 	<FontInfo id="T093P" style="R" size="32" />
 	<FontInfo id="T093D" style="R" size="32" />
