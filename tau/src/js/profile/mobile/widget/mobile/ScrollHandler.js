@@ -716,11 +716,9 @@
 				if (options.direction === "x") {
 					scrollviewViewStyle.display = "inline-block";
 					scrollviewViewStyle.minWidth = "100%";
-					nodeStyle.paddingBottom = "2vh";
 				}
 				if (options.direction === "y") {
 					scrollviewViewStyle.display = "block";
-					nodeStyle.paddingRight = "2vw";
 					nodeStyle.minWidth = "100%";
 				}
 
