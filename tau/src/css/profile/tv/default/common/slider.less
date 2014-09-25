@@ -25,8 +25,15 @@ select.ui-slider-switch {
 	height: 27 * @unit_base_slider;
 	padding-top: 21 * @virtual_px;
 	padding-bottom: 21 * @virtual_px;
-	margin-left: 36 * @unit_base_slider;
-	margin-right: 36 * @unit_base_slider;
+	padding-left: 36 * @unit_base_slider;
+	padding-right: 36 * @unit_base_slider;
+
+	// focused slider, but not pressed
+	&.ui-focus {
+		.ui-slider-handle {
+			background: url(images/Slider/00_slider_handle_press.png) no-repeat;
+		}
+	}
 }
 
 .ui-li > .ui-slider-container {
@@ -76,6 +83,7 @@ select.ui-slider-switch {
 
 .ui-slider-left-text {
 	position: absolute;
+	left: 0 !important;
 
 	top: 6 * @virtual_px;
 	height: 37 * @virtual_px;
@@ -88,6 +96,7 @@ select.ui-slider-switch {
 
 .ui-slider-right-text {
 	position: absolute;
+	right: 0 !important;
 
 	top:  6 * @virtual_px;
 	height: 37 * @virtual_px;

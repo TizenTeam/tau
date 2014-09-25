@@ -134,13 +134,14 @@
 					"DEFAULT": "-0.15rem"
 				},
 				TizenSlider = function () {
+					Slider.call(this);
 					// Some properties for example .popup must be defined once per slider
 					// we need to make a copy of base options, because simple assigment
 					// would create references to a single object
 					this.options = this.options ? objectUtils.copy(this.options) : {};
 					// Redefine this._ui use instance property not prototype property
 					// in further operations
-					this._ui = {};
+					this._ui = this._ui || {};
 					// @TODO recheck other properties for potential issues
 					// like this._ui
 					this._popup = null;
@@ -243,7 +244,7 @@
 				// Create widget instance out of popup element
 				popupInstance = engine.instanceWidget(popup, "Popup", {
 					positionTo: "origin", // popup with arrow
-					link: this.handle.id, // positioned to slider's element
+					link: this._ui.handle.id, // positioned to slider's element
 					transition: "none",
 					noScreen: true,
 					directionPriority: [
@@ -296,7 +297,7 @@
 					popupElement = self._popup.element;
 				}
 
-				self.handle.removeAttribute("title");
+				self._ui.handle.removeAttribute("title");
 
 				newValue = parseInt(element.value, 10);
 
@@ -421,7 +422,7 @@
 				sliderBuild.call(self, element);
 				sliderInit.call(self, element);
 
-				slider = self.slider;
+				slider = ui.slider;
 				sliderContainer = ui.container;
 				sliderContainerStyle = sliderContainer.style;
 
@@ -446,7 +447,7 @@
 				if (ui && ui.background) {
 					ui.background.classList.remove(btnClasses.uiBtnCornerAll);
 				}
-				self.handle.classList.remove(btnClasses.uiBtnCornerAll);
+				self._ui.handle.classList.remove(btnClasses.uiBtnCornerAll);
 				slider.querySelector('.' + btnClasses.uiBtnInner).classList.remove(btnClasses.uiBtnCornerAll);
 
 				switch (icon) {
@@ -572,7 +573,7 @@
 			 */
 			function onVmouseDownHandleHandler(self) {
 				self._updateSlider();
-				self.handle.classList.add(TizenSlider.classes.uiSliderHandlePress);
+				self._ui.handle.classList.add(TizenSlider.classes.uiSliderHandlePress);
 				self._showPopup();
 				document.addEventListener("vmouseup", self.onVmouseUpHandleHandler, false);
 			}
@@ -590,7 +591,7 @@
 				event.preventDefault();
 				event.stopPropagation();
 				self._hidePopup();
-				self.handle.classList.remove(TizenSlider.classes.uiSliderHandlePress);
+				self._ui.handle.classList.remove(TizenSlider.classes.uiSliderHandlePress);
 				document.removeEventListener("vmouseup", self.onVmouseUpHandleHandler, false);
 			}
 
@@ -614,7 +615,7 @@
 				element.addEventListener("change", this.onChangeHandler, false);
 				element.addEventListener("slidestart", this.onSlideStartHandler, false);
 				element.addEventListener("vmousedown", this.onVmouseDownHandler, false);
-				this.handle.addEventListener("vmousedown", this.onVmouseDownHandleHandler, false);
+				this._ui.handle.addEventListener("vmousedown", this.onVmouseDownHandleHandler, false);
 				window.addEventListener("orientationchange", this.onOrientationChangeHandler, false);
 
 				return element;

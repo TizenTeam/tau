@@ -18,6 +18,7 @@
 			"../../../core/engine",
 			"../../../core/theme",
 			"../../../core/util/selectors",
+			"../../../core/util/object",
 			"./BaseKeyboardSupport",
 			"../tv"
 		],
@@ -34,13 +35,17 @@
 					self._callbacks = {};
 					self.status = false;
 				},
-				selectors = ns.util.selectors,
 				engine = ns.engine,
+				selectors = ns.util.selectors,
+				objectUtils = ns.util.object,
+				classes = objectUtils.merge({}, BaseSlider.classes, {
+					focus: "ui-focus"
+				}),
 				FUNCTION_TYPE = "function",
 				prototype = new BaseSlider(),
 				KEY_CODES = BaseKeyboardSupport.KEY_CODES;
 
-			Slider.classes = BaseSlider.classes;
+			Slider.classes = classes;
 			Slider.prototype = prototype;
 
 			function showPopup(self) {
@@ -59,8 +64,10 @@
 
 				if (event.keyCode === KEY_CODES.enter) {
 					if (status) {
+						self._ui.container.focus();
 						self._pageWidget.enableKeyboardSupport();
 					} else {
+						self._ui.handle.focus();
 						self._pageWidget.disableKeyboardSupport();
 					}
 					self.status = !status;
@@ -75,14 +82,45 @@
 			}
 
 			function onFocus(self) {
+				self._ui.container.classList.add("ui-focus");
 				showPopup(self);
 			}
 
+			function onBlur(self) {
+				self._ui.container.classList.remove("ui-focus");
+			}
+
 			prototype._build = function(element) {
-				var pageElement = selectors.getClosestByClass(element, "ui-page");
+				var ui = this._ui,
+					elementId = element.id,
+					pageElement = selectors.getClosestByClass(element, "ui-page"),
+					container,
+					containerStyle,
+					handler;
 				this._pageWidget = engine.getBinding(pageElement, "page");
 
-				return BaseSliderPrototype._build.call(this, element);
+				element = BaseSliderPrototype._build.call(this, element);
+				// focus is enabled only on container
+				container = ui.container;
+				container.classList.add(BaseKeyboardSupport.classes.focusEnabled);
+				container.setAttribute("tabindex", 0);
+				// focus is disabled on handler
+				handler =  ui.handle;
+				handler.classList.add(BaseKeyboardSupport.classes.focusDisabled);
+
+				// change margin on paddings
+				if (this.options.icon) {
+					containerStyle = container.style;
+					if (containerStyle.marginLeft) {
+						containerStyle.paddingLeft = containerStyle.marginLeft;
+						containerStyle.marginLeft = 0;
+					}
+					if (containerStyle.marginRight) {
+						containerStyle.paddingRight = containerStyle.marginRight;
+						containerStyle.marginRight = 0;
+					}
+				}
+				return element;
 			};
 
 			prototype._init = function(element) {
@@ -103,12 +141,14 @@
 				callbacks.onKeyup = onKeyup.bind(null, this);
 				callbacks.onKeydown = onKeydown.bind(null, this);
 				callbacks.onFocus = onFocus.bind(null, this);
+				callbacks.onBlur = onBlur.bind(null, this);
 
 				this._bindEventKey();
 
 				container.addEventListener("keyup", callbacks.onKeyup, false);
 				container.addEventListener("keydown", callbacks.onKeydown, true);
-				this.handle.addEventListener("focus", callbacks.onFocus, true);
+				container.addEventListener("focus", callbacks.onFocus, true);
+				container.addEventListener("blur", callbacks.onBlur, true);
 			};
 
 			/**
@@ -131,7 +171,7 @@
 				pageElement.appendChild(popup);
 				// Create widget instance out of popup element
 				popupInstance = engine.instanceWidget(popup, "Popup", {
-					positionTo: "#" + this.handle.id, // positioned to slider's element
+					positionTo: "#" + this._ui.handle.id, // positioned to slider's element
 					transition: "none",
 					overlay: false,
 					arrow: "b,t",
@@ -166,7 +206,7 @@
 					popupElement = self._popup.element;
 				}
 
-				self.handle.removeAttribute("title");
+				self._ui.handle.removeAttribute("title");
 
 				newValue = parseInt(element.value, 10);
 
@@ -192,13 +232,15 @@
 			};
 
 			prototype._destroy = function() {
-				var container = this._ui.container,
+				var ui = this._ui,
+					container = ui.container,
 					callbacks = this._callbacks;
 
 				this._destroyEventKey();
 				container.removeEventListener("keyup", callbacks.onKeyup, false);
 				container.removeEventListener("keydown", callbacks.onKeydown, false);
-				this.handle.removeEventListener("focus", callbacks.onFocus, true);
+				ui.handle.removeEventListener("focus", callbacks.onFocus, true);
+				container.removeEventListener("blur", callbacks.onBlur, true);
 
 				if (typeof BaseSliderPrototype._destroy === FUNCTION_TYPE) {
 					BaseSliderPrototype._destroy.call(this);

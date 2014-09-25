@@ -23,9 +23,17 @@
 				object = ns.util.object,
 				BaseKeyboardSupport = function () {
 					object.merge(this, prototype);
+					// prepare selector
+					if (selectorsString === "") {
+						this._prepareSelector();
+					}
 				},
 				prototype = {
 					_supportKeyboard: false
+				},
+				classes = {
+					focusDisabled: "ui-focus-disabled",
+					focusEnabled: "ui-focus-enabled"
 				},
 				KEY_CODES =	{
 					left: 37,
@@ -39,15 +47,18 @@
 					X: 1,
 					Y: 2
 				},
-				SELECTORS = ["a", "[tabindex]"],
+				selectorSuffix = ":not(." + classes.focusDisabled + ")",
+				selectors = ["a", "." + classes.focusEnabled, "[tabindex]"],
+				selectorsString = "",
 				/**
 				* @property {Array} Array containing number of registrations of each selector
 				* @member ns.widget.tv.BaseKeyboardSupport
 				* @private
 				*/
-				REF_COUNTERS = [1, 1];
+				REF_COUNTERS = [1, 1, 1];
 
 			BaseKeyboardSupport.KEY_CODES = KEY_CODES;
+			BaseKeyboardSupport.classes = classes;
 			/**
 			 * Get focussed element.
 			 * @method _getFocusesLink
@@ -56,7 +67,7 @@
 			 * @member ns.widget.tv.BaseKeyboardSupport
 			 */
 			prototype._getFocusesLink = function() {
-				return document.querySelector(":focus");
+				return document.querySelector(":focus") || document.activeElement;
 			};
 
 			/**
@@ -67,7 +78,7 @@
 			 * @member ns.widget.tv.BaseKeyboardSupport
 			 */
 			prototype._getActiveLinks = function() {
-				return [].slice.call(this.element.querySelectorAll(SELECTORS.toString())).filter(function(element){
+				return [].slice.call(this.element.querySelectorAll(selectorsString)).filter(function(element){
 					return element.offsetWidth && element.style.visibility !== "hidden";
 				});
 			};
@@ -85,6 +96,16 @@
 			function mapToElement(linkOffset) {
 				return linkOffset.element;
 			}
+
+			/**
+			 * Set string with selector
+			 * @method _prepareSelector
+			 * @protected
+			 * @member ns.widget.tv.BaseKeyboardSupport
+			 */
+			prototype._prepareSelector = function() {
+				selectorsString = selectors.join(selectorSuffix + ",") + selectorSuffix;
+			};
 
 			/**
 			 * Calculates neighborhood links.
@@ -303,16 +324,17 @@
 			 * @member ns.widget.tv.BaseKeyboardSupport
 			 */
 			prototype.registerActiveSelector = function (selector) {
-				var index = SELECTORS.indexOf(selector);
+				var index = selectors.indexOf(selector);
 				// check if not registered yet
 				if (index == -1) {
-					SELECTORS.push(selector);
+					selectors.push(selector);
 					// new selector - create reference counter for it
 					REF_COUNTERS.push(1);
 				} else {
 					// such a selector exist - increment reference counter
 					++REF_COUNTERS[index];
 				}
+				this._prepareSelector();
 			};
 
 			/**
@@ -322,16 +344,17 @@
 			 * @member ns.widget.tv.BaseKeyboardSupport
 			 */
 			prototype.unregisterActiveSelector = function (selector) {
-				var index = SELECTORS.indexOf(selector);
+				var index = selectors.indexOf(selector);
 				if (index != -1) {
 					--REF_COUNTERS[index];
 					// check reference counter
 					if (REF_COUNTERS[index] == 0) {
 						// remove selector
-						SELECTORS.splice(index, 1);
+						selectors.splice(index, 1);
 						REF_COUNTERS.splice(index, 1);
 					}
 				}
+				this._prepareSelector();
 			};
 
 			ns.widget.tv.BaseKeyboardSupport = BaseKeyboardSupport;

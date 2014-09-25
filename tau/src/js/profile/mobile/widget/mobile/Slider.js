@@ -180,9 +180,6 @@
 						theme: null
 					};
 					self._ui = {};
-					//container for slider containing handle.element
-					self.slider = null;
-					self.handle = null;
 					//container background
 					self.valueBackGround = null;
 					self.dragging = false;
@@ -287,19 +284,21 @@
 			 * @member ns.widget.mobile.Slider
 			 */
 			function refreshLabels(self, percent) {
-				var shandle = self.handle,
+				var ui = self._ui,
+					shandle = ui.handle,
 					getElementWidth = DOMutils.getElementWidth.bind(DOMutils),
 					handlePercent = getElementWidth(shandle, "outer") /
-							getElementWidth(self.slider, "outer") * 100,
+							getElementWidth(ui.slider, "outer") * 100,
 					aPercent = percent && handlePercent + (100 - handlePercent)
 							* percent / 100,
 					bPercent = percent === 100 ? 0 : Math.min(handlePercent +
 							100 - aPercent, 100),
-					i = self._labels.length,
+					labels = ui.labels,
+					i = labels.length,
 					label;
 
 				while (i--) {
-					label = self._labels[i];
+					label = labels[i];
 					label.style.width = 
 							(label.classList.contains(classes.sliderLabelA)
 									? aPercent : bPercent) + "%";
@@ -355,12 +354,13 @@
 			 * @member ns.widget.mobile.Slider
 			 */
 			function refresh(self, val, isfromControl, preventInputUpdate) {
-				var control = self.element,
+				var ui = self._ui,
+					control = self.element,
 					percent,
 					centerPercent,
 					halfPercent = 50,
-					shandle = self.handle,
-					sliderBackground = self._ui.background,
+					shandle = ui.handle,
+					sliderBackground = ui.background,
 					sliderBackgroundStyle,
 					cType = control.nodeName.toLowerCase(),
 					min = 0,
@@ -372,6 +372,7 @@
 					data,
 					touchThreshold,
 					localClasses = shandle.classList,
+					slider = ui.slider,
 					newval,
 					valModStep,
 					alignValue,
@@ -400,20 +401,20 @@
 					// @TODO take parameter out to config
 					touchThreshold = 8;
 					sliderOffsetLeft =
-							DOMutils.getElementOffset(self.slider).left;
+							DOMutils.getElementOffset(slider).left;
 
 					// If refreshing while not dragging
 					// or movement was within threshold
 					if (!self.dragging ||
 							data.pageX < sliderOffsetLeft - touchThreshold ||
 							data.pageX > sliderOffsetLeft + 
-							self.slider.offsetWidth + touchThreshold) {
+							slider.offsetWidth + touchThreshold) {
 						return;
 					}
 
 					// Calculate new left side percent
 					percent = ((data.pageX - sliderOffsetLeft) /
-							self.slider.offsetWidth) * 100;
+							slider.offsetWidth) * 100;
 
 				// If changes came from input value change
 				} else {
@@ -493,7 +494,7 @@
 				}
 
 				// drag the label widths
-				if (self._labels) {
+				if (ui.labels) {
 					refreshLabels(self, percent);
 				}
 
@@ -525,7 +526,7 @@
 			 */
 			function onVmouseMove(self, event) {
 				var tagName = self.element.nodeName.toLowerCase(),
-					handle = self.handle;
+					handle = self._ui.handle;
 				// NOTE: we don't do this in refresh because we still want to
 				//	support programmatic alteration of disabled inputs
 				if (self.dragging && !self.options.disabled) {
@@ -561,7 +562,7 @@
 
 					if (self.element.nodeName.toLowerCase() === "select") {
 						// make the handle move with a smooth transition
-						self.handle.classList.add(classes.sliderSnapping);
+						self._ui.handle.classList.add(classes.sliderSnapping);
 
 						if (self.mouseMoved) {
 							// this is a drag, change the value only
@@ -786,20 +787,21 @@
 			 */
 			Slider.prototype._init = function (element) {
 				var elementId = element.id,
-					self = this;
+					self = this,
+					ui = self._ui;
 
 				self.element = element;
-				self.slider = document.getElementById(elementId + "-slider");
-				self.handle = document.getElementById(elementId + "-handle");
-				self._ui.container = document.getElementById(elementId +
+				ui.slider = document.getElementById(elementId + "-slider");
+				ui.handle = document.getElementById(elementId + "-handle");
+				ui.container = document.getElementById(elementId +
 						"-container") || element;
-				self._ui.background = self.slider.querySelector("." +
+				ui.background = ui.slider.querySelector("." +
 						Slider.classes.sliderBg);
 				self._type = element.tagName.toLowerCase();
-				self._labels = selectors.getChildrenByClass(self.slider,
+				ui.labels = selectors.getChildrenByClass(ui.slider,
 						Slider.classes.sliderLabel);
-				if ( self.options.center && self._ui.background )
-					self._ui.background.classList.add(
+				if ( self.options.center && ui.background )
+					ui.background.classList.add(
 							Slider.classes.sliderBgHasCenter);
 				refresh(self, self._getValue());
 			};
@@ -936,9 +938,10 @@
 			 */
 			Slider.prototype._bindEvents = function (element) {
 				var self = this,
-					handle = self.handle,
+					ui = self._ui,
+					handle = ui.handle,
 					tagName = element.nodeName.toLowerCase(),
-					slider = self.slider,
+					slider = ui.slider,
 					step = parseFloat( self.element.getAttribute( "step" ) ||
 							1 ),
 					min = tagName === "input" ?
@@ -1108,11 +1111,12 @@
 			 * @member ns.widget.mobile.Slider
 			 */
 			Slider.prototype._enable = function (element) {
-				var btnClasses = Button.classes;
+				var btnClasses = Button.classes,
+					slider = this._ui.slider;
 
 				element.removeAttribute("disabled");
-				this.slider.classList.remove( btnClasses.uiDisabled );
-				this.slider.setAttribute("aria-disabled", false);
+				slider.classList.remove( btnClasses.uiDisabled );
+				slider.setAttribute("aria-disabled", false);
 				this.options.disabled = false;
 			};
 
@@ -1157,11 +1161,12 @@
 			 * @member ns.widget.mobile.Slider
 			 */
 			Slider.prototype._disable = function (element) {
-				var btnClasses = Button.classes;
+				var btnClasses = Button.classes,
+					slider = this._ui.slider;
 
 				element.setAttribute("disabled", "disabled");
-				this.slider.classList.add( btnClasses.uiDisabled );
-				this.slider.setAttribute( "aria-disabled", true );
+				slider.classList.add( btnClasses.uiDisabled );
+				slider.setAttribute( "aria-disabled", true );
 				this.options.disabled = true;
 			};
 
