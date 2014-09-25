@@ -88,23 +88,18 @@
 			 */
 			function isArrayLike(object) {
 				var type = typeof object,
-					length = object.length;
+					length = object && object.length;
 
-				if (object != null && object === object.window) {
-					return false;
+				// if object exists and is different from window
+				// window object has length property
+				if (object && object !== object.window) {
+					// If length value is not number, object is not array and collection.
+					// Collection type is not array but has length value.
+					// e.g) Array.isArray(document.childNodes) ==> false
+					return Array.isArray(object) || object instanceof NodeList || type === "function" &&
+						(length === 0 || typeof length === "number" && length > 0 && (length - 1) in object);
 				}
-
-				if (object.nodeType === 1 && length) {
-					// nodeType 1 is ELEMENT_NODE
-					// Note that docuement nodeType is 9
-					return true;
-				}
-
-				// If length value is not number, object is not array and collection.
-				// Collection type is not array but has length value.
-				// e.g) Array.isArray(document.childNodes) ==> false
-				return Array.isArray(object) || object instanceof NodeList|| type === "function" &&
-					(length === 0 || typeof length === "number" && length > 0 && (length -1) in object);
+				return false;
 			}
 
 			ns.util.array = {
