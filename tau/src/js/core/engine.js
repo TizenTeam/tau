@@ -1,4 +1,4 @@
-/*global window, define, ns, Node */
+/*global window, define, ns, Node, HTMLElement */
 /*jslint nomen: true, plusplus: true, bitwise: false */
 /* 
  * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
@@ -70,18 +70,6 @@
 				 * @member ns.engine
 				 */
 				justBuild = location.hash === "#build",
-				/**
-				 * Returns trimmed value
-				 * @method trim
-				 * @param {string} value
-				 * @return {string} trimmed string
-				 * @static
-				 * @private
-				 * @member ns.engine
-				 */
-				trim = function (value) {
-					return value.trim();
-				},
 				/**
 				 * @property {string} [TYPE_STRING="string"] local cache of string type name
 				 * @private

@@ -251,4 +251,61 @@
 		ok(popup1Widget._ui.overlay, "widget set overlay");
 	});
 
+	test("set multi options", function () {
+		expect(2);
+		popup1Widget = engine.instanceWidget(popup1, 'Popup');
+		popup1Widget.option({
+				'header': 'header multi',
+				'footer': 'footer multi'
+			});
+		equal(popup1Widget._ui.header.innerHTML, 'header multi', "widget change header to string");
+		equal(popup1Widget._ui.footer.innerHTML, 'footer multi', "widget change footer to string");
+	});
+
+	function eventCallback() {
+		ok('Event called');
+	}
+
+	test("on method", function () {
+		expect(1);
+		popup1Widget = engine.instanceWidget(popup1, 'Popup');
+		popup1Widget.on('event', eventCallback, false);
+		popup1Widget.trigger('event');
+	});
+
+	test("off method", function () {
+		expect(1);
+		popup1Widget = engine.instanceWidget(popup1, 'Popup');
+		popup1Widget.on('event', eventCallback, false);
+		popup1Widget.off('event', eventCallback, false);
+		popup1Widget.trigger('event');
+		ok('not triggered');
+	});
+
+	if (!window.navigator.userAgent.match('PhantomJS')) {
+		asyncTest("test popup close onpagehide", 1, function () {
+			popup1Widget = engine.instanceWidget(popup1, 'Popup');
+			tau.event.one(page, "pagebeforehide", function () {
+				ok(!popup1Widget._isOpened(), "Popup is not open");
+				start();
+			});
+			tau.event.one(popup1, "popupshow", function () {
+				tau.event.trigger(page, 'pagebeforehide');
+			});
+			popup1Widget.open();
+		});
+
+
+		asyncTest("test popup close by click on overlay", 1, function () {
+			popup1Widget = engine.instanceWidget(popup1, 'Popup');
+			tau.event.one(popup1, "popuphide", function () {
+				ok(!popup1Widget._isOpened(), "Popup is not open");
+				start();
+			});
+			tau.event.one(popup1, "popupshow", function () {
+				tau.event.trigger(popup1Widget._ui.overlay, 'click');
+			});
+			popup1Widget.open();
+		});
+	}
 }(window, window.document));

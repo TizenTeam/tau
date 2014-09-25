@@ -282,7 +282,9 @@
 				options = options || {};
 				if (options.reverse && DOM.hasNSData(fromPage, "external")) {
 					fromPageWidget.destroy();
-					fromPage.parentNode.removeChild(fromPage);
+					if (fromPage.parentNode) {
+						fromPage.parentNode.removeChild(fromPage);
+					}
 				}
 			};
 
