@@ -1,4 +1,8 @@
 %changelog
+* Thu Sep 25 2014 Youmin Ha <youmin.ha@samsung.com> 0.9.25
+	- [mobile/TV][test] Scrollview: add loading css in test, fix style of content in tv profile
+	- GBS build break FIX: License name changed
+
 * Thu Sep 25 2014 Heeju Joo <heeju.joo@samsung.com> 0.9.24
 	- [Wearable] fixed more button active style in header.
 	- Wearable: change xml files for blue theme
