@@ -48,6 +48,28 @@
 		original.target.dispatchEvent(evt);
 	}
 
+	test('preventDefault on the same event', 2, function() {
+		var element = document.getElementById('prevented');
+
+		on(element, 'click', function (event) {
+			ej.event.preventDefault(event);
+			ok('First event');
+			ok(!location.hash);
+		}, true);
+		element.click();
+	});
+
+	test('preventDefault on the same event', 2, function() {
+		var element = document.getElementById('prevented');
+
+		on(element, 'vclick', function (event) {
+			ej.event.preventDefault(event);
+			ok('First event');
+			ok(!location.hash);
+		}, true);
+		element.click();
+	});
+
 	test("ej.event - check function trigger", function () {
 		var element = document.getElementById("events1"),
 			events = ej.event;
@@ -205,5 +227,158 @@
 		}, false);
 
 		events.trigger(element, 'testEvent1');
+	});
+
+	test('on event catch on elements collection', 2, function() {
+		var elements = document.querySelectorAll('.testone input'),
+			events = ej.event;
+
+		on(elements, "testEventOn", function (event) {
+			ok('event catch');
+		}, false);
+
+		events.trigger(elements[0], "testEventOn");
+		events.trigger(elements[1], "testEventOn");
+	});
+
+	test('off event catch on elements collection', 1, function() {
+		var elements = document.querySelectorAll('.testone input'),
+			events = ej.event;
+
+		off(elements, "testEventOn", function (event) {
+			ok('event catch');
+		}, false);
+
+		events.trigger(elements[0], "testEventOn");
+		events.trigger(elements[1], "testEventOn");
+		ok('event not catch');
+	});
+
+	test('one event catch', 1, function() {
+		var element = document.getElementById('test3'),
+			events = ej.event;
+
+		one(element, "testEventOne", function (event) {
+			ok('event catch');
+		}, false);
+
+		events.trigger(element, 'testEventOne');
+		events.trigger(element, 'testEventOne');
+	});
+
+	test('one event catch on elements collection', 1, function() {
+		var elements = document.querySelectorAll('.testone input'),
+			events = ej.event;
+
+		one(elements, "testEventOne", function (event) {
+			ok('event catch');
+		}, false);
+
+		events.trigger(elements[0], "testEventOne");
+		events.trigger(elements[0], "testEventOne");
+	});
+
+	test('one events (array) catch', 2, function() {
+		var element = document.getElementById('test3'),
+			events = ej.event;
+
+		one(element, ["testEventOne", "testEventTwo"], function (event) {
+			ok('event catch');
+		}, false);
+
+		events.trigger(element, "testEventOne");
+		events.trigger(element, "testEventTwo");
+	});
+
+	test('one events (object) catch', 2, function() {
+		var element = document.getElementById('test3'),
+			events = ej.event;
+
+		one(element, {"testEventOne":  function (event) {
+			ok('event catch');
+		}, "testEventTwo":  function (event) {
+			ok('event catch');
+		}}, false);
+
+		events.trigger(element, "testEventOne");
+		events.trigger(element, "testEventTwo");
+	});
+
+
+	function fireEvent(el, type, props, touches) {
+		var evt = new CustomEvent(type, {
+				"bubbles": true,
+				"cancelable": true
+			}),
+			prop;
+
+		for (prop in props) {
+			evt[prop] = props[prop];
+		}
+		if (touches) {
+			evt.touches = touches;
+			evt.targetTouches = touches;
+		}
+		try {
+			return el.dispatchEvent(evt);
+		} catch (err) {
+			console.log(err);
+		}
+		return false;
+	};
+
+	test('targetRelativeCoordsFromEvent', 3, function() {
+		var element = document.getElementById('test3'),
+			events = tau.event;
+
+		one(element, "mouseup", function (event) {
+			var coords = events.targetRelativeCoordsFromEvent(event);
+			ok(coords.x);
+			ok(coords.y);
+		}, false);
+
+		ok(fireEvent(element, "mouseup", {
+			"offsetX": 50,
+			"offsetY": 50
+		}, []), "mouseup fired");
+	});
+
+	test('targetRelativeCoordsFromEvent', 3, function() {
+		var element = document.getElementById('test3'),
+			events = tau.event;
+
+		one(element, "mouseup", function (event) {
+			var coords = events.targetRelativeCoordsFromEvent(event);
+			ok(coords.x);
+			ok(coords.y);
+		}, false);
+
+		ok(fireEvent(element, "mouseup", {
+			"pageX": 50,
+			"pageY": 50,
+			"clientX": 10,
+			"clientY": 10
+		}, []), "mouseup fired");
+	});
+
+	test('targetRelativeCoordsFromEvent', 3, function() {
+		var element = document.getElementById('test3'),
+			events = tau.event;
+
+		one(element, "touchstart", function (event) {
+			var coords = events.targetRelativeCoordsFromEvent(event);
+			ok(coords.x);
+			ok(coords.y);
+		}, false);
+
+		ok(fireEvent(element, "touchstart", {
+			"pageX": 0,
+			"pageY": 0,
+			"clientX": 10,
+			"clientY": 10
+		}, [{"pageX": 0,
+			"pageY": 0,
+			"clientX": 10,
+			"clientY": 10, target: element}]), "mouseup fired");
 	});
 }(document));

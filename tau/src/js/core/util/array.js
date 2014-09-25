@@ -103,7 +103,7 @@
 				// If length value is not number, object is not array and collection.
 				// Collection type is not array but has length value.
 				// e.g) Array.isArray(document.childNodes) ==> false
-				return Array.isArray(object) || type !== "function" &&
+				return Array.isArray(object) || object instanceof NodeList|| type === "function" &&
 					(length === 0 || typeof length === "number" && length > 0 && (length -1) in object);
 			}
 

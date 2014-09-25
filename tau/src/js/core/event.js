@@ -186,7 +186,7 @@
 							documentElement = document.documentElement;
 
 						if (event.type.match(/^touch/)) {
-							touch0 = _event.originalEvent.targetTouches[0];
+							touch0 = _event.targetTouches[0] || _event.originalEvent.targetTouches[0];
 							page = {
 								x: touch0.pageX,
 								y: touch0.pageY
@@ -228,7 +228,7 @@
 
 					if (cords.x === undefined || isNaN(cords.x) ||
 						cords.y === undefined || isNaN(cords.y)) {
-						cords = events.documentRelativeCoordsFromEvent(event);
+						cords = ns.event.documentRelativeCoordsFromEvent(event);
 						cords.x -= target.offsetLeft;
 						cords.y -= target.offsetTop;
 					}
@@ -352,9 +352,9 @@
 						elements,
 						types,
 						listeners,
-						callback;
+						callbacks = [];
 					if (isArrayLike(element)) {
-						elements = element;
+						elements = arraySlice.call(element);
 					} else {
 						elements = [element];
 					}
@@ -363,15 +363,16 @@
 					typesLength = listeners.length;
 					for (i = 0; i < elementsLength; i++) {
 						if (typeof elements[i].addEventListener === "function") {
+							callbacks[i] = [];
 							for (j = 0; j < typesLength; j++) {
-								callback = (function(i, j) {
+								callbacks[i][j] = (function(i, j) {
 									var args = arraySlice.call(arguments);
-									ns.event.fastOff(elements[i], listeners[j].type, callback, useCapture);
+									ns.event.fastOff(elements[i], listeners[j].type, callbacks[i][j], useCapture);
 									args.shift(); // remove the first argument of binding function
 									args.shift(); // remove the second argument of binding function
 									listeners[j].callback.apply(this, args);
 								}).bind(null, i, j);
-								ns.event.fastOn(elements[i], listeners[j].type, callback, useCapture);
+								ns.event.fastOn(elements[i], listeners[j].type, callbacks[i][j], useCapture);
 							}
 						}
 					}
