@@ -65,7 +65,7 @@ Summary:    TAU : mobile
 	TAU : mobile-js
 %files -n tau-mobile
 %manifest tau-mobile.manifest
-/usr/share/tau/*.Flora
+/usr/share/tau/*.MIT
 /usr/share/tau/VERSION
 /usr/share/tau/mobile/js
 
