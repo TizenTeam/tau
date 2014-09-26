@@ -151,7 +151,7 @@
 				if (value === undefined) {
 					return DOM.getNSData(element, name);
 				} else {
-					return DOM.setNSdata(element, name, value);
+					return DOM.setNSData(element, name, value);
 				}
 			};
 

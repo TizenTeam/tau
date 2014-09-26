@@ -1,5 +1,6 @@
 var dom = ej.util.DOM,
-	div = document.getElementById("test1");
+	div = document.getElementById("test1"),
+	div2 = document.getElementById("test2");
 
 test("util.DOM.attributes - check function inheritAttr", function () {
 	var elem1 = document.getElementById("dom5"),
@@ -61,6 +62,24 @@ test("util.DOM.attributes - check function getNSData", function () {
 	dom.setNSData(div, "build", false);
 	equal(dom.getNSData(div, "build"), false, "getNSData(div, 'build')");
 	equal(dom.getNSData(div, "text"), "test", "getNSData(div, 'text')");
+});
+
+test("util.DOM.attributes - check function nsData", function () {
+	dom.nsData(div2, "id", 5);
+	dom.nsData(div2, "build", true);
+	equal(typeof dom.nsData(div2, "text", "test"), "undefined", "setNSData returns nothing");
+	equal(div2.dataset.id, "5", "setNSData(div, 'id', 5)");
+	equal(div2.dataset.build, "true", "setNSData(div, 'build', 'true')");
+	equal(div2.dataset.text, "test", "setNSData(div, 'text', 'test')");
+	div2.dataset.id = 5;
+	div2.dataset.build = true;
+	div2.dataset.text = "test";
+	equal(dom.nsData(div2, "nothing"), null, "getNSData returns null if element doesn't have such attribute");
+	equal(dom.nsData(div2, "id"), "5", "getNSData(div, 'id')");
+	equal(dom.nsData(div2, "build"), true, "getNSData(div, 'build')");
+	dom.nsData(div2, "build", false);
+	equal(dom.nsData(div2, "build"), false, "getNSData(div, 'build')");
+	equal(dom.nsData(div2, "text"), "test", "getNSData(div, 'text')");
 });
 
 test("util.DOM.attributes - check function hasNSData", function () {
