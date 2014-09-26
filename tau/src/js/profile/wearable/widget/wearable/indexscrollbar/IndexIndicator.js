@@ -49,15 +49,17 @@
 					container: null
 				},
 				_init: function() {
-					var element = this.element;
-					element.className = this.options.className;
+					var self = this,
+						options = self.options,
+						element = self.element;
+					element.className = options.className;
 					element.innerHTML = "<span></span>";
 					events.on(element, ["touchstart", "touchmove"], blockEvent, false);
 
 
 					// Add to DOM tree
-					this.options.container.appendChild(element);
-					this.fitToContainer();
+					options.container.insertBefore(element, options.referenceElement);
+					self.fitToContainer();
 				},
 
 				/**

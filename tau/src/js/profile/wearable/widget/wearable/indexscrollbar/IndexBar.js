@@ -47,11 +47,11 @@
 					moreChar: "*",
 					indexHeight: 41,
 					selectedClass: "ui-state-selected",
-					ulClass: null
+					ulClass: null,
+					maxIndexLen : 0
 				},
 				_init: function() {
 					this.indices.original = this.options.index;
-					this.maxIndexLen = 0;
 					this.indexLookupTable = [];
 					this.indexElements = null;
 					this.selectedIndex = -1;
@@ -134,13 +134,13 @@
 					if(maxIndexLen > 0 && maxIndexLen%2 === 0) {
 						maxIndexLen -= 1;	// Ensure odd number
 					}
-					this.maxIndexLen = maxIndexLen;
+					this.options.maxIndexLen = this.options.maxIndexLen > 0 ? Math.min(maxIndexLen, this.options.maxIndexLen) : maxIndexLen;
 				},
 
 				_makeMergedIndices: function() {
 					var origIndices = this.indices.original,
 						origIndexLen = origIndices.length,
-						visibleIndexLen = Math.min(this.maxIndexLen, origIndexLen),
+						visibleIndexLen = Math.min(this.options.maxIndexLen, origIndexLen),
 						totalLeft = origIndexLen - visibleIndexLen,
 						nIndexPerItem = parseInt(totalLeft / parseInt(visibleIndexLen/2, 10), 10),
 						leftItems = totalLeft % parseInt(visibleIndexLen/2, 10),
@@ -150,7 +150,7 @@
 
 					for(i = 0, len = visibleIndexLen; i < len; i++) {
 						indexItemSize[i] = 1;
-						if(i % 2) {	// even number: omitter
+						if (i % 2) {	// even number: omitter
 							indexItemSize[i] += nIndexPerItem + (leftItems-- > 0 ? 1 : 0);
 						}
 						position +=  indexItemSize[i];

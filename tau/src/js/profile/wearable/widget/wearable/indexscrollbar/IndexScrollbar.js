@@ -340,9 +340,12 @@
 				POINTER_MOVE = 'vmousemove',
 				POINTER_END = 'vmouseup',
 
-				pointerIsPressed = false;
+				pointerIsPressed = false,
+				prototype = new BaseWidget();
 
-			utilsObject.inherit(IndexScrollbar, BaseWidget, {
+			IndexScrollbar.prototype = prototype;
+
+			utilsObject.merge(prototype, {
 				widgetName: "IndexScrollbar",
 				widgetClass: "ui-indexscrollbar",
 
@@ -367,6 +370,7 @@
 					this.options = {
 						moreChar: "*",
 						selectedClass: "ui-state-selected",
+						indicatorClass: "ui-indexscrollbar-indicator",
 						delimiter: ",",
 						index: [
 							"A", "B", "C", "D", "E", "F", "G", "H",
@@ -402,15 +406,19 @@
 				 * @return {HTMLElement}
 				 * @member ns.widget.wearable.IndexScrollbar
 				 */
-				_init: function () {
-					this.options.index = this._getIndex();
-					this._setInitialLayout();	// This is needed for creating sub objects
-					this._createSubObjects();
+				_init: function (element) {
+					var self = this,
+						options = self.options;
+					self._setIndex(element, options.index);
+					self._setMaxIndexLen(element, options.maxIndexLen);
+					self._setInitialLayout();	// This is needed for creating sub objects
+					self._createSubObjects();
 
-					this._updateLayout();
+					self._updateLayout();
 
 					// Mark as extended
-					this._extended(true);
+					self._extended(true);
+					return element;
 				},
 
 				/**
@@ -428,6 +436,7 @@
 					}
 
 					this._updateLayout();
+					this.indexBar1.refresh();
 					this._extended( true );
 				},
 
@@ -458,30 +467,36 @@
 				 * @member ns.widget.wearable.IndexScrollbar
 				 */
 				_createSubObjects: function() {
+					var self =  this,
+						options = self.options,
+						element = self.element;
 					// indexBar1
-					this.indexBar1 = new IndexBar( document.createElement("UL"), {
-						container: this.element,
+					self.indexBar1 = new IndexBar( document.createElement("UL"), {
+						container: element,
 						offsetLeft: 0,
-						index: this.options.index,
+						index: options.index,
 						verticalCenter: true,
-						indexHeight: this.options.indexHeight
+						indexHeight: options.indexHeight,
+						maxIndexLen: options.maxIndexLen
 					});
 
 					// indexBar2
-					if(this.options.supplementaryIndex) {
-						this.indexBar2 = new IndexBar( document.createElement("UL"), {
-							container: this.element,
-							offsetLeft: -this.element.clientWidth - this.options.supplementaryIndexMargin,
+					if (typeof options.supplementaryIndex === "function") {
+						self.indexBar2 = new IndexBar( document.createElement("UL"), {
+							container: element,
+							offsetLeft: -element.clientWidth - options.supplementaryIndexMargin,
 							index: [],	// empty index
-							indexHeight: this.options.indexHeight,
+							indexHeight: options.indexHeight,
 							ulClass: "ui-indexscrollbar-supplementary"
 						});
-						this.indexBar2.hide();
+						self.indexBar2.hide();
 					}
 
 					// indicator
-					this.indicator = new IndexIndicator(document.createElement("DIV"), {
-						container: this._getContainer()
+					self.indicator = new IndexIndicator(document.createElement("DIV"), {
+						container: self._getContainer(),
+						referenceElement: self.element,
+						className: options.indicatorClass
 					});
 
 				},
@@ -520,12 +535,13 @@
 				_setInitialLayout: function () {
 					var indexScrollbar = this.element,
 						container = this._getContainer(),
-						containerPosition = window.getComputedStyle(container).position;
+						containerPosition = window.getComputedStyle(container).position,
+						indexScrollbarStyle = indexScrollbar.style;
 
 					// Set the indexScrollbar's position, if needed
 					if (containerPosition !== "absolute" && containerPosition !== "relative") {
-						indexScrollbar.style.top = container.offsetTop + "px";
-						indexScrollbar.style.height = container.style.height;
+						indexScrollbarStyle.top = container.offsetTop + "px";
+						indexScrollbarStyle.height = container.offsetHeight + "px";
 					}
 				},
 
@@ -535,17 +551,19 @@
 				 * @protected
 				 * @member ns.widget.wearable.IndexScrollbar
 				 */
-				_setMaxIndexLen: function() {
-					var maxIndexLen = this.options.maxIndexLen,
-						container = this._getContainer(),
+				_setMaxIndexLen: function(element, value) {
+					var self = this,
+						options = self.options,
+						container = self._getContainer(),
 						containerHeight = container.offsetHeight;
-					if(maxIndexLen <= 0) {
-						maxIndexLen = Math.floor( containerHeight / this.options.indexHeight );
+
+					if (value <= 0) {
+						value = Math.floor( containerHeight / options.indexHeight );
 					}
-					if(maxIndexLen > 0 && maxIndexLen%2 === 0) {
-						maxIndexLen -= 1;	// Ensure odd number
+					if (value > 0 && value%2 === 0) {
+						value -= 1;	// Ensure odd number
 					}
-					this.options.maxIndexLen = maxIndexLen;
+					options.maxIndexLen = value;
 				},
 
 				/**
@@ -892,13 +910,12 @@
 				 * @protected
 				 * @member ns.widget.wearable.IndexScrollbar
 				 */
-				_getIndex: function (value) {
-					var options = this.options,
-						indices = value || options.index;
-					if (indices) {
-						indices = indices.split(options.delimiter);	// delimiter
+				_setIndex: function (element, value) {
+					var options = this.options;
+					if (typeof value === "string") {
+						value = value.split(options.delimiter);	// delimiter
 					}
-					return indices;
+					options.index = value;
 				},
 
 				/**

@@ -1,13 +1,13 @@
-module("api.ej.widget.micro.IndexScrollbar", {
+module("api.ej.widget.wearable.IndexScrollbar", {
 	});
 
-	test ( "API ej.widget.micro.IndexScrollbar" , function () {
+	test ( "API ej.widget.wearable.IndexScrollbar" , function () {
 		var widget;
 		equal(typeof ej, "object", "Class ej exists");
 		equal(typeof ej.widget, "object", "Class ej.widget exists");
-		equal(typeof ej.widget.micro, "object", "Class ej.widget.micro exists");
-		equal(typeof ej.widget.micro.IndexScrollbar, "function", "Class ej.widget.micro.Page exists");
-		widget = new ej.widget.micro.IndexScrollbar();
+		equal(typeof ej.widget.wearable, "object", "Class ej.widget.micro exists");
+		equal(typeof ej.widget.wearable.IndexScrollbar, "function", "Class ej.widget.wearable.Page exists");
+		widget = new ej.widget.wearable.IndexScrollbar();
 
 		equal(typeof widget.configure, "function", "Method IndexScrollbar.configure exists");
 		equal(typeof widget._getCreateOptions, "function", "Method IndexScrollbar._getCreateOptions exists");
