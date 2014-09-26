@@ -68,6 +68,7 @@
 			"../../../../core/event",
 			"../../../../core/event/gesture",
 			"../../../../core/util/selectors",
+			"../../../../core/util/DOM",
 			"../../../../core/widget/BaseWidget",
 			"../wearable"
 		],
@@ -76,6 +77,7 @@
 			var Gesture = ns.event.gesture,
 				utilsEvents = ns.event,
 				engine = ns.engine,
+				dom = ns.util.DOM,
 				selectors = ns.util.selectors,
 
 				eventType = {
@@ -184,10 +186,10 @@
 				 * @property {number} [options.animationThreshold=150] Define the threshold (in pixels) for the minimum swipe movement that allows a swipe animation (with a color change) to be shown. The animation threshold is usually the threshold for the next operation after the swipe.
 				 * @property {number} [options.animationDuration=200] Define the swipe list animation duration. Do not change the default value, since it has been defined to show a complete color change.
 				 * @property {number} [options.animationInterval=8] Define the swipe list animation interval. The animation is called with the requestAnimationFrame() method once every 1/60 seconds. The interval determines how many coordinates the animation proceeds between each call. The animation ends when the coordinates reach the value defined as animationDuration. This option basically allows you to control the speed of the animation.
-				 * @property {string} [options.ltrStartColor="#62a917"] Define the start color for the left-to-right swipe.
-				 * @property {string} [options.ltrEndColor="#58493a"] Define the end color for the left-to-right swipe.
-				 * @property {string} [options.rtlStartColor="#eaa317"] Define the start color for the right-to-left swipe.
-				 * @property {string} [options.rtlEndColor="#58493a"] Define the end color for the right-to-left swipe.
+				 * @property {string} [options.ltrStartColor=""] Define the start color for the left-to-right swipe.
+				 * @property {string} [options.ltrEndColor=""] Define the end color for the left-to-right swipe.
+				 * @property {string} [options.rtlStartColor=""] Define the start color for the right-to-left swipe.
+				 * @property {string} [options.rtlEndColor=""] Define the end color for the right-to-left swipe.
 				 * @property {?HTMLElement} [options.container=null] Define container of widget.
 				 * @property {string} [options.swipeTarget="li"] Selector for swipe list
 				 * @property {string} [options.swipeElement=".ui-swipelist"] Selector for swipe list container
@@ -208,50 +210,65 @@
 					swipeLeftElement: ".ui-swipelist-left",
 					swipeRightElement: ".ui-swipelist-right",
 
-					ltrStartColor: "#62a917",
-					ltrEndColor: "#58493a",
-					rtlStartColor: "#eaa317",
-					rtlEndColor: "#58493a"
+					ltrStartColor: "",
+					ltrEndColor: "",
+					rtlStartColor: "",
+					rtlEndColor: ""
 				};
 			};
 
 			prototype._init = function (element) {
 				var page = selectors.getClosestBySelector(element, ns.wearable.selectors.page),
-					o = this.options;
+					options = this.options,
+					swipeLeftElementBg,
+					swipeRightElementBg,
+					rgbStringRgExp = /rgb\(([0-9]+), ([0-9]+), ([0-9]+)\)/g;
 
-				if (o.container) {
-					this.container = page.querySelector(o.container);
+				if (options.container) {
+					this.container = page.querySelector(options.container);
 				} else {
 					this.container = this._findScrollableElement(this.element);
 				}
 
 				this.container.style.position = "relative";
 
-				this.swipeElement = page.querySelector(o.swipeElement);
-				this.swipeLeftElement = o.swipeLeftElement ? page.querySelector(o.swipeLeftElement) : undefined;
-				this.swipeRightElement = o.swipeRightElement ? page.querySelector(o.swipeRightElement) : undefined;
+				this.swipeElement = page.querySelector(options.swipeElement);
+				this.swipeLeftElement = options.swipeLeftElement ? page.querySelector(options.swipeLeftElement) : undefined;
+				this.swipeRightElement = options.swipeRightElement ? page.querySelector(options.swipeRightElement) : undefined;
 
-				this.swipeElementStyle = this.swipeElement ? this.swipeElement.style : undefined;
-				this.swipeLeftElementStyle = this.swipeLeftElement ? this.swipeLeftElement.style : undefined;
-				this.swipeRightElementStyle = this.swipeRightElement ? this.swipeRightElement.style : undefined;
-
-				if (this.swipeElementStyle) {
-					this.swipeElementStyle.display = "none";
+				if (this.swipeElement) {
+					this.swipeElementStyle = this.swipeElement.style;
+					this.swipeElementStyle.displsy = "none";
 					this.swipeElementStyle.background = "transparent";
 					this.swipeElementStyle.width = this.container.offsetWidth + "px";
 					this.swipeElementStyle.height = this.container.offsetHeight + "px";
 				}
 
-				if (this.swipeLeftElementStyle) {
-					// Left element existed
+				if (this.swipeLeftElement) {
+					this.swipeLeftElementStyle = this.swipeLeftElement.style;
 					this.swipeLeftElementStyle.display = "none";
-					this.swipeLeftElementStyle.background = "-webkit-linear-gradient(left, " + this.options.ltrStartColor + " 0%, " + this.options.ltrEndColor + " 0%)"; // Default color
+					// Get background-color value for swipe left element
+					swipeLeftElementBg = this.swipeLeftElement ? dom.getCSSProperty(this.swipeLeftElement, "background-image").match(rgbStringRgExp) : undefined;
 				}
-				if (this.swipeRightElementStyle) {
-					// Right element existed
+
+				if (this.swipeRightElement) {
+					this.swipeRightElementStyle = this.swipeRightElement.style;
 					this.swipeRightElementStyle.display = "none";
-					this.swipeRightElementStyle.background = "-webkit-linear-gradient(right, " + this.options.rtlStartColor + " 0%, " + this.options.rtlEndColor + " 0%)"; // Default color
+					// Get background-color value for swipe right element
+					swipeRightElementBg = this.swipeRightElement ? dom.getCSSProperty(this.swipeRightElement, "background-image").match(rgbStringRgExp) : undefined;
 				}
+
+				//>>excludeStart("tauDebug", pragmas.tauDebug);
+				if (!swipeLeftElementBg && !swipeRightElementBg) {
+					ns.error("swipeLeftElement and swipeRightElement must have background style in tau.css! (ex. .ui-swipe-left { background: -webkit-linear-gradient(left, <startColor> 0%, <endColor> 0%);})");
+				}
+				//>>excludeEnd("tauDebug");
+
+				// Set start/end color: If user set color as option, that color will be used. If not, css based color of swipe will be used.
+				options.ltrStartColor = options.ltrStartColor || swipeLeftElementBg[0];
+				options.ltrEndColor = options.ltrEndColor || swipeLeftElementBg[1];
+				options.rtlStartColor = options.rtlStartColor || swipeRightElementBg[0];
+				options.rtlEndColor = options.rtlEndColor || swipeRightElementBg[1];
 
 				this.resetLayoutCallback = null;
 				if (this.swipeElement.parentNode !== this.container) {
