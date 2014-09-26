@@ -144,6 +144,13 @@
 	margin: 0;
 }
 
+/*
+ * Section for scroll handler to hide native scrollbar
+ */
+.ui-content.ui-scrollview-clip.ui-hide-scrollbar::-webkit-scrollbar {
+	display: none;
+}
+
 /* overflowAnimation resource */
 .ui-overflow-indicator-bar-1 { background-image : url(images/bouncing_effect/top/bouncing_top_01.png); }
 .ui-overflow-indicator-bar-2 { background-image : url(images/bouncing_effect/top/bouncing_top_02.png); }

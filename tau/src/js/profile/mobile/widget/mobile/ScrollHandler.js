@@ -422,6 +422,7 @@
 				 * @property {string} [classes.themePrefix="ui-handller-"] Handler theme class prefix
 				 * @property {string} [classes.scrollbarDisabled="scrollbar-disabled"] Scrollview scrollbar disabled class
 				 * @property {string} [classes.disabled="disabled"] Disabled class
+				 * @property {string} [classes.hideNativeScrollbar="ui-hide-scrollbar"] Hides native scrollbar in scrollview
 				 * @member ns.widget.mobile.ScrollHandler
 				 * @static
 				 * @readonly
@@ -435,7 +436,8 @@
 					visible: "ui-handler-visible",
 					themePrefix: "ui-handler-",
 					scrollbarDisabled: "scrollbar-disabled",
-					disabled: "disabled"
+					disabled: "disabled",
+					hideNativeScrollbar: "ui-hide-scrollbar"
 				},
 				prototype = new Scrollview();
 
@@ -709,10 +711,15 @@
 
 				node.appendChild(handler);
 
-				// Hide native scrollbar, 2vw/vh should be enough.
 				// Force scrollview to be full width of container
 				nodeStyle = node.style;
 				scrollviewViewStyle = node.firstElementChild.style;
+
+				// NOTE: to hide native scrollbar, make sure that theme includes
+				// *display* property set to *none* for
+				// .ui-content.ui-scrollview-clip.ui-hide-scrollbar::-webkit-scrollbar
+				element.classList.add(classes.hideNativeScrollbar);
+
 				if (options.direction === "x") {
 					scrollviewViewStyle.display = "inline-block";
 					scrollviewViewStyle.minWidth = "100%";
@@ -936,6 +943,8 @@
 					callbacks = self._callbacks,
 					element = self.element;
 
+				// Restore native scrollbar
+				element.classList.remove(classes.hideNativeScrollbar);
 				element.removeEventListener("scrollstart", callbacks.scrollstart, false);
 				element.removeEventListener("scroll", callbacks.scrollupdate, false);
 				element.removeEventListener("scrollstop", callbacks.scrollstop, false);
