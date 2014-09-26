@@ -6,5 +6,5 @@
     <icon src="icon.png"/>
     <name>Winset</name>
     <tizen:privilege name="http://tizen.org/privilege/fullscreen"/>
-    <tizen:setting screen-orientation="portrait" context-menu="disable" background-support="enable" encryption="disable"/>
+    <tizen:setting context-menu="disable"/>
 </widget>

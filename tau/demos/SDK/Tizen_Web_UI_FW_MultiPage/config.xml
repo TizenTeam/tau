@@ -5,4 +5,5 @@
     <feature name="http://tizen.org/feature/screen.size.all"/>
     <icon src="icon.png"/>
     <name>MultiPage</name>
+    <tizen:setting context-menu="disable"/>
 </widget>
