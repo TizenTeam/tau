@@ -85,15 +85,105 @@
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 			var CoreDrawer = ns.widget.core.Drawer,
+				CoreDrawerPrototype = CoreDrawer.prototype,
 				Page = ns.widget.mobile.Page,
 				engine = ns.engine,
 				Drawer = function () {
-					CoreDrawer.call(this);
-					this._pageSelector = Page.classes.uiPage;
-				};
+					var self = this;
+					CoreDrawer.call(self);
+					self.options.swipeStartAreaRatio = 0.05;
+					self._pageSelector = Page.classes.uiPage;
 
-			Drawer.prototype = new CoreDrawer();
-			Drawer.classes = CoreDrawer.classes;
+					self._onSwipeBound = null;
+					self._onMouseDownBound = null;
+					self._onSideEdgeMouseUpBound = null;
+					self._swiped = false;
+				},
+				prototype = new CoreDrawer(),
+				classes = CoreDrawer.classes;
+
+			Drawer.prototype = prototype;
+			Drawer.classes = classes;
+
+			/**
+			 * Swipe event handler
+			 * @method _onSwipe
+			 * @private
+			 * @static
+			 * @param {Event} event
+			 * @member ns.widget.mobile.Drawer
+			 */
+			prototype._onSwipe = function(event) {
+				// If swipeleft event was triggered at drawer position right,
+				// drawer should be opend. So 'direction' has reverse value for swipe direction.
+				var self = this,
+					direction = event.type === "swipeleft" ? "right" : "left";
+
+				if (self.options.position === direction && self._swiped) {
+					self.open();
+					self._swiped = false;
+				}
+
+			}
+
+			/**
+			 * Check vmousedown event whether triggerred on side edge area or not
+			 * @method _checkSideEdgeMouseDown
+			 * @private
+			 * @static
+			 * @param {Event} event
+			 * @member ns.widget.mobile.Drawer
+			 */
+			prototype._checkSideEdgeMouseDown = function(event) {
+				var self = this,
+					eventClientX = event.clientX,
+					options = self.options,
+					position = options.position,
+					swipeStartArea = window.innerWidth * options.swipeStartAreaRatio;
+
+				if ((position === "left" && eventClientX > 0 && eventClientX < swipeStartArea) ||
+					(position === "right" && eventClientX < window.innerWidth && eventClientX > window.innerWidth - swipeStartArea)) {
+					self._swiped = true;
+				}
+			}
+			/**
+			 * Vmousedown event handler
+			 * @method _onMouseDown
+			 * @private
+			 * @static
+			 * @param {Event} event
+			 * @member ns.widget.mobile.Drawer
+			 */
+			prototype._onMouseDown = function(event) {
+				this._checkSideEdgeMouseDown(event);
+			}
+
+			/**
+			 * Bind events to widget
+			 * @method _bindEvents
+			 * @protected
+			 * @member ns.widget.mobile.Drawer
+			 */
+			prototype._bindEvents = function() {
+				var self = this,
+					page = self._drawerPage;
+				CoreDrawerPrototype._bindEvents.call(self);
+
+				self._onMouseDownBound = self._onMouseDown.bind(self);
+				self._onSwipeBound = self._onSwipe.bind(self);
+				page.addEventListener("vmousedown", self._onMouseDownBound, false);
+				page.addEventListener("swipeleft", self._onSwipeBound, false);
+				page.addEventListener("swiperight", self._onSwipeBound, false);
+			};
+
+			prototype._destroy = function() {
+				var self = this,
+					page = self._drawerPage;
+				CoreDrawerPrototype._destroy.call(self);
+				page.removeEventListener("vmousedown", self._onMouseDownBound, false);
+				page.removeEventListener("swipeleft", self._onSwipeBound, false);
+				page.removeEventListener("swiperight", self._onSwipeBound, false);
+			};
 
 			ns.widget.mobile.Drawer = Drawer;
 			engine.defineWidget(
