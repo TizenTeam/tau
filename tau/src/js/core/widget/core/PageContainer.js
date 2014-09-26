@@ -9,7 +9,7 @@
  *
  * It allows for adding new pages, switching between them and displaying progress bars indicating loading process.
  *
- * @class ns.widget.wearable.PageContainer
+ * @class ns.widget.core.PageContainer
  * @extends ns.widget.BaseWidget
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  * @author Piotr Karny <p.karny@samsung.com>
@@ -20,18 +20,17 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../../../../core/engine",
-			"../../../../core/event",
-			"../../../../core/util",
-			"../../../../core/util/DOM/attributes",
-			"../../../../core/widget/BaseWidget",
-			"../wearable",
+			"../../engine",
+			"../../event",
+			"../../util/DOM/attributes",
+			"../BaseWidget",
+			"../core",
 			"./Page"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 			var BaseWidget = ns.widget.BaseWidget,
-				Page = ns.widget.wearable.Page,
+				Page = ns.widget.core.Page,
 				util = ns.util,
 				eventUtils = ns.event,
 				DOM = util.DOM,
@@ -46,18 +45,25 @@
 				PageContainer = function () {
 					/**
 					 * Active page.
-					 * @property {ns.widget.wearable.Page} [activePage]
-					 * @member ns.widget.wearable.PageContainer
+					 * @property {ns.widget.core.Page} [activePage]
+					 * @member ns.widget.core.PageContainer
 					 */
 					this.activePage = null;
 				},
 				EventType = {
 					/**
+					 * Triggered before the changePage() request
+					 * has started loading the page into the DOM.
+					 * @event pagebeforechange
+					 * @member ns.widget.core.PageContainer
+					 */
+					PAGE_BEFORE_CHANGE: "pagebeforechange",
+					/**
 					 * Triggered after the changePage() request
 					 * has finished loading the page into the DOM and
 					 * all page transition animations have completed.
 					 * @event pagechange
-					 * @member ns.widget.wearable.PageContainer
+					 * @member ns.widget.core.PageContainer
 					 */
 					PAGE_CHANGE: "pagechange"
 				},
@@ -80,7 +86,7 @@
 			/**
 			 * Dictionary for PageContainer related css class names
 			 * @property {Object} classes
-			 * @member ns.widget.wearable.Page
+			 * @member ns.widget.core.Page
 			 * @static
 			 * @readonly
 			 */
@@ -93,7 +99,7 @@
 			 * @param {Object} [options] Additional options for the transition
 			 * @param {string} [options.transition=none] Specifies the type of transition
 			 * @param {boolean} [options.reverse=false] Specifies the direction of transition
-			 * @member ns.widget.wearable.PageContainer
+			 * @member ns.widget.core.PageContainer
 			 */
 			prototype.change = function (toPage, options) {
 				var self = this,
@@ -108,6 +114,8 @@
 					if (toPage.parentNode !== self.element) {
 						toPage = self._include(toPage);
 					}
+
+					self.trigger(EventType.PAGE_BEFORE_CHANGE);
 
 					toPage.classList.add(classes.uiBuild);
 
@@ -144,13 +152,13 @@
 			/**
 			 * This method performs transition between the old and a new page.
 			 * @method _transition
-			 * @param {ns.widget.wearable.Page} toPageWidget The new page
-			 * @param {ns.widget.wearable.Page} fromPageWidget The page to be replaced
+			 * @param {ns.widget.core.Page} toPageWidget The new page
+			 * @param {ns.widget.core.Page} fromPageWidget The page to be replaced
 			 * @param {Object} [options] Additional options for the transition
 			 * @param {string} [options.transition=none] The type of transition
 			 * @param {boolean} [options.reverse=false] Specifies transition direction
 			 * @param {Object} [options.deferred] Deferred object
-			 * @member ns.widget.wearable.PageContainer
+			 * @member ns.widget.core.PageContainer
 			 * @protected
 			 */
 			prototype._transition = function (toPageWidget, fromPageWidget, options) {
@@ -237,8 +245,8 @@
 			 * This method adds an element as a page.
 			 * @method _include
 			 * @param {HTMLElement} page an element to add
-			 * @member ns.widget.wearable.PageContainer
 			 * @return {HTMLElement}
+			 * @member ns.widget.core.PageContainer
 			 * @protected
 			 */
 			prototype._include = function (page) {
@@ -251,8 +259,8 @@
 			/**
 			 * This method sets currently active page.
 			 * @method _setActivePage
-			 * @param {ns.widget.wearable.Page} page a widget to set as the active page
-			 * @member ns.widget.wearable.PageContainer
+			 * @param {ns.widget.core.Page} page a widget to set as the active page
+			 * @member ns.widget.core.PageContainer
 			 * @protected
 			 */
 			prototype._setActivePage = function (page) {
@@ -266,8 +274,8 @@
 			/**
 			 * This method returns active page widget.
 			 * @method getActivePage
-			 * @member ns.widget.wearable.PageContainer
-			 * @return {ns.widget.wearable.Page} Currently active page
+			 * @member ns.widget.core.PageContainer
+			 * @return {ns.widget.core.Page} Currently active page
 			 */
 			prototype.getActivePage = function () {
 				return this.activePage;
@@ -276,7 +284,7 @@
 			/**
 			 * This method displays a progress bar indicating loading process.
 			 * @method showLoading
-			 * @member ns.widget.wearable.PageContainer
+			 * @member ns.widget.core.PageContainer
 			 * @return {null}
 			 */
 			prototype.showLoading = function () {
@@ -288,7 +296,7 @@
 			/**
 			 * This method hides any active progress bar.
 			 * @method hideLoading
-			 * @member ns.widget.wearable.PageContainer
+			 * @member ns.widget.core.PageContainer
 			 * @return {null}
 			 */
 			prototype.hideLoading = function () {
@@ -300,10 +308,10 @@
 			/**
 			 * This method removes page element from the given widget and destroys it.
 			 * @method _removeExternalPage
-			 * @param {ns.widget.wearable.Page} fromPageWidget the widget to destroy
+			 * @param {ns.widget.core.Page} fromPageWidget the widget to destroy
 			 * @param {Object} [options] transition options
 			 * @param {boolean} [options.reverse=false] specifies transition direction
-			 * @member ns.widget.wearable.PageContainer
+			 * @member ns.widget.core.PageContainer
 			 * @protected
 			 */
 			prototype._removeExternalPage = function ( fromPageWidget, options) {
@@ -320,14 +328,14 @@
 			PageContainer.prototype = prototype;
 
 			// definition
-			ns.widget.wearable.PageContainer = PageContainer;
+			ns.widget.core.PageContainer = PageContainer;
 
 			engine.defineWidget(
 				"pagecontainer",
 				"",
 				["change", "getActivePage", "showLoading", "hideLoading"],
 				PageContainer,
-				"wearable"
+				"core"
 			);
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 		}

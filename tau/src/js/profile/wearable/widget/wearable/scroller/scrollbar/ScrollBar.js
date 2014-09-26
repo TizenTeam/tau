@@ -20,7 +20,7 @@
 			"../scrollbar",
 			"./type/bar",
 			"../../../../../../core/widget/BaseWidget",
-			"../../Page",
+			"../../../../../../core/widget/core/Page",
 			"../Scroller"
 		],
 		function () {
@@ -223,7 +223,7 @@
 
 				switch(event.type) {
 				case "visibilitychange":
-					page = selectors.getClosestBySelector(this.container, "." + ns.widget.wearable.Page.classes.uiPage);
+					page = selectors.getClosestBySelector(this.container, "." + ns.widget.core.Page.classes.uiPage);
 					if (document.visibilityState === "visible" && page === ns.activePage) {
 						this.refresh();
 					}

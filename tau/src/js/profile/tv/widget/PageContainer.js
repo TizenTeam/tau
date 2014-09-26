@@ -18,7 +18,7 @@
  *
  *
  * @class ns.widget.tv.PageContainer
- * @extends ns.widget.wearable.PageContainer
+ * @extends ns.widget.core.PageContainer
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  */
 (function (document, ns) {
@@ -27,19 +27,19 @@
 	define(
 		[
 			"../tv",
-			"../../../profile/wearable/widget/wearable/PageContainer",
+			"../../../core/widget/core/PageContainer",
 			"../../../core/engine"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
-			var WearablePageContainer = ns.widget.wearable.PageContainer,
-				WearablePageContainerPrototype = WearablePageContainer.prototype,
+			var CorePageContainer = ns.widget.core.PageContainer,
+				CorePageContainerPrototype = CorePageContainer.prototype,
 				PageContainer = function () {
 				},
 				engine = ns.engine,
-				prototype = new WearablePageContainer();
+				prototype = new CorePageContainer();
 
-			PageContainer.events = WearablePageContainer.events;
+			PageContainer.events = CorePageContainer.events;
 
 			/**
 			 * Build structure of PageContainer widget
@@ -51,8 +51,8 @@
 			 */
 			prototype._build = function ( element ) {
 				var optionsBackground = this.options.background;
-				if (WearablePageContainerPrototype._build) {
-					element = WearablePageContainerPrototype._build(element);
+				if (CorePageContainerPrototype._build) {
+					element = CorePageContainerPrototype._build(element);
 				}
 
 				if (optionsBackground) {

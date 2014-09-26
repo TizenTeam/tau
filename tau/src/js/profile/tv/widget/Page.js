@@ -83,7 +83,7 @@
 	define(
 		[
 			"../tv",
-			"../../../profile/wearable/widget/wearable/Page",
+			"../../../core/widget/core/Page",
 			"../../../core/engine",
 			"../../../core/util/DOM/css",
 			"../../../core/util/DOM/attributes",
@@ -99,7 +99,7 @@
 			 * @private
 			 * @static
 			 */
-			var WearablePage = ns.widget.wearable.Page,
+			var WearablePage = ns.widget.core.Page,
 				WearablePagePrototype = WearablePage.prototype,
 				/**
 				 * Alias for {@link ns.widget.tv.BaseKeyboardSupport}

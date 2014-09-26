@@ -1,13 +1,13 @@
-module("profile/wearable/widget/wearable/PageContainer", {
+module("core/widget/core/PageContainer", {
 	});
 
-	test ( "API ns.widget.wearable.Page" , function () {
+	test ( "API ns.widget.core.PageContainer" , function () {
 		var widget;
-		equal(typeof ej, 'object', 'Class ej exists');
-		equal(typeof ej.widget, 'object', 'Class ej.widget exists');
-		equal(typeof ej.widget.wearable, 'object', 'Class ej.widget.wearable exists');
-		equal(typeof ej.widget.wearable.PageContainer, 'function', 'Class ej.widget.wearable.PageContainer exists');
-		widget = new ej.widget.wearable.PageContainer();
+		equal(typeof tau, 'object', 'Class tau exists');
+		equal(typeof tau.widget, 'object', 'Class tau.widget exists');
+		equal(typeof tau.widget.core, 'object', 'Class tau.widget.core exists');
+		equal(typeof tau.widget.core.PageContainer, 'function', 'Class tau.widget.core.PageContainer exists');
+		widget = new tau.widget.core.PageContainer();
 
 		equal(typeof widget.configure, 'function', 'Method page.configure exists');
 		equal(typeof widget._getCreateOptions, 'function', 'Method page._getCreateOptions exists');
