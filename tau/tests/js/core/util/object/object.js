@@ -44,6 +44,43 @@ module("Object");
 		equal(newObject.prop3, orgObject.prop3, "New Object has same properties as orginal Object properties by copy");
 		orgObject.prop3.push(4);
 		equal(newObject.prop3, orgObject.prop3, "Both objects point to this same array, its not a deep copy");
+
+		newObject = new SimpleObject("one");
+		newObject.prop2 = "twonew";
+		data.merge(newObject, orgObject, true);
+		equal(newObject.prop2, orgObject.prop2, "New Object has same properties as orginal Object properties by copy");
+
+		newObject = new SimpleObject("one");
+		newObject.prop2 = "twonew";
+		data.merge(newObject, orgObject, false);
+		equal(newObject.prop2, newObject.prop2, "New Object has same properties as new Object properties by copy");
+	});
+
+	test("ns.util.object.inherit - checking inherit function", function () {
+		var data = ns.util.object,
+			newClass = function () {},
+			orgClass = function () {},
+			newObject;
+
+		orgClass.prototype = {
+			method: function () {
+				return true;
+			}
+		};
+
+		data.inherit(newClass, orgClass, {
+			method: function () {
+				return this._super();
+			},
+			newMethod: function() {
+				return this._super();
+			}
+		});
+
+		newObject = new newClass();
+
+		equal(newObject.method(), true, "New class method return value from original class");
+		equal(newObject.newMethod(), null, "New class method return null");
 	});
 
 	test("ns.util.object.merge - checking merge function", function () {
