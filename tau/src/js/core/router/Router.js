@@ -17,18 +17,17 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../../../core/engine",
-			"../../../core/router",
+			"../engine",
+			"../event",
+			"../util/DOM/attributes",
+			"../util/selectors",
+			"../util/path",
+			"../util/object",
+			"../router",
 			"./route", // fetch namespace
 			"./history",
-			"../../../core/event",
-			"../../../core/event/vmouse",
-			"../../../core/util/DOM/attributes",
-			"../../../core/util/selectors",
-			"../../../core/util/path",
-			"../../../core/util/object",
-			"../../../core/widget/core/Page",
-			"../../../core/widget/core/PageContainer"
+			"../widget/core/Page",
+			"../widget/core/PageContainer"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
@@ -89,24 +88,24 @@
 				 */
 				engine = ns.engine,
 				/**
-				 * Local alias for ns.router.wearable
-				 * @property {Object} routerMicro Alias for namespace ns.router.wearable
+				 * Local alias for ns.router
+				 * @property {Object} routerMicro Alias for namespace ns.router
 				 * @member ns.router.Router
 				 * @static
 				 * @private
 				 */
 				routerMicro = ns.router,
 				/**
-				 * Local alias for ns.router.wearable.history
-				 * @property {Object} history Alias for {@link ns.router.wearable.history}
+				 * Local alias for ns.router.history
+				 * @property {Object} history Alias for {@link ns.router.history}
 				 * @member ns.router.Router
 				 * @static
 				 * @private
 				 */
 				history = routerMicro.history,
 				/**
-				 * Local alias for ns.router.wearable.route
-				 * @property {Object} route Alias for namespace ns.router.wearable.route
+				 * Local alias for ns.router.route
+				 * @property {Object} route Alias for namespace ns.router.route
 				 * @member ns.router.Router
 				 * @static
 				 * @private
@@ -366,6 +365,7 @@
 				body = document.body;
 				containerElement = ns.getConfig("pageContainer") || body;
 				pages = slice.call(containerElement.querySelectorAll(pageDefinition.selector));
+				containerElement = pages.length ? pages[0].parentNode : containerElement;
 				self.justBuild = justBuild;
 
 				if (ns.getConfig("autoInitializePage", true)) {
@@ -379,7 +379,6 @@
 						slice.call(activePages).forEach(function (page) {
 							page.classList.remove("." + uiPageActiveClass);
 						});
-						containerElement = firstPage.parentNode;
 					}
 
 					if (justBuild) {

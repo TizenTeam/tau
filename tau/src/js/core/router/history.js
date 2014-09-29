@@ -14,8 +14,8 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../../../core/router",
-			"../../../core/util/object"
+			"../router",
+			"../util/object"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
