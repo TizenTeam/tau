@@ -265,13 +265,6 @@
 				Page = function () {
 					var self = this;
 					/**
-					 * Callback on pageshow
-					 * @property {?Function} contentFillCallback
-					 * @private
-					 * @member ns.widget.wearable.Page
-					 */
-					self.contentFillCallback = null;
-					/**
 					 * Callback on resize
 					 * @property {?Function} contentFillAfterResizeCallback
 					 * @private
@@ -498,13 +491,8 @@
 			 */
 			prototype._bindEvents = function (element) {
 				var self = this;
-				self.contentFillCallback = self._contentFill.bind(self);
-				self.contentFillAfterResizeCallback = function () {
-					self.pageSetHeight = false;
-					self._contentFill();
-				};
+				self.contentFillAfterResizeCallback = self._contentFill.bind(self);
 				window.addEventListener("resize", self.contentFillAfterResizeCallback, false);
-				element.addEventListener("pageshow", self.contentFillCallback, false);
 			};
 
 			/**
@@ -518,14 +506,11 @@
 			};
 
 			/**
-			 * Init widget
-			 * @method _init
-			 * @param {HTMLElement} element
-			 * @protected
+			 * Layouting page structure
+			 * @method layout
 			 * @member ns.widget.wearable.Page
 			 */
-			prototype._init = function (element) {
-				this.element = element;
+			prototype.layout = function () {
 				this._contentFill();
 			};
 
@@ -581,7 +566,6 @@
 				//>>excludeEnd("tauDebug");
 
 				window.removeEventListener("resize", self.contentFillAfterResizeCallback, false);
-				element.removeEventListener("pageshow", self.contentFillCallback, false);
 
 				// destroy widgets on children
 				engine.destroyAllWidgets(element, true);
@@ -594,7 +578,7 @@
 			engine.defineWidget(
 				"page",
 				"[data-role=page],.ui-page",
-				["onBeforeShow", "onShow", "onBeforeHide", "onHide", "setActive"],
+				["onBeforeShow", "onShow", "onBeforeHide", "onHide", "setActive", "layout"],
 				Page,
 				"wearable"
 			);

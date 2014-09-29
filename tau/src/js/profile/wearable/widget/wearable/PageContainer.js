@@ -109,6 +109,9 @@
 
 					toPageWidget = engine.instanceWidget(toPage, "page");
 
+					// set sizes of page for correct display
+					toPageWidget.layout();
+
 					if (ns.getConfig("autoBuildOnPageChange", false)) {
 						engine.createWidgets(toPage);
 					}
