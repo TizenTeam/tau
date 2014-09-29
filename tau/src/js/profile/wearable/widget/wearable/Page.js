@@ -504,6 +504,7 @@
 					self._contentFill();
 				};
 				window.addEventListener("resize", self.contentFillAfterResizeCallback, false);
+				element.addEventListener("pageshow", self.contentFillCallback, false);
 			};
 
 			/**
@@ -513,6 +514,18 @@
 			 * @member ns.widget.wearable.Page
 			 */
 			prototype._refresh = function () {
+				this._contentFill();
+			};
+
+			/**
+			 * Init widget
+			 * @method _init
+			 * @param {HTMLElement} element
+			 * @protected
+			 * @member ns.widget.wearable.Page
+			 */
+			prototype._init = function (element) {
+				this.element = element;
 				this._contentFill();
 			};
 
@@ -531,7 +544,6 @@
 			 * @member ns.widget.wearable.Page
 			 */
 			prototype.onShow = function () {
-				this._contentFill();
 				this.trigger(EventType.SHOW);
 			};
 
