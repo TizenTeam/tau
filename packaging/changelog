@@ -1,4 +1,8 @@
 %changelog
+* Mon Sep 29 2014 Heeju Joo <heeju.joo@samsung.com> 0.9.26
+	- Update tau version in package.json (0.9.25)
+	- Revert "[wearable] Page: fix a problem with calculation of height"
+
 * Thu Sep 25 2014 Youmin Ha <youmin.ha@samsung.com> 0.9.25
 	- [mobile/TV][test] Scrollview: add loading css in test, fix style of content in tv profile
 	- GBS build break FIX: License name changed
