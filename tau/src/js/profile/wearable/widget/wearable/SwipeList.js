@@ -434,14 +434,14 @@
 					return;
 				}
 
-				if (this.swipeLeftElement && (gesture.direction === Gesture.Direction.RIGHT)) {
+				if (this.swipeLeftElement && (gesture.direction === Gesture.Direction.RIGHT) && translateX >= 0) {
 					if (this.swipeRightElementStyle) {
 						this.swipeRightElementStyle.display = "none";
 					}
 					this.activeElement = this.swipeLeftElement;
 					activeElementStyle = this.swipeLeftElementStyle;
 
-				} else if (this.swipeRightElement && (gesture.direction === Gesture.Direction.LEFT)) {
+				} else if (this.swipeRightElement && (gesture.direction === Gesture.Direction.LEFT) && translateX < 0) {
 					if (this.swipeLeftElementStyle) {
 						this.swipeLeftElementStyle.display = "none";
 					}
