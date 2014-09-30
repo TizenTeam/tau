@@ -5,13 +5,11 @@
  */
 /*jslint nomen: true, plusplus: true */
 /**
- * # PageContainer Widget
- * PageContainer is a widget, which is supposed to have multiple child pages but display only one at a time.
+ * # Popup Widget
+ * Shows a pop-up window.
  *
- * It allows for adding new pages, switching between them and displaying progress bars indicating loading process.
- *
- * @class ns.widget.wearable.PageContainer
- * @extends ns.widget.BaseWidget
+ * @class ns.widget.tv.Popup
+ * @extends ns.widget.core.ContextPopup
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  * @author Jadwiga Sosnowska <j.sosnowska@samsung.com>
  */
@@ -20,6 +18,7 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
+			"../tv",
 			"../../../core/widget/core/ContextPopup",
 			"../../../core/engine",
 			"../../../core/event",
@@ -52,7 +51,7 @@
 					toast: "ui-popup-toast",
 					headerEmpty: "ui-header-empty",
 					footerEmpty: "ui-footer-empty",
-					content: "ui-popup-content",
+					content: "ui-popup-content"
 				}),
 				selectors = {
 					header: "header",

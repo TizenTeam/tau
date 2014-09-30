@@ -1,15 +1,22 @@
 /*global window, define */
-/* 
+/*
  * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
  * License : MIT License V2
  */
-/*jslint nomen: true */
+/*jslint nomen: true, plusplus: true */
+/**
+ * #Control Group Widget
+ * Controlgroup widget improves the styling of a group of buttons by grouping them to form a single block.
+ *
+ * @class ns.widget.tv.Controlgroup
+ * @extends ns.widget.mobile.Controlgroup
+ */
 (function (document, ns) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../widget",
+			"../tv",
 			"../../mobile/widget/mobile/Controlgroup",
 			"../../../core/engine",
 			"../../../core/util/selectors"

@@ -4,8 +4,11 @@
  * License : MIT License V2
  */
 /**
+ * #Route popup
  * Support class for router to control changing pupups in profile Wearable.
- * @class ns.router.route.popup
+ *
+ * @class ns.router.tv.route.popup
+ * @extend ns.router.route.popup
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  * @author Damian Osipiuk <d.osipiuk@samsung.com>
  */
@@ -104,7 +107,6 @@
 					openPopup();
 				}
 			};
-
 
 			ns.router.route.popup = routePopup;
 

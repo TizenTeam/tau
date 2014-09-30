@@ -21,6 +21,8 @@ module.exports = function (grunt) {
 			profile = this.data.profile,
 			version = this.data.version || null,
 			versionString = version ? " - v" + version : "",
+			widgetRegExp = new RegExp("^tau\.widget\."),
+			widgetProfileRegExp = new RegExp("^tau\.widget\." + profile),
 			files = [],
 			template = this.data.template,
 			templateDir = template + "/",
@@ -259,7 +261,7 @@ module.exports = function (grunt) {
 			rows.sort(function (a, b) {
 				return a.namespace > b.namespace ? 1 : -1;
 			});
-			var widgetsDoc = docsStructure["ns." + type + ".mobile"] || docsStructure["ns." + type + ".wearable"] || docsStructure["ns." + type + ".tv"] || docsStructure["ns." + type];
+			var widgetsDoc = docsStructure["ns." + type + "." + profile] || docsStructure["ns." + type];
 			grunt.log.ok("Started generating index for " + type + ".");
 			mu.compileAndRender(templateDir + 'index.mustache', {
 				title: widgetsDoc.title,
@@ -667,7 +669,12 @@ module.exports = function (grunt) {
 					method.return = block.tags.filter(function (tag) {
 						return tag.type === 'chainable';
 					}).map(function () {
-						return {types: [memberOf.replace("ns.widget.mobile.", "")], description: "return this"}
+						return {
+							types: [
+								memberOf.replace("ns.widget." + profile + ".", "")
+							],
+							description: "return this"
+						}
 					}).concat(block.tags.filter(function (tag) {
 						return tag.type === 'return' || tag.type === 'returns';
 					}))[0];
@@ -718,56 +725,74 @@ module.exports = function (grunt) {
 				for (i in docsStructure) {
 					if (docsStructure.hasOwnProperty(i)) {
 						modules.push(docsStructure[i]);
-						namespaceArray = docsStructure[i].name.split(".").slice(1);
+						name = docsStructure[i].name;
+						// change ej or ns to tau
+						namespaceArray = name.split(".").slice(1);
 						namespaceArray.unshift("tau");
-						docsStructure[i].name = namespaceArray.join(".");
-						grunt.log.ok("processing: ", i, docsStructure[i].name);
-						if (docsStructure[i].name.match(/^tau\.widget/) && !(docsStructure[i].isInternal && (template !== 'dld')) && docsStructure[i].type !== "page") {
-							file = docsStructure[i].name.replace(/\./g, "_") + ".htm";
-							filename = docsStructure[i].name.replace(/\./g, "/") + ".js";
-							name = docsStructure[i].title;
-							description = docsStructure[i].brief || "";
-							rowsWidgets.push({file: file,
-									namespace: docsStructure[i].name,
-									name: name,
+						name = namespaceArray.join(".");
+						docsStructure[i].name = name;
+						grunt.log.ok("processing: ", i, name);
+						if (name.match(widgetRegExp) &&
+							!(docsStructure[i].isInternal &&
+							(template !== 'dld')) &&
+							docsStructure[i].type !== "page") {
+								file = name.replace(/\./g, "_") + ".htm";
+								filename = name.replace(/\./g, "/") + ".js";
+								description = docsStructure[i].brief || "";
+								if (name.match(widgetProfileRegExp)) {
+									rowsWidgets.push({
+										file: file,
+										namespace: name,
+										name: docsStructure[i].title,
+										filename: filename,
+										description: description
+									});
+								}
+								series.push(createWidgetDoc.bind(null, newFile,
+									file, name, docsStructure[i]));
+						} else if (name.match(/^tau\.event/) &&
+							!(docsStructure[i].isInternal &&
+							(template !== 'dld')) &&
+							docsStructure[i].type !== "page") {
+								file = name.replace(/\./g, "_") + ".htm";
+								filename = name.replace(/\./g, "/") + ".js";
+								description = docsStructure[i].brief || "";
+								rowsEvents.push({file: "../class/" + file,
+									namespace: name,
+									name: docsStructure[i].title,
 									filename: filename,
-									description: description}
-							);
-							series.push(createWidgetDoc.bind(null, newFile, file, name, docsStructure[i]));
-						} else if (docsStructure[i].name.match(/^tau\.event/) && !(docsStructure[i].isInternal && (template !== 'dld')) && docsStructure[i].type !== "page") {
-							file = docsStructure[i].name.replace(/\./g, "_") + ".htm";
-							filename = docsStructure[i].name.replace(/\./g, "/") + ".js";
-							name = docsStructure[i].title;
-							description = docsStructure[i].brief || "";
-							rowsEvents.push({file: "../class/" + file,
-									namespace: docsStructure[i].name,
-									name: name,
+									description: description
+								});
+								series.push(createClassDoc.bind(null, newFile,
+									file, name, docsStructure[i]));
+						} else if (name.match(/^tau\.util/) &&
+							!(docsStructure[i].isInternal &&
+							(template !== 'dld')) &&
+							docsStructure[i].type !== "page") {
+								file = name.replace(/\./g, "_") + ".htm";
+								filename = name.replace(/\./g, "/") + ".js";
+								name = docsStructure[i].title;
+								description = docsStructure[i].brief || "";
+								rowsUtil.push({file: "../class/" + file,
+									namespace: name,
+									name: docsStructure[i].title,
 									filename: filename,
-									description: description}
-							);
-							series.push(createClassDoc.bind(null, newFile, file, name, docsStructure[i]));
-						} else if (docsStructure[i].name.match(/^tau\.util/) && !(docsStructure[i].isInternal && (template !== 'dld')) && docsStructure[i].type !== "page") {
-							file = docsStructure[i].name.replace(/\./g, "_") + ".htm";
-							filename = docsStructure[i].name.replace(/\./g, "/") + ".js";
-							name = docsStructure[i].title;
-							description = docsStructure[i].brief || "";
-							rowsUtil.push({file: "../class/" + file,
-									namespace: docsStructure[i].name,
-									name: name,
-									filename: filename,
-									description: description}
-							);
-							series.push(createClassDoc.bind(null, newFile, file, name, docsStructure[i]));
-						} else if (docsStructure[i].name.match(/^tau\.page/) && !(docsStructure[i].isInternal && (template !== 'dld'))) {
-							series.push(createBlock.bind(null, newFile, docsStructure[i], docsStructure[i].name.replace(/^tau/, "").replace(/\./g, "/") + ".htm"));
+									description: description
+								});
+								series.push(createClassDoc.bind(null, newFile,
+									file, name, docsStructure[i]));
+						} else if (name.match(/^tau\.page/) &&
+							!(docsStructure[i].isInternal &&
+							(template !== 'dld'))) {
+							series.push(createBlock.bind(null, newFile,
+								docsStructure[i], name.replace(/^tau/, "").replace(/\./g, "/") + ".htm"));
 						} else if (docsStructure[i].type !== "page") {
-							file = docsStructure[i].name.replace(/\./g, "_") + ".htm";
-							filename = docsStructure[i].name.replace(/\./g, "/") + ".js";
-							name = docsStructure[i].title;
+							file = name.replace(/\./g, "_") + ".htm";
+							filename = name.replace(/\./g, "/") + ".js";
 							description = docsStructure[i].brief || "";
 							rowsClasses.push({file: file,
-									name: name,
-									namespace: docsStructure[i].name,
+									name: docsStructure[i].title,
+									namespace: name,
 									filename: filename,
 									description: description}
 							);

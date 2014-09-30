@@ -10,8 +10,8 @@
  *
  * It allows for adding new pages, switching between them and displaying progress bars indicating loading process.
  *
- * @class ns.widget.wearable.PageContainer
- * @extends ns.widget.BaseWidget
+ * @class ns.widget.tv.PageContainer
+ * @extends ns.widget.wearable.PageContainer
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  */
 (function (document, ns) {
@@ -19,6 +19,7 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
+			"../tv",
 			"../../../profile/wearable/widget/wearable/PageContainer",
 			"../../../core/engine"
 		],

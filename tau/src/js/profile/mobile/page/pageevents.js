@@ -1,25 +1,14 @@
 /*global window, define*/
 /*
-* Copyright (c) 2013 - 2014 Samsung Electronics Co., Ltd
-*
-* Licensed under the Flora License, Version 1.1 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-*     http://floralicense.org/license/
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-*/
+ * Copyright  2010 - 2014 Samsung Electronics Co., Ltd.
+ * License : MIT License V2
+ */
 /**
  * #Handling Page Events and Methods
  *
- * TAU support "Page" as widget. So, when the page created, it has several
- * events and methods. In this page, we would introduce events and methods in
- * TAU page.
+ * TAU support "Page" as widget. So, when the page is created, it has several
+ * events and methods. In this document, we would introduce events and methods in
+ * TAU Page Widget.
  *
  * ## Events list
  *

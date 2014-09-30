@@ -13,6 +13,7 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
+			"../tv",
 			"../../../core/util/object",
 			"../../../core/util/DOM/css"
 		],
@@ -316,10 +317,11 @@
 			 * Registers an active selector.
 			 * @param {string} selector
 			 * @method registerActiveSelector
+			 * @static
 			 * @member ns.widget.tv.BaseKeyboardSupport
 			 */
-			prototype.registerActiveSelector = function (selector) {
-				var index = selectors.indexOf(selector);
+			BaseKeyboardSupport.registerActiveSelector = function (selector) {
+				var index = SELECTORS.indexOf(selector);
 				// check if not registered yet
 				if (index === -1) {
 					selectors.push(selector);
@@ -336,11 +338,12 @@
 			 * Unregisters an active selector.
 			 * @param {string} selector
 			 * @method unregisterActiveSelector
+			 * @static
 			 * @member ns.widget.tv.BaseKeyboardSupport
 			 */
-			prototype.unregisterActiveSelector = function (selector) {
-				var index = selectors.indexOf(selector);
-				if (index !== -1) {
+			BaseKeyboardSupport.unregisterActiveSelector = function (selector) {
+				var index = SELECTORS.indexOf(selector);
+				if (index != -1) {
 					--REF_COUNTERS[index];
 					// check reference counter
 					if (REF_COUNTERS[index] === 0) {

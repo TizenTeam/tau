@@ -5,70 +5,10 @@
  */
 /**
  * #Drawer Widget
- * Drawer widget provide creating drawer widget and managing drawer operation.
+ * Drawer widget provides creating drawer widget and managing drawer operations.
  *
- * ##Default selector
- * You can make the drawer widget as data-role="drawer" with DIV tag.
- *
- * ###  HTML Examples
- *
- * ####  Create drawer using data-role
- *
- * 		@example
- *		<div data-role="drawer" data-position="left" id="leftdrawer">
- *			<ul data-role="listview">
- *				<li class="ui-drawer-main-list"><a href="#">List item 1</a></li>
- *				<li class="ui-drawer-main-list"><a href="#">List item 2</a></li>
- *				<li class="ui-drawer-sub-list"><a href="#">Sub item 1</a></li>
- *			</ul>
- *		</div>
- *
- * ##Drawer positioning
- * You can declare to drawer position manually. (Default is left)
- *
- * If you implement data-position attributes value is 'left', drawer appear from left side.
- *
- * 		@example
- *		<div data-role="drawer" data-position="left" id="leftdrawer">
- *
- * - "left" - drawer appear from left side
- * - "right" - drawer appear from right side
- *
- * ##Drawer inner list
- * Drawer has two list styles, main list style and sub list style.
- * You can implement two providing list styles as implement classes.
- *
- * - "ui-drawer-main-list" : Main list style of drawer
- * - "ui-drawer-sub-list" : Sub list style of drawer
- *
- * ##Drawer methods
- *
- * You can use some methods of drawer widget.
- *
- * - "open" - drawer open
- *
- * 		@example
- * 		$("#leftdrawer").drawer("open");
- *
- * - "close" - drawer close
- *
- * 		@example
- * 		$("#leftdrawer").drawer("isOpen");
- *
- * - "isOpen" - get drawer status, true is opened and false if closed
- *
- * 		@example
- * 		$("#leftdrawer").drawer"(isOpen");
- *
- * ##Drawer Options
- *
- * - position: drawer appeared position. Type is <String> and default is "left".
- * - width: drawer width. Type is <Integer> and default is 290.
- * - duration: drawer appeared duration. <Integer> and default is 100.
- *
- *
-
  * @class ns.widget.tv.Drawer
+ * @extends ns.widget.core.Drawer
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  */
 (function (document, ns) {
@@ -76,6 +16,7 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
+			"../tv",
 			"../../../core/widget/core/Drawer",
 			"../../wearable/widget/wearable/Page",
 			"../../../core/engine",

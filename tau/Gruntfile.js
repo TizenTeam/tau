@@ -446,7 +446,8 @@ module.exports = function(grunt) {
 				"sdk-docs": {
 					files: [
 						{expand: true, cwd: "tools/grunt/tasks/templates/files", src: "**/*", dest: "docs/sdk/mobile/html"},
-						{expand: true, cwd: "tools/grunt/tasks/templates/files", src: "**/*", dest: "docs/sdk/wearable/html"}
+						{expand: true, cwd: "tools/grunt/tasks/templates/files", src: "**/*", dest: "docs/sdk/wearable/html"},
+						{expand: true, cwd: "tools/grunt/tasks/templates/files", src: "**/*", dest: "docs/sdk/tv/html"}
 					]
 				}
 			},
@@ -629,6 +630,13 @@ module.exports = function(grunt) {
 					version: version,
 					files: {
 						src: ['dist/wearable/js/tau.js']
+					}
+				},
+				tv: {
+					profile: "tv",
+					template: "sdk",
+					files: {
+						src: ['dist/tv/js/tau.js']
 					}
 				},
 				"mobile-dld": {
@@ -855,7 +863,7 @@ module.exports = function(grunt) {
 	grunt.registerTask("css", [ "clean:theme", "less", "themeConverter:all", "cssmin", "image", "image-changeable", "symlink" ]);
 	grunt.registerTask("js", [ "clean:js", "requirejs", "jsmin", "themesjs", "copy:globalize-mobile", "copy:globalize-tv", "copy:mobileJquery" ]);
 	grunt.registerTask("license", [ "concat:licenseJs", "concat:licenseDefaultCss", "concat:licenseChangeableCss", "concat:licenseWearableCss", "copy:license" ]);
-	grunt.registerTask("sdk-docs", [ "docs-html:mobile", "docs-html:wearable", "copy:sdk-docs" ]);
+	grunt.registerTask("sdk-docs", [ "docs-html:mobile", "docs-html:wearable", "docs-html:tv", "copy:sdk-docs" ]);
 	grunt.registerTask("dld-docs", [ "docs-html:mobile-dld", "docs-html:wearable-dld"]);
 
 	grunt.registerTask("build", ["clean", "lint", "css", "js", "license", "version"]);

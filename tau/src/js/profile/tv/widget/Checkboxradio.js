@@ -1,5 +1,5 @@
 /*global window, define */
-/* 
+/*
  * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
  * License : MIT License V2
  */
@@ -7,9 +7,6 @@
 /**
  * #Checkbox-radio Widget
  * Checkboxradio widget changes default browser checkboxes and radios to form more adapted to TV environment.
- *
- * ##Default selectors
- * In default all inputs with type _checkbox_ or _radio_ are changed to Checkboxradio widget.
  *
  * ##HTML Examples
  *
@@ -31,6 +28,7 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
+			"../tv",
 			"../../../profile/mobile/widget/mobile/Checkboxradio",
 			"../../../core/engine",
 			"./BaseKeyboardSupport"
@@ -38,13 +36,11 @@
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 			var MobileCheckboxradio = ns.widget.mobile.Checkboxradio,
-				MobileCheckboxradioPrototype = MobileCheckboxradio.prototype,
 				BaseKeyboardSupport = ns.widget.tv.BaseKeyboardSupport,
 				engine = ns.engine,
 				classes = {
 					focused: "focus"
 				},
-				FUNCTION_TYPE = "function",
 				Checkboxradio = function () {
 					MobileCheckboxradio.call(this);
 					BaseKeyboardSupport.call(this);
@@ -57,20 +53,6 @@
 				prototype = new MobileCheckboxradio();
 
 			Checkboxradio.prototype = prototype;
-
-			/**
-			* Method initializes widget
-			* @param {HTMLElement} element Input element
-			*/
-			prototype._init = function(element) {
-				var self = this;
-				if (typeof MobileCheckboxradioPrototype._init === FUNCTION_TYPE) {
-					MobileCheckboxradioPrototype._init.call(self, element);
-				}
-
-				self.registerActiveSelector("input:not([disabled]):not([type=radio])");
-				self.registerActiveSelector(".radio-container");
-			};
 
 			/**
 			* Builds structure of checkboxradio widget
@@ -257,6 +239,9 @@
 				"tv",
 				true
 			);
+
+			BaseKeyboardSupport.registerActiveSelector(".radio-container");
+
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return ns.widget.tv.Checkboxradio;
 		}

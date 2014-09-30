@@ -1,23 +1,12 @@
 /*global window, define*/
 /*
-* Copyright (c) 2013 - 2014 Samsung Electronics Co., Ltd
-*
-* Licensed under the Flora License, Version 1.1 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-*     http://floralicense.org/license/
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-*/
+ * Copyright  2010 - 2014 Samsung Electronics Co., Ltd.
+ * License : MIT License V2
+ */
 /**
  * #Application Page Layout
  *
- * In the mobile Tizen Advanced UI framework (TAU), The page and its elements
+ * In the mobile Tizen Advanced UI framework (TAU) the page and its elements
  * (header, content, and footer) are all <div> blocks with a specific data-role
  * property. The header is placed at the top, and displays the page title.
  * The content is the area below the header, showing the main content of the

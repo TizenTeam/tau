@@ -8,54 +8,15 @@
  * # Progress Widget
  * Shows a control that indicates the progress percentage of an on-going operation.
  *
- * The progress widget shows a control that indicates the progress percentage of an on-going operation. This widget can be scaled to fit inside a parent container.
- *
- * ## Default selectors
- *
- * This widget provide three style progress.
- *
- * ### Simple progress bar
- * If you don't implement any class, you can show default progress style
- * To add a progress widget to the application, use the following code:
- *
- *      @example
- *      <progress max="100" value="90"></progress>
- *
- * ### Infinite progress bar
- * If you implement class (*ui-progress-indeterminate*), you can show image looks like infinite move.
- *
- * To add a progress widget to the application, use the following code:
- *      @example
- *      <progress class="ui-progress-indeterminate" max="100" value="100"></progress>
- *
- * ### Progress bar with additional information
- * If you implement div tag that can choose two classes (*ui-progress-proportion* or *ui-progress-ratio*) at progress tag same level, you can show two information (proportion information is located left below and ratio information is located right below)
- *
- * To add a progress widget to the application, use the following code:
- *
- *      @example
- *      <progress max="100" value="50"></progress>
- *      <div class="ui-progress-proportion">00/20</div>
- *      <div class="ui-progress-ratio">50%</div>
- *
- * ### Controllable progress bar
- * To implement this add class ui-progress-controllable
- * @example
- * <progress min="0" max="100" value="50" class="ui-progress-controllable"></progress>
- *
- * ## JavaScript API
- *
- * Progress widget hasn't JavaScript API.
- *
  * @class ns.widget.tv.Progress
- * @extends ns.widget.BaseWidget
+ * @extends ns.widget.core.Progress
  */
 (function (document, ns) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../widget",
+			"../tv",
 			"../../../core/widget/core/Progress",
 			"../../../core/engine"
 		],
@@ -143,7 +104,7 @@
 			 * @protected
 			 * @member ns.widget.tv.Progress
 			 */
-			Progress.prototype._setValue = function (value) {
+			prototype._setValue = function (value) {
 				var self = this,
 					options = self.options;
 				if ((typeof value === "number") && (value !== options.value) && (value >= options.min) && (value <= options.max)) {
@@ -166,7 +127,7 @@
 			 * @protected
 			 * @member ns.widget.tv.Progress
 			 */
-			Progress.prototype._getValue = function () {
+			prototype._getValue = function () {
 				return this.options.value;
 			};
 
@@ -175,7 +136,7 @@
 			 * @method focus
 			 * @member ns.widget.tv.Progress
 			 */
-			Progress.prototype.focus = function () {
+			prototype.focus = function () {
 				var classList = this.element.classList,
 					focused = classes.focused;
 				if (!classList.contains(focused)) {
@@ -188,7 +149,7 @@
 			 * @method blur
 			 * @member ns.widget.tv.Progress
 			 */
-			Progress.prototype.blur = function () {
+			prototype.blur = function () {
 				var classList = this.element.classList,
 					focused = classes.focused;
 				if (classList.contains(focused)) {

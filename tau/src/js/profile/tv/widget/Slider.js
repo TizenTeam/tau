@@ -5,8 +5,11 @@
  */
 /*jslint nomen: true */
 /*
+ * #Slider Widget
+ * Shows a control that you can use to change values by dragging a handle on a horizontal scale.
+ *
  * @class ns.widget.tv.Slider
- * @extends ns.widget.mobile.Slider
+ * @extends ns.widget.mobile.TizenSlider
  * @author Jadwiga Sosnowska <j.sosnowska@samsung.com>
  */
 (function (document, ns) {

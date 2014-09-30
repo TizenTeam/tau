@@ -6,108 +6,8 @@
 /*jslint nomen: true */
 /**
  * # List Divider Widget
- * List divider widget creates a list separator, which can be used for building grouping lists using.
- *
- *
- * ## Default selectors
- * In all elements with _data-role=listdivider_ are changed to Tizen Web UI ListDivider.
- *
- * In addition all elements with class _ui-listdivider_ are changed to Tizen Web UI ListDivider.
- *
- *		@example
- *		<ul data-role="listview">
- *			<li data-role="list-divider">Item styles</li>
- *			<li><a href="#">Normal lists</a></li>
- *			<li><a href="#">Normal lists</a></li>
- *			<li><a href="#">Normal lists</a></li>
- *		</ul>
- *
- * ## Manual constructor
- * For manual creation of listdivider widget you can use constructor of widget:
- *
- *		@example
- *		<ul data-role="listview">
- *			<li>Item</li>
- *			<li id="listdivider">Divider</li>
- *			<li>Item</li>
- *			<li>Item</li>
- *		</ul>
- *		<script>
- *			var listdivider = tau.widget.ListDivider(document.getElementById("listdivider"));
- *		</script>
- *
- * If jQuery library is loaded, its method can be used:
- *
- *		@example
- *		<ul data-role="listview">
- *			<li>Item</li>
- *			<li id="listdivider">Divider</li>
- *			<li>Item</li>
- *			<li>Item</li>
- *		</ul>
- *		<script>
- *			$("#listdivider").listdivider();
- *		</script>
- *
- * ## Options
- *
- * ### Style
- * _data-style_ string ["normal" | "checkbox" | "dialogue"] Option sets the style of the list divider.
- *
- * #### Checkbox
- *
- *		@example
- *		<ul data-role="listview">
- *			<li data-role="list-divider" data-style="checkbox">
- *				<form><input type="checkbox">Select All</form>
- *			</li>
- *			<li><form><input type="checkbox">Item</form></li>
- *			<li><form><input type="checkbox">Item</form></li>
- *			<li><form><input type="checkbox">Item</form></li>
- *		</ul>
- *
- * #### Dialogue
- *
- *		@example
- *		<ul data-role="listview">
- *			<li data-role="list-divider" data-style="dialogue">Items</li>
- *			<li>Item</li>
- *			<li>Item</li>
- *			<li>Item</li>
- *		</ul>
- *
- * ### Theme
- * _data-theme_ string Theme for list divider
- *
- *		@example
- *		<ul data-role="listview">
- *			<li data-role="list-divider" data-theme="c">Item styles</li>
- *			<li>Item</li>
- *			<li>Item</li>
- *			<li>Item</li>
- *		</ul>
- *
- * ### Folded
- * _data-folded_ string ["true" | "false"] Decide to show divider press effect or not
- *
- *		@example
- *		<ul data-role="listview">
- *			<li data-role="list-divider" data-folded="true">Item styles</li>
- *			<li>Item</li>
- *			<li>Item</li>
- *			<li>Item</li>
- *		</ul>
- *
- * ### Line
- * _data-line_ string ["true" | "false"] Decide to draw divider line or not
- *
- *		@example
- *		<ul data-role="listview">
- *			<li data-role="list-divider" data-line="false">Item styles</li>
- *			<li>Item</li>
- *			<li>Item</li>
- *			<li>Item</li>
- *		</ul>
+ * List divider widget creates a list separator, which can be used for building
+ * grouped list of items.
  *
  * @class ns.widget.tv.ListDivider
  * @extends ns.widget.mobile.ListDivider
@@ -118,7 +18,7 @@
 	define(
 		[
 			"../../../core/engine",
-			"../widget",
+			"../tv",
 			"../../../profile/mobile/widget/mobile/Listdivider"
 		],
 		function () {

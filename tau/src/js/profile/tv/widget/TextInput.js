@@ -8,110 +8,6 @@
  * #Text Input Widget
  * Decorator for inputs elements.
  *
- * ## Default selectors
- * In default elements matches to :
- *
- *  - INPUT with type "text" or "number" or "password" or "email" or "url" or
- *    "tel" or "month" or "week" or "datetime-local" or "color" or without any
- *    type
- *  - TEXTAREA
- *  - HTML elements with class ui-TextInput
- *
- * ###HTML Examples
- *
- * ####Create simple text input on INPUT element
- *
- *		@example
- *		<form>
- *			<label for="text-1">Text input:</label>
- *			<input type="text" name="text-1" id="text-1" value="">
- *		</form>
- *
- * ####Create simple text input on TEXTAREA element
- *
- *		@example
- *		<form>
- *			<label for="text-1">Text input:</label>
- *			<textarea name="text-1" id="text-1"></textarea>
- *		</form>
- *
- * ####Create simple text input on INPUT element with class ui-textinput
- *
- *		@example
- *		<form>
- *			<label for="text-1">Text input:</label>
- *			<input name="text-1" id="text-1" class="ui-textinput">
- *		</form>
- *
- * ## Manual constructor
- * For manual creation of TextInput widget you can use constructor of widget
- * from **tau** namespace:
- *
- *		@example
- *		<form>
- *			<label for="text-1">Text input:</label>
- *			<input type="search" name="text-1" id="text-1" value="">
- *		</form>
- *		<script>
- *			var inputElement = document.getElementById("text-1"),
- *				textInput = tau.widget.TextInput(inputElement);
- *		</script>
- *
- * Constructor has one require parameter **element** which are base
- * **HTMLElement** to create widget. We recommend get this element by method
- * *document.getElementById*. Second parameter is **options** and it is a object
- * with options for widget.
- *
- * If jQuery library is loaded, its method can be used:
- *
- *		@example
- *		<form>
- *			<label for="text-1">Text input:</label>
- *			<input type="text" name="text-1" id="text-1" value="">
- *		</form>
- *		<script>
- *			$("#text-1").textinput();
- *		</script>
- *
- * jQuery Mobile constructor has one optional parameter is **options** and it is
- * a object with options for widget.
- *
- * ##Options for widget
- *
- * Options for widget can be defined as _data-..._ attributes or give as
- * parameter in constructor.
- *
- * You can change option for widget using method **option**.
- *
- * ##Methods
- *
- * To call method on widget you can use one of existing API:
- *
- * First API is from tau namespace:
- *
- *		@example
- *		<input id="text-1" />
- *		<script>
- *			var inputElement = document.getElementById('text-1'),
- *				textInput = tau.widget.TextInput(inputElement);
- *
- *		 	// textInput.methodName(argument1, argument2, ...);
- *			// for example:
- *			textInput.value("text");
- *		</script>
- *
- *
- * Second API is jQuery Mobile API and for call _methodName_ you can use:
- *
- *		@example
- *		<input id="text-1" />
- *		<script>
- *			// $("#text-1").textinput('methodName', argument1, argument2, ...);
- *			// for example
- *
- *			$("#text-1").value("text");
- *		</script>
- *
  * @class ns.widget.tv.TextInput
  * @extends ns.widget.mobile.TextInput
  * @author Lukasz Zajaczkowski <l.zajaczkows@samsung.com>
@@ -121,7 +17,7 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../widget",
+			"../tv",
 			"../../../profile/mobile/widget/mobile/Textinput",
 			"../../../profile/mobile/widget/mobile/Button",
 			"../../../core/engine",
@@ -162,8 +58,6 @@
 					wrapInputNumber(element);
 					break;
 				}
-
-				this.registerActiveSelector("input");
 			};
 
 			prototype._bindEvents = function(element) {
@@ -306,6 +200,9 @@
 				"tv",
 				true
 			);
+
+			BaseKeyboardSupport.registerActiveSelector(".ui-textinput");
+
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return ns.widget.tv.TextInput;
 		}

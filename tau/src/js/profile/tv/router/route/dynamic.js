@@ -4,8 +4,10 @@
  * License : MIT License V2
  */
 /**
- * Support class for router to control change pupups.
- * @class ns.router.route.popup
+ * #Route dynamic
+ * Route for loading dynamic content in page.
+ *
+ * @class ns.router.route.dynamic
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  */
 (function (window, document, ns) {

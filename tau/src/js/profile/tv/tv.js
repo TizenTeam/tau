@@ -4,7 +4,9 @@
  * License : MIT License V2
  */
 /**
- * The Tizen Web UI service provides rich Tizen widgets that are optimized for the Tizen Web browser. You can use the widgets for:
+ * # TV Widget Reference
+ * Tizen Web UI service provides rich Tizen widgets that are optimized for the
+ * Tizen Web browser. You can use the widgets for:
  *
  * - CSS animation
  * - Rendering

@@ -5,13 +5,11 @@
  */
 /*jslint nomen: true, plusplus: true */
 /**
- * # PageContainer Widget
- * PageContainer is a widget, which is supposed to have multiple child pages but display only one at a time.
+ * # Page Widget
+ * Page is the main element of application's structure.
  *
- * It allows for adding new pages, switching between them and displaying progress bars indicating loading process.
- *
- * @class ns.widget.tv.PageContainer
- * @extends ns.widget.BaseWidget
+ * @class ns.widget.tv.Page
+ * @extends ns.widget.wearable.Page
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  */
 (function (document, ns) {
@@ -19,6 +17,7 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
+			"../tv",
 			"../../../profile/wearable/widget/wearable/Page",
 			"../../../core/engine",
 			"../../../core/util/DOM/css",
