@@ -1,0 +1,3 @@
+.horizontal li {float:left;width:200px;height:100px;}
+.horizontal .ui-listview {width:4000px;height:100px;}
+#scroller li {text-align:center;}

@@ -8,16 +8,11 @@
 	page.addEventListener( "pageshow", function() {
 		// make SectionChanger object
 		if ( vele ) {
-			vscroller = new tau.Scroller(vele, {
-				scrollbar: "tab"
-			});
+			vscroller = new tau.widget.Scroller(vele);
 		}
 
 		if ( hele ) {
-			hscroller = new tau.Scroller(hele, {
-				orientation: "horizontal",
-				scrollbar: "tab"
-			});
+			hscroller = new tau.widget.Scroller(hele);
 		}
 	});
 

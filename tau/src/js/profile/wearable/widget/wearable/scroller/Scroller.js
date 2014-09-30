@@ -111,7 +111,7 @@
 				 * @property {Object} options Options for widget
 				 * @property {number} [options.scrollDelay=0]
 				 * @property {number} [options.threshold=10]
-				 * @property {boolean} [options.scrollbar=false]
+				 * @property {""|"bar"|"tab"} [options.scrollbar=""]
 				 * @property {boolean} [options.useBouncingEffect=false]
 				 * @property {"vertical"|"horizontal"} [options.orientation="vertical"]
 				 * @member ns.widget.wearable.Scroller
@@ -119,7 +119,7 @@
 				this.options = utilsObject.merge({}, this.options, {
 					scrollDelay: 0,
 					threshold: 10,
-					scrollbar: false,
+					scrollbar: "",
 					useBouncingEffect: false,
 					orientation: "vertical"	// vertical or horizontal,
 				});

@@ -14,26 +14,23 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../../../../../../core/engine",
-			"../../../../../../core/util/object",
-			"../effect",
-			"../../../../../../core/widget/BaseWidget"
+			"../effect"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 			// scroller.start event trigger when user try to move scroller
-			var BaseWidget = ns.widget.BaseWidget,
-				engine = ns.engine,
-				prototype = new BaseWidget(),
-				utilsObject = ns.util.object,
-				Bouncing = function (scrollerElement, options) {
-
+			var Bouncing = function (scrollerElement, options) {
 					this.orientation = null;
 					this.maxValue = null;
 
 					this.container = null;
 					this.minEffectElement = null;
 					this.maxEffectElement = null;
+				/**
+				 * target element for bouncing effect
+				 * @property {HTMLElement} targetElement
+				 * @member ns.widget.wearable.scroller.effect.Bouncing
+				 */
 					this.targetElement = null;
 
 					this.isShow = false;
@@ -105,17 +102,6 @@
 				},
 
 				/**
-				 * ...
-				 * @method end
-				 * @param x
-				 * @param y
-				 * @member ns.widget.wearable.scroller.effect.Bouncing
-				 */
-				end: function(x, y) {
-					this._checkAndShow( x, y );
-				},
-
-				/**
 				 * Shows effect.
 				 * @method show
 				 * @member ns.widget.wearable.scroller.effect.Bouncing
@@ -150,10 +136,10 @@
 					if ( !this.isShow ) {
 						if ( val >= 0 ) {
 							this.targetElement = this.minEffectElement;
-							this._beginShow();
+							this.show();
 						} else if ( val <= this.maxValue ) {
 							this.targetElement = this.maxEffectElement;
-							this._beginShow();
+							this.show();
 						}
 
 					} else if ( this.isShow && !this.isDrag && !this.isShowAnimating && !this.isHideAnimating ) {
@@ -175,7 +161,6 @@
 					this.targetElement.classList.remove("ui-hide");
 					this.targetElement.classList.add("ui-show");
 
-					this.isShow = true;
 					this.isShowAnimating = true;
 					this.isHideAnimating = false;
 				},
@@ -213,14 +198,12 @@
 				 * @member ns.widget.wearable.scroller.effect.Bouncing
 				 */
 				handleEvent: function( event ) {
-					switch (event.type) {
-						case "webkitAnimationEnd":
-							if ( this.isShowAnimating ) {
-								this._finishShow();
-							} else if ( this.isHideAnimating ) {
-								this._finishHide();
-							}
-							break;
+					if (event.type === "webkitAnimationEnd") {
+						if ( this.isShowAnimating ) {
+							this._finishShow();
+						} else if ( this.isHideAnimating ) {
+							this._finishHide();
+						}
 					}
 				},
 
