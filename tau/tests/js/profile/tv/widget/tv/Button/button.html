@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../../../../libs/qunit-1.11.0.css" />
+
+
+        <title>Button</title>
+    </head>
+
+    <body>
+
+        <h1 id="qunit-header">Button</h1>
+        <h2 id="qunit-banner"></h2>
+        <div id="qunit-testrunner-toolbar"></div>
+        <h2 id="qunit-userAgent"></h2>
+        <ol id="qunit-tests"></ol>
+
+        <div id="qunit-fixture">
+            <div data-role="page" id="test_button_page">
+                <div data-role="content">
+                    <a href="#" data-role="button" id="button-0">Test button 1</a>
+                    <br/>
+                    <a href="#" data-role="button" data-inline="true" id="button-1">Inline 1</a>
+                    <a href="#" data-role="button" data-inline="true" id="button-2">Inline 2</a>
+                    <br/><br/>
+                    <a href="#" data-role="button" disabled="disabled" id="button-3">Disabled button</a>
+                    <br/>
+                    <a data-rel="dynamic" href="#" data-role="button" data-icon="live"
+                       data-iconpos="top" data-inline="true" id="button-4">Live on TV</a>
+                </div>
+            </div>
+        </div>
+        <script src="../../../../../../libs/jquery.js"></script>
+        <script src="../../../../../../libs/qunit-1.11.0.js"></script>
+        <script src="../../../../../../libs/support.js"></script>
+
+        <script src="./button.js"></script>
+        <script type="text/javascript">
+            var tauConfig = {
+                "autorun": true
+            };
+        </script>
+        <script type="text/javascript" src="../../../../../../libs/dist/js/tau.js"></script>
+    </body>
+</html>
