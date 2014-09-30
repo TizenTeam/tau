@@ -940,7 +940,7 @@
 
 					eventUtils.fastOn(document, "create", createEventHandler);
 
-					eventUtils.trigger(document, eventType.INIT);
+					eventUtils.trigger(document, eventType.INIT, {tau: ns});
 
 					switch (document.readyState) {
 					case "interactive":

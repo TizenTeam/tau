@@ -1058,6 +1058,7 @@ progress.ui-progress-controllable.ui-focus::-webkit-progress-value:after {
 /*                        Button(FIXED)                               */
 /**********************************************************************/
 .ui-btn {
+  position: relative;
   display: block;
   padding: 1.5624999999vw 1.0416666666vw 1.3020833332500001vw 1.0416666666vw;
   font-size: 1.4583333332400001vw;
@@ -1130,10 +1131,6 @@ a.ui-btn.ui-state-disabled,
   font-size: 0.05208333333vw;
   border: none;
   line-height: 52.03124999667vw;
-}
-.ui-btn.ui-focus {
-  background-color: #458fff;
-  color: #ffffff;
 }
 a.ui-btn.ui-state-disabled,
 .ui-btn:disabled {
@@ -1209,8 +1206,8 @@ a.ui-color-green.ui-state-disabled,
   background-color: #26351e;
   cursor: default;
 }
-.ui-btn:focus,
-.ui-btn:active {
+.ui-btn .ui-background,
+.ui-btn:active .ui-background {
   outline: none;
   background-color: #458fff;
   color: #ffffff;
@@ -1383,12 +1380,15 @@ input.ui-btn.ui-inline {
   -webkit-mask-size: 4.1666666664vw 4.1666666664vw;
   z-index: 0;
 }
+/****************************************
+ICON LIVE
+****************************************/
 .ui-icon-live,
 .ui-listview li a.ui-btn .ui-btn-inner .ui-icon.ui-icon-live {
   background: #458fff url(images/icons/ico_live_foc.png);
 }
-.ui-listview li a.ui-btn.ui-btn-icon-live.ui-focus,
-.ui-btn-icon-live.ui-focus {
+.ui-listview li a.ui-btn.ui-btn-icon-live .ui-background,
+.ui-btn-icon-live .ui-background {
   background-color: #458fff;
 }
 .ui-listview li a.ui-btn.ui-btn-icon-live.ui-focus .ui-btn-inner .ui-icon.ui-icon-live,
@@ -1397,12 +1397,15 @@ input.ui-btn.ui-inline {
 .ui-btn-icon-live.ui-focus .ui-icon {
   background-color: white;
 }
+/****************************************
+ICON SHOW
+****************************************/
 .ui-icon-tv-show,
 .ui-listview li a.ui-btn .ui-btn-inner .ui-icon.ui-icon-tv-show {
   background: #ffa800 url(images/icons/ico_tv_show_foc.png);
 }
-.ui-listview li a.ui-btn.ui-btn-icon-tv-show.ui-focus,
-.ui-btn-icon-tv-show.ui-focus {
+.ui-listview li a.ui-btn.ui-btn-icon-tv-show .ui-background,
+.ui-btn-icon-tv-show .ui-background {
   background-color: #ffa800;
 }
 .ui-listview li a.ui-btn.ui-btn-icon-tv-show.ui-focus .ui-btn-inner .ui-icon.ui-icon-tv-show,
@@ -1411,12 +1414,15 @@ input.ui-btn.ui-inline {
 .ui-btn-icon-tv-show.ui-focus .ui-icon {
   background-color: white;
 }
+/****************************************
+ICON MOVE
+****************************************/
 .ui-icon-movie,
 .ui-listview li a.ui-btn .ui-btn-inner .ui-icon.ui-icon-movie {
   background: #ff6356 url(images/icons/ico_moive_foc.png);
 }
-.ui-listview li a.ui-btn.ui-btn-icon-movie.ui-focus,
-.ui-btn-icon-movie.ui-focus {
+.ui-listview li a.ui-btn.ui-btn-icon-movie .ui-background,
+.ui-btn-icon-movie .ui-background {
   background-color: #ff6356;
 }
 .ui-listview li a.ui-btn.ui-btn-icon-movie.ui-focus .ui-btn-inner .ui-icon.ui-icon-movie,
@@ -1425,12 +1431,15 @@ input.ui-btn.ui-inline {
 .ui-btn-icon-movie.ui-focus .ui-icon {
   background-color: white;
 }
+/****************************************
+ICON SOURCE
+****************************************/
 .ui-icon-source,
 .ui-listview li a.ui-btn .ui-btn-inner .ui-icon.ui-icon-source {
   background: #9b7aff url(images/icons/ico_source_foc.png);
 }
-.ui-listview li a.ui-btn.ui-btn-icon-source.ui-focus,
-.ui-btn-icon-source.ui-focus {
+.ui-listview li a.ui-btn.ui-btn-icon-source .ui-background,
+.ui-btn-icon-source .ui-background {
   background-color: #458fff;
 }
 .ui-listview li a.ui-btn.ui-btn-icon-source.ui-focus .ui-btn-inner .ui-icon.ui-icon-source,
@@ -1439,12 +1448,15 @@ input.ui-btn.ui-inline {
 .ui-btn-icon-source.ui-focus .ui-icon {
   background-color: white;
 }
+/****************************************
+ICON APP
+****************************************/
 .ui-icon-app,
 .ui-listview li a.ui-btn .ui-btn-inner .ui-icon.ui-icon-app {
   background: #47d2bc url(images/icons/ico_app_foc.png);
 }
-.ui-listview li a.ui-btn.ui-btn-icon-app.ui-focus,
-.ui-btn-icon-app.ui-focus {
+.ui-listview li a.ui-btn.ui-btn-icon-app .ui-background,
+.ui-btn-icon-app .ui-background {
   background-color: #458fff;
 }
 .ui-listview li a.ui-btn.ui-btn-icon-app.ui-focus .ui-btn-inner .ui-icon.ui-icon-app,
@@ -1456,6 +1468,91 @@ input.ui-btn.ui-inline {
 .ui-btn-icon-right progress {
   margin-right: 5.208333333000001vw;
   width: auto;
+}
+/****************************************
+ANIMATION
+****************************************/
+.ui-btn {
+  /* FOCUS */
+  /* BLUR */
+  /* animation from down to up */
+  /* animation from up to down */
+  /* animation from rigth to left */
+  /* animation from left to right */
+}
+.ui-btn .ui-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  -webkit-transition-duration: 200ms;
+  -webkit-transition-timing-function: ease;
+}
+.ui-btn.ui-focus {
+  /* animation from down to up */
+  /* animation from up to down */
+  /* animation from rigth to left */
+  /* animation from left to right */
+}
+.ui-btn.ui-focus-up .ui-background {
+  top: 100%;
+  height: 0;
+  width: 100%;
+  left: 0;
+  -webkit-transition-property: top, height;
+}
+.ui-btn.ui-focus-down .ui-background {
+  height: 0;
+  width: 100%;
+  left: 0;
+  top: 0;
+  -webkit-transition-property: top, height;
+}
+.ui-btn.ui-focus-left .ui-background {
+  width: 0;
+  height: 100%;
+  left: 100%;
+  top: 0;
+  -webkit-transition-property: left, width;
+}
+.ui-btn.ui-focus-right .ui-background {
+  width: 0;
+  height: 100%;
+  left: 0;
+  top: 0;
+  -webkit-transition-property: left, width;
+}
+.ui-btn.ui-focus .ui-background {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.ui-btn.ui-blur-up .ui-background {
+  top: 0;
+  height: 0;
+  width: 100%;
+  -webkit-transition-property: top, height;
+}
+.ui-btn.ui-blur-down .ui-background {
+  top: 100%;
+  height: 0;
+  width: 100%;
+  -webkit-transition-property: top, height;
+}
+.ui-btn.ui-blur-left .ui-background {
+  width: 0;
+  left: 0;
+  height: 100%;
+  -webkit-transition-property: left, width;
+}
+.ui-btn.ui-blur-right .ui-background {
+  width: 0;
+  left: 100%;
+  top: 0;
+  height: 100%;
+  -webkit-transition-property: left, width;
 }
 /***********************
 Normal Popup

@@ -5,9 +5,9 @@
 	var previewIDNum = 0,
 		TEXTS = {
 			"PREVIEW": "preview",
-			"PREVIEW_MOBILE": "Preview mobile version",
-			"PREVIEW_TV": "Preview tv version",
-			"PREVIEW_WEARABLE": "Preview wearable version"
+			"mobile": "Preview mobile version",
+			"tv": "Preview tv version",
+			"wearable": "Preview wearable version"
 		},
 		previewWindows = {
 			"wearable": null,
@@ -19,11 +19,13 @@
 			"mobile": "height=640,width=480,menubar=no,resizable=no,scrollbars=yes,status=no,titlebar=no,toolbar=no",
 			"tv": "height=540,width=960,menubar=no,resizable=no,scrollbars=yes,status=no,titlebar=no,toolbar=no"
 		},
+		LANG_SPLIT_REGEXP = /\-(mobile|wearable|tv)(\(([^\)]+)\))?/mgi,
 		prettyPrint = window.prettyPrint;
 
 	function buttonHandler(event) {
 		var target = event.target,
 			type = target.getAttribute("data-type"),
+			url = target.getAttribute("data-url") || type,
 			previewID = target.getAttribute("data-preview"),
 			preview = document.querySelector("code[data-preview=p" + previewID + "]"),
 			pwindow = previewWindows[type];
@@ -32,11 +34,13 @@
 			pwindow.close();
 		}
 
-		pwindow = window.open("preview/" + type + ".html", "", windowOptions[type]);
+		pwindow = window.open("preview/" + url + ".html", "", windowOptions[type]);
 
 		pwindow.addEventListener("load", function () {
 			try {
-				this.loadExample(preview.textContent);
+				if (type === url) {
+					this.loadExample(preview.textContent);
+				}
 			} catch (e) {
 				window.alert("Problem rendering preview");
 			}
@@ -57,10 +61,13 @@
 		return false;
 	}
 
-	function createButton(container, type, previewID, title) {
+	function createButton(container, type, previewID, title, url) {
 		var button = document.createElement("a");
 		button.setAttribute("class", "preview_button preview_" + type);
 		button.setAttribute("data-type", type);
+		if (url) {
+			button.setAttribute("data-url", url.replace(/[\(\)]|(.html)/g, ""));
+		}
 		button.setAttribute("data-preview", previewID);
 		button.setAttribute("title", title);
 
@@ -76,13 +83,23 @@
 			buttonContainer,
 			parent,
 			nextSibling,
-			span;
+			span,
+			profileUrl,
+			profile;
 
 		while (--i >= 0) {
+			found = 0;
+			profileUrl = {},
 			preview = previews.item(i);
 			className = preview.className;
+			className.replace(
+				LANG_SPLIT_REGEXP,
+				function (unused, profile, url) {
+					profileUrl[profile] = url;
+					return '';
+				}
+			);
 			preview.setAttribute("data-preview", "p" + previewIDNum);
-			found = 0;
 
 			parent = preview.parentNode;
 			nextSibling = preview.nextSibling;
@@ -95,18 +112,14 @@
 
 			buttonContainer.appendChild(span);
 
-			if (className.indexOf("mobile") > -1) {
-				createButton(buttonContainer, "mobile", previewIDNum, TEXTS.PREVIEW_MOBILE);
-				++found;
-			}
-
-			if (className.indexOf("wearable") > -1) {
-				createButton(buttonContainer, "wearable", previewIDNum, TEXTS.PREVIEW_WEARABLE);
-				++found;
-			}
-
-			if (className.indexOf("tv") > -1) {
-				createButton(buttonContainer, "tv", previewIDNum, TEXTS.PREVIEW_TV);
+			for (profile in profileUrl) {
+				createButton(
+					buttonContainer,
+					profile,
+					previewIDNum,
+					TEXTS[profile],
+					profileUrl[profile]
+				);
 				++found;
 			}
 
@@ -123,10 +136,16 @@
 	}
 
 	function prettyPrintHandler() {
-		var code = document.querySelectorAll("pre > code"),
-			i = code.length;
+		var codes = document.querySelectorAll("pre > code"),
+			i = codes.length,
+			code;
 		while (--i >= 0) {
-			code[i].className = "lang-html prettyprint";
+			code = codes[i];
+			if (code.className.match(/lang-js|lang-javascript/)) {
+				code.className = "lang-js prettyprint";
+			} else {
+				code.className = "lang-html prettyprint";
+			}
 		}
 		if (prettyPrint) {
 			prettyPrint();

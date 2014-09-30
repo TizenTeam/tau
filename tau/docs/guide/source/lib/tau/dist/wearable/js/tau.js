@@ -286,8 +286,14 @@ ns.version = '0.9.26';
  * License : MIT License V2
  */
 /**
- * #Util
- * Namespace for all util class
+ * #Utilities
+ *
+ * The Tizen Advanced UI (TAU) framework provides utilities for easy-developing
+ * and fully replaceable with jQuery method. When user using these DOM and
+ * selector methods, it provide more light logic and it proves performance
+ * of web app. The following table displays the utilities provided by the
+ * TAU framework.
+ *
  * @class ns.util
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  * @author Krzysztof Antoszek <k.antoszek@samsung.com>
@@ -658,8 +664,11 @@ ns.version = '0.9.26';
  * License : MIT License V2
  */
 /**
- * #Event namespace
- * Namespace contains all object connected with events support.
+ * #Events
+ *
+ * The Tizen Advanced UI (TAU) framework provides events optimized for the Tizen
+ * Web application. The following table displays the events provided by the TAU
+ * framework.
  * @class ns.event
  */
 (function (window, ns) {
@@ -2416,7 +2425,7 @@ ns.version = '0.9.26';
 
 					eventUtils.fastOn(document, "create", createEventHandler);
 
-					eventUtils.trigger(document, eventType.INIT);
+					eventUtils.trigger(document, eventType.INIT, {tau: ns});
 
 					switch (document.readyState) {
 					case "interactive":
@@ -3904,7 +3913,7 @@ ns.version = '0.9.26';
 				if (value === undefined) {
 					return DOM.getNSData(element, name);
 				} else {
-					return DOM.setNSdata(element, name, value);
+					return DOM.setNSData(element, name, value);
 				}
 			};
 
@@ -6079,7 +6088,7 @@ ns.version = '0.9.26';
 					bestOffsetInfo;
 
 				// set value of bestDirection on the first possible type or top
-				bestDirection = params[arrowsPriority[0]] || params.t,
+				bestDirection = params[arrowsPriority[0]] || params.t;
 
 				arrowsPriority.forEach(function(key){
 					var param = params[key],
@@ -6493,21 +6502,20 @@ ns.version = '0.9.26';
  */
 
 /**
+ * #Wearable Widget Reference
  * The Tizen Web UI service provides rich Tizen widgets that are optimized for the Tizen Web browser. You can use the widgets for:
  *
  * - CSS animation
  * - Rendering
  *
  * The following table displays the widgets provided by the Tizen Web UI service.
- * @page ns.widget.wearable
- * @title Widget Reference
+ * @class ns.widget.wearable
  * @seeMore https://developer.tizen.org/dev-guide/2.2.1/org.tizen.web.uiwidget.apireference/html/web_ui_framework.htm "Web UI Framework Reference"
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  */
 (function (window, ns) {
 	
-				/** @namespace ns.widget.wearable */
-			ns.widget.wearable = ns.widget.wearable || {};
+				ns.widget.wearable = ns.widget.wearable || {};
 			}(window, ns));
 
 /*global window, define */
@@ -7883,28 +7891,34 @@ ns.version = '0.9.26';
 				 * @static
 				**/
 				startY = 0,
-				touchEventProps = ["clientX", "clientY", "pageX", "pageY", "screenX", "screenY"];
+				touchEventProps = ["clientX", "clientY", "pageX", "pageY", "screenX", "screenY"],
+				KEY_CODES = {
+					enter: 13
+				};
 
 			/**
 			 * Extends objects with other objects
 			 * @method copyProps
 			 * @param {Object} from Sets the original event
 			 * @param {Object} to Sets the new event
-			 * @param {Object} props Describe parameters which will be copied from Original to To event
+			 * @param {Object} properties Sets the special properties for position
+			 * @param {Object} propertiesNames Describe parameters which will be copied from Original to To event
 			 * @private
 			 * @static
 			 * @member ns.event.vmouse
 			 */
-			function copyProps(from, to, props) {
+			function copyProps(from, to, properties, propertiesNames) {
 				var i,
-					len,
-					descriptor;
+					length,
+					descriptor,
+					property;
 
-				for (i = 0, len = props.length; i < len; ++i) {
-					if (isNaN(from[props[i]]) === false) {
-						descriptor = Object.getOwnPropertyDescriptor(to, props[i]);
+				for (i = 0, length = propertiesNames.length; i < length; ++i) {
+					property = propertiesNames[i];
+					if (isNaN(properties[property]) === false || isNaN(from[property]) === false) {
+						descriptor = Object.getOwnPropertyDescriptor(to, property);
 						if (!descriptor || descriptor.writable) {
-							to[props[i]] = from[props[i]];
+							to[property] = properties[property] || from[property];
 						}
 					}
 				}
@@ -7915,17 +7929,18 @@ ns.version = '0.9.26';
 			 * @method createEvent
 			 * @param {string} newType gives a name for the new Type of event
 			 * @param {Event} original Event which trigger the new event
+			 * @param {Object} properties Sets the special properties for position
 			 * @return {Event}
 			 * @private
 			 * @static
 			 * @member ns.event.vmouse
 			 */
-			function createEvent(newType, original) {
+			function createEvent(newType, original, properties) {
 				var evt = new CustomEvent(newType, {
-					"bubbles": original.bubbles,
-					"cancelable": original.cancelable,
-					"detail": original.detail
-				}),
+						"bubbles": original.bubbles,
+						"cancelable": original.cancelable,
+						"detail": original.detail
+					}),
 					orginalType = original.type,
 					changeTouches,
 					touch,
@@ -7933,7 +7948,7 @@ ns.version = '0.9.26';
 					len,
 					prop;
 
-				copyProps(original, evt, eventProps);
+				copyProps(original, evt, properties, eventProps);
 				evt._originalEvent = original;
 
 				if (orginalType.indexOf("touch") !== -1) {
@@ -7962,13 +7977,14 @@ ns.version = '0.9.26';
 			 * @method fireEvent
 			 * @param {string} eventName event name
 			 * @param {Event} evt original event
+			 * @param {Object} properties Sets the special properties for position
 			 * @return {boolean}
 			 * @private
 			 * @static
 			 * @member ns.event.vmouse
 			 */
-			function fireEvent(eventName, evt) {
-				return evt.target.dispatchEvent(createEvent(eventName, evt));
+			function fireEvent(eventName, evt, properties) {
+				return evt.target.dispatchEvent(createEvent(eventName, evt, properties || {}));
 			}
 
 			eventProps = [
@@ -7984,7 +8000,8 @@ ns.version = '0.9.26';
 				"pageY",
 				"screenX",
 				"screenY",
-				"toElement"
+				"toElement",
+				"which"
 			];
 
 			vmouse = {
@@ -8012,6 +8029,24 @@ ns.version = '0.9.26';
 			}
 
 			/**
+			 * Prepare position of event for keyboard events.
+			 * @method preparePositionForClick
+			 * @param {Event} event
+			 * @return {?Object} options
+			 * @private
+			 * @static
+			 * @member ns.event.vmouse
+			 */
+			function preparePositionForClick(event) {
+				var x = event.clientX,
+					y = event.clientY;
+				// event comes from keyboard
+				if (!x && !y) {
+					return preparePositionForEvent(event);
+				}
+			}
+
+			/**
 			 * Handle click
 			 * @method handleClick
 			 * @param {Event} evt
@@ -8020,7 +8055,7 @@ ns.version = '0.9.26';
 			 * @member ns.event.vmouse
 			 */
 			function handleClick(evt) {
-				fireEvent("vclick", evt);
+				fireEvent("vclick", evt, preparePositionForClick(evt));
 			}
 
 			/**
@@ -8197,6 +8232,28 @@ ns.version = '0.9.26';
 			}
 
 			/**
+			 * Prepare position of event for keyboard events.
+			 * @method preparePositionForEvent
+			 * @param {Event} event
+			 * @return {Object} properties
+			 * @private
+			 * @static
+			 * @member ns.event.vmouse
+			 */
+			function preparePositionForEvent(event) {
+				var targetRect = event.target && event.target.getBoundingClientRect(),
+					properties = {};
+				if (targetRect) {
+					properties = {
+						"clientX": targetRect.left + targetRect.width / 2,
+						"clientY": targetRect.top + targetRect.height / 2,
+						"which": 1
+					};
+				}
+				return properties;
+			}
+
+			/**
 			 * Handle key up
 			 * @method handleKeyUp
 			 * @param {Event} event
@@ -8205,9 +8262,11 @@ ns.version = '0.9.26';
 			 * @member ns.event.vmouse
 			 */
 			function handleKeyUp(event) {
-				if (event.keyCode === 13) {
-					fireEvent("vmouseup", event);
-					fireEvent("vclick", event);
+				var properties;
+				if (event.keyCode === KEY_CODES.enter) {
+					properties = preparePositionForEvent(event);
+					fireEvent("vmouseup", event, properties);
+					fireEvent("vclick", event, properties);
 				}
 			}
 
@@ -8220,8 +8279,8 @@ ns.version = '0.9.26';
 			 * @member ns.event.vmouse
 			 */
 			function handleKeyDown(event) {
-				if (event.keyCode === 13) {
-					fireEvent("vmousedown", event);
+				if (event.keyCode === KEY_CODES.enter) {
+					fireEvent("vmousedown", event, preparePositionForEvent(event));
 				}
 			}
 
@@ -8333,11 +8392,11 @@ ns.version = '0.9.26';
 					moreChar: "*",
 					indexHeight: 41,
 					selectedClass: "ui-state-selected",
-					ulClass: null
+					ulClass: null,
+					maxIndexLen : 0
 				},
 				_init: function() {
 					this.indices.original = this.options.index;
-					this.maxIndexLen = 0;
 					this.indexLookupTable = [];
 					this.indexElements = null;
 					this.selectedIndex = -1;
@@ -8420,13 +8479,13 @@ ns.version = '0.9.26';
 					if(maxIndexLen > 0 && maxIndexLen%2 === 0) {
 						maxIndexLen -= 1;	// Ensure odd number
 					}
-					this.maxIndexLen = maxIndexLen;
+					this.options.maxIndexLen = this.options.maxIndexLen > 0 ? Math.min(maxIndexLen, this.options.maxIndexLen) : maxIndexLen;
 				},
 
 				_makeMergedIndices: function() {
 					var origIndices = this.indices.original,
 						origIndexLen = origIndices.length,
-						visibleIndexLen = Math.min(this.maxIndexLen, origIndexLen),
+						visibleIndexLen = Math.min(this.options.maxIndexLen, origIndexLen),
 						totalLeft = origIndexLen - visibleIndexLen,
 						nIndexPerItem = parseInt(totalLeft / parseInt(visibleIndexLen/2, 10), 10),
 						leftItems = totalLeft % parseInt(visibleIndexLen/2, 10),
@@ -8436,7 +8495,7 @@ ns.version = '0.9.26';
 
 					for(i = 0, len = visibleIndexLen; i < len; i++) {
 						indexItemSize[i] = 1;
-						if(i % 2) {	// even number: omitter
+						if (i % 2) {	// even number: omitter
 							indexItemSize[i] += nIndexPerItem + (leftItems-- > 0 ? 1 : 0);
 						}
 						position +=  indexItemSize[i];
@@ -8694,15 +8753,17 @@ ns.version = '0.9.26';
 					container: null
 				},
 				_init: function() {
-					var element = this.element;
-					element.className = this.options.className;
+					var self = this,
+						options = self.options,
+						element = self.element;
+					element.className = options.className;
 					element.innerHTML = "<span></span>";
 					events.on(element, ["touchstart", "touchmove"], blockEvent, false);
 
 
 					// Add to DOM tree
-					this.options.container.appendChild(element);
-					this.fitToContainer();
+					options.container.insertBefore(element, options.referenceElement);
+					self.fitToContainer();
 				},
 
 				/**
@@ -9105,9 +9166,12 @@ ns.version = '0.9.26';
 				POINTER_MOVE = 'vmousemove',
 				POINTER_END = 'vmouseup',
 
-				pointerIsPressed = false;
+				pointerIsPressed = false,
+				prototype = new BaseWidget();
 
-			utilsObject.inherit(IndexScrollbar, BaseWidget, {
+			IndexScrollbar.prototype = prototype;
+
+			utilsObject.merge(prototype, {
 				widgetName: "IndexScrollbar",
 				widgetClass: "ui-indexscrollbar",
 
@@ -9132,6 +9196,7 @@ ns.version = '0.9.26';
 					this.options = {
 						moreChar: "*",
 						selectedClass: "ui-state-selected",
+						indicatorClass: "ui-indexscrollbar-indicator",
 						delimiter: ",",
 						index: [
 							"A", "B", "C", "D", "E", "F", "G", "H",
@@ -9167,15 +9232,19 @@ ns.version = '0.9.26';
 				 * @return {HTMLElement}
 				 * @member ns.widget.wearable.IndexScrollbar
 				 */
-				_init: function () {
-					this.options.index = this._getIndex();
-					this._setInitialLayout();	// This is needed for creating sub objects
-					this._createSubObjects();
+				_init: function (element) {
+					var self = this,
+						options = self.options;
+					self._setIndex(element, options.index);
+					self._setMaxIndexLen(element, options.maxIndexLen);
+					self._setInitialLayout();	// This is needed for creating sub objects
+					self._createSubObjects();
 
-					this._updateLayout();
+					self._updateLayout();
 
 					// Mark as extended
-					this._extended(true);
+					self._extended(true);
+					return element;
 				},
 
 				/**
@@ -9193,6 +9262,7 @@ ns.version = '0.9.26';
 					}
 
 					this._updateLayout();
+					this.indexBar1.refresh();
 					this._extended( true );
 				},
 
@@ -9223,30 +9293,36 @@ ns.version = '0.9.26';
 				 * @member ns.widget.wearable.IndexScrollbar
 				 */
 				_createSubObjects: function() {
+					var self =  this,
+						options = self.options,
+						element = self.element;
 					// indexBar1
-					this.indexBar1 = new IndexBar( document.createElement("UL"), {
-						container: this.element,
+					self.indexBar1 = new IndexBar( document.createElement("UL"), {
+						container: element,
 						offsetLeft: 0,
-						index: this.options.index,
+						index: options.index,
 						verticalCenter: true,
-						indexHeight: this.options.indexHeight
+						indexHeight: options.indexHeight,
+						maxIndexLen: options.maxIndexLen
 					});
 
 					// indexBar2
-					if(this.options.supplementaryIndex) {
-						this.indexBar2 = new IndexBar( document.createElement("UL"), {
-							container: this.element,
-							offsetLeft: -this.element.clientWidth - this.options.supplementaryIndexMargin,
+					if (typeof options.supplementaryIndex === "function") {
+						self.indexBar2 = new IndexBar( document.createElement("UL"), {
+							container: element,
+							offsetLeft: -element.clientWidth - options.supplementaryIndexMargin,
 							index: [],	// empty index
-							indexHeight: this.options.indexHeight,
+							indexHeight: options.indexHeight,
 							ulClass: "ui-indexscrollbar-supplementary"
 						});
-						this.indexBar2.hide();
+						self.indexBar2.hide();
 					}
 
 					// indicator
-					this.indicator = new IndexIndicator(document.createElement("DIV"), {
-						container: this._getContainer()
+					self.indicator = new IndexIndicator(document.createElement("DIV"), {
+						container: self._getContainer(),
+						referenceElement: self.element,
+						className: options.indicatorClass
 					});
 
 				},
@@ -9285,12 +9361,13 @@ ns.version = '0.9.26';
 				_setInitialLayout: function () {
 					var indexScrollbar = this.element,
 						container = this._getContainer(),
-						containerPosition = window.getComputedStyle(container).position;
+						containerPosition = window.getComputedStyle(container).position,
+						indexScrollbarStyle = indexScrollbar.style;
 
 					// Set the indexScrollbar's position, if needed
 					if (containerPosition !== "absolute" && containerPosition !== "relative") {
-						indexScrollbar.style.top = container.offsetTop + "px";
-						indexScrollbar.style.height = container.style.height;
+						indexScrollbarStyle.top = container.offsetTop + "px";
+						indexScrollbarStyle.height = container.offsetHeight + "px";
 					}
 				},
 
@@ -9300,17 +9377,19 @@ ns.version = '0.9.26';
 				 * @protected
 				 * @member ns.widget.wearable.IndexScrollbar
 				 */
-				_setMaxIndexLen: function() {
-					var maxIndexLen = this.options.maxIndexLen,
-						container = this._getContainer(),
+				_setMaxIndexLen: function(element, value) {
+					var self = this,
+						options = self.options,
+						container = self._getContainer(),
 						containerHeight = container.offsetHeight;
-					if(maxIndexLen <= 0) {
-						maxIndexLen = Math.floor( containerHeight / this.options.indexHeight );
+
+					if (value <= 0) {
+						value = Math.floor( containerHeight / options.indexHeight );
 					}
-					if(maxIndexLen > 0 && maxIndexLen%2 === 0) {
-						maxIndexLen -= 1;	// Ensure odd number
+					if (value > 0 && value%2 === 0) {
+						value -= 1;	// Ensure odd number
 					}
-					this.options.maxIndexLen = maxIndexLen;
+					options.maxIndexLen = value;
 				},
 
 				/**
@@ -9657,13 +9736,12 @@ ns.version = '0.9.26';
 				 * @protected
 				 * @member ns.widget.wearable.IndexScrollbar
 				 */
-				_getIndex: function (value) {
-					var options = this.options,
-						indices = value || options.index;
-					if (indices) {
-						indices = indices.split(options.delimiter);	// delimiter
+				_setIndex: function (element, value) {
+					var options = this.options;
+					if (typeof value === "string") {
+						value = value.split(options.delimiter);	// delimiter
 					}
-					return indices;
+					options.index = value;
 				},
 
 				/**
@@ -10937,7 +11015,7 @@ ns.version = '0.9.26';
 					}
 
 					if (options.dataLength < options.bufferSize) {
-						options.bufferSize = options.dataLength - 1;
+						options.bufferSize = options.dataLength;
 					}
 
 					if (options.bufferSize < 1) {
@@ -11136,7 +11214,7 @@ ns.version = '0.9.26';
 				};
 
 				/**
-				 * This method sets list item updater function. 
+				 * This method sets list item updater function.
 				 * To learn how to create list item updater function please
 				 * visit Virtual List User Guide.
 				 * @method setListItemUpdater
@@ -12793,18 +12871,18 @@ ns.version = '0.9.26';
 (function (document, ns) {
 	
 				// scroller.start event trigger when user try to move scroller
-			var BaseWidget = ns.widget.BaseWidget,
-				engine = ns.engine,
-				prototype = new BaseWidget(),
-				utilsObject = ns.util.object,
-				Bouncing = function (scrollerElement, options) {
-
+			var Bouncing = function (scrollerElement, options) {
 					this.orientation = null;
 					this.maxValue = null;
 
 					this.container = null;
 					this.minEffectElement = null;
 					this.maxEffectElement = null;
+				/**
+				 * target element for bouncing effect
+				 * @property {HTMLElement} targetElement
+				 * @member ns.widget.wearable.scroller.effect.Bouncing
+				 */
 					this.targetElement = null;
 
 					this.isShow = false;
@@ -12876,17 +12954,6 @@ ns.version = '0.9.26';
 				},
 
 				/**
-				 * ...
-				 * @method end
-				 * @param x
-				 * @param y
-				 * @member ns.widget.wearable.scroller.effect.Bouncing
-				 */
-				end: function(x, y) {
-					this._checkAndShow( x, y );
-				},
-
-				/**
 				 * Shows effect.
 				 * @method show
 				 * @member ns.widget.wearable.scroller.effect.Bouncing
@@ -12921,10 +12988,10 @@ ns.version = '0.9.26';
 					if ( !this.isShow ) {
 						if ( val >= 0 ) {
 							this.targetElement = this.minEffectElement;
-							this._beginShow();
+							this.show();
 						} else if ( val <= this.maxValue ) {
 							this.targetElement = this.maxEffectElement;
-							this._beginShow();
+							this.show();
 						}
 
 					} else if ( this.isShow && !this.isDrag && !this.isShowAnimating && !this.isHideAnimating ) {
@@ -12946,7 +13013,6 @@ ns.version = '0.9.26';
 					this.targetElement.classList.remove("ui-hide");
 					this.targetElement.classList.add("ui-show");
 
-					this.isShow = true;
 					this.isShowAnimating = true;
 					this.isHideAnimating = false;
 				},
@@ -12984,14 +13050,12 @@ ns.version = '0.9.26';
 				 * @member ns.widget.wearable.scroller.effect.Bouncing
 				 */
 				handleEvent: function( event ) {
-					switch (event.type) {
-						case "webkitAnimationEnd":
-							if ( this.isShowAnimating ) {
-								this._finishShow();
-							} else if ( this.isHideAnimating ) {
-								this._finishHide();
-							}
-							break;
+					if (event.type === "webkitAnimationEnd") {
+						if ( this.isShowAnimating ) {
+							this._finishShow();
+						} else if ( this.isHideAnimating ) {
+							this._finishHide();
+						}
 					}
 				},
 
@@ -13122,7 +13186,7 @@ ns.version = '0.9.26';
 				 * @property {Object} options Options for widget
 				 * @property {number} [options.scrollDelay=0]
 				 * @property {number} [options.threshold=10]
-				 * @property {boolean} [options.scrollbar=false]
+				 * @property {""|"bar"|"tab"} [options.scrollbar=""]
 				 * @property {boolean} [options.useBouncingEffect=false]
 				 * @property {"vertical"|"horizontal"} [options.orientation="vertical"]
 				 * @member ns.widget.wearable.Scroller
@@ -13130,7 +13194,7 @@ ns.version = '0.9.26';
 				this.options = utilsObject.merge({}, this.options, {
 					scrollDelay: 0,
 					threshold: 10,
-					scrollbar: false,
+					scrollbar: "",
 					useBouncingEffect: false,
 					orientation: "vertical"	// vertical or horizontal,
 				});
@@ -14053,6 +14117,7 @@ ns.version = '0.9.26';
 				setActiveSection: function (index, duration) {
 					var position = this.sectionPositions[ index ],
 						scrollbarDuration = duration,
+						oldActiveIndex = this.activeIndex,
 						newX=0,
 						newY=0;
 
@@ -14074,6 +14139,11 @@ ns.version = '0.9.26';
 						this._translateScrollbarWithPageIndex(index, scrollbarDuration);
 					} else {
 						this._endScroll();
+					}
+
+					// notify changed section.
+					if (this.activeIndex !== oldActiveIndex) {
+						this._notifyChanagedSection(this.activeIndex);
 					}
 				},
 
@@ -16708,7 +16778,7 @@ ns.version = '0.9.26';
 						options = DOM.getData(link);
 						options.link = link.id;
 						router.open(href, options, event);
-						event.preventDefault();
+						eventUtils.preventDefault(event);
 					}
 				}
 			}
@@ -16903,7 +16973,7 @@ ns.version = '0.9.26';
 				window.removeEventListener("popstate", self.popStateHandler, false);
 				if (body) {
 					body.removeEventListener("pagebeforechange", this.pagebeforechangeHandler, false);
-					body.removeEventListener("click", self.linkClickHandler, false);
+					body.removeEventListener("vclick", self.linkClickHandler, false);
 				}
 			};
 
@@ -16952,7 +17022,7 @@ ns.version = '0.9.26';
 				self.linkClickHandler = linkClickHandler.bind(null, self);
 				self.popStateHandler = popStateHandler.bind(null, self);
 
-				document.addEventListener("click", self.linkClickHandler, false);
+				document.addEventListener("vclick", self.linkClickHandler, false);
 				window.addEventListener("popstate", self.popStateHandler, false);
 
 				history.enableVolatileRecord();

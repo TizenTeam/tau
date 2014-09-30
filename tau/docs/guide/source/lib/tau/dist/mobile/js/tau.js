@@ -544,8 +544,14 @@ ns.version = '0.9.26';
  * License : MIT License V2
  */
 /**
- * #Util
- * Namespace for all util class
+ * #Utilities
+ *
+ * The Tizen Advanced UI (TAU) framework provides utilities for easy-developing
+ * and fully replaceable with jQuery method. When user using these DOM and
+ * selector methods, it provide more light logic and it proves performance
+ * of web app. The following table displays the utilities provided by the
+ * TAU framework.
+ *
  * @class ns.util
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  * @author Krzysztof Antoszek <k.antoszek@samsung.com>
@@ -916,8 +922,11 @@ ns.version = '0.9.26';
  * License : MIT License V2
  */
 /**
- * #Event namespace
- * Namespace contains all object connected with events support.
+ * #Events
+ *
+ * The Tizen Advanced UI (TAU) framework provides events optimized for the Tizen
+ * Web application. The following table displays the events provided by the TAU
+ * framework.
  * @class ns.event
  */
 (function (window, ns) {
@@ -2674,7 +2683,7 @@ ns.version = '0.9.26';
 
 					eventUtils.fastOn(document, "create", createEventHandler);
 
-					eventUtils.trigger(document, eventType.INIT);
+					eventUtils.trigger(document, eventType.INIT, {tau: ns});
 
 					switch (document.readyState) {
 					case "interactive":
@@ -3205,7 +3214,7 @@ ns.version = '0.9.26';
 				if (value === undefined) {
 					return DOM.getNSData(element, name);
 				} else {
-					return DOM.setNSdata(element, name, value);
+					return DOM.setNSData(element, name, value);
 				}
 			};
 
@@ -7045,28 +7054,34 @@ window.Globalize = Globalize;
 				 * @static
 				**/
 				startY = 0,
-				touchEventProps = ["clientX", "clientY", "pageX", "pageY", "screenX", "screenY"];
+				touchEventProps = ["clientX", "clientY", "pageX", "pageY", "screenX", "screenY"],
+				KEY_CODES = {
+					enter: 13
+				};
 
 			/**
 			 * Extends objects with other objects
 			 * @method copyProps
 			 * @param {Object} from Sets the original event
 			 * @param {Object} to Sets the new event
-			 * @param {Object} props Describe parameters which will be copied from Original to To event
+			 * @param {Object} properties Sets the special properties for position
+			 * @param {Object} propertiesNames Describe parameters which will be copied from Original to To event
 			 * @private
 			 * @static
 			 * @member ns.event.vmouse
 			 */
-			function copyProps(from, to, props) {
+			function copyProps(from, to, properties, propertiesNames) {
 				var i,
-					len,
-					descriptor;
+					length,
+					descriptor,
+					property;
 
-				for (i = 0, len = props.length; i < len; ++i) {
-					if (isNaN(from[props[i]]) === false) {
-						descriptor = Object.getOwnPropertyDescriptor(to, props[i]);
+				for (i = 0, length = propertiesNames.length; i < length; ++i) {
+					property = propertiesNames[i];
+					if (isNaN(properties[property]) === false || isNaN(from[property]) === false) {
+						descriptor = Object.getOwnPropertyDescriptor(to, property);
 						if (!descriptor || descriptor.writable) {
-							to[props[i]] = from[props[i]];
+							to[property] = properties[property] || from[property];
 						}
 					}
 				}
@@ -7077,17 +7092,18 @@ window.Globalize = Globalize;
 			 * @method createEvent
 			 * @param {string} newType gives a name for the new Type of event
 			 * @param {Event} original Event which trigger the new event
+			 * @param {Object} properties Sets the special properties for position
 			 * @return {Event}
 			 * @private
 			 * @static
 			 * @member ns.event.vmouse
 			 */
-			function createEvent(newType, original) {
+			function createEvent(newType, original, properties) {
 				var evt = new CustomEvent(newType, {
-					"bubbles": original.bubbles,
-					"cancelable": original.cancelable,
-					"detail": original.detail
-				}),
+						"bubbles": original.bubbles,
+						"cancelable": original.cancelable,
+						"detail": original.detail
+					}),
 					orginalType = original.type,
 					changeTouches,
 					touch,
@@ -7095,7 +7111,7 @@ window.Globalize = Globalize;
 					len,
 					prop;
 
-				copyProps(original, evt, eventProps);
+				copyProps(original, evt, properties, eventProps);
 				evt._originalEvent = original;
 
 				if (orginalType.indexOf("touch") !== -1) {
@@ -7124,13 +7140,14 @@ window.Globalize = Globalize;
 			 * @method fireEvent
 			 * @param {string} eventName event name
 			 * @param {Event} evt original event
+			 * @param {Object} properties Sets the special properties for position
 			 * @return {boolean}
 			 * @private
 			 * @static
 			 * @member ns.event.vmouse
 			 */
-			function fireEvent(eventName, evt) {
-				return evt.target.dispatchEvent(createEvent(eventName, evt));
+			function fireEvent(eventName, evt, properties) {
+				return evt.target.dispatchEvent(createEvent(eventName, evt, properties || {}));
 			}
 
 			eventProps = [
@@ -7146,7 +7163,8 @@ window.Globalize = Globalize;
 				"pageY",
 				"screenX",
 				"screenY",
-				"toElement"
+				"toElement",
+				"which"
 			];
 
 			vmouse = {
@@ -7174,6 +7192,24 @@ window.Globalize = Globalize;
 			}
 
 			/**
+			 * Prepare position of event for keyboard events.
+			 * @method preparePositionForClick
+			 * @param {Event} event
+			 * @return {?Object} options
+			 * @private
+			 * @static
+			 * @member ns.event.vmouse
+			 */
+			function preparePositionForClick(event) {
+				var x = event.clientX,
+					y = event.clientY;
+				// event comes from keyboard
+				if (!x && !y) {
+					return preparePositionForEvent(event);
+				}
+			}
+
+			/**
 			 * Handle click
 			 * @method handleClick
 			 * @param {Event} evt
@@ -7182,7 +7218,7 @@ window.Globalize = Globalize;
 			 * @member ns.event.vmouse
 			 */
 			function handleClick(evt) {
-				fireEvent("vclick", evt);
+				fireEvent("vclick", evt, preparePositionForClick(evt));
 			}
 
 			/**
@@ -7359,6 +7395,28 @@ window.Globalize = Globalize;
 			}
 
 			/**
+			 * Prepare position of event for keyboard events.
+			 * @method preparePositionForEvent
+			 * @param {Event} event
+			 * @return {Object} properties
+			 * @private
+			 * @static
+			 * @member ns.event.vmouse
+			 */
+			function preparePositionForEvent(event) {
+				var targetRect = event.target && event.target.getBoundingClientRect(),
+					properties = {};
+				if (targetRect) {
+					properties = {
+						"clientX": targetRect.left + targetRect.width / 2,
+						"clientY": targetRect.top + targetRect.height / 2,
+						"which": 1
+					};
+				}
+				return properties;
+			}
+
+			/**
 			 * Handle key up
 			 * @method handleKeyUp
 			 * @param {Event} event
@@ -7367,9 +7425,11 @@ window.Globalize = Globalize;
 			 * @member ns.event.vmouse
 			 */
 			function handleKeyUp(event) {
-				if (event.keyCode === 13) {
-					fireEvent("vmouseup", event);
-					fireEvent("vclick", event);
+				var properties;
+				if (event.keyCode === KEY_CODES.enter) {
+					properties = preparePositionForEvent(event);
+					fireEvent("vmouseup", event, properties);
+					fireEvent("vclick", event, properties);
 				}
 			}
 
@@ -7382,8 +7442,8 @@ window.Globalize = Globalize;
 			 * @member ns.event.vmouse
 			 */
 			function handleKeyDown(event) {
-				if (event.keyCode === 13) {
-					fireEvent("vmousedown", event);
+				if (event.keyCode === KEY_CODES.enter) {
+					fireEvent("vmousedown", event, preparePositionForEvent(event));
 				}
 			}
 
@@ -7805,7 +7865,14 @@ window.Globalize = Globalize;
 						for (i = 0; i < properties.length; i++) {
 							property = properties[i];
 							if (!event[property]) {
-								event[property] = event.originalEvent.detail[property];
+								if (root instanceof window.screen.constructor) {
+									// In case of orientation change event the properties are set to window.screen object
+									// that's why we check if root is Screen in the first place
+									event[property] = event.originalEvent.detail && event.originalEvent.detail[property]
+										|| event.target[property];
+								} else {
+									event[property] = event.originalEvent.detail && event.originalEvent.detail[property];
+								}
 							}
 						}
 					});
@@ -7840,7 +7907,7 @@ window.Globalize = Globalize;
 							}
 						});
 
-						this.copyEventProperties(window, 'orientationchange', eventUtils.orientationchange.properties);
+						this.copyEventProperties(window.screen, 'orientationchange', eventUtils.orientationchange.properties);
 						this.proxyEventTriggerMethod('orientationchange', eventUtils.orientationchange.trigger);
 
 						// Proxied jQuery's trigger method to fire swipe event
@@ -7890,23 +7957,22 @@ window.Globalize = Globalize;
 * License : MIT License V2
 */
 /**
+ * #Mobile Widget Reference
+ *
  * The Tizen Web UI service provides rich Tizen widgets that are optimized for the Tizen Web browser. You can use the widgets for:
  *
  * - CSS animation
  * - Rendering
  *
  * The following table displays the widgets provided by the Tizen Web UI service.
- * @page ns.widget.mobile
- * @title Widget Reference
+ *
+ * @class ns.widget.mobile
  * @seeMore https://developer.tizen.org/dev-guide/2.2.1/org.tizen.web.uiwidget.apireference/html/web_ui_framework.htm "Web UI Framework Reference"
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  */
 (function (window, ns) {
 	
-				/**
-			 * @class ns.widget.mobile
-			 */
-			ns.widget.mobile = ns.widget.mobile || {};
+				ns.widget.mobile = ns.widget.mobile || {};
 			}(window, ns));
 
 /*global window, define, ns */
@@ -10705,8 +10771,7 @@ window.Globalize = Globalize;
 						themeName = THEME_CSS_FILE_NAME,
 						cssPath,
 						isMinified = frameworkData.minified,
-						jsPath,
-						cssPath;
+						jsPath;
 
 					// If the theme has been loaded do not repeat that process
 					if (frameworkData.themeLoaded) {
@@ -13716,6 +13781,7 @@ window.Globalize = Globalize;
 					uiBtnInner: "ui-btn-inner",
 					uiBtnText: "ui-btn-text",
 					uiFocus: "ui-focus",
+					uiBlur: "ui-blur",
 					uiBtnEdit: "ui-btn-edit",
 					uiBtnLeft: "ui-btn-left",
 					uiBtnRight: "ui-btn-right",
@@ -13835,6 +13901,7 @@ window.Globalize = Globalize;
 				var button = closestEnabledButton(event.target);
 				if (button) {
 					button.classList.add(classes.uiFocus);
+					button.classList.remove(classes.uiBlur);
 				}
 			}
 
@@ -13847,6 +13914,7 @@ window.Globalize = Globalize;
 			function onBlur(event) {
 				var button = closestEnabledButton(event.target);
 				if (button) {
+					button.classList.add(classes.uiBlur);
 					button.classList.remove(classes.uiFocus);
 				}
 			}
@@ -25519,8 +25587,8 @@ window.Globalize = Globalize;
 				var self = this,
 					tabbarClassList = element.classList,
 					li = slice.call(element.getElementsByTagName("li")),
-					innerWidth = element.offsetWidth,
-					innerHeight = element.offsetHeight,
+					innerWidth = element.offsetWidth ? element.offsetWidth : window.innerWidth,
+					innerHeight = element.offsetHeight ? element.offsetHeight : window.innerHeight,
 					inHeaders = !!(selectors.getParentsByClass(element, classes.uiHeader).length),
 					isLandscape = innerWidth > innerHeight,
 					btnActiveClass = ButtonClasses.uiBtnActive,
@@ -27775,6 +27843,11 @@ window.Globalize = Globalize;
 				elementClassList.add(classes.controlGroup);
 				elementClassList.add(classes.typePrefix + options.type);
 
+				//Make all the control group elements the same width
+				if (groupControls) {
+					this._setWidthForButtons(groupControls);
+				}
+
 				content = slice.call(element.querySelectorAll('.ui-btn')).filter(function (item) {
 					//@todo filter visiblity when excludeInvisible option is set
 					return !item.classList.contains('ui-slider-handle');
@@ -27786,11 +27859,6 @@ window.Globalize = Globalize;
 
 				if (options.mini) {
 					elementClassList.add(classes.mini);
-				}
-
-				//Make all the control group elements the same width
-				if(groupControls) {
-					this._setWidthForButtons(groupControls);
 				}
 
 				flipClasses(content, cornersClasses);
@@ -42559,7 +42627,7 @@ window.Globalize = Globalize;
 				 * @property {Object} ui Holds UI elements of the widget
 				 * @member ns.widget.mobile.VirtualGrid
 				 */
-				self.ui = utilsObjectMerge({}, self.ui);
+				self._ui = utilsObjectMerge({}, self._ui);
 
 				/**
 				 * @property {number} _currentIndex Current zero-based index of data set.
@@ -42623,7 +42691,7 @@ window.Globalize = Globalize;
 					// @TODO create proper styles for horizontal scrolling
 					size = tempElement.offsetHeight;
 					if (options.standalone) {
-						containerSize = self.ui.scrollview.element.offsetHeight;
+						containerSize = self._ui.scrollview.element.offsetHeight;
 					} else {
 						containerSize = list.offsetHeight;
 					}
@@ -42693,7 +42761,7 @@ window.Globalize = Globalize;
 					options = self.options,
 					direction = options.direction,
 					itemData = self.itemData,
-					$jqTmpl = self.ui.$jqTmpl,
+					$jqTmpl = self._ui.$jqTmpl,
 					itemsPerLine = options.itemsPerLine,
 					rawNumItemData = options.rawNumItemData,
 					elementPercentSize = (100 / itemsPerLine) + "%",
@@ -44354,7 +44422,6 @@ window.Globalize = Globalize;
 				var self = this,
 					options = self.options,
 					drawerElementParent = self.element.parentNode,
-					headerHeight = self._headerElement && self._headerElement.offsetHeight,
 					drawerHeight = drawerElementParent.clientHeight,
 					drawerStyle = self.element.style,
 					drawerOverlay = self._drawerOverlay,
@@ -46635,6 +46702,438 @@ window.Globalize = Globalize;
 			}
 			}(ns));
 
+/*global window, define*/
+/*
+ * Copyright  2010 - 2014 Samsung Electronics Co., Ltd.
+ * License : MIT License V2
+ */
+/**
+ * #Application Page Layout
+ *
+ * In the mobile Tizen Advanced UI framework (TAU) the page and its elements
+ * (header, content, and footer) are all <div> blocks with a specific data-role
+ * property. The header is placed at the top, and displays the page title.
+ * The content is the area below the header, showing the main content of the
+ * page. The footer is at the bottom, and contains the page menu.
+ *
+ * The following table describes the specific information for each section.
+ *
+ * <table>
+ * <caption>Table: Page sections</caption>
+ * <tbody>
+ * <tr>
+ * <th style="width:10%;">Section</th>
+ * <th>data-role</th>
+ * <th>Description</th>
+ * </tr>
+ * <tr>
+ * <td>Page</td>
+ * <td><span style="font-family: Courier New,Courier,monospace">"page"</span></td>
+ * <td><p>Defines the element as a page.</p>
+ * <p>The page widget is used to manage a single item in a page-based architecture.</p>
+ * <p>A page is composed of header (optional), content (mandatory), and footer (optional) elements.</p></td>
+ * </tr>
+ * <tr>
+ * <td>Header</td>
+ * <td><span style="font-family: Courier New,Courier,monospace">"header"</span></td>
+ * <td><p>Defines the element as a header.</p>
+ * <p>As the Tizen Wearable device screen size is small, avoid using the header element.</p></td>
+ * </tr>
+ * <tr>
+ * <td>Content</td>
+ * <td><span style="font-family: Courier New,Courier,monospace">"content"</span></td>
+ * <td><p>Defines the element as content.</p></td>
+ * </tr>
+ * <tr>
+ * <td>Footer</td>
+ * <td><span style="font-family: Courier New,Courier,monospace">"footer"</span></td>
+ * <td><p>Defines the element as a footer.</p>
+ * <p>The footer section is mostly used to include option buttons.</p></td>
+ * </tr>
+ * </tbody>
+ * </table>
+ *
+ * To add a page to the application, use the following code:
+ *
+ * 		@example
+ * 		<div data-role="page">
+ *			<!--Page area-->
+ *			<div data-role="header"><!--Header area--></div>
+ *			<div data-role="content"><!--Content area--></div>
+ *			<div data-role="footer"><!--Footer area--></div>
+ *		</div>
+ *
+ * In your application, you can:
+ *
+ * - [Create multi-page layouts](multipage.htm)
+ * - [Change the active page](change.htm)
+ * - [Handle page events and method](pageevents.htm)
+ *
+ * @page ns.page.layout
+ * @seeMore ../index.htm Tizen Advanced UI Framework
+ */
+;
+/*global window, define*/
+/*
+ * Copyright  2010 - 2014 Samsung Electronics Co., Ltd.
+ * License : MIT License V2
+ */
+/**
+ * #Multi-page Layout
+ *
+ * You can implement a template containing multiple page containers in the application index.html file.
+ *
+ * In the multi-page layout, we can define multi pages with data-role="page" attribute.
+ *
+ * You can link to internal pages by referring to the ID of the page. For example, to link to the page with an ID of two, the link element needs the href="#two" attribute in the code, as in the following example.
+ *
+ * 		@example
+ * 		<div data-role="page" id="main">
+ *			<div data-role="header" data-position="fixed">
+ *				<!--Header-->
+ *			</div>
+ *			<div data-role="content">
+ *				<a href="#two"data-role="button">TWO</a>
+ *			</div>
+ *		</div>
+ *		<div data-role="page" id="two">
+ *			<div data-role="header" data-position="fixed">
+ *				<!--Header-->
+ *			</div>
+ *			<div data-role="content">
+ *				<!--Content-->
+ *			</div>
+ *		</div>
+ *
+ * To find the currently active page, use the ui-page-active class.
+ *
+ * @page ns.page.multipage
+ * @seeMore layout.htm Application Page Layout
+ */
+;
+/*global window, define*/
+/*
+ * Copyright  2010 - 2014 Samsung Electronics Co., Ltd.
+ * License : MIT License V2
+ */
+/**
+ * #Changing Pages
+ *
+ * With TAU library, we can change page by method *changePage*.
+ *
+ * The following table lists the methods you can use to change the active page.
+ *
+ *!!!When you want to change pages with TAU, *DO NOT USE* _location.href_ or
+ * _location.replace. TAU have self-method of managing histories. But when you
+ * use above methods, it would lead to confusion. If you want to change pages,
+ * you can use _tau.changePage()_ and _tau.back()_.!!!
+ * ##Page changing methods
+ * ### Summary
+ *<table class="informaltable">
+ *<thead>
+ *<tr>
+ *<th>Method</th>
+ *<th>Description</th>
+ *</tr>
+ *</thead>
+ *<tbody>
+ *
+ *
+ *<tr>
+ *<td>
+ *<pre class="intable prettyprint"><a href="#method-changePage">tau.changePage</a> (toPage, options) </pre>
+ *</td>
+ *<td><p>Programmatically change to another page. The <span style="font-family: Courier New,Courier,monospace">to</span> argument is a page object or string.</p></td>
+ *</tr>
+ *
+ *
+ *
+ *<tr>
+ *<td>
+ *<pre class="intable prettyprint"><a href="#method-back">tau.back</a> (  ) </pre>
+ *</td>
+ *<td><p>Loads the previous page in the history list.</p></td>
+ *</tr>
+ *</tbody>
+ *</table>
+ *
+ *<dt class="method" id="addidp28072"><code><b><span class="methodName"
+ *id="method-changePage">tau.changePage</span></b></code></dt>
+ *<dd>
+ *<div class="brief">
+ *<p>Programmatically change to another page.</p>
+ *</div>
+ *<div class="synopsis">
+ *<pre class="signature prettyprint">tau.changePage (toPage, options) </pre>
+ *</div>
+ *
+ *<div class="description">
+ *<p>
+ *
+ *</p>
+ *</div>
+ *
+ *<div class="parameters">
+ *<p><span class="param">Parameters:</span></p>
+ *<table>
+ *<tbody>
+ *<tr>
+ *<th>Parameter</th>
+ *<th>Type</th>
+ *<th>Required / optional</th>
+ *<th>Description</th>
+ *</tr>
+ *
+ *
+ *<tr>
+ *<td><span style="font-family: Courier New,Courier,monospace">toPage</span></td>
+ *<td>HTMLElement | string</td>
+ *<td>required</td>
+ *<td>page to move <br>HTML element or relative url of page.</td>
+ *</tr>
+ *
+ *<tr>
+ *<td><span style="font-family: Courier New,Courier,monospace">options</span></td>
+ *<td>Object</td>
+ *<td>optional</td>
+ *<td>options to change pages.</td>
+ *</tr>
+ *</table></tbody></div>
+ *
+ *<div class="parameters">
+ *<p><span class="param">Options for changePage():</span></p>
+ *<table>
+ *<tbody>
+ *<tr>
+ *<th>option</th>
+ *<th>Type</th>
+ *<th>value</th>
+ *<th>Description</th>
+ *</tr>
+ *
+ *
+ *<tr>
+ *<td><span style="font-family: Courier New,Courier,monospace">transition</span></td>
+ *<td>string</td>
+ *<td>'sequential' | 'simultaneous' | 'flip' |'depth' | 'pop' | 'slide' |'turn'</td>
+ *<td>transition for opening page</td>
+ *</tr>
+ *
+ *<tr>
+ *<td><span style="font-family: Courier New,Courier,monospace">reverse</span></td>
+ *<td>boolean</td>
+ *<td>true | false</td>
+ *<td>true, if transition should be reversed</td>
+ *</tr>
+ *</table></tbody></div>
+ *
+ *<div class="example">
+ *<span class="example"><p>Code
+ *example (using HTML Element):</p><p></p></span>
+ *<pre name="code" class="examplecode
+ *prettyprint">
+ *&lt;div data-role=&quot;page&quot; id=&quot;main&quot;&gt;...&lt;/div&gt;
+ *&lt;script&gt;
+ *var element = document.getElementById("main");
+ *tau.changePage(element, {transition:'flip',reverse:false});
+ *&lt;/script&gt;
+ *</pre>
+ *</div>
+ *
+ *<div class="example">
+ *<span class="example"><p>Code
+ *example2 (using url string):</p><p></p></span>
+ *<pre name="code" class="examplecode
+ *prettyprint">
+ * // This is "index.html" and if there is "subPage.html" in same directory.
+ *&lt;script&gt;
+ *tau.changePage("subPage.html");
+ *&lt;/script&gt;
+ *</pre>
+ *</div>
+ *
+ *
+ *</dd>
+ *
+ *
+ *<dt class="method" id="addidp28072"><code><b><span class="methodName"
+ *id="method-back">back</span></b></code></dt>
+ *<dd>
+ *<div class="brief">
+ *<p>Loads the previous page in the history list.</p>
+ *</div>
+ *<div class="synopsis">
+ *<pre class="signature prettyprint">back ( ) </pre>
+ *</div>
+ *
+ *<div class="description">
+ *<p>
+ *<b>Same as:</b> window.history.back()
+ *</p>
+ *</div>
+ *
+ *
+ *
+ *</div>
+ *<div class="example">
+ *<span class="example"><p>Code
+ *example:</p><p></p></span>
+ *<pre name="code" class="examplecode
+ *prettyprint">
+ *&lt;script&gt;
+ *tau.back();
+ *&lt;/script&gt;
+ *</pre>
+ *</div>
+ *
+ *
+ *</dd>
+ *
+ * @page ns.page.change
+ * @seeMore layout.htm Application Page Layout
+ */
+;
+/*global window, define*/
+/*
+ * Copyright  2010 - 2014 Samsung Electronics Co., Ltd.
+ * License : MIT License V2
+ */
+/**
+ * #Handling Page Events and Methods
+ *
+ * TAU support "Page" as widget. So, when the page is created, it has several
+ * events and methods. In this document, we would introduce events and methods in
+ * TAU Page Widget.
+ *
+ * ## Events list
+ *
+ * The following table lists the events related to pages.
+ *
+ * <table>
+ * <tbody>
+ * <tr>
+ * <th>Name</th>
+ * <th>Description</th>
+ * </tr>
+ *
+ * <tr>
+ * <td class="option"><span style="font-family: Courier New,Courier,monospace">pagebeforchange</span></td>
+ * <td><p>Triggered before switching current page</p></td>
+ * </tr>
+ *
+ * <tr>
+ * <td class="option"><span style="font-family: Courier New,Courier,monospace">pagebeforecreate</span></td>
+ * <td><p>Triggered before the widget is created and initialized</p></td>
+ * </tr>
+ *
+ * <tr>
+ * <td class="option"><span style="font-family: Courier New,Courier,monospace">pagebeforehide</span></td>
+ * <td><p>Triggered before current page is about to be closed</p></td>
+ * </tr>
+ *
+ * <tr>
+ * <td class="option"><span style="font-family: Courier New,Courier,monospace">pagebeforeload</span></td>
+ * <td><p>Triggered before external page will be loaded</p></td>
+ * </tr>
+ *
+ * <tr>
+ * <td class="option"><span style="font-family: Courier New,Courier,monospace">pagebeforeshow</span></td>
+ * <td><p>Triggered before page will be displayed</p></td>
+ * </tr>
+ *
+ * <tr>
+ * <td class="option"><span style="font-family: Courier New,Courier,monospace">pagechange</span></td>
+ * <td><p>Triggered after switching current page</p></td>
+ * </tr>
+ *
+ * <tr>
+ * <td class="option"><span style="font-family: Courier New,Courier,monospace">pagechangefailed</span></td>
+ * <td><p>Triggered when page switching failed</p></td>
+ * </tr>
+ *
+ * <tr>
+ * <td class="option"><span style="font-family: Courier New,Courier,monospace">pagecreate</span></td>
+ * <td><p>Triggered after widget creation</p></td>
+ * </tr>
+ *
+ * <tr>
+ * <td class="option"><span style="font-family: Courier New,Courier,monospace">pagehide</span></td>
+ * <td><p>Triggered after the page is hidden</p></td>
+ * </tr>
+ *
+ * <tr>
+ * <td class="option"><span style="font-family: Courier New,Courier,monospace">pageinit</span></td>
+ * <td><p>Triggered after widget initialization occurs</p></td>
+ * </tr>
+ *
+ * <tr>
+ * <td class="option"><span style="font-family: Courier New,Courier,monospace">pageload</span></td>
+ * <td><p>Triggered after an external page is loaded</p></td>
+ * </tr>
+ *
+ * <tr>
+ * <td class="option"><span style="font-family: Courier New,Courier,monospace">pagremove</span></td>
+ * <td><p>Triggered after the external page is removed from the DOM</p></td>
+ * </tr>
+ *
+ * <tr>
+ * <td class="option"><span style="font-family: Courier New,Courier,monospace">pageshow</span></td>
+ * <td><p>Triggered after the page is displayed</p></td>
+ * </tr>
+ *
+ * </tbody>
+ * </table>
+ *
+ * ## Binding H/W Back Key event
+ *
+ * To bind an event callback on the Back key, use the following code:
+ *
+ * 		@example
+ * 		// JavaScript code
+ *		window.addEventListener('tizenhwkey', function(ev)
+ *			{
+ *				if (ev.originalEvent.keyName == "back")
+ *					{
+ *					// Call window.history.back() to go to previous browser window
+ *					// Call tizen.application.getCurrentApplication().exit() to exit application
+ *					// Add script to add another behavior
+ *					}
+ *			});
+ *
+ * @page ns.page.pageevents
+ * @seeMore layout.htm Application Page Layout
+ */
+;
 /*global define */
+/**
+ * #Tizen Advanced UI Framework
+ *
+ * Tizen Advanced UI Framework(TAU) is new name of Tizen Web UI framework. It provides tools, such as widgets, events, effects, and animations, for Web application development. You can leverage these tools by just selecting the required screen elements and creating applications.
+ *
+ * TAU service is based on a template and works on a Web browser, which runs on the WebKit engine. You can code Web applications using the TAU, standard HTML5, and Tizen device APIs. You can also use different widgets with CSS animations and rendering optimized for Tizen Web browsers.
+ *
+ * For more information about the basic structure of a page in the Web application using the TAU, see [Application Page Structure](page/app_page_layout.htm).
+ *
+ * ##Framework Services
+ *
+ * The Web UI framework consists of the following services:
+ *
+ *  - Page navigation
+ *
+ *    Navigation JavaScript library is provided to allow smooth navigation between TAU based application [pages](page/layout.htm).
+ *  - Web widgets and themes
+ *
+ *    We support APIs and CSS themes for Tizen web [widgets](widget/widget_reference.htm)
+ *  - Element Events
+ *
+ *    Some special [events](event/event_reference.htm) are available with TAU that optimized for the Web applications.
+ *  - Useful utility
+ *
+ *    Some special [utility](util/util_reference.htm) are available with TAU that supporting easy DOM methods for the Web applications.
+ *
+ * !!!The framework runs only on browsers supporting the HTML5/CSS standards. The draft version of the W3C specification is not fully supported.!!!
+ * @class ns
+ * @title Tizen Advanced UI Framework
+ */
 
 }(window, window.document));

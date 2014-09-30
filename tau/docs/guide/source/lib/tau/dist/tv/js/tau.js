@@ -186,7 +186,7 @@ ns.version = '0.9.26';
 
 			}(ns));
 
-/*global window, define*/
+/*global ns, define*/
 /* 
  * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
  * License : MIT License V2
@@ -195,7 +195,7 @@ ns.version = '0.9.26';
 	
 	
 			// Default configuration properties for tv
-			ns.setConfig('autoBuildOnPageChange', true, true);
+			ns.setConfig("autoBuildOnPageChange", true, true);
 
 			}(ns));
 
@@ -279,8 +279,14 @@ ns.version = '0.9.26';
  * License : MIT License V2
  */
 /**
- * #Util
- * Namespace for all util class
+ * #Utilities
+ *
+ * The Tizen Advanced UI (TAU) framework provides utilities for easy-developing
+ * and fully replaceable with jQuery method. When user using these DOM and
+ * selector methods, it provide more light logic and it proves performance
+ * of web app. The following table displays the utilities provided by the
+ * TAU framework.
+ *
  * @class ns.util
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  * @author Krzysztof Antoszek <k.antoszek@samsung.com>
@@ -651,8 +657,11 @@ ns.version = '0.9.26';
  * License : MIT License V2
  */
 /**
- * #Event namespace
- * Namespace contains all object connected with events support.
+ * #Events
+ *
+ * The Tizen Advanced UI (TAU) framework provides events optimized for the Tizen
+ * Web application. The following table displays the events provided by the TAU
+ * framework.
  * @class ns.event
  */
 (function (window, ns) {
@@ -2409,7 +2418,7 @@ ns.version = '0.9.26';
 
 					eventUtils.fastOn(document, "create", createEventHandler);
 
-					eventUtils.trigger(document, eventType.INIT);
+					eventUtils.trigger(document, eventType.INIT, {tau: ns});
 
 					switch (document.readyState) {
 					case "interactive":
@@ -3276,28 +3285,34 @@ ns.version = '0.9.26';
 				 * @static
 				**/
 				startY = 0,
-				touchEventProps = ["clientX", "clientY", "pageX", "pageY", "screenX", "screenY"];
+				touchEventProps = ["clientX", "clientY", "pageX", "pageY", "screenX", "screenY"],
+				KEY_CODES = {
+					enter: 13
+				};
 
 			/**
 			 * Extends objects with other objects
 			 * @method copyProps
 			 * @param {Object} from Sets the original event
 			 * @param {Object} to Sets the new event
-			 * @param {Object} props Describe parameters which will be copied from Original to To event
+			 * @param {Object} properties Sets the special properties for position
+			 * @param {Object} propertiesNames Describe parameters which will be copied from Original to To event
 			 * @private
 			 * @static
 			 * @member ns.event.vmouse
 			 */
-			function copyProps(from, to, props) {
+			function copyProps(from, to, properties, propertiesNames) {
 				var i,
-					len,
-					descriptor;
+					length,
+					descriptor,
+					property;
 
-				for (i = 0, len = props.length; i < len; ++i) {
-					if (isNaN(from[props[i]]) === false) {
-						descriptor = Object.getOwnPropertyDescriptor(to, props[i]);
+				for (i = 0, length = propertiesNames.length; i < length; ++i) {
+					property = propertiesNames[i];
+					if (isNaN(properties[property]) === false || isNaN(from[property]) === false) {
+						descriptor = Object.getOwnPropertyDescriptor(to, property);
 						if (!descriptor || descriptor.writable) {
-							to[props[i]] = from[props[i]];
+							to[property] = properties[property] || from[property];
 						}
 					}
 				}
@@ -3308,17 +3323,18 @@ ns.version = '0.9.26';
 			 * @method createEvent
 			 * @param {string} newType gives a name for the new Type of event
 			 * @param {Event} original Event which trigger the new event
+			 * @param {Object} properties Sets the special properties for position
 			 * @return {Event}
 			 * @private
 			 * @static
 			 * @member ns.event.vmouse
 			 */
-			function createEvent(newType, original) {
+			function createEvent(newType, original, properties) {
 				var evt = new CustomEvent(newType, {
-					"bubbles": original.bubbles,
-					"cancelable": original.cancelable,
-					"detail": original.detail
-				}),
+						"bubbles": original.bubbles,
+						"cancelable": original.cancelable,
+						"detail": original.detail
+					}),
 					orginalType = original.type,
 					changeTouches,
 					touch,
@@ -3326,7 +3342,7 @@ ns.version = '0.9.26';
 					len,
 					prop;
 
-				copyProps(original, evt, eventProps);
+				copyProps(original, evt, properties, eventProps);
 				evt._originalEvent = original;
 
 				if (orginalType.indexOf("touch") !== -1) {
@@ -3355,13 +3371,14 @@ ns.version = '0.9.26';
 			 * @method fireEvent
 			 * @param {string} eventName event name
 			 * @param {Event} evt original event
+			 * @param {Object} properties Sets the special properties for position
 			 * @return {boolean}
 			 * @private
 			 * @static
 			 * @member ns.event.vmouse
 			 */
-			function fireEvent(eventName, evt) {
-				return evt.target.dispatchEvent(createEvent(eventName, evt));
+			function fireEvent(eventName, evt, properties) {
+				return evt.target.dispatchEvent(createEvent(eventName, evt, properties || {}));
 			}
 
 			eventProps = [
@@ -3377,7 +3394,8 @@ ns.version = '0.9.26';
 				"pageY",
 				"screenX",
 				"screenY",
-				"toElement"
+				"toElement",
+				"which"
 			];
 
 			vmouse = {
@@ -3405,6 +3423,24 @@ ns.version = '0.9.26';
 			}
 
 			/**
+			 * Prepare position of event for keyboard events.
+			 * @method preparePositionForClick
+			 * @param {Event} event
+			 * @return {?Object} options
+			 * @private
+			 * @static
+			 * @member ns.event.vmouse
+			 */
+			function preparePositionForClick(event) {
+				var x = event.clientX,
+					y = event.clientY;
+				// event comes from keyboard
+				if (!x && !y) {
+					return preparePositionForEvent(event);
+				}
+			}
+
+			/**
 			 * Handle click
 			 * @method handleClick
 			 * @param {Event} evt
@@ -3413,7 +3449,7 @@ ns.version = '0.9.26';
 			 * @member ns.event.vmouse
 			 */
 			function handleClick(evt) {
-				fireEvent("vclick", evt);
+				fireEvent("vclick", evt, preparePositionForClick(evt));
 			}
 
 			/**
@@ -3590,6 +3626,28 @@ ns.version = '0.9.26';
 			}
 
 			/**
+			 * Prepare position of event for keyboard events.
+			 * @method preparePositionForEvent
+			 * @param {Event} event
+			 * @return {Object} properties
+			 * @private
+			 * @static
+			 * @member ns.event.vmouse
+			 */
+			function preparePositionForEvent(event) {
+				var targetRect = event.target && event.target.getBoundingClientRect(),
+					properties = {};
+				if (targetRect) {
+					properties = {
+						"clientX": targetRect.left + targetRect.width / 2,
+						"clientY": targetRect.top + targetRect.height / 2,
+						"which": 1
+					};
+				}
+				return properties;
+			}
+
+			/**
 			 * Handle key up
 			 * @method handleKeyUp
 			 * @param {Event} event
@@ -3598,9 +3656,11 @@ ns.version = '0.9.26';
 			 * @member ns.event.vmouse
 			 */
 			function handleKeyUp(event) {
-				if (event.keyCode === 13) {
-					fireEvent("vmouseup", event);
-					fireEvent("vclick", event);
+				var properties;
+				if (event.keyCode === KEY_CODES.enter) {
+					properties = preparePositionForEvent(event);
+					fireEvent("vmouseup", event, properties);
+					fireEvent("vclick", event, properties);
 				}
 			}
 
@@ -3613,8 +3673,8 @@ ns.version = '0.9.26';
 			 * @member ns.event.vmouse
 			 */
 			function handleKeyDown(event) {
-				if (event.keyCode === 13) {
-					fireEvent("vmousedown", event);
+				if (event.keyCode === KEY_CODES.enter) {
+					fireEvent("vmousedown", event, preparePositionForEvent(event));
 				}
 			}
 
@@ -3818,7 +3878,7 @@ ns.version = '0.9.26';
 				if (value === undefined) {
 					return DOM.getNSData(element, name);
 				} else {
-					return DOM.setNSdata(element, name, value);
+					return DOM.setNSData(element, name, value);
 				}
 			};
 
@@ -4355,8 +4415,7 @@ ns.version = '0.9.26';
 						themeName = THEME_CSS_FILE_NAME,
 						cssPath,
 						isMinified = frameworkData.minified,
-						jsPath,
-						cssPath;
+						jsPath;
 
 					// If the theme has been loaded do not repeat that process
 					if (frameworkData.themeLoaded) {
@@ -4534,23 +4593,22 @@ ns.version = '0.9.26';
 * License : MIT License V2
 */
 /**
+ * #Mobile Widget Reference
+ *
  * The Tizen Web UI service provides rich Tizen widgets that are optimized for the Tizen Web browser. You can use the widgets for:
  *
  * - CSS animation
  * - Rendering
  *
  * The following table displays the widgets provided by the Tizen Web UI service.
- * @page ns.widget.mobile
- * @title Widget Reference
+ *
+ * @class ns.widget.mobile
  * @seeMore https://developer.tizen.org/dev-guide/2.2.1/org.tizen.web.uiwidget.apireference/html/web_ui_framework.htm "Web UI Framework Reference"
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  */
 (function (window, ns) {
 	
-				/**
-			 * @class ns.widget.mobile
-			 */
-			ns.widget.mobile = ns.widget.mobile || {};
+				ns.widget.mobile = ns.widget.mobile || {};
 			}(window, ns));
 
 /*global window, define */
@@ -5662,6 +5720,7 @@ ns.version = '0.9.26';
 					uiBtnInner: "ui-btn-inner",
 					uiBtnText: "ui-btn-text",
 					uiFocus: "ui-focus",
+					uiBlur: "ui-blur",
 					uiBtnEdit: "ui-btn-edit",
 					uiBtnLeft: "ui-btn-left",
 					uiBtnRight: "ui-btn-right",
@@ -5781,6 +5840,7 @@ ns.version = '0.9.26';
 				var button = closestEnabledButton(event.target);
 				if (button) {
 					button.classList.add(classes.uiFocus);
+					button.classList.remove(classes.uiBlur);
 				}
 			}
 
@@ -5793,6 +5853,7 @@ ns.version = '0.9.26';
 			function onBlur(event) {
 				var button = closestEnabledButton(event.target);
 				if (button) {
+					button.classList.add(classes.uiBlur);
 					button.classList.remove(classes.uiFocus);
 				}
 			}
@@ -6618,7 +6679,9 @@ ns.version = '0.9.26';
  * License : MIT License V2
  */
 /**
- * The Tizen Web UI service provides rich Tizen widgets that are optimized for the Tizen Web browser. You can use the widgets for:
+ * # TV Widget Reference
+ * Tizen Web UI service provides rich Tizen widgets that are optimized for the
+ * Tizen Web browser. You can use the widgets for:
  *
  * - CSS animation
  * - Rendering
@@ -6947,7 +7010,7 @@ ns.version = '0.9.26';
 
 			}(window, window.document, ns));
 
-/*global window, define */
+/*global window, define, ns, HTMLElement */
 /* 
  * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
  * License : MIT License V2
@@ -6965,7 +7028,7 @@ ns.version = '0.9.26';
 					object.merge(this, prototype);
 					// prepare selector
 					if (selectorsString === "") {
-						this._prepareSelector();
+						prepareSelector();
 					}
 				},
 				prototype = {
@@ -6973,19 +7036,20 @@ ns.version = '0.9.26';
 				},
 				classes = {
 					focusDisabled: "ui-focus-disabled",
-					focusEnabled: "ui-focus-enabled"
+					focusEnabled: "ui-focus-enabled",
+					focusPrefix: "ui-focus-",
+					blurPrefix: "ui-blur-",
+					up: "up",
+					down: "down",
+					left: "left",
+					right: "right"
 				},
-				KEY_CODES =	{
+				KEY_CODES = {
 					left: 37,
 					up: 38,
 					right: 39,
 					down: 40,
 					enter: 13
-				},
-				MOVE_TYPE = {
-					XY: 0,
-					X: 1,
-					Y: 2
 				},
 				selectorSuffix = ":not(." + classes.focusDisabled + ")",
 				selectors = ["a", "." + classes.focusEnabled, "[tabindex]"],
@@ -7019,7 +7083,7 @@ ns.version = '0.9.26';
 			 */
 			prototype._getActiveLinks = function() {
 				return [].slice.call(this.element.querySelectorAll(selectorsString)).filter(function(element){
-					return element.offsetWidth && element.style.visibility !== "hidden";
+					return element.offsetWidth && window.getComputedStyle(element).visibility !== "hidden";
 				});
 			};
 
@@ -7039,13 +7103,13 @@ ns.version = '0.9.26';
 
 			/**
 			 * Set string with selector
-			 * @method _prepareSelector
-			 * @protected
+			 * @method prepareSelector
+			 * @private
 			 * @member ns.widget.tv.BaseKeyboardSupport
 			 */
-			prototype._prepareSelector = function() {
+			function prepareSelector() {
 				selectorsString = selectors.join(selectorSuffix + ",") + selectorSuffix;
-			};
+			}
 
 			/**
 			 * Calculates neighborhood links.
@@ -7136,6 +7200,14 @@ ns.version = '0.9.26';
 				return result;
 			};
 
+			function removeAnimationClasses(element, prefix) {
+				var elementClasses = element.classList;
+				elementClasses.remove(prefix + classes.left);
+				elementClasses.remove(prefix + classes.up);
+				elementClasses.remove(prefix + classes.right);
+				elementClasses.remove(prefix + classes.down);
+			}
+
 			/**
 			 * Supports keyboard event.
 			 * @method _onKeyup
@@ -7147,6 +7219,9 @@ ns.version = '0.9.26';
 				var self = this,
 					keyCode = event.keyCode,
 					neighborhoodLinks,
+					currentLink = self._getFocusesLink(),
+					positionClass,
+					cssClass,
 					nextElement;
 
 				if (self._supportKeyboard) {
@@ -7154,18 +7229,30 @@ ns.version = '0.9.26';
 					switch (keyCode) {
 						case KEY_CODES.left:
 							nextElement = neighborhoodLinks.left;
+							positionClass = classes.left;
 							break;
 						case KEY_CODES.up:
 							nextElement = neighborhoodLinks.top;
+							positionClass = classes.up;
 							break;
 						case KEY_CODES.right:
 							nextElement = neighborhoodLinks.right;
+							positionClass = classes.right;
 							break;
 						case KEY_CODES.down:
 							nextElement = neighborhoodLinks.bottom;
+							positionClass = classes.down;
 							break;
 					}
 					if (nextElement) {
+						removeAnimationClasses(nextElement, classes.blurPrefix);
+						removeAnimationClasses(nextElement, classes.focusPrefix);
+						nextElement.classList.add(classes.focusPrefix + positionClass);
+						if (currentLink) {
+							removeAnimationClasses(currentLink, classes.focusPrefix);
+							removeAnimationClasses(nextElement, classes.blurPrefix);
+							currentLink.classList.add(classes.blurPrefix + positionClass);
+						}
 						nextElement.focus();
 						if (self._openActiveElement) {
 							self._openActiveElement(nextElement);
@@ -7261,12 +7348,13 @@ ns.version = '0.9.26';
 			 * Registers an active selector.
 			 * @param {string} selector
 			 * @method registerActiveSelector
+			 * @static
 			 * @member ns.widget.tv.BaseKeyboardSupport
 			 */
-			prototype.registerActiveSelector = function (selector) {
+			BaseKeyboardSupport.registerActiveSelector = function (selector) {
 				var index = selectors.indexOf(selector);
 				// check if not registered yet
-				if (index == -1) {
+				if (index === -1) {
 					selectors.push(selector);
 					// new selector - create reference counter for it
 					REF_COUNTERS.push(1);
@@ -7274,34 +7362,35 @@ ns.version = '0.9.26';
 					// such a selector exist - increment reference counter
 					++REF_COUNTERS[index];
 				}
-				this._prepareSelector();
+				prepareSelector();
 			};
 
 			/**
 			 * Unregisters an active selector.
 			 * @param {string} selector
 			 * @method unregisterActiveSelector
+			 * @static
 			 * @member ns.widget.tv.BaseKeyboardSupport
 			 */
-			prototype.unregisterActiveSelector = function (selector) {
+			BaseKeyboardSupport.unregisterActiveSelector = function (selector) {
 				var index = selectors.indexOf(selector);
-				if (index != -1) {
+				if (index !== -1) {
 					--REF_COUNTERS[index];
 					// check reference counter
-					if (REF_COUNTERS[index] == 0) {
+					if (REF_COUNTERS[index] === 0) {
 						// remove selector
 						selectors.splice(index, 1);
 						REF_COUNTERS.splice(index, 1);
 					}
 				}
-				this._prepareSelector();
+				prepareSelector();
 			};
 
 			ns.widget.tv.BaseKeyboardSupport = BaseKeyboardSupport;
 
 			}(window.document, ns));
 
-/*global window, define */
+/*global window, define, ns */
 /* 
  * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
  * License : MIT License V2
@@ -7310,148 +7399,6 @@ ns.version = '0.9.26';
 /**
  * # Button Widget
  * Shows a control that can be used to generate an action event.
- *
- * ## Default selectors
- * The button widget shows a control on the screen that you can use to generate an action event when it is pressed and released. This widget is coded with standard HTML anchor and input elements.
- *
- * Default selector for buttons is class *ui-btn*
- *
- * ### HTML Examples
- *
- * #### Standard button
- * To add a button widget to the application, use the following code:
- *
- *      @example
- *      <button type="button" class="ui-btn">Button</button>
- *      <a href="#" class="ui-btn">Button</a>
- *      <input type="button" class="ui-btn" value="Button" />
- *
- * #### Inline button
- *
- *      @example
- *      <input type="button" class="ui-btn ui-inline" value="Button" />
- *
- * #### Multiline text button
- *
- *      @example
- *      <a href="#" class="ui-btn ui-multiline ui-inline">A Button<br />Icon</a>
- *
- * ## Options
- *
- * ### Icons
- * Buttons can contains icons
- *
- * Creates an icon button in the header area is permitted but in content or footer area creating icon are not supported.
- *
- * To use menu icon in header add class *ui-more* to the button element:
- *
- *      @example
- *      <button class="ui-btn ui-more ui-icon-overflow">More Options</button>
- *
- * Samsung Gear Web UI Framework supports 3 icon css styles:
- *
- *  - ui-icon-detail
- *  - ui-icon-overflow
- *  - ui-icon-selectall
- *
- * ### Disabled
- *
- * If you want to make disabled button, add attribute *disabled* in button tag:
- *
- *      @example
- *      <button class="ui-btn" disabled="disabled">Button disabled</button>
- *
- * ### Inline
- *
- * If you want to make inline button, add class *ui-inline* to button element:
- *
- *      @example
- *      <button class="ui-btn ui-inline">Inline button</button>
- *
- * ### Multiline
- *
- * If you want to make multiline text button, add *ui-multiline* class
- *
- *      @example
- *      <button class="ui-btn ui-multiline">Multiline button</button>
- *
- * ### Color theme
- *
- *To optimize color support for the Samsung Gear, the following styles below are supported
- *
- * <table>
- *  <tr>
- *      <th>Class</th>
- *      <th>Default</th>
- *      <th>Press</th>
- *      <th>Disable</th>
- *  </tr>
- *  <tr>
- *      <td>ui-color-red</td>
- *      <td>#ce2302</td>
- *      <td>#dd654e</td>
- *      <td>#3d0a0a</td>
- *  </tr>
- *  <tr>
- *      <td>ui-color-orange</td>
- *      <td>#ed8600</td>
- *      <td>#f0aa56</td>
- *      <td>#462805</td>
- *  </tr>
- *  <tr>
- *      <td>ui-color-green</td>
- *      <td>#64a323</td>
- *      <td>#92be5e</td>
- *      <td>#1e3108</td>
- *  </tr>
- * </table>
- *
- * ### Button Group
- *
- * You can group buttons in columns or rows. The following table lists the supported button column and row classes.
- *
- * <table>
- *  <tr>
- *      <th>Class</th>
- *      <th>Description</th>
- *  </tr>
- *  <tr>
- *      <td>ui-grid-col-1</td>
- *      <td>Defines the button column width as 100% of the screen.</td>
- *  </tr>
- *  <tr>
- *      <td>ui-grid-col-2</td>
- *      <td>Defines the button column width as 50% of the screen.</td>
- *  </tr>
- *  <tr>
- *      <td>ui-grid-col-3</td>
- *      <td>Defines the button column width as 33% of the screen.</td>
- *  </tr>
- *  <tr>
- *      <td>ui-grid-row</td>
- *      <td>Arranges the buttons in a row.</td>
- *  </tr>
- * </table>
- *
- * To implement the button groups, use the following code:
- *
- * #### For columns:
- *
- *      @example
- *      <div class="ui-grid-col-3" style="height:76px">
- *          <button type="button" class="ui-btn">Button Circle</button>
- *          <a href="#" class="ui-btn ui-color-red" >A Button Circle</a>
- *          <input type="button" class="ui-btn ui-color-orange" value="Input Button Circle" />
- *      </div>
- *
- * #### For rows:
- *
- *      @example
- *      <div class="ui-grid-row">
- *          <button type="button" class="ui-btn">Button Circle</button>
- *          <a href="#" class="ui-btn ui-color-red" >A Button Circle</a>
- *          <input type="button" class="ui-btn ui-color-orange" value="Input Button Circle" />
- *      </div>
  *
  * @class ns.widget.tv.Button
  * @extends ns.widget.mobile.Button
@@ -7462,38 +7409,51 @@ ns.version = '0.9.26';
 				var BaseButton = ns.widget.mobile.Button,
 				BaseButtonPrototype = BaseButton.prototype,
 				BaseKeyboardSupport = ns.widget.tv.BaseKeyboardSupport,
+				objectUtils = ns.util.object,
 				FUNCTION_TYPE = "function",
 				Button = function () {
-					var self = this;
-					self.action = "";
-					self.label = null;
-					self.options = {};
-					self.ui = {};
-					BaseKeyboardSupport.call(self);
+					BaseButton.call(this);
+					BaseKeyboardSupport.call(this);
 				},
 				engine = ns.engine,
+				classes = objectUtils.merge({}, BaseButton.classes, {
+					background: "ui-background"
+				}),
 				prototype = new BaseButton();
 
 			Button.events = BaseButton.events;
-			Button.classes = BaseButton.classes;
+			Button.classes = classes;
 			Button.options = prototype.options;
 			Button.prototype = prototype;
 			Button.hoverDelay = 0;
 			// definition
 			ns.widget.tv.Button = Button;
 
+			prototype._build = function (element) {
+				var backgroundElement;
+
+				element = BaseButtonPrototype._build.call(this, element);
+
+				backgroundElement = document.createElement("div");
+				backgroundElement.classList.add(classes.background);
+				backgroundElement.id = element.id + "-background";
+				element.insertBefore(backgroundElement, element.firstChild);
+
+				return element;
+			};
+
 			/**
 			 * Initializes widget
 			 * @method _init
 			 * @protected
-			 * @member ns.widget.wearable.Button
+			 * @member ns.widget.tv.Button
 			 */
 			prototype._init = function (element) {
 				var self = this;
-				if (typeof BaseButtonPrototype._init === FUNCTION_TYPE) {
-					BaseButtonPrototype._init.call(self, element);
-				}
-				self.registerActiveSelector("button");
+
+				BaseButtonPrototype._init.call(self, element);
+
+				self.ui.background = document.getElementById(element.id + "-background");
 				return element;
 			};
 
@@ -7505,29 +7465,10 @@ ns.version = '0.9.26';
 				"tv",
 				true
 			);
+
+			BaseKeyboardSupport.registerActiveSelector("[data-role='button'], button, [type='button'], [type='submit'], [type='reset']");
+
 			}(window.document, ns));
-
-/*global window, define, ns */
-/* 
- * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
- * License : MIT License V2
- */
-
-/**
- * The Tizen Web UI service provides rich Tizen widgets that are optimized for the Tizen Web browser. You can use the widgets for:
- *
- * - CSS animation
- * - Rendering
- *
- * The following table displays the widgets provided by the Tizen Web UI service.
- * @page ns.widget.wearable
- * @title Widget Reference
- * @author Maciej Urbanski <m.urbanski@samsung.com>
- */
-(function (window, ns) {
-	
-				ns.widget.tv = ns.widget.tv || {};
-			}(window, ns));
 
 /*global window, define */
 /* 
@@ -7680,7 +7621,7 @@ ns.version = '0.9.26';
 
 			}(window.document, ns));
 
-/*global window, define */
+/*global window, define, ns */
 /* 
  * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
  * License : MIT License V2
@@ -7690,55 +7631,8 @@ ns.version = '0.9.26';
  * # Listview Widget
  * Shows a list view.
  *
- * The list widget is used to display, for example, navigation data, results, and data entries. The following table describes the supported list classes.
- *
- * ## Default selectors
- *
- * Default selector for listview widget is class *ui-listview*.
- *
- * To add a list widget to the application, use the following code:
- *
- * ### List with basic items
- *
- * You can add a basic list widget as follows:
- *
- *      @example
- *         <ul class="ui-listview">
- *             <li>1line</li>
- *             <li>2line</li>
- *             <li>3line</li>
- *             <li>4line</li>
- *             <li>5line</li>
- *         </ul>
- *
- * ### List with link items
- *
- * You can add a list widget with a link and press effect that allows the user to click each list item as follows:
- *
- *      @example
- *         <ul class="ui-listview">
- *             <li>
- *                 <a href="#">1line</a>
- *             </li>
- *             <li>
- *                 <a href="#">2line</a>
- *             </li>
- *             <li>
- *                 <a href="#">3line</a>
- *             </li>
- *             <li>
- *                 <a href="#">4line</a>
- *             </li>
- *             <li>
- *                 <a href="#">5line</a>
- *             </li>
- *         </ul>
- *
- * ## JavaScript API
- *
- * Listview widget hasn't JavaScript API.
- *
- * @class ns.widget.wearable.Listview
+ * @class ns.widget.tv.Listview
+ * @class ns.widget.core.Listview
  * @extends ns.widget.BaseWidget
  */
 (function (document, ns) {
@@ -7770,21 +7664,20 @@ ns.version = '0.9.26';
  */
 
 /**
+ * #Wearable Widget Reference
  * The Tizen Web UI service provides rich Tizen widgets that are optimized for the Tizen Web browser. You can use the widgets for:
  *
  * - CSS animation
  * - Rendering
  *
  * The following table displays the widgets provided by the Tizen Web UI service.
- * @page ns.widget.wearable
- * @title Widget Reference
+ * @class ns.widget.wearable
  * @seeMore https://developer.tizen.org/dev-guide/2.2.1/org.tizen.web.uiwidget.apireference/html/web_ui_framework.htm "Web UI Framework Reference"
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  */
 (function (window, ns) {
 	
-				/** @namespace ns.widget.wearable */
-			ns.widget.wearable = ns.widget.wearable || {};
+				ns.widget.wearable = ns.widget.wearable || {};
 			}(window, ns));
 
 /*global window, define */
@@ -8359,35 +8252,156 @@ ns.version = '0.9.26';
 			);
 			}(window.document, ns));
 
-/*global window, define */
+/*global window, define, ns */
 /* 
  * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
  * License : MIT License V2
  */
 /*jslint nomen: true, plusplus: true */
 /**
- * # PageContainer Widget
- * PageContainer is a widget, which is supposed to have multiple child pages but display only one at a time.
+ * # Page Widget
+ * Page is main element of application's structure.
  *
- * It allows for adding new pages, switching between them and displaying progress bars indicating loading process.
+ * ## Default selectors
+ * In the Tizen TV Web UI framework the application page structure is based on a header, content and footer elements:
  *
- * @class ns.widget.tv.PageContainer
- * @extends ns.widget.BaseWidget
+ * - **The header** is placed at the top, and displays the page title and optionally buttons.
+ * - **The content** is the section below the header, showing the main content of the page.
+ * - **The footer** is abottom part of page which can display for example buttons
+ *
+ * ## Examples
+ *
+ * ### Empty header & footer
+ * This is the standard page which can be fully arranged as one wishes. It is the basic version for all
+ * pages.
+ * 	@example
+ * 		<div id="normal-page" class="ui-page" data-size="mini">
+ * 			<div class="ui-content content-padding">
+ * 				For create normal page create tag with class <i>ui-page</i>
+ * 			</div>
+ * 		</div>
+ *
+ * ### Title in header
+ * A standard page can me enchanced with header containing title.
+ * 	@example
+ * 		<div id="normal-page" class="ui-page" data-size="mini">
+ * 			<header class="ui-header">
+ * 				<h2 class="ui-title">Title in header</h2>
+ * 			</header>
+ * 			<div class="ui-content content-padding">
+ * 				For create normal page create tag with class <i>ui-page</i>
+ * 			</div>
+ * 		</div>
+ *
+ * ### Buttons in header
+ * You can add buttons to header in case of need. By default text will appear on the left
+ * side of the header and buttons on the right side.
+ * 	@example
+ * 		<div id="normal-page" class="ui-page" data-size="mini">
+ * 			<header class="ui-header">
+ * 				<a href="#" data-role="button">button 1</a>
+ * 				<a href="#" data-role="button">button 2</a>
+ * 				<h2 class="ui-title">Title in header</h2>
+ * 			</header>
+ * 			<div class="ui-content content-padding">
+ * 				For create normal page create tag with class <i>ui-page</i>
+ * 			</div>
+ * 		</div>
+ *
+ * ### Structure with header and footer tag
+ * 	@example
+ * 		<div id="normal-page" class="ui-page" data-size="mini">
+ * 			<header class="ui-header">
+ * 				<h2 class="ui-title">Title in header</h2>
+ * 			</header>
+ * 			<div class="ui-content content-padding"></div>
+ * 			<footer>
+ * 				<div data-role="controlgroup" data-type="horizontal">
+ * 					<a href="#" data-role="button">Button in footer</a>
+ * 				</div>
+ * 			</footer>
+ * 		</div>
+ *
+ * ## Focus
+ * Focus on page is working straightforward. Using diectional keys will make focus move in the
+ * respective direction. Also using OK[remote control]/Enter[keyboard] while widget is focused
+ * will send activation signal to it (response will differ between widgets).
+ *
+ * @class ns.widget.tv.Page
+ * @extends ns.widget.wearable.Page
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  */
 (function (document, ns) {
 	
-				var WearablePage = ns.widget.wearable.Page,
+				/**
+			 * Alias for {@link ns.widget.wearable.Page}
+			 * @property {Object} Page
+			 * @member ns.widget.tv.Page
+			 * @private
+			 * @static
+			 */
+			var WearablePage = ns.widget.wearable.Page,
 				WearablePagePrototype = WearablePage.prototype,
+				/**
+				 * Alias for {@link ns.widget.tv.BaseKeyboardSupport}
+				 * @property {Object} BaseKeyboardSupport
+				 * @member ns.widget.tv.Page
+				 * @private
+				 * @static
+				 */
 				BaseKeyboardSupport = ns.widget.tv.BaseKeyboardSupport,
+				/**
+				 * Dictionary for page related css class names.
+				 * It bases on {@link ns.widget.wearable.Page.classes}
+				 * @property {Object} classes
+				 * @member ns.widget.tv.Page
+				 * @static
+				 */
 				classes = WearablePage.classes,
+				/**
+				 * Alias for {@link ns.wearable.selectors}
+				 * @property {Object} selectors
+				 * @member ns.widget.tv.Page
+				 * @private
+				 * @static
+				 */
 				selectors = ns.wearable.selectors,
+				/**
+				 * Alias for {@link ns.util}
+				 * @property {Object} util
+				 * @member ns.widget.tv.Page
+				 * @private
+				 * @static
+				 */
 				util = ns.util,
+				/**
+				 * Alias for {@link ns.util.DOM}
+				 * @property {Object} DOM
+				 * @member ns.widget.tv.Page
+				 * @private
+				 * @static
+				 */
 				DOM = util.DOM,
+				/**
+				 * Alias for {@link ns.util.selectors}
+				 * @property {Object} utilSelectors
+				 * @member ns.widget.tv.Page
+				 * @private
+				 * @static
+				 */
 				utilSelectors = util.selectors,
 				Page = function () {
-					BaseKeyboardSupport.call(this);
+					var self = this;
+					BaseKeyboardSupport.call(self);
+					self._ui = self._ui || {};
 				},
+				/**
+				 * Alias for {@link ns.engine}
+				 * @property {Object} engine
+				 * @member ns.widget.tv.Page
+				 * @private
+				 * @static
+				 */
 				engine = ns.engine,
 				FUNCTION_TYPE = "function",
 				prototype = new WearablePage();
@@ -8399,16 +8413,33 @@ ns.version = '0.9.26';
 			Page.events = WearablePage.events;
 			Page.classes = classes;
 
+			/**
+			 * This method triggers SHOW event and turns keyboard support on.
+			 * @method onShow
+			 * @member ns.widget.tv.Page
+			 */
 			prototype.onShow = function() {
 				WearablePagePrototype.onShow.call(this);
 				this._supportKeyboard = true;
 			};
 
+			/**
+			 * This method triggers HIDE event and turns keyboard support on.
+			 * @method onHide
+			 * @member ns.widget.tv.Page
+			 */
 			prototype.onHide = function() {
 				WearablePagePrototype.onHide.call(this);
 				this._supportKeyboard = false;
 			};
 
+			/**
+			 * Method creates buttons defined in page header.
+			 * @method _buildButtonsInHeader
+			 * @param {HTMLElement} header
+			 * @protected
+			 * @member ns.widget.tv.Page
+			 */
 			prototype._buildButtonsInHeader = function (header) {
 				var headerButtons = [].slice.call(header.querySelectorAll("[data-role='button']")),
 					headerButtonsLength = headerButtons.length,
@@ -8418,6 +8449,13 @@ ns.version = '0.9.26';
 				}
 			};
 
+			/**
+			 * Method creates title defined in page header.
+			 * @method _buildTitleInHeader
+			 * @param {HTMLElement} header
+			 * @protected
+			 * @member ns.widget.tv.Page
+			 */
 			prototype._buildTitleInHeader = function(header) {
 				var title = header.querySelector("h1,h2,h3,h4,h5,h6,h7,h8");
 				if (title) {
@@ -8425,6 +8463,14 @@ ns.version = '0.9.26';
 				}
 			};
 
+			/**
+			 * Method creates empty page header. It also checks for additional
+			 * content to be added in header.
+			 * @method _buildHeader
+			 * @param {HTMLElement} element
+			 * @protected
+			 * @member ns.widget.tv.Page
+			 */
 			prototype._buildHeader = function(element) {
 				var self = this,
 					header = utilSelectors.getChildrenBySelector(element, "header,." + classes.uiHeader)[0];
@@ -8436,8 +8482,16 @@ ns.version = '0.9.26';
 					self._buildButtonsInHeader(header);
 					self._buildTitleInHeader(header);
 				}
+				self._ui.header = header;
 			};
 
+			/**
+			 * Method creates empty page footer.
+			 * @method _buildFooter
+			 * @param {HTMLElement} element
+			 * @protected
+			 * @member ns.widget.tv.Page
+			 */
 			prototype._buildFooter = function(element) {
 				var footer = utilSelectors.getChildrenBySelector(element, "footer,." + classes.uiFooter)[0];
 				// add class if footer does not exist
@@ -8446,17 +8500,45 @@ ns.version = '0.9.26';
 				} else {
 					footer.classList.add(classes.uiFooter);
 				}
+				this._ui.footer = footer;
 			};
 
+			/**
+			 * Method creates empty page footer.
+			 * @method _buildContent
+			 * @param {HTMLElement} element
+			 * @protected
+			 * @member ns.widget.tv.Page
+			 */
 			prototype._buildContent = function(element) {
-				var content = utilSelectors.getChildrenByClass(element, classes.uiContent)[0] || utilSelectors.getChildrenByTag(element, "div")[0];
+				var content = utilSelectors.getChildrenByClass(element, classes.uiContent)[0],
+					next,
+					child = element.firstChild,
+					ui = this._ui;
 				if (!content) {
 					content = document.createElement("div");
-					element.appendChild(content);
+					while (child) {
+						next = child.nextSibling;
+						if (child !== ui.footer && child !== ui.header) {
+							content.appendChild(child);
+						}
+						child = next;
+					}
 				}
+
+				element.insertBefore(content, ui.footer);
 				content.classList.add(classes.uiContent);
+				ui.content = content;
 			};
 
+			/**
+			 * Build page
+			 * @method _build
+			 * @param {HTMLElement} element
+			 * @return {HTMLElement}
+			 * @protected
+			 * @member ns.widget.tv.Page
+			 */
 			prototype._build = function(element) {
 				var self = this;
 
@@ -8465,12 +8547,19 @@ ns.version = '0.9.26';
 				}
 
 				self._buildHeader(element);
-				self._buildContent(element);
 				self._buildFooter(element);
+				self._buildContent(element);
 
 				return element;
 			};
 
+			/**
+			 * Clears header and footer class lists.
+			 * @method _clearHeaderFooterInfo
+			 * @param {HTMLElement} element
+			 * @protected
+			 * @member ns.widget.tv.Page
+			 */
 			prototype._clearHeaderFooterInfo = function(element) {
 				var elementClassList = element.classList;
 				elementClassList.remove(classes.uiHeaderEmpty);
@@ -8481,7 +8570,8 @@ ns.version = '0.9.26';
 			 * Sets top-bottom css attributes for content element
 			 * to allow it to fill the page dynamically
 			 * @method _contentFill
-			 * @member ns.widget.wearable.Page
+			 * @protected
+			 * @member ns.widget.tv.Page
 			 */
 			prototype._contentFill = function () {
 				var self = this,
@@ -8532,17 +8622,36 @@ ns.version = '0.9.26';
 				}
 			};
 
+			/**
+			 * Bind events to widget
+			 * @method _bindEvents
+			 * @param {HTMLElement} element
+			 * @protected
+			 * @member ns.widget.tv.Page
+			 */
 			prototype._bindEvents = function(element) {
 				WearablePagePrototype._bindEvents.call(this, element);
 				this._bindEventKey();
 			};
 
+			/**
+			 * Destroy widget
+			 * @method _destroy
+			 * @protected
+			 * @member ns.widget.tv.Page
+			 */
 			prototype._destroy = function() {
 				this._destroyEventKey();
 				WearablePagePrototype._destroy.call(this);
 			};
 
-			prototype._refresh = function(element) {
+			/**
+			 * Refresh widget structure
+			 * @method _refresh
+			 * @protected
+			 * @member ns.widget.tv.Page
+			 */
+			prototype._refresh = function() {
 				var self = this,
 					element = self.element;
 				WearablePagePrototype._refresh.call(self);
@@ -10346,7 +10455,7 @@ ns.version = '0.9.26';
 					bestOffsetInfo;
 
 				// set value of bestDirection on the first possible type or top
-				bestDirection = params[arrowsPriority[0]] || params.t,
+				bestDirection = params[arrowsPriority[0]] || params.t;
 
 				arrowsPriority.forEach(function(key){
 					var param = params[key],
@@ -10754,20 +10863,18 @@ ns.version = '0.9.26';
 
 			}(window, window.document, ns));
 
-/*global window, define */
+/*global window, define, ns */
 /* 
  * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
  * License : MIT License V2
  */
 /*jslint nomen: true, plusplus: true */
 /**
- * # PageContainer Widget
- * PageContainer is a widget, which is supposed to have multiple child pages but display only one at a time.
+ * # Popup Widget
+ * Shows a pop-up window.
  *
- * It allows for adding new pages, switching between them and displaying progress bars indicating loading process.
- *
- * @class ns.widget.wearable.PageContainer
- * @extends ns.widget.BaseWidget
+ * @class ns.widget.tv.Popup
+ * @extends ns.widget.core.ContextPopup
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  * @author Jadwiga Sosnowska <j.sosnowska@samsung.com>
  */
@@ -10775,12 +10882,6 @@ ns.version = '0.9.26';
 	
 				var engine = ns.engine,
 				utilSelectors = ns.util.selectors,
-				/**
-				 * @property {Object} events Alias for class ns.event
-				 * @member ns.widget.tv.Popup
-				 * @private
-				 */
-				events = ns.event,
 				objectUtils = ns.util.object,
 				CorePopup = ns.widget.core.ContextPopup,
 				CorePopupPrototype = CorePopup.prototype,
@@ -10802,7 +10903,7 @@ ns.version = '0.9.26';
 					toast: "ui-popup-toast",
 					headerEmpty: "ui-header-empty",
 					footerEmpty: "ui-footer-empty",
-					content: "ui-popup-content",
+					content: "ui-popup-content"
 				}),
 				selectors = {
 					header: "header",
@@ -10909,14 +11010,14 @@ ns.version = '0.9.26';
 					CorePopupPrototype._placementCoordsWindow.call(this, element);
 					element.style.top = parseInt(element.style.top) / 2 + "px";
 				}
-			}
+			};
 
 			prototype._findClickedElement = function(x, y) {
 				var clickedElement =  document.elementFromPoint(x, y),
 					button = utilSelectors.getClosestBySelector(clickedElement, engine.getWidgetDefinition("Button").selector);
 
 				return button || clickedElement;
-			}
+			};
 
 			prototype.open = function(options) {
 				var self = this;
@@ -10931,7 +11032,7 @@ ns.version = '0.9.26';
 				}
 			};
 
-			prototype.close = function(options) {
+			prototype.close = function() {
 				if (this._isOpened()) {
 					if (typeof CorePopupPrototype.close === FUNCTION_TYPE) {
 						CorePopupPrototype.close.apply(this, arguments);
@@ -18048,15 +18149,74 @@ ns.version = '0.9.26';
 			);
 			}(window, window.document, ns));
 
-/*global window, define */
-/* 
+/*global window, define, ns */
+/*
  * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
  * License : MIT License V2
  */
 /*jslint nomen: true */
 /*
+ * # Slider Widget
+ * Creates horizontal axis with a draggable handle. It can be used to set singular value from within
+ * lower and upper boundries.
+ *
+ * ## Using
+ * User can drag the handle using touch capabilities. The other way, using remote control, is focusing
+ * Slider using arrows and selecting it with OK [Enter if using keyboard]. Now you can adjust Slider
+ * value using left/down right/up arrows. To apply new value use OK [Enter] button.
+ *
+ * ## Default selectors
+ * All **INPUT** tags with _type="range"_ are changed into slider.
+ *
+ * ### HTML Examples
+ *
+ * #### Create slider input
+ *
+ *		@example
+ *		<input id="slider-1" name="slider-1" type="range" value="5" min="0" max="10"/>
+ *
+ * ## Manual constructor
+ * For manual creation of slider widget you can use constructor of widget
+ * from **tau** namespace:
+ *
+ *		@example
+ *		<input id="slider-1" name="slider-1" type="range" value="5" min="0" max="10"/>
+ *		<script>
+ *			var sliderElement = document.getElementById("slider-1"),
+ *				slider = tau.widget.TizenSlider(sliderElement);
+ *		</script>
+ *
+ * Constructor has one required parameter **element** which
+ * is base **HTMLElement** to create widget. We recommend get this element
+ * by method *document.getElementById*. Second parameter is **options**
+ * and it is a object with options for widget.
+ *
+ *		@example
+ *		<input id="slider-1" name="slider-1" type="range" value="5" min="0" max="10"/>
+ *		<script>
+ *			var sliderElement = document.getElementById("slider-1"),
+ *				slider = tau.widget.TizenSlider(sliderElement, {data-popup: true});
+ *		</script>
+ *
+ * ##Methods
+ *
+ * To call method on widget you can use one of existing API:
+ *
+ * First API is from tau namespace:
+ *
+ *		@example
+ *		<input id="slider-1" name="slider-1" type="range" value="5" min="0" max="10"/>
+ *		<script>
+ *		var slider = document.getElementById("slider"),
+ *			slider = tau.widget.TizenSlider(slider);
+ *
+ *		// slider.methodName(methodArgument1, methodArgument2, ...);
+ *		// for example
+ *		var value = slider.value("5");
+ *		</script>
+ *
  * @class ns.widget.tv.Slider
- * @extends ns.widget.mobile.Slider
+ * @extends ns.widget.mobile.TizenSlider
  * @author Jadwiga Sosnowska <j.sosnowska@samsung.com>
  */
 (function (document, ns) {
@@ -18075,6 +18235,8 @@ ns.version = '0.9.26';
 				engine = ns.engine,
 				selectors = ns.util.selectors,
 				objectUtils = ns.util.object,
+				// Slider inherits TizenSlider classes with additional
+				// "ui-focus".
 				classes = objectUtils.merge({}, BaseSlider.classes, {
 					focus: "ui-focus"
 				}),
@@ -18085,6 +18247,14 @@ ns.version = '0.9.26';
 			Slider.classes = classes;
 			Slider.prototype = prototype;
 
+			/**
+			 * Shows popup with current Slider value
+			 * @method showPopup
+			 * @param {ns.widget.tv.Slider} self
+			 * @private
+			 * @static
+			 * @member ns.widget.tv.Slider
+			 */
 			function showPopup(self) {
 				if (self.options.popup) {
 					self._updateSlider();
@@ -18092,10 +18262,15 @@ ns.version = '0.9.26';
 				}
 			}
 
-			function hidePopup(self) {
-				self._closePopup();
-			}
-
+			/**
+			 * Keyup event-handling method.
+			 * @method onKeyup
+			 * @param {ns.widget.tv.Slider} self
+			 * @param {Event} event
+			 * @private
+			 * @static
+			 * @member ns.widget.tv.Slider
+			 */
 			function onKeyup(self, event) {
 				var status = self.status;
 
@@ -18112,6 +18287,15 @@ ns.version = '0.9.26';
 				}
 			}
 
+			/**
+			 * Keydown event-handling method.
+			 * @method onKeydown
+			 * @param {ns.widget.tv.Slider} self
+			 * @param {Event} event
+			 * @private
+			 * @static
+			 * @member ns.widget.tv.Slider
+			 */
 			function onKeydown(self, event) {
 				if (event.keyCode !== KEY_CODES.enter && !self.status) {
 					event.preventDefault();
@@ -18119,17 +18303,40 @@ ns.version = '0.9.26';
 				}
 			}
 
+			/**
+			 * Focus event-handling method.
+			 * @method onFocus
+			 * @param {ns.widget.tv.Slider} self
+			 * @private
+			 * @static
+			 * @member ns.widget.tv.Slider
+			 */
 			function onFocus(self) {
 				self._ui.container.classList.add("ui-focus");
 			}
 
+			/**
+			 * Blur event-handling method.
+			 * @method onBlur
+			 * @param {ns.widget.tv.Slider} self
+			 * @private
+			 * @static
+			 * @member ns.widget.tv.Slider
+			 */
 			function onBlur(self) {
 				self._ui.container.classList.remove("ui-focus");
 			}
 
+			/**
+			 * Build structure of slider widget
+			 * @method _build
+			 * @param {HTMLInputElement|HTMLSelectElement} element
+			 * @return {HTMLInputElement|HTMLSelectElement}
+			 * @protected
+			 * @member ns.widget.tv.Slider
+			 */
 			prototype._build = function(element) {
 				var ui = this._ui,
-					elementId = element.id,
 					pageElement = selectors.getClosestByClass(element, "ui-page"),
 					container,
 					containerStyle,
@@ -18160,6 +18367,13 @@ ns.version = '0.9.26';
 				return element;
 			};
 
+			/**
+			 * Init widget
+			 * @method _init
+			 * @param {HTMLInputElement|HTMLSelectElement} element
+			 * @protected
+			 * @member ns.widget.tv.Slider
+			 */
 			prototype._init = function(element) {
 				var pageElement = selectors.getClosestByClass(element, "ui-page");
 
@@ -18169,6 +18383,13 @@ ns.version = '0.9.26';
 				this._pageWidget = this._pageWidget || engine.getBinding(pageElement, "page");
 			};
 
+			/**
+			 * Bind events to widget
+			 * @method _bindEvents
+			 * @param {HTMLInputElement|HTMLSelectElement} element
+			 * @protected
+			 * @member ns.widget.tv.Slider
+			 */
 			prototype._bindEvents = function(element) {
 				var container = this._ui.container,
 					callbacks = this._callbacks;
@@ -18191,12 +18412,12 @@ ns.version = '0.9.26';
 			/**
 			 * Creates popup element and appends it container passed as argument
 			 * @method _createPopup
-			 * @param {HTMLElement} container
 			 * @return {ns.widget.Popup} reference to new widget instance
 			 * @protected
+			 * @member ns.widget.tv.Slider
 			 * TODO: use TizenSlider when Core Popup is used in mobile profile
 			 */
-			prototype._createPopup = function (container) {
+			prototype._createPopup = function () {
 				var classes = Slider.classes,
 					pageElement,
 					popup,
@@ -18224,12 +18445,12 @@ ns.version = '0.9.26';
 			 * Updates popup state
 			 * @method _updateSlider
 			 * @protected
+			 * @member ns.widget.tv.Slider
 			 * TODO: use TizenSlider when Core Popup is used in mobile profile
 			 */
 			prototype._updateSlider = function () {
 				var self = this,
 					newValue,
-					options = self.options,
 					element = self.element,
 					popupElement;
 
@@ -18268,6 +18489,12 @@ ns.version = '0.9.26';
 				}
 			};
 
+			/**
+			 * Destroys widget and removes added content.
+			 * @method _destroy
+			 * @protected
+			 * @member ns.widget.tv.Slider
+			 */
 			prototype._destroy = function() {
 				var ui = this._ui,
 					container = ui.container,
@@ -19143,7 +19370,7 @@ ns.version = '0.9.26';
 					}
 
 					if (options.dataLength < options.bufferSize) {
-						options.bufferSize = options.dataLength - 1;
+						options.bufferSize = options.dataLength;
 					}
 
 					if (options.bufferSize < 1) {
@@ -19342,7 +19569,7 @@ ns.version = '0.9.26';
 				};
 
 				/**
-				 * This method sets list item updater function. 
+				 * This method sets list item updater function.
 				 * To learn how to create list item updater function please
 				 * visit Virtual List User Guide.
 				 * @method setListItemUpdater
@@ -19917,7 +20144,7 @@ ns.version = '0.9.26';
 			);
 			}(window.document, ns));
 
-/*global window, define */
+/*global window, define, ns */
 /* 
  * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
  * License : MIT License V2
@@ -19929,8 +20156,8 @@ ns.version = '0.9.26';
  *
  * It allows for adding new pages, switching between them and displaying progress bars indicating loading process.
  *
- * @class ns.widget.wearable.PageContainer
- * @extends ns.widget.BaseWidget
+ * @class ns.widget.tv.PageContainer
+ * @extends ns.widget.wearable.PageContainer
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  */
 (function (document, ns) {
@@ -20273,7 +20500,6 @@ ns.version = '0.9.26';
 				var self = this,
 					options = self.options,
 					drawerElementParent = self.element.parentNode,
-					headerHeight = self._headerElement && self._headerElement.offsetHeight,
 					drawerHeight = drawerElementParent.clientHeight,
 					drawerStyle = self.element.style,
 					drawerOverlay = self._drawerOverlay,
@@ -20401,77 +20627,17 @@ ns.version = '0.9.26';
 
 			}(window.document, ns));
 
-/*global window, define */
+/*global window, define, ns */
 /* 
  * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
  * License : MIT License V2
  */
 /**
  * #Drawer Widget
- * Drawer widget provide creating drawer widget and managing drawer operation.
+ * Drawer widget provides creating drawer widget and managing drawer operations.
  *
- * ##Default selector
- * You can make the drawer widget as data-role="drawer" with DIV tag.
- *
- * ###  HTML Examples
- *
- * ####  Create drawer using data-role
- *
- * 		@example
- *		<div data-role="drawer" data-position="left" id="leftdrawer">
- *			<ul data-role="listview">
- *				<li class="ui-drawer-main-list"><a href="#">List item 1</a></li>
- *				<li class="ui-drawer-main-list"><a href="#">List item 2</a></li>
- *				<li class="ui-drawer-sub-list"><a href="#">Sub item 1</a></li>
- *			</ul>
- *		</div>
- *
- * ##Drawer positioning
- * You can declare to drawer position manually. (Default is left)
- *
- * If you implement data-position attributes value is 'left', drawer appear from left side.
- *
- * 		@example
- *		<div data-role="drawer" data-position="left" id="leftdrawer">
- *
- * - "left" - drawer appear from left side
- * - "right" - drawer appear from right side
- *
- * ##Drawer inner list
- * Drawer has two list styles, main list style and sub list style.
- * You can implement two providing list styles as implement classes.
- *
- * - "ui-drawer-main-list" : Main list style of drawer
- * - "ui-drawer-sub-list" : Sub list style of drawer
- *
- * ##Drawer methods
- *
- * You can use some methods of drawer widget.
- *
- * - "open" - drawer open
- *
- * 		@example
- * 		$("#leftdrawer").drawer("open");
- *
- * - "close" - drawer close
- *
- * 		@example
- * 		$("#leftdrawer").drawer("isOpen");
- *
- * - "isOpen" - get drawer status, true is opened and false if closed
- *
- * 		@example
- * 		$("#leftdrawer").drawer"(isOpen");
- *
- * ##Drawer Options
- *
- * - position: drawer appeared position. Type is <String> and default is "left".
- * - width: drawer width. Type is <Integer> and default is 290.
- * - duration: drawer appeared duration. <Integer> and default is 100.
- *
- *
-
  * @class ns.widget.tv.Drawer
+ * @extends ns.widget.core.Drawer
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  */
 (function (document, ns) {
@@ -20526,11 +20692,11 @@ ns.version = '0.9.26';
 						dynamicListElement = document.getElementById(id.split("#")[1]);
 					}
 					if (dynamicListElement) {
-						self.option('width', WIDE_SIZE);
+						self.option("width", WIDE_SIZE);
 						ui.currentDynamic = dynamicListElement;
 						dynamicListElement.classList.add(classes.uiDynamicBoxActive);
 					} else {
-						self.option('width', NARROW_SIZE);
+						self.option("width", NARROW_SIZE);
 					}
 				}
 			};
@@ -21763,7 +21929,7 @@ ns.version = '0.9.26';
 						options = DOM.getData(link);
 						options.link = link.id;
 						router.open(href, options, event);
-						event.preventDefault();
+						eventUtils.preventDefault(event);
 					}
 				}
 			}
@@ -21958,7 +22124,7 @@ ns.version = '0.9.26';
 				window.removeEventListener("popstate", self.popStateHandler, false);
 				if (body) {
 					body.removeEventListener("pagebeforechange", this.pagebeforechangeHandler, false);
-					body.removeEventListener("click", self.linkClickHandler, false);
+					body.removeEventListener("vclick", self.linkClickHandler, false);
 				}
 			};
 
@@ -22007,7 +22173,7 @@ ns.version = '0.9.26';
 				self.linkClickHandler = linkClickHandler.bind(null, self);
 				self.popStateHandler = popStateHandler.bind(null, self);
 
-				document.addEventListener("click", self.linkClickHandler, false);
+				document.addEventListener("vclick", self.linkClickHandler, false);
 				window.addEventListener("popstate", self.popStateHandler, false);
 
 				history.enableVolatileRecord();
@@ -22991,14 +23157,17 @@ ns.version = '0.9.26';
 
 			}(window, window.document, ns));
 
-/*global window, define */
+/*global window, define, ns */
 /* 
  * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
  * License : MIT License V2
  */
 /**
+ * #Route popup
  * Support class for router to control changing pupups in profile Wearable.
- * @class ns.router.route.popup
+ *
+ * @class ns.router.tv.route.popup
+ * @extend ns.router.route.popup
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  * @author Damian Osipiuk <d.osipiuk@samsung.com>
  */
@@ -23088,19 +23257,20 @@ ns.version = '0.9.26';
 				}
 			};
 
-
 			ns.router.route.popup = routePopup;
 
 			}(window, window.document, ns));
 
-/*global window, define */
+/*global window, define, ns */
 /* 
  * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
  * License : MIT License V2
  */
 /**
- * Support class for router to control change pupups.
- * @class ns.router.route.popup
+ * #Route dynamic
+ * Route for loading dynamic content in page.
+ *
+ * @class ns.router.route.dynamic
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  */
 (function (window, document, ns) {
@@ -23423,7 +23593,7 @@ ns.version = '0.9.26';
 
 			}(window.document, ns));
 
-/*global window, define */
+/*global window, define, ns */
 /* 
  * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
  * License : MIT License V2
@@ -23440,7 +23610,7 @@ ns.version = '0.9.26';
  *    "tel" or "month" or "week" or "datetime-local" or "color" or without any
  *    type
  *  - TEXTAREA
- *  - HTML elements with class ui-TextInput
+ *  - HTML elements with class ui-textinput
  *
  * ###HTML Examples
  *
@@ -23484,58 +23654,7 @@ ns.version = '0.9.26';
  *
  * Constructor has one require parameter **element** which are base
  * **HTMLElement** to create widget. We recommend get this element by method
- * *document.getElementById*. Second parameter is **options** and it is a object
- * with options for widget.
- *
- * If jQuery library is loaded, its method can be used:
- *
- *		@example
- *		<form>
- *			<label for="text-1">Text input:</label>
- *			<input type="text" name="text-1" id="text-1" value="">
- *		</form>
- *		<script>
- *			$("#text-1").textinput();
- *		</script>
- *
- * jQuery Mobile constructor has one optional parameter is **options** and it is
- * a object with options for widget.
- *
- * ##Options for widget
- *
- * Options for widget can be defined as _data-..._ attributes or give as
- * parameter in constructor.
- *
- * You can change option for widget using method **option**.
- *
- * ##Methods
- *
- * To call method on widget you can use one of existing API:
- *
- * First API is from tau namespace:
- *
- *		@example
- *		<input id="text-1" />
- *		<script>
- *			var inputElement = document.getElementById('text-1'),
- *				textInput = tau.widget.TextInput(inputElement);
- *
- *		 	// textInput.methodName(argument1, argument2, ...);
- *			// for example:
- *			textInput.value("text");
- *		</script>
- *
- *
- * Second API is jQuery Mobile API and for call _methodName_ you can use:
- *
- *		@example
- *		<input id="text-1" />
- *		<script>
- *			// $("#text-1").textinput('methodName', argument1, argument2, ...);
- *			// for example
- *
- *			$("#text-1").value("text");
- *		</script>
+ * *document.getElementById*.
  *
  * @class ns.widget.tv.TextInput
  * @extends ns.widget.mobile.TextInput
@@ -23546,6 +23665,13 @@ ns.version = '0.9.26';
 				var MobileTextInput = ns.widget.mobile.TextInput,
 				MobileTextInputPrototype = MobileTextInput.prototype,
 				BaseKeyboardSupport = ns.widget.tv.BaseKeyboardSupport,
+				/**
+				 * Alias for {ns.engine}
+				 * @property {Object} engine
+				 * @member ns.widget.tv.TextInput
+				 * @static
+				 * @private
+				 */
 				engine = ns.engine,
 				FUNCTION_TYPE = "function",
 				TextInput = function () {
@@ -23555,6 +23681,12 @@ ns.version = '0.9.26';
 					this._callbacks = {};
 					this._lastEventLineNumber = 0;
 				},
+				/**
+				 * Dictionary for textinput related css class names
+				 * @property {Object} classes
+				 * @member ns.widget.tv.TextInput
+				 * @static
+				 */
 				classes = {
 					uiDisabled: ns.widget.mobile.Button.classes.uiDisabled,
 					uiNumberInput: "ui-number-input"
@@ -23566,6 +23698,13 @@ ns.version = '0.9.26';
 			TextInput.classes = MobileTextInput.classes;
 			TextInput.prototype = prototype;
 
+			/**
+			* Init TextInput Widget
+			* @method _init
+			* @param {HTMLElement} element
+			* @member ns.widget.tv.TextInput
+			* @protected
+			*/
 			prototype._init = function(element) {
 				if (typeof MobileTextInputPrototype._init === FUNCTION_TYPE) {
 					MobileTextInputPrototype._init.call(this, element);
@@ -23576,10 +23715,15 @@ ns.version = '0.9.26';
 					wrapInputNumber(element);
 					break;
 				}
-
-				this.registerActiveSelector("input");
 			};
 
+			/**
+			* Bind events to widget
+			* @method _bindEvents
+			* @param {HTMLElement} element
+			* @protected
+			* @member ns.widget.tv.TextInput
+			*/
 			prototype._bindEvents = function(element) {
 				var callbacks = this._callbacks;
 
@@ -23600,6 +23744,14 @@ ns.version = '0.9.26';
 				}
 			};
 
+			/**
+			 * Destroys additional elements created by the widget,
+			 * removes classes and event listeners
+			 * @method _destroy
+			 * @param {HTMLElement} element
+			 * @protected
+			 * @member ns.widget.tv.TextInput
+			 */
 			prototype._destroy = function(element) {
 				var callbacks = this._callbacks;
 
@@ -23618,6 +23770,15 @@ ns.version = '0.9.26';
 				}
 			};
 
+			/**
+			 * Method overrides Textarea behavior on keyup event.
+			 * @method onKeyupTextarea
+			 * @param {TextInput} self
+			 * @param {Event} event
+			 * @private
+			 * @static
+			 * @member ns.widget.tv.TextInput
+			 */
 			function onKeyupTextarea(self, event) {
 				var textarea = self.element,
 					value = textarea.value,
@@ -23720,1863 +23881,10 @@ ns.version = '0.9.26';
 				"tv",
 				true
 			);
+
+			BaseKeyboardSupport.registerActiveSelector(".ui-textinput");
+
 			}(window.document, ns));
-
-/*global window, define */
-/* 
- * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
- * License : MIT License V2
- */
-/**
- * #Colors Utility
- * Class supports converting between color formats
- * @class ns.util.colors
- */
-
-(function (window, document, ns) {
-	
-				ns.util.colors = {
-				/**
-				 * Round to the nearest Integer
-				 * @method nearestInt
-				 * @param {number} val
-				 * @return {number}
-				 * @member ns.util.colors
-				 * @static
-				 */
-				nearestInt: function (val) {
-					var theFloor = Math.floor(val);
-					return (((val - theFloor) > 0.5) ? (theFloor + 1) : theFloor);
-				},
-
-				/**
-				 * Converts html color string to rgb array.
-				 * @method HTMLToRGB
-				 * @param {string} clr_str is of the form "#aabbcc"
-				 * @return {number[]} Returns: [ r, g, b ], where
-				 * r is in [0, 1]
-				 * g is in [0, 1]
-				 * b is in [0, 1]
-				 * @member ns.util.colors
-				 * @static
-				 */
-				HTMLToRGB: function (clr_str) {
-					clr_str = (('#' === clr_str.charAt(0)) ? clr_str.substring(1) : clr_str);
-					return ([
-						clr_str.substring(0, 2),
-						clr_str.substring(2, 4),
-						clr_str.substring(4, 6)
-					].map(function (val) {
-						return parseInt(val, 16) / 255.0;
-					}));
-				},
-
-				/**
-				 * Converts rgb array to html color string.
-				 * @method RGBToHTML
-				 * @param {number[]} rgb Input: [ r, g, b ], where 
-				 * r is in [0, 1]
-				 * g is in [0, 1]
-				 * b is in [0, 1]
-				 * @return {string} Returns string of the form "#aabbcc"
-				 * @member ns.util.colors
-				 * @static
-				 */
-				RGBToHTML: function (rgb) {
-					return ("#" +
-						rgb.map(function (val) {
-							var ret = val * 255,
-								theFloor = Math.floor(ret);
-							ret = ((ret - theFloor > 0.5) ? (theFloor + 1) : theFloor);
-							ret = (((ret < 16) ? "0" : "") + (ret & 0xff).toString(16));
-							return ret;
-						})
-					.join(""));
-				},
-
-				/**
-				 * Converts hsl to rgb.
-				 * @method HSLToRGB
-				 * @param {number[]} hsl Input: [ h, s, l ], where 
-				 * h is in [0, 360]
-				 * s is in [0,   1]
-				 * l is in [0,   1]
-				 * @return {number[]} Returns: [ r, g, b ], where
-				 * r is in [0, 1]
-				 * g is in [0, 1]
-				 * b is in [0, 1]
-				 * @member ns.util.colors
-				 * @static
-				 */
-				HSLToRGB: function (hsl) {
-					var h = hsl[0] / 360.0,
-						s = hsl[1],
-						l = hsl[2],
-						temp1,
-						temp2,
-						temp3,
-						ret;
-
-					if (0 === s) {
-						ret =  [ l, l, l ];
-					} else {
-						temp2 = ((l < 0.5) ? l * (1.0 + s) : l + s - l * s);
-						temp1 = 2.0 * l - temp2;
-						temp3 = {
-							r: h + 1.0 / 3.0,
-							g: h,
-							b: h - 1.0 / 3.0
-						};
-
-						temp3.r = ((temp3.r < 0) ? (temp3.r + 1.0) : ((temp3.r > 1) ? (temp3.r - 1.0) : temp3.r));
-						temp3.g = ((temp3.g < 0) ? (temp3.g + 1.0) : ((temp3.g > 1) ? (temp3.g - 1.0) : temp3.g));
-						temp3.b = ((temp3.b < 0) ? (temp3.b + 1.0) : ((temp3.b > 1) ? (temp3.b - 1.0) : temp3.b));
-
-						ret = [
-							(((6.0 * temp3.r) < 1) ? (temp1 + (temp2 - temp1) * 6.0 * temp3.r) :
-									(((2.0 * temp3.r) < 1) ? temp2 :
-											(((3.0 * temp3.r) < 2) ? (temp1 + (temp2 - temp1) * ((2.0 / 3.0) - temp3.r) * 6.0) :
-													temp1))),
-							(((6.0 * temp3.g) < 1) ? (temp1 + (temp2 - temp1) * 6.0 * temp3.g) :
-									(((2.0 * temp3.g) < 1) ? temp2 :
-											(((3.0 * temp3.g) < 2) ? (temp1 + (temp2 - temp1) * ((2.0 / 3.0) - temp3.g) * 6.0) :
-													temp1))),
-							(((6.0 * temp3.b) < 1) ? (temp1 + (temp2 - temp1) * 6.0 * temp3.b) :
-									(((2.0 * temp3.b) < 1) ? temp2 :
-											(((3.0 * temp3.b) < 2) ? (temp1 + (temp2 - temp1) * ((2.0 / 3.0) - temp3.b) * 6.0) :
-													temp1)))
-						];
-					}
-
-					return ret;
-				},
-
-				/**
-				 * Converts hsv to rgb.
-				 * @method HSVToRGB
-				 * @param {number[]} hsv Input: [ h, s, v ], where 
-				 * h is in [0, 360]
-				 * s is in [0,   1]
-				 * v is in [0,   1]
-				 * @return {number[]} Returns: [ r, g, b ], where
-				 * r is in [0, 1]
-				 * g is in [0, 1]
-				 * b is in [0, 1]
-				 * @member ns.util.colors
-				 */
-				HSVToRGB: function (hsv) {
-					return this.HSLToRGB(this.HSVToHSL(hsv));
-				},
-
-				/**
-				 * Converts rgb to hsv.
-				 * @method HSVToRGB
-				 * @param {number[]} rgb Input: [ r, g, b ], where 
-				 * r is in [0,   1]
-				 * g is in [0,   1]
-				 * b is in [0,   1]
-				 * @return {number[]} Returns: [ h, s, v ], where
-				 * h is in [0, 360]
-				 * s is in [0,   1]
-				 * v is in [0,   1]
-				 * @member ns.util.colors
-				 * @static
-				 */
-				RGBToHSV: function (rgb) {
-					var min, max, delta, h, s, v, r = rgb[0], g = rgb[1], b = rgb[2];
-
-					min = Math.min(r, Math.min(g, b));
-					max = Math.max(r, Math.max(g, b));
-					delta = max - min;
-
-					h = 0;
-					s = 0;
-					v = max;
-
-					if (delta > 0.00001) {
-						s = delta / max;
-
-						if (r === max) {
-							h = (g - b) / delta;
-						} else {
-							if (g === max) {
-								h = 2 + (b - r) / delta;
-							} else {
-								h = 4 + (r - g) / delta;
-							}
-						}
-
-						h *= 60;
-
-						if (h < 0) {
-							h += 360;
-						}
-					}
-
-					return [h, s, v];
-				},
-
-				/**
-				 * Converts Converts hsv to hsl.
-				 * @method HSVToHSL
-				 * @param {number[]} rgb Input: [ h, s, v ], where 
-				 * h is in [0, 360]
-				 * s is in [0,   1]
-				 * v is in [0,   1]
-				 * @return {number[]} Returns: [ h, s, l ], where
-				 * h is in [0, 360]
-				 * s is in [0,   1]
-				 * l is in [0,   1]
-				 * @member ns.util.colors
-				 * @static
-				 */
-				HSVToHSL: function (hsv) {
-					var max = hsv[2],
-						delta = hsv[1] * max,
-						min = max - delta,
-						sum = max + min,
-						half_sum = sum / 2,
-						s_divisor = ((half_sum < 0.5) ? sum : (2 - max - min));
-
-					return [ hsv[0], ((0 === s_divisor) ? 0 : (delta / s_divisor)), half_sum ];
-				},
-
-				/**
-				 * Converts rgb to hsl
-				 * @method RGBToHSL
-				 * @param {number[]} rgb Input: [ r, g, b ], where 
-				 * r is in [0,   1]
-				 * g is in [0,   1]
-				 * b is in [0,   1]
-				 * @return {number[]} Returns: [ h, s, l ], where
-				 * h is in [0, 360]
-				 * s is in [0,   1]
-				 * l is in [0,   1]
-				 * @member ns.util.colors
-				 */
-				RGBToHSL: function (rgb) {
-					return this.HSVToHSL(this.RGBToHSV(rgb));
-				}
-			};
-			}(window, window.document, ns));
-
-/*global window, define */
-/*
-* Copyright  2010 - 2014 Samsung Electronics Co., Ltd.
-* License : MIT License V2
-*/
-/*jslint nomen: true, plusplus: true */
-/**
- * # Listview Widget
- * The list widget is used to display, for example, navigation data, results,
- * and data entries.
- *
- * !!!When implementing the list widget:!!!
- *
- *	- A button widget (data-role="button") placed in the *a* tag is
- *	 not supported in the list widget. The button must be placed in a *div* tag.
- *	- If you implement the list widget differently than described in
- *	 the examples shown below, application customization (set element
- *	 positioning) is required.
- *
- *
- * ## Default selectors
- * By default UL or OL elements with _data-role=listview_ are changed to
- * Tizen Web UI Listview.
- *
- * Additionaly all UL or OL elements with class _ui-listview_ are changed to
- *  Tizen Web UI Listview.
- *
- *		@example
- *		<ul data-role="listview">
- *			<li>Anton</li>
- *			<li>Arabella</li>
- *			<li>Barry</li>
- *			<li>Bill</li>
- *		</ul>
- *
- * #### Create Listview widget using tau method:
- *
- *		@example
- *		<ul id="list">
- *			<li>Anton</li>
- *			<li>Arabella</li>
- *			<li>Barry</li>
- *			<li>Bill</li>
- *		</ul>
- *		<script>
- *			tau.widget.Listview(document.getElementById("list"));
- *		</script>
- *
- * #### Create FastScroll widget using jQueryMobile notation:
- *
- *		@example
- *		<ul id="list">
- *			<li>Anton</li>
- *			<li>Arabella</li>
- *			<li>Barry</li>
- *			<li>Bill</li>
- *		</ul>
- *		<script>
- *			$('#list').listview();
- *		</script>
- *
- * ## Options
- *
- * ### Inset
- * _data-inset_ If this option is set to **true** the listview is wrapped by
- * additionally layer
- *
- *		@example
- *		<ul data-role="listview" data-inset="true">
- *			<li>Anton</li>
- *			<li>Arabella</li>
- *			<li>Barry</li>
- *			<li>Bill</li>
- *		</ul>
- *
- * ### Theme
- * _data-theme_ Sets the theme of listview
- *
- *		@example
- *		<ul data-role="listview" data-theme="s">
- *			<li>Anton</li>
- *			<li>Arabella</li>
- *			<li>Barry</li>
- *			<li>Bill</li>
- *		</ul>
- *
- * ### Divider theme
- * _data-divider-theme_ Sets the divider theme of listview
- *
- *		@example
- *		<ul data-role="listview" data-divider-theme="s">
- *			<li>Anton</li>
- *			<li>Arabella</li>
- *			<li data-role="divider">B</li>
- *			<li>Barry</li>
- *			<li>Bill</li>
- *		</ul>
- *
- *
- * ## HTML example code
- *
- * ### Basic 1-line list item with anchor.
- *
- *		@example
- *		<ul data-role="listview">
- *			<li><a href="#">Anton</a></li>
- *			<li><a href="#">Barry</a></li>
- *			<li><a href="#">Bill</a></li>
- *		</ul>
- *
- * ### Basic 1-line list item without anchor.
- *
- *		@example
- *		<ul data-role="listview">
- *			<li>Anton</li>
- *			<li>Barry</li>
- *			<li>Bill</li>
- *		</ul>
- *
- * ### 1-line list item with a subtext.
- *
- *		@example
- *		<ul data-role="listview">
- *			<li><a href="#">
- *				Anton
- *				<span class="ui-li-text-sub">subtext</span>
- *				</a>
- *			</li>
- *			<li><a href="#">
- *				Barry
- *				<span class="ui-li-text-sub">subtext</span>
- *				</a>
- *			</li>
- *			<li><a href="#">
- *				Bill
- *				<span class="ui-li-text-sub">subtext</span>
- *				</a>
- *			</li>
- *		</ul>
- *
- * ### List with sub text below the main text.
- *
- * If this attribute is not used, the sub text position is right next to
- * the main text.
- *
- *		@example
- *		<ul data-role="listview">
- *			<li class="ui-li-multiline">Anton
- *				<span class="ui-li-text-sub">subtext</span>
- *			</li>
- *			<li class="ui-li-multiline">Barry
- *				<span class="ui-li-text-sub">subtext</span>
- *			</li>
- *			<li class="ui-li-multiline">Bill
- *				<span class="ui-li-text-sub">subtext</span>
- *			</li>
- *		</ul>
- *
- * ### List with thumbnail
- *
- *		@example
- *		<ul data-role="listview">
- *			<li><img src="a.jpg" class="ui-li-bigicon" />Anton</li>
- *			<li><img src="a.jpg" class="ui-li-bigicon" />Barry</li>
- *			<li><img src="a.jpg" class="ui-li-bigicon" />Bill</li>
- *		</ul>
- *
- * ### List with thumbnail to the right.
- *
- *		@example
- *		<ul data-role="listview">
- *			<li class="ui-li-thumbnail-right">
- *				<img src="a.jpg" class="ui-li-bigicon" />
- *				Anton
- *			</li>
- *			<li class="ui-li-thumbnail-right">
- *				<img src="a.jpg" class="ui-li-bigicon" />
- *				Barry
- *			</li>
- *			<li class="ui-li-thumbnail-right">
- *				<img src="a.jpg" class="ui-li-bigicon" />
- *				Bill
- *			</li>
- *		</ul>
- *
- * ### 1-line list item with a text button, or with a circle-shaped button.
- *
- *		@example
- *		<ul data-role="listview">
- *			<li><a href="#">
- *					Anton
- *					<div data-role="button" data-inline="true">Button</div>
- *				</a>
- *			</li>
- *			<li><a href="#">
- *					Barry
- *					<div data-role="button" data-inline="true" data-icon="plus"
- *						data-style="circle"></div>
- *				</a>
- *			</li>
- *		</ul>
- *
- * ### 1-line list item with a toggle switch.
- *
- *		@example
- *		<ul data-role="listview">
- *			<li>
- *				Anton
- *				<select name="flip-11" id="flip-11" data-role="slider">
- *					<option value="off"></option>
- *					<option value="on"></option>
- *				</select>
- *			</li>
- *			<li>
- *				Barry
- *				<select name="flip-12" id="flip-12" data-role="slider">
- *					<option value="off"></option>
- *					<option value="on"></option>
- *				</select>
- *			</li>
- *			<li>
- *				Bill
- *				<select name="flip-13" id="flip-13" data-role="slider">
- *					<option value="off"></option>
- *					<option value="on"></option>
- *				</select>
- *			</li>
- *		</ul>
- *
- * ### 1-line list item with thumbnail image
- * #### - and a subtext,
- * #### - and text button,
- * #### - and circle-shaped button
- * #### - and a toggle switch.
- *
- *		@example
- *		<ul data-role="listview">
- *			<li><a href="#">
- *					<img src="thumbnail.jpg" class="ui-li-bigicon" />
- *					Anton
- *				</a>
- *			</li>
- *			<li><a href="#">
- *					<img src="thumbnail.jpg" class="ui-li-bigicon" />
- *					Barry
- *					<span class="ui-li-text-sub">subtext</span>
- *				</a>
- *			</li>
- *			<li><a href="#">
- *					<img src="thumbnail.jpg" class="ui-li-bigicon" />
- *					Barry
- *					<div data-role="button" data-inline="true">Button</div>
- *				</a>
- *			</li>
- *			<li><a href="#">
- *					<img src="thumbnail.jpg" class="ui-li-bigicon" />
- *					Barry
- *					<div data-role="button" data-inline="true" data-icon="plus"
- *						data-style="circle"></div>
- *				</a>
- *			</li>
- *			<li>
- *				<img src="thumbnail.jpg" class="ui-li-bigicon" />
- *				Barry
- *				<select name="flip-13" id="flip-13" data-role="slider">
- *					<option value="off"></option>
- *					<option value="on"></option>
- *				</select>
- *			</li>
- *		</ul>
- *
- * ### 1-line list item with check box,
- * #### - and thumbnail,
- * #### - and thumbnail and circle-shaped button.
- *
- *		@example
- *		<ul data-role="listview">
- *			<li>
- *				<form><input type="checkbox" name="c1line-check1" /></form>
- *				Anton
- *			</li>
- *			<li>
- *				<form><input type="checkbox" /></form>
- *				Barry
- *				<img src="thumbnail.jpg" class="ui-li-bigicon" />
- *			</li>
- *			<li>
- *				<form><input type="checkbox" name="c1line-check4" /></form>
- *				<img src="thumbnail.jpg" class="ui-li-bigicon" />
- *				Barry
- *				<div data-role="button" data-inline="true" data-icon="plus"
- *					data-style="circle"></div>
- *			</li>
- *		</ul>
- *
- * ### 1-line list item with radio button,
- * #### - and thumbnail,
- * #### - and thumbnail and circle-shaped button.
- *
- *		@example
- *		<form>
- *		<ul data-role="listview">
- *			<li>
- *				<input type="radio" name="radio"/>
- *				Anton
- *			</li>
- *			<li>
- *				<input type="radio" name="radio"/>
- *				Barry
- *				<img src="thumbnail.jpg" class="ui-li-bigicon" />
- *			</li>
- *			<li>
- *				<input type="radio" name="radio"/>
- *				<img src="thumbnail.jpg" class="ui-li-bigicon" />
- *				Barry
- *				<div data-role="button" data-inline="true" data-icon="plus"
- *					data-style="circle"></div>
- *			</li>
- *		</ul>
- *		<form>
- *
- * ### Basic 2-line list item.
- *
- *		@example
- *		<ul data-role="listview">
- *			<li class="ui-li-has-multiline">
- *				<a href="#">
- *					Anton
- *					<span class="ui-li-text-sub">subtext</span>
- *				</a>
- *			</li>
- *			<li class="ui-li-has-multiline">
- *				<a href="#">
- *					Barry
- *					<span class="ui-li-text-sub">subtext</span>
- *				</a>
- *			</li>
- *			<li class="ui-li-has-multiline">
- *				<a href="#">
- *					Bill
- *					<span class="ui-li-text-sub">subtext</span>
- *				</a>
- *			</li>
- *		</ul>
- *
- * ### 2-line list item with 2 subtexts.
- *
- *		@example
- *		<ul data-role="listview">
- *			<li class="ui-li-has-multiline">
- *				<a href="#">
- *					Anton
- *					<span class="ui-li-text-sub">subtext</span>
- *					<span class="ui-li-text-sub2">subtext 2</span>
- *				</a>
- *			</li>
- *			<li class="ui-li-has-multiline">
- *				<a href="#">
- *					Barry
- *					<span class="ui-li-text-sub">subtext</span>
- *					<span class="ui-li-text-sub2">subtext 2</span>
- *				</a>
- *			</li>
- *			<li class="ui-li-has-multiline">
- *				<a href="#">
- *					Bill
- *					<span class="ui-li-text-sub">subtext</span>
- *					<span class="ui-li-text-sub2">subtext 2</span>
- *				</a>
- *			</li>
- *		</ul>
- *
- * ### 2-line list item with a text or circle-shaped button.
- *
- *		@example
- *		<ul data-role="listview">
- *			<li class="ui-li-has-multiline">
- *				<a href="#">
- *					Anton
- *					<span class="ui-li-text-sub">subtext</span>
- *					<div data-role="button" data-inline="true">button</div>
- *				</a>
- *			</li>
- *			<li class="ui-li-has-multiline">
- *				<a href="#">
- *					Barry
- *					<span class="ui-li-text-sub">subtext</span>
- *					<div data-role="button" data-inline="true" data-icon="call"
- *						data-style="circle"></div>
- *				</a>
- *			</li>
- *		</ul>
- *
- * ### 2-line list item with 2 subtexts
- * #### - and a star-shaped icon next to the first subtext
- * #### - and 1 subtext and 2 star-shaped icons
- *
- *		@example
- *		<ul data-role="listview">
- *			<li class="ui-li-has-multiline">
- *				<a href="#">
- *					Anton
- *					<span class="ui-li-text-sub">subtext</span>
- *					<span style="position:absolute; right:16px; top:80px">
- *						<img class= "ui-li-icon-sub-right"
- *							src="00_winset_icon_favorite_on.png" />
- *					</span>
- *					<span class="ui-li-text-sub2">subtext 2</span>
- *				</a>
- *			</li>
- *			<li class="ui-li-has-multiline">
- *				<a href="#">
- *					Barry
- *					<span class="ui-li-text-sub">
- *						<img class="ui-li-icon-sub"
- *							src="00_winset_icon_favorite_on.png" />
- *						subtext
- *					</span>
- *					<span>
- *						<img class="ui-li-icon-sub-right"
- *							src="00_winset_icon_favorite_on.png" />
- *					</span>
- *				</a>
- *			</li>
- *		</ul>
- *
- * ### 2-line setting list item,
- * #### - with optionally also a toggle switch
- * #### - or circle-shaped button.
- *
- *		@example
- *		<ul data-role="listview">
- *			<li class="ui-li-has-multiline">
- *				<a href="#">
- *					Anton
- *					<span class="ui-li-text-sub">subtext</span>
- *				</a>
- *			</li>
- *			<li class="ui-li-has-multiline">
- *				Barry
- *				<span class="ui-li-text-sub">subtext</span>
- *				<select name="flip-13" id="flip-13" data-role="slider">
- *					<option value="off"></option>
- *					<option value="on"></option>
- *				</select>
- *			</li>
- *			<li class="ui-li-has-multiline">
- *				<a href="#">
- *					Bill
- *					<span class="ui-li-text-sub">subtext</span>
- *					<div data-role="button" data-inline="true" data-icon="call"
- *						data-style="circle"></div>
- *				</a>
- *			</li>
- *		</ul>
- *
- * ### 2-line list item with a subtext,
- * #### - and also a star-shaped icon and a circle-shaped button,
- * #### - thumbnail and a second subtext,
- *
- *		@example
- *		<ul data-role="listview">
- *			<li class="ui-li-has-multiline">
- *				<a href="#">
- *					Anton
- *					<span class="ui-li-text-sub">
- *						subtext
- *						<img class="ui-li-icon-sub"
- *							src="00_winset_icon_favorite_on.png" />
- *					</span>
- *					<div data-role="button" data-inline="true" data-icon="call"
- *						data-style="circle"></div>
- *				</a>
- *			</li>
- *			<li class="ui-li-has-multiline">
- *				<a href="#">
- *					<img src="thumbnail.jpg" class="ui-li-bigicon" />
- *					Barry
- *					<span class="ui-li-text-sub">subtext 1</span>
- *					<span class="ui-li-text-sub2">subtext 2</span>
- *				</a>
- *			</li>
- *		</ul>
- *
- * ### 2-line list item with a subtext and check box
- * #### - and thumbnail
- * #### - and a circle-shaped button.
- *
- *		@example
- *		<ul data-role="listview">
- *			<li class="ui-li-has-multiline">
- *				<form><input type="checkbox" name="check1" /></form>
- *				Anton
- *				<span class="ui-li-text-sub">subtext</span>
- *			</li>
- *			<li class="ui-li-has-multiline">
- *				<form><input type="checkbox" name="check2" /></form>
- *				<img src="thumbnail.jpg" class="ui-li-bigicon" />
- *				Barry
- *				<span class="ui-li-text-sub">subtext</span>
- *			</li>
- *			<li class="ui-li-has-multiline">
- *				<form><input type="checkbox" name="check3" /></form>
- *				Bill
- *				<span class="ui-li-text-sub">subtext</span>
- *				<div data-role="button" data-inline="true" data-icon="call"
- *					data-style="circle"></div>
- *			</li>
- *		</ul>
- *
- * ### 2-line list item with a subtext and radio button,
- * #### - and thumbnail
- * #### - and a circle-shaped button.
- *
- *		@example
- *		<form>
- *		<ul data-role="listview">
- *			<li class="ui-li-has-multiline">
- *					<input type="radio" name="radio1" />
- *					Anton
- *					<span class="ui-li-text-sub">subtext</span>
- *			</li>
- *			<li class="ui-li-has-multiline">
- *					<input type="radio" name="radio1" />
- *					<img src="thumbnail.jpg" class="ui-li-bigicon" />
- *					Barry
- *					<span class="ui-li-text-sub">subtext</span>
- *			</li>
- *			<li class="ui-li-has-multiline">
- *					<input type="radio" name="radio1" />
- *					Barry
- *					<span class="ui-li-text-sub">subtext</span>
- *					<div data-role="button" data-inline="true" data-icon="call"
- *						data-style="circle"></div>
- *			</li>
- *		</ul>
- *		</form>
- *
- * ### 2-line list item with a color bar,
- * #### - subtext, text button and 3 star-shaped icons,
- * #### - thumbnail, subtext, text button, and 1 star-shaped icon,
- * #### - thumbnail, subtext, and circle-shaped button.
- *
- *		@example
- *		<ul data-role="listview">
- *			<li class="ui-li-has-multiline">
- *				<a href="#">
- *					<span class="ui-li-color-bar"
- *						style="background-color: red;"></span>
- *					Anton
- *					<span class="ui-li-text-sub">subtext
- *						<img src="00_winset_icon_favorite_on.png" />
- *						<img src="00_winset_icon_favorite_on.png" />
- *						<img src="00_winset_icon_favorite_on.png" />
- *					</span>
- *					<div data-role="button" data-inline="true">button</div>
- *				</a>
- *			</li>
- *			<li class="ui-li-has-multiline">
- *				<a href="#">
- *					<span class="ui-li-color-bar"
- *						style="background-color:rgba(72, 136, 42, 1);"></span>
- *					<img src="thumbnail.jpg" class="ui-li-bigicon" />
- *					Barry
- *					<span>
- *						<img class="ui-li-icon-sub"
- *							src="00_winset_icon_favorite_on.png" />
- *					</span>
- *					<span class="ui-li-text-sub">subtext</span>
- *					<div data-role="button" data-inline="true">button</div>
- *				</a>
- *			</li>
- *			<li class="ui-li-has-multiline">
- *				<a href="#">
- *					<span class="ui-li-color-bar"
- *						style="background-color: blue;"></span>
- *					Bill
- *					<span>
- *						<img class="ui-li-icon-sub"
- *							src="00_winset_icon_favorite_on.png" />
- *					</span>
- *					<span class="ui-li-text-sub">subtext</span>
- *					<div data-role="button" data-inline="true" data-icon="call"
- *						data-style="circle"></div>
- *				</a>
- *			</li>
- *		</ul>
- *
- * ### 2-line list item with a subtext and thumbnail at right
- * #### and 2 star-shaped icons
- * #### and a star-shaped icons, subtext, and thumbnail.
- *
- *		@example
- *		<ul data-role="listview">
- *			<li class="ui-li-has-multiline ui-li-thumbnail-right">
- *				<a href="#">
- *					Anton
- *					<span class="ui-li-text-sub">subtext</span>
- *					<img src="thumbnail.jpg" class="ui-li-bigicon">
- *				</a>
- *			</li>
- *			<li class="ui-li-has-multiline ui-li-thumbnail-right">
- *				<a href="#">
- *					Barry
- *					<span>
- *						<img class="ui-li-icon-sub"
- *							src="00_winset_icon_favorite_on.png" />
- *					</span>
- *					<span class="ui-li-text-sub">
- *						<img class="ui-li-icon-sub"
- *							src="00_winset_icon_favorite_on.png" />
- *						subtext
- *					</span>
- *					<img src="thumbnail.jpg" class="ui-li-bigicon" />
- *				</a>
- *			</li>
- *		</ul>
- *
- * ### 2-line list item with a subtext before the main text and a thumbnail.
- *
- *		@example
- *		<ul data-role="listview">
- *			<li class="ui-li-has-multiline ui-li-thumbnail-right">
- *				<a href="#">
- *					<span class="ui-li-text-sub">subtext</span>
- *					Anton
- *					<img src="thumbnail.jpg" class="ui-li-bigicon" />
- *				</a>
- *			</li>
- *			<li class="ui-li-has-multiline ui-li-thumbnail-right">
- *				<a href="#">
- *					<span class="ui-li-text-sub">subtext</span>
- *					Barry
- *					<img src="thumbnail.jpg" class="ui-li-bigicon" />
- *				</a>
- *			</li>
- *			<li class="ui-li-has-multiline ui-li-thumbnail-right">
- *				<a href="#">
- *					<span class="ui-li-text-sub">subtext</span>
- *					Bill
- *					<img src="thumbnail.jpg" class="ui-li-bigicon" />
- *				</a>
- *			</li>
- *		</ul>
- *
- * ### 2-line list item with a thumbnail and a progress bar.
- *
- *		@example
- *		<ul data-role="listview">
- *			<li class="ui-li-has-multiline">
- *				<a href="#">
- *					<img scr="thumbnail.jpg" class="ui-li-bigicon">
- *					Anton
- *					<span class="ui-li-text-sub">subtext</span>
- *					<div data-role="progressbar" id="progressbar"></div>
- *				</a>
- *			</li>
- *			<li class="ui-li-has-multiline">
- *				<a href="#">
- *					<img scr="thumbnail.jpg" class="ui-li-bigicon">
- *					Barry
- *					<span class="ui-li-text-sub">subtext</span>
- *					<div data-role="progressbar" id="progressbar"></div>
- *				</a>
- *			</li>
- *			<li class="ui-li-has-multiline">
- *				<a href="#">
- *					<img scr="thumbnail.jpg" class="ui-li-bigicon">
- *					Bill
- *					<span class="ui-li-text-sub">subtext</span>
- *					<div data-role="progressbar" id="progressbar"></div>
- *				</a>
- *			</li>
- *		</ul>
- *
- * ### 2-line list item with a check box, thumbnail, subtext
- * ### and circle-shaped button.
- *
- *		@example
- *		<ul data-role="listview">
- *			<li class="ui-li-has-multiline">
- *				<form><input type="checkbox" name="checkbox" /></form>
- *				<img src="thumbnail.jpg" class="ui-li-bigicon" />
- *				Anton
- *				<span class="ui-li-text-sub">subtext</span>
- *				<div data-role="button" data-inline="true" data-icon="call"
- *					data-style="circle"></div>
- *			</li>
- *			<li class="ui-li-has-multiline">
- *				<form><input type="checkbox" name="checkbox" /></form>
- *				<img src="thumbnail.jpg" class="ui-li-bigicon" />
- *				Barry
- *				<span class="ui-li-text-sub">subtext</span>
- *				<div data-role="button" data-inline="true" data-icon="call"
- *					data-style="circle"></div>
- *			</li>
- *			<li class="ui-li-has-multiline">
- *				<form><input type="checkbox" name="checkbox" /></form>
- *				<img src="thumbnail.jpg" class="ui-li-bigicon" />
- *				Bill
- *				<span class="ui-li-text-sub">subtext</span>
- *				<div data-role="button" data-inline="true" data-icon="call"
- *					data-style="circle"></div>
- *			</li>
- *		</ul>
- *
- * @class ns.widget.mobile.Listview
- * @extends ns.widget.mobile.BaseWidgetMobile
- */
-/**
- * Triggered when the listview is before refresh items.
- * @event beforerefreshitems
- * @member ns.widget.mobile.Listview
- */
-(function (window, document, ns) {
-	
-				var Listview = function () {
-					var self = this;
-					self._ui = {
-						page: null
-					};
-					self._coloredListHandler = null;
-					self._scrolledElement = null;
-				},
-				BaseWidget = ns.widget.mobile.BaseWidgetMobile,
-				/**
-				 * Alias for class {@link ns.engine}
-				 * @property {Object} engine
-				 * @member ns.widget.mobile.Listview
-				 * @private
-				 * @static
-				 */
-				engine = ns.engine,
-				/**
-				 * Alias for class {@link ns.util.DOM}
-				 * @property {Object} DOM
-				 * @member ns.widget.mobile.Listview
-				 * @private
-				 * @static
-				 */
-				DOM = ns.util.DOM,
-				/**
-				 * Alias for class ns.widget.mobile.Button
-				 * @property {Function} Button
-				 * @member ns.widget.mobile.Listview
-				 * @static
-				 * @private
-				 */
-				Button = ns.widget.mobile.Button,
-				/**
-				 * Alias for class ns.widget.mobile.Page
-				 * @property {Function} Page
-				 * @member ns.widget.mobile.Listview
-				 * @static
-				 * @private
-				 */
-				Page = ns.widget.mobile.Page,
-				/**
-				 * Alias for class {@link ns.util.color}
-				 * @property {Function} Page
-				 * @member ns.widget.mobile.Listview
-				 * @static
-				 * @private
-				 */
-				colorUtils = ns.util.colors,
-				/**
-				 * Alias for object ns.widget.mobile.Listview.classes
-				 * @property {Object} classes
-				 * @member ns.widget.mobile.Listview
-				 * @static
-				 * @private
-				 * @readonly
-				 * @property {string} classes.uiListview Main class of listview
-				 * @property {string} classes.uiListviewInset class of listview as inset
-				 * @property {string} classes.uiCornerAll class of corners all
-				 * @property {string} classes.uiShadow class of shadow
-				 * @property {string} classes.uiLi class of li element
-				 * @property {string} classes.uiLiLast class of last li element
-				 * @property {string} classes.uiCornerTop class of top corners
-				 * @property {string} classes.uiCornerTr class of top right corner
-				 * @property {string} classes.uiCornerTl class of top left corner
-				 * @property {string} classes.uiCornerBottom class of bottom corners
-				 * @property {string} classes.uiCornerBr class of bottom right corner
-				 * @property {string} classes.uiCornerBl class of bottom left corner
-				 * @property {string} classes.uiLink class of link on listview
-				 * @property {string} classes.uiLiLinkAlt class of li element as link on listview
-				 * @property {string} classes.uiLiHasArrow class of li element which has arrow
-				 * @property {string} classes.uiLiHasAlt class of li element which has alt
-				 * @property {string} classes.uiLinkInherit class inherit link on listview
-				 * @property {string} classes.uiLiThumb class of thumb included in li element
-				 * @property {string} classes.uiLiHasThumb class of li element which has thumb
-				 * @property {string} classes.uiLiIcon class of icon included in li element
-				 * @property {string} classes.uiLiHasIcon class of li element which has icon
-				 * @property {string} classes.uiLiHasCheckbox class of li element which has checkbox
-				 * @property {string} classes.uiLiHasRadio class of li element which has radio button
-				 * @property {string} classes.uiLiHasRightCircleBtn class of li element which has circle button
-				 * @property {string} classes.uiLiHasRightBtn class of li element which has button allign to right
-				 * @property {string} classes.uiLiCount class of count included in li element
-				 * @property {string} classes.uiLiHasCount class of li element which has count
-				 * @property {string} classes.uiLiStatic class of li static element
-				 * @property {string} classes.uiLiHeading class of li heading
-				 */
-				classes = {
-					uiListview : "ui-listview",
-					uiListviewInset: "ui-listview-inset",
-					uiListviewColored: "ui-listview-colored",
-					uiCornerAll: "ui-corner-all",
-					uiShadow: "ui-shadow",
-					uiLi: "ui-li",
-					uiLiLast: "ui-li-last",
-					uiCornerTop: "ui-corner-top",
-					uiCornerTr: "ui-corner-tr",
-					uiCornerTl: "ui-corner-tl",
-					uiCornerBottom: "ui-corner-bottom",
-					uiCornerBr: "ui-corner-br",
-					uiCornerBl: "ui-corner-bl",
-					uiLink: "ui-link",
-					uiLiLinkAlt: "ui-li-link-alt",
-					uiLiHasArrow: "ui-li-has-arrow",
-					uiLiHasAlt: "ui-li-has-alt",
-					uiLinkInherit: "ui-link-inherit",
-					uiLiThumb: "ui-li-thumb",
-					uiLiHasThumb: "ui-li-has-thumb",
-					uiLiIcon: "ui-li-icon",
-					uiLiHasIcon: "ui-li-has-icon",
-					uiLiHasCheckbox: "ui-li-has-checkbox",
-					uiLiHasRadio: "ui-li-has-radio",
-					uiLiHasRightCircleBtn: "ui-li-has-right-circle-btn",
-					uiLiHasRightBtn: "ui-li-has-right-btn",
-					uiLiCount: "ui-li-count",
-					uiLiHasCount: "ui-li-has-count",
-					uiLiStatic: "ui-li-static",
-					uiLiHeading: "ui-li-heading"
-				},
-				/**
-				 * Alias for object ns.widget.mobile.Button.classes
-				 * @property {Object} buttonClasses
-				 * @member ns.widget.mobile.Listview
-				 * @static
-				 * @private
-				 */
-				buttonClasses = Button.classes,
-				/**
-				 * Alias to ns.util.selectors
-				 * @property {Object} selectors
-				 * @member ns.widget.mobile.Listview
-				 * @private
-				 * @static
-				 */
-				selectors = ns.util.selectors,
-				/**
-				 * Alias to ns.event
-				 * @property {Object} eventUtils
-				 * @member ns.widget.mobile.Listview
-				 * @private
-				 * @static
-				 */
-				eventUtils = ns.event,
-				/**
-				 * Alias to Array.slice
-				 * @method slice
-				 * @member ns.widget.mobile.Listview
-				 * @private
-				 */
-				slice = [].slice;
-
-			Listview.prototype = new BaseWidget();
-
-			Listview.classes = classes;
-
-			Listview.prototype._configure = function () {
-				var self = this,
-					ui = self._ui || {},
-					/**
-					 * Object with default options
-					 * @property {Object} options
-					 * @property {?string} [options.theme=null] theme of widget
-					 * @property {?string} [options.dividerTheme="s"] theme of listview divider
-					 * @property {boolean} [options.inset=false] inset option - listview is wrapped by additionally layer
-					 * @member ns.widget.mobile.Listview
-					 */
-					options = self.options || {};
-
-				options.theme = null;
-				options.dividerTheme = "s";
-				options.inset = false;
-				options.coloredListNumber = 12;
-				options.diffLightness = 3;
-
-				self.options = options;
-				ui.page = null;
-			};
-
-			/**
-			 * Change links to button widget
-			 * @method changeLinksToButton
-			 * @param {HTMLElement} item
-			 * @param {Array} links
-			 * @param {string} itemTheme
-			 * @private
-			 * @static
-			 * @member ns.widget.mobile.Listview
-			 */
-			function changeLinksToButton(item, links, itemTheme) {
-				var icon = DOM.getNSData(item, "icon"),
-					linkClassList = links[0].classList,
-					linksLength = links.length,
-					last = links[linksLength - 1],
-					span;
-				DOM.setNSData(item, "theme", itemTheme);
-				engine.instanceWidget(
-					item,
-					"Button",
-					{
-						wrapperEls: "div",
-						shadow: false,
-						corners: false,
-						iconpos: "right",
-						icon: false
-					}
-				);
-
-				if (linksLength === 1) {
-					item.classList.add(classes.uiLiHasArrow);
-					if (icon !== false) {
-						item.classList.add(buttonClasses.uiBtnIconRight);
-					}
-				} else if (linksLength > 1) {
-					item.classList.add(classes.uiLiHasAlt);
-					item.appendChild(last);
-					last.classList.add(classes.uiLiLinkAlt);
-					last.setAttribute("title", last.innerText);
-					last.innerText = "";
-					engine.instanceWidget(
-						last,
-						"Button",
-						{
-							wrapperEls: "span",
-							shadow: false,
-							corners: false,
-							iconpos: "right",
-							icon: false
-						}
-					);
-					last.classList.add(buttonClasses.uiBtnIconNotext);
-
-					span = document.createElement("span");
-					engine.instanceWidget(
-						span,
-						"Button",
-						{
-							wrapperEls: "span",
-							shadow: true,
-							corners: false,
-							iconpos: "notext",
-							icon: "arrow-r"
-						}
-					);
-					last.querySelector("." + buttonClasses.uiBtnInner)
-							.appendChild(span);
-				}
-				linkClassList.remove(classes.uiLink);
-				linkClassList.add(classes.uiLinkInherit);
-
-				selectors.getChildrenByClass(item, buttonClasses.uiBtnInner)
-					.forEach(function (element) {
-						element.classList.add(classes.uiLi);
-					});
-			}
-
-			/**
-			 * Add thumb classes img
-			 * @method addThumbClassesToImg
-			 * @param {HTMLElement} img
-			 * @private
-			 * @static
-			 * @member ns.widget.mobile.Listview
-			 */
-			function addThumbClassesToImg(img) {
-				var parentNode = selectors.getClosestByTag(img.parentNode, "li");
-				img.classList.add(classes.uiLiThumb);
-				if (parentNode) {
-					parentNode.classList.add(
-						img.classList.contains(classes.uiLiIcon) ?
-							classes.uiLiHasIcon :
-							classes.uiLiHasThumb
-					);
-				}
-			}
-
-			/**
-			 * Add thumb classes to first img of container
-			 * @method addThumbClasses
-			 * @param {HTMLElement} container
-			 * @private
-			 * @static
-			 * @member ns.widget.mobile.Listview
-			 */
-			function addThumbClasses(container) {
-				var img;
-				img = selectors.getChildrenByTag(container, "img");
-				if (img.length) {
-					addThumbClassesToImg(img[0]);
-				}
-			}
-
-			/**
-			 * Add checkbox classes to first input of container
-			 * @method addCheckboxRadioClasses
-			 * @param {HTMLElement} container HTML LI element.
-			 * @private
-			 * @static
-			 * @member ns.widget.mobile.Listview
-			 */
-			function addCheckboxRadioClasses(container) {
-				var inputAttr = container.querySelector("input"),
-					typeOfInput,
-					contenerClassList = container.classList;
-				if (inputAttr) {
-					typeOfInput = inputAttr.getAttribute("type");
-					if (typeOfInput === "checkbox") {
-						contenerClassList.add(classes.uiLiHasCheckbox);
-					} else if (typeOfInput === "radio") {
-						contenerClassList.add(classes.uiLiHasRadio);
-					}
-				}
-			}
-
-			/**
-			 * Function add ui-li-heading class to all headings elemenets in list
-			 * @method addHeadingClasses
-			 * @param {HTMLElement} container HTML LI element.
-			 * @private
-			 * @static
-			 * @member ns.widget.mobile.Listview
-			 */
-			function addHeadingClasses(container) {
-				var headings = [].slice.call(container.querySelectorAll("h1, h2, h3, h4, h5, h6")),
-					i = headings.length - 1;
-				while (i >= 0) {
-					headings[i].classList.add(classes.uiLiHeading);
-					i--;
-				}
-			}
-
-			/**
-			 * Add right button classes to first button of container
-			 * @method addRightBtnClasses
-			 * @param {HTMLElement} container HTML LI element
-			 * @private
-			 * @static
-			 * @member ns.widget.mobile.Listview
-			 */
-			function addRightBtnClasses(container) {
-				var btnAttr = container.querySelector("[data-role='button'],input[type='button'],select[data-role='slider'],input[type='submit'],input[type='reset'],button");
-				if (btnAttr) {
-					if (DOM.getNSData(btnAttr, "style") === "circle") {
-						container.classList.add(classes.uiLiHasRightCircleBtn);
-					} else {
-						container.classList.add(classes.uiLiHasRightBtn);
-					}
-				}
-			}
-
-			/**
-			 * Build Listview widget
-			 * @method _build
-			 * @param {HTMLElement} element
-			 * @return {HTMLElement}
-			 * @protected
-			 * @member ns.widget.mobile.Listview
-			 */
-			Listview.prototype._build = function (element) {
-				var elementClassList = element.classList;
-				elementClassList.add(classes.uiListview);
-				if (this.options.inset) {
-					elementClassList.add(classes.uiListviewInset);
-					elementClassList.add(classes.uiCornerAll);
-					elementClassList.add(classes.uiShadow);
-				}
-				//@todo check if this is ol list
-
-				this._refreshItems(element, true);
-				return element;
-			};
-
-			/**
-			 * Initialize Listview widget
-			 * @method _init
-			 * @param {HTMLElement} element
-			 * @protected
-			 * @member ns.widget.mobile.Listview
-			 */
-			Listview.prototype._init = function (element) {
-				var ui = this._ui,
-					page = ui.page,
-					popup = selectors.getClosestBySelector(element, "[data-role=popup]"),
-					drawer = selectors.getClosestBySelector(element, "[data-role=drawer]"),
-					elementType = element.tagName.toLowerCase();
-
-				//for everything what is not a list based on ul set the following width
-				if (!popup && elementType !== "ul" && !drawer) {
-					element.style.width = window.innerWidth + "px";
-				}
-
-				if (!page) {
-					page = selectors.getClosestByClass(element, Page.classes.uiPage);
-					if (page) {
-						this._ui.page = page;
-					}
-				}
-
-				this._liElementOffsetTop = [];
-				this._liElementOffsetHeight = [];
-				this._dummyElement = document.createElement("div");
-				this._liElements = element.getElementsByTagName("li");
-				this._color = {
-						hue: 0,
-						saturation: 0,
-						lightness: 0
-				};
-				this._scrollTop = 0;
-				this._coloredListTop = 0;
-				return element;
-			};
-
-			/**
-			 * Make colored list widget
-			 * @method _makecoloredList
-			 * @param {HTMLElement} element
-			 * @protected
-			 * @member ns.widget.mobile.Listview
-			 */
-			Listview.prototype._makeColoredList = function (element) {
-				var self = this,
-					page = selectors.getClosestByClass(element, Page.classes.uiPage),
-					pageStyle = window.getComputedStyle(page),
-					pageColor = pageStyle.getPropertyCSSValue("background-color").getRGBColorValue(),
-					color = self._color,
-					dummyElement = self._dummyElement,
-					len,
-					parentElement,
-					i;
-
-				// Init color
-				pageColor = colorUtils.RGBToHSL([parseInt(pageColor.red.cssText, 10) / 255, parseInt(pageColor.green.cssText, 10) / 255, parseInt(pageColor.blue.cssText, 10) / 255]);
-				color.hue = parseInt(pageColor[0], 10);
-				color.saturation = parseInt(pageColor[1] * 100, 10);
-				color.lightness = parseInt(pageColor[2] * 100, 10);
-
-				len = self._liElements.length;
-				for (i = 0; i < len; i++){
-					self._liElementOffsetTop[i] = self._liElements[i].offsetTop;
-					self._liElementOffsetHeight[i] = self._liElements[i].offsetHeight;
-				}
-
-				dummyElement.classList.add("ui-listview-dummy");
-				parentElement = selectors.getClosestByClass(element, "ui-scrollview-clip");
-				self._scrolledElement = parentElement;
-				self._coloredListHandler = self._scrollHandler.bind(self); // This variable will be used when event handler remove.
-				if (parentElement){
-					// List in scrollview
-					parentElement.parentNode.appendChild(dummyElement);
-					parentElement.addEventListener("scroll", self._coloredListHandler);
-					if (self._scrollTop) {
-						// It was scrolled before that means listview element made before and don't need to init more.
-						return;
-					}
-
-					dummyElement.style.top = parentElement.offsetTop + "px";
-				} else {
-					parentElement = element.parentNode;
-					parentElement.appendChild(dummyElement);
-					parentElement.addEventListener("scroll", self._coloredListHandler);
-					dummyElement.style.top = "0";
-				}
-				self._changeColoredPosition(0); // Init linear-gradient
-
-				parentElement.style.backgroundColor = "transparent";
-
-				dummyElement.style.width = element.offsetWidth + "px";
-				dummyElement.style.height = parentElement.offsetHeight + "px";
-
-			};
-
-			Listview.prototype._scrollHandler = function (event) {
-				var self = this,
-					scrollTop = event.target.scrollTop,
-					liElementOffsetTop = self._liElementOffsetTop,
-					coloredListTop = self._coloredListTop,
-					liElementOffsetHeight = self._liElementOffsetHeight;
-				self._scrollTop = scrollTop;
-
-				if (scrollTop > liElementOffsetTop[coloredListTop + 1]) {
-					if (scrollTop > liElementOffsetTop[coloredListTop + 1] + liElementOffsetHeight[coloredListTop + 1]) {
-						// scroll was moved by scrollTo.
-						while(scrollTop > liElementOffsetTop[coloredListTop + 1] + liElementOffsetHeight[coloredListTop + 1]) {
-							coloredListTop++;
-						}
-					}
-					coloredListTop++;
-				} else if (scrollTop < liElementOffsetTop[coloredListTop]) {
-					if (scrollTop < liElementOffsetTop[coloredListTop - 1]) {
-						// scroll was moved by scrollTo
-						while(scrollTop < liElementOffsetTop[coloredListTop - 1]) {
-							coloredListTop--;
-						}
-					}
-					coloredListTop--;
-				}
-
-				self._coloredListTop = coloredListTop;
-				if (scrollTop > liElementOffsetTop[coloredListTop]) {
-					// move down
-					self._changeColoredPosition(1);
-				} else if (scrollTop > liElementOffsetTop[coloredListTop][1] && scrollTop < liElementOffsetTop[self._coloredListTop]) {
-					self._changeColoredPosition(0);
-				} else if (scrollTop === 0) {
-					self._changeColoredPosition(0);
-				}
-			};
-
-			Listview.prototype._changeColoredPosition = function (direction) {
-				var self = this,
-					listTopOffsetHeight = self._liElementOffsetHeight[self._coloredListTop],
-					colorRatio = 4 / listTopOffsetHeight, // Each list has difference to lightness 4%
-					hue = self._color.hue,
-					saturation = self._color.saturation,
-					lightness = self._color.lightness,
-					top = self._coloredListTop,
-					liElementOffsetTop = self._liElementOffsetTop,
-					scrollTop = self._scrollTop,
-					diffLightness = self.options.diffLightness,
-					changedRed = 0,
-					changedGreen = 0,
-					changedBlue = 0,
-					changedInterval = liElementOffsetTop[top] - scrollTop,
-					adjustedColorValue = 0,
-					adjustedTopValue = 0,
-					changedColor = 0,
-					validTop = top,
-					liElementsLength = liElementOffsetTop.length - 1,
-					validLength,
-					colorHsl,
-					nextColorHsl,
-					validLightness,
-					gradientValue,
-					gradient;
-
-				if (!direction) {
-					// move up
-					colorRatio = -colorRatio; // redRatio = -4 / listTopOffsetHeight
-				}
-
-				if (self._liElements[top].classList.contains("ui-li-divider")) {
-					validTop = top + 1;
-				} else {
-					changedColor = colorRatio * -changedInterval;
-				}
-
-				validLength = validTop + self.options.coloredListNumber;
-				for (top = validTop; top < validLength && top < liElementsLength ; top++) {
-					adjustedColorValue = top - validTop;
-					adjustedTopValue = liElementOffsetTop[top + 1] - scrollTop + 2; // Number 2 makes boundary between each element located more correctly.
-					validLightness = lightness - (diffLightness * adjustedColorValue) + changedColor;
-					colorHsl = "hsl( " + hue + ", " + saturation + "%, " + validLightness + "%)";
-					nextColorHsl = "hsl( " + hue + ", " + saturation + "%, " + (validLightness - diffLightness) + "%)";
-					if (adjustedColorValue === 0) {
-						// First gradient value
-						gradientValue = colorHsl + " " + (liElementOffsetTop[validTop] - scrollTop + 2) + "px";
-					}
-					gradientValue += ", " + colorHsl + " " + adjustedTopValue + "px";
-					gradientValue += ", "  + nextColorHsl + " " + adjustedTopValue + "px";
-
-				}
-
-				gradientValue += ", "  + nextColorHsl + " " + (adjustedTopValue + self._liElementOffsetHeight[top]) + "px";
-				gradient = "-webkit-linear-gradient(top," + gradientValue + ")";
-				self._dummyElement.style["background"] = gradient;
-			};
-
-			Listview.prototype._destroyColoredList = function (element) {
-				var self = this;
-				if (self._dummyElement.parentNode){
-					self._dummyElement.remove();
-				}
-				if (self._scrolledElement) {
-					self._scrolledElement.removeEventListener("scroll",self._coloredListHandler);
-				}
-			};
-			/**
-			 * Change Checkbox/Radio state when list clicked
-			 * @method _clickCheckboxRadio
-			 * @param {HTMLElement} element
-			 * @protected
-			 * @member ns.widget.mobile.Listview
-			 */
-			Listview.prototype._clickCheckboxRadio = function (element) {
-				var checkboxRadio = slice.call(element.querySelectorAll(".ui-checkbox label, .ui-radio label")),
-					i = checkboxRadio.length;
-				while (--i >= 0) {
-					eventUtils.trigger(checkboxRadio[i], "vclick");
-				}
-			};
-
-			/**
-			 * Registers widget's event listeners
-			 * @method _bindEvents
-			 * @param {HTMLElement} element
-			 * @protected
-			 * @member ns.widget.mobile.Listview
-			 */
-			Listview.prototype._bindEvents = function (element) {
-				var self = this,
-					page = selectors.getClosestByClass(element, Page.classes.uiPage);
-
-				element.addEventListener("vclick", function (event) {
-					var target = event.target,
-						parentTarget = target.parentNode;
-
-					if (target.classList.contains(classes.uiLiHasCheckbox) || target.classList.contains(classes.uiLiHasRadio)) {
-						self._clickCheckboxRadio(target);
-					} else if (parentTarget.classList.contains(classes.uiLiHasCheckbox) || parentTarget.classList.contains(classes.uiLiHasRadio)) {
-						self._clickCheckboxRadio(parentTarget);
-					}
-				}, false);
-
-				if (element.getAttribute("data-type") !== "colored") {
-					element.classList.add("ui-listview-default");
-					return;
-				} else {
-					if (!element.classList.contains(classes.uiListviewColored)) {
-						element.classList.add(classes.uiListviewColored);
-					}
-					eventUtils.on(page, "pageshow updatelayout", self._makeColoredList.bind(this, element));
-					page.addEventListener("pagebeforehide", self._destroyColoredList.bind(this, element));
-				}
-
-			};
-
-			/**
-			 * Removes corners from one LI element
-			 * @method removeCorners
-			 * @param {HTMLElement} element HTML LI element
-			 * @param {string} which which corners will be removed
-			 * @static
-			 * @private
-			 * @member ns.widget.mobile.Listview
-			 */
-			function removeCorners(element, which) {
-				var elementClassList = element.classList;
-				switch (which) {
-					case "top":
-						elementClassList.remove(classes.uiCornerTop);
-						elementClassList.remove(classes.uiCornerTr);
-						elementClassList.remove(classes.uiCornerTl);
-						break;
-					case "bottom":
-						elementClassList.remove(classes.uiCornerBottom);
-						elementClassList.remove(classes.uiCornerBr);
-						elementClassList.remove(classes.uiCornerBl);
-						break;
-				}
-			}
-
-			/**
-			 * Removes corners
-			 * @method _removeCorners
-			 * @param {HTMLElement} li HTML LI element
-			 * @param {string} which which corners will be removed
-			 * @protected
-			 * @member ns.widget.mobile.Listview
-			 */
-			Listview.prototype._removeCorners = function (li, which) {
-				var additionlElements = slice.call(li.querySelectorAll(
-					"." + buttonClasses.uiBtnInner + ", " +
-						"." + classes.uiLiLinkAlt + ", " +
-						"." + classes.uiLiThumb
-				));
-
-				if (which === "top" || which !== "bottom") {
-					removeCorners(li, "top");
-					additionlElements.forEach(function (item) {
-						removeCorners(item, "top");
-					});
-				}
-				if (which === "bottom" || which !== "top") {
-					removeCorners(li, "bottom");
-					additionlElements.forEach(function (item) {
-						removeCorners(item, "bottom");
-					});
-				}
-			};
-
-			/**
-			 * Adding top corners for list item
-			 * @param {HTMLElement} item
-			 * @member ns.widget.mobile.Listview
-			 * @private
-			 * @static
-			 */
-			function addTopCorners(item) {
-				item.classList.add(classes.uiCornerTop);
-				slice.call(item.querySelectorAll("." + buttonClasses.uiBtnInner + ":not(." + classes.uiLiLinkAlt + ")")).forEach(function (subitem) {
-					subitem.classList.add(classes.uiCornerTop);
-				});
-				slice.call(item.querySelectorAll("." + buttonClasses.uiBtnInner + ":not(:first-child)")).forEach(function (subitem) {
-					subitem.classList.add(classes.uiCornerTop);
-				});
-				slice.call(item.querySelectorAll("." + classes.uiLiLinkAlt + ", ." + classes.uiLiLinkAlt + " span:first-child")).forEach(function (subitem) {
-					subitem.classList.add(classes.uiCornerTr);
-				});
-				slice.call(item.querySelectorAll("." + classes.uiLiThumb + ":not(." + classes.uiLiIcon + ")")).forEach(function (subitem) {
-					subitem.classList.add(classes.uiCornerTl);
-				});
-			}
-
-			/**
-			 * Adding bottom corners for list item
-			 * @param {HTMLElement} item
-			 * @member ns.widget.mobile.Listview
-			 * @private
-			 * @static
-			 */
-			function addBottomCorners(item) {
-				var itemClassList = item.classList;
-				itemClassList.add(classes.uiCornerBottom);
-				itemClassList.add(classes.uiLiLast);
-				slice.call(item.querySelectorAll("." + classes.uiLiThumb)).forEach(function (subitem) {
-					subitem.classList.add(classes.uiCornerBr);
-				});
-				slice.call(item.querySelectorAll("." + classes.uiLiThumb + ":not(." + classes.uiLiIcon + ")")).forEach(function (subitem) {
-					subitem.classList.add(classes.uiCornerBl);
-				});
-			}
-
-			/**
-			 * Refresh corners
-			 * @method _refreshCorners
-			 * @param {HTMLElement} ul HTML UL element
-			 * @param {boolean} create if set "true" then the "updatelayout" event will be triggered
-			 * @protected
-			 * @member ns.widget.mobile.Listview
-			 */
-			Listview.prototype._refreshCorners = function (ul, create) {
-				var items,
-					self = this,
-					last;
-
-				items = selectors.getChildrenByTag(ul, "li");
-				if (items.length) {
-					// clean previous corners
-					items.forEach(function (item) {
-						// ui-li-last is used for setting border-bottom on the last li
-						item.classList.remove(classes.uiLiLast);
-						self._removeCorners(item);
-					});
-
-					// filter element which occupied place on the view
-					items = items.filter(DOM.isOccupiedPlace);
-
-					if (items.length) {
-						last = items.length - 1;
-						if (self.options.inset) {
-							addTopCorners(items[0]);
-							addBottomCorners(items[last]);
-						} else {
-							items[last].classList.add(classes.uiLiLast);
-						}
-					}
-				}
-				if (!create) {
-					eventUtils.trigger(ul, "updatelayout");
-				}
-			};
-
-			/**
-			 * Refresh items of list
-			 * @method _refreshItems
-			 * @param {HTMLElement} ul HTML UL element
-			 * @param {boolean} create
-			 * @protected
-			 * @member ns.widget.mobile.Listview
-			 */
-			Listview.prototype._refreshItems = function (ul, create) {
-				var items,
-					options = this.options,
-					theme,
-					last,
-					imgs,
-					dividerTheme;
-
-				eventUtils.trigger(ul, "beforerefreshitems");
-				items = selectors.getChildrenByTag(ul, "li");
-				theme = DOM.getNSData(ul, "theme") || options.theme || "s";
-				dividerTheme = DOM.getNSData(ul, "divider-theme") || options.dividerTheme || theme;
-				last = items.length - 1;
-
-				//@todo filter only visible
-				items.forEach(function (item, index) {
-					var itemTheme,
-						links,
-						link,
-						itemClassList = item.classList;
-					if (create || !item.classList.contains(classes.uiLi)) {
-						itemClassList.add(classes.uiLi);
-						links = selectors.getChildrenByTag(item, "a");
-						itemTheme = DOM.getNSData(item, "theme") || theme;
-
-						if (!!item.querySelector("." + classes.uiLiCount)) {
-							itemClassList.add(classes.uiLiHasCount);
-						}
-
-						//becasue ListDivider is attached later then Listview I cannot make reference to ListDivider classes
-						if (selectors.matchesSelector(item, '[data-role="list-divider"],.ui-list-divider')) {
-							DOM.setNSData(item, "theme", dividerTheme);
-							engine.instanceWidget(item, "ListDivider");
-						} else {
-							if (links.length) {
-								changeLinksToButton(item, links, itemTheme);
-								link = links[0];
-								addCheckboxRadioClasses(link);
-								addThumbClasses(link);
-								addRightBtnClasses(link);
-							} else {
-								itemClassList.add(classes.uiLiStatic);
-								itemClassList.add(buttonClasses.uiBtnUpThemePrefix + itemTheme);
-								item.setAttribute("tabindex", "0");
-							}
-							addHeadingClasses(item);
-						}
-					}
-					addCheckboxRadioClasses(item);
-					addThumbClasses(item);
-					addRightBtnClasses(item);
-					if (index === last) {
-						itemClassList.add(classes.uiLiLast);
-					} else {
-						itemClassList.remove(classes.uiLiLast);
-					}
-				}, this);
-
-				imgs = ul.querySelectorAll("." + classes.uiLinkInherit + " > img:first-child");
-				if (imgs.length !== 0) {
-					slice.call(imgs).forEach(function (img) {
-						addThumbClassesToImg(img);
-					});
-				}
-				this._refreshCorners(ul, create);
-			};
-
-			/**
-			 * Refresh Listview widget
-			 * @method refresh
-			 * @protected
-			 * @member ns.widget.mobile.Listview
-			 */
-			Listview.prototype.refresh = function () {
-				this._refreshItems(this.element, false);
-				eventUtils.trigger(this.element, this.name.toLowerCase() + "afterrefresh");
-			};
-
-			/**
-			 * Adds item to widget and refreshes layout.
-			 * @method addItem
-			 * @param {HTMLElement} listItem new LI item
-			 * @param {number} position position on list
-			 * @member ns.widget.mobile.Listview
-			 */
-			Listview.prototype.addItem = function (listItem, position) {
-				var element = this.element,
-					childNodes = element.getElementsByTagName("li"),
-					tempDiv = document.createElement("div"),
-					liItem,
-					liButtons,
-					i;
-
-				tempDiv.innerHTML = listItem;
-				liItem = tempDiv.firstChild;
-				liButtons = liItem.querySelectorAll("[data-role='button']");
-
-				if (position) {
-					element.insertBefore(liItem, childNodes[position]);
-				} else {
-					element.appendChild(liItem);
-				}
-
-				for (i = 0; i < liButtons.length; i++) {
-					engine.instanceWidget(liButtons[i], "Button");
-				}
-
-				this.refresh();
-			};
-
-			/**
-			 * Removes item from widget and refreshes layout.
-			 * @method removeItem
-			 * @param {number} position position on list
-			 * @member ns.widget.mobile.Listview
-			 */
-			Listview.prototype.removeItem = function (position) {
-				var element = this.element,
-					childNodes = element.getElementsByTagName("li");
-
-				element.removeChild(childNodes[position]);
-				this.refresh();
-			};
-
-			ns.widget.mobile.Listview = Listview;
-			engine.defineWidget(
-				"Listview",
-				"[data-role='listview'], .ui-listview",
-				["addItem", "removeItem"],
-				Listview,
-				"mobile"
-			);
-			}(window, window.document, ns));
 
 /*global window, define */
 /*
@@ -25837,7 +24145,7 @@ ns.version = '0.9.26';
 
 			}(ns));
 
-/*global window, define */
+/*global ns, define */
 /* 
  * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
  * License : MIT License V2
@@ -25845,108 +24153,8 @@ ns.version = '0.9.26';
 /*jslint nomen: true */
 /**
  * # List Divider Widget
- * List divider widget creates a list separator, which can be used for building grouping lists using.
- *
- *
- * ## Default selectors
- * In all elements with _data-role=listdivider_ are changed to Tizen Web UI ListDivider.
- *
- * In addition all elements with class _ui-listdivider_ are changed to Tizen Web UI ListDivider.
- *
- *		@example
- *		<ul data-role="listview">
- *			<li data-role="list-divider">Item styles</li>
- *			<li><a href="#">Normal lists</a></li>
- *			<li><a href="#">Normal lists</a></li>
- *			<li><a href="#">Normal lists</a></li>
- *		</ul>
- *
- * ## Manual constructor
- * For manual creation of listdivider widget you can use constructor of widget:
- *
- *		@example
- *		<ul data-role="listview">
- *			<li>Item</li>
- *			<li id="listdivider">Divider</li>
- *			<li>Item</li>
- *			<li>Item</li>
- *		</ul>
- *		<script>
- *			var listdivider = tau.widget.ListDivider(document.getElementById("listdivider"));
- *		</script>
- *
- * If jQuery library is loaded, its method can be used:
- *
- *		@example
- *		<ul data-role="listview">
- *			<li>Item</li>
- *			<li id="listdivider">Divider</li>
- *			<li>Item</li>
- *			<li>Item</li>
- *		</ul>
- *		<script>
- *			$("#listdivider").listdivider();
- *		</script>
- *
- * ## Options
- *
- * ### Style
- * _data-style_ string ["normal" | "checkbox" | "dialogue"] Option sets the style of the list divider.
- *
- * #### Checkbox
- *
- *		@example
- *		<ul data-role="listview">
- *			<li data-role="list-divider" data-style="checkbox">
- *				<form><input type="checkbox">Select All</form>
- *			</li>
- *			<li><form><input type="checkbox">Item</form></li>
- *			<li><form><input type="checkbox">Item</form></li>
- *			<li><form><input type="checkbox">Item</form></li>
- *		</ul>
- *
- * #### Dialogue
- *
- *		@example
- *		<ul data-role="listview">
- *			<li data-role="list-divider" data-style="dialogue">Items</li>
- *			<li>Item</li>
- *			<li>Item</li>
- *			<li>Item</li>
- *		</ul>
- *
- * ### Theme
- * _data-theme_ string Theme for list divider
- *
- *		@example
- *		<ul data-role="listview">
- *			<li data-role="list-divider" data-theme="c">Item styles</li>
- *			<li>Item</li>
- *			<li>Item</li>
- *			<li>Item</li>
- *		</ul>
- *
- * ### Folded
- * _data-folded_ string ["true" | "false"] Decide to show divider press effect or not
- *
- *		@example
- *		<ul data-role="listview">
- *			<li data-role="list-divider" data-folded="true">Item styles</li>
- *			<li>Item</li>
- *			<li>Item</li>
- *			<li>Item</li>
- *		</ul>
- *
- * ### Line
- * _data-line_ string ["true" | "false"] Decide to draw divider line or not
- *
- *		@example
- *		<ul data-role="listview">
- *			<li data-role="list-divider" data-line="false">Item styles</li>
- *			<li>Item</li>
- *			<li>Item</li>
- *			<li>Item</li>
- *		</ul>
+ * List divider widget creates a list separator, which can be used for building
+ * grouped list of items.
  *
  * @class ns.widget.tv.ListDivider
  * @extends ns.widget.mobile.ListDivider
@@ -26585,8 +24793,8 @@ ns.version = '0.9.26';
 			);
 			}(window.document, ns));
 
-/*global window, define */
-/* 
+/*global window, define, ns */
+/*
  * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
  * License : MIT License V2
  */
@@ -26594,9 +24802,6 @@ ns.version = '0.9.26';
 /**
  * #Checkbox-radio Widget
  * Checkboxradio widget changes default browser checkboxes and radios to form more adapted to TV environment.
- *
- * ##Default selectors
- * In default all inputs with type _checkbox_ or _radio_ are changed to Checkboxradio widget.
  *
  * ##HTML Examples
  *
@@ -26616,13 +24821,11 @@ ns.version = '0.9.26';
 (function (document, ns) {
 	
 				var MobileCheckboxradio = ns.widget.mobile.Checkboxradio,
-				MobileCheckboxradioPrototype = MobileCheckboxradio.prototype,
 				BaseKeyboardSupport = ns.widget.tv.BaseKeyboardSupport,
 				engine = ns.engine,
 				classes = {
 					focused: "focus"
 				},
-				FUNCTION_TYPE = "function",
 				Checkboxradio = function () {
 					MobileCheckboxradio.call(this);
 					BaseKeyboardSupport.call(this);
@@ -26635,20 +24838,6 @@ ns.version = '0.9.26';
 				prototype = new MobileCheckboxradio();
 
 			Checkboxradio.prototype = prototype;
-
-			/**
-			* Method initializes widget
-			* @param {HTMLElement} element Input element
-			*/
-			prototype._init = function(element) {
-				var self = this;
-				if (typeof MobileCheckboxradioPrototype._init === FUNCTION_TYPE) {
-					MobileCheckboxradioPrototype._init.call(self, element);
-				}
-
-				self.registerActiveSelector("input:not([disabled]):not([type=radio])");
-				self.registerActiveSelector(".radio-container");
-			};
 
 			/**
 			* Builds structure of checkboxradio widget
@@ -26706,7 +24895,7 @@ ns.version = '0.9.26';
 					length = labels.length,
 					i;
 				for (i = 0; i < length; i++) {
-					if (labels[i].htmlFor == id) {
+					if (labels[i].htmlFor === id) {
 						return labels[i];
 					}
 				}
@@ -26835,6 +25024,9 @@ ns.version = '0.9.26';
 				"tv",
 				true
 			);
+
+			BaseKeyboardSupport.registerActiveSelector(".radio-container");
+
 			}(window.document, ns));
 
 /*global window, define */
@@ -26990,7 +25182,7 @@ ns.version = '0.9.26';
 
 			}(window.document, ns));
 
-/*global window, define */
+/*global window, define, ns */
 /* 
  * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
  * License : MIT License V2
@@ -27000,47 +25192,8 @@ ns.version = '0.9.26';
  * # Progress Widget
  * Shows a control that indicates the progress percentage of an on-going operation.
  *
- * The progress widget shows a control that indicates the progress percentage of an on-going operation. This widget can be scaled to fit inside a parent container.
- *
- * ## Default selectors
- *
- * This widget provide three style progress.
- *
- * ### Simple progress bar
- * If you don't implement any class, you can show default progress style
- * To add a progress widget to the application, use the following code:
- *
- *      @example
- *      <progress max="100" value="90"></progress>
- *
- * ### Infinite progress bar
- * If you implement class (*ui-progress-indeterminate*), you can show image looks like infinite move.
- *
- * To add a progress widget to the application, use the following code:
- *      @example
- *      <progress class="ui-progress-indeterminate" max="100" value="100"></progress>
- *
- * ### Progress bar with additional information
- * If you implement div tag that can choose two classes (*ui-progress-proportion* or *ui-progress-ratio*) at progress tag same level, you can show two information (proportion information is located left below and ratio information is located right below)
- *
- * To add a progress widget to the application, use the following code:
- *
- *      @example
- *      <progress max="100" value="50"></progress>
- *      <div class="ui-progress-proportion">00/20</div>
- *      <div class="ui-progress-ratio">50%</div>
- *
- * ### Controllable progress bar
- * To implement this add class ui-progress-controllable
- * @example
- * <progress min="0" max="100" value="50" class="ui-progress-controllable"></progress>
- *
- * ## JavaScript API
- *
- * Progress widget hasn't JavaScript API.
- *
  * @class ns.widget.tv.Progress
- * @extends ns.widget.BaseWidget
+ * @extends ns.widget.core.Progress
  */
 (function (document, ns) {
 	
@@ -27055,7 +25208,7 @@ ns.version = '0.9.26';
 				},
 
 				Progress = function () {
-					CoreProgress.call(self);
+					CoreProgress.call(this);
 					/**
 					 * Object with default options
 					 * @property {Object} options
@@ -27116,7 +25269,7 @@ ns.version = '0.9.26';
 				if (element.getAttribute("disabled") === "disabled") {
 					element.classList.add(classes.disabled);
 				}
-			}
+			};
 
 			/**
 			 * Method sets ProgressBar value.
@@ -27126,10 +25279,10 @@ ns.version = '0.9.26';
 			 * @protected
 			 * @member ns.widget.tv.Progress
 			 */
-			Progress.prototype._setValue = function (value) {
+			prototype._setValue = function (value) {
 				var self = this,
 					options = self.options;
-				if ((typeof value === "number") && (value != options.value) && (value >= options.min) && (value <= options.max)) {
+				if ((typeof value === "number") && (value !== options.value) && (value >= options.min) && (value <= options.max)) {
 					self.trigger("change");
 					if (value === self.maxValue) {
 						self.trigger("complete");
@@ -27149,7 +25302,7 @@ ns.version = '0.9.26';
 			 * @protected
 			 * @member ns.widget.tv.Progress
 			 */
-			Progress.prototype._getValue = function () {
+			prototype._getValue = function () {
 				return this.options.value;
 			};
 
@@ -27158,26 +25311,26 @@ ns.version = '0.9.26';
 			 * @method focus
 			 * @member ns.widget.tv.Progress
 			 */
-			Progress.prototype.focus = function () {
+			prototype.focus = function () {
 				var classList = this.element.classList,
 					focused = classes.focused;
 				if (!classList.contains(focused)) {
 					classList.add(focused);
 				}
-			}
+			};
 
 			/**
 			 * Method unfocuses object
 			 * @method blur
 			 * @member ns.widget.tv.Progress
 			 */
-			Progress.prototype.blur = function () {
+			prototype.blur = function () {
 				var classList = this.element.classList,
 					focused = classes.focused;
 				if (classList.contains(focused)) {
 					classList.remove(focused);
 				}
-			}
+			};
 
 			ns.widget.tv.Progress = Progress;
 
@@ -27774,8 +25927,8 @@ ns.version = '0.9.26';
 				var self = this,
 					tabbarClassList = element.classList,
 					li = slice.call(element.getElementsByTagName("li")),
-					innerWidth = element.offsetWidth,
-					innerHeight = element.offsetHeight,
+					innerWidth = element.offsetWidth ? element.offsetWidth : window.innerWidth,
+					innerHeight = element.offsetHeight ? element.offsetHeight : window.innerHeight,
 					inHeaders = !!(selectors.getParentsByClass(element, classes.uiHeader).length),
 					isLandscape = innerWidth > innerHeight,
 					btnActiveClass = ButtonClasses.uiBtnActive,
@@ -28201,6 +26354,11 @@ ns.version = '0.9.26';
 				elementClassList.add(classes.controlGroup);
 				elementClassList.add(classes.typePrefix + options.type);
 
+				//Make all the control group elements the same width
+				if (groupControls) {
+					this._setWidthForButtons(groupControls);
+				}
+
 				content = slice.call(element.querySelectorAll('.ui-btn')).filter(function (item) {
 					//@todo filter visiblity when excludeInvisible option is set
 					return !item.classList.contains('ui-slider-handle');
@@ -28212,11 +26370,6 @@ ns.version = '0.9.26';
 
 				if (options.mini) {
 					elementClassList.add(classes.mini);
-				}
-
-				//Make all the control group elements the same width
-				if(groupControls) {
-					this._setWidthForButtons(groupControls);
 				}
 
 				flipClasses(content, cornersClasses);
@@ -28251,12 +26404,19 @@ ns.version = '0.9.26';
 
 			}(window.document, ns));
 
-/*global window, define */
-/* 
+/*global window, define, ns */
+/*
  * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
  * License : MIT License V2
  */
-/*jslint nomen: true */
+/*jslint nomen: true, plusplus: true */
+/**
+ * #Control Group Widget
+ * Controlgroup widget improves the styling of a group of buttons by grouping them to form a single block.
+ *
+ * @class ns.widget.tv.Controlgroup
+ * @extends ns.widget.mobile.Controlgroup
+ */
 (function (document, ns) {
 	
 	
@@ -28265,7 +26425,7 @@ ns.version = '0.9.26';
 				selectors = ns.util.selectors,
 
 				ControlGroup = function () {
-					MobileControlGroup.call(self);
+					MobileControlGroup.call(this);
 				},
 				classes = MobileControlGroup.classes,
 				prototype = new MobileControlGroup();
@@ -28284,7 +26444,7 @@ ns.version = '0.9.26';
 				widthSize = 100 / controlElementsLength - 3;
 				for (i = 0; i < controlElementsLength; i++) {
 					engine.instanceWidget(controlElements[i], "Button");
-					controlElements[i].style.width = widthSize + '%';
+					controlElements[i].style.width = widthSize + "%";
 				}
 			};
 
@@ -28316,6 +26476,580 @@ ns.version = '0.9.26';
 			}
 			}(ns));
 
+/*global window, define*/
+/*
+ * Copyright  2010 - 2014 Samsung Electronics Co., Ltd.
+ * License : MIT License V2
+ */
+/**
+ * #Application Page Layout
+ *
+ * In the mobile Tizen Advanced UI framework (TAU) the page and its elements
+ * (header, content, and footer) are all <div> blocks with a specific data-role
+ * property. The header is placed at the top, and displays the page title.
+ * The content is the area below the header, showing the main content of the
+ * page. The footer is at the bottom, and contains the page menu.
+ *
+ * The following table describes the specific information for each section.
+ *
+ * <table>
+ * <caption>Table: Page sections</caption>
+ * <tbody>
+ * <tr>
+ * <th style="width:10%;">Section</th>
+ * <th>data-role</th>
+ * <th>Description</th>
+ * </tr>
+ * <tr>
+ * <td>Page</td>
+ * <td><span style="font-family: Courier New,Courier,monospace">"page"</span></td>
+ * <td><p>Defines the element as a page.</p>
+ * <p>The page widget is used to manage a single item in a page-based architecture.</p>
+ * <p>A page is composed of header (optional), content (mandatory), and footer (optional) elements.</p></td>
+ * </tr>
+ * <tr>
+ * <td>Header</td>
+ * <td><span style="font-family: Courier New,Courier,monospace">"header"</span></td>
+ * <td><p>Defines the element as a header.</p>
+ * <p>As the Tizen Wearable device screen size is small, avoid using the header element.</p></td>
+ * </tr>
+ * <tr>
+ * <td>Content</td>
+ * <td><span style="font-family: Courier New,Courier,monospace">"content"</span></td>
+ * <td><p>Defines the element as content.</p></td>
+ * </tr>
+ * <tr>
+ * <td>Footer</td>
+ * <td><span style="font-family: Courier New,Courier,monospace">"footer"</span></td>
+ * <td><p>Defines the element as a footer.</p>
+ * <p>The footer section is mostly used to include option buttons.</p></td>
+ * </tr>
+ * </tbody>
+ * </table>
+ *
+ * To add a page to the application, use the following code:
+ *
+ * 		@example
+ * 		<div data-role="page">
+ *			<!--Page area-->
+ *			<div data-role="header"><!--Header area--></div>
+ *			<div data-role="content"><!--Content area--></div>
+ *			<div data-role="footer"><!--Footer area--></div>
+ *		</div>
+ *
+ * In your application, you can:
+ *
+ * - [Create multi-page layouts](multipage.htm)
+ * - [Change the active page](change.htm)
+ * - [Handle page events and method](pageevents.htm)
+ *
+ * @page ns.page.layout
+ * @seeMore ../index.htm Tizen Advanced UI Framework
+ */
+;
+/*global window, define*/
+/*
+ * Copyright  2010 - 2014 Samsung Electronics Co., Ltd.
+ * License : MIT License V2
+ */
+/**
+ * #Multi-page Layout
+ *
+ * You can implement a template containing multiple page containers in the application index.html file.
+ *
+ * In the multi-page layout, we can define multi pages with data-role="page" attribute.
+ *
+ * You can link to internal pages by referring to the ID of the page. For example, to link to the page with an ID of two, the link element needs the href="#two" attribute in the code, as in the following example.
+ *
+ * 		@example
+ * 		<div data-role="page" id="main">
+ *			<div data-role="header" data-position="fixed">
+ *				<!--Header-->
+ *			</div>
+ *			<div data-role="content">
+ *				<a href="#two"data-role="button">TWO</a>
+ *			</div>
+ *		</div>
+ *		<div data-role="page" id="two">
+ *			<div data-role="header" data-position="fixed">
+ *				<!--Header-->
+ *			</div>
+ *			<div data-role="content">
+ *				<!--Content-->
+ *			</div>
+ *		</div>
+ *
+ * To find the currently active page, use the ui-page-active class.
+ *
+ * @page ns.page.multipage
+ * @seeMore layout.htm Application Page Layout
+ */
+;
+/*global window, define*/
+/*
+ * Copyright  2010 - 2014 Samsung Electronics Co., Ltd.
+ * License : MIT License V2
+ */
+/**
+ * #Changing Pages
+ *
+ * With TAU library, we can change page by method *changePage*.
+ *
+ * The following table lists the methods you can use to change the active page.
+ *
+ *!!!When you want to change pages with TAU, *DO NOT USE* _location.href_ or
+ * _location.replace. TAU have self-method of managing histories. But when you
+ * use above methods, it would lead to confusion. If you want to change pages,
+ * you can use _tau.changePage()_ and _tau.back()_.!!!
+ * ##Page changing methods
+ * ### Summary
+ *<table class="informaltable">
+ *<thead>
+ *<tr>
+ *<th>Method</th>
+ *<th>Description</th>
+ *</tr>
+ *</thead>
+ *<tbody>
+ *
+ *
+ *<tr>
+ *<td>
+ *<pre class="intable prettyprint"><a href="#method-changePage">tau.changePage</a> (toPage, options) </pre>
+ *</td>
+ *<td><p>Programmatically change to another page. The <span style="font-family: Courier New,Courier,monospace">to</span> argument is a page object or string.</p></td>
+ *</tr>
+ *
+ *
+ *
+ *<tr>
+ *<td>
+ *<pre class="intable prettyprint"><a href="#method-back">tau.back</a> (  ) </pre>
+ *</td>
+ *<td><p>Loads the previous page in the history list.</p></td>
+ *</tr>
+ *</tbody>
+ *</table>
+ *
+ *<dt class="method" id="addidp28072"><code><b><span class="methodName"
+ *id="method-changePage">tau.changePage</span></b></code></dt>
+ *<dd>
+ *<div class="brief">
+ *<p>Programmatically change to another page.</p>
+ *</div>
+ *<div class="synopsis">
+ *<pre class="signature prettyprint">tau.changePage (toPage, options) </pre>
+ *</div>
+ *
+ *<div class="description">
+ *<p>
+ *
+ *</p>
+ *</div>
+ *
+ *<div class="parameters">
+ *<p><span class="param">Parameters:</span></p>
+ *<table>
+ *<tbody>
+ *<tr>
+ *<th>Parameter</th>
+ *<th>Type</th>
+ *<th>Required / optional</th>
+ *<th>Description</th>
+ *</tr>
+ *
+ *
+ *<tr>
+ *<td><span style="font-family: Courier New,Courier,monospace">toPage</span></td>
+ *<td>HTMLElement | string</td>
+ *<td>required</td>
+ *<td>page to move <br>HTML element or relative url of page.</td>
+ *</tr>
+ *
+ *<tr>
+ *<td><span style="font-family: Courier New,Courier,monospace">options</span></td>
+ *<td>Object</td>
+ *<td>optional</td>
+ *<td>options to change pages.</td>
+ *</tr>
+ *</table></tbody></div>
+ *
+ *<div class="parameters">
+ *<p><span class="param">Options for changePage():</span></p>
+ *<table>
+ *<tbody>
+ *<tr>
+ *<th>option</th>
+ *<th>Type</th>
+ *<th>value</th>
+ *<th>Description</th>
+ *</tr>
+ *
+ *
+ *<tr>
+ *<td><span style="font-family: Courier New,Courier,monospace">transition</span></td>
+ *<td>string</td>
+ *<td>'sequential' | 'simultaneous' | 'flip' |'depth' | 'pop' | 'slide' |'turn'</td>
+ *<td>transition for opening page</td>
+ *</tr>
+ *
+ *<tr>
+ *<td><span style="font-family: Courier New,Courier,monospace">reverse</span></td>
+ *<td>boolean</td>
+ *<td>true | false</td>
+ *<td>true, if transition should be reversed</td>
+ *</tr>
+ *</table></tbody></div>
+ *
+ *<div class="example">
+ *<span class="example"><p>Code
+ *example (using HTML Element):</p><p></p></span>
+ *<pre name="code" class="examplecode
+ *prettyprint">
+ *&lt;div data-role=&quot;page&quot; id=&quot;main&quot;&gt;...&lt;/div&gt;
+ *&lt;script&gt;
+ *var element = document.getElementById("main");
+ *tau.changePage(element, {transition:'flip',reverse:false});
+ *&lt;/script&gt;
+ *</pre>
+ *</div>
+ *
+ *<div class="example">
+ *<span class="example"><p>Code
+ *example2 (using url string):</p><p></p></span>
+ *<pre name="code" class="examplecode
+ *prettyprint">
+ * // This is "index.html" and if there is "subPage.html" in same directory.
+ *&lt;script&gt;
+ *tau.changePage("subPage.html");
+ *&lt;/script&gt;
+ *</pre>
+ *</div>
+ *
+ *
+ *</dd>
+ *
+ *
+ *<dt class="method" id="addidp28072"><code><b><span class="methodName"
+ *id="method-back">back</span></b></code></dt>
+ *<dd>
+ *<div class="brief">
+ *<p>Loads the previous page in the history list.</p>
+ *</div>
+ *<div class="synopsis">
+ *<pre class="signature prettyprint">back ( ) </pre>
+ *</div>
+ *
+ *<div class="description">
+ *<p>
+ *<b>Same as:</b> window.history.back()
+ *</p>
+ *</div>
+ *
+ *
+ *
+ *</div>
+ *<div class="example">
+ *<span class="example"><p>Code
+ *example:</p><p></p></span>
+ *<pre name="code" class="examplecode
+ *prettyprint">
+ *&lt;script&gt;
+ *tau.back();
+ *&lt;/script&gt;
+ *</pre>
+ *</div>
+ *
+ *
+ *</dd>
+ *
+ * @page ns.page.change
+ * @seeMore layout.htm Application Page Layout
+ */
+;
+/*global window, define*/
+/*
+ * Copyright  2010 - 2014 Samsung Electronics Co., Ltd.
+ * License : MIT License V2
+ */
+/**
+ * #Handling Page Events and Methods
+ *
+ * TAU support "Page" as widget. So, when the page is created, it has several
+ * events and methods. In this document, we would introduce events and methods in
+ * TAU Page Widget.
+ *
+ * ## Events list
+ *
+ * The following table lists the events related to pages.
+ *
+ * <table>
+ * <tbody>
+ * <tr>
+ * <th>Name</th>
+ * <th>Description</th>
+ * </tr>
+ *
+ * <tr>
+ * <td class="option"><span style="font-family: Courier New,Courier,monospace">pagebeforchange</span></td>
+ * <td><p>Triggered before switching current page</p></td>
+ * </tr>
+ *
+ * <tr>
+ * <td class="option"><span style="font-family: Courier New,Courier,monospace">pagebeforecreate</span></td>
+ * <td><p>Triggered before the widget is created and initialized</p></td>
+ * </tr>
+ *
+ * <tr>
+ * <td class="option"><span style="font-family: Courier New,Courier,monospace">pagebeforehide</span></td>
+ * <td><p>Triggered before current page is about to be closed</p></td>
+ * </tr>
+ *
+ * <tr>
+ * <td class="option"><span style="font-family: Courier New,Courier,monospace">pagebeforeload</span></td>
+ * <td><p>Triggered before external page will be loaded</p></td>
+ * </tr>
+ *
+ * <tr>
+ * <td class="option"><span style="font-family: Courier New,Courier,monospace">pagebeforeshow</span></td>
+ * <td><p>Triggered before page will be displayed</p></td>
+ * </tr>
+ *
+ * <tr>
+ * <td class="option"><span style="font-family: Courier New,Courier,monospace">pagechange</span></td>
+ * <td><p>Triggered after switching current page</p></td>
+ * </tr>
+ *
+ * <tr>
+ * <td class="option"><span style="font-family: Courier New,Courier,monospace">pagechangefailed</span></td>
+ * <td><p>Triggered when page switching failed</p></td>
+ * </tr>
+ *
+ * <tr>
+ * <td class="option"><span style="font-family: Courier New,Courier,monospace">pagecreate</span></td>
+ * <td><p>Triggered after widget creation</p></td>
+ * </tr>
+ *
+ * <tr>
+ * <td class="option"><span style="font-family: Courier New,Courier,monospace">pagehide</span></td>
+ * <td><p>Triggered after the page is hidden</p></td>
+ * </tr>
+ *
+ * <tr>
+ * <td class="option"><span style="font-family: Courier New,Courier,monospace">pageinit</span></td>
+ * <td><p>Triggered after widget initialization occurs</p></td>
+ * </tr>
+ *
+ * <tr>
+ * <td class="option"><span style="font-family: Courier New,Courier,monospace">pageload</span></td>
+ * <td><p>Triggered after an external page is loaded</p></td>
+ * </tr>
+ *
+ * <tr>
+ * <td class="option"><span style="font-family: Courier New,Courier,monospace">pagremove</span></td>
+ * <td><p>Triggered after the external page is removed from the DOM</p></td>
+ * </tr>
+ *
+ * <tr>
+ * <td class="option"><span style="font-family: Courier New,Courier,monospace">pageshow</span></td>
+ * <td><p>Triggered after the page is displayed</p></td>
+ * </tr>
+ *
+ * </tbody>
+ * </table>
+ *
+ * ## Binding H/W Back Key event
+ *
+ * To bind an event callback on the Back key, use the following code:
+ *
+ * 		@example
+ * 		// JavaScript code
+ *		window.addEventListener('tizenhwkey', function(ev)
+ *			{
+ *				if (ev.originalEvent.keyName == "back")
+ *					{
+ *					// Call window.history.back() to go to previous browser window
+ *					// Call tizen.application.getCurrentApplication().exit() to exit application
+ *					// Add script to add another behavior
+ *					}
+ *			});
+ *
+ * @page ns.page.pageevents
+ * @seeMore layout.htm Application Page Layout
+ */
+;
+/*
+ * Copyright  2010 - 2014 Samsung Electronics Co., Ltd.
+ * License : MIT License V2
+ */
+/**
+ * #Design
+ *
+ * Application for TV have bigger screen in comparison with mobile or wearable
+ * application. This indicates special design for good user experience.
+ * You have to remember that bigger screen does not mean that you have to add
+ * more element because user look for this screen with few metres distance.
+ *
+ * @page ns.page.designIntroduction
+ * @seeMore introduction.htm Design guide
+ */
+;
+/*
+ * Copyright  2010 - 2014 Samsung Electronics Co., Ltd.
+ * License : MIT License V2
+ */
+/**
+ * #Pages
+ *
+ * Page is a one screen view of application and is the base part of application
+ * layout.
+ *
+ * ##Different sizes
+ *
+ * ##Backgrounds
+ *
+ * ##Headers and footers
+ *
+ * ##Two columns layout
+ *
+ * ##Navigation between pages
+ *
+ * @page ns.page.designPage
+ * @seeMore introduction.htm Design guide
+ */
+;
+/*
+ * Copyright  2010 - 2014 Samsung Electronics Co., Ltd.
+ * License : MIT License V2
+ */
+/**
+ * #Elements
+ * ...
+ *
+ * ##Containers of blocks
+ *
+ * ###Lists
+ *
+ * ###Grids
+ *
+ * ##Buttons and icons
+ *
+ * ##Drawer
+ *
+ * ## Screen resolution
+ *
+ * ##Colors
+ *
+ * ##Typography
+ *
+ * @page ns.page.designElements
+ * @seeMore introduction.htm Design guide
+ */
+;
+/*
+ * Copyright  2010 - 2014 Samsung Electronics Co., Ltd.
+ * License : MIT License V2
+ */
+/**
+ * #Navigation
+ *
+ * In TV profile good navigation design is very important. User utilises remote
+ * for navigation and can move only to neighborhood's elements.
+ *
+ * ##Standard navigation
+ *
+ * ###Navigation inside page
+ *
+ * ###Navigation inside popup
+ *
+ * ##Defining own navigation
+ *
+ * @page ns.page.designNavigation
+ * @seeMore introduction.htm Design guide
+ */
+;
+/*
+ * Copyright  2010 - 2014 Samsung Electronics Co., Ltd.
+ * License : MIT License V2
+ */
+/**
+ * #Differences in comparison with wearable or mobile profile
+ *
+ * TAU for TV based on the same code as TAU for wearable and mobile. But in a
+ * few widgets you will find differences in behaviour or look.
+ *
+ * ##Input differences
+ *
+ * On mobile or wearable profile you have a touch screen and you use your finger
+ * to navigate. In TV profile you use remote with arrow keyboard or remote with
+ * mouse cursor for navigation.
+ *
+ * ###TextInput
+ *
+ * ###Slider
+ *
+ * ###Context Popup
+ *
+ * @page ns.page.differencesIntroduction
+ * @seeMore introduction.htm Design guide
+ */
+;
 /*global define */
+/**
+ * #Tizen Advanced UI Framework
+ *
+ * Tizen Advanced UI Framework (TAU) is new name of Tizen Web UI framework.
+ * It provides tools, such as widgets, events, effects, and animations for Web
+ * application development. You can leverage these tools by just selecting the
+ * required screen elements and creating applications.
+ *
+ * TAU service is based on a template and works on a Web browser, which runs on
+ * the WebKit engine. You can code Web applications using the TAU, standard
+ * HTML5, and Tizen device APIs. You can also use different widgets with CSS
+ * animations and rendering optimized for Tizen Web browsers.
+ *
+ * For more information about the basic structure of a page in the Web
+ * application using the TAU, see
+ * [Application Page Structure](page/app_page_layout.htm).
+ *
+ * ##Framework Services
+ *
+ * The Web UI framework consists of the following services:
+ *
+ *  - Page navigation
+ *
+ *    Navigation JavaScript library is provided to allow smooth navigation
+ *    between TAU based application [pages](page/layout.htm).
+ *  - Web widgets and themes
+ *
+ *    We support APIs and CSS themes for Tizen web [widgets](widget/widget_reference.htm)
+ *  - Element Events
+ *
+ *    Some special [events](event/event_reference.htm) are available with TAU
+ *    that optimized for the Web applications.
+ *  - Useful utility
+ *
+ *    Some special [utility](util/util_reference.htm) are available with TAU
+ *    that supporting easy DOM methods for the Web applications.
+ *
+ * ##Design TV applications
+ * If you want create user friendly TV application you should read this part of
+ * the guide:
+ *
+ *  - [introduction](page/designIntroduction.htm)
+ *  - [page](page/designPage.htm)
+ *  - [navigation](page/designNavigation.htm)
+ *  - [elements](page/designElements.htm)
+ *
+ * If you used mobile or wearable TAU please read about differences between
+ * profiles:
+ *
+ *  - [introduction](page/differencesIntroduction.htm)
+ *
+ * !!!The framework runs only on browsers supporting the HTML5/CSS standards.
+ * The draft version of the W3C specification is not fully supported.!!!
+ * @class ns
+ * @title Tizen Advanced UI Framework
+ */
 
 }(window, window.document));
