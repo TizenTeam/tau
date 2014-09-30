@@ -203,7 +203,7 @@
 					container,
 					containerStyle,
 					handler;
-				this._pageWidget = engine.getBinding(pageElement, "page");
+				this._pageWidget = engine.getBinding(pageElement, "Page");
 
 				element = BaseSliderPrototype._build.call(this, element);
 				// focus is enabled only on container

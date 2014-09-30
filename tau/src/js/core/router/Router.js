@@ -359,7 +359,7 @@
 					PageClasses = Page.classes,
 					uiPageClass = PageClasses.uiPage,
 					uiPageActiveClass = PageClasses.uiPageActive,
-					pageDefinition = ns.engine.getWidgetDefinition('Page') || ns.engine.getWidgetDefinition('page'),
+					pageDefinition = ns.engine.getWidgetDefinition('Page'),
 					self = this;
 
 				body = document.body;

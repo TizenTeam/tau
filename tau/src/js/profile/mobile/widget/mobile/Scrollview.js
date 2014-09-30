@@ -211,7 +211,7 @@
 			"../mobile", // fetch namespace
 			"./BaseWidgetMobile",
 			"./Button",
-			"./Page"
+			"../../../../core/widget/core/Page"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
@@ -223,7 +223,7 @@
 				DOMUtils = ns.util.DOM,
 				selectors = ns.util.selectors,
 				currentTransition = null,
-				Page = ns.widget.mobile.Page,
+				Page = ns.widget.core.Page,
 				pageClass = Page.classes.uiPage,
 				pageActiveClass = Page.classes.uiPageActive,
 				Scrollview = function () {

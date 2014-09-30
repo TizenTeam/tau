@@ -110,7 +110,7 @@
 					this._ui.container.classList.add(classes.toast);
 				}
 				page = utilSelectors.getClosestByClass(element, ns.widget.tv.Page.classes.uiPage);
-				this._pageWidget = engine.getBinding(page, "page");
+				this._pageWidget = engine.getBinding(page, "Page");
 			};
 
 			function onKeydownClosing(self, event) {
@@ -276,11 +276,11 @@
 
 			function onFocusArrow(arrow) {
 				arrow.classList.add(classes.focus);
-			};
+			}
 
 			function onBlurArrow(arrow) {
 				arrow.classList.remove(classes.focus);
-			};
+			}
 
 			prototype._bindEvents = function(element) {
 				if (typeof CorePopupPrototype._bindEvents === FUNCTION_TYPE) {

@@ -87,7 +87,11 @@
 		tau.event.one(page, "pageshow", function() {
 			popup1.addEventListener("popupshow", popupshow);
 			popup1Widget = engine.getBinding(popup1);
-			equal(popup1Widget, null, "widget not created before user click");
+			if (tau.getConfig("autoBuildOnPageChange") === false) {
+				equal(popup1Widget, null, "widget wasn't created before user click");
+			} else {
+				equal(popup1Widget.name, "Popup", "widget was created before user click");
+			}
 			popup1Link.click();
 		});
 		engine.run();

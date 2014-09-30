@@ -4,7 +4,6 @@
 	var engine = ns.engine,
 		BaseWidget = ns.widget.BaseWidget,
 		WidgetPage = (ns.widget.core && ns.widget.core.Page) || ns.widget.mobile.Page,
-		isMobile = !(ns.widget.core && ns.widget.core.Page),
 		testElement;
 
 	function _manualClean(elementId) {
@@ -121,12 +120,12 @@
 		tempBinding = engine.getBinding(testElement, "Test2");
 		ok(tempBinding === null, "'null' should be returned when a HTMLElement (that is bound) does not have a widget binding of a proper type");
 
-		tempBinding = engine.getBinding(testElement, (isMobile && "Page") || "page");
+		tempBinding = engine.getBinding(testElement, "Page");
 		ok(!!tempBinding, "Widget reference was returned");
 		ok(tempBinding instanceof BaseWidget, "Widget is a instanceof BaseWidget");
 		ok(tempBinding instanceof WidgetPage, "Widget is a instanceof Page");
 
-		tempBinding2 = engine.getBinding("page1", (isMobile && "Page") || "page");
+		tempBinding2 = engine.getBinding("page1", "Page");
 		ok(tempBinding === tempBinding2, "Passing HTMLElement reference and string ID returns that same object reference");
 	});
 
@@ -142,19 +141,11 @@
 
 		tempBindings = engine.getAllBindings(testElement);
 		equal(typeof tempBindings, "object", "Passing a proper reference gives a object");
-		if (isMobile) {
-			ok(!!tempBindings.Page, "Returned object contains proper widget property");
-			ok(tempBindings.Page instanceof WidgetPage, "Widget property is a proper reference to a widget object");
+		ok(!!tempBindings.Page, "Returned object contains proper widget property");
+		ok(tempBindings.Page instanceof WidgetPage, "Widget property is a proper reference to a widget object");
 
-			tempBindings2 = engine.getAllBindings("page1");
-			ok(tempBindings.Page === tempBindings2.Page, "Same widget references are returned while calling method with ID as parameter");
-		} else {
-			ok(!!tempBindings.page, "Returned object contains proper widget property");
-			ok(tempBindings.page instanceof WidgetPage, "Widget property is a proper reference to a widget object");
-
-			tempBindings2 = engine.getAllBindings("page1");
-			ok(tempBindings.page === tempBindings2.page, "Same widget references are returned while calling method with ID as parameter");
-		}
+		tempBindings2 = engine.getAllBindings("page1");
+		ok(tempBindings.Page === tempBindings2.Page, "Same widget references are returned while calling method with ID as parameter");
 	});
 
 	test("Checking .getAllBindings method - after manually adding instances", function () {

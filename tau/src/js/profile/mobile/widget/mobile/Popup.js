@@ -624,7 +624,7 @@
 				*/
 				events = ns.event,
 				scrollviewClipClass = ns.widget.mobile.Scrollview.classes.clip,
-				pageActiveClass = ns.widget.mobile.Page.classes.uiPageActive,
+				pageActiveClass = ns.widget.core.Page.classes.uiPageActive,
 				/**
 				* @property {ns.util.deferred} UtilsDeferred Alias for class ns.util.deferred
 				* @member ns.widget.mobile.Popup
@@ -789,7 +789,7 @@
 			}
 
 			function restoreProperties() {
-				var page = document.getElementsByClassName(ns.widget.mobile.Page.classes.uiPageActive)[0],
+				var page = document.getElementsByClassName(ns.widget.core.Page.classes.uiPageActive)[0],
 					tabindexElements = page ? selectors.getAllByDataNS(page, "tabindex") : null,
 					hrefElements = page ? page.querySelectorAll("[href]") : null,
 					value;
