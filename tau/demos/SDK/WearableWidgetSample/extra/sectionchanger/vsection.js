@@ -6,7 +6,7 @@ var page = document.getElementById( "vsectionchangerPage" ),
 
 page.addEventListener( "pagebeforeshow", function() {
 	// make SectionChanger object
-	sectionChanger = new tau.widget.SectionChanger(changer, {
+	sectionChanger = tau.widget.SectionChanger(changer, {
 		circular: false,
 		orientation: "vertical"
 	});

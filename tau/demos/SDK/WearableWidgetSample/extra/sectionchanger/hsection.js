@@ -6,7 +6,7 @@ var page = document.getElementById( "hsectionchangerPage" ),
 
 page.addEventListener( "pagebeforeshow", function() {
 	// make SectionChanger object
-	sectionChanger = new tau.widget.SectionChanger(changer, {
+	sectionChanger = tau.widget.SectionChanger(changer, {
 		circular: false,
 		orientation: "horizontal",
 		useBouncingEffect: true

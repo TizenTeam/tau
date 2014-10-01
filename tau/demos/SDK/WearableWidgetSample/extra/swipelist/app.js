@@ -6,7 +6,7 @@
 
 	page.addEventListener( "pageshow", function() {
 		// make SwipeList object
-		swipeList = new tau.widget.SwipeList( listElement, {
+		swipeList = tau.widget.SwipeList( listElement, {
 			swipeTarget: "li",
 			swipeElement: ".ui-swipelist"
 		});

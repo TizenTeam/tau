@@ -107,7 +107,7 @@ el.addEventListener("select", function( ev ) {
 		elisb.setAttribute("data-index", indexData.firstIndex);
 
 		// Create IndexScrollbar
-		isb = new tau.widget.IndexScrollbar(elisb, {
+		isb = tau.widget.IndexScrollbar(elisb, {
 			supplementaryIndex: function(firstIndex) {
 				return indexData.secondIndex[firstIndex];
 			}
