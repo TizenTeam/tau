@@ -181,7 +181,8 @@
 					connectionType,
 					self = this,
 					loader = self.getLoader(),
-					loaderProperties = ns.widget.mobile.Loader.properties;
+					loaderProperties = ns.widget.mobile.Loader.properties,
+					firstPage = engine.getRouter().firstPage;
 
 				settings = object.merge(loadPageDefaults, options || {});
 				settings.pageContainer = this.container;
