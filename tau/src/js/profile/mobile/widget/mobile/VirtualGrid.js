@@ -95,7 +95,7 @@
 				 * @property {Object} ui Holds UI elements of the widget
 				 * @member ns.widget.mobile.VirtualGrid
 				 */
-				self.ui = utilsObjectMerge({}, self.ui);
+				self._ui = utilsObjectMerge({}, self._ui);
 
 				/**
 				 * @property {number} _currentIndex Current zero-based index of data set.
@@ -159,7 +159,7 @@
 					// @TODO create proper styles for horizontal scrolling
 					size = tempElement.offsetHeight;
 					if (options.standalone) {
-						containerSize = self.ui.scrollview.element.offsetHeight;
+						containerSize = self._ui.scrollview.element.offsetHeight;
 					} else {
 						containerSize = list.offsetHeight;
 					}
@@ -229,7 +229,7 @@
 					options = self.options,
 					direction = options.direction,
 					itemData = self.itemData,
-					$jqTmpl = self.ui.$jqTmpl,
+					$jqTmpl = self._ui.$jqTmpl,
 					itemsPerLine = options.itemsPerLine,
 					rawNumItemData = options.rawNumItemData,
 					elementPercentSize = (100 / itemsPerLine) + "%",
