@@ -1,3 +1,4 @@
+/*jslint nomen: true */
 /*global require, module, __dirname, process */
 /*
  * Generating docs Ej
@@ -18,6 +19,8 @@ module.exports = function (grunt) {
 		var done = this.async(),
 			docsStructure = {},
 			profile = this.data.profile,
+			version = this.data.version || null,
+			versionString = version ? " - v" + version : "",
 			files = [],
 			template = this.data.template,
 			templateDir = template + "/",
@@ -100,6 +103,7 @@ module.exports = function (grunt) {
 			shortName = docsStructure.name.split(".").pop();
 			mu.compileAndRender(templateDir + 'widget.mustache', {
 				title: name,
+				version: versionString,
 				namespace: docsStructure.name,
 				namespaceShort: shortName,
 				brief: docsStructure.brief,
@@ -217,6 +221,7 @@ module.exports = function (grunt) {
 			shortName = docsStructure.name.split(".").pop();
 			mu.compileAndRender(templateDir + 'class.mustache', {
 				title: name,
+				version: versionString,
 				namespace: docsStructure.name,
 				namespaceShort: shortName,
 				brief: docsStructure.brief,
@@ -252,6 +257,7 @@ module.exports = function (grunt) {
 			grunt.log.ok("Started generating index for " + type + ".");
 			mu.compileAndRender(templateDir + 'index.mustache', {
 				title: widgetsDoc.title,
+				version: versionString,
 				description: widgetsDoc.description.full,
 				seeMore: widgetsDoc.seeMore,
 				table: {
@@ -285,6 +291,7 @@ module.exports = function (grunt) {
 			});
 			mu.compileAndRender(templateDir + 'index.mustache', {
 				title: classDoc.title,
+				version: versionString,
 				namespace: classDoc.name,
 				description: classDoc.description && classDoc.description.full,
 				seeMore: classDoc.seeMore,
@@ -320,6 +327,7 @@ module.exports = function (grunt) {
 
 			mu.compileAndRender(templateDir + 'index.mustache', {
 				title: classDoc.title,
+				version: versionString,
 				description: classDoc.description && classDoc.description.full,
 				seeMore: classDoc.seeMore,
 				table: {

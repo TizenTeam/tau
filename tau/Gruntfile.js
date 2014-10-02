@@ -576,6 +576,7 @@ module.exports = function(grunt) {
 				mobile: {
 					profile: "mobile",
 					template: "sdk",
+					version: version,
 					files: {
 						src: ['dist/mobile/js/tau.js']
 					}
@@ -583,6 +584,7 @@ module.exports = function(grunt) {
 				wearable: {
 					profile: "wearable",
 					template: "sdk",
+					version: version,
 					files: {
 						src: ['dist/wearable/js/tau.js']
 					}
@@ -590,6 +592,7 @@ module.exports = function(grunt) {
 				"mobile-dld": {
 					profile: "mobile",
 					template: "dld",
+					version: version,
 					files: {
 						src: ['dist/mobile/js/tau.js']
 					}
@@ -597,6 +600,7 @@ module.exports = function(grunt) {
 				"wearable-dld": {
 					profile: "wearable",
 					template: "dld",
+					version: version,
 					files: {
 						src: ['dist/wearable/js/tau.js']
 					}
@@ -682,6 +686,7 @@ module.exports = function(grunt) {
 		}
 
 		args = src.concat([
+			'--title=' + name.toUpperCase() + " - " + version,
 			'--eg-iframe=./tools/jsduck/'+ profile +'-preview.html',
 				'--external=' + environmentClasses.join(','),
 			'--output', dest
