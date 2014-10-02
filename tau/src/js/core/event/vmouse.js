@@ -99,28 +99,34 @@
 				 * @static
 				**/
 				startY = 0,
-				touchEventProps = ["clientX", "clientY", "pageX", "pageY", "screenX", "screenY"];
+				touchEventProps = ["clientX", "clientY", "pageX", "pageY", "screenX", "screenY"],
+				KEY_CODES = {
+					enter: 13
+				};
 
 			/**
 			 * Extends objects with other objects
 			 * @method copyProps
 			 * @param {Object} from Sets the original event
 			 * @param {Object} to Sets the new event
-			 * @param {Object} props Describe parameters which will be copied from Original to To event
+			 * @param {Object} properties Sets the special properties for position
+			 * @param {Object} propertiesNames Describe parameters which will be copied from Original to To event
 			 * @private
 			 * @static
 			 * @member ns.event.vmouse
 			 */
-			function copyProps(from, to, props) {
+			function copyProps(from, to, properties, propertiesNames) {
 				var i,
-					len,
-					descriptor;
+					length,
+					descriptor,
+					property;
 
-				for (i = 0, len = props.length; i < len; ++i) {
-					if (isNaN(from[props[i]]) === false) {
-						descriptor = Object.getOwnPropertyDescriptor(to, props[i]);
+				for (i = 0, length = propertiesNames.length; i < length; ++i) {
+					property = propertiesNames[i];
+					if (isNaN(properties[property]) === false || isNaN(from[property]) === false) {
+						descriptor = Object.getOwnPropertyDescriptor(to, property);
 						if (!descriptor || descriptor.writable) {
-							to[props[i]] = from[props[i]];
+							to[property] = properties[property] || from[property];
 						}
 					}
 				}
@@ -131,17 +137,18 @@
 			 * @method createEvent
 			 * @param {string} newType gives a name for the new Type of event
 			 * @param {Event} original Event which trigger the new event
+			 * @param {Object} properties Sets the special properties for position
 			 * @return {Event}
 			 * @private
 			 * @static
 			 * @member ns.event.vmouse
 			 */
-			function createEvent(newType, original) {
+			function createEvent(newType, original, properties) {
 				var evt = new CustomEvent(newType, {
-					"bubbles": original.bubbles,
-					"cancelable": original.cancelable,
-					"detail": original.detail
-				}),
+						"bubbles": original.bubbles,
+						"cancelable": original.cancelable,
+						"detail": original.detail
+					}),
 					orginalType = original.type,
 					changeTouches,
 					touch,
@@ -149,7 +156,7 @@
 					len,
 					prop;
 
-				copyProps(original, evt, eventProps);
+				copyProps(original, evt, properties, eventProps);
 				evt._originalEvent = original;
 
 				if (orginalType.indexOf("touch") !== -1) {
@@ -178,13 +185,14 @@
 			 * @method fireEvent
 			 * @param {string} eventName event name
 			 * @param {Event} evt original event
+			 * @param {Object} properties Sets the special properties for position
 			 * @return {boolean}
 			 * @private
 			 * @static
 			 * @member ns.event.vmouse
 			 */
-			function fireEvent(eventName, evt) {
-				return evt.target.dispatchEvent(createEvent(eventName, evt));
+			function fireEvent(eventName, evt, properties) {
+				return evt.target.dispatchEvent(createEvent(eventName, evt, properties || {}));
 			}
 
 			eventProps = [
@@ -200,7 +208,8 @@
 				"pageY",
 				"screenX",
 				"screenY",
-				"toElement"
+				"toElement",
+				"which"
 			];
 
 			vmouse = {
@@ -228,6 +237,24 @@
 			}
 
 			/**
+			 * Prepare position of event for keyboard events.
+			 * @method preparePositionForClick
+			 * @param {Event} event
+			 * @return {?Object} options
+			 * @private
+			 * @static
+			 * @member ns.event.vmouse
+			 */
+			function preparePositionForClick(event) {
+				var x = event.clientX,
+					y = event.clientY;
+				// event comes from keyboard
+				if (!x && !y) {
+					return preparePositionForEvent(event);
+				}
+			}
+
+			/**
 			 * Handle click
 			 * @method handleClick
 			 * @param {Event} evt
@@ -236,7 +263,7 @@
 			 * @member ns.event.vmouse
 			 */
 			function handleClick(evt) {
-				fireEvent("vclick", evt);
+				fireEvent("vclick", evt, preparePositionForClick(evt));
 			}
 
 			/**
@@ -413,6 +440,28 @@
 			}
 
 			/**
+			 * Prepare position of event for keyboard events.
+			 * @method preparePositionForEvent
+			 * @param {Event} event
+			 * @return {Object} properties
+			 * @private
+			 * @static
+			 * @member ns.event.vmouse
+			 */
+			function preparePositionForEvent(event) {
+				var targetRect = event.target && event.target.getBoundingClientRect(),
+					properties = {};
+				if (targetRect) {
+					properties = {
+						"clientX": targetRect.left + targetRect.width / 2,
+						"clientY": targetRect.top + targetRect.height / 2,
+						"which": 1
+					};
+				}
+				return properties;
+			}
+
+			/**
 			 * Handle key up
 			 * @method handleKeyUp
 			 * @param {Event} event
@@ -421,9 +470,11 @@
 			 * @member ns.event.vmouse
 			 */
 			function handleKeyUp(event) {
-				if (event.keyCode === 13) {
-					fireEvent("vmouseup", event);
-					fireEvent("vclick", event);
+				var properties;
+				if (event.keyCode === KEY_CODES.enter) {
+					properties = preparePositionForEvent(event);
+					fireEvent("vmouseup", event, properties);
+					fireEvent("vclick", event, properties);
 				}
 			}
 
@@ -436,8 +487,8 @@
 			 * @member ns.event.vmouse
 			 */
 			function handleKeyDown(event) {
-				if (event.keyCode === 13) {
-					fireEvent("vmousedown", event);
+				if (event.keyCode === KEY_CODES.enter) {
+					fireEvent("vmousedown", event, preparePositionForEvent(event));
 				}
 			}
 

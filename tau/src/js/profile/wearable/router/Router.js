@@ -22,6 +22,7 @@
 			"./route", // fetch namespace
 			"./history",
 			"../../../core/event",
+			"../../../core/event/vmouse",
 			"../../../core/util/DOM/attributes",
 			"../../../core/util/selectors",
 			"../../../core/util/path",
@@ -227,7 +228,7 @@
 						options = DOM.getData(link);
 						options.link = link.id;
 						router.open(href, options, event);
-						event.preventDefault();
+						eventUtils.preventDefault(event);
 					}
 				}
 			}
@@ -425,7 +426,7 @@
 				window.removeEventListener("popstate", self.popStateHandler, false);
 				if (body) {
 					body.removeEventListener("pagebeforechange", this.pagebeforechangeHandler, false);
-					body.removeEventListener("click", self.linkClickHandler, false);
+					body.removeEventListener("vclick", self.linkClickHandler, false);
 				}
 			};
 
@@ -474,7 +475,7 @@
 				self.linkClickHandler = linkClickHandler.bind(null, self);
 				self.popStateHandler = popStateHandler.bind(null, self);
 
-				document.addEventListener("click", self.linkClickHandler, false);
+				document.addEventListener("vclick", self.linkClickHandler, false);
 				window.addEventListener("popstate", self.popStateHandler, false);
 
 				history.enableVolatileRecord();
