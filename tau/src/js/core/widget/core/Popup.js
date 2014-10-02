@@ -634,7 +634,8 @@
 			 */
 			prototype._hide = function (options) {
 				var self = this,
-					isOpened = self._isOpened();
+					isOpened = self._isOpened(),
+					callbacks = self._callbacks;
 
 				// change state of popup
 				self.state = states.DURING_CLOSING;
@@ -648,8 +649,12 @@
 				} else {
 					// popup is active, but not opened yet (DURING_OPENING), so
 					// we stop opening animation
-					self._callbacks.transitionDeferred.reject();
-					self._callbacks.animationEnd();
+					if (callbacks.transitionDeferred) {
+						callbacks.transitionDeferred.reject();
+					}
+					if (callbacks.animationEnd) {
+						callbacks.animationEnd();
+					}
 					// and set popup as inactive
 					self._onHide();
 				}
