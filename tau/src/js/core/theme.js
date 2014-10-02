@@ -73,14 +73,18 @@
 					var self = this,
 						containerClassList = container.classList;
 
-					frameworkData.getParams();
+					if (frameworkData) {
+						frameworkData.getParams();
+					}
 
-					if (support.gradeA()) {
+					if (support && support.gradeA()) {
 						documentElement.classList.add("ui-mobile");
 						containerClassList.add("ui-mobile-viewport");
 					}
 
-					self.loadTheme(frameworkData.theme);
+					if (frameworkData) {
+						self.loadTheme(frameworkData.theme);
+					}
 				},
 
 				/**
@@ -320,7 +324,7 @@
 			document.addEventListener("themeinit", function (evt) {
 				var router = evt.detail;
 				if (router && ns.getConfig("autoInitializePage", true)) {
-					ns.theme.init(router.getContainer());
+					ns.theme.init(router.getContainer().element);
 				}
 			}, false);
 

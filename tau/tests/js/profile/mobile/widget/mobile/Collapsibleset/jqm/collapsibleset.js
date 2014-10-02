@@ -99,23 +99,6 @@ $ ( document ).ready ( function ( ) {
 		]);
 	});
 
-	asyncTest( "Expand/Collapse", function(){
-		$.testHelper.pageSequence([
-			function(){
-				$.testHelper.openPage( "#basic-collapsible-set-test" );
-			},
-
-			function() {
-				ok($( "#basic-collapsible-set-test .ui-collapsible" ).eq(0).hasClass( "ui-collapsible-collapsed" ), "First collapsible should be collapsed");
-				$( "#basic-collapsible-set-test .ui-collapsible-heading-toggle" ).eq(0).click();
-				ok(!$( "#basic-collapsible-set-test .ui-collapsible" ).eq(0).hasClass( "ui-collapsible-collapsed" ), "First collapsible should be expanded after click");
-				$( "#basic-collapsible-set-test .ui-collapsible-heading-toggle" ).eq(0).click();
-				ok($( "#basic-collapsible-set-test .ui-collapsible" ).hasClass( "ui-collapsible-collapsed" ), "All collapsible should be collapsed");
-				start();
-			}
-		]);
-	});
-
 	asyncTest( "Collapsible Set with dynamic content", function(){
 		$.testHelper.pageSequence([
 			function(){
@@ -136,6 +119,23 @@ $ ( document ).ready ( function ( ) {
 				ok( !set.find( ".ui-collapsible" ).eq( 1 ).find( ".ui-collapsible-heading" ).hasClass( "ui-corner-bottom" ), "The 2nd collapsible should NOT have bottom corners" );
 				ok( set.find( ".ui-collapsible" ).eq( 2 ).find( ".ui-collapsible-heading" ).hasClass( "ui-corner-bottom" ), "The 3rd collapsible should have bottom corners" );
 				ok( !set.find( ".ui-collapsible" ).eq( 2 ).find( ".ui-collapsible-heading" ).hasClass( "ui-corner-top" ), "The 3rd collapsible should NOT have top corners" );
+				start();
+			}
+		]);
+	});
+
+	asyncTest( "Expand/Collapse", function(){
+		$.testHelper.pageSequence([
+			function(){
+				$.testHelper.openPage( "#basic-collapsible-set-test" );
+			},
+
+			function() {
+				ok($( "#basic-collapsible-set-test .ui-collapsible" ).eq(0).hasClass( "ui-collapsible-collapsed" ), "First collapsible should be collapsed");
+				$( "#basic-collapsible-set-test .ui-collapsible-heading-toggle" ).eq(0).click();
+				ok(!$( "#basic-collapsible-set-test .ui-collapsible" ).eq(0).hasClass( "ui-collapsible-collapsed" ), "First collapsible should be expanded after click");
+				$( "#basic-collapsible-set-test .ui-collapsible-heading-toggle" ).eq(0).click();
+				ok($( "#basic-collapsible-set-test .ui-collapsible" ).hasClass( "ui-collapsible-collapsed" ), "All collapsible should be collapsed");
 				start();
 			}
 		]);
@@ -242,11 +242,7 @@ $ ( document ).ready ( function ( ) {
 		]);
 	});
 
-	module( "profile/mobile/widget/mobile/Collapsibleset", {
-		teardown: function () {
-			ej.engine._clearBindings();
-		}
-	});
+	module( "profile/mobile/widget/mobile/Collapsibleset");
 
 	asyncTest( "Collapsible", 2, function(){
 		$.testHelper.pageSequence([

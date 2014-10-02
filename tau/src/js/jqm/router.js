@@ -16,7 +16,6 @@
 		[
 			"../core/engine",
 			"../core/util/path",
-			"../profile/mobile/router/urlHistory",
 			"./namespace"
 		],
 		function () {
@@ -42,9 +41,8 @@
 								if (!container instanceof HTMLElement) {
 									container = document.body;
 								}
-								ns.setConfig('container', container);
+								ns.setConfig('pageContainer', container);
 								$.mobile.pageContainer = $(container);
-								router.setContainer(container);
 							}
 							if ($.mobile.autoInitializePage !== undefined) {
 								ns.setConfig('autoInitializePage', $.mobile.autoInitializePage);
@@ -60,12 +58,15 @@
 								}
 								return router.open(toPage, options);
 							};
-							document.addEventListener('pageshow', function (ev) {
-								$.mobile.activePage = $(ev.target);
+							document.addEventListener('pagechange', function () {
+								var route = router.getRoute("page"),
+									activePage = route && route.getActive(),
+									target = activePage && activePage.element;
+								$.mobile.activePage = $(target);
 							}, true);
 							$.mobile.activePage = $();
 							$.mobile.firstPage = $(router.getFirstPage());
-							$.mobile.pageContainer = $(router.getContainer());
+							$.mobile.pageContainer = $();
 							$.mobile.subPageUrlKey = ns.widget.mobile.Page.classes.uiPage;
 							$.mobile.ajaxEnabled = true;
 							$.mobile.hashListeningEnabled = true;
@@ -87,7 +88,7 @@
 							$.mobile.transitionFallbacks = {};
 							$.mobile._maybeDegradeTransition = null;
 							$.mobile.focusPage = null;
-							$.mobile.urlHistory = ns.router.urlHistory;
+							//$.mobile.urlHistory = ns.router.urlHistory;
 							$.mobile.dialogHashKey = "&ui-state=dialog";
 							$.mobile.allowCrossDomainPages = false;
 							$.mobile.getDocumentUrl = ns.util.path.getDocumentUrl;
@@ -111,7 +112,8 @@
 					var transitions,
 						name,
 						container,
-						router = engine.getRouter();
+						router = engine.getRouter(),
+						containerWidget;
 					if ($) {
 						$.mobile.defaultPageTransition = "none";
 
@@ -138,10 +140,12 @@
 							pageWidget.focus();
 						};
 
-						$.mobile._bindPageRemove = $.mobile._bindPageRemove || (router._bindPageRemove && router._bindPageRemove.bind(router));
 						$.mobile.initializePage = router.init.bind(router);
 						container = router.getContainer();
-						$.mobile.pageContainer = $(container);
+						containerWidget = router.getContainer();
+						if (containerWidget) {
+							$.mobile.pageContainer = $(containerWidget.element);
+						}
 					}
 				}
 			};

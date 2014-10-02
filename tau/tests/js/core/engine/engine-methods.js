@@ -29,7 +29,8 @@
 		teardown: function () {
 			_manualClean("non-widget");
 			_manualClean("future-widget");
-
+			engine.destroyAllWidgets(document.body);
+			engine.removeAllBindings(document.body);
 			engine.stop();
 		}
 	});

@@ -107,6 +107,7 @@
 					toPageWidget;
 
 				options = options || {};
+				options.widget = options.widget || "Page";
 
 				// The change should be made only if no active page exists
 				// or active page is changed to another one.
@@ -119,7 +120,7 @@
 
 					toPage.classList.add(classes.uiBuild);
 
-					toPageWidget = engine.instanceWidget(toPage, "Page");
+					toPageWidget = engine.instanceWidget(toPage, options.widget);
 
 					// set sizes of page for correct display
 					toPageWidget.layout();
@@ -171,7 +172,6 @@
 					clearClasses = [classes.in, classes.out, classes.uiPreIn, transition],
 					oldDeferredResolve,
 					classlist,
-					classParam,
 					oneEvent;
 
 				if (options.reverse) {
@@ -182,10 +182,15 @@
 				deferred.resolve = function () {
 					var fromPageWidgetClassList = fromPageWidget && fromPageWidget.element.classList,
 						toPageWidgetClassList = toPageWidget.element.classList;
+
 					elementClassList.remove(classes.uiViewportTransitioning);
-					toPageWidgetClassList.remove.apply(toPageWidgetClassList, clearClasses);
+					clearClasses.forEach(function (className) {
+						toPageWidgetClassList.remove(className);
+					});
 					if (fromPageWidgetClassList) {
-						fromPageWidgetClassList.remove.apply(fromPageWidgetClassList, clearClasses);
+						clearClasses.forEach(function (className) {
+							fromPageWidgetClassList.remove(className);
+						});
 					}
 					self._setActivePage(toPageWidget);
 					oldDeferredResolve();
@@ -221,22 +226,21 @@
 					);
 
 					if (fromPageWidget) {
-						classParam = [];
-						classParam.push(transition, classes.out);
-						if (options.reverse) {
-							classParam.push(reverse);
-						}
 						classlist = fromPageWidget.element.classList;
-						classlist.add.apply(classlist ,classParam);
+						classlist.add(transition);
+						classlist.add(classes.out);
+						if (options.reverse) {
+							classlist.add(reverse);
+						}
 					}
 
 					classlist = toPageWidget.element.classList;
-					classParam = [];
-					classParam.push(transition, classes.in, classes.uiPreIn);
+					classlist.add(transition);
+					classlist.add(classes.in);
+					classlist.add(classes.uiPreIn);
 					if (options.reverse) {
-						classParam.push(reverse);
+						classlist.add(classes.reverse);
 					}
-					classlist.add.apply(classlist, classParam);
 				} else {
 					window.setTimeout(deferred.resolve, 0);
 				}

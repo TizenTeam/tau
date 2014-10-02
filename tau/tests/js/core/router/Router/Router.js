@@ -158,7 +158,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			},
 			onPopupShow = function (event) {
 				start();
-				ok(event.target.classList.contains('ui-popup-active'), 'router.openPopup("#firstPopup")');
+				ok(document.querySelector('.ui-popup-active'), 'router.openPopup("#firstPopup")');
 				document.getElementById('firstPopup').removeEventListener('popupshow', onPopupShow);
 			};
 		document.addEventListener('pageshow', onPageShow, true);
@@ -176,7 +176,7 @@ document.addEventListener('DOMContentLoaded', function () {
 				},
 				onPopupShow = function (event) {
 					start();
-					ok(event.target.classList.contains('ui-popup-active'), 'router.openPopup("#externalPopup")');
+					ok(document.querySelector('.ui-popup-active'), 'router.openPopup("#externalPopup")');
 					document.removeEventListener('popupshow', onPopupShow, true);
 				};
 			router.init();

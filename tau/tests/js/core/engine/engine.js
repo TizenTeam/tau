@@ -4,7 +4,15 @@
 	var widget1,
 		engine  = ej.engine;
 
-	module("core/engine");
+	module("core/engine", {
+		setup: function () {
+		},
+		teardown: function () {
+			engine.destroyAllWidgets(document.body);
+			engine.removeAllBindings(document.body);
+			engine.stop();
+		}
+	});
 
 	asyncTest("Generating widgets", 9, function () {
 		document.addEventListener("tauinit", function test1() {

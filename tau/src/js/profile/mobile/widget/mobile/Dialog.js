@@ -327,7 +327,8 @@
 						page: null // page related with this dialog
 					};
 
-				};
+				},
+				prototype = new BaseWidget();
 
 			/**
 			 * Dictionary for dialog related css class names
@@ -336,7 +337,7 @@
 			 */
 			Dialog.classes = classes;
 
-			Dialog.prototype = new BaseWidget();
+			Dialog.prototype = prototype;
 
 
 			/**
@@ -574,6 +575,46 @@
 				document.body.classList.add(classes.uiOverlayPrefix +
 						options.overlayTheme);
 			}
+
+			/**
+			 * Layouting page structure
+			 * @method layout
+			 * @member ns.widget.core.Page
+			 */
+			prototype.layout = function () {
+			};
+
+			/**
+			 * This method triggers BEFORE_SHOW event.
+			 * @method onBeforeShow
+			 * @member ns.widget.core.Page
+			 */
+			prototype.onBeforeShow = function () {
+			};
+
+			/**
+			 * This method triggers SHOW event.
+			 * @method onShow
+			 * @member ns.widget.core.Page
+			 */
+			prototype.onShow = function () {
+			};
+
+			/**
+			 * This method triggers BEFORE_HIDE event.
+			 * @methofocusd onBeforeHide
+			 * @member ns.widget.core.Page
+			 */
+			prototype.onBeforeHide = function () {
+			};
+
+			/**
+			 * This method triggers HIDE event.
+			 * @method onHide
+			 * @member ns.widget.core.Page
+			 */
+			prototype.onHide = function () {
+			};
 
 			/**
 			 * Handler function to close the dialog on click.

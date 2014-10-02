@@ -9,9 +9,7 @@
 		 	"../../core/engine",
 		 	"../../core/util/object",
 			"./widget/mobile/Loader",
-			"./router/Page",
-			"./router/PageExternal",
-			"./router/PageTransition"
+			"../../core/router/Router"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");

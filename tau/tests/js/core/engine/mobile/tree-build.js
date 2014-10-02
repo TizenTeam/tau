@@ -59,7 +59,7 @@
 		// not the most elegant way of handling this but very convenient
 		_tempSaveSequence = saveSequence;
 
-		document.addEventListener("widgetbound", saveSequence, true);
+		document.getElementById("page1").addEventListener("widgetbound", saveSequence, true);
 
 		engine.run();
 	});

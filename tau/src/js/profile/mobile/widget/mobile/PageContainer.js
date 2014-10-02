@@ -26,72 +26,71 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../tv",
-			"../../../core/widget/core/PageContainer",
-			"../../../core/engine"
+			"../mobile",
+			"../../../../core/widget/core/PageContainer",
+			"../../../../core/engine",
+			"../../../../core/util"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 			var CorePageContainer = ns.widget.core.PageContainer,
 				CorePageContainerPrototype = CorePageContainer.prototype,
 				PageContainer = function () {
+					CorePageContainer.call(this);
 				},
+				util = ns.util,
 				engine = ns.engine,
 				prototype = new CorePageContainer(),
 				classes = CorePageContainer.classes;
+
+			classes.uiOverlayPrefix = "ui-overlay-";
 
 			PageContainer.events = CorePageContainer.events;
 			PageContainer.classes = CorePageContainer.classes;
 
 			/**
-			 * Build structure of PageContainer widget
-			 * @method _build
-			 * @param {HTMLElement} element
+			 * This method adds an element as a page.
+			 * @method _include
+			 * @param {HTMLElement} page an element to add
 			 * @return {HTMLElement}
+			 * @member ns.widget.core.PageContainer
 			 * @protected
-			 * @member ns.widget.tv.PageContainer
 			 */
-			prototype._build = function ( element ) {
-				var optionsBackground = this.options.background;
-				if (CorePageContainerPrototype._build) {
-					element = CorePageContainerPrototype._build(element);
+			prototype._include = function (page) {
+				var element = this.element;
+				if (!page.parentNode || page.ownerDocument !== document) {
+					page = util.importEvaluateAndAppendElement(page, element);
 				}
-
-				if (optionsBackground) {
-					element.style.background = "url(" + optionsBackground + ") no-repeat center center";
-				}
-
-				return element;
+				return page;
 			};
 
 			/**
-			 * Configure method to setup PageContainer options.
-			 * @method _configure
+			 * This method sets currently active page.
+			 * @method _setActivePage
+			 * @param {ns.widget.core.Page} page a widget to set as the active page
+			 * @member ns.widget.core.PageContainer
 			 * @protected
-			 * @member ns.widget.tv.PageContainer
 			 */
-			prototype._configure = function ( ) {
-				var options = this.options || {};
-				/**
-				 * The background attribute specifies a background image for a widget
-				 * @property {string} [options.background=""] background image path
-				 * @member ns.widget.tv.PageContainer
-				 */
-				options.background = null;
-				this.options = options;
+			prototype._setActivePage = function (page) {
+				var self = this;
+				if (self.activePage) {
+					self.activePage.setActive(false, this.element);
+				}
+				self.activePage = page;
+				page.setActive(true, this.element);
 			};
 
 			PageContainer.prototype = prototype;
 
 			// definition
-			ns.widget.tv.PageContainer = PageContainer;
+			ns.widget.mobile.PageContainer = PageContainer;
 
 			engine.defineWidget(
 				"pagecontainer",
 				"body",
 				["change", "getActivePage", "showLoading", "hideLoading"],
 				PageContainer,
-				"tv",
+				"mobile",
 				true
 			);
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
