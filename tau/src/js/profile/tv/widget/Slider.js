@@ -242,7 +242,7 @@
 				BaseSliderPrototype._init.call(this, element);
 
 				this.enableKeyboardSupport();
-				this._pageWidget = this._pageWidget || engine.getBinding(pageElement, "page");
+				this._pageWidget = this._pageWidget || engine.getBinding(pageElement, "Page");
 			};
 
 			/**

@@ -166,9 +166,9 @@
 			"../../../../core/util/selectors",
 			"../../../../core/util/DOM",
 			"../../../../core/theme",
+			"../../../../core/widget/core/Page",
 			"../mobile", // fetch namespace
-			"./BaseWidgetMobile",
-			"./Page"
+			"./BaseWidgetMobile"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
@@ -179,11 +179,11 @@
 			 */
 			var BaseWidget = ns.widget.mobile.BaseWidgetMobile,
 				/**
-				 * {Object} Widget Alias for {@link ns.widget.mobile.Page}
+				 * {Object} Widget Alias for {@link ns.widget.core.Page}
 				 * @member ns.widget.Notification
 				 * @private
 				 */
-				Page = ns.widget.mobile.Page,
+				Page = ns.widget.core.Page,
 				/**
 				 * @property {Object} engine Alias for class ns.engine
 				 * @member ns.widget.mobile.Notification

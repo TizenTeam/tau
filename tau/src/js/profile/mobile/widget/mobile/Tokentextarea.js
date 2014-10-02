@@ -182,9 +182,9 @@
 		[
 			"../../../../core/engine",
 			"../../../../core/util/selectors",
+			"../../../../core/widget/core/Page",
 			"../mobile",
-			"./BaseWidgetMobile",
-			"./Page"
+			"./BaseWidgetMobile"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");

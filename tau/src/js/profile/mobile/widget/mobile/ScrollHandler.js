@@ -283,9 +283,9 @@
 			"../../../../core/engine",
 			"../../../../core/util/DOM/css",
 			"../../../../core/util/selectors",
+			"../../../../core/widget/core/Page",
 			"../mobile",
-			"./Scrollview",
-			"./Page"
+			"./Scrollview"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
@@ -402,7 +402,7 @@
 				engine = ns.engine,
 				CSSUtils = ns.util.DOM,
 				selectors = ns.util.selectors,
-				PageClasses = ns.widget.mobile.Page.classes,
+				PageClasses = ns.widget.core.Page.classes,
 				Scrollview = ns.widget.mobile.Scrollview,
 				ScrollviewPrototype = Scrollview.prototype,
 				ScrollviewBuild = ScrollviewPrototype._build,

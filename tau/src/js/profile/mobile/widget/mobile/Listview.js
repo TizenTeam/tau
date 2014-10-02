@@ -724,10 +724,10 @@
 			"../../../../core/event",
 			"../../../../core/event/vmouse",
 			"../../../../core/util/colors",
+			"../../../../core/widget/core/Page",
 			"../mobile",
 			"./BaseWidgetMobile",
-			"./Button",
-			"./Page"
+			"./Button"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
@@ -765,13 +765,13 @@
 				 */
 				Button = ns.widget.mobile.Button,
 				/**
-				 * Alias for class ns.widget.mobile.Page
+				 * Alias for class ns.widget.core.Page
 				 * @property {Function} Page
 				 * @member ns.widget.mobile.Listview
 				 * @static
 				 * @private
 				 */
-				Page = ns.widget.mobile.Page,
+				Page = ns.widget.core.Page,
 				/**
 				 * Alias for class {@link ns.util.color}
 				 * @property {Function} Page
