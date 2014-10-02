@@ -310,13 +310,6 @@
 				engine = ns.engine,
 
 			/**
-			 * @property {Object} event Alias for class {@link ns.event}
-			 * @member ns.widget.wearable.IndexScrollbar
-			 * @private
-			 * @static
-			 */
-				ev = ns.event,
-			/**
 			 * Alias for class {@link ns.event}
 			 * @property {Object} events
 			 * @member ns.widget.wearable.IndexScrollbar
@@ -675,8 +668,8 @@
 				_onTouchMoveHandler: function(event) {
 					var touches = event._originalEvent && event._originalEvent.touches;
 					if (touches && (touches.length > 1) || !pointerIsPressed) {
-						event.preventDefault();
-						event.stopPropagation();
+						events.preventDefault(event);
+						events.stopPropagation(event);
 						return;
 					}
 
@@ -716,8 +709,8 @@
 					// update indicator
 					this._updateIndicatorAndTriggerEvent( val );
 
-					ev.preventDefault(event);
-					ev.stopPropagation(event);
+					events.preventDefault(event);
+					events.stopPropagation(event);
 				},
 
 				/**
