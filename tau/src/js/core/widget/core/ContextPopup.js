@@ -366,7 +366,8 @@
 
 				positionType = {
 					WINDOW: "window",
-					ORIGIN: "origin"
+					ORIGIN: "origin",
+					ABSOLUTE: "absolute"
 				},
 
 				prototype = new Popup();
@@ -667,6 +668,26 @@
 			};
 
 			/**
+			 * Set top, left and margin for popup's container.
+			 * @method _placementCoordsAbsolute
+			 * @param {HTMLElement} element
+			 * @param {number} x
+			 * @param {number} y
+			 * @protected
+			 * @member ns.widget.core.ContextPopup
+			 */
+			prototype._placementCoordsAbsolute = function(element, x, y) {
+				var elementStyle = element.style,
+					elementWidth = element.offsetWidth,
+					elementHeight = element.offsetHeight;
+
+				elementStyle.top = y + "px";
+				elementStyle.left = x + "px";
+				elementStyle.marginTop = -(elementHeight / 2) + "px";
+				elementStyle.marginLeft = -(elementWidth / 2) + "px";
+			};
+
+			/**
 			 * Find clicked element.
 			 * @method _findClickedElement
 			 * @param {number} x
@@ -742,12 +763,12 @@
 				if (typeof positionTo === "string") {
 					if (positionTo === positionType.ORIGIN && typeof x === "number" && typeof y === "number") {
 						clickedElement = self._findClickedElement(x, y);
-					} else if (positionTo !== positionType.WINDOW) {
+					} else if (positionTo !== positionType.WINDOW && positionTo !== positionType.ABSOLUTE ) {
 						try {
 							clickedElement = document.querySelector(options.positionTo);
 						} catch(e) {}
 					}
-				} else {
+				} else if (typeof positionTo === "object") {
 					clickedElement = positionTo;
 				}
 
@@ -778,6 +799,8 @@
 					elementStyle.left = bestRectangle.x + "px";
 					elementStyle.top = bestRectangle.y + "px";
 
+				} else if (positionTo === positionType.ABSOLUTE && typeof x === "number" && typeof y === "number") {
+					self._placementCoordsAbsolute(element, x, y);
 				} else {
 					self._placementCoordsWindow(element);
 				}
@@ -908,6 +931,19 @@
 			prototype.reposition = function(options) {
 				if (this._isActive()) {
 					this._reposition(options);
+				}
+			};
+
+			/**
+			 * Refresh structure
+			 * @method _refresh
+			 * @protected
+			 * @member ns.widget.core.ContextPopup
+			 */
+			prototype._refresh = function() {
+				if (this._isActive()) {
+					PopupPrototype._refresh.call(this);
+					this.reposition(this.options);
 				}
 			};
 

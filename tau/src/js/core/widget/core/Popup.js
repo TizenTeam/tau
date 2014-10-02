@@ -17,6 +17,7 @@
 	define(
 		[
 			"../../engine",
+			"../../event",
 			"../../util/object",
 			"../../util/deferred",
 			"../../util/selectors",
@@ -60,6 +61,13 @@
 				 * @private
 				 */
 				utilSelector = ns.util.selectors,
+				/**
+				 * Alias for class ns.event
+				 * @property {Object} eventUtils
+				 * @member ns.widget.core.Popup
+				 * @private
+				 */
+				eventUtils = ns.event,
 
 				Popup = function () {
 					var self = this,
@@ -96,7 +104,8 @@
 				 * @property {boolean} [options.overlay=true] Sets whether to show overlay when a popup is open.
 				 * @property {boolean|string} [options.header=false] Sets content of header.
 				 * @property {boolean|string} [options.footer=false] Sets content of footer.
-				 * @property {string} [overlayClass=""] Sets the custom class for the popup background, which covers the entire window.
+				 * @property {string} [options.overlayClass=""] Sets the custom class for the popup background, which covers the entire window.
+				 * @property {string} [options.closeLinkSelector="a[data-rel='back']"] Sets selector for close buttons in popup.
 				 * @property {boolean} [options.history=true] Sets whether to alter the url when a popup is open to support the back button.
 				 * @member ns.widget.core.Popup
 				 * @static
@@ -108,6 +117,7 @@
 					header: false,
 					footer: false,
 					overlayClass: "",
+					closeLinkSelector: "[data-rel='back']",
 					history: true
 				},
 				states = {
@@ -454,10 +464,12 @@
 			 * @member ns.widget.core.Popup
 			 */
 			prototype._bindEvents = function (element) {
-				var self = this;
+				var self = this,
+					closeButtons = self.element.querySelectorAll(self.options.closeLinkSelector);
 
 				self._ui.page.addEventListener("pagebeforehide", self, false);
 				window.addEventListener("resize", self, false);
+				eventUtils.on(closeButtons, "click", self, false);
 				self._bindOverlayEvents();
 			};
 
@@ -495,9 +507,12 @@
 			 * @member ns.widget.core.Popup
 			 */
 			prototype._unbindEvents = function (element) {
-				var self = this;
+				var self = this,
+					closeButtons = self.element.querySelectorAll(self.options.closeLinkSelector);
+
 				self._ui.page.removeEventListener("pagebeforehide", self, false);
 				window.removeEventListener("resize", self, false);
+				eventUtils.off(closeButtons, "click", self, false);
 				self._unbindOverlayEvents();
 			};
 
@@ -695,6 +710,10 @@
 					case "click":
 						if ( event.target === self._ui.overlay ) {
 							self._onClickOverlay(event);
+						} else if (utilSelector.getClosestBySelector(event.target, self.options.closeLinkSelector)) {
+							self.close();
+							event.preventDefault();
+							event.stopPropagation();
 						}
 						break;
 				}
