@@ -70,6 +70,7 @@
 	function createButtons() {
 		var previews = document.querySelectorAll("pre > code"),
 			i = previews.length,
+			found = 0,
 			preview,
 			className,
 			buttonContainer,
@@ -95,20 +96,25 @@
 
 			if (className.indexOf("mobile") > -1) {
 				createButton(buttonContainer, "mobile", previewIDNum, TEXTS.PREVIEW_MOBILE);
+				++found;
 			}
 
 			if (className.indexOf("wearable") > -1) {
 				createButton(buttonContainer, "wearable", previewIDNum, TEXTS.PREVIEW_WEARABLE);
+				++found;
 			}
 
 			if (className.indexOf("tv") > -1) {
 				createButton(buttonContainer, "tv", previewIDNum, TEXTS.PREVIEW_TV);
+				++found;
 			}
 
-			if (nextSibling) {
-				parent.insertBefore(buttonContainer, nextSibling);
-			} else {
-				parent.appendChild(buttonContainer);
+			if (found > 0) {
+				if (nextSibling) {
+					parent.insertBefore(buttonContainer, nextSibling);
+				} else {
+					parent.appendChild(buttonContainer);
+				}
 			}
 
 			previewIDNum++;

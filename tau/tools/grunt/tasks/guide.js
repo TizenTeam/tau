@@ -1,5 +1,5 @@
 /*jslint nomen: true, plusplus: true */
-/*global module, require, __dirname, mu */
+/*global module, require, __dirname, mu, console */
 module.exports = function (grunt) {
 	"use strict";
 
@@ -8,37 +8,39 @@ module.exports = function (grunt) {
 		fs = require("fs"),
 		m = require("marked"),
 		sep = path.sep,
-		stream = require("stream"),
-		extraMarked = require(__dirname + sep + "guide-tokenizer.js");
+		customParser = require(__dirname + sep + "guide-custom-parser.js");
 
 	// marked options
-	extraMarked.enhance(m);
 	m.setOptions({
 		renderer: new m.Renderer(),
 		gfm: true,
 		tables: true,
 		breaks: false,
 		pedantic: false,
-		sanitize: true,
+		sanitize: false,
 		smartLists: false,
 		smartypants: false
 	});
 
-	function convert(inFile, onDone, onError) {
-		fs.readFile(inFile, {flag: "r", encoding: "utf8"}, function (err, data) {
-			if (err) {
-				onError(err);
+	function convertMarkdown(inFile, onDone, onError) {
+		fs.readFile(inFile, {flag: "r", encoding: "utf8"}, function (fileError, data) {
+			if (fileError) {
+				onError(fileError);
 			}
-			m(data, function (merr, content) {
-				if (merr) {
-					onError(merr);
-				}
-				onDone(content);
+			customParser.parse(data, function (customContent) {
+				m(customContent, function (markedError, content) {
+					if (markedError) {
+						onError(markedError);
+					}
+					onDone(content);
+				});
+			}, function (customParserError) {
+				onError(customParserError);
 			});
 		});
 	}
 
-	function copyResources(grunt, sourceDir, src, dst, onDone, onError) {
+	function copyResources(grunt, sourceDir, src, dst, done) {
 		var i = src.length,
 			destination;
 
@@ -49,12 +51,39 @@ module.exports = function (grunt) {
 				grunt.file.copy(src[i], destination);
 				grunt.log.writeln("copying " + src[i] + " => " + destination);
 			}
-			onDone(true);
+			done(true);
 		} catch (err) {
 			grunt.log.error(err);
-			onDone(false);
+			done(false);
 		}
 
+	}
+
+	function processDocument(file, destination, extraParams, success, fail) {
+		var buffer = "";
+		convertMarkdown(file, function (data) {
+			if (fs.existsSync(destination)) {
+				fs.unlinkSync(destination);
+			}
+
+			mu.compileAndRender("guide.html",
+				{
+					content: data,
+					relativePathPrefix: extraParams.relativePathPrefix
+				}
+			).on("error", function (err) {
+				grunt.log.error(err);
+				fail(file);
+			}).on("data", function (data) {
+				buffer += data.toString();
+			}).on("end", function () {
+				grunt.file.write(destination, buffer);
+				success(file);
+			});
+		}, function (err) {
+			grunt.log.error(err);
+			fail(file);
+		});
 	}
 
 	grunt.registerTask("developer-guide", "", function () {
@@ -64,12 +93,28 @@ module.exports = function (grunt) {
 			src = opts.sourceDir,
 			dest = opts.destinationDir,
 			done = this.async(),
+			doneFiles = 0,
+			file,
+			fileName,
+			fullFileName,
+			destination,
+			relativePathPrefix = "/",
+			i,
 			resources = opts.sourceResources.map(function (item) {
 				return src + sep + item;
 			}),
 			markdownFiles = opts.sourceMarkdown.map(function (item) {
 				return src + sep + item;
-			});
+			}),
+			success = function () {
+				if (files.length === ++doneFiles) {
+					copyResources(grunt, src, res, dest, done);
+				}
+			},
+			fail = function (file) {
+				grunt.log.error("convertion of " + file + " failed!");
+				done(false);
+			};
 
 		mu.root = __dirname + "/guide-templates";
 
@@ -81,42 +126,18 @@ module.exports = function (grunt) {
 		}
 
 		grunt.log.writeln("Generating html:");
-		files.forEach(function (item) {
-			var fileName,
-				fullFileName,
-				destination,
-				buffer = "";
-			if (grunt.file.isFile(item)) {
-				fullFileName = path.basename(item);
+		i = files.length;
+		while (--i >= 0) {
+			file = files[i];
+			if (grunt.file.isFile(file)) {
+				fullFileName = path.basename(file);
 				fileName = path.basename(fullFileName, "md");
-				destination = item.replace(src, dest).replace(fullFileName, fileName + "html");
+				relativePathPrefix = file.replace(src, "").replace(fullFileName, "");
+				destination = file.replace(src, dest).replace(fullFileName, fileName + "html");
 
-				grunt.log.writeln("converting " + item + " => " + destination);
-				convert(item, function (data) {
-					if (fs.existsSync(destination)) {
-						fs.unlinkSync(destination);
-					}
-
-					mu.compileAndRender("guide.html", {content: data}).on("error", function (err) {
-						grunt.log.error(err);
-						done(false);
-					}).on("data", function (data) {
-						buffer += data.toString();
-					}).on("end", function () {
-						grunt.file.write(destination, buffer);
-						if (files.indexOf(item) === files.length - 1) {
-							copyResources(grunt, src, res, dest, function () {
-								done(true);
-							}, function () {
-								done(false);
-							});
-						}
-					});
-				}, function (err) {
-					grunt.log.error(err);
-					done(false);
-				});
+				grunt.log.writeln("converting " + file + " => " + destination);
+				processDocument(file, destination, {relativePathPrefix: relativePathPrefix}, success, fail);
 			}
-		});
+		}
 	});
 };
