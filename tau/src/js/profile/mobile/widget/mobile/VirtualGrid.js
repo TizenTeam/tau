@@ -187,7 +187,7 @@
 			prototype._configureList = function (argumentsArray) {
 				var self = this,
 					options = self.options,
-					args = argumentsArray[0];
+					args = argumentsArray[0] || {};
 
 				// @TODO this is easy to use, but the code is confusing
 				// and doesn't allow easy merging
@@ -227,6 +227,7 @@
 			prototype._updateListItem = function (element, index) {
 				var self = this,
 					options = self.options,
+					updateFunction = options.listItemUpdater,
 					direction = options.direction,
 					itemData = self.itemData,
 					$jqTmpl = self._ui.$jqTmpl,
@@ -243,32 +244,34 @@
 				// Clean insides before creating new content
 				element.innerHTML = "";
 
-				if(typeof options.listItemUpdater === "function") {
-					options.listItemUpdater(element, index);
-				} else {
-					fragment = document.createDocumentFragment();
-					nextItemIndex = itemsOffset + i;
-					// Add items until line end or data source end
-					// rawNumItemData may be undefined for first time size checking
-					while (i < itemsPerLine && (rawNumItemData === undefined || nextItemIndex < rawNumItemData)) {
-						//@TODO THIS IS A JQUERY INCLUSION IN A TAU WIDGET!!!
-						//@TODO FIX THIS!!!
-						templateElement = document.createElement('div');
-						// Set item-in-line size
-						templateElement.style[direction === VERTICAL ? "width" : "height"] = elementPercentSize;
+				fragment = document.createDocumentFragment();
+				nextItemIndex = itemsOffset + i;
+				// Add items until line end or data source end
+				// rawNumItemData may be undefined for first time size checking
+				while (i < itemsPerLine && (rawNumItemData === undefined || nextItemIndex < rawNumItemData)) {
+					//@TODO THIS IS A JQUERY INCLUSION IN A TAU WIDGET!!!
+					//@TODO FIX THIS!!!
+					templateElement = document.createElement('div');
+					// Set item-in-line size
+					templateElement.style[direction === VERTICAL ? "width" : "height"] = elementPercentSize;
 
-						templateElement.classList.add(classes.ITEM);
+					templateElement.classList.add(classes.ITEM);
+
+					if (typeof updateFunction === "function") {
+						updateFunction(templateElement, nextItemIndex);
+					} else {
 						templateElement.appendChild($.tmpl($jqTmpl, itemData(nextItemIndex))[0]);
-
-						fragment.appendChild(templateElement);
-
-						i++;
-						nextItemIndex = itemsOffset + i;
 					}
 
-					element.appendChild(fragment);
-					engine.createWidgets(element);
+					fragment.appendChild(templateElement);
+
+					i++;
+					nextItemIndex = itemsOffset + i;
 				}
+
+				element.appendChild(fragment);
+				engine.createWidgets(element);
+
 
 				if (options.lineSize) {
 					element.style[direction === VERTICAL ? "height" : "width"] = options.lineSize + "px";

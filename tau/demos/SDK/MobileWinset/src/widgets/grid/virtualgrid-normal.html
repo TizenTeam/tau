@@ -24,17 +24,7 @@
 		<h1>Virtual grid</h1>
 	</div>
 	<div data-role="content">
-		<script id="tizen-demo-namecard" type="text/x-jquery-tmpl">
-			<div class="ui-demo-rotation-namecard ${ID}">
-			<div class="ui-demo-namecard-pic">
-			<img class="ui-demo-namecard-pic-img" src="${TEAM_LOGO}"  />
-			</div>
-			<div class="ui-demo-namecard-contents">
-			<span class="name ui-li-text-main">${NAME}</span>
-			</div>
-			</div>
-		</script>
-		<div id="virtualgrid-demo" data-role="virtualgrid" data-rotation="false" data-template="tizen-demo-namecard">
+		<div id="virtualgrid-demo" data-role="virtualgrid" data-rotation="false">
 		</div>
 	</div>
 	<script>
@@ -51,6 +41,7 @@
 	});
 	</script>
 	<link rel="stylesheet" href="namecard.css" />
+	<script type="text/javascript" src="virtualgrid-db-demo.js"></script>
 	<script type="text/javascript" src="virtualgrid.js"></script>
 </div>
 </body>

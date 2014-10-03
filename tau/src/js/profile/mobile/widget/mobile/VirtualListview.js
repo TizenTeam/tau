@@ -710,7 +710,7 @@
 			prototype._configureList = function (argumentsArray) {
 				var self = this,
 					options = self.options,
-					args = argumentsArray[0];
+					args = argumentsArray[0] || {};
 
 				if (typeof args.itemData === "function" && (typeof args.numItemData === "function" || typeof args.numItemData === "number")) {
 					if (typeof args.numItemData === "function") {
