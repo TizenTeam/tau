@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../../../libs/qunit-1.11.0.css" />
+
+
+        <title>Slider</title>
+    </head>
+
+    <body>
+
+        <h1 id="qunit-header">Slider</h1>
+        <h2 id="qunit-banner"></h2>
+        <div id="qunit-testrunner-toolbar"></div>
+        <h2 id="qunit-userAgent"></h2>
+        <ol id="qunit-tests"></ol>
+
+        <div id="qunit-fixture">
+            <div data-role="page" id="test_slider_page">
+                <div data-role="content">
+                    <label style="display: block; margin: 30px 0 30px 30px">Normal slider
+                        <input id="slider-1" name="mySlider1" data-popup='false' type="range" value="5" min="0" max="10"/>
+                    </label>
+                    <label style="display: block; margin: 30px 0 30px 30px">Popup slider
+                        <input id="slider-2" name="mySlider2" type="range" value="50" min="0" max="100"
+                               data-icon='text' data-text-left='0' data-text-right='100' data-popup='true'/>
+                    </label>
+
+                    <label style="display: block; margin: 30px 0 30px 30px">Icon slider
+                        <input id="slider-3" name="mySlider3" data-popup='false' type="range" value="5"
+                               min="0" max="10" data-icon='bright'/>
+                        <input id="slider-4" name="mySlider4" data-popup='false' type="range" value="5"
+                               min="0" max="10" data-icon='volume'/>
+                    </label>
+
+                    <label style="display: block; margin: 30px 0 30px 30px">data-highlight="false"
+                        <input id="slider-5" name="mySlider5" data-popup='false' type="range" value="5" min="0"
+                               max="10" data-highlight="false" />
+                    </label>
+                </div>
+            </div>
+        </div>
+        <script src="../../../../../libs/jquery.js"></script>
+        <script src="../../../../../libs/qunit-1.11.0.js"></script>
+        <script src="../../../../../libs/support.js"></script>
+
+        <script src="./slider.js"></script>
+        <script type="text/javascript">
+            var tauConfig = {
+                "autorun": false
+            };
+        </script>
+        <script type="text/javascript" src="../../../../../libs/dist/js/tau.js"></script>
+    </body>
+</html>
