@@ -125,10 +125,13 @@
 				var self = this,
 					id = element.href,
 					ui = self._ui,
-					dynamicListElement = document.getElementById(id.split("#")[1]);
+					dynamicListElement;
 				if (element.parentElement.classList.contains(classes.uiBlock)) {
 					if (ui.currentDynamic) {
 						ui.currentDynamic.classList.remove(classes.uiDynamicBoxActive);
+					}
+					if (id) {
+						dynamicListElement = document.getElementById(id.split("#")[1]);
 					}
 					if (dynamicListElement) {
 						self.option('width', WIDE_SIZE);
@@ -191,7 +194,8 @@
 					"isOpen"
 				],
 				Drawer,
-				"tv"
+				"tv",
+				true
 			);
 
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);

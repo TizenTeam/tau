@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<link rel="stylesheet" href="../../../../../libs/qunit-1.11.0.css" />
+		<title>Drawer</title>
+	</head>
+
+	<body>
+		<h1 id="qunit-header">Drawer</h1>
+		<h2 id="qunit-banner"></h2>
+		<div id="qunit-testrunner-toolbar"></div>
+		<h2 id="qunit-userAgent"></h2>
+		<ol id="qunit-tests"></ol>
+
+		<div id="qunit-fixture">
+			<div data-role="page" id="test_drawer_page">
+				<div data-role="drawer" data-position="left" id="drawer">
+					<ul data-role="listview">
+						<li class="ui-drawer-main-list" id="mainItem1"><a href="#">List item 1</a></li>
+						<li class="ui-drawer-main-list" id="mainItem2"><a href="#">List item 2</a></li>
+						<li class="ui-drawer-sub-list" id="subItem1"><a href="#">Sub item 1</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<script src="../../../../../libs/jquery.js"></script>
+		<script src="../../../../../libs/qunit-1.11.0.js"></script>
+		<script src="../../../../../libs/support.js"></script>
+		<script src="./drawer.js"></script>
+		<script type="text/javascript">
+		var tauConfig = {
+			"autorun": false
+		};
+		</script>
+		<script type="text/javascript" src="../../../../../libs/dist/js/tau.js"></script>
+	</body>
+</html>
