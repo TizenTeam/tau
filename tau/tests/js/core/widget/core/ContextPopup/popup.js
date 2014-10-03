@@ -3,10 +3,15 @@
 (function (window, document) {
 	"use strict";
 
-	var page = null,
+	var INSTANCE_WIDGET = "Popup",
+		page = null,
+		page2 = null,
 		popup1Link = null,
 		popup1 = null,
 		popup1Widget = null,
+		popup2Link = null,
+		popup2 = null,
+		popup2Widget = null,
 		PopupClass = ej.widget.core.Popup,
 		engine = ej.engine;
 
@@ -15,9 +20,13 @@
 			popup1Link = document.getElementById("popup1Link");
 			popup1 = document.getElementById("popup1");
 			page = document.getElementById("test");
+			popup2Link = document.getElementById("popup2Link");
+			popup2 = document.getElementById("popup2");
+			page2 = document.getElementById("test2");
 
 			// @TODO! there is problem with closing popup between tests!
 			engine.getRouter().getRoute("popup").activePopup = null;
+			engine.run();
 
 		},
 		teardown: function () {
@@ -64,248 +73,163 @@
 		start();
 	}
 
-	function popuphide() {
-		popup1.removeEventListener("popuphide", popuphide);
+	function showPage(page) {
+		page.style.display = "block";
+		page.parentNode.style.top = "0";
+		page.parentNode.style.left = "0";
+	}
 
+	function hidePage(page) {
+		page.style.display = "none";
+		page.parentNode.style.top = "-10000px";
+		page.parentNode.style.left = "-10000px";
+	}
+
+	asyncTest("basic widget creation", 5, function () {
+		tau.event.one(page, "pageshow", function() {
+			popup1.addEventListener("popupshow", popupshow);
+			popup1Widget = engine.getBinding(popup1);
+			equal(popup1Widget, null, "widget not created before user click");
+			popup1Link.click();
+		});
+		engine.run();
+	});
+
+	test("destroy", function () {
+		expect(4);
+		popup1Widget = engine.instanceWidget(popup1, INSTANCE_WIDGET);
+		equal(popup1.children.length, 2, "Popuphas 2 children");
+		equal(popup1.firstChild.className, "ui-popup-wrapper", "Popup has wrapper before destroy");
 		popup1Widget.destroy();
-
-		popup1 = document.getElementById("popup1");
-
-		popup1Widget = engine.instanceWidget(popup1, "Popup", {header: "test content header", footer: "test footer content"});
-
-		testPopupMarkup(popup1Widget, popup1);
-		popup1Widget.close();
-		start();
-	}
-
-	function popupshowOptions () {
-		popup1.removeEventListener("popupshow", popupshowOptions);
-		popup1.addEventListener("popuphide", popuphide);
-		popup1Widget = engine.getBinding(popup1);
-
-		testPopupMarkup(popup1Widget, popup1);
-		popup1Widget.close();
-
-		// lets try to imitate built widget and test that
-	}
-
-
-	asyncTest("widget creation with header and footer passed by options", function () {
-		expect(21);
-		tau.event.one(page, "pageshow", function() {
-			popup1.addEventListener("popupshow", popupshowOptions);
-			popup1Widget = engine.getBinding(popup1);
-			equal(popup1Widget, null, "widget not created before user click");
-
-			engine.instanceWidget(popup1, "Popup", {header: "test content header", footer: "test footer content"});
-			popup1Link.click();
-		});
-		engine.run();
+		equal(popup1.children.length, 1, "Popup has one children");
+		ok(popup1.firstChild.className !== "ui-popup-wrapper", "Popup does not have wrapper");
 	});
 
-	asyncTest("basic widget creation", function () {
-		expect(5);
-		tau.event.one(page, "pageshow", function() {
-			popup1.addEventListener("popupshow", popupshow);
-			popup1Widget = engine.getBinding(popup1);
-			equal(popup1Widget, null, "widget not created before user click");
-			popup1Link.click();
-		});
-		engine.run();
-	});
+	asyncTest("position of arrow", 3, function () {
+		var arrow,
+			linkPosition,
+			popupClasses;
 
-	asyncTest("widget creation with header and footer in data attributes", function () {
-		expect(11);
-		tau.event.one(page, "pageshow", function() {
-			popup1.addEventListener("popupshow", popupshow);
-			popup1Widget = engine.getBinding(popup1);
-			equal(popup1Widget, null, "widget not created before user click");
-			popup1.setAttribute("data-header", "Test header");
-			popup1.setAttribute("data-footer", "Test footer");
-			popup1Link.click();
-		});
-		engine.run();
-	});
+		showPage(page2);
 
-	asyncTest("widget creation with children and widget methods", 8, function () {
-		tau.event.one(page, "pageshow", function() {
-			var display,
-				visibility,
-				style = popup1.style;
-			popup1.innerHTML = "<span>Hello world!</span>";
-			popup1.classList.add(PopupClass.classes.toast);
-			popup1Link.click();
-			popup1Widget = engine.getBinding(popup1);
-
-			display = style.display;
-			visibility = style.visibility;
-			ej.event.trigger(window, "resize");
-			popup1Widget.close();
-			equal(style.display, display, "display the same after refresh");
-			equal(style.visibility, visibility, "visibility the same after refresh");
-
-			// recheck refresh if popup was hidden
-
-			display = style.display = "none";
-			visibility = style.visibility;
-			popup1Widget.refresh();
-			equal(style.display, display, "display the same after refresh");
-			equal(style.visibility, visibility, "visibility the same after refresh");
-
-			testPopupMarkup(popup1Widget, popup1);
+		tau.event.one(popup2, "popupshow", function() {
+			popupClasses = popup2.classList;
+			ok(true, "Popup is opened");
+			ok(popupClasses.contains("ui-popup-arrow-t"), "Popup has proper arrow class.");
+			arrow = popup2Widget._ui.arrow;
+			ok(parseInt(arrow.style.left, 10) >= 30, "Left property of arrow has value bigger than popup's padding.");
+			hidePage(page2);
 			start();
 		});
-		engine.run();
+		popup2Widget = engine.instanceWidget(popup2, INSTANCE_WIDGET);
+
+		linkPosition = popup2Link.getBoundingClientRect();
+		popup2Widget.open({
+			arrow: "t",
+			positionTo: "origin",
+			x: linkPosition.left + 1,
+			y: linkPosition.top + linkPosition.height / 2
+		});
 	});
 
-	if (!window.navigator.userAgent.match("PhantomJS")) {
-		asyncTest("test popup open transition fade", 2, function () {
-			tau.event.one(page, "pageshow", function() {
-				var callbackFinished = function () {
-						// this equal is just for qunit not to complain
-						popup1.removeEventListener(PopupClass.events.show, callbackFinished);
-						equal(true, true, "show properly run");
-						start();
-					},
-					callbackPre = function () {
-						// this equal is just for qunit not to complain
-						popup1.removeEventListener(PopupClass.events.before_show, callbackPre);
-						equal(true, true, "before show properly run");
-					};
+	asyncTest("method reposition", 5, function() {
+		var beforeposition = 0,
+			callback = function() {
+				beforeposition++;
+				ok(true, beforeposition + ". beforeposition");
+				if (beforeposition === 1) {
+					ok(true, "Event beforeposition was called during opening");
+				} else {
+					ok(true, "Event beforeposition was called on reposition");
+					popup1Widget.close();
+					popup1.removeEventListener("beforeposition", callback);
+					start();
+				}
+			};
+		popup1Widget = engine.instanceWidget(popup1, INSTANCE_WIDGET);
+		popup1.addEventListener("beforeposition", callback);
+		tau.event.one(popup1, "popupshow", function() {
+			ok(true, "Popup is opened");
+			popup1Widget.reposition();
+		});
+		popup1Widget.open();
+	});
 
-				tau.widget.popup(popup1);
-				popup1Widget = engine.getBinding(popup1);
-				popup1.addEventListener(PopupClass.events.show, callbackFinished);
-				popup1.addEventListener(PopupClass.events.before_show, callbackPre);
-				popup1Widget.open({
-					transition: "fade"
-				});
-			});
-			engine.run();
+	asyncTest("positionTo as a object", 1, function() {
+		popup1Widget = engine.instanceWidget(popup1, INSTANCE_WIDGET);
+		showPage(page);
+		tau.event.one(popup1, "popupshow", function() {
+			ok(true, "Popup is opened");
+			popup1Widget.close();
+			start();
+		});
+		popup1Widget.open({
+			positionTo: document.getElementById("popup1Link")
+		});
+		hidePage(page);
+	});
+
+	asyncTest("open popup with options for position (ID)", 2, function () {
+		popup1Widget = engine.instanceWidget(popup1, INSTANCE_WIDGET);
+		showPage(page);
+
+		tau.event.one(popup1, "popupshow", function() {
+			hidePage(page);
+			ok(true, "Popup was shown");
+			ok(popup1.classList.contains("ui-popup-arrow-b"), "Popup was opened in context style");
+			popup1Widget.close();
+			start();
+		});
+		popup1Widget.open({
+			arrow: "b",
+			positionTo: "#popup1Link",
+		});
+	});
+
+	asyncTest("open popup with options for position (X, Y)", 3, function () {
+		var linkPosition;
+
+		popup1Widget = engine.instanceWidget(popup1, INSTANCE_WIDGET);
+		showPage(page);
+		linkPosition = popup1Link.getBoundingClientRect();
+
+		tau.event.one(popup1, "popupshow", function() {
+			ok(true, "Popup was shown");
+			ok(popup1.classList.contains("ui-popup-arrow-t"), "Popup was opened in context style");
+			ok(popup1Widget._ui.arrow.style.left !== "", "Position of arrow is set");
+			popup1Widget.close();
+			start();
+		});
+		popup1Widget.open({
+			arrow: "t",
+			positionTo: "origin",
+			x: linkPosition.left + linkPosition.width / 2,
+			y: linkPosition.top + linkPosition.height / 2
+		});
+		hidePage(page);
+	});
+
+	asyncTest("classes after closing popup", 4, function () {
+		popup1Widget = engine.instanceWidget(popup1, INSTANCE_WIDGET);
+		showPage(page);
+
+		tau.event.one(popup1, "popuphide", function() {
+			hidePage(page);
+			ok(true, "Popup was closed");
+			ok(!popup1.classList.contains("ui-popup-arrow-r"), "Popup does not have class ui-popup-arrow-");
+			start();
 		});
 
-		asyncTest("test popup close transition slideup", 3, function () {
-			tau.event.one(page, "pageshow", function() {
-				var callbackFinished = function () {
-						// this equal is just for qunit not to complain
-						popup1.removeEventListener(PopupClass.events.hide, callbackFinished);
-						equal(true, true, "hide properly run");
-						start();
-					},
-					callbackPre = function () {
-						// this equal is just for qunit not to complain
-						popup1.removeEventListener(PopupClass.events.before_hide, callbackPre);
-						equal(true, true, "before hide properly run");
-					},
-					callbackOpen = function () {
-						popup1.removeEventListener(PopupClass.events.show, callbackOpen);
-						equal(true, true, "open properly");
-						popup1Widget = engine.getBinding(popup1);
-						popup1Widget.close({
-							transition: "slideup"
-						});
-					};
-
-				popup1.addEventListener(PopupClass.events.hide, callbackFinished);
-				popup1.addEventListener(PopupClass.events.before_hide, callbackPre);
-
-				popup1.addEventListener(PopupClass.events.show, callbackOpen);
-				popup1Link.click();
-			});
-			engine.run();
+		tau.event.one(popup1, "popupshow", function() {
+			hidePage(page);
+			ok(true, "Popup was shown");
+			ok(popup1.classList.contains("ui-popup-arrow-r"), "Popup was opened in context style");
+			popup1Widget.close();
 		});
 
-	}
-
-	test("set header test", function () {
-		expect(3);
-		popup1Widget = engine.instanceWidget(popup1, 'Popup');
-		popup1Widget.option('header', 'new header');
-		equal(popup1Widget._ui.header.innerHTML, 'new header', "widget change header to string");
-		popup1Widget.option('header', false);
-		equal(popup1Widget._ui.header, null, "widget change header to null");
-		popup1Widget.option('header', 'new header 2');
-		equal(popup1Widget._ui.header.innerHTML, 'new header 2', "widget change header to string");
-	});
-
-	test("set footer test", function () {
-		expect(3);
-		popup1Widget = engine.instanceWidget(popup1, 'Popup');
-		popup1Widget.option('footer', 'new footer');
-		equal(popup1Widget._ui.footer.innerHTML, 'new footer', "widget change footer to string");
-		popup1Widget.option('footer', false);
-		equal(popup1Widget._ui.footer, null, "widget change footer to null");
-		popup1Widget.option('footer', 'new footer 2');
-		equal(popup1Widget._ui.footer.innerHTML, 'new footer 2', "widget change footer to string");
-	});
-
-
-	test("set overlay test", function () {
-		expect(3);
-		popup1Widget = engine.instanceWidget(popup1, 'Popup');
-		popup1Widget.option('overlay', true);
-		ok(popup1Widget._ui.overlay, "widget set overlay");
-		popup1Widget.option('overlay', false);
-		ok(!popup1Widget._ui.overlay, "widget remove overlay");
-		popup1Widget.option('overlay', true);
-		ok(popup1Widget._ui.overlay, "widget set overlay");
-	});
-
-	test("set multi options", function () {
-		expect(2);
-		popup1Widget = engine.instanceWidget(popup1, 'Popup');
-		popup1Widget.option({
-				'header': 'header multi',
-				'footer': 'footer multi'
-			});
-		equal(popup1Widget._ui.header.innerHTML, 'header multi', "widget change header to string");
-		equal(popup1Widget._ui.footer.innerHTML, 'footer multi', "widget change footer to string");
-	});
-
-	function eventCallback() {
-		ok('Event called');
-	}
-
-	test("on method", function () {
-		expect(1);
-		popup1Widget = engine.instanceWidget(popup1, 'Popup');
-		popup1Widget.on('event', eventCallback, false);
-		popup1Widget.trigger('event');
-	});
-
-	test("off method", function () {
-		expect(1);
-		popup1Widget = engine.instanceWidget(popup1, 'Popup');
-		popup1Widget.on('event', eventCallback, false);
-		popup1Widget.off('event', eventCallback, false);
-		popup1Widget.trigger('event');
-		ok('not triggered');
-	});
-
-	if (!window.navigator.userAgent.match('PhantomJS')) {
-		asyncTest("test popup close onpagehide", 1, function () {
-			popup1Widget = engine.instanceWidget(popup1, 'Popup');
-			tau.event.one(page, "pagebeforehide", function () {
-				ok(!popup1Widget._isOpened(), "Popup is not open");
-				start();
-			});
-			tau.event.one(popup1, "popupshow", function () {
-				tau.event.trigger(page, 'pagebeforehide');
-			});
-			popup1Widget.open();
+		popup1Widget.open({
+			arrow: "r",
+			positionTo: "#popup1Link",
 		});
-
-
-		asyncTest("test popup close by click on overlay", 1, function () {
-			popup1Widget = engine.instanceWidget(popup1, 'Popup');
-			tau.event.one(popup1, "popuphide", function () {
-				ok(!popup1Widget._isOpened(), "Popup is not open");
-				start();
-			});
-			tau.event.one(popup1, "popupshow", function () {
-				tau.event.trigger(popup1Widget._ui.overlay, 'click');
-			});
-			popup1Widget.open();
-		});
-	}
+	});
 }(window, window.document));

@@ -832,8 +832,6 @@
 					content = ui.content,
 					arrow = ui.arrow;
 
-				PopupPrototype._onHide.call(self);
-
 				elementClassList.remove(classes.context);
 				["l", "r", "b", "t"].forEach(function(key) {
 					elementClassList.remove(classes.arrowDir + key);
@@ -842,6 +840,8 @@
 				element.removeAttribute("style");
 				content.removeAttribute("style");
 				arrow.removeAttribute("style");
+
+				PopupPrototype._onHide.call(self);
 			};
 
 			/**
@@ -863,6 +863,7 @@
 				});
 
 				wrapper.parentNode.removeChild(wrapper);
+				ui.arrow.parentNode.removeChild(ui.arrow);
 
 				ui.wrapper = null;
 				ui.arrow = null;

@@ -14,8 +14,7 @@
 			//>>excludeEnd("tauBuildExclude");
 
 			// Default configuration properties for tv
-			ns.setConfig("autoBuildOnPageChange", true, true);
-
+			ns.setConfig("autoBuildOnPageChange", false, true);
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 		}
 	);
