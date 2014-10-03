@@ -285,6 +285,7 @@
 		[
 			"../../engine",
 			"../../util/object",
+			"../../util/DOM/css",
 			"./Popup"
 		],
 		function () {
@@ -297,6 +298,8 @@
 				engine = ns.engine,
 
 				objectUtils = ns.util.object,
+
+				domUtils = ns.util.DOM,
 
 				/**
 				 * Object with default options
@@ -500,9 +503,9 @@
 					// max - maximum size of available place
 					params = {
 						"l": {dir: "l", fixedPositionField: "x", fixedPositionFactor: 1,
-							size: popupWidth, max: windowWidth - clickElementOffsetX - clickElementOffsetWidth},
-						"r": {dir: "r", fixedPositionField: "x", fixedPositionFactor: -1,
 							size: popupWidth, max: clickElementOffsetX},
+						"r": {dir: "r", fixedPositionField: "x", fixedPositionFactor: -1,
+							size: popupWidth, max: windowWidth - clickElementOffsetX - clickElementOffsetWidth},
 						"b": {dir: "b", fixedPositionField: "y", fixedPositionFactor: -1,
 							size: popupHeight, max: clickElementOffsetY},
 						"t": {dir: "t", fixedPositionField: "y", fixedPositionFactor: 1,
@@ -569,11 +572,29 @@
 				var ui = self._ui,
 					wrapper = ui.wrapper,
 					arrow = ui.arrow,
+					popupElement = self.element,
 					arrowStyle = arrow.style,
 					windowWidth = window.innerWidth,
 					windowHeight = window.innerHeight,
 					wrapperRect = wrapper.getBoundingClientRect(),
 					arrowHalfWidth = arrow.offsetWidth / 2,
+					popupProperties = {
+						"padding-top": 0,
+						"padding-bottom": 0,
+						"padding-left": 0,
+						"padding-right": 0
+					},
+					wrapperProperties = {
+						"margin-top": 0,
+						"margin-bottom": 0,
+						"margin-left": 0,
+						"margin-right": 0,
+						"padding-top": 0,
+						"padding-bottom": 0,
+						"padding-left": 0,
+						"padding-right": 0
+					},
+					margins,
 					params = {
 						"t": {pos: x, min: "left", max: "right", posField: "x", valField: "w", styleField: "left"},
 						"b": {pos: x, min: "left", max: "right", posField: "x", valField: "w", styleField: "left"},
@@ -583,11 +604,25 @@
 					param = params[bestRectangle.dir],
 					surplus;
 
+				domUtils.extractCSSProperties(popupElement, popupProperties);
+				domUtils.extractCSSProperties(wrapper, wrapperProperties);
+				margins	= {
+					"t": popupProperties["padding-top"] + wrapperProperties["margin-top"] + wrapperProperties["padding-top"],
+					"b": popupProperties["padding-bottom"] + wrapperProperties["margin-bottom"] + wrapperProperties["padding-bottom"],
+					"l": popupProperties["padding-left"] + wrapperProperties["margin-left"] + wrapperProperties["padding-left"],
+					"r": popupProperties["padding-right"] + wrapperProperties["margin-right"] + wrapperProperties["padding-right"]
+				};
+
+				// value of coordinates of proper edge of wrapper
 				wrapperRect = {
-					left: wrapperRect.left + bestRectangle.x,
-					right: wrapperRect.right + bestRectangle.x,
-					top: wrapperRect.top + bestRectangle.y,
-					bottom: wrapperRect.bottom + bestRectangle.y
+					// x-coordinate of left edge
+					left: margins.l + bestRectangle.x,
+					// x-coordinate of right edge
+					right: margins.l + wrapperRect.width + bestRectangle.x,
+					// y-coordinate of top edge
+					top: margins.t + bestRectangle.y,
+					// y-coordinate of bottom edge
+					bottom: wrapperRect.height + margins.t + bestRectangle.y
 				};
 
 				if (wrapperRect[param.min] > param.pos - arrowHalfWidth) {
@@ -644,6 +679,46 @@
 			};
 
 			/**
+			 * Emulate position of event for clicked element.
+			 * @method emulatePositionOfClick
+			 * @param {string} bestDirection direction of arrow
+			 * @param {HTMLElement} clickedElement
+			 * @private
+			 * @member ns.widget.core.ContextPopup
+			 */
+			function emulatePositionOfClick(bestDirection, clickedElement) {
+				var clickedElementRect = clickedElement.getBoundingClientRect(),
+					position = {};
+
+				switch(bestDirection) {
+					case "l":
+						// the arrow will be on the left edge of container, so x-coordinate
+						// should have value equals to the position of right edge of clicked element
+						position.x = clickedElementRect.right;
+						// y-coordinate should have value equals to the position of top edge of clicked
+						// element plus half of its height
+						position.y = clickedElementRect.top + clickedElementRect.height / 2;
+						break;
+					case "r":
+						// the arrow will be on the right edge of container
+						position.x = clickedElementRect.left;
+						position.y =  clickedElementRect.top + clickedElementRect.height / 2;
+						break;
+					case "t":
+						// the arrow will be on the top edge of container
+						position.x = clickedElementRect.left + clickedElementRect.width / 2;
+						position.y = clickedElementRect.bottom;
+						break;
+					case "b":
+						// the arrow will be on the bottom edge of container
+						position.x = clickedElementRect.left + clickedElementRect.width / 2;
+						position.y = clickedElementRect.top;
+						break;
+				}
+				return position;
+			}
+
+			/**
 			 * Find and set the best position for popup.
 			 * @method _placementCoords
 			 * @param {object} options
@@ -658,6 +733,7 @@
 					element = self.element,
 					elementStyle = element.style,
 					elementClassList = element.classList,
+					emulatedPosition,
 					elementHeight,
 					clickedElement,
 					bestRectangle;
@@ -683,6 +759,13 @@
 
 					elementClassList.add(classes.arrowDir + bestRectangle.dir);
 
+					if (typeof x !== "number" && typeof y !== "number") {
+						// if we found element, which was clicked, but the coordinates of event
+						// was not available, we have to count these coordinates to the center of proper edge of element.
+						emulatedPosition = emulatePositionOfClick(bestRectangle.dir, clickedElement);
+						x = emulatedPosition.x;
+						y = emulatedPosition.y;
+					}
 					bestRectangle = adjustedPositionAndPlacementArrow(self, bestRectangle, x, y);
 
 					if (elementHeight > bestRectangle.h) {
