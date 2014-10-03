@@ -72,7 +72,7 @@
 
 	asyncTest('swipe left', 2, function swipe() {
 		var swipeListRight = this.swipeList.getElementsByClassName('ui-swipelist-right')[0],
-			clientMoveXY = {clientX: this.left - 10, clientY: this.top};
+			clientMoveXY = {clientX: this.left - 100, clientY: this.top};
 
 			// Simulate left swiping
 			triggerTouchEvent(this.li, 'touchstart', this.clientXY);
@@ -91,7 +91,7 @@
 
 	asyncTest('swipe right', 2, function swipe() {
 		var swipeListLeft = this.swipeList.getElementsByClassName('ui-swipelist-left')[0],
-			clientMoveXY = {clientX: this.left + 10, clientY: this.top};
+			clientMoveXY = {clientX: this.left + 100, clientY: this.top};
 
 			// Simulate right swiping
 			triggerTouchEvent(this.li, 'touchstart', this.clientXY);
