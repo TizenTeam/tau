@@ -456,15 +456,6 @@ This APIs are highly optimized for Webkit engine. This ensures that the library 
 Which is very important for applications written for smaller devices.
 Handy methods are located in utils, events, theme objects.
 
-### Why?
-
-It's recommended to switch intro pure TAU framework because:
-
-1. TAU Is optimize for WebKit engine.
-2. Contains only the code written for WebKit. There is no code dependent on IE and Geco.
-3. Thanks to the pre-build phase the applications start faster.
-4. Has a powerful APIs to handle DOM and Events.
-
 ### Handling syntax differences
 
 The jQuery constructors of widgets
@@ -487,9 +478,8 @@ With TAU native constructors like
     </div>
 </div>
 <script>
-    var button,
-        buttonElement = document.getElementById("button");
-    button = tau.widget.Button(buttonElement, {mini: true});
+    var buttonElement = document.getElementById("button"),
+        button = tau.widget.Button(buttonElement, {mini: true});
 </script>
 ```
 
