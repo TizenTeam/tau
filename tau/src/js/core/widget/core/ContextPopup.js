@@ -858,16 +858,28 @@
 				var self = this,
 					element = self.element,
 					ui = self._ui,
-					wrapper = ui.wrapper;
+					wrapper = ui.wrapper,
+					arrow = ui.arrow,
+					child;
 
 				PopupPrototype._destroy.call(self);
 
-				[].forEach.call(wrapper.children, function(child) {
-					element.appendChild(child);
-				});
+				if (wrapper) {
+					// restore all children from wrapper
+					child = wrapper.firstChild;
+					while (child) {
+						element.appendChild(child);
+						child = wrapper.firstChild;
+					}
 
-				wrapper.parentNode.removeChild(wrapper);
-				ui.arrow.parentNode.removeChild(ui.arrow);
+					if (wrapper.parentNode) {
+						wrapper.parentNode.removeChild(wrapper);
+					}
+				}
+
+				if (arrow && arrow.parentNode) {
+					arrow.parentNode.removeChild(arrow);
+				}
 
 				ui.wrapper = null;
 				ui.arrow = null;
