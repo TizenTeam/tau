@@ -10,7 +10,7 @@ var ns = window.tau = {},
 nsConfig = window.tauConfig = window.tauConfig || {};
 nsConfig.rootNamespace = 'tau';
 nsConfig.fileName = 'tau';
-ns.version = '0.9.24';
+ns.version = '0.9.26';
 /*global window, console, define, ns, nsConfig */
 /*jslint plusplus:true */
 /* 
@@ -279,7 +279,7 @@ ns.version = '0.9.24';
 
 			}(ns));
 
-/*global window, define, XMLHttpRequest, console */
+/*global window, define, XMLHttpRequest, console, Blob */
 /*jslint nomen: true, browser: true, plusplus: true */
 /* 
  * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
@@ -314,16 +314,18 @@ ns.version = '0.9.24';
 			/**
 			 * fetchSync retrieves a text document synchronously, returns null on error
 			 * @param {string} url
+			 * @param {=string} [mime=""] Mime type of the resource
 			 * @return {string|null}
-			 * @private
 			 * @static
 			 * @member ns.util
 			 */
-			function fetchSync(url) {
+			function fetchSync(url, mime) {
 				var xhr = new XMLHttpRequest(),
 					status;
 				xhr.open("get", url, false);
-				xhr.overrideMimeType("text/plain");
+				if (mime) {
+					xhr.overrideMimeType(mime);
+				}
 				xhr.send();
 				if (xhr.readyState === 4) {
 					status = xhr.status;
@@ -334,6 +336,7 @@ ns.version = '0.9.24';
 
 				return null;
 			}
+			util.fetchSync = fetchSync;
 
 			/**
 			 * Removes all script tags with src attribute from document and returns them
@@ -362,14 +365,13 @@ ns.version = '0.9.24';
 			 * minimizes the effect, returns the function to run
 			 * @param {string} code
 			 * @return {Function}
-			 * @private
 			 * @static
 			 * @member ns.util
 			 */
-			function safeEval(code) {
+			function safeEvalWrap(code) {
 				return function () {
 					try {
-						(new Function(code)).call(window);
+						window.eval(code);
 					} catch (e) {
 						if (typeof console !== "undefined") {
 							if (e.stack) {
@@ -383,21 +385,22 @@ ns.version = '0.9.24';
 					}
 				};
 			}
+			util.safeEvalWrap = safeEvalWrap;
 
 			/**
 			 * Calls functions in supplied queue (array)
 			 * @param {Array.<Function>} functionQueue
-			 * @private
 			 * @static
 			 * @member ns.util
 			 */
 			function batchCall(functionQueue) {
 				var i,
-					l = functionQueue.length;
-				for (i = 0; i < l; ++i) {
+					length = functionQueue.length;
+				for (i = 0; i < length; ++i) {
 					functionQueue[i].call(window);
 				}
 			}
+			util.batchCall = batchCall;
 
 			/**
 			 * Creates new script elements for scripts gathered from a differnt document
@@ -414,17 +417,17 @@ ns.version = '0.9.24';
 				var scriptElement,
 					scriptBody,
 					i,
-					l,
+					length,
 					queue = [];
 
 				// proper order of execution
-				for (i = 0, l = scripts.length; i < l; ++i) {
-					scriptBody = fetchSync(scripts[i].src);
+				for (i = 0, length = scripts.length; i < length; ++i) {
+					scriptBody = fetchSync(scripts[i].src, "text/plain");
 					if (scriptBody) {
 						scriptElement = document.adoptNode(scripts[i]);
 						scriptElement.setAttribute("data-src", scripts[i].src);
 						scriptElement.removeAttribute("src"); // block evaluation
-						queue.push(safeEval(scriptBody));
+						queue.push(safeEvalWrap(scriptBody));
 						if (container) {
 							container.appendChild(scriptElement);
 						}
@@ -528,17 +531,8 @@ ns.version = '0.9.24';
 					}
 				}
 
-				// If external script exists, fetch and insert it inline
 				if (src) {
-					// get some kind of XMLHttpRequest
-					request = new XMLHttpRequest();
-					// open and send a synchronous request
-					request.open("GET", src, false);
-					request.send();
-					status = request.status;
-					if (status === 200 || status === 0) {
-						scriptData = request.responseText;
-					}
+					scriptData = fetchSync(src, "text/plain");
 									} else {
 					scriptData = script.textContent;
 				}
@@ -637,23 +631,18 @@ ns.version = '0.9.24';
 			 */
 			function isArrayLike(object) {
 				var type = typeof object,
-					length = object.length;
+					length = object && object.length;
 
-				if (object != null && object === object.window) {
-					return false;
+				// if object exists and is different from window
+				// window object has length property
+				if (object && object !== object.window) {
+					// If length value is not number, object is not array and collection.
+					// Collection type is not array but has length value.
+					// e.g) Array.isArray(document.childNodes) ==> false
+					return Array.isArray(object) || object instanceof NodeList || type === "function" &&
+						(length === 0 || typeof length === "number" && length > 0 && (length - 1) in object);
 				}
-
-				if (object.nodeType === 1 && length) {
-					// nodeType 1 is ELEMENT_NODE
-					// Note that docuement nodeType is 9
-					return true;
-				}
-
-				// If length value is not number, object is not array and collection.
-				// Collection type is not array but has length value.
-				// e.g) Array.isArray(document.childNodes) ==> false
-				return Array.isArray(object) || type !== "function" &&
-					(length === 0 || typeof length === "number" && length > 0 && (length -1) in object);
+				return false;
 			}
 
 			ns.util.array = {
@@ -839,7 +828,7 @@ ns.version = '0.9.24';
 							documentElement = document.documentElement;
 
 						if (event.type.match(/^touch/)) {
-							touch0 = _event.originalEvent.targetTouches[0];
+							touch0 = _event.targetTouches[0] || _event.originalEvent.targetTouches[0];
 							page = {
 								x: touch0.pageX,
 								y: touch0.pageY
@@ -881,7 +870,7 @@ ns.version = '0.9.24';
 
 					if (cords.x === undefined || isNaN(cords.x) ||
 						cords.y === undefined || isNaN(cords.y)) {
-						cords = events.documentRelativeCoordsFromEvent(event);
+						cords = ns.event.documentRelativeCoordsFromEvent(event);
 						cords.x -= target.offsetLeft;
 						cords.y -= target.offsetTop;
 					}
@@ -1005,9 +994,9 @@ ns.version = '0.9.24';
 						elements,
 						types,
 						listeners,
-						callback;
+						callbacks = [];
 					if (isArrayLike(element)) {
-						elements = element;
+						elements = arraySlice.call(element);
 					} else {
 						elements = [element];
 					}
@@ -1016,15 +1005,16 @@ ns.version = '0.9.24';
 					typesLength = listeners.length;
 					for (i = 0; i < elementsLength; i++) {
 						if (typeof elements[i].addEventListener === "function") {
+							callbacks[i] = [];
 							for (j = 0; j < typesLength; j++) {
-								callback = (function(i, j) {
+								callbacks[i][j] = (function(i, j) {
 									var args = arraySlice.call(arguments);
-									ns.event.fastOff(elements[i], listeners[j].type, callback, useCapture);
+									ns.event.fastOff(elements[i], listeners[j].type, callbacks[i][j], useCapture);
 									args.shift(); // remove the first argument of binding function
 									args.shift(); // remove the second argument of binding function
 									listeners[j].callback.apply(this, args);
 								}).bind(null, i, j);
-								ns.event.fastOn(elements[i], listeners[j].type, callback, useCapture);
+								ns.event.fastOn(elements[i], listeners[j].type, callbacks[i][j], useCapture);
 							}
 						}
 					}
@@ -2440,7 +2430,7 @@ ns.version = '0.9.24';
 
 					eventUtils.trigger(document, eventType.INIT);
 
-					if (document.body) {
+					if (document.readyState === "complete") {
 						build();
 					} else {
 						eventUtils.fastOn(document, "DOMContentLoaded", build.bind(engine));
@@ -7360,6 +7350,7 @@ ns.version = '0.9.24';
 					self._contentFill();
 				};
 				window.addEventListener("resize", self.contentFillAfterResizeCallback, false);
+				element.addEventListener("pageshow", self.contentFillCallback, false);
 			};
 
 			/**
@@ -7369,6 +7360,18 @@ ns.version = '0.9.24';
 			 * @member ns.widget.wearable.Page
 			 */
 			prototype._refresh = function () {
+				this._contentFill();
+			};
+
+			/**
+			 * Init widget
+			 * @method _init
+			 * @param {HTMLElement} element
+			 * @protected
+			 * @member ns.widget.wearable.Page
+			 */
+			prototype._init = function (element) {
+				this.element = element;
 				this._contentFill();
 			};
 
@@ -7387,7 +7390,6 @@ ns.version = '0.9.24';
 			 * @member ns.widget.wearable.Page
 			 */
 			prototype.onShow = function () {
-				this._contentFill();
 				this.trigger(EventType.SHOW);
 			};
 
@@ -14867,14 +14869,14 @@ ns.version = '0.9.24';
 					return;
 				}
 
-				if (this.swipeLeftElement && (gesture.direction === Gesture.Direction.RIGHT)) {
+				if (this.swipeLeftElement && (gesture.direction === Gesture.Direction.RIGHT) && translateX >= 0) {
 					if (this.swipeRightElementStyle) {
 						this.swipeRightElementStyle.display = "none";
 					}
 					this.activeElement = this.swipeLeftElement;
 					activeElementStyle = this.swipeLeftElementStyle;
 
-				} else if (this.swipeRightElement && (gesture.direction === Gesture.Direction.LEFT)) {
+				} else if (this.swipeRightElement && (gesture.direction === Gesture.Direction.LEFT) && translateX < 0) {
 					if (this.swipeLeftElementStyle) {
 						this.swipeLeftElementStyle.display = "none";
 					}

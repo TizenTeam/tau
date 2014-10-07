@@ -415,8 +415,8 @@ OK, so now we have to put it all together. Link to the finished demo
 application is added at bottom. Still the app can be downloaded and
 imported to Tizen SDK IDE and deployed to a device or emulator to checkout.
 
-[Clock Application DEMO](tutorial_apps/Notepad/)
+[Notes Application DEMO](tutorial_apps/notepad/)
 
-[Clock Application DEMO Project ZIP archive](tutorial_apps/clock_application.zip)
+[Notes Application DEMO Project ZIP archive](tutorial_apps/notepad_application.zip)
 
 
