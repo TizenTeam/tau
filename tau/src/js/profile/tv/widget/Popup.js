@@ -48,7 +48,8 @@
 				},
 				defaults = objectUtils.merge({}, CorePopup.defaults, {
 					arrow: "t,b,l,r",
-					distance: 10
+					distance: 10,
+					positionTo: "window"
 				}),
 				classes = objectUtils.merge({}, CorePopup.classes, {
 					toast: "ui-popup-toast",

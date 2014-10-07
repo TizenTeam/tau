@@ -177,7 +177,8 @@
 		linkPosition = popup2Link.getBoundingClientRect();
 		popup2Widget.open({
 			arrow: "l",
-			positionTo: "#popup2Link",
+			positionTo: "origin",
+			link: "popup2Link",
 			x: linkPosition.right,
 			y: linkPosition.bottom
 		});
@@ -289,7 +290,8 @@
 			});
 			popup1Widget.open({
 				arrow: "l",
-				positionTo: document.getElementById("popup1Link")
+				positionTo: "origin",
+				link: document.getElementById("popup1Link")
 			});
 			hidePage(page);
 		});
@@ -310,7 +312,8 @@
 			});
 			popup1Widget.open({
 				arrow: "b",
-				positionTo: "#popup1Link",
+				positionTo: "origin",
+				link: "popup1Link",
 			});
 		});
 		engine.run();
@@ -362,7 +365,8 @@
 
 			popup1Widget.open({
 				arrow: "r",
-				positionTo: "#popup1Link",
+				positionTo: "origin",
+				link: "popup1Link"
 			});
 		});
 		engine.run();

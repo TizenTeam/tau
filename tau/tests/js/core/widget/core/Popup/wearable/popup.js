@@ -299,14 +299,16 @@
 	});
 
 	test("set overlay test", function () {
-		expect(3);
+		expect(5);
 		popup1Widget = engine.instanceWidget(popup1, INSTANCE_WIDGET);
 		popup1Widget.option("overlay", true);
 		ok(popup1Widget._ui.overlay, "widget set overlay");
 		popup1Widget.option('overlay', false);
-		ok(!popup1Widget._ui.overlay, "widget remove overlay");
+		ok(popup1Widget._ui.overlay, "widget has overlay");
+		equal(popup1Widget._ui.overlay.style.opacity, "0", "widget has invisible overlay");
 		popup1Widget.option('overlay', true);
 		ok(popup1Widget._ui.overlay, "widget set overlay");
+		equal(popup1Widget._ui.overlay.style.opacity, "", "widget has visible overlay");
 	});
 
 	test("set multi options", function () {
