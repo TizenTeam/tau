@@ -513,6 +513,7 @@ module.exports = function(grunt) {
 
 			"developer-guide-build": {
 				"options": {
+					"version": version,
 					"sourceDir": "docs/guide/source",
 					"destinationDir": "docs/guide/built",
 					"sourceMarkdown": ["**/*.md"],

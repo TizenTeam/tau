@@ -83,7 +83,8 @@ module.exports = function (grunt) {
 					tvMenu: extraParams.tvMenu,
 					mobileMenu: extraParams.mobileMenu,
 					coreMenu: extraParams.coreMenu,
-					widgetGuide: extraParams.widgetGuide
+					widgetGuide: extraParams.widgetGuide,
+					version: extraParams.version
 				}
 			).on("error", function (err) {
 				grunt.log.error(err);
@@ -218,6 +219,7 @@ module.exports = function (grunt) {
 		var opts = this.options(),
 			files = [],
 			res = [],
+			version = opts.version || "1.0",
 			src = opts.sourceDir,
 			dest = opts.destinationDir,
 			widgetGuide = opts.extractFromJsDuck || false,
@@ -295,7 +297,8 @@ module.exports = function (grunt) {
 						tvMenu: tvMenu,
 						wearableMenu: wearableMenu,
 						coreMenu: coreMenu,
-						widgetGuide: widgetGuide
+						widgetGuide: widgetGuide,
+						version: version
 					},
 					success,
 					fail
