@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../../../libs/qunit-1.11.0.css" />
+
+
+        <title>Progress</title>
+    </head>
+
+    <body>
+
+        <h1 id="qunit-header">Progress</h1>
+        <h2 id="qunit-banner"></h2>
+        <div id="qunit-testrunner-toolbar"></div>
+        <h2 id="qunit-userAgent"></h2>
+        <ol id="qunit-tests"></ol>
+
+        <div id="qunit-fixture">
+            <div data-role="page" id="test_progress_page">
+                <div data-role="content">
+                    <progress id="progress-1" data-infinite="true" data-appeariance="bar" max="100" value="100" ></progress>
+                    <br>
+                    <progress id="progress-2" max="100" value="90"></progress>
+                    <br>
+                    <progress id="progress-3" data-appeariance="circle"></progress>
+                    <div class="ui-processing-text">
+                        Description about progress
+                    </div>
+                    <progress id="progress-4" min="0" max="100" value="20" class="ui-progress-controllable" disabled="disabled"></progress>
+                    <progress id="progress-5" min="0" max="100" value="50" class="ui-progress-controllable"></progress>
+                </div>
+            </div>
+        </div>
+        <script src="../../../../../libs/jquery.js"></script>
+        <script src="../../../../../libs/qunit-1.11.0.js"></script>
+        <script src="../../../../../libs/support.js"></script>
+
+        <script src="./progress.js"></script>
+        <script type="text/javascript">
+            var tauConfig = {
+                "autorun": false
+            };
+        </script>
+        <script type="text/javascript" src="../../../../../libs/dist/js/tau.js"></script>
+    </body>
+</html>
