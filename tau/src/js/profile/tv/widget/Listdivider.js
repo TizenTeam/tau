@@ -147,7 +147,8 @@
 				"[data-role='list-divider'], .ui-list-divider",
 				[],
 				ListDivider,
-				"tv"
+				"tv",
+				true
 			);
 
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
