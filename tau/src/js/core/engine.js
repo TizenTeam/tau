@@ -942,12 +942,15 @@
 
 					eventUtils.trigger(document, eventType.INIT);
 
-					if (document.body) {
+					switch (document.readyState) {
+					case "interactive":
+					case "complete":
 						build();
-					} else {
+						break;
+					default:
 						eventUtils.fastOn(document, "DOMContentLoaded", build.bind(engine));
+						break;
 					}
-
 				},
 
 				/**
