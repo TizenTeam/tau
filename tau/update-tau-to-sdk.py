@@ -42,8 +42,8 @@ class Job:
 
 # Git info
 class webuifw(Git):
-	addr="165.213.149.219:29418/magnolia/framework/web/web-ui-fw"
-	branch="devel/webappfw/tau"
+	addr="168.219.209.56:29418/framework/web/web-ui-fw"
+	branch="devel/tau"
 
 class webapp(Git):
 	addr="slp-info.sec.samsung.net:29418/tizenw/sdk-web-apps"
