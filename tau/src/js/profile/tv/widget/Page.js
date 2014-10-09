@@ -37,7 +37,9 @@
 				DOM = util.DOM,
 				utilSelectors = util.selectors,
 				Page = function () {
-					BaseKeyboardSupport.call(this);
+					var self = this;
+					BaseKeyboardSupport.call(self);
+					self._ui = self._ui || {};
 				},
 				engine = ns.engine,
 				FUNCTION_TYPE = "function",
@@ -87,6 +89,7 @@
 					self._buildButtonsInHeader(header);
 					self._buildTitleInHeader(header);
 				}
+				self._ui.header = header;
 			};
 
 			prototype._buildFooter = function(element) {
@@ -97,15 +100,28 @@
 				} else {
 					footer.classList.add(classes.uiFooter);
 				}
+				this._ui.footer = footer;
 			};
 
 			prototype._buildContent = function(element) {
-				var content = utilSelectors.getChildrenByClass(element, classes.uiContent)[0] || utilSelectors.getChildrenByTag(element, "div")[0];
+				var content = utilSelectors.getChildrenByClass(element, classes.uiContent)[0],
+					next,
+					child = element.firstChild,
+					ui = this._ui;
 				if (!content) {
 					content = document.createElement("div");
-					element.appendChild(content);
+					while (child) {
+						next = child.nextSibling;
+						if (child !== ui.footer && child !== ui.header) {
+							content.appendChild(child);
+						}
+						child = next;
+					}
 				}
+
+				element.insertBefore(content, ui.footer);
 				content.classList.add(classes.uiContent);
+				ui.content = content;
 			};
 
 			prototype._build = function(element) {
@@ -116,8 +132,8 @@
 				}
 
 				self._buildHeader(element);
-				self._buildContent(element);
 				self._buildFooter(element);
+				self._buildContent(element);
 
 				return element;
 			};
