@@ -262,7 +262,7 @@
 						}
 
 						document.removeEventListener(events.POPUP_HIDE, openPopup, false);
-						popup = engine.instanceWidget(toPopup, 'Popup', options);
+						popup = engine.instanceWidget(toPopup, "Popup", options);
 						popup.open(options);
 						routePopup.activePopup = popup;
 					},

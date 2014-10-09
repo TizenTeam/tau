@@ -898,20 +898,8 @@
 			ns.widget.core.ContextPopup = ContextPopup;
 
 			engine.defineWidget(
-				"popup",
-				"[data-role='popup'], .ui-popup",
-				[
-					"open",
-					"close",
-					"reposition"
-				],
-				ContextPopup,
-				"core"
-			);
-
-			engine.defineWidget(
 				"Popup",
-				"",
+				"[data-role='popup'], .ui-popup",
 				[
 					"open",
 					"close",
@@ -921,6 +909,10 @@
 				"core",
 				true
 			);
+
+			// @remove
+			// THIS IS ONLY FOR COMPATIBILITY
+			ns.widget.popup = ns.widget.Popup;
 
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return ContextPopup;

@@ -56,7 +56,7 @@
 
     testPopup('test instance', function () {
         var ui,
-            definition = engine.getWidgetDefinition('popup');
+            definition = engine.getWidgetDefinition('Popup');
         popup1Link.click();
         popup1Widget = engine.getBinding(popup1);
         testPopupMethodApi(popup1Widget);
@@ -71,7 +71,7 @@
 
         // definition check
         equal(definition instanceof Object && definition !== null, true, 'definition exists and is proper type');
-        equal(definition.name, 'popup', 'definition.name exists and is proper type and value');
+        equal(definition.name, 'Popup', 'definition.name exists and is proper type and value');
         equal(definition.namespace, 'core', 'definition.namespace exists and is proper type and value');
         equal(definition.selector, "[data-role='popup'], .ui-popup", 'definition.selector exists, is proper type and value');
         equal(definition.methods instanceof Array, true, 'definition.methods exists and is proper type');

@@ -3,7 +3,8 @@
 (function (window, document) {
 	"use strict";
 
-	var page = null,
+	var INSTANCE_WIDGET = "Popup",
+		page = null,
 		popup1Link = null,
 		popup1 = null,
 		popup1Widget = null,
@@ -71,7 +72,7 @@
 
 		popup1 = document.getElementById("popup1");
 
-		popup1Widget = engine.instanceWidget(popup1, "Popup", {header: "test content header", footer: "test footer content"});
+		popup1Widget = engine.instanceWidget(popup1, INSTANCE_WIDGET, {header: "test content header", footer: "test footer content"});
 
 		testPopupMarkup(popup1Widget, popup1);
 		popup1Widget.close();
@@ -136,7 +137,7 @@
 						equal(true, true, "before show properly run");
 					};
 
-				tau.widget.popup(popup1);
+				tau.widget.Popup(popup1);
 				popup1Widget = engine.getBinding(popup1);
 				popup1.addEventListener(PopupClass.events.show, callbackFinished);
 				popup1.addEventListener(PopupClass.events.before_show, callbackPre);
@@ -148,115 +149,124 @@
 		});
 
 		asyncTest("test popup close onpagehide", 1, function () {
-			popup1Widget = engine.instanceWidget(popup1, 'Popup');
-			tau.event.one(page, "pagebeforehide", function() {
-				ok(!popup1Widget._isOpened(), "Popup is not open");
-				start();
+			tau.event.one(page, "pageshow", function() {
+				popup1Widget = engine.instanceWidget(popup1, INSTANCE_WIDGET);
+				tau.event.one(page, "pagebeforehide", function() {
+					ok(!popup1Widget._isOpened(), "Popup is not open");
+					start();
+				});
+				tau.event.one(popup1, PopupClass.events.show, function() {
+					tau.event.trigger(page, "pagebeforehide");
+				});
+				popup1Widget.open();
 			});
-			tau.event.one(popup1, "popupshow", function() {
-				tau.event.trigger(page, 'pagebeforehide');
-			});
-			popup1Widget.open();
+			engine.run();
 		});
 
 
 		asyncTest("test popup close by click on overlay", 1, function () {
-			popup1Widget = engine.instanceWidget(popup1, 'Popup');
-			tau.event.one(popup1, "popuphide", function() {
-				ok(!popup1Widget._isOpened(), "Popup is not open");
-				start();
+			tau.event.one(page, "pageshow", function() {
+				popup1Widget = engine.instanceWidget(popup1, INSTANCE_WIDGET);
+				tau.event.one(popup1, PopupClass.events.hide, function() {
+					ok(!popup1Widget._isOpened(), "Popup is not open");
+					start();
+				});
+				tau.event.one(popup1, PopupClass.events.show, function() {
+					tau.event.trigger(popup1Widget._ui.overlay, "click");
+				});
+				popup1Widget.open();
 			});
-			tau.event.one(popup1, "popupshow", function() {
-				tau.event.trigger(popup1Widget._ui.overlay, 'click');
-			});
-			popup1Widget.open();
+			engine.run();
 		});
 
 		asyncTest("positionTo as a object", 1, function() {
-			popup1Widget = engine.instanceWidget(popup1, 'Popup');
-			tau.event.one(popup1, "popupshow", function() {
-				ok("Popup is opened");
+			tau.event.one(page, "pageshow", function() {
+				popup1Widget = engine.instanceWidget(popup1, INSTANCE_WIDGET);
+				tau.event.one(popup1, PopupClass.events.show, function() {
+					ok("Popup is opened");
+					popup1Widget.close();
+					start();
+				});
+				popup1Widget.open({positionTo: document.getElementById("popup1Link")});
+			});
+			engine.run();
+		});
+
+		asyncTest("widget creation with header and footer passed by options", function () {
+			expect(21);
+			tau.event.one(page, "pageshow", function() {
+				popup1.addEventListener(PopupClass.events.show, popupshowOptions);
+				popup1Widget = engine.getBinding(popup1);
+				equal(popup1Widget, null, "widget not created before user click");
+
+				engine.instanceWidget(popup1, INSTANCE_WIDGET, {header: "test content header", footer: "test footer content"});
+				popup1Link.click();
+			});
+			engine.run();
+		});
+
+		asyncTest("basic widget creation", function () {
+			expect(5);
+			tau.event.one(page, "pageshow", function() {
+				popup1.addEventListener(PopupClass.events.show, popupshow);
+				popup1Widget = engine.getBinding(popup1);
+				equal(popup1Widget, null, "widget not created before user click");
+				popup1Link.click();
+			});
+			engine.run();
+		});
+
+		asyncTest("widget creation with header and footer in data attributes", function () {
+			expect(11);
+			tau.event.one(page, "pageshow", function() {
+				popup1.addEventListener(PopupClass.events.show, popupshow);
+				popup1Widget = engine.getBinding(popup1);
+				equal(popup1Widget, null, "widget not created before user click");
+				popup1.setAttribute("data-header", "Test header");
+				popup1.setAttribute("data-footer", "Test footer");
+				popup1Link.click();
+			});
+			engine.run();
+		});
+
+		asyncTest("widget creation with children and widget methods", 8, function () {
+			tau.event.one(page, "pageshow", function() {
+				var display,
+					visibility,
+					style = popup1.style;
+				popup1.innerHTML = "<span>Hello world!</span>";
+				popup1.classList.add(PopupClass.classes.toast);
+				popup1Link.click();
+				popup1Widget = engine.getBinding(popup1);
+
+				display = style.display;
+				visibility = style.visibility;
+				ej.event.trigger(window, "resize");
 				popup1Widget.close();
+				equal(style.display, display, "display the same after refresh");
+				equal(style.visibility, visibility, "visibility the same after refresh");
+
+				// recheck refresh if popup was hidden
+
+				display = style.display = "none";
+				visibility = style.visibility;
+				popup1Widget.refresh();
+				equal(style.display, display, "display the same after refresh");
+				equal(style.visibility, visibility, "visibility the same after refresh");
+
+				testPopupMarkup(popup1Widget, popup1);
 				start();
 			});
-			popup1Widget.open({positionTo: document.getElementById("popup1Link")});
+			engine.run();
 		});
 	}
 
-	asyncTest("widget creation with header and footer passed by options", function () {
-		expect(21);
-		tau.event.one(page, "pageshow", function() {
-			popup1.addEventListener("popupshow", popupshowOptions);
-			popup1Widget = engine.getBinding(popup1);
-			equal(popup1Widget, null, "widget not created before user click");
-
-			engine.instanceWidget(popup1, "Popup", {header: "test content header", footer: "test footer content"});
-			popup1Link.click();
-		});
-		engine.run();
-	});
-
-	asyncTest("basic widget creation", function () {
-		expect(5);
-		tau.event.one(page, "pageshow", function() {
-			popup1.addEventListener("popupshow", popupshow);
-			popup1Widget = engine.getBinding(popup1);
-			equal(popup1Widget, null, "widget not created before user click");
-			popup1Link.click();
-		});
-		engine.run();
-	});
-
-	asyncTest("widget creation with header and footer in data attributes", function () {
-		expect(11);
-		tau.event.one(page, "pageshow", function() {
-			popup1.addEventListener("popupshow", popupshow);
-			popup1Widget = engine.getBinding(popup1);
-			equal(popup1Widget, null, "widget not created before user click");
-			popup1.setAttribute("data-header", "Test header");
-			popup1.setAttribute("data-footer", "Test footer");
-			popup1Link.click();
-		});
-		engine.run();
-	});
-
-	asyncTest("widget creation with children and widget methods", 8, function () {
-		tau.event.one(page, "pageshow", function() {
-			var display,
-				visibility,
-				style = popup1.style;
-			popup1.innerHTML = "<span>Hello world!</span>";
-			popup1.classList.add(PopupClass.classes.toast);
-			popup1Link.click();
-			popup1Widget = engine.getBinding(popup1);
-
-			display = style.display;
-			visibility = style.visibility;
-			ej.event.trigger(window, "resize");
-			popup1Widget.close();
-			equal(style.display, display, "display the same after refresh");
-			equal(style.visibility, visibility, "visibility the same after refresh");
-
-			// recheck refresh if popup was hidden
-
-			display = style.display = "none";
-			visibility = style.visibility;
-			popup1Widget.refresh();
-			equal(style.display, display, "display the same after refresh");
-			equal(style.visibility, visibility, "visibility the same after refresh");
-
-			testPopupMarkup(popup1Widget, popup1);
-			start();
-		});
-		engine.run();
-	});
-
 	test("set header test", function () {
 		expect(3);
-		popup1Widget = engine.instanceWidget(popup1, 'Popup');
-		popup1Widget.option('header', 'new header');
-		equal(popup1Widget._ui.header.innerHTML, 'new header', "widget change header to string");
-		popup1Widget.option('header', false);
+		popup1Widget = engine.instanceWidget(popup1, INSTANCE_WIDGET);
+		popup1Widget.option("header", "new header");
+		equal(popup1Widget._ui.header.innerHTML, "new header", "widget change header to string");
+		popup1Widget.option("header", false);
 		equal(popup1Widget._ui.header, null, "widget change header to null");
 		popup1Widget.option('header', 'new header 2');
 		equal(popup1Widget._ui.header.innerHTML, 'new header 2', "widget change header to string");
@@ -264,10 +274,10 @@
 
 	test("set footer test", function () {
 		expect(3);
-		popup1Widget = engine.instanceWidget(popup1, 'Popup');
-		popup1Widget.option('footer', 'new footer');
-		equal(popup1Widget._ui.footer.innerHTML, 'new footer', "widget change footer to string");
-		popup1Widget.option('footer', false);
+		popup1Widget = engine.instanceWidget(popup1, INSTANCE_WIDGET);
+		popup1Widget.option("footer", "new footer");
+		equal(popup1Widget._ui.footer.innerHTML, "new footer", "widget change footer to string");
+		popup1Widget.option("footer", false);
 		equal(popup1Widget._ui.footer, null, "widget change footer to null");
 		popup1Widget.option('footer', 'new footer 2');
 		equal(popup1Widget._ui.footer.innerHTML, 'new footer 2', "widget change footer to string");
@@ -275,8 +285,8 @@
 
 	test("set overlay test", function () {
 		expect(3);
-		popup1Widget = engine.instanceWidget(popup1, 'Popup');
-		popup1Widget.option('overlay', true);
+		popup1Widget = engine.instanceWidget(popup1, INSTANCE_WIDGET);
+		popup1Widget.option("overlay", true);
 		ok(popup1Widget._ui.overlay, "widget set overlay");
 		popup1Widget.option('overlay', false);
 		ok(!popup1Widget._ui.overlay, "widget remove overlay");
@@ -286,7 +296,8 @@
 
 	test("set multi options", function () {
 		expect(2);
-		popup1Widget = engine.instanceWidget(popup1, 'Popup');
+		popup1Widget = engine.instanceWidget(popup1, INSTANCE_WIDGET);
+
 		popup1Widget.option({
 				'header': 'header multi',
 				'footer': 'footer multi'
@@ -301,43 +312,49 @@
 
 	test("on method", function () {
 		expect(1);
-		popup1Widget = engine.instanceWidget(popup1, 'Popup');
-		popup1Widget.on('event', eventCallback, false);
-		popup1Widget.trigger('event');
+		popup1Widget = engine.instanceWidget(popup1, INSTANCE_WIDGET);
+		popup1Widget.on("event", eventCallback, false);
+		popup1Widget.trigger("event");
 	});
 
 	test("off method", function () {
 		expect(1);
-		popup1Widget = engine.instanceWidget(popup1, 'Popup');
-		popup1Widget.on('event', eventCallback, false);
-		popup1Widget.off('event', eventCallback, false);
-		popup1Widget.trigger('event');
-		ok('not triggered');
-	});
-
-	asyncTest("open with option dismissible", 1, function() {
-		popup1Widget = engine.instanceWidget(popup1, 'Popup');
-		tau.event.one(popup1, "popupshow", function() {
-			ok("Popup is opened");
-			tau.event.trigger(popup1Widget._ui.overlay, 'click');
-			start();
-		});
-		tau.event.one(popup1, "popuphide", function() {
-			ok(false, "Popup should not be closed");
-		});
-		popup1Widget.open({dismissible: false});
+		popup1Widget = engine.instanceWidget(popup1, INSTANCE_WIDGET);
+		popup1Widget.on("event", eventCallback, false);
+		popup1Widget.off("event", eventCallback, false);
+		popup1Widget.trigger("event");
+		ok(true, "not triggered");
 	});
 
 	asyncTest("close with option dismissible", 2, function() {
-		popup1Widget = engine.instanceWidget(popup1, 'Popup');
-		tau.event.one(popup1, "popupshow", function() {
-			ok("Popup is opened");
-			popup1Widget.close();
-			start();
+		tau.event.one(page, "pageshow", function() {
+			popup1Widget = engine.instanceWidget(popup1, INSTANCE_WIDGET);
+			tau.event.one(popup1, PopupClass.events.show, function() {
+				ok(true, "Popup is opened");
+				popup1Widget.close();
+				start();
+			});
+			tau.event.one(popup1, PopupClass.events.hide, function() {
+				ok(true, "Popup is being closed");
+			});
+			popup1Widget.open({dismissible: false});
 		});
-		tau.event.one(popup1, "popuphide", function() {
-			ok(true, "Popup is being closed");
+		engine.run();
+	});
+
+	asyncTest("open with option dismissible", 1, function() {
+		tau.event.one(page, "pageshow", function() {
+			popup1Widget = engine.instanceWidget(popup1, INSTANCE_WIDGET);
+			tau.event.one(popup1, PopupClass.events.show, function() {
+				ok(true, "Popup is opened");
+				tau.event.trigger(popup1Widget._ui.overlay, "click");
+				start();
+			});
+			tau.event.one(popup1, PopupClass.events.hide, function() {
+				ok(false, "Popup should not be closed");
+			});
+			popup1Widget.open({dismissible: false});
 		});
-		popup1Widget.open({dismissible: false});
+		engine.run();
 	});
 }(window, window.document));

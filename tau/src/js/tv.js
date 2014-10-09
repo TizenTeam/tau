@@ -79,7 +79,7 @@
 			"./profile/tv/widget/Drawer",
 			"./profile/wearable/router/Router",
 			"./profile/wearable/router/route/page",
-			"./profile/tv/router/route/popup",
+			"./profile/wearable/router/route/popup",
 			"./profile/tv/router/route/dynamic",
 			"./profile/wearable/router/history",
 			"./profile/wearable/expose",

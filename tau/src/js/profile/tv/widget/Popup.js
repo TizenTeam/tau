@@ -178,7 +178,7 @@
 						CorePopupPrototype.open.apply(self, arguments);
 					}
 
-					self._setKeyboardSupport(options);
+					self._setKeyboardSupport(options || {});
 				}
 			};
 
@@ -213,7 +213,7 @@
 			ns.widget.tv.Popup = Popup;
 
 			engine.defineWidget(
-				"popup",
+				"Popup",
 				"[data-role='popup'], .ui-popup",
 				["open", "close", "reposition"],
 				Popup,
