@@ -34,7 +34,7 @@ The first step is fetching widget options and building the whole required DOM st
 
 One of the most important benefit gained by splitting the process is that we are now able to prebuilt the whole
  application before start.
-The prebuilder (called [_TAU Builder_](tau-builder.html)) is a wide subject which will is covered in a different [chapter](prebuilding-apps-with-tau-builder.html).
+The prebuilder (called `TAU Builder`) is a wide subject.
 
 ## Introducing TAU Widget API
 
@@ -134,7 +134,7 @@ This event is responsible for many processes inside the library, one of the most
 When using TAU with jQuery we do initialize the jQM layer (jQuery Mobile layer) for backward compatibility.
 There is a lot going on underneath including registering widgets inside jQuery namespace and initialization of the core
  objects of jQM. Those operations take much time (when looking on the general TAU launch time) and that's why we
- encourage you to use [pure TAU version](./switching-apps-to-tau.html#Moving-from-jQuery-Mobile-to-pure-TAU) in your
+ encourage you to use [pure TAU version](./migration/switching_apps_to_tau.html#Moving-from-jQuery-Mobile-to-pure-TAU) in your
  apps. The most important thing here is to mention that jQM layer triggers `mobileinit` event (which is very important
  for all apps that stay with jQuery Mobile).
 

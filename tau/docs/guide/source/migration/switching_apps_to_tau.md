@@ -64,13 +64,13 @@ templates or styles are collected in separated folders:
 ```
 
 Application/
-├── css
-├── images
-├── js
-├── tizen-web-ui-fw
-│   └── latest
-│        ├── js
-│        └── themes
+├── css/
+├── images/
+├── js/
+├── tizen-web-ui-fw/
+│   └── latest/
+│        ├── js/
+│        └── themes/
 ├── config.xml
 └── index.html
 
@@ -83,12 +83,12 @@ folder of application. Recommended structure is below:
 ```
 
 Application/
-├── css
-├── images
-├── js
-├── lib
-│   └── tau
-│        └── mobile
+├── css/
+├── images/
+├── js/
+├── lib/
+│   └── tau/
+│        └── mobile/
 ├── config.xml
 └── index.html
 
@@ -104,13 +104,12 @@ files and you should change source path to library from `tizen-web-ui-fw.js` to
 `tau.js` and also path to `jquery.js` like below:
 
 Before:
-``` mobile-wearable-tv
-
+``` html
 <script src="tizen-web-ui-fw/latest/js/jquery.min.js"></script>
 <script src="tizen-web-ui-fw/latest/js/tizen-web-ui-fw-libs.min.js"></script>
 ```
 After:
-``` mobile-wearable-tv
+``` html
 <script src="lib/tau/mobile/js/jquery.min.js"></script>
 <script src="lib/tau/mobile/js/tau.min.js"></script>
 ```
@@ -123,7 +122,7 @@ Download file from website to your project.
 When migrating application a specially pay attention when the widgets:
 ExtendableList, VirtualList, VirtualGrid use templates.
 
-``` mobile-wearable-tv
+``` html
 <script src="lib/tau/mobile/js/jquery.min.js"></script>
 <script src="js/jquery.tmpl.min.js"></script>
 <script src="lib/tau/mobile/js/tau.min.js"></script>
@@ -132,12 +131,12 @@ ExtendableList, VirtualList, VirtualGrid use templates.
 Next step you can add path to source to default css style `tau.css`.
 
 Before:
-``` mobile-wearable-tv
+``` html
 
 <script src="tizen-web-ui-fw/latest/js/tizen-web-ui-fw.min.js" data-framework-theme="tizen-white"></script>
 ```
 After:
-``` mobile-wearable-tv
+``` html
 <link rel="stylesheet" type="text/css" href="lib/tau/mobile/theme/default/tau.css" />
 
 ```
@@ -160,7 +159,7 @@ with same API and behaviour like in jQuery Mobile.
 
 List of the common widgets for both frameworks:
 
-1. [Button Widget](widget/button.html)
+1. Button Widget
 ```mobile
     <div class="ui-page">
         <div class="ui-content" data-role="content">
@@ -172,7 +171,7 @@ List of the common widgets for both frameworks:
 </script>
 ```
 
-2. [Checkboxradio Widget](widget/checkboxradio.html)
+2. Checkboxradio Widget
 ```mobile
     <div class="ui-page">
         <div class="ui-content" data-role="content">
@@ -185,7 +184,7 @@ List of the common widgets for both frameworks:
 </script>
 ```
 
-3. [Collapsible Widget](widget/callapsible.html)
+3. Collapsible Widget
 ```mobile
     <div class="ui-page">
         <div data-role="header">
@@ -200,7 +199,7 @@ List of the common widgets for both frameworks:
 </script>
 ```
 
-4. [Collapsibleset Widget](widget/collapsibleset.html)
+4. Collapsibleset Widget
 ```mobile
     <div class="ui-page">
         <div class="ui-content" data-role="content">
@@ -221,7 +220,7 @@ List of the common widgets for both frameworks:
 </script>
 ```
 
-5. [Controlgroup Widget](widget/controlgroup.html)
+5. Controlgroup Widget
 ```mobile
     <div class="ui-page">
         <div class="ui-content" data-role="content">
@@ -237,7 +236,7 @@ List of the common widgets for both frameworks:
 </script>
 ```
 
-7. [Flipswitch Widget](widget/slider.html) (in TAU framework its implemented as a part of Slider widget)
+7. Flipswitch Widget (in TAU framework its implemented as a part of Slider widget)
 ```mobile
     <div class="ui-page">
         <div class="ui-content" data-role="content">
@@ -253,7 +252,7 @@ List of the common widgets for both frameworks:
     </script>
 ```
 
-8. [Footer Widget](widget/page.html) (it's a part of page widget)
+8. Footer Widget (it's a part of page widget)
 ```mobile
     <div class="ui-page">
         <div data-role="footer">
@@ -262,7 +261,7 @@ List of the common widgets for both frameworks:
     </div>
 ```
 
-9. [Header Widget](widget/page.html) (it's a part of page widget)
+9. Header Widget (it's a part of page widget)
 ```mobile
     <div class="ui-page">
         <div data-role="header">
@@ -271,7 +270,7 @@ List of the common widgets for both frameworks:
     </div>
 ```
 
-10. [Listview Widget](widget/listview.html)
+10. Listview Widget
 ```mobile
     <div class="ui-page">
         <div class="ui-content" data-role="content">
@@ -288,7 +287,7 @@ List of the common widgets for both frameworks:
 </script>
 ```
 
-11. [Navbar Widget](widget/Navbar.html)
+11. Navbar Widget
 ```mobile
     <div class="ui-page">
         <div class="ui-header" data-role="header">
@@ -305,7 +304,7 @@ List of the common widgets for both frameworks:
 </script>
 ```
 
-13. [Page Widget](widget/page.html)
+13. Page Widget
 ```mobile
     <div id="myPage">Content</div>
 <script>
@@ -313,7 +312,7 @@ List of the common widgets for both frameworks:
 </script>
 ```
 
-14. [Popup Widget](widget/popup.html)
+14. Popup Widget
 ```mobile
     <div class="ui-page">
         <div class="ui-content" data-role="content">
@@ -328,7 +327,7 @@ List of the common widgets for both frameworks:
 </script>
 ```
 
-15. [SelectMenu Widget](widget/selectmenu.html)
+15. SelectMenu Widget
 ```mobile
     <div class="ui-page">
         <div class="ui-content" data-role="content">
@@ -343,7 +342,7 @@ List of the common widgets for both frameworks:
 </script>
 ```
 
-16. [Slider Widget](widget/slider.html)
+16. Slider Widget
 ```mobile
     <div class="ui-page">
         <div class="ui-content" data-role="content">
@@ -358,7 +357,7 @@ List of the common widgets for both frameworks:
 </script>
 ```
 
-17. [Textinput Widget](widget/textinput.html)
+17. Textinput Widget
 ```mobile
     <div class="ui-page" id="popupwindow-demo">
         <div class="ui-content" data-role="content">
@@ -373,7 +372,7 @@ List of the common widgets for both frameworks:
 </script>
 ```
 
-18. [Toolbar Widget](widget/toolbar)
+18. Toolbar Widget
 ```mobile
     <div class="ui-page">
         <div class="ui-header">
