@@ -34,9 +34,15 @@
 				},
 				classes = {
 					focusDisabled: "ui-focus-disabled",
-					focusEnabled: "ui-focus-enabled"
+					focusEnabled: "ui-focus-enabled",
+					focusPrefix: "ui-focus-",
+					blurPrefix: "ui-blur-",
+					up: "up",
+					down: "down",
+					left: "left",
+					right: "right"
 				},
-				KEY_CODES =	{
+				KEY_CODES = {
 					left: 37,
 					up: 38,
 					right: 39,
@@ -192,6 +198,14 @@
 				return result;
 			};
 
+			function removeAnimationClasses(element, prefix) {
+				var elementClasses = element.classList;
+				elementClasses.remove(prefix + classes.left);
+				elementClasses.remove(prefix + classes.up);
+				elementClasses.remove(prefix + classes.right);
+				elementClasses.remove(prefix + classes.down);
+			}
+
 			/**
 			 * Supports keyboard event.
 			 * @method _onKeyup
@@ -203,6 +217,9 @@
 				var self = this,
 					keyCode = event.keyCode,
 					neighborhoodLinks,
+					currentLink = self._getFocusesLink(),
+					positionClass,
+					cssClass,
 					nextElement;
 
 				if (self._supportKeyboard) {
@@ -210,19 +227,31 @@
 					switch (keyCode) {
 						case KEY_CODES.left:
 							nextElement = neighborhoodLinks.left;
+							positionClass = classes.left;
 							break;
 						case KEY_CODES.up:
 							nextElement = neighborhoodLinks.top;
+							positionClass = classes.up;
 							break;
 						case KEY_CODES.right:
 							nextElement = neighborhoodLinks.right;
+							positionClass = classes.right;
 							break;
 						case KEY_CODES.down:
 							nextElement = neighborhoodLinks.bottom;
+							positionClass = classes.down;
 							break;
 					}
 					if (nextElement) {
-						nextElement.focus();
+						removeAnimationClasses(nextElement, classes.blurPrefix);
+						nextElement.classList.add(classes.focusPrefix + positionClass);
+						if (currentLink) {
+							removeAnimationClasses(currentLink, classes.focusPrefix);
+							currentLink.classList.add(classes.blurPrefix + positionClass);
+						}
+						setTimeout(function() {
+							nextElement.focus();
+						}, 200);
 						if (self._openActiveElement) {
 							self._openActiveElement(nextElement);
 						}

@@ -21,27 +21,62 @@
 			"../../../core/engine",
 			"../../../core/util/selectors",
 			"../../../core/theme",
+			"../../../core/util/object",
 			"../tv",
 			"./BaseKeyboardSupport"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 			var BaseButton = ns.widget.mobile.Button,
+				BaseButtonPrototype = BaseButton.prototype,
 				BaseKeyboardSupport = ns.widget.tv.BaseKeyboardSupport,
+				objectUtils = ns.util.object,
+				FUNCTION_TYPE = "function",
 				Button = function () {
 					BaseButton.call(this);
 					BaseKeyboardSupport.call(this);
 				},
 				engine = ns.engine,
+				classes = objectUtils.merge({}, BaseButton.classes, {
+					background: "ui-background"
+				}),
 				prototype = new BaseButton();
 
 			Button.events = BaseButton.events;
-			Button.classes = BaseButton.classes;
+			Button.classes = classes;
 			Button.options = prototype.options;
 			Button.prototype = prototype;
 			Button.hoverDelay = 0;
 			// definition
 			ns.widget.tv.Button = Button;
+
+			prototype._build = function (element) {
+				var backgroundElement;
+
+				element = BaseButtonPrototype._build.call(this, element);
+
+				backgroundElement = document.createElement("div");
+				backgroundElement.classList.add(classes.background);
+				backgroundElement.id = element.id + "-background";
+				element.insertBefore(backgroundElement, element.firstChild);
+
+				return element;
+			};
+
+			/**
+			 * Initializes widget
+			 * @method _init
+			 * @protected
+			 * @member ns.widget.tv.Button
+			 */
+			prototype._init = function (element) {
+				var self = this;
+
+				BaseButtonPrototype._init.call(self, element);
+
+				self.ui.background = document.getElementById(element.id + "-background");
+				return element;
+			};
 
 			engine.defineWidget(
 				"Button",

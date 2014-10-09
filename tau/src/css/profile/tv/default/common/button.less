@@ -17,6 +17,7 @@
 @fixed_button_minimum_height: 70 * @virtual_px;
 
 .ui-btn {
+	position: relative;
 	display: block;
 	padding: 30 * @virtual_px 20 * @virtual_px 25 * @virtual_px 20 * @virtual_px;
 	font-size: 28 * @virtual_px;
@@ -90,8 +91,10 @@
 	}
 
 	&.ui-focus {
-		background-color: @color_default;
-		color: @basic_btn_txt_color_focus;
+		.ui-background {
+			background-color: @color_default;
+			color: @basic_btn_txt_color_focus;
+		}
 	}
 
 	a&.ui-state-disabled, &:disabled {
@@ -179,9 +182,11 @@
 }
 
 .ui-btn:focus, .ui-btn:active {
-	outline: none;
-	background-color: @color_default;
-	color: @basic_btn_txt_color_focus;
+	.ui-background {
+		outline: none;
+		background-color: @color_default;
+		color: @basic_btn_txt_color_focus;
+	}
 }
 
 a.ui-btn {
@@ -374,6 +379,9 @@ button.ui-btn, input.ui-btn {
 	z-index: 0;
 }
 
+/****************************************
+ICON LIVE
+****************************************/
 .ui-icon-live,
 .ui-listview li a.ui-btn .ui-btn-inner .ui-icon.ui-icon-live {
 	background: rgb(69, 143, 255) url(images/icons/ico_live_foc.png);
@@ -381,13 +389,18 @@ button.ui-btn, input.ui-btn {
 
 .ui-listview li a.ui-btn.ui-btn-icon-live.ui-focus,
 .ui-btn-icon-live.ui-focus {
-	background-color: rgb(69, 143, 255);
+	.ui-background {
+		background-color: rgb(69, 143, 255);
+	}
 	.ui-btn-inner .ui-icon.ui-icon-live,
 	.ui-icon {
 		background-color: white;
 	}
 }
 
+/****************************************
+ICON SHOW
+****************************************/
 .ui-icon-tv-show,
 .ui-listview li a.ui-btn .ui-btn-inner .ui-icon.ui-icon-tv-show {
 	background: rgb(255, 168, 0) url(images/icons/ico_tv_show_foc.png);
@@ -395,13 +408,18 @@ button.ui-btn, input.ui-btn {
 
 .ui-listview li a.ui-btn.ui-btn-icon-tv-show.ui-focus,
 .ui-btn-icon-tv-show.ui-focus {
-	background-color: rgb(255, 168, 0);
+	.ui-background {
+		background-color: rgb(255, 168, 0);
+	}
 	.ui-btn-inner .ui-icon.ui-icon-tv-show,
 	.ui-icon {
 		background-color: white;
 	}
 }
 
+/****************************************
+ICON MOVE
+****************************************/
 .ui-icon-movie,
 .ui-listview li a.ui-btn .ui-btn-inner .ui-icon.ui-icon-movie {
 	background: rgb(255, 99, 86) url(images/icons/ico_moive_foc.png);
@@ -409,13 +427,18 @@ button.ui-btn, input.ui-btn {
 
 .ui-listview li a.ui-btn.ui-btn-icon-movie.ui-focus,
 .ui-btn-icon-movie.ui-focus {
-	background-color: rgb(255, 99, 86);
+	.ui-background {
+		background-color: rgb(255, 99, 86);
+	}
 	.ui-btn-inner .ui-icon.ui-icon-movie,
 	.ui-icon {
 		background-color: white;
 	}
 }
 
+/****************************************
+ICON SOURCE
+****************************************/
 .ui-icon-source,
 .ui-listview li a.ui-btn .ui-btn-inner .ui-icon.ui-icon-source {
 	background: rgb(155, 122, 255) url(images/icons/ico_source_foc.png);
@@ -423,13 +446,18 @@ button.ui-btn, input.ui-btn {
 
 .ui-listview li a.ui-btn.ui-btn-icon-source.ui-focus,
 .ui-btn-icon-source.ui-focus {
-	background-color: @list_btn_color_focus;
+	.ui-background {
+		background-color: @list_btn_color_focus;
+	}
 	.ui-btn-inner .ui-icon.ui-icon-source,
 	.ui-icon {
 		background-color: white;
 	}
 }
 
+/****************************************
+ICON APP
+****************************************/
 .ui-icon-app,
 .ui-listview li a.ui-btn .ui-btn-inner .ui-icon.ui-icon-app {
 	background: rgb(71, 210, 188) url(images/icons/ico_app_foc.png);
@@ -437,17 +465,92 @@ button.ui-btn, input.ui-btn {
 
 .ui-listview li a.ui-btn.ui-btn-icon-app.ui-focus,
 .ui-btn-icon-app.ui-focus {
-	background-color: @list_btn_color_focus;
+	.ui-background {
+		background-color: @list_btn_color_focus;
+	}
 	.ui-btn-inner .ui-icon.ui-icon-app,
 	.ui-icon {
 		background-color: white;
 	}
 }
 
-
 .ui-btn-icon-right {
 	progress {
 		margin-right: 100 * @virtual_px;
 		width: auto;
+	}
+}
+
+
+/****************************************
+ANIMATION
+****************************************/
+
+.ui-btn {
+	.ui-background {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		-webkit-transition: width 200ms linear, height 200ms linear, top 200ms linear, left 200ms linear;
+	}
+
+	/* FOCUS */
+	&:not(.ui-focus) {
+		/* animation from down to up */
+		&.ui-focus-up {
+			.ui-background {
+				top: 100%;
+				height: 0;
+			}
+		}
+		/* animation from up to down */
+		&.ui-focus-down {
+			.ui-background {
+				height:0;
+			}
+		}
+		/* animation from rigth to left */
+		&.ui-focus-left{
+			.ui-background {
+				width: 0;
+				left: 100%;
+			}
+		}
+		/* animation from left to right */
+		&.ui-focus-right {
+			.ui-background {
+				width:0;
+			}
+		}
+	}
+
+	/* BLUR */
+	/* animation from down to up */
+	&.ui-blur-up {
+		.ui-background {
+			height:0;
+		}
+	}
+	/* animation from up to down */
+	&.ui-blur-down {
+		.ui-background {
+			top: 100%;
+			height: 0;
+		}
+	}
+	/* animation from rigth to left */
+	&.ui-blur-left{
+		.ui-background {
+			width: 0;
+		}
+	}
+	/* animation from left to right */
+	&.ui-blur-right {
+		.ui-background {
+			width:0;
+			left: 100%;
+		}
 	}
 }
