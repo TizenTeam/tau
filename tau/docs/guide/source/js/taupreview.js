@@ -70,7 +70,7 @@
 	function createButtons() {
 		var previews = document.querySelectorAll("pre > code"),
 			i = previews.length,
-			found = 0,
+			found,
 			preview,
 			className,
 			buttonContainer,
@@ -82,6 +82,7 @@
 			preview = previews.item(i);
 			className = preview.className;
 			preview.setAttribute("data-preview", "p" + previewIDNum);
+			found = 0;
 
 			parent = preview.parentNode;
 			nextSibling = preview.nextSibling;

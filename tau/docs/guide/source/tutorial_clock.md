@@ -205,7 +205,7 @@ make the clock face clickable and it should open the settings page.
 				<ul class="ui-listview">
 					<li class="li-has-checkbox">
 						<label>24h
-							<input id="am_pm" type="checkbox">
+							<input id="am_pm_toggle" type="checkbox">
 							</label>
 					</li>
 				<li><a href="#color">color</a></li>
@@ -247,13 +247,14 @@ make the clock face clickable and it should open the settings page.
 
 			setTime();
 
-			var am_pm = document.querySelector("#am_pm_toggle");
+			var am_pm = document.getElementById('am_pm_toggle');
 			function getAndSetAmPm() {
 				if (am_pm.checked === true) {
 						localStorage.timeFormat = '24';
 					} else {
 						localStorage.timeFormat = '12';
 					}
+					setTime();
 			}
 			if (localStorage.timeFormat === null) {
 				localStorage.timeFormat = '12';
@@ -262,7 +263,7 @@ make the clock face clickable and it should open the settings page.
 				getAndSetAmPm();
 			});
 
-			var watchface = document.querySelector("#main");
+			var watchface = document.getElementById("main");
 			watchface.addEventListener('vclick', function (ev) {
 				tau.changePage('#settings');
 			});

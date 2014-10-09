@@ -119,7 +119,7 @@ Developer can call widget method in the same way as set option or value.
 <div data-role="page" id="main-page">
 	<div data-role="content">
 		<div data-role="gallery" id="sample-gallery">
-			<img src="/preview/images/sample-image-01.jpg" />
+			<img src="images/sample-image-01.jpg" />
 		</div>
 	</div>
 
@@ -130,7 +130,7 @@ Developer can call widget method in the same way as set option or value.
 
 <script>
 	$("#button").on("vclick", function (e) {
-		$("#sample-gallery").gallery("add", "/preview/images/sample-image-02.jpg");
+		$("#sample-gallery").gallery("add", "images/sample-image-02.jpg");
 		$("#sample-gallery").gallery("value", 1);
 		$("#sample-gallery").gallery("refresh");
 	});

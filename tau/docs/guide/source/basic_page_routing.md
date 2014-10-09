@@ -162,7 +162,7 @@ supply the proper local adress in the `href` attribute of the link, like so:
 ```mobile-tv-wearable
 <div class="ui-page">
 	<div class="ui-content">
-		<a href="/preview/external_text.html">Change to external</a>
+		<a href="external_text.html">Change to external</a>
 	</div>
 </div>
 ```
@@ -174,7 +174,7 @@ attributes.
 ```mobile-wearable-tv
 <div class="ui-page">
 	<div class="ui-content">
-		<a href="/preview/external_text.html" target="_self">Change to external</a>
+		<a href="external_text.html" target="_self">Change to external</a>
 	</div>
 </div>
 ```
