@@ -30,7 +30,7 @@
 					 * @static
 					 */
 					defaults: {
-						transition: 'none',
+						transition: "none",
 						container: null,
 						volatileRecord: true
 					},
@@ -47,7 +47,7 @@
 					 * @static
 					 */
 					events: {
-						POPUP_HIDE: 'popuphide'
+						POPUP_HIDE: "popuphide"
 					}
 				},
 				/**
@@ -72,20 +72,6 @@
 				 */
 				utilSelector = ns.util.selectors,
 				/**
-				 * @property {Object} history Alias for {@link ns.router.history}
-				 * @member ns.router.route.popup
-				 * @private
-				 * @static
-				 */
-				history = ns.router.history,
-				/**
-				 * @property {Object} pathUtils Alias for {@link ns.util.path}
-				 * @member ns.router.route.popup
-				 * @private
-				 * @static
-				 */
-				pathUtils = ns.util.path,
-				/**
 				 * @property {Object} DOM Alias for {@link ns.util.DOM}
 				 * @member ns.router.route.popup
 				 * @private
@@ -98,21 +84,7 @@
 				 * @private
 				 * @static
 				 */
-				slice = [].slice,
-				/**
-				 * @property {string} popupHashKey
-				 * @member ns.router.route.popup
-				 * @private
-				 * @static
-				 */
-				popupHashKey = "popup=true",
-				/**
-				 * @property {RegExp} popupHashKeyReg
-				 * @member ns.router.route.popup
-				 * @private
-				 * @static
-				 */
-				popupHashKeyReg = /([&|\?]popup=true)/;
+				slice = [].slice;
 
 			/**
 			 * Tries to find a popup element matching id and filter (selector).
@@ -129,7 +101,7 @@
 				var popup = document.getElementById(path.hashToSelector(id));
 
 				if (popup && utilSelector.matchesSelector(popup, filter)) {
-					DOM.setNSData(popup, 'url', id);
+					DOM.setNSData(popup, "url", id);
 				} else {
 					// if we matched any element, but it doesn't match our filter
 					// reset page to null
@@ -160,7 +132,7 @@
 			 * @member ns.router.route.popup
 			 * @static
 			 */
-			routeDynamic.open = function (toDynamic, options) {
+			routeDynamic.open = function (toDynamic) {
 				var activeDynamic = document.querySelector(".ui-dynamic-box-active");
 				if (activeDynamic) {
 					activeDynamic.classList.remove("ui-dynamic-box-active");
@@ -239,7 +211,7 @@
 					popup,
 					dataUrl = self._createDataUrl( absUrl ),
 					scripts,
-					all = document.createElement('div'),
+					all = document.createElement("div"),
 					scriptRunner = ns.util.runScript.bind(null, dataUrl);
 
 				//workaround to allow scripts to execute when included in popup divs
@@ -250,10 +222,10 @@
 				// TODO tagging a popup with external to make sure that embedded popups aren't
 				// removed by the various popup handling code is bad. Having popup handling code
 				// in many places is bad. Solutions post 1.0
-				DOM.setNSData(popup, 'url', dataUrl);
-				DOM.setNSData(popup, 'external', true);
+				DOM.setNSData(popup, "url", dataUrl);
+				DOM.setNSData(popup, "external", true);
 
-				scripts = popup.querySelectorAll('script');
+				scripts = popup.querySelectorAll("script");
 				slice.call(scripts).forEach(scriptRunner);
 
 				return popup;
