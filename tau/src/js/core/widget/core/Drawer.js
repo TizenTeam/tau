@@ -304,7 +304,6 @@
 				var self = this,
 					options = self.options,
 					drawerElementParent = self.element.parentNode,
-					headerHeight = self._headerElement && self._headerElement.offsetHeight,
 					drawerHeight = drawerElementParent.clientHeight,
 					drawerStyle = self.element.style,
 					drawerOverlay = self._drawerOverlay,
