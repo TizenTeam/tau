@@ -13,6 +13,9 @@
 	<FontInfo id="T024D" style="R" size="24" />
 	<FontInfo id="T024L1" style="R" size="24" />
 	<FontInfo id="T024L1P" style="R" size="24" />
+	<FontInfo id="T024L1D" style="R" size="24" />
+	<FontInfo id="T024L2" style="R" size="24" />
+	<FontInfo id="T024L2P" style="R" size="24" />
 	<FontInfo id="T024L2D" style="R" size="24" />
 	<FontInfo id="T0231" style="R" size="30" />
 	<FontInfo id="T027L1" style="R" size="27" />
@@ -29,6 +32,14 @@
 	<FontInfo id="T042" style="R" size="27" />
 	<FontInfo id="T042P" style="R" size="27" />
 	<FontInfo id="T042D" style="R" size="27" />
+	<FontInfo id="T043" style="R" size="22" />
+	<FontInfo id="T043P" style="R" size="22" />
+	<FontInfo id="T043F" style="R" size="22" />
+	<FontInfo id="T043D" style="R" size="22" />
+	<FontInfo id="T044" style="R" size="22" />
+	<FontInfo id="T044P" style="R" size="22" />
+	<FontInfo id="T044F" style="R" size="22" />
+	<FontInfo id="T044D" style="R" size="22" />
 	<FontInfo id="T051L1" style="R" size="30" />
 	<FontInfo id="T051L1P" style="R" size="30" />
 	<FontInfo id="T051L1D" style="R" size="30" />
@@ -70,7 +81,7 @@
 	<FontInfo id="T111D" style="R" size="21" />
 	<FontInfo id="T112" style="R" size="21" />
 	<FontInfo id="T1121" style="R" size="21" />
-	<FontInfo id="T113" style="B" size="16" />
+	<FontInfo id="T113" style="B" size="18" />
 	<FontInfo id="T114" style="R" size="39" />
 	<FontInfo id="T115" style="R" size="54" />
 	<FontInfo id="T116" style="M" size="33" />
@@ -96,7 +107,7 @@
 	<FontInfo id="T12351D" style="R" size="27" giant="true" />
 	<FontInfo id="T12351E1" style="R" size="27" giant="true" />
 	<FontInfo id="T125L1" style="R" size="21" />
-	<FontInfo id="T12L1P" style="R" size="21" />
+	<FontInfo id="T125L1P" style="R" size="21" />
 	<FontInfo id="T125L1D" style="R" size="21" />
 	<FontInfo id="T124E1" style="R" size="21" />
 	<FontInfo id="T126" style="R" size="30" />
