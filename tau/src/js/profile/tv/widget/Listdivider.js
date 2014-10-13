@@ -40,6 +40,13 @@
 			ListDivider.events = MobileListDivider.events;
 			ListDivider.classes = MobileListDivider.classes;
 			ListDivider.prototype = prototype;
+
+			prototype._build = function (element) {
+				element = MobileListDivider.prototype._build.call(this, element);
+				element.removeAttribute("tabindex");
+				return element;
+			};
+
 			// definition
 			ns.widget.tv.ListDivider = ListDivider;
 			engine.defineWidget(
