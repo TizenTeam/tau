@@ -16,7 +16,7 @@
  *
  *		@example
  *		<!-- Widget structure -->
- *		<div data-role="notification" id="notification" data-type="smallpoup">
+ *		<div data-role="notification" id="notification" data-type="smallpopup">
  *			<p>Line of message</p>
  *		</div>
  *		<script>
@@ -27,7 +27,7 @@
  *
  *		@example
  *		<!-- Widget structure -->
- *		<div data-role="notification" id="notification" data-type="smallpoup">
+ *		<div data-role="notification" id="notification" data-type="smallpopup">
  *			<p>Line of message</p>
  *		</div>
  *		<script>
@@ -36,14 +36,14 @@
  *
  * ##HTML Examples
  *
- * ###Create notification smallpoup
- * Smallpoup has only one line of message and is positioned to the bottom of the active page. It's default type of notification widget.
+ * ###Create notification smallpopup
+ * Smallpopup has only one line of message and is positioned to the bottom of the active page. It's default type of notification widget.
  *
  * Running example in pure JavaScript:
  *
  *		@example
  *		<!-- Widget structure -->
- *		<div data-role="notification" id="notification" data-type="smallpoup">
+ *		<div data-role="notification" id="notification" data-type="smallpopup">
  *			<p>Line of message</p>
  *		</div>
  *		<script>
@@ -57,7 +57,7 @@
  *
  *		@example
  *		<!-- Widget structure -->
- *		<div data-role="notification" id="notification" data-type="smallpoup">
+ *		<div data-role="notification" id="notification" data-type="smallpopup">
  *			<p>Line of message</p>
  *		</div>
  *		<script>
@@ -449,7 +449,7 @@
 			 *
 			 *	@example
 			 *	<!-- Widget structure -->
-			 *	<div data-role="notification" id="notification" data-type="smallpoup">
+			 *	<div data-role="notification" id="notification" data-type="smallpopup">
 			 *		<p>Line of message</p>
 			 *	</div>
 			 *
@@ -465,7 +465,7 @@
 			 *
 			 *	@example
 			 *	<!-- Widget structure -->
-			 *	<div data-role="notification" id="notification" data-type="smallpoup">
+			 *	<div data-role="notification" id="notification" data-type="smallpopup">
 			 *		<p>Line of message</p>
 			 *	</div>
 			 *
@@ -494,7 +494,7 @@
 			 *
 			 *	@example
 			 *	<!-- Widget structure -->
-			 *	<div data-role="notification" id="notification" data-type="smallpoup">
+			 *	<div data-role="notification" id="notification" data-type="smallpopup">
 			 *		<p>Line of message</p>
 			 *	</div>
 			 *
@@ -511,7 +511,7 @@
 			 *
 			 *	@example
 			 *	<!-- Widget structure -->
-			 *	<div data-role="notification" id="notification" data-type="smallpoup">
+			 *	<div data-role="notification" id="notification" data-type="smallpopup">
 			 *		<p>Line of message</p>
 			 *	</div>
 			 *
@@ -540,7 +540,7 @@
 			 * #####Running example in pure JavaScript:
 			 *
 			 *	@example
-			 *	<div data-role="notification" id="notificationSelector" data-type="smallpoup">
+			 *	<div data-role="notification" id="notificationSelector" data-type="smallpopup">
 			 *		<p>Line of message</p>
 			 *	</div>
 			 *	<script>
@@ -551,7 +551,7 @@
 			 * #####If jQuery library is loaded, this method can be used:
 			 *
 			 *	@example
-			 *	<div data-role="notification" id="notificationSelector" data-type="smallpoup">
+			 *	<div data-role="notification" id="notificationSelector" data-type="smallpopup">
 			 *		<p>Line of message</p>
 			 *	</div>
 			 *	<script>
@@ -611,7 +611,7 @@
 			 * #####Running example in pure JavaScript:
 			 *
 			 *	@example
-			 *	<div data-role="notification" id="notificationSelector" data-type="smallpoup">
+			 *	<div data-role="notification" id="notificationSelector" data-type="smallpopup">
 			 *		<p>Line of message</p>
 			 *	</div>
 			 *	<script>
@@ -622,7 +622,7 @@
 			 * #####If jQuery library is loaded, this method can be used:
 			 *
 			 *	@example
-			 *	<div data-role="notification" id="notificationSelector" data-type="smallpoup">
+			 *	<div data-role="notification" id="notificationSelector" data-type="smallpopup">
 			 *		<p>Line of message</p>
 			 *	</div>
 			 *	<script>
@@ -701,7 +701,7 @@
 			 * #####Running example in pure JavaScript:
 			 *
 			 *	@example
-			 *	<div data-role="notification" id="notificationSelector" data-type="smallpoup">
+			 *	<div data-role="notification" id="notificationSelector" data-type="smallpopup">
 			 *		<p>Line of message</p>
 			 *	</div>
 			 *	<script>
@@ -715,7 +715,7 @@
 			 * #####If jQuery library is loaded, this method can be used:
 			 *
 			 *	@example
-			 *	<div data-role="notification" id="notificationSelector" data-type="smallpoup">
+			 *	<div data-role="notification" id="notificationSelector" data-type="smallpopup">
 			 *		<p>Line of message</p>
 			 *	</div>
 			 *	<script>
