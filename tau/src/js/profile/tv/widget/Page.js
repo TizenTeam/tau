@@ -209,7 +209,7 @@
 				WearablePagePrototype._destroy.call(this);
 			};
 
-			prototype._refresh = function(element) {
+			prototype._refresh = function() {
 				var self = this,
 					element = self.element;
 				WearablePagePrototype._refresh.call(self);

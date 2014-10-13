@@ -134,11 +134,11 @@
 						dynamicListElement = document.getElementById(id.split("#")[1]);
 					}
 					if (dynamicListElement) {
-						self.option('width', WIDE_SIZE);
+						self.option("width", WIDE_SIZE);
 						ui.currentDynamic = dynamicListElement;
 						dynamicListElement.classList.add(classes.uiDynamicBoxActive);
 					} else {
-						self.option('width', NARROW_SIZE);
+						self.option("width", NARROW_SIZE);
 					}
 				}
 			};

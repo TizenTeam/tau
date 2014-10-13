@@ -31,12 +31,6 @@
 			//>>excludeEnd("tauBuildExclude");
 			var engine = ns.engine,
 				utilSelectors = ns.util.selectors,
-				/**
-				 * @property {Object} events Alias for class ns.event
-				 * @member ns.widget.tv.Popup
-				 * @private
-				 */
-				events = ns.event,
 				objectUtils = ns.util.object,
 				CorePopup = ns.widget.core.ContextPopup,
 				CorePopupPrototype = CorePopup.prototype,
@@ -165,14 +159,14 @@
 					CorePopupPrototype._placementCoordsWindow.call(this, element);
 					element.style.top = parseInt(element.style.top) / 2 + "px";
 				}
-			}
+			};
 
 			prototype._findClickedElement = function(x, y) {
 				var clickedElement =  document.elementFromPoint(x, y),
 					button = utilSelectors.getClosestBySelector(clickedElement, engine.getWidgetDefinition("Button").selector);
 
 				return button || clickedElement;
-			}
+			};
 
 			prototype.open = function(options) {
 				var self = this;
@@ -187,7 +181,7 @@
 				}
 			};
 
-			prototype.close = function(options) {
+			prototype.close = function() {
 				if (this._isOpened()) {
 					if (typeof CorePopupPrototype.close === FUNCTION_TYPE) {
 						CorePopupPrototype.close.apply(this, arguments);

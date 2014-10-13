@@ -41,7 +41,7 @@
 				widthSize = 100 / controlElementsLength - 3;
 				for (i = 0; i < controlElementsLength; i++) {
 					engine.instanceWidget(controlElements[i], "Button");
-					controlElements[i].style.width = widthSize + '%';
+					controlElements[i].style.width = widthSize + "%";
 				}
 			};
 

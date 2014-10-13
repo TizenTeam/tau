@@ -42,11 +42,6 @@
 					down: 40,
 					enter: 13
 				},
-				MOVE_TYPE = {
-					XY: 0,
-					X: 1,
-					Y: 2
-				},
 				selectorSuffix = ":not(." + classes.focusDisabled + ")",
 				selectors = ["a", "." + classes.focusEnabled, "[tabindex]"],
 				selectorsString = "",
@@ -326,7 +321,7 @@
 			prototype.registerActiveSelector = function (selector) {
 				var index = selectors.indexOf(selector);
 				// check if not registered yet
-				if (index == -1) {
+				if (index === -1) {
 					selectors.push(selector);
 					// new selector - create reference counter for it
 					REF_COUNTERS.push(1);
@@ -345,10 +340,10 @@
 			 */
 			prototype.unregisterActiveSelector = function (selector) {
 				var index = selectors.indexOf(selector);
-				if (index != -1) {
+				if (index !== -1) {
 					--REF_COUNTERS[index];
 					// check reference counter
-					if (REF_COUNTERS[index] == 0) {
+					if (REF_COUNTERS[index] === 0) {
 						// remove selector
 						selectors.splice(index, 1);
 						REF_COUNTERS.splice(index, 1);

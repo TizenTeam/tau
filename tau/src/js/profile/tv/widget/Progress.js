@@ -72,7 +72,7 @@
 				},
 
 				Progress = function () {
-					CoreProgress.call(self);
+					CoreProgress.call(this);
 					/**
 					 * Object with default options
 					 * @property {Object} options
@@ -133,7 +133,7 @@
 				if (element.getAttribute("disabled") === "disabled") {
 					element.classList.add(classes.disabled);
 				}
-			}
+			};
 
 			/**
 			 * Method sets ProgressBar value.
@@ -146,7 +146,7 @@
 			Progress.prototype._setValue = function (value) {
 				var self = this,
 					options = self.options;
-				if ((typeof value === "number") && (value != options.value) && (value >= options.min) && (value <= options.max)) {
+				if ((typeof value === "number") && (value !== options.value) && (value >= options.min) && (value <= options.max)) {
 					self.trigger("change");
 					if (value === self.maxValue) {
 						self.trigger("complete");
@@ -181,7 +181,7 @@
 				if (!classList.contains(focused)) {
 					classList.add(focused);
 				}
-			}
+			};
 
 			/**
 			 * Method unfocuses object
@@ -194,7 +194,7 @@
 				if (classList.contains(focused)) {
 					classList.remove(focused);
 				}
-			}
+			};
 
 			ns.widget.tv.Progress = Progress;
 

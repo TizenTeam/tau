@@ -128,7 +128,7 @@
 					length = labels.length,
 					i;
 				for (i = 0; i < length; i++) {
-					if (labels[i].htmlFor == id) {
+					if (labels[i].htmlFor === id) {
 						return labels[i];
 					}
 				}

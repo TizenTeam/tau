@@ -55,10 +55,6 @@
 				}
 			}
 
-			function hidePopup(self) {
-				self._closePopup();
-			}
-
 			function onKeyup(self, event) {
 				var status = self.status;
 
@@ -92,7 +88,6 @@
 
 			prototype._build = function(element) {
 				var ui = this._ui,
-					elementId = element.id,
 					pageElement = selectors.getClosestByClass(element, "ui-page"),
 					container,
 					containerStyle,
@@ -154,12 +149,11 @@
 			/**
 			 * Creates popup element and appends it container passed as argument
 			 * @method _createPopup
-			 * @param {HTMLElement} container
 			 * @return {ns.widget.Popup} reference to new widget instance
 			 * @protected
 			 * TODO: use TizenSlider when Core Popup is used in mobile profile
 			 */
-			prototype._createPopup = function (container) {
+			prototype._createPopup = function () {
 				var classes = Slider.classes,
 					pageElement,
 					popup,
@@ -192,7 +186,6 @@
 			prototype._updateSlider = function () {
 				var self = this,
 					newValue,
-					options = self.options,
 					element = self.element,
 					popupElement;
 
