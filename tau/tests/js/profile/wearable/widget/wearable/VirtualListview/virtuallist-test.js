@@ -60,7 +60,7 @@
 		equal(nextDiv.style.display, 'block', 'DIV has proper display style');
 		equal(nextDiv.style.position, 'static', 'DIV has proper display position');
 		ok(nextDiv.style.height, 'DIV has proper display height');
-		equal(li.innerHTML, "<span class=\"ui-li-text-main\">Abdelnaby, Alaa</span><div data-role=\"button\" data-inline=\"true\" data-icon=\"plus\" data-style=\"box\"></div>", 'LI element has proper innerHTML');
+		equal(li.innerHTML, "<span class=\"ui-li-text-main\" style=\"overflow:hidden; white-space:nowrap\">Abdelnaby, Alaa</span><div data-role=\"button\" data-inline=\"true\" data-icon=\"plus\" data-style=\"box\"></div>", 'LI element has proper innerHTML');
 	});
 
 
