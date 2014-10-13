@@ -244,14 +244,14 @@
 					}
 					if (nextElement) {
 						removeAnimationClasses(nextElement, classes.blurPrefix);
+						removeAnimationClasses(nextElement, classes.focusPrefix);
 						nextElement.classList.add(classes.focusPrefix + positionClass);
 						if (currentLink) {
 							removeAnimationClasses(currentLink, classes.focusPrefix);
+							removeAnimationClasses(nextElement, classes.blurPrefix);
 							currentLink.classList.add(classes.blurPrefix + positionClass);
 						}
-						setTimeout(function() {
-							nextElement.focus();
-						}, 200);
+						nextElement.focus();
 						if (self._openActiveElement) {
 							self._openActiveElement(nextElement);
 						}

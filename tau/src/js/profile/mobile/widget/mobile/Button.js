@@ -200,6 +200,7 @@
 					uiBtnInner: "ui-btn-inner",
 					uiBtnText: "ui-btn-text",
 					uiFocus: "ui-focus",
+					uiBlur: "ui-blur",
 					uiBtnEdit: "ui-btn-edit",
 					uiBtnLeft: "ui-btn-left",
 					uiBtnRight: "ui-btn-right",
@@ -319,6 +320,7 @@
 				var button = closestEnabledButton(event.target);
 				if (button) {
 					button.classList.add(classes.uiFocus);
+					button.classList.remove(classes.uiBlur);
 				}
 			}
 
@@ -331,6 +333,7 @@
 			function onBlur(event) {
 				var button = closestEnabledButton(event.target);
 				if (button) {
+					button.classList.add(classes.uiBlur);
 					button.classList.remove(classes.uiFocus);
 				}
 			}
