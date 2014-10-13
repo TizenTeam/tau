@@ -854,7 +854,7 @@
 					}
 
 					if (options.dataLength < options.bufferSize) {
-						options.bufferSize = options.dataLength - 1;
+						options.bufferSize = options.dataLength;
 					}
 
 					if (options.bufferSize < 1) {
@@ -1053,7 +1053,7 @@
 				};
 
 				/**
-				 * This method sets list item updater function. 
+				 * This method sets list item updater function.
 				 * To learn how to create list item updater function please
 				 * visit Virtual List User Guide.
 				 * @method setListItemUpdater

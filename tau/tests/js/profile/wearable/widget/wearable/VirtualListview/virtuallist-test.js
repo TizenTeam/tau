@@ -222,7 +222,7 @@
 			listItemUpdater: function () { return null; }
 		};
 		vList = tau.widget.VirtualListview(elList, config);
-		equal(vList.options.bufferSize, 9, 'Buffer size is set to 9');
+		equal(vList.options.bufferSize, 10, 'Buffer size is set to 10');
 		equal(vList.options.dataLength, 10, 'Buffer size is set to 10');
 		vList.destroy();
 	});
