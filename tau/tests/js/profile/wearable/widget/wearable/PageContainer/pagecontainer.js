@@ -69,7 +69,7 @@ element.addEventListener('widgetbuilt', function() {
 				nextPageWidget = null,
 				oneEvent = function () {
 				document.removeEventListener("pageshow", oneEvent, false);
-					nextPageWidget = ej.engine.getBinding(currentPage);
+					nextPageWidget = ej.engine.getBinding(nextPage);
 					equal(widget.getActivePage(), nextPageWidget, 'Page changed properly');
 					start();
 				},
