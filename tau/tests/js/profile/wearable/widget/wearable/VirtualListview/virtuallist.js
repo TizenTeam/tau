@@ -15,7 +15,7 @@
 			//TODO: Update listitem here
 			var data =  JSON_DATA[newIndex];
 			listElementItem.classList.add('ui-li-1line-bigicon5');
-			listElementItem.innerHTML = '<span class="ui-li-text-main">' + data.NAME+'</span>' +
+			listElementItem.innerHTML = '<span class="ui-li-text-main" style="overflow:hidden; white-space:nowrap">' + data.NAME+'</span>' +
 				'<div data-role="button" data-inline="true" data-icon="plus" data-style="box"></div>';
 		});
 		// Draw child elements
