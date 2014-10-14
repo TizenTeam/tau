@@ -1696,6 +1696,8 @@ li.feature {
     margin: 0;
     background: white;
     padding: 0;
+    word-wrap: break-word;
+    white-space: normal;
 }
 
 .toc {

@@ -5,8 +5,14 @@
  * License : MIT License V2
  */
 /**
- * #Util
- * Namespace for all util class
+ * #Utilities
+ *
+ * The Tizen Advanced UI (TAU) framework provides utilities for easy-developing
+ * and fully replaceable with jQuery method. When user using these DOM and
+ * selector methods, it provide more light logic and it proves performance
+ * of web app. The following table displays the utilities provided by the
+ * TAU framework.
+ *
  * @class ns.util
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  * @author Krzysztof Antoszek <k.antoszek@samsung.com>

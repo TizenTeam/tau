@@ -7,49 +7,59 @@
 	<link href="{{basedir}}/snippet.css" rel="StyleSheet" type="text/css">
 	<title>{{title}}{{version}}</title>
 </head>
-<body onload="prettyPrint()" marginwidth="0" marginheight="0">
-<div>
-	{{#breadcrumb}}
+<body onload="prettyPrint()" id="content" marginwidth="0" marginheight="0">
+{{#breadcrumb}}
 	<a href="{{href}}">{{title}}</a> &gt;
-	{{/breadcrumb}}
+{{/breadcrumb}}
 
 <h1>{{title}}</h1>
 
+{{{brief}}}
 {{{description}}}
 
-<table border="1">
-	<caption>{{table.caption}}</caption>
-	<tbody>
-	<tr>
-		<th>Namespace</th>
-		<th>{{table.module}}</th>
-		<th>Description</th>
-	</tr>
-	{{#table.rows}}
+{{#showTable}}
+	<table border="1">
+		<caption>{{table.caption}}</caption>
+		<tbody>
 		<tr>
-			<td><a href="{{file}}">{{namespace}}</a></td>
-			<td><a href="{{file}}">{{name}}</a></td>
-			<td>{{description}}</td>
+			<th>{{table.module}}</th>
+			<th>Namespace</th>
+			<th>Description</th>
 		</tr>
-	{{/table.rows}}
-	</tbody>
-</table>
+		{{#table.rows}}
+			<tr>
+				<td><a href="{{file}}">{{name}}</a></td>
+				<td><a href="{{file}}">{{namespace}}</a></td>
+				<td>{{description}}</td>
+			</tr>
+		{{/table.rows}}
+		</tbody>
+	</table>
+{{/showTable}}
 
 {{longDescription}}
 
-<h2>Where to Go Next</h2>
-<ul>
-	{{#seeMore}}
-		<li><a href="{{file}}">{{name}}</a></li>
-	{{/seeMore}}
-</ul>
+{{#showSeeMore}}
+	<h2>Where to Go Next</h2>
+	<ul>
+		{{#seeMore}}
+			<li><a href="{{file}}">{{name}}</a></li>
+		{{/seeMore}}
+	</ul>
+{{/showSeeMore}}
+
 <div id="footer">
 	<hr size="1">
-	<font size="1">Except as noted, this content - excluding the Code Examples - is licensed under <a
-			href="http://creativecommons.org/licenses/by/3.0/legalcode" target="_blank">Creative Commons Attribution
-		3.0</a> and all of the Code Examples contained herein are licensed under <a
-			href="https://www.tizen.org/bsd-3-clause-license" target="_blank">BSD-3-Clause</a>.<br>For details, see the
-		<a href="https://www.tizen.org/content-license" target="_blank">Content License</a>.</font>
+	<font size="1">Except as noted, this content - excluding the Code Examples -
+		is licensed under <a
+				href="http://creativecommons.org/licenses/by/3.0/legalcode"
+				target="_blank">Creative Commons Attribution
+			3.0</a> and all of the Code Examples contained herein are licensed
+		under <a
+				href="https://www.tizen.org/bsd-3-clause-license"
+				target="_blank">BSD-3-Clause</a>.<br>For details, see the
+		<a href="https://www.tizen.org/content-license" target="_blank">Content
+			License</a>.</font>
 	<!--start-->
 	<script type="text/javascript">
 		var _gaq = _gaq || [];
