@@ -9,7 +9,7 @@
  * Collapsible Set Widget groups many Collapsible Widgets in one container.
  *
  * ##Default selectors
- * In default all elements with _data-role="collapsible-set"_ or clas _.ui-collapsible-set_ are changed to collapsibleset widget.
+ * In default all elements with _data-role="collapsible-set"_ or class _.ui-collapsible-set_ are changed to collapsibleset widget.
  *
  * ##HTML Examples
  *
@@ -755,7 +755,7 @@
 			widget.mobile.CollapsibleSet = CollapsibleSet;
 			engine.defineWidget(
 				"CollapsibleSet",
-				"[data-role='collapsible-set'],.ui-collapsible-set",
+				"[data-role='collapsible-set'], .ui-collapsible-set",
 				[],
 				CollapsibleSet,
 				"mobile"

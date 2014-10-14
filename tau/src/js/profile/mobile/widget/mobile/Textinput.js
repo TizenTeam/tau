@@ -15,7 +15,7 @@
  *    "tel" or "month" or "week" or "datetime-local" or "color" or without any
  *    type
  *  - TEXTAREA
- *  - HTML elements with class ui-TextInput
+ *  - HTML elements with class _ui-textinput_
  *
  * ###HTML Examples
  *
@@ -686,9 +686,19 @@
 			ns.widget.mobile.TextInput = TextInput;
 			engine.defineWidget(
 				"TextInput",
-				"input[type='text'], input[type='number'], input[type='password'], input[type='email']," +
-					"input[type='url'], input[type='tel'], textarea, input[type='month'], input[type='week']," +
-					"input[type='datetime-local'], input[type='color'], input:not([type]), .ui-textinput",
+				"input[type='text']:not([data-role])" +
+					", input[type='number']:not([data-role])" +
+					", input[type='password']:not([data-role])" +
+					", input[type='email']:not([data-role])" +
+					", input[type='url']:not([data-role])" +
+					", input[type='tel']:not([data-role])" +
+					", input[type='month']:not([data-role])" +
+					", input[type='week']:not([data-role])" +
+					", input[type='datetime-local']:not([data-role])" +
+					", input[type='color']:not([data-role])" +
+					", input:not([type]):not([data-role]):not(.ui-checkbox):not(.ui-tizenslider)" +
+					", textarea" +
+					", .ui-textinput",
 				[],
 				TextInput,
 				"mobile"

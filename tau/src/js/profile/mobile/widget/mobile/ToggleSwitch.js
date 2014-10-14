@@ -1421,7 +1421,8 @@
 				"ToggleSwitch",
 				"select[data-role='toggleswitch']," +
 				"input[data-role='toggleswitch']," +
-				"select[data-role='slider']",
+				"select[data-role='slider']," +
+				"select.ui-toggleswitch, input.ui-toggleswitch",
 				[],
 				ToggleSwitch,
 				"mobile"

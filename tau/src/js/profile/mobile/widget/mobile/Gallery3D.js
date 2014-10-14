@@ -24,7 +24,7 @@
  * The Gallery3D widget displays images along a curved path on a 3-dimensional coordinate system.
  *
  * ## Default selectors
- * In default all elements with _data-role=gallery3d_ are changed to Tizen Web UI Gallery3D
+ * In default all elements with _data-role=gallery3d_ or class _.ui-gallery3d_ are changed to Tizen Web UI Gallery3D
  *
  *		@example
  *		<div id="gallery3d" data-role="gallery3d"></div>
@@ -2057,7 +2057,7 @@
 			ns.widget.mobile.Gallery3D = Gallery3D;
 			engine.defineWidget(
 				"Gallery3D",
-				"[data-role='gallery3d']",
+				"[data-role='gallery3d'], .ui-gallery3d",
 				["add", "remove", "next", "prev",
 					"select", "clearThumbnailCache",
 					"empty", "length"],

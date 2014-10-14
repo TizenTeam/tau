@@ -8,6 +8,9 @@
  * #Split View Widget
  * SplitView is a widget, which displays two children separated with a movable divider.
  *
+ * ##Default selectors
+ * In default all elements with _data-role="splitview"_ or class _.ui-splitview_ are changed to Split View widget.
+ *
  * It allows to change the size ratio of its children and supports two orientations.
  * @class ns.widget.mobile.SplitView
  * @extends ns.widget.mobile.BaseWidgetMobile
@@ -350,7 +353,7 @@
 			 */
 			prototype._refresh = function () {
 				var self = this,
-					element = self.widget();
+					element = self.element;
 
 				self._measureSplitter();
 				if (self._getContainerSize(element)) {
@@ -561,7 +564,7 @@
 			prototype.maximize = function(id) {
 				var self = this,
 					ratio = self.options.ratio,
-					element = selectors.getChildrenBySelector(self.widget(), id);
+					element = selectors.getChildrenBySelector(self.element, id);
 
 				if (element) {
 					self.panes.forEach(function(pane, i) {

@@ -8,7 +8,9 @@
  * SelectMenu widget provide creating SelectMenu widget in the form of dropdown list and managing its operation.
  *
  * ##Default selector
- * In default all select element are changed to Tizen WebUI SelectMenu.
+ * In default all select elements with _data-role=select_ or with class .ui-select-menu
+ * are changed to Tizen WebUI SelectMenu. Additionally elements with
+ * _data-native-menu=false_ will use custom popups for option selection
  *
  * ###  HTML Examples
  *
@@ -825,11 +827,9 @@
 			ns.widget.mobile.SelectMenu = SelectMenu;
 			engine.defineWidget(
 				"SelectMenu",
-				"select:not([data-role='slider']):not([data-role='range']):not([data-role='toggleswitch'])",
-				[
-				 "open",
-				 "close"
-				],
+				"select:not([data-role='slider']):not([data-role='range']):not([data-role='toggleswitch']):not(.ui-toggleswitch):not(.ui-slider)" +
+				", select.ui-select-menu:not([data-role='slider']):not([data-role='range']):not([data-role='toggleswitch'])",
+				["open", "close"],
 				SelectMenu,
 				"mobile"
 			);

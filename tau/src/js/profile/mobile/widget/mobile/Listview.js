@@ -1626,7 +1626,7 @@
 			ns.widget.mobile.Listview = Listview;
 			engine.defineWidget(
 				"Listview",
-				"[data-role='listview'], .ui-listview",
+				"ul[data-role='listview'], ul.ui-listview, ol[data-role='listview'], ol.ui-listview",
 				["addItem", "removeItem"],
 				Listview,
 				"mobile"

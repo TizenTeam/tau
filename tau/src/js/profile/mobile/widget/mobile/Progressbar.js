@@ -14,7 +14,7 @@
  * In default elements matches to :
  *
  *  - HTML elements with data-role equal "progressbar"
- *  - HTML elements with class ui-progressbar-container
+ *  - HTML elements with class ui-progressbar
  *
  * ###HTML Examples
  *
@@ -317,7 +317,7 @@
 			ns.widget.mobile.ProgressBar = ProgressBar;
 			engine.defineWidget(
 				"ProgressBar",
-				"[data-role='progressbar'], .ui-progressbar-container",
+				"[data-role='progressbar'], .ui-progressbar",
 				["value"],
 				ProgressBar,
 				"tizen"

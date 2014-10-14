@@ -11,7 +11,7 @@
  * ## Default selectors
  * In default all **INPUT** tags with type equals _range_ are changed
  * to Tizen WebUI sliders.
- * In addition all elements with _data-role=range_ and _data-role=slider_
+ * In addition all **INPUT** elements with _data-role=range_ and _data-role=slider_
  * and class _ui-tizenslider_ are changed to Tizen Web UI sliders.
  *
  * ###HTML Examples
@@ -640,7 +640,8 @@
 			ns.widget.mobile.TizenSlider = TizenSlider;
 			engine.defineWidget(
 				"TizenSlider",
-				"input[type='range'], :not(select)[data-role='slider'], :not(select)[data-type='range'], .ui-tizenslider",
+				"input[type='range'], input[data-role='slider'], input[data-role='range']," +
+				"input.ui-tizenslider",
 				[],
 				TizenSlider,
 				"tizen"

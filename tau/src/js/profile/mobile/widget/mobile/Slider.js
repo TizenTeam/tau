@@ -11,15 +11,15 @@
  * handle like a slider or tap one side of the switch.
  *
  * ## Default selectors
- * all **SELECT** tags with _data-role=slider_ or with _data-type=range_ are
- * changed to toggle switch
+ * all **SELECT** tags with _data-type=range_ or class _ui-slider_ are changed
+ * to toggle switch.
  *
  * ###HTML Examples
  *
  * ####Create simple toggle switch from select using data-role
  *
  *		@example
- *		<select name="flip-11" id="flip-11" data-role="slider">
+ *		<select name="flip-11" id="flip-11" data-role="range">
  *			<option value="off"></option>
  *			<option value="on"></option>
  *		</select>
@@ -29,7 +29,7 @@
  * widget from **tau** namespace:
  *
  *		@example
- *		<select id="toggle" name="flip-11" id="flip-11" data-role="slider"
+ *		<select id="toggle" name="flip-11" id="flip-11" data-role="range"
  *		data-mini="true">
  *			<option value="off"></option>
  *			<option value="on"></option>
@@ -46,7 +46,7 @@
  * ####If jQuery library is loaded, its method can be used:
  *
  *		@example
- *		<select id="toggle" name="flip-11" id="flip-11" data-role="slider"
+ *		<select id="toggle" name="flip-11" id="flip-11" data-role="range"
  *		data-mini="true">
  *			<option value="off"></option>
  *			<option value="on"></option>
@@ -71,7 +71,7 @@
  * as the standard version and has a smaller text size.
  *
  *		@example
- *		<select name="flip-11" id="flip-11" data-role="slider"
+ *		<select name="flip-11" id="flip-11" data-role="range"
  *		data-mini="true">
  *			<option value="off"></option>
  *			<option value="on"></option>
@@ -84,7 +84,7 @@
  * and icons inside, add the data-inline="true" attribute to the slider.
  *
  *		@example
- *		<select name="flip-11" id="flip-11" data-role="slider"
+ *		<select name="flip-11" id="flip-11" data-role="range"
  *		data-inline="true">
  *			<option value="off"></option>
  *			<option value="on"></option>
@@ -109,7 +109,7 @@
  * First API is from tau namespace:
  *
  *		@example
- *		<select name="flip-11" id="toggle" data-role="slider"
+ *		<select name="flip-11" id="toggle" data-role="range"
  *		data-mini="true">
  *			<option value="off"></option>
  *			<option value="on"></option>
@@ -125,7 +125,7 @@
  * Second API is jQuery Mobile API and for call _methodName_ you can use:
  *
  *		@example
- *		<select name="flip-11" id="toggle" data-role="slider"
+ *		<select name="flip-11" id="toggle" data-role="range"
  *		data-mini="true">
  *			<option value="off"></option>
  *			<option value="on"></option>
@@ -759,7 +759,7 @@
 				domHandle.setAttribute("data-theme", theme);
 				domHandle.setAttribute("data-shadow", "true");
 
-				domHandle.setAttribute("role", "slider");
+				domHandle.setAttribute("role", "range");
 				domHandle.setAttribute("aria-valuemin", min);
 				domHandle.setAttribute("aria-valuemax", max);
 				domHandle.setAttribute("aria-valuenow", initValue);
@@ -1253,7 +1253,7 @@
 			ns.widget.mobile.Slider = Slider;
 			engine.defineWidget(
 				"Slider",
-				"select[data-type='range']",
+				"select[data-role='range'], select.ui-slider",
 				[],
 				Slider,
 				"mobile"

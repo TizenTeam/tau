@@ -782,7 +782,7 @@
 			ns.widget.mobile.SearchBar = SearchBar;
 			engine.defineWidget(
 				"SearchBar",
-				"input[type='search'],[data-type='search'], input[type=tizen-search],[data-type='tizen-search'], .ui-searchbar",
+				"input[type='search'], [data-type='search'], [data-type='tizen-search'], .ui-searchbar",
 				[
 					"value"
 				],

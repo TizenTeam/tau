@@ -212,13 +212,13 @@
 					uiSwipeItemCoverInner: classPrefix + "-item-cover-inner"
 				},
 				selectorRoleSwipe = "[data-role='swipe']",
-				selectorRoleSwipeItemCover = "[data-role='swipe-item-cover']",
-				selectorRoleSwipeItem = "[data-role='swipe-item']",
+				selectorRoleSwipeItemCover = "[data-role='swipe-item-cover']" +
+					', .' + classes.uiSwipeItemCover,
+				selectorRoleSwipeItem = "[data-role='swipe-item']" +
+					', .' + classes.uiSwipeItem,
 				classUiBtn = ".ui-btn",
 				swipeLeftEvent = "swipeleft",
-				swipeRightEvent = "swiperight",
-				webkitTransitionEndEvent = "webkitTransitionEnd";
-
+				swipeRightEvent = "swiperight";
 
 			Swipe.prototype = new BaseWidget();
 
@@ -434,7 +434,11 @@
 			prototype._build = function (element) {
 				var options = this.options,
 					protoOptions = Swipe.prototype.options;
-				options.theme = options.theme || ns.theme.getInheritedTheme(element, (protoOptions && protoOptions.theme) || "s");
+				options.theme = options.theme ||
+						ns.theme.getInheritedTheme(
+							element,
+							(protoOptions && protoOptions.theme) || "s"
+						);
 				refresh(this, element);
 				return element;
 			};

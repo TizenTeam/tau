@@ -10,7 +10,7 @@
  *
  * ## Default selectors
  * In default all **BUTTON** tags and all **INPUT** tags with type equals _button_, _submit_ or _reset_ are change to Tizen WebUI buttons.
- * In addition all elements with _data-role=button_ and class _ui-btn_ are changed to Tizen Web UI buttons.
+ * In addition all elements with _data-role=button_ and class _ui-button_ are changed to Tizen Web UI buttons.
  * To prevent auto enhance element to Tizen Web UI buttons you can use _data-role=none_ attribute on **BUTTON** or **INPUT** element.
  *
  * ###HTML Examples
@@ -23,7 +23,7 @@
  * ####Create simple button from link using class selector
  *
  *		@example
- *		<a href="#page2" class="ui-btn">Link button</a>
+ *		<a href="#page2" class="ui-button">Link button</a>
  *
  * ####Create simple button using button's tag
  *
@@ -1115,7 +1115,7 @@
 			ns.widget.mobile.Button = Button;
 			engine.defineWidget(
 				"Button",
-				"[data-role='button'], button, [type='button'], [type='submit'], [type='reset']",
+				"[data-role='button'], button, [type='button'], [type='submit'], [type='reset'], .ui-button",
 				[],
 				Button,
 				"mobile"

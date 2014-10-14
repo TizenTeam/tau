@@ -8,6 +8,9 @@
  * #Gallery Widget
  * The gallery widget shows images in a gallery on the screen.
  *
+ * ##Default selectors
+ * In default all elements with _data-role="gallery"_ or class _.ui-gallery_ are changed to gallery widget.
+ *
  * @class ns.widget.mobile.Gallery
  * @extends ns.widget.BaseWidget
  */
@@ -298,10 +301,11 @@
 			 */
 			Gallery.classes = {
 				uiGallery: "ui-gallery",
+				uiGalleryContainer: "ui-gallery-container",
 				uiGalleryBg: "ui-gallery-bg",
 				uiContent: "ui-content",
 				uiHeader: "ui-header",
-				uiFooter: "ui-footer"
+				uiFooter: "ui-footer",
 			};
 
 			/**
@@ -371,15 +375,16 @@
 					i,
 					length;
 
+				element.classList.add(classes.uiGallery);
 				images = selectors.getChildrenByTag(element, "img");
 				for (i = 0, length = images.length; i < length; i++) {
 					image = images[i];
 					doms.wrapInHTML(image, "<div class='" + classes.uiGalleryBg + "'></div>");
 				}
 				if (element.children.length) {
-					doms.wrapInHTML(element.children, "<div class='" + classes.uiGallery + "'></div>");
+					doms.wrapInHTML(element.children, "<div class='" + classes.uiGalleryContainer + "'></div>");
 				} else {
-					element.innerHTML = "<div class='" + classes.uiGallery + "'></div>";
+					element.innerHTML = "<div class='" + classes.uiGalleryContainer + "'></div>";
 				}
 				index = parseInt(options.index, 10);
 				if (!index) {
@@ -407,7 +412,7 @@
 			Gallery.prototype._init = function (element) {
 				var images = element.getElementsByTagName("img"),
 					classes = Gallery.classes;
-				this.container = selectors.getChildrenByClass(element, classes.uiGallery)[0];
+				this.container = selectors.getChildrenByClass(element, classes.uiGalleryContainer)[0];
 				this._detachAll(images);
 
 				// for "compare" test
@@ -1203,7 +1208,7 @@
 			ns.widget.mobile.Gallery = Gallery;
 			engine.defineWidget(
 				"Gallery",
-				"[data-role='gallery'], .ui-gallery-container",
+				"[data-role='gallery'], .ui-gallery",
 				[
 					"add",
 					"remove",
