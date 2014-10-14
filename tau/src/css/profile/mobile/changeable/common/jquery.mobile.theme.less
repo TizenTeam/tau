@@ -266,9 +266,8 @@
 		height: 74 * @unit_base;
 		margin-top: 17 * @unit_base;
 		width: 100%;
-		.ui-btn-inner {
-			height: 74 * @unit_base;
-			line-height: 53 * @unit_base;
+		.ui-btn-inner .ui-btn-text {
+			line-height: 64.5 * @unit_base;
 		}
 	}
 	&.ui-footer-btn-1 {
@@ -318,7 +317,7 @@
 				margin-right: @footer_btn_middle_margin;
 				.ui-btn-text {
 					font-size: @font_size_button_text;
-					line-height: 54 * @unit_base;
+					line-height: 60 * @unit_base;
 					color: @color_button_text_normal;
 				}
 			}
@@ -372,33 +371,12 @@
 }
 
 .ui-btn.ui-btn-corner-all.ui-btn-box-s {
-	.ui-btn-inner {
-		.LESSborder-radius-all( 1.2rem );
-	}
 	&.ui-btn-block .ui-btn-inner{
 		top: 6 * @unit_base;
 	}
 }
 
-.ui-header .ui-btn-box-s,
-.ui-footer .ui-btn-box-s,
-.ui-btn-back.ui-btn-up-s,
-.ui-btn-back.ui-btn-hover-s,
-.ui-btn-back.ui-btn-down-s,
-.ui-btn-footer-down.ui-btn-up-s,
-.ui-btn-footer-down.ui-btn-hover-s,
-.ui-btn-footer-down.ui-btn-down-s,
-.ui-popup-container .ui-btn-box-s {
-	font-weight: normal;
-	.LESSborder-radius-all( 0.9 rem );
-}
 
-.ui-btn-box-s.ui-btn-hover-s.ui-btn-corner-circle {
-	.LESSborder-radius-allimportant( 1em );
-}
-.ui-btn-box-s.ui-btn-hover-s.ui-btn-round {
-	.LESSborder-radius-allimportant( 1.2em );
-}
 .ui-btn-box-s.ui-btn-down-s {
 	.ui-btn-inner {
 		.LESSbutton_down_style;

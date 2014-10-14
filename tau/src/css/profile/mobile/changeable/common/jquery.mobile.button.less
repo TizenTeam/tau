@@ -131,6 +131,7 @@
 .ui-btn-box-s.ui-btn-hover-s {
 	&:not(.ui-btn-icon_only):not(.ui-drawer-button) {
 		.core_button_bg();
+		padding: 4.5 * @unit_base;
 		background-color: @color_button_bg;
 	}
 	&:not([data-style="nobg"]) .ui-icon {
@@ -158,6 +159,7 @@
 
 	&:not(.ui-btn-icon_only):not(.ui-drawer-button) {
 		.core_button_bg_pressed();
+		padding: 4.5 * @unit_base;
 		background-color: @color_button_bg_press;
 	}
 
@@ -407,9 +409,11 @@
 
 .ui-btn.ui-btn-corner-circle {
 	.core_button_bg();
+	padding: 4.5 * @unit_base;
 	background-color: @color_button_bg;
 	&.ui-btn-down-s {
 		.core_button_bg_pressed();
+		padding: 4.5 * @unit_base;
 		background-color: @color_button_bg_press;
 	}
 	.ui-icon, .ui-icon.ui-icon-plus {
@@ -418,6 +422,7 @@
 }
 .ui-btn.ui-btn-round {
 	.core_button_bg();
+	padding: 4.5 * @unit_base;
 	background-color: @color_button_bg;
 	.ui-icon, .ui-icon.ui-icon-plus {
 		background-color: @color_button_icon;
