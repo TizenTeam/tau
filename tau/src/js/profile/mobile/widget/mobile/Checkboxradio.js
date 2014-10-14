@@ -9,15 +9,80 @@
  * Checkboxradio widget changes default browser checkboxes and radios to form more adapted to mobile environment.
  *
  * ##Default selectors
- * In default all inputs with type _checkbox_ or _radio_ are changed to checkboxradio widget.
+ * By default all inputs with:
+ *
+ * - type "checkbox" and without class "ui-slider-switch-input"
+ * - type "radio"
+ * - class "ui-checkbox"
+ *
+ * are changed to Checkboxradio widget.
+ *
+ * ##Manual constructor - checkbox
+ * For manual creation of Checkboxradio widget with checkbox content you can use constructor of widget:
+ *
+ *	@example
+ *	<!-- Widget structure -->
+ *	<input type="checkbox" id="checkbox-1"></input>
+ *	<label for="checkbox-1">Label1</label>
+ *	<input class="ui-checkbox" id="checkbox-2"></input>
+ *	<label for="checkbox-2">Label2</label>
+ *	<script>
+ *	var checkbox = document.getElementById("checkbox-1"),
+ *		widget = tau.widget.Checkboxradio(checkbox),
+ *		checkbox2 = document.getElementById("checkbox-2"),
+ *		widget2 = tau.widget.Checkboxradio(checkbox2);
+ *	</script>
+ *
+ * ##Manual constructor - radio
+ * For manual creation of Checkboxradio widget with radio content you can use constructor of widget:
+ *
+ *	@example
+ *	<!-- Widget structure -->
+ *	<input type="radio" id="radio-1"></input>
+ *	<label for="radio-1">Label1</label>
+ *	<script>
+ *	var radio = document.getElementById("radio-1"),
+ *		widget = tau.widget.Checkboxradio(radio);
+ *	</script>
  *
  * ##HTML Examples
  *
- * ### Create checkboxradio
+ * ###Setting checkbox checked / unchecked
  *
- *		@example
- *		<input type="checkbox" name="checkbox-yes" id="checkbox-yes" />
- *		<label for="checkbox-yes">Yes</label>
+ *	@example
+ *	<!-- Widget structure -->
+ *	<input type="checkbox" id="checkbox-1"></input>
+ *	<label for="checkbox-1">Label1</label>
+ *	<script>
+ *	var checkbox = document.getElementById("checkbox-1");
+ *	// Checked
+ *	checkbox.checked = true;
+ *	// Unchecked
+ *	checkbox.checked = false;
+ *	</script>
+ *
+ * ###Setting radio checked / unchecked
+ *
+ *	@example
+ *	<!-- Widget structure -->
+ *	<input type="radio" id="radio-1"></input>
+ *	<label for="radio-1">Label1</label>
+ *	<script>
+ *	var radio = document.getElementById("radio-1");
+ *	// Checked
+ *	radio.checked = true;
+ *	// Unchecked
+ *	radio.checked = false;
+ *	</script>
+ *
+ * ###Setting disabled
+ *
+ *	@example
+ *	<!-- Widget structure -->
+ *	<input type="checkbox" id="checkbox-1" disabled="disabled"></input>
+ *	<label for="checkbox-1">Label1</label>
+ *	<input type="radio" id="radio-1" disabled="disabled"></input>
+ *	<label for="radio-1">Label2</label>
  *
  * @class ns.widget.mobile.Checkboxradio
  * @extends ns.widget.BaseWidget
@@ -87,6 +152,12 @@
 				* @static
 				*/
 				events = ns.event,
+				/**
+				 * {Object} List of classes which can be added to widget`s element
+				 * @member ns.widget.mobile.Checkboxradio
+				 * @private
+				 * @static
+				 */
 				classes = {
 					checkboxradioIconWrapper: "ui-icon-wrapper"
 				},
