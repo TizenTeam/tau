@@ -26,7 +26,7 @@
 					object.merge(this, prototype);
 					// prepare selector
 					if (selectorsString === "") {
-						this._prepareSelector();
+						prepareSelector();
 					}
 				},
 				prototype = {
@@ -95,13 +95,13 @@
 
 			/**
 			 * Set string with selector
-			 * @method _prepareSelector
-			 * @protected
+			 * @method prepareSelector
+			 * @private
 			 * @member ns.widget.tv.BaseKeyboardSupport
 			 */
-			prototype._prepareSelector = function() {
+			function prepareSelector() {
 				selectorsString = selectors.join(selectorSuffix + ",") + selectorSuffix;
-			};
+			}
 
 			/**
 			 * Calculates neighborhood links.
@@ -321,7 +321,7 @@
 			 * @member ns.widget.tv.BaseKeyboardSupport
 			 */
 			BaseKeyboardSupport.registerActiveSelector = function (selector) {
-				var index = SELECTORS.indexOf(selector);
+				var index = selectors.indexOf(selector);
 				// check if not registered yet
 				if (index === -1) {
 					selectors.push(selector);
@@ -331,7 +331,7 @@
 					// such a selector exist - increment reference counter
 					++REF_COUNTERS[index];
 				}
-				this._prepareSelector();
+				prepareSelector();
 			};
 
 			/**
@@ -342,7 +342,7 @@
 			 * @member ns.widget.tv.BaseKeyboardSupport
 			 */
 			BaseKeyboardSupport.unregisterActiveSelector = function (selector) {
-				var index = SELECTORS.indexOf(selector);
+				var index = selectors.indexOf(selector);
 				if (index != -1) {
 					--REF_COUNTERS[index];
 					// check reference counter
@@ -352,7 +352,7 @@
 						REF_COUNTERS.splice(index, 1);
 					}
 				}
-				this._prepareSelector();
+				prepareSelector();
 			};
 
 			ns.widget.tv.BaseKeyboardSupport = BaseKeyboardSupport;
