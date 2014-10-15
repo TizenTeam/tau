@@ -516,7 +516,7 @@
 					bestOffsetInfo;
 
 				// set value of bestDirection on the first possible type or top
-				bestDirection = params[arrowsPriority[0]] || params.t,
+				bestDirection = params[arrowsPriority[0]] || params.t;
 
 				arrowsPriority.forEach(function(key){
 					var param = params[key],

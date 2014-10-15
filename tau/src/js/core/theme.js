@@ -195,8 +195,7 @@
 						themeName = THEME_CSS_FILE_NAME,
 						cssPath,
 						isMinified = frameworkData.minified,
-						jsPath,
-						cssPath;
+						jsPath;
 
 					// If the theme has been loaded do not repeat that process
 					if (frameworkData.themeLoaded) {
