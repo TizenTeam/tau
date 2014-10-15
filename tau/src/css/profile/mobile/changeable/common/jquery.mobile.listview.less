@@ -33,47 +33,33 @@
 }
 
 /***************** Anchor listview common style ****************/
-.ui-listview {
-	/* anchor listview background style */
-	.ui-li.ui-btn-up-s,
-	.ui-li.ui-btn-hover-s { background-color: transparent; }
-	.ui-li.ui-btn-down-s { background-color: @color_list_press; }
+.ui-listview .ui-li.ui-li-anchor {
+	padding: 0 0;
+	border-bottom: 1px solid @color_list_border_bottom;
+	background-color: transparent;
 
-	/* ui-btn-inner style for list with anchor - normal single */
-	.ui-li.ui-btn {
-		>.ui-btn-inner {
-			padding: 0;
+	&.ui-li-active {
+		background-color: @color_list_press;
+	}
 
-			.ui-btn-text {
-				padding: 0;
-				>.ui-link-inherit {
-					display: block;
-					padding: 30 * @unit_base 15 * @unit_base;
-					line-height: 38 * @unit_base;
-					text-overflow: ellipsis;
-					white-space: nowrap;
-					overflow: hidden;
-				}
-			}
-		}
+	&>a {
+		display: block;
+		width: 100%;
+		height: 100%;
+		padding: 30 * @unit_base 15 * @unit_base;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		overflow: hidden;
+		color: @color_list_main_text_normal;
+		text-decoration: none;
 	}
 }
 
-.ui-listview {
-	.ui-li.ui-btn {
-		>.ui-btn-inner {
-			border-bottom: 1px solid @color_list_border_bottom;
-		}
-	}
-	.ui-li-static {
-		border-bottom: 1px solid @color_list_border_bottom;
-	}
-}
 /*************** No Anchor listview common style ****************/
 .ui-listview .ui-li-static {
 	padding: 30 * @unit_base 15 * @unit_base;
+	border-bottom: 1px solid @color_list_border_bottom;
 	background-color: transparent;
-
 }
 
 /********************* list have right button **********************/
@@ -125,8 +111,8 @@
 	}
 }
 /******************* list have left thumbnail image ********************/
-.ui-listview .ui-li.ui-li-has-thumb>.ui-btn-inner>.ui-btn-text>.ui-link-inherit,
-.ui-listview .ui-li.ui-li-dialogue.ui-li-has-thumb>.ui-btn-inner>.ui-btn-text>.ui-link-inherit,
+.ui-listview .ui-li.ui-li-anchor.ui-li-has-thumb>a,
+.ui-listview .ui-li.ui-li-anchor.ui-li-dialogue.ui-li-has-thumb>a,
 .ui-listview .ui-li.ui-li-static.ui-li-has-thumb {
 	padding-left: 61.5 * @unit_base;
 
@@ -141,8 +127,8 @@
 }
 
 /***************** list has checkbox/radio ***********************/
-.ui-listview .ui-li.ui-btn.ui-li-has-checkbox>.ui-btn-inner>.ui-btn-text>.ui-link-inherit,
-.ui-listview .ui-li.ui-btn.ui-li-has-radio>.ui-btn-inner>.ui-btn-text>.ui-link-inherit,
+.ui-listview .ui-li.ui-li-anchor.ui-li-has-checkbox>a,
+.ui-listview .ui-li.ui-li-anchor.ui-li-has-radio>a,
 .ui-listview .ui-li.ui-li-static.ui-li-has-checkbox,
 .ui-listview .ui-li.ui-li-static.ui-li-has-radio {
 	padding-left: 61.5 * @unit_base;
@@ -179,8 +165,8 @@
 }
 
 /**************** list has checkbox/radio and thumbnail ************/
-.ui-listview .ui-li.ui-btn.ui-li-has-checkbox.ui-li-has-thumb>.ui-btn-inner>.ui-btn-text>.ui-link-inherit,
-.ui-listview .ui-li.ui-btn.ui-li-has-radio.ui-li-has-thumb>.ui-btn-inner>.ui-btn-text>.ui-link-inherit,
+.ui-listview .ui-li.ui-li-anchor.ui-li-has-checkbox.ui-li-has-thumb>a,
+.ui-listview .ui-li.ui-li-anchor.ui-li-has-radio.ui-li-has-thumb>a,
 .ui-listview .ui-li.ui-li-static.ui-li-has-checkbox.ui-li-has-thumb,
 .ui-listview .ui-li.ui-li-static.ui-li-has-radio.ui-li-has-thumb {
 	padding-left: 110 * @unit_base;
@@ -209,7 +195,7 @@
 /*              Multiline List Style                            */
 /****************************************************************/
 .ui-listview .ui-li.ui-li-has-multiline {
-	&.ui-btn>.ui-btn-inner>.ui-btn-text>.ui-link-inherit,
+	&.ui-li-anchor>a,
 	&.ui-li-static {
 		padding-top: 13 * @unit_base;
 		padding-bottom: 45 * @unit_base;
@@ -290,7 +276,7 @@
 	}
 
 	/* multiline list has left thumbnail */
-	&.ui-li-has-thumb>.ui-btn-inner>.ui-btn-text>.ui-link-inherit,
+	&.ui-li-anchor.ui-li-has-thumb>a,
 	&.ui-li-static.ui-li-has-thumb {
 		.ui-li-text-sub { left: 61.5 * @unit_base; }
 
@@ -298,23 +284,23 @@
 	}
 
 	/* multiline list has checkbox/radio */
-	&.ui-li-has-checkbox>.ui-btn-inner>.ui-btn-text>.ui-link-inherit,
-	&.ui-li-has-radio>.ui-btn-inner>.ui-btn-text>.ui-link-inherit,
+	&.ui-li-anchor.ui-li-has-checkbox>a,
+	&.ui-li-anchor.ui-li-has-radio>a,
 	&.ui-li-static.ui-li-has-checkbox,
 	&.ui-li-static.ui-li-has-radio {
 		.ui-li-text-sub { left: 60 * @unit_base; }
 	}
 
 	/* multiline list has thumbnail and checkbox/radio */
-	&.ui-li-has-thumb.ui-li-has-checkbox>.ui-btn-inner>.ui-btn-text>.ui-link-inherit,
-	&.ui-li-has-thumb.ui-li-has-radio>.ui-btn-inner>.ui-btn-text>.ui-link-inherit,
+	&.ui-li-anchor.ui-li-has-thumb.ui-li-has-checkbox>a,
+	&.ui-li-anchor.ui-li-has-thumb.ui-li-has-radio>a,
 	&.ui-li-static.ui-li-has-thumb.ui-li-has-checkbox,
 	&.ui-li-static.ui-li-has-thumb.ui-li-has-radio {
 		.ui-li-text-sub { left: 108 * @unit_base; }
 	}
 
 	/* multiline list has thumbnail right */
-	&.ui-li-has-thumb.ui-li-thumbnail-right>.ui-btn-inner>.ui-btn-text>.ui-link-inherit,
+	&.ui-li-anchor.ui-li-has-thumb.ui-li-thumbnail-right>a,
 	&.ui-li-static.ui-li-has-thumb.ui-li-thumbnail-right {
 		padding-left: 13 * @unit_base;
 
@@ -559,6 +545,12 @@
 	&.ui-li.ui-btn-up-s, &.ui-li.ui-btn-hover-s {
 		background-color: @color_list_divider_bg;
 	}
+
+	&.ui-btn>.ui-btn-inner,
+	&.ui-btn>.ui-btn-inner .ui-btn-text {
+		padding: 0;
+	}
+
 	.ui-divider-normal-line {
 		position: absolute;
 		bottom: 0;

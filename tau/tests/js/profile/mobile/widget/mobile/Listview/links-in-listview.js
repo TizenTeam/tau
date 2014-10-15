@@ -20,12 +20,7 @@
 		ok(list1.classList.contains('ui-listview'), 'List1 has ui-listview class');
 		ok(list2.classList.contains('ui-listview'), 'List2 has ui-listview class');
 
-		li = document.getElementById('li1_1');
-		ok(li.children[0].tagName === 'DIV', 'LI element on List1 has children DIV');
-
 		li = document.getElementById('li2_1');
 		ok(li.children.length === 0, 'LI element on List2 has not children');
-		li = document.getElementById('li2_2');
-		ok(li.children[0].tagName === 'DIV', 'LI element on List2 has children DIV');
 	});
 }(document, window.ej));

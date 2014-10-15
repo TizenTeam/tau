@@ -9,7 +9,6 @@ function listviewItemTests(listviewItem) {
 	ok(listviewItem !== undefined, 'List item instance exists');
 	ok(listviewItem.classList.contains('ui-li'), 'List item has ui-li class');
 	ok(listviewItem.classList.contains('ui-li-static'), 'List item has ui-li-static class');
-	ok(listviewItem.classList.contains('ui-btn-up-s'), 'List item has ui-btn-up-s class');
 	equal(listviewItem.getAttribute('tabindex'), '0', 'List item has tabindex=0');
 }
 

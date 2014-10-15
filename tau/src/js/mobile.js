@@ -45,6 +45,7 @@
 			"./core/frameworkData",
 			"./core/theme",
 			"./core/theme/ThemeCommon",
+			"./core/util/anchorHighlight",
 			"./core/util/grid",
 			"./core/util/data",
 			"./core/util/array",

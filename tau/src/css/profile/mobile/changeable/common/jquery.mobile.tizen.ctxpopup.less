@@ -65,18 +65,16 @@
 		&:last-child {
 			border-bottom-width: 0;
 		}
-		.ui-btn-inner {
-			margin: 0;
-			padding-left: 10 * @unit_base;
-			padding-right: 10 * @unit_base;
-		}
-		&.ui-btn {
-			&:not(:last-child){
-			border-bottom: 1px solid @color_ctxpopup_divider;
+		&.ui-li-anchor {
+			&>a {
+				box-sizing: border-box;
 			}
-		}
-		&.ui-btn-down-s {
-			background-color: @color_ctxpopup_btn_press;
+			&:not(:last-child){
+				border-bottom: 1px solid @color_ctxpopup_divider;
+			}
+			&.ui-li-active {
+				background-color: @color_ctxpopup_btn_press;
+			}
 		}
 	}
 

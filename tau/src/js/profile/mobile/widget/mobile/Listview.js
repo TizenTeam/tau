@@ -846,6 +846,7 @@
 					uiLiHasRightBtn: "ui-li-has-right-btn",
 					uiLiCount: "ui-li-count",
 					uiLiHasCount: "ui-li-has-count",
+					uiLiAnchor: "ui-li-anchor",
 					uiLiStatic: "ui-li-static",
 					uiLiHeading: "ui-li-heading"
 				},
@@ -907,83 +908,6 @@
 				self.options = options;
 				ui.page = null;
 			};
-
-			/**
-			 * Change links to button widget
-			 * @method changeLinksToButton
-			 * @param {HTMLElement} item
-			 * @param {Array} links
-			 * @param {string} itemTheme
-			 * @private
-			 * @static
-			 * @member ns.widget.mobile.Listview
-			 */
-			function changeLinksToButton(item, links, itemTheme) {
-				var icon = DOM.getNSData(item, "icon"),
-					linkClassList = links[0].classList,
-					linksLength = links.length,
-					last = links[linksLength - 1],
-					span;
-				DOM.setNSData(item, "theme", itemTheme);
-				engine.instanceWidget(
-					item,
-					"Button",
-					{
-						wrapperEls: "div",
-						shadow: false,
-						corners: false,
-						iconpos: "right",
-						icon: false
-					}
-				);
-
-				if (linksLength === 1) {
-					item.classList.add(classes.uiLiHasArrow);
-					if (icon !== false) {
-						item.classList.add(buttonClasses.uiBtnIconRight);
-					}
-				} else if (linksLength > 1) {
-					item.classList.add(classes.uiLiHasAlt);
-					item.appendChild(last);
-					last.classList.add(classes.uiLiLinkAlt);
-					last.setAttribute("title", last.innerText);
-					last.innerText = "";
-					engine.instanceWidget(
-						last,
-						"Button",
-						{
-							wrapperEls: "span",
-							shadow: false,
-							corners: false,
-							iconpos: "right",
-							icon: false
-						}
-					);
-					last.classList.add(buttonClasses.uiBtnIconNotext);
-
-					span = document.createElement("span");
-					engine.instanceWidget(
-						span,
-						"Button",
-						{
-							wrapperEls: "span",
-							shadow: true,
-							corners: false,
-							iconpos: "notext",
-							icon: "arrow-r"
-						}
-					);
-					last.querySelector("." + buttonClasses.uiBtnInner)
-							.appendChild(span);
-				}
-				linkClassList.remove(classes.uiLink);
-				linkClassList.add(classes.uiLinkInherit);
-
-				selectors.getChildrenByClass(item, buttonClasses.uiBtnInner)
-					.forEach(function (element) {
-						element.classList.add(classes.uiLi);
-					});
-			}
 
 			/**
 			 * Add thumb classes img
@@ -1534,14 +1458,13 @@
 							engine.instanceWidget(item, "ListDivider");
 						} else {
 							if (links.length) {
-								changeLinksToButton(item, links, itemTheme);
 								link = links[0];
 								addCheckboxRadioClasses(link);
 								addThumbClasses(link);
 								addRightBtnClasses(link);
+								itemClassList.add(classes.uiLiAnchor);
 							} else {
 								itemClassList.add(classes.uiLiStatic);
-								itemClassList.add(buttonClasses.uiBtnUpThemePrefix + itemTheme);
 								item.setAttribute("tabindex", "0");
 							}
 							addHeadingClasses(item);

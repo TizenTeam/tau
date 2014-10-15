@@ -15,9 +15,7 @@
 			items = page.find("li");
 
 		ok(items.eq(0).hasClass("ui-li-has-count"), "First LI should have ui-li-has-count class");
-		ok(items.eq(0).hasClass("ui-li-has-arrow"), "First LI should have ui-li-has-arrow class");
 		ok(!items.eq(1).hasClass("ui-li-has-count"), "Second LI should NOT have ui-li-has-count class");
-		ok(items.eq(1).hasClass("ui-li-has-arrow"), "Second LI should have ui-li-has-arrow class");
 		ok(!items.eq(2).hasClass("ui-li-has-count"), "Third LI should NOT have ui-li-has-count class");
 		ok(!items.eq(2).hasClass("ui-li-has-arrow"), "Third LI should NOT have ui-li-has-arrow class");
 		ok(items.eq(3).hasClass("ui-li-has-count"), "Fourth LI should have ui-li-has-count class");
