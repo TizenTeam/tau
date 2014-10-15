@@ -8,6 +8,59 @@
  * #Text Input Widget
  * Decorator for inputs elements.
  *
+ * ## Default selectors
+ * In default elements matches to :
+ *
+ *  - INPUT with type "text" or "number" or "password" or "email" or "url" or
+ *    "tel" or "month" or "week" or "datetime-local" or "color" or without any
+ *    type
+ *  - TEXTAREA
+ *  - HTML elements with class ui-textinput
+ *
+ * ###HTML Examples
+ *
+ * ####Create simple text input on INPUT element
+ *
+ *		@example
+ *		<form>
+ *			<label for="text-1">Text input:</label>
+ *			<input type="text" name="text-1" id="text-1" value="">
+ *		</form>
+ *
+ * ####Create simple text input on TEXTAREA element
+ *
+ *		@example
+ *		<form>
+ *			<label for="text-1">Text input:</label>
+ *			<textarea name="text-1" id="text-1"></textarea>
+ *		</form>
+ *
+ * ####Create simple text input on INPUT element with class ui-textinput
+ *
+ *		@example
+ *		<form>
+ *			<label for="text-1">Text input:</label>
+ *			<input name="text-1" id="text-1" class="ui-textinput">
+ *		</form>
+ *
+ * ## Manual constructor
+ * For manual creation of TextInput widget you can use constructor of widget
+ * from **tau** namespace:
+ *
+ *		@example
+ *		<form>
+ *			<label for="text-1">Text input:</label>
+ *			<input type="search" name="text-1" id="text-1" value="">
+ *		</form>
+ *		<script>
+ *			var inputElement = document.getElementById("text-1"),
+ *				textInput = tau.widget.TextInput(inputElement);
+ *		</script>
+ *
+ * Constructor has one require parameter **element** which are base
+ * **HTMLElement** to create widget. We recommend get this element by method
+ * *document.getElementById*.
+ *
  * @class ns.widget.tv.TextInput
  * @extends ns.widget.mobile.TextInput
  * @author Lukasz Zajaczkowski <l.zajaczkows@samsung.com>
@@ -28,6 +81,13 @@
 			var MobileTextInput = ns.widget.mobile.TextInput,
 				MobileTextInputPrototype = MobileTextInput.prototype,
 				BaseKeyboardSupport = ns.widget.tv.BaseKeyboardSupport,
+				/**
+				 * Alias for {ns.engine}
+				 * @property {Object} engine
+				 * @member ns.widget.tv.TextInput
+				 * @static
+				 * @private
+				 */
 				engine = ns.engine,
 				FUNCTION_TYPE = "function",
 				TextInput = function () {
@@ -37,6 +97,12 @@
 					this._callbacks = {};
 					this._lastEventLineNumber = 0;
 				},
+				/**
+				 * Dictionary for textinput related css class names
+				 * @property {Object} classes
+				 * @member ns.widget.tv.TextInput
+				 * @static
+				 */
 				classes = {
 					uiDisabled: ns.widget.mobile.Button.classes.uiDisabled,
 					uiNumberInput: "ui-number-input"
@@ -48,6 +114,13 @@
 			TextInput.classes = MobileTextInput.classes;
 			TextInput.prototype = prototype;
 
+			/**
+			* Init TextInput Widget
+			* @method _init
+			* @param {HTMLElement} element
+			* @member ns.widget.tv.TextInput
+			* @protected
+			*/
 			prototype._init = function(element) {
 				if (typeof MobileTextInputPrototype._init === FUNCTION_TYPE) {
 					MobileTextInputPrototype._init.call(this, element);
@@ -60,6 +133,13 @@
 				}
 			};
 
+			/**
+			* Bind events to widget
+			* @method _bindEvents
+			* @param {HTMLElement} element
+			* @protected
+			* @member ns.widget.tv.TextInput
+			*/
 			prototype._bindEvents = function(element) {
 				var callbacks = this._callbacks;
 
@@ -80,6 +160,14 @@
 				}
 			};
 
+			/**
+			 * Destroys additional elements created by the widget,
+			 * removes classes and event listeners
+			 * @method _destroy
+			 * @param {HTMLElement} element
+			 * @protected
+			 * @member ns.widget.tv.TextInput
+			 */
 			prototype._destroy = function(element) {
 				var callbacks = this._callbacks;
 
@@ -98,6 +186,15 @@
 				}
 			};
 
+			/**
+			 * Method overrides Textarea behavior on keyup event.
+			 * @method onKeyupTextarea
+			 * @param {TextInput} self
+			 * @param {Event} event
+			 * @private
+			 * @static
+			 * @member ns.widget.tv.TextInput
+			 */
 			function onKeyupTextarea(self, event) {
 				var textarea = self.element,
 					value = textarea.value,
