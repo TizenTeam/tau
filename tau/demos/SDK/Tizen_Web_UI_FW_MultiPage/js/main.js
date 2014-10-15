@@ -2,7 +2,7 @@ var backEventListener = null;
 
 var unregister = function() {
     if ( backEventListener !== null ) {
-        document.removeEventListener( 'tizenhwkey', backEventListener );
+        window.removeEventListener( 'tizenhwkey', backEventListener, false );
         backEventListener = null;
         window.tizen.application.getCurrentApplication().exit();
     }
@@ -37,7 +37,7 @@ var init = function () {
     }
     
     // add eventListener for tizenhwkey (Back Button)
-    document.addEventListener( 'tizenhwkey', backEvent );
+    window.addEventListener( 'tizenhwkey', backEvent, false );
     backEventListener = backEvent;
 };
 
