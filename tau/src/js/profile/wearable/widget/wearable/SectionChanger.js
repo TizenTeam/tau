@@ -408,6 +408,7 @@
 				setActiveSection: function (index, duration) {
 					var position = this.sectionPositions[ index ],
 						scrollbarDuration = duration,
+						oldActiveIndex = this.activeIndex,
 						newX=0,
 						newY=0;
 
@@ -429,6 +430,11 @@
 						this._translateScrollbarWithPageIndex(index, scrollbarDuration);
 					} else {
 						this._endScroll();
+					}
+
+					// notify changed section.
+					if (this.activeIndex !== oldActiveIndex) {
+						this._notifyChanagedSection(this.activeIndex);
 					}
 				},
 
