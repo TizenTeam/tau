@@ -19,7 +19,7 @@
 		<ul id="main-menu" class="sm sm-clean">
 			<li><a href="index.html">TAU Guide</a></li>
 			<li>
-				<a href="#">Working with TAU</a>
+				<a href="javascript:void(0);">Working with TAU</a>
 				<ul>
 					<li><a href="application_visual_layout.html">Application visual Layout</a></li>
 					<li><a href="basic_page_routing.html">Basic page routing</a></li>
@@ -30,29 +30,29 @@
 			</li>
 			{{#widgetGuide}}
 			<li>
-				<a href="#">Widget Guide</a>
+				<a href="javascript:void(0);">Widget Guide</a>
 				<ul>
 					<li>
-						<a href="#">Core</a>
+						<a href="javascript:void(0)">Core</a>
 						<ul>{{{coreMenu}}}</ul>
 					</li>
 					<li>
-						<a href="#">Mobile</a>
+						<a href="javascript:void(0)">Mobile</a>
 						<ul>{{{mobileMenu}}}</ul>
 					</li>
 					<li>
-						<a href="#">Wearable</a>
+						<a href="javascript:void(0)">Wearable</a>
 						<ul>{{{wearableMenu}}}</ul>
 					</li>
 					<li>
-						<a href="#">TV</a>
+						<a href="javascript:void(0)">TV</a>
 						<ul>{{{tvMenu}}}</ul>
 					</li>
 				</ul>
 			</li>
 			{{/widgetGuide}}
 			<li>
-				<a href="#">Tutorials</a>
+				<a href="javascript:void(0)">Tutorials</a>
 				<ul>
 					<li><a href="tutorial_clock.html">Clock</a></li>
 					<li><a href="tutorial_notes.html">Notes</a></li>
@@ -60,7 +60,7 @@
 				</ul>
 			</li>
 			<li>
-				<a href="#">Migration Guide</a>
+				<a href="javascript:void(0)">Migration Guide</a>
 				<ul>
 					<li><a href="migration/features_overview.html">Features overview</a></li>
 					<li><a href="migration/breaking_changes.html">Breaking changes</a></li>
@@ -83,7 +83,9 @@
 		<script src="js/taupreview.js"></script>
 		<script>
 			$(function () {
-				$("#main-menu").smartmenus();
+				$("#main-menu").smartmenus({
+					showOnClick: true
+				});
 			});
 		</script>
 	</body>
