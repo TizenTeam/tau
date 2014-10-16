@@ -1,4 +1,4 @@
-/*global window, define */
+/*global window, define, ns, HTMLElement */
 /* 
  * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
  * License : MIT License V2
@@ -343,7 +343,7 @@
 			 */
 			BaseKeyboardSupport.unregisterActiveSelector = function (selector) {
 				var index = selectors.indexOf(selector);
-				if (index != -1) {
+				if (index !== -1) {
 					--REF_COUNTERS[index];
 					// check reference counter
 					if (REF_COUNTERS[index] === 0) {

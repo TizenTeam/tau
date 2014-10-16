@@ -1,4 +1,4 @@
-/*global window, define */
+/*global window, define, ns */
 /* 
  * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
  * License : MIT License V2
@@ -27,9 +27,7 @@
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 			var BaseButton = ns.widget.mobile.Button,
-				BaseButtonPrototype = BaseButton.prototype,
 				BaseKeyboardSupport = ns.widget.tv.BaseKeyboardSupport,
-				FUNCTION_TYPE = "function",
 				Button = function () {
 					BaseButton.call(this);
 					BaseKeyboardSupport.call(this);
