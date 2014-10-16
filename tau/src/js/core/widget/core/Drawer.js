@@ -1,73 +1,30 @@
 /*global window, define */
-/* 
+/*
  * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
  * License : MIT License V2
  */
 /**
  * #Drawer Widget
- * Drawer widget provide creating drawer widget and managing drawer operation.
+ * Core Drawer widget is a base for creating Drawer widgets for profiles. It
+ * provides drawer functionality - container with ability to open and close with
+ * an animation.
  *
- * ##Default selector
- * You can make the drawer widget as data-role="drawer" with DIV tag.
+ * ##Positioning Drawer left / right
+ * To change position of a Drawer please set data-position attribute of Drawer
+ * element to:
+ * - left (left position, default)
+ * - right (right position)
  *
- * ###  HTML Examples
+ * ##Opening / Closing Drawer
+ * To open / close Drawer one can use open() and close() methods.
  *
- * ####  Create drawer using data-role
+ * ##Checking if Drawer is opened.
+ * To check if Drawer is opened use widget`s isOpen() method.
  *
- * 		@example
- *		<div data-role="drawer" data-position="left" id="leftdrawer">
- *			<ul data-role="listview">
- *				<li class="ui-drawer-main-list"><a href="#">List item 1</a></li>
- *				<li class="ui-drawer-main-list"><a href="#">List item 2</a></li>
- *				<li class="ui-drawer-sub-list"><a href="#">Sub item 1</a></li>
- *			</ul>
- *		</div>
+ * ##Creating widget
+ * Core drawer is a base class - examples of creating widgets are described in
+ * documentation of profiles
  *
- * ##Drawer positioning
- * You can declare to drawer position manually. (Default is left)
- *
- * If you implement data-position attributes value is 'left', drawer appear from left side.
- *
- * 		@example
- *		<div data-role="drawer" data-position="left" id="leftdrawer">
- *
- * - "left" - drawer appear from left side
- * - "right" - drawer appear from right side
- *
- * ##Drawer inner list
- * Drawer has two list styles, main list style and sub list style.
- * You can implement two providing list styles as implement classes.
- *
- * - "ui-drawer-main-list" : Main list style of drawer
- * - "ui-drawer-sub-list" : Sub list style of drawer
- *
- * ##Drawer methods
- *
- * You can use some methods of drawer widget.
- *
- * - "open" - drawer open
- *
- * 		@example
- * 		$("#leftdrawer").drawer("open");
- *
- * - "close" - drawer close
- *
- * 		@example
- * 		$("#leftdrawer").drawer("isOpen");
- *
- * - "isOpen" - get drawer status, true is opened and false if closed
- *
- * 		@example
- * 		$("#leftdrawer").drawer"(isOpen");
- *
- * ##Drawer Options
- *
- * - position: drawer appeared position. Type is <String> and default is "left".
- * - width: drawer width. Type is <Integer> and default is 290.
- * - duration: drawer appreared duration. <Integer> and default is 100.
- *
- *
-
  * @class ns.widget.core.Drawer
  * @extends ns.widget.mobile.BaseWidgetMobile
  * @author Hyeoncheol Choi <hc7.choi@samsung.com>
@@ -85,10 +42,35 @@
 
 		function () {
 			//>>excludeEnd("tauBuildExclude");
+			/**
+			 * @property {Object} Widget Alias for {@link ns.widget.mobile.BaseWidgetMobile}
+			 * @member ns.widget.core.Drawer
+			 * @private
+			 * @static
+			 */
 			var BaseWidget = ns.widget.mobile.BaseWidgetMobile,
+				/**
+				 * @property {Object} selectors Alias for class ns.util.selectors
+				 * @member ns.widget.core.Drawer
+				 * @private
+				 * @static
+				 * @readonly
+				 */
 				selectors = ns.util.selectors,
+				/**
+				 * Drawer constructor
+				 * @method Drawer
+				 */
 				Drawer = function () {
 					var self = this;
+					/**
+					 * Drawer field containing options
+					 * @property {number} Position of Drawer ("left" or "right")
+					 * @property {number} Width of Drawer
+					 * @property {number} Duration of Drawer entrance animation
+					 * @property {boolean} If true Drawer will be closed on arrow click
+					 * @property {boolean} Sets whether to show an overlay when Drawer is open.
+					 */
 					self.options = {
 						position : "left",
 						width : 240,
@@ -113,8 +95,10 @@
 				/**
 				 * Dictionary object containing commonly used widget classes
 				 * @property {Object} classes
-				 * @static
 				 * @member ns.widget.core.Drawer
+				 * @private
+				 * @static
+				 * @readonly
 				 */
 				classes = {
 					drawer : "ui-drawer",
@@ -125,6 +109,12 @@
 					open : "ui-drawer-open",
 					close : "ui-drawer-close"
 				},
+				/**
+				 * {Object} Drawer widget prototype
+				 * @member ns.widget.core.Drawer
+				 * @private
+				 * @static
+				 */
 				prototype = new BaseWidget();
 
 			Drawer.prototype = prototype;
@@ -133,10 +123,10 @@
 			/**
 			 * Click event handler
 			 * @method onClick
-			 * @private
-			 * @static
 			 * @param {ns.widget.core.Drawer} self
 			 * @member ns.widget.core.Drawer
+			 * @private
+			 * @static
 			 */
 			function onClick(self) {
 				// vclick event handler
@@ -148,10 +138,10 @@
 			/**
 			 * webkitTransitionEnd event handler
 			 * @method onTransitionEnd
-			 * @private
-			 * @static
 			 * @param {ns.widget.core.Drawer} self
 			 * @member ns.widget.core.Drawer
+			 * @private
+			 * @static
 			 */
 			function onTransitionEnd(self) {
 				var drawerOverlay = self._drawerOverlay;
@@ -171,10 +161,10 @@
 			/**
 			 * Resize event handler
 			 * @method onResize
-			 * @private
-			 * @static
 			 * @param {ns.widget.core.Drawer} self
 			 * @member ns.widget.core.Drawer
+			 * @private
+			 * @static
 			 */
 			function onResize(self) {
 				// resize event handler
@@ -184,10 +174,10 @@
 			/**
 			 * Pageshow event handler
 			 * @method onPageshow
-			 * @private
-			 * @static
 			 * @param {ns.widget.core.Drawer} self
 			 * @member ns.widget.core.Drawer
+			 * @private
+			 * @static
 			 */
 			function onPageshow(self) {
 				self._refresh();
@@ -195,11 +185,11 @@
 
 			/**
 			 * Drawer translate function
-			 * @method translate
-			 * @protected
+			 * @method _translate
 			 * @param {number} x
 			 * @param {number} duration
 			 * @member ns.widget.core.Drawer
+			 * @protected
 			 */
 			prototype._translate = function (x, duration) {
 				var element = this.element,
@@ -218,9 +208,9 @@
 			 * Build structure of Drawer widget
 			 * @method _build
 			 * @param {HTMLElement} element
-			 * @return {HTMLElement}
-			 * @protected
+			 * @return {HTMLElement} Returns built element
 			 * @member ns.widget.core.Drawer
+			 * @protected
 			 */
 			prototype._build = function (element) {
 				var self = this,
@@ -252,11 +242,11 @@
 			};
 
 			/**
-			 * Init of Drawer widget
+			 * Initialization of Drawer widget
 			 * @method _init
 			 * @param {HTMLElement} element
-			 * @protected
 			 * @member ns.widget.core.Drawer
+			 * @protected
 			 */
 			prototype._init = function (element) {
 				var self = this,
@@ -273,10 +263,10 @@
 			};
 
 			/**
-			 * Do translate if position is set to right
+			 * Provides translation if position is set to right
 			 * @method _translateRight
-			 * @protected
 			 * @member ns.widget.core.Drawer
+			 * @protected
 			 */
 			prototype._translateRight = function() {
 				var self = this,
@@ -294,10 +284,10 @@
 			};
 
 			/**
-			 * Refresh of Drawer widget
+			 * Refreshes Drawer widget
 			 * @method _refresh
-			 * @protected
 			 * @member ns.widget.core.Drawer
+			 * @protected
 			 */
 			prototype._refresh = function() {
 				// Drawer layout has been set by parent element layout
@@ -321,11 +311,11 @@
 			};
 
 			/**
-			 * Create drawer overlay element
+			 * Creates Drawer overlay element
 			 * @method _createOverlay
 			 * @param {HTMLElement} element
-			 * @protected
 			 * @member ns.widget.core.Drawer
+			 * @protected
 			 */
 			prototype._createOverlay = function(element) {
 				var self = this,
@@ -337,10 +327,10 @@
 			};
 
 			/**
-			 * Bind events of Drawer widget
+			 * Binds events to a Drawer widget
 			 * @method _bindEvents
-			 * @protected
 			 * @member ns.widget.core.Drawer
+			 * @protected
 			 */
 			prototype._bindEvents = function() {
 				var self = this,
@@ -361,16 +351,17 @@
 			};
 
 			/**
-			 * check drawer status
+			 * Checks Drawer status
 			 * @method isOpen
 			 * @member ns.widget.core.Drawer
+			 * @return {boolean} Returns true if Drawer is open
 			 */
 			prototype.isOpen = function() {
 				return this._isOpen;
 			};
 
 			/**
-			 * Open drawer widget
+			 * Opens Drawer widget
 			 * @method open
 			 * @member ns.widget.core.Drawer
 			 */
@@ -392,7 +383,7 @@
 			};
 
 			/**
-			 * Close drawer widget
+			 * Closes Drawer widget
 			 * @method close
 			 * @member ns.widget.core.Drawer
 			 */
@@ -410,10 +401,10 @@
 			};
 
 			/**
-			 * Destroy drawer widget
+			 * Destroys Drawer widget
 			 * @method _destroy
-			 * @protected
 			 * @member ns.widget.core.Drawer
+			 * @protected
 			 */
 			prototype._destroy = function() {
 				var self = this,
