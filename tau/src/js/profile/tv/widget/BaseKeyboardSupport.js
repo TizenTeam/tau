@@ -109,6 +109,10 @@
 				selectorsString = selectors.join(selectorSuffix + ",") + selectorSuffix;
 			}
 
+			prototype.getActiveSelector = function() {
+				return selectorsString;
+			};
+
 			/**
 			 * Calculates neighborhood links.
 			 * @method _getNeighborhoodLinks
@@ -350,16 +354,24 @@
 			 * @member ns.widget.tv.BaseKeyboardSupport
 			 */
 			BaseKeyboardSupport.registerActiveSelector = function (selector) {
-				var index = selectors.indexOf(selector);
-				// check if not registered yet
-				if (index === -1) {
-					selectors.push(selector);
-					// new selector - create reference counter for it
-					REF_COUNTERS.push(1);
-				} else {
-					// such a selector exist - increment reference counter
-					++REF_COUNTERS[index];
-				}
+				var selectorArray = selector.split(","),
+					index;
+
+				selectorArray.forEach(function(currentSelector){
+					currentSelector = currentSelector.trim();
+					index = selectors.indexOf(currentSelector);
+
+					// check if not registered yet
+					if (index === -1) {
+						selectors.push(currentSelector);
+						// new selector - create reference counter for it
+						REF_COUNTERS.push(1);
+					} else {
+						// such a selector exist - increment reference counter
+						++REF_COUNTERS[index];
+					}
+				});
+
 				prepareSelector();
 			};
 
@@ -371,16 +383,24 @@
 			 * @member ns.widget.tv.BaseKeyboardSupport
 			 */
 			BaseKeyboardSupport.unregisterActiveSelector = function (selector) {
-				var index = selectors.indexOf(selector);
-				if (index !== -1) {
-					--REF_COUNTERS[index];
-					// check reference counter
-					if (REF_COUNTERS[index] === 0) {
-						// remove selector
-						selectors.splice(index, 1);
-						REF_COUNTERS.splice(index, 1);
+				var selectorArray = selector.split(","),
+					index;
+
+				selectorArray.forEach(function(currentSelector){
+					currentSelector = currentSelector.trim();
+					index = selectors.indexOf(currentSelector);
+
+					if (index !== -1) {
+						--REF_COUNTERS[index];
+						// check reference counter
+						if (REF_COUNTERS[index] === 0) {
+							// remove selector
+							selectors.splice(index, 1);
+							REF_COUNTERS.splice(index, 1);
+						}
 					}
-				}
+				});
+
 				prepareSelector();
 			};
 

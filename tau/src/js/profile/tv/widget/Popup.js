@@ -132,11 +132,13 @@
 
 			prototype._setKeyboardSupport = function (options) {
 				var self = this,
+					element = self.element,
 					autoFocus = options.autofocus,
 					page = self._pageWidget,
-					toastPopup = self.element.classList.contains(classes.toast);
+					toastPopup = element.classList.contains(classes.toast),
+					selector = self.getActiveSelector();
 
-				if (self._getActiveLinks().length || toastPopup) {
+				if (toastPopup || (selector && element.querySelector(selector))) {
 					// if there are links inside popup, we enable keyboard support on page
 					// and enable in popup
 					self.enableKeyboardSupport();

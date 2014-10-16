@@ -298,7 +298,7 @@
 				true
 			);
 
-			BaseKeyboardSupport.registerActiveSelector(".ui-textinput");
+			BaseKeyboardSupport.registerActiveSelector(".ui-input-text");
 
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return ns.widget.tv.TextInput;
