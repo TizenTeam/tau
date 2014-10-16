@@ -75,7 +75,7 @@
 			 */
 			prototype._getActiveLinks = function() {
 				return [].slice.call(this.element.querySelectorAll(selectorsString)).filter(function(element){
-					return element.offsetWidth && element.style.visibility !== "hidden";
+					return element.offsetWidth && window.getComputedStyle(element).visibility !== "hidden";
 				});
 			};
 
