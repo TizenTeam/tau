@@ -232,7 +232,8 @@
 			 */
 			prototype._buildHeader = function(element) {
 				var self = this,
-					header = utilSelectors.getChildrenBySelector(element, "header,." + classes.uiHeader)[0];
+					header = utilSelectors.getChildrenBySelector(element, "header,[data-role='header'],." + classes.uiHeader)[0];
+
 				// add class if header does not exist
 				if (!header) {
 					element.classList.add(classes.uiHeaderEmpty);
@@ -252,7 +253,8 @@
 			 * @member ns.widget.tv.Page
 			 */
 			prototype._buildFooter = function(element) {
-				var footer = utilSelectors.getChildrenBySelector(element, "footer,." + classes.uiFooter)[0];
+				var footer = utilSelectors.getChildrenBySelector(element, "footer,[data-role='footer'],." + classes.uiFooter)[0];
+
 				// add class if footer does not exist
 				if (!footer) {
 					element.classList.add(classes.uiFooterEmpty);
