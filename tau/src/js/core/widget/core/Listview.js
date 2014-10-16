@@ -74,6 +74,9 @@
 				Listview = function () {
 					return this;
 				},
+				classes = {
+					LISTVIEW: "ui-listview"
+				},
 				prototype = new BaseWidget();
 
 			Listview.events = {};
@@ -99,6 +102,8 @@
 					itemsLength = items.length,
 					item,
 					i;
+
+				element.classList.add(classes.LISTVIEW);
 
 				for (i=0; i<itemsLength; i++) {
 					item = items[i];

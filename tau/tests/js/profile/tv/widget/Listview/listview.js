@@ -33,8 +33,7 @@
 			ok(itemLink.classList.contains("ui-btn"), "List has ui-listview class");
 
 			//check if button is inner button with text
-			equal(itemLink.childNodes.length, 1, "First span for link is created");
-			innerButtonSpan = itemLink.childNodes[0];
+			innerButtonSpan = itemLink.getElementsByTagName("SPAN")[0];
 			ok(innerButtonSpan.classList.contains("ui-btn-inner"), "Link span has ui-btn-inner class");
 			ok(innerButtonSpan.classList.contains("ui-btn-hastxt"), "Link span has ui-btn-hastxt class");
 			equal(innerButtonSpan.childNodes.length, 1, "Second span for link is created");
