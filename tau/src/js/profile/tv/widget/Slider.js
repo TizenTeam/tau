@@ -1,12 +1,68 @@
 /*global window, define */
-/* 
+/*
  * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
  * License : MIT License V2
  */
 /*jslint nomen: true */
 /*
- * #Slider Widget
- * Shows a control that you can use to change values by dragging a handle on a horizontal scale.
+ * # Slider Widget
+ * Creates horizontal axis with a draggable handle. It can be used to set singular value from within
+ * lower and upper boundries.
+ *
+ * ## Using
+ * User can drag the handle using touch capabilities. The other way, using remote control, is focusing
+ * Slider using arrows and selecting it with OK [Enter if using keyboard]. Now you can adjust Slider
+ * value using left/down right/up arrows. To apply new value use OK [Enter] button.
+ *
+ * ## Default selectors
+ * All **INPUT** tags with _type="range"_ are changed into slider.
+ *
+ * ### HTML Examples
+ *
+ * #### Create slider input
+ *
+ *		@example
+ *		<input id="slider-1" name="slider-1" type="range" value="5" min="0" max="10"/>
+ *
+ * ## Manual constructor
+ * For manual creation of slider widget you can use constructor of widget
+ * from **tau** namespace:
+ *
+ *		@example
+ *		<input id="slider-1" name="slider-1" type="range" value="5" min="0" max="10"/>
+ *		<script>
+ *			var sliderElement = document.getElementById("slider-1"),
+ *				slider = tau.widget.TizenSlider(sliderElement);
+ *		</script>
+ *
+ * Constructor has one required parameter **element** which
+ * is base **HTMLElement** to create widget. We recommend get this element
+ * by method *document.getElementById*. Second parameter is **options**
+ * and it is a object with options for widget.
+ *
+ *		@example
+ *		<input id="slider-1" name="slider-1" type="range" value="5" min="0" max="10"/>
+ *		<script>
+ *			var sliderElement = document.getElementById("slider-1"),
+ *				slider = tau.widget.TizenSlider(sliderElement, {data-popup: true});
+ *		</script>
+ *
+ * ##Methods
+ *
+ * To call method on widget you can use one of existing API:
+ *
+ * First API is from tau namespace:
+ *
+ *		@example
+ *		<input id="slider-1" name="slider-1" type="range" value="5" min="0" max="10"/>
+ *		<script>
+ *		var slider = document.getElementById("slider"),
+ *			slider = tau.widget.TizenSlider(slider);
+ *
+ *		// slider.methodName(methodArgument1, methodArgument2, ...);
+ *		// for example
+ *		var value = slider.value("5");
+ *		</script>
  *
  * @class ns.widget.tv.Slider
  * @extends ns.widget.mobile.TizenSlider
@@ -41,6 +97,8 @@
 				engine = ns.engine,
 				selectors = ns.util.selectors,
 				objectUtils = ns.util.object,
+				// Slider inherits TizenSlider classes with additional
+				// "ui-focus".
 				classes = objectUtils.merge({}, BaseSlider.classes, {
 					focus: "ui-focus"
 				}),
@@ -51,6 +109,14 @@
 			Slider.classes = classes;
 			Slider.prototype = prototype;
 
+			/**
+			 * Shows popup with current Slider value
+			 * @method showPopup
+			 * @param {ns.widget.tv.Slider} self
+			 * @private
+			 * @static
+			 * @member ns.widget.tv.Slider
+			 */
 			function showPopup(self) {
 				if (self.options.popup) {
 					self._updateSlider();
@@ -58,6 +124,15 @@
 				}
 			}
 
+			/**
+			 * Keyup event-handling method.
+			 * @method onKeyup
+			 * @param {ns.widget.tv.Slider} self
+			 * @param {Event} event
+			 * @private
+			 * @static
+			 * @member ns.widget.tv.Slider
+			 */
 			function onKeyup(self, event) {
 				var status = self.status;
 
@@ -74,6 +149,15 @@
 				}
 			}
 
+			/**
+			 * Keydown event-handling method.
+			 * @method onKeydown
+			 * @param {ns.widget.tv.Slider} self
+			 * @param {Event} event
+			 * @private
+			 * @static
+			 * @member ns.widget.tv.Slider
+			 */
 			function onKeydown(self, event) {
 				if (event.keyCode !== KEY_CODES.enter && !self.status) {
 					event.preventDefault();
@@ -81,14 +165,38 @@
 				}
 			}
 
+			/**
+			 * Focus event-handling method.
+			 * @method onFocus
+			 * @param {ns.widget.tv.Slider} self
+			 * @private
+			 * @static
+			 * @member ns.widget.tv.Slider
+			 */
 			function onFocus(self) {
 				self._ui.container.classList.add("ui-focus");
 			}
 
+			/**
+			 * Blur event-handling method.
+			 * @method onBlur
+			 * @param {ns.widget.tv.Slider} self
+			 * @private
+			 * @static
+			 * @member ns.widget.tv.Slider
+			 */
 			function onBlur(self) {
 				self._ui.container.classList.remove("ui-focus");
 			}
 
+			/**
+			 * Build structure of slider widget
+			 * @method _build
+			 * @param {HTMLInputElement|HTMLSelectElement} element
+			 * @return {HTMLInputElement|HTMLSelectElement}
+			 * @protected
+			 * @member ns.widget.tv.Slider
+			 */
 			prototype._build = function(element) {
 				var ui = this._ui,
 					pageElement = selectors.getClosestByClass(element, "ui-page"),
@@ -121,6 +229,13 @@
 				return element;
 			};
 
+			/**
+			 * Init widget
+			 * @method _init
+			 * @param {HTMLInputElement|HTMLSelectElement} element
+			 * @protected
+			 * @member ns.widget.tv.Slider
+			 */
 			prototype._init = function(element) {
 				var pageElement = selectors.getClosestByClass(element, "ui-page");
 
@@ -130,6 +245,13 @@
 				this._pageWidget = this._pageWidget || engine.getBinding(pageElement, "page");
 			};
 
+			/**
+			 * Bind events to widget
+			 * @method _bindEvents
+			 * @param {HTMLInputElement|HTMLSelectElement} element
+			 * @protected
+			 * @member ns.widget.tv.Slider
+			 */
 			prototype._bindEvents = function(element) {
 				var container = this._ui.container,
 					callbacks = this._callbacks;
@@ -154,6 +276,7 @@
 			 * @method _createPopup
 			 * @return {ns.widget.Popup} reference to new widget instance
 			 * @protected
+			 * @member ns.widget.tv.Slider
 			 * TODO: use TizenSlider when Core Popup is used in mobile profile
 			 */
 			prototype._createPopup = function () {
@@ -184,6 +307,7 @@
 			 * Updates popup state
 			 * @method _updateSlider
 			 * @protected
+			 * @member ns.widget.tv.Slider
 			 * TODO: use TizenSlider when Core Popup is used in mobile profile
 			 */
 			prototype._updateSlider = function () {
@@ -227,6 +351,12 @@
 				}
 			};
 
+			/**
+			 * Destroys widget and removes added content.
+			 * @method _destroy
+			 * @protected
+			 * @member ns.widget.tv.Slider
+			 */
 			prototype._destroy = function() {
 				var ui = this._ui,
 					container = ui.container,
