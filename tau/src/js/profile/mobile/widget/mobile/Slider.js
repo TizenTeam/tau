@@ -90,6 +90,18 @@
  *			<option value="on"></option>
  *		</select>
  *
+ * ###Vertical Slider
+ * To implement verticcal slider, add _vertical_ option to *input* element.
+ * The value of vertical property is designed to set the height of vertical slider.
+ * If the vertical value is set to simply "true", the height of vertical slider
+ * is set to pixel value as 5 time of its max value by default. So, to change one value
+ * in veritcal slider with "true" option, handle is needed to move 5px.
+ * The below example would create a vertical slider with 300px of height.
+ *
+ * 		@example
+ *		<input id="vSlider" name="vSlider" type="range"
+ *			value="5" min="0" max="10" data-vertical="300" />
+ *
  * ##Methods
  *
  * To call method on widget you can use one of existing API:
@@ -169,6 +181,8 @@
 					 * "true" then toggle switch has css property
 					 * display = "inline"
 					 * @property {string} [options.theme=null] theme of widget
+					 * @property {boolean | number} [options.vertical=false] sets
+					 * height of vertical slider
 					 * @member ns.widget.mobile.Slider
 					 */
 					self.options = {
@@ -177,7 +191,8 @@
 						mini: null,
 						highlight: true,
 						inline: null,
-						theme: null
+						theme: null,
+						vertical: false
 					};
 					self._ui = {};
 					//container background
@@ -203,8 +218,10 @@
 					sliderInline: "ui-slider-inline",
 					sliderMini: "ui-slider-mini",
 					slider: "ui-slider",
+					sliderVertical: "ui-vertical-slider",
 					sliderHandle: "ui-slider-handle",
 					sliderBg: "ui-slider-bg",
+					sliderBgVertical: "ui-vertical-slider-bg",
 					sliderToggle: "ui-toggle-switch",
 					sliderToggleOn: "ui-toggle-on",
 					sliderToggleOff: "ui-toggle-off",
@@ -213,6 +230,7 @@
 					sliderLabel: "ui-slider-label",
 					sliderLabelTheme: "ui-slider-label-",
 					sliderContainer: "ui-slider-container",
+					sliderContainerVertical: "ui-vertical-slider-container",
 					sliderLabelA: "ui-slider-label-a",
 					sliderStateActive: "ui-state-active"
 				},
@@ -329,12 +347,14 @@
 			 * @static
 			 * @member ns.widget.mobile.Slider
 			 */
-			function createBackground(domSlider) {
+			function createBackground(domSlider, self) {
 				var background = document.createElement("div"),
 					cList = background.classList,
 					btnClasses = Button.classes;
 
-				cList.add(classes.sliderBg);
+				cList.add(self.options.vertical ? classes.sliderBgVertical :
+					classes.sliderBg);
+
 				cList.add(btnClasses.uiBtnActive);
 				cList.add(btnClasses.uiBtnCornerAll);
 
@@ -373,12 +393,14 @@
 					touchThreshold,
 					localClasses = shandle.classList,
 					slider = ui.slider,
+					isVertical = self.options.vertical,
 					newval,
 					valModStep,
 					alignValue,
 					valueChanged,
 					newValueOption,
-					sliderOffsetLeft;
+					sliderOffsetLeft,
+					sliderOffsetTop;
 
 				if (cType === "input") {
 					min = DOMutils.getNumberFromAttribute(control,
@@ -400,47 +422,54 @@
 					data = val;
 					// @TODO take parameter out to config
 					touchThreshold = 8;
+					isVertical ?
+					sliderOffsetTop =
+						DOMutils.getElementOffset(slider).top :
 					sliderOffsetLeft =
-							DOMutils.getElementOffset(slider).left;
+						DOMutils.getElementOffset(slider).left;
 
 					// If refreshing while not dragging
 					// or movement was within threshold
 					if (!self.dragging ||
-							data.pageX < sliderOffsetLeft - touchThreshold ||
-							data.pageX > sliderOffsetLeft + 
-							slider.offsetWidth + touchThreshold) {
+						data.pageX < sliderOffsetLeft - touchThreshold ||
+						data.pageX > sliderOffsetLeft +
+						slider.offsetWidth + touchThreshold) {
 						return;
 					}
 
-					// Calculate new left side percent
-					percent = ((data.pageX - sliderOffsetLeft) /
+					// Calculate new left or top side percent
+					if (isVertical) {
+						percent = ((data.pageY - sliderOffsetTop +
+							selectors.getClosestByClass(slider, "ui-content").scrollTop) /
+							slider.offsetHeight) * 100;
+					} else {
+						percent = ((data.pageX - sliderOffsetLeft) /
 							slider.offsetWidth) * 100;
-
-				// If changes came from input value change
+					}
 				} else {
 					if (val === null) {
 						val = (cType === "input") ? parseFloat(control.value) :
-								control.selectedIndex;
+							control.selectedIndex;
 					}
 					if (isNaN(val)) {
 						return;
 					}
 					// While dragging prevent jumping by assigning
 					// last percentage value
-					if(self.dragging && self._lastPercent) {
+					if (self.dragging && self._lastPercent) {
 						percent = self._lastPercent;
 					} else {
-						percent = (parseFloat(val) - min) / (max - min) * 100;
+						percent = isVertical ?
+						100 - ((parseFloat(val) - min) / (max - min) * 100) :
+						(parseFloat(val) - min) / (max - min) * 100;
 					}
 				}
-
 				// Make sure percent is a value between 0 - 100;
 				percent = Math.max(0, Math.min(percent, 100));
 				self._lastPercent = percent;
 				centerPercent = halfPercent - percent;
 
 				newval = (percent / 100) * (max - min) + min;
-
 				//from jQuery UI slider, the following source will round
 				// to the nearest step
 				valModStep = (newval - min) % step;
@@ -454,9 +483,14 @@
 				// (see jQueryUI: #4124)
 				newval = parseFloat(alignValue.toFixed(5));
 
-				newval = Math.max(min, Math.min(newval, max));
+				if (isVertical) {
+					shandle.style.top = percent + "%";
+					newval = max - Math.max(min, Math.min(newval, max));
+				} else {
+					shandle.style.left = percent + "%";
+					newval = Math.max(min, Math.min(newval, max));
+				}
 
-				shandle.style.left = percent + "%";
 				newValueOption = control.querySelectorAll("option")[newval];
 				shandle.setAttribute("aria-valuenow", cType === "input" ?
 						newval : newValueOption && newValueOption.value);
@@ -479,17 +513,32 @@
 					sliderBackgroundStyle = sliderBackground.style;
 					if (self.options.center) {
 						if (centerPercent >= 0) {
-							sliderBackgroundStyle.right = "50%";
-							sliderBackgroundStyle.left = "initial";
-							sliderBackgroundStyle.width = centerPercent + "%";
+							sliderBackgroundStyle.height = centerPercent + "%";
+							if (isVertical) {
+								sliderBackgroundStyle.top = "initial";
+								sliderBackgroundStyle.bottom = "50%";
+							} else {
+								sliderBackgroundStyle.right = "50%";
+								sliderBackgroundStyle.left = "initial";
+							}
 						} else {
-							sliderBackgroundStyle.right = "initial";
-							sliderBackgroundStyle.left = "50%";
-							sliderBackgroundStyle.width =
-									Math.abs(centerPercent) + "%";
+							sliderBackgroundStyle.height =
+								Math.abs(centerPercent) + "%";
+							if (isVertical) {
+								sliderBackgroundStyle.top = "50%";
+								sliderBackgroundStyle.bottom = "initial";
+							} else {
+								sliderBackgroundStyle.right = "initial";
+								sliderBackgroundStyle.left = "50%";
+							}
 						}
 					} else {
-						sliderBackgroundStyle.width = percent + "%";
+						if (isVertical) {
+							sliderBackgroundStyle.height = 100 - percent + "%";
+							sliderBackgroundStyle.top = percent + "%";
+						} else {
+							sliderBackgroundStyle.width = percent + "%";
+						}
 					}
 				}
 
@@ -642,10 +691,10 @@
 					initValue,
 					sliderBtnDownTheme,
 					elementsOption = element.querySelector("option"),
-					btnClasses = Button.classes;
-
+					btnClasses = Button.classes,
+					isVertical = options.vertical;
 				if (options.highlight && tagName !== "select") {
-					this._ui.background = createBackground(domSlider);
+					this._ui.background = createBackground(domSlider, this);
 				}
 				if (isNaN(min)) {
 					min = 0;
@@ -666,7 +715,12 @@
 
 				domSlider.setAttribute("role", "application");
 				domSlider.id = elementId + "-slider";
-				domSliderClassList.add(classes.slider);
+
+				if (isVertical) {
+					domSliderClassList.add(classes.sliderVertical);
+				} else {
+					domSliderClassList.add(classes.slider);
+				}
 
 				if (selectClass) {
 					domSliderClassList.add(selectClass);
@@ -690,7 +744,11 @@
 				initValue = getInitialValue(tagName, element);
 				if (initValue !== 1) {
 					domHandle.classList.add(classes.sliderToggleOff);
-					domHandle.style.left = "0px";
+					if (isVertical) {
+						domHandle.style.top = "0px";
+					} else {
+						domHandle.style.left = "0px";
+					}
 				}
 
 				domSlider.appendChild(domHandle);
@@ -751,7 +809,23 @@
 
 				if (tagName === "input") {
 					sliderContainer = document.createElement("div");
-					sliderContainer.classList.add(classes.sliderContainer);
+
+					if (isVertical) {
+						sliderContainer.classList.add(classes.sliderContainerVertical);
+						if (isNaN(isVertical)) {
+							ns.warn("data-vetical has inappropriate value.",
+							"please use 'true' or proper 'number'.");
+							isVertical = max * 5;
+						}
+						if (typeof isVertical === "boolean") {
+							isVertical = max * 5;
+						}
+
+						sliderContainer.style.height = isVertical + "px";
+					} else {
+						sliderContainer.classList.add(classes.sliderContainer);
+					}
+
 					sliderContainer.appendChild(domSlider);
 					sliderContainer.id = elementId + "-container";
 					elementClassList = element.classList;
@@ -798,8 +872,9 @@
 				ui.handle = document.getElementById(elementId + "-handle");
 				ui.container = document.getElementById(elementId +
 						"-container") || element;
-				ui.background = ui.slider.querySelector("." +
-						Slider.classes.sliderBg);
+				ui.background = ui.slider.querySelector(self.options.vertical ?
+					"." + Slider.classes.sliderBgVertical :
+					"." + Slider.classes.sliderBg);
 				self._type = element.tagName.toLowerCase();
 				ui.labels = selectors.getChildrenByClass(ui.slider,
 						Slider.classes.sliderLabel);

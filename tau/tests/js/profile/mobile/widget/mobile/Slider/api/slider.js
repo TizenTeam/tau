@@ -27,6 +27,7 @@
 		equal(typeof widget.options.mini, 'object', 'Property slider.options.mini exists');
 		equal(typeof widget.options.highlight, 'boolean', 'Property slider.options.highlight exists');
 		equal(typeof widget.options.inline, 'object', 'Property slider.options.inline exists');
+		equal(typeof widget.options.vertical, 'boolean', 'Property slider.options.vertical exists');
 		equal(widget.options.theme, null, 'Property slider.options.theme exists');
 
 		equal(typeof Slider.classes, 'object', 'Property slider.classes exists');
@@ -36,14 +37,17 @@
 		equal(typeof Slider.classes.sliderInline, 'string', 'Property slider.classes.sliderInline exists');
 		equal(typeof Slider.classes.sliderMini, 'string', 'Property slider.classes.sliderMini exists');
 		equal(typeof Slider.classes.slider, 'string', 'Property slider.classes.slider exists');
+		equal(typeof Slider.classes.sliderVertical, 'string', 'Property slider.classes.sliderVertical exists');
 		equal(typeof Slider.classes.sliderHandle, 'string', 'Property slider.classes.sliderHandle exists');
 		equal(typeof Slider.classes.sliderBg, 'string', 'Property slider.classes.sliderBg exists');
+		equal(typeof Slider.classes.sliderBgVertical, 'string', 'Property slider.classes.sliderBgVertical exists');
 		equal(typeof Slider.classes.sliderToggle, 'string', 'Property slider.classes.sliderToggle exists');
 		equal(typeof Slider.classes.sliderToggleOn, 'string', 'Property slider.classes.sliderToggleOn exists');
 		equal(typeof Slider.classes.sliderToggleOff, 'string', 'Property slider.classes.sliderToggleOff exists');
 		equal(typeof Slider.classes.sliderInneroffset, 'string', 'Property slider.classes.sliderInneroffset exists');
 		equal(typeof Slider.classes.sliderInput, 'string', 'Property slider.classes.sliderInput exists');
 		equal(typeof Slider.classes.sliderContainer, 'string', 'Property slider.classes.sliderContainer exists');
+		equal(typeof Slider.classes.sliderContainerVertical, 'string', 'Property slider.classes.sliderContainerVertical exists');
 
 
 		equal(typeof widget._build, 'function', 'Method slider._build exists');
