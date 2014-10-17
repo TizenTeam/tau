@@ -74,7 +74,7 @@ Example usage of tabbar widget:
 <div class="ui-page">
 
   <div class="ui-header">
-    <div class="ui-tabbar">
+    <div class="ui-tabbar" data-auto-change="false">
       <ul>
         <li><a href="#" class="ui-btn-active">First</a></li>
         <li><a href="#">Second</a></li>
@@ -99,7 +99,7 @@ Tabbar can be easily used as an page changing widget.
 ```mobile
 <div class="ui-page" id="first">
   <div class="ui-header">
-    <div class="ui-tabbar">
+    <div class="ui-tabbar" data-auto-change="false">
       <ul>
         <li><a href="#first" class="ui-btn-active">First</a></li>
         <li><a href="#second">Second</a></li>
@@ -113,7 +113,7 @@ Tabbar can be easily used as an page changing widget.
 </div>
 <div class="ui-page" id="second">
   <div class="ui-header">
-    <div class="ui-tabbar">
+    <div class="ui-tabbar" data-auto-change="false">
       <ul>
         <li><a href="#first">First</a></li>
         <li><a href="#second" class="ui-btn-active">Second</a></li>
@@ -127,7 +127,7 @@ Tabbar can be easily used as an page changing widget.
 </div>
 <div class="ui-page" id="third">
   <div class="ui-header">
-    <div class="ui-tabbar">
+    <div class="ui-tabbar" data-auto-change="false">
       <ul>
         <li><a href="#first">First</a></li>
         <li><a href="#second">Second</a></li>
