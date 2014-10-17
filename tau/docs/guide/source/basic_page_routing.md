@@ -49,7 +49,7 @@ TAU router handled everything else.
 ```mobile
 <div class="ui-page" id="first">
   <div class="ui-header">
-    <div class="ui-tabbar">
+    <div class="ui-tabbar" data-auto-change="false">
       <ul>
         <li><a href="#first" class="ui-btn-active">First</a></li>
         <li><a href="#second">Second</a></li>
@@ -63,7 +63,7 @@ TAU router handled everything else.
 </div>
 <div class="ui-page" id="second">
   <div class="ui-header">
-    <div class="ui-tabbar">
+    <div class="ui-tabbar" data-auto-change="false">
       <ul>
         <li><a href="#first">First</a></li>
         <li><a href="#second" class="ui-btn-active">Second</a></li>
@@ -77,7 +77,7 @@ TAU router handled everything else.
 </div>
 <div class="ui-page" id="third">
   <div class="ui-header">
-    <div class="ui-tabbar">
+    <div class="ui-tabbar" data-auto-change="false">
       <ul>
         <li><a href="#first">First</a></li>
         <li><a href="#second">Second</a></li>
@@ -99,21 +99,19 @@ method.
 ```mobile-tv-wearable
 <div class="ui-page ui-page-active" id="first">
 	<div class="ui-content">
-		<div id="first-element">
-			Click here to change to page two
-		</div>
+		You are viewing the first page of the example.
+		<button id="first-button">Click here to change to page two</button>
 	</div>
 </div>
 <div class="ui-page" id="second">
 	<div class="ui-content">
-		<div id="second-element">
-			Click here to change to page one
-		</div>
+		This is the second page of the example.
+		<button id="second-button">Click here to change to page one</button>
 	</div>
 </div>
 <script>
-	var el1 = document.getElementById("first-element"),
-		el2 = document.getElementById("second-element");
+	var el1 = document.getElementById("first-button"),
+		el2 = document.getElementById("second-button");
 	el1.addEventListener("click", function () {
 		tau.changePage("#second");
 	});
@@ -157,7 +155,7 @@ the HTMLElement, since TAU __always__ adds a unique `ID` property if none is fou
 ## External resources
 
 TAU can also load pages from external resources, this is pretty straightforward, just
-supply the proper local adress in the `href` attribute of the link, like so:
+supply the proper local address in the `href` attribute of the link, like so:
 
 ```mobile-tv-wearable
 <div class="ui-page">
@@ -168,7 +166,7 @@ supply the proper local adress in the `href` attribute of the link, like so:
 ```
 
 But how to create an external link that is not supposed to be handled by TAU router?
-It's pretty much simple, just either `rel="external"`, `data-ajax="false" or `target`
+It's pretty much simple, just either `rel="external"`, `data-ajax="false"` or `target="_self"`
 attributes.
 
 ```mobile-wearable-tv
