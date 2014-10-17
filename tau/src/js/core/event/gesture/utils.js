@@ -8,7 +8,7 @@
  * Contains helper function to gesture support.
  * @class ns.event.gesture.utils
  */
-( function ( ns, Math, undefined ) {
+(function (ns, Math, undefined) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(["./core"
@@ -36,18 +36,18 @@
 				 * @return {number} return.clientX position X
 				 * @return {number} return.clientY position Y
 				 */
-				getCenter: function ( touches ) {
+				getCenter: function (touches) {
 					var valuesX = [], valuesY = [];
 
-					[].forEach.call( touches, function( touch ) {
+					[].forEach.call(touches, function(touch) {
 						// I prefer clientX because it ignore the scrolling position
-						valuesX.push( touch.clientX !== undefined ? touch.clientX : touch.clientX );
-						valuesY.push( touch.clientY !== undefined ? touch.clientY : touch.clientY );
-					} );
+						valuesX.push(!isNaN(touch.clientX) ? touch.clientX : touch.pageX);
+						valuesY.push(!isNaN(touch.clientY) ? touch.clientY : touch.pageY);
+					});
 
 					return {
-						clientX: ( Math.min.apply(Math, valuesX) + Math.max.apply( Math, valuesX ) ) / 2,
-						clientY: ( Math.min.apply(Math, valuesY) + Math.max.apply( Math, valuesY ) ) / 2
+						clientX: (Math.min.apply(Math, valuesX) + Math.max.apply(Math, valuesX)) / 2,
+						clientY: (Math.min.apply(Math, valuesY) + Math.max.apply(Math, valuesY)) / 2
 					};
 				},
 
@@ -62,10 +62,10 @@
 				 * @return {number} return.y velocity on Y axis
 				 * @member ns.event.gesture.utils
 				 */
-				getVelocity: function ( delta_time, delta_x, delta_y ) {
+				getVelocity: function (delta_time, delta_x, delta_y) {
 					return {
-						x: Math.abs( delta_x / delta_time ) || 0,
-						y: Math.abs( delta_y / delta_time ) || 0
+						x: Math.abs(delta_x / delta_time) || 0,
+						y: Math.abs(delta_y / delta_time) || 0
 					};
 				},
 
@@ -77,25 +77,25 @@
 				 * @return {number} angel (deg)
 				 * @member ns.event.gesture.utils
 				 */
-				getAngle: function ( touch1, touch2 ) {
+				getAngle: function (touch1, touch2) {
 					var y = touch2.clientY - touch1.clientY,
 						x = touch2.clientX - touch1.clientX;
-					return Math.atan2( y, x ) * 180 / Math.PI;
+					return Math.atan2(y, x) * 180 / Math.PI;
 				},
 
 				/**
 				 * Get direction indicated by position of two touches
-				 * @method getDirection
+				 * @method getDirectiqon
 				 * @param {Event} touch1 first touch
 				 * @param {Event} touch2 second touch
 				 * @return {ns.event.gesture.Direction.LEFT|ns.event.gesture.Direction.RIGHT|ns.event.gesture.Direction.UP|ns.event.gesture.Direction.DOWN}
 				 * @member ns.event.gesture.utils
 				 */
-				getDirection: function ( touch1, touch2 ) {
-					var x = Math.abs( touch1.clientX - touch2.clientX ),
-						y = Math.abs( touch1.clientY - touch2.clientY );
+				getDirection: function (touch1, touch2) {
+					var x = Math.abs(touch1.clientX - touch2.clientX),
+						y = Math.abs(touch1.clientY - touch2.clientY);
 
-					if(x >= y) {
+					if (x >= y) {
 						return touch1.clientX - touch2.clientX > 0 ? Gesture.Direction.LEFT : Gesture.Direction.RIGHT;
 					}
 					return touch1.clientY - touch2.clientY > 0 ? Gesture.Direction.UP : Gesture.Direction.DOWN;
@@ -109,10 +109,10 @@
 				 * @return {number} distance
 				 * @member ns.event.gesture.utils
 				 */
-				getDistance: function ( touch1, touch2 ) {
+				getDistance: function (touch1, touch2) {
 					var x = touch2.clientX - touch1.clientX,
 						y = touch2.clientY - touch1.clientY;
-					return Math.sqrt( (x * x) + (y * y) );
+					return Math.sqrt((x * x) + (y * y));
 				},
 
 				/**
@@ -123,9 +123,9 @@
 				 * @return {number} scale
 				 * @member ns.event.gesture.utils
 				 */
-				getScale: function ( start, end ) {
+				getScale: function (start, end) {
 					// need two fingers...
-					if ( start.length >= 2 && end.length >= 2 ) {
+					if (start.length >= 2 && end.length >= 2) {
 						return this.getDistance(end[0], end[1]) / this.getDistance(start[0], start[1]);
 					}
 					return 1;
@@ -140,9 +140,9 @@
 				 * @return {number} angle (deg)
 				 * @member ns.event.gesture.utils
 				 */
-				getRotation: function ( start, end ) {
+				getRotation: function (start, end) {
 					// need two fingers
-					if(start.length >= 2 && end.length >= 2) {
+					if (start.length >= 2 && end.length >= 2) {
 						return this.getAngle(end[1], end[0]) -
 							this.getAngle(start[1], start[0]);
 					}
@@ -156,7 +156,7 @@
 				 * @return {boolean}
 				 * @member ns.event.gesture.utils
 				 */
-				isVertical: function ( direction ) {
+				isVertical: function (direction) {
 					return direction === Gesture.Direction.UP || direction === Gesture.Direction.DOWN;
 				},
 
@@ -167,7 +167,7 @@
 				 * @return {boolean}
 				 * @member ns.event.gesture.utils
 				 */
-				isHorizontal: function ( direction ) {
+				isHorizontal: function (direction) {
 					return direction === Gesture.Direction.LEFT || direction === Gesture.Direction.RIGHT;
 				},
 
@@ -178,12 +178,12 @@
 				 * @return {boolean}
 				 * @member ns.event.gesture.utils
 				 */
-				getOrientation: function ( direction ) {
-					return this.isVertical( direction ) ? Gesture.Orientation.VERTICAL : Gesture.Orientation.HORIZONTAL;
+				getOrientation: function (direction) {
+					return this.isVertical(direction) ? Gesture.Orientation.VERTICAL : Gesture.Orientation.HORIZONTAL;
 				}
 			};
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
-} ( ns, window.Math ) );
+} (ns, window.Math));
