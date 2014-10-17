@@ -16,7 +16,7 @@
 		},
 		windowOptions = {
 			"wearable": "height=320,width=320,menubar=no,resizable=no,scrollbars=yes,status=no,titlebar=no,toolbar=no",
-			"mobile": "height=640,width=480,menubar=no,resizable=no,scrollbars=yes,status=no,titlebar=no,toolbar=no",
+			"mobile": "height=800,width=480,menubar=no,resizable=no,scrollbars=yes,status=no,titlebar=no,toolbar=no",
 			"tv": "height=540,width=960,menubar=no,resizable=no,scrollbars=yes,status=no,titlebar=no,toolbar=no"
 		},
 		LANG_SPLIT_REGEXP = /\-(mobile|wearable|tv)(\(([^\)]+)\))?/mgi,
