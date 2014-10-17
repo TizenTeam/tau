@@ -33,7 +33,9 @@ When using TAU you will get many benefits usable in your code.
 <div class="ui-page ui-page-active">
   <div class="ui-header">MyApplication</div>
   <div class="ui-content">Hello world</div>
-  <div class="ui-footer"><a href="#" id="closeBtn">Close</a></div>
+  <div class="ui-footer">
+    <button id="closeBtn" class="ui-btn">Close</button>
+  </div>
 </div>
 <script>
     var page = document.querySelector(".ui-page");
