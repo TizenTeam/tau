@@ -316,7 +316,7 @@
 				true
 			);
 
-			BaseKeyboardSupport.registerActiveSelector(".radio-container,[type='checkbox']");
+			BaseKeyboardSupport.registerActiveSelector("input[type='radio'],[type='checkbox']");
 
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return ns.widget.tv.Checkboxradio;

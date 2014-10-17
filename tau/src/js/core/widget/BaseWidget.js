@@ -178,6 +178,14 @@
 					return this;
 				},
 				prototype = {},
+				classes = {
+					focusPrefix: "ui-focus-",
+					blurPrefix: "ui-blur-",
+					up: "up",
+					down: "down",
+					left: "left",
+					right: "right"
+				},
 				/**
 				 * Property with string represent function type 
 				 * (for better minification)
@@ -441,6 +449,68 @@
 				self.trigger(self.widgetEventPrefix + "create", self);
 
 				return self;
+			};
+
+			function removeAnimationClasses(element, prefix) {
+				var elementClasses = element.classList;
+				elementClasses.remove(prefix + classes.left);
+				elementClasses.remove(prefix + classes.up);
+				elementClasses.remove(prefix + classes.right);
+				elementClasses.remove(prefix + classes.down);
+			}
+
+			prototype._prepareAnimation = function(eventType, direction) {
+				var element = this.element;
+
+				switch(eventType) {
+					case "focus":
+						removeAnimationClasses(element, classes.blurPrefix);
+						removeAnimationClasses(element, classes.focusPrefix);
+						element.classList.add(classes.focusPrefix + direction);
+						break;
+					case "blur":
+						removeAnimationClasses(element, classes.focusPrefix);
+						removeAnimationClasses(element, classes.blurPrefix);
+						element.classList.add(classes.blurPrefix + direction);
+						break;
+				}
+			};
+			/**
+			 * Focus widget's element.
+			 *
+			 * This function calls function focus on element and if it is known
+			 * the direction of event, the proper css classes are added/removed.
+			 * @method _focus
+			 * @param {"up"|"down"|"left"|"right} positionFrom The direction of event.
+			 * For example, if this parameter has value "down", it means that the movement
+			 * comes from the top (eg. down arrow was pressed on keyboard).
+			 * @member ns.widget.BaseWidget
+			 */
+			prototype._focus = function (positionFrom) {
+				var element = this.element;
+
+				if (typeof this._prepareAnimation === TYPE_FUNCTION) {
+					this._prepareAnimation("focus", positionFrom);
+				}
+				this.element.focus();
+			};
+
+			/**
+			 * Blur widget's element.
+			 *
+			 * This function calls function blur on element and if it is known
+			 * the direction of event, the proper css classes are added/removed.
+			 * @method _blur
+			 * @param {"up"|"down"|"left"|"right} positionFrom
+			 * @member ns.widget.BaseWidget
+			 */
+			prototype._blur = function (positionFrom) {
+				var element = this.element;
+
+				if (typeof this._prepareAnimation === TYPE_FUNCTION) {
+					this._prepareAnimation("blur", positionFrom);
+				}
+				element.blur();
 			};
 
 			/**

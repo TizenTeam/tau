@@ -14,13 +14,15 @@
 	define(
 		[
 			"../tv",
+			"../../../core/engine",
 			"../../../core/util/object",
 			"../../../core/util/DOM/css"
 		],
 
 		function () {
 			//>>excludeEnd("tauBuildExclude");
-			var DOM = ns.util.DOM,
+			var engine = ns.engine,
+				DOM = ns.util.DOM,
 				object = ns.util.object,
 				BaseKeyboardSupport = function () {
 					object.merge(this, prototype);
@@ -35,12 +37,6 @@
 				classes = {
 					focusDisabled: "ui-focus-disabled",
 					focusEnabled: "ui-focus-enabled",
-					focusPrefix: "ui-focus-",
-					blurPrefix: "ui-blur-",
-					up: "up",
-					down: "down",
-					left: "left",
-					right: "right"
 				},
 				KEY_CODES = {
 					left: 37,
@@ -48,6 +44,12 @@
 					right: 39,
 					down: 40,
 					enter: 13
+				},
+				EVENT_POSITION = {
+					up: "up",
+					down: "down",
+					left: "left",
+					right: "right"
 				},
 				selectorSuffix = ":not(." + classes.focusDisabled + ")",
 				selectors = ["a", "." + classes.focusEnabled, "[tabindex]"],
@@ -63,27 +65,28 @@
 			BaseKeyboardSupport.classes = classes;
 			/**
 			 * Get focussed element.
-			 * @method _getFocusesLink
+			 * @method getFocusedLink
 			 * @returns {HTMLElement}
-			 * @protected
+			 * @private
 			 * @member ns.widget.tv.BaseKeyboardSupport
 			 */
-			prototype._getFocusesLink = function() {
+			function getFocusedLink() {
 				return document.querySelector(":focus") || document.activeElement;
-			};
+			}
 
 			/**
 			 * Finds all visible links.
-			 * @method _getActiveLinks
+			 * @method getFocusableElements
+			 * @param {HTMLElement} widgetElement
 			 * @returns {Array}
-			 * @protected
+			 * @private
 			 * @member ns.widget.tv.BaseKeyboardSupport
 			 */
-			prototype._getActiveLinks = function() {
-				return [].slice.call(this.element.querySelectorAll(selectorsString)).filter(function(element){
+			function getFocusableElements(widgetElement) {
+				return [].slice.call(widgetElement.querySelectorAll(selectorsString)).filter(function(element){
 					return element.offsetWidth && window.getComputedStyle(element).visibility !== "hidden";
 				});
-			};
+			}
 
 			/**
 			 * Extracts element from offsetObject.
@@ -123,8 +126,8 @@
 			prototype._getNeighborhoodLinks = function() {
 				var self = this,
 					offset = DOM.getElementOffset,
-					links = self._getActiveLinks(),
-					currentLink = self._getFocusesLink(),
+					links = getFocusableElements(self.element),
+					currentLink = getFocusedLink(),
 					currentLinkOffset,
 					left,
 					top,
@@ -202,14 +205,6 @@
 				return result;
 			};
 
-			function removeAnimationClasses(element, prefix) {
-				var elementClasses = element.classList;
-				elementClasses.remove(prefix + classes.left);
-				elementClasses.remove(prefix + classes.up);
-				elementClasses.remove(prefix + classes.right);
-				elementClasses.remove(prefix + classes.down);
-			}
-
 			/**
 			 * Supports keyboard event.
 			 * @method _onKeyup
@@ -221,41 +216,54 @@
 				var self = this,
 					keyCode = event.keyCode,
 					neighborhoodLinks,
-					currentLink = self._getFocusesLink(),
-					positionClass,
-					cssClass,
-					nextElement;
+					currentLink = getFocusedLink(),
+					currentLinkWidget,
+					positionFrom,
+					nextElement,
+					nextElementWidget;
 
 				if (self._supportKeyboard) {
 					neighborhoodLinks = self._getNeighborhoodLinks();
 					switch (keyCode) {
 						case KEY_CODES.left:
 							nextElement = neighborhoodLinks.left;
-							positionClass = classes.left;
+							positionFrom = EVENT_POSITION.left;
 							break;
 						case KEY_CODES.up:
 							nextElement = neighborhoodLinks.top;
-							positionClass = classes.up;
+							positionFrom = EVENT_POSITION.up;
 							break;
 						case KEY_CODES.right:
 							nextElement = neighborhoodLinks.right;
-							positionClass = classes.right;
+							positionFrom = EVENT_POSITION.right;
 							break;
 						case KEY_CODES.down:
 							nextElement = neighborhoodLinks.bottom;
-							positionClass = classes.down;
+							positionFrom = EVENT_POSITION.down;
 							break;
 					}
+
+					// if element to focus is found
 					if (nextElement) {
-						removeAnimationClasses(nextElement, classes.blurPrefix);
-						removeAnimationClasses(nextElement, classes.focusPrefix);
-						nextElement.classList.add(classes.focusPrefix + positionClass);
-						if (currentLink) {
-							removeAnimationClasses(currentLink, classes.focusPrefix);
-							removeAnimationClasses(nextElement, classes.blurPrefix);
-							currentLink.classList.add(classes.blurPrefix + positionClass);
+						nextElementWidget = engine.getBinding(nextElement);
+						if (nextElementWidget) {
+							// we call function focus if the element is connected with widget
+							nextElementWidget._focus(positionFrom);
+						} else {
+							// or only set focus on element
+							nextElement.focus();
 						}
-						nextElement.focus();
+
+						// and remove focus from previous element if it is possible
+						if (currentLink) {
+							currentLinkWidget = engine.getBinding(currentLink);
+							if (currentLinkWidget) {
+								currentLinkWidget._blur(positionFrom);
+							} else {
+								currentLink.blur();
+							}
+						}
+
 						if (self._openActiveElement) {
 							self._openActiveElement(nextElement);
 						}
@@ -292,11 +300,18 @@
 			/**
 			 * Blurs from focused element.
 			 * @method blur
+			 * @static
 			 * @member ns.widget.tv.BaseKeyboardSupport
 			 */
-			prototype.blur = function() {
-				var focusedElement = this._getFocusesLink();
-				if (focusedElement) {
+			BaseKeyboardSupport.blurAll = function() {
+				var focusedElement = getFocusedLink(),
+					focusedElementWidget = focusedElement && engine.getBinding(focusedElement);
+
+				if (focusedElementWidget) {
+					// call blur on widget
+					focusedElementWidget._blur();
+				} else if (focusedElement) {
+					// or call blur on element
 					focusedElement.blur();
 				}
 			};
@@ -304,22 +319,24 @@
 			/**
 			 * Focuses on element.
 			 * @method focus
-			 * @param {?HTMLElement|number|boolean} [element]
+			 * @param {HTMLElement} [element] widget's element
+			 * @param {?HTMLElement|number|boolean} [elementToFocus] element to focus
+			 * @static
 			 * @member ns.widget.tv.BaseKeyboardSupport
 			 */
-			prototype.focus = function(element) {
-				var links = this._getActiveLinks(),
+			BaseKeyboardSupport.focusElement = function(element, elementToFocus) {
+				var links = getFocusableElements(element),
 					linksLength = links.length,
 					i;
-				if (element instanceof HTMLElement) {
+				if (elementToFocus instanceof HTMLElement) {
 					for (i = 0; i < linksLength; i++) {
-						if (links[i] === element) {
-							element.focus();
+						if (links[i] === elementToFocus) {
+							elementToFocus.focus();
 						}
 					}
-				} else if (typeof element === "number") {
-					if (links[element]) {
-						links[element].focus();
+				} else if (typeof elementToFocus === "number") {
+					if (links[elementToFocus]) {
+						links[elementToFocus].focus();
 					}
 				} else {
 					if (links[0]) {

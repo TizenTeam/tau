@@ -142,11 +142,11 @@
 					// if there are links inside popup, we enable keyboard support on page
 					// and enable in popup
 					self.enableKeyboardSupport();
-					page.blur();
+					BaseKeyboardSupport.blurAll();
 					page.disableKeyboardSupport();
 
 					if (autoFocus || autoFocus === 0) {
-						self.focus(autoFocus);
+						BaseKeyboardSupport.focusElement(element, autoFocus);
 					}
 				}
 
