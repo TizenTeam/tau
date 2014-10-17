@@ -36,12 +36,12 @@ link to header like below:
 
 ```
 <!-- Use 'mobile' or 'wearable' to chose device tau profile -->
-<link rel="stylesheet" type="text/css" href="js/lib/tau/mobile/theme/changeable/tau.css"/>
+<link rel="stylesheet" type="text/css" href="js/lib/tau/mobile/theme/default/tau.css"/>
 ```
 or profile `wearable` :
 ```
 <!-- Use 'mobile' or 'wearable' to chose device tau profile -->
-<link rel="stylesheet" type="text/css" href="js/lib/tau/wearable/theme/changeable/tau.css"/>
+<link rel="stylesheet" type="text/css" href="js/lib/tau/wearable/theme/default/tau.css"/>
 ```
 and also add your own styles for application.
 ```
@@ -58,7 +58,7 @@ And now the whole section header should look like below:
     <title>Notepad</title>
 
     <!-- Use 'mobile' or 'wearable' to chose device tau profile -->
-    <link rel="stylesheet" type="text/css" href="js/lib/tau/mobile/theme/changeable/tau.css"/>
+    <link rel="stylesheet" type="text/css" href="js/lib/tau/mobile/theme/default/tau.css"/>
     <link rel="stylesheet" type="text/css" href="css/style.css"/>
 </head>
 
