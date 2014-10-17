@@ -36,7 +36,7 @@ Key features of TAU widgets
 So what's inside? Well, a basic widget implements 5 protected methods:
 1. **build** which is responsible for widget creation
 2. **configure** which is expected to configure all the options for the widget
-3. **init which** handles initialization, like searching for widget sub-elements
+3. **init** which handles initialization, like searching for widget sub-elements
 4. **bindEvents** which handles all event binding (from user interaction)
 5. **destroy** which removes all listeners, and cleans up after the widget
 
@@ -77,7 +77,7 @@ Widgets can also be created on ambiguous elements, that don't match specific sel
 using JavaScript code:
 
 ```mobile
-<div id="myButton">Hello</button>
+<div id="myButton">Hello</div>
 <script>
 	document.addEventListener("pageshow", function (event) {
 		tau.engine.instanceWidget(document.querySelector("#myButton"), "Button");
