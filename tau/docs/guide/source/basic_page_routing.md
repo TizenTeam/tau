@@ -27,7 +27,7 @@ be working with the frameworks router. The active page has an `ui-page-active` c
 assigned. It's good to set that class for yourself to be sure the page you want will
 be displayed.
 
-```mobile-tv-wearable
+```mobile-wearable-tv
 <div class="ui-page ui-page-active" id="first">
 	<div class="ui-content">
 		<a href="#two">Go to page two</a>
@@ -96,7 +96,7 @@ TAU router handled everything else.
 You can also change pages trough TAU API, this basically consists of using `tau.changePage()`
 method.
 
-```mobile-tv-wearable
+```mobile-wearable-tv
 <div class="ui-page ui-page-active" id="first">
 	<div class="ui-content">
 		You are viewing the first page of the example.
@@ -124,31 +124,34 @@ method.
 If the `ID` of the element is not known (you did not set it yourself) you can get it from
 the HTMLElement, since TAU __always__ adds a unique `ID` property if none is found
 
-```mobile-tv-wearable
+```mobile-wearable-tv
 <div class="ui-page ui-page-active">
 	<div class="ui-content">
-		<div id="first-element">
-			Click here to change to page two
-		</div>
+		<button id="first-button">Click here to change to page two</button>
 	</div>
 </div>
 <div class="ui-page">
 	<div class="ui-content">
-		<div id="second-element">
-			Click here to change to page one
-		</div>
+		<button id="second-button">Click here to change to page one</button>
 	</div>
 </div>
 <script>
 	var pages = document.querySelectorAll(".ui-page"),
-		el1 = document.getElementById("first-element"),
-		el2 = document.getElementById("second-element");
-	el1.addEventListener("click", function () {
-		tau.changePage("#" + pages[0].id);
+		el1 = document.getElementById("first-button"),
+		el2 = document.getElementById("second-button");
+
+	pages[0].addEventListener("pageshow", function () {
+
+		tau.engine.instanceWidget(pages[1], "Page");
+
+		el1.addEventListener("click", function () {
+			tau.changePage("#" + pages[1].id);
+		});
+		el2.addEventListener("click", function () {
+			tau.changePage("#" + pages[0].id);
+		});
 	});
-	el2.addEventListener("click", function () {
-		tau.changePage("#" + pages[1].id);
-	});
+
 </script>
 ```
 
@@ -157,7 +160,7 @@ the HTMLElement, since TAU __always__ adds a unique `ID` property if none is fou
 TAU can also load pages from external resources, this is pretty straightforward, just
 supply the proper local address in the `href` attribute of the link, like so:
 
-```mobile-tv-wearable
+```mobile-wearable-tv
 <div class="ui-page">
 	<div class="ui-content">
 		<a href="external_text.html">Change to external</a>
