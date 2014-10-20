@@ -25,7 +25,7 @@
 		test("Listview has divider", function () {
 			var list = document.getElementById('list'),
 				divider = document.getElementById('li-1'),
-				dividerButtonSpan,
+				dividerTextSpan,
 				dividerLineSpan;
 
 			//after build
@@ -37,8 +37,8 @@
 
 			//check if divider has spans
 			equal(divider.childNodes.length, 2, "Divider has two spans");
-			dividerButtonSpan = divider.childNodes[0];
-			ok(dividerButtonSpan.classList.contains('ui-btn-text'), 'Button span has ui-btn-text class');
+			dividerTextSpan = divider.childNodes[0];
+			ok(dividerTextSpan.classList.contains('ui-divider-text'), 'Divider text span has ui-divider-text class');
 			dividerLineSpan = divider.childNodes[1];
 			ok(dividerLineSpan.classList.contains('ui-divider-normal-line'), 'Line span has ui-divider-normal-line class');
 		});

@@ -228,21 +228,21 @@
 				//@todo check if ol tag and reset counter
 
 				if (!options.style || options.style === "normal" || options.style === "check") {
+					dom.wrapInHTML(
+						element.childNodes,
+						"<span class='ui-divider-text'></span>"
+					);
+
 					if (options.folded === true) {
-						/* buttonMarkup on element */
-						engine.instanceWidget(element, "Button");
-					} else {
 						dom.wrapInHTML(
 							element.childNodes,
-							"<span class='" + buttonClasses.uiBtnText + "'></span>"
+							"<a href='#'></a>"
 						);
 					}
 
 					if (options.line === true) {
 						if (options.folded === true) {
-							/*append to element.childrenBySelector("ui-btn-inner")*/
-							elementWithLine = selectors.getChildrenByClass(element,
-								buttonClasses.uiBtnInner)[0];
+							elementWithLine = element.firstChild;
 						} else {
 							elementWithLine = element;
 						}

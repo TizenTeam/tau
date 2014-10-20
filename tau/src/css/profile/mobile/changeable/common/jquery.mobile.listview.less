@@ -605,15 +605,6 @@
 	line-height: 52 * @unit_base;
 	border: 0;
 
-	&.ui-li.ui-btn-up-s, &.ui-li.ui-btn-hover-s {
-		background-color: @color_list_divider_bg;
-	}
-
-	&.ui-btn>.ui-btn-inner,
-	&.ui-btn>.ui-btn-inner .ui-btn-text {
-		padding: 0;
-	}
-
 	.ui-divider-normal-line {
 		position: absolute;
 		bottom: 0;
@@ -623,35 +614,13 @@
 		background-color: @color_list_divider_line;
 	}
 
-	//for buttonMarkuped divider
-	&.ui-btn {
-		top: 0;
-		margin-top: 0;
-		border-radius: 0;
-		border-bottom: 0;
-
-		.ui-btn-inner.ui-btn-hastxt {
-			height: 100%;
-			padding-left: 0;
-			border-bottom: 0;
-			.ui-btn-text {
-				position: absolute;
-				top: 7.5 * @unit_base;
-				left: 15 * @unit_base;
-				height: 36 * @unit_base;
-				font-size: @font_size_list_divider_text;
-			}
-		}
-
-		.ui-link-inherit {
-			color: @color_list_divider_text;
-			font-weight: bold;
-			font-size: @font_size_list_divider_text;
-			line-height: 23 * unit_base;
-		}
+	&>a {
+		display: block;
+		color: @color_list_divider_text;
+		text-decoration: none;
 	}
 
-	& > .ui-btn-text {
+	.ui-divider-text {
 		box-sizing: border-box;
 		padding-left: 13 * @unit_base;
 		padding-right: 13 * @unit_base;

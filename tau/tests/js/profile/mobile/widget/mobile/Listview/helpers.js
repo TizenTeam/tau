@@ -30,7 +30,7 @@ function dividerBuildTests(divider) {
 	dividerText = divider.children[0];
 	ok(dividerText !== undefined, 'divider text instance exists');
 	ok(dividerText.tagName === 'SPAN', 'divider text instance is HTML Span Element');
-	ok(dividerText.classList.contains('ui-btn-text'), 'divider text item has ui-btn-text');
+	ok(dividerText.classList.contains('ui-divider-text'), 'divider text item has ui-divider-text');
 	dividerLine = divider.children[1];
 	ok(dividerLine !== undefined, 'divider line instance exists');
 	ok(dividerText.tagName === 'SPAN', 'divider line instance is HTML Span Element');
