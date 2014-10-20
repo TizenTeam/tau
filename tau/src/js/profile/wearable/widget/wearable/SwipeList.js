@@ -238,7 +238,7 @@
 
 				if (this.swipeElement) {
 					this.swipeElementStyle = this.swipeElement.style;
-					this.swipeElementStyle.displsy = "none";
+					this.swipeElementStyle.display = "none";
 					this.swipeElementStyle.background = "transparent";
 					this.swipeElementStyle.width = this.container.offsetWidth + "px";
 					this.swipeElementStyle.height = this.container.offsetHeight + "px";
