@@ -10,6 +10,13 @@
  *
  * It allows for adding new pages, switching between them and displaying progress bars indicating loading process.
  *
+ * ## Background Settings
+ * Widget allows to set fullscreen background with centered content.
+ *
+ *		@example
+ *		<body class="ui-pagecontainer" data-background="bg.jpg">...
+ *
+ *
  * @class ns.widget.tv.PageContainer
  * @extends ns.widget.wearable.PageContainer
  * @author Maciej Urbanski <m.urbanski@samsung.com>
@@ -34,6 +41,14 @@
 
 			PageContainer.events = WearablePageContainer.events;
 
+			/**
+			 * Build structure of PageContainer widget
+			 * @method _build
+			 * @param {HTMLElement} element
+			 * @return {HTMLElement}
+			 * @protected
+			 * @member ns.widget.tv.PageContainer
+			 */
 			prototype._build = function ( element ) {
 				var optionsBackground = this.options.background;
 				if (WearablePageContainerPrototype._build) {
@@ -47,8 +62,19 @@
 				return element;
 			};
 
+			/**
+			 * Configure method to setup PageContainer options.
+			 * @method _configure
+			 * @protected
+			 * @member ns.widget.tv.PageContainer
+			 */
 			prototype._configure = function ( ) {
 				var options = this.options || {};
+				/**
+				 * The background attribute specifies a background image for a widget
+				 * @property {string} [options.background=""] background image path
+				 * @member ns.widget.tv.PageContainer
+				 */
 				options.background = null;
 				this.options = options;
 			};
