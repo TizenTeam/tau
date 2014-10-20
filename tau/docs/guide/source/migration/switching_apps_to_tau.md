@@ -187,7 +187,7 @@ List of the common widgets for both frameworks:
 3. Collapsible Widget
 ```mobile
     <div class="ui-page">
-        <div data-role="header">
+        <div class="ui-content" data-role="content">
             <div id="collapsible" data-role="collapsible" data-inset="false">
                 <h1>Collapsible head</h1>
                 <div>Content</div>
@@ -222,14 +222,10 @@ List of the common widgets for both frameworks:
 
 5. Controlgroup Widget
 ```mobile
-    <div class="ui-page">
-        <div class="ui-content" data-role="content">
-            <div data-role="controlgroup" id="mycontrolgroup">
-                <a href="#" data-role="button">Yes</a>
-                <a href="#" data-role="button">No</a>
-                <a href="#" data-role="button">Cancel</a>
-            </div>
-        </div>
+    <div data-role="controlgroup" id="mycontrolgroup">
+        <a href="#" data-role="button">Yes</a>
+        <a href="#" data-role="button">No</a>
+        <a href="#" data-role="button">Cancel</a>
     </div>
 <script>
     $('#mycontrolgroup').controlgroup();
@@ -322,23 +318,23 @@ List of the common widgets for both frameworks:
         </div>
     </div>
 <script>
-	var popup = $("#popup").popup();
-	popup.popup("open");
+    $(document).on("pageshow", function(){
+        var popup = $("#popup").popup();
+    	popup.popup("open");
+    });
 </script>
 ```
 
 15. SelectMenu Widget
 ```mobile
-    <div class="ui-page">
-        <div class="ui-content" data-role="content">
-            <select id="selectmenu" data-native-menu="false">
-                <option value="1">The 1st Option</option>
-                <option value="2">The 2nd Option</option>
-            </select>
-        </div>
-    </div>
+    <select id="selectmenu" data-native-menu="false">
+        <option value="1">The 1st Option</option>
+        <option value="2">The 2nd Option</option>
+    </select>
 <script>
-    $("#selectmenu").selectmenu();
+    $(document).on("pageshow", function(){
+        $("#selectmenu").selectmenu();
+    });
 </script>
 ```
 
@@ -372,7 +368,7 @@ List of the common widgets for both frameworks:
 </script>
 ```
 
-18. Toolbar Widget
+18. Tabbar Widget
 ```mobile
     <div class="ui-page">
         <div class="ui-header">
