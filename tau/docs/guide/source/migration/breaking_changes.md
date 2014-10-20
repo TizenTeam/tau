@@ -4,22 +4,22 @@
 | tizen-web-ui-fw   | TAU                |  comments
 |-------------------|--------------------|:--------------:|
 | Button            | Button             | |
-| Checkbox          | Checkboxradio      | merged |
+| Checkbox          | Checkboxradio      | merged         |
 | Checkboxradio     |                    | |
-| Circullarview     | Circullarview      | |
+| Circullarview     | Circullarview      | depreciated    |
 | Collapsible       | Collapsible        | |
 | Collapsibleset    | Collapsibleset     | |
 | Controlgroup      | Controlgroup       | |
 | ContextPopup      |                    | |
-| DateTimePicker    | Datetimepicker     | |
+| DateTimePicker    | Datetimepicker     | depreciated    |
 | Dialog            | Dialog             | |
-|                   | Drawer             | new |
+|                   | Drawer             | new            |
 | Extendablelist    | Extendablelist     | |
 | Fastscroll        | Fastscroll         | |
-| Fixedtoolbar      |                    | merged |
+| Fixedtoolbar      |                    | merged         |
 | Flip toggle switch | Fieldcontain      | |
 | Gallery           | Gallery            | |
-| Gallery3D         | Gallery3D          | |
+| Gallery3D         |                    | |
 | ListDivider       | Listdivider        | |
 | Listview          | Listview           | |
 | Autodivider       | ListviewAutodivider| |
@@ -30,14 +30,16 @@
 | Notification      | Notification       | |
 | Page              | Page               | |
 | Popup             | Popup              | |
+|                   | popupwindow        | |
+|                   | ctxpopupwindow     | |
 | Progress          | Progress           | |
 | ProgressBar       | Progressbar        | |
 | Handler           | ScrollHandler      | |
-|                   | Scrollview         | new |
+|                   | Scrollview         | new            |
 | SearchBar         | SearchBar          | |
 | Selectmenu        | SelectMenu         | |
 | Slider            | Slider             | |
-| Splitview         | SplitView          | |
+| Splitview         |                    | |
 | Swipe             | Swipe              | |
 | Tabbar            | TabBar             | |
 | Textinput         | Textinput          | |
@@ -67,7 +69,8 @@ There is no significant changes to the Button widget.
 To this widget has been added new selector `ui-checkbox` and `input[type='checkbox']:not(.ui-slider-switch-input)`
 
 ### DateTimePicker widget
-There is no significant changes to the DateTimePicker widget.
+There is no significant changes to the DateTimePicker widget but it is deprecated as the webkit will create native
+dateTimePicker
 
 ### Extendablelist widget
 To this widget has been added new selector `.ui-extendablelist`
@@ -131,7 +134,7 @@ We only add new selector `.ui-splitview` additionally to `[data-role="splitview"
 There is no significant changes to the SearchBar widget.
 We only add new selector `.ui-searchbar` additionally to `input[type='search']`
 
-### SearchBar widget
+### Swipe widget
 There is no significant changes to the Swipe widget.
 We only add new selector `.ui-swipe` additionally to `[data-role='swipe']`
 
