@@ -4,7 +4,7 @@
 	var engine = ns.engine,
 		BaseWidget = ns.widget.BaseWidget,
 		WidgetPage = (ns.widget.mobile && ns.widget.mobile.Page) || ns.widget.wearable.Page,
-		isMobile = !!ns.widget.mobile.Page,
+		isMobile = !!(ns.widget.mobile && ns.widget.mobile.Page),
 		testElement;
 
 	function _manualClean(elementId) {
