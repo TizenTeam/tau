@@ -178,7 +178,6 @@
 				uiCollapsibleHeading: "ui-collapsible-heading",
 				uiCornerTop: "ui-corner-top",
 				uiCornerBottom: "ui-corner-bottom",
-				uiBtnInner: "ui-btn-inner",
 				uiCollapsibleContent : "ui-collapsible-content"
 			};
 
@@ -220,34 +219,23 @@
 						classes = CollapsibleSet.classes,
 						dataAttributes = CollapsibleSet.attributes,
 						firstCollapsibleHeading = selectors.getChildrenByClass(firstCollapsible, classes.uiCollapsibleHeading)[0],
-						firstCollapsibleLink = selectors.getChildrenByTag(firstCollapsibleHeading, "a")[0],
-						firstCollapsibleButtonInner = selectors.getChildrenByClass(firstCollapsibleLink, classes.uiBtnInner)[0],
 
 						lastCollapsible = collapsiblesInSet[collapsiblesInSet.length-1],
-						lastCollapsibleHeading = selectors.getChildrenByClass(lastCollapsible, classes.uiCollapsibleHeading)[0],
-						lastCollapsibleLink = selectors.getChildrenByTag(lastCollapsibleHeading, "a")[0],
-						lastCollapsibleButtonInner = selectors.getChildrenByClass(lastCollapsibleLink, classes.uiBtnInner)[0];
+						lastCollapsibleHeading = selectors.getChildrenByClass(lastCollapsible, classes.uiCollapsibleHeading)[0];
 
 					//clean up borders
 					collapsiblesInSet.forEach(function(collapsibleElement) {
 						var heading = selectors.getChildrenByClass(collapsibleElement, classes.uiCollapsibleHeading)[0],
-							link = selectors.getChildrenByTag(heading, "a")[0],
-							linkClassList = link.classList,
-							buttonInner = selectors.getChildrenByClass(link, classes.uiBtnInner)[0],
-							buttonInnerClassList = buttonInner.classList;
+							headingClassList = heading.classList;
 
 						domUtils.removeNSData(collapsibleElement, dataAttributes.last);
-						linkClassList.remove(classes.uiCornerBottom);
-						linkClassList.remove(classes.uiCornerTop);
-						buttonInnerClassList.remove(classes.uiCornerBottom);
-						buttonInnerClassList.remove(classes.uiCornerTop);
+						headingClassList.remove(classes.uiCornerBottom);
+						headingClassList.remove(classes.uiCornerTop);
 					});
 
-					firstCollapsibleLink.classList.add(classes.uiCornerTop);
-					firstCollapsibleButtonInner.classList.add(classes.uiCornerTop);
+					firstCollapsibleHeading.classList.add(classes.uiCornerTop);
 
-					lastCollapsibleLink.classList.add(classes.uiCornerBottom);
-					lastCollapsibleButtonInner.classList.add(classes.uiCornerBottom);
+					lastCollapsibleHeading.classList.add(classes.uiCornerBottom);
 					domUtils.setNSData(lastCollapsible, dataAttributes.last, true);
 				}
 				return collapsiblesInSet;
@@ -267,21 +255,16 @@
 					dataAttributes = CollapsibleSet.attributes,
 					firstCollapsible = element.firstChild,
 					collapsibleHeading = selectors.getChildrenByClass(collapsible, classes.uiCollapsibleHeading)[0],
-					headingLink = selectors.getChildrenByTag(collapsibleHeading, "a")[0],
-					headingLinkClassList = headingLink.classList,
-					buttonInner = selectors.getChildrenByClass(headingLink, classes.uiBtnInner)[0],
-					buttonInnerClassList = buttonInner.classList,
+					collapsibleHeadingClassList = collapsibleHeading.classList,
 					collapsibleContent = selectors.getChildrenByClass(collapsible, classes.uiCollapsibleContent)[0],
 					collapsibleContentClassList =  collapsibleContent.classList;
 
 				if(domUtils.hasNSData(collapsible, dataAttributes.last) && !!options.inset) {
 					if(isCollapse) {
-						headingLinkClassList.add(classes.uiCornerBottom);
-						buttonInnerClassList.add(classes.uiCornerBottom);
+						collapsibleHeadingClassList.add(classes.uiCornerBottom);
 						collapsibleContentClassList.remove(classes.uiCornerBottom);
 					} else {
-						headingLinkClassList.remove(classes.uiCornerBottom);
-						buttonInnerClassList.remove(classes.uiCornerBottom);
+						collapsibleHeadingClassList.remove(classes.uiCornerBottom);
 						collapsibleContentClassList.add(classes.uiCornerBottom);
 					}
 				}

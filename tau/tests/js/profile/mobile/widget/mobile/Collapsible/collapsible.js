@@ -24,7 +24,7 @@
 		strictEqual(chead.children.length, 1, 'Header contains one child');
 		equal(headLink && headLink.tagName, 'A', 'Header only child is <a>');
 		ok(headLink && headLink.classList.contains('ui-collapsible-heading-toggle'), 'Link has proper heading-toggle class');
-		ok(headLink && headLink.classList.contains('ui-btn'), 'Link has ui-btn class');
+		//ok(headLink && headLink.classList.contains('ui-btn'), 'Link has ui-btn class');
 		//@TODO add tests for all btn options
 	}
 
@@ -143,37 +143,28 @@
 			collapsible13 = document.getElementById('collapsible13'),
 			widgetOptions12,
 			widgetOptions13,
-			headerLink12,
-			headerLink13,
-			btnInner12,
-			btnInner13;
+			header12,
+			header13;
 
 		$("#collapsible12").collapsible();
 		$("#collapsible13").collapsible();
 		widgetOptions12 = ej.engine.getBinding(collapsible12).options;
 		widgetOptions13 = ej.engine.getBinding(collapsible13).options;
-		headerLink12 = collapsible12.firstElementChild.firstElementChild;
-		headerLink13 = collapsible13.firstElementChild.firstElementChild;
-		btnInner12 = headerLink12.firstElementChild;
-		btnInner13 = headerLink13.firstElementChild;
+		header12 = collapsible12.firstElementChild;
+		header13 = collapsible13.firstElementChild;
 
 		strictEqual(widgetOptions12.inset, true, 'Inset option set to true');
 		ok(collapsible12.classList.contains('ui-collapsible-inset'), 'Collapsible contains ui-collapsible-inset class');
 
-		ok(headerLink12.classList.contains('ui-corner-top'), 'Header <a> contains ui-corner-top');
-		ok(headerLink12.classList.contains('ui-corner-bottom'), 'Header <a> contains ui-corner-bottom');
-
-		ok(btnInner12.classList.contains('ui-corner-top'), 'Header a > span contains ui-corner-top');
-		ok(btnInner12.classList.contains('ui-corner-bottom'), 'Header a > span contains ui-corner-bottom');
+		ok(header12.classList.contains('ui-corner-top'), 'Header contains ui-corner-top');
+		ok(header12.classList.contains('ui-corner-bottom'), 'Header contains ui-corner-bottom');
 		//-------------------
 		strictEqual(widgetOptions13.inset, false, 'Inset option set to false');
 		ok(!collapsible13.classList.contains('ui-collapsible-inset'), 'Collapsible doesn\'t contain ui-collapsible-inset class');
 
-		ok(!headerLink13.classList.contains('ui-corner-top'), 'Header <a> doesn\'t contain ui-corner-top');
-		ok(!headerLink13.classList.contains('ui-corner-bottom'), 'Header <a> doesn\'t contain ui-corner-bottom');
 
-		ok(!btnInner13.classList.contains('ui-corner-top'), 'Header a > span doesn\'t contain ui-corner-top');
-		ok(!btnInner13.classList.contains('ui-corner-bottom'), 'Header a > span doesn\'t contain ui-corner-bottom');
+		ok(!header13.classList.contains('ui-corner-top'), 'Header doesn\'t contain ui-corner-top');
+		ok(!header13.classList.contains('ui-corner-bottom'), 'Header doesn\'t contain ui-corner-bottom');
 	});
 
 	asyncTest('Widget destroy', function () {
