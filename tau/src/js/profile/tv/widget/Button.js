@@ -35,10 +35,17 @@
 				Button = function () {
 					BaseButton.call(this);
 					BaseKeyboardSupport.call(this);
+					this._callbacks = {};
 				},
 				engine = ns.engine,
 				classes = objectUtils.merge({}, BaseButton.classes, {
-					background: "ui-background"
+					background: "ui-background",
+					blur: "ui-blur",
+					blurPrefix: "ui-blur-",
+					up: "up",
+					down: "down",
+					left: "left",
+					right: "right"
 				}),
 				prototype = new BaseButton();
 
@@ -76,6 +83,53 @@
 
 				self.ui.background = document.getElementById(element.id + "-background");
 				return element;
+			};
+
+			function animationEndCallback(element) {
+				var classList = element.classList;
+
+				classList.remove(classes.blur);
+				classList.remove(classes.blurPrefix + classes.up);
+				classList.remove(classes.blurPrefix + classes.down);
+				classList.remove(classes.blurPrefix + classes.right);
+				classList.remove(classes.blurPrefix + classes.left);
+			};
+
+			/**
+			 * Initializes widget
+			 * @method _init
+			 * @protected
+			 * @member ns.widget.tv.Button
+			 */
+			prototype._bindEvents = function () {
+				var self = this,
+					background = self.ui.background,
+					transitionend;
+
+				BaseButtonPrototype._bindEvents.call(self);
+
+				transitionend = animationEndCallback.bind(null, self.element);
+				background.addEventListener("transitionend", transitionend, false);
+				background.addEventListener("webkitTransitionEnd", transitionend, false);
+				self._callbacks.transitionend = transitionend;
+			};
+
+			/**
+			 * Initializes widget
+			 * @method _init
+			 * @protected
+			 * @member ns.widget.tv.Button
+			 */
+			prototype._destroy = function() {
+				var self = this,
+					background = self.ui.background,
+					transitionend;
+
+				transitionend = self._callbacks.transitionend;
+				background.removeEventListener("transitionend", transitionend, false);
+				background.removeEventListener("webkitTransitionEnd", transitionend, false);
+
+				BaseButtonPrototype._destroy.call(self);
 			};
 
 			engine.defineWidget(
