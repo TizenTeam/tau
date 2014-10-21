@@ -712,7 +712,6 @@
 				domHandle.setAttribute("inline", "false");
 				domHandle.setAttribute("data-bar", "true");
 				domHandle.setAttribute("id", elementId + "-handle");
-				engine.instanceWidget(domHandle, "Button");
 
 				if (tagName === "select") {
 					wrapper = document.createElement("div");
@@ -776,6 +775,8 @@
 
 				element.parentNode.insertBefore(sliderContainer,
 						element.nextSibling);
+
+				engine.instanceWidget(domHandle, "Button");
 
 				return element;
 			};

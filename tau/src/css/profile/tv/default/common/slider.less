@@ -162,6 +162,10 @@ a.ui-slider-handle {
 	-moz-box-shadow: none;
 	-webkit-box-shadow: none;
 	box-shadow: none;
+
+	.ui-background {
+		visibility: hidden;
+	}
 }
 
 .ui-ctxpopup.ui-popup.ui-slider-popup {
@@ -212,7 +216,6 @@ a.ui-slider-handle {
 			&.ui-slider-handle {
 				background: url(images/Slider/00_slider_handle_press.png) no-repeat;
 				.LESSbackground-size(@handle_width, @handle_height);
-				margin-left: -@handle_width/2;
 				-o-box-shadow: none;
 				-ms-box-shadow: none;
 				-moz-box-shadow: none;
