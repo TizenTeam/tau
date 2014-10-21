@@ -837,8 +837,9 @@
 					elementClassList.remove(classes.arrowDir + key);
 				});
 
+				// we remove styles for element, which are changed
+				// styles for container, header and footer are left unchanged
 				element.removeAttribute("style");
-				content.removeAttribute("style");
 				arrow.removeAttribute("style");
 
 				PopupPrototype._onHide.call(self);
