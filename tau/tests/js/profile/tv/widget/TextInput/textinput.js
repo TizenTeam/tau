@@ -3,7 +3,16 @@
 	page.addEventListener("pageshow", function() {
 		"use strict";
 
-		module("widget.tv.TextInput TV TextInput widget", {});
+		var engine = ej.engine;
+
+		module("widget.tv.TextInput TV TextInput widget", {
+			setup: function () {
+				engine.createWidgets(document);
+			},
+			teardown: function () {
+				engine._clearBindings();
+			}
+		});
 
 		function testInput(id, isDisabled) {
 			var input = document.getElementById(id),
@@ -13,7 +22,7 @@
 			equal(input.getAttribute("data-tau-bound"), "TextInput", "Input widget is created");
 			equal(input.getAttribute("aria-disabled"), isDisabled, "Input widget is enabled");
 			ok(input.classList.contains("ui-input-text"), "Input has ui-input-text class");
-			ok(input.classList.contains("ui-body-s"), "Input has ui-body-s class");
+			ok(input.classList.contains("ui-body-a"), "Input has ui-body-a class");
 			//Check if text line was created
 			ok(textLine.classList.contains("ui-text-line"), "Text line has ui-text-line class");
 		}
@@ -80,43 +89,46 @@
 		test("Input type='number'", function () {
 			var input = document.getElementById("in7"),
 				wrapper = input.parentNode;
+
 			//after build
 			equal(input.getAttribute("data-tau-bound"), "TextInput", "Input widget is created");
 			equal(input.getAttribute("aria-disabled"), "false", "Input widget is enabled");
 			ok(input.classList.contains("ui-input-text"), "Input has ui-input-text class");
-			ok(input.classList.contains("ui-body-s"), "Input has ui-body-s class");
+			ok(input.classList.contains("ui-body-a"), "Input has ui-body-a class");
 			ok(wrapper.classList.contains("ui-number-input"), "Input wrapper has ui-number-input class");
 		});
 
 		test("Disabled input type='number'", function () {
 			var input = document.getElementById("in7-dis"),
 				wrapper = input.parentNode;
+
 			//after build
 			equal(input.getAttribute("data-tau-bound"), "TextInput", "Input widget is created");
 			ok(input.classList.contains("ui-input-text"), "Input has ui-input-text class");
-			ok(input.classList.contains("ui-body-s"), "Input has ui-body-s class");
+			ok(input.classList.contains("ui-body-a"), "Input has ui-body-a class");
 			ok(input.classList.contains("ui-disabled"), "Input has ui-disabled class");
 			ok(input.classList.contains("tv-textinput-disabled"), "Input has tv-textinput-disabled class");
 			ok(input.classList.contains("ui-state-disabled"), "Input has ui-state-disabled class");
 			ok(wrapper.classList.contains("ui-number-input"), "Input wrapper has ui-number-input class");
 		});
 
-		asyncTest("Input type='number' keyup events", 2, function () {
+		test("Input type='number' keyup events", function () {
 			var input = document.getElementById("in7"),
 				wrapper = input.parentNode;
 
 			window.tau.engine.instanceWidget(input, "TextInput");
-			//Set input as active element
-			input.focus();
-			ok(document.activeElement === input, "Input is active element");
 
 			wrapper.addEventListener("focus", function() {
 				ok(true, "Focus triggered on parent element");
 			}, true);
 
+			//Set input as active element
+			input.focus();
+			ok(document.activeElement === input, "Input is an active element");
+
 			//Keyup event moves focus from input to wrapper
 			window.tau.event.trigger(input, "keyup");
-			start();
+			ok(document.activeElement === wrapper, "Focus moved to a wrapper after keyup");
 		});
 
 		test("Input type='number' destroy method", 2, function () {
@@ -127,7 +139,7 @@
 			instance._destroy(input);
 			//Set input as active element
 			input.focus();
-			ok(document.activeElement === input, "Input is active element");
+			ok(document.activeElement === input, "Input is an active element");
 			//Keyup event doesn't' move focus from input to wrapper because event listener is removed.
 			window.tau.event.trigger(input, "keyup");
 			ok(document.activeElement === input, "Input is still active element");
@@ -141,7 +153,7 @@
 
 			//Set input as active element
 			input.focus();
-			ok(document.activeElement === input, "Input is active element");
+			ok(document.activeElement === input, "Input is an active element");
 			input.value = "hello \n hello";
 			triggerKeyboardEvent(input, 40); //down
 			triggerKeyboardEvent(input, 40); //down
