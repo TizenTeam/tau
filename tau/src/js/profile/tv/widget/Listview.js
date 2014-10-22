@@ -26,6 +26,7 @@
 			var CoreListview = ns.widget.core.Listview,
 				engine = ns.engine,
 				Listview = function () {
+					CoreListview.call(this);
 				},
 				prototype = new CoreListview();
 
@@ -37,10 +38,11 @@
 
 			engine.defineWidget(
 				"Listview",
-				".ui-listview,[data-role=listview]",
+				".ui-listview, [data-role=listview]",
 				[],
 				Listview,
-				"tv"
+				"tv",
+				true
 			);
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return Listview;

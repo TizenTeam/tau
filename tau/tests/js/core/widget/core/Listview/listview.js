@@ -6,6 +6,9 @@
 		var engine = ej.engine;
 
 		module("Listview tests", {
+			setup: function () {
+				engine.createWidgets(document);
+			},
 			teardown: function () {
 				engine._clearBindings();
 			}
