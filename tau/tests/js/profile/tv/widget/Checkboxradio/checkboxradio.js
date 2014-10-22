@@ -3,9 +3,14 @@
 	page.addEventListener("pageshow", function() {
 		"use strict";
 
+		var engine = ej.engine;
+
 		module("widget.tv.Checkboxradio TV Checkboxradio widget", {
+			setup: function () {
+				engine.createWidgets(document);
+			},
 			teardown: function () {
-				window.tau.engine._clearBindings();
+				engine._clearBindings();
 			}
 		});
 
@@ -107,8 +112,6 @@
 				radio2 = document.getElementById("radio2"),
 				wrapper2 = radio2.parentNode;
 
-			window.tau.engine.instanceWidget(radio1, "Checkboxradio");
-			window.tau.engine.instanceWidget(radio2, "Checkboxradio");
 			//Click on radio 2 label should change input state.
 			triggerKeyboardEvent(wrapper2, 13);
 
@@ -124,10 +127,9 @@
 			var radio2 = document.getElementById("radio2"),
 				wrapper2 = radio2.parentNode;
 
-			window.tau.engine.instanceWidget(radio2, "Checkboxradio");
-			$(wrapper2).trigger("focus");
+			wrapper2.focus();
 			ok(radio2.classList.contains("focus"), "Checkbox has focus class");
-			$(wrapper2).trigger("blur");
+			wrapper2.blur();
 			ok(radio2.classList.contains("focus") === false, "Checkbox has no focus class");
 		});
 
@@ -140,11 +142,12 @@
 				instance = window.tau.engine.instanceWidget(radio1, "Checkboxradio");
 
 			instance._destroy(radio1);
+			triggerKeyboardEvent(wrapper1, 13);
 			triggerKeyboardEvent(wrapper2, 13);
 
 			setTimeout(function() {
-				ok(radio1.checked === false, "Checkbox unselected");
-				ok(radio2.checked === false, "Checkbox unselected because keyup listener is removed");
+				ok(radio1.checked === false, "Checkbox unselected because keyup listener is removed");
+				ok(radio2.checked === true, "Checkbox selected");
 				start();
 			}, 100);
 		});
