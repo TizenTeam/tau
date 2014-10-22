@@ -67,6 +67,8 @@
 
 					self.selectors = selectors;
 					self.options = objectUtils.merge({}, Popup.defaults);
+					self.storedOptions = null;
+
 					/**
 					 * Popup state flag
 					 * @property {0|1|2|3} [state=null]
@@ -508,8 +510,18 @@
 			 */
 			prototype.open = function (options) {
 				var self = this,
-					newOptions = objectUtils.merge(self.options, options);
+					newOptions;
+
 				if (!self._isActive()) {
+					/*
+					 * Some passed options on open need to be kept until popup closing.
+					 * For example, trasition parameter should be kept for closing animation.
+					 * On the other hand, fromHashChange or x, y parameter should be removed.
+					 * We store options and restore them on popup closing.
+					 */
+					self._storeOpenOptions(options);
+
+					newOptions = objectUtils.merge(self.options, options);
 					if (!newOptions.dismissible) {
 						engine.getRouter().lock();
 					}
@@ -534,6 +546,45 @@
 					}
 					self._hide(newOptions);
 				}
+			};
+
+			/**
+			 * Store Open options.
+			 * @method _storeOpenOptions
+			 * @param {object} options
+			 * @protected
+			 * @member ns.widget.core.Popup
+			 */
+			prototype._storeOpenOptions = function (options) {
+				var self = this,
+					oldOptions = self.options,
+					storedOptions = {},
+					val;
+
+				for (key in options) {
+					if (options.hasOwnProperty(key)) {
+						storedOptions[key] = oldOptions[key];
+					}
+				}
+
+				self.storedOptions = storedOptions;
+			};
+
+			/**
+			 * Restore Open options and remove some unnecessary ones.
+			 * @method _storeOpenOptions
+			 * @protected
+			 * @member ns.widget.core.Popup
+			 */
+			prototype._restoreOpenOptions = function () {
+				var self = this
+					options = self.options,
+					propertiesToRemove = ["x", "y", "fromHashChange"];
+
+				// we restore opening values of all options
+				options = objectUtils.merge(options, self.storedOptions);
+				// and remove all values which should not be stored
+				objectUtils.removeProperties(options, propertiesToRemove);
 			};
 
 			/**
@@ -617,6 +668,7 @@
 					overlay.style.display = "";
 				}
 				self._setActive(false);
+				self._restoreOpenOptions();
 				self.trigger(events.hide);
 			};
 

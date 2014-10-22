@@ -157,6 +157,27 @@
 					}
 
 					return true;
+				},
+
+				/**
+				 * Remove properties from object.
+				 * @method removeProperties
+				 * @param {Object} object
+				 * @param {Array} propertiesToRemove
+				 * @return {Object}
+				 */
+				removeProperties: function (object, propertiesToRemove) {
+					var length = propertiesToRemove.length,
+						property,
+						i;
+
+					for (i = 0; i < length; i++) {
+						property = propertiesToRemove[i];
+						if (object.hasOwnProperty(property)) {
+							delete object[property];
+						}
+					}
+					return object;
 				}
 			};
 			ns.util.object = object;

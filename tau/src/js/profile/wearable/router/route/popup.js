@@ -239,13 +239,14 @@
 			 * @static
 			 */
 			routePopup.open = function (toPopup, options, event) {
-				var popup,
+				var self = this,
+					popup,
 					router = engine.getRouter(),
-					events = routePopup.events,
+					events = self.events,
 					removePopup = function () {
 						document.removeEventListener(events.POPUP_HIDE, removePopup, false);
 						toPopup.parentNode.removeChild(toPopup);
-						routePopup.activePopup = null;
+						self.activePopup = null;
 					},
 					openPopup = function () {
 						var positionTo = options["position-to"];
@@ -264,7 +265,7 @@
 						document.removeEventListener(events.POPUP_HIDE, openPopup, false);
 						popup = engine.instanceWidget(toPopup, "Popup", options);
 						popup.open(options);
-						routePopup.activePopup = popup;
+						self.activePopup = popup;
 					},
 					activePage = router.container.getActivePage(),
 					container;
@@ -272,12 +273,12 @@
 				if (DOM.getNSData(toPopup, "external") === true) {
 					container = options.container ? activePage.element.querySelector(options.container) : activePage.element;
 					container.appendChild(toPopup);
-					document.addEventListener(routePopup.events.POPUP_HIDE, removePopup, false);
+					document.addEventListener(events.POPUP_HIDE, removePopup, false);
 				}
 
-				if (routePopup.hasActive()) {
-					document.addEventListener(routePopup.events.POPUP_HIDE, openPopup, false);
-					routePopup.close();
+				if (self.hasActive()) {
+					document.addEventListener(events.POPUP_HIDE, openPopup, false);
+					self.close();
 				} else {
 					openPopup();
 				}
@@ -295,17 +296,37 @@
 			 * @static
 			 */
 			routePopup.close = function (activePopup, options) {
+				var popupOptions;
+
+				options = options || {};
 				activePopup = activePopup || this.activePopup;
 
+				// if popup is active
 				if (activePopup) {
-					// Close and clean up
-					activePopup.close(options || {});
+					popupOptions = activePopup.options;
+					// we check if it changed the history
+					if (popupOptions.history) {
+						// and then set new options for popup
+						popupOptions.transition = options.transition || popupOptions.transition;
+						popupOptions.ext = options.ext || popupOptions.ext;
+						// unlock the router if it was locked
+						if (!popupOptions.dismissible) {
+							engine.getRouter().unlock();
+						}
+						// and call history.back()
+						history.back();
+					} else {
+						// if popup did not change the history, we close it normally
+						activePopup.close(options || {});
+					}
+					return true;
 				}
+				return false;
 			};
 
 			/**
 			 * This method handles hash change.
-			 * It closes active popup.
+			 * It closes opened popup.
 			 * @method onHashChange
 			 * @param {string} url
 			 * @param {object} options
@@ -317,7 +338,7 @@
 				var activePopup = this.activePopup;
 
 				if (activePopup) {
-					routePopup.close(activePopup, options);
+					activePopup.close(options);
 					// Default routing setting cause to rewrite further window history
 					// even if popup has been closed
 					// To prevent this onHashChange after closing popup we need to change
