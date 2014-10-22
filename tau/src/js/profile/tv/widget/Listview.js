@@ -6,11 +6,119 @@
 /*jslint nomen: true */
 /**
  * # Listview Widget
+ *
  * Shows a list view.
  *
+ * ## Default selectors
+ *
+ * Default selector for listview widget is class *ui-listview*.
+ *
+ * ## HTML Examples
+ *
+ * To add a list widget to the application, use the following code.
+ *
+ * ### List with basic items
+ *
+ * You can add a basic list widget as follows:
+ *
+ *      @example
+ *         <ul class="ui-listview">
+ *             <li>1line</li>
+ *             <li>2line</li>
+ *             <li>3line</li>
+ *             <li>4line</li>
+ *             <li>5line</li>
+ *         </ul>
+ *
+ * ### List with link items
+ *
+ * You can add a list widget with a link and press effect that allows the user to click each list item as follows:
+ *
+ *      @example
+ *         <ul class="ui-listview">
+ *             <li>
+ *                 <a href="#">1line</a>
+ *             </li>
+ *             <li>
+ *                 <a href="#">2line</a>
+ *             </li>
+ *             <li>
+ *                 <a href="#">3line</a>
+ *             </li>
+ *             <li>
+ *                 <a href="#">4line</a>
+ *             </li>
+ *             <li>
+ *                 <a href="#">5line</a>
+ *             </li>
+ *         </ul>
+ *
+ * ### List with checkboxes
+ *
+ * To create list with checkboxes use class *li-has-checkbox* for 'li' tag.
+ *
+ *      @example
+ *         <ul class="ui-listview">
+ *             <li class="li-has-checkbox">
+ *                 <label>
+ *                      List 01
+ *                      <input type="checkbox" id="checkbox-1"/>
+ *                      <label for="checkbox-1"></label>
+ *                 </label>
+ *             </li>
+ *             <li class="li-has-checkbox">
+ *                 <label>
+ *                      List 01
+ *                      <input type="checkbox" id="checkbox-1"/>
+ *                      <label for="checkbox-1"></label>
+ *                 </label>
+ *             </li>
+ *         </ul>
+ *
+ * ### List with radio buttons
+ *
+ * To create list with radio buttons use class *li-has-radio* for 'li' tag.
+ *
+ *      @example
+ *         <ul class="ui-listview">
+ *             <li class="li-has-radio">
+ *                 <label>
+ *                      Radio 01
+ *                      <input type="radio" name="radio-sample" checked="checked" id="rd-1"/>
+ *                      <label for="rd-1"></label>
+ *                 </label>
+ *             </li>
+ *             <li class="li-has-radio">
+ *                 <label>
+ *                      Radio 02
+ *                      <input type="radio" name="radio-sample" id="rd-2"/>
+ *                      <label for="rd-2"></label>
+ *                 </label>
+ *             </li>
+ *         </ul>
+ *
+ * ### Multiline list
+ *
+ * To to apply multiline style use *li-has-multiline* and *li-text-sub* classes. See example code.
+ *
+ *      @example
+ *         <ul class="ui-listview">
+ *             <li class="li-has-multiline">
+ *                 <a href="#">
+ *                     Wallpaper
+ *                     <span class="li-text-sub">Overall size of fonts</span>
+ *                 </a>
+ *             </li>
+ *             <li class="li-has-multiline">
+ *                 <a href="#">
+ *                     Wallpaper
+ *                     <span class="li-text-sub">Overall size of fonts</span>
+ *                 </a>
+ *             </li>
+ *         </ul>
+ *
  * @class ns.widget.tv.Listview
- * @class ns.widget.core.Listview
- * @extends ns.widget.BaseWidget
+ * @extends ns.widget.core.Listview
  */
 (function (document, ns) {
 	"use strict";
