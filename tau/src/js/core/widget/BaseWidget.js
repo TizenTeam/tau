@@ -459,19 +459,24 @@
 				elementClasses.remove(prefix + classes.down);
 			}
 
-			prototype._prepareAnimation = function(eventType, direction) {
-				var element = this.element;
+			prototype._prepareAnimation = function(eventType, options) {
+				var element = this.element,
+					direction = options.direction;
 
 				switch(eventType) {
 					case "focus":
 						removeAnimationClasses(element, classes.blurPrefix);
 						removeAnimationClasses(element, classes.focusPrefix);
-						element.classList.add(classes.focusPrefix + direction);
+						if (direction) {
+							element.classList.add(classes.focusPrefix + direction);
+						}
 						break;
 					case "blur":
 						removeAnimationClasses(element, classes.focusPrefix);
 						removeAnimationClasses(element, classes.blurPrefix);
-						element.classList.add(classes.blurPrefix + direction);
+						if (direction) {
+							element.classList.add(classes.blurPrefix + direction);
+						}
 						break;
 				}
 			};
@@ -480,19 +485,44 @@
 			 *
 			 * This function calls function focus on element and if it is known
 			 * the direction of event, the proper css classes are added/removed.
-			 * @method _focus
-			 * @param {"up"|"down"|"left"|"right} positionFrom The direction of event.
+			 * @method focus
+			 * @param {object} options The options of event.
+			 * @param {"up"|"down"|"left"|"right"} direction
 			 * For example, if this parameter has value "down", it means that the movement
 			 * comes from the top (eg. down arrow was pressed on keyboard).
+			 * @param {HTMLElement} previousElement Element to blur
 			 * @member ns.widget.BaseWidget
 			 */
-			prototype._focus = function (positionFrom) {
-				var element = this.element;
+			prototype.focus = function (options) {
+				var self = this,
+					element = self.element,
+					blurElement = options.previousElement,
+					blurWidget;
 
-				if (typeof this._prepareAnimation === TYPE_FUNCTION) {
-					this._prepareAnimation("focus", positionFrom);
+				if (self.isDisabled()) {
+					// widget is disabled, so we cannot set focus
+					return false;
 				}
-				this.element.focus();
+
+				// we try to blur element, which has focus previously
+				if (blurElement) {
+					blurWidget = engine.getBinding(blurElement);
+					// call blur function on widget
+					if (blurWidget) {
+						blurWidget.blur(options);
+					} else {
+						// or on element, if widget does not exist
+						blurElement.blur();
+					}
+				}
+
+				// set focus on element
+				if (typeof this._prepareAnimation === TYPE_FUNCTION) {
+					this._prepareAnimation("focus", options || {});
+				}
+				element.focus();
+
+				return true;
 			};
 
 			/**
@@ -500,17 +530,25 @@
 			 *
 			 * This function calls function blur on element and if it is known
 			 * the direction of event, the proper css classes are added/removed.
-			 * @method _blur
-			 * @param {"up"|"down"|"left"|"right} positionFrom
+			 * @method blur
+			 * @param {object} options The options of event.
+			 * @param {"up"|"down"|"left"|"right"} direction
 			 * @member ns.widget.BaseWidget
 			 */
-			prototype._blur = function (positionFrom) {
-				var element = this.element;
+			prototype.blur = function (options) {
+				var self = this,
+					element = this.element;
+
+				if (self.isDisabled()) {
+					// widget is disabled, so we cannot blur it
+					return false;
+				}
 
 				if (typeof this._prepareAnimation === TYPE_FUNCTION) {
-					this._prepareAnimation("blur", positionFrom);
+					this._prepareAnimation("blur", options || {});
 				}
 				element.blur();
+				return true;
 			};
 
 			/**
@@ -571,6 +609,16 @@
 					self._disable.apply(self, args);
 				}
 				return this;
+			};
+
+			/**
+			 * Check if widget is disabled.
+			 * @method isDisabled
+			 * @member ns.widget.BaseWidget
+			 */
+			prototype.isDisabled = function () {
+				var self = this;
+				return self.element.getAttribute("disabled") || self.options.disabled === true;
 			};
 
 			/**

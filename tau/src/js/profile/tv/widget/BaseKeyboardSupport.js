@@ -166,7 +166,6 @@
 							// sort elements, elements with shortest distance are on top of list
 							;
 					}).map(mapToElement);
-					top = top[0];
 					bottom = linksOffset.filter(function (linkOffset) {
 						return (linkOffset.offset.top > currentLinkOffset.top);
 					}).sort(function (linkOffset1, linkOffset2) {
@@ -174,8 +173,7 @@
 							(linkOffset1.offset.top < linkOffset2.offset.top ? -1 : 1) :
 							(linkOffset1.differentX < linkOffset2.differentX ? -1 : 1)
 							;
-					});
-					bottom = bottom.map(mapToElement)[0];
+					}).map(mapToElement);
 					left = linksOffset.filter(function (linkOffset) {
 						return (linkOffset.offset.left  < currentLinkOffset.left);
 					}).sort(function (linkOffset1, linkOffset2) {
@@ -183,7 +181,7 @@
 							(linkOffset1.offset.left > linkOffset2.offset.left ? -1 : 1) :
 							(linkOffset1.differentY < linkOffset2.differentY ? -1 : 1)
 							;
-					}).map(mapToElement)[0];
+					}).map(mapToElement);
 					right = linksOffset.filter(function (linkOffset) {
 						return (linkOffset.offset.left > currentLinkOffset.left );
 					}).sort(function (linkOffset1, linkOffset2) {
@@ -191,10 +189,9 @@
 							(linkOffset1.offset.left < linkOffset2.offset.left ? -1 : 1) :
 							(linkOffset1.differentY < linkOffset2.differentY ? -1 : 1)
 							;
-					});
-					right = right.map(mapToElement)[0];
+					}).map(mapToElement);
 				} else {
-					top = left = right = bottom = links[0];
+					top = left = right = bottom = links;
 				}
 				result = {
 					top: top,
@@ -219,54 +216,66 @@
 					currentLink = getFocusedLink(),
 					currentLinkWidget,
 					positionFrom,
+					nextElements,
 					nextElement,
-					nextElementWidget;
+					nextNumber = 0,
+					nextElementWidget,
+					setFocus = false,
+					options = {};
 
 				if (self._supportKeyboard) {
 					neighborhoodLinks = self._getNeighborhoodLinks();
 					switch (keyCode) {
 						case KEY_CODES.left:
-							nextElement = neighborhoodLinks.left;
+							nextElements = neighborhoodLinks.left;
+							nextElement = nextElements[nextNumber];
 							positionFrom = EVENT_POSITION.left;
 							break;
 						case KEY_CODES.up:
-							nextElement = neighborhoodLinks.top;
+							nextElements = neighborhoodLinks.top;
+							nextElement = nextElements[nextNumber];
 							positionFrom = EVENT_POSITION.up;
 							break;
 						case KEY_CODES.right:
-							nextElement = neighborhoodLinks.right;
+							nextElements = neighborhoodLinks.right;
+							nextElement = nextElements[nextNumber];
 							positionFrom = EVENT_POSITION.right;
 							break;
 						case KEY_CODES.down:
-							nextElement = neighborhoodLinks.bottom;
+							nextElements = neighborhoodLinks.bottom;
+							nextElement = nextElements[nextNumber];
 							positionFrom = EVENT_POSITION.down;
 							break;
 					}
 
-					// if element to focus is found
-					if (nextElement) {
+					while (nextElement && !setFocus) {
+						// if element to focus is found
 						nextElementWidget = engine.getBinding(nextElement);
 						if (nextElementWidget) {
 							// we call function focus if the element is connected with widget
-							nextElementWidget._focus(positionFrom);
+							options.direction = positionFrom;
+							options.previousElement = currentLink;
+							setFocus = nextElementWidget.focus(options);
 						} else {
 							// or only set focus on element
 							nextElement.focus();
-						}
-
-						// and remove focus from previous element if it is possible
-						if (currentLink) {
-							currentLinkWidget = engine.getBinding(currentLink);
-							if (currentLinkWidget) {
-								currentLinkWidget._blur(positionFrom);
-							} else {
-								currentLink.blur();
+							// and blur the previous one
+							if (currentLink) {
+								currentLinkWidget = engine.getBinding(currentLink);
+								if (currentLinkWidget) {
+									options.direction = positionFrom;
+									currentLinkWidget.blur(options);
+								} else {
+									currentLink.blur();
+								}
 							}
+							setFocus = true;
 						}
 
 						if (self._openActiveElement) {
 							self._openActiveElement(nextElement);
 						}
+						nextElement = nextElements[++nextNumber];
 					}
 				}
 			};
@@ -309,7 +318,7 @@
 
 				if (focusedElementWidget) {
 					// call blur on widget
-					focusedElementWidget._blur();
+					focusedElementWidget.blur();
 				} else if (focusedElement) {
 					// or call blur on element
 					focusedElement.blur();
