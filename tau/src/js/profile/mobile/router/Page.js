@@ -256,7 +256,7 @@
 					url = form.action || form.baseURI,
 					i;
 
-				event.preventDefault();
+				eventUtils.preventDefault(event);
 
 				for (i = 0; i < length; i++) {
 					options.data[elements[i].name] = elements[i].value;
@@ -647,7 +647,7 @@
 				document.addEventListener(events.HASH_CHANGE, self._hashChangeHandler,
 						false);
 				document.addEventListener(events.CLICK, self.linkClickHandler, false);
-				document.addEventListener(events.SUBMIT, self.submitHandler, true);
+				document.addEventListener(events.SUBMIT, self.submitHandler, false);
 			};
 
 			/**
@@ -664,7 +664,7 @@
 				document.removeEventListener(events.HASH_CHANGE,
 						self._hashChangeHandler, false);
 				document.removeEventListener(events.CLICK, self.linkClickHandler, false);
-				document.removeEventListener(events.SUBMIT, self.submitHandler, true);
+				document.removeEventListener(events.SUBMIT, self.submitHandler, false);
 			};
 
 			/**

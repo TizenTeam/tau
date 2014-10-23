@@ -372,7 +372,6 @@
 				if (options.filter) {
 					wrapper = document.createElement("form");
 
-					wrapper.setAttribute("role", "search");
 					wrapper.setAttribute("id", id + "-form");
 
 					wrapperClass = wrapper.classList;
@@ -482,7 +481,8 @@
 			 * @static
 			 */
 			function preventDefault(event) {
-				event.preventDefault();
+				events.preventDefault(event);
+				events.stopPropagation(event);
 			}
 
 			/**
@@ -525,7 +525,7 @@
 					this._inputChangeHandler = inputChangeHandler.bind(null, this);
 					search.addEventListener("keyup", this._inputChangeHandler, false);
 					search.addEventListener("change", this._inputChangeHandler, false);
-					search.addEventListener("submit", preventDefault, false);
+					document.addEventListener("submit", preventDefault, true);
 				}
 			};
 
@@ -541,7 +541,7 @@
 				if (search) {
 					search.removeEventListener("keyup", this._inputChangeHandler, false);
 					search.removeEventListener("change", this._inputChangeHandler, false);
-					search.removeEventListener("submit", preventDefault, false);
+					document.removeEventListener("submit", preventDefault, true);
 				}
 				// call protected method from Listview;
 				if (typeof parent_destroy === TYPE_FUNCTION) {
