@@ -16,71 +16,72 @@
 	</head>
 	<body>
 		
-		<ul id="main-menu" class="sm sm-clean">
-			<li><a href="index.html">TAU Guide</a></li>
-			<li>
-				<a href="javascript:void(0);">Working with TAU</a>
-				<ul>
-					<li><a href="application_visual_layout.html">Application visual Layout</a></li>
-					<li><a href="basic_page_routing.html">Basic page routing</a></li>
-					<li><a href="introduction_to_widgets.html">Introduction to widgets</a></li>
-					<li><a href="using_jquery_with_tau.html">Using jQuery with TAU</a></li>
-					<li><a href="framework_profiles.html">Framework profiles</a></li>
-				</ul>
-			</li>
-			{{#widgetGuide}}
-			<li>
-				<a href="javascript:void(0);">Widget Guide</a>
-				<ul>
-					<li>
-						<a href="javascript:void(0)">Core</a>
-						<ul>{{{coreMenu}}}</ul>
-					</li>
-					<li>
-						<a href="javascript:void(0)">Mobile</a>
-						<ul>{{{mobileMenu}}}</ul>
-					</li>
-					<li>
-						<a href="javascript:void(0)">Wearable</a>
-						<ul>{{{wearableMenu}}}</ul>
-					</li>
-					<li>
-						<a href="javascript:void(0)">TV</a>
-						<ul>{{{tvMenu}}}</ul>
-					</li>
-				</ul>
-			</li>
-			{{/widgetGuide}}
-			<li>
-				<a href="javascript:void(0)">Widget Guide</a>
-				<ul>
-					<li><a href="how_to_create_own_widget.html">How to create own widget</a></li>
-				</ul>
-			</li>
-			<li>
-				<a href="javascript:void(0)">Tutorials</a>
-				<ul>
-					<li><a href="tutorial_clock.html">Clock</a></li>
-					<li><a href="tutorial_notes.html">Notes</a></li>
-					<li><a href="tutorial_gallery.html">Gallery</a></li>
-				</ul>
-			</li>
-			<li>
-				<a href="javascript:void(0)">Migration Guide</a>
-				<ul>
-					<li><a href="migration/features_overview.html">Features overview</a></li>
-					<li><a href="migration/breaking_changes.html">Breaking changes</a></li>
-					<li><a href="migration/switching_apps_to_tau.html">Switching your Apps to TAU</a></li>
-				</ul>
-			</li>
-			<li><a href="api.html">API Docs</a></li>
-			<li><a href="https://developer.tizen.org/forums/web-application-development" target="_blank">Forum</a></li>
-		</ul>
+		<nav>
+			<ul id="main-menu" class="sm sm-clean">
+				<li><a href="index.html">TAU Guide</a></li>
+				<li>
+					<a href="javascript:void(0);">Working with TAU</a>
+					<ul>
+						<li><a href="application_visual_layout.html">Application visual Layout</a></li>
+						<li><a href="basic_page_routing.html">Basic page routing</a></li>
+						<li><a href="introduction_to_widgets.html">Introduction to widgets</a></li>
+						<li><a href="using_jquery_with_tau.html">Using jQuery with TAU</a></li>
+						<li><a href="framework_profiles.html">Framework profiles</a></li>
+						<li><a href="how_to_create_own_widget.html">How to create own widget</a></li>
+					</ul>
+				</li>
+				{{#widgetGuide}}
+				<li>
+					<a href="javascript:void(0);">Widget Guide</a>
+					<ul>
+						<li>
+							<a href="javascript:void(0)">Core</a>
+							<ul>{{{coreMenu}}}</ul>
+						</li>
+						<li>
+							<a href="javascript:void(0)">Mobile</a>
+							<ul>{{{mobileMenu}}}</ul>
+						</li>
+						<li>
+							<a href="javascript:void(0)">Wearable</a>
+							<ul>{{{wearableMenu}}}</ul>
+						</li>
+						<li>
+							<a href="javascript:void(0)">TV</a>
+							<ul>{{{tvMenu}}}</ul>
+						</li>
+					</ul>
+				</li>
+				{{/widgetGuide}}
+				<li>
+					<a href="javascript:void(0)">Tutorials</a>
+					<ul>
+						<li><a href="tutorial_clock.html">Clock</a></li>
+						<li><a href="tutorial_notes.html">Notes</a></li>
+						<li><a href="tutorial_gallery.html">Gallery</a></li>
+					</ul>
+				</li>
+				<li>
+					<a href="javascript:void(0)">Migration Guide</a>
+					<ul>
+						<li><a href="migration/features_overview.html">Features overview</a></li>
+						<li><a href="migration/breaking_changes.html">Breaking changes</a></li>
+						<li><a href="migration/switching_apps_to_tau.html">Switching your Apps to TAU</a></li>
+					</ul>
+				</li>
+				<li><a href="api.html">API Docs</a></li>
+				<li><a href="https://developer.tizen.org/forums/web-application-development" target="_blank">Forum</a></li>
+			</ul>
+		</nav>
 
-		{{{content}}}
+		<article>
+			{{{content}}}
+		</article>
 
-		<div class="footer">Licensed under <a href="license.html">MIT License</a> by Samsung Electronics Co., Ltd. &copy;  2014 </div>
-		<div class="version">ver {{version}}</div>
+		<footer>
+			<div>Licensed under <a href="license.html">MIT License</a> by Samsung Electronics Co., Ltd. &copy;  2014</div>
+			<div class="version">ver {{version}}</div>
+		</footer>
 
 		<script src="js/jquery-1.11.1.min.js"></script>
 		<script src="js/bootstrap.min.js"></script>

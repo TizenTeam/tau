@@ -45,19 +45,54 @@ body {
 	background-image: url("../images/devices-tv.svg");
 }
 
-.footer {
+footer {
+	width: 100%;
+	margin-top: 30px;
+}
+
+footer > div {
 	width: 100%;
 	background: rgb(240, 240, 240);
 	color: rgb(120, 120, 120);
 	padding: 5px;
 	font-size: 12px;
 	text-align: center;
-	margin-top: 30px;
 }
 
-.version {
+footer > .version {
+	background: transparent;
 	width: 100%;
-	text-align: right;
 	font-size: 10px;
 	color: rgb(180, 180, 180);
+	text-align: right;
+}
+
+
+table {
+	width: 70%;
+	margin: 20px auto;
+}
+
+table > thead {
+	border-bottom: solid 1px #bbb;
+	font-size: 1.7rem;
+}
+
+table > tbody > tr > td {
+	padding: 5px;
+}
+
+table > tbody > tr:nth-child(odd) {
+	background: #f0f0f0;
+}
+
+article,
+nav,
+footer {
+	max-width: 900px;
+	margin: 0 auto;
+}
+
+nav, footer {
+	max-width: 1000px;
 }

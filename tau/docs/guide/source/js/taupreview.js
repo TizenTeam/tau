@@ -3,6 +3,7 @@
 (function (document) {
 	"use strict";
 	var previewIDNum = 0,
+		webkit = window.navigator.userAgent.toLowerCase().indexOf("webkit") > -1,
 		TEXTS = {
 			"PREVIEW": "preview",
 			"mobile": "Preview mobile version",
@@ -85,19 +86,20 @@
 			nextSibling,
 			span,
 			profileUrl,
-			profile;
+			profile,
+			regexpCallback = function (unused, profile, url) {
+				profileUrl[profile] = url;
+				return '';
+			};
 
 		while (--i >= 0) {
 			found = 0;
-			profileUrl = {},
+			profileUrl = {};
 			preview = previews.item(i);
 			className = preview.className;
 			className.replace(
 				LANG_SPLIT_REGEXP,
-				function (unused, profile, url) {
-					profileUrl[profile] = url;
-					return '';
-				}
+				regexpCallback
 			);
 			preview.setAttribute("data-preview", "p" + previewIDNum);
 
@@ -113,13 +115,15 @@
 			buttonContainer.appendChild(span);
 
 			for (profile in profileUrl) {
-				createButton(
-					buttonContainer,
-					profile,
-					previewIDNum,
-					TEXTS[profile],
-					profileUrl[profile]
-				);
+				if (profileUrl.hasOwnProperty(profile)) {
+					createButton(
+						buttonContainer,
+						profile,
+						previewIDNum,
+						TEXTS[profile],
+						profileUrl[profile]
+					);
+				}
 				++found;
 			}
 
@@ -153,7 +157,9 @@
 	}
 
 	document.addEventListener("DOMContentLoaded", function () {
-		createButtons();
+		if (webkit) {
+			createButtons();
+		}
 		prettyPrintHandler();
 	});
 	document.addEventListener("click", clickHandler);
