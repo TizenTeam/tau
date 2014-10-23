@@ -3,7 +3,16 @@
 	page.addEventListener("pageshow", function() {
 		"use strict";
 
-		module("widget.tv.Listview TV Listview widget", {});
+		var engine = ej.engine;
+
+		module("widget.tv.Listview TV Listview widget", {
+			setup: function () {
+				engine.createWidgets(document);
+			},
+			teardown: function () {
+				engine._clearBindings();
+			}
+		});
 
 		test("Listview with divider", function () {
 			var list = document.getElementById('list');
