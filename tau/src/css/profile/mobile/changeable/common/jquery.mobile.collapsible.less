@@ -2,6 +2,11 @@
  * jQuery Mobile Collapsible CSS
  * for Tizen Web UI
  */
+.ui-listview .ui-li.ui-collapsible,
+.ui-listview .ui-collapsible {
+	padding: 0;
+	border-bottom: 0;
+}
 
 .ui-collapsible-inset {
 	margin: .5em 0;
@@ -17,11 +22,16 @@
 	border-top-width: 0;
 }
 .ui-collapsible-set .ui-collapsible:not(.ui-collapsible-inset) .ui-collapsible-heading .ui-btn {
-	border-top-width: 1px; 
+	border-top-width: 1px;
 }
 .ui-collapsible-heading, .ui-collapsible-content > li {
 	position: relative;
 }
+
+.ui-li.ui-li-dialogue .ui-collapsible-heading {
+	margin: 0;
+}
+.ui-li .ui-collapsible-heading,
 .ui-collapsible-heading,
 .ui-collapsible-content .ui-li-dialogue.ui-collapsible-heading {
 	font-size: @font_size_list_main_text;
@@ -40,7 +50,7 @@
 	.ui-btn-icon-left .ui-btn-inner {
 		padding-left: 40px;
 	}
-	.ui-btn-icon-right .ui-btn-inner {
+	.ui-btn-icon-right .ui-btn-inner.ui-btn-hastxt {
 		padding-left: 8 * @unit_base;
 		padding-right: 40px;
 		padding-top: 10 * @unit_base;
@@ -52,11 +62,21 @@
 	.ui-btn-icon-bottom .ui-btn-inner { padding-right: 40px; text-align: center; }
 
 	// Icons' animation
+	.ui-btn-inner > .ui-icon {
+		position: absolute;
+		right: 30 * @unit_base;
+	}
 	.ui-btn-inner > .ui-icon-arrow-d {
 		-webkit-mask-image: url(images/core_icon_expand_open.png);
 		-webkit-mask-repeat: no-repeat;
 		background-color: @color_list_collapsible_arrow;
 		width: 30px; height: 30px;
+
+		-webkit-transform: rotate(0);
+		-moz-transform: rotate(0);
+		-ms-transform: rotate(0);
+		-o-transform: rotate(0);
+		transform: rotate(0);
 
 		-webkit-transition: all 0.33s ease;
 		-moz-transition: all 0.33s ease;
@@ -75,6 +95,12 @@
 		-ms-transform: rotate(180deg);
 		-o-transform: rotate(180deg);
 		transform: rotate(180deg);
+
+		-webkit-transition: all 0.33s ease;
+		-moz-transition: all 0.33s ease;
+		-ms-transition: all 0.33s ease;
+		-o-transition: all 0.33s ease;
+		transition: all 0.33s ease;
 	}
 
 	.ui-btn span.ui-btn {
@@ -100,6 +126,10 @@
 	left:0px;
 	}
 
+.ui-collapsible-content li {
+	padding: 30 * @unit_base 15 * @unit_base;
+	border-bottom: 1px solid @color_list_border_bottom;
+}
 .ui-collapsible-content {
 	display: block;
 	margin: 0 -15px;
@@ -109,13 +139,19 @@
 	border-top: none;      /* Overrides ui-body-* */
 	background-image: none; /* Overrides ui-body-* */
 
+	max-height: 9999px;
 	visibility: visible;
 	overflow: auto;
-	-webkit-transition: all 0.5s ease;
-	-moz-transition: all 0.5s ease;
-	-ms-transition: all 0.5s ease;
-	-o-transition: all 0.5s ease;
-	transition: all 0.5s ease;
+	-webkit-transition: all 0.3s ease;
+	-moz-transition: all 0.3s ease;
+	-ms-transition: all 0.3s ease;
+	-o-transition: all 0.3s ease;
+	transition: all 0.3s ease;
+
+	.ui-listview .ui-li-static {
+		padding-left: 20 * @unit_base;
+		padding-right: 20 * @unit_base;
+	}
 
 	.ui-li-dialogue {
 		padding-left : 15 * @unit_base;

@@ -1,48 +1,48 @@
 <div data-role="page" id="genlist-expandable">
 	<div data-role="header" data-position="fixed">
-		<h1>Collapsible list (JQM)</h1>
+		<h1>Collapsible list (Group List)</h1>
 	</div>
 	<div data-role="content">
+		<p>1. Collapsible list example
+		<br>(using li tag)</p>
+		<ul data-role="listview">
+			<li data-role="collapsible" data-inset="false">
+				<h2>Here will be html tag h1~h6</h2>
+				<ul data-role="listview">
+					<li>exp1-sub 1</li>
+					<li data-role="collapsible" data-inset="false">
+						<h2>Heading</h2>
+						<ul data-role="listview">
+							<li>sub content</li>
+						</ul>
+					</li>
+					<li>exp1-sub 2</li>
+					<li>exp1-sub 3</li>
+					<li>exp1-sub 4</li>
+					<li>exp1-sub 5</li>
+				</ul>
+			</li>
+		</ul>
+		<p>2. Collapsible list example
+		<br>(using div tag)<br>
+		   It violates standard rule of HTML,<br>
+		   so, TAU warns with message.</p>
 		<ul data-role="listview">
 			<div data-role="collapsible" data-inset="false">
-				<li class="ui-li-dialogue">1line</li>
-				<li class="ui-li-dialogue">exp1-sub 1</li>
-				<li class="ui-li-dialogue">exp1-sub 2</li>
-				<li class="ui-li-dialogue">exp1-sub 3</li>
-				<li class="ui-li-dialogue">exp1-sub 4</li>
-				<li class="ui-li-dialogue">exp1-sub 5</li>
-				<div data-role="collapsible" data-inset="false">
-					<li class="ui-li-dialogue">exp1-sub 2 (exp2)</li>
-					<li class="ui-li-dialogue">exp2-sub 1</li>
-					<li class="ui-li-dialogue">exp2-sub 2</li>
-					<div data-role="collapsible" data-inset="false">
-						<li class="ui-li-dialogue">exp2-sub 3</li>
-						<li class="ui-li-dialogue">
-							<span class="ui-li-text-main">2line</span>
-							<span class="ui-li-text-sub">Subtext</span>
-						</li>
-					</div>
-				</div>
-				
+				<li>Heading TEST</li>
+				<li>content1</li>
+				<li>content2</li>
+				<li>content3</li>
 			</div>
-			<li class="ui-li-dialogue">level 1</li>
-			<li class="ui-li-dialogue" data-expandable="true" id="exp4">
-				<span class="ui-li-text-main">2line-sub-main</span>
-				<span class="ui-li-text-sub">Subtext</span>
-			</li>
-			<li class="ui-li-has-radio ui-li-dialogue" data-expandable="true" id="exp5">
-				<form>
-				<input type="radio" name="collapsible-radio" />
-				<span class="ui-li-text-main">2line-radio1</span>
-				<span class="ui-li-text-sub">Subtext</span>
-				</form>
-			</li>
-			<li class="ui-li-dialogue" data-expandable="true" id="exp6">
-				<span class="ui-li-color-bar" style="background-color:rgba(72, 136, 42, 1);"></span>
-				<span class="ui-li-text-main">2line-colorbar3</span>
-				<span class="ui-li-text-sub">Subtext</span>
-				<!--<div data-role="button" data-inline="true" data-icon="call" data-style="circle"></div> -->
-				<img src="thumbnail.jpg" alt="icon" class="ui-li-bigicon">
+		</ul>
+		<p>3. Collapsible dialogue list example</p>
+		<ul data-role="listview">
+			<li class="ui-li-dialogue" data-role="collapsible" data-inset="false">
+				<h2>Dialogue Collapsible</h2>
+				<ul data-role="listview">
+					<li class="ui-li-dialogue">CONTENT1</li>
+					<li class="ui-li-dialogue">CONTENT2</li>
+				</ul>
 			</li>
 		</ul>
 	</div>

@@ -15,13 +15,27 @@
  *
  * ###HTML Examples
  *
- * ####Create using data-role
+ * ####Create collapsible div using data-role
  *
  *		@example
  *		<div id="collapsible" data-role="collapsible" data-inset="false">
  *			<h1>Collapsible head</h1>
  *			<div>Content</div>
  *		</div>
+ *
+ * ####Create collapsible list using data-role
+ *
+ *		@example
+ *		<ul data-role="listview">
+ *			<li data-role="collapsible" data-inset="false">
+ *				<h2>Collapsible head</h2>
+ *				<-- sub list -->
+ *				<ul data-role="listview">
+ *					<li>sub list item1</li>
+ *					<li>sub list item2</li>
+ *				</ul>
+ *			</li>
+ *		</ul>
  *
  * ####Create using class selector
  *
@@ -273,6 +287,9 @@
 					parentCollapsibleSet = selectors.getClosestBySelector(element, "[data-role='collapsible-set']"),
 					getDataFromParentSet = domUtils.getNSData.bind(null, parentCollapsibleSet);
 
+				if ((element.parentNode.tagName.toLowerCase() === "ul") && (element.tagName.toLowerCase() === "div")) {
+					ns.warn("Don't make the collapsible list using <div>. It violates standard of HTML rule. Instead of, please use <li>.");
+				}
 				elementClassList.add(classes.uiCollapsible);
 
 				// First child matching selector is collapsible header
@@ -360,7 +377,7 @@
 
 				header.appendChild(headerStatus);
 
-				domUtils.wrapInHTML(header.childNodes, "<a href='#' class='" + classes.uiCollapsibleHeadingToggle + "'></a>");
+				domUtils.wrapInHTML(header.childNodes, "<a class='" + classes.uiCollapsibleHeadingToggle + "'></a>");
 				headerLink = header.firstElementChild;
 				headerLinkClassList = headerLink.classList;
 
