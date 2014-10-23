@@ -36,7 +36,7 @@
 	</Themes>
 	<Themes name="C">
 		<Theme index="105">
-			<InputColorInfo hue="73" saturation="100" value="70"/>
+			<InputColorInfo hue="86" saturation="100" value="73"/>
 		</Theme>
 		<Theme index="106">
 			<InputColorInfo hue="73" saturation="100" value="62"/>
@@ -113,7 +113,7 @@
 			<InputColorInfo hue="207" saturation="100" value="65"/>
 		</Theme>
 		<Theme index="0">
-			<InputColorInfo hue="213" saturation="98" value="52"/>
+			<InputColorInfo hue="213" saturation="100" value="70"/>
 		</Theme>
 		<Theme index="17">
 			<InputColorInfo hue="233" saturation="75" value="42"/>
