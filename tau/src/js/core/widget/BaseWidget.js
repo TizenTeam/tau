@@ -178,14 +178,6 @@
 					return this;
 				},
 				prototype = {},
-				classes = {
-					focusPrefix: "ui-focus-",
-					blurPrefix: "ui-blur-",
-					up: "up",
-					down: "down",
-					left: "left",
-					right: "right"
-				},
 				/**
 				 * Property with string represent function type 
 				 * (for better minification)
@@ -451,35 +443,6 @@
 				return self;
 			};
 
-			function removeAnimationClasses(element, prefix) {
-				var elementClasses = element.classList;
-				elementClasses.remove(prefix + classes.left);
-				elementClasses.remove(prefix + classes.up);
-				elementClasses.remove(prefix + classes.right);
-				elementClasses.remove(prefix + classes.down);
-			}
-
-			prototype._prepareAnimation = function(eventType, options) {
-				var element = this.element,
-					direction = options.direction;
-
-				switch(eventType) {
-					case "focus":
-						removeAnimationClasses(element, classes.blurPrefix);
-						removeAnimationClasses(element, classes.focusPrefix);
-						if (direction) {
-							element.classList.add(classes.focusPrefix + direction);
-						}
-						break;
-					case "blur":
-						removeAnimationClasses(element, classes.focusPrefix);
-						removeAnimationClasses(element, classes.blurPrefix);
-						if (direction) {
-							element.classList.add(classes.blurPrefix + direction);
-						}
-						break;
-				}
-			};
 			/**
 			 * Focus widget's element.
 			 *
@@ -496,19 +459,23 @@
 			prototype.focus = function (options) {
 				var self = this,
 					element = self.element,
-					blurElement = options.previousElement,
+					blurElement,
 					blurWidget;
+
+				options = options || {};
 
 				if (self.isDisabled()) {
 					// widget is disabled, so we cannot set focus
 					return false;
 				}
 
+				blurElement = options.previousElement;
 				// we try to blur element, which has focus previously
 				if (blurElement) {
 					blurWidget = engine.getBinding(blurElement);
 					// call blur function on widget
 					if (blurWidget) {
+						options = objectUtils.merge({}, options, {element: blurElement});
 						blurWidget.blur(options);
 					} else {
 						// or on element, if widget does not exist
@@ -516,10 +483,10 @@
 					}
 				}
 
+				options = objectUtils.merge({}, options, {element: element});
+
 				// set focus on element
-				if (typeof this._prepareAnimation === TYPE_FUNCTION) {
-					this._prepareAnimation("focus", options || {});
-				}
+				eventUtils.trigger(document, "taufocus", options);
 				element.focus();
 
 				return true;
@@ -544,9 +511,10 @@
 					return false;
 				}
 
-				if (typeof this._prepareAnimation === TYPE_FUNCTION) {
-					this._prepareAnimation("blur", options || {});
-				}
+				options = objectUtils.merge({}, options, {element: element});
+
+				// blur element
+				eventUtils.trigger(document, "taublur", options);
 				element.blur();
 				return true;
 			};
