@@ -370,13 +370,6 @@
 	padding: 1 * @unit_base;
 }
 
-.ui-btn.ui-btn-corner-all.ui-btn-box-s {
-	&.ui-btn-block .ui-btn-inner{
-		top: 6 * @unit_base;
-	}
-}
-
-
 .ui-btn-box-s.ui-btn-down-s {
 	.ui-btn-inner {
 		.LESSbutton_down_style;
@@ -486,6 +479,10 @@ a.ui-link-inherit {
 		.ui-btn-box-s.ui-btn-down-s {
 			.core_button_bg_pressed();
 			background-color: @color_button_bg_press;
+		}
+
+		.ui-btn-inner.ui-btn-icon-only {
+			top: 7.5 * @unit_base;
 		}
 	}
 }
