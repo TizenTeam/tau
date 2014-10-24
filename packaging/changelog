@@ -1,4 +1,152 @@
 %changelog
+* Fri Oct 24 2014 Junhyeon Lee <juneh.lee@samsung.com> 0.9.27
+	- Mobile: fixed broken button styles
+	- Mobile: modify listview background color code value
+	- [Integrate] removed wearable selector collections.
+	- Build : modify build spec file
+	- KIRAN: apply to latest changable xml files
+	- KIRAN: apply latest GUI to button widget
+	- KIRAN: apply latest GUI guide to header buttons
+	- KIRAN: add swipe open feature to Drawer
+	- [Mobile Multi Page Sample] fix receiving back key event when popup is opened.
+	- Mobile : modify each sample apps config files
+	- [Core, TV] Added documentation for Drawer
+	- [DOCS] Change mobile example window to 480x800
+	- Developer Guide: How to create own widget
+	- TV: fixes for style of context popup
+	- Slider: fixes for handler in the slider
+	- TV: fixes for animated focus
+	- BaseWidget: add function _focus and _blur
+	- [TV] Corrected tests for a Checkboxradio
+	- [Core, TV] Corrected tests for Listview
+	- [TV] All list elements in TV demo: Containers->List->Basic Multiline List are now focusable
+	- [TV] Corrected tests for a Listdivider
+	- [TV] Corrected tests for a Textinput
+	- KIRAN : Implementation of toggleswitch with support for slider
+	- Add new TAU release script
+	- KIRAN : Apply to latest changeable XML files
+	- Modify git address for webuifw in release script
+	- [TV, Mobile] Added documentation for Checkboxradio. Minor fixex in Checkboxradio HTMLs and js.
+	- [DOCS] Routing example fixed
+	- [DOCS] DevSite: changed close link to a button for visuals
+	- [DOCS] DevSite: tutorial fixes
+	- [DOCS] Developer guide, advanced ui layout article fixes
+	- [DOCS] Developer guide, page routing article fixes
+	- Wearable: fixed incorrect spell of swipelist
+	- [TV] Documentation for PageContainer.
+	- [TV] LINUXTWUI-1350 Provided additional selector.
+	- engine: fix error in engine test
+	- [core] disable some mobile tests on tv profile
+	- ContextPopup: add tests for ContextPopup
+	- [TEST] Popup: fixes for profiles wearable and tv
+	- [TV] fix problem with focusable list divider
+	- [MOBILE] VirtualGrid: fix for application
+	- BaseKeyboardSupport: fix problem with selectors for links
+	- [TV] Minor fixes in list examples
+	- [TV] Bug fix LINUXTWUI-1351 Missing ui-listview class after widget build
+	- MobileWinset: remove unnecessary js files
+	- KIRAN: modify popup width and left position on landscape mode
+	- [FIX] Notification: fixed typo in documentation
+	- [DOCS] Introduction to widgets
+	- [Test] gesture.utils tests, cleaning gesture.utils from whitespaces
+	- [DOCS] Developer guide, static tau library for example code
+	- [DOCS] Developer guide, disabled dropdown links (opening links)
+	- [Wearable] VirtualListview: trims elements when buffer size is greater than data length
+	- [TV] Documentation for TextInput widget
+	- [TV] animated focus
+	- [TV] Add animated focus
+	- TVDemo: remove privilege setting and tizen setting in config file
+	- [Wearable] SectionChanger widget tests
+	- [TV] Fixes according to jshint
+	- [SectionChanger] setActiveSection notify changed section
+	- [FIX] BaseKeyboardSupport: use computed style to find active links
+	- [TV] Added documentation for Page widget.
+	- [TV] Qunits for TextInput added
+	- [TV] Added documentation for Slider widget.
+	- [CORE] Minor fix in theme.js and ContextPopup.js
+	- [MOBILE] VirtualGrid: Fix a problem with wrong using this._ui object.
+	- vmouse: add properties connected with position for keyboard events
+	- [TV] Fixed Drawer according to jshint
+	- [TV] Tests for Checkboxradio widget
+	- [TV] Fix merge problem in keyboard support module
+	- [DOCS] add generating tv documentation
+	- [TEST] Scroller
+	- Mobile : modify init method that calculate width and height
+	- [TEST] pageContainer: fix testcase for pageContainer (wearable)
+	- [TEST] VirtualListview: fix testcase for VirtualListview (wearable)
+	- [TV] Qunits for Listview widget added
+	- jQM Event: Fixed exception when changing screen orientation
+	- [TV] Fixes according to jshint
+	- [TV] Page: fix a problem with building page without content
+	- tools: new features in doc generator
+	- [TEST] wearable.IndexScrollBar: enable tests and fix errors
+	- DOM.attributes: fix problem in nsData method
+	- [TV] fix a problems in tests
+	- MigrationGuide: Fix links and preview
+	- [DOCS] Developer guide fixes
+	- [TV] Fix code according to jshint
+	- [TV] Added tests for slider.
+	- [TV] Add tabbar widget in TV profile
+	- [DOCS] Developer Guide fixes for paths
+	- Engine: fix startup timing
+	- Slider: fix problem with popup
+	- Slider: fix problem with keyboard
+	- [DOCS] Developer Guide - Framework Profiles
+	- [TV] Added tests for ListDivider
+	- [TV,TEST] Added tests for Progress widget
+	- [TV] Tests for Drawer added
+	- IndexScrollBar: Multitouch move issue with vmouse
+	- Wearable: apply changeable to swipelist
+	- [CORE] Popup: change position of arrow
+	- Popup: add tests for popup to 100% coverage
+	- [wearable] page: fix calculate of page size
+	- Popup: additional test and fixes in code
+	- MigrationGuide: Fix links
+	- [DOCS] Developer guide, tizen web dev link
+	- [DOCS] Developer guide, license and footer
+	- [DOCS] Developer Guide - Notepad tutorial
+	- [DOCS] Developer Guide - Gallery tutorial
+	- [DOCS] Developer guide, api doc change to jsduck
+	- [DOCS] Developer guide, clock tutorial
+	- DeveloperGuide: Extract markdown comments from files
+	- DeveloperGuide: Using JQuery with TAU
+	- [wearable][test] VirtualList: change constant values to calculeted values
+	- util.array: fix errors found in tests and add test to 100% coverage
+	- event: fix errors found in tests and add test to 100% coverage
+	- Mobile: initialize firstPage variable (NABI-1019)
+	- [TV] fix layout of profile
+	- [DOCS] Developer guide, introduction to widgets
+	- [DOCS] Developer guide, grunt fixes
+	- [DOCS] Developer Guide site, page routing
+	- MigrationGuide: several fixes after merge
+	- [TEST] DOM: add tests for methods getElementOffset and isOccupiedPlace
+	- [Wearable] Updated tests for SwipeList widget (timing differ)
+	- [TEST] object: add tests for merge a inherit methods
+	- MigrationGuide: Breaking changes
+	- MigrationGuide: 3.4 Keeping old Web UI Framework
+	- MigrationGuide: 3.3 Moving from jQuery Mobile to pure TAU
+	- MigrationGuide: 3.2 Stay with jQuery Mobile
+	- Button: Fix setValue method
+	- [test] tests for wearable.defaults
+	- MigrationGuide: Switching apps to TAU
+	- [DOCS] Added framework version to all docs
+	- MigrationGuide: Features overview - framework flow
+	- TV: Tests profile for TV
+	- [TEST] wearable.ToggleSwitch: test of building widget
+	- MigrationGuide: Features overview
+	- [Wearable] SwipeList widget tests
+	- Collapsible: fix for disable/enable css styles of widget
+	- [Integrate] removed util.js in wearable profile.
+	- Popup: Fix problem with checking if element is a popup
+	- [MOBILE] Scroll Handler: hide native scrollbar offset
+	- [Integrate] deleted unused popup files.
+	- Added tests for Button.
+	- MigrationGuide: Styles for tables
+	- Loader: missing selector in routing
+	- MigrationGuide: Initial TOC
+	- Wearable: sync background-color and image (GSDK_SE-2912)
+	- ProgressBar: Issue progressBar value
+
 * Mon Sep 29 2014 Heeju Joo <heeju.joo@samsung.com> 0.9.26
 	- Update tau version in package.json (0.9.25)
 	- Revert "[wearable] Page: fix a problem with calculation of height"
