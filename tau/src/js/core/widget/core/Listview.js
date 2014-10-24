@@ -56,7 +56,7 @@
  *
  * Listview widget hasn't JavaScript API.
  *
- * @class ns.widget.wearable.Listview
+ * @class ns.widget.core.Listview
  * @extends ns.widget.BaseWidget
  */
 (function (document, ns) {
@@ -94,11 +94,61 @@
 			* @private
 			* @param {HTMLElement} element
 			* @return {HTMLElement}
-			* @member ns.widget.wearable.Listview
+			* @member ns.widget.core.Listview
 			*/
 			prototype._build = function (element) {
+				rebuild(this, element);
+				return element;
+			};
+
+			/**
+			* Init Listview Widget
+			* @method _init
+			* @param {HTMLElement} element
+			* @member ns.widget.core.Listview
+			* @protected
+			*/
+			prototype._init = function (element) {
+				return element;
+			};
+
+			/**
+			* Bind events to widget
+			* @method _bindEvents
+			* @param {HTMLElement} element
+			* @member ns.widget.core.Listview
+			* @protected
+			*/
+			prototype._bindEvents = function (element) {
+				return element;
+			};
+
+			/**
+			* refresh structure
+			* @method _refresh
+			* @return {HTMLElement}
+			* @member ns.widget.core.Listview
+			*/
+			prototype._refresh = function () {
 				var self = this,
-					items = element.children,
+					element = self.element;
+
+				rebuild(self, element);
+
+				return element;
+			};
+
+			/**
+			 * Method rebuild widget.
+			 * @method rebuild
+			 * @param {Listview} self
+			 * @param {HTMLElement} element
+			 * @private
+			 * @static
+			 * @member ns.widget.core.Listview
+			 */
+			function rebuild(self, element) {
+				var items = element.children,
 					itemsLength = items.length,
 					item,
 					i;
@@ -111,32 +161,12 @@
 						self._changeLinksToButton(item.firstElementChild);
 					}
 				}
-
-				return element;
-			};
-
-			prototype._init = function (element) {
-				return element;
-			};
-
-			prototype._bindEvents = function (element) {
-				return element;
-			};
-
-			/**
-			* refresh structure
-			* @method _refresh
-			* @new
-			* @member ns.widget.wearable.Listview
-			*/
-			prototype._refresh = function () {
-				return null;
-			};
+			}
 
 			/**
 			* @method _destroy
 			* @private
-			* @member ns.widget.wearable.Listview
+			* @member ns.widget.core.Listview
 			*/
 			prototype._destroy = function () {
 				return null;
