@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ChangeableColorTable num="1">
 	<Theme style="Dark">
-		<ChangeableColorInfo id="C001" inputColor="1" hue="-1" saturation="-80" value="34" alpha="40" />
-		<ChangeableColorInfo id="C002" inputColor="1" hue="0" saturation="-46" value="17" alpha="18" />
+		<ChangeableColorInfo id="C001" inputColor="1" hue="0" saturation="-87" value="30" alpha="100" />
+		<ChangeableColorInfo id="C002" inputColor="1" hue="0" saturation="-80" value="27" alpha="100" />
 		<ChangeableColorInfo id="B011" inputColor="1" hue="0" saturation="0" value="0" alpha="100" />
 		<ChangeableColorInfo id="B015" inputColor="-" hue="0" saturation="0" value="0" alpha="40" fixedHue="true" fixedSaturation="true" fixedValue="true" />
 		<ChangeableColorInfo id="B016" inputColor="-" hue="0" saturation="0" value="0" alpha="40" fixedHue="true" fixedSaturation="true" fixedValue="true" />
