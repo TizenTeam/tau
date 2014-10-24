@@ -360,11 +360,12 @@
 					PageClasses = Page.classes,
 					uiPageClass = PageClasses.uiPage,
 					uiPageActiveClass = PageClasses.uiPageActive,
+					pageDefinition = ns.engine.getWidgetDefinition('Page') || ns.engine.getWidgetDefinition('page'),
 					self = this;
 
 				body = document.body;
 				containerElement = ns.getConfig("pageContainer") || body;
-				pages = slice.call(containerElement.querySelectorAll("." + uiPageClass));
+				pages = slice.call(containerElement.querySelectorAll(pageDefinition.selector));
 				self.justBuild = justBuild;
 
 				if (ns.getConfig("autoInitializePage", true)) {

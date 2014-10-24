@@ -78,6 +78,18 @@ document.addEventListener('DOMContentLoaded', function () {
 		router.open('#secondPage');
 	});
 
+	asyncTest('open enbedded #thirdPage', function () {
+		var onPageShow = function () {
+				start();
+				equal(router.container.activePage.element, document.getElementById('thirdPage'), 'router.open("#thirdPage")');
+				document.removeEventListener('pageshow', onPageShow, true);
+			};
+		ej.set('autoInitializePage', false);
+		router.init();
+		document.addEventListener('pageshow', onPageShow, true);
+		router.open('#thirdPage');
+	});
+
 /*
  * #issue: event.which is never equal 1 in method linkClickHandler
  */
