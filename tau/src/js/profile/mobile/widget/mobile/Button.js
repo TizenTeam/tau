@@ -1110,26 +1110,6 @@
 				}
 			};
 
-			/**
-			 * Removes the button functionality completely.
-			 *
-			 * This will return the element back to its pre-init state.
-			 *
-			 *	@example
-			 *	<script>
-			 *		var buttonWidget = tau.widget.Button(document.getElementById("button"));
-			 *		buttonWidget.destroy();
-			 *	</script>
-			 *
-			 *	@example
-			 *	<script>
-			 *		$( "#button" ).button( "destroy" );
-			 *	</script>
-			 *
-			 * @method destroy
-			 * @member ns.widget.mobile.Button
-			 */
-
 			// definition
 			//@todo bring back ui-btn selector and refactor _build method to make it more intelligent for checking if structure is build
 			ns.widget.mobile.Button = Button;

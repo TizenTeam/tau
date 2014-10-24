@@ -26,7 +26,7 @@
  * documentation of profiles
  *
  * @class ns.widget.core.Drawer
- * @extends ns.widget.mobile.BaseWidgetMobile
+ * @extends ns.widget.BaseWidget
  * @author Hyeoncheol Choi <hc7.choi@samsung.com>
  */
 (function (document, ns) {
@@ -43,12 +43,12 @@
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 			/**
-			 * @property {Object} Widget Alias for {@link ns.widget.mobile.BaseWidgetMobile}
+			 * @property {Object} Widget Alias for {@link ns.widget.BaseWidget}
 			 * @member ns.widget.core.Drawer
 			 * @private
 			 * @static
 			 */
-			var BaseWidget = ns.widget.mobile.BaseWidgetMobile,
+			var BaseWidget = ns.widget.BaseWidget,
 				/**
 				 * @property {Object} selectors Alias for class ns.util.selectors
 				 * @member ns.widget.core.Drawer

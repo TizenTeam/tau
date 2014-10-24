@@ -123,13 +123,16 @@
 			prototype._destroy = function() {
 				var self = this,
 					background = self.ui.background,
-					transitionend;
+					transitionend,
+					BaseButtonPrototype_destroy = BaseButtonPrototype._destroy;
 
 				transitionend = self._callbacks.transitionend;
 				background.removeEventListener("transitionend", transitionend, false);
 				background.removeEventListener("webkitTransitionEnd", transitionend, false);
 
-				BaseButtonPrototype._destroy.call(self);
+				if (typeof BaseButtonPrototype_destroy === FUNCTION_TYPE) {
+					BaseButtonPrototype_destroy.call(self);
+				}
 			};
 
 			engine.defineWidget(
