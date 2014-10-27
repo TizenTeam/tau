@@ -67,13 +67,8 @@
 			padding: 0;
 			float: left;
 		}
-		input[type="checkbox"] + label,
-		input[type="radio"] + label {
-			position: absolute;
-			right: 32 * @virtual_px;
-			top: 0 * @virtual_px;
-			margin-top: 32 * @virtual_px;
-			float: right;
+		.checkboxradio-container {
+			position: relative;
 		}
 		.li-text-sub {
 			display: block;
@@ -157,4 +152,12 @@
 .ui-content > .ui-scrollview-view > .ui-listview,
 {
 	margin: -@fixed_header_title_margin;
+}
+
+div[data-role="popup"] .ui-listview {
+	.li-has-checkbox,
+	.li-has-radio {
+		border-bottom-style: solid;
+		border-bottom-width: thick;
+	}
 }

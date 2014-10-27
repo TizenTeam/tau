@@ -7,11 +7,12 @@
 
 .basic-label() {
     display: inline-block;
+    height: 38 * @virtual_px;
     line-height: 38 * @virtual_px;
     margin-left: -38 * @virtual_px;
-    padding-left: 38 * @virtual_px;
-	height: 38 * @virtual_px;
-	min-width: 38 * @virtual_px;
+    min-width: 38 * @virtual_px;
+    padding-bottom: 38 * @virtual_px;
+    padding-left: 57 * @virtual_px;
 }
 
 input[type=checkbox] {
@@ -38,14 +39,12 @@ input[type=checkbox] {
     }
 }
 
-input[type=checkbox]:focus {
-    .basic-checkboxradio();
+input[type=checkbox]:focus,
+input[type=checkbox].focus {
     &:checked + label {
-        .basic-label();
         background: url('images/Checkboxradio/checkbox_check_foc.png') no-repeat 0 0;
     }
     & + label {
-        .basic-label();
         background: url('images/Checkboxradio/checkbox_uncheck_foc.png') no-repeat 0 0;
     }
 }
@@ -84,4 +83,8 @@ input[type=radio].focus {
         .basic-label();
         background: url('images/Checkboxradio/radiobtn_off_foc.png') no-repeat 0 0;
     }
+}
+
+.checkboxradio-container {
+	height: 32 * @virtual_px;
 }

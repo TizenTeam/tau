@@ -582,6 +582,7 @@
 			 * Check if widget is disabled.
 			 * @method isDisabled
 			 * @member ns.widget.BaseWidget
+			 * @return {boolean} Returns true if widget is disabled
 			 */
 			prototype.isDisabled = function () {
 				var self = this;

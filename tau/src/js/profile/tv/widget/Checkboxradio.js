@@ -24,6 +24,7 @@
 			"../tv",
 			"../../../profile/mobile/widget/mobile/Checkboxradio",
 			"../../../core/engine",
+			"../../../core/util/selectors",
 			"./BaseKeyboardSupport"
 		],
 		function () {
@@ -56,7 +57,9 @@
 				 * @readonly
 				 */
 				classes = {
-					focused: "focus"
+					focused: "focus",
+					container: "checkboxradio-container",
+					checkboxradioInListview: "checkboxradio-in-listview",
 				},
 				/**
 				 * {Constant} Constant describing type of functions
@@ -83,6 +86,23 @@
 					enter: 13
 				},
 				/**
+				 * {string} Class name of checkboxradioInListview
+				 * @member ns.widget.tv.Checkboxradio
+				 * @private
+				 * @static
+				 * @readonly
+				 */
+				classInListview = classes.checkboxradioInListview,
+				/**
+				 * {string} Active selector - for keyboard support
+				 * @member ns.widget.tv.Checkboxradio
+				 * @private
+				 * @static
+				 * @readonly
+				 */
+				activeSelector = "input[type='radio']:not([disabled]):not(." + classInListview + "), "
+					+ "[type='checkbox']:not([disabled]):not(." + classInListview + ")",
+				/**
 				 * {Object} Checkboxradio widget prototype
 				 * @member ns.widget.tv.Checkboxradio
 				 * @private
@@ -91,6 +111,7 @@
 				prototype = new MobileCheckboxradio();
 
 			Checkboxradio.prototype = prototype;
+			Checkboxradio.classes = classes;
 
 			/**
 			 * Builds structure of checkboxradio widget
@@ -102,6 +123,9 @@
 			 */
 			prototype._build = function(element) {
 				wrapInput(element);
+				if (isInListview(element)) {
+					element.classList.add(classInListview);
+				}
 				return element;
 			};
 
@@ -113,10 +137,20 @@
 			 * @member ns.widget.tv.Checkboxradio
 			 */
 			prototype._bindEvents = function(element) {
+				var focusablePredecessor,
+					parentNode;
+
 				document.addEventListener("keyup", this, false);
 
-				if (element.type === "radio") {
-					var parentNode = element.parentNode;
+				if (element.classList.contains(classInListview)) {
+					focusablePredecessor = getInnerFocusablePredecessor(element);
+					if (focusablePredecessor !== null) {
+						focusablePredecessor.addEventListener("keyup", onKeydownContainer, false);
+						focusablePredecessor.addEventListener("focus", onFocusContainer, false);
+						focusablePredecessor.addEventListener("blur", onBlurContainer, false);
+					}
+				} else if (element.type === "radio") {
+					parentNode = element.parentNode;
 					parentNode.addEventListener("keyup", onKeydownContainer, false);
 					parentNode.addEventListener("focus", onFocusContainer, false);
 					parentNode.addEventListener("blur", onBlurContainer, false);
@@ -133,8 +167,18 @@
 			 * @member ns.widget.tv.Checkboxradio
 			 */
 			prototype._destroy = function(element) {
-				if (element.type === "radio") {
-					var parentNode = element.parentNode;
+				var focusablePredecessor,
+					parentNode;
+
+				if (element.classList.contains(classInListview)) {
+					focusablePredecessor = getInnerFocusablePredecessor(element);
+					if (focusablePredecessor !== null) {
+						focusablePredecessor.removeEventListener("keyup", onKeydownContainer, false);
+						focusablePredecessor.removeEventListener("focus", onFocusContainer, false);
+						focusablePredecessor.removeEventListener("blur", onBlurContainer, false);
+					}
+				} else if (element.type === "radio") {
+					parentNode = element.parentNode;
 					parentNode.removeEventListener("keyup", onKeydownContainer, false);
 					parentNode.removeEventListener("focus", onFocusContainer, false);
 					parentNode.removeEventListener("blur", onBlurContainer, false);
@@ -143,7 +187,6 @@
 				}
 
 				document.removeEventListener("keyup", this, false);
-
 			};
 
 			/**
@@ -179,23 +222,24 @@
 			function wrapInput(element) {
 				var container = document.createElement("span"),
 					parent = element.parentNode,
-					label = getLabelForInput(parent, element.id);
+					label = getLabelForInput(parent, element.id),
+					disabled = element.disabled;
 
 				parent.replaceChild(container, element);
 				container.appendChild(element);
 
 				if (label) {
 					label.style.display = "inline-block";
-					if (element.disabled) {
+					if (disabled) {
 						// make label not focusable (remove button class)
 						label.className = "";
 					}
 					container.appendChild(label);
 				}
 
-				if ((element.type === "radio") && (!element.disabled)) {
+				container.className = classes.container;
+				if ((!disabled) && (element.type === "radio") && (!element.classList.contains(classInListview))) {
 					container.setAttribute("tabindex", 0);
-					container.className = "radio-container";
 				}
 			}
 
@@ -219,23 +263,26 @@
 			}
 
 			/**
-			 * Returns radio button stored in container or null
-			 * @method findRadioInContainer
+			 * Returns radiobutton / checkbox stored in a container or null
+			 * @method findRadioCheckboxInContainer
 			 * @param {HTMLElement} container
 			 * @return {HTMLInputElement} Returns radio button stored in container or null
 			 * @private
 			 * @static
 			 * @member ns.widget.tv.Checkboxradio
 			 */
-			function findRadioInContainer (container) {
-				var children = container.getElementsByTagName("input"),
-					length = children.length,
-					child = null,
+			function findRadioCheckboxInContainer (container) {
+				var ancestors = container.getElementsByTagName("input"),
+					length = ancestors.length,
+					ancestor,
+					type,
 					i;
+
 				for (i = 0; i < length; i++) {
-					child = children[i];
-					if (child.type === "radio") {
-						return child;
+					ancestor = ancestors[i];
+					type = ancestor.type;
+					if ((type === "radio") || (type === "checkbox")) {
+						return ancestor;
 					}
 				}
 				return null;
@@ -250,16 +297,14 @@
 			 * @member ns.widget.tv.Checkboxradio
 			 */
 			function onKeydownContainer(event) {
-				var element = event.target,
-					radio = null;
-				if (element) {
-					if (event.keyCode === KEY_CODES.enter) {
-						radio = findRadioInContainer(element);
-						if (radio) {
-							radio.checked = !radio.checked;
-							event.stopPropagation();
-							event.preventDefault();
-						}
+				var checkboxradio;
+				if (event.keyCode === KEY_CODES.enter) {
+					// event.target is a container
+					checkboxradio = findRadioCheckboxInContainer(event.target);
+					if (checkboxradio && (!checkboxradio.disabled)) {
+						checkboxradio.checked = !checkboxradio.checked;
+						event.stopPropagation();
+						event.preventDefault();
 					}
 				}
 			}
@@ -273,15 +318,13 @@
 			 * @member ns.widget.tv.Checkboxradio
 			 */
 			function onFocusContainer(event) {
-				var element = event.target,
-					radio = null;
-				if (element) {
-					radio = findRadioInContainer(element);
-					if (radio) {
-						radio.classList.add(classes.focused);
-						event.stopPropagation();
-						event.preventDefault();
-					}
+				// event.target is a container
+				var checkboxradio = findRadioCheckboxInContainer(event.target);
+				if (checkboxradio && (!checkboxradio.disabled)) {
+					checkboxradio.parentNode.focus();
+					checkboxradio.classList.add(classes.focused);
+					event.stopPropagation();
+					event.preventDefault();
 				}
 			}
 
@@ -294,14 +337,47 @@
 			 * @member ns.widget.tv.Checkboxradio
 			 */
 			function onBlurContainer(event) {
-				var element = event.target,
-					radio = null;
-				if (element) {
-					radio = findRadioInContainer(element);
-					if (radio) {
-						radio.classList.remove(classes.focused);
+				// event.target is a container
+				var checkboxradio = findRadioCheckboxInContainer(event.target);
+				if (checkboxradio && (!checkboxradio.disabled)) {
+					checkboxradio.parentNode.blur();
+					checkboxradio.classList.remove(classes.focused);
+				}
+			}
+
+			/**
+			 * Method returns first focusable predecessor of
+			 * checkboxradio with class name classes.inner
+			 * @method getInnerFocusablePredecessor
+			 * @param {HTMLElement} Element
+			 * @private
+			 * @static
+			 * @member ns.widget.tv.Checkboxradio
+			 */
+			function getInnerFocusablePredecessor (element) {
+				var predecessor = element.parentNode;
+				while (predecessor.getAttribute("tabindex") === null) {
+					predecessor = predecessor.parentNode;
+					if (predecessor === undefined) {
+						return null;
 					}
 				}
+				return predecessor;
+			}
+
+			/**
+			 * Checks if checkboxradio is in a listview
+			 * @method isInListview
+			 * @param {HTMLElement} Element
+			 * @return {boolean} True if an element is in a listview
+			 * @private
+			 * @static
+			 * @member ns.widget.tv.Checkboxradio
+			 */
+			function isInListview (element) {
+				var selector = engine.getWidgetDefinition("Listview").selector;
+
+				return (ns.util.selectors.getClosestBySelector(element, selector) !== null);
 			}
 
 			// definition
@@ -316,7 +392,7 @@
 				true
 			);
 
-			BaseKeyboardSupport.registerActiveSelector("input[type='radio'],[type='checkbox']");
+			BaseKeyboardSupport.registerActiveSelector(activeSelector);
 
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return ns.widget.tv.Checkboxradio;

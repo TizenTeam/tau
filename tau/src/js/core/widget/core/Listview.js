@@ -81,6 +81,8 @@
 
 			Listview.events = {};
 
+			Listview.classes = classes;
+
 			prototype._changeLinksToButton = function(item) {
 				engine.instanceWidget(
 					item,
