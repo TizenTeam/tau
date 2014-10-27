@@ -504,7 +504,7 @@
 			 */
 			prototype.blur = function (options) {
 				var self = this,
-					element = this.element;
+					element = self.element;
 
 				if (self.isDisabled()) {
 					// widget is disabled, so we cannot blur it
@@ -569,11 +569,10 @@
 			 */
 			prototype.disable = function () {
 				var self = this,
-					element = self.element,
 					args = slice.call(arguments);
 
 				if (typeof self._disable === TYPE_FUNCTION) {
-					args.unshift(element);
+					args.unshift(self.element);
 					self._disable.apply(self, args);
 				}
 				return this;
@@ -606,11 +605,10 @@
 			 */
 			prototype.enable = function () {
 				var self = this,
-					element = self.element,
 					args = slice.call(arguments);
 
 				if (typeof self._enable === TYPE_FUNCTION) {
-					args.unshift(element);
+					args.unshift(self.element);
 					self._enable.apply(self, args);
 				}
 				return this;
