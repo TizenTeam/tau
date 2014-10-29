@@ -669,20 +669,11 @@ module.exports = function(grunt) {
 					tasks : [ "requirejs" ]
 				},
 
-				wearableCss: {
-					files : [ "src/css/profile/wearable/**/*.less" ],
-					tasks : [ "less:wearable" ]
-				},
-
-				mobileCss: {
-					files : [ "src/css/profile/mobile/**/*.less" ],
-					tasks : [ "less:mobile" ]
-				},
-
-				image: {
-					files : [ "src/css/profile/**/*.png" ],
-					tasks : [ "image" ]
+				css: {
+					files : [ "src/css/profile/**/*.less", "src/css/profile/**/*.png" ],
+					tasks : ["css"]
 				}
+
 			},
 
 			debug: {
