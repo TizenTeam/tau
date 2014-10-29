@@ -1,4 +1,4 @@
-/*global window, define */
+/*global window, define, ns */
 /*
 * Copyright  2010 - 2014 Samsung Electronics Co., Ltd.
 * License : MIT License V2
@@ -6,7 +6,7 @@
 /*jslint nomen: true, plusplus: true */
 /**
  * #Tab Bar Widget
- * The tabbar widget shows an unordered list of buttons on the screen wrapped
+ * The tabbar widget shows an unordered list of tabs on the screen wrapped
  * together in a single group.
  *
  * This widget can be placed in the header or footer of page.
@@ -166,13 +166,11 @@
 			"../../../../core/event/vmouse",
 			"../../../../core/widget/core/Scrollview",
 			"../mobile",  // fetch namespace
-			"./BaseWidgetMobile",
-			"./Button"
+			"./BaseWidgetMobile"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
-			var ButtonClasses = ns.widget.mobile.Button.classes,
-				BaseWidget = ns.widget.mobile.BaseWidgetMobile,
+			var BaseWidget = ns.widget.mobile.BaseWidgetMobile,
 				Scrollview = ns.widget.core.Scrollview,
 				engine = ns.engine,
 				selectors = ns.util.selectors,
@@ -185,10 +183,10 @@
 					/**
 					 * Object with default options
 					 * @property {Object} options
-					 * @property {string} [options.active="0"] Number of activated button.
+					 * @property {string} [options.active="0"] Number of activated tab.
 					 * @property {string} [options.autoChange=true] Defined if widget should set
-					 * activated button after click event.
-					 * @property {string} [options.iconpos="top"] Position of icon in buttons.
+					 * activated tab after click event.
+					 * @property {string} [options.iconpos="top"] Position of icon in tabs.
 					 * @property {string} [options.grid=null] Type of grid.
 					 * @member ns.widget.mobile.TabBar
 					 */
@@ -223,7 +221,14 @@
 					uiTabbarPersist: "ui-tabbar-persist",
 					uiTabbar: "ui-tabbar",
 					uiPortraitTabbar: "ui-portrait-tabbar",
-					uiLandscapeTabbar: "ui-landscape-tabbar"
+					uiLandscapeTabbar: "ui-landscape-tabbar",
+					uiTabbarLink: "ui-tabbar-link",
+					uiTabbarText: "ui-tabbar-text",
+					uiTabbarIcon: "ui-tabbar-icon",
+					uiTabActive: "ui-tab-active",
+					uiDisabled: "ui-disabled",
+					uiIconPrefix: "ui-icon-",
+					uiTabbarIconposPrefix: "ui-tabbar-icon-"
 				};
 
 			TabBar.prototype = new BaseWidget();
@@ -254,55 +259,55 @@
 			/**
 			 * Active scrollable tabbar.
 			 * @method activateScrollableTabbar
-			 * @param {Array} buttons
-			 * @param {HTMLElement} activatedButton
+			 * @param {Array} tabs
+			 * @param {HTMLElement} activatedTab
 			 * @member ns.widget.mobile.TabBar
 			 * @static
 			 * @private
 			 */
-			function activateScrollableTabbar(buttons, activatedButton) {
-				var length = buttons.length,
+			function activateScrollableTabbar(tabs, activatedTab) {
+				var length = tabs.length,
 					i;
 
 				for (i = 0; i < length; i++) {
-					buttons[i].classList.remove(classes.uiTabbarActive);
+					tabs[i].classList.remove(classes.uiTabbarActive);
 				}
 				/*
 				* In original file btnActiveClass is always added.
-				* Here, if button is disabled, this class will not be added
+				* Here, if tab is disabled, this class will not be added
 				*/
-				if (activatedButton) {
-					activatedButton.classList.add(classes.uiTabbarActive);
+				if (activatedTab) {
+					activatedTab.classList.add(classes.uiTabbarActive);
 				}
 			}
 
 			/**
 			 * Active tabbar, which is not scrollable..
 			 * @method activateUnscrollableTabbar
-			 * @param {Array} buttons
-			 * @param {HTMLElement} activatedButton
+			 * @param {Array} tabs
+			 * @param {HTMLElement} activatedTab
 			 * @member ns.widget.mobile.TabBar
 			 * @static
 			 * @private
 			 */
-			function activateUnscrollableTabbar(buttons, activatedButton) {
-				var btnActiveClass = ButtonClasses.uiBtnActive,
-					buttonClasses,
-					length = buttons.length,
+			function activateUnscrollableTabbar(tabs, activatedTab) {
+				var tabActiveClass = classes.uiTabActive,
+					tabClasses,
+					length = tabs.length,
 					i;
 
 				for (i = 0; i < length; i++) {
-					buttonClasses = buttons[i].classList;
-					if (!buttonClasses.contains(classes.uiStatePersist)) {
-						buttonClasses.remove(btnActiveClass);
+					tabClasses = tabs[i].classList;
+					if (!tabClasses.contains(classes.uiStatePersist)) {
+						tabClasses.remove(tabActiveClass);
 					}
 				}
 				/*
-				* In original file btnActiveClass is always added.
-				* Here, if button is disabled, this class will not be added
+				* In original file tabActiveClass is always added.
+				* Here, if tab is disabled, this class will not be added
 				*/
-				if (activatedButton) {
-					activatedButton.classList.add(btnActiveClass);
+				if (activatedTab) {
+					activatedTab.classList.add(tabActiveClass);
 				}
 			}
 
@@ -310,11 +315,10 @@
 				var element = self.element,
 					uls = element.getElementsByTagName("ul"),
 					ul = uls[0],
-					buttons = element.getElementsByTagName("a"),
+					tabs = element.getElementsByTagName("a"),
 					hasClass = false,
-					buttonClasses,
-					activatedButton = buttons.length > index ? buttons[index] : null,
-					i;
+					activatedTab = tabs.length > index ? tabs[index] : null,
+					i = 0;
 
 				while (!hasClass && ul) {
 					if (ul.classList.contains(classes.tabbarScrollUl)) {
@@ -325,12 +329,12 @@
 
 				// active tabbar
 				if (hasClass) {
-					activateScrollableTabbar(buttons, activatedButton);
+					activateScrollableTabbar(tabs, activatedTab);
 				} else {
-					activateUnscrollableTabbar(buttons, activatedButton);
+					activateUnscrollableTabbar(tabs, activatedTab);
 				}
 				// set option
-				if (activatedButton) {
+				if (activatedTab) {
 					self.options.active = index;
 				}
 			}
@@ -338,19 +342,20 @@
 			/**
 			 * @method vclickEvent
 			 * @param {ns.widget.mobile.TabBar} self
+			 * @param {Event} event
 			 * @member ns.widget.mobile.TabBar
 			 * @static
 			 * @private
 			 */
-			function vclickEvent(self) {
-				var buttons = self.element.getElementsByTagName("a"),
-					activatedButton = selectors.getClosestByTag(event.target, "a"),
+			function vclickEvent(self, event) {
+				var tabs = self.element.getElementsByTagName("a"),
+					activatedTab = selectors.getClosestByTag(event.target, "a"),
 					active = 0,
-					i = 0,
+					i,
 					max;
 
-				for (i = 0, max = buttons.length; i < max; i++) {
-					if (activatedButton === buttons[i]) {
+				for (i = 0, max = tabs.length; i < max; i++) {
+					if (activatedTab === tabs[i]) {
 						active = i;
 						break;
 					}
@@ -372,15 +377,16 @@
 			 * @param {number} index the element index
 			 * @member ns.widget.mobile.TabBar
 			 */
-			function setDisabled(element, value, index) {
-				var liItems = selectors.getChildrenByTag(element.children[0], "li")[index];
+			function setDisabled(self, value, index) {
+				var liItems = selectors.getChildrenByTag(self.element.children[0], "li")[index];
 
 				DOM.setAttribute(liItems, "disabled", value);
 				DOM.setAttribute(liItems, "aria-disabled", value);
 				if (value) {
-					liItems.classList.add(ButtonClasses.uiDisabled);
+					liItems.classList.add(classes.uiDisabled);
 				} else {
-					liItems.classList.remove(ButtonClasses.uiDisabled);
+					liItems.classList.remove(classes.uiDisabled);
+					setActive(self, index);
 				}
 			}
 
@@ -454,8 +460,8 @@
 					li = slice.call(element.getElementsByTagName("li")),
 					header = selectors.getClosestByClass(element, classes.uiHeader);
 
-				if (header && (selectors.getChildrenByClass(parent, classes.uiTitle).length
-					||(parent.classList.contains(Scrollview.classes.view) && li.length > 4))) {
+				if (header && (selectors.getChildrenByClass(parent, classes.uiTitle).length ||
+					(parent.classList.contains(Scrollview.classes.view) && li.length > 4))) {
 					header.classList.add(classes.uiTitleTabbar);
 				}
 			};
@@ -476,47 +482,41 @@
 			};
 
 			/**
-			 * Build buttons on links
-			 * @method _buildButtons
+			 * Build tabs on links
+			 * @method _buildTabs
 			 * @param {HTMLElement} element
-			 * @param {object} options
 			 * @protected
 			 * @member ns.widget.mobile.TabBar
 			 */
-			TabBar.prototype._buildButtons = function (element) {
+			TabBar.prototype._buildTabs = function (element) {
 				var links = slice.call(element.getElementsByTagName("a")),
-					headers = selectors.getParentsByClass(element, classes.uiHeader),
-					instanceButtonOptions,
 					iconpos,
 					linkLength = links.length,
 					link,
+					innerText,
+					linkClassList,
 					i;
 
 				if (linkLength) {
 					iconpos = hasIcon(links) ? this.options.iconpos : false;
 
-					if (headers.length) {
-						instanceButtonOptions = {
-							shadow: false,
-							corners: false,
-							inline: false,
-							bar: true
-						};
-					} else {
-						instanceButtonOptions = {
-							shadow: true,
-							corners: true,
-							inline: false,
-							bar: false
-						};
-					}
-
-					instanceButtonOptions.iconpos = iconpos;
-
 					for (i = 0; i < linkLength; i++) {
 						link = links[i];
-						DOM.setNSData(link, "role", "button");
-						engine.instanceWidget(link, "Button", instanceButtonOptions);
+						linkClassList = link.classList;
+						if (link.firstChild) {
+							innerText = document.createElement("span");
+							innerText.classList.add(classes.uiTabbarText);
+							innerText.appendChild(link.firstChild);
+							link.appendChild(innerText);
+						}
+
+						if (iconpos) {
+							linkClassList.add(classes.uiTabbarIconposPrefix + iconpos);
+							linkClassList.add(classes.uiTabbarIcon);
+							linkClassList.add(classes.uiIconPrefix + DOM.getNSData(link, "icon"));
+						}
+
+						linkClassList.add(classes.uiTabbarLink);
 					}
 				}
 			};
@@ -558,14 +558,13 @@
 			 * @member ns.widget.mobile.TabBar
 			 */
 			TabBar.prototype._build = function (element) {
-				var self = this,
-				options;
+				var self = this;
 
 				self._buildScrollableTabBar(element);
 				self._buildFooter(element);
 				self._buildHeader(element);
 				self._buildFromOptions(element);
-				self._buildButtons(element);
+				self._buildTabs(element);
 
 				return element;
 			};
@@ -592,19 +591,18 @@
 			};
 
 			/**
-			 * Init active button.
-			 * @method _initActiveButton
+			 * Init active tab.
+			 * @method _initActiveTab
 			 * @param {HTMLElement} element
 			 * @member ns.widget.mobile.TabBar
 			 * @protected
 			 */
-			TabBar.prototype._initActiveButton = function (element) {
+			TabBar.prototype._initActiveTab = function (element) {
 				var links = slice.call(element.getElementsByTagName("a")),
 					active,
 					index;
 
-				active = element.querySelector("a." + ButtonClasses.uiBtnActive)
-						|| element.querySelector("a." + classes.uiTabbarActive);
+				active = element.querySelector("a." + classes.uiTabbarActive);
 
 				if (active) {
 					index = links.indexOf(active);
@@ -636,7 +634,7 @@
 				}
 
 				self._initOrientation(element);
-				self._initActiveButton(element);
+				self._initActiveTab(element);
 
 				setActive(self, self.options.active);
 			};
@@ -777,7 +775,7 @@
 			 */
 			TabBar.prototype._disable = function (element, index) {
 				if (index !== undefined) {
-					setDisabled(element, true, index);
+					setDisabled(this, true, index);
 				}
 			};
 
@@ -813,7 +811,7 @@
 			 */
 			TabBar.prototype._enable = function (element, index) {
 				if (index !== undefined) {
-					setDisabled(element, false, index);
+					setDisabled(this, false, index);
 				}
 			};
 
@@ -826,7 +824,7 @@
 			 */
 			TabBar.prototype._refresh = function () {
 				setActive(this, this.options.active);
-			}
+			};
 
 			/**
 			 * Value method is not supported in this widget.

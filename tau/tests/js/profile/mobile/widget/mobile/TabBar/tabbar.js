@@ -92,15 +92,15 @@
 
 	asyncTest("Tabbar click", 2, function () {
 		var tabbar3 = document.getElementById("tabbar3"),
-			button = document.getElementById("click");
+			tab = document.getElementById("click");
 
 		tau.engine.instanceWidget(tabbar3, "TabBar");
 		tabbar3.addEventListener("vclick", function(){
 			ok(true, "Event was propagated on element.");
-			ok(button.classList.contains("ui-btn-active"), "Class was added to button.");
+			ok(tab.classList.contains("ui-tab-active"), "Class was added to tab.");
 			start();
 		});
-		button.click();
+		tab.click();
 	});
 
 	test("Disable/enable/refresh", function () {
@@ -129,10 +129,10 @@
 		ok(li1.getAttribute("disabled"), "false", "Element is not disabled");
 		ok(!li1.classList.contains("ui-disabled"),  "Element does not have class ui-disabled");
 		widget.refresh();
-		ok(widget.options.active, 1, "Option active has proper value");
+		equal(widget.options.active, 1, "Option active has proper value");
 		widget.enable(2);
 		widget.refresh();
-		ok(widget.options.active, 2, "Option active has proper value");
+		equal(widget.options.active, 2, "Option active has proper value");
 	});
 
 	asyncTest("Destroy", 1, function () {
