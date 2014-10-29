@@ -315,6 +315,7 @@
 				if ((ns.getConfig("allowCrossDomainPages") || path.isSameDomain(documentUrl, absUrl))) {
 					// Load the new page.
 					request = new XMLHttpRequest();
+					request.open(settings.type || "GET", fileUrl, true);
 					request.responseType = "document";
 					request.onreadystatechange = function () {
 						var status,
@@ -473,7 +474,6 @@
 							}
 						} // if end
 					};
-					request.open(settings.type || "GET", fileUrl, true);
 					request.send(settings.data);
 				} else {
 					deferred.reject(absUrl, settings);
