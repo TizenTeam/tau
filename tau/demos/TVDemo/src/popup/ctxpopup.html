@@ -26,6 +26,10 @@
 			data-rel="popup" class="ui-color-live" data-inline="true" style="margin-left:50px;">data-arrow="t"</a>
 		<a href="#up" data-role="button" data-icon="source" data-iconpos="top"
 			data-rel="popup" class="ui-color-live" data-inline="true" style="margin-left:50px;">data-arrow="b"</a>
+		<a href="#left" data-role="button" data-icon="source" data-iconpos="top"
+			data-rel="popup" class="ui-color-live" data-inline="true" style="margin-left:50px;">data-arrow="l"</a>
+		<a href="#right" data-role="button" data-icon="source" data-iconpos="top"
+			data-rel="popup" class="ui-color-live" data-inline="true" style="margin-left:50px;">data-arrow="r"</a>
 	</div>
 
 	<div id="popup" data-role="popup" class="ui-popup-listview" data-position-to="origin">
@@ -63,6 +67,39 @@
 			</ul>
 		</div>
 	</div>
+
+	<div id="left" data-role="popup" class="ui-popup-listview" data-arrow="l" data-position-to="origin">
+		<div>
+			<ul data-role="listview">
+				<li>
+					<a id="left_option1" href="#" data-role="button">Text list 1</a>
+				</li>
+				<li>
+					<a id="left_option2" href="#" data-role="button">Text list 2</a>
+				</li>
+				<li>
+					<a id="left_option3" href="#" data-role="button">Text list 3</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+
+	<div id="right" data-role="popup" class="ui-popup-listview" data-arrow="r" data-position-to="origin">
+		<div>
+			<ul data-role="listview">
+				<li>
+					<a id="right_option1" href="#" data-role="button">Text list 1</a>
+				</li>
+				<li>
+					<a id="right_option2" href="#" data-role="button">Text list 2</a>
+				</li>
+				<li>
+					<a id="right_option3" href="#" data-role="button">Text list 3</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+
 	<script type="text/javascript" src="ctxpopup.js"></script>
 </div>
 </body>

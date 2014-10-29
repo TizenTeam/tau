@@ -263,40 +263,34 @@ Context Popup
 	/*arrow at the left of popup*/
 	&.ui-popup-arrow-l {
 		.ui-arrow {
-			/*TODO*/
+			margin-left: -7 * @virtual_px;
+			left: 0;
 		}
 	}
 
 	/*arrow at the right of popup*/
 	&.ui-popup-arrow-r {
 		.ui-arrow {
-			/*TODO*/
+			margin-right: -7 * @virtual_px;
+			right: 0;
 		}
 	}
 	.ui-arrow {
-		//border-style: solid;
-		//border-width: 10 * @virtual_px;
+		z-index: -1;
 		border: 1 * @virtual_px;
 		width: 14.14 * @virtual_px;
 		height: 14.14 * @virtual_px;
 		background: @color_popup_bg;
 		position: absolute;
 		-webkit-transform: rotate(45deg);
-		&.top {
-			//border-color: transparent transparent @color_ctxpopup_background transparent;
-			margin: -8 * @virtual_px;
-		}
-		&.left {
-			//border-color: transparent transparent transparent @color_ctxpopup_background;
-			margin: -6 * @virtual_px;
-		}
-		&.right {
-			//border-color: transparent @color_ctxpopup_background transparent transparent;
-			margin: -6 * @virtual_px;
-		}
-		&.bottom {
-			//border-color: @color_ctxpopup_background transparent transparent transparent;
-			margin: -6 * @virtual_px;
+
+		transition: background-color 200ms ease;
+		-webkit-transition: background-color 200ms ease;
+		-moz-transition: background-color 200ms ease;
+		-o-transition: background-color 200ms ease;
+		-ms-transition: background-color 200ms ease;
+		&.ui-focus {
+			background-color: @color_default;
 		}
 	}
 }

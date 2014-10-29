@@ -24,6 +24,7 @@
 			"../../../core/event",
 			"../../../core/util/selectors",
 			"../../../core/util/object",
+			"../../../core/util/DOM",
 			"./Page"
 		],
 		function () {
@@ -31,6 +32,7 @@
 			var engine = ns.engine,
 				utilSelectors = ns.util.selectors,
 				objectUtils = ns.util.object,
+				DOM = ns.util.DOM,
 				CorePopup = ns.widget.core.ContextPopup,
 				CorePopupPrototype = CorePopup.prototype,
 				BaseKeyboardSupport = ns.widget.tv.BaseKeyboardSupport,
@@ -42,6 +44,7 @@
 
 					self.options = objectUtils.merge(self.options, defaults);
 					self.selectors = selectors;
+					self._nearestLinkForArrow = null;
 				},
 				defaults = objectUtils.merge({}, CorePopup.defaults, {
 					arrow: "t,b,l,r",
@@ -51,7 +54,8 @@
 					toast: "ui-popup-toast",
 					headerEmpty: "ui-header-empty",
 					footerEmpty: "ui-footer-empty",
-					content: "ui-popup-content"
+					content: "ui-popup-content",
+					focus: "ui-focus"
 				}),
 				selectors = {
 					header: "header",
@@ -178,6 +182,7 @@
 						CorePopupPrototype.open.apply(self, arguments);
 					}
 
+					self._setArrowFocus();
 					self._setKeyboardSupport(options || {});
 				}
 			};
@@ -188,11 +193,88 @@
 						CorePopupPrototype.close.apply(this, arguments);
 					}
 
+					this._cleanArrowFocus();
 					this.disableKeyboardSupport();
 					this._pageWidget.enableKeyboardSupport();
 
 					closingOnKeydown(this, false);
 				}
+			};
+
+			prototype._cleanArrowFocus = function () {
+				var self = this,
+					nearestLinkForArrow = self._nearestLinkForArrow,
+					callbacks = self._callbacks;
+
+				self._ui.arrow.classList.remove(classes.focus);
+				if (nearestLinkForArrow) {
+					nearestLinkForArrow.removeEventListener("focus", callbacks._onFocusArrow, false);
+					nearestLinkForArrow.removeEventListener("blur", callbacks._onBlurArrow, false);
+				}
+			};
+
+			prototype._setArrowFocus = function () {
+				var self = this,
+					element = self.element,
+					callbacks = self._callbacks,
+					arrow = self._ui.arrow,
+					arrowHeight = arrow.offsetHeight,
+					arrowTop = DOM.getElementOffset(arrow).top,
+					links = element.querySelectorAll(self.getActiveSelector()),
+					linksLength = links.length,
+					link,
+					linkTop,
+					nearestLinkForArrow,
+					i = 0;
+
+				if (element.classList.contains(classes.context)) {
+					switch (arrow.getAttribute("type")) {
+						case "l":
+						case "r":
+							while (!nearestLinkForArrow && i < linksLength) {
+								link = links[i];
+								linkTop = DOM.getElementOffset(link).top;
+								if (linkTop + link.offsetHeight > arrowTop && linkTop < arrowTop) {
+									nearestLinkForArrow = link;
+								}
+								i++;
+							}
+							break;
+						case "t":
+							while (!nearestLinkForArrow && i < linksLength) {
+								link = links[i];
+								if (DOM.getElementOffset(link).top < arrowTop + arrowHeight) {
+									nearestLinkForArrow = link;
+								}
+								i++;
+							}
+							break;
+						case "b":
+							while (!nearestLinkForArrow && i < linksLength) {
+								link = links[i];
+								if (DOM.getElementOffset(link).top + link.offsetHeight > arrowTop) {
+									nearestLinkForArrow = link;
+								}
+								i++;
+							}
+							break;
+					}
+					if (nearestLinkForArrow) {
+						callbacks._onFocusArrow = onFocusArrow.bind(null, arrow);
+						callbacks._onBlurArrow = onBlurArrow.bind(null, arrow);
+						nearestLinkForArrow.addEventListener("focus", callbacks._onFocusArrow, false);
+						nearestLinkForArrow.addEventListener("blur", callbacks._onBlurArrow, false);
+						self._nearestLinkForArrow = nearestLinkForArrow;
+					}
+				}
+			};
+
+			function onFocusArrow(arrow) {
+				arrow.classList.add(classes.focus);
+			};
+
+			function onBlurArrow(arrow) {
+				arrow.classList.remove(classes.focus);
 			};
 
 			prototype._bindEvents = function(element) {

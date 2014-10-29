@@ -736,6 +736,7 @@
 					emulatedPosition,
 					elementHeight,
 					clickedElement,
+					arrowType,
 					bestRectangle;
 
 				if (typeof positionTo === "string") {
@@ -757,12 +758,14 @@
 					elementHeight = element.offsetHeight;
 					bestRectangle = findBestPosition(self, clickedElement);
 
-					elementClassList.add(classes.arrowDir + bestRectangle.dir);
+					arrowType = bestRectangle.dir;
+					elementClassList.add(classes.arrowDir + arrowType);
+					self._ui.arrow.setAttribute("type", arrowType);
 
 					if (typeof x !== "number" && typeof y !== "number") {
 						// if we found element, which was clicked, but the coordinates of event
 						// was not available, we have to count these coordinates to the center of proper edge of element.
-						emulatedPosition = emulatePositionOfClick(bestRectangle.dir, clickedElement);
+						emulatedPosition = emulatePositionOfClick(arrowType, clickedElement);
 						x = emulatedPosition.x;
 						y = emulatedPosition.y;
 					}
