@@ -702,6 +702,30 @@
 				return this.firstPage;
 			};
 
+			/**
+			 * Return widget of active Page
+			 * @return {ns.widget.mobile.Page}
+			 * @method getActivePage
+			 * @member ns.router.Router
+			 */
+			RouterPage.prototype.getActivePage = function () {
+				var page = this.getActivePageElement();
+				if (page) {
+					return engine.instanceWidget(page, "Page");
+				}
+				return null;
+			};
+
+			/**
+			 * Return active page element
+			 * @return {HTMLElement}
+			 * @method getActivePageElement
+			 * @member ns.router.Router
+			 */
+			RouterPage.prototype.getActivePageElement = function () {
+				return this.activePage;
+			};
+
 			ns.router.Page = RouterPage;
 
 			engine.initRouter(RouterPage);

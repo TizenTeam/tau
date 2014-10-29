@@ -1,23 +1,20 @@
-/*global $: false, ej: false, document: false, window: false,
+/*global $: false, tau: false, document: false, window: false,
  module: false, test:false, equal: false*/
 document.addEventListener('DOMContentLoaded', function () {
 	'use strict';
-	var Router = ej.router.wearable.Router,
-		engine = ej.engine,
-		utilsEvent = ej.event,
-		router = engine.getRouter(),
-		helper = {
-			createPage: function (id) {
-				var template = '<div data-role="page" id="' + id + '" class="ui-page">'
-						+ '<div class="content"></div>'
-						+ '</div>',
-					div = document.createElement('div');
-				div.innerHTML = template;
-				return div.firstChild;
-			}
-		};
+	var Router = tau.router.Router,
+		engine = tau.engine,
+		router = engine.getRouter();
 
-	module('ej.router.wearable.Router public methods');
+	module('tau.router.wearable.Router public methods', {
+		teardown: function () {
+			tau.engine._clearBindings();
+			router.destroy();
+		},
+		setup: function() {
+
+		}
+	});
 	test('init for justBuild:true', function () {
 		router.init(true);
 		equal(router.justBuild, true, 'Router has set property justBuild:true');
@@ -47,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	asyncTest('open enbedded #firstPage autoInitializePage:true', function () {
 		var onPageShow = function () {
 				start();
-				equal(router.container.activePage.element, document.getElementById('firstPage'), 'router.open("#firstPage")');
+				equal(router.container.activePage.element.id, 'firstPage', 'router.open("#firstPage")');
 				document.removeEventListener('pageshow', onPageShow, true);
 			};
 		document.addEventListener('pageshow', onPageShow, true);
@@ -57,10 +54,10 @@ document.addEventListener('DOMContentLoaded', function () {
 	asyncTest('open enbedded #firstPage', function () {
 		var onPageShow = function () {
 				start();
-				equal(router.container.activePage.element, document.getElementById('firstPage'), 'router.open("#firstPage")');
+				equal(router.container.activePage.element.id, 'firstPage', 'router.open("#firstPage")');
 				document.removeEventListener('pageshow', onPageShow, true);
 			};
-		ej.set('autoInitializePage', false);
+		tau.set('autoInitializePage', false);
 		router.init();
 		document.addEventListener('pageshow', onPageShow, true);
 		router.open('#firstPage');
@@ -69,10 +66,10 @@ document.addEventListener('DOMContentLoaded', function () {
 	asyncTest('open enbedded #secondPage', function () {
 		var onPageShow = function () {
 				start();
-				equal(router.container.activePage.element, document.getElementById('secondPage'), 'router.open("#secondPage")');
+				equal(router.container.activePage.element.id, 'secondPage', 'router.open("#secondPage")');
 				document.removeEventListener('pageshow', onPageShow, true);
 			};
-		ej.set('autoInitializePage', false);
+		tau.set('autoInitializePage', false);
 		router.init();
 		document.addEventListener('pageshow', onPageShow, true);
 		router.open('#secondPage');
@@ -84,7 +81,7 @@ document.addEventListener('DOMContentLoaded', function () {
 				equal(router.container.activePage.element, document.getElementById('thirdPage'), 'router.open("#thirdPage")');
 				document.removeEventListener('pageshow', onPageShow, true);
 			};
-		ej.set('autoInitializePage', false);
+		tau.set('autoInitializePage', false);
 		router.init();
 		document.addEventListener('pageshow', onPageShow, true);
 		router.open('#thirdPage');
@@ -102,28 +99,28 @@ document.addEventListener('DOMContentLoaded', function () {
 				utilsEvent.trigger(link, 'click');
 			},
 			onSecondPageShow = function () {
-				console.log('onSecondPageShow');
 				start();
 				equal(router.container.activePage.id, 'secondPage', 'page "secondPage" was opened after click');
 				document.removeEventListener('pageshow', onSecondPageShow, true);
 			};
-		ej.set('autoInitializePage', true);
+		tau.set('autoInitializePage', true);
 		document.addEventListener('pageshow', onFirstPageShow, true);
 		router.init();
 	});
 */
-
-	asyncTest('open externalPage', function () {
-		var onPageShow = function () {
+	if (!window.navigator.userAgent.match("PhantomJS")) {
+		asyncTest('open externalPage', function () {
+			var onPageShow = function () {
 				start();
 				ok(router.container.activePage.id, 'externalPage', 'router.open("test-data/externalPage.html")');
 				document.removeEventListener('pageshow', onPageShow, true);
 			};
-		ej.set('autoInitializePage', false);
-		router.init();
-		document.addEventListener('pageshow', onPageShow, true);
-		router.open('test-data/externalPage.html')
-	});
+			tau.set('autoInitializePage', false);
+			router.init();
+			document.addEventListener('pageshow', onPageShow, true);
+			router.open('test-data/externalPage.html')
+		});
+	}
 
 	test('destroy', function () {
 		router.destroy();
@@ -157,6 +154,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		var onPageShow = function () {
 				document.removeEventListener('pageshow', onPageShow, true);
 				router.openPopup('#firstPopup');
+				ok("Page was opened");
 			},
 			onPopupShow = function (event) {
 				start();
@@ -165,25 +163,30 @@ document.addEventListener('DOMContentLoaded', function () {
 			};
 		document.addEventListener('pageshow', onPageShow, true);
 		document.getElementById('firstPopup').addEventListener('popupshow', onPopupShow);
-		ej.set('autoInitializePage', true);
+		tau.set('autoInitializePage', true);
 		router.init();
 	});
 
-	asyncTest('openPopup from externalPage', function () {
-		var onPageShow = function () {
-				document.removeEventListener('pageshow', onPageShow, true);
-				router.openPopup('#externalPopup');
-			},
-			onPopupShow = function (event) {
-				start();
-				ok(event.target.classList.contains('ui-popup-active'), 'router.openPopup("#externalPopup")');
-				document.removeEventListener('popupshow', onPopupShow, true);
-			};
-		router.init();
-		document.addEventListener('pageshow', onPageShow, true);
-		document.addEventListener('popupshow', onPopupShow, true);
-		router.open('test-data/externalPage.html')
-	});
+	if (!window.navigator.userAgent.match("PhantomJS")) {
+		asyncTest('openPopup from externalPage', 2, function () {
+			var onPageShow = function () {
+					document.removeEventListener('pageshow', onPageShow, true);
+					router.openPopup('#externalPopup');
+					ok("Page was opened");
+				},
+				onPopupShow = function (event) {
+					start();
+					ok(event.target.classList.contains('ui-popup-active'), 'router.openPopup("#externalPopup")');
+					document.removeEventListener('popupshow', onPopupShow, true);
+				};
+			router.init();
+			setTimeout(function() {
+			document.addEventListener('pageshow', onPageShow, true);
+			document.addEventListener('popupshow', onPopupShow, true);
+			router.open('test-data/externalPage.html');
+			}, 1000);
+		});
+	}
 
 	asyncTest('closePopup', function () {
 		var onPageShow = function () {
@@ -205,26 +208,28 @@ document.addEventListener('DOMContentLoaded', function () {
 		router.init();
 	});
 
-	asyncTest('open externalPage (load error)', function () {
-		var onChangeFailed = function () {
-				start();
-				ok(true, 'router.open("test-data/not-exists-page.html") "changefailed" event triggered');
-				document.removeEventListener('changefailed', onChangeFailed, true);
-			};
-		router.init();
-		document.addEventListener('changefailed', onChangeFailed, true);
-		router.open('test-data/not-exists-page.html')
-	});
+	if (!window.navigator.userAgent.match("PhantomJS")) {
+		asyncTest('open externalPage (load error)', function () {
+			var onChangeFailed = function () {
+					start();
+					ok(true, 'router.open("test-data/not-exists-page.html") "changefailed" event triggered');
+					document.removeEventListener('changefailed', onChangeFailed, true);
+				};
+			router.init();
+			document.addEventListener('changefailed', onChangeFailed, true);
+			router.open('test-data/not-exists-page.html')
+		});
 
-	test('open enbedded #not-embedded-page (change failed expected)', function () {
-		var onChangeFailed = function () {
+		test('open enbedded #not-embedded-page (change failed expected)', function () {
+			var onChangeFailed = function () {
 				ok(true, 'router.open("#not-embedded-page") "changefailed" event triggered');
 				document.removeEventListener('changefailed', onChangeFailed, true);
 			};
-		router.init();
-		document.addEventListener('changefailed', onChangeFailed, true);
-		router.open('#not-embedded-page')
-	});
+			router.init();
+			document.addEventListener('changefailed', onChangeFailed, true);
+			router.open('#not-embedded-page')
+		});
+	}
 
 	test('open enbedded (unknown rule)', function () {
 		router.init();

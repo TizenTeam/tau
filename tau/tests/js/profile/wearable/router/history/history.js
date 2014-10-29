@@ -1,11 +1,11 @@
 $().ready(function() {
-	var history = ej.router.wearable.history;
-	module("ns.router.wearable.history");
+	var history = ej.router.history;
+	module("ns.router.history");
 	
 	test('main', function () {
 		ok(history, 'object history exists');
 		equal(history.activeState, null, 'activeState is null on start');
-	})
+	});
 
 	asyncTest('replace', 17, function () {
 		var state = {
@@ -34,7 +34,7 @@ $().ready(function() {
 		window.addEventListener('popstate', function() {
 			ok(1, 'popstate was triggerd');
 			start();
-		})
+		});
 		history.back();
 		equal(history.getDirection(), 'back', 'check getDirection method in defauld mode');
 		equal(history.getDirection({uid: 0}), 'back', 'check getDirection method in back mode');

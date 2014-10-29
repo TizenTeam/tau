@@ -22,6 +22,7 @@
 		[
 			"../../../../core/engine",
 			"../../../../core/event",
+			"../../../../core/util",
 			"../../../../core/util/DOM/attributes",
 			"../../../../core/widget/BaseWidget",
 			"../wearable",

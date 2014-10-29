@@ -479,6 +479,7 @@
 				if (firstPage) {
 					self.open(firstPage, { transition: "none" });
 				}
+				this.getRoute("popup").setActive(null);
 			};
 
 			/**

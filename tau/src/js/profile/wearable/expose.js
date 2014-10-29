@@ -28,6 +28,7 @@
 
 			document.addEventListener("routerinit", function (evt) {
 				var router = evt.detail,
+					routePage = router.getRoute("page"),
 					history = ns.router.history,
 					back = history.back.bind(router),
 					classes = ns.widget.wearable.Page.classes,
@@ -53,6 +54,13 @@
 				 * @member tau
 				 */
 				ns.firstPage = router.getFirstPage();
+				/**
+				 * Returns active page element
+				 * @inheritdoc ns.router.Router#getActivePageElement
+				 * @method getActivePage
+				 * @member tau
+				 */
+				ns.getActivePage = routePage.getActiveElement.bind(routePage);
 				/**
 				 * @inheritdoc ns.router.history#back
 				 * @method back

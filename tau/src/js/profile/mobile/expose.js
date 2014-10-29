@@ -64,9 +64,22 @@
 			 */
 			ns.closePopup = function () {
 				var activePopup = ns.activePopup;
-				if(activePopup) {
+				if (activePopup) {
 					activePopup.close();
 				}
+			};
+
+			/**
+			 * Returns active page element
+			 * @inheritdoc ns.router.Router#getActivePageElement
+			 * @method getActivePage
+			 * @member tau
+			 */
+			ns.getActivePage = function() {
+				if (router) {
+					return router.getActivePageElement();
+				}
+				return null;
 			};
 
 			document.addEventListener("routerinit", function () {

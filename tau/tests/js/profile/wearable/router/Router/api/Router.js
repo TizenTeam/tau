@@ -2,9 +2,9 @@
  module: false, test:false, equal: false*/
 document.addEventListener('DOMContentLoaded', function () {
 	'use strict';
-	var Router = ej.router.wearable.Router;
+	var Router = ej.router.Router;
 
-	module('ej.router.micro.Router create instance');
+	module('ej.router.Router create instance');
 	test('instance', function () {
 		var router = new Router();
 		ok(typeof router, 'Object', 'router');

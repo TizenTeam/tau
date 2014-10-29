@@ -16,6 +16,7 @@
 	define(
 		[
 			"../../../../core/engine",
+			"../../../../core/util",
 			"../../../../core/util/path",
 			"../../../../core/util/DOM/attributes",
 			"../../../../core/util/object",
@@ -33,7 +34,7 @@
 			 * @static
 			 */
 			Popup = ns.widget.core.Popup,
-
+			util = ns.util,
 			routePopup = {
 				/**
 				 * Object with default options
@@ -276,8 +277,10 @@
 
 				if (DOM.getNSData(toPopup, "external") === true) {
 					container = options.container ? activePage.element.querySelector(options.container) : activePage.element;
-					container.appendChild(toPopup);
-					document.addEventListener(events.POPUP_HIDE, removePopup, false);
+					if (toPopup.parentNode !== container) {
+						toPopup = util.importEvaluateAndAppendElement(toPopup, container);
+					}
+					document.addEventListener(routePopup.events.POPUP_HIDE, removePopup, false);
 				}
 
 				if (self.hasActive()) {
@@ -447,6 +450,18 @@
 			 */
 			routePopup.getActive = function () {
 				return this.activePopup;
+			};
+
+			/**
+			 * Returns element of active popup.
+			 * @method getActiveElement
+			 * @return {HTMLElement}
+			 * @member ns.router.route.popup
+			 * @static
+			 */
+			routePopup.getActiveElement = function () {
+				var active = this.getActive();
+				return active && active.element;
 			};
 
 			ns.router.route.popup = routePopup;

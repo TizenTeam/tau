@@ -34,7 +34,6 @@
 				engine = ns.engine,
 				Page = ns.widget.wearable.Page,
 				baseElement,
-				slice = [].slice,
 				routePage = {},
 				head;
 
@@ -118,7 +117,7 @@
 					state = {},
 					router = engine.getRouter();
 
-				if (toPage === router.firstPage && !options.dataUrl) {
+				if (toPage === router.getFirstPage() && !options.dataUrl) {
 					url = path.documentUrl.hrefNoHash;
 				} else {
 					url = DOM.getNSData(toPage, "url");
@@ -150,7 +149,7 @@
 
 				//set page title
 				document.title = pageTitle;
-				router.container.change(toPage, options);
+				this.getContainer().change(toPage, options);
 			};
 
 			/**
@@ -318,6 +317,38 @@
 				}
 			};
 
+			/**
+			 * Returns container of pages
+			 * @method getContainer
+			 * @return {?ns.widget.wearable.Page}
+			 * @member ns.router.route.page
+			 * @static
+			 */
+			routePage.getContainer = function () {
+				return engine.getRouter().getContainer();
+			};
+
+			/**
+			 * Returns active page.
+			 * @method getActive
+			 * @return {?ns.widget.wearable.Page}
+			 * @member ns.router.route.page
+			 * @static
+			 */
+			routePage.getActive = function () {
+				return this.getContainer().getActivePage();
+			};
+
+			/**
+			 * Returns element of active page.
+			 * @method getActiveElement
+			 * @return {HTMLElement}
+			 * @member ns.router.route.page
+			 * @static
+			 */
+			routePage.getActiveElement = function () {
+				return this.getActive().element;
+			};
 			ns.router.route.page = routePage;
 
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
