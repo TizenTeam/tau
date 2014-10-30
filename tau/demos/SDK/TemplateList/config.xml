@@ -6,5 +6,5 @@
     <icon src="icon.png"/>
     <name>Basic</name>
     <tizen:privilege name="http://tizen.org/privilege/application.launch"/>
-    <tizen:setting context-menu="disable"/>
+    <tizen:setting hwkey-event="enable"/>
 </widget>

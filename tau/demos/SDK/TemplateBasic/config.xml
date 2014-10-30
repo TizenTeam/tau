@@ -6,5 +6,5 @@
     <content src="index.html"/>
     <feature name="http://tizen.org/feature/screen.size.normal.320.320"/>
     <tizen:privilege name="http://tizen.org/privilege/application.launch"/>
-    <tizen:setting context-menu="disable"/>
+    <tizen:setting hwkey-event="enable"/>
 </widget>
