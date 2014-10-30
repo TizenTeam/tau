@@ -527,6 +527,7 @@
 					DOM.setNSData(frontIcon, "role", "button");
 					inputSearchBar.appendChild(frontIcon);
 					engine.instanceWidget(frontIcon, "Button", {
+						style: "circle",
 						iconpos: "notext",
 						icon: options.icon,
 						shadow: true

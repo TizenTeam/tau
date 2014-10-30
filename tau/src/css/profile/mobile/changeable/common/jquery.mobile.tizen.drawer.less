@@ -53,23 +53,25 @@
 
 .ui-header {
 	&.ui-drawer-header {
-		.ui-btn.ui-drawer-button.ui-btn-icon_only {
+		.ui-btn.ui-drawer-button.ui-btn-icon-only {
 			position: absolute;
 			top: 0;
 			left: 0;
 			width : 55 * @unit_base;
 			height : 72 * @unit_base;
 
-			&.ui-btn-down-s {
+			&:active {
 				background-color : @color_drawer_icon_press;
 			}
 
-			.ui-btn-inner.ui-btn-icon-only .ui-icon {
+			&::after {
 				width : 55 * @unit_base;
 				height : 72 * @unit_base;
+				-webkit-mask-size: 100%;
 				background-color: @color_drawer_icon;
 				margin-top: 0;
 				top: 0;
+				left: 0;
 			}
 		}
 	}

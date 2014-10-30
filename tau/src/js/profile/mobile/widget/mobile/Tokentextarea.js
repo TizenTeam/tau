@@ -650,8 +650,7 @@
 				moreBlock.tabIndex = 0;
 				moreBlockClasses.add(classes.uiTokentextareaLinkBase);
 				moreBlockClasses.add(classes.uiBtnBoxS);
-				moreBlock.firstChild.firstChild.textContent =
-					strings.addRecipient;
+				moreBlock.textContent =	strings.addRecipient;
 				inputArea.appendChild(moreBlock);
 				element.appendChild(inputArea);
 				return element;

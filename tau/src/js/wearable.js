@@ -16,7 +16,7 @@
 			"./core/widget/core/Page",
 			"./core/widget/core/PageContainer",
 			"./core/widget/core/Checkboxradio",
-			"./profile/wearable/widget/wearable/Button",
+			"./core/widget/core/Button",
 			"./profile/wearable/widget/wearable/Listview",
 			"./profile/wearable/widget/wearable/indexscrollbar/IndexScrollbar",
 			"./profile/wearable/widget/wearable/Progress",

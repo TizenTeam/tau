@@ -80,7 +80,7 @@
 			"../../../../core/util/DOM/attributes",
 			"../../../../core/util/DOM/manipulation",
 			"../../../../core/event",
-			"./Button",
+			"../../../../core/widget/core/Button",
 			"../mobile", // fetch namespace
 			"./BaseWidgetMobile"
 		],
@@ -119,7 +119,7 @@
 				engine = ns.engine,
 				events = ns.event,
 				DOMutils = ns.util.DOM,
-				Button = ns.widget.mobile.Button,
+				Button = ns.widget.core.Button,
 				themes = ns.theme,
 				/**
 				* @property {Object} selectors Alias for class ns.util.selectors
@@ -918,14 +918,6 @@
 				domSlider.appendChild(domHandle);
 				domHandle.setAttribute("id", elementId + "-handle");
 
-				engine.instanceWidget(domHandle, "Button", {
-					corners: true,
-					theme: theme,
-					shadow: true,
-					inline: false,
-					bar: true
-				});
-
 				domSlider.appendChild(createWrapper(domSlider));
 				// make the handle move with a smooth transition
 				domHandle.classList.add(classes.sliderSnapping);
@@ -1302,7 +1294,8 @@
 			 * @member ns.widget.mobile.ToggleSwitch
 			 */
 			ToggleSwitch.prototype._disable = function (element) {
-				var btnClasses = Button.classes,
+				var self = this,
+					btnClasses = Button.classes,
 					slider = self._ui.slider;
 
 				if (slider) {

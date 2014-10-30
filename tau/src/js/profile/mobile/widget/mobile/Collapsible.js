@@ -112,9 +112,9 @@
 			"../../../../core/util/selectors",
 			"../../../../core/util/DOM/attributes",
 			"../../../../core/util/DOM/manipulation",
+			"../../../../core/widget/core/Button",
 			"../mobile",
-			"./BaseWidgetMobile",
-			"./Button"
+			"./BaseWidgetMobile"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
@@ -129,7 +129,7 @@
 				 * @private
 				 * @static
 				 */
-				Button = ns.widget.mobile.Button,
+				Button = ns.widget.core.Button,
 				/**
 				 * @property {Object} engine alias variable
 				 * @private

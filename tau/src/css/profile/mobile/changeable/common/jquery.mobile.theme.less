@@ -74,49 +74,52 @@
 	}
 
 	> .ui-btn,
-	>.naviframe-button {
-		height : 46 * @unit_base;
-		padding : 0;
+	>.naviframe-button.ui-btn-icon.ui-btn-icon-only {
 		position: absolute;
-		top: 13 * @unit_base;
-
 		margin : 0;
 
 		color: @color_bar_title_button_text;
 		font-size: @font_size_bar_title_button_text;
 		.LESSborder-radius-all(0);
 
+		&.ui-icon-naviframe-selectall,
+		&.ui-icon-naviframe-delete,
+		&.ui-icon-naviframe-edit {
+			&::after {
+				top: 5 * @unit_base;
+				left: 5 * @unit_base;
+				width : 46 * @unit_base;
+				height : 46 * @unit_base;
+				-webkit-mask-size: 100%;
+				background-color: @color_button_icon;
+				margin-top: 0;
+			}
+		}
+
 		&.ui-btn-left,
 		&.ui-btn-right {
 			-webkit-mask-box-image: none;
 			border-image: none;
-			&.ui-btn-icon-naviframe-cancel,
-			&.ui-btn-icon-naviframe-done {
+			&.ui-icon-naviframe-cancel,
+			&.ui-icon-naviframe-done {
 				width: 104 * @unit_base;
 				height: 100%;
-				.ui-btn-inner {
-					width: 100%;
-					.ui-btn-text {
-						display: block;
-						width: 100%;
-						height: 46 * @unit_base;
-						.border-box();
-						line-height: 72 * @unit_base;
-					}
-				}
-				.ui-icon {
+				line-height: 72 * @unit_base;
+				text-indent: 0;
+
+				&::after {
 					display: none;
 				}
 			}
 
-			&.ui-btn-icon-left.ui-btn-icon_only .ui-btn-inner.ui-btn-icon-only .ui-icon {
+			&.ui-btn-icon-left.ui-btn-icon-only .ui-btn-inner.ui-btn-icon-only .ui-icon {
 				left: 0;
 				background-color: @color_bar_title_button_all;
 			}
 		}
 		&.ui-btn-left {
 			left: 15 * @unit_base;
-			&.ui-btn-icon-naviframe-cancel {
+			&.ui-icon-naviframe-cancel {
 				left: 0;
 				top: 0;
 			}
@@ -124,38 +127,13 @@
 
 		&.ui-btn-right {
 			right: 15 * @unit_base;
-			&.ui-btn-icon-naviframe-done {
+			&.ui-icon-naviframe-done {
 				right: 0;
 				top: 0;
 			}
 		}
 
-		&:not(.ui-btn-icon_only) {
-			width: auto;
-			max-width: 70 * @unit_base;
-		}
-
-		&.ui-btn-icon_only {
-			width: 46 * @unit_base;
-		}
-
-		.ui-btn-inner {
-			padding : 0;
-			margin : 0;
-			width: auto;
-			height: 100%;
-			.ui-btn-text {
-				width: auto;
-				font-size : @font_size_bar_title_button_text;
-				line-height: 46 * @unit_base;
-			}
-
-			&.ui-btn-icon-only {
-				margin: 0;
-				width: 46 * @unit_base;
-			}
-		}
-		&.ui-btn-down-s {
+		&:active {
 			background-color : @color_bar_naviframe_press;
 		}
 	}
@@ -247,36 +225,36 @@
 	text-align : center;
 	bottom : 0;
 	background : @color_bar_toolbar_bg;
-	.ui-btn.ui-btn-box-s {
+	.ui-btn {
 		.border-box();
 		height: 74 * @unit_base;
 		margin-top: 17 * @unit_base;
 		width: 100%;
-		.ui-btn-inner .ui-btn-text {
-			line-height: 64.5 * @unit_base;
-		}
+		line-height: 54 * @unit_base;
 	}
 	&.ui-footer-btn-1 {
-		.flex-direction(row);
+		display: flex;
+		flex-direction: row;
 		.ui-btn.ui-btn-box-s {
 			margin-left: @footer_btn_margin;
 			margin-right: @footer_btn_margin;
 		}
 	}
 	&.ui-footer-btn-2 {
-		.flex-direction(row);
-		.ui-btn.ui-btn-box-s:nth-child(1) {
+		display: flex;
+		flex-direction: row;
+		.ui-btn:nth-child(1) {
 			margin-left: @footer_btn_margin;
 			margin-right: @footer_btn_middle_margin;
 		}
-		.ui-btn.ui-btn-box-s:nth-child(2) {
+		.ui-btn:nth-child(2) {
 			margin-left: @footer_btn_middle_margin;
 			margin-right: @footer_btn_margin;
 		}
 	}
 	&.ui-footer-btn-3 {
-		.display-flex();
-		.flex-direction(row);
+		display: flex;
+		flex-direction: row;
 		.ui-btn.ui-btn-box-s:nth-child(1) {
 			margin-left: @footer_btn_margin;
 			margin-right: @footer_btn_middle_margin;
@@ -294,16 +272,14 @@
 		margin: 0;
 		.ui-controlgroup-controls {
 			width: 100%;
-			.display-flex();
-			.flex-direction(row);
-			.ui-btn.ui-btn-box-s {
+			display: flex;
+			flex-direction: row;
+			.ui-btn {
 				margin-left: @footer_btn_middle_margin;
 				margin-right: @footer_btn_middle_margin;
-				.ui-btn-text {
-					font-size: @font_size_button_text;
-					line-height: 60 * @unit_base;
-					color: @color_button_text_normal;
-				}
+				font-size: @font_size_button_text;
+				line-height: 60 * @unit_base;
+				color: @color_button_text_normal;
 			}
 		}
 	}

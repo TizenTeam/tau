@@ -6,83 +6,67 @@
  */
 $ ( document ).ready ( function ( ) {
 
-	module("profile/mobile/widget/mobile/Button", {
-		teardown: function () {
-			ej.engine._clearBindings();
-		}
-	});
-
 	$('#page1').one('pageshow', function() {
-		/*
-		* @todo - resolve problem with this test!
-		* This test should be after test "button elements should be enhanced"!
-		*/
-		test( "button markup text value should be changed on refresh", function() {
-				var textValueButton = $("#text"), valueButton = $("#value");
-
-				// the value shouldn't change unless it's been altered
-				textValueButton.button( 'refresh' );
-				deepEqual( textValueButton.siblings().text(), "foo", 'test1');
-
-				// use the text where it's provided
-				/**
-				 * @TODO
-				 * this wont work since we don support dynamic
-				 * value change of button
-				 */
-				deepEqual( textValueButton.siblings().text(), "foo", 'test2' );
-				textValueButton.text( "bar" ).button( 'refresh' );
-				deepEqual( textValueButton.siblings().text(), "bar", 'test3' );
-
-				// use the val if it's provided where the text isn't
-				deepEqual( valueButton.siblings().text(), "foo", 'test4' );
-				valueButton.val( "bar" ).button( 'refresh' );
-				deepEqual( valueButton.siblings().text(), "bar", 'test5' );
-
-				// prefer the text to the value
-				textValueButton.text( "bar" ).val( "baz" ).button( 'refresh' );
-				deepEqual( textValueButton.siblings().text(), "bar", 'test6' );
-		});
 
 		test( "button elements in the keepNative set shouldn't be enhanced", function() {
 			deepEqual( $("button.should-be-native").siblings("div.ui-slider").length, 0 );
 		});
 
 		test( "button elements should be enhanced", function() {
-				//todo
-				$("#enhanced").button();
-
-				ok( $("#enhanced").hasClass( "ui-btn-hidden" ) );
+			ok( $("#enhanced").hasClass( "ui-btn" ) );
 		});
 
-		test( "theme should be inherited", function() {
-				var $inherited = $( "#theme-check" ),
-					$explicit = $( "#theme-check-explicit" );
+		test( "button markup text value should be changed on refresh", function() {
+			var textValueButton = $("#hidden-element-addition"), valueButton = $("#value");
 
-				//todo
-				$inherited.button();
-				$explicit.button();
+			// the value shouldn't change unless it's been altered
+			textValueButton.button( 'refresh' );
+			deepEqual( textValueButton.val(), "foo" );
 
-				/**
-				 * this behaviour was changed in webui
-				 * the inherited theme coumes from content				
-				 * element not page element
-				 * ok( $inherited.closest("div").hasClass( "ui-btn-up-a" ), "should inherit from page" );
-				 */
-				ok( $inherited.closest("div").hasClass( "ui-btn-up-p" ), "should inherit from page" );
-				ok( $explicit.closest("div").hasClass( "ui-btn-up-b" ), "should not inherit" );
+			// use the text where it's provided
+			deepEqual( textValueButton.val(), "foo" );
+			textValueButton.val( "bar" ).button( 'refresh' );
+			deepEqual( textValueButton.val(), "bar" );
+
+			// prefer the text to the value
+			textValueButton.text( "bar" ).val( "baz" ).button( 'refresh' );
+			deepEqual( textValueButton.text(), "bar" );
 		});
 
 		test( "Enhanced button elements should allow for phrasing content.", function() {
 			var $htmlstring = $( "#contains-html" ),
-				$htmlval = $( "#val-contains-html" );
+			    $htmlval = $( "#val-contains-html" );
 
-				//todo
-				$htmlstring.button();
-				$htmlval.button();
-
-				ok( $htmlstring.parent().find(".ui-btn-text").find("sup").length, "HTML contained within a button element should carry over to the enhanced version" );
-				ok( $htmlval.parent().find(".ui-btn-text").text().length > 1, "If the text is pulled from a button’s value, anything HTML-like should be disregarded." );
+			ok( $htmlstring.find("sup").length, "HTML contained within a button element should carry over to the enhanced version" );
 		});
+
+		// @TODO jqm support bug has to fixed
+		// When disable property is set (button.prop("disabled", true)),
+		// disable property of widgetInstance.element is not changed.
+		// So we can not find widgetInstance to call refresh method.
+		/*
+		test( "Button's disabled state synced via refresh()", function() {
+			var button = $( "#disabled-state" );
+
+			button.prop( "disabled", true ).button( "refresh" );
+
+			deepEqual( button.hasClass( "ui-state-disabled" ), true, "class ui-state-disabled has been added to button" );
+			deepEqual( button.button( "option", "disabled" ), true, "option disabled is now true" );
+		});
+		*/
+
+		// @TODO BaseWidget destroy issue has to fixed
+		// When widget is destoryed, some properties set in init are not reset (id, classes, aria-disabled...)
+		/*
+		test( "Destroying a button works correctly", function() {
+			var button = $( "<input id='destroy-test-button' class='ui-btn' type='button' value='Destroy Test'>" ),
+				container = $( "#destroy-test-container" ).append( button ),
+				pristineDOM = container.clone();
+
+			button.button().button( "destroy" );
+
+			deepEqual(container, pristineDOM, "_destroy() leaves DOM unmodified" );
+		});
+		*/
 	});
 });

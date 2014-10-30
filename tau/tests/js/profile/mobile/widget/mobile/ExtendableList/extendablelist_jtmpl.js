@@ -35,7 +35,7 @@
 		equal(children[0].innerHTML, '<span class="ui-li-text-main">Abdelnaby, Alaa</span>', 'First element of list has proper value');
 		equal(children[49].innerHTML, '<span class="ui-li-text-main">Almond, Morris</span>', 'One before last element of list has proper value');
 		equal(children[50], document.getElementById('load_more_message').parentNode, 'Last element of list contains button element');
-		ok(ns.engine.getBinding(document.getElementById('load_more_message'), 'Button') instanceof ns.widget.mobile.Button, 'Load more button was bound');
+		ok(ns.engine.getBinding(document.getElementById('load_more_message'), 'Button') instanceof ns.widget.core.Button, 'Load more button was bound');
 
 		widget.destroy();
 	});
@@ -53,38 +53,38 @@
 		widget.create(config);
 
 		children = widget.element.children;
-		button = document.getElementById('load_more_message').firstElementChild.firstElementChild;
+		button = document.getElementById('load_more_message');
 		trigger = ns.event.trigger;
 
 		equal(children.length, 51, 'Initial number of elements is correct');
 		trigger(element.lastElementChild, 'click');
-		button = document.getElementById('load_more_message').firstElementChild.firstElementChild;
+		button = document.getElementById('load_more_message');
 
 		equal(children.length, 101, 'Number of elements after 1st load elements is correct');
 		equal(button.innerHTML, 'Load 50 more items', 'Text value is ok, after 1st load');
 		trigger(element.lastElementChild, 'click');
 
-		button = document.getElementById('load_more_message').firstElementChild.firstElementChild;
+		button = document.getElementById('load_more_message');
 		equal(children.length, 151, 'Number of elements after 2nd load elements is correct');
 		equal(button.innerHTML, 'Load 50 more items', 'Text value is ok, after 2nd load');
 
 		for (i = 10; i > 0; i -= 1) {
 			trigger(element.lastElementChild, 'click');
 		}
-		button = document.getElementById('load_more_message').firstElementChild.firstElementChild;
+		button = document.getElementById('load_more_message');
 		equal(children.length, 651, 'Number of elements after 12th load elements is correct');
 		equal(button.innerHTML, 'Load 50 more items', 'Text value is ok, after 12th load');
 
 		for (i = 6; i > 0; i -= 1) {
 			trigger(element.lastElementChild, 'click');
 		}
-		button = document.getElementById('load_more_message').firstElementChild.firstElementChild;
+		button = document.getElementById('load_more_message');
 
 		equal(children.length, 951, 'Number of elements after 18th load elements is correct');
 		equal(button.innerHTML, 'Load 50 more items', 'Text value is ok, after 18th load');
 
 		trigger(element.lastElementChild, 'click');
-		button = document.getElementById('load_more_message').firstElementChild.firstElementChild;
+		button = document.getElementById('load_more_message');
 
 		equal(children.length, 1001, 'Number of elements after 19th load elements is correct');
 		equal(button.innerHTML, 'Load 46 more items', 'Text value is ok, after 19th load');

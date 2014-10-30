@@ -115,9 +115,9 @@
 								nsNormalizeDict[prop] = nsNormalizeDict[prop] || $.camelCase($.mobile.ns + prop);
 								return nsNormalizeDict[prop];
 							},
-							activeBtnClass : ns.widget.mobile.Button.classes.uiBtnActive,
+							activeBtnClass : ns.widget.core.Button.classes.uiBtnActive,
 							activePageClass : ns.widget.mobile.Page.classes.uiPageActive,
-							focusClass : ns.widget.mobile.Button.classes.uiFocus,
+							focusClass : ns.widget.core.Button.classes.uiFocus,
 							version: "1.2.0",
 							getAttrFixed: function (element, key) {
 								var value = element.getAttribute(key);

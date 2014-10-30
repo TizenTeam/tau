@@ -139,7 +139,7 @@
 			"../../../../core/util/selectors",
 			"../../../../core/event/vmouse",
 			"../mobile",
-			"./Button",
+			"../../../../core/widget/Button",
 			"./BaseWidgetMobile"
 		],
 		function () {
@@ -147,7 +147,7 @@
 			var engine = ns.engine,
 				grid = ns.util.grid,
 				selectors = ns.util.selectors,
-				buttonActiveClass = ns.widget.mobile.Button.classes.uiBtnActive,
+				buttonActiveClass = ns.widget.core.Button.classes.uiBtnActive,
 				slice = [].slice,
 				// basic options set for navigation bar buttons
 				buttonOptions = {

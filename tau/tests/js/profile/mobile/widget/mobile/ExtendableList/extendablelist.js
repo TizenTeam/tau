@@ -65,7 +65,7 @@
 		equal(children[0].innerHTML, '<span class="ui-li-text-main">Abdelnaby, Alaa</span>', 'First element of list has proper value');
 		equal(children[49].innerHTML, '<span class="ui-li-text-main">Almond, Morris</span>', 'One before last element of list has proper value');
 		equal(children[50], document.getElementById('load_more_message').parentNode, 'Last element of list contains button element');
-		ok(ns.engine.getBinding(document.getElementById('load_more_message'), 'Button') instanceof ns.widget.mobile.Button, 'Load more button was bound');
+		ok(ns.engine.getBinding(document.getElementById('load_more_message'), 'Button') instanceof ns.widget.core.Button, 'Load more button was bound');
 
 		widget.option("listItemUpdater", newUpdater);
 		equal(options.listItemUpdater, newUpdater, 'Updater function after setListItemUpdater() is correct');

@@ -20,7 +20,7 @@
 			"../mobile", // fetch namespace
 			"./BaseWidgetMobile",
 			"./Popup",
-			"./Button",
+			"../../../../core/widget/core/Button",
 			"./Circularview",
 			"../../../../core/event",
 			"../../../../core/event/vmouse",

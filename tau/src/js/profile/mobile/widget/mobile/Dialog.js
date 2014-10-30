@@ -211,7 +211,7 @@
 			"../../../../core/util/DOM/attributes",
 			"../mobile", // fetch namespace
 			"./BaseWidgetMobile",
-			"./Button",
+			"../../../../core/widget/core/Button",
 			"./Page"
 		],
 		function () {
@@ -256,13 +256,13 @@
 				 */
 				events = ns.event,
 				/**
-				 * Alias to {@link ns.widget.mobile.Button#classes}
+				 * Alias to {@link ns.widget.core.Button#classes}
 				 * @property {Object} buttonClasses
 				 * @member ns.widget.mobile.Dialog
 				 * @private
 				 * @static
 				 */
-				buttonClasses = ns.widget.mobile.Button.classes,
+				buttonClasses = ns.widget.core.Button.classes,
 
 				/**
 				 * Dictionary for dialog related css class names

@@ -97,7 +97,7 @@
 			"../../../../core/util/selectors",
 			"../../../../core/util/DOM/attributes",
 			"../../../../core/util/DOM/manipulation",
-			"./Button",
+			"../../../../core/widget/core/Button",
 			"../mobile", // fetch namespace
 			"./BaseWidgetMobile"
 		],

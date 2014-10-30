@@ -83,8 +83,8 @@ textarea::-webkit-input-placeholder {
 			.mask-size(contain);
 			.mask-image('images/controls/00_core_button_icon_clear.png');
 
-			&:active,
-			&:hover {
+			&:active::after,
+			&:hover::after {
 				background-color: @color_searchbar_clear_icon_press;
 			}
 		}
@@ -150,30 +150,6 @@ textarea.ui-input-text.ui-focus {
 	.ui-input-clear.ui-input-clear-hidden.ui-btn-icon-notext {
 		left: auto;
 	}
-	.ui-btn {
-
-		&.ui-btn-box-s.ui-btn-up-s,
-		&.ui-btn-box-s.ui-btn-hover-s {
-			.core_button_bg();
-			top : 15 * @unit_base;
-			.ui-btn-inner.ui-btn-icon-only .ui-icon {
-				width: 30 * @unit_base;
-				height: 30 * @unit_base;
-				margin-left: -13.5 * @unit_base;
-				margin-top: -12 * @unit_base;
-				background-color: @color_button_icon;
-			}
-		}
-		.ui-icon {
-			margin: 0;
-		}
-	}
-	.ui-btn.ui-btn-box-s.ui-btn-down-s {
-		.core_button_bg_pressed();
-		.ui-icon {
-			margin: 0;
-		}
-	}
 }
 
 .ui-input-search {
@@ -184,23 +160,23 @@ textarea.ui-input-text.ui-focus {
 		margin-right: (46 + 15) * @unit_base;
 	}
 
-	.ui-btn-icon-notext.ui-input-clear {
+	.ui-btn.ui-input-clear.ui-icon-deleteSearch {
 		display: inline-block;
 		width: 36 * @unit_base;
-		height: 34 * @unit_base;
+		height: 36 * @unit_base;
+		background-color: transparent;
 
-		.ui-btn-inner {
-			padding: 14 * @unit_base
-				16 * @unit_base
-				9 * @unit_base
-				16 * @unit_base;
+		&::after {
+			top: 0;
+			left: 0;
+			width: 36 * @unit_base;
+			height: 36 * @unit_base;
+			background-color: @color_searchbar_clear_icon;
 		}
-	}
-	.ui-btn-inner {
-		.ui-icon-deleteSearch {
-			margin: -2 * @unit_base;
-			width: 45 * @unit_base;
-			height: 45 * @unit_base;
+
+		&:active::after,
+		&:hover::after {
+			background-color: @color_searchbar_clear_icon_press;
 		}
 	}
 }
@@ -269,25 +245,15 @@ textarea.ui-input-text.ui-focus {
 			visibility: visible;
 		}
 	}
-	.ui-btn-search-front-icon {
+	.ui-btn.ui-btn-search-front-icon {
 		position: absolute;
 		top: ((96 - 46) / 2) * @unit_base;
 		right: 15 * @unit_base;
-		width: 46 * @unit_base;
-		height: 46 * @unit_base;
 	}
 }
 
-.ui-icon-deleteSearch {
-	background-repeat: no-repeat;
-	background-size: 45 * @unit_base 45 * @unit_base;
-	background-color: @color_searchbar_clear_icon;
+.ui-icon-deleteSearch::after {
 	.mask-image('images/controls/00_field_btn_clear.png');
-	.mask-size(45 * @unit_base 45 * @unit_base);
-
-	&:active {
-		background-color: @color_searchbar_clear_icon_press;
-	}
 }
 
 .ui-input-clear-hidden {

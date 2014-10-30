@@ -131,7 +131,7 @@
 			"../mobile",
 			"../../../../core/util/DOM/manipulation",
 			"./BaseWidgetMobile",
-			"./Button"
+			"../../../../core/widget/core/Button"
 		],
 		function () {
 //>>excludeEnd("tauBuildExclude");
@@ -219,14 +219,14 @@
 				 */
 				CLEAR_BUTTON_SELECTOR = '.' + classes.clear,
 				/**
-				 * Alias for {ns.widget.mobile.Button.classes.uiDisabled}
+				 * Alias for {ns.widget.core.Button.classes.uiDisabled}
 				 * @property {string} CLASS_DISABLED
 				 * @member ns.widget.mobile.TextInput
 				 * @static
 				 * @private
 				 * @readonly
 				 */
-				CLASS_DISABLED = ns.widget.mobile.Button.classes.uiDisabled;
+				CLASS_DISABLED = ns.widget.core.Button.classes.DISABLED;
 
 			TextInput.prototype = new BaseWidget();
 

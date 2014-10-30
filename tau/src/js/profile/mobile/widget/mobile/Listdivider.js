@@ -122,7 +122,7 @@
 			"../../../../core/util/selectors",
 			"../mobile",
 			"./BaseWidgetMobile",
-			"./Button"
+			"../../../../core/widget/core/Button",
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
@@ -158,7 +158,7 @@
 				 * @static
 				 * @private
 				 */
-				Button = ns.widget.mobile.Button,
+				Button = ns.widget.core.Button,
 
 				ListDivider = function () {
 					return this;

@@ -155,7 +155,7 @@ test("textinput - Enabled state", function () {
 	//after build
 	$(input14).textinput();
 	equal(input14.getAttribute('data-tau-bound'), "TextInput", "textinput widget is created");
-	ok(!input14.classList.contains('ui-disabled'), 'textinput hasn\'t ui-disabled class');
+	ok(!input14.classList.contains('ui-state-disabled'), 'textinput hasn\'t ui-state-disabled class');
 	ok(!input14.getAttribute('disabled'), 'textinput hasn\'t disabled attribute');
 
 });
@@ -166,7 +166,7 @@ test("textinput - Disabled state", function () {
 	//after build
 	$(input15).textinput();
 	equal(input15.getAttribute('data-tau-bound'), "TextInput", "textinput widget is created");
-	ok(input15.classList.contains('ui-disabled'), 'textinput has ui-disabled class');
+	ok(input15.classList.contains('ui-state-disabled'), 'textinput has ui-state-disabled class');
 	ok(input15.getAttribute('disabled'), 'textinput has disabled attribute');
 
 });

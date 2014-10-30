@@ -159,7 +159,7 @@
 			"../../../../core/event/vmouse",
 			"../mobile", // fetch namespace
 			"./BaseWidgetMobile",
-			"./Button",
+			"../../../../core/widget/core/Button",
 			"./Textinput"
 		],
 		function () {
@@ -205,7 +205,7 @@
 				},
 				BaseWidget = ns.widget.mobile.BaseWidgetMobile,
 				TextInput = ns.widget.mobile.TextInput,
-				Button = ns.widget.mobile.Button,
+				Button = ns.widget.core.Button,
 				engine = ns.engine,
 				events = ns.event,
 				themes = ns.theme,
@@ -770,7 +770,6 @@
 				domHandle.setAttribute("aria-valuetext", initValue);
 				domHandle.setAttribute("title", initValue);
 				domHandle.setAttribute("aria-labelledby", "labelID");
-				domHandle.setAttribute("data-role", "button");
 				domHandle.setAttribute("inline", "false");
 				domHandle.setAttribute("data-bar", "true");
 				domHandle.setAttribute("id", elementId + "-handle");
@@ -855,7 +854,6 @@
 						element.nextSibling);
 
 				sliderContainer.appendChild(element);
-				engine.instanceWidget(domHandle, "Button");
 
 				return element;
 			};

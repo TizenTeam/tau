@@ -725,9 +725,9 @@
 			"../../../../core/event/vmouse",
 			"../../../../core/util/colors",
 			"../../../../core/widget/core/Page",
+			"../../../../core/widget/core/Button",
 			"../mobile",
 			"./BaseWidgetMobile",
-			"./Button"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
@@ -757,13 +757,13 @@
 				 */
 				DOM = ns.util.DOM,
 				/**
-				 * Alias for class ns.widget.mobile.Button
+				 * Alias for class ns.widget.core.Button
 				 * @property {Function} Button
 				 * @member ns.widget.mobile.Listview
 				 * @static
 				 * @private
 				 */
-				Button = ns.widget.mobile.Button,
+				Button = ns.widget.core.Button,
 				/**
 				 * Alias for class ns.widget.core.Page
 				 * @property {Function} Page
@@ -855,7 +855,7 @@
 					uiLiHeading: "ui-li-heading"
 				},
 				/**
-				 * Alias for object ns.widget.mobile.Button.classes
+				 * Alias for object ns.widget.core.Button.classes
 				 * @property {Object} buttonClasses
 				 * @member ns.widget.mobile.Listview
 				 * @static

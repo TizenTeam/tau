@@ -28,8 +28,8 @@
 			'../../../../core/util/object',
 			'../../../../core/event',
 			"../../../../core/widget/core/Page",
+			"../../../../core/widget/core/Button",
 			'./BaseWidgetMobile',
-			"./Button",
 			'./Scrollview',
 			'./Slider',
 			'./Progressbar'
@@ -107,9 +107,9 @@
 				pageClasses = ns.widget.core.Page.classes,
 				/**
 				 * Local alias for classes of Button widget
-				 * @property {Object} Button Alias for {@link ns.widget.mobile.Button}
+				 * @property {Object} Button Alias for {@link ns.widget.core.Button}
 				 */
-				buttonClasses = ns.widget.mobile.Button.classes,
+				buttonClasses = ns.widget.core.Button.classes,
 				/**
 				 * Local alias for classes of Scrollview widget
 				 * @property {Object} Scrollview Alias for {@link ns.widget.mobile.Scrollview}

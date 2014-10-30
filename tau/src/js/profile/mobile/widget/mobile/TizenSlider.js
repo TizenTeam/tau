@@ -105,13 +105,13 @@
 			"../../../../core/util/DOM/css",
 			"../mobile",
 			"./Slider",
-			"./Button",
-			"../../../../core/widget/core/Popup"
+			"../../../../core/widget/core/Popup",
+			"../../../../core/widget/core/Button"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 			var Slider = ns.widget.mobile.Slider,
-				Button = ns.widget.mobile.Button,
+				Button = ns.widget.core.Button,
 				engine = ns.engine,
 				events = ns.event,
 				objectUtils = ns.util.object,
@@ -415,13 +415,6 @@
 				// to determine current popup status
 				self.popupVisible = false;
 
-				slider.classList.remove(btnClasses.uiBtnCornerAll);
-				if (ui && ui.background) {
-					ui.background.classList.remove(btnClasses.uiBtnCornerAll);
-				}
-				self._ui.handle.classList.remove(btnClasses.uiBtnCornerAll);
-				slider.querySelector("." + btnClasses.uiBtnInner).classList.remove(btnClasses.uiBtnCornerAll);
-
 				switch (icon) {
 				case "bright":
 				case "volume":
@@ -470,8 +463,6 @@
 					}
 					break;
 				}
-
-				self.handleText = slider.querySelector("." + btnClasses.uiBtnText);
 
 				self.element = element;
 				self._updateSlider(element);

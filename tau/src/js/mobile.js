@@ -70,6 +70,7 @@
 			"./core/event/touch",
 			// widget list
 			"./core/widget/core/Checkboxradio",
+			"./core/widget/core/Button",
 			"./profile/mobile/widget/mobile/Page",
 			"./profile/mobile/widget/mobile/PageContainer",
 			"./profile/mobile/widget/mobile/Popup",
@@ -77,7 +78,6 @@
 			"./profile/mobile/widget/mobile/Circularview",
 			"./profile/mobile/widget/mobile/Collapsibleset",
 			"./profile/mobile/widget/mobile/Collapsible",
-			"./profile/mobile/widget/mobile/Button",
 			"./profile/mobile/widget/mobile/Dialog",
 			"./profile/mobile/widget/mobile/Listview",
 			"./profile/mobile/widget/mobile/Listdivider",

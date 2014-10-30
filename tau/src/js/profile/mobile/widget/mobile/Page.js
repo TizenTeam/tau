@@ -278,8 +278,8 @@
 			"../../../../core/util/object",
 			"../../../../core/event/orientationchange",
 			"../../../../core/widget/core/Page",
-			"../mobile",
-			"./Button"
+			"../../../../core/widget/core/Button",
+			"../mobile"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
@@ -294,7 +294,7 @@
 					CorePage.call(self);
 					self.options = object.copy(Page.prototype.options);
 				},
-				buttonClasses = ns.widget.mobile.Button.classes,
+				buttonClasses = ns.widget.core.Button.classes,
 				classes,
 				prototype = new CorePage();
 
