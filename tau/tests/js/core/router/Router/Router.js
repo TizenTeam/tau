@@ -31,6 +31,7 @@ function testFunction(tau, prefix, setupFunction) {
 
 		router.init(false);
 		equal(router.getFirstPage(), activePage, "Active page was proper initialized");
+		equal(router.getRoute("page").getFirstElement(), activePage, "Active page was proper initialized");
 		activePage.classList.remove("ui-page-active");
 	});
 
@@ -38,6 +39,7 @@ function testFunction(tau, prefix, setupFunction) {
 		var firstPage = document.getElementById("firstPage");
 		router.init(false);
 		equal(router.getFirstPage(), firstPage, "router.getFirstPage()");
+		equal(router.getRoute("page").getFirstElement(), firstPage, "router.getFirstPage()");
 	});
 
 	asyncTest("open enbedded #firstPage autoInitializePage:true", 1, function () {
@@ -146,7 +148,7 @@ function testFunction(tau, prefix, setupFunction) {
 			firstPage = document.getElementById("firstPage");
 		router.register(container, firstPage);
 		equal(router.container, container, "is container");
-		equal(router.firstPage, firstPage, "is firstPage");
+		equal(router.getRoute("page").getFirstElement(), firstPage, "is firstPage");
 	});
 
 	asyncTest("openPopup", function () {

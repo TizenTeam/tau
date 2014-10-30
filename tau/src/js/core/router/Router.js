@@ -203,12 +203,6 @@
 					var self = this;
 
 					/**
-					 * Element of the page opened as first.
-					 * @property {?HTMLElement} [firstPage=null]
-					 * @member ns.router.Router
-					 */
-					self.firstPage = null;
-					/**
 					 * Instance of widget PageContainer which controls page changing.
 					 * @property {?ns.widget.core.PageContainer} [container=null]
 					 * @member ns.router.Router
@@ -588,7 +582,7 @@
 			 * @member ns.router.Router
 			 */
 			Router.prototype.getFirstPage = function () {
-				return this.firstPage;
+				return this.getRoute("page").getFirstElement();
 			};
 
 			/**
@@ -714,7 +708,7 @@
 				self.container = container;
 
 				// sets first page HTMLElement
-				self.firstPage = firstPage;
+				self.getRoute("page").setFirstElement(firstPage);
 
 				// trigger event "themeinit" to theme module
 				eventUtils.trigger(document, "themeinit", self);
@@ -873,6 +867,28 @@
 
 				if (popupRoute) {
 					popupRoute.close(null, options);
+				}
+			};
+			/**
+			 * Method close route element, eg page or popup.
+			 * @method close
+			 * @param {string|HTMLElement} to Id of page or file url or HTMLElement of page
+			 * @param {Object} [options]
+			 * @param {"page"|"popup"|"external"} [options.rel = "page"] Represents kind of link as "page" or "popup" or "external" for linking to another domain
+			 * @member ns.router.Router
+			 */
+			Router.prototype.close = function (to, options) {
+				var rel = ((options && options.rel) || "page"),
+					rule = route[rel];
+
+				if (rel === "back") {
+					history.back();
+				} else {
+					if (rule) {
+						rule.close(to, options);
+					} else {
+						throw new Error("Not defined router rule [" + rel + "]");
+					}
 				}
 			};
 
@@ -1039,6 +1055,30 @@
 			};
 
 			/**
+			 * Returns Page or Popup widget
+			 * @param {string} [routeName="page"] in default page or popup
+			 * @method getActive
+			 * @return {ns.widget.BaseWidget}
+			 * @member ns.router.Router
+			 */
+			Router.prototype.getActive = function (routeName) {
+				var route = this.getRoute(routeName || "page");
+				return route && route.getActive();
+			};
+
+			/**
+			 * Returns true if element in given route is active.
+			 * @param {string} [routeName="page"] in default page or popup
+			 * @method hasActive
+			 * @return {boolean}
+			 * @member ns.router.Router
+			 */
+			Router.prototype.hasActive = function (routeName) {
+				var route = this.getRoute(routeName || "page");
+				return !!(route && route.hasActive());
+			};
+
+			/**
 			 * Returns true if any popup is active.
 			 *
 			 *	@example
@@ -1051,8 +1091,7 @@
 			 * @member ns.router.Router
 			 */
 			Router.prototype.hasActivePopup = function () {
-				var popup = this.getRoute("popup");
-				return popup && popup.hasActive();
+				return this.hasActive("popup");
 			};
 
 			/**

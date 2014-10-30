@@ -1,20 +1,20 @@
-/*global window, define */
+/*global window, define, ns */
 /* Copyright  2010 - 2014 Samsung Electronics Co., Ltd.
  * License : MIT License V2
  */
 /*jslint plusplus: true, nomen: true */
 /**
- * @class tau.navigator
+ * @class tau.expose
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  */
-//  * @TODO add support of $.mobile.buttonMarkup.hoverDelay
-(function (document, ns) {
+(function (document) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
 			"../../core/core",
 			"../../core/engine",
+			"../../core/util/object",
 			"../../core/widget/core/Page",
 			"../../core/router/route",
 			"../../core/history"
@@ -24,13 +24,15 @@
 
 			document.addEventListener("beforerouterinit", function () {
 				if (ns.autoInitializePage !== undefined) {
-					ns.setConfig('autoInitializePage', ns.autoInitializePage);
+					ns.setConfig("autoInitializePage", ns.autoInitializePage);
 				}
 			}, false);
 
 			document.addEventListener("routerinit", function (evt) {
 				var router = evt.detail,
+					utilObject = ns.util.object,
 					routePage = router.getRoute("page"),
+					routePopup = router.getRoute("popup"),
 					history = ns.history,
 					back = history.back.bind(router),
 					classes = ns.widget.core.Page.classes,
@@ -41,13 +43,13 @@
 				 * @member tau
 				 */
 				ns.changePage = router.open.bind(router);
-				document.addEventListener('pageshow', function () {
+				document.addEventListener("pageshow", function () {
 					/**
 					 * Current active page
 					 * @property {HTMLElement} activePage
 					 * @member tau
 					 */
-					ns.activePage = document.querySelector('.' + pageActiveClass);
+					ns.activePage = document.querySelector("." + pageActiveClass);
 				});
 				/**
 				 * First page element
@@ -55,7 +57,7 @@
 				 * @property {HTMLElement} firstPage
 				 * @member tau
 				 */
-				ns.firstPage = router.getFirstPage();
+				ns.firstPage = routePage.getFirstElement();
 				/**
 				 * Returns active page element
 				 * @inheritdoc ns.router.Router#getActivePageElement
@@ -89,19 +91,20 @@
 				 */
 				ns.openPopup = function(to, options) {
 					var htmlElementTo;
-					if (to && to.length !== undefined && typeof to === 'object') {
+					if (to && to.length !== undefined && typeof to === "object") {
 						htmlElementTo = to[0];
 					} else {
 						htmlElementTo = to;
 					}
-					router.openPopup(htmlElementTo, options);
+					options = utilObject.merge({}, options, {rel: "popup"});
+					router.open(htmlElementTo, options);
 				};
 				/**
 				 * @method closePopup
 				 * @inheritdoc ns.router.Router#closePopup
 				 * @member tau
 				 */
-				ns.closePopup = router.closePopup.bind(router);
+				ns.closePopup = routePopup.close.bind(routePopup, null);
 
 			}, false);
 
@@ -109,4 +112,4 @@
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
-}(window.document, ns));
+}(window.document));

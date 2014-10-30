@@ -108,11 +108,12 @@ document.addEventListener('DOMContentLoaded', function () {
 	});
 
 	test('isFirstPageUrl', function () {
-		equal(path.isFirstPageUrl('index.html#hash',
+		var firstPage = document.getElementById("test1");
+		equal(path.isFirstPageUrl('index.html#hash', firstPage,
 				ej.util.path.parseUrl("http://localhost/index.html"),
 				null,
 				ej.util.path.parseUrl("http://localhost/index.html")), false, 'isFirstPageUrl for {a: "b", c:"d"}');
-		equal(path.isFirstPageUrl('index.html#test1',
+		equal(path.isFirstPageUrl('index.html#test1', firstPage,
 				ej.util.path.parseUrl("http://localhost/index.html"),
 				null,
 				ej.util.path.parseUrl("http://localhost/index.html")), true, 'isFirstPageUrl for {a: "b", c:"d"}');

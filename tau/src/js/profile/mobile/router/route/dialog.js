@@ -127,7 +127,7 @@
 					state = {},
 					router = ns.router.Router.getInstance();
 
-				if (toPage === router.getFirstPage() && !options.dataUrl) {
+				if (toPage === router.getRoute("page").getFirstElement() && !options.dataUrl) {
 					url = path.documentUrl.hrefNoHash;
 				} else {
 					url = DOM.getNSData(toPage, "url");

@@ -70,13 +70,14 @@
 
 	test("Slider - showPopup", function () {
 		var slider = document.getElementById('slider-2'),
-			popups,
+			popups = document.getElementsByClassName('ui-popup'),
+			popupsLength = popups && popups.length || 0,
 			ctxpopup;
 
 		tau.engine.instanceWidget(slider, "TizenSlider");
 		tau.event.trigger(slider, "focus");
 		popups = document.getElementsByClassName('ui-popup');
-		equal(popups.length, 1, "There is new popup");
+		equal(popups.length, popupsLength + 1, "There is new popup");
 		ctxpopup = popups[0];
 		ok(ctxpopup.classList.contains('ui-ctxpopup'), 'Popup has ui-ctxpopup class after entering');
 		ok(ctxpopup.classList.contains('ui-popup-arrow-t'), 'Popup has ui-popup-arrow-t class after entering');
