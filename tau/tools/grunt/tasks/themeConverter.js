@@ -53,7 +53,7 @@ function run(themeIndex, themeStyle, device) {
 
 	if (device === "wearable") {
 		// In wearable version need to two color theme version, blue and brown.
-		colors = ["blue", "brown"];
+		colors = ["blue", "brown", "circle"];
 		len = colors.length;
 	}
 	for (i = 0; i < len; i++) {
@@ -67,7 +67,9 @@ function run(themeIndex, themeStyle, device) {
 function replaceTemplate(inputColorTable, colorTable, device, color) {
 	// replace color-code
 	var rgba = {r: 0, g: 0, b: 0, a: 1},
-		template = fs.readFileSync("dist/"+device+"/theme/changeable/changeable.template", "utf-8"),
+		template = color !== "circle" ?
+			fs.readFileSync("dist/"+device+"/theme/changeable/changeable.template", "utf-8") :
+			fs.readFileSync("dist/"+device+"/theme/"+color+"/changeable.template", "utf-8"),
 		i;
 
 	//replace color
@@ -82,7 +84,9 @@ function replaceTemplate(inputColorTable, colorTable, device, color) {
 		if (color === "blue") {
 			fs.writeFileSync("dist/"+device+"/theme/changeable/tau.css", template);
 		}
-		fs.mkdirSync("dist/"+device+"/theme/" + color + "/");
+		if (!fs.existsSync("dist/"+device+"/theme/" + color + "/")) {
+			fs.mkdirSync("dist/"+device+"/theme/" + color + "/");
+		}
 		fs.writeFileSync("dist/"+device+"/theme/" + color + "/tau.css", template);
 	}
 }

@@ -92,7 +92,7 @@ module.exports = function(grunt) {
 						i=0,
 						len=list.length,
 						theme;
-					if (version === "changeable") {
+					if (version === "changeable" || version === "circle") {
 						theme = list[0];
 						rtn.push({
 							src: path.join(srcCss, theme[versionPath], theme.src),
@@ -317,7 +317,9 @@ module.exports = function(grunt) {
 				wearableChangeable : {
 					files : files.css.getCssFiles("wearable", "changeable")
 				},
-
+				wearableCircle : {
+					files : files.css.getCssFiles("wearable", "circle")
+				},
 				mobileDefault: {
 					files : files.css.getCssFiles("mobile", "default")
 				},
