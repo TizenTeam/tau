@@ -62,7 +62,7 @@
 		}
 
 		if (!source.canRead()) {
-			throw new Error(destinationPath + " is not readable");
+			throw new Error(sourcePath + " is not readable");
 		}
 
 		contentIterator = FileUtils.iterateFilesAndDirs(source, filter, null);
@@ -84,6 +84,30 @@
 				}
 			}
 		}
+	}
+
+	function listFiles(sourcePath, filterFiles, filterDirs) {
+		var filterFile = filterFiles || FileFilterUtils.trueFileFilter(),
+			filterDir = filterDirs || FileFilterUtils.trueFileFilter(),
+			source = new File(sourcePath),
+			files = [],
+			entity,
+			contentIterator;
+
+		if (!source.canRead()) {
+			throw new Error(sourcePath + " is not readable");
+		}
+
+		contentIterator = FileUtils.iterateFilesAndDirs(source, filterFile, filterDir);
+
+		while (contentIterator.hasNext()) {
+			entity = contentIterator.next();
+			if (filterFile.accept(entity)) {
+				files.push(entity.getPath());
+			}
+		}
+
+		return files;
 	}
 
 	function trim(str) {
@@ -150,6 +174,7 @@
 
 	exports.copyContents = copyContents;
 	exports.copyFile = copyFile;
+	exports.listFiles = listFiles;
 	exports.mkdir = mkdir;
 	exports.parseArguments = parseArguments;
 	exports.readJSON = readJSON;
