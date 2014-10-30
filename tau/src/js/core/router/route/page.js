@@ -102,6 +102,14 @@
 			routePage.filter = engine.getWidgetDefinition("Page").selector.replace(/(\s*)/g, "");
 
 			/**
+			 * Property contains first page element
+			 * @property {?HTMLElement} firstPage
+			 * @member ns.router.route.page
+			 * @static
+			 */
+			routePage.firstPage = null;
+
+			/**
 			 * Returns default route options used inside Router.
 			 * @method option
 			 * @static
@@ -137,10 +145,9 @@
 			routePage.open = function (toPage, options) {
 				var pageTitle = document.title,
 					url,
-					state = {},
-					router = engine.getRouter();
+					state = {};
 
-				if (toPage === router.getFirstPage() && !options.dataUrl) {
+				if (toPage === this.getFirstElement() && !options.dataUrl) {
 					url = path.documentUrl.hrefNoHash;
 				} else {
 					url = DOM.getNSData(toPage, "url");
@@ -188,7 +195,7 @@
 				var self = this,
 					router = engine.getRouter(),
 					dataUrl = self._createDataUrl(absUrl),
-					initialContent = router.getFirstPage(),
+					initialContent = self.getFirstElement(),
 					pageContainer = router.getContainer(),
 					page,
 					selector = "[data-url='" + dataUrl + "']",
@@ -221,7 +228,7 @@
 				// We check for this case here because we don't want a first-page with
 				// an id falling through to the non-existent embedded page error case.
 				if (!page &&
-					path.isFirstPageUrl(dataUrl) &&
+					path.isFirstPageUrl(dataUrl, self.getFirstElement()) &&
 					initialContent) {
 					page = initialContent;
 				}
@@ -373,6 +380,27 @@
 			routePage.getActiveElement = function () {
 				return this.getActive().element;
 			};
+
+			/**
+			 * Method returns ths first page.
+			 * @method getFirstElement
+			 * @return {HTMLElement} the first page
+			 * @member ns.router.route.page
+			 */
+			routePage.getFirstElement = function () {
+				return this.firstPage;
+			};
+
+			/**
+			 * Method sets ths first page.
+			 * @method setFirstElement
+			 * @param {HTMLElement} firstPage the first page
+			 * @member ns.router.route.page
+			 */
+			routePage.setFirstElement = function (firstPage) {
+				this.firstPage = firstPage;
+			};
+
 			ns.router.route.page = routePage;
 
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);

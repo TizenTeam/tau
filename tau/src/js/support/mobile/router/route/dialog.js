@@ -1,5 +1,4 @@
-/*global window, ns, define */
-/*jslint nomen: true */
+/*global window, define, ns */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
  *
@@ -26,14 +25,14 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../../../core/engine",
-			"../../../core/util/DOM/attributes",
-			"../../../core/util/path",
-			"../../../core/util/selectors",
-			"../../../core/util/object",
-			"../../../core/router/route",
-			"../../../core/router/history",
-			"./Dialog"
+			"../../../../core/engine",
+			"../../../../core/util/DOM/attributes",
+			"../../../../core/util/path",
+			"../../../../core/util/selectors",
+			"../../../../core/util/object",
+			"../../widget/Dialog",
+			"../../../../core/router/route",
+			"../../../../core/router/history"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
@@ -139,7 +138,7 @@
 					state = {},
 					router = engine.getRouter();
 
-				if (toPage === router.getFirstPage() && !options.dataUrl) {
+				if (toPage === router.getRoute("page").getFirstElement() && !options.dataUrl) {
 					url = path.documentUrl.hrefNoHash;
 				} else {
 					url = DOM.getNSData(toPage, "url");
@@ -176,8 +175,6 @@
 
 				this.activeDialog = engine.instanceWidget(toPage, options.widget);
 
-				this.getContainer().getActivePage();
-
 				this.getContainer().change(toPage, options);
 			};
 
@@ -192,7 +189,7 @@
 				var self = this,
 					router = engine.getRouter(),
 					dataUrl = self._createDataUrl(absUrl),
-					initialContent = router.getFirstPage(),
+					firstPageElement = router.getFirstPage(),
 					pageContainer = router.getContainer(),
 					page,
 					selector = "[data-url='" + dataUrl + "']",
@@ -225,10 +222,10 @@
 				// We check for this case here because we don't want a first-page with
 				// an id falling through to the non-existent embedded page error case.
 				if (!page &&
-					path.isFirstPageUrl(dataUrl) &&
-					initialContent &&
-					initialContent.parentNode) {
-					page = initialContent;
+					firstPageElement &&
+					firstPageElement.parentNode &&
+					path.isFirstPageUrl(dataUrl, firstPageElement)) {
+					page = firstPageElement;
 				}
 
 				return page;

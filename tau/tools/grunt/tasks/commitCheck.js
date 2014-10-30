@@ -16,7 +16,7 @@ module.exports = function (grunt) {
 				// The command to execute. It should be in the system path.
 				cmd: "git",
 				// An array of arguments to pass to the command.
-				args: ["diff-tree", "--no-commit-id", "--name-only", "-r", "HEAD"]
+				args: ["diff-tree", "--no-commit-id", "--name-status", "-r", "HEAD"]
 			}, function (error, result) {
 				callback(result.stdout);
 			});
@@ -35,9 +35,12 @@ module.exports = function (grunt) {
 					"eslint:commit"
 				];
 
-			files = files.map(function (file) {
-				// remove "tau/" prefix
-				return file.substr(4);
+			files = files.filter(function (file) {
+				// take only added or modified files
+				return file[0] != "D";
+			}).map(function (file) {
+				// remove  "[AMD]\ttau/" prefix and
+				return file.substr(6);
 			}).filter(function (file) {
 				// delete files from libs directory
 				return file.indexOf("libs") !== 0;
@@ -86,8 +89,8 @@ module.exports = function (grunt) {
 								files = grunt.file.expand(mainTestPattern);
 
 							if (!files.length) {
-								// error when not exists any test fo module
-								grunt.fail.fatal("Tests don't exist for module ", testDirectory);
+								// warn when not exists any test fo module
+								grunt.log.warn("Tests don't exist for module ", testDirectory);
 							}
 							testModules.push(mainTestPattern);
 							//add additional tests

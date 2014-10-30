@@ -27,6 +27,7 @@
 		[
 			"../../core/core",
 			"../../core/engine",
+			"../../core/util/object",
 			"../../core/widget/core/Page",
 			"../../core/router/route",
 			"../../core/router/history"
@@ -42,7 +43,9 @@
 
 			document.addEventListener("routerinit", function (evt) {
 				var router = evt.detail,
+					utilObject = ns.util.object,
 					routePage = router.getRoute("page"),
+					routePopup = router.getRoute("popup"),
 					history = ns.router.history,
 					back = history.back.bind(router),
 					classes = ns.widget.core.Page.classes,
@@ -68,7 +71,7 @@
 				 * @property {HTMLElement} firstPage
 				 * @member tau
 				 */
-				ns.firstPage = router.getFirstPage();
+				ns.firstPage = routePage.getFirstElement();
 				/**
 				 * Returns active page element
 				 * @inheritdoc ns.router.Router#getActivePageElement
@@ -108,14 +111,15 @@
 					} else {
 						htmlElementTo = to;
 					}
-					router.openPopup(htmlElementTo, options);
+					options = utilObject.merge({}, options, {rel: "popup"});
+					router.open(htmlElementTo, options);
 				};
 				/**
 				 * @method closePopup
 				 * @inheritdoc ns.router.Router#closePopup
 				 * @member tau
 				 */
-				ns.closePopup = router.closePopup.bind(router);
+				ns.closePopup = routePopup.close.bind(routePopup, null);
 
 			}, false);
 

@@ -162,12 +162,6 @@
 					var self = this;
 
 					/**
-					 * Element of the page opened as first.
-					 * @property {?HTMLElement} [firstPage]
-					 * @member ns.router.Router
-					 */
-					self.firstPage = null;
-					/**
 					 * The container of widget.
 					 * @property {?ns.widget.core.PageContainer} [container]
 					 * @member ns.router.Router
@@ -270,7 +264,8 @@
 					url,
 					isContinue = true,
 					reverse = state && history.getDirection(state) === "back",
-					transition;
+					transition,
+					rule;
 
 				if (_isLock || (inTransition && reverse)) {
 					history.disableVolatileMode();
@@ -297,7 +292,8 @@
 						}
 					}
 					maxOrderNumber = Math.max.apply(null, orderNumberArray);
-					if (rules[ORDER_NUMBER[maxOrderNumber]] && rules[ORDER_NUMBER[maxOrderNumber]].onHashChange(url, options, prevState)) {
+					rule = rules[ORDER_NUMBER[maxOrderNumber]];
+					if (rule && rule.onHashChange(url, options, prevState)) {
 						if (maxOrderNumber === 10) {
 							// rule is panel
 							return;
@@ -532,7 +528,7 @@
 			 * @member ns.router.Router
 			 */
 			Router.prototype.getFirstPage = function () {
-				return this.firstPage;
+				self.getRoute("page").getFirstElement();
 			};
 
 			/**
@@ -546,7 +542,7 @@
 				var self = this;
 
 				self.container = container;
-				self.firstPage = firstPage;
+				self.getRoute("page").setFirstElement(firstPage);
 
 				self.linkClickHandler = linkClickHandler.bind(null, self);
 				self.popStateHandler = popStateHandler.bind(null, self);
@@ -645,6 +641,29 @@
 
 				if (popupRoute) {
 					popupRoute.close(null, options);
+				}
+			};
+
+			/**
+			 * Method close route element, eg page or popup.
+			 * @method close
+			 * @param {string|HTMLElement} to Id of page or file url or HTMLElement of page
+			 * @param {Object} [options]
+			 * @param {"page"|"popup"|"external"} [options.rel = "page"] Represents kind of link as "page" or "popup" or "external" for linking to another domain
+			 * @member ns.router.Router
+			 */
+			Router.prototype.close = function (to, options) {
+				var rel = ((options && options.rel) || "page"),
+					rule = route[rel];
+
+				if (rel === "back") {
+					history.back();
+				} else {
+					if (rule) {
+						rule.close(to, options);
+					} else {
+						throw new Error("Not defined router rule [" + rel + "]");
+					}
 				}
 			};
 
@@ -818,7 +837,7 @@
 			 * @protected
 			 */
 			Router.prototype._getInitialContent = function () {
-				return this.firstPage;
+				return this.getRoute("page").getFirstElement();
 			};
 
 			/**
@@ -854,15 +873,40 @@
 			};
 
 			/**
+			 * Returns Page or Popup widget
+			 * @param {string} [routeName="page"] in default page or popup
+			 * @method getActive
+			 * @return {ns.widget.BaseWidget}
+			 * @member ns.router.Router
+			 */
+			Router.prototype.getActive = function (routeName) {
+				var route = this.getRoute(routeName || "page");
+
+				return route && route.getActive();
+			};
+
+			/**
+			 * Returns true if element in given route is active.
+			 * @param {string} [routeName="page"] in default page or popup
+			 * @method hasActive
+			 * @return {boolean}
+			 * @member ns.router.Router
+			 */
+			Router.prototype.hasActive = function (routeName) {
+				var route = this.getRoute(routeName || "page");
+
+				return !!(route && route.hasActive());
+			};
+
+			/**
 			 * Returns true if popup is active.
 			 * @method hasActivePopup
 			 * @return {boolean}
 			 * @member ns.router.Router
 			 */
 			Router.prototype.hasActivePopup = function () {
-				var popup = this.getRoute("popup");
 
-				return popup && popup.hasActive();
+				return this.hasActive("popup");
 			};
 
 			/**

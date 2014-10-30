@@ -15,6 +15,7 @@
 	define(
 		[
 			"require",
+			"./core/info",
 			"support/mobile/event/touch",
 			"support/mobile/router/Router",
 			"support/mobile/widget/Checkboxradio",
@@ -30,7 +31,7 @@
 			"support/mobile/widget/Collapsible",
 			"support/mobile/widget/Collapsibleset",
 			"support/mobile/widget/Dialog",
-			"support/mobile/widget/Dialog.route",
+			"support/mobile/router/route/dialog",
 			"support/mobile/widget/Slider.extra",
 			"support/mobile/widget/TizenSlider.extra",
 			"support/mobile/widget/SearchBar",

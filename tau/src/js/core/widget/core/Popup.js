@@ -421,7 +421,11 @@
 					// create overlay
 					if (!overlay) {
 						overlay = document.createElement("div");
-						element.parentNode.insertBefore(overlay, element);
+						if (element.parentNode) {
+							element.parentNode.insertBefore(overlay, element);
+						} else {
+							ns.warn("Popup is creating on element outside DOM");
+						}
 						ui.overlay = overlay;
 					}
 					overlay.className = classes.overlay + (overlayClass ? " " + overlayClass : "");
@@ -818,7 +822,7 @@
 				event.stopPropagation();
 
 				if (options.dismissible) {
-					engine.getRouter().close();
+					engine.getRouter().close(null, {rel: "popup"});
 				}
 			};
 

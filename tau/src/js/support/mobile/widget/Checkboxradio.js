@@ -20,7 +20,7 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../../../core/widget/core",
+			"../../../profile/mobile/widget/mobile",
 			"../../../core/engine",
 			"../../../core/util/selectors",
 			"../../../core/widget/BaseWidget"

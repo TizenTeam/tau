@@ -1,5 +1,6 @@
+/* global test, equal */
+
 (function (ns) {
-	'use strict';
 	var data = ns.util.object;
 
 	module("core/util/object");
@@ -12,4 +13,4 @@
 		equal(typeof data.merge, "function", "function merge");
 		equal(typeof data.fastMerge, "function", "function fastMerge");
 	});
-}(ej))
+}(window.tau))

@@ -1,11 +1,12 @@
-var selectors = ej.util.selectors;
+/* global tau, test, equal */
+var selectors = tau.util.selectors;
 
 module("core/util/selectors");
 
-test("ej.util.selectors - check the existence of objects/functions", function () {
-	equal(typeof ej, "object", "ej exists");
-	equal(typeof ej.util, "object", "ej.util exists");
-	equal(typeof ej.util.selectors, "object", "ej.util.selectors exists");
+test("tau.util.selectors - check the existence of objects/functions", function () {
+	equal(typeof tau, "object", "tau exists");
+	equal(typeof tau.util, "object", "tau.util exists");
+	equal(typeof tau.util.selectors, "object", "tau.util.selectors exists");
 	equal(typeof selectors.matchesSelector, "function", "function set");
 	equal(typeof selectors.getChildrenBySelector, "function", "function set");
 	equal(typeof selectors.getChildrenByClass, "function", "function get");

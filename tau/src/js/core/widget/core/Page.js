@@ -792,6 +792,17 @@
 				return div;
 			};
 
+			engine.defineWidget(
+				"Page",
+				".ui-page",
+				[
+					"focus",
+					"blur",
+					"setActive"
+				],
+				Page
+			);
+
 			ns.widget.core.Page = Page;
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			// exports only for tests

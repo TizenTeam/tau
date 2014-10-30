@@ -39,7 +39,7 @@ test("tau", function () {
 		error: function (arg1, arg2, arg3) {
 			tau.event.trigger(document.body, "consoleerror", arg1 + " " + arg2 + " " + arg3);
 		}
-	}
+	};
 
 	test("Console log tests", 2, function () {
 		document.body.addEventListener("consolelog", function () {

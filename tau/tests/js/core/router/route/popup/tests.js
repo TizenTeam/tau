@@ -2,7 +2,7 @@
 
 /** @TODO delete tau namespace from this file */
 
-module("router.micro.route.popup");
+module("core/router/route/popup");
 
 document.addEventListener("tauinit", function () {
 	if (!window.navigator.userAgent.match("PhantomJS")) {
@@ -15,7 +15,8 @@ document.addEventListener("tauinit", function () {
 				ok(document.querySelector("[data-script]"), "proper move attribute for script");
 				equal(tau.engine.getRouter().getRoute("popup").getActiveElement(), document.getElementById("externalPopup"), "getActiveElement return correct value");
 				equal(tau.engine.getRouter().getRoute("popup").getActive(), tau.engine.getBinding(document.getElementById("externalPopup"), "Popup"), "getActive return correct value");
-				equal(tau.engine.getRouter().hasActivePopup(), true, "hasActivePopup return correct value");
+				equal(tau.engine.getRouter().getActive("popup"), tau.engine.getBinding(document.getElementById("externalPopup"), "Popup"), "getActive return correct value");
+				equal(tau.engine.getRouter().hasActive("popup"), true, "hasActive('popup') return correct value");
 				start();
 			};
 

@@ -31,27 +31,11 @@
 			"../util",
 			"./object",
 			"./selectors",
-			"./DOM/attributes",
-			"../engine"
+			"./DOM/attributes"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
-			/**
-			 * Local alias for ns.engine
-			 * @property {Object} engine Alias for {@link ns.engine}
-			 * @member ns.util.path
-			 * @static
-			 * @private
-			 */
-			var engine = ns.engine,
-				/**
-				 * Local alias for ns.util.object
-				 * @property {Object} utilsObject Alias for {@link ns.util.object}
-				 * @member ns.util.path
-				 * @static
-				 * @private
-				 */
-				utilsObject = ns.util.object,
+			var utilsObject = ns.util.object,
 				/**
 				 * Local alias for ns.util.selectors
 				 * @property {Object} utilsSelectors Alias for {@link ns.util.selectors}
@@ -132,7 +116,7 @@
 					 * browsers that auto decode it. All references to location.href should be
 					 * replaced with a call to this method so that it can be dealt with properly here
 					 * @method getLocation
-					 * @param {string|Object} url
+					 * @param {string|Object} [url]
 					 * @return {string}
 					 * @member ns.util.path
 					 */
@@ -409,7 +393,7 @@
 					 * @method convertUrlToDataUrl
 					 * @member ns.util.path
 					 * @param {string} absUrl
-					 * @param {string} dialogHashKey
+					 * @param {boolean} dialogHashKey
 					 * @param {Object} documentBase uri structure
 					 * @return {string}
 					 * @static
@@ -656,16 +640,16 @@
 					 * @method isFirstPageUrl
 					 * @member ns.util.path
 					 * @param {string} url
-					 * @param {Object} documentBase uri structure
+					 * @param {HTMLElement} firstPageElement first page element
+					 * @param {string} documentBase uri structure
 					 * @param {boolean} documentBaseDiffers
 					 * @param {Object} documentUrl uri structure
 					 * @return {boolean}
 					 * @static
 					 */
-					isFirstPageUrl: function (url, documentBase, documentBaseDiffers, documentUrl) {
+					isFirstPageUrl: function (url, firstPageElement, documentBase, documentBaseDiffers, documentUrl) {
 						var urlStructure,
 							samePath,
-							firstPage,
 							firstPageId,
 							hash;
 
@@ -679,11 +663,8 @@
 						// Does the url have the same path as the document?
 						samePath = urlStructure.hrefNoHash === documentUrl.hrefNoHash || (documentBaseDiffers && urlStructure.hrefNoHash === documentBase.hrefNoHash);
 
-						// Get the first page element.
-						firstPage = engine.getRouter().firstPage;
-
 						// Get the id of the first page element if it has one.
-						firstPageId = firstPage ? firstPage.id : undefined;
+						firstPageId = firstPageElement && firstPageElement.id || false;
 						hash = urlStructure.hash;
 
 						// The url refers to the first page if the path matches the document and

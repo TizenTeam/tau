@@ -80,7 +80,7 @@
 									$.mobile.activePage = $(target);
 								}, true);
 								$.mobile.activePage = $();
-								$.mobile.firstPage = $(router.getFirstPage());
+								$.mobile.firstPage = $(router.getRoute("page").getFirstElement());
 								$.mobile.pageContainer = $();
 								$.mobile.subPageUrlKey = ns.widget.mobile.Page.classes.uiPage;
 								$.mobile.ajaxEnabled = true;
