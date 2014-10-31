@@ -42,13 +42,15 @@
 					getAllInstances: engine.getAllBindings
 				};
 
+			function widgetConstructor(name, element, options) {
+				return engine.instanceWidget(element, name, options);
+			}
+
 			document.addEventListener(engine.eventType.WIDGET_DEFINED, function (evt) {
 				var definition = evt.detail,
 					name = definition.name;
 
-				 ns.widget[name] = function (element, options) {
-					 return engine.instanceWidget(element, name, options);
-				 };
+				 ns.widget[name] = widgetConstructor.bind(null, name);
 
 			}, true);
 

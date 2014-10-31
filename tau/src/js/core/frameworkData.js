@@ -266,6 +266,9 @@
 				cssElements.forEach(findThemeInLinks);
 
 				scriptElements.forEach(findFrameworkDataInScripts);
+
+				cssElements = null;
+				scriptElements = null;
 			};
 
 			ns.frameworkData = frameworkData;
