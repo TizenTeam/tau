@@ -15,6 +15,7 @@
 			//>>excludeEnd("tauBuildExclude");
 
 			var engine = ns.engine,
+				eventType = engine.eventType,
 				object = ns.util.object,
 				router = null;
 
@@ -81,9 +82,23 @@
 				return null;
 			};
 
-			document.addEventListener("routerinit", function () {
+			/**
+			 * Initialize router on router init
+			 */
+			function init() {
 				router = engine.getRouter();
-			}, true);
+			}
+
+			/**
+			 * Remove events listeners on framework destroy
+			 */
+			function destroy() {
+				document.removeEventListener(eventType.ROUTER_INIT, init, true);
+				document.removeEventListener(eventType.DESTROY, destroy, true);
+			}
+
+			document.addEventListener(eventType.ROUTER_INIT, init, true);
+			document.addEventListener(eventType.DESTROY, destroy, true);
 
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 		}

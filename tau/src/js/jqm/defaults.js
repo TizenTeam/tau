@@ -30,95 +30,105 @@
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
-			ns.jqm.defaults = {
-				/**
-				 * Proxy colors library from ns namespace to jQM namespace
-				 * @method init
-				 * @member ns.jqm.defaults
-				 * @static
-				 */
-				init: function () {
-					if ($) {
+			var engineEventsType = ns.engine.eventType,
+				eventType = {
+					INIT: engineEventsType.INIT,
+					DESTROY: engineEventsType.DESTROY
+				},
+				defaults = {
+					/**
+					 * Proxy colors library from ns namespace to jQM namespace
+					 * @method init
+					 * @member ns.jqm.defaults
+					 * @static
+					 */
+					init: function () {
+						if ($) {
 
-						$.mobile = $.mobile || {};
-						// Version of the jQuery Mobile Framework
-						//$.mobile.version: __version__;
+							$.mobile = $.mobile || {};
+							// Version of the jQuery Mobile Framework
+							//$.mobile.version: __version__;
 
-						// Namespace used framework-wide for data-attrs. Default is no namespace
-						$.mobile.ns = "";
+							// Namespace used framework-wide for data-attrs. Default is no namespace
+							$.mobile.ns = "";
 
-						// Define the url parameter used for referencing widget-generated sub-pages.
-						// Translates to to example.html&ui-page=subpageIdentifier
-						// hash segment before &ui-page= is used to make Ajax request
-						$.mobile.subPageUrlKey = "ui-page";
+							// Define the url parameter used for referencing widget-generated sub-pages.
+							// Translates to to example.html&ui-page=subpageIdentifier
+							// hash segment before &ui-page= is used to make Ajax request
+							$.mobile.subPageUrlKey = "ui-page";
 
-						// Class assigned to page currently in view; and during transitions
-						$.mobile.activePageClass = "ui-page-active";
+							// Class assigned to page currently in view; and during transitions
+							$.mobile.activePageClass = "ui-page-active";
 
-						// Class used for "active" button state; from CSS framework
-						$.mobile.activeBtnClass = "ui-btn-active";
+							// Class used for "active" button state; from CSS framework
+							$.mobile.activeBtnClass = "ui-btn-active";
 
-						// Class used for "focus" form element state; from CSS framework
-						$.mobile.focusClass = "ui-focus";
+							// Class used for "focus" form element state; from CSS framework
+							$.mobile.focusClass = "ui-focus";
 
-						// Automatically handle clicks and form submissions through Ajax; when same-domain
-						$.mobile.ajaxEnabled = true;
+							// Automatically handle clicks and form submissions through Ajax; when same-domain
+							$.mobile.ajaxEnabled = true;
 
-						// Automatically load and show pages based on location.hash
-						$.mobile.hashListeningEnabled = true;
+							// Automatically load and show pages based on location.hash
+							$.mobile.hashListeningEnabled = true;
 
-						// disable to prevent jquery from bothering with links
-						$.mobile.linkBindingEnabled = true;
+							// disable to prevent jquery from bothering with links
+							$.mobile.linkBindingEnabled = true;
 
-						// Set default page transition - 'none' for no transitions
-						$.mobile.defaultPageTransition = "fade";
+							// Set default page transition - 'none' for no transitions
+							$.mobile.defaultPageTransition = "fade";
 
-						// Set maximum window width for transitions to apply - 'false' for no limit
-						$.mobile.maxTransitionWidth = false;
+							// Set maximum window width for transitions to apply - 'false' for no limit
+							$.mobile.maxTransitionWidth = false;
 
-						// Minimum scroll distance that will be remembered when returning to a page
-						$.mobile.minScrollBack = 250;
+							// Minimum scroll distance that will be remembered when returning to a page
+							$.mobile.minScrollBack = 250;
 
-						// DEPRECATED = the following property is no longer in use; but defined until 2.0 to prevent conflicts
-						$.mobile.touchOverflowEnabled = false;
+							// DEPRECATED = the following property is no longer in use; but defined until 2.0 to prevent conflicts
+							$.mobile.touchOverflowEnabled = false;
 
-						// Set default dialog transition - 'none' for no transitions
-						$.mobile.defaultDialogTransition = "pop";
+							// Set default dialog transition - 'none' for no transitions
+							$.mobile.defaultDialogTransition = "pop";
 
-						// Error response message - appears when an Ajax page request fails
-						$.mobile.pageLoadErrorMessage = "Error Loading Page";
+							// Error response message - appears when an Ajax page request fails
+							$.mobile.pageLoadErrorMessage = "Error Loading Page";
 
-						// For error messages; which theme does the box uses?
-						$.mobile.pageLoadErrorMessageTheme = "e";
+							// For error messages; which theme does the box uses?
+							$.mobile.pageLoadErrorMessageTheme = "e";
 
-						// replace calls to window.history.back with phonegaps navigation helper
-						// where it is provided on the window object
-						$.mobile.phonegapNavigationEnabled = false;
+							// replace calls to window.history.back with phonegaps navigation helper
+							// where it is provided on the window object
+							$.mobile.phonegapNavigationEnabled = false;
 
-						//automatically initialize the DOM when it's ready
-						$.mobile.autoInitializePage = true;
+							//automatically initialize the DOM when it's ready
+							$.mobile.autoInitializePage = true;
 
-						$.mobile.pushStateEnabled = true;
+							$.mobile.pushStateEnabled = true;
 
-						// allows users to opt in to ignoring content by marking a parent element as
-						// data-ignored
-						$.mobile.ignoreContentEnabled = false;
+							// allows users to opt in to ignoring content by marking a parent element as
+							// data-ignored
+							$.mobile.ignoreContentEnabled = false;
 
-						// turn of binding to the native orientationchange due to android orientation behavior
-						$.mobile.orientationChangeEnabled = true;
+							// turn of binding to the native orientationchange due to android orientation behavior
+							$.mobile.orientationChangeEnabled = true;
 
-						$.mobile.tizen = $.mobile.tizen || {};
-						$.mobile.tizen.enableHWKeyHandler = true;
+							$.mobile.tizen = $.mobile.tizen || {};
+							$.mobile.tizen.enableHWKeyHandler = true;
+						}
+					},
+					destroy: function () {
+						document.removeEventListener(eventType.INIT, defaults.init, false);
+						document.removeEventListener(eventType.DESTROY, defaults.destroy, false);
+						ns = null;
+						$ = null;
 					}
-				}
-			};
+				};
+
 			// Listen when framework is ready
-			document.addEventListener(ns.engine.eventType.INIT, function () {
-				ns.jqm.defaults.init();
-			}, false);
+			document.addEventListener(eventType.INIT, defaults.init, false);
+			document.addEventListener(eventType.DESTROY, defaults.destroy, false);
 
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
-			return ns.jqm.defaults;
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");

@@ -119,8 +119,8 @@
 						}
 						definition = null;
 					}
-				};
-
+				},
+				eventType = engine.eventType;
 
 			function widgetConstructor(engine, name, methods, instanceWidgetName) {
 				/*
@@ -240,11 +240,27 @@
 				};
 			}
 
-			document.addEventListener(engine.eventType.WIDGET_DEFINED, function (evt) {
-				jqmWidget.init(engine, evt.detail);
-			}, false);
+			/**
+			 * Callback for event widgetdefined, register widget in jqm namespace
+			 * @param {Event} event
+			 */
+			function defineWidget(event) {
+				jqmWidget.init(engine, event.detail);
+			}
 
-			document.addEventListener(engine.eventType.INIT, function () {
+			/**
+			 * Removes event listeners on framework destroy.
+			 */
+			function destroy() {
+				document.removeEventListener(eventType.WIDGET_DEFINED, defineWidget, false);
+				document.removeEventListener(eventType.INIT, defineOldWidgets, false);
+				document.removeEventListener(eventType.DESTROY, destroy, false);
+			}
+
+			/**
+			 * Define widgets which names was changed for backward capability.
+			 */
+			function defineOldWidgets() {
 				engine.defineWidget(
 					"FixedToolbar",
 					"",
@@ -273,8 +289,11 @@
 					ns.widget.Popup,
 					"tizen"
 				);
+			}
 
-			}, false);
+			document.addEventListener(eventType.WIDGET_DEFINED, defineWidget, false);
+			document.addEventListener(eventType.INIT, defineOldWidgets, false);
+			document.addEventListener(eventType.DESTROY, destroy, false);
 
 			ns.jqm.widget = jqmWidget;
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);

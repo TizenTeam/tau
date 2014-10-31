@@ -21,7 +21,7 @@
  * jQuery Mobile namespace.
  * @class ns.jqm.colors
  */
-(function (window, document, ns, $) {
+(function (document, ns, $) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
@@ -32,27 +32,39 @@
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
-			ns.jqm.colors = {
-				/**
-				 * Proxy colors library from ns namespace to jQM namespace
-				 * @method init
-				 * @member ns.jqm.colors
-				 * @static
-				 */
-				init: function () {
-					if ($) {
-						$.mobile.tizen.clrlib = ns.util.colors;
+			var eventType = ns.engine.eventType,
+				colors = {
+					/**
+					 * Initializes colors util in jQueryMobile namespace
+					 */
+					init: function () {
+						if ($) {
+							$.mobile.tizen.clrlib = colors;
+						}
+					},
+
+					/**
+					 * Destroys colors util in jQueryMobile namespace
+					 */
+					destroy: function () {
+						document.removeEventListener(eventType.INIT, colors.init, false);
+						document.removeEventListener(eventType.DESTROY, colors.destroy, false);
+						if ($) {
+							delete $.mobile.tizen.clrlib;
+						}
+						ns = null;
+						$ = null;
+						eventType = null;
+						colors = null;
 					}
-				}
-			};
+				};
+
 			// Listen when framework is ready
-			document.addEventListener(ns.engine.eventType.INIT, function () {
-				ns.jqm.colors.init();
-			}, false);
+			document.addEventListener(eventType.INIT, colors.init, false);
+			document.addEventListener(eventType.DESTROY, colors.destroy, false);
 
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
-			return ns.jqm.colors;
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
-}(window, window.document, ns, ns.jqm.jQuery));
+}(window.document, ns, ns.jqm.jQuery));

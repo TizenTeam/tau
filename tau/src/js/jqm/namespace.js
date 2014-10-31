@@ -29,6 +29,8 @@
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
+			var eventType = ns.engine.eventType;
+
 			ns.jqm = {
 				/**
 				 * jQuery object
@@ -37,10 +39,26 @@
 				 */
 				jQuery: ns.getConfig("jQuery") || window.jQuery
 			};
-			document.addEventListener(ns.engine.eventType.INIT, function () {
+
+			/**
+			 * Initialize framework in the same way as it is done in jQueryMobile
+			 */
+			function init() {
 				// Tell the world that JQM is ready to serve Tau
 				ns.event.trigger(document, "mobileinit");
-			}, false);
+			}
+
+			/**
+			 * Removes events listeners on framework destroy.
+			 */
+			function destroy() {
+				document.removeEventListener(eventType.INIT, init, false);
+				document.removeEventListener(eventType.DESTROY, destroy, false);
+			}
+
+			document.addEventListener(eventType.INIT, init, false);
+			document.addEventListener(eventType.DESTROY, destroy, false);
+
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return ns.jqm;
 		}

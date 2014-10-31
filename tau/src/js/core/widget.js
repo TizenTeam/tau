@@ -31,6 +31,7 @@
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 			var engine = ns.engine,
+				eventType = engine.eventType,
 				widget = {
 					/**
 					 * Get bound widget for element
@@ -57,13 +58,27 @@
 				return engine.instanceWidget(element, name, options);
 			}
 
-			document.addEventListener(engine.eventType.WIDGET_DEFINED, function (evt) {
-				var definition = evt.detail,
+			/**
+			 * Register simple widget constructor in namespace
+			 * @param {Event} event
+			 */
+			function defineWidget(event) {
+				var definition = event.detail,
 					name = definition.name;
 
 				ns.widget[name] = widgetConstructor.bind(null, name);
+			}
 
-			}, true);
+			/**
+			 * Remove event listenrs on framework destroy
+			 */
+			function destroy() {
+				document.removeEventListener(eventType.WIDGET_DEFINED, defineWidget, true);
+				document.removeEventListener(eventType.DESTROY, destroy, false);
+			}
+
+			document.addEventListener(eventType.WIDGET_DEFINED, defineWidget, true);
+			document.addEventListener(eventType.DESTROY, destroy, false);
 
 			/** @namespace ns.widget */
 			ns.widget = widget;

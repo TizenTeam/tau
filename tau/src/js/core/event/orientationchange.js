@@ -36,6 +36,7 @@
 			var body = document.body,
 				orientation = null,
 				eventUtils = ns.event,
+				eventType = ns.engine.eventType,
 				orientationchange = {
 					/**
 					 * Informs about support orientation change event.
@@ -69,7 +70,8 @@
 					 * @member ns.event.orientationchange
 					 * @static
 					 */
-					properties: ["orientation"]
+					properties: ["orientation"],
+					unbind: destroy
 				},
 				detectOrientationByDimensions = function (omitCustomEvent) {
 					var width = window.innerWidth,
@@ -129,12 +131,20 @@
 					}
 					portraitMatchMediaQueryList.addListener(matchMediaHandler);
 				} else {
-					body.addEventListener("throttledresize", detectOrientationByDimensions);
+					body.addEventListener("throttledresize", detectOrientationByDimensions, false);
 					detectOrientationByDimensions();
 				}
 			}
 
 			ns.event.orientationchange = orientationchange;
+
+			function destroy() {
+				window.removeEventListener("orientationchange", checkReportedOrientation, false);
+				body.removeEventListener("throttledresize", detectOrientationByDimensions, false);
+				document.removeEventListener(eventType.DESTROY, destroy, false);
+			}
+
+			document.addEventListener(eventType.DESTROY, destroy, false);
 
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return ns.event.orientationchange;

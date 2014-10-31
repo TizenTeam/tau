@@ -546,11 +546,6 @@
 				document.addEventListener("touchstart", handleTouchStart, true);
 				document.addEventListener("touchend", handleTouchEnd, true);
 				document.addEventListener("touchmove", handleTouchMove, true);
-
-				// touchenter and touchleave are removed from W3C spec
-				// No need to listen to touchover as it has never exited
-				// document.addEventListener("touchenter", handleTouchOver, true);
-				// document.addEventListener("touchleave", callbacks.out, true);
 				document.addEventListener("touchcancel", handleTouchCancel, true);
 			};
 
@@ -562,11 +557,46 @@
 			 */
 			vmouse.bindMouse = function () {
 				document.addEventListener("mousedown", handleDown, true);
-
 				document.addEventListener("mouseup", handleUp, true);
 				document.addEventListener("mousemove", handleMove, true);
 				document.addEventListener("mouseover", handleOver, true);
 				document.addEventListener("mouseout", handleOut, true);
+			};
+
+			/**
+			 * Unbinds touch events to support virtual mouse.
+			 * @method unbindTouch
+			 * @static
+			 * @member ns.event.vmouse
+			 */
+			vmouse.unbindTouch = function () {
+				document.removeEventListener("touchstart", handleTouchStart, true);
+				document.removeEventListener("touchend", handleTouchEnd, true);
+				document.removeEventListener("touchmove", handleTouchMove, true);
+
+				document.removeEventListener("touchcancel", handleTouchCancel, true);
+
+				document.removeEventListener("click", handleClick, true);
+			};
+
+			/**
+			 * Unbinds mouse events to support virtual mouse.
+			 * @method unbindMouse
+			 * @static
+			 * @member ns.event.vmouse
+			 */
+			vmouse.unbindMouse = function () {
+				document.removeEventListener("mousedown", handleDown, true);
+
+				document.removeEventListener("mouseup", handleUp, true);
+				document.removeEventListener("mousemove", handleMove, true);
+				document.removeEventListener("mouseover", handleOver, true);
+				document.removeEventListener("mouseout", handleOut, true);
+
+				document.removeEventListener("keyup", handleKeyUp, true);
+				document.removeEventListener("keydown", handleKeyDown, true);
+				document.removeEventListener("scroll", handleScroll, true);
+				document.removeEventListener("click", handleClick, true);
 			};
 
 			ns.event.vmouse = vmouse;

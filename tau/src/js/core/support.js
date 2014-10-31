@@ -353,6 +353,8 @@
 				 */
 				orientation: window.orientation !== undefined && window.onorientationchange !== undefined
 			};
+			testDiv = null;
+			fakeBody = null;
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return ns.support;
 		}

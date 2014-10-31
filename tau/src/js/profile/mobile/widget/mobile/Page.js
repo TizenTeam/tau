@@ -676,6 +676,26 @@
 				return optionsKeepNativeDefault;
 			};
 
+			/**
+			 * Destroy widget
+			 * @method _destroy
+			 * @protected
+			 * @member ns.widget.mobile.Page
+			 */
+			Page.prototype._destroy = function () {
+				var self = this,
+					element = self.element;
+
+				CorePagePrototype._destroy.call(self);
+
+				if (element) {
+					element.removeEventListener("pagebeforeshow", self.contentFillAfterResizeCallback, false);
+					element.removeEventListener("updatelayout", self.contentFillAfterResizeCallback, false);
+				}
+
+				delete self.contentFillAfterResizeCallback;
+			};
+
 			prototype.bindEvents = function (element, onlyBuild) {
 				CorePagePrototype.bindEvents.call(this, element, onlyBuild);
 				this.trigger("pageinit");

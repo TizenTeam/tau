@@ -70,6 +70,10 @@
 						throttledresize.enabled = true;
 					}
 					window.addEventListener("resize", resizeHandler, true);
+				},
+				unbind = function () {
+					throttledresize.enabled = false;
+					window.removeEventListener("resize", resizeHandler, true);
 				};
 
 			if (throttledresize.enabled) {
@@ -77,6 +81,7 @@
 			}
 
 			throttledresize.enable = enable;
+			throttledresize.unbind = unbind;
 
 			ns.event.throttledresize = throttledresize;
 

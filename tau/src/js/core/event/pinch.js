@@ -65,7 +65,13 @@
 					 * @static
 					 * @member ns.event.pinch
 					 */
-					enabled: true
+					enabled: true,
+					bind: function () {
+						document.addEventListener("touchstart", handleTouchStart, true);
+					},
+					unbind: function () {
+						document.removeEventListener("touchstart", handleTouchStart, true);
+					}
 				},
 				pinchDetails = {
 					origin: [],
@@ -187,7 +193,7 @@
 
 
 			// Init pinch event
-			document.addEventListener("touchstart", handleTouchStart, true);
+			pinch.bind();
 
 			ns.event.pinch = pinch;
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);

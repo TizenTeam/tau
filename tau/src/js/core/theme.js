@@ -45,6 +45,7 @@
 				DOM = util.DOM,
 				load = util.load,
 				support = ns.support,
+				eventType = ns.engine.eventType,
 
 				stopEvent = function (event) {
 					var element = event.target,
@@ -334,13 +335,28 @@
 				}
 			};
 
-			document.addEventListener("themeinit", function (evt) {
-				var router = evt.detail;
+			/**
+			 * Initializes theme helper
+			 * @param {Event} event
+			 */
+			function init(event) {
+				var router = event.detail;
 
 				if (router && ns.getConfig("autoInitializePage", true)) {
 					ns.theme.init(router.getContainer().element);
 				}
-			}, false);
+			}
+
+			/**
+			 * Removes events listeners for theme helper
+			 */
+			function destroy() {
+				document.removeEventListener("themeinit", init, false);
+				document.removeEventListener(eventType.DESTROY, destroy, false);
+			}
+
+			document.addEventListener("themeinit", init, false);
+			document.addEventListener(eventType.DESTROY, destroy, false);
 
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return ns.theme;

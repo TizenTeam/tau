@@ -32,44 +32,52 @@
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 			var support = ns.support,
-				object = ns.util.object;
+				object = ns.util.object,
+				eventType = ns.engine.eventType,
+				jqmSupport = {
+					/**
+					 * Touch support flag
+					 * @property {boolean} touch
+					 * @member ns.jqm.support
+					 */
+					touch: document.ontouchend !== undefined,
+					/**
+					 * Enables support in jQM after TAU init
+					 * @method init
+					 * @member ns.jqm.support
+					 */
+					init: function () {
+						var router = ns.engine.getRouter();
 
-			ns.jqm.support = {
-				/**
-				 * Touch support flag
-				 * @property {boolean} touch
-				 * @member ns.jqm.support
-				 */
-				touch: document.ontouchend !== undefined,
-				/**
-				 * Enables support in jQM after TAU init
-				 * @method init
-				 * @member ns.jqm.support
-				 */
-				init: function () {
-					var router = ns.engine.getRouter();
-
-					if ($) {
-						object.merge($.support, support);
-						ns.support = $.support;
-						$.mobile = $.mobile || {};
-						$.mobile.support = $.mobile.support || {};
-						$.mobile.support.touch = support.touch;
-						$.mobile.base = support.dynamicBaseTag ? {
-							element: router.resetBase === undefined ? ns.error.bind(null, "router PageExternal is not loaded") : router.resetBase(),
-							set: router.setBase === undefined ? ns.error.bind(null, "router PageExternal is not loaded") : router.setBase.bind(router),
-							reset: router.resetBase === undefined ? ns.error.bind(null, "router PageExternal is not loaded") : router.resetBase.bind(router)
-						} : undefined;
-						$.mobile.gradeA = ns.support.gradeA.bind(ns.support);
-						$.mobile.browser = ns.support.browser;
+						if ($) {
+							object.merge($.support, support);
+							ns.support = $.support;
+							$.mobile = $.mobile || {};
+							$.mobile.support = $.mobile.support || {};
+							$.mobile.support.touch = support.touch;
+							$.mobile.base = support.dynamicBaseTag && {
+								element: router.resetBase === undefined ? ns.error.bind(null, "router PageExternal is not loaded") : router.resetBase(),
+								set: router.setBase === undefined ? ns.error.bind(null, "router PageExternal is not loaded") : router.setBase.bind(router),
+								reset: router.resetBase === undefined ? ns.error.bind(null, "router PageExternal is not loaded") : router.resetBase.bind(router)
+							};
+							$.mobile.gradeA = ns.support.gradeA.bind(ns.support);
+							$.mobile.browser = ns.support.browser;
+						}
+					},
+					/**
+					 * Removes events listeners on framework destroy
+					 */
+					destroy: function () {
+						document.removeEventListener(eventType.INIT, jqmSupport.init, false);
+						document.removeEventListener(eventType.DESTROY, jqmSupport.destroy, false);
 					}
-				}
-			};
+				};
 
 			// Listen when framework is ready
-			document.addEventListener(ns.engine.eventType.INIT, function () {
-				ns.jqm.support.init();
-			}, false);
+			document.addEventListener(eventType.INIT, jqmSupport.init, false);
+			document.addEventListener(eventType.DESTROY, jqmSupport.destroy, false);
+
+			ns.jqm.support = jqmSupport;
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return ns.jqm.support;
 		}

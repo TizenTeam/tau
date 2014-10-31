@@ -57,23 +57,29 @@
 				events = ns.event,
 				load = util.load,
 				utilsObject = util.object,
-				engine = ns.engine;
+				/*
+				 * Convert jQuery object to HTMLElement or Array of HTMLElements
+				 * @param {jQuery|HTMLElement|Array} item
+			   * @return {HTMLElement|Array}
+				 */
+				mapItem = function (item) {
+					if (typeof item === "object" && item.selector && item.get) {
+						return item.length === 1 ? item.get(0) : item.toArray();
+					}
 
-			function widgetFunction(parentarguments, mapItem, engine, name) {
-				var args = slice.call(parentarguments).map(mapItem);
+					return item;
+				},
+				engine = ns.engine,
+				eventType = engine.eventType,
 
-				engine[name].apply(engine, args);
-			}
-
-			ns.jqm.engine = {
-				/**
+			/**
 				 * append ns functions to jQuery Mobile namespace
 				 * @method init
 				 * @param {Object} engine ns.engine class
 				 * @member ns.jqm.engine
 				 * @static
 				 */
-				init: function () {
+				init = function () {
 					var keys = Object.keys(engine),
 						i,
 						len,
@@ -91,16 +97,8 @@
 						 * string to detect exists jqmData selector
 						 */
 						jqmDataStr = ":jqmData",
-						/*
-						 * map item to jQuery
-						 */
-						mapItem = function (item) {
-							if (typeof item === "object" && item.selector && item.get) {
-								return item.length === 1 ? item.get(0) : item.toArray();
-							}
 
-							return item;
-						},
+
 						tizen;
 
 					if ($) {
@@ -446,13 +444,31 @@
 
 						ns.setConfig("enableHWKeyHandler", $.mobile.tizen.enableHWKeyHandler);
 					}
-				}
-			};
+				},
+				/**
+				 * Removes events listeners on destroy of framework.
+				 */
+				destroy = function () {
+					document.removeEventListener(eventType.INIT, init, false);
+					document.removeEventListener(eventType.DESTROY, destroy, false);
+				};
+
+			/**
+			 * Function which is used as jQuery mapping engine method
+			 * @param {Arguments} parentarguments
+			 * @param {Function} mapItem
+			 * @param {Object} engine
+			 * @param {string} name
+			 */
+			function widgetFunction(parentarguments, mapItem, engine, name) {
+				var args = slice.call(parentarguments).map(mapItem);
+
+				engine[name].apply(engine, args);
+			}
 
 			// Listen when framework is ready
-			document.addEventListener(ns.engine.eventType.INIT, function () {
-				ns.jqm.engine.init();
-			}, false);
+			document.addEventListener(eventType.INIT, init, false);
+			document.addEventListener(eventType.DESTROY, destroy, false);
 
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return ns.jqm.engine;

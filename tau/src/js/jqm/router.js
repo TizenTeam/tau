@@ -32,144 +32,149 @@
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 
-			var engine = ns.engine;
+			var engine = ns.engine,
+				eventType = engine.eventType,
+				jqmRouter = {
+					/**
+					 * Enables support jQM before router init.
+					 * @method beforeinit
+					 * @member ns.jqm.router
+					 */
+					beforeinit: function () {
+						var container,
+							router = engine.getRouter();
 
-			ns.jqm.router = {
-				/**
-				 * Enables support jQM before router init.
-				 * @method beforeinit
-				 * @member ns.jqm.router
-				 */
-				beforeinit: function () {
-					var container,
-						router = engine.getRouter();
+						if ($) {
+							if ($.mobile) {
+								if ($.mobile.pageContainer) {
+									container = $.mobile.pageContainer;
+									if (container instanceof $) {
+										container = container[0];
+									}
+									if (!(container instanceof HTMLElement)) {
+										container = document.body;
+									}
+									ns.setConfig("pageContainer", container);
+									$.mobile.pageContainer = $(container);
+								}
+								if ($.mobile.autoInitializePage !== undefined) {
+									ns.setConfig("autoInitializePage", $.mobile.autoInitializePage);
+								}
+								if ($.mobile._bindPageRemove !== undefined) {
+									ns.setConfig("_bindPageRemove", $.mobile._bindPageRemove);
+								}
+								$.mobile.changePage = function (toPage, options) {
+									var htmlElementToPage;
 
-					if ($) {
-						if ($.mobile) {
-							if ($.mobile.pageContainer) {
-								container = $.mobile.pageContainer;
-								if (container instanceof $) {
-									container = container[0];
-								}
-								if (!(container instanceof HTMLElement)) {
-									container = document.body;
-								}
-								ns.setConfig("pageContainer", container);
-								$.mobile.pageContainer = $(container);
-							}
-							if ($.mobile.autoInitializePage !== undefined) {
-								ns.setConfig("autoInitializePage", $.mobile.autoInitializePage);
-							}
-							if ($.mobile._bindPageRemove !== undefined) {
-								ns.setConfig("_bindPageRemove", $.mobile._bindPageRemove);
-							}
-							$.mobile.changePage = function (toPage, options) {
-								var htmlElementToPage;
+									if (toPage instanceof $) {
+										htmlElementToPage = $(toPage).get(0);
+										return router.open(htmlElementToPage, options);
+									}
+									return router.open(toPage, options);
+								};
+								document.addEventListener("pagechange", function () {
+									var route = router.getRoute("page"),
+										activePage = route && route.getActive(),
+										target = activePage && activePage.element;
 
-								if (toPage instanceof $) {
-									htmlElementToPage = $(toPage).get(0);
-									return router.open(htmlElementToPage, options);
+									$.mobile.activePage = $(target);
+								}, true);
+								$.mobile.activePage = $();
+								$.mobile.firstPage = $(router.getFirstPage());
+								$.mobile.pageContainer = $();
+								$.mobile.subPageUrlKey = ns.widget.mobile.Page.classes.uiPage;
+								$.mobile.ajaxEnabled = true;
+								$.mobile.hashListeningEnabled = true;
+								$.mobile.linkBindingEnabled = true;
+								$.mobile.maxTransitionWidth = false;
+								$.mobile.minScrollBack = 250;
+								$.mobile.touchOverflowEnabled = false;
+								$.mobile.defaultDialogTransition = "pop";
+								$.mobile.pageLoadErrorMessage = "Error Loading Page";
+								$.mobile.pageLoadErrorMessageTheme = "e";
+								$.mobile.phonegapNavigationEnabled = false;
+								$.mobile.autoInitializePage = false;
+								$.mobile.pushStateEnabled = true;
+								$.mobile.ignoreContentEnabled = false;
+								$.mobile.orientationChangeEnabled = true;
+								$.mobile.ajaxBlacklist = false;
+								$.mobile.defaultTransitionHandler = null;
+								$.mobile.transitionHandlers = {};
+								$.mobile.transitionFallbacks = {};
+								$.mobile._maybeDegradeTransition = null;
+								$.mobile.focusPage = null;
+								//$.mobile.urlHistory = ns.router.urlHistory;
+								$.mobile.dialogHashKey = "&ui-state=dialog";
+								$.mobile.allowCrossDomainPages = false;
+								$.mobile.getDocumentUrl = ns.util.path.getDocumentUrl;
+								$.mobile.getDocumentBase = ns.util.path.getDocumentBase;
+								$.mobile._bindPageRemove = null;
+								$.mobile.loadPage = router.loadPage === undefined ? ns.error.bind(null, "router PageExternal is not loaded") : router.loadPage.bind(router);
+								$.mobile.navreadyDeferred = router.navreadyDeferred;
+								$.mobile.initializePage = null;
+								$.mobile._handleHashChange = router._hashChangeHandler;
+							} else {
+								$.mobile = {};
+							}
+						}
+					},
+					/**
+					 * Enables support jQM after router init.
+					 * @method init
+					 * @member ns.jqm.router
+					 */
+					init: function () {
+						var transitions,
+							name,
+							router = engine.getRouter(),
+							containerWidget;
+
+						if ($) {
+							$.mobile.defaultPageTransition = "none";
+
+							if (router.getTransitions) {
+								transitions = router.getTransitions();
+								for (name in transitions) {
+									if (transitions.hasOwnProperty(name)) {
+										if (transitions[name].fallback !== undefined) {
+											$.mobile.transitionFallbacks[name] = transitions[name].fallback;
+										}
+										if (transitions[name].handler !== undefined) {
+											$.mobile.transitionHandlers[name] = transitions[name].handler;
+										}
+									}
 								}
-								return router.open(toPage, options);
+								$.mobile.defaultTransitionHandler = transitions.sequential.handler;
+								$.mobile._maybeDegradeTransition = router._maybeDegradeTransition.bind(router);
+								$.mobile.getMaxScrollForTransition = router.getMaxScrollForTransition.bind(router);
+							}
+
+							$.mobile.focusPage = function (toPage) {
+								var page = $(toPage)[0],
+									pageWidget = engine.getBinding(page);
+
+								pageWidget.focus();
 							};
-							document.addEventListener("pagechange", function () {
-								var route = router.getRoute("page"),
-									activePage = route && route.getActive(),
-									target = activePage && activePage.element;
 
-								$.mobile.activePage = $(target);
-							}, true);
-							$.mobile.activePage = $();
-							$.mobile.firstPage = $(router.getFirstPage());
-							$.mobile.pageContainer = $();
-							$.mobile.subPageUrlKey = ns.widget.mobile.Page.classes.uiPage;
-							$.mobile.ajaxEnabled = true;
-							$.mobile.hashListeningEnabled = true;
-							$.mobile.linkBindingEnabled = true;
-							$.mobile.maxTransitionWidth = false;
-							$.mobile.minScrollBack = 250;
-							$.mobile.touchOverflowEnabled = false;
-							$.mobile.defaultDialogTransition = "pop";
-							$.mobile.pageLoadErrorMessage = "Error Loading Page";
-							$.mobile.pageLoadErrorMessageTheme = "e";
-							$.mobile.phonegapNavigationEnabled = false;
-							$.mobile.autoInitializePage = false;
-							$.mobile.pushStateEnabled = true;
-							$.mobile.ignoreContentEnabled = false;
-							$.mobile.orientationChangeEnabled = true;
-							$.mobile.ajaxBlacklist = false;
-							$.mobile.defaultTransitionHandler = null;
-							$.mobile.transitionHandlers = {};
-							$.mobile.transitionFallbacks = {};
-							$.mobile._maybeDegradeTransition = null;
-							$.mobile.focusPage = null;
-							//$.mobile.urlHistory = ns.router.urlHistory;
-							$.mobile.dialogHashKey = "&ui-state=dialog";
-							$.mobile.allowCrossDomainPages = false;
-							$.mobile.getDocumentUrl = ns.util.path.getDocumentUrl;
-							$.mobile.getDocumentBase = ns.util.path.getDocumentBase;
-							$.mobile._bindPageRemove = null;
-							$.mobile.loadPage = router.loadPage === undefined ? ns.error.bind(null, "router PageExternal is not loaded") : router.loadPage.bind(router);
-							$.mobile.navreadyDeferred = router.navreadyDeferred;
-							$.mobile.initializePage = null;
-							$.mobile._handleHashChange = router._hashChangeHandler;
-						} else {
-							$.mobile = {};
-						}
-					}
-				},
-				/**
-				 * Enables support jQM after router init.
-				 * @method init
-				 * @member ns.jqm.router
-				 */
-				init: function () {
-					var transitions,
-						name,
-						router = engine.getRouter(),
-						containerWidget;
-
-					if ($) {
-						$.mobile.defaultPageTransition = "none";
-
-						if (router.getTransitions) {
-							transitions = router.getTransitions();
-							for (name in transitions) {
-								if (transitions.hasOwnProperty(name)) {
-									if (transitions[name].fallback !== undefined) {
-										$.mobile.transitionFallbacks[name] = transitions[name].fallback;
-									}
-									if (transitions[name].handler !== undefined) {
-										$.mobile.transitionHandlers[name] = transitions[name].handler;
-									}
-								}
+							$.mobile.initializePage = router.init.bind(router);
+							containerWidget = router.getContainer();
+							if (containerWidget) {
+								$.mobile.pageContainer = $(containerWidget.element);
 							}
-							$.mobile.defaultTransitionHandler = transitions.sequential.handler;
-							$.mobile._maybeDegradeTransition = router._maybeDegradeTransition.bind(router);
-							$.mobile.getMaxScrollForTransition = router.getMaxScrollForTransition.bind(router);
 						}
-
-						$.mobile.focusPage = function (toPage) {
-							var page = $(toPage)[0],
-								pageWidget = engine.getBinding(page);
-
-							pageWidget.focus();
-						};
-
-						$.mobile.initializePage = router.init.bind(router);
-						containerWidget = router.getContainer();
-						if (containerWidget) {
-							$.mobile.pageContainer = $(containerWidget.element);
-						}
+					},
+					destroy: function () {
+						document.removeEventListener(eventType.ROUTER_INIT, jqmRouter.init, false);
+						document.removeEventListener(eventType.BEFORE_ROUTER_INIT, jqmRouter.beforeinit, false);
+						document.removeEventListener(eventType.DESTROY, jqmRouter.destroy, false);
 					}
-				}
-			};
-			document.addEventListener("routerinit", function () {
-				ns.jqm.router.init();
-			}, false);
-			document.addEventListener("beforerouterinit", function () {
-				ns.jqm.router.beforeinit();
-			}, false);
+				};
+
+			document.addEventListener(eventType.ROUTER_INIT, jqmRouter.init, false);
+			document.addEventListener(eventType.BEFORE_ROUTER_INIT, jqmRouter.beforeinit, false);
+			document.addEventListener(eventType.DESTROY, jqmRouter.destroy, false);
+
+			ns.jqm.router = jqmRouter;
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return ns.jqm;
 		}

@@ -31,34 +31,11 @@
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 
-			/**
-			 * @property {DocumentFragment} fragment
-			 * @member ns.util.DOM
-			 * @private
-			 * @static
-			 */
-			/*
-			 * @todo maybe can be moved to function scope?
-			 */
-			var fragment = document.createDocumentFragment(),
-				/**
-				 * @property {DocumentFragment} fragment2
-				 * @member ns.util.DOM
-				 * @private
-				 * @static
-				 */
-				/*
-				 * @todo maybe can be moved to function scope?
-				 */
-				fragment2 = document.createDocumentFragment(),
-				/**
+			var /**
 				 * @property {number} [containerCounter=0]
 				 * @member ns.util.DOM
 				 * @private
 				 * @static
-				 */
-				/*
-				 * @todo maybe can be moved to function scope?
 				 */
 				containerCounter = 0,
 				/**
@@ -190,7 +167,9 @@
 			 * @static
 			 */
 			DOM.wrapInHTML = function (elements, html) {
-				var container = document.createElement("div"),
+				var fragment = document.createDocumentFragment(),
+					fragment2 = document.createDocumentFragment(),
+					container = document.createElement("div"),
 					contentFlag = false,
 					elementsLen = elements.length,
 					//if elements is nodeList, retrieve parentNode of first node
@@ -235,6 +214,8 @@
 						fragment2.removeChild(fragment2.firstChild);
 					}
 				}
+				fragment = null;
+				fragment2 = null;
 				return elements;
 			};
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);

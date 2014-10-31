@@ -165,7 +165,10 @@
 					WIDGET_BOUND: "widgetbound",
 					WIDGET_DEFINED: "widgetdefined",
 					WIDGET_BUILT: "widgetbuilt",
-					BOUND: "bound"
+					DESTROY: "taudestroy",
+					BOUND: "bound",
+					BEFORE_ROUTER_INIT: "beforerouterinit",
+					ROUTER_INIT: "routerinit"
 				},
 				engine,
 				/**
@@ -418,7 +421,7 @@
 						_removeWidgetFromAttributes(widgetInstance.element, type);
 					}
 
-					bindingGroup[type] = null;
+					delete bindingGroup[type];
 
 					return true;
 				}
@@ -497,6 +500,10 @@
 						}
 
 						return partialSuccess;
+					}
+
+					if (widgetBindingMap[id].instances && (Object.keys(widgetBindingMap[id].instances).length === 0)) {
+						widgetBindingMap[id] = null;
 					}
 				}
 
@@ -902,9 +909,9 @@
 					// @TODO: Consider passing viewport options via script tag arguments (web-ui-fw style).
 					setViewport();
 
-					eventUtils.trigger(document, "beforerouterinit", router, false);
+					eventUtils.trigger(document, eventType.BEFORE_ROUTER_INIT, router, false);
 					router.init(justBuild);
-					eventUtils.trigger(document, "routerinit", router, false);
+					eventUtils.trigger(document, eventType.ROUTER_INIT, router, false);
 				}
 			}
 
@@ -918,6 +925,19 @@
 				if (router) {
 					router.destroy();
 				}
+			}
+
+			/**
+			 * Method to remove all listeners bound in run
+			 * @method destroy
+			 * @static
+			 * @member ns.engine
+			 */
+			function destroy() {
+				stop();
+				eventUtils.fastOff(document, "create", createEventHandler);
+				destroyAllWidgets(document.body, true);
+				eventUtils.trigger(document, eventType.DESTROY);
 			}
 
 			/**
@@ -1046,7 +1066,7 @@
 							build();
 							break;
 						default:
-							eventUtils.fastOn(document, "DOMContentLoaded", build.bind(engine));
+							eventUtils.one(document, "DOMContentLoaded", build.bind(engine));
 							break;
 					}
 				},
@@ -1108,6 +1128,8 @@
 				},
 
 				stop: stop,
+
+				destroy: destroy,
 
 				/**
 				 * Method to change build mode

@@ -75,6 +75,7 @@
 						}
 					}
 				},
+				eventType = ns.engine.eventType,
 				hwkey = {
 					/**
 					 * Bind event tizenhwkey to support hardware keys.
@@ -101,10 +102,18 @@
 
 			ns.event.hwkey = hwkey;
 
-			document.addEventListener(ns.engine.eventType.INIT, function () {
+			function init() {
 				hwkey.unbind();
 				hwkey.bind();
-			}, false);
+			}
+
+			function destroy() {
+				document.removeEventListener(eventType.INIT, init, false);
+				document.removeEventListener(eventType.DESTROY, destroy, false);
+			}
+
+			document.addEventListener(eventType.INIT, init, false);
+			document.addEventListener(eventType.DESTROY, destroy, false);
 
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return hwkey;
