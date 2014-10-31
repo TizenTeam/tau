@@ -1,140 +1,178 @@
 /***************************************************************************
                   Body
 ***************************************************************************/
+/** Main Background color */
 @color_bg: B011;
+/** Main font color */
 @color_text: T0811;
 
 /***************************************************************************
                    Action Bar
 ***************************************************************************/
+/** Action bar title text color */
 @color_actionbar_title_text: T012;
+/** Action bar title background color */
 @color_actionbar_title_bg: B0511;
-@color_actionbar_more_pressed_bg: @color_button_default_press_bg;
+/** Action bar more pressed background color */
+@color_actionbar_more_pressed_bg: W011P;
+/** Action bar more detail normal icon */
 @icon_actionbar_more_detail_normal: "./images/Actionbar/tw_ic_menu_detail_normal_holo_dark.png";
+/** Action bar more detail disable icon */
 @icon_actionbar_more_detail_disable: "./images/Actionbar/tw_ic_menu_detail_disable_holo_dark.png";
+/** Action bar more overflow normal icon */
 @icon_actionbar_more_overflow_normal: "./images/Actionbar/tw_ic_menu_moreoverflow_normal_holo_dark.png";
+/** Action bar more overflow disable icon */
 @icon_actionbar_more_overflow_disable: "./images/Actionbar/tw_ic_menu_moreoverflow_disable_holo_dark.png";
+/** Action bar more select all normal icon */
 @icon_actionbar_more_selectall_normal: "./images/Actionbar/tw_ic_menu_selectall_normal_holo_dark.png";
+/** Action bar more select all disable icon */
 @icon_actionbar_more_selectall_disable: "./images/Actionbar/tw_ic_menu_selectall_disable_holo_dark.png";
 
 /****************************************************************************
                 Content
 ****************************************************************************/
-
+/** Main color of content background */
 @color_content_bg: rgba(75, 66, 55, 0.4);
 
 /****************************************************************************
 		Progress Bar
 ****************************************************************************/
+/** Progress bar text font color */
 @color_progressbar_text: @color_text;
+/** Progress bar normal background color */
 @color_progressbar_normal_bg: B065L3;
+/** Progress bar value background color */
 @color_progressbar_value_bg: B065L2;
-
-/****************************************************************************
-		Processing
-****************************************************************************/
-@color_processing_text: T097;
 
 /****************************************************************************
 		Toggle Switch
 ****************************************************************************/
+/** Toggle switch text color */
 @color_switch_text: T0811;
 
 /***************************************************************************
                    Buttons
 ***************************************************************************/
+/** Button default text color */
 @color_button_default_text: T041;
-@color_button_default_text_pressed: T041P;
+/** Disabled button default text color */
 @color_button_default_text_disable: T041D;
 
-@color_button_default_normal_bg: W011;
-@color_button_default_focus_bg: W011;
-@color_button_default_press_bg: W011P;
-@color_button_default_disable_bg: W011D;
-
+/** Red button text color */
 @color_button_red_text: T041;
-@color_button_red_text_pressed: T041P;
+/** Disabled red button text color */
 @color_button_red_text_disable: T041D;
+/** Red button normal background color */
 @color_button_red_normal_bg: W012;
+/** Red button focused background color */
 @color_button_red_focus_bg: W012;
+/** Red button pressed background color */
 @color_button_red_press_bg: W012P;
+/** Red button disabled background color */
 @color_button_red_disable_bg: W012D;
 
+/** Orange button text color */
 @color_button_orange_text: T041;
-@color_button_orange_text_pressed: T041P;
+/** Disabled orange button text color */
 @color_button_orange_text_disable: T041D;
+/** Orange button normal background color */
 @color_button_orange_normal_bg: W013;
+/** Orange button focused background color */
 @color_button_orange_focus_bg: W013;
+/** Orange button pressed background color */
 @color_button_orange_press_bg: W013P;
+/** Orange button disabled background color */
 @color_button_orange_disable_bg: W013D;
 
+/** Green button text color */
 @color_button_green_text: T041;
-@color_button_green_text_pressed: T041P;
+/** Disabled green button text color */
 @color_button_green_text_disable: T041D;
+/** Green button normal background color */
 @color_button_green_normal_bg: W014;
+/** Green button focused background color */
 @color_button_green_focus_bg: W014;
+/** Green button pressed background color */
 @color_button_green_press_bg: W014P;
+/** Green button disabled background color */
 @color_button_green_disable_bg: W014D;
 
-@color_bar_naviframe_press : B0511P;
-@color_bar_btn_normal : B052L1;
-@color_bar_btn_press : B052L1P;
-
+/** Bar header button background color */
+@color_bar_header_btn: B0511P;
+/** Bar button normal background color */
+@color_bar_btn_normal: B052L1;
 
 /***************************************************************************
                    Popup
 ***************************************************************************/
+/** Popup title text color */
 @color_popup_title_text: T091;
+/** Popup background color */
 @color_popup_bg: B061L1E;
+/** Popup header background color */
 @color_popup_header_bg: B061L2;
+/** Popup header border background color */
 @color_popup_border: B061L7;
-@color_popup_button_bg: B065L4;
-@color_popup_button_press_bg: B065L4P;
-@color_popup_overlay: W1712;
+/** Popup text color */
 @color_popup_text: rgb(61, 61, 61);
+
 /***************************************************************************
                   index scrollbar (vertical)
 ***************************************************************************/
+/** Index scroll bar background color */
 @color_indexscrollbar_bg: B0722;
+/** Index scroll bar supplementary background color */
 @color_indexscrollbar_bg_supplementary: B0723;
+/** Index scroll bar text color */
 @color_indexscrollbar_text: T0311;
+/** Index scroll bar selected background color */
 @color_indexscrollbar_selected_bg: B0724;
+/** Index scroll bar selected text color */
 @color_indexscrollbar_selected_text: T0311P;
+/** Index scroll bar selected supplementary text color */
 @color_indexscrollbar_selected_text_supplementary: T0313;
 
+/** Index scroll bar indicator background color */
 @color_indexscrollbar_indicator_bg: B0731;
+/** Index scroll bar indicator text normal color */
 @color_indexscrollbar_indicator_text_normal: T0312;
+/** Index scroll bar indicator text selected color */
 @color_indexscrollbar_indicator_text_selected: T0312P;
 
 /***************************************************************************
                   Listview
 ***************************************************************************/
-@color_list_press_bg: B041P;
+/** Listview border color */
 @color_listview_border: B0222;
+/** Listview text color */
 @color_listview_text: T0211;
-@color_listview_text_press: T0211P;
-@color_listview_text_dim: T0211D;
-@color_listview_text_highlight: T0212;
-
-@color_list_border_bottom: B0223;
 
 /***************************************************************************
                    Scroller
 ***************************************************************************/
+/** Tab indicator normal background color */
 @color_tab_normal: B0514;
+/** Tab indicator active background color */
 @color_tab_active: B0514P1;
+/** Scroller scrollbar color */
 @color_scroller_scrollbar_color: B071;
+/** Scroller bouncing effect top background image */
 @bg_scroller_bouncing_effect_top: "./images/Scroller/scrollbar-bouncing-effect-top.png";
+/** Scroller bouncing effect bottom background image */
 @bg_scroller_bouncing_effect_bottom: "./images/Scroller/scrollbar-bouncing-effect-bottom.png";
+/** Scroller bouncing effect left background image */
 @bg_scroller_bouncing_effect_left: "./images/Scroller/scrollbar-bouncing-effect-left.png";
+/** Scroller bouncing effect right background image */
 @bg_scroller_bouncing_effect_right: "./images/Scroller/scrollbar-bouncing-effect-right.png";
 
 /***************************************************************************
                         Drawer
 ***************************************************************************/
-@color_drawer_bg : B077;
-@color_drawer_list_press : B041P;
-@color_drawer_overlay_bg : B016;
-
+/** Drawer background color */
+@color_drawer_bg: B077;
+/** Drawer border color */
+@color_drawer_border: B0223;
+/** Drawer listview button down background color */
+@color_drawer_list_press: B041P;
+/** Drawer back button background icon */
 @drawer_back_background: "./images/Drawer/ico_homebar_menu_arrow.png";
-@drawer_icon_background: "./images/icons/dynamicbar_ico_bg.png";

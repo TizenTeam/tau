@@ -1,3 +1,20 @@
+/** Input background color */
+@color_input_bg: rgb(255, 255, 255);
+/** Input text color */
+@color_input_text: rgba(61, 61, 61, 0.5);
+/** Input border color */
+@color_input_border: @color_input_text;
+/** Focused input text color */
+@color_input_text_focus: rgb(61, 61, 61);
+/** Number input text color */
+@color_input_number_text: rgb(69, 143, 255);
+/** Focused number input background color */
+@color_input_number_bg_focus: rgb(69, 143, 255);
+/** Focused number input border color */
+@color_input_number_border_focus: @color_input_number_bg_focus;
+/** Focused number input text color */
+@color_input_number_text_focus: rgb(255, 255, 255);
+
 input:not([type=number]):not([type=checkbox]):not([type=radio]), textarea {
 	background-color: @color_input_bg;
 	color: @color_input_text;
@@ -5,7 +22,7 @@ input:not([type=number]):not([type=checkbox]):not([type=radio]), textarea {
 	vertical-align: middle;
 	font-size: 32 * @virtual_px;
 	font: bold;
-	border: solid 2px rgb(177, 177, 177);
+	border: solid 2 * @virtual_px rgb(177, 177, 177);
 
 	&:focus {
 		color: @color_input_text_focus;
@@ -42,13 +59,13 @@ input[type=number] {
 	font-size: 29 * @virtual_px;
 	font: bold;
 	background: url(images/input/spin_button.png) no-repeat center center;
-	border: @virtual_px solid @color_input_text;
+	border: @virtual_px solid @color_input_border;
 	padding: 15 * @virtual_px;
 	background-color: @color_input_bg;
 	&:focus {
 		background-color: @color_input_number_bg_focus;
 		color: @color_input_number_text_focus;
-		border: @virtual_px solid @color_input_number_bg_focus;
+		border: @virtual_px solid @color_input_number_border_focus;
 	}
 }
 .ui-number-input {

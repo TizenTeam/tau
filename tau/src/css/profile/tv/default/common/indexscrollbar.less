@@ -3,7 +3,7 @@
 	position: fixed;
 	right: 0;	//TODO:bidi
 	top: 0;
-	width: 40*@unit_base;
+	width: 40 * @virtual_px;
 	height: 100%;
 	background-color: @color_indexscrollbar_bg;
 	z-index: 10;
@@ -18,8 +18,8 @@
 			display: block;
 			width: 100%;
 			text-align: center;
-			font-size: 24 * @unit_base;
-			height: 36 * @unit_base;
+			font-size: 24 * @virtual_px;
+			height: 36 * @virtual_px;
 		}
 		li.ui-state-selected {
 			background-color: @color_indexscrollbar_selected_bg;
@@ -30,7 +30,7 @@
 		position: relative;
 		height: auto;
 		top: 0;
-		right: -40 * @unit_base;
+		right: -40 * @virtual_px;
 		width: 100%;
 		li {
 			background-color: @color_indexscrollbar_bg_supplementary;
@@ -44,7 +44,7 @@
 	}
 
 	& + .ui-listview li {
-		padding-right: 40*@unit_base;
+		padding-right: 40 * @virtual_px;
     }
 }
 
@@ -56,16 +56,16 @@
 	display: none;
 
 	>span {
-		width: 140 * @unit_base;
-		height: 87 * @unit_base;
+		width: 140 * @virtual_px;
+		height: 87 * @virtual_px;
 		position: absolute;
 		display: block;
 		top: 50%;
 		left: 50%;
-		margin-left: -90 * @unit_base;
-		margin-top: -43 * @unit_base;
-		line-height: 87 * @unit_base;
-		font-size: 70 * @unit_base;
+		margin-left: -90 * @virtual_px;
+		margin-top: -43 * @virtual_px;
+		line-height: 87 * @virtual_px;
+		font-size: 70 * @virtual_px;
 		text-align: center;
 		background-color: @color_indexscrollbar_indicator_bg;
 		color: @color_indexscrollbar_indicator_text_normal;

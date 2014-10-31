@@ -6,6 +6,9 @@
 @popup_header_padding_left: 64 * @virtual_px;
 @popup_shadow: rgba(0, 0, 0, 0.67);
 
+/** Color of footer button background - focused */
+@footer_btn_color_focus: rgb(69, 143, 255);
+
 /***********************
 Normal Popup
 ***********************/
@@ -27,7 +30,7 @@ Normal Popup
 	-webkit-border-radius: @popup_border_radius;
 	-moz-border-radius: @popup_border_radius;
 	border-radius: @popup_border_radius;
-	box-shadow: 0 2px 5px @popup_shadow;
+	box-shadow: 0 2 * @virtual_px 5 * @virtual_px @popup_shadow;
 
 
 	&:not(.ui-popup-toast) {
@@ -114,7 +117,7 @@ Normal Popup
 			}
 
 			&.ui-btn-down-s, &.ui-focus{
-				background-color: @basic_btn_color_focus;
+				background-color: @footer_btn_color_focus;
 				color: @basic_btn_txt_color_focus;
 			}
 		}
@@ -273,7 +276,7 @@ Context Popup
 	.ui-arrow {
 		//border-style: solid;
 		//border-width: 10 * @virtual_px;
-		border: 1px;
+		border: 1 * @virtual_px;
 		width: 14.14 * @virtual_px;
 		height: 14.14 * @virtual_px;
 		background: @color_popup_bg;

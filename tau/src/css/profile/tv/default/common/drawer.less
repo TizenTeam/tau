@@ -1,24 +1,36 @@
+/** Drawer button close background color */
 @drawer_btn_close_background_color: rgb(69, 143, 255);
+/** Drawer footer button background color */
+@drawer_footer_btn_background_color: rgb(69, 143, 255);
+/** Drawer listview elements background color */
 @drawer_btn_color: rgb(255, 255, 255);
-@drawer_divider_color: rgb(42, 50, 64);
-@drawer_divider_border: rgb(6, 8, 11);
+/** Drawer listview not listdivider background color */
+@drawer_listview_not_divider_color: rgb(42, 50, 64);
+/** Drawer listview not listdivider border color */
+@drawer_listview_not_divider_border_color: rgb(6, 8, 11);
+/** Drawer list divider button color */
 @drawer_divider_btn_color: rgb(211, 211, 211);
+/** Drawer footer button color */
+@drawer_footer_btn_color: @drawer_divider_btn_color;
+/** Drawer footer background color of dinamic list elements */
 @drawer_dinamic_footer_background_color: rgb(45, 45, 45);
+/** Drawer footer background color of poster/icon elements */
+@drawer_poster_icon_footer_background_color: @drawer_dinamic_footer_background_color;
 
 .ui-drawer {
-	position : absolute;
+	position: absolute;
 	margin: 0;
-	background-color : @color_drawer_bg;
-	z-index : 1201;
+	background-color: @color_drawer_bg;
+	z-index: 1201;
 	&.ui-drawer-left {
-		border-right : 1 * @virtual_px solid @color_list_border_bottom;
+		border-right: 1 * @virtual_px solid @color_drawer_border;
 		/* drawer right border color same to list border bottom color */
 	}
 	&.ui-drawer-right {
-		border-left : 1 * @virtual_px solid @color_list_border_bottom;
+		border-left: 1 * @virtual_px solid @color_drawer_border;
 	}
 	.ui-listview {
-		margin : 0;
+		margin: 0;
 		float: left;
 		height: 100vh;
 		width: 270 * @virtual_px;
@@ -26,14 +38,14 @@
 
 
 		.ui-li.ui-btn-up-s {
-			background-color : @color_drawer_bg;
+			background-color: @color_drawer_bg;
 		}
 		.ui-li.ui-btn-down-s {
-			background-color : @color_drawer_list_press;
+			background-color: @color_drawer_list_press;
 		}
 		.ui-drawer-sub-list > .ui-btn-inner .ui-btn-text {
 			.ui-link-inherit {
-				padding-left : 26 * @unit_base;
+				padding-left: 26 * @virtual_px;
 			}
 		}
 		li {
@@ -63,7 +75,7 @@
 			}
 		}
 		li:hover {
-			background-color : @color_drawer_bg;
+			background-color: @color_drawer_bg;
 		}
 		.ui-home-block {
 			padding: 40 * @virtual_px;
@@ -98,8 +110,8 @@
 			padding: 17 * @virtual_px 20 * @virtual_px;
 			li:not(.ui-list-divider) {
 				text-align: left;
-				background-color: @drawer_divider_color;
-				border-bottom: solid 2 @virtual_px @drawer_divider_border;
+				background-color: @drawer_listview_not_divider_color;
+				border-bottom: solid 2 @virtual_px @drawer_listview_not_divider_border_color;
 				margin-bottom: 14 * @virtual_px;
 				> * {
 					overflow: visible;
@@ -159,7 +171,7 @@
 								}
 								h2 {
 									font-size: 24 * @virtual_px;
-									color: @drawer_divider_btn_color;
+									color: @drawer_footer_btn_color;
 									font-weight: nornal;
 									margin: 12 * @virtual_px 0 12 * @virtual_px 0;
 									display: inline-block;
@@ -171,7 +183,7 @@
 								}
 								h3 {
 									font-size: 20 * @virtual_px;
-									color: @drawer_divider_btn_color;
+									color: @drawer_footer_btn_color;
 									font-weight: nornal;
 									margin: 12 * @virtual_px 12 * @virtual_px 12 * @virtual_px 25 * @virtual_px;
 									padding-right: 12 * @virtual_px;
@@ -191,7 +203,7 @@
 							.ui-btn-text {
 								footer {
 									position: relative;
-									background-color: @drawer_btn_close_background_color;
+									background-color: @drawer_footer_btn_background_color;
 									h2 {
 										color: @drawer_btn_color;
 										font-size: 36  * @virtual_px;
@@ -239,7 +251,7 @@
 						width: 185 * @virtual_px;
 					}
 					footer {
-						background-color: @drawer_dinamic_footer_background_color;
+						background-color: @drawer_poster_icon_footer_background_color;
 						h2 {
 							margin: 25 * @virtual_px;
 							width: 135 * @virtual_px;
@@ -304,32 +316,32 @@
 }
 
 .ui-drawer-overlay {
-	position : absolute;
-	z-index : 1200;
+	position: absolute;
+	z-index: 1200;
 }
 
 .ui-header.ui-bar-s {
 	&.ui-drawer-header {
 		.ui-title {
-			margin-left : 40 * @unit_base;
+			margin-left: 40 * @virtual_px;
 		}
 		.ui-btn.ui-drawer-button.ui-btn-icon_only {
 			position: absolute;
 			top: 0;
 			left: 0;
-			padding-left : 7 * @virtual_px;
-			padding-right : 8 * @virtual_px;
-			width : 27 * @virtual_px;
-			height : 48 * @virtual_px;
+			padding-left: 7 * @virtual_px;
+			padding-right: 8 * @virtual_px;
+			width: 27 * @virtual_px;
+			height: 48 * @virtual_px;
 
 			&.ui-btn-down-s {
-				background-color : @color_bar_naviframe_press;
+				background-color: @color_bar_header_btn;
 			}
 
 			.ui-btn-inner.ui-btn-icon-only .ui-icon {
 				top: 2 * @virtual_px;
-				width : 27 * @virtual_px;
-				height : 27 * @virtual_px;
+				width: 27 * @virtual_px;
+				height: 27 * @virtual_px;
 				background-color: @color_bar_btn_normal;
 			}
 		}

@@ -3,9 +3,14 @@
 @list_txt_color_disabled: rgb(51, 51, 51);
 @list_bg_color_white: rgb(255, 255, 255);
 @list_sub_txt_color: rgb(189, 167, 146);
-/************************
-Listview
-*************************/
+
+/** List diveder text font size */
+@font_size_list_divider_text: 30 * @virtual_px;
+/** List divider text color */
+@color_list_divider_text: rgb(66, 87, 144);
+/** List divider normal line background color */
+@color_list_divider_line_bg: rgb(66, 87, 144);
+
 .ui-listview.white {
 	background-color: @list_bg_color_white;
 
@@ -165,5 +170,5 @@ Listview
 .ui-content > .ui-listview,
 .ui-content > .ui-scrollview-view > .ui-listview,
 {
-	margin: -@fixed_header_title_padding;
+	margin: -@fixed_header_title_margin;
 }

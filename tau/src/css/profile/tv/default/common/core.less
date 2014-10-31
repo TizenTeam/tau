@@ -3,42 +3,26 @@
  */
 /***************************************************************
    default font size (base font from WRT)
-   => small: 13px
-   => normal: 17px
-   => large: 20px
-
-so, we set @font_size_default as 17px.
-This value only used for @rem_base, not for html font-size
-html font-size is set by WRT base font-size
+   => small: 13 * @virtual_px
+   => normal: 17 * @virtual_px
+   => large: 20 * @virtual_px
 ***************************************************************/
-@font_size_default: 17px;	// Default unit font size. DO NOT USE THIS VALUE IN WIDGET CSS!
 
-@rem_base:  (1rem/@font_size_default);
-@em_base:  1em/@font_size_default;	// WARNING: Don't use em unit!	This value is to be removed.
-@px_base:  1px;
-
-// Default unit for px created due to two different resolutions of TV profile
-@virtual_px: 0.05208333333vw;
-
-@unit_base:  @virtual_px;	// was @rem_base
-
+/** Font family */
 @font_family: Tizen, Samsung Sans, Helvetica;
-
-/******************************
-  z-index order collection
- ******************************/
-@z_base_maximum: 2147483647;
-@z_base_header_footer: 1000;
-@z_base_popup: @z_base_header_footer + 100;
 
 /***************************************************************************
                    Common Colors
  **************************************************************************/
+
+/** Common color defoult color*/
 @color_default: rgb(69, 143, 255);
 
 /***************************************************************************
                    Common Style
 ***************************************************************************/
+
+/** Style for hidden screen */
 .screen-hidden { visibility: hidden; position: absolute; top: -10000em; left: -10000em;}
 
 /***************************************************************************
@@ -75,25 +59,7 @@ img {
   Global LESS mixin collection
  ******************************/
 
-// Mixin : background ************************
-.LESSbackground-img-with-gradient(@from: top, @startcolor: #3c3c3c, @endcolor: #111) {
-	background-image: -webkit-gradient(linear, left top, left bottom, from(@startcolor), to(@endcolor)); /* Saf4+, Chrome */
-	background-image: -webkit-linear-gradient(@from, @startcolor, @endcolor);
-	background-image:    -moz-linear-gradient(@from, @startcolor, @endcolor);
-	background-image:     -ms-linear-gradient(@from, @startcolor, @endcolor);
-	background-image:      -o-linear-gradient(@from, @startcolor, @endcolor);
-	background-image:         linear-gradient(@from, @startcolor, @endcolor);
-}
-
-.LESSbackground-with-gradient(@from: top, @startcolor: #3c3c3c, @endcolor: #5c5c5c) {
-	background: @startcolor;
-	background: -webkit-linear-gradient(@from, @startcolor 0%, @endcolor 100%);
-	background: -moz-linear-gradient(@from, @startcolor 0%, @endcolor 100%);
-	background: -ms-linear-gradient(@from, @startcolor 0%, @endcolor 100%);
-	background: -o-linear-gradient(@from, @startcolor 0%, @endcolor 100%);
-	background: linear-gradient(@from, @startcolor 0%, @endcolor 100%);
-}
-
+/** Mixin setting background size. Browser independent */
 .LESSbackground-size(@width, @height) {
 	-ms-background-size: @width @height;
 	-moz-background-size: @width @height;
@@ -102,34 +68,7 @@ img {
 	background-size: @width @height;
 }
 
-// Mixin : border ***************************
-.LESSborder-image(@url:url, @width:width, @height:height, @repeat:repeat) {
-	-moz-border-image:  url(@url) @width @height @repeat;
-	-webkit-border-image: url(@url) @width @height @repeat;
-	-o-border-image: url(@url) @width @height @repeat;
-	-ms-border-image: url(@url) @width @height @repeat;
-	border-image: url(@url) @width @height @repeat;
-}
-.LESSborder-radius-topleft(@radius) {
-	-moz-border-radius-topleft: 		@radius;
-	-webkit-border-top-left-radius: 	@radius;
-	border-top-left-radius: 			@radius;
-}
-.LESSborder-radius-topright(@radius) {
-	-moz-border-radius-topright: 		@radius;
-	-webkit-border-top-right-radius: 	@radius;
-	border-top-right-radius: 			@radius;
-}
-.LESSborder-radius-bottomleft(@radius) {
-	-moz-border-radius-bottomleft: 		@radius;
-	-webkit-border-bottom-left-radius: 	@radius;
-	border-bottom-left-radius: 			@radius;
-}
-.LESSborder-radius-bottomright(@radius) {
-	-moz-border-radius-bottomright: 		@radius;
-	-webkit-border-bottom-right-radius: 	@radius;
-	border-bottom-right-radius: 			@radius;
-}
+/** Mixin setting border radios. Browser independent */
 .LESSborder-radius-all(@radius) {
 	-o-border-radius:	@radius;
 	-ms-border-radius:	@radius;
@@ -137,14 +76,8 @@ img {
 	-webkit-border-radius: 	@radius;
 	border-radius: 		@radius;
 }
-.LESSborder-radius-allimportant(@radius) {
-	-o-border-radius:	@radius ! important;
-	-ms-border-radius:	@radius ! important;
-	-moz-border-radius: 	@radius ! important;
-	-webkit-border-radius: 	@radius ! important;
-	border-radius: 		@radius ! important;
-}
-// Mixin : box ***************************
+
+/** Mixin setting box shadow. Browser independent */
 .LESSbox-shadow(@hshadow, @vshadow, @blur, @color) {
 	-o-box-shadow: @hshadow @vshadow @blur @color;
 	-ms-box-shadow: @hshadow @vshadow @blur @color;
@@ -153,80 +86,9 @@ img {
 	box-shadow: @hshadow @vshadow @blur @color;
 }
 
-.LESSbox-border-shadow(@size, @color) {
-	-o-box-shadow: inset 0 0 0 @size @color;
-	-ms-box-shadow: inset 0 0 0 @size @color;
-	-moz-box-shadow: inset 0 0 0 @size @color;
-	-webkit-box-shadow: inset 0 0 0 @size @color;
-	box-shadow: inset 0 0 0 @size @color;
-}
-
-.LESSbox-shadow-line( @value ) {
-	-o-box-shadow: @value;
-	-ms-box-shadow: @value;
-	-moz-box-shadow: @value;
-	-webkit-box-shadow: @value;
-	box-shadow: @value;
-}
-
-.LESSbox-boxsizing( @value ) {
-	-o-box-sizing: @value;
-	-ms-box-sizing: @value;
-	-moz-box-sizing: @value;
-	-webkit-box-sizing: @value;
-	box-sizing: @value;
-}
-
-.LESSdisplaybox() {
-	display:-moz-box;
-	display:-webkit-box;
-	display:box;
-}
-//position: vertical, horizental
-.LESSbox-orient(@position) {
-	-ms-box-orient: @position;
-	-moz-box-orient: @position;
-	-o-box-orient: @position;
-	-webkit-box-orient: @position;
-	box-orient: @position;
-}
-
-//position: start, center, end
-.LESSbox-pack(@position) {
-	-ms-box-pack: @position;
-	-moz-box-pack: @position;
-	-o-box-pack: @position;
-	-webkit-box-pack: @position;
-	box-pack: @position;
-}
-
-//position: start, center, end
-.LESSbox-align(@position) {
-	-ms-box-align: @position;
-	-moz-box-align: @position;
-	-o-box-align: @position;
-	-webkit-box-align: @position;
-	box-align: @position;
-}
-
-// Mixin : Utility ************************************
-// Mixin : transform
-.LESStransform(@method) {
-	transform: @method;
-	-ms-transform: @method;
-	-moz-transform: @method;
-	-webkit-transform: @method;
-	-o-transform: @method;
-}
-
-// Mixin : text ellipsis
+/** Mixin setting text ellipsis. Browser independent */
 .LESStext-ellipsis() {
 	white-space: nowrap;
 	text-overflow: ellipsis;
 	-o-text-overflow: ellipsis;
-}
-
-.LESStext-no-ellipsis() {
-	white-space: normal;
-	overflow: visible !important;
 }

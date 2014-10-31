@@ -1,187 +1,180 @@
 /***************************************************************************
                   Body
 ***************************************************************************/
-@color_bg: rgb(0, 0, 0);					/* B011 : Main Background color */
-@color_text: rgb(250, 250, 250);		/* B012 : Main font color */
+/** Main Background color */
+@color_bg: rgb(0, 0, 0);
+/** Main font color */
+@color_text: rgb(250, 250, 250);
 
 /***************************************************************************
                    Action Bar
 ***************************************************************************/
+/** Action bar title text color */
 @color_actionbar_title_text: rgb(255, 255, 255);
+/** Action bar title background color */
 @color_actionbar_title_bg: rgb(42,76,130);
-@color_actionbar_border: rgb(42,76,130);
-@color_actionbar_more_pressed_bg: @color_button_default_press_bg;
+/** Action bar more pressed background color */
+@color_actionbar_more_pressed_bg: rgb(99, 93, 89);
+/** Action bar more detail normal icon */
 @icon_actionbar_more_detail_normal: "./images/Actionbar/tw_ic_menu_detail_normal_holo_dark.png";
+/** Action bar more detail disable icon */
 @icon_actionbar_more_detail_disable: "./images/Actionbar/tw_ic_menu_detail_disable_holo_dark.png";
+/** Action bar more overflow normal icon */
 @icon_actionbar_more_overflow_normal: "./images/Actionbar/tw_ic_menu_moreoverflow_normal_holo_dark.png";
+/** Action bar more overflow disable icon */
 @icon_actionbar_more_overflow_disable: "./images/Actionbar/tw_ic_menu_moreoverflow_disable_holo_dark.png";
+/** Action bar more select all normal icon */
 @icon_actionbar_more_selectall_normal: "./images/Actionbar/tw_ic_menu_selectall_normal_holo_dark.png";
+/** Action bar more select all disable icon */
 @icon_actionbar_more_selectall_disable: "./images/Actionbar/tw_ic_menu_selectall_disable_holo_dark.png";
-@color_actionbar_tab_nav_active_bg: rgb(255, 144, 0);
-
-@color_bar_naviframe_press : rgba(95, 159, 232, 1);
-@color_bar_btn_normal : rgba(244, 244, 244, 1);		/* B052L1 : Font&Icon (normal) */
-@color_bar_btn_press : rgba(244, 244, 244, 1);			/* B052L1P : Title text button press bg */
 
 /****************************************************************************
                 Content
 ****************************************************************************/
-
+/** Main color of content background */
 @color_content_bg: rgb(53, 80, 123);
 
 /****************************************************************************
 		Progress Bar
 ****************************************************************************/
+/** Progress bar text font color */
 @color_progressbar_text: rgb(255, 255, 255);
+/** Progress bar normal background color */
 @color_progressbar_normal_bg: rgb(17, 17, 17);
+/** Progress bar value background color */
 @color_progressbar_value_bg: rgb(255, 134, 0);
-
-/****************************************************************************
-		Processing
-****************************************************************************/
-@color_processing_text: rgb(255, 255, 255);
 
 /****************************************************************************
 		Toggle Switch
 ****************************************************************************/
+/** Toggle switch text color */
 @color_switch_text: rgb(255, 255, 255);
 
 /***************************************************************************
                    Buttons
 ***************************************************************************/
+/** Button default text color */
 @color_button_default_text: rgb(255, 255, 255);
+/** Disabled button default text color */
 @color_button_default_text_disable: rgb(51, 51, 51);
-@color_button_default_normal_bg: rgb(29, 66, 62);
-@color_button_default_focus_bg: rgb(75, 66, 55);
-@color_button_default_press_bg: rgb(99, 93, 89);
-@color_button_default_disable_bg: rgb(29, 26, 24);
 
+/** Red button text color */
 @color_button_red_text: rgb(255, 255, 255);
+/** Disabled red button text color */
 @color_button_red_text_disable: rgba(255, 255, 255, 0.15);
+/** Red button normal background color */
 @color_button_red_normal_bg: #ce2302;
+/** Red button focused background color */
 @color_button_red_focus_bg: #ce2302;
+/** Red button pressed background color */
 @color_button_red_press_bg: #dd654e;
+/** Red button disabled background color */
 @color_button_red_disable_bg: #4e1910;
 
+/** Orange button text color */
 @color_button_orange_text: rgb(255, 255, 255);
+/** Orange button disabled text color */
 @color_button_orange_text_disable: rgba(255, 255, 255, 0.15);
+/** Orange button normal background color */
 @color_button_orange_normal_bg: #ed8600;
+/** Orange button focused background color */
 @color_button_orange_focus_bg: #ed8600;
+/** Orange button pressed background color */
 @color_button_orange_press_bg: #f0aa56;
+/** Orange button disabled background color */
 @color_button_orange_disable_bg: #462805;
 
+/** Green button text color */
 @color_button_green_text: rgb(255, 255, 255);
+/** Green button disabled text color */
 @color_button_green_text_disable: rgba(255, 255, 255, 0.15);
+/** Green button normal background color */
 @color_button_green_normal_bg: #64a323;
+/** Green button focused background color */
 @color_button_green_focus_bg: #64a323;
+/** Green button pressed background color */
 @color_button_green_press_bg: #92be5e;
+/** Green button disabled background color */
 @color_button_green_disable_bg: #26351e;
 
-/***************************************************************************
-                   Popup
-***************************************************************************/
-@color_popup_title_text: rgb(255, 255, 255);
-@color_popup_bg: rgb(255, 255, 255);
-@color_popup_border: rgb(128, 72, 0);
-@color_popup_header_bg: rgb(42,76,130);
-@color_popup_header_border: rgb(67, 67, 67);
-@color_popup_button_bg: rgb(72, 65, 60);
-@color_popup_button_press_bg: rgb(99, 93, 89);
-@color_popup_overlay: rgba(0, 0, 0, 0.7);
-@color_popup_text: rgb(61, 61, 61);
+/** Bar header button background color */
+@color_bar_header_btn: rgba(95, 159, 232, 1);
+/** Bar button normal background color */
+@color_bar_btn_normal: rgba(244, 244, 244, 1);
 
 /***************************************************************************
                    Popup
 ***************************************************************************/
-@color_list_border: rgb(53, 81, 124);
-@color_list_press_bg: rgb(88, 74, 58);
+/** Popup title text color */
+@color_popup_title_text: rgb(255, 255, 255);
+/** Popup background color */
+@color_popup_bg: rgb(255, 255, 255);
+/** Popup border background color */
+@color_popup_border: rgb(128, 72, 0);
+/** Popup header background color */
+@color_popup_header_bg: rgb(42,76,130);
+/** Popup header border background color */
+@color_popup_header_border: rgb(67, 67, 67);
+/** Popup text color */
+@color_popup_text: rgb(61, 61, 61);
 
 /***************************************************************************
                   index scrollbar (vertical)
 ***************************************************************************/
+/** Index scroll bar background color */
 @color_indexscrollbar_bg: rgb(34, 34, 34);
+/** Index scroll bar supplementary background color */
 @color_indexscrollbar_bg_supplementary: rgb(44, 44, 44);
+/** Index scroll bar text color */
 @color_indexscrollbar_text: rgb(89, 89, 89);
+/** Index scroll bar selected background color */
 @color_indexscrollbar_selected_bg: #f99107;
+/** Index scroll bar selected text color */
 @color_indexscrollbar_selected_text: rgb(255, 255, 255);
+/** Index scroll bar selected supplementary text color */
 @color_indexscrollbar_selected_text_supplementary: rgb(255, 144, 0);
 
+/** Index scroll bar indicator background color */
 @color_indexscrollbar_indicator_bg: rgb(88, 73, 58);
+/** Index scroll bar indicator text normal color */
 @color_indexscrollbar_indicator_text_normal: rgb(255, 255, 255);
+/** Index scroll bar indicator text selected color */
 @color_indexscrollbar_indicator_text_selected: rgb(255, 144, 0);
 
 /***************************************************************************
                   Listview
 ***************************************************************************/
+/** Listview border color */
 @color_listview_border: rgb(74, 102, 144);
+/** Listview text color */
 @color_listview_text: rgb(255, 255, 255);
-@color_listview_text_press: rgb(255, 255, 255);
-@color_listview_text_dim: rgb(52, 52, 52);
-@color_listview_text_highlight: rgb(255, 149, 0);
-
-@color_list_border_bottom: rgba(64, 64, 64, 1);	/* B0223 */
-@color_listview_focus: rgb(69, 143, 255);
 
 /***************************************************************************
                    Scroller
 ***************************************************************************/
+/** Tab indicator normal background color */
 @color_tab_normal: rgb(53, 48, 44);
+/** Tab indicator active background color */
 @color_tab_active: rgb(249, 145, 7);
+/** Scroller scrollbar color */
 @color_scroller_scrollbar_color: #666666;
+/** Scroller bouncing effect top background image */
 @bg_scroller_bouncing_effect_top: "./images/Scroller/scrollbar-bouncing-effect-top.png";
+/** Scroller bouncing effect bottom background image */
 @bg_scroller_bouncing_effect_bottom: "./images/Scroller/scrollbar-bouncing-effect-bottom.png";
+/** Scroller bouncing effect left background image */
 @bg_scroller_bouncing_effect_left: "./images/Scroller/scrollbar-bouncing-effect-left.png";
+/** Scroller bouncing effect right background image */
 @bg_scroller_bouncing_effect_right: "./images/Scroller/scrollbar-bouncing-effect-right.png";
-
-/***************************************************************************
-                    Slider
-***************************************************************************/
-@color_slider_handle_text: rgb(250, 250, 250);
-@color_slider_handle_text_press: rgb(250, 250, 250);
-@color_slider_popup_text: rgb(76, 81, 88);
-@color_slider_popup_bg: rgb(238, 238, 238);
-@color_slider_left_text: rgb(186, 186, 186);
-@color_slider_right_text: rgb(186, 186, 186);
-@color_slider_label_text: rgb(255, 255, 255);
-
-/***************************************************************************
-                    Progress
-***************************************************************************/
-@color_progress_bar:  rgb(51, 67, 83);
-@color_progress_value: rgb(65, 91, 254);
-@color_progress_shadow: rgb(116, 113, 127);
-@color_progress_value_shadow0: rgb(38, 53, 146);
-@color_progress_value_shadow1: rgb(98, 127, 203);
-@color_progress_shadow0: rgb(49, 49, 56);
-@color_progress_shadow1: rgb(116, 113, 127);
 
 /***************************************************************************
 			Drawer
 ***************************************************************************/
-@color_drawer_bg : rgba(0,0,0,.85);				/* B077 : Drawer BG */
-@color_drawer_list_press : rgba(95, 160, 233, 1);		/* B041P : Drawer list pressed */
-@color_drawer_overlay_bg : rgba(8, 8, 8, 0.7);			/* B016 : Drawer overlay BG */
-
+/** Drawer background color */
+@color_drawer_bg: rgba(0,0,0,.85);
+/** Drawer border color */
+@color_drawer_border: rgba(64, 64, 64, 1);
+/** Drawer listview button down background color */
+@color_drawer_list_press: rgba(95, 160, 233, 1);
+/** Drawer back button background icon */
 @drawer_back_background: "./images/Drawer/ico_homebar_menu_arrow.png";
-@drawer_icon_background: "./images/icons/app_ico_bg.png";
-@drawer_icon_shadow: "./images/icons/bg_ico_76_shadow.png";
-/***************************************************************************
-			Input
-***************************************************************************/
-@color_input_bg: rgb(255, 255, 255);
-@color_input_text: rgba(61, 61, 61, 0.5);
-@color_input_text_focus: rgb(61, 61, 61);
-@color_input_number_text: rgb(69, 143, 255);
-@color_input_number_bg_focus: rgb(69, 143, 255);
-@color_input_number_text_focus: rgb(255, 255, 255);
-/***************************************************************************
-			Scrollbar
-***************************************************************************/
-@color_scrollbar_thumb_bg: rgba(0, 0, 0, 0.25);
-
-/***************************************************************************
-			Listdivider
-***************************************************************************/
-@font_size_list_divider_text: 30 * @virtual_px;
-@color_list_divider_text: rgb(66, 87, 144);
-@color_list_divider_line_bg: rgb(66, 87, 144);

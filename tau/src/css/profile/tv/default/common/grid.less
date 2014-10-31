@@ -1,11 +1,13 @@
-@basic_btn_txt_color_normal_icon: rgb(211, 211, 211);
+/** Buttons text basic color */
+@btn_txt_color_normal: rgb(211, 211, 211);
+/** Focused grid button border color */
+@btn_focus_border_color: rgb(69, 143, 255);
+/** Focused grid thumbnail content background color */
+@btn_focus_thumb_content_color: rgb(69, 143, 255);
 
 .ui-virtualgrid, .ui-grid {
-
-
-
 	.ui-btn {
-		color: @basic_btn_txt_color_normal_icon;
+		color: @btn_txt_color_normal;
 	}
 
 	.grid-icon {
@@ -111,7 +113,7 @@
 
 		&.ui-btn.ui-focus {
 			.grid-thumbnail-pic {
-				border: solid  @color_listview_focus;
+				border: solid  @btn_focus_border_color;
 				border-top-width: 8 * @virtual_px;
 				border-left-width: 8 * @virtual_px;
 				border-right-width: 8 * @virtual_px;
@@ -123,7 +125,7 @@
 			}
 
 			.grid-thumbnail-pic-full {
-				border: solid  @color_listview_focus;
+				border: solid  @btn_focus_border_color;
 				border-top-width: 8 * @virtual_px;
 				border-left-width: 8 * @virtual_px;
 				border-right-width: 8 * @virtual_px;
@@ -135,7 +137,7 @@
 			}
 
 			.grid-thumbnail-contents {
-				background:  @color_listview_focus;
+				background: @btn_focus_thumb_content_color;
 				.grid-thumbnail-content, .grid-thumbnail-subtext {
 					color: rgb(255, 255, 255);
 				}
@@ -163,9 +165,9 @@
 
 .ui-content {
 	>.ui-virtualgrid, >.ui-grid {
-		margin-top: 20 * @virtual_px -@fixed_header_title_padding;
-		margin-right: -@fixed_header_title_padding;
-		margin-bottom: -@fixed_header_title_padding;
-		margin-left: 20 * @virtual_px - @fixed_header_title_padding;
+		margin-top: 20 * @virtual_px -@fixed_header_content_margin;
+		margin-right: -@fixed_header_content_margin;
+		margin-bottom: -@fixed_header_content_margin;
+		margin-left: 20 * @virtual_px - @fixed_header_content_margin;
 	}
 }

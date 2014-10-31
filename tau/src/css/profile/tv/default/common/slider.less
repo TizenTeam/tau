@@ -10,6 +10,25 @@
 @handle_height: 72 * @unit_base_slider;
 @handle_width: 72 * @unit_base_slider;
 
+/** Slider handle text color */
+@color_slider_handle_text: rgb(250, 250, 250);
+/** Slider handle pressed text color */
+@color_slider_handle_text_press: rgb(250, 250, 250);
+/** Slider popup text color */
+@color_slider_popup_text: rgb(76, 81, 88);
+/** Slider popup background color */
+@color_slider_popup_bg: rgb(238, 238, 238);
+/** Slider left text color */
+@color_slider_left_text: rgb(186, 186, 186);
+/** Slider right text color */
+@color_slider_right_text: rgb(186, 186, 186);
+/** Slider, not toggle switch, background color */
+@color_slider_not_toggle_switch: rgb(51, 67, 83);
+/** Slider background color */
+@color_slider: rgb(65, 91, 254);
+/** Slider lessbox shadow */
+@lessbox_slider_shadow: rgb(116, 113, 127);
+
 label.ui-slider {
 	display: block;
 }
@@ -116,8 +135,8 @@ div.ui-slider:not(.ui-toggle-switch) {
 	margin-right: 8 * @unit_base_slider;
 
 	.LESSborder-radius-all( 10 * @virtual_px );
-	.LESSbox-shadow(0 * @virtual_px, 0 * @virtual_px, 2 * @virtual_px, @color_progress_shadow);
-	background-color: @color_progress_bar;
+	.LESSbox-shadow(0 * @virtual_px, 0 * @virtual_px, 2 * @virtual_px, @lessbox_slider_shadow);
+	background-color: @color_slider_not_toggle_switch;
 
 	.ui-btn {
 		&.ui-focus {
@@ -146,10 +165,10 @@ a.ui-slider-handle {
 	position: relative;
 	z-index: 10;
 
-	min-width: 40px;
-	min-height: 40px;
-	width: 40px;
-	height: 40px;
+	min-width: 40 * @virtual_px;
+	min-height: 40 * @virtual_px;
+	width: 40 * @virtual_px;
+	height: 40 * @virtual_px;
 
 	color: @color_slider_handle_text;
 	font-size: 0.95rem;
@@ -197,8 +216,8 @@ a.ui-slider-handle {
 	width: 0;
 
 	.LESSborder-radius-all( 10 * @virtual_px );
-	.LESSbox-shadow(0 * @virtual_px, 0 * @virtual_px, 2 * @virtual_px, @color_progress_shadow);
-	background-color: @color_progress_value;
+	.LESSbox-shadow(0 * @virtual_px, 0 * @virtual_px, 2 * @virtual_px, @lessbox_slider_shadow);
+	background-color: @color_slider;
 
 	&.ui-slider-bg-has-center {
 		.LESSborder-radius-all( 0 );

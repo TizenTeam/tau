@@ -5,7 +5,7 @@
 ***************************************************************************/
 body {
 	height: 100vh;
-	font-size: 34 * @unit_base;
+	font-size: 34 * @virtual_px;
 	font-family: @font_family;
 	background: @color_bg;
 	background-size: 100% !important;
@@ -69,18 +69,18 @@ body {
 	overflow-y : visible;
 	background-color: @color_content_bg;
 	.scrolling-mode-touch;
-	padding: @fixed_header_title_padding;
+	padding: @fixed_header_content_padding;
 
 	.ui-column-left {
 		width: 298 * @virtual_px;
 		float: left;
-		margin: -@fixed_header_title_padding 0 -@fixed_header_title_padding -@fixed_header_title_padding;
+		margin: -@fixed_header_title_margin 0 -@fixed_header_title_margin -@fixed_header_title_margin;
 	}
 
 	.ui-column-right {
 		width: 1340 * @virtual_px;
 		float: left;
-		margin: -@fixed_header_title_padding -@fixed_header_title_padding -@fixed_header_title_padding 0;
+		margin: -@fixed_header_title_margin -@fixed_header_title_margin -@fixed_header_title_margin 0;
 	}
 
 	p:first-child {
@@ -208,13 +208,12 @@ body {
 	bottom: 0;
 	left: 0;
 	background-color: @color_actionbar_title_bg;
-	-webkit-border-bottom-left-radius: @page_border_radius;
-	-moz-border-bottom-left-radius: @page_border_radius;
 	border-bottom-left-radius: @page_border_radius;
-	-webkit-border-bottom-right-radius: @page_border_radius;
-	-moz-border-bottom-right-radius: @page_border_radius;
 	border-bottom-right-radius: @page_border_radius;
-	background-color: @color_actionbar_title_bg;
+	-webkit-border-bottom-left-radius: @page_border_radius;
+	-webkit-border-bottom-right-radius: @page_border_radius;
+	-moz-border-bottom-left-radius: @page_border_radius;
+	-moz-border-bottom-right-radius: @page_border_radius;
 	.ui-controlgroup-controls {
 		.ui-btn {
 			float:left;

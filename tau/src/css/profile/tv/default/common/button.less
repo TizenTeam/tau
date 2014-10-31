@@ -1,20 +1,13 @@
+/** Color of basic button background - normal */
 @basic_btn_color_normal: rgb(211, 211, 211);
-@basic_btn_color_focus: rgb(69, 143, 255);
+/** Color of basic button text - normal */
 @basic_btn_txt_color_normal: rgb(89, 89, 89);
+/** Color of basic button text - focused */
 @basic_btn_txt_color_focus: rgb(255, 255, 255);
-@list_btn_color_focus: rgb(69, 143, 255);
+/** Background color of icon-source button */
+@list_btn_color: rgb(69, 143, 255);
+/** Text color of button with icon */
 @btn_color_with_icon: rgb(255, 255, 255);
-
-/**********************************************************************/
-/*                        Button(FIXED)                               */
-/**********************************************************************/
-@fixed_button_padding_top: 21 * @virtual_px;
-@fixed_button_padding_bottom: 21 * @virtual_px;
-@fixed_button_padding_left: 20 * @virtual_px;
-@fixed_button_padding_right: 20 * @virtual_px;
-@fixed_button_minimum_width: 216 * @virtual_px;
-@fixed_button_inner_minimum_width: 134 * @virtual_px;
-@fixed_button_minimum_height: 70 * @virtual_px;
 
 .ui-btn {
 	position: relative;
@@ -278,10 +271,8 @@ button.ui-btn, input.ui-btn {
 }
 
 .ui-btn-icon-left .ui-icon, .ui-btn-icon-right .ui-icon, .ui-btn-icon-circle .ui-icon {
-	position: absolute; /*top: 50%; margin-top: -9 * @virtual_px;*/
+	position: absolute;
 }
-
-/* wongi_1018 : do not use. No more use 18 * @virtual_px default icons. */
 
 .ui-btn-icon-top .ui-icon, .ui-btn-icon-bottom .ui-icon {
 	position: absolute;
@@ -297,7 +288,7 @@ button.ui-btn, input.ui-btn {
 	left: 0 * @virtual_px;
 }
 
-/* wongi_1018 : for circle icon center positioning. */
+/* wongi_1018: for circle icon center positioning. */
 .ui-btn-icon-right .ui-icon {
 	right: 4 * @virtual_px;
 	top: 0;
@@ -338,7 +329,6 @@ button.ui-btn, input.ui-btn {
 	padding-bottom: 88 * @virtual_px;
 }
 
-/* wongi_1017 : Icons */
 /* icons sizing */
 .ui-btn .ui-icon {
 	width: 80 * @virtual_px;
@@ -451,9 +441,8 @@ ICON SOURCE
 
 .ui-listview li a.ui-btn.ui-btn-icon-source,
 .ui-btn-icon-source {
-
 		.ui-background {
-			background-color: @list_btn_color_focus;
+			background-color: @list_btn_color;
 		}
 
 	&.ui-focus {
@@ -475,7 +464,7 @@ ICON APP
 .ui-listview li a.ui-btn.ui-btn-icon-app,
 .ui-btn-icon-app {
 		.ui-background {
-			background-color: @list_btn_color_focus;
+			background-color: @list_btn_color;
 		}
 
 	&.ui-focus {
