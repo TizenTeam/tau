@@ -1,4 +1,19 @@
 %changelog
+* Fri Oct 31 2014 Junhyeon Lee <juneh.lee@samsung.com> 0.9.28
+	- feat(mobile): KIRAN Navigation Bar widget
+	- Collapsible list: modify some HTML example for collapsible list
+	- feat(mobile): KIRAN SelectMenu widget
+	- fix(wearable): config.xml attribute fix
+	- docs(mobile): Developer Guide: breaking changes
+	- docs(mobile): Developer Guide: switching apps to tau
+	- docs(other): Responsive UI guide
+	- fix(docs):Documentation for design/page.
+	- fix(mobile): searching on listview works improperly
+	- docs(all): ux review and other minor fixes for developer site
+	- fix(core, tv): Bugs fixed in Core Drawer and TV Button
+	- fix(core): Fix for Listview refresh method.
+	- [TV] Listview documentation added
+
 * Fri Oct 24 2014 Junhyeon Lee <juneh.lee@samsung.com> 0.9.27
 	- Mobile: fixed broken button styles
 	- Mobile: modify listview background color code value
