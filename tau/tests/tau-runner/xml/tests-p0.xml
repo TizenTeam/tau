@@ -1,0 +1,1841 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="./testcase.xsl"?>
+<test_definition name="http://tempuri.org" type="" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="test_definition.xsd"><environment device_id="" device_model="SDK &amp; Target" device_name="Tizen" host="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/38.0.2125.111 Safari/537.36" os_version="2.2" resolution="" screen_size="823 x 778">
+<other><![CDATA[Tizen Web UI FW UnitTest]]></other>
+</environment>
+<summary test_plan_name="Tizen Web UI FW Unit TC">
+<start_at><![CDATA[Fri Oct 31 2014 13:58:40 GMT+0100 (CET)]]></start_at><end_at><![CDATA[Fri Oct 31 2014 13:59:15 GMT+0100 (CET)]]></end_at>
+</summary>
+<suite id="suite123456" category="Web UI Framework" name="tct-webuifw-tests" tests="443">
+<set name="tests/js/core/core/ej.html_0" launcher="WRTLauncher -a">
+<testcase component="tests/js/core/core/ej.html" execution_type="auto" id="tests/js/core/core/ej.html_0_0_0" purpose="-Result of ej.getUniqueId() #1">
+<description>
+<test_script_entry><![CDATA[tests/js/core/core/ej.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/core/ej.html" execution_type="auto" id="tests/js/core/core/ej.html_0_0_1" purpose="-Result of ej.getUniqueId() #2">
+<description>
+<test_script_entry><![CDATA[tests/js/core/core/ej.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/core/ej.html" execution_type="auto" id="tests/js/core/core/ej.html_0_0_2" purpose="-Result of ej.getUniqueId() #3">
+<description>
+<test_script_entry><![CDATA[tests/js/core/core/ej.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/core/ej.html" execution_type="auto" id="tests/js/core/core/ej.html_0_0_3" purpose="-id1 != id2">
+<description>
+<test_script_entry><![CDATA[tests/js/core/core/ej.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/core/ej.html" execution_type="auto" id="tests/js/core/core/ej.html_0_0_4" purpose="-id1 != id3">
+<description>
+<test_script_entry><![CDATA[tests/js/core/core/ej.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/core/ej.html" execution_type="auto" id="tests/js/core/core/ej.html_0_0_5" purpose="-id3 != id2">
+<description>
+<test_script_entry><![CDATA[tests/js/core/core/ej.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/core/ej.html" execution_type="auto" id="tests/js/core/core/ej.html_0_0_6" purpose="-Method ej.set(&quot;test1&quot;, true)">
+<description>
+<test_script_entry><![CDATA[tests/js/core/core/ej.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/core/ej.html" execution_type="auto" id="tests/js/core/core/ej.html_0_0_7" purpose="-Method ej.set(&quot;test2&quot;, &quot;val&quot;)">
+<description>
+<test_script_entry><![CDATA[tests/js/core/core/ej.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/core/ej.html" execution_type="auto" id="tests/js/core/core/ej.html_0_0_8" purpose="-Method ej.set(&quot;test3&quot;, {val: 0})">
+<description>
+<test_script_entry><![CDATA[tests/js/core/core/ej.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/core/ej.html" execution_type="auto" id="tests/js/core/core/ej.html_0_0_9" purpose="-Method ej.get(&quot;test1&quot;)">
+<description>
+<test_script_entry><![CDATA[tests/js/core/core/ej.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/core/ej.html" execution_type="auto" id="tests/js/core/core/ej.html_0_0_10" purpose="-Method ej.get(&quot;test2&quot;)">
+<description>
+<test_script_entry><![CDATA[tests/js/core/core/ej.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/core/ej.html" execution_type="auto" id="tests/js/core/core/ej.html_0_0_11" purpose="-Method ej.get(&quot;test3&quot;)">
+<description>
+<test_script_entry><![CDATA[tests/js/core/core/ej.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/core/ej.html" execution_type="auto" id="tests/js/core/core/ej.html_0_0_12" purpose="-Method ej.get(&quot;test4&quot;)">
+<description>
+<test_script_entry><![CDATA[tests/js/core/core/ej.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/core/ej.html" execution_type="auto" id="tests/js/core/core/ej.html_0_0_13" purpose="-Method ej.get(&quot;test4&quot;, &quot;default&quot;)">
+<description>
+<test_script_entry><![CDATA[tests/js/core/core/ej.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/core/ej.html" execution_type="auto" id="tests/js/core/core/ej.html_0_1_0" purpose="-Console log called">
+<description>
+<test_script_entry><![CDATA[tests/js/core/core/ej.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/core/ej.html" execution_type="auto" id="tests/js/core/core/ej.html_0_1_1" purpose="-Result of ej.log">
+<description>
+<test_script_entry><![CDATA[tests/js/core/core/ej.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/core/ej.html" execution_type="auto" id="tests/js/core/core/ej.html_0_2_0" purpose="-Console warn called">
+<description>
+<test_script_entry><![CDATA[tests/js/core/core/ej.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/core/ej.html" execution_type="auto" id="tests/js/core/core/ej.html_0_2_1" purpose="-Result of ej.warn">
+<description>
+<test_script_entry><![CDATA[tests/js/core/core/ej.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/core/ej.html" execution_type="auto" id="tests/js/core/core/ej.html_0_3_0" purpose="-Console error called">
+<description>
+<test_script_entry><![CDATA[tests/js/core/core/ej.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/core/ej.html" execution_type="auto" id="tests/js/core/core/ej.html_0_3_1" purpose="-Result of ej.error">
+<description>
+<test_script_entry><![CDATA[tests/js/core/core/ej.html]]></test_script_entry>
+</description>
+</testcase>
+</set>
+<set name="tests/js/core/config/config.html_1" launcher="WRTLauncher -r">
+<testcase component="tests/js/core/config/config.html" execution_type="auto" id="tests/js/core/config/config.html_1_0_0" purpose="-&apos;rootDir&apos; - is set to: ns.getFrameworkPath() value">
+<description>
+<test_script_entry><![CDATA[tests/js/core/config/config.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/config/config.html" execution_type="auto" id="tests/js/core/config/config.html_1_0_1" purpose="-&apos;version&apos; - is an empty string">
+<description>
+<test_script_entry><![CDATA[tests/js/core/config/config.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/config/config.html" execution_type="auto" id="tests/js/core/config/config.html_1_0_2" purpose="-&apos;allowCrossDomainPages&apos; - is set to: false">
+<description>
+<test_script_entry><![CDATA[tests/js/core/config/config.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/config/config.html" execution_type="auto" id="tests/js/core/config/config.html_1_0_3" purpose="-&apos;domCache&apos; - is set to: false">
+<description>
+<test_script_entry><![CDATA[tests/js/core/config/config.html]]></test_script_entry>
+</description>
+</testcase>
+</set>
+<set name="tests/js/core/config/mobile/config.html_2" launcher="WRTLauncher -r">
+<testcase component="tests/js/core/config/mobile/config.html" execution_type="auto" id="tests/js/core/config/mobile/config.html_2_0_0" purpose="-&apos;autoBuildOnPageChange&apos; - Auto building widgets on page change is set to: true">
+<description>
+<test_script_entry><![CDATA[tests/js/core/config/mobile/config.html]]></test_script_entry>
+</description>
+</testcase>
+</set>
+<set name="tests/js/core/util/api/ej.utils.html_3" launcher="WRTLauncher -r">
+<testcase component="tests/js/core/util/api/ej.utils.html" execution_type="auto" id="tests/js/core/util/api/ej.utils.html_3_0_0" purpose="-ej exists">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/api/ej.utils.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/api/ej.utils.html" execution_type="auto" id="tests/js/core/util/api/ej.utils.html_3_0_1" purpose="-ej.util exists">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/api/ej.utils.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/api/ej.utils.html" execution_type="auto" id="tests/js/core/util/api/ej.utils.html_3_0_2" purpose="-function hashObject">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/api/ej.utils.html]]></test_script_entry>
+</description>
+</testcase>
+</set>
+<set name="tests/js/core/util/array/array.html_4" launcher="WRTLauncher -r">
+<testcase component="tests/js/core/util/array/array.html" execution_type="auto" id="tests/js/core/util/array/array.html_4_0_0" purpose="-Result is array">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/array/array.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/array/array.html" execution_type="auto" id="tests/js/core/util/array/array.html_4_0_1" purpose="-Result array has length 8">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/array/array.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/array/array.html" execution_type="auto" id="tests/js/core/util/array/array.html_4_0_2" purpose="-[0] value is 3, ok">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/array/array.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/array/array.html" execution_type="auto" id="tests/js/core/util/array/array.html_4_0_3" purpose="-[1] value is 4, ok">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/array/array.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/array/array.html" execution_type="auto" id="tests/js/core/util/array/array.html_4_0_4" purpose="-[2] value is 5, ok">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/array/array.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/array/array.html" execution_type="auto" id="tests/js/core/util/array/array.html_4_0_5" purpose="-[3] value is 6, ok">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/array/array.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/array/array.html" execution_type="auto" id="tests/js/core/util/array/array.html_4_0_6" purpose="-[4] value is 7, ok">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/array/array.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/array/array.html" execution_type="auto" id="tests/js/core/util/array/array.html_4_0_7" purpose="-[5] value is 8, ok">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/array/array.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/array/array.html" execution_type="auto" id="tests/js/core/util/array/array.html_4_0_8" purpose="-[6] value is 9, ok">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/array/array.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/array/array.html" execution_type="auto" id="tests/js/core/util/array/array.html_4_0_9" purpose="-[7] value is 10, ok">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/array/array.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/array/array.html" execution_type="auto" id="tests/js/core/util/array/array.html_4_1_0" purpose="-Result is array">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/array/array.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/array/array.html" execution_type="auto" id="tests/js/core/util/array/array.html_4_1_1" purpose="-Result array has length 8">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/array/array.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/array/array.html" execution_type="auto" id="tests/js/core/util/array/array.html_4_1_2" purpose="-[0] value is 3, ok">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/array/array.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/array/array.html" execution_type="auto" id="tests/js/core/util/array/array.html_4_1_3" purpose="-[1] value is 2, ok">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/array/array.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/array/array.html" execution_type="auto" id="tests/js/core/util/array/array.html_4_1_4" purpose="-[2] value is 1, ok">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/array/array.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/array/array.html" execution_type="auto" id="tests/js/core/util/array/array.html_4_1_5" purpose="-[3] value is 0, ok">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/array/array.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/array/array.html" execution_type="auto" id="tests/js/core/util/array/array.html_4_1_6" purpose="-[4] value is -1, ok">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/array/array.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/array/array.html" execution_type="auto" id="tests/js/core/util/array/array.html_4_1_7" purpose="-[5] value is -2, ok">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/array/array.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/array/array.html" execution_type="auto" id="tests/js/core/util/array/array.html_4_1_8" purpose="-[6] value is -3, ok">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/array/array.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/array/array.html" execution_type="auto" id="tests/js/core/util/array/array.html_4_1_9" purpose="-[7] value is -4, ok">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/array/array.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/array/array.html" execution_type="auto" id="tests/js/core/util/array/array.html_4_2_0" purpose="-Result is array">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/array/array.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/array/array.html" execution_type="auto" id="tests/js/core/util/array/array.html_4_2_1" purpose="-Result array has length 5">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/array/array.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/array/array.html" execution_type="auto" id="tests/js/core/util/array/array.html_4_2_2" purpose="-[0] value is 3, ok">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/array/array.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/array/array.html" execution_type="auto" id="tests/js/core/util/array/array.html_4_2_3" purpose="-[1] value is 6, ok">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/array/array.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/array/array.html" execution_type="auto" id="tests/js/core/util/array/array.html_4_2_4" purpose="-[2] value is 9, ok">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/array/array.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/array/array.html" execution_type="auto" id="tests/js/core/util/array/array.html_4_2_5" purpose="-[3] value is 12, ok">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/array/array.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/array/array.html" execution_type="auto" id="tests/js/core/util/array/array.html_4_2_6" purpose="-[4] value is 15, ok">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/array/array.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/array/array.html" execution_type="auto" id="tests/js/core/util/array/array.html_4_3_0" purpose="-Result is array">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/array/array.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/array/array.html" execution_type="auto" id="tests/js/core/util/array/array.html_4_3_1" purpose="-Result array has length 7">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/array/array.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/array/array.html" execution_type="auto" id="tests/js/core/util/array/array.html_4_3_2" purpose="-[0] value is &apos;c&apos;, ok">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/array/array.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/array/array.html" execution_type="auto" id="tests/js/core/util/array/array.html_4_3_3" purpose="-[1] value is &apos;d&apos;, ok">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/array/array.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/array/array.html" execution_type="auto" id="tests/js/core/util/array/array.html_4_3_4" purpose="-[2] value is &apos;e&apos;, ok">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/array/array.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/array/array.html" execution_type="auto" id="tests/js/core/util/array/array.html_4_3_5" purpose="-[3] value is &apos;f&apos;, ok">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/array/array.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/array/array.html" execution_type="auto" id="tests/js/core/util/array/array.html_4_3_6" purpose="-[4] value is &apos;g&apos;, ok">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/array/array.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/array/array.html" execution_type="auto" id="tests/js/core/util/array/array.html_4_3_7" purpose="-[5] value is &apos;h&apos;, ok">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/array/array.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/array/array.html" execution_type="auto" id="tests/js/core/util/array/array.html_4_3_8" purpose="-[6] value is &apos;i&apos;, ok">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/array/array.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/array/array.html" execution_type="auto" id="tests/js/core/util/array/array.html_4_4_0" purpose="-function range returns Array value">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/array/array.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/array/array.html" execution_type="auto" id="tests/js/core/util/array/array.html_4_4_1" purpose="-function range returns value">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/array/array.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/array/array.html" execution_type="auto" id="tests/js/core/util/array/array.html_4_4_2" purpose="-function range returns value">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/array/array.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/array/array.html" execution_type="auto" id="tests/js/core/util/array/array.html_4_4_3" purpose="-function range returns value">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/array/array.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/array/array.html" execution_type="auto" id="tests/js/core/util/array/array.html_4_4_4" purpose="-function range returns value">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/array/array.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/array/array.html" execution_type="auto" id="tests/js/core/util/array/array.html_4_4_5" purpose="-function range returns value">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/array/array.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/array/array.html" execution_type="auto" id="tests/js/core/util/array/array.html_4_5_0" purpose="-function isLikeArray returns false for null">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/array/array.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/array/array.html" execution_type="auto" id="tests/js/core/util/array/array.html_4_5_1" purpose="-function isLikeArray returns false for HTMLElement">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/array/array.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/array/array.html" execution_type="auto" id="tests/js/core/util/array/array.html_4_5_2" purpose="-function isLikeArray returns true for NodeList">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/array/array.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/array/array.html" execution_type="auto" id="tests/js/core/util/array/array.html_4_5_3" purpose="-function isLikeArray returns true for Array">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/array/array.html]]></test_script_entry>
+</description>
+</testcase>
+</set>
+<set name="tests/js/core/util/array/api/api.html_5" launcher="WRTLauncher -r">
+<testcase component="tests/js/core/util/array/api/api.html" execution_type="auto" id="tests/js/core/util/array/api/api.html_5_0_0" purpose="-ej exists">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/array/api/api.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/array/api/api.html" execution_type="auto" id="tests/js/core/util/array/api/api.html_5_0_1" purpose="-ej.util exists">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/array/api/api.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/array/api/api.html" execution_type="auto" id="tests/js/core/util/array/api/api.html_5_0_2" purpose="-ej.util.easing exists">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/array/api/api.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/array/api/api.html" execution_type="auto" id="tests/js/core/util/array/api/api.html_5_0_3" purpose="-function range">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/array/api/api.html]]></test_script_entry>
+</description>
+</testcase>
+</set>
+<set name="tests/js/core/event/events.html_6" launcher="WRTLauncher -r">
+<testcase component="tests/js/core/event/events.html" execution_type="auto" id="tests/js/core/event/events.html_6_0_0" purpose="-">
+<description>
+<test_script_entry><![CDATA[tests/js/core/event/events.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/event/events.html" execution_type="auto" id="tests/js/core/event/events.html_6_0_1" purpose="-">
+<description>
+<test_script_entry><![CDATA[tests/js/core/event/events.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/event/events.html" execution_type="auto" id="tests/js/core/event/events.html_6_1_0" purpose="-">
+<description>
+<test_script_entry><![CDATA[tests/js/core/event/events.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/event/events.html" execution_type="auto" id="tests/js/core/event/events.html_6_1_1" purpose="-">
+<description>
+<test_script_entry><![CDATA[tests/js/core/event/events.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/event/events.html" execution_type="auto" id="tests/js/core/event/events.html_6_2_0" purpose="-function trigger returns boolean value">
+<description>
+<test_script_entry><![CDATA[tests/js/core/event/events.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/event/events.html" execution_type="auto" id="tests/js/core/event/events.html_6_3_0" purpose="-click event">
+<description>
+<test_script_entry><![CDATA[tests/js/core/event/events.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/event/events.html" execution_type="auto" id="tests/js/core/event/events.html_6_4_0" purpose="-vclick event">
+<description>
+<test_script_entry><![CDATA[tests/js/core/event/events.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/event/events.html" execution_type="auto" id="tests/js/core/event/events.html_6_5_0" purpose="-test-event event">
+<description>
+<test_script_entry><![CDATA[tests/js/core/event/events.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/event/events.html" execution_type="auto" id="tests/js/core/event/events.html_6_6_0" purpose="-">
+<description>
+<test_script_entry><![CDATA[tests/js/core/event/events.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/event/events.html" execution_type="auto" id="tests/js/core/event/events.html_6_7_0" purpose="-">
+<description>
+<test_script_entry><![CDATA[tests/js/core/event/events.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/event/events.html" execution_type="auto" id="tests/js/core/event/events.html_6_8_0" purpose="-">
+<description>
+<test_script_entry><![CDATA[tests/js/core/event/events.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/event/events.html" execution_type="auto" id="tests/js/core/event/events.html_6_9_0" purpose="-">
+<description>
+<test_script_entry><![CDATA[tests/js/core/event/events.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/event/events.html" execution_type="auto" id="tests/js/core/event/events.html_6_9_1" purpose="-">
+<description>
+<test_script_entry><![CDATA[tests/js/core/event/events.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/event/events.html" execution_type="auto" id="tests/js/core/event/events.html_6_10_0" purpose="-">
+<description>
+<test_script_entry><![CDATA[tests/js/core/event/events.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/event/events.html" execution_type="auto" id="tests/js/core/event/events.html_6_10_1" purpose="-">
+<description>
+<test_script_entry><![CDATA[tests/js/core/event/events.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/event/events.html" execution_type="auto" id="tests/js/core/event/events.html_6_11_0" purpose="-">
+<description>
+<test_script_entry><![CDATA[tests/js/core/event/events.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/event/events.html" execution_type="auto" id="tests/js/core/event/events.html_6_12_0" purpose="-">
+<description>
+<test_script_entry><![CDATA[tests/js/core/event/events.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/event/events.html" execution_type="auto" id="tests/js/core/event/events.html_6_13_0" purpose="-">
+<description>
+<test_script_entry><![CDATA[tests/js/core/event/events.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/event/events.html" execution_type="auto" id="tests/js/core/event/events.html_6_13_1" purpose="-">
+<description>
+<test_script_entry><![CDATA[tests/js/core/event/events.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/event/events.html" execution_type="auto" id="tests/js/core/event/events.html_6_14_0" purpose="-">
+<description>
+<test_script_entry><![CDATA[tests/js/core/event/events.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/event/events.html" execution_type="auto" id="tests/js/core/event/events.html_6_15_0" purpose="-">
+<description>
+<test_script_entry><![CDATA[tests/js/core/event/events.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/event/events.html" execution_type="auto" id="tests/js/core/event/events.html_6_16_0" purpose="-">
+<description>
+<test_script_entry><![CDATA[tests/js/core/event/events.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/event/events.html" execution_type="auto" id="tests/js/core/event/events.html_6_17_0" purpose="-">
+<description>
+<test_script_entry><![CDATA[tests/js/core/event/events.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/event/events.html" execution_type="auto" id="tests/js/core/event/events.html_6_17_1" purpose="-">
+<description>
+<test_script_entry><![CDATA[tests/js/core/event/events.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/event/events.html" execution_type="auto" id="tests/js/core/event/events.html_6_18_0" purpose="-">
+<description>
+<test_script_entry><![CDATA[tests/js/core/event/events.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/event/events.html" execution_type="auto" id="tests/js/core/event/events.html_6_18_1" purpose="-">
+<description>
+<test_script_entry><![CDATA[tests/js/core/event/events.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/event/events.html" execution_type="auto" id="tests/js/core/event/events.html_6_19_0" purpose="-">
+<description>
+<test_script_entry><![CDATA[tests/js/core/event/events.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/event/events.html" execution_type="auto" id="tests/js/core/event/events.html_6_19_1" purpose="-">
+<description>
+<test_script_entry><![CDATA[tests/js/core/event/events.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/event/events.html" execution_type="auto" id="tests/js/core/event/events.html_6_19_2" purpose="-mouseup fired">
+<description>
+<test_script_entry><![CDATA[tests/js/core/event/events.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/event/events.html" execution_type="auto" id="tests/js/core/event/events.html_6_20_0" purpose="-">
+<description>
+<test_script_entry><![CDATA[tests/js/core/event/events.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/event/events.html" execution_type="auto" id="tests/js/core/event/events.html_6_20_1" purpose="-">
+<description>
+<test_script_entry><![CDATA[tests/js/core/event/events.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/event/events.html" execution_type="auto" id="tests/js/core/event/events.html_6_20_2" purpose="-mouseup fired">
+<description>
+<test_script_entry><![CDATA[tests/js/core/event/events.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/event/events.html" execution_type="auto" id="tests/js/core/event/events.html_6_21_0" purpose="-">
+<description>
+<test_script_entry><![CDATA[tests/js/core/event/events.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/event/events.html" execution_type="auto" id="tests/js/core/event/events.html_6_21_1" purpose="-">
+<description>
+<test_script_entry><![CDATA[tests/js/core/event/events.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/event/events.html" execution_type="auto" id="tests/js/core/event/events.html_6_21_2" purpose="-mouseup fired">
+<description>
+<test_script_entry><![CDATA[tests/js/core/event/events.html]]></test_script_entry>
+</description>
+</testcase>
+</set>
+<set name="tests/js/core/event/api/ej.utils.events.html_7" launcher="WRTLauncher -r">
+<testcase component="tests/js/core/event/api/ej.utils.events.html" execution_type="auto" id="tests/js/core/event/api/ej.utils.events.html_7_0_0" purpose="-ej exists">
+<description>
+<test_script_entry><![CDATA[tests/js/core/event/api/ej.utils.events.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/event/api/ej.utils.events.html" execution_type="auto" id="tests/js/core/event/api/ej.utils.events.html_7_0_1" purpose="-ej.event exists">
+<description>
+<test_script_entry><![CDATA[tests/js/core/event/api/ej.utils.events.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/event/api/ej.utils.events.html" execution_type="auto" id="tests/js/core/event/api/ej.utils.events.html_7_0_2" purpose="-function set">
+<description>
+<test_script_entry><![CDATA[tests/js/core/event/api/ej.utils.events.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/event/api/ej.utils.events.html" execution_type="auto" id="tests/js/core/event/api/ej.utils.events.html_7_0_3" purpose="-function get">
+<description>
+<test_script_entry><![CDATA[tests/js/core/event/api/ej.utils.events.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/event/api/ej.utils.events.html" execution_type="auto" id="tests/js/core/event/api/ej.utils.events.html_7_0_4" purpose="-function remove">
+<description>
+<test_script_entry><![CDATA[tests/js/core/event/api/ej.utils.events.html]]></test_script_entry>
+</description>
+</testcase>
+</set>
+<set name="tests/js/core/event/mobile/events.html_8" launcher="WRTLauncher -r">
+<testcase component="tests/js/core/event/mobile/events.html" execution_type="auto" id="tests/js/core/event/mobile/events.html_8_0_0" purpose="-">
+<description>
+<test_script_entry><![CDATA[tests/js/core/event/mobile/events.html]]></test_script_entry>
+</description>
+</testcase>
+</set>
+<set name="tests/js/core/util/selectors/selectors.html_9" launcher="WRTLauncher -r">
+<testcase component="tests/js/core/util/selectors/selectors.html" execution_type="auto" id="tests/js/core/util/selectors/selectors.html_9_0_0" purpose="-Function exists">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/selectors/selectors.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/selectors/selectors.html" execution_type="auto" id="tests/js/core/util/selectors/selectors.html_9_0_1" purpose="-Matches proper selector">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/selectors/selectors.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/selectors/selectors.html" execution_type="auto" id="tests/js/core/util/selectors/selectors.html_9_1_0" purpose="-Function exist">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/selectors/selectors.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/selectors/selectors.html" execution_type="auto" id="tests/js/core/util/selectors/selectors.html_9_1_1" purpose="-Rreturns the same number of elements like jquery">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/selectors/selectors.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/selectors/selectors.html" execution_type="auto" id="tests/js/core/util/selectors/selectors.html_9_2_0" purpose="-Function exist">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/selectors/selectors.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/selectors/selectors.html" execution_type="auto" id="tests/js/core/util/selectors/selectors.html_9_2_1" purpose="-Returns the same number of elements like jquery">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/selectors/selectors.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/selectors/selectors.html" execution_type="auto" id="tests/js/core/util/selectors/selectors.html_9_2_2" purpose="-Returns the same number of elements like jquery">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/selectors/selectors.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/selectors/selectors.html" execution_type="auto" id="tests/js/core/util/selectors/selectors.html_9_3_0" purpose="-Function exist">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/selectors/selectors.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/selectors/selectors.html" execution_type="auto" id="tests/js/core/util/selectors/selectors.html_9_3_1" purpose="-Returns the same number of elements like jquery">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/selectors/selectors.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/selectors/selectors.html" execution_type="auto" id="tests/js/core/util/selectors/selectors.html_9_3_2" purpose="-Returns the same number of elements like jquery">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/selectors/selectors.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/selectors/selectors.html" execution_type="auto" id="tests/js/core/util/selectors/selectors.html_9_4_0" purpose="-Function exist">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/selectors/selectors.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/selectors/selectors.html" execution_type="auto" id="tests/js/core/util/selectors/selectors.html_9_4_1" purpose="-Returns the same number of elements like jquery">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/selectors/selectors.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/selectors/selectors.html" execution_type="auto" id="tests/js/core/util/selectors/selectors.html_9_5_0" purpose="-Function exist">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/selectors/selectors.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/selectors/selectors.html" execution_type="auto" id="tests/js/core/util/selectors/selectors.html_9_5_1" purpose="-Returns the same number of elements like jquery">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/selectors/selectors.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/selectors/selectors.html" execution_type="auto" id="tests/js/core/util/selectors/selectors.html_9_6_0" purpose="-Function exist">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/selectors/selectors.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/selectors/selectors.html" execution_type="auto" id="tests/js/core/util/selectors/selectors.html_9_6_1" purpose="-Returns the same number of elements like jquery">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/selectors/selectors.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/selectors/selectors.html" execution_type="auto" id="tests/js/core/util/selectors/selectors.html_9_6_2" purpose="-Returns the same number of elements like jquery">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/selectors/selectors.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/selectors/selectors.html" execution_type="auto" id="tests/js/core/util/selectors/selectors.html_9_7_0" purpose="-Function exist">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/selectors/selectors.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/selectors/selectors.html" execution_type="auto" id="tests/js/core/util/selectors/selectors.html_9_7_1" purpose="-Returns the same number of elements like jquery">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/selectors/selectors.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/selectors/selectors.html" execution_type="auto" id="tests/js/core/util/selectors/selectors.html_9_8_0" purpose="-Function exist">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/selectors/selectors.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/selectors/selectors.html" execution_type="auto" id="tests/js/core/util/selectors/selectors.html_9_8_1" purpose="-Returns the same number of elements like jquery">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/selectors/selectors.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/selectors/selectors.html" execution_type="auto" id="tests/js/core/util/selectors/selectors.html_9_8_2" purpose="-Returns the same number of elements like jquery">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/selectors/selectors.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/selectors/selectors.html" execution_type="auto" id="tests/js/core/util/selectors/selectors.html_9_9_0" purpose="-Function exist">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/selectors/selectors.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/selectors/selectors.html" execution_type="auto" id="tests/js/core/util/selectors/selectors.html_9_9_1" purpose="-Returns the same number of elements like jquery">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/selectors/selectors.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/selectors/selectors.html" execution_type="auto" id="tests/js/core/util/selectors/selectors.html_9_9_2" purpose="-Returns the same number of elements like jquery">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/selectors/selectors.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/selectors/selectors.html" execution_type="auto" id="tests/js/core/util/selectors/selectors.html_9_10_0" purpose="-Function exist">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/selectors/selectors.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/selectors/selectors.html" execution_type="auto" id="tests/js/core/util/selectors/selectors.html_9_10_1" purpose="-Returns the same element like jquery">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/selectors/selectors.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/selectors/selectors.html" execution_type="auto" id="tests/js/core/util/selectors/selectors.html_9_10_2" purpose="-Returns the same element like jquery">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/selectors/selectors.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/selectors/selectors.html" execution_type="auto" id="tests/js/core/util/selectors/selectors.html_9_11_0" purpose="-Function exist">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/selectors/selectors.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/selectors/selectors.html" execution_type="auto" id="tests/js/core/util/selectors/selectors.html_9_11_1" purpose="-Returns the same element like jquery">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/selectors/selectors.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/selectors/selectors.html" execution_type="auto" id="tests/js/core/util/selectors/selectors.html_9_11_2" purpose="-Returns the same element like jquery">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/selectors/selectors.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/selectors/selectors.html" execution_type="auto" id="tests/js/core/util/selectors/selectors.html_9_12_0" purpose="-Function exist">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/selectors/selectors.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/selectors/selectors.html" execution_type="auto" id="tests/js/core/util/selectors/selectors.html_9_12_1" purpose="-Returns the same number of elements like jquery">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/selectors/selectors.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/selectors/selectors.html" execution_type="auto" id="tests/js/core/util/selectors/selectors.html_9_12_2" purpose="-Returns the same number of elements like jquery">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/selectors/selectors.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/selectors/selectors.html" execution_type="auto" id="tests/js/core/util/selectors/selectors.html_9_13_0" purpose="-Function exist">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/selectors/selectors.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/selectors/selectors.html" execution_type="auto" id="tests/js/core/util/selectors/selectors.html_9_13_1" purpose="-Returns the same element like jquery">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/selectors/selectors.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/selectors/selectors.html" execution_type="auto" id="tests/js/core/util/selectors/selectors.html_9_14_0" purpose="-Function exist">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/selectors/selectors.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/selectors/selectors.html" execution_type="auto" id="tests/js/core/util/selectors/selectors.html_9_14_1" purpose="-Returns the same element like jquery">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/selectors/selectors.html]]></test_script_entry>
+</description>
+</testcase>
+</set>
+<set name="tests/js/core/util/selectors/api/ej.utils.selectors.html_10" launcher="WRTLauncher -r">
+<testcase component="tests/js/core/util/selectors/api/ej.utils.selectors.html" execution_type="auto" id="tests/js/core/util/selectors/api/ej.utils.selectors.html_10_0_0" purpose="-ej exists">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/selectors/api/ej.utils.selectors.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/selectors/api/ej.utils.selectors.html" execution_type="auto" id="tests/js/core/util/selectors/api/ej.utils.selectors.html_10_0_1" purpose="-ej.util exists">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/selectors/api/ej.utils.selectors.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/selectors/api/ej.utils.selectors.html" execution_type="auto" id="tests/js/core/util/selectors/api/ej.utils.selectors.html_10_0_2" purpose="-ej.util.selectors exists">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/selectors/api/ej.utils.selectors.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/selectors/api/ej.utils.selectors.html" execution_type="auto" id="tests/js/core/util/selectors/api/ej.utils.selectors.html_10_0_3" purpose="-function set">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/selectors/api/ej.utils.selectors.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/selectors/api/ej.utils.selectors.html" execution_type="auto" id="tests/js/core/util/selectors/api/ej.utils.selectors.html_10_0_4" purpose="-function set">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/selectors/api/ej.utils.selectors.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/selectors/api/ej.utils.selectors.html" execution_type="auto" id="tests/js/core/util/selectors/api/ej.utils.selectors.html_10_0_5" purpose="-function get">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/selectors/api/ej.utils.selectors.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/selectors/api/ej.utils.selectors.html" execution_type="auto" id="tests/js/core/util/selectors/api/ej.utils.selectors.html_10_0_6" purpose="-function remove">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/selectors/api/ej.utils.selectors.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/selectors/api/ej.utils.selectors.html" execution_type="auto" id="tests/js/core/util/selectors/api/ej.utils.selectors.html_10_0_7" purpose="-function set">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/selectors/api/ej.utils.selectors.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/selectors/api/ej.utils.selectors.html" execution_type="auto" id="tests/js/core/util/selectors/api/ej.utils.selectors.html_10_0_8" purpose="-function get">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/selectors/api/ej.utils.selectors.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/selectors/api/ej.utils.selectors.html" execution_type="auto" id="tests/js/core/util/selectors/api/ej.utils.selectors.html_10_0_9" purpose="-function remove">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/selectors/api/ej.utils.selectors.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/selectors/api/ej.utils.selectors.html" execution_type="auto" id="tests/js/core/util/selectors/api/ej.utils.selectors.html_10_0_10" purpose="-function set">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/selectors/api/ej.utils.selectors.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/selectors/api/ej.utils.selectors.html" execution_type="auto" id="tests/js/core/util/selectors/api/ej.utils.selectors.html_10_0_11" purpose="-function get">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/selectors/api/ej.utils.selectors.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/selectors/api/ej.utils.selectors.html" execution_type="auto" id="tests/js/core/util/selectors/api/ej.utils.selectors.html_10_0_12" purpose="-function remove">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/selectors/api/ej.utils.selectors.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/selectors/api/ej.utils.selectors.html" execution_type="auto" id="tests/js/core/util/selectors/api/ej.utils.selectors.html_10_0_13" purpose="-function remove">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/selectors/api/ej.utils.selectors.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/selectors/api/ej.utils.selectors.html" execution_type="auto" id="tests/js/core/util/selectors/api/ej.utils.selectors.html_10_0_14" purpose="-function get">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/selectors/api/ej.utils.selectors.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/selectors/api/ej.utils.selectors.html" execution_type="auto" id="tests/js/core/util/selectors/api/ej.utils.selectors.html_10_0_15" purpose="-function get">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/selectors/api/ej.utils.selectors.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/selectors/api/ej.utils.selectors.html" execution_type="auto" id="tests/js/core/util/selectors/api/ej.utils.selectors.html_10_0_16" purpose="-function get">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/selectors/api/ej.utils.selectors.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/selectors/api/ej.utils.selectors.html" execution_type="auto" id="tests/js/core/util/selectors/api/ej.utils.selectors.html_10_0_17" purpose="-function get">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/selectors/api/ej.utils.selectors.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/selectors/api/ej.utils.selectors.html" execution_type="auto" id="tests/js/core/util/selectors/api/ej.utils.selectors.html_10_1_0" purpose="-function matchesSelector returns boolean value">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/selectors/api/ej.utils.selectors.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/selectors/api/ej.utils.selectors.html" execution_type="auto" id="tests/js/core/util/selectors/api/ej.utils.selectors.html_10_1_1" purpose="-function matchesSelector returns true value">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/selectors/api/ej.utils.selectors.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/selectors/api/ej.utils.selectors.html" execution_type="auto" id="tests/js/core/util/selectors/api/ej.utils.selectors.html_10_1_2" purpose="-function matchesSelector returns false value">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/selectors/api/ej.utils.selectors.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/selectors/api/ej.utils.selectors.html" execution_type="auto" id="tests/js/core/util/selectors/api/ej.utils.selectors.html_10_2_0" purpose="-function getChildrenBySelector returns object">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/selectors/api/ej.utils.selectors.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/selectors/api/ej.utils.selectors.html" execution_type="auto" id="tests/js/core/util/selectors/api/ej.utils.selectors.html_10_2_1" purpose="-function getChildrenBySelector returns Array">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/selectors/api/ej.utils.selectors.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/selectors/api/ej.utils.selectors.html" execution_type="auto" id="tests/js/core/util/selectors/api/ej.utils.selectors.html_10_2_2" purpose="-function getChildrenBySelector returns right value">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/selectors/api/ej.utils.selectors.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/selectors/api/ej.utils.selectors.html" execution_type="auto" id="tests/js/core/util/selectors/api/ej.utils.selectors.html_10_2_3" purpose="-function getChildrenByClass returns object">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/selectors/api/ej.utils.selectors.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/selectors/api/ej.utils.selectors.html" execution_type="auto" id="tests/js/core/util/selectors/api/ej.utils.selectors.html_10_2_4" purpose="-function getChildrenByClass returns Array">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/selectors/api/ej.utils.selectors.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/selectors/api/ej.utils.selectors.html" execution_type="auto" id="tests/js/core/util/selectors/api/ej.utils.selectors.html_10_2_5" purpose="-function getChildrenByClass">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/selectors/api/ej.utils.selectors.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/selectors/api/ej.utils.selectors.html" execution_type="auto" id="tests/js/core/util/selectors/api/ej.utils.selectors.html_10_2_6" purpose="-function getChildrenByTag returns object">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/selectors/api/ej.utils.selectors.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/selectors/api/ej.utils.selectors.html" execution_type="auto" id="tests/js/core/util/selectors/api/ej.utils.selectors.html_10_2_7" purpose="-function getChildrenByTag returns Array">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/selectors/api/ej.utils.selectors.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/selectors/api/ej.utils.selectors.html" execution_type="auto" id="tests/js/core/util/selectors/api/ej.utils.selectors.html_10_2_8" purpose="-function getChildrenByTag finds element with div tag">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/selectors/api/ej.utils.selectors.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/selectors/api/ej.utils.selectors.html" execution_type="auto" id="tests/js/core/util/selectors/api/ej.utils.selectors.html_10_2_9" purpose="-function getChildrenByTag doesn&apos;t find element with a tag">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/selectors/api/ej.utils.selectors.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/selectors/api/ej.utils.selectors.html" execution_type="auto" id="tests/js/core/util/selectors/api/ej.utils.selectors.html_10_3_0" purpose="-function getParents returns object">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/selectors/api/ej.utils.selectors.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/selectors/api/ej.utils.selectors.html" execution_type="auto" id="tests/js/core/util/selectors/api/ej.utils.selectors.html_10_3_1" purpose="-function getParents returns Array">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/selectors/api/ej.utils.selectors.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/selectors/api/ej.utils.selectors.html" execution_type="auto" id="tests/js/core/util/selectors/api/ej.utils.selectors.html_10_3_2" purpose="-function getParents returns right value">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/selectors/api/ej.utils.selectors.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/selectors/api/ej.utils.selectors.html" execution_type="auto" id="tests/js/core/util/selectors/api/ej.utils.selectors.html_10_3_3" purpose="-function getParents returns right value">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/selectors/api/ej.utils.selectors.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/selectors/api/ej.utils.selectors.html" execution_type="auto" id="tests/js/core/util/selectors/api/ej.utils.selectors.html_10_3_4" purpose="-function getParents returns right value">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/selectors/api/ej.utils.selectors.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/selectors/api/ej.utils.selectors.html" execution_type="auto" id="tests/js/core/util/selectors/api/ej.utils.selectors.html_10_3_5" purpose="-function getParentsBySelector returns Array">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/selectors/api/ej.utils.selectors.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/selectors/api/ej.utils.selectors.html" execution_type="auto" id="tests/js/core/util/selectors/api/ej.utils.selectors.html_10_3_6" purpose="-function getParentsBySelector returns right value">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/selectors/api/ej.utils.selectors.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/selectors/api/ej.utils.selectors.html" execution_type="auto" id="tests/js/core/util/selectors/api/ej.utils.selectors.html_10_3_7" purpose="-function getParentsByClass returns object">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/selectors/api/ej.utils.selectors.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/selectors/api/ej.utils.selectors.html" execution_type="auto" id="tests/js/core/util/selectors/api/ej.utils.selectors.html_10_3_8" purpose="-function getParentsByClass returns Array">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/selectors/api/ej.utils.selectors.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/selectors/api/ej.utils.selectors.html" execution_type="auto" id="tests/js/core/util/selectors/api/ej.utils.selectors.html_10_3_9" purpose="-function getParentsByClass">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/selectors/api/ej.utils.selectors.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/selectors/api/ej.utils.selectors.html" execution_type="auto" id="tests/js/core/util/selectors/api/ej.utils.selectors.html_10_3_10" purpose="-function getParentsByTag returns object">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/selectors/api/ej.utils.selectors.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/selectors/api/ej.utils.selectors.html" execution_type="auto" id="tests/js/core/util/selectors/api/ej.utils.selectors.html_10_3_11" purpose="-function getParentsByTag returns Array">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/selectors/api/ej.utils.selectors.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/selectors/api/ej.utils.selectors.html" execution_type="auto" id="tests/js/core/util/selectors/api/ej.utils.selectors.html_10_3_12" purpose="-function getParentsByTag returns right value">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/selectors/api/ej.utils.selectors.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/selectors/api/ej.utils.selectors.html" execution_type="auto" id="tests/js/core/util/selectors/api/ej.utils.selectors.html_10_3_13" purpose="-function getParentsByTag returns right value">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/selectors/api/ej.utils.selectors.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/selectors/api/ej.utils.selectors.html" execution_type="auto" id="tests/js/core/util/selectors/api/ej.utils.selectors.html_10_3_14" purpose="-function getParentsByTag returns right value">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/selectors/api/ej.utils.selectors.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/selectors/api/ej.utils.selectors.html" execution_type="auto" id="tests/js/core/util/selectors/api/ej.utils.selectors.html_10_4_0" purpose="-function getClosestBySelector returns object">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/selectors/api/ej.utils.selectors.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/selectors/api/ej.utils.selectors.html" execution_type="auto" id="tests/js/core/util/selectors/api/ej.utils.selectors.html_10_4_1" purpose="-function getClosestBySelector returns element">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/selectors/api/ej.utils.selectors.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/selectors/api/ej.utils.selectors.html" execution_type="auto" id="tests/js/core/util/selectors/api/ej.utils.selectors.html_10_4_2" purpose="-function getClosestBySelector returns object">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/selectors/api/ej.utils.selectors.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/selectors/api/ej.utils.selectors.html" execution_type="auto" id="tests/js/core/util/selectors/api/ej.utils.selectors.html_10_4_3" purpose="-function getClosestByClass returns null">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/selectors/api/ej.utils.selectors.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/selectors/api/ej.utils.selectors.html" execution_type="auto" id="tests/js/core/util/selectors/api/ej.utils.selectors.html_10_4_4" purpose="-function getClosestByClass returns itself">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/selectors/api/ej.utils.selectors.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/selectors/api/ej.utils.selectors.html" execution_type="auto" id="tests/js/core/util/selectors/api/ej.utils.selectors.html_10_4_5" purpose="-function getClosestByClass returns parent">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/selectors/api/ej.utils.selectors.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/selectors/api/ej.utils.selectors.html" execution_type="auto" id="tests/js/core/util/selectors/api/ej.utils.selectors.html_10_4_6" purpose="-function getClosestByTag returns object">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/selectors/api/ej.utils.selectors.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/selectors/api/ej.utils.selectors.html" execution_type="auto" id="tests/js/core/util/selectors/api/ej.utils.selectors.html_10_4_7" purpose="-function getClosestByTag returns itself">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/selectors/api/ej.utils.selectors.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/selectors/api/ej.utils.selectors.html" execution_type="auto" id="tests/js/core/util/selectors/api/ej.utils.selectors.html_10_4_8" purpose="-function getClosestByTag returns null">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/selectors/api/ej.utils.selectors.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/selectors/api/ej.utils.selectors.html" execution_type="auto" id="tests/js/core/util/selectors/api/ej.utils.selectors.html_10_4_9" purpose="-function getClosestByTag returns element">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/selectors/api/ej.utils.selectors.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/selectors/api/ej.utils.selectors.html" execution_type="auto" id="tests/js/core/util/selectors/api/ej.utils.selectors.html_10_4_10" purpose="-function getClosestByTag returns right element">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/selectors/api/ej.utils.selectors.html]]></test_script_entry>
+</description>
+</testcase>
+</set>
+<set name="tests/js/core/util/object/object.html_11" launcher="WRTLauncher -r">
+<testcase component="tests/js/core/util/object/object.html" execution_type="auto" id="tests/js/core/util/object/object.html_11_0_0" purpose="-The returned value is an object">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/object/object.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/object/object.html" execution_type="auto" id="tests/js/core/util/object/object.html_11_0_1" purpose="-New Object has same properties as orginal Object properties by copy">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/object/object.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/object/object.html" execution_type="auto" id="tests/js/core/util/object/object.html_11_0_2" purpose="-New Object has same properties as orginal Object properties by copy">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/object/object.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/object/object.html" execution_type="auto" id="tests/js/core/util/object/object.html_11_0_3" purpose="-New Object has same properties as orginal Object properties by copy">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/object/object.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/object/object.html" execution_type="auto" id="tests/js/core/util/object/object.html_11_0_4" purpose="-The prototype property wasn&apos;t copied">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/object/object.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/object/object.html" execution_type="auto" id="tests/js/core/util/object/object.html_11_1_0" purpose="-New Object has same properties as orginal Object properties by copy">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/object/object.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/object/object.html" execution_type="auto" id="tests/js/core/util/object/object.html_11_1_1" purpose="-New Object has same properties as orginal Object properties by copy">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/object/object.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/object/object.html" execution_type="auto" id="tests/js/core/util/object/object.html_11_1_2" purpose="-New Object has same properties as orginal Object properties by copy">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/object/object.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/object/object.html" execution_type="auto" id="tests/js/core/util/object/object.html_11_1_3" purpose="-Both objects point to this same array, its not a deep copy">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/object/object.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/object/object.html" execution_type="auto" id="tests/js/core/util/object/object.html_11_1_4" purpose="-New Object has same properties as orginal Object properties by copy">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/object/object.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/object/object.html" execution_type="auto" id="tests/js/core/util/object/object.html_11_1_5" purpose="-New Object has same properties as new Object properties by copy">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/object/object.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/object/object.html" execution_type="auto" id="tests/js/core/util/object/object.html_11_2_0" purpose="-New class method return value from original class">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/object/object.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/object/object.html" execution_type="auto" id="tests/js/core/util/object/object.html_11_2_1" purpose="-New class method return null">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/object/object.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/object/object.html" execution_type="auto" id="tests/js/core/util/object/object.html_11_3_0" purpose="-New Object has same properties as orgObject1 Object properties by copy">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/object/object.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/object/object.html" execution_type="auto" id="tests/js/core/util/object/object.html_11_3_1" purpose="-New Object has same properties as orgObject2 Object properties by copy">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/object/object.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/object/object.html" execution_type="auto" id="tests/js/core/util/object/object.html_11_4_0" purpose="-Empty object returns false">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/object/object.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/object/object.html" execution_type="auto" id="tests/js/core/util/object/object.html_11_4_1" purpose="-Object full of props `undefined` returns true">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/object/object.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/object/object.html" execution_type="auto" id="tests/js/core/util/object/object.html_11_4_2" purpose="-Object full of props `null` returns true">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/object/object.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/object/object.html" execution_type="auto" id="tests/js/core/util/object/object.html_11_4_3" purpose="-Object full of props `&quot;abc&quot;` asked for &quot;abc&quot; returns true">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/object/object.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/object/object.html" execution_type="auto" id="tests/js/core/util/object/object.html_11_4_4" purpose="-Object full of props `5` asked for `5` returns true">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/object/object.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/object/object.html" execution_type="auto" id="tests/js/core/util/object/object.html_11_4_5" purpose="-Object full of props `5` asked for `&quot;5&quot;` returns false">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/object/object.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/object/object.html" execution_type="auto" id="tests/js/core/util/object/object.html_11_4_6" purpose="-Object full of props with reference as value asked for that reference returns true">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/object/object.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/object/object.html" execution_type="auto" id="tests/js/core/util/object/object.html_11_4_7" purpose="-Object full of props with objects that look that same asked for that same object returns false">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/object/object.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/object/object.html" execution_type="auto" id="tests/js/core/util/object/object.html_11_4_8" purpose="-Object mixed (null, 0, undefined) asked for `null` return false">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/object/object.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/object/object.html" execution_type="auto" id="tests/js/core/util/object/object.html_11_4_9" purpose="-Object mixed (null, 0, undefined) asked for `undefined` return false">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/object/object.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/object/object.html" execution_type="auto" id="tests/js/core/util/object/object.html_11_4_10" purpose="-Object mixed (null, 0, undefined) asked for `0` return false">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/object/object.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/object/object.html" execution_type="auto" id="tests/js/core/util/object/object.html_11_4_11" purpose="-Object mixed (reference, undefined) asked for `undefined` return false">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/object/object.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/object/object.html" execution_type="auto" id="tests/js/core/util/object/object.html_11_4_12" purpose="-Object mixed (reference, undefined) asked for `undefined` return false">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/object/object.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/object/object.html" execution_type="auto" id="tests/js/core/util/object/object.html_11_4_13" purpose="-Object mixed (reference, null) asked for `null` returns false">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/object/object.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/object/object.html" execution_type="auto" id="tests/js/core/util/object/object.html_11_4_14" purpose="-Object mixed (reference, null) asked for `reference` returns false">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/object/object.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/object/object.html" execution_type="auto" id="tests/js/core/util/object/object.html_11_4_15" purpose="-Object mixed (reference, null) asked for `undefined` returns false">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/object/object.html]]></test_script_entry>
+</description>
+</testcase>
+</set>
+<set name="tests/js/core/util/object/api/api.html_12" launcher="WRTLauncher -r">
+<testcase component="tests/js/core/util/object/api/api.html" execution_type="auto" id="tests/js/core/util/object/api/api.html_12_0_0" purpose="-ns exists">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/object/api/api.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/object/api/api.html" execution_type="auto" id="tests/js/core/util/object/api/api.html_12_0_1" purpose="-ns.util exists">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/object/api/api.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/object/api/api.html" execution_type="auto" id="tests/js/core/util/object/api/api.html_12_0_2" purpose="-ns.util.data exists">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/object/api/api.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/object/api/api.html" execution_type="auto" id="tests/js/core/util/object/api/api.html_12_0_3" purpose="-function copy">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/object/api/api.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/object/api/api.html" execution_type="auto" id="tests/js/core/util/object/api/api.html_12_0_4" purpose="-function merge">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/object/api/api.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/object/api/api.html" execution_type="auto" id="tests/js/core/util/object/api/api.html_12_0_5" purpose="-function fastMerge">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/object/api/api.html]]></test_script_entry>
+</description>
+</testcase>
+</set>
+<set name="tests/js/core/engine/engine.html_13" launcher="WRTLauncher -r">
+<testcase component="tests/js/core/engine/engine.html" execution_type="auto" id="tests/js/core/engine/engine.html_13_0_0" purpose="-Default justBuild value is &apos;false&apos;">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/engine.html" execution_type="auto" id="tests/js/core/engine/engine.html_13_0_1" purpose="-Value changed to &apos;true&apos;">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/engine.html" execution_type="auto" id="tests/js/core/engine/engine.html_13_0_2" purpose="-Hash changed to &apos;#build&apos;">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/engine.html" execution_type="auto" id="tests/js/core/engine/engine.html_13_0_3" purpose="-Value changed to &apos;false&apos;">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/engine.html" execution_type="auto" id="tests/js/core/engine/engine.html_13_0_4" purpose="-Hash changed to &apos;&apos;">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/engine.html" execution_type="auto" id="tests/js/core/engine/engine.html_13_1_0" purpose="-Creating a instance of non-existing widget returns &apos;null&apos;">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/engine.html" execution_type="auto" id="tests/js/core/engine/engine.html_13_1_1" purpose="-Widget is an instance of Base Widget">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/engine.html" execution_type="auto" id="tests/js/core/engine/engine.html_13_1_2" purpose="-Widget is an instance of Test1">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/engine.html" execution_type="auto" id="tests/js/core/engine/engine.html_13_1_3" purpose="-Creating same widget on that same element returns that same reference">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/engine.html" execution_type="auto" id="tests/js/core/engine/engine.html_13_1_4" purpose="-New widget on that same HTMLElement is an instance of BaseWidget">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/engine.html" execution_type="auto" id="tests/js/core/engine/engine.html_13_1_5" purpose="-New widget on that same HTMLElement is an instance of Test2">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/engine.html" execution_type="auto" id="tests/js/core/engine/engine.html_13_2_0" purpose="-Error was thrown">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/engine.html" execution_type="auto" id="tests/js/core/engine/engine.html_13_3_0" purpose="-Passing bad reference returns &apos;null&apos;">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/engine.html" execution_type="auto" id="tests/js/core/engine/engine.html_13_3_1" purpose="-Passing element reference to a non-widget element returns &apos;null&apos;">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/engine.html" execution_type="auto" id="tests/js/core/engine/engine.html_13_3_2" purpose="-Passing string as ID to a non-widget element returns &apos;null&apos;">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/engine.html" execution_type="auto" id="tests/js/core/engine/engine.html_13_3_3" purpose="-Widget exists">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/engine.html" execution_type="auto" id="tests/js/core/engine/engine.html_13_3_4" purpose="-Widget is a instanceof BaseWidget">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/engine.html" execution_type="auto" id="tests/js/core/engine/engine.html_13_3_5" purpose="-Widget is a instanceof Page">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/engine.html" execution_type="auto" id="tests/js/core/engine/engine.html_13_3_6" purpose="-Passing HTMLElement reference and string ID returns that same object reference">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/engine.html" execution_type="auto" id="tests/js/core/engine/engine.html_13_4_0" purpose="-Passing bad reference returns &apos;null&apos;">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/engine.html" execution_type="auto" id="tests/js/core/engine/engine.html_13_4_1" purpose="-Passing HTMLElement reference to a non-widget element returns &apos;null&apos;">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/engine.html" execution_type="auto" id="tests/js/core/engine/engine.html_13_4_2" purpose="-Passing string as ID to a non-widget element returns &apos;null&apos;">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/engine.html" execution_type="auto" id="tests/js/core/engine/engine.html_13_4_3" purpose="-&apos;null&apos; should be returned when a HTMLElement (that is bound) does not have a widget binding of a proper type">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/engine.html" execution_type="auto" id="tests/js/core/engine/engine.html_13_4_4" purpose="-Widget reference was returned">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/engine.html" execution_type="auto" id="tests/js/core/engine/engine.html_13_4_5" purpose="-Widget is a instanceof BaseWidget">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/engine.html" execution_type="auto" id="tests/js/core/engine/engine.html_13_4_6" purpose="-Widget is a instanceof Page">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/engine.html" execution_type="auto" id="tests/js/core/engine/engine.html_13_4_7" purpose="-Passing HTMLElement reference and string ID returns that same object reference">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/engine.html" execution_type="auto" id="tests/js/core/engine/engine.html_13_5_0" purpose="-Passing bad reference returns &apos;null&apos;">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/engine.html" execution_type="auto" id="tests/js/core/engine/engine.html_13_5_1" purpose="-Passing HTMLElement reference to a non-widget element returns &apos;null&apos;">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/engine.html" execution_type="auto" id="tests/js/core/engine/engine.html_13_5_2" purpose="-Passing a proper reference gives a object">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/engine.html" execution_type="auto" id="tests/js/core/engine/engine.html_13_5_3" purpose="-Returned object contains proper widget property">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/engine.html" execution_type="auto" id="tests/js/core/engine/engine.html_13_5_4" purpose="-Widget property is a proper reference to a widget object">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/engine.html" execution_type="auto" id="tests/js/core/engine/engine.html_13_5_5" purpose="-Same widget references are returned while calling method with ID as parameter">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/engine.html" execution_type="auto" id="tests/js/core/engine/engine.html_13_6_0" purpose="-Before calling instanceWidget element does is not bound to any widgets.">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/engine.html" execution_type="auto" id="tests/js/core/engine/engine.html_13_6_1" purpose="-Method returned an object with .Test1 property">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/engine.html" execution_type="auto" id="tests/js/core/engine/engine.html_13_6_2" purpose="-Object property is a instanceof ej.test.widget1">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/engine.html" execution_type="auto" id="tests/js/core/engine/engine.html_13_6_3" purpose="-Returned reference targets that same widget instance">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/engine.html" execution_type="auto" id="tests/js/core/engine/engine.html_13_6_4" purpose="-Method returned an object with .Test2 property">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/engine.html" execution_type="auto" id="tests/js/core/engine/engine.html_13_6_5" purpose="-Object property is a proper instance of widget">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/engine.html" execution_type="auto" id="tests/js/core/engine/engine.html_13_6_6" purpose="-Returned reference targets that same widget instance">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/engine.html" execution_type="auto" id="tests/js/core/engine/engine.html_13_6_7" purpose="-Returned object still contains references to both widget instances">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/engine.html" execution_type="auto" id="tests/js/core/engine/engine.html_13_7_0" purpose="-getBinding returns null">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/engine.html" execution_type="auto" id="tests/js/core/engine/engine.html_13_7_1" purpose="-getBinding properly returns the instance">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/engine.html" execution_type="auto" id="tests/js/core/engine/engine.html_13_7_2" purpose="-getBinding properly returns the instance">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/engine.html" execution_type="auto" id="tests/js/core/engine/engine.html_13_8_0" purpose="-create was called">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/engine.html" execution_type="auto" id="tests/js/core/engine/engine.html_13_8_1" purpose="-binding for widget1 with def created">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/engine.html" execution_type="auto" id="tests/js/core/engine/engine.html_13_8_2" purpose="-DOM and binding ids are the same for widget1">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/engine.html" execution_type="auto" id="tests/js/core/engine/engine.html_13_8_3" purpose="-widget1 child created">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/engine.html" execution_type="auto" id="tests/js/core/engine/engine.html_13_8_4" purpose="-Widget1 classes moved">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/engine.html" execution_type="auto" id="tests/js/core/engine/engine.html_13_8_5" purpose="-Widget1 api call">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/engine.html" execution_type="auto" id="tests/js/core/engine/engine.html_13_8_6" purpose="-Widget1 event returning data">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/engine.html" execution_type="auto" id="tests/js/core/engine/engine.html_13_8_7" purpose="-getBinding return proper widget">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/engine.html" execution_type="auto" id="tests/js/core/engine/engine.html_13_8_8" purpose="-instanceWidget return proper widget">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/engine.html" execution_type="auto" id="tests/js/core/engine/engine.html_13_9_0" purpose="-Definition exists">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/engine.html" execution_type="auto" id="tests/js/core/engine/engine.html_13_9_1" purpose="-Definition methods exists">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/engine.html" execution_type="auto" id="tests/js/core/engine/engine.html_13_9_2" purpose="-Definition has 6 basic methods">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/engine.html" execution_type="auto" id="tests/js/core/engine/engine.html_13_10_0" purpose="-define widget return false">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/engine.html" execution_type="auto" id="tests/js/core/engine/engine.html_13_10_1" purpose="-get definition return object">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/engine.html" execution_type="auto" id="tests/js/core/engine/engine.html_13_10_2" purpose="-object">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/engine.html" execution_type="auto" id="tests/js/core/engine/engine.html_13_10_3" purpose="-define widget with redefine parameter return true">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/engine.html" execution_type="auto" id="tests/js/core/engine/engine.html_13_11_0" purpose="-widget not created">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/engine.html" execution_type="auto" id="tests/js/core/engine/engine.html_13_11_1" purpose="-widget Test1 created">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/engine.html" execution_type="auto" id="tests/js/core/engine/engine.html_13_11_2" purpose="-widget Test1 destroyed">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/engine.html" execution_type="auto" id="tests/js/core/engine/engine.html_13_11_3" purpose="-widget Test3 created">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/engine.html" execution_type="auto" id="tests/js/core/engine/engine.html_13_11_4" purpose="-One build child inside">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/engine.html" execution_type="auto" id="tests/js/core/engine/engine.html_13_11_5" purpose="-widget Test3 destroyed">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/engine.html" execution_type="auto" id="tests/js/core/engine/engine.html_13_11_6" purpose="-Widget has no property &apos;data-tau-built&apos; (is destroyed)">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/engine.html" execution_type="auto" id="tests/js/core/engine/engine.html_13_12_0" purpose="-Widget Test2 created">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/engine.html" execution_type="auto" id="tests/js/core/engine/engine.html_13_12_1" purpose="-Widget not bound">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/engine.html" execution_type="auto" id="tests/js/core/engine/engine.html_13_13_0" purpose="-Widget gets proper data-tau-built value">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/engine.html" execution_type="auto" id="tests/js/core/engine/engine.html_13_13_1" purpose="-Widget gets proper data-tau-name value">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/engine.html" execution_type="auto" id="tests/js/core/engine/engine.html_13_13_2" purpose="-Widget gets proper data-tau-bound value">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/engine.html" execution_type="auto" id="tests/js/core/engine/engine.html_13_14_0" purpose="-getBinding returns reference to that same Test1 object">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/engine.html" execution_type="auto" id="tests/js/core/engine/engine.html_13_14_1" purpose="-getBinding returns reference to that same Test2 object">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/engine.html" execution_type="auto" id="tests/js/core/engine/engine.html_13_14_2" purpose="-getAllBindings.Test1 returs reference to that same Test1 object">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/engine.html" execution_type="auto" id="tests/js/core/engine/engine.html_13_14_3" purpose="-getAllBindings.Test2 returs reference to that same Test2 object">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/engine.html" execution_type="auto" id="tests/js/core/engine/engine.html_13_15_0" purpose="-get binding return new widget">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/engine.html" execution_type="auto" id="tests/js/core/engine/engine.html_13_15_1" purpose="-get binding return new widget at second time">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/engine.html" execution_type="auto" id="tests/js/core/engine/engine.html_13_15_2" purpose="-get binding return new widget third time">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/engine.html" execution_type="auto" id="tests/js/core/engine/engine.html_13_15_3" purpose="-remove binding return true">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/engine.html" execution_type="auto" id="tests/js/core/engine/engine.html_13_15_4" purpose="-remove binding return false at second time">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/engine.html" execution_type="auto" id="tests/js/core/engine/engine.html_13_15_5" purpose="-get binding return new widget after instanceWidget">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/engine.html" execution_type="auto" id="tests/js/core/engine/engine.html_13_15_6" purpose="-get binding return null after _clearBindings">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/engine.html]]></test_script_entry>
+</description>
+</testcase>
+</set>
+<set name="tests/js/core/engine/api/api.html_14" launcher="WRTLauncher -r">
+<testcase component="tests/js/core/engine/api/api.html" execution_type="auto" id="tests/js/core/engine/api/api.html_14_0_0" purpose="-Engine exists">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/api/api.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/api/api.html" execution_type="auto" id="tests/js/core/engine/api/api.html_14_1_0" purpose="-.justBuild is set">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/api/api.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/api/api.html" execution_type="auto" id="tests/js/core/engine/api/api.html_14_1_1" purpose="-.dataTau exists">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/api/api.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/api/api.html" execution_type="auto" id="tests/js/core/engine/api/api.html_14_1_2" purpose="-.dataTau.built === &apos;data-tau-built&apos;">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/api/api.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/api/api.html" execution_type="auto" id="tests/js/core/engine/api/api.html_14_1_3" purpose="-.dataTau.name === &apos;data-tau-name&apos;">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/api/api.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/api/api.html" execution_type="auto" id="tests/js/core/engine/api/api.html_14_1_4" purpose="-.dataTau.bound === &apos;data-tau-bound&apos;">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/api/api.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/api/api.html" execution_type="auto" id="tests/js/core/engine/api/api.html_14_1_5" purpose="-.dataTau.separator === &apos;,&apos;">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/api/api.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/api/api.html" execution_type="auto" id="tests/js/core/engine/api/api.html_14_2_0" purpose="-.getBinding exists">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/api/api.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/api/api.html" execution_type="auto" id="tests/js/core/engine/api/api.html_14_2_1" purpose="-.setBinding exists">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/api/api.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/api/api.html" execution_type="auto" id="tests/js/core/engine/api/api.html_14_2_2" purpose="-.removeBinding exists">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/api/api.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/api/api.html" execution_type="auto" id="tests/js/core/engine/api/api.html_14_2_3" purpose="-.removeAllBindings exists">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/api/api.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/api/api.html" execution_type="auto" id="tests/js/core/engine/api/api.html_14_2_4" purpose="-.getBindings exists">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/api/api.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/api/api.html" execution_type="auto" id="tests/js/core/engine/api/api.html_14_2_5" purpose="-.build exists">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/api/api.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/api/api.html" execution_type="auto" id="tests/js/core/engine/api/api.html_14_2_6" purpose="-.destroyWidget exits">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/api/api.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/api/api.html" execution_type="auto" id="tests/js/core/engine/api/api.html_14_2_7" purpose="-.createWidgets exists">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/api/api.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/api/api.html" execution_type="auto" id="tests/js/core/engine/api/api.html_14_2_8" purpose="-.getDefinitions exists">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/api/api.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/api/api.html" execution_type="auto" id="tests/js/core/engine/api/api.html_14_2_9" purpose="-.getWidgetDefinition exists">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/api/api.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/api/api.html" execution_type="auto" id="tests/js/core/engine/api/api.html_14_2_10" purpose="-.defineWidget exists">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/api/api.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/api/api.html" execution_type="auto" id="tests/js/core/engine/api/api.html_14_2_11" purpose="-.run exists">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/api/api.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/api/api.html" execution_type="auto" id="tests/js/core/engine/api/api.html_14_2_12" purpose="-.stop exists">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/api/api.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/api/api.html" execution_type="auto" id="tests/js/core/engine/api/api.html_14_2_13" purpose="-.getRouter exists">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/api/api.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/api/api.html" execution_type="auto" id="tests/js/core/engine/api/api.html_14_2_14" purpose="-.instanceWidget exists">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/api/api.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/api/api.html" execution_type="auto" id="tests/js/core/engine/api/api.html_14_2_15" purpose="-.setJustBuild exists">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/api/api.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/api/api.html" execution_type="auto" id="tests/js/core/engine/api/api.html_14_2_16" purpose="-.getJustBuild exists">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/api/api.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/api/api.html" execution_type="auto" id="tests/js/core/engine/api/api.html_14_2_17" purpose="-._clearBindings exists">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/api/api.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/api/api.html" execution_type="auto" id="tests/js/core/engine/api/api.html_14_2_18" purpose="-._createEventHandler exists">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/api/api.html]]></test_script_entry>
+</description>
+</testcase>
+</set>
+</suite>
+</test_definition>

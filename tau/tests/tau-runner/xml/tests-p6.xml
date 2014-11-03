@@ -1,0 +1,1660 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="./testcase.xsl"?>
+<test_definition name="http://tempuri.org" type="" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="test_definition.xsd"><environment device_id="" device_model="SDK &amp; Target" device_name="Tizen" host="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/38.0.2125.111 Safari/537.36" os_version="2.2" resolution="" screen_size="902 x 1410">
+<other><![CDATA[Tizen Web UI FW UnitTest]]></other>
+</environment>
+<summary test_plan_name="Tizen Web UI FW Unit TC">
+<start_at><![CDATA[Fri Oct 31 2014 13:58:52 GMT+0100 (CET)]]></start_at><end_at><![CDATA[Fri Oct 31 2014 13:59:33 GMT+0100 (CET)]]></end_at>
+</summary>
+<suite id="suite123456" category="Web UI Framework" name="tct-webuifw-tests" tests="364">
+<set name="tests/js/profile/mobile/widget/mobile/Navbar/navbar.html_0" launcher="WRTLauncher -a">
+<testcase component="tests/js/profile/mobile/widget/mobile/Navbar/navbar.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Navbar/navbar.html_0_0_0" purpose="-&quot;ui-navbar&quot; class name added to the widget main container. // 6 cases tested">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Navbar/navbar.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Navbar/navbar.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Navbar/navbar.html_0_0_1" purpose="-&quot;ui-mini&quot; class name added to the widget main container. // 6 cases tested">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Navbar/navbar.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Navbar/navbar.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Navbar/navbar.html_0_1_0" purpose="-API - NavBar 2 items - a grid has been properly applied">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Navbar/navbar.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Navbar/navbar.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Navbar/navbar.html_0_2_0" purpose="-Button widget has been properly applied to the navbar li elements // 21 cases tested">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Navbar/navbar.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Navbar/navbar.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Navbar/navbar.html_0_3_0" purpose="-A number of the icons created is equal to the number of data-icon attributes: 3 / 3">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Navbar/navbar.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Navbar/navbar.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Navbar/navbar.html_0_3_1" purpose="-data-iconpos attribute is not set, so the icon position is set to default: top">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Navbar/navbar.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Navbar/navbar.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Navbar/navbar.html_0_3_2" purpose="-A number of the icons created is equal to the number of data-icon attributes: 3 / 3">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Navbar/navbar.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Navbar/navbar.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Navbar/navbar.html_0_3_3" purpose="-Icons positions are consistent with the data-iconpos attribute.">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Navbar/navbar.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Navbar/navbar.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Navbar/navbar.html_0_3_4" purpose="-A number of the icons created is equal to the number of data-icon attributes: 3 / 3">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Navbar/navbar.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Navbar/navbar.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Navbar/navbar.html_0_3_5" purpose="-Icons positions are consistent with the data-iconpos attribute.">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Navbar/navbar.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Navbar/navbar.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Navbar/navbar.html_0_3_6" purpose="-A number of the icons created is equal to the number of data-icon attributes: 3 / 3">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Navbar/navbar.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Navbar/navbar.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Navbar/navbar.html_0_3_7" purpose="-Icons positions are consistent with the data-iconpos attribute.">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Navbar/navbar.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Navbar/navbar.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Navbar/navbar.html_0_3_8" purpose="-A number of the icons created is equal to the number of data-icon attributes: 3 / 3">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Navbar/navbar.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Navbar/navbar.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Navbar/navbar.html_0_3_9" purpose="-Icons positions are consistent with the data-iconpos attribute.">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Navbar/navbar.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Navbar/navbar.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Navbar/navbar.html_0_4_0" purpose="-Button has active class">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Navbar/navbar.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Navbar/navbar.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Navbar/navbar.html_0_4_1" purpose="-Button has not active class">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Navbar/navbar.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Navbar/navbar.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Navbar/navbar.html_0_4_2" purpose="-Button has active class">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Navbar/navbar.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Navbar/navbar.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Navbar/navbar.html_0_4_3" purpose="-Button has not active class">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Navbar/navbar.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Navbar/navbar.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Navbar/navbar.html_0_4_4" purpose="-Button has active class">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Navbar/navbar.html]]></test_script_entry>
+</description>
+</testcase>
+</set>
+<set name="tests/js/profile/mobile/widget/mobile/Progressbar/index.html_1" launcher="WRTLauncher -r">
+<testcase component="tests/js/profile/mobile/widget/mobile/Progressbar/index.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Progressbar/index.html_1_0_0" purpose="-API: Create">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Progressbar/index.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Progressbar/index.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Progressbar/index.html_1_0_1" purpose="-API: set value 42">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Progressbar/index.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Progressbar/index.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Progressbar/index.html_1_0_2" purpose="-API: get value 42">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Progressbar/index.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Progressbar/index.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Progressbar/index.html_1_0_3" purpose="-API: set value 69">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Progressbar/index.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Progressbar/index.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Progressbar/index.html_1_0_4" purpose="-API: get value 69">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Progressbar/index.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Progressbar/index.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Progressbar/index.html_1_0_5" purpose="-API: set value 53">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Progressbar/index.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Progressbar/index.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Progressbar/index.html_1_0_6" purpose="-API: get value 53">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Progressbar/index.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Progressbar/index.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Progressbar/index.html_1_0_7" purpose="-API: set value 31">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Progressbar/index.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Progressbar/index.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Progressbar/index.html_1_0_8" purpose="-API: get value 31">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Progressbar/index.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Progressbar/index.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Progressbar/index.html_1_0_9" purpose="-API: set value 82">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Progressbar/index.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Progressbar/index.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Progressbar/index.html_1_0_10" purpose="-API: get value 82">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Progressbar/index.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Progressbar/index.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Progressbar/index.html_1_1_0" purpose="-Event change called">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Progressbar/index.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Progressbar/index.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Progressbar/index.html_1_1_1" purpose="-Event complete called">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Progressbar/index.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Progressbar/index.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Progressbar/index.html_1_2_0" purpose="-ARIA: aria-valuenow">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Progressbar/index.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Progressbar/index.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Progressbar/index.html_1_2_1" purpose="-ARIA: aria-valuemax">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Progressbar/index.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Progressbar/index.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Progressbar/index.html_1_2_2" purpose="-ARIA: aria-valuemin">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Progressbar/index.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Progressbar/index.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Progressbar/index.html_1_2_3" purpose="-ARIA: role">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Progressbar/index.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Progressbar/index.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Progressbar/index.html_1_3_0" purpose="-CSS ui-progressbar added">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Progressbar/index.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Progressbar/index.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Progressbar/index.html_1_3_1" purpose="-CSS ui-progressbar added">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Progressbar/index.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Progressbar/index.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Progressbar/index.html_1_3_2" purpose="-CSS ui-progressbar added">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Progressbar/index.html]]></test_script_entry>
+</description>
+</testcase>
+</set>
+<set name="tests/js/profile/mobile/widget/mobile/MultimediaView/MultimediaView.html_2" launcher="WRTLauncher -r">
+<testcase component="tests/js/profile/mobile/widget/mobile/MultimediaView/MultimediaView.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/MultimediaView/MultimediaView.html_2_0_0" purpose="-multimediaView.build">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/MultimediaView/MultimediaView.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/MultimediaView/MultimediaView.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/MultimediaView/MultimediaView.html_2_0_1" purpose="-multimediaView has control panel">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/MultimediaView/MultimediaView.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/MultimediaView/MultimediaView.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/MultimediaView/MultimediaView.html_2_1_0" purpose="-multimediaView was build">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/MultimediaView/MultimediaView.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/MultimediaView/MultimediaView.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/MultimediaView/MultimediaView.html_2_1_1" purpose="-multimediaView has control panel">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/MultimediaView/MultimediaView.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/MultimediaView/MultimediaView.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/MultimediaView/MultimediaView.html_2_2_0" purpose="-multimediaView.build">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/MultimediaView/MultimediaView.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/MultimediaView/MultimediaView.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/MultimediaView/MultimediaView.html_2_2_1" purpose="-multimediaView has control panel">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/MultimediaView/MultimediaView.html]]></test_script_entry>
+</description>
+</testcase>
+</set>
+<set name="tests/js/profile/mobile/widget/mobile/MultimediaView/api/MultimediaView.html_3" launcher="WRTLauncher -r">
+<testcase component="tests/js/profile/mobile/widget/mobile/MultimediaView/api/MultimediaView.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/MultimediaView/api/MultimediaView.html_3_0_0" purpose="-multimediaView is object">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/MultimediaView/api/MultimediaView.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/MultimediaView/api/MultimediaView.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/MultimediaView/api/MultimediaView.html_3_0_1" purpose="-multimediaView is instance of MultimediaView">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/MultimediaView/api/MultimediaView.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/MultimediaView/api/MultimediaView.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/MultimediaView/api/MultimediaView.html_3_0_2" purpose="-method multimediaView.width exists">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/MultimediaView/api/MultimediaView.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/MultimediaView/api/MultimediaView.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/MultimediaView/api/MultimediaView.html_3_0_3" purpose="-method multimediaView.height exists">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/MultimediaView/api/MultimediaView.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/MultimediaView/api/MultimediaView.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/MultimediaView/api/MultimediaView.html_3_0_4" purpose="-method multimediaView.fullScreen exists">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/MultimediaView/api/MultimediaView.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/MultimediaView/api/MultimediaView.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/MultimediaView/api/MultimediaView.html_3_0_5" purpose="-method multimediaView.refresh exists">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/MultimediaView/api/MultimediaView.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/MultimediaView/api/MultimediaView.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/MultimediaView/api/MultimediaView.html_3_0_6" purpose="-protected method multimediaView._build exists">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/MultimediaView/api/MultimediaView.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/MultimediaView/api/MultimediaView.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/MultimediaView/api/MultimediaView.html_3_0_7" purpose="-protected method multimediaView._init exists">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/MultimediaView/api/MultimediaView.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/MultimediaView/api/MultimediaView.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/MultimediaView/api/MultimediaView.html_3_0_8" purpose="-protected method multimediaView._configure exists">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/MultimediaView/api/MultimediaView.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/MultimediaView/api/MultimediaView.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/MultimediaView/api/MultimediaView.html_3_0_9" purpose="-protected method multimediaView._bindEvents exists">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/MultimediaView/api/MultimediaView.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/MultimediaView/api/MultimediaView.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/MultimediaView/api/MultimediaView.html_3_0_10" purpose="-protected method multimediaView._destroy exists">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/MultimediaView/api/MultimediaView.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/MultimediaView/api/MultimediaView.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/MultimediaView/api/MultimediaView.html_3_0_11" purpose="-protected method multimediaView._createControl exists">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/MultimediaView/api/MultimediaView.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/MultimediaView/api/MultimediaView.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/MultimediaView/api/MultimediaView.html_3_0_12" purpose="-propery multimediaView.options exists">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/MultimediaView/api/MultimediaView.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/MultimediaView/api/MultimediaView.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/MultimediaView/api/MultimediaView.html_3_0_13" purpose="-propery multimediaView.options.control exists">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/MultimediaView/api/MultimediaView.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/MultimediaView/api/MultimediaView.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/MultimediaView/api/MultimediaView.html_3_0_14" purpose="-propery multimediaView.options.control default value is true">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/MultimediaView/api/MultimediaView.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/MultimediaView/api/MultimediaView.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/MultimediaView/api/MultimediaView.html_3_0_15" purpose="-propery multimediaView.options.fullScreen exists">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/MultimediaView/api/MultimediaView.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/MultimediaView/api/MultimediaView.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/MultimediaView/api/MultimediaView.html_3_0_16" purpose="-propery multimediaView.options.fullScreen default value if false">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/MultimediaView/api/MultimediaView.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/MultimediaView/api/MultimediaView.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/MultimediaView/api/MultimediaView.html_3_0_17" purpose="-propery multimediaView.options.theme exists">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/MultimediaView/api/MultimediaView.html]]></test_script_entry>
+</description>
+</testcase>
+</set>
+<set name="tests/js/profile/mobile/widget/mobile/Tokentextarea/tokentextarea.html_4" launcher="WRTLauncher -r">
+<testcase component="tests/js/profile/mobile/widget/mobile/Tokentextarea/tokentextarea.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Tokentextarea/tokentextarea.html_4_0_0" purpose="-Widget created">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Tokentextarea/tokentextarea.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Tokentextarea/tokentextarea.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Tokentextarea/tokentextarea.html_4_0_1" purpose="-Widget 0 length">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Tokentextarea/tokentextarea.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Tokentextarea/tokentextarea.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Tokentextarea/tokentextarea.html_4_0_2" purpose="-Widget input set">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Tokentextarea/tokentextarea.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Tokentextarea/tokentextarea.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Tokentextarea/tokentextarea.html_4_0_3" purpose="-Widget input get">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Tokentextarea/tokentextarea.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Tokentextarea/tokentextarea.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Tokentextarea/tokentextarea.html_4_0_4" purpose="-Widget add 1st block with out parameter">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Tokentextarea/tokentextarea.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Tokentextarea/tokentextarea.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Tokentextarea/tokentextarea.html_4_0_5" purpose="-Widget add 2st block with out parameter">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Tokentextarea/tokentextarea.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Tokentextarea/tokentextarea.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Tokentextarea/tokentextarea.html_4_0_6" purpose="-Widget add 3st block with parameter 1">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Tokentextarea/tokentextarea.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Tokentextarea/tokentextarea.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Tokentextarea/tokentextarea.html_4_0_7" purpose="-Widget select 1st element">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Tokentextarea/tokentextarea.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Tokentextarea/tokentextarea.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Tokentextarea/tokentextarea.html_4_0_8" purpose="-Widget 1st element is ok">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Tokentextarea/tokentextarea.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Tokentextarea/tokentextarea.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Tokentextarea/tokentextarea.html_4_0_9" purpose="-Widget select 2st element">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Tokentextarea/tokentextarea.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Tokentextarea/tokentextarea.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Tokentextarea/tokentextarea.html_4_0_10" purpose="-Widget 2st element is ok">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Tokentextarea/tokentextarea.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Tokentextarea/tokentextarea.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Tokentextarea/tokentextarea.html_4_0_11" purpose="-Widget select 3st element">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Tokentextarea/tokentextarea.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Tokentextarea/tokentextarea.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Tokentextarea/tokentextarea.html_4_0_12" purpose="-Widget 3st element is ok">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Tokentextarea/tokentextarea.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Tokentextarea/tokentextarea.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Tokentextarea/tokentextarea.html_4_0_13" purpose="-Widget remove block">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Tokentextarea/tokentextarea.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Tokentextarea/tokentextarea.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Tokentextarea/tokentextarea.html_4_0_14" purpose="-Widget remove all blocks">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Tokentextarea/tokentextarea.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Tokentextarea/tokentextarea.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Tokentextarea/tokentextarea.html_4_0_15" purpose="-Widget focus out">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Tokentextarea/tokentextarea.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Tokentextarea/tokentextarea.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Tokentextarea/tokentextarea.html_4_0_16" purpose="-Widget focus in">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Tokentextarea/tokentextarea.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Tokentextarea/tokentextarea.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Tokentextarea/tokentextarea.html_4_0_17" purpose="-Widget destroy">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Tokentextarea/tokentextarea.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Tokentextarea/tokentextarea.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Tokentextarea/tokentextarea.html_4_1_0" purpose="-Block selected by click">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Tokentextarea/tokentextarea.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Tokentextarea/tokentextarea.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Tokentextarea/tokentextarea.html_4_1_1" purpose="-Block change selected by click">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Tokentextarea/tokentextarea.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Tokentextarea/tokentextarea.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Tokentextarea/tokentextarea.html_4_1_2" purpose="-Block remove by click">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Tokentextarea/tokentextarea.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Tokentextarea/tokentextarea.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Tokentextarea/tokentextarea.html_4_2_0" purpose="-Widget have class ui-tokentextarea">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Tokentextarea/tokentextarea.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Tokentextarea/tokentextarea.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Tokentextarea/tokentextarea.html_4_2_1" purpose="-Label have class ui-tokentextarea-label">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Tokentextarea/tokentextarea.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Tokentextarea/tokentextarea.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Tokentextarea/tokentextarea.html_4_2_2" purpose="-Block have class ui-tokentextarea-span-block">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Tokentextarea/tokentextarea.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Tokentextarea/tokentextarea.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Tokentextarea/tokentextarea.html_4_2_3" purpose="-Block have class ui-tokentextarea-block">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Tokentextarea/tokentextarea.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Tokentextarea/tokentextarea.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Tokentextarea/tokentextarea.html_4_2_4" purpose="-Selected block havent class ui-tokentexarea-block">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Tokentextarea/tokentextarea.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Tokentextarea/tokentextarea.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Tokentextarea/tokentextarea.html_4_2_5" purpose="-Selected block have class ui-tokentextarea-sblock">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Tokentextarea/tokentextarea.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Tokentextarea/tokentextarea.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Tokentextarea/tokentextarea.html_4_2_6" purpose="-Selected block have class ui-tokentextarea-span-block">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Tokentextarea/tokentextarea.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Tokentextarea/tokentextarea.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Tokentextarea/tokentextarea.html_4_2_7" purpose="-Input area have class ui-tokentextarea-input-area">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Tokentextarea/tokentextarea.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Tokentextarea/tokentextarea.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Tokentextarea/tokentextarea.html_4_2_8" purpose="-Input have class ui-tokentextarea-input-visible">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Tokentextarea/tokentextarea.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Tokentextarea/tokentextarea.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Tokentextarea/tokentextarea.html_4_2_9" purpose="-Input have class ui-input-text">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Tokentextarea/tokentextarea.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Tokentextarea/tokentextarea.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Tokentextarea/tokentextarea.html_4_2_10" purpose="-Input have class ui-body-s">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Tokentextarea/tokentextarea.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Tokentextarea/tokentextarea.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Tokentextarea/tokentextarea.html_4_2_11" purpose="-Button have class ui-btn-box-s">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Tokentextarea/tokentextarea.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Tokentextarea/tokentextarea.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Tokentextarea/tokentextarea.html_4_2_12" purpose="-Button have class ui-tokentextarea-link-base">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Tokentextarea/tokentextarea.html]]></test_script_entry>
+</description>
+</testcase>
+</set>
+<set name="tests/js/profile/mobile/widget/mobile/Notification/notification.html_5" launcher="WRTLauncher -r">
+<testcase component="tests/js/profile/mobile/widget/mobile/Notification/notification.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Notification/notification.html_5_0_0" purpose="-Create notification object">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Notification/notification.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Notification/notification.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Notification/notification.html_5_0_1" purpose="-[HTML] Wrapper build">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Notification/notification.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Notification/notification.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Notification/notification.html_5_0_2" purpose="-[HTML] First line was build">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Notification/notification.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Notification/notification.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Notification/notification.html_5_0_3" purpose="-[HTML] Second line was build">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Notification/notification.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Notification/notification.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Notification/notification.html_5_0_4" purpose="-[HTML] Button container build">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Notification/notification.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Notification/notification.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Notification/notification.html_5_0_5" purpose="-[HTML] Button widget created">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Notification/notification.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Notification/notification.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Notification/notification.html_5_0_6" purpose="-[API] Opened">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Notification/notification.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Notification/notification.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Notification/notification.html_5_0_7" purpose="-[API] Closed">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Notification/notification.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Notification/notification.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Notification/notification.html_5_0_8" purpose="-[API] Refreshed">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Notification/notification.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Notification/notification.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Notification/notification.html_5_0_9" purpose="-[API] Get Texts if not smallpopup">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Notification/notification.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Notification/notification.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Notification/notification.html_5_0_10" purpose="-[API] First line was changed">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Notification/notification.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Notification/notification.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Notification/notification.html_5_0_11" purpose="-[API] Second line was changed">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Notification/notification.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Notification/notification.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Notification/notification.html_5_0_12" purpose="-[Event] vmouseup">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Notification/notification.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Notification/notification.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Notification/notification.html_5_1_0" purpose="-Create notification object">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Notification/notification.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Notification/notification.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Notification/notification.html_5_1_1" purpose="-[HTML] Wrapper build">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Notification/notification.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Notification/notification.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Notification/notification.html_5_1_2" purpose="-[HTML] Icon was build">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Notification/notification.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Notification/notification.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Notification/notification.html_5_1_3" purpose="-[HTML] First line was build">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Notification/notification.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Notification/notification.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Notification/notification.html_5_1_4" purpose="-[HTML] Second line was build">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Notification/notification.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Notification/notification.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Notification/notification.html_5_1_5" purpose="-[HTML] Button container build">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Notification/notification.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Notification/notification.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Notification/notification.html_5_1_6" purpose="-[HTML] Button widget created">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Notification/notification.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Notification/notification.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Notification/notification.html_5_1_7" purpose="-[API] Opened">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Notification/notification.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Notification/notification.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Notification/notification.html_5_1_8" purpose="-[API] Closed">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Notification/notification.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Notification/notification.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Notification/notification.html_5_1_9" purpose="-[API] Refreshed">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Notification/notification.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Notification/notification.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Notification/notification.html_5_1_10" purpose="-[API] Get Texts if not smallpopup">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Notification/notification.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Notification/notification.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Notification/notification.html_5_1_11" purpose="-[API] First line was changed">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Notification/notification.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Notification/notification.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Notification/notification.html_5_1_12" purpose="-[API] Second line was changed">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Notification/notification.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Notification/notification.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Notification/notification.html_5_1_13" purpose="-[API] Icon was changed">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Notification/notification.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Notification/notification.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Notification/notification.html_5_1_14" purpose="-[Event] vmouseup">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Notification/notification.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Notification/notification.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Notification/notification.html_5_2_0" purpose="-Create notification object">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Notification/notification.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Notification/notification.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Notification/notification.html_5_2_1" purpose="-[HTML] Wrapper build">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Notification/notification.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Notification/notification.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Notification/notification.html_5_2_2" purpose="-[HTML] First line was build">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Notification/notification.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Notification/notification.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Notification/notification.html_5_2_3" purpose="-[HTML] Second line was build">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Notification/notification.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Notification/notification.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Notification/notification.html_5_2_4" purpose="-[HTML] Button container build">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Notification/notification.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Notification/notification.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Notification/notification.html_5_2_5" purpose="-[HTML] Button widget created">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Notification/notification.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Notification/notification.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Notification/notification.html_5_2_6" purpose="-[API] Opened">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Notification/notification.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Notification/notification.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Notification/notification.html_5_2_7" purpose="-[API] Closed">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Notification/notification.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Notification/notification.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Notification/notification.html_5_2_8" purpose="-[API] Refreshed">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Notification/notification.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Notification/notification.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Notification/notification.html_5_2_9" purpose="-[API] Get Texts if not smallpopup">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Notification/notification.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Notification/notification.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Notification/notification.html_5_2_10" purpose="-[API] First line was changed">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Notification/notification.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Notification/notification.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Notification/notification.html_5_2_11" purpose="-[API] Second line was changed">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Notification/notification.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Notification/notification.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Notification/notification.html_5_2_12" purpose="-[Event] vmouseup">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Notification/notification.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Notification/notification.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Notification/notification.html_5_2_13" purpose="-[INTERVAL] Closed by interval">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Notification/notification.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Notification/notification.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Notification/notification.html_5_3_0" purpose="-Create notification object">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Notification/notification.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Notification/notification.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Notification/notification.html_5_3_1" purpose="-[HTML] Wrapper build">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Notification/notification.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Notification/notification.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Notification/notification.html_5_3_2" purpose="-[HTML] Icon was build">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Notification/notification.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Notification/notification.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Notification/notification.html_5_3_3" purpose="-[HTML] First line was build">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Notification/notification.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Notification/notification.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Notification/notification.html_5_3_4" purpose="-[HTML] Second line was build">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Notification/notification.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Notification/notification.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Notification/notification.html_5_3_5" purpose="-[HTML] Button container build">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Notification/notification.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Notification/notification.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Notification/notification.html_5_3_6" purpose="-[HTML] Button widget created">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Notification/notification.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Notification/notification.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Notification/notification.html_5_3_7" purpose="-[API] Opened">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Notification/notification.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Notification/notification.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Notification/notification.html_5_3_8" purpose="-[API] Closed">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Notification/notification.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Notification/notification.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Notification/notification.html_5_3_9" purpose="-[API] Refreshed">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Notification/notification.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Notification/notification.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Notification/notification.html_5_3_10" purpose="-[API] Get Texts if not smallpopup">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Notification/notification.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Notification/notification.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Notification/notification.html_5_3_11" purpose="-[API] First line was changed">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Notification/notification.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Notification/notification.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Notification/notification.html_5_3_12" purpose="-[API] Second line was changed">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Notification/notification.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Notification/notification.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Notification/notification.html_5_3_13" purpose="-[API] Icon was changed">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Notification/notification.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Notification/notification.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Notification/notification.html_5_3_14" purpose="-[Event] vmouseup">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Notification/notification.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Notification/notification.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Notification/notification.html_5_3_15" purpose="-[INTERVAL] Closed by interval">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Notification/notification.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Notification/notification.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Notification/notification.html_5_4_0" purpose="-Create notification object">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Notification/notification.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Notification/notification.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Notification/notification.html_5_4_1" purpose="-[HTML] Wrapper build">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Notification/notification.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Notification/notification.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Notification/notification.html_5_4_2" purpose="-[HTML] First was line build">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Notification/notification.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Notification/notification.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Notification/notification.html_5_4_3" purpose="-[API] Opened">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Notification/notification.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Notification/notification.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Notification/notification.html_5_4_4" purpose="-[API] Closed">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Notification/notification.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Notification/notification.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Notification/notification.html_5_4_5" purpose="-[API] Refreshed">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Notification/notification.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Notification/notification.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Notification/notification.html_5_4_6" purpose="-[API] Get Texts if smallpopup">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Notification/notification.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Notification/notification.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Notification/notification.html_5_4_7" purpose="-[API] Text was changed">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Notification/notification.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Notification/notification.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Notification/notification.html_5_4_8" purpose="-[Event] vmouseup">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Notification/notification.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Notification/notification.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Notification/notification.html_5_5_0" purpose="-Create notification object">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Notification/notification.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Notification/notification.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Notification/notification.html_5_5_1" purpose="-[HTML] Wrapper build">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Notification/notification.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Notification/notification.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Notification/notification.html_5_5_2" purpose="-[HTML] First was line build">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Notification/notification.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Notification/notification.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Notification/notification.html_5_5_3" purpose="-[API] Opened">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Notification/notification.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Notification/notification.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Notification/notification.html_5_5_4" purpose="-[API] Closed">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Notification/notification.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Notification/notification.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Notification/notification.html_5_5_5" purpose="-[API] Refreshed">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Notification/notification.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Notification/notification.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Notification/notification.html_5_5_6" purpose="-[API] Get Texts if smallpopup">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Notification/notification.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Notification/notification.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Notification/notification.html_5_5_7" purpose="-[API] Text was changed">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Notification/notification.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Notification/notification.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Notification/notification.html_5_5_8" purpose="-[Event] vmouseup">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Notification/notification.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Notification/notification.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Notification/notification.html_5_5_9" purpose="-[INTERVAL] Closed by interval">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Notification/notification.html]]></test_script_entry>
+</description>
+</testcase>
+</set>
+<set name="tests/js/profile/mobile/widget/mobile/Gallery/api/gallery.html_6" launcher="WRTLauncher -r">
+<testcase component="tests/js/profile/mobile/widget/mobile/Gallery/api/gallery.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Gallery/api/gallery.html_6_0_0" purpose="-Class ns exists">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Gallery/api/gallery.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Gallery/api/gallery.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Gallery/api/gallery.html_6_0_1" purpose="-Class ns.widget exists">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Gallery/api/gallery.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Gallery/api/gallery.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Gallery/api/gallery.html_6_0_2" purpose="-Class ns.widget.mobile exists">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Gallery/api/gallery.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Gallery/api/gallery.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Gallery/api/gallery.html_6_0_3" purpose="-Class ns.widget.mobile.Gallery exists">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Gallery/api/gallery.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Gallery/api/gallery.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Gallery/api/gallery.html_6_0_4" purpose="-Method gallery.configure exists">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Gallery/api/gallery.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Gallery/api/gallery.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Gallery/api/gallery.html_6_0_5" purpose="-Method gallery._configure exists">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Gallery/api/gallery.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Gallery/api/gallery.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Gallery/api/gallery.html_6_0_6" purpose="-Method gallery._getCreateOptions exists">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Gallery/api/gallery.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Gallery/api/gallery.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Gallery/api/gallery.html_6_0_7" purpose="-Method gallery.build exists">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Gallery/api/gallery.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Gallery/api/gallery.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Gallery/api/gallery.html_6_0_8" purpose="-Method gallery.init exists">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Gallery/api/gallery.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Gallery/api/gallery.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Gallery/api/gallery.html_6_0_9" purpose="-Method gallery.bindEvents exists">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Gallery/api/gallery.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Gallery/api/gallery.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Gallery/api/gallery.html_6_0_10" purpose="-Method gallery.destroy exists">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Gallery/api/gallery.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Gallery/api/gallery.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Gallery/api/gallery.html_6_0_11" purpose="-Method gallery.disable exists">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Gallery/api/gallery.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Gallery/api/gallery.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Gallery/api/gallery.html_6_0_12" purpose="-Method gallery.enable exists">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Gallery/api/gallery.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Gallery/api/gallery.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Gallery/api/gallery.html_6_0_13" purpose="-Method gallery.refresh exists">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Gallery/api/gallery.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Gallery/api/gallery.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Gallery/api/gallery.html_6_0_14" purpose="-Method gallery.option exists">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Gallery/api/gallery.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Gallery/api/gallery.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Gallery/api/gallery.html_6_0_15" purpose="-Method gallery.value exists">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Gallery/api/gallery.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Gallery/api/gallery.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Gallery/api/gallery.html_6_0_16" purpose="-Method gallery.length exists">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Gallery/api/gallery.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Gallery/api/gallery.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Gallery/api/gallery.html_6_0_17" purpose="-Method gallery.empty exists">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Gallery/api/gallery.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Gallery/api/gallery.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Gallery/api/gallery.html_6_0_18" purpose="-Method gallery.refresh exists">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Gallery/api/gallery.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Gallery/api/gallery.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Gallery/api/gallery.html_6_0_19" purpose="-Method gallery.remove exists">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Gallery/api/gallery.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Gallery/api/gallery.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Gallery/api/gallery.html_6_0_20" purpose="-Method gallery.add exists">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Gallery/api/gallery.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Gallery/api/gallery.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Gallery/api/gallery.html_6_0_21" purpose="-Property gallery.options exists">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Gallery/api/gallery.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Gallery/api/gallery.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Gallery/api/gallery.html_6_0_22" purpose="-Property gallery.options.flicking exists">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Gallery/api/gallery.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Gallery/api/gallery.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Gallery/api/gallery.html_6_0_23" purpose="-Property gallery.options.duration exists">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Gallery/api/gallery.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Gallery/api/gallery.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Gallery/api/gallery.html_6_0_24" purpose="-Property gallery.options.verticalAlign exists">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Gallery/api/gallery.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Gallery/api/gallery.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Gallery/api/gallery.html_6_0_25" purpose="-Property gallery.classes exists">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Gallery/api/gallery.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Gallery/api/gallery.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Gallery/api/gallery.html_6_0_26" purpose="-Property gallery.classes.uiGallery exists">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Gallery/api/gallery.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Gallery/api/gallery.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Gallery/api/gallery.html_6_0_27" purpose="-Property gallery.classes.uiGalleryBg exists">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Gallery/api/gallery.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Gallery/api/gallery.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Gallery/api/gallery.html_6_0_28" purpose="-Property gallery.classes.uiContent exists">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Gallery/api/gallery.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Gallery/api/gallery.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Gallery/api/gallery.html_6_0_29" purpose="-Property gallery.classes.uiHeader exists">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Gallery/api/gallery.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Gallery/api/gallery.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Gallery/api/gallery.html_6_0_30" purpose="-Property gallery.classes.uiFooter exists">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Gallery/api/gallery.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Gallery/api/gallery.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Gallery/api/gallery.html_6_0_31" purpose="-Method button._build exists">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Gallery/api/gallery.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Gallery/api/gallery.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Gallery/api/gallery.html_6_0_32" purpose="-Method button._bindEvents exists">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Gallery/api/gallery.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Gallery/api/gallery.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Gallery/api/gallery.html_6_0_33" purpose="-Method button._bindEvents exists">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Gallery/api/gallery.html]]></test_script_entry>
+</description>
+</testcase>
+</set>
+<set name="tests/js/profile/mobile/widget/mobile/VirtualListview/virtuallistview.html_7" launcher="WRTLauncher -r">
+<testcase component="tests/js/profile/mobile/widget/mobile/VirtualListview/virtuallistview.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/VirtualListview/virtuallistview.html_7_0_0" purpose="-Create VirtualListview object">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/VirtualListview/virtuallistview.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/VirtualListview/virtuallistview.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/VirtualListview/virtuallistview.html_7_0_1" purpose="-[HTML] UL was created with Listview class">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/VirtualListview/virtuallistview.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/VirtualListview/virtuallistview.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/VirtualListview/virtuallistview.html_7_0_2" purpose="-[HTML] UL was created with VirtualListview class">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/VirtualListview/virtuallistview.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/VirtualListview/virtuallistview.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/VirtualListview/virtuallistview.html_7_0_3" purpose="-[HTML] Option.row set is correct">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/VirtualListview/virtuallistview.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/VirtualListview/virtuallistview.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/VirtualListview/virtuallistview.html_7_0_4" purpose="-[HTML] Number of children in result set is correct">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/VirtualListview/virtuallistview.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/VirtualListview/virtuallistview.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/VirtualListview/virtuallistview.html_7_0_5" purpose="-[HTML] All LI was created with template structure">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/VirtualListview/virtuallistview.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/VirtualListview/virtuallistview.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/VirtualListview/virtuallistview.html_7_0_6" purpose="-[HTML] All LI was created with Listview classes">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/VirtualListview/virtuallistview.html]]></test_script_entry>
+</description>
+</testcase>
+</set>
+<set name="tests/js/profile/mobile/widget/mobile/ScrollHandler/scrollhandler.html_8" launcher="WRTLauncher -r">
+<testcase component="tests/js/profile/mobile/widget/mobile/ScrollHandler/scrollhandler.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/ScrollHandler/scrollhandler.html_8_0_0" purpose="-ScrollHandler added">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/ScrollHandler/scrollhandler.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/ScrollHandler/scrollhandler.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/ScrollHandler/scrollhandler.html_8_0_1" purpose="-ScrollHandler created">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/ScrollHandler/scrollhandler.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/ScrollHandler/scrollhandler.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/ScrollHandler/scrollhandler.html_8_0_2" purpose="-Overflow: scroll">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/ScrollHandler/scrollhandler.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/ScrollHandler/scrollhandler.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/ScrollHandler/scrollhandler.html_8_0_3" purpose="-Content body wrapped in ui-scrollview-view and ScrollHandler beside">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/ScrollHandler/scrollhandler.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/ScrollHandler/scrollhandler.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/ScrollHandler/scrollhandler.html_8_0_4" purpose="-Content body wrapped in ui-scrollview-view">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/ScrollHandler/scrollhandler.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/ScrollHandler/scrollhandler.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/ScrollHandler/scrollhandler.html_8_0_5" purpose="-No scroll jump by default">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/ScrollHandler/scrollhandler.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/ScrollHandler/scrollhandler.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/ScrollHandler/scrollhandler.html_8_0_6" purpose="-No scroll jump by default">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/ScrollHandler/scrollhandler.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/ScrollHandler/scrollhandler.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/ScrollHandler/scrollhandler.html_8_1_0" purpose="-ScrollHandler created">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/ScrollHandler/scrollhandler.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/ScrollHandler/scrollhandler.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/ScrollHandler/scrollhandler.html_8_2_0" purpose="-Added vertical scroll">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/ScrollHandler/scrollhandler.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/ScrollHandler/scrollhandler.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/ScrollHandler/scrollhandler.html_8_2_1" purpose="-No horizontal scroll">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/ScrollHandler/scrollhandler.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/ScrollHandler/scrollhandler.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/ScrollHandler/scrollhandler.html_8_2_2" purpose="-Main scroll not changed">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/ScrollHandler/scrollhandler.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/ScrollHandler/scrollhandler.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/ScrollHandler/scrollhandler.html_8_3_0" purpose="-x position">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/ScrollHandler/scrollhandler.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/ScrollHandler/scrollhandler.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/ScrollHandler/scrollhandler.html_8_3_1" purpose="-y position">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/ScrollHandler/scrollhandler.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/ScrollHandler/scrollhandler.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/ScrollHandler/scrollhandler.html_8_4_0" purpose="-Earlier created reference not lost">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/ScrollHandler/scrollhandler.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/ScrollHandler/scrollhandler.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/ScrollHandler/scrollhandler.html_8_5_0" purpose="-API is exposed">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/ScrollHandler/scrollhandler.html]]></test_script_entry>
+</description>
+</testcase>
+</set>
+<set name="tests/js/profile/mobile/widget/mobile/SplitView/splitview.html_9" launcher="WRTLauncher -r">
+<testcase component="tests/js/profile/mobile/widget/mobile/SplitView/splitview.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/SplitView/splitview.html_9_0_0" purpose="-SplitView is fixed">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/SplitView/splitview.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/SplitView/splitview.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/SplitView/splitview.html_9_0_1" purpose="-SplitView is fixed">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/SplitView/splitview.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/SplitView/splitview.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/SplitView/splitview.html_9_0_2" purpose="-SplitView has correct children count">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/SplitView/splitview.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/SplitView/splitview.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/SplitView/splitview.html_9_1_0" purpose="-SplitView has correct ratio">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/SplitView/splitview.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/SplitView/splitview.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/SplitView/splitview.html_9_2_0" purpose="-Down event received">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/SplitView/splitview.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/SplitView/splitview.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/SplitView/splitview.html_9_2_1" purpose="-Splitter movement">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/SplitView/splitview.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/SplitView/splitview.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/SplitView/splitview.html_9_2_2" purpose="-Splitter movement">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/SplitView/splitview.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/SplitView/splitview.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/SplitView/splitview.html_9_2_3" purpose="-Splitter movement">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/SplitView/splitview.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/SplitView/splitview.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/SplitView/splitview.html_9_2_4" purpose="-Splitter movement">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/SplitView/splitview.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/SplitView/splitview.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/SplitView/splitview.html_9_2_5" purpose="-Up event received">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/SplitView/splitview.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/SplitView/splitview.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/SplitView/splitview.html_9_3_0" purpose="-change pane in scrollview">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/SplitView/splitview.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/SplitView/splitview.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/SplitView/splitview.html_9_3_1" purpose="-change invalid pane">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/SplitView/splitview.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/SplitView/splitview.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/SplitView/splitview.html_9_4_0" purpose="-SplitView has correct CSS class">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/SplitView/splitview.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/SplitView/splitview.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/SplitView/splitview.html_9_4_1" purpose="-SplitView has ui-vertical class">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/SplitView/splitview.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/SplitView/splitview.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/SplitView/splitview.html_9_4_2" purpose="-SplitView pane has correct CSS class">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/SplitView/splitview.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/SplitView/splitview.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/SplitView/splitview.html_9_4_3" purpose="-SplitView pane has correct CSS class">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/SplitView/splitview.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/SplitView/splitview.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/SplitView/splitview.html_9_4_4" purpose="-">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/SplitView/splitview.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/SplitView/splitview.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/SplitView/splitview.html_9_4_5" purpose="-">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/SplitView/splitview.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/SplitView/splitview.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/SplitView/splitview.html_9_4_6" purpose="-">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/SplitView/splitview.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/SplitView/splitview.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/SplitView/splitview.html_9_4_7" purpose="-">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/SplitView/splitview.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/SplitView/splitview.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/SplitView/splitview.html_9_5_0" purpose="-SplitView has ui-horizontal CSS class">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/SplitView/splitview.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/SplitView/splitview.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/SplitView/splitview.html_9_5_1" purpose="-SplitView has ui-fixed CSS class">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/SplitView/splitview.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/SplitView/splitview.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/SplitView/splitview.html_9_6_0" purpose="-SplitView has ui-splitter-active CSS class">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/SplitView/splitview.html]]></test_script_entry>
+</description>
+</testcase>
+</set>
+<set name="tests/js/profile/mobile/widget/mobile/SplitView/api/splitview.html_10" launcher="WRTLauncher -r">
+<testcase component="tests/js/profile/mobile/widget/mobile/SplitView/api/splitview.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/SplitView/api/splitview.html_10_0_0" purpose="-Class tau.widget.SplitView exists">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/SplitView/api/splitview.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/SplitView/api/splitview.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/SplitView/api/splitview.html_10_0_1" purpose="-Class tau.widget.mobile.SplitView exists">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/SplitView/api/splitview.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/SplitView/api/splitview.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/SplitView/api/splitview.html_10_0_2" purpose="-.classes property exists">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/SplitView/api/splitview.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/SplitView/api/splitview.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/SplitView/api/splitview.html_10_1_0" purpose="-.classes property object contains 10 elements">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/SplitView/api/splitview.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/SplitView/api/splitview.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/SplitView/api/splitview.html_10_1_1" purpose="-.classes[&apos;uiPane&apos;] === &apos;ui-pane&apos;">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/SplitView/api/splitview.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/SplitView/api/splitview.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/SplitView/api/splitview.html_10_1_2" purpose="-.classes[&apos;uiSplitView&apos;] === &apos;ui-splitview&apos;">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/SplitView/api/splitview.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/SplitView/api/splitview.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/SplitView/api/splitview.html_10_1_3" purpose="-.classes[&apos;uiDirectionHorizontal&apos;] === &apos;ui-direction-horizontal&apos;">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/SplitView/api/splitview.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/SplitView/api/splitview.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/SplitView/api/splitview.html_10_1_4" purpose="-.classes[&apos;uiDirectionVertical&apos;] === &apos;ui-direction-vertical&apos;">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/SplitView/api/splitview.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/SplitView/api/splitview.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/SplitView/api/splitview.html_10_1_5" purpose="-.classes[&apos;uiPageActive&apos;] === &apos;ui-page-active&apos;">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/SplitView/api/splitview.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/SplitView/api/splitview.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/SplitView/api/splitview.html_10_1_6" purpose="-.classes[&apos;uiSplitter&apos;] === &apos;ui-spliter&apos;">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/SplitView/api/splitview.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/SplitView/api/splitview.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/SplitView/api/splitview.html_10_1_7" purpose="-.classes[&apos;uiSplitterBar&apos;] === &apos;ui-spliter-bar&apos;">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/SplitView/api/splitview.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/SplitView/api/splitview.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/SplitView/api/splitview.html_10_1_8" purpose="-.classes[&apos;uiSplitterHandle&apos;] === &apos;ui-spliter-handle&apos;">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/SplitView/api/splitview.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/SplitView/api/splitview.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/SplitView/api/splitview.html_10_1_9" purpose="-.classes[&apos;uiSplitterActive&apos;] === &apos;ui-spliter-active&apos;">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/SplitView/api/splitview.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/SplitView/api/splitview.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/SplitView/api/splitview.html_10_1_10" purpose="-.classes[&apos;uiFixed&apos;] === &apos;ui-fixed&apos;">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/SplitView/api/splitview.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/SplitView/api/splitview.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/SplitView/api/splitview.html_10_2_0" purpose="-Method SplitView.configure exists">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/SplitView/api/splitview.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/SplitView/api/splitview.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/SplitView/api/splitview.html_10_2_1" purpose="-Method SplitView.build exists">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/SplitView/api/splitview.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/SplitView/api/splitview.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/SplitView/api/splitview.html_10_2_2" purpose="-Method SplitView.init exists">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/SplitView/api/splitview.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/SplitView/api/splitview.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/SplitView/api/splitview.html_10_2_3" purpose="-Method SplitView.bindEvents exists">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/SplitView/api/splitview.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/SplitView/api/splitview.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/SplitView/api/splitview.html_10_2_4" purpose="-Method SplitView.destroy exists">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/SplitView/api/splitview.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/SplitView/api/splitview.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/SplitView/api/splitview.html_10_2_5" purpose="-Method SplitView.disable exists">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/SplitView/api/splitview.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/SplitView/api/splitview.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/SplitView/api/splitview.html_10_2_6" purpose="-Method SplitView.enable exists">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/SplitView/api/splitview.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/SplitView/api/splitview.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/SplitView/api/splitview.html_10_2_7" purpose="-Method SplitView.refresh exists">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/SplitView/api/splitview.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/SplitView/api/splitview.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/SplitView/api/splitview.html_10_2_8" purpose="-Method SplitView.option exists">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/SplitView/api/splitview.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/SplitView/api/splitview.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/SplitView/api/splitview.html_10_2_9" purpose="-Method SplitView._build exists">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/SplitView/api/splitview.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/SplitView/api/splitview.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/SplitView/api/splitview.html_10_2_10" purpose="-Method SplitView._bindEvents exists">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/SplitView/api/splitview.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/SplitView/api/splitview.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/SplitView/api/splitview.html_10_2_11" purpose="-Method SplitView._init exists">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/SplitView/api/splitview.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/SplitView/api/splitview.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/SplitView/api/splitview.html_10_2_12" purpose="-Method SplitView._destroy exists">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/SplitView/api/splitview.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/SplitView/api/splitview.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/SplitView/api/splitview.html_10_2_13" purpose="-Method SplitView._setRatio exists">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/SplitView/api/splitview.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/SplitView/api/splitview.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/SplitView/api/splitview.html_10_2_14" purpose="-Method SplitView._setDividerVertical exists">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/SplitView/api/splitview.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/SplitView/api/splitview.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/SplitView/api/splitview.html_10_2_15" purpose="-Method SplitView._setFixed exists">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/SplitView/api/splitview.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/SplitView/api/splitview.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/SplitView/api/splitview.html_10_2_16" purpose="-Method SplitView.pane exists">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/SplitView/api/splitview.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/SplitView/api/splitview.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/SplitView/api/splitview.html_10_2_17" purpose="-Method SplitView.restore exists">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/SplitView/api/splitview.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/SplitView/api/splitview.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/SplitView/api/splitview.html_10_2_18" purpose="-Method SplitView.maximize exists">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/SplitView/api/splitview.html]]></test_script_entry>
+</description>
+</testcase>
+</set>
+<set name="tests/js/profile/mobile/widget/mobile/Drawer/drawer.html_11" launcher="WRTLauncher -r">
+<testcase component="tests/js/profile/mobile/widget/mobile/Drawer/drawer.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Drawer/drawer.html_11_0_0" purpose="-Drawer has ui-drawer class">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Drawer/drawer.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Drawer/drawer.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Drawer/drawer.html_11_0_1" purpose="-Drawer has ui-drawer-left class">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Drawer/drawer.html]]></test_script_entry>
+</description>
+</testcase>
+</set>
+<set name="tests/js/profile/mobile/widget/mobile/Drawer/api/drawer.html_12" launcher="WRTLauncher -r">
+<testcase component="tests/js/profile/mobile/widget/mobile/Drawer/api/drawer.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Drawer/api/drawer.html_12_0_0" purpose="-Class ns exists">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Drawer/api/drawer.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Drawer/api/drawer.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Drawer/api/drawer.html_12_0_1" purpose="-Class ns.widget exists">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Drawer/api/drawer.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Drawer/api/drawer.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Drawer/api/drawer.html_12_0_2" purpose="-Class ns.widget.mobile exists">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Drawer/api/drawer.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Drawer/api/drawer.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Drawer/api/drawer.html_12_0_3" purpose="-Class ns.widget.mobile.Drawer exists">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Drawer/api/drawer.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Drawer/api/drawer.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Drawer/api/drawer.html_12_0_4" purpose="-Method drawer.configure exists">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Drawer/api/drawer.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Drawer/api/drawer.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Drawer/api/drawer.html_12_0_5" purpose="-Method drawer._getCreateOptions exists">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Drawer/api/drawer.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Drawer/api/drawer.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Drawer/api/drawer.html_12_0_6" purpose="-Method drawer.build exists">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Drawer/api/drawer.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Drawer/api/drawer.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Drawer/api/drawer.html_12_0_7" purpose="-Method drawer.init exists">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Drawer/api/drawer.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Drawer/api/drawer.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Drawer/api/drawer.html_12_0_8" purpose="-Method drawer.bindEvents exists">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Drawer/api/drawer.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Drawer/api/drawer.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Drawer/api/drawer.html_12_0_9" purpose="-Method drawer.destroy exists">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Drawer/api/drawer.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Drawer/api/drawer.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Drawer/api/drawer.html_12_0_10" purpose="-Method drawer.disable exists">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Drawer/api/drawer.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Drawer/api/drawer.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Drawer/api/drawer.html_12_0_11" purpose="-Method drawer.enable exists">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Drawer/api/drawer.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Drawer/api/drawer.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Drawer/api/drawer.html_12_0_12" purpose="-Method drawer.refresh exists">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Drawer/api/drawer.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Drawer/api/drawer.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Drawer/api/drawer.html_12_0_13" purpose="-Method drawer.open exists">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Drawer/api/drawer.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Drawer/api/drawer.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Drawer/api/drawer.html_12_0_14" purpose="-Method drawer.close exists">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Drawer/api/drawer.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Drawer/api/drawer.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Drawer/api/drawer.html_12_0_15" purpose="-Method drawer.isOpen exists">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Drawer/api/drawer.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Drawer/api/drawer.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Drawer/api/drawer.html_12_0_16" purpose="-Method drawer.option exists">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Drawer/api/drawer.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Drawer/api/drawer.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Drawer/api/drawer.html_12_0_17" purpose="-Property drawer.options exists">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Drawer/api/drawer.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Drawer/api/drawer.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Drawer/api/drawer.html_12_0_18" purpose="-Property drawer.options.position exists">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Drawer/api/drawer.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Drawer/api/drawer.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Drawer/api/drawer.html_12_0_19" purpose="-Property drawer.options.width exists">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Drawer/api/drawer.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Drawer/api/drawer.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Drawer/api/drawer.html_12_0_20" purpose="-Property drawer.options.duration exists">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Drawer/api/drawer.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Drawer/api/drawer.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Drawer/api/drawer.html_12_0_21" purpose="-Property drawer.classes exists">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Drawer/api/drawer.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Drawer/api/drawer.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Drawer/api/drawer.html_12_0_22" purpose="-Property drawer.classes.close exists">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Drawer/api/drawer.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Drawer/api/drawer.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Drawer/api/drawer.html_12_0_23" purpose="-Property drawer.classes.drawer exists">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Drawer/api/drawer.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Drawer/api/drawer.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Drawer/api/drawer.html_12_0_24" purpose="-Property drawer.classes.header exists">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Drawer/api/drawer.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Drawer/api/drawer.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Drawer/api/drawer.html_12_0_25" purpose="-Property drawer.classes.left exists">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Drawer/api/drawer.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Drawer/api/drawer.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Drawer/api/drawer.html_12_0_26" purpose="-Property drawer.classes.open exists">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Drawer/api/drawer.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Drawer/api/drawer.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Drawer/api/drawer.html_12_0_27" purpose="-Property drawer.classes.overlay exists">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Drawer/api/drawer.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Drawer/api/drawer.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Drawer/api/drawer.html_12_0_28" purpose="-Property drawer.classes.right exists">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Drawer/api/drawer.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Drawer/api/drawer.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Drawer/api/drawer.html_12_0_29" purpose="-Method drawer._build exists">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Drawer/api/drawer.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Drawer/api/drawer.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Drawer/api/drawer.html_12_0_30" purpose="-Method drawer._bindEvents exists">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Drawer/api/drawer.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Drawer/api/drawer.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Drawer/api/drawer.html_12_0_31" purpose="-Method drawer._bindEvents exists">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Drawer/api/drawer.html]]></test_script_entry>
+</description>
+</testcase>
+</set>
+<set name="tests/js/profile/mobile/widget/mobile/Navigation/navigation.html_13" launcher="WRTLauncher -r">
+<testcase component="tests/js/profile/mobile/widget/mobile/Navigation/navigation.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Navigation/navigation.html_13_0_0" purpose="-Died on test #1     at HTMLDocument.&lt;anonymous&gt; (http://localhost/workspace/SPIN/tau/tests/tau-runner/tests/js/profile/mobile/widget/mobile/Navigation/navigation.js:8:2)
+    at fire (http://localhost/workspace/SPIN/tau/tests/tau-runner/tests/libs/jquery.js:2939:30)
+    at Object.self.fireWith [as resolveWith] (http://localhost/workspace/SPIN/tau/tests/tau-runner/tests/libs/jquery.js:3051:7)
+    at Function.jQuery.extend.ready (http://localhost/workspace/SPIN/tau/tests/tau-runner/tests/libs/jquery.js:398:13)
+    at HTMLDocument.completed (http://localhost/workspace/SPIN/tau/tests/tau-runner/tests/libs/jquery.js:93:10): tau is not defined">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Navigation/navigation.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/profile/mobile/widget/mobile/Navigation/navigation.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Navigation/navigation.html_13_0_1" purpose="-Teardown failed on Navigation: tau is not defined">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Navigation/navigation.html]]></test_script_entry>
+</description>
+</testcase>
+</set>
+<set name="tests/js/profile/mobile/widget/mobile/Navigation/api/navigation.html_14" launcher="WRTLauncher -r">
+<testcase component="tests/js/profile/mobile/widget/mobile/Navigation/api/navigation.html" execution_type="auto" id="tests/js/profile/mobile/widget/mobile/Navigation/api/navigation.html_14_0_0" purpose="-Uncaught ReferenceError: tau is not defined">
+<description>
+<test_script_entry><![CDATA[tests/js/profile/mobile/widget/mobile/Navigation/api/navigation.html]]></test_script_entry>
+</description>
+</testcase>
+</set>
+</suite>
+</test_definition>

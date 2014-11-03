@@ -177,16 +177,30 @@ $(document).ready(function() {
 				},
 
 				exec: function( data ) {
-					var template = self.$frameElem.attr( "data-src" );
+					var template = self.$frameElem.attr( "data-src"),
+						it_min, it_max;
+
+					var iteration = parseInt(location.search.replace('?',''), 10) || 0;
+
+					if (location.search != '') {
+						CURRENT_ITERATION = iteration;
+					}
+
+					it_min = CURRENT_ITERATION * TESTS_PER_ITERATION;
+					it_max = (CURRENT_ITERATION + 1) * TESTS_PER_ITERATION - 1;
 
 					$.each( data, function(i, dir) {
-						QUnit.asyncTest( dir, function() {
-							console.log('Test start: ' + dir);
-							currentTestPath = dir;
-							self.dir = dir;
-							self.$frameElem.one( "load", self.onFrameLoad );
-							self.$frameElem.attr( "src", template.replace("{{testfile}}", dir) );
-						});
+
+						if (i >= it_min && i <= it_max) {
+							console.log(i, it_min, it_max, i >= it_min && i <= it_max);
+							QUnit.asyncTest( dir, function() {
+								currentTestPath = dir;
+								self.dir = dir;
+								self.$frameElem = $('#testFrame');
+								self.$frameElem.one( "load", self.onFrameLoad );
+								self.$frameElem.attr( "src", template.replace("{{testfile}}", dir) );
+							});
+						}
 					});
 
 					// having defined all suite level tests let QUnit run
@@ -488,6 +502,8 @@ $(document).ready(function() {
 			if (console) {
 				console.clear();
 				console.log(data.xml);
+				var blob = new Blob([data.xml], {type: "text/xml;charset=utf-8"});
+				saveAs(blob, "tests-p" + CURRENT_ITERATION + ".xml");
 			}
 		}
 	};

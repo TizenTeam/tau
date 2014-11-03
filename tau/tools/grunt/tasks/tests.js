@@ -213,7 +213,13 @@ module.exports = function (grunt) {
 			if (src) {
 				grunt.log.ok("Write " + profile + " test list to tests/tests.js");
 				filePaths = grunt.file.expand(opt, src);
-				grunt.file.write("tests/tau-runner/tests.js", "var TESTS = " + JSON.stringify(filePaths));
+				grunt.file.write("tests/tau-runner/tests.js",
+								"var TESTS = " + JSON.stringify(filePaths) +
+										";\n" +
+										"var CURRENT_ITERATION = 0; " +
+										"\n" +
+										"var TESTS_PER_ITERATION = 15;"
+								);
 			} else {
 				grunt.log.error("Couldn't find configuration for profile: " + profile);
 				return false;

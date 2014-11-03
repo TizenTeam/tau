@@ -19,6 +19,8 @@ Usage: ./tct-paker.sh [OPTION]
   	cleans testkit lite cache directory from cached tct packages (/opt/testkit/lite/)
   ${TB}-p, --pack-only${TN}
   	creates only TCT Packages. Testkit won't be fired
+  ${TB}-n <package_ID>, --number <package_ID>${TN}
+  	creates TCT package with provided ID.
   "
 
 case "$1" in
@@ -36,15 +38,35 @@ case "$1" in
 	-p|--pack-only)
 		PACK_ONLY=1
 		;;
+	-n|--number)
+		PACK_ONLY=1
+		PACKAGE_NUMBER=$2
+		TEST_FILENAME=$TEST_NAME-p$PACKAGE_NUMBER-2.2.1-1.zip
+		TEST_NAME=$TEST_NAME-p$PACKAGE_NUMBER
+		echo "Building package ${PACKAGE_NUMBER}   =>    ${TEST_NAME}"
+		;;
     *) echo "$USAGE_PROMPT"
        exit ;;
 esac
 
+rm -rf tct-package/opt
+mkdir tct-package/opt/
+mkdir tct-package/opt/$TEST_NAME/
+
+# TODO: automatic wgt building using web-packagin
+# Create wgt
+#/home/m.szepielak/tizen-sdk/tools/web-packaging /home/m.szepielak/workspace/SPIN/tau/tests/tct-package/opt/$TEST_NAME/$TEST_NAME.wgt /home/m.szepielak/workspace/SPIN/tau/tests/tau-runner/
 
 # Copy runner application to package
-cp tau-runner/$TEST_NAME.wgt tct-package/opt/$TEST_NAME/$TEST_NAME.wgt
+cp tau-runner/tau-runner.wgt tct-package/opt/$TEST_NAME/$TEST_NAME.wgt
+
 # Copy test pattern to package
-cp tau-runner/tests.xml tct-package/opt/$TEST_NAME/tests.xml
+cp tau-runner/xml/tests-p$PACKAGE_NUMBER.xml tct-package/opt/$TEST_NAME/tests.xml
+echo "tau-runner/xml/tests-p$PACKAGE_NUMBER.xml tct-package/opt/$TEST_NAME/tests.xml"
+
+# Copy inst.sh
+cp tct-package/inst.sh tct-package/opt/$TEST_NAME/inst.sh
+
 # Change working directory
 cd tct-package
 

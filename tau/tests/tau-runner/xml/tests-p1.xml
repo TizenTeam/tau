@@ -1,0 +1,1426 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="./testcase.xsl"?>
+<test_definition name="http://tempuri.org" type="" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="test_definition.xsd"><environment device_id="" device_model="SDK &amp; Target" device_name="Tizen" host="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/38.0.2125.111 Safari/537.36" os_version="2.2" resolution="" screen_size="902 x 1425">
+<other><![CDATA[Tizen Web UI FW UnitTest]]></other>
+</environment>
+<summary test_plan_name="Tizen Web UI FW Unit TC">
+<start_at><![CDATA[Fri Oct 31 2014 13:58:43 GMT+0100 (CET)]]></start_at><end_at><![CDATA[Fri Oct 31 2014 13:59:21 GMT+0100 (CET)]]></end_at>
+</summary>
+<suite id="suite123456" category="Web UI Framework" name="tct-webuifw-tests" tests="321">
+<set name="tests/js/core/engine/mobile/bound.html_0" launcher="WRTLauncher -a">
+<testcase component="tests/js/core/engine/mobile/bound.html" execution_type="auto" id="tests/js/core/engine/mobile/bound.html_0_0_0" purpose="-Bound event called once">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/mobile/bound.html]]></test_script_entry>
+</description>
+</testcase>
+</set>
+<set name="tests/js/core/engine/mobile/engine.html_1" launcher="WRTLauncher -r">
+<testcase component="tests/js/core/engine/mobile/engine.html" execution_type="auto" id="tests/js/core/engine/mobile/engine.html_1_0_0" purpose="-binding for widget1 with def created">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/mobile/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/mobile/engine.html" execution_type="auto" id="tests/js/core/engine/mobile/engine.html_1_0_1" purpose="-DOM and binding ids are the same for widget1">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/mobile/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/mobile/engine.html" execution_type="auto" id="tests/js/core/engine/mobile/engine.html_1_0_2" purpose="-widget1 child created">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/mobile/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/mobile/engine.html" execution_type="auto" id="tests/js/core/engine/mobile/engine.html_1_0_3" purpose="-Widget1 classes moved">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/mobile/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/mobile/engine.html" execution_type="auto" id="tests/js/core/engine/mobile/engine.html_1_0_4" purpose="-Widget1 api call">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/mobile/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/mobile/engine.html" execution_type="auto" id="tests/js/core/engine/mobile/engine.html_1_0_5" purpose="-Widget1 event returning data">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/mobile/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/mobile/engine.html" execution_type="auto" id="tests/js/core/engine/mobile/engine.html_1_1_0" purpose="-HTML has proper class">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/mobile/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/mobile/engine.html" execution_type="auto" id="tests/js/core/engine/mobile/engine.html_1_1_1" purpose="-BODY has proper class">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/mobile/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/mobile/engine.html" execution_type="auto" id="tests/js/core/engine/mobile/engine.html_1_2_0" purpose="-Default justBuild value is &apos;false&apos;">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/mobile/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/mobile/engine.html" execution_type="auto" id="tests/js/core/engine/mobile/engine.html_1_2_1" purpose="-Value changed to &apos;true&apos;">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/mobile/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/mobile/engine.html" execution_type="auto" id="tests/js/core/engine/mobile/engine.html_1_2_2" purpose="-Hash changed to &apos;#build&apos;">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/mobile/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/mobile/engine.html" execution_type="auto" id="tests/js/core/engine/mobile/engine.html_1_2_3" purpose="-Value changed to &apos;false&apos;">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/mobile/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/mobile/engine.html" execution_type="auto" id="tests/js/core/engine/mobile/engine.html_1_2_4" purpose="-Hash changed to &apos;&apos;">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/mobile/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/mobile/engine.html" execution_type="auto" id="tests/js/core/engine/mobile/engine.html_1_3_0" purpose="-Creating a instance of non-existing widget returns &apos;null&apos;">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/mobile/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/mobile/engine.html" execution_type="auto" id="tests/js/core/engine/mobile/engine.html_1_3_1" purpose="-Widget is an instance of Base Widget">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/mobile/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/mobile/engine.html" execution_type="auto" id="tests/js/core/engine/mobile/engine.html_1_3_2" purpose="-Widget is an instance of Test1">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/mobile/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/mobile/engine.html" execution_type="auto" id="tests/js/core/engine/mobile/engine.html_1_3_3" purpose="-Creating same widget on that same element returns that same reference">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/mobile/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/mobile/engine.html" execution_type="auto" id="tests/js/core/engine/mobile/engine.html_1_3_4" purpose="-New widget on that same HTMLElement is an instance of BaseWidget">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/mobile/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/mobile/engine.html" execution_type="auto" id="tests/js/core/engine/mobile/engine.html_1_3_5" purpose="-New widget on that same HTMLElement is an instance of Test2">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/mobile/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/mobile/engine.html" execution_type="auto" id="tests/js/core/engine/mobile/engine.html_1_4_0" purpose="-Error was thrown">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/mobile/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/mobile/engine.html" execution_type="auto" id="tests/js/core/engine/mobile/engine.html_1_5_0" purpose="-Passing bad reference returns &apos;null&apos;">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/mobile/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/mobile/engine.html" execution_type="auto" id="tests/js/core/engine/mobile/engine.html_1_5_1" purpose="-Passing element reference to a non-widget element returns &apos;null&apos;">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/mobile/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/mobile/engine.html" execution_type="auto" id="tests/js/core/engine/mobile/engine.html_1_5_2" purpose="-Passing string as ID to a non-widget element returns &apos;null&apos;">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/mobile/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/mobile/engine.html" execution_type="auto" id="tests/js/core/engine/mobile/engine.html_1_5_3" purpose="-Widget exists">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/mobile/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/mobile/engine.html" execution_type="auto" id="tests/js/core/engine/mobile/engine.html_1_5_4" purpose="-Widget is a instanceof BaseWidget">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/mobile/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/mobile/engine.html" execution_type="auto" id="tests/js/core/engine/mobile/engine.html_1_5_5" purpose="-Widget is a instanceof Page">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/mobile/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/mobile/engine.html" execution_type="auto" id="tests/js/core/engine/mobile/engine.html_1_5_6" purpose="-Passing HTMLElement reference and string ID returns that same object reference">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/mobile/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/mobile/engine.html" execution_type="auto" id="tests/js/core/engine/mobile/engine.html_1_6_0" purpose="-Passing bad reference returns &apos;null&apos;">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/mobile/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/mobile/engine.html" execution_type="auto" id="tests/js/core/engine/mobile/engine.html_1_6_1" purpose="-Passing HTMLElement reference to a non-widget element returns &apos;null&apos;">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/mobile/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/mobile/engine.html" execution_type="auto" id="tests/js/core/engine/mobile/engine.html_1_6_2" purpose="-Passing string as ID to a non-widget element returns &apos;null&apos;">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/mobile/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/mobile/engine.html" execution_type="auto" id="tests/js/core/engine/mobile/engine.html_1_6_3" purpose="-&apos;null&apos; should be returned when a HTMLElement (that is bound) does not have a widget binding of a proper type">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/mobile/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/mobile/engine.html" execution_type="auto" id="tests/js/core/engine/mobile/engine.html_1_6_4" purpose="-Widget reference was returned">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/mobile/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/mobile/engine.html" execution_type="auto" id="tests/js/core/engine/mobile/engine.html_1_6_5" purpose="-Widget is a instanceof BaseWidget">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/mobile/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/mobile/engine.html" execution_type="auto" id="tests/js/core/engine/mobile/engine.html_1_6_6" purpose="-Widget is a instanceof Page">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/mobile/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/mobile/engine.html" execution_type="auto" id="tests/js/core/engine/mobile/engine.html_1_6_7" purpose="-Passing HTMLElement reference and string ID returns that same object reference">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/mobile/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/mobile/engine.html" execution_type="auto" id="tests/js/core/engine/mobile/engine.html_1_7_0" purpose="-Passing bad reference returns &apos;null&apos;">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/mobile/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/mobile/engine.html" execution_type="auto" id="tests/js/core/engine/mobile/engine.html_1_7_1" purpose="-Passing HTMLElement reference to a non-widget element returns &apos;null&apos;">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/mobile/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/mobile/engine.html" execution_type="auto" id="tests/js/core/engine/mobile/engine.html_1_7_2" purpose="-Passing a proper reference gives a object">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/mobile/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/mobile/engine.html" execution_type="auto" id="tests/js/core/engine/mobile/engine.html_1_7_3" purpose="-Returned object contains proper widget property">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/mobile/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/mobile/engine.html" execution_type="auto" id="tests/js/core/engine/mobile/engine.html_1_7_4" purpose="-Widget property is a proper reference to a widget object">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/mobile/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/mobile/engine.html" execution_type="auto" id="tests/js/core/engine/mobile/engine.html_1_7_5" purpose="-Same widget references are returned while calling method with ID as parameter">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/mobile/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/mobile/engine.html" execution_type="auto" id="tests/js/core/engine/mobile/engine.html_1_8_0" purpose="-Before calling instanceWidget element does is not bound to any widgets.">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/mobile/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/mobile/engine.html" execution_type="auto" id="tests/js/core/engine/mobile/engine.html_1_8_1" purpose="-Method returned an object with .Test1 property">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/mobile/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/mobile/engine.html" execution_type="auto" id="tests/js/core/engine/mobile/engine.html_1_8_2" purpose="-Object property is a instanceof ej.test.widget1">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/mobile/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/mobile/engine.html" execution_type="auto" id="tests/js/core/engine/mobile/engine.html_1_8_3" purpose="-Returned reference targets that same widget instance">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/mobile/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/mobile/engine.html" execution_type="auto" id="tests/js/core/engine/mobile/engine.html_1_8_4" purpose="-Method returned an object with .Test2 property">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/mobile/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/mobile/engine.html" execution_type="auto" id="tests/js/core/engine/mobile/engine.html_1_8_5" purpose="-Object property is a proper instance of widget">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/mobile/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/mobile/engine.html" execution_type="auto" id="tests/js/core/engine/mobile/engine.html_1_8_6" purpose="-Returned reference targets that same widget instance">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/mobile/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/mobile/engine.html" execution_type="auto" id="tests/js/core/engine/mobile/engine.html_1_8_7" purpose="-Returned object still contains references to both widget instances">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/mobile/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/mobile/engine.html" execution_type="auto" id="tests/js/core/engine/mobile/engine.html_1_9_0" purpose="-getBinding returns null">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/mobile/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/mobile/engine.html" execution_type="auto" id="tests/js/core/engine/mobile/engine.html_1_9_1" purpose="-getBinding properly returns the instance">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/mobile/engine.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/mobile/engine.html" execution_type="auto" id="tests/js/core/engine/mobile/engine.html_1_9_2" purpose="-getBinding properly returns the instance">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/mobile/engine.html]]></test_script_entry>
+</description>
+</testcase>
+</set>
+<set name="tests/js/core/engine/mobile/tree-build.html_2" launcher="WRTLauncher -r">
+<testcase component="tests/js/core/engine/mobile/tree-build.html" execution_type="auto" id="tests/js/core/engine/mobile/tree-build.html_2_0_0" purpose="-Element [page1] with widget [Page] was build in proper order">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/mobile/tree-build.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/mobile/tree-build.html" execution_type="auto" id="tests/js/core/engine/mobile/tree-build.html_2_0_1" purpose="-Element [el-1] with widget [Test12] was build in proper order">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/mobile/tree-build.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/mobile/tree-build.html" execution_type="auto" id="tests/js/core/engine/mobile/tree-build.html_2_0_2" purpose="-Element [el-2] with widget [Test12] was build in proper order">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/mobile/tree-build.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/mobile/tree-build.html" execution_type="auto" id="tests/js/core/engine/mobile/tree-build.html_2_0_3" purpose="-Element [el-3] with widget [Test12] was build in proper order">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/mobile/tree-build.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/mobile/tree-build.html" execution_type="auto" id="tests/js/core/engine/mobile/tree-build.html_2_0_4" purpose="-Element [el-4] with widget [Test3] was build in proper order">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/mobile/tree-build.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/mobile/tree-build.html" execution_type="auto" id="tests/js/core/engine/mobile/tree-build.html_2_0_5" purpose="-Element [el-5] with widget [Button] was build in proper order">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/mobile/tree-build.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/mobile/tree-build.html" execution_type="auto" id="tests/js/core/engine/mobile/tree-build.html_2_0_6" purpose="-Element [el-6] with widget [Button] was build in proper order">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/mobile/tree-build.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/mobile/tree-build.html" execution_type="auto" id="tests/js/core/engine/mobile/tree-build.html_2_0_7" purpose="-Element [el-7] with widget [Button] was build in proper order">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/mobile/tree-build.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/mobile/tree-build.html" execution_type="auto" id="tests/js/core/engine/mobile/tree-build.html_2_0_8" purpose="-Element [el-8] with widget [Button] was build in proper order">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/mobile/tree-build.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/mobile/tree-build.html" execution_type="auto" id="tests/js/core/engine/mobile/tree-build.html_2_0_9" purpose="-Element [el-9] with widget [Test12] was build in proper order">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/mobile/tree-build.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/mobile/tree-build.html" execution_type="auto" id="tests/js/core/engine/mobile/tree-build.html_2_0_10" purpose="-Element [el-10] with widget [Test12] was build in proper order">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/mobile/tree-build.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/mobile/tree-build.html" execution_type="auto" id="tests/js/core/engine/mobile/tree-build.html_2_0_11" purpose="-Element [el-11] with widget [Test3] was build in proper order">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/mobile/tree-build.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/mobile/tree-build.html" execution_type="auto" id="tests/js/core/engine/mobile/tree-build.html_2_0_12" purpose="-Element [el-12] with widget [Button] was build in proper order">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/mobile/tree-build.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/mobile/tree-build.html" execution_type="auto" id="tests/js/core/engine/mobile/tree-build.html_2_0_13" purpose="-Element [el-13] with widget [Button] was build in proper order">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/mobile/tree-build.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/mobile/tree-build.html" execution_type="auto" id="tests/js/core/engine/mobile/tree-build.html_2_0_14" purpose="-Element [el-14] with widget [Button] was build in proper order">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/mobile/tree-build.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/mobile/tree-build.html" execution_type="auto" id="tests/js/core/engine/mobile/tree-build.html_2_0_15" purpose="-Element [el-15] with widget [Button] was build in proper order">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/mobile/tree-build.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/mobile/tree-build.html" execution_type="auto" id="tests/js/core/engine/mobile/tree-build.html_2_0_16" purpose="-Element [el-16] with widget [Test3] was build in proper order">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/mobile/tree-build.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/mobile/tree-build.html" execution_type="auto" id="tests/js/core/engine/mobile/tree-build.html_2_0_17" purpose="-Element [el-17] with widget [Button] was build in proper order">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/mobile/tree-build.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/mobile/tree-build.html" execution_type="auto" id="tests/js/core/engine/mobile/tree-build.html_2_0_18" purpose="-Element [el-18] with widget [Button] was build in proper order">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/mobile/tree-build.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/mobile/tree-build.html" execution_type="auto" id="tests/js/core/engine/mobile/tree-build.html_2_0_19" purpose="-Element [el-19] with widget [Button] was build in proper order">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/mobile/tree-build.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/mobile/tree-build.html" execution_type="auto" id="tests/js/core/engine/mobile/tree-build.html_2_0_20" purpose="-Element [el-20] with widget [Button] was build in proper order">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/mobile/tree-build.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/mobile/tree-build.html" execution_type="auto" id="tests/js/core/engine/mobile/tree-build.html_2_0_21" purpose="-Element [el-21] with widget [Test3] was build in proper order">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/mobile/tree-build.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/mobile/tree-build.html" execution_type="auto" id="tests/js/core/engine/mobile/tree-build.html_2_0_22" purpose="-Element [el-22] with widget [Button] was build in proper order">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/mobile/tree-build.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/mobile/tree-build.html" execution_type="auto" id="tests/js/core/engine/mobile/tree-build.html_2_0_23" purpose="-Element [el-23] with widget [Button] was build in proper order">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/mobile/tree-build.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/engine/mobile/tree-build.html" execution_type="auto" id="tests/js/core/engine/mobile/tree-build.html_2_0_24" purpose="-Element [el-24] with widget [Test12] was build in proper order">
+<description>
+<test_script_entry><![CDATA[tests/js/core/engine/mobile/tree-build.html]]></test_script_entry>
+</description>
+</testcase>
+</set>
+<set name="tests/js/core/util/DOM/attributes/attributes.html_3" launcher="WRTLauncher -r">
+<testcase component="tests/js/core/util/DOM/attributes/attributes.html" execution_type="auto" id="tests/js/core/util/DOM/attributes/attributes.html_3_0_0" purpose="-function inheritAttr returns null if attribute is not found">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/DOM/attributes/attributes.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/DOM/attributes/attributes.html" execution_type="auto" id="tests/js/core/util/DOM/attributes/attributes.html_3_0_1" purpose="-function inheritAttr returns own attribute">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/DOM/attributes/attributes.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/DOM/attributes/attributes.html" execution_type="auto" id="tests/js/core/util/DOM/attributes/attributes.html_3_0_2" purpose="-function inheritAttr returns inherited attribute">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/DOM/attributes/attributes.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/DOM/attributes/attributes.html" execution_type="auto" id="tests/js/core/util/DOM/attributes/attributes.html_3_0_3" purpose="-function inheritAttr returns inherited attribute">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/DOM/attributes/attributes.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/DOM/attributes/attributes.html" execution_type="auto" id="tests/js/core/util/DOM/attributes/attributes.html_3_0_4" purpose="-function inheritAttr returns null if the closest parent which matches the selector doesn&apos;t have such attribute">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/DOM/attributes/attributes.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/DOM/attributes/attributes.html" execution_type="auto" id="tests/js/core/util/DOM/attributes/attributes.html_3_0_5" purpose="-function inheritAttr returns own attribute">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/DOM/attributes/attributes.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/DOM/attributes/attributes.html" execution_type="auto" id="tests/js/core/util/DOM/attributes/attributes.html_3_0_6" purpose="-function inheritAttr returns own attribute">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/DOM/attributes/attributes.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/DOM/attributes/attributes.html" execution_type="auto" id="tests/js/core/util/DOM/attributes/attributes.html_3_1_0" purpose="-function getNumberFromAttribute returns nothing if element doesn&apos;t have such attribute.">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/DOM/attributes/attributes.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/DOM/attributes/attributes.html" execution_type="auto" id="tests/js/core/util/DOM/attributes/attributes.html_3_1_1" purpose="-function getNumberFromAttribute returns nothing if value of element can&apos;t be converted to number">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/DOM/attributes/attributes.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/DOM/attributes/attributes.html" execution_type="auto" id="tests/js/core/util/DOM/attributes/attributes.html_3_1_2" purpose="-function getNumberFromAttribute returns default value if value of element can&apos;t be converted to number">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/DOM/attributes/attributes.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/DOM/attributes/attributes.html" execution_type="auto" id="tests/js/core/util/DOM/attributes/attributes.html_3_1_3" purpose="-function getNumberFromAttribute returns value of attribute">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/DOM/attributes/attributes.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/DOM/attributes/attributes.html" execution_type="auto" id="tests/js/core/util/DOM/attributes/attributes.html_3_1_4" purpose="-function getNumberFromAttribute returns integer">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/DOM/attributes/attributes.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/DOM/attributes/attributes.html" execution_type="auto" id="tests/js/core/util/DOM/attributes/attributes.html_3_1_5" purpose="-function getNumberFromAttribute returns value of attribute">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/DOM/attributes/attributes.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/DOM/attributes/attributes.html" execution_type="auto" id="tests/js/core/util/DOM/attributes/attributes.html_3_1_6" purpose="-function getNumberFromAttribute returns float">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/DOM/attributes/attributes.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/DOM/attributes/attributes.html" execution_type="auto" id="tests/js/core/util/DOM/attributes/attributes.html_3_2_0" purpose="-function hasNSData returns false if element doesn&apos;t have such attribute.">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/DOM/attributes/attributes.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/DOM/attributes/attributes.html" execution_type="auto" id="tests/js/core/util/DOM/attributes/attributes.html_3_2_1" purpose="-function hasNSData returns true if element has such attribute.">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/DOM/attributes/attributes.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/DOM/attributes/attributes.html" execution_type="auto" id="tests/js/core/util/DOM/attributes/attributes.html_3_2_2" purpose="-function getNSData returns value of attribute.">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/DOM/attributes/attributes.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/DOM/attributes/attributes.html" execution_type="auto" id="tests/js/core/util/DOM/attributes/attributes.html_3_2_3" purpose="-function getNSData returns null if element doesn&apos;t have such attribute.">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/DOM/attributes/attributes.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/DOM/attributes/attributes.html" execution_type="auto" id="tests/js/core/util/DOM/attributes/attributes.html_3_2_4" purpose="-function hasNSData returns false after removing attribute.">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/DOM/attributes/attributes.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/DOM/attributes/attributes.html" execution_type="auto" id="tests/js/core/util/DOM/attributes/attributes.html_3_3_0" purpose="-setNSData returns nothing">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/DOM/attributes/attributes.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/DOM/attributes/attributes.html" execution_type="auto" id="tests/js/core/util/DOM/attributes/attributes.html_3_3_1" purpose="-setNSData(div, &apos;id&apos;, 5)">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/DOM/attributes/attributes.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/DOM/attributes/attributes.html" execution_type="auto" id="tests/js/core/util/DOM/attributes/attributes.html_3_3_2" purpose="-setNSData(div, &apos;build&apos;, &apos;true&apos;)">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/DOM/attributes/attributes.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/DOM/attributes/attributes.html" execution_type="auto" id="tests/js/core/util/DOM/attributes/attributes.html_3_3_3" purpose="-setNSData(div, &apos;text&apos;, &apos;test&apos;)">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/DOM/attributes/attributes.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/DOM/attributes/attributes.html" execution_type="auto" id="tests/js/core/util/DOM/attributes/attributes.html_3_4_0" purpose="-getNSData returns null if element doesn&apos;t have such attribute">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/DOM/attributes/attributes.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/DOM/attributes/attributes.html" execution_type="auto" id="tests/js/core/util/DOM/attributes/attributes.html_3_4_1" purpose="-getNSData(div, &apos;id&apos;)">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/DOM/attributes/attributes.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/DOM/attributes/attributes.html" execution_type="auto" id="tests/js/core/util/DOM/attributes/attributes.html_3_4_2" purpose="-getNSData(div, &apos;build&apos;)">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/DOM/attributes/attributes.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/DOM/attributes/attributes.html" execution_type="auto" id="tests/js/core/util/DOM/attributes/attributes.html_3_4_3" purpose="-getNSData(div, &apos;build&apos;)">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/DOM/attributes/attributes.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/DOM/attributes/attributes.html" execution_type="auto" id="tests/js/core/util/DOM/attributes/attributes.html_3_4_4" purpose="-getNSData(div, &apos;text&apos;)">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/DOM/attributes/attributes.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/DOM/attributes/attributes.html" execution_type="auto" id="tests/js/core/util/DOM/attributes/attributes.html_3_5_0" purpose="-hasNSData(div, &apos;text&apos;)">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/DOM/attributes/attributes.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/DOM/attributes/attributes.html" execution_type="auto" id="tests/js/core/util/DOM/attributes/attributes.html_3_5_1" purpose="-hasNSData(div, &apos;id&apos;)">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/DOM/attributes/attributes.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/DOM/attributes/attributes.html" execution_type="auto" id="tests/js/core/util/DOM/attributes/attributes.html_3_5_2" purpose="-hasNSData(div, &apos;build&apos;)">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/DOM/attributes/attributes.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/DOM/attributes/attributes.html" execution_type="auto" id="tests/js/core/util/DOM/attributes/attributes.html_3_5_3" purpose="-hasNSData(div, &apos;text&apos;)">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/DOM/attributes/attributes.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/DOM/attributes/attributes.html" execution_type="auto" id="tests/js/core/util/DOM/attributes/attributes.html_3_6_0" purpose="-removeNSData(div, &apos;id&apos;)">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/DOM/attributes/attributes.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/DOM/attributes/attributes.html" execution_type="auto" id="tests/js/core/util/DOM/attributes/attributes.html_3_6_1" purpose="-removeNSData(div, &apos;build&apos;)">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/DOM/attributes/attributes.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/DOM/attributes/attributes.html" execution_type="auto" id="tests/js/core/util/DOM/attributes/attributes.html_3_6_2" purpose="-removeNSData(div, &apos;text&apos;)">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/DOM/attributes/attributes.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/DOM/attributes/attributes.html" execution_type="auto" id="tests/js/core/util/DOM/attributes/attributes.html_3_7_0" purpose="-function getData returns object">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/DOM/attributes/attributes.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/DOM/attributes/attributes.html" execution_type="auto" id="tests/js/core/util/DOM/attributes/attributes.html_3_7_1" purpose="-function getData returns only attributes with data- prefix">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/DOM/attributes/attributes.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/DOM/attributes/attributes.html" execution_type="auto" id="tests/js/core/util/DOM/attributes/attributes.html_3_7_2" purpose="-function getData returns all attributes with data- prefix">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/DOM/attributes/attributes.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/DOM/attributes/attributes.html" execution_type="auto" id="tests/js/core/util/DOM/attributes/attributes.html_3_7_3" purpose="-function getData returns object">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/DOM/attributes/attributes.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/DOM/attributes/attributes.html" execution_type="auto" id="tests/js/core/util/DOM/attributes/attributes.html_3_7_4" purpose="-function getData returns only attributes with data- prefix">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/DOM/attributes/attributes.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/DOM/attributes/attributes.html" execution_type="auto" id="tests/js/core/util/DOM/attributes/attributes.html_3_7_5" purpose="-function getData returns all attributes with data- prefix">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/DOM/attributes/attributes.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/DOM/attributes/attributes.html" execution_type="auto" id="tests/js/core/util/DOM/attributes/attributes.html_3_7_6" purpose="-function getData returns object">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/DOM/attributes/attributes.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/DOM/attributes/attributes.html" execution_type="auto" id="tests/js/core/util/DOM/attributes/attributes.html_3_7_7" purpose="-function getData returns only attributes with data- prefix">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/DOM/attributes/attributes.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/DOM/attributes/attributes.html" execution_type="auto" id="tests/js/core/util/DOM/attributes/attributes.html_3_7_8" purpose="-function getData returns all attributes with data- prefix">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/DOM/attributes/attributes.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/DOM/attributes/attributes.html" execution_type="auto" id="tests/js/core/util/DOM/attributes/attributes.html_3_8_0" purpose="-element has such attribute before calling removeAttribute">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/DOM/attributes/attributes.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/DOM/attributes/attributes.html" execution_type="auto" id="tests/js/core/util/DOM/attributes/attributes.html_3_8_1" purpose="-function removeAttribute returns nothing">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/DOM/attributes/attributes.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/DOM/attributes/attributes.html" execution_type="auto" id="tests/js/core/util/DOM/attributes/attributes.html_3_8_2" purpose="-element doesnt&apos;t have such attribute after calling removeAttribute">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/DOM/attributes/attributes.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/DOM/attributes/attributes.html" execution_type="auto" id="tests/js/core/util/DOM/attributes/attributes.html_3_9_0" purpose="-element doesnt&apos;t have such attribute before calling setAttribute">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/DOM/attributes/attributes.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/DOM/attributes/attributes.html" execution_type="auto" id="tests/js/core/util/DOM/attributes/attributes.html_3_9_1" purpose="-element has such attribute after calling setAttribute">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/DOM/attributes/attributes.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/DOM/attributes/attributes.html" execution_type="auto" id="tests/js/core/util/DOM/attributes/attributes.html_3_9_2" purpose="-function setAttribute returns nothing">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/DOM/attributes/attributes.html]]></test_script_entry>
+</description>
+</testcase>
+</set>
+<set name="tests/js/core/util/DOM/attributes/api/api.html_4" launcher="WRTLauncher -r">
+<testcase component="tests/js/core/util/DOM/attributes/api/api.html" execution_type="auto" id="tests/js/core/util/DOM/attributes/api/api.html_4_0_0" purpose="-ej exists">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/DOM/attributes/api/api.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/DOM/attributes/api/api.html" execution_type="auto" id="tests/js/core/util/DOM/attributes/api/api.html_4_0_1" purpose="-ej.util exists">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/DOM/attributes/api/api.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/DOM/attributes/api/api.html" execution_type="auto" id="tests/js/core/util/DOM/attributes/api/api.html_4_0_2" purpose="-function inheritAttr">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/DOM/attributes/api/api.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/DOM/attributes/api/api.html" execution_type="auto" id="tests/js/core/util/DOM/attributes/api/api.html_4_0_3" purpose="-function getNumberFromAttribute">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/DOM/attributes/api/api.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/DOM/attributes/api/api.html" execution_type="auto" id="tests/js/core/util/DOM/attributes/api/api.html_4_0_4" purpose="-function setNSData">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/DOM/attributes/api/api.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/DOM/attributes/api/api.html" execution_type="auto" id="tests/js/core/util/DOM/attributes/api/api.html_4_0_5" purpose="-function getNSData">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/DOM/attributes/api/api.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/DOM/attributes/api/api.html" execution_type="auto" id="tests/js/core/util/DOM/attributes/api/api.html_4_0_6" purpose="-function hasNSData">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/DOM/attributes/api/api.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/DOM/attributes/api/api.html" execution_type="auto" id="tests/js/core/util/DOM/attributes/api/api.html_4_0_7" purpose="-function removeNSData">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/DOM/attributes/api/api.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/DOM/attributes/api/api.html" execution_type="auto" id="tests/js/core/util/DOM/attributes/api/api.html_4_0_8" purpose="-function getData">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/DOM/attributes/api/api.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/DOM/attributes/api/api.html" execution_type="auto" id="tests/js/core/util/DOM/attributes/api/api.html_4_0_9" purpose="-function removeAttribute">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/DOM/attributes/api/api.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/util/DOM/attributes/api/api.html" execution_type="auto" id="tests/js/core/util/DOM/attributes/api/api.html_4_0_10" purpose="-function setAttribute">
+<description>
+<test_script_entry><![CDATA[tests/js/core/util/DOM/attributes/api/api.html]]></test_script_entry>
+</description>
+</testcase>
+</set>
+<set name="tests/js/core/widget/api/widget.html_5" launcher="WRTLauncher -r">
+<testcase component="tests/js/core/widget/api/widget.html" execution_type="auto" id="tests/js/core/widget/api/widget.html_5_0_0" purpose="-Class ej exists">
+<description>
+<test_script_entry><![CDATA[tests/js/core/widget/api/widget.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/widget/api/widget.html" execution_type="auto" id="tests/js/core/widget/api/widget.html_5_0_1" purpose="-Class ej.widget exists">
+<description>
+<test_script_entry><![CDATA[tests/js/core/widget/api/widget.html]]></test_script_entry>
+</description>
+</testcase>
+</set>
+<set name="tests/js/core/widget/BaseWidget/baseWidget.html_6" launcher="WRTLauncher -r">
+<testcase component="tests/js/core/widget/BaseWidget/baseWidget.html" execution_type="auto" id="tests/js/core/widget/BaseWidget/baseWidget.html_6_0_0" purpose="-Function _configure was called">
+<description>
+<test_script_entry><![CDATA[tests/js/core/widget/BaseWidget/baseWidget.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/widget/BaseWidget/baseWidget.html" execution_type="auto" id="tests/js/core/widget/BaseWidget/baseWidget.html_6_0_1" purpose="-Function _build was called">
+<description>
+<test_script_entry><![CDATA[tests/js/core/widget/BaseWidget/baseWidget.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/widget/BaseWidget/baseWidget.html" execution_type="auto" id="tests/js/core/widget/BaseWidget/baseWidget.html_6_0_2" purpose="-Function _init was called">
+<description>
+<test_script_entry><![CDATA[tests/js/core/widget/BaseWidget/baseWidget.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/widget/BaseWidget/baseWidget.html" execution_type="auto" id="tests/js/core/widget/BaseWidget/baseWidget.html_6_0_3" purpose="-Function _disable was called">
+<description>
+<test_script_entry><![CDATA[tests/js/core/widget/BaseWidget/baseWidget.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/widget/BaseWidget/baseWidget.html" execution_type="auto" id="tests/js/core/widget/BaseWidget/baseWidget.html_6_0_4" purpose="-Function _buildBindEvents was called">
+<description>
+<test_script_entry><![CDATA[tests/js/core/widget/BaseWidget/baseWidget.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/widget/BaseWidget/baseWidget.html" execution_type="auto" id="tests/js/core/widget/BaseWidget/baseWidget.html_6_0_5" purpose="-Function _bindEvents was called">
+<description>
+<test_script_entry><![CDATA[tests/js/core/widget/BaseWidget/baseWidget.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/widget/BaseWidget/baseWidget.html" execution_type="auto" id="tests/js/core/widget/BaseWidget/baseWidget.html_6_0_6" purpose="-Function _disable was called">
+<description>
+<test_script_entry><![CDATA[tests/js/core/widget/BaseWidget/baseWidget.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/widget/BaseWidget/baseWidget.html" execution_type="auto" id="tests/js/core/widget/BaseWidget/baseWidget.html_6_0_7" purpose="-Function disable returns widget">
+<description>
+<test_script_entry><![CDATA[tests/js/core/widget/BaseWidget/baseWidget.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/widget/BaseWidget/baseWidget.html" execution_type="auto" id="tests/js/core/widget/BaseWidget/baseWidget.html_6_0_8" purpose="-Function _enable was called">
+<description>
+<test_script_entry><![CDATA[tests/js/core/widget/BaseWidget/baseWidget.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/widget/BaseWidget/baseWidget.html" execution_type="auto" id="tests/js/core/widget/BaseWidget/baseWidget.html_6_0_9" purpose="-Function enable returns widget">
+<description>
+<test_script_entry><![CDATA[tests/js/core/widget/BaseWidget/baseWidget.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/widget/BaseWidget/baseWidget.html" execution_type="auto" id="tests/js/core/widget/BaseWidget/baseWidget.html_6_0_10" purpose="-Function _refresh was called">
+<description>
+<test_script_entry><![CDATA[tests/js/core/widget/BaseWidget/baseWidget.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/widget/BaseWidget/baseWidget.html" execution_type="auto" id="tests/js/core/widget/BaseWidget/baseWidget.html_6_0_11" purpose="-Function refresh returns widget">
+<description>
+<test_script_entry><![CDATA[tests/js/core/widget/BaseWidget/baseWidget.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/widget/BaseWidget/baseWidget.html" execution_type="auto" id="tests/js/core/widget/BaseWidget/baseWidget.html_6_0_12" purpose="-Function _getValue was called">
+<description>
+<test_script_entry><![CDATA[tests/js/core/widget/BaseWidget/baseWidget.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/widget/BaseWidget/baseWidget.html" execution_type="auto" id="tests/js/core/widget/BaseWidget/baseWidget.html_6_0_13" purpose="-Function _setValue was called">
+<description>
+<test_script_entry><![CDATA[tests/js/core/widget/BaseWidget/baseWidget.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/widget/BaseWidget/baseWidget.html" execution_type="auto" id="tests/js/core/widget/BaseWidget/baseWidget.html_6_0_14" purpose="-Function _destroy was called">
+<description>
+<test_script_entry><![CDATA[tests/js/core/widget/BaseWidget/baseWidget.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/widget/BaseWidget/baseWidget.html" execution_type="auto" id="tests/js/core/widget/BaseWidget/baseWidget.html_6_1_0" purpose="-Element doesn&apos;t have attribute data-tau-built before building">
+<description>
+<test_script_entry><![CDATA[tests/js/core/widget/BaseWidget/baseWidget.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/widget/BaseWidget/baseWidget.html" execution_type="auto" id="tests/js/core/widget/BaseWidget/baseWidget.html_6_1_1" purpose="-Element doesn&apos;t have attribute data-tau-name before building">
+<description>
+<test_script_entry><![CDATA[tests/js/core/widget/BaseWidget/baseWidget.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/widget/BaseWidget/baseWidget.html" execution_type="auto" id="tests/js/core/widget/BaseWidget/baseWidget.html_6_1_2" purpose="-Element doesn&apos;t have attribute data-tau-selector before building">
+<description>
+<test_script_entry><![CDATA[tests/js/core/widget/BaseWidget/baseWidget.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/widget/BaseWidget/baseWidget.html" execution_type="auto" id="tests/js/core/widget/BaseWidget/baseWidget.html_6_1_3" purpose="-Element doesn&apos;t have id before building">
+<description>
+<test_script_entry><![CDATA[tests/js/core/widget/BaseWidget/baseWidget.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/widget/BaseWidget/baseWidget.html" execution_type="auto" id="tests/js/core/widget/BaseWidget/baseWidget.html_6_1_4" purpose="-Element does have attribute data-tau-built after building">
+<description>
+<test_script_entry><![CDATA[tests/js/core/widget/BaseWidget/baseWidget.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/widget/BaseWidget/baseWidget.html" execution_type="auto" id="tests/js/core/widget/BaseWidget/baseWidget.html_6_1_5" purpose="-Element does have attribute data-tau-name after building">
+<description>
+<test_script_entry><![CDATA[tests/js/core/widget/BaseWidget/baseWidget.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/widget/BaseWidget/baseWidget.html" execution_type="auto" id="tests/js/core/widget/BaseWidget/baseWidget.html_6_1_6" purpose="-Element doesn&apos;t have id before building">
+<description>
+<test_script_entry><![CDATA[tests/js/core/widget/BaseWidget/baseWidget.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/widget/BaseWidget/baseWidget.html" execution_type="auto" id="tests/js/core/widget/BaseWidget/baseWidget.html_6_2_0" purpose="-Function _getCreateOptions returns object">
+<description>
+<test_script_entry><![CDATA[tests/js/core/widget/BaseWidget/baseWidget.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/widget/BaseWidget/baseWidget.html" execution_type="auto" id="tests/js/core/widget/BaseWidget/baseWidget.html_6_2_1" purpose="-Widget has new value of option1">
+<description>
+<test_script_entry><![CDATA[tests/js/core/widget/BaseWidget/baseWidget.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/widget/BaseWidget/baseWidget.html" execution_type="auto" id="tests/js/core/widget/BaseWidget/baseWidget.html_6_2_2" purpose="-Widget has new value of optionA">
+<description>
+<test_script_entry><![CDATA[tests/js/core/widget/BaseWidget/baseWidget.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/widget/BaseWidget/baseWidget.html" execution_type="auto" id="tests/js/core/widget/BaseWidget/baseWidget.html_6_3_0" purpose="-beforecreate event">
+<description>
+<test_script_entry><![CDATA[tests/js/core/widget/BaseWidget/baseWidget.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/widget/BaseWidget/baseWidget.html" execution_type="auto" id="tests/js/core/widget/BaseWidget/baseWidget.html_6_4_0" purpose="-Function _configure was called">
+<description>
+<test_script_entry><![CDATA[tests/js/core/widget/BaseWidget/baseWidget.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/widget/BaseWidget/baseWidget.html" execution_type="auto" id="tests/js/core/widget/BaseWidget/baseWidget.html_6_4_1" purpose="-Function _build was called">
+<description>
+<test_script_entry><![CDATA[tests/js/core/widget/BaseWidget/baseWidget.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/widget/BaseWidget/baseWidget.html" execution_type="auto" id="tests/js/core/widget/BaseWidget/baseWidget.html_6_4_2" purpose="-Function _init was called">
+<description>
+<test_script_entry><![CDATA[tests/js/core/widget/BaseWidget/baseWidget.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/widget/BaseWidget/baseWidget.html" execution_type="auto" id="tests/js/core/widget/BaseWidget/baseWidget.html_6_4_3" purpose="-Function _enable was called">
+<description>
+<test_script_entry><![CDATA[tests/js/core/widget/BaseWidget/baseWidget.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/widget/BaseWidget/baseWidget.html" execution_type="auto" id="tests/js/core/widget/BaseWidget/baseWidget.html_6_4_4" purpose="-Function _buildBindEvents was called">
+<description>
+<test_script_entry><![CDATA[tests/js/core/widget/BaseWidget/baseWidget.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/widget/BaseWidget/baseWidget.html" execution_type="auto" id="tests/js/core/widget/BaseWidget/baseWidget.html_6_4_5" purpose="-Function _bindEvents was called">
+<description>
+<test_script_entry><![CDATA[tests/js/core/widget/BaseWidget/baseWidget.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/widget/BaseWidget/baseWidget.html" execution_type="auto" id="tests/js/core/widget/BaseWidget/baseWidget.html_6_4_6" purpose="-Function _getValue was called">
+<description>
+<test_script_entry><![CDATA[tests/js/core/widget/BaseWidget/baseWidget.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/widget/BaseWidget/baseWidget.html" execution_type="auto" id="tests/js/core/widget/BaseWidget/baseWidget.html_6_4_7" purpose="-Function value() returns value of widget">
+<description>
+<test_script_entry><![CDATA[tests/js/core/widget/BaseWidget/baseWidget.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/widget/BaseWidget/baseWidget.html" execution_type="auto" id="tests/js/core/widget/BaseWidget/baseWidget.html_6_4_8" purpose="-Function _setValue was called">
+<description>
+<test_script_entry><![CDATA[tests/js/core/widget/BaseWidget/baseWidget.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/widget/BaseWidget/baseWidget.html" execution_type="auto" id="tests/js/core/widget/BaseWidget/baseWidget.html_6_4_9" purpose="-Function value(10) returns value of _setValue function">
+<description>
+<test_script_entry><![CDATA[tests/js/core/widget/BaseWidget/baseWidget.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/widget/BaseWidget/baseWidget.html" execution_type="auto" id="tests/js/core/widget/BaseWidget/baseWidget.html_6_4_10" purpose="-Function _getValue was called">
+<description>
+<test_script_entry><![CDATA[tests/js/core/widget/BaseWidget/baseWidget.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/widget/BaseWidget/baseWidget.html" execution_type="auto" id="tests/js/core/widget/BaseWidget/baseWidget.html_6_4_11" purpose="-Function value() returns value of widget">
+<description>
+<test_script_entry><![CDATA[tests/js/core/widget/BaseWidget/baseWidget.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/widget/BaseWidget/baseWidget.html" execution_type="auto" id="tests/js/core/widget/BaseWidget/baseWidget.html_6_4_12" purpose="-Function _destroy was called">
+<description>
+<test_script_entry><![CDATA[tests/js/core/widget/BaseWidget/baseWidget.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/widget/BaseWidget/baseWidget.html" execution_type="auto" id="tests/js/core/widget/BaseWidget/baseWidget.html_6_4_13" purpose="-Function value() returns widget&apos;s object if _getValue isn&apos;t defined">
+<description>
+<test_script_entry><![CDATA[tests/js/core/widget/BaseWidget/baseWidget.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/widget/BaseWidget/baseWidget.html" execution_type="auto" id="tests/js/core/widget/BaseWidget/baseWidget.html_6_4_14" purpose="-Function value(10) returns widget&apos;s object if _setValue isn&apos;t defined">
+<description>
+<test_script_entry><![CDATA[tests/js/core/widget/BaseWidget/baseWidget.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/widget/BaseWidget/baseWidget.html" execution_type="auto" id="tests/js/core/widget/BaseWidget/baseWidget.html_6_5_0" purpose="-Function widget returns value of data-tau-bound">
+<description>
+<test_script_entry><![CDATA[tests/js/core/widget/BaseWidget/baseWidget.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/widget/BaseWidget/baseWidget.html" execution_type="auto" id="tests/js/core/widget/BaseWidget/baseWidget.html_6_5_1" purpose="-Function widget returns value of data-tau-built">
+<description>
+<test_script_entry><![CDATA[tests/js/core/widget/BaseWidget/baseWidget.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/widget/BaseWidget/baseWidget.html" execution_type="auto" id="tests/js/core/widget/BaseWidget/baseWidget.html_6_5_2" purpose="-Function widget returns value of data-tau-bound">
+<description>
+<test_script_entry><![CDATA[tests/js/core/widget/BaseWidget/baseWidget.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/widget/BaseWidget/baseWidget.html" execution_type="auto" id="tests/js/core/widget/BaseWidget/baseWidget.html_6_5_3" purpose="-Function widget returns value of data-tau-built">
+<description>
+<test_script_entry><![CDATA[tests/js/core/widget/BaseWidget/baseWidget.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/widget/BaseWidget/baseWidget.html" execution_type="auto" id="tests/js/core/widget/BaseWidget/baseWidget.html_6_6_0" purpose="-If the first argument isn&apos;t string, function returns nothing">
+<description>
+<test_script_entry><![CDATA[tests/js/core/widget/BaseWidget/baseWidget.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/widget/BaseWidget/baseWidget.html" execution_type="auto" id="tests/js/core/widget/BaseWidget/baseWidget.html_6_6_1" purpose="-Function option with 1 arguments calls _getProperty (if exists) or returns value of given option">
+<description>
+<test_script_entry><![CDATA[tests/js/core/widget/BaseWidget/baseWidget.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/widget/BaseWidget/baseWidget.html" execution_type="auto" id="tests/js/core/widget/BaseWidget/baseWidget.html_6_6_2" purpose="-Function _setProperty was called">
+<description>
+<test_script_entry><![CDATA[tests/js/core/widget/BaseWidget/baseWidget.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/widget/BaseWidget/baseWidget.html" execution_type="auto" id="tests/js/core/widget/BaseWidget/baseWidget.html_6_6_3" purpose="-Function option with 2 arguments calls _setProperty (if exists) and returns nothing">
+<description>
+<test_script_entry><![CDATA[tests/js/core/widget/BaseWidget/baseWidget.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/widget/BaseWidget/baseWidget.html" execution_type="auto" id="tests/js/core/widget/BaseWidget/baseWidget.html_6_6_4" purpose="-Function _refresh was called">
+<description>
+<test_script_entry><![CDATA[tests/js/core/widget/BaseWidget/baseWidget.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/widget/BaseWidget/baseWidget.html" execution_type="auto" id="tests/js/core/widget/BaseWidget/baseWidget.html_6_6_5" purpose="-Function with 2 arguments calls _setNewproperty (if exists) and returns nothing">
+<description>
+<test_script_entry><![CDATA[tests/js/core/widget/BaseWidget/baseWidget.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/widget/BaseWidget/baseWidget.html" execution_type="auto" id="tests/js/core/widget/BaseWidget/baseWidget.html_6_6_6" purpose="-Function with 1 arguments calls _getNewproperty (if exists) and returns value of given property">
+<description>
+<test_script_entry><![CDATA[tests/js/core/widget/BaseWidget/baseWidget.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/widget/BaseWidget/baseWidget.html" execution_type="auto" id="tests/js/core/widget/BaseWidget/baseWidget.html_6_6_7" purpose="-New attribute is set">
+<description>
+<test_script_entry><![CDATA[tests/js/core/widget/BaseWidget/baseWidget.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/widget/BaseWidget/baseWidget.html" execution_type="auto" id="tests/js/core/widget/BaseWidget/baseWidget.html_6_7_0" purpose="-Widget is built">
+<description>
+<test_script_entry><![CDATA[tests/js/core/widget/BaseWidget/baseWidget.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/widget/BaseWidget/baseWidget.html" execution_type="auto" id="tests/js/core/widget/BaseWidget/baseWidget.html_6_7_1" purpose="-Attribute data-tau-bound is set">
+<description>
+<test_script_entry><![CDATA[tests/js/core/widget/BaseWidget/baseWidget.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/widget/BaseWidget/baseWidget.html" execution_type="auto" id="tests/js/core/widget/BaseWidget/baseWidget.html_6_7_2" purpose="-Attribute data-tau-bound isn&apos;t set">
+<description>
+<test_script_entry><![CDATA[tests/js/core/widget/BaseWidget/baseWidget.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/widget/BaseWidget/baseWidget.html" execution_type="auto" id="tests/js/core/widget/BaseWidget/baseWidget.html_6_8_0" purpose="-create event">
+<description>
+<test_script_entry><![CDATA[tests/js/core/widget/BaseWidget/baseWidget.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/widget/BaseWidget/baseWidget.html" execution_type="auto" id="tests/js/core/widget/BaseWidget/baseWidget.html_6_9_0" purpose="-Event caught!">
+<description>
+<test_script_entry><![CDATA[tests/js/core/widget/BaseWidget/baseWidget.html]]></test_script_entry>
+</description>
+</testcase>
+</set>
+<set name="tests/js/core/widget/BaseWidget/api/api.html_7" launcher="WRTLauncher -r">
+<testcase component="tests/js/core/widget/BaseWidget/api/api.html" execution_type="auto" id="tests/js/core/widget/BaseWidget/api/api.html_7_0_0" purpose="-Class ej exists">
+<description>
+<test_script_entry><![CDATA[tests/js/core/widget/BaseWidget/api/api.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/widget/BaseWidget/api/api.html" execution_type="auto" id="tests/js/core/widget/BaseWidget/api/api.html_7_0_1" purpose="-Class ej.widget exists">
+<description>
+<test_script_entry><![CDATA[tests/js/core/widget/BaseWidget/api/api.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/widget/BaseWidget/api/api.html" execution_type="auto" id="tests/js/core/widget/BaseWidget/api/api.html_7_0_2" purpose="-Class ej.widget.BaseWidget exists">
+<description>
+<test_script_entry><![CDATA[tests/js/core/widget/BaseWidget/api/api.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/widget/BaseWidget/api/api.html" execution_type="auto" id="tests/js/core/widget/BaseWidget/api/api.html_7_0_3" purpose="-Method widget.configure exists">
+<description>
+<test_script_entry><![CDATA[tests/js/core/widget/BaseWidget/api/api.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/widget/BaseWidget/api/api.html" execution_type="auto" id="tests/js/core/widget/BaseWidget/api/api.html_7_0_4" purpose="-Method widget._getCreateOptions exists">
+<description>
+<test_script_entry><![CDATA[tests/js/core/widget/BaseWidget/api/api.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/widget/BaseWidget/api/api.html" execution_type="auto" id="tests/js/core/widget/BaseWidget/api/api.html_7_0_5" purpose="-Method widget.build exists">
+<description>
+<test_script_entry><![CDATA[tests/js/core/widget/BaseWidget/api/api.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/widget/BaseWidget/api/api.html" execution_type="auto" id="tests/js/core/widget/BaseWidget/api/api.html_7_0_6" purpose="-Method widget.init exists">
+<description>
+<test_script_entry><![CDATA[tests/js/core/widget/BaseWidget/api/api.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/widget/BaseWidget/api/api.html" execution_type="auto" id="tests/js/core/widget/BaseWidget/api/api.html_7_0_7" purpose="-Method widget.bindEvents exists">
+<description>
+<test_script_entry><![CDATA[tests/js/core/widget/BaseWidget/api/api.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/widget/BaseWidget/api/api.html" execution_type="auto" id="tests/js/core/widget/BaseWidget/api/api.html_7_0_8" purpose="-Method widget.destroy exists">
+<description>
+<test_script_entry><![CDATA[tests/js/core/widget/BaseWidget/api/api.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/widget/BaseWidget/api/api.html" execution_type="auto" id="tests/js/core/widget/BaseWidget/api/api.html_7_0_9" purpose="-Method widget.disable exists">
+<description>
+<test_script_entry><![CDATA[tests/js/core/widget/BaseWidget/api/api.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/widget/BaseWidget/api/api.html" execution_type="auto" id="tests/js/core/widget/BaseWidget/api/api.html_7_0_10" purpose="-Method widget.enable exists">
+<description>
+<test_script_entry><![CDATA[tests/js/core/widget/BaseWidget/api/api.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/widget/BaseWidget/api/api.html" execution_type="auto" id="tests/js/core/widget/BaseWidget/api/api.html_7_0_11" purpose="-Method widget.refresh exists">
+<description>
+<test_script_entry><![CDATA[tests/js/core/widget/BaseWidget/api/api.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/widget/BaseWidget/api/api.html" execution_type="auto" id="tests/js/core/widget/BaseWidget/api/api.html_7_0_12" purpose="-Method widget.option exists">
+<description>
+<test_script_entry><![CDATA[tests/js/core/widget/BaseWidget/api/api.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/widget/BaseWidget/api/api.html" execution_type="auto" id="tests/js/core/widget/BaseWidget/api/api.html_7_0_13" purpose="-Method widget.isBound exists">
+<description>
+<test_script_entry><![CDATA[tests/js/core/widget/BaseWidget/api/api.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/widget/BaseWidget/api/api.html" execution_type="auto" id="tests/js/core/widget/BaseWidget/api/api.html_7_0_14" purpose="-Method widget.isBuilt exists">
+<description>
+<test_script_entry><![CDATA[tests/js/core/widget/BaseWidget/api/api.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/widget/BaseWidget/api/api.html" execution_type="auto" id="tests/js/core/widget/BaseWidget/api/api.html_7_0_15" purpose="-Method widget.value exists">
+<description>
+<test_script_entry><![CDATA[tests/js/core/widget/BaseWidget/api/api.html]]></test_script_entry>
+</description>
+</testcase>
+</set>
+<set name="tests/js/jqm/engine/closestPageData.html_8" launcher="WRTLauncher -r">
+<testcase component="tests/js/jqm/engine/closestPageData.html" execution_type="auto" id="tests/js/jqm/engine/closestPageData.html_8_0_0" purpose="-element: Compare with page">
+<description>
+<test_script_entry><![CDATA[tests/js/jqm/engine/closestPageData.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/jqm/engine/closestPageData.html" execution_type="auto" id="tests/js/jqm/engine/closestPageData.html_8_0_1" purpose="-element: Compare with page">
+<description>
+<test_script_entry><![CDATA[tests/js/jqm/engine/closestPageData.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/jqm/engine/closestPageData.html" execution_type="auto" id="tests/js/jqm/engine/closestPageData.html_8_0_2" purpose="-Compare theme option">
+<description>
+<test_script_entry><![CDATA[tests/js/jqm/engine/closestPageData.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/jqm/engine/closestPageData.html" execution_type="auto" id="tests/js/jqm/engine/closestPageData.html_8_0_3" purpose="-page: Compare with page">
+<description>
+<test_script_entry><![CDATA[tests/js/jqm/engine/closestPageData.html]]></test_script_entry>
+</description>
+</testcase>
+</set>
+<set name="tests/js/jqm/engine/contextMenu.html_9" launcher="WRTLauncher -r">
+<testcase component="tests/js/jqm/engine/contextMenu.html" execution_type="auto" id="tests/js/jqm/engine/contextMenu.html_9_0_0" purpose="-div element">
+<description>
+<test_script_entry><![CDATA[tests/js/jqm/engine/contextMenu.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/jqm/engine/contextMenu.html" execution_type="auto" id="tests/js/jqm/engine/contextMenu.html_9_0_1" purpose="-input without defined type has text type">
+<description>
+<test_script_entry><![CDATA[tests/js/jqm/engine/contextMenu.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/jqm/engine/contextMenu.html" execution_type="auto" id="tests/js/jqm/engine/contextMenu.html_9_0_2" purpose="-input with email type">
+<description>
+<test_script_entry><![CDATA[tests/js/jqm/engine/contextMenu.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/jqm/engine/contextMenu.html" execution_type="auto" id="tests/js/jqm/engine/contextMenu.html_9_0_3" purpose="-input with url type">
+<description>
+<test_script_entry><![CDATA[tests/js/jqm/engine/contextMenu.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/jqm/engine/contextMenu.html" execution_type="auto" id="tests/js/jqm/engine/contextMenu.html_9_0_4" purpose="-input with text type">
+<description>
+<test_script_entry><![CDATA[tests/js/jqm/engine/contextMenu.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/jqm/engine/contextMenu.html" execution_type="auto" id="tests/js/jqm/engine/contextMenu.html_9_0_5" purpose="-input with search type">
+<description>
+<test_script_entry><![CDATA[tests/js/jqm/engine/contextMenu.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/jqm/engine/contextMenu.html" execution_type="auto" id="tests/js/jqm/engine/contextMenu.html_9_0_6" purpose="-input with tel type">
+<description>
+<test_script_entry><![CDATA[tests/js/jqm/engine/contextMenu.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/jqm/engine/contextMenu.html" execution_type="auto" id="tests/js/jqm/engine/contextMenu.html_9_0_7" purpose="-input with file type">
+<description>
+<test_script_entry><![CDATA[tests/js/jqm/engine/contextMenu.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/jqm/engine/contextMenu.html" execution_type="auto" id="tests/js/jqm/engine/contextMenu.html_9_0_8" purpose="-textarea">
+<description>
+<test_script_entry><![CDATA[tests/js/jqm/engine/contextMenu.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/jqm/engine/contextMenu.html" execution_type="auto" id="tests/js/jqm/engine/contextMenu.html_9_0_9" purpose="-div element">
+<description>
+<test_script_entry><![CDATA[tests/js/jqm/engine/contextMenu.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/jqm/engine/contextMenu.html" execution_type="auto" id="tests/js/jqm/engine/contextMenu.html_9_0_10" purpose="-input without defined type has text type">
+<description>
+<test_script_entry><![CDATA[tests/js/jqm/engine/contextMenu.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/jqm/engine/contextMenu.html" execution_type="auto" id="tests/js/jqm/engine/contextMenu.html_9_0_11" purpose="-input with email type">
+<description>
+<test_script_entry><![CDATA[tests/js/jqm/engine/contextMenu.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/jqm/engine/contextMenu.html" execution_type="auto" id="tests/js/jqm/engine/contextMenu.html_9_0_12" purpose="-input with url type">
+<description>
+<test_script_entry><![CDATA[tests/js/jqm/engine/contextMenu.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/jqm/engine/contextMenu.html" execution_type="auto" id="tests/js/jqm/engine/contextMenu.html_9_0_13" purpose="-input with text type">
+<description>
+<test_script_entry><![CDATA[tests/js/jqm/engine/contextMenu.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/jqm/engine/contextMenu.html" execution_type="auto" id="tests/js/jqm/engine/contextMenu.html_9_0_14" purpose="-input with search type">
+<description>
+<test_script_entry><![CDATA[tests/js/jqm/engine/contextMenu.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/jqm/engine/contextMenu.html" execution_type="auto" id="tests/js/jqm/engine/contextMenu.html_9_0_15" purpose="-input with tel type">
+<description>
+<test_script_entry><![CDATA[tests/js/jqm/engine/contextMenu.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/jqm/engine/contextMenu.html" execution_type="auto" id="tests/js/jqm/engine/contextMenu.html_9_0_16" purpose="-input with file type">
+<description>
+<test_script_entry><![CDATA[tests/js/jqm/engine/contextMenu.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/jqm/engine/contextMenu.html" execution_type="auto" id="tests/js/jqm/engine/contextMenu.html_9_0_17" purpose="-textarea">
+<description>
+<test_script_entry><![CDATA[tests/js/jqm/engine/contextMenu.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/jqm/engine/contextMenu.html" execution_type="auto" id="tests/js/jqm/engine/contextMenu.html_9_0_18" purpose="-div element">
+<description>
+<test_script_entry><![CDATA[tests/js/jqm/engine/contextMenu.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/jqm/engine/contextMenu.html" execution_type="auto" id="tests/js/jqm/engine/contextMenu.html_9_0_19" purpose="-input without defined type has text type">
+<description>
+<test_script_entry><![CDATA[tests/js/jqm/engine/contextMenu.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/jqm/engine/contextMenu.html" execution_type="auto" id="tests/js/jqm/engine/contextMenu.html_9_0_20" purpose="-input with email type">
+<description>
+<test_script_entry><![CDATA[tests/js/jqm/engine/contextMenu.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/jqm/engine/contextMenu.html" execution_type="auto" id="tests/js/jqm/engine/contextMenu.html_9_0_21" purpose="-input with url type">
+<description>
+<test_script_entry><![CDATA[tests/js/jqm/engine/contextMenu.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/jqm/engine/contextMenu.html" execution_type="auto" id="tests/js/jqm/engine/contextMenu.html_9_0_22" purpose="-input with text type">
+<description>
+<test_script_entry><![CDATA[tests/js/jqm/engine/contextMenu.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/jqm/engine/contextMenu.html" execution_type="auto" id="tests/js/jqm/engine/contextMenu.html_9_0_23" purpose="-input with search type">
+<description>
+<test_script_entry><![CDATA[tests/js/jqm/engine/contextMenu.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/jqm/engine/contextMenu.html" execution_type="auto" id="tests/js/jqm/engine/contextMenu.html_9_0_24" purpose="-input with tel type">
+<description>
+<test_script_entry><![CDATA[tests/js/jqm/engine/contextMenu.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/jqm/engine/contextMenu.html" execution_type="auto" id="tests/js/jqm/engine/contextMenu.html_9_0_25" purpose="-input with file type">
+<description>
+<test_script_entry><![CDATA[tests/js/jqm/engine/contextMenu.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/jqm/engine/contextMenu.html" execution_type="auto" id="tests/js/jqm/engine/contextMenu.html_9_0_26" purpose="-textarea">
+<description>
+<test_script_entry><![CDATA[tests/js/jqm/engine/contextMenu.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/jqm/engine/contextMenu.html" execution_type="auto" id="tests/js/jqm/engine/contextMenu.html_9_0_27" purpose="-div element">
+<description>
+<test_script_entry><![CDATA[tests/js/jqm/engine/contextMenu.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/jqm/engine/contextMenu.html" execution_type="auto" id="tests/js/jqm/engine/contextMenu.html_9_0_28" purpose="-input with file type">
+<description>
+<test_script_entry><![CDATA[tests/js/jqm/engine/contextMenu.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/jqm/engine/contextMenu.html" execution_type="auto" id="tests/js/jqm/engine/contextMenu.html_9_0_29" purpose="-div element">
+<description>
+<test_script_entry><![CDATA[tests/js/jqm/engine/contextMenu.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/jqm/engine/contextMenu.html" execution_type="auto" id="tests/js/jqm/engine/contextMenu.html_9_0_30" purpose="-input with file type">
+<description>
+<test_script_entry><![CDATA[tests/js/jqm/engine/contextMenu.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/jqm/engine/contextMenu.html" execution_type="auto" id="tests/js/jqm/engine/contextMenu.html_9_0_31" purpose="-input with tel type">
+<description>
+<test_script_entry><![CDATA[tests/js/jqm/engine/contextMenu.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/jqm/engine/contextMenu.html" execution_type="auto" id="tests/js/jqm/engine/contextMenu.html_9_0_32" purpose="-div element">
+<description>
+<test_script_entry><![CDATA[tests/js/jqm/engine/contextMenu.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/jqm/engine/contextMenu.html" execution_type="auto" id="tests/js/jqm/engine/contextMenu.html_9_0_33" purpose="-input with file type">
+<description>
+<test_script_entry><![CDATA[tests/js/jqm/engine/contextMenu.html]]></test_script_entry>
+</description>
+</testcase>
+</set>
+<set name="tests/js/jqm/engine/getAttrFixed.html_10" launcher="WRTLauncher -r">
+<testcase component="tests/js/jqm/engine/getAttrFixed.html" execution_type="auto" id="tests/js/jqm/engine/getAttrFixed.html_10_0_0" purpose="-Get attribute theme">
+<description>
+<test_script_entry><![CDATA[tests/js/jqm/engine/getAttrFixed.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/jqm/engine/getAttrFixed.html" execution_type="auto" id="tests/js/jqm/engine/getAttrFixed.html_10_0_1" purpose="-Get attribute role">
+<description>
+<test_script_entry><![CDATA[tests/js/jqm/engine/getAttrFixed.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/jqm/engine/getAttrFixed.html" execution_type="auto" id="tests/js/jqm/engine/getAttrFixed.html_10_0_2" purpose="-Get boolean attribute hidden">
+<description>
+<test_script_entry><![CDATA[tests/js/jqm/engine/getAttrFixed.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/jqm/engine/getAttrFixed.html" execution_type="auto" id="tests/js/jqm/engine/getAttrFixed.html_10_0_3" purpose="-Get boolean attribute theme">
+<description>
+<test_script_entry><![CDATA[tests/js/jqm/engine/getAttrFixed.html]]></test_script_entry>
+</description>
+</testcase>
+</set>
+<set name="tests/js/jqm/engine/jqmData.html_11" launcher="WRTLauncher -r">
+<testcase component="tests/js/jqm/engine/jqmData.html" execution_type="auto" id="tests/js/jqm/engine/jqmData.html_11_0_0" purpose="-jqmData get">
+<description>
+<test_script_entry><![CDATA[tests/js/jqm/engine/jqmData.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/jqm/engine/jqmData.html" execution_type="auto" id="tests/js/jqm/engine/jqmData.html_11_0_1" purpose="-jqmData set">
+<description>
+<test_script_entry><![CDATA[tests/js/jqm/engine/jqmData.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/jqm/engine/jqmData.html" execution_type="auto" id="tests/js/jqm/engine/jqmData.html_11_0_2" purpose="-:jqmData() selector">
+<description>
+<test_script_entry><![CDATA[tests/js/jqm/engine/jqmData.html]]></test_script_entry>
+</description>
+</testcase>
+</set>
+<set name="tests/js/jqm/engine/mobile/getInheritedTheme.html_12" launcher="WRTLauncher -r">
+<testcase component="tests/js/jqm/engine/mobile/getInheritedTheme.html" execution_type="auto" id="tests/js/jqm/engine/mobile/getInheritedTheme.html_12_0_0" purpose="-Reading attribute.">
+<description>
+<test_script_entry><![CDATA[tests/js/jqm/engine/mobile/getInheritedTheme.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/jqm/engine/mobile/getInheritedTheme.html" execution_type="auto" id="tests/js/jqm/engine/mobile/getInheritedTheme.html_12_0_1" purpose="-Get inherited theme by $.mobile">
+<description>
+<test_script_entry><![CDATA[tests/js/jqm/engine/mobile/getInheritedTheme.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/jqm/engine/mobile/getInheritedTheme.html" execution_type="auto" id="tests/js/jqm/engine/mobile/getInheritedTheme.html_12_0_2" purpose="-Reading attribute.">
+<description>
+<test_script_entry><![CDATA[tests/js/jqm/engine/mobile/getInheritedTheme.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/jqm/engine/mobile/getInheritedTheme.html" execution_type="auto" id="tests/js/jqm/engine/mobile/getInheritedTheme.html_12_0_3" purpose="-Get inherited theme by $.mobile">
+<description>
+<test_script_entry><![CDATA[tests/js/jqm/engine/mobile/getInheritedTheme.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/jqm/engine/mobile/getInheritedTheme.html" execution_type="auto" id="tests/js/jqm/engine/mobile/getInheritedTheme.html_12_0_4" purpose="-Reading attribute.">
+<description>
+<test_script_entry><![CDATA[tests/js/jqm/engine/mobile/getInheritedTheme.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/jqm/engine/mobile/getInheritedTheme.html" execution_type="auto" id="tests/js/jqm/engine/mobile/getInheritedTheme.html_12_0_5" purpose="-Get inherited theme by $.mobile">
+<description>
+<test_script_entry><![CDATA[tests/js/jqm/engine/mobile/getInheritedTheme.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/jqm/engine/mobile/getInheritedTheme.html" execution_type="auto" id="tests/js/jqm/engine/mobile/getInheritedTheme.html_12_1_0" purpose="-Reading attribute.">
+<description>
+<test_script_entry><![CDATA[tests/js/jqm/engine/mobile/getInheritedTheme.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/jqm/engine/mobile/getInheritedTheme.html" execution_type="auto" id="tests/js/jqm/engine/mobile/getInheritedTheme.html_12_1_1" purpose="-Get inherited theme by $.mobile">
+<description>
+<test_script_entry><![CDATA[tests/js/jqm/engine/mobile/getInheritedTheme.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/jqm/engine/mobile/getInheritedTheme.html" execution_type="auto" id="tests/js/jqm/engine/mobile/getInheritedTheme.html_12_1_2" purpose="-Reading attribute.">
+<description>
+<test_script_entry><![CDATA[tests/js/jqm/engine/mobile/getInheritedTheme.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/jqm/engine/mobile/getInheritedTheme.html" execution_type="auto" id="tests/js/jqm/engine/mobile/getInheritedTheme.html_12_1_3" purpose="-Get inherited theme by $.mobile">
+<description>
+<test_script_entry><![CDATA[tests/js/jqm/engine/mobile/getInheritedTheme.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/jqm/engine/mobile/getInheritedTheme.html" execution_type="auto" id="tests/js/jqm/engine/mobile/getInheritedTheme.html_12_1_4" purpose="-Reading attribute.">
+<description>
+<test_script_entry><![CDATA[tests/js/jqm/engine/mobile/getInheritedTheme.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/jqm/engine/mobile/getInheritedTheme.html" execution_type="auto" id="tests/js/jqm/engine/mobile/getInheritedTheme.html_12_1_5" purpose="-Get inherited theme by $.mobile">
+<description>
+<test_script_entry><![CDATA[tests/js/jqm/engine/mobile/getInheritedTheme.html]]></test_script_entry>
+</description>
+</testcase>
+</set>
+<set name="tests/js/core/event/vmouse/vmouse.html_13" launcher="WRTLauncher -r">
+<testcase component="tests/js/core/event/vmouse/vmouse.html" execution_type="auto" id="tests/js/core/event/vmouse/vmouse.html_13_0_0" purpose="-touchstart fired">
+<description>
+<test_script_entry><![CDATA[tests/js/core/event/vmouse/vmouse.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/event/vmouse/vmouse.html" execution_type="auto" id="tests/js/core/event/vmouse/vmouse.html_13_0_1" purpose="-touchstart fired">
+<description>
+<test_script_entry><![CDATA[tests/js/core/event/vmouse/vmouse.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/event/vmouse/vmouse.html" execution_type="auto" id="tests/js/core/event/vmouse/vmouse.html_13_1_0" purpose="-touchstart fired">
+<description>
+<test_script_entry><![CDATA[tests/js/core/event/vmouse/vmouse.html]]></test_script_entry>
+</description>
+</testcase>
+<testcase component="tests/js/core/event/vmouse/vmouse.html" execution_type="auto" id="tests/js/core/event/vmouse/vmouse.html_13_1_1" purpose="-touchstart fired">
+<description>
+<test_script_entry><![CDATA[tests/js/core/event/vmouse/vmouse.html]]></test_script_entry>
+</description>
+</testcase>
+</set>
+<set name="tests/js/core/event/orientationchange/orientationchange-2.html_14" launcher="WRTLauncher -r">
+<testcase component="tests/js/core/event/orientationchange/orientationchange-2.html" execution_type="auto" id="tests/js/core/event/orientationchange/orientationchange-2.html_14_0_0" purpose="-Orientation detected">
+<description>
+<test_script_entry><![CDATA[tests/js/core/event/orientationchange/orientationchange-2.html]]></test_script_entry>
+</description>
+</testcase>
+</set>
+</suite>
+</test_definition>
