@@ -77,11 +77,11 @@
 }
 
 /********************* list have right button **********************/
-.ui-listview .ui-li-has-right-btn>.ui-btn-inner>.ui-btn-text>.ui-link-inherit,
-.ui-listview .ui-li-has-right-circle-btn>.ui-btn-inner>.ui-btn-text>.ui-link-inherit,
+.ui-listview .ui-li-has-right-btn > .ui-btn-inner > .ui-btn-text > .ui-link-inherit,
+.ui-listview .ui-li-has-right-circle-btn > .ui-btn-inner > .ui-btn-text > .ui-link-inherit,
 .ui-listview .ui-li-has-right-btn,
 .ui-listview .ui-li-has-right-circle-btn {
-	.ui-btn {
+	> .ui-btn {
 		&:not(.ui-slider-handle) {
 			position: absolute;
 			top: 19.5 * @unit_base;
@@ -97,7 +97,7 @@
 			}
 		}
 	}
-	.ui-btn-icon_only {
+	> .ui-btn-icon_only {
 		&.ui-btn-up-s,&.ui-btn-hover-s,&.ui-btn-down-s {
 			.ui-btn-inner.ui-btn-icon-only {
 				padding: 0;

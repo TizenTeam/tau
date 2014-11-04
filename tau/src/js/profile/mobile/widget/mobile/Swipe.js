@@ -358,12 +358,12 @@
 				//animations change item opacity in order to show items under cover
 				opacityAnimation = new Animation({
 					element: item,
-					duration: "600ms",
+					duration: "400ms",
 					from: {
 						"opacity": itemStyle.opacity
 					},
 					to: {
-						"opacity": (itemStyle.opacity === 0) ? "0" : "1"
+						"opacity": (self.opened()) ? "1" : "0"
 					},
 					onEnd: handleAnimationEnd
 				});
@@ -465,7 +465,8 @@
 			function addEvents(self) {
 				var ui = self._ui,
 					covers = ui.covers,
-					item = ui.item;
+					item = ui.item,
+					buttonSelector = engine.getWidgetDefinition("Button").selector;
 
 					/*
 					* @todo good support multicovers
@@ -478,7 +479,7 @@
 					item.addEventListener(swipeLeftEvent, cover.swipeAnimateLeft, false);
 					cover.addEventListener(swipeRightEvent, cover.swipeAnimateRight, false);
 
-					slice.call(item.querySelectorAll(classUiBtn)).forEach(function (button) {
+					[].forEach.call(item.querySelectorAll(buttonSelector), function (button) {
 						button.addEventListener("vclick", cover.swipeAnimateLeft, false);
 					});
 				});
