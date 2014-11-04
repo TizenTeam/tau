@@ -953,7 +953,7 @@
 				ns.warn("Please use input[data-role='toggleswitch'] " +
 						"selector in order to define button like " +
 						"toggle, select[data-role='slider'] is " +
-						"depreciated");
+						"deprecated");
 
 				label.className = classes.toggleInputLabel;
 				sliderContainer.className = classes.toggle;
@@ -968,6 +968,7 @@
 
 				element.parentNode.insertBefore(label,
 						element.nextSibling);
+				label.appendChild(element);
 			}
 
 			/**
@@ -1063,7 +1064,7 @@
 				//because the select with empty options is replaced with
 				//input I just need and input on widget instance
 				if (controlType === "input" || elementsOption.innerText === "") {
-					self._ui.input = element.nextSibling.firstChild;
+					self._ui.input = element.parentElement.firstChild;
 				} else {
 					elementId = element.id;
 					self._ui.slider = document.getElementById(elementId +
