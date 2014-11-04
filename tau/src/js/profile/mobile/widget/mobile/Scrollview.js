@@ -680,7 +680,7 @@
 					_true = true;
 
 				parent = element.parentNode;
-				while (parent && parent.node !== clip) {
+				while (parent && parent !== clip) {
 					elementTop += parent.offsetTop;
 					//elementLeft += parent.offsetLeft;
 					parent = parent.parentNode;
@@ -697,7 +697,7 @@
 					case elementFits: // element fits in view but is not visible
 						this.centerToElement(element);
 						break;
-					case clipTop < elementTop && clipBottom < elementBottom: // element visible only at top
+					case clipTop < elementTop && elementTop < clipBottom && clipBottom < elementBottom: // element visible only at top; eg. partly visible textarea
 					case clipTop > elementTop && clipBottom > elementBottom: // element visible only at bottom
 						// pass, we cant do anything, if we move the scroll
 						// the user could lost view of something he scrolled to
@@ -711,8 +711,8 @@
 						anchorPositionY = anchor.offsetTop + DOMUtils.getCSSProperty(anchor, "margin-top", 0, "integer");
 						parent = anchor.parentNode;
 						while (parent && parent !== clip) {
-							anchorPositionX = parent.offsetLeft + DOMUtils.getCSSProperty(parent, "margin-left", 0, "integer");
-							anchorPositionY = parent.offsetTop + DOMUtils.getCSSProperty(parent, "margin-top", 0, "integer");
+							anchorPositionX += parent.offsetLeft;
+							anchorPositionY += parent.offsetTop;
 							parent = parent.parentNode;
 						}
 						this.scrollTo(anchorPositionX, anchorPositionY, this.scrollDuration);
@@ -894,7 +894,7 @@
 							clipHeight;
 						if (focusedElement) {
 							self.ensureElementIsVisible(focusedElement);
-						} else {
+						} else if (DOMUtils.isOccupiedPlace(element)) {
 							clipHeight = DOMUtils.getElementHeight(element);
 							clipWidth = DOMUtils.getElementWidth(element);
 							self.translateTo(
