@@ -65,7 +65,7 @@
  * @extends ns.widget.mobile.TextInput
  * @author Lukasz Zajaczkowski <l.zajaczkows@samsung.com>
  */
-(function (document, ns) {
+(function (window, document, ns) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
@@ -74,11 +74,14 @@
 			"../../../profile/mobile/widget/mobile/Textinput",
 			"../../../profile/mobile/widget/mobile/Button",
 			"../../../core/engine",
+			"../../../core/util/selectors",
+			"./Page",
 			"./BaseKeyboardSupport"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
-			var MobileTextInput = ns.widget.mobile.TextInput,
+			var widget = ns.widget,
+				MobileTextInput = widget.mobile.TextInput,
 				MobileTextInputPrototype = MobileTextInput.prototype,
 				BaseKeyboardSupport = ns.widget.tv.BaseKeyboardSupport,
 				/**
@@ -88,14 +91,22 @@
 				 * @static
 				 * @private
 				 */
+				utilSelectors = ns.util.selectors,
 				engine = ns.engine,
-				FUNCTION_TYPE = "function",
 				TextInput = function () {
-					MobileTextInput.call(this);
-					BaseKeyboardSupport.call(this);
+					var self = this;
+					MobileTextInput.call(self);
+					BaseKeyboardSupport.call(self);
 
-					this._callbacks = {};
-					this._lastEventLineNumber = 0;
+					self._callbacks = {};
+					self._lastEventLineNumber = 0;
+					/**
+					 * Parent widget
+					 * @property {ns.widget.BaseWidget} _parentWidget
+					 * @protected
+					 * @member ns.widget.tv.TextInput
+					 */
+					self._parentWidget = null;
 				},
 				/**
 				 * Dictionary for textinput related css class names
@@ -104,52 +115,81 @@
 				 * @static
 				 */
 				classes = {
-					uiDisabled: ns.widget.mobile.Button.classes.uiDisabled,
+					uiDisabled: widget.mobile.Button.classes.uiDisabled,
 					uiNumberInput: "ui-number-input"
 				},
 				KEY_CODES = BaseKeyboardSupport.KEY_CODES,
-				prototype = new MobileTextInput();
+				prototype = new MobileTextInput(),
+				// for detect keyboard open/hide
+				initialScreenHeight = window.innerHeight,
+				selector = "input[type='text'], input[type='number'], " +
+					"input[type='password'], input[type='email'], " +
+					"input[type='url'], input[type='tel'], textarea, " +
+					"input[type='month'], input[type='week'], " +
+					"input[type='datetime-local'], input[type='color'], " +
+					"input:not([type]), .ui-textinput";
 
 			TextInput.events = MobileTextInput.events;
 			TextInput.classes = MobileTextInput.classes;
 			TextInput.prototype = prototype;
+			TextInput.selector = selector;
 
 			/**
-			* Init TextInput Widget
-			* @method _init
-			* @param {HTMLElement} element
-			* @member ns.widget.tv.TextInput
-			* @protected
-			*/
+			 * Find parent widget (popup or page)
+			 * @method findParentElement
+			 * @param {ns.widget.tv.TextInput} self
+			 * @static
+			 * @private
+			 * @member ns.widget.tv.TextInput
+			 */
+			function findParentElement(self) {
+				var parent,
+					element = self.element;
+				parent = utilSelectors.getClosestByClass(element,
+					widget.core.Popup.classes.popup);
+				if (parent) {
+					self._parentWidget = engine.getBinding(parent, "popup");
+				} else {
+					parent = utilSelectors.getClosestByClass(element,
+						widget.tv.Page.classes.uiPage);
+					self._parentWidget = engine.getBinding(parent, "page");
+				}
+			}
+
+			/**
+			 * Init widget
+			 * @method _init
+			 * @param {HTMLElement} element
+			 * @protected
+			 * @member ns.widget.tv.TextInput
+			 */
 			prototype._init = function(element) {
-				if (typeof MobileTextInputPrototype._init === FUNCTION_TYPE) {
-					MobileTextInputPrototype._init.call(this, element);
+				MobileTextInputPrototype._init.call(this, element);
+
+				if (element.type === "number") {
+					wrapInputNumber(element);
 				}
 
-				switch (element.type) {
-				case "number":
-					wrapInputNumber(element);
-					break;
-				}
+				findParentElement(this);
 			};
 
 			/**
-			* Bind events to widget
-			* @method _bindEvents
-			* @param {HTMLElement} element
-			* @protected
-			* @member ns.widget.tv.TextInput
-			*/
+			 * Init widget
+			 * @method _bindEvents
+			 * @param {HTMLElement} element
+			 * @protected
+			 * @member ns.widget.tv.TextInput
+			 */
 			prototype._bindEvents = function(element) {
-				var callbacks = this._callbacks;
+				var self = this,
+					callbacks = self._callbacks;
 
-				if (typeof MobileTextInputPrototype._bindEvents === FUNCTION_TYPE) {
-					MobileTextInputPrototype._bindEvents.call(this, element);
-				}
+				MobileTextInputPrototype._bindEvents.call(self, element);
 
-				this._bindEventKey();
+				self._bindEventKey();
 
-				callbacks.onKeyupTextarea = onKeyupTextarea.bind(null, this);
+				callbacks.onKeyupTextarea = onKeyupTextarea.bind(null, self);
+				callbacks.onResize = onResize.bind(null, self);
 
 				switch (element.type) {
 					case "number":
@@ -158,6 +198,8 @@
 					case "textarea":
 						element.addEventListener("keyup", callbacks.onKeyupTextarea, false);
 				}
+
+				window.addEventListener("resize", callbacks.onResize, false);
 			};
 
 			/**
@@ -169,7 +211,8 @@
 			 * @member ns.widget.tv.TextInput
 			 */
 			prototype._destroy = function(element) {
-				var callbacks = this._callbacks;
+				var self = this,
+					callbacks = self._callbacks;
 
 				switch (element.type) {
 					case "number":
@@ -179,11 +222,11 @@
 						element.removeEventListener("keyup", callbacks.onKeyupTextarea, false);
 				}
 
-				this._destroyEventKey();
+				self._destroyEventKey();
 
-				if (typeof MobileTextInputPrototype._destroy === FUNCTION_TYPE) {
-					MobileTextInputPrototype._destroy.call(this, element);
-				}
+				MobileTextInputPrototype._destroy.call(self, element);
+
+				window.removeEventListener("resize", callbacks.onResize, false);
 			};
 
 			/**
@@ -207,8 +250,7 @@
 						// or the previous event was not in the first line
 						if (currentLineNumber > 1 || self._lastEventLineNumber !== 1) {
 							// we do not jump to other element
-							event.preventDefault();
-							event.stopPropagation();
+							event.stopImmediatePropagation();
 						}
 						break;
 					case KEY_CODES.down:
@@ -216,18 +258,34 @@
 						// or the previous event was not in the last line
 						if (currentLineNumber < linesNumber || self._lastEventLineNumber !== linesNumber) {
 							// we do not jump to other element
-							event.preventDefault();
-							event.stopPropagation();
+							event.stopImmediatePropagation();
 						}
 						break;
 					case KEY_CODES.left:
 					case KEY_CODES.right:
 							// we do not jump to other element
-							event.preventDefault();
-							event.stopPropagation();
+							event.stopImmediatePropagation();
 						break;
 				}
 				self._lastEventLineNumber = currentLineNumber;
+			}
+
+			/**
+			 * Enable or disable keyboard support after resize od screen (open
+			 * virtual keyboard)
+			 * @method onResize
+			 * @param {ns.widget.tv.TextInput} self
+			 * @private
+			 * @static
+			 * @member ns.widget.tv.TextInput
+			 */
+			function onResize(self) {
+				var parent = self._parentWidget;
+				if (window.innerHeight < initialScreenHeight) {
+					parent.disableKeyboardSupport();
+				} else {
+					parent.enableKeyboardSupport();
+				}
 			}
 
 			/**
@@ -259,11 +317,8 @@
 			 * @member ns.widget.tv.TextInput
 			 */
 			function isEnabledTextInput(element) {
-				if (element.classList.contains(TextInput.classes.uiInputText) &&
-					!element.classList.contains(classes.uiDisabled)) {
-					return element;
-				}
-				return null;
+				return element && element.classList.contains(MobileTextInput.classes.uiInputText) &&
+					!element.classList.contains(classes.uiDisabled) && !element.disabled;
 			}
 
 			/**
@@ -275,10 +330,11 @@
 			 * @member ns.widget.tv.TextInput
 			 */
 			function onKeydownInput(event) {
-				var element = isEnabledTextInput(event.target),
-					parent = element.parentNode;
+				var target = event.target,
+					isEnabled = isEnabledTextInput(target),
+					parent = target.parentNode;
 
-				if(element) {
+				if (isEnabled) {
 					event.stopPropagation();
 					event.preventDefault();
 					if (event.keyCode !== KEY_CODES.up && event.keyCode !== KEY_CODES.down) {
@@ -287,11 +343,11 @@
 				}
 			}
 
-			ns.widget.tv.TextInput = TextInput;
+			widget.tv.TextInput = TextInput;
 
 			engine.defineWidget(
 				"TextInput",
-				"input[type='text'], input[type='number'], input[type='password'], input[type='email'], input[type='url'], input[type='tel'], textarea, input[type='month'], input[type='week'], input[type='datetime-local'], input[type='color'], input:not([type]), .ui-textinput",
+				selector,
 				[],
 				TextInput,
 				"tv",
@@ -305,4 +361,4 @@
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
-}(window.document, ns));
+}(window, window.document, ns));

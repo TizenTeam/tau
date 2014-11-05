@@ -1,9 +1,10 @@
-(function (tau) {
+(function (document) {
 	var page = document.getElementById("test_inputs_page");
 	page.addEventListener("pageshow", function() {
 		"use strict";
 
-		var engine = ej.engine;
+		var tau = window.tau,
+			engine = tau.engine;
 
 		module("profile/tv/widget/TextInput", {
 			setup: function () {
@@ -116,7 +117,7 @@
 			var input = document.getElementById("in7"),
 				wrapper = input.parentNode;
 
-			window.tau.engine.instanceWidget(input, "TextInput");
+			tau.engine.instanceWidget(input, "TextInput");
 
 			wrapper.addEventListener("focus", function() {
 				ok(true, "Focus triggered on parent element");
@@ -134,14 +135,28 @@
 		test("Input type='number' destroy method", 2, function () {
 			var input = document.getElementById("in7"),
 				wrapper = input.parentNode,
-				instance = window.tau.engine.instanceWidget(input, "TextInput");
+				instance = tau.engine.instanceWidget(input, "TextInput");
 
 			instance._destroy(input);
 			//Set input as active element
 			input.focus();
 			ok(document.activeElement === input, "Input is an active element");
 			//Keyup event doesn't' move focus from input to wrapper because event listener is removed.
-			window.tau.event.trigger(input, "keyup");
+			tau.event.trigger(input, "keyup");
+			ok(document.activeElement === input, "Input is still active element");
+		});
+
+		test("Textarea destroy method", 2, function () {
+			var input = document.getElementById("in2"),
+				wrapper = input.parentNode,
+				instance = tau.engine.instanceWidget(input, "TextInput");
+
+			instance._destroy(input);
+			//Set input as active element
+			input.focus();
+			ok(document.activeElement === input, "Input is an active element");
+			//Keyup event doesn't' move focus from input to wrapper because event listener is removed.
+			tau.event.trigger(input, "keyup");
 			ok(document.activeElement === input, "Input is still active element");
 		});
 
@@ -161,6 +176,21 @@
 			linesNumber = value.split("\n").length;
 			currentLineNumber = value.substr(0, input.selectionStart).split("\n").length;
 			equal(currentLineNumber, 2, "Current line number is 2");
+
+			ok(document.activeElement === input, "Input is an active element");
+			triggerKeyboardEvent(input, 38); //up
+			triggerKeyboardEvent(input, 38); //up
+			ok(document.activeElement === input, "Input is an active element");
+			triggerKeyboardEvent(input, 39); //right
+			triggerKeyboardEvent(input, 39); //right
+			ok(document.activeElement === input, "Input is an active element");
+			triggerKeyboardEvent(input, 37); //left
+			triggerKeyboardEvent(input, 37); //left
+			ok(document.activeElement === input, "Input is an active element");
+		});
+
+		test("Input in popup", function () {
+			testInput("in-popup", "false");
 		});
 	});
-}(window.tau));
+}(document));
