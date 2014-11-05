@@ -491,7 +491,7 @@
 					innerWidth = element.offsetWidth ? element.offsetWidth : window.innerWidth,
 					innerHeight = element.offsetHeight ? element.offsetHeight : window.innerHeight,
 					inHeaders = !!(selectors.getParentsByClass(element, classes.uiHeader).length),
-					isLandscape = innerWidth > innerHeight,
+					isLandscape = window.innerWidth > window.innerHeight,
 					btnActiveClass = ButtonClasses.uiBtnActive,
 					uiTabbarActive = classes.uiTabbarActive,
 					links = slice.call(element.getElementsByTagName('a'));
