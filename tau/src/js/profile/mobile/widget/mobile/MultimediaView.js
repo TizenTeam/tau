@@ -493,6 +493,9 @@
 				self.element = element;
 				self._isVideo = isVideo;
 
+				// INFO: since 2.3, we decided to use standard HTML <video> and <audio> tag.
+				ns.warn("TAU based Multimediaview widget will be deprecated. Please use <video> / <audio> tag with standard HTML.");
+
 				viewClasslist.add(classes.VIEW);
 
 				control = self._createControl();

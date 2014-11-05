@@ -774,6 +774,10 @@
 					elementClassList = element.classList,
 					tagName = element.tagName.toLowerCase(),
 					classes = Datetimepicker.classes;
+
+				// INFO: Since 2.3, we decided to use Webkit based date-time picker.
+				ns.warn("TAU based Datetimepicker widget will be deprecated. It is decieded to be replaced <input> based date-time picker. Please use <input type='month|week|date|time|datetime-local'> for date-time picker");
+
 				if (tagName === 'input') {
 					element.style.display = 'none';
 					/*
