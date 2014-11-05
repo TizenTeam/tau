@@ -32,10 +32,10 @@
 		equal(typeof widget.options.headerTheme, 'string', 'Property page.headerTheme exists');
 		equal(typeof widget.options.footerTheme, 'string', 'Property page.footerTheme exists');
 
-		equal(widget.options.theme, 's', 'Proper default page.options.theme value');
+		equal(typeof widget.options.theme, "string", 'Proper default page.options.theme value');
 		equal(widget.options.contentTheme, null, 'Proper default page.contentTheme value');
-		equal(widget.options.headerTheme, 's', 'Proper default page.headerTheme value');
-		equal(widget.options.footerTheme, 's', 'Proper default page.footerTheme value');
+		equal(typeof widget.options.headerTheme, "string", 'Proper default page.headerTheme value');
+		equal(typeof widget.options.footerTheme, "string", 'Proper default page.footerTheme value');
 
 		equal(typeof widget.backBtnText, 'string', 'Property page.backBtnText exists');
 		equal(typeof widget.backBtnTheme, 'object', 'Property page.backBtnTheme exists');

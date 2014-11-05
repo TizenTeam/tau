@@ -3,8 +3,8 @@
 	"use strict";
 	var engine = ns.engine,
 		BaseWidget = ns.widget.BaseWidget,
-		WidgetPage = (ns.widget.mobile && ns.widget.mobile.Page) || ns.widget.wearable.Page,
-		isMobile = !!(ns.widget.mobile && ns.widget.mobile.Page),
+		WidgetPage = (ns.widget.wearable && ns.widget.wearable.Page) || ns.widget.mobile.Page,
+		isMobile = !(ns.widget.wearable && ns.widget.wearable.Page),
 		testElement;
 
 	function _manualClean(elementId) {

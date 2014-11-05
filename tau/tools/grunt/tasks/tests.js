@@ -57,7 +57,7 @@ module.exports = function (grunt) {
 		},
 		tv: {
 			"qunit-main": true,
-			default: false
+			default: true
 		},
 		jqm: {
 			"qunit-main": false,
