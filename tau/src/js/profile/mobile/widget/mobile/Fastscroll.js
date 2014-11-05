@@ -130,6 +130,7 @@
 			"../../../../core/util/DOM/attributes",
 			"../../../../core/util/DOM/manipulation",
 			"../../../../core/util/DOM/css",
+			"./Scrollview",
 			"./TabBar",
 			"./Page",
 			"./Listview",
@@ -147,7 +148,14 @@
 			var selectors = ns.util.selectors,
 
 				/**
-				 * @property {Function} Tabbar Alias for class ns.widget.mobile.Tabbar
+				 * @property {Function} Scrollview Alias for class ns.widget.mobile.Scrollview
+				 * @member ns.widget.mobile.FastScroll
+				 * @static
+				 * @private
+				 */
+				Scrollview = ns.widget.mobile.Scrollview,
+				/**
+				 * @property {Function} Tabbar Alias for class ns.widget.mobile.TabBar
 				 * @member ns.widget.mobile.FastScroll
 				 * @static
 				 * @private
@@ -556,7 +564,7 @@
 					ui = self._ui,
 					scrollViewClip = selectors.getClosestByClass(
 						element,
-						Tabbar.classes.uiScrollviewClip
+						Scrollview.classes.clip
 					),
 					contentHeight = DOMUtils.getElementHeight(scrollViewClip),
 					primaryCharacterSet = null,
@@ -849,8 +857,7 @@
 						|| this.isBuilt('ListviewAutodivider')
 					)
 					) {
-					//FIXME Why class uiScrollviewClip is in Tabbar not in Scrollview?
-					scrollView = selectors.getClosestByClass(element, Tabbar.classes.uiScrollviewClip);
+					scrollView = selectors.getClosestByClass(element, Scrollview.classes.clip);
 					if (scrollView) {
 						shortcutsContainer = document.createElement("div");
 						shortcutsContainer.classList.add(listviewClasses.uiFastscroll);
@@ -918,7 +925,7 @@
 					this._ui = this._ui || {};
 					ui = this._ui;
 
-					ui._scrollView = selectors.getClosestByClass(element, Tabbar.classes.uiScrollviewClip);
+					ui._scrollView = selectors.getClosestByClass(element, Scrollview.classes.clip);
 					ui._shortcutsContainer = document.getElementById(id + "-shortcutscontainer");
 					ui._shortcutsList = document.getElementById(id + "-shortcutslist");
 					ui._popup = document.getElementById(id + "-fastscrollpopup");
