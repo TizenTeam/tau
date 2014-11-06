@@ -15,10 +15,9 @@
             equal(button.getAttribute('data-tau-name'), "Button", "Button has correct widget name");
 
             ok(button.classList.contains('ui-btn'), 'Button has ui-btn class');
-            ok(button.classList.contains('ui-btn-box-s'), 'Button has ui-btn class');
-            ok(button.classList.contains('ui-shadow'), 'Button has ui-btn class');
-            ok(button.classList.contains('ui-btn-up-s'), 'Button has ui-btn class');
-            ok(button.classList.contains('ui-btn'), 'Button has ui-btn class');
+            ok(button.classList.contains('ui-btn-box-s'), 'Button has ui-btn-box-s class');
+            ok(button.classList.contains('ui-shadow'), 'Button has ui-shadow class');
+            ok(button.classList.contains('ui-btn-up-s'), 'Button has ui-btn-up-s class');
 
             ok(button.childElementCount === 1, "Button has an inner span");
             var innerSpan = button.childNodes[0];
@@ -54,6 +53,17 @@
             equal(button.getAttribute('data-tau-bound'), "Button", "Button widget is created");
             ok(button.classList.contains('ui-btn'), 'Button has ui-btn class');
             ok(button.classList.contains('ui-btn-icon-top'), 'Button has ui-btn-icon-top class');
+        });
+
+        test("Destroy Button", function() {
+            var button = document.getElementById('button-4'),
+                widget;
+            widget = tau.engine.instanceWidget(button, "Button");
+            ok(widget !== null, "Button is present");
+
+            widget.destroy(button, "Button");
+            widget = tau.engine.getBinding(button, "Button");
+            ok(widget === null, "Button has been destroyed");
         });
     });
 }(window.tau));
