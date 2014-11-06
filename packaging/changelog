@@ -1,4 +1,29 @@
 %changelog
+* Thu Nov 06 2014 Junhyeon Lee <juneh.lee@samsung.com> 0.9.29
+	- refactor(wearable): [WearableWidgetSample] Unnecessary new operators
+	- fix(mobile): Fix problem with layout of Swipe widget
+	- fix(mobile): change page issue when using reverse option.
+	- etc(mobile): add ns.warn in replaced widgets (date-time picker, multimediaview).
+	- etc(mobile): remove dependency Navbar, Splitview in tau.js
+	- fix(mobile): Change position of label in ToogleSwitch structure
+	- feat(wearable): Added circle theme and sample app for Orbis.
+	- fix(jqm): fix errors found in jQM port
+	- test(mobile, tv): fix tests for correct work in tv profile
+	- test(mobile): Fix path to tau in navigation widget tests
+	- fix(docs):Documentation for navigation/page
+	- tests(tv): disable mobile tests in tv profile
+	- tests(all): eliminate jQuery
+	- fix(mobile): text input underbar position fix
+	- fix(mobile): Scrollview position is wrong updated after SW keyboard appears
+	- fix(tv):Fix to multiple page not displaying correctly.
+	- feat(mobile): KIRAN slider - vertical option add
+	- fix(tv): fix problem with color of arrow in focused context popup
+	- fix(mobile): page external request open method order fix
+	- feat(tools): Builder: multiple mode added for building multiple html files
+	- fix(tv):Fixes of less files.
+	- fix(tool): don't work watch mode when modified themes.
+	- style(tv): Unused variable removed.
+
 * Fri Oct 31 2014 Junhyeon Lee <juneh.lee@samsung.com> 0.9.28
 	- feat(mobile): KIRAN Navigation Bar widget
 	- Collapsible list: modify some HTML example for collapsible list
