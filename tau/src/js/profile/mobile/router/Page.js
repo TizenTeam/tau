@@ -554,7 +554,7 @@
 									DOM.getNSData(toPage, "transition"), "", pageUrl, pageRole);
 						}
 
-						settings.reverse = false;
+						settings.reverse = options && options.reverse || false;
 						settings.fromPage = settings.fromPage || self.activePage;
 						settings.toPage = toPage;
 
