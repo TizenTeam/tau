@@ -513,23 +513,26 @@
 					sliderBackgroundStyle = sliderBackground.style;
 					if (self.options.center) {
 						if (centerPercent >= 0) {
-							sliderBackgroundStyle.height = centerPercent + "%";
 							if (isVertical) {
 								sliderBackgroundStyle.top = "initial";
 								sliderBackgroundStyle.bottom = "50%";
+								sliderBackgroundStyle.height = centerPercent + "%";
 							} else {
 								sliderBackgroundStyle.right = "50%";
 								sliderBackgroundStyle.left = "initial";
+								sliderBackgroundStyle.width = centerPercent + "%";
 							}
 						} else {
-							sliderBackgroundStyle.height =
-								Math.abs(centerPercent) + "%";
 							if (isVertical) {
 								sliderBackgroundStyle.top = "50%";
 								sliderBackgroundStyle.bottom = "initial";
+								sliderBackgroundStyle.height =
+									Math.abs(centerPercent) + "%";
 							} else {
 								sliderBackgroundStyle.right = "initial";
 								sliderBackgroundStyle.left = "50%";
+								sliderBackgroundStyle.width =
+									Math.abs(centerPercent) + "%";
 							}
 						}
 					} else {
