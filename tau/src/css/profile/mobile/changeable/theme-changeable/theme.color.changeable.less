@@ -69,64 +69,52 @@
 /***************************************************************************
                    List
 ***************************************************************************/
-@color_list_bg: B0211;
-@color_list_press : B0211P;
-@color_list_border_bottom: C002;
-@color_list_main_text_normal: T023;
+@color_list_press : B0211P; // #[color] List item pressed color
+@color_list_border_bottom: C002; // #[color] List border bottom color
+@color_list_dialog_border: C002; // #[color] List dialog border color
+@color_list_main_text_normal: T023; // #[color] List main text color
 
-@color_list_sub_text_normal: T024;
-@color_list_divider_text : T027L1;
-@color_list_divider_line : W021L2;
-@color_list_divider_bg : W021L1;
-@color_list_divider_bg_press : W021L1;
-@color_list_divider_text_press : T027L1;
+@color_list_sub_text_normal: T024; // #[color] List sub text color
+@color_list_divider_text : T027L1; // #[color] List divider text color
+@color_list_divider_line : W021L2; // #[color] List divider bottom line color
+@color_list_divider_bg : W021L1; // #[color] List divider background color
+@color_list_divider_bg_press : W021L1; // #[color] List divider background press color
+@color_list_divider_text_press : T027L1; // #[color] List divider text press color
+@color_list_divider_select_all_text: T023; // #[color] List divider select all text color
 
-@color_list_swipe_text: T023;
-@color_list_swipe_bg: B0211;
-@color_list_swipe_left_bg: B011;
+@color_list_swipe_text: T023; // #[color] List swipe item text color
+@color_list_swipe_left_bg: B011; // #[color] List swipe item background color
 
-@color_list_editfield_text: @color_editfield_text;
-@color_list_editfield_placeholder_text: @color_editfield_placeholder_text;
-@color_list_editfield_disabled_text: @color_editfield_disabled_text;
-@color_list_editfield: @color_editfield;
+@color_list_editfield_text: @color_editfield_text; // #[color] List editfield text color
+@color_list_editfield_placeholder_text: @color_editfield_placeholder_text; // #[color] List edit field placeholder text color
+@color_list_editfield_disabled_text: @color_editfield_disabled_text; // #[color] List edit field placeholder disabled text color
 
-@color_list_dialogue_bg : B011;
-@color_dialogue_border : B0223;
-@color_dialogue_main_text_press: T023P;
-@color_dialogue_main_text_selected: T023S;
-@color_dialogue_divider_bg : B0221L2;
-@color_checklist_btn_bg : B011;
+@color_list_bubble_receive_bg : C002; // #[ignore]
+@color_list_bubble_sent_bg : B0541P; // #[ignore]
+@color_list_bubble_sent_text: T023; // #[ignore]
+@color_list_bubble_receive_text: T023; // #[ignore]
+@color_list_bubble_sos_text: rgb(219, 0, 0); // #[ignore]
+@color_list_bubble_date_text: T023; // #[ignore]
 
-@color_list_bubble_receive_bg : C002;
-@color_list_bubble_sent_bg : B0541P;
-@color_list_bubble_sent_text: T023;
-@color_list_bubble_receive_text: T023;
-@color_list_bubble_sos_text: rgb(219, 0, 0);
-@color_list_bubble_date_text: T023;
+@color_list_bubble_time_sent_text: T023; // #[ignore]
+@color_list_bubble_time_receive_text: T023; // #[ignore]
+@color_list_bubble_help_text: T023; // #[ignore]
 
-@color_list_bubble_time_sent_text: T023;
-@color_list_bubble_time_receive_text: T023;
-@color_list_bubble_help_text: T023;
+@color_list_collapsible_arrow: W023; // #[color] List collapsible arrow color
+@list-smallicon-size: 22 * @unit_base; // #[text] List small icon size
+@list-li-padding-horizontal: 8 * @unit_base; // #[text] List small icon padding size
 
-@color_list_collapsible_arrow: W023;
-@list-smallicon-size: 22 * @unit_base; // #[text]
-@list-li-padding-horizontal: 8 * @unit_base; // #[text]
-
-@list-bigicon-size2: 72 * @unit_base; // #[text]
+@list-bigicon-size2: 72 * @unit_base; // #[text] List big icon size
 
 
 /***************************************************************************
                    Fast Scroll
 ***************************************************************************/
-@color_fastscroll_rollover_bg: B0722;
-@color_fastscroll_rollover_down_border: B0725;
-@color_fastscroll_rollover_text: T113;
-@color_fastscroll_rollover_text_press: T113P;
-@color_fastscroll_rollover_left_border: B0723;
-@color_fastscroll_rollover_left_border_press : B0724;
-@color_fastscroll_popup_bg: B0731L1;
-@color_fastscroll_popup_text: T114;
-@color_fastscroll_popup_border: B0731L2;
+@color_fastscroll_rollover_bg: B0722; // #[color] Fast scroll background color
+@color_fastscroll_rollover_text: T113; // #[color] Fast scroll text color
+@color_fastscroll_popup_bg: B0731L1; // #[color] Fast scroll popup background color
+@color_fastscroll_popup_text: T114; // #[color] Fast scroll poup text color
+@color_fastscroll_popup_border: B0731L2; // #[color] Fast scroll popup border color
 
 /***************************************************************************
                    SearchBar(forms.textinput)
@@ -230,6 +218,7 @@
 @color_popup_button_bg:	B062;
 @color_popup_button_text: T051L2;
 @color_popup_dim_screen_bg: B015;
+@color_popup_outline: B0211;
 
 /***************************************************************************
                     Tickernoti
