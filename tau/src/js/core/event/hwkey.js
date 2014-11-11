@@ -47,6 +47,20 @@
 						}
 					}
 				},
+				selectMenuClose = function (event) {
+					var keyName = event.keyName,
+						elActiveSelectMenu,
+						activeSelectMenu;
+					if (ns.getConfig("enableHWKeyHandler", true) && (keyName === "menu" || keyName === "back")){
+						elActiveSelectMenu = document.querySelector("div.ui-selectmenu-active select");
+						if (elActiveSelectMenu) {
+							activeSelectMenu = ns.widget.SelectMenu(elActiveSelectMenu);
+							activeSelectMenu.close();
+							event.preventDefault();
+							event.stopPropagation();
+						}
+					}
+				},
 				hwkey = {
 					/**
 					 * Bind event tizenhwkey to support hardware keys.
@@ -56,6 +70,7 @@
 					 */
 					bind: function () {
 						document.addEventListener("tizenhwkey", popupClose, true);
+						document.addEventListener("tizenhwkey", selectMenuClose, true);
 					},
 
 					/**
@@ -66,6 +81,7 @@
 					 */
 					unbind: function () {
 						document.removeEventListener("tizenhwkey", popupClose, true);
+						document.removeEventListener("tizenhwkey", selectMenuClose, true);
 					}
 				};
 
