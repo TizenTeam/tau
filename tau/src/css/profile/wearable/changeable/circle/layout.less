@@ -2,4 +2,17 @@
 
 /***************************************************************************
                    Common Style
+
 ***************************************************************************/
+/***************************************************************************
+                   Development Tip
+  If you want to implement specific css code of circle device,
+  you should implement specific code here.
+  But when you implement code, you should check duplicate value
+  between common/layout.less and this file.
+  If you have duplicate value, please change static value to variable value.
+***************************************************************************/
+.ui-header .ui-title {
+	text-align: center;
+	padding-top: @fixed_header_title_padding_top;
+}

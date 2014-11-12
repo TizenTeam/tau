@@ -227,6 +227,13 @@ module.exports = function(grunt) {
 								dest: path.join( buildRoot, device, "theme", wearableThemeColors[i], theme.images )
 							});
 						}
+						rtn.push({
+							expand: true,
+							cwd: path.join( srcCss, version, "changeable" , "circle", theme.images ),
+							src: "**",
+							dest: path.join( buildRoot, device, "theme", "circle", theme.images )
+						});
+
 					}
 
 					return rtn;

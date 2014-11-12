@@ -1,0 +1,12 @@
+/***************************************************************************
+                   MASK
+***************************************************************************/
+body {
+	background-color: rgba(46, 207, 121, 1) !important;
+}
+.ui-page {
+	-webkit-mask-image: -webkit-radial-gradient(#000000 180px, transparent 0px);
+	max-width: 360px;
+	max-height: 360px;
+}
+
