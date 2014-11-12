@@ -1,14 +1,3 @@
-/** Color of basic button background - normal */
-@basic_btn_color_normal: rgb(211, 211, 211);
-/** Color of basic button text - normal */
-@basic_btn_txt_color_normal: rgb(89, 89, 89);
-/** Color of basic button text - focused */
-@basic_btn_txt_color_focus: rgb(255, 255, 255);
-/** Background color of icon-source button */
-@list_btn_color: rgb(69, 143, 255);
-/** Text color of button with icon */
-@btn_color_with_icon: rgb(255, 255, 255);
-
 .ui-btn {
 	position: relative;
 	display: block;
@@ -26,7 +15,7 @@
 	min-height: @fixed_button_minimum_height;
 	min-width: @fixed_button_minimum_width;
 	border-radius: 4 * @virtual_px;
-	background-color: @basic_btn_color_normal;
+	background-color: @color_button_basic_normal;
 	.ui-default;
 
 	&.ui-multiline {
@@ -85,7 +74,7 @@
 
 
 	a&.ui-state-disabled, &:disabled {
-		background-color: rgba(red(@basic_btn_color_normal), green(@basic_btn_color_normal), blue(@basic_btn_color_normal), 0.4);
+		background-color: rgba(red(@color_button_basic_normal), green(@color_button_basic_normal), blue(@color_button_basic_normal), 0.4);
 	}
 }
 
@@ -98,12 +87,12 @@
 .ui-btn[data-icon], .ui-drawer-close, li a.ui-btn{
 	font-weight: inherit;
 	background-color: inherit;
-	color: @btn_color_with_icon;
+	color: @color_button_with_icon;
 	overflow: hidden;
 }
 
 .ui-default {
-	color: @basic_btn_txt_color_normal;
+	color: @color_button_basic_txt_normal;
 
 	a&.ui-state-disabled, &:disabled {
 		color: @color_button_default_text_disable;
@@ -172,7 +161,7 @@
 	.ui-background {
 		outline: none;
 		background-color: @color_default;
-		color: @basic_btn_txt_color_focus;
+		color: @color_button_basic_txt_focus;
 	}
 }
 
@@ -442,7 +431,7 @@ ICON SOURCE
 .ui-listview li a.ui-btn.ui-btn-icon-source,
 .ui-btn-icon-source {
 		.ui-background {
-			background-color: @list_btn_color;
+			background-color: @color_button_icon_source;
 		}
 
 	&.ui-focus {
@@ -464,7 +453,7 @@ ICON APP
 .ui-listview li a.ui-btn.ui-btn-icon-app,
 .ui-btn-icon-app {
 		.ui-background {
-			background-color: @list_btn_color;
+			background-color: @color_button_icon_app;
 		}
 
 	&.ui-focus {

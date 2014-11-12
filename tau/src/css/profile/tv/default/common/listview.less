@@ -1,24 +1,10 @@
-@font_size_list_item: 22 * @virtual_px;
-@list_btn_txt_color_focus: rgb(255, 255, 255);
-@list_txt_color_disabled: rgb(51, 51, 51);
-@list_bg_color_white: rgb(255, 255, 255);
-@list_sub_txt_color: rgb(189, 167, 146);
-
-/** List diveder text font size */
-@font_size_list_divider_text: 30 * @virtual_px;
-/** List divider text color */
-@color_list_divider_text: rgb(66, 87, 144);
-/** List divider normal line background color */
-@color_list_divider_line_bg: rgb(66, 87, 144);
-
 .ui-listview.white {
-	background-color: @list_bg_color_white;
-
+	background-color: @color_listview_bg_color_white;
 }
 
 .ui-listview {
 	li {
-		font-size: @font_size_list_item;
+		font-size: @fixed_list_item_font_size;
 		width: 100%;
 		border-bottom: 1 * @virtual_px solid @color_listview_border;
 		overflow: hidden;
@@ -72,7 +58,7 @@
 		}
 		a.ui-btn.ui-focus {
 			.ui-btn-inner {
-				color: @list_btn_txt_color_focus;
+				color: @color_list_btn_txt_focus;
 			}
 		}
 		label.ui-popup-radio-label,
@@ -109,7 +95,7 @@
 			.li-has-radio.disabled .li-text-sub,
 			.li-has-checkbox.disabled,
 			.li-has-checkbox.disabled .li-text-sub {
-				color: @list_txt_color_disabled;
+				color: @color_listview_txt_disabled;
 			}
 		}
 		.li-has-multiline > a {
@@ -145,8 +131,8 @@
 		box-sizing: border-box;
 		padding-top: 18 * @virtual_px;
 		padding-bottom: 18 * @virtual_px;
-		font-size: @font_size_list_divider_text;
-		background-color: @list_bg_color_white;
+		font-size: @fixed_list_divider_font_size;
+		background-color: @color_listview_bg_color_white;
 		color: @color_listview_text;
 		border: 0;
 

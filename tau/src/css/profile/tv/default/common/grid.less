@@ -1,13 +1,6 @@
-/** Buttons text basic color */
-@btn_txt_color_normal: rgb(211, 211, 211);
-/** Focused grid button border color */
-@btn_focus_border_color: rgb(69, 143, 255);
-/** Focused grid thumbnail content background color */
-@btn_focus_thumb_content_color: rgb(69, 143, 255);
-
 .ui-virtualgrid, .ui-grid {
 	.ui-btn {
-		color: @btn_txt_color_normal;
+		color: @color_grid_txt_normal;
 	}
 
 	.grid-icon {
@@ -113,7 +106,7 @@
 
 		&.ui-btn.ui-focus {
 			.grid-thumbnail-pic {
-				border: solid  @btn_focus_border_color;
+				border: solid  @color_grid_btn_focus_border;
 				border-top-width: 8 * @virtual_px;
 				border-left-width: 8 * @virtual_px;
 				border-right-width: 8 * @virtual_px;
@@ -125,7 +118,7 @@
 			}
 
 			.grid-thumbnail-pic-full {
-				border: solid  @btn_focus_border_color;
+				border: solid  @color_grid_btn_focus_border;
 				border-top-width: 8 * @virtual_px;
 				border-left-width: 8 * @virtual_px;
 				border-right-width: 8 * @virtual_px;
@@ -137,7 +130,7 @@
 			}
 
 			.grid-thumbnail-contents {
-				background: @btn_focus_thumb_content_color;
+				background: @color_grid_btn_focus_thumb_content;
 				.grid-thumbnail-content, .grid-thumbnail-subtext {
 					color: rgb(255, 255, 255);
 				}

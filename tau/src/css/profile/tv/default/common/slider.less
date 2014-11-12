@@ -1,33 +1,7 @@
-@border_radius: .2em;
-
-@unit_base_slider : @virtual_px * 0.5;
-@z_base_slider_popup : 11;
-
-@popup-height: 54 * @virtual_px;
-@popup-width: 45 * @virtual_px;
-@img_height: 72 * @unit_base_slider;
-@img_width: 72 * @unit_base_slider;
-@handle_height: 72 * @unit_base_slider;
-@handle_width: 72 * @unit_base_slider;
-
-/** Slider handle text color */
-@color_slider_handle_text: rgb(250, 250, 250);
-/** Slider handle pressed text color */
-@color_slider_handle_text_press: rgb(250, 250, 250);
-/** Slider popup text color */
-@color_slider_popup_text: rgb(76, 81, 88);
-/** Slider popup background color */
-@color_slider_popup_bg: rgb(238, 238, 238);
-/** Slider left text color */
-@color_slider_left_text: rgb(186, 186, 186);
-/** Slider right text color */
-@color_slider_right_text: rgb(186, 186, 186);
-/** Slider, not toggle switch, background color */
-@color_slider_not_toggle_switch: rgb(51, 67, 83);
-/** Slider background color */
-@color_slider: rgb(65, 91, 254);
-/** Slider lessbox shadow */
-@lessbox_slider_shadow: rgb(116, 113, 127);
+/** Slider unit divisor */
+@unit_base_slider: @virtual_px * 0.5;
+/** Slider popup z-index */
+@z_base_slider_popup: 11;
 
 label.ui-slider {
 	display: block;
@@ -68,16 +42,16 @@ select.ui-slider-switch {
 	margin-bottom: 10 * @virtual_px;
 	margin-left: -44 *@virtual_px;
 	top: 0 * @virtual_px;
-	height: @img_height;
-	width: @img_width;
+	height: @fixed_slider_image_height;
+	width: @fixed_slider_image_width;
 
 	background: url(images/Slider/00_slider_button_brightness_01.png) no-repeat;
-	.LESSbackground-size(@img_width, @img_height);
+	.LESSbackground-size(@fixed_slider_image_width, @fixed_slider_image_height);
 }
 
 .ui-slider-left-volume {
 	background: url(images/Slider/00_slider_button_volume_01.png) no-repeat;
-	.LESSbackground-size(@img_width, @img_height);
+	.LESSbackground-size(@fixed_slider_image_width, @fixed_slider_image_height);
 }
 
 .ui-slider-right-volume,
@@ -88,16 +62,16 @@ select.ui-slider-switch {
 	margin-bottom: 10 * @virtual_px;
 	top: 0 * @virtual_px;
 	right: -44 * @virtual_px;
-	height: @img_height;
-	width: @img_width;
+	height: @fixed_slider_image_height;
+	width: @fixed_slider_image_width;
 
 	background: url(images/Slider/00_slider_button_brightness_02.png) no-repeat;
-	.LESSbackground-size(@img_width, @img_height);
+	.LESSbackground-size(@fixed_slider_image_width, @fixed_slider_image_height);
 }
 
 .ui-slider-right-volume {
 	background: url(images/Slider/00_slider_button_volume_02.png) no-repeat;
-	.LESSbackground-size(@img_width, @img_height);
+	.LESSbackground-size(@fixed_slider_image_width, @fixed_slider_image_height);
 }
 
 .ui-slider-left-text {
@@ -135,7 +109,7 @@ div.ui-slider:not(.ui-toggle-switch) {
 	margin-right: 8 * @unit_base_slider;
 
 	.LESSborder-radius-all( 10 * @virtual_px );
-	.LESSbox-shadow(0 * @virtual_px, 0 * @virtual_px, 2 * @virtual_px, @lessbox_slider_shadow);
+	.LESSbox-shadow(0 * @virtual_px, 0 * @virtual_px, 2 * @virtual_px, @slider_lessbox_shadow);
 	background-color: @color_slider_not_toggle_switch;
 
 	.ui-btn {
@@ -174,7 +148,7 @@ a.ui-slider-handle {
 	font-size: 0.95rem;
 
 	background: url(images/Slider/00_slider_handle.png) no-repeat;
-	.LESSbackground-size(@handle_width, @handle_height);
+	.LESSbackground-size(@fixed_slider_handle_width, @fixed_slider_handle_height);
 
 	-o-box-shadow: none;
 	-ms-box-shadow: none;
@@ -190,9 +164,9 @@ a.ui-slider-handle {
 .ui-ctxpopup.ui-popup.ui-slider-popup {
 	z-index: @z_base_slider_popup;
 
-	min-width: @popup-width;
+	min-width: @fixed_slider_popup_min_width;
 	width: auto;
-	line-height: @popup-height;
+	line-height: @fixed_slider_popup_min_height;
 	padding-left: 5 * @virtual_px;
 	padding-right: 5 * @virtual_px;
 
@@ -201,7 +175,7 @@ a.ui-slider-handle {
 	text-align: center;
 	font-size: 1.5rem;
 
-	.LESSborder-radius-all(@border_radius);
+	.LESSborder-radius-all(@fixed_slider_border_radius);
 
 	&>.ui-arrow {
 		border-width: 6 * @virtual_px;
@@ -216,8 +190,8 @@ a.ui-slider-handle {
 	width: 0;
 
 	.LESSborder-radius-all( 10 * @virtual_px );
-	.LESSbox-shadow(0 * @virtual_px, 0 * @virtual_px, 2 * @virtual_px, @lessbox_slider_shadow);
-	background-color: @color_slider;
+	.LESSbox-shadow(0 * @virtual_px, 0 * @virtual_px, 2 * @virtual_px, @slider_lessbox_shadow);
+	background-color: @color_slider_bg;
 
 	&.ui-slider-bg-has-center {
 		.LESSborder-radius-all( 0 );
@@ -230,11 +204,11 @@ a.ui-slider-handle {
 
 	a {
 		&:focus {
-			background-color: @color_bg;
+			background-color: @color_slider_bg;
 
 			&.ui-slider-handle {
 				background: url(images/Slider/00_slider_handle_press.png) no-repeat;
-				.LESSbackground-size(@handle_width, @handle_height);
+				.LESSbackground-size(@fixed_slider_handle_width, @fixed_slider_handle_height);
 				-o-box-shadow: none;
 				-ms-box-shadow: none;
 				-moz-box-shadow: none;

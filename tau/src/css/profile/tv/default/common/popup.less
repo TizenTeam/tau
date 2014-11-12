@@ -1,14 +1,3 @@
-@font_size_popup_toast: 24 * @virtual_px;
-@font_size_popup_body: 34 * @virtual_px;
-@popup_color_text_content: rgb(61, 61, 61);
-@popup_border_radius: 10 * @virtual_px;
-@popup_header_padding_right: 64 * @virtual_px;
-@popup_header_padding_left: 64 * @virtual_px;
-@popup_shadow: rgba(0, 0, 0, 0.67);
-
-/** Color of footer button background - focused */
-@footer_btn_color_focus: rgb(69, 143, 255);
-
 /***********************
 Normal Popup
 ***********************/
@@ -27,10 +16,10 @@ Normal Popup
 	visibility: hidden;
 	z-index: 1000;
 	max-height: 80%;
-	-webkit-border-radius: @popup_border_radius;
-	-moz-border-radius: @popup_border_radius;
-	border-radius: @popup_border_radius;
-	box-shadow: 0 2 * @virtual_px 5 * @virtual_px @popup_shadow;
+	-webkit-border-radius: @fixed_popup_border_radius;
+	-moz-border-radius: @fixed_popup_border_radius;
+	border-radius: @fixed_popup_border_radius;
+	box-shadow: 0 2 * @virtual_px 5 * @virtual_px @color_popup_shadow;
 
 
 	&:not(.ui-popup-toast) {
@@ -51,8 +40,8 @@ Normal Popup
 		text-align: center;
 		background-color: @color_popup_header_bg;
 		color: @color_popup_title_text;
-		padding-right: @popup_header_padding_right;
-		padding-left: @popup_header_padding_left;
+		padding-right: @fixed_popup_header_padding_right;
+		padding-left: @fixed_popup_header_padding_left;
 		overflow: hidden;
 		text-overflow: ellipsis;
 		white-space: nowrap;
@@ -60,7 +49,7 @@ Normal Popup
 
 	.ui-popup-content {
 		width: 100%;
-		font-size: @font_size_popup_body;
+		font-size: @fixed_popup_body_font_size;
 		text-align: left;
 		color: @color_popup_text;
 		background-color: @color_popup_bg;
@@ -68,10 +57,10 @@ Normal Popup
 
 		.ui-listview {
 			li {
-				font-size: @font_size_popup_body;
-				color: @popup_color_text_content;
+				font-size: @fixed_popup_body_font_size;
+				color: @color_popup_text_content;
 				> *, .ui-btn-text {
-					color: @popup_color_text_content;
+					color: @color_popup_text_content;
 				}
 			}
 		}
@@ -112,13 +101,13 @@ Normal Popup
 			}
 
 			&.ui-btn-up-s, &.ui-btn-hover-s {
-				background-color: @basic_btn_color_normal;
-				color: @basic_btn_txt_color_normal;
+				background-color: @color_button_basic_normal;
+				color: @color_button_basic_txt_normal;
 			}
 
 			&.ui-btn-down-s, &.ui-focus{
-				background-color: @footer_btn_color_focus;
-				color: @basic_btn_txt_color_focus;
+				background-color: @color_popup_footer_btn_focus;
+				color: @color_button_basic_txt_focus;
 			}
 		}
 	}
@@ -182,7 +171,7 @@ Popup Toast
 		margin-left: 41 * @virtual_px;
 		margin-right: 41 * @virtual_px;
 		margin-bottom: 38 * @virtual_px;
-		font-size: @font_size_popup_toast;
+		font-size: @fixed_popup_toast_font_size;
 		border: 3 * @virtual_px solid @color_popup_border;
 		bottom: 0;
 		top: auto;

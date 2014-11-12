@@ -57,6 +57,18 @@
 @color_button_default_text: T041;
 /** Disabled button default text color */
 @color_button_default_text_disable: T041D;
+/** Color of basic button background - normal */
+@color_button_basic_normal: W084;
+/** Color of basic button text - normal */
+@color_button_basic_txt_normal: rgb(89, 89, 89);
+/** Color of basic button text - focused */
+@color_button_basic_txt_focus: F072;
+/** Background color of icon source button */
+@color_button_icon_source: rgb(69, 143, 255);
+/** Background color of icon app button */
+@color_button_icon_app: @color_button_icon_source;
+/** Text color of button with icon */
+@color_button_with_icon: F072;
 
 /** Red button text color */
 @color_button_red_text: T041;
@@ -114,7 +126,13 @@
 /** Popup header border background color */
 @color_popup_border: B061L7;
 /** Popup text color */
-@color_popup_text: rgb(61, 61, 61);
+@color_popup_text: B065L3;
+/** Color of popup footer button background - focused */
+@color_popup_footer_btn_focus: rgb(69, 143, 255);
+/** Popup content text color */
+@color_popup_text_content: B065L3;
+/** Popup shadow color */
+@color_popup_shadow: rgba(0, 0, 0, 0.67);
 
 /***************************************************************************
                   index scrollbar (vertical)
@@ -146,6 +164,18 @@
 @color_listview_border: B0222;
 /** Listview text color */
 @color_listview_text: T0211;
+/** Focused listview button text color */
+@color_list_btn_txt_focus: F072;
+/** Disabled listview element text color */
+@color_listview_txt_disabled: B096;
+/** List divider text color */
+@color_list_divider_text: rgb(66, 87, 144);
+/** List divider normal line background color */
+@color_list_divider_line_bg: rgb(66, 87, 144);
+/** Listview white background color */
+@color_listview_bg_color_white: F072;
+/** Listview sub element text color */
+@list_sub_txt_color: rgb(189, 167, 146);
 
 /***************************************************************************
                    Scroller
@@ -176,3 +206,79 @@
 @color_drawer_list_press: B041P;
 /** Drawer back button background icon */
 @drawer_back_background: "./images/Drawer/ico_homebar_menu_arrow.png";
+/** Drawer button close background color */
+@color_drawer_btn_close_background: rgb(69, 143, 255);
+/** Drawer footer button background color */
+@color_drawer_footer_btn_background: rgb(69, 143, 255);
+/** Drawer listview elements background color */
+@color_drawer_btn: F072;
+/** Drawer listview not listdivider background color */
+@color_drawer_listview_not_divider: rgb(42, 50, 64);
+/** Drawer listview not listdivider border color */
+@color_drawer_listview_not_divider_border: rgb(6, 8, 11);
+/** Drawer list divider button color */
+@color_drawer_divider_btn: W084;
+/** Drawer footer button color */
+@color_drawer_footer_btn: @color_drawer_divider_btn;
+/** Drawer footer background color of dinamic list elements */
+@color_drawer_dinamic_footer_background: B0723;
+/** Drawer footer background color of poster/icon elements */
+@color_drawer_poster_icon_footer_background: @color_drawer_dinamic_footer_background;
+
+/***************************************************************************
+			Grid
+***************************************************************************/
+/** Grid buttons text basic color */
+@color_grid_txt_normal: W084;
+/** Focused grid button border color */
+@color_grid_btn_focus_border: rgb(69, 143, 255);
+/** Focused grid thumbnail content background color */
+@color_grid_btn_focus_thumb_content: rgb(69, 143, 255);
+
+/***************************************************************************
+			Input
+***************************************************************************/
+/** Input background color */
+@color_input_bg: F072;
+/** Input text color */
+@color_input_text: rgba(61, 61, 61, 0.5);
+/** Input border color */
+@color_input_border: @color_input_text;
+/** Focused input text color */
+@color_input_text_focus: B065L3;
+/** Number input text color */
+@color_input_number_text: rgb(69, 143, 255);
+/** Focused number input background color */
+@color_input_number_bg_focus: rgb(69, 143, 255);
+/** Focused number input border color */
+@color_input_number_border_focus: @color_input_number_bg_focus;
+/** Focused number input text color */
+@color_input_number_text_focus: F072;
+
+/***************************************************************************
+			Scrollbar
+***************************************************************************/
+/** Scrollbar thumb background color */
+@color_scrollbar_thumb_bg: rgba(0, 0, 0, 0.25);
+
+/***************************************************************************
+			Slider
+***************************************************************************/
+/** Slider handle text color */
+@color_slider_handle_text: B103L2;
+/** Slider handle pressed text color */
+@color_slider_handle_text_press: B103L2;
+/** Slider popup text color */
+@color_slider_popup_text: rgb(76, 81, 88);
+/** Slider popup background color */
+@color_slider_popup_bg: rgb(238, 238, 238);
+/** Slider left text color */
+@color_slider_left_text: rgb(186, 186, 186);
+/** Slider right text color */
+@color_slider_right_text: rgb(186, 186, 186);
+/** Slider, not toggle switch, background color */
+@color_slider_not_toggle_switch: rgb(51, 67, 83);
+/** Slider background color */
+@color_slider: rgb(65, 91, 254);
+/** Slider lessbox shadow */
+@slider_lessbox_shadow: rgb(116, 113, 127);

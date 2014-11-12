@@ -1,22 +1,3 @@
-/** Drawer button close background color */
-@drawer_btn_close_background_color: rgb(69, 143, 255);
-/** Drawer footer button background color */
-@drawer_footer_btn_background_color: rgb(69, 143, 255);
-/** Drawer listview elements background color */
-@drawer_btn_color: rgb(255, 255, 255);
-/** Drawer listview not listdivider background color */
-@drawer_listview_not_divider_color: rgb(42, 50, 64);
-/** Drawer listview not listdivider border color */
-@drawer_listview_not_divider_border_color: rgb(6, 8, 11);
-/** Drawer list divider button color */
-@drawer_divider_btn_color: rgb(211, 211, 211);
-/** Drawer footer button color */
-@drawer_footer_btn_color: @drawer_divider_btn_color;
-/** Drawer footer background color of dinamic list elements */
-@drawer_dinamic_footer_background_color: rgb(45, 45, 45);
-/** Drawer footer background color of poster/icon elements */
-@drawer_poster_icon_footer_background_color: @drawer_dinamic_footer_background_color;
-
 .ui-drawer {
 	position: absolute;
 	margin: 0;
@@ -55,7 +36,7 @@
 				width: auto;
 				height: auto;
 				.ui-btn-inner {
-					color: @drawer_btn_color;
+					color: @color_drawer_btn;
 					overflow: visible;
 
 					.ui-btn-text {
@@ -67,7 +48,7 @@
 						}
 
 						.li-text-sub {
-							color: @drawer_btn_color;
+							color: @color_drawer_btn;
 						}
 
 					}
@@ -96,7 +77,7 @@
 		min-width: inherit;
 
 		&.ui-focus {
-			background-color: @drawer_btn_close_background_color;
+			background-color: @color_drawer_btn_close_background;
 		}
 	}
 
@@ -110,8 +91,8 @@
 			padding: 17 * @virtual_px 20 * @virtual_px;
 			li:not(.ui-list-divider) {
 				text-align: left;
-				background-color: @drawer_listview_not_divider_color;
-				border-bottom: solid 2 @virtual_px @drawer_listview_not_divider_border_color;
+				background-color: @color_drawer_listview_not_divider;
+				border-bottom: solid 2 @virtual_px @color_drawer_listview_not_divider_border;
 				margin-bottom: 14 * @virtual_px;
 				> * {
 					overflow: visible;
@@ -131,7 +112,7 @@
 
 				> .ui-btn-text {
 					font-size: 27 * @virtual_px;
-					color: @drawer_divider_btn_color;
+					color: @color_drawer_divider_btn;
 				}
 
 				> .ui-divider-normal-line {
@@ -155,7 +136,7 @@
 								margin: 0;
 							}
 							footer {
-								background-color: @drawer_dinamic_footer_background_color;
+								background-color: @color_drawer_dinamic_footer_background;
 								position: absolute;
 								bottom: 0;
 								left: 0;
@@ -171,7 +152,7 @@
 								}
 								h2 {
 									font-size: 24 * @virtual_px;
-									color: @drawer_footer_btn_color;
+									color: @color_drawer_footer_btn;
 									font-weight: nornal;
 									margin: 12 * @virtual_px 0 12 * @virtual_px 0;
 									display: inline-block;
@@ -183,11 +164,11 @@
 								}
 								h3 {
 									font-size: 20 * @virtual_px;
-									color: @drawer_footer_btn_color;
+									color: @color_drawer_footer_btn;
 									font-weight: nornal;
 									margin: 12 * @virtual_px 12 * @virtual_px 12 * @virtual_px 25 * @virtual_px;
 									padding-right: 12 * @virtual_px;
-									border-right: @virtual_px solid @drawer_btn_color;
+									border-right: @virtual_px solid @color_drawer_btn;
 									display: inline-block;
 									float: left;
 								}
@@ -203,9 +184,9 @@
 							.ui-btn-text {
 								footer {
 									position: relative;
-									background-color: @drawer_footer_btn_background_color;
+									background-color: @color_drawer_footer_btn_background;
 									h2 {
-										color: @drawer_btn_color;
+										color: @color_drawer_btn;
 										font-size: 36  * @virtual_px;
 										float: none;
 										width: auto;
@@ -213,7 +194,7 @@
 										display: block;
 									}
 									h3 {
-										color: @drawer_btn_color;
+										color: @color_drawer_btn;
 										font-size: 20  * @virtual_px;
 										clear: left;
 										margin-top:  2* @virtual_px;
@@ -226,7 +207,7 @@
 									div {
 										display: inline-block;
 										float: left;
-										color: @drawer_btn_color;
+										color: @color_drawer_btn;
 										font-size: 20  * @virtual_px;
 										margin-top:  2* @virtual_px;
 									}
@@ -251,7 +232,7 @@
 						width: 185 * @virtual_px;
 					}
 					footer {
-						background-color: @drawer_poster_icon_footer_background_color;
+						background-color: @color_drawer_poster_icon_footer_background;
 						h2 {
 							margin: 25 * @virtual_px;
 							width: 135 * @virtual_px;
