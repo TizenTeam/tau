@@ -296,7 +296,9 @@
 			 * @static
 			 */
 			routePopup.close = function (activePopup, options) {
-				var popupOptions;
+				var popupOptions,
+					pathLocation = path.getLocation(),
+					documentUrl = pathLocation.replace(popupHashKeyReg, "");
 
 				options = options || {};
 				activePopup = activePopup || this.activePopup;
@@ -305,7 +307,7 @@
 				if (activePopup) {
 					popupOptions = activePopup.options;
 					// we check if it changed the history
-					if (popupOptions.history) {
+					if (popupOptions.history && pathLocation !== documentUrl) {
 						// and then set new options for popup
 						popupOptions.transition = options.transition || popupOptions.transition;
 						popupOptions.ext = options.ext || popupOptions.ext;

@@ -26,8 +26,6 @@
 
 			// @TODO! there is problem with closing popup between tests!
 			engine.getRouter().getRoute("popup").activePopup = null;
-			engine.run();
-
 		},
 		teardown: function () {
 			engine._clearBindings();
@@ -95,14 +93,18 @@
 		engine.run();
 	});
 
-	test("destroy", function () {
+	asyncTest("destroy", function () {
 		expect(4);
-		popup1Widget = engine.instanceWidget(popup1, INSTANCE_WIDGET);
-		equal(popup1.children.length, 2, "Popuphas 2 children");
-		equal(popup1.firstChild.className, "ui-popup-wrapper", "Popup has wrapper before destroy");
-		popup1Widget.destroy();
-		equal(popup1.children.length, 1, "Popup has one children");
-		ok(popup1.firstChild.className !== "ui-popup-wrapper", "Popup does not have wrapper");
+		tau.event.one(page, "pageshow", function() {
+			popup1Widget = engine.instanceWidget(popup1, INSTANCE_WIDGET);
+			equal(popup1.children.length, 2, "Popup has 2 children");
+			equal(popup1.firstChild.className, "ui-popup-wrapper", "Popup has wrapper before destroy");
+			popup1Widget.destroy();
+			equal(popup1.children.length, 1, "Popup has one children");
+			ok(popup1.firstChild.className !== "ui-popup-wrapper", "Popup does not have wrapper");
+			start();
+		});
+		engine.run();
 	});
 
 	asyncTest("position of arrow", 3, function () {
@@ -146,90 +148,104 @@
 					start();
 				}
 			};
-		popup1Widget = engine.instanceWidget(popup1, INSTANCE_WIDGET);
-		popup1.addEventListener("beforeposition", callback);
-		tau.event.one(popup1, "popupshow", function() {
-			ok(true, "Popup is opened");
-			popup1Widget.reposition();
+		tau.event.one(page, "pageshow", function() {
+			popup1Widget = engine.instanceWidget(popup1, INSTANCE_WIDGET);
+			popup1.addEventListener("beforeposition", callback);
+			tau.event.one(popup1, "popupshow", function() {
+				ok(true, "Popup is opened");
+				popup1Widget.reposition();
+			});
+			popup1Widget.open();
 		});
-		popup1Widget.open();
+		engine.run();
 	});
 
 	asyncTest("positionTo as a object", 1, function() {
-		popup1Widget = engine.instanceWidget(popup1, INSTANCE_WIDGET);
-		showPage(page);
-		tau.event.one(popup1, "popupshow", function() {
-			ok(true, "Popup is opened");
-			popup1Widget.close();
-			start();
+		tau.event.one(page, "pageshow", function() {
+			popup1Widget = engine.instanceWidget(popup1, INSTANCE_WIDGET);
+			showPage(page);
+			tau.event.one(popup1, "popupshow", function() {
+				ok(true, "Popup is opened");
+				popup1Widget.close();
+				start();
+			});
+			popup1Widget.open({
+				positionTo: document.getElementById("popup1Link")
+			});
+			hidePage(page);
 		});
-		popup1Widget.open({
-			positionTo: document.getElementById("popup1Link")
-		});
-		hidePage(page);
+		engine.run();
 	});
 
 	asyncTest("open popup with options for position (ID)", 2, function () {
-		popup1Widget = engine.instanceWidget(popup1, INSTANCE_WIDGET);
-		showPage(page);
+		tau.event.one(page, "pageshow", function() {
+			popup1Widget = engine.instanceWidget(popup1, INSTANCE_WIDGET);
+			showPage(page);
 
-		tau.event.one(popup1, "popupshow", function() {
-			hidePage(page);
-			ok(true, "Popup was shown");
-			ok(popup1.classList.contains("ui-popup-arrow-b"), "Popup was opened in context style");
-			popup1Widget.close();
-			start();
+			tau.event.one(popup1, "popupshow", function() {
+				hidePage(page);
+				ok(true, "Popup was shown");
+				ok(popup1.classList.contains("ui-popup-arrow-b"), "Popup was opened in context style");
+				popup1Widget.close();
+				start();
+			});
+			popup1Widget.open({
+				arrow: "b",
+				positionTo: "#popup1Link",
+			});
 		});
-		popup1Widget.open({
-			arrow: "b",
-			positionTo: "#popup1Link",
-		});
+		engine.run();
 	});
 
 	asyncTest("open popup with options for position (X, Y)", 3, function () {
 		var linkPosition;
 
-		popup1Widget = engine.instanceWidget(popup1, INSTANCE_WIDGET);
-		showPage(page);
-		linkPosition = popup1Link.getBoundingClientRect();
+		tau.event.one(page, "pageshow", function() {
+			popup1Widget = engine.instanceWidget(popup1, INSTANCE_WIDGET);
+			showPage(page);
+			linkPosition = popup1Link.getBoundingClientRect();
 
-		tau.event.one(popup1, "popupshow", function() {
-			ok(true, "Popup was shown");
-			ok(popup1.classList.contains("ui-popup-arrow-t"), "Popup was opened in context style");
-			ok(popup1Widget._ui.arrow.style.left !== "", "Position of arrow is set");
-			popup1Widget.close();
-			start();
+			tau.event.one(popup1, "popupshow", function() {
+				ok(true, "Popup was shown");
+				ok(popup1.classList.contains("ui-popup-arrow-t"), "Popup was opened in context style");
+				ok(popup1Widget._ui.arrow.style.left !== "", "Position of arrow is set");
+				popup1Widget.close();
+				start();
+			});
+			popup1Widget.open({
+				arrow: "t",
+				positionTo: "origin",
+				x: linkPosition.left + linkPosition.width / 2,
+				y: linkPosition.top + linkPosition.height / 2
+			});
+			hidePage(page);
 		});
-		popup1Widget.open({
-			arrow: "t",
-			positionTo: "origin",
-			x: linkPosition.left + linkPosition.width / 2,
-			y: linkPosition.top + linkPosition.height / 2
-		});
-		hidePage(page);
+		engine.run();
 	});
 
 	asyncTest("classes after closing popup", 4, function () {
-		popup1Widget = engine.instanceWidget(popup1, INSTANCE_WIDGET);
-		showPage(page);
+		tau.event.one(page, "pageshow", function() {
+			popup1Widget = engine.instanceWidget(popup1, INSTANCE_WIDGET);
 
-		tau.event.one(popup1, "popuphide", function() {
-			hidePage(page);
-			ok(true, "Popup was closed");
-			ok(!popup1.classList.contains("ui-popup-arrow-r"), "Popup does not have class ui-popup-arrow-");
-			start();
-		});
+			tau.event.one(popup1, "popuphide", function() {
+				hidePage(page);
+				ok(true, "Popup was closed");
+				ok(!popup1.classList.contains("ui-popup-arrow-r"), "Popup does not have class ui-popup-arrow-");
+				start();
+			});
 
-		tau.event.one(popup1, "popupshow", function() {
-			hidePage(page);
-			ok(true, "Popup was shown");
-			ok(popup1.classList.contains("ui-popup-arrow-r"), "Popup was opened in context style");
-			popup1Widget.close();
-		});
+			tau.event.one(popup1, "popupshow", function() {
+				hidePage(page);
+				ok(true, "Popup was shown");
+				ok(popup1.classList.contains("ui-popup-arrow-r"), "Popup was opened in context style");
+				popup1Widget.close();
+			});
 
-		popup1Widget.open({
-			arrow: "r",
-			positionTo: "#popup1Link",
+			popup1Widget.open({
+				arrow: "r",
+				positionTo: "#popup1Link",
+			});
 		});
+		engine.run();
 	});
 }(window, window.document));
