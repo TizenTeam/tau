@@ -22,6 +22,8 @@ function fireEvent(el, type, props, touches) {
 var el = document.getElementById("mock1"),
 	body = document.body;
 
+module("core/event/vmouse");
+
 document.addEventListener('tauinit', function () {
 	// something is wrong when using many asyncTests and UI events
 	// @TODO add tests for mouse events

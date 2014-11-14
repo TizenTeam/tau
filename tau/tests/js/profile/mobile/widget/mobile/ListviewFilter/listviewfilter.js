@@ -23,7 +23,7 @@ function fireEvent(el, type, props) {
 $().ready(function() {
 	'use strict';
 
-	module('ListviewFilter', {
+	module('profile/mobile/widget/mobile/ListviewFilter', {
 		setup: function () {
 			ej.engine.run();
 		},

@@ -1,4 +1,4 @@
-module("ej.widget.wearable.PageContainer", {});
+module("profile/wearable/widget/wearable/PageContainer", {});
 
 var element = document.getElementById('qunit-fixture');
 element.addEventListener('widgetbuilt', function() {

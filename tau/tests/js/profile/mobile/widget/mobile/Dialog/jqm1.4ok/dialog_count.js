@@ -2,6 +2,9 @@
  * mobile dialog unit tests
  */
 (function($) {
+
+	module('profile/mobile/widget/mobile/Dialog');
+
 	test( "When the page loads, any dialogs in the page should be initialized", function() {
 		expect( 1 );
 

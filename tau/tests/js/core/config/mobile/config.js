@@ -5,7 +5,7 @@
 (function (ej){
 	"use strict";
 
-	module("[mobile] tauConfig / nsConfig values");
+	module("core/config/mobile");
 
 	test("Test default config values", function() {
 		strictEqual(ej.get("autoBuildOnPageChange"), true, "'autoBuildOnPageChange' - Auto building widgets on page change is set to: true");

@@ -1,12 +1,11 @@
-(function(tau) {
-    var page = document.getElementById('test_button_page');
-    page.addEventListener("pageshow", function() {
-        "use strict";
+(function() {
 
-        module("widget.tv.Button TV Button widget", {});
+        module("profile/tv/widget/Button", {});
 
         test("Button", function() {
             var button = document.getElementById('button-0');
+
+            tau.widget.Button(button);
 
             equal(button.getAttribute('data-tau-built'), "Button", "Button widget is built");
             equal(button.getAttribute('data-tau-bound'), "Button", "Button widget is bound");
@@ -19,8 +18,8 @@
             ok(button.classList.contains('ui-shadow'), 'Button has ui-shadow class');
             ok(button.classList.contains('ui-btn-up-s'), 'Button has ui-btn-up-s class');
 
-            ok(button.childElementCount === 1, "Button has an inner span");
-            var innerSpan = button.childNodes[0];
+            ok(button.childElementCount === 2, "Button has an inner span");
+            var innerSpan = button.childNodes[1];
             ok(innerSpan.classList.contains('ui-btn-inner'), 'Span has ui-btn-inner class');
             ok(innerSpan.classList.contains('ui-btn-hastxt'), 'Span has ui-btn-hastxt class');
 
@@ -32,6 +31,8 @@
         test("Inline Button", function() {
             var button = document.getElementById('button-1');
 
+            tau.widget.Button(button);
+
             equal(button.getAttribute('data-tau-bound'), "Button", "Button widget is created");
             ok(button.classList.contains('ui-btn'), 'Button has ui-btn class');
             ok(button.classList.contains('ui-btn-inline'), 'Button has ui-btn-inline class');
@@ -41,6 +42,8 @@
         test("Disabled Button", function() {
             var button = document.getElementById('button-3');
 
+            tau.widget.Button(button);
+
             equal(button.getAttribute('data-tau-bound'), "Button", "Button widget is created");
             ok(button.classList.contains('ui-btn'), 'Button has ui-btn class');
             ok(button.classList.contains('ui-disabled'), 'Button has ui-disabled class');
@@ -49,6 +52,8 @@
 
         test("Stock icon Button", function() {
             var button = document.getElementById('button-4');
+
+            tau.widget.Button(button);
 
             equal(button.getAttribute('data-tau-bound'), "Button", "Button widget is created");
             ok(button.classList.contains('ui-btn'), 'Button has ui-btn class');
@@ -65,5 +70,4 @@
             widget = tau.engine.getBinding(button, "Button");
             ok(widget === null, "Button has been destroyed");
         });
-    });
-}(window.tau));
+}());

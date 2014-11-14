@@ -1,3 +1,5 @@
+module("profile/mobile/router/Page");
+
 asyncTest('By default first page is active', 3, function () {
 	function checkFirstPage () {
 		var page = document.getElementById('first');

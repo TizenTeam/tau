@@ -23,6 +23,8 @@
 	var elList = document.getElementById("vgrid1"),
 		fixture = document.getElementById("qunit-fixture");
 
+	module("profile/wearable/widget/wearable/VirtualGrid");
+
 	elList.addEventListener("draw", function() {
 		var vList = tau.widget.VirtualGrid(elList);
 		test("ej.widget.micro.VirtualList draw method", 8, function () {

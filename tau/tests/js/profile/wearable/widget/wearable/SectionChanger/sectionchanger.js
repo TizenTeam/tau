@@ -88,7 +88,7 @@ QUnit.config.reorder = false;
 
 		suites.orientation.forEach(function each(suite) {
 
-			module("tau.widget.SectionChanger orientation " + suite.name, {
+			module("profile/wearable/widget/wearable/SectionChanger", {
 				setup: function setup() {
 					setupModule(this, suite.options);
 				},
@@ -139,7 +139,7 @@ QUnit.config.reorder = false;
 		});
 
 
-		module("tau.widget.SectionChanger circular", {
+		module("profile/wearable/widget/wearable/SectionChanger", {
 			setup: function setup() {
 				setupModule(this, suites.circular.options, true);
 			},
@@ -186,7 +186,7 @@ QUnit.config.reorder = false;
 
 		});
 
-		module("tau.widget.SectionChanger bouncing", {
+		module("profile/wearable/widget/wearable/SectionChanger", {
 			setup: function setup() {
 				setupModule(this, suites.bouncing.options, true);
 				this.scrollbars = page.querySelectorAll(".ui-scrollbar-bouncing-effect");
@@ -250,7 +250,7 @@ QUnit.config.reorder = false;
 
 		suites.scrollbar.forEach(function each(suite) {
 
-			module("tau.widget.SectionChanger scrollbar " + suite.name, {
+			module("profile/wearable/widget/wearable/SectionChanger", {
 				setup: function setup() {
 					setupModule(this, suite.options);
 				},
@@ -274,7 +274,7 @@ QUnit.config.reorder = false;
 		});
 
 
-		module("tau.widget.SectionChanger active section", {
+		module("profile/wearable/widget/wearable/SectionChanger", {
 			setup: function setup() {
 				setupModule(this, suites.def.options);
 			},

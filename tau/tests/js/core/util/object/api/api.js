@@ -2,6 +2,8 @@
 	'use strict';
 	var data = ns.util.object;
 
+	module("core/util/object");
+
 	test("ns.util.object - check the existence of objects/functions", function () {
 		equal(typeof ns, "object", "ns exists");
 		equal(typeof ns.util, "object", "ns.util exists");

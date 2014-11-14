@@ -1,3 +1,5 @@
+module('profile/mobile/widget/mobile/Collapsible');
+
 test( "Collapsible widget works correctly", function() {
 	var collapsible = $( "#collapsible" ).collapsible();
 

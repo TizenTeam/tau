@@ -1,5 +1,7 @@
 (function($) {
 
+	module("profile/mobile/widget/mobile/Dialog");
+
 	asyncTest( "Returning from a dialog results in the page from which it opened", function() {
 		expect( 2 );
 

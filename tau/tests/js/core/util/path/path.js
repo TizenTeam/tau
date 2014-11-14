@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	var path = ej.util.path,
         pageSelector = '.ui-page';
 
-	module('ej.util.path');
+	module('core/util/path');
 	test('getDocumentUrl', function () {
         var urlObject = {
 

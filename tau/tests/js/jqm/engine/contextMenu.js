@@ -1,4 +1,4 @@
-module("ej.jqm.engine", {});
+module("jqm/engine", {});
 
 test ( "contextMenu" , function () {
 	var elem1 = document.getElementById("elem1"),

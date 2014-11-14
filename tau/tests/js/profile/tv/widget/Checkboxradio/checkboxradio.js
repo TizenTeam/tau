@@ -5,7 +5,7 @@
 
 		var engine = ej.engine;
 
-		module("widget.tv.Checkboxradio TV Checkboxradio widget", {
+		module("profile/tv/widget/Checkboxradio", {
 			setup: function () {
 				engine.createWidgets(document);
 			},

@@ -2,6 +2,8 @@
 (function (window, document, $) {
 	"use strict";
 
+	module("profile/mobile/router/PageExternal");
+
 	if (!window.navigator.userAgent.match("PhantomJS")) {
 		$(document).bind('mobileinit', function () {
 			asyncTest('By default first page is active', 9, function () {

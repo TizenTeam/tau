@@ -2,7 +2,7 @@
 (function (tau, $) {
 	"use strict";
 
-	module('Tabbar', {
+	module('profile/mobile/widget/mobile/TabBar', {
 		teardown: function () {
 			tau.engine._clearBindings();
 		}

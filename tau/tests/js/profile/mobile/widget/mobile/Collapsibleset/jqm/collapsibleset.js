@@ -5,7 +5,7 @@
 // TODO split out into seperate test files
 $ ( document ).ready ( function ( ) {
 
-	module( "Collapsible section");
+	module( "profile/mobile/widget/mobile/Collapsibleset");
 
 	asyncTest( "The page should be enhanced correctly", function(){
 		$.testHelper.pageSequence([
@@ -42,7 +42,7 @@ $ ( document ).ready ( function ( ) {
 		]);
 	});
 
-	module( "Collapsible set");
+	module( "profile/mobile/widget/mobile/Collapsibleset");
 
 	asyncTest( "The page should be enhanced correctly", function(){
 		$.testHelper.pageSequence([
@@ -196,7 +196,7 @@ $ ( document ).ready ( function ( ) {
 		]);
 	});
 	
-	module( "Icons");
+	module( "profile/mobile/widget/mobile/Collapsibleset");
 
 	asyncTest( "Collapsible with custom icons", function(){
 		$.testHelper.pageSequence([
@@ -242,7 +242,7 @@ $ ( document ).ready ( function ( ) {
 		]);
 	});
 
-	module( "Theming", {
+	module( "profile/mobile/widget/mobile/Collapsibleset", {
 		teardown: function () {
 			ej.engine._clearBindings();
 		}

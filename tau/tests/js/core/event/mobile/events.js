@@ -1,4 +1,4 @@
-	module('ej.event');
+	module('core/event');
 
 	function mouseEvent(el, type){
 		var ev = document.createEvent("MouseEvent");

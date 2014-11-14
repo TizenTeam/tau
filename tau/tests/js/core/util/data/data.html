@@ -28,6 +28,8 @@
 				},
 				dataUtils = ej.util.data;
 
+			module("core/util/data");
+
 			test("ej.util.data", function () {
 				equal(testData1, dataUtils.set(e1, "testData", testData1), "setting data to element 1");
 				equal(testData2, dataUtils.set(e2, "testData", testData2), "setting data to element 2");

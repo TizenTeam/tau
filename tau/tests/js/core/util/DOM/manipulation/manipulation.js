@@ -14,6 +14,8 @@ function setup() {
 	}
 }
 
+module("core/util/DOM/manipulation");
+
 test("util.DOM.manipulation - basic test for function appendNodes", function () {
 	var elem1 = document.getElementById("dom1"),
 		elem2 = document.getElementById("dom2"),

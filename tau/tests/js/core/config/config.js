@@ -5,7 +5,7 @@
 (function (ej){
 	"use strict";
 
-	module("tauConfig / nsConfig values");
+	module("core/config");
 
 	test("Test default config values - global", function() {
 		strictEqual(ej.get('rootDir'), ej.getFrameworkPath(), "'rootDir' - is set to: ns.getFrameworkPath() value");

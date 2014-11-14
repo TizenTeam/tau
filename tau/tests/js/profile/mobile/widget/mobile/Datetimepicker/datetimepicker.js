@@ -1,4 +1,4 @@
-	module("datetimepicker", {
+	module("profile/mobile/widget/mobile/Datetimepicker", {
 		teardown: function () {
 			ej.engine._clearBindings();
 		}

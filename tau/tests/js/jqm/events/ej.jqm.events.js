@@ -1,4 +1,4 @@
-module("ej events mapping", {
+module("jqm/events", {
 	});
 
 	asyncTest('pagebeforechange parameters', 1, function () {

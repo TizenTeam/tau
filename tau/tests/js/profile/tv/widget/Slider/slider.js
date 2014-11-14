@@ -1,6 +1,6 @@
 (function(document, tau) {
     "use strict";
-    module("widget.tv.Slider TV Slider widget", {});
+    module("profile/tv/widget/Slider", {});
 
     test("Slider", function() {
         var slider = document.getElementById('slider-1');

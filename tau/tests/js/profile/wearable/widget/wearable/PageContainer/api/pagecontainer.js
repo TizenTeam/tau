@@ -1,4 +1,4 @@
-module("api.ns.widget.wearable.Page", {
+module("profile/wearable/widget/wearable/PageContainer", {
 	});
 
 	test ( "API ns.widget.wearable.Page" , function () {

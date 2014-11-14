@@ -5,7 +5,7 @@
 
 		var engine = ej.engine;
 
-		module("widget.tv.Listview TV Listview widget", {
+		module("profile/tv/widget/Listview", {
 			setup: function () {
 				engine.createWidgets(document);
 			},

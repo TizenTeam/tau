@@ -8,7 +8,7 @@
 $( document ).ready( function () {
 	var virtualGrid, startVirtualGridTest;
 
-	module( "Virtualgrid" );
+	module( "profile/mobile/widget/mobile/VirtualGrid" );
 
 	startVirtualGridTest = function ( virtualGrid ) {
 		var $vgView,

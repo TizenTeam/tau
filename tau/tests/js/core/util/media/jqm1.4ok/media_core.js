@@ -4,6 +4,8 @@
 
 (function($){
 
+	module("core/util/media");
+
 	test( "$.mobile.media function returns same boolean result as window.matchMedia", function(){
 		deepEqual($.mobile.media("screen"), window.matchMedia("screen").matches);
 	});

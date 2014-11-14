@@ -1,5 +1,5 @@
 $().ready(function() {
-	module("ej.theme", {});
+	module("core/theme", {});
 	test ( "API ej.theme" , function () {
 		var element = $('body');
 		$.mobile.tizen.enableSelection(element, "text");

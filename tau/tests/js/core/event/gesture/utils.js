@@ -14,7 +14,7 @@
 		return {clientX: x, clientY: y};
 	}
 
-	module("ns.event.gesture.utils");
+	module("core/event/gesture");
 
 	test("api", 2, function test() {
 		equal(typeof gesture, "function", "Object ns.event.gesture exists");

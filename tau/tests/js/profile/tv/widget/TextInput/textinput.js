@@ -5,7 +5,7 @@
 
 		var engine = ej.engine;
 
-		module("widget.tv.TextInput TV TextInput widget", {
+		module("profile/tv/widget/TextInput", {
 			setup: function () {
 				engine.createWidgets(document);
 			},

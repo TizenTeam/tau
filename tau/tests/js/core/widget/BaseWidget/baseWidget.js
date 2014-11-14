@@ -1,5 +1,5 @@
 (function (ns){
-	module("BaseWidget", {
+	module("core/widget/BaseWidget", {
 		teardown: function () {
 			ns.engine._clearBindings();
 		}

@@ -1,4 +1,4 @@
-module("API");
+module("profile/mobile/widget/mobile/BaseWidgetMobile");
 
 	test ( "ej.widget.BaseWidgetMobile" , function () {
 		var widget;

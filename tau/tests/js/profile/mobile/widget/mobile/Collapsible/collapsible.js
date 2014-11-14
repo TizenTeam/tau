@@ -3,7 +3,7 @@
 
 	var handlers = {};
 
-	module('ej.widget.Collapsible', {
+	module('profile/mobile/widget/mobile/Collapsible', {
 		teardown: function () {
 			ej.engine._clearBindings();
 		}

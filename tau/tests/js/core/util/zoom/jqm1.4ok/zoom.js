@@ -2,7 +2,7 @@
  * mobile Fixed Toolbar unit tests
  */
 (function($){
-	module('jquery.mobile.fixedToolbar.js');
+	module('core/util/zoom');
 	
 	var defaultMeta = $( "meta[name=viewport]" ).attr("content");
 	

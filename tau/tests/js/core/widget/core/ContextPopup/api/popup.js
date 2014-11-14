@@ -38,7 +38,7 @@
 		equal(typeof widget._destroy, "function", "_destroy protected method exists");
 	}
 
-	module("Popup api tests", {
+	module("core/widget/core/ContextPopup", {
 		setup: function () {
 			popup1Link = document.getElementById("popup1Link");
 			popup1 = document.getElementById("popup1");

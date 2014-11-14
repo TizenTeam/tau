@@ -18,7 +18,7 @@
 		}
 	}
 
-	module("ej.event", {
+	module("core/event", {
 		teardown: function () {
 			clearListeners()
 		}

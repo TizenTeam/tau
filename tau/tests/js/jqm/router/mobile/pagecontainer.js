@@ -1,4 +1,4 @@
-module("ej.jqm.router");
+module("jqm/router");
 
 $(document).one('pagechange', function(event) {
 	asyncTest("pageContainer", 5, function () {

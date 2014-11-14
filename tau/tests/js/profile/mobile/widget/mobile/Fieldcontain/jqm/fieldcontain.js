@@ -3,7 +3,7 @@
  */
 $ ( document ).ready ( function ( ) {
 
-	module("button", {
+	module("profile/mobile/widget/mobile/Fieldcontain", {
 		teardown: function () {
 			ej.engine._clearBindings();
 		}

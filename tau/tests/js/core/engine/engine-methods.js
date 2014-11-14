@@ -22,7 +22,7 @@
 		newElement.id = elementId;
 	}
 
-	module("ej.engine methods", {
+	module("core/engine", {
 		setup: function () {
 			testElement = document.getElementById("page1");
 			engine.run();

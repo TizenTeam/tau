@@ -1,4 +1,4 @@
-module('Page');
+module('profile/mobile/router/Page');
 
 asyncTest('Enhance only first page', function () {
 	function checkFirstPageEnhanced () {

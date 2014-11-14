@@ -15,6 +15,8 @@
 		testElement11 = document.getElementById("test11"),
 		dom = tau.util.DOM;
 
+	module("core/util/DOM/css");
+
 	test("util.DOM.css", function () {
 		// basic props check
 		var props = {

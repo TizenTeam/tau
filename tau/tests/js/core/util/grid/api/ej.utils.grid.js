@@ -2,6 +2,8 @@
 	'use strict';
 	var grid = ns.util.grid;
 
+	module("core/util/grid");
+
 	test("ns.util.grid - check the existence of objects/functions", function () {
 		equal(typeof ns, "object", "ns exists");
 		equal(typeof ns.util, "object", "ns.util exists");

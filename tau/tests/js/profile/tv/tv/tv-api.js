@@ -2,7 +2,7 @@
 (function (tau) {
 	"use strict";
 
-	module("TV Namespace", {});
+	module("profile/tv", {});
 
 	test("Namespace is created", function () {
 		expect(1);

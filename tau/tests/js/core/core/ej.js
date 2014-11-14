@@ -1,6 +1,6 @@
-module("main");
+module("core/core");
 
-test ("ej" , function () {
+test ("tau" , function () {
 	var id1, id2, id3;
 
 	id1 = ej.getUniqueId();

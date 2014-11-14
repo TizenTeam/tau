@@ -1,4 +1,4 @@
-module("API ej.widget.micro", {
+module("profile/wearable/widget/wearable", {
 	});
 
 	test ( "API ej.widget.micro" , function () {

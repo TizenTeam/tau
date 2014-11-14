@@ -1,7 +1,7 @@
 (function (tau){
 	"use strict";
 
-	module("API tau.frameworkData");
+	module("core/frameworkData");
 
 	(function (frameworkData) {
 		test("API tau.frameworkData", function () {

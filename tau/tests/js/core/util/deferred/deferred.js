@@ -1,5 +1,6 @@
 /*global module, test, expect, stop, start, ej, ok, strictEqual, equal, notStrictEqual */
 /*jslint plusplus: true, nomen: true */
+module("core/util/deferred");
 jQuery.each(["", " - new operator"], function (_, withNew) {
 	'use strict';
 

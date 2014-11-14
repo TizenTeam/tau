@@ -1,5 +1,7 @@
 var selectors = ej.util.selectors;
 
+module("core/util/selectors");
+
 test("ej.util.selectors - check functions with 'parent'", function () {
 	var elem1 = document.getElementById("selectors1-parent"),
 		child1 = document.getElementById("selectors1-child"),

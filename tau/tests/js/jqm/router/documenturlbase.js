@@ -1,5 +1,5 @@
 //module("ej.jqm.mobile");
-module("ej.jqm.mobile", {});
+module("jqm/router", {});
 
 test('getDocumentUrl', function () {
 	var urlObject = {};

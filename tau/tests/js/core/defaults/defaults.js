@@ -1,6 +1,6 @@
-module("ns.defaults", {});
+module("profile/wearable/defaults", {});
 
-test("ns.defaults", function () {
+test("tau.defaults", function () {
 	equal(typeof tau.defaults, "object", 'tau.defaults is object');
 	equal(tau.defaults.autoInitializePage, true, 'tau.defaults.autoInitializePage');
 	equal(tau.defaults.dynamicBaseEnabled, true, 'tau.defaults.dynamicBaseEnabled');

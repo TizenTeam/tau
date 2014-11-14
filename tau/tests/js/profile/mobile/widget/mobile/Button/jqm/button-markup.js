@@ -6,7 +6,7 @@
  */
 $ ( document ).ready ( function ( ) {
 
-	module("button markup", {
+	module("profile/mobile/widget/mobile/Button", {
 		setup: function () {
 			ej.engine.run();
 		},

@@ -43,7 +43,7 @@
 	}
 
 
-	module('tau.widget.SwipeList', {
+	module('profile/wearable/widget/wearable/SwipeList', {
 		setup: function setup() {
 			this.left = ns.util.DOM.getElementOffset(listElement).left;
 			this.top = ns.util.DOM.getElementOffset(listElement).top;

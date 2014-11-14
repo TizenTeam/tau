@@ -6,7 +6,7 @@
 /*jslint browser: true*/
 /*global $, jQuery, test, equal, ok*/
 $( document ).ready( function ( ) {
-	module("Slider", {
+	module("profile/mobile/widget/mobile/TizenSlider", {
 		teardown: function () {
 			ej.engine._clearBindings();
 		}

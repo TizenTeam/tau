@@ -4,7 +4,7 @@ var events = ("touchstart touchmove touchend").split( " " );
 
 QUnit.config.testTimeout = 5000;
 
-module('anchorHighlight');
+module('core/util/anchorHighlight');
 
 function fireEvent(el, type, props, touches) {
 	var evt = new CustomEvent(type, {

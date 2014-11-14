@@ -4,7 +4,7 @@
 	var engine = ej.engine,
 		_tempSaveSequence;
 
-	module("Engine - tree build", {
+	module("core/engine", {
 		teardown: function () {
 			engine.stop();
 			if (typeof _tempSaveSequence === "function") {

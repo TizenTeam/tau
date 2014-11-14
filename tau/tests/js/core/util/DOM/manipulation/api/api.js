@@ -1,5 +1,7 @@
 var dom = ej.util.DOM;
 
+module("core/util/DOM/manipulation");
+
 test("util.DOM.manipulation - check the existence of objects/functions", function () {
 	equal(typeof ej, "object", "ej exists");
 	equal(typeof ej.util, "object", "ej.util exists");

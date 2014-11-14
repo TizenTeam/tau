@@ -4,7 +4,7 @@
 	var widget1,
 		engine  = ej.engine;
 
-	module("ej.engine functionality");
+	module("core/engine");
 
 	asyncTest("Generating widgets", 9, function () {
 		document.addEventListener("tauinit", function test1() {

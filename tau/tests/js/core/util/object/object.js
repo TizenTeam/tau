@@ -1,6 +1,6 @@
 /*global module, test, expect, stop, start, ej, ok, strictEqual, equal */
 /*jslint plusplus: true, nomen: true */
-module("Object");
+module("core/util/object");
 
 (function (ns) {
 	var SimpleObject = function (prop1) {

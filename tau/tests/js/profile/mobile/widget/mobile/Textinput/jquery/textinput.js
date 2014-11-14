@@ -4,6 +4,8 @@
 var tauConfig = {
 	"autorun": false
 };
+module("profile/mobile/widget/mobile/Textinput");
+
 test ( "input type=text" , function () {
 	var input = document.getElementById('name');
 

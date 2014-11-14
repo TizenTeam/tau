@@ -5,14 +5,13 @@
 (function (document, ej) {
 	var selectors = ej.util.selectors;
 	"use strict";
-	module("Matches Selector");
+	module("core/util/selectors");
 	test("matchesSelector", function () {
 		var div1 = document.querySelector("#test2");
 		ok(selectors.matchesSelector, "Function exists");
 		equal(selectors.matchesSelector(div1, "#test2"), true, "Matches proper selector");
 	});
 
-	module("Parents");
 	test("getParents", function () {
 		var div = document.getElementById('test1');
 		ok(selectors.getParents, "Function exist");
@@ -45,7 +44,6 @@
 		equal(selectors.getParentsBySelectorNS(div[0], "role=page").length, $("#page1").length, "Returns the same number of elements like jquery");
 	});
 
-	module("Children");
 
 	test("getChildrenBySelector", function () {
 		var div = document.getElementById('test2');
@@ -72,7 +70,6 @@
 		equal(selectors.getChildrenByTag(div, "h1").length, $(div).children("h1").length, "Returns the same number of elements like jquery");
 	});
 
-	module("Closest");
 
 	test("getClosestBySelector", function () {
 		var div = document.getElementById('test1');
@@ -103,8 +100,6 @@
 		ok(selectors.getClosestByTag, "Function exist");
 		equal(selectors.getClosestByTag(div, "div"), $(div).closest("div")[0], "Returns the same element like jquery");
 	});
-
-	module("Data selector");
 
 	test("getAllByDataNS", function () {
 		var div = document.getElementById('test1');

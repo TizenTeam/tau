@@ -6,7 +6,7 @@
 
 (function ($) {
 	//module("Slider");
-	module("Slider", {
+	module("profile/mobile/widget/mobile/TizenSlider", {
 		teardown: function () {
 			ej.engine._clearBindings();
 		}

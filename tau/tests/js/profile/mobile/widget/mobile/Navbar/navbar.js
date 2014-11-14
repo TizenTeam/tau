@@ -2,7 +2,7 @@
  * Unit Test: NavBar
  */
 
-module("NavBar", {
+module("profile/mobile/widget/mobile/Navbar", {
 	teardown: function () {
 		ej.engine._clearBindings();
 	}

@@ -1,5 +1,5 @@
 $().ready(function() {
-	module("SelectMenu", {
+	module("profile/mobile/widget/mobile/SelectMenu", {
 		teardown: function () {
 			tau.engine._clearBindings();
 		}

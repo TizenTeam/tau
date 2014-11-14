@@ -1,5 +1,5 @@
 $().ready(function() {
-	module("drawer", {
+	module("profile/mobile/widget/mobile/Drawer", {
 		teardown: function () {
 			ej.engine._clearBindings();
 		}

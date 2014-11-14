@@ -2,7 +2,7 @@
 $().ready(function () {
 	"use strict";
 
-	module("jqm.router", {});
+	module("jqm/router", {});
 
 	if (!window.navigator.userAgent.match("PhantomJS")) {
 		asyncTest("$.mobile.changePage", 1, function () {

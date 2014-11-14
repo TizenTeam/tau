@@ -1,4 +1,4 @@
-module("ej.jqm.events", {});
+module("jqm/events", {});
 
 test ( "eventBlocker" , function () {
 	var elem1 = document.getElementById("elem1"),

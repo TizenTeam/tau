@@ -1,7 +1,7 @@
 (function (ns) {
 	"use strict";
 
-	module("ns.widget.mobile.Collapsible", {});
+	module("profile/mobile/widget/mobile/Collapsible", {});
 
 	test("Check the existence of objects/functions", function () {
 		equal(typeof ns, "object", "ns exists");

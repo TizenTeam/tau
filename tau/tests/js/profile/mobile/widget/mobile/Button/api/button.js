@@ -1,6 +1,6 @@
 (function (ns) {
 	'use strict';
-	module("api.ns.widget.Button", {
+	module("profile/mobile/widget/mobile/Button", {
 		});
 
 	test ( "API ns.widget.Button" , function () {

@@ -5,7 +5,7 @@
 
 		var engine = ej.engine;
 
-		module("Listview tests", {
+		module("core/widget/core/Listview", {
 			setup: function () {
 				engine.createWidgets(document);
 			},

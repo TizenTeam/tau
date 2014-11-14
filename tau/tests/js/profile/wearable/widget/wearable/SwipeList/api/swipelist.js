@@ -1,4 +1,4 @@
-module("tau.widget.SwipeList", {});
+module("profile/wearable/widget/wearable/SwipeList", {});
 
 test("API" , function () {
 	var widget;

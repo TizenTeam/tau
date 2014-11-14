@@ -2,7 +2,7 @@
 (function() {
 	"use strict";
 
-	module("button", {
+	module("profile/mobile/widget/mobile/Button", {
 		teardown: function () {
 			tau.engine._clearBindings();
 		}

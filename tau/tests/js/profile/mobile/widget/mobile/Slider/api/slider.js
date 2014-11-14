@@ -1,5 +1,8 @@
 (function (ns) {
 	'use strict';
+
+	module("profile/mobile/widget/mobile/Slider");
+
 	test ( "API ns.widget.Slider" , function () {
 		var widget, Slider;
 		equal(typeof ns, 'object', 'Class ns exists');

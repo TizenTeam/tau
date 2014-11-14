@@ -1,4 +1,4 @@
-module("api.ej.widget.Page", {
+module("profile/wearable/widget/wearable/Page", {
 	});
 
 	test ( "API ej.widget.Page" , function () {

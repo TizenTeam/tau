@@ -1,6 +1,6 @@
 var range = ej.util.array.range;
 
-module('ej.util.array');
+module('core/util/array');
 test('Simple array creation', function() {
 	var i,
 		simple = range(3, 10);

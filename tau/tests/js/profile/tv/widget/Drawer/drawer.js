@@ -2,7 +2,7 @@ page = document.getElementById('test_drawer_page');
 page.addEventListener("pageshow", function() {
 	"use strict";
 
-	module("widget.tv.Drawer TV Drawer widget", {});
+	module("profile/tv/widget/Drawer", {});
 
 	test("Drawer", function () {
 		ej.engine.createWidgets(document);

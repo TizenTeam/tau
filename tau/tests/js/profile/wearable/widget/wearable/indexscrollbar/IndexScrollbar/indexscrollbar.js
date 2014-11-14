@@ -1,4 +1,4 @@
-	module("ej.widget.micro.IndexScrollbar", {
+	module("profile/wearable/widget/wearable/indexscrollbar/IndexScrollbar", {
 		teardown: function () {
 			ej.engine._clearBindings();
 		}

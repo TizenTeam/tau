@@ -1,6 +1,6 @@
 /*global module, test, expect, stop, start, ej, ok, strictEqual, equal */
 /*jslint plusplus: true, nomen: true */
-module("callbacks", {});
+module("core/util/callbacks", {});
 
 (function () {
 	'use strict';

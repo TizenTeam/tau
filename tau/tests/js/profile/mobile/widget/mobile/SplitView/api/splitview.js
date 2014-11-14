@@ -2,7 +2,7 @@
 (function (tau) {
 	"use strict";
 
-	module("API widget.SplitView");
+	module("profile/mobile/widget/mobile/SplitView");
 
 	test("Static properties", 3, function () {
 		equal(typeof tau.widget.SplitView, 'function', 'Class tau.widget.SplitView exists');

@@ -1,4 +1,4 @@
-module("ej.jqm.engine", {});
+module("core/theme", {});
 
 test ("getInheritedTheme - theme by data-role" , function () {
 	var list = document.getElementById("elem1"),

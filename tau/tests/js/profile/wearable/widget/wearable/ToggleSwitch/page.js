@@ -1,8 +1,8 @@
-module("tau.widget.wearable.ToggleSwitch", {});
+module("profile/wearable/widget/wearable/ToggleSwitch", {});
 
 var pageWidget = document.getElementById('first');
 pageWidget.addEventListener('pageshow', function() {
-	test("tau.widget.wearable.ToggleSwitch _build method", function () {
+	test("profile/wearable/widget/wearable/ToggleSwitch _build method", function () {
 		var switchElement = document.getElementById('switch'),
 			switchWidget = tau.widget.ToggleSwitch(switchElement);
 		equal(switchElement.children[0].className, "ui-switch-text", 'text element has proper class');

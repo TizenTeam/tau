@@ -1,5 +1,7 @@
 var events = ej.event;
 
+module("core/event");
+
 test("ej.event - check the existence of objects/functions", function () {
 	equal(typeof ej, "object", "ej exists");
 	equal(typeof ej.event, "object", "ej.event exists");

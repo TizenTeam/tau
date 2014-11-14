@@ -17,6 +17,8 @@
 		numitemdata: JSON_DATA.length
 	};
 
+	module("profile/mobile/widget/mobile/ExtendableList");
+
 	test("ns.widget.Extendablelist jTmpl markup and options checking",  function () {
 		var children,
 			options,

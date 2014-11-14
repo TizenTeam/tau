@@ -45,6 +45,7 @@
 	// Set listener
 	elList.addEventListener('draw', drawListener, false);
 
+	module("profile/wearable/widget/wearable/VirtualList");
 
 	// RUN TEST 1
 	test("ej.widget.micro.VirtualList draw method", 9, function () {

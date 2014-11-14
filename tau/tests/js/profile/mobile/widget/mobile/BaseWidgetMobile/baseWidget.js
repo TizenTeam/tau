@@ -1,5 +1,5 @@
 (function (ns) {
-	module("BaseWidget", {
+	module("profile/mobile/widget/mobile/BaseWidgetMobile", {
 		teardown: function () {
 			ns.engine._clearBindings();
 		}

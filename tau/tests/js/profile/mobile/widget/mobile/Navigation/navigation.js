@@ -1,5 +1,5 @@
 $().ready(function() {
-	module("navigation", {
+	module("profile/mobile/widget/mobile/Navigation", {
 		teardown: function () {
 			tau.engine._clearBindings();
 		}

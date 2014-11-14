@@ -1,4 +1,4 @@
-module("ej.widget.micro.Page", {});
+module("profile/wearable/widget/wearable/Page", {});
 
 var pageWidget = document.getElementById('first');
 pageWidget.addEventListener('pagecreate', function() {

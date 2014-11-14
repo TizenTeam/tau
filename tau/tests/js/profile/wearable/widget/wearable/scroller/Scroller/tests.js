@@ -1,4 +1,4 @@
-module("tau.widget.wearable.scroller.Scroller", {});
+module("profile/wearable/widget/wearable/scroller/Scroller", {});
 
 var pageWidget = document.getElementById('first');
 

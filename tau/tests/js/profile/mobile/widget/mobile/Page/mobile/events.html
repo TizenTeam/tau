@@ -16,6 +16,8 @@
 		<script src="../../../../../../../libs/jquery.js"></script>
 		<script src="../../../../../../../libs/support.js"></script>
 		<script>
+			module("profile/mobile/widget/mobile/Page");
+
 			asyncTest('Events listener in correct order', 27, function () {
 				var page = document.getElementById('first'),
 					pageActive = document.getElementById('two'),

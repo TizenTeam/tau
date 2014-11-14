@@ -2,6 +2,8 @@ var dom = ej.util.DOM,
 	div = document.getElementById("test1"),
 	div2 = document.getElementById("test2");
 
+module("core/util/DOM/attributes");
+
 test("util.DOM.attributes - check function inheritAttr", function () {
 	var elem1 = document.getElementById("dom5"),
 		elem2 = document.getElementById("dom6"),

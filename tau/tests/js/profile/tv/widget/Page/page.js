@@ -1,6 +1,6 @@
 (function(document, tau) {
     "use strict";
-    module("widget.tv.Page TV Page widget", {});
+    module("profile/tv/widget/Page", {});
 
         test("widget.tv.Page TV specific selectors", function () {
             var pageWidget = document.getElementById('first'),

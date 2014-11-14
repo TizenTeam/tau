@@ -11,7 +11,7 @@
 		PopupClass = ej.widget.core.Popup,
 		engine = ej.engine;
 
-	module("Popup tests", {
+	module("core/widget/core/Popup", {
 		setup: function () {
 			popup1Link = document.getElementById("popup1Link");
 			popup1 = document.getElementById("popup1");

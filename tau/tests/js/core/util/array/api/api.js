@@ -1,5 +1,7 @@
 var array = ej.util.array;
 
+module('core/util/array');
+
 test("ej.util.array - check the existence of objects/functions", function () {
 	equal(typeof ej, "object", "ej exists");
 	equal(typeof ej.util, "object", "ej.util exists");

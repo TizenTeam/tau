@@ -3,7 +3,7 @@
 	"use strict";
 	var events = tau.event;
 
-	module("widget.mobile.FastScroll", {});
+	module("profile/mobile/widget/mobile/Fastscroll", {});
 
 	document.addEventListener('DOMContentLoaded', function(){
 		asyncTest("Contacts", 21, function(){

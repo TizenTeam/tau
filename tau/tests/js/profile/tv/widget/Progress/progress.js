@@ -2,7 +2,7 @@ page = document.getElementById('test_progress_page');
 page.addEventListener("pageshow", function() {
     "use strict";
 
-    module("widget.tv.Slider TV Slider widget", {});
+    module("profile/tv/widget/Progress", {});
 
     test("Progress - infinite bar", function() {
         ej.engine.createWidgets(document);

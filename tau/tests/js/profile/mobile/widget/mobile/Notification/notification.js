@@ -6,7 +6,7 @@
  * Michał Szepielak <m.szepielak@samsung.com>
  */
 'use strict';
-module("Notification", {
+module("profile/mobile/widget/mobile/Notification", {
 	teardown: function () {
 		ej.engine._clearBindings();
 	}

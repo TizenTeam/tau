@@ -1,5 +1,5 @@
 $().ready(function() {
-	module("event.orientationchange", {});
+	module("core/event/orientationchange", {});
 	asyncTest ("orientationchange event", 2, function () {
 		setTimeout(function() {
 			start();
