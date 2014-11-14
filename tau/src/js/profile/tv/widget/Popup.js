@@ -188,16 +188,21 @@
 			};
 
 			prototype.close = function() {
-				if (this._isOpened()) {
+				var self = this;
+
+				if (self._isOpened()) {
 					if (typeof CorePopupPrototype.close === FUNCTION_TYPE) {
-						CorePopupPrototype.close.apply(this, arguments);
+						CorePopupPrototype.close.apply(self, arguments);
 					}
 
-					this._cleanArrowFocus();
-					this.disableKeyboardSupport();
-					this._pageWidget.enableKeyboardSupport();
+					self._cleanArrowFocus();
+					self.disableKeyboardSupport();
+					self._pageWidget.enableKeyboardSupport();
 
-					closingOnKeydown(this, false);
+					closingOnKeydown(self, false);
+
+					// blur any focused elements
+					document.activeElement.blur();
 				}
 			};
 
