@@ -492,6 +492,19 @@
 				}
 			}
 
+			/**
+			 * Binds events common to mouse and touch to support virtual mouse.
+			 * @method bindCommonEvents
+			 * @static
+			 * @member ns.event.vmouse
+			 */
+			vmouse.bindCommonEvents = function () {
+				document.addEventListener("keyup", handleKeyUp, true);
+				document.addEventListener("keydown", handleKeyDown, true);
+				document.addEventListener("scroll", handleScroll, true);
+				document.addEventListener("click", handleClick, true);
+			}
+
 			// @TODO delete touchSupport flag and attach touch and mouse listeners,
 			// @TODO check if v-events are not duplicated if so then called only once
 
@@ -513,8 +526,6 @@
 				document.addEventListener("_touchover", handleTouchOver, true);
 				// document.addEventListener("touchleave", callbacks.out, true);
 				document.addEventListener("touchcancel", handleTouchCancel, true);
-
-				document.addEventListener("click", handleClick, true);
 			};
 
 			/**
@@ -530,11 +541,6 @@
 				document.addEventListener("mousemove", handleMove, true);
 				document.addEventListener("mouseover", handleOver, true);
 				document.addEventListener("mouseout", handleOut, true);
-
-				document.addEventListener("keyup", handleKeyUp, true);
-				document.addEventListener("keydown", handleKeyDown, true);
-				document.addEventListener("scroll", handleScroll, true);
-				document.addEventListener("click", handleClick, true);
 			};
 
 			ns.event.vmouse = vmouse;
@@ -544,6 +550,7 @@
 			} else {
 				vmouse.bindMouse();
 			}
+			vmouse.bindCommonEvents();
 
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return ns.event.vmouse;
