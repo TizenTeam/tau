@@ -1942,27 +1942,32 @@
 			Popup.prototype.open = function (options) {
 				var activePopup = ns.activePopup,
 					closePopup,
-					event = arguments[1],
-					startOpeningCallback = startOpeningPopup.bind(null, this, options, event);
+					event,
+					startOpeningCallback;
 
-				if (activePopup === this) {
-					return;
-				}
-				// If there is an active popup, wait until active popup will close
-				if (activePopup) {
-					events.one(activePopup.element, "popupafterclose", startOpeningCallback);
-					if (activePopup._isOpen) {
-						activePopup.close();
-					} else if (!activePopup._isPreClose) {
-						// If popup is opening or is promised to be opened
-						// close it just after opening
-						closePopup = activePopup.close.bind(activePopup);
-						events.one(activePopup.element, "popupafteropen", closePopup);
+				if (activePopup !== this) {
+					if (!doms.isOccupiedPlace(this._page)) {
+						ns.warn("The popup cannot be shown if page which contains the popup is invisible");
+					} else {
+						// If there is an active popup, wait until active popup will close
+						event = arguments[1],
+						startOpeningCallback = startOpeningPopup.bind(null, this, options, event);
+						if (activePopup) {
+							events.one(activePopup.element, "popupafterclose", startOpeningCallback);
+							if (activePopup._isOpen) {
+								activePopup.close();
+							} else if (!activePopup._isPreClose) {
+								// If popup is opening or is promised to be opened
+								// close it just after opening
+								closePopup = activePopup.close.bind(activePopup);
+								events.one(activePopup.element, "popupafteropen", closePopup);
+							}
+						} else {
+							startOpeningCallback();
+						}
+						ns.activePopup = this;
 					}
-				} else {
-					startOpeningCallback();
 				}
-				ns.activePopup = this;
 			};
 
 			/**
