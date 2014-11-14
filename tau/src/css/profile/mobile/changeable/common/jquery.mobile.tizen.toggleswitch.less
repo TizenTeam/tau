@@ -182,13 +182,15 @@ div.ui-slider.ui-slider-switch:not(.ui-toggle-switch) {
 
 		&.ui-slider-label-a {
 			left : 0px;
-			color : white;
+			color : @color_slider_switch_label_on_text;
+			background-color: @color_slider_switch_label_on_bg;
 			z-index : 1;
 			text-indent : -1.5em;
 		}
 		&.ui-slider-label-b {
 			right : 0px;
-			color : @color_slider_num_text;
+			color : @color_slider_switch_label_off_text;
+			background-color: @color_slider_switch_label_off_bg;
 			z-index : 0;
 			text-indent : 1.5em;
 		}

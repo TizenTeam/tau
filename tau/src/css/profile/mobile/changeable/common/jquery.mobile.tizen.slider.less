@@ -84,7 +84,7 @@ select.ui-slider-switch {
 	height: 37 * @unit_base;
 
 	text-align: center;
-	color: @color_slider_num_text;
+	color: @color_slider_left_text;
 	font-size: @font_size_slider_num_text;
 }
 
@@ -95,7 +95,7 @@ select.ui-slider-switch {
 	 height: 37 * @unit_base;
 
 	 text-align: center;
-	 color: @color_slider_num_text;
+	 color: @color_slider_right_text;
 	 font-size: @font_size_slider_num_text;
 }
 
@@ -107,7 +107,7 @@ div.ui-slider:not(.ui-toggle-switch) {
 	margin-right: 8 * @unit_base;
 
 	.LESSborder-radius-all( 10 * @unit_base );
-	background-color: @color_slider_center;
+	background-color: @color_slider_bg;
 
 	.ui-btn {
 		margin-top: 0;
@@ -134,7 +134,7 @@ div.ui-vertical-slider {
 	height: 100%;
 
 	.LESSborder-radius-all( 10 * @unit_base );
-	background-color: @color_progress_bg;
+	background-color: @color_slider_bg;
 
 	a.ui-slider-handle-press {
 		&:after {
@@ -219,7 +219,7 @@ a.ui-slider-handle {
 		left: 0;
 		display: block;
 		z-index: 9;
-		background-color: @color_slider_handle_press_bg;
+		background-color: @color_slider_handle_bg;
 		margin-top: -18 * @unit_base;
 	}
 
@@ -254,7 +254,7 @@ a.ui-flip-handle {
 	width: 0;
 
 	.LESSborder-radius-all( 10 * @unit_base );
-	background-color: @color_slider_handle_bg;
+	background-color: @color_slider_active_bg;
 
 	&.ui-slider-bg-has-center {
 	.LESSborder-radius-all( 0 );
