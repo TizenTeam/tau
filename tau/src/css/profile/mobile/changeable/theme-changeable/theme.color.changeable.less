@@ -226,15 +226,16 @@
 /***************************************************************************
                     Toggle
 ***************************************************************************/
-@color_toggle_bg: W015L1;
+@color_toggle_bg: W015L1; // for old toggle
 
-@color_toggle_outline: W015L1D;
+@color_toggle_outline: W015L1D; // for old toggle
 
-@color_toggle_handle_on_bg: W015L1;
-@color_toggle_handle_off_bg: W015L1E1;
+@color_toggle_handle_on_bg: W015L1; // #[color] on background color
+@color_toggle_handle_off_bg: W015L1E1; // #[color] off background color
 
-@color_toggle_handle_on_icon: W015L1i;
-@color_toggle_handle_off_icon: W015L1i;
+@color_toggle_handle_on_icon: W015L1i; // for old toggle
+@color_toggle_handle_off_icon: W015L1i; // for old toggle
+@color_toggle_handle_icon: W015L1i; // #[color] on/off icon background color
 
 
 
@@ -242,22 +243,20 @@
 /***************************************************************************
                     Progress
 ***************************************************************************/
-@color_progress_bg: W062L1;
-@color_progress_value: W062L2;
-@color_progress_text1: T057L1;
-@color_progress_text2: T058;
-@color_progress_circle_bg: W157E1;
+@color_progress_bg: W062L1; // #[color] background color
+@color_progress_value: W062L2; // #[color] value color
+@color_progress_circle_bg: W157E1; // #[color] circle progress color
 
 /***************************************************************************
                    tokentextarea
 ***************************************************************************/
-@color_tokentextarea_bg : W010;
-@color_tokentextarea_block_text : T020;
-@color_tokentextarea_block_text_press : T020;
-@color_tokentextarea_block_bg : W012;
-@color_tokentextarea_press_bg : W012P;
-@color_tokentextarea_input_text : T059L1;
-@color_tokentextarea_label_text : T059L2;
+@color_tokentextarea_bg : W010; // #[color] background color
+@color_tokentextarea_block_text : T020; // #[color] block token text color
+@color_tokentextarea_block_text_press : T020; // #[color] block token text press color
+@color_tokentextarea_block_bg : W012; // #[color] block token background color
+@color_tokentextarea_press_bg : W012P; // #[color] block token press background color
+@color_tokentextarea_input_text : T059L1; // #[color] input text color
+@color_tokentextarea_label_text : T059L2; // #[color] label text color
 
 /***************************************************************************
                    Splitview
@@ -268,67 +267,62 @@
 /***************************************************************************
                   Checkbox / Radio
 ****************************************************************************/
-@color_checkboxradio_bg_line: W013L2;
-@color_checkboxradio_bg_press_line: W013L2P;
-@color_checkboxradio_checkbox_bg_line: W013L2;
+@color_checkboxradio_checkbox_bg_icon: W013L1i; // #[color] checkbox icon background color
 
-@color_checkboxradio_checkbox_bg_icon: W013L1i;
+@color_checkboxradio_bg_on: W013L1; // #[color] checkbox on background color
+@color_checkboxradio_bg_off: W013L1E1; // #[color] checkbox off background color
 
-@color_checkboxradio_bg_on: W013L1;
-@color_checkboxradio_bg_off: W013L1E1;
-@color_checkboxradio_bg_on_icon: W013L1D;
+@color_checkboxradio_radio_bg_on: W014L1; // #[color] radio on background color
+@color_checkboxradio_radio_bg_off: W014L1E1; // #[color] radio off background color
 
-@color_checkboxradio_radio_bg_on: W014L1;
-@color_checkboxradio_radio_bg_off: W014L1E1;
-@color_checkboxradio_radio_btn_icon: W014L1D;
-
-@color_checkboxradio_radio_bg_icon: W014Li;
-
-@color_checkboxradio_favorite_off : W016L1iE1;
-@color_checkboxradio_favorite_on : W016L1i;
+@color_checkboxradio_radio_bg_icon: W014Li; // #[color] radio icon background color
+@color_checkboxradio_favorite_off : W016L1iE1; // #[color] favorite icon off color
+@color_checkboxradio_favorite_on : W016L1i; // #[color] favorite icon on color
 
 /***************************************************************************
 		Scrollview
 ****************************************************************************/
-@color_scrollview_handler_bg: B0731L3;
-@color_scrollview_handler_thumb_01: B0731L4;
-@color_scrollview_handler_thumb_02: B0731L5;
+@color_scrollview_handler_bg: B0731L3; // #[color] handler background color
+@color_scrollview_handler_thumb_01: B0731L4; // #[color] handler upper thumb color
+@color_scrollview_handler_thumb_02: B0731L5; // #[color] handler lower thumb color
 /***************************************************************************
                         Drawer
 ***************************************************************************/
-@color_drawer_bg : C001;
-@color_drawer_list_press : B0211P;
-@color_drawer_overlay_bg : B016;
-@color_drawer_icon : F043L1i;
-@color_drawer_icon_press : F043P;
-@color_drawer_border_left : @color_list_border_bottom;
-@color_drawer_border_right : @color_list_border_bottom;
+@color_drawer_bg : C001; // #[color] background color
+@color_drawer_list_press : B0211P; // #[color] list item background color
+@color_drawer_overlay_bg : B016; // #[color] overlay color
+@color_drawer_icon : F043L1i; // #[color] icon color
+@color_drawer_icon_press : F043P; // #[color] background icon press color
+
+@color_drawer_border_left : @color_list_border_bottom; // #[color] border left color
+@color_drawer_border_right : @color_list_border_bottom; // #[color] border right color
+
 /***************************************************************************
                                 Empty State
 ***************************************************************************/
-@color_emptystate_header_bg : B011;
-@color_emptystate_content_bg : B238L1;
-@color_emptystate_content_pattern_bg : B238L2;
+@color_emptystate_header_bg : B011; // #[color] header background color
+@color_emptystate_content_bg : B238L1; // #[color] content background color
+@color_emptystate_content_pattern_bg : B238L2; // #[color] content pattern color
 
 /***************************************************************************
                         SelectMenu
 ***************************************************************************/
-@color_selectmenu_list_group_index_bg : W021L1;
-@color_selectmenu_list_line : W021L2;
+@color_selectmenu_list_group_index_bg : W021L1; // #[color] list group background color
+@color_selectmenu_list_line : W021L2; // #[color] list group divider line color
+@color_selectmenu_border_placeholder: W021L2; // #[color] placeholder border color
 @color_selectmenu_label_bg : B0733;
-@color_selectmenu_label_bg_stroke : B0733L1;
-@color_selectmenu_label_bg_press : B0733P;
-@color_selectmenu_label_line : B0733L2;
-@color_selectmenu_icon : B0734;
-@color_selectmenu_font_dim : T12351D;
+@color_selectmenu_list_group_stroke: B0733L1; // #[color] list stroke line color
+@color_selectmenu_list_item_bg_press : B0733P; // #[color] list item background press color
+@color_selectmenu_icon : B0734; // #[color] icon color
+@color_selectmenu_font_dim : T12351D; // #[color] list item disabled text color
+@color_selectmenu_placeholder_bg : W021L1; // #[color] placeholder background color
 
 /***************************************************************************
                         Navigation
 ***************************************************************************/
-@color_navigation_text: T042;
-@color_navigation_text_press: T042P;
-@color_navigation_text_dim: T042D;
-@color_navigation_bg : B011;
-@color_navigation_bar_bg : B012L1;
-@color_navigation_bar_icon: B012L3;
-@color_navigation_tab_divider : B012L4;
+@color_navigation_text: T042; // #[color] text color
+@color_navigation_text_press: T042P; // #[color] text press color
+@color_navigation_bg : B011; // #[color] background color
+@color_navigation_bar_bg : B012L1; // #[color] list item background color
+@color_navigation_bar_icon: B012L3; // #[color] icon color
+@color_navigation_tab_divider : B012L4; // #[color] divider line color

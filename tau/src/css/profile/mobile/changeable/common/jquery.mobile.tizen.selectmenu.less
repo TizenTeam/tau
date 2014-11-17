@@ -62,8 +62,8 @@
 	overflow: hidden;
 	text-overflow: ellipsis;
 	font-size: @font_size_selectmenu_list;
-	border: 1px solid @color_selectmenu_list_line;
-	background-color: @color_selectmenu_list_group_index_bg;
+	border: 1px solid @color_selectmenu_border_placeholder;
+	background-color: @color_selectmenu_placeholder_bg;
 }
 
 .ui-selectmenu-disabled {
@@ -98,7 +98,7 @@
 	padding: 0;
 	overflow: hidden;
 	margin: 0 15 * @unit_base 0 15 * @unit_base;
-	border: 1px solid @color_selectmenu_label_bg_stroke;
+	border: 1px solid @color_selectmenu_list_group_stroke;
 	background-color: @color_selectmenu_list_group_index_bg;
 	&:focus {
 		outline: none;
@@ -124,7 +124,7 @@
 			border-top: 0;
 		}
 		&:not(.ui-selectmenu-optiongroup):not(.ui-selectmenu-disabled):active {
-			background-color: @color_selectmenu_label_bg_press;
+			background-color: @color_selectmenu_list_item_bg_press;
 		}
 		&:focus,
 		&:active {
