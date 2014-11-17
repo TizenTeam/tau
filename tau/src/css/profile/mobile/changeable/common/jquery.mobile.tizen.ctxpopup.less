@@ -55,12 +55,8 @@
 	.ui-listview .ui-li {
 		color: @color_ctxpopup_text;
 		font-size: @font_size_ctxpopup_text;
-		border-bottom-color: @color_ctxpopup_border_bottom;
-		border-bottom-width: 1 * @unit_base;
-		border-bottom-style: solid;
-		border-top-color: @color_ctxpopup_border_top;
-		border-top-width: 1 * @unit_base;
-		border-top-style: solid;
+		border-top: 1 * @unit_base solid @color_ctxpopup_list_item_border_top;
+		border-bottom: 1 * @unit_base solid @color_ctxpopup_list_item_border_bottom;
 		margin-left: 0;
 		margin-right: 0;
 		&:first-child {

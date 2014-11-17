@@ -80,13 +80,13 @@ textarea::-webkit-input-placeholder {
 			float: right;
 			// Move to top by - input's padding-bottom + clear height
 			margin-top: -(36 + 29) * @unit_base;
-			background: @color_editfield_clear_icon;
+			background-color: @color_searchbar_clear_icon;
 			-webkit-mask-size: contain;
 			-webkit-mask-image: url(images/controls/00_core_button_icon_clear.png);
 
 			&:active,
 			&:hover {
-				background-color: @color_editfield_clear_icon_press;
+				background-color: @color_searchbar_clear_icon_press;
 			}
 		}
 
@@ -223,6 +223,10 @@ textarea.ui-input-text.ui-focus {
 		font-size: @font_size_searchbar_text;
 		display: block;
 		position: relative;
+		background-color: @color_searchbar_bg;
+	}
+
+	.ui-input-text {
 		background-color: @color_searchbar_bg;
 	}
 
