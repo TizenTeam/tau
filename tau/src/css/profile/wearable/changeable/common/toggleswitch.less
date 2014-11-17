@@ -3,7 +3,7 @@
  */
 .ui-switch-activation, .ui-switch-inneroffset, .ui-switch-handler {
 	display: block;
-	-webkit-mask-image: url(images/Controller_icon/toggle_changeable.png);
+	-webkit-mask-image: @toggle_mask_image;
 	-webkit-mask-repeat: no-repeat;
 }
 
@@ -30,8 +30,8 @@
 }
 
 .ui-switch-inneroffset {
-	width: 110px;
-	height: 88px;
+	width: @fixed_toggleswitch_handler_width;
+	height: @fixed_toggleswitch_handler_height;
 	position: absolute;
 }
 
@@ -48,10 +48,10 @@
 	margin-top: @fixed_toggleswitch_act_margin_top;
 
 	.ui-switch-inneroffset {
-		-webkit-mask-position: 0 -120px;
+		-webkit-mask-position: @fixed_toggleswitch_handle_position;
 		background-color: @color_toggle_off_handler;
-		margin-left: 9px;
-		margin-top: 11px;
+		margin-left: @fixed_toggleswitch_handle_off_margin_left;
+		margin-top: @fixed_toggleswitch_handle_off_margin_top;
 	}
 
 	.ui-switch-inneroffset:active {
@@ -62,7 +62,7 @@
 		position: relative;
 		width: @fixed_toggleswitch_handler_width;
 		height: @fixed_toggleswitch_handler_height;
-		-webkit-mask-position: 0 -218px;
+		-webkit-mask-position: @fixed_toggleswitch_on_position;
 		background-color: @color_toggle_off_handler_off;
 		left: 0%;
 	}
@@ -112,10 +112,10 @@
 		margin-top: @fixed_toggleswitch_act_margin_top;
 
 		.ui-switch-inneroffset {
-			-webkit-mask-position: 0 -120px;
+			-webkit-mask-position: @fixed_toggleswitch_handle_position;
 			background-color: @color_toggle_on_handler;
-			margin-left: 89px;
-			margin-top: 11px;
+			margin-left: @fixed_toggleswitch_handle_on_margin_left;
+			margin-top: @fixed_toggleswitch_handle_on_margin_top;
 		}
 
 		.ui-switch-inneroffset:active {
@@ -126,7 +126,7 @@
 			position: relative;
 			width: @fixed_toggleswitch_handler_width;
 			height: @fixed_toggleswitch_handler_height;
-			-webkit-mask-position: 0 -316px;
+			-webkit-mask-position: @fixed_toggleswitch_off_position;
 			background-color: @color_toggle_on_handler_on;
 			left: 0;
 		}
