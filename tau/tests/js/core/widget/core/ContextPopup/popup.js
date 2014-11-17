@@ -96,13 +96,15 @@
 	});
 
 	test("destroy", function () {
-		expect(4);
+		expect(2);
 		popup1Widget = engine.instanceWidget(popup1, INSTANCE_WIDGET);
-		equal(popup1.children.length, 2, "Popuphas 2 children");
 		equal(popup1.firstChild.className, "ui-popup-wrapper", "Popup has wrapper before destroy");
 		popup1Widget.destroy();
-		equal(popup1.children.length, 1, "Popup has one children");
-		ok(popup1.firstChild.className !== "ui-popup-wrapper", "Popup does not have wrapper");
+		if (popup1.firstChild) {
+			ok(popup1.firstChild.className !== "ui-popup-wrapper", "Popup does not have wrapper");
+		} else {
+			ok(popup1.firstChild === null, "Popup have not child elements")
+		}
 	});
 
 	asyncTest("position of arrow", 3, function () {

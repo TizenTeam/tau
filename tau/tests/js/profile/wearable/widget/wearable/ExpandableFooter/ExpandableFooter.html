@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Engine bound event test</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<link rel="stylesheet" href="../../../../../../libs/qunit-1.11.0.css">
+	<link rel="stylesheet"
+		  href="../../../../../../libs/dist/theme/default/tau.css">
+	<script src="../../../../../../libs/qunit-1.11.0.js"></script>
+	<script src="../../../../../../libs/support.js"></script>
+	<script>
+		// workaround for touches simulate;
+		window.ontouchstart = {};
+	</script>
+	<script type="text/javascript"
+			src="../../../../../../libs/dist/js/tau.js"></script>
+</head>
+
+<body>
+<div class="ui-page ui-scroll-on">
+	<header class="ui-header">
+		<h2 class="ui-title">Expandable</h2>
+	</header>
+	<div class="ui-content">
+		<ul class="ui-listview">
+			<li><a href="#">List</a></li>
+			<li><a href="#">List</a></li>
+			<li><a href="#">List</a></li>
+		</ul>
+	</div>
+	<footer class="ui-footer ui-expandable-footer">
+		<a href="#" class="ui-btn ui-btn-footer-icon btn-icon-showonphone" data-rel="back">Phone</a>
+	</footer>
+</div>
+<script src="ExpandableFooter.js"></script>
+</body>
+</html>
