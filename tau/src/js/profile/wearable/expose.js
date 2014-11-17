@@ -29,9 +29,7 @@
 			document.addEventListener("routerinit", function (evt) {
 				var router = evt.detail,
 					history = ns.router.history,
-					navigator,
 					back = history.back.bind(router),
-					rule = ns.router.route,
 					classes = ns.widget.wearable.Page.classes,
 					pageActiveClass = classes.uiPageActive;
 				/**
