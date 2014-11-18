@@ -895,6 +895,9 @@
 					 * @property {?string} [options.theme=null] theme of widget
 					 * @property {?string} [options.dividerTheme="s"] theme of listview divider
 					 * @property {boolean} [options.inset=false] inset option - listview is wrapped by additionally layer
+					 * @property {"colored"|null} [options.type=null] set type of list, colored or not
+					 * @property {number} [options.coloredListNumber=18] max number of colored items
+					 * @property {number} [options.diffLightness=3] difference between colored items
 					 * @member ns.widget.mobile.Listview
 					 */
 					options = self.options || {};
@@ -902,7 +905,8 @@
 				options.theme = null;
 				options.dividerTheme = "s";
 				options.inset = false;
-				options.coloredListNumber = 12;
+				options.type = null;
+				options.coloredListNumber = 18;
 				options.diffLightness = 3;
 
 				self.options = options;
@@ -1101,26 +1105,26 @@
 				self._coloredListHandler = self._scrollHandler.bind(self); // This variable will be used when event handler remove.
 				if (parentElement){
 					// List in scrollview
-					parentElement.parentNode.appendChild(dummyElement);
+					element.parentNode.insertBefore(dummyElement, element.parentNode.firstChild);
 					parentElement.addEventListener("scroll", self._coloredListHandler);
 					if (self._scrollTop) {
 						// It was scrolled before that means listview element made before and don't need to init more.
 						return;
 					}
 
-					dummyElement.style.top = parentElement.offsetTop + "px";
+
 				} else {
 					parentElement = element.parentNode;
 					parentElement.appendChild(dummyElement);
 					parentElement.addEventListener("scroll", self._coloredListHandler);
-					dummyElement.style.top = "0";
+
 				}
 				self._changeColoredPosition(0); // Init linear-gradient
 
 				parentElement.style.backgroundColor = "transparent";
 
 				dummyElement.style.width = element.offsetWidth + "px";
-				dummyElement.style.height = parentElement.offsetHeight + "px";
+				dummyElement.style.height = parentElement.offsetHeight * 2 + "px";
 
 			};
 
@@ -1188,6 +1192,7 @@
 					gradientValue,
 					gradient;
 
+				self._dummyElement.style.top = scrollTop + "px";
 				if (!direction) {
 					// move up
 					colorRatio = -colorRatio; // redRatio = -4 / listTopOffsetHeight
@@ -1266,9 +1271,8 @@
 					}
 				}, false);
 
-				if (element.getAttribute("data-type") !== "colored") {
+				if (self.options.type !== "colored") {
 					element.classList.add("ui-listview-default");
-					return;
 				} else {
 					if (!element.classList.contains(classes.uiListviewColored)) {
 						element.classList.add(classes.uiListviewColored);
