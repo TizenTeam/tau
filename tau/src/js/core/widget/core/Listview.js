@@ -80,6 +80,7 @@
 				prototype = new BaseWidget();
 
 			Listview.events = {};
+			Listview.classes = classes;
 
 			Listview.classes = classes;
 
@@ -157,13 +158,13 @@
 
 				element.classList.add(classes.LISTVIEW);
 
-				for (i=0; i<itemsLength; i++) {
+				for (i = 0; i < itemsLength; i++) {
 					item = items[i];
 					if (item.firstElementChild && item.firstElementChild.tagName === "A") {
 						self._changeLinksToButton(item.firstElementChild);
 					}
 				}
-			}
+			};
 
 			/**
 			* @method _destroy
@@ -171,7 +172,21 @@
 			* @member ns.widget.core.Listview
 			*/
 			prototype._destroy = function () {
-				return null;
+				var items = this.element.children,
+					itemsLength = items.length,
+					item,
+					i,
+					widget;
+
+				for (i = 0; i < itemsLength; i++) {
+					item = items[i];
+					if (item.firstElementChild && item.firstElementChild.tagName === "A") {
+						widget = engine.getBinding(item.firstElementChild, "Button");
+						if (widget !== null) {
+							widget.destroy();
+						}
+					}
+				}
 			};
 
 			Listview.prototype = prototype;

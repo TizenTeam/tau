@@ -353,6 +353,7 @@
 				element.removeAttribute(DATA_BOUND);
 				element.removeAttribute(DATA_NAME);
 			}
+
 			/**
 			 * Remove binding data attributes for element.
 			 * @method _removeBindingAttributes

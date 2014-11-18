@@ -43,7 +43,7 @@
 			list.appendChild(li3);
 			list.appendChild(li4);
 
-			listWidget = window.tau.engine.instanceWidget(list, "Listview");
+			listWidget = engine.instanceWidget(list, "Listview");
 			listWidget.refresh();
 
 			//after refresh
@@ -66,6 +66,21 @@
 			equal(innerButtonSpan.childNodes.length, 1, "Second span for link is created");
 			innerButtonTextSpan = innerButtonSpan.childNodes[0];
 			ok(innerButtonTextSpan.classList.contains("ui-btn-text"), "Link span has ui-btn-text class");
+		});
+
+		test('Destroy', function () {
+			var list = document.getElementById("list-with-data-role"),
+				listWidget = engine.instanceWidget(list, "Listview");
+
+			equal(list.getAttribute("data-tau-bound"), "Listview", "List widget is created");
+			ok(list.querySelectorAll("[data-tau-bound=Button]").length > 0,
+				"A elements changed into Button widgets");
+
+			listWidget.destroy();
+
+			equal(list.getAttribute("data-tau-bound"), null, "List widget is destroyed");
+			ok(list.querySelectorAll("[data-tau-bound=Button]").length === 0,
+				"Inner button widgets destroyed");
 		});
 
 }(window, window.document));
