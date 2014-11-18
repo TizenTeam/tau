@@ -190,3 +190,14 @@ test("textinput - focus on disabled", function () {
 	equal(input17.getAttribute('data-tau-bound'), "TextInput", "textinput widget is created");
 	ok(!input17.classList.contains('ui-focus'), "textinput dosn't have ui-focus class");
 });
+
+test("textinput - value get/set", function () {
+	var input18 = document.getElementById('getset');
+
+	//after build
+	var textInput = tau.widget.TextInput(input18);
+
+	equal(textInput.value(), "default value", "textinput initial value not read");
+	textInput.value('tEsT 1');
+	equal(textInput.value(), "tEsT 1", "textinput value set");
+});

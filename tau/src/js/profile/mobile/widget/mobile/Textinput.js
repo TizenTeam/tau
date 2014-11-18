@@ -316,13 +316,47 @@
 			 * @param {HTMLElement} element
 			 * @member ns.widget.mobile.TextInput
 			 */
-			function _resize(element){
+			function _resize(element) {
 				if (element.nodeName.toLowerCase() === "textarea") {
-					if(element.clientHeight < element.scrollHeight){
+					if (element.clientHeight < element.scrollHeight) {
 						element.style.height = element.scrollHeight + "px";
 					}
 				}
 			}
+
+			/**
+			* Get element value
+			* @method _getValue
+			* @return {?string}
+			* @member ns.widget.mobile.TextInput
+			* @chainable
+			* @protected
+			* @since 2.3.1
+			*/
+			TextInput.prototype._getValue = function ()  {
+				var element = this.element;
+				if (element) {
+					return element.value;
+				}
+				return null;
+			};
+
+			/**
+			* Set element value
+			* @method _setValue
+			* @param {string} value
+			* @member ns.widget.mobile.TextInput
+			* @chainable
+			* @protected
+			* @since 2.3.1
+			*/
+			TextInput.prototype._setValue = function (value) {
+				var element = this.element;
+				if (element) {
+					element.value = value;
+				}
+				return this;
+			};
 
 			/**
 			 * Toggle visibility of the clear button
