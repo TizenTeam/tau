@@ -155,7 +155,59 @@
     pointer-events: none;
 }
 /* ------------------------------------------------------------------------------ */
-
+/* -------------------------Action Icon------------------------------- */
+.ui-listview .li-has-action-icon .li-action-text {
+	width: -webkit-calc(100% - 68px);
+	height: 100%;
+	position: absolute;
+	left: 0;
+	padding-left: 15px;
+	padding-top: 19px;
+	padding-bottom: 19px;
+	margin-top: -19px;
+	line-height: 53px;
+}
+.ui-listview .li-has-action-icon .li-action-divider {
+	position: absolute;
+	height: 56px;
+	width: 2px;
+	background-color: rgba(245, 245, 245, 1);
+	right: 67px;
+	top: 20%;
+}
+.ui-listview .li-has-action-icon .li-action-delete,
+.ui-listview .li-has-action-icon .li-action-setting,
+.ui-listview .li-has-action-icon .li-action-add {
+	position: absolute;
+	height: 100%;
+	width: 68px;
+	right: 0;
+	top: 0;
+	-webkit-mask-size: 53px 53px;
+	-webkit-mask-repeat: no-repeat;
+	-webkit-mask-position: center center;
+	padding-top: 42px;
+	padding-bottom: 42px;
+}
+.ui-listview .li-has-action-icon .li-action-delete {
+	-webkit-mask-image: url(../extra/images/listview/tw_list_delete_holo_dark.png);
+	background-color: rgba(245, 245, 245, 1);
+}
+.ui-listview .li-has-action-icon .li-action-setting {
+	-webkit-mask-image: url(../extra/images/listview/tw_list_setting_holo_dark.png);
+	background-color: rgba(245, 245, 245, 1);
+}
+.ui-listview .li-has-action-icon .li-action-add {
+	-webkit-mask-image: url(../extra/images/listview/tw_list_add_holo_dark.png);
+	background-color: rgba(245, 245, 245, 1);
+}
+.ui-listview .li-has-action-icon .li-action-text:active,
+.ui-listview .li-has-action-icon .li-action-delete:active,
+.ui-listview .li-has-action-icon .li-action-setting:active,
+.ui-listview .li-has-action-icon .li-action-add:active {
+	background-color: rgba(56, 56, 56, 1);
+}
+/* ------------------------------------------------------------------------------ */
 /*Basic Text*/
 .basic-text-s-title {
 	margin:16px 16px;
