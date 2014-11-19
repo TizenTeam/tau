@@ -1,4 +1,4 @@
-/*global define */
+/*global define, ns */
 /**
  * #Tizen Advanced UI Framework
  *
@@ -56,7 +56,7 @@
  * @title Tizen Advanced UI Framework
  */
 //>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
-(function () {
+(function (ns) {
 	"use strict";
 	define(
 		[
@@ -64,6 +64,7 @@
 			"./core/core",
 			"./core/config",
 			"./profile/tv/config",
+			"./core/info",
 			"./core/engine",
 			// widget list
 			"./core/util/anchorHighlight",
@@ -102,9 +103,11 @@
 			// tv differences
 			"./profile/tv/page/differences/introduction"
 		],
-		function ( ) {
-			return;
+		function () {
+			//>>excludeEnd("tauBuildExclude");
+			ns.info.profile = "tv";
+			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 		}
 	);
-}());
+}(ns));
 //>>excludeEnd("tauBuildExclude");

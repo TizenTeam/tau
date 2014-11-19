@@ -1,4 +1,4 @@
-/*global define */
+/*global define, ns */
 /**
  * #Tizen Advanced UI Framework
  *
@@ -30,7 +30,7 @@
  * @title Tizen Advanced UI Framework
  */
 //>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
-(function () {
+(function (ns) {
 	"use strict";
 	define(
 		[
@@ -39,6 +39,7 @@
 			"./core/config",
 			"./profile/mobile/config",
 			"./core/support",
+			"./core/info",
 			"./jqm/all",
 			"./core/engine",
 			"./core/frameworkData",
@@ -117,8 +118,10 @@
 			"./profile/mobile/page/pageevents"
 		],
 		function () {
-			return;
+			//>>excludeEnd("tauBuildExclude");
+			ns.info.profile = "mobile";
+			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 		}
 	);
-}());
+}(ns));
 //>>excludeEnd("tauBuildExclude");

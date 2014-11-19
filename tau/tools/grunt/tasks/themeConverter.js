@@ -64,6 +64,10 @@ function run(themeIndex, themeStyle, device) {
 
 }
 
+function fixGhostThemeTemplate(template, color) {
+	return template + '\n .tau-info-theme:after {\n content: "' + color + '"; }\n';
+}
+
 function replaceTemplate(inputColorTable, colorTable, device, color) {
 	// replace color-code
 	var rgba = {r: 0, g: 0, b: 0, a: 1},
@@ -80,8 +84,10 @@ function replaceTemplate(inputColorTable, colorTable, device, color) {
 		fs.writeFileSync("dist/"+device+"/theme/changeable/tau.css", template);
 	} else {
 		if (color === "blue") {
+			template = fixGhostThemeTemplate(template, "default");
 			fs.writeFileSync("dist/"+device+"/theme/changeable/tau.css", template);
 		}
+		template = fixGhostThemeTemplate(template, color);
 		fs.mkdirSync("dist/"+device+"/theme/" + color + "/");
 		fs.writeFileSync("dist/"+device+"/theme/" + color + "/tau.css", template);
 	}

@@ -1,6 +1,6 @@
-/*global define */
+/*global define, ns */
 //>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
-(function () {
+(function (ns) {
 	"use strict";
 	define(
 		[
@@ -8,6 +8,7 @@
 			"./core/core",
 			"./core/config",
 			"./profile/wearable/config",
+			"./core/info",
 			"./core/engine",
 			// widget list
 			"./core/util/anchorHighlight",
@@ -36,8 +37,11 @@
 			// Modules to be loaded after
 			"./core/init"
 		],
-		function ( ) {
+		function () {
+			//>>excludeEnd("tauBuildExclude");
+			ns.info.profile = "wearable";
+			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 		}
 	);
-}());
+}(ns));
 //>>excludeEnd("tauBuildExclude");
