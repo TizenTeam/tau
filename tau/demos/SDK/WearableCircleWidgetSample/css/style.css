@@ -12,12 +12,15 @@
 /* ---------------------------------- LISTVIEW ---------------------------------- */
 .ui-listview li .li-text-sub {
         display: block;
-        color: rgb(189, 167, 146);
-        font-size: 28px;
         text-overflow: ellipsis;
         overflow: hidden;
         line-height: 32px;
 }
+
+.ui-listview .li-text-sub-right-icon {
+	width: calc(100% - 34px);
+}
+
 .ui-listview li.li-has-multiline {
         padding-top: 6px;
         padding-bottom: 5px;
@@ -60,9 +63,9 @@
 .ui-listview li input[type="checkbox"],
 .ui-listview li input[type="radio"] {
         position: absolute;
-        right: 8px;
+        right: 30px;
         top: 0px;
-        margin-top: 13px;
+        margin-top: 25px;
 }
 .ui-listview .li-has-radio.disabled,
 .ui-listview li.li-has-multiline.li-has-radio.disabled,
@@ -74,14 +77,11 @@
 .ui-listview li.li-has-checkbox label,
 .ui-listview li.li-has-radio label{
 	display: block;
-	padding-bottom: 25px;
-	padding-left: 16px;
-	padding-right: 64px;
-	padding-top: 24px;
-	margin-top: -21px;
+	padding: 31.5px 94px 31.5px 40px;
+	margin-top: -30px;
 	margin-bottom: -21px;
-	margin-left: -16px;
-	margin-right: -16px;
+	margin-left: -38px;
+	margin-right: -8px;
 }
 .ui-listview li.li-has-multiline.li-has-checkbox label,
 .ui-listview li.li-has-multiline.li-has-radio label {
@@ -109,7 +109,7 @@
 .ui-listview li.li-has-next-depth a:after {
 	position: absolute;
 	content: "";
-	right: 0;
+	right: 30px;
 	width: 50px;
 	height: 50px;
 	top: 50%;
@@ -121,7 +121,7 @@
 }
 .ui-listview li.li-has-next-depth.disabled a:after {
 	position: absolute;
-	right: 0;
+	right: 30px;
 	content: "";
 	width: 50px;
 	height: 50px;
@@ -136,7 +136,7 @@
 .ui-listview li.li-has-next-depth a:focus:after {
 	position: absolute;
 	content: "";
-	right: 0;
+	right: 30px];
 	width: 50px;
 	height: 50px;
 	top: 50%;
@@ -156,28 +156,21 @@
 }
 /* ------------------------------------------------------------------------------ */
 /* -------------------------Action Icon------------------------------- */
-.ui-listview .li-has-action-icon .li-action-text {
-	width: -webkit-calc(100% - 68px);
+.li-has-action-icon .li-action-text {
+	width: calc(100% - 101px);
 	height: 100%;
-	position: absolute;
-	left: 0;
-	padding-left: 15px;
-	padding-top: 19px;
-	padding-bottom: 19px;
-	margin-top: -19px;
-	line-height: 53px;
 }
-.ui-listview .li-has-action-icon .li-action-divider {
+
+.li-has-action-icon .li-action-text::after {
+	content: "";
 	position: absolute;
 	height: 56px;
 	width: 2px;
 	background-color: rgba(245, 245, 245, 1);
 	right: 67px;
-	top: 20%;
+	top: 25%;
 }
-.ui-listview .li-has-action-icon .li-action-delete,
-.ui-listview .li-has-action-icon .li-action-setting,
-.ui-listview .li-has-action-icon .li-action-add {
+.li-has-action-icon .li-action-icon-button {
 	position: absolute;
 	height: 100%;
 	width: 68px;
@@ -186,46 +179,53 @@
 	-webkit-mask-size: 53px 53px;
 	-webkit-mask-repeat: no-repeat;
 	-webkit-mask-position: center center;
-	padding-top: 42px;
-	padding-bottom: 42px;
+	padding: 0;
+	margin: 0;
 }
-.ui-listview .li-has-action-icon .li-action-delete {
+.li-has-action-icon .li-action-icon-button.li-action-delete {
 	-webkit-mask-image: url(../extra/images/listview/tw_list_delete_holo_dark.png);
 	background-color: rgba(245, 245, 245, 1);
 }
-.ui-listview .li-has-action-icon .li-action-setting {
+.li-has-action-icon .li-action-icon-button.li-action-setting {
 	-webkit-mask-image: url(../extra/images/listview/tw_list_setting_holo_dark.png);
 	background-color: rgba(245, 245, 245, 1);
 }
-.ui-listview .li-has-action-icon .li-action-add {
+.li-has-action-icon .li-action-icon-button.li-action-add {
 	-webkit-mask-image: url(../extra/images/listview/tw_list_add_holo_dark.png);
 	background-color: rgba(245, 245, 245, 1);
 }
-.ui-listview .li-has-action-icon .li-action-text:active,
-.ui-listview .li-has-action-icon .li-action-delete:active,
-.ui-listview .li-has-action-icon .li-action-setting:active,
-.ui-listview .li-has-action-icon .li-action-add:active {
-	background-color: rgba(56, 56, 56, 1);
+
+.ui-listview .li-has-action-icon.ui-li-active {
+	background-color: transparent;
 }
+
+.ui-listview .li-has-action-icon.ui-li-active .li-action-text:active {
+	background-color: rgba(8, 56, 94, 1);
+}
+
+.ui-listview .li-has-action-icon .li-action-icon-button:active {
+	background-color: rgba(8, 56, 94, 1);
+}
+
 /* ------------------------------------------------------------------------------ */
 /*Basic Text*/
 .basic-text-s-title {
-	margin:16px 16px;
+	margin:0 42px 60px 42px;
 	line-height: 40px;
 	font-size: 30px;
 }
 .basic-text-m-title {
-	margin:16px 16px;
+	margin:0 42px 60px 42px;
 	line-height: 44px;
 	font-size: 34px;
 }
 .basic-text-l-title {
-	margin:16px 16px;
+	margin:0 42px 60px 42px;
 	line-height: 48px;
 	font-size: 38px;
 }
 .basic-text-notitle{
-	margin:16px 16px;
+	margin: 60px 42px;
 	line-height: 48px;
 	font-size: 38px;
 }

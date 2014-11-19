@@ -12,11 +12,12 @@
 /* ---------------------------------- LISTVIEW ---------------------------------- */
 .ui-listview li .li-text-sub {
         display: block;
-        color: rgb(189, 167, 146);
-        font-size: 28px;
         text-overflow: ellipsis;
         overflow: hidden;
         line-height: 32px;
+}
+.ui-listview .li-text-sub-right-icon {
+	width: calc(100% - 34px);
 }
 .ui-listview li.li-has-multiline {
         padding-top: 6px;
@@ -157,17 +158,11 @@
 /* ------------------------------------------------------------------------------ */
 /* -------------------------Action Icon------------------------------- */
 .ui-listview .li-has-action-icon .li-action-text {
-	width: -webkit-calc(100% - 68px);
+	width: calc(100% - 76px);
 	height: 100%;
-	position: absolute;
-	left: 0;
-	padding-left: 15px;
-	padding-top: 19px;
-	padding-bottom: 19px;
-	margin-top: -19px;
-	line-height: 53px;
 }
-.ui-listview .li-has-action-icon .li-action-divider {
+.ui-listview .li-has-action-icon .li-action-text::after {
+	content: "";
 	position: absolute;
 	height: 56px;
 	width: 2px;
@@ -175,9 +170,7 @@
 	right: 67px;
 	top: 20%;
 }
-.ui-listview .li-has-action-icon .li-action-delete,
-.ui-listview .li-has-action-icon .li-action-setting,
-.ui-listview .li-has-action-icon .li-action-add {
+.ui-listview .li-has-action-icon .li-action-icon-button{
 	position: absolute;
 	height: 100%;
 	width: 68px;
@@ -186,26 +179,32 @@
 	-webkit-mask-size: 53px 53px;
 	-webkit-mask-repeat: no-repeat;
 	-webkit-mask-position: center center;
-	padding-top: 42px;
-	padding-bottom: 42px;
+	padding: 0;
+	margin: 0;
 }
-.ui-listview .li-has-action-icon .li-action-delete {
+.ui-listview .li-has-action-icon .li-action-icon-button.li-action-delete {
 	-webkit-mask-image: url(../extra/images/listview/tw_list_delete_holo_dark.png);
 	background-color: rgba(245, 245, 245, 1);
 }
-.ui-listview .li-has-action-icon .li-action-setting {
+.ui-listview .li-has-action-icon .li-action-icon-button.li-action-setting {
 	-webkit-mask-image: url(../extra/images/listview/tw_list_setting_holo_dark.png);
 	background-color: rgba(245, 245, 245, 1);
 }
-.ui-listview .li-has-action-icon .li-action-add {
+.ui-listview .li-has-action-icon .li-action-icon-button.li-action-add {
 	-webkit-mask-image: url(../extra/images/listview/tw_list_add_holo_dark.png);
 	background-color: rgba(245, 245, 245, 1);
 }
-.ui-listview .li-has-action-icon .li-action-text:active,
-.ui-listview .li-has-action-icon .li-action-delete:active,
-.ui-listview .li-has-action-icon .li-action-setting:active,
-.ui-listview .li-has-action-icon .li-action-add:active {
-	background-color: rgba(56, 56, 56, 1);
+
+.ui-listview .li-has-action-icon.ui-li-active {
+	background-color: transparent;
+}
+
+.ui-listview .li-has-action-icon.ui-li-active .li-action-text:active {
+	background-color: rgba(8, 56, 94, 1);
+}
+
+.ui-listview .li-has-action-icon .li-action-icon-button:active {
+	background-color: rgba(8, 56, 94, 1);
 }
 
 /* ------------------------------------------------------------------------------ */

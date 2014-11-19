@@ -1,23 +1,21 @@
 
 .ui-listview .ui-li-has-action-icon {
-	.ui-action-text{
-		width: -webkit-calc(~"100% - "74*@unit_base);
+	.ui-action-text {
+		width: calc(~"100% - "77*@unit_base);
 		height: 100%;
-		position: absolute;
-		left: 0;
-		padding-left: 16 * @unit_base;
-		padding-top: 20 * @unit_base;
-		padding-bottom: 20 * @unit_base;
-		margin-top: -20 * @unit_base;
+		&::after {
+			content: "";
+			position: absolute;
+			height: 56 * @unit_base;
+			width: 2 * @unit_base;
+			background-color: @color_text;
+			right: 68 * @unit_base;
+			top: 20%;
+		}
 	}
 
 	.ui-action-divider {
-		position: absolute;
-		height: 60 * @unit_base;
-		width: 2 * @unit_base;
-		background-color: @color_text;
-		right: 72 * @unit_base;
-		top: 20%;
+		display: none;
 	}
 
 	.ui-action-delete, .ui-action-setting, .ui-action-add {
@@ -29,8 +27,8 @@
 		-webkit-mask-size: 56 * @unit_base 56 * @unit_base;
 		-webkit-mask-repeat: no-repeat;
 		-webkit-mask-position: center center;
-		padding-top: 45 * @unit_base;
-		padding-bottom: 45 * @unit_base;
+		padding: 0;
+		margin: 0;
 	}
 
 	.ui-action-delete {
@@ -46,7 +44,16 @@
 		background-color: @color_list_actionicon_image_normal;
 	}
 
-	.ui-action-text:active, .ui-action-delete:active, .ui-action-setting:active, .ui-action-add:active {
-		background-color: @color_list_actionicon_divider;
+	&.ui-li-active {
+		background-color: transparent;
+		& .ui-action-text:active {
+			background-color: @color_list_press_bg;
+			color: @color_listview_text_press;
+		}
+	}
+
+	.ui-action-delete:active, .ui-action-setting:active, .ui-action-add:active {
+		background-color: @color_list_press_bg;
+		color: @color_listview_text_press;
 	}
 }
