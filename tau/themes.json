@@ -6,7 +6,7 @@
 			{
 				"name": "changeable",
 				"images": "images/",
-				"src": "style.changeable.less",
+				"src": "theme.less",
 				"default": "true",
 				"changeable-path": "mobile/changeable/theme-changeable/"
 			}
@@ -16,7 +16,7 @@
 			{
 				"name": "changeable",
 				"images": "images/",
-				"src": "style.changeable.less",
+				"src": "theme.less",
 				"default": "true",
 				"changeable-path": "wearable/changeable/theme-changeable/"
 			}
@@ -26,7 +26,7 @@
 			{
 				"name": "black",
 				"images": "images/",
-				"src": "style.less",
+				"src": "theme.less",
 				"default": "true",
 				"default-path": "tv/default/theme-black/"
 			}

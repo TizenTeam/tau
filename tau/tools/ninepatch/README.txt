@@ -35,7 +35,7 @@ This task does followings;
 
 5. Use less file in theme folder
 
-	$ vi src/css/profile/[profile]/[theme-XXX]/style.less
+	$ vi src/css/profile/[profile]/[theme-XXX]/theme.less
 	$ @import "9-patch.less";
 
 
