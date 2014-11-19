@@ -104,18 +104,31 @@
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 			var Checkboxradio = function () {
+					var self = this;
 					/**
 					* @property {Object} options Object with default options
 					* @property {string} [options.theme='s'] Widget's theme
 					* @member ns.widget.mobile.Checkboxradio
-					* @instance
 					*/
-					this.options = {
+					self.options = {
 						theme: 's'
 					};
 
-					this._onLabelClickBound = null;
-					this._onInputClickBound = null;
+					self._callbacks = {
+						onLabelClick : null,
+						onInputClick : null
+					}
+
+					self.inputType = "";
+					self.checkedClass = "";
+					self.uncheckedClass = "";
+					self.ariaCheckedAttr = "";
+					self.checkedIcon = "";
+					self.uncheckedIcon = "";
+
+					self.label = null;
+					self.icon = null;
+					self.wrapper = null;
 				},
 				/**
 				* @property {Object} Widget Alias for {@link ns.widget.BaseWidget}
@@ -159,7 +172,13 @@
 				 * @static
 				 */
 				classes = {
-					checkboxradioIconWrapper: "ui-icon-wrapper"
+					DISABLED: "ui-disabled",
+					ICON_PREFIX: "ui-icon-",
+					ICON_WRAPPER: "ui-icon-wrapper",
+					ICON: "ui-icon",
+					OFF: "-off",
+					ON: "-on",
+					UI: "ui-"
 				},
 				/**
 				* @property {Function} slice Alias for function Array.slice
@@ -283,53 +302,150 @@
 				self._updateAll();
 			}
 
+			function setStyleForChecked(self) {
+				var labelClassList = self.label.classList,
+					iconClassList;
+				if (self.icon) {
+					iconClassList = self.icon.classList;
+					iconClassList.add(self.checkedIcon);
+					iconClassList.remove(self.uncheckedIcon);
+				}
+				labelClassList.add(self.checkedClass);
+				labelClassList.remove(self.uncheckedClass);
+				self.wrapper.setAttribute(self.ariaCheckedAttr, true);
+			}
+
+			function setStyleForUnchecked(self) {
+				var labelClassList = self.label.classList,
+					iconClassList;
+				if (self.icon) {
+					iconClassList = self.icon.classList;
+					iconClassList.add(self.uncheckedIcon);
+					iconClassList.remove(self.checkedIcon);
+				}
+				labelClassList.add(self.uncheckedClass);
+				labelClassList.remove(self.checkedClass);
+				self.wrapper.setAttribute(self.ariaCheckedAttr, false);
+			}
 			/**
-			* Check checkboxradio element
-			* @method checkElement
-			* @param {ns.widget.mobile.Checkboxradio} instance
+			* Check or uncheck checkboxradio element
+			* @method setCheckboxradioStatus
+			* @param {ns.widget.mobile.Checkboxradio} self
+			* @param {boolean} status
 			* @private
 			* @member ns.widget.mobile.Checkboxradio
 			* @new
 			*/
-			function checkElement(instance) {
-				var labelClassList = instance.label.classList,
-					iconClassList,
-					element = instance.element;
+			function setCheckboxradioStatus(self, status) {
+				var element = self.element;
 				if (!element.getAttribute("disabled")) {
-					if (instance.icon) {
-						iconClassList = instance.icon.classList;
-						iconClassList.add(instance.checkedicon);
-						iconClassList.remove(instance.uncheckedicon);
+					if (status) {
+						// checkbox is checked
+						setStyleForChecked(self);
+					} else {
+						// checkbox is checked
+						setStyleForUnchecked(self);
 					}
-					labelClassList.add(instance.checkedClass);
-					labelClassList.remove(instance.uncheckedClass);
-					instance.wrapper.setAttribute(instance.ariaCheckedAttr, true);
 				}
 			}
 
-			/**
-			* Uncheck checkboxradio element
-			* @method uncheckElement
-			* @param {ns.widget.mobile.Checkboxradio} instance
-			* @private
-			* @member ns.widget.mobile.Checkboxradio
-			* @new
-			*/
-			function uncheckElement(instance) {
-				var labelClassList = instance.label.classList,
-					iconClassList,
-					element = instance.element;
-				if (!element.getAttribute("disabled")) {
-					if (instance.icon) {
-						iconClassList = instance.icon.classList;
-						iconClassList.add(instance.uncheckedicon);
-						iconClassList.remove(instance.checkedicon);
-					}
-					labelClassList.add(instance.uncheckedClass);
-					labelClassList.remove(instance.checkedClass);
-					instance.wrapper.setAttribute(instance.ariaCheckedAttr, false);
+			Checkboxradio.prototype._buildLabel = function (element) {
+				var inputType =  this.inputType,
+					options = this.options,
+					checkedState,
+					checkedClass,
+					icon,
+					label,
+					mini,
+					iconpos;
+
+				icon = selectors.getParentsBySelector(element, "[data-type='horizontal']").length ? false : inputType + classes.OFF;
+				label = getLabel(element);
+
+				//@todo these options should not be passed via DOM element
+				mini = dom.inheritAttr(element, "data-mini", "form,fieldset");
+				if (mini) {
+					dom.setNSData(label, "mini", mini);
 				}
-			}
+				iconpos = dom.inheritAttr(element, "data-iconpos", "form,fieldset");
+				if (iconpos) {
+					dom.setNSData(label, "iconpos", iconpos);
+				}
+
+				dom.setNSData(label, "theme", options.theme);
+				dom.setNSData(label, "icon", icon);
+				dom.setNSData(label, "shadow", false);
+				dom.setNSData(label, "bar", true);
+				engine.instanceWidget(label, "Button");
+
+				//make sure label is after input
+				if (element.nextElementSibling) {
+					element.parentNode.insertBefore(label, element.nextElementSibling);
+				} else {
+					element.parentNode.appendChild(label);
+				}
+
+				if (!icon) {
+					if (element.checked) {
+						label.classList.add(ns.widget.mobile.Button.classes.uiBtnActive);
+					} else {
+						label.classList.remove(ns.widget.mobile.Button.classes.uiBtnActive);
+					}
+				}
+
+				return label;
+			};
+
+			Checkboxradio.prototype._buildWrapper = function (element) {
+				var label = getLabel(element),
+					inputType = this.inputType,
+					ariaCheckedAttr = this.ariaCheckedAttr,
+					wrapper;
+
+				// Wrap the input + label in a div
+				wrapper = "<div role='" + inputType + "' class='ui-" + inputType;
+				if (element.classList.contains("favorite")) {
+					wrapper += " favorite";
+				}
+				wrapper += "'></div>";
+
+				dom.wrapInHTML([element, label], wrapper);
+				// wrapper's node
+				wrapper = element.parentNode;
+
+				if (element.checked) {
+					wrapper.setAttribute(ariaCheckedAttr, true);
+				} else {
+					wrapper.setAttribute(ariaCheckedAttr, false);
+				}
+
+				if (element.getAttribute("disabled")) {
+					wrapper.classList.add(classes.DISABLED);
+				} else {
+					wrapper.classList.remove(classes.DISABLED);
+				}
+
+				return wrapper;
+			};
+
+			Checkboxradio.prototype._buildIcon = function (element) {
+				var inputType = this.inputType,
+					icon,
+					iconParent,
+					iconWrapper;
+
+				icon = getLabel(element).getElementsByClassName(classes.ICON)[0];
+				iconParent = icon && icon.parentElement;
+				iconWrapper = document.createElement("span");
+
+				if (icon) {
+					iconWrapper.classList.add(classes.ICON_WRAPPER);
+					iconWrapper.appendChild(icon);
+					iconParent.appendChild(iconWrapper);
+				}
+
+				return icon;
+			};
 
 			/**
 			* Builds structure of checkboxradio widget
@@ -338,128 +454,43 @@
 			* @return {HTMLInputElement}
 			* @protected
 			* @member ns.widget.mobile.Checkboxradio
-			* @instance
 			*/
 			Checkboxradio.prototype._build = function (element) {
-				var inputtype = element.getAttribute('type'),
-					options = this.options,
-					label,
-					labelClassList,
-					wrapper,
-					ariaCheckedAttr,
-					icon,
-					checkedState,
-					checkedClass,
-					uncheckedClass,
-					uncheckedState,
-					checkedicon,
-					uncheckedicon,
-					activeBtn,
-					iconSpan,
-					iconClassList,
-					iconpos,
-					mini,
-					iconSpanParent,
-					iconWrapper;
+				var self = this,
+					inputType = element.getAttribute("type");
 
 				//if created dynamically on wrong element, just return from here
-				if (inputtype !== "checkbox" && inputtype !== "radio") {
+				if (inputType !== "checkbox" && inputType !== "radio") {
 					//_build should always return element
 					return element;
 				}
-				ariaCheckedAttr = inputtype === 'radio' ? 'aria-selected' : 'aria-checked';
-				checkedState = inputtype + "-on";
-				uncheckedState = inputtype + "-off";
-				icon = selectors.getParentsBySelector(element, "[data-type='horizontal']").length ? false : uncheckedState;
-				if (!icon) {
-					activeBtn = "ui-btn-active";
-				}
-				checkedClass = "ui-" + checkedState;
-				uncheckedClass = "ui-" + uncheckedState;
-				checkedicon = "ui-icon-" + checkedState;
-				uncheckedicon = "ui-icon-" + uncheckedState;
-
-				label = getLabel(element);
-				labelClassList = label.classList;
-
-				//@todo these options should not be passed via DOM element
-				mini = dom.inheritAttr(element, "data-mini", "form,fieldset");
-				if (mini) {
-					label.setAttribute('data-mini', mini);
-				}
-
-				iconpos = dom.inheritAttr(element, "data-iconpos", "form,fieldset");
-				if (iconpos) {
-					label.setAttribute('data-iconpos', iconpos);
-				}
-
-				label.setAttribute('data-theme', options.theme);
-				label.setAttribute('data-icon', icon);
-				label.setAttribute('data-shadow', false);
-				label.setAttribute('data-bar', true);
-				engine.instanceWidget(label, "Button");
-				iconSpan = label.getElementsByClassName('ui-icon')[0];
-				iconSpanParent = iconSpan && iconSpan.parentElement;
-				iconWrapper = document.createElement("span");
-
-				if (iconSpan) {
-					iconClassList = iconSpan.classList;
-					iconWrapper.classList.add(classes.checkboxradioIconWrapper);
-					iconWrapper.appendChild(iconSpan);
-					iconSpanParent.appendChild(iconWrapper);
-				}
-
-				// Wrap the input + label in a div
-				wrapper = '<div role="' + inputtype + '" class="ui-' + inputtype;
-				if (element.classList.contains("favorite")) {
-					wrapper += ' favorite';
-				}
-				wrapper += '"></div>';
-
-				//make sure label is after input
-				if (element.nextElementSibling) {
-					element.parentNode.insertBefore(label, element.nextElementSibling);
-				} else {
-					element.parentNode.appendChild(label);
-				}
-				dom.wrapInHTML([element, label], wrapper);
-				wrapper = element.parentNode;
 
 				if (element.hasAttribute('checked')) {
 					// quick fix to resolve problem in tests when sometimes attribute checked isn't proper interpreted to property in object
 					element.checked = true;
 				}
+
+				// set classes
+				self.element = element;
+				self.inputType = inputType;
+				self.checkedClass = classes.UI + inputType + classes.ON;
+				self.uncheckedClass = classes.UI + inputType + classes.OFF;
+				self.ariaCheckedAttr = inputType === "radio" ? "aria-selected" : "aria-checked";
+				self.checkedIcon = classes.ICON_PREFIX + inputType + classes.ON;
+				self.uncheckedIcon = classes.ICON_PREFIX + inputType + classes.OFF;
+
+				// create elements
+				self.label = self._buildLabel(element);
+				self.icon = self._buildIcon(element);
+				self.wrapper = self._buildWrapper(element);
+
+				// check or uncheck element
 				if (element.checked) {
-					labelClassList.add(checkedClass);
-					if (!icon) {
-						labelClassList.add(activeBtn);
-					}
-					labelClassList.remove(uncheckedClass);
-					if (iconSpan) {
-						iconClassList.add(checkedicon);
-						iconClassList.remove(uncheckedicon);
-					}
-					wrapper.setAttribute(ariaCheckedAttr, true);
+					setStyleForChecked(self);
 				} else {
-					labelClassList.remove(checkedClass);
-					if (!icon) {
-						labelClassList.remove(activeBtn);
-					}
-					labelClassList.add(uncheckedClass);
-					if (iconSpan) {
-						iconClassList.add(uncheckedicon);
-						iconClassList.remove(checkedicon);
-					}
-					wrapper.setAttribute(ariaCheckedAttr, false);
+					setStyleForUnchecked(self);
 				}
 
-				element.checked = element.getAttribute('checked') === 'checked';
-
-				if (element.getAttribute("disabled")) {
-					wrapper.classList.add('ui-disabled');
-				} else {
-					wrapper.classList.remove('ui-disabled');
-				}
 				return element;
 			};
 
@@ -469,18 +500,18 @@
 			* @param {HTMLElement} element
 			* @protected
 			* @member ns.widget.mobile.Checkboxradio
-			* @instance
 			*/
 			Checkboxradio.prototype._init = function (element) {
-				this.label = getLabel(element);
-				this.icon = this.label.getElementsByClassName('ui-icon')[0];
-				this.wrapper = element.parentNode;
-				this.inputtype = element.getAttribute('type');
-				this.checkedClass = 'ui-' + this.inputtype + '-on';
-				this.uncheckedClass = 'ui-' + this.inputtype + '-off';
-				this.ariaCheckedAttr = this.inputtype === 'radio' ? 'aria-selected' : 'aria-checked';
-				this.checkedicon = "ui-icon-" + this.inputtype + '-on';
-				this.uncheckedicon = "ui-icon-" + this.inputtype + '-off';
+				var self = this;
+				self.label = getLabel(element);
+				self.icon = self.label.getElementsByClassName("ui-icon")[0];
+				self.wrapper = element.parentNode;
+				self.inputType = element.getAttribute("type");
+				self.checkedClass = classes.UI + self.inputType + classes.ON;
+				self.uncheckedClass = classes.UI + self.inputType + classes.OFF;
+				self.ariaCheckedAttr = self.inputType === "radio" ? "aria-selected" : "aria-checked";
+				self.checkedIcon = classes.ICON_PREFIX + self.inputType + classes.ON;
+				self.uncheckedIcon = classes.ICON_PREFIX + self.inputType + classes.OFF;
 			};
 
 			/**
@@ -488,13 +519,14 @@
 			* @method _bindEvents
 			* @protected
 			* @member ns.widget.mobile.Checkboxradio
-			* @instance
 			*/
 			Checkboxradio.prototype._bindEvents = function () {
-				this._onLabelClickBound = onLabelClick.bind(null, this);
-				this._onInputClickBound = onInputClick.bind(null, this);
-				this.label.addEventListener('vclick', this._onLabelClickBound, true);
-				this.element.addEventListener('vclick', this._onInputClickBound, false);
+				var callbacks = this._callbacks;
+
+				callbacks.onLabelClick = onLabelClick.bind(null, this);
+				callbacks.onInputClick = onInputClick.bind(null, this);
+				this.label.addEventListener('vclick', callbacks.onLabelClick, true);
+				this.element.addEventListener('vclick', callbacks.onInputClick, false);
 			};
 
 			/**
@@ -503,12 +535,11 @@
 			* @return {Array}
 			* @protected
 			* @member ns.widget.mobile.Checkboxradio
-			* @instance
 			*/
 			Checkboxradio.prototype._getInputSet = function () {
 				var parent;
 
-				if (this.inputtype === 'checkbox') {
+				if (this.inputType === 'checkbox') {
 					return [this.element];
 				}
 
@@ -517,7 +548,7 @@
 
 				if (parent) {
 					return slice.call(parent.querySelectorAll(
-						"input[name='" + this.element.name + "'][type='" + this.inputtype + "']"
+						"input[name='" + this.element.name + "'][type='" + this.inputType + "']"
 					));
 				}
 
@@ -529,7 +560,6 @@
 			* @method _updateAll
 			* @protected
 			* @member ns.widget.mobile.Checkboxradio
-			* @instance
 			*/
 			Checkboxradio.prototype._updateAll = function () {
 				this._getInputSet().forEach(function (el) {
@@ -548,17 +578,12 @@
 			* Refreshes widget
 			* @method refresh
 			* @member ns.widget.mobile.Checkboxradio
-			* @instance
 			*/
 
 			Checkboxradio.prototype.refresh = function () {
 				var element = this.element;
 
-				if (element.checked) {
-					checkElement(this);
-				} else {
-					uncheckElement(this);
-				}
+				setCheckboxradioStatus(this, element.checked);
 
 				if (element.getAttribute("disabled")) {
 					this.disable();
@@ -572,7 +597,6 @@
 			* @method _enable
 			* @member ns.widget.mobile.Checkboxradio
 			* @protected
-			* @instance
 			*/
 			Checkboxradio.prototype._enable = function () {
 				dom.removeAttribute(this.element, "disabled");
@@ -584,7 +608,6 @@
 			* @method _disable
 			* @protected
 			* @member ns.widget.mobile.Checkboxradio
-			* @instance
 			*/
 			Checkboxradio.prototype._disable = function () {
 				dom.setAttribute(this.element, "disabled", true);
@@ -596,20 +619,21 @@
 			* @method _destroy
 			* @protected
 			* @member ns.widget.mobile.Checkboxradio
-			* @instance
 			*/
 			Checkboxradio.prototype._destroy = function () {
-				this.label.removeEventListener('vclick', this._onLabelClickBound, true);
-				this.element.removeEventListener('vclick', this._onInputClickBound, false);
+				var self = this,
+					callbacks = self._callbacks;
+				self.label.removeEventListener('vclick', callbacks.onLabelClick, true);
+				self.element.removeEventListener('vclick', callbacks.onInputClick, false);
 			};
 
 			/**
-			* Return checked checkboxradio element
-			* @method getCheckedElement
-			* @return {?HTMLElement}
-			* @member ns.widget.mobile.Checkboxradio
-			* @new
-			*/
+			 * Return checked checkboxradio element
+			 * @method getCheckedElement
+			 * @return {?HTMLElement}
+			 * @member ns.widget.mobile.Checkboxradio
+			 * @new
+			 */
 			Checkboxradio.prototype.getCheckedElement = function () {
 				var radios = this._getInputSet(),
 					i,
@@ -623,14 +647,13 @@
 			};
 
 			/**
-			* Returns value of checkbox if it is checked or value of radios with the same name
-			* @method _getValue
-			* @member ns.widget.mobile.Checkboxradio
-			* @return {?string}
+			 * Returns value of checkbox if it is checked or value of radios with the same name
+			 * @method _getValue
+			 * @member ns.widget.mobile.Checkboxradio
+			 * @return {?string}
 			 * @protected
-			* @instance
-			* @new
-			*/
+			 * @new
+			 */
 			Checkboxradio.prototype._getValue = function () {
 				var checkedElement = this.getCheckedElement();
 
@@ -647,8 +670,6 @@
 			* @param {string} value
 			* @member ns.widget.mobile.Checkboxradio
 			* @chainable
-			* @instance
-			 * @protected
 			* @new
 			*/
 			Checkboxradio.prototype._setValue = function (value) {
@@ -661,9 +682,9 @@
 					if (radios[i].value === value) {
 						checkedElement = this.getCheckedElement();
 						if (checkedElement) {
-							uncheckElement(engine.getBinding(checkedElement));
+							setCheckboxradioStatus(engine.getBinding(checkedElement), false);
 						}
-						checkElement(engine.getBinding(radios[i]));
+						setCheckboxradioStatus(engine.getBinding(radios[i]), true);
 						return this;
 					}
 				}
