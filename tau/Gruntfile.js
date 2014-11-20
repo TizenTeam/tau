@@ -333,7 +333,8 @@ module.exports = function(grunt) {
 				mobile: {
 					themeIndex: "0",
 					themeStyle: "Dark",
-					device: "mobile"
+					device: "mobile",
+					createColorMapFile: grunt.option("generate-colormap") || false
 				},
 
 				wearable: {
@@ -341,7 +342,8 @@ module.exports = function(grunt) {
 					themeStyle: "Dark",
 					device: "wearable",
 					colors: ["blue", "brown"],
-					defaultColor: "blue"
+					defaultColor: "blue",
+					createColorMapFile: grunt.option("generate-colormap") || false
 				},
 
 				all: {

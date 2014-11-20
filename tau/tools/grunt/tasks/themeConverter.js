@@ -37,7 +37,8 @@ var xml2js = require("xml2js"),
 	fileName = {
 		INPUT_COLOR_TABLE: "InputColorTable.xml",
 		COLOR_TABLE: "ChangeableColorTable1.xml",
-		OUTPUT: "tau.css"
+		OUTPUT: "tau.css",
+		COLORMAP: "colormap.json"
 	},
 
 	xmlPath = "tools/grunt/xml/";
@@ -64,8 +65,15 @@ function run(themeIndex, themeStyle, deviceConfig) {
 
 }
 
+
 function fixGhostThemeTemplate(template, color) {
 	return template + '\n .tau-info-theme:after {\n content: "' + color + '"; }\n';
+}
+
+function colorMapFile(deviceConfig, colorMap, dir) {
+	if (deviceConfig.createColorMapFile) {
+		fs.writeFileSync(dir + "" + fileName.COLORMAP, JSON.stringify(colorMap));
+	}
 }
 
 function replaceTemplate(inputColorTable, colorTable, deviceConfig, color) {
@@ -75,12 +83,14 @@ function replaceTemplate(inputColorTable, colorTable, deviceConfig, color) {
 		themeDir = "dist/" + deviceName + "/theme/",
 		colorDir = "",
 		template = fs.readFileSync(themeDir + "changeable/changeable.template", "utf-8"),
+		colorMap = {},
 		i;
 
 	//replace color
 	for (i = 0; i < colorTable.colorList.length; i++) {
 		rgba = calculateColor(inputColorTable.colorList, colorTable.colorList[i].$);
 		template = replaceColor(colorTable.colorList[i].$.id, rgba, template);
+		colorMap[colorTable.colorList[i].$.id] = makeRGB(rgba);
 	}
 
 	if (color !== null) {
@@ -89,14 +99,17 @@ function replaceTemplate(inputColorTable, colorTable, deviceConfig, color) {
 		template = fixGhostThemeTemplate(template, color);
 		fs.mkdirSync(colorDir);
 		fs.writeFileSync(colorDir + fileName.OUTPUT, template);
+		colorMapFile(deviceConfig, colorMap, colorDir);
 
 		if (color === deviceConfig.defaultColor) {
 			template = fixGhostThemeTemplate(template, "default");
 			fs.writeFileSync(themeDir + "changeable/" + fileName.OUTPUT, template);
+			colorMapFile(deviceConfig, colorMap, themeDir + "changeable/");
 		}
 
 	} else {
 		fs.writeFileSync(themeDir + "changeable/" + fileName.OUTPUT, template);
+		colorMapFile(deviceConfig, colorMap, themeDir + "changeable/");
 	}
 
 }
@@ -164,9 +177,13 @@ function parseAttribute(result, table, tableType) {
 	}
 }
 
+function makeRGB(rgba) {
+	return "rgba(" + rgba.r + ", " + rgba.g + ", " + rgba.b + ", " + rgba.a + ")";
+}
+
 function replaceColor(id, rgba, template) {
 	var reg = new RegExp("\\b" + id + "\\b", "g");
-	template = template.replace(reg,"rgba(" + rgba.r + ", " + rgba.g + ", " + rgba.b + ", " + rgba.a + ")");
+	template = template.replace(reg, makeRGB(rgba));
 	return template;
 }
 
