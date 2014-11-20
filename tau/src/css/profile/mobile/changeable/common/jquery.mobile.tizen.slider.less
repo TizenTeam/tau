@@ -41,7 +41,9 @@ select.ui-slider-switch {
 }
 
 .ui-slider-left-volume,
-	.ui-slider-left-bright {
+.ui-slider-left-bright,
+.ui-slider-right-volume,
+.ui-slider-right-bright{
 	position: absolute;
 	vertical-align: middle;
 
@@ -52,7 +54,6 @@ select.ui-slider-switch {
 	top: 0px;
 	height: @img_height;
 	width: @img_width;
-	background: @color_slider_icon;
 
 	-webkit-mask-image: url(images/controls/00_slider_button_brightness_01.png);
 	-webkit-mask-size: 100%;
@@ -65,19 +66,11 @@ select.ui-slider-switch {
 
 .ui-slider-right-volume,
 .ui-slider-right-bright {
-	position: absolute;
-	vertical-align: middle;
 	margin-top: 2 * @unit_base;
 	margin-bottom: 10 * @unit_base;
-	top: 0px;
 	right: -44 * @unit_base;
-	height: @img_height;
-	width: @img_width;
 
 	-webkit-mask-image: url(images/controls/00_slider_button_brightness_02.png);
-	-webkit-mask-size: 100%;
-	background-color: @color_slider_img_bg;
-	.LESSbackground-size(@img_width, @img_height);
 }
 
 .ui-slider-right-volume {
@@ -114,7 +107,7 @@ div.ui-slider:not(.ui-toggle-switch) {
 	margin-right: 8 * @unit_base;
 
 	.LESSborder-radius-all( 10 * @unit_base );
-	background-color: @color_progress_bg;
+	background-color: @color_slider_center;
 
 	.ui-btn {
 		margin-top: 0;
@@ -261,7 +254,7 @@ a.ui-flip-handle {
 	width: 0;
 
 	.LESSborder-radius-all( 10 * @unit_base );
-	background-color: @color_progress_value;
+	background-color: @color_slider_handle_bg;
 
 	&.ui-slider-bg-has-center {
 	.LESSborder-radius-all( 0 );

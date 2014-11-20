@@ -5,21 +5,20 @@
 	box-sizing : border-box;
 	overflow-y : scroll;
 	&.ui-drawer-left {
-		border-right : 1px solid @color_list_border_bottom;
-		/* drawer right border color same to list border bottom color */
+		border-right : 1px solid @color_drawer_border_right;
+		/* drawer left border color same to list border bottom color */
 	}
 	&.ui-drawer-right {
-		border-left : 1px solid @color_list_border_bottom;
+		border-left : 1px solid @color_drawer_border_left;
+		/* drawer right border color same to list border bottom color */
 	}
 	.ui-listview {
 		margin : 0;
 		position: absolute;
 		z-index: 2000;
 		width: 100%;
-		.ui-li.ui-btn-up-s {
-			background-color : @color_drawer_bg;
-		}
-		.ui-li.ui-btn-hover-s {
+		.ui-li.ui-btn-up-s,
+		.ui-li.ui-btn-hover-s{
 			background-color : @color_drawer_bg;
 		}
 		.ui-li.ui-btn-down-s {
