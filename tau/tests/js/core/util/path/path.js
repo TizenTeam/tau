@@ -44,6 +44,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	test('addSearchParams', function () {
 		equal(path.addSearchParams('', {}), "?", 'addSearchParams for {}');
 		equal(path.addSearchParams('index.html', {a: 'b', c: 'd'}), "index.html?a=b&c=d", 'addSearchParams for {a: "b", c:"d"}');
+		equal(path.addSearchParams('index.html?a=b#embeded', {c: 'd'}), "index.html?a=b#embeded?c=d", 'addSearchParams test for {c:"d"}');
 	});
 
 	test('addHashSearchParams', function () {
@@ -130,6 +131,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		equal(path.isEmbedded('localhost#'), false, 'isEmbedded for "localhost#"');
 		equal(path.isEmbedded('#page'), true, 'isEmbedded for "#page"');
 		equal(path.isEmbedded('http://localhost'), false, 'isEmbedded for "http://localhost"');
+		equal(path.isEmbedded('/index.html?a=1#page'), true, 'isEmbedded for "/index.html?s=query#page"');
 	});
 
 	test('squash', function () {

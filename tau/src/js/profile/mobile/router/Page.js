@@ -516,8 +516,13 @@
 
 					if (continuation) {
 						pageUrl = DOM.getNSData(toPage, "url");
+
 						if (!pageUrl) {
-							DOM.setNSData(toPage, "url", "#"+toPage.id);
+							pageUrl = "#" + toPage.id;
+							DOM.setNSData(toPage, "url", pageUrl);
+						}
+						else{
+							pageUrl = DOM.getNSData(toPage, "url");
 						}
 
 						pageUrl = DOM.getNSData(toPage, "url");

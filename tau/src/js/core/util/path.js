@@ -88,7 +88,7 @@
 					// URL as well as some other commonly used sub-parts. When used with RegExp.exec()
 					// or String.match, it parses the URL into a results array that looks like this:
 					//
-					//	[0]: http://jblas:password@mycompany.com:8080/mail/inbox?msg=1234&type=unread#msg-content
+					//	[0]: http://jblas:password@mycompany.com:8080/mail/inbox?msg=1234&type=unread#msg-content?param1=true&param2=123
 					//	[1]: http://jblas:password@mycompany.com:8080/mail/inbox?msg=1234&type=unread
 					//	[2]: http://jblas:password@mycompany.com:8080/mail/inbox
 					//	[3]: http://jblas:password@mycompany.com:8080
@@ -105,14 +105,16 @@
 					//	[14]: /mail/
 					//	[15]: inbox
 					//	[16]: ?msg=1234&type=unread
-					//	[17]: #msg-content
+					//	[17]: #msg-content?param1=true&param2=123
+					//	[18]: #msg-content
+					//	[19]: ?param1=true&param2=123
 					//
 					/**
 					* @property {RegExp} urlParseRE Regular expression for parse URL
 					* @member ns.util.path
 					* @static
 					*/
-					urlParseRE: /^(((([^:\/#\?]+:)?(?:(\/\/)((?:(([^:@\/#\?]+)(?:\:([^:@\/#\?]+))?)@)?(([^:\/#\?\]\[]+|\[[^\/\]@#?]+\])(?:\:([0-9]+))?))?)?)?((\/?(?:[^\/\?#]+\/+)*)([^\?#]*)))?(\?[^#]+)?)(#.*)?/,
+					urlParseRE: /^(((([^:\/#\?]+:)?(?:(\/\/)((?:(([^:@\/#\?]+)(?:\:([^:@\/#\?]+))?)@)?(([^:\/#\?\]\[]+|\[[^\/\]@#?]+\])(?:\:([0-9]+))?))?)?)?((\/?(?:[^\/\?#]+\/+)*)([^\?#]*)))?(\?[^#]+)?)((#[^\?]*)(\?.*)?)?/,
 
 					/**
 					* Abstraction to address xss (Issue #4787) by removing the authority in
@@ -183,6 +185,7 @@
 					* @return {string} return.filename
 					* @return {string} return.search
 					* @return {string} return.hash
+					* @return {string} return.hashSearch
 					* @static
 					*/
 					parseUrl: function (url) {
@@ -190,7 +193,6 @@
 						if (typeof url === "object") {
 							return url;
 						}
-
 						matches = path.urlParseRE.exec(url || "") || [];
 
 							// Create an object that allows the caller to access the sub-matches
@@ -199,11 +201,11 @@
 							// no matter what browser we're running on.
 						return {
 							href:		matches[0] || "",
-							hrefNoHash:   matches[1] || "",
-							hrefNoSearch: matches[2] || "",
-							domain:	matches[3] || "",
+							hrefNoHash:	matches[1] || "",
+							hrefNoSearch:	matches[2] || "",
+							domain:		matches[3] || "",
 							protocol:	matches[4] || "",
-							doubleSlash:  matches[5] || "",
+							doubleSlash:	matches[5] || "",
 							authority:	matches[6] || "",
 							username:	matches[8] || "",
 							password:	matches[9] || "",
@@ -213,13 +215,14 @@
 							pathname:	matches[13] || "",
 							directory:	matches[14] || "",
 							filename:	matches[15] || "",
-							search:	matches[16] || "",
-							hash:		matches[17] || ""
+							search:		matches[16] || "",
+							hash:		matches[18] || "",
+							hashSearch:	matches[19] || ""
 						};
 					},
 
 					/**
-					* Turn relPath into an asbolute path. absPath is
+					* Turn relPath into an absolute path. absPath is
 					* an optional absolute path which describes what
 					* relPath is relative to.
 					* @method makePathAbsolute
@@ -329,6 +332,12 @@
 
 					/**
 					* Add search (aka query) params to the specified url.
+					* If page is embedded page, search query will be added after
+					* hash tag. It's allowed to add query content for both external
+					* pages and embedded pages.
+					* Examples:
+					* http://domain/path/index.html#embedded?search=test
+					* http://domain/path/external.html?s=query#embedded?s=test
 					* @method addSearchParams
 					* @member ns.util.path
 					* @param {string|Object} url
@@ -338,8 +347,16 @@
 					addSearchParams: function (url, params) {
 						var urlObject = path.parseUrl(url),
 							paramsString = (typeof params === "object") ? this.getAsURIParameters(params) : params,
-							searchChar = urlObject.search || "?";
-						return urlObject.hrefNoSearch + searchChar + (searchChar.charAt(searchChar.length - 1) === "?" ? "" : "&") + paramsString + (urlObject.hash || "");
+							searchChar = '',
+							urlObjectHash = urlObject.hash;
+
+						if (path.isEmbedded(url) && paramsString.length > 0) {
+							searchChar = urlObject.hashSearch || "?";
+							return urlObject.hrefNoHash + (urlObjectHash || "") + searchChar + (searchChar.charAt(searchChar.length - 1) === "?" ? "" : "&") + paramsString ;
+						}
+
+						searchChar = urlObject.search || "?";
+						return urlObject.hrefNoSearch + searchChar + (searchChar.charAt(searchChar.length - 1) === "?" ? "" : "&") + paramsString + (urlObjectHash || "");
 					},
 
 					/**
@@ -360,7 +377,7 @@
 
 					/**
 					* Convert absolute Url to data Url
-					* - for embedded pages strips hash and paramters
+					* - for embedded pages strips parameters
 					* - for the same domain as document base remove domain
 					* otherwise returns decoded absolute Url
 					* @method convertUrlToDataUrl
@@ -374,10 +391,9 @@
 					convertUrlToDataUrl: function (absUrl, dialogHashKey, documentBase) {
 						var urlObject = path.parseUrl(absUrl);
 
-						if (path.isEmbeddedPage(urlObject, dialogHashKey)) {
-							// For embedded pages, remove the dialog hash key as in getFilePath(),
-							// otherwise the Data Url won't match the id of the embedded Page.
-							return urlObject.hash.replace(/^#|\?.*$/g, "");
+						if (path.isEmbeddedPage(urlObject, !!dialogHashKey)) {
+							// Keep hash and search data for embedded page
+							return path.getFilePath(urlObject.hash + urlObject.hashSearch, dialogHashKey);
 						}
 						documentBase = documentBase || path.documentBase;
 						if (path.isSameDomain(urlObject, documentBase)) {
@@ -503,7 +519,7 @@
 						if (urlObject.protocol !== "") {
 							return (!path.isPath(urlObject.hash) && !!urlObject.hash && (urlObject.hrefNoHash === path.parseLocation().hrefNoHash));
 						}
-						return (/^#/).test(urlObject.href);
+						return (/\?.*#|^#/).test(urlObject.href);
 					},
 
 					/**
@@ -713,7 +729,7 @@
 					},
 
 					/**
-					* Return the substring of a filepath before the sub-page key,
+					* Return the substring of a file path before the sub-page key,
 					* for making a server request
 					* @method getFilePath
 					* @member ns.util.path
