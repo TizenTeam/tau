@@ -1,13 +1,20 @@
-module.exports = function(grunt) {
-	grunt.registerMultiTask("themeConverter", "tau changeable theme converter",function(){
-		var data = this.data;
-		if (data.device === "all") {
-			// if data.device is undefined, this task is 'all'
-			run(data.themeIndex, data.themeStyle, "mobile");
-			run(data.themeIndex, data.themeStyle, "wearable");
-		} else {
-			run(data.themeIndex, data.themeStyle, data.device);
+/*global module*/
+
+module.exports = function (grunt) {
+	"use strict";
+	grunt.registerMultiTask("themeConverter", "tau changeable theme converter" , function() {
+		var data = this.data,
+			config = grunt.config("themeConverter"),
+			devices = data.devices || [data.device],
+			len = devices.length,
+			device = "",
+			i = 0;
+
+		for (i = 0; i < len; i++) {
+			device = devices[i];
+			run(config[device].themeIndex, config[device].themeStyle, config[device]);
 		}
+
 		return;
 	});
 };
@@ -30,15 +37,13 @@ var xml2js = require("xml2js"),
 	fileName = {
 		INPUT_COLOR_TABLE: "InputColorTable.xml",
 		COLOR_TABLE: "ChangeableColorTable1.xml",
-		TEMEPLATE: "changeable.template",
 		OUTPUT: "tau.css"
 	},
 
-	mobilePath = "tools/grunt/xml/mobile/",
-	wearablePath = "tools/grunt/xml/wearable/";
+	xmlPath = "tools/grunt/xml/";
 
-function run(themeIndex, themeStyle, device) {
 
+function run(themeIndex, themeStyle, deviceConfig) {
 	var inputColorTable = {
 			colorList: [],
 			index: themeIndex
@@ -47,19 +52,14 @@ function run(themeIndex, themeStyle, device) {
 			colorList: [],
 			style: themeStyle
 		},
-		len = 1,
-		colors = [],
-		i;
+		colors = deviceConfig.colors || [null],
+		len = colors.length,
+		i = 0;
 
-	if (device === "wearable") {
-		// In wearable version need to two color theme version, blue and brown.
-		colors = ["blue", "brown"];
-		len = colors.length;
-	}
 	for (i = 0; i < len; i++) {
-		inputColorTable = parseTable(inputColorTable, tableType.INPUT_COLOR_TABLE, device, colors[i]);
-		colorTable = parseTable(colorTable, tableType.COLOR_TABLE, device, colors[i]);
-		replaceTemplate(inputColorTable, colorTable, device, colors[i]);
+		inputColorTable = parseTable(inputColorTable, tableType.INPUT_COLOR_TABLE, deviceConfig.device, colors[i]);
+		colorTable = parseTable(colorTable, tableType.COLOR_TABLE, deviceConfig.device, colors[i]);
+		replaceTemplate(inputColorTable, colorTable, deviceConfig, colors[i]);
 	}
 
 }
@@ -68,31 +68,40 @@ function fixGhostThemeTemplate(template, color) {
 	return template + '\n .tau-info-theme:after {\n content: "' + color + '"; }\n';
 }
 
-function replaceTemplate(inputColorTable, colorTable, device, color) {
+function replaceTemplate(inputColorTable, colorTable, deviceConfig, color) {
 	// replace color-code
 	var rgba = {r: 0, g: 0, b: 0, a: 1},
-		template = fs.readFileSync("dist/"+device+"/theme/changeable/changeable.template", "utf-8"),
+		deviceName = deviceConfig.device,
+		themeDir = "dist/" + deviceName + "/theme/",
+		colorDir = "",
+		template = fs.readFileSync(themeDir + "changeable/changeable.template", "utf-8"),
 		i;
 
 	//replace color
 	for (i = 0; i < colorTable.colorList.length; i++) {
 		rgba = calculateColor(inputColorTable.colorList, colorTable.colorList[i].$);
-
 		template = replaceColor(colorTable.colorList[i].$.id, rgba, template);
 	}
-	if (device === "mobile") {
-		fs.writeFileSync("dist/"+device+"/theme/changeable/tau.css", template);
-	} else {
-		if (color === "blue") {
-			template = fixGhostThemeTemplate(template, "default");
-			fs.writeFileSync("dist/"+device+"/theme/changeable/tau.css", template);
-		}
+
+	if (color !== null) {
+
+		colorDir = themeDir + color + "/";
 		template = fixGhostThemeTemplate(template, color);
-		fs.mkdirSync("dist/"+device+"/theme/" + color + "/");
-		fs.writeFileSync("dist/"+device+"/theme/" + color + "/tau.css", template);
+		fs.mkdirSync(colorDir);
+		fs.writeFileSync(colorDir + fileName.OUTPUT, template);
+
+		if (color === deviceConfig.defaultColor) {
+			template = fixGhostThemeTemplate(template, "default");
+			fs.writeFileSync(themeDir + "changeable/" + fileName.OUTPUT, template);
+		}
+
+	} else {
+		fs.writeFileSync(themeDir + "changeable/" + fileName.OUTPUT, template);
 	}
+
 }
-function parseTable(table, tableType, device, color) {
+
+function parseTable(table, tableType, deviceName, color) {
 	// table inputColor or changeable color
 	// tableType 1 is inputColor
 	// tableType 2 is changeableColor
@@ -100,36 +109,35 @@ function parseTable(table, tableType, device, color) {
 	var parser = new xml2js.Parser(),
 		fn,
 		data,
-		path;
+		path,
+		colorPath;
 
 	if (tableType === 1) {
 		fn = fileName.INPUT_COLOR_TABLE;
 	} else if (tableType === 2) {
 		fn = fileName.COLOR_TABLE;
 	}
-	if (device === "mobile") {
-		path = mobilePath;
-	} else {
-		path = wearablePath + color + "/";
-	}
-	data = fs.readFileSync(path + fn);
+
+	colorPath = (color === null) ? '' : [color, "/"].join("");
+	path = [xmlPath, deviceName, "/", colorPath].join("");
+
+	data = fs.readFileSync([path, fn].join(""));
 	parser.parseString(data, function(err, result) {
 		// result is parsing data
-		parseAttribute(result, table, tableType, device);
+		parseAttribute(result, table, tableType);
 	});
 	return table;
 }
 
-function parseAttribute(result, table, tableType, device) {
+function parseAttribute(result, table, tableType) {
 	// parse attribute from result
 	var value = [],
 		themesLength,
 		i;
 
 	if (tableType === 1) {
-		// input color
-		// It has a different xml structure to between mobile and wearable.
-		if (device === "mobile") {
+
+		if (result.InputColorTable.Themes !== undefined) {
 			themesLength = result.InputColorTable.Themes.length;
 			for (i = 0; i < themesLength; i++) {
 				value = value.concat(result.InputColorTable.Themes[i].Theme);
@@ -137,6 +145,7 @@ function parseAttribute(result, table, tableType, device) {
 		} else {
 			value = result.InputColorTable.Theme;
 		}
+
 		// value is input color array
 		for (i = 0; i < value.length; i++) {
 			if (value[i].$.index === table.index) {
@@ -156,8 +165,8 @@ function parseAttribute(result, table, tableType, device) {
 }
 
 function replaceColor(id, rgba, template) {
-	var reg = new RegExp("\\b"+id+"\\b", "g");
-	template = template.replace(reg,"rgba("+rgba.r+", "+rgba.g+", "+rgba.b+", "+rgba.a+")");
+	var reg = new RegExp("\\b" + id + "\\b", "g");
+	template = template.replace(reg,"rgba(" + rgba.r + ", " + rgba.g + ", " + rgba.b + ", " + rgba.a + ")");
 	return template;
 }
 

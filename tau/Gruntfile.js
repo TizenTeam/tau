@@ -339,13 +339,13 @@ module.exports = function(grunt) {
 				wearable: {
 					themeIndex: "0",
 					themeStyle: "Dark",
-					device: "wearable"
+					device: "wearable",
+					colors: ["blue", "brown"],
+					defaultColor: "blue"
 				},
 
 				all: {
-					themeIndex: "0",
-					themeStyle: "Dark",
-					device: "all"
+					devices: ["mobile", "wearable"]
 				}
 			},
 
