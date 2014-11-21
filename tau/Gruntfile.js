@@ -535,6 +535,22 @@ module.exports = function(grunt) {
 				}
 			},
 
+			"remove-unused": {
+				"images": {
+					resourcesPath: 'src/css',
+					imageFiles: [
+						'src/css/**/*.png',
+						'src/css/**/*.jpg',
+						'src/css/**/*.jpeg'
+					],
+					// Finding css files instead of less will ensure that every custom created filename will be
+					// present in the output
+					codeFiles: [
+						'dist/**/*.css'
+					]
+				}
+			},
+
 			"string-replace": {
 				jsduck: {
 					files: {
