@@ -29,25 +29,32 @@ Normal Popup
 			&.ui-btn-footer-icon {
 				position: relative;
 				&:first-child::before {
-					right: 30px;
+					right: 30 * @unit_base;
 				}
 				&:last-child::before {
-					left: 30px;
+					left: 30 * @unit_base;
 				}
 				&:only-child::before {
-					left: 145px;
+					left: 145 * @unit_base;
 				}
 				&::before {
 					content: "";
 					background-color: white;
-					-webkit-mask-size: 60px 60px;
+					-webkit-mask-size: 60 * @unit_base 60 * @unit_base;
 					-webkit-mask-repeat: no-repeat;
-					width: 60px;
-					height: 60px;
+					width: 60 * @unit_base;
+					height: 60 * @unit_base;
 					position: absolute;
 					bottom: @fixed_popup_footer_btn_padding_bottom;
 				}
 			}
 		}
 	}
+}
+
+/****************************************
+Popup Toast
+****************************************/
+.ui-popup.ui-popup-toast {
+	bottom: 51 * @unit_base;
 }

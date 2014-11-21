@@ -650,23 +650,6 @@
 			}
 
 			/**
-			 * Set top, left and margin for popup's container.
-			 * @method _placementCoordsWindow
-			 * @param {HTMLElement} element
-			 * @protected
-			 * @member ns.widget.core.ContextPopup
-			 */
-			prototype._placementCoordsWindow = function(element) {
-				var elementStyle = element.style,
-					elementWidth = element.offsetWidth,
-					elementHeight = element.offsetHeight;
-
-				elementStyle.top = (window.innerHeight - elementHeight) + "px";
-				elementStyle.left = "50%";
-				elementStyle.marginLeft = -(elementWidth / 2) + "px";
-			};
-
-			/**
 			 * Find clicked element.
 			 * @method _findClickedElement
 			 * @param {number} x
@@ -778,8 +761,6 @@
 					elementStyle.left = bestRectangle.x + "px";
 					elementStyle.top = bestRectangle.y + "px";
 
-				} else {
-					self._placementCoordsWindow(element);
 				}
 
 			};
@@ -818,7 +799,6 @@
 						contentStyle.minHeight = contentHeight + "px";
 					}
 				}
-
 			};
 
 			/**
