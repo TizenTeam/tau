@@ -4,7 +4,8 @@
 var tauConfig = {
 	"autorun": false
 };
-test ( "input type=text" , function () {
+
+test("input type=text" , function () {
 	var input = document.getElementById('name');
 
 	//after build
@@ -15,7 +16,8 @@ test ( "input type=text" , function () {
 	ok(input.classList.contains('ui-input-text'), 'Input has ui-input-text class');
 	ok(input.classList.contains('ui-body-s'), 'Input has ui-body-s class');
 });
-test ( "input type=textarea" , function () {
+
+test("input type=textarea" , function () {
 	var input1 = document.getElementById('textarea');
 
 	//after build
@@ -25,7 +27,7 @@ test ( "input type=textarea" , function () {
 	ok(input1.classList.contains('ui-body-s'), 'Input has ui-body-s class');
 });
 
-test ( "input type=password" , function () {
+test("input type=password" , function () {
 	var input2 = document.getElementById('password');
 
 	//after build
@@ -35,7 +37,7 @@ test ( "input type=password" , function () {
 	ok(input2.classList.contains('ui-body-s'), 'Input has ui-body-s class');
 });
 
-test ( "input type=number" , function () {
+test("input type=number" , function () {
 	var input3 = document.getElementById('number');
 
 	//after build
@@ -45,7 +47,7 @@ test ( "input type=number" , function () {
 	ok(input3.classList.contains('ui-body-s'), 'Input has ui-body-s class');
 });
 
-test ( "input type=email" , function () {
+test("input type=email" , function () {
 	var input4 = document.getElementById('email');
 
 	//after build
@@ -55,7 +57,7 @@ test ( "input type=email" , function () {
 	ok(input4.classList.contains('ui-body-s'), 'Input has ui-body-s class');
 });
 
-test ( "input type=url" , function () {
+test("input type=url" , function () {
 	var input5 = document.getElementById('url');
 
 	//after build
@@ -65,7 +67,7 @@ test ( "input type=url" , function () {
 	ok(input5.classList.contains('ui-body-s'), 'Input has ui-body-s class');
 });
 
-test ( "input type=tel" , function () {
+test("input type=tel" , function () {
 	var input6 = document.getElementById('tel');
 
 	//after build
@@ -75,7 +77,7 @@ test ( "input type=tel" , function () {
 	ok(input6.classList.contains('ui-body-s'), 'Input has ui-body-s class');
 });
 
-test ( "input type=time" , function () {
+test("input type=time" , function () {
 	var input7 = document.getElementById('time');
 
 	//after build
@@ -85,7 +87,7 @@ test ( "input type=time" , function () {
 	ok(input7.classList.contains('ui-body-s'), 'Input has ui-body-s class');
 });
 
-test ( "input type=date" , function () {
+test("input type=date" , function () {
 	var input8 = document.getElementById('date');
 
 	//after build
@@ -95,7 +97,7 @@ test ( "input type=date" , function () {
 	ok(input8.classList.contains('ui-body-s'), 'Input has ui-body-s class');
 });
 
-test ( "input type=month" , function () {
+test("input type=month" , function () {
 	var input9 = document.getElementById('month');
 
 	//after build
@@ -105,7 +107,7 @@ test ( "input type=month" , function () {
 	ok(input9.classList.contains('ui-body-s'), 'Input has ui-body-s class');
 });
 
-test ( "input type=week" , function () {
+test("input type=week" , function () {
 	var input10 = document.getElementById('week');
 
 	//after build
@@ -115,7 +117,7 @@ test ( "input type=week" , function () {
 	ok(input10.classList.contains('ui-body-s'), 'Input has ui-body-s class');
 });
 
-test ( "input type=datetime" , function () {
+test("input type=datetime" , function () {
 	var input11 = document.getElementById('datetime');
 
 	//after build
@@ -125,7 +127,7 @@ test ( "input type=datetime" , function () {
 	ok(input11.classList.contains('ui-body-s'), 'Input has ui-body-s class');
 });
 
-test ( "input type=color" , function () {
+test("input type=color" , function () {
 	var input12 = document.getElementById('color');
 
 	//after build
@@ -135,7 +137,7 @@ test ( "input type=color" , function () {
 	ok(input12.classList.contains('ui-body-s'), 'Input has ui-body-s class');
 });
 
-test ( "input type=search" , function () {
+test("input type=search" , function () {
 	var input13 = document.getElementById('search');
 	equal("true", "true", "Input widget is created");
 
@@ -200,4 +202,44 @@ test("textinput - value get/set", function () {
 	equal(textInput.value(), "default value", "textinput initial value not read");
 	textInput.value('tEsT 1');
 	equal(textInput.value(), "tEsT 1", "textinput value set");
+});
+
+test("getLabel, setLabel - label does not exist on startup", function () {
+	var input17 = document.getElementById("focusd"),
+		widget,
+		labelText = "label_text",
+		label,
+		parentId = "inputParentId";
+
+	//after build
+	widget = tau.widget.TextInput(input17);
+
+	equal(widget.getLabel(), null, "Input doesn`t have label");
+
+	label = input17.parentNode.querySelector("label[for='" + input17.id + "']");
+	ok(label === null, "Input doesn't have label - direct check");
+
+	widget.setLabel(labelText);
+
+	equal(widget.getLabel(), labelText, "Label added");
+
+	// check if label is put in a proper place
+	input17.parentElement.id = parentId;
+	label = input17.parentNode.querySelector("#" + parentId + " > label[for='" + input17.id + "']");
+	ok(label !== null, "Label is set as a child of input parent");
+});
+
+test("getLabel, setLabel - label exists on startup", function () {
+	var input16 = document.getElementById("focuse"),
+		widget,
+		labelText = "label_text";
+
+	//after build
+	widget = tau.widget.TextInput(input16);
+
+	ok(widget.getLabel() != null, "Input has label");
+
+	widget.setLabel(labelText);
+
+	equal(widget.getLabel(), labelText, "Label properly set");
 });

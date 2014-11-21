@@ -382,15 +382,14 @@
 
 			/**
 			 * Method finds label tag for element.
-			 * @method findLabel
+			 * @method _findLabel
 			 * @param {HTMLElement} element
 			 * @member ns.widget.mobile.TextInput
 			 * @return {HTMLElement}
-			 * @static
-			 * @private
+			 * @protected
 			 */
-			function findLabel(element) {
-				return element.parentNode.querySelector('label[for="' + element.id + '"]');
+			TextInput.prototype._findLabel = function(element) {
+				return element.parentNode.querySelector("label[for='" + element.id + "']");
 			}
 
 			/**
@@ -576,7 +575,7 @@
 					elementClassList = element.classList,
 					options = self.options,
 					themeClass,
-					labelFor = findLabel(element),
+					labelFor = self._findLabel(element),
 					clearButton,
 					type = element.type,
 					ui;
@@ -717,6 +716,45 @@
 				elementClassList.remove(classes.uiBodyTheme + this.options.theme);
 			};
 
+			/**
+			 * Returns label value
+			 * @method getLabel
+			 * @return {string} Label value or null
+			 * @member ns.widget.mobile.TextInput
+			 */
+			TextInput.prototype.getLabel = function () {
+				var label = this._findLabel(this.element);
+				if (label !== null) {
+					return label.innerHTML;
+				}
+				return null;
+			};
+
+			/**
+			 * Sets label value
+			 * @method setLabel
+			 * @param {string} Label text
+			 * @member ns.widget.mobile.TextInput
+			 */
+			TextInput.prototype.setLabel = function (text) {
+				var self = this,
+					element = self.element,
+					label;
+
+				if (typeof text === "string") {
+					label = self._findLabel(element);
+					if (label === null) {
+						// create new label
+						label = document.createElement("label");
+						label.setAttribute("for", element.id);
+
+						// add to parent
+						element.parentElement.appendChild(label);
+					}
+					label.innerHTML = text;
+				}
+			};
+
 			ns.widget.mobile.TextInput = TextInput;
 			engine.defineWidget(
 				"TextInput",
@@ -733,7 +771,10 @@
 					", input:not([type]):not([data-role]):not(.ui-checkbox):not(.ui-tizenslider)" +
 					", textarea" +
 					", .ui-textinput",
-				[],
+				[
+					"getLabel",
+					"setLabel"
+				],
 				TextInput,
 				"mobile"
 			);

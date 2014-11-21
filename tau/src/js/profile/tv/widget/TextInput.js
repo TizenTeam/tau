@@ -230,6 +230,27 @@
 			};
 
 			/**
+			 * Method finds label tag for element.
+			 * @method _findLabel
+			 * @param {HTMLElement} element
+			 * @member ns.widget.tv.TextInput
+			 * @return {HTMLElement}
+			 * @protected
+			 */
+			prototype._findLabel = function(element) {
+				var container = element.parentElement;
+
+				// Input with type = "number" is opacked with
+				// an additional focusable span. Label should be
+				// looked for in a parent of this span.
+				if (element.type === "number") {
+					container = container.parentElement;
+				}
+
+				return container.querySelector("label[for='" + element.id + "']");
+			}
+
+			/**
 			 * Method overrides Textarea behavior on keyup event.
 			 * @method onKeyupTextarea
 			 * @param {TextInput} self
@@ -348,7 +369,10 @@
 			engine.defineWidget(
 				"TextInput",
 				selector,
-				[],
+				[
+					"getLabel",
+					"setLabel"
+				],
 				TextInput,
 				"tv",
 				true

@@ -192,5 +192,67 @@
 		test("Input in popup", function () {
 			testInput("in-popup", "false");
 		});
+
+		test("Input type='number' getLabel, setLabel - label does not exist on startup", function () {
+			var input = document.getElementById("in9"),
+				widget = window.tau.engine.instanceWidget(input, "TextInput"),
+				labelText = "label_text",
+				label,
+				parentId = "inputParentId";
+
+			equal(widget.getLabel(), null, "Input doesn`t have label");
+
+			widget.setLabel(labelText);
+
+			equal(widget.getLabel(), labelText, "Label added");
+
+			// check if label is put in a proper place
+			input.parentElement.id = parentId;
+			label = input.parentNode.querySelector("#" + parentId + " > label[for='" + input.id + "']");
+			ok(label !== null, "Label is set as a child of input parent");
+		});
+
+		test("Input type='number' getLabel, setLabel - label exists on startup", function () {
+			var input = document.getElementById("in8"),
+				widget = window.tau.engine.instanceWidget(input, "TextInput"),
+				labelText = "label_text";
+
+			ok(widget.getLabel() != null, "Input has label");
+
+			widget.setLabel(labelText);
+
+			equal(widget.getLabel(), labelText, "Label properly set");
+		});
+
+		test("Input type other than 'number' getLabel, setLabel - label does not exist on startup", function () {
+			var input = document.getElementById("in11"),
+				widget = window.tau.engine.instanceWidget(input, "TextInput"),
+				labelText = "label_text",
+				label,
+				parentId = "inputParentId";
+
+			equal(widget.getLabel(), null, "Input doesn`t have label");
+
+			widget.setLabel(labelText);
+
+			equal(widget.getLabel(), labelText, "Label added");
+
+			// check if label is put in a proper place
+			input.parentElement.id = parentId;
+			label = input.parentNode.querySelector("#" + parentId + " > label[for='" + input.id + "']");
+			ok(label !== null, "Label is set as a child of input parent");
+		});
+
+		test("Input type other than 'number' getLabel, setLabel - label exists on startup", function () {
+			var input = document.getElementById("in10"),
+				widget = window.tau.engine.instanceWidget(input, "TextInput"),
+				labelText = "label_text";
+
+			ok(widget.getLabel() != null, "Input has label");
+
+			widget.setLabel(labelText);
+
+			equal(widget.getLabel(), labelText, "Label properly set");
+		});
 	});
 }(document));
