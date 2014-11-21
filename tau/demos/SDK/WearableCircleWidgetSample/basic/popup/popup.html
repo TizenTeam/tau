@@ -23,6 +23,7 @@
 		<div class="ui-grid-row">
 			<a href="#radioPopup" class="ui-btn" data-rel="popup">Radio popup</a>
 			<a href="#checkPopup" class="ui-btn" data-rel="popup">Checkbox popup</a>
+			<a href="#checkPopup2" class="ui-btn" data-rel="popup">Checkbox popup2</a>
 		</div>
 
 		<h3>List popup</h3>
@@ -42,7 +43,7 @@
 	</div>
 
 	<div id="1btnPopup" class="ui-popup">
-		<div class="ui-popup-header">Power saving mode</div>
+		<div class="ui-popup-header">Popup title</div>
 		<div class="ui-popup-content">
 			Turning on Power
 			saving mode will
@@ -50,12 +51,12 @@
 			power.
 		</div>
 		<div class="ui-popup-footer">
-			<a id="1btnPopup-cancel" href="#" class="ui-btn" data-rel="back">Cancel</a>
+			<a id="1btnPopup-cancel" href="#" class="ui-btn ui-btn-footer-icon btn-icon-showonphone" data-rel="back">Cancel</a>
 		</div>
 	</div>
 
 	<div id="2btnPopup" class="ui-popup">
-		<div class="ui-popup-header">Power saving mode</div>
+		<div class="ui-popup-header">Popup title</div>
 		<div class="ui-popup-content">
 			Turning on Power
 			saving mode will
@@ -63,8 +64,8 @@
 			power.
 		</div>
 		<div class="ui-popup-footer ui-grid-col-2">
-			<a id="2btnPopup-cancel" href="#" class="ui-btn" data-rel="back">Cancel</a>
-			<a id="2btnPopup-ok" href="#" class="ui-btn" data-rel="back">OK</a>
+			<a id="2btnPopup-cancel" href="#" class="ui-btn ui-btn-footer-icon btn-icon-share" data-rel="back">Cancel</a>
+			<a id="2btnPopup-ok" href="#" class="ui-btn ui-btn-footer-icon btn-icon-delete" data-rel="back">OK</a>
 		</div>
 	</div>
 
@@ -105,7 +106,7 @@
 			</ul>
 		</div>
 		<div class="ui-popup-footer">
-			<a id="radioPopup-close" href="#" class="ui-btn" data-rel="back">Close</a>
+			<a id="radioPopup-close" href="#" class="ui-btn ui-btn-footer-icon btn-icon-delete" data-rel="back">Close</a>
 		</div>
 	</div>
 
@@ -158,7 +159,24 @@
 			</ul>
 		</div>
 		<div class="ui-popup-footer">
-			<a id="checkPopup-close" href="#" class="ui-btn" data-rel="back">Close</a>
+			<a id="checkPopup-close" href="#" class="ui-btn ui-btn-footer-icon btn-icon-delete" data-rel="back">Close</a>
+		</div>
+	</div>
+
+	<div id="checkPopup2" class="ui-popup">
+		<div class="ui-popup-header">Popup title</div>
+		<div class="ui-popup-content">
+			Turning on Power
+			saving mode will
+			limit the maximum
+			power.
+			<label class="popup-input-box">
+				<input type="checkbox"/>
+				Don't repeat
+			</label>
+		</div>
+		<div class="ui-popup-footer">
+			<a id="1btnPopup-cancel" href="#" class="ui-btn ui-btn-footer-icon btn-icon-showonphone" data-rel="back">Cancel</a>
 		</div>
 	</div>
 
@@ -174,7 +192,7 @@
 			</ul>
 		</div>
 		<div class="ui-popup-footer">
-			<a id="listPopup-cancel" href="#" class="ui-btn" data-rel="back">Cancel</a>
+			<a id="listPopup-cancel" href="#" class="ui-btn ui-btn-footer-icon btn-icon-delete" data-rel="back">Cancel</a>
 		</div>
 	</div>
 
@@ -191,7 +209,7 @@
 			</ul>
 		</div>
 		<div class="ui-popup-footer">
-			<a id="listNoTitlePopup-cancel" href="#" class="ui-btn" data-rel="back">Cancel</a>
+			<a id="listNoTitlePopup-cancel" href="#" class="ui-btn ui-btn-footer-icon btn-icon-delete" data-rel="back">Cancel</a>
 		</div>
 	</div>
 
@@ -223,7 +241,7 @@
 	</div>
 
 	<div id="popupDismissible" class="ui-popup">
-		<div class="ui-popup-header">Power saving mode</div>
+		<div class="ui-popup-header">Popup title</div>
 		<div class="ui-popup-content">
 			Turning on Power
 			saving mode will
@@ -231,7 +249,7 @@
 			power.
 		</div>
 		<div class="ui-popup-footer">
-			<button id="popupDismissible-cancel" href="#" class="ui-btn">Ok</button>
+			<button id="popupDismissible-cancel" href="#" class="ui-btn ui-btn-footer-icon btn-icon-delete">Ok</button>
 		</div>
 	</div>
 	<script type="text/javascript">
