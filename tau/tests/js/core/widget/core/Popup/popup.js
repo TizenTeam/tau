@@ -259,6 +259,21 @@
 			});
 			engine.run();
 		});
+
+		asyncTest("popup hidden before open", 1, function () {
+			tau.event.one(page, "pageshow", function() {
+				popup1Widget = engine.instanceWidget(popup1, INSTANCE_WIDGET);
+				tau.event.one(popup1, PopupClass.events.hide, function() {
+					ok("Popup is hidden");
+					start();
+				});
+				popup1Widget.open({
+					transition: "fade"
+				});
+				popup1Widget._hide();
+			});
+			engine.run();
+		});
 	}
 
 	test("set header test", function () {
