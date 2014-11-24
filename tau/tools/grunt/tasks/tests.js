@@ -14,19 +14,19 @@ module.exports = function (grunt) {
 		path = require("path"),
 		buildFrameworkPath = path.join("dist"),
 		testConfig = {},
-		profileName,
 		prepareForRunner = false,
 		prepareTestsList = function (profileName, done, output) {
 			var result = require('rjs-build-analysis').parse(output),
 				slice = [].slice,
 				testModules = [],
-				jsAddTests = grunt.option('js_add_test') ? grunt.option('js_add_test').split(",") : ["api", profileName];
+				jsAddTests = grunt.option('js_add_test') ? grunt.option('js_add_test').split(",") : ["api", profileName],
+				singleTest = grunt.option('single_test') ? grunt.option('single_test') : '';
 
 			if (profileName === "mobile") {
 				jsAddTests.push("jquery");
 			}
 
-			if (result && result.bundles.length > 0) {
+			if (result && result.bundles.length > 0 && singleTest === '') {
 				slice.call(result.bundles[0].children).forEach(function (modulePath) {
 					var testDirectory = path.relative('src/', modulePath).replace(/(\.js)+/gi, ''),
 						mainTestPattern = path.join('tests', testDirectory, '*.html'),
@@ -45,6 +45,9 @@ module.exports = function (grunt) {
 						});
 					}
 				});
+				grunt.config('qunit.main-'+ profileName, testModules);
+			} else if (singleTest !== '') {
+				testModules.push(singleTest);
 				grunt.config('qunit.main-'+ profileName, testModules);
 			}
 			done();
@@ -171,7 +174,15 @@ module.exports = function (grunt) {
 		}
 	}
 
-	grunt.registerTask("test", function (profile) {
+	var description = "Run tests. \n" +
+			"This task allows params:\n" +
+			"<profile> [default:all]\n" +
+			"options:\n" +
+			"--single_test : determines single test to run\n" +
+			"example:\n" + 
+			'"grunt test:mobie --single_test=/path/test.html"';
+
+	grunt.registerTask("test", description, function (profile) {
 		var profileName;
 
 		// Inject require done callback
