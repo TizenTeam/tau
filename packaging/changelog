@@ -1,4 +1,36 @@
 %changelog
+* Tue Nov 25 2014 Hagun Kim <hagun.kim@samsung.com> 0.9.30
+	- test(core): Added tests for utils.colors
+	- fix(tv):Fixed wrong view of Checkbox and Radio Buttons in Popups
+	- fix(tv): Keyup and keydown event handling is always added to Vmouse.
+	- fix(all): Path issue after change page
+	- etc(tool): TCT tests packaging
+	- TCT: Test builder
+	- fix(mobile): slider center option fix
+	- fix(changeable):Fixes of less files. 	-- clear descriptions of the variables
+	- (fix) core: fix problem with closing popup
+	- fix(mobile): Popup is unnecessarily shown and incorrectly positioned
+	- docs(tv): Documentation for page/design/elements created
+	- fix(wearable): Unused variables removed from expose.js
+	- (test) mobile: add test for TabBar
+	- tests(mobile,tv): Enable tests from mobile profile in tv profile
+	- [Integrate] move tau.defaults object to core.
+	- fix(mobile): Fix layout of button icon position top, bottom
+	- fix(mobile): Fix margin of button without text
+	- refactor(tv): Less constants moved to files from a theme directory
+	- test(tv): Added destroy and button in header test cases in Page.
+	- test(tv): Added destroy function test for Button
+	- refactor(mobile, core): refactor methods for better memory management
+	- fix,docs,test(mobile): Complement of css selectors for widgets
+	- fix(core): fix problem with opening Popup by function in Router
+	- refactor(mobile): MobileWinset: doctype unification for widget pages
+	- refactor(mobile): modify collapsible and collapsibleset style
+	- fix(mobile): fix back button action in selectmenu
+	- refactor(core) Minor fixes in Core Base Widget
+	- feat(core): add module with decorator for animation on events focus/blur
+	- fix(core): prepare function focus and blur for BaseWidget
+	- feat(mobile): fixed incorrect button within controlgroup width issue
+
 * Thu Nov 06 2014 Junhyeon Lee <juneh.lee@samsung.com> 0.9.29
 	- refactor(wearable): [WearableWidgetSample] Unnecessary new operators
 	- fix(mobile): Fix problem with layout of Swipe widget
