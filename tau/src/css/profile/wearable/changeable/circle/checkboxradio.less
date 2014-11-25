@@ -1,0 +1,17 @@
+@import "../common/checkboxradio.less";
+
+input[type="checkbox"] {
+	&::before {
+		content: "";
+		-webkit-mask-image: url(images/Controller_icon/tw_btn_check_holo_dark.png);
+		-webkit-mask-repeat: no-repeat;
+		background-color: @color_checkboxradio_check;
+		width: 0;
+		height: 56px;
+		position: absolute;
+		-webkit-transition: width 150ms;
+	}
+	&:checked::before {
+		width: 56px;
+	}
+}
