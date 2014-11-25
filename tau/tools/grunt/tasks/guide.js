@@ -61,6 +61,8 @@ module.exports = function (grunt) {
 			}
 			done(true);
 			grunt.log.ok();
+
+			grunt.log.write("Finished. Check "+dst+" directory to see the result html.\n");
 		} catch (err) {
 			grunt.log.error(err);
 			done(false);
