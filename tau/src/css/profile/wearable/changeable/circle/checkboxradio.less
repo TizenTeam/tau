@@ -15,3 +15,20 @@ input[type="checkbox"] {
 		width: 56px;
 	}
 }
+
+input[type="radio"] {
+	&::before {
+		content: "";
+		background-color: @color_checkboxradio_radio;
+		-webkit-mask-image: url(images/Controller_icon/tw_btn_radio_holo_dark.png);
+		-webkit-mask-repeat: no-repeat;
+		width: 56px;
+		height: 56px;
+		position: absolute;
+		-webkit-transform: scale3d(0,0,0);
+		-webkit-transition: -webkit-transform 150ms;
+	}
+	&:checked::before {
+		-webkit-transform: scale3d(1,1,1);
+	}
+}
