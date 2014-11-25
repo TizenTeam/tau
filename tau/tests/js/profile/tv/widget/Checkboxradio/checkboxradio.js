@@ -34,7 +34,7 @@
 			equal(checkbox.getAttribute("data-tau-built"), "Checkboxradio", "Checkbox widget is built");
 			equal(checkbox.getAttribute("aria-disabled"), "false", "Checkbox is enabled");
 			equal(checkbox.getAttribute("data-tau-name"), "Checkboxradio", "Checkbox has correct widget name");
-			equal(wrapper.nodeName, "SPAN", "Checkbox has span wrapper");
+			equal(wrapper.nodeName, "DIV", "Checkbox has div wrapper");
 		});
 
 		test("Disabled Checkbox", function () {
@@ -82,12 +82,12 @@
 			equal(radio1.getAttribute("data-tau-built"), "Checkboxradio", "Checkbox widget is built");
 			equal(radio1.getAttribute("aria-disabled"), "false", "Checkbox is enabled");
 			equal(radio1.getAttribute("data-tau-name"), "Checkboxradio", "Checkbox has correct widget name");
-			equal(wrapper1.nodeName, "SPAN", "Checkbox has span wrapper");
+			equal(wrapper1.nodeName, "DIV", "Checkbox has div wrapper");
 			equal(radio2.getAttribute("data-tau-bound"), "Checkboxradio", "Radio button widget is created");
 			equal(radio2.getAttribute("data-tau-built"), "Checkboxradio", "Checkbox widget is built");
 			equal(radio2.getAttribute("aria-disabled"), "false", "Checkbox is enabled");
 			equal(radio2.getAttribute("data-tau-name"), "Checkboxradio", "Checkbox has correct widget name");
-			equal(wrapper2.nodeName, "SPAN", "Checkbox has span wrapper");
+			equal(wrapper2.nodeName, "DIV", "Checkbox has div wrapper");
 
 			radio1.checked = true;
 			ok(radio1.checked, "First radio selected");

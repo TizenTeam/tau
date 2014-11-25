@@ -200,43 +200,6 @@
 			Checkboxradio.classes = classes;
 
 			/**
-			* Finds best matched label for given input: <br>
-			* 1. Checks if one of parents is not a label<br>
-			* 2. Checks label#for=input.id if input.id is set in parent form, fieldset, page<br>
-			* 3. Creates label
-			* @method getLabel
-			* @param {HTMLElement} input
-			* @return {HTMLElement}
-			* @private
-			* @static
-			* @member ns.widget.mobile.Checkboxradio
-			*/
-			function getLabel(input) {
-				var parent = selectors.getClosestByTag(input, "label"),
-					label;
-				if (parent) { //1
-					parent.parentNode.replaceChild(parent.firstElementChild, parent);
-					return parent;
-				}
-				if (input.id) { //2
-					parent = selectors.getClosestBySelector(input,
-						"form, fieldset, [data-role='page'], [data-role='dialog']");
-					if (parent) {
-						label = parent.querySelector("label[for='" + input.id + "']");
-						if (label) {
-							return label;
-						}
-					}
-				}
-				//3
-				label = document.createElement("label");
-				if (input.id) {
-					label.setAttribute("for", input.id);
-				}
-				return label;
-			}
-
-			/**
 			 * Function fires on label click event
 			 * @method onLabelClick
 			 * @param {ns.widget.mobile.Checkboxradio} self
@@ -349,6 +312,55 @@
 				}
 			}
 
+			/**
+			* Finds best matched label for given input: <br>
+			* 1. Checks if one of parents is not a label<br>
+			* 2. Checks label#for=input.id if input.id is set in parent form, fieldset, page<br>
+			* 3. Creates label
+			* @method _findLabel
+			* @return {HTMLElement}
+			* @protected
+			* @member ns.widget.mobile.Checkboxradio
+			*/
+			Checkboxradio.prototype._findLabel = function() {
+				var input = this.element,
+					parent = selectors.getClosestByTag(input, "label"),
+					selector = [],
+					definition,
+					label;
+				if (parent) { //1
+					parent.parentNode.replaceChild(parent.firstElementChild, parent);
+					return parent;
+				}
+				if (input.id) { //2
+					selector.push("form, fieldset");
+					// page
+					definition = engine.getWidgetDefinition("Page");
+					if (definition) {
+						selector.push(definition.selectors.toString());
+					}
+					// dialog
+					definition = engine.getWidgetDefinition("Dialog");
+					if (definition) {
+						selector.push(definition.selectors.toString());
+					}
+					// find parent
+					parent = selectors.getClosestBySelector(input, selector.toString());
+					if (parent) {
+						label = parent.querySelector("label[for='" + input.id + "']");
+						if (label) {
+							return label;
+						}
+					}
+				}
+				//3
+				label = document.createElement("label");
+				if (input.id) {
+					label.setAttribute("for", input.id);
+				}
+				return label;
+			};
+
 			Checkboxradio.prototype._buildLabel = function (element) {
 				var inputType =  this.inputType,
 					options = this.options,
@@ -360,7 +372,7 @@
 					iconpos;
 
 				icon = selectors.getParentsBySelector(element, "[data-type='horizontal']").length ? false : inputType + classes.OFF;
-				label = getLabel(element);
+				label = this._findLabel();
 
 				//@todo these options should not be passed via DOM element
 				mini = dom.inheritAttr(element, "data-mini", "form,fieldset");
@@ -397,7 +409,7 @@
 			};
 
 			Checkboxradio.prototype._buildWrapper = function (element) {
-				var label = getLabel(element),
+				var label = this._findLabel(),
 					inputType = this.inputType,
 					ariaCheckedAttr = this.ariaCheckedAttr,
 					wrapper;
@@ -434,7 +446,7 @@
 					iconParent,
 					iconWrapper;
 
-				icon = getLabel(element).getElementsByClassName(classes.ICON)[0];
+				icon = this._findLabel().getElementsByClassName(classes.ICON)[0];
 				iconParent = icon && icon.parentElement;
 				iconWrapper = document.createElement("span");
 
@@ -503,7 +515,7 @@
 			*/
 			Checkboxradio.prototype._init = function (element) {
 				var self = this;
-				self.label = getLabel(element);
+				self.label = self._findLabel();
 				self.icon = self.label.getElementsByClassName("ui-icon")[0];
 				self.wrapper = element.parentNode;
 				self.inputType = element.getAttribute("type");

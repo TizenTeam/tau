@@ -113,6 +113,34 @@
 			Checkboxradio.prototype = prototype;
 			Checkboxradio.classes = classes;
 
+			prototype._buildWrapper = function (element) {
+				var wrapper;
+
+				// build wrapper as in profile mobile
+				wrapper = MobileCheckboxradio.prototype._buildWrapper.call(this, element);
+
+				// add special class
+				wrapper.classList.add(classes.container);
+				if ((!element.disabled) && (element.type === "radio") && (!element.classList.contains(classInListview))) {
+					wrapper.setAttribute("tabindex", 0);
+				}
+				return wrapper;
+			};
+
+			prototype._buildLabel = function (element) {
+				var label = this._findLabel(element.parentNode, element.id);
+				// label is not a button as in profile mobile
+
+				if (label) {
+					label.style.display = "inline-block";
+					if (element.disabled) {
+						// make label not focusable (remove button class)
+						label.className = "";
+					}
+				}
+				return label;
+			};
+
 			/**
 			 * Builds structure of checkboxradio widget
 			 * @method _build
@@ -122,10 +150,13 @@
 			 * @member ns.widget.tv.Checkboxradio
 			 */
 			prototype._build = function(element) {
-				wrapInput(element);
+				// set proper class if element in on the listview
 				if (isInListview(element)) {
 					element.classList.add(classInListview);
 				}
+				// build element
+				element = MobileCheckboxradio.prototype._build.call(this, element);
+
 				return element;
 			};
 
@@ -188,60 +219,6 @@
 
 				document.removeEventListener("keyup", this, false);
 			};
-
-			/**
-			 * Returns label connected to input by htmlFor tag
-			 * @method getLabelForInput
-			 * @param {HTMLElement} parent Input`s parent
-			 * @param {string} id Input`s id
-			 * @return {?HTMLElement} Label or null if not found
-			 * @private
-			 * @static
-			 * @member ns.widget.tv.Checkboxradio
-			 */
-			function getLabelForInput(parent, id) {
-				var labels = parent.getElementsByTagName("label"),
-					length = labels.length,
-					i;
-				for (i = 0; i < length; i++) {
-					if (labels[i].htmlFor === id) {
-						return labels[i];
-					}
-				}
-				return null;
-			}
-
-			/**
-			 * Method adds span to input.
-			 * @method wrapInput
-			 * @param {EventTarget|HTMLElement} element Input element
-			 * @private
-			 * @static
-			 * @member ns.widget.tv.Checkboxradio
-			 */
-			function wrapInput(element) {
-				var container = document.createElement("span"),
-					parent = element.parentNode,
-					label = getLabelForInput(parent, element.id),
-					disabled = element.disabled;
-
-				parent.replaceChild(container, element);
-				container.appendChild(element);
-
-				if (label) {
-					label.style.display = "inline-block";
-					if (disabled) {
-						// make label not focusable (remove button class)
-						label.className = "";
-					}
-					container.appendChild(label);
-				}
-
-				container.className = classes.container;
-				if ((!disabled) && (element.type === "radio") && (!element.classList.contains(classInListview))) {
-					container.setAttribute("tabindex", 0);
-				}
-			}
 
 			/**
 			 * Method overrides input behavior on keydown event (checkbox).
