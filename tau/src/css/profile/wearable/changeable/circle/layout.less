@@ -12,9 +12,26 @@
   between common/layout.less and this file.
   If you have duplicate value, please change static value to variable value.
 ***************************************************************************/
-.ui-header .ui-title {
-	text-align: center;
-	padding-top: @fixed_header_title_padding_top;
+.ui-header {
+	.ui-title {
+		text-align: center;
+		padding-top: @fixed_header_title_padding_top;
+
+		&.ui-icon {
+			padding-left: 0;
+			background: none !important;
+		}
+	}
+
+	&.ui-has-more {
+		.ui-title {
+			padding-right: 0;
+		}
+
+		.ui-more {
+			display:none !important;
+		}
+	}
 }
 
 .ui-header-small {

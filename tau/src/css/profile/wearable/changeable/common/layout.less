@@ -172,6 +172,38 @@ body {
 }
 
 /***************************************************************************
+                   Page Scroll
+***************************************************************************/
+.ui-page.ui-scroll-on {
+	overflow: auto !important;
+	.scrolling-mode-touch;
+
+	.ui-content {
+		height: auto !important;
+	}
+
+	.ui-footer {
+		position: relative;
+	}
+}
+
+.ui-header.ui-fixed {
+	position: fixed !important;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: @z_base_header_footer;
+}
+
+.ui-footer.ui-fixed {
+	position: fixed !important;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	z-index: @z_base_header_footer;
+}
+
+/***************************************************************************
                    Grid layout
 ***************************************************************************/
 .ui-grid-col {

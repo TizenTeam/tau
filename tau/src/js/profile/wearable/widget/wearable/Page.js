@@ -335,7 +335,8 @@
 					uiHeader: "ui-header",
 					uiFooter: "ui-footer",
 					uiContent: "ui-content",
-					uiPageScroll: "ui-page-scroll"
+					uiPageScroll: "ui-scroll-on",
+					uiFixed: "ui-fixed"
 				},
 				prototype = new BaseWidget();
 
@@ -356,10 +357,13 @@
 					contentSelector = classes.uiContent,
 					headerSelector = classes.uiHeader,
 					footerSelector = classes.uiFooter,
-					extraHeight = 0,
+					headerHeight = 0,
+					footerHeight = 0,
 					children = [].slice.call(element.children),
 					childrenLength = children.length,
 					elementStyle = element.style,
+					needTopMargin = false,
+					needBottomMargin = false,
 					i,
 					node,
 					contentStyle,
@@ -372,20 +376,38 @@
 
 				for (i = 0; i < childrenLength; i++) {
 					node = children[i];
-					if (node.classList.contains(headerSelector) ||
-								node.classList.contains(footerSelector)) {
-						extraHeight += doms.getElementHeight(node);
+					if (node.classList.contains(headerSelector)) {
+						headerHeight = doms.getElementHeight(node);
+						if (node.classList.contains(classes.uiFixed)) {
+							needTopMargin = true;
+						}
+					} else if (node.classList.contains(footerSelector)) {
+						footerHeight += doms.getElementHeight(node);
+						if (node.classList.contains(classes.uiFixed)) {
+							needBottomMargin = true;
+						}
 					}
 				}
+
 				for (i = 0; i < childrenLength; i++) {
 					node = children[i];
-					nodeStyle = node.style;
 					if (node.classList.contains(contentSelector)) {
+						nodeStyle = node.style;
 						contentStyle = window.getComputedStyle(node);
 						marginTop = parseFloat(contentStyle.marginTop);
 						marginBottom = parseFloat(contentStyle.marginBottom);
-						nodeStyle.height = (screenHeight - extraHeight - marginTop - marginBottom) + "px";
-						nodeStyle.width = screenWidth + "px";
+
+						if (!element.classList.contains(classes.uiPageScroll)) {
+							nodeStyle.height = (screenHeight - headerHeight - footerHeight - marginTop - marginBottom) + "px";
+							nodeStyle.width = screenWidth + "px";
+						}
+
+						if (needTopMargin) {
+							nodeStyle.marginTop = (marginTop + headerHeight) + "px";
+						}
+						if (needBottomMargin) {
+							nodeStyle.marginBottom = (marginBottom + footerHeight) + "px";
+						}
 					}
 				}
 			};
