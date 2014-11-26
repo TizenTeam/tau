@@ -1,4 +1,7 @@
 %changelog
+* Wed Nov 26 2014 Junhyeon Lee <juneh.lee@samsung.com> 0.9.31
+	- fix(mobile): virtual list thumbnai size issue fix
+
 * Tue Nov 25 2014 Hagun Kim <hagun.kim@samsung.com> 0.9.30
 	- test(core): Added tests for utils.colors
 	- fix(tv):Fixed wrong view of Checkbox and Radio Buttons in Popups
