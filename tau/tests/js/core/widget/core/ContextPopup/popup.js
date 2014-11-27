@@ -107,7 +107,109 @@
 		engine.run();
 	});
 
-	asyncTest("position of arrow", 3, function () {
+	test("find clicked element test", 1, function () {
+		var linkPosition,
+			elem;
+
+		showPage(page2);
+		popup2Widget = engine.instanceWidget(popup2, INSTANCE_WIDGET);
+		linkPosition = popup2Link.getBoundingClientRect();
+		elem = popup2Widget._findClickedElement(linkPosition.left, linkPosition.top);
+		ok(elem === popup2Link, "Method _findClickedElement works correctly");
+	});
+
+
+	asyncTest("set height property for popup content", 4, function () {
+		var arrow,
+			linkPosition,
+			popupClasses,
+			contentHeight,
+			elementOffsetHeight,
+			popupContent;
+
+		showPage(page2);
+		//Initial settings to be able test _setContentHeight function for Chrome and PhantomJs.
+		page2.style.width = screen.height + "px";
+		page2.style.height = screen.width + "px";
+		tau.event.one(popup2, "popupshow", function() {
+			popupClasses = popup2.classList;
+			ok(true, "Popup is opened");
+			popupContent = popup2.querySelector(".ui-popup-content");
+			ok(popupContent.style.length > 0, "style for class .ui-popup-content contains properties");
+			ok(popupContent.style.height, "height property is set for popup content");
+			ok(parseInt(popupContent.style.height, 10) > 0, "property reset and set for new value");
+			hidePage(page2);
+			start();
+		});
+		popup2Widget = engine.instanceWidget(popup2, INSTANCE_WIDGET);
+		popupContent = popup2Widget.element.querySelector(".ui-popup-content");
+		//This value should be changed and greater than zero.
+		popupContent.style.height = "0px";
+		popup2.style.height = (screen.height * 0.4) + "px";
+		popup2.style.width = screen.width + "px";
+
+		if(screen.width > 1080) {
+			popup2.style.height = screen.height + "px";
+		}
+
+		linkPosition = popup2Link.getBoundingClientRect();
+		popup2Widget.open({
+			arrow: "l",
+			positionTo: "#popup2Link",
+			x: linkPosition.right,
+			y: linkPosition.bottom
+		});
+	});
+
+	asyncTest("left position of arrow", 2, function () {
+		var arrow,
+			linkPosition,
+			popupClasses;
+
+		showPage(page2);
+
+		tau.event.one(popup2, "popupshow", function() {
+			popupClasses = popup2.classList;
+			ok(true, "Popup is opened");
+			ok(popupClasses.contains("ui-popup-arrow-l"), "Popup has proper arrow class.");
+			hidePage(page2);
+			start();
+		});
+		popup2Widget = engine.instanceWidget(popup2, INSTANCE_WIDGET);
+
+		linkPosition = popup2Link.getBoundingClientRect();
+		popup2Widget.open({
+			arrow: "l",
+			positionTo: "#popup2Link",
+			x: linkPosition.right,
+			y: linkPosition.bottom
+		});
+	});
+
+	asyncTest("bottom position of arrow", 2, function () {
+		var linkPosition,
+			popupClasses;
+
+		showPage(page2);
+
+		tau.event.one(popup2, "popupshow", function() {
+			popupClasses = popup2.classList;
+			ok(true, "Popup is opened");
+			ok(popupClasses.contains("ui-popup-arrow-b"), "Popup has proper arrow class.");
+			hidePage(page2);
+			start();
+		});
+		popup2Widget = engine.instanceWidget(popup2, INSTANCE_WIDGET);
+		linkPosition = popup2Link.getBoundingClientRect();
+		popup2Widget.open({
+			arrow: "b",
+			positionTo: "origin",
+			x: linkPosition.right,
+			y: linkPosition.bottom
+		});
+	});
+
+	asyncTest("top position of arrow", 3, function () {
 		var arrow,
 			linkPosition,
 			popupClasses;
@@ -170,6 +272,26 @@
 				start();
 			});
 			popup1Widget.open({
+				positionTo: document.getElementById("popup1Link")
+			});
+			hidePage(page);
+		});
+		engine.run();
+	});
+
+	asyncTest("use positionTo and arrow parameters", 3, function() {
+		tau.event.one(page, "pageshow", function() {
+			popup1Widget = engine.instanceWidget(popup1, INSTANCE_WIDGET);
+			showPage(page);
+			tau.event.one(popup1, "popupshow", function() {
+				ok(true, "Popup is opened");
+				ok(popup1.classList.contains("ui-popup-arrow-l"), "Popup has proper arrow class.");
+				ok(popup1.style.left !== "", "Position of popup is set");
+				popup1Widget.close();
+				start();
+			});
+			popup1Widget.open({
+				arrow: "l",
 				positionTo: document.getElementById("popup1Link")
 			});
 			hidePage(page);
