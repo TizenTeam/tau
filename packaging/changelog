@@ -1,4 +1,8 @@
 %changelog
+* Thu Nov 27 2014 Heeju Joo <heeju.joo@samsung.com> 0.9.32
+	- etc(resource): remove unnecessary image files
+	- etc(resource): remove unclear-license image files
+
 * Wed Nov 26 2014 Junhyeon Lee <juneh.lee@samsung.com> 0.9.31
 	- fix(mobile): virtual list thumbnai size issue fix
 
