@@ -90,7 +90,7 @@
 
 			/**
 			 * Tries to find a popup element matching id and filter (selector).
-			 * Adds data url attribute to found page, sets page = null when nothing found
+			 * Adds data url attribute to found page, sets page = null when nothing found.
 			 * @method findPopupAndSetDataUrl
 			 * @param {string} id
 			 * @param {string} filter
@@ -100,10 +100,14 @@
 			 * @static
 			 */
 			function findPopupAndSetDataUrl(id, filter) {
-				var popup = document.getElementById(path.hashToSelector(id));
+				var popup,
+					hashReg = /^#/;
+
+				id = id.replace(hashReg,'');
+				popup = document.getElementById(id);
 
 				if (popup && utilSelector.matchesSelector(popup, filter)) {
-					DOM.setNSData(popup, "url", id);
+					DOM.setNSData(popup, 'url', '#' + id);
 				} else {
 					// if we matched any element, but it doesn't match our filter
 					// reset page to null
