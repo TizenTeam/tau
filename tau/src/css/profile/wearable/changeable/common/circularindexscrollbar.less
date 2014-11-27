@@ -1,0 +1,84 @@
+.ui-circularindexscrollbar {
+	position: absolute;
+	top: 0;
+	left:-100%;
+	z-index: 9999;
+	width: 100%;
+	height: 100%;
+
+	&.ui-circularindexscrollbar-show {
+		.ui-circularindexscrollbar-indexbar {
+			pointer-events: auto;
+			-webkit-transform: scale(1, 1);
+			-webkit-transition-duration: 500ms;
+			-webkit-transition-timing-function: linear;
+		}
+
+		.ui-circularindexscrollbar-indicator {
+			color: @color_circularindexscrollbar_indicator_text;
+		}
+	}
+
+	.ui-circularindexscrollbar-indexbar {
+		pointer-events: none;
+		position: absolute;
+		top: 0;
+		left: 100%;
+		width: 100%;
+		height: 100%;
+		background: -webkit-radial-gradient(center, ellipse cover, transparent 59%, @color_circularindexscrollbar_bg 59%);
+		overflow: hidden;
+		-webkit-transform: scale(1.2, 1.2);
+		-webkit-transition-duration: 500ms;
+		-webkit-transition-timing-function: linear;
+
+	}
+
+	.ui-circularindexscrollbar-index {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		box-sizing: border-box;
+		width: 50%;
+		height: 50%;
+		margin-top: -50%;
+		margin-left: -50%;
+		-webkit-transform-origin: 100% 100% 0;
+		overflow: hidden;
+
+		span {
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			margin-left: 50%;
+			padding-top: 5 * @unit_base;
+			text-align: center;
+			color: @color_circularindexscrollbar_text_normal;
+			-webkit-transform-origin: 50% 100% 0;
+			font-size: 20 * @unit_base;
+		}
+
+		&.ui-state-selected span{
+			color: @color_circularindexscrollbar_text_selected;
+		}
+	}
+
+	.ui-circularindexscrollbar-indicator {
+		position: absolute;
+		top: 50%;
+		width: 143 * @unit_base;
+		height: 143 * @unit_base;
+		line-height: 143 * @unit_base;
+		border-radius: 50%;
+		background-color: @color_circularindexscrollbar_indicator_bg;
+		-webkit-mask-image: url("./images/Scroll/b_fast_scroll_rollover_bg.png");
+		-webkit-mask-repeat: no-repeat;
+		-webkit-mask-size: 143 * @unit_base;
+		margin-top: -71 * @unit_base;
+		margin-left:100%;
+		text-align: center;
+		font-size: 70 * @unit_base;
+		color: rgba(0, 0, 0, 0);
+		-webkit-transform: translate3d(-143 * 0.8 * @unit_base, 0, 0);
+	}
+}

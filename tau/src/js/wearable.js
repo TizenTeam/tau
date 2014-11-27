@@ -18,6 +18,7 @@
 			"./profile/wearable/widget/wearable/Listview",
 			"./profile/wearable/widget/wearable/Page",
 			"./profile/wearable/widget/wearable/PageContainer",
+			"./profile/wearable/widget/wearable/CircularIndexScrollbar",
 			"./profile/wearable/widget/wearable/indexscrollbar/IndexScrollbar",
 			"./profile/wearable/widget/wearable/Progress",
 			"./profile/wearable/widget/wearable/Progressing",
