@@ -42,18 +42,24 @@
 			 * Tries to find a page element matching id and filter (selector).
 			 * Adds data url attribute to found page, sets page = null when nothing found
 			 * @method findPageAndSetDataUrl
-			 * @param {string} id Id of searching element
+			 * @param {string} dataUrl DataUrl of searching element
 			 * @param {string} filter Query selector for searching page
 			 * @return {?HTMLElement}
 			 * @private
 			 * @static
 			 * @member ns.router.route.page
 			 */
-			function findPageAndSetDataUrl(id, filter) {
-				var page = document.getElementById(id);
+			function findPageAndSetDataUrl(dataUrl, filter) {
+				var id = path.stripQueryParams(dataUrl).replace("#", ""),
+					page = document.getElementById(id);
 
 				if (page && utilSelector.matchesSelector(page, filter)) {
-					DOM.setNSData(page, "url", id);
+					if (dataUrl === id) {
+						DOM.setNSData(page, "url", "#" + id);
+					} else {
+						DOM.setNSData(page, "url", dataUrl);
+					}
+
 				} else {
 					// if we matched any element, but it doesn't match our filter
 					// reset page to null
@@ -180,6 +186,7 @@
 				// injected by a developer, in which case it would be lacking a
 				// data-url attribute and in need of enhancement.
 				if (!page && dataUrl && !path.isPath(dataUrl)) {
+					//Remove search data
 					page = findPageAndSetDataUrl(dataUrl, self.filter);
 				}
 

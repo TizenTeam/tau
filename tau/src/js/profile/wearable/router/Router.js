@@ -405,7 +405,7 @@
 
 				pages.forEach(function (page) {
 					if (!DOM.getNSData(page, "url")) {
-						DOM.setNSData(page, "url", page.id || location.pathname + location.search);
+						DOM.setNSData(page, "url", (page.id && "#" + page.id) || location.pathname + location.search);
 					}
 				});
 
@@ -552,6 +552,12 @@
 					request,
 					detail = {},
 					self = this;
+
+				// If the caller provided data append the data to the URL.
+				if (options.data) {
+					absUrl = path.addSearchParams(absUrl, options.data);
+					options.data = undefined;
+				}
 
 				content = rule.find(absUrl);
 

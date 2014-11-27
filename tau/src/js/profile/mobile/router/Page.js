@@ -160,7 +160,7 @@
 
 				if (popup && selectors.matchesSelector(popup, '[data-role="popup"],.ui-popup')) {
 					linkElement = router.lastClickedLink;
-					linkId = linkElement.id;
+					linkId = linkElement && linkElement.id;
 					if (ns.activePopup) {
 						ns.activePopup.close();
 					}
