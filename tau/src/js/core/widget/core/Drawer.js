@@ -58,6 +58,13 @@
 				 */
 				selectors = ns.util.selectors,
 				/**
+				 * Default values
+				 * @property {number} 240
+				 */
+				DEFAUT = {
+					WIDTH: 240
+				},
+				/**
 				 * Drawer constructor
 				 * @method Drawer
 				 */
@@ -65,7 +72,7 @@
 					var self = this;
 					/**
 					 * Drawer field containing options
-					 * @property {number} Position of Drawer ("left" or "right")
+					 * @property {string} Position of Drawer ("left" or "right")
 					 * @property {number} Width of Drawer
 					 * @property {number} Duration of Drawer entrance animation
 					 * @property {boolean} If true Drawer will be closed on arrow click
@@ -73,14 +80,13 @@
 					 */
 					self.options = {
 						position : "left",
-						width : 240,
+						width : 0,
 						duration : 100,
 						closeOnClick: true,
 						overlay: true
 					};
 
 					self._onOverlayClickBound = null;
-					self._onTransitionEndBound = null;
 					self._onResizeBound = null;
 					self._onPageshowBound = null;
 
@@ -101,6 +107,7 @@
 				 * @readonly
 				 */
 				classes = {
+					page : "ui-page",
 					drawer : "ui-drawer",
 					header : "ui-drawer-header",
 					left : "ui-drawer-left",
@@ -136,29 +143,6 @@
 			}
 
 			/**
-			 * webkitTransitionEnd event handler
-			 * @method onTransitionEnd
-			 * @param {ns.widget.core.Drawer} self
-			 * @member ns.widget.core.Drawer
-			 * @private
-			 * @static
-			 */
-			function onTransitionEnd(self) {
-				var drawerOverlay = self._drawerOverlay;
-				// webkitTransitionEnd event handler
-				if (!self._isOpen) {
-					// not open -> transition -> open
-					self._isOpen = true;
-				} else {
-					// open -> transition -> close
-					self._isOpen = false;
-					if (drawerOverlay) {
-						drawerOverlay.style.visibility = "hidden";
-					}
-				}
-			}
-
-			/**
 			 * Resize event handler
 			 * @method onResize
 			 * @param {ns.widget.core.Drawer} self
@@ -183,6 +167,21 @@
 				self._refresh();
 			}
 
+			prototype._setOverlay = function (x) {
+				var self = this,
+					options = self.options,
+					overlay = self._drawerOverlay,
+					overlayStyle = overlay.style,
+					absX = Math.abs(x),
+					ratio = options.position === "right" ? absX / window.innerWidth : absX / options.width;
+
+				if(ratio < 1) {
+					overlayStyle.visibility = "visible";
+				} else {
+					overlayStyle.visibility = "hidden";
+				}
+				overlayStyle.opacity = 1 - ratio;
+			};
 			/**
 			 * Drawer translate function
 			 * @method _translate
@@ -192,8 +191,8 @@
 			 * @protected
 			 */
 			prototype._translate = function (x, duration) {
-				var element = this.element,
-					elementStyle = element.style,
+				var self = this,
+					elementStyle = self.element.style,
 					transition = "none";
 
 				if (duration) {
@@ -202,6 +201,10 @@
 
 				elementStyle.webkitTransform = "translate3d(" + x + "px, 0px, 0px)";
 				elementStyle.webkitTransition = transition;
+
+				if (self.options.overlay) {
+					self._setOverlay(x);
+				}
 			};
 
 			/**
@@ -216,7 +219,7 @@
 				var self = this,
 					headerElement;
 				element.classList.add(classes.drawer);
-				self._drawerPage = selectors.getClosestByClass(element, this._pageSelector);
+				self._drawerPage = selectors.getClosestByClass(element, classes.page);
 				self._drawerPage.style.overflow = "hidden";
 
 				headerElement = element.nextElementSibling;
@@ -252,6 +255,7 @@
 				var self = this,
 					options = self.options;
 
+				options.width = options.width || DEFAUT.WIDTH;
 				if (options.position === "right") {
 					element.classList.add(classes.right);
 					self._translate(window.innerWidth, 0);
@@ -337,15 +341,13 @@
 					options = self.options,
 					drawerOverlay = self._drawerOverlay;
 				self._onClickBound = onClick.bind(null, self);
-				self._onTransitionEndBound = onTransitionEnd.bind(null, self);
 				self._onResizeBound = onResize.bind(null, self);
 				self._onPageshowBound = onPageshow.bind(null, self);
 
 				if (options.overlay && options.closeOnClick && drawerOverlay) {
 					drawerOverlay.addEventListener("vclick", self._onClickBound, false);
 				}
-				self.element.addEventListener("webkitTransitionEnd", self._onTransitionEndBound, false);
-				self.element.addEventListener("transitionEnd", self._onTransitionEndBound, false);
+
 				window.addEventListener("resize", self._onResizeBound, false);
 				self._drawerPage.addEventListener("pageshow", self._onPageshowBound, false);
 			};
@@ -380,6 +382,7 @@
 				} else {
 					self._translate(window.innerWidth - options.width, options.duration);
 				}
+				self._isOpen = true;
 			};
 
 			/**
@@ -391,6 +394,7 @@
 				var self = this,
 					options = self.options,
 					drawerClassList = self.element.classList;
+				self._isOpen = false;
 				drawerClassList.remove(classes.open);
 				drawerClassList.add(classes.close);
 				if (options.position === "left") {
@@ -412,7 +416,6 @@
 				if (drawerOverlay) {
 					drawerOverlay.removeEventListener("vclick", self._onClickBound, false);
 				}
-				self.element.removeEventListener("webkitTransitionEnd", self._onTransitionEndBound, false);
 				window.removeEventListener("resize", self._onResizeBound, false);
 				self._drawerPage.removeEventListener("pageshow", self._onPageshowBound, false);
 			};
