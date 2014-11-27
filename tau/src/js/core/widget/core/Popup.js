@@ -127,14 +127,12 @@
 					overlay: CLASSES_PREFIX + "-overlay",
 					header: CLASSES_PREFIX + "-header",
 					footer: CLASSES_PREFIX + "-footer",
-					content: CLASSES_PREFIX + "-content"
+					content: CLASSES_PREFIX + "-content",
+					wrapper: CLASSES_PREFIX + "-wrapper",
+					build: "ui-build",
+					popupScroll: "ui-scroll-on",
+					fixed: "ui-fixed"
 				},
-				selectors = {
-					header: "." + classes.header,
-					content: "." + classes.content,
-					footer: "." + classes.footer
-				},
-				EVENTS_PREFIX = "popup",
 				/**
 				 * Dictionary for popup related selectors
 				 * @property {Object} selectors
@@ -146,6 +144,7 @@
 					content: "." + classes.content,
 					footer: "." + classes.footer
 				},
+				EVENTS_PREFIX = "popup",
 				/**
 				 * Dictionary for popup related events
 				 * @property {Object} events
@@ -324,7 +323,26 @@
 			 */
 			prototype._build = function (element) {
 				var self = this,
-					container = self._ui.container || element;
+					ui = self._ui,
+					container = self._ui.container || element,
+					wrapper,
+					child = element.firstChild;
+
+				// set class for element
+				element.classList.add(classes.popup);
+
+				// create wrapper
+				wrapper = document.createElement("div");
+				wrapper.classList.add(classes.wrapper);
+				ui.wrapper = wrapper;
+				ui.container = wrapper;
+				// move all children to wrapper
+				while (child) {
+					wrapper.appendChild(child);
+					child = element.firstChild;
+				}
+				// add wrapper and arrow to popup element
+				element.appendChild(wrapper);
 
 				// build header, footer and content
 				this._buildHeader(container);
@@ -401,7 +419,9 @@
 				ui.header = ui.header || element.querySelector(selectors.header);
 				ui.footer = ui.footer || element.querySelector(selectors.footer);
 				ui.content = ui.content || element.querySelector(selectors.content);
-				ui.container = element;
+				ui.wrapper = ui.wrapper || element.querySelector("." + classes.wrapper);
+				ui.container = ui.wrapper || element;
+
 				// @todo - use selector from page's definition in engine
 				ui.page = utilSelector.getClosestByClass(element, "ui-page") || window;
 			};
@@ -500,6 +520,44 @@
 			};
 
 			/**
+			 * Layouting popup structure
+			 * @method layout
+			 * @member ns.widget.core.Popup
+			 */
+			prototype._layout = function (element) {
+				var self = this,
+					elementClassList = element.classList,
+					ui = self._ui,
+					wrapper = ui.wrapper,
+					header = ui.header,
+					footer = ui.footer,
+					content = ui.content,
+					headerHeight = 0,
+					footerHeight = 0;
+
+				if (elementClassList.contains(classes.popupScroll)) {
+					elementClassList.add(classes.build);
+
+					if (header) {
+						headerHeight = header.offsetHeight;
+						if (header.classList.contains(classes.fixed)) {
+							content.style.marginTop = headerHeight + "px";
+						}
+					}
+					if (footer) {
+						footerHeight = footer.offsetHeight;
+						if (footer.classList.contains(classes.fixed)) {
+							content.style.marginBottom = footerHeight + "px";
+						}
+					}
+
+					wrapper.style.height = Math.min(content.offsetHeight + headerHeight + footerHeight, element.offsetHeight) + "px";
+
+					elementClassList.remove(classes.build);
+				}
+			};
+
+			/**
 			 * Open the popup
 			 * @method open
 			 * @param {Object=} [options]
@@ -547,6 +605,9 @@
 				var self = this,
 					transitionOptions = objectUtils.merge({}, options),
 					deferred;
+
+				// layouting
+				self._layout(self.element);
 
 				// change state of popup
 				self.state = states.DURING_OPENING;

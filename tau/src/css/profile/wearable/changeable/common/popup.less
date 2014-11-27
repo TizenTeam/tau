@@ -5,14 +5,14 @@
 Normal Popup
 ***********************/
 .ui-popup {
-	position: absolute;
+	position: fixed;
 	left: 0px;
 	width:100%;
 	margin: 0;
 	background-color: @color_popup_bg;
 	border: 3px solid @color_popup_border;
 	display: none;
-	z-index: 1000;
+	z-index: @z_base_popup;
 
 	&:not(.ui-ctxpopup) {
 		bottom: 0;
@@ -76,6 +76,40 @@ Normal Popup
 	&.ui-build {
 		display:block;
 		visibility: hidden;
+	}
+}
+
+/***********************
+Popup Container Scroll
+***********************/
+.ui-popup.ui-scroll-on:not(.ui-ctxpopup):not(.ui-popup-toast) {
+	max-height:100%;
+
+	.ui-popup-wrapper {
+		width:100%;
+		max-height:100%;
+		overflow: auto !important;
+		.scrolling-mode-touch;
+	}
+
+	.ui-popup-content {
+		height: auto !important;
+	}
+
+	.ui-popup-header.ui-fixed {
+		position: absolute !important;
+		top: 0;
+		left: 0;
+		width: 100%;
+		z-index: @z_base_popup + @z_base_header_footer;
+	}
+
+	.ui-popup-footer.ui-fixed {
+		position: absolute !important;
+		bottom: 0;
+		left: 0;
+		width: 100%;
+		z-index: @z_base_popup + @z_base_header_footer;
 	}
 }
 
@@ -304,7 +338,7 @@ Popup Toast
 Popup Overlay
 ****************************************/
 .ui-popup-overlay {
-	position: absolute;
+	position: fixed;
 	display:none;
 	top: 0;
 	width: 100%;

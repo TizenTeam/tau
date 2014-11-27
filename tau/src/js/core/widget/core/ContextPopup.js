@@ -348,11 +348,9 @@
 				 */
 				CLASSES_PREFIX = "ui-popup",
 				classes = objectUtils.merge({}, Popup.classes, {
-					wrapper: CLASSES_PREFIX + "-wrapper",
 					context: "ui-ctxpopup",
 					arrow: "ui-arrow",
-					arrowDir: CLASSES_PREFIX + "-arrow-",
-					build: "ui-build"
+					arrowDir: CLASSES_PREFIX + "-arrow-"
 				}),
 
 				/**
@@ -386,24 +384,7 @@
 			prototype._build = function (element) {
 				var self = this,
 					ui = self._ui,
-					wrapper,
-					arrow,
-					child = element.firstChild;
-
-				// set class for element
-				element.classList.add(classes.popup);
-
-				// create wrapper
-				wrapper = document.createElement("div");
-				wrapper.classList.add(classes.wrapper);
-				ui.wrapper = wrapper;
-				ui.container = wrapper;
-
-				// move all children to wrapper
-				while (child) {
-					wrapper.appendChild(child);
-					child = element.firstChild;
-				}
+					arrow;
 
 				// create arrow
 				arrow = document.createElement("div");
@@ -412,7 +393,6 @@
 				ui.arrow = arrow;
 
 				// add wrapper and arrow to popup element
-				element.appendChild(wrapper);
 				element.appendChild(arrow);
 
 				// build elements of popup
@@ -434,11 +414,18 @@
 
 				PopupPrototype._init.call(this, element);
 
-				ui.wrapper = ui.wrapper || element.querySelector("." + classes.wrapper);
 				ui.arrow = ui.arrow || element.querySelector("." + classes.arrow);
+			};
 
-				// set container of popup elements
-				ui.container = ui.wrapper;
+			/**
+			 * Layouting popup structure
+			 * @method layout
+			 * @member ns.widget.core.ContextPopup
+			 */
+			prototype._layout = function (element) {
+				var self = this;
+				this._reposition();
+				PopupPrototype._layout.call(self, element);
 			};
 
 			/**
@@ -461,6 +448,7 @@
 
 				// set height of content
 				self._setContentHeight();
+
 				// set position of popup
 				self._placementCoords(options);
 
@@ -851,17 +839,6 @@
 
 				ui.wrapper = null;
 				ui.arrow = null;
-			};
-
-			/**
-			 * Show popup.
-			 * @method _destroy
-			 * @protected
-			 * @member ns.widget.core.ContextPopup
-			 */
-			prototype._show = function(options) {
-				this._reposition(options);
-				PopupPrototype._show.call(this, options);
 			};
 
 			/**
