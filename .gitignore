@@ -21,5 +21,6 @@ tau/demos/TVDemo/.sdk_delta.info
 tau/demos/TVDemo/.build/
 tau/demos/TVDemo/.buildpath
 tau/demos/TVDemo/.settings/
+tools/ThemeEditor/dist/
 .idea
 node_modules

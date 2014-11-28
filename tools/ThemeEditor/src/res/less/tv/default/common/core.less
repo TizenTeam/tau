@@ -1,0 +1,101 @@
+/*
+ * Common definition for theme
+ */
+/***************************************************************
+   default font size (base font from WRT)
+   => small: 13 * @virtual_px
+   => normal: 17 * @virtual_px
+   => large: 20 * @virtual_px
+***************************************************************/
+
+/** Font family */
+@font_family: Tizen, Samsung Sans, Helvetica;
+
+/***************************************************************************
+                   Common Colors
+ **************************************************************************/
+
+/** Common color defoult color*/
+@color_default: rgb(69, 143, 255);
+
+/***************************************************************************
+                   Common Style
+***************************************************************************/
+
+.tau-info-theme {
+	position: absolute;
+	top: -999px;
+	left: -999px;
+}
+
+
+/** Style for hidden screen */
+.screen-hidden { visibility: hidden; position: absolute; top: -10000em; left: -10000em;}
+
+/***************************************************************************
+                   Default Style.
+***************************************************************************/
+button, input {
+	outline: none;
+	cursor: pointer;
+}
+
+* {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+a {
+	text-decoration: none !important;
+	color: @color_text;
+}
+
+ul, li {
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+}
+
+img {
+	margin: 0;
+	padding: 0;
+}
+
+/******************************
+  Global LESS mixin collection
+ ******************************/
+
+/** Mixin setting background size. Browser independent */
+.LESSbackground-size(@width, @height) {
+	-ms-background-size: @width @height;
+	-moz-background-size: @width @height;
+	-o-background-size: @width @height;
+	-webkit-background-size: @width @height;
+	background-size: @width @height;
+}
+
+/** Mixin setting border radios. Browser independent */
+.LESSborder-radius-all(@radius) {
+	-o-border-radius:	@radius;
+	-ms-border-radius:	@radius;
+	-moz-border-radius: 	@radius;
+	-webkit-border-radius: 	@radius;
+	border-radius: 		@radius;
+}
+
+/** Mixin setting box shadow. Browser independent */
+.LESSbox-shadow(@hshadow, @vshadow, @blur, @color) {
+	-o-box-shadow: @hshadow @vshadow @blur @color;
+	-ms-box-shadow: @hshadow @vshadow @blur @color;
+	-moz-box-shadow: @hshadow @vshadow @blur @color;
+	-webkit-box-shadow: @hshadow @vshadow @blur @color;
+	box-shadow: @hshadow @vshadow @blur @color;
+}
+
+/** Mixin setting text ellipsis. Browser independent */
+.LESStext-ellipsis() {
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	-o-text-overflow: ellipsis;
+}

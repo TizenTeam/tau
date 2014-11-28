@@ -1,0 +1,145 @@
+/************************************************************************/
+/*                           fixedUIStyle.less                          */
+/************************************************************************/
+/* When system font-size is changed, winset size (ex. header, footer, button, etc,
+   include font) also changed. But in UX guide, some UI elements should have fixed
+   size regardless of system font size.
+   So, this less file supports fixed style for some elements.
+   - Layout: header, footer, button
+   - Popup : popup header, popup footer
+   - toggleswitch
+   - progress: text for ratio
+*/
+
+/** Pixel equivalent. Should be used instead of a pixel. */
+@virtual_px: 0.05208333333vw;
+
+/***********************************************************************/
+/*                         Layout(FIXED)                               */
+/***********************************************************************/
+/** Content header margin (fixed). */
+@fixed_header_content_margin: 60 * @virtual_px;
+/** Content header padding (fixed). */
+@fixed_header_content_padding: 60 * @virtual_px;
+/** Header height (fixed). */
+@fixed_header_height: 146 * @virtual_px;
+/** Header line height (fixed). */
+@fixed_header_line_height: 146 * @virtual_px;
+/** Header title font size (fixed). */
+@fixed_header_title_font_size: 36 * @virtual_px;
+/** Header title margin (fixed). */
+@fixed_header_title_margin: 60 * @virtual_px;
+/** Header title padding (fixed). */
+@fixed_header_title_padding: 60 * @virtual_px;
+/** Header title icon padding (fixed). */
+@fixed_header_title_icon_padding: 60 * @virtual_px;
+/** Header title icon position x (fixed). */
+@fixed_header_title_icon_position_x: 16 * @virtual_px;
+/** Header title icon position y (fixed). */
+@fixed_header_title_icon_position_y: 14 * @virtual_px;
+/** Header title icon size (fixed). */
+@fixed_header_title_icon_size: 34 * @virtual_px;
+/** Header more title padding (fixed). */
+@fixed_header_more_title_padding: 78 * @virtual_px;
+/** Header more width (fixed). */
+@fixed_header_more_width: 68 * @virtual_px;
+/** Footer height (fixed). */
+@fixed_footer_height: 146 * @virtual_px;
+/** Layout page border radius (fixed). */
+@fixed_layout_page_border_radius: 10 * @virtual_px;
+
+/**********************************************************************/
+/*                        Button(FIXED)                               */
+/**********************************************************************/
+/** Button line height (fixed). */
+@fixed_button_line_height: 28 * @virtual_px;
+/** Button multiline padding top (fixed). */
+@fixed_button_multiline_padding_top: 10 * @virtual_px;
+/** Button multiline padding bottom (fixed). */
+@fixed_button_multiline_padding_bottom: 10 * @virtual_px;
+/** Button icon height (fixed). */
+@fixed_button_icon_height: 76 * @virtual_px;
+/** Button icon background size (fixed). */
+@fixed_button_icon_bg_size: 60 * @virtual_px;
+/** Minimum width of button */
+@fixed_button_minimum_width: 216 * @virtual_px;
+/** Minimum width of inner button */
+@fixed_button_inner_minimum_width: 134 * @virtual_px;
+/** Minimum heigth of button */
+@fixed_button_minimum_height: 70 * @virtual_px;
+
+/**********************************************************************/
+/*                       Popup(FIXED)                                 */
+/**********************************************************************/
+/** Popup header height (fixed). */
+@fixed_popup_header_height: 84 * @virtual_px;
+/** Popup header font size (fixed). */
+@fixed_popup_header_font_size: 30 * @virtual_px;
+/** Popup footer height (fixed). */
+@fixed_popup_footer_height: 90 * @virtual_px;
+/** Popup footer button font size (fixed). */
+@fixed_popup_footer_btn_font_size: 30 * @virtual_px;
+/** Popup toast font size (fixed). */
+@fixed_popup_toast_font_size: 24 * @virtual_px;
+/** Popup body font size (fixed). */
+@fixed_popup_body_font_size: 34 * @virtual_px;
+/** Popup border radius (fixed). */
+@fixed_popup_border_radius: 10 * @virtual_px;
+/** Popup header right padding (fixed). */
+@fixed_popup_header_padding_right: 64 * @virtual_px;
+/** Popup header left padding (fixed). */
+@fixed_popup_header_padding_left: 64 * @virtual_px;
+
+/**********************************************************************/
+/*                      ToggleSwitch(FIXED)                           */
+/**********************************************************************/
+/** Toggle switch width (fixed). */
+@fixed_toggleswitch_width: 140 * @virtual_px;
+/** Toggle switch height (fixed). */
+@fixed_toggleswitch_height: 70 * @virtual_px;
+/** Toggle switch text margin top (fixed). */
+@fixed_toggleswitch_text_margin_top: 30 * @virtual_px;
+/** Toggle switch text margin bottom (fixed). */
+@fixed_toggleswitch_text_margin_bottom: 40 * @virtual_px;
+/** Toggle switch text font size (fixed). */
+@fixed_toggleswitch_text_font_size: 34 * @virtual_px;
+/** Toggle switch act margin top (fixed). */
+@fixed_toggleswitch_act_margin_top: 23 * @virtual_px;
+/** Toggle switch handler width (fixed). */
+@fixed_toggleswitch_handler_width: 86 * @virtual_px;
+/** Toggle switch handler height (fixed). */
+@fixed_toggleswitch_handler_height: 70 * @virtual_px;
+
+/*********************************************************************/
+/*                     Progress(FIXED)                               */
+/*********************************************************************/
+/** Progress proportion font size (fixed). */
+@fixed_progress_proportion_font_size: 20 * @virtual_px;
+/** Progress ratio font size (fixed). */
+@fixed_progress_ratio_font_size: 20 * @virtual_px;
+
+/*********************************************************************/
+/*                     List(FIXED)                                   */
+/*********************************************************************/
+/** List item font size (fixed) */
+@fixed_list_item_font_size: 22 * @virtual_px;
+/** List divider text font size */
+@fixed_list_divider_font_size: 30 * @virtual_px;
+
+/*********************************************************************/
+/*                     Slider(FIXED)                                 */
+/*********************************************************************/
+/** Slider border radius (fixed) */
+@fixed_slider_border_radius: .2em;
+/** Slider popup minimum height (fixed) */
+@fixed_slider_popup_min_height: 54 * @virtual_px;
+/** Slider popup minimum width (fixed) */
+@fixed_slider_popup_min_width: 45 * @virtual_px;
+/** Slider image height (fixed) */
+@fixed_slider_image_height: 72 * @unit_base_slider;
+/** Slider image width (fixed) */
+@fixed_slider_image_width: 72 * @unit_base_slider;
+/** Slider handle height (fixed) */
+@fixed_slider_handle_height: 72 * @unit_base_slider;
+/** Slider handle width (fixed) */
+@fixed_slider_handle_width: 72 * @unit_base_slider;

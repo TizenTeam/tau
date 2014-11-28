@@ -1,0 +1,37 @@
+@bar_margin: 36 * @unit_base;
+
+@-webkit-keyframes ui-scale-animation {
+	from {
+		-webkit-transform: scaleX(0);
+	} to {
+		-webkit-transform: scaleX(1);
+	}
+}
+
+.ui-progressbar-value {
+	height: 100%;
+
+	background-color: @color_progress_value;
+	.LESSborder-radius-all( 10 * @unit_base );
+}
+
+.ui-progressbar-bg {
+	position: relative;
+	overflow: hidden;
+
+	min-width: 24 * @unit_base;
+	height: 7 * @unit_base;
+	margin-left: 6 * @unit_base;
+	margin-right: 6 * @unit_base;
+
+	.LESSborder-radius-all( 10 * @unit_base );
+	background-color: @color_progress_bg;
+}
+
+.ui-progressbar {
+	position: relative;
+	margin-left: @bar_margin;
+	margin-right: @bar_margin;
+	height: 6 * @unit_base;
+}
+

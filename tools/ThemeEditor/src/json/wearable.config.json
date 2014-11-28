@@ -1,0 +1,48 @@
+{
+	"themes": {
+			"default": "res/less/wearable/changeable/theme-changeable/",
+			"blue": "res/less/wearable/changeable/theme-changeable/",
+			"brown": "res/less/wearable/default/theme-brown/"
+	},
+	"devList": [
+		{
+			"name": "360 x 480",
+			"displayWidth": 360,
+			"displayHeight": 480,
+			"pixelRatio": 1
+		},
+		{
+			"name": "320 x 320",
+			"displayWidth": 320,
+			"displayHeight": 320,
+			"pixelRatio": 1
+		}
+	],
+	"previewProperties": {
+		"maxBadgeCount": 5,
+		"initialZoom": 1,
+		"badges": [
+			{
+				"name": "360 x 480",
+				"displayWidth": 360,
+				"displayHeight": 480,
+				"pixelRatio": 1,
+				"previewUrl": "../../../tau/demos/SDK/WearableWidgetSample/"
+			},
+			{
+				"name": "320 x 320",
+				"displayWidth": 320,
+				"displayHeight": 320,
+				"pixelRatio": 1,
+				"previewUrl": "../../../tau/demos/SDK/WearableWidgetSample/"
+			}
+		],
+		"defaultBadge":
+			{
+				"name": "360 x 480",
+				"displayWidth": 360,
+				"displayHeight": 480,
+				"pixelRatio": 1
+			}
+		}
+}

@@ -1,0 +1,142 @@
+/***************************************************************************
+					Tabbar
+***************************************************************************/
+
+.ui-header.ui-bar-s.ui-title-tabbar-multiline .ui-tabbar {
+	height : 104 * @virtual_px;
+	a.ui-btn {
+		height: 104 * @virtual_px;
+		.ui-btn-inner {
+			height: 104 * @virtual_px;
+			.ui-icon {
+				height: 46 * @virtual_px;
+				width: 46 * @virtual_px;
+				top: 0;
+				margin-top: 14 * @virtual_px;
+				margin-left: 0;
+			}
+			&:not(.ui-btn-icon-only) .ui-btn-text-padding-top.ui-btn-text {
+				height: 28 * @virtual_px;
+				padding-top: 63 * @virtual_px;
+				padding-bottom: 0;
+				line-height: 28 * @virtual_px;
+			}
+		}
+	}
+}
+.ui-tabbar-divider{
+	height: 1 * @virtual_px;
+}
+.ui-header.ui-bar-s .ui-tabbar {
+	z-index : 1000;
+	height : 72 * @virtual_px;
+
+	.ui-tabbar-li {
+		display: inline-block;
+		float: left;
+	}
+
+	a.ui-btn {
+		position: relative;
+		right: 0;
+		top: 0;
+		margin: 0;
+		height: 72 * @virtual_px;
+		max-width : none;
+
+		.ui-btn-inner {
+			padding-top : 0;
+			padding-bottom : 0;
+			height: 72 * @virtual_px;
+
+			&:not(.ui-btn-icon-only) .ui-btn-text-padding-top.ui-btn-text {
+				position:absolute;
+				padding-top: 37 * @virtual_px;
+				padding-bottom: 6 * @virtual_px;
+			}
+			&:not(.ui-btn-icon-only) .ui-btn-text {
+				position:absolute;
+				padding-top: 18 * @virtual_px;
+				padding-bottom: 1 * @virtual_px;
+				height: 36 * @virtual_px;
+				display: block;
+				line-height: 36 * @virtual_px;
+				/* Horizontal centering when positon is absolute */
+				left: 50%;
+				transform: translate(-50%, 0);
+				-webkit-transform: translate(-50%, 0);
+			}
+
+			&.ui-btn-icon-only {
+				margin: auto;
+			}
+		}
+
+		.ui-icon {
+			width: 46 * @virtual_px;
+			height: 46 * @virtual_px;
+			margin-left: 0;
+			background-repeat: no-repeat;
+			background-size: 100% 100%;
+		}
+	}
+
+	.ui-btn-inner {
+		.ui-icon {
+			top : 7 * @virtual_px;
+			/* Horizontal centering when positon is absolute */
+			left : 50%;
+			transform: translate(-50%, 0);
+			-webkit-transform: translate(-50%, 0);
+		}
+	}
+
+	&.ui-tabbar-notext {
+		a.ui-btn {
+			padding-top : 0;
+			padding-bottom : 0;
+		}
+		.ui-btn-inner {
+			height : 58 * @virtual_px;
+			.ui-icon {
+				top : 13 * @virtual_px;;
+			}
+		}
+	}
+}
+.ui-header.ui-bar-s.ui-title-tabbar {
+	height : 144 * @virtual_px;
+	.ui-tabbar {
+		border-top: 1 * @virtual_px solid B012L4;
+	}
+	.ui-scrollview-clip::-webkit-scrollbar {
+		display: none;
+	}
+	.ui-scrollview-view {
+		.tabbar-scroll-ul {
+			margin: 0;
+			padding: 0;
+		}
+		.tabbar-scroll-li  {
+			display: inline-block;
+
+		}
+		.tabbar-scroll-li:not(:first-child) {
+			/*
+			* (-7 * @virtual_px) value has decimal point.
+			* That occured to element position incorrectly in various browser in which include tizen webkit browser.
+			* So, margin-left value should be fixed integer px unit.
+			*/
+			margin-left: -5 * @virtual_px;
+		}
+	}
+}
+.ui-footer {
+	.ui-navbar {
+		li {
+			padding-left: 6 * @virtual_px;
+			padding-right: 6 * @virtual_px;
+			box-sizing: border-box;
+		}
+	}
+}

@@ -1,5 +1,5 @@
 /*
-	This is Device Viewer configuration file
+	This is Theme Editor configuration file
  */
 /**
  * @property {Object} BadgeConfig
@@ -23,7 +23,7 @@
 var properties = {
 	/**
 	 * @property {string} root
-	 * Root path of device viewer
+	 * Root path of theme editor
 	 */
 	root: undefined,
 	/**
@@ -47,62 +47,65 @@ var properties = {
 			path: "../../../tau/demos/SDK/WearableWidgetSample/",
 			selected: true
 		}
-	],
+	]
 	/**
 	 * @property {BadgeConfig[]} devList
-	 * List of devices presets available to choose and apply to view
-	 */
-	devList: [
-		{
+	 * List of devices presets available to choose and apply to view.
+	 * This property is loaded from profile json: ./json/<profile>config.json
+	 *
+	 * @example
+	 *
+	 * devList: [
+		 {
 			name: "360 x 480",
 			displayWidth: 360,
 			displayHeight: 480,
 			pixelRatio: 1
 		},
-		{
+		 {
 			name: "320 x 320",
 			displayWidth: 320,
 			displayHeight: 320,
 			pixelRatio: 1
 		}
-	],
+	 ],
+	 */
+	/**
+	 * @property {number} maxBadgeCount
+	 * Maximum number of badge instances
+	 */
+	/**
+	 * @property {BadgeConfig[]} badges
+	 * List of badges added on startup.
+	 */
+	/**
+	 * @property {BdageConfig} defaultBadge
+	 * Default settings of badge
+	 */
+
 	/**
 	 * @property {Object} previewProperties
 	 * Contains init properties for BadgePreview object
-	 */
-	previewProperties: {
-		/**
-		 * @property {number} maxBadgeCount
-		 * Maximum number of badge instances
-		 */
-		maxBadgeCount: 5,
-		/**
-		 * @property {BadgeConfig[]} badges
-		 * List of badges added on Device Viewer startup.
-		 */
-		badges: [
+	 * This property is loaded from profile json: ./json/<profile>config.json
+	 *
+	 * @example
+	 *
+	 * previewProperties: {
+	 * 	maxBadgeCount: 5,
+	 * 	badges: [
 			{
 				name: "360 x 480",
 				displayWidth: 360,
 				displayHeight: 480,
 				pixelRatio: 1
-			},
-			{
-				name: "320 x 320",
-				displayWidth: 320,
-				displayHeight: 320,
-				pixelRatio: 1
 			}
 		],
-		/**
-		 * @property {BdageConfig} defaultBadge
-		 * Default settings of badge
-		 */
 		defaultBadge: {
 			name: "360 x 480",
 			displayWidth: 360,
 			displayHeight: 480,
 			pixelRatio: 1
 		}
-	}
+	 * }
+	 */
 };

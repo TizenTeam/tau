@@ -1,0 +1,388 @@
+{
+	"Body": {
+		"Main background body color": {
+			"lessVar": "@color_bg",
+			"widget": {
+				"type": "color",
+				"default": "rgba(222, 237, 255, 1)"
+			}
+		},
+		"Main body text color": {
+			"lessVar": "@color_text",
+			"widget": {
+				"type": "color",
+				"default": "rgba(0, 0, 0, 1)"
+			}
+		},
+		"Context background color": {
+			"lessVar": "@color_content_bg",
+			"widget": {
+				"type": "color",
+				"default": "rgba(0, 80, 179, 0.3)"
+			}
+		}
+	},
+	"Toolbar": {
+		"Footer background color": {
+			"lessVar": "@color_bar_toolbar_bg",
+			"widget": {
+				"type": "color",
+				"default": "rgba(255, 255, 255, 1)"
+			}
+		},
+		"Footer button press color": {
+			"lessVar": "@color_bar_toolbar_press",
+			"widget": {
+				"type": "color",
+				"default": "rgba(255, 255, 255, 1)"
+			}
+		},
+		"Footer button text color": {
+			"lessVar": "@color_bar_toolbar_button_text",
+			"widget": {
+				"type": "color",
+				"default": "rgba(255, 255, 255, 0.6)"
+			}
+		}
+	},
+	"Textinput Clear Button": {
+		"background color": {
+			"lessVar": "@color_editfield_bg",
+			"widget": {
+				"type": "color",
+				"default": "rgba(255, 255, 255, 1)"
+			}
+		},
+		"decoration underline color": {
+			"lessVar": "@color_editfield_outline",
+			"widget": {
+				"type": "color",
+				"default": "rgba(0, 0, 0, 0.2)"
+			}
+		},
+		"selected underline color": {
+			"lessVar": "@color_editfield_selected_outline",
+			"widget": {
+				"type": "color",
+				"default": "rgba(0, 80, 179, 1)"
+			}
+		},
+		"disabled underline color": {
+			"lessVar": "@color_editfield_disabled_outline",
+			"widget": {
+				"type": "color",
+				"default": "rgba(0, 0, 0, 0.2)"
+			}
+		},
+		"text color": {
+			"lessVar": "@color_editfield_text",
+			"widget": {
+				"type": "color",
+				"default": "rgba(0, 0, 0, 1)"
+			}
+		},
+		"selected text color": {
+			"lessVar": "@color_editfield_selected_text",
+			"widget": {
+				"type": "color",
+				"default": "rgba(0, 0, 0, 1)"
+			}
+		},
+		"placeholder text color": {
+			"lessVar": "@color_editfield_placeholder_text",
+			"widget": {
+				"type": "color",
+				"default": "rgba(0, 0, 0, 0.5)"
+			}
+		},
+		"placeholder selected text color": {
+			"lessVar": "@color_editfield_placeholder_selected_text",
+			"widget": {
+				"type": "color",
+				"default": "rgba(0, 0, 0, 0.5)"
+			}
+		},
+		"disabled text color": {
+			"lessVar": "@color_editfield_disabled_text",
+			"widget": {
+				"type": "color",
+				"default": "rgba(0, 0, 0, 0.3)"
+			}
+		},
+		"clear icon color": {
+			"lessVar": "@color_editfield_clear_icon",
+			"widget": {
+				"type": "color",
+				"default": "rgba(0, 0, 0, 1)"
+			}
+		},
+		"clear icon press color": {
+			"lessVar": "@color_editfield_clear_icon_press",
+			"widget": {
+				"type": "color",
+				"default": "rgba(0, 80, 179, 1)"
+			}
+		},
+		"clear icon disabled color": {
+			"lessVar": "@color_editfield_clear_icon_disabled",
+			"widget": {
+				"type": "color",
+				"default": "rgba(0, 0, 0, 0.3)"
+			}
+		}
+	},
+	"Fast Scroll": {
+		"background color": {
+			"lessVar": "@color_fastscroll_rollover_bg",
+			"widget": {
+				"type": "color",
+				"default": "rgba(255, 255, 255, 0.8)"
+			}
+		},
+		"text color": {
+			"lessVar": "@color_fastscroll_rollover_text",
+			"widget": {
+				"type": "color",
+				"default": "rgba(0, 80, 179, 0.6)"
+			}
+		},
+		"popup background color": {
+			"lessVar": "@color_fastscroll_popup_bg",
+			"widget": {
+				"type": "color",
+				"default": "rgba(255, 255, 255, 1)"
+			}
+		},
+		"poup text color": {
+			"lessVar": "@color_fastscroll_popup_text",
+			"widget": {
+				"type": "color",
+				"default": "rgba(0, 80, 179, 1)"
+			}
+		},
+		"popup border color": {
+			"lessVar": "@color_fastscroll_popup_border",
+			"widget": {
+				"type": "color",
+				"default": "rgba(0, 80, 179, 1)"
+			}
+		}
+	},
+	"Scrollview": {
+		"handler background color": {
+			"lessVar": "@color_scrollview_handler_bg",
+			"widget": {
+				"type": "color",
+				"default": "rgba(0, 80, 179, 0.7)"
+			}
+		}
+	},
+	"Popup": {
+		"background color": {
+			"lessVar": "@color_popup_bg",
+			"widget": {
+				"type": "color",
+				"default": "rgba(242, 246, 250, 1)"
+			}
+		},
+		"title background color": {
+			"lessVar": "@color_popup_title_bg",
+			"widget": {
+				"type": "color",
+				"default": "rgba(77, 128, 191, 1)"
+			}
+		},
+		"title text color": {
+			"lessVar": "@color_popup_title_text",
+			"widget": {
+				"type": "color",
+				"default": "rgba(255, 255, 255, 1)"
+			}
+		},
+		"text color": {
+			"lessVar": "@color_popup_text",
+			"widget": {
+				"type": "color",
+				"default": "rgba(0, 0, 0, 1)"
+			}
+		},
+		"button background color": {
+			"lessVar": "@color_popup_button_bg",
+			"widget": {
+				"type": "color",
+				"default": "rgba(255, 255, 255, 1)"
+			}
+		},
+		"button text color": {
+			"lessVar": "@color_popup_button_text",
+			"widget": {
+				"type": "color",
+				"default": "rgba(255, 255, 255, 1)"
+			}
+		},
+		"overlay color": {
+			"lessVar": "@color_popup_outline",
+			"widget": {
+				"type": "color",
+				"default": "rgba(255, 255, 255, 1)"
+			}
+		}
+	},
+	"Smallpopup": {
+		"background color": {
+			"lessVar": "@color_smallpopup_bg",
+			"widget": {
+				"type": "color",
+				"default": "rgba(255, 255, 255, 1)"
+			}
+		},
+		"outline color": {
+			"lessVar": "@color_smallpopup_outline",
+			"widget": {
+				"type": "color",
+				"default": "rgba(0, 80, 179, 1)"
+			}
+		},
+		"text color": {
+			"lessVar": "@color_smallpopup_text",
+			"widget": {
+				"type": "color",
+				"default": "rgba(0, 0, 0, 1)"
+			}
+		}
+	},
+	"Toggle": {
+		"on background color": {
+			"lessVar": "@color_toggle_handle_on_bg",
+			"widget": {
+				"type": "color",
+				"default": "rgba(42, 184, 66, 1)"
+			}
+		},
+		"off background color": {
+			"lessVar": "@color_toggle_handle_off_bg",
+			"widget": {
+				"type": "color",
+				"default": "rgba(0, 0, 0, 0.4)"
+			}
+		},
+		"on/off icon background color": {
+			"lessVar": "@color_toggle_handle_icon",
+			"widget": {
+				"type": "color",
+				"default": "rgba(255, 255, 255, 1)"
+			}
+		}
+	},
+	"Tokentextarea": {
+		"block token text color": {
+			"lessVar": "@color_tokentextarea_block_text",
+			"widget": {
+				"type": "color",
+				"default": "rgba(255, 255, 255, 1)"
+			}
+		},
+		"block token text press color": {
+			"lessVar": "@color_tokentextarea_block_text_press",
+			"widget": {
+				"type": "color",
+				"default": "rgba(255, 255, 255, 1)"
+			}
+		},
+		"block token background color": {
+			"lessVar": "@color_tokentextarea_block_bg",
+			"widget": {
+				"type": "color",
+				"default": "rgba(39, 119, 217, 1)"
+			}
+		},
+		"block token press background color": {
+			"lessVar": "@color_tokentextarea_press_bg",
+			"widget": {
+				"type": "color",
+				"default": "rgba(28, 84, 153, 1)"
+			}
+		},
+		"input text color": {
+			"lessVar": "@color_tokentextarea_input_text",
+			"widget": {
+				"type": "color",
+				"default": "rgba(0, 0, 0, 1)"
+			}
+		},
+		"label text color": {
+			"lessVar": "@color_tokentextarea_label_text",
+			"widget": {
+				"type": "color",
+				"default": "rgba(0, 80, 179, 1)"
+			}
+		}
+	},
+	"Empty State": {
+		"header background color": {
+			"lessVar": "@color_emptystate_header_bg",
+			"widget": {
+				"type": "color",
+				"default": "rgba(0, 80, 179, 1)"
+			}
+		},
+		"content background color": {
+			"lessVar": "@color_emptystate_content_bg",
+			"widget": {
+				"type": "color",
+				"default": "rgba(255, 255, 255, 0.9)"
+			}
+		},
+		"content pattern color": {
+			"lessVar": "@color_emptystate_content_pattern_bg",
+			"widget": {
+				"type": "color",
+				"default": "rgba(0, 80, 179, 0.6)"
+			}
+		}
+	},
+	"Navigation": {
+		"text color": {
+			"lessVar": "@color_navigation_text",
+			"widget": {
+				"type": "color",
+				"default": "rgba(255, 255, 255, 1)"
+			}
+		},
+		"text press color": {
+			"lessVar": "@color_navigation_text_press",
+			"widget": {
+				"type": "color",
+				"default": "rgba(0, 0, 0, 1)"
+			}
+		},
+		"background color": {
+			"lessVar": "@color_navigation_bg",
+			"widget": {
+				"type": "color",
+				"default": "rgba(0, 80, 179, 1)"
+			}
+		},
+		"list item background color": {
+			"lessVar": "@color_navigation_bar_bg",
+			"widget": {
+				"type": "color",
+				"default": "rgba(0, 68, 150, 1)"
+			}
+		},
+		"icon color": {
+			"lessVar": "@color_navigation_bar_icon",
+			"widget": {
+				"type": "color",
+				"default": "rgba(255, 255, 255, 1)"
+			}
+		},
+		"divider line color": {
+			"lessVar": "@color_navigation_tab_divider",
+			"widget": {
+				"type": "color",
+				"default": "rgba(255, 255, 255, 0.18)"
+			}
+		}
+	}
+}

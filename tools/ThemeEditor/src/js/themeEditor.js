@@ -532,9 +532,9 @@
 
 		config.themeProperties = this.getProperties() || {};
 
-		config.themeRoot = this.resolvePath(config.root, '../../../tau/src/css/profile/wearable/default/theme-black/');
+		config.themeRoot = this.resolvePath(config.root, '../../../tau/src/css/profile/wearable/changeable/theme-changeable/');
 
-		config.themeFile = 'style.less';
+		config.themeFile = 'style.changeable.less';
 
 		this.fillDevicePresets(properties.devList, document.getElementById('devicesList'));
 

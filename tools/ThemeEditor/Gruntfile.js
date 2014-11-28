@@ -7,7 +7,8 @@ module.exports = function (grunt) {
 
 			clean: {
 				dist: ["dist/*"],
-				"dist-non-min": ["dist/js/*.js", "!dist/js/*.min.js"]
+				"dist-non-min": ["dist/js/*.js", "!dist/js/*.min.js"],
+				res: ["src/res/*", "!src/res/*.less"]
 			},
 			copy: {
 				main: {
@@ -19,6 +20,19 @@ module.exports = function (grunt) {
 				jslibs: {
 					src: "dist/js/libs.js",
 					dest: "dist/js/libs.min.js"
+				},
+				res: {
+					cwd: "../../tau/src/css/profile",
+					expand: true,
+					src: ["./**/*", "!./wearable/default/**", "!./wearable/changeable/theme-black/**", "!./mobile/default/**"],
+					dest: "src/res/less"
+				},
+				colormaps: {
+					cwd: "../../tau/dist/",
+					expand: true,
+					flatten: true,
+					src: ["./**/colormap.json"],
+					dest: "dist/"
 				}
 			},
 
@@ -193,6 +207,75 @@ module.exports = function (grunt) {
 						"dist/css/themeEditor.css": "dist/css/themeEditor.css"
 					}
 				}
+			},
+			"create-config": {
+				wearable: {
+					cwd: "../../tau/src/css/profile/wearable/",
+					themes: [
+						{
+							path: "changeable/theme-changeable/",
+							name: "default",
+							colormap: true
+						},{
+							path: "changeable/theme-blue/",
+							name: "blue",
+							colormap: true
+						},{
+							path: "changeable/theme-brown/",
+							name: "brown",
+							colormap: true
+						}
+					]
+				},
+				mobile: {
+					cwd: "../../tau/src/css/profile/mobile/",
+					themes: [
+						{
+							path: "changeable/theme-changeable/",
+							name: "default",
+							colormap: true
+						}
+					]
+				},
+				tv: {
+					cwd: "../../tau/src/css/profile/tv/",
+					themes: [
+						{
+							path: "default/theme-black/",
+							name: "default"
+						}
+					]
+				}
+			},
+			"less-res-fix": {
+				wearable: {
+					themes: [
+						{
+							name: "default",
+							src: "changeable/theme-changeable/",
+							dest: "changeable/theme-changeable/"
+						},
+//						{
+//							name: "blue",
+//							src: "changeable/theme-changeable/",
+//							dest: "changeable/theme-blue/"
+//						},
+						{
+							name: "brown",
+							src: "changeable/theme-changeable/",
+							dest: "changeable/theme-brown/"
+						}
+					]
+				},
+				mobile: {
+					themes: [
+						{
+							name: "default",
+							src: "changeable/theme-changeable/",
+							dest: "changeable/theme-changeable/"
+						}
+					]
+				}
 			}
 		};
 	grunt.initConfig(initConfig);
@@ -207,7 +290,12 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks("grunt-contrib-uglify");
 	grunt.loadNpmTasks("grunt-string-replace");
 
+	// Load framework custom tasks
+	grunt.loadTasks('grunt/tasks');
+
 	// Task list
+	grunt.registerTask("prepare-less", ["clean:res", "copy:res"]);
+	grunt.registerTask("prepare-config");
 	grunt.registerTask("js", ["jslint:js", "string-replace:js", "concat", "jslint:dist", "uglify:dist-js", "copy:jslibs"]);
 	grunt.registerTask("lessjs", ["less", "string-replace:less", "string-replace:fixpath"]);
 	grunt.registerTask("build", ["clean:dist", "copy:main", "js", "clean:dist-non-min", "lessjs", "string-replace:dist-title"]);
