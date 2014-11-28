@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta name="viewport" content="width=device-width,user-scalable=no"/>
+
+	<script src="./lib/jquery.js"></script>
+	<script type="text/javascript" src="./lib/tau/mobile/js/tau.js" data-build-remove="false"></script>
+	<link rel="stylesheet"  href="./lib/tau/mobile/theme/default/tau.css">
+
+	<script src="./js/main.js"></script>
+
+	<title>Tizen Web IDE - Template - Tizen - Tizen Web UI Framework - Multi Page</title>
+	<link rel="stylesheet" type="text/css" href="./css/style.css"/>
+</head>
+
+<body>
+<div data-role="page" id="home" data-add-back-btn="false">
+    <div data-role="header">
+        <h1>Test</h1>
+    </div>
+    <div data-role="content">
+
+        <div id="main_list">
+            <ul data-role="listview" data-inset="true">
+                <li>aaa</li>
+                <li>bbb</li>
+                <li>ccc</li>
+            </ul>
+        </div>
+
+    </div><!-- /content -->
+
+    <div data-role="footer" data-position="fixed">
+        <div data-role="tabbar" data-style="tabbar">
+            <ul>
+                <li><a href="#" id="eventBtn">New Event</a></li>
+                <li><a href="#" id="exitBtn" style="background-color: red">Exit</a></li>
+            </ul>
+        </div>
+    </div><!-- /footer -->
+</div><!-- /home -->
+
+<div data-role="page" id="event" data-add-back-btn="false">
+    <div data-role="header">
+        <h1>Event</h1>
+    </div>
+    <div data-role="content">
+
+        <div>
+            <input type="text"/>
+        </div>
+
+    </div><!-- /content -->
+
+    <div data-role="footer" data-position="fixed">
+        <div data-role="tabbar" data-style="tabbar">
+            <ul>
+                <li><a href="#" id="cancelBtn">Cancel</a></li>
+                <li><a href="#" id="saveBtn">Save</a></li>
+            </ul>
+        </div>
+    </div><!-- /footer -->
+</div><!-- /home -->
+
+</body>
+</html>

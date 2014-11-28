@@ -269,7 +269,9 @@
 				if (page) {
 					if (!settings.reloadPage) {
 						DOM.setNSData(page, "url", dataUrl);
-						parentOpen.call(this, page, settings);
+						// NOTE: this line causes problem with double page changing
+						// by triggering event "pageshow"
+						//parentOpen.call(this, page, settings);
 						deferred.resolve(absUrl, settings, page);
 						//if we are reloading the page make sure we update the base if its not a prefetch
 

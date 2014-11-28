@@ -45,6 +45,7 @@
 				UtilsDeferred = util.deferred,
 				engine = ns.engine,
 				maxTransitionWidth = false,
+				lastTransition,
 				/**
 				 * Returns max scroll amount
 				 * @return {number}
@@ -363,21 +364,27 @@
 					return;
 				}
 
-				transitionPages(toPage, fromPage, settings.transition, settings.reverse)
-					.done(function (name, reverse, toPage, fromPage) {
-						var duplicateCachedPage = settings.duplicateCachedPage;
-						removeActiveLinkClass();
+				if (lastTransition) {
+					return;
+				}
 
-						//if there's a duplicateCachedPage, remove it from the DOM now that it's
-						//hidden
-						if (duplicateCachedPage instanceof HTMLElement) {
-							duplicateCachedPage.parentNode.removeChild(duplicateCachedPage);
-						}
+				lastTransition = transitionPages(toPage, fromPage, settings.transition, settings.reverse);
 
-						releasePageTransitionLock(router);
-						router.changePageFinish(fromPage, toPage);
-						isPageTransitioning = false;
-					});
+				lastTransition.done(function (name, reverse, toPage, fromPage) {
+					var duplicateCachedPage = settings.duplicateCachedPage;
+					removeActiveLinkClass();
+
+					//if there's a duplicateCachedPage, remove it from the DOM now that it's
+					//hidden
+					if (duplicateCachedPage instanceof HTMLElement) {
+						duplicateCachedPage.parentNode.removeChild(duplicateCachedPage);
+					}
+
+					releasePageTransitionLock(router);
+					isPageTransitioning = false;
+					lastTransition = null;
+					router.changePageFinish(fromPage, toPage);
+				});
 			};
 
 			/**
