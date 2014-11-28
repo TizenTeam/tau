@@ -503,14 +503,15 @@
 
 	/**
 	 * @method remove
+	 * @param {boolean} [force] If set to true, ommits 1 badge requirement
 	 * Removes selected badge from workspace
 	 */
-	BadgePreview.prototype.remove = function () {
+	BadgePreview.prototype.remove = function (force) {
 		var badgeList = this.badgeList,
 			activeBadgeIndex = this.activeBadgeIndex,
 			badge = this.badgeList[activeBadgeIndex];
 
-		if (badgeList.length > 1) {
+		if (badgeList.length > 1 || force) {
 			this.workspaceContainer.removeChild(badge.element);
 			badgeList.splice(activeBadgeIndex, 1);
 			this.setActive(badgeList[activeBadgeIndex] ? activeBadgeIndex : activeBadgeIndex - 1);
@@ -606,10 +607,16 @@
 			badgeList = previewProperties.badges,
 			badgeListLength = badgeList.length || 0,
 			properties = this.properties,
+			oldBadgeListLength = this.badgeList.length,
 			i;
 
 		// Assign workspace container
 		this.workspaceContainer = themeEditorConfig.workspace;
+
+		// clear old!
+		while (--oldBadgeListLength >= 0) {
+			this.remove(true);
+		}
 
 		// Find device viewer style sheet. This style sheet will be used
 		// to manipulate badge styling rules. Ex. global badge size change.

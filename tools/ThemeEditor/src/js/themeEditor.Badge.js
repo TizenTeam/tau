@@ -51,7 +51,13 @@
 				displayHeight: 0,
 				pixelRatio: 1,
 				width: 0,
-				height: 0
+				height: 0,
+				tau: {
+					enabled: false,
+					theme: null,
+					profile: null,
+					version: "0"
+				}
 			};
 
 			/**
@@ -311,6 +317,8 @@
 			// Add new badge history entry
 			pushBadgeHistory(self, 'pageChangeEvent');
 
+			self.detectTauProperties();
+
 			// Unlock history
 			self.historyLock = false;
 		}, true);
@@ -318,10 +326,45 @@
 		// Cache contentWindow
 		self.contentWindow = frameWindow;
 
+		self.detectTauProperties();
+
 		// Unlock history
 		self.historyLock = false;
-
 	}
+
+	/**
+	 * @method detectTauProperties
+	 * Checks for tau in badge content window and fetches settings
+	 */
+	Badge.prototype.detectTauProperties = function () {
+		var win = this.contentWindow,
+			tau = null,
+			tauInfo = null,
+			properties = this.properties.tau,
+			evt = null;
+
+		if (win) {
+			tau = win.tau;
+			if (tau) { // make sure that tau.info is available, not in all ver
+				properties.enabled = true;
+				if (tau.info) {
+					tauInfo = tau.info;
+					properties.theme = tauInfo.theme;
+					properties.profile = tauInfo.profile;
+					properties.version = tauInfo.version;
+
+					evt = new CustomEvent("tauInfo", {
+						detail: properties,
+						bubbles: true,
+						cancelable: true
+					});
+					document.body.dispatchEvent(evt);
+				} else if (tau.version) { // olde ver
+					properties.version = tau.version;
+				}
+			}
+		}
+	};
 
 	/**
 	 * @method setProperties

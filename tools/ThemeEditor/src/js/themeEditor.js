@@ -353,7 +353,13 @@
 				categoryName,
 				container = this.config.leftPanel,
 				leftColumn = document.createDocumentFragment(),
-				categoryPanel = document.createElement('div');
+				categoryPanel = document.querySelector("div." + classes.categoryPanel);//document.createElement('div');
+
+		if (categoryPanel) {
+			categoryPanel.parentNode.removeChild(categoryPanel);
+		}
+
+		categoryPanel = document.createElement("div");
 
 		categoryPanel.className = classes.categoryPanel;
 
@@ -422,6 +428,10 @@
 			displayHeight,
 			i;
 
+		while (devListContainer.firstChild) {
+			devListContainer.removeChild(devListContainer.lastChild);
+		}
+
 		for (i = 0; i < devListLength; i += 1) {
 			displayWidth = devList[i].displayWidth;
 			displayHeight = devList[i].displayHeight;
@@ -488,17 +498,14 @@
 		return appSelect;
 	};
 
-	ThemeEditor.prototype.getProperties = function() {
-		var properties = {};
-		$.ajax({
-			dataType: 'json',
-			async: false,
-			url: 'json/theme.json',
-			success: function success(data) {
-				properties = data;
-			}
-		});
-		return properties;
+	ThemeEditor.prototype.getProperties = function (fileName) {
+		var xhr = new XMLHttpRequest();
+		try {
+			xhr.open("GET", "json/" + fileName, false);
+			xhr.send();
+			return JSON.parse(xhr.responseText);
+		} catch (ignore) {}
+		return {};
 	};
 
 	/**
@@ -507,7 +514,12 @@
 	 * @param {Object} properties
 	 */
 	ThemeEditor.prototype.init = function(properties) {
-		var config = this.config;
+		var config = this.config,
+			self = this,
+			devicesList = document.getElementById('devicesList'),
+			currentProfile = "wearable",
+			currentTheme = "default",
+			configProperties = null;
 
 		// Set Device's Viewer root path defined by properties or set default (current location href).
 		config.root = properties.root || window.location.href.replace(/[^\/]+\.html?$/, '');
@@ -530,18 +542,45 @@
 		// Set preview url of selected app
 		config.previewUrl = config.appSelect.value;
 
-		config.themeProperties = this.getProperties() || {};
+		config.themeProperties = this.getProperties(currentProfile + "." + currentTheme + ".properties.json") || {};
 
-		config.themeRoot = this.resolvePath(config.root, '../../../tau/src/css/profile/wearable/changeable/theme-changeable/');
+		configProperties = this.getProperties(currentProfile + ".config.json") || {};
 
-		config.themeFile = 'style.changeable.less';
+		config.themeRoot = this.resolvePath(config.root,  configProperties.themes[currentTheme]);
 
-		this.fillDevicePresets(properties.devList, document.getElementById('devicesList'));
+		config.themeFile = 'theme.less';
+
+		this.fillDevicePresets(configProperties.devList, devicesList);
 
 		// Ready to go, let's init Badge Preview!
-		this.badgePreview.init(properties.previewProperties);
+		this.badgePreview.init(configProperties.previewProperties);
 
 		this.buildVariablePanel();
+		document.addEventListener("tauInfo", function (evt) {
+			var themeProperties = null,
+				tauInfo = evt.detail;
+
+			if (tauInfo) {
+				if (currentProfile !== tauInfo.profile || currentTheme !== tauInfo.theme) {
+					themeProperties = self.getProperties(tauInfo.profile + "." + tauInfo.theme + ".properties.json");
+					configProperties = self.getProperties(tauInfo.profile + ".config.json");
+
+					if (configProperties) {
+						self.fillDevicePresets(configProperties.devList, devicesList);
+						config.themeRoot = self.resolvePath(config.root,  configProperties.themes[tauInfo.theme]);
+						self.badgePreview.init(configProperties.previewProperties);
+					}
+
+					if (themeProperties) {
+						config.themeProperties = themeProperties;
+						self.buildVariablePanel();
+					}
+
+					currentProfile = tauInfo.profile;
+					currentTheme = tauInfo.theme;
+				}
+			}
+		});
 		this.buildWidgets();
 
 		// Fix UI
