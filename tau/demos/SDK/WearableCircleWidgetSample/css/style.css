@@ -60,12 +60,22 @@
 .ui-listview li {
         position: relative;
 }
-.ui-listview li input[type="checkbox"],
+.ui-listview li input[type="checkbox"]:not(.ui-switch-input),
 .ui-listview li input[type="radio"] {
         position: absolute;
         right: 30px;
         top: 0px;
         margin-top: 25px;
+}
+.ui-listview .li-has-toggle .ui-toggleswitch {
+	position: absolute;
+	right: 30px;
+	top: 50%;
+	-webkit-transform: translate3d(0, -50%, 0);
+
+	.ui-switch-input {
+		margin-top: 0;
+	}
 }
 .ui-listview .li-has-radio.disabled,
 .ui-listview li.li-has-multiline.li-has-radio.disabled,
@@ -77,7 +87,8 @@
 .ui-listview li.li-has-checkbox label,
 .ui-listview li.li-has-radio label,
 .ui-listview li.li-has-thumb-right label,
-.ui-listview li.li-has-thumb-left label {
+.ui-listview li.li-has-thumb-left label,
+.ui-listview li.li-has-toggle > label {
 	display: block;
 	padding: 31.5px 94px 31.5px 40px;
 	margin-top: -30px;
@@ -106,7 +117,8 @@
 .ui-listview li.li-has-multiline.li-has-checkbox label,
 .ui-listview li.li-has-multiline.li-has-radio label ,
 .ui-listview li.li-has-multiline.li-has-thumb-right label,
-.ui-listview li.li-has-multiline.li-has-thumb-left label {
+.ui-listview li.li-has-multiline.li-has-thumb-left label,
+.ui-listview li.li-has-multiline.li-has-toggle label:not(.ui-toggleswitch) {
         display: block;
         padding-bottom: 12px;
         padding-left: 16px;
@@ -122,6 +134,10 @@
         padding-right: 40px;
         margin-left: 0;
 }
+.ui-listview li.li-has-multiline.li-has-toggle label:not(.ui-toggleswitch) {
+	padding-right: 123px;
+}
+
 /* ------------------------------------------------------------------------------ */
 /* -----------------------------------  NEXT DEPTH------------------------------------ */
 .ui-listview li.li-has-next-depth {
