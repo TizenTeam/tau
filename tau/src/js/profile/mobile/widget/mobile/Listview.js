@@ -1384,11 +1384,10 @@
 			 * @member ns.widget.mobile.Listview
 			 */
 			Listview.prototype._refreshCorners = function (ul, create) {
-				var items,
-					self = this,
+				var self = this,
+					items = selectors.getChildrenByTag(ul, "li"),
 					last;
 
-				items = selectors.getChildrenByTag(ul, "li");
 				if (items.length) {
 					// clean previous corners
 					items.forEach(function (item) {
@@ -1416,7 +1415,89 @@
 			};
 
 			/**
-			 * Refresh items of list
+			 * Adds checkboxradio, thumb and right button classes
+			 * if it is essential.
+			 * @method addItemClasses
+			 * @param {HTMLElement} item Element to add classes to
+			 * @static
+			 * @private
+			 * @member ns.widget.mobile.Listview
+			 */
+			function addItemClasses(item) {
+				addCheckboxRadioClasses(item);
+				addThumbClasses(item);
+				addRightBtnClasses(item);
+			}
+
+			/**
+			 * Refreshes item elements with "a" tag
+			 * @method refreshLinks
+			 * @param {HTMLElement} element HTML LI element
+			 * @static
+			 * @private
+			 * @member ns.widget.mobile.Listview
+			 */
+			function refreshLinks(item) {
+				var links = selectors.getChildrenByTag(item, "a");
+				if (links.length) {
+					addItemClasses(links[0]);
+					itemClassList.add(classes.uiLiAnchor);
+				} else {
+					itemClassList.add(classes.uiLiStatic);
+					item.setAttribute("tabindex", "0");
+				}
+			}
+
+			/**
+			 * Refreshes single item of a list
+			 * @method refreshItem
+			 * @param {HTMLElement} element HTML LI element
+			 * @param {boolean} create True if item is forced to be created
+			 * @param {string} dividerTheme List divider theme
+			 * @static
+			 * @private
+			 * @member ns.widget.mobile.Listview
+			 */
+			function refreshItem(item, create, dividerTheme) {
+				var itemClassList = item.classList;
+
+				if (create || (!itemClassList.contains(classes.uiLi) && DOM.isOccupiedPlace(item))) {
+					itemClassList.add(classes.uiLi);
+
+					if (item.querySelector("." + classes.uiLiCount)) {
+						itemClassList.add(classes.uiLiHasCount);
+					}
+
+					if (selectors.matchesSelector(item, engine.getWidgetDefinition("ListDivider").selector)) {
+						engine.instanceWidget(item, "ListDivider", {theme: dividerTheme});
+					} else {
+						refreshLinks(item);
+						addHeadingClasses(item);
+					}
+				}
+				addItemClasses(item);
+			}
+
+			/**
+			 * Refreshes list images
+			 * @method refreshImages
+			 * @param {HTMLElement} ul HTML UL element
+			 * @static
+			 * @private
+			 * @member ns.widget.mobile.Listview
+			 */
+			function refreshImages(ul) {
+				var imgs = ul.querySelectorAll("." + classes.uiLinkInherit + " > img:first-child"),
+					i,
+					length = imgs.length;
+
+				for (i = 0; i < length; i++) {
+					addThumbClassesToImg(imgs[i]);
+				}
+			}
+
+			/**
+			 * Refreshes items of list
 			 * @method _refreshItems
 			 * @param {HTMLElement} ul HTML UL element
 			 * @param {boolean} create
@@ -1424,69 +1505,25 @@
 			 * @member ns.widget.mobile.Listview
 			 */
 			Listview.prototype._refreshItems = function (ul, create) {
-				var items,
-					options = this.options,
+				var self = this,
+					items,
+					options = self.options,
 					theme,
-					last,
-					imgs,
 					dividerTheme;
 
 				eventUtils.trigger(ul, "beforerefreshitems");
+
 				items = selectors.getChildrenByTag(ul, "li");
 				theme = DOM.getNSData(ul, "theme") || options.theme || "s";
 				dividerTheme = DOM.getNSData(ul, "divider-theme") || options.dividerTheme || theme;
-				last = items.length - 1;
 
-				//@todo filter only visible
-				items.forEach(function (item, index) {
-					var itemTheme,
-						links,
-						link,
-						itemClassList = item.classList;
-					if (create || !item.classList.contains(classes.uiLi)) {
-						itemClassList.add(classes.uiLi);
-						links = selectors.getChildrenByTag(item, "a");
-						itemTheme = DOM.getNSData(item, "theme") || theme;
+				items.forEach(function (item) {
+					refreshItem(item, create, dividerTheme);
+				}, self);
 
-						if (!!item.querySelector("." + classes.uiLiCount)) {
-							itemClassList.add(classes.uiLiHasCount);
-						}
+				refreshImages(ul);
 
-						//becasue ListDivider is attached later then Listview I cannot make reference to ListDivider classes
-						if (selectors.matchesSelector(item, '[data-role="list-divider"],.ui-list-divider')) {
-							DOM.setNSData(item, "theme", dividerTheme);
-							engine.instanceWidget(item, "ListDivider");
-						} else {
-							if (links.length) {
-								link = links[0];
-								addCheckboxRadioClasses(link);
-								addThumbClasses(link);
-								addRightBtnClasses(link);
-								itemClassList.add(classes.uiLiAnchor);
-							} else {
-								itemClassList.add(classes.uiLiStatic);
-								item.setAttribute("tabindex", "0");
-							}
-							addHeadingClasses(item);
-						}
-					}
-					addCheckboxRadioClasses(item);
-					addThumbClasses(item);
-					addRightBtnClasses(item);
-					if (index === last) {
-						itemClassList.add(classes.uiLiLast);
-					} else {
-						itemClassList.remove(classes.uiLiLast);
-					}
-				}, this);
-
-				imgs = ul.querySelectorAll("." + classes.uiLinkInherit + " > img:first-child");
-				if (imgs.length !== 0) {
-					slice.call(imgs).forEach(function (img) {
-						addThumbClassesToImg(img);
-					});
-				}
-				this._refreshCorners(ul, create);
+				self._refreshCorners(ul, create);
 			};
 
 			/**

@@ -357,8 +357,8 @@
 			function getInnerFocusablePredecessor (element) {
 				var predecessor = element.parentNode;
 				while (predecessor.getAttribute("tabindex") === null) {
-					predecessor = predecessor.parentNode;
-					if (predecessor === undefined) {
+					predecessor = predecessor.parentElement;
+					if (!predecessor || !predecessor.getAttribute) {
 						return null;
 					}
 				}
