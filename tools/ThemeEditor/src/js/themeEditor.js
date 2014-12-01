@@ -508,6 +508,15 @@
 		return {};
 	};
 
+	ThemeEditor.prototype.bindEvents = function () {
+		var $restoreBtn = $('#action-restore');
+
+		$restoreBtn.on('click', function onClick() {
+			prepareWidgetText($('#defaultVal').val());
+		}).on('click', this.badgePreview.changeText.bind(this.badgePreview));
+
+	};
+
 	/**
 	 * Setup properties and initialize Device Viewer.
 	 * @method init
@@ -589,6 +598,8 @@
 		// Add ui fixing after window resize
 		fixUIBound = this.fixUI.bind(this);
 		window.addEventListener('resize', fixUIBound, false);
+
+		this.bindEvents();
 
 	};
 
