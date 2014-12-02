@@ -747,6 +747,9 @@
 				// remove callbacks on animation events
 				element.removeEventListener("animationend", animationEndCallback, false);
 				element.removeEventListener("webkitAnimationEnd", animationEndCallback, false);
+				element.removeEventListener("mozAnimationEnd", animationEndCallback, false);
+				element.removeEventListener("oAnimationEnd", animationEndCallback, false);
+				element.removeEventListener("msAnimationEnd", animationEndCallback, false);
 
 				// clear classes
 				transitionClass.split(" ").forEach(function (currentClass) {
@@ -806,6 +809,9 @@
 					// add animation callbacks
 					element.addEventListener("animationend", animationEndCallback, false);
 					element.addEventListener("webkitAnimationEnd", animationEndCallback, false);
+					element.addEventListener("mozAnimationEnd", animationEndCallback, false);
+					element.addEventListener("oAnimationEnd", animationEndCallback, false);
+					element.addEventListener("msAnimationEnd", animationEndCallback, false);
 					// add transition classes
 					transitionClass.split(" ").forEach(function (currentClass) {
 						currentClass = currentClass.trim();

@@ -135,7 +135,13 @@
 			prototype.translate = function (offset, duration, autoHidden) {
 				var orientation = this.options.orientation,
 					translate,
-					transition,
+					transition = {
+						normal: "none",
+						webkit: "none",
+						moz: "none",
+						ms: "none",
+						o: "none"
+					},
 					barStyle,
 					endDelay;
 
@@ -150,16 +156,26 @@
 				offset = this.type.offset( orientation, offset );
 
 				barStyle = this.barElement.style;
-				if ( !duration ) {
-					transition = "none";
-				} else {
-					transition = "-webkit-transform " + duration / 1000 + "s ease-out";
+				if (duration) {
+					transition.normal = "transform " + duration / 1000 + "s ease-out";
+					transition.webkit = "-webkit-transform " + duration / 1000 + "s ease-out";
+					transition.moz = "-moz-transform " + duration / 1000 + "s ease-out";
+					transition.ms = "-ms-transform " + duration / 1000 + "s ease-out";
+					transition.o = "-o-transform " + duration / 1000 + "s ease-out";
 				}
 
 				translate = "translate3d(" + offset.x + "px," + offset.y + "px, 0)";
 
-				barStyle["-webkit-transform"] = translate;
-				barStyle["-webkit-transition"] = transition;
+				barStyle["-webkit-transform"] =
+					barStyle["-moz-transform"] =
+					barStyle["-ms-transform"] =
+					barStyle["-o-transform"] =
+					barStyle,transform = translate;
+				barStyle["-webkit-transition"] = transition.webkit;
+				barStyle["-moz-transition"] = transition.moz;
+				barStyle["-ms-transition"] = transition.ms;
+				barStyle["-o-transition"] = transition.o;
+				barStyle.transition = transition.normal;
 
 				if ( !this.started ) {
 					this._start();

@@ -40,9 +40,9 @@
 	display: none;
 	position: absolute;
 	background-repeat: no-repeat;
-	-webkit-animation-duration: 0.47s;
-	-webkit-animation-timing-function: step-start;
-	-webkit-animation-fill-mode: forwards;
+	.animation-duration(470ms);
+	.animation-timing-function(step-start);
+	.animation-fill-mode(forwards);
 }
 
 .ui-scrollbar-bouncing-effect.ui-top {
@@ -77,7 +77,7 @@
 	background-image: url(@bg_scroller_bouncing_effect_right);
 }
 
-@-webkit-keyframes ui-vertical-show {
+.w-scroller-ui-vertical-show() {
 	0% {
 		background-position: center -0px;
 	}
@@ -113,7 +113,7 @@
 	}
 }
 
-@-webkit-keyframes ui-vertical-hide {
+.w-scroller-ui-vertical-hide() {
 	0% {
 		background-position: center -600px;
 	}
@@ -149,7 +149,7 @@
 	}
 }
 
-@-webkit-keyframes ui-horizontal-show {
+.w-scroller-ui-horizontal-show() {
 	0% {
 		background-position: -0px center;
 	}
@@ -185,7 +185,7 @@
 	}
 }
 
-@-webkit-keyframes ui-horizontal-hide {
+.w-scroller-ui-horizontal-hide() {
 	0% {
 		background-position: -600px center;
 	}
@@ -221,23 +221,103 @@
 	}
 }
 
+@-webkit-keyframes ui-vertical-show {
+	.w-scroller-ui-vertical-show();
+}
+
+@-moz-keyframes ui-vertical-show {
+	.w-scroller-ui-vertical-show();
+}
+
+@-ms-keyframes ui-vertical-show {
+	.w-scroller-ui-vertical-show();
+}
+
+@-o-keyframes ui-vertical-show {
+	.w-scroller-ui-vertical-show();
+}
+
+@keyframes ui-vertical-show {
+	.w-scroller-ui-vertical-show();
+}
+
+@-webkit-keyframes ui-vertical-hide {
+	.w-scroller-ui-vertical-hide();
+}
+
+@-moz-keyframes ui-vertical-hide {
+	.w-scroller-ui-vertical-hide();
+}
+
+@-ms-keyframes ui-vertical-hide {
+	.w-scroller-ui-vertical-hide();
+}
+
+@-o-keyframes ui-vertical-hide {
+	.w-scroller-ui-vertical-hide();
+}
+
+@keyframes ui-vertical-hide {
+	.w-scroller-ui-vertical-hide();
+}
+
+@-webkit-keyframes ui-horizontal-show {
+	.w-scroller-ui-horizontal-show();
+}
+
+@-moz-keyframes ui-horizontal-show {
+	.w-scroller-ui-horizontal-show();
+}
+
+@-ms-keyframes ui-horizontal-show {
+	.w-scroller-ui-horizontal-show();
+}
+
+@-o-keyframes ui-horizontal-show {
+	.w-scroller-ui-horizontal-show();
+}
+
+@keyframes ui-horizontal-show {
+	.w-scroller-ui-horizontal-show();
+}
+
+@-webkit-keyframes ui-horizontal-hide {
+	.w-scroller-ui-horizontal-hide();
+}
+
+@-moz-keyframes ui-horizontal-hide {
+	.w-scroller-ui-horizontal-hide();
+}
+
+@-ms-keyframes ui-horizontal-hide {
+	.w-scroller-ui-horizontal-hide();
+}
+
+@-o-keyframes ui-horizontal-hide {
+	.w-scroller-ui-horizontal-hide();
+}
+
+@keyframes ui-horizontal-hide {
+	.w-scroller-ui-horizontal-hide();
+}
+
 .ui-scrollbar-bouncing-effect.ui-top.ui-show,
 .ui-scrollbar-bouncing-effect.ui-bottom.ui-show {
 	display: block;
-	-webkit-animation-name: ui-vertical-show;
+	.animation-name(ui-vertical-show);
 }
 .ui-scrollbar-bouncing-effect.ui-top.ui-hide,
 .ui-scrollbar-bouncing-effect.ui-bottom.ui-hide {
 	display: block;
-	-webkit-animation-name: ui-vertical-hide;
+	.animation-name(ui-vertical-hide);
 }
 .ui-scrollbar-bouncing-effect.ui-left.ui-show,
 .ui-scrollbar-bouncing-effect.ui-right.ui-show {
 	display: block;
-	-webkit-animation-name: ui-horizontal-show;
+	.animation-name(ui-horizontal-show);
 }
 .ui-scrollbar-bouncing-effect.ui-left.ui-hide,
 .ui-scrollbar-bouncing-effect.ui-right.ui-hide {
 	display: block;
-	-webkit-animation-name: ui-horizontal-hide;
+	.animation-name(ui-horizontal-hide);
 }

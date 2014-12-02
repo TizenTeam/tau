@@ -1,6 +1,10 @@
 /***************************************************************************
                    Common Style
 ***************************************************************************/
+.w-layout-no-tap-color() {
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
 body {
 	height: 100%;
 	font-size: 34 * @unit_base;
@@ -21,22 +25,15 @@ body {
 	&.ui-page-active {
 		display: block;
 	}
-	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);	/* overrides webkit link color */
+	.w-layout-no-tap-color();
 }
 
-.scrolling-mode-touch {
-	-webkit-overflow-scrolling: touch;
-	-moz-overflow-scrolling: touch;
-	-o-overflow-scrolling: touch;
-	-ms-overflow-scrolling: touch;
-	overflow-scrolling: touch;
-}
 
 .ui-content {
 	width:auto;
 	height: 100%;
 	overflow: auto;
-	.scrolling-mode-touch;
+	.touch-scrolling();
 }
 
 .ui-header {
@@ -65,6 +62,10 @@ body {
 
 	.ui-title-text-fadeout {
 		-webkit-mask-image: -webkit-linear-gradient(left, rgba(0,0,0,1) 80%, rgba(0,0,0,0) 95%);
+		-moz-mask-image: -moz-linear-gradient(left, rgba(0,0,0,1) 80%, rgba(0,0,0,0) 95%);
+		-ms-mask-image: -ms-linear-gradient(left, rgba(0,0,0,1) 80%, rgba(0,0,0,0) 95%);
+		-o-mask-image: -o-linear-gradient(left, rgba(0,0,0,1) 80%, rgba(0,0,0,0) 95%);
+		mask-image: linear-gradient(left, rgba(0,0,0,1) 80%, rgba(0,0,0,0) 95%);
 	}
 
 	&.ui-has-more {
@@ -73,6 +74,10 @@ body {
 		}
 		.ui-title-text-fadeout {
 			-webkit-mask-image: -webkit-linear-gradient(left, rgba(0,0,0,1) 65%, rgba(0,0,0,0) 80%);
+			-moz-mask-image: -moz-linear-gradient(left, rgba(0,0,0,1) 65%, rgba(0,0,0,0) 80%);
+			-ms-mask-image: -ms-linear-gradient(left, rgba(0,0,0,1) 65%, rgba(0,0,0,0) 80%);
+			-o-mask-image: -o-linear-gradient(left, rgba(0,0,0,1) 65%, rgba(0,0,0,0) 80%);
+			mask-image: linear-gradient(left, rgba(0,0,0,1) 65%, rgba(0,0,0,0) 80%);
 		}
 	}
 

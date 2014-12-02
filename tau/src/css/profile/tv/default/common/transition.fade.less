@@ -1,45 +1,61 @@
-@-webkit-keyframes fadein {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-@-moz-keyframes fadein {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-@keyframes fadein {
+// keyframes need to be prefixed by hand since prefixer does not support them
+// and less below version 1.7.0 does not autoprefix them
+.tv-fadein() {
     from { opacity: 0; }
     to { opacity: 1; }
 }
 
+.tv-fadeout() {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+@-webkit-keyframes fadein {
+    .tv-fadein();
+}
+
+@-moz-keyframes fadein {
+    .tv-fadein();
+}
+
+@-ms-keyframes fadein {
+    .tv-fadein();
+}
+
+@-o-keyframes fadein {
+    .tv-fadein();
+}
+
+@keyframes fadein {
+    .tv-fadein();
+}
+
 @-webkit-keyframes fadeout {
-    from { opacity: 1; }
-    to { opacity: 0; }
+    .tv-fadeout();
 }
+
 @-moz-keyframes fadeout {
-    from { opacity: 1; }
-    to { opacity: 0; }
+    .tv-fadeout();
 }
+
+@-ms-keyframes fadeout {
+    .tv-fadeout();
+}
+
+@-o-keyframes fadeout {
+    .tv-fadeout();
+}
+
 @keyframes fadeout {
-    from { opacity: 1; }
-    to { opacity: 0; }
+    .tv-fadeout();
 }
 
 .fade.out {
 	opacity: 0;
-	-webkit-animation-duration: 125ms;
-	-webkit-animation-name: fadeout;
-	-moz-animation-duration: 125ms;
-	-moz-animation-name: fadeout;
-	animation-duration: 125ms;
-	animation-name: fadeout;
+        .animation(fadeout 125ms);
 }
 
 .fade.in {
 	opacity: 1;
-	-webkit-animation-duration: 225ms;
-	-webkit-animation-name: fadein;
-	-moz-animation-duration: 225ms;
-	-moz-animation-name: fadein;
-	animation-duration: 225ms;
-	animation-name: fadein;
+        .animation(fadein 225ms);
 }

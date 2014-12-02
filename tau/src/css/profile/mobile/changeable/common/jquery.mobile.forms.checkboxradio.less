@@ -84,7 +84,7 @@
 .ui-radio, .ui-checkbox:not(.favorite) {
 	.ui-btn {
 		.ui-icon-wrapper {
-			-webkit-mask-size: 100%;
+			.mask-size(100%);
 			width: @checkbox_radio_all_height;
 			height: @checkbox_radio_all_height;
 			display: block;
@@ -105,15 +105,15 @@
 .ui-checkbox:not(.favorite) {
 	.ui-btn {
 		.ui-icon-wrapper {
-			-webkit-mask-box-image: url(images/controls/core_check_bg.png);
-			-webkit-mask-box-image-slice: 3 3 3 3 fill;
+			.mask-box-image('images/controls/core_check_bg.png');
+			.mask-box-image-slice(3 3 3 3 fill);
 		}
 		.ui-icon-checkbox-on {
 			display: block;
-			-webkit-mask-image: url('images/controls/core_check_icon.png');
-			-webkit-mask-size: 100%;
-			-webkit-mask-position: center center;
-			-webkit-mask-repeat: no-repeat;
+			.mask-image('images/controls/core_check_icon.png');
+			.mask-size(100%);
+			.mask-position(center center);
+			.mask-repeat(no-repeat);
 			background-color: @color_checkboxradio_checkbox_bg_icon;
 		}
 	}
@@ -132,14 +132,14 @@
 .ui-radio {
 	.ui-btn {
 		.ui-icon-wrapper {
-			-webkit-mask-box-image: url(images/controls/core_radio_bg.png);
+			.mask-box-image('images/controls/core_radio_bg.png');
 		}
 		.ui-icon-radio-on {
 			display: block;
-			-webkit-mask-image: url('images/controls/core_radio_icon.png');
-			-webkit-mask-size: 100%;
-			-webkit-mask-position: center center;
-			-webkit-mask-repeat: no-repeat;
+			.mask-image('images/controls/core_radio_icon.png');
+			.mask-size(100%);
+			.mask-position(center center);
+			.mask-repeat(no-repeat);
 			background-color: @color_checkboxradio_radio_bg_icon;
 		}
 	}
@@ -204,54 +204,54 @@
 	height: @checkbox_radio_size_height;
 }
 .ui-icon-checkbox-on {
-	-webkit-mask-image: url(images/00_check_activated.png);
-	-webkit-mask-size: 100%;
+	.mask-image('images/00_check_activated.png');
+	.mask-size(100%);
 	
 }
 .ui-btn-down-s > .ui-btn-inner > .ui-icon-checkbox-off {
-	-webkit-mask-image: url(images/00_check_activated.png);
-	-webkit-mask-size: 100%;
+	.mask-image('images/00_check_activated.png');
+	.mask-size(100%);
 }
 .ui-btn-down-s > .ui-btn-inner > .ui-icon-checkbox-on {
-	-webkit-mask-image: url(images/00_check_activated.png);
-	-webkit-mask-size: 100%;
+	.mask-image('images/00_check_activated.png');
+	.mask-size(100%);
 }
 .favorite {
 	.ui-btn {
 		.ui-icon-checkbox-off,
 		.ui-icon-checkbox-off-press {
-			-webkit-mask-image: url(images/00_icon_favorite_bg.png);
-			-webkit-mask-size: 100%;
+			.mask-image('images/00_icon_favorite_bg.png');
+			.mask-size(100%);
 			background-color: @color_checkboxradio_favorite_off;
 			border: 0;
 		}
 		.ui-icon-checkbox-on,
 		.ui-icon-checkbox-on-press {
-			-webkit-mask-image: url(images/00_icon_favorite_bg.png);
-			-webkit-mask-size: 100%;
+			.mask-image('images/00_icon_favorite_bg.png');
+			.mask-size(100%);
 			background-color: @color_checkboxradio_favorite_on;
 			border: 0;
 		}
 	}
 }
 .ui-icon-radio-off {
-	-webkit-mask-image: url(images/00_button_radio_activated.png);
-	-webkit-mask-size: 100%;
+	.mask-image('images/00_button_radio_activated.png');
+	.mask-size(100%);
 	.LESSborder-radius-all(50%);
 }
 .ui-icon-radio-on {
-	-webkit-mask-image: url(images/00_button_radio_activated.png);
-	-webkit-mask-size: 100%;
+	.mask-image('images/00_button_radio_activated.png');
+	.mask-size(100%);
 	.LESSborder-radius-all(50%);
 }
 .ui-btn-down-s .ui-btn-inner > .ui-icon-radio-on {
-	-webkit-mask-image: url(images/00_button_radio_activated.png);
-	-webkit-mask-size: 100%;
+	.mask-image('images/00_button_radio_activated.png');
+	.mask-size(100%);
 	.LESSborder-radius-all(50%);
 }
 .ui-btn-down-s .ui-btn-inner > .ui-icon-radio-off {
-	-webkit-mask-image: url(images/00_button_radio_activated.png);
-	-webkit-mask-size: 100%;
+	.mask-image('images/00_button_radio_activated.png');
+	.mask-size(100%);
 	.LESSborder-radius-all(50%);
 }
 .ui-li-divider .ui-btn-text a {

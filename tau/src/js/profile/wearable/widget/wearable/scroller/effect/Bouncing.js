@@ -72,8 +72,17 @@
 					this.container.appendChild( minElement );
 					this.container.appendChild( maxElement );
 
+					minElement.addEventListener("animationEnd", this);
 					minElement.addEventListener("webkitAnimationEnd", this);
+					minElement.addEventListener("mozAnimationEnd", this);
+					minElement.addEventListener("msAnimationEnd", this);
+					minElement.addEventListener("oAnimationEnd", this);
+
+					maxElement.addEventListener("animationEnd", this);
 					maxElement.addEventListener("webkitAnimationEnd", this);
+					maxElement.addEventListener("mozAnimationEnd", this);
+					maxElement.addEventListener("msAnimationEnd", this);
+					maxElement.addEventListener("oAnimationEnd", this);
 				},
 
 				/**
@@ -198,7 +207,7 @@
 				 * @member ns.widget.wearable.scroller.effect.Bouncing
 				 */
 				handleEvent: function( event ) {
-					if (event.type === "webkitAnimationEnd") {
+					if (event.type.toLowerCase().indexOf("animationend") > -1) {
 						if ( this.isShowAnimating ) {
 							this._finishShow();
 						} else if ( this.isHideAnimating ) {
@@ -213,8 +222,20 @@
 				 * @member ns.widget.wearable.scroller.effect.Bouncing
 				 */
 				destroy: function() {
-					this.minEffectElement.removeEventListener("webkitAnimationEnd", this);
-					this.maxEffectElement.removeEventListener("webkitAnimationEnd", this);
+					var maxEffectElement = this.maxEffectElement,
+						minEffectElement = this.minEffectElement;
+
+					minEffectElement.removeEventListener("animationEnd", this);
+					minEffectElement.removeEventListener("webkitAnimationEnd", this);
+					minEffectElement.removeEventListener("mozAnimationEnd", this);
+					minEffectElement.removeEventListener("msAnimationEnd", this);
+					minEffectElement.removeEventListener("oAnimationEnd", this);
+
+					maxEffectElement.removeEventListener("animationEnd", this);
+					maxEffectElement.removeEventListener("webkitAnimationEnd", this);
+					maxEffectElement.removeEventListener("mozAnimationEnd", this);
+					maxEffectElement.removeEventListener("msAnimationEnd", this);
+					maxEffectElement.removeEventListener("oAnimationEnd", this);
 
 					this.container.removeChild( this.minEffectElement );
 					this.container.removeChild( this.maxEffectElement );

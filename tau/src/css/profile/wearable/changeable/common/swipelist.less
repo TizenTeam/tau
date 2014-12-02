@@ -8,11 +8,11 @@
 }
 
 .ui-swipelist-left {
-	background: -webkit-linear-gradient(left, @color_list_swipe_left_start_bg 0%, @color_list_swipe_left_end_bg 0%);
+	.linear-gradient-left(@color_list_swipe_left_start_bg, @color_list_swipe_left_start_bg, 0%, @color_list_swipe_left_end_bg, 0%);
 }
 
 .ui-swipelist-right {
-	background: -webkit-linear-gradient(right, @color_list_swipe_right_start_bg 0%, @color_list_swipe_right_end_bg 0%);
+	.linear-gradient-right(@color_list_swipe_right_start_bg, @color_list_swipe_right_start_bg, 0%, @color_list_swipe_right_end_bg, 0%);
 }
 .ui-swipelist-icon, .ui-swipelist-text {
 	position: absolute;
@@ -26,8 +26,8 @@
 	height: 100%;
 	margin-left: 2%;
 	background-color: @color_list_swipe_icon_btn_call;
-	-webkit-mask-image: url("./images/Swipelist/b_logs_icon_body_btn_call_nor.png");
-	-webkit-mask-repeat : no-repeat;
+	.mask-image('./images/Swipelist/b_logs_icon_body_btn_call_nor.png');
+	.mask-repeat(no-repeat);
 }
 .ui-swipelist-left .ui-swipelist-text {
 	/*
@@ -47,8 +47,8 @@
 	height: 100%;
 	margin-left: 80%;
 	background-color: @color_list_swipe_icon_btn_msg;
-	-webkit-mask-image : url("./images/Swipelist/b_logs_icon_actionbar_btn_msg_nor.png");
-	-webkit-mask-repeat : no-repeat;
+	.mask-image('./images/Swipelist/b_logs_icon_actionbar_btn_msg_nor.png');
+	.mask-repeat(no-repeat);
 }
 .ui-swipelist-right .ui-swipelist-text {
 	/*

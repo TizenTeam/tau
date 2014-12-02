@@ -146,6 +146,9 @@
 							doneIn = function () {
 								to.removeEventListener("animationend", doneIn, false);
 								to.removeEventListener("webkitAnimationEnd", doneIn, false);
+								to.removeEventListener("mozAnimationEnd", doneIn, false);
+								to.removeEventListener("msAnimationEnd", doneIn, false);
+								to.removeEventListener("oAnimationEnd", doneIn, false);
 								if (!sequential) {
 									if (from) {
 										cleanFrom();
@@ -195,6 +198,9 @@
 								if (!none) {
 									to.addEventListener("animationend", doneIn, false);
 									to.addEventListener("webkitAnimationEnd", doneIn, false);
+									to.addEventListener("mozAnimationEnd", doneIn, false);
+									to.addEventListener("msAnimationEnd", doneIn, false);
+									to.addEventListener("oAnimationEnd", doneIn, false);
 								}
 
 								toClassList.remove(toPreClass);
@@ -213,6 +219,9 @@
 								if (from && sequential) {
 									from.removeEventListener("animationend", doneOut, false);
 									from.removeEventListener("webkitAnimationEnd", doneOut, false);
+									from.removeEventListener("mozAnimationEnd", doneOut, false);
+									from.removeEventListener("msAnimationEnd", doneOut, false);
+									from.removeEventListener("oAnimationEnd", doneOut, false);
 									cleanFrom();
 								}
 								startIn();
@@ -223,6 +232,9 @@
 								if (sequential) {
 									from.addEventListener("animationend", doneOut, false);
 									from.addEventListener("webkitAnimationEnd", doneOut, false);
+									from.addEventListener("mozAnimationEnd", doneOut, false);
+									from.addEventListener("msAnimationEnd", doneOut, false);
+									from.addEventListener("oAnimationEnd", doneOut, false);
 								} else {
 									doneOut();
 								}

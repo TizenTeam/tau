@@ -1,12 +1,33 @@
-@-webkit-keyframes rotating {
-	from { -webkit-transform: rotate(0deg); }
-	to { -webkit-transform: rotate(360deg); }
+.w-processing-rotating() {
+	from { .rotate(0deg); }
+	to { .rotate(360deg); }
 }
+
+@-webkit-keyframes rotating {
+	.w-processing-rotating();
+}
+
+@-moz-keyframes rotating {
+	.w-processing-rotating();
+}
+
+@-ms-keyframes rotating {
+	.w-processing-rotating();
+}
+
+@-o-keyframes rotating {
+	.w-processing-rotating();
+}
+
+@keyframes rotating {
+	.w-processing-rotating();
+}
+
 .ui-processing {
 	background-image: url("./images/Progress/tw_widget_popup_activity.png");
 	background-repeat: no-repeat;
 	background-size: 100% 100%;
-	-webkit-animation: rotating 1s linear infinite;
+	.animation(rotating 1s linear infinite);
 	width:80 * @unit_base;
 	height:80 * @unit_base;
 	margin: 0 auto;

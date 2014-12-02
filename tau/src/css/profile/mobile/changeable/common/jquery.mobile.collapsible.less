@@ -55,10 +55,10 @@
 		&::after {
 			position: absolute;
 			top: 10 * @unit_base;
-			-webkit-mask-image: url(images/core_icon_expand_open.png);
-			-webkit-mask-repeat: no-repeat;
-			-webkit-mask-position: center;
-			-webkit-mask-size: 100%;
+			.mask-image('images/core_icon_expand_open.png');
+			.mask-repeat(no-repeat);
+			.mask-position(center);
+			.mask-size(100%);
 			background-color: @color_list_collapsible_arrow;
 			width: 36 * @unit_base;
 			height: 36 * @unit_base;
@@ -81,30 +81,12 @@
 
 	// Icons' animation
 		&.ui-icon-arrow-d::after {
-			-webkit-transition: all 0.33s ease;
-			-moz-transition: all 0.33s ease;
-			-ms-transition: all 0.33s ease;
-			-o-transition: all 0.33s ease;
-			transition: all 0.33s ease;
-
-			-webkit-transform: rotate(0);
-			-moz-transform: rotate(0);
-			-ms-transform: rotate(0);
-			-o-transform: rotate(0);
-			transform: rotate(0);
+			.transition(all 330ms ease);
+			.rotate(0);
 		}
 		&.ui-icon-arrow-u::after {
-			-webkit-transition: all 0.33s ease;
-			-moz-transition: all 0.33s ease;
-			-ms-transition: all 0.33s ease;
-			-o-transition: all 0.33s ease;
-			transition: all 0.33s ease;
-
-			-webkit-transform: rotate(180deg);
-			-moz-transform: rotate(180deg);
-			-ms-transform: rotate(180deg);
-			-o-transform: rotate(180deg);
-			transform: rotate(180deg);
+			.transition(all 330ms ease);
+			.rotate(180deg);
 		}
 	}
 }
@@ -135,11 +117,7 @@
 	max-height: 9999px;
 	visibility: visible;
 	overflow: auto;
-	-webkit-transition: all 0.3s ease;
-	-moz-transition: all 0.3s ease;
-	-ms-transition: all 0.3s ease;
-	-o-transition: all 0.3s ease;
-	transition: all 0.3s ease;
+	.transition(all 300ms ease);
 
 	.ui-li-dialogue {
 		padding-left : 15 * @unit_base;

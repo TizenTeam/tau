@@ -210,7 +210,10 @@
 					scrollerStyle.height = "";
 
 					scrollerStyle["-webkit-transform"] = "";
-					scrollerStyle["-webkit-transition"] = "";
+					scrollerStyle["-moz-transition"] = "";
+					scrollerStyle["-ms-transition"] = "";
+					scrollerStyle["-o-transition"] = "";
+					scrollerStyle["transition"] = "";
 				}
 			};
 
@@ -296,18 +299,34 @@
 
 			prototype._translate = function (x, y, duration) {
 				var translate,
-					transition,
+					transition = {
+						normal: "none",
+						webkit: "none",
+						moz: "none",
+						ms: "none",
+						o: "none"
+					},
 					scrollerStyle = this.scrollerStyle;
 
-				if ( !duration ) {
-					transition = "none";
-				} else {
-					transition = "-webkit-transform " + duration / 1000 + "s ease-out";
+				if (duration) {
+					transition.normal = "transform " + duration / 1000 + "s ease-out";
+					transition.webkit = "-webkit-transform " + duration / 1000 + "s ease-out";
+					transition.moz = "-moz-transform " + duration / 1000 + "s ease-out";
+					transition.ms = "-ms-transform " + duration / 1000 + "s ease-out";
+					transition.o = "-o-transform " + duration / 1000 + "s ease-out";
 				}
 				translate = "translate3d(" + x + "px," + y + "px, 0)";
 
-				scrollerStyle["-webkit-transform"] = translate;
-				scrollerStyle["-webkit-transition"] = transition;
+				scrollerStyle["-webkit-transform"] =
+						scrollerStyle["-moz-transform"] =
+						scrollerStyle["-ms-transform"] =
+						scrollerStyle["-o-transform"] =
+						scrollerStyle.transform = translate;
+				scrollerStyle.transition = transition.normal;
+				scrollerStyle["-webkit-transition"] = transition.webkit;
+				scrollerStyle["-moz-transition"] = transition.moz;
+				scrollerStyle["-ms-transition"] = transition.ms;
+				scrollerStyle["-o-transition"] = transition.o;
 
 				this.scrollerOffsetX = window.parseInt(x, 10);
 				this.scrollerOffsetY = window.parseInt(y, 10);

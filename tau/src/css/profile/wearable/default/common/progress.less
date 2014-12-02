@@ -2,9 +2,52 @@
  * Progressbar
  */
 
+.w-progress-indeterminate() {
+	0% {
+		.mask-image('./images/Progress/tw_progressbar_indeterminate1_holo_dark.png');
+		.mask-repeat(no-repeat);
+		background-color: @color_progressbar_indeterminate;
+	}
+	25% {
+		.mask-image('./images/Progress/tw_progressbar_indeterminate2_holo_dark.png');
+		.mask-repeat(no-repeat);
+		background-color: @color_progressbar_indeterminate;
+	}
+	50% {
+		.mask-image('./images/Progress/tw_progressbar_indeterminate3_holo_dark.png');
+		.mask-repeat(no-repeat);
+		background-color: @color_progressbar_indeterminate;
+	}
+	75% {
+		.mask-image('./images/Progress/tw_progressbar_indeterminate4_holo_dark.png');
+		.mask-repeat(no-repeat);
+		background-color: @color_progressbar_indeterminate;
+	}
+	100% {
+		.mask-image('./images/Progress/tw_progressbar_indeterminate5_holo_dark.png');
+		.mask-repeat(no-repeat);
+		background-color: @color_progressbar_indeterminate;
+	}
+}
+
 @-webkit-keyframes indeterminate {
-	from {background-image: url('./images/Progress/tw_progressbar_indeterminate1_holo_dark.png');}
-	to {background-image: url('./images/Progress/tw_progressbar_indeterminate2_holo_dark.png');}
+	.w-progress-indeterminate();
+}
+
+@-moz-keyframes indeterminate {
+	.w-progress-indeterminate();
+}
+
+@-ms-keyframes indeterminate {
+	.w-progress-indeterminate();
+}
+
+@-o-keyframes indeterminate {
+	.w-progress-indeterminate();
+}
+
+@keyframes indeterminate {
+	.w-progress-indeterminate();
 }
 
 progress {
@@ -16,7 +59,7 @@ progress {
 	color: @color_progressbar_text;
 	width: 100%;
 	height: 6 * @unit_base;
-	-webkit-appearance: none;
+	.appearance(none);
 	border: none;
 }
 
@@ -36,7 +79,7 @@ progress::-webkit-progress-value {
 progress.ui-progress-indeterminate::-webkit-progress-value {
 	background-repeat: no-repeat;
 	background-size: 100% 100%;
-	-webkit-animation: indeterminate 150ms infinite;
+	.animation(indeterminate 150ms infinite);
 }
 
 .ui-progress-proportion {

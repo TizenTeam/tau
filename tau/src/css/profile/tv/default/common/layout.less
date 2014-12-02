@@ -31,34 +31,22 @@ body {
 	&.ui-header-empty {
 		.ui-content {
 			margin-top: 59 * @virtual_px;
-			-webkit-border-top-left-radius: @fixed_layout_page_border_radius;
-			-moz-border-top-left-radius: @fixed_layout_page_border_radius;
-			border-top-left-radius: @fixed_layout_page_border_radius;
-			-webkit-border-top-right-radius: @fixed_layout_page_border_radius;
-			-moz-border-top-right-radius: @fixed_layout_page_border_radius;
-			border-top-right-radius: @fixed_layout_page_border_radius;
+			.border-top-left-radius(@fixed_layout_page_border_radius);
+			.border-top-right-radius(@fixed_layout_page_border_radius);
 		}
 	}
 
 	&.ui-footer-empty {
 		.ui-content {
 			margin-bottom: 59 * @virtual_px;
-			-webkit-border-bottom-left-radius: @fixed_layout_page_border_radius;
-			-moz-border-bottom-left-radius: @fixed_layout_page_border_radius;
-			border-bottom-left-radius: @fixed_layout_page_border_radius;
-			-webkit-border-bottom-right-radius: @fixed_layout_page_border_radius;
-			-moz-border-bottom-right-radius: @fixed_layout_page_border_radius;
-			border-bottom-right-radius: @fixed_layout_page_border_radius;
+			.border-bottom-left-radius(@fixed_layout_page_border_radius);
+			.border-bottom-right-radius(@fixed_layout_page_border_radius);
 		}
 	}
 }
 
 .scrolling-mode-touch {
-	-webkit-overflow-scrolling: touch;
-	-moz-overflow-scrolling: touch;
-	-o-overflow-scrolling: touch;
-	-ms-overflow-scrolling: touch;
-	overflow-scrolling: touch;
+	.touch-scrolling();
 }
 
 .ui-content {
@@ -93,12 +81,8 @@ body {
 	height: @fixed_header_height;
 	line-height: @fixed_header_line_height;
 	background-color: @color_actionbar_title_bg;
-	-webkit-border-top-left-radius: @fixed_layout_page_border_radius;
-	-moz-border-top-left-radius: @fixed_layout_page_border_radius;
-	border-top-left-radius: @fixed_layout_page_border_radius;
-	-webkit-border-top-right-radius: @fixed_layout_page_border_radius;
-	-moz-border-top-right-radius: @fixed_layout_page_border_radius;
-	border-top-right-radius: @fixed_layout_page_border_radius;
+	.border-top-left-radius(@fixed_layout_page_border_radius);
+	.border-top-right-radius(@fixed_layout_page_border_radius);
 
 	.ui-title {
 		color: @color_actionbar_title_text;
@@ -118,7 +102,12 @@ body {
 	}
 
 	.ui-title-text-fadeout {
+		// by hand, this is to custom for a handler
 		-webkit-mask-image: -webkit-linear-gradient(left, rgba(0,0,0,1) 80%, rgba(0,0,0,0) 95%);
+		-moz-mask-image: -moz-linear-gradient(left, rgba(0,0,0,1) 80%, rgba(0,0,0,0) 95%);
+		-ms-mask-image: -ms-linear-gradient(left, rgba(0,0,0,1) 80%, rgba(0,0,0,0) 95%);
+		-o-mask-image: -o-linear-gradient(left, rgba(0,0,0,1) 80%, rgba(0,0,0,0) 95%);
+		mask-image: linear-gradient(left, rgba(0,0,0,1) 80%, rgba(0,0,0,0) 95%);
 	}
 
 	&.ui-has-more {
@@ -126,7 +115,12 @@ body {
 			padding-right: @fixed_header_more_title_padding;
 		}
 		.ui-title-text-fadeout {
+			// by hand, this is to custom for a handler
 			-webkit-mask-image: -webkit-linear-gradient(left, rgba(0,0,0,1) 65%, rgba(0,0,0,0) 80%);
+			-moz-mask-image: -moz-linear-gradient(left, rgba(0,0,0,1) 65%, rgba(0,0,0,0) 80%);
+			-ms-mask-image: -ms-linear-gradient(left, rgba(0,0,0,1) 65%, rgba(0,0,0,0) 8 0%);
+			-o-mask-image: -o-linear-gradient(left, rgba(0,0,0,1) 65%, rgba(0,0,0,0) 80%);
+			mask-image: linear-gradient(left, rgba(0,0,0,1) 65%, rgba(0,0,0,0) 80%); 
 		}
 	}
 
@@ -206,12 +200,8 @@ body {
 	bottom: 0;
 	left: 0;
 	background-color: @color_actionbar_title_bg;
-	border-bottom-left-radius: @fixed_layout_page_border_radius;
-	border-bottom-right-radius: @fixed_layout_page_border_radius;
-	-webkit-border-bottom-left-radius: @fixed_layout_page_border_radius;
-	-webkit-border-bottom-right-radius: @fixed_layout_page_border_radius;
-	-moz-border-bottom-left-radius: @fixed_layout_page_border_radius;
-	-moz-border-bottom-right-radius: @fixed_layout_page_border_radius;
+	.border-bottom-left-radius(@fixed_layout_page_border_radius);
+	.border-bottom-right-radius(@fixed_layout_page_border_radius);
 	.ui-controlgroup-controls {
 		.ui-btn {
 			float:left;
@@ -291,7 +281,6 @@ body {
 .ui-page-fullscreen {
 	.ui-header, .ui-content, .ui-footer, &.ui-footer-empty .ui-content, &.ui-header-empty .ui-content {
 		margin: 0;
-		-webkit-border-radius: 0;
-		border-radius: 0;
+		.border-radius(0);
 	}
 }

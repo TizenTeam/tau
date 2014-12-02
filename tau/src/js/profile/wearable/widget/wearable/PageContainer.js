@@ -63,6 +63,9 @@
 				},
 				animationend = "animationend",
 				webkitAnimationEnd = "webkitAnimationEnd",
+				mozAnimationEnd = "mozAnimationEnd",
+				msAnimationEnd = "msAnimationEnd",
+				oAnimationEnd = "oAnimationEnd",
 				prototype = new BaseWidget();
 
 			/**
@@ -182,10 +185,32 @@
 
 				if (transition !== "none") {
 					oneEvent = function () {
-						eventUtils.off(toPageWidget.element, [animationend, webkitAnimationEnd], oneEvent, false);
+						eventUtils.off(
+							toPageWidget.element,
+							[
+								animationend,
+								webkitAnimationEnd,
+								mozAnimationEnd,
+								msAnimationEnd,
+								oAnimationEnd
+							],
+							oneEvent,
+							false
+						);
 						deferred.resolve();
 					};
-					eventUtils.one(toPageWidget.element, [animationend, webkitAnimationEnd], oneEvent, false);
+					eventUtils.one(
+						toPageWidget.element,
+						[
+							animationend,
+							webkitAnimationEnd,
+							mozAnimationEnd,
+							msAnimationEnd,
+							oAnimationEnd
+						],
+						oneEvent,
+						false
+					);
 
 					if (fromPageWidget) {
 						classParam = [];

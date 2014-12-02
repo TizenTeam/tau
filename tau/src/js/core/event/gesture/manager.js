@@ -180,7 +180,7 @@
 					 */
 					_start: function( event ) {
 						var elem = event.currentTarget,
-							startEvent, detectors = [];
+							startEvent = {}, detectors = [];
 
 						if ( !isReadyDetecting ) {
 							this._resetDetecting();

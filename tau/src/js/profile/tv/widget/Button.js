@@ -111,6 +111,9 @@
 				transitionend = animationEndCallback.bind(null, self.element);
 				background.addEventListener("transitionend", transitionend, false);
 				background.addEventListener("webkitTransitionEnd", transitionend, false);
+				background.addEventListener("mozTransitionEnd", transitionend, false);
+				background.addEventListener("msTransitionEnd", transitionend, false);
+				background.addEventListener("oTransitionEnd", transitionend, false);
 				self._callbacks.transitionend = transitionend;
 			};
 
@@ -129,6 +132,9 @@
 				transitionend = self._callbacks.transitionend;
 				background.removeEventListener("transitionend", transitionend, false);
 				background.removeEventListener("webkitTransitionEnd", transitionend, false);
+				background.removeEventListener("mozTransitionEnd", transitionend, false);
+				background.removeEventListener("msTransitionEnd", transitionend, false);
+				background.removeEventListener("oTransitionEnd", transitionend, false);
 
 				if (typeof BaseButtonPrototype_destroy === FUNCTION_TYPE) {
 					BaseButtonPrototype_destroy.call(self);

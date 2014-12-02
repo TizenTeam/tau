@@ -126,7 +126,11 @@
 				start: function( scrollbarElement/*, barElement */) {
 					var style = scrollbarElement.style,
 						duration = this.options.animationDuration;
-					style["-webkit-transition"] = "opacity " + duration / 1000 + "s ease";
+					style["-webkit-transition"] =
+							style["-moz-transition"] =
+							style["-ms-transition"] =
+							style["-o-transition"] =
+							style.transition = "opacity " + duration / 1000 + "s ease";
 					style.opacity = 1;
 				},
 
@@ -139,7 +143,11 @@
 				end: function( scrollbarElement/*, barElement */) {
 					var style = scrollbarElement.style,
 						duration = this.options.animationDuration;
-					style["-webkit-transition"] = "opacity " + duration / 1000 + "s ease";
+					style["-webkit-transition"] =
+							style["-moz-transition"] =
+							style["-ms-transition"] =
+							style["-o-transition"] =
+							style.transition = "opacity " + duration / 1000 + "s ease";
 					style.opacity = 0;
 				}
 			});

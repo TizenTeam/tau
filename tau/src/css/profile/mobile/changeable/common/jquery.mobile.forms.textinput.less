@@ -19,8 +19,7 @@ textarea::-webkit-input-placeholder {
 
 	input&,
 	textarea& {
-		appearance: none;
-		-webkit-appearance: none;
+		.appearance(none);
 		background-color: @color_editfield_bg;
 		box-sizing: border-box;
 		color: @color_editfield_text;
@@ -81,8 +80,8 @@ textarea::-webkit-input-placeholder {
 			// Move to top by - input's padding-bottom + clear height
 			margin-top: -(36 + 29) * @unit_base;
 			background-color: @color_searchbar_clear_icon;
-			-webkit-mask-size: contain;
-			-webkit-mask-image: url(images/controls/00_core_button_icon_clear.png);
+			.mask-size(contain);
+			.mask-image('images/controls/00_core_button_icon_clear.png');
 
 			&:active,
 			&:hover {
@@ -120,9 +119,7 @@ textarea::-webkit-input-placeholder {
 		padding: 10 * @unit_base 15 * @unit_base 14 * @unit_base;
 		resize: none;
 		white-space: normal;
-
-		-webkit-transition: height 200ms linear;
-		transition: height 200ms linear;
+		.transition(height 200ms linear);
 	}
 }
 
@@ -285,8 +282,8 @@ textarea.ui-input-text.ui-focus {
 	background-repeat: no-repeat;
 	background-size: 45 * @unit_base 45 * @unit_base;
 	background-color: @color_searchbar_clear_icon;
-	-webkit-mask-image: url(images/controls/00_field_btn_clear.png);
-	-webkit-mask-size: 45 * @unit_base 45 * @unit_base;
+	.mask-image('images/controls/00_field_btn_clear.png');
+	.mask-size(45 * @unit_base 45 * @unit_base);
 
 	&:active {
 		background-color: @color_searchbar_clear_icon_press;

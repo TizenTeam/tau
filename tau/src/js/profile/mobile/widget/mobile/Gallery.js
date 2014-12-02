@@ -181,8 +181,9 @@
 					style = imageContainer.style;
 
 				style.webkitTransform = translate;
-				style.OTransform = translate;
-				style.MozTransform = translate;
+				style.oTransform = translate;
+				style.mozTransform = translate;
+				style.msTransform = translate;
 				style.transform = translate;
 
 				return imageContainer;
@@ -492,12 +493,16 @@
 			 * @member ns.widget.mobile.Gallery
 			 */
 			Gallery.prototype._moveLeft = function (imageContainer, value, duration) {
-				var transition = "";
+				var style;
 
 				if (imageContainer) {
 					if (duration !== undefined) {
-						transition =  "-webkit-transform " + (duration / 1000) + "s ease";
-						imageContainer.style.webkitTransition = transition;
+						style = imageContainer.style;
+						style.webkitTransition =  "-webkit-transform " + (duration / 1000) + "s ease";
+						style.mozTransition =  "-moz-transform " + (duration / 1000) + "s ease";
+						style.msTransition =  "-ms-transform " + (duration / 1000) + "s ease";
+						style.oTransition =  "-o-transform " + (duration / 1000) + "s ease";
+						style.transition =  "transform " + (duration / 1000) + "s ease";
 					}
 					imageContainer = setTranslatePosition(imageContainer, value);
 				}

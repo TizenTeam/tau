@@ -37,6 +37,7 @@
 					window.webkitRequestAnimationFrame ||
 					window.mozRequestAnimationFrame ||
 					window.oRequestAnimationFrame ||
+					window.msRequestAnimationFrame ||
 					function (callback) {
 						currentFrame = window.setTimeout(callback.bind(callback, +new Date()), 1000 / 60);
 					}).bind(window),
@@ -182,6 +183,7 @@
 					window.webkitCancelAnimationFrame ||
 					window.mozCancelAnimationFrame ||
 					window.oCancelAnimationFrame ||
+					window.msCancelAnimationFrame ||
 					function () {
 						// propably wont work if there is any more than 1
 						// active animationFrame but we are trying anyway

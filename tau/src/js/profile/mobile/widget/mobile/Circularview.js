@@ -128,9 +128,12 @@
 						}
 					}
 				}
-				translate =  "translate3d(" + translateX + "px, 0px, 0px)";
-				viewStyle.transform = translate;
-				viewStyle.webkitTransform = translate;
+				translate = "translate3d(" + translateX + "px, 0px, 0px)";
+				viewStyle.transform =
+						viewStyle.webkitTransform =
+						viewStyle.mozTransform =
+						viewStyle.msTransform =
+						viewStyle.oTransform = translate;
 				circularview._lastGapSize = gapSize;
 			}
 

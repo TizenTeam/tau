@@ -348,7 +348,8 @@
 						})
 					);
 
-					utilsEvents.on(this.scroller, "swipe webkitTransitionEnd", this);
+					utilsEvents.on(this.scroller,
+							"swipe transitionEnd webkitTransitionEnd mozTransitionEnd msTransitionEnd oTransitionEnd", this);
 				},
 
 				_unbindEvents: function () {
@@ -356,7 +357,8 @@
 
 					if (this.scroller) {
 						ns.event.disableGesture(this.scroller);
-						utilsEvents.off(this.scroller, "swipe webkitTransitionEnd", this);
+						utilsEvents.off(this.scroller,
+							"swipe transitionEnd webkitTransitionEnd mozTransitionEnd msTransitionEnd oTransitionEnd", this);
 					}
 				},
 
@@ -374,6 +376,10 @@
 							this._swipe(event);
 							break;
 						case "webkitTransitionEnd":
+						case "mozTransitionEnd":
+						case "msTransitionEnd":
+						case "oTransitionEnd":
+						case "transitionEnd":
 							this._endScroll();
 							break;
 					}

@@ -1,4 +1,5 @@
 /*global window, define */
+/*jslint nomen: true */
 /*
  * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
  * License : MIT License V2
@@ -194,14 +195,33 @@
 			prototype._translate = function (x, duration) {
 				var element = this.element,
 					elementStyle = element.style,
-					transition = "none";
+					transitions = {
+						normal: "none",
+						webkit: "none",
+						moz: "none",
+						ms: "none",
+						o: "none"
+					};
 
 				if (duration) {
-					transition =  "-webkit-transform " + duration / 1000 + "s ease-out";
+					transitions.webkit =  "-webkit-transform " + duration / 1000 + "s ease-out";
+					transitions.moz =  "-moz-transform " + duration / 1000 + "s ease-out";
+					transitions.o =  "-o-transform " + duration / 1000 + "s ease-out";
+					transitions.ms =  "-ms-transform " + duration / 1000 + "s ease-out";
+					transitions.normal =  "transform " + duration / 1000 + "s ease-out";
 				}
 
-				elementStyle.webkitTransform = "translate3d(" + x + "px, 0px, 0px)";
-				elementStyle.webkitTransition = transition;
+				// there should be a helper for this :(
+				elementStyle.webkitTransform =
+					elementStyle.mozTransform =
+					elementStyle.msTransform =
+					elementStyle.oTransform =
+					elementStyle.transform = "translate3d(" + x + "px, 0px, 0px)";
+				elementStyle.webkitTransition = transitions.webkit;
+				elementStyle.mozTransition = transitions.moz;
+				elementStyle.msTransition = transitions.ms;
+				elementStyle.oTransform = transitions.o;
+				elementStyle.transition = transitions.transition;
 			};
 
 			/**
@@ -335,7 +355,8 @@
 			prototype._bindEvents = function() {
 				var self = this,
 					options = self.options,
-					drawerOverlay = self._drawerOverlay;
+					drawerOverlay = self._drawerOverlay,
+					element = self.element;
 				self._onClickBound = onClick.bind(null, self);
 				self._onTransitionEndBound = onTransitionEnd.bind(null, self);
 				self._onResizeBound = onResize.bind(null, self);
@@ -344,8 +365,11 @@
 				if (options.overlay && options.closeOnClick && drawerOverlay) {
 					drawerOverlay.addEventListener("vclick", self._onClickBound, false);
 				}
-				self.element.addEventListener("webkitTransitionEnd", self._onTransitionEndBound, false);
-				self.element.addEventListener("transitionEnd", self._onTransitionEndBound, false);
+				element.addEventListener("webkitTransitionEnd", self._onTransitionEndBound, false);
+				element.addEventListener("mozTransitionEnd", self._onTransitionEndBound, false);
+				element.addEventListener("msTransitionEnd", self._onTransitionEndBound, false);
+				element.addEventListener("oTransitionEnd", self._onTransitionEndBound, false);
+				element.addEventListener("transitionEnd", self._onTransitionEndBound, false);
 				window.addEventListener("resize", self._onResizeBound, false);
 				self._drawerPage.addEventListener("pageshow", self._onPageshowBound, false);
 			};
@@ -408,11 +432,16 @@
 			 */
 			prototype._destroy = function() {
 				var self = this,
-					drawerOverlay = self._drawerOverlay;
+					drawerOverlay = self._drawerOverlay,
+					element = self.element;
 				if (drawerOverlay) {
 					drawerOverlay.removeEventListener("vclick", self._onClickBound, false);
 				}
-				self.element.removeEventListener("webkitTransitionEnd", self._onTransitionEndBound, false);
+				element.removeEventListener("webkitTransitionEnd", self._onTransitionEndBound, false);
+				element.removeEventListener("mozTransitionEnd", self._onTransitionEndBound, false);
+				element.removeEventListener("msTransitionEnd", self._onTransitionEndBound, false);
+				element.removeEventListener("oTransitionEnd", self._onTransitionEndBound, false);
+				element.removeEventListener("transitionEnd", self._onTransitionEndBound, false);
 				window.removeEventListener("resize", self._onResizeBound, false);
 				self._drawerPage.removeEventListener("pageshow", self._onPageshowBound, false);
 			};

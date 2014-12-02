@@ -461,6 +461,8 @@
 
 					style.webkitTransform = translateString;
 					style.mozTransform = translateString;
+					style.msTransform = translateString;
+					style.oTransform = translateString;
 					style.transform = translateString;
 				}
 			}

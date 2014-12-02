@@ -886,6 +886,9 @@
 			// @member ns.widget.mobile.Popup
 			function animationComplete(element, callback) {
 				events.one(element, "webkitAnimationEnd", callback);
+				events.one(element, "mozAnimationEnd", callback);
+				events.one(element, "msAnimationEnd", callback);
+				events.one(element, "oAnimationEnd", callback);
 				events.one(element, "animationend", callback);
 			}
 
