@@ -17,6 +17,8 @@ module.exports = function(grunt) {
 		srcJs = path.join( src, "js" ),
 		srcCss = themes.path,
 
+		tauDebug = grunt.option("tau-debug") || false,
+
 		buildRoot = path.join(dist),
 		buildDir = {
 			mobile: {
@@ -261,7 +263,7 @@ module.exports = function(grunt) {
 						out: path.join( buildDir.wearable.js, name ) + ".js",
 						pragmasOnSave: {
 							tauBuildExclude: true,
-							tauDebug: true
+							tauDebug: !tauDebug
 						},
 						wrap: {
 							start: wrapStart,
@@ -280,7 +282,7 @@ module.exports = function(grunt) {
 						out: path.join( buildDir.mobile.js, name ) + ".js",
 						pragmasOnSave: {
 							tauBuildExclude: true,
-							tauDebug: true
+							tauDebug: !tauDebug
 						},
 						wrap: {
 							start: wrapStart,
@@ -299,7 +301,7 @@ module.exports = function(grunt) {
 						out: path.join( buildDir.tv.js, name ) + ".js",
 						pragmasOnSave: {
 							tauBuildExclude: true,
-							tauDebug: true
+							tauDebug: !tauDebug
 						},
 						wrap: {
 							start: wrapStart,
