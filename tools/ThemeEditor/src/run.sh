@@ -5,7 +5,7 @@ if test -z "$1"
 then
 	START_CONFIG=""
 else
-	START_CONFIG="#"$1
+	START_CONFIG="?"$1
 fi
 
 if [ "$OS" == "darwin" ] || [ "$(uname)" == "Darwin" ]; then

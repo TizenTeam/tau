@@ -38,7 +38,27 @@ window.onload = function () {
 
 	}
 
-	var locationHash = location.hash.substr(1),
+	/*
+	 * Parses URL params
+	 * @param {String} searchQuery Search query to parse.
+	 * @return {Object} params Params object with param name (key) and value (key value).
+	 */
+	function parseParams(searchQuery) {
+		var hashes = searchQuery.slice(searchQuery.indexOf('?') + 1).split('&'),
+			len = hashes.length,
+			hash = [],
+			params = {},
+			i;
+
+		for (i = 0; i < len; i++) {
+			hash = hashes[i].split('=');
+			params[hash[0]] = hash[1];
+		}
+		return params;
+	}
+
+	var locationSearch = location.search,
+		params = [],
 		badgeHeightSlider = document.getElementById('badgeHeightSlider'),
 		badgeWidthSlider = document.getElementById('badgeWidthSlider'),
 		customBadgeWidth = document.getElementById('customBadgeWidth'),
@@ -46,19 +66,19 @@ window.onload = function () {
 		zoomSlider = document.getElementById('zoomSlider');
 	/*
 	 * Check if viewed application was provided by url
-	 * Passed JSON example
-	 * {"name":"PathNameToDisplay", "path": "file:///path/to/my/App/"}
+	 * Passed params
+	 * ?name=DisplayedAppName&path=pathToApp
 	 */
-	if (locationHash !== '') {
+	if (locationSearch !== '') {
 		try {
-			locationHash = JSON.parse(locationHash);
+			params = parseParams(locationSearch);
 			properties.appList = [{
-				name: locationHash.name,
-				path: locationHash.path,
+				name: params.name,
+				path: params.path,
 				selected: true
 			}];
 		} catch (e) {
-			alert('There is something wrong in JSON passed as URL');
+			alert('There is something wrong in passed params in URL');
 		}
 	}
 
@@ -66,34 +86,6 @@ window.onload = function () {
 	 * Initialize device viewer on desired properties
 	 */
 	themeEditor.init(properties);
-
-	/*
-	 * Change app preview if hash changed
-	 */
-	window.addEventListener('hashchange', function () {
-		var newLocationHash = location.hash.substr(1),
-			badgeList,
-			option,
-			i;
-		if (newLocationHash !== '') {
-			try {
-				newLocationHash = JSON.parse(newLocationHash);
-			} catch (e) {
-				alert('There is something wrong in JSON passed as URL', newLocationHash);
-			}
-
-			badgeList = themeEditor.badgePreview.badgeList;
-
-			i = badgeList.length;
-			while (--i >= 0) {
-				badgeList[i].changeUrl(newLocationHash.path);
-			}
-
-			option = themeEditor.config.appSelect.selectedOptions[0];
-			option.value = newLocationHash.path;
-			option.text = newLocationHash.name;
-		}
-	}, false);
 
 	// Change height of badge using range slider
 	badgeHeightSlider.addEventListener('change', badgeResize.bind(null, badgeHeightSlider, 'height') , false);
