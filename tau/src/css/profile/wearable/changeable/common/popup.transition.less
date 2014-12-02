@@ -38,17 +38,44 @@ Popup Transition
     to { transform: translateY(100%); }
 }
 
+.ui-popup {
+	&.pop.in {
+		-webkit-animation-name: popuppopin;
+		-webkit-animation-duration: 250ms;
+		-webkit-transition-timing-function: ease-in-out;
+		animation-name: popuppopin;
+		animation-duration: 250ms;
+		transition-timing-function: ease-in-out;
+	}
+	&.pop.out {
+		-webkit-animation-name: popuppopout;
+		-webkit-animation-duration: 250ms;
+		-webkit-transition-timing-function: ease-in-out;
+		animation-name: popuppopout;
+		animation-duration: 250ms;
+		transition-timing-function: ease-in-out;
+	}
+}
+
+@-webkit-keyframes popuppopin {
+    from { transform: scale3d(0, 0, 1); }
+    to { transform: scale3d(1, 1, 1); }
+}
+@-webkit-keyframes popuppopout {
+    from { transform: scale3d(1, 1, 1); }
+    to { transform: scale3d(0, 0, 1); }
+}
 /****************************************
 Popup Overlay Transition
 ****************************************/
 .ui-popup-overlay {
-	&.slideup.in {
+	&.slideup.in, &.pop.in {
 		-webkit-animation-name: fadein;
 		-webkit-animation-duration: 250ms;
 		animation-name: fadein;
 		animation-duration: 250ms;
 	}
-	&.slideup.out {
+	&.slideup.out, &.pop.out {
 		-webkit-animation-name: fadeout;
 		-webkit-animation-duration: 250ms;
 		animation-name: fadeout;
