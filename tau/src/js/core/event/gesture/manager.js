@@ -49,6 +49,7 @@
 			Gesture.Manager = (function() {
 				var instance = null,
 
+				startEvent = null,
 				isReadyDetecting = false,
 				blockMouseEvent = false,
 
@@ -180,7 +181,7 @@
 					 */
 					_start: function( event ) {
 						var elem = event.currentTarget,
-							startEvent, detectors = [];
+							detectors = [];
 
 						if ( !isReadyDetecting ) {
 							this._resetDetecting();
@@ -198,11 +199,10 @@
 								x: 0,
 								y: 0
 							};
+
+							startEvent = objectMerge(startEvent, this._createGestureEvent(Gesture.Event.START, event));
+							isReadyDetecting = true;
 						}
-
-						isReadyDetecting = true;
-
-						startEvent = objectMerge(startEvent, this._createGestureEvent(Gesture.Event.START, event));
 
 						this.instances.forEach(function( instance ) {
 							if ( instance.getElement() === elem ) {
@@ -372,6 +372,7 @@
 					 */
 					_resetDetecting: function() {
 						isReadyDetecting = false;
+						startEvent = null
 
 						this.gestureDetectors.length = 0;
 						this.runningDetectors.length = 0;
