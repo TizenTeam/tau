@@ -45,18 +45,12 @@ test("scriptSync", function() {
     function failure() {
         ok(false, "Script sync fails");
     }
-    load.scriptSync("./script/load.js", success, failure);
+    load.scriptSync("./script/fake.js", success, failure);
 });
 
 test("themeCSS", function() {
-    var path = "../../../../../libs/dist/default/tau.css",
+    var path = "../../../../libs/dist/theme/default/tau.css",
         stylesheets, successFlag = false;
     load.themeCSS(path, "tau", true);
-    stylesheets = document.styleSheets;
-    for (index = 0; index < stylesheets.length; ++index) {
-        if(stylesheets[index].href.indexOf("libs/dist/default/tau.css") !== -1) {
-            successFlag = true;
-        }
-    }
-    ok(successFlag, "Css was changed");
+    ok(document.querySelector("style[data-name='tizen-theme'][data-theme-name='tau']"), "Css was changed");
 });
