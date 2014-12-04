@@ -35,6 +35,9 @@
 	define(
 		[
 			"require",
+			//>>excludeStart("tauPerformance", pragmas.tauPerformance);
+			"./tools/performance",
+			//>>excludeEnd("tauPerformance")
 			"./core/core",
 			"./core/config",
 			"./profile/mobile/config",

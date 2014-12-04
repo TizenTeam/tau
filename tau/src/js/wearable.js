@@ -5,6 +5,9 @@
 	define(
 		[
 			"require",
+			//>>excludeStart("tauPerformance", pragmas.tauPerformance);
+			"./tools/performance",
+			//>>excludeEnd("tauPerformance");
 			"./core/core",
 			"./core/config",
 			"./core/support/tizen",

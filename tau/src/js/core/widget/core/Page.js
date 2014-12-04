@@ -713,6 +713,9 @@
 			 * @member ns.widget.core.Page
 			 */
 			prototype.onShow = function () {
+				//>>excludeStart("tauPerformance", pragmas.tauPerformance);
+				window.tauPerf.get("framework", "Trigger: pageshow");
+				//>>excludeEnd("tauPerformance");
 				this.trigger(EventType.SHOW);
 			};
 

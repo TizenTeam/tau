@@ -772,6 +772,10 @@
 					widgetName,
 					definitionSelectors;
 
+				//>>excludeStart("tauPerformance", pragmas.tauPerformance);
+				window.tauPerf.start("engine/createWidgets");
+				//>>excludeEnd("tauPerformance");
+
 				//>>excludeStart("tauDebug", pragmas.tauDebug);
 				ns.log("Start creating widgets on:", (context.tagName || (context.documentElement && "document")) + "#" + (context.id || "--no-id--"));
 				//>>excludeEnd("tauDebug");
@@ -804,6 +808,17 @@
 
 				// Build all widgets from queue
 				buildQueue.forEach(processBuildQueueItem);
+
+				//>>excludeStart("tauPerformance", pragmas.tauPerformance);
+				document.addEventListener(eventType.BOUND, function _boundPerfListener() {
+					document.removeEventListener(eventType.BOUND, _boundPerfListener);
+					window.tauPerf.get("engine/createWidgets", "event: " + eventType.BOUND);
+				});
+				document.addEventListener("built", function _builtPerfListener() {
+					document.removeEventListener("built", _builtPerfListener);
+					window.tauPerf.get("engine/createWidgets", "event: built");
+				});
+				//>>excludeEnd("tauPerformance");
 
 				eventUtils.trigger(document, "built");
 				eventUtils.trigger(document, eventType.BOUND);
@@ -1000,6 +1015,9 @@
 				 * @member ns.engine
 				 */
 				run: function () {
+					//>>excludeStart("tauPerformance", pragmas.tauPerformance);
+					window.tauPerf.start("framework");
+					//>>excludeEnd("tauPerformance");
 					stop();
 
 					eventUtils.fastOn(document, "create", createEventHandler);

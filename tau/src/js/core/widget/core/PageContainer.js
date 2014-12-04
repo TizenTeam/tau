@@ -145,7 +145,14 @@
 								self._removeExternalPage(fromPageWidget, options);
 							}
 							toPageWidget.onShow();
+							//>>excludeStart("tauPerformance", pragmas.tauPerformance);
+							window.tauPerf.get("framework", "Trigger: pagechange");
+							//>>excludeEnd("tauPerformance");
 							self.trigger(EventType.PAGE_CHANGE);
+							//>>excludeStart("tauPerformance", pragmas.tauPerformance);
+							window.tauPerf.get("framework", "After trigger: pagechange");
+							window.tauPerf.finish();
+							//>>excludeEnd("tauPerformance");
 						}
 					};
 					self._transition(toPageWidget, fromPageWidget, options);

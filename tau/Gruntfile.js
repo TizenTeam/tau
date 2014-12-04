@@ -18,6 +18,7 @@ module.exports = function(grunt) {
 		srcCss = themes.path,
 
 		tauDebug = grunt.option("tau-debug") || false,
+		tauPerformance = grunt.option("tau-performance") || false,
 
 		buildRoot = path.join(dist),
 		buildDir = {
@@ -242,6 +243,9 @@ module.exports = function(grunt) {
 						skipModuleInsertion: true,
 						name: "wearable",
 						out: path.join( buildDir.wearable.js, name ) + ".js",
+						pragmas: {
+							tauPerformance: !tauPerformance
+						},
 						pragmasOnSave: {
 							tauBuildExclude: true,
 							tauDebug: !tauDebug
@@ -261,6 +265,9 @@ module.exports = function(grunt) {
 						skipModuleInsertion: true,
 						name: "mobile",
 						out: path.join( buildDir.mobile.js, name ) + ".js",
+						pragmas: {
+							tauPerformance: !tauPerformance
+						},
 						pragmasOnSave: {
 							tauBuildExclude: true,
 							tauDebug: !tauDebug
@@ -280,6 +287,9 @@ module.exports = function(grunt) {
 						skipModuleInsertion: true,
 						name: "tv",
 						out: path.join( buildDir.tv.js, name ) + ".js",
+						pragmas: {
+							tauPerformance: !tauPerformance
+						},
 						pragmasOnSave: {
 							tauBuildExclude: true,
 							tauDebug: !tauDebug
@@ -739,6 +749,10 @@ module.exports = function(grunt) {
 				options: {
 					open: true
 				}
+			},
+
+			performance: {
+
 			}
 		};
 
@@ -853,6 +867,9 @@ module.exports = function(grunt) {
 									exclude: [ profileName ],
 									name: path.join("..", "css", "profile", profileName, themeVersion[ver], "theme-" + theme.name, 'theme'),
 									out: path.join( buildDir[profileName].theme, themeName, 'theme' ) + '.js',
+									pragmas: {
+										tauPerformance: true
+									},
 									pragmasOnSave: {
 										tauBuildExclude: true,
 										tauDebug: true
