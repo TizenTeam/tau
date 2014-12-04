@@ -3,12 +3,32 @@
 @progress_circle_size_medium: 36 * @unit_base;
 @progress_circle_size_large: 66 * @unit_base;
 
-@-webkit-keyframes ui-rotate-animation {
+.m-progress-ui-rotate-animation () {
 	from {
-		-webkit-transform: rotate(0deg);
+		.rotate(0deg);
 	} to {
-		-webkit-transform: rotate(360deg);
+		.rotate(360deg);
 	}
+}
+
+@-webkit-keyframes ui-rotate-animation {
+	.m-progress-ui-rotate-animation();
+}
+
+@-moz-keyframes ui-rotate-animation {
+	.m-progress-ui-rotate-animation();
+}
+
+@-ms-keyframes ui-rotate-animation {
+	.m-progress-ui-rotate-animation();
+}
+
+@-o-keyframes ui-rotate-animation {
+	.m-progress-ui-rotate-animation();
+}
+
+@keyframes ui-rotate-animation {
+	.m-progress-ui-rotate-animation();
 }
 
 .ui-progress-container-circle {
@@ -23,8 +43,8 @@
 	width: @progress_circle_size_medium;
 
 	background-color: @color_progress_circle_bg;
-	-webkit-mask-image: url('./images/00_list_process_01.png');
-	-webkit-mask-size: 100% 100%;
+	.mask-image('./images/00_list_process_01.png');
+	.mask-size(100% 100%);
 }
 
 .ui-progress-circle-small {
@@ -38,13 +58,33 @@
 }
 
 .ui-progress-circle-running {
-	-webkit-animation: ui-rotate-animation 1s infinite linear;
+	.animation(ui-rotate-animation 1s infinite linear);
 }
 
 /* Progress - pending style */
+.m-progress-indeterminate() {
+	from { .mask-image('./images/00_progress_pending_bg_01.png');}
+	to { .mask-image('./images/00_progress_pending_bg_02.png');}
+}
+
 @-webkit-keyframes indeterminate {
-	from {-webkit-mask-image: url('./images/00_progress_pending_bg_01.png');}
-	to {-webkit-mask-image: url('./images/00_progress_pending_bg_02.png');}
+	.m-progress-indeterminate();
+}
+
+@-moz-keyframes indeterminate {
+	.m-progress-indeterminate();
+}
+
+@-ms-keyframes indeterminate {
+	.m-progress-indeterminate();
+}
+
+@-o-keyframes indeterminate {
+	.m-progress-indeterminate();
+}
+
+@keyframes indeterminate {
+	.m-progress-indeterminate();
 }
 
 .ui-progress-pending {
@@ -55,13 +95,13 @@
 	padding-top: 0;
 	padding-bottom: 0;
 	background-color: @color_progress_value;
-	-webkit-mask-image: url('./images/00_progress_pending_bg_01.png');
+	.mask-image('./images/00_progress_pending_bg_01.png');
 	background-size: 100% 100%;
 	background-repeat: no-repeat;
 	.LESSborder-radius-all( 10 * @unit_base );
-	-webkit-mask-size: 100% 100%;
+	.mask-size(100% 100%);
 }
 
 .ui-progress-pending-running {
-	-webkit-animation: indeterminate 300ms infinite;
+	.animation(indeterminate 300ms infinite);
 }

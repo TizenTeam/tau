@@ -22,9 +22,10 @@ module.exports = function (grunt) {
 			colorMapPath = "../../../../" + profile + "." + theme.name + ".colormap.less";
 
 			destThemePath = themeRoot + profile + "/" + theme.dest;
+
 			if (theme.src !== theme.dest) {
 				// Copy theme
-				if (fs.lstatSync(destThemePath).isDirectory()) {
+				if (grunt.file.isDir(destThemePath)) {
 					grunt.file.delete(destThemePath);
 					grunt.log.ok("Destination directory was cleaned");
 				}

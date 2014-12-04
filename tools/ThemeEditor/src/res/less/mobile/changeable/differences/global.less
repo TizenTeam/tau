@@ -45,7 +45,9 @@ fieldset.ui-controlgroup {
 
 /* 140520 Heeju Joo
    To improve performance of touch overflowscroll, we need to use this style for ui-page */
-.ui-page { -webkit-overflow-scrolling: touch; }
+.ui-page { 
+	.touch-scrolling();
+}
 
 /****************************
  forms.select
@@ -81,19 +83,11 @@ input::-webkit-input-placeholder {
 }
 
 .ui-controlgroup .ui-btn-inner.ui-corner-left {
-	-o-border-radius: 0;
-	-ms-border-radius: 0;
-	-moz-border-radius: 0;
-	-webkit-border-radius: 0;
-	border-radius: 0;
+	.border-radius(0);
 }
 
 .ui-controlgroup .ui-btn-inner.ui-corner-right.ui-controlgroup-last {
-	-o-border-radius: 0;
-	-ms-border-radius: 0;
-	-moz-border-radius: 0;
-	-webkit-border-radius: 0;
-	border-radius: 0;
+	.border-radius(0);
 }
 
 .ui-controlgroup.ui-controlgroup-horizontal {
@@ -134,38 +128,28 @@ input::-webkit-input-placeholder {
 .ui-tokentextarea {
 	margin-left : -15 * @unit_base;
 	margin-right : -15 * @unit_base;
-	display : flex;
-	display : -webkit-flex;
-	flex-direction : row;
-	flex-wrap : wrap;
-	justify-content : flex-start;
-	align-content : stretch;
-	align-items : flex-start;
-	-webkit-flex-direction : row;
-	-webkit-flex-wrap : wrap;
-	-webkit-justify-content : flex-start;
-	-webkit-align-content : stretch;
-	-webkit-align-items : flex-start;
+	.display-flex();
+	.flex-direction(row);
+	.flex-wrap(wrap);
+	.justify-content(flex-start);
+	.align-content(stretch);
+	.align-items(flex-start);
 }
 .ui-tokentextarea-input-area {
 	order : 0;
-	flex : 1 1 auto;
-	-webkit-flex : 1 1 auto;
+	.flex(1 1 auto);
 	width: 3rem;
 	padding-right: 52px !important;
 }
 .ui-tokentextarea-input {
 	order : 0;
-	flex : 1 1 auto;
-	-webkit-flex : 1 1 auto;
+	.flex(1 1 auto);
 	width: 0px;
 	margin-right: 35px;
 }
 .ui-tokentextarea-span-block {
-	flex: 0 1 auto;
-	-webkit-flex: 0 1 auto;
-	align-self: auto;
-	-webkit-align-self: auto;
+	.flex(0 1 auto);
+	.align-self(auto);
 	display : inline;
 	max-width: 50%;
 	text-align : center;

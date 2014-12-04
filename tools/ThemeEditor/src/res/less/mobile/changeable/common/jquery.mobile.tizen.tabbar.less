@@ -83,8 +83,7 @@
 				font-size: @font_size_tabbar_text_only;
 				/* Horizontal centering when positon is absolute */
 				left: 50%;
-				transform: translate(-50%, 0);
-				-webkit-transform: translate(-50%, 0);
+				.transform(translate(-50%, 0));
 			}
 
 			&.ui-btn-icon-only {
@@ -125,8 +124,7 @@
 			top : 7 * @unit_base;
 			/* Horizontal centering when positon is absolute */
 			left : 50%;
-			transform: translate(-50%, 0);
-			-webkit-transform: translate(-50%, 0);
+			.transform(translate(-50%, 0));
 		}
 	}
 

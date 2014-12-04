@@ -210,7 +210,7 @@ module.exports = function (grunt) {
 			},
 			"create-config": {
 				wearable: {
-					cwd: "../../tau/src/css/profile/wearable/",
+					cwd: "src/res/less/wearable/",
 					themes: [
 						{
 							path: "changeable/theme-changeable/",
@@ -228,7 +228,7 @@ module.exports = function (grunt) {
 					]
 				},
 				mobile: {
-					cwd: "../../tau/src/css/profile/mobile/",
+					cwd: "src/res/less/mobile/",
 					themes: [
 						{
 							path: "changeable/theme-changeable/",
@@ -238,11 +238,11 @@ module.exports = function (grunt) {
 					]
 				},
 				tv: {
-					cwd: "../../tau/src/css/profile/tv/",
+					cwd: "src/res/less/tv/",
 					themes: [
 						{
 							path: "default/theme-black/",
-							name: "default"
+							name: "black"
 						}
 					]
 				}
@@ -255,11 +255,11 @@ module.exports = function (grunt) {
 							src: "changeable/theme-changeable/",
 							dest: "changeable/theme-changeable/"
 						},
-//						{
-//							name: "blue",
-//							src: "changeable/theme-changeable/",
-//							dest: "changeable/theme-blue/"
-//						},
+						{
+							name: "blue",
+							src: "changeable/theme-changeable/",
+							dest: "changeable/theme-blue/"
+						},
 						{
 							name: "brown",
 							src: "changeable/theme-changeable/",
@@ -294,9 +294,8 @@ module.exports = function (grunt) {
 	grunt.loadTasks('grunt/tasks');
 
 	// Task list
-	grunt.registerTask("prepare-less", ["clean:res", "copy:res"]);
-	grunt.registerTask("prepare-config");
-	grunt.registerTask("js", ["jslint:js", "string-replace:js", "concat", "jslint:dist", "uglify:dist-js", "copy:jslibs"]);
+	grunt.registerTask("prepare-less", ["clean:res", "copy:res", "less-res-fix", "create-config"]);
+	grunt.registerTask("js", ["prepare-less", "jslint:js", "string-replace:js", "concat", "jslint:dist", "uglify:dist-js", "copy:jslibs"]);
 	grunt.registerTask("lessjs", ["less", "string-replace:less", "string-replace:fixpath"]);
 	grunt.registerTask("build", ["clean:dist", "copy:main", "js", "clean:dist-non-min", "lessjs", "string-replace:dist-title"]);
 	grunt.registerTask("default", ["build"]);

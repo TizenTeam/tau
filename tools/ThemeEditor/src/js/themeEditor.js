@@ -127,6 +127,15 @@
 		widget.value = sliderValue;
 	}
 
+	function overwritePreviewUrl(previewProperties, previewUrl) {
+		var badges = previewProperties.badges,
+			i;
+
+		for (i = 0; i < badges.length; i++) {
+			badges[i].previewUrl = previewUrl;
+		}
+	}
+
 	// TODO: rebuild choosing css variable
 	function setCssVariable(self, event) {
 		var element = event.currentTarget,
@@ -215,6 +224,9 @@
 			queryPathMatch,
 			rootPathMatch,
 			i;
+
+		// Clean hash and query strings
+		rootPath = rootPath.replace(/(\?|#).*$/ig, '');
 
 		// Check if queryPath is relative or absolute path
 		relative = !(/^[a-z]+:\/\//.test(queryPath));
@@ -504,7 +516,9 @@
 			xhr.open("GET", "json/" + fileName, false);
 			xhr.send();
 			return JSON.parse(xhr.responseText);
-		} catch (ignore) {}
+		} catch (e) {
+			this.alert(e);
+		}
 		return {};
 	};
 
@@ -531,7 +545,7 @@
 			configProperties = null;
 
 		// Set Device's Viewer root path defined by properties or set default (current location href).
-		config.root = properties.root || window.location.href.replace(/[^\/]+\.html?$/, '');
+		config.root = properties.root || window.location.origin + window.location.pathname.replace(/[^\/]+\.html?$/, '');
 
 		// Set workspace defined by properties or get default workspace
 		config.workspace = document.getElementById(properties.workspaceElementId || 'workspace');
@@ -549,7 +563,7 @@
 		config.appSelect = this.buildAppSelect(properties.appList);
 
 		// Set preview url of selected app
-		config.previewUrl = config.appSelect.value;
+		config.previewUrl = this.resolvePath(config.root, config.appSelect.value);
 
 		config.themeProperties = this.getProperties(currentProfile + "." + currentTheme + ".properties.json") || {};
 
@@ -562,6 +576,7 @@
 		this.fillDevicePresets(configProperties.devList, devicesList);
 
 		// Ready to go, let's init Badge Preview!
+		overwritePreviewUrl(configProperties.previewProperties, config.previewUrl);
 		this.badgePreview.init(configProperties.previewProperties);
 
 		this.buildVariablePanel();
@@ -577,6 +592,7 @@
 					if (configProperties) {
 						self.fillDevicePresets(configProperties.devList, devicesList);
 						config.themeRoot = self.resolvePath(config.root,  configProperties.themes[tauInfo.theme]);
+						overwritePreviewUrl(configProperties.previewProperties, config.previewUrl);
 						self.badgePreview.init(configProperties.previewProperties);
 					}
 

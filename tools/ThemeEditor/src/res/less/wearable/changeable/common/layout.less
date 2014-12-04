@@ -1,8 +1,12 @@
 /***************************************************************************
                    Common Style
 ***************************************************************************/
-html {
+.w-layout-no-tap-color() {
 	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+html {
+	.w-layout-no-tap-color();
 }
 body {
 	height: 100%;
@@ -28,22 +32,14 @@ body {
 		display: block;
 		visibility: hidden;
 	}
-	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);	/* overrides webkit link color */
-}
-
-.scrolling-mode-touch {
-	-webkit-overflow-scrolling: touch;
-	-moz-overflow-scrolling: touch;
-	-o-overflow-scrolling: touch;
-	-ms-overflow-scrolling: touch;
-	overflow-scrolling: touch;
+	.w-layout-no-tap-color();
 }
 
 .ui-content {
 	width:auto;
 	height: 100%;
 	overflow: auto;
-	.scrolling-mode-touch;
+	.touch-scrolling();
 }
 
 .ui-header {
@@ -71,6 +67,10 @@ body {
 
 	.ui-title-text-fadeout {
 		-webkit-mask-image: -webkit-linear-gradient(left, rgba(0,0,0,1) 80%, rgba(0,0,0,0) 95%);
+		-moz-mask-image: -moz-linear-gradient(left, rgba(0,0,0,1) 80%, rgba(0,0,0,0) 95%);
+		-ms-mask-image: -ms-linear-gradient(left, rgba(0,0,0,1) 80%, rgba(0,0,0,0) 95%);
+		-o-mask-image: -o-linear-gradient(left, rgba(0,0,0,1) 80%, rgba(0,0,0,0) 95%);
+		mask-image: linear-gradient(left, rgba(0,0,0,1) 80%, rgba(0,0,0,0) 95%);
 	}
 
 	&.ui-has-more {
@@ -79,6 +79,10 @@ body {
 		}
 		.ui-title-text-fadeout {
 			-webkit-mask-image: -webkit-linear-gradient(left, rgba(0,0,0,1) 65%, rgba(0,0,0,0) 80%);
+			-moz-mask-image: -moz-linear-gradient(left, rgba(0,0,0,1) 65%, rgba(0,0,0,0) 80%);
+			-ms-mask-image: -ms-linear-gradient(left, rgba(0,0,0,1) 65%, rgba(0,0,0,0) 80%);
+			-o-mask-image: -o-linear-gradient(left, rgba(0,0,0,1) 65%, rgba(0,0,0,0) 80%);
+			mask-image: linear-gradient(left, rgba(0,0,0,1) 65%, rgba(0,0,0,0) 80%);
 		}
 	}
 
@@ -111,52 +115,52 @@ body {
 
 		&.ui-icon-detail {
 			background-color: @color_actionbar_normal_bg;
-			-webkit-mask-image: url(@icon_actionbar_more_detail_normal);
-			-webkit-mask-size: 52 * @unit_base 60 * @unit_base;
-			-webkit-mask-position: center;
-			-webkit-mask-repeat: no-repeat;
+			.mask-image(@icon_actionbar_more_detail_normal);
+			.mask-size(52 * @unit_base 60 * @unit_base);
+			.mask-position(center);
+			.mask-repeat(no-repeat);
 
 			&[disabled="disabled"] {
 				.ui-more-disable;
 				background-color: @color_actionbar_normal_disable;
-				-webkit-mask-image: url(@icon_actionbar_more_detail_disable);
-				-webkit-mask-size: 52 * @unit_base 60 * @unit_base;
-				-webkit-mask-position: center;
-				-webkit-mask-repeat: no-repeat;
+				.mask-image(@icon_actionbar_more_detail_disable);
+				.mask-size(52 * @unit_base 60 * @unit_base);
+				.mask-position(center);
+				.mask-repeat(no-repeat);
 			}
 		}
 
 		&.ui-icon-overflow {
 			background-color: @color_actionbar_normal_bg;
-			-webkit-mask-image: url(@icon_actionbar_more_overflow);
-			-webkit-mask-size: 52 * @unit_base 60 * @unit_base;
-			-webkit-mask-position: center;
-			-webkit-mask-repeat: no-repeat;
+			.mask-image(@icon_actionbar_more_overflow);
+			.mask-size(52 * @unit_base 60 * @unit_base);
+			.mask-position(center);
+			.mask-repeat(no-repeat);
 
 			&[disabled="disabled"] {
 				.ui-more-disable;
 				background-color: @color_actionbar_normal_disable;
-				-webkit-mask-image: url(@icon_actionbar_more_overflow);
-				-webkit-mask-size: 52 * @unit_base 60 * @unit_base;
-				-webkit-mask-position: center;
-				-webkit-mask-repeat: no-repeat;
+				.mask-image(@icon_actionbar_more_overflow);
+				.mask-size(52 * @unit_base 60 * @unit_base);
+				.mask-position(center);
+				.mask-repeat(no-repeat);
 			}
 		}
 
 		&.ui-icon-selectall {
 			background-color: @color_actionbar_normal_bg;
-			-webkit-mask-image: url(@icon_actionbar_more_selectall_normal);
-			-webkit-mask-size: 52 * @unit_base 60 * @unit_base;
-			-webkit-mask-position: center;
-			-webkit-mask-repeat: no-repeat;
+			.mask-image(@icon_actionbar_more_selectall_normal);
+			.mask-size(52 * @unit_base 60 * @unit_base);
+			.mask-position(center);
+			.mask-repeat(no-repeat);
 
 			&[disabled="disabled"] {
 				.ui-more-disable;
 				background-color: @color_actionbar_normal_disable;
-				-webkit-mask-image: url(@icon_actionbar_more_selectall_disable);
-				-webkit-mask-size: 52 * @unit_base 60 * @unit_base;
-				-webkit-mask-position: center;
-				-webkit-mask-repeat: no-repeat;
+				.mask-image(@icon_actionbar_more_selectall_disable);
+				.mask-size(52 * @unit_base 60 * @unit_base);
+				.mask-position(center);
+				.mask-repeat(no-repeat);
 			}
 		}
 	}

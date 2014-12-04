@@ -63,7 +63,7 @@
 		left: 0;
 		width: 100%;
 		height: 100%;
-		-webkit-appearance: button;
+		.appearance(button);
 		opacity: .1;
 		cursor: pointer;
 		background: transparent;
@@ -172,8 +172,7 @@ a.ui-btn {
 
 button.ui-btn, input.ui-btn {
 	box-sizing: border-box;
-	-webkit-appearance: none;
-	-moz-appearance: none;
+	.appearance(none);
 	width: 100%;
 
 	&.ui-inline {
@@ -347,8 +346,8 @@ button.ui-btn, input.ui-btn {
 }
 
 .ui-icon {
-	-webkit-mask-image: url(images/icons/bg_ico_76_shadow.png), url(images/icons/app_ico_bg.png);
-	-webkit-mask-size: 80 * @virtual_px 80 * @virtual_px;
+	.mask-image('images/icons/bg_ico_76_shadow.png', 'images/icons/app_ico_bg.png');
+	.mask-size(80 * @virtual_px 80 * @virtual_px);
 	z-index: 0;
 }
 
@@ -479,8 +478,7 @@ ANIMATION
 .ui-btn {
 	.ui-background {
 		position: absolute;
-		-webkit-transition-duration: 200ms;
-		-webkit-transition-timing-function: ease;
+		.transition(200ms ease);
 	}
 
 	/* FOCUS */
@@ -492,7 +490,7 @@ ANIMATION
 				height: 0;
 				width: 100%;
 				left: 0;
-				-webkit-transition-property: top, height;
+				.transition-property(top, height);
 			}
 		}
 		/* animation from up to down */
@@ -502,7 +500,7 @@ ANIMATION
 				width: 100%;
 				left: 0;
 				top: 0;
-				-webkit-transition-property: top, height;
+				.transition-property(top, height);
 			}
 		}
 		/* animation from rigth to left */
@@ -512,7 +510,7 @@ ANIMATION
 				height: 100%;
 				left: 100%;
 				top: 0;
-				-webkit-transition-property: left, width;
+				.transition-property(top, height);
 			}
 		}
 		/* animation from left to right */
@@ -522,7 +520,7 @@ ANIMATION
 				height: 100%;
 				left: 0;
 				top: 0;
-				-webkit-transition-property: left, width;
+				.transition-property(top, height);
 			}
 		}
 	}
@@ -544,7 +542,7 @@ ANIMATION
 			height:0;
 			left: 0;
 			width: 100%;
-			-webkit-transition-property: top, height;
+			.transition-property(top, height);
 		}
 	}
 	/* animation from up to down */
@@ -554,7 +552,7 @@ ANIMATION
 			height: 0;
 			left: 0;
 			width: 100%;
-			-webkit-transition-property: top, height;
+			.transition-property(top, height);
 		}
 	}
 	/* animation from rigth to left */
@@ -564,7 +562,7 @@ ANIMATION
 			left: 0;
 			top: 0;
 			height: 100%;
-			-webkit-transition-property: left, width;
+			.transition-property(top, height);
 		}
 	}
 	/* animation from left to right */
@@ -574,7 +572,7 @@ ANIMATION
 			left: 100%;
 			top: 0;
 			height: 100%;
-			-webkit-transition-property: left, width;
+			.transition-property(top, height);
 		}
 	}
 }

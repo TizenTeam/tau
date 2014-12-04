@@ -19,7 +19,7 @@ Listview
 		white-space: nowrap;
 		text-overflow: ellipsis;
 		overflow: hidden;
-		-webkit-user-select: none;
+		.user-select(none);
 		color: @color_listview_text;
 	}
 }
@@ -49,7 +49,7 @@ Listview
 
 .ui-listview .ui-li-has-action-icon {
 	.ui-action-text{
-		width: -webkit-calc(~"100% - "74*@unit_base);
+		.calc-width(~"100% - "74 * @unit_base);
 		height: 100%;
 		position: absolute;
 		left: 0;
@@ -74,23 +74,23 @@ Listview
 		width: 72 * @unit_base;
 		right:0;
 		top: 0;
-		-webkit-mask-size: 56 * @unit_base 56 * @unit_base;
-		-webkit-mask-repeat: no-repeat;
-		-webkit-mask-position: center center;
+		.mask-size(56 * @unit_base 56 * @unit_base);
+		.mask-repeat(no-repeat);
+		.mask-position(center center);
 		padding-top: 45 * @unit_base;
 		padding-bottom: 45 * @unit_base;
 	}
 
 	.ui-action-delete {
-		-webkit-mask-image: url(./images/listview/tw_list_delete_holo_dark.png);
+		.mask-image('./images/listview/tw_list_delete_holo_dark.png');
 		background-color: @color_list_actionicon_image_normal;
 	}
 	.ui-action-setting {
-		-webkit-mask-image: url(./images/listview/tw_list_setting_holo_dark.png);
+		.mask-image('./images/listview/tw_list_setting_holo_dark.png');
 		background-color: @color_list_actionicon_image_normal;
 	}
 	.ui-action-add {
-		-webkit-mask-image: url(./images/listview/tw_list_add_holo_dark.png);
+		.mask-image('./images/listview/tw_list_add_holo_dark.png');
 		background-color: @color_list_actionicon_image_normal;
 	}
 

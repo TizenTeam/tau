@@ -1,6 +1,6 @@
 {
 	"themes": {
-			"default": "res/less/tv/default/theme-black/"
+			"black": "res/less/tv/default/theme-black/"
 	},
 	"devList": [
 		{
@@ -19,15 +19,15 @@
 					"displayWidth": 1920,
 					"displayHeight": 1080,
 					"pixelRatio": 1,
-					"previewUrl": "../../../tau/demos/SDK/WearableWidgetSample/"
+					"previewUrl": "../../../tau/demos/TVDemo/src/"
 				}
-		],
-		"defaultBadge":
-			{
-				"name": "1920 x 1080",
-				"displayWidth": 1920,
-				"displayHeight": 1080,
-				pixelRatio: 1
-			}
+			],
+			"defaultBadge":
+				{
+					"name": "1920 x 1080",
+					"displayWidth": 1920,
+					"displayHeight": 1080,
+					"pixelRatio": 1
+				}
 	}
 }

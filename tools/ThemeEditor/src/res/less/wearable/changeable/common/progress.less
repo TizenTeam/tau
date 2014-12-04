@@ -2,33 +2,52 @@
  * Progressbar
  */
 
-@-webkit-keyframes indeterminate {
+.w-progress-indeterminate() {
 	0% {
-		-webkit-mask-image: url(./images/Progress/tw_progressbar_indeterminate1_holo_dark.png);
-		-webkit-mask-repeat: no-repeat;
+		.mask-image('./images/Progress/tw_progressbar_indeterminate1_holo_dark.png');
+		.mask-repeat(no-repeat);
 		background-color: @color_progressbar_indeterminate;
 	}
 	25% {
-		-webkit-mask-image: url(./images/Progress/tw_progressbar_indeterminate2_holo_dark.png);
-		-webkit-mask-repeat: no-repeat;
+		.mask-image('./images/Progress/tw_progressbar_indeterminate2_holo_dark.png');
+		.mask-repeat(no-repeat);
 		background-color: @color_progressbar_indeterminate;
 	}
 	50% {
-		-webkit-mask-image: url(./images/Progress/tw_progressbar_indeterminate3_holo_dark.png);
-		-webkit-mask-repeat: no-repeat;
+		.mask-image('./images/Progress/tw_progressbar_indeterminate3_holo_dark.png');
+		.mask-repeat(no-repeat);
 		background-color: @color_progressbar_indeterminate;
 	}
 	75% {
-		-webkit-mask-image: url(./images/Progress/tw_progressbar_indeterminate4_holo_dark.png);
-		-webkit-mask-repeat: no-repeat;
+		.mask-image('./images/Progress/tw_progressbar_indeterminate4_holo_dark.png');
+		.mask-repeat(no-repeat);
 		background-color: @color_progressbar_indeterminate;
 	}
 	100% {
-		-webkit-mask-image: url(./images/Progress/tw_progressbar_indeterminate5_holo_dark.png);
-		-webkit-mask-repeat: no-repeat;
+		.mask-image('./images/Progress/tw_progressbar_indeterminate5_holo_dark.png');
+		.mask-repeat(no-repeat);
 		background-color: @color_progressbar_indeterminate;
 	}
+}
 
+@-webkit-keyframes indeterminate {
+	.w-progress-indeterminate();
+}
+
+@-moz-keyframes indeterminate {
+	.w-progress-indeterminate();
+}
+
+@-ms-keyframes indeterminate {
+	.w-progress-indeterminate();
+}
+
+@-o-keyframes indeterminate {
+	.w-progress-indeterminate();
+}
+
+@keyframes indeterminate {
+	.w-progress-indeterminate();
 }
 
 progress {
@@ -40,7 +59,7 @@ progress {
 	color: @color_progressbar_text;
 	width: 100%;
 	height: 6 * @unit_base;
-	-webkit-appearance: none;
+	.appearance(none);
 	border: none;
 }
 
@@ -63,7 +82,7 @@ progress.ui-progress-indeterminate::-webkit-progress-bar {
 }
 progress.ui-progress-indeterminate::-webkit-progress-value {
 	background-size: 100% 100%;
-	-webkit-animation: indeterminate 150ms infinite;
+	.animation(indeterminate 150ms infinite);
 }
 
 .ui-progress-proportion {

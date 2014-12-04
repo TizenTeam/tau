@@ -34,11 +34,7 @@
 		.ui-popupwindow-padding {
 			background: @color_ctxpopup_background;
 			border: none;
-			-ms-box-shadow: 0 * @unit_base 0 * @unit_base 12 * @unit_base rgba( 0, 0, 0, .6 );
-			-o-box-shadow: 0 * @unit_base 0 * @unit_base 12 * @unit_base rgba( 0, 0, 0, .6 );
-			-moz-box-shadow: 0 * @unit_base 0 * @unit_base 12 * @unit_base rgba( 0, 0, 0, .6 );
-			-webkit-box-shadow: 0 * @unit_base 0 * @unit_base 12 * @unit_base rgba( 0, 0, 0, .6 );
-			box-shadow: 0 * @unit_base 0 * @unit_base 12 * @unit_base rgba( 0, 0, 0, .6 );
+			.box-shadow(0 * @unit_base 0 * @unit_base 12 * @unit_base rgba(0, 0, 0, .6));
 		}
 
 	}
@@ -181,7 +177,7 @@
 		height: 14.14 * @unit_base;
 		background: inherit !important;
 		position: absolute;
-		-webkit-transform: rotate(45deg);
+		.rotate(45deg);
 		z-index: -1;
 		&.top {
 			//border-color: transparent transparent @color_ctxpopup_background transparent;
@@ -230,115 +226,111 @@
 }
 
 .poptop {
-	-webkit-transform-origin: 0% 0%;
-	-moz-transform-origin: 0% 0%;
+	.transform-origin(0% 0%);
 }
 
 .poptop.in {
-	-webkit-transform: scale(1);
-	-moz-transform: scale(1);
 	opacity: 1;
-	-webkit-animation-name: scalepopin;
-	-moz-animation-name: scalepopin;
-	-webkit-animation-duration: 350ms;
-	-moz-animation-duration: 350ms;
+	.scale(1);
+	.animation(scalepopin 350ms);
 }
 
 .poptop.out {
-	-webkit-animation-name: fadeout;
-	-moz-animation-name: fadeout;
 	opacity: 0;
-	-webkit-animation-duration: 100ms;
-	-moz-animation-duration: 100ms;
+	.animation(fadeout 100ms);
 }
 
 .poptop.in.reverse {
-	-webkit-animation-name: fadein;
-	-moz-animation-name: fadein;
+	.animation-name(fadein);
 }
 
 .poptop.out.reverse {
-	-webkit-transform: scale(.8);
-	-moz-transform: scale(.8);
-	-webkit-animation-name: scalepopout;
-	-moz-animation-name: scalepopout;
-}
-
-@-webkit-keyframes scalepopin {
-	from {
-		-webkit-transform: scale(.8);
-		opacity: 0;
-	}
-	to {
-		-webkit-transform: scale(1);
-		opacity: 1;
-	}
+	.scale(0.8);
+	.animation-name(scalepopout);
 }
 
 .popbottom {
-	-webkit-transform-origin: 0% 100%;
-	-moz-transform-origin: 0% 100%;
+	.transform-origin(0% 100%);
 }
 
 .popbottom.in {
-	-webkit-transform: scale(1);
-	-moz-transform: scale(1);
 	opacity: 1;
-	-webkit-animation-name: scalepopin;
-	-moz-animation-name: scalepopin;
-	-webkit-animation-duration: 350ms;
-	-moz-animation-duration: 350ms;
+	.scale(1);
+	.animation(scalepopin 350ms);
 }
 
 .popbottom.out {
-	-webkit-animation-name: fadeout;
-	-moz-animation-name: fadeout;
 	opacity: 0;
-	-webkit-animation-duration: 100ms;
-	-moz-animation-duration: 100ms;
+	.animation(fadeout 100ms);
 }
 
 .popbottom.in.reverse {
-	-webkit-animation-name: fadein;
-	-moz-animation-name: fadein;
+	.animation-name(fadein);
 }
 
 .popbottom.out.reverse {
-	-webkit-transform: scale(.8);
-	-moz-transform: scale(.8);
-	-webkit-animation-name: scalepopout;
-	-moz-animation-name: scalepopout;
+	.scale(0.8);
+	.animation-name(scalepopout);
+}
+
+.m-ctxpopup-scalepopin() {
+	from {
+		.scale(0.8);
+		opacity: 0;
+	}
+	to {
+		.scale(1);
+		opacity: 1;
+	}
+}
+.m-ctxpopup-scalepopout() {
+	from {
+		.scale(1);
+		opacity: 1;
+	}
+	to {
+		.scale(0.8);
+		opacity: 0;
+	}
+}
+
+@-webkit-keyframes scalepopin {
+	.m-ctxpopup-scalepopin();
 }
 
 @-moz-keyframes scalepopin {
-	from {
-		-moz-transform: scale(.8);
-		opacity: 0;
-	}
-	to {
-		-moz-transform: scale(1);
-		opacity: 1;
-	}
+	.m-ctxpopup-scalepopin();
+}
+
+@-ms-keyframes scalepopin {
+	.m-ctxpopup-scalepopin();
+}
+
+@-o-keyframes scalepopin {
+	.m-ctxpopup-scalepopin();
+}
+
+@keyframes scalepopin {
+	.m-ctxpopup-scalepopin();
 }
 
 @-webkit-keyframes scalepopout {
-	from {
-		-webkit-transform: scale(1);
-		opacity: 1;
-	}
-	to {
-		-webkit-transform: scale(.8);
-		opacity: 0;
-	}
+	.m-ctxpopup-scalepopout();
 }
 
 @-moz-keyframes scalepopout {
-	from {
-		-moz-transform: scale(1);
-		opacity: 1;
-	}
-	to {
-		-moz-transform: scale(.8);
-		opacity: 0;
-	}
+	.m-ctxpopup-scalepopout();
 }
+
+@-ms-keyframes scalepopout {
+	.m-ctxpopup-scalepopout();
+}
+
+@-o-keyframes scalepopout {
+	.m-ctxpopup-scalepopout();
+}
+
+@keyframes scalepopout {
+	.m-ctxpopup-scalepopout();
+}
+

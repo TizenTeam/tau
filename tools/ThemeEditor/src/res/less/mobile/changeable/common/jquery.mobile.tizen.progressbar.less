@@ -1,11 +1,31 @@
 @bar_margin: 36 * @unit_base;
 
-@-webkit-keyframes ui-scale-animation {
+.m-progressbar-ui-scale-animation() {
 	from {
-		-webkit-transform: scaleX(0);
+		.transform(scaleX(0));
 	} to {
-		-webkit-transform: scaleX(1);
+		.transform(scaleX(1));
 	}
+}
+
+@-webkit-keyframes ui-scale-animation {
+	.m-progressbar-ui-scale-animation();
+}
+
+@-moz-keyframes ui-scale-animation {
+	.m-progressbar-ui-scale-animation();
+}
+
+@-ms-keyframes ui-scale-animation {
+	.m-progressbar-ui-scale-animation();
+}
+
+@-o-keyframes ui-scale-animation {
+	.m-progressbar-ui-scale-animation();
+}
+
+@keyframes ui-scale-animation {
+	.m-progressbar-ui-scale-animation();
 }
 
 .ui-progressbar-value {

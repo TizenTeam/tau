@@ -16,10 +16,8 @@ Normal Popup
 	visibility: hidden;
 	z-index: 1000;
 	max-height: 80%;
-	-webkit-border-radius: @fixed_popup_border_radius;
-	-moz-border-radius: @fixed_popup_border_radius;
-	border-radius: @fixed_popup_border_radius;
-	box-shadow: 0 2 * @virtual_px 5 * @virtual_px @color_popup_shadow;
+	.border-radius(@fixed_popup_border_radius);
+	.box-shadow(0 2 * @virtual_px 5 * @virtual_px @color_popup_shadow);
 
 
 	&:not(.ui-popup-toast) {
@@ -167,7 +165,7 @@ Popup Toast
 .ui-popup {
 	&.ui-popup-toast {
 		position: absolute;
-		width: calc(~"100% - " (82 * @virtual_px));
+		.calc-width(~"100% - " (82 * @virtual_px));
 		margin-left: 41 * @virtual_px;
 		margin-right: 41 * @virtual_px;
 		margin-bottom: 38 * @virtual_px;
@@ -271,13 +269,9 @@ Context Popup
 		height: 14.14 * @virtual_px;
 		background: @color_popup_bg;
 		position: absolute;
-		-webkit-transform: rotate(45deg);
+		.rotate(45deg);
 
-		transition: background-color 200ms ease;
-		-webkit-transition: background-color 200ms ease;
-		-moz-transition: background-color 200ms ease;
-		-o-transition: background-color 200ms ease;
-		-ms-transition: background-color 200ms ease;
+		.transition(background-color 200ms ease);
 		&.ui-focus {
 			background-color: @color_default;
 		}

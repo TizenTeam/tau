@@ -1,21 +1,61 @@
 @unit_base_datetimepicker : @unit_base * 0.5;
 
-@-webkit-keyframes ui-datetime-in {
+.m-datetime-in() {
 	from {
-		-webkit-transform: translateY(14 * @unit_base) scale(.9);
+		.transform(translateY(14 * @unit_base) scale(0.9));
 	} to {
-		-webkit-transform: translateY(0) scale(1);
+		.transform(translateY(0) scale(1));
 	}
 }
 
-@-webkit-keyframes ui-datetime-out {
+.m-datetime-out() {
 	from {
 		opacity: 0.8;
-		-webkit-transform: translateY(0) scale(.6);
+		.transform(translateY(0) scale(0.6));
 	} to {
 		opacity: 0;
-		-webkit-transform: translateY(-14 * @unit_base) scale(.6);
+		.transform(translateY(-14 * @unit_base) scale(0.6));
 	}
+}
+
+@-webkit-keyframes ui-datetime-in {
+	.m-datetime-in();
+}
+
+@-moz-keyframes ui-datetime-in {
+	.m-datetime-in();
+}
+
+@-ms-keyframes ui-datetime-in {
+	.m-datetime-in();
+}
+
+@-o-keyframes ui-datetime-in {
+	.m-datetime-in();
+}
+
+@keyframes ui-datetime-in {
+	.m-datetime-in();
+}
+
+@-webkit-keyframes ui-datetime-out {
+	.m-datetime-out();
+}
+
+@-moz-keyframes ui-datetime-out {
+	.m-datetime-out();
+}
+
+@-ms-keyframes ui-datetime-out {
+	.m-datetime-out();
+}
+
+@-o-keyframes ui-datetime-out {
+	.m-datetime-out();
+}
+
+@keyframes ui-datetime-out {
+	.m-datetime-out();
 }
 
 .ui-datefield {
@@ -66,16 +106,10 @@
 		display: inline-block;
 	}
 	.ui-datefield-selected.in {
-		-ms-animation: ui-datetime-in 0.3s 1 ease;
-		-o-animation: ui-datetime-in 0.3s 1 ease;
-		-moz-animation: ui-datetime-in 0.3s 1 ease;
-		-webkit-animation: ui-datetime-in 0.3s 1 ease;
+		.animation(ui-datetime-in 300ms 1 ease);
 	}
 	.ui-datefield-selected.out {
-		-ms-animation: ui-datetime-out 0.3s 1 ease;
-		-o-animation: ui-datetime-out 0.3s 1 ease;
-		-moz-animation: ui-datetime-out 0.3s 1 ease;
-		-webkit-animation: ui-datetime-out 0.3s 1 ease;
+		.animation(ui-datetime-out 300ms 1 ease);
 	}
 }
 
@@ -170,12 +204,8 @@
 
 	.ui-popupwindow-padding {
 		background: inherit !important;
-		border-radius: 0 !important;
-		-ms-border-radius: 0 !important;
-		-o-border-radius: 0 !important;
-		-moz-border-radius: 0 !important;
-		-webkit-border-radius: 0 !important;
-		box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.6) !important;
+		.border-radius(0) !important;
+		.box-shadow(0px 0px 12px rgba(0, 0, 0, 0.6)) !important;
 		border-width: 0 !important;
 		text-align: center !important;
 
