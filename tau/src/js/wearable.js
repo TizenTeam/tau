@@ -30,6 +30,7 @@
 			"./profile/wearable/widget/wearable/SwipeList",
 			"./profile/wearable/widget/wearable/scroller/Scroller",
 			"./profile/wearable/widget/wearable/scroller/scrollbar/ScrollBar",
+			"./profile/wearable/widget/wearable/PageIndicator",
 			"./profile/wearable/router/Router",
 			"./profile/wearable/router/route/page",
 			"./profile/wearable/router/route/popup",
