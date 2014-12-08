@@ -24,37 +24,34 @@
 @color_progressbar_text: T0811; // #[color] font color
 @color_progressbar_normal_bg: B065L3; // #[color] background color
 @color_progressbar_value_bg: B065L2; // #[color] value color
-@color_progressbar_indeterminate: B065L6; // #[color] indeterminate color
+@color_progressbar_indeterminate: B065L6; // #[color] indeterminate background color
 
 /****************************************************************************
                     Processing
 ****************************************************************************/
 @color_processing_text: T097; // #[color] text color
 @color_processing_activity_01: B066L1; // #[color] activity 01
-@color_processing_activity_02: B066L2; // #[color] activity 02
 
 /****************************************************************************
                     Toggle Switch
 ****************************************************************************/
 @color_switch_text: T0811; // #[color] text color
-@color_toggle_on_bg: W014L1; // #[color] background on
-@color_toggle_on_bg_press: W014L1P; // #[color] background on press
-@color_toggle_on_bg_dim: W014L1D; // #[color] background on disabled
-@color_toggle_off_bg: W014L2; // #[color] background off
-@color_toggle_off_bg_press: W014L2P; // #[color] background off press
-@color_toggle_off_bg_dim: W014L2D; // #[color] background off disabled
-@color_toggle_on_handler: W014L3; // #[color] handler on
-@color_toggle_on_handler_press: W014L3P; // #[color] handler on press
-@color_toggle_on_handler_dim: W014L3D; // #[color] handler on disabled
-@color_toggle_off_handler: W014L4; // #[color] handler off
-@color_toggle_off_handler_press: W014L4P; // #[color] handler off press
-@color_toggle_off_handler_dim: W014L4D; // #[color] handler off disable
-@color_toggle_on_handler_on: W014L5; // #[color] on handler on
-@color_toggle_on_handler_on_press: W014L5P; // #[color] on handler on press
-@color_toggle_on_handler_on_dim: W014L5D; // #[color] on handler on disable
-@color_toggle_off_handler_off: W014L6; // #[color] off handler off
-@color_toggle_off_handler_off_press: W014L6P; // #[color] off handler off press
-@color_toggle_off_handler_off_dim: W014L6D; // #[color] off handler off disable
+@color_toggle_on_bg: W014L1; // #[color] toggle on background
+@color_toggle_on_bg_press: W014L1P; // #[color] toggle on, press background color
+@color_toggle_on_bg_dim: W014L1D; // #[color] inactive toggle on, background color
+@color_toggle_off_bg: W014L2; // #[color] toggle off background
+@color_toggle_off_bg_press: W014L2P; // #[color] toggle off, press background color
+@color_toggle_off_bg_dim: W014L2D; // #[color] inactive toggle off, background color
+@color_toggle_on_handler: W014L3; // #[color] toggle on handler, background color
+@color_toggle_on_handler_press: W014L3P; // #[color] toggle on handler, press background color
+@color_toggle_off_handler: W014L4; // #[color] toggle off handler, background color
+@color_toggle_off_handler_press: W014L4P; // #[color] toggle off, handler press color
+@color_toggle_on_handler_on: W014L5; // #[color] handler sign color, when toggle is on
+@color_toggle_on_handler_on_press: W014L5P; // #[color] toggle on, handler press background color
+@color_toggle_on_handler_on_dim: W014L5D; // #[color] inactive toggle on, handler background
+@color_toggle_off_handler_off: W014L6; // #[color] handler sign color, when toggle is off
+@color_toggle_off_handler_off_press: W014L6P; // #[color] toggle off, handler press background color
+@color_toggle_off_handler_off_dim: W014L6D; // #[color] inactive toggle off, handler background
 
 /***************************************************************************
                     Buttons
@@ -95,7 +92,7 @@
 /***************************************************************************
                     Popup
 ***************************************************************************/
-@color_popup_title_text: T091; // #[color] title text color
+@color_popup_title_text: T091; // #[color] header title text color
 @color_popup_bg: B061L1E; // #[color] background color
 @color_popup_header_bg: B061L2; // #[color] header background
 @color_popup_border: B061L7; // #[color] border color
@@ -106,32 +103,31 @@
 /***************************************************************************
                     Option Popup
 ***************************************************************************/
-@color_option_popup_bg: B092L1; // #[color] background color
+@color_option_popup_bg: B092L1; // #[color] list background color
 @color_option_popup_border: B092L2; // #[color] border color
-@color_option_popup_list_border: B094; // #[color] list border color
+@color_option_popup_list_border: B094; // #[color] list divider color
 @color_option_popup_list_text: T111; // #[color] list text color
 @color_option_popup_list_text_pressed: T111P; // #[color] list text press color
-@color_option_popup_list_text_disable: T111D; // #[color] text disable color
-@color_option_popup_list_bg: B092L1; // #[color] list background
-@color_option_popup_list_bg_pressed: B093P; // #[color] list background press
-@color_option_popup_list_bg_disable: B093D; // #[color] list background disable
+@color_option_popup_list_text_disable: T111D; // text disable color
+@color_option_popup_list_bg_pressed: B093P; // #[color] list item pressed background color
+@color_option_popup_list_bg_disable: B093D; // list background disable
 @color_option_popup_list_icon_bg: B095; // #[color] list icon background
 @color_option_popup_list_icon_bg_pressed: B095P; // #[color] list icon press background
-@color_option_popup_list_icon_bg_disable: B095D; // #[color] list icon disable background
-@color_option_popup_inline_list_border: B097; // #[color] inline list border
+@color_option_popup_list_icon_bg_disable: B095D; // list icon disable background
+@color_option_popup_inline_list_border: B097; // #[color] inline list divider color
 @color_option_popup_inline_list_icon_bg: B096; // #[color] inline list icon background
-@color_option_popup_inline_list_icon_bg_pressed: B096P; // #[color] inline list background press
-@color_option_popup_inline_list_icon_bg_disable: B096D; // #[color] inline list background disable
+@color_option_popup_inline_list_icon_bg_pressed: B096P; // #[color] inline list icon press background color
+@color_option_popup_inline_list_icon_bg_disable: B096D; // inline list background disable
 
 /***************************************************************************
                     index scrollbar (vertical)
 ***************************************************************************/
 @color_indexscrollbar_bg: B0722; // #[color] background color
-@color_indexscrollbar_bg_supplementary: B0723; // #[color] background supplementary
+@color_indexscrollbar_bg_supplementary: B0723; // #[color] supplementary index background
 @color_indexscrollbar_text: T0311; // #[color] text color
-@color_indexscrollbar_selected_bg: B0724; // #[color] selected background
-@color_indexscrollbar_selected_text: T0311P; // #[color] selected background text color
-@color_indexscrollbar_selected_text_supplementary: T0313; // #[color] selected background text supplementary
+@color_indexscrollbar_selected_bg: B0724; // #[color] selected item background
+@color_indexscrollbar_selected_text: T0311P; // #[color] selected item text color
+@color_indexscrollbar_selected_text_supplementary: T0313; // #[color] supplementary index selected text color
 
 @color_indexscrollbar_indicator_bg: B0731; // #[color] indicator background
 @color_indexscrollbar_indicator_text_normal: T0312; // #[color] indicator normal text color
@@ -141,23 +137,23 @@
                     Listview
 ***************************************************************************/
 @color_list_press_bg: B041P; // #[color] background press color
-@color_listview_border: B0222; // #[color] border color
-@color_listview_text: T0211; // #[color] text color
+@color_listview_border: B0222; // #[color] list divider color
+@color_listview_text: T0211; // #[color] list text color
 @color_listview_text_press: T0211P; // #[color] text color press
-@color_listview_text_dim: T0211D; // #[color] text disable
-@color_listview_text_highlight: T0212; // #[color] text highlight
-@color_list_actionicon_divider: B0221L1; // #[color] action icon divider
-@color_list_actionicon_image_normal: F022L1i; // #[color] action icon image normal
-@color_list_actionicon_image_disable: F022L1iD; // #[color] action icon image disable
-@color_list_divider_bg: B012; // #[color] divider background
-@color_list_divider_text: T0231; // #[color] divider text  color
+@color_listview_text_dim: T0211D; // text disable
+@color_listview_text_highlight: T0212; // text highlight
+@color_list_actionicon_divider: B0221L1; // action icon divider
+@color_list_actionicon_image_normal: F022L1i; // action icon image normal
+@color_list_actionicon_image_disable: F022L1iD; // action icon image disable
+@color_list_divider_bg: B012; // divider background
+@color_list_divider_text: T0231; // divider text  color
 
 /***************************************************************************
                     Scroller
 ***************************************************************************/
-@color_tab_normal: B0514; // #[color] tab normal color
-@color_tab_active: B0514P1; // #[color] tab active color
-@color_scroller_scrollbar_color: B071; // #[color] scroller scrollbar color
+@color_tab_normal: B0514; // #[color] scrollbar tab normal color
+@color_tab_active: B0514P1; // #[color] scrollbar tab active color
+@color_scroller_scrollbar_color: B071; // #[color] scrollbar bottom color
 @bg_scroller_bouncing_effect_top: "./images/Scroller/scrollbar-bouncing-effect-top.png";
 @bg_scroller_bouncing_effect_bottom: "./images/Scroller/scrollbar-bouncing-effect-bottom.png";
 @bg_scroller_bouncing_effect_left: "./images/Scroller/scrollbar-bouncing-effect-left.png";
@@ -166,10 +162,10 @@
 /***************************************************************************
                     Swipe list
 ***************************************************************************/
-@color_list_swipe_icon_btn_msg: F021L1i; // #[color] icon button message
-@color_list_swipe_icon_btn_msg_press: F021L1iP; // #[color] icon button message press
-@color_list_swipe_icon_btn_call: F021L1i; // #[color] icon button call
-@color_list_swipe_icon_btn_call_press: F021L1iP; // #[color] icon button call press
+@color_list_swipe_icon_btn_msg: F021L1i; // #[color] icon message color
+@color_list_swipe_icon_btn_msg_press: F021L1iP; // icon button message press
+@color_list_swipe_icon_btn_call: F021L1i; // #[color] icon call color
+@color_list_swipe_icon_btn_call_press: F021L1iP; // icon button call press
 @color_list_swipe_left_start_bg: B0242; // #[color] swipe left start background
 @color_list_swipe_left_end_bg: B011; // #[color] swipe left end background
 @color_list_swipe_right_start_bg: B0241; // #[color] swipe right start background
@@ -178,21 +174,21 @@
 /***************************************************************************
                     Checkbox/Radio
 ***************************************************************************/
-@color_checkboxradio_radiobox: W013L1; // #[color] radio box color
+@color_checkboxradio_radiobox: W013L1; // #[color] radio box normal color
 @color_checkboxradio_radiobox_press: W013L1P; // #[color] radio box press color
-@color_checkboxradio_radiobox_dim: W013L1D; // #[color] radio box disable
-@color_checkboxradio_radio: W013L2; // #[color] radio color
-@color_checkboxradio_radio_press: W013L2P; // #[color] radio press
-@color_checkboxradio_radio_dim: W013L2D; // #[color] radio disable
-@color_checkboxradio_radiobox_line: W241; // #[color] radio box line
-@color_checkboxradio_radiobox_line_press: W241P; // #[color] radio box line press
-@color_checkboxradio_radiobox_line_dim: W241D; // #[color] radio box line disable
-@color_checkboxradio_check: W012L2; // #[color] check color
-@color_checkboxradio_check_press: W012L2P; // #[color] check press
-@color_checkboxradio_check_dim: W012L2D; // #[color] check disable
-@color_checkboxradio_checkbox: W012L1; // #[color] checkbox
-@color_checkboxradio_checkbox_press: W012L1P; // #[color] checkbox press
-@color_checkboxradio_checkbox_dim: W012L1D; // #[color] checkbox disable
-@color_checkboxradio_checkbox_line: W231; // #[color] checkbox line
-@color_checkboxradio_checkbox_line_press: W231P; // #[color] checkbox line press
-@color_checkboxradio_checkbox_line_dim: W231D; // #[color] checkbox line disable
+@color_checkboxradio_radiobox_dim: W013L1D; // radio box disable
+@color_checkboxradio_radio: W013L2; // #[color] radio check color
+@color_checkboxradio_radio_press: W013L2P; // #[color] radio check press color
+@color_checkboxradio_radio_dim: W013L2D; // radio disable
+@color_checkboxradio_radiobox_line: W241; // #[color] radio checkbox border line color
+@color_checkboxradio_radiobox_line_press: W241P; // #[color] radio checkbox press border line color
+@color_checkboxradio_radiobox_line_dim: W241D; // radio box line disable
+@color_checkboxradio_check: W012L2; // #[color] checkbox check color
+@color_checkboxradio_check_press: W012L2P; // #[color] checkbox check press color
+@color_checkboxradio_check_dim: W012L2D; // check disable
+@color_checkboxradio_checkbox: W012L1; // #[color] checkbox normal color
+@color_checkboxradio_checkbox_press: W012L1P; // #[color] checkbox press color
+@color_checkboxradio_checkbox_dim: W012L1D; // checkbox disable
+@color_checkboxradio_checkbox_line: W231; // #[color] checkbox border line color
+@color_checkboxradio_checkbox_line_press: W231P; // #[color] checkbox press border line color
+@color_checkboxradio_checkbox_line_dim: W231D; // checkbox line disable
