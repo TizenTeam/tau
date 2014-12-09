@@ -127,14 +127,15 @@
 					*/
 					getLocation: function (url) {
 						var uri = this.parseUrl(url || window.location.href),
-							hash = uri.hash;
-						// mimic the browser with an empty string when the hash is empty
-						hash = hash === "#" ? "" : hash;
+							hash = uri.hash,
+							search = uri.hashSearch;
+						// mimic the browser with an empty string when the hash and hashSearch are empty
+						hash = hash === "#" && !search ? "" : hash;
 						location = uri;
 						// Make sure to parse the url or the location object for the hash because using location.hash
 						// is autodecoded in firefox, the rest of the url should be from the object (location unless
 						// we're testing) to avoid the inclusion of the authority
-						return uri.protocol + "//" + uri.host + uri.pathname + uri.search + hash;
+						return uri.protocol + "//" + uri.host + uri.pathname + uri.search + hash + search;
 					},
 
 					/**
@@ -200,24 +201,24 @@
 							// like all other browsers do, so we normalize everything so its consistent
 							// no matter what browser we're running on.
 						return {
-							href:		matches[0] || "",
-							hrefNoHash:	matches[1] || "",
-							hrefNoSearch:	matches[2] || "",
-							domain:		matches[3] || "",
-							protocol:	matches[4] || "",
-							doubleSlash:	matches[5] || "",
-							authority:	matches[6] || "",
-							username:	matches[8] || "",
-							password:	matches[9] || "",
-							host:		matches[10] || "",
-							hostname:	matches[11] || "",
-							port:		matches[12] || "",
-							pathname:	matches[13] || "",
-							directory:	matches[14] || "",
-							filename:	matches[15] || "",
-							search:		matches[16] || "",
-							hash:		matches[18] || "",
-							hashSearch:	matches[19] || ""
+							href: matches[0] || "",
+							hrefNoHash: matches[1] || "",
+							hrefNoSearch: matches[2] || "",
+							domain: matches[3] || "",
+							protocol: matches[4] || "",
+							doubleSlash: matches[5] || "",
+							authority: matches[6] || "",
+							username: matches[8] || "",
+							password: matches[9] || "",
+							host: matches[10] || "",
+							hostname: matches[11] || "",
+							port: matches[12] || "",
+							pathname: matches[13] || "",
+							directory: matches[14] || "",
+							filename: matches[15] || "",
+							search: matches[16] || "",
+							hash: matches[18] || "",
+							hashSearch: matches[19] || ""
 						};
 					},
 

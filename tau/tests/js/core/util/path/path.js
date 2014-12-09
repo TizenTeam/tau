@@ -165,4 +165,11 @@ document.addEventListener('DOMContentLoaded', function () {
 			'Return the substring of a filepath before the sub-page key, for making a server request'
 		);
 	});
+
+	test("getLocation", function(){
+		var popupUrl = "http://localhost/something/index.html#?popup=true";
+		equal(path.getLocation(popupUrl), popupUrl, "Popup url.");
+		popupUrl = "http://jblas:password@mycompany.com:8080/mail/inbox?msg=1234&type=unread#msg-content?param1=true&param2=123";
+		equal(path.getLocation(popupUrl), "http://mycompany.com:8080/mail/inbox?msg=1234&type=unread#msg-content?param1=true&param2=123", "Abstract url.");
+	});
 });
