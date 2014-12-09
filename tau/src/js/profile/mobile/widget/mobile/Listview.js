@@ -1438,7 +1438,8 @@
 			 * @member ns.widget.mobile.Listview
 			 */
 			function refreshLinks(item) {
-				var links = selectors.getChildrenByTag(item, "a");
+				var links = selectors.getChildrenByTag(item, "a"),
+					itemClassList = item.classList;
 				if (links.length) {
 					addItemClasses(links[0]);
 					itemClassList.add(classes.uiLiAnchor);
