@@ -281,3 +281,9 @@
 	left: 0;
 	top: 15px;
 }
+
+/*------------------------------- MARQUEE ----------------------------------------*/
+.ui-listview li > .ui-marquee-sub-text {
+    font-size:20px;
+    color:gray
+}
