@@ -10,7 +10,7 @@ var ns = window.tau = {},
 nsConfig = window.tauConfig = window.tauConfig || {};
 nsConfig.rootNamespace = 'tau';
 nsConfig.fileName = 'tau';
-ns.version = '0.9.26';
+ns.version = '0.9.32';
 /*global window, console, define, ns, nsConfig */
 /*jslint plusplus:true */
 /* 
@@ -159,6 +159,60 @@ ns.version = '0.9.26';
 		};
 
 		}(window.document, ns, nsConfig));
+
+/*global window, define, ns */
+/* Copyright  2010 - 2014 Samsung Electronics Co., Ltd.
+ * License : MIT License V2
+ */
+/*jslint plusplus: true, nomen: true */
+//  * @TODO add support of $.mobile.buttonMarkup.hoverDelay
+/*
+ * Defaults settings object
+ * @author Maciej Urbanski <m.urbanski@samsung.com>
+ * @class ns.defaults
+ */
+(function (ns) {
+	
+	
+			ns.defaults = {};
+
+			Object.defineProperty(ns.defaults, "autoInitializePage", {
+				 get: function(){
+					 return ns.getConfig("autoInitializePage", true);
+				 },
+				 set: function(value){
+					 return ns.setConfig("autoInitializePage", value);
+				 }
+			});
+
+			Object.defineProperty(ns.defaults, "dynamicBaseEnabled", {
+				 get: function(){
+					 return ns.getConfig("dynamicBaseEnabled", true);
+				 },
+				 set: function(value){
+					 return ns.setConfig("dynamicBaseEnabled", value);
+				 }
+			});
+
+			Object.defineProperty(ns.defaults, "pageTransition", {
+				 get: function(){
+					 return ns.getConfig("pageTransition", "none");
+				 },
+				 set: function(value){
+					 return ns.setConfig("pageTransition", value);
+				 }
+			});
+
+			Object.defineProperty(ns.defaults, "popupTransition", {
+				 get: function(){
+					 return ns.getConfig("popupTransition", "none");
+				 },
+				 set: function(value){
+					 return ns.setConfig("popupTransition", value);
+				 }
+			});
+
+			}(ns));
 
 /*global window, define*/
 /*jslint bitwise: true */
@@ -569,6 +623,7 @@ ns.version = '0.9.26';
 					window.webkitRequestAnimationFrame ||
 					window.mozRequestAnimationFrame ||
 					window.oRequestAnimationFrame ||
+					window.msRequestAnimationFrame ||
 					function (callback) {
 						currentFrame = window.setTimeout(callback.bind(callback, +new Date()), 1000 / 60);
 					}).bind(window),
@@ -714,6 +769,7 @@ ns.version = '0.9.26';
 					window.webkitCancelAnimationFrame ||
 					window.mozCancelAnimationFrame ||
 					window.oCancelAnimationFrame ||
+					window.msCancelAnimationFrame ||
 					function () {
 						// propably wont work if there is any more than 1
 						// active animationFrame but we are trying anyway
@@ -1291,6 +1347,75 @@ ns.version = '0.9.26';
 
 			}(window, ns));
 
+/*global window, ns, define */
+/* 
+ * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
+ * License : MIT License V2
+ */
+/**
+ * #Info
+ *
+ * Various TAU information
+ * @class ns.info
+ */
+(function (window, document, ns) {
+	
+				/**
+			 * @property {Object} info
+			 * @property {string} [info.profile="default"] Current runtime profile
+			 * @property {string} [info.theme="default"] Current runtime theme
+			 * @property {string} info.version Current runtime version
+			 * @member ns.info
+			 * @static
+			 */
+			var eventUtils = ns.event,
+				info = {
+					profile: "default",
+					theme: "default",
+					version: ns.version,
+
+					/**
+					 * Refreshes information about runtime
+					 * @method refreshTheme
+					 * @param {Function} done Callback run when the theme is discovered
+					 * @member ns.info
+					 * @return {null|String}
+					 * @static
+					 */
+					refreshTheme: function (done) {
+						var el = document.createElement("span"),
+							parent = document.body,
+							themeName = null;
+
+						if (document.readyState !== "interactive" && document.readyState !== "complete") {
+							eventUtils.fastOn(document, "DOMContentLoaded", this.refreshTheme.bind(this, done));
+							return null;
+						}
+						el.classList.add("tau-info-theme");
+
+						parent.appendChild(el);
+						themeName = window.getComputedStyle(el, ":after").content;
+						parent.removeChild(el);
+
+						if (themeName && themeName.length > 0) {
+							this.theme = themeName;
+						}
+
+						themeName = themeName || null;
+
+						if (done) {
+							done(themeName);
+						}
+
+						return themeName;
+					}
+				};
+
+			info.refreshTheme();
+
+			ns.info = info;
+			}(window, window.document, ns));
+
 /*global define: true, window: true */
 /* 
  * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
@@ -1793,6 +1918,27 @@ ns.version = '0.9.26';
 					}
 
 					return true;
+				},
+
+				/**
+				 * Remove properties from object.
+				 * @method removeProperties
+				 * @param {Object} object
+				 * @param {Array} propertiesToRemove
+				 * @return {Object}
+				 */
+				removeProperties: function (object, propertiesToRemove) {
+					var length = propertiesToRemove.length,
+						property,
+						i;
+
+					for (i = 0; i < length; i++) {
+						property = propertiesToRemove[i];
+						if (object.hasOwnProperty(property)) {
+							delete object[property];
+						}
+					}
+					return object;
 				}
 			};
 			ns.util.object = object;
@@ -2124,6 +2270,7 @@ ns.version = '0.9.26';
 				element.removeAttribute(DATA_BOUND);
 				element.removeAttribute(DATA_NAME);
 			}
+
 			/**
 			 * Remove binding data attributes for element.
 			 * @method _removeBindingAttributes
@@ -3325,13 +3472,15 @@ ns.version = '0.9.26';
 					getAllInstances: engine.getAllBindings
 				};
 
+			function widgetConstructor(name, element, options) {
+				return engine.instanceWidget(element, name, options);
+			}
+
 			document.addEventListener(engine.eventType.WIDGET_DEFINED, function (evt) {
 				var definition = evt.detail,
 					name = definition.name;
 
-				 ns.widget[name] = function (element, options) {
-					 return engine.instanceWidget(element, name, options);
-				 };
+				 ns.widget[name] = widgetConstructor.bind(null, name);
 
 			}, true);
 
@@ -3760,6 +3909,82 @@ ns.version = '0.9.26';
 			};
 
 			/**
+			 * Focus widget's element.
+			 *
+			 * This function calls function focus on element and if it is known
+			 * the direction of event, the proper css classes are added/removed.
+			 * @method focus
+			 * @param {object} options The options of event.
+			 * @param {"up"|"down"|"left"|"right"} direction
+			 * For example, if this parameter has value "down", it means that the movement
+			 * comes from the top (eg. down arrow was pressed on keyboard).
+			 * @param {HTMLElement} previousElement Element to blur
+			 * @member ns.widget.BaseWidget
+			 */
+			prototype.focus = function (options) {
+				var self = this,
+					element = self.element,
+					blurElement,
+					blurWidget;
+
+				options = options || {};
+
+				if (self.isDisabled()) {
+					// widget is disabled, so we cannot set focus
+					return false;
+				}
+
+				blurElement = options.previousElement;
+				// we try to blur element, which has focus previously
+				if (blurElement) {
+					blurWidget = engine.getBinding(blurElement);
+					// call blur function on widget
+					if (blurWidget) {
+						options = objectUtils.merge({}, options, {element: blurElement});
+						blurWidget.blur(options);
+					} else {
+						// or on element, if widget does not exist
+						blurElement.blur();
+					}
+				}
+
+				options = objectUtils.merge({}, options, {element: element});
+
+				// set focus on element
+				eventUtils.trigger(document, "taufocus", options);
+				element.focus();
+
+				return true;
+			};
+
+			/**
+			 * Blur widget's element.
+			 *
+			 * This function calls function blur on element and if it is known
+			 * the direction of event, the proper css classes are added/removed.
+			 * @method blur
+			 * @param {object} options The options of event.
+			 * @param {"up"|"down"|"left"|"right"} direction
+			 * @member ns.widget.BaseWidget
+			 */
+			prototype.blur = function (options) {
+				var self = this,
+					element = self.element;
+
+				if (self.isDisabled()) {
+					// widget is disabled, so we cannot blur it
+					return false;
+				}
+
+				options = objectUtils.merge({}, options, {element: element});
+
+				// blur element
+				eventUtils.trigger(document, "taublur", options);
+				element.blur();
+				return true;
+			};
+
+			/**
 			 * Protected method destroying the widget
 			 * @method _destroy
 			 * @template
@@ -3809,14 +4034,24 @@ ns.version = '0.9.26';
 			 */
 			prototype.disable = function () {
 				var self = this,
-					element = self.element,
 					args = slice.call(arguments);
 
 				if (typeof self._disable === TYPE_FUNCTION) {
-					args.unshift(element);
+					args.unshift(self.element);
 					self._disable.apply(self, args);
 				}
 				return this;
+			};
+
+			/**
+			 * Check if widget is disabled.
+			 * @method isDisabled
+			 * @member ns.widget.BaseWidget
+			 * @return {boolean} Returns true if widget is disabled
+			 */
+			prototype.isDisabled = function () {
+				var self = this;
+				return self.element.getAttribute("disabled") || self.options.disabled === true;
 			};
 
 			/**
@@ -3836,11 +4071,10 @@ ns.version = '0.9.26';
 			 */
 			prototype.enable = function () {
 				var self = this,
-					element = self.element,
 					args = slice.call(arguments);
 
 				if (typeof self._enable === TYPE_FUNCTION) {
-					args.unshift(element);
+					args.unshift(self.element);
 					self._enable.apply(self, args);
 				}
 				return this;
@@ -4077,7 +4311,7 @@ ns.version = '0.9.26';
 
 /*global window, define */
 /*jslint plusplus: true, nomen: true */
-/* 
+/*
  * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
  * License : MIT License V2
  */
@@ -4166,118 +4400,136 @@ ns.version = '0.9.26';
 							*/
 							methods = definition.methods;
 
-						$.fn[name] = (function ($, engine, name, bindingNamespace, methods) {
-							/*
-							* widget instance
-							* type Object
-							*/
-							var instance = null;
-							return function () {
-								/*
-								* function arguments
-								* type Array
-								*/
-								var args = slice.call(arguments),
-								/*
-									* element of jQuery collection
-									* type HTMLElement
-									*/
-									element,
-								/*
-									* is built?
-									* type Boolean
-									*/
-									built,
-								/*
-									* name of method
-									* type string
-									*/
-									method,
-								/*
-									* result value
-									* type mixed
-									*/
-									resultValue,
-									/*
-									* first argument of function
-									* type mixed
-									*/
-									firstarg,
-									i,
-									options = {},
-									instanceWidgetName = definition.name;
-
-								/*
-								 * NOTE:
-								 * The loop below contains some fixes/hacks for TizenSlider, Listview with FastScroll and AutoDividers
-								 * and also Popup, please be aware while refactoring.
-								 */
-								for (i = 0; i < this.length; i++) {
-									element = this.get(i);
-									switch(name){
-										// FastScroll has not real instance defined because it's build as an extension
-										case "fastscroll":
-											instance = engine.getBinding(element, "Listview");
-											break;
-										case "slider":
-											instance = engine.getBinding(element, "Slider") || engine.getBinding(element, "TizenSlider");
-											break;
-										default:
-											instance = engine.getBinding(element, instanceWidgetName);
-									}
-
-									built = instance && instance.isBuilt();
-									firstarg = args.shift();
-									if (firstarg === undefined || typeof firstarg === 'object') {
-										if (typeof firstarg === 'object') {
-											options = firstarg;
-										}
-										if (!instance || !built) {
-											engine.instanceWidget(element, definition.name, options);
-										} else {
-											instance.configure(null, element, options);
-										}
-									} else {
-										if (instance === null) {
-											return this;
-										}
-										method = firstarg;
-										if (method === "destroy") {
-											instance.destroy();
-											return this;
-										}
-										if (methods.indexOf(method) < 0) {
-											throw "Method " + method + " does not exist!";
-										}
-										if (name === 'listview' &&
-											method === 'option' &&
-											args[0] === "autodividersSelector" &&
-											typeof args[1] === 'function') {
-												// wrap first argument of callback method in JQuery object
-												args[1] = wrapFn(args[1]);
-										}
-										if (name === "popup" && method === "open") {
-											// window.event is used because in Winset we open context popup by
-											// $("#pop_text_only").popup("open") after clicking on input
-											args[1] = window.event;
-										}
-										resultValue = instance[method].apply(instance, args);
-										if (resultValue !== undefined) {
-											if (resultValue !== instance) {
-												return resultValue;
-											}
-										}
-									}
-								}
-								return this;
-							};
-						}($, engine, name, definition.binding, methods));
+						$.fn[name] = widgetConstructor(engine, name, methods, definition.name);
 						if (definition.namespace) {
 							$[definition.namespace] = $[definition.namespace] || {};
 							$[definition.namespace][definition.name.toLowerCase()] = definition.widgetClass;
 						}
+						definition = null;
 					}
 				};
+
+
+			function widgetConstructor(engine, name, methods, instanceWidgetName) {
+				/*
+				 * widget instance
+				 * type Object
+				 */
+				var instance = null;
+				return function () {
+					/*
+					 * function arguments
+					 * type Array
+					 */
+					var args = slice.call(arguments),
+					/*
+					 * element of jQuery collection
+					 * type HTMLElement
+					 */
+						element,
+					/*
+					 * is built?
+					 * type Boolean
+					 */
+						built,
+					/*
+					 * name of method
+					 * type string
+					 */
+						method,
+					/*
+					 * result value
+					 * type mixed
+					 */
+						resultValue,
+					/*
+					 * first argument of function
+					 * type mixed
+					 */
+						firstarg,
+						i,
+						options = {},
+						argsLength,
+						argument;
+
+					/*
+					 * NOTE:
+					 * The loop below contains some fixes/hacks for TizenSlider, Listview with FastScroll and AutoDividers
+					 * and also Popup, please be aware while refactoring.
+					 */
+					for (i = 0; i < this.length; i++) {
+						element = this.get(i);
+						switch(name){
+							// FastScroll has not real instance defined because it's build as an extension
+							case "fastscroll":
+								instance = engine.getBinding(element, "Listview");
+								break;
+							case "slider":
+								instance = engine.getBinding(element, "Slider") || engine.getBinding(element, "TizenSlider");
+								break;
+							default:
+								instance = engine.getBinding(element, instanceWidgetName);
+						}
+
+						built = instance && instance.isBuilt();
+						firstarg = args.shift();
+						if (firstarg === undefined || typeof firstarg === 'object') {
+							if (typeof firstarg === 'object') {
+								options = firstarg;
+							}
+							if (!instance || !built) {
+								engine.instanceWidget(element, instanceWidgetName, options);
+							} else {
+								instance.configure(null, element, options);
+							}
+						} else {
+							if (instance === null) {
+								return this;
+							}
+							method = firstarg;
+							if (method === "destroy") {
+								instance.destroy();
+								return this;
+							}
+							if (methods.indexOf(method) < 0) {
+								throw "Method " + method + " does not exist!";
+							}
+							if (name === 'listview' &&
+								method === 'option' &&
+								args[0] === "autodividersSelector" &&
+								typeof args[1] === 'function') {
+								// wrap first argument of callback method in JQuery object
+								args[1] = wrapFn(args[1]);
+							}
+							if (name === "popup" && method === "open") {
+								// window.event is used because in Winset we open context popup by
+								// $("#pop_text_only").popup("open") after clicking on input
+								args[1] = window.event;
+							}
+							// transform jQuery arguments to HTMLElement
+							argsLength = args.length;
+							for (i = 0; i < argsLength; i++) {
+								argument = args[i];
+								if (argument instanceof jQuery) {
+									// convert jQuery object to array of HTMLElement
+									argument = argument.makeArray();
+									// if we have only one element we take only first element
+									if (argument.length === 1) {
+										argument = argument[0];
+									}
+								}
+							}
+							resultValue = instance[method].apply(instance, args);
+							if (resultValue !== undefined) {
+								if (resultValue !== instance) {
+									return resultValue;
+								}
+							}
+						}
+					}
+					return this;
+				};
+			}
 
 			document.addEventListener(engine.eventType.WIDGET_DEFINED, function (evt) {
 				jqmWidget.init(engine, evt.detail);
@@ -6516,9 +6768,280 @@ window.Globalize = Globalize;
 			ns.util.load = load;
 			}(window.document, ns));
 
+/*global window, define, ns*/
+/*jslint bitwise: true */
+/* 
+ * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
+ * License : MIT License V2
+ */
+/**
+ * #Framework Data Object
+ * Object contains properties describing run time environment.
+ * @class ns.frameworkData
+ */
+(function (document, ns) {
+	
+
+			var slice = Array.prototype.slice,
+				FRAMEWORK_WEBUI = "tizen-web-ui-fw",
+				FRAMEWORK_TAU = "tau",
+				IS_TAU_REGEXP = /(^|[\\\/])(tau(\.min)?\.js)$/,
+				LIB_FILENAME_REGEXP = /(^|[\\\/])((tau(\.min)?\.js)|(tizen-web-ui-fw)(\.custom|\.full)?(\.min)?\.js)$/,
+				CSS_FILENAME_REGEXP = /(^|[\\\/])((tau(\.min)?\.css)|(tizen-web-ui-fw)(\.custom|\.full)?(\.min)?\.css)$/,
+				TIZEN_THEMES_REGEXP = /^(white|black|default)$/i,
+				MINIFIED_REGEXP = /\.min\.js$/,
+				frameworkData = {
+					/**
+					 * The name of framework
+					 * @property {string} frameworkName="tizen-web-ui-fw"
+					 * @member ns.frameworkData
+					 * @static
+					 */
+					frameworkName: FRAMEWORK_WEBUI,
+					/**
+					 * The root directory of framework on current device
+					 * @property {string} rootDir="/usr/share/tizen-web-ui-fw"
+					 * @member ns.frameworkData
+					 * @static
+					 */
+					rootDir: "/usr/share/" + FRAMEWORK_WEBUI,
+					/**
+					 * The version of framework
+					 * @property {string} version="latest"
+					 * @member ns.frameworkData
+					 * @static
+					 */
+					version: "latest",
+					/**
+					 * The theme of framework
+					 * @property {string} theme="default"
+					 * @member ns.frameworkData
+					 * @static
+					 */
+					theme: "default",
+					/**
+					 * Tells if the theme that is set was already loaded
+					 * @property {boolean} themeLoaded=false
+					 * @member ns.frameworkData
+					 * @static
+					 */
+					themeLoaded: false,
+					/**
+					 * The default width of viewport in framework.
+					 * @property {number} defaultViewportWidth=360
+					 * @member ns.frameworkData
+					 * @static
+					 */
+					defaultViewportWidth: 360,
+					/**
+					 * The type of width of viewport in framework.
+					 * @property {string} viewportWidth="device-width"
+					 * @member ns.frameworkData
+					 * @static
+					 */
+					viewportWidth: "device-width",
+					/**
+					 * Determines whether the viewport should be scaled
+					 * @property {boolean} isMinified=false
+					 * @member ns.frameworkData
+					 * @static
+					 */
+					viewportScale: false,
+					/**
+					 * The default font size in framework.
+					 * @property {number} defaultFontSize=22
+					 * @member ns.frameworkData
+					 * @static
+					 */
+					defaultFontSize: 22,
+					/**
+					 * Determines whether the framework is minified
+					 * @property {boolean} minified=false
+					 * @member ns.frameworkData
+					 * @static
+					 */
+					minified: false,
+					/**
+					 * Determines the capability of device
+					 * @property {Object} deviceCapa
+					 * @property {boolean} deviceCapa.inputKeyBack=true
+					 * Determines whether the back key is supported.
+					 * @property {boolean} deviceCapa.inputKeyMenu=true
+					 *  Determines whether the menu key is supported.
+					 * @member ns.frameworkData
+					 * @static
+					 */
+					deviceCapa: { inputKeyBack: true, inputKeyMenu: true },
+					/**
+					 * Determines whether the framework is loaded in debug profile.
+					 * @property {boolean} debug=false
+					 * @member ns.frameworkData
+					 * @static
+					 */
+					debug: false,
+					/**
+					 * The version of framework's package
+					 * @property {string} pkgVersion="0.2.83"
+					 * @member ns.frameworkData
+					 * @static
+					 */
+					pkgVersion: "0.2.83",
+					/**
+					 * The prefix of data used in framework
+					 * @property {string} dataPrefix="data-framework-"
+					 * @member ns.frameworkData
+					 * @static
+					 */
+					dataPrefix: "data-framework-",
+					/**
+					 * The profile of framework
+					 * @property {string} profile=""
+					 * @member ns.frameworkData
+					 * @static
+					 */
+					profile: ""
+				};
+
+			/**
+			 * Get data-* params from <script> tag, and set tizen.frameworkData.* values
+			 * Returns true if proper <script> tag is found, or false if not.
+			 * @method getParams
+			 * @return {boolean} Returns true if proper <script> tag is found, or false if not.
+			 * @member ns.frameworkData
+			 * @static
+			 */
+			frameworkData.getParams = function() {
+				var self = this,
+					dataPrefix = self.dataPrefix,
+					scriptElements = slice.call(document.querySelectorAll("script[src]")),
+					cssElements = slice.call(document.styleSheets),
+					themeLoaded = false,
+					theme;
+
+				/**
+				 * Following cases should be covered here (by recognizing on-page css files).
+				 * The final theme and themePath values are determined after going through all script elements
+				 *
+				 * @TODO write unit tests for covering those cases
+				 *
+				 * none                                       -> theme: null
+				 * <link href="theme.css" />                  -> theme: null
+				 * <link href="default/theme.css" />          -> theme: null
+				 * <link href="tau.css" />                    -> theme: null
+				 * <link href="white/tau.min.css" />          -> theme: "white"
+				 * <link href="other/path/black/tau.css" />   -> theme: "black"
+				 * <link href="other/path/black/tau.css" />   -> theme: "black"
+				 * <link href="other/path/black/other.css" /> -> theme: null
+				 * <link href="other/path/black/other.css" data-theme-name="white" />     -> theme: "white"
+				 * @method findThemeInLinks
+				 * @param {CSSStyleSheet} styleSheet
+				 */
+				function findThemeInLinks(styleSheet) {
+					var cssElement = styleSheet.ownerNode,
+						dataThemeName = cssElement.getAttribute("data-theme-name"),
+						// Attribute value is taken because href property gives different output
+						href = cssElement.getAttribute("href"),
+						hrefFragments  = href && href.split('/'),
+						hrefDirPart;
+
+					// If we have the theme name defined we can use it right away
+					// without thinking about the naming convention
+					if (dataThemeName) {
+						theme = dataThemeName;
+					} else if (href && CSS_FILENAME_REGEXP.test(href)) {
+						// We try to find file matching library theme CSS
+						// If we have the theme name defined we can use it right away
+						if (dataThemeName && TIZEN_THEMES_REGEXP.test(dataThemeName)) {
+							theme = dataThemeName;
+						} else {
+							// We can only determine the current theme using path based approach when the .css file
+							// is located in at least one directory
+							if (hrefFragments.length >= 2) {
+								// When the second to last element matches known themes set the theme to that name
+								hrefDirPart = hrefFragments.slice(-2)[0].match(TIZEN_THEMES_REGEXP);
+								theme = hrefDirPart && hrefDirPart[0];
+							}
+						}
+					}
+
+					// In case a theme was found (here or in a previous stylesheet) this will be true
+					themeLoaded = themeLoaded || !!theme;
+				}
+
+				/**
+				 * Sets framework data based on found framework library
+				 * @TODO write unit cases
+				 * @param {HTMLElement} scriptElement
+				 */
+				function findFrameworkDataInScripts(scriptElement) {
+					var src = scriptElement.getAttribute("src"),
+						profileName = "",
+						frameworkName = FRAMEWORK_TAU,
+						themePath,
+						jsPath;
+
+					// Check if checked file is a known framework
+					// no need to check if src exists because of the query selector
+					if (LIB_FILENAME_REGEXP.test(src)) {
+
+						// Priority:
+						// 1. theme loaded with css
+						// 2. theme from attribute
+						// 3. default theme
+						theme = theme || scriptElement.getAttribute(dataPrefix + "theme") || self.theme;
+
+						theme = theme.toLowerCase();
+
+						if (IS_TAU_REGEXP.test(src)) {
+							frameworkName = FRAMEWORK_TAU;
+							// Get profile name.
+							// Profile may be defined from framework script or
+							// it can be assumed, that profile name is second up directory name
+							// e.g. pathToLib/profileName/js/tau.js
+							profileName = scriptElement.getAttribute(dataPrefix + "profile") || src.split('/').slice(-3)[0];
+							themePath = "/" + profileName + "/theme/" + theme;
+
+							// TAU framework library link
+							jsPath = "/" + profileName + "/js";
+						} else {
+							// tizen-web-ui framework
+							frameworkName = FRAMEWORK_WEBUI;
+							themePath = "/latest/themes/" + theme;
+							jsPath = "/latest/js";
+						}
+
+						self.rootDir = scriptElement.getAttribute(dataPrefix + "root") ||
+							// remove from src path jsPath and "/" sign
+							src.substring(0, src.lastIndexOf(frameworkName) - jsPath.length - 1) ||
+							self.rootDir;
+
+						self.themePath = self.rootDir + themePath;
+						self.jsPath = self.rootDir + jsPath;
+						self.version = scriptElement.getAttribute(dataPrefix + "version") || self.version;
+						self.theme = theme;
+						self.themeLoaded = themeLoaded;
+						self.frameworkName = frameworkName;
+						self.minified = src.search(MINIFIED_REGEXP) > -1;
+						self.profile = profileName;
+					}
+				}
+
+				cssElements.forEach(findThemeInLinks);
+
+				scriptElements.forEach(findFrameworkDataInScripts);
+
+				cssElements = null;
+				scriptElements = null;
+			};
+
+			ns.frameworkData = frameworkData;
+			// self init
+			ns.frameworkData.getParams();
+			}(window.document, ns));
+
 /*global window, define, console */
 /*jslint plusplus: true, nomen: true */
-/* 
+/*
  * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
  * License : MIT License V2
  */
@@ -6885,10 +7408,12 @@ window.Globalize = Globalize;
 						 */
 						document.addEventListener(ns.engine.eventType.WIDGET_BOUND, function (event) {
 							var originalEvent = event.originalEvent || event,
-								widget = originalEvent.detail;
-							if (widget && widget.element && widget.widgetName) {
+								widget = originalEvent.detail,
+								widgetName  = widget && widget.widgetName;
+							widgetName = widgetName && widgetName.toLowerCase();
+							if (widgetName && widget.element) {
 								try {
-																		$(widget.element)[widget.widgetName]();
+																		$(widget.element)[widgetName]();
 								} catch(e) {
 									// suppress errors in not debug mode
 																	}
@@ -6963,8 +7488,8 @@ window.Globalize = Globalize;
 /*global CustomEvent, define, window, ns */
 /*jslint plusplus: true, nomen: true, bitwise: true */
 /* Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
-* License : MIT License V2
-*/
+ * License : MIT License V2
+ */
 /**
  * #Virtual Mouse Events
  * Reimplementation of jQuery Mobile virtual mouse events.
@@ -7011,13 +7536,13 @@ window.Globalize = Globalize;
  */
 (function (window, document, ns) {
 	
-					/**
-				 * Object with default options
-				 * @property {Object} vmouse
-				 * @member ns.event.vmouse
-				 * @static
-				 * @private
-				 **/
+				/**
+			 * Object with default options
+			 * @property {Object} vmouse
+			 * @member ns.event.vmouse
+			 * @static
+			 * @private
+			 **/
 			var vmouse,
 				/**
 				 * @property {Object} eventProps Contains the properties which are copied from the original event to custom v-events
@@ -7040,6 +7565,11 @@ window.Globalize = Globalize;
 				 * @private
 				 **/
 				didScroll,
+				/** @property {HTMLElement} lastOver holds reference to last element that touch was over
+				 * @member ns.event.vmouse
+				 * @private
+				 */
+				lastOver = null,
 				/**
 				 * @property {Number} [startX=0] Initial data for touchstart event
 				 * @member ns.event.vmouse
@@ -7052,7 +7582,7 @@ window.Globalize = Globalize;
 				 * @member ns.event.vmouse
 				 * @private
 				 * @static
-				**/
+				 **/
 				startY = 0,
 				touchEventProps = ["clientX", "clientY", "pageX", "pageY", "screenX", "screenY"],
 				KEY_CODES = {
@@ -7140,7 +7670,7 @@ window.Globalize = Globalize;
 			 * @method fireEvent
 			 * @param {string} eventName event name
 			 * @param {Event} evt original event
-			 * @param {Object} properties Sets the special properties for position
+			 * @param {Object} [properties] Sets the special properties for position
 			 * @return {boolean}
 			 * @private
 			 * @static
@@ -7279,14 +7809,22 @@ window.Globalize = Globalize;
 			 */
 			function handleTouchStart(evt) {
 				var touches = evt.touches,
-					firstTouch;
+					firstTouch,
+					over;
 				//if touches are registered and we have only one touch
 				if (touches && touches.length === 1) {
 					didScroll = false;
 					firstTouch = touches[0];
 					startX = firstTouch.pageX;
 					startY = firstTouch.pageY;
-					fireEvent("vmouseover", evt);
+
+					// Check if we have touched something on our page
+					// @TODO refactor for multi touch
+					over = document.elementFromPoint(startX, startY);
+					if (over) {
+						lastOver = over;
+						fireEvent("vmouseover", evt);
+					}
 					fireEvent("vmousedown", evt);
 				}
 
@@ -7305,6 +7843,8 @@ window.Globalize = Globalize;
 				if (touches && touches.length === 0) {
 					fireEvent("vmouseup", evt);
 					fireEvent("vmouseout", evt);
+					// Reset flag for last over element
+					lastOver = null;
 				}
 			}
 
@@ -7320,7 +7860,7 @@ window.Globalize = Globalize;
 				var over,
 					firstTouch = evt.touches && evt.touches[0],
 					didCancel = didScroll,
-					//sets the threshold, based on which we consider if it was the touch-move event
+				//sets the threshold, based on which we consider if it was the touch-move event
 					moveThreshold = vmouse.eventDistanceThreshold;
 
 				/**
@@ -7337,20 +7877,23 @@ window.Globalize = Globalize;
 				}
 
 				didScroll = didScroll ||
-				//check in both axes X,Y if the touch-move event occur
+					//check in both axes X,Y if the touch-move event occur
 					(Math.abs(firstTouch.pageX - startX) > moveThreshold ||
-					Math.abs(firstTouch.pageY - startY) > moveThreshold);
+						Math.abs(firstTouch.pageY - startY) > moveThreshold);
 
 				// detect over event
 				// for compatibility with mouseover because "touchenter" fires only once
-				over = document.elementFromPoint(evt.pageX, evt.pageY);
-				if (over) {
-					fireEvent("_touchover", evt);
+				// @TODO Handle many touches
+				over = document.elementFromPoint(firstTouch.pageX, firstTouch.pageY);
+				if (over && lastOver !== over) {
+					lastOver = over;
+					fireEvent("vmouseover", evt);
 				}
 
 				//if didscroll occur and wasn't canceled then trigger touchend otherwise just touchmove
 				if (didScroll && !didCancel) {
 					fireEvent("vmousecancel", evt);
+					lastOver = null;
 				}
 				fireEvent("vmousemove", evt);
 			}
@@ -7380,18 +7923,7 @@ window.Globalize = Globalize;
 			 */
 			function handleTouchCancel(evt) {
 				fireEvent("vmousecancel", evt);
-			}
-
-			/**
-			 * Handle touch cancel
-			 * @method handleTouchOver
-			 * @private
-			 * @static
-			 * @member ns.event.vmouse
-			 */
-			function handleTouchOver() {
-				return false;
-				// @TODO add callback with handleTouchOver,
+				lastOver = null;
 			}
 
 			/**
@@ -7447,6 +7979,19 @@ window.Globalize = Globalize;
 				}
 			}
 
+			/**
+			 * Binds events common to mouse and touch to support virtual mouse.
+			 * @method bindCommonEvents
+			 * @static
+			 * @member ns.event.vmouse
+			 */
+			vmouse.bindCommonEvents = function () {
+				document.addEventListener("keyup", handleKeyUp, true);
+				document.addEventListener("keydown", handleKeyDown, true);
+				document.addEventListener("scroll", handleScroll, true);
+				document.addEventListener("click", handleClick, true);
+			};
+
 			// @TODO delete touchSupport flag and attach touch and mouse listeners,
 			// @TODO check if v-events are not duplicated if so then called only once
 
@@ -7460,16 +8005,13 @@ window.Globalize = Globalize;
 				document.addEventListener("touchstart", handleTouchStart, true);
 				document.addEventListener("touchend", handleTouchEnd, true);
 				document.addEventListener("touchmove", handleTouchMove, true);
-
-				// @TODO add callback with handleTouchOver,
-				document.addEventListener("touchenter", handleTouchOver, true);
-				// for compatibility with mouseover because "touchenter" fires only once
-				// @TODO add callback with handleTouchOver,
-				document.addEventListener("_touchover", handleTouchOver, true);
-				// document.addEventListener("touchleave", callbacks.out, true);
 				document.addEventListener("touchcancel", handleTouchCancel, true);
 
-				document.addEventListener("click", handleClick, true);
+				// touchenter and touchleave are removed from W3C spec
+				// No need to listen to touchover as it has never exited
+				// document.addEventListener("touchenter", handleTouchOver, true);
+				// document.addEventListener("touchleave", callbacks.out, true);
+				document.addEventListener("touchcancel", handleTouchCancel, true);
 			};
 
 			/**
@@ -7485,11 +8027,6 @@ window.Globalize = Globalize;
 				document.addEventListener("mousemove", handleMove, true);
 				document.addEventListener("mouseover", handleOver, true);
 				document.addEventListener("mouseout", handleOut, true);
-
-				document.addEventListener("keyup", handleKeyUp, true);
-				document.addEventListener("keydown", handleKeyDown, true);
-				document.addEventListener("scroll", handleScroll, true);
-				document.addEventListener("click", handleClick, true);
 			};
 
 			ns.event.vmouse = vmouse;
@@ -7499,9 +8036,9 @@ window.Globalize = Globalize;
 			} else {
 				vmouse.bindMouse();
 			}
+			vmouse.bindCommonEvents();
 
 			}(window, window.document, ns));
-
 /*global window, define */
 /* Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
 * License : MIT License V2
@@ -8881,7 +9418,7 @@ window.Globalize = Globalize;
 			}(window, window.document, ns, ns.jqm.jQuery));
 
 /*global window, define, RegExp */
-/* 
+/*
  * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
  * License : MIT License V2
  */
@@ -8959,7 +9496,7 @@ window.Globalize = Globalize;
 					// URL as well as some other commonly used sub-parts. When used with RegExp.exec()
 					// or String.match, it parses the URL into a results array that looks like this:
 					//
-					//	[0]: http://jblas:password@mycompany.com:8080/mail/inbox?msg=1234&type=unread#msg-content
+					//	[0]: http://jblas:password@mycompany.com:8080/mail/inbox?msg=1234&type=unread#msg-content?param1=true&param2=123
 					//	[1]: http://jblas:password@mycompany.com:8080/mail/inbox?msg=1234&type=unread
 					//	[2]: http://jblas:password@mycompany.com:8080/mail/inbox
 					//	[3]: http://jblas:password@mycompany.com:8080
@@ -8976,14 +9513,16 @@ window.Globalize = Globalize;
 					//	[14]: /mail/
 					//	[15]: inbox
 					//	[16]: ?msg=1234&type=unread
-					//	[17]: #msg-content
+					//	[17]: #msg-content?param1=true&param2=123
+					//	[18]: #msg-content
+					//	[19]: ?param1=true&param2=123
 					//
 					/**
 					* @property {RegExp} urlParseRE Regular expression for parse URL
 					* @member ns.util.path
 					* @static
 					*/
-					urlParseRE: /^(((([^:\/#\?]+:)?(?:(\/\/)((?:(([^:@\/#\?]+)(?:\:([^:@\/#\?]+))?)@)?(([^:\/#\?\]\[]+|\[[^\/\]@#?]+\])(?:\:([0-9]+))?))?)?)?((\/?(?:[^\/\?#]+\/+)*)([^\?#]*)))?(\?[^#]+)?)(#.*)?/,
+					urlParseRE: /^(((([^:\/#\?]+:)?(?:(\/\/)((?:(([^:@\/#\?]+)(?:\:([^:@\/#\?]+))?)@)?(([^:\/#\?\]\[]+|\[[^\/\]@#?]+\])(?:\:([0-9]+))?))?)?)?((\/?(?:[^\/\?#]+\/+)*)([^\?#]*)))?(\?[^#]+)?)((#[^\?]*)(\?.*)?)?/,
 
 					/**
 					* Abstraction to address xss (Issue #4787) by removing the authority in
@@ -9054,6 +9593,7 @@ window.Globalize = Globalize;
 					* @return {string} return.filename
 					* @return {string} return.search
 					* @return {string} return.hash
+					* @return {string} return.hashSearch
 					* @static
 					*/
 					parseUrl: function (url) {
@@ -9061,7 +9601,6 @@ window.Globalize = Globalize;
 						if (typeof url === "object") {
 							return url;
 						}
-
 						matches = path.urlParseRE.exec(url || "") || [];
 
 							// Create an object that allows the caller to access the sub-matches
@@ -9070,11 +9609,11 @@ window.Globalize = Globalize;
 							// no matter what browser we're running on.
 						return {
 							href:		matches[0] || "",
-							hrefNoHash:   matches[1] || "",
-							hrefNoSearch: matches[2] || "",
-							domain:	matches[3] || "",
+							hrefNoHash:	matches[1] || "",
+							hrefNoSearch:	matches[2] || "",
+							domain:		matches[3] || "",
 							protocol:	matches[4] || "",
-							doubleSlash:  matches[5] || "",
+							doubleSlash:	matches[5] || "",
 							authority:	matches[6] || "",
 							username:	matches[8] || "",
 							password:	matches[9] || "",
@@ -9084,13 +9623,14 @@ window.Globalize = Globalize;
 							pathname:	matches[13] || "",
 							directory:	matches[14] || "",
 							filename:	matches[15] || "",
-							search:	matches[16] || "",
-							hash:		matches[17] || ""
+							search:		matches[16] || "",
+							hash:		matches[18] || "",
+							hashSearch:	matches[19] || ""
 						};
 					},
 
 					/**
-					* Turn relPath into an asbolute path. absPath is
+					* Turn relPath into an absolute path. absPath is
 					* an optional absolute path which describes what
 					* relPath is relative to.
 					* @method makePathAbsolute
@@ -9200,6 +9740,12 @@ window.Globalize = Globalize;
 
 					/**
 					* Add search (aka query) params to the specified url.
+					* If page is embedded page, search query will be added after
+					* hash tag. It's allowed to add query content for both external
+					* pages and embedded pages.
+					* Examples:
+					* http://domain/path/index.html#embedded?search=test
+					* http://domain/path/external.html?s=query#embedded?s=test
 					* @method addSearchParams
 					* @member ns.util.path
 					* @param {string|Object} url
@@ -9209,8 +9755,16 @@ window.Globalize = Globalize;
 					addSearchParams: function (url, params) {
 						var urlObject = path.parseUrl(url),
 							paramsString = (typeof params === "object") ? this.getAsURIParameters(params) : params,
-							searchChar = urlObject.search || "?";
-						return urlObject.hrefNoSearch + searchChar + (searchChar.charAt(searchChar.length - 1) === "?" ? "" : "&") + paramsString + (urlObject.hash || "");
+							searchChar = '',
+							urlObjectHash = urlObject.hash;
+
+						if (path.isEmbedded(url) && paramsString.length > 0) {
+							searchChar = urlObject.hashSearch || "?";
+							return urlObject.hrefNoHash + (urlObjectHash || "") + searchChar + (searchChar.charAt(searchChar.length - 1) === "?" ? "" : "&") + paramsString ;
+						}
+
+						searchChar = urlObject.search || "?";
+						return urlObject.hrefNoSearch + searchChar + (searchChar.charAt(searchChar.length - 1) === "?" ? "" : "&") + paramsString + (urlObjectHash || "");
 					},
 
 					/**
@@ -9231,7 +9785,7 @@ window.Globalize = Globalize;
 
 					/**
 					* Convert absolute Url to data Url
-					* - for embedded pages strips hash and paramters
+					* - for embedded pages strips parameters
 					* - for the same domain as document base remove domain
 					* otherwise returns decoded absolute Url
 					* @method convertUrlToDataUrl
@@ -9245,10 +9799,9 @@ window.Globalize = Globalize;
 					convertUrlToDataUrl: function (absUrl, dialogHashKey, documentBase) {
 						var urlObject = path.parseUrl(absUrl);
 
-						if (path.isEmbeddedPage(urlObject, dialogHashKey)) {
-							// For embedded pages, remove the dialog hash key as in getFilePath(),
-							// otherwise the Data Url won't match the id of the embedded Page.
-							return urlObject.hash.replace(/^#|\?.*$/g, "");
+						if (path.isEmbeddedPage(urlObject, !!dialogHashKey)) {
+							// Keep hash and search data for embedded page
+							return path.getFilePath(urlObject.hash + urlObject.hashSearch, dialogHashKey);
 						}
 						documentBase = documentBase || path.documentBase;
 						if (path.isSameDomain(urlObject, documentBase)) {
@@ -9374,7 +9927,7 @@ window.Globalize = Globalize;
 						if (urlObject.protocol !== "") {
 							return (!path.isPath(urlObject.hash) && !!urlObject.hash && (urlObject.hrefNoHash === path.parseLocation().hrefNoHash));
 						}
-						return (/^#/).test(urlObject.href);
+						return (/\?.*#|^#/).test(urlObject.href);
 					},
 
 					/**
@@ -9584,7 +10137,7 @@ window.Globalize = Globalize;
 					},
 
 					/**
-					* Return the substring of a filepath before the sub-page key,
+					* Return the substring of a file path before the sub-page key,
 					* for making a server request
 					* @method getFilePath
 					* @member ns.util.path
@@ -9842,7 +10395,7 @@ window.Globalize = Globalize;
 
 /*global window, define, HTMLElement */
 /*jslint plusplus: true, nomen: true */
-/* 
+/*
  * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
  * License : MIT License V2
  */
@@ -9895,6 +10448,7 @@ window.Globalize = Globalize;
 							document.addEventListener('pageshow', function (ev) {
 								$.mobile.activePage = $(ev.target);
 							}, true);
+							$.mobile.activePage = $();
 							$.mobile.firstPage = $(router.getFirstPage());
 							$.mobile.pageContainer = $(router.getContainer());
 							$.mobile.subPageUrlKey = ns.widget.mobile.Page.classes.uiPage;
@@ -9969,7 +10523,7 @@ window.Globalize = Globalize;
 							pageWidget.focus();
 						};
 
-						$.mobile._bindPageRemove = $.mobile._bindPageRemove || router._bindPageRemove.bind(router);
+						$.mobile._bindPageRemove = $.mobile._bindPageRemove || (router._bindPageRemove && router._bindPageRemove.bind(router));
 						$.mobile.initializePage = router.init.bind(router);
 						container = router.getContainer();
 						$.mobile.pageContainer = $(container);
@@ -10310,278 +10864,10 @@ window.Globalize = Globalize;
 			}(window, window.document, ns, ns.jqm.jQuery));
 
 /*global define */
-/* 
+/*
  * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
  * License : MIT License V2
  */
-
-/*global window, define, ns*/
-/*jslint bitwise: true */
-/* 
- * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
- * License : MIT License V2
- */
-/**
- * #Framework Data Object
- * Object contains properties describing run time environment.
- * @class ns.frameworkData
- */
-(function (document, ns) {
-	
-
-			var slice = Array.prototype.slice,
-				FRAMEWORK_WEBUI = "tizen-web-ui-fw",
-				FRAMEWORK_TAU = "tau",
-				IS_TAU_REGEXP = /(^|[\\\/])(tau(\.min)?\.js)$/,
-				LIB_FILENAME_REGEXP = /(^|[\\\/])((tau(\.min)?\.js)|(tizen-web-ui-fw)(\.custom|\.full)?(\.min)?\.js)$/,
-				CSS_FILENAME_REGEXP = /(^|[\\\/])((tau(\.min)?\.css)|(tizen-web-ui-fw)(\.custom|\.full)?(\.min)?\.css)$/,
-				TIZEN_THEMES_REGEXP = /^(white|black|default)$/i,
-				MINIFIED_REGEXP = /\.min\.js$/,
-				frameworkData = {
-					/**
-					 * The name of framework
-					 * @property {string} frameworkName="tizen-web-ui-fw"
-					 * @member ns.frameworkData
-					 * @static
-					 */
-					frameworkName: FRAMEWORK_WEBUI,
-					/**
-					 * The root directory of framework on current device
-					 * @property {string} rootDir="/usr/share/tizen-web-ui-fw"
-					 * @member ns.frameworkData
-					 * @static
-					 */
-					rootDir: "/usr/share/" + FRAMEWORK_WEBUI,
-					/**
-					 * The version of framework
-					 * @property {string} version="latest"
-					 * @member ns.frameworkData
-					 * @static
-					 */
-					version: "latest",
-					/**
-					 * The theme of framework
-					 * @property {string} theme="default"
-					 * @member ns.frameworkData
-					 * @static
-					 */
-					theme: "default",
-					/**
-					 * Tells if the theme that is set was already loaded
-					 * @property {boolean} themeLoaded=false
-					 * @member ns.frameworkData
-					 * @static
-					 */
-					themeLoaded: false,
-					/**
-					 * The default width of viewport in framework.
-					 * @property {number} defaultViewportWidth=360
-					 * @member ns.frameworkData
-					 * @static
-					 */
-					defaultViewportWidth: 360,
-					/**
-					 * The type of width of viewport in framework.
-					 * @property {string} viewportWidth="device-width"
-					 * @member ns.frameworkData
-					 * @static
-					 */
-					viewportWidth: "device-width",
-					/**
-					 * Determines whether the viewport should be scaled
-					 * @property {boolean} isMinified=false
-					 * @member ns.frameworkData
-					 * @static
-					 */
-					viewportScale: false,
-					/**
-					 * The default font size in framework.
-					 * @property {number} defaultFontSize=22
-					 * @member ns.frameworkData
-					 * @static
-					 */
-					defaultFontSize: 22,
-					/**
-					 * Determines whether the framework is minified
-					 * @property {boolean} minified=false
-					 * @member ns.frameworkData
-					 * @static
-					 */
-					minified: false,
-					/**
-					 * Determines the capability of device
-					 * @property {Object} deviceCapa
-					 * @property {boolean} deviceCapa.inputKeyBack=true
-					 * Determines whether the back key is supported.
-					 * @property {boolean} deviceCapa.inputKeyMenu=true
-					 *  Determines whether the menu key is supported.
-					 * @member ns.frameworkData
-					 * @static
-					 */
-					deviceCapa: { inputKeyBack: true, inputKeyMenu: true },
-					/**
-					 * Determines whether the framework is loaded in debug profile.
-					 * @property {boolean} debug=false
-					 * @member ns.frameworkData
-					 * @static
-					 */
-					debug: false,
-					/**
-					 * The version of framework's package
-					 * @property {string} pkgVersion="0.2.83"
-					 * @member ns.frameworkData
-					 * @static
-					 */
-					pkgVersion: "0.2.83",
-					/**
-					 * The prefix of data used in framework
-					 * @property {string} dataPrefix="data-framework-"
-					 * @member ns.frameworkData
-					 * @static
-					 */
-					dataPrefix: "data-framework-",
-					/**
-					 * The profile of framework
-					 * @property {string} profile=""
-					 * @member ns.frameworkData
-					 * @static
-					 */
-					profile: ""
-				};
-
-			/**
-			 * Get data-* params from <script> tag, and set tizen.frameworkData.* values
-			 * Returns true if proper <script> tag is found, or false if not.
-			 * @method getParams
-			 * @return {boolean} Returns true if proper <script> tag is found, or false if not.
-			 * @member ns.frameworkData
-			 * @static
-			 */
-			frameworkData.getParams = function() {
-				var self = this,
-					dataPrefix = self.dataPrefix,
-					scriptElements = slice.call(document.querySelectorAll("script[src]")),
-					cssElements = slice.call(document.styleSheets),
-					themeLoaded = false,
-					theme;
-
-				/**
-				 * Following cases should be covered here (by recognizing on-page css files).
-				 * The final theme and themePath values are determined after going through all script elements
-				 *
-				 * @TODO write unit tests for covering those cases
-				 *
-				 * none                                       -> theme: null
-				 * <link href="theme.css" />                  -> theme: null
-				 * <link href="default/theme.css" />          -> theme: null
-				 * <link href="tau.css" />                    -> theme: null
-				 * <link href="white/tau.min.css" />          -> theme: "white"
-				 * <link href="other/path/black/tau.css" />   -> theme: "black"
-				 * <link href="other/path/black/tau.css" />   -> theme: "black"
-				 * <link href="other/path/black/other.css" /> -> theme: null
-				 * <link href="other/path/black/other.css" data-theme-name="white" />     -> theme: "white"
-				 * @method findThemeInLinks
-				 * @param {CSSStyleSheet} styleSheet
-				 */
-				function findThemeInLinks(styleSheet) {
-					var cssElement = styleSheet.ownerNode,
-						dataThemeName = cssElement.getAttribute("data-theme-name"),
-						// Attribute value is taken because href property gives different output
-						href = cssElement.getAttribute("href"),
-						hrefFragments  = href && href.split('/'),
-						hrefDirPart;
-
-					// If we have the theme name defined we can use it right away
-					// without thinking about the naming convention
-					if (dataThemeName) {
-						theme = dataThemeName;
-					} else if (href && CSS_FILENAME_REGEXP.test(href)) {
-						// We try to find file matching library theme CSS
-						// If we have the theme name defined we can use it right away
-						if (dataThemeName && TIZEN_THEMES_REGEXP.test(dataThemeName)) {
-							theme = dataThemeName;
-						} else {
-							// We can only determine the current theme using path based approach when the .css file
-							// is located in at least one directory
-							if (hrefFragments.length >= 2) {
-								// When the second to last element matches known themes set the theme to that name
-								hrefDirPart = hrefFragments.slice(-2)[0].match(TIZEN_THEMES_REGEXP);
-								theme = hrefDirPart && hrefDirPart[0];
-							}
-						}
-					}
-
-					// In case a theme was found (here or in a previous stylesheet) this will be true
-					themeLoaded = themeLoaded || !!theme;
-				}
-
-				/**
-				 * Sets framework data based on found framework library
-				 * @TODO write unit cases
-				 * @param {HTMLElement} scriptElement
-				 */
-				function findFrameworkDataInScripts(scriptElement) {
-					var src = scriptElement.getAttribute("src"),
-						profileName = "",
-						frameworkName = FRAMEWORK_TAU,
-						themePath,
-						jsPath;
-
-					// Check if checked file is a known framework
-					// no need to check if src exists because of the query selector
-					if (LIB_FILENAME_REGEXP.test(src)) {
-
-						// Priority:
-						// 1. theme loaded with css
-						// 2. theme from attribute
-						// 3. default theme
-						theme = theme || scriptElement.getAttribute(dataPrefix + "theme") || self.theme;
-
-						theme = theme.toLowerCase();
-
-						if (IS_TAU_REGEXP.test(src)) {
-							frameworkName = FRAMEWORK_TAU;
-							// Get profile name.
-							// Profile may be defined from framework script or
-							// it can be assumed, that profile name is second up directory name
-							// e.g. pathToLib/profileName/js/tau.js
-							profileName = scriptElement.getAttribute(dataPrefix + "profile") || src.split('/').slice(-3)[0];
-							themePath = "/" + profileName + "/theme/" + theme;
-
-							// TAU framework library link
-							jsPath = "/" + profileName + "/js";
-						} else {
-							// tizen-web-ui framework
-							frameworkName = FRAMEWORK_WEBUI;
-							themePath = "/latest/themes/" + theme;
-							jsPath = "/latest/js";
-						}
-
-						self.rootDir = scriptElement.getAttribute(dataPrefix + "root") ||
-							// remove from src path jsPath and "/" sign
-							src.substring(0, src.lastIndexOf(frameworkName) - jsPath.length - 1) ||
-							self.rootDir;
-
-						self.themePath = self.rootDir + themePath;
-						self.jsPath = self.rootDir + jsPath;
-						self.version = scriptElement.getAttribute(dataPrefix + "version") || self.version;
-						self.theme = theme;
-						self.themeLoaded = themeLoaded;
-						self.frameworkName = frameworkName;
-						self.minified = src.search(MINIFIED_REGEXP) > -1;
-						self.profile = profileName;
-					}
-				}
-
-				cssElements.forEach(findThemeInLinks);
-
-				scriptElements.forEach(findFrameworkDataInScripts);
-			};
-
-			ns.frameworkData = frameworkData;
-			// self init
-			ns.frameworkData.getParams();
-			}(window.document, ns));
 
 /*global window, define, Math, ns*/
 /*jslint bitwise: true */
@@ -10981,6 +11267,301 @@ window.Globalize = Globalize;
 			ThemeCommon.prototype = protoThemeCommon;
 			nsTheme.ThemeCommon = ThemeCommon;
 			
+/*global window, define, ns */
+/* Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
+* License : MIT License V2
+*/
+/**
+ * #Anchor Highlight Utility
+ * Utility enables highlight links.
+ * @class ns.util.anchorHighlight
+ * @author Maciej Urbanski <m.urbanski@samsung.com>
+ * @author Damian Osipiuk <d.osipiuk@samsung.com>
+ * @author Konrad Lipner <k.lipner@samsung.com>
+ */
+(function (document, window, ns) {
+	
+				/* anchorHighlightController.js
+			To prevent perfomance regression when scrolling,
+			do not apply hover class in anchor.
+			Instead, this code checks scrolling for time threshold and
+			decide how to handle the color.
+			When scrolling with anchor, it checks flag and decide to highlight anchor.
+			While it helps to improve scroll performance,
+			it lowers responsiveness of the element for 50msec.
+			*/
+
+			/**
+			 * Touch start x
+			 * @property {number} startX
+			 * @member ns.util.anchorHighlight
+			 * @private
+			 * @static
+			 */
+			var startX,
+				/**
+				 * Touch start y
+				 * @property {number} startY
+				 * @member ns.util.anchorHighlight
+				 * @private
+				 * @static
+				 */
+				startY,
+				/**
+				 * Did page scrolled
+				 * @property {boolean} didScroll
+				 * @member ns.util.anchorHighlight
+				 * @private
+				 * @static
+				 */
+				didScroll,
+				/**
+				 * Touch target element
+				 * @property {HTMLElement} target
+				 * @member ns.util.anchorHighlight
+				 * @private
+				 * @static
+				 */
+				target,
+				/**
+				 * Timer id of adding activeClass delay
+				 * @property {number} addActiveClassTimerID
+				 * @member ns.util.anchorHighlight
+				 * @private
+				 * @static
+				 */
+				addActiveClassTimerID,
+				/**
+				 * Object with default options
+				 * @property {Object} options
+				 * Treshold after which didScroll will be set
+				 * @property {number} [options.scrollThreshold=5]
+				 * Time to wait before adding activeClass
+				 * @property {number} [options.addActiveClassDelay=10]
+				 * Time to stay activeClass after touch end
+				 * @property {number} [options.keepActiveClassDelay=100]
+				 * @member ns.util.anchorHighlight
+				 * @private
+				 * @static
+				 */
+				options = {
+					scrollThreshold: 5,
+					addActiveClassDelay: 10,
+					keepActiveClassDelay: 100
+				},
+				/**
+				 * Class used to mark element as active
+				 * @property {string} [activeClassLI="ui-li-active"] activeClassLI
+				 * @member ns.util.anchorHighlight
+				 * @private
+				 * @static
+				 */
+				activeClassLI = "ui-li-active",
+				/**
+				 * Function invoked after touch move ends
+				 * @method removeTouchMove
+				 * @member ns.util.anchorHighlight
+				 * @private
+				 * @static
+				 */
+				removeTouchMove,
+				/**
+				 * Alias for class {@link ns.util.selectors}
+				 * @property {Object} selectors
+				 * @member ns.util.anchorHighlight
+				 * @private
+				 * @static
+				 */
+				selectors = ns.util.selectors;
+
+
+			/**
+			 * Get closest highlightable element
+			 * @method detectHighlightTarget
+			 * @param {HTMLElement} target
+			 * @return {HTMLElement}
+			 * @member ns.util.anchorHighlight
+			 * @private
+			 * @static
+			 */
+			function detectHighlightTarget(target) {
+				target = selectors.getClosestBySelector(target, 'a, label');
+				return target;
+			}
+
+			/**
+			 * Get closest li element
+			 * @method detectLiElement
+			 * @param {HTMLElement} target
+			 * @return {HTMLElement}
+			 * @member ns.util.anchorHighlight
+			 * @private
+			 * @static
+			 */
+			function detectLiElement(target) {
+				target = selectors.getClosestByTag(target, 'li');
+				return target;
+			}
+
+			/**
+			 * Add active class to touched element
+			 * @method addActiveClass
+			 * @member ns.util.anchorHighlight
+			 * @private
+			 * @static
+			 */
+			function addActiveClass() {
+				var liTarget;
+				target = detectHighlightTarget(target);
+				if (!didScroll && target && (target.tagName === "A" || target.tagName === "LABEL")) {
+					liTarget = detectLiElement(target);
+					if( liTarget ) {
+						liTarget.classList.add(activeClassLI);
+					}
+				}
+			}
+
+			/**
+			 * Get all active elements
+			 * @method getActiveElements
+			 * @return {Array}
+			 * @member ns.util.anchorHighlight
+			 * @private
+			 * @static
+			 */
+			function getActiveElements() {
+				return document.getElementsByClassName(activeClassLI);
+			}
+
+			/**
+			 * Remove active class from active elements
+			 * @method removeActiveClass
+			 * @member ns.util.anchorHighlight
+			 * @private
+			 * @static
+			 */
+			function removeActiveClass() {
+				var activeA = getActiveElements(),
+					activeALength = activeA.length,
+					i;
+				for (i = 0; i < activeALength; i++) {
+					activeA[i].classList.remove(activeClassLI);
+				}
+			}
+
+			/**
+			 * Function invoked during touch move
+			 * @method touchmoveHandler
+			 * @param {Event} event
+			 * @member ns.util.anchorHighlight
+			 * @private
+			 * @static
+			 */
+			function touchmoveHandler(event) {
+				var touch = event.touches[0];
+				didScroll = didScroll ||
+					(Math.abs(touch.clientX - startX) > options.scrollThreshold || Math.abs(touch.clientY - startY) > options.scrollThreshold);
+
+				if (didScroll) {
+					removeTouchMove();
+					removeActiveClass();
+				}
+			}
+
+			/**
+			 * Function invoked after touch start
+			 * @method touchstartHandler
+			 * @param {Event} event
+			 * @member ns.util.anchorHighlight
+			 * @private
+			 * @static
+			 */
+			function touchstartHandler(event) {
+				var touches = event.touches,
+					touch = touches[0];
+
+				if (touches.length === 1) {
+					didScroll = false;
+					startX = touch.clientX;
+					startY = touch.clientY;
+					target = event.target;
+
+					document.addEventListener("touchmove", touchmoveHandler, false);
+					clearTimeout(addActiveClassTimerID);
+					addActiveClassTimerID = setTimeout(addActiveClass, options.addActiveClassDelay);
+				}
+			}
+
+			removeTouchMove = function () {
+				document.removeEventListener("touchmove", touchmoveHandler, false);
+			};
+
+			/**
+			 * Function invoked after touch
+			 * @method touchendHandler
+			 * @param {Event} event
+			 * @member ns.util.anchorHighlight
+			 * @private
+			 * @static
+			 */
+			function touchendHandler(event) {
+				if (event.touches.length === 0) {
+					clearTimeout(addActiveClassTimerID);
+					addActiveClassTimerID = null;
+					if (!didScroll) {
+						setTimeout(removeActiveClass, options.keepActiveClassDelay);
+					}
+					didScroll = false;
+				}
+			}
+
+			/**
+			 * Function invoked after visibilitychange event
+			 * @method checkPageVisibility
+			 * @member ns.util.anchorHighlight
+			 * @private
+			 * @static
+			 */
+			function checkPageVisibility() {
+				if (document.visibilityState === "hidden") {
+					removeActiveClass();
+				}
+			}
+
+			/**
+			 * Bind events to document
+			 * @method enable
+			 * @member ns.util.anchorHighlight
+			 * @static
+			 */
+			function enable() {
+				document.addEventListener("touchstart", touchstartHandler, false);
+				document.addEventListener("touchend", touchendHandler, false);
+				document.addEventListener("visibilitychange", checkPageVisibility, false);
+				window.addEventListener("pagehide", removeActiveClass, false);
+			}
+
+			/**
+			 * Unbinds events from document.
+			 * @method disable
+			 * @member ns.util.anchorHighlight
+			 * @static
+			 */
+			function disable() {
+				document.removeEventListener("touchstart", touchstartHandler, false);
+				document.removeEventListener("touchend", touchendHandler, false);
+				window.removeEventListener("pagehide", removeActiveClass, false);
+			}
+
+			enable();
+
+			ns.util.anchorHighlight = {
+				enable: enable,
+				disable: disable
+			};
+
+			}(document, window, ns));
+
 /*global window, define */
 /* 
  * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
@@ -13277,6 +13858,20 @@ window.Globalize = Globalize;
 						}
 					}
 				},
+				selectMenuClose = function (event) {
+					var keyName = event.keyName,
+						elActiveSelectMenu,
+						activeSelectMenu;
+					if (ns.getConfig("enableHWKeyHandler", true) && (keyName === "menu" || keyName === "back")){
+						elActiveSelectMenu = document.querySelector("div.ui-selectmenu-active select");
+						if (elActiveSelectMenu) {
+							activeSelectMenu = ns.widget.SelectMenu(elActiveSelectMenu);
+							activeSelectMenu.close();
+							event.preventDefault();
+							event.stopPropagation();
+						}
+					}
+				},
 				hwkey = {
 					/**
 					 * Bind event tizenhwkey to support hardware keys.
@@ -13286,6 +13881,7 @@ window.Globalize = Globalize;
 					 */
 					bind: function () {
 						document.addEventListener("tizenhwkey", popupClose, true);
+						document.addEventListener("tizenhwkey", selectMenuClose, true);
 					},
 
 					/**
@@ -13296,6 +13892,7 @@ window.Globalize = Globalize;
 					 */
 					unbind: function () {
 						document.removeEventListener("tizenhwkey", popupClose, true);
+						document.removeEventListener("tizenhwkey", selectMenuClose, true);
 					}
 				};
 
@@ -13605,7 +14202,7 @@ window.Globalize = Globalize;
  *
  * ## Default selectors
  * In default all **BUTTON** tags and all **INPUT** tags with type equals _button_, _submit_ or _reset_ are change to Tizen WebUI buttons.
- * In addition all elements with _data-role=button_ and class _ui-btn_ are changed to Tizen Web UI buttons.
+ * In addition all elements with _data-role=button_ and class _ui-button_ are changed to Tizen Web UI buttons.
  * To prevent auto enhance element to Tizen Web UI buttons you can use _data-role=none_ attribute on **BUTTON** or **INPUT** element.
  *
  * ###HTML Examples
@@ -13618,7 +14215,7 @@ window.Globalize = Globalize;
  * ####Create simple button from link using class selector
  *
  *		@example
- *		<a href="#page2" class="ui-btn">Link button</a>
+ *		<a href="#page2" class="ui-button">Link button</a>
  *
  * ####Create simple button using button's tag
  *
@@ -14691,32 +15288,12 @@ window.Globalize = Globalize;
 				}
 			};
 
-			/**
-			 * Removes the button functionality completely.
-			 *
-			 * This will return the element back to its pre-init state.
-			 *
-			 *	@example
-			 *	<script>
-			 *		var buttonWidget = tau.widget.Button(document.getElementById("button"));
-			 *		buttonWidget.destroy();
-			 *	</script>
-			 *
-			 *	@example
-			 *	<script>
-			 *		$( "#button" ).button( "destroy" );
-			 *	</script>
-			 *
-			 * @method destroy
-			 * @member ns.widget.mobile.Button
-			 */
-
 			// definition
 			//@todo bring back ui-btn selector and refactor _build method to make it more intelligent for checking if structure is build
 			ns.widget.mobile.Button = Button;
 			engine.defineWidget(
 				"Button",
-				"[data-role='button'], button, [type='button'], [type='submit'], [type='reset']",
+				"[data-role='button'], button, [type='button'], [type='submit'], [type='reset'], .ui-button",
 				[],
 				Button,
 				"mobile"
@@ -16458,7 +17035,7 @@ window.Globalize = Globalize;
 					_true = true;
 
 				parent = element.parentNode;
-				while (parent && parent.node !== clip) {
+				while (parent && parent !== clip) {
 					elementTop += parent.offsetTop;
 					//elementLeft += parent.offsetLeft;
 					parent = parent.parentNode;
@@ -16475,7 +17052,7 @@ window.Globalize = Globalize;
 					case elementFits: // element fits in view but is not visible
 						this.centerToElement(element);
 						break;
-					case clipTop < elementTop && clipBottom < elementBottom: // element visible only at top
+					case clipTop < elementTop && elementTop < clipBottom && clipBottom < elementBottom: // element visible only at top; eg. partly visible textarea
 					case clipTop > elementTop && clipBottom > elementBottom: // element visible only at bottom
 						// pass, we cant do anything, if we move the scroll
 						// the user could lost view of something he scrolled to
@@ -16489,8 +17066,8 @@ window.Globalize = Globalize;
 						anchorPositionY = anchor.offsetTop + DOMUtils.getCSSProperty(anchor, "margin-top", 0, "integer");
 						parent = anchor.parentNode;
 						while (parent && parent !== clip) {
-							anchorPositionX = parent.offsetLeft + DOMUtils.getCSSProperty(parent, "margin-left", 0, "integer");
-							anchorPositionY = parent.offsetTop + DOMUtils.getCSSProperty(parent, "margin-top", 0, "integer");
+							anchorPositionX += parent.offsetLeft;
+							anchorPositionY += parent.offsetTop;
 							parent = parent.parentNode;
 						}
 						this.scrollTo(anchorPositionX, anchorPositionY, this.scrollDuration);
@@ -16672,7 +17249,7 @@ window.Globalize = Globalize;
 							clipHeight;
 						if (focusedElement) {
 							self.ensureElementIsVisible(focusedElement);
-						} else {
+						} else if (DOMUtils.isOccupiedPlace(element)) {
 							clipHeight = DOMUtils.getElementHeight(element);
 							clipWidth = DOMUtils.getElementWidth(element);
 							self.translateTo(
@@ -16722,7 +17299,9 @@ window.Globalize = Globalize;
 			ns.widget.mobile.Scrollview = Scrollview;
 			engine.defineWidget(
 				"Scrollview",
-				"[data-role='content']:not([data-scroll='none']):not([data-handler='true']):not(.ui-scrollview-clip):not(.ui-scrolllistview), [data-scroll]:not([data-scroll='none']):not([data-handler='true']), .ui-scrollview:not([data-scroll='none']):not([data-handler='true'])",
+				"[data-role='content']:not([data-scroll='none']):not([data-handler='true']):not(.ui-scrollview-clip):not(.ui-scrolllistview):not(.ui-scrollhandler)" +
+						", [data-scroll]:not([data-scroll='none']):not([data-handler='true']):not(.ui-scrollhandler)" +
+						", .ui-scrollview:not([data-scroll='none']):not([data-handler='true']):not(.ui-scrollhandler)",
 				[
 					"scrollTo",
 					"ensureElementIsVisible",
@@ -16852,9 +17431,12 @@ window.Globalize = Globalize;
 						}
 					}
 				}
-				translate =  "translate3d(" + translateX + "px, 0px, 0px)";
-				viewStyle.transform = translate;
-				viewStyle.webkitTransform = translate;
+				translate = "translate3d(" + translateX + "px, 0px, 0px)";
+				viewStyle.transform =
+						viewStyle.webkitTransform =
+						viewStyle.mozTransform =
+						viewStyle.msTransform =
+						viewStyle.oTransform = translate;
 				circularview._lastGapSize = gapSize;
 			}
 
@@ -17196,13 +17778,27 @@ window.Globalize = Globalize;
  *
  * ###HTML Examples
  *
- * ####Create using data-role
+ * ####Create collapsible div using data-role
  *
  *		@example
  *		<div id="collapsible" data-role="collapsible" data-inset="false">
  *			<h1>Collapsible head</h1>
  *			<div>Content</div>
  *		</div>
+ *
+ * ####Create collapsible list using data-role
+ *
+ *		@example
+ *		<ul data-role="listview">
+ *			<li data-role="collapsible" data-inset="false">
+ *				<h2>Collapsible head</h2>
+ *				<-- sub list -->
+ *				<ul data-role="listview">
+ *					<li>sub list item1</li>
+ *					<li>sub list item2</li>
+ *				</ul>
+ *			</li>
+ *		</ul>
  *
  * ####Create using class selector
  *
@@ -17387,6 +17983,7 @@ window.Globalize = Globalize;
 					uiCornerTop: "ui-corner-top",
 					uiCornerBottom: "ui-corner-bottom",
 					uiIcon: "ui-icon",
+					uiLiActive: "ui-li-active",
 					// Prefixes
 					uiBodyPrefix: "ui-body-",
 					uiIconPrefix: "ui-icon-",
@@ -17432,13 +18029,14 @@ window.Globalize = Globalize;
 					headerLink,
 					headerLinkClassList,
 					headerStatus,
-					btnInner,
-					btnInnerClassList,
 					content,
 					alterHeader,
 					parentCollapsibleSet = selectors.getClosestBySelector(element, "[data-role='collapsible-set']"),
 					getDataFromParentSet = domUtils.getNSData.bind(null, parentCollapsibleSet);
 
+				if ((element.parentNode.tagName.toLowerCase() === "ul") && (element.tagName.toLowerCase() === "div")) {
+					ns.warn("Don't make the collapsible list using <div>. It violates standard of HTML rule. Instead of, please use <li>.");
+				}
 				elementClassList.add(classes.uiCollapsible);
 
 				// First child matching selector is collapsible header
@@ -17523,19 +18121,12 @@ window.Globalize = Globalize;
 
 				header.appendChild(headerStatus);
 
-				domUtils.wrapInHTML(header.childNodes, "<a href='#' class='" + classes.uiCollapsibleHeadingToggle + "'></a>");
+				domUtils.wrapInHTML(header.childNodes, "<a class='" + classes.uiCollapsibleHeadingToggle + "'></a>");
 				headerLink = header.firstElementChild;
 				headerLinkClassList = headerLink.classList;
 
-				// Make headerLink button-like
-				engine.instanceWidget(headerLink, "Button", {
-					shadow: false,
-					corners: false,
-					iconpos: options.iconpos,
-					icon: options.collapsedIcon,
-					mini: options.mini,
-					theme: options.theme
-				});
+				headerLinkClassList.add(classes.uiIconPrefix + options.iconpos);
+				headerLinkClassList.add(classes.uiIconPrefix + options.collapsedIcon);
 
 				headerLink.removeAttribute("role");
 
@@ -17544,16 +18135,8 @@ window.Globalize = Globalize;
 
 				if (options.inset) {
 					elementClassList.add(classes.uiCollapsibleInset);
-
-					headerLinkClassList.add(classes.uiCornerTop);
-					headerLinkClassList.add(classes.uiCornerBottom);
-
-					btnInner = headerLink.firstElementChild;
-					if (btnInner) {
-						btnInnerClassList = btnInner.classList;
-						btnInnerClassList.add(classes.uiCornerTop);
-						btnInnerClassList.add(classes.uiCornerBottom);
-					}
+					header.classList.add(classes.uiCornerTop);
+					header.classList.add(classes.uiCornerBottom);
 				}
 
 				Collapsible.prototype.options = options;
@@ -17572,9 +18155,8 @@ window.Globalize = Globalize;
 					header = selectors.getChildrenByClass(element, classes.uiCollapsibleHeading)[0],
 					headerClassList = header.classList,
 					headerStatus = header.querySelector("." + classes.uiCollapsibleHeadingStatus),
-					headerIcon = header.querySelector("." + classes.uiIcon),
-					headerIconClassList = headerIcon.classList,
 					headerLink = header.firstElementChild,
+					headerLinkClassList = headerLink.classList,
 					content = selectors.getChildrenByClass(element, classes.uiCollapsibleContent)[0],
 					parentCollapsibleSet = selectors.getClosestBySelector(element, "[data-role='collapsible-set']"),
 					isCollapse = event.type === "collapse";
@@ -17595,14 +18177,14 @@ window.Globalize = Globalize;
 				//Toggle functions switched to if/else statement due to toggle bug on Tizen
 				if (isCollapse) {
 					headerClassList.add(classes.uiCollapsibleHeadingCollapsed);
-					headerIconClassList.remove(classes.uiIconPrefix + options.expandedIcon);
-					headerIconClassList.add(classes.uiIconPrefix + options.collapsedIcon);
+					headerLinkClassList.remove(classes.uiIconPrefix + options.expandedIcon);
+					headerLinkClassList.add(classes.uiIconPrefix + options.collapsedIcon);
 					elementClassList.add(classes.uiCollapsibleCollapsed);
 					content.classList.add(classes.uiCollapsibleContentCollapsed);
 				} else {
 					headerClassList.remove(classes.uiCollapsibleHeadingCollapsed);
-					headerIconClassList.add(classes.uiIconPrefix + options.expandedIcon);
-					headerIconClassList.remove(classes.uiIconPrefix + options.collapsedIcon);
+					headerLinkClassList.add(classes.uiIconPrefix + options.expandedIcon);
+					headerLinkClassList.remove(classes.uiIconPrefix + options.collapsedIcon);
 					elementClassList.remove(classes.uiCollapsibleCollapsed);
 					content.classList.remove(classes.uiCollapsibleContentCollapsed);
 				}
@@ -17610,13 +18192,13 @@ window.Globalize = Globalize;
 				headerStatus.innerHTML = isCollapse ? options.expandCueText : options.collapseCueText;
 
 				if(options.expandedIcon === options.collapsedIcon) {
-					headerIconClassList.add(classes.uiIconPrefix + options.collapsedIcon);
+					headerLinkClassList.add(classes.uiIconPrefix + options.collapsedIcon);
 				}
 
 				content.setAttribute("aria-hidden", isCollapse);
 
 				if (options.contentTheme && options.inset && (!parentCollapsibleSet || domUtils.getNSData(element, "collapsible-last"))) {
-					slice.call(header.querySelectorAll("." + Button.classes.uiBtnInner)).forEach(function (value) {
+					slice.call(header.querySelectorAll("." + classes.uiCollapsibleHeadingToggle)).forEach(function (value) {
 
 						if (isCollapse) {
 							value.classList.add(classes.uiCornerBottom);
@@ -17653,12 +18235,12 @@ window.Globalize = Globalize;
 					removeActiveClass,
 					header = selectors.getChildrenByClass(element, classes.uiCollapsibleHeading)[0],
 					setActiveHeaderLinkClass = function (setClass) {
-						var link = header.querySelector("a");
-						// @todo change to method called on button object
+						var headerClassList = header.classList;
+
 						if (setClass) {
-							link.classList.add(Button.classes.uiBtnActive);
+							headerClassList.add(classes.uiLiActive);
 						} else {
-							link.classList.remove(Button.classes.uiBtnActive);
+							headerClassList.remove(classes.uiLiActive);
 						}
 					};
 
@@ -18070,7 +18652,7 @@ window.Globalize = Globalize;
  * Collapsible Set Widget groups many Collapsible Widgets in one container.
  *
  * ##Default selectors
- * In default all elements with _data-role="collapsible-set"_ or clas _.ui-collapsible-set_ are changed to collapsibleset widget.
+ * In default all elements with _data-role="collapsible-set"_ or class _.ui-collapsible-set_ are changed to collapsibleset widget.
  *
  * ##HTML Examples
  *
@@ -18225,7 +18807,6 @@ window.Globalize = Globalize;
 				uiCollapsibleHeading: "ui-collapsible-heading",
 				uiCornerTop: "ui-corner-top",
 				uiCornerBottom: "ui-corner-bottom",
-				uiBtnInner: "ui-btn-inner",
 				uiCollapsibleContent : "ui-collapsible-content"
 			};
 
@@ -18267,34 +18848,23 @@ window.Globalize = Globalize;
 						classes = CollapsibleSet.classes,
 						dataAttributes = CollapsibleSet.attributes,
 						firstCollapsibleHeading = selectors.getChildrenByClass(firstCollapsible, classes.uiCollapsibleHeading)[0],
-						firstCollapsibleLink = selectors.getChildrenByTag(firstCollapsibleHeading, "a")[0],
-						firstCollapsibleButtonInner = selectors.getChildrenByClass(firstCollapsibleLink, classes.uiBtnInner)[0],
 
 						lastCollapsible = collapsiblesInSet[collapsiblesInSet.length-1],
-						lastCollapsibleHeading = selectors.getChildrenByClass(lastCollapsible, classes.uiCollapsibleHeading)[0],
-						lastCollapsibleLink = selectors.getChildrenByTag(lastCollapsibleHeading, "a")[0],
-						lastCollapsibleButtonInner = selectors.getChildrenByClass(lastCollapsibleLink, classes.uiBtnInner)[0];
+						lastCollapsibleHeading = selectors.getChildrenByClass(lastCollapsible, classes.uiCollapsibleHeading)[0];
 
 					//clean up borders
 					collapsiblesInSet.forEach(function(collapsibleElement) {
 						var heading = selectors.getChildrenByClass(collapsibleElement, classes.uiCollapsibleHeading)[0],
-							link = selectors.getChildrenByTag(heading, "a")[0],
-							linkClassList = link.classList,
-							buttonInner = selectors.getChildrenByClass(link, classes.uiBtnInner)[0],
-							buttonInnerClassList = buttonInner.classList;
+							headingClassList = heading.classList;
 
 						domUtils.removeNSData(collapsibleElement, dataAttributes.last);
-						linkClassList.remove(classes.uiCornerBottom);
-						linkClassList.remove(classes.uiCornerTop);
-						buttonInnerClassList.remove(classes.uiCornerBottom);
-						buttonInnerClassList.remove(classes.uiCornerTop);
+						headingClassList.remove(classes.uiCornerBottom);
+						headingClassList.remove(classes.uiCornerTop);
 					});
 
-					firstCollapsibleLink.classList.add(classes.uiCornerTop);
-					firstCollapsibleButtonInner.classList.add(classes.uiCornerTop);
+					firstCollapsibleHeading.classList.add(classes.uiCornerTop);
 
-					lastCollapsibleLink.classList.add(classes.uiCornerBottom);
-					lastCollapsibleButtonInner.classList.add(classes.uiCornerBottom);
+					lastCollapsibleHeading.classList.add(classes.uiCornerBottom);
 					domUtils.setNSData(lastCollapsible, dataAttributes.last, true);
 				}
 				return collapsiblesInSet;
@@ -18314,21 +18884,16 @@ window.Globalize = Globalize;
 					dataAttributes = CollapsibleSet.attributes,
 					firstCollapsible = element.firstChild,
 					collapsibleHeading = selectors.getChildrenByClass(collapsible, classes.uiCollapsibleHeading)[0],
-					headingLink = selectors.getChildrenByTag(collapsibleHeading, "a")[0],
-					headingLinkClassList = headingLink.classList,
-					buttonInner = selectors.getChildrenByClass(headingLink, classes.uiBtnInner)[0],
-					buttonInnerClassList = buttonInner.classList,
+					collapsibleHeadingClassList = collapsibleHeading.classList,
 					collapsibleContent = selectors.getChildrenByClass(collapsible, classes.uiCollapsibleContent)[0],
 					collapsibleContentClassList =  collapsibleContent.classList;
 
 				if(domUtils.hasNSData(collapsible, dataAttributes.last) && !!options.inset) {
 					if(isCollapse) {
-						headingLinkClassList.add(classes.uiCornerBottom);
-						buttonInnerClassList.add(classes.uiCornerBottom);
+						collapsibleHeadingClassList.add(classes.uiCornerBottom);
 						collapsibleContentClassList.remove(classes.uiCornerBottom);
 					} else {
-						headingLinkClassList.remove(classes.uiCornerBottom);
-						buttonInnerClassList.remove(classes.uiCornerBottom);
+						collapsibleHeadingClassList.remove(classes.uiCornerBottom);
 						collapsibleContentClassList.add(classes.uiCornerBottom);
 					}
 				}
@@ -18819,7 +19384,7 @@ window.Globalize = Globalize;
 			widget.mobile.CollapsibleSet = CollapsibleSet;
 			engine.defineWidget(
 				"CollapsibleSet",
-				"[data-role='collapsible-set'],.ui-collapsible-set",
+				"[data-role='collapsible-set'], .ui-collapsible-set",
 				[],
 				CollapsibleSet,
 				"mobile"
@@ -19514,15 +20079,80 @@ window.Globalize = Globalize;
  * Checkboxradio widget changes default browser checkboxes and radios to form more adapted to mobile environment.
  *
  * ##Default selectors
- * In default all inputs with type _checkbox_ or _radio_ are changed to checkboxradio widget.
+ * By default all inputs with:
+ *
+ * - type "checkbox" and without class "ui-slider-switch-input"
+ * - type "radio"
+ * - class "ui-checkbox"
+ *
+ * are changed to Checkboxradio widget.
+ *
+ * ##Manual constructor - checkbox
+ * For manual creation of Checkboxradio widget with checkbox content you can use constructor of widget:
+ *
+ *	@example
+ *	<!-- Widget structure -->
+ *	<input type="checkbox" id="checkbox-1"></input>
+ *	<label for="checkbox-1">Label1</label>
+ *	<input class="ui-checkbox" id="checkbox-2"></input>
+ *	<label for="checkbox-2">Label2</label>
+ *	<script>
+ *	var checkbox = document.getElementById("checkbox-1"),
+ *		widget = tau.widget.Checkboxradio(checkbox),
+ *		checkbox2 = document.getElementById("checkbox-2"),
+ *		widget2 = tau.widget.Checkboxradio(checkbox2);
+ *	</script>
+ *
+ * ##Manual constructor - radio
+ * For manual creation of Checkboxradio widget with radio content you can use constructor of widget:
+ *
+ *	@example
+ *	<!-- Widget structure -->
+ *	<input type="radio" id="radio-1"></input>
+ *	<label for="radio-1">Label1</label>
+ *	<script>
+ *	var radio = document.getElementById("radio-1"),
+ *		widget = tau.widget.Checkboxradio(radio);
+ *	</script>
  *
  * ##HTML Examples
  *
- * ### Create checkboxradio
+ * ###Setting checkbox checked / unchecked
  *
- *		@example
- *		<input type="checkbox" name="checkbox-yes" id="checkbox-yes" />
- *		<label for="checkbox-yes">Yes</label>
+ *	@example
+ *	<!-- Widget structure -->
+ *	<input type="checkbox" id="checkbox-1"></input>
+ *	<label for="checkbox-1">Label1</label>
+ *	<script>
+ *	var checkbox = document.getElementById("checkbox-1");
+ *	// Checked
+ *	checkbox.checked = true;
+ *	// Unchecked
+ *	checkbox.checked = false;
+ *	</script>
+ *
+ * ###Setting radio checked / unchecked
+ *
+ *	@example
+ *	<!-- Widget structure -->
+ *	<input type="radio" id="radio-1"></input>
+ *	<label for="radio-1">Label1</label>
+ *	<script>
+ *	var radio = document.getElementById("radio-1");
+ *	// Checked
+ *	radio.checked = true;
+ *	// Unchecked
+ *	radio.checked = false;
+ *	</script>
+ *
+ * ###Setting disabled
+ *
+ *	@example
+ *	<!-- Widget structure -->
+ *	<input type="checkbox" id="checkbox-1" disabled="disabled"></input>
+ *	<label for="checkbox-1">Label1</label>
+ *	<input type="radio" id="radio-1" disabled="disabled"></input>
+ *	<label for="radio-1">Label2</label>
  *
  * @class ns.widget.mobile.Checkboxradio
  * @extends ns.widget.BaseWidget
@@ -19530,18 +20160,31 @@ window.Globalize = Globalize;
 (function (document, ns) {
 	
 				var Checkboxradio = function () {
+					var self = this;
 					/**
 					* @property {Object} options Object with default options
 					* @property {string} [options.theme='s'] Widget's theme
 					* @member ns.widget.mobile.Checkboxradio
-					* @instance
 					*/
-					this.options = {
+					self.options = {
 						theme: 's'
 					};
 
-					this._onLabelClickBound = null;
-					this._onInputClickBound = null;
+					self._callbacks = {
+						onLabelClick : null,
+						onInputClick : null
+					}
+
+					self.inputType = "";
+					self.checkedClass = "";
+					self.uncheckedClass = "";
+					self.ariaCheckedAttr = "";
+					self.checkedIcon = "";
+					self.uncheckedIcon = "";
+
+					self.label = null;
+					self.icon = null;
+					self.wrapper = null;
 				},
 				/**
 				* @property {Object} Widget Alias for {@link ns.widget.BaseWidget}
@@ -19578,8 +20221,20 @@ window.Globalize = Globalize;
 				* @static
 				*/
 				events = ns.event,
+				/**
+				 * {Object} List of classes which can be added to widget`s element
+				 * @member ns.widget.mobile.Checkboxradio
+				 * @private
+				 * @static
+				 */
 				classes = {
-					checkboxradioIconWrapper: "ui-icon-wrapper"
+					DISABLED: "ui-disabled",
+					ICON_PREFIX: "ui-icon-",
+					ICON_WRAPPER: "ui-icon-wrapper",
+					ICON: "ui-icon",
+					OFF: "-off",
+					ON: "-on",
+					UI: "ui-"
 				},
 				/**
 				* @property {Function} slice Alias for function Array.slice
@@ -19703,53 +20358,150 @@ window.Globalize = Globalize;
 				self._updateAll();
 			}
 
+			function setStyleForChecked(self) {
+				var labelClassList = self.label.classList,
+					iconClassList;
+				if (self.icon) {
+					iconClassList = self.icon.classList;
+					iconClassList.add(self.checkedIcon);
+					iconClassList.remove(self.uncheckedIcon);
+				}
+				labelClassList.add(self.checkedClass);
+				labelClassList.remove(self.uncheckedClass);
+				self.wrapper.setAttribute(self.ariaCheckedAttr, true);
+			}
+
+			function setStyleForUnchecked(self) {
+				var labelClassList = self.label.classList,
+					iconClassList;
+				if (self.icon) {
+					iconClassList = self.icon.classList;
+					iconClassList.add(self.uncheckedIcon);
+					iconClassList.remove(self.checkedIcon);
+				}
+				labelClassList.add(self.uncheckedClass);
+				labelClassList.remove(self.checkedClass);
+				self.wrapper.setAttribute(self.ariaCheckedAttr, false);
+			}
 			/**
-			* Check checkboxradio element
-			* @method checkElement
-			* @param {ns.widget.mobile.Checkboxradio} instance
+			* Check or uncheck checkboxradio element
+			* @method setCheckboxradioStatus
+			* @param {ns.widget.mobile.Checkboxradio} self
+			* @param {boolean} status
 			* @private
 			* @member ns.widget.mobile.Checkboxradio
 			* @new
 			*/
-			function checkElement(instance) {
-				var labelClassList = instance.label.classList,
-					iconClassList,
-					element = instance.element;
+			function setCheckboxradioStatus(self, status) {
+				var element = self.element;
 				if (!element.getAttribute("disabled")) {
-					if (instance.icon) {
-						iconClassList = instance.icon.classList;
-						iconClassList.add(instance.checkedicon);
-						iconClassList.remove(instance.uncheckedicon);
+					if (status) {
+						// checkbox is checked
+						setStyleForChecked(self);
+					} else {
+						// checkbox is checked
+						setStyleForUnchecked(self);
 					}
-					labelClassList.add(instance.checkedClass);
-					labelClassList.remove(instance.uncheckedClass);
-					instance.wrapper.setAttribute(instance.ariaCheckedAttr, true);
 				}
 			}
 
-			/**
-			* Uncheck checkboxradio element
-			* @method uncheckElement
-			* @param {ns.widget.mobile.Checkboxradio} instance
-			* @private
-			* @member ns.widget.mobile.Checkboxradio
-			* @new
-			*/
-			function uncheckElement(instance) {
-				var labelClassList = instance.label.classList,
-					iconClassList,
-					element = instance.element;
-				if (!element.getAttribute("disabled")) {
-					if (instance.icon) {
-						iconClassList = instance.icon.classList;
-						iconClassList.add(instance.uncheckedicon);
-						iconClassList.remove(instance.checkedicon);
-					}
-					labelClassList.add(instance.uncheckedClass);
-					labelClassList.remove(instance.checkedClass);
-					instance.wrapper.setAttribute(instance.ariaCheckedAttr, false);
+			Checkboxradio.prototype._buildLabel = function (element) {
+				var inputType =  this.inputType,
+					options = this.options,
+					checkedState,
+					checkedClass,
+					icon,
+					label,
+					mini,
+					iconpos;
+
+				icon = selectors.getParentsBySelector(element, "[data-type='horizontal']").length ? false : inputType + classes.OFF;
+				label = getLabel(element);
+
+				//@todo these options should not be passed via DOM element
+				mini = dom.inheritAttr(element, "data-mini", "form,fieldset");
+				if (mini) {
+					dom.setNSData(label, "mini", mini);
 				}
-			}
+				iconpos = dom.inheritAttr(element, "data-iconpos", "form,fieldset");
+				if (iconpos) {
+					dom.setNSData(label, "iconpos", iconpos);
+				}
+
+				dom.setNSData(label, "theme", options.theme);
+				dom.setNSData(label, "icon", icon);
+				dom.setNSData(label, "shadow", false);
+				dom.setNSData(label, "bar", true);
+				engine.instanceWidget(label, "Button");
+
+				//make sure label is after input
+				if (element.nextElementSibling) {
+					element.parentNode.insertBefore(label, element.nextElementSibling);
+				} else {
+					element.parentNode.appendChild(label);
+				}
+
+				if (!icon) {
+					if (element.checked) {
+						label.classList.add(ns.widget.mobile.Button.classes.uiBtnActive);
+					} else {
+						label.classList.remove(ns.widget.mobile.Button.classes.uiBtnActive);
+					}
+				}
+
+				return label;
+			};
+
+			Checkboxradio.prototype._buildWrapper = function (element) {
+				var label = getLabel(element),
+					inputType = this.inputType,
+					ariaCheckedAttr = this.ariaCheckedAttr,
+					wrapper;
+
+				// Wrap the input + label in a div
+				wrapper = "<div role='" + inputType + "' class='ui-" + inputType;
+				if (element.classList.contains("favorite")) {
+					wrapper += " favorite";
+				}
+				wrapper += "'></div>";
+
+				dom.wrapInHTML([element, label], wrapper);
+				// wrapper's node
+				wrapper = element.parentNode;
+
+				if (element.checked) {
+					wrapper.setAttribute(ariaCheckedAttr, true);
+				} else {
+					wrapper.setAttribute(ariaCheckedAttr, false);
+				}
+
+				if (element.getAttribute("disabled")) {
+					wrapper.classList.add(classes.DISABLED);
+				} else {
+					wrapper.classList.remove(classes.DISABLED);
+				}
+
+				return wrapper;
+			};
+
+			Checkboxradio.prototype._buildIcon = function (element) {
+				var inputType = this.inputType,
+					icon,
+					iconParent,
+					iconWrapper;
+
+				icon = getLabel(element).getElementsByClassName(classes.ICON)[0];
+				iconParent = icon && icon.parentElement;
+				iconWrapper = document.createElement("span");
+
+				if (icon) {
+					iconWrapper.classList.add(classes.ICON_WRAPPER);
+					iconWrapper.appendChild(icon);
+					iconParent.appendChild(iconWrapper);
+				}
+
+				return icon;
+			};
 
 			/**
 			* Builds structure of checkboxradio widget
@@ -19758,128 +20510,43 @@ window.Globalize = Globalize;
 			* @return {HTMLInputElement}
 			* @protected
 			* @member ns.widget.mobile.Checkboxradio
-			* @instance
 			*/
 			Checkboxradio.prototype._build = function (element) {
-				var inputtype = element.getAttribute('type'),
-					options = this.options,
-					label,
-					labelClassList,
-					wrapper,
-					ariaCheckedAttr,
-					icon,
-					checkedState,
-					checkedClass,
-					uncheckedClass,
-					uncheckedState,
-					checkedicon,
-					uncheckedicon,
-					activeBtn,
-					iconSpan,
-					iconClassList,
-					iconpos,
-					mini,
-					iconSpanParent,
-					iconWrapper;
+				var self = this,
+					inputType = element.getAttribute("type");
 
 				//if created dynamically on wrong element, just return from here
-				if (inputtype !== "checkbox" && inputtype !== "radio") {
+				if (inputType !== "checkbox" && inputType !== "radio") {
 					//_build should always return element
 					return element;
 				}
-				ariaCheckedAttr = inputtype === 'radio' ? 'aria-selected' : 'aria-checked';
-				checkedState = inputtype + "-on";
-				uncheckedState = inputtype + "-off";
-				icon = selectors.getParentsBySelector(element, "[data-type='horizontal']").length ? false : uncheckedState;
-				if (!icon) {
-					activeBtn = "ui-btn-active";
-				}
-				checkedClass = "ui-" + checkedState;
-				uncheckedClass = "ui-" + uncheckedState;
-				checkedicon = "ui-icon-" + checkedState;
-				uncheckedicon = "ui-icon-" + uncheckedState;
-
-				label = getLabel(element);
-				labelClassList = label.classList;
-
-				//@todo these options should not be passed via DOM element
-				mini = dom.inheritAttr(element, "data-mini", "form,fieldset");
-				if (mini) {
-					label.setAttribute('data-mini', mini);
-				}
-
-				iconpos = dom.inheritAttr(element, "data-iconpos", "form,fieldset");
-				if (iconpos) {
-					label.setAttribute('data-iconpos', iconpos);
-				}
-
-				label.setAttribute('data-theme', options.theme);
-				label.setAttribute('data-icon', icon);
-				label.setAttribute('data-shadow', false);
-				label.setAttribute('data-bar', true);
-				engine.instanceWidget(label, "Button");
-				iconSpan = label.getElementsByClassName('ui-icon')[0];
-				iconSpanParent = iconSpan && iconSpan.parentElement;
-				iconWrapper = document.createElement("span");
-
-				if (iconSpan) {
-					iconClassList = iconSpan.classList;
-					iconWrapper.classList.add(classes.checkboxradioIconWrapper);
-					iconWrapper.appendChild(iconSpan);
-					iconSpanParent.appendChild(iconWrapper);
-				}
-
-				// Wrap the input + label in a div
-				wrapper = '<div role="' + inputtype + '" class="ui-' + inputtype;
-				if (element.classList.contains("favorite")) {
-					wrapper += ' favorite';
-				}
-				wrapper += '"></div>';
-
-				//make sure label is after input
-				if (element.nextElementSibling) {
-					element.parentNode.insertBefore(label, element.nextElementSibling);
-				} else {
-					element.parentNode.appendChild(label);
-				}
-				dom.wrapInHTML([element, label], wrapper);
-				wrapper = element.parentNode;
 
 				if (element.hasAttribute('checked')) {
 					// quick fix to resolve problem in tests when sometimes attribute checked isn't proper interpreted to property in object
 					element.checked = true;
 				}
+
+				// set classes
+				self.element = element;
+				self.inputType = inputType;
+				self.checkedClass = classes.UI + inputType + classes.ON;
+				self.uncheckedClass = classes.UI + inputType + classes.OFF;
+				self.ariaCheckedAttr = inputType === "radio" ? "aria-selected" : "aria-checked";
+				self.checkedIcon = classes.ICON_PREFIX + inputType + classes.ON;
+				self.uncheckedIcon = classes.ICON_PREFIX + inputType + classes.OFF;
+
+				// create elements
+				self.label = self._buildLabel(element);
+				self.icon = self._buildIcon(element);
+				self.wrapper = self._buildWrapper(element);
+
+				// check or uncheck element
 				if (element.checked) {
-					labelClassList.add(checkedClass);
-					if (!icon) {
-						labelClassList.add(activeBtn);
-					}
-					labelClassList.remove(uncheckedClass);
-					if (iconSpan) {
-						iconClassList.add(checkedicon);
-						iconClassList.remove(uncheckedicon);
-					}
-					wrapper.setAttribute(ariaCheckedAttr, true);
+					setStyleForChecked(self);
 				} else {
-					labelClassList.remove(checkedClass);
-					if (!icon) {
-						labelClassList.remove(activeBtn);
-					}
-					labelClassList.add(uncheckedClass);
-					if (iconSpan) {
-						iconClassList.add(uncheckedicon);
-						iconClassList.remove(checkedicon);
-					}
-					wrapper.setAttribute(ariaCheckedAttr, false);
+					setStyleForUnchecked(self);
 				}
 
-				element.checked = element.getAttribute('checked') === 'checked';
-
-				if (element.getAttribute("disabled")) {
-					wrapper.classList.add('ui-disabled');
-				} else {
-					wrapper.classList.remove('ui-disabled');
-				}
 				return element;
 			};
 
@@ -19889,18 +20556,18 @@ window.Globalize = Globalize;
 			* @param {HTMLElement} element
 			* @protected
 			* @member ns.widget.mobile.Checkboxradio
-			* @instance
 			*/
 			Checkboxradio.prototype._init = function (element) {
-				this.label = getLabel(element);
-				this.icon = this.label.getElementsByClassName('ui-icon')[0];
-				this.wrapper = element.parentNode;
-				this.inputtype = element.getAttribute('type');
-				this.checkedClass = 'ui-' + this.inputtype + '-on';
-				this.uncheckedClass = 'ui-' + this.inputtype + '-off';
-				this.ariaCheckedAttr = this.inputtype === 'radio' ? 'aria-selected' : 'aria-checked';
-				this.checkedicon = "ui-icon-" + this.inputtype + '-on';
-				this.uncheckedicon = "ui-icon-" + this.inputtype + '-off';
+				var self = this;
+				self.label = getLabel(element);
+				self.icon = self.label.getElementsByClassName("ui-icon")[0];
+				self.wrapper = element.parentNode;
+				self.inputType = element.getAttribute("type");
+				self.checkedClass = classes.UI + self.inputType + classes.ON;
+				self.uncheckedClass = classes.UI + self.inputType + classes.OFF;
+				self.ariaCheckedAttr = self.inputType === "radio" ? "aria-selected" : "aria-checked";
+				self.checkedIcon = classes.ICON_PREFIX + self.inputType + classes.ON;
+				self.uncheckedIcon = classes.ICON_PREFIX + self.inputType + classes.OFF;
 			};
 
 			/**
@@ -19908,13 +20575,14 @@ window.Globalize = Globalize;
 			* @method _bindEvents
 			* @protected
 			* @member ns.widget.mobile.Checkboxradio
-			* @instance
 			*/
 			Checkboxradio.prototype._bindEvents = function () {
-				this._onLabelClickBound = onLabelClick.bind(null, this);
-				this._onInputClickBound = onInputClick.bind(null, this);
-				this.label.addEventListener('vclick', this._onLabelClickBound, true);
-				this.element.addEventListener('vclick', this._onInputClickBound, false);
+				var callbacks = this._callbacks;
+
+				callbacks.onLabelClick = onLabelClick.bind(null, this);
+				callbacks.onInputClick = onInputClick.bind(null, this);
+				this.label.addEventListener('vclick', callbacks.onLabelClick, true);
+				this.element.addEventListener('vclick', callbacks.onInputClick, false);
 			};
 
 			/**
@@ -19923,12 +20591,11 @@ window.Globalize = Globalize;
 			* @return {Array}
 			* @protected
 			* @member ns.widget.mobile.Checkboxradio
-			* @instance
 			*/
 			Checkboxradio.prototype._getInputSet = function () {
 				var parent;
 
-				if (this.inputtype === 'checkbox') {
+				if (this.inputType === 'checkbox') {
 					return [this.element];
 				}
 
@@ -19937,7 +20604,7 @@ window.Globalize = Globalize;
 
 				if (parent) {
 					return slice.call(parent.querySelectorAll(
-						"input[name='" + this.element.name + "'][type='" + this.inputtype + "']"
+						"input[name='" + this.element.name + "'][type='" + this.inputType + "']"
 					));
 				}
 
@@ -19949,7 +20616,6 @@ window.Globalize = Globalize;
 			* @method _updateAll
 			* @protected
 			* @member ns.widget.mobile.Checkboxradio
-			* @instance
 			*/
 			Checkboxradio.prototype._updateAll = function () {
 				this._getInputSet().forEach(function (el) {
@@ -19968,17 +20634,12 @@ window.Globalize = Globalize;
 			* Refreshes widget
 			* @method refresh
 			* @member ns.widget.mobile.Checkboxradio
-			* @instance
 			*/
 
 			Checkboxradio.prototype.refresh = function () {
 				var element = this.element;
 
-				if (element.checked) {
-					checkElement(this);
-				} else {
-					uncheckElement(this);
-				}
+				setCheckboxradioStatus(this, element.checked);
 
 				if (element.getAttribute("disabled")) {
 					this.disable();
@@ -19992,7 +20653,6 @@ window.Globalize = Globalize;
 			* @method _enable
 			* @member ns.widget.mobile.Checkboxradio
 			* @protected
-			* @instance
 			*/
 			Checkboxradio.prototype._enable = function () {
 				dom.removeAttribute(this.element, "disabled");
@@ -20004,7 +20664,6 @@ window.Globalize = Globalize;
 			* @method _disable
 			* @protected
 			* @member ns.widget.mobile.Checkboxradio
-			* @instance
 			*/
 			Checkboxradio.prototype._disable = function () {
 				dom.setAttribute(this.element, "disabled", true);
@@ -20016,20 +20675,21 @@ window.Globalize = Globalize;
 			* @method _destroy
 			* @protected
 			* @member ns.widget.mobile.Checkboxradio
-			* @instance
 			*/
 			Checkboxradio.prototype._destroy = function () {
-				this.label.removeEventListener('vclick', this._onLabelClickBound, true);
-				this.element.removeEventListener('vclick', this._onInputClickBound, false);
+				var self = this,
+					callbacks = self._callbacks;
+				self.label.removeEventListener('vclick', callbacks.onLabelClick, true);
+				self.element.removeEventListener('vclick', callbacks.onInputClick, false);
 			};
 
 			/**
-			* Return checked checkboxradio element
-			* @method getCheckedElement
-			* @return {?HTMLElement}
-			* @member ns.widget.mobile.Checkboxradio
-			* @new
-			*/
+			 * Return checked checkboxradio element
+			 * @method getCheckedElement
+			 * @return {?HTMLElement}
+			 * @member ns.widget.mobile.Checkboxradio
+			 * @new
+			 */
 			Checkboxradio.prototype.getCheckedElement = function () {
 				var radios = this._getInputSet(),
 					i,
@@ -20043,14 +20703,13 @@ window.Globalize = Globalize;
 			};
 
 			/**
-			* Returns value of checkbox if it is checked or value of radios with the same name
-			* @method _getValue
-			* @member ns.widget.mobile.Checkboxradio
-			* @return {?string}
+			 * Returns value of checkbox if it is checked or value of radios with the same name
+			 * @method _getValue
+			 * @member ns.widget.mobile.Checkboxradio
+			 * @return {?string}
 			 * @protected
-			* @instance
-			* @new
-			*/
+			 * @new
+			 */
 			Checkboxradio.prototype._getValue = function () {
 				var checkedElement = this.getCheckedElement();
 
@@ -20067,8 +20726,6 @@ window.Globalize = Globalize;
 			* @param {string} value
 			* @member ns.widget.mobile.Checkboxradio
 			* @chainable
-			* @instance
-			 * @protected
 			* @new
 			*/
 			Checkboxradio.prototype._setValue = function (value) {
@@ -20081,9 +20738,9 @@ window.Globalize = Globalize;
 					if (radios[i].value === value) {
 						checkedElement = this.getCheckedElement();
 						if (checkedElement) {
-							uncheckElement(engine.getBinding(checkedElement));
+							setCheckboxradioStatus(engine.getBinding(checkedElement), false);
 						}
-						checkElement(engine.getBinding(radios[i]));
+						setCheckboxradioStatus(engine.getBinding(radios[i]), true);
 						return this;
 					}
 				}
@@ -20094,7 +20751,9 @@ window.Globalize = Globalize;
 			ns.widget.mobile.Checkboxradio = Checkboxradio;
 			engine.defineWidget(
 				"Checkboxradio",
-				"input[type='checkbox']:not(.ui-slider-switch-input), input[type='radio'], .ui-checkbox",
+				"input[type='checkbox']:not(.ui-slider-switch-input):not([data-role='toggleswitch']):not(.ui-toggleswitch)," +
+				"input[type='radio']," +
+				"input.ui-checkbox",
 				[
 					"enable",
 					"disable",
@@ -20936,6 +21595,7 @@ window.Globalize = Globalize;
 					uiLiHasRightBtn: "ui-li-has-right-btn",
 					uiLiCount: "ui-li-count",
 					uiLiHasCount: "ui-li-has-count",
+					uiLiAnchor: "ui-li-anchor",
 					uiLiStatic: "ui-li-static",
 					uiLiHeading: "ui-li-heading"
 				},
@@ -20997,83 +21657,6 @@ window.Globalize = Globalize;
 				self.options = options;
 				ui.page = null;
 			};
-
-			/**
-			 * Change links to button widget
-			 * @method changeLinksToButton
-			 * @param {HTMLElement} item
-			 * @param {Array} links
-			 * @param {string} itemTheme
-			 * @private
-			 * @static
-			 * @member ns.widget.mobile.Listview
-			 */
-			function changeLinksToButton(item, links, itemTheme) {
-				var icon = DOM.getNSData(item, "icon"),
-					linkClassList = links[0].classList,
-					linksLength = links.length,
-					last = links[linksLength - 1],
-					span;
-				DOM.setNSData(item, "theme", itemTheme);
-				engine.instanceWidget(
-					item,
-					"Button",
-					{
-						wrapperEls: "div",
-						shadow: false,
-						corners: false,
-						iconpos: "right",
-						icon: false
-					}
-				);
-
-				if (linksLength === 1) {
-					item.classList.add(classes.uiLiHasArrow);
-					if (icon !== false) {
-						item.classList.add(buttonClasses.uiBtnIconRight);
-					}
-				} else if (linksLength > 1) {
-					item.classList.add(classes.uiLiHasAlt);
-					item.appendChild(last);
-					last.classList.add(classes.uiLiLinkAlt);
-					last.setAttribute("title", last.innerText);
-					last.innerText = "";
-					engine.instanceWidget(
-						last,
-						"Button",
-						{
-							wrapperEls: "span",
-							shadow: false,
-							corners: false,
-							iconpos: "right",
-							icon: false
-						}
-					);
-					last.classList.add(buttonClasses.uiBtnIconNotext);
-
-					span = document.createElement("span");
-					engine.instanceWidget(
-						span,
-						"Button",
-						{
-							wrapperEls: "span",
-							shadow: true,
-							corners: false,
-							iconpos: "notext",
-							icon: "arrow-r"
-						}
-					);
-					last.querySelector("." + buttonClasses.uiBtnInner)
-							.appendChild(span);
-				}
-				linkClassList.remove(classes.uiLink);
-				linkClassList.add(classes.uiLinkInherit);
-
-				selectors.getChildrenByClass(item, buttonClasses.uiBtnInner)
-					.forEach(function (element) {
-						element.classList.add(classes.uiLi);
-					});
-			}
 
 			/**
 			 * Add thumb classes img
@@ -21550,11 +22133,10 @@ window.Globalize = Globalize;
 			 * @member ns.widget.mobile.Listview
 			 */
 			Listview.prototype._refreshCorners = function (ul, create) {
-				var items,
-					self = this,
+				var self = this,
+					items = selectors.getChildrenByTag(ul, "li"),
 					last;
 
-				items = selectors.getChildrenByTag(ul, "li");
 				if (items.length) {
 					// clean previous corners
 					items.forEach(function (item) {
@@ -21582,7 +22164,90 @@ window.Globalize = Globalize;
 			};
 
 			/**
-			 * Refresh items of list
+			 * Adds checkboxradio, thumb and right button classes
+			 * if it is essential.
+			 * @method addItemClasses
+			 * @param {HTMLElement} item Element to add classes to
+			 * @static
+			 * @private
+			 * @member ns.widget.mobile.Listview
+			 */
+			function addItemClasses(item) {
+				addCheckboxRadioClasses(item);
+				addThumbClasses(item);
+				addRightBtnClasses(item);
+			}
+
+			/**
+			 * Refreshes item elements with "a" tag
+			 * @method refreshLinks
+			 * @param {HTMLElement} element HTML LI element
+			 * @static
+			 * @private
+			 * @member ns.widget.mobile.Listview
+			 */
+			function refreshLinks(item) {
+				var links = selectors.getChildrenByTag(item, "a"),
+					itemClassList = item.classList;
+				if (links.length) {
+					addItemClasses(links[0]);
+					itemClassList.add(classes.uiLiAnchor);
+				} else {
+					itemClassList.add(classes.uiLiStatic);
+					item.setAttribute("tabindex", "0");
+				}
+			}
+
+			/**
+			 * Refreshes single item of a list
+			 * @method refreshItem
+			 * @param {HTMLElement} element HTML LI element
+			 * @param {boolean} create True if item is forced to be created
+			 * @param {string} dividerTheme List divider theme
+			 * @static
+			 * @private
+			 * @member ns.widget.mobile.Listview
+			 */
+			function refreshItem(item, create, dividerTheme) {
+				var itemClassList = item.classList;
+
+				if (create || (!itemClassList.contains(classes.uiLi) && DOM.isOccupiedPlace(item))) {
+					itemClassList.add(classes.uiLi);
+
+					if (item.querySelector("." + classes.uiLiCount)) {
+						itemClassList.add(classes.uiLiHasCount);
+					}
+
+					if (selectors.matchesSelector(item, engine.getWidgetDefinition("ListDivider").selector)) {
+						engine.instanceWidget(item, "ListDivider", {theme: dividerTheme});
+					} else {
+						refreshLinks(item);
+						addHeadingClasses(item);
+					}
+				}
+				addItemClasses(item);
+			}
+
+			/**
+			 * Refreshes list images
+			 * @method refreshImages
+			 * @param {HTMLElement} ul HTML UL element
+			 * @static
+			 * @private
+			 * @member ns.widget.mobile.Listview
+			 */
+			function refreshImages(ul) {
+				var imgs = ul.querySelectorAll("." + classes.uiLinkInherit + " > img:first-child"),
+					i,
+					length = imgs.length;
+
+				for (i = 0; i < length; i++) {
+					addThumbClassesToImg(imgs[i]);
+				}
+			}
+
+			/**
+			 * Refreshes items of list
 			 * @method _refreshItems
 			 * @param {HTMLElement} ul HTML UL element
 			 * @param {boolean} create
@@ -21590,70 +22255,25 @@ window.Globalize = Globalize;
 			 * @member ns.widget.mobile.Listview
 			 */
 			Listview.prototype._refreshItems = function (ul, create) {
-				var items,
-					options = this.options,
+				var self = this,
+					items,
+					options = self.options,
 					theme,
-					last,
-					imgs,
 					dividerTheme;
 
 				eventUtils.trigger(ul, "beforerefreshitems");
+
 				items = selectors.getChildrenByTag(ul, "li");
 				theme = DOM.getNSData(ul, "theme") || options.theme || "s";
 				dividerTheme = DOM.getNSData(ul, "divider-theme") || options.dividerTheme || theme;
-				last = items.length - 1;
 
-				//@todo filter only visible
-				items.forEach(function (item, index) {
-					var itemTheme,
-						links,
-						link,
-						itemClassList = item.classList;
-					if (create || !item.classList.contains(classes.uiLi)) {
-						itemClassList.add(classes.uiLi);
-						links = selectors.getChildrenByTag(item, "a");
-						itemTheme = DOM.getNSData(item, "theme") || theme;
+				items.forEach(function (item) {
+					refreshItem(item, create, dividerTheme);
+				}, self);
 
-						if (!!item.querySelector("." + classes.uiLiCount)) {
-							itemClassList.add(classes.uiLiHasCount);
-						}
+				refreshImages(ul);
 
-						//becasue ListDivider is attached later then Listview I cannot make reference to ListDivider classes
-						if (selectors.matchesSelector(item, '[data-role="list-divider"],.ui-list-divider')) {
-							DOM.setNSData(item, "theme", dividerTheme);
-							engine.instanceWidget(item, "ListDivider");
-						} else {
-							if (links.length) {
-								changeLinksToButton(item, links, itemTheme);
-								link = links[0];
-								addCheckboxRadioClasses(link);
-								addThumbClasses(link);
-								addRightBtnClasses(link);
-							} else {
-								itemClassList.add(classes.uiLiStatic);
-								itemClassList.add(buttonClasses.uiBtnUpThemePrefix + itemTheme);
-								item.setAttribute("tabindex", "0");
-							}
-							addHeadingClasses(item);
-						}
-					}
-					addCheckboxRadioClasses(item);
-					addThumbClasses(item);
-					addRightBtnClasses(item);
-					if (index === last) {
-						itemClassList.add(classes.uiLiLast);
-					} else {
-						itemClassList.remove(classes.uiLiLast);
-					}
-				}, this);
-
-				imgs = ul.querySelectorAll("." + classes.uiLinkInherit + " > img:first-child");
-				if (imgs.length !== 0) {
-					slice.call(imgs).forEach(function (img) {
-						addThumbClassesToImg(img);
-					});
-				}
-				this._refreshCorners(ul, create);
+				self._refreshCorners(ul, create);
 			};
 
 			/**
@@ -21716,7 +22336,7 @@ window.Globalize = Globalize;
 			ns.widget.mobile.Listview = Listview;
 			engine.defineWidget(
 				"Listview",
-				"[data-role='listview'], .ui-listview",
+				"ul[data-role='listview'], ul.ui-listview, ol[data-role='listview'], ol.ui-listview",
 				["addItem", "removeItem"],
 				Listview,
 				"mobile"
@@ -22385,7 +23005,7 @@ window.Globalize = Globalize;
  *    "tel" or "month" or "week" or "datetime-local" or "color" or without any
  *    type
  *  - TEXTAREA
- *  - HTML elements with class ui-TextInput
+ *  - HTML elements with class _ui-textinput_
  *
  * ###HTML Examples
  *
@@ -22674,13 +23294,47 @@ window.Globalize = Globalize;
 			 * @param {HTMLElement} element
 			 * @member ns.widget.mobile.TextInput
 			 */
-			function _resize(element){
+			function _resize(element) {
 				if (element.nodeName.toLowerCase() === "textarea") {
-					if(element.clientHeight < element.scrollHeight){
+					if (element.clientHeight < element.scrollHeight) {
 						element.style.height = element.scrollHeight + "px";
 					}
 				}
 			}
+
+			/**
+			* Get element value
+			* @method _getValue
+			* @return {?string}
+			* @member ns.widget.mobile.TextInput
+			* @chainable
+			* @protected
+			* @since 2.3.1
+			*/
+			TextInput.prototype._getValue = function ()  {
+				var element = this.element;
+				if (element) {
+					return element.value;
+				}
+				return null;
+			};
+
+			/**
+			* Set element value
+			* @method _setValue
+			* @param {string} value
+			* @member ns.widget.mobile.TextInput
+			* @chainable
+			* @protected
+			* @since 2.3.1
+			*/
+			TextInput.prototype._setValue = function (value) {
+				var element = this.element;
+				if (element) {
+					element.value = value;
+				}
+				return this;
+			};
 
 			/**
 			 * Toggle visibility of the clear button
@@ -22706,15 +23360,14 @@ window.Globalize = Globalize;
 
 			/**
 			 * Method finds label tag for element.
-			 * @method findLabel
+			 * @method _findLabel
 			 * @param {HTMLElement} element
 			 * @member ns.widget.mobile.TextInput
 			 * @return {HTMLElement}
-			 * @static
-			 * @private
+			 * @protected
 			 */
-			function findLabel(element) {
-				return element.parentNode.querySelector('label[for="' + element.id + '"]');
+			TextInput.prototype._findLabel = function(element) {
+				return element.parentNode.querySelector("label[for='" + element.id + "']");
 			}
 
 			/**
@@ -22900,7 +23553,7 @@ window.Globalize = Globalize;
 					elementClassList = element.classList,
 					options = self.options,
 					themeClass,
-					labelFor = findLabel(element),
+					labelFor = self._findLabel(element),
 					clearButton,
 					type = element.type,
 					ui;
@@ -23041,13 +23694,65 @@ window.Globalize = Globalize;
 				elementClassList.remove(classes.uiBodyTheme + this.options.theme);
 			};
 
+			/**
+			 * Returns label value
+			 * @method getLabel
+			 * @return {string} Label value or null
+			 * @member ns.widget.mobile.TextInput
+			 */
+			TextInput.prototype.getLabel = function () {
+				var label = this._findLabel(this.element);
+				if (label !== null) {
+					return label.innerHTML;
+				}
+				return null;
+			};
+
+			/**
+			 * Sets label value
+			 * @method setLabel
+			 * @param {string} Label text
+			 * @member ns.widget.mobile.TextInput
+			 */
+			TextInput.prototype.setLabel = function (text) {
+				var self = this,
+					element = self.element,
+					label;
+
+				if (typeof text === "string") {
+					label = self._findLabel(element);
+					if (label === null) {
+						// create new label
+						label = document.createElement("label");
+						label.setAttribute("for", element.id);
+
+						// add to parent
+						element.parentElement.appendChild(label);
+					}
+					label.innerHTML = text;
+				}
+			};
+
 			ns.widget.mobile.TextInput = TextInput;
 			engine.defineWidget(
 				"TextInput",
-				"input[type='text'], input[type='number'], input[type='password'], input[type='email']," +
-					"input[type='url'], input[type='tel'], textarea, input[type='month'], input[type='week']," +
-					"input[type='datetime-local'], input[type='color'], input:not([type]), .ui-textinput",
-				[],
+				"input[type='text']:not([data-role])" +
+					", input[type='number']:not([data-role])" +
+					", input[type='password']:not([data-role])" +
+					", input[type='email']:not([data-role])" +
+					", input[type='url']:not([data-role])" +
+					", input[type='tel']:not([data-role])" +
+					", input[type='month']:not([data-role])" +
+					", input[type='week']:not([data-role])" +
+					", input[type='datetime-local']:not([data-role])" +
+					", input[type='color']:not([data-role])" +
+					", input:not([type]):not([data-role]):not(.ui-checkbox):not(.ui-tizenslider)" +
+					", textarea" +
+					", .ui-textinput",
+				[
+					"getLabel",
+					"setLabel"
+				],
 				TextInput,
 				"mobile"
 			);
@@ -23823,7 +24528,7 @@ window.Globalize = Globalize;
 			ns.widget.mobile.SearchBar = SearchBar;
 			engine.defineWidget(
 				"SearchBar",
-				"input[type='search'],[data-type='search'], input[type=tizen-search],[data-type='tizen-search'], .ui-searchbar",
+				"input[type='search'], [data-type='search'], [data-type='tizen-search'], .ui-searchbar",
 				[
 					"value"
 				],
@@ -24192,7 +24897,6 @@ window.Globalize = Globalize;
 				if (options.filter) {
 					wrapper = document.createElement("form");
 
-					wrapper.setAttribute("role", "search");
 					wrapper.setAttribute("id", id + "-form");
 
 					wrapperClass = wrapper.classList;
@@ -24302,7 +25006,8 @@ window.Globalize = Globalize;
 			 * @static
 			 */
 			function preventDefault(event) {
-				event.preventDefault();
+				events.preventDefault(event);
+				events.stopPropagation(event);
 			}
 
 			/**
@@ -24345,7 +25050,7 @@ window.Globalize = Globalize;
 					this._inputChangeHandler = inputChangeHandler.bind(null, this);
 					search.addEventListener("keyup", this._inputChangeHandler, false);
 					search.addEventListener("change", this._inputChangeHandler, false);
-					search.addEventListener("submit", preventDefault, false);
+					document.addEventListener("submit", preventDefault, true);
 				}
 			};
 
@@ -24361,7 +25066,7 @@ window.Globalize = Globalize;
 				if (search) {
 					search.removeEventListener("keyup", this._inputChangeHandler, false);
 					search.removeEventListener("change", this._inputChangeHandler, false);
-					search.removeEventListener("submit", preventDefault, false);
+					document.removeEventListener("submit", preventDefault, true);
 				}
 				// call protected method from Listview;
 				if (typeof parent_destroy === TYPE_FUNCTION) {
@@ -25147,7 +25852,7 @@ window.Globalize = Globalize;
  *				</div>
  *			</div>
  *			<div data-role="content">
- *			 	Content
+ *				Content
  *			</div>
  *		</div>
  *
@@ -25252,7 +25957,7 @@ window.Globalize = Globalize;
  *
  *		@example
  *		<script>
- *		var tabBarElement = document.getElementById('tab-bar'),
+ *		var tabBarElement = document.getElementById("tab-bar"),
  *			tabBar = tau.widget.TabBar(TabBarElement);
  *
  *		tabBar.methodName(methodArgument1, methodArgument2, ...);
@@ -25262,7 +25967,7 @@ window.Globalize = Globalize;
  *
  *		@example
  *		<script>
- *		$(".selector").tabbar('methodName', methodArgument1, methodArgument2, ...);
+ *		$(".selector").tabbar("methodName", methodArgument1, methodArgument2, ...);
  *		</script>
  *
  * @class ns.widget.mobile.TabBar
@@ -25272,17 +25977,30 @@ window.Globalize = Globalize;
 	
 				var ButtonClasses = ns.widget.mobile.Button.classes,
 				BaseWidget = ns.widget.mobile.BaseWidgetMobile,
+				Scrollview = ns.widget.mobile.Scrollview,
 				engine = ns.engine,
 				selectors = ns.util.selectors,
 				grid = ns.util.grid,
 				DOM = ns.util.DOM,
 				slice = [].slice,
 				TabBar = function () {
-					this.vclickCallback = null;
+					this._callbacks = {};
 					this._ui = {};
+					/**
+					 * Object with default options
+					 * @property {Object} options
+					 * @property {string} [options.active="0"] Number of activated button.
+					 * @property {string} [options.autoChange=true] Defined if widget should set
+					 * activated button after click event.
+					 * @property {string} [options.iconpos="top"] Position of icon in buttons.
+					 * @property {string} [options.grid=null] Type of grid.
+					 * @member ns.widget.mobile.TabBar
+					 */
 					this.options = {
 						active: 0,
-						autoChange: true
+						autoChange: true,
+						iconpos: "top",
+						grid: null
 					};
 				},
 				/**
@@ -25298,8 +26016,6 @@ window.Globalize = Globalize;
 					uiTabbarActive: "ui-tabbar-active",
 					uiStatePersist: "ui-state-persist",
 					uiHeader: "ui-header",
-					uiScrollviewView: "ui-scrollview-view",
-					uiScrollviewClip: "ui-scrollview-clip",
 					uiNavbar: "ui-navbar",
 					uiFooter: "ui-footer",
 					uiTabBtnStyle: "ui-tab-btn-style",
@@ -25316,23 +26032,6 @@ window.Globalize = Globalize;
 
 			TabBar.prototype = new BaseWidget();
 
-			/*
-			* @todo move to options object
-			*/
-
-			/**
-			 * Position of icon
-			 * @property {string} [iconpos="top"]
-			 * @member ns.widget.mobile.TabBar
-			 */
-			TabBar.prototype.iconpos = 'top';
-			/**
-			 * Grid type
-			 * @property {string} [grid=null]
-			 * @member ns.widget.mobile.TabBar
-			 */
-			TabBar.prototype.grid = null;
-
 			TabBar.classes = classes;
 
 			/**
@@ -25345,9 +26044,70 @@ window.Globalize = Globalize;
 			 * @return {boolean}
 			 */
 			function hasIcon(elements) {
-				return !elements.every(function (element) {
-					return !element.getAttribute('data-icon');
-				});
+				var length = elements.length,
+					i;
+
+				for (i = 0; i < length; i++) {
+					if (DOM.getNSData(elements[i],"icon")) {
+						return true;
+					}
+				}
+				return false;
+			}
+
+			/**
+			 * Active scrollable tabbar.
+			 * @method activateScrollableTabbar
+			 * @param {Array} buttons
+			 * @param {HTMLElement} activatedButton
+			 * @member ns.widget.mobile.TabBar
+			 * @static
+			 * @private
+			 */
+			function activateScrollableTabbar(buttons, activatedButton) {
+				var length = buttons.length,
+					i;
+
+				for (i = 0; i < length; i++) {
+					buttons[i].classList.remove(classes.uiTabbarActive);
+				}
+				/*
+				* In original file btnActiveClass is always added.
+				* Here, if button is disabled, this class will not be added
+				*/
+				if (activatedButton) {
+					activatedButton.classList.add(classes.uiTabbarActive);
+				}
+			}
+
+			/**
+			 * Active tabbar, which is not scrollable..
+			 * @method activateUnscrollableTabbar
+			 * @param {Array} buttons
+			 * @param {HTMLElement} activatedButton
+			 * @member ns.widget.mobile.TabBar
+			 * @static
+			 * @private
+			 */
+			function activateUnscrollableTabbar(buttons, activatedButton) {
+				var btnActiveClass = ButtonClasses.uiBtnActive,
+					buttonClasses,
+					length = buttons.length,
+					i;
+
+				for (i = 0; i < length; i++) {
+					buttonClasses = buttons[i].classList;
+					if (!buttonClasses.contains(classes.uiStatePersist)) {
+						buttonClasses.remove(btnActiveClass);
+					}
+				}
+				/*
+				* In original file btnActiveClass is always added.
+				* Here, if button is disabled, this class will not be added
+				*/
+				if (activatedButton) {
+					activatedButton.classList.add(btnActiveClass);
+				}
 			}
 
 			function setActive(self, index) {
@@ -25355,13 +26115,10 @@ window.Globalize = Globalize;
 					uls = element.getElementsByTagName("ul"),
 					ul = uls[0],
 					buttons = element.getElementsByTagName("a"),
-					i = 0,
-					max,
 					hasClass = false,
 					buttonClasses,
-					btnActiveClass = ButtonClasses.uiBtnActive,
-					classes = TabBar.classes,
-					activatedButton = buttons.length > index ? buttons[index] : null;
+					activatedButton = buttons.length > index ? buttons[index] : null,
+					i;
 
 				while (!hasClass && ul) {
 					if (ul.classList.contains(classes.tabbarScrollUl)) {
@@ -25370,33 +26127,15 @@ window.Globalize = Globalize;
 					ul = uls[++i];
 				}
 
+				// active tabbar
 				if (hasClass) {
-					for (i = 0, max = buttons.length; i < max; i++) {
-						buttons[i].classList.remove(classes.uiTabbarActive);
-					}
-					/*
-					* In original file btnActiveClass is always added.
-					* Here, if button is disabled, this class will not be added
-					*/
-					if (activatedButton) {
-						activatedButton.classList.add(classes.uiTabbarActive);
-						self.options.active = index;
-					}
+					activateScrollableTabbar(buttons, activatedButton);
 				} else {
-					for (i = 0, max = buttons.length; i < max; i++) {
-						buttonClasses = buttons[i].classList;
-						if (!buttonClasses.contains(classes.uiStatePersist)) {
-							buttonClasses.remove(btnActiveClass);
-						}
-					}
-					/*
-					* In original file btnActiveClass is always added.
-					* Here, if button is disabled, this class will not be added
-					*/
-					if (activatedButton) {
-						activatedButton.classList.add(btnActiveClass);
-						self.options.active = index;
-					}
+					activateUnscrollableTabbar(buttons, activatedButton);
+				}
+				// set option
+				if (activatedButton) {
+					self.options.active = index;
 				}
 			}
 
@@ -25408,12 +26147,11 @@ window.Globalize = Globalize;
 			 * @private
 			 */
 			function vclickEvent(self) {
-				var element = self.element,
-					buttons = element.getElementsByTagName("a"),
-					i = 0,
-					max,
+				var buttons = self.element.getElementsByTagName("a"),
 					activatedButton = selectors.getClosestByTag(event.target, "a"),
-					active = 0;
+					active = 0,
+					i = 0,
+					max;
 
 				for (i = 0, max = buttons.length; i < max; i++) {
 					if (activatedButton === buttons[i]) {
@@ -25439,16 +26177,181 @@ window.Globalize = Globalize;
 			 * @member ns.widget.mobile.TabBar
 			 */
 			function setDisabled(element, value, index) {
-				var liItems = selectors.getChildrenByTag(element.children[0], 'li')[index];
+				var liItems = selectors.getChildrenByTag(element.children[0], "li")[index];
 
-				DOM.setAttribute(liItems, 'disabled', value);
-				DOM.setAttribute(liItems, 'aria-disabled', value);
+				DOM.setAttribute(liItems, "disabled", value);
+				DOM.setAttribute(liItems, "aria-disabled", value);
 				if (value) {
 					liItems.classList.add(ButtonClasses.uiDisabled);
 				} else {
 					liItems.classList.remove(ButtonClasses.uiDisabled);
 				}
 			}
+
+			function addClassForElements(elements, addedClass) {
+				var length = elements.length,
+					i;
+
+				for (i = 0; i < length; i++) {
+					elements[i].classList.add(addedClass);
+				}
+			}
+			/**
+			 * Set scrollable tabbar.
+			 * @method _buildScrollableTabBar
+			 * @param {HTMLElement} element
+			 * @protected
+			 * @member ns.widget.mobile.TabBar
+			 */
+			TabBar.prototype._buildScrollableTabBar = function (element) {
+				var self = this,
+					ui = self._ui,
+					tabbarClassList = element.classList,
+					headers = selectors.getParentsByClass(element, classes.uiHeader),
+					li = slice.call(element.getElementsByTagName("li")),
+					ul = slice.call(element.getElementsByTagName("ul")),
+					scrollview = selectors.getClosestByClass(element, Scrollview.classes.view),
+					scrollviewClip = selectors.getParentsByClass(element, Scrollview.classes.clip),
+					length,
+					i,
+					gridOption = self.option.grid;
+
+				if (headers.length && scrollview) {
+					addClassForElements(li, classes.tabbarScrollLi);
+					addClassForElements(ul, classes.tabbarScrollUl);
+
+					/* add shadow divider */
+					for (i = 0, length = scrollviewClip.length; i < length; i++) {
+						scrollviewClip[i].insertAdjacentHTML("beforeend", "<div class='ui-tabbar-divider ui-tabbar-divider-left' style='display:none'></div><div class='ui-tabbar-divider ui-tabbar-divider-right' style='display:none'></div>");
+					}
+
+				} else {
+					if (li.length) {
+						tabbarClassList.add(classes.uiNavbar);
+						for (i = 0, length = ul.length; i < length; i++) {
+							grid.makeGrid(ul[i], gridOption);
+						}
+					}
+				}
+
+				/* scrollable tabbar */
+				if (element.parentNode.classList.contains(Scrollview.classes.view)) {
+					if (li.length > 4) {
+						// scroller was needed when li element has more than forth.
+						scrollview.style.width = parseInt(li[0].style.width, 10) * li.length + "px";
+						ui.scrollview = scrollview;
+						ui.scrollviewClip = scrollviewClip[0];
+					}
+
+				}
+			};
+
+			/**
+			 * Set proper class for headers.
+			 * @method _buildHeader
+			 * @param {HTMLElement} element
+			 * @protected
+			 * @member ns.widget.mobile.TabBar
+			 */
+			TabBar.prototype._buildHeader = function (element) {
+				var parent = element.parentNode,
+					li = slice.call(element.getElementsByTagName("li")),
+					header = selectors.getClosestByClass(element, classes.uiHeader);
+
+				if (header && (selectors.getChildrenByClass(parent, classes.uiTitle).length
+					||(parent.classList.contains(Scrollview.classes.view) && li.length > 4))) {
+					header.classList.add(classes.uiTitleTabbar);
+				}
+			};
+
+			/**
+			 * Set proper class for elements if they are in footer.
+			 * @method _buildFooter
+			 * @param {HTMLElement} element
+			 * @protected
+			 * @member ns.widget.mobile.TabBar
+			 */
+			TabBar.prototype._buildFooter = function (element) {
+				var li = slice.call(element.getElementsByTagName("li"));
+
+				if (selectors.getClosestByClass(element, classes.uiFooter)) {
+					addClassForElements(li, classes.uiTabBtnStyle);
+				}
+			};
+
+			/**
+			 * Build buttons on links
+			 * @method _buildButtons
+			 * @param {HTMLElement} element
+			 * @param {object} options
+			 * @protected
+			 * @member ns.widget.mobile.TabBar
+			 */
+			TabBar.prototype._buildButtons = function (element) {
+				var links = slice.call(element.getElementsByTagName("a")),
+					headers = selectors.getParentsByClass(element, classes.uiHeader),
+					instanceButtonOptions,
+					iconpos,
+					linkLength = links.length,
+					link,
+					i;
+
+				if (linkLength) {
+					iconpos = hasIcon(links) ? this.options.iconpos : false;
+
+					if (headers.length) {
+						instanceButtonOptions = {
+							shadow: false,
+							corners: false,
+							inline: false,
+							bar: true
+						};
+					} else {
+						instanceButtonOptions = {
+							shadow: true,
+							corners: true,
+							inline: false,
+							bar: false
+						};
+					}
+
+					instanceButtonOptions.iconpos = iconpos;
+
+					for (i = 0; i < linkLength; i++) {
+						link = links[i];
+						DOM.setNSData(link, "role", "button");
+						engine.instanceWidget(link, "Button", instanceButtonOptions);
+					}
+				}
+			};
+
+			TabBar.prototype._buildFromOptions = function (element) {
+				var tabbarClassList = element.classList,
+					links = slice.call(element.getElementsByTagName("a")),
+					headers = selectors.getParentsByClass(element, classes.uiHeader),
+					iconpos,
+					textpos;
+
+				if (links.length) {
+					iconpos = hasIcon(links) ? this.options.iconpos : false;
+					textpos = links[0].innerHTML.length ? true : false;
+				}
+
+				if (!iconpos) {
+					tabbarClassList.add(classes.uiTabbarNoicons);
+				}
+				if (!textpos) {
+					tabbarClassList.add(classes.uiTabbarNotext);
+				}
+				if (textpos && iconpos) {
+					addClassForElements(headers, classes.uiTitleTabbarMultiline);
+				}
+
+				if (element.getElementsByClassName(classes.uiStatePersist).length) {
+					tabbarClassList.add(classes.uiTabbarPersist);
+				}
+				tabbarClassList.add(classes.uiTabbar);
+			};
 
 			/**
 			 * Build method
@@ -25459,121 +26362,61 @@ window.Globalize = Globalize;
 			 * @member ns.widget.mobile.TabBar
 			 */
 			TabBar.prototype._build = function (element) {
-				var classes = TabBar.classes,
-					tabbarClassList = element.classList,
-					links = slice.call(element.getElementsByTagName('a')),
-					headers = selectors.getParentsByClass(element, classes.uiHeader),
-					scrollview = selectors.getParentsByClass(element, classes.uiScrollviewView)[0],
-					li = slice.call(element.getElementsByTagName("li")),
-					iconpos,
-					i,
-					textpos,
-					instanceButtonOptions,
-					instanceButtonHeaderOptions = {
-						shadow: false,
-						corners: false,
-						inline: false,
-						bar: true
-					},
-					instanceButtonFooterOptions = {
-						shadow: true,
-						inline: false,
-						corners: true,
-						bar: false
-					};
+				var self = this,
+				options;
 
-				if (links.length) {
-					iconpos = hasIcon(links) ? this.iconpos : false;
-					textpos = links[0].innerHTML.length ? true : false;
-				}
-
-				if (headers.length && scrollview) {
-					li.forEach(function (item) {
-						item.classList.add(classes.tabbarScrollLi);
-					});
-					slice.call(element.getElementsByTagName("ul")).forEach(function (item) {
-						item.classList.add(classes.tabbarScrollUl);
-					});
-
-					/* add shadow divider */
-					selectors.getParentsByClass(element, classes.uiScrollviewClip).forEach(function (item) {
-						item.insertAdjacentHTML('beforeend', '<div class="ui-tabbar-divider ui-tabbar-divider-left" style="display:none"></div><div class="ui-tabbar-divider ui-tabbar-divider-right" style="display:none"></div>');
-					});
-
-				} else {
-					if (li.length) {
-						tabbarClassList.add(classes.uiNavbar);
-						slice.call(element.getElementsByTagName("ul")).forEach(function (item) {
-							/*
-							* @todo delete getAttribute
-							*/
-							grid.makeGrid(item, element.getAttribute("data-grid") || this.grid);
-						});
-					}
-				}
-
-				if (selectors.getParentsByClass(element, classes.uiFooter).length) {
-					li.forEach(function (item) {
-						item.classList.add(classes.uiTabBtnStyle);
-					});
-				}
-
-				/* title tabbar */
-				if (selectors.getChildrenByClass(element.parentElement, classes.uiTitle).length) {
-					headers.forEach(function (header) {
-						header.classList.add(classes.uiTitleTabbar);
-					});
-				}
-				/* scrollable tabbar */
-				if (element.parentNode.classList.contains(classes.uiScrollviewView)){
-					if (li.length > 4) {
-						i = headers.length;
-						while (i--) {
-							headers[i].classList.add(classes.uiTitleTabbar);
-						}
-
-						// scroller was needed when li element has more than forth.
-						scrollview.style.width = parseInt(li[0].style.width, 10) * li.length + "px";
-						this._ui.scrollview = scrollview;
-						this._ui.scrollviewClip = selectors.getParentsByClass(element, classes.uiScrollviewClip)[0];
-					}
-
-				}
-
-				if (!iconpos) {
-					tabbarClassList.add(classes.uiTabbarNoicons);
-				}
-				if (!textpos) {
-					tabbarClassList.add(classes.uiTabbarNotext);
-				}
-				if (textpos && iconpos) {
-					headers.forEach(function (header) {
-						header.classList.add(classes.uiTitleTabbarMultiline);
-					});
-				}
-
-				if (links.length) {
-					if (headers.length) {
-						instanceButtonOptions = instanceButtonHeaderOptions;
-					} else {
-						instanceButtonOptions = instanceButtonFooterOptions;
-					}
-					if (iconpos) {
-						instanceButtonOptions.iconpos = iconpos;
-					}
-					links.forEach(function (item) {
-						DOM.setNSData(item, "role", "button");
-						engine.instanceWidget(item, "Button", instanceButtonOptions);
-					});
-				}
-
-				if (element.getElementsByClassName(classes.uiStatePersist).length) {
-					tabbarClassList.add(classes.uiTabbarPersist);
-				}
-
-				tabbarClassList.add(classes.uiTabbar);
+				self._buildScrollableTabBar(element);
+				self._buildFooter(element);
+				self._buildHeader(element);
+				self._buildFromOptions(element);
+				self._buildButtons(element);
 
 				return element;
+			};
+
+			/**
+			 * Init orientation.
+			 * @method _initOrientation
+			 * @param {HTMLElement} element
+			 * @member ns.widget.mobile.TabBar
+			 * @protected
+			 */
+			TabBar.prototype._initOrientation = function(element) {
+				var tabbarClassList = element.classList,
+					innerWidth = element.offsetWidth ? element.offsetWidth : window.innerWidth,
+					innerHeight = element.offsetHeight ? element.offsetHeight : window.innerHeight;
+
+				if (innerWidth > innerHeight) {
+					tabbarClassList.remove(classes.uiPortraitTabbar);
+					tabbarClassList.add(classes.uiLandscapeTabbar);
+				} else {
+					tabbarClassList.remove(classes.uiLandscapeTabbar);
+					tabbarClassList.add(classes.uiPortraitTabbar);
+				}
+			};
+
+			/**
+			 * Init active button.
+			 * @method _initActiveButton
+			 * @param {HTMLElement} element
+			 * @member ns.widget.mobile.TabBar
+			 * @protected
+			 */
+			TabBar.prototype._initActiveButton = function (element) {
+				var links = slice.call(element.getElementsByTagName("a")),
+					active,
+					index;
+
+				active = element.querySelector("a." + ButtonClasses.uiBtnActive)
+						|| element.querySelector("a." + classes.uiTabbarActive);
+
+				if (active) {
+					index = links.indexOf(active);
+					if (index < 0) {
+						index = 0;
+					}
+					this.options.active = index;
+				}
 			};
 
 			/**
@@ -25585,36 +26428,19 @@ window.Globalize = Globalize;
 			 */
 			TabBar.prototype._init = function (element) {
 				var self = this,
-					tabbarClassList = element.classList,
 					li = slice.call(element.getElementsByTagName("li")),
 					innerWidth = element.offsetWidth ? element.offsetWidth : window.innerWidth,
-					innerHeight = element.offsetHeight ? element.offsetHeight : window.innerHeight,
-					inHeaders = !!(selectors.getParentsByClass(element, classes.uiHeader).length),
-					isLandscape = innerWidth > innerHeight,
-					btnActiveClass = ButtonClasses.uiBtnActive,
-					uiTabbarActive = classes.uiTabbarActive,
-					links = slice.call(element.getElementsByTagName('a'));
+					inHeaders = !!(selectors.getParentsByClass(element, classes.uiHeader).length);
 
 				if (li.length > 4) {
 					// tabbar elements should be showed maximum forth elements.
-					this._setWidth(li, innerWidth / 4, inHeaders);
+					self._setWidth(li, innerWidth / 4, inHeaders);
 				} else {
-					this._setWidth(li, innerWidth / li.length, inHeaders);
+					self._setWidth(li, innerWidth / li.length, inHeaders);
 				}
 
-				if (isLandscape) {
-					tabbarClassList.remove(classes.uiPortraitTabbar);
-					tabbarClassList.add(classes.uiLandscapeTabbar);
-				} else {
-					tabbarClassList.remove(classes.uiLandscapeTabbar);
-					tabbarClassList.add(classes.uiPortraitTabbar);
-				}
-
-				[].forEach.call(links, function(element, index) {
-					if (element.classList.contains(btnActiveClass) || element.classList.contains(uiTabbarActive)) {
-						self.options.active = index;
-					}
-				});
+				self._initOrientation(element);
+				self._initActiveButton(element);
 
 				setActive(self, self.options.active);
 			};
@@ -25626,10 +26452,14 @@ window.Globalize = Globalize;
 			 * @member ns.widget.mobile.TabBar
 			 */
 			TabBar.prototype._bindEvents = function () {
-				this.vclickCallback = vclickEvent.bind(null, this);
-				this.element.addEventListener("vclick", this.vclickCallback, false);
-				if (this._ui.scrollviewClip) {
-					this._ui.scrollviewClip.addEventListener("scrollstop", roundTabBarPositionX);
+				var self = this,
+					ui = self._ui,
+					vclickCallback = vclickEvent.bind(null, self);
+
+				self._callbacks.vclick = vclickCallback;
+				self.element.addEventListener("vclick", vclickCallback, false);
+				if (ui.scrollviewClip) {
+					ui.scrollviewClip.addEventListener("scrollstop", roundTabBarPositionX);
 				}
 			};
 
@@ -25659,9 +26489,12 @@ window.Globalize = Globalize;
 			 * @member ns.widget.mobile.TabBar
 			 */
 			TabBar.prototype._destroy = function () {
-				this.element.removeEventListener("vclick", this.vclickCallback, false);
-				if (this._ui.scrollviewClip) {
-					this._ui.scrollviewClip.removeEventListener("scrollstop", roundTabBarPositionX);
+				var self = this,
+					ui = self._ui;
+
+				self.element.removeEventListener("vclick", self._callbacks.vclick, false);
+				if (ui.scrollviewClip) {
+					ui.scrollviewClip.removeEventListener("scrollstop", roundTabBarPositionX);
 				}
 			};
 
@@ -25813,7 +26646,7 @@ window.Globalize = Globalize;
 				"[data-role='tabbar'], .ui-tabbar",
 				[],
 				TabBar,
-				'tizen'
+				"tizen"
 			);
 			}(window.document, ns));
 
@@ -25949,7 +26782,14 @@ window.Globalize = Globalize;
 			var selectors = ns.util.selectors,
 
 				/**
-				 * @property {Function} Tabbar Alias for class ns.widget.mobile.Tabbar
+				 * @property {Function} Scrollview Alias for class ns.widget.mobile.Scrollview
+				 * @member ns.widget.mobile.FastScroll
+				 * @static
+				 * @private
+				 */
+				Scrollview = ns.widget.mobile.Scrollview,
+				/**
+				 * @property {Function} Tabbar Alias for class ns.widget.mobile.TabBar
 				 * @member ns.widget.mobile.FastScroll
 				 * @static
 				 * @private
@@ -26358,7 +27198,7 @@ window.Globalize = Globalize;
 					ui = self._ui,
 					scrollViewClip = selectors.getClosestByClass(
 						element,
-						Tabbar.classes.uiScrollviewClip
+						Scrollview.classes.clip
 					),
 					contentHeight = DOMUtils.getElementHeight(scrollViewClip),
 					primaryCharacterSet = null,
@@ -26651,8 +27491,7 @@ window.Globalize = Globalize;
 						|| this.isBuilt('ListviewAutodivider')
 					)
 					) {
-					//FIXME Why class uiScrollviewClip is in Tabbar not in Scrollview?
-					scrollView = selectors.getClosestByClass(element, Tabbar.classes.uiScrollviewClip);
+					scrollView = selectors.getClosestByClass(element, Scrollview.classes.clip);
 					if (scrollView) {
 						shortcutsContainer = document.createElement("div");
 						shortcutsContainer.classList.add(listviewClasses.uiFastscroll);
@@ -26720,7 +27559,7 @@ window.Globalize = Globalize;
 					this._ui = this._ui || {};
 					ui = this._ui;
 
-					ui._scrollView = selectors.getClosestByClass(element, Tabbar.classes.uiScrollviewClip);
+					ui._scrollView = selectors.getClosestByClass(element, Scrollview.classes.clip);
 					ui._shortcutsContainer = document.getElementById(id + "-shortcutscontainer");
 					ui._shortcutsList = document.getElementById(id + "-shortcutslist");
 					ui._popup = document.getElementById(id + "-fastscrollpopup");
@@ -28763,6 +29602,9 @@ window.Globalize = Globalize;
 			// @member ns.widget.mobile.Popup
 			function animationComplete(element, callback) {
 				events.one(element, "webkitAnimationEnd", callback);
+				events.one(element, "mozAnimationEnd", callback);
+				events.one(element, "msAnimationEnd", callback);
+				events.one(element, "oAnimationEnd", callback);
 				events.one(element, "animationend", callback);
 			}
 
@@ -29819,27 +30661,32 @@ window.Globalize = Globalize;
 			Popup.prototype.open = function (options) {
 				var activePopup = ns.activePopup,
 					closePopup,
-					event = arguments[1],
-					startOpeningCallback = startOpeningPopup.bind(null, this, options, event);
+					event,
+					startOpeningCallback;
 
-				if (activePopup === this) {
-					return;
-				}
-				// If there is an active popup, wait until active popup will close
-				if (activePopup) {
-					events.one(activePopup.element, "popupafterclose", startOpeningCallback);
-					if (activePopup._isOpen) {
-						activePopup.close();
-					} else if (!activePopup._isPreClose) {
-						// If popup is opening or is promised to be opened
-						// close it just after opening
-						closePopup = activePopup.close.bind(activePopup);
-						events.one(activePopup.element, "popupafteropen", closePopup);
+				if (activePopup !== this) {
+					if (!doms.isOccupiedPlace(this._page)) {
+						ns.warn("The popup cannot be shown if page which contains the popup is invisible");
+					} else {
+						// If there is an active popup, wait until active popup will close
+						event = arguments[1],
+						startOpeningCallback = startOpeningPopup.bind(null, this, options, event);
+						if (activePopup) {
+							events.one(activePopup.element, "popupafterclose", startOpeningCallback);
+							if (activePopup._isOpen) {
+								activePopup.close();
+							} else if (!activePopup._isPreClose) {
+								// If popup is opening or is promised to be opened
+								// close it just after opening
+								closePopup = activePopup.close.bind(activePopup);
+								events.one(activePopup.element, "popupafteropen", closePopup);
+							}
+						} else {
+							startOpeningCallback();
+						}
+						ns.activePopup = this;
 					}
-				} else {
-					startOpeningCallback();
 				}
-				ns.activePopup = this;
 			};
 
 			/**
@@ -31025,6 +31872,10 @@ window.Globalize = Globalize;
 					elementClassList = element.classList,
 					tagName = element.tagName.toLowerCase(),
 					classes = Datetimepicker.classes;
+
+				// INFO: Since 2.3, we decided to use Webkit based date-time picker.
+				ns.warn("TAU based Datetimepicker widget will be deprecated. It is decieded to be replaced <input> based date-time picker. Please use <input type='month|week|date|time|datetime-local'> for date-time picker");
+
 				if (tagName === 'input') {
 					element.style.display = 'none';
 					/*
@@ -31191,15 +32042,15 @@ window.Globalize = Globalize;
  * handle like a slider or tap one side of the switch.
  *
  * ## Default selectors
- * all **SELECT** tags with _data-role=slider_ or with _data-type=range_ are
- * changed to toggle switch
+ * all **SELECT** tags with _data-type=range_ or class _ui-slider_ are changed
+ * to toggle switch.
  *
  * ###HTML Examples
  *
  * ####Create simple toggle switch from select using data-role
  *
  *		@example
- *		<select name="flip-11" id="flip-11" data-role="slider">
+ *		<select name="flip-11" id="flip-11" data-role="range">
  *			<option value="off"></option>
  *			<option value="on"></option>
  *		</select>
@@ -31209,7 +32060,7 @@ window.Globalize = Globalize;
  * widget from **tau** namespace:
  *
  *		@example
- *		<select id="toggle" name="flip-11" id="flip-11" data-role="slider"
+ *		<select id="toggle" name="flip-11" id="flip-11" data-role="range"
  *		data-mini="true">
  *			<option value="off"></option>
  *			<option value="on"></option>
@@ -31226,7 +32077,7 @@ window.Globalize = Globalize;
  * ####If jQuery library is loaded, its method can be used:
  *
  *		@example
- *		<select id="toggle" name="flip-11" id="flip-11" data-role="slider"
+ *		<select id="toggle" name="flip-11" id="flip-11" data-role="range"
  *		data-mini="true">
  *			<option value="off"></option>
  *			<option value="on"></option>
@@ -31251,7 +32102,7 @@ window.Globalize = Globalize;
  * as the standard version and has a smaller text size.
  *
  *		@example
- *		<select name="flip-11" id="flip-11" data-role="slider"
+ *		<select name="flip-11" id="flip-11" data-role="range"
  *		data-mini="true">
  *			<option value="off"></option>
  *			<option value="on"></option>
@@ -31264,11 +32115,23 @@ window.Globalize = Globalize;
  * and icons inside, add the data-inline="true" attribute to the slider.
  *
  *		@example
- *		<select name="flip-11" id="flip-11" data-role="slider"
+ *		<select name="flip-11" id="flip-11" data-role="range"
  *		data-inline="true">
  *			<option value="off"></option>
  *			<option value="on"></option>
  *		</select>
+ *
+ * ###Vertical Slider
+ * To implement verticcal slider, add _vertical_ option to *input* element.
+ * The value of vertical property is designed to set the height of vertical slider.
+ * If the vertical value is set to simply "true", the height of vertical slider
+ * is set to pixel value as 5 time of its max value by default. So, to change one value
+ * in veritcal slider with "true" option, handle is needed to move 5px.
+ * The below example would create a vertical slider with 300px of height.
+ *
+ * 		@example
+ *		<input id="vSlider" name="vSlider" type="range"
+ *			value="5" min="0" max="10" data-vertical="300" />
  *
  * ##Methods
  *
@@ -31277,7 +32140,7 @@ window.Globalize = Globalize;
  * First API is from tau namespace:
  *
  *		@example
- *		<select name="flip-11" id="toggle" data-role="slider"
+ *		<select name="flip-11" id="toggle" data-role="range"
  *		data-mini="true">
  *			<option value="off"></option>
  *			<option value="on"></option>
@@ -31293,7 +32156,7 @@ window.Globalize = Globalize;
  * Second API is jQuery Mobile API and for call _methodName_ you can use:
  *
  *		@example
- *		<select name="flip-11" id="toggle" data-role="slider"
+ *		<select name="flip-11" id="toggle" data-role="range"
  *		data-mini="true">
  *			<option value="off"></option>
  *			<option value="on"></option>
@@ -31332,6 +32195,8 @@ window.Globalize = Globalize;
 					 * "true" then toggle switch has css property
 					 * display = "inline"
 					 * @property {string} [options.theme=null] theme of widget
+					 * @property {boolean | number} [options.vertical=false] sets
+					 * height of vertical slider
 					 * @member ns.widget.mobile.Slider
 					 */
 					self.options = {
@@ -31340,7 +32205,8 @@ window.Globalize = Globalize;
 						mini: null,
 						highlight: true,
 						inline: null,
-						theme: null
+						theme: null,
+						vertical: false
 					};
 					self._ui = {};
 					//container background
@@ -31366,8 +32232,10 @@ window.Globalize = Globalize;
 					sliderInline: "ui-slider-inline",
 					sliderMini: "ui-slider-mini",
 					slider: "ui-slider",
+					sliderVertical: "ui-vertical-slider",
 					sliderHandle: "ui-slider-handle",
 					sliderBg: "ui-slider-bg",
+					sliderBgVertical: "ui-vertical-slider-bg",
 					sliderToggle: "ui-toggle-switch",
 					sliderToggleOn: "ui-toggle-on",
 					sliderToggleOff: "ui-toggle-off",
@@ -31376,6 +32244,7 @@ window.Globalize = Globalize;
 					sliderLabel: "ui-slider-label",
 					sliderLabelTheme: "ui-slider-label-",
 					sliderContainer: "ui-slider-container",
+					sliderContainerVertical: "ui-vertical-slider-container",
 					sliderLabelA: "ui-slider-label-a",
 					sliderStateActive: "ui-state-active"
 				},
@@ -31492,12 +32361,14 @@ window.Globalize = Globalize;
 			 * @static
 			 * @member ns.widget.mobile.Slider
 			 */
-			function createBackground(domSlider) {
+			function createBackground(domSlider, self) {
 				var background = document.createElement("div"),
 					cList = background.classList,
 					btnClasses = Button.classes;
 
-				cList.add(classes.sliderBg);
+				cList.add(self.options.vertical ? classes.sliderBgVertical :
+					classes.sliderBg);
+
 				cList.add(btnClasses.uiBtnActive);
 				cList.add(btnClasses.uiBtnCornerAll);
 
@@ -31536,12 +32407,14 @@ window.Globalize = Globalize;
 					touchThreshold,
 					localClasses = shandle.classList,
 					slider = ui.slider,
+					isVertical = self.options.vertical,
 					newval,
 					valModStep,
 					alignValue,
 					valueChanged,
 					newValueOption,
-					sliderOffsetLeft;
+					sliderOffsetLeft,
+					sliderOffsetTop;
 
 				if (cType === "input") {
 					min = DOMutils.getNumberFromAttribute(control,
@@ -31563,47 +32436,54 @@ window.Globalize = Globalize;
 					data = val;
 					// @TODO take parameter out to config
 					touchThreshold = 8;
+					isVertical ?
+					sliderOffsetTop =
+						DOMutils.getElementOffset(slider).top :
 					sliderOffsetLeft =
-							DOMutils.getElementOffset(slider).left;
+						DOMutils.getElementOffset(slider).left;
 
 					// If refreshing while not dragging
 					// or movement was within threshold
 					if (!self.dragging ||
-							data.pageX < sliderOffsetLeft - touchThreshold ||
-							data.pageX > sliderOffsetLeft + 
-							slider.offsetWidth + touchThreshold) {
+						data.pageX < sliderOffsetLeft - touchThreshold ||
+						data.pageX > sliderOffsetLeft +
+						slider.offsetWidth + touchThreshold) {
 						return;
 					}
 
-					// Calculate new left side percent
-					percent = ((data.pageX - sliderOffsetLeft) /
+					// Calculate new left or top side percent
+					if (isVertical) {
+						percent = ((data.pageY - sliderOffsetTop +
+							selectors.getClosestByClass(slider, "ui-content").scrollTop) /
+							slider.offsetHeight) * 100;
+					} else {
+						percent = ((data.pageX - sliderOffsetLeft) /
 							slider.offsetWidth) * 100;
-
-				// If changes came from input value change
+					}
 				} else {
 					if (val === null) {
 						val = (cType === "input") ? parseFloat(control.value) :
-								control.selectedIndex;
+							control.selectedIndex;
 					}
 					if (isNaN(val)) {
 						return;
 					}
 					// While dragging prevent jumping by assigning
 					// last percentage value
-					if(self.dragging && self._lastPercent) {
+					if (self.dragging && self._lastPercent) {
 						percent = self._lastPercent;
 					} else {
-						percent = (parseFloat(val) - min) / (max - min) * 100;
+						percent = isVertical ?
+						100 - ((parseFloat(val) - min) / (max - min) * 100) :
+						(parseFloat(val) - min) / (max - min) * 100;
 					}
 				}
-
 				// Make sure percent is a value between 0 - 100;
 				percent = Math.max(0, Math.min(percent, 100));
 				self._lastPercent = percent;
 				centerPercent = halfPercent - percent;
 
 				newval = (percent / 100) * (max - min) + min;
-
 				//from jQuery UI slider, the following source will round
 				// to the nearest step
 				valModStep = (newval - min) % step;
@@ -31617,9 +32497,14 @@ window.Globalize = Globalize;
 				// (see jQueryUI: #4124)
 				newval = parseFloat(alignValue.toFixed(5));
 
-				newval = Math.max(min, Math.min(newval, max));
+				if (isVertical) {
+					shandle.style.top = percent + "%";
+					newval = max - Math.max(min, Math.min(newval, max));
+				} else {
+					shandle.style.left = percent + "%";
+					newval = Math.max(min, Math.min(newval, max));
+				}
 
-				shandle.style.left = percent + "%";
 				newValueOption = control.querySelectorAll("option")[newval];
 				shandle.setAttribute("aria-valuenow", cType === "input" ?
 						newval : newValueOption && newValueOption.value);
@@ -31642,17 +32527,35 @@ window.Globalize = Globalize;
 					sliderBackgroundStyle = sliderBackground.style;
 					if (self.options.center) {
 						if (centerPercent >= 0) {
-							sliderBackgroundStyle.right = "50%";
-							sliderBackgroundStyle.left = "initial";
-							sliderBackgroundStyle.width = centerPercent + "%";
+							if (isVertical) {
+								sliderBackgroundStyle.top = "initial";
+								sliderBackgroundStyle.bottom = "50%";
+								sliderBackgroundStyle.height = centerPercent + "%";
+							} else {
+								sliderBackgroundStyle.right = "50%";
+								sliderBackgroundStyle.left = "initial";
+								sliderBackgroundStyle.width = centerPercent + "%";
+							}
 						} else {
-							sliderBackgroundStyle.right = "initial";
-							sliderBackgroundStyle.left = "50%";
-							sliderBackgroundStyle.width =
+							if (isVertical) {
+								sliderBackgroundStyle.top = "50%";
+								sliderBackgroundStyle.bottom = "initial";
+								sliderBackgroundStyle.height =
 									Math.abs(centerPercent) + "%";
+							} else {
+								sliderBackgroundStyle.right = "initial";
+								sliderBackgroundStyle.left = "50%";
+								sliderBackgroundStyle.width =
+									Math.abs(centerPercent) + "%";
+							}
 						}
 					} else {
-						sliderBackgroundStyle.width = percent + "%";
+						if (isVertical) {
+							sliderBackgroundStyle.height = 100 - percent + "%";
+							sliderBackgroundStyle.top = percent + "%";
+						} else {
+							sliderBackgroundStyle.width = percent + "%";
+						}
 					}
 				}
 
@@ -31764,9 +32667,11 @@ window.Globalize = Globalize;
 					* tagName containing lowered tagname
 					* type String
 					*/
+
 					tagName = element.nodeName.toLowerCase(),
 					selectClass =
 							tagName === "select" ? classes.sliderSwitch : "",
+
 					/*
 					* elementId get the id attribute
 					* type String
@@ -31783,8 +32688,7 @@ window.Globalize = Globalize;
 							parseFloat(element.getAttribute("max")) :
 									element.querySelectorAll("option").length -
 											1,
-					/*TODO - will be used in long sliders*/
-					step = parseFloat(element.getAttribute("step")),
+
 
 					domHandle = document.createElement("a"),
 					domSlider = document.createElement("div"),
@@ -31804,10 +32708,10 @@ window.Globalize = Globalize;
 					initValue,
 					sliderBtnDownTheme,
 					elementsOption = element.querySelector("option"),
-					btnClasses = Button.classes;
-
+					btnClasses = Button.classes,
+					isVertical = options.vertical;
 				if (options.highlight && tagName !== "select") {
-					this._ui.background = createBackground(domSlider);
+					this._ui.background = createBackground(domSlider, this);
 				}
 				if (isNaN(min)) {
 					min = 0;
@@ -31815,9 +32719,7 @@ window.Globalize = Globalize;
 				if (isNaN(max)) {
 					max = 0;
 				}
-				if (isNaN(step)) {
-					step = 1;
-				}
+
 				sliderBtnDownTheme = btnClasses.uiBtnDownThemePrefix +
 						trackTheme;
 				if (labelFor) {
@@ -31829,11 +32731,18 @@ window.Globalize = Globalize;
 				}
 
 				domSlider.setAttribute("role", "application");
-				domSlider.setAttribute("id", elementId + "-slider");
-				domSliderClassList.add(classes.slider);
+				domSlider.id = elementId + "-slider";
+
+				if (isVertical) {
+					domSliderClassList.add(classes.sliderVertical);
+				} else {
+					domSliderClassList.add(classes.slider);
+				}
+
 				if (selectClass) {
 					domSliderClassList.add(selectClass);
 				}
+
 				domSliderClassList.add(sliderBtnDownTheme);
 				domSliderClassList.add(btnClasses.uiBtnCornerAll);
 				if (options.inline) {
@@ -31852,7 +32761,11 @@ window.Globalize = Globalize;
 				initValue = getInitialValue(tagName, element);
 				if (initValue !== 1) {
 					domHandle.classList.add(classes.sliderToggleOff);
-					domHandle.style.left = "0px";
+					if (isVertical) {
+						domHandle.style.top = "0px";
+					} else {
+						domHandle.style.left = "0px";
+					}
 				}
 
 				domSlider.appendChild(domHandle);
@@ -31863,7 +32776,7 @@ window.Globalize = Globalize;
 				domHandle.setAttribute("data-theme", theme);
 				domHandle.setAttribute("data-shadow", "true");
 
-				domHandle.setAttribute("role", "slider");
+				domHandle.setAttribute("role", "range");
 				domHandle.setAttribute("aria-valuemin", min);
 				domHandle.setAttribute("aria-valuemax", max);
 				domHandle.setAttribute("aria-valuenow", initValue);
@@ -31874,7 +32787,6 @@ window.Globalize = Globalize;
 				domHandle.setAttribute("inline", "false");
 				domHandle.setAttribute("data-bar", "true");
 				domHandle.setAttribute("id", elementId + "-handle");
-				engine.instanceWidget(domHandle, "Button");
 
 				if (tagName === "select") {
 					wrapper = document.createElement("div");
@@ -31914,7 +32826,23 @@ window.Globalize = Globalize;
 
 				if (tagName === "input") {
 					sliderContainer = document.createElement("div");
-					sliderContainer.classList.add(classes.sliderContainer);
+
+					if (isVertical) {
+						sliderContainer.classList.add(classes.sliderContainerVertical);
+						if (isNaN(isVertical)) {
+							ns.warn("data-vetical has inappropriate value.",
+							"please use 'true' or proper 'number'.");
+							isVertical = max * 5;
+						}
+						if (typeof isVertical === "boolean") {
+							isVertical = max * 5;
+						}
+
+						sliderContainer.style.height = isVertical + "px";
+					} else {
+						sliderContainer.classList.add(classes.sliderContainer);
+					}
+
 					sliderContainer.appendChild(domSlider);
 					sliderContainer.id = elementId + "-container";
 					elementClassList = element.classList;
@@ -31922,7 +32850,8 @@ window.Globalize = Globalize;
 					elementClassList.add(classes.theme + theme);
 					elementClassList.add(classes.sliderInput);
 					element.style.display = "none";
-				} else {
+				}
+				else {
 					element.classList.add(classes.sliderSwitch);
 				}
 
@@ -31937,6 +32866,8 @@ window.Globalize = Globalize;
 
 				element.parentNode.insertBefore(sliderContainer,
 						element.nextSibling);
+
+				engine.instanceWidget(domHandle, "Button");
 
 				return element;
 			};
@@ -31958,8 +32889,9 @@ window.Globalize = Globalize;
 				ui.handle = document.getElementById(elementId + "-handle");
 				ui.container = document.getElementById(elementId +
 						"-container") || element;
-				ui.background = ui.slider.querySelector("." +
-						Slider.classes.sliderBg);
+				ui.background = ui.slider.querySelector(self.options.vertical ?
+					"." + Slider.classes.sliderBgVertical :
+					"." + Slider.classes.sliderBg);
 				self._type = element.tagName.toLowerCase();
 				ui.labels = selectors.getChildrenByClass(ui.slider,
 						Slider.classes.sliderLabel);
@@ -32338,7 +33270,7 @@ window.Globalize = Globalize;
 			ns.widget.mobile.Slider = Slider;
 			engine.defineWidget(
 				"Slider",
-				"select[data-type='range']",
+				"select[data-role='range'], select.ui-slider",
 				[],
 				Slider,
 				"mobile"
@@ -32547,13 +33479,13 @@ window.Globalize = Globalize;
 					uiSwipeItemCoverInner: classPrefix + "-item-cover-inner"
 				},
 				selectorRoleSwipe = "[data-role='swipe']",
-				selectorRoleSwipeItemCover = "[data-role='swipe-item-cover']",
-				selectorRoleSwipeItem = "[data-role='swipe-item']",
+				selectorRoleSwipeItemCover = "[data-role='swipe-item-cover']" +
+					', .' + classes.uiSwipeItemCover,
+				selectorRoleSwipeItem = "[data-role='swipe-item']" +
+					', .' + classes.uiSwipeItem,
 				classUiBtn = ".ui-btn",
 				swipeLeftEvent = "swipeleft",
-				swipeRightEvent = "swiperight",
-				webkitTransitionEndEvent = "webkitTransitionEnd";
-
+				swipeRightEvent = "swiperight";
 
 			Swipe.prototype = new BaseWidget();
 
@@ -32693,12 +33625,12 @@ window.Globalize = Globalize;
 				//animations change item opacity in order to show items under cover
 				opacityAnimation = new Animation({
 					element: item,
-					duration: "600ms",
+					duration: "400ms",
 					from: {
 						"opacity": itemStyle.opacity
 					},
 					to: {
-						"opacity": (itemStyle.opacity === 0) ? "0" : "1"
+						"opacity": (self.opened()) ? "1" : "0"
 					},
 					onEnd: handleAnimationEnd
 				});
@@ -32769,7 +33701,11 @@ window.Globalize = Globalize;
 			prototype._build = function (element) {
 				var options = this.options,
 					protoOptions = Swipe.prototype.options;
-				options.theme = options.theme || ns.theme.getInheritedTheme(element, (protoOptions && protoOptions.theme) || "s");
+				options.theme = options.theme ||
+						ns.theme.getInheritedTheme(
+							element,
+							(protoOptions && protoOptions.theme) || "s"
+						);
 				refresh(this, element);
 				return element;
 			};
@@ -32800,7 +33736,8 @@ window.Globalize = Globalize;
 			function addEvents(self) {
 				var ui = self._ui,
 					covers = ui.covers,
-					item = ui.item;
+					item = ui.item,
+					buttonSelector = engine.getWidgetDefinition("Button").selector;
 
 					/*
 					* @todo good support multicovers
@@ -32813,7 +33750,7 @@ window.Globalize = Globalize;
 					item.addEventListener(swipeLeftEvent, cover.swipeAnimateLeft, false);
 					cover.addEventListener(swipeRightEvent, cover.swipeAnimateRight, false);
 
-					slice.call(item.querySelectorAll(classUiBtn)).forEach(function (button) {
+					[].forEach.call(item.querySelectorAll(buttonSelector), function (button) {
 						button.addEventListener("vclick", cover.swipeAnimateLeft, false);
 					});
 				});
@@ -33414,1331 +34351,824 @@ window.Globalize = Globalize;
 * Copyright  2010 - 2014 Samsung Electronics Co., Ltd.
 * License : MIT License V2
 */
-/*jslint nomen: true */
 /**
- * #Select Menu Widget
- * Widget extends UI of standard select element.
+ * #SelectMenu Widget
+ * SelectMenu widget provide creating SelectMenu widget in the form of dropdown list and managing its operation.
  *
- * ##Default selectors
- * In default all elements with _data-role=select_ or with calss .ui-select-menu
+ * ##Default selector
+ * In default all select elements with _data-role=select_ or with class .ui-select-menu
  * are changed to Tizen WebUI SelectMenu. Additionally elements with
  * _data-native-menu=false_ will use custom popups for option selection
  *
- * ###HTML Examples
+ * ###  HTML Examples
  *
- * ####Create simple selectmenu from select
+ * ####  Create SelectMenu
+ * Default value of data-native-menu attribute is true and it makes native SelectMenu.
+ * This widget also offers the possibility of having custom SelectMenu.
  *
- *		@example
- *		<select id="selectmenu" data-native-menu="false">
- *			<option value="1">The 1st Option</option>
- *			<option value="2">The 2nd Option</option>
- *			<option value="3">The 3rd Option</option>
- *			<option value="4">The 4th Option</option>
+ * 		@example
+ *		<select data-native-menu="false">
+ *			<option value="1">Item1</option>
+ *			<option value="2">Item2</option>
+ *			<option value="3">Item3</option>
+ *			<option value="4">Item4</option>
  *		</select>
  *
+ * ## Manual constructor
+ * For manual creation of SelectMenu widget you can use constructor of widget.
  *
- * ##Manual constructor
- * For manual creation of selectmenu widget you can use constructor of widget:
- *
- *		@example
+ * 		@example
  *		<select id="selectmenu" data-native-menu="false">
- *			<option value="1">The 1st Option</option>
- *			<option value="2">The 2nd Option</option>
+ *			<option value="1">Item1</option>
+ *			<option value="2">Item2</option>
+ *			<option value="3">Item3</option>
+ *			<option value="4">Item4</option>
  *		</select>
  *		<script>
- *			var element = document.getElementById("selectmenu");
- *			tau.widget.SelectMenu(element, {mini: true});
+ *			var element = document.getElementById("selectmenu"),
+ *				widget = tau.widget.SelectMenu(element);
  *		</script>
  *
- * If jQuery library is loaded, its method can be used:
+ * ##Label type
+ * You can declare to the type of SelectMenu manually.
+ * If you set data-label attribute to true(Default is false.), SelectMenu has label type.
+ * The size of label type is inherited its parent element.
+ *
+ * 		@example
+ * 		<div style="width:300px; height:150px;">
+ *			<select id="selectmenu" data-native-menu="false" data-label="true">
+ *				<option value="1">Item1</option>
+ *				<option value="2">Item2</option>
+ *				<option value="3">Item3</option>
+ *				<option value="4">Item4</option>
+ *			</select>
+ *		</div>
+ *
+ * ##Inline type
+ * When data-inline attribute is set to true, width of the SelectMenu is determined by its text. (Default is false.)
+ *
+ *			@example
+ * 			<select id="selectmenu" data-native-menu="false" data-inline="true">
+ *				<option value="1">Item1</option>
+ *				<option value="2">Item2</option>
+ *				<option value="3">Item3</option>
+ *				<option value="4">Item4</option>
+ *			</select>
+ *
+ * ##Placeholder options
+ * If you use <option> with data-placeholder="true" attribute, you can make a default placeholder.
+ * Default value of data-hide-placeholder-menu-items attribute is true and data-placeholder option is hidden.
+ * If you don't want that, you can use data-hide-placeholder-menu-items="false" attribute.
  *
  *		@example
- *		<select id="selectmenu" data-native-menu="false">
- *			<option value="1">The 1st Option</option>
- *			<option value="2">The 2nd Option</option>
+ *		<select id="selectmenu" data-native-menu="false" data-hide-placeholder-menu-items="false">
+ *			<option value="choose-one" data-placeholder="true">Choose an option</option>
+ *			<option value="1">Item1</option>
+ *			<option value="2">Item2</option>
+ *			<option value="3">Item3</option>
+ *			<option value="4">Item4</option>
  *		</select>
- *		<script>
- *			$("#selectmenu").selectmenu();
- *		</script>
- *
- *
- * ##Options for SelectMenu Widget
- *
- * Options for widget can be defined as _data-..._ attributes or give as
- * parameter in constructor.
- *
- * You can change option for widget using method **option**.
- *
- * ###Mini version
- * For a more compact version that is useful in toolbars and tight spaces, add
- * the data-mini="true" attribute to the selectmenu to create a mini version.
- * This will produce a selectmenu that is not as tall as the standard version
- * and has a smaller text size.
- *
- *		@example
- *		<select id="selectmenu" data-native-menu="false" data-mini="true">
- *			<option value="1">The 1st Option</option>
- *			<option value="2">The 2nd Option</option>
- *		</select>
- *
- * ###Inline SelectMenu
- * By default, all selectmenus in the body content are styled as block-level
- * elements so they fill the width of the screen. If value is "true" then
- * selectmenu has css property display = "inline"
- *
- *		@example
- *		<select id="selectmenu" data-native-menu="false" data-inline="true">
- *			<option value="1">The 1st Option</option>
- *			<option value="2">The 2nd Option</option>
- *		</select>
- *
- * ###Icon positioning
- * By default, all icons in selectmenus are placed to the left of the
- * selectmenu text. This default may be overridden using
- * the data-iconpos attribute.
- *
- *		@example
- *		<select id="selectmenu" data-icon="delete" data-iconpos="right">
- *			<option value="1">The 1st Option</option>
- *			<option value="2">The 2nd Option</option>
- *		</select>
- *
- * Possible values of data-iconpos:
- *
- *  - "left"  - creates the selectmenu with left-aligned icon
- *  - "right"  - creates the selectmenu with right-aligned icon
- *  - "top"  - creates the selectmenu with icon positioned above the text
- *  - "bottom"  - creates the selectmenu with icon positioned below the text
  *
  * ##Methods
- *
  * To call method on widget you can use one of existing API:
  *
- * First API is from tau namespace:
+ * First API is from tau namespace: RECOMMEND
  *
  *		@example
- *		<select id="selectmenu" data-icon="delete" data-iconpos="right">
- *			<option value="1">The 1st Option</option>
- *			<option value="2">The 2nd Option</option>
- *		</select>
- *		<script>
- *			var selectMenu = document.getElementById("selectmenu"),
- *				selectWidget = tau.widget.SelectMenu(selectMenu);
+ *		var element = document.getElementById("selectmenu"),
+ *			widget = tau.widget.SelectMenu(element);
+ *		widget.methodName(methodArgument1, methodArgument2, ...);
  *
- *			// selectWidget.methodName(methodArgument1, methodArgument2, ...);
- *			// for example
- *
- *			selectWidget.open();
- *		</script>
- * Second API is jQuery Mobile API and for call _methodName_ you can use:
+ * Second API is jQuery Mobile API and for call _methodName_ you can use: Support for backward compatibility
  *
  *		@example
- *		<select id="select" data-icon="delete" data-iconpos="right">
- *			<option value="1">The 1st Option</option>
- *			<option value="2">The 2nd Option</option>
- *		</select>
- *		<script>
- *			// $("#select").selectmenu("methodName", argument1, argument2, ...);
- *			// for example
+ *		$(".selector").selectmenu("methodName", methodArgument1, methodArgument2, ...);
  *
- *			$("#select").selectmenu("open")
- *		</script>
+ * - "open" - SelectMenu open
  *
+ * 		@example
+ * 		var elSelectMenu = document.getElementById("selectmenu"),
+ * 			widget = tau.widget.SelectMenu(elSelectMenu);
+ * 		widget.open();
  *
+ * - "close" - SelectMenu close
  *
+ * 		@example
+ * 		var elSelectMenu = document.getElementById("selectmenu"),
+ * 			widget = tau.widget.SelectMenu(elSelectMenu);
+ * 		widget.close();
  *
- * @author Damian Osipiuk <d.osipiuk@samsung.com>
- * @author Krzysztof Antoszek <k.antoszek@samsung.com>
- * @author Maciej Moczulski <m.moczulski@samsung.com>
- * @author Maciej Urbanski <m.urbanski@samsung.com>
- * @author Piotr Karny <p.karny@samsung.com>
+ * - "refresh" - This method refreshs the SelectMenu widget.
+ *
+ * 		@example
+ * 		var elSelectMenu = document.getElementById("selectmenu"),
+ * 			widget = tau.widget.SelectMenu(elSelectMenu);
+ * 		widget.refresh();
+ *
  * @class ns.widget.mobile.SelectMenu
  * @extends ns.widget.mobile.BaseWidgetMobile
+ * @author Hagun Kim <hagun.kim@samsung.com>
  */
 (function (document, ns) {
 	
-				/**
-			 * @property {Object} BaseWidget alias variable
-			 * @private
-			 * @static
-			 */
-			var BaseWidget = ns.widget.mobile.BaseWidgetMobile,
-				/**
-				 * @property {Object} engine alias variable
-				 * @private
-				 * @static
-				 */
+				var BaseWidget = ns.widget.mobile.BaseWidgetMobile,
 				engine = ns.engine,
-				/**
-				 * @property {Object} events alias variable
-				 * @private
-				 * @static
-				 */
-				events = ns.event,
-				/**
-				 * @property {Object} selectors alias variable
-				 * @private
-				 * @static
-				 */
+				domUtils = ns.util.DOM,
+				eventUtils = ns.event,
 				selectors = ns.util.selectors,
-				/**
-				 * @property {Object} themes alias variable
-				 * @private
-				 * @static
-				 */
-				themes = ns.theme,
-				/**
-				 * @property {Object} zoom alias variable
-				 * @private
-				 * @static
-				 */
-				zoom = ns.util.zoom,
+				slice = [].slice,
+				indexOf = [].indexOf,
 				SelectMenu = function () {
-				/**
-				 * All possible widget options
-				 * @property {Object} options
-				 * @property {string} [options.theme="s"] theme of widget
-				 * @property {boolean} [options.disabled=false] start widget
-				 * as enabled / disabled
-				 * @property {string} [options.icon="arrow-d"] sets the icon
-				 * type to use with widget
-				 * @property {"left"|"right"|"top"|"bottom"|null}
-				 * [options.iconpos="right"] position of the icon
-				 * in the select button
-				 * @property {boolean} [options.inline=false] if value is "true"
-				 * then selectmenu has css property display = "inline"
-				 * @property {boolean} [options.corners=true] applies the theme
-				 * button border-radius to the select button if set to true
-				 * @property {boolean} [options.shadow=true] applies the drop
-				 * shadow style to the select button if set to true
-				 * @property {boolean} [options.iconshadow=true] set the theme
-				 * shadow to the select button's icon if set to true
-				 * @property {string} [options.overlayTheme="a"] sets the color
-				 * of the overlay layer
-				 * @property {boolean} [options.hidePlaceholderMenuItems=true]
-				 * sets whether placeholder menu items are hidden
-				 * @property {string} [options.closeText="Close"] customizes the
-				 * text of the close button
-				 * @property {boolean} [options.nativeMenu=true] when set to
-				 * true, clicking the custom-styled select menu will open the
-				 * native select menu which is best for performance
-				 * @property {boolean} [options.nativeElement=true] when "true"
-				 * is set then widget will use native elements
-				 * @property {boolean} [options.multiple=false] framework will
-				 * enhance the element.
-				 * @property {number} [options.elementsToDialog=9] treshold to
-				 * check if we have Dialog
-				 * @property {boolean} [options.isDialog=false] If too many
-				 * elements then we it should be set to "true" to be display
-				 * as Dialog
-				 * @property {boolean} [options.preventFocusZoom=false] this
-				 * option disables page zoom temporarily when a custom select
-				 * is focused
-				 * @property {boolean} [options.mini=false] if set to true,
-				 * this will display a more compact version of the selectmenu
-				 * that uses less vertical height
-				 * @property {string}
-				 * [options.heading="h1,h2,h3,h4,h5,h6,legend,li"] heading
-				 * @member ns.widget.mobile.SelectMenu
-				 */
-					this.options = {
-						theme: "s",
-						disabled: false,
-						icon: "arrow-d",
-						iconpos: "right",
-						inline: false,
-						corners: true,
-						shadow: true,
-						iconshadow: true,
-						overlayTheme: "a",
-						hidePlaceholderMenuItems: true,
-						closeText: "Close",
-						nativeMenu: true,
-						// Custom options
-						nativeElement: true,
-						multiple: false,
-						elementsToDialog: 9,
-						isDialog : false,
-						// This option defaults to true on iOS devices.
-						//preventFocusZoom:
-						// /iPhone|iPad|iPod/.test( navigator.platform ) &&
-						//navigator.userAgent.indexOf( "AppleWebKit" ) > -1,
-						preventFocusZoom: false,
-						mini: false,
-						heading: "h1,h2,h3,h4,h5,h6,legend,li"
+					var self = this;
+					/**
+					* @property {boolean} _isOpen Open/Close status of SelectMenu
+					* @member ns.widget.mobile.SelectMenu
+					*/
+					self._isOpen = false;
+					/**
+					* @property {number} _selectedIndex Index of selected option in SelectMenu
+					* @member ns.widget.mobile.SelectMenu
+					*/
+					self._selectedIndex = null;
+					/**
+					* @property {Object} _ui Object with html elements connected with SelectMenu
+					* @member ns.widget.mobile.SelectMenu
+					*/
+					self._ui = {
+						elSelectWrapper: null,
+						elPlaceHolder: null,
+						elSelect: null,
+						screenFilter: null,
+						elOptionContainer: null,
+						elOptions: null,
+						elPage: null,
+						elContent: null,
+						elDefaultOption: null
 					};
-					this._eventHandlers = {};
+					/**
+					* @property {Object} options Object with default options
+					* @property {boolean} [options.nativeMenu=true] Sets the SelectMenu widget as native/custom type.
+					* @property {boolean} [options.inline=false] Sets the SelectMenu widget as inline/normal type.
+					* @property {boolean} [options.label=false] Sets the SelectMenu widget as label/normal type.
+					* @property {boolean} [options.hidePlaceholderMenuItems=true] Hide/Reveal the placeholder option in dropdown list of the SelectMenu.
+					* @member ns.widget.mobile.SelectMenu
+					*/
+					self.options = {
+						nativeMenu: true,
+						inline: false,
+						label: false,
+						hidePlaceholderMenuItems: true
+					};
 				},
+				/**
+				 * Dictionary for SelectMenu related css class names
+				 * @property {Object} classes
+				 * @member ns.widget.mobile.SelectMenu
+				 * @static
+				 */
 				classes = {
-					uiSelect: "ui-select",
-					uiSelectMenu: "ui-selectmenu",
-					uiScreenHidden: "ui-screen-hidden",
-					uiHeader: "ui-header",
-					uiTitle: "ui-title",
-					uiPopupTitle: "ui-popup-title",
-					uiLiDivider: "ui-li-divider",
-					uiSelectMenuPlaceholder: "ui-selectmenu-placeholder",
-					uiBtnActive: "ui-btn-active",
-					uiDisabled: "ui-disabled",
-					uiBar: "ui-bar-",
-					uiBtnDown: "ui-btn-down-"
-				};
-
-			SelectMenu.prototype = new BaseWidget();
-
-			/**
-			 * Classes Dictionary object containing commonly used wiget classes
-			 * @property {Object} classes
-			 * @static
-			 * @member ns.widget.SelectMenu
-			 * @readonly
-			 */
+					selectWrapper : "ui-selectmenu",
+					optionGroup : "ui-selectmenu-optiongroup",
+					placeHolder : "ui-selectmenu-placeholder",
+					optionList : "ui-selectmenu-options",
+					selected : "ui-selectmenu-selected",
+					active : "ui-selectmenu-active",
+					filter : "ui-selectmenu-screen-filter",
+					filterHidden : "ui-selectmenu-filter-hidden",
+					label : "ui-selectmenu-label",
+					disabled : "ui-selectmenu-disabled",
+					widgetDisabled : "ui-disabled",
+					inline : "ui-selectmenu-inline",
+					native : "ui-select-native",
+					top : "ui-selectmenu-option-top",
+					bottom : "ui-selectmenu-option-bottom"
+				},
+				prototype = new BaseWidget();
+			SelectMenu.prototype = prototype;
 			SelectMenu.classes = classes;
 
 			/**
-			 * Add class to label marked for select
-			 * @method markLabelAsSelectMenu
+			 * vclick to toggle menu event handler
+			 * @method toggleMenu
+			 * @private
+			 * @static
+			 * @param {ns.widget.mobile.SelectMenu} self
+			 * @param {Event} event
+			 * @member ns.widget.mobile.SelectMenu
+			*/
+			function toggleMenu(self, event) {
+				self._toggleSelect();
+				eventUtils.stopPropagation(event);
+				eventUtils.preventDefault(event);
+			}
+
+			/**
+			 * vclick to change option event handler
+			 * @method changeOption
+			 * @private
+			 * @static
+			 * @param {ns.widget.mobile.SelectMenu} self
+			 * @param {Event} event
+			 * @member ns.widget.mobile.SelectMenu
+			*/
+			function changeOption(self, event) {
+				var target = event.target,
+					tag = target.tagName,
+					classList = target.classList;
+				if (tag === "LI" && !classList.contains(classes.optionGroup) && !classList.contains(classes.disabled)) {
+					self._selectedIndex = indexOf.call(self._ui.elOptions, target);
+					self._changeOption();
+					self._toggleSelect();
+				}
+				event.stopPropagation();
+				event.preventDefault();
+			}
+
+			/**
+			 * Change option in native selectmenu
+			 * @method nativeChangeOption
+			 * @private
+			 * @static
+			 * @param {ns.widget.mobile.SelectMenu} self
+			 * @member ns.widget.mobile.SelectMenu
+			*/
+			function nativeChangeOption(self) {
+				var ui = self._ui,
+					selectedOption = ui.elSelect[ui.elSelect.selectedIndex];
+				ui.elPlaceHolder.textContent = selectedOption.textContent;
+			}
+
+			/**
+			 * Function fires on window resizing
+			 * @method onResize
+			 * @private
+			 * @static
+			 * @param {ns.widget.mobile.SelectMenu} self
+			 * @param {Event} event
+			 * @member ns.widget.mobile.SelectMenu
+			*/
+			function onResize(self, event) {
+				self._isOpen = !self._isOpen;
+				self._toggleSelect();
+				event.stopPropagation();
+				event.preventDefault();
+			}
+
+			/**
+			 * Toggle enable/disable selectmenu
+			 * @method setDisabledStatus
+			 * @private
+			 * @static
 			 * @param {HTMLElement} element
-			 * @param {string} id
-			 * @private
-			 * @static
+			 * @param {Boolean} isDisabled
 			 * @member ns.widget.mobile.SelectMenu
-			 */
-			function markLabelAsSelectMenu(element, id) {
-				var children,
-					i,
-					l;
-
-				children = selectors.getChildrenBySelector(element,
-						"[for='" + id + "']");
-				for (i = 0, l = children.length; i < l; i++) {
-					children[i].classList.add(classes.uiSelect);
-				}
-			}
-
-			/**
-			 * Find select option by provided value
-			 * @method findOptionByValue
-			 * @param {Object} options
-			 * @param {string} value
-			 * @return {?HTMLElement}
-			 * @private
-			 * @static
-			 * @member ns.widget.mobile.SelectMenu
-			 */
-			function findOptionByValue(options, value) {
-				options = options || [];
-
-				return (options[0] && options[0].parentNode.querySelector(
-						'option[value="' + value + '"]')) || null;
-			}
-
-			/**
-			 * Update text of a selected button
-			 * @method updateButtonText
-			 * @param {HTMLSelectElement} element
-			 * @param {boolean} isNative
-			 * @private
-			 * @static
-			 * @member ns.widget.mobile.SelectMenu
-			 */
-			function updateButtonText(element, isNative) {
-				var selectOptions = element.options,
-					selectButtonText,
-					buttonText,
-					i,
-					l;
-
-				if (isNative) {
-					selectButtonText =
-						element.parentNode.querySelector("span > span");
+			*/
+			function setDisabledStatus(element, isDisabled) {
+				var classList = element.classList;
+				if (isDisabled) {
+					classList.add(classes.disabled);
+					classList.add(classes.widgetDisabled);
 				} else {
-					selectButtonText =
-						element.parentNode.querySelector("a > span > span");
+					classList.remove(classes.disabled);
+					classList.remove(classes.widgetDisabled);
 				}
-				for (i = 0, l = selectOptions.length; i < l; i++) {
-					if (selectOptions[i].selected) {
-						if (buttonText) {
-							buttonText = buttonText + ", " +
-									selectOptions[i].text;
-						} else {
-							buttonText = selectOptions[i].text;
-						}
-					}
-				}
-				selectButtonText.innerHTML = buttonText;
 			}
 
 			/**
-			 * Build option in the Select tag
-			 * @method buildOptions
-			 * @param {HTMLElement} listView
-			 * @param {HTMLElement} popupHeaderTitle
-			 * @param {HTMLElement} popupHeader
+			 * Convert option tag to li element
+			 * @method convertOptionToHTML
+			 * @private
+			 * @static
 			 * @param {HTMLElement} option
-			 * @param {number} index
-			 * @private
-			 * @static
+			 * @param {Boolean} isDisabled
+			 * @return {string}
 			 * @member ns.widget.mobile.SelectMenu
-			 */
-			function buildOptions(listView, popupHeaderTitle, popupHeader, option, index) {
-				var options = this.options,
-					element = this.element,
-
-					selectOption,
-					selectOptionParent,
-					optLabel,
-					optGroup,
-
-					selectOptionGroup,
-					selectOptionGroupClassList,
-					selectCheckbox,
-					selectLink;
-
-				if (option.text) {
-					selectOption = document.createElement("li");
-
-					// Are we inside an optgroup?
-					selectOptionParent = option.parentNode;
-					if (selectOptionParent !== element &&
-							selectOptionParent.nodeName.toLowerCase() ===
-								"optgroup") {
-
-						optLabel = selectOptionParent.getAttribute("label");
-						if (optLabel !== optGroup) {
-							selectOptionGroup = document.createElement("li");
-							selectOptionGroup.setAttribute("data-role",
-									"list-divider");
-							selectOptionGroup.setAttribute("role", "heading");
-							selectOptionGroupClassList =
-									selectOptionGroup.classList;
-							selectOptionGroupClassList.add(
-									classes.uiLiDivider);
-							selectOptionGroupClassList.add(
-									classes.uiBar + options.theme);
-							selectOptionGroup.appendChild(
-									document.createTextNode(optLabel));
-							listView.appendChild(selectOptionGroup);
-							optGroup = optLabel;
-						}
-					}
-
-					if (option.getAttribute("data-placeholder") ||
-								!option.getAttribute("value")) {
-						popupHeaderTitle.appendChild(document.createTextNode(
-								option.text));
-						popupHeader.classList.remove(classes.uiScreenHidden);
-						selectOption.classList.add(
-								classes.uiSelectMenuPlaceholder);
-					}
-					if (option.getAttribute("disabled")) {
-						selectOption.appendChild(document.createTextNode(
-								option.text));
-						selectOption.classList.add(classes.uiDisabled);
-						// Is multiple ?
-					} else if (element.getAttribute("multiple")) {
-						selectLink = document.createElement("a");
-						selectCheckbox = document.createElement("input");
-						selectCheckbox.setAttribute("value", element.value);
-						selectCheckbox.setAttribute("type", "checkbox");
-						selectCheckbox.setAttribute("data-style", "check");
-						selectLink.appendChild(selectCheckbox);
-						selectLink.appendChild(document.createTextNode(
-								option.text));
-						selectOption.appendChild(selectLink);
-						if (option.selected) {
-							selectCheckbox.setAttribute("checked", "checked");
-						}
-					} else {
-						selectLink = document.createElement("a");
-						selectLink.setAttribute("data-rel", "back");
-						selectLink.appendChild(document.createTextNode(
-								option.text));
-						selectOption.setAttribute("data-option-index", index);
-						selectOption.setAttribute("role", "option");
-						selectOption.appendChild(selectLink);
-						if (option.selected) {
-							selectOption.classList.add(classes.uiBtnActive);
-						}
-					}
-					listView.appendChild(selectOption);
-					if (selectCheckbox) {
-						engine.instanceWidget(selectCheckbox, "Checkboxradio",
-								{theme: options.theme}
-						);
-						selectCheckbox = null;
-					}
-				}
+			*/
+			function convertOptionToHTML(option, isDisabled) {
+				return "<li data-value='" + option.value + "'" + (isDisabled ? (" class='" + classes.disabled + "'") : "tabindex='0'" ) + ">" + option.textContent + "</li>";
 			}
 
 			/**
-			 * Open the select menu
-			 *
-			 *		@example
-			 *		<select id="select" data-native-menu="false">
-			 *			<option value="1">The 1st Option</option>
-			 *			<option value="2">The 2nd Option</option>
-			 *		</select>
-			 *		<script>
-			 *			var select = document.getElementById("select"),
-			 *				selectWidget = tau.widget.SelectMenu(select);
-			 *
-			 *			selectWidget.open();
-			 *		</script>
-			 *
-			 *####If jQuery library is loaded, its method can be used:
-			 *
-			 *		@example
-			 *		<select id="select" data-native-menu="false">
-			 *			<option value="1">The 1st Option</option>
-			 *			<option value="2">The 2nd Option</option>
-			 *		</select>
-			 *		<script>
-			 *			$( "#select" ).selectmenu( "open" );
-			 *		</script>
-			 *
-			 * @method open
+			 * Return offset of element
+			 * @method getOffsetOfElement
+			 * @private
+			 * @static
+			 * @param {HTMLElement} element
+			 * @param {HTMLElement} container
+			 * @return {Object}
 			 * @member ns.widget.mobile.SelectMenu
-			 */
-			SelectMenu.prototype.open = function() {
-				// @TODO
-				//needs implementation;
-				return null;
-			};
-
-			/**
-			 * Close the select menu
-			 *
-			 * Method removes disabled attribute on selectmenu and changes
-			 * look of selectmenu to enabled state.
-			 *
-			 *		@example
-			 *		<select id="select" data-native-menu="false">
-			 *			<option value="1">The 1st Option</option>
-			 *			<option value="2">The 2nd Option</option>
-			 *		</select>
-			 *		<script>
-			 *			var select = document.getElementById("select"),
-			 *				selectWidget = tau.widget.SelectMenu(select);
-			 *
-			 *			selectWidget.close();
-			 *		</script>
-			 *
-			 *####If jQuery library is loaded, its method can be used:
-			 *
-			 *		@example
-			 *		<select id="select" data-native-menu="false">
-			 *			<option value="1">The 1st Option</option>
-			 *			<option value="2">The 2nd Option</option>
-			 *		</select>
-			 *		<script>
-			 *			$( "#select" ).selectmenu( "close" );
-			 *		</script>
-			 *
-			 * @method close
-			 * @member ns.widget.mobile.SelectMenu
-			 */
-			SelectMenu.prototype.close = function() {
-				// @TODO
-				//needs implementation;
-				return null;
-			};
-
-			/**
-			 * Disable the selectmenu
-			 *
-			 * Method sets disabled attribute on selectmenu and changes
-			 * look of selectmenu to disabled state.
-			 *
-			 *		@example
-			 *		<select id="select" data-native-menu="false">
-			 *			<option value="1">The 1st Option</option>
-			 *			<option value="2">The 2nd Option</option>
-			 *		</select>
-			 *		<script>
-			 *			var select = document.getElementById("select"),
-			 *				selectWidget = tau.widget.SelectMenu(select);
-			 *
-			 *			selectWidget.disable();
-			 *		</script>
-			 *
-			 *####If jQuery library is loaded, its method can be used:
-			 *
-			 *		@example
-			 *		<select id="select" data-native-menu="false">
-			 *			<option value="1">The 1st Option</option>
-			 *			<option value="2">The 2nd Option</option>
-			 *		</select>
-			 *		<script>
-			 *			$( "#select" ).selectmenu( "disable" );
-			 *		</script>
-			 *
-			 * @method disable
-			 * @chainable
-			 * @member ns.widget.mobile.SelectMenu
-			 */
-
-			/**
-			 * Set widget state to disabled
-			 * @method _disable
-			 * @protected
-			 * @member ns.widget.mobile.SelectMenu
-			 */
-			SelectMenu.prototype._disable = function() {
-				var element = this.element,
-					options = this.options,
-					parentElement = element.parentNode,
-					button;
-
-				if (options.nativeElement === false) {
-					options.disabled = true;
-					element.setAttribute("disabled", "disabled");
-					button = parentElement.querySelector("a");
-					if (button) {
-						button.setAttribute("aria-disabled", "true");
-						button.classList.add(classes.uiDisabled);
-					}
-				}
-			};
-
-			/**
-			 * Enable the selectmenu
-			 *
-			 * Method removes disabled attribute on selectmenu and changes
-			 * look of selectmenu to enabled state.
-			 *
-			 *		@example
-			 *		<select id="select" data-native-menu="false">
-			 *			<option value="1">The 1st Option</option>
-			 *			<option value="2">The 2nd Option</option>
-			 *		</select>
-			 *		<script>
-			 *			var select = document.getElementById("select"),
-			 *				selectWidget = tau.widget.SelectMenu(select);
-			 *
-			 *			selectWidget.enable();
-			 *		</script>
-			 *
-			 *####If jQuery library is loaded, its method can be used:
-			 *
-			 *		@example
-			 *		<select id="select" data-native-menu="false">
-			 *			<option value="1">The 1st Option</option>
-			 *			<option value="2">The 2nd Option</option>
-			 *		</select>
-			 *		<script>
-			 *			$( "#select" ).selectmenu( "enable" );
-			 *		</script>
-			 *
-			 * @method enable
-			 * @chainable
-			 * @member ns.widget.mobile.SelectMenu
-			 */
-
-			/**
-			 * Set widget state to enabled
-			 * @method _enable
-			 * @protected
-			 * @member ns.widget.mobile.SelectMenu
-			 */
-			SelectMenu.prototype._enable = function() {
-				var element = this.element,
-					options = this.options,
-					parentElement = element.parentNode,
-					button;
-
-				if (options.nativeElement === false) {
-					options.disabled = false;
-					element.removeAttribute("disabled");
-					button = parentElement.querySelector("a");
-					if (button) {
-						button.setAttribute("aria-disabled", "false");
-						button.classList.remove(classes.uiDisabled);
-					}
-				}
-			};
-
-			/**
-			 * Build custom select popup list structure
-			 * @method _buildList
-			 * @protected
-			 * @member ns.widget.mobile.SelectMenu
-			 */
-			SelectMenu.prototype._buildList = function () {
-				var options = this.options,
-					element = this.element,
-					wrapper = element.parentNode,
-					i,
-					l,
-
-					popupDiv,
-					popupHeader,
-					popupHeaderClassList,
-					popupHeaderTitle,
-					popupHeaderButton,
-					popupContent,
-					elementLabel,
-
-					listView,
-					selectOptions;
-
-				popupDiv = document.createElement("div");
-
-				popupHeader = document.createElement("div");
-				popupHeaderClassList = popupHeader.classList;
-				popupHeaderClassList.add(classes.uiBar + options.theme);
-				popupHeaderClassList.add(classes.uiHeader);
-
-				popupHeaderTitle = document.createElement("div");
-				popupHeaderTitle.classList.add(classes.uiTitle);
-				popupHeader.appendChild(popupHeaderTitle);
-				popupHeader.setAttribute("data-role", "header");
-				popupDiv.appendChild(popupHeader);
-
-				selectOptions = element.options;
-
-				listView = document.createElement("ul");
-				listView.setAttribute("id", element.id + "-menu");
-				listView.setAttribute("data-role", "listview");
-				listView.setAttribute("aria-labelledby", element.id);
-
-				// If too many elements - should be display as dialog
-				if (options.isDialog) {
-					popupDiv.setAttribute("data-role", "dialog");
-					elementLabel = document.querySelector('[for="' +
-							element.id + '"]');
-					if (elementLabel) {
-						popupHeaderTitle.appendChild(document.createTextNode(
-								elementLabel.innerText));
-					} else {
-						popupHeaderTitle.appendChild(
-								document.createTextNode(""));
-					}
-					popupContent = document.createElement("div");
-					popupContent.setAttribute("data-role", "content");
-					popupContent.appendChild(listView);
-					popupDiv.appendChild(popupContent);
-				} else {
-					popupDiv.setAttribute("data-role", "popup");
-					popupHeaderClassList.add(classes.uiScreenHidden);
-					popupHeaderClassList.add(classes.uiPopupTitle);
-					popupDiv.classList.add(classes.uiSelectMenu);
-
-					if (options.multiple) {
-						popupHeaderButton = document.createElement("a");
-						popupHeaderButton.setAttribute("data-role", "button");
-						popupHeaderButton.setAttribute("data-rel", "back");
-						popupHeader.appendChild(popupHeaderButton);
-						engine.instanceWidget(popupHeaderButton, "Button", {
-							icon: "delete",
-							inline: true,
-							theme: options.theme
-						});
-					}
-					popupDiv.appendChild(listView);
-				}
-
-				wrapper.appendChild(popupDiv);
-
-				buildOptions = buildOptions.bind(this, listView, popupHeaderTitle, popupHeader)
-				for (i = 0, l = selectOptions.length; i < l; i++) {
-					buildOptions(selectOptions[i], i);
-				}
-
-				engine.instanceWidget(listView, "Listview", {
-					theme: options.theme
-				});
-
-				if (options.isDialog) {
-					engine.instanceWidget(popupDiv, "Dialog", {
-						shadow: options.shadow,
-						corners: options.corners,
-						theme: options.theme
-					});
-				} else {
-					engine.instanceWidget(popupDiv, "Popup", {
-						shadow: options.shadow,
-						corners: options.corners,
-						theme: options.theme
-					});
-				}
-
-				wrapper.firstChild.setAttribute("href", "#" + popupDiv.id);
-			};
-
-			/**
-			 * Build widget structure
-			 * @method _build
-			 * @protected
-			 * @param {HTMLSelectElement} element
-			 * @return {HTMLElement}
-			 * @member ns.widget.mobile.SelectMenu
-			 */
-			SelectMenu.prototype._build = function (element) {
-				var options = this.options,
-					wrapper,
-					selectParent,
-					selectButton,
-					selectOptionClassList;
-
-				this.element = element;
-
-				checkIsNative(element, options);
-
-				if (!options.nativeElement) {
-					selectParent = element.parentNode;
-					selectParent.removeChild(element);
-					markLabelAsSelectMenu(selectParent, element.id);
-
-					wrapper = document.createElement("div");
-					wrapper.classList.add(classes.uiSelect);
-					selectParent.appendChild(wrapper);
-
-					if (options.nativeMenu) {
-						selectButton = document.createElement("div");
-						selectButton.appendChild(document.createTextNode(" "));
-						// data-theme attribute is not set when widget
-						// instance is created (Test #24)
-						selectButton.setAttribute("data-theme", options.theme);
-						wrapper.appendChild(selectButton);
-						engine.instanceWidget(selectButton, "Button", {
-							iconpos: options.iconpos,
-							icon: options.icon,
-							mini: options.mini,
-							theme: options.theme
-						});
-						selectButton.appendChild(element);
-						updateButtonText(element, options.nativeMenu);
-
-						// fix for test #31 - weird that classes must
-						// be overritten
-						selectOptionClassList =
-							element.options[element.selectedIndex].classList;
-						if (selectOptionClassList.length > 0) {
-							selectButton.firstChild.firstChild.setAttribute(
-									"class", selectOptionClassList);
-						}
-					} else {
-						selectButton = document.createElement("a");
-						selectButton.appendChild(document.createTextNode(" "));
-						// Fix for bad looking buttons in current theme
-						// - to be removed
-						selectButton.classList.add("ui-btn-box-"
-								+ options.theme);
-						// data-theme attribute is not set when widget
-						// instance is created (Test #24)
-						selectButton.setAttribute("data-theme", options.theme);
-						if (options.isDialog) {
-							selectButton.setAttribute("data-rel", "dialog");
-						} else {
-							selectButton.setAttribute("data-rel", "popup");
-						}
-						wrapper.appendChild(selectButton);
-						engine.instanceWidget(selectButton, "Button", {
-							iconpos: options.iconpos,
-							icon: options.icon,
-							inline: options.inline,
-							mini: options.mini,
-							theme: options.theme
-						});
-						wrapper.appendChild(element);
-						updateButtonText(element, options.nativeMenu);
-						this._buildList();
-					}
-				}
-
-				return element;
-			};
-
-			/**
-			 * Configure widget options
-			 * @method _configure
-			 * @protected
-			 * @param {HTMLSelectElement} element
-			 * @return {HTMLElement}
-			 * @member ns.widget.mobile.SelectMenu
-			 */
-			SelectMenu.prototype._configure = function (element) {
-				var options = this.options,
-					elementOptions = element.options || [],
-					i,
-					l;
-
-				// If all options are empty  - whole widget should
-				// stay native (test #27)
-				for (i = 0, l = elementOptions.length; i < l; i++) {
-					if (elementOptions[i].text) {
-						options.nativeElement = false;
+			*/
+			function getOffsetOfElement(element, container) {
+				var top = element.offsetTop,
+					left = element.offsetLeft,
+					offsetParent;
+				while (element.offsetParent) {
+					offsetParent = element.offsetParent;
+					top += offsetParent.offsetTop;
+					left += offsetParent.offsetLeft;
+					if (element === container) {
 						break;
 					}
+					element = offsetParent;
 				}
+				return {top: top, left: left};
+			}
 
-				if (!options.nativeElement) {
-					options.multiple = !!element.getAttribute("multiple");
-					options.disabled = !!element.getAttribute("disabled");
-					options.theme = themes.getInheritedTheme(element);
+			/**
+			 * Construct element of option of selectmenu
+			 * @method constructOption
+			 * @private
+			 * @static
+			 * @param {HTMLElement} element
+			 * @param {ns.widget.mobile.SelectMenu} self
+			 * @return {string}
+			 * @member ns.widget.mobile.SelectMenu
+			*/
+			function constructOption(self) {
+				var i,
+					j,
+					forElement,
+					tag,
+					options = "",
+					optionArray,
+					optionCount,
+					groupOptionArray,
+					groupOptCount,
+					isDisabled,
+					widgetOptions = self.options,
+					getData = domUtils.getNSData;
 
-					checkIsNative(element, options);
-					if (!options.nativeMenu) {
-						options.isDialog = elementOptions.length >=
-							options.elementsToDialog;
+				optionArray = slice.call(self._ui.elSelect.children);
+
+				// This part is for optgroup tag.
+				for (i = 0, optionCount = optionArray.length; i < optionCount; i++) {
+					forElement = optionArray[i];
+					isDisabled = !!forElement.disabled;
+					tag = forElement.tagName;
+					// for <option> tag
+					if (tag === "OPTION") {
+						/* When data-hide-placeholder-menu-items is true,
+						 * <option> with data-placeholder="true" is hidden in selectmenu.
+						 * It means that the <option> doesn't have to be selectmenu element.
+						 */
+						if (widgetOptions.hidePlaceholderMenuItems && getData(forElement, "placeholder")) {
+							continue;
+						}
+						// normal <option> tag will be selectmenu element.
+						options += convertOptionToHTML(forElement, isDisabled);
+					} else if (tag === "OPTGROUP"){
+						// for <optgroup> tag
+						options += "<li class='" + classes.optionGroup + (isDisabled ? (" " + classes.disabled + "'") : "'" ) + ">" + forElement.label + "</li>";
+						groupOptionArray = slice.call(forElement.children);
+						for (j = 0, groupOptCount = groupOptionArray.length; j < groupOptCount; j++) {
+							// If <optgroup> is disabled, all child of the optgroup are also disabled.
+							isDisabled = !!forElement.disabled || !!groupOptionArray[j].disabled;
+							if (widgetOptions.hidePlaceholderMenuItems && getData(forElement, "placeholder")) {
+								continue;
+							}
+							options += convertOptionToHTML(groupOptionArray[j], isDisabled);
+						}
 					}
+				}
+				return options;
+			}
+
+			/**
+			 * Check whether the placeholder option exist or not
+			 * @method findDataPlaceHolder
+			 * @private
+			 * @static
+			 * @param {HTMLElement} element
+			 * @return {HTMLElement}
+			 * @member ns.widget.mobile.SelectMenu
+			*/
+			function findDataPlaceHolder(element) {
+				return element.querySelector("option[data-placeholder='true']");
+			}
+
+			/**
+			 * Check whether the type is label or not
+			 * @method _checkLabel
+			 * @protected
+			 * @member ns.widget.mobile.SelectMenu
+			 */
+			prototype._checkLabel = function () {
+				var self = this,
+					ui = self._ui;
+				if (self.options.label) {
+					ui.elSelectWrapper.classList.add(classes.label);
+				} else {
+					ui.elSelectWrapper.classList.remove(classes.label);
 				}
 			};
 
 			/**
-			 * Check if select is inside popup or have 0 options and
-			 * set proper options
-			 * @method checkIsNative
-			 * @param {HTMLSelectElement} element
-			 * @param {Object} options
-			 * @private
-			 * @static
-			 * @member ns.widget.mobile.SelectMenu
-			 */
-			function checkIsNative(element, options) {
-				if (element.getAttribute("data-native-menu") === "false") {
-					options.nativeMenu = false;
-				}
-				// test #17 - if select is inside popup - should stay
-				// native even if data-native is set to false
-				if (selectors.getParentsBySelectorNS(
-						element,'role = "popup"').length > 0 ||
-							(element.options && element.options.length === 0)) {
-					options.nativeMenu = true;
-				}
-			}
-
-			/**
-			 * Handler function for clicking on widget menu element
-			 * @method selectItemClickHandler
-			 * @param {HTMLSelectElement} element
-			 * @param {Object} options
-			 * @param {Object} classes
-			 * @param {Event} event
-			 * @private
-			 * @static
-			 * @member ns.widget.mobile.SelectMenu
-			 */
-			function selectItemClickHandler(element, options, event) {
-				var clickedElement = event.target,
-					liClicked,
-					indexClicked,
-					activeButton,
-					dialog,
-					dialogWidget;
-
-				liClicked = selectors.getParentsByTag(clickedElement, "li")[0];
-				indexClicked = liClicked.getAttribute("data-option-index");
-				activeButton = liClicked.parentNode.querySelector("."
-						+ classes.uiBtnActive);
-
-				if (!options.multiple) {
-					if (activeButton) {
-						activeButton.classList.remove(classes.uiBtnActive);
-					}
-					liClicked.classList.add(classes.uiBtnActive);
-					liClicked.setAttribute("aria-selected", "true");
-					element.options[element.selectedIndex].selected = false;
-					element.options[indexClicked].selected = true;
-					element.selectedIndex = indexClicked;
-					updateButtonText(element, options.nativeMenu);
-					if (options.isDialog) {
-						dialog = document.getElementById(selectors.getChildrenByTag(
-								element.parentNode, "a")[0].hash.slice(1));
-						dialogWidget = engine.getBinding(dialog);
-						// Fix for jqm test #14
-						dialogWidget.close();
-					}
-				}
-			}
-
-			/**
-			 * Handler function for checkbox click in widget menu
-			 * @method selectItemChangeHandler
-			 * @param {HTMLSelectElement} element
-			 * @param {Object} options
-			 * @param {Event} event
-			 * @private
-			 * @static
-			 * @member ns.widget.mobile.SelectMenu
-			 */
-			function selectItemChangeHandler(element, options, event) {
-				var selectedValue = event.target.value,
-					selectedOption;
-
-				selectedOption = findOptionByValue(element.options,
-						selectedValue);
-				selectedOption.selected = event.target.checked;
-
-				updateButtonText(element, options.nativeMenu);
-			}
-
-			/**
-			* Handler function for native widget mouse down
-			 * @method nativeSelectMouseDownHandler
-			 * @param {Object} options
-			 * @private
-			 * @static
-			 * @member ns.widget.mobile.SelectMenu
-			 */
-			function nativeSelectMouseDownHandler(options) {
-				if ( options.preventFocusZoom ) {
-					zoom.disable(true);
-				}
-			}
-
-			/**
-			 * Handler function for native widget mouse up
-			 * @method nativeSelectMouseUpHandler
-			 * @param {Object} options
-			 * @private
-			 * @static
-			 * @member ns.widget.mobile.SelectMenu
-			 */
-			function nativeSelectMouseUpHandler(options) {
-				if ( options.preventFocusZoom ) {
-					zoom.enable(true);
-				}
-			}
-
-			/**
-			 * Handler function for native widget selection changed
-			 * @method nativeSelectChangeHandler
-			 * @param {HTMLSelectElement} element
-			 * @param {Object} options
-			 * @param {Object} classes
-			 * @private
-			 * @static
-			 * @member ns.widget.mobile.SelectMenu
-			 */
-			function nativeSelectChangeHandler(element, options, classes) {
-				var selectOption,
-					selectButtonText,
-					selectParent;
-
-				selectOption = findOptionByValue(element.options,
-						element.value);
-				selectButtonText = selectOption.text;
-				selectParent = element.parentNode;
-				selectParent.firstChild.firstChild.innerText
-						= selectButtonText;
-				selectParent.classList.remove(classes.uiBtnDown
-						+ options.theme);
-			}
-
-			/**
-			* Handler function for popup screen click
-			 * @method popupScreenClickHandler
-			 * @param {HTMLElement} element
-			 * @private
-			 * @static
-			 * @member ns.widget.mobile.SelectMenu
-			 */
-			function popupScreenClickHandler(element) {
-				events.trigger(element.parentNode.firstChild, "focus");
-			}
-
-			/**
-			 * Handler function after popup open
-			 * @method popupAfterOpenHandler
-			 * @param {HTMLElement} popup
-			 * @private
-			 * @static
-			 * @member ns.widget.mobile.SelectMenu
-			 */
-			function popupAfterOpenHandler(popup) {
-				popup.firstChild.focus();
-			}
-
-			/**
-			 * Handler function on dialog button click
-			 * @method dialogButtonClickHandler
-			 * @param {HTMLElement} element
-			 * @param {HTMLElement} popup
-			 * @private
-			 * @static
-			 * @member ns.widget.mobile.SelectMenu
-			 */
-			function dialogButtonClickHandler(element, popup) {
-				var elementLabel = document.querySelector('[for="' +
-						element.id + '"]'),
-						dialogHeaderTitle = popup.querySelector("." + classes.uiTitle);
-
-				if (elementLabel) {
-					dialogHeaderTitle.innerHTML = elementLabel.innerText;
-				}
-			}
-
-			/**
-			* Bind widget events
-			 * @method _bindEvents
+			 * Check whether the type is Inline or not
+			 * @method _checkInline
 			 * @protected
+			 * @member ns.widget.mobile.SelectMenu
+			 */
+			prototype._checkInline = function () {
+				var self = this,
+					ui = self._ui;
+				if (self.options.inline) {
+					ui.elSelectWrapper.classList.add(classes.inline);
+					ui.elPlaceHolder.removeAttribute("style");
+				} else {
+					ui.elSelectWrapper.classList.remove(classes.inline);
+				}
+			};
+
+			/**
+			 * Build structure of SelectMenu widget
+			 * @method _build
 			 * @param {HTMLElement} element
 			 * @return {HTMLElement}
+			 * @protected
 			 * @member ns.widget.mobile.SelectMenu
 			 */
-			SelectMenu.prototype._bindEvents = function (element) {
-				var options = this.options,
-					eventHandlers = this._eventHandlers,
-					elementParent = element.parentNode,
-					popup,
-					popupContent,
-					popupScreen,
-					popupId;
-
-				if (options.isDialog) {
-					popupId = selectors.getChildrenByTag(element.parentNode,
-							"a")[0].getAttribute("href").slice(1);
-					popup = document.getElementById(popupId);
-					popupContent = selectors.getChildrenByClass(
-							popup.firstChild, "ui-content")[0];
-				} else {
-					popupId = elementParent.lastElementChild.id.replace(
-							"placeholder", "");
-					popupScreen = document.getElementById(popupId + "screen");
-					popup = document.querySelector('[aria-labelledby="'
-							+ element.id + '"]');
-				}
-
-				eventHandlers.dialogButtonClick =
-						dialogButtonClickHandler.bind(null, element, popup);
-				eventHandlers.selectItemClick =
-						selectItemClickHandler.bind(null, element, options);
-				eventHandlers.selectItemChange =
-						selectItemChangeHandler.bind(null, element, options);
-				eventHandlers.nativeSelectMouseDown =
-						nativeSelectMouseDownHandler.bind(null, options);
-				eventHandlers.nativeSelectMouseUp =
-						nativeSelectMouseUpHandler.bind(null, options);
-				eventHandlers.nativeSelectChange =
-						nativeSelectChangeHandler.bind(null, element, options,
-								classes);
-				eventHandlers.popupScreenClick =
-						popupScreenClickHandler.bind(null, element);
-				eventHandlers.popupAfterOpen = popupAfterOpenHandler.bind(null,
-						popup);
-
-				if (!options.nativeElement) {
-					if (options.nativeMenu) {
-						element.parentNode.addEventListener("vmousedown",
-								eventHandlers.nativeSelectMouseDown, false);
-						element.parentNode.addEventListener("mouseup",
-								eventHandlers.nativeSelectMouseUp, false);
-						element.addEventListener("change",
-								eventHandlers.nativeSelectChange, false);
-					} else if (options.isDialog) {
-						elementParent.addEventListener("click",
-								eventHandlers.dialogButtonClick, false);
-						popupContent.addEventListener("click",
-								eventHandlers.selectItemClick, false);
-						popupContent.addEventListener("change",
-								eventHandlers.selectItemChange, false);
-					} else {
-						popup.addEventListener("click",
-								eventHandlers.selectItemClick, false);
-						popup.addEventListener("change",
-								eventHandlers.selectItemChange, false);
-						popupScreen.addEventListener("vclick",
-								eventHandlers.popupScreenClick, false);
-						popup.parentNode.addEventListener("popupafteropen",
-								eventHandlers.popupAfterOpen, false);
-					}
-				}
+			prototype._build = function (element) {
+				this._generate(element);
 				return element;
 			};
 
 			/**
-			 * Initialize options for widget
-			 * @method _init
-			 * @protected
+			 * Generate Placeholder and Options elements for SelectMenu
+			 * @method _generate
 			 * @param {HTMLElement} element
+			 * @return {HTMLElement}
+			 * @protected
 			 * @member ns.widget.mobile.SelectMenu
 			 */
-			SelectMenu.prototype._init = function (element) {
-				var options = this.options;
-				checkIsNative(element, options);
+			prototype._generate = function (element) {
+				var self = this,
+					isNewBuild = false,
+					options = "",
+					selectedOption,
+					fragment,
+					elementId = element.id,
+					ui = self._ui,
+					elSelect = element,
+					elPlaceHolder,
+					elSelectWrapper,
+					elOptions,
+					screenFilter,
+					elOptionContainer;
+
+				ui.elSelect = elSelect;
+				ui.page = selectors.getParentsByClass(elSelect, "ui-page")[0] || document.body;
+				ui.content = selectors.getParentsByClass(elSelect, "ui-content")[0];
+				ui.elDefaultOption = findDataPlaceHolder(elSelect);
+				if (!ui.elOptions) {
+					self._selectedIndex = elSelect.selectedIndex;
+				}
+				selectedOption = ui.elDefaultOption || elSelect[self._selectedIndex];
+
+				elSelectWrapper = document.getElementById(elementId + "-selectmenu");
+
+				if (elSelectWrapper === null) {
+					elSelectWrapper = document.createElement("div");
+					elSelectWrapper.className = classes.selectWrapper;
+					elSelectWrapper.id = elementId + "-selectmenu";
+				}
+
+				if (self.options.nativeMenu) {
+					elPlaceHolder = document.getElementById(elementId + "-placeholder");
+					if (elPlaceHolder === null) {
+						elPlaceHolder = document.createElement("span");
+						elPlaceHolder.id = elementId + "-placeholder";
+						elPlaceHolder.className = classes.placeHolder;
+						domUtils.insertNodesBefore(elSelect, elSelectWrapper);
+						elSelectWrapper.appendChild(elPlaceHolder);
+						elSelectWrapper.appendChild(elSelect);
+						elSelectWrapper.classList.add(classes.native);
+						elPlaceHolder.innerHTML = selectedOption.textContent;
+					}
+					elOptions = elSelect.querySelectorAll("option");
+				} else {
+					options = constructOption(self);
+
+					elPlaceHolder = document.getElementById(elementId + "-placeholder");
+
+					if (elPlaceHolder === null) {
+						elPlaceHolder = document.createElement("span");
+						elPlaceHolder.id = elementId + "-placeholder";
+						elPlaceHolder.className = classes.placeHolder;
+						domUtils.insertNodesBefore(elSelect, elSelectWrapper);
+						elSelectWrapper.appendChild(elPlaceHolder);
+						elSelectWrapper.appendChild(elSelect);
+
+						screenFilter = document.createElement("div");
+						screenFilter.className = classes.filterHidden;
+						screenFilter.classList.add(classes.filter);
+						screenFilter.id = elementId + "-screen";
+
+						elOptionContainer = document.createElement("ul");
+						elOptionContainer.className = classes.optionList;
+						elOptionContainer.id = elementId + "-options";
+						isNewBuild = true;
+					} else {
+						screenFilter = document.getElementById(elementId + "-screen");
+						elOptionContainer = document.getElementById(elementId + "-options");
+					}
+
+					elPlaceHolder.innerHTML = selectedOption.textContent;
+					elOptionContainer.innerHTML = options;
+
+					/*****************************************************************************************************
+					 * FIX ME : When scrollview is removed, elOptionContainer can be located around SelectTag.
+					 *****************************************************************************************************/
+					if (isNewBuild) {
+						fragment = document.createDocumentFragment();
+						fragment.appendChild(screenFilter);
+						fragment.appendChild(elOptionContainer);
+						ui.page.appendChild(fragment);
+					}
+
+					elOptions = elOptionContainer.querySelectorAll("li[data-value]");
+					elOptions[self._selectedIndex].classList.add(classes.selected);
+				}
+
+				elSelectWrapper.setAttribute("tabindex", 0);
+
+				ui.elSelectWrapper = elSelectWrapper;
+				ui.elPlaceHolder = elPlaceHolder;
+				ui.elOptions = elOptions;
+				ui.screenFilter = screenFilter;
+				ui.elOptionContainer = elOptionContainer;
+
+				self._checkLabel();
+				self._checkInline();
+
+				return element;
 			};
 
 			/**
-			 * Refresh a selectmenu markup.
-			 *
-			 * This method will rebuild while DOM structure of widget.
-			 *
-			 * This method should be called after are manually change in HTML
-			 * attributes of widget DOM structure.
-			 *
-			 * This method is called automatically after change any option
-			 * of widget.
-			 *
-			 *		@example
-			 *		<select id="select" data-native-menu="false">
-			 *			<option value="1">The 1st Option</option>
-			 *			<option value="2">The 2nd Option</option>
-			 *		</select>
-			 *		<script>
-			 *			var select = document.getElementById("select"),
-			 *				selectWidget = tau.widget.SelectMenu(select);
-			 *			selectWidget.refresh();
-			 *		</script>
-			 *
-			 *####If jQuery library is loaded, its method can be used:
-			 *
-			 *		@example
-			 *		<select id="select" data-native-menu="false">
-			 *			<option value="1">The 1st Option</option>
-			 *			<option value="2">The 2nd Option</option>
-			 *		</select>
-			 *		<script>
-			 *			$( "#select" ).selectmenu( "refresh" );
-			 *		</script>
-			 *
-			 * @method refresh
-			 * @chainable
+			 * Init of SelectMenu widget
+			 * @method _init
+			 * @param {HTMLElement} element
+			 * @protected
 			 * @member ns.widget.mobile.SelectMenu
 			 */
+			prototype._init = function (element) {
+				var self = this,
+					ui = self._ui,
+					elementId = element.id;
+				if (!ui.elSelectWrapper) {
+					ui.elSelectWrapper = document.getElementById(elementId+"-selectmenu");
+					ui.elPlaceHolder = document.getElementById(elementId+"-placeholder");
+					ui.elSelect = element;
+					if (!self.options.nativeMenu) {
+						ui.screenFilter = document.getElementById(elementId+"-screen");
+						ui.elOptionContainer = document.getElementById(elementId+"-options");
+						ui.elOptions = ui.elOptionContainer.querySelectorAll("li[data-value]");
+					}
+				}
+				if (element.disabled) {
+					self._disable();
+				}
+			};
 
 			/**
-			 * Refresh structure
+			 * Refresh of SelectMenu widget
 			 * @method _refresh
 			 * @protected
 			 * @member ns.widget.mobile.SelectMenu
 			 */
-			SelectMenu.prototype._refresh = function () {
-				var options = this.options,
-					element = this.element,
-					elementParent = element.parentNode,
-					popupPlaceholder,
-					popupId,
-					popupScreen,
-					popup;
+			prototype._refresh = function () {
+				var self = this;
+				self._generate(self._ui.elSelect);
+			};
 
-				if (options.nativeElement === false) {
-					if (!options.nativeMenu) {
-						if (options.isDialog) {
-							popupId = selectors.getChildrenByTag(
-									element.parentNode, "a")[0].hash.slice(1);
-							popup = document.getElementById(popupId);
-							popup.parentNode.removeChild(popup);
-							this._buildList();
-						} else {
-							popupPlaceholder = elementParent.lastChild;
-							elementParent.removeChild(popupPlaceholder);
-							popupId = popupPlaceholder.id.replace(
-									"placeholder", "");
-							popupScreen = document.getElementById(
-									popupId + "screen");
-							popupScreen.parentNode.removeChild(
-									popupScreen);
-							popup = document.getElementById(popupId + "popup");
-							popup.parentNode.removeChild(popup);
-							this._buildList();
-						}
-					}
-					updateButtonText(element, options.nativeMenu);
+			/**
+			* Enables widget
+			* @method _enable
+			*  @protected
+			* @member ns.widget.mobile.SelectMenu
+			*/
+			prototype._enable = function () {
+				setDisabledStatus(this._ui.elSelectWrapper, false);
+				domUtils.removeAttribute(this.element, "disabled");
+			};
+
+			/**
+			* Disables widget
+			* @method _disable
+			*  @protected
+			* @member ns.widget.mobile.SelectMenu
+			*/
+			prototype._disable = function () {
+				setDisabledStatus(this._ui.elSelectWrapper, true);
+				domUtils.setAttribute(this.element, "disabled", true);
+			};
+
+			/**
+			 * Open SelectMenu
+			 * @method open
+			 * @member ns.widget.mobile.SelectMenu
+			 */
+			prototype.open = function () {
+				var self = this;
+				if (self._isOpen === false) {
+					self._toggleSelect();
 				}
 			};
 
 			/**
-			 * Removes the selectmenu functionality completely.
-			 *
-			 * This will return the element back to its pre-init state.
-			 *
-			 *		@example
-			 *		<select id="select" data-native-menu="false">
-			 *			<option value="1">The 1st Option</option>
-			 *			<option value="2">The 2nd Option</option>
-			 *		</select>
-			 *		<script>
-			 *			var select = document.getElementById("select"),
-			 *				selectWidget = tau.widget.SelectMenu(select);
-			 *			selectWidget.destroy();
-			 *		</script>
-			 *####If jQuery library is loaded, its method can be used:
-			 *
-			 *		@example
-			 *		<select id="select" data-native-menu="false">
-			 *			<option value="1">The 1st Option</option>
-			 *			<option value="2">The 2nd Option</option>
-			 *		</select>
-			 *		<script>
-			 *			$( "#select" ).selectmenu( "destroy" );
-			 *		</script>
-			 *
-			 * @method destroy
+			 * Close SelectMenu
+			 * @method close
 			 * @member ns.widget.mobile.SelectMenu
 			 */
+			prototype.close = function () {
+				var self = this;
+				if (self._isOpen === true) {
+					self._toggleSelect();
+				}
+			};
 
 			/**
-			 * Destroy widget
+			 * Bind events of SelectMenu widget
+			 * @method _bindEvents
+			 * @protected
+			 * @member ns.widget.mobile.SelectMenu
+			 */
+			prototype._bindEvents = function () {
+				var self = this,
+					ui = self._ui;
+
+				self._toggleMenuBound = toggleMenu.bind(null, self);
+				self._changeOptionBound = changeOption.bind(null,self);
+				self._onResizeBound = onResize.bind(null,self);
+				self._nativeChangeOptionBound = nativeChangeOption.bind(null,self);
+				if (!self.options.nativeMenu){
+					ui.elSelectWrapper.addEventListener("vclick", self._toggleMenuBound);
+					ui.elOptionContainer.addEventListener("vclick", self._changeOptionBound);
+					ui.screenFilter.addEventListener("vclick", self._toggleMenuBound);
+					window.addEventListener("throttledresize", self._onResizeBound, true);
+				} else {
+					ui.elSelect.addEventListener("change", self._nativeChangeOptionBound);
+				}
+			};
+
+			/**
+			 * Coordinate Option ul element
+			 * @method _coordinateOption
+			 * @return {String}
+			 * @protected
+			 * @member ns.widget.mobile.SelectMenu
+			 */
+			prototype._coordinateOption = function () {
+				var self = this,
+					offsetTop,
+					offsetLeft,
+					width,
+					placeholderStyle = window.getComputedStyle(self._ui.elPlaceHolder, null),
+					areaInfo,
+					optionStyle,
+					ui = self._ui,
+					overLapValue,
+					optionHeight = ui.elOptionContainer.offsetHeight,
+					scrollTop = ui.elOptionContainer.parentNode.querySelector(".ui-scrollview-clip").scrollTop;
+
+				self._offset = getOffsetOfElement(ui.elSelectWrapper, ui.page);
+				areaInfo = self._chooseDirection();
+				// the option list width is shorter than the placeholder.
+				width = ui.elPlaceHolder.offsetWidth - (parseFloat(placeholderStyle.paddingLeft) * 2);
+				// This part decides the location and direction of option list.
+				offsetLeft = self._offset.left;
+				overLapValue = areaInfo.overLapValue;
+				optionStyle = "left: " + offsetLeft + "px; ";
+				if (areaInfo.direction === "top") {
+					offsetTop = 0;
+					if (optionHeight < areaInfo.topArea) {
+						offsetTop = self._offset.top - optionHeight + 1- scrollTop + overLapValue;
+					}
+					optionStyle += "top: " + offsetTop + "px; width: " + width + "px; max-height: " + (areaInfo.topArea + 1 + overLapValue) + "px;";
+					ui.elOptionContainer.classList.add(classes.top);
+					ui.elOptionContainer.classList.remove(classes.bottom);
+				} else {
+					offsetTop = self._offset.top + ui.elPlaceHolder.offsetHeight - 1 - scrollTop - overLapValue;
+					optionStyle += "top: " + offsetTop + "px; width: " + width + "px; max-height: " + (areaInfo.belowArea + 1 + overLapValue) + "px;";
+					ui.elOptionContainer.classList.add(classes.bottom);
+					ui.elOptionContainer.classList.remove(classes.top);
+				}
+				return optionStyle;
+			};
+
+			/**
+			 * Choose a spreading direction of option list and calculate area to display the option list
+			 * @method _chooseDirection
+			 * @return {Object}
+			 * @protected
+			 * @member ns.widget.mobile.SelectMenu
+			 */
+			prototype._chooseDirection = function () {
+				var self = this,
+					ui = self._ui,
+					areaInfo = {
+						belowArea : null,
+						topArea : null,
+						direction : null,
+						overLapValue : null
+					},
+					currentOffset = self._offset;
+
+				areaInfo.belowArea = ui.page.offsetHeight - currentOffset.top - ui.elPlaceHolder.offsetHeight + ui.content.scrollTop;
+				areaInfo.topArea = currentOffset.top - ui.content.scrollTop;
+				areaInfo.overLapValue = ui.elOptions[0].offsetHeight / 8;
+
+				if ((areaInfo.belowArea < areaInfo.topArea) && (ui.elOptionContainer.offsetHeight > areaInfo.belowArea + areaInfo.overLapValue)) {
+					areaInfo.direction = "top";
+				} else {
+					areaInfo.direction = "bottom";
+				}
+				return areaInfo;
+			};
+
+			/**
+			 * Open and Close Option List
+			 * @method _toggleSelect
+			 * @protected
+			 * @member ns.widget.mobile.SelectMenu
+			 */
+			prototype._toggleSelect = function () {
+				var self = this,
+					ui = self._ui,
+					container = ui.elOptionContainer;
+
+				if (self._isOpen) {
+					ui.screenFilter.classList.add(classes.filterHidden);
+					container.removeAttribute("style");
+					ui.elSelectWrapper.classList.remove(classes.active);
+					container.classList.remove(classes.active);
+				} else {
+					container.setAttribute("style", self._coordinateOption());
+					ui.screenFilter.classList.remove(classes.filterHidden);
+					ui.elSelectWrapper.classList.add(classes.active);
+					container.classList.add(classes.active);
+					container.setAttribute("tabindex", "0");
+					container.focus();
+				}
+				self._isOpen = !self._isOpen;
+			};
+
+			/**
+			 * Change Value of Select tag and Placeholder
+			 * @method changeOption
+			 * @protected
+			 * @member ns.widget.mobile.SelectMenu
+			 */
+			prototype._changeOption = function () {
+				var self = this,
+					ui = self._ui,
+					selectedOption = ui.elOptions[self._selectedIndex],
+					previousOption = ui.elOptionContainer.querySelector("." + classes.selected),
+					getData = domUtils.getNSData;
+
+				if ((selectedOption !== previousOption) || (ui.elDefaultOption && (ui.elPlaceHolder.textContent === ui.elDefaultOption.textContent))) {
+					ui.elPlaceHolder.textContent = selectedOption.textContent;
+					ui.elSelect.value = getData(selectedOption, "value");
+					if (ui.elSelect.value === "") {
+						ui.elSelect.value = getData(previousOption, "value");
+						ui.elPlaceHolder.textContent = previousOption.textContent;
+						return;
+					}
+					eventUtils.trigger(ui.elSelect, "change");
+					previousOption.classList.remove(classes.selected);
+					selectedOption.classList.add(classes.selected);
+				}
+			};
+
+			/**
+			 * Destroy SelectMenu widget
 			 * @method _destroy
 			 * @protected
 			 * @member ns.widget.mobile.SelectMenu
 			 */
-			SelectMenu.prototype._destroy = function () {
-				var element = this.element,
-					options = this.options,
-					parentNode = element.parentNode,
-					eventHandlers = this._eventHandlers,
-					popup,
-					popupId,
-					popupScreen;
-
-				if (!options.nativeElement) {
-					if (options.nativeMenu) {
-						parentNode.removeEventListener("vmousedown",
-								eventHandlers.nativeSelectMouseDown, false);
-						parentNode.removeEventListener("mouseup",
-								eventHandlers.nativeSelectMouseUp, false);
-						element.removeEventListener("change",
-								eventHandlers.nativeSelectChange, false);
-					} else if (options.isDialog) {
-						parentNode.removeEventListener("click",
-								eventHandlers.dialogButtonClick, false);
-						popupId = selectors.getChildrenByTag(parentNode,
-								"a")[0].hash.slice(1);
-						popup = selectors.getChildrenByClass(
-								document.getElementById(popupId).firstChild,
-										"ui-content")[0];
-						popup.removeEventListener("click",
-								eventHandlers.selectItemClick, false);
-						popup.removeEventListener("change",
-								eventHandlers.selectItemChange, false);
-					} else {
-						popupId = parentNode.lastChild.id.replace(
-								"placeholder", "");
-						popupScreen = document.getElementById(
-								popupId + "screen");
-						popup = document.querySelector('[aria-labelledby="'
-								+ element.id + '"]');
-						popup.removeEventListener("click",
-								eventHandlers.selectItemClick, false);
-						popup.removeEventListener("change",
-								eventHandlers.selectItemChange, false);
-						popupScreen.removeEventListener("click",
-								eventHandlers.popupScreenClick, false);
-						popup.parentNode.removeEventListener("afteropen",
-								eventHandlers.popupAfterOpen, false);
-					}
+			prototype._destroy = function () {
+				var self = this,
+					ui = self._ui;
+				if (!self.options.nativeMenu) {
+					ui.elSelectWrapper.removeEventListener("vclick", self._toggleMenuBound);
+					ui.elOptionContainer.removeEventListener("vclick", self._changeOptionBound);
+					ui.screenFilter.removeEventListener("vclick", self._toggleMenuBound);
+					window.removeEventListener("throttledresize", self._onResizeBound, true);
+				} else{
+					ui.elSelect.removeEventListener("change", self._nativeChangeOptionBound);
 				}
-				events.trigger(document, "destroyed", {
-					widget: "SelectMenu",
-					parent: parentNode
-				});
 			};
 
-			// definition
 			ns.widget.mobile.SelectMenu = SelectMenu;
 			engine.defineWidget(
 				"SelectMenu",
-				"select:not([data-role='slider']):not([data-role='range'])," +
-				".ui-select-menu",
+				"select:not([data-role='slider']):not([data-role='range']):not([data-role='toggleswitch']):not(.ui-toggleswitch):not(.ui-slider)" +
+				", select.ui-select-menu:not([data-role='slider']):not([data-role='range']):not([data-role='toggleswitch'])",
 				["open", "close"],
 				SelectMenu,
 				"mobile"
 			);
-			}(window.document, ns));
 
+			}(window.document, ns));
 /*global window, define, ns */
 /*
 * Copyright  2010 - 2014 Samsung Electronics Co., Ltd.
@@ -35169,498 +35599,6 @@ window.Globalize = Globalize;
 
 }(window.document, ns));
 
-/*global document, window, define, ns */
-/*
-* Copyright  2010 - 2014 Samsung Electronics Co., Ltd.
-* License : MIT License V2
-*/
-/*jslint nomen: true, plusplus: true */
-/**
- * #Navigation Bar Widget
- * Creates a navigation bar on the page
- *
- * ##HTML Examples
- * ###Create navigation bar by data-role
- *
- *		@example
- *			<div id="ns-navbar" data-role="navbar">
- *				<ul>
- *					<li><a href="a.html">One</a></li>
- *					<li><a href="b.html">Two</a></li>
- *				</ul>
- *			</div>
- *
- *###Create navigation bar by class
- *
- *		@example
- *			<div id="ns-navbar" class="ui-navbar">
- *				<ul>
- *					<li><a href="a.html">One</a></li>
- *					<li><a href="b.html">Two</a></li>
- *				</ul>
- *			</div>
- *
- * ##Manual constructor
- * For manual creation of navigation bar widget you can use constructor of
- * widget from **tau** namespace:
- *
- *		@example
- *			<div id="ns-navbar">
- *				<ul>
- *					<li><a href="a.html">One</a></li>
- *					<li><a href="b.html">Two</a></li>
- *				</ul>
- *			</div>
- *			<script>
- *				var elementNavBar = document.getElementById("ns-navbar");
- *				navbar = tau.widget.NavBar(elementNavBar);
- *			</script>
- *
- * To create widget when jQuery is available use:
- *
- *		@example
- *			<div id="ns-navbar">
- *				<ul>
- *					<li><a href="a.html">One</a></li>
- *					<li><a href="b.html">Two</a></li>
- *				</ul>
- *			</div>
- *			<script">
- *				$("#ns-navbar").navbar();
- *			</script>
- *
- * ##Options for Navigation Bar Widget
- * Options for widget can be defined as _data-..._ attributes or give as
- * parameter in constructor.
- *
- * ###Custom icon position
- * Icons can be added to navigation bar items by adding the data-icon attribute
- * specifying a standard mobile icon to each anchor.
- * By default, icons are added above the text (data-iconpos="top").
- *
- *		@example
- *			<div data-role="navbar" data-iconpos="top">
- *				<ul>
- *					<li><a href="a.html" class="ui-btn-active ui-state-persist"
- *						data-icon="star">One</a></li>
- *					<li><a href="b.html">Two</a></li>
- *				</ul>
- *			</div>
- *
- * ###You can change option for widget using method option
- * Initialize the navigation bar
- *
- *		@example
- *			<div id="ns-navbar">
- *				<ul>
- *					<li><a href="a.html">One</a></li>
- *					<li><a href="b.html">Two</a></li>
- *				</ul>
- *			</div>
- *			<script>
- *				var elementNavBar = document.getElementById("ns-navbar"),
- *				navbar = tau.widget.NavBar(elementNavBar);
- *			</script>
- *
- * ### Custom icon position
- * Get or set the iconpos option, after initialization
- *
- *		@example
- *			<script>
- *				//getter
- *				navbar.option("iconpos");
- *
- *				//setter
- *				navbar.option("iconpos","left");
- *			</script>
- *
- *
- * ##Activating item in navigation bar.
- * When a link in the navigation bar is clicked it gets the active (selected)
- * state. To set the element after initialization
- * to be active is possible by adding a class **class="ui-btn-active"** to the
- * corresponding anchor.
- * Additionaly add a class of **class="ui-state-persist"** to make the
- * framework restore the active state each time
- * the page is shown while it exists in the DOM
- *
- *		@example
- *			<div data-role="navbar">
- *				<ul>
- *					<li><a href="a.html" class="ui-btn-active
- *						ui-state-persist">One</a></li>
- *					<li><a href="b.html">Two</a></li>
- *				</ul>
- *			</div>
- *
- * @class ns.widget.mobile.NavBar
- * @extends ns.widget.mobile.BaseWidgetMobile
- * @author Maciej Moczulski <m.moczulski@samsung.com>
- * @author Maciej Urbanski <m.urbanski@samsung.com>
- * @author Piotr Karny <p.karny@samsung.com>
- * @author Krzysztof Antoszek <k.antoszek@samsung.com>
- */
-(function (ns) {
-	
-				var engine = ns.engine,
-				grid = ns.util.grid,
-				selectors = ns.util.selectors,
-				buttonActiveClass = ns.widget.mobile.Button.classes.uiBtnActive,
-				slice = [].slice,
-				// basic options set for navigation bar buttons
-				buttonOptions = {
-					corners: false,
-					shadow: false,
-					inline: true,
-					iconpos: null,
-					theme: "s"
-				},
-				NavBar = function () {
-					/**
-					 * NavBar widget options
-					 * @property {Object} options NavBar widget options
-					 * @property {"left"|"right"|"top"|"bottom"|null}
-					 * [options.iconpos="top"] Position of the icons inside
-					 * the navbar widget buttons
-					 * @property {?string} [options.grid=null] Type of grid
-					 * applied to the navbar items
-					 * @member ns.widget.mobile.NavBar
-					 */
-					this.options = {
-						iconpos : "top",
-						grid: null
-					};
-
-					/**
-					 * Stores the event handlers
-					 * @property {Object} _callbacks Stores the event handlers
-					 * in where the context has been defined (bind method has
-					 * been applied)
-					 * @property {function(NodeList, Event)}
-					 * _callbacks.buttonClick vclick listener callback attached
-					 * to the navigation bar
-					 * @member ns.widget.mobile.NavBar
-					 * @protected
-					 */
-					this._callbacks = {
-						buttonClick: null
-					};
-				},
-				proto = new ns.widget.mobile.BaseWidgetMobile();
-
-			// Handler for button clicks
-			// @function
-			// @param {NodeList} button
-			// @param {Event} event
-			function vclickHandler(buttons, event) {
-				var button = event.target,
-					buttonIndex = buttons.indexOf(button),
-					i = buttons.length;
-
-				if (buttonIndex > -1) { // detect click on button
-					while (--i >= 0) {
-						if (i === buttonIndex) {
-							buttons[i].classList.add(buttonActiveClass);
-						} else {
-							buttons[i].classList.remove(buttonActiveClass);
-						}
-					}
-				}
-			}
-
-			/**
-			 * Dictionary for NavBar css classes
-			 * @property {Object} classes
-			 * @property {string} [classes.uiNavbar="ui-navbar"] NavBar core
-			 * @property {string} [classes.uiMini="ui-mini"] NavBar mini
-			 * @member ns.widget.mobile.NavBar
-			 * @static
-			 * @readonly
-			 */
-			NavBar.classes = {
-				uiNavbar: "ui-navbar",
-				uiMini: "ui-mini"
-			};
-
-			/**
-			 * Builds navigation bar DOM structure
-			 * @method _build
-			 * @param {HTMLElement} element
-			 * @return {HTMLElement}
-			 * @member ns.widget.mobile.NavBar
-			 * @protected
-			 */
-			proto._build = function (element) {
-
-				var navClassList = element.classList,
-					classes = NavBar.classes,
-					lists = element.querySelectorAll("ul"),
-					buttons = element.getElementsByTagName("a"),
-					i = buttons.length,
-					options = this.options;
-
-				buttonOptions.iconpos = options.iconpos;
-				element.setAttribute("role", "navigation");
-				navClassList.add(classes.uiNavbar);
-				navClassList.add(classes.uiMini);
-
-				while (--i >= 0) {
-					engine.instanceWidget(buttons[i], "Button", buttonOptions);
-				}
-
-				i = lists.length;
-				while (--i >= 0) {
-					if (selectors.getParentsBySelectorNS(lists[i],
-						"enhance=false").length === 0) {
-						grid.makeGrid(lists[i], options.grid);
-					}
-				}
-
-				return element;
-			};
-
-			/**
-			 * Bind events to widget
-			 * @method _bindEvents
-			 * @param {HTMLElement} element
-			 * @member ns.widget.mobile.NavBar
-			 * @protected
-			 */
-			proto._bindEvents = function (element) {
-				var buttons = element.getElementsByTagName("a"),
-					buttonClick = vclickHandler.bind(null, slice.call(buttons));
-				element.addEventListener("vclick", buttonClick, false);
-				this._callbacks.buttonClick = buttonClick;
-			};
-
-			/**
-			 * Destroy widget. Removes event listeners from the Navbar buttons.
-			 * @method _destroy
-			 * @member ns.widget.mobile.NavBar
-			 * @protected
-			 */
-			proto._destroy = function () {
-				var buttonClick = this._callbacks.buttonClick;
-				if (buttonClick) {
-					this.element.removeEventListener("vclick", buttonClick, false);
-				}
-			};
-
-			/**
-			 * The function "value" is not supported in this widget.
-			 *
-			 * @method value
-			 * @chainable
-			 * @member ns.widget.mobile.NavBar
-			 */
-
-			/**
-			 * Disable the navigation bar
-			 *
-			 * Method adds disabled attribute on navigation bar and changes
-			 * look of navigation bar to disabled state.
-			 *
-			 *		@example
-			 *		var elementNavBar = tau.widget.NavBar(
-			 *		document.getElementById("ns-navbar"));
-			 *		elementNavBar.disable();
-			 *
-			 *		// when jQuery is available:
-			 *
-			 *		$("#ns-navbar").navbar("disable");
-			 *
-			 * @method disable
-			 * @chainable
-			 * @member ns.widget.mobile.NavBar
-			 */
-
-			/**
-			 * Enable the navigation bar
-			 *
-			 * Method removes disabled attribute on navigation bar and changes
-			 * look of navigation bar to enabled state.
-			 *
-			 *		@example
-			 *		var elementNavBar = tau.widget.NavBar(
-			 *				document.getElementById("ns-navbar")
-			 *			);
-			 *		elementNavBar.enable();
-			 *
-			 *		// when jQuery is available:
-			 *
-			 *		$("#ns-navbar").navbar("enable");
-			 *
-			 * @method enable
-			 * @chainable
-			 * @member ns.widget.mobile.NavBar
-			 */
-
-			/**
-			 * The refresh method is used to refresh the widget.
-			 * This method is called automatically after changing any option
-			 * of widget
-			 *
-			 *		@example
-			 *		var elementNavBar = tau.widget.NavBar(
-			 *				document.getElementById("ns-navbar")
-			 *			);
-			 *		elementNavBar.refresh();
-			 *
-			 *		// when jQuery is available:
-			 *
-			 *		$("#ns-navbar").navbar("refresh");
-			 *
-			 * @method refresh
-			 * @chainable
-			 * @member ns.widget.mobile.NavBar
-			 */
-
-			/**
-			 * The function "option" is not supported in this widget.
-			 * This widget does not have any options.
-			 *
-			 * @method option
-			 * @member ns.widget.mobile.NavBar
-			 */
-
-			/**
-			 * Trigger an event on widget's element.
-			 *
-			 *		@example
-			 *		var elementNavBar = tau.widget.NavBar(
-			 *				document.getElementById("ns-navbar")
-			 *			);
-			 *		elementNavBar.trigger("eventName");
-			 *
-			 *		// when jQuery is available:
-			 *
-			 *		$("#ns-navbar").navbar("trigger", "eventName");
-			 *
-			 * @method trigger
-			 * @param {string} eventName the name of event to trigger
-			 * @param {?*} [data] additional object to be carried with the event
-			 * @param {boolean} [bubbles=true] indicating whether the event
-			 * bubbles up through the DOM or not
-			 * @param {boolean} [cancelable=true] indicating whether the event
-			 * is cancelable
-			 * @return {boolean} false, if any callback invoked preventDefault
-			 * on event object
-			 * @member ns.widget.mobile.NavBar
-			 */
-
-			/**
-			 * Add event listener to widget's element.
-			 *
-			 *		@example
-			 *		var elementNavBar = tau.widget.NavBar(
-			 *				document.getElementById("ns-navbar")
-			 *			);
-			 *
-			 *		elementNavBar.on("eventName", function() {
-			 *			console.log("event fires");
-			 *		});
-			 *
-			 *		// when jQuery is available:
-			 *
-			 *		$("#ns-navbar").navbar("on", function() {
-			 *			console.log("event fires");
-			 *		});
-			 *
-			 * @method on
-			 * @param {string} eventName the name of event
-			 * @param {Function} listener function call after event will be
-			 * trigger
-			 * @param {boolean} [useCapture=false] useCapture param tu
-			 * addEventListener
-			 * @member ns.widget.mobile.NavBar
-			 */
-
-			/**
-			 * Remove event listener to widget's element.
-			 *
-			 *		@example
-			 *		var elementNavBar = tau.widget.NavBar(
-			 *		document.getElementById("ns-navbar")),
-			 *			callback = function () {
-			 *				console.log("event fires");
-			 *		});
-			 *
-			 *		// add callback on event "eventName"
-			 *		elementNavBar.on("eventName", callback);
-			 *		// ...
-			 *		// remove callback on event "eventName"
-			 *		elementNavBar.off("eventName", callback);
-			 *
-			 *		// when jQuery is available:
-			 *
-			 *		// add callback on event "eventName"
-			 *		$("#ns-navbar").navbar("on", callback);
-			 *		// ...
-			 *		// remove callback on event "eventName"
-			 *		$("#ns-navbar").navbar("off", "eventName", callback);
-			 *
-			 *
-			 * @method off
-			 * @param {string} eventName the name of event
-			 * @param {Function} listener function call after event will be
-			 * trigger
-			 * @param {boolean} [useCapture=false] useCapture param tu
-			 * addEventListener
-			 * @member ns.widget.mobile.NavBar
-			 */
-
-			/**
-			 * Get/Set options of the widget.
-			 *
-			 * This method can work in many context.
-			 *
-			 * If first argument is type of object them, method set values for
-			 * options given in object. Keys of object are names of options and
-			 * values from object are values to set.
-			 *
-			 * If you give only one string argument then method return value
-			 * for given option.
-			 *
-			 * If you give two arguments and first argument will be a string
-			 * then second argument will be intemperate as value to set.
-			 *
-			 * Options for widget can be get/set.
-			 *
-			 * You can change option for widget using method **option**.
-			 *
-			 * **Get or set the option, after initialization**
-			 * Custom icon position
-			 *
-			 * 		@example
-			 *		<script>
-			 *			//getter
-			 *			navbar.option( "iconpos" );
-			 *
-			 *			//setter
-			 *			navbar.option( "iconpos", "bottom", );
-			 *		</script>
-			 *
-			 * @method option
-			 * @param {string|Object} [name] name of option
-			 * @param {*} value value to set
-			 * @member ns.widget.mobile.NavBar
-			 * @return {*} return value of option or undefined if method is
-			 * called in setter context
-			 */
-
-			NavBar.prototype = proto;
-			ns.widget.mobile.NavBar = NavBar;
-
-			engine.defineWidget(
-				"NavBar",
-				"[data-role='navbar'], .ui-navbar",
-				[],
-				NavBar,
-				"mobile"
-			);
-
-			}(ns));
-
 /*global window, define, ns */
 /*
 * Copyright  2010 - 2014 Samsung Electronics Co., Ltd.
@@ -35677,7 +35615,7 @@ window.Globalize = Globalize;
  * In default elements matches to :
  *
  *  - HTML elements with data-role equal "progressbar"
- *  - HTML elements with class ui-progressbar-container
+ *  - HTML elements with class ui-progressbar
  *
  * ###HTML Examples
  *
@@ -35968,7 +35906,7 @@ window.Globalize = Globalize;
 			ns.widget.mobile.ProgressBar = ProgressBar;
 			engine.defineWidget(
 				"ProgressBar",
-				"[data-role='progressbar'], .ui-progressbar-container",
+				"[data-role='progressbar'], .ui-progressbar",
 				["value"],
 				ProgressBar,
 				"tizen"
@@ -36448,6 +36386,9 @@ window.Globalize = Globalize;
 				};
 				self.element = element;
 				self._isVideo = isVideo;
+
+				// INFO: since 2.3, we decided to use standard HTML <video> and <audio> tag.
+				ns.warn("TAU based Multimediaview widget will be deprecated. Please use <video> / <audio> tag with standard HTML.");
 
 				viewClasslist.add(classes.VIEW);
 
@@ -38457,7 +38398,7 @@ window.Globalize = Globalize;
  *
  *		@example
  *		<!-- Widget structure -->
- *		<div data-role="notification" id="notification" data-type="smallpoup">
+ *		<div data-role="notification" id="notification" data-type="smallpopup">
  *			<p>Line of message</p>
  *		</div>
  *		<script>
@@ -38468,7 +38409,7 @@ window.Globalize = Globalize;
  *
  *		@example
  *		<!-- Widget structure -->
- *		<div data-role="notification" id="notification" data-type="smallpoup">
+ *		<div data-role="notification" id="notification" data-type="smallpopup">
  *			<p>Line of message</p>
  *		</div>
  *		<script>
@@ -38477,14 +38418,14 @@ window.Globalize = Globalize;
  *
  * ##HTML Examples
  *
- * ###Create notification smallpoup
- * Smallpoup has only one line of message and is positioned to the bottom of the active page. It's default type of notification widget.
+ * ###Create notification smallpopup
+ * Smallpopup has only one line of message and is positioned to the bottom of the active page. It's default type of notification widget.
  *
  * Running example in pure JavaScript:
  *
  *		@example
  *		<!-- Widget structure -->
- *		<div data-role="notification" id="notification" data-type="smallpoup">
+ *		<div data-role="notification" id="notification" data-type="smallpopup">
  *			<p>Line of message</p>
  *		</div>
  *		<script>
@@ -38498,7 +38439,7 @@ window.Globalize = Globalize;
  *
  *		@example
  *		<!-- Widget structure -->
- *		<div data-role="notification" id="notification" data-type="smallpoup">
+ *		<div data-role="notification" id="notification" data-type="smallpopup">
  *			<p>Line of message</p>
  *		</div>
  *		<script>
@@ -38877,7 +38818,7 @@ window.Globalize = Globalize;
 			 *
 			 *	@example
 			 *	<!-- Widget structure -->
-			 *	<div data-role="notification" id="notification" data-type="smallpoup">
+			 *	<div data-role="notification" id="notification" data-type="smallpopup">
 			 *		<p>Line of message</p>
 			 *	</div>
 			 *
@@ -38893,7 +38834,7 @@ window.Globalize = Globalize;
 			 *
 			 *	@example
 			 *	<!-- Widget structure -->
-			 *	<div data-role="notification" id="notification" data-type="smallpoup">
+			 *	<div data-role="notification" id="notification" data-type="smallpopup">
 			 *		<p>Line of message</p>
 			 *	</div>
 			 *
@@ -38922,7 +38863,7 @@ window.Globalize = Globalize;
 			 *
 			 *	@example
 			 *	<!-- Widget structure -->
-			 *	<div data-role="notification" id="notification" data-type="smallpoup">
+			 *	<div data-role="notification" id="notification" data-type="smallpopup">
 			 *		<p>Line of message</p>
 			 *	</div>
 			 *
@@ -38939,7 +38880,7 @@ window.Globalize = Globalize;
 			 *
 			 *	@example
 			 *	<!-- Widget structure -->
-			 *	<div data-role="notification" id="notification" data-type="smallpoup">
+			 *	<div data-role="notification" id="notification" data-type="smallpopup">
 			 *		<p>Line of message</p>
 			 *	</div>
 			 *
@@ -38968,7 +38909,7 @@ window.Globalize = Globalize;
 			 * #####Running example in pure JavaScript:
 			 *
 			 *	@example
-			 *	<div data-role="notification" id="notificationSelector" data-type="smallpoup">
+			 *	<div data-role="notification" id="notificationSelector" data-type="smallpopup">
 			 *		<p>Line of message</p>
 			 *	</div>
 			 *	<script>
@@ -38979,7 +38920,7 @@ window.Globalize = Globalize;
 			 * #####If jQuery library is loaded, this method can be used:
 			 *
 			 *	@example
-			 *	<div data-role="notification" id="notificationSelector" data-type="smallpoup">
+			 *	<div data-role="notification" id="notificationSelector" data-type="smallpopup">
 			 *		<p>Line of message</p>
 			 *	</div>
 			 *	<script>
@@ -39039,7 +38980,7 @@ window.Globalize = Globalize;
 			 * #####Running example in pure JavaScript:
 			 *
 			 *	@example
-			 *	<div data-role="notification" id="notificationSelector" data-type="smallpoup">
+			 *	<div data-role="notification" id="notificationSelector" data-type="smallpopup">
 			 *		<p>Line of message</p>
 			 *	</div>
 			 *	<script>
@@ -39050,7 +38991,7 @@ window.Globalize = Globalize;
 			 * #####If jQuery library is loaded, this method can be used:
 			 *
 			 *	@example
-			 *	<div data-role="notification" id="notificationSelector" data-type="smallpoup">
+			 *	<div data-role="notification" id="notificationSelector" data-type="smallpopup">
 			 *		<p>Line of message</p>
 			 *	</div>
 			 *	<script>
@@ -39129,7 +39070,7 @@ window.Globalize = Globalize;
 			 * #####Running example in pure JavaScript:
 			 *
 			 *	@example
-			 *	<div data-role="notification" id="notificationSelector" data-type="smallpoup">
+			 *	<div data-role="notification" id="notificationSelector" data-type="smallpopup">
 			 *		<p>Line of message</p>
 			 *	</div>
 			 *	<script>
@@ -39143,7 +39084,7 @@ window.Globalize = Globalize;
 			 * #####If jQuery library is loaded, this method can be used:
 			 *
 			 *	@example
-			 *	<div data-role="notification" id="notificationSelector" data-type="smallpoup">
+			 *	<div data-role="notification" id="notificationSelector" data-type="smallpopup">
 			 *		<p>Line of message</p>
 			 *	</div>
 			 *	<script>
@@ -39374,6 +39315,9 @@ window.Globalize = Globalize;
  * #Gallery Widget
  * The gallery widget shows images in a gallery on the screen.
  *
+ * ##Default selectors
+ * In default all elements with _data-role="gallery"_ or class _.ui-gallery_ are changed to gallery widget.
+ *
  * @class ns.widget.mobile.Gallery
  * @extends ns.widget.BaseWidget
  */
@@ -39531,8 +39475,9 @@ window.Globalize = Globalize;
 					style = imageContainer.style;
 
 				style.webkitTransform = translate;
-				style.OTransform = translate;
-				style.MozTransform = translate;
+				style.oTransform = translate;
+				style.mozTransform = translate;
+				style.msTransform = translate;
 				style.transform = translate;
 
 				return imageContainer;
@@ -39651,10 +39596,11 @@ window.Globalize = Globalize;
 			 */
 			Gallery.classes = {
 				uiGallery: "ui-gallery",
+				uiGalleryContainer: "ui-gallery-container",
 				uiGalleryBg: "ui-gallery-bg",
 				uiContent: "ui-content",
 				uiHeader: "ui-header",
-				uiFooter: "ui-footer"
+				uiFooter: "ui-footer",
 			};
 
 			/**
@@ -39724,15 +39670,16 @@ window.Globalize = Globalize;
 					i,
 					length;
 
+				element.classList.add(classes.uiGallery);
 				images = selectors.getChildrenByTag(element, "img");
 				for (i = 0, length = images.length; i < length; i++) {
 					image = images[i];
 					doms.wrapInHTML(image, "<div class='" + classes.uiGalleryBg + "'></div>");
 				}
 				if (element.children.length) {
-					doms.wrapInHTML(element.children, "<div class='" + classes.uiGallery + "'></div>");
+					doms.wrapInHTML(element.children, "<div class='" + classes.uiGalleryContainer + "'></div>");
 				} else {
-					element.innerHTML = "<div class='" + classes.uiGallery + "'></div>";
+					element.innerHTML = "<div class='" + classes.uiGalleryContainer + "'></div>";
 				}
 				index = parseInt(options.index, 10);
 				if (!index) {
@@ -39760,7 +39707,7 @@ window.Globalize = Globalize;
 			Gallery.prototype._init = function (element) {
 				var images = element.getElementsByTagName("img"),
 					classes = Gallery.classes;
-				this.container = selectors.getChildrenByClass(element, classes.uiGallery)[0];
+				this.container = selectors.getChildrenByClass(element, classes.uiGalleryContainer)[0];
 				this._detachAll(images);
 
 				// for "compare" test
@@ -39840,12 +39787,16 @@ window.Globalize = Globalize;
 			 * @member ns.widget.mobile.Gallery
 			 */
 			Gallery.prototype._moveLeft = function (imageContainer, value, duration) {
-				var transition = "";
+				var style;
 
 				if (imageContainer) {
 					if (duration !== undefined) {
-						transition =  "-webkit-transform " + (duration / 1000) + "s ease";
-						imageContainer.style.webkitTransition = transition;
+						style = imageContainer.style;
+						style.webkitTransition =  "-webkit-transform " + (duration / 1000) + "s ease";
+						style.mozTransition =  "-moz-transform " + (duration / 1000) + "s ease";
+						style.msTransition =  "-ms-transform " + (duration / 1000) + "s ease";
+						style.oTransition =  "-o-transform " + (duration / 1000) + "s ease";
+						style.transition =  "transform " + (duration / 1000) + "s ease";
 					}
 					imageContainer = setTranslatePosition(imageContainer, value);
 				}
@@ -40556,7 +40507,7 @@ window.Globalize = Globalize;
 			ns.widget.mobile.Gallery = Gallery;
 			engine.defineWidget(
 				"Gallery",
-				"[data-role='gallery'], .ui-gallery-container",
+				"[data-role='gallery'], .ui-gallery",
 				[
 					"add",
 					"remove",
@@ -41268,7 +41219,7 @@ window.Globalize = Globalize;
 			prototype._configureList = function (argumentsArray) {
 				var self = this,
 					options = self.options,
-					args = argumentsArray[0];
+					args = argumentsArray[0] || {};
 
 				if (typeof args.itemData === "function" && (typeof args.numItemData === "function" || typeof args.numItemData === "number")) {
 					if (typeof args.numItemData === "function") {
@@ -42027,6 +41978,8 @@ window.Globalize = Globalize;
 
 					style.webkitTransform = translateString;
 					style.mozTransform = translateString;
+					style.msTransform = translateString;
+					style.oTransform = translateString;
 					style.transform = translateString;
 				}
 			}
@@ -42719,7 +42672,7 @@ window.Globalize = Globalize;
 			prototype._configureList = function (argumentsArray) {
 				var self = this,
 					options = self.options,
-					args = argumentsArray[0];
+					args = argumentsArray[0] || {};
 
 				// @TODO this is easy to use, but the code is confusing
 				// and doesn't allow easy merging
@@ -42759,6 +42712,7 @@ window.Globalize = Globalize;
 			prototype._updateListItem = function (element, index) {
 				var self = this,
 					options = self.options,
+					updateFunction = options.listItemUpdater,
 					direction = options.direction,
 					itemData = self.itemData,
 					$jqTmpl = self._ui.$jqTmpl,
@@ -42775,32 +42729,34 @@ window.Globalize = Globalize;
 				// Clean insides before creating new content
 				element.innerHTML = "";
 
-				if(typeof options.listItemUpdater === "function") {
-					options.listItemUpdater(element, index);
-				} else {
-					fragment = document.createDocumentFragment();
-					nextItemIndex = itemsOffset + i;
-					// Add items until line end or data source end
-					// rawNumItemData may be undefined for first time size checking
-					while (i < itemsPerLine && (rawNumItemData === undefined || nextItemIndex < rawNumItemData)) {
-						//@TODO THIS IS A JQUERY INCLUSION IN A TAU WIDGET!!!
-						//@TODO FIX THIS!!!
-						templateElement = document.createElement('div');
-						// Set item-in-line size
-						templateElement.style[direction === VERTICAL ? "width" : "height"] = elementPercentSize;
+				fragment = document.createDocumentFragment();
+				nextItemIndex = itemsOffset + i;
+				// Add items until line end or data source end
+				// rawNumItemData may be undefined for first time size checking
+				while (i < itemsPerLine && (rawNumItemData === undefined || nextItemIndex < rawNumItemData)) {
+					//@TODO THIS IS A JQUERY INCLUSION IN A TAU WIDGET!!!
+					//@TODO FIX THIS!!!
+					templateElement = document.createElement('div');
+					// Set item-in-line size
+					templateElement.style[direction === VERTICAL ? "width" : "height"] = elementPercentSize;
 
-						templateElement.classList.add(classes.ITEM);
+					templateElement.classList.add(classes.ITEM);
+
+					if (typeof updateFunction === "function") {
+						updateFunction(templateElement, nextItemIndex);
+					} else {
 						templateElement.appendChild($.tmpl($jqTmpl, itemData(nextItemIndex))[0]);
-
-						fragment.appendChild(templateElement);
-
-						i++;
-						nextItemIndex = itemsOffset + i;
 					}
 
-					element.appendChild(fragment);
-					engine.createWidgets(element);
+					fragment.appendChild(templateElement);
+
+					i++;
+					nextItemIndex = itemsOffset + i;
 				}
+
+				element.appendChild(fragment);
+				engine.createWidgets(element);
+
 
 				if (options.lineSize) {
 					element.style[direction === VERTICAL ? "height" : "width"] = options.lineSize + "px";
@@ -42845,7 +42801,7 @@ window.Globalize = Globalize;
  * ## Default selectors
  * In default all **INPUT** tags with type equals _range_ are changed
  * to Tizen WebUI sliders.
- * In addition all elements with _data-role=range_ and _data-role=slider_
+ * In addition all **INPUT** elements with _data-role=range_ and _data-role=slider_
  * and class _ui-tizenslider_ are changed to Tizen Web UI sliders.
  *
  * ###HTML Examples
@@ -43460,657 +43416,13 @@ window.Globalize = Globalize;
 			ns.widget.mobile.TizenSlider = TizenSlider;
 			engine.defineWidget(
 				"TizenSlider",
-				"input[type='range'], :not(select)[data-role='slider'], :not(select)[data-type='range'], .ui-tizenslider",
+				"input[type='range'], input[data-role='slider'], input[data-role='range']," +
+				"input.ui-tizenslider",
 				[],
 				TizenSlider,
 				"tizen"
 			);
 			}(window, window.document, ns));
-
-/*global window, define */
-/*
-* Copyright  2010 - 2014 Samsung Electronics Co., Ltd.
-* License : MIT License V2
-*/
-/*jslint nomen: true, plusplus: true */
-/**
- * #Split View Widget
- * SplitView is a widget, which displays two children separated with a movable divider.
- *
- * It allows to change the size ratio of its children and supports two orientations.
- * @class ns.widget.mobile.SplitView
- * @extends ns.widget.mobile.BaseWidgetMobile
- */
-(function (document, ns) {
-	
-				var BaseWidgetMobile = ns.widget.mobile.BaseWidgetMobile,
-				engine = ns.engine,
-				selectors = ns.util.selectors,
-				DOM = ns.util.DOM,
-				events = ns.event,
-				classes,
-
-				SplitView = function () {
-					var self = this;
-					/**
-					 * Object with all options of widget.
-					 * @property {Object} options
-					 * @property {boolean} [options.fixed=false] if true, the divider can't be manipulated
-					 * @property {boolean} [options.dividerVertical=false] specifies divider orientation
-					 * @property {Array} [options.ratio=[0.5, 0.5]] width/height distribution between panes
-					 * @member ns.widget.mobile.SplitView
-					 */
-					/** @expose */
-					self.options = {
-						fixed : false,
-						dividerVertical : false,
-						ratio : [0.5, 0.5]
-					};
-					/**
-					 * Helper object for movement events
-					 * @property {Object} movementData
-					 * @property {number} [movementData.lastX=0] last X movement
-					 * @property {number} [movementData.lastY=0] last Y movement
-					 * @property {boolean} [movementData.hadMovement=false] indicates whether there was a down event
-					 * @member ns.widget.mobile.SplitView
-					 */
-					self.movementData = {
-						lastX : 0,
-						lastY : 0,
-						hadDownEvent : false
-					};
-					/**
-					 * Object with all used dimensions.
-					 * @property {Object} dimensions
-					 * @property {number} [dimensions.containerWidth=0] the width available for split view
-					 * @property {number} [dimensions.containerHeight=0] the height available for split view
-					 * @property {number} [dimensions.splitterSize=0] splitter bar size
-					 * @property {number} [dimensions.splitterTouchSize=0] splitter touch area size
-					 * @property {number} [dimensions.splitterHandleSize=0] splitter handle size
-					 * @property {Array} [dimensions.originalRatio] original ratio set for this split view
-					 * @property {number} [dimensions.minPaneSize=20] minimum size of a pane
-					 * @property {number} [dimensions.maxPaneSize=0] maximum size of a pane
-					 * @member ns.widget.mobile.SplitView
-					 */
-					self.dimensions = {
-						containerWidth : 0,
-						containerHeight : 0,
-						splitterSize : 0,
-						splitterTouchSize : 0,
-						splitterHandleSize : 0,
-						originalRatio : [],
-						minPaneSize : 20,
-						maxPaneSize : 0
-					};
-					/**
-					 * split view panes
-					 * @property {Array} panes
-					 * @member ns.widget.mobile.SplitView
-					 */
-					self.panes = null;
-					/**
-					 * splitter touch element
-					 * @property {HTMLElement} splitterTouchElement
-					 * @member ns.widget.mobile.SplitView
-					 */
-					self.splitterTouchElement = null;
-					/**
-					 * splitter element displaying a bar
-					 * @property {HTMLElement} splitterBar
-					 * @member ns.widget.mobile.SplitView
-					 */
-					self.splitterBar = null;
-					/**
-					 * splitter handle element
-					 * @property {HTMLElement} splitterHandle
-					 * @member ns.widget.mobile.SplitView
-					 */
-					self.splitterHandle = null;
-					/**
-					 * an object containing event handlers
-					 * @property {Object} eventHandlers
-					 * @member ns.widget.mobile.SplitView
-					 */
-					self.eventHandlers = {};
-				},
-				prototype = new BaseWidgetMobile();
-
-			/**
-			 * Dictionary object containing commonly used widget classes
-			 * @property {Object} classes
-			 * @static
-			 * @readonly
-			 * @member ns.widget.mobile.SplitView
-			 */
-			SplitView.classes = {
-				uiPane :'ui-pane',
-				uiSplitView : 'ui-splitview',
-				uiDirectionHorizontal : 'ui-direction-horizontal',
-				uiDirectionVertical : 'ui-direction-vertical',
-				uiPageActive : 'ui-page-active',
-				uiSplitter : 'ui-spliter',
-				uiSplitterBar : 'ui-spliter-bar',
-				uiSplitterHandle : 'ui-spliter-handle',
-				uiSplitterActive : 'ui-spliter-active',
-				uiFixed : 'ui-fixed'
-			};
-			classes = SplitView.classes;
-
-			/**
-			 * Build the widget. This method performs all required DOM modifications.
-			 * @method _build
-			 * @param {HTMLElement} element
-			 * @return {HTMLElement}
-			 * @member ns.widget.mobile.SplitView
-			 * @protected
-			 */
-			prototype._build = function (element) {
-				var panes = null,
-					panesCount = 0,
-					splitterTouchElement = null,
-					splitterBar = null,
-					handle = null,
-					i = 0,
-					elementClasses = element.classList,
-					options = this.options,
-					pane = null;
-
-				panes = selectors.getChildrenBySelector(element, 'div');
-				panesCount = panes.length;
-				if (panesCount !== 2) {
-					if (panesCount < 2) {
-						for (i = panesCount; i < 2; ++i) {
-							pane = document.createElement('div');
-							element.appendChild(pane);
-						}
-					} else {
-						for (i = 2; i < panesCount; ++i) {
-							element.removeChild(panes[i]);
-						}
-						panes.length = 2;
-					}
-
-					panes = selectors.getChildrenBySelector(element, 'div');
-					panesCount = panes.length;
-				}
-
-				for (i = 0; i < 2; i++) {
-					panes[i].classList.add(classes.uiPane);
-				}
-
-				elementClasses.add(classes.uiSplitView);
-				elementClasses.add(options.dividerVertical ? classes.uiDirectionHorizontal : classes.uiDirectionVertical);
-
-				splitterTouchElement = document.createElement('a');
-				splitterTouchElement.classList.add(classes.uiSplitter);
-				splitterBar = document.createElement('div');
-				splitterBar.classList.add(classes.uiSplitterBar);
-				handle = document.createElement('div');
-				handle.classList.add(classes.uiSplitterHandle);
-				splitterBar.appendChild(handle);
-				if (options.fixed) {
-					splitterBar.classList.add(classes.uiFixed);
-				}
-				DOM.insertNodeAfter(panes[0], splitterTouchElement);
-				DOM.insertNodeAfter(splitterTouchElement, splitterBar);
-				return element;
-			};
-
-			/**
-			 * Init the widget. This is the place where it can init variables not related to DOM modifications.
-			 * @method _init
-			 * @param {HTMLElement} element
-			 * @return {HTMLElement}
-			 * @member ns.widget.mobile.SplitView
-			 * @protected
-			 */
-			prototype._init = function (element) {
-				var self = this,
-					options = self.options,
-					ratio = options.ratio;
-				options.ratio = convertRatio(ratio);
-				self.dimensions.originalRatio = options.ratio.slice();
-				self.panes = selectors.getChildrenByClass(element, classes.uiPane);
-				self.splitterTouchElement = selectors.getChildrenByTag(element, 'a')[0];
-				self.splitterBar = selectors.getChildrenByClass(element, classes.uiSplitterBar)[0];
-				self.splitterHandle = selectors.getChildrenByTag(self.splitterBar, 'div')[0];
-				return element;
-			};
-
-			/**
-			 * Registers widget's event listeners
-			 * @method _bindEvents
-			 * @param {HTMLElement} element
-			 * @protected
-			 * @return {HTMLElement}
-			 * @member ns.widget.mobile.SplitView
-			 */
-			prototype._bindEvents = function (element) {
-				var eventHandlers = this.eventHandlers,
-					splitterTouchElement = this.splitterTouchElement,
-					page = findParentPage(this.element);
-				eventHandlers.onTouchEvent = onTouchEvent.bind(null, this);
-				eventHandlers.onPageShow = onPageShow.bind(null, this);
-				if (page) {
-					page.addEventListener("pageshow", eventHandlers.onPageShow, true);
-				}
-				splitterTouchElement.addEventListener("vmousedown", eventHandlers.onTouchEvent, true);
-				return element;
-			};
-
-			/**
-			 * Destroys the widget and unregisters event listeners
-			 * @method _destroy
-			 * @protected
-			 * @member ns.widget.mobile.SplitView
-			 */
-			prototype._destroy = function () {
-				var eventHandlers = this.eventHandlers,
-					splitterTouchElement = this.splitterTouchElement,
-					page = findParentPage(this.element);
-				page.removeEventListener("pageshow", eventHandlers.onPageShow, true);
-				splitterTouchElement.removeEventListener("vmousedown", eventHandlers.onTouchEvent, true);
-			};
-
-			/**
-			 * Finds nearest ancestor of given element being a {@link ns.widget.mobile.Page}
-			 * @method findParentPage
-			 * @private
-			 * @static
-			 * @return {HTMLElement} element's ancestor bounded to a {@link ns.widget.mobile.Page}
-			 * @member ns.widget.mobile.SplitView
-			 */
-			function findParentPage(element) {
-				return selectors.getClosestByClass(element, ns.widget.mobile.Page.classes.uiPage);
-			}
-
-			/**
-			 * Called when the page is shown
-			 * @method onPageShow
-			 * @param {ns.widget.mobile.SplitView} self
-			 * @private
-			 * @static
-			 * @member ns.widget.mobile.SplitView
-			 */
-			function onPageShow(self) {
-				self._refresh();
-			}
-
-			/**
-			 * Called when a touch or mouse event occured on the splitter. After receiving down event it sets
-			 * itself as a callback for further events like "move" and "up".
-			 * @method onTouchEvent
-			 * @param {ns.widget.mobile.SplitView} self
-			 * @param {TouchEvent} event
-			 * @private
-			 * @static
-			 * @member ns.widget.mobile.SplitView
-			 */
-			function onTouchEvent(self, event) {
-				var splitView = self.widget(),
-					movementData = self.movementData,
-					localX = event.clientX,
-					localY = event.clientY,
-					shiftX = localX - movementData.lastX,
-					shiftY = localY - movementData.lastY,
-					fixed = self.options.fixed,
-					canMove = movementData.hadDownEvent,
-					isHorizontal = self.options.dividerVertical,
-					shiftArea = isHorizontal ? self.dimensions.containerWidth : self.dimensions.containerHeight,
-					eventListener = self.eventHandlers.onTouchEvent,
-					activeClass = SplitView.classes.uiSplitterActive,
-					splitterClasses = self.splitterBar.classList,
-					ratio = self.options.ratio,
-					ratioDiff = 0;
-
-				if (fixed) {
-					return;
-				}
-
-				switch (event.type) {
-					case "vmousedown":
-						movementData.lastX = localX;
-						movementData.lastY = localY;
-						movementData.hadDownEvent = true;
-						splitView.addEventListener("vmousemove", eventListener, true);
-						splitView.addEventListener("vmouseup", eventListener, true);
-						splitterClasses.add(activeClass);
-						break;
-					case "vmousemove":
-						if (canMove) {
-							ratioDiff = (isHorizontal ? shiftX : shiftY) / shiftArea;
-							ratio.forEach(function(value, i) {
-								var shiftDirection = (i === 0 ? 1 : -1);
-								ratio[i] = value + (ratioDiff * shiftDirection);
-							});
-							self._layout();
-							self._refreshChildren();
-							movementData.lastX = localX;
-							movementData.lastY = localY;
-						}
-						break;
-					case "vmouseup":
-						movementData.hadDownEvent = false;
-						splitView.removeEventListener("vmousemove", eventListener);
-						splitView.removeEventListener("vmouseup", eventListener);
-						splitterClasses.remove(activeClass);
-						break;
-				}
-			}
-			/**
-			 * Measures and layouts the children.
-			 * @method _refresh
-			 * @protected
-			 * @member ns.widget.mobile.SplitView
-			 */
-			prototype._refresh = function () {
-				var self = this,
-					element = self.widget();
-
-				self._measureSplitter();
-				if (self._getContainerSize(element)) {
-					self._layout();
-				}
-			};
-
-			/**
-			 * Checks available width and height for splitted views. If the SplitView is wrapped by a {@link=ns.widget.mobile.Scrollview},
-			 * it will read the height of Scrollview clip.
-			 * @method _getContainerSize
-			 * @param {HTMLElement} element the element of SplitView widget
-			 * @protected
-			 * @return {boolean} true if container has its dimensions available
-			 * @member ns.widget.mobile.SplitView
-			 */
-			prototype._getContainerSize = function (element) {
-				var dimensions = this.dimensions,
-					parentElement = element.parentElement;
-
-				dimensions.containerWidth = DOM.getCSSProperty(element, "width", 0, "integer");
-				if (hasClass(parentElement, ns.widget.mobile.Scrollview.classes.view) && parentElement.parentElement) {
-					dimensions.containerHeight = DOM.getCSSProperty(parentElement.parentElement, "height", 0, "integer");
-				} else {
-					dimensions.containerHeight = DOM.getCSSProperty(element, "height", 0, "integer");
-				}
-				return dimensions.containerWidth || dimensions.containerHeight;
-			};
-
-			/**
-			 * If the ratio is given as a comma separated string, this method will convert it to Array.
-			 * @method convertRatio
-			 * @param {string} ratio
-			 * @private
-			 * @static
-			 * @return {Array} parsed ratio
-			 * @member ns.widget.mobile.SplitView
-			 */
-			function convertRatio(ratio) {
-				var ratioArray = [],
-					length = 0,
-					i = 0;
-				if (!Array.isArray(ratio)) {
-					ratioArray = ratio.split(',');
-					length = ratioArray.length;
-					for (;i < length; i++) {
-						ratioArray[i] = parseFloat(ratioArray[i]);
-					}
-					return ratioArray;
-				}
-				return ratio;
-			}
-
-			/**
-			 * Layouts child panes basing on th orientation and ratio.
-			 * @method _layout
-			 * @param {boolean} ignoreMinMax if set to true, minimum and maximum pane sizes will be ignored
-			 * @protected
-			 * @member ns.widget.mobile.SplitView
-			 */
-			prototype._layout = function(ignoreMinMax) {
-				var self = this,
-					options = self.options,
-					dimensions = self.dimensions,
-					ratio = options.ratio,
-					isHorizontal = options.dividerVertical,
-					panes = self.panes,
-					splitterTouchElementStyle = self.splitterTouchElement.style,
-					splitterHandle = self.splitterHandle,
-					splitterHandleSize = dimensions.splitterHandleSize,
-					splitterSize = dimensions.splitterSize,
-					panesCount = panes.length,
-					currentAvailable = 0,
-					width = dimensions.containerWidth,
-					height = dimensions.containerHeight,
-					availableWidth = Math.floor(isHorizontal ? width - splitterSize :
-						height - splitterSize) ;
-
-				dimensions.maxPaneSize = availableWidth - dimensions.minPaneSize;
-				currentAvailable = availableWidth;
-				panes.forEach(function (pane, i) {
-					var paneWidth = Math.floor(availableWidth * ratio[i]),
-						paneStyle = pane.style;
-
-					currentAvailable -= paneWidth;
-					if (i === (panesCount - 1)) {
-						paneWidth = Math.max(Math.min(paneWidth, dimensions.minPaneSize), paneWidth + currentAvailable);
-					}
-
-					if (ignoreMinMax || (paneWidth >= dimensions.minPaneSize && paneWidth <= dimensions.maxPaneSize)) {
-						if (isHorizontal) {
-							paneStyle.width = paneWidth + 'px';
-							paneStyle.height = height + 'px';
-						} else {
-							paneStyle.height = paneWidth + 'px';
-						}
-					}
-				});
-
-				if (isHorizontal) {
-					splitterTouchElementStyle.left = (width * ratio[0] - dimensions.splitterTouchSize / 2) + 'px';
-					splitterTouchElementStyle.top = 0;
-					splitterHandle.style.top = ((height - splitterHandleSize) / 2) + 'px';
-					self.splitterBar.style.height = height + 'px';
-				}else{
-					splitterTouchElementStyle.left = 0;
-					splitterTouchElementStyle.top = (height * ratio[0] - dimensions.splitterTouchSize / 2) + 'px';
-					splitterHandle.style.top = 0;
-				}
-			};
-
-			/**
-			 * Calls refresh() on each child SplitView.
-			 * @method _refreshChildren
-			 * @protected
-			 * @member ns.widget.mobile.SplitView
-			 */
-			prototype._refreshChildren = function() {
-				var instance;
-				this.panes.forEach(function(pane) {
-					if (DOM.getNSData(pane, 'role') === 'splitview') {
-						instance = engine.getBinding(pane);
-						if (instance) {
-							instance.refresh();
-						}
-					}
-				});
-			};
-
-			/**
-			 * Changes orientation of the SplitView.
-			 * @method _setDividerVertical
-			 * @param {HTMLElement} element
-			 * @param {boolean} dividerVertical if true, the divider will be placed vertically
-			 * @protected
-			 * @member ns.widget.mobile.SplitView
-			 */
-			prototype._setDividerVertical = function(element, dividerVertical) {
-				var self = this,
-					splitViewClasses = SplitView.classes,
-					classes = element.classList;
-				classes.remove(dividerVertical ? splitViewClasses.uiDirectionVertical : splitViewClasses.uiDirectionHorizontal);
-				classes.add(dividerVertical ? splitViewClasses.uiDirectionHorizontal : splitViewClasses.uiDirectionVertical);
-				self.options.dividerVertical = dividerVertical;
-			};
-
-			/**
-			 * Changes fixed state of the SplitView.
-			 * @method _setFixed
-			 * @param {HTMLElement} element
-			 * @param {boolean} fixed if true, the splitter is locked in its current position
-			 * @protected
-			 * @member ns.widget.mobile.SplitView
-			 */
-			prototype._setFixed = function(element, fixed) {
-				var self = this,
-					classes = SplitView.classes;
-				self.options.fixed = fixed;
-				if (fixed) {
-					self.splitterBar.classList.add(classes.uiFixed);
-				} else {
-					self.splitterBar.classList.remove(classes.uiFixed);
-				}
-			};
-
-			/**
-			 * Changes ratio of the SplitView. It will overwrite original ratio set in HTML document,
-			 * so it will be impossible to revert it back using restore().
-			 * @method _setRatio
-			 * @param {HTMLElement} element
-			 * @param {Array} ratio the new ratio to set
-			 * @protected
-			 * @member ns.widget.mobile.SplitView
-			 */
-			prototype._setRatio = function(element, ratio) {
-				var self = this,
-					newRatio = convertRatio(ratio);
-				self.options.ratio = newRatio;
-				self.dimensions.originalRatio = newRatio.slice();
-			};
-
-			/**
-			 * Measures dimensions of the splitter.
-			 * @method _measureSplitter
-			 * @protected
-			 * @member ns.widget.mobile.SplitView
-			 */
-			prototype._measureSplitter = function() {
-				var self = this,
-					dimensions = self.dimensions,
-					isHorizontal = self.options.dividerVertical;
-				//clear any previous dynamic height setting
-				self.splitterBar.style.height = "";
-				dimensions.splitterSize = isHorizontal ? DOM.getElementWidth(self.splitterBar, 'outer') :
-					DOM.getElementHeight(self.splitterBar, 'outer');
-				dimensions.splitterHandleSize = isHorizontal ? DOM.getElementHeight(self.splitterHandle) :
-					DOM.getElementWidth(self.splitterHandle);
-				dimensions.splitterTouchSize = isHorizontal ? DOM.getElementWidth(self.splitterTouchElement, 'outer') :
-					DOM.getElementHeight(self.splitterTouchElement, 'outer');
-			};
-
-			/**
-			 * Maximizes a pane with specified id by setting its ratio to 1.
-			 * @method maximize
-			 * @param {string} id the id of a pane to maximize
-			 * @member ns.widget.mobile.SplitView
-			 */
-			prototype.maximize = function(id) {
-				var self = this,
-					ratio = self.options.ratio,
-					element = selectors.getChildrenBySelector(self.widget(), id);
-
-				if (element) {
-					self.panes.forEach(function(pane, i) {
-						if (pane === element[0]) {
-							ratio[i] = 1;
-							ratio[i === 0 ? 1 : 0] = 0;
-							self._layout(true);
-						}
-					});
-				}
-
-			};
-
-			/**
-			 * Restores to original ratio set through HTML document or option setter.
-			 * @method restore
-			 * @member ns.widget.mobile.SplitView
-			 */
-			prototype.restore = function () {
-				var self = this;
-				self.options.ratio = self.dimensions.originalRatio.slice();
-				self._layout();
-			};
-
-			/**
-			 * Gets element in pane specified by id or replaces it with given element as a second argument.
-			 * @method pane
-			 * @param {string} id the id of a pane to get the content from
-			 * @param {HTMLElement} element the new element to be inserted
-			 * @return {HTMLCollection} a collection of pane's child elements
-			 * @member ns.widget.mobile.SplitView
-			 */
-			prototype.pane = function(id, element) {
-				var self = this,
-					classes = SplitView.classes,
-					targetPane = selectors.getChildrenBySelector(self.widget(), id)[0],
-					targetView = null,
-					scollViewClasses = ns.widget.mobile.Scrollview.classes;
-
-				if (hasClass(targetPane, classes.uiPane)) {
-					if (element) {
-						if (element.length) {
-							element = element[0];
-						}
-						//setter
-						if (hasClass(targetPane, scollViewClasses.clip)) {
-							engine.getBinding(targetPane).scrollTo(0, 0, 0);
-							targetView = selectors.getChildrenByClass(targetPane, scollViewClasses.view);
-							if (targetView.length) {
-								targetView = targetView[0];
-							}else {
-								return null;
-							}
-						} else {
-							targetView = targetPane;
-						}
-
-						while(targetView.firstChild) {
-							targetView.removeChild(targetView.firstChild);
-						}
-						targetView.appendChild(element);
-						events.trigger(element, 'create');
-					} else {
-						//getter
-						return targetPane.children;
-					}
-				}
-			};
-
-			/**
-			 * Checks if specified element has given class
-			 * @method hasClass
-			 * @param {HTMLElement} element
-			 * @param {string} cls the class to check
-			 * @private
-			 * @static
-			 * @return {boolean} true if given element contains the class
-			 * @member ns.widget.mobile.SplitView
-			 */
-			function hasClass(element, cls) {
-				return element && element.classList.contains(cls);
-			}
-
-			SplitView.prototype = prototype;
-
-			ns.widget.mobile.SplitView = SplitView;
-			engine.defineWidget(
-				'SplitView',
-				'[data-role="splitview"], .ui-splitview',
-				['pane', 'restore', 'maximize'],
-				SplitView,
-				'tizen'
-			);
-			}(window.document, ns));
 
 /*global window, define */
 /* 
@@ -44128,85 +43440,68 @@ window.Globalize = Globalize;
 			}(window.document, ns));
 
 /*global window, define */
-/* 
+/*jslint nomen: true */
+/*
  * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
  * License : MIT License V2
  */
 /**
  * #Drawer Widget
- * Drawer widget provide creating drawer widget and managing drawer operation.
+ * Core Drawer widget is a base for creating Drawer widgets for profiles. It
+ * provides drawer functionality - container with ability to open and close with
+ * an animation.
  *
- * ##Default selector
- * You can make the drawer widget as data-role="drawer" with DIV tag.
+ * ##Positioning Drawer left / right
+ * To change position of a Drawer please set data-position attribute of Drawer
+ * element to:
+ * - left (left position, default)
+ * - right (right position)
  *
- * ###  HTML Examples
+ * ##Opening / Closing Drawer
+ * To open / close Drawer one can use open() and close() methods.
  *
- * ####  Create drawer using data-role
+ * ##Checking if Drawer is opened.
+ * To check if Drawer is opened use widget`s isOpen() method.
  *
- * 		@example
- *		<div data-role="drawer" data-position="left" id="leftdrawer">
- *			<ul data-role="listview">
- *				<li class="ui-drawer-main-list"><a href="#">List item 1</a></li>
- *				<li class="ui-drawer-main-list"><a href="#">List item 2</a></li>
- *				<li class="ui-drawer-sub-list"><a href="#">Sub item 1</a></li>
- *			</ul>
- *		</div>
+ * ##Creating widget
+ * Core drawer is a base class - examples of creating widgets are described in
+ * documentation of profiles
  *
- * ##Drawer positioning
- * You can declare to drawer position manually. (Default is left)
- *
- * If you implement data-position attributes value is 'left', drawer appear from left side.
- *
- * 		@example
- *		<div data-role="drawer" data-position="left" id="leftdrawer">
- *
- * - "left" - drawer appear from left side
- * - "right" - drawer appear from right side
- *
- * ##Drawer inner list
- * Drawer has two list styles, main list style and sub list style.
- * You can implement two providing list styles as implement classes.
- *
- * - "ui-drawer-main-list" : Main list style of drawer
- * - "ui-drawer-sub-list" : Sub list style of drawer
- *
- * ##Drawer methods
- *
- * You can use some methods of drawer widget.
- *
- * - "open" - drawer open
- *
- * 		@example
- * 		$("#leftdrawer").drawer("open");
- *
- * - "close" - drawer close
- *
- * 		@example
- * 		$("#leftdrawer").drawer("isOpen");
- *
- * - "isOpen" - get drawer status, true is opened and false if closed
- *
- * 		@example
- * 		$("#leftdrawer").drawer"(isOpen");
- *
- * ##Drawer Options
- *
- * - position: drawer appeared position. Type is <String> and default is "left".
- * - width: drawer width. Type is <Integer> and default is 290.
- * - duration: drawer appreared duration. <Integer> and default is 100.
- *
- *
-
  * @class ns.widget.core.Drawer
- * @extends ns.widget.mobile.BaseWidgetMobile
+ * @extends ns.widget.BaseWidget
  * @author Hyeoncheol Choi <hc7.choi@samsung.com>
  */
 (function (document, ns) {
 	
-				var BaseWidget = ns.widget.mobile.BaseWidgetMobile,
+				/**
+			 * @property {Object} Widget Alias for {@link ns.widget.BaseWidget}
+			 * @member ns.widget.core.Drawer
+			 * @private
+			 * @static
+			 */
+			var BaseWidget = ns.widget.BaseWidget,
+				/**
+				 * @property {Object} selectors Alias for class ns.util.selectors
+				 * @member ns.widget.core.Drawer
+				 * @private
+				 * @static
+				 * @readonly
+				 */
 				selectors = ns.util.selectors,
+				/**
+				 * Drawer constructor
+				 * @method Drawer
+				 */
 				Drawer = function () {
 					var self = this;
+					/**
+					 * Drawer field containing options
+					 * @property {number} Position of Drawer ("left" or "right")
+					 * @property {number} Width of Drawer
+					 * @property {number} Duration of Drawer entrance animation
+					 * @property {boolean} If true Drawer will be closed on arrow click
+					 * @property {boolean} Sets whether to show an overlay when Drawer is open.
+					 */
 					self.options = {
 						position : "left",
 						width : 240,
@@ -44231,8 +43526,10 @@ window.Globalize = Globalize;
 				/**
 				 * Dictionary object containing commonly used widget classes
 				 * @property {Object} classes
-				 * @static
 				 * @member ns.widget.core.Drawer
+				 * @private
+				 * @static
+				 * @readonly
 				 */
 				classes = {
 					drawer : "ui-drawer",
@@ -44243,6 +43540,12 @@ window.Globalize = Globalize;
 					open : "ui-drawer-open",
 					close : "ui-drawer-close"
 				},
+				/**
+				 * {Object} Drawer widget prototype
+				 * @member ns.widget.core.Drawer
+				 * @private
+				 * @static
+				 */
 				prototype = new BaseWidget();
 
 			Drawer.prototype = prototype;
@@ -44251,10 +43554,10 @@ window.Globalize = Globalize;
 			/**
 			 * Click event handler
 			 * @method onClick
-			 * @private
-			 * @static
 			 * @param {ns.widget.core.Drawer} self
 			 * @member ns.widget.core.Drawer
+			 * @private
+			 * @static
 			 */
 			function onClick(self) {
 				// vclick event handler
@@ -44266,10 +43569,10 @@ window.Globalize = Globalize;
 			/**
 			 * webkitTransitionEnd event handler
 			 * @method onTransitionEnd
-			 * @private
-			 * @static
 			 * @param {ns.widget.core.Drawer} self
 			 * @member ns.widget.core.Drawer
+			 * @private
+			 * @static
 			 */
 			function onTransitionEnd(self) {
 				var drawerOverlay = self._drawerOverlay;
@@ -44289,10 +43592,10 @@ window.Globalize = Globalize;
 			/**
 			 * Resize event handler
 			 * @method onResize
-			 * @private
-			 * @static
 			 * @param {ns.widget.core.Drawer} self
 			 * @member ns.widget.core.Drawer
+			 * @private
+			 * @static
 			 */
 			function onResize(self) {
 				// resize event handler
@@ -44302,10 +43605,10 @@ window.Globalize = Globalize;
 			/**
 			 * Pageshow event handler
 			 * @method onPageshow
-			 * @private
-			 * @static
 			 * @param {ns.widget.core.Drawer} self
 			 * @member ns.widget.core.Drawer
+			 * @private
+			 * @static
 			 */
 			function onPageshow(self) {
 				self._refresh();
@@ -44313,32 +43616,51 @@ window.Globalize = Globalize;
 
 			/**
 			 * Drawer translate function
-			 * @method translate
-			 * @protected
+			 * @method _translate
 			 * @param {number} x
 			 * @param {number} duration
 			 * @member ns.widget.core.Drawer
+			 * @protected
 			 */
 			prototype._translate = function (x, duration) {
 				var element = this.element,
 					elementStyle = element.style,
-					transition = "none";
+					transitions = {
+						normal: "none",
+						webkit: "none",
+						moz: "none",
+						ms: "none",
+						o: "none"
+					};
 
 				if (duration) {
-					transition =  "-webkit-transform " + duration / 1000 + "s ease-out";
+					transitions.webkit =  "-webkit-transform " + duration / 1000 + "s ease-out";
+					transitions.moz =  "-moz-transform " + duration / 1000 + "s ease-out";
+					transitions.o =  "-o-transform " + duration / 1000 + "s ease-out";
+					transitions.ms =  "-ms-transform " + duration / 1000 + "s ease-out";
+					transitions.normal =  "transform " + duration / 1000 + "s ease-out";
 				}
 
-				elementStyle.webkitTransform = "translate3d(" + x + "px, 0px, 0px)";
-				elementStyle.webkitTransition = transition;
+				// there should be a helper for this :(
+				elementStyle.webkitTransform =
+					elementStyle.mozTransform =
+					elementStyle.msTransform =
+					elementStyle.oTransform =
+					elementStyle.transform = "translate3d(" + x + "px, 0px, 0px)";
+				elementStyle.webkitTransition = transitions.webkit;
+				elementStyle.mozTransition = transitions.moz;
+				elementStyle.msTransition = transitions.ms;
+				elementStyle.oTransform = transitions.o;
+				elementStyle.transition = transitions.transition;
 			};
 
 			/**
 			 * Build structure of Drawer widget
 			 * @method _build
 			 * @param {HTMLElement} element
-			 * @return {HTMLElement}
-			 * @protected
+			 * @return {HTMLElement} Returns built element
 			 * @member ns.widget.core.Drawer
+			 * @protected
 			 */
 			prototype._build = function (element) {
 				var self = this,
@@ -44370,11 +43692,11 @@ window.Globalize = Globalize;
 			};
 
 			/**
-			 * Init of Drawer widget
+			 * Initialization of Drawer widget
 			 * @method _init
 			 * @param {HTMLElement} element
-			 * @protected
 			 * @member ns.widget.core.Drawer
+			 * @protected
 			 */
 			prototype._init = function (element) {
 				var self = this,
@@ -44391,10 +43713,10 @@ window.Globalize = Globalize;
 			};
 
 			/**
-			 * Do translate if position is set to right
+			 * Provides translation if position is set to right
 			 * @method _translateRight
-			 * @protected
 			 * @member ns.widget.core.Drawer
+			 * @protected
 			 */
 			prototype._translateRight = function() {
 				var self = this,
@@ -44412,10 +43734,10 @@ window.Globalize = Globalize;
 			};
 
 			/**
-			 * Refresh of Drawer widget
+			 * Refreshes Drawer widget
 			 * @method _refresh
-			 * @protected
 			 * @member ns.widget.core.Drawer
+			 * @protected
 			 */
 			prototype._refresh = function() {
 				// Drawer layout has been set by parent element layout
@@ -44439,11 +43761,11 @@ window.Globalize = Globalize;
 			};
 
 			/**
-			 * Create drawer overlay element
+			 * Creates Drawer overlay element
 			 * @method _createOverlay
 			 * @param {HTMLElement} element
-			 * @protected
 			 * @member ns.widget.core.Drawer
+			 * @protected
 			 */
 			prototype._createOverlay = function(element) {
 				var self = this,
@@ -44455,15 +43777,16 @@ window.Globalize = Globalize;
 			};
 
 			/**
-			 * Bind events of Drawer widget
+			 * Binds events to a Drawer widget
 			 * @method _bindEvents
-			 * @protected
 			 * @member ns.widget.core.Drawer
+			 * @protected
 			 */
 			prototype._bindEvents = function() {
 				var self = this,
 					options = self.options,
-					drawerOverlay = self._drawerOverlay;
+					drawerOverlay = self._drawerOverlay,
+					element = self.element;
 				self._onClickBound = onClick.bind(null, self);
 				self._onTransitionEndBound = onTransitionEnd.bind(null, self);
 				self._onResizeBound = onResize.bind(null, self);
@@ -44472,23 +43795,27 @@ window.Globalize = Globalize;
 				if (options.overlay && options.closeOnClick && drawerOverlay) {
 					drawerOverlay.addEventListener("vclick", self._onClickBound, false);
 				}
-				self.element.addEventListener("webkitTransitionEnd", self._onTransitionEndBound, false);
-				self.element.addEventListener("transitionEnd", self._onTransitionEndBound, false);
+				element.addEventListener("webkitTransitionEnd", self._onTransitionEndBound, false);
+				element.addEventListener("mozTransitionEnd", self._onTransitionEndBound, false);
+				element.addEventListener("msTransitionEnd", self._onTransitionEndBound, false);
+				element.addEventListener("oTransitionEnd", self._onTransitionEndBound, false);
+				element.addEventListener("transitionEnd", self._onTransitionEndBound, false);
 				window.addEventListener("resize", self._onResizeBound, false);
 				self._drawerPage.addEventListener("pageshow", self._onPageshowBound, false);
 			};
 
 			/**
-			 * check drawer status
+			 * Checks Drawer status
 			 * @method isOpen
 			 * @member ns.widget.core.Drawer
+			 * @return {boolean} Returns true if Drawer is open
 			 */
 			prototype.isOpen = function() {
 				return this._isOpen;
 			};
 
 			/**
-			 * Open drawer widget
+			 * Opens Drawer widget
 			 * @method open
 			 * @member ns.widget.core.Drawer
 			 */
@@ -44510,7 +43837,7 @@ window.Globalize = Globalize;
 			};
 
 			/**
-			 * Close drawer widget
+			 * Closes Drawer widget
 			 * @method close
 			 * @member ns.widget.core.Drawer
 			 */
@@ -44528,18 +43855,23 @@ window.Globalize = Globalize;
 			};
 
 			/**
-			 * Destroy drawer widget
+			 * Destroys Drawer widget
 			 * @method _destroy
-			 * @protected
 			 * @member ns.widget.core.Drawer
+			 * @protected
 			 */
 			prototype._destroy = function() {
 				var self = this,
-					drawerOverlay = self._drawerOverlay;
+					drawerOverlay = self._drawerOverlay,
+					element = self.element;
 				if (drawerOverlay) {
 					drawerOverlay.removeEventListener("vclick", self._onClickBound, false);
 				}
-				self.element.removeEventListener("webkitTransitionEnd", self._onTransitionEndBound, false);
+				element.removeEventListener("webkitTransitionEnd", self._onTransitionEndBound, false);
+				element.removeEventListener("mozTransitionEnd", self._onTransitionEndBound, false);
+				element.removeEventListener("msTransitionEnd", self._onTransitionEndBound, false);
+				element.removeEventListener("oTransitionEnd", self._onTransitionEndBound, false);
+				element.removeEventListener("transitionEnd", self._onTransitionEndBound, false);
 				window.removeEventListener("resize", self._onResizeBound, false);
 				self._drawerPage.removeEventListener("pageshow", self._onPageshowBound, false);
 			};
@@ -44626,15 +43958,105 @@ window.Globalize = Globalize;
 (function (document, ns) {
 	
 				var CoreDrawer = ns.widget.core.Drawer,
+				CoreDrawerPrototype = CoreDrawer.prototype,
 				Page = ns.widget.mobile.Page,
 				engine = ns.engine,
 				Drawer = function () {
-					CoreDrawer.call(this);
-					this._pageSelector = Page.classes.uiPage;
-				};
+					var self = this;
+					CoreDrawer.call(self);
+					self.options.swipeStartAreaRatio = 0.05;
+					self._pageSelector = Page.classes.uiPage;
 
-			Drawer.prototype = new CoreDrawer();
-			Drawer.classes = CoreDrawer.classes;
+					self._onSwipeBound = null;
+					self._onMouseDownBound = null;
+					self._onSideEdgeMouseUpBound = null;
+					self._swiped = false;
+				},
+				prototype = new CoreDrawer(),
+				classes = CoreDrawer.classes;
+
+			Drawer.prototype = prototype;
+			Drawer.classes = classes;
+
+			/**
+			 * Swipe event handler
+			 * @method _onSwipe
+			 * @private
+			 * @static
+			 * @param {Event} event
+			 * @member ns.widget.mobile.Drawer
+			 */
+			prototype._onSwipe = function(event) {
+				// If swipeleft event was triggered at drawer position right,
+				// drawer should be opend. So 'direction' has reverse value for swipe direction.
+				var self = this,
+					direction = event.type === "swipeleft" ? "right" : "left";
+
+				if (self.options.position === direction && self._swiped) {
+					self.open();
+					self._swiped = false;
+				}
+
+			}
+
+			/**
+			 * Check vmousedown event whether triggerred on side edge area or not
+			 * @method _checkSideEdgeMouseDown
+			 * @private
+			 * @static
+			 * @param {Event} event
+			 * @member ns.widget.mobile.Drawer
+			 */
+			prototype._checkSideEdgeMouseDown = function(event) {
+				var self = this,
+					eventClientX = event.clientX,
+					options = self.options,
+					position = options.position,
+					swipeStartArea = window.innerWidth * options.swipeStartAreaRatio;
+
+				if ((position === "left" && eventClientX > 0 && eventClientX < swipeStartArea) ||
+					(position === "right" && eventClientX < window.innerWidth && eventClientX > window.innerWidth - swipeStartArea)) {
+					self._swiped = true;
+				}
+			}
+			/**
+			 * Vmousedown event handler
+			 * @method _onMouseDown
+			 * @private
+			 * @static
+			 * @param {Event} event
+			 * @member ns.widget.mobile.Drawer
+			 */
+			prototype._onMouseDown = function(event) {
+				this._checkSideEdgeMouseDown(event);
+			}
+
+			/**
+			 * Bind events to widget
+			 * @method _bindEvents
+			 * @protected
+			 * @member ns.widget.mobile.Drawer
+			 */
+			prototype._bindEvents = function() {
+				var self = this,
+					page = self._drawerPage;
+				CoreDrawerPrototype._bindEvents.call(self);
+
+				self._onMouseDownBound = self._onMouseDown.bind(self);
+				self._onSwipeBound = self._onSwipe.bind(self);
+				page.addEventListener("vmousedown", self._onMouseDownBound, false);
+				page.addEventListener("swipeleft", self._onSwipeBound, false);
+				page.addEventListener("swiperight", self._onSwipeBound, false);
+			};
+
+			prototype._destroy = function() {
+				var self = this,
+					page = self._drawerPage;
+				CoreDrawerPrototype._destroy.call(self);
+				page.removeEventListener("vmousedown", self._onMouseDownBound, false);
+				page.removeEventListener("swipeleft", self._onSwipeBound, false);
+				page.removeEventListener("swiperight", self._onSwipeBound, false);
+			};
 
 			ns.widget.mobile.Drawer = Drawer;
 			engine.defineWidget(
@@ -44662,15 +44084,43 @@ window.Globalize = Globalize;
  * Shows a 2-state switch.
  *
  * The toggle switch widget shows a 2-state switch on the screen.
+ * If defined with select type with options it creates toggles with labels
+ * On the toggle with labels its possible to drag or flip the handle
+ * or tap one side of the switch.
+ *
+ * We still support toggles defined with select tag for backward compatibility
  *
  * ## Default selectors
- *
+ * INPUT tags with _data-role=toggleswitch_ or SELECT tags
+ * with _data-role=slider_
+ * or
+ *  _data-role=toggleswitch_
+ * changed to toggle switch
  * To add a toggle switch widget to the application, use the following code:
+ *
+ *		@example
+ *		<input type="checkbox" data-role="toggleswitch">
+ *
+ *		@example
+ *		<input type="checkbox" id="checkbox-1" data-role="toggleswitch"/>
+ *		<label for="checkbox-1"></label>
  *
  *		@example
  *		<select name="flip-11" id="flip-11" data-role="slider">
  *			<option value="off"></option>
  *			<option value="on"></option>
+ *		</select>
+ *
+ *		@example
+ *		<select name="flip-11" id="flip-11" data-role="toggleswitch">
+ *			<option value="off"></option>
+ *			<option value="on"></option>
+ *		</select>
+ *
+ *		@example
+ *		<select name="flip-11" id="flip-11" data-role="toggleswitch">
+ *			<option value="off">off option</option>
+ *			<option value="on">on option</option>
  *		</select>
  *
  * ## Manual constructor
@@ -44714,7 +44164,7 @@ window.Globalize = Globalize;
 					 * "true" then toggle switch has css property
 					 * display = "inline"
 					 * @property {string} [options.theme=null] theme of widget
-					 * @member ns.widget.mobile.Slider
+					 * @member ns.widget.mobile.ToggleSwitch
 					 */
 					self.options = {
 						trackTheme: null,
@@ -44724,28 +44174,60 @@ window.Globalize = Globalize;
 						inline: null,
 						theme: null
 					};
+					self._ui = {};
 				},
 				BaseWidget = ns.widget.mobile.BaseWidgetMobile,
 				engine = ns.engine,
 				events = ns.event,
-				dom = ns.util.DOM,
+				DOMutils = ns.util.DOM,
+				Button = ns.widget.mobile.Button,
+				themes = ns.theme,
+				/**
+				* @property {Object} selectors Alias for class ns.util.selectors
+				* @member ns.widget.mobile.ToggleSwitch
+				* @private
+				* @static
+				*/
+				selectors = ns.util.selectors,
 
-				//classesPrefix = "ui-switch",
 				classes = {
-					toggleSwitch: "ui-slider-switch",
-					toggleSwitchInput: "ui-slider-switch-input",
+					//slider
+					sliderSwitch: "ui-slider-switch",
 					toggleInneroffset: "ui-slider-inneroffset",
+					sliderInline: "ui-slider-inline",
+					sliderMini: "ui-slider-mini",
+					sliderHandle: "ui-slider-handle",
+					flipHandle: "ui-flip-handle",
+					slider: "ui-slider",
+					sliderLabel: "ui-slider-label",
+					sliderLabelTheme: "ui-slider-label-",
+					sliderInneroffset: "ui-slider-inneroffset",
+					sliderLabelA: "ui-slider-label-a",
+					sliderSnapping : "ui-slider-handle-snapping",
+					//sliderBg: "ui-slider-bg",
+					sliderContainer: "ui-slider-container",
+					sliderStateActive: "ui-state-active",
+
+					//input
+					toggleSwitchInput: "ui-slider-switch-input",
 					toggle: "ui-toggle-switch",
 					toggleInputLabel: "ui-toggle-label",
-					toggleHandler: "ui-switch-handler"
+					toggleHandler: "ui-switch-handler",
+					toggleOff: "ui-toggle-off",
+					toggleOn: "ui-toggle-on"
+				},
+				keyCode = {
+					HOME: 36,
+					END: 35,
+					PAGE_UP : 33,
+					PAGE_DOWN: 34,
+					UP: 38,
+					RIGHT: 39,
+					DOWN: 40,
+					LEFT: 37
 				};
 
 			ToggleSwitch.prototype = new BaseWidget();
-
-			function createElement(name) {
-				return document.createElement(name);
-			}
-
 
 			/**
 			 * Dictionary for ToggleSwitch related css class names
@@ -44756,12 +44238,831 @@ window.Globalize = Globalize;
 			 */
 			ToggleSwitch.classes = classes;
 
-			function onChangeValue(instance){
-				var status = (instance.input.checked) ? 1 :0;
+			/**
+			* Dictionary for keyboard codes
+			* @property {Object} keyCode
+			* @member ns.widget.mobile.ToggleSwitch
+			* @static
+			* @readonly
+			*/
+			ToggleSwitch.keyCode = keyCode;
 
-				instance.element.selectedIndex = status;
+			//for select
+			/**
+			 * Returns default position of the slider, if the element is input
+			 * @method getInitialValue
+			 * @param {string} tag
+			 * @param {HTMLElement} element
+			 * @return {number}
+			 * @private
+			 * @static
+			 * @member ns.widget.mobile.ToggleSwitch
+			 */
+			function getInitialValue(tag, element) {
+				return tag === "input" ? parseFloat(element.value) :
+						element.selectedIndex;
 			}
 
+			/**
+			 * Sets the width for labels which represents a value of widget
+			 * @method refreshLabels
+			 * @param {ns.widget.mobile.ToggleSwitch} self
+			 * @param {number} percent
+			 * @private
+			 * @static
+			 * @member ns.widget.mobile.ToggleSwitch
+			 */
+			function refreshLabels(self, percent) {
+				var getElementWidth = DOMutils.getElementWidth,
+					handlePercent = getElementWidth(self._ui.handle, "outer") /
+							getElementWidth(self._ui.slider, "outer") * 100,
+					aPercent = percent && handlePercent + (100 - handlePercent)
+							* percent / 100,
+					bPercent = percent === 100 ? 0 : Math.min(handlePercent +
+							100 - aPercent, 100),
+					i = self._labels.length,
+					label;
+
+				while (i--) {
+					label = self._labels[i];
+					label.style.width =
+							(label.classList.contains(classes.sliderLabelA)
+									? aPercent : bPercent) + "%";
+				}
+			}
+
+			/**
+			 * Sets the width for labels which represents a value of widget
+			 * @method addRemoveClassesBasedOnProcentage
+			 * @param {number} percent
+			 * @param {classList} localClasses
+			 * @private
+			 * @static
+			 * @member ns.widget.mobile.ToggleSwitch
+			 */
+			function addRemoveClassesBasedOnProcentage(percent, localClasses) {
+				if (percent === 100 &&
+						localClasses.contains(classes.sliderSnapping)) {
+					localClasses.remove(classes.toggleOff);
+					localClasses.add(classes.toggleOn);
+				} else if (percent === 0 &&
+						localClasses.contains(classes.sliderSnapping)) {
+					localClasses.remove(classes.toggleOn);
+					localClasses.add(classes.toggleOff);
+				}
+			}
+			/**
+			 * Refresh all the elements of Slider widget
+			 * @method refresh
+			 * @param {ns.widget.mobile.ToggleSwitch} self
+			 * @param {Object|number|null} value
+			 * @param {boolean} [isFromControl] tells if the refresh was called from callbacks
+			 * @param {boolean} [preventInputUpdate] prevents change value for input
+			 * @private
+			 * @static
+			 * @member ns.widget.mobile.ToggleSwitch
+			 */
+			function refresh(self, value, isFromControl, preventInputUpdate) {
+				var data,
+					percent,
+					newValue,
+					valModStep,
+					alignValue,
+					valueChanged,
+					touchThreshold,
+					newValueOption,
+					sliderOffsetLeft,
+					min = 0,
+					control = self.element,
+					handle = self._ui.handle,
+					slider = self._ui.slider,
+					localClasses = handle.classList,
+					controlType = control.nodeName.toLowerCase(),
+					max = control.querySelectorAll("option").length - 1,
+					stepValue = DOMutils.getNumberFromAttribute(control,
+							"step", "float", 0),
+					step = (controlType === "input" && stepValue > 0) ?
+							stepValue : 1;
+
+				if (controlType === "input") {
+					min = DOMutils.getNumberFromAttribute(control,
+							"min",  "float", min);
+					max = DOMutils.getNumberFromAttribute(control,
+							"max", "float", max);
+				}
+
+				if (isNaN(step)) {
+					step = 0;
+				}
+
+				if (self.options.disabled) {
+					self._disable();
+				}
+
+				// If changes came from event
+				if (typeof value === "object") {
+					data = value;
+					// @TODO take parameter out to config
+					touchThreshold = 8;
+					sliderOffsetLeft =
+							DOMutils.getElementOffset(slider).left;
+
+					// If refreshing while not dragging
+					// or movement was within threshold
+					if (!self._dragging ||
+							data.pageX < sliderOffsetLeft - touchThreshold ||
+							data.pageX > sliderOffsetLeft +
+							slider.offsetWidth + touchThreshold) {
+						return;
+					}
+
+					// Calculate new left side percent
+					percent = ((data.pageX - sliderOffsetLeft) /
+							slider.offsetWidth) * 100;
+
+				// If changes came from input value change
+				} else {
+					if (value === null) {
+						value = getInitialValue(tagName, control);
+					}
+					if (isNaN(value)) {
+						return;
+					}
+					// While dragging prevent jumping by assigning
+					// last percentage value
+					if (self._dragging && self._lastPercent) {
+						percent = self._lastPercent;
+					} else {
+						percent = (parseFloat(value) - min) / (max - min) * 100;
+					}
+				}
+
+				// Make sure percent is a value between 0 - 100;
+				percent = Math.max(0, Math.min(percent, 100));
+				self._lastPercent = percent;
+
+				newValue = (percent / 100) * (max - min) + min;
+
+				//from jQuery UI slider, the following source will round
+				// to the nearest step
+				valModStep = (newValue - min) % step;
+				alignValue = newValue - valModStep;
+
+				if (Math.abs(valModStep) * 2 >= step) {
+					alignValue += (valModStep > 0) ? step : (-step);
+				}
+				// Since JavaScript has problems with large floats, round
+				// the final value to 5 digits after the decimal point
+				// (see jQueryUI: #4124)
+				newValue = parseFloat(alignValue.toFixed(5));
+
+				newValue = Math.max(min, Math.min(newValue, max));
+
+				handle.style.left = percent + "%";
+				newValueOption = control.querySelectorAll("option")[newValue];
+				handle.setAttribute("aria-valuenow", controlType === "input" ?
+						newValue : newValueOption && newValueOption.value);
+				handle.setAttribute("aria-valuetext", controlType === "input" ?
+						newValue : newValueOption && newValueOption.innerText);
+				handle.setAttribute("title", controlType === "input" ?
+						newValue : newValueOption && newValueOption.innerText);
+
+				addRemoveClassesBasedOnProcentage(percent, localClasses);
+
+				// drag the label widths
+				if (self._labels) {
+					refreshLabels(self, percent);
+				}
+
+				if (!preventInputUpdate) {
+					valueChanged = false;
+					// update control"s value
+					if (controlType === "input") {
+						valueChanged = control.value !== newValue;
+						control.value = newValue;
+					} else {
+						valueChanged = control.selectedIndex !== newValue;
+						control.selectedIndex = newValue;
+					}
+					if (!isFromControl && valueChanged) {
+						// Trigger change event on the control element
+						events.trigger(control, "change");
+					}
+				}
+			}
+
+			/**
+			 * Disable any action when TouchMove event appear
+			 * @method onTouchMove
+			 * @param {Event} event
+			 * @private
+			 * @static
+			 * @member ns.widget.mobile.ToggleSwitch
+			 */
+			function onTouchMove(event) {
+				event.stopPropagation();
+				event.preventDefault();
+			}
+
+			/**
+			 * Function fires on mouse move event
+			 * @method onVmouseMove
+			 * @param {ns.widget.mobile.ToggleSwitch} self
+			 * @param {Event} event
+			 * @private
+			 * @static
+			 * @member ns.widget.mobile.ToggleSwitch
+			 */
+			function onVmouseMove(self, event) {
+				var element = self.element,
+					tagName = element.nodeName.toLowerCase(),
+					handle = self._ui.handle;
+				// NOTE: we don't do this in refresh because we still want to
+				//	support programmatic alteration of disabled inputs
+				if (self._dragging && !self.options.disabled) {
+
+					// self.mouseMoved must be updated before refresh()
+					// because it will be used in the control "change" event
+					self._mouseMoved = true;
+
+					if (tagName === "select") {
+						// make the handle move in sync with the mouse
+						handle.classList.remove(classes.sliderSnapping);
+					}
+
+					refresh(self, event);
+					// only after refresh() you can calculate self.userModified
+					self._userModified = self._beforeStart !==
+						element.selectedIndex;
+					events.preventDefault(event);
+				}
+			}
+
+			/**
+			 * Function fires on mouse move event
+			 * @method sliderMouseUp
+			 * @param {ns.widget.mobile.ToggleSwitch} self
+			 * @private
+			 * @static
+			 * @member ns.widget.mobile.ToggleSwitch
+			 */
+			function sliderMouseUp(self) {
+				var _beforeStart;
+
+				if (self._dragging) {
+					self._dragging = false;
+					_beforeStart = self._beforeStart;
+
+					if (self.element.nodeName.toLowerCase() === "select") {
+						// make the handle move with a smooth transition
+						self._ui.handle.classList.add(classes.sliderSnapping);
+
+						if (self._mouseMoved) {
+							// this is a drag, change the value only
+							// if user dragged enough
+							if (self._userModified) {
+								refresh(self, _beforeStart === 0 ? 1 : 0);
+							} else {
+								refresh(self, _beforeStart);
+							}
+						} else {
+							refresh(self, _beforeStart === 0 ? 1 : 0);
+						}
+					}
+					self._mouseMoved = false;
+				}
+			}
+
+			/**
+			* Callback change the value of input type=checkbox
+			* (method stricly for toggleswitch based oninput tag)
+			* @method onChangeValue
+			* @param {ns.widget.mobile.ToggleSwitch} self
+			* @private
+			* @static
+			* @member ns.widget.mobile.ToggleSwitch
+			*/
+			function onChangeValue(self){
+				self.element.selectedIndex = (self._ui.input.checked) ? 1 :0;
+			}
+
+			/**
+			 * Call refresh when state change
+			 * @method onFocus
+			 * @param {ns.widget.mobile.ToggleSwitch} self
+			 * @private
+			 * @static
+			 * @member ns.widget.mobile.ToggleSwitch
+			 */
+			function onChange(self) {
+				if (!self._mouseMoved) {
+					refresh(self, self._getValue(), true);
+				}
+			}
+
+			/**
+			 * Call refresh when blur event ocur
+			 * @method onBlur
+			 * @param {ns.widget.mobile.ToggleSwitch} self
+			 * @private
+			 * @static
+			 * @member ns.widget.mobile.ToggleSwitch
+			 */
+			function onBlur(self) {
+				refresh(self, self._getValue(), true);
+			}
+
+			/**
+			 * Triggers focus event on the target element
+			 * @method onVmousedown
+			 * @param {Event} event
+			 * @private
+			 * @static
+			 * @member ns.widget.mobile.ToggleSwitch
+			 */
+			function onVmousedown(event) {
+				events.trigger(event.target, "focus");
+			}
+
+			/**
+			 * Stoping event
+			 * @method onVclick
+			 * @param {Event} event
+			 * @private
+			 * @static
+			 * @member ns.widget.mobile.ToggleSwitch
+			 */
+			function onVclick(event) {
+				event.stopPropagation();
+				event.preventDefault();
+			}
+
+			/**
+			 * Manage intearaction of widget with key down events
+			 * @method onKeydown
+			 * @param {ns.widget.mobile.ToggleSwitch} self
+			 * @param {Event} event
+			 * @private
+			 * @static
+			 * @member ns.widget.mobile.ToggleSwitch
+			 */
+			function onKeydown(self, event) {
+				var element = self.element,
+					tagName = element.nodeName.toLowerCase(),
+					index = getInitialValue(tagName, element),
+					eventkeyCode = event.keyCode,
+					classList = event.target.classList,
+					step = parseFloat(self.element.getAttribute( "step" ) ||
+							1);
+
+				if (self.options.disabled) {
+					return;
+				}
+
+				// In all cases prevent the default and mark the handle
+				// as active
+				switch (eventkeyCode) {
+					case keyCode.HOME:
+					case keyCode.END:
+					case keyCode.PAGE_UP:
+					case keyCode.PAGE_DOWN:
+					case keyCode.UP:
+					case keyCode.RIGHT:
+					case keyCode.DOWN:
+					case keyCode.LEFT:
+						event.preventDefault();
+						if (!self._keySliding) {
+							self._keySliding = true;
+							classList.add(classes.sliderStateActive);
+						}
+						break;
+				}
+				// move the slider according to the keypress
+				switch (eventkeyCode) {
+					case keyCode.HOME:
+						refresh(self, min);
+						break;
+					case keyCode.END:
+						refresh(self, max);
+						break;
+					case keyCode.PAGE_UP:
+					case keyCode.UP:
+					case keyCode.RIGHT:
+						refresh(self, index + step);
+						break;
+					case keyCode.PAGE_DOWN:
+					case keyCode.DOWN:
+					case keyCode.LEFT:
+						refresh(self, index - step);
+						break;
+				}
+
+
+			}
+
+			/**
+			 * Remove slider state active
+			 * @method onKeyup
+			 * @param {ns.widget.mobile.ToggleSwitch} self
+			 * @private
+			 * @static
+			 * @member ns.widget.mobile.ToggleSwitch
+			 */
+			function onKeyupHandle (self) {
+				if (self._keySliding) {
+					self._keySliding = false;
+					handle.classList.remove(classes.sliderStateActive);
+				}
+			}
+
+			/**
+			 * Call refresh when keyUp event ocur
+			 * @method onKeyup
+			 * @param {ns.widget.mobile.ToggleSwitch} self
+			 * @private
+			 * @static
+			 * @member ns.widget.mobile.ToggleSwitch
+			 */
+			function onKeyupElement(self) {
+				refresh(self, self._getValue(), true, true);
+			}
+
+			/**
+			 * Refresh widget and add css class
+			 * @method onTouchend
+			 * @param {ns.widget.mobile.ToggleSwitch} self
+			 * @private
+			 * @static
+			 * @member ns.widget.mobile.ToggleSwitch
+			 */
+			function onTouchend(self) {
+				var element = self.element,
+					tagName = element.nodeName.toLowerCase();
+
+				self._dragging = false;
+				self._ui.handle.classList.add(classes.sliderSnapping);
+				refresh(self, getInitialValue(tagName, element),
+						true, true);
+			}
+
+			/**
+			 * Callback responsible for refreshing the widget
+			 * @method onVmousedown
+			 * @param {ns.widget.mobile.ToggleSwitch} self
+			 * @param {Event} event
+			 * @private
+			 * @static
+			 * @member ns.widget.mobile.ToggleSwitch
+			 */
+			function onVmousedownRefresh(self, event) {
+				var element = self.element;
+
+				if (self.options.disabled) {
+					return false;
+				}
+
+				self._dragging = true;
+				self._userModified = false;
+				self._mouseMoved = false;
+				//element.nodeName.toLowerCase()
+				if (element.nodeName.toLowerCase() === "select") {
+					self._beforeStart = element.selectedIndex;
+				}
+				refresh(self, event);
+				return false;
+			}
+
+			/**
+			* Take the label related to the given input
+			* (method stricly for toggleswitch based oninput tag)
+			* @method getLabel
+			* @param {HTMLElement} input
+			* @return {HTMLElement}
+			* @private
+			* @static
+			* @member ns.widget.mobile.ToggleSwitch
+			*/
+			function getLabel(input) {
+				var parent = selectors.getClosestByTag(input, "label"),
+					label;
+				if (parent) {
+					parent.parentNode.replaceChild(parent.firstElementChild,
+							parent);
+					return parent;
+				}
+				if (input.id) {
+					parent = selectors.getClosestBySelector(input,
+						"form, fieldset, [data-role='page'], [data-role='dialog']");
+					if (parent) {
+						label = parent.querySelector("label[for='"+
+								input.id + "']");
+						if (label) {
+							return label;
+						}
+					}
+				}
+
+				label = createElement("label");
+				if (input.id) {
+					label.setAttribute("for", input.id);
+				}
+				return label;
+			}
+
+			/**
+			* Simplify creating dom elements
+			* (method stricly for toggleswitch based oninput tag)
+			* @method createElement
+			* @param {String} name
+			* @return {HTMLElement}
+			* @private
+			* @static
+			* @member ns.widget.mobile.ToggleSwitch
+			*/
+			function createElement(name) {
+				return document.createElement(name);
+			}
+
+			/**
+			* Creates and set up input element
+			* @method setUpInput
+			* @return {HTMLElement}
+			* @private
+			* @static
+			* @member ns.widget.mobile.ToggleSwitch
+			*/
+			function setUpInput() {
+				var inputElement = createElement("input");
+
+				inputElement.type = "checkbox";
+				inputElement.className = classes.toggleSwitchInput;
+				return inputElement;
+			}
+
+			/**
+			* Creates wrapper for slider
+			* @method createWrapper
+			* @param {HTMLElement} domSlider
+			* @return {HTMLElement}
+			* @private
+			* @static
+			* @member ns.widget.mobile.ToggleSwitch
+			*/
+			function createWrapper(domSlider) {
+				var wrapper,
+					domSliderChildNode = domSlider.childNodes;
+
+				wrapper = createElement("div");
+				wrapper.className = classes.sliderInneroffset;
+
+				for (j = 0, length = domSliderChildNode.length;
+						j < length; j++) {
+					wrapper.appendChild(domSliderChildNode[j]);
+				}
+				return wrapper;
+			}
+
+			/**
+			* Adding classes for slider
+			* @method addClassesForSlider
+			* @param {HTMLElement} domSlider
+			* @param {String} sliderBtnDownTheme
+			* @param {Object} btnClasses
+			* @param {Object} options
+			* @private
+			* @static
+			* @member ns.widget.mobile.ToggleSwitch
+			*/
+			function addClassesForSlider(domSlider, sliderBtnDownTheme, btnClasses, options) {
+				var domSliderClassList = domSlider.classList;
+
+				domSliderClassList.add(classes.slider);
+				domSliderClassList.add(classes.sliderSwitch);
+				domSliderClassList.add(sliderBtnDownTheme);
+				domSliderClassList.add(btnClasses.uiBtnCornerAll);
+
+				if (options.inline) {
+					domSliderClassList.add(classes.sliderInline);
+				}
+				if (options.mini) {
+					domSliderClassList.add(classes.sliderMini);
+				}
+			}
+
+			/**
+			* Simplify creating dom elements
+			* @method buildOptions
+			* @param {HTMLElement} element
+			* @param {Object} btnClasses
+			* @param {String} sliderBtnDownTheme
+			* @param {HTMLElement} domSlider
+			* @private
+			* @static
+			* @member ns.widget.mobile.ToggleSwitch
+			*/
+			function buildOptions(element, btnClasses, sliderBtnDownTheme, domSlider) {
+				var i,
+					side,
+					sliderImg,
+					sliderTheme,
+					sliderImgClassList = null;
+
+				for (i = 0; i < element.length; i++) {
+					side = i ? "a" : "b";
+					sliderTheme = i ? btnClasses.uiBtnActive :
+							sliderBtnDownTheme;
+					/* TODO - check sliderlabel */
+					sliderImg =
+						createElement("span");
+					sliderImgClassList = sliderImg.classList;
+					sliderImgClassList.add(classes.sliderLabel);
+					sliderImgClassList.add(classes.sliderLabelTheme +
+							side);
+					sliderImgClassList.add(sliderTheme);
+					sliderImgClassList.add(btnClasses.uiBtnCornerAll);
+
+					sliderImg.setAttribute("role", "img");
+					sliderImg.appendChild(document.createTextNode(
+							element[i].innerHTML));
+					domSlider.insertBefore(
+							sliderImg, domSlider.firstChild);
+				}
+			}
+
+			/**
+			* Adding widget object to the callbacks
+			* @method bindCallbacksForSelectTag
+			* @param {ns.widget.mobile.ToggleSwitch} self
+			* @private
+			* @static
+			* @member ns.widget.mobile.ToggleSwitch
+			*/
+			function bindCallbacksForSelectTag(self){
+				self._onKeyupElement = onKeyupElement.bind(null, self);
+				self._sliderMouseUp = sliderMouseUp.bind(null, self);
+				self._onKeyupHandle = onKeyupHandle.bind(null, self);
+				self._onVmouseMove = onVmouseMove.bind(null, self);
+				self._onTouchend = onTouchend.bind(null, self);
+				self._onKeydown = onKeydown.bind(null, self);
+				self._onChange = onChange.bind(null, self);
+				self._onBlur = onBlur.bind(null, self);
+				self._onVmousedownRefresh =
+					onVmousedownRefresh.bind(null, self);
+			}
+
+			/**
+			* Remove events from Slider which is based on Select Tag
+			* @method removeEventsFromToggleBasedOnSelect
+			* @param {HTMLElement} element
+			* @param {HTMLElement} handle
+			* @param {HTMLElement} slider
+			* @private
+			* @static
+			* @member ns.widget.mobile.ToggleSwitch
+			*/
+			function removeEventsFromToggleBasedOnSelect(element, handle, slider) {
+				element.removeEventListener("change", self._onChange,
+						false);
+				element.removeEventListener("keyup", self._onKeyupElement, false);
+				element.removeEventListener("blur", self._onBlur, false);
+
+				handle.removeEventListener("vmousedown", self._onVmousedown,
+						false);
+				handle.removeEventListener("vclick", self.onVclick, false);
+				handle.removeEventListener("keydown", self._onKeydown, false);
+				handle.removeEventListener("keyup", self._onKeyupHandle, false);
+
+				slider.removeEventListener("vmousedown",
+						self._onVmousedownRefresh, false);
+				slider.removeEventListener("vmousemove", self._onVmouseMove,
+						false);
+				slider.removeEventListener("vmouseup", self._sliderMouseUp,
+						false);
+			}
+
+			/**
+			* Build Slider based on Select Tag
+			* @method removeEventsFromToggleBasedOnSelect
+			* @param {ns.widget.mobile.ToggleSwitch} self
+			* @param {HTMLElement} element
+			* @param {HTMLElement} sliderContainer
+			* @private
+			* @static
+			* @member ns.widget.mobile.ToggleSwitch
+			*/
+			function buildSliderBasedOnSelectTag(self, element, sliderContainer) {
+				var domSlider = createElement("div"),
+					sliderBtnDownTheme,
+					options = self.options,
+					elementId = element.getAttribute("id"),
+					btnClasses = Button.classes,
+					protoOptions = ToggleSwitch.prototype.options,
+					parentTheme = themes.getInheritedTheme(element,
+							(protoOptions && protoOptions.theme) || "s"),
+					domHandle = createElement("a"),
+					trackTheme,
+					theme = options.theme = options.theme || parentTheme;
+
+				trackTheme = options.trackTheme = options.trackTheme ||
+				parentTheme
+
+				domSlider.setAttribute("id", elementId + "-slider");
+				sliderBtnDownTheme = btnClasses.uiBtnDownThemePrefix +
+						trackTheme;
+
+				addClassesForSlider(domSlider, sliderBtnDownTheme, btnClasses, options);
+
+				domHandle.className = classes.sliderHandle;
+				domSlider.appendChild(domHandle);
+				domHandle.setAttribute("id", elementId + "-handle");
+
+				engine.instanceWidget(domHandle, "Button", {
+					corners: true,
+					theme: theme,
+					shadow: true,
+					inline: false,
+					bar: true
+				});
+
+				domSlider.appendChild(createWrapper(domSlider));
+				// make the handle move with a smooth transition
+				domHandle.classList.add(classes.sliderSnapping);
+				buildOptions(element, btnClasses, sliderBtnDownTheme, domSlider);
+				// to make a difference between slider and flip type toggle
+				domHandle.classList.add(classes.flipHandle);
+
+				sliderContainer = domSlider;
+				element.classList.add(classes.sliderSwitch);
+				domHandle.style.right = "auto";
+				element.parentNode.insertBefore(sliderContainer,
+						element.nextSibling);
+			}
+
+			/**
+			* Build Toggle based on Select Tag
+			* @method buildToggleBasedOnSelectTag
+			* @param {HTMLElement} element
+			* @param {HTMLElement} divHandler
+			* @param {HTMLElement} divInneroffset
+			* @param {HTMLElement} sliderContainer
+			* @param {HTMLElement} label
+			* @private
+			* @static
+			* @member ns.widget.mobile.ToggleSwitch
+			*/
+			function buildToggleBasedOnSelectTag(element, divHandler, divInneroffset, sliderContainer, label) {
+				ns.warn("Please use input[data-role='toggleswitch'] " +
+						"selector in order to define button like " +
+						"toggle, select[data-role='slider'] is " +
+						"deprecated");
+
+				label.className = classes.toggleInputLabel;
+				sliderContainer.className = classes.toggle;
+				divHandler.className = classes.toggleHandler;
+				divInneroffset.className = classes.toggleInneroffset;
+
+				sliderContainer.appendChild(divHandler);
+
+				label.appendChild(setUpInput());
+				label.appendChild(sliderContainer);
+				label.appendChild(divInneroffset);
+
+				element.parentNode.insertBefore(label,
+						element.nextSibling);
+				label.appendChild(element);
+			}
+
+			/**
+			* Build Toggle based on Input Tag
+			* @method buildToggleBasedOnInputTag
+			* @param {HTMLElement} element
+			* @param {HTMLElement} divHandler
+			* @param {HTMLElement} divInneroffset
+			* @param {HTMLElement} sliderContainer
+			* @param {HTMLElement} label
+			* @private
+			* @static
+			* @member ns.widget.mobile.ToggleSwitch
+			*/
+			function buildToggleBasedOnInputTag(element, divHandler, divInneroffset, sliderContainer, label) {
+				var mountPointForLabel = element.nextSibling;
+
+				sliderContainer.className = classes.toggle;
+				divHandler.className = classes.toggleHandler;
+				element.className = classes.toggleSwitchInput;
+				divInneroffset.className = classes.toggleInneroffset;
+
+				sliderContainer.appendChild(divHandler);
+
+				label = getLabel(element);
+				label.className = classes.toggleInputLabel;
+				label.appendChild(element);
+				label.appendChild(sliderContainer);
+				label.appendChild(divInneroffset);
+
+				mountPointForLabel.parentNode.insertBefore(label,
+						mountPointForLabel);
+			}
 
 			/**
 			 * Build ToggleSwitch
@@ -44772,32 +45073,38 @@ window.Globalize = Globalize;
 			 * @member ns.widget.mobile.ToggleSwitch
 			 */
 			ToggleSwitch.prototype._build = function (element) {
-				var options = this.options,
+				var roleType,
+					elementsOption,
+					options = this.options,
 					label = createElement("label"),
 					divHandler = createElement("div"),
 					divInneroffset = createElement("div"),
-					inputElement = document.createElement("input"),
-					sliderContainer = document.createElement("div");
+					controlType = element.nodeName.toLowerCase(),
+					sliderContainer = createElement("div");
 
-				element.className = classes.toggleSwitch;
+				//when the input with input[data-role='toggleswitch'],
+				//button like toggle
+				if (controlType === "input") {
+					buildToggleBasedOnInputTag(element, divHandler, divInneroffset, sliderContainer, label);
+				} else {
+					roleType = element.getAttribute("role");
+					elementsOption = element.querySelector("option");
+					if (roleType === "slider"){
+						ns.warn("Please use select[data-role='toggleswitch'] " +
+								"selector in order to define widget, " +
+								"select[data-role='slider'] is depreciated");
+					}
+					//hide select
+					element.className = classes.sliderSwitch;
 
-				inputElement.type = "checkbox";
-
-				inputElement.className = classes.toggleSwitchInput;
-				divHandler.className = classes.toggleHandler;
-				divInneroffset.className = classes.toggleInneroffset;
-				sliderContainer.className = classes.toggle;
-				label.className = classes.toggleInputLabel;
-
-				sliderContainer.appendChild(divHandler);
-
-				label.appendChild(inputElement);
-				label.appendChild(sliderContainer);
-				label.appendChild(divInneroffset);
-
-				element.parentNode.insertBefore(label,
-						element.nextSibling);
-
+					//if the select type, two empty options (simple on/off)
+					if (elementsOption && elementsOption.innerText === "") {
+						buildToggleBasedOnSelectTag(element, divHandler, divInneroffset, sliderContainer, label);
+					//logic moved from slider widget
+					} else {
+						buildSliderBasedOnSelectTag(this, element, sliderContainer);
+					}
+				}
 				return element;
 			};
 
@@ -44810,7 +45117,258 @@ window.Globalize = Globalize;
 			* @instance
 			*/
 			ToggleSwitch.prototype._init = function (element) {
-				this.input = element.nextSibling.firstChild;
+				var controlType = element.nodeName.toLowerCase(),
+					elementId,
+					self = this,
+					elementsOption = element.querySelector("option") || "";
+
+				//because the select with empty options is replaced with
+				//input I just need and input on widget instance
+				if (controlType === "input" || elementsOption.innerText === "") {
+					self._ui.input = element.parentElement.firstChild;
+				} else {
+					elementId = element.id;
+					self._ui.slider = document.getElementById(elementId +
+							"-slider");
+					self._ui.handle = document.getElementById(elementId +
+							"-handle");
+					self._ui.container = document.getElementById(elementId +
+							"-container") || element;
+					self._type = element.tagName.toLowerCase();
+					self._labels = selectors.getChildrenByClass(self._ui.slider,
+							ToggleSwitch.classes.sliderLabel);
+					refresh(self, self._getValue());
+				}
+			};
+
+			/**
+			 * Get or Set value of the widget
+			 *
+			 * Return element value or set the value
+			 *
+			 *		@example
+			 *		<select id="slider" name="flip-11" data-role="slider">
+			 *			<option value="off"></option>
+			 *			<option value="on"></option>
+			 *		</select>
+			 *		<script>
+			 *			var slider = document.getElementById("slider"),
+			 *				sliderWidget = tau.widget.Slider(slider),
+			 *			// value contains index of select tag
+			 *			value = sliderWidget.value();
+			 *			//sets the index for the toggle
+			 *			sliderWidget.value("1");
+			 *		</script>
+			 *
+			 * ####If jQuery library is loaded, its method can be used:
+			 *
+			 *		@example
+			 *		<select id="slider" name="flip-11" data-role="slider">
+			 *			<option value="off"></option>
+			 *			<option value="on"></option>
+			 *		</select>
+			 *		<script>
+			 *			// value contains index of select tag
+			 *			$( "#slider" ).slider( "value" );
+			 *			// sets the index for the toggle
+			 *			$( "#slider" ).slider( "value", "1" );
+			 *		</script>
+			 *
+			 * @method value
+			 * @return {string} In get mode return element value or element
+			 * selected index based on tag name.
+			 * @since 2.3
+			 * @member ns.widget.mobile.ToggleSwitch
+			 */
+
+			/**
+			 * Get value of toggle switch. If widget is based on input type
+			 * tag otherwise it return index of the element
+			 * @method _getValue
+			 * @protected
+			 * @member ns.widget.mobile.ToggleSwitch
+			 */
+			ToggleSwitch.prototype._getValue = function () {
+				var self = this,
+					element = self.element;
+
+				return self._type === "input" ?
+						parseFloat(element.value) :
+							element.selectedIndex;
+			};
+
+			/**
+			 * Set value of toggle switch
+			 * @method _setValue
+			 * @param {string} value
+			 * @protected
+			 * @member ns.widget.mobile.ToggleSwitch
+			 */
+			ToggleSwitch.prototype._setValue = function (value) {
+				var self = this,
+					element = self.element;
+
+				if (self._type === "input") {
+					element.value = value;
+				} else {
+					element.selectedIndex = value;
+				}
+			};
+
+			/**
+			 * Refresh a slider markup.
+			 *
+			 * This method will rebuild while DOM structure of widget.
+			 *
+			 * This method should be called after are manually change in HTML
+			 * attributes of widget DOM structure.
+			 *
+			 * This method is called automatically after change any option
+			 * of widget.
+			 *
+			 *		@example
+			 *		<select id="slider" name="flip-11" data-role="slider">
+			 *			<option value="off"></option>
+			 *			<option value="on"></option>
+			 *		</select>
+			 *		<script>
+			 *			var slider = document.getElementById("slider"),
+			 *				  sliderWidget = tau.widget.Slider(slider),
+			 *			sliderWidget.refresh();
+			 *		</script>
+			 *
+			 * ####If jQuery library is loaded, its method can be used:
+			 *
+			 *		@example
+			 *		<select id="slider" name="flip-11" data-role="slider">
+			 *			<option value="off"></option>
+			 *			<option value="on"></option>
+			 *		</select>
+			 *		<script>
+			 *			$( "#slider" ).slider( "refresh" );
+			 *		</script>
+			 *
+			 * @method refresh
+			 * @chainable
+			 * @member ns.widget.mobile.ToggleSwitch
+			 */
+
+			/**
+			 * Refresh slider
+			 * @method _refresh
+			 * @protected
+			 * @member ns.widget.mobile.ToggleSwitch
+			 */
+			ToggleSwitch.prototype._refresh = function () {
+				var self = this;
+				if (self._ui.slider && self.value !== self._getValue()) {
+					refresh(self, self._getValue());
+				}
+			};
+
+			/**
+			 * Enable the slider
+			 *
+			 * Method removes disabled attribute on slider and changes look
+			 * of slider to enabled state.
+			 *
+			 *		@example
+			 *		<select id="slider" name="flip-11" data-role="slider">
+			 *			<option value="off"></option>
+			 *			<option value="on"></option>
+			 *		</select>
+			 *		<script>
+			 *			var slider = document.getElementById("slider"),
+			 *				  sliderWidget = tau.widget.Slider(slider),
+			 *			sliderWidget.enable();
+			 *		</script>
+			 *
+			 * ####If jQuery library is loaded, its method can be used:
+			 *
+			 *		@example
+			 *		<select id="slider" name="flip-11" data-role="slider">
+			 *			<option value="off"></option>
+			 *			<option value="on"></option>
+			 *		</select>
+			 *		<script>
+			 *			$( "#slider" ).slider( "enable" );
+			 *		</script>
+			 *
+			 * @method enable
+			 * @chainable
+			 * @member ns.widget.mobile.ToggleSwitch
+			 */
+
+			/**
+			 * Enable slider
+			 * @method _enable
+			 * @param {HTMLElement} element
+			 * @protected
+			 * @member ns.widget.mobile.ToggleSwitch
+			 */
+			ToggleSwitch.prototype._enable = function (element) {
+				var btnClasses = Button.classes,
+					self = this,
+					slider = self._ui.slider;
+
+				if (slider) {
+					element.removeAttribute("disabled");
+					slider.classList.remove(btnClasses.uiDisabled);
+					slider.setAttribute("aria-disabled", false);
+					self.options.disabled = false;
+				}
+			};
+
+			/**
+			 * Disable the slider
+			 *
+			 * Method sets disabled attribute on slider and changes look
+			 * of slider to disabled state.
+			 *
+			 *		@example
+			 *		<select id="slider" name="flip-11" data-role="slider">
+			 *			<option value="off"></option>
+			 *			<option value="on"></option>
+			 *		</select>
+			 *		<script>
+			 *			var slider = document.getElementById("slider"),
+			 *				sliderWidget = tau.widget.Slider(slider),
+			 *			sliderWidget.disable();
+			 *		</script>
+			 *
+			 * ####If jQuery library is loaded, its method can be used:
+			 *
+			 *		@example
+			 *		<select id="slider" name="flip-11" data-role="slider">
+			 *			<option value="off"></option>
+			 *			<option value="on"></option>
+			 *		</select>
+			 *		<script>
+			 *			$( "#slider" ).slider( "disable" );
+			 *		</script>
+			 *
+			 * @method disable
+			 * @chainable
+			 * @member ns.widget.mobile.ToggleSwitch
+			 */
+
+			/**
+			 * Disable slider
+			 * @method _disable
+			 * @param {HTMLElement} element
+			 * @protected
+			 * @member ns.widget.mobile.ToggleSwitch
+			 */
+			ToggleSwitch.prototype._disable = function (element) {
+				var btnClasses = Button.classes,
+					slider = self._ui.slider;
+
+				if (slider) {
+					element.setAttribute("disabled", "disabled");
+					slider.classList.add(btnClasses.uiDisabled);
+					slider.setAttribute("aria-disabled", true);
+					self.options.disabled = true;
+				}
 			};
 
 			/**
@@ -44821,18 +45379,352 @@ window.Globalize = Globalize;
 			* @instance
 			*/
 			ToggleSwitch.prototype._bindEvents = function () {
-				this._onChangeValue = onChangeValue.bind(null, this);
-				this.input.addEventListener('change', this._onChangeValue, true);
+				var self = this,
+					element = self.element,
+					handle = self._ui.handle,
+					tagName = element.nodeName.toLowerCase(),
+					slider = self._ui.slider,
+					elementsOption = element.querySelector("option") || "";
+
+				if (tagName === "input" || elementsOption.innerText === ""){
+					self._onChangeValue = onChangeValue.bind(null, self);
+					self._ui.input.addEventListener('change',
+							self._onChangeValue, true);
+				} else {
+					bindCallbacksForSelectTag(self);
+
+					element.addEventListener("keyup", self._onKeyupElement,
+							false);
+					element.addEventListener("change", self._onChange, false);
+					element.addEventListener("blur", self._onBlur, false);
+
+					handle.addEventListener("keyup", self._onKeyupHandle,
+							false);
+					handle.addEventListener("keydown", self._onKeydown, false);
+					handle.addEventListener("vclick", onVclick, false);
+					handle.addEventListener("vmousedown", onVmousedown,
+							false);
+
+					slider.addEventListener("vmousedown",
+							self._onVmousedownRefresh, false);
+					slider.addEventListener("vmousemove", self._onVmouseMove,
+							false);
+					slider.addEventListener("vmouseup", self._sliderMouseUp,
+							false);
+				}
+			};
+
+			function removeAttributesWhenDestroy(element) {
+				element.removeAttribute("data-tau-name");
+				element.removeAttribute("aria-disabled");
+				element.removeAttribute("data-tau-bound");
+				element.removeAttribute("data-tau-built");
+			}
+			/**
+			 * Destroy widget
+			 * @method _destroy
+			 * @protected
+			 * @member ns.widget.mobile.ToggleSwitch
+			 */
+			ToggleSwitch.prototype._destroy = function () {
+				var label,
+					self = this,
+					element = self.element,
+					handle = self._ui.handle,
+					slider = self._ui.slider,
+					tagName = element.nodeName.toLowerCase(),
+					elementsOption = element.querySelector("option") || "";
+
+				if (tagName === "input" || elementsOption.innerText === "") {
+					self._ui.input.removeEventListener('change',
+							self._onChangeValue, true);
+
+					//cleaning toggle based on input type
+					if (tagName === "input") {
+						label = element.parentElement;
+
+						label.innerHTML = '';
+						label.classList.remove(classes.toggleInputLabel);
+						label.parentElement.insertBefore(element,label);
+
+						element.removeAttribute("aria-disabled");
+						element.classList.remove(classes.toggleSwitchInput);
+
+					//cleaning toggle based on select type
+					} else {
+						if (element.nextElementSibling.tagName.toLowerCase()
+								=== "label") {
+							//remove attributes
+							removeAttributesWhenDestroy(element);
+							//remove classes
+							element.classList.remove(classes.sliderSwitch);
+							//remove visible representative
+							element.parentElement.removeChild(
+									element.nextElementSibling);
+						}
+					}
+				} else {
+					removeEventsFromToggleBasedOnSelect(element, handle, slider);
+
+					removeAttributesWhenDestroy(element);
+					element.classList.remove(classes.sliderSwitch);
+					element.parentElement.removeChild(element.nextElementSibling);
+				}
+
+				events.trigger(document, "destroyed", {
+					widget: "ToggleSwitch",
+					parent: element.parentNode
+				});
 			};
 
 			ns.widget.mobile.ToggleSwitch = ToggleSwitch;
 			engine.defineWidget(
 				"ToggleSwitch",
-				"select[data-role='slider'], select[data-role='toggleswitch']",
+				"select[data-role='toggleswitch']," +
+				"input[data-role='toggleswitch']," +
+				"select[data-role='slider']," +
+				"select.ui-toggleswitch, input.ui-toggleswitch",
 				[],
 				ToggleSwitch,
 				"mobile"
 			);
+			}(window.document, ns));
+
+/*global window, define */
+/* Copyright (c) 2013 - 2014 Samsung Electronics Co., Ltd
+ * License : MIT License V2
+ */
+/**
+ * #Navigation Widget
+ * Navigation Bar inside header to navigate back and forth according to
+ * navigational history array, which is created by application.
+ * By clicking horizontally listed element on the Navigation Bar,
+ * page is possible to be changed to the target page.
+ *
+ * ##Default selector
+ * You can make the navigation widget as data-role="navigation".
+ * On creation, to use *NAV* tag is recommended for semantic understanding.
+ *
+ * ###  HTML Examples
+ *
+ * ####  Create Navigation Bar using data-role
+ *
+ * 		@example
+ *		<div data-role="page">
+ *			<div data-role="header" data-position="fixed">
+ *				<h1>title</h1>
+ *				<nav data-role="navigation" id="navigation">
+ *				</nav>
+ *			</div>
+ *			<div data-role="content">
+ *			</div>
+ *		</div>
+ *
+ * ##Navigation methods
+ *
+ * You can use method of navigation widget.
+ *
+ * - "create" - create navigation bar according to history array.
+ * - To create a naviagtion bar, an array containing history is required.
+ * And also, each value of the array is recommended to have identifiable value such as name.
+ * In the example below, the array is named as historyArraytoUse.
+ *
+ * - This widget only provides creation of navigation bar visually, not funtional navigation.
+ * So, it is required to implement the navigational function in application by using other
+ * method such as history.go() or something.
+ *
+ *		@examples
+ *		<script>
+ *			var navigation = document.getElementById("navigation"),
+ *			navigationBar = tau.widget.Navigation(navigation);
+ *
+ *			navigationBar.create(historyArraytoUse);
+ *		</script>
+ *
+ * @class ns.widget.mobile.Navigation
+ * @extends ns.widget.BaseWidget
+ * @author Maciej Moczulski <m.moczulsku@samsung.com>
+ * @author Hyunkook Cho <hk0713.cho@samsung.com>
+ * @author Hyeoncheol Choi <hc7.choi@samsung.com>
+ * @author Heeju Joo <heeju.joo@samsung.com>
+ * @author Maciej Urbanski <m.urbanski@samsung.com>
+ * @author Koeun Choi <koeun.choi@samsung.com>
+ * @author Piort Karny <p.karny@samsung.com>
+ * @author Krzysztof Antonszek <k.antonszek@samsung.com>
+ * @author Junhyeon Lee <juneh.lee@samsung.com>
+ */
+(function (document, ns) {
+	
+				var BaseWidget = ns.widget.mobile.BaseWidgetMobile,
+				engine = ns.engine,
+				selectors = ns.util.selectors,
+				events = ns.event,
+				Navigation = function () {
+					var self = this;
+
+					self._navigateTrigger = null;
+					self._ui = {
+						container: null
+					};
+					self._barLength = null;
+				},
+				/**
+				 * Dictionary object containing commonly used widget classes
+				 * @property {Object} classes
+				 * @static
+				 * @member ns.widget.mobile.Navigation
+				 */
+				classes = {
+					header : "ui-header",
+					titleNavigation : "ui-title-navigation",
+					navigation: "ui-navigation",
+					navigationUl : "ui-navigation-ul",
+					navigationLi : "ui-navigation-li",
+					navigationLiPress : "ui-navigation-li-press"
+				},
+				prototype = new BaseWidget();
+
+			Navigation.prototype = prototype;
+			Navigation.classes = classes;
+
+			/**
+			 * Navigation navigateTrigger function
+			 * @method navigateTrigger
+			 * @private
+			 * @static
+			 * @param {ns.widget.mobile.Navigation} self
+			 * @param {event} event
+			 * @member ns.widget.mobile.Navigation
+			 */
+			function navigateTrigger(self, event) {
+				var target = event.target,
+					selectedIndex = target.selectedIndex;
+
+				if(target.nodeName === "LI"){
+					//not to trigger event on the last li click
+					if (selectedIndex + 1 !== self._barLength) {
+						events.trigger(target, "navigate", selectedIndex);
+					}
+				}
+			};
+
+			/**
+			 * Initiate making navigation bar
+			 * @method create
+			 * @param {Array} navigationHistory
+			 * @public
+			 * @member ns.widget.mobile.Navigation
+			 */
+			prototype.create = function (navigationHistory) {
+				if (!document.querySelector("." + classes.navigationUl + " > *:first-child")) {
+					this._make(navigationHistory);
+				} else {
+					ns.warn("Navigation Bar should be created only once.");
+				}
+			};
+
+			/**
+			 * Make history array to navigation bar and add event
+			 * @method _make
+			 * @param {Array} navigationHistory
+			 * @protected
+			 * @member ns.widget.mobile.Navigation
+			 */
+			prototype._make = function (navigationHistory) {
+				var self = this,
+					container = self._ui.container,
+					element = self.element,
+					docFrag = document.createDocumentFragment(),
+					barLength = navigationHistory.length,
+					i,
+					list,
+					arrow;
+
+				for (i = 0; i < barLength; i++) {
+					list = document.createElement("li");
+					list.className = classes.navigationLi;
+					list.selectedIndex = i;
+					list.innerHTML = navigationHistory[i].pageId;
+
+					docFrag.appendChild(list);
+				};
+				self._barLength = barLength;
+
+				container.appendChild(docFrag);
+
+				container.style.width = container.offsetWidth + "px";
+				element.scrollLeft = element.scrollWidth;
+			};
+
+			/**
+			 * Build structure of Navigation widget
+			 * @method _build
+			 * @param {HTMLElement} element
+			 * @protected
+			 * @member ns.widget.mobile.Navigation
+			 */
+			prototype._build = function (element) {
+				var header,
+					container;
+
+				header = selectors.getParentsByClass(element, classes.header)[0];
+				container = document.createElement("ul");
+
+				header.classList.add(classes.titleNavigation);
+				element.className = classes.navigation;
+				container.className = classes.navigationUl;
+
+				element.appendChild(container);
+				header.appendChild(element);
+			};
+
+			/**
+			 * Initiate Navigation widget
+			 * @method _init
+			 * @param {HTMLElement} element
+			 * @protected
+			 * @member ns.widget.mobile.Navigation
+			 */
+			prototype._init = function (element){
+				this._ui.container = selectors.getChildrenByClass(element, classes.navigationUl)[0];
+			};
+
+			/**
+			 * Bind events of Navigation widget
+			 * @method _bindEvents
+			 * @param {HTMLElement} element
+			 * @protected
+			 * @member ns.widget.mobile.Navigation
+			 */
+			prototype._bindEvents = function (element) {
+				var self = this;
+
+				self._navigateTrigger = navigateTrigger.bind(null, self);
+
+				element.addEventListener("vclick", self._navigateTrigger, false);
+			};
+
+			/**
+			 * Destroy Navigation widget
+			 * @method _destroy
+			 * @protected
+			 * @member ns.widget.mobile.Navigation
+			 */
+			prototype._destroy = function () {
+				element.removeEventListener("vclick", this._navigateTrigger, false);
+			};
+
+			ns.widget.mobile.Navigation = Navigation;
+			engine.defineWidget(
+				"Navigation",
+				"[data-role='navigation'], .ui-navigation",
+				[
+					"create"
+				],
+				Navigation,
+				"mobile"
+			);
+
 			}(window.document, ns));
 
 /*jslint plusplus: true, nomen: true */
@@ -44980,7 +45872,7 @@ window.Globalize = Globalize;
 
 				if (popup && selectors.matchesSelector(popup, '[data-role="popup"],.ui-popup')) {
 					linkElement = router.lastClickedLink;
-					linkId = linkElement.id;
+					linkId = linkElement && linkElement.id;
 					if (ns.activePopup) {
 						ns.activePopup.close();
 					}
@@ -45076,7 +45968,7 @@ window.Globalize = Globalize;
 					url = form.action || form.baseURI,
 					i;
 
-				event.preventDefault();
+				eventUtils.preventDefault(event);
 
 				for (i = 0; i < length; i++) {
 					options.data[elements[i].name] = elements[i].value;
@@ -45329,8 +46221,13 @@ window.Globalize = Globalize;
 
 					if (continuation) {
 						pageUrl = DOM.getNSData(toPage, "url");
+
 						if (!pageUrl) {
-							DOM.setNSData(toPage, "url", "#"+toPage.id);
+							pageUrl = "#" + toPage.id;
+							DOM.setNSData(toPage, "url", pageUrl);
+						}
+						else{
+							pageUrl = DOM.getNSData(toPage, "url");
 						}
 
 						pageUrl = DOM.getNSData(toPage, "url");
@@ -45367,7 +46264,7 @@ window.Globalize = Globalize;
 									DOM.getNSData(toPage, "transition"), "", pageUrl, pageRole);
 						}
 
-						settings.reverse = false;
+						settings.reverse = options && options.reverse || false;
 						settings.fromPage = settings.fromPage || self.activePage;
 						settings.toPage = toPage;
 
@@ -45457,7 +46354,7 @@ window.Globalize = Globalize;
 				document.addEventListener(events.HASH_CHANGE, self._hashChangeHandler,
 						false);
 				document.addEventListener(events.CLICK, self.linkClickHandler, false);
-				document.addEventListener(events.SUBMIT, self.submitHandler, true);
+				document.addEventListener(events.SUBMIT, self.submitHandler, false);
 			};
 
 			/**
@@ -45474,7 +46371,7 @@ window.Globalize = Globalize;
 				document.removeEventListener(events.HASH_CHANGE,
 						self._hashChangeHandler, false);
 				document.removeEventListener(events.CLICK, self.linkClickHandler, false);
-				document.removeEventListener(events.SUBMIT, self.submitHandler, true);
+				document.removeEventListener(events.SUBMIT, self.submitHandler, false);
 			};
 
 			/**
@@ -45505,6 +46402,30 @@ window.Globalize = Globalize;
 			 */
 			RouterPage.prototype.getFirstPage = function () {
 				return this.firstPage;
+			};
+
+			/**
+			 * Return widget of active Page
+			 * @return {ns.widget.mobile.Page}
+			 * @method getActivePage
+			 * @member ns.router.Router
+			 */
+			RouterPage.prototype.getActivePage = function () {
+				var page = this.getActivePageElement();
+				if (page) {
+					return engine.instanceWidget(page, "Page");
+				}
+				return null;
+			};
+
+			/**
+			 * Return active page element
+			 * @return {HTMLElement}
+			 * @method getActivePageElement
+			 * @member ns.router.Router
+			 */
+			RouterPage.prototype.getActivePageElement = function () {
+				return this.activePage;
 			};
 
 			ns.router.Page = RouterPage;
@@ -45677,8 +46598,8 @@ window.Globalize = Globalize;
 					connectionType,
 					self = this,
 					loader = self.getLoader(),
-					loaderProperties = ns.widget.mobile.Loader.properties,
-					firstPage = engine.getRouter().firstPage;
+					dataUrlHashMask = /(^#)|(\?.*)/g,
+					loaderProperties = ns.widget.mobile.Loader.properties;
 
 				settings = object.merge(loadPageDefaults, options || {});
 				settings.pageContainer = this.container;
@@ -45723,7 +46644,7 @@ window.Globalize = Globalize;
 				// injected by a developer, in which case it would be lacking a data-url
 				// attribute and in need of enhancement.
 				if (!page && (dataUrl && !path.isPath(dataUrl))) {
-					page = document.getElementById(dataUrl);
+					page = document.getElementById(dataUrl.replace(dataUrlHashMask, ""));
 					if (page) {
 						// The page can be in our DOM, but its current url can be different than
 						// target page, so we are checking if the page uri matches desired location.
@@ -45765,7 +46686,9 @@ window.Globalize = Globalize;
 				if (page) {
 					if (!settings.reloadPage) {
 						DOM.setNSData(page, "url", dataUrl);
-						parentOpen.call(this, page, settings);
+						// NOTE: this line causes problem with double page changing
+						// by triggering event "pageshow"
+						//parentOpen.call(this, page, settings);
 						deferred.resolve(absUrl, settings, page);
 						//if we are reloading the page make sure we update the base if its not a prefetch
 
@@ -45811,6 +46734,7 @@ window.Globalize = Globalize;
 				if ((ns.getConfig("allowCrossDomainPages") || path.isSameDomain(documentUrl, absUrl))) {
 					// Load the new page.
 					request = new XMLHttpRequest();
+					request.open(settings.type || "GET", fileUrl, true);
 					request.responseType = "document";
 					request.onreadystatechange = function () {
 						var status,
@@ -45969,7 +46893,6 @@ window.Globalize = Globalize;
 							}
 						} // if end
 					};
-					request.open(settings.type || "GET", fileUrl, true);
 					request.send(settings.data);
 				} else {
 					deferred.reject(absUrl, settings);
@@ -46090,6 +47013,7 @@ window.Globalize = Globalize;
 				UtilsDeferred = util.deferred,
 				engine = ns.engine,
 				maxTransitionWidth = false,
+				lastTransition,
 				/**
 				 * Returns max scroll amount
 				 * @return {number}
@@ -46190,6 +47114,9 @@ window.Globalize = Globalize;
 							doneIn = function () {
 								to.removeEventListener("animationend", doneIn, false);
 								to.removeEventListener("webkitAnimationEnd", doneIn, false);
+								to.removeEventListener("mozAnimationEnd", doneIn, false);
+								to.removeEventListener("msAnimationEnd", doneIn, false);
+								to.removeEventListener("oAnimationEnd", doneIn, false);
 								if (!sequential) {
 									if (from) {
 										cleanFrom();
@@ -46239,6 +47166,9 @@ window.Globalize = Globalize;
 								if (!none) {
 									to.addEventListener("animationend", doneIn, false);
 									to.addEventListener("webkitAnimationEnd", doneIn, false);
+									to.addEventListener("mozAnimationEnd", doneIn, false);
+									to.addEventListener("msAnimationEnd", doneIn, false);
+									to.addEventListener("oAnimationEnd", doneIn, false);
 								}
 
 								toClassList.remove(toPreClass);
@@ -46257,6 +47187,9 @@ window.Globalize = Globalize;
 								if (from && sequential) {
 									from.removeEventListener("animationend", doneOut, false);
 									from.removeEventListener("webkitAnimationEnd", doneOut, false);
+									from.removeEventListener("mozAnimationEnd", doneOut, false);
+									from.removeEventListener("msAnimationEnd", doneOut, false);
+									from.removeEventListener("oAnimationEnd", doneOut, false);
 									cleanFrom();
 								}
 								startIn();
@@ -46267,6 +47200,9 @@ window.Globalize = Globalize;
 								if (sequential) {
 									from.addEventListener("animationend", doneOut, false);
 									from.addEventListener("webkitAnimationEnd", doneOut, false);
+									from.addEventListener("mozAnimationEnd", doneOut, false);
+									from.addEventListener("msAnimationEnd", doneOut, false);
+									from.addEventListener("oAnimationEnd", doneOut, false);
 								} else {
 									doneOut();
 								}
@@ -46408,21 +47344,27 @@ window.Globalize = Globalize;
 					return;
 				}
 
-				transitionPages(toPage, fromPage, settings.transition, settings.reverse)
-					.done(function (name, reverse, toPage, fromPage) {
-						var duplicateCachedPage = settings.duplicateCachedPage;
-						removeActiveLinkClass();
+				if (lastTransition) {
+					return;
+				}
 
-						//if there's a duplicateCachedPage, remove it from the DOM now that it's
-						//hidden
-						if (duplicateCachedPage instanceof HTMLElement) {
-							duplicateCachedPage.parentNode.removeChild(duplicateCachedPage);
-						}
+				lastTransition = transitionPages(toPage, fromPage, settings.transition, settings.reverse);
 
-						releasePageTransitionLock(router);
-						router.changePageFinish(fromPage, toPage);
-						isPageTransitioning = false;
-					});
+				lastTransition.done(function (name, reverse, toPage, fromPage) {
+					var duplicateCachedPage = settings.duplicateCachedPage;
+					removeActiveLinkClass();
+
+					//if there's a duplicateCachedPage, remove it from the DOM now that it's
+					//hidden
+					if (duplicateCachedPage instanceof HTMLElement) {
+						duplicateCachedPage.parentNode.removeChild(duplicateCachedPage);
+					}
+
+					releasePageTransitionLock(router);
+					isPageTransitioning = false;
+					lastTransition = null;
+					router.changePageFinish(fromPage, toPage);
+				});
 			};
 
 			/**
@@ -46545,9 +47487,22 @@ window.Globalize = Globalize;
 			 */
 			ns.closePopup = function () {
 				var activePopup = ns.activePopup;
-				if(activePopup) {
+				if (activePopup) {
 					activePopup.close();
 				}
+			};
+
+			/**
+			 * Returns active page element
+			 * @inheritdoc ns.router.Router#getActivePageElement
+			 * @method getActivePage
+			 * @member tau
+			 */
+			ns.getActivePage = function() {
+				if (router) {
+					return router.getActivePageElement();
+				}
+				return null;
 			};
 
 			document.addEventListener("routerinit", function () {
@@ -47104,7 +48059,7 @@ window.Globalize = Globalize;
  * @seeMore layout.htm Application Page Layout
  */
 ;
-/*global define */
+/*global define, ns */
 /**
  * #Tizen Advanced UI Framework
  *
@@ -47135,5 +48090,6 @@ window.Globalize = Globalize;
  * @class ns
  * @title Tizen Advanced UI Framework
  */
-
+			ns.info.profile = "mobile";
+			
 }(window, window.document));

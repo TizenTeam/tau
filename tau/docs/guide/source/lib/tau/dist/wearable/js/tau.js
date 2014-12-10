@@ -10,7 +10,7 @@ var ns = window.tau = {},
 nsConfig = window.tauConfig = window.tauConfig || {};
 nsConfig.rootNamespace = 'tau';
 nsConfig.fileName = 'tau';
-ns.version = '0.9.26';
+ns.version = '0.9.32';
 /*global window, console, define, ns, nsConfig */
 /*jslint plusplus:true */
 /* 
@@ -160,71 +160,6 @@ ns.version = '0.9.26';
 
 		}(window.document, ns, nsConfig));
 
-/*global window, define*/
-/*jslint bitwise: true */
-/* 
- * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
- * License : MIT License V2
- */
-/*
- * @author Maciej Urbanski <m.urbanski@samsung.com>
- * @author Piotr Karny <p.karny@samsung.com>
- */
-(function (ns) {
-	
-	
-			// Default configuration properties
-			ns.setConfig('rootDir', ns.getFrameworkPath(), true);
-			ns.setConfig('version', '');
-			ns.setConfig('allowCrossDomainPages', false, true);
-			ns.setConfig('domCache', false, true);
-			// .. other possible options
-			// ns.setConfig('autoBuildOnPageChange', true);
-			// ns.setConfig('autoInitializePage', true);
-			// ns.setConfig('container', document.body); // for defining application container
-			// ns.setConfig('pageContainer', document.body); // same as above, but for wearable version
-
-			}(ns));
-
-/*global window, define*/
-/* Copyright  2010 - 2014 Samsung Electronics Co., Ltd.
- * License : MIT License V2
- */
-/*jslint bitwise: true */
-/*
- * @author Piotr Karny <p.karny@samsung.com>
- */
-(function (ns) {
-	
-	
-			// Default configuration properties for wearable
-			ns.setConfig('autoBuildOnPageChange', false, true);
-			ns.setConfig('popupTransition', 'slideup');
-			// .. other possible options
-			// ns.setConfig('autoInitializePage', true);
-			// ns.setConfig('pageContainer', document.body); // defining application container for wearable
-
-			}(ns));
-
-/*global window, define, ns*/
-/* Copyright  2010 - 2014 Samsung Electronics Co., Ltd.
- * License : MIT License V2
- */
-/*jslint bitwise: true */
-/**
- * #Selectors
- * Object contains selectors used in widgets.
- *
- * @class ns.wearable.selectors
- * @author Maciej Urbanski <m.urbanski@samsung.com>
- */
-(function (ns) {
-	
-			var wearable = ns.wearable || {};
-			wearable.selectors = {};
-			ns.wearable = wearable;
-			}(ns));
-
 /*global window, define, ns */
 /* Copyright  2010 - 2014 Samsung Electronics Co., Ltd.
  * License : MIT License V2
@@ -279,6 +214,52 @@ ns.version = '0.9.26';
 
 			}(ns));
 
+/*global window, define*/
+/*jslint bitwise: true */
+/* 
+ * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
+ * License : MIT License V2
+ */
+/*
+ * @author Maciej Urbanski <m.urbanski@samsung.com>
+ * @author Piotr Karny <p.karny@samsung.com>
+ */
+(function (ns) {
+	
+	
+			// Default configuration properties
+			ns.setConfig('rootDir', ns.getFrameworkPath(), true);
+			ns.setConfig('version', '');
+			ns.setConfig('allowCrossDomainPages', false, true);
+			ns.setConfig('domCache', false, true);
+			// .. other possible options
+			// ns.setConfig('autoBuildOnPageChange', true);
+			// ns.setConfig('autoInitializePage', true);
+			// ns.setConfig('container', document.body); // for defining application container
+			// ns.setConfig('pageContainer', document.body); // same as above, but for wearable version
+
+			}(ns));
+
+/*global window, define*/
+/* Copyright  2010 - 2014 Samsung Electronics Co., Ltd.
+ * License : MIT License V2
+ */
+/*jslint bitwise: true */
+/*
+ * @author Piotr Karny <p.karny@samsung.com>
+ */
+(function (ns) {
+	
+	
+			// Default configuration properties for wearable
+			ns.setConfig('autoBuildOnPageChange', false, true);
+			ns.setConfig('popupTransition', 'slideup');
+			// .. other possible options
+			// ns.setConfig('autoInitializePage', true);
+			// ns.setConfig('pageContainer', document.body); // defining application container for wearable
+
+			}(ns));
+
 /*global window, define, XMLHttpRequest, console, Blob */
 /*jslint nomen: true, browser: true, plusplus: true */
 /* 
@@ -311,6 +292,7 @@ ns.version = '0.9.26';
 					window.webkitRequestAnimationFrame ||
 					window.mozRequestAnimationFrame ||
 					window.oRequestAnimationFrame ||
+					window.msRequestAnimationFrame ||
 					function (callback) {
 						currentFrame = window.setTimeout(callback.bind(callback, +new Date()), 1000 / 60);
 					}).bind(window),
@@ -456,6 +438,7 @@ ns.version = '0.9.26';
 					window.webkitCancelAnimationFrame ||
 					window.mozCancelAnimationFrame ||
 					window.oCancelAnimationFrame ||
+					window.msCancelAnimationFrame ||
 					function () {
 						// propably wont work if there is any more than 1
 						// active animationFrame but we are trying anyway
@@ -1033,6 +1016,75 @@ ns.version = '0.9.26';
 
 			}(window, ns));
 
+/*global window, ns, define */
+/* 
+ * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
+ * License : MIT License V2
+ */
+/**
+ * #Info
+ *
+ * Various TAU information
+ * @class ns.info
+ */
+(function (window, document, ns) {
+	
+				/**
+			 * @property {Object} info
+			 * @property {string} [info.profile="default"] Current runtime profile
+			 * @property {string} [info.theme="default"] Current runtime theme
+			 * @property {string} info.version Current runtime version
+			 * @member ns.info
+			 * @static
+			 */
+			var eventUtils = ns.event,
+				info = {
+					profile: "default",
+					theme: "default",
+					version: ns.version,
+
+					/**
+					 * Refreshes information about runtime
+					 * @method refreshTheme
+					 * @param {Function} done Callback run when the theme is discovered
+					 * @member ns.info
+					 * @return {null|String}
+					 * @static
+					 */
+					refreshTheme: function (done) {
+						var el = document.createElement("span"),
+							parent = document.body,
+							themeName = null;
+
+						if (document.readyState !== "interactive" && document.readyState !== "complete") {
+							eventUtils.fastOn(document, "DOMContentLoaded", this.refreshTheme.bind(this, done));
+							return null;
+						}
+						el.classList.add("tau-info-theme");
+
+						parent.appendChild(el);
+						themeName = window.getComputedStyle(el, ":after").content;
+						parent.removeChild(el);
+
+						if (themeName && themeName.length > 0) {
+							this.theme = themeName;
+						}
+
+						themeName = themeName || null;
+
+						if (done) {
+							done(themeName);
+						}
+
+						return themeName;
+					}
+				};
+
+			info.refreshTheme();
+
+			ns.info = info;
+			}(window, window.document, ns));
+
 /*global define: true, window: true */
 /* 
  * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
@@ -1535,6 +1587,27 @@ ns.version = '0.9.26';
 					}
 
 					return true;
+				},
+
+				/**
+				 * Remove properties from object.
+				 * @method removeProperties
+				 * @param {Object} object
+				 * @param {Array} propertiesToRemove
+				 * @return {Object}
+				 */
+				removeProperties: function (object, propertiesToRemove) {
+					var length = propertiesToRemove.length,
+						property,
+						i;
+
+					for (i = 0; i < length; i++) {
+						property = propertiesToRemove[i];
+						if (object.hasOwnProperty(property)) {
+							delete object[property];
+						}
+					}
+					return object;
 				}
 			};
 			ns.util.object = object;
@@ -1866,6 +1939,7 @@ ns.version = '0.9.26';
 				element.removeAttribute(DATA_BOUND);
 				element.removeAttribute(DATA_NAME);
 			}
+
 			/**
 			 * Remove binding data attributes for element.
 			 * @method _removeBindingAttributes
@@ -4024,13 +4098,15 @@ ns.version = '0.9.26';
 					getAllInstances: engine.getAllBindings
 				};
 
+			function widgetConstructor(name, element, options) {
+				return engine.instanceWidget(element, name, options);
+			}
+
 			document.addEventListener(engine.eventType.WIDGET_DEFINED, function (evt) {
 				var definition = evt.detail,
 					name = definition.name;
 
-				 ns.widget[name] = function (element, options) {
-					 return engine.instanceWidget(element, name, options);
-				 };
+				 ns.widget[name] = widgetConstructor.bind(null, name);
 
 			}, true);
 
@@ -4459,6 +4535,82 @@ ns.version = '0.9.26';
 			};
 
 			/**
+			 * Focus widget's element.
+			 *
+			 * This function calls function focus on element and if it is known
+			 * the direction of event, the proper css classes are added/removed.
+			 * @method focus
+			 * @param {object} options The options of event.
+			 * @param {"up"|"down"|"left"|"right"} direction
+			 * For example, if this parameter has value "down", it means that the movement
+			 * comes from the top (eg. down arrow was pressed on keyboard).
+			 * @param {HTMLElement} previousElement Element to blur
+			 * @member ns.widget.BaseWidget
+			 */
+			prototype.focus = function (options) {
+				var self = this,
+					element = self.element,
+					blurElement,
+					blurWidget;
+
+				options = options || {};
+
+				if (self.isDisabled()) {
+					// widget is disabled, so we cannot set focus
+					return false;
+				}
+
+				blurElement = options.previousElement;
+				// we try to blur element, which has focus previously
+				if (blurElement) {
+					blurWidget = engine.getBinding(blurElement);
+					// call blur function on widget
+					if (blurWidget) {
+						options = objectUtils.merge({}, options, {element: blurElement});
+						blurWidget.blur(options);
+					} else {
+						// or on element, if widget does not exist
+						blurElement.blur();
+					}
+				}
+
+				options = objectUtils.merge({}, options, {element: element});
+
+				// set focus on element
+				eventUtils.trigger(document, "taufocus", options);
+				element.focus();
+
+				return true;
+			};
+
+			/**
+			 * Blur widget's element.
+			 *
+			 * This function calls function blur on element and if it is known
+			 * the direction of event, the proper css classes are added/removed.
+			 * @method blur
+			 * @param {object} options The options of event.
+			 * @param {"up"|"down"|"left"|"right"} direction
+			 * @member ns.widget.BaseWidget
+			 */
+			prototype.blur = function (options) {
+				var self = this,
+					element = self.element;
+
+				if (self.isDisabled()) {
+					// widget is disabled, so we cannot blur it
+					return false;
+				}
+
+				options = objectUtils.merge({}, options, {element: element});
+
+				// blur element
+				eventUtils.trigger(document, "taublur", options);
+				element.blur();
+				return true;
+			};
+
+			/**
 			 * Protected method destroying the widget
 			 * @method _destroy
 			 * @template
@@ -4508,14 +4660,24 @@ ns.version = '0.9.26';
 			 */
 			prototype.disable = function () {
 				var self = this,
-					element = self.element,
 					args = slice.call(arguments);
 
 				if (typeof self._disable === TYPE_FUNCTION) {
-					args.unshift(element);
+					args.unshift(self.element);
 					self._disable.apply(self, args);
 				}
 				return this;
+			};
+
+			/**
+			 * Check if widget is disabled.
+			 * @method isDisabled
+			 * @member ns.widget.BaseWidget
+			 * @return {boolean} Returns true if widget is disabled
+			 */
+			prototype.isDisabled = function () {
+				var self = this;
+				return self.element.getAttribute("disabled") || self.options.disabled === true;
 			};
 
 			/**
@@ -4535,11 +4697,10 @@ ns.version = '0.9.26';
 			 */
 			prototype.enable = function () {
 				var self = this,
-					element = self.element,
 					args = slice.call(arguments);
 
 				if (typeof self._enable === TYPE_FUNCTION) {
-					args.unshift(element);
+					args.unshift(self.element);
 					self._enable.apply(self, args);
 				}
 				return this;
@@ -4839,6 +5000,13 @@ ns.version = '0.9.26';
 				 * @private
 				 */
 				utilSelector = ns.util.selectors,
+				/**
+				 * Alias for class ns.event
+				 * @property {Object} eventUtils
+				 * @member ns.widget.core.Popup
+				 * @private
+				 */
+				eventUtils = ns.event,
 
 				Popup = function () {
 					var self = this,
@@ -4846,6 +5014,8 @@ ns.version = '0.9.26';
 
 					self.selectors = selectors;
 					self.options = objectUtils.merge({}, Popup.defaults);
+					self.storedOptions = null;
+
 					/**
 					 * Popup state flag
 					 * @property {0|1|2|3} [state=null]
@@ -4873,7 +5043,8 @@ ns.version = '0.9.26';
 				 * @property {boolean} [options.overlay=true] Sets whether to show overlay when a popup is open.
 				 * @property {boolean|string} [options.header=false] Sets content of header.
 				 * @property {boolean|string} [options.footer=false] Sets content of footer.
-				 * @property {string} [overlayClass=""] Sets the custom class for the popup background, which covers the entire window.
+				 * @property {string} [options.overlayClass=""] Sets the custom class for the popup background, which covers the entire window.
+				 * @property {string} [options.closeLinkSelector="a[data-rel='back']"] Sets selector for close buttons in popup.
 				 * @property {boolean} [options.history=true] Sets whether to alter the url when a popup is open to support the back button.
 				 * @member ns.widget.core.Popup
 				 * @static
@@ -4885,6 +5056,7 @@ ns.version = '0.9.26';
 					header: false,
 					footer: false,
 					overlayClass: "",
+					closeLinkSelector: "[data-rel='back']",
 					history: true
 				},
 				states = {
@@ -5231,10 +5403,12 @@ ns.version = '0.9.26';
 			 * @member ns.widget.core.Popup
 			 */
 			prototype._bindEvents = function (element) {
-				var self = this;
+				var self = this,
+					closeButtons = self.element.querySelectorAll(self.options.closeLinkSelector);
 
 				self._ui.page.addEventListener("pagebeforehide", self, false);
 				window.addEventListener("resize", self, false);
+				eventUtils.on(closeButtons, "click", self, false);
 				self._bindOverlayEvents();
 			};
 
@@ -5272,9 +5446,12 @@ ns.version = '0.9.26';
 			 * @member ns.widget.core.Popup
 			 */
 			prototype._unbindEvents = function (element) {
-				var self = this;
+				var self = this,
+					closeButtons = self.element.querySelectorAll(self.options.closeLinkSelector);
+
 				self._ui.page.removeEventListener("pagebeforehide", self, false);
 				window.removeEventListener("resize", self, false);
+				eventUtils.off(closeButtons, "click", self, false);
 				self._unbindOverlayEvents();
 			};
 
@@ -5287,8 +5464,18 @@ ns.version = '0.9.26';
 			 */
 			prototype.open = function (options) {
 				var self = this,
-					newOptions = objectUtils.merge(self.options, options);
+					newOptions;
+
 				if (!self._isActive()) {
+					/*
+					 * Some passed options on open need to be kept until popup closing.
+					 * For example, trasition parameter should be kept for closing animation.
+					 * On the other hand, fromHashChange or x, y parameter should be removed.
+					 * We store options and restore them on popup closing.
+					 */
+					self._storeOpenOptions(options);
+
+					newOptions = objectUtils.merge(self.options, options);
 					if (!newOptions.dismissible) {
 						engine.getRouter().lock();
 					}
@@ -5313,6 +5500,45 @@ ns.version = '0.9.26';
 					}
 					self._hide(newOptions);
 				}
+			};
+
+			/**
+			 * Store Open options.
+			 * @method _storeOpenOptions
+			 * @param {object} options
+			 * @protected
+			 * @member ns.widget.core.Popup
+			 */
+			prototype._storeOpenOptions = function (options) {
+				var self = this,
+					oldOptions = self.options,
+					storedOptions = {},
+					val;
+
+				for (key in options) {
+					if (options.hasOwnProperty(key)) {
+						storedOptions[key] = oldOptions[key];
+					}
+				}
+
+				self.storedOptions = storedOptions;
+			};
+
+			/**
+			 * Restore Open options and remove some unnecessary ones.
+			 * @method _storeOpenOptions
+			 * @protected
+			 * @member ns.widget.core.Popup
+			 */
+			prototype._restoreOpenOptions = function () {
+				var self = this
+					options = self.options,
+					propertiesToRemove = ["x", "y", "fromHashChange"];
+
+				// we restore opening values of all options
+				options = objectUtils.merge(options, self.storedOptions);
+				// and remove all values which should not be stored
+				objectUtils.removeProperties(options, propertiesToRemove);
 			};
 
 			/**
@@ -5362,7 +5588,8 @@ ns.version = '0.9.26';
 			 */
 			prototype._hide = function (options) {
 				var self = this,
-					isOpened = self._isOpened();
+					isOpened = self._isOpened(),
+					callbacks = self._callbacks;
 
 				// change state of popup
 				self.state = states.DURING_CLOSING;
@@ -5376,8 +5603,12 @@ ns.version = '0.9.26';
 				} else {
 					// popup is active, but not opened yet (DURING_OPENING), so
 					// we stop opening animation
-					self._callbacks.transitionDeferred.reject();
-					self._callbacks.animationEnd();
+					if (callbacks.transitionDeferred) {
+						callbacks.transitionDeferred.reject();
+					}
+					if (callbacks.animationEnd) {
+						callbacks.animationEnd();
+					}
 					// and set popup as inactive
 					self._onHide();
 				}
@@ -5396,6 +5627,7 @@ ns.version = '0.9.26';
 					overlay.style.display = "";
 				}
 				self._setActive(false);
+				self._restoreOpenOptions();
 				self.trigger(events.hide);
 			};
 
@@ -5417,6 +5649,10 @@ ns.version = '0.9.26';
 					case "click":
 						if ( event.target === self._ui.overlay ) {
 							self._onClickOverlay(event);
+						} else if (utilSelector.getClosestBySelector(event.target, self.options.closeLinkSelector)) {
+							self.close();
+							event.preventDefault();
+							event.stopPropagation();
 						}
 						break;
 				}
@@ -5474,6 +5710,9 @@ ns.version = '0.9.26';
 				// remove callbacks on animation events
 				element.removeEventListener("animationend", animationEndCallback, false);
 				element.removeEventListener("webkitAnimationEnd", animationEndCallback, false);
+				element.removeEventListener("mozAnimationEnd", animationEndCallback, false);
+				element.removeEventListener("oAnimationEnd", animationEndCallback, false);
+				element.removeEventListener("msAnimationEnd", animationEndCallback, false);
 
 				// clear classes
 				transitionClass.split(" ").forEach(function (currentClass) {
@@ -5533,6 +5772,9 @@ ns.version = '0.9.26';
 					// add animation callbacks
 					element.addEventListener("animationend", animationEndCallback, false);
 					element.addEventListener("webkitAnimationEnd", animationEndCallback, false);
+					element.addEventListener("mozAnimationEnd", animationEndCallback, false);
+					element.addEventListener("oAnimationEnd", animationEndCallback, false);
+					element.addEventListener("msAnimationEnd", animationEndCallback, false);
 					// add transition classes
 					transitionClass.split(" ").forEach(function (currentClass) {
 						currentClass = currentClass.trim();
@@ -5938,7 +6180,8 @@ ns.version = '0.9.26';
 
 				positionType = {
 					WINDOW: "window",
-					ORIGIN: "origin"
+					ORIGIN: "origin",
+					ABSOLUTE: "absolute"
 				},
 
 				prototype = new Popup();
@@ -6239,6 +6482,26 @@ ns.version = '0.9.26';
 			};
 
 			/**
+			 * Set top, left and margin for popup's container.
+			 * @method _placementCoordsAbsolute
+			 * @param {HTMLElement} element
+			 * @param {number} x
+			 * @param {number} y
+			 * @protected
+			 * @member ns.widget.core.ContextPopup
+			 */
+			prototype._placementCoordsAbsolute = function(element, x, y) {
+				var elementStyle = element.style,
+					elementWidth = element.offsetWidth,
+					elementHeight = element.offsetHeight;
+
+				elementStyle.top = y + "px";
+				elementStyle.left = x + "px";
+				elementStyle.marginTop = -(elementHeight / 2) + "px";
+				elementStyle.marginLeft = -(elementWidth / 2) + "px";
+			};
+
+			/**
 			 * Find clicked element.
 			 * @method _findClickedElement
 			 * @param {number} x
@@ -6308,17 +6571,18 @@ ns.version = '0.9.26';
 					emulatedPosition,
 					elementHeight,
 					clickedElement,
+					arrowType,
 					bestRectangle;
 
 				if (typeof positionTo === "string") {
 					if (positionTo === positionType.ORIGIN && typeof x === "number" && typeof y === "number") {
 						clickedElement = self._findClickedElement(x, y);
-					} else if (positionTo !== positionType.WINDOW) {
+					} else if (positionTo !== positionType.WINDOW && positionTo !== positionType.ABSOLUTE ) {
 						try {
 							clickedElement = document.querySelector(options.positionTo);
 						} catch(e) {}
 					}
-				} else {
+				} else if (typeof positionTo === "object") {
 					clickedElement = positionTo;
 				}
 
@@ -6329,12 +6593,14 @@ ns.version = '0.9.26';
 					elementHeight = element.offsetHeight;
 					bestRectangle = findBestPosition(self, clickedElement);
 
-					elementClassList.add(classes.arrowDir + bestRectangle.dir);
+					arrowType = bestRectangle.dir;
+					elementClassList.add(classes.arrowDir + arrowType);
+					self._ui.arrow.setAttribute("type", arrowType);
 
 					if (typeof x !== "number" && typeof y !== "number") {
 						// if we found element, which was clicked, but the coordinates of event
 						// was not available, we have to count these coordinates to the center of proper edge of element.
-						emulatedPosition = emulatePositionOfClick(bestRectangle.dir, clickedElement);
+						emulatedPosition = emulatePositionOfClick(arrowType, clickedElement);
 						x = emulatedPosition.x;
 						y = emulatedPosition.y;
 					}
@@ -6347,6 +6613,8 @@ ns.version = '0.9.26';
 					elementStyle.left = bestRectangle.x + "px";
 					elementStyle.top = bestRectangle.y + "px";
 
+				} else if (positionTo === positionType.ABSOLUTE && typeof x === "number" && typeof y === "number") {
+					self._placementCoordsAbsolute(element, x, y);
 				} else {
 					self._placementCoordsWindow(element);
 				}
@@ -6404,16 +6672,17 @@ ns.version = '0.9.26';
 					content = ui.content,
 					arrow = ui.arrow;
 
-				PopupPrototype._onHide.call(self);
-
 				elementClassList.remove(classes.context);
 				["l", "r", "b", "t"].forEach(function(key) {
 					elementClassList.remove(classes.arrowDir + key);
 				});
 
+				// we remove styles for element, which are changed
+				// styles for container, header and footer are left unchanged
 				element.removeAttribute("style");
-				content.removeAttribute("style");
 				arrow.removeAttribute("style");
+
+				PopupPrototype._onHide.call(self);
 			};
 
 			/**
@@ -6426,15 +6695,28 @@ ns.version = '0.9.26';
 				var self = this,
 					element = self.element,
 					ui = self._ui,
-					wrapper = ui.wrapper;
+					wrapper = ui.wrapper,
+					arrow = ui.arrow,
+					child;
 
 				PopupPrototype._destroy.call(self);
 
-				[].forEach.call(wrapper.children, function(child) {
-					element.appendChild(child);
-				});
+				if (wrapper) {
+					// restore all children from wrapper
+					child = wrapper.firstChild;
+					while (child) {
+						element.appendChild(child);
+						child = wrapper.firstChild;
+					}
 
-				wrapper.parentNode.removeChild(wrapper);
+					if (wrapper.parentNode) {
+						wrapper.parentNode.removeChild(wrapper);
+					}
+				}
+
+				if (arrow && arrow.parentNode) {
+					arrow.parentNode.removeChild(arrow);
+				}
 
 				ui.wrapper = null;
 				ui.arrow = null;
@@ -6466,24 +6748,25 @@ ns.version = '0.9.26';
 				}
 			};
 
+			/**
+			 * Refresh structure
+			 * @method _refresh
+			 * @protected
+			 * @member ns.widget.core.ContextPopup
+			 */
+			prototype._refresh = function() {
+				if (this._isActive()) {
+					PopupPrototype._refresh.call(this);
+					this.reposition(this.options);
+				}
+			};
+
 			ContextPopup.prototype = prototype;
 			ns.widget.core.ContextPopup = ContextPopup;
 
 			engine.defineWidget(
-				"popup",
-				"[data-role='popup'], .ui-popup",
-				[
-					"open",
-					"close",
-					"reposition"
-				],
-				ContextPopup,
-				"core"
-			);
-
-			engine.defineWidget(
 				"Popup",
-				"",
+				"[data-role='popup'], .ui-popup",
 				[
 					"open",
 					"close",
@@ -6493,6 +6776,10 @@ ns.version = '0.9.26';
 				"core",
 				true
 			);
+
+			// @remove
+			// THIS IS ONLY FOR COMPATIBILITY
+			ns.widget.popup = ns.widget.Popup;
 
 			}(window, window.document, ns));
 
@@ -7157,14 +7444,6 @@ ns.version = '0.9.26';
 			 */
 			var BaseWidget = ns.widget.BaseWidget,
 				/**
-				 * Alias for {@link ns.wearable.selectors}
-				 * @property {Object} selectors
-				 * @member ns.widget.wearable.Page
-				 * @private
-				 * @static
-				 */
-				selectors = ns.wearable.selectors,
-				/**
 				 * Alias for {@link ns.util}
 				 * @property {Object} util
 				 * @member ns.widget.wearable.Page
@@ -7277,49 +7556,6 @@ ns.version = '0.9.26';
 
 			Page.classes = classes;
 			Page.events = EventType;
-
-			/**
-			 * Selector for page element
-			 * @property {string} [page=".ui-page"]
-			 * @member ns.wearable.selectors
-			 */
-			selectors.page = "." + classes.uiPage;
-			/**
-			 * Selector for active page element
-			 * @property {string} [activePage=".ui-page-active"]
-			 * @member ns.wearable.selectors
-			 */
-			selectors.activePage = "." + classes.uiPageActive;
-			/**
-			 * Selector for section element
-			 * @property {string} [section=".ui-section"]
-			 * @member ns.wearable.selectors
-			 */
-			selectors.section = "." + classes.uiSection;
-			/**
-			 * Selector for header element
-			 * @property {string} [header=".ui-header"]
-			 * @member ns.wearable.selectors
-			 */
-			selectors.header = "." + classes.uiHeader;
-			/**
-			 * Selector for footer element
-			 * @property {string} [footer=".ui-footer"]
-			 * @member ns.wearable.selectors
-			 */
-			selectors.footer = "." + classes.uiFooter;
-			/**
-			 * Selector for content element
-			 * @property {string} [content=".ui-content"]
-			 * @member ns.wearable.selectors
-			 */
-			selectors.content = "." + classes.uiContent;
-			/**
-			 * Selector for page scroll element
-			 * @property {string} [pageScroll=".ui-page-scroll"]
-			 * @member ns.wearable.selectors
-			 */
-			selectors.pageScroll = "." + classes.uiPageScroll;
 
 			/**
 			 * Sets top-bottom css attributes for content element
@@ -7560,6 +7796,9 @@ ns.version = '0.9.26';
 				},
 				animationend = "animationend",
 				webkitAnimationEnd = "webkitAnimationEnd",
+				mozAnimationEnd = "mozAnimationEnd",
+				msAnimationEnd = "msAnimationEnd",
+				oAnimationEnd = "oAnimationEnd",
 				prototype = new BaseWidget();
 
 			/**
@@ -7679,10 +7918,32 @@ ns.version = '0.9.26';
 
 				if (transition !== "none") {
 					oneEvent = function () {
-						eventUtils.off(toPageWidget.element, [animationend, webkitAnimationEnd], oneEvent, false);
+						eventUtils.off(
+							toPageWidget.element,
+							[
+								animationend,
+								webkitAnimationEnd,
+								mozAnimationEnd,
+								msAnimationEnd,
+								oAnimationEnd
+							],
+							oneEvent,
+							false
+						);
 						deferred.resolve();
 					};
-					eventUtils.one(toPageWidget.element, [animationend, webkitAnimationEnd], oneEvent, false);
+					eventUtils.one(
+						toPageWidget.element,
+						[
+							animationend,
+							webkitAnimationEnd,
+							mozAnimationEnd,
+							msAnimationEnd,
+							oAnimationEnd
+						],
+						oneEvent,
+						false
+					);
 
 					if (fromPageWidget) {
 						classParam = [];
@@ -7800,8 +8061,8 @@ ns.version = '0.9.26';
 /*global CustomEvent, define, window, ns */
 /*jslint plusplus: true, nomen: true, bitwise: true */
 /* Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
-* License : MIT License V2
-*/
+ * License : MIT License V2
+ */
 /**
  * #Virtual Mouse Events
  * Reimplementation of jQuery Mobile virtual mouse events.
@@ -7848,13 +8109,13 @@ ns.version = '0.9.26';
  */
 (function (window, document, ns) {
 	
-					/**
-				 * Object with default options
-				 * @property {Object} vmouse
-				 * @member ns.event.vmouse
-				 * @static
-				 * @private
-				 **/
+				/**
+			 * Object with default options
+			 * @property {Object} vmouse
+			 * @member ns.event.vmouse
+			 * @static
+			 * @private
+			 **/
 			var vmouse,
 				/**
 				 * @property {Object} eventProps Contains the properties which are copied from the original event to custom v-events
@@ -7877,6 +8138,11 @@ ns.version = '0.9.26';
 				 * @private
 				 **/
 				didScroll,
+				/** @property {HTMLElement} lastOver holds reference to last element that touch was over
+				 * @member ns.event.vmouse
+				 * @private
+				 */
+				lastOver = null,
 				/**
 				 * @property {Number} [startX=0] Initial data for touchstart event
 				 * @member ns.event.vmouse
@@ -7889,7 +8155,7 @@ ns.version = '0.9.26';
 				 * @member ns.event.vmouse
 				 * @private
 				 * @static
-				**/
+				 **/
 				startY = 0,
 				touchEventProps = ["clientX", "clientY", "pageX", "pageY", "screenX", "screenY"],
 				KEY_CODES = {
@@ -7977,7 +8243,7 @@ ns.version = '0.9.26';
 			 * @method fireEvent
 			 * @param {string} eventName event name
 			 * @param {Event} evt original event
-			 * @param {Object} properties Sets the special properties for position
+			 * @param {Object} [properties] Sets the special properties for position
 			 * @return {boolean}
 			 * @private
 			 * @static
@@ -8116,14 +8382,22 @@ ns.version = '0.9.26';
 			 */
 			function handleTouchStart(evt) {
 				var touches = evt.touches,
-					firstTouch;
+					firstTouch,
+					over;
 				//if touches are registered and we have only one touch
 				if (touches && touches.length === 1) {
 					didScroll = false;
 					firstTouch = touches[0];
 					startX = firstTouch.pageX;
 					startY = firstTouch.pageY;
-					fireEvent("vmouseover", evt);
+
+					// Check if we have touched something on our page
+					// @TODO refactor for multi touch
+					over = document.elementFromPoint(startX, startY);
+					if (over) {
+						lastOver = over;
+						fireEvent("vmouseover", evt);
+					}
 					fireEvent("vmousedown", evt);
 				}
 
@@ -8142,6 +8416,8 @@ ns.version = '0.9.26';
 				if (touches && touches.length === 0) {
 					fireEvent("vmouseup", evt);
 					fireEvent("vmouseout", evt);
+					// Reset flag for last over element
+					lastOver = null;
 				}
 			}
 
@@ -8157,7 +8433,7 @@ ns.version = '0.9.26';
 				var over,
 					firstTouch = evt.touches && evt.touches[0],
 					didCancel = didScroll,
-					//sets the threshold, based on which we consider if it was the touch-move event
+				//sets the threshold, based on which we consider if it was the touch-move event
 					moveThreshold = vmouse.eventDistanceThreshold;
 
 				/**
@@ -8174,20 +8450,23 @@ ns.version = '0.9.26';
 				}
 
 				didScroll = didScroll ||
-				//check in both axes X,Y if the touch-move event occur
+					//check in both axes X,Y if the touch-move event occur
 					(Math.abs(firstTouch.pageX - startX) > moveThreshold ||
-					Math.abs(firstTouch.pageY - startY) > moveThreshold);
+						Math.abs(firstTouch.pageY - startY) > moveThreshold);
 
 				// detect over event
 				// for compatibility with mouseover because "touchenter" fires only once
-				over = document.elementFromPoint(evt.pageX, evt.pageY);
-				if (over) {
-					fireEvent("_touchover", evt);
+				// @TODO Handle many touches
+				over = document.elementFromPoint(firstTouch.pageX, firstTouch.pageY);
+				if (over && lastOver !== over) {
+					lastOver = over;
+					fireEvent("vmouseover", evt);
 				}
 
 				//if didscroll occur and wasn't canceled then trigger touchend otherwise just touchmove
 				if (didScroll && !didCancel) {
 					fireEvent("vmousecancel", evt);
+					lastOver = null;
 				}
 				fireEvent("vmousemove", evt);
 			}
@@ -8217,18 +8496,7 @@ ns.version = '0.9.26';
 			 */
 			function handleTouchCancel(evt) {
 				fireEvent("vmousecancel", evt);
-			}
-
-			/**
-			 * Handle touch cancel
-			 * @method handleTouchOver
-			 * @private
-			 * @static
-			 * @member ns.event.vmouse
-			 */
-			function handleTouchOver() {
-				return false;
-				// @TODO add callback with handleTouchOver,
+				lastOver = null;
 			}
 
 			/**
@@ -8284,6 +8552,19 @@ ns.version = '0.9.26';
 				}
 			}
 
+			/**
+			 * Binds events common to mouse and touch to support virtual mouse.
+			 * @method bindCommonEvents
+			 * @static
+			 * @member ns.event.vmouse
+			 */
+			vmouse.bindCommonEvents = function () {
+				document.addEventListener("keyup", handleKeyUp, true);
+				document.addEventListener("keydown", handleKeyDown, true);
+				document.addEventListener("scroll", handleScroll, true);
+				document.addEventListener("click", handleClick, true);
+			};
+
 			// @TODO delete touchSupport flag and attach touch and mouse listeners,
 			// @TODO check if v-events are not duplicated if so then called only once
 
@@ -8297,16 +8578,13 @@ ns.version = '0.9.26';
 				document.addEventListener("touchstart", handleTouchStart, true);
 				document.addEventListener("touchend", handleTouchEnd, true);
 				document.addEventListener("touchmove", handleTouchMove, true);
-
-				// @TODO add callback with handleTouchOver,
-				document.addEventListener("touchenter", handleTouchOver, true);
-				// for compatibility with mouseover because "touchenter" fires only once
-				// @TODO add callback with handleTouchOver,
-				document.addEventListener("_touchover", handleTouchOver, true);
-				// document.addEventListener("touchleave", callbacks.out, true);
 				document.addEventListener("touchcancel", handleTouchCancel, true);
 
-				document.addEventListener("click", handleClick, true);
+				// touchenter and touchleave are removed from W3C spec
+				// No need to listen to touchover as it has never exited
+				// document.addEventListener("touchenter", handleTouchOver, true);
+				// document.addEventListener("touchleave", callbacks.out, true);
+				document.addEventListener("touchcancel", handleTouchCancel, true);
 			};
 
 			/**
@@ -8322,11 +8600,6 @@ ns.version = '0.9.26';
 				document.addEventListener("mousemove", handleMove, true);
 				document.addEventListener("mouseover", handleOver, true);
 				document.addEventListener("mouseout", handleOut, true);
-
-				document.addEventListener("keyup", handleKeyUp, true);
-				document.addEventListener("keydown", handleKeyDown, true);
-				document.addEventListener("scroll", handleScroll, true);
-				document.addEventListener("click", handleClick, true);
 			};
 
 			ns.event.vmouse = vmouse;
@@ -8336,9 +8609,9 @@ ns.version = '0.9.26';
 			} else {
 				vmouse.bindMouse();
 			}
+			vmouse.bindCommonEvents();
 
 			}(window, window.document, ns));
-
 /*global window, define, ns */
 /* Copyright  2010 - 2014 Samsung Electronics Co., Ltd.
  * License : MIT License V2
@@ -11379,7 +11652,7 @@ ns.version = '0.9.26';
  * Contains helper function to gesture support.
  * @class ns.event.gesture.utils
  */
-( function ( ns, Math, undefined ) {
+(function (ns, Math, undefined) {
 	
 	
 				/**
@@ -11402,18 +11675,18 @@ ns.version = '0.9.26';
 				 * @return {number} return.clientX position X
 				 * @return {number} return.clientY position Y
 				 */
-				getCenter: function ( touches ) {
+				getCenter: function (touches) {
 					var valuesX = [], valuesY = [];
 
-					[].forEach.call( touches, function( touch ) {
+					[].forEach.call(touches, function(touch) {
 						// I prefer clientX because it ignore the scrolling position
-						valuesX.push( touch.clientX !== undefined ? touch.clientX : touch.clientX );
-						valuesY.push( touch.clientY !== undefined ? touch.clientY : touch.clientY );
-					} );
+						valuesX.push(!isNaN(touch.clientX) ? touch.clientX : touch.pageX);
+						valuesY.push(!isNaN(touch.clientY) ? touch.clientY : touch.pageY);
+					});
 
 					return {
-						clientX: ( Math.min.apply(Math, valuesX) + Math.max.apply( Math, valuesX ) ) / 2,
-						clientY: ( Math.min.apply(Math, valuesY) + Math.max.apply( Math, valuesY ) ) / 2
+						clientX: (Math.min.apply(Math, valuesX) + Math.max.apply(Math, valuesX)) / 2,
+						clientY: (Math.min.apply(Math, valuesY) + Math.max.apply(Math, valuesY)) / 2
 					};
 				},
 
@@ -11428,10 +11701,10 @@ ns.version = '0.9.26';
 				 * @return {number} return.y velocity on Y axis
 				 * @member ns.event.gesture.utils
 				 */
-				getVelocity: function ( delta_time, delta_x, delta_y ) {
+				getVelocity: function (delta_time, delta_x, delta_y) {
 					return {
-						x: Math.abs( delta_x / delta_time ) || 0,
-						y: Math.abs( delta_y / delta_time ) || 0
+						x: Math.abs(delta_x / delta_time) || 0,
+						y: Math.abs(delta_y / delta_time) || 0
 					};
 				},
 
@@ -11443,25 +11716,25 @@ ns.version = '0.9.26';
 				 * @return {number} angel (deg)
 				 * @member ns.event.gesture.utils
 				 */
-				getAngle: function ( touch1, touch2 ) {
+				getAngle: function (touch1, touch2) {
 					var y = touch2.clientY - touch1.clientY,
 						x = touch2.clientX - touch1.clientX;
-					return Math.atan2( y, x ) * 180 / Math.PI;
+					return Math.atan2(y, x) * 180 / Math.PI;
 				},
 
 				/**
 				 * Get direction indicated by position of two touches
-				 * @method getDirection
+				 * @method getDirectiqon
 				 * @param {Event} touch1 first touch
 				 * @param {Event} touch2 second touch
 				 * @return {ns.event.gesture.Direction.LEFT|ns.event.gesture.Direction.RIGHT|ns.event.gesture.Direction.UP|ns.event.gesture.Direction.DOWN}
 				 * @member ns.event.gesture.utils
 				 */
-				getDirection: function ( touch1, touch2 ) {
-					var x = Math.abs( touch1.clientX - touch2.clientX ),
-						y = Math.abs( touch1.clientY - touch2.clientY );
+				getDirection: function (touch1, touch2) {
+					var x = Math.abs(touch1.clientX - touch2.clientX),
+						y = Math.abs(touch1.clientY - touch2.clientY);
 
-					if(x >= y) {
+					if (x >= y) {
 						return touch1.clientX - touch2.clientX > 0 ? Gesture.Direction.LEFT : Gesture.Direction.RIGHT;
 					}
 					return touch1.clientY - touch2.clientY > 0 ? Gesture.Direction.UP : Gesture.Direction.DOWN;
@@ -11475,10 +11748,10 @@ ns.version = '0.9.26';
 				 * @return {number} distance
 				 * @member ns.event.gesture.utils
 				 */
-				getDistance: function ( touch1, touch2 ) {
+				getDistance: function (touch1, touch2) {
 					var x = touch2.clientX - touch1.clientX,
 						y = touch2.clientY - touch1.clientY;
-					return Math.sqrt( (x * x) + (y * y) );
+					return Math.sqrt((x * x) + (y * y));
 				},
 
 				/**
@@ -11489,9 +11762,9 @@ ns.version = '0.9.26';
 				 * @return {number} scale
 				 * @member ns.event.gesture.utils
 				 */
-				getScale: function ( start, end ) {
+				getScale: function (start, end) {
 					// need two fingers...
-					if ( start.length >= 2 && end.length >= 2 ) {
+					if (start.length >= 2 && end.length >= 2) {
 						return this.getDistance(end[0], end[1]) / this.getDistance(start[0], start[1]);
 					}
 					return 1;
@@ -11506,9 +11779,9 @@ ns.version = '0.9.26';
 				 * @return {number} angle (deg)
 				 * @member ns.event.gesture.utils
 				 */
-				getRotation: function ( start, end ) {
+				getRotation: function (start, end) {
 					// need two fingers
-					if(start.length >= 2 && end.length >= 2) {
+					if (start.length >= 2 && end.length >= 2) {
 						return this.getAngle(end[1], end[0]) -
 							this.getAngle(start[1], start[0]);
 					}
@@ -11522,7 +11795,7 @@ ns.version = '0.9.26';
 				 * @return {boolean}
 				 * @member ns.event.gesture.utils
 				 */
-				isVertical: function ( direction ) {
+				isVertical: function (direction) {
 					return direction === Gesture.Direction.UP || direction === Gesture.Direction.DOWN;
 				},
 
@@ -11533,7 +11806,7 @@ ns.version = '0.9.26';
 				 * @return {boolean}
 				 * @member ns.event.gesture.utils
 				 */
-				isHorizontal: function ( direction ) {
+				isHorizontal: function (direction) {
 					return direction === Gesture.Direction.LEFT || direction === Gesture.Direction.RIGHT;
 				},
 
@@ -11544,11 +11817,11 @@ ns.version = '0.9.26';
 				 * @return {boolean}
 				 * @member ns.event.gesture.utils
 				 */
-				getOrientation: function ( direction ) {
-					return this.isVertical( direction ) ? Gesture.Orientation.VERTICAL : Gesture.Orientation.HORIZONTAL;
+				getOrientation: function (direction) {
+					return this.isVertical(direction) ? Gesture.Orientation.VERTICAL : Gesture.Orientation.HORIZONTAL;
 				}
 			};
-			} ( ns, window.Math ) );
+			} (ns, window.Math));
 
 /*global ns, window, define */
 /*jslint nomen: true */
@@ -11815,7 +12088,7 @@ ns.version = '0.9.26';
 					 */
 					_start: function( event ) {
 						var elem = event.currentTarget,
-							startEvent, detectors = [];
+							startEvent = {}, detectors = [];
 
 						if ( !isReadyDetecting ) {
 							this._resetDetecting();
@@ -12924,8 +13197,17 @@ ns.version = '0.9.26';
 					this.container.appendChild( minElement );
 					this.container.appendChild( maxElement );
 
+					minElement.addEventListener("animationEnd", this);
 					minElement.addEventListener("webkitAnimationEnd", this);
+					minElement.addEventListener("mozAnimationEnd", this);
+					minElement.addEventListener("msAnimationEnd", this);
+					minElement.addEventListener("oAnimationEnd", this);
+
+					maxElement.addEventListener("animationEnd", this);
 					maxElement.addEventListener("webkitAnimationEnd", this);
+					maxElement.addEventListener("mozAnimationEnd", this);
+					maxElement.addEventListener("msAnimationEnd", this);
+					maxElement.addEventListener("oAnimationEnd", this);
 				},
 
 				/**
@@ -13050,7 +13332,7 @@ ns.version = '0.9.26';
 				 * @member ns.widget.wearable.scroller.effect.Bouncing
 				 */
 				handleEvent: function( event ) {
-					if (event.type === "webkitAnimationEnd") {
+					if (event.type.toLowerCase().indexOf("animationend") > -1) {
 						if ( this.isShowAnimating ) {
 							this._finishShow();
 						} else if ( this.isHideAnimating ) {
@@ -13065,8 +13347,20 @@ ns.version = '0.9.26';
 				 * @member ns.widget.wearable.scroller.effect.Bouncing
 				 */
 				destroy: function() {
-					this.minEffectElement.removeEventListener("webkitAnimationEnd", this);
-					this.maxEffectElement.removeEventListener("webkitAnimationEnd", this);
+					var maxEffectElement = this.maxEffectElement,
+						minEffectElement = this.minEffectElement;
+
+					minEffectElement.removeEventListener("animationEnd", this);
+					minEffectElement.removeEventListener("webkitAnimationEnd", this);
+					minEffectElement.removeEventListener("mozAnimationEnd", this);
+					minEffectElement.removeEventListener("msAnimationEnd", this);
+					minEffectElement.removeEventListener("oAnimationEnd", this);
+
+					maxEffectElement.removeEventListener("animationEnd", this);
+					maxEffectElement.removeEventListener("webkitAnimationEnd", this);
+					maxEffectElement.removeEventListener("mozAnimationEnd", this);
+					maxEffectElement.removeEventListener("msAnimationEnd", this);
+					maxEffectElement.removeEventListener("oAnimationEnd", this);
 
 					this.container.removeChild( this.minEffectElement );
 					this.container.removeChild( this.maxEffectElement );
@@ -13285,7 +13579,10 @@ ns.version = '0.9.26';
 					scrollerStyle.height = "";
 
 					scrollerStyle["-webkit-transform"] = "";
-					scrollerStyle["-webkit-transition"] = "";
+					scrollerStyle["-moz-transition"] = "";
+					scrollerStyle["-ms-transition"] = "";
+					scrollerStyle["-o-transition"] = "";
+					scrollerStyle["transition"] = "";
 				}
 			};
 
@@ -13371,18 +13668,34 @@ ns.version = '0.9.26';
 
 			prototype._translate = function (x, y, duration) {
 				var translate,
-					transition,
+					transition = {
+						normal: "none",
+						webkit: "none",
+						moz: "none",
+						ms: "none",
+						o: "none"
+					},
 					scrollerStyle = this.scrollerStyle;
 
-				if ( !duration ) {
-					transition = "none";
-				} else {
-					transition = "-webkit-transform " + duration / 1000 + "s ease-out";
+				if (duration) {
+					transition.normal = "transform " + duration / 1000 + "s ease-out";
+					transition.webkit = "-webkit-transform " + duration / 1000 + "s ease-out";
+					transition.moz = "-moz-transform " + duration / 1000 + "s ease-out";
+					transition.ms = "-ms-transform " + duration / 1000 + "s ease-out";
+					transition.o = "-o-transform " + duration / 1000 + "s ease-out";
 				}
 				translate = "translate3d(" + x + "px," + y + "px, 0)";
 
-				scrollerStyle["-webkit-transform"] = translate;
-				scrollerStyle["-webkit-transition"] = transition;
+				scrollerStyle["-webkit-transform"] =
+						scrollerStyle["-moz-transform"] =
+						scrollerStyle["-ms-transform"] =
+						scrollerStyle["-o-transform"] =
+						scrollerStyle.transform = translate;
+				scrollerStyle.transition = transition.normal;
+				scrollerStyle["-webkit-transition"] = transition.webkit;
+				scrollerStyle["-moz-transition"] = transition.moz;
+				scrollerStyle["-ms-transition"] = transition.ms;
+				scrollerStyle["-o-transition"] = transition.o;
 
 				this.scrollerOffsetX = window.parseInt(x, 10);
 				this.scrollerOffsetY = window.parseInt(y, 10);
@@ -14057,7 +14370,8 @@ ns.version = '0.9.26';
 						})
 					);
 
-					utilsEvents.on(this.scroller, "swipe webkitTransitionEnd", this);
+					utilsEvents.on(this.scroller,
+							"swipe transitionEnd webkitTransitionEnd mozTransitionEnd msTransitionEnd oTransitionEnd", this);
 				},
 
 				_unbindEvents: function () {
@@ -14065,7 +14379,8 @@ ns.version = '0.9.26';
 
 					if (this.scroller) {
 						ns.event.disableGesture(this.scroller);
-						utilsEvents.off(this.scroller, "swipe webkitTransitionEnd", this);
+						utilsEvents.off(this.scroller,
+							"swipe transitionEnd webkitTransitionEnd mozTransitionEnd msTransitionEnd oTransitionEnd", this);
 					}
 				},
 
@@ -14083,6 +14398,10 @@ ns.version = '0.9.26';
 							this._swipe(event);
 							break;
 						case "webkitTransitionEnd":
+						case "mozTransitionEnd":
+						case "msTransitionEnd":
+						case "oTransitionEnd":
+						case "transitionEnd":
 							this._endScroll();
 							break;
 					}
@@ -14777,7 +15096,7 @@ ns.version = '0.9.26';
 			};
 
 			prototype._init = function (element) {
-				var page = selectors.getClosestBySelector(element, ns.wearable.selectors.page),
+				var page = selectors.getClosestBySelector(element, "." + ns.widget.wearable.Page.classes.uiPage),
 					options = this.options,
 					swipeLeftElementBg,
 					swipeRightElementBg,
@@ -14797,7 +15116,7 @@ ns.version = '0.9.26';
 
 				if (this.swipeElement) {
 					this.swipeElementStyle = this.swipeElement.style;
-					this.swipeElementStyle.displsy = "none";
+					this.swipeElementStyle.display = "none";
 					this.swipeElementStyle.background = "transparent";
 					this.swipeElementStyle.width = this.container.offsetWidth + "px";
 					this.swipeElementStyle.height = this.container.offsetHeight + "px";
@@ -15354,7 +15673,11 @@ ns.version = '0.9.26';
 				start: function( scrollbarElement/*, barElement */) {
 					var style = scrollbarElement.style,
 						duration = this.options.animationDuration;
-					style["-webkit-transition"] = "opacity " + duration / 1000 + "s ease";
+					style["-webkit-transition"] =
+							style["-moz-transition"] =
+							style["-ms-transition"] =
+							style["-o-transition"] =
+							style.transition = "opacity " + duration / 1000 + "s ease";
 					style.opacity = 1;
 				},
 
@@ -15367,7 +15690,11 @@ ns.version = '0.9.26';
 				end: function( scrollbarElement/*, barElement */) {
 					var style = scrollbarElement.style,
 						duration = this.options.animationDuration;
-					style["-webkit-transition"] = "opacity " + duration / 1000 + "s ease";
+					style["-webkit-transition"] =
+							style["-moz-transition"] =
+							style["-ms-transition"] =
+							style["-o-transition"] =
+							style.transition = "opacity " + duration / 1000 + "s ease";
 					style.opacity = 0;
 				}
 			});
@@ -15497,7 +15824,13 @@ ns.version = '0.9.26';
 			prototype.translate = function (offset, duration, autoHidden) {
 				var orientation = this.options.orientation,
 					translate,
-					transition,
+					transition = {
+						normal: "none",
+						webkit: "none",
+						moz: "none",
+						ms: "none",
+						o: "none"
+					},
 					barStyle,
 					endDelay;
 
@@ -15512,16 +15845,26 @@ ns.version = '0.9.26';
 				offset = this.type.offset( orientation, offset );
 
 				barStyle = this.barElement.style;
-				if ( !duration ) {
-					transition = "none";
-				} else {
-					transition = "-webkit-transform " + duration / 1000 + "s ease-out";
+				if (duration) {
+					transition.normal = "transform " + duration / 1000 + "s ease-out";
+					transition.webkit = "-webkit-transform " + duration / 1000 + "s ease-out";
+					transition.moz = "-moz-transform " + duration / 1000 + "s ease-out";
+					transition.ms = "-ms-transform " + duration / 1000 + "s ease-out";
+					transition.o = "-o-transform " + duration / 1000 + "s ease-out";
 				}
 
 				translate = "translate3d(" + offset.x + "px," + offset.y + "px, 0)";
 
-				barStyle["-webkit-transform"] = translate;
-				barStyle["-webkit-transition"] = transition;
+				barStyle["-webkit-transform"] =
+					barStyle["-moz-transform"] =
+					barStyle["-ms-transform"] =
+					barStyle["-o-transform"] =
+					barStyle,transform = translate;
+				barStyle["-webkit-transition"] = transition.webkit;
+				barStyle["-moz-transition"] = transition.moz;
+				barStyle["-ms-transition"] = transition.ms;
+				barStyle["-o-transition"] = transition.o;
+				barStyle.transition = transition.normal;
 
 				if ( !this.started ) {
 					this._start();
@@ -15569,7 +15912,7 @@ ns.version = '0.9.26';
 
 				switch(event.type) {
 				case "visibilitychange":
-					page = selectors.getClosestBySelector(this.container, ns.wearable.selectors.page);
+					page = selectors.getClosestBySelector(this.container, "." + ns.widget.wearable.Page.classes.uiPage);
 					if (document.visibilityState === "visible" && page === ns.activePage) {
 						this.refresh();
 					}
@@ -15758,7 +16101,7 @@ ns.version = '0.9.26';
 			}(window, ns));
 
 /*global window, define, RegExp */
-/* 
+/*
  * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
  * License : MIT License V2
  */
@@ -15836,7 +16179,7 @@ ns.version = '0.9.26';
 					// URL as well as some other commonly used sub-parts. When used with RegExp.exec()
 					// or String.match, it parses the URL into a results array that looks like this:
 					//
-					//	[0]: http://jblas:password@mycompany.com:8080/mail/inbox?msg=1234&type=unread#msg-content
+					//	[0]: http://jblas:password@mycompany.com:8080/mail/inbox?msg=1234&type=unread#msg-content?param1=true&param2=123
 					//	[1]: http://jblas:password@mycompany.com:8080/mail/inbox?msg=1234&type=unread
 					//	[2]: http://jblas:password@mycompany.com:8080/mail/inbox
 					//	[3]: http://jblas:password@mycompany.com:8080
@@ -15853,14 +16196,16 @@ ns.version = '0.9.26';
 					//	[14]: /mail/
 					//	[15]: inbox
 					//	[16]: ?msg=1234&type=unread
-					//	[17]: #msg-content
+					//	[17]: #msg-content?param1=true&param2=123
+					//	[18]: #msg-content
+					//	[19]: ?param1=true&param2=123
 					//
 					/**
 					* @property {RegExp} urlParseRE Regular expression for parse URL
 					* @member ns.util.path
 					* @static
 					*/
-					urlParseRE: /^(((([^:\/#\?]+:)?(?:(\/\/)((?:(([^:@\/#\?]+)(?:\:([^:@\/#\?]+))?)@)?(([^:\/#\?\]\[]+|\[[^\/\]@#?]+\])(?:\:([0-9]+))?))?)?)?((\/?(?:[^\/\?#]+\/+)*)([^\?#]*)))?(\?[^#]+)?)(#.*)?/,
+					urlParseRE: /^(((([^:\/#\?]+:)?(?:(\/\/)((?:(([^:@\/#\?]+)(?:\:([^:@\/#\?]+))?)@)?(([^:\/#\?\]\[]+|\[[^\/\]@#?]+\])(?:\:([0-9]+))?))?)?)?((\/?(?:[^\/\?#]+\/+)*)([^\?#]*)))?(\?[^#]+)?)((#[^\?]*)(\?.*)?)?/,
 
 					/**
 					* Abstraction to address xss (Issue #4787) by removing the authority in
@@ -15931,6 +16276,7 @@ ns.version = '0.9.26';
 					* @return {string} return.filename
 					* @return {string} return.search
 					* @return {string} return.hash
+					* @return {string} return.hashSearch
 					* @static
 					*/
 					parseUrl: function (url) {
@@ -15938,7 +16284,6 @@ ns.version = '0.9.26';
 						if (typeof url === "object") {
 							return url;
 						}
-
 						matches = path.urlParseRE.exec(url || "") || [];
 
 							// Create an object that allows the caller to access the sub-matches
@@ -15947,11 +16292,11 @@ ns.version = '0.9.26';
 							// no matter what browser we're running on.
 						return {
 							href:		matches[0] || "",
-							hrefNoHash:   matches[1] || "",
-							hrefNoSearch: matches[2] || "",
-							domain:	matches[3] || "",
+							hrefNoHash:	matches[1] || "",
+							hrefNoSearch:	matches[2] || "",
+							domain:		matches[3] || "",
 							protocol:	matches[4] || "",
-							doubleSlash:  matches[5] || "",
+							doubleSlash:	matches[5] || "",
 							authority:	matches[6] || "",
 							username:	matches[8] || "",
 							password:	matches[9] || "",
@@ -15961,13 +16306,14 @@ ns.version = '0.9.26';
 							pathname:	matches[13] || "",
 							directory:	matches[14] || "",
 							filename:	matches[15] || "",
-							search:	matches[16] || "",
-							hash:		matches[17] || ""
+							search:		matches[16] || "",
+							hash:		matches[18] || "",
+							hashSearch:	matches[19] || ""
 						};
 					},
 
 					/**
-					* Turn relPath into an asbolute path. absPath is
+					* Turn relPath into an absolute path. absPath is
 					* an optional absolute path which describes what
 					* relPath is relative to.
 					* @method makePathAbsolute
@@ -16077,6 +16423,12 @@ ns.version = '0.9.26';
 
 					/**
 					* Add search (aka query) params to the specified url.
+					* If page is embedded page, search query will be added after
+					* hash tag. It's allowed to add query content for both external
+					* pages and embedded pages.
+					* Examples:
+					* http://domain/path/index.html#embedded?search=test
+					* http://domain/path/external.html?s=query#embedded?s=test
 					* @method addSearchParams
 					* @member ns.util.path
 					* @param {string|Object} url
@@ -16086,8 +16438,16 @@ ns.version = '0.9.26';
 					addSearchParams: function (url, params) {
 						var urlObject = path.parseUrl(url),
 							paramsString = (typeof params === "object") ? this.getAsURIParameters(params) : params,
-							searchChar = urlObject.search || "?";
-						return urlObject.hrefNoSearch + searchChar + (searchChar.charAt(searchChar.length - 1) === "?" ? "" : "&") + paramsString + (urlObject.hash || "");
+							searchChar = '',
+							urlObjectHash = urlObject.hash;
+
+						if (path.isEmbedded(url) && paramsString.length > 0) {
+							searchChar = urlObject.hashSearch || "?";
+							return urlObject.hrefNoHash + (urlObjectHash || "") + searchChar + (searchChar.charAt(searchChar.length - 1) === "?" ? "" : "&") + paramsString ;
+						}
+
+						searchChar = urlObject.search || "?";
+						return urlObject.hrefNoSearch + searchChar + (searchChar.charAt(searchChar.length - 1) === "?" ? "" : "&") + paramsString + (urlObjectHash || "");
 					},
 
 					/**
@@ -16108,7 +16468,7 @@ ns.version = '0.9.26';
 
 					/**
 					* Convert absolute Url to data Url
-					* - for embedded pages strips hash and paramters
+					* - for embedded pages strips parameters
 					* - for the same domain as document base remove domain
 					* otherwise returns decoded absolute Url
 					* @method convertUrlToDataUrl
@@ -16122,10 +16482,9 @@ ns.version = '0.9.26';
 					convertUrlToDataUrl: function (absUrl, dialogHashKey, documentBase) {
 						var urlObject = path.parseUrl(absUrl);
 
-						if (path.isEmbeddedPage(urlObject, dialogHashKey)) {
-							// For embedded pages, remove the dialog hash key as in getFilePath(),
-							// otherwise the Data Url won't match the id of the embedded Page.
-							return urlObject.hash.replace(/^#|\?.*$/g, "");
+						if (path.isEmbeddedPage(urlObject, !!dialogHashKey)) {
+							// Keep hash and search data for embedded page
+							return path.getFilePath(urlObject.hash + urlObject.hashSearch, dialogHashKey);
 						}
 						documentBase = documentBase || path.documentBase;
 						if (path.isSameDomain(urlObject, documentBase)) {
@@ -16251,7 +16610,7 @@ ns.version = '0.9.26';
 						if (urlObject.protocol !== "") {
 							return (!path.isPath(urlObject.hash) && !!urlObject.hash && (urlObject.hrefNoHash === path.parseLocation().hrefNoHash));
 						}
-						return (/^#/).test(urlObject.href);
+						return (/\?.*#|^#/).test(urlObject.href);
 					},
 
 					/**
@@ -16461,7 +16820,7 @@ ns.version = '0.9.26';
 					},
 
 					/**
-					* Return the substring of a filepath before the sub-page key,
+					* Return the substring of a file path before the sub-page key,
 					* for making a server request
 					* @method getFilePath
 					* @member ns.util.path
@@ -16648,14 +17007,6 @@ ns.version = '0.9.26';
 				 */
 				routerMicro = ns.router,
 				/**
-				 * Local alias for ns.wearable.selectors
-				 * @property {Object} microSelectors Alias for {@link ns.wearable.selectors}
-				 * @member ns.router.Router
-				 * @static
-				 * @private
-				 */
-				microSelectors = ns.wearable.selectors,
-				/**
 				 * Local alias for ns.router.wearable.history
 				 * @property {Object} history Alias for {@link ns.router.wearable.history}
 				 * @member ns.router.Router
@@ -16695,6 +17046,8 @@ ns.version = '0.9.26';
 				 * @private
 				 */
 				_isLock = false,
+
+				Page = ns.widget.wearable.Page,
 
 				Router = function () {
 					var self = this;
@@ -16914,23 +17267,27 @@ ns.version = '0.9.26';
 					pages,
 					activePages,
 					location = window.location,
+					PageClasses = Page.classes,
+					uiPageClass = PageClasses.uiPage,
+					uiPageActiveClass = PageClasses.uiPageActive,
+					pageDefinition = ns.engine.getWidgetDefinition('Page') || ns.engine.getWidgetDefinition('page'),
 					self = this;
 
 				body = document.body;
 				containerElement = ns.getConfig("pageContainer") || body;
-				pages = slice.call(containerElement.querySelectorAll(microSelectors.page));
+				pages = slice.call(containerElement.querySelectorAll(pageDefinition.selector));
 				self.justBuild = justBuild;
 
 				if (ns.getConfig("autoInitializePage", true)) {
-					firstPage = containerElement.querySelector(microSelectors.activePage);
+					firstPage = containerElement.querySelector("." + uiPageActiveClass);
 					if (!firstPage) {
 						firstPage = pages[0];
 					}
 
 					if (firstPage) {
-						activePages = containerElement.querySelectorAll(microSelectors.activePage);
+						activePages = containerElement.querySelectorAll("." + uiPageActiveClass);
 						slice.call(activePages).forEach(function (page) {
-							page.classList.remove(microSelectors.activePage);
+							page.classList.remove("." + uiPageActiveClass);
 						});
 						containerElement = firstPage.parentNode;
 					}
@@ -16947,7 +17304,7 @@ ns.version = '0.9.26';
 					if (location.hash) {
 						//simple check to determine if we should show firstPage or other
 						page = document.getElementById(location.hash.replace("#", ""));
-						if (page && selectors.matchesSelector(page, microSelectors.page)) {
+						if (page && selectors.matchesSelector(page, "." + uiPageClass)) {
 							firstPage = page;
 						}
 					}
@@ -16955,7 +17312,7 @@ ns.version = '0.9.26';
 
 				pages.forEach(function (page) {
 					if (!DOM.getNSData(page, "url")) {
-						DOM.setNSData(page, "url", page.id || location.pathname + location.search);
+						DOM.setNSData(page, "url", (page.id && "#" + page.id) || location.pathname + location.search);
 					}
 				});
 
@@ -17029,6 +17386,7 @@ ns.version = '0.9.26';
 				if (firstPage) {
 					self.open(firstPage, { transition: "none" });
 				}
+				this.getRoute("popup").setActive(null);
 			};
 
 			/**
@@ -17102,6 +17460,12 @@ ns.version = '0.9.26';
 					request,
 					detail = {},
 					self = this;
+
+				// If the caller provided data append the data to the URL.
+				if (options.data) {
+					absUrl = path.addSearchParams(absUrl, options.data);
+					options.data = undefined;
+				}
 
 				content = rule.find(absUrl);
 
@@ -17308,8 +17672,8 @@ ns.version = '0.9.26';
 				utilSelector = util.selectors,
 				history = ns.router.history,
 				engine = ns.engine,
+				Page = ns.widget.wearable.Page,
 				baseElement,
-				slice = [].slice,
 				routePage = {},
 				head;
 
@@ -17317,18 +17681,24 @@ ns.version = '0.9.26';
 			 * Tries to find a page element matching id and filter (selector).
 			 * Adds data url attribute to found page, sets page = null when nothing found
 			 * @method findPageAndSetDataUrl
-			 * @param {string} id Id of searching element
+			 * @param {string} dataUrl DataUrl of searching element
 			 * @param {string} filter Query selector for searching page
 			 * @return {?HTMLElement}
 			 * @private
 			 * @static
 			 * @member ns.router.route.page
 			 */
-			function findPageAndSetDataUrl(id, filter) {
-				var page = document.getElementById(id);
+			function findPageAndSetDataUrl(dataUrl, filter) {
+				var id = path.stripQueryParams(dataUrl).replace("#", ""),
+					page = document.getElementById(id);
 
 				if (page && utilSelector.matchesSelector(page, filter)) {
-					DOM.setNSData(page, "url", id);
+					if (dataUrl === id) {
+						DOM.setNSData(page, "url", "#" + id);
+					} else {
+						DOM.setNSData(page, "url", dataUrl);
+					}
+
 				} else {
 					// if we matched any element, but it doesn't match our filter
 					// reset page to null
@@ -17355,10 +17725,9 @@ ns.version = '0.9.26';
 			 * Property defining selector for filtering only page elements
 			 * @property {string} filter
 			 * @member ns.router.route.page
-			 * @inheritdoc ns.wearable.selectors#page
 			 * @static
 			 */
-			routePage.filter = ns.wearable.selectors.page;
+			routePage.filter = "." + Page.classes.uiPage;
 
 			/**
 			 * Returns default route options used inside Router.
@@ -17388,7 +17757,7 @@ ns.version = '0.9.26';
 					state = {},
 					router = engine.getRouter();
 
-				if (toPage === router.firstPage && !options.dataUrl) {
+				if (toPage === router.getFirstPage() && !options.dataUrl) {
 					url = path.documentUrl.hrefNoHash;
 				} else {
 					url = DOM.getNSData(toPage, "url");
@@ -17420,7 +17789,7 @@ ns.version = '0.9.26';
 
 				//set page title
 				document.title = pageTitle;
-				router.container.change(toPage, options);
+				this.getContainer().change(toPage, options);
 			};
 
 			/**
@@ -17456,6 +17825,7 @@ ns.version = '0.9.26';
 				// injected by a developer, in which case it would be lacking a
 				// data-url attribute and in need of enhancement.
 				if (!page && dataUrl && !path.isPath(dataUrl)) {
+					//Remove search data
 					page = findPageAndSetDataUrl(dataUrl, self.filter);
 				}
 
@@ -17587,6 +17957,38 @@ ns.version = '0.9.26';
 				}
 			};
 
+			/**
+			 * Returns container of pages
+			 * @method getContainer
+			 * @return {?ns.widget.wearable.Page}
+			 * @member ns.router.route.page
+			 * @static
+			 */
+			routePage.getContainer = function () {
+				return engine.getRouter().getContainer();
+			};
+
+			/**
+			 * Returns active page.
+			 * @method getActive
+			 * @return {?ns.widget.wearable.Page}
+			 * @member ns.router.route.page
+			 * @static
+			 */
+			routePage.getActive = function () {
+				return this.getContainer().getActivePage();
+			};
+
+			/**
+			 * Returns element of active page.
+			 * @method getActiveElement
+			 * @return {HTMLElement}
+			 * @member ns.router.route.page
+			 * @static
+			 */
+			routePage.getActiveElement = function () {
+				return this.getActive().element;
+			};
 			ns.router.route.page = routePage;
 
 			}(window.document, ns));
@@ -17613,7 +18015,7 @@ ns.version = '0.9.26';
 			 * @static
 			 */
 			Popup = ns.widget.core.Popup,
-
+			util = ns.util,
 			routePopup = {
 				/**
 				 * Object with default options
@@ -17739,10 +18141,14 @@ ns.version = '0.9.26';
 			 * @static
 			 */
 			function findPopupAndSetDataUrl(id, filter) {
-				var popup = document.getElementById(path.hashToSelector(id));
+				var popup,
+					hashReg = /^#/;
+
+				id = id.replace(hashReg,'');
+				popup = document.getElementById(id);
 
 				if (popup && utilSelector.matchesSelector(popup, filter)) {
-					DOM.setNSData(popup, 'url', id);
+					DOM.setNSData(popup, 'url', '#' + id);
 				} else {
 					// if we matched any element, but it doesn't match our filter
 					// reset page to null
@@ -17819,13 +18225,14 @@ ns.version = '0.9.26';
 			 * @static
 			 */
 			routePopup.open = function (toPopup, options, event) {
-				var popup,
+				var self = this,
+					popup,
 					router = engine.getRouter(),
-					events = routePopup.events,
+					events = self.events,
 					removePopup = function () {
 						document.removeEventListener(events.POPUP_HIDE, removePopup, false);
 						toPopup.parentNode.removeChild(toPopup);
-						routePopup.activePopup = null;
+						self.activePopup = null;
 					},
 					openPopup = function () {
 						var positionTo = options["position-to"];
@@ -17842,22 +18249,24 @@ ns.version = '0.9.26';
 						}
 
 						document.removeEventListener(events.POPUP_HIDE, openPopup, false);
-						popup = engine.instanceWidget(toPopup, 'Popup', options);
+						popup = engine.instanceWidget(toPopup, "Popup", options);
 						popup.open(options);
-						routePopup.activePopup = popup;
+						self.activePopup = popup;
 					},
 					activePage = router.container.getActivePage(),
 					container;
 
 				if (DOM.getNSData(toPopup, "external") === true) {
 					container = options.container ? activePage.element.querySelector(options.container) : activePage.element;
-					container.appendChild(toPopup);
+					if (toPopup.parentNode !== container) {
+						toPopup = util.importEvaluateAndAppendElement(toPopup, container);
+					}
 					document.addEventListener(routePopup.events.POPUP_HIDE, removePopup, false);
 				}
 
-				if (routePopup.hasActive()) {
-					document.addEventListener(routePopup.events.POPUP_HIDE, openPopup, false);
-					routePopup.close();
+				if (self.hasActive()) {
+					document.addEventListener(events.POPUP_HIDE, openPopup, false);
+					self.close();
 				} else {
 					openPopup();
 				}
@@ -17875,17 +18284,39 @@ ns.version = '0.9.26';
 			 * @static
 			 */
 			routePopup.close = function (activePopup, options) {
+				var popupOptions,
+					pathLocation = path.getLocation(),
+					documentUrl = pathLocation.replace(popupHashKeyReg, "");
+
+				options = options || {};
 				activePopup = activePopup || this.activePopup;
 
+				// if popup is active
 				if (activePopup) {
-					// Close and clean up
-					activePopup.close(options || {});
+					popupOptions = activePopup.options;
+					// we check if it changed the history
+					if (popupOptions.history && pathLocation !== documentUrl) {
+						// and then set new options for popup
+						popupOptions.transition = options.transition || popupOptions.transition;
+						popupOptions.ext = options.ext || popupOptions.ext;
+						// unlock the router if it was locked
+						if (!popupOptions.dismissible) {
+							engine.getRouter().unlock();
+						}
+						// and call history.back()
+						history.back();
+					} else {
+						// if popup did not change the history, we close it normally
+						activePopup.close(options || {});
+					}
+					return true;
 				}
+				return false;
 			};
 
 			/**
 			 * This method handles hash change.
-			 * It closes active popup.
+			 * It closes opened popup.
 			 * @method onHashChange
 			 * @param {string} url
 			 * @param {object} options
@@ -17897,7 +18328,7 @@ ns.version = '0.9.26';
 				var activePopup = this.activePopup;
 
 				if (activePopup) {
-					routePopup.close(activePopup, options);
+					activePopup.close(options);
 					// Default routing setting cause to rewrite further window history
 					// even if popup has been closed
 					// To prevent this onHashChange after closing popup we need to change
@@ -18002,6 +18433,18 @@ ns.version = '0.9.26';
 				return this.activePopup;
 			};
 
+			/**
+			 * Returns element of active popup.
+			 * @method getActiveElement
+			 * @return {HTMLElement}
+			 * @member ns.router.route.popup
+			 * @static
+			 */
+			routePopup.getActiveElement = function () {
+				var active = this.getActive();
+				return active && active.element;
+			};
+
 			ns.router.route.popup = routePopup;
 
 			}(window, window.document, ns));
@@ -18025,10 +18468,9 @@ ns.version = '0.9.26';
 
 			document.addEventListener("routerinit", function (evt) {
 				var router = evt.detail,
+					routePage = router.getRoute("page"),
 					history = ns.router.history,
-					navigator,
 					back = history.back.bind(router),
-					rule = ns.router.route,
 					classes = ns.widget.wearable.Page.classes,
 					pageActiveClass = classes.uiPageActive;
 				/**
@@ -18052,6 +18494,13 @@ ns.version = '0.9.26';
 				 * @member tau
 				 */
 				ns.firstPage = router.getFirstPage();
+				/**
+				 * Returns active page element
+				 * @inheritdoc ns.router.Router#getActivePageElement
+				 * @method getActivePage
+				 * @member tau
+				 */
+				ns.getActivePage = routePage.getActiveElement.bind(routePage);
 				/**
 				 * @inheritdoc ns.router.history#back
 				 * @method back
@@ -18138,6 +18587,7 @@ ns.version = '0.9.26';
 			}
 			}(ns));
 
-/*global define */
-
+/*global define, ns */
+			ns.info.profile = "wearable";
+			
 }(window, window.document));

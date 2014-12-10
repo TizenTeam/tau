@@ -10,7 +10,7 @@ var ns = window.tau = {},
 nsConfig = window.tauConfig = window.tauConfig || {};
 nsConfig.rootNamespace = 'tau';
 nsConfig.fileName = 'tau';
-ns.version = '0.9.26';
+ns.version = '0.9.32';
 /*global window, console, define, ns, nsConfig */
 /*jslint plusplus:true */
 /* 
@@ -160,64 +160,6 @@ ns.version = '0.9.26';
 
 		}(window.document, ns, nsConfig));
 
-/*global window, define*/
-/*jslint bitwise: true */
-/* 
- * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
- * License : MIT License V2
- */
-/*
- * @author Maciej Urbanski <m.urbanski@samsung.com>
- * @author Piotr Karny <p.karny@samsung.com>
- */
-(function (ns) {
-	
-	
-			// Default configuration properties
-			ns.setConfig('rootDir', ns.getFrameworkPath(), true);
-			ns.setConfig('version', '');
-			ns.setConfig('allowCrossDomainPages', false, true);
-			ns.setConfig('domCache', false, true);
-			// .. other possible options
-			// ns.setConfig('autoBuildOnPageChange', true);
-			// ns.setConfig('autoInitializePage', true);
-			// ns.setConfig('container', document.body); // for defining application container
-			// ns.setConfig('pageContainer', document.body); // same as above, but for wearable version
-
-			}(ns));
-
-/*global ns, define*/
-/* 
- * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
- * License : MIT License V2
- */
-(function (ns) {
-	
-	
-			// Default configuration properties for tv
-			ns.setConfig("autoBuildOnPageChange", true, true);
-
-			}(ns));
-
-/*global window, define, ns*/
-/* Copyright  2010 - 2014 Samsung Electronics Co., Ltd.
- * License : MIT License V2
- */
-/*jslint bitwise: true */
-/**
- * #Selectors
- * Object contains selectors used in widgets.
- *
- * @class ns.wearable.selectors
- * @author Maciej Urbanski <m.urbanski@samsung.com>
- */
-(function (ns) {
-	
-			var wearable = ns.wearable || {};
-			wearable.selectors = {};
-			ns.wearable = wearable;
-			}(ns));
-
 /*global window, define, ns */
 /* Copyright  2010 - 2014 Samsung Electronics Co., Ltd.
  * License : MIT License V2
@@ -272,6 +214,44 @@ ns.version = '0.9.26';
 
 			}(ns));
 
+/*global window, define*/
+/*jslint bitwise: true */
+/* 
+ * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
+ * License : MIT License V2
+ */
+/*
+ * @author Maciej Urbanski <m.urbanski@samsung.com>
+ * @author Piotr Karny <p.karny@samsung.com>
+ */
+(function (ns) {
+	
+	
+			// Default configuration properties
+			ns.setConfig('rootDir', ns.getFrameworkPath(), true);
+			ns.setConfig('version', '');
+			ns.setConfig('allowCrossDomainPages', false, true);
+			ns.setConfig('domCache', false, true);
+			// .. other possible options
+			// ns.setConfig('autoBuildOnPageChange', true);
+			// ns.setConfig('autoInitializePage', true);
+			// ns.setConfig('container', document.body); // for defining application container
+			// ns.setConfig('pageContainer', document.body); // same as above, but for wearable version
+
+			}(ns));
+
+/*global ns, define*/
+/* 
+ * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
+ * License : MIT License V2
+ */
+(function (ns) {
+	
+	
+			// Default configuration properties for tv
+			ns.setConfig("autoBuildOnPageChange", false, true);
+			}(ns));
+
 /*global window, define, XMLHttpRequest, console, Blob */
 /*jslint nomen: true, browser: true, plusplus: true */
 /* 
@@ -304,6 +284,7 @@ ns.version = '0.9.26';
 					window.webkitRequestAnimationFrame ||
 					window.mozRequestAnimationFrame ||
 					window.oRequestAnimationFrame ||
+					window.msRequestAnimationFrame ||
 					function (callback) {
 						currentFrame = window.setTimeout(callback.bind(callback, +new Date()), 1000 / 60);
 					}).bind(window),
@@ -449,6 +430,7 @@ ns.version = '0.9.26';
 					window.webkitCancelAnimationFrame ||
 					window.mozCancelAnimationFrame ||
 					window.oCancelAnimationFrame ||
+					window.msCancelAnimationFrame ||
 					function () {
 						// propably wont work if there is any more than 1
 						// active animationFrame but we are trying anyway
@@ -1026,6 +1008,75 @@ ns.version = '0.9.26';
 
 			}(window, ns));
 
+/*global window, ns, define */
+/* 
+ * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
+ * License : MIT License V2
+ */
+/**
+ * #Info
+ *
+ * Various TAU information
+ * @class ns.info
+ */
+(function (window, document, ns) {
+	
+				/**
+			 * @property {Object} info
+			 * @property {string} [info.profile="default"] Current runtime profile
+			 * @property {string} [info.theme="default"] Current runtime theme
+			 * @property {string} info.version Current runtime version
+			 * @member ns.info
+			 * @static
+			 */
+			var eventUtils = ns.event,
+				info = {
+					profile: "default",
+					theme: "default",
+					version: ns.version,
+
+					/**
+					 * Refreshes information about runtime
+					 * @method refreshTheme
+					 * @param {Function} done Callback run when the theme is discovered
+					 * @member ns.info
+					 * @return {null|String}
+					 * @static
+					 */
+					refreshTheme: function (done) {
+						var el = document.createElement("span"),
+							parent = document.body,
+							themeName = null;
+
+						if (document.readyState !== "interactive" && document.readyState !== "complete") {
+							eventUtils.fastOn(document, "DOMContentLoaded", this.refreshTheme.bind(this, done));
+							return null;
+						}
+						el.classList.add("tau-info-theme");
+
+						parent.appendChild(el);
+						themeName = window.getComputedStyle(el, ":after").content;
+						parent.removeChild(el);
+
+						if (themeName && themeName.length > 0) {
+							this.theme = themeName;
+						}
+
+						themeName = themeName || null;
+
+						if (done) {
+							done(themeName);
+						}
+
+						return themeName;
+					}
+				};
+
+			info.refreshTheme();
+
+			ns.info = info;
+			}(window, window.document, ns));
+
 /*global define: true, window: true */
 /* 
  * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
@@ -1528,6 +1579,27 @@ ns.version = '0.9.26';
 					}
 
 					return true;
+				},
+
+				/**
+				 * Remove properties from object.
+				 * @method removeProperties
+				 * @param {Object} object
+				 * @param {Array} propertiesToRemove
+				 * @return {Object}
+				 */
+				removeProperties: function (object, propertiesToRemove) {
+					var length = propertiesToRemove.length,
+						property,
+						i;
+
+					for (i = 0; i < length; i++) {
+						property = propertiesToRemove[i];
+						if (object.hasOwnProperty(property)) {
+							delete object[property];
+						}
+					}
+					return object;
 				}
 			};
 			ns.util.object = object;
@@ -1859,6 +1931,7 @@ ns.version = '0.9.26';
 				element.removeAttribute(DATA_BOUND);
 				element.removeAttribute(DATA_NAME);
 			}
+
 			/**
 			 * Remove binding data attributes for element.
 			 * @method _removeBindingAttributes
@@ -3194,8 +3267,8 @@ ns.version = '0.9.26';
 /*global CustomEvent, define, window, ns */
 /*jslint plusplus: true, nomen: true, bitwise: true */
 /* Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
-* License : MIT License V2
-*/
+ * License : MIT License V2
+ */
 /**
  * #Virtual Mouse Events
  * Reimplementation of jQuery Mobile virtual mouse events.
@@ -3242,13 +3315,13 @@ ns.version = '0.9.26';
  */
 (function (window, document, ns) {
 	
-					/**
-				 * Object with default options
-				 * @property {Object} vmouse
-				 * @member ns.event.vmouse
-				 * @static
-				 * @private
-				 **/
+				/**
+			 * Object with default options
+			 * @property {Object} vmouse
+			 * @member ns.event.vmouse
+			 * @static
+			 * @private
+			 **/
 			var vmouse,
 				/**
 				 * @property {Object} eventProps Contains the properties which are copied from the original event to custom v-events
@@ -3271,6 +3344,11 @@ ns.version = '0.9.26';
 				 * @private
 				 **/
 				didScroll,
+				/** @property {HTMLElement} lastOver holds reference to last element that touch was over
+				 * @member ns.event.vmouse
+				 * @private
+				 */
+				lastOver = null,
 				/**
 				 * @property {Number} [startX=0] Initial data for touchstart event
 				 * @member ns.event.vmouse
@@ -3283,7 +3361,7 @@ ns.version = '0.9.26';
 				 * @member ns.event.vmouse
 				 * @private
 				 * @static
-				**/
+				 **/
 				startY = 0,
 				touchEventProps = ["clientX", "clientY", "pageX", "pageY", "screenX", "screenY"],
 				KEY_CODES = {
@@ -3371,7 +3449,7 @@ ns.version = '0.9.26';
 			 * @method fireEvent
 			 * @param {string} eventName event name
 			 * @param {Event} evt original event
-			 * @param {Object} properties Sets the special properties for position
+			 * @param {Object} [properties] Sets the special properties for position
 			 * @return {boolean}
 			 * @private
 			 * @static
@@ -3510,14 +3588,22 @@ ns.version = '0.9.26';
 			 */
 			function handleTouchStart(evt) {
 				var touches = evt.touches,
-					firstTouch;
+					firstTouch,
+					over;
 				//if touches are registered and we have only one touch
 				if (touches && touches.length === 1) {
 					didScroll = false;
 					firstTouch = touches[0];
 					startX = firstTouch.pageX;
 					startY = firstTouch.pageY;
-					fireEvent("vmouseover", evt);
+
+					// Check if we have touched something on our page
+					// @TODO refactor for multi touch
+					over = document.elementFromPoint(startX, startY);
+					if (over) {
+						lastOver = over;
+						fireEvent("vmouseover", evt);
+					}
 					fireEvent("vmousedown", evt);
 				}
 
@@ -3536,6 +3622,8 @@ ns.version = '0.9.26';
 				if (touches && touches.length === 0) {
 					fireEvent("vmouseup", evt);
 					fireEvent("vmouseout", evt);
+					// Reset flag for last over element
+					lastOver = null;
 				}
 			}
 
@@ -3551,7 +3639,7 @@ ns.version = '0.9.26';
 				var over,
 					firstTouch = evt.touches && evt.touches[0],
 					didCancel = didScroll,
-					//sets the threshold, based on which we consider if it was the touch-move event
+				//sets the threshold, based on which we consider if it was the touch-move event
 					moveThreshold = vmouse.eventDistanceThreshold;
 
 				/**
@@ -3568,20 +3656,23 @@ ns.version = '0.9.26';
 				}
 
 				didScroll = didScroll ||
-				//check in both axes X,Y if the touch-move event occur
+					//check in both axes X,Y if the touch-move event occur
 					(Math.abs(firstTouch.pageX - startX) > moveThreshold ||
-					Math.abs(firstTouch.pageY - startY) > moveThreshold);
+						Math.abs(firstTouch.pageY - startY) > moveThreshold);
 
 				// detect over event
 				// for compatibility with mouseover because "touchenter" fires only once
-				over = document.elementFromPoint(evt.pageX, evt.pageY);
-				if (over) {
-					fireEvent("_touchover", evt);
+				// @TODO Handle many touches
+				over = document.elementFromPoint(firstTouch.pageX, firstTouch.pageY);
+				if (over && lastOver !== over) {
+					lastOver = over;
+					fireEvent("vmouseover", evt);
 				}
 
 				//if didscroll occur and wasn't canceled then trigger touchend otherwise just touchmove
 				if (didScroll && !didCancel) {
 					fireEvent("vmousecancel", evt);
+					lastOver = null;
 				}
 				fireEvent("vmousemove", evt);
 			}
@@ -3611,18 +3702,7 @@ ns.version = '0.9.26';
 			 */
 			function handleTouchCancel(evt) {
 				fireEvent("vmousecancel", evt);
-			}
-
-			/**
-			 * Handle touch cancel
-			 * @method handleTouchOver
-			 * @private
-			 * @static
-			 * @member ns.event.vmouse
-			 */
-			function handleTouchOver() {
-				return false;
-				// @TODO add callback with handleTouchOver,
+				lastOver = null;
 			}
 
 			/**
@@ -3678,6 +3758,19 @@ ns.version = '0.9.26';
 				}
 			}
 
+			/**
+			 * Binds events common to mouse and touch to support virtual mouse.
+			 * @method bindCommonEvents
+			 * @static
+			 * @member ns.event.vmouse
+			 */
+			vmouse.bindCommonEvents = function () {
+				document.addEventListener("keyup", handleKeyUp, true);
+				document.addEventListener("keydown", handleKeyDown, true);
+				document.addEventListener("scroll", handleScroll, true);
+				document.addEventListener("click", handleClick, true);
+			};
+
 			// @TODO delete touchSupport flag and attach touch and mouse listeners,
 			// @TODO check if v-events are not duplicated if so then called only once
 
@@ -3691,16 +3784,13 @@ ns.version = '0.9.26';
 				document.addEventListener("touchstart", handleTouchStart, true);
 				document.addEventListener("touchend", handleTouchEnd, true);
 				document.addEventListener("touchmove", handleTouchMove, true);
-
-				// @TODO add callback with handleTouchOver,
-				document.addEventListener("touchenter", handleTouchOver, true);
-				// for compatibility with mouseover because "touchenter" fires only once
-				// @TODO add callback with handleTouchOver,
-				document.addEventListener("_touchover", handleTouchOver, true);
-				// document.addEventListener("touchleave", callbacks.out, true);
 				document.addEventListener("touchcancel", handleTouchCancel, true);
 
-				document.addEventListener("click", handleClick, true);
+				// touchenter and touchleave are removed from W3C spec
+				// No need to listen to touchover as it has never exited
+				// document.addEventListener("touchenter", handleTouchOver, true);
+				// document.addEventListener("touchleave", callbacks.out, true);
+				document.addEventListener("touchcancel", handleTouchCancel, true);
 			};
 
 			/**
@@ -3716,11 +3806,6 @@ ns.version = '0.9.26';
 				document.addEventListener("mousemove", handleMove, true);
 				document.addEventListener("mouseover", handleOver, true);
 				document.addEventListener("mouseout", handleOut, true);
-
-				document.addEventListener("keyup", handleKeyUp, true);
-				document.addEventListener("keydown", handleKeyDown, true);
-				document.addEventListener("scroll", handleScroll, true);
-				document.addEventListener("click", handleClick, true);
 			};
 
 			ns.event.vmouse = vmouse;
@@ -3730,9 +3815,9 @@ ns.version = '0.9.26';
 			} else {
 				vmouse.bindMouse();
 			}
+			vmouse.bindCommonEvents();
 
 			}(window, window.document, ns));
-
 /*global window, define */
 /*jslint plusplus: true */
 /* Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
@@ -4573,13 +4658,15 @@ ns.version = '0.9.26';
 					getAllInstances: engine.getAllBindings
 				};
 
+			function widgetConstructor(name, element, options) {
+				return engine.instanceWidget(element, name, options);
+			}
+
 			document.addEventListener(engine.eventType.WIDGET_DEFINED, function (evt) {
 				var definition = evt.detail,
 					name = definition.name;
 
-				 ns.widget[name] = function (element, options) {
-					 return engine.instanceWidget(element, name, options);
-				 };
+				 ns.widget[name] = widgetConstructor.bind(null, name);
 
 			}, true);
 
@@ -5032,6 +5119,82 @@ ns.version = '0.9.26';
 			};
 
 			/**
+			 * Focus widget's element.
+			 *
+			 * This function calls function focus on element and if it is known
+			 * the direction of event, the proper css classes are added/removed.
+			 * @method focus
+			 * @param {object} options The options of event.
+			 * @param {"up"|"down"|"left"|"right"} direction
+			 * For example, if this parameter has value "down", it means that the movement
+			 * comes from the top (eg. down arrow was pressed on keyboard).
+			 * @param {HTMLElement} previousElement Element to blur
+			 * @member ns.widget.BaseWidget
+			 */
+			prototype.focus = function (options) {
+				var self = this,
+					element = self.element,
+					blurElement,
+					blurWidget;
+
+				options = options || {};
+
+				if (self.isDisabled()) {
+					// widget is disabled, so we cannot set focus
+					return false;
+				}
+
+				blurElement = options.previousElement;
+				// we try to blur element, which has focus previously
+				if (blurElement) {
+					blurWidget = engine.getBinding(blurElement);
+					// call blur function on widget
+					if (blurWidget) {
+						options = objectUtils.merge({}, options, {element: blurElement});
+						blurWidget.blur(options);
+					} else {
+						// or on element, if widget does not exist
+						blurElement.blur();
+					}
+				}
+
+				options = objectUtils.merge({}, options, {element: element});
+
+				// set focus on element
+				eventUtils.trigger(document, "taufocus", options);
+				element.focus();
+
+				return true;
+			};
+
+			/**
+			 * Blur widget's element.
+			 *
+			 * This function calls function blur on element and if it is known
+			 * the direction of event, the proper css classes are added/removed.
+			 * @method blur
+			 * @param {object} options The options of event.
+			 * @param {"up"|"down"|"left"|"right"} direction
+			 * @member ns.widget.BaseWidget
+			 */
+			prototype.blur = function (options) {
+				var self = this,
+					element = self.element;
+
+				if (self.isDisabled()) {
+					// widget is disabled, so we cannot blur it
+					return false;
+				}
+
+				options = objectUtils.merge({}, options, {element: element});
+
+				// blur element
+				eventUtils.trigger(document, "taublur", options);
+				element.blur();
+				return true;
+			};
+
+			/**
 			 * Protected method destroying the widget
 			 * @method _destroy
 			 * @template
@@ -5081,14 +5244,24 @@ ns.version = '0.9.26';
 			 */
 			prototype.disable = function () {
 				var self = this,
-					element = self.element,
 					args = slice.call(arguments);
 
 				if (typeof self._disable === TYPE_FUNCTION) {
-					args.unshift(element);
+					args.unshift(self.element);
 					self._disable.apply(self, args);
 				}
 				return this;
+			};
+
+			/**
+			 * Check if widget is disabled.
+			 * @method isDisabled
+			 * @member ns.widget.BaseWidget
+			 * @return {boolean} Returns true if widget is disabled
+			 */
+			prototype.isDisabled = function () {
+				var self = this;
+				return self.element.getAttribute("disabled") || self.options.disabled === true;
 			};
 
 			/**
@@ -5108,11 +5281,10 @@ ns.version = '0.9.26';
 			 */
 			prototype.enable = function () {
 				var self = this,
-					element = self.element,
 					args = slice.call(arguments);
 
 				if (typeof self._enable === TYPE_FUNCTION) {
-					args.unshift(element);
+					args.unshift(self.element);
 					self._enable.apply(self, args);
 				}
 				return this;
@@ -5544,7 +5716,7 @@ ns.version = '0.9.26';
  *
  * ## Default selectors
  * In default all **BUTTON** tags and all **INPUT** tags with type equals _button_, _submit_ or _reset_ are change to Tizen WebUI buttons.
- * In addition all elements with _data-role=button_ and class _ui-btn_ are changed to Tizen Web UI buttons.
+ * In addition all elements with _data-role=button_ and class _ui-button_ are changed to Tizen Web UI buttons.
  * To prevent auto enhance element to Tizen Web UI buttons you can use _data-role=none_ attribute on **BUTTON** or **INPUT** element.
  *
  * ###HTML Examples
@@ -5557,7 +5729,7 @@ ns.version = '0.9.26';
  * ####Create simple button from link using class selector
  *
  *		@example
- *		<a href="#page2" class="ui-btn">Link button</a>
+ *		<a href="#page2" class="ui-button">Link button</a>
  *
  * ####Create simple button using button's tag
  *
@@ -6630,32 +6802,12 @@ ns.version = '0.9.26';
 				}
 			};
 
-			/**
-			 * Removes the button functionality completely.
-			 *
-			 * This will return the element back to its pre-init state.
-			 *
-			 *	@example
-			 *	<script>
-			 *		var buttonWidget = tau.widget.Button(document.getElementById("button"));
-			 *		buttonWidget.destroy();
-			 *	</script>
-			 *
-			 *	@example
-			 *	<script>
-			 *		$( "#button" ).button( "destroy" );
-			 *	</script>
-			 *
-			 * @method destroy
-			 * @member ns.widget.mobile.Button
-			 */
-
 			// definition
 			//@todo bring back ui-btn selector and refactor _build method to make it more intelligent for checking if structure is build
 			ns.widget.mobile.Button = Button;
 			engine.defineWidget(
 				"Button",
-				"[data-role='button'], button, [type='button'], [type='submit'], [type='reset']",
+				"[data-role='button'], button, [type='button'], [type='submit'], [type='reset'], .ui-button",
 				[],
 				Button,
 				"mobile"
@@ -7010,6 +7162,110 @@ ns.version = '0.9.26';
 
 			}(window, window.document, ns));
 
+/*global window, define, ns */
+/*
+ * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
+ * License : MIT License V2
+ */
+/**
+ * #Decorator namespace
+ *
+ * @class ns.decorator
+ */
+(function (ns) {
+	
+				ns.decorator = ns.decorator || {};
+			}(ns));
+
+
+/*global CustomEvent, define, window, ns */
+
+/* Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
+* License : MIT License V2
+*/
+/**
+ * #Dectorator for animation
+ *
+ * @class ns.decorator.focusAnimation
+ */
+(function (window, document, ns) {
+	
+	
+			var animation,
+				classes = {
+					focusPrefix: "ui-focus-",
+					blurPrefix: "ui-blur-",
+					up: "up",
+					down: "down",
+					left: "left",
+					right: "right"
+				},
+				status;
+
+			function removeAnimationClasses(element, prefix) {
+				var elementClasses = element.classList;
+				elementClasses.remove(prefix + classes.left);
+				elementClasses.remove(prefix + classes.up);
+				elementClasses.remove(prefix + classes.right);
+				elementClasses.remove(prefix + classes.down);
+			}
+
+			function prepareFocusAnimation(event) {
+				var options = event.detail || {},
+					element = options.element,
+					direction = options.direction;
+
+				if (element) {
+					removeAnimationClasses(element, classes.blurPrefix);
+					removeAnimationClasses(element, classes.focusPrefix);
+					if (direction) {
+						element.classList.add(classes.focusPrefix + direction);
+					}
+				}
+			};
+
+			function prepareBlurAnimation(event) {
+				var options = event.detail || {},
+					element = options.element,
+					direction = options.direction;
+
+				if (element) {
+					removeAnimationClasses(element, classes.focusPrefix);
+					removeAnimationClasses(element, classes.blurPrefix);
+					if (direction) {
+						element.classList.add(classes.blurPrefix + direction);
+					}
+				}
+			};
+
+			function enable() {
+				status = true;
+				document.addEventListener("taufocus", prepareFocusAnimation, false);
+				document.addEventListener("taublur", prepareBlurAnimation, false);
+			};
+
+			function disable() {
+				status = false;
+				document.removeEventListener("taufocus", prepareFocusAnimation, false);
+				document.removeEventListener("taublur", prepareBlurAnimation, false);
+			};
+
+			animation = {
+				classes: classes,
+
+				enable: enable,
+				disable: disable,
+				isEnabled: function () {
+					return status;
+				}
+			};
+
+			ns.decorator.focusAnimation = animation;
+
+			enable();
+
+			}(window, window.document, ns));
+
 /*global window, define, ns, HTMLElement */
 /* 
  * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
@@ -7022,7 +7278,8 @@ ns.version = '0.9.26';
  */
 (function (document, ns) {
 	
-				var DOM = ns.util.DOM,
+				var engine = ns.engine,
+				DOM = ns.util.DOM,
 				object = ns.util.object,
 				BaseKeyboardSupport = function () {
 					object.merge(this, prototype);
@@ -7037,12 +7294,6 @@ ns.version = '0.9.26';
 				classes = {
 					focusDisabled: "ui-focus-disabled",
 					focusEnabled: "ui-focus-enabled",
-					focusPrefix: "ui-focus-",
-					blurPrefix: "ui-blur-",
-					up: "up",
-					down: "down",
-					left: "left",
-					right: "right"
 				},
 				KEY_CODES = {
 					left: 37,
@@ -7050,6 +7301,12 @@ ns.version = '0.9.26';
 					right: 39,
 					down: 40,
 					enter: 13
+				},
+				EVENT_POSITION = {
+					up: "up",
+					down: "down",
+					left: "left",
+					right: "right"
 				},
 				selectorSuffix = ":not(." + classes.focusDisabled + ")",
 				selectors = ["a", "." + classes.focusEnabled, "[tabindex]"],
@@ -7065,27 +7322,28 @@ ns.version = '0.9.26';
 			BaseKeyboardSupport.classes = classes;
 			/**
 			 * Get focussed element.
-			 * @method _getFocusesLink
+			 * @method getFocusedLink
 			 * @returns {HTMLElement}
-			 * @protected
+			 * @private
 			 * @member ns.widget.tv.BaseKeyboardSupport
 			 */
-			prototype._getFocusesLink = function() {
+			function getFocusedLink() {
 				return document.querySelector(":focus") || document.activeElement;
-			};
+			}
 
 			/**
 			 * Finds all visible links.
-			 * @method _getActiveLinks
+			 * @method getFocusableElements
+			 * @param {HTMLElement} widgetElement
 			 * @returns {Array}
-			 * @protected
+			 * @private
 			 * @member ns.widget.tv.BaseKeyboardSupport
 			 */
-			prototype._getActiveLinks = function() {
-				return [].slice.call(this.element.querySelectorAll(selectorsString)).filter(function(element){
+			function getFocusableElements(widgetElement) {
+				return [].slice.call(widgetElement.querySelectorAll(selectorsString)).filter(function(element){
 					return element.offsetWidth && window.getComputedStyle(element).visibility !== "hidden";
 				});
-			};
+			}
 
 			/**
 			 * Extracts element from offsetObject.
@@ -7111,6 +7369,10 @@ ns.version = '0.9.26';
 				selectorsString = selectors.join(selectorSuffix + ",") + selectorSuffix;
 			}
 
+			prototype.getActiveSelector = function() {
+				return selectorsString;
+			};
+
 			/**
 			 * Calculates neighborhood links.
 			 * @method _getNeighborhoodLinks
@@ -7121,8 +7383,8 @@ ns.version = '0.9.26';
 			prototype._getNeighborhoodLinks = function() {
 				var self = this,
 					offset = DOM.getElementOffset,
-					links = self._getActiveLinks(),
-					currentLink = self._getFocusesLink(),
+					links = getFocusableElements(self.element),
+					currentLink = getFocusedLink(),
 					currentLinkOffset,
 					left,
 					top,
@@ -7161,7 +7423,6 @@ ns.version = '0.9.26';
 							// sort elements, elements with shortest distance are on top of list
 							;
 					}).map(mapToElement);
-					top = top[0];
 					bottom = linksOffset.filter(function (linkOffset) {
 						return (linkOffset.offset.top > currentLinkOffset.top);
 					}).sort(function (linkOffset1, linkOffset2) {
@@ -7169,8 +7430,7 @@ ns.version = '0.9.26';
 							(linkOffset1.offset.top < linkOffset2.offset.top ? -1 : 1) :
 							(linkOffset1.differentX < linkOffset2.differentX ? -1 : 1)
 							;
-					});
-					bottom = bottom.map(mapToElement)[0];
+					}).map(mapToElement);
 					left = linksOffset.filter(function (linkOffset) {
 						return (linkOffset.offset.left  < currentLinkOffset.left);
 					}).sort(function (linkOffset1, linkOffset2) {
@@ -7178,7 +7438,7 @@ ns.version = '0.9.26';
 							(linkOffset1.offset.left > linkOffset2.offset.left ? -1 : 1) :
 							(linkOffset1.differentY < linkOffset2.differentY ? -1 : 1)
 							;
-					}).map(mapToElement)[0];
+					}).map(mapToElement);
 					right = linksOffset.filter(function (linkOffset) {
 						return (linkOffset.offset.left > currentLinkOffset.left );
 					}).sort(function (linkOffset1, linkOffset2) {
@@ -7186,10 +7446,9 @@ ns.version = '0.9.26';
 							(linkOffset1.offset.left < linkOffset2.offset.left ? -1 : 1) :
 							(linkOffset1.differentY < linkOffset2.differentY ? -1 : 1)
 							;
-					});
-					right = right.map(mapToElement)[0];
+					}).map(mapToElement);
 				} else {
-					top = left = right = bottom = links[0];
+					top = left = right = bottom = links;
 				}
 				result = {
 					top: top,
@@ -7199,14 +7458,6 @@ ns.version = '0.9.26';
 				};
 				return result;
 			};
-
-			function removeAnimationClasses(element, prefix) {
-				var elementClasses = element.classList;
-				elementClasses.remove(prefix + classes.left);
-				elementClasses.remove(prefix + classes.up);
-				elementClasses.remove(prefix + classes.right);
-				elementClasses.remove(prefix + classes.down);
-			}
 
 			/**
 			 * Supports keyboard event.
@@ -7219,44 +7470,69 @@ ns.version = '0.9.26';
 				var self = this,
 					keyCode = event.keyCode,
 					neighborhoodLinks,
-					currentLink = self._getFocusesLink(),
-					positionClass,
-					cssClass,
-					nextElement;
+					currentLink = getFocusedLink(),
+					currentLinkWidget,
+					positionFrom,
+					nextElements,
+					nextElement,
+					nextNumber = 0,
+					nextElementWidget,
+					setFocus = false,
+					options = {};
 
 				if (self._supportKeyboard) {
 					neighborhoodLinks = self._getNeighborhoodLinks();
 					switch (keyCode) {
 						case KEY_CODES.left:
-							nextElement = neighborhoodLinks.left;
-							positionClass = classes.left;
+							nextElements = neighborhoodLinks.left;
+							nextElement = nextElements[nextNumber];
+							positionFrom = EVENT_POSITION.left;
 							break;
 						case KEY_CODES.up:
-							nextElement = neighborhoodLinks.top;
-							positionClass = classes.up;
+							nextElements = neighborhoodLinks.top;
+							nextElement = nextElements[nextNumber];
+							positionFrom = EVENT_POSITION.up;
 							break;
 						case KEY_CODES.right:
-							nextElement = neighborhoodLinks.right;
-							positionClass = classes.right;
+							nextElements = neighborhoodLinks.right;
+							nextElement = nextElements[nextNumber];
+							positionFrom = EVENT_POSITION.right;
 							break;
 						case KEY_CODES.down:
-							nextElement = neighborhoodLinks.bottom;
-							positionClass = classes.down;
+							nextElements = neighborhoodLinks.bottom;
+							nextElement = nextElements[nextNumber];
+							positionFrom = EVENT_POSITION.down;
 							break;
 					}
-					if (nextElement) {
-						removeAnimationClasses(nextElement, classes.blurPrefix);
-						removeAnimationClasses(nextElement, classes.focusPrefix);
-						nextElement.classList.add(classes.focusPrefix + positionClass);
-						if (currentLink) {
-							removeAnimationClasses(currentLink, classes.focusPrefix);
-							removeAnimationClasses(nextElement, classes.blurPrefix);
-							currentLink.classList.add(classes.blurPrefix + positionClass);
+
+					while (nextElement && !setFocus) {
+						// if element to focus is found
+						nextElementWidget = engine.getBinding(nextElement);
+						if (nextElementWidget) {
+							// we call function focus if the element is connected with widget
+							options.direction = positionFrom;
+							options.previousElement = currentLink;
+							setFocus = nextElementWidget.focus(options);
+						} else {
+							// or only set focus on element
+							nextElement.focus();
+							// and blur the previous one
+							if (currentLink) {
+								currentLinkWidget = engine.getBinding(currentLink);
+								if (currentLinkWidget) {
+									options.direction = positionFrom;
+									currentLinkWidget.blur(options);
+								} else {
+									currentLink.blur();
+								}
+							}
+							setFocus = true;
 						}
-						nextElement.focus();
+
 						if (self._openActiveElement) {
 							self._openActiveElement(nextElement);
 						}
+						nextElement = nextElements[++nextNumber];
 					}
 				}
 			};
@@ -7290,11 +7566,18 @@ ns.version = '0.9.26';
 			/**
 			 * Blurs from focused element.
 			 * @method blur
+			 * @static
 			 * @member ns.widget.tv.BaseKeyboardSupport
 			 */
-			prototype.blur = function() {
-				var focusedElement = this._getFocusesLink();
-				if (focusedElement) {
+			BaseKeyboardSupport.blurAll = function() {
+				var focusedElement = getFocusedLink(),
+					focusedElementWidget = focusedElement && engine.getBinding(focusedElement);
+
+				if (focusedElementWidget) {
+					// call blur on widget
+					focusedElementWidget.blur();
+				} else if (focusedElement) {
+					// or call blur on element
 					focusedElement.blur();
 				}
 			};
@@ -7302,22 +7585,24 @@ ns.version = '0.9.26';
 			/**
 			 * Focuses on element.
 			 * @method focus
-			 * @param {?HTMLElement|number|boolean} [element]
+			 * @param {HTMLElement} [element] widget's element
+			 * @param {?HTMLElement|number|boolean} [elementToFocus] element to focus
+			 * @static
 			 * @member ns.widget.tv.BaseKeyboardSupport
 			 */
-			prototype.focus = function(element) {
-				var links = this._getActiveLinks(),
+			BaseKeyboardSupport.focusElement = function(element, elementToFocus) {
+				var links = getFocusableElements(element),
 					linksLength = links.length,
 					i;
-				if (element instanceof HTMLElement) {
+				if (elementToFocus instanceof HTMLElement) {
 					for (i = 0; i < linksLength; i++) {
-						if (links[i] === element) {
-							element.focus();
+						if (links[i] === elementToFocus) {
+							elementToFocus.focus();
 						}
 					}
-				} else if (typeof element === "number") {
-					if (links[element]) {
-						links[element].focus();
+				} else if (typeof elementToFocus === "number") {
+					if (links[elementToFocus]) {
+						links[elementToFocus].focus();
 					}
 				} else {
 					if (links[0]) {
@@ -7352,16 +7637,24 @@ ns.version = '0.9.26';
 			 * @member ns.widget.tv.BaseKeyboardSupport
 			 */
 			BaseKeyboardSupport.registerActiveSelector = function (selector) {
-				var index = selectors.indexOf(selector);
-				// check if not registered yet
-				if (index === -1) {
-					selectors.push(selector);
-					// new selector - create reference counter for it
-					REF_COUNTERS.push(1);
-				} else {
-					// such a selector exist - increment reference counter
-					++REF_COUNTERS[index];
-				}
+				var selectorArray = selector.split(","),
+					index;
+
+				selectorArray.forEach(function(currentSelector){
+					currentSelector = currentSelector.trim();
+					index = selectors.indexOf(currentSelector);
+
+					// check if not registered yet
+					if (index === -1) {
+						selectors.push(currentSelector);
+						// new selector - create reference counter for it
+						REF_COUNTERS.push(1);
+					} else {
+						// such a selector exist - increment reference counter
+						++REF_COUNTERS[index];
+					}
+				});
+
 				prepareSelector();
 			};
 
@@ -7373,16 +7666,24 @@ ns.version = '0.9.26';
 			 * @member ns.widget.tv.BaseKeyboardSupport
 			 */
 			BaseKeyboardSupport.unregisterActiveSelector = function (selector) {
-				var index = selectors.indexOf(selector);
-				if (index !== -1) {
-					--REF_COUNTERS[index];
-					// check reference counter
-					if (REF_COUNTERS[index] === 0) {
-						// remove selector
-						selectors.splice(index, 1);
-						REF_COUNTERS.splice(index, 1);
+				var selectorArray = selector.split(","),
+					index;
+
+				selectorArray.forEach(function(currentSelector){
+					currentSelector = currentSelector.trim();
+					index = selectors.indexOf(currentSelector);
+
+					if (index !== -1) {
+						--REF_COUNTERS[index];
+						// check reference counter
+						if (REF_COUNTERS[index] === 0) {
+							// remove selector
+							selectors.splice(index, 1);
+							REF_COUNTERS.splice(index, 1);
+						}
 					}
-				}
+				});
+
 				prepareSelector();
 			};
 
@@ -7414,10 +7715,17 @@ ns.version = '0.9.26';
 				Button = function () {
 					BaseButton.call(this);
 					BaseKeyboardSupport.call(this);
+					this._callbacks = {};
 				},
 				engine = ns.engine,
 				classes = objectUtils.merge({}, BaseButton.classes, {
-					background: "ui-background"
+					background: "ui-background",
+					blur: "ui-blur",
+					blurPrefix: "ui-blur-",
+					up: "up",
+					down: "down",
+					left: "left",
+					right: "right"
 				}),
 				prototype = new BaseButton();
 
@@ -7455,6 +7763,62 @@ ns.version = '0.9.26';
 
 				self.ui.background = document.getElementById(element.id + "-background");
 				return element;
+			};
+
+			function animationEndCallback(element) {
+				var classList = element.classList;
+
+				classList.remove(classes.blur);
+				classList.remove(classes.blurPrefix + classes.up);
+				classList.remove(classes.blurPrefix + classes.down);
+				classList.remove(classes.blurPrefix + classes.right);
+				classList.remove(classes.blurPrefix + classes.left);
+			};
+
+			/**
+			 * Initializes widget
+			 * @method _init
+			 * @protected
+			 * @member ns.widget.tv.Button
+			 */
+			prototype._bindEvents = function () {
+				var self = this,
+					background = self.ui.background,
+					transitionend;
+
+				BaseButtonPrototype._bindEvents.call(self);
+
+				transitionend = animationEndCallback.bind(null, self.element);
+				background.addEventListener("transitionend", transitionend, false);
+				background.addEventListener("webkitTransitionEnd", transitionend, false);
+				background.addEventListener("mozTransitionEnd", transitionend, false);
+				background.addEventListener("msTransitionEnd", transitionend, false);
+				background.addEventListener("oTransitionEnd", transitionend, false);
+				self._callbacks.transitionend = transitionend;
+			};
+
+			/**
+			 * Initializes widget
+			 * @method _init
+			 * @protected
+			 * @member ns.widget.tv.Button
+			 */
+			prototype._destroy = function() {
+				var self = this,
+					background = self.ui.background,
+					transitionend,
+					BaseButtonPrototype_destroy = BaseButtonPrototype._destroy;
+
+				transitionend = self._callbacks.transitionend;
+				background.removeEventListener("transitionend", transitionend, false);
+				background.removeEventListener("webkitTransitionEnd", transitionend, false);
+				background.removeEventListener("mozTransitionEnd", transitionend, false);
+				background.removeEventListener("msTransitionEnd", transitionend, false);
+				background.removeEventListener("oTransitionEnd", transitionend, false);
+
+				if (typeof BaseButtonPrototype_destroy === FUNCTION_TYPE) {
+					BaseButtonPrototype_destroy.call(self);
+				}
 			};
 
 			engine.defineWidget(
@@ -7543,7 +7907,7 @@ ns.version = '0.9.26';
  *
  * Listview widget hasn't JavaScript API.
  *
- * @class ns.widget.wearable.Listview
+ * @class ns.widget.core.Listview
  * @extends ns.widget.BaseWidget
  */
 (function (document, ns) {
@@ -7553,9 +7917,15 @@ ns.version = '0.9.26';
 				Listview = function () {
 					return this;
 				},
+				classes = {
+					LISTVIEW: "ui-listview"
+				},
 				prototype = new BaseWidget();
 
 			Listview.events = {};
+			Listview.classes = classes;
+
+			Listview.classes = classes;
 
 			prototype._changeLinksToButton = function(item) {
 				engine.instanceWidget(
@@ -7570,29 +7940,31 @@ ns.version = '0.9.26';
 			* @private
 			* @param {HTMLElement} element
 			* @return {HTMLElement}
-			* @member ns.widget.wearable.Listview
+			* @member ns.widget.core.Listview
 			*/
 			prototype._build = function (element) {
-				var self = this,
-					items = element.children,
-					itemsLength = items.length,
-					item,
-					i;
-
-				for (i=0; i<itemsLength; i++) {
-					item = items[i];
-					if (item.firstElementChild && item.firstElementChild.tagName === "A") {
-						self._changeLinksToButton(item.firstElementChild);
-					}
-				}
-
+				rebuild(this, element);
 				return element;
 			};
 
+			/**
+			* Init Listview Widget
+			* @method _init
+			* @param {HTMLElement} element
+			* @member ns.widget.core.Listview
+			* @protected
+			*/
 			prototype._init = function (element) {
 				return element;
 			};
 
+			/**
+			* Bind events to widget
+			* @method _bindEvents
+			* @param {HTMLElement} element
+			* @member ns.widget.core.Listview
+			* @protected
+			*/
 			prototype._bindEvents = function (element) {
 				return element;
 			};
@@ -7600,20 +7972,64 @@ ns.version = '0.9.26';
 			/**
 			* refresh structure
 			* @method _refresh
-			* @new
-			* @member ns.widget.wearable.Listview
+			* @return {HTMLElement}
+			* @member ns.widget.core.Listview
 			*/
 			prototype._refresh = function () {
-				return null;
+				var self = this,
+					element = self.element;
+
+				rebuild(self, element);
+
+				return element;
+			};
+
+			/**
+			 * Method rebuild widget.
+			 * @method rebuild
+			 * @param {Listview} self
+			 * @param {HTMLElement} element
+			 * @private
+			 * @static
+			 * @member ns.widget.core.Listview
+			 */
+			function rebuild(self, element) {
+				var items = element.children,
+					itemsLength = items.length,
+					item,
+					i;
+
+				element.classList.add(classes.LISTVIEW);
+
+				for (i = 0; i < itemsLength; i++) {
+					item = items[i];
+					if (item.firstElementChild && item.firstElementChild.tagName === "A") {
+						self._changeLinksToButton(item.firstElementChild);
+					}
+				}
 			};
 
 			/**
 			* @method _destroy
 			* @private
-			* @member ns.widget.wearable.Listview
+			* @member ns.widget.core.Listview
 			*/
 			prototype._destroy = function () {
-				return null;
+				var items = this.element.children,
+					itemsLength = items.length,
+					item,
+					i,
+					widget;
+
+				for (i = 0; i < itemsLength; i++) {
+					item = items[i];
+					if (item.firstElementChild && item.firstElementChild.tagName === "A") {
+						widget = engine.getBinding(item.firstElementChild, "Button");
+						if (widget !== null) {
+							widget.destroy();
+						}
+					}
+				}
 			};
 
 			Listview.prototype = prototype;
@@ -7629,17 +8045,126 @@ ns.version = '0.9.26';
 /*jslint nomen: true */
 /**
  * # Listview Widget
+ *
  * Shows a list view.
  *
+ * ## Default selectors
+ *
+ * Default selector for listview widget is class *ui-listview*.
+ *
+ * ## HTML Examples
+ *
+ * To add a list widget to the application, use the following code.
+ *
+ * ### List with basic items
+ *
+ * You can add a basic list widget as follows:
+ *
+ *      @example
+ *         <ul class="ui-listview">
+ *             <li>1line</li>
+ *             <li>2line</li>
+ *             <li>3line</li>
+ *             <li>4line</li>
+ *             <li>5line</li>
+ *         </ul>
+ *
+ * ### List with link items
+ *
+ * You can add a list widget with a link and press effect that allows the user to click each list item as follows:
+ *
+ *      @example
+ *         <ul class="ui-listview">
+ *             <li>
+ *                 <a href="#">1line</a>
+ *             </li>
+ *             <li>
+ *                 <a href="#">2line</a>
+ *             </li>
+ *             <li>
+ *                 <a href="#">3line</a>
+ *             </li>
+ *             <li>
+ *                 <a href="#">4line</a>
+ *             </li>
+ *             <li>
+ *                 <a href="#">5line</a>
+ *             </li>
+ *         </ul>
+ *
+ * ### List with checkboxes
+ *
+ * To create list with checkboxes use class *li-has-checkbox* for 'li' tag.
+ *
+ *      @example
+ *         <ul class="ui-listview">
+ *             <li class="li-has-checkbox">
+ *                 <label>
+ *                      List 01
+ *                      <input type="checkbox" id="checkbox-1"/>
+ *                      <label for="checkbox-1"></label>
+ *                 </label>
+ *             </li>
+ *             <li class="li-has-checkbox">
+ *                 <label>
+ *                      List 01
+ *                      <input type="checkbox" id="checkbox-1"/>
+ *                      <label for="checkbox-1"></label>
+ *                 </label>
+ *             </li>
+ *         </ul>
+ *
+ * ### List with radio buttons
+ *
+ * To create list with radio buttons use class *li-has-radio* for 'li' tag.
+ *
+ *      @example
+ *         <ul class="ui-listview">
+ *             <li class="li-has-radio">
+ *                 <label>
+ *                      Radio 01
+ *                      <input type="radio" name="radio-sample" checked="checked" id="rd-1"/>
+ *                      <label for="rd-1"></label>
+ *                 </label>
+ *             </li>
+ *             <li class="li-has-radio">
+ *                 <label>
+ *                      Radio 02
+ *                      <input type="radio" name="radio-sample" id="rd-2"/>
+ *                      <label for="rd-2"></label>
+ *                 </label>
+ *             </li>
+ *         </ul>
+ *
+ * ### Multiline list
+ *
+ * To to apply multiline style use *li-has-multiline* and *li-text-sub* classes. See example code.
+ *
+ *      @example
+ *         <ul class="ui-listview">
+ *             <li class="li-has-multiline">
+ *                 <a href="#">
+ *                     Wallpaper
+ *                     <span class="li-text-sub">Overall size of fonts</span>
+ *                 </a>
+ *             </li>
+ *             <li class="li-has-multiline">
+ *                 <a href="#">
+ *                     Wallpaper
+ *                     <span class="li-text-sub">Overall size of fonts</span>
+ *                 </a>
+ *             </li>
+ *         </ul>
+ *
  * @class ns.widget.tv.Listview
- * @class ns.widget.core.Listview
- * @extends ns.widget.BaseWidget
+ * @extends ns.widget.core.Listview
  */
 (function (document, ns) {
 	
 				var CoreListview = ns.widget.core.Listview,
 				engine = ns.engine,
 				Listview = function () {
+					CoreListview.call(this);
 				},
 				prototype = new CoreListview();
 
@@ -7651,10 +8176,11 @@ ns.version = '0.9.26';
 
 			engine.defineWidget(
 				"Listview",
-				".ui-listview,[data-role=listview]",
+				".ui-listview, [data-role=listview]",
 				[],
 				Listview,
-				"tv"
+				"tv",
+				true
 			);
 			}(window.document, ns));
 
@@ -7901,14 +8427,6 @@ ns.version = '0.9.26';
 			 */
 			var BaseWidget = ns.widget.BaseWidget,
 				/**
-				 * Alias for {@link ns.wearable.selectors}
-				 * @property {Object} selectors
-				 * @member ns.widget.wearable.Page
-				 * @private
-				 * @static
-				 */
-				selectors = ns.wearable.selectors,
-				/**
 				 * Alias for {@link ns.util}
 				 * @property {Object} util
 				 * @member ns.widget.wearable.Page
@@ -8021,49 +8539,6 @@ ns.version = '0.9.26';
 
 			Page.classes = classes;
 			Page.events = EventType;
-
-			/**
-			 * Selector for page element
-			 * @property {string} [page=".ui-page"]
-			 * @member ns.wearable.selectors
-			 */
-			selectors.page = "." + classes.uiPage;
-			/**
-			 * Selector for active page element
-			 * @property {string} [activePage=".ui-page-active"]
-			 * @member ns.wearable.selectors
-			 */
-			selectors.activePage = "." + classes.uiPageActive;
-			/**
-			 * Selector for section element
-			 * @property {string} [section=".ui-section"]
-			 * @member ns.wearable.selectors
-			 */
-			selectors.section = "." + classes.uiSection;
-			/**
-			 * Selector for header element
-			 * @property {string} [header=".ui-header"]
-			 * @member ns.wearable.selectors
-			 */
-			selectors.header = "." + classes.uiHeader;
-			/**
-			 * Selector for footer element
-			 * @property {string} [footer=".ui-footer"]
-			 * @member ns.wearable.selectors
-			 */
-			selectors.footer = "." + classes.uiFooter;
-			/**
-			 * Selector for content element
-			 * @property {string} [content=".ui-content"]
-			 * @member ns.wearable.selectors
-			 */
-			selectors.content = "." + classes.uiContent;
-			/**
-			 * Selector for page scroll element
-			 * @property {string} [pageScroll=".ui-page-scroll"]
-			 * @member ns.wearable.selectors
-			 */
-			selectors.pageScroll = "." + classes.uiPageScroll;
 
 			/**
 			 * Sets top-bottom css attributes for content element
@@ -8359,14 +8834,6 @@ ns.version = '0.9.26';
 				 */
 				classes = WearablePage.classes,
 				/**
-				 * Alias for {@link ns.wearable.selectors}
-				 * @property {Object} selectors
-				 * @member ns.widget.tv.Page
-				 * @private
-				 * @static
-				 */
-				selectors = ns.wearable.selectors,
-				/**
 				 * Alias for {@link ns.util}
 				 * @property {Object} util
 				 * @member ns.widget.tv.Page
@@ -8473,7 +8940,8 @@ ns.version = '0.9.26';
 			 */
 			prototype._buildHeader = function(element) {
 				var self = this,
-					header = utilSelectors.getChildrenBySelector(element, "header,." + classes.uiHeader)[0];
+					header = utilSelectors.getChildrenBySelector(element, "header,[data-role='header'],." + classes.uiHeader)[0];
+
 				// add class if header does not exist
 				if (!header) {
 					element.classList.add(classes.uiHeaderEmpty);
@@ -8493,7 +8961,8 @@ ns.version = '0.9.26';
 			 * @member ns.widget.tv.Page
 			 */
 			prototype._buildFooter = function(element) {
-				var footer = utilSelectors.getChildrenBySelector(element, "footer,." + classes.uiFooter)[0];
+				var footer = utilSelectors.getChildrenBySelector(element, "footer,[data-role='footer'],." + classes.uiFooter)[0];
+
 				// add class if footer does not exist
 				if (!footer) {
 					element.classList.add(classes.uiFooterEmpty);
@@ -8664,8 +9133,6 @@ ns.version = '0.9.26';
 
 			// definition
 			ns.widget.tv.Page = Page;
-
-			selectors.page = "[data-role=page],.ui-page";
 
 			engine.defineWidget(
 				"page",
@@ -9206,6 +9673,13 @@ ns.version = '0.9.26';
 				 * @private
 				 */
 				utilSelector = ns.util.selectors,
+				/**
+				 * Alias for class ns.event
+				 * @property {Object} eventUtils
+				 * @member ns.widget.core.Popup
+				 * @private
+				 */
+				eventUtils = ns.event,
 
 				Popup = function () {
 					var self = this,
@@ -9213,6 +9687,8 @@ ns.version = '0.9.26';
 
 					self.selectors = selectors;
 					self.options = objectUtils.merge({}, Popup.defaults);
+					self.storedOptions = null;
+
 					/**
 					 * Popup state flag
 					 * @property {0|1|2|3} [state=null]
@@ -9240,7 +9716,8 @@ ns.version = '0.9.26';
 				 * @property {boolean} [options.overlay=true] Sets whether to show overlay when a popup is open.
 				 * @property {boolean|string} [options.header=false] Sets content of header.
 				 * @property {boolean|string} [options.footer=false] Sets content of footer.
-				 * @property {string} [overlayClass=""] Sets the custom class for the popup background, which covers the entire window.
+				 * @property {string} [options.overlayClass=""] Sets the custom class for the popup background, which covers the entire window.
+				 * @property {string} [options.closeLinkSelector="a[data-rel='back']"] Sets selector for close buttons in popup.
 				 * @property {boolean} [options.history=true] Sets whether to alter the url when a popup is open to support the back button.
 				 * @member ns.widget.core.Popup
 				 * @static
@@ -9252,6 +9729,7 @@ ns.version = '0.9.26';
 					header: false,
 					footer: false,
 					overlayClass: "",
+					closeLinkSelector: "[data-rel='back']",
 					history: true
 				},
 				states = {
@@ -9598,10 +10076,12 @@ ns.version = '0.9.26';
 			 * @member ns.widget.core.Popup
 			 */
 			prototype._bindEvents = function (element) {
-				var self = this;
+				var self = this,
+					closeButtons = self.element.querySelectorAll(self.options.closeLinkSelector);
 
 				self._ui.page.addEventListener("pagebeforehide", self, false);
 				window.addEventListener("resize", self, false);
+				eventUtils.on(closeButtons, "click", self, false);
 				self._bindOverlayEvents();
 			};
 
@@ -9639,9 +10119,12 @@ ns.version = '0.9.26';
 			 * @member ns.widget.core.Popup
 			 */
 			prototype._unbindEvents = function (element) {
-				var self = this;
+				var self = this,
+					closeButtons = self.element.querySelectorAll(self.options.closeLinkSelector);
+
 				self._ui.page.removeEventListener("pagebeforehide", self, false);
 				window.removeEventListener("resize", self, false);
+				eventUtils.off(closeButtons, "click", self, false);
 				self._unbindOverlayEvents();
 			};
 
@@ -9654,8 +10137,18 @@ ns.version = '0.9.26';
 			 */
 			prototype.open = function (options) {
 				var self = this,
-					newOptions = objectUtils.merge(self.options, options);
+					newOptions;
+
 				if (!self._isActive()) {
+					/*
+					 * Some passed options on open need to be kept until popup closing.
+					 * For example, trasition parameter should be kept for closing animation.
+					 * On the other hand, fromHashChange or x, y parameter should be removed.
+					 * We store options and restore them on popup closing.
+					 */
+					self._storeOpenOptions(options);
+
+					newOptions = objectUtils.merge(self.options, options);
 					if (!newOptions.dismissible) {
 						engine.getRouter().lock();
 					}
@@ -9680,6 +10173,45 @@ ns.version = '0.9.26';
 					}
 					self._hide(newOptions);
 				}
+			};
+
+			/**
+			 * Store Open options.
+			 * @method _storeOpenOptions
+			 * @param {object} options
+			 * @protected
+			 * @member ns.widget.core.Popup
+			 */
+			prototype._storeOpenOptions = function (options) {
+				var self = this,
+					oldOptions = self.options,
+					storedOptions = {},
+					val;
+
+				for (key in options) {
+					if (options.hasOwnProperty(key)) {
+						storedOptions[key] = oldOptions[key];
+					}
+				}
+
+				self.storedOptions = storedOptions;
+			};
+
+			/**
+			 * Restore Open options and remove some unnecessary ones.
+			 * @method _storeOpenOptions
+			 * @protected
+			 * @member ns.widget.core.Popup
+			 */
+			prototype._restoreOpenOptions = function () {
+				var self = this
+					options = self.options,
+					propertiesToRemove = ["x", "y", "fromHashChange"];
+
+				// we restore opening values of all options
+				options = objectUtils.merge(options, self.storedOptions);
+				// and remove all values which should not be stored
+				objectUtils.removeProperties(options, propertiesToRemove);
 			};
 
 			/**
@@ -9729,7 +10261,8 @@ ns.version = '0.9.26';
 			 */
 			prototype._hide = function (options) {
 				var self = this,
-					isOpened = self._isOpened();
+					isOpened = self._isOpened(),
+					callbacks = self._callbacks;
 
 				// change state of popup
 				self.state = states.DURING_CLOSING;
@@ -9743,8 +10276,12 @@ ns.version = '0.9.26';
 				} else {
 					// popup is active, but not opened yet (DURING_OPENING), so
 					// we stop opening animation
-					self._callbacks.transitionDeferred.reject();
-					self._callbacks.animationEnd();
+					if (callbacks.transitionDeferred) {
+						callbacks.transitionDeferred.reject();
+					}
+					if (callbacks.animationEnd) {
+						callbacks.animationEnd();
+					}
 					// and set popup as inactive
 					self._onHide();
 				}
@@ -9763,6 +10300,7 @@ ns.version = '0.9.26';
 					overlay.style.display = "";
 				}
 				self._setActive(false);
+				self._restoreOpenOptions();
 				self.trigger(events.hide);
 			};
 
@@ -9784,6 +10322,10 @@ ns.version = '0.9.26';
 					case "click":
 						if ( event.target === self._ui.overlay ) {
 							self._onClickOverlay(event);
+						} else if (utilSelector.getClosestBySelector(event.target, self.options.closeLinkSelector)) {
+							self.close();
+							event.preventDefault();
+							event.stopPropagation();
 						}
 						break;
 				}
@@ -9841,6 +10383,9 @@ ns.version = '0.9.26';
 				// remove callbacks on animation events
 				element.removeEventListener("animationend", animationEndCallback, false);
 				element.removeEventListener("webkitAnimationEnd", animationEndCallback, false);
+				element.removeEventListener("mozAnimationEnd", animationEndCallback, false);
+				element.removeEventListener("oAnimationEnd", animationEndCallback, false);
+				element.removeEventListener("msAnimationEnd", animationEndCallback, false);
 
 				// clear classes
 				transitionClass.split(" ").forEach(function (currentClass) {
@@ -9900,6 +10445,9 @@ ns.version = '0.9.26';
 					// add animation callbacks
 					element.addEventListener("animationend", animationEndCallback, false);
 					element.addEventListener("webkitAnimationEnd", animationEndCallback, false);
+					element.addEventListener("mozAnimationEnd", animationEndCallback, false);
+					element.addEventListener("oAnimationEnd", animationEndCallback, false);
+					element.addEventListener("msAnimationEnd", animationEndCallback, false);
 					// add transition classes
 					transitionClass.split(" ").forEach(function (currentClass) {
 						currentClass = currentClass.trim();
@@ -10305,7 +10853,8 @@ ns.version = '0.9.26';
 
 				positionType = {
 					WINDOW: "window",
-					ORIGIN: "origin"
+					ORIGIN: "origin",
+					ABSOLUTE: "absolute"
 				},
 
 				prototype = new Popup();
@@ -10606,6 +11155,26 @@ ns.version = '0.9.26';
 			};
 
 			/**
+			 * Set top, left and margin for popup's container.
+			 * @method _placementCoordsAbsolute
+			 * @param {HTMLElement} element
+			 * @param {number} x
+			 * @param {number} y
+			 * @protected
+			 * @member ns.widget.core.ContextPopup
+			 */
+			prototype._placementCoordsAbsolute = function(element, x, y) {
+				var elementStyle = element.style,
+					elementWidth = element.offsetWidth,
+					elementHeight = element.offsetHeight;
+
+				elementStyle.top = y + "px";
+				elementStyle.left = x + "px";
+				elementStyle.marginTop = -(elementHeight / 2) + "px";
+				elementStyle.marginLeft = -(elementWidth / 2) + "px";
+			};
+
+			/**
 			 * Find clicked element.
 			 * @method _findClickedElement
 			 * @param {number} x
@@ -10675,17 +11244,18 @@ ns.version = '0.9.26';
 					emulatedPosition,
 					elementHeight,
 					clickedElement,
+					arrowType,
 					bestRectangle;
 
 				if (typeof positionTo === "string") {
 					if (positionTo === positionType.ORIGIN && typeof x === "number" && typeof y === "number") {
 						clickedElement = self._findClickedElement(x, y);
-					} else if (positionTo !== positionType.WINDOW) {
+					} else if (positionTo !== positionType.WINDOW && positionTo !== positionType.ABSOLUTE ) {
 						try {
 							clickedElement = document.querySelector(options.positionTo);
 						} catch(e) {}
 					}
-				} else {
+				} else if (typeof positionTo === "object") {
 					clickedElement = positionTo;
 				}
 
@@ -10696,12 +11266,14 @@ ns.version = '0.9.26';
 					elementHeight = element.offsetHeight;
 					bestRectangle = findBestPosition(self, clickedElement);
 
-					elementClassList.add(classes.arrowDir + bestRectangle.dir);
+					arrowType = bestRectangle.dir;
+					elementClassList.add(classes.arrowDir + arrowType);
+					self._ui.arrow.setAttribute("type", arrowType);
 
 					if (typeof x !== "number" && typeof y !== "number") {
 						// if we found element, which was clicked, but the coordinates of event
 						// was not available, we have to count these coordinates to the center of proper edge of element.
-						emulatedPosition = emulatePositionOfClick(bestRectangle.dir, clickedElement);
+						emulatedPosition = emulatePositionOfClick(arrowType, clickedElement);
 						x = emulatedPosition.x;
 						y = emulatedPosition.y;
 					}
@@ -10714,6 +11286,8 @@ ns.version = '0.9.26';
 					elementStyle.left = bestRectangle.x + "px";
 					elementStyle.top = bestRectangle.y + "px";
 
+				} else if (positionTo === positionType.ABSOLUTE && typeof x === "number" && typeof y === "number") {
+					self._placementCoordsAbsolute(element, x, y);
 				} else {
 					self._placementCoordsWindow(element);
 				}
@@ -10771,16 +11345,17 @@ ns.version = '0.9.26';
 					content = ui.content,
 					arrow = ui.arrow;
 
-				PopupPrototype._onHide.call(self);
-
 				elementClassList.remove(classes.context);
 				["l", "r", "b", "t"].forEach(function(key) {
 					elementClassList.remove(classes.arrowDir + key);
 				});
 
+				// we remove styles for element, which are changed
+				// styles for container, header and footer are left unchanged
 				element.removeAttribute("style");
-				content.removeAttribute("style");
 				arrow.removeAttribute("style");
+
+				PopupPrototype._onHide.call(self);
 			};
 
 			/**
@@ -10793,15 +11368,28 @@ ns.version = '0.9.26';
 				var self = this,
 					element = self.element,
 					ui = self._ui,
-					wrapper = ui.wrapper;
+					wrapper = ui.wrapper,
+					arrow = ui.arrow,
+					child;
 
 				PopupPrototype._destroy.call(self);
 
-				[].forEach.call(wrapper.children, function(child) {
-					element.appendChild(child);
-				});
+				if (wrapper) {
+					// restore all children from wrapper
+					child = wrapper.firstChild;
+					while (child) {
+						element.appendChild(child);
+						child = wrapper.firstChild;
+					}
 
-				wrapper.parentNode.removeChild(wrapper);
+					if (wrapper.parentNode) {
+						wrapper.parentNode.removeChild(wrapper);
+					}
+				}
+
+				if (arrow && arrow.parentNode) {
+					arrow.parentNode.removeChild(arrow);
+				}
 
 				ui.wrapper = null;
 				ui.arrow = null;
@@ -10833,24 +11421,25 @@ ns.version = '0.9.26';
 				}
 			};
 
+			/**
+			 * Refresh structure
+			 * @method _refresh
+			 * @protected
+			 * @member ns.widget.core.ContextPopup
+			 */
+			prototype._refresh = function() {
+				if (this._isActive()) {
+					PopupPrototype._refresh.call(this);
+					this.reposition(this.options);
+				}
+			};
+
 			ContextPopup.prototype = prototype;
 			ns.widget.core.ContextPopup = ContextPopup;
 
 			engine.defineWidget(
-				"popup",
-				"[data-role='popup'], .ui-popup",
-				[
-					"open",
-					"close",
-					"reposition"
-				],
-				ContextPopup,
-				"core"
-			);
-
-			engine.defineWidget(
 				"Popup",
-				"",
+				"[data-role='popup'], .ui-popup",
 				[
 					"open",
 					"close",
@@ -10860,6 +11449,10 @@ ns.version = '0.9.26';
 				"core",
 				true
 			);
+
+			// @remove
+			// THIS IS ONLY FOR COMPATIBILITY
+			ns.widget.popup = ns.widget.Popup;
 
 			}(window, window.document, ns));
 
@@ -10883,6 +11476,7 @@ ns.version = '0.9.26';
 				var engine = ns.engine,
 				utilSelectors = ns.util.selectors,
 				objectUtils = ns.util.object,
+				DOM = ns.util.DOM,
 				CorePopup = ns.widget.core.ContextPopup,
 				CorePopupPrototype = CorePopup.prototype,
 				BaseKeyboardSupport = ns.widget.tv.BaseKeyboardSupport,
@@ -10894,6 +11488,7 @@ ns.version = '0.9.26';
 
 					self.options = objectUtils.merge(self.options, defaults);
 					self.selectors = selectors;
+					self._nearestLinkForArrow = null;
 				},
 				defaults = objectUtils.merge({}, CorePopup.defaults, {
 					arrow: "t,b,l,r",
@@ -10903,7 +11498,8 @@ ns.version = '0.9.26';
 					toast: "ui-popup-toast",
 					headerEmpty: "ui-header-empty",
 					footerEmpty: "ui-footer-empty",
-					content: "ui-popup-content"
+					content: "ui-popup-content",
+					focus: "ui-focus"
 				}),
 				selectors = {
 					header: "header",
@@ -10984,19 +11580,21 @@ ns.version = '0.9.26';
 
 			prototype._setKeyboardSupport = function (options) {
 				var self = this,
+					element = self.element,
 					autoFocus = options.autofocus,
 					page = self._pageWidget,
-					toastPopup = self.element.classList.contains(classes.toast);
+					toastPopup = element.classList.contains(classes.toast),
+					selector = self.getActiveSelector();
 
-				if (self._getActiveLinks().length || toastPopup) {
+				if (toastPopup || (selector && element.querySelector(selector))) {
 					// if there are links inside popup, we enable keyboard support on page
 					// and enable in popup
 					self.enableKeyboardSupport();
-					page.blur();
+					BaseKeyboardSupport.blurAll();
 					page.disableKeyboardSupport();
 
 					if (autoFocus || autoFocus === 0) {
-						self.focus(autoFocus);
+						BaseKeyboardSupport.focusElement(element, autoFocus);
 					}
 				}
 
@@ -11028,21 +11626,104 @@ ns.version = '0.9.26';
 						CorePopupPrototype.open.apply(self, arguments);
 					}
 
-					self._setKeyboardSupport(options);
+					self._setArrowFocus();
+					self._setKeyboardSupport(options || {});
 				}
 			};
 
 			prototype.close = function() {
-				if (this._isOpened()) {
+				var self = this;
+
+				if (self._isOpened()) {
 					if (typeof CorePopupPrototype.close === FUNCTION_TYPE) {
-						CorePopupPrototype.close.apply(this, arguments);
+						CorePopupPrototype.close.apply(self, arguments);
 					}
 
-					this.disableKeyboardSupport();
-					this._pageWidget.enableKeyboardSupport();
+					self._cleanArrowFocus();
+					self.disableKeyboardSupport();
+					self._pageWidget.enableKeyboardSupport();
 
-					closingOnKeydown(this, false);
+					closingOnKeydown(self, false);
+
+					// blur any focused elements
+					document.activeElement.blur();
 				}
+			};
+
+			prototype._cleanArrowFocus = function () {
+				var self = this,
+					nearestLinkForArrow = self._nearestLinkForArrow,
+					callbacks = self._callbacks;
+
+				self._ui.arrow.classList.remove(classes.focus);
+				if (nearestLinkForArrow) {
+					nearestLinkForArrow.removeEventListener("focus", callbacks._onFocusArrow, false);
+					nearestLinkForArrow.removeEventListener("blur", callbacks._onBlurArrow, false);
+				}
+			};
+
+			prototype._setArrowFocus = function () {
+				var self = this,
+					element = self.element,
+					callbacks = self._callbacks,
+					arrow = self._ui.arrow,
+					arrowHeight = arrow.offsetHeight,
+					arrowTop = DOM.getElementOffset(arrow).top,
+					links = element.querySelectorAll(self.getActiveSelector()),
+					linksLength = links.length,
+					link,
+					linkTop,
+					nearestLinkForArrow,
+					i = 0;
+
+				if (element.classList.contains(classes.context)) {
+					switch (arrow.getAttribute("type")) {
+						case "l":
+						case "r":
+							while (!nearestLinkForArrow && i < linksLength) {
+								link = links[i];
+								linkTop = DOM.getElementOffset(link).top;
+								if (linkTop + link.offsetHeight > arrowTop && linkTop < arrowTop) {
+									nearestLinkForArrow = link;
+								}
+								i++;
+							}
+							break;
+						case "t":
+							while (!nearestLinkForArrow && i < linksLength) {
+								link = links[i];
+								if (DOM.getElementOffset(link).top < arrowTop + arrowHeight) {
+									nearestLinkForArrow = link;
+								}
+								i++;
+							}
+							break;
+						case "b":
+							while (!nearestLinkForArrow && i < linksLength) {
+								link = links[i];
+								if (DOM.getElementOffset(link).top + link.offsetHeight > arrowTop) {
+									nearestLinkForArrow = link;
+								}
+								i++;
+							}
+							break;
+					}
+					if (nearestLinkForArrow) {
+						callbacks._onFocusArrow = onFocusArrow.bind(null, arrow);
+						callbacks._onBlurArrow = onBlurArrow.bind(null, arrow);
+						nearestLinkForArrow.addEventListener("focus", callbacks._onFocusArrow, false);
+						nearestLinkForArrow.addEventListener("blur", callbacks._onBlurArrow, false);
+						self._nearestLinkForArrow = nearestLinkForArrow;
+					}
+				}
+			};
+
+			function onFocusArrow(arrow) {
+				arrow.classList.add(classes.focus);
+			};
+
+			function onBlurArrow(arrow) {
+				arrow.classList.remove(classes.focus);
 			};
 
 			prototype._bindEvents = function(element) {
@@ -11063,7 +11744,7 @@ ns.version = '0.9.26';
 			ns.widget.tv.Popup = Popup;
 
 			engine.defineWidget(
-				"popup",
+				"Popup",
 				"[data-role='popup'], .ui-popup",
 				["open", "close", "reposition"],
 				Popup,
@@ -11089,7 +11770,7 @@ ns.version = '0.9.26';
  *    "tel" or "month" or "week" or "datetime-local" or "color" or without any
  *    type
  *  - TEXTAREA
- *  - HTML elements with class ui-TextInput
+ *  - HTML elements with class _ui-textinput_
  *
  * ###HTML Examples
  *
@@ -11378,13 +12059,47 @@ ns.version = '0.9.26';
 			 * @param {HTMLElement} element
 			 * @member ns.widget.mobile.TextInput
 			 */
-			function _resize(element){
+			function _resize(element) {
 				if (element.nodeName.toLowerCase() === "textarea") {
-					if(element.clientHeight < element.scrollHeight){
+					if (element.clientHeight < element.scrollHeight) {
 						element.style.height = element.scrollHeight + "px";
 					}
 				}
 			}
+
+			/**
+			* Get element value
+			* @method _getValue
+			* @return {?string}
+			* @member ns.widget.mobile.TextInput
+			* @chainable
+			* @protected
+			* @since 2.3.1
+			*/
+			TextInput.prototype._getValue = function ()  {
+				var element = this.element;
+				if (element) {
+					return element.value;
+				}
+				return null;
+			};
+
+			/**
+			* Set element value
+			* @method _setValue
+			* @param {string} value
+			* @member ns.widget.mobile.TextInput
+			* @chainable
+			* @protected
+			* @since 2.3.1
+			*/
+			TextInput.prototype._setValue = function (value) {
+				var element = this.element;
+				if (element) {
+					element.value = value;
+				}
+				return this;
+			};
 
 			/**
 			 * Toggle visibility of the clear button
@@ -11410,15 +12125,14 @@ ns.version = '0.9.26';
 
 			/**
 			 * Method finds label tag for element.
-			 * @method findLabel
+			 * @method _findLabel
 			 * @param {HTMLElement} element
 			 * @member ns.widget.mobile.TextInput
 			 * @return {HTMLElement}
-			 * @static
-			 * @private
+			 * @protected
 			 */
-			function findLabel(element) {
-				return element.parentNode.querySelector('label[for="' + element.id + '"]');
+			TextInput.prototype._findLabel = function(element) {
+				return element.parentNode.querySelector("label[for='" + element.id + "']");
 			}
 
 			/**
@@ -11604,7 +12318,7 @@ ns.version = '0.9.26';
 					elementClassList = element.classList,
 					options = self.options,
 					themeClass,
-					labelFor = findLabel(element),
+					labelFor = self._findLabel(element),
 					clearButton,
 					type = element.type,
 					ui;
@@ -11745,13 +12459,65 @@ ns.version = '0.9.26';
 				elementClassList.remove(classes.uiBodyTheme + this.options.theme);
 			};
 
+			/**
+			 * Returns label value
+			 * @method getLabel
+			 * @return {string} Label value or null
+			 * @member ns.widget.mobile.TextInput
+			 */
+			TextInput.prototype.getLabel = function () {
+				var label = this._findLabel(this.element);
+				if (label !== null) {
+					return label.innerHTML;
+				}
+				return null;
+			};
+
+			/**
+			 * Sets label value
+			 * @method setLabel
+			 * @param {string} Label text
+			 * @member ns.widget.mobile.TextInput
+			 */
+			TextInput.prototype.setLabel = function (text) {
+				var self = this,
+					element = self.element,
+					label;
+
+				if (typeof text === "string") {
+					label = self._findLabel(element);
+					if (label === null) {
+						// create new label
+						label = document.createElement("label");
+						label.setAttribute("for", element.id);
+
+						// add to parent
+						element.parentElement.appendChild(label);
+					}
+					label.innerHTML = text;
+				}
+			};
+
 			ns.widget.mobile.TextInput = TextInput;
 			engine.defineWidget(
 				"TextInput",
-				"input[type='text'], input[type='number'], input[type='password'], input[type='email']," +
-					"input[type='url'], input[type='tel'], textarea, input[type='month'], input[type='week']," +
-					"input[type='datetime-local'], input[type='color'], input:not([type]), .ui-textinput",
-				[],
+				"input[type='text']:not([data-role])" +
+					", input[type='number']:not([data-role])" +
+					", input[type='password']:not([data-role])" +
+					", input[type='email']:not([data-role])" +
+					", input[type='url']:not([data-role])" +
+					", input[type='tel']:not([data-role])" +
+					", input[type='month']:not([data-role])" +
+					", input[type='week']:not([data-role])" +
+					", input[type='datetime-local']:not([data-role])" +
+					", input[type='color']:not([data-role])" +
+					", input:not([type]):not([data-role]):not(.ui-checkbox):not(.ui-tizenslider)" +
+					", textarea" +
+					", .ui-textinput",
+				[
+					"getLabel",
+					"setLabel"
+				],
 				TextInput,
 				"mobile"
 			);
@@ -11770,15 +12536,15 @@ ns.version = '0.9.26';
  * handle like a slider or tap one side of the switch.
  *
  * ## Default selectors
- * all **SELECT** tags with _data-role=slider_ or with _data-type=range_ are
- * changed to toggle switch
+ * all **SELECT** tags with _data-type=range_ or class _ui-slider_ are changed
+ * to toggle switch.
  *
  * ###HTML Examples
  *
  * ####Create simple toggle switch from select using data-role
  *
  *		@example
- *		<select name="flip-11" id="flip-11" data-role="slider">
+ *		<select name="flip-11" id="flip-11" data-role="range">
  *			<option value="off"></option>
  *			<option value="on"></option>
  *		</select>
@@ -11788,7 +12554,7 @@ ns.version = '0.9.26';
  * widget from **tau** namespace:
  *
  *		@example
- *		<select id="toggle" name="flip-11" id="flip-11" data-role="slider"
+ *		<select id="toggle" name="flip-11" id="flip-11" data-role="range"
  *		data-mini="true">
  *			<option value="off"></option>
  *			<option value="on"></option>
@@ -11805,7 +12571,7 @@ ns.version = '0.9.26';
  * ####If jQuery library is loaded, its method can be used:
  *
  *		@example
- *		<select id="toggle" name="flip-11" id="flip-11" data-role="slider"
+ *		<select id="toggle" name="flip-11" id="flip-11" data-role="range"
  *		data-mini="true">
  *			<option value="off"></option>
  *			<option value="on"></option>
@@ -11830,7 +12596,7 @@ ns.version = '0.9.26';
  * as the standard version and has a smaller text size.
  *
  *		@example
- *		<select name="flip-11" id="flip-11" data-role="slider"
+ *		<select name="flip-11" id="flip-11" data-role="range"
  *		data-mini="true">
  *			<option value="off"></option>
  *			<option value="on"></option>
@@ -11843,11 +12609,23 @@ ns.version = '0.9.26';
  * and icons inside, add the data-inline="true" attribute to the slider.
  *
  *		@example
- *		<select name="flip-11" id="flip-11" data-role="slider"
+ *		<select name="flip-11" id="flip-11" data-role="range"
  *		data-inline="true">
  *			<option value="off"></option>
  *			<option value="on"></option>
  *		</select>
+ *
+ * ###Vertical Slider
+ * To implement verticcal slider, add _vertical_ option to *input* element.
+ * The value of vertical property is designed to set the height of vertical slider.
+ * If the vertical value is set to simply "true", the height of vertical slider
+ * is set to pixel value as 5 time of its max value by default. So, to change one value
+ * in veritcal slider with "true" option, handle is needed to move 5px.
+ * The below example would create a vertical slider with 300px of height.
+ *
+ * 		@example
+ *		<input id="vSlider" name="vSlider" type="range"
+ *			value="5" min="0" max="10" data-vertical="300" />
  *
  * ##Methods
  *
@@ -11856,7 +12634,7 @@ ns.version = '0.9.26';
  * First API is from tau namespace:
  *
  *		@example
- *		<select name="flip-11" id="toggle" data-role="slider"
+ *		<select name="flip-11" id="toggle" data-role="range"
  *		data-mini="true">
  *			<option value="off"></option>
  *			<option value="on"></option>
@@ -11872,7 +12650,7 @@ ns.version = '0.9.26';
  * Second API is jQuery Mobile API and for call _methodName_ you can use:
  *
  *		@example
- *		<select name="flip-11" id="toggle" data-role="slider"
+ *		<select name="flip-11" id="toggle" data-role="range"
  *		data-mini="true">
  *			<option value="off"></option>
  *			<option value="on"></option>
@@ -11911,6 +12689,8 @@ ns.version = '0.9.26';
 					 * "true" then toggle switch has css property
 					 * display = "inline"
 					 * @property {string} [options.theme=null] theme of widget
+					 * @property {boolean | number} [options.vertical=false] sets
+					 * height of vertical slider
 					 * @member ns.widget.mobile.Slider
 					 */
 					self.options = {
@@ -11919,7 +12699,8 @@ ns.version = '0.9.26';
 						mini: null,
 						highlight: true,
 						inline: null,
-						theme: null
+						theme: null,
+						vertical: false
 					};
 					self._ui = {};
 					//container background
@@ -11945,8 +12726,10 @@ ns.version = '0.9.26';
 					sliderInline: "ui-slider-inline",
 					sliderMini: "ui-slider-mini",
 					slider: "ui-slider",
+					sliderVertical: "ui-vertical-slider",
 					sliderHandle: "ui-slider-handle",
 					sliderBg: "ui-slider-bg",
+					sliderBgVertical: "ui-vertical-slider-bg",
 					sliderToggle: "ui-toggle-switch",
 					sliderToggleOn: "ui-toggle-on",
 					sliderToggleOff: "ui-toggle-off",
@@ -11955,6 +12738,7 @@ ns.version = '0.9.26';
 					sliderLabel: "ui-slider-label",
 					sliderLabelTheme: "ui-slider-label-",
 					sliderContainer: "ui-slider-container",
+					sliderContainerVertical: "ui-vertical-slider-container",
 					sliderLabelA: "ui-slider-label-a",
 					sliderStateActive: "ui-state-active"
 				},
@@ -12071,12 +12855,14 @@ ns.version = '0.9.26';
 			 * @static
 			 * @member ns.widget.mobile.Slider
 			 */
-			function createBackground(domSlider) {
+			function createBackground(domSlider, self) {
 				var background = document.createElement("div"),
 					cList = background.classList,
 					btnClasses = Button.classes;
 
-				cList.add(classes.sliderBg);
+				cList.add(self.options.vertical ? classes.sliderBgVertical :
+					classes.sliderBg);
+
 				cList.add(btnClasses.uiBtnActive);
 				cList.add(btnClasses.uiBtnCornerAll);
 
@@ -12115,12 +12901,14 @@ ns.version = '0.9.26';
 					touchThreshold,
 					localClasses = shandle.classList,
 					slider = ui.slider,
+					isVertical = self.options.vertical,
 					newval,
 					valModStep,
 					alignValue,
 					valueChanged,
 					newValueOption,
-					sliderOffsetLeft;
+					sliderOffsetLeft,
+					sliderOffsetTop;
 
 				if (cType === "input") {
 					min = DOMutils.getNumberFromAttribute(control,
@@ -12142,47 +12930,54 @@ ns.version = '0.9.26';
 					data = val;
 					// @TODO take parameter out to config
 					touchThreshold = 8;
+					isVertical ?
+					sliderOffsetTop =
+						DOMutils.getElementOffset(slider).top :
 					sliderOffsetLeft =
-							DOMutils.getElementOffset(slider).left;
+						DOMutils.getElementOffset(slider).left;
 
 					// If refreshing while not dragging
 					// or movement was within threshold
 					if (!self.dragging ||
-							data.pageX < sliderOffsetLeft - touchThreshold ||
-							data.pageX > sliderOffsetLeft + 
-							slider.offsetWidth + touchThreshold) {
+						data.pageX < sliderOffsetLeft - touchThreshold ||
+						data.pageX > sliderOffsetLeft +
+						slider.offsetWidth + touchThreshold) {
 						return;
 					}
 
-					// Calculate new left side percent
-					percent = ((data.pageX - sliderOffsetLeft) /
+					// Calculate new left or top side percent
+					if (isVertical) {
+						percent = ((data.pageY - sliderOffsetTop +
+							selectors.getClosestByClass(slider, "ui-content").scrollTop) /
+							slider.offsetHeight) * 100;
+					} else {
+						percent = ((data.pageX - sliderOffsetLeft) /
 							slider.offsetWidth) * 100;
-
-				// If changes came from input value change
+					}
 				} else {
 					if (val === null) {
 						val = (cType === "input") ? parseFloat(control.value) :
-								control.selectedIndex;
+							control.selectedIndex;
 					}
 					if (isNaN(val)) {
 						return;
 					}
 					// While dragging prevent jumping by assigning
 					// last percentage value
-					if(self.dragging && self._lastPercent) {
+					if (self.dragging && self._lastPercent) {
 						percent = self._lastPercent;
 					} else {
-						percent = (parseFloat(val) - min) / (max - min) * 100;
+						percent = isVertical ?
+						100 - ((parseFloat(val) - min) / (max - min) * 100) :
+						(parseFloat(val) - min) / (max - min) * 100;
 					}
 				}
-
 				// Make sure percent is a value between 0 - 100;
 				percent = Math.max(0, Math.min(percent, 100));
 				self._lastPercent = percent;
 				centerPercent = halfPercent - percent;
 
 				newval = (percent / 100) * (max - min) + min;
-
 				//from jQuery UI slider, the following source will round
 				// to the nearest step
 				valModStep = (newval - min) % step;
@@ -12196,9 +12991,14 @@ ns.version = '0.9.26';
 				// (see jQueryUI: #4124)
 				newval = parseFloat(alignValue.toFixed(5));
 
-				newval = Math.max(min, Math.min(newval, max));
+				if (isVertical) {
+					shandle.style.top = percent + "%";
+					newval = max - Math.max(min, Math.min(newval, max));
+				} else {
+					shandle.style.left = percent + "%";
+					newval = Math.max(min, Math.min(newval, max));
+				}
 
-				shandle.style.left = percent + "%";
 				newValueOption = control.querySelectorAll("option")[newval];
 				shandle.setAttribute("aria-valuenow", cType === "input" ?
 						newval : newValueOption && newValueOption.value);
@@ -12221,17 +13021,35 @@ ns.version = '0.9.26';
 					sliderBackgroundStyle = sliderBackground.style;
 					if (self.options.center) {
 						if (centerPercent >= 0) {
-							sliderBackgroundStyle.right = "50%";
-							sliderBackgroundStyle.left = "initial";
-							sliderBackgroundStyle.width = centerPercent + "%";
+							if (isVertical) {
+								sliderBackgroundStyle.top = "initial";
+								sliderBackgroundStyle.bottom = "50%";
+								sliderBackgroundStyle.height = centerPercent + "%";
+							} else {
+								sliderBackgroundStyle.right = "50%";
+								sliderBackgroundStyle.left = "initial";
+								sliderBackgroundStyle.width = centerPercent + "%";
+							}
 						} else {
-							sliderBackgroundStyle.right = "initial";
-							sliderBackgroundStyle.left = "50%";
-							sliderBackgroundStyle.width =
+							if (isVertical) {
+								sliderBackgroundStyle.top = "50%";
+								sliderBackgroundStyle.bottom = "initial";
+								sliderBackgroundStyle.height =
 									Math.abs(centerPercent) + "%";
+							} else {
+								sliderBackgroundStyle.right = "initial";
+								sliderBackgroundStyle.left = "50%";
+								sliderBackgroundStyle.width =
+									Math.abs(centerPercent) + "%";
+							}
 						}
 					} else {
-						sliderBackgroundStyle.width = percent + "%";
+						if (isVertical) {
+							sliderBackgroundStyle.height = 100 - percent + "%";
+							sliderBackgroundStyle.top = percent + "%";
+						} else {
+							sliderBackgroundStyle.width = percent + "%";
+						}
 					}
 				}
 
@@ -12343,9 +13161,11 @@ ns.version = '0.9.26';
 					* tagName containing lowered tagname
 					* type String
 					*/
+
 					tagName = element.nodeName.toLowerCase(),
 					selectClass =
 							tagName === "select" ? classes.sliderSwitch : "",
+
 					/*
 					* elementId get the id attribute
 					* type String
@@ -12362,8 +13182,7 @@ ns.version = '0.9.26';
 							parseFloat(element.getAttribute("max")) :
 									element.querySelectorAll("option").length -
 											1,
-					/*TODO - will be used in long sliders*/
-					step = parseFloat(element.getAttribute("step")),
+
 
 					domHandle = document.createElement("a"),
 					domSlider = document.createElement("div"),
@@ -12383,10 +13202,10 @@ ns.version = '0.9.26';
 					initValue,
 					sliderBtnDownTheme,
 					elementsOption = element.querySelector("option"),
-					btnClasses = Button.classes;
-
+					btnClasses = Button.classes,
+					isVertical = options.vertical;
 				if (options.highlight && tagName !== "select") {
-					this._ui.background = createBackground(domSlider);
+					this._ui.background = createBackground(domSlider, this);
 				}
 				if (isNaN(min)) {
 					min = 0;
@@ -12394,9 +13213,7 @@ ns.version = '0.9.26';
 				if (isNaN(max)) {
 					max = 0;
 				}
-				if (isNaN(step)) {
-					step = 1;
-				}
+
 				sliderBtnDownTheme = btnClasses.uiBtnDownThemePrefix +
 						trackTheme;
 				if (labelFor) {
@@ -12408,11 +13225,18 @@ ns.version = '0.9.26';
 				}
 
 				domSlider.setAttribute("role", "application");
-				domSlider.setAttribute("id", elementId + "-slider");
-				domSliderClassList.add(classes.slider);
+				domSlider.id = elementId + "-slider";
+
+				if (isVertical) {
+					domSliderClassList.add(classes.sliderVertical);
+				} else {
+					domSliderClassList.add(classes.slider);
+				}
+
 				if (selectClass) {
 					domSliderClassList.add(selectClass);
 				}
+
 				domSliderClassList.add(sliderBtnDownTheme);
 				domSliderClassList.add(btnClasses.uiBtnCornerAll);
 				if (options.inline) {
@@ -12431,7 +13255,11 @@ ns.version = '0.9.26';
 				initValue = getInitialValue(tagName, element);
 				if (initValue !== 1) {
 					domHandle.classList.add(classes.sliderToggleOff);
-					domHandle.style.left = "0px";
+					if (isVertical) {
+						domHandle.style.top = "0px";
+					} else {
+						domHandle.style.left = "0px";
+					}
 				}
 
 				domSlider.appendChild(domHandle);
@@ -12442,7 +13270,7 @@ ns.version = '0.9.26';
 				domHandle.setAttribute("data-theme", theme);
 				domHandle.setAttribute("data-shadow", "true");
 
-				domHandle.setAttribute("role", "slider");
+				domHandle.setAttribute("role", "range");
 				domHandle.setAttribute("aria-valuemin", min);
 				domHandle.setAttribute("aria-valuemax", max);
 				domHandle.setAttribute("aria-valuenow", initValue);
@@ -12453,7 +13281,6 @@ ns.version = '0.9.26';
 				domHandle.setAttribute("inline", "false");
 				domHandle.setAttribute("data-bar", "true");
 				domHandle.setAttribute("id", elementId + "-handle");
-				engine.instanceWidget(domHandle, "Button");
 
 				if (tagName === "select") {
 					wrapper = document.createElement("div");
@@ -12493,7 +13320,23 @@ ns.version = '0.9.26';
 
 				if (tagName === "input") {
 					sliderContainer = document.createElement("div");
-					sliderContainer.classList.add(classes.sliderContainer);
+
+					if (isVertical) {
+						sliderContainer.classList.add(classes.sliderContainerVertical);
+						if (isNaN(isVertical)) {
+							ns.warn("data-vetical has inappropriate value.",
+							"please use 'true' or proper 'number'.");
+							isVertical = max * 5;
+						}
+						if (typeof isVertical === "boolean") {
+							isVertical = max * 5;
+						}
+
+						sliderContainer.style.height = isVertical + "px";
+					} else {
+						sliderContainer.classList.add(classes.sliderContainer);
+					}
+
 					sliderContainer.appendChild(domSlider);
 					sliderContainer.id = elementId + "-container";
 					elementClassList = element.classList;
@@ -12501,7 +13344,8 @@ ns.version = '0.9.26';
 					elementClassList.add(classes.theme + theme);
 					elementClassList.add(classes.sliderInput);
 					element.style.display = "none";
-				} else {
+				}
+				else {
 					element.classList.add(classes.sliderSwitch);
 				}
 
@@ -12516,6 +13360,8 @@ ns.version = '0.9.26';
 
 				element.parentNode.insertBefore(sliderContainer,
 						element.nextSibling);
+
+				engine.instanceWidget(domHandle, "Button");
 
 				return element;
 			};
@@ -12537,8 +13383,9 @@ ns.version = '0.9.26';
 				ui.handle = document.getElementById(elementId + "-handle");
 				ui.container = document.getElementById(elementId +
 						"-container") || element;
-				ui.background = ui.slider.querySelector("." +
-						Slider.classes.sliderBg);
+				ui.background = ui.slider.querySelector(self.options.vertical ?
+					"." + Slider.classes.sliderBgVertical :
+					"." + Slider.classes.sliderBg);
 				self._type = element.tagName.toLowerCase();
 				ui.labels = selectors.getChildrenByClass(ui.slider,
 						Slider.classes.sliderLabel);
@@ -12917,7 +13764,7 @@ ns.version = '0.9.26';
 			ns.widget.mobile.Slider = Slider;
 			engine.defineWidget(
 				"Slider",
-				"select[data-type='range']",
+				"select[data-role='range'], select.ui-slider",
 				[],
 				Slider,
 				"mobile"
@@ -14862,7 +15709,7 @@ ns.version = '0.9.26';
 					_true = true;
 
 				parent = element.parentNode;
-				while (parent && parent.node !== clip) {
+				while (parent && parent !== clip) {
 					elementTop += parent.offsetTop;
 					//elementLeft += parent.offsetLeft;
 					parent = parent.parentNode;
@@ -14879,7 +15726,7 @@ ns.version = '0.9.26';
 					case elementFits: // element fits in view but is not visible
 						this.centerToElement(element);
 						break;
-					case clipTop < elementTop && clipBottom < elementBottom: // element visible only at top
+					case clipTop < elementTop && elementTop < clipBottom && clipBottom < elementBottom: // element visible only at top; eg. partly visible textarea
 					case clipTop > elementTop && clipBottom > elementBottom: // element visible only at bottom
 						// pass, we cant do anything, if we move the scroll
 						// the user could lost view of something he scrolled to
@@ -14893,8 +15740,8 @@ ns.version = '0.9.26';
 						anchorPositionY = anchor.offsetTop + DOMUtils.getCSSProperty(anchor, "margin-top", 0, "integer");
 						parent = anchor.parentNode;
 						while (parent && parent !== clip) {
-							anchorPositionX = parent.offsetLeft + DOMUtils.getCSSProperty(parent, "margin-left", 0, "integer");
-							anchorPositionY = parent.offsetTop + DOMUtils.getCSSProperty(parent, "margin-top", 0, "integer");
+							anchorPositionX += parent.offsetLeft;
+							anchorPositionY += parent.offsetTop;
 							parent = parent.parentNode;
 						}
 						this.scrollTo(anchorPositionX, anchorPositionY, this.scrollDuration);
@@ -15076,7 +15923,7 @@ ns.version = '0.9.26';
 							clipHeight;
 						if (focusedElement) {
 							self.ensureElementIsVisible(focusedElement);
-						} else {
+						} else if (DOMUtils.isOccupiedPlace(element)) {
 							clipHeight = DOMUtils.getElementHeight(element);
 							clipWidth = DOMUtils.getElementWidth(element);
 							self.translateTo(
@@ -15126,7 +15973,9 @@ ns.version = '0.9.26';
 			ns.widget.mobile.Scrollview = Scrollview;
 			engine.defineWidget(
 				"Scrollview",
-				"[data-role='content']:not([data-scroll='none']):not([data-handler='true']):not(.ui-scrollview-clip):not(.ui-scrolllistview), [data-scroll]:not([data-scroll='none']):not([data-handler='true']), .ui-scrollview:not([data-scroll='none']):not([data-handler='true'])",
+				"[data-role='content']:not([data-scroll='none']):not([data-handler='true']):not(.ui-scrollview-clip):not(.ui-scrolllistview):not(.ui-scrollhandler)" +
+						", [data-scroll]:not([data-scroll='none']):not([data-handler='true']):not(.ui-scrollhandler)" +
+						", .ui-scrollview:not([data-scroll='none']):not([data-handler='true']):not(.ui-scrollhandler)",
 				[
 					"scrollTo",
 					"ensureElementIsVisible",
@@ -16010,6 +16859,9 @@ ns.version = '0.9.26';
 			// @member ns.widget.mobile.Popup
 			function animationComplete(element, callback) {
 				events.one(element, "webkitAnimationEnd", callback);
+				events.one(element, "mozAnimationEnd", callback);
+				events.one(element, "msAnimationEnd", callback);
+				events.one(element, "oAnimationEnd", callback);
 				events.one(element, "animationend", callback);
 			}
 
@@ -17066,27 +17918,32 @@ ns.version = '0.9.26';
 			Popup.prototype.open = function (options) {
 				var activePopup = ns.activePopup,
 					closePopup,
-					event = arguments[1],
-					startOpeningCallback = startOpeningPopup.bind(null, this, options, event);
+					event,
+					startOpeningCallback;
 
-				if (activePopup === this) {
-					return;
-				}
-				// If there is an active popup, wait until active popup will close
-				if (activePopup) {
-					events.one(activePopup.element, "popupafterclose", startOpeningCallback);
-					if (activePopup._isOpen) {
-						activePopup.close();
-					} else if (!activePopup._isPreClose) {
-						// If popup is opening or is promised to be opened
-						// close it just after opening
-						closePopup = activePopup.close.bind(activePopup);
-						events.one(activePopup.element, "popupafteropen", closePopup);
+				if (activePopup !== this) {
+					if (!doms.isOccupiedPlace(this._page)) {
+						ns.warn("The popup cannot be shown if page which contains the popup is invisible");
+					} else {
+						// If there is an active popup, wait until active popup will close
+						event = arguments[1],
+						startOpeningCallback = startOpeningPopup.bind(null, this, options, event);
+						if (activePopup) {
+							events.one(activePopup.element, "popupafterclose", startOpeningCallback);
+							if (activePopup._isOpen) {
+								activePopup.close();
+							} else if (!activePopup._isPreClose) {
+								// If popup is opening or is promised to be opened
+								// close it just after opening
+								closePopup = activePopup.close.bind(activePopup);
+								events.one(activePopup.element, "popupafteropen", closePopup);
+							}
+						} else {
+							startOpeningCallback();
+						}
+						ns.activePopup = this;
 					}
-				} else {
-					startOpeningCallback();
 				}
-				ns.activePopup = this;
 			};
 
 			/**
@@ -17527,7 +18384,7 @@ ns.version = '0.9.26';
  * ## Default selectors
  * In default all **INPUT** tags with type equals _range_ are changed
  * to Tizen WebUI sliders.
- * In addition all elements with _data-role=range_ and _data-role=slider_
+ * In addition all **INPUT** elements with _data-role=range_ and _data-role=slider_
  * and class _ui-tizenslider_ are changed to Tizen Web UI sliders.
  *
  * ###HTML Examples
@@ -18142,7 +18999,8 @@ ns.version = '0.9.26';
 			ns.widget.mobile.TizenSlider = TizenSlider;
 			engine.defineWidget(
 				"TizenSlider",
-				"input[type='range'], :not(select)[data-role='slider'], :not(select)[data-type='range'], .ui-tizenslider",
+				"input[type='range'], input[data-role='slider'], input[data-role='range']," +
+				"input.ui-tizenslider",
 				[],
 				TizenSlider,
 				"tizen"
@@ -19907,6 +20765,9 @@ ns.version = '0.9.26';
 				},
 				animationend = "animationend",
 				webkitAnimationEnd = "webkitAnimationEnd",
+				mozAnimationEnd = "mozAnimationEnd",
+				msAnimationEnd = "msAnimationEnd",
+				oAnimationEnd = "oAnimationEnd",
 				prototype = new BaseWidget();
 
 			/**
@@ -20026,10 +20887,32 @@ ns.version = '0.9.26';
 
 				if (transition !== "none") {
 					oneEvent = function () {
-						eventUtils.off(toPageWidget.element, [animationend, webkitAnimationEnd], oneEvent, false);
+						eventUtils.off(
+							toPageWidget.element,
+							[
+								animationend,
+								webkitAnimationEnd,
+								mozAnimationEnd,
+								msAnimationEnd,
+								oAnimationEnd
+							],
+							oneEvent,
+							false
+						);
 						deferred.resolve();
 					};
-					eventUtils.one(toPageWidget.element, [animationend, webkitAnimationEnd], oneEvent, false);
+					eventUtils.one(
+						toPageWidget.element,
+						[
+							animationend,
+							webkitAnimationEnd,
+							mozAnimationEnd,
+							msAnimationEnd,
+							oAnimationEnd
+						],
+						oneEvent,
+						false
+					);
 
 					if (fromPageWidget) {
 						classParam = [];
@@ -20156,6 +21039,13 @@ ns.version = '0.9.26';
  *
  * It allows for adding new pages, switching between them and displaying progress bars indicating loading process.
  *
+ * ## Background Settings
+ * Widget allows to set fullscreen background with centered content.
+ *
+ *		@example
+ *		<body class="ui-pagecontainer" data-background="bg.jpg">...
+ *
+ *
  * @class ns.widget.tv.PageContainer
  * @extends ns.widget.wearable.PageContainer
  * @author Maciej Urbanski <m.urbanski@samsung.com>
@@ -20171,6 +21061,14 @@ ns.version = '0.9.26';
 
 			PageContainer.events = WearablePageContainer.events;
 
+			/**
+			 * Build structure of PageContainer widget
+			 * @method _build
+			 * @param {HTMLElement} element
+			 * @return {HTMLElement}
+			 * @protected
+			 * @member ns.widget.tv.PageContainer
+			 */
 			prototype._build = function ( element ) {
 				var optionsBackground = this.options.background;
 				if (WearablePageContainerPrototype._build) {
@@ -20184,8 +21082,19 @@ ns.version = '0.9.26';
 				return element;
 			};
 
+			/**
+			 * Configure method to setup PageContainer options.
+			 * @method _configure
+			 * @protected
+			 * @member ns.widget.tv.PageContainer
+			 */
 			prototype._configure = function ( ) {
 				var options = this.options || {};
+				/**
+				 * The background attribute specifies a background image for a widget
+				 * @property {string} [options.background=""] background image path
+				 * @member ns.widget.tv.PageContainer
+				 */
 				options.background = null;
 				this.options = options;
 			};
@@ -20206,85 +21115,68 @@ ns.version = '0.9.26';
 			}(window.document, ns));
 
 /*global window, define */
-/* 
+/*jslint nomen: true */
+/*
  * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
  * License : MIT License V2
  */
 /**
  * #Drawer Widget
- * Drawer widget provide creating drawer widget and managing drawer operation.
+ * Core Drawer widget is a base for creating Drawer widgets for profiles. It
+ * provides drawer functionality - container with ability to open and close with
+ * an animation.
  *
- * ##Default selector
- * You can make the drawer widget as data-role="drawer" with DIV tag.
+ * ##Positioning Drawer left / right
+ * To change position of a Drawer please set data-position attribute of Drawer
+ * element to:
+ * - left (left position, default)
+ * - right (right position)
  *
- * ###  HTML Examples
+ * ##Opening / Closing Drawer
+ * To open / close Drawer one can use open() and close() methods.
  *
- * ####  Create drawer using data-role
+ * ##Checking if Drawer is opened.
+ * To check if Drawer is opened use widget`s isOpen() method.
  *
- * 		@example
- *		<div data-role="drawer" data-position="left" id="leftdrawer">
- *			<ul data-role="listview">
- *				<li class="ui-drawer-main-list"><a href="#">List item 1</a></li>
- *				<li class="ui-drawer-main-list"><a href="#">List item 2</a></li>
- *				<li class="ui-drawer-sub-list"><a href="#">Sub item 1</a></li>
- *			</ul>
- *		</div>
+ * ##Creating widget
+ * Core drawer is a base class - examples of creating widgets are described in
+ * documentation of profiles
  *
- * ##Drawer positioning
- * You can declare to drawer position manually. (Default is left)
- *
- * If you implement data-position attributes value is 'left', drawer appear from left side.
- *
- * 		@example
- *		<div data-role="drawer" data-position="left" id="leftdrawer">
- *
- * - "left" - drawer appear from left side
- * - "right" - drawer appear from right side
- *
- * ##Drawer inner list
- * Drawer has two list styles, main list style and sub list style.
- * You can implement two providing list styles as implement classes.
- *
- * - "ui-drawer-main-list" : Main list style of drawer
- * - "ui-drawer-sub-list" : Sub list style of drawer
- *
- * ##Drawer methods
- *
- * You can use some methods of drawer widget.
- *
- * - "open" - drawer open
- *
- * 		@example
- * 		$("#leftdrawer").drawer("open");
- *
- * - "close" - drawer close
- *
- * 		@example
- * 		$("#leftdrawer").drawer("isOpen");
- *
- * - "isOpen" - get drawer status, true is opened and false if closed
- *
- * 		@example
- * 		$("#leftdrawer").drawer"(isOpen");
- *
- * ##Drawer Options
- *
- * - position: drawer appeared position. Type is <String> and default is "left".
- * - width: drawer width. Type is <Integer> and default is 290.
- * - duration: drawer appreared duration. <Integer> and default is 100.
- *
- *
-
  * @class ns.widget.core.Drawer
- * @extends ns.widget.mobile.BaseWidgetMobile
+ * @extends ns.widget.BaseWidget
  * @author Hyeoncheol Choi <hc7.choi@samsung.com>
  */
 (function (document, ns) {
 	
-				var BaseWidget = ns.widget.mobile.BaseWidgetMobile,
+				/**
+			 * @property {Object} Widget Alias for {@link ns.widget.BaseWidget}
+			 * @member ns.widget.core.Drawer
+			 * @private
+			 * @static
+			 */
+			var BaseWidget = ns.widget.BaseWidget,
+				/**
+				 * @property {Object} selectors Alias for class ns.util.selectors
+				 * @member ns.widget.core.Drawer
+				 * @private
+				 * @static
+				 * @readonly
+				 */
 				selectors = ns.util.selectors,
+				/**
+				 * Drawer constructor
+				 * @method Drawer
+				 */
 				Drawer = function () {
 					var self = this;
+					/**
+					 * Drawer field containing options
+					 * @property {number} Position of Drawer ("left" or "right")
+					 * @property {number} Width of Drawer
+					 * @property {number} Duration of Drawer entrance animation
+					 * @property {boolean} If true Drawer will be closed on arrow click
+					 * @property {boolean} Sets whether to show an overlay when Drawer is open.
+					 */
 					self.options = {
 						position : "left",
 						width : 240,
@@ -20309,8 +21201,10 @@ ns.version = '0.9.26';
 				/**
 				 * Dictionary object containing commonly used widget classes
 				 * @property {Object} classes
-				 * @static
 				 * @member ns.widget.core.Drawer
+				 * @private
+				 * @static
+				 * @readonly
 				 */
 				classes = {
 					drawer : "ui-drawer",
@@ -20321,6 +21215,12 @@ ns.version = '0.9.26';
 					open : "ui-drawer-open",
 					close : "ui-drawer-close"
 				},
+				/**
+				 * {Object} Drawer widget prototype
+				 * @member ns.widget.core.Drawer
+				 * @private
+				 * @static
+				 */
 				prototype = new BaseWidget();
 
 			Drawer.prototype = prototype;
@@ -20329,10 +21229,10 @@ ns.version = '0.9.26';
 			/**
 			 * Click event handler
 			 * @method onClick
-			 * @private
-			 * @static
 			 * @param {ns.widget.core.Drawer} self
 			 * @member ns.widget.core.Drawer
+			 * @private
+			 * @static
 			 */
 			function onClick(self) {
 				// vclick event handler
@@ -20344,10 +21244,10 @@ ns.version = '0.9.26';
 			/**
 			 * webkitTransitionEnd event handler
 			 * @method onTransitionEnd
-			 * @private
-			 * @static
 			 * @param {ns.widget.core.Drawer} self
 			 * @member ns.widget.core.Drawer
+			 * @private
+			 * @static
 			 */
 			function onTransitionEnd(self) {
 				var drawerOverlay = self._drawerOverlay;
@@ -20367,10 +21267,10 @@ ns.version = '0.9.26';
 			/**
 			 * Resize event handler
 			 * @method onResize
-			 * @private
-			 * @static
 			 * @param {ns.widget.core.Drawer} self
 			 * @member ns.widget.core.Drawer
+			 * @private
+			 * @static
 			 */
 			function onResize(self) {
 				// resize event handler
@@ -20380,10 +21280,10 @@ ns.version = '0.9.26';
 			/**
 			 * Pageshow event handler
 			 * @method onPageshow
-			 * @private
-			 * @static
 			 * @param {ns.widget.core.Drawer} self
 			 * @member ns.widget.core.Drawer
+			 * @private
+			 * @static
 			 */
 			function onPageshow(self) {
 				self._refresh();
@@ -20391,32 +21291,51 @@ ns.version = '0.9.26';
 
 			/**
 			 * Drawer translate function
-			 * @method translate
-			 * @protected
+			 * @method _translate
 			 * @param {number} x
 			 * @param {number} duration
 			 * @member ns.widget.core.Drawer
+			 * @protected
 			 */
 			prototype._translate = function (x, duration) {
 				var element = this.element,
 					elementStyle = element.style,
-					transition = "none";
+					transitions = {
+						normal: "none",
+						webkit: "none",
+						moz: "none",
+						ms: "none",
+						o: "none"
+					};
 
 				if (duration) {
-					transition =  "-webkit-transform " + duration / 1000 + "s ease-out";
+					transitions.webkit =  "-webkit-transform " + duration / 1000 + "s ease-out";
+					transitions.moz =  "-moz-transform " + duration / 1000 + "s ease-out";
+					transitions.o =  "-o-transform " + duration / 1000 + "s ease-out";
+					transitions.ms =  "-ms-transform " + duration / 1000 + "s ease-out";
+					transitions.normal =  "transform " + duration / 1000 + "s ease-out";
 				}
 
-				elementStyle.webkitTransform = "translate3d(" + x + "px, 0px, 0px)";
-				elementStyle.webkitTransition = transition;
+				// there should be a helper for this :(
+				elementStyle.webkitTransform =
+					elementStyle.mozTransform =
+					elementStyle.msTransform =
+					elementStyle.oTransform =
+					elementStyle.transform = "translate3d(" + x + "px, 0px, 0px)";
+				elementStyle.webkitTransition = transitions.webkit;
+				elementStyle.mozTransition = transitions.moz;
+				elementStyle.msTransition = transitions.ms;
+				elementStyle.oTransform = transitions.o;
+				elementStyle.transition = transitions.transition;
 			};
 
 			/**
 			 * Build structure of Drawer widget
 			 * @method _build
 			 * @param {HTMLElement} element
-			 * @return {HTMLElement}
-			 * @protected
+			 * @return {HTMLElement} Returns built element
 			 * @member ns.widget.core.Drawer
+			 * @protected
 			 */
 			prototype._build = function (element) {
 				var self = this,
@@ -20448,11 +21367,11 @@ ns.version = '0.9.26';
 			};
 
 			/**
-			 * Init of Drawer widget
+			 * Initialization of Drawer widget
 			 * @method _init
 			 * @param {HTMLElement} element
-			 * @protected
 			 * @member ns.widget.core.Drawer
+			 * @protected
 			 */
 			prototype._init = function (element) {
 				var self = this,
@@ -20469,10 +21388,10 @@ ns.version = '0.9.26';
 			};
 
 			/**
-			 * Do translate if position is set to right
+			 * Provides translation if position is set to right
 			 * @method _translateRight
-			 * @protected
 			 * @member ns.widget.core.Drawer
+			 * @protected
 			 */
 			prototype._translateRight = function() {
 				var self = this,
@@ -20490,10 +21409,10 @@ ns.version = '0.9.26';
 			};
 
 			/**
-			 * Refresh of Drawer widget
+			 * Refreshes Drawer widget
 			 * @method _refresh
-			 * @protected
 			 * @member ns.widget.core.Drawer
+			 * @protected
 			 */
 			prototype._refresh = function() {
 				// Drawer layout has been set by parent element layout
@@ -20517,11 +21436,11 @@ ns.version = '0.9.26';
 			};
 
 			/**
-			 * Create drawer overlay element
+			 * Creates Drawer overlay element
 			 * @method _createOverlay
 			 * @param {HTMLElement} element
-			 * @protected
 			 * @member ns.widget.core.Drawer
+			 * @protected
 			 */
 			prototype._createOverlay = function(element) {
 				var self = this,
@@ -20533,15 +21452,16 @@ ns.version = '0.9.26';
 			};
 
 			/**
-			 * Bind events of Drawer widget
+			 * Binds events to a Drawer widget
 			 * @method _bindEvents
-			 * @protected
 			 * @member ns.widget.core.Drawer
+			 * @protected
 			 */
 			prototype._bindEvents = function() {
 				var self = this,
 					options = self.options,
-					drawerOverlay = self._drawerOverlay;
+					drawerOverlay = self._drawerOverlay,
+					element = self.element;
 				self._onClickBound = onClick.bind(null, self);
 				self._onTransitionEndBound = onTransitionEnd.bind(null, self);
 				self._onResizeBound = onResize.bind(null, self);
@@ -20550,23 +21470,27 @@ ns.version = '0.9.26';
 				if (options.overlay && options.closeOnClick && drawerOverlay) {
 					drawerOverlay.addEventListener("vclick", self._onClickBound, false);
 				}
-				self.element.addEventListener("webkitTransitionEnd", self._onTransitionEndBound, false);
-				self.element.addEventListener("transitionEnd", self._onTransitionEndBound, false);
+				element.addEventListener("webkitTransitionEnd", self._onTransitionEndBound, false);
+				element.addEventListener("mozTransitionEnd", self._onTransitionEndBound, false);
+				element.addEventListener("msTransitionEnd", self._onTransitionEndBound, false);
+				element.addEventListener("oTransitionEnd", self._onTransitionEndBound, false);
+				element.addEventListener("transitionEnd", self._onTransitionEndBound, false);
 				window.addEventListener("resize", self._onResizeBound, false);
 				self._drawerPage.addEventListener("pageshow", self._onPageshowBound, false);
 			};
 
 			/**
-			 * check drawer status
+			 * Checks Drawer status
 			 * @method isOpen
 			 * @member ns.widget.core.Drawer
+			 * @return {boolean} Returns true if Drawer is open
 			 */
 			prototype.isOpen = function() {
 				return this._isOpen;
 			};
 
 			/**
-			 * Open drawer widget
+			 * Opens Drawer widget
 			 * @method open
 			 * @member ns.widget.core.Drawer
 			 */
@@ -20588,7 +21512,7 @@ ns.version = '0.9.26';
 			};
 
 			/**
-			 * Close drawer widget
+			 * Closes Drawer widget
 			 * @method close
 			 * @member ns.widget.core.Drawer
 			 */
@@ -20606,18 +21530,23 @@ ns.version = '0.9.26';
 			};
 
 			/**
-			 * Destroy drawer widget
+			 * Destroys Drawer widget
 			 * @method _destroy
-			 * @protected
 			 * @member ns.widget.core.Drawer
+			 * @protected
 			 */
 			prototype._destroy = function() {
 				var self = this,
-					drawerOverlay = self._drawerOverlay;
+					drawerOverlay = self._drawerOverlay,
+					element = self.element;
 				if (drawerOverlay) {
 					drawerOverlay.removeEventListener("vclick", self._onClickBound, false);
 				}
-				self.element.removeEventListener("webkitTransitionEnd", self._onTransitionEndBound, false);
+				element.removeEventListener("webkitTransitionEnd", self._onTransitionEndBound, false);
+				element.removeEventListener("mozTransitionEnd", self._onTransitionEndBound, false);
+				element.removeEventListener("msTransitionEnd", self._onTransitionEndBound, false);
+				element.removeEventListener("oTransitionEnd", self._onTransitionEndBound, false);
+				element.removeEventListener("transitionEnd", self._onTransitionEndBound, false);
 				window.removeEventListener("resize", self._onResizeBound, false);
 				self._drawerPage.removeEventListener("pageshow", self._onPageshowBound, false);
 			};
@@ -20628,13 +21557,114 @@ ns.version = '0.9.26';
 			}(window.document, ns));
 
 /*global window, define, ns */
-/* 
+/*
  * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
  * License : MIT License V2
  */
 /**
  * #Drawer Widget
- * Drawer widget provides creating drawer widget and managing drawer operations.
+ * Drawer widget provides drawer functionality for TV profile - container with
+ * ability to open and close with an animation. Widget inherits from Core Drawer
+ * widget. You can look for its documentation in {@link ns.widget.core.Drawer}.
+ *
+ * ##Default selectors
+ * By default all elements with data-role="drawer" or class "ui-drawer" are
+ * changed to Drawer widget.
+ *
+ * ##Placing rule
+ *
+ * Drawer HTML element should be placed inside a page (div with data-role="page"),
+ * but not inside a content (div with data-role="content").
+ *
+ * ##HTML Examples
+ *
+ * ###Manual constructor
+ * For manual creation of Drawer widget you can use constructor of widget:
+ *
+ *	@example
+ *	<!-- Widget structure -->
+ *	<div class="ui-page" data-role="page">
+ *		<div data-role="drawer" data-position="left" id="drawer">
+ *			<ul data-role="listview">
+ *				<li class="ui-drawer-main-list" id="mainItem1"><a href="#">List item 1</a></li>
+ *				<li class="ui-drawer-main-list" id="mainItem2"><a href="#">List item 2</a></li>
+ *				<li class="ui-drawer-sub-list" id="subItem1"><a href="#">Sub item 1</a></li>
+ *			</ul>
+ *		</div>
+ *	</div>
+ *	<script>
+ *	var drawer = document.getElementById("drawer"),
+ *		widget = tau.widget.Drawer(drawer);
+ *	</script>
+ *
+ * ###Opening / Closing Drawer. Checking if Drawer is open.
+ * To open / close Drawer one can use open() and close() methods.
+ * To check if Drawer is open use isOpen method.
+ *
+ *	@example
+ *	<!-- Widget structure -->
+ *	<div class="ui-page" data-role="page">
+ *		<div data-role="drawer" data-position="left" id="drawer">
+ *			<ul data-role="listview">
+ *				<li class="ui-drawer-main-list" id="mainItem1"><a href="#">List item 1</a></li>
+ *				<li class="ui-drawer-main-list" id="mainItem2"><a href="#">List item 2</a></li>
+ *				<li class="ui-drawer-sub-list" id="subItem1"><a href="#">Sub item 1</a></li>
+ *			</ul>
+ *		</div>
+ *	</div>
+ *	<script>
+ *	var drawer = document.getElementById("drawer"),
+ *		widget = tau.widget.Drawer(drawer);
+ *		// open
+ *		widget.open();
+ *		alert(widget.isOpen());
+ *		// close
+ *		widget.close();
+ *		alert(widget.isOpen());
+ *	</script>
+ *
+ * ###Positioning Drawer left
+ * To position Drawer left set data-position to "left" or do not use this
+ * attribute (left is default).
+ *
+ *	@example
+ *	<!-- Widget structure -->
+ *	<div class="ui-page" data-role="page">
+ *		<div data-role="drawer" data-position="left" id="drawer">
+ *			<ul data-role="listview">
+ *				<li class="ui-drawer-main-list" id="mainItem1"><a href="#">List item 1</a></li>
+ *				<li class="ui-drawer-main-list" id="mainItem2"><a href="#">List item 2</a></li>
+ *				<li class="ui-drawer-sub-list" id="subItem1"><a href="#">Sub item 1</a></li>
+ *			</ul>
+ *		</div>
+ *	</div>
+ *
+ *	@example
+ *	<!-- Widget structure -->
+ *	<div class="ui-page" data-role="page">
+ *		<div data-role="drawer" id="drawer">
+ *			<ul data-role="listview">
+ *				<li class="ui-drawer-main-list" id="mainItem1"><a href="#">List item 1</a></li>
+ *				<li class="ui-drawer-main-list" id="mainItem2"><a href="#">List item 2</a></li>
+ *				<li class="ui-drawer-sub-list" id="subItem1"><a href="#">Sub item 1</a></li>
+ *			</ul>
+ *		</div>
+ *	</div>
+ *
+ * ###Positioning Drawer right
+ * To position Drawer right set data-position attribute to "right".
+ *
+ *	@example
+ *	<!-- Widget structure -->
+ *	<div class="ui-page" data-role="page">
+ *		<div data-role="drawer" data-position="right" id="drawer">
+ *			<ul data-role="listview">
+ *				<li class="ui-drawer-main-list" id="mainItem1"><a href="#">List item 1</a></li>
+ *				<li class="ui-drawer-main-list" id="mainItem2"><a href="#">List item 2</a></li>
+ *				<li class="ui-drawer-sub-list" id="subItem1"><a href="#">Sub item 1</a></li>
+ *			</ul>
+ *		</div>
+ *	</div>
  *
  * @class ns.widget.tv.Drawer
  * @extends ns.widget.core.Drawer
@@ -20642,10 +21672,40 @@ ns.version = '0.9.26';
  */
 (function (document, ns) {
 	
-				var CoreDrawer = ns.widget.core.Drawer,
+				/**
+			 * {Object} Widget Alias for {@link ns.widget.core.Drawer}
+			 * @member ns.widget.tv.Drawer
+			 * @private
+			 * @static
+			 */
+			var CoreDrawer = ns.widget.core.Drawer,
+				/**
+				 * {Object} Prototype of Core Drawer ({@link ns.widget.core.Drawer})
+				 * @member ns.widget.tv.Drawer
+				 * @private
+				 * @static
+				 */
 				CoreDrawerPrototype = CoreDrawer.prototype,
+				/**
+				 * {Object} Widget Alias for {@link ns.widget.wearable.Page}
+				 * @member ns.widget.tv.Drawer
+				 * @private
+				 * @static
+				 */
 				Page = ns.widget.wearable.Page,
+				/**
+				 * {Object} Alias for {@link ns.widget.tv.BaseKeyboardSupport}
+				 * @member ns.widget.tv.Drawer
+				 * @private
+				 * @static
+				 */
 				BaseKeyboardSupport = ns.widget.tv.BaseKeyboardSupport,
+				/**
+				 * {Object} Alias for {@link ns.engine}
+				 * @member ns.widget.tv.Drawer
+				 * @private
+				 * @static
+				 */
 				engine = ns.engine,
 				Drawer = function () {
 					var self = this;
@@ -20654,10 +21714,45 @@ ns.version = '0.9.26';
 					self._pageSelector = Page.classes.uiPage;
 				},
 				prototype = new CoreDrawer(),
+				/**
+				 * {Object} List of classes which can be added to widget`s element
+				 * @member ns.widget.tv.Drawer
+				 * @private
+				 * @static
+				 */
 				classes = CoreDrawer.classes,
+				/**
+				 * {number} With size of element - wide
+				 * @member ns.widget.tv.Drawer
+				 * @private
+				 * @static
+				 * @readonly
+				 */
 				WIDE_SIZE = 937,
+				/**
+				 * {number} With size of element - narrow
+				 * @member ns.widget.tv.Drawer
+				 * @private
+				 * @static
+				 * @readonly
+				 */
 				NARROW_SIZE = 301,
-				MAX_WIDTH = 1920;
+				/**
+				 * {number} Max width of Drawer
+				 * @member ns.widget.tv.Drawer
+				 * @private
+				 * @static
+				 * @readonly
+				 */
+				MAX_WIDTH = 1920,
+				/**
+				 * {string} Constant describing type of functions
+				 * @member ns.widget.tv.Drawer
+				 * @private
+				 * @static
+				 * @readonly
+				 */
+				FUNCTION_TYPE = "function";
 
 			//fill classes
 			classes.uiBlock = "ui-block";
@@ -20665,20 +21760,42 @@ ns.version = '0.9.26';
 			Drawer.prototype = prototype;
 			Drawer.classes = classes;
 
+			/**
+			 * Opens drawer widget
+			 * @method open
+			 * @member ns.widget.tv.Drawer
+			 */
 			prototype.open = function() {
-				var self = this;
-				CoreDrawerPrototype.open.call(self);
+				var self = this,
+					CorePrototypeOpen = CoreDrawerPrototype.open;
+				if (typeof CorePrototypeOpen === FUNCTION_TYPE) {
+					CorePrototypeOpen.call(self);
+				}
 				self._supportKeyboard = true;
 				self._pageWidget._supportKeyboard = false;
 			};
 
+			/**
+			 * Closes drawer widget
+			 * @method close
+			 * @member ns.widget.tv.Drawer
+			 */
 			prototype.close = function() {
-				var self = this;
-				CoreDrawerPrototype.close.call(self);
+				var self = this,
+					CorePrototypeClose = CoreDrawerPrototype.close;
+				if (typeof CorePrototypeClose === FUNCTION_TYPE) {
+					CorePrototypeClose.call(self);
+				}
 				self._supportKeyboard = false;
 				self._pageWidget._supportKeyboard = true;
 			};
 
+			/**
+			 * Method implements opening Drawer by focus mechanism
+			 * @method _openActiveElement
+			 * @member ns.widget.tv.Drawer
+			 * @protected
+			 */
 			prototype._openActiveElement = function(element) {
 				var self = this,
 					id = element.href,
@@ -20705,7 +21822,7 @@ ns.version = '0.9.26';
 			 * Refresh of Drawer widget
 			 * @method _refresh
 			 * @protected
-			 * @member ns.widget.core.Drawer
+			 * @member ns.widget.tv.Drawer
 			 */
 			prototype._refresh = function() {
 				// Drawer layout has been set by parent element layout
@@ -20727,21 +21844,49 @@ ns.version = '0.9.26';
 				self._translateRight();
 			};
 
+			/**
+			 * Initializes Drawer widget
+			 * @method _init
+			 * @member ns.widget.tv.Drawer
+			 * @protected
+			 */
 			prototype._init = function(element) {
-				CoreDrawerPrototype._init.call(this, element);
+				var CorePrototypeInit = CoreDrawerPrototype._init;
+				if (typeof CorePrototypeInit === FUNCTION_TYPE) {
+					CorePrototypeInit.call(this, element);
+				}
 				this._pageWidget = engine.instanceWidget(element.parentElement, "page");
 			};
 
+			/**
+			 * Binds events to Drawer widget
+			 * @method _bindEvents
+			 * @member ns.widget.tv.Drawer
+			 * @protected
+			 */
 			prototype._bindEvents = function() {
-				CoreDrawerPrototype._bindEvents.call(this);
+				var CorePrototypeBindEvents = CoreDrawerPrototype._bindEvents;
+				if (typeof CorePrototypeBindEvents === FUNCTION_TYPE) {
+					CorePrototypeBindEvents.call(this);
+				}
 				this._bindEventKey();
 			};
 
+			/**
+			 * Destroys Drawer widget
+			 * @method _destroy
+			 * @member ns.widget.tv.Drawer
+			 * @protected
+			 */
 			prototype._destroy = function() {
+				var CorePrototypeDestroy = CoreDrawerPrototype._destroy;
 				this._destroyEventKey();
-				CoreDrawerPrototype._destroy.call(this);
+				if (typeof CorePrototypeDestroy === FUNCTION_TYPE) {
+					CorePrototypeDestroy.call(this);
+				}
 			};
 
+			// definition
 			ns.widget.tv.Drawer = Drawer;
 			engine.defineWidget(
 				"Drawer",
@@ -20909,7 +22054,7 @@ ns.version = '0.9.26';
 			}(window, ns));
 
 /*global window, define, RegExp */
-/* 
+/*
  * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
  * License : MIT License V2
  */
@@ -20987,7 +22132,7 @@ ns.version = '0.9.26';
 					// URL as well as some other commonly used sub-parts. When used with RegExp.exec()
 					// or String.match, it parses the URL into a results array that looks like this:
 					//
-					//	[0]: http://jblas:password@mycompany.com:8080/mail/inbox?msg=1234&type=unread#msg-content
+					//	[0]: http://jblas:password@mycompany.com:8080/mail/inbox?msg=1234&type=unread#msg-content?param1=true&param2=123
 					//	[1]: http://jblas:password@mycompany.com:8080/mail/inbox?msg=1234&type=unread
 					//	[2]: http://jblas:password@mycompany.com:8080/mail/inbox
 					//	[3]: http://jblas:password@mycompany.com:8080
@@ -21004,14 +22149,16 @@ ns.version = '0.9.26';
 					//	[14]: /mail/
 					//	[15]: inbox
 					//	[16]: ?msg=1234&type=unread
-					//	[17]: #msg-content
+					//	[17]: #msg-content?param1=true&param2=123
+					//	[18]: #msg-content
+					//	[19]: ?param1=true&param2=123
 					//
 					/**
 					* @property {RegExp} urlParseRE Regular expression for parse URL
 					* @member ns.util.path
 					* @static
 					*/
-					urlParseRE: /^(((([^:\/#\?]+:)?(?:(\/\/)((?:(([^:@\/#\?]+)(?:\:([^:@\/#\?]+))?)@)?(([^:\/#\?\]\[]+|\[[^\/\]@#?]+\])(?:\:([0-9]+))?))?)?)?((\/?(?:[^\/\?#]+\/+)*)([^\?#]*)))?(\?[^#]+)?)(#.*)?/,
+					urlParseRE: /^(((([^:\/#\?]+:)?(?:(\/\/)((?:(([^:@\/#\?]+)(?:\:([^:@\/#\?]+))?)@)?(([^:\/#\?\]\[]+|\[[^\/\]@#?]+\])(?:\:([0-9]+))?))?)?)?((\/?(?:[^\/\?#]+\/+)*)([^\?#]*)))?(\?[^#]+)?)((#[^\?]*)(\?.*)?)?/,
 
 					/**
 					* Abstraction to address xss (Issue #4787) by removing the authority in
@@ -21082,6 +22229,7 @@ ns.version = '0.9.26';
 					* @return {string} return.filename
 					* @return {string} return.search
 					* @return {string} return.hash
+					* @return {string} return.hashSearch
 					* @static
 					*/
 					parseUrl: function (url) {
@@ -21089,7 +22237,6 @@ ns.version = '0.9.26';
 						if (typeof url === "object") {
 							return url;
 						}
-
 						matches = path.urlParseRE.exec(url || "") || [];
 
 							// Create an object that allows the caller to access the sub-matches
@@ -21098,11 +22245,11 @@ ns.version = '0.9.26';
 							// no matter what browser we're running on.
 						return {
 							href:		matches[0] || "",
-							hrefNoHash:   matches[1] || "",
-							hrefNoSearch: matches[2] || "",
-							domain:	matches[3] || "",
+							hrefNoHash:	matches[1] || "",
+							hrefNoSearch:	matches[2] || "",
+							domain:		matches[3] || "",
 							protocol:	matches[4] || "",
-							doubleSlash:  matches[5] || "",
+							doubleSlash:	matches[5] || "",
 							authority:	matches[6] || "",
 							username:	matches[8] || "",
 							password:	matches[9] || "",
@@ -21112,13 +22259,14 @@ ns.version = '0.9.26';
 							pathname:	matches[13] || "",
 							directory:	matches[14] || "",
 							filename:	matches[15] || "",
-							search:	matches[16] || "",
-							hash:		matches[17] || ""
+							search:		matches[16] || "",
+							hash:		matches[18] || "",
+							hashSearch:	matches[19] || ""
 						};
 					},
 
 					/**
-					* Turn relPath into an asbolute path. absPath is
+					* Turn relPath into an absolute path. absPath is
 					* an optional absolute path which describes what
 					* relPath is relative to.
 					* @method makePathAbsolute
@@ -21228,6 +22376,12 @@ ns.version = '0.9.26';
 
 					/**
 					* Add search (aka query) params to the specified url.
+					* If page is embedded page, search query will be added after
+					* hash tag. It's allowed to add query content for both external
+					* pages and embedded pages.
+					* Examples:
+					* http://domain/path/index.html#embedded?search=test
+					* http://domain/path/external.html?s=query#embedded?s=test
 					* @method addSearchParams
 					* @member ns.util.path
 					* @param {string|Object} url
@@ -21237,8 +22391,16 @@ ns.version = '0.9.26';
 					addSearchParams: function (url, params) {
 						var urlObject = path.parseUrl(url),
 							paramsString = (typeof params === "object") ? this.getAsURIParameters(params) : params,
-							searchChar = urlObject.search || "?";
-						return urlObject.hrefNoSearch + searchChar + (searchChar.charAt(searchChar.length - 1) === "?" ? "" : "&") + paramsString + (urlObject.hash || "");
+							searchChar = '',
+							urlObjectHash = urlObject.hash;
+
+						if (path.isEmbedded(url) && paramsString.length > 0) {
+							searchChar = urlObject.hashSearch || "?";
+							return urlObject.hrefNoHash + (urlObjectHash || "") + searchChar + (searchChar.charAt(searchChar.length - 1) === "?" ? "" : "&") + paramsString ;
+						}
+
+						searchChar = urlObject.search || "?";
+						return urlObject.hrefNoSearch + searchChar + (searchChar.charAt(searchChar.length - 1) === "?" ? "" : "&") + paramsString + (urlObjectHash || "");
 					},
 
 					/**
@@ -21259,7 +22421,7 @@ ns.version = '0.9.26';
 
 					/**
 					* Convert absolute Url to data Url
-					* - for embedded pages strips hash and paramters
+					* - for embedded pages strips parameters
 					* - for the same domain as document base remove domain
 					* otherwise returns decoded absolute Url
 					* @method convertUrlToDataUrl
@@ -21273,10 +22435,9 @@ ns.version = '0.9.26';
 					convertUrlToDataUrl: function (absUrl, dialogHashKey, documentBase) {
 						var urlObject = path.parseUrl(absUrl);
 
-						if (path.isEmbeddedPage(urlObject, dialogHashKey)) {
-							// For embedded pages, remove the dialog hash key as in getFilePath(),
-							// otherwise the Data Url won't match the id of the embedded Page.
-							return urlObject.hash.replace(/^#|\?.*$/g, "");
+						if (path.isEmbeddedPage(urlObject, !!dialogHashKey)) {
+							// Keep hash and search data for embedded page
+							return path.getFilePath(urlObject.hash + urlObject.hashSearch, dialogHashKey);
 						}
 						documentBase = documentBase || path.documentBase;
 						if (path.isSameDomain(urlObject, documentBase)) {
@@ -21402,7 +22563,7 @@ ns.version = '0.9.26';
 						if (urlObject.protocol !== "") {
 							return (!path.isPath(urlObject.hash) && !!urlObject.hash && (urlObject.hrefNoHash === path.parseLocation().hrefNoHash));
 						}
-						return (/^#/).test(urlObject.href);
+						return (/\?.*#|^#/).test(urlObject.href);
 					},
 
 					/**
@@ -21612,7 +22773,7 @@ ns.version = '0.9.26';
 					},
 
 					/**
-					* Return the substring of a filepath before the sub-page key,
+					* Return the substring of a file path before the sub-page key,
 					* for making a server request
 					* @method getFilePath
 					* @member ns.util.path
@@ -21799,14 +22960,6 @@ ns.version = '0.9.26';
 				 */
 				routerMicro = ns.router,
 				/**
-				 * Local alias for ns.wearable.selectors
-				 * @property {Object} microSelectors Alias for {@link ns.wearable.selectors}
-				 * @member ns.router.Router
-				 * @static
-				 * @private
-				 */
-				microSelectors = ns.wearable.selectors,
-				/**
 				 * Local alias for ns.router.wearable.history
 				 * @property {Object} history Alias for {@link ns.router.wearable.history}
 				 * @member ns.router.Router
@@ -21846,6 +22999,8 @@ ns.version = '0.9.26';
 				 * @private
 				 */
 				_isLock = false,
+
+				Page = ns.widget.wearable.Page,
 
 				Router = function () {
 					var self = this;
@@ -22065,23 +23220,27 @@ ns.version = '0.9.26';
 					pages,
 					activePages,
 					location = window.location,
+					PageClasses = Page.classes,
+					uiPageClass = PageClasses.uiPage,
+					uiPageActiveClass = PageClasses.uiPageActive,
+					pageDefinition = ns.engine.getWidgetDefinition('Page') || ns.engine.getWidgetDefinition('page'),
 					self = this;
 
 				body = document.body;
 				containerElement = ns.getConfig("pageContainer") || body;
-				pages = slice.call(containerElement.querySelectorAll(microSelectors.page));
+				pages = slice.call(containerElement.querySelectorAll(pageDefinition.selector));
 				self.justBuild = justBuild;
 
 				if (ns.getConfig("autoInitializePage", true)) {
-					firstPage = containerElement.querySelector(microSelectors.activePage);
+					firstPage = containerElement.querySelector("." + uiPageActiveClass);
 					if (!firstPage) {
 						firstPage = pages[0];
 					}
 
 					if (firstPage) {
-						activePages = containerElement.querySelectorAll(microSelectors.activePage);
+						activePages = containerElement.querySelectorAll("." + uiPageActiveClass);
 						slice.call(activePages).forEach(function (page) {
-							page.classList.remove(microSelectors.activePage);
+							page.classList.remove("." + uiPageActiveClass);
 						});
 						containerElement = firstPage.parentNode;
 					}
@@ -22098,7 +23257,7 @@ ns.version = '0.9.26';
 					if (location.hash) {
 						//simple check to determine if we should show firstPage or other
 						page = document.getElementById(location.hash.replace("#", ""));
-						if (page && selectors.matchesSelector(page, microSelectors.page)) {
+						if (page && selectors.matchesSelector(page, "." + uiPageClass)) {
 							firstPage = page;
 						}
 					}
@@ -22106,7 +23265,7 @@ ns.version = '0.9.26';
 
 				pages.forEach(function (page) {
 					if (!DOM.getNSData(page, "url")) {
-						DOM.setNSData(page, "url", page.id || location.pathname + location.search);
+						DOM.setNSData(page, "url", (page.id && "#" + page.id) || location.pathname + location.search);
 					}
 				});
 
@@ -22180,6 +23339,7 @@ ns.version = '0.9.26';
 				if (firstPage) {
 					self.open(firstPage, { transition: "none" });
 				}
+				this.getRoute("popup").setActive(null);
 			};
 
 			/**
@@ -22253,6 +23413,12 @@ ns.version = '0.9.26';
 					request,
 					detail = {},
 					self = this;
+
+				// If the caller provided data append the data to the URL.
+				if (options.data) {
+					absUrl = path.addSearchParams(absUrl, options.data);
+					options.data = undefined;
+				}
 
 				content = rule.find(absUrl);
 
@@ -22459,8 +23625,8 @@ ns.version = '0.9.26';
 				utilSelector = util.selectors,
 				history = ns.router.history,
 				engine = ns.engine,
+				Page = ns.widget.wearable.Page,
 				baseElement,
-				slice = [].slice,
 				routePage = {},
 				head;
 
@@ -22468,18 +23634,24 @@ ns.version = '0.9.26';
 			 * Tries to find a page element matching id and filter (selector).
 			 * Adds data url attribute to found page, sets page = null when nothing found
 			 * @method findPageAndSetDataUrl
-			 * @param {string} id Id of searching element
+			 * @param {string} dataUrl DataUrl of searching element
 			 * @param {string} filter Query selector for searching page
 			 * @return {?HTMLElement}
 			 * @private
 			 * @static
 			 * @member ns.router.route.page
 			 */
-			function findPageAndSetDataUrl(id, filter) {
-				var page = document.getElementById(id);
+			function findPageAndSetDataUrl(dataUrl, filter) {
+				var id = path.stripQueryParams(dataUrl).replace("#", ""),
+					page = document.getElementById(id);
 
 				if (page && utilSelector.matchesSelector(page, filter)) {
-					DOM.setNSData(page, "url", id);
+					if (dataUrl === id) {
+						DOM.setNSData(page, "url", "#" + id);
+					} else {
+						DOM.setNSData(page, "url", dataUrl);
+					}
+
 				} else {
 					// if we matched any element, but it doesn't match our filter
 					// reset page to null
@@ -22506,10 +23678,9 @@ ns.version = '0.9.26';
 			 * Property defining selector for filtering only page elements
 			 * @property {string} filter
 			 * @member ns.router.route.page
-			 * @inheritdoc ns.wearable.selectors#page
 			 * @static
 			 */
-			routePage.filter = ns.wearable.selectors.page;
+			routePage.filter = "." + Page.classes.uiPage;
 
 			/**
 			 * Returns default route options used inside Router.
@@ -22539,7 +23710,7 @@ ns.version = '0.9.26';
 					state = {},
 					router = engine.getRouter();
 
-				if (toPage === router.firstPage && !options.dataUrl) {
+				if (toPage === router.getFirstPage() && !options.dataUrl) {
 					url = path.documentUrl.hrefNoHash;
 				} else {
 					url = DOM.getNSData(toPage, "url");
@@ -22571,7 +23742,7 @@ ns.version = '0.9.26';
 
 				//set page title
 				document.title = pageTitle;
-				router.container.change(toPage, options);
+				this.getContainer().change(toPage, options);
 			};
 
 			/**
@@ -22607,6 +23778,7 @@ ns.version = '0.9.26';
 				// injected by a developer, in which case it would be lacking a
 				// data-url attribute and in need of enhancement.
 				if (!page && dataUrl && !path.isPath(dataUrl)) {
+					//Remove search data
 					page = findPageAndSetDataUrl(dataUrl, self.filter);
 				}
 
@@ -22738,6 +23910,38 @@ ns.version = '0.9.26';
 				}
 			};
 
+			/**
+			 * Returns container of pages
+			 * @method getContainer
+			 * @return {?ns.widget.wearable.Page}
+			 * @member ns.router.route.page
+			 * @static
+			 */
+			routePage.getContainer = function () {
+				return engine.getRouter().getContainer();
+			};
+
+			/**
+			 * Returns active page.
+			 * @method getActive
+			 * @return {?ns.widget.wearable.Page}
+			 * @member ns.router.route.page
+			 * @static
+			 */
+			routePage.getActive = function () {
+				return this.getContainer().getActivePage();
+			};
+
+			/**
+			 * Returns element of active page.
+			 * @method getActiveElement
+			 * @return {HTMLElement}
+			 * @member ns.router.route.page
+			 * @static
+			 */
+			routePage.getActiveElement = function () {
+				return this.getActive().element;
+			};
 			ns.router.route.page = routePage;
 
 			}(window.document, ns));
@@ -22764,7 +23968,7 @@ ns.version = '0.9.26';
 			 * @static
 			 */
 			Popup = ns.widget.core.Popup,
-
+			util = ns.util,
 			routePopup = {
 				/**
 				 * Object with default options
@@ -22890,10 +24094,14 @@ ns.version = '0.9.26';
 			 * @static
 			 */
 			function findPopupAndSetDataUrl(id, filter) {
-				var popup = document.getElementById(path.hashToSelector(id));
+				var popup,
+					hashReg = /^#/;
+
+				id = id.replace(hashReg,'');
+				popup = document.getElementById(id);
 
 				if (popup && utilSelector.matchesSelector(popup, filter)) {
-					DOM.setNSData(popup, 'url', id);
+					DOM.setNSData(popup, 'url', '#' + id);
 				} else {
 					// if we matched any element, but it doesn't match our filter
 					// reset page to null
@@ -22970,13 +24178,14 @@ ns.version = '0.9.26';
 			 * @static
 			 */
 			routePopup.open = function (toPopup, options, event) {
-				var popup,
+				var self = this,
+					popup,
 					router = engine.getRouter(),
-					events = routePopup.events,
+					events = self.events,
 					removePopup = function () {
 						document.removeEventListener(events.POPUP_HIDE, removePopup, false);
 						toPopup.parentNode.removeChild(toPopup);
-						routePopup.activePopup = null;
+						self.activePopup = null;
 					},
 					openPopup = function () {
 						var positionTo = options["position-to"];
@@ -22993,22 +24202,24 @@ ns.version = '0.9.26';
 						}
 
 						document.removeEventListener(events.POPUP_HIDE, openPopup, false);
-						popup = engine.instanceWidget(toPopup, 'Popup', options);
+						popup = engine.instanceWidget(toPopup, "Popup", options);
 						popup.open(options);
-						routePopup.activePopup = popup;
+						self.activePopup = popup;
 					},
 					activePage = router.container.getActivePage(),
 					container;
 
 				if (DOM.getNSData(toPopup, "external") === true) {
 					container = options.container ? activePage.element.querySelector(options.container) : activePage.element;
-					container.appendChild(toPopup);
+					if (toPopup.parentNode !== container) {
+						toPopup = util.importEvaluateAndAppendElement(toPopup, container);
+					}
 					document.addEventListener(routePopup.events.POPUP_HIDE, removePopup, false);
 				}
 
-				if (routePopup.hasActive()) {
-					document.addEventListener(routePopup.events.POPUP_HIDE, openPopup, false);
-					routePopup.close();
+				if (self.hasActive()) {
+					document.addEventListener(events.POPUP_HIDE, openPopup, false);
+					self.close();
 				} else {
 					openPopup();
 				}
@@ -23026,17 +24237,39 @@ ns.version = '0.9.26';
 			 * @static
 			 */
 			routePopup.close = function (activePopup, options) {
+				var popupOptions,
+					pathLocation = path.getLocation(),
+					documentUrl = pathLocation.replace(popupHashKeyReg, "");
+
+				options = options || {};
 				activePopup = activePopup || this.activePopup;
 
+				// if popup is active
 				if (activePopup) {
-					// Close and clean up
-					activePopup.close(options || {});
+					popupOptions = activePopup.options;
+					// we check if it changed the history
+					if (popupOptions.history && pathLocation !== documentUrl) {
+						// and then set new options for popup
+						popupOptions.transition = options.transition || popupOptions.transition;
+						popupOptions.ext = options.ext || popupOptions.ext;
+						// unlock the router if it was locked
+						if (!popupOptions.dismissible) {
+							engine.getRouter().unlock();
+						}
+						// and call history.back()
+						history.back();
+					} else {
+						// if popup did not change the history, we close it normally
+						activePopup.close(options || {});
+					}
+					return true;
 				}
+				return false;
 			};
 
 			/**
 			 * This method handles hash change.
-			 * It closes active popup.
+			 * It closes opened popup.
 			 * @method onHashChange
 			 * @param {string} url
 			 * @param {object} options
@@ -23048,7 +24281,7 @@ ns.version = '0.9.26';
 				var activePopup = this.activePopup;
 
 				if (activePopup) {
-					routePopup.close(activePopup, options);
+					activePopup.close(options);
 					// Default routing setting cause to rewrite further window history
 					// even if popup has been closed
 					// To prevent this onHashChange after closing popup we need to change
@@ -23153,108 +24386,16 @@ ns.version = '0.9.26';
 				return this.activePopup;
 			};
 
-			ns.router.route.popup = routePopup;
-
-			}(window, window.document, ns));
-
-/*global window, define, ns */
-/* 
- * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
- * License : MIT License V2
- */
-/**
- * #Route popup
- * Support class for router to control changing pupups in profile Wearable.
- *
- * @class ns.router.tv.route.popup
- * @extend ns.router.route.popup
- * @author Maciej Urbanski <m.urbanski@samsung.com>
- * @author Damian Osipiuk <d.osipiuk@samsung.com>
- */
-(function (window, document, ns) {
-	
-				var routePopup = ns.router.route.popup,
-				/**
-				 * Alias for {@link ns.engine}
-				 * @property {Object} engine
-				 * @member ns.router.route.popup
-				 * @private
-				 * @static
-				 */
-				engine = ns.engine,
-				/**
-				 * Alias for {@link ns.util.DOM}
-				 * @property {Object} DOM
-				 * @member ns.router.route.popup
-				 * @private
-				 * @static
-				 */
-				DOM = ns.util.DOM;
-
-
 			/**
-			 * This method opens popup if no other popup is opened.
-			 * It also changes history to show that popup is opened.
-			 * If there is already active popup, it will be closed.
-			 * @method open
-			 * @param {HTMLElement|string} toPopup
-			 * @param {Object} options
-			 * @param {"page"|"popup"|"external"} [options.rel = 'popup'] Represents kind of link as 'page' or 'popup' or 'external' for linking to another domain.
-			 * @param {string} [options.transition = 'none'] Sets the animation used during change of popup.
-			 * @param {boolean} [options.reverse = false] Sets the direction of change.
-			 * @param {boolean} [options.fromHashChange = false] Sets if will be changed after hashchange.
-			 * @param {boolean} [options.showLoadMsg = true] Sets if message will be shown during loading.
-			 * @param {number} [options.loadMsgDelay = 0] Sets delay time for the show message during loading.
-			 * @param {boolean} [options.dataUrl] Sets if page has url attribute.
-			 * @param {string} [options.container = null] Selector for container.
-			 * @param {boolean} [options.volatileRecord=true] Sets if the current history entry will be modified or a new one will be created.
-			 * @param {Event} event
+			 * Returns element of active popup.
+			 * @method getActiveElement
+			 * @return {HTMLElement}
 			 * @member ns.router.route.popup
 			 * @static
 			 */
-			routePopup.open = function (toPopup, options, event) {
-				var popup,
-					router = engine.getRouter(),
-					events = routePopup.events,
-					removePopup = function () {
-						document.removeEventListener(events.POPUP_HIDE, removePopup, false);
-						toPopup.parentNode.removeChild(toPopup);
-						routePopup.activePopup = null;
-					},
-					openPopup = function () {
-						var positionTo = options["position-to"];
-						// add such option only if it exists
-						if (positionTo) {
-							options.positionTo = positionTo;
-						}
-						if (event && event.touches) {
-							options.x = event.touches[0].clientX;
-							options.y = event.touches[0].clientY;
-						} else if (event){
-							options.x = event.clientX;
-							options.y = event.clientY;
-						}
-
-						document.removeEventListener(events.POPUP_HIDE, openPopup, false);
-						popup = engine.instanceWidget(toPopup, "popup", options);
-						popup.open(options);
-						routePopup.activePopup = popup;
-					},
-					activePage = router.container.getActivePage(),
-					container;
-
-				if (DOM.getNSData(toPopup, "external") === true) {
-					container = options.container ? activePage.element.querySelector(options.container) : activePage.element;
-					container.appendChild(toPopup);
-					document.addEventListener(routePopup.events.POPUP_HIDE, removePopup, false);
-				}
-
-				if (routePopup.hasActive()) {
-					document.addEventListener(routePopup.events.POPUP_HIDE, openPopup, false);
-					routePopup.close();
-				} else {
-					openPopup();
-				}
+			routePopup.getActiveElement = function () {
+				var active = this.getActive();
+				return active && active.element;
 			};
 
 			ns.router.route.popup = routePopup;
@@ -23290,7 +24431,7 @@ ns.version = '0.9.26';
 						volatileRecord: true
 					},
 					/**
-					 * @property {string} filter Alias for {@link ns.wearable.selectors#popup}
+					 * @property {string} filter Alias
 					 * @member ns.router.route.popup
 					 * @static
 					 */
@@ -23343,7 +24484,7 @@ ns.version = '0.9.26';
 
 			/**
 			 * Tries to find a popup element matching id and filter (selector).
-			 * Adds data url attribute to found page, sets page = null when nothing found
+			 * Adds data url attribute to found page, sets page = null when nothing found.
 			 * @method findPopupAndSetDataUrl
 			 * @param {string} id
 			 * @param {string} filter
@@ -23353,10 +24494,14 @@ ns.version = '0.9.26';
 			 * @static
 			 */
 			function findPopupAndSetDataUrl(id, filter) {
-				var popup = document.getElementById(path.hashToSelector(id));
+				var popup,
+					hashReg = /^#/;
+
+				id = id.replace(hashReg,'');
+				popup = document.getElementById(id);
 
 				if (popup && utilSelector.matchesSelector(popup, filter)) {
-					DOM.setNSData(popup, "url", id);
+					DOM.setNSData(popup, 'url', '#' + id);
 				} else {
 					// if we matched any element, but it doesn't match our filter
 					// reset page to null
@@ -23522,10 +24667,9 @@ ns.version = '0.9.26';
 
 			document.addEventListener("routerinit", function (evt) {
 				var router = evt.detail,
+					routePage = router.getRoute("page"),
 					history = ns.router.history,
-					navigator,
 					back = history.back.bind(router),
-					rule = ns.router.route,
 					classes = ns.widget.wearable.Page.classes,
 					pageActiveClass = classes.uiPageActive;
 				/**
@@ -23549,6 +24693,13 @@ ns.version = '0.9.26';
 				 * @member tau
 				 */
 				ns.firstPage = router.getFirstPage();
+				/**
+				 * Returns active page element
+				 * @inheritdoc ns.router.Router#getActivePageElement
+				 * @method getActivePage
+				 * @member tau
+				 */
+				ns.getActivePage = routePage.getActiveElement.bind(routePage);
 				/**
 				 * @inheritdoc ns.router.history#back
 				 * @method back
@@ -23660,9 +24811,10 @@ ns.version = '0.9.26';
  * @extends ns.widget.mobile.TextInput
  * @author Lukasz Zajaczkowski <l.zajaczkows@samsung.com>
  */
-(function (document, ns) {
+(function (window, document, ns) {
 	
-				var MobileTextInput = ns.widget.mobile.TextInput,
+				var widget = ns.widget,
+				MobileTextInput = widget.mobile.TextInput,
 				MobileTextInputPrototype = MobileTextInput.prototype,
 				BaseKeyboardSupport = ns.widget.tv.BaseKeyboardSupport,
 				/**
@@ -23672,14 +24824,22 @@ ns.version = '0.9.26';
 				 * @static
 				 * @private
 				 */
+				utilSelectors = ns.util.selectors,
 				engine = ns.engine,
-				FUNCTION_TYPE = "function",
 				TextInput = function () {
-					MobileTextInput.call(this);
-					BaseKeyboardSupport.call(this);
+					var self = this;
+					MobileTextInput.call(self);
+					BaseKeyboardSupport.call(self);
 
-					this._callbacks = {};
-					this._lastEventLineNumber = 0;
+					self._callbacks = {};
+					self._lastEventLineNumber = 0;
+					/**
+					 * Parent widget
+					 * @property {ns.widget.BaseWidget} _parentWidget
+					 * @protected
+					 * @member ns.widget.tv.TextInput
+					 */
+					self._parentWidget = null;
 				},
 				/**
 				 * Dictionary for textinput related css class names
@@ -23688,52 +24848,81 @@ ns.version = '0.9.26';
 				 * @static
 				 */
 				classes = {
-					uiDisabled: ns.widget.mobile.Button.classes.uiDisabled,
+					uiDisabled: widget.mobile.Button.classes.uiDisabled,
 					uiNumberInput: "ui-number-input"
 				},
 				KEY_CODES = BaseKeyboardSupport.KEY_CODES,
-				prototype = new MobileTextInput();
+				prototype = new MobileTextInput(),
+				// for detect keyboard open/hide
+				initialScreenHeight = window.innerHeight,
+				selector = "input[type='text'], input[type='number'], " +
+					"input[type='password'], input[type='email'], " +
+					"input[type='url'], input[type='tel'], textarea, " +
+					"input[type='month'], input[type='week'], " +
+					"input[type='datetime-local'], input[type='color'], " +
+					"input:not([type]), .ui-textinput";
 
 			TextInput.events = MobileTextInput.events;
 			TextInput.classes = MobileTextInput.classes;
 			TextInput.prototype = prototype;
+			TextInput.selector = selector;
 
 			/**
-			* Init TextInput Widget
-			* @method _init
-			* @param {HTMLElement} element
-			* @member ns.widget.tv.TextInput
-			* @protected
-			*/
+			 * Find parent widget (popup or page)
+			 * @method findParentElement
+			 * @param {ns.widget.tv.TextInput} self
+			 * @static
+			 * @private
+			 * @member ns.widget.tv.TextInput
+			 */
+			function findParentElement(self) {
+				var parent,
+					element = self.element;
+				parent = utilSelectors.getClosestByClass(element,
+					widget.core.Popup.classes.popup);
+				if (parent) {
+					self._parentWidget = engine.getBinding(parent, "popup");
+				} else {
+					parent = utilSelectors.getClosestByClass(element,
+						widget.tv.Page.classes.uiPage);
+					self._parentWidget = engine.getBinding(parent, "page");
+				}
+			}
+
+			/**
+			 * Init widget
+			 * @method _init
+			 * @param {HTMLElement} element
+			 * @protected
+			 * @member ns.widget.tv.TextInput
+			 */
 			prototype._init = function(element) {
-				if (typeof MobileTextInputPrototype._init === FUNCTION_TYPE) {
-					MobileTextInputPrototype._init.call(this, element);
+				MobileTextInputPrototype._init.call(this, element);
+
+				if (element.type === "number") {
+					wrapInputNumber(element);
 				}
 
-				switch (element.type) {
-				case "number":
-					wrapInputNumber(element);
-					break;
-				}
+				findParentElement(this);
 			};
 
 			/**
-			* Bind events to widget
-			* @method _bindEvents
-			* @param {HTMLElement} element
-			* @protected
-			* @member ns.widget.tv.TextInput
-			*/
+			 * Init widget
+			 * @method _bindEvents
+			 * @param {HTMLElement} element
+			 * @protected
+			 * @member ns.widget.tv.TextInput
+			 */
 			prototype._bindEvents = function(element) {
-				var callbacks = this._callbacks;
+				var self = this,
+					callbacks = self._callbacks;
 
-				if (typeof MobileTextInputPrototype._bindEvents === FUNCTION_TYPE) {
-					MobileTextInputPrototype._bindEvents.call(this, element);
-				}
+				MobileTextInputPrototype._bindEvents.call(self, element);
 
-				this._bindEventKey();
+				self._bindEventKey();
 
-				callbacks.onKeyupTextarea = onKeyupTextarea.bind(null, this);
+				callbacks.onKeyupTextarea = onKeyupTextarea.bind(null, self);
+				callbacks.onResize = onResize.bind(null, self);
 
 				switch (element.type) {
 					case "number":
@@ -23742,6 +24931,8 @@ ns.version = '0.9.26';
 					case "textarea":
 						element.addEventListener("keyup", callbacks.onKeyupTextarea, false);
 				}
+
+				window.addEventListener("resize", callbacks.onResize, false);
 			};
 
 			/**
@@ -23753,7 +24944,8 @@ ns.version = '0.9.26';
 			 * @member ns.widget.tv.TextInput
 			 */
 			prototype._destroy = function(element) {
-				var callbacks = this._callbacks;
+				var self = this,
+					callbacks = self._callbacks;
 
 				switch (element.type) {
 					case "number":
@@ -23763,12 +24955,33 @@ ns.version = '0.9.26';
 						element.removeEventListener("keyup", callbacks.onKeyupTextarea, false);
 				}
 
-				this._destroyEventKey();
+				self._destroyEventKey();
 
-				if (typeof MobileTextInputPrototype._destroy === FUNCTION_TYPE) {
-					MobileTextInputPrototype._destroy.call(this, element);
-				}
+				MobileTextInputPrototype._destroy.call(self, element);
+
+				window.removeEventListener("resize", callbacks.onResize, false);
 			};
+
+			/**
+			 * Method finds label tag for element.
+			 * @method _findLabel
+			 * @param {HTMLElement} element
+			 * @member ns.widget.tv.TextInput
+			 * @return {HTMLElement}
+			 * @protected
+			 */
+			prototype._findLabel = function(element) {
+				var container = element.parentElement;
+
+				// Input with type = "number" is opacked with
+				// an additional focusable span. Label should be
+				// looked for in a parent of this span.
+				if (element.type === "number") {
+					container = container.parentElement;
+				}
+
+				return container.querySelector("label[for='" + element.id + "']");
+			}
 
 			/**
 			 * Method overrides Textarea behavior on keyup event.
@@ -23791,8 +25004,7 @@ ns.version = '0.9.26';
 						// or the previous event was not in the first line
 						if (currentLineNumber > 1 || self._lastEventLineNumber !== 1) {
 							// we do not jump to other element
-							event.preventDefault();
-							event.stopPropagation();
+							event.stopImmediatePropagation();
 						}
 						break;
 					case KEY_CODES.down:
@@ -23800,18 +25012,34 @@ ns.version = '0.9.26';
 						// or the previous event was not in the last line
 						if (currentLineNumber < linesNumber || self._lastEventLineNumber !== linesNumber) {
 							// we do not jump to other element
-							event.preventDefault();
-							event.stopPropagation();
+							event.stopImmediatePropagation();
 						}
 						break;
 					case KEY_CODES.left:
 					case KEY_CODES.right:
 							// we do not jump to other element
-							event.preventDefault();
-							event.stopPropagation();
+							event.stopImmediatePropagation();
 						break;
 				}
 				self._lastEventLineNumber = currentLineNumber;
+			}
+
+			/**
+			 * Enable or disable keyboard support after resize od screen (open
+			 * virtual keyboard)
+			 * @method onResize
+			 * @param {ns.widget.tv.TextInput} self
+			 * @private
+			 * @static
+			 * @member ns.widget.tv.TextInput
+			 */
+			function onResize(self) {
+				var parent = self._parentWidget;
+				if (window.innerHeight < initialScreenHeight) {
+					parent.disableKeyboardSupport();
+				} else {
+					parent.enableKeyboardSupport();
+				}
 			}
 
 			/**
@@ -23843,11 +25071,8 @@ ns.version = '0.9.26';
 			 * @member ns.widget.tv.TextInput
 			 */
 			function isEnabledTextInput(element) {
-				if (element.classList.contains(TextInput.classes.uiInputText) &&
-					!element.classList.contains(classes.uiDisabled)) {
-					return element;
-				}
-				return null;
+				return element && element.classList.contains(MobileTextInput.classes.uiInputText) &&
+					!element.classList.contains(classes.uiDisabled) && !element.disabled;
 			}
 
 			/**
@@ -23859,10 +25084,11 @@ ns.version = '0.9.26';
 			 * @member ns.widget.tv.TextInput
 			 */
 			function onKeydownInput(event) {
-				var element = isEnabledTextInput(event.target),
-					parent = element.parentNode;
+				var target = event.target,
+					isEnabled = isEnabledTextInput(target),
+					parent = target.parentNode;
 
-				if(element) {
+				if (isEnabled) {
 					event.stopPropagation();
 					event.preventDefault();
 					if (event.keyCode !== KEY_CODES.up && event.keyCode !== KEY_CODES.down) {
@@ -23871,20 +25097,23 @@ ns.version = '0.9.26';
 				}
 			}
 
-			ns.widget.tv.TextInput = TextInput;
+			widget.tv.TextInput = TextInput;
 
 			engine.defineWidget(
 				"TextInput",
-				"input[type='text'], input[type='number'], input[type='password'], input[type='email'], input[type='url'], input[type='tel'], textarea, input[type='month'], input[type='week'], input[type='datetime-local'], input[type='color'], input:not([type]), .ui-textinput",
-				[],
+				selector,
+				[
+					"getLabel",
+					"setLabel"
+				],
 				TextInput,
 				"tv",
 				true
 			);
 
-			BaseKeyboardSupport.registerActiveSelector(".ui-textinput");
+			BaseKeyboardSupport.registerActiveSelector(".ui-input-text");
 
-			}(window.document, ns));
+			}(window, window.document, ns));
 
 /*global window, define */
 /*
@@ -24178,6 +25407,13 @@ ns.version = '0.9.26';
 			ListDivider.events = MobileListDivider.events;
 			ListDivider.classes = MobileListDivider.classes;
 			ListDivider.prototype = prototype;
+
+			prototype._build = function (element) {
+				element = MobileListDivider.prototype._build.call(this, element);
+				element.removeAttribute("tabindex");
+				return element;
+			};
+
 			// definition
 			ns.widget.tv.ListDivider = ListDivider;
 			engine.defineWidget(
@@ -24202,15 +25438,80 @@ ns.version = '0.9.26';
  * Checkboxradio widget changes default browser checkboxes and radios to form more adapted to mobile environment.
  *
  * ##Default selectors
- * In default all inputs with type _checkbox_ or _radio_ are changed to checkboxradio widget.
+ * By default all inputs with:
+ *
+ * - type "checkbox" and without class "ui-slider-switch-input"
+ * - type "radio"
+ * - class "ui-checkbox"
+ *
+ * are changed to Checkboxradio widget.
+ *
+ * ##Manual constructor - checkbox
+ * For manual creation of Checkboxradio widget with checkbox content you can use constructor of widget:
+ *
+ *	@example
+ *	<!-- Widget structure -->
+ *	<input type="checkbox" id="checkbox-1"></input>
+ *	<label for="checkbox-1">Label1</label>
+ *	<input class="ui-checkbox" id="checkbox-2"></input>
+ *	<label for="checkbox-2">Label2</label>
+ *	<script>
+ *	var checkbox = document.getElementById("checkbox-1"),
+ *		widget = tau.widget.Checkboxradio(checkbox),
+ *		checkbox2 = document.getElementById("checkbox-2"),
+ *		widget2 = tau.widget.Checkboxradio(checkbox2);
+ *	</script>
+ *
+ * ##Manual constructor - radio
+ * For manual creation of Checkboxradio widget with radio content you can use constructor of widget:
+ *
+ *	@example
+ *	<!-- Widget structure -->
+ *	<input type="radio" id="radio-1"></input>
+ *	<label for="radio-1">Label1</label>
+ *	<script>
+ *	var radio = document.getElementById("radio-1"),
+ *		widget = tau.widget.Checkboxradio(radio);
+ *	</script>
  *
  * ##HTML Examples
  *
- * ### Create checkboxradio
+ * ###Setting checkbox checked / unchecked
  *
- *		@example
- *		<input type="checkbox" name="checkbox-yes" id="checkbox-yes" />
- *		<label for="checkbox-yes">Yes</label>
+ *	@example
+ *	<!-- Widget structure -->
+ *	<input type="checkbox" id="checkbox-1"></input>
+ *	<label for="checkbox-1">Label1</label>
+ *	<script>
+ *	var checkbox = document.getElementById("checkbox-1");
+ *	// Checked
+ *	checkbox.checked = true;
+ *	// Unchecked
+ *	checkbox.checked = false;
+ *	</script>
+ *
+ * ###Setting radio checked / unchecked
+ *
+ *	@example
+ *	<!-- Widget structure -->
+ *	<input type="radio" id="radio-1"></input>
+ *	<label for="radio-1">Label1</label>
+ *	<script>
+ *	var radio = document.getElementById("radio-1");
+ *	// Checked
+ *	radio.checked = true;
+ *	// Unchecked
+ *	radio.checked = false;
+ *	</script>
+ *
+ * ###Setting disabled
+ *
+ *	@example
+ *	<!-- Widget structure -->
+ *	<input type="checkbox" id="checkbox-1" disabled="disabled"></input>
+ *	<label for="checkbox-1">Label1</label>
+ *	<input type="radio" id="radio-1" disabled="disabled"></input>
+ *	<label for="radio-1">Label2</label>
  *
  * @class ns.widget.mobile.Checkboxradio
  * @extends ns.widget.BaseWidget
@@ -24218,18 +25519,31 @@ ns.version = '0.9.26';
 (function (document, ns) {
 	
 				var Checkboxradio = function () {
+					var self = this;
 					/**
 					* @property {Object} options Object with default options
 					* @property {string} [options.theme='s'] Widget's theme
 					* @member ns.widget.mobile.Checkboxradio
-					* @instance
 					*/
-					this.options = {
+					self.options = {
 						theme: 's'
 					};
 
-					this._onLabelClickBound = null;
-					this._onInputClickBound = null;
+					self._callbacks = {
+						onLabelClick : null,
+						onInputClick : null
+					}
+
+					self.inputType = "";
+					self.checkedClass = "";
+					self.uncheckedClass = "";
+					self.ariaCheckedAttr = "";
+					self.checkedIcon = "";
+					self.uncheckedIcon = "";
+
+					self.label = null;
+					self.icon = null;
+					self.wrapper = null;
 				},
 				/**
 				* @property {Object} Widget Alias for {@link ns.widget.BaseWidget}
@@ -24266,8 +25580,20 @@ ns.version = '0.9.26';
 				* @static
 				*/
 				events = ns.event,
+				/**
+				 * {Object} List of classes which can be added to widget`s element
+				 * @member ns.widget.mobile.Checkboxradio
+				 * @private
+				 * @static
+				 */
 				classes = {
-					checkboxradioIconWrapper: "ui-icon-wrapper"
+					DISABLED: "ui-disabled",
+					ICON_PREFIX: "ui-icon-",
+					ICON_WRAPPER: "ui-icon-wrapper",
+					ICON: "ui-icon",
+					OFF: "-off",
+					ON: "-on",
+					UI: "ui-"
 				},
 				/**
 				* @property {Function} slice Alias for function Array.slice
@@ -24391,53 +25717,150 @@ ns.version = '0.9.26';
 				self._updateAll();
 			}
 
+			function setStyleForChecked(self) {
+				var labelClassList = self.label.classList,
+					iconClassList;
+				if (self.icon) {
+					iconClassList = self.icon.classList;
+					iconClassList.add(self.checkedIcon);
+					iconClassList.remove(self.uncheckedIcon);
+				}
+				labelClassList.add(self.checkedClass);
+				labelClassList.remove(self.uncheckedClass);
+				self.wrapper.setAttribute(self.ariaCheckedAttr, true);
+			}
+
+			function setStyleForUnchecked(self) {
+				var labelClassList = self.label.classList,
+					iconClassList;
+				if (self.icon) {
+					iconClassList = self.icon.classList;
+					iconClassList.add(self.uncheckedIcon);
+					iconClassList.remove(self.checkedIcon);
+				}
+				labelClassList.add(self.uncheckedClass);
+				labelClassList.remove(self.checkedClass);
+				self.wrapper.setAttribute(self.ariaCheckedAttr, false);
+			}
 			/**
-			* Check checkboxradio element
-			* @method checkElement
-			* @param {ns.widget.mobile.Checkboxradio} instance
+			* Check or uncheck checkboxradio element
+			* @method setCheckboxradioStatus
+			* @param {ns.widget.mobile.Checkboxradio} self
+			* @param {boolean} status
 			* @private
 			* @member ns.widget.mobile.Checkboxradio
 			* @new
 			*/
-			function checkElement(instance) {
-				var labelClassList = instance.label.classList,
-					iconClassList,
-					element = instance.element;
+			function setCheckboxradioStatus(self, status) {
+				var element = self.element;
 				if (!element.getAttribute("disabled")) {
-					if (instance.icon) {
-						iconClassList = instance.icon.classList;
-						iconClassList.add(instance.checkedicon);
-						iconClassList.remove(instance.uncheckedicon);
+					if (status) {
+						// checkbox is checked
+						setStyleForChecked(self);
+					} else {
+						// checkbox is checked
+						setStyleForUnchecked(self);
 					}
-					labelClassList.add(instance.checkedClass);
-					labelClassList.remove(instance.uncheckedClass);
-					instance.wrapper.setAttribute(instance.ariaCheckedAttr, true);
 				}
 			}
 
-			/**
-			* Uncheck checkboxradio element
-			* @method uncheckElement
-			* @param {ns.widget.mobile.Checkboxradio} instance
-			* @private
-			* @member ns.widget.mobile.Checkboxradio
-			* @new
-			*/
-			function uncheckElement(instance) {
-				var labelClassList = instance.label.classList,
-					iconClassList,
-					element = instance.element;
-				if (!element.getAttribute("disabled")) {
-					if (instance.icon) {
-						iconClassList = instance.icon.classList;
-						iconClassList.add(instance.uncheckedicon);
-						iconClassList.remove(instance.checkedicon);
-					}
-					labelClassList.add(instance.uncheckedClass);
-					labelClassList.remove(instance.checkedClass);
-					instance.wrapper.setAttribute(instance.ariaCheckedAttr, false);
+			Checkboxradio.prototype._buildLabel = function (element) {
+				var inputType =  this.inputType,
+					options = this.options,
+					checkedState,
+					checkedClass,
+					icon,
+					label,
+					mini,
+					iconpos;
+
+				icon = selectors.getParentsBySelector(element, "[data-type='horizontal']").length ? false : inputType + classes.OFF;
+				label = getLabel(element);
+
+				//@todo these options should not be passed via DOM element
+				mini = dom.inheritAttr(element, "data-mini", "form,fieldset");
+				if (mini) {
+					dom.setNSData(label, "mini", mini);
 				}
-			}
+				iconpos = dom.inheritAttr(element, "data-iconpos", "form,fieldset");
+				if (iconpos) {
+					dom.setNSData(label, "iconpos", iconpos);
+				}
+
+				dom.setNSData(label, "theme", options.theme);
+				dom.setNSData(label, "icon", icon);
+				dom.setNSData(label, "shadow", false);
+				dom.setNSData(label, "bar", true);
+				engine.instanceWidget(label, "Button");
+
+				//make sure label is after input
+				if (element.nextElementSibling) {
+					element.parentNode.insertBefore(label, element.nextElementSibling);
+				} else {
+					element.parentNode.appendChild(label);
+				}
+
+				if (!icon) {
+					if (element.checked) {
+						label.classList.add(ns.widget.mobile.Button.classes.uiBtnActive);
+					} else {
+						label.classList.remove(ns.widget.mobile.Button.classes.uiBtnActive);
+					}
+				}
+
+				return label;
+			};
+
+			Checkboxradio.prototype._buildWrapper = function (element) {
+				var label = getLabel(element),
+					inputType = this.inputType,
+					ariaCheckedAttr = this.ariaCheckedAttr,
+					wrapper;
+
+				// Wrap the input + label in a div
+				wrapper = "<div role='" + inputType + "' class='ui-" + inputType;
+				if (element.classList.contains("favorite")) {
+					wrapper += " favorite";
+				}
+				wrapper += "'></div>";
+
+				dom.wrapInHTML([element, label], wrapper);
+				// wrapper's node
+				wrapper = element.parentNode;
+
+				if (element.checked) {
+					wrapper.setAttribute(ariaCheckedAttr, true);
+				} else {
+					wrapper.setAttribute(ariaCheckedAttr, false);
+				}
+
+				if (element.getAttribute("disabled")) {
+					wrapper.classList.add(classes.DISABLED);
+				} else {
+					wrapper.classList.remove(classes.DISABLED);
+				}
+
+				return wrapper;
+			};
+
+			Checkboxradio.prototype._buildIcon = function (element) {
+				var inputType = this.inputType,
+					icon,
+					iconParent,
+					iconWrapper;
+
+				icon = getLabel(element).getElementsByClassName(classes.ICON)[0];
+				iconParent = icon && icon.parentElement;
+				iconWrapper = document.createElement("span");
+
+				if (icon) {
+					iconWrapper.classList.add(classes.ICON_WRAPPER);
+					iconWrapper.appendChild(icon);
+					iconParent.appendChild(iconWrapper);
+				}
+
+				return icon;
+			};
 
 			/**
 			* Builds structure of checkboxradio widget
@@ -24446,128 +25869,43 @@ ns.version = '0.9.26';
 			* @return {HTMLInputElement}
 			* @protected
 			* @member ns.widget.mobile.Checkboxradio
-			* @instance
 			*/
 			Checkboxradio.prototype._build = function (element) {
-				var inputtype = element.getAttribute('type'),
-					options = this.options,
-					label,
-					labelClassList,
-					wrapper,
-					ariaCheckedAttr,
-					icon,
-					checkedState,
-					checkedClass,
-					uncheckedClass,
-					uncheckedState,
-					checkedicon,
-					uncheckedicon,
-					activeBtn,
-					iconSpan,
-					iconClassList,
-					iconpos,
-					mini,
-					iconSpanParent,
-					iconWrapper;
+				var self = this,
+					inputType = element.getAttribute("type");
 
 				//if created dynamically on wrong element, just return from here
-				if (inputtype !== "checkbox" && inputtype !== "radio") {
+				if (inputType !== "checkbox" && inputType !== "radio") {
 					//_build should always return element
 					return element;
 				}
-				ariaCheckedAttr = inputtype === 'radio' ? 'aria-selected' : 'aria-checked';
-				checkedState = inputtype + "-on";
-				uncheckedState = inputtype + "-off";
-				icon = selectors.getParentsBySelector(element, "[data-type='horizontal']").length ? false : uncheckedState;
-				if (!icon) {
-					activeBtn = "ui-btn-active";
-				}
-				checkedClass = "ui-" + checkedState;
-				uncheckedClass = "ui-" + uncheckedState;
-				checkedicon = "ui-icon-" + checkedState;
-				uncheckedicon = "ui-icon-" + uncheckedState;
-
-				label = getLabel(element);
-				labelClassList = label.classList;
-
-				//@todo these options should not be passed via DOM element
-				mini = dom.inheritAttr(element, "data-mini", "form,fieldset");
-				if (mini) {
-					label.setAttribute('data-mini', mini);
-				}
-
-				iconpos = dom.inheritAttr(element, "data-iconpos", "form,fieldset");
-				if (iconpos) {
-					label.setAttribute('data-iconpos', iconpos);
-				}
-
-				label.setAttribute('data-theme', options.theme);
-				label.setAttribute('data-icon', icon);
-				label.setAttribute('data-shadow', false);
-				label.setAttribute('data-bar', true);
-				engine.instanceWidget(label, "Button");
-				iconSpan = label.getElementsByClassName('ui-icon')[0];
-				iconSpanParent = iconSpan && iconSpan.parentElement;
-				iconWrapper = document.createElement("span");
-
-				if (iconSpan) {
-					iconClassList = iconSpan.classList;
-					iconWrapper.classList.add(classes.checkboxradioIconWrapper);
-					iconWrapper.appendChild(iconSpan);
-					iconSpanParent.appendChild(iconWrapper);
-				}
-
-				// Wrap the input + label in a div
-				wrapper = '<div role="' + inputtype + '" class="ui-' + inputtype;
-				if (element.classList.contains("favorite")) {
-					wrapper += ' favorite';
-				}
-				wrapper += '"></div>';
-
-				//make sure label is after input
-				if (element.nextElementSibling) {
-					element.parentNode.insertBefore(label, element.nextElementSibling);
-				} else {
-					element.parentNode.appendChild(label);
-				}
-				dom.wrapInHTML([element, label], wrapper);
-				wrapper = element.parentNode;
 
 				if (element.hasAttribute('checked')) {
 					// quick fix to resolve problem in tests when sometimes attribute checked isn't proper interpreted to property in object
 					element.checked = true;
 				}
+
+				// set classes
+				self.element = element;
+				self.inputType = inputType;
+				self.checkedClass = classes.UI + inputType + classes.ON;
+				self.uncheckedClass = classes.UI + inputType + classes.OFF;
+				self.ariaCheckedAttr = inputType === "radio" ? "aria-selected" : "aria-checked";
+				self.checkedIcon = classes.ICON_PREFIX + inputType + classes.ON;
+				self.uncheckedIcon = classes.ICON_PREFIX + inputType + classes.OFF;
+
+				// create elements
+				self.label = self._buildLabel(element);
+				self.icon = self._buildIcon(element);
+				self.wrapper = self._buildWrapper(element);
+
+				// check or uncheck element
 				if (element.checked) {
-					labelClassList.add(checkedClass);
-					if (!icon) {
-						labelClassList.add(activeBtn);
-					}
-					labelClassList.remove(uncheckedClass);
-					if (iconSpan) {
-						iconClassList.add(checkedicon);
-						iconClassList.remove(uncheckedicon);
-					}
-					wrapper.setAttribute(ariaCheckedAttr, true);
+					setStyleForChecked(self);
 				} else {
-					labelClassList.remove(checkedClass);
-					if (!icon) {
-						labelClassList.remove(activeBtn);
-					}
-					labelClassList.add(uncheckedClass);
-					if (iconSpan) {
-						iconClassList.add(uncheckedicon);
-						iconClassList.remove(checkedicon);
-					}
-					wrapper.setAttribute(ariaCheckedAttr, false);
+					setStyleForUnchecked(self);
 				}
 
-				element.checked = element.getAttribute('checked') === 'checked';
-
-				if (element.getAttribute("disabled")) {
-					wrapper.classList.add('ui-disabled');
-				} else {
-					wrapper.classList.remove('ui-disabled');
-				}
 				return element;
 			};
 
@@ -24577,18 +25915,18 @@ ns.version = '0.9.26';
 			* @param {HTMLElement} element
 			* @protected
 			* @member ns.widget.mobile.Checkboxradio
-			* @instance
 			*/
 			Checkboxradio.prototype._init = function (element) {
-				this.label = getLabel(element);
-				this.icon = this.label.getElementsByClassName('ui-icon')[0];
-				this.wrapper = element.parentNode;
-				this.inputtype = element.getAttribute('type');
-				this.checkedClass = 'ui-' + this.inputtype + '-on';
-				this.uncheckedClass = 'ui-' + this.inputtype + '-off';
-				this.ariaCheckedAttr = this.inputtype === 'radio' ? 'aria-selected' : 'aria-checked';
-				this.checkedicon = "ui-icon-" + this.inputtype + '-on';
-				this.uncheckedicon = "ui-icon-" + this.inputtype + '-off';
+				var self = this;
+				self.label = getLabel(element);
+				self.icon = self.label.getElementsByClassName("ui-icon")[0];
+				self.wrapper = element.parentNode;
+				self.inputType = element.getAttribute("type");
+				self.checkedClass = classes.UI + self.inputType + classes.ON;
+				self.uncheckedClass = classes.UI + self.inputType + classes.OFF;
+				self.ariaCheckedAttr = self.inputType === "radio" ? "aria-selected" : "aria-checked";
+				self.checkedIcon = classes.ICON_PREFIX + self.inputType + classes.ON;
+				self.uncheckedIcon = classes.ICON_PREFIX + self.inputType + classes.OFF;
 			};
 
 			/**
@@ -24596,13 +25934,14 @@ ns.version = '0.9.26';
 			* @method _bindEvents
 			* @protected
 			* @member ns.widget.mobile.Checkboxradio
-			* @instance
 			*/
 			Checkboxradio.prototype._bindEvents = function () {
-				this._onLabelClickBound = onLabelClick.bind(null, this);
-				this._onInputClickBound = onInputClick.bind(null, this);
-				this.label.addEventListener('vclick', this._onLabelClickBound, true);
-				this.element.addEventListener('vclick', this._onInputClickBound, false);
+				var callbacks = this._callbacks;
+
+				callbacks.onLabelClick = onLabelClick.bind(null, this);
+				callbacks.onInputClick = onInputClick.bind(null, this);
+				this.label.addEventListener('vclick', callbacks.onLabelClick, true);
+				this.element.addEventListener('vclick', callbacks.onInputClick, false);
 			};
 
 			/**
@@ -24611,12 +25950,11 @@ ns.version = '0.9.26';
 			* @return {Array}
 			* @protected
 			* @member ns.widget.mobile.Checkboxradio
-			* @instance
 			*/
 			Checkboxradio.prototype._getInputSet = function () {
 				var parent;
 
-				if (this.inputtype === 'checkbox') {
+				if (this.inputType === 'checkbox') {
 					return [this.element];
 				}
 
@@ -24625,7 +25963,7 @@ ns.version = '0.9.26';
 
 				if (parent) {
 					return slice.call(parent.querySelectorAll(
-						"input[name='" + this.element.name + "'][type='" + this.inputtype + "']"
+						"input[name='" + this.element.name + "'][type='" + this.inputType + "']"
 					));
 				}
 
@@ -24637,7 +25975,6 @@ ns.version = '0.9.26';
 			* @method _updateAll
 			* @protected
 			* @member ns.widget.mobile.Checkboxradio
-			* @instance
 			*/
 			Checkboxradio.prototype._updateAll = function () {
 				this._getInputSet().forEach(function (el) {
@@ -24656,17 +25993,12 @@ ns.version = '0.9.26';
 			* Refreshes widget
 			* @method refresh
 			* @member ns.widget.mobile.Checkboxradio
-			* @instance
 			*/
 
 			Checkboxradio.prototype.refresh = function () {
 				var element = this.element;
 
-				if (element.checked) {
-					checkElement(this);
-				} else {
-					uncheckElement(this);
-				}
+				setCheckboxradioStatus(this, element.checked);
 
 				if (element.getAttribute("disabled")) {
 					this.disable();
@@ -24680,7 +26012,6 @@ ns.version = '0.9.26';
 			* @method _enable
 			* @member ns.widget.mobile.Checkboxradio
 			* @protected
-			* @instance
 			*/
 			Checkboxradio.prototype._enable = function () {
 				dom.removeAttribute(this.element, "disabled");
@@ -24692,7 +26023,6 @@ ns.version = '0.9.26';
 			* @method _disable
 			* @protected
 			* @member ns.widget.mobile.Checkboxradio
-			* @instance
 			*/
 			Checkboxradio.prototype._disable = function () {
 				dom.setAttribute(this.element, "disabled", true);
@@ -24704,20 +26034,21 @@ ns.version = '0.9.26';
 			* @method _destroy
 			* @protected
 			* @member ns.widget.mobile.Checkboxradio
-			* @instance
 			*/
 			Checkboxradio.prototype._destroy = function () {
-				this.label.removeEventListener('vclick', this._onLabelClickBound, true);
-				this.element.removeEventListener('vclick', this._onInputClickBound, false);
+				var self = this,
+					callbacks = self._callbacks;
+				self.label.removeEventListener('vclick', callbacks.onLabelClick, true);
+				self.element.removeEventListener('vclick', callbacks.onInputClick, false);
 			};
 
 			/**
-			* Return checked checkboxradio element
-			* @method getCheckedElement
-			* @return {?HTMLElement}
-			* @member ns.widget.mobile.Checkboxradio
-			* @new
-			*/
+			 * Return checked checkboxradio element
+			 * @method getCheckedElement
+			 * @return {?HTMLElement}
+			 * @member ns.widget.mobile.Checkboxradio
+			 * @new
+			 */
 			Checkboxradio.prototype.getCheckedElement = function () {
 				var radios = this._getInputSet(),
 					i,
@@ -24731,14 +26062,13 @@ ns.version = '0.9.26';
 			};
 
 			/**
-			* Returns value of checkbox if it is checked or value of radios with the same name
-			* @method _getValue
-			* @member ns.widget.mobile.Checkboxradio
-			* @return {?string}
+			 * Returns value of checkbox if it is checked or value of radios with the same name
+			 * @method _getValue
+			 * @member ns.widget.mobile.Checkboxradio
+			 * @return {?string}
 			 * @protected
-			* @instance
-			* @new
-			*/
+			 * @new
+			 */
 			Checkboxradio.prototype._getValue = function () {
 				var checkedElement = this.getCheckedElement();
 
@@ -24755,8 +26085,6 @@ ns.version = '0.9.26';
 			* @param {string} value
 			* @member ns.widget.mobile.Checkboxradio
 			* @chainable
-			* @instance
-			 * @protected
 			* @new
 			*/
 			Checkboxradio.prototype._setValue = function (value) {
@@ -24769,9 +26097,9 @@ ns.version = '0.9.26';
 					if (radios[i].value === value) {
 						checkedElement = this.getCheckedElement();
 						if (checkedElement) {
-							uncheckElement(engine.getBinding(checkedElement));
+							setCheckboxradioStatus(engine.getBinding(checkedElement), false);
 						}
-						checkElement(engine.getBinding(radios[i]));
+						setCheckboxradioStatus(engine.getBinding(radios[i]), true);
 						return this;
 					}
 				}
@@ -24782,7 +26110,9 @@ ns.version = '0.9.26';
 			ns.widget.mobile.Checkboxradio = Checkboxradio;
 			engine.defineWidget(
 				"Checkboxradio",
-				"input[type='checkbox']:not(.ui-slider-switch-input), input[type='radio'], .ui-checkbox",
+				"input[type='checkbox']:not(.ui-slider-switch-input):not([data-role='toggleswitch']):not(.ui-toggleswitch)," +
+				"input[type='radio']," +
+				"input.ui-checkbox",
 				[
 					"enable",
 					"disable",
@@ -24802,17 +26132,10 @@ ns.version = '0.9.26';
 /**
  * #Checkbox-radio Widget
  * Checkboxradio widget changes default browser checkboxes and radios to form more adapted to TV environment.
+ * Widget inherits from mobile widget. You can look for its documentation in {@link ns.widget.mobile.Checkboxradio}
  *
- * ##HTML Examples
- *
- * ### Create checkboxradio
- *
- *		@example
- *		<input type="checkbox" name="checkbox-example" id="checkbox-example"/>
- *		<label for="checkbox-example">Example</label>
- *		<!-- Input type='radio' example -->
- *		<input type="radio" name="radio-example" id="radio-example" value="1">
- *		<label for="radio-example">Example</label>
+ * ##Default selectors
+ * By default all inputs with type "checkbox" or "radio" are changed to Checkboxradio widget.
  *
  * @class ns.widget.tv.Checkboxradio
  * @extends ns.widget.mobile.Checkboxradio
@@ -24820,44 +26143,128 @@ ns.version = '0.9.26';
  */
 (function (document, ns) {
 	
-				var MobileCheckboxradio = ns.widget.mobile.Checkboxradio,
+				/** {Object} Widget Alias for {@link ns.widget.mobile.Checkboxradio}
+			 * @member ns.widget.tv.Checkboxradio
+			 * @private
+			 * @static
+			 */
+			var MobileCheckboxradio = ns.widget.mobile.Checkboxradio,
+				/**
+				 * {Object} Alias for {@link ns.widget.tv.BaseKeyboardSupport}
+				 * @member ns.widget.tv.Checkboxradio
+				 * @private
+				 * @static
+				 */
 				BaseKeyboardSupport = ns.widget.tv.BaseKeyboardSupport,
+				/**
+				 * {Object} Alias for {@link ns.engine}
+				 * @member ns.widget.tv.Checkboxradio
+				 * @private
+				 * @static
+				 */
 				engine = ns.engine,
+				/**
+				 * {Object} List of classes which can be added to widget`s element
+				 * @member ns.widget.tv.Checkboxradio
+				 * @private
+				 * @static
+				 * @readonly
+				 */
 				classes = {
-					focused: "focus"
+					focused: "focus",
+					container: "checkboxradio-container",
+					checkboxradioInListview: "checkboxradio-in-listview",
 				},
+				/**
+				 * {Constant} Constant describing type of functions
+				 * @member ns.widget.tv.Checkboxradio
+				 * @private
+				 * @static
+				 * @readonly
+				 */
+				FUNCTION_TYPE = "function",
 				Checkboxradio = function () {
 					MobileCheckboxradio.call(this);
 					BaseKeyboardSupport.call(this);
 				},
+				/**
+				 * {Object} List of remote control / keyboard button key codes
+				 * @member ns.widget.tv.Checkboxradio
+				 * @private
+				 * @static
+				 * @readonly
+				 */
 				KEY_CODES = {
 					up: 38,
 					down: 40,
 					enter: 13
 				},
+				/**
+				 * {string} Class name of checkboxradioInListview
+				 * @member ns.widget.tv.Checkboxradio
+				 * @private
+				 * @static
+				 * @readonly
+				 */
+				classInListview = classes.checkboxradioInListview,
+				/**
+				 * {string} Active selector - for keyboard support
+				 * @member ns.widget.tv.Checkboxradio
+				 * @private
+				 * @static
+				 * @readonly
+				 */
+				activeSelector = "input[type='radio']:not([disabled]):not(." + classInListview + "), "
+					+ "[type='checkbox']:not([disabled]):not(." + classInListview + ")",
+				/**
+				 * {Object} Checkboxradio widget prototype
+				 * @member ns.widget.tv.Checkboxradio
+				 * @private
+				 * @static
+				 */
 				prototype = new MobileCheckboxradio();
 
 			Checkboxradio.prototype = prototype;
+			Checkboxradio.classes = classes;
 
 			/**
-			* Builds structure of checkboxradio widget
-			* @param {HTMLInputElement} element
-			* @return {HTMLInputElement} Built element
-			*/
+			 * Builds structure of checkboxradio widget
+			 * @method _build
+			 * @param {HTMLInputElement} element
+			 * @return {HTMLInputElement} Built element
+			 * @protected
+			 * @member ns.widget.tv.Checkboxradio
+			 */
 			prototype._build = function(element) {
 				wrapInput(element);
+				if (isInListview(element)) {
+					element.classList.add(classInListview);
+				}
 				return element;
 			};
 
 			/**
-			* Binds events to widget
-			* @param {HTMLInputElement} element Input element
-			*/
+			 * Binds events to widget
+			 * @method _bindEvents
+			 * @param {HTMLInputElement} element Input element
+			 * @protected
+			 * @member ns.widget.tv.Checkboxradio
+			 */
 			prototype._bindEvents = function(element) {
+				var focusablePredecessor,
+					parentNode;
+
 				document.addEventListener("keyup", this, false);
 
-				if (element.type === "radio") {
-					var parentNode = element.parentNode;
+				if (element.classList.contains(classInListview)) {
+					focusablePredecessor = getInnerFocusablePredecessor(element);
+					if (focusablePredecessor !== null) {
+						focusablePredecessor.addEventListener("keyup", onKeydownContainer, false);
+						focusablePredecessor.addEventListener("focus", onFocusContainer, false);
+						focusablePredecessor.addEventListener("blur", onBlurContainer, false);
+					}
+				} else if (element.type === "radio") {
+					parentNode = element.parentNode;
 					parentNode.addEventListener("keyup", onKeydownContainer, false);
 					parentNode.addEventListener("focus", onFocusContainer, false);
 					parentNode.addEventListener("blur", onBlurContainer, false);
@@ -24867,12 +26274,25 @@ ns.version = '0.9.26';
 			};
 
 			/**
-			* Cleans widget's resources
-			* @param {HTMLInputElement} element
-			*/
+			 * Cleans widget's resources
+			 * @method _destroy
+			 * @param {HTMLInputElement} element
+			 * @protected
+			 * @member ns.widget.tv.Checkboxradio
+			 */
 			prototype._destroy = function(element) {
-				if (element.type === "radio") {
-					var parentNode = element.parentNode;
+				var focusablePredecessor,
+					parentNode;
+
+				if (element.classList.contains(classInListview)) {
+					focusablePredecessor = getInnerFocusablePredecessor(element);
+					if (focusablePredecessor !== null) {
+						focusablePredecessor.removeEventListener("keyup", onKeydownContainer, false);
+						focusablePredecessor.removeEventListener("focus", onFocusContainer, false);
+						focusablePredecessor.removeEventListener("blur", onBlurContainer, false);
+					}
+				} else if (element.type === "radio") {
+					parentNode = element.parentNode;
 					parentNode.removeEventListener("keyup", onKeydownContainer, false);
 					parentNode.removeEventListener("focus", onFocusContainer, false);
 					parentNode.removeEventListener("blur", onBlurContainer, false);
@@ -24881,15 +26301,18 @@ ns.version = '0.9.26';
 				}
 
 				document.removeEventListener("keyup", this, false);
-
 			};
 
 			/**
-			* Returns label connected to input by htmlFor tag
-			* @param {HTMLElement} parent Input`s parent
-			* @param {string} id Input`s id
-			* @return {?HTMLElement} Label or null if not found
-			*/
+			 * Returns label connected to input by htmlFor tag
+			 * @method getLabelForInput
+			 * @param {HTMLElement} parent Input`s parent
+			 * @param {string} id Input`s id
+			 * @return {?HTMLElement} Label or null if not found
+			 * @private
+			 * @static
+			 * @member ns.widget.tv.Checkboxradio
+			 */
 			function getLabelForInput(parent, id) {
 				var labels = parent.getElementsByTagName("label"),
 					length = labels.length,
@@ -24904,34 +26327,43 @@ ns.version = '0.9.26';
 
 			/**
 			 * Method adds span to input.
+			 * @method wrapInput
 			 * @param {EventTarget|HTMLElement} element Input element
+			 * @private
+			 * @static
+			 * @member ns.widget.tv.Checkboxradio
 			 */
 			function wrapInput(element) {
 				var container = document.createElement("span"),
 					parent = element.parentNode,
-					label = getLabelForInput(parent, element.id);
+					label = getLabelForInput(parent, element.id),
+					disabled = element.disabled;
 
 				parent.replaceChild(container, element);
 				container.appendChild(element);
 
 				if (label) {
 					label.style.display = "inline-block";
-					if (element.disabled) {
+					if (disabled) {
 						// make label not focusable (remove button class)
 						label.className = "";
 					}
 					container.appendChild(label);
 				}
 
-				if ((element.type === "radio") && (!element.disabled)) {
+				container.className = classes.container;
+				if ((!disabled) && (element.type === "radio") && (!element.classList.contains(classInListview))) {
 					container.setAttribute("tabindex", 0);
-					container.className = "radio-container";
 				}
 			}
 
 			/**
 			 * Method overrides input behavior on keydown event (checkbox).
+			 * @method onKeydownCheckbox
 			 * @param {Event} event
+			 * @private
+			 * @static
+			 * @member ns.widget.tv.Checkboxradio
 			 */
 			function onKeydownCheckbox(event) {
 				var element = event.target;
@@ -24945,19 +26377,26 @@ ns.version = '0.9.26';
 			}
 
 			/**
-			* Returns radio button stored in container or null
-			* @param {HTMLElement} container
-			* @return {HTMLInputElement} Returns radio button stored in container or null
-			*/
-			function findRadioInContainer (container) {
-				var children = container.getElementsByTagName("input"),
-					length = children.length,
-					child = null,
+			 * Returns radiobutton / checkbox stored in a container or null
+			 * @method findRadioCheckboxInContainer
+			 * @param {HTMLElement} container
+			 * @return {HTMLInputElement} Returns radio button stored in container or null
+			 * @private
+			 * @static
+			 * @member ns.widget.tv.Checkboxradio
+			 */
+			function findRadioCheckboxInContainer (container) {
+				var ancestors = container.getElementsByTagName("input"),
+					length = ancestors.length,
+					ancestor,
+					type,
 					i;
+
 				for (i = 0; i < length; i++) {
-					child = children[i];
-					if (child.type === "radio") {
-						return child;
+					ancestor = ancestors[i];
+					type = ancestor.type;
+					if ((type === "radio") || (type === "checkbox")) {
+						return ancestor;
 					}
 				}
 				return null;
@@ -24965,34 +26404,19 @@ ns.version = '0.9.26';
 
 			/**
 			 * Method overrides input behavior on keydown event (radiobutton`s container).
+			 * @method onKeydownContainer
 			 * @param {Event} event
+			 * @private
+			 * @static
+			 * @member ns.widget.tv.Checkboxradio
 			 */
 			function onKeydownContainer(event) {
-				var element = event.target,
-					radio = null;
-				if (element) {
-					if (event.keyCode === KEY_CODES.enter) {
-						radio = findRadioInContainer(element);
-						if (radio) {
-							radio.checked = !radio.checked;
-							event.stopPropagation();
-							event.preventDefault();
-						}
-					}
-				}
-			}
-
-			/**
-			 * Method overrides input behavior on focus event (radiobutton`s container).
-			 * @param {Event} event
-			 */
-			function onFocusContainer(event) {
-				var element = event.target,
-					radio = null;
-				if (element) {
-					radio = findRadioInContainer(element);
-					if (radio) {
-						radio.classList.add(classes.focused);
+				var checkboxradio;
+				if (event.keyCode === KEY_CODES.enter) {
+					// event.target is a container
+					checkboxradio = findRadioCheckboxInContainer(event.target);
+					if (checkboxradio && (!checkboxradio.disabled)) {
+						checkboxradio.checked = !checkboxradio.checked;
 						event.stopPropagation();
 						event.preventDefault();
 					}
@@ -25000,20 +26424,77 @@ ns.version = '0.9.26';
 			}
 
 			/**
-			 * Method overrides input behavior on blur event (radiobutton`s container).
+			 * Method overrides input behavior on focus event (radiobutton`s container).
+			 * @method onFocusContainer
 			 * @param {Event} event
+			 * @private
+			 * @static
+			 * @member ns.widget.tv.Checkboxradio
 			 */
-			function onBlurContainer(event) {
-				var element = event.target,
-					radio = null;
-				if (element) {
-					radio = findRadioInContainer(element);
-					if (radio) {
-						radio.classList.remove(classes.focused);
-					}
+			function onFocusContainer(event) {
+				// event.target is a container
+				var checkboxradio = findRadioCheckboxInContainer(event.target);
+				if (checkboxradio && (!checkboxradio.disabled)) {
+					checkboxradio.parentNode.focus();
+					checkboxradio.classList.add(classes.focused);
+					event.stopPropagation();
+					event.preventDefault();
 				}
 			}
 
+			/**
+			 * Method overrides input behavior on blur event (radiobutton`s container).
+			 * @method onBlurContainer
+			 * @param {Event} event
+			 * @private
+			 * @static
+			 * @member ns.widget.tv.Checkboxradio
+			 */
+			function onBlurContainer(event) {
+				// event.target is a container
+				var checkboxradio = findRadioCheckboxInContainer(event.target);
+				if (checkboxradio && (!checkboxradio.disabled)) {
+					checkboxradio.parentNode.blur();
+					checkboxradio.classList.remove(classes.focused);
+				}
+			}
+
+			/**
+			 * Method returns first focusable predecessor of
+			 * checkboxradio with class name classes.inner
+			 * @method getInnerFocusablePredecessor
+			 * @param {HTMLElement} Element
+			 * @private
+			 * @static
+			 * @member ns.widget.tv.Checkboxradio
+			 */
+			function getInnerFocusablePredecessor (element) {
+				var predecessor = element.parentNode;
+				while (predecessor.getAttribute("tabindex") === null) {
+					predecessor = predecessor.parentElement;
+					if (!predecessor || !predecessor.getAttribute) {
+						return null;
+					}
+				}
+				return predecessor;
+			}
+
+			/**
+			 * Checks if checkboxradio is in a listview
+			 * @method isInListview
+			 * @param {HTMLElement} Element
+			 * @return {boolean} True if an element is in a listview
+			 * @private
+			 * @static
+			 * @member ns.widget.tv.Checkboxradio
+			 */
+			function isInListview (element) {
+				var selector = engine.getWidgetDefinition("Listview").selector;
+
+				return (ns.util.selectors.getClosestBySelector(element, selector) !== null);
+			}
+
+			// definition
 			ns.widget.tv.Checkboxradio = Checkboxradio;
 
 			engine.defineWidget(
@@ -25025,7 +26506,7 @@ ns.version = '0.9.26';
 				true
 			);
 
-			BaseKeyboardSupport.registerActiveSelector(".radio-container");
+			BaseKeyboardSupport.registerActiveSelector(activeSelector);
 
 			}(window.document, ns));
 
@@ -25487,7 +26968,7 @@ ns.version = '0.9.26';
  *				</div>
  *			</div>
  *			<div data-role="content">
- *			 	Content
+ *				Content
  *			</div>
  *		</div>
  *
@@ -25592,7 +27073,7 @@ ns.version = '0.9.26';
  *
  *		@example
  *		<script>
- *		var tabBarElement = document.getElementById('tab-bar'),
+ *		var tabBarElement = document.getElementById("tab-bar"),
  *			tabBar = tau.widget.TabBar(TabBarElement);
  *
  *		tabBar.methodName(methodArgument1, methodArgument2, ...);
@@ -25602,7 +27083,7 @@ ns.version = '0.9.26';
  *
  *		@example
  *		<script>
- *		$(".selector").tabbar('methodName', methodArgument1, methodArgument2, ...);
+ *		$(".selector").tabbar("methodName", methodArgument1, methodArgument2, ...);
  *		</script>
  *
  * @class ns.widget.mobile.TabBar
@@ -25612,17 +27093,30 @@ ns.version = '0.9.26';
 	
 				var ButtonClasses = ns.widget.mobile.Button.classes,
 				BaseWidget = ns.widget.mobile.BaseWidgetMobile,
+				Scrollview = ns.widget.mobile.Scrollview,
 				engine = ns.engine,
 				selectors = ns.util.selectors,
 				grid = ns.util.grid,
 				DOM = ns.util.DOM,
 				slice = [].slice,
 				TabBar = function () {
-					this.vclickCallback = null;
+					this._callbacks = {};
 					this._ui = {};
+					/**
+					 * Object with default options
+					 * @property {Object} options
+					 * @property {string} [options.active="0"] Number of activated button.
+					 * @property {string} [options.autoChange=true] Defined if widget should set
+					 * activated button after click event.
+					 * @property {string} [options.iconpos="top"] Position of icon in buttons.
+					 * @property {string} [options.grid=null] Type of grid.
+					 * @member ns.widget.mobile.TabBar
+					 */
 					this.options = {
 						active: 0,
-						autoChange: true
+						autoChange: true,
+						iconpos: "top",
+						grid: null
 					};
 				},
 				/**
@@ -25638,8 +27132,6 @@ ns.version = '0.9.26';
 					uiTabbarActive: "ui-tabbar-active",
 					uiStatePersist: "ui-state-persist",
 					uiHeader: "ui-header",
-					uiScrollviewView: "ui-scrollview-view",
-					uiScrollviewClip: "ui-scrollview-clip",
 					uiNavbar: "ui-navbar",
 					uiFooter: "ui-footer",
 					uiTabBtnStyle: "ui-tab-btn-style",
@@ -25656,23 +27148,6 @@ ns.version = '0.9.26';
 
 			TabBar.prototype = new BaseWidget();
 
-			/*
-			* @todo move to options object
-			*/
-
-			/**
-			 * Position of icon
-			 * @property {string} [iconpos="top"]
-			 * @member ns.widget.mobile.TabBar
-			 */
-			TabBar.prototype.iconpos = 'top';
-			/**
-			 * Grid type
-			 * @property {string} [grid=null]
-			 * @member ns.widget.mobile.TabBar
-			 */
-			TabBar.prototype.grid = null;
-
 			TabBar.classes = classes;
 
 			/**
@@ -25685,9 +27160,70 @@ ns.version = '0.9.26';
 			 * @return {boolean}
 			 */
 			function hasIcon(elements) {
-				return !elements.every(function (element) {
-					return !element.getAttribute('data-icon');
-				});
+				var length = elements.length,
+					i;
+
+				for (i = 0; i < length; i++) {
+					if (DOM.getNSData(elements[i],"icon")) {
+						return true;
+					}
+				}
+				return false;
+			}
+
+			/**
+			 * Active scrollable tabbar.
+			 * @method activateScrollableTabbar
+			 * @param {Array} buttons
+			 * @param {HTMLElement} activatedButton
+			 * @member ns.widget.mobile.TabBar
+			 * @static
+			 * @private
+			 */
+			function activateScrollableTabbar(buttons, activatedButton) {
+				var length = buttons.length,
+					i;
+
+				for (i = 0; i < length; i++) {
+					buttons[i].classList.remove(classes.uiTabbarActive);
+				}
+				/*
+				* In original file btnActiveClass is always added.
+				* Here, if button is disabled, this class will not be added
+				*/
+				if (activatedButton) {
+					activatedButton.classList.add(classes.uiTabbarActive);
+				}
+			}
+
+			/**
+			 * Active tabbar, which is not scrollable..
+			 * @method activateUnscrollableTabbar
+			 * @param {Array} buttons
+			 * @param {HTMLElement} activatedButton
+			 * @member ns.widget.mobile.TabBar
+			 * @static
+			 * @private
+			 */
+			function activateUnscrollableTabbar(buttons, activatedButton) {
+				var btnActiveClass = ButtonClasses.uiBtnActive,
+					buttonClasses,
+					length = buttons.length,
+					i;
+
+				for (i = 0; i < length; i++) {
+					buttonClasses = buttons[i].classList;
+					if (!buttonClasses.contains(classes.uiStatePersist)) {
+						buttonClasses.remove(btnActiveClass);
+					}
+				}
+				/*
+				* In original file btnActiveClass is always added.
+				* Here, if button is disabled, this class will not be added
+				*/
+				if (activatedButton) {
+					activatedButton.classList.add(btnActiveClass);
+				}
 			}
 
 			function setActive(self, index) {
@@ -25695,13 +27231,10 @@ ns.version = '0.9.26';
 					uls = element.getElementsByTagName("ul"),
 					ul = uls[0],
 					buttons = element.getElementsByTagName("a"),
-					i = 0,
-					max,
 					hasClass = false,
 					buttonClasses,
-					btnActiveClass = ButtonClasses.uiBtnActive,
-					classes = TabBar.classes,
-					activatedButton = buttons.length > index ? buttons[index] : null;
+					activatedButton = buttons.length > index ? buttons[index] : null,
+					i;
 
 				while (!hasClass && ul) {
 					if (ul.classList.contains(classes.tabbarScrollUl)) {
@@ -25710,33 +27243,15 @@ ns.version = '0.9.26';
 					ul = uls[++i];
 				}
 
+				// active tabbar
 				if (hasClass) {
-					for (i = 0, max = buttons.length; i < max; i++) {
-						buttons[i].classList.remove(classes.uiTabbarActive);
-					}
-					/*
-					* In original file btnActiveClass is always added.
-					* Here, if button is disabled, this class will not be added
-					*/
-					if (activatedButton) {
-						activatedButton.classList.add(classes.uiTabbarActive);
-						self.options.active = index;
-					}
+					activateScrollableTabbar(buttons, activatedButton);
 				} else {
-					for (i = 0, max = buttons.length; i < max; i++) {
-						buttonClasses = buttons[i].classList;
-						if (!buttonClasses.contains(classes.uiStatePersist)) {
-							buttonClasses.remove(btnActiveClass);
-						}
-					}
-					/*
-					* In original file btnActiveClass is always added.
-					* Here, if button is disabled, this class will not be added
-					*/
-					if (activatedButton) {
-						activatedButton.classList.add(btnActiveClass);
-						self.options.active = index;
-					}
+					activateUnscrollableTabbar(buttons, activatedButton);
+				}
+				// set option
+				if (activatedButton) {
+					self.options.active = index;
 				}
 			}
 
@@ -25748,12 +27263,11 @@ ns.version = '0.9.26';
 			 * @private
 			 */
 			function vclickEvent(self) {
-				var element = self.element,
-					buttons = element.getElementsByTagName("a"),
-					i = 0,
-					max,
+				var buttons = self.element.getElementsByTagName("a"),
 					activatedButton = selectors.getClosestByTag(event.target, "a"),
-					active = 0;
+					active = 0,
+					i = 0,
+					max;
 
 				for (i = 0, max = buttons.length; i < max; i++) {
 					if (activatedButton === buttons[i]) {
@@ -25779,16 +27293,181 @@ ns.version = '0.9.26';
 			 * @member ns.widget.mobile.TabBar
 			 */
 			function setDisabled(element, value, index) {
-				var liItems = selectors.getChildrenByTag(element.children[0], 'li')[index];
+				var liItems = selectors.getChildrenByTag(element.children[0], "li")[index];
 
-				DOM.setAttribute(liItems, 'disabled', value);
-				DOM.setAttribute(liItems, 'aria-disabled', value);
+				DOM.setAttribute(liItems, "disabled", value);
+				DOM.setAttribute(liItems, "aria-disabled", value);
 				if (value) {
 					liItems.classList.add(ButtonClasses.uiDisabled);
 				} else {
 					liItems.classList.remove(ButtonClasses.uiDisabled);
 				}
 			}
+
+			function addClassForElements(elements, addedClass) {
+				var length = elements.length,
+					i;
+
+				for (i = 0; i < length; i++) {
+					elements[i].classList.add(addedClass);
+				}
+			}
+			/**
+			 * Set scrollable tabbar.
+			 * @method _buildScrollableTabBar
+			 * @param {HTMLElement} element
+			 * @protected
+			 * @member ns.widget.mobile.TabBar
+			 */
+			TabBar.prototype._buildScrollableTabBar = function (element) {
+				var self = this,
+					ui = self._ui,
+					tabbarClassList = element.classList,
+					headers = selectors.getParentsByClass(element, classes.uiHeader),
+					li = slice.call(element.getElementsByTagName("li")),
+					ul = slice.call(element.getElementsByTagName("ul")),
+					scrollview = selectors.getClosestByClass(element, Scrollview.classes.view),
+					scrollviewClip = selectors.getParentsByClass(element, Scrollview.classes.clip),
+					length,
+					i,
+					gridOption = self.option.grid;
+
+				if (headers.length && scrollview) {
+					addClassForElements(li, classes.tabbarScrollLi);
+					addClassForElements(ul, classes.tabbarScrollUl);
+
+					/* add shadow divider */
+					for (i = 0, length = scrollviewClip.length; i < length; i++) {
+						scrollviewClip[i].insertAdjacentHTML("beforeend", "<div class='ui-tabbar-divider ui-tabbar-divider-left' style='display:none'></div><div class='ui-tabbar-divider ui-tabbar-divider-right' style='display:none'></div>");
+					}
+
+				} else {
+					if (li.length) {
+						tabbarClassList.add(classes.uiNavbar);
+						for (i = 0, length = ul.length; i < length; i++) {
+							grid.makeGrid(ul[i], gridOption);
+						}
+					}
+				}
+
+				/* scrollable tabbar */
+				if (element.parentNode.classList.contains(Scrollview.classes.view)) {
+					if (li.length > 4) {
+						// scroller was needed when li element has more than forth.
+						scrollview.style.width = parseInt(li[0].style.width, 10) * li.length + "px";
+						ui.scrollview = scrollview;
+						ui.scrollviewClip = scrollviewClip[0];
+					}
+
+				}
+			};
+
+			/**
+			 * Set proper class for headers.
+			 * @method _buildHeader
+			 * @param {HTMLElement} element
+			 * @protected
+			 * @member ns.widget.mobile.TabBar
+			 */
+			TabBar.prototype._buildHeader = function (element) {
+				var parent = element.parentNode,
+					li = slice.call(element.getElementsByTagName("li")),
+					header = selectors.getClosestByClass(element, classes.uiHeader);
+
+				if (header && (selectors.getChildrenByClass(parent, classes.uiTitle).length
+					||(parent.classList.contains(Scrollview.classes.view) && li.length > 4))) {
+					header.classList.add(classes.uiTitleTabbar);
+				}
+			};
+
+			/**
+			 * Set proper class for elements if they are in footer.
+			 * @method _buildFooter
+			 * @param {HTMLElement} element
+			 * @protected
+			 * @member ns.widget.mobile.TabBar
+			 */
+			TabBar.prototype._buildFooter = function (element) {
+				var li = slice.call(element.getElementsByTagName("li"));
+
+				if (selectors.getClosestByClass(element, classes.uiFooter)) {
+					addClassForElements(li, classes.uiTabBtnStyle);
+				}
+			};
+
+			/**
+			 * Build buttons on links
+			 * @method _buildButtons
+			 * @param {HTMLElement} element
+			 * @param {object} options
+			 * @protected
+			 * @member ns.widget.mobile.TabBar
+			 */
+			TabBar.prototype._buildButtons = function (element) {
+				var links = slice.call(element.getElementsByTagName("a")),
+					headers = selectors.getParentsByClass(element, classes.uiHeader),
+					instanceButtonOptions,
+					iconpos,
+					linkLength = links.length,
+					link,
+					i;
+
+				if (linkLength) {
+					iconpos = hasIcon(links) ? this.options.iconpos : false;
+
+					if (headers.length) {
+						instanceButtonOptions = {
+							shadow: false,
+							corners: false,
+							inline: false,
+							bar: true
+						};
+					} else {
+						instanceButtonOptions = {
+							shadow: true,
+							corners: true,
+							inline: false,
+							bar: false
+						};
+					}
+
+					instanceButtonOptions.iconpos = iconpos;
+
+					for (i = 0; i < linkLength; i++) {
+						link = links[i];
+						DOM.setNSData(link, "role", "button");
+						engine.instanceWidget(link, "Button", instanceButtonOptions);
+					}
+				}
+			};
+
+			TabBar.prototype._buildFromOptions = function (element) {
+				var tabbarClassList = element.classList,
+					links = slice.call(element.getElementsByTagName("a")),
+					headers = selectors.getParentsByClass(element, classes.uiHeader),
+					iconpos,
+					textpos;
+
+				if (links.length) {
+					iconpos = hasIcon(links) ? this.options.iconpos : false;
+					textpos = links[0].innerHTML.length ? true : false;
+				}
+
+				if (!iconpos) {
+					tabbarClassList.add(classes.uiTabbarNoicons);
+				}
+				if (!textpos) {
+					tabbarClassList.add(classes.uiTabbarNotext);
+				}
+				if (textpos && iconpos) {
+					addClassForElements(headers, classes.uiTitleTabbarMultiline);
+				}
+
+				if (element.getElementsByClassName(classes.uiStatePersist).length) {
+					tabbarClassList.add(classes.uiTabbarPersist);
+				}
+				tabbarClassList.add(classes.uiTabbar);
+			};
 
 			/**
 			 * Build method
@@ -25799,121 +27478,61 @@ ns.version = '0.9.26';
 			 * @member ns.widget.mobile.TabBar
 			 */
 			TabBar.prototype._build = function (element) {
-				var classes = TabBar.classes,
-					tabbarClassList = element.classList,
-					links = slice.call(element.getElementsByTagName('a')),
-					headers = selectors.getParentsByClass(element, classes.uiHeader),
-					scrollview = selectors.getParentsByClass(element, classes.uiScrollviewView)[0],
-					li = slice.call(element.getElementsByTagName("li")),
-					iconpos,
-					i,
-					textpos,
-					instanceButtonOptions,
-					instanceButtonHeaderOptions = {
-						shadow: false,
-						corners: false,
-						inline: false,
-						bar: true
-					},
-					instanceButtonFooterOptions = {
-						shadow: true,
-						inline: false,
-						corners: true,
-						bar: false
-					};
+				var self = this,
+				options;
 
-				if (links.length) {
-					iconpos = hasIcon(links) ? this.iconpos : false;
-					textpos = links[0].innerHTML.length ? true : false;
-				}
-
-				if (headers.length && scrollview) {
-					li.forEach(function (item) {
-						item.classList.add(classes.tabbarScrollLi);
-					});
-					slice.call(element.getElementsByTagName("ul")).forEach(function (item) {
-						item.classList.add(classes.tabbarScrollUl);
-					});
-
-					/* add shadow divider */
-					selectors.getParentsByClass(element, classes.uiScrollviewClip).forEach(function (item) {
-						item.insertAdjacentHTML('beforeend', '<div class="ui-tabbar-divider ui-tabbar-divider-left" style="display:none"></div><div class="ui-tabbar-divider ui-tabbar-divider-right" style="display:none"></div>');
-					});
-
-				} else {
-					if (li.length) {
-						tabbarClassList.add(classes.uiNavbar);
-						slice.call(element.getElementsByTagName("ul")).forEach(function (item) {
-							/*
-							* @todo delete getAttribute
-							*/
-							grid.makeGrid(item, element.getAttribute("data-grid") || this.grid);
-						});
-					}
-				}
-
-				if (selectors.getParentsByClass(element, classes.uiFooter).length) {
-					li.forEach(function (item) {
-						item.classList.add(classes.uiTabBtnStyle);
-					});
-				}
-
-				/* title tabbar */
-				if (selectors.getChildrenByClass(element.parentElement, classes.uiTitle).length) {
-					headers.forEach(function (header) {
-						header.classList.add(classes.uiTitleTabbar);
-					});
-				}
-				/* scrollable tabbar */
-				if (element.parentNode.classList.contains(classes.uiScrollviewView)){
-					if (li.length > 4) {
-						i = headers.length;
-						while (i--) {
-							headers[i].classList.add(classes.uiTitleTabbar);
-						}
-
-						// scroller was needed when li element has more than forth.
-						scrollview.style.width = parseInt(li[0].style.width, 10) * li.length + "px";
-						this._ui.scrollview = scrollview;
-						this._ui.scrollviewClip = selectors.getParentsByClass(element, classes.uiScrollviewClip)[0];
-					}
-
-				}
-
-				if (!iconpos) {
-					tabbarClassList.add(classes.uiTabbarNoicons);
-				}
-				if (!textpos) {
-					tabbarClassList.add(classes.uiTabbarNotext);
-				}
-				if (textpos && iconpos) {
-					headers.forEach(function (header) {
-						header.classList.add(classes.uiTitleTabbarMultiline);
-					});
-				}
-
-				if (links.length) {
-					if (headers.length) {
-						instanceButtonOptions = instanceButtonHeaderOptions;
-					} else {
-						instanceButtonOptions = instanceButtonFooterOptions;
-					}
-					if (iconpos) {
-						instanceButtonOptions.iconpos = iconpos;
-					}
-					links.forEach(function (item) {
-						DOM.setNSData(item, "role", "button");
-						engine.instanceWidget(item, "Button", instanceButtonOptions);
-					});
-				}
-
-				if (element.getElementsByClassName(classes.uiStatePersist).length) {
-					tabbarClassList.add(classes.uiTabbarPersist);
-				}
-
-				tabbarClassList.add(classes.uiTabbar);
+				self._buildScrollableTabBar(element);
+				self._buildFooter(element);
+				self._buildHeader(element);
+				self._buildFromOptions(element);
+				self._buildButtons(element);
 
 				return element;
+			};
+
+			/**
+			 * Init orientation.
+			 * @method _initOrientation
+			 * @param {HTMLElement} element
+			 * @member ns.widget.mobile.TabBar
+			 * @protected
+			 */
+			TabBar.prototype._initOrientation = function(element) {
+				var tabbarClassList = element.classList,
+					innerWidth = element.offsetWidth ? element.offsetWidth : window.innerWidth,
+					innerHeight = element.offsetHeight ? element.offsetHeight : window.innerHeight;
+
+				if (innerWidth > innerHeight) {
+					tabbarClassList.remove(classes.uiPortraitTabbar);
+					tabbarClassList.add(classes.uiLandscapeTabbar);
+				} else {
+					tabbarClassList.remove(classes.uiLandscapeTabbar);
+					tabbarClassList.add(classes.uiPortraitTabbar);
+				}
+			};
+
+			/**
+			 * Init active button.
+			 * @method _initActiveButton
+			 * @param {HTMLElement} element
+			 * @member ns.widget.mobile.TabBar
+			 * @protected
+			 */
+			TabBar.prototype._initActiveButton = function (element) {
+				var links = slice.call(element.getElementsByTagName("a")),
+					active,
+					index;
+
+				active = element.querySelector("a." + ButtonClasses.uiBtnActive)
+						|| element.querySelector("a." + classes.uiTabbarActive);
+
+				if (active) {
+					index = links.indexOf(active);
+					if (index < 0) {
+						index = 0;
+					}
+					this.options.active = index;
+				}
 			};
 
 			/**
@@ -25925,36 +27544,19 @@ ns.version = '0.9.26';
 			 */
 			TabBar.prototype._init = function (element) {
 				var self = this,
-					tabbarClassList = element.classList,
 					li = slice.call(element.getElementsByTagName("li")),
 					innerWidth = element.offsetWidth ? element.offsetWidth : window.innerWidth,
-					innerHeight = element.offsetHeight ? element.offsetHeight : window.innerHeight,
-					inHeaders = !!(selectors.getParentsByClass(element, classes.uiHeader).length),
-					isLandscape = innerWidth > innerHeight,
-					btnActiveClass = ButtonClasses.uiBtnActive,
-					uiTabbarActive = classes.uiTabbarActive,
-					links = slice.call(element.getElementsByTagName('a'));
+					inHeaders = !!(selectors.getParentsByClass(element, classes.uiHeader).length);
 
 				if (li.length > 4) {
 					// tabbar elements should be showed maximum forth elements.
-					this._setWidth(li, innerWidth / 4, inHeaders);
+					self._setWidth(li, innerWidth / 4, inHeaders);
 				} else {
-					this._setWidth(li, innerWidth / li.length, inHeaders);
+					self._setWidth(li, innerWidth / li.length, inHeaders);
 				}
 
-				if (isLandscape) {
-					tabbarClassList.remove(classes.uiPortraitTabbar);
-					tabbarClassList.add(classes.uiLandscapeTabbar);
-				} else {
-					tabbarClassList.remove(classes.uiLandscapeTabbar);
-					tabbarClassList.add(classes.uiPortraitTabbar);
-				}
-
-				[].forEach.call(links, function(element, index) {
-					if (element.classList.contains(btnActiveClass) || element.classList.contains(uiTabbarActive)) {
-						self.options.active = index;
-					}
-				});
+				self._initOrientation(element);
+				self._initActiveButton(element);
 
 				setActive(self, self.options.active);
 			};
@@ -25966,10 +27568,14 @@ ns.version = '0.9.26';
 			 * @member ns.widget.mobile.TabBar
 			 */
 			TabBar.prototype._bindEvents = function () {
-				this.vclickCallback = vclickEvent.bind(null, this);
-				this.element.addEventListener("vclick", this.vclickCallback, false);
-				if (this._ui.scrollviewClip) {
-					this._ui.scrollviewClip.addEventListener("scrollstop", roundTabBarPositionX);
+				var self = this,
+					ui = self._ui,
+					vclickCallback = vclickEvent.bind(null, self);
+
+				self._callbacks.vclick = vclickCallback;
+				self.element.addEventListener("vclick", vclickCallback, false);
+				if (ui.scrollviewClip) {
+					ui.scrollviewClip.addEventListener("scrollstop", roundTabBarPositionX);
 				}
 			};
 
@@ -25999,9 +27605,12 @@ ns.version = '0.9.26';
 			 * @member ns.widget.mobile.TabBar
 			 */
 			TabBar.prototype._destroy = function () {
-				this.element.removeEventListener("vclick", this.vclickCallback, false);
-				if (this._ui.scrollviewClip) {
-					this._ui.scrollviewClip.removeEventListener("scrollstop", roundTabBarPositionX);
+				var self = this,
+					ui = self._ui;
+
+				self.element.removeEventListener("vclick", self._callbacks.vclick, false);
+				if (ui.scrollviewClip) {
+					ui.scrollviewClip.removeEventListener("scrollstop", roundTabBarPositionX);
 				}
 			};
 
@@ -26153,7 +27762,7 @@ ns.version = '0.9.26';
 				"[data-role='tabbar'], .ui-tabbar",
 				[],
 				TabBar,
-				'tizen'
+				"tizen"
 			);
 			}(window.document, ns));
 
@@ -26899,20 +28508,161 @@ ns.version = '0.9.26';
  * License : MIT License V2
  */
 /**
- * #Pages
+ * # Pages
  *
  * Page is a one screen view of application and is the base part of application
- * layout.
+ * layout. There is background and on top of it - page in which one puts
+ * content.
  *
- * ##Different sizes
+ * ## Different sizes
  *
- * ##Backgrounds
+ * There are various types of pages available:
  *
- * ##Headers and footers
+ * <table>
+ * 	<caption>Table: Page Types</caption>
+ * 	<tbody>
+ * 		<tr>
+ * 			<th style="width:10%;">Type</th>
+ * 			<th>Descriptor class</th>
+ * 			<th>Description</th>
+ * 		</tr>
+ * 		<tr>
+ * 			<td>Normal</td>
+ * 			<td>No additional class needed</td>
+ * 			<td><p>Standard page covering about 90% of the screen width.</p></td>
+ * 		</tr>
+ * 		<tr>
+ * 			<td>Mini</td>
+ * 			<td><span style="font-family: Courier New,Courier,monospace">ui-page-mini</span></td>
+ * 			<td><p>Centered page covering about 50% of the screen width.</p></td>
+ * 		</tr>
+ * 		<tr>
+ * 			<td>Micro</td>
+ * 			<td><span style="font-family: Courier New,Courier,monospace">ui-page-micro</span></td>
+ * 			<td><p>Centered page covering about 25% of the screen width.</p></td>
+ * 		</tr>
+ * 			<td>Micro - left</td>
+ * 			<td><span style="font-family: Courier New,Courier,monospace">ui-page-micro-left</span></td>
+ * 			<td><p>Left aligned page covering about 25% of the screen width.</p></td>
+ * 		</tr>
+ * 			<td>Micro - right</td>
+ * 			<td><span style="font-family: Courier New,Courier,monospace">ui-page-micro-right</span></td>
+ * 			<td><p>Right aligned page covering about 25% of the screen width.</p></td>
+ * 		</tr>
+ * 		<tr>
+ * 			<td>Full Screen</td>
+ * 			<td><span style="font-family: Courier New,Courier,monospace">ui-page-fullscreen</span></td>
+ * 			<td><p>Page will be shown covering full screen. No scrren background will be visible.</p></td>
+ * 		</tr>
+ * 	</tbody>
+ * </table>
  *
- * ##Two columns layout
+ * ## Backgrounds
  *
- * ##Navigation between pages
+ * The application background will be used "behind" the page. On the other hand
+ * if some special background is needed for the page one should consider
+ * overriding stylesheet for 'ui-page' class by adding custom style class.
+ *
+ * ## Headers and footers
+ *
+ * Every page can contain header and footer space. Usually some text and/or
+ * buttons are placed there.
+ *
+ * ### Header
+ *
+ * You add "header" tag with text and/or multiple buttons. By default text is
+ * adjusted to the left and button to the right.
+ *
+ * 	@example
+ * 	<div class="ui-page">
+ * 		<header>
+ * 			<a href="#" class="ui-btn">btn 1</a>
+ * 			<a href="#" class="ui-btn">btn 2</a>
+ * 			<h2 class="ui-title">Pages types</h2>
+ * 		</header>
+ * 	</div>
+ *
+ * ### Footer
+ *
+ * To add footer just inser "footer" tag with content. The following example
+ * provides additional div to wrap the buttons.
+ *
+ * 	@example
+ * 	<div class="ui-page">
+ * 		<footer>
+ * 			<div class="ui-controlgroup" data-type="horizontal">
+ * 				<a href="#" class="ui-btn">Yes</a>
+ * 				<a href="#" class="ui-btn">No</a>
+ * 				<a href="#" class="ui-btn">Maybe</a>
+ * 			</div>
+ * 		</footer>
+ * 	</div>
+ *
+ * ## Two columns layout
+ *
+ * One can use two columns in one page simply - by placing in page content
+ * divs with classes: "ui-column-left" - for left column and "ui-column-right" -
+ * for right column.
+ *
+ * 	@example
+ * 	<div id="TwoColumnPage" class="ui-page">
+ * 		<header></header>
+ * 		<div class="ui-content">
+ * 			<div class="ui-column-left">Left column content</div>
+ * 			<div class="ui-column-right">Right column content</div>
+ * 		</div>
+ * 		<footer></footer>
+ * 	</div>
+ *
+ * ## Multipage layout
+ *
+ * You can implement multiple pages in the page container.
+ *
+ * Main page should be defined with 'ui-page-active' class, If no such page is
+ * provided, framework will automatically assign it to the first page defined
+ * in source code. This operation is resource-consuming thus produces delay
+ * in page rendering.
+ *
+ * 	@example
+ * 	<!--Main page-->
+ * 	<div id="one" class="ui-page ui-page-active">
+ * 		<header></header>
+ * 		<div class="ui-content"></div>
+ * 		<footer></footer>
+ * 	</div>
+ *
+ * 	<!--Secondary page-->
+ * 	<div id="two" class="ui-page">
+ * 		<header></header>
+ * 		<div class="ui-content"></div>
+ * 		<footer></footer>
+ * 	</div>
+ *
+ * To find currently active page, look for ui-page-active class.
+ *
+ * ## Navigation between pages
+ *
+ * To show one of the other pages - use 'a'a tag in the same manner as using
+ * anchors.
+ *
+ * 	@example
+ * 	<!--Main page-->
+ * 	<div id="one" class="ui-page ui-page-active">
+ * 		<header></header>
+ * 		<div class="ui-content">
+ * 			<a href="#two" class="ui-btn">Second Page</a>
+ * 		</div>
+ * 		<footer></footer>
+ * 	</div>
+ *
+ * 	<!--Secondary page-->
+ * 	<div id="two" class="ui-page">
+ * 		<header></header>
+ * 		<div class="ui-content">
+ * 			<a href="#one" class="ui-btn">First Page</a>
+ * 		</div>
+ * 		<footer></footer>
+ * 	</div>
  *
  * @page ns.page.designPage
  * @seeMore introduction.htm Design guide
@@ -26924,23 +28674,429 @@ ns.version = '0.9.26';
  */
 /**
  * #Elements
- * ...
+ *
+ * + Button
+ * + Drawer
+ * + Listdivider
+ * + Listview
+ * + Page
+ * + PageContainer
+ * + Popup
+ * + Progress
+ * + Slider
+ * + TextInput
  *
  * ##Containers of blocks
  *
+ * TV profile contains List and VirtualGrid as block containers.
+ *
  * ###Lists
+ *
+ * Default selector for listview widget is *ui-listview* class or *data-role=listview*.
+ * To add a list widget to the application, use the following code.
+ *
+ * #### List with basic items
+ *
+ * You can add a basic list widget as follows:
+ *
+ *      @example
+ *         <ul class="ui-listview">
+ *             <li>1line</li>
+ *             <li>2line</li>
+ *             <li>3line</li>
+ *             <li>4line</li>
+ *             <li>5line</li>
+ *         </ul>
+ *
+ * #### List with link items
+ *
+ * You can add a list widget with a link and press effect. It allows the user to click each list item.
+ * See following code:
+ *
+ *      @example
+ *         <ul class="ui-listview">
+ *             <li>
+ *                 <a href="#">1line</a>
+ *             </li>
+ *             <li>
+ *                 <a href="#">2line</a>
+ *             </li>
+ *             <li>
+ *                 <a href="#">3line</a>
+ *             </li>
+ *             <li>
+ *                 <a href="#">4line</a>
+ *             </li>
+ *             <li>
+ *                 <a href="#">5line</a>
+ *             </li>
+ *         </ul>
+ *
+ * #### List with checkboxes
+ *
+ * To create list with checkboxes use class *li-has-checkbox* for 'li' tag.
+ *
+ *      @example
+ *         <ul class="ui-listview">
+ *             <li class="li-has-checkbox">
+ *                 <a href="">
+ *                      <input type="checkbox" id="checkbox-1"/>
+ *                      <label for="checkbox-1">List 01</label>
+ *                 </a>
+ *             </li>
+ *             <li class="li-has-checkbox">
+ *                 <a href="">
+ *                      <input type="checkbox" id="checkbox-2"/>
+ *                      <label for="checkbox-2">List 02</label>
+ *                 </a>
+ *             </li>
+ *         </ul>
+ *
+ * #### List with radio buttons
+ *
+ * To create list with radio buttons use class *li-has-radio* for 'li' tag.
+ *
+ *      @example
+ *         <ul class="ui-listview">
+ *             <li class="li-has-radio">
+ *                 <a href="">
+ *                      <input type="radio" name="radio-sample" checked="checked" id="rd-1"/>
+ *                      <label for="rd-1">Radio 01</label>
+ *                 </a>
+ *             </li>
+ *             <li class="li-has-radio">
+ *                 <a href="">
+ *                      <input type="radio" name="radio-sample" id="rd-2"/>
+ *                      <label for="rd-2">Radio 02</label>
+ *                 </a>
+ *             </li>
+ *         </ul>
+ *
+ * #### Multiline list
+ *
+ * To apply multiline style use *li-has-multiline* and *li-text-sub* classes. See example code.
+ *
+ *      @example
+ *         <ul class="ui-listview">
+ *             <li class="li-has-multiline">
+ *                 <a href="#">
+ *                     Wallpaper
+ *                     <span class="li-text-sub">Overall size of fonts</span>
+ *                 </a>
+ *             </li>
+ *             <li class="li-has-multiline">
+ *                 <a href="#">
+ *                     Wallpaper
+ *                     <span class="li-text-sub">Overall size of fonts</span>
+ *                 </a>
+ *             </li>
+ *         </ul>
  *
  * ###Grids
  *
+ * Widget creates special grid which can contain big number of items.
+ * Default selector for VirtualGrid widget is *ui-virtualgrid* class.
+ * To add an items to the VirtualGrid, use the following code.
+ *
+ *      @example
+ *      <div class="ui-content">
+ *          <ul id="vlist1" class="ui-virtualgrid"></ul>
+ *      </div>
+ *      <script>
+ *          var JSON_DATA = [
+ *                   {NAME:"Abdelnaby", TEAM_LOGO:"1_raw.jpg"},
+ *                   {NAME:"Abdul-Aziz", TEAM_LOGO:".2_raw.jpg"}
+ *               ],
+ *               vgrid;
+ *
+ *           document.addEventListener("pageshow", function() {
+ *               var elList = document.getElementById("vlist1");
+ *
+ *               if (elList) {
+ *                   vgrid = tau.widget.VirtualGrid(elList);
+ *                   vgrid.option({
+ *                       dataLength: JSON_DATA.length,
+ *                       bufferSize: 40
+ *                   });
+ *
+ *                   // Update listitem
+ *                   vgrid.setListItemUpdater(function (elListItem, newIndex) {
+ *                       var data = JSON_DATA[newIndex];
+ *
+ *                       elListItem.innerHTML = '<a class="grid-thumbnail ' + (newIndex === 2 ? "ui-selected" : "") + '"> <div class="grid-thumbnail-pic-full"><img class="grid-thumbnail-pic-img" src="' + data.TEAM_LOGO + '"  /></div><div class="grid-thumbnail-contents"><span class="grid-thumbnail-content">' + data.NAME + '</span></div></a>'
+ *                       tau.widget.Button(elListItem.firstElementChild);
+ *                   });
+ *                   // Draw child elements
+ *                   vgrid.draw();
+ *               }
+ *           });
+ *
+ *           document.addEventListener("pagehide", function() {
+ *               // Remove all children in the vgrid
+ *               if (vgrid) {
+ *                   vgrid.destroy();
+ *               }
+ *           });
+ *      </script>
+ *
  * ##Buttons and icons
+ *
+ * Button widget changes default browser buttons to special buttons with additional options like icon, corners, shadow.
+ *
+ * ###HTML button examples
+ *
+ * You can add button widget as following examples.
+ *
+ * ####Create simple button from link using data-role
+ *
+ *      @example
+ *      <a href="#page2" data-role="button">Link button</a>
+ *
+ * ####Create simple button from link using class selector
+ *
+ *      @example
+ *      <a href="#page2" class="ui-btn">Link button</a>
+ *
+ * ####Create simple button using button's tag
+ *
+ *      @example
+ *      <button>Button element</button>
+ *
+ * ####Create simple button from input using type
+ *
+ *      @example
+ *      <input type="button" value="Button" />
+ *      <input type="submit" value="Submit Button" />
+ *      <input type="reset" value="Reset Button" />
+ *
+ * ###Button as icon
+ *
+ * By default, all icons in buttons are placed to the left of the button text. This default may be overridden using the data-iconpos attribute.
+ *
+ *      @example
+ *      <a href="index.html" data-role="button" data-icon="delete" data-iconpos="right">Delete</a>
+ *
+ * Possible values of data-iconpos:<br>
+ *
+ *  - "left"  - creates the button with left-aligned icon<br>
+ *  - "right"  - creates the button with right-aligned icon<br>
+ *  - "top"  - creates the button with icon positioned above the text<br>
+ *  - "bottom"  - creates the button with icon positioned below the text<br>
+ *
+ * You can also create an icon-only button, by setting the data-iconpos attribute to *notext*. The button plugin will hide the text on-screen, but add it as a title attribute on the link to provide context for screen readers and devices that support tooltips.
+ *
+ *      @example
+ *      <a href="index.html" data-role="button" data-icon="delete" data-iconpos="notext">Delete</a>
  *
  * ##Drawer
  *
+ * Container with ability to open and close with an animation.
+ * You can make the drawer widget as data-role="drawer" with DIV tag.
+ *
+ * ###Default selectors
+ *
+ * By default all elements with data-role="drawer" or class "ui-drawer" are
+ * changed to Drawer widget.
+ *
+ * ###Placing rule
+ *
+ * Drawer HTML element should be placed inside a page (div with data-role="page"),
+ * but not inside a content (div with data-role="content").
+ *
+ * ###HTML Examples
+ *
+ * This paragraph describes how to create and use Drawer widget.
+ *
+ * ####Manual constructor
+ * For manual creation of Drawer widget you can use constructor of widget:
+ *
+ *      @example
+ *      <!-- Widget structure -->
+ *      <div class="ui-page">
+ *          <div data-role="drawer" data-position="left" id="drawer">
+ *              <ul data-role="listview">
+ *                  <li class="ui-drawer-main-list" id="mainItem1"><a href="#">List item 1</a></li>
+ *                  <li class="ui-drawer-main-list" id="mainItem2"><a href="#">List item 2</a></li>
+ *                  <li class="ui-drawer-sub-list" id="subItem1"><a href="#">Sub item 1</a></li>
+ *              </ul>
+ *          </div>
+ *      </div>
+ *      <script>
+ *          var drawer = document.getElementById("drawer"),
+ *              widget = tau.widget.Drawer(drawer);
+ *      </script>
+ *
+ * ####Opening / Closing Drawer. Checking if Drawer is open.
+ *
+ * To open / close Drawer one can use open() and close() methods.
+ * To check if Drawer is open use isOpen method.
+ *
+ *	@example
+ *      <!-- Widget structure -->
+ *      <div class="ui-page">
+ *          <div data-role="drawer" data-position="left" id="drawer">
+ *              <ul data-role="listview">
+ *                  <li class="ui-drawer-main-list" id="mainItem1"><a href="#">List item 1</a></li>
+ *                  <li class="ui-drawer-main-list" id="mainItem2"><a href="#">List item 2</a></li>
+ *                  <li class="ui-drawer-sub-list" id="subItem1"><a href="#">Sub item 1</a></li>
+ *              </ul>
+ *          </div>
+ *      </div>
+ *      <script>
+ *          var drawer = document.getElementById("drawer"),
+ *              widget = tau.widget.Drawer(drawer);
+ *          // open
+ *          widget.open();
+ *          alert(widget.isOpen());
+ *          // close
+ *          widget.close();
+ *          alert(widget.isOpen());
+ *      </script>
+ *
+ * ####Positioning Drawer left
+ *
+ * To position Drawer left set data-position to "left" or do not use this
+ * attribute (left is default).
+ *
+ *      @example
+ *      <!-- Widget structure -->
+ *      <div class="ui-page">
+ *         <div data-role="drawer" data-position="left" id="drawer">
+ *             <ul data-role="listview">
+ *                 <li class="ui-drawer-main-list" id="mainItem1"><a href="#">List item 1</a></li>
+ *                 <li class="ui-drawer-main-list" id="mainItem2"><a href="#">List item 2</a></li>
+ *                 <li class="ui-drawer-sub-list" id="subItem1"><a href="#">Sub item 1</a></li>
+ *             </ul>
+ *         </div>
+ *      </div>
+ *
+ *      @example
+ *      <!-- Widget structure -->
+ *      <div class="ui-page">
+ *          <div data-role="drawer" id="drawer">
+ *              <ul data-role="listview">
+ *                  <li class="ui-drawer-main-list" id="mainItem1"><a href="#">List item 1</a></li>
+ *                  <li class="ui-drawer-main-list" id="mainItem2"><a href="#">List item 2</a></li>
+ *                  <li class="ui-drawer-sub-list" id="subItem1"><a href="#">Sub item 1</a></li>
+ *              </ul>
+ *          </div>
+ *      </div>
+ *
+ * ####Positioning Drawer right
+ *
+ * To position Drawer right set data-position attribute to "right".
+ *
+ *      @example
+ *      <!-- Widget structure -->
+ *      <div class="ui-page">
+ *          <div data-role="drawer" data-position="right" id="drawer">
+ *              <ul data-role="listview">
+ *                  <li class="ui-drawer-main-list" id="mainItem1"><a href="#">List item 1</a></li>
+ *                  <li class="ui-drawer-main-list" id="mainItem2"><a href="#">List item 2</a></li>
+ *                  <li class="ui-drawer-sub-list" id="subItem1"><a href="#">Sub item 1</a></li>
+ *              </ul>
+ *          </div>
+ *      </div>
+ *
  * ## Screen resolution
+ *
+ * Default TV resolution is 1920x1080. TV profile uses *vw* and *vh* as way of measuring widgets in CSS.
+ * They represent percentages of the browser viewport’s width and height.
+ * 1vw = 1/100 of the current viewport width, i.e. 1% of the width. For example *width: 100vw* is full screen width. For default TV resolution is 1920px.
+ * 15vh = 15/100 of the viewport’s current height or 15% of the height.
+ *
+ *      @example
+ *      textarea {
+ *          height: 6.09374999961vw;
+ *          font-size: 1.66666666656vw;
+ *          width: 3.02083333314vw;
+ *      }
  *
  * ##Colors
  *
+ * Every widget defines its own set of colors.
+ *
+ * ###Button colors
+ *
+ * Normal button color: rgb(211, 211, 211)
+ * Focused button color: rgb(69, 143, 255)
+ * Button text color: rgb(89, 89, 89)
+ * Focused button text color: gb(255, 255, 255)
+ * Icon button color: rgb(255, 255, 255)
+ *
+ * ###Checkboxradio colors
+ *
+ * Default color: rgb(255, 255, 255)
+ *
+ * ###Drawer
+ *
+ * Close button background color: rgb(69, 143, 255);
+ * Drawer buttons color rgb(255, 255, 255)
+ * Divider color: rgb(42, 50, 64)
+ * Divider border color: rgb(6, 8, 11)
+ * Divider buttons color: rgb(211, 211, 211)
+ * Footer background color: rgb(45, 45, 45)
+ *
+ * ###VirtualGrid colors
+ *
+ * Button text color: rgb(211, 211, 211)
+ * Thumbnail background color: rgb(33, 36, 13)
+ * Thumbnail color: rgb(211, 211, 211)
+ *
+ * ###Inputs
+ *
+ * Input background color: rgb(255, 255, 255)
+ * Input text color: rgba(61, 61, 61, 0.5)
+ * Focused input text color: rgb(61, 61, 61)
+ * Number input text color: rgb(69, 143, 255)
+ * Focused number input text color: rgb(255, 255, 255)
+ * Focused number input background color: rgb(69, 143, 255)
+ *
+ * ###Listview
+ *
+ * Focused button text color rgb(255, 255, 255)
+ * Disabled list item text color: rgb(51, 51, 51)
+ * List background color: rgb(255, 255, 255)
+ * List subcategory text color: rgb(189, 167, 146)
+ * List radio/checkbox label color: rgb(89, 89, 89)
+ *
+ * ###Popup
+ *
+ * Popup title text color: rgb(255, 255, 255)
+ * Popup background color: rgb(255, 255, 255)
+ * Popup border color rgb(128, 72, 0)
+ * Popup header background color: rgb(42,76,130)
+ * Popup header border color: rgb(67, 67, 67)
+ * Popup button background color: rgb(72, 65, 60)
+ * Popup focused button background color: rgb(99, 93, 89)
+ * Popup text color: rgb(61, 61, 61)
+ *
+ * ###Progress
+ *
+ * Progress color: rgb(51, 67, 83)
+ * Progress value color: rgb(65, 91, 254)
+ * Progress shadow color: rgb(116, 113, 127)
+ *
+ * ###Listdivider
+ *
+ * Listdivider text color: rgb(66, 87, 144)
+ * Listdivider line background color: rgb(66, 87, 144)
+ *
  * ##Typography
+ *
+ * This paragraph describes fonts used in TV profile.
+ *
+ * ###Font size
+ *
+ * TV profile set @font_size_default as 17px. Html font-size is set by WRT base font-size
+ * Default font size (base font from WRT)
+ *  + small: 13px
+ *  + normal: 17px
+ *  + large: 20px
+ *
+ * ####Font family
+ *
+ * Tizen, Samsung Sans, Helvetica;
  *
  * @page ns.page.designElements
  * @seeMore introduction.htm Design guide
@@ -26953,21 +29109,83 @@ ns.version = '0.9.26';
 /**
  * #Navigation
  *
- * In TV profile good navigation design is very important. User utilises remote
- * for navigation and can move only to neighborhood's elements.
+ * In TV profile good navigation design is very important. User utilizes remote
+ * for navigation and can move only to neighborhood's elements. Remote control
+ * key are homogeneous with keyboard keys.
+ *
+ * All provided TV widgets are suited with proper navigation mechanism.
  *
  * ##Standard navigation
  *
+ * Standard navigation utilizes directional keys for moving focus around and
+ * OK (Enter on keyboard) for activating widget.
+ *
+ * Mechanism finds the closest focusable neighbor by checking element offset.
+ * When new distinct element is found the current widget is blurred and the new
+ * one is focused.
+ *
  * ###Navigation inside page
+ *
+ * Standard page utilizes standard navigation settings.
  *
  * ###Navigation inside popup
  *
+ * Popup works in two modes:
+ *
+ * ####Popup without controls
+ *
+ * Should popup have no focusable elements it is shown. It becomes blurred after
+ * another key is pressed.
+ *
+ * ####Popup with selectable elements
+ *
+ * Should popup contain selectable elements keyboard support is enabled on
+ * popup. Second action is disabling keyboard support on popup-invoking page.
+ * A this point if autoFocus attribute is set on popup the first element in it
+ * will be focused (otherwise it will be done with first user action).
+ *
  * ##Defining own navigation
+ *
+ * One can define custom navigation for app or widget.
+ * If You create new widget just omit the following part in constructor:
+ *
+ * 	@example
+ * 	Slider = function () {
+ *		//(...)
+ * 		BaseKeyboardSupport.call(self); //omit this line
+ * 		//(...)
+ * 		}
+ *
+ * When using existing widgets you must first turn off the default
+ * navigation code and handle it with your own code. The following
+ * example shows turning of default navigation for using left/right
+ * directions to adjust slider value.
+ *
+ * 	@example
+ * 	function onKeyup(self, event) {
+ * 		var status = self.status;
+ * 		if (event.keyCode === KEY_CODES.enter) {
+ * 			if (status) {
+ * 				self._ui.container.focus();
+ * 				self._pageWidget.enableKeyboardSupport();
+ * 			} else {
+ * 				self._ui.handle.focus();
+ * 				showPopup(self);
+ * 				self._pageWidget.disableKeyboardSupport();
+ * 			}
+ * 			self.status = !status;
+ * 		}
+ * 	}
+ * 	function onKeydown(self, event) {
+ * 		if (event.keyCode !== KEY_CODES.enter && !self.status) {
+ * 			event.preventDefault();
+ * 			event.stopPropagation();
+ * 		}
+ * 	}
  *
  * @page ns.page.designNavigation
  * @seeMore introduction.htm Design guide
- */
-;
+ */;
 /*
  * Copyright  2010 - 2014 Samsung Electronics Co., Ltd.
  * License : MIT License V2
@@ -26994,7 +29212,7 @@ ns.version = '0.9.26';
  * @seeMore introduction.htm Design guide
  */
 ;
-/*global define */
+/*global define, ns */
 /**
  * #Tizen Advanced UI Framework
  *
@@ -27051,5 +29269,6 @@ ns.version = '0.9.26';
  * @class ns
  * @title Tizen Advanced UI Framework
  */
-
+			ns.info.profile = "tv";
+			
 }(window, window.document));
