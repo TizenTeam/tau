@@ -290,7 +290,7 @@
 				var toPageURL = event.newURL;
 
 				if (toPageURL) {
-					router.open(toPageURL);
+					router.open(toPageURL, {fromHashChange: true});
 				}
 			}
 
