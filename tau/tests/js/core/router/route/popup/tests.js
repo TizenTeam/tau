@@ -5,7 +5,7 @@ module('router.micro.route.popup');
 
 if (!window.navigator.userAgent.match("PhantomJS")) {
 
-	asyncTest("test loading scripts in external files", 7, function () {
+	asyncTest("test loading scripts in external files", 6, function () {
 		var testExternalPopup = function () {
 			document.removeEventListener('popupshow', testExternalPopup, false);
 			equal(window.testVariableFromExternalFile, true, 'varable from inline script is set');
@@ -13,7 +13,6 @@ if (!window.navigator.userAgent.match("PhantomJS")) {
 			ok(document.querySelector('[data-script]'), 'proper move attribute for script');
 			equal(tau.engine.getRouter().getRoute("popup").getActiveElement(), document.getElementById("externalPopup"), "getActiveElement return correct value");
 			equal(tau.engine.getRouter().getRoute("popup").getActive(), tau.engine.getBinding(document.getElementById("externalPopup"), "Popup"), "getActive return correct value");
-			equal(tau.engine.getRouter().getActivePopup(), tau.engine.getBinding(document.getElementById("externalPopup"), "Popup"), "getActivePopup return correct value");
 			equal(tau.engine.getRouter().hasActivePopup(), true, "hasActivePopup return correct value");
 			start();
 		};

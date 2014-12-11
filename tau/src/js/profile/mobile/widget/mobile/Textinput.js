@@ -201,6 +201,7 @@
 				classes = {
 					uiBodyTheme: "ui-body-",
 					uiMini: "ui-mini",
+					uiTextinput: "ui-textinput",
 					uiInputText: "ui-input-text",
 					clear: "ui-input-clear",
 					clearHidden: "ui-input-clear-hidden",
@@ -580,6 +581,8 @@
 					type = element.type,
 					ui;
 
+				elementClassList.add(classes.uiTextinput);
+
 				ui = self._ui;
 
 				options.theme = themes.getInheritedTheme(element) || options.theme;
@@ -770,7 +773,7 @@
 					", input[type='color']:not([data-role])" +
 					", input:not([type]):not([data-role]):not(.ui-checkbox):not(.ui-tizenslider)" +
 					", textarea" +
-					", .ui-textinput",
+					", ." + classes.uiTextinput,
 				[
 					"getLabel",
 					"setLabel"

@@ -75,6 +75,7 @@
 			"../../../profile/mobile/widget/mobile/Button",
 			"../../../core/engine",
 			"../../../core/util/selectors",
+			"../../../core/util/object",
 			"./Page",
 			"./BaseKeyboardSupport"
 		],
@@ -92,6 +93,7 @@
 				 * @private
 				 */
 				utilSelectors = ns.util.selectors,
+				utilObject = ns.util.object,
 				engine = ns.engine,
 				TextInput = function () {
 					var self = this;
@@ -114,10 +116,10 @@
 				 * @member ns.widget.tv.TextInput
 				 * @static
 				 */
-				classes = {
+				classes = utilObject.merge({}, MobileTextInput.classes, {
 					uiDisabled: widget.mobile.Button.classes.uiDisabled,
 					uiNumberInput: "ui-number-input"
-				},
+				}),
 				KEY_CODES = BaseKeyboardSupport.KEY_CODES,
 				prototype = new MobileTextInput(),
 				// for detect keyboard open/hide
@@ -127,10 +129,10 @@
 					"input[type='url'], input[type='tel'], textarea, " +
 					"input[type='month'], input[type='week'], " +
 					"input[type='datetime-local'], input[type='color'], " +
-					"input:not([type]), .ui-textinput";
+					"input:not([type]), ." + classes.uiTextinput;
 
 			TextInput.events = MobileTextInput.events;
-			TextInput.classes = MobileTextInput.classes;
+			TextInput.classes = classes;
 			TextInput.prototype = prototype;
 			TextInput.selector = selector;
 
@@ -248,7 +250,7 @@
 				}
 
 				return container.querySelector("label[for='" + element.id + "']");
-			}
+			};
 
 			/**
 			 * Method overrides Textarea behavior on keyup event.
@@ -378,7 +380,7 @@
 				true
 			);
 
-			BaseKeyboardSupport.registerActiveSelector(".ui-input-text");
+			BaseKeyboardSupport.registerActiveSelector("." + classes.uiTextinput);
 
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return ns.widget.tv.TextInput;
