@@ -293,11 +293,8 @@
 			 * @protected
 			 */
 			prototype._init = function(element) {
-				var CorePrototypeInit = CoreDrawerPrototype._init;
-				if (typeof CorePrototypeInit === FUNCTION_TYPE) {
-					CorePrototypeInit.call(this, element);
-				}
-				this._pageWidget = engine.instanceWidget(element.parentElement, "page");
+				CoreDrawerPrototype._init.call(this, element);
+				this._pageWidget = engine.instanceWidget(element.parentElement, "Page");
 			};
 
 			/**

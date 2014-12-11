@@ -78,7 +78,7 @@
 	define(
 		[
 			"../../../../core/widget/core/Drawer",
-			"./Page",
+			"../../../../core/widget/core/Page",
 			"../../../../core/engine"
 		],
 
@@ -86,7 +86,7 @@
 			//>>excludeEnd("tauBuildExclude");
 			var CoreDrawer = ns.widget.core.Drawer,
 				CoreDrawerPrototype = CoreDrawer.prototype,
-				Page = ns.widget.mobile.Page,
+				Page = ns.widget.core.Page,
 				engine = ns.engine,
 				Drawer = function () {
 					var self = this;

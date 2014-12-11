@@ -27,9 +27,9 @@
 			'../../../../core/util/selectors',
 			'../../../../core/util/object',
 			'../../../../core/event',
+			"../../../../core/widget/core/Page",
 			'./BaseWidgetMobile',
 			"./Button",
-			'./Page',
 			'./Scrollview',
 			'./Slider',
 			'./Progressbar'
@@ -102,9 +102,9 @@
 				utilsSelectors = ns.util.selectors,
 				/**
 				 * Local alias for classes of Page widget
-				 * @property {Object} Page Alias for {@link ns.widget.mobile.Page}
+				 * @property {Object} Page Alias for {@link ns.widget.core.Page}
 				 */
-				pageClasses = ns.widget.mobile.Page.classes,
+				pageClasses = ns.widget.core.Page.classes,
 				/**
 				 * Local alias for classes of Button widget
 				 * @property {Object} Button Alias for {@link ns.widget.mobile.Button}

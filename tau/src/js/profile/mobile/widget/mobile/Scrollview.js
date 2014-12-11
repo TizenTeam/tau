@@ -208,6 +208,7 @@
 			"../../../../core/util/selectors",
 			"../../../../core/event/orientationchange",
 			"../../../../core/event/vmouse",
+			"../../../../core/widget/core/Page",
 			"../mobile", // fetch namespace
 			"./BaseWidgetMobile",
 			"./Button",

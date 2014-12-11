@@ -130,9 +130,9 @@
 			"../../../../core/util/DOM/attributes",
 			"../../../../core/util/DOM/manipulation",
 			"../../../../core/util/DOM/css",
+			"../../../../core/widget/core/Page",
 			"./Scrollview",
 			"./TabBar",
-			"./Page",
 			"./Listview",
 			"../../../../core/event",
 			"../../../../core/util/selectors"
@@ -176,12 +176,12 @@
 				 */
 				events = ns.event,
 				/**
-				 * @property {Function} Page Alias for class ns.widget.mobile.Page
+				 * @property {Function} Page Alias for class ns.widget.core.Page
 				 * @member ns.widget.mobile.FastScroll
 				 * @static
 				 * @private
 				 */
-				Page = ns.widget.mobile.Page,
+				Page = ns.widget.core.Page,
 				/**
 				 * @property {Object} DOMUtils Alias to ns.util.DOM
 				 * @private

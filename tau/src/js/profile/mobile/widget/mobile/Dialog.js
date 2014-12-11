@@ -390,7 +390,7 @@
 					options = self.options,
 					elementClassList = self.element.classList,
 					dialogClasses = classes,
-					pageClasses = ns.widget.mobile.Page.classes;
+					pageClasses = ns.widget.core.Page.classes;
 				if (value) {
 					elementClassList.remove(dialogClasses.uiDialogHidden);
 					elementClassList.add(pageClasses.uiPage);
