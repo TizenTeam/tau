@@ -27,8 +27,8 @@
 			"../../../core/util/selectors",
 			"../../../core/util/path",
 			"../../../core/util/object",
-			"../widget/wearable/Page",
-			"../widget/wearable/PageContainer"
+			"../../../core/widget/core/Page",
+			"../../../core/widget/core/PageContainer"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
@@ -137,7 +137,7 @@
 				 */
 				_isLock = false,
 
-				Page = ns.widget.wearable.Page,
+				Page = ns.widget.core.Page,
 
 				Router = function () {
 					var self = this;
@@ -150,7 +150,7 @@
 					self.firstPage = null;
 					/**
 					 * The container of widget.
-					 * @property {?ns.widget.wearable.PageContainer} [container]
+					 * @property {?ns.widget.core.PageContainer} [container]
 					 * @member ns.router.Router
 					 */
 					self.container = null;
@@ -430,7 +430,7 @@
 			/**
 			 * Method sets container.
 			 * @method setContainer
-			 * @param {ns.widget.wearable.PageContainer} container
+			 * @param {ns.widget.core.PageContainer} container
 			 * @member ns.router.Router
 			 */
 			Router.prototype.setContainer = function (container) {
@@ -440,7 +440,7 @@
 			/**
 			 * Method returns container.
 			 * @method getContainer
-			 * @return {ns.widget.wearable.PageContainer} container of widget
+			 * @return {ns.widget.core.PageContainer} container of widget
 			 * @member ns.router.Router
 			 */
 			Router.prototype.getContainer = function () {
@@ -460,7 +460,7 @@
 			/**
 			 * Method registers page container and the first page.
 			 * @method register
-			 * @param {ns.widget.wearable.PageContainer} container
+			 * @param {ns.widget.core.PageContainer} container
 			 * @param {HTMLElement} firstPage
 			 * @member ns.router.Router
 			 */

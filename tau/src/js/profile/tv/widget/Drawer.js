@@ -119,7 +119,7 @@
 		[
 			"../tv",
 			"../../../core/widget/core/Drawer",
-			"../../wearable/widget/wearable/Page",
+			"../../../core/widget/core/Page",
 			"../../../core/engine",
 			"./BaseKeyboardSupport"
 		],
@@ -140,19 +140,7 @@
 				 * @static
 				 */
 				CoreDrawerPrototype = CoreDrawer.prototype,
-				/**
-				 * {Object} Widget Alias for {@link ns.widget.wearable.Page}
-				 * @member ns.widget.tv.Drawer
-				 * @private
-				 * @static
-				 */
-				Page = ns.widget.wearable.Page,
-				/**
-				 * {Object} Alias for {@link ns.widget.tv.BaseKeyboardSupport}
-				 * @member ns.widget.tv.Drawer
-				 * @private
-				 * @static
-				 */
+				Page = ns.widget.core.Page,
 				BaseKeyboardSupport = ns.widget.tv.BaseKeyboardSupport,
 				/**
 				 * {Object} Alias for {@link ns.engine}

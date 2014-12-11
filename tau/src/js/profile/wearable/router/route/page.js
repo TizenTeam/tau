@@ -19,7 +19,7 @@
 			"../../../../core/util/path",
 			"../../../../core/util/selectors",
 			"../../../../core/util/object",
-			"../../widget/wearable/Page",
+			"../../../../core/widget/core/Page",
 			"../route",
 			"../history"
 		],
@@ -32,7 +32,7 @@
 				utilSelector = util.selectors,
 				history = ns.router.history,
 				engine = ns.engine,
-				Page = ns.widget.wearable.Page,
+				Page = ns.widget.core.Page,
 				baseElement,
 				routePage = {},
 				head;

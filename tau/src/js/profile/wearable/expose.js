@@ -15,9 +15,9 @@
 		[
 			"../../core/core",
 			"../../core/engine",
+			"../../core/widget/core/Page",
 			"./router/route",
-			"./router/history",
-			"./widget/wearable/Page"
+			"./router/history"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
@@ -31,7 +31,7 @@
 					routePage = router.getRoute("page"),
 					history = ns.router.history,
 					back = history.back.bind(router),
-					classes = ns.widget.wearable.Page.classes,
+					classes = ns.widget.core.Page.classes,
 					pageActiveClass = classes.uiPageActive;
 				/**
 				 * @method changePage
