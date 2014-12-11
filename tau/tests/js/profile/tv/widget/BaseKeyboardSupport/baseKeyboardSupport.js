@@ -20,7 +20,8 @@
         equal(inputWidget._supportKeyboard, true, "Keyboard support is turned on properly")
 
         links = pageWidget._getNeighborhoodLinks();
-        equal(links.top, input, "Neighbour elements found on top.");
+        ok(links.top instanceof Array, "Neighbour elements is array.");
+        equal(links.top[0], input, "Neighbour elements found on top.");
 
         inputWidget.disableKeyboardSupport();
         equal(inputWidget._supportKeyboard, false, "Keyboard support is turned off properly");
