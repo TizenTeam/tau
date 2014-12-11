@@ -7,15 +7,16 @@
 
 		module("core/widget/core/Listview", {
 			setup: function () {
-				engine.createWidgets(document);
 			},
 			teardown: function () {
-				engine._clearBindings();
+				engine.destroyAllWidgets(document.body);
+				engine.removeAllBindings(document.body);
 			}
 		});
 
 		test("Listview with data-role='listview'", function () {
-			var list = document.getElementById("list-with-data-role");
+			var list = document.getElementById("list-with-data-role"),
+				listWidget = engine.instanceWidget(list, "Listview");
 
 			//after build
 			equal(list.getAttribute("data-tau-bound"), "Listview", "List widget is created");
@@ -33,7 +34,7 @@
 				itemLink,
 				innerButtonSpan,
 				innerButtonTextSpan,
-				listWidget;
+				listWidget = engine.instanceWidget(list, "Listview");
 
 			// append new li element and refresh list;
 			li3.appendChild(link3);
@@ -47,7 +48,7 @@
 			listWidget.refresh();
 
 			//after refresh
-			list = document.getElementById("list-with-data-role"),
+			list = document.getElementById("list-with-data-role");
 			equal(list.getAttribute("data-tau-bound"), "Listview", "List widget is created");
 			ok(list.classList.contains("ui-listview"), "List has ui-listview class");
 			equal(list.getAttribute("data-tau-built"), "Listview", "Listview widget is built");
@@ -76,7 +77,7 @@
 			ok(list.querySelectorAll("[data-tau-bound=Button]").length > 0,
 				"A elements changed into Button widgets");
 
-			listWidget.destroy();
+			engine.destroyWidget(list, "Listview");
 
 			equal(list.getAttribute("data-tau-bound"), null, "List widget is destroyed");
 			ok(list.querySelectorAll("[data-tau-bound=Button]").length === 0,

@@ -16,8 +16,8 @@
 			"../../core/core",
 			"../../core/engine",
 			"../../core/widget/core/Page",
-			"./router/route",
-			"./router/history"
+			"../../core/router/route",
+			"../../core/router/history"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");

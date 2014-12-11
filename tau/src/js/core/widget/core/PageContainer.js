@@ -119,7 +119,7 @@
 
 					toPage.classList.add(classes.uiBuild);
 
-					toPageWidget = engine.instanceWidget(toPage, "page");
+					toPageWidget = engine.instanceWidget(toPage, "Page");
 
 					// set sizes of page for correct display
 					toPageWidget.layout();

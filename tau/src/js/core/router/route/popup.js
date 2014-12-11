@@ -5,7 +5,7 @@
  */
 /**
  * #Route Popup
- * Support class for router to control changing pupups in profile Wearable.
+ * Support class for router to control changing pupups.
  * @class ns.router.route.popup
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  * @author Damian Osipiuk <d.osipiuk@samsung.com>
@@ -15,12 +15,11 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../../../../core/engine",
-			"../../../../core/util",
-			"../../../../core/util/path",
-			"../../../../core/util/DOM/attributes",
-			"../../../../core/util/object",
-			"../../../../core/widget/core/Popup",
+			"../../engine",
+			"../../util/path",
+			"../../util/DOM/attributes",
+			"../../util/object",
+			"../../widget/core/Popup",
 			"../history",
 			"../route"
 		],
@@ -195,7 +194,7 @@
 			/**
 			 * This method sets active popup and manages history.
 			 * @method setActive
-			 * @param {?ns.widget.wearable.popup} activePopup
+			 * @param {?ns.widget.core.popup} activePopup
 			 * @param {Object} options
 			 * @member ns.router.route.popup
 			 * @static
@@ -294,7 +293,7 @@
 			/**
 			 * This method closes active popup.
 			 * @method close
-			 * @param {ns.widget.wearable.Popup} [activePopup]
+			 * @param {ns.widget.core.Popup} [activePopup]
 			 * @param {string=} [options.transition]
 			 * @param {string=} [options.ext= in ui-pre-in] options.ext
 			 * @param {Object} options
@@ -444,7 +443,7 @@
 			/**
 			 * Returns active popup.
 			 * @method getActive
-			 * @return {?ns.widget.wearable.Popup}
+			 * @return {?ns.widget.core.Popup}
 			 * @member ns.router.route.popup
 			 * @static
 			 */

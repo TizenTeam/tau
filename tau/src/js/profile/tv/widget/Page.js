@@ -88,7 +88,8 @@
 			"../../../core/util/DOM/css",
 			"../../../core/util/DOM/attributes",
 			"../../../core/util/selectors",
-			"./BaseKeyboardSupport"
+			"./BaseKeyboardSupport",
+			"./Button"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
@@ -196,7 +197,9 @@
 					headerButtonsLength = headerButtons.length,
 					i;
 				for (i = 0; i < headerButtonsLength; i++) {
-					DOM.setNSData(headerButtons[i], "inline", "true");
+					engine.instanceWidget(headerButtons[i], "Button", {
+						inline: true
+					});
 				}
 			};
 
@@ -419,7 +422,7 @@
 			ns.widget.tv.Page = Page;
 
 			engine.defineWidget(
-				"page",
+				"Page",
 				"[data-role=page],.ui-page",
 				["onBeforeShow", "onShow", "onBeforeHide", "onHide", "setActive"],
 				Page,

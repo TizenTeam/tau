@@ -150,7 +150,7 @@
 						clearSearchButtonText: "clear text",
 						disabled: false,
 						mini: null,
-						theme: 's',
+						theme: 'a',
 						clearBtn: false
 					};
 

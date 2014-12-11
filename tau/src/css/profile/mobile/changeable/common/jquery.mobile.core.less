@@ -17,8 +17,36 @@
 .ui-mobile-viewport {  margin: 0; overflow-x: hidden; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); }
 
 /* "page" containers - full-screen views, one should always be in view post-pageload */
-.ui-mobile [data-role=page], .ui-mobile [data-role=dialog], .ui-page { top: 0; left: 0; width: 100%; position: absolute; display: none; border: 0; }
-.ui-mobile .ui-page-active { display: block; overflow: visible; }
+.ui-mobile {
+	[data-role=page],
+	[data-role=dialog],
+	.ui-page {
+		top: 0;
+		left: 0;
+		width: 100%;
+		position: absolute;
+		display: none;
+		border: 0;
+
+		&.ui-page-build {
+			display: block;
+			visibility: hidden;
+		}
+
+		&.ui-pre-in {
+			z-index: 100;
+			visibility: visible;
+			display: block;
+			top: 0;
+			left: 0;
+		}
+
+		&.ui-page-active {
+			display: block;
+			overflow: visible;
+		}
+	}
+}
 
 /* on ios4, setting focus on the page element causes flashing during transitions when there is an outline, so we turn off outlines */
 .ui-page { outline: none; }
@@ -67,8 +95,8 @@
 .ui-bar h1, .ui-bar h2, .ui-bar h3, .ui-bar h4, .ui-bar h5, .ui-bar h6 { margin: 0; padding: 0; font-size: 16px; display: inline-block; }
 
 .ui-header, .ui-footer { display: block; }
-.ui-page .ui-header, .ui-page .ui-footer { 
-	position : fixed; /*position: relative;*/ 
+.ui-page .ui-header, .ui-page .ui-footer {
+	position : fixed; /*position: relative;*/
 	z-index : @z_base_header_footer;
 }
 /* Title button packing order */

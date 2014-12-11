@@ -5,7 +5,7 @@
  */
 /**
  * #Route Page
- * Support class for router to control changing pages in profile Wearable.
+ * Support class for router to control changing pages.
  * @class ns.router.route.page
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  */
@@ -14,12 +14,12 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../../../../core/engine",
-			"../../../../core/util/DOM/attributes",
-			"../../../../core/util/path",
-			"../../../../core/util/selectors",
-			"../../../../core/util/object",
-			"../../../../core/widget/core/Page",
+			"../../engine",
+			"../../util/DOM/attributes",
+			"../../util/path",
+			"../../util/selectors",
+			"../../util/object",
+			"../../widget/core/Page",
 			"../route",
 			"../history"
 		],
@@ -320,7 +320,7 @@
 			/**
 			 * Returns container of pages
 			 * @method getContainer
-			 * @return {?ns.widget.wearable.Page}
+			 * @return {?ns.widget.core.Page}
 			 * @member ns.router.route.page
 			 * @static
 			 */
@@ -331,7 +331,7 @@
 			/**
 			 * Returns active page.
 			 * @method getActive
-			 * @return {?ns.widget.wearable.Page}
+			 * @return {?ns.widget.core.Page}
 			 * @member ns.router.route.page
 			 * @static
 			 */

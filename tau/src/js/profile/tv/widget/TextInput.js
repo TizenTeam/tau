@@ -148,11 +148,11 @@
 				parent = utilSelectors.getClosestByClass(element,
 					widget.core.Popup.classes.popup);
 				if (parent) {
-					self._parentWidget = engine.getBinding(parent, "popup");
+					self._parentWidget = engine.getBinding(parent, "Popup");
 				} else {
 					parent = utilSelectors.getClosestByClass(element,
 						widget.tv.Page.classes.uiPage);
-					self._parentWidget = engine.getBinding(parent, "page");
+					self._parentWidget = engine.getBinding(parent, "Page");
 				}
 			}
 

@@ -574,7 +574,7 @@
 				var self = this,
 					oldOptions = self.options,
 					storedOptions = {},
-					val;
+					key;
 
 				for (key in options) {
 					if (options.hasOwnProperty(key)) {
@@ -592,7 +592,7 @@
 			 * @member ns.widget.core.Popup
 			 */
 			prototype._restoreOpenOptions = function () {
-				var self = this
+				var self = this,
 					options = self.options,
 					propertiesToRemove = ["x", "y", "fromHashChange"];
 

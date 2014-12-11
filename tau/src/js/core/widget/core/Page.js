@@ -403,17 +403,17 @@
 
 			/**
 			 * This method sets page active or inactive.
-			 * It sets ui-overlay-... class on `body` depending on current theme.
 			 * @method setActive
-			 * @param {boolean} value If true, then page will be active.
-			 * Otherwise, page will be inactive.
+			 * @param {boolean} value If true, then page will be active. Otherwise, page will be inactive.
 			 * @member ns.widget.core.Page
 			 */
 			prototype.setActive = function (value) {
 				var elementClassList = this.element.classList;
 				if (value) {
+					this.focus();
 					elementClassList.add(classes.uiPageActive);
 				} else {
+					this.blur();
 					elementClassList.remove(classes.uiPageActive);
 				}
 			};
@@ -426,6 +426,28 @@
 			 */
 			prototype.isActive = function () {
 				return this.element.classList.contains(classes.uiPageActive);
+			};
+
+			/**
+			 * Sets the focus to page
+			 * @method focus
+			 * @member ns.widget.core.Page
+			 */
+			prototype.focus = function () {
+				var element = this.element,
+					focusable = element.querySelector("[autofocus]") || element;
+				focusable.focus();
+			};
+
+			/**
+			 * Removes focus from page and all descendants
+			 * @method blur
+			 * @member ns.widget.core.Page
+			 */
+			prototype.blur = function () {
+				var element = this.element,
+					focusable = element.querySelector(":focus") || element;
+				focusable.blur();
 			};
 
 			/**
@@ -522,13 +544,39 @@
 			// definition
 			ns.widget.core.Page = Page;
 			engine.defineWidget(
-				"page",
+				"Page",
 				"[data-role=page],.ui-page",
-				["onBeforeShow", "onShow", "onBeforeHide", "onHide", "setActive", "isActive", "layout"],
+				[
+					"layout",
+					"focus",
+					"blur",
+					"setActive",
+					"isActive"
+				],
 				Page,
 				"core"
 			);
+
+			engine.defineWidget(
+				"page",
+				"",
+				[
+					"layout",
+					"focus",
+					"blur",
+					"setActive",
+					"isActive"
+				],
+				Page,
+				"core"
+			);
+
+			// @remove
+			// THIS IS ONLY FOR COMPATIBILITY
+			ns.widget.page = ns.widget.Page;
+
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
+			return Page;
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");

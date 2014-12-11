@@ -127,6 +127,7 @@
 			var radio2 = document.getElementById("radio2"),
 				wrapper2 = radio2.parentNode;
 
+			window.tau.engine.instanceWidget(radio2, "Checkboxradio");
 			wrapper2.focus();
 			ok(radio2.classList.contains("focus"), "Checkbox has focus class");
 			wrapper2.blur();

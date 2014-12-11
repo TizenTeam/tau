@@ -59,7 +59,7 @@
 				classes = {
 					focused: "focus",
 					container: "checkboxradio-container",
-					checkboxradioInListview: "checkboxradio-in-listview",
+					checkboxradioInListview: "checkboxradio-in-listview"
 				},
 				/**
 				 * {Constant} Constant describing type of functions
