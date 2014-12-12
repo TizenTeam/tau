@@ -11,9 +11,9 @@ The main features of the Notepad include:
  * edit existing notes
  * delete notes when swipe on item
 
-## Tutorial Goal
+## Tutorial goal
 On the main page application will show all the notes and each can be edited.
-List of notes can be scroll. The note after click will show in edit page and
+List of notes can be scrolled. The note after click will show in edit page and
 can be a edited. On the first page will be located a button with
 functionality off adding new note.
 
@@ -28,26 +28,26 @@ application should be created with default files structure like
 
 ## Step 2:
 When you have created a basic application, you may go to edit
-a file _index.html_. Before you start to edit, check out the section header.
-Because the application will runs on mobile or wearable devices
+a file _index.html_. Before you start, you may want to check out the section header.
+Because the application will run on mobile or wearable devices
 you need to add `tau.css` styles for the corresponding profile. If you want
-create mobile app you should add style css from profile `mobile` add
-link to header like below:
+create mobile app you should add style css for profile `mobile` and link it to the
+header like below:
 
 ```
-<!-- Use 'mobile' or 'wearable' to chose device tau profile -->
+<!-- Use 'mobile' or 'wearable' to choose device tau profile -->
 <link rel="stylesheet" type="text/css" href="js/lib/tau/mobile/theme/default/tau.css"/>
 ```
 or profile `wearable` :
 ```
-<!-- Use 'mobile' or 'wearable' to chose device tau profile -->
+<!-- Use 'mobile' or 'wearable' to choose device tau profile -->
 <link rel="stylesheet" type="text/css" href="js/lib/tau/wearable/theme/default/tau.css"/>
 ```
-and also add your own styles for application.
+and also you can add your own styles for application if there is any need
 ```
 <link rel="stylesheet" type="text/css" href="css/style.css"/>
 ```
-And now the whole section header should look like below:
+At this point section header should look like below:
 
 ```
 <head>
@@ -71,8 +71,8 @@ In this step you need create two basic pages:
 * page for adding/edditing a note
 
 #### First page
-First page is a `div` block with class `ui-page` and id `main`. Here you can add
-title header _Notes_ like below:
+First page is a `div` block with class `ui-page` and id `main`. Let's add title header
+_Notes_ like below:
 
 ```
 <div id="main" class="ui-page">
@@ -103,7 +103,7 @@ which has `id="newBtn"`.
 </div>
 ```
 
-Full code for first page is shown below:
+Complete code for first page is shown below:
 
 ```
 <div data-role="page" id="main">
@@ -120,9 +120,9 @@ Full code for first page is shown below:
 ```
 
 #### Second page:
-Header and Footer is similar to main page. The only deference is that the
-action triggered after pressing the button will add item to items array and
-will add item to the top of the visible list. Second page is a `div` with
+Header and Footer are similar to main page. The only difference is that the
+action triggered after pressing the button will add a item into items array and
+to the top of the visible list. Second page is a `div` with
 `id="editor"` and `class="ui-page"`. This page is needed for adding or
 editing selected note. The second page will have the `textarea` tag in order
 to edit the selected note.
@@ -145,14 +145,15 @@ Code for second page is below:
 ```
 
 ## Step 4:
-Finally need to link to TAU library sources and add script to the application
+Finally you need to link to TAU library sources and add script to the application
+
 ```
 <script src="js/jquery.js"></script>
 <script type="text/javascript" src="js/lib/tau/mobile/js/tau.js" data-build-remove="false"></script>
 <script src="js/main.js"></script>
 ```
 
-These step finalize editing the file `index.html`.
+These step ends the modifications in `index.html` file.
 You can check how the `index.html` look like in the attached example.
 The link can be found at the bottom of the page.
 
@@ -188,10 +189,19 @@ a {
 }
 ```
 
+This can be put directly in the application html file between `<script></script>` tags
+or you can create your own css nad add a `link` pointing to it in the markup `head` element
+as shown in step 2.
+
 ## Step 6:
 In this step we will create the _main.js_ file.
 First of all create immediate function with function to close the app.
 Finally whole file should looks like below:
+
+!info
+Wrapping closure
+It's always good idea to wrap your whole content of your JavaScrpt files in a closure 
+function to prevent creating unneeded variables in the global scope.
 
 ```
 <script>
@@ -412,7 +422,7 @@ Finally whole file should looks like below:
 ```
 
 OK, so now we have to put it all together. Link to the finished demo
-application is added at bottom. Still the app can be downloaded and
+application is added at the bottom of the page. Still the app can be downloaded and
 imported to Tizen SDK IDE and deployed to a device or emulator to checkout.
 
 [Notes Application DEMO](tutorial_apps/notepad/)

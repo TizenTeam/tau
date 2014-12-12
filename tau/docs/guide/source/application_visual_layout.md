@@ -28,11 +28,12 @@ widget implementation.
 
 ![Application UI Schema](drawings/application_page_layout.svg "Application UI Schema")
 
-The `Page` consist of:
-* Header area, best way to *mark* out to user what page is currently opened,
-  it can contain buttons, menus and toolbars, header is optional
-* Content area, where the main application content resides, it has an optional scroll bar
-* Footer area, here you can put a status line or buttons, footer is optional
+The `Page` consists of:
+* Header area- best way to mark out to the user what page is currently opened. It can
+  contain buttons, menus and toolbars. Header is optional.
+* Content area - place where the main application content, resides, it has an optional
+  scrollbar.
+* Footer area - here you can put a status line or buttons. Footer is optional.
 
 All of the elements stated above are specified by a corresponding `class` attribute.
 
@@ -94,7 +95,7 @@ Example usage of tabbar widget:
 Widget availability
 Not all profiles contain same widgets, as in the example tabbar is only implemented in mobile.
 
-Tabbar can be easily used as an page changing widget.
+Tabbar can be easily used as a page changing widget.
 
 ```mobile
 <div class="ui-page" id="first">
@@ -146,7 +147,7 @@ to page `#hashtag`. This is basic page routing, more on that subject will be cov
 [basic page routing](basic_page_routing.html) chapter.
 
 As said earlier, more widgets can be placed in header/footer areas, like buttons or
-images. An example of a multi line title bar with a gear button and an home icon is as
+images. An example of a multi line title bar with a gear button and a home icon is as
 follows:
 
 ```mobile
@@ -164,13 +165,14 @@ follows:
 ## Grids
 
 Grids are a great way to group UI elements or display tabular data. Using grids is easy
-and consist only of using proper classes.
+and consists of using proper classes only.
 
 !info
 Grid helper
-Grid functions are exported in `tau.util` object if there is any need for a helper function.
+Grid functions are exported in `tau.util` object if there is any need for creating grids
+directly from JavaScript.
 
-A simple grid of two columns with size 50%/50% would be to use a class `ui-grid-a` on
+To create a simple grid of two columns with size 50%/50%  use a class `ui-grid-a` on
 the container and `ui-block-a` on the first column and `ui-block-b` on the second.
 
 ```mobile

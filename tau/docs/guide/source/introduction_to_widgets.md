@@ -42,7 +42,8 @@ So what's inside? Well, a basic widget implements 5 protected methods:
 
 !warning
 Conditional build
-Please remember that build method is not executed every time the widget is created, it will not run when the markup is already build
+Please remember that the build method is not executed every time the widget is created,
+it will not run when the markup is already built.
 
 Also, the widget is registered in the core engine by `tau.engine.defineWidget` method,
 with it's name, selector and public methods list for jQuery Mobile compatibility (if
@@ -158,8 +159,8 @@ of a setter method is the `value` method:
 
 ### jQuery Mobile interface
 
-All widget expose some API to the **jQuery** object, these "public" methods conform to
-**jQuery Mobile** API style and are fully compatible with the original library.
+All widgets expose some API to the jQuery object. These "public" methods conform to
+**jQuery Mobile API** style and are fully compatible with the original library.
 
 You can instance, modify, fetch data from widgets using only this interface, not using
 original TAU API whatsoever.

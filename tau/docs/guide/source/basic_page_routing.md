@@ -157,8 +157,8 @@ the HTMLElement, since TAU __always__ adds a unique `ID` property if none is fou
 
 ## External resources
 
-TAU can also load pages from external resources, this is pretty straightforward, just
-supply the proper local address in the `href` attribute of the link, like so:
+TAU can also load pages from external resources. This is pretty straightforward. Just
+supply the proper local adress in the `href` attribute of the link like so:
 
 ```mobile-wearable-tv
 <div class="ui-page">

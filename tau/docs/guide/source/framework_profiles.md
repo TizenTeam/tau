@@ -110,10 +110,10 @@ to build them. In Wearable profile widgets are not build by default.
 Widgets such as button have style css so will they look good but doesn't
 have an instance in javascript. Developer need to build them.
 - Mobile and wearable profiles differ when it comes to framework engine start.
-TAU will not engage on wearable devices if not set to do so. But that's only
-a part of the difference, mobile profile needs markup to be properly created
-and modified
-by the widget instance build method, while for performance gain on wearable,
-only the basic classes are used and the markup does not require a widget
-instance to look good.
+TAU will not engage on wearable devices if not set to do so. But that's only a part
+of the difference. Mobile profile needs markup to get properly created and modified
+by the widget instance build method, while for performance gain on wearable, only
+the basic classes are used and the markup does not require a widget instance to look
+good
+
 Check [Using jQuery with TAU](using_jquery_with_tau.html) for further details.

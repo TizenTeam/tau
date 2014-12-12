@@ -1,7 +1,7 @@
 # TAU Introduction
 
 TAU is the standard web UI library for Tizen platform. The acronym stands for Tizen
-Advanced UI Library. It is an collection of UI controls called *widgets* which simplify
+Advanced UI Library. It is a collection of UI controls called *widgets* which simplify
 application coding.
 
 ## History
