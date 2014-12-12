@@ -30,6 +30,7 @@
 			"./profile/wearable/widget/wearable/VirtualListview",
 			"./profile/wearable/widget/wearable/SectionChanger",
 			"./profile/wearable/widget/wearable/VirtualGrid",
+			"./profile/wearable/widget/wearable/SnapListview",
 			"./profile/wearable/widget/wearable/SwipeList",
 			"./profile/wearable/widget/wearable/scroller/Scroller",
 			"./profile/wearable/widget/wearable/scroller/scrollbar/ScrollBar",
