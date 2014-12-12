@@ -1,0 +1,60 @@
+@import "../common/popup.less";
+
+@font_size_popup_toast: 24 * @unit_base;
+@font_size_popup_body: 34 * @unit_base;
+
+/***********************
+Normal Popup
+***********************/
+.ui-popup {
+	border-radius: 50%;
+	overflow: hidden;
+
+	.ui-popup-header {
+		text-align: center;
+	}
+
+	.ui-popup-content {
+		padding: 26*@px_base 39*@px_base 16*@px_base 39*@px_base;
+		.ui-listview,
+		.ui-inline-listview {
+			margin: -25*@unit_base -39*@unit_base -16*@unit_base -39*@unit_base;
+		}
+	}
+
+	.ui-popup-footer {
+		.ui-btn {
+			height: 100%;
+			text-indent: -9999px;
+			&.ui-btn-footer-icon {
+				position: relative;
+				&:first-child::before {
+					right: 30 * @unit_base;
+				}
+				&:last-child::before {
+					left: 30 * @unit_base;
+				}
+				&:only-child::before {
+					left: 145 * @unit_base;
+				}
+				&::before {
+					content: "";
+					background-color: white;
+					-webkit-mask-size: 60 * @unit_base 60 * @unit_base;
+					-webkit-mask-repeat: no-repeat;
+					width: 60 * @unit_base;
+					height: 60 * @unit_base;
+					position: absolute;
+					bottom: @fixed_popup_footer_btn_padding_bottom;
+				}
+			}
+		}
+	}
+}
+
+/****************************************
+Popup Toast
+****************************************/
+.ui-popup.ui-popup-toast {
+	bottom: 51 * @unit_base;
+}

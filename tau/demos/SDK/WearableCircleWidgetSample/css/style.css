@@ -258,3 +258,26 @@
 	-webkit-mask-image:url(../basic/popup/images/b_option_icon_message.png);
 	mask-image:url(../basic/popup/images/b_option_icon_message.png);
 }
+/* -----------------------------------POPUP------------------------------------ */
+.btn-icon-share::before {
+	-webkit-mask-image: url(../basic/popup/images/tw_ic_button_share_holo_dark.png);
+}
+.btn-icon-showonphone::before {
+	-webkit-mask-image: url(../basic/popup/images/tw_ic_button_showonphone_holo_dark.png);
+}
+.btn-icon-delete::before {
+	-webkit-mask-image: url(../basic/popup/images/tw_ic_button_delete_holo_dark.png);
+}
+.popup-input-box {
+	display: table-cell;
+	height: 82px;
+	margin-top: 16px;
+	padding-left: 68px;
+	position: relative;
+	vertical-align: middle;
+}
+.popup-input-box > input {
+	position: absolute;
+	left: 0;
+	top: 15px;
+}
