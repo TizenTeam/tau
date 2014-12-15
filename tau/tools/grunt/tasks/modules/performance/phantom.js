@@ -62,6 +62,8 @@
 			this.lastApp = null;
 
 			this.initPhantom();
+
+			errorCount = 0;
 		}
 
 		proto = new BaseTester();
@@ -108,22 +110,26 @@
 		proto.addData = function (data) {
 			var storage = this.storage;
 
+			console.log(data);
+
 			switch (data.type) {
 				case "performance.data.start":
 					if (!storage[data.section]) {
-						storage[data.section || ("_section_" + Object.keys(storage).length)] = {
-							start: data.stepTime,
+						storage[data.section] = {
+							start: [data.stepTime],
 							steps: {}
 						};
+					} else {
+						storage[data.section].start.push(data.stepTime);
 					}
 					break;
 
 				case "performance.data":
-					if (!storage[data.section].steps[data.step]){
-						storage[data.section].steps[data.step] = [];
+					if (!storage[data.section].steps[data.stepName]){
+						storage[data.section].steps[data.stepName] = [];
 					}
 
-					storage[data.section].steps[data.step].push(parseFloat(data.stepTime));
+					storage[data.section].steps[data.stepName].push(parseFloat(data.stepDuration));
 					break;
 			}
 		};

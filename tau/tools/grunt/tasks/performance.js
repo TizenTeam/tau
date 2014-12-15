@@ -1,11 +1,13 @@
 /*global module, console, require, __dirname */
 (function () {
 	"use strict";
-	var TEST_COUNT = 100;
+	var TEST_COUNT = 5,
+		RESULT_PRECISION = 3;
 
 	module.exports = function (grunt) {
 
-		var statistics = require("math-statistics"),
+		var //statistics = require("math-statistics"),
+			Stats = require("fast-stats").Stats,
 			CliTable = require("cli-table"),
 			path = require("path"),
 			PhantomTester = require(path.join(__dirname, "modules", "performance", "phantom")),
@@ -17,25 +19,28 @@
 				stepValues,
 				stepNames,
 				table = new CliTable({
-					head: ["[Section/Step]", "[Median]", "[Avg]"]
-					, colWidths: [80, 20, 20]
+					head: ["[Section/Step]", "[Median]", "[Avg]", "[StdDev]"]
+					, colWidths: [60, 20, 20, 20]
 				});
 
-			grunt.log.writeln("============================================================================================================================");
-			grunt.log.writeln("| PERFORMANCE REPORT                                                                                                       |");
-			grunt.log.writeln("| Note: Shows time between section start and following steps                                                               |");
-			grunt.log.writeln("============================================================================================================================");
-//			grunt.log.writeln("  [Section/Step]  -  [Median]  -  [Avg] \n");
+			grunt.log.writeln("=============================================================================================================================");
+			grunt.log.writeln("| PERFORMANCE REPORT                                                                                                        |");
+			grunt.log.writeln("| Note: Shows time between section start and following steps                                                                |");
+			grunt.log.writeln("=============================================================================================================================");
 
 			sectionNames.forEach(function (sectionName) {
+				var startStats;
+
 				section = storage[sectionName];
-				//grunt.log.writeln("  " + sectionName + "     ");
-				table.push([sectionName, '', '']);
+				startStats = new Stats().push(section.start);
+
+				table.push([sectionName + " (start time)", startStats.amean().toFixed(RESULT_PRECISION) + 'ms', startStats.median().toFixed(RESULT_PRECISION) + 'ms', startStats.stddev().toFixed(RESULT_PRECISION) + 'ms']);
 
 				stepNames = Object.keys(storage[sectionName].steps);
 				stepNames.map(function (stepName) {
-					stepValues = section.steps[stepName];
-					table.push([" \\_ " + stepName, statistics.median(stepValues).toFixed(3) + "ms", statistics.mean(stepValues).toFixed(3) + "ms"]);
+					var stats = new Stats().push(section.steps[stepName]);
+					//stepValues = section.steps[stepName];
+					table.push([" \\_ " + stepName, "+" + stats.amean().toFixed(RESULT_PRECISION) + "ms", "+" + stats.median().toFixed(RESULT_PRECISION) + "ms", stats.stddev().toFixed(RESULT_PRECISION) + "ms"]);
 				});
 
 			});
@@ -45,22 +50,20 @@
 
 		grunt.registerTask('performance', '', function () {
 			var currentTask = this,
-				target = currentTask.target,
 				//queue = [],
 				testApps = [
 					{
 						name: "Mobile Winset",
-						path: "demos/SDK/MobileWinset/src/index.html"
+						path: "demos/SDK/MobileWinset/src/index.html",
+						wgtPath: "demos/SDK/MobileWinset/MobileWinset.wgt",
+						id: "vUf39tzQ3s.Winset"
 					}
 				],
 				noBuild = grunt.option('no-build'),
-				//dataStorage = {},
-				//parseData = parsePerformanceData.bind(this, dataStorage),
-				//prepareReport = preparePerformanceReport.bind(this, dataStorage),
 				done = this.async(),
 				tester;
 
-			if (target === "device") {
+			if (currentTask.flags.device) {
 				tester = new DeviceTester();
 			} else {
 				tester = new PhantomTester();
@@ -72,6 +75,7 @@
 					i;
 
 				if (err) {
+					grunt.verbose.error(err);
 					done(err);
 				} else {
 					if (!noBuild) {
@@ -110,15 +114,5 @@
 				collectTests(null, "", 0);
 			}
 		});
-
-		//grunt.registerTask("test-performance", [ "performance:mobile" ]);
 	};
 }());
-
-// Parser <- PhantomParser
-// Parser <- DeviceParser
-
-// .addTests
-// .run
-// .addData
-// .getRawResults

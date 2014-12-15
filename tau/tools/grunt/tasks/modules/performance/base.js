@@ -14,13 +14,13 @@
 				this.runQueue();
 			},
 			runQueue: function () {
-				console.error("runQueue: Missing implementation");
+				throw "tester.runQueue missing implementation";
 			},
 			addTest: function (app) {
 				this.queue.push(app);
 			},
 			addData: function (data) {
-				console.error("addData: Missing implementation");
+				throw "tester.addData missing implementation";
 			},
 			getRawResults: function () {
 				return this.storage;

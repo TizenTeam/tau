@@ -8,13 +8,14 @@
 
 		window.tauPerf = {
 			phantomRun: window.callPhantom && window._phantom,
-			collect: function (type, section, step, stepTime) {
+			collect: function (type, section, stepName, stepTime, stepDuration) {
 				if (this.phantomRun) {
 					window.callPhantom({
 						type: type,
 						section: section,
-						step: step,
-						stepTime: stepTime
+						stepName: stepName,
+						stepTime: stepTime,
+						stepDuration: stepDuration
 					});
 				}
 			},
@@ -26,43 +27,43 @@
 			},
 			data: {},
 			steps: {},
-			start: function (section) {
+			start: function (sectionName) {
 				var text;
 
-				this.data[section] = window.performance.now();
-				this.steps[section] = [];
+				this.data[sectionName] = window.performance.now();
+				this.steps[sectionName] = [];
 
-				text = "[TAU Perf][%c" + section + "%c][start] at %c" + this.data[section].toFixed(3);
+				text = "[TAU Perf][%c" + sectionName + "%c][start] at %c" + this.data[sectionName].toFixed(3);
 
 				this.print(text, "color:blue", "color:inherit", "font-weight: bold");
 
-				this.collect("performance.data.start", section, 'start', this.data[section].toFixed(3));
+				this.collect("performance.data.start", sectionName, 'start', this.data[sectionName]);
 			},
-			get: function (element, step) {
+			get: function (sectionName, stepName) {
 				var text,
-					stepTime,
+					stepDuration,
 					timeNow = window.performance.now();
 
-				if (this.data[element]) {
-					stepTime = (timeNow - this.data[element]).toFixed(3);
-					text = "[TAU Perf][%c" + element + "%c] %c+" + stepTime + "ms%c";
+				if (this.data[sectionName]) {
+					stepDuration = timeNow - this.data[sectionName];
+					text = "[TAU Perf][%c" + sectionName + "%c] %c+" + stepDuration.toFixed(3) + "ms%c";
 
-					if (step) {
-						text += " | [Step] " + step;
-						//rawText += " | [Step] " + step;
+					if (stepName) {
+						text += " | [Step] " + stepName;
+						//rawText += " | [Step] " + stepName;
 					} else {
-						step = "Step" + this.steps[element].length;
+						stepName = "Step" + this.steps[sectionName].length;
 					}
 
-					this.steps[element].push({
-						name: step,
+					this.steps[sectionName].push({
+						name: stepName,
 						time: timeNow,
-						duration: stepTime
+						duration: stepDuration
 					});
 
 					this.print(text, "color:blue", "color:inherit", "font-weight: bold", "font-weight:normal");
 
-					this.collect("performance.data", element, step, stepTime);
+					this.collect("performance.data", sectionName, stepName, timeNow, stepDuration);
 
 					return text;
 				}
@@ -72,26 +73,35 @@
 
 				if (self.saveToFile) {
 					tizen.filesystem.resolve("documents", function (documents) {
-						var resultFile;
+						var resultFile,
+							file = "tauperf_result.json";
 
-						resultFile = documents.createFile("tauperf_test_" + (Date.now()) + ".json");
+						try {
+							// On some tizen version this throws error and on other just returns null
+							resultFile = documents.resolve(file);
 
-						if (resultFile !== null) {
-							// Save reference to done
-							self.start("performance.done");
-							resultFile.openStream("rw", function (fs) {
-								fs.write(JSON.stringify({
-									data: self.data,
-									steps: self.steps
-								}));
-								fs.close();
-								tizen.application.getCurrentApplication().exit();
-								//self.collect("performance.done");
-							}, function (e) {
-								console.log("Problem with opening file for writing " + e.message);
-								//self.collect("performance.done");
-							}, "UTF-8");
+							if (resultFile === null) {
+								resultFile = documents.createFile(file);
+							}
+						} catch (e) {
+							resultFile = documents.createFile(file);
 						}
+
+						// Save reference to done
+						self.start("performance.done");
+						resultFile.openStream("w", function (fs) {
+							var stringToWrite = JSON.stringify({
+								data: self.data,
+								steps: self.steps
+							});
+
+							fs.write(stringToWrite);
+
+							fs.close();
+							tizen.application.getCurrentApplication().exit();
+						}, function (e) {
+							console.error("Problem with opening file for writing " + e.message);
+						}, "UTF-8");
 					}, function(e) {
 						console.error("Error: " + e.message);
 						tizen.application.getCurrentApplication.exit();
@@ -101,6 +111,8 @@
 				}
 			}
 		};
+
+		window.tauPerf.start("performance.start");
 
 		//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	});
