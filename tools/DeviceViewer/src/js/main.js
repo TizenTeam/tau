@@ -112,4 +112,6 @@ window.onload = function () {
 	// Change viewport zoom using range slider
 	zoomSlider.addEventListener('input', badgeResize.bind(null, zoomSlider, 'zoom') , false);
 	zoomSlider.addEventListener('change', badgeResize.bind(null, zoomSlider, 'zoom') , false);
+
+
 };

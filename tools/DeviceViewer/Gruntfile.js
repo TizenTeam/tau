@@ -7,14 +7,26 @@ module.exports = function(grunt) {
 
 			clean: {
 				dist: ["dist/*"],
-				"dist-non-min": ["dist/js/*.js", "!dist/js/*.min.js"]
+				"dist-non-min": ["dist/js/*.js", "!dist/js/*.min.js"],
 			},
 			copy: {
 				main: {
 					cwd: "src/",
 					expand: true,
-					src: ["./**/*", "!./js/**", "!./less/**", "!./banner.txt"],
+					src: ["./**/*", "!./js/**", "!./less/**", "!./banner.txt", "!./profiles/**"],
 					dest: "dist/"
+				},
+				"config-wearable": {
+					cwd: "src/profiles/wearable/js/",
+					expand: true,
+					src: ["./**/*"],
+					dest: "src/js/"
+				},
+				"config-tv": {
+					cwd: "src/profiles/tv/js/",
+					expand: true,
+					src: ["./**/*"],
+					dest: "src/js/"
 				}
 			},
 
@@ -122,6 +134,7 @@ module.exports = function(grunt) {
 		};
 	grunt.initConfig(initConfig);
 
+	var profile = grunt.option('profile') || 'wearable';
 
 	// npm tasks
 	grunt.loadNpmTasks("grunt-jslint");
@@ -134,6 +147,6 @@ module.exports = function(grunt) {
 
 	// Task list
 	grunt.registerTask("js", ["jslint:js", "string-replace:js", "concat:js", "jslint:dist", "uglify:dist-js"]);
-	grunt.registerTask("build", ["clean:dist", "copy:main", "js", "clean:dist-non-min", "less", "string-replace:dist-title"]);
+	grunt.registerTask("build", ["clean:dist", "copy:config-" + profile, "copy:main", "js", "clean:dist-non-min", "less", "string-replace:dist-title"]);
 	grunt.registerTask("default", ["build"]);
 };

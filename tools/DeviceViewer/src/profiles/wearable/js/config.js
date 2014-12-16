@@ -72,6 +72,11 @@ var properties = {
 	 */
 	previewProperties: {
 		/**
+		 * @property {float} zoom
+		 * Percentage value of workspace zoom
+		 */
+		zoom: 100,
+		/**
 		 * @property {number} maxBadgeCount
 		 * Maximum number of badge instances
 		 */
