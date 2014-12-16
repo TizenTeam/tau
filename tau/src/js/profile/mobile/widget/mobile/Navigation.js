@@ -113,6 +113,7 @@
  *
  * @class ns.widget.mobile.Navigation
  * @extends ns.widget.BaseWidget
+ * @author Junhyeon Lee <juneh.lee@samsung.com>
  * @author Maciej Moczulski <m.moczulsku@samsung.com>
  * @author Hyunkook Cho <hk0713.cho@samsung.com>
  * @author Hyeoncheol Choi <hc7.choi@samsung.com>
@@ -121,7 +122,6 @@
  * @author Koeun Choi <koeun.choi@samsung.com>
  * @author Piort Karny <p.karny@samsung.com>
  * @author Krzysztof Antonszek <k.antonszek@samsung.com>
- * @author Junhyeon Lee <juneh.lee@samsung.com>
  */
 (function (document, ns) {
 	"use strict";
@@ -288,10 +288,11 @@
 			/**
 			 * Destroy Navigation widget
 			 * @method _destroy
+			 * @param {HTMLElement} element
 			 * @protected
 			 * @member ns.widget.mobile.Navigation
 			 */
-			prototype._destroy = function () {
+			prototype._destroy = function (element) {
 				element.removeEventListener("vclick", this._navigateTrigger, false);
 			};
 
