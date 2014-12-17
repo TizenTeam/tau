@@ -407,10 +407,10 @@
 						}
 
 						if (needTopMargin) {
-							nodeStyle.marginTop = (marginTop + headerHeight) + "px";
+							nodeStyle.marginTop = headerHeight + "px";
 						}
 						if (needBottomMargin) {
-							nodeStyle.marginBottom = (marginBottom + footerHeight) + "px";
+							nodeStyle.marginBottom = footerHeight + "px";
 						}
 					}
 				}

@@ -69,3 +69,20 @@
 		padding-top: @fixed_header_has_sub_title_padding_top;
 	}
 }
+
+/***************************************************************************
+                   Page Scroll
+***************************************************************************/
+.ui-page.ui-scroll-on {
+	.ui-content {
+		margin-top: 122*@unit_base;
+		margin-bottom: 98*@unit_base;
+		padding-top: 0;
+	}
+	.ui-header + .ui-content {
+		margin-top: 0;
+	}
+	.ui-content + .ui-footer:not(.ui-expandable-footer) {
+		margin-top: -98*@unit_base;
+	}
+}

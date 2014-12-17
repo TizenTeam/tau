@@ -55,6 +55,26 @@ Normal Popup
 	}
 }
 
+/***********************
+Popup Container Scroll
+***********************/
+.ui-popup.ui-scroll-on:not(.ui-ctxpopup):not(.ui-popup-toast) {
+	.ui-popup-content {
+		margin-top: 122*@unit_base;
+		margin-bottom: 98*@unit_base;
+		padding-top: 0;
+	}
+
+	.ui-popup-header + .ui-popup-content {
+		margin-top: 0;
+		padding-top: 26*@px_base;
+	}
+
+	.ui-popup-content + .ui-popup-footer:not(.ui-expandable-footer) {
+		margin-top: -98*@unit_base;
+	}
+}
+
 /****************************************
 Popup Toast
 ****************************************/
