@@ -132,9 +132,6 @@
 			popupContent;
 
 		showPage(page2);
-		//Initial settings to be able test _setContentHeight function for Chrome and PhantomJs.
-		page2.style.width = screen.height + "px";
-		page2.style.height = screen.width + "px";
 		tau.event.one(popup2, "popupshow", function() {
 			popupClasses = popup2.classList;
 			ok(true, "Popup is opened");
@@ -149,12 +146,8 @@
 		popupContent = popup2Widget.element.querySelector(".ui-popup-content");
 		//This value should be changed and greater than zero.
 		popupContent.style.height = "0px";
-		popup2.style.height = (screen.height * 0.4) + "px";
-		popup2.style.width = screen.width + "px";
-
-		if(screen.width > 1080) {
-			popup2.style.height = screen.height + "px";
-		}
+		popup2.style.height = (window.innerHeight + 5) + "px";
+		popup2.style.width = (window.innerWidth + 5)  + "px";
 
 		linkPosition = popup2Link.getBoundingClientRect();
 		popup2Widget.open({
