@@ -298,9 +298,8 @@
 					pageC = ej.engine.getBinding($("#page8-c").page()[0]),
 					pageContainer;
 					ej.engine.run();
-					pageContainer = ej.engine.getRouter().getContainer();
-
-					ok(bodyClassList.contains('ui-overlay-s'), 'Body doesn\'t contain default ui-overlay-s class');
+					pageContainer =
+							ej.engine.getRouter().getContainer().element;
 
 					pageA.setActive(true, pageContainer);
 					ok(bodyClassList.contains('ui-overlay-a'), 'Body has first page class ui-overlay-a');

@@ -279,6 +279,42 @@
 			}
 
 			/**
+			 * URI Hash change handler
+			 * @param {ns.router.Router} router
+			 * @param {Event} event
+			 * @member ns.router.Router
+			 * @method hashChangeHandler
+			 * @private
+			 */
+			function hashChangeHandler(router, event) {
+				var toPageURL = event.newURL;
+
+				if (toPageURL) {
+					router.open(toPageURL);
+				}
+			}
+
+			/**
+			 * Detect rel attribute from HTMLElement
+			 * @param {HTMLElement} to
+			 * @param {Object} options
+			 * @param {Event} event
+			 * @member ns.router.Router
+			 * @method detectRel
+			 */
+			Router.prototype.detectRel = function (to, options, event) {
+				var rule,
+					i;
+
+				for (i in route) {
+					rule = route[i];
+					if (selectors.matchesSelector(to, rule.filter)) {
+						return i;
+					}
+				}
+			};
+
+			/**
 			 * Change page to page given in parameter "to".
 			 * @method open
 			 * @param {string|HTMLElement} to Id of page or file url or HTMLElement of page
@@ -295,12 +331,27 @@
 			 * @member ns.router.Router
 			 */
 			Router.prototype.open = function (to, options, event) {
-				var rel = ((options && options.rel) || "page"),
-					rule = route[rel],
+				var rel,
+					rule,
 					deferred = {},
 					filter,
+					stringId,
+					toElement,
 					self = this;
 
+				if (typeof to === "string") {
+					if (to[0] === "#") {
+						stringId = to.substr(1);
+					} else {
+						stringId = to;
+					}
+					toElement = document.getElementById(stringId);
+					if (toElement) {
+						to = toElement;
+					}
+				}
+				rel = ((options && options.rel) || (to instanceof HTMLElement && this.detectRel(to)) || "page");
+					rule = route[rel];
 				if (_isLock) {
 					return;
 				}
@@ -355,17 +406,22 @@
 					firstPage,
 					pages,
 					activePages,
+					ruleKey,
+					rules = routerMicro.route,
 					location = window.location,
 					PageClasses = Page.classes,
-					uiPageClass = PageClasses.uiPage,
 					uiPageActiveClass = PageClasses.uiPageActive,
 					pageDefinition = ns.engine.getWidgetDefinition('Page'),
+					pageSelector = pageDefinition.selector,
+					pageElement,
 					self = this;
 
 				body = document.body;
 				containerElement = ns.getConfig("pageContainer") || body;
-				pages = slice.call(containerElement.querySelectorAll(pageDefinition.selector));
-				containerElement = pages.length ? pages[0].parentNode : containerElement;
+				pages = slice.call(containerElement.querySelectorAll(pageSelector));
+				if (!ns.getConfig("pageContainerBody", false)) {
+					containerElement = pages.length ? pages[0].parentNode : containerElement;
+				}
 				self.justBuild = justBuild;
 
 				if (ns.getConfig("autoInitializePage", true)) {
@@ -381,6 +437,22 @@
 						});
 					}
 
+					if (location.hash) {
+						//simple check to determine if we should show firstPage or other
+						page = document.getElementById(location.hash.replace("#", ""));
+						if (page && selectors.matchesSelector(page, pageSelector)) {
+							firstPage = page;
+						}
+					}
+
+					if (!firstPage && ns.getConfig("addPageIfNotExist", true)) {
+						firstPage = Page.createEmptyElement();
+						while(containerElement.firstChild) {
+							firstPage.appendChild(containerElement.firstChild);
+						}
+						containerElement.appendChild(firstPage);
+					}
+
 					if (justBuild) {
 						//>>excludeStart("tauDebug", pragmas.tauDebug);
 						ns.log("routerMicro.Router just build");
@@ -392,21 +464,13 @@
 						}
 						return;
 					}
-
-					if (location.hash) {
-						//simple check to determine if we should show firstPage or other
-						page = document.getElementById(location.hash.replace("#", ""));
-						if (page && selectors.matchesSelector(page, "." + uiPageClass)) {
-							firstPage = page;
-						}
-					}
 				}
 
-				pages.forEach(function (page) {
-					if (!DOM.getNSData(page, "url")) {
-						DOM.setNSData(page, "url", (page.id && "#" + page.id) || location.pathname + location.search);
+				for (ruleKey in rules) {
+					if (rules.hasOwnProperty(ruleKey) && rules[ruleKey].init) {
+						rules[ruleKey].init();
 					}
-				});
+				}
 
 				container = engine.instanceWidget(containerElement, "pagecontainer");
 				self.register(container, firstPage);
@@ -420,8 +484,9 @@
 			Router.prototype.destroy = function () {
 				var self = this;
 				window.removeEventListener("popstate", self.popStateHandler, false);
+				window.removeEventListener("hashchange", self.hashChangeHandler, false);
 				if (body) {
-					body.removeEventListener("pagebeforechange", this.pagebeforechangeHandler, false);
+					body.removeEventListener("pagebeforechange", self.pagebeforechangeHandler, false);
 					body.removeEventListener("vclick", self.linkClickHandler, false);
 				}
 			};
@@ -470,10 +535,18 @@
 
 				self.linkClickHandler = linkClickHandler.bind(null, self);
 				self.popStateHandler = popStateHandler.bind(null, self);
+				self.hashChangeHandler = hashChangeHandler.bind(null, self);
 
 				document.addEventListener("vclick", self.linkClickHandler, false);
 				window.addEventListener("popstate", self.popStateHandler, false);
 
+				window.addEventListener("hashchange", self.hashChangeHandler, false);
+
+				eventUtils.trigger(document, "themeinit", self);
+
+				if (ns.getConfig("loader", false)) {
+					container.element.appendChild(self.getLoader().element);
+				}
 				history.enableVolatileRecord();
 				if (firstPage) {
 					self.open(firstPage, { transition: "none" });
@@ -737,6 +810,24 @@
 			 */
 			Router.prototype.getRoute = function (type) {
 				return route[type];
+			};
+
+
+			/**
+			 * Returns loader widget
+			 * @return {ns.widget.mobile.Loader}
+			 * @member ns.router.Page
+			 * @method getLoader
+			 */
+			Router.prototype.getLoader = function () {
+				var loaderElement = document.querySelector("[data-role=loader],.ui-loader");
+
+				if (!loaderElement) {
+					loaderElement = document.createElement("div");
+					DOM.setNSData(loaderElement, "role", "loader");
+				}
+
+				return engine.instanceWidget(loaderElement, "Loader");
 			};
 
 			routerMicro.Router = Router;

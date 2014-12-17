@@ -213,6 +213,7 @@
 		[
 			"../../engine",
 			"../../util/DOM/css",
+			"../../util/DOM/attributes",
 			"../BaseWidget",
 			"../core"
 		],
@@ -540,6 +541,13 @@
 			};
 
 			Page.prototype = prototype;
+
+			Page.createEmptyElement = function() {
+				var div = document.createElement("div");
+				div.classList.add(classes.uiPage);
+				doms.setNSData(div, "role", "page");
+				return div;
+			};
 
 			// definition
 			ns.widget.core.Page = Page;

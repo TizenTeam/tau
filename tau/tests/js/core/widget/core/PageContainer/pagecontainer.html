@@ -9,8 +9,6 @@
 		<script src="../../../../../libs/qunit-1.11.0.js"
 				type="text/javascript"></script>
 		<script src="../../../../../libs/support.js"></script>
-		<script type="text/javascript"
-				src="../../../../../libs/dist/js/tau.js"></script>
 
 	</head>
 	<body>
@@ -41,6 +39,13 @@
 					<div class="ui-content">Content</div>
 				</div>
 		</div>
+		<script>
+			tauConfig = {
+				pageContainer: document.getElementById('qunit-fixture')
+			};
+		</script>
+		<script type="text/javascript"
+				src="../../../../../libs/dist/js/tau.js"></script>
 		<script src="pagecontainer.js"></script>
 	</body>
 </html>

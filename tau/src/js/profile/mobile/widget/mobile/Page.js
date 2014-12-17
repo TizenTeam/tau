@@ -294,7 +294,11 @@
 					CorePage.call(self);
 					self.options = object.copy(Page.prototype.options);
 				},
-				buttonClasses = ns.widget.mobile.Button.classes;
+				buttonClasses = ns.widget.mobile.Button.classes,
+				classes,
+				prototype = new CorePage();
+
+			Page.prototype = prototype;
 
 			/**
 			 * Dictionary for page related css class names
@@ -313,7 +317,6 @@
 			 * @property {string} [classes.uiFooterFullscreen='ui-page-footer-fullscreen'] Page footer fullscreen class
 			 * @property {string} [classes.uiHeaderFixed='ui-page-header-fixed'] Page header fixed class
 			 * @property {string} [classes.uiFooterFixed='ui-page-footer-fixed'] Page footer fixed class
-			 * @property {string} [classes.uiOverlayPrefix='ui-overlay-'] Ui overlay prefix
 			 * @property {string} [classes.uBtnLeft='ui-btn-left'] Left button class
 			 * @property {string} [classes.uiBtnRight='ui-btn-right'] Right button class
 			 * @property {string} [classes.uiBtnRightPrefix='ui-btn-right-'] Right button prefix
@@ -323,7 +326,7 @@
 			 * @static
 			 * @readonly
 			 */
-			Page.classes = object.merge({}, CorePage.classes, {
+			classes = object.merge({}, CorePage.classes, {
 				uiPrefix: "ui-",
 				uiBarPrefix: "ui-bar-",
 				uiBodyPrefix: "ui-body-",
@@ -347,7 +350,7 @@
 				// @todo put all used classes here
 			});
 
-			Page.prototype = new CorePage();
+			Page.classes = classes;
 
 			/**
 			 * Object with default options
@@ -675,9 +678,10 @@
 			 */
 			Page.prototype.setActive = function (value, pageContainer) {
 				var theme = this.options.theme,
-					classes = Page.classes,
 					themeClass = classes.uiOverlayPrefix + theme,
-					bodyClassList = pageContainer.classList;
+					bodyClassList;
+
+				bodyClassList = pageContainer.classList;
 
 				CorePagePrototype.setActive.call(this, value);
 
@@ -817,6 +821,11 @@
 				}
 
 				return optionsKeepNativeDefault;
+			};
+
+			prototype.bindEvents = function (element, onlyBuild) {
+				CorePagePrototype.bindEvents.call(this, element, onlyBuild);
+				this.trigger("pageinit");
 			};
 
 			// definition

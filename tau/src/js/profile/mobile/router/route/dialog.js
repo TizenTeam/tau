@@ -5,7 +5,7 @@
  */
 /**
  * #Route Page
- * Support class for router to control changing pages.
+ * Support class for router to control changing pages in profile Wearable.
  * @class ns.router.route.page
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  */
@@ -14,14 +14,14 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../../engine",
-			"../../util/DOM/attributes",
-			"../../util/path",
-			"../../util/selectors",
-			"../../util/object",
-			"../../widget/core/Page",
-			"../route",
-			"../history"
+			"../../../../core/engine",
+			"../../../../core/util/DOM/attributes",
+			"../../../../core/util/path",
+			"../../../../core/util/selectors",
+			"../../../../core/util/object",
+			"../../widget/mobile/Dialog",
+			"../../../../core/router/route",
+			"../../../../core/router/history"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
@@ -32,9 +32,10 @@
 				utilSelector = util.selectors,
 				history = ns.router.history,
 				engine = ns.engine,
-				Page = ns.widget.core.Page,
+				Dialog = ns.widget.mobile.Dialog,
 				baseElement,
-				routePage = {},
+				routeDialog = {},
+				previousPage,
 				head;
 
 			/**
@@ -48,26 +49,26 @@
 			 * @static
 			 * @member ns.router.route.page
 			 */
-			function findPageAndSetDataUrl(dataUrl, filter) {
+			function findDialogAndSetDataUrl(dataUrl, filter) {
 				var id = path.stripQueryParams(dataUrl).replace("#", ""),
-					page = document.getElementById(id);
+					dialog = document.getElementById(id);
 
-				if (page && utilSelector.matchesSelector(page, filter)) {
+				if (dialog && utilSelector.matchesSelector(dialog, filter)) {
 					if (dataUrl === id) {
-						DOM.setNSData(page, "url", "#" + id);
+						DOM.setNSData(dialog, "url", "#" + id);
 					} else {
-						DOM.setNSData(page, "url", dataUrl);
+						DOM.setNSData(dialog, "url", dataUrl);
 					}
 
 				} else {
 					// if we matched any element, but it doesn't match our filter
 					// reset page to null
-					page = null;
+					dialog = null;
 				}
 				// @TODO ... else
 				// probably there is a need for running onHashChange while going back to a history entry
 				// without state, eg. manually entered #fragment. This may not be a problem on target device
-				return page;
+				return dialog;
 			}
 
 			/**
@@ -77,7 +78,7 @@
 			 * @static
 			 * @member ns.router.route.page
 			 */
-			routePage.defaults = {
+			routeDialog.defaults = {
 				transition: "none"
 			};
 
@@ -87,7 +88,7 @@
 			 * @member ns.router.route.page
 			 * @static
 			 */
-			routePage.filter = engine.getWidgetDefinition("Page").selector;
+			routeDialog.filter = engine.getWidgetDefinition("Dialog").selector;
 
 			/**
 			 * Returns default route options used inside Router.
@@ -96,13 +97,13 @@
 			 * @member ns.router.route.page
 			 * @return {Object} default route options
 			 */
-			routePage.option = function () {
-				var defaults = object.merge({}, routePage.defaults);
+			routeDialog.option = function () {
+				var defaults = object.merge({}, routeDialog.defaults);
 				defaults.transition = ns.getConfig('pageTransition', defaults.transition);
 				return defaults;
 			};
 
-			routePage.init = function() {
+			routeDialog.init = function() {
 				var pages = [].slice.call(document.querySelectorAll(this.filter));
 				pages.forEach(function (page) {
 					if (!DOM.getNSData(page, "url")) {
@@ -120,7 +121,7 @@
 			 * @param {string} [options.dataUrl] Sets if page has url attribute.
 			 * @member ns.router.route.page
 			 */
-			routePage.open = function (toPage, options) {
+			routeDialog.open = function (toPage, options) {
 				var pageTitle = document.title,
 					url,
 					state = {},
@@ -158,6 +159,13 @@
 
 				//set page title
 				document.title = pageTitle;
+
+				options.widget = "Dialog";
+
+				this.activeDialog = engine.instanceWidget(toPage, options.widget);
+
+				previousPage = this.getContainer().getActivePage();
+
 				this.getContainer().change(toPage, options);
 			};
 
@@ -168,7 +176,7 @@
 			 * @member ns.router.route.page
 			 * @return {?HTMLElement} Element of page to open.
 			 */
-			routePage.find = function (absUrl) {
+			routeDialog.find = function (absUrl) {
 				var self = this,
 					router = engine.getRouter(),
 					dataUrl = self._createDataUrl(absUrl),
@@ -195,7 +203,7 @@
 				// data-url attribute and in need of enhancement.
 				if (!page && dataUrl && !path.isPath(dataUrl)) {
 					//Remove search data
-					page = findPageAndSetDataUrl(dataUrl, self.filter);
+					page = findDialogAndSetDataUrl(dataUrl, self.filter);
 				}
 
 				// If we failed to find a page in the DOM, check the URL to see if it
@@ -206,11 +214,26 @@
 				// an id falling through to the non-existent embedded page error case.
 				if (!page &&
 						path.isFirstPageUrl(dataUrl) &&
-						initialContent) {
+						initialContent &&
+						initialContent.parentNode) {
 					page = initialContent;
 				}
 
 				return page;
+			};
+
+			/**
+			 * This method handles hash change.
+			 * It closes opened popup.
+			 * @method onHashChange
+			 * @param {string} url
+			 * @param {object} options
+			 * @return {boolean}
+			 * @member ns.router.route.popup
+			 * @static
+			 */
+			routeDialog.onHashChange = function (url, options) {
+				return false;
 			};
 
 			/**
@@ -223,7 +246,7 @@
 			 * @member ns.router.route.page
 			 * @return {?HTMLElement} Element of page in parsed document.
 			 */
-			routePage.parse = function (html, absUrl) {
+			routeDialog.parse = function (html, absUrl) {
 				var self = this,
 					page,
 					dataUrl = self._createDataUrl(absUrl);
@@ -247,17 +270,6 @@
 			};
 
 			/**
-			 * This method handles hash change, **currently does nothing**.
-			 * @method onHashChange
-			 * @static
-			 * @member ns.router.route.page
-			 * @return {null}
-			 */
-			routePage.onHashChange = function (/* url, options */) {
-				return null;
-			};
-
-			/**
 			 * This method creates data url from absolute url given as argument.
 			 * @method _createDataUrl
 			 * @param {string} absoluteUrl
@@ -266,7 +278,7 @@
 			 * @member ns.router.route.page
 			 * @return {string}
 			 */
-			routePage._createDataUrl = function (absoluteUrl) {
+			routeDialog._createDataUrl = function (absoluteUrl) {
 				return path.convertUrlToDataUrl(absoluteUrl, true);
 			};
 
@@ -275,7 +287,7 @@
 			 * @method onOpenFailed
 			 * @member ns.router.route.page
 			 */
-			routePage.onOpenFailed = function (/* options */) {
+			routeDialog.onOpenFailed = function (/* options */) {
 				this._setBase(path.parseLocation().hrefNoSearch);
 			};
 
@@ -288,7 +300,7 @@
 			 * @member ns.router.route.page
 			 * @return {HTMLElement}
 			 */
-			routePage._getBaseElement = function () {
+			routeDialog._getBaseElement = function () {
 				// Fetch document head if never cached before
 				if (!head) {
 					head = document.querySelector("head");
@@ -312,7 +324,7 @@
 			 * @protected
 			 * @member ns.router.route.page
 			 */
-			routePage._setBase = function (url) {
+			routeDialog._setBase = function (url) {
 				var base = this._getBaseElement(),
 					baseHref = base.href;
 
@@ -328,22 +340,22 @@
 			/**
 			 * Returns container of pages
 			 * @method getContainer
-			 * @return {?ns.widget.core.Page}
+			 * @return {?ns.widget.wearable.Page}
 			 * @member ns.router.route.page
 			 * @static
 			 */
-			routePage.getContainer = function () {
+			routeDialog.getContainer = function () {
 				return engine.getRouter().getContainer();
 			};
 
 			/**
 			 * Returns active page.
 			 * @method getActive
-			 * @return {?ns.widget.core.Page}
+			 * @return {?ns.widget.wearable.Page}
 			 * @member ns.router.route.page
 			 * @static
 			 */
-			routePage.getActive = function () {
+			routeDialog.getActive = function () {
 				return this.getContainer().getActivePage();
 			};
 
@@ -354,13 +366,13 @@
 			 * @member ns.router.route.page
 			 * @static
 			 */
-			routePage.getActiveElement = function () {
+			routeDialog.getActiveElement = function () {
 				return this.getActive().element;
 			};
-			ns.router.route.page = routePage;
+			ns.router.route.dialog = routeDialog;
 
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
-			return routePage;
+			return routeDialog;
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");

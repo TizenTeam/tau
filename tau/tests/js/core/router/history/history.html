@@ -16,13 +16,18 @@
 <ol id="qunit-tests"></ol>
 
 <div id="qunit-fixture">
-	<div data-role="page" id="page1">
+	<div id="page1">
 	</div>
 </div>
 	<script src="../../../../libs/jquery.js"></script>
 	<script src="../../../../libs/qunit-1.11.0.js"></script>
 	<script src="../../../../libs/support.js"></script>
 	<script src="history.js"></script>
+<script>
+	tauConfig = {
+		addPageIfNotExist: false
+	};
+</script>
 	<script type="text/javascript" src="../../../../libs/dist/js/tau.js"></script>
 </body>
 </html>

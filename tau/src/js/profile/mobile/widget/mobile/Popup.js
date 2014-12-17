@@ -1685,11 +1685,14 @@
 			*/
 			Popup.prototype._openPrereqsComplete = function() {
 				var self = this,
-					container = self._ui.container;
+					container = self._ui.container,
+					route = engine.getRouter().getRoute("popup"),
+					options = self.options;
 
 				container.classList.add(Popup.classes.uiPopupActive);
 				self._isOpen = true;
 				self._isPreOpen = false;
+				route.setActive(self, options);
 
 				// Android appears to trigger the animation complete before the popup
 				// is visible. Allowing the stack to unwind before applying focus prevents
@@ -1829,7 +1832,9 @@
 			* @member ns.widget.mobile.Popup
 			*/
 			Popup.prototype._closePrereqsDone = function() {
-				var self = this;
+				var self = this,
+					route = engine.getRouter().getRoute("popup"),
+					options = this.options;
 
 				self._ui.container.removeAttribute("tabindex");
 
@@ -1845,6 +1850,8 @@
 				ns.activePopup = null;
 				// Popup's closing phase is finished
 				this._isPreClose = false;
+				route.setActive(null, options);
+
 				events.trigger(document, "activePopup", null);
 				events.trigger(this.element, "popupafterclose");		// this event must be triggered after setting mobile.popup.active
 				events.trigger(this.element, "popuphide");
@@ -2030,11 +2037,7 @@
 
 				self._ui.screen.addEventListener("vclick", self._onClickBound, true);
 				window.addEventListener("throttledresize", self._onResizeBound, true);
-				if (buttonsLen) {
-					for (i = 0; i < buttonsLen; i++) {
-						buttons[i].addEventListener("click", self._closeOnEvent, true);
-					}
-				}
+
 				self._page.addEventListener("pagebeforehide", self._closeOnEvent, true);
 				self._page.addEventListener("pagedestroy", self._destroyOnEvent, true);
 				// @todo
@@ -2097,11 +2100,6 @@
 
 				uiScreen.removeEventListener("vclick", self._onClickBound, true);
 				window.removeEventListener("throttledresize", self._onResizeBound, true);
-				if (buttonsLen) {
-					for (i = 0; i < buttonsLen; i++) {
-						buttons[i].removeEventListener("click", self._closeOnEvent, true);
-					}
-				}
 
 				page.removeEventListener("pagebeforehide", self._closeOnEvent, true);
 				page.removeEventListener("pagedestroy", self._destroyOnEvent, true);

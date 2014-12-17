@@ -70,6 +70,8 @@
 			"./core/event/touch",
 			// widget list
 			"./profile/mobile/widget/mobile/Page",
+			"./profile/mobile/widget/mobile/PageContainer",
+			"./profile/mobile/widget/mobile/Popup",
 			"./profile/mobile/widget/mobile/Scrollview",
 			"./profile/mobile/widget/mobile/Circularview",
 			"./profile/mobile/widget/mobile/Collapsibleset",
@@ -87,7 +89,6 @@
 			"./profile/mobile/widget/mobile/Fieldcontain",
 			"./profile/mobile/widget/mobile/Controlgroup",
 			"./profile/mobile/widget/mobile/Textinput",
-			"./profile/mobile/widget/mobile/Popup",
 			"./profile/mobile/widget/mobile/Datetimepicker",
 			"./profile/mobile/widget/mobile/Slider",
 			"./profile/mobile/widget/mobile/Swipe",
@@ -110,6 +111,13 @@
 			"./profile/mobile/expose",
 			// default theme
 			"../css/profile/mobile/changeable/theme-changeable/theme",
+			// router modules
+			"./core/router/Router",
+			"./core/router/route/page",
+			"./core/router/route/popup",
+			"./profile/mobile/router/route/dialog",
+			"./core/router/history",
+			"./profile/wearable/expose",
 			// Modules to be loaded after
 			"./core/init",
 			//documentation pages

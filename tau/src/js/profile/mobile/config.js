@@ -18,6 +18,8 @@
 
 			// Default configuration properties for mobile
 			ns.setConfig('autoBuildOnPageChange', true, true);
+			ns.setConfig('loader', true, true);
+			ns.setConfig('pageContainerBody', true, true);
 
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 		}
