@@ -110,7 +110,7 @@ div.ui-slider:not(.ui-toggle-switch) {
 
 	.LESSborder-radius-all( 10 * @virtual_px );
 	.LESSbox-shadow(0 * @virtual_px, 0 * @virtual_px, 2 * @virtual_px, @slider_lessbox_shadow);
-	background-color: @color_slider_not_toggle_switch;
+	background-color: @color_slider_bg;
 
 	.ui-btn {
 		&.ui-focus {
@@ -191,7 +191,7 @@ a.ui-slider-handle {
 
 	.LESSborder-radius-all( 10 * @virtual_px );
 	.LESSbox-shadow(0 * @virtual_px, 0 * @virtual_px, 2 * @virtual_px, @slider_lessbox_shadow);
-	background-color: @color_slider_bg;
+	background-color: @color_slider_value;
 
 	&.ui-slider-bg-has-center {
 		.LESSborder-radius-all( 0 );
@@ -204,7 +204,7 @@ a.ui-slider-handle {
 
 	a {
 		&:focus {
-			background-color: @color_slider_bg;
+			background-color: @color_slider_value;
 
 			&.ui-slider-handle {
 				background: url(images/Slider/00_slider_handle_press.png) no-repeat;
