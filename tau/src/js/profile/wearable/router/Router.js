@@ -266,7 +266,7 @@
 					url = path.getLocation();
 
 					for (ruleKey in rules) {
-						if (rules.hasOwnProperty(ruleKey) && rules[ruleKey].onHashChange(url, options)) {
+						if (rules.hasOwnProperty(ruleKey) && rules[ruleKey].onHashChange(url, options, prevState.stateUrl)) {
 							isContinue = false;
 						}
 					}

@@ -109,6 +109,7 @@
 			"../../../../core/util/selectors",
 			"../../../../core/event",
 			"../../../../core/event/gesture",
+			"../../router/history",
 			"./Page",
 			"../../../../core/engine"
 		],
@@ -124,6 +125,7 @@
 				selectors = ns.util.selectors,
 				events = ns.event,
 				Gesture = ns.event.gesture,
+				history = ns.router.history,
 				classes = CoreDrawer.classes,
 				STATE = {
 					CLOSED: "closed",
@@ -394,11 +396,13 @@
 						self.trigger(CUSTOM_EVENTS.OPEN, {
 							position: position
 						});
+						self._setActive(true);
 						self._state = STATE.OPENED;
 					} else {
 						self.trigger(CUSTOM_EVENTS.CLOSE, {
 							position: position
 						});
+						self._setActive(false);
 						self._state = STATE.CLOSED;
 					}
 				}
@@ -490,6 +494,18 @@
 				}
 				CoreDrawerPrototype._translate.call(self, x, duration);
 			};
+
+			prototype._setActive = function (active) {
+				var self = this,
+					route = engine.getRouter().getRoute("drawer");
+
+				if (active) {
+					route.setActive(self);
+				} else {
+					route.setActive(null);
+				}
+			};
+
 			/**
 			 * Set Drawer drag handler.
 			 * If developer use handler, drag event is bound at handler only.
@@ -633,9 +649,15 @@
 			 * @public
 			 * @member ns.widget.wearable.Drawer
 			 */
-			prototype.close = function(){
-				var self = this;
+			prototype.close = function(options){
+				var self = this,
+					reverse = options ? options.reverse : false;
 				if (self._state !== STATE.CLOSED) {
+					if (!reverse && self._state === STATE.OPENED) {
+						// This method was fired by JS code or this widget.
+						history.back();
+						return;
+					}
 					self._state = STATE.SETTLING;
 					self._settlingType = STATE.CLOSED;
 					CoreDrawerPrototype.close.call(self);
