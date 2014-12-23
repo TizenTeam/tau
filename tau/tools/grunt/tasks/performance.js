@@ -48,6 +48,17 @@
 			grunt.log.write(table.toString());
 		}
 
+		function saveToFile(filePath, output) {
+			var pathParts = filePath.split(path.sep),
+				filename = pathParts.pop();
+
+			grunt.file.mkdir(pathParts.join(path.sep));
+
+			if (grunt.file.write(filePath, JSON.stringify(output))) {
+				grunt.log.ok("Output was saved to " + filePath);
+			}
+		}
+
 		grunt.registerTask('performance', '', function () {
 			var currentTask = this,
 				//queue = [],
@@ -61,7 +72,8 @@
 				],
 				noBuild = grunt.option('no-build'),
 				done = this.async(),
-				tester;
+				tester,
+				outputFile = grunt.option('output-file') || null;
 
 			if (currentTask.flags.device) {
 				tester = new DeviceTester();
@@ -97,7 +109,12 @@
 					grunt.log.writeln(TEST_COUNT * testApps.length);
 
 					tester.run(function () {
-						preparePerformanceReport(tester.getRawResults());
+						if (!outputFile) {
+							preparePerformanceReport(tester.getRawResults());
+						} else {
+							saveToFile(outputFile, tester.getRawResults());
+						}
+
 						done();
 					});
 				}
