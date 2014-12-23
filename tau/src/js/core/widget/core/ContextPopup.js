@@ -826,13 +826,15 @@
 				var self = this,
 					element = self.element,
 					ui = self._ui,
-					wrapper = ui.wrapper;
+					wrapper = ui.wrapper,
+					length = wrapper.children.length,
+					i;
 
 				PopupPrototype._destroy.call(self);
 
-				[].forEach.call(wrapper.children, function(child) {
-					element.appendChild(child);
-				});
+				for (i = 0; i < length; i++) {
+					element.appendChild(wrapper.children[0]);
+				}
 
 				wrapper.parentNode.removeChild(wrapper);
 				ui.arrow.parentNode.removeChild(ui.arrow);

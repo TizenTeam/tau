@@ -324,7 +324,6 @@
 			prototype._build = function (element) {
 				var self = this,
 					ui = self._ui,
-					container = self._ui.container || element,
 					wrapper,
 					child = element.firstChild;
 
@@ -345,9 +344,9 @@
 				element.appendChild(wrapper);
 
 				// build header, footer and content
-				this._buildHeader(container);
-				this._buildFooter(container);
-				this._buildContent(container);
+				this._buildHeader(ui.container);
+				this._buildFooter(ui.container);
+				this._buildContent(ui.container);
 
 				// set overlay
 				this._setOverlay(element, this.options.overlay);
