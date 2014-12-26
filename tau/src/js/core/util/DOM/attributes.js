@@ -63,15 +63,15 @@
 				var value = element.getAttribute(attribute),
 					result = defaultValue;
 
-				if (value) {
+				if (!isNaN(value)) {
 					if (type === "float") {
 						value = parseFloat(value);
-						if (value) {
+						if (!isNaN(value)) {
 							result = value;
 						}
 					} else {
 						value = parseInt(value, 10);
-						if (value) {
+						if (!isNaN(value)) {
 							result = value;
 						}
 					}

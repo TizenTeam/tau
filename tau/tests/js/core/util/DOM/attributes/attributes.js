@@ -29,6 +29,9 @@ test("util.DOM.attributes - check function getNumberFromAttribute", function () 
 	equal(typeof dom.getNumberFromAttribute(elem1, "int"), "number", "function getNumberFromAttribute returns integer");
 	equal(dom.getNumberFromAttribute(elem1, "float", "float"), 3.4, "function getNumberFromAttribute returns value of attribute");
 	equal(typeof dom.getNumberFromAttribute(elem1, "float", "float"), "number", "function getNumberFromAttribute returns float");
+	equal(dom.getNumberFromAttribute(elem1, "empty", null, 10), 10, "function getNumberFromAttribute returns default value if value of element has empty string");
+	equal(dom.getNumberFromAttribute(elem1, "white", "int", 10), 10, "function getNumberFromAttribute returns default value if value of element has whitespace string");
+	equal(typeof dom.getNumberFromAttribute(elem1, "wrongString", "float", 3.4), "number", "function getNumberFromAttribute returns default value if value of element has wrong string");
 });
 
 test("util.DOM.attributes - check functions: setNSData, getNSData, hasNSData, removeNSData", function () {
