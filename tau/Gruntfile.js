@@ -252,6 +252,15 @@ module.exports = function(grunt) {
 					files: {
 						src: [ path.join(srcJs, "**/*.js") ]
 					}
+				},
+				single: {
+					options: {
+						jshintrc: "src/js/.jshintrc",
+						reporter: "checkstyle",
+						reporterOutput: "report/jshint/jshint-"+ grunt.option("jshintno") + ".xml",
+						force: true
+					},
+					src: grunt.option("jshintfile")
 				}
 			},
 
@@ -620,8 +629,15 @@ module.exports = function(grunt) {
 
 			qunit: {
 				options: {
-					'--web-security': 'no'
+					'--web-security': 'no',
+					coverage: {
+						src: ["tests/libs/dist/js/tau.js"],
+						instrumentedFiles: "temp/"
+					}
 				}
+			},
+
+			"qunit-tap": {
 			},
 
 			"docs-html": {
