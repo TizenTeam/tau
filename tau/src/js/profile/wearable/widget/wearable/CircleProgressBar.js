@@ -127,16 +127,6 @@
 					rotateValue,
 					ui = self._ui;
 
-				if (percentValue > 100) {
-					self._value = self._maxValue;
-					percentValue = 100;
-				} else if (percentValue < 0) {
-					self._value = 0;
-					percentValue = 0;
-				} else {
-					self._value = value;
-				}
-
 				if (percentValue >= 50) {
 					ui.progressValue.classList.add(classes.uiProgressbarHalf);
 				} else {
@@ -318,13 +308,27 @@
 			 * @protected
 			 * @member ns.widget.wearable.CircleProgressBar
 			 */
-			prototype._setValue = function (value) {
-				var self = this;
+			prototype._setValue = function (inputValue) {
+				var self = this,
+					value,
+					selfElementValue;
+
+				if (inputValue > self._maxValue) {
+					value = self._maxValue;
+ 				} else if (inputValue < 0) {
+					value = 0;
+				} else if (isNaN(inputValue)) {
+					value = 0;
+				} else {
+					value = inputValue;
+				}
 
 				doms.setAttribute(self.element, "value", value);
-				if (self._value !== self._getValue()) {
+
+				if (self._value !== value) {
+					self._value = value;
 					utilEvent.trigger(self.element, eventType.CHANGE);
-					refreshProgressBar(self, self._getValue());
+					refreshProgressBar(self, value);
 				}
 			};
 
