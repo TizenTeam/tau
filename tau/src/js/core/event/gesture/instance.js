@@ -166,7 +166,7 @@
 				 * @member ns.event.gesture.Instance
 				 */
 				trigger: function( gesture, eventInfo ) {
-					events.trigger(this.element, gesture, eventInfo);
+					events.trigger(this.element, gesture, eventInfo, false);
 				},
 
 				/**
