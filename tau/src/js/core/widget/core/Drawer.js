@@ -221,7 +221,7 @@
 				elementStyle.mozTransition = transitions.moz;
 				elementStyle.msTransition = transitions.ms;
 				elementStyle.oTransform = transitions.o;
-				elementStyle.transition = transitions.transition;
+				elementStyle.transition = transitions.normal;
 			};
 
 			/**
