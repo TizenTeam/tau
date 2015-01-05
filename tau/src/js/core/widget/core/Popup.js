@@ -66,7 +66,7 @@
 						ui = {};
 
 					self.selectors = selectors;
-					self.options = objectUtils.merge({}, Popup.defaults);
+					self.options = objectUtils.merge({}, Popup.defaults, {fullSize: ns.getConfig("popupFullSize", Popup.defaults.fullSize)});
 					/**
 					 * Popup state flag
 					 * @property {0|1|2|3} [state=null]
@@ -107,7 +107,8 @@
 					header: false,
 					footer: false,
 					overlayClass: "",
-					history: true
+					history: true,
+					fullSize: false
 				},
 				states = {
 					DURING_OPENING: 0,
@@ -567,6 +568,9 @@
 					elementClassList.remove(classes.build);
 				}
 
+				if (self.options.fullSize) {
+					wrapper.style.height = window.innerHeight + "px";
+				}
 			};
 
 			/**

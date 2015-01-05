@@ -319,11 +319,11 @@
 				 * @static
 				 * @private
 				 */
-				defaults = objectUtils.merge({}, Popup.defaults, {
+				defaults = {
 					arrow: "l,b,r,t",
 					positionTo: "window",
 					distance: 0
-				}),
+				},
 
 				ContextPopup = function () {
 					var self = this,
@@ -369,7 +369,7 @@
 
 				prototype = new Popup();
 
-			ContextPopup.defaults = defaults;
+			ContextPopup.defaults = objectUtils.merge({}, Popup.defaults, defaults);
 			ContextPopup.classes = classes;
 			ContextPopup.events = events;
 
