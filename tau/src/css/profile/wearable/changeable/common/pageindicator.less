@@ -1,0 +1,36 @@
+.ui-page-indicator {
+	position: absolute;
+	left: 50%;
+	transform: translate3d(-50%, 0, 0);
+}
+
+.ui-page-indicator-item {
+	position: relative;
+	display: inline-block;
+	width: 19*@unit_base;
+	height: 19*@unit_base;
+	.transform(scale3d(0.7, 0.7, 1));
+	-webkit-mask-image: -webkit-radial-gradient(black 6*@unit_base, transparent 7*@unit_base);
+	background-color: @color_page_indicator_normal;
+	margin-right: 3*@unit_base;
+	.transition-duration(150ms);
+	&:last-child {
+		margin-right: 0;
+	}
+	&::before {
+		content: "";
+		width: 19*@unit_base;
+		height: 19*@unit_base;
+		-webkit-mask-image: url(../circle/images/Body/indicator_on_focused_ef_round.png);
+		background-color: @color_page_indicator_normal_ef;
+	}
+	&.ui-page-indicator-active {
+		.transform(scale3d(1, 1, 1));
+		background-color: @color_page_indicator_focus;
+		.transition-duration(150ms);
+		&::before {
+			content: "";
+			background-color: @color_page_indicator_focus_ef;
+		}
+	}
+}
