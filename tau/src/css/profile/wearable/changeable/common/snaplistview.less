@@ -1,6 +1,11 @@
-.ui-snap-listview-li {
+.ui-snap-listview-item {
   -webkit-scroll-snap-destination: 50% 50%;
 }
-.ui-snap-listview-li:first-child {
+.ui-snap-listview-item:first-child {
   border-top: 1px solid @color_listview_border;
+}
+.ui-header + .ui-content {
+  .ui-snap-listview-item:first-child {
+    border-top: none;
+  }
 }
