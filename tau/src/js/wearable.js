@@ -15,6 +15,7 @@
 			"./core/widget/core/ContextPopup",
 			"./core/widget/core/Marquee",
 			"./profile/wearable/widget/wearable/Button",
+			"./profile/wearable/widget/wearable/ExpandableFooter",
 			"./profile/wearable/widget/wearable/Checkboxradio",
 			"./profile/wearable/widget/wearable/CircleProgressBar",
 			"./profile/wearable/widget/wearable/Listview",
