@@ -57,6 +57,15 @@
 				 }
 			});
 
+			Object.defineProperty(ns.defaults, "popupFullSize", {
+				get: function(){
+					return ns.getConfig("popupFullSize", false);
+				},
+				set: function(value){
+					return ns.setConfig("popupFullSize", value);
+				}
+			});
+
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 		}
 	);
