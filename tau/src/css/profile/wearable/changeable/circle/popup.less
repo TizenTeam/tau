@@ -81,3 +81,88 @@ Popup Toast
 .ui-popup.ui-popup-toast {
 	bottom: 51 * @unit_base;
 }
+
+/***********************
+Option Popup
+***********************/
+.ui-popup.ui-ctxpopup {
+	left: 50% !important;
+	margin-left: -100.5 * @unit_base;
+	top: 50% !important;
+	margin-top: -100.5 *@unit_base;
+	width: 201 * @unit_base;
+
+	div&.ui-popup-content-size {
+		width: 201 * @unit_base;
+	}
+	&.ui-popup-arrow-t,
+	&.ui-popup-arrow-b,
+	&.ui-popup-arrow-r,
+	&.ui-popup-arrow-l {
+		padding: 0;
+		.ui-arrow > span {
+			border: 0;
+		}
+	}
+	&.ui-popup-arrow-t,
+	&.ui-popup-arrow-b {
+		.ui-arrow {
+			left: 82.5 * @unit_base !important;
+		}
+	}
+	&.ui-popup-arrow-r,
+	&.ui-popup-arrow-l {
+		.ui-arrow {
+			top: 93.5 * @unit_base !important;
+		}
+	}
+	.ui-popup-content {
+		-webkit-border-radius: 50%;
+		-webkit-mask-image: -webkit-radial-gradient(#000000 100.5 * @unit_base, transparent 0);
+		height: 201 * @unit_base !important;
+		min-height: 201 * @unit_base !important;
+		padding: 0;
+		border: 0;
+		.ui-listview {
+			margin: 0;
+			li {
+				font-size: 28 * @unit_base;
+				min-height: 100 * @unit_base;
+				text-align: center;
+				line-height: 58 * @unit_base;
+				a {
+					margin: -23.5 * @unit_base -16 * @unit_base;
+					padding: 23.5 * @unit_base 16 * @unit_base;
+					min-height: 53 * @unit_base;
+				}
+			}
+		}
+		.ui-inline-listview {
+			height: initial;
+			overflow:hidden;
+			width: 201 * @unit_base !important;
+			margin: 0;
+
+			li {
+				font-size: 28 * @unit_base;
+				float:none;
+				min-height: 100 * @unit_base;
+				line-height: 58*@unit_base;
+				text-align: center;
+				border-bottom: 1px solid @color_option_popup_list_border;
+				border-right: 0;
+
+				a {
+					margin: 0;
+					padding: 0;
+					line-height: 100 * @unit_base;
+				}
+			}
+
+			.ui-list-icon-notext {
+				width: 100%;
+				height: 100%;
+			}
+		}
+	}
+}
