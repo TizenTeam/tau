@@ -568,7 +568,7 @@
 					elementClassList.remove(classes.build);
 				}
 
-				if (self.options.fullSize) {
+				if (self.options.fullSize && !elementClassList.contains("ui-popup-toast") && !elementClassList.contains("ui-ctxpopup")) {
 					wrapper.style.height = window.innerHeight + "px";
 				}
 			};
