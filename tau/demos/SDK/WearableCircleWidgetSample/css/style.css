@@ -303,7 +303,7 @@
 	position: relative;
 	vertical-align: middle;
 }
-.popup-input-box > input {
+.popup-input-box > input[type="checkbox"] {
 	position: absolute;
 	left: 0;
 	top: 15px;
