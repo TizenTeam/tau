@@ -16,6 +16,8 @@
     "grunt-contrib-cssmin": "0.6.1",
     "grunt-contrib-watch": "~0.6.1",
     "grunt-contrib-symlink": "~0.3.0",
+    "grunt-qunit-tap": "~2.0.0",
+    "grunt-qunit-istanbul": "~0.4.7",
     "grunt-string-replace": "~0.2.4",
     "grunt-jsduck": "~1.0.0",
     "mu2": "~0.5.20",
