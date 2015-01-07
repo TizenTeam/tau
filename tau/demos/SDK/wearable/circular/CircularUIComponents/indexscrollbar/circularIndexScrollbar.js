@@ -1,6 +1,8 @@
 (function() {
 	var page = document.getElementById("pageCirulcarIndexScrollbar"),
-		isb;
+		circularIndexScrollbar,
+		snapListview;
+
 	page.addEventListener("pageshow", function(ev) {
 
 /*****************************************************************
@@ -29,49 +31,73 @@ el.addEventListener("select", function( ev ) {
   * data-index : A string, having index strings concatenated by ','. For example,
                  "A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z".
 
-* Function
-
-  * IndexScrollbar( element ) : Extract the sub-elements into the given element.
-
 ******************************************************************/
 
-		var elisb = document.getElementById("circularindexscrollbar"),
-			elList = document.getElementById("list1"),	// list
-			elDividers = elList.getElementsByClassName("li-divider"),	// list dividers
-			elScroller = elList.parentElement,	// the scroller (overflow-y:hidden)
+		var circularIndexScrollbarElement = document.getElementById("circularindexscrollbar"),
+			listviewElement = document.getElementById("list1"),	// list
+			listDividers = listviewElement.getElementsByClassName("li-divider"),	// list dividers
+			scroller = listviewElement.parentElement,	// the scroller (overflow-y:hidden)
 			dividers = {},	// collection of list dividers
 			indices = [],	// index list
-			elDivider,
+			divider,
 			i, idx;
 
 		// For all list dividers,
-		for(i=0; i < elDividers.length; i++) {
+		for(i = 0; i < listDividers.length; i++) {
 			// Add the list divider elements to the collection
-			elDivider = elDividers[i];
-			idx = elDivider.innerText;
-			dividers[idx] = elDivider;
+			divider = listDividers[i];
+			idx = divider.innerText;
+			dividers[idx] = divider;
 
 			// Add the index to the index list
 			indices.push(idx);
 		}
 
 		// Create CircularIndexScrollbar
-		isb = new tau.widget.CircularIndexScrollbar(elisb, {index: indices});
+		circularIndexScrollbar = new tau.widget.CircularIndexScrollbar(circularIndexScrollbarElement, {index: indices});
+		// Create SnapListview
+		snapListview = new tau.widget.SnapListview(listviewElement);
 
-		// Bind a 'select' callback
-		elisb.addEventListener("select", function(ev) {
-			var elDivider,
+		// Add CircularIndexScrollbar index "select" event handler.
+		circularIndexScrollbarElement.addEventListener("select", function (ev) {
+			var divider,
 				idx = ev.detail.index;
-			elDivider = dividers[idx];
-			if(elDivider) {
-				// Scroll to the li-divider element
-				elScroller.scrollTop = elDivider.offsetTop - elScroller.offsetTop;
+
+			if (circularIndexScrollbar.isShow()) {
+				divider = dividers[idx];
+				if(divider) {
+					// Scroll to the li-divider element
+					scroller.scrollTop = divider.offsetTop - scroller.offsetTop;
+				}
+			}
+		});
+
+		// Add SnapListview item "selected" event handler.
+		listviewElement.addEventListener("selected", function (ev) {
+			var indexValue = ev.target.textContent[0];
+
+			if (!circularIndexScrollbar.isShow()) {
+				circularIndexScrollbar.value(indexValue);
+			}
+		});
+
+		// Add "scrollstart" event handler.
+		document.addEventListener("scrollstart", function () {
+			if (!circularIndexScrollbar.isShow()) {
+				circularIndexScrollbar.hideHandler();
+			}
+		});
+
+		// Add "scollend" event handler.
+		document.addEventListener("scrollend", function () {
+			if (!circularIndexScrollbar.isShow()) {
+				circularIndexScrollbar.showHandler();
 			}
 		});
 	});
 
 	page.addEventListener("pagehide", function(ev) {
-		isb.destroy();
+		circularIndexScrollbar.destroy();
+		snapListview.destroy();
 	});
 } ());
-

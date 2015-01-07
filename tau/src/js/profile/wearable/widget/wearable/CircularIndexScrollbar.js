@@ -70,6 +70,8 @@
 				classes = {
 					INDEXBAR: "ui-circularindexscrollbar-indexbar",
 					INDICATOR: "ui-circularindexscrollbar-indicator",
+					INDICATOR_TEXT: "ui-circularindexscrollbar-indicator-text",
+					INDICATOR_MINIMIZE: "ui-circularindexscrollbar-indicator-minimize",
 					INDEX: "ui-circularindexscrollbar-index",
 					SHOW: "ui-circularindexscrollbar-show",
 					SELECTED: "ui-state-selected",
@@ -164,6 +166,7 @@
 					element = self.element,
 					indexBar = document.createElement("div"),
 					indicator = document.createElement("div"),
+					indicatorText = document.createElement("div"),
 					windowWidth = window.innerWidth,
 					indicatorWidth;
 
@@ -177,17 +180,20 @@
 
 				indexBar.classList.add(classes.INDEXBAR);
 				indicator.classList.add(classes.INDICATOR);
+				indicator.classList.add(classes.INDICATOR_MINIMIZE);
+				indicatorText.classList.add(classes.INDICATOR_TEXT);
 
 				self._indicator.style = indicator.style;
 				self._indicator.element = indicator;
-
 				self._indexBar = indexBar;
+
 				element.appendChild(indexBar);
+				indicator.appendChild(indicatorText);
 				element.appendChild(indicator);
 
 				indicatorWidth = indicator.clientWidth;
 				self._indicator.maxPositionX = windowWidth/2 - indicatorWidth/2;
-				self._indicator.minPositionX = -indicatorWidth * 0.8;
+				self._indicator.minPositionX = -indicatorWidth * 0.75;
 			};
 
 			/**
@@ -260,7 +266,6 @@
 			prototype._setChildStyle = function(child, index, value) {
 				var self = this,
 					inner = document.createElement("span"),
-					options = self.options,
 					centralAngle = self._centralAngle,
 					skewAngle = 90 - centralAngle,
 					rotateAngle,
@@ -342,6 +347,68 @@
 			};
 
 			/**
+			 * This method returns status of widget.
+			 * @method isShow
+			 * @public
+			 * @member ns.widget.wearable.CircularIndexScrollbar
+			 */
+			prototype.isShow = function() {
+				return this._isShow;
+			};
+
+			/**
+			 * This method show the CircularIndexScrollbar handler.
+			 * @method showHandler
+			 * @public
+			 * @member ns.widget.wearable.CircularIndexScrollbar
+			 */
+			prototype.showHandler = function() {
+				var self = this,
+					indicatorStyle = self._indicator.style,
+					transition,
+					transform;
+
+				if (self._isShow) {
+					ns.warn("showHandler() can be used only when CircularIndexSCrollbar is hidden.");
+					return;
+				}
+
+				transition = "-webkit-transform " + self.options.duration / 5 + "ms ease-out";
+				transform = "translate3d(" + self._indicator.minPositionX + "px, 0, 0)";
+
+				indicatorStyle.transition = transition;
+				indicatorStyle.webkitTransition = transition;
+				indicatorStyle.transform = transform;
+				indicatorStyle.webkitTransform = transform;
+			};
+
+			/**
+			 * This method hide the CircularIndexScrollbar handler.
+			 * @method hideHandler
+			 * @public
+			 * @member ns.widget.wearable.CircularIndexScrollbar
+			 */
+			prototype.hideHandler = function() {
+				var self = this,
+					indicatorStyle = self._indicator.style,
+					transition,
+					transform;
+
+				if (self._isShow) {
+					ns.warn("hideHandler() can be used only when CircularIndexSCrollbar is hidden.");
+					return;
+				}
+
+				transition = "-webkit-transform " + self.options.duration / 5 + "ms ease-out";
+				transform = "translate3d(" + -self._indicator.element.clientWidth + "px, 0, 0)";
+
+				indicatorStyle.transition = transition;
+				indicatorStyle.webkitTransition = transition;
+				indicatorStyle.transform = transform;
+				indicatorStyle.webkitTransform = transform;
+			}
+
+			/**
 			 * This method select the index
 			 * @method _setValueByPosition
 			 * @protected
@@ -352,7 +419,7 @@
 				var self = this,
 					curActiveElement,
 					indexElement,
-					indicator;
+					indicatorText;
 
 				if (!self.options.index) {
 					return;
@@ -360,13 +427,13 @@
 
 				curActiveElement = self._indexObjects[self._activeIndexNo].container,
 				indexElement = self._indexObjects[indexNo].container,
-				indicator = self._indicator.element;
+				indicatorText = self._indicator.element.firstChild;
 
 				if(indexElement) {
 					self._activeIndexNo = indexNo;
 					curActiveElement.classList.remove(classes.SELECTED);
 					indexElement.classList.add(classes.SELECTED);
-					indicator.innerHTML = self.options.index[indexNo];
+					indicatorText.innerHTML = self.options.index[indexNo];
 					eventTrigger(self.element, EventType.SELECT, {index: self.options.index[indexNo]});
 				}
 			};
@@ -413,7 +480,7 @@
 					index = self.options.index,
 					indexNo;
 
-				if (index && (indexNo = index.indexOf(value))) {
+				if (index && (indexNo = index.indexOf(value)) >= 0) {
 					self._setValueByPosition(indexNo);
 				}
 			};
@@ -451,6 +518,8 @@
 				indicator.positionX = indicator.element.getBoundingClientRect().left;
 				indicator.style.webkitTransition = "none";
 				indicator.style.transition = "none";
+
+				indicator.element.classList.remove(classes.INDICATOR_MINIMIZE);
 			};
 
 			/**
@@ -516,6 +585,7 @@
 					gesture = event.detail;
 
 				if (gesture.direction === Gesture.Direction.RIGHT) {
+					self._indicator.element.classList.remove(classes.INDICATOR_MINIMIZE);
 					self.show();
 				} else {
 					self.hide();
@@ -549,7 +619,7 @@
 			};
 
 			/**
-			 * This method is a "transitionend" event handler
+			 * This method is a "transitionend" event handler on indexbar
 			 * @method _transitionEnd
 			 * @protected
 			 * @param {Event} event Event
@@ -557,7 +627,6 @@
 			 */
 			prototype._transitionEnd = function(event) {
 				var self = this;
-				self._indicator.style.webkitTransition = "none";
 
 				if (self._isShow) {
 					utilsEvents.on(document, "rotarydetent", self);
@@ -565,6 +634,21 @@
 				} else {
 					utilsEvents.off(document, "rotarydetent", self);
 					eventTrigger(self.element, EventType.INDEX_HIDE);
+				}
+			};
+
+			/**
+			 * This method is a "transitionend" event handler on indicator
+			 * @method _indicatorTransitionEnd
+			 * @protected
+			 * @param {Event} event Event
+			 * @member ns.widget.wearable.CircularIndexScrollbar
+			 */
+			prototype._indicatorTransitionEnd = function(event) {
+				var self = this;
+
+				if (!self._isShow) {
+					self._indicator.element.classList.add(classes.INDICATOR_MINIMIZE);
 				}
 			};
 
@@ -618,7 +702,11 @@
 						self._wheel(event);
 						break;
 					case "webkitTransitionEnd":
-						self._transitionEnd(event);
+						if (self._indexBar === event.target) {
+							self._transitionEnd(event);
+						} else {
+							self._indicatorTransitionEnd(event);
+						}
 						break;
 					case "rotarydetent":
 						self._rotary(event);
@@ -648,7 +736,7 @@
 					})
 				);
 
-				utilsEvents.on(indicator, "drag dragstart dragend dragcancel swipe", self);
+				utilsEvents.on(indicator, "drag dragstart dragend dragcancel swipe webkitTransitionEnd", self);
 				utilsEvents.on(self.element, "mousewheel", self);
 				utilsEvents.on(self._indexBar, "webkitTransitionEnd", self);
 			};
