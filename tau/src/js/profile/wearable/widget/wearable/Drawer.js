@@ -183,9 +183,7 @@
 				ns.event.enableGesture(
 					element,
 
-					new ns.event.gesture.Drag({
-						blockVertical: true
-					}),
+					new ns.event.gesture.Drag(),
 					new ns.event.gesture.Swipe({
 						orientation: Gesture.Orientation.HORIZONTAL
 					})
@@ -242,6 +240,7 @@
 				 * @property {Number} [options.dragEdge=1] Start dragging gesture possible area ratio of target or handler between 0 and 1.
 				 */
 				object.merge(self.options, {
+					duration: 300,
 					drawerTarget: "." + Page.classes.uiPage,
 					position: "left",
 					enable: true,
