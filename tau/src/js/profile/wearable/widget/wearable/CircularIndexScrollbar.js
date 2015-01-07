@@ -132,6 +132,7 @@
 				eventTrigger = utilsEvents.trigger,
 				Gesture = utilsEvents.gesture,
 				MIN_INDEX = 3,
+				ID_INDICATOR_POSTFIX = "-indicator",
 				prototype = new BaseWidget(),
 
 				CircularIndexScrollbar = function() {
@@ -290,7 +291,7 @@
 					options = self.options,
 					element = self.element,
 					indexBar = document.createElement("div"),
-					indicator = document.createElement("div"),
+					indicator = document.createElement("a"),
 					indicatorText = document.createElement("div"),
 					windowWidth = window.innerWidth,
 					indicatorWidth;
@@ -307,6 +308,10 @@
 				indicator.classList.add(classes.INDICATOR);
 				indicator.classList.add(classes.INDICATOR_MINIMIZE);
 				indicatorText.classList.add(classes.INDICATOR_TEXT);
+
+				indicator.id  = element.id + ID_INDICATOR_POSTFIX;
+				indicator.href = "#" + element.id;
+				indicator.setAttribute("data-rel", self.name.toLowerCase());
 
 				self._indicator.style = indicator.style;
 				self._indicator.element = indicator;
@@ -448,15 +453,22 @@
 			 * @public
 			 * @member ns.widget.wearable.CircularIndexScrollbar
 			 */
-			prototype.hide = function() {
+			prototype.hide = function(routerOptions) {
 				var self = this,
 					options = self.options,
 					indicator = self._indicator,
 					style = indicator.style,
+					reverse = routerOptions ? routerOptions.reverse : false,
 					transition,
 					transform;
 
 				if (!self._isShow && !indicator.dragging) {
+					return;
+				}
+
+				if (!reverse && self._isShow) {
+					// This method was fired by JS code or this widget.
+					history.back();
 					return;
 				}
 
@@ -773,9 +785,11 @@
 
 				if (self._isShow) {
 					utilsEvents.on(document, "rotarydetent", self);
+					self._setActive(true);
 					eventTrigger(self.element, EventType.INDEX_SHOW);
 				} else {
 					utilsEvents.off(document, "rotarydetent", self);
+					self._setActive(false);
 					eventTrigger(self.element, EventType.INDEX_HIDE);
 				}
 			};
@@ -912,7 +926,24 @@
 			};
 
 			/**
-			 * This method resets component.
+			 * This method sets active for router.
+			 * @method _setActive
+			 * @protected
+			 * @member ns.widget.wearable.CircularIndexScrollbar
+			 */
+			prototype._setActive = function (active) {
+				var self = this,
+					route = engine.getRouter().getRoute("circularindexscrollbar");
+
+				if (active) {
+					route.setActive(self);
+				} else {
+					route.setActive(null);
+				}
+			};
+
+			/**
+			 * This method resets widget.
 			 * @method _reset
 			 * @protected
 			 * @member ns.widget.wearable.CircularIndexScrollbar
