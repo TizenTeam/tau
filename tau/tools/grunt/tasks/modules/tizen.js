@@ -7,14 +7,16 @@
 		grunt = require("grunt"),
 		file = grunt.file,
 		spawn = require("child_process").spawn,
-		_ = require("underscore"),
 		envConfiguration = {
 			sdkPath: null,
-			//sdbPath: null,
 			tempPath: '/tmp/_tizen_tools',
 			devices: []
 		},
-		LISTEN_FREQUENCY = 50,
+		/**
+		 * Frequency of checking if application is running
+		 * @type {number} Time in ms
+		 */
+		LISTEN_FREQUENCY = 100,
 		Tizen,
 		SDB_DEVICES_REGEX = /^([A-Za-z0-9\-_]+)\s+(\w+)\s+([0-9a-z\-_]+)$/mi,
 		SDB_INSTALL_FAIL_REGEX = /processing result : ([A-Z_\-]+) \[([0-9]+)\] failed/im,
@@ -67,7 +69,7 @@
 			sdbArgs = ["-s", target, "shell", "wrt-launcher", "-s", applicationId];
 
 		grunt.verbose.debug("[" + targetName + "] Spawning 'sdb " + sdbArgs.join(" ") + "'");
-		//sdb = spawn("sdb", ["-s", target, "shell", shellCommand]);
+
 		sdb = spawn("sdb", sdbArgs);
 		sdb.stdout.on("data", function (data) {
 			var cleanData;
@@ -255,7 +257,8 @@
 
 		if (!localPath) {
 			localPath = envConfiguration.tempPath + path.sep + target;
-			grunt.verbose.debug("localPath not given, " + localPath + " used instead");
+
+			grunt.verbose.debug("[" + targetName + "] localPath not given, " + localPath + " used instead");
 			if (!file.exists(localPath)) {
 				file.mkdir(localPath);
 				grunt.verbose.debug(localPath + " was created");
@@ -297,13 +300,9 @@
 				}
 
 				if (typeof successCallback === "function") {
-					//process.nextTick(function () {
-
-					setTimeout(function () {
+					process.nextTick(function () {
 						successCallback(target, targetName, fileContent, localFile);
-					}, 10);
-
-					//});
+					});
 				}
 
 			}
@@ -368,18 +367,41 @@
 		 * @param config
 		 */
 		configure: function (config) {
-			_.each(config, function (value, key) {
-				envConfiguration[key] = value;
+			var keys = Object.keys(config);
+
+			keys.forEach(function (key) {
+				envConfiguration[key] = config[key];
 			});
 		},
 		build: function(applicationPath) {
-
+			throw "Not yet implemented";
 		},
-		install: function (wgtFilePath, successCallback, failureCallback) {
+		/**
+		 * Installs the given WGT file on all attached devices.
+		 * Callbacks will fire after all installations.
+		 * @param {string} wgtFilePath Path to .wgt file
+		 * @param {function} [successCallback] Success callback fired after file is installed on some devices
+		 * @param {function} [failureCallback] Failure callback fired after file failed to install on some devices
+		 * @param {string} [target] Device UID, when given file will installed only on that target
+		 * @param {string} [targetName] Device Name
+		 */
+		install: function (wgtFilePath, successCallback, failureCallback, target, targetName) {
 			var devices = envConfiguration.devices,
-				deviceCount = devices.length,
+				deviceCount,
 				successCount = 0,
 				failureCount = 0;
+
+			// Instead of defining the whole condition for devices again this code gives same result but is shorter.
+			if (target) {
+				devices = [
+					{
+						uid: target,
+						name: targetName
+					}
+				];
+			}
+
+			deviceCount = devices.length;
 
 			function successOrFailure(applicationId, wgtFilePath){
 				if(successCount + failureCount === deviceCount && successCount > 0 && typeof successCallback === "function") {
@@ -411,17 +433,44 @@
 		uninstall: function () {
 			throw "Not yet implemented";
 		},
-		run: function (applicationId, exitCallback) {
+		/**
+		 * Run application given by ID on all or only chosen target.
+		 * Callback given as second parameter will be called on application exit.
+		 * @param {string} applicationId
+		 * @param {function} [successCallback] Function called upon application starts
+		 * @param {function} [failureCallback] Function called upon application fails to run
+		 * @param {function} [exitCallback] Function called upon application exit, please refer to ".onExit" method for more details
+		 * @param {string} [target] Device UID, when given application will run only on that target
+		 * @param {string} [targetName] Device Name. Desired when passing "target" argument
+		 */
+		run: function (applicationId, successCallback, failureCallback, exitCallback, target, targetName) {
 			var self = this,
 				devices = envConfiguration.devices;
+
+			// If we have a defined target to run on we recreate the array
+			// to have only that single device pointed.
+			// Instead of defining the whole condition for exitCallback again this code gives same result but is shorter.
+			if (target) {
+				devices = [
+					{
+						uid: target,
+						name: targetName
+					}
+				];
+			}
 
 			devices.forEach(function (device) {
 				if (typeof exitCallback === "function") {
 					runApp(device.uid, device.name, applicationId, function (applicationId, target, targetName) {
+						if (typeof successCallback === "function") {
+							successCallback(applicationId, target, targetName);
+						}
+
 						self.onExit(applicationId, exitCallback, target, targetName);
-					});
+
+					}, failureCallback);
 				} else {
-					runApp(device.uid, device.name, applicationId);
+					runApp(device.uid, device.name, applicationId, successCallback, failureCallback);
 				}
 			});
 		},
@@ -450,9 +499,10 @@
 			throw "Not yet implemented";
 		},
 		/**
-		 *
-		 * @param applicationId
-		 * @param exitCallback
+		 * Sets handler for application exit.
+		 * In case the application is not running this will call the handler rightaway.
+		 * @param {string} applicationId
+		 * @param {function} exitCallback
 		 * @param {string} [target]
 		 * @param {string} [targetName]
 		 */

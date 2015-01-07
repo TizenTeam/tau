@@ -5,7 +5,10 @@
 		var proto;
 
 		function BaseTester() {
-
+			this.storage = {};
+			this.queue = [];
+			this.queueProgress = 0;
+			this.queueLength = 0;
 		}
 
 		proto = {
@@ -18,12 +21,19 @@
 			},
 			addTest: function (app) {
 				this.queue.push(app);
+				this.queueLength = this.queue.length;
 			},
 			addData: function (data) {
 				throw "tester.addData missing implementation";
 			},
 			getRawResults: function () {
 				return this.storage;
+			},
+			reset: function () {
+				this.storage = {};
+				this.queue.length = 0;
+				this.queueProgress = 0;
+				this.queueLength = 0;
 			}
 		};
 

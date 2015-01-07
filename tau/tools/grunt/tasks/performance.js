@@ -1,13 +1,12 @@
 /*global module, console, require, __dirname */
 (function () {
 	"use strict";
-	var TEST_COUNT = 5,
+	var TEST_COUNT = 100,
 		RESULT_PRECISION = 3;
 
 	module.exports = function (grunt) {
 
-		var //statistics = require("math-statistics"),
-			Stats = require("fast-stats").Stats,
+		var Stats = require("fast-stats").Stats,
 			CliTable = require("cli-table"),
 			path = require("path"),
 			PhantomTester = require(path.join(__dirname, "modules", "performance", "phantom")),
@@ -16,16 +15,15 @@
 		function preparePerformanceReport(storage) {
 			var sectionNames = Object.keys(storage),
 				section,
-				stepValues,
 				stepNames,
 				table = new CliTable({
-					head: ["[Section/Step]", "[Median]", "[Avg]", "[StdDev]"]
-					, colWidths: [60, 20, 20, 20]
+					head: ["[Section/Step]", "[Median]", "[Avg]", "[StdDev]"],
+					colWidths: [60, 20, 20, 20]
 				});
 
 			grunt.log.writeln("=============================================================================================================================");
-			grunt.log.writeln("| PERFORMANCE REPORT                                                                                                        |");
-			grunt.log.writeln("| Note: Shows time between section start and following steps                                                                |");
+			grunt.log.writeln(" PERFORMANCE REPORT ");
+			grunt.log.writeln(" Note: Shows time between section start and following steps ");
 			grunt.log.writeln("=============================================================================================================================");
 
 			sectionNames.forEach(function (sectionName) {
@@ -34,13 +32,23 @@
 				section = storage[sectionName];
 				startStats = new Stats().push(section.start);
 
-				table.push([sectionName + " (start time)", startStats.amean().toFixed(RESULT_PRECISION) + 'ms', startStats.median().toFixed(RESULT_PRECISION) + 'ms', startStats.stddev().toFixed(RESULT_PRECISION) + 'ms']);
+				table.push([
+					sectionName + " (start time)",
+					startStats.amean().toFixed(RESULT_PRECISION) + 'ms',
+					startStats.median().toFixed(RESULT_PRECISION) + 'ms',
+					startStats.stddev().toFixed(RESULT_PRECISION) + 'ms'
+				]);
 
 				stepNames = Object.keys(storage[sectionName].steps);
 				stepNames.map(function (stepName) {
 					var stats = new Stats().push(section.steps[stepName]);
-					//stepValues = section.steps[stepName];
-					table.push([" \\_ " + stepName, "+" + stats.amean().toFixed(RESULT_PRECISION) + "ms", "+" + stats.median().toFixed(RESULT_PRECISION) + "ms", stats.stddev().toFixed(RESULT_PRECISION) + "ms"]);
+
+					table.push([
+						" \\_ " + stepName,
+						"+" + stats.amean().toFixed(RESULT_PRECISION) + "ms",
+						"+" + stats.median().toFixed(RESULT_PRECISION) + "ms",
+						stats.stddev().toFixed(RESULT_PRECISION) + "ms"
+					]);
 				});
 
 			});
@@ -61,24 +69,32 @@
 
 		grunt.registerTask('performance', '', function () {
 			var currentTask = this,
-				//queue = [],
 				testApps = [
 					{
 						name: "Mobile Winset",
+						// REQUIRED for Phantom tests
 						path: "demos/SDK/MobileWinset/src/index.html",
+						// REQUIRED for device tests
 						wgtPath: "demos/SDK/MobileWinset/MobileWinset.wgt",
+						// REQUIRED for device tests
 						id: "vUf39tzQ3s.Winset"
 					}
 				],
 				noBuild = grunt.option('no-build'),
+				inputFile = grunt.option('input-file') || null,
+				outputFile = grunt.option('output-file') || null,
 				done = this.async(),
-				tester,
-				outputFile = grunt.option('output-file') || null;
+				tester;
 
 			if (currentTask.flags.device) {
 				tester = new DeviceTester();
 			} else {
 				tester = new PhantomTester();
+			}
+
+			// Read input test apps
+			if (inputFile) {
+				testApps = grunt.file.readJSON(inputFile);
 			}
 
 			function collectTests(err, res, code) {
@@ -109,10 +125,12 @@
 					grunt.log.writeln(TEST_COUNT * testApps.length);
 
 					tester.run(function () {
-						if (!outputFile) {
-							preparePerformanceReport(tester.getRawResults());
-						} else {
-							saveToFile(outputFile, tester.getRawResults());
+						var results = tester.getRawResults();
+
+						preparePerformanceReport(results);
+
+						if (outputFile) {
+							saveToFile(outputFile, results);
 						}
 
 						done();
@@ -120,7 +138,6 @@
 				}
 			}
 
-			//
 			if (!noBuild) {
 				grunt.log.write("Running 'grunt build' task with performance flag...");
 				grunt.util.spawn({

@@ -56,17 +56,17 @@
 			});
 		}
 
+		proto = new BaseTester();
+
 		function PhantomPerformanceTester() {
-			this.storage = {};
-			this.queue = [];
+			BaseTester.call(this);
+
 			this.lastApp = null;
 
 			this.initPhantom();
 
 			errorCount = 0;
 		}
-
-		proto = new BaseTester();
 
 		proto.runQueue = function () {
 			var queue = this.queue,
@@ -109,8 +109,6 @@
 
 		proto.addData = function (data) {
 			var storage = this.storage;
-
-			console.log(data);
 
 			switch (data.type) {
 				case "performance.data.start":
