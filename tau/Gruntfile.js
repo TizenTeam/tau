@@ -32,6 +32,7 @@ module.exports = function(grunt) {
 				theme: path.join(buildRoot, "tv", "theme")
 			}
 		},
+		themeConverterXMLPath = path.join("tools", "grunt", "xml"),
 
 		rootNamespace = name,
 		config = rootNamespace + "Config",
@@ -348,21 +349,24 @@ module.exports = function(grunt) {
 
 			themeConverter : {
 				mobile: {
-					themeIndex: "0",
-					themeStyle: "Dark",
-					device: "mobile"
+					options: {
+						index:"0",
+						style:"Dark",
+						inputColorTableXML: path.join(themeConverterXMLPath, "mobile", "InputColorTable.xml"),
+						changeableColorTableXML: path.join(themeConverterXMLPath, "mobile", "ChangeableColorTable1.xml")
+					},
+					src: path.join(buildDir.mobile.theme, "changeable", "changeable.template"),
+					dest: path.join(buildDir.mobile.theme, "changeable", "tau.css")
 				},
-
 				wearable: {
-					themeIndex: "0",
-					themeStyle: "Dark",
-					device: "wearable"
-				},
-
-				all: {
-					themeIndex: "0",
-					themeStyle: "Dark",
-					device: "all"
+					options: {
+						index:"0",
+						style:"Dark",
+						inputColorTableXML: path.join(themeConverterXMLPath, "wearable", "circle", "InputColorTable.xml"),
+						changeableColorTableXML: path.join(themeConverterXMLPath, "wearable", "circle", "ChangeableColorTable1.xml")
+					},
+					src: path.join(buildDir.wearable.theme, "changeable", "changeable.template"),
+					dest: path.join(buildDir.wearable.theme, "changeable", "tau.css")
 				}
 			},
 
@@ -875,7 +879,7 @@ module.exports = function(grunt) {
 	grunt.registerTask("jsmin", [ "findFiles:js.setMinifiedFiles", "uglify" ]);
 	grunt.registerTask("image", [ "copy:wearableDefaultImages", "copy:mobileDefaultImages", "copy:tvDefaultImages" ]);
 	grunt.registerTask("image-changeable", [ "copy:wearableChangeableImages", "copy:wearableColorThemeImages", "copy:mobileChangeableImages" ]);
-	grunt.registerTask("css", [ "clean:theme", "less", "themeConverter:all", "cssmin", "image", "image-changeable", "symlink" ]);
+	grunt.registerTask("css", [ "clean:theme", "less", "themeConverter", "cssmin", "image", "image-changeable", "symlink" ]);
 	grunt.registerTask("js", [ "clean:js", "requirejs", "jsmin", "themesjs", "copy:globalize-mobile", "copy:globalize-tv", "copy:mobileJquery" ]);
 	grunt.registerTask("license", [ "concat:licenseJs", "concat:licenseDefaultCss", "concat:licenseChangeableCss", "concat:licenseWearableCss", "copy:license" ]);
 	grunt.registerTask("sdk-docs", [ "docs-html:mobile", "docs-html:wearable", "docs-html:tv", "copy:sdk-docs" ]);
