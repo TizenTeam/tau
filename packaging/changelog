@@ -1,4 +1,60 @@
 %changelog
+* Wed Jan 07 2015 Heeju Joo <heeju.joo@samsung.com> 0.10.0
+	- feat(wearable): add Templates for circular UI
+	- feat(mobile, wearable): Rearrange and Rename sample applications
+	- feat(wearable): add marquee sample
+	- feat(wearable): add SnapListview(with Marquee) sample
+	- feat(wearable): fix drag gesture option in drawer widget and increase animation duration
+	- feat(wearable): Sample Application of WearableCircle
+	- etc(wearable): delete previous sample
+	- feat(wearable): option popup style for orbis
+	- refactor(wearable): fix popup wrapper sizing condition
+	- feat(wearable): add unitTC of Drawer widget
+	- feat(wearable): Add SnapListview widget
+	- etc(tool): set up build-bot with jenkins server
+	- feat(wearable): add router function to Drawer widget
+	- feat(Orbis): add Drawer widget
+	- refactor(wearable): add full size popup option
+	- feat(wearable): Apply popup and page content style
+	- feat(wearable): list with toggle for orbis
+	- feat(orbis): add ExpandableFooter widget
+	- etc(wearable):toggle control page for orbis sample
+	- fix(wearable) : adjust position of input
+	- feat(wearable): PageIndicator widget
+	- feat(wearable): toggle switch style for orbis
+	- refactor(wearable): fix name of the configure file
+	- feat(wearable): list with icon style for orbis
+	- fix(wearable): nested gesture event issue.
+	- feat(wearable): add circular index scrollbar widget
+	- feat(wearable): fixed TC error of popup widget
+	- feat(core): Add Marquee widget
+	- fix(wearable): add UnitTC for CircleProgressBar Widget
+	- fix(wearable): modify _setValue() method CircleProgressBar
+	- feat(wearable): Apply popup header and footer style.
+	- feat(wearable): Apply page header and footer style.
+	- feat(wearable): popup content padding css fix
+	- refactor(wearable): remove duplication on checkbox animation
+	- refactor(wearable): adjust padding of page content
+	- feat(wearable): apply small header
+	- refactor(wearable):filename change to circle-config
+	- feat(wearable): Add CircleProgressBar widget
+	- fix(core):fix if statement for DOM attribute method
+	- feat(wearable): radio button animation using css
+	- feat(wearable): Toast Popup and Remove positioning JS
+	- fix(all): copy mixin from tau branch to circle branch
+	- feat(wearable): normal popup style for orbis
+	- feat(wearable): listview style for orbis
+	- feat(wearable): move action icon list to app style
+	- feat(wearable): processing(full size) for orbis
+	- feat(wearable): change default value for circle.
+	- feat(wearable): Added pop style of popup transition.
+	- feat(wearable): Added pop style of page transition.
+	- feat(wearable): checkbox animation using css
+	- feat(wearable): adjust default font size for rem base
+	- feat(wearable): add CSS layout implement enviroment and rule
+	- feat(wearable): orbis base patch
+	- feat(wearable): Added circle theme and sample app for Orbis.
+
 * Thu Nov 06 2014 Junhyeon Lee <juneh.lee@samsung.com> 0.9.29
 	- refactor(wearable): [WearableWidgetSample] Unnecessary new operators
 	- fix(mobile): Fix problem with layout of Swipe widget
