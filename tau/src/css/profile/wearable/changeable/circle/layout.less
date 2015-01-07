@@ -1,5 +1,3 @@
-@import "../common/layout.less";
-
 /***************************************************************************
                    Common Style
 
@@ -13,6 +11,8 @@
   If you have duplicate value, please change static value to variable value.
 ***************************************************************************/
 .ui-header {
+	height: @fixed_header_height;
+	line-height: @fixed_header_line_height;
 	.ui-title {
 		text-align: center;
 		padding-top: @fixed_header_title_padding_top;
@@ -68,6 +68,10 @@
 	.ui-title {
 		padding-top: @fixed_header_has_sub_title_padding_top;
 	}
+}
+
+.ui-footer {
+  height: @fixed_footer_height;
 }
 
 /***************************************************************************
