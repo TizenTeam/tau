@@ -1,6 +1,6 @@
 (function(){
 	var handlers = [].slice.call(document.getElementsByClassName("drawer-handler")),
-			page = document.getElementById("sectionChangerPage"),
+			page = document.getElementById("drawerPage"),
 			sectionChanger = document.getElementById("sectionChanger"),
 			drawerSectionChanger = document.getElementById("drawerSectionChanger"),
 			drawerElements = [],
@@ -18,6 +18,7 @@
 			orientation: "horizontal",
 			useBouncingEffect: false
 		});
+
 		handlers.forEach(function(handler) {
 			var drawerElement = document.querySelector(handler.getAttribute("href")),
 					drawer = tau.widget.Drawer(drawerElement);
@@ -54,6 +55,7 @@
 				drawer.close();
 			});
 		}
+
 	});
 })();
 

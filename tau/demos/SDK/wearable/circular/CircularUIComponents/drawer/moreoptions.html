@@ -7,25 +7,7 @@
 </head>
 <body>
 <div id="sectionChangerPage" class="ui-page">
-	<style>
-		#rightDrawerHandler {
-			width:24px;
-			height: 115px;
-			position: absolute;
-			top: 122px;
-			right: 0;
-			color: transparent;
-			background-color: #a4a4a4;
-			-webkit-mask-image: url(images/b_more_option.png);
-			-webkit-mask-size: 18px 36px;
-			-webkit-mask-repeat: no-repeat;
-			-webkit-mask-position: 0 40px;
-		}
-		.sections,
-		.options {
-			text-align: center;
-		}
-	</style>
+	<link rel="stylesheet" href="./drawer.css">
 	<div id="sectionChanger" class="ui-content ui-section-changer">
 		<div id="scroller">
 			<section>
@@ -61,19 +43,17 @@
 
 	<!-- Over View -->
 	<div id="rightDrawer" class="ui-drawer" data-drawer-target="#sectionChangerPage" data-position="right" data-enable="true" data-drag-edge="1">
-		<header id="rightClose" class="ui-header">
-			<h2 class="ui-title">Click to Close</h2>
-		</header>
+		<div id="pageIndicator" class="ui-page-indicator" style="left:50%; transform:translate3d(-50%, 0, 0);"></div>
 		<div id="drawerSectionChanger" style="width:100%" class="ui-content ui-section-changer">
 			<div>
 				<section>
-					<h3 class="options">More Option 1</h3>
+					<div class="circle-button">1</div>
 				</section>
 				<section>
-					<h3 class="options">More Option 2</h3>
+					<div class="circle-button">2</div>
 				</section>
 				<section>
-					<h3 class="options">More Option 3</h3>
+					<div class="circle-button">3</div>
 				</section>
 			</div>
 		</div>
@@ -85,7 +65,10 @@
 					page = document.getElementById("sectionChangerPage"),
 					sectionChanger = document.getElementById("sectionChanger"),
 					drawerSectionChanger = document.getElementById("drawerSectionChanger"),
-					drawerElements = [];
+					drawerElements = [],
+					elPageIndicator = document.getElementById("pageIndicator"),
+					pageIndicator,
+					pageIndicatorHandler;
 
 			page.addEventListener( "pagebeforeshow", function() {
 				tau.widget.SectionChanger(sectionChanger, {
@@ -98,6 +81,8 @@
 					orientation: "horizontal",
 					useBouncingEffect: false
 				});
+				pageIndicator =  tau.widget.PageIndicator(elPageIndicator, { numberOfPages: 3 });
+				pageIndicator.setActive(0);
 				handlers.forEach(function(handler) {
 					var drawerElement = document.querySelector(handler.getAttribute("href")),
 							drawer = tau.widget.Drawer(drawerElement);
@@ -121,11 +106,13 @@
 					drawerElements.push(drawer);
 				});
 
-				document.getElementById("rightClose").addEventListener("click",function() {
-					var drawerElement = tau.util.selectors.getClosestByClass(this, "ui-drawer"),
-							drawer = tau.widget.Drawer(drawerElement);
-					drawer.close();
-				});
+				if (pageIndicator) {
+					pageIndicator =  tau.widget.PageIndicator(elPageIndicator, { numberOfPages: 3 });
+					pageIndicator.setActive(0);
+				}
+				drawerSectionChanger.addEventListener("sectionchange", function(e){
+					pageIndicator.setActive(e.detail.active);
+				}, false);
 			});
 		})();
 
