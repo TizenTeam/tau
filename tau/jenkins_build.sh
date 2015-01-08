@@ -13,7 +13,7 @@ grunt build
 result_build=$?
 
 # Unit Test
-grunt --force test:wearable
+grunt test:wearable
 result_test=$?
 
 # JSHint
@@ -26,7 +26,7 @@ if [ ! -z "$files" ]; then
 		fi
 		# Change source file path from relative to absolute
 		sed -i "s/<file name=\"..\/../<file name=\"\/var\/lib\/jenkins\/jobs\/build-bot\/workspace\/tau/g" ./report/jshint/"jshint-"$count".xml"
-	done
+	done <<<"$files"
 fi
 
 # Make gerrit comment
