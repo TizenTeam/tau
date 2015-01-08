@@ -251,7 +251,7 @@ li.static::before {
 /* ------------------------------------------------------------------------------ */
 /* -------------------------Action Icon------------------------------- */
 .li-has-action-icon .li-action-text {
-	width: calc(100% - 101px);
+	width: calc(100% - 88px);
 	height: 100%;
 }
 
@@ -261,7 +261,7 @@ li.static::before {
 	height: 56px;
 	width: 2px;
 	background-color: rgba(245, 245, 245, 1);
-	right: 67px;
+	right: 87px;
 	top: 25%;
 }
 .li-has-action-icon .li-action-icon-button {
@@ -275,6 +275,7 @@ li.static::before {
 	-webkit-mask-position: center center;
 	padding: 0;
 	margin: 0;
+	margin-right: 20px;
 }
 .li-has-action-icon .li-action-icon-button.li-action-delete {
 	-webkit-mask-image: url(../list/images/tw_list_delete_holo_dark.png);
