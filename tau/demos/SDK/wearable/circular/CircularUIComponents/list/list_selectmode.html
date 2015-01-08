@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+	<title>Wearable UI</title>
+	<link rel="stylesheet"  href="../lib/tau/wearable/theme/circle/tau.min.css">
+	<link rel="stylesheet"  href="../css/style.css">
+</head>
+<body>
+	<div class="ui-page" id="selectModePage">
+		<link rel="stylesheet" href="./list_selectmode.css">
+		<div class="ui-content">
+			<ul class="ui-listview">
+				<li class="static">List one</li>
+				<li class="static">List two</li>
+				<li class="static">List three</li>
+				<li class="static">List four</li>
+				<li class="static">List five</li>
+				<li class="static">List six</li>
+			</ul>
+		</div>
+
+		<!-- select button -->
+		<div class="select-btn ui-popup" id="select-btn" style="display:none">
+			<a href="#popupOptionText" class="select-btn-text" id="select-btn-text"
+				data-rel="popup" data-position-to="origin"></a>
+		</div>
+
+		<!-- select option popup -->
+		<div id="popupOptionText" class="ui-popup">
+			<div class="ui-popup-content" id="popupContainer">
+				<ul class="ui-listview">
+					<li><a href="#" id="select-all" data-rel="back">Select all</a></li>
+					<li><a href="#" id="deselect-all" data-rel="back">Deselect all</a></li>
+				</ul>
+			</div>
+		</div>
+
+		<!-- Drawer Handler -->
+		<a id="handler" href="#rightDrawer" class="drawer-handler">Right Handler</a>
+
+		<!-- Drawer Section -->
+		<div id="rightDrawer" class="ui-drawer" data-drawer-target="#selectModePage"
+			data-position="right" data-enable="true" data-drag-edge="1">
+			<div id="pageIndicator" class="ui-page-indicator" style="left:50%; transform:translate3d(-50%, 0, 0);"></div>
+			<div id="drawerSectionChanger" style="width:100%" class="ui-content ui-section-changer">
+				<div>
+					<section>
+						<div class="circle-button">ICON1</div>
+					</section>
+					<section>
+						<div class="circle-button">ICON2</div>
+					</section>
+					<section>
+						<div class="circle-button">ICON3</div>
+					</section>
+				</div>
+			</div>
+		</div>
+	<script src="list_selectmode.js"></script>
+	</div>
+<script type="text/javascript" src="../lib/tau/wearable/js/tau.min.js"></script>
+</body>
+</html>
