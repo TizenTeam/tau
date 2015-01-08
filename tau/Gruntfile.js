@@ -257,8 +257,7 @@ module.exports = function(grunt) {
 					options: {
 						jshintrc: "src/js/.jshintrc",
 						reporter: "checkstyle",
-						reporterOutput: "report/jshint/jshint-"+ grunt.option("jshintno") + ".xml",
-						force: true
+						reporterOutput: "report/jshint/jshint-"+ grunt.option("jshintno") + ".xml"
 					},
 					src: grunt.option("jshintfile")
 				}
