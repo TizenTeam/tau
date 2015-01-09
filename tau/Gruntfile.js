@@ -86,34 +86,6 @@ module.exports = function(grunt) {
 			},
 
 			css: {
-				getCssFiles: function( device, version ) {
-					var rtn = [],
-						list = themes.device[device],
-						versionPath = version ? version + "-path" : "default-path",
-						i=0,
-						len=list.length,
-						theme;
-					if (version === "changeable" || version === "circle") {
-						theme = list[0];
-						rtn.push({
-							src: path.join(srcCss, theme[versionPath], theme.src),
-							dest: path.join(buildRoot, device, "theme", version, "changeable.template")
-						});
-					} else {
-						for(; i < len; i++) {
-							theme = list[i];
-							if (theme.name !== "changeable") {
-								rtn.push({
-									src: path.join(srcCss, theme[versionPath], theme.src),
-									dest: path.join(buildRoot, device, "theme", theme.name, name) + ".css"
-								});
-							}
-						}
-					}
-
-					return rtn;
-				},
-
 				getDefault: function( device, version ) {
 					var list = themes.device[device],
 						i=0,
@@ -228,13 +200,6 @@ module.exports = function(grunt) {
 								dest: path.join( buildRoot, device, "theme", wearableThemeColors[i], theme.images )
 							});
 						}
-						rtn.push({
-							expand: true,
-							cwd: path.join( srcCss, version, "changeable" , "circle", theme.images ),
-							src: "**",
-							dest: path.join( buildRoot, device, "theme", "circle", theme.images )
-						});
-
 					}
 
 					return rtn;
@@ -327,23 +292,33 @@ module.exports = function(grunt) {
 			},
 
 			less : {
-				wearableDefault : {
-					files : files.css.getCssFiles("wearable", "default")
+				wearable : {
+					files : [
+						{
+							src: path.join(srcCss, "wearable","changeable","theme-changeable", "style.changeable.less"),
+							dest: path.join(buildRoot, "wearable", "theme", "changeable", "tau.template")
+						},
+						{
+							src: path.join(srcCss, "wearable","changeable","theme-changeable", "style.circle.changeable.less"),
+							dest: path.join(buildRoot, "wearable", "theme", "changeable", "tau.circle.template")
+						}
+					]
 				},
-				wearableChangeable : {
-					files : files.css.getCssFiles("wearable", "changeable")
+				mobile: {
+					files : [
+						{
+							src: path.join(srcCss, "mobile","changeable","theme-changeable", "style.changeable.less"),
+							dest: path.join(buildRoot, "mobile", "theme", "changeable", "tau.template")
+						}
+					]
 				},
-				wearableCircle : {
-					files : files.css.getCssFiles("wearable", "circle")
-				},
-				mobileDefault: {
-					files : files.css.getCssFiles("mobile", "default")
-				},
-				mobileChangeable: {
-					files : files.css.getCssFiles("mobile", "changeable")
-				},
-				tvDefault: {
-					files : files.css.getCssFiles("tv", "default")
+				tv: {
+					files : [
+						{
+							src: path.join(srcCss, "tv","default","theme-black", "style.less"),
+							dest: path.join(buildRoot, "tv", "theme", "black", "tau.css")
+						}
+					]
 				}
 			},
 
@@ -355,18 +330,40 @@ module.exports = function(grunt) {
 						inputColorTableXML: path.join(themeConverterXMLPath, "mobile", "InputColorTable.xml"),
 						changeableColorTableXML: path.join(themeConverterXMLPath, "mobile", "ChangeableColorTable1.xml")
 					},
-					src: path.join(buildDir.mobile.theme, "changeable", "changeable.template"),
+					src: path.join(buildDir.mobile.theme, "changeable", "tau.template"),
 					dest: path.join(buildDir.mobile.theme, "changeable", "tau.css")
 				},
 				wearable: {
 					options: {
 						index:"0",
 						style:"Dark",
-						inputColorTableXML: path.join(themeConverterXMLPath, "wearable", "circle", "InputColorTable.xml"),
-						changeableColorTableXML: path.join(themeConverterXMLPath, "wearable", "circle", "ChangeableColorTable1.xml")
+						inputColorTableXML: path.join(themeConverterXMLPath, "wearable", "blue", "InputColorTable.xml"),
+						changeableColorTableXML: path.join(themeConverterXMLPath, "wearable", "blue", "ChangeableColorTable1.xml")
 					},
-					src: path.join(buildDir.wearable.theme, "changeable", "changeable.template"),
-					dest: path.join(buildDir.wearable.theme, "changeable", "tau.css")
+					files: [
+						{
+							src: path.join(buildDir.wearable.theme, "changeable", "tau.template"),
+							dest: path.join(buildDir.wearable.theme, "changeable", "tau.css")
+						},
+						{
+							src: path.join(buildDir.wearable.theme, "changeable", "tau.circle.template"),
+							dest: path.join(buildDir.wearable.theme, "changeable", "tau.circle.css")
+						},
+						{
+							src: path.join(buildDir.wearable.theme, "changeable", "tau.template"),
+							dest: path.join(buildDir.wearable.theme, "blue", "tau.css")
+						},
+					]
+				},
+				wearable_old: {
+					options: {
+						index:"0",
+						style:"Dark",
+						inputColorTableXML: path.join(themeConverterXMLPath, "wearable", "brown", "InputColorTable.xml"),
+						changeableColorTableXML: path.join(themeConverterXMLPath, "wearable", "brown", "ChangeableColorTable1.xml")
+					},
+					src: path.join(buildDir.wearable.theme, "changeable", "tau.template"),
+					dest: path.join(buildDir.wearable.theme, "brown", "tau.css")
 				}
 			},
 
@@ -391,11 +388,18 @@ module.exports = function(grunt) {
 				},
 
 				all: {
-					expand: true,
-					cwd: buildRoot,
-					src: ["**/*.css", "!**/*.min.css"],
-					dest: buildRoot,
-					ext: ".min.css"
+					files: [{
+						expand: true,
+						cwd: buildRoot,
+						src: ["**/*.css", "!**/*.min.css"],
+						dest: buildRoot,
+						rename: function (dest, src) {
+							var folder = src.substring(0, src.lastIndexOf('/'));
+							var filename = src.substring(src.lastIndexOf('/'), src.length);
+							filename = filename.substring(0, filename.lastIndexOf('.'));
+							return dest +"/"+ folder + filename + '.min.css';
+						}
+					}]
 				},
 
 				changeable: {
@@ -403,7 +407,12 @@ module.exports = function(grunt) {
 					cwd: buildRoot,
 					src: ["**/*.template"],
 					dest: buildRoot,
-					ext: ".min.template"
+					rename: function (dest, src) {
+						var folder = src.substring(0, src.lastIndexOf('/'));
+						var filename = src.substring(src.lastIndexOf('/'), src.length);
+						filename = filename.substring(0, filename.lastIndexOf('.'));
+						return dest +"/"+ folder + filename + '.min.template';
+					}
 				}
 			},
 
@@ -757,7 +766,7 @@ module.exports = function(grunt) {
 		args = src.concat([
 			'--title=' + name.toUpperCase() + " - " + version,
 			'--eg-iframe=./tools/jsduck/'+ profile +'-preview.html',
-				'--external=' + environmentClasses.join(','),
+			'--external=' + environmentClasses.join(','),
 			'--output', dest
 		]);
 
@@ -770,9 +779,9 @@ module.exports = function(grunt) {
 			grunt.file.delete(path.join('tmp', 'jsduck', "dist", profile, "js"), {force: true});
 			if (code === 127) {   // 'command not found'
 				return grunt.warn(
-						'You need to have Ruby and JSDuck installed and in your PATH for ' +
-						'this task to work. ' +
-						'See https://github.com/dpashkevich/grunt-jsduck for details.'
+					'You need to have Ruby and JSDuck installed and in your PATH for ' +
+					'this task to work. ' +
+					'See https://github.com/dpashkevich/grunt-jsduck for details.'
 				);
 			}
 			callback(error);
@@ -791,12 +800,6 @@ module.exports = function(grunt) {
 			runJSDuck.bind(null, "wearable")
 		], done);
 	});
-
-	function findDefaultTheme(profileName) {
-		return themes['device'][profileName].filter(function (theme) {
-			return theme['default'] === 'true';
-		}).shift();
-	}
 
 	// add requirejs tasks to build themes.
 	(function() {
