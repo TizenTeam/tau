@@ -145,10 +145,14 @@
 				packageId = packageMatches[1];
 			}
 
+			// Here we get the application ID based on icon name
+			// @TODO As this approach is not very reliable consider changing it to `sdb shell wrt-launcher -l`
 			iconMatches = data.match(SDB_INSTALL_ICON);
 			if (iconMatches) {
 				applicationId = iconMatches[2].substring(iconMatches[2].lastIndexOf('/') + 1, iconMatches[2].lastIndexOf('.'));
 			}
+
+			// @TODO Get application name via `sdb` command
 
 			errorMatches = data.match(SDB_INSTALL_FAIL_REGEX);
 			if (errorMatches) {

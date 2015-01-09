@@ -10,6 +10,7 @@
 			tizen = require(path.join(__dirname, "..", "tizen")),
 			errorCount = 0,
 			TEMP_PATH = "tmp",
+			TARGET_RESULT_FILE = "/opt/usr/media/Documents/tauperf_result.json",
 			alreadyInstalled = [];
 
 		proto = new BaseTester();
@@ -19,7 +20,6 @@
 
 			BaseTester.call(self);
 
-			this.lastApp = null;
 			this.initialized = false;
 			this.runPending = false;
 			this.tempFilename = "tester_" + (Date.now()) + ".json";
@@ -38,10 +38,8 @@
 		}
 
 		function runAndGetResults(tester, tempFile, target, targetName, applicationId) {
-			alreadyInstalled.push(applicationId);
-
 			tizen.run(applicationId, null, null, function (exitedOnTarget, exitedOnTargetName, stoppedApplicationId) {
-				tizen.pull("/opt/usr/media/Documents/tauperf_result.json", null, true, function (target, targetName, fileContent, localPath) {
+				tizen.pull(TARGET_RESULT_FILE, null, true, function (target, targetName, fileContent, localPath) {
 
 					tester.queueProgress++;
 
@@ -89,7 +87,6 @@
 			var self = this,
 				queue = this.queue,
 				appToProcess,
-				lastApp = self.lastApp,
 				tempFile = TEMP_PATH + path.sep + self.tempFilename,
 				runDeviceTest;
 
@@ -105,27 +102,29 @@
 			appToProcess = queue.pop();
 
 			if (appToProcess) {
-				if (lastApp === null) {
+				if (self.queueProgress === 0) {
 					// Prepend "[" as array start to the final file
 					fs.writeFileSync(tempFile, "[");
 				}
 
-				if (appToProcess.name !== lastApp) {
-					// Write ok on the last line if we are in the middle of tests
-					if (lastApp) {
-						grunt.verbose.ok();
-					}
-					this.lastApp = appToProcess.name;
-					grunt.verbose.writeln("Testing [" + appToProcess.name + "] ");
-				}
-
-				runDeviceTest = runAndGetResults.bind(null, self, tempFile, target, targetName, appToProcess.id);
+				runDeviceTest = runAndGetResults.bind(null, self, tempFile, target, targetName);
 
 				// Prevent installing application on every run
-				if (alreadyInstalled.indexOf(appToProcess.id) > -1) {
-					runDeviceTest();
+				if (alreadyInstalled.indexOf(appToProcess.wgtPath) > -1) {
+					runDeviceTest(appToProcess.id);
 				} else {
-					tizen.install(appToProcess.wgtPath, runDeviceTest);
+					// Install success callback gives: applicationId as argument
+					tizen.install(appToProcess.wgtPath, function(applicationId, wgtPath, message) {
+						// Thanks to references to queue elements we may add id for all queue iterations once
+						// this can make some problems when implementing queue in a different way
+						if (!appToProcess.id) {
+							appToProcess.id = applicationId;
+						}
+
+						alreadyInstalled.push(wgtPath);
+
+						runDeviceTest(applicationId);
+					});
 				}
 			} else {
 				grunt.log.error("Unexpected empty element on queue " + appToProcess + self.queueProgress + "/" + self.queueLength);

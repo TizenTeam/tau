@@ -1,7 +1,7 @@
 /*global module, console, require, __dirname */
 (function () {
 	"use strict";
-	var TEST_COUNT = 100,
+	var TEST_COUNT = 50,
 		RESULT_PRECISION = 3;
 
 	module.exports = function (grunt) {
@@ -53,7 +53,7 @@
 
 			});
 
-			grunt.log.write(table.toString());
+			grunt.log.writeln(table.toString());
 		}
 
 		function saveToFile(filePath, output) {
@@ -71,13 +71,14 @@
 			var currentTask = this,
 				testApps = [
 					{
-						name: "Mobile Winset",
+						// [OPTIONAL] for device tests
+						//id: "vUf39tzQ3s.Winset",
+						// [OPTIONAL] for device tests
+						//name: "Mobile Winset",
 						// REQUIRED for Phantom tests
-						path: "demos/SDK/MobileWinset/src/index.html",
+						//path: "demos/SDK/MobileWinset/src/index.html",
 						// REQUIRED for device tests
-						wgtPath: "demos/SDK/MobileWinset/MobileWinset.wgt",
-						// REQUIRED for device tests
-						id: "vUf39tzQ3s.Winset"
+						wgtPath: "demos/SDK/MobileWinset/MobileWinset.wgt"
 					}
 				],
 				noBuild = grunt.option('no-build'),
