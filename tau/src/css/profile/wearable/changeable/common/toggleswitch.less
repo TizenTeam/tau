@@ -1,164 +1,171 @@
 /*
  * toggle switch
  */
-.ui-switch-activation, .ui-switch-inneroffset, .ui-switch-handler {
-	display: block;
-	-webkit-mask-image: @toggle_mask_image;
-	-webkit-mask-repeat: no-repeat;
-}
-
 .ui-switch {
 	width: 100%;
 	color: @color_switch_text;
 }
 
-.ui-toggleswitch {
-	display: block;
-	width: @fixed_toggleswitch_width;
-	margin: 0 auto;
+.ui-switch-inneroffset,
+.ui-switch-handler {
+	display: none;
 }
 
 .ui-switch-text {
 	margin-top: @fixed_toggleswitch_text_margin_top;
 	margin-bottom: @fixed_toggleswitch_text_margin_bottom;
-	padding: 0 30;
+	padding: 0 30px;
 	font-size: @fixed_toggleswitch_text_font_size;
 	text-align: center;
 }
-.ui-switch-input {
-	display: none;
+
+.ui-switch-sub-text {
+	margin-top: @fixed_toggleswitch_sub_text_margin_top;
+	margin-bottom: @fixed_toggleswitch_sub_text_margin_bottom;
+	font-size: @fixed_toggleswitch_sub_text_font_size;
+	text-align: center;
+	color: @color_switch_sub_text;
 }
 
-.ui-switch-inneroffset {
-	width: @fixed_toggleswitch_handler_width;
-	height: @fixed_toggleswitch_handler_height;
-	position: absolute;
-}
-
-.ui-switch-inneroffset:active {
-	background-color: @color_toggle_off_handler_press;
-}
-
-.ui-switch-activation {
+.ui-toggleswitch {
+	position: relative;
+	display: inline-block;
 	width: @fixed_toggleswitch_width;
 	height: @fixed_toggleswitch_height;
-	-webkit-mask-position: 0 0;
-	background-color: @color_toggle_off_bg;
-	margin: 0 auto;
-	margin-top: @fixed_toggleswitch_act_margin_top;
 
-	.ui-switch-inneroffset {
+	& .ui-switch-input {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		-webkit-appearance: none;
+		display: block;
+
+		&::before {
+			content: "";
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			-webkit-mask-image: @image_toggle_large_mask;
+			-webkit-mask-size: @fixed_toggleswitch_width;
+			-webkit-mask-repeat: no-repeat;
+			-webkit-mask-position: 0 0;
+			background-color: @color_toggle_off_bg_press;
+			z-index: 0;
+		}
+
+		&:active {
+			&::before {
+				background-color: @color_toggle_off_bg_press;
+			}
+			& ~ .ui-switch-activation,
+			~ .ui-switch-button {
+				background-color: @color_toggle_off_handler_press;
+				&::before {
+					background-color: @color_toggle_off_handler_off_press;
+				}
+			}
+		}
+	}
+
+	& .ui-switch-activation,
+	.ui-switch-button {
+		width: @fixed_toggleswitch_handler_width;
+		height: @fixed_toggleswitch_handler_height;
+		-webkit-mask-image: @image_toggle_large_mask;
+		-webkit-mask-size: @fixed_toggleswitch_width;
+		-webkit-mask-repeat: no-repeat;
 		-webkit-mask-position: @fixed_toggleswitch_handle_position;
 		background-color: @color_toggle_off_handler;
-		margin-left: @fixed_toggleswitch_handle_off_margin_left;
-		margin-top: @fixed_toggleswitch_handle_off_margin_top;
+		position: absolute;
+		top: 0;
+		left: 0;
+		pointer-events: none;
+		z-index: 1;
+
+		&::before {
+			content: "";
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			-webkit-mask-image: @image_toggle_large_mask;
+			-webkit-mask-size: @fixed_toggleswitch_width;
+			-webkit-mask-repeat: no-repeat;
+			-webkit-mask-position: @fixed_toggleswitch_on_position;
+			background-color: @color_toggle_off_handler_off;
+			top: 0;
+			left: 0;
+		}
 	}
 
-	.ui-switch-inneroffset:active {
-		background-color: @color_toggle_off_handler_press;
-	}
-
-	.ui-switch-handler {
-		position: relative;
-		width: @fixed_toggleswitch_handler_width;
-		height: @fixed_toggleswitch_handler_height;
-		-webkit-mask-position: @fixed_toggleswitch_on_position;
-		background-color: @color_toggle_off_handler_off;
-		left: 0%;
-	}
-}
-
-.ui-switch-activation:active {
-	width: @fixed_toggleswitch_width;
-	height: @fixed_toggleswitch_height;
-	background-color: @color_toggle_off_bg_press;
-	margin: z0 auto;
-	margin-top: @fixed_toggleswitch_act_margin_top;
-
-	.ui-switch-handler:active {
-		position: relative;
-		width: @fixed_toggleswitch_handler_width;
-		height: @fixed_toggleswitch_handler_height;
-		background-color: @color_toggle_off_handler_off_press;
-		left: 0%
-	}
-}
-
-.ui-switch-activation:disable {
-	width: @fixed_toggleswitch_width;
-	height: @fixed_toggleswitch_height;
-	background-color: @color_toggle_off_bg_dim;
-	margin: 0 auto;
-	margin-top: @fixed_toggleswitch_act_margin_top;
-
-	.ui-switch-handler:disable {
-		position: relative;
-		width: @fixed_toggleswitch_handler_width;
-		height: @fixed_toggleswitch_handler_height;
-		background-color: @color_toggle_off_handler_off_dim;
-		left: 0%;
-	}
-}
-
-.ui-switch-input:checked ~ & {
-	display: none;
-
-	.ui-switch-activation {
-		width: @fixed_toggleswitch_width;
-		height: @fixed_toggleswitch_height;
-		-webkit-mask-position: 0 0;
-		background-color: @color_toggle_on_bg;
-		margin: 0 auto;
-		margin-top: @fixed_toggleswitch_act_margin_top;
-
-		.ui-switch-inneroffset {
+	& .ui-switch-input:checked {
+		& ~ .ui-switch-activation,
+		~ .ui-switch-button {
+			width: @fixed_toggleswitch_handler_width;
+			height: @fixed_toggleswitch_handler_height;
 			-webkit-mask-position: @fixed_toggleswitch_handle_position;
 			background-color: @color_toggle_on_handler;
-			margin-left: @fixed_toggleswitch_handle_on_margin_left;
-			margin-top: @fixed_toggleswitch_handle_on_margin_top;
+			.transform(translate3d(@fixed_toggleswitch_handle_on_margin_left, 0, 0));
+			&::before {
+				-webkit-mask-position: @fixed_toggleswitch_off_position;
+				background-color: @color_toggle_on_handler_on;
+			}
 		}
 
-		.ui-switch-inneroffset:active {
-			background-color: @color_toggle_on_handler_press;
+		&::before {
+			background-color: @color_toggle_on_bg;;
 		}
 
-		.ui-switch-handler {
-			position: relative;
-			width: @fixed_toggleswitch_handler_width;
-			height: @fixed_toggleswitch_handler_height;
-			-webkit-mask-position: @fixed_toggleswitch_off_position;
-			background-color: @color_toggle_on_handler_on;
-			left: 0;
-		}
-	}
-	.ui-switch-activation:active {
-		width: @fixed_toggleswitch_width;
-		height: @fixed_toggleswitch_height;
-		margin: 0 auto;
-		margin-top: @fixed_toggleswitch_act_margin_top;
-		background-color: @color_toggle_on_bg_press;
-
-		.ui-switch-handler:active {
-			position: relative;
-			width: @fixed_toggleswitch_handler_width;
-			height: @fixed_toggleswitch_handler_height;
-			background-color: @color_toggle_on_handler_on_press;
-			left: 0;
+		&:active {
+			&::before {
+				background-color: @color_toggle_on_bg_press;
+			}
+			& ~ .ui-switch-activation, ~ .ui-switch-button {
+				background-color: @color_toggle_on_handler_press;
+				&::before {
+					background-color: @color_toggle_on_handler_on_press;
+				}
+			}
 		}
 	}
-	.ui-switch-activation:disable {
-		width: @fixed_toggleswitch_width;
-		height: @fixed_toggleswitch_height;
-		margin: 0 auto;
-		margin-top: @fixed_toggleswitch_act_margin_top;
-		background-color: @color_toggle_on_bg_dim;
 
-		.ui-switch-handler:disable {
-			position: relative;
-			width: @fixed_toggleswitch_handler_width;
-			height: @fixed_toggleswitch_handler_height;
-			background-color: @color_toggle_on_handler_on_dim;
-			left: 0;
+	&.ui-switch-large {
+		width: @fixed_toggleswitch_large_width;
+		height: @fixed_toggleswitch_large_height;
+		display: block;
+		margin: 0 auto;
+
+		& .ui-switch-activation,
+		.ui-switch-button {
+			width: @fixed_toggleswitch_large_handler_width;
+			height: @fixed_toggleswitch_large_handler_height;
+			-webkit-mask-image: @image_toggle_large_mask;
+			-webkit-mask-size: @fixed_toggleswitch_large_width;
+			-webkit-mask-position: @fixed_toggleswitch_large_handle_position;
+			&::before {
+				-webkit-mask-image: @image_toggle_large_mask;
+				-webkit-mask-position: @fixed_toggleswitch_large_on_position;
+				-webkit-mask-size: @fixed_toggleswitch_large_width;
+			}
+		}
+
+		& .ui-switch-input {
+			&::before {
+				-webkit-mask-image: @image_toggle_large_mask;
+				-webkit-mask-size: @fixed_toggleswitch_large_width;
+			}
+		}
+
+		& .ui-switch-input:checked {
+			&~ .ui-switch-activation,
+			~ .ui-switch-button {
+				width: @fixed_toggleswitch_large_handler_width;
+				height: @fixed_toggleswitch_large_handler_height;
+				-webkit-mask-position: @fixed_toggleswitch_large_handle_position;
+				.transform(translate3d(@fixed_toggleswitch_large_handle_on_margin_left,0,0));
+				&::before {
+					-webkit-mask-position: @fixed_toggleswitch_large_off_position;
+				}
+			}
 		}
 	}
 }
