@@ -2,13 +2,117 @@
 /* Copyright  2010 - 2014 Samsung Electronics Co., Ltd.
  * License : MIT License V2
  */
-/*jslint nomen: true, plusplus: true */
 /**
- * # CircularIndexScrollbar Widget
- * Shows an circular index scroll bar with indeces, usually for the list.
+ * # CircularIndexScrollbar UI Component
+ * Shows a circularindexscrollbar with indices, usually for the list.
  *
- * The circular index scroll bar widget shows on the screen a scrollbar with indices.
+ * The circularindexscrollbar component shows on the screen a circularscrollbar with indices.
+ * The indices can be selected by moving the rotary.
+ * And it fires a select event when the index characters are selected.
  *
+ * ## Manual constructor
+ * For manual creation of UI Component you can use constructor of component from **tau** namespace:
+ *
+ *              @example
+ *              var circularindexElement = document.getElementById('circularindex'),
+ *                  circularindexscrollbar = tau.widget.CircularIndexScrollbar(circularindexElement, {index: "A,B,C"});
+ *
+ * Constructor has one require parameter **element** which are base **HTMLElement** to create component.
+ * We recommend get this element by method *document.getElementById*. Second parameter is **options**
+ * and it is a object with options for component.
+ *
+ * To add an CircularIndexScrollbar component to the application, use the following code:
+ *
+ *      @example
+ *      <div id="foo" class="ui-circularindexscrollbar" data-index="A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z"></div>
+ *      <script>
+ *          (function() {
+ *              var elem = document.getElementById("foo");
+ *              tau.widget.CircularIndexScrollbar(elem);
+ *              elem.addEventListener("select", function( event ) {
+ *                  var index = event.detail.index;
+ *                  console.log(index);
+ *              });
+ *          }());
+ *      </script>
+ *
+ * The index value can be retrieved by accessing event.detail.index property.
+ *
+ * In the following example, the list scrolls to the position of the list item defined using
+ * the li-divider class, selected by the circularindexscrollbar:
+ *
+ *      @example
+ *         <div id="pageCircularIndexScrollbar" class="ui-page">
+ *             <header class="ui-header">
+ *                 <h2 class="ui-title">CircularIndexScrollbar</h2>
+ *             </header>
+ *             <div id="circularindexscrollbar"class="ui-circularindexscrollbar" data-index="A,B,C,D,E"></div>
+ *             <section class="ui-content">
+ *                 <ul class="ui-listview" id="list1">
+ *                     <li class="li-divider">A</li>
+ *                     <li>Anton</li>
+ *                     <li>Arabella</li>
+ *                     <li>Art</li>
+ *                     <li class="li-divider">B</li>
+ *                     <li>Barry</li>
+ *                     <li>Bibi</li>
+ *                     <li>Billy</li>
+ *                     <li>Bob</li>
+ *                     <li class="li-divider">D</li>
+ *                     <li>Daisy</li>
+ *                     <li>Derek</li>
+ *                     <li>Desmond</li>
+ *                 </ul>
+ *             </section>
+ *             <script>
+ *                 (function () {
+ *                     var page = document.getElementById("pageIndexScrollbar"),
+                           circularindexscrollbar;
+ *                     page.addEventListener("pagecreate", function () {
+ *                         var elisb = document.getElementById("circularindexscrollbar"), // CircularIndexscrollbar element
+ *                                 elList = document.getElementById("list1"), // List element
+ *                                 elDividers = elList.getElementsByClassName("li-divider"), // List items (dividers)
+ *                                 elScroller = elList.parentElement, // List's parent item
+ *                                 dividers = {}, // Collection of list dividers
+ *                                 indices = [], // List of index
+ *                                 elDivider,
+ *                                 i, idx;
+ *
+ *                         // For all list dividers
+ *                         for (i = 0; i < elDividers.length; i++) {
+ *                             // Add the list divider elements to the collection
+ *                             elDivider = elDividers[i];
+ *                             // li element having the li-divider class
+ *                             idx = elDivider.innerText;
+ *                             // Get a text (index value)
+ *                             dividers[idx] = elDivider;
+ *                             // Remember the element
+ *
+ *                             // Add the index to the index list
+ *                             indices.push(idx);
+ *                         }
+ *
+ *                         // Create CircularIndexScrollbar
+ *                         circularindexscrollbar = new tau.widget.CircularIndexScrollbar(elisb, {index: indices});
+ *
+ *                         // Bind the select callback
+ *                         elisb.addEventListener("select", function (ev) {
+ *                             var elDivider,
+ *                                     idx = ev.detail.index;
+ *                             elDivider = dividers[idx];
+ *                             if (elDivider) {
+ *                                 // Scroll to the li-divider element
+ *                                 elScroller.scrollTop = elDivider.offsetTop - elScroller.offsetTop;
+ *                             }
+ *                         });
+ *                     });
+ *                 }());
+ *             </script>
+ *         </div>
+ *
+ * @author Junyoung Park <jy-.park@samsung.com>
+ * @class ns.widget.wearable.CircularIndexScrollbar
+ * @extends ns.widget.BaseWidget
  */
 (function (document, ns) {
 	"use strict";
@@ -63,7 +167,17 @@
 					 * @member ns.widget.wearable.CircularIndexScrollbar
 					 */
 					SELECT: "select",
+					/**
+					 * Event triggered after CircularIndexScrollbar is shown
+					 * @event indexshow
+					 * @member ns.widget.wearable.CircularIndexScrollbar
+					 */
 					INDEX_SHOW: "indexshow",
+					/**
+					 * Event triggered after CircularIndexScrollbar is hidden
+					 * @event indexhide
+					 * @member ns.widget.wearable.CircularIndexScrollbar
+					 */
 					INDEX_HIDE: "indexhide"
 				},
 
@@ -78,12 +192,23 @@
 			CircularIndexScrollbar.prototype = prototype;
 
 			/**
-			 * This method configure widget.
+			 * This method configure component.
 			 * @method _configure
 			 * @protected
 			 * @member ns.widget.wearable.CircularIndexScrollbar
 			 */
 			prototype._configure = function() {
+				/**
+				 * All possible component options
+				 * @property {Object} options
+				 * @property {string} [options.moreChar="."] more character
+				 * @property {string} [options.delimiter=","] delimiter in index
+				 * @property {string|Array} [options.index=["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","1"]] indices list
+				 * String with list of letters separate be delimiter or array of letters
+				 * @property {number} [options.maxVisibleIndex=30] maximum length of visible indices
+				 * @property {number} [options.duration=500] duration of show/hide animation time
+				 * @member ns.widget.wearable.CircularIndexScrollbar
+				 */
 				this.options = {
 					moreChar: ".",
 					delimiter: ",",
@@ -98,7 +223,7 @@
 			};
 
 			/**
-			 * This method inits widget.
+			 * This method inits component.
 			 * @method _init
 			 * @protected
 			 * @param {HTMLElement} element
@@ -118,7 +243,7 @@
 
 			/**
 			 * This method set indices prepared from parameter
-			 * or index of widget.
+			 * or index of component.
 			 * @method _setIndices
 			 * @param {string} [value] Indices to prepared
 			 * @protected
@@ -284,7 +409,7 @@
 			};
 
 			/**
-			 * This method show the CircularIndexScrollbar
+			 * Show the CircularIndexScrollbar
 			 * @method show
 			 * @public
 			 * @member ns.widget.wearable.CircularIndexScrollbar
@@ -313,7 +438,7 @@
 			};
 
 			/**
-			 * This method hide the CircularIndexScrollbar
+			 * Hide the CircularIndexScrollbar
 			 * @method hide
 			 * @public
 			 * @member ns.widget.wearable.CircularIndexScrollbar
@@ -400,7 +525,25 @@
 
 				self._setValueByPosition(prevIndexNo);
 			};
-
+			/**
+			 * Get or Set index of the CircularIndexScrollbar
+			 *
+			 * Return current index or set the index
+			 *
+			 *		@example
+			 *		<progress class="ui-circularindexscrollbar" id="circularindexscrollbar"></progress>
+			 *		<script>
+			 *			var circularindexElement = document.getElementById("circularindex"),
+			 *				circularIndexScrollbar = tau.widget.CircleProgressBar(circularindexElement),
+			 *			// return current index value
+			 *			value = circularIndexScrollbar.value();
+			 *			// sets the index value
+			 *			circularIndexScrollbar.value("C");
+			 *		</script>
+			 * @method value
+			 * return {string} In get mode return current index value
+			 * @member ns.widget.wearable.CircularIndexScrollbar
+			 */
 			/**
 			 * This method select the index
 			 * @method _setValue
@@ -592,7 +735,7 @@
 
 			/**
 			 * This method handles events
-			 * @method _handleEvent
+			 * @method handleEvent
 			 * @public
 			 * @param {Event} event Event
 			 * @member ns.widget.wearable.CircularIndexScrollbar
@@ -627,7 +770,7 @@
 			};
 
 			/**
-			 * This method binds events to widget.
+			 * This method binds events to component.
 			 * method _bindEvents
 			 * @protected
 			 * @member ns.widget.wearable.CircularIndexScrollbar
@@ -654,7 +797,7 @@
 			};
 
 			/**
-			 * This method unbinds events to widget.
+			 * This method unbinds events to component.
 			 * method _unbindEvents
 			 * @protected
 			 * @member ns.widget.wearable.CircularIndexScrollbar
@@ -681,7 +824,7 @@
 			};
 
 			/**
-			 * This method resets widget.
+			 * This method resets component.
 			 * @method _reset
 			 * @protected
 			 * @member ns.widget.wearable.CircularIndexScrollbar
@@ -708,7 +851,7 @@
 			};
 
 			/**
-			 * This method refreshes widget.
+			 * This method refreshes component.
 			 * @method _refresh
 			 * @protected
 			 * @member ns.widget.wearable.CircularIndexScrollbar
@@ -727,7 +870,7 @@
 			};
 
 			/**
-			 * This method detroys widget.
+			 * This method detroys component.
 			 * @method _destroy
 			 * @protected
 			 * @member ns.widget.wearable.CircularIndexScrollbar
