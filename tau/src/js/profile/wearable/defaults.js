@@ -66,6 +66,14 @@
 				}
 			});
 
+			Object.defineProperty(ns.defaults, "enablePageScroll", {
+				get: function(){
+					return ns.getConfig("enablePageScroll", false);
+				},
+				set: function(value){
+					return ns.setConfig("enablePageScroll", value);
+				}
+			});
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 		}
 	);

@@ -270,7 +270,9 @@
 					 * @property {Object} options
 					 * @member ns.widget.wearable.Page
 					 */
-					self.options = {};
+					self.options = {
+						enablePageScroll: null
+					};
 					self._expandableFooter = null;
 				},
 				/**
@@ -346,7 +348,14 @@
 
 			Page.classes = classes;
 			Page.events = EventType;
-
+			/**
+			 * Configure Page Widget
+			 * @method _configure
+			 * @member ns.widget.wearable.Page
+			 */
+			prototype._configure = function () {
+				this.options.enablePageScroll = ns.getConfig("enablePageScroll");
+			}
 			/**
 			 * Sets top-bottom css attributes for content element
 			 * to allow it to fill the page dynamically
@@ -355,12 +364,14 @@
 			 */
 			prototype._contentFill = function () {
 				var self = this,
+					option = self.options,
 					element = self.element,
 					screenWidth = window.innerWidth,
 					screenHeight = window.innerHeight,
 					contentSelector = classes.uiContent,
 					headerSelector = classes.uiHeader,
 					footerSelector = classes.uiFooter,
+					pageScrollSelector = classes.uiPageScroll,
 					headerHeight = 0,
 					footerHeight = 0,
 					children = [].slice.call(element.children),
@@ -377,6 +388,10 @@
 
 				elementStyle.width = screenWidth + "px";
 				elementStyle.height = screenHeight + "px";
+
+				if (option.enablePageScroll === true) {
+					element.classList.add(pageScrollSelector);
+				}
 
 				for (i = 0; i < childrenLength; i++) {
 					node = children[i];
@@ -401,7 +416,7 @@
 						marginTop = parseFloat(contentStyle.marginTop);
 						marginBottom = parseFloat(contentStyle.marginBottom);
 
-						if (!element.classList.contains(classes.uiPageScroll)) {
+						if (!element.classList.contains(pageScrollSelector)) {
 							nodeStyle.height = (screenHeight - headerHeight - footerHeight - marginTop - marginBottom) + "px";
 							nodeStyle.width = screenWidth + "px";
 						}
@@ -440,7 +455,6 @@
 						scrollElement : element
 					});
 				}
-
 				return element;
 			};
 
