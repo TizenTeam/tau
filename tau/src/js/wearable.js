@@ -35,6 +35,7 @@
 			"./profile/wearable/widget/wearable/scroller/Scroller",
 			"./profile/wearable/widget/wearable/scroller/scrollbar/ScrollBar",
 			"./profile/wearable/widget/wearable/PageIndicator",
+			"./profile/wearable/helper/ListMarqueeStyle",
 			"./profile/wearable/router/Router",
 			"./profile/wearable/router/route/page",
 			"./profile/wearable/router/route/popup",
@@ -42,6 +43,7 @@
 			"./profile/wearable/router/history",
 			"./profile/wearable/expose",
 			"./profile/wearable/backward",
+			"./profile/wearable/helper",
 			// Modules to be loaded after
 			"./core/init"
 		],
