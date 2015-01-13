@@ -2,14 +2,21 @@
 (function () {
 	"use strict";
 
+	/**
+	 * Module for installing, running and other development actions dedicated
+	 * for Tizen platform
+	 * @author Piotr Karny <p.karny@samsung.com>
+	 */
+
 	var os = require('os'),
 		path = require("path"),
 		grunt = require("grunt"),
 		file = grunt.file,
 		spawn = require("child_process").spawn,
 		envConfiguration = {
-			sdkPath: null,
-			tempPath: '/tmp/_tizen_tools',
+			sdkPath: path.join(process.env.HOME, "tizen-sdk"),
+			sdkWorkspacePath: path.join(process.env.HOME, "workspace"),
+			tempPath: 'tmp/_tizen_tools',
 			devices: []
 		},
 		/**
@@ -23,8 +30,15 @@
 		SDB_PACKAGE_REGEX = /pkg_type\[wgt\] pkgid\[([A-Za-z0-9\-_]+)\] key\[start\] val\[(ok|install|update)\]$/im,
 		SDB_INSTALL_ICON = /pkg_type\[wgt\] pkgid\[([A-Za-z0-9\-_]+)\] key\[icon_path\] val\[([a-zA-Z0-9\/\-_\.]+)\]$/im;
 
+	/**
+	 * Retrieves the devices list using SDB command.
+	 * @param {Function} [doneCallback] Method called when the operation has finished. Array of found devices will be given as the first parameter
+	 * @param {array} doneCallback.devicesFound Array of found targets. Every element has and .uid and .name property
+	 */
 	function getDeviceList(doneCallback) {
-		var sdb = spawn("sdb", ["devices"]);
+		var sdb = spawn("sdb", ["devices"]),
+			devicesFound = [];
+
 		sdb.stdout.on("data", function (data) {
 			var deviceMatches;
 
@@ -32,10 +46,11 @@
 
 			data.forEach(function (line) {
 				deviceMatches = line.match(SDB_DEVICES_REGEX);
+
 				// Save only devices (that are not offline etc).
 				if(deviceMatches && deviceMatches[2] && deviceMatches[2] === 'device') {
 					grunt.log.debug("Adding device " + deviceMatches[1] + "\t" + deviceMatches[2] + "\t" + deviceMatches[3]);
-					envConfiguration.devices.push({
+					devicesFound.push({
 						name: deviceMatches[3],
 						uid: deviceMatches[1]
 					});
@@ -44,18 +59,26 @@
 				}
 			});
 		});
+
 		sdb.stdout.on("close", function () {
-			if (envConfiguration.devices.length === 0) {
+			var internalDeviceList = envConfiguration.devices;
+
+			if (devicesFound.length === 0) {
 				grunt.fail.fatal("No target devices found");
+			} else {
+				// Save every found device into internal device list
+				internalDeviceList.push.apply(internalDeviceList, devicesFound);
 			}
 
-			grunt.verbose.writeln("Found devices [" + envConfiguration.devices.length + "]:\n" + (envConfiguration.devices.map(function (device) {
+			grunt.verbose.writeln("Found devices [" + internalDeviceList.length + "]:\n" + (internalDeviceList.map(function (device) {
 				return " - [" + device.name + "] " + device.uid;
 			}).join("\n")));
 
-			if (doneCallback) {
+			if (typeof doneCallback === "function") {
 				// Do async
-				process.nextTick(doneCallback);
+				process.nextTick(function () {
+					doneCallback(devicesFound);
+				});
 			}
 		});
 
@@ -64,6 +87,21 @@
 		});
 	}
 
+	/**
+	 * Runs application on given target. Uses SDB command.
+	 * @param {string} target Target device or emulator UID
+	 * @param {string} targetName Target device or emulator name (used for verbosity)
+	 * @param {string} applicationId Application ID
+	 * @param {Function} [successCallback] Called when operation finished with a success.
+	 * @param {string} successCallback.applicationId Application ID
+	 * @param {string} successCallback.target Target device or emulator UID
+	 * @param {string} successCallback.targetName Target device or emulator name
+	 * @param {Function} [failureCallback]
+	 * @param {string} failureCallback.applicationId Application ID
+	 * @param {string} failureCallback.target Target device or emulator UID
+	 * @param {string} failureCallback.targetName Target device or emulator name
+	 * @param {string} failureCallback.cleanData Cleaned command result
+	 */
 	function runApp(target, targetName, applicationId, successCallback, failureCallback) {
 		var sdb,
 			sdbArgs = ["-s", target, "shell", "wrt-launcher", "-s", applicationId];
@@ -110,6 +148,25 @@
 		});
 	}
 
+	/**
+	 * Installs application on given target. Retrieves application id, package id and other
+	 * details from the process of installation
+	 * @param {string} target Target device or emulator UID
+	 * @param {string} targetName Target device or emulator name
+	 * @param {string} wgtFilePath Path to the .wgt file to install
+	 * @param {Function} [successCallback] Called after successful installation
+	 * @param {string} successCallback.target Target device or emulator UID
+	 * @param {string} successCallback.targetName Target device or emulator name
+	 * @param {string} successCallback.applicationId Application ID
+	 * @param {string} successCallback.wgtPath .wgt path for which the installation succeeded
+	 * @param {Function} [failureCallback] Called after failed installation
+	 * @param {string} failureCallback.target Target device or emulator UID
+	 * @param {string} failureCallback.targetName Target device or emulator name
+	 * @param {string} failureCallback.applicationId Application ID
+	 * @param {string} failureCallback.wgtPath .wgt path for which the installation failed
+	 * @param {string} failureCallback.message Failure message
+	 * @returns {number} In case of error returns 1
+	 */
 	function installApp(target, targetName, wgtFilePath, successCallback, failureCallback) {
 		var sdb,
 			wgtExists = file.exists(wgtFilePath),
@@ -118,15 +175,15 @@
 			applicationId = null;
 
 		if (!wgtExists) {
+			grunt.verbose.error("WGT file doesn't exist in given path [" + wgtFilePath + "]\n" +
+				"Failure handler is not set");
+
 			if (typeof failureCallback === "function") {
 				process.nextTick(function () {
 					failureCallback(target, targetName, applicationId, wgtFilePath, "Given .wgt file [" + wgtFilePath + "] doesn't exists");
 				});
 				return 1;
 			}
-
-			grunt.verbose.error("WGT file doesn't exist in given path [" + wgtFilePath + "]\n" +
-				"Failure handler is not set");
 		}
 
 		grunt.verbose.writeln("[" + targetName + "] Installing " + wgtFilePath);
@@ -174,7 +231,7 @@
 			}
 		});
 
-		sdb.on("close", function (code, signal) {
+		sdb.on("close", function (/* code, signal */) {
 			if (!errorFound) {
 				grunt.verbose.ok("[" + targetName + "] Application from [" + wgtFilePath + "] has been installed");
 
@@ -196,12 +253,20 @@
 	}
 
 	/**
-	 *
-	 * @param target
-	 * @param targetName
-	 * @param applicationId
-	 * @param {function(target, targetName, applicationId)} runningCallback
-	 * @param {function(target, targetName, applicationId, applicationStatus)} stoppedCallback
+	 * Checks if the given application is running on given target
+	 * Requires application Id (not package ID)
+	 * @param {string} target Target device or emulator UID
+	 * @param {string} targetName Target device or emulator name
+	 * @param {string} applicationId Application ID
+	 * @param {Function} runningCallback Called when application is still running
+	 * @param {string} runningCallback.target Target device or emulator UID
+	 * @param {string} runningCallback.targetName Target device or emulator name
+	 * @param {string} runningCallback.applicationId Application ID
+	 * @param {Function} stoppedCallback Called when application is stopped
+	 * @param {string} stoppedCallback.target Target device or emulator UID
+	 * @param {string} stoppedCallback.targetName Target device or emulator name
+	 * @param {string} stoppedCallback.applicationId Application ID
+	 * @param {string} stoppedCallback.cleanData Cleaned command output
 	 */
 	function isRunning(target, targetName, applicationId, runningCallback, stoppedCallback) {
 		var sdb,
@@ -240,13 +305,31 @@
 			grunt.log.error("[" + targetName + "] Error occurred during checking for running apps. " + e);
 		});
 
-		sdb.on("close", function (code, signal) {
+		sdb.on("close", function (code/*, signal */) {
 			if (code === 1) {
 				grunt.log.error("Problem while spawning SDB");
 			}
 		});
 	}
 
+	/**
+	 * Pulls file from given device.
+	 * @param {string} target
+	 * @param {string} targetName
+	 * @param {string} remotePath
+	 * @param {string} [localPath]
+	 * @param {boolean} [outputToString=false]
+	 * @param {Function} [successCallback] Called after successful file pull
+	 * @param {string} successCallback.target Target device or emulator UID
+	 * @param {string} successCallback.targetName Target device or emulator name
+	 * @param {string} successCallback.fileContent File content (if it was requested)
+	 * @param {string} successCallback.localFile Local file path (generated in case was not given as input args for pullFile call)
+	 * @param {Function} [failureCallback] Called in case of failure
+	 * @param {string} failureCallback.target Target device or emulator UID
+	 * @param {string} failureCallback.targetName Target device or emulator name
+	 * @param {string} failureCallback.message Failure message
+	 * @returns {number} Returns 1 in case of any problems
+	 */
 	function pullFile(target, targetName, remotePath, localPath, outputToString, successCallback, failureCallback) {
 		var sdb,
 			sdbArgs,
@@ -313,12 +396,34 @@
 		});
 	}
 
+	/**
+	 * Callback for listenToExit method called when given application is still running on given target.
+	 * Sets a timeout for next listenToExit call.
+	 * @param {Function} exitCallback Called when application has exited
+	 * @param {string} exitCallback.target Target device or emulator UID
+	 * @param {string} exitCallback.targetName Target device or emulator name
+	 * @param {string} exitCallback.applicationId Application ID
+	 * @param {string} target Device UID
+	 * @param {string} targetName Device Name
+	 * @param {string} applicationId Application ID
+	 */
 	function listenToExitStillRunning(exitCallback, target, targetName, applicationId) {
 		setTimeout(function () {
 			listenToExit(target, targetName, applicationId, exitCallback);
 		}, LISTEN_FREQUENCY);
 	}
 
+	/**
+	 * This function is called when given application has stopped on given target.
+	 * It calls the given exitCallback in process.nextTick.
+	 * @param {Function} exitCallback Called when application has exited
+	 * @param {string} exitCallback.target Target device or emulator UID
+	 * @param {string} exitCallback.targetName Target device or emulator name
+	 * @param {string} exitCallback.applicationId Application ID
+	 * @param {string} target Device UID
+	 * @param {string} targetName Device Name
+	 * @param {string} applicationId Application ID
+	 */
 	function listenToExitStopped(exitCallback, target, targetName, applicationId) {
 		process.nextTick(function () {
 			exitCallback(target, targetName, applicationId);
@@ -326,12 +431,17 @@
 	}
 
 	/**
-	 *
+	 * Defines a Listener for application exit.
+	 * This method set a timer for given period of time and checks if application is still running.
+	 * When the applications exits this method calls the given exitCallback
 	 * @param {string} target Device UID
 	 * @param {string} targetName Device Name
-	 * @param {string} applicationId
-	 * @param {function(target, targetName, applicationId)} exitCallback
-	 * @returns {number}
+	 * @param {string} applicationId Application ID
+	 * @param {Function} exitCallback Called when application has exited
+	 * @param {string} exitCallback.target Target device or emulator UID
+	 * @param {string} exitCallback.targetName Target device or emulator name
+	 * @param {string} exitCallback.applicationId Application ID
+	 * @returns {number} Returns 1 in case of problems
 	 */
 	function listenToExit(target, targetName, applicationId, exitCallback) {
 		if (!exitCallback || typeof exitCallback !== 'function') {
@@ -368,7 +478,11 @@
 		},
 		/**
 		 * Sets configuration for the current execution.
-		 * @param config
+		 * @param {Object} config
+		 * @param {string} [config.sdkPath="~/tizen-sdk"] SDK path. Required for building
+		 * @param {string} [config.sdkWorkspacePath="~/workspace"] SDK workspace path. Required for building
+		 * @param {string} [config.tempPath="tmp/_tizen_tools"] Path for temporary storing the results
+		 * @param {Array} [config.devices] Array of devices to run tests on. Every array element should have a .uid and .name property defined
 		 */
 		configure: function (config) {
 			var keys = Object.keys(config);
@@ -377,7 +491,17 @@
 				envConfiguration[key] = config[key];
 			});
 		},
-		build: function(applicationPath) {
+		/**
+		 * Builds .wgt file from application in given location
+		 * @TODO
+		 * @param {string} applicationPath
+		 * @param {Function} [successCallback]
+		 * @param {Function} [failureCallback]
+		 */
+		build: function(applicationPath, successCallback, failureCallback) {
+			// 1. config.xml check?
+			// 2. Privilege check?
+			// 3. Signature check
 			throw "Not yet implemented";
 		},
 		/**
@@ -519,6 +643,18 @@
 				devices.forEach(function (device) {
 					listenToExit(device.uid, device.name, applicationId, exitCallback);
 				});
+			}
+		},
+		/**
+		 *
+		 * @param {function} doneCallback
+		 * @param {boolean} [force=false]
+		 */
+		getTargets: function (doneCallback, force) {
+			if (envConfiguration.devices.length === 0 || force) {
+				getDeviceList(doneCallback);
+			} else {
+				doneCallback(envConfiguration.devices);
 			}
 		}
 	};

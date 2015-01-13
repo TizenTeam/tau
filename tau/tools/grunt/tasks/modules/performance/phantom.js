@@ -1,11 +1,17 @@
 /*global module, console, require, __dirname */
 (function () {
 	"use strict";
+
+	/**
+	 * Tester class for testing using PhantomJS
+	 * @author Piotr Karny <p.karny@samsung.com>
+	 */
 	module.exports = (function () {
 		var proto,
 			path = require("path"),
 			grunt = require("grunt"),
 			BaseTester = require(path.join(__dirname, "base")),
+			baseTesterPrototype = BaseTester.prototype,
 			phantomjs = require('grunt-lib-phantomjs').init(grunt),
 			// Get an asset file, local to the root of the project.
 			asset = path.join.bind(null, __dirname, '..', '..', '..', '..', '..'),
@@ -62,14 +68,23 @@
 			BaseTester.call(this);
 
 			this.lastApp = null;
+			this.storage.Phantom = {};
 
 			this.initPhantom();
 
 			errorCount = 0;
 		}
 
+		proto.run = function (doneCallback) {
+			baseTesterPrototype.run.call(this, doneCallback);
+
+			this.prepareTargetQueues();
+
+			this.runQueue();
+		};
+
 		proto.runQueue = function () {
-			var queue = this.queue,
+			var queue = this.queue.default,
 				appToProcess = queue.pop(),
 				lastApp = this.lastApp,
 				doneCallback = this.doneCallback;
@@ -108,7 +123,7 @@
 		};
 
 		proto.addData = function (data) {
-			var storage = this.storage;
+			var storage = this.storage.Phantom;
 
 			switch (data.type) {
 				case "performance.data.start":

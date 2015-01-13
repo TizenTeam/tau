@@ -13,47 +13,58 @@
 			DeviceTester = require(path.join(__dirname,  "modules", "performance", "device"));
 
 		function preparePerformanceReport(storage) {
-			var sectionNames = Object.keys(storage),
+			var deviceUIDs = Object.keys(storage),
 				section,
 				stepNames,
-				table = new CliTable({
+				table,
+				tableSettings = {
 					head: ["[Section/Step]", "[Median]", "[Avg]", "[StdDev]"],
 					colWidths: [60, 20, 20, 20]
-				});
+				};
 
 			grunt.log.writeln("=============================================================================================================================");
 			grunt.log.writeln(" PERFORMANCE REPORT ");
 			grunt.log.writeln(" Note: Shows time between section start and following steps ");
 			grunt.log.writeln("=============================================================================================================================");
 
-			sectionNames.forEach(function (sectionName) {
-				var startStats;
+			deviceUIDs.forEach(function(uid) {
+				var sectionNames = Object.keys(storage[uid]);
 
-				section = storage[sectionName];
-				startStats = new Stats().push(section.start);
+				table = new CliTable(tableSettings);
 
-				table.push([
-					sectionName + " (start time)",
-					startStats.amean().toFixed(RESULT_PRECISION) + 'ms',
-					startStats.median().toFixed(RESULT_PRECISION) + 'ms',
-					startStats.stddev().toFixed(RESULT_PRECISION) + 'ms'
-				]);
+				grunt.log.writeln("\n Device: " + uid);
+				grunt.log.writeln("-----------------------------------------------------------------------------------------------------------------------------");
 
-				stepNames = Object.keys(storage[sectionName].steps);
-				stepNames.map(function (stepName) {
-					var stats = new Stats().push(section.steps[stepName]);
+				sectionNames.forEach(function (sectionName) {
+					var startStats;
+
+					section = storage[uid][sectionName];
+					startStats = new Stats().push(section.start);
 
 					table.push([
-						" \\_ " + stepName,
-						"+" + stats.amean().toFixed(RESULT_PRECISION) + "ms",
-						"+" + stats.median().toFixed(RESULT_PRECISION) + "ms",
-						stats.stddev().toFixed(RESULT_PRECISION) + "ms"
+							sectionName + " (start time)",
+							startStats.amean().toFixed(RESULT_PRECISION) + 'ms',
+							startStats.median().toFixed(RESULT_PRECISION) + 'ms',
+							startStats.stddev().toFixed(RESULT_PRECISION) + 'ms'
 					]);
+
+					stepNames = Object.keys(storage[uid][sectionName].steps);
+					stepNames.map(function (stepName) {
+						var stats = new Stats().push(section.steps[stepName]);
+
+						table.push([
+								" \\_ " + stepName,
+								"+" + stats.amean().toFixed(RESULT_PRECISION) + "ms",
+								"+" + stats.median().toFixed(RESULT_PRECISION) + "ms",
+								stats.stddev().toFixed(RESULT_PRECISION) + "ms"
+						]);
+					});
+
 				});
 
+				grunt.log.writeln(table.toString());
 			});
 
-			grunt.log.writeln(table.toString());
 		}
 
 		function saveToFile(filePath, output) {
@@ -84,6 +95,7 @@
 				noBuild = grunt.option('no-build'),
 				inputFile = grunt.option('input-file') || null,
 				outputFile = grunt.option('output-file') || null,
+				testCount = grunt.option("test-count") || TEST_COUNT,
 				done = this.async(),
 				tester;
 
@@ -111,27 +123,33 @@
 						grunt.log.ok();
 					}
 
+					grunt.log.writeln("Building performance tests list");
+
 					// Performance tests for every requested profile
 					for (i = 0; i < testApps.length; i++) {
 						currentApp = testApps[i];
 
-						grunt.log.writeln("Collecting performance tests for [" + currentApp.name + "]");
-
-						for (testIndex = 0; testIndex < TEST_COUNT; testIndex++) {
+						for (testIndex = 0; testIndex < testCount; testIndex++) {
 							tester.addTest(currentApp);
 						}
 					}
 
 					grunt.log.write("Running tests: ");
-					grunt.log.writeln(TEST_COUNT * testApps.length);
+					grunt.log.writeln(testCount * testApps.length);
 
 					tester.run(function () {
-						var results = tester.getRawResults();
+						var results = tester.getRawResults(),
+							output;
 
 						preparePerformanceReport(results);
 
 						if (outputFile) {
-							saveToFile(outputFile, results);
+							output = {
+								info: tester.info,
+								results: results
+							};
+
+							saveToFile(outputFile, output);
 						}
 
 						done();
