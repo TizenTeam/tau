@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+	<title>Wearable UI</title>
+	<link rel="stylesheet"  href="../lib/tau/wearable/theme/circle/tau.min.css">
+</head>
+<body>
+	<div id="drawerSinglePage" class="ui-page">
+		<style>
+			#leftDrawerHandler {
+				width: 37px;
+				height: 115px;
+				position: absolute;
+				top: 122px;
+				color: transparent;
+				background-color: #a4a4a4;
+				-webkit-mask-image: url(images/b_drawer.png);
+				-webkit-mask-size: 29px 36px;
+				-webkit-mask-repeat: no-repeat;
+				-webkit-mask-position: 8px 40px;
+				text-align: center;
+			}
+			#leftClose,
+			#spContent {
+				text-align: center;
+			}
+		</style>
+		<header id="spHeader" class="ui-header">
+			<h2 class="ui-title">Overview</h2>
+		</header>
+		<div id = "spContent" class="ui-content">
+			Overview
+		</div>
+
+		<!-- Drawer Handlers -->
+		<a id="leftDrawerHandler" href="#leftDrawer" class="drawer-handler">Left Handler</a>
+
+		<!-- More Option -->
+		<nav id="leftDrawer" class="ui-drawer" data-drawer-target="#drawerSinglePage" data-position="left" data-enable="true" data-drag-edge="1">
+			<header class="ui-header">
+				<h2 class="ui-title">Left Overview</h2>
+			</header>
+			<div id="leftClose" class="ui-content">
+				<p>Click to Close</p>
+			</div>
+		</nav>
+
+
+	<script>
+	(function(){
+		var handlers = [].slice.call(document.getElementsByClassName("drawer-handler")),
+			page = document.getElementById("drawerSinglePage"),
+			drawerElements = [];
+
+		page.addEventListener( "pagebeforeshow", function() {
+
+			handlers.forEach(function(handler) {
+				var drawerElement = document.querySelector(handler.getAttribute("href")),
+					drawer = tau.widget.Drawer(drawerElement);
+				drawer.setDragHandler(handler);
+				tau.event.on(handler, "touchstart touchend", function(e) {
+					if(drawer.getState().search(/settling/) === 0) {
+						// In this case, you must use close method for drawer widget will be closed.
+						return;
+					}
+					switch (e.type) {
+						case "touchstart":
+							// open drawer
+							drawer.transition(60);
+							e.preventDefault();
+							e.stopPropagation();
+							break;
+						case "touchend":
+							drawer.close();
+							break;
+					}
+				}, false);
+				drawerElements.push(drawer);
+			});
+
+			document.getElementById("leftClose").addEventListener("click",function() {
+				var drawerElement = tau.util.selectors.getClosestByClass(this, "ui-drawer"),
+						drawer = tau.widget.Drawer(drawerElement);
+				drawer.close();
+			});
+		});
+	})();
+
+	</script>
+	</div>
+	<script type="text/javascript" src="../lib/tau/wearable/js/tau.min.js"></script>
+</body>
+</html>
