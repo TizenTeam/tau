@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+	<title>Wearable UI</title>
+	<link rel="stylesheet"  href="../lib/tau/wearable/theme/default/tau.min.css">
+	<link rel="stylesheet" media="all and (-tizen-geometric-shape: circle)" href="../lib/tau/wearable/theme/default/tau.circle.min.css">
+</head>
+<body>
+<div id="sectionChangerPage" class="ui-page" data-enable-page-scroll="false">
+	<style>
+		section {
+			height: 200px;
+		}
+		.thumbnail {
+			height: 200px;
+			width: 200px;
+			border-radius: 100px;
+			background-color: #802532;
+			left: 79px;
+			position: relative;
+			text-align: center;
+			line-height: 200px;
+			transform: scale(0.8);
+			transition: transform 300ms;
+		}
+		.ui-section-active .thumbnail{
+			transform: scale(1);
+		}
+	</style>
+	<div id="sectionChanger" class="ui-content ui-section-changer">
+		<div id="scroller">
+			<section class="ui-section-active">
+				<div class="thumbnail">1</div>
+			</section>
+			<section>
+				<div class="thumbnail">2</div>
+			</section>
+			<section>
+				<div class="thumbnail">3</div>
+			</section>
+		</div>
+	</div>
+
+	<script>
+		(function(){
+			var page = document.getElementById("sectionChangerPage"),
+					sectionChanger = document.getElementById("sectionChanger");
+
+			page.addEventListener( "pagebeforeshow", function() {
+				tau.widget.SectionChanger(sectionChanger, {
+					orientation: "vertical",
+					fillContent: false
+				});
+			});
+		})();
+
+	</script>
+</div>
+<script type="text/javascript" src="../lib/tau/wearable/js/tau.js"></script>
+</body>
+</html>
