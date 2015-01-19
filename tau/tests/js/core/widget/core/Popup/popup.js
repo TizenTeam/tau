@@ -8,8 +8,8 @@
 		popup1Link = null,
 		popup1 = null,
 		popup1Widget = null,
-		PopupClass = tau.widget.core.Popup,
-		engine = tau.engine;
+		PopupClass = ej.widget.core.Popup,
+		engine = ej.engine;
 
 	module("Popup tests", {
 		setup: function () {

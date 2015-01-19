@@ -216,8 +216,7 @@
 			"../../../../core/engine",
 			"../../../../core/util/DOM/css",
 			"../wearable",
-			"../../../../core/widget/BaseWidget",
-			"./ExpandableFooter"
+			"../../../../core/widget/BaseWidget"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
@@ -253,7 +252,6 @@
 				 * @static
 				 */
 				engine = ns.engine,
-				ExpandableFooter = ns.widget.wearable.ExpandableFooter,
 
 				Page = function () {
 					var self = this;
@@ -270,10 +268,7 @@
 					 * @property {Object} options
 					 * @member ns.widget.wearable.Page
 					 */
-					self.options = {
-						enablePageScroll: null
-					};
-					self._expandableFooter = null;
+					self.options = {};
 				},
 				/**
 				 * Dictionary for page related event types
@@ -339,7 +334,6 @@
 					uiSection: "ui-section",
 					uiHeader: "ui-header",
 					uiFooter: "ui-footer",
-					ExpandableFooter: ExpandableFooter.classes.ExpandableFooter,
 					uiContent: "ui-content",
 					uiPageScroll: "ui-scroll-on",
 					uiFixed: "ui-fixed"
@@ -402,7 +396,7 @@
 						}
 					} else if (node.classList.contains(footerSelector)) {
 						footerHeight += doms.getElementHeight(node);
-						if (node.classList.contains(classes.uiFixed) || node.classList.contains(classes.ExpandableFooter)) {
+						if (node.classList.contains(classes.uiFixed)) {
 							needBottomMargin = true;
 						}
 					}
@@ -429,9 +423,6 @@
 						}
 					}
 				}
-				if (self._expandableFooter) {
-					self._expandableFooter.refresh();
-				}
 			};
 
 			/**
@@ -444,17 +435,6 @@
 			 */
 			prototype._build = function (element) {
 				element.classList.add(classes.uiPage);
-				return element;
-			};
-
-			prototype._init = function (element) {
-				var footer = element.querySelector("." + classes.uiFooter),
-					expandableFooter = footer ? footer.classList.contains(classes.ExpandableFooter) : null;
-				if (expandableFooter) {
-					this._expandableFooter = engine.instanceWidget(footer, "ExpandableFooter", {
-						scrollElement : element
-					});
-				}
 				return element;
 			};
 
@@ -572,7 +552,6 @@
 
 				// destroy widgets on children
 				engine.destroyAllWidgets(element, true);
-				self._expandableFooter = null;
 			};
 
 			Page.prototype = prototype;

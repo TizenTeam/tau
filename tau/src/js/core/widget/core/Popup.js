@@ -84,7 +84,6 @@
 
 					// event callbacks
 					self._callbacks = {};
-					self._expandableFooter = null;
 				},
 				/**
 				 * Object with default options
@@ -129,7 +128,6 @@
 					overlay: CLASSES_PREFIX + "-overlay",
 					header: CLASSES_PREFIX + "-header",
 					footer: CLASSES_PREFIX + "-footer",
-					expandableFooter: "ui-expandable-footer",
 					content: CLASSES_PREFIX + "-content",
 					wrapper: CLASSES_PREFIX + "-wrapper",
 					build: "ui-build",
@@ -426,12 +424,6 @@
 
 				// @todo - use selector from page's definition in engine
 				ui.page = utilSelector.getClosestByClass(element, "ui-page") || window;
-
-				if (ui.footer && ui.footer.classList.contains(classes.expandableFooter)) {
-					self._expandableFooter = engine.instanceWidget(ui.footer, "ExpandableFooter", {
-						scrollElement : ui.wrapper
-					});
-				}
 			};
 
 			/**
@@ -552,19 +544,15 @@
 							content.style.marginTop = headerHeight + "px";
 						}
 					}
-
 					if (footer) {
 						footerHeight = footer.offsetHeight;
-						if (footer.classList.contains(classes.fixed) || footer.classList.contains(classes.expandableFooter)) {
+						if (footer.classList.contains(classes.fixed)) {
 							content.style.marginBottom = footerHeight + "px";
 						}
 					}
 
 					wrapper.style.height = Math.min(content.offsetHeight + headerHeight + footerHeight, element.offsetHeight) + "px";
 
-					if (self._expandableFooter) {
-						self._expandableFooter.refresh();
-					}
 					elementClassList.remove(classes.build);
 				}
 
@@ -731,9 +719,6 @@
 				self._unbindOverlayEvents();
 				self._setOverlay(self.element, self.options.overlay);
 				self._bindOverlayEvents();
-				if (self._expandableFooter) {
-					self._expandableFooter.refresh();
-				}
 			};
 
 			/**
@@ -860,10 +845,6 @@
 				var self = this,
 					element = self.element;
 
-				if (self._expandableFooter) {
-					self._expandableFooter.destroy();
-					self._expandableFooter = null;
-				}
 				self._unbindEvents(element);
 				self._setOverlay(element, false);
 			};
