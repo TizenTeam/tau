@@ -86,7 +86,7 @@
 					 * Dictionary for SnapListview related events.
 					 * @event scrollstart
 					 * @event scrollend
-					 * @event itemselected
+					 * @event selected
 					 * @member ns.widget.wearable.SnapListview
 					 */
 					SCROLL_START: "scrollstart",
@@ -117,7 +117,6 @@
 
 				classes = {
 					SNAP_LISTVIEW: CLASSES_PREFIX,
-					SNAP_LISTVIEW_ITEM: CLASSES_PREFIX + "-item",
 					SNAP_LISTVIEW_SELECTED: CLASSES_PREFIX + "-selected"
 				},
 
@@ -156,7 +155,7 @@
 						self._selectedIndex = i;
 						tempListItem.classList.add(classes.SNAP_LISTVIEW_SELECTED);
 
-						// trigger "itemselected" event
+						// trigger "selected" event
 						utilEvent.trigger(tempListItem, eventType.SELECTED);
 						break;
 					}
@@ -178,30 +177,6 @@
 				removeSelectedClass(self);
 
 				self._timer = setTimeout(scrollEndCallback, SCROLL_END_TIME_THRESHOLD);
-			}
-
-			/* TODO: Remove setClassForSnapListStyle() and removeClassForSnapListStyle() method
-			   We added those methods because webkit css property -webkit-scroll-snap-destination has bug
-			   when it declared in <ul> element. So, we temporarily add ui-snap-listview-item class.
-			 */
-			function setClassForSnapListStyle(listview) {
-				var listItems = listview.children,
-					listItemLength = listItems.length,
-					i;
-
-				for (i=0 ; i < listItemLength; i++) {
-					listItems[i].classList.add(classes.SNAP_LISTVIEW_ITEM);
-				}
-			}
-
-			function removeClassForSnapListStyle(listview) {
-				var listItems = listview.children,
-					listItemLength = listItems.length,
-					i;
-
-				for (i=0 ; i < listItemLength; i++) {
-					listItems[i].classList.remove(classes.SNAP_LISTVIEW_ITEM);
-				}
 			}
 
 			/* TODO: please check algorithm */
@@ -259,7 +234,6 @@
 				ui.scrollableParent = getScrollableParent(listviewElement) || ui.page;
 
 				if (ui.childItems && (ui.childItems.length > 0)) {
-					setClassForSnapListStyle(listviewElement);
 					initSnapListviewItemInfo(listviewElement);
 				}
 
@@ -278,22 +252,8 @@
 			prototype._refresh = function() {
 				var element = this.element;
 
-				this._reset();
-
-				setClassForSnapListStyle(element);
 				initSnapListviewItemInfo(element);
-
 				return null;
-			};
-
-			/**
-			 * Reset class and timer
-			 * @method _reset
-			 * @protected
-			 * @member ns.widget.wearable.SnapListview
-			 */
-			prototype._reset = function() {
-				removeClassForSnapListStyle(this.element);
 			};
 
 			prototype._unbindEvents = function() {
@@ -309,11 +269,10 @@
 			prototype._destroy = function() {
 				var self = this;
 
-				self._reset();
 				self._unbindEvents();
 
 				self._ui = null;
-				self._callbacks = {};
+				self._callbacks = null;
 				self._isScrollStarted = null;
 				self._timer = null;
 				self._selectedIndex = null;
