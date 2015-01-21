@@ -5,4 +5,6 @@
 	tau.defaults.popupTransition = "pop";
 
 	tau.defaults.popupFullSize = true;
+	
+	tau.defaults.scrollEndEffectArea = "screen";
 }(tau));

@@ -74,6 +74,15 @@
 					return ns.setConfig("enablePageScroll", value);
 				}
 			});
+
+			Object.defineProperty(ns.defaults, "scrollEndEffectArea", {
+				get: function(){
+					return ns.getConfig("scrollEndEffectArea", "content");
+				},
+				set: function(value){
+					return ns.setConfig("scrollEndEffectArea", value);
+				}
+			});
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 		}
 	);
