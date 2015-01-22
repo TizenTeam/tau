@@ -1,0 +1,96 @@
+.ui-indexscrollbar {
+	display: block;
+	position: absolute;
+	right: 0;	//TODO:bidi
+	top: 0;
+	width: 33 * @unit_base;
+	height: 100%;
+	padding-left: 2 * @unit_base;
+	//background-color: @color_indexscrollbar_bg;
+	background-color: @color_fastscroll_rollover_bg;
+	z-index: 1000;
+	overflow: visible;	// To show 2nd indexbar
+	.user-select(none);
+	cursor: pointer;
+	.border-box();
+
+	ul {
+		list-style-type: none;
+		margin: 0;
+		padding: 0;
+		position:absolute;
+		width: 100%;
+		top:0;
+		li {
+			cursor: pointer;
+			//color: @color_indexscrollbar_text;
+			color: @color_fastscroll_rollover_text;
+			display: block;
+			width: 100%;
+			text-align: center;
+			vertical-align: middle;
+			font-size: @font_size_fastscroll_rollover_text;
+			height: 28 * @unit_base;
+			line-height: 28 * @unit_base;
+			font-weight: bold;
+		}
+		li.ui-state-selected {
+			//background-color: @color_indexscrollbar_selected_bg;
+			//color: @color_indexscrollbar_selected_text;
+		}
+	}
+	ul.ui-indexscrollbar-supplementary {
+		position: relative;
+		height: auto;
+		top: 0;
+		right: -40 * @unit_base;
+		width: 100%;
+		li {
+			//background-color: @color_indexscrollbar_bg_supplementary;
+			//color: @color_indexscrollbar_text;
+		}
+		li.ui-state-selected {
+			//background-color: @color_indexscrollbar_bg_supplementary;
+			//color: @color_indexscrollbar_selected_text_supplementary;
+		}
+
+	}
+
+	& + .ui-listview li {
+		padding-right: 40*@unit_base;
+    }
+}
+
+.ui-indexscrollbar-indicator {
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 999;
+	display: none;
+
+	>span {
+		width: 92 * @unit_base;
+		line-height: 100 * @unit_base;
+		box-shadow: 0 2px 1px @color_fastscroll_popup_border;
+		position: absolute;
+		display: block;
+		top: 50%;
+		left: 50%;
+		margin-left: -90 * @unit_base;
+		margin-top: -43 * @unit_base;
+		line-height: 87 * @unit_base;
+		font-size: 70 * @unit_base;
+		padding: 0;
+		border: 2px solid @color_fastscroll_popup_border;
+		border-radius: 7px;
+		text-align: center;
+		.border-box();
+		background-color: @color_fastscroll_popup_bg;
+		color: @color_fastscroll_popup_text;
+
+		>span.ui-selected {
+			//color: @color_indexscrollbar_indicator_text_selected;
+		}
+
+	}
+}

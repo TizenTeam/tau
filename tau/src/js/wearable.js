@@ -18,7 +18,7 @@
 			"./core/widget/core/Checkboxradio",
 			"./core/widget/core/Button",
 			"./profile/wearable/widget/wearable/Listview",
-			"./profile/wearable/widget/wearable/indexscrollbar/IndexScrollbar",
+			"./profile/wearable/widget/wearable/IndexScrollbar",
 			"./profile/wearable/widget/wearable/Progress",
 			"./profile/wearable/widget/wearable/Progressing",
 			"./profile/wearable/widget/wearable/ToggleSwitch",

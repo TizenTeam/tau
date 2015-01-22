@@ -11,27 +11,28 @@
 				contactsUl = document.getElementById('contacts'),
 				contactsDividers = contactsUl.getElementsByClassName('ui-li-divider'),
 				fastScrollDividers = fastScroll[0].getElementsByTagName('li'),
-				popup = document.getElementsByClassName('ui-fastscroll-popup')[0],
+				popup = document.getElementsByClassName('ui-indexscrollbar-indicator')[0],
 				dividerText,
 				i,
 				length,
 				afterDestroy;
 
-			ok(fastScroll.length > 0,"FastScroll container exists");
+			ok(fastScroll.length > 0, "FastScroll container exists");
+
 			//LI count must be greater by one then contactsDividers.length
-			ok(fastScrollDividers.length - 1 === contactsDividers.length, "Dividers number is the same");
+			strictEqual(fastScrollDividers.length, contactsDividers.length, "Dividers number is the same ");
 
-			ok(fastScrollDividers[0].innerText === "#", "Check if exists: divider #");
+			strictEqual(fastScrollDividers[0].innerText, "#", "Check if exists: divider #");
 
-			if (fastScrollDividers.length - 1 === contactsDividers.length && contactsDividers.length > 0) {
+			if (fastScrollDividers.length === contactsDividers.length && contactsDividers.length > 0) {
 				for (i = 1, length = fastScrollDividers.length; i < length; i++) {
-					dividerText = fastScrollDividers[i].innerText;
-					ok(dividerText === contactsDividers[i - 1].innerText, "Divider " + dividerText + " exists");
-					events.trigger(fastScrollDividers[i], "vmouseover");
+					dividerText = fastScrollDividers[i].textContent;
+					ok(dividerText === contactsDividers[i - 1].textContent, "Divider " + dividerText + " exists");
+					events.trigger(fastScrollDividers[i], "vmousedown");
 					ok(popup.style.display === "block", "Popup is visible on mouse over on: divider " + dividerText);
 
-					events.trigger(fastScrollDividers[i], "vmouseout");
-					ok(popup.style.display === "none", "Popup is visible on mouse over on divider " + dividerText);
+					events.trigger(fastScrollDividers[i], "vmouseup");
+					ok(popup.style.display === "none", "Popup is invisible on mouse over on divider " + dividerText);
 
 				}
 			}
@@ -44,8 +45,9 @@
 			};
 
 			document.addEventListener('destroyed', afterDestroy, true);
-			$(contactsUl).fastscroll('destroy');
+			tau.widget.FastScroll('contacts').destroy();
 		});
+
 	});
 
 }(window.tau));

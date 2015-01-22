@@ -159,10 +159,6 @@
 					for (i = 0; i < this.length; i++) {
 						element = this.get(i);
 						switch(name){
-							// FastScroll has not real instance defined because it's build as an extension
-							case "fastscroll":
-								instance = engine.getBinding(element, "Listview");
-								break;
 							case "slider":
 								instance = engine.getBinding(element, "Slider") || engine.getBinding(element, "TizenSlider");
 								break;

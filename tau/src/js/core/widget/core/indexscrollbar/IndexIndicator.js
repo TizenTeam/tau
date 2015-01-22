@@ -16,8 +16,8 @@
 	define(
 		[
 			"../indexscrollbar",
-			"../../../../../core/util/object",
-			"../../../../../core/event"
+			"../../../util/object",
+			"../../../event"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
@@ -132,7 +132,7 @@
 
 				}
 			};
-			ns.widget.wearable.indexscrollbar.IndexIndicator = IndexIndicator;
+			ns.widget.core.indexscrollbar.IndexIndicator = IndexIndicator;
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return IndexIndicator;
 		}

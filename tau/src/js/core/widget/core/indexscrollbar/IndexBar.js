@@ -16,8 +16,8 @@
 	define(
 		[
 			"../indexscrollbar",
-			"../../../../../core/util/object",
-			"../../../../../core/util/DOM/css"
+			"../../../util/object",
+			"../../../util/DOM/css"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
@@ -362,7 +362,7 @@
 				}
 			};
 
-			ns.widget.wearable.indexscrollbar.IndexBar = IndexBar;
+			ns.widget.core.indexscrollbar.IndexBar = IndexBar;
 
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 		}

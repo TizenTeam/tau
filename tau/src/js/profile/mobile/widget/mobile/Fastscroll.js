@@ -1,4 +1,4 @@
-/*global window, define */
+/*global window, define, Object, ns */
 /*
 * Copyright  2010 - 2014 Samsung Electronics Co., Ltd.
 * License : MIT License V2
@@ -96,7 +96,7 @@
  *		<div data-role="page" id="main">
  *			<div data-role="content">
  *				<ul id="contacts">
- *					<li data-role="list-divider">A</li>
+ *					<li data-role="list-divider">A</li>F
  *					<li>Anton</li>
  *					<li>Arabella</li>
  *					<li data-role="list-divider">B</li>
@@ -116,7 +116,6 @@
  *		</script>
  *
  * @class ns.widget.mobile.FastScroll
- * @extends ns.widget.mobile.Listview
  * @since 2.0
  */
 (function (document, ns) {
@@ -125,272 +124,72 @@
 	define(
 		[
 			"../../../../core/engine",
-			"../../../../core/theme",
-			"../../../../core/widget",
-			"../../../../core/util/DOM/attributes",
-			"../../../../core/util/DOM/manipulation",
-			"../../../../core/util/DOM/css",
-			"../../../../core/widget/core/Page",
-			"./Scrollview",
-			"./TabBar",
-			"./Listview",
 			"../../../../core/event",
-			"../../../../core/util/selectors"
+			"../../../../core/util/selectors",
+			"../../../../core/widget/core/indexscrollbar/IndexScrollbar",
+			"../mobile",
+			"./BaseWidgetMobile"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
-			/**
-			 * @property {Object} selectors Alias to ns.util.selectors
-			 * @member ns.widget.mobile.FastScroll
-			 * @private
-			 * @static
-			 */
-			var selectors = ns.util.selectors,
 
-				/**
-				 * @property {Function} Scrollview Alias for class ns.widget.mobile.Scrollview
-				 * @member ns.widget.mobile.FastScroll
-				 * @static
-				 * @private
-				 */
-				Scrollview = ns.widget.mobile.Scrollview,
-				/**
-				 * @property {Function} Tabbar Alias for class ns.widget.mobile.TabBar
-				 * @member ns.widget.mobile.FastScroll
-				 * @static
-				 * @private
-				 */
-				Tabbar = ns.widget.mobile.TabBar,
-				/**
-				 * @property {Object} engine Alias for class {@link ns.engine}
-				 * @member ns.widget.mobile.FastScroll
-				 * @private
-				 * @static
-				 */
-				engine = ns.engine,
-				/**
-				 * @property {Object} events alias variable
-				 * @member ns.widget.mobile.FastScroll
-				 * @static
-				 * @private
-				 */
+			var engine = ns.engine,
 				events = ns.event,
-				/**
-				 * @property {Function} Page Alias for class ns.widget.core.Page
-				 * @member ns.widget.mobile.FastScroll
-				 * @static
-				 * @private
-				 */
-				Page = ns.widget.core.Page,
-				/**
-				 * @property {Object} DOMUtils Alias to ns.util.DOM
-				 * @private
-				 * @member ns.widget.mobile.FastScroll
-				 * @static
-				 */
-				DOMUtils = ns.util.DOM,
-				/**
-				 * @property {Function} Listview Alias for class ns.widget.mobile.Listview
-				 * @member ns.widget.mobile.FastScroll
-				 * @static
-				 * @private
-				 */
-				Listview = ns.widget.mobile.Listview,
-
-				/**
-				 * Backup of _build methods for replacing it
-				 * @method parent_build
-				 * @member ns.widget.mobile.FastScroll
-				 * @private
-				 */
-				parent_build = Listview.prototype._build,
-
-				/**
-				 * Backup of _configure methods for replacing it
-				 * @method parent_configure
-				 * @member ns.widget.mobile.FastScroll
-				 * @private
-				 */
-				parent_configure = Listview.prototype._configure,
-
-				/**
-				 * Backup of _init methods for replacing it
-				 * @method parent_init
-				 * @member ns.widget.mobile.FastScroll
-				 * @private
-				 */
-				parent_init = Listview.prototype._init,
-
-				/**
-				 * Backup of _bindEvents methods for replacing it
-				 * @method parent_bindEvents
-				 * @member ns.widget.mobile.FastScroll
-				 * @private
-				 */
-				parent_bindEvents = Listview.prototype._bindEvents,
-
-				/**
-				 * Backup of _destroy methods for replacing it
-				 * @method parent_destroy
-				 * @member ns.widget.mobile.FastScroll
-				 * @private
-				 */
-				parent_destroy = Listview.prototype._destroy,
-
-				/**
-				 * Refresh FastScroll widget
-				 *
-				 * This method updates and redraws current widget.
-				 *
-				 *		@example
-				 *		<div data-role="page" id="main">
-				 *			<div data-role="content">
-				 *				<ul id="list" data-role="listview" data-fastscroll="true">
-				 *					<li data-role="list-divider">A</li>
-				 *					<li>Anton</li>
-				 *					<li>Arabella</li>
-				 *					<li data-role="list-divider">B</li>
-				 *					<li>Barry</li>
-				 *					<li>Bily</li>
-				 *				</ul>
-				 *			</div>
-				 *		</div>
-				 *		<script>
-				 *			var element = document.getElementById("list"),
-				 *				fastscroll = tau.widget.FastScroll(element);
-				 *
-				 *			element.insertAdjacentHTML("afterend", "<li>Bruce</li>");
-				 *			fastscroll.refresh();
-				 *		</script>
-				 *
-				 * or JQueryMobile notation:
-				 *
-				 *		@example
-				 *		<div data-role="page" id="main">
-				 *			<div data-role="content">
-				 *				<ul data-role="listview" data-fastscroll="true" id="fastscroll">
-				 *					<li data-role="list-divider">A</li>
-				 *					<li>Anton</li>
-				 *					<li>Arabella</li>
-				 *					<li data-role="list-divider">B</li>
-				 *					<li>Barry</li>
-				 *					<li>Bily</li>
-				 *				</ul>
-				 *			</div>
-				 *		</div>
-				 *		<script>
-				 *			$("#list").append("<li>Bruno</li>");
-				 *			$("#list").fastscroll("refresh");
-				 *		</script>
-				 *
-				 * @method refresh
+				selectors = ns.util.selectors,
+				NUMBER_REGEXP = /^[0-9]/,
+				BaseWidget = ns.widget.mobile.BaseWidgetMobile,
+				classes = {},
+				prototype = new BaseWidget(),
+				/*
+				 * Event is triggering after _destroy method call
+				 * @event destroyed
 				 * @member ns.widget.mobile.FastScroll
 				 */
-
-				/**
-				 * Backup of _refresh methods for replacing it
-				 * @method parent_refresh
-				 * @member ns.widget.mobile.FastScroll
-				 * @private
-				 */
-				parent_refresh = Listview.prototype._refresh,
-
-				/**
-				 * Alias for object ns.widget.mobile.Listview.classes
-				 * @property {Object} classes
-				 * @member ns.widget.mobile.FastScroll
-				 * @static
-				 * @property {string} listviewClasses.uiFastscroll
-				 * Main calss of fascscroll view
-				 * @property {string} listviewClasses.uiFastscrollTarget
-				 * Class of fascroll target (listview)
-				 * @property {string} listviewClasses.uiFastscrollPopup
-				 * Class of fastscroll popup
-				 * @property {string} listviewClasses.uiScrollbar
-				 * Class of scrollbar
-				 * @property {string} listviewClasses.uiFastscrollHover
-				 * Class of fastscroll item with fover
-				 * @property {string} listviewClasses.uiFastscrollHoverFirstItem
-				 * Class of first item in fastscroll with fover
-				 * @property {string} listviewClasses.uiFastscrollHoverDown
-				 * Class of presed fastscroll item with fover
-				 */
-				listviewClasses = Listview.classes,
-
-				/**
-				 * FastScroll event types
-				 * @property {Object} eventType
-				 * @property {string} [eventType.DESTROYED="destroyed"]
-				 * Event is triggering after _destroy method call.
-				 * @static
-				 * @readonly
-				 * @member ns.widget.mobile.FastScroll
-				 */
-				eventType = Listview.eventType || {},
-
-				/**
-				 * Local cache of function type name
-				 * @property {string} [TYPE_FUNCTION="function"]
-				 * @private
-				 * @static
-				 * @member ns.widget.mobile.FastScroll
-				 */
-				TYPE_FUNCTION = "function";
-
-			// the extension of Listview events dictionary
-			/*
-			 * Event is triggering after _destroy method call
-			 * @event destroyed
-			 * @member ns.widget.mobile.FastScroll
-			 */
-			eventType.DESTROYED = "destroyed";
+				eventType = {
+					DESTROYED: "destroyed"
+				},
+				FastScroll = function () {
+					this.eventHandlers = {};
+					this._ui = {
+						scrollView: null
+					};
+				};
 
 			// the extension of Listview classes
-			listviewClasses.uiFastscroll = "ui-fastscroll";
-			listviewClasses.uiFastscrollTarget = "ui-fastscroll-target";
-			listviewClasses.uiFastscrollPopup = "ui-fastscroll-popup";
-			listviewClasses.uiScrollbar = "ui-scrollbar";
-			listviewClasses.uiFastscrollHover = "ui-fastscroll-hover";
-			listviewClasses.uiFastscrollHoverFirstItem = "ui-fastscroll-hover-first-item";
-			listviewClasses.uiFastscrollHoverDown = "ui-fastscroll-hover-down";
+			classes.uiFastscroll = "ui-fastscroll";
+			classes.uiFastscrollTarget = "ui-fastscroll-target";
+			classes.uiFastscrollPopup = "ui-fastscroll-popup";
+			classes.uiScrollbar = "ui-scrollbar";
+			classes.uiFastscrollHover = "ui-fastscroll-hover";
+			classes.uiFastscrollHoverFirstItem = "ui-fastscroll-hover-first-item";
+			classes.uiFastscrollHoverDown = "ui-fastscroll-hover-down";
+			FastScroll.classes = classes;
 
 			/**
-			 * Count what is max height of short cut on fastscroll list
-			 * @method getMaxFastscrollItemHeight
-			 * @param {ns.widget.mobile.FastScroll} self
-			 * @param {HTMLElement} item
-			 * @param {number} itemsCount
-			 * @param {number} containerHeight
-			 * @return {number}
-			 * @private
-			 * @static
-			 * @member ns.widget.mobile.FastScroll
+			 * @pram {string[]} index
+			 * @deprecated
 			 */
-			function getMaxFastscrollItemHeight(self, item, itemsCount, containerHeight) {
-				var style = window.getComputedStyle(item, null),
-					marginHeight = self.marginHeight || parseInt(style.marginBottom.replace(/[^\d\.]/g, ""), 10),
-					itemHeight = Math.floor(containerHeight / itemsCount);
-
-				marginHeight = self.marginHeight || marginHeight + 2 * parseInt(style.borderBottomWidth.replace(/[^\d\.]/g, ""), 10);
-
-				self.marginHeight = marginHeight;
-				itemHeight -= marginHeight;
-
-				return itemHeight;
-			}
+			prototype.indexString = function (index) {
+				var self = this;
+				ns.warn("Deprecated method: indexString use instead option('index', string)");
+				self.indexScrollbar.option({
+					"index": index,
+					"indexHeight": Math.floor(self._ui.scrollView.clientHeight / index.length)
+				});
+			};
 
 			/**
 			 * Match char to divider
 			 * @method matchToDivider
 			 * @param {HTMLElement} divider
 			 * @param {string} indexChar
-			 * @param {Array} map
+			 * @param {Object} map
 			 * @private
 			 * @static
 			 * @member ns.widget.mobile.FastScroll
 			 */
 			function matchToDivider(divider, indexChar, map) {
-				if (indexChar === divider.innerText) {
+				if (indexChar === divider.textContent) {
 					map[indexChar] = divider;
 				}
 			}
@@ -406,680 +205,9 @@
 			 * @member ns.widget.mobile.FastScroll
 			 */
 			function makeCharacterSet(divider, primaryCharacterSet) {
-				return primaryCharacterSet + divider.innerText;
+				var content = divider.textContent;
+				return primaryCharacterSet + ((NUMBER_REGEXP.test(content)) ? "" : content);
 			}
-
-			/**
-			 * Function called whane pageshow event on fastscroll parent is called
-			 * @method onPageshow
-			 * @param {ns.widget.mobile.FastScroll} self
-			 * @param {Event} event
-			 * @private
-			 * @static
-			 * @member ns.widget.mobile.FastScroll
-			 */
-			function onPageshow(self, event) {
-				event.target.removeEventListener("pageshow", self._onPageshowBound);
-				self._refresh();
-			}
-
-			/**
-			 * Function called on focus out on fast scroll item
-			 * @method onShortcutsListMouseOut
-			 * @param {ns.widget.mobile.FastScroll} self
-			 * @private
-			 * @static
-			 * @member ns.widget.mobile.FastScroll
-			 */
-			function onShortcutsListMouseOut(self) {
-				var items,
-					itemsLength,
-					i,
-					ui = self._ui;
-
-				ui._popup.style.display = "none";
-
-				items = document.getElementsByClassName(listviewClasses.uiFastscrollHover);
-				itemsLength = items.length;
-				for (i = 0; i < itemsLength; i++) {
-					items[0].classList.remove(listviewClasses.uiFastscrollHover);
-				}
-
-				items = document.getElementsByClassName(listviewClasses.uiFastscrollHoverDown);
-				itemsLength = items.length;
-				for (i = 0; i < itemsLength; i++) {
-					items[i].classList.remove(listviewClasses.uiFastscrollHoverDown);
-				}
-
-				items = document.getElementsByClassName(listviewClasses.uiFastscrollHoverFirstItem);
-				itemsLength = items.length;
-				for (i = 0; i < itemsLength; i++) {
-					items[i].classList.remove(listviewClasses.uiFastscrollHoverFirstItem);
-				}
-
-				ui._shortcutsContainer.classList.remove(listviewClasses.uiFastscrollHover);
-			}
-
-			/**
-			 * Function called on focus in on fast scroll item
-			 * @method onShortcutsListMouseOver
-			 * @param {ns.widget.mobile.FastScroll} self
-			 * @param {Event} event
-			 * @private
-			 * @static
-			 * @member ns.widget.mobile.FastScroll
-			 */
-			function onShortcutsListMouseOver(self, event) {
-				var coords = {
-						x: event.pageX,
-						y: event.pageY
-					},
-					ui = self._ui,
-					shortcutsList = ui._shortcutsList,
-					shortcutsContainer = ui._shortcutsContainer,
-					shortcutsListOffset = {
-						left: shortcutsList.offsetLeft,
-						top: shortcutsList.offsetTop
-					},
-					shortcutsContainerTop = shortcutsContainer.offsetTop,
-					shortcutsContainerLeft = shortcutsContainer.offsetLeft,
-					target = event.target,
-					shortcutsListItems,
-					shortcutsListItemsLength,
-					i,
-					j,
-					left,
-					top,
-					right,
-					bottom,
-					unit,
-					baseTop,
-					baseBottom,
-					omitSet,
-					listItem,
-					omitSetLength,
-					tagName = target.tagName.toLowerCase();
-
-				shortcutsContainer.classList.add(listviewClasses.uiFastscrollHover);
-
-				// If the element is a list item, get coordinates relative to the shortcuts list
-				if (tagName === "li") {
-					coords.x += shortcutsListOffset.left - shortcutsContainerLeft;
-					coords.y += shortcutsListOffset.top - shortcutsContainerTop;
-				}
-
-				if (tagName === "span") {
-					coords.x += target.parentElement.offsetLeft - shortcutsListOffset.left;
-					coords.y += target.parentElement.offsetTop  - shortcutsListOffset.top;
-				}
-
-				shortcutsListItems = shortcutsList.getElementsByTagName("li");
-				shortcutsListItemsLength = shortcutsListItems.length;
-				for (i = 0; i < shortcutsListItemsLength; i++) {
-					listItem = shortcutsListItems[i];
-					listItem.classList.remove(listviewClasses.uiFastscrollHover);
-					listItem.classList.remove(listviewClasses.uiFastscrollHoverDown);
-
-					left = listItem.offsetLeft;
-					top = listItem.offsetTop;
-					right = left + Math.abs(listItem.offsetWidth);
-					bottom = top + Math.abs(listItem.offsetHeight);
-
-					if (coords.x >= left && coords.x <= right && coords.y >= top && coords.y <= bottom) {
-						if (listItem.innerText === ".") {
-							omitSet = DOMUtils.getNSData(listItem, "omitSet");
-							omitSetLength = omitSet.length;
-							unit = (bottom - top) / omitSetLength;
-							for (j = 0; j < omitSetLength; j++) {
-								baseTop = top + (j * unit);
-								baseBottom = baseTop + unit;
-								if (coords.y >= baseTop && coords.y <= baseBottom) {
-									self._hitOmitItem(listItem, omitSet.charAt(i));
-								}
-							}
-						} else {
-							self._hitItem(listItem);
-						}
-					}
-				}
-
-				event.preventDefault();
-				event.stopPropagation();
-			}
-
-			/**
-			 * Refresh fastscroll list items
-			 *
-			 * Recount of fastscroll height, recount of fastscroll item height,
-			 * refresh short cuts list.
-			 *
-			 * @method fastscrollRefresh
-			 * @param {ns.widget.mobile.FastScroll} self
-			 * @private
-			 * @static
-			 * @member ns.widget.mobile.FastScroll
-			 */
-			function fastscrollRefresh(self) {
-				var element = self.element,
-					ui = self._ui,
-					scrollViewClip = selectors.getClosestByClass(
-						element,
-						Scrollview.classes.clip
-					),
-					contentHeight = DOMUtils.getElementHeight(scrollViewClip),
-					primaryCharacterSet = null,
-					secondCharacterSet = null,
-					popup = ui._popup,
-					popupStyle,
-					popupHeight,
-					shortcutsList = ui._shortcutsList,
-					shapItem,
-					shapItemSpan1,
-					shapItemSpan2,
-					omitIndex = 0,
-					containerHeight,
-					shortcutsItems,
-					shortcutItem,
-					shortcutsTop,
-					maxNumOfItems,
-					numOfItems,
-					minHeight,
-					omitInfo,
-					dividers,
-					listItems,
-					emptySize,
-					indexChar,
-					lastIndex,
-					seconds,
-					i,
-					listItemsLength,
-					dividersLength,
-					secondsLength,
-					shortcutsItemsLength,
-					styles,
-					item,
-					headers,
-					shortcutsContainer,
-					headersLength,
-					dividerClass = ns.widget.mobile.ListDivider.classes.uiLiDivider,
-					itemHeight,
-					maxHeight,
-					primaryCharacterSetLength;
-
-				if (typeof parent_refresh === TYPE_FUNCTION) {
-					parent_refresh.call(self);
-				}
-				if (true !== self.options.fastscroll) {
-					return;
-				}
-
-				if (shortcutsList) {
-					self._createDividerMap();
-					DOMUtils.removeAllChildren(shortcutsList);
-
-					dividers = element.getElementsByClassName(dividerClass);
-					listItems = selectors.getChildrenBySelector(element, "li:not(." + dividerClass + ")");
-
-					listItemsLength = listItems.length;
-
-					shortcutsList.style.display = "block";
-					ui._lastListItem = listItemsLength > 0 ? listItems[listItemsLength - 1] : null;
-
-					shapItem = document.createElement("li");
-					shapItem.setAttribute("aria-label", "double to move Number list");
-					shapItem.tabIndex = 0;
-					shapItemSpan1 = document.createElement("span");
-					shapItemSpan1.setAttribute("aria-hidden", "true");
-					shapItemSpan1.innerText = "#";
-					shapItem.appendChild(shapItemSpan1);
-					shapItemSpan2 = document.createElement("span");
-					shapItemSpan2.setAttribute("aria-label", "Number");
-					shapItem.appendChild(shapItemSpan2);
-
-					shortcutsList.appendChild(shapItem);
-					self._focusItem(shapItem);
-
-					dividersLength = dividers.length;
-
-					if (primaryCharacterSet === null) {
-						primaryCharacterSet = "";
-						for (i = 0; i < dividersLength; i++) {
-							primaryCharacterSet = makeCharacterSet(dividers[i], primaryCharacterSet);
-						}
-					}
-
-					minHeight = shapItem.offsetHeight;
-					maxNumOfItems = parseInt(contentHeight / minHeight - 1, 10);
-					numOfItems = primaryCharacterSet.length;
-
-					maxNumOfItems = secondCharacterSet ? maxNumOfItems - 2 : maxNumOfItems;
-
-					if (maxNumOfItems < 3) {
-						if (shapItem.parentElement) {
-							shapItem.parentElement.removeChild(shapItem);
-						}
-
-						return;
-					}
-
-					omitInfo = self._omit(numOfItems, maxNumOfItems);
-
-					for (i = 0, primaryCharacterSetLength = primaryCharacterSet.length; i < primaryCharacterSetLength; i++) {
-						indexChar = primaryCharacterSet.charAt(i);
-						shortcutItem = document.createElement("li");
-						shortcutItem.setAttribute("aria-label", "double to move " + indexChar + " list");
-						shortcutItem.setAttribute("tabindex", 0);
-						shortcutItem.innerText = indexChar;
-
-						self._focusItem(shortcutItem);
-
-						if (omitInfo && omitInfo[omitIndex] > 1) {
-							shortcutItem = document.createElement("li");
-							shortcutItem.innerText = ".";
-							DOMUtils.setNSData(shortcutItem, "omitSet", self._makeOmitSet(i, omitInfo[omitIndex], primaryCharacterSet));
-							i += omitInfo[omitIndex] - 1;
-						}
-
-						shortcutsList.appendChild(shortcutItem);
-						omitIndex++;
-					}
-
-					if (secondCharacterSet !== null) {
-						lastIndex = secondCharacterSet.length - 1;
-						seconds = [];
-
-						seconds.push(secondCharacterSet.charAt(0));
-						seconds.push(secondCharacterSet.charAt(lastIndex));
-
-						for (i = 0, secondsLength = seconds.length; i < secondsLength; i++) {
-							indexChar = seconds[i];
-							shortcutItem = document.createElement("li");
-							shortcutItem.tabIndex = 0;
-							shortcutItem.setAttribute("aria-label", "double to move " + indexChar + " list");
-							shortcutItem.innerText = indexChar;
-
-							self._focusItem(shortcutItem);
-							shortcutsList.append(shortcutItem);
-						}
-					}
-
-					shortcutsContainer = ui._shortcutsContainer;
-					maxHeight = contentHeight - element.offsetTop;
-					shortcutsContainer.style.maxHeight = maxHeight + "px";
-
-					containerHeight = shortcutsContainer.offsetHeight;
-					emptySize = contentHeight - containerHeight;
-					shortcutsItems = shortcutsList.children;
-					shortcutsItemsLength = shortcutsItems.length;
-					shortcutsTop = (dividersLength > 0) ? dividers[0].offsetTop : 0;
-
-					if (emptySize > 0) {
-						if (shortcutsItemsLength > 0) {
-							item = shortcutsItems[0];
-							itemHeight = getMaxFastscrollItemHeight(self, item, shortcutsItemsLength, maxHeight);
-						}
-						for (i = 0; i < shortcutsItemsLength; i++) {
-							item = shortcutsItems[i];
-							styles = item.style;
-							styles.height = itemHeight + "px";
-							styles.lineHeight =  styles.height;
-						}
-					}
-
-					headers = shortcutsContainer.parentNode.getElementsByClassName(Tabbar.classes.uiHeader);
-
-					for (i = 0, headersLength = headers.length; i < headersLength; i++) {
-						shortcutsTop += headers[i].offsetHeight;
-					}
-
-					shortcutsTop += (maxHeight - shortcutsContainer.offsetHeight) / 2;
-
-					ui._shortcutsContainer.style.top = shortcutsTop + "px";
-
-					popupHeight = DOMUtils.getElementHeight(popup);
-					popupStyle = popup.style;
-					popupStyle.width = popupHeight + 'px';
-					popupStyle.marginLeft = -parseInt(DOMUtils.getElementWidth(popup) / 2, 10) + 'px';
-					popupStyle.marginTop = -parseInt(popupHeight / 2, 10) + 'px';
-				}
-			}
-
-			/**
-			 * Function called on mouse down on short cut
-			 * @method onListItemVMouseDown
-			 * @param {ns.widget.mobile.FastScroll} self
-			 * @param {Event} event
-			 * @private
-			 * @static
-			 * @member ns.widget.mobile.FastScroll
-			 */
-			function onListItemVMouseDown(self, event) {
-				self._ui._shortcutsList.setAttribute("aria-hidden", false);
-				self._hitItem(event.target);
-			}
-
-			/**
-			 * Function called on mouse up on short cut
-			 * @method onListItemVMouseUp
-			 * @param {ns.widget.mobile.FastScroll} self
-			 * @private
-			 * @static
-			 * @member ns.widget.mobile.FastScroll
-			 */
-			function onListItemVMouseUp(self) {
-				var i,
-					length,
-					elements,
-					ui = self._ui;
-
-				ui._shortcutsList.setAttribute("aria-hidden", true);
-				ui._popup.style.display = "none";
-
-				elements = document.getElementsByClassName(listviewClasses.uiFastscrollHover);
-				length = elements.length;
-				for (i = 0; i < length; i++) {
-					elements[0].classList.remove(listviewClasses.uiFastscrollHover);
-				}
-
-				elements = document.getElementsByClassName(listviewClasses.uiFastscrollHoverFirstItem);
-				length = elements.length;
-				for (i = 0; i < length; i++) {
-					elements[0].classList.remove(listviewClasses.uiFastscrollHoverFirstItem);
-				}
-
-				elements = document.getElementsByClassName(listviewClasses.uiFastscrollHoverDown);
-				length = elements.length;
-				for (i = 0; i < length; i++) {
-					elements[0].classList.remove(listviewClasses.uiFastscrollHoverDown);
-				}
-			}
-
-			/**
-			 * Prepare default configuration of fastscroll widget
-			 * @method _configure
-			 * @protected
-			 * @member ns.widget.mobile.FastScroll
-			 */
-			Listview.prototype._configure = function () {
-				if (typeof parent_configure === TYPE_FUNCTION) {
-					parent_configure.call(this);
-				}
-
-				/**
-				 * Object with default options
-				 * @property {Object} options
-				 * @property {boolean} [options.fastscroll=false] Sets if fastscroll should be enabled.
-				 * @member ns.widget.mobile.FastScroll
-				 */
-				this.options = this.options || {};
-				this.options.fastscroll = false;
-			};
-
-			/**
-			 * Builds fasctroll
-			 * @method _build
-			 * @param {HTMLElement} element HTML element with fasctscroll enabled
-			 * @return {HTMLElement}
-			 * @protected
-			 * @member ns.widget.mobile.FastScroll
-			 */
-			Listview.prototype._build = function (element) {
-				var scrollView,
-					shortcutsContainer,
-					shortcutsList,
-					fastscrollPopup,
-					lastListItem,
-					elementChildrens,
-					elementChildrensLength,
-					scrollBars = [],
-					i,
-					ui,
-					scrollviewParent,
-					scrollBarsLength,
-					id = this.id;
-
-				parent_build.call(this, element);
-
-				// Make sure, that *this* has assigned correct element
-				// It is required for this.isBuilt checking.
-				this.element = element;
-
-				// @TODO This is bad solution and need to be fixed
-				// Since few widgets can be built on one html element
-				// every Listview 'plugin' can be built more than one.
-				// There is a problem with selectors and Listview
-				// plugins management
-				if (this.options.fastscroll === true
-					&& !(
-						this.isBuilt('FastScroll')
-						|| this.isBuilt('Listview')
-						|| this.isBuilt('ListviewFilter')
-						|| this.isBuilt('ListviewAutodivider')
-					)
-					) {
-					scrollView = selectors.getClosestByClass(element, Scrollview.classes.clip);
-					if (scrollView) {
-						shortcutsContainer = document.createElement("div");
-						shortcutsContainer.classList.add(listviewClasses.uiFastscroll);
-						shortcutsContainer.setAttribute("aria-label", "Fast scrollbar, double tap to fast scroll mode");
-						shortcutsContainer.setAttribute("tabindex", 0);
-						shortcutsContainer.setAttribute("id", id + "-shortcutscontainer");
-						shortcutsContainer.style.maxHeight = scrollView.offsetHeight + "px";
-
-						shortcutsList = document.createElement("ul");
-						shortcutsList.setAttribute("aria-hidden", "true");
-						shortcutsList.setAttribute("id", id + "-shortcutslist");
-
-						fastscrollPopup = document.createElement("div");
-						fastscrollPopup.classList.add(listviewClasses.uiFastscrollPopup);
-						fastscrollPopup.setAttribute("id", id + "-fastscrollpopup");
-
-						shortcutsContainer.appendChild(shortcutsList);
-
-						scrollviewParent = scrollView.parentNode;
-						scrollviewParent.appendChild(shortcutsContainer);
-						scrollviewParent.appendChild(fastscrollPopup);
-
-						elementChildrens = element.children;
-						elementChildrensLength = elementChildrens.length;
-
-						if (elementChildrensLength > 0) {
-							lastListItem = elementChildrens[elementChildrensLength - 1];
-						}
-
-						scrollBars = scrollView.getElementsByClassName(listviewClasses.uiScrollbar);
-						for (i = 0, scrollBarsLength = scrollBars.length; i < scrollBarsLength; i++) {
-							scrollBars[i].style.display = "none";
-						}
-
-						this._ui = this._ui || {};
-						ui = this._ui;
-
-						ui._scrollView = scrollView;
-						ui._shortcutsContainer = shortcutsContainer;
-						ui._shortcutsList = shortcutsList;
-						ui._lastListItem = lastListItem;
-						ui._popup = fastscrollPopup;
-					}
-				}
-				return element;
-			};
-
-			/**
-			 * Initialize fastscroll widget
-			 * @method _init
-			 * @param {HTMLElement} element
-			 * @protected
-			 * @member ns.widget.mobile.FastScroll
-			 */
-			Listview.prototype._init = function (element) {
-				var ui,
-					elementChildrens,
-					elementChildrensLength,
-					id = this.id;
-				if (typeof parent_init === TYPE_FUNCTION) {
-					parent_init.call(this, element);
-				}
-
-				if (this.options.fastscroll) {
-					this._ui = this._ui || {};
-					ui = this._ui;
-
-					ui._scrollView = selectors.getClosestByClass(element, Scrollview.classes.clip);
-					ui._shortcutsContainer = document.getElementById(id + "-shortcutscontainer");
-					ui._shortcutsList = document.getElementById(id + "-shortcutslist");
-					ui._popup = document.getElementById(id + "-fastscrollpopup");
-
-					elementChildrens = element.children;
-					elementChildrensLength = elementChildrens.length;
-
-					if (elementChildrensLength > 0) {
-						ui._lastListItem = elementChildrens[elementChildrensLength - 1];
-					}
-
-					element.classList.add(listviewClasses.uiFastscrollTarget);
-				}
-			};
-
-			/**
-			 * Binds fastscroll widget events
-			 * @method _bindEvents
-			 * @param {HTMLElement} element
-			 * @protected
-			 * @member ns.widget.mobile.FastScroll
-			 */
-			Listview.prototype._bindEvents = function (element) {
-				var pageParent = selectors.getParentsByClass(element, Page.classes.uiPage)[0],
-					shortcutsList = this._ui._shortcutsList;
-
-				this._uiPageParent = pageParent;
-
-				if (typeof parent_bindEvents === TYPE_FUNCTION) {
-					parent_bindEvents.call(this, element);
-				}
-
-				if (this.options.fastscroll !== true) {
-					return;
-				}
-
-				this._onPageshowBound = onPageshow.bind(null, this);
-				this._onRefreshBound = fastscrollRefresh.bind(null, this);
-				this._onShortcutsListMouseOverBound = onShortcutsListMouseOver.bind(null, this);
-				this._onShortcutsListMouseOutBound = onShortcutsListMouseOut.bind(null, this);
-
-				if (pageParent) {
-					pageParent.addEventListener("pageshow", this._onPageshowBound, true);
-				}
-
-				element.addEventListener("updatelayout", this._onRefreshBound, false);
-				window.addEventListener("resize", this._onRefreshBound, false);
-				window.addEventListener("orientationchange", this._onRefreshBound, false);
-
-				if (shortcutsList) {
-					shortcutsList.addEventListener("vmousedown", this._onShortcutsListMouseOverBound, false);
-					shortcutsList.addEventListener("vmousemove", this._onShortcutsListMouseOverBound, false);
-					shortcutsList.addEventListener("vmouseover", this._onShortcutsListMouseOverBound, false);
-
-					shortcutsList.addEventListener("vmouseup", this._onShortcutsListMouseOutBound, false);
-					shortcutsList.addEventListener("vmouseout", this._onShortcutsListMouseOutBound, false);
-				}
-			};
-
-			/**
-			 * Destroy FastScroll widget
-			 *
-			 * Destroy current widget.
-			 *
-			 *		@example
-			 *		<div data-role="page" id="main">
-			 *			<div data-role="content">
-			 *				<ul id="list" data-role="listview" data-fastscroll="true">
-			 *					<li data-role="list-divider">A</li>
-			 *					<li>Anton</li>
-			 *					<li>Arabella</li>
-			 *					<li data-role="list-divider">B</li>
-			 *					<li>Barry</li>
-			 *					<li>Bily</li>
-			 *				</ul>
-			 *			</div>
-			 *		</div>
-			 *		<script>
-			 *			var element = document.getElementById("list"),
-			 *				fastscroll = tau.widget.FastScroll(element);
-			 *			fastscroll.destroy();
-			 *		</script>
-			 *
-			 * or JQueryMobile notation:
-			 *
-			 *		@example
-			 *		<div data-role="page" id="main">
-			 *			<div data-role="content">
-			 *				<ul data-role="listview" data-fastscroll="true" id="fastscroll">
-			 *					<li data-role="list-divider">A</li>
-			 *					<li>Anton</li>
-			 *					<li>Arabella</li>
-			 *					<li data-role="list-divider">B</li>
-			 *					<li>Barry</li>
-			 *					<li>Bily</li>
-			 *				</ul>
-			 *			</div>
-			 *		</div>
-			 *		<script>
-			 *			$("#list").fastscroll("destroy");
-			 *		</script>
-			 *
-			 * @method destroy
-			 * @member ns.widget.mobile.FastScroll
-			 */
-
-			/**
-			 * Unbinds fastscroll widget events
-			 * @method _destroy
-			 * @protected
-			 * @member ns.widget.mobile.FastScroll
-			 */
-			Listview.prototype._destroy = function () {
-				var element = this.element,
-					pageParent = this._uiPageParent,
-					shortcutsList = this._ui._shortcutsList,
-					shortcutsListItems,
-					listItem,
-					shortcutsListItemsLength,
-					i;
-				if (typeof parent_destroy === TYPE_FUNCTION) {
-					parent_destroy.call(this);
-				}
-
-				if (pageParent) {
-					pageParent.removeEventListener("pageshow", this._onPageshowBound);
-				}
-
-				element.removeEventListener("updatelayout", this._onRefreshBound);
-				window.removeEventListener("resize", this._onRefreshBound);
-				window.removeEventListener("orientationchange", this._onRefreshBound);
-
-				if (shortcutsList) {
-					shortcutsList.removeEventListener("vmousedown", this._onShortcutsListMouseOverBound);
-					shortcutsList.removeEventListener("vmousemove", this._onShortcutsListMouseOverBound);
-					shortcutsList.removeEventListener("vmouseover", this._onShortcutsListMouseOverBound);
-
-					shortcutsList.removeEventListener("vmouseup", this._onShortcutsListMouseOutBound);
-					shortcutsList.removeEventListener("vmouseout", this._onShortcutsListMouseOutBound);
-
-					shortcutsListItems = shortcutsList.getElementsByTagName("li");
-
-					for (i = 0, shortcutsListItemsLength = shortcutsListItems.length; i < shortcutsListItemsLength; i++) {
-						listItem = shortcutsListItems[i];
-						listItem.removeEventListener("vmousedown", this._onListItemVMouseDownBound);
-						listItem.removeEventListener("vmouseup", this._onListItemVMouseUpBound);
-					}
-				}
-
-				events.trigger(element, eventType.DESTROYED, {
-					widget: "FastScroll",
-					parent: pageParent
-				});
-			};
 
 			/**
 			 * Creates map of deviders
@@ -1087,17 +215,31 @@
 			 * @protected
 			 * @member ns.widget.mobile.FastScroll
 			 */
-			Listview.prototype._createDividerMap = function () {
-				var primaryCharacterSet = null,
+			prototype._createDividerMap = function (element) {
+				var self = this,
+					primaryCharacterSet = null,
 					secondCharacterSet = null,
 					numberSet = "0123456789",
-					dividers = this.element.getElementsByClassName(ns.widget.mobile.ListDivider.classes.uiLiDivider),
+					dividers,
 					map = {},
 					indexChar,
 					i,
 					j,
 					length,
-					dividersLength = dividers.length;
+					dividersLength;
+
+				element = element || self.element;
+				dividers = element.querySelectorAll(
+						ns.engine.getWidgetDefinition('ListDivider').selector
+					);
+				dividersLength = dividers.length;
+
+				for (i = 0; i < dividersLength; i++) {
+					if (numberSet.search(dividers[i].textContent) !== -1) {
+						map["#"] = dividers[i];
+						break;
+					}
+				}
 
 				if (primaryCharacterSet === null) {
 					primaryCharacterSet = "";
@@ -1122,290 +264,110 @@
 					}
 				}
 
-				for (i = 0; i < dividersLength; i++) {
-					if (numberSet.search(dividers[i].innerText) !== -1) {
-						map.number = dividers[i];
-						break;
-					}
-				}
-
-				this._dividerMap = map;
-				this._charSet = primaryCharacterSet + secondCharacterSet;
+				self._dividerMap = map;
+				self._charSet = primaryCharacterSet + secondCharacterSet;
 			};
 
-			/**
-			 * Finds closes divider
-			 * @method _findClosestDivider
-			 * @param {string} targetChar
-			 * @protected
-			 * @member ns.widget.mobile.FastScroll
-			 */
-			Listview.prototype._findClosestDivider = function (targetChar) {
-				var i,
-					dividerMap = this._dividerMap,
-					charSet = this._charSet,
-					charSetLen = charSet.length,
-					targetIdx = charSet.indexOf(targetChar),
-					lastDivider,
-					subDivider = null;
+			prototype._build = function (element) {
+				var self = this,
+					indexElement = document.createElement("div"),
+					page = selectors.getClosestByClass(element, "ui-page"),
+					scrollView = selectors.getClosestByClass(element, "ui-scrollview-clip"),
+					index;
 
-				for (i = 0; i < targetIdx; ++i) {
-					lastDivider = dividerMap[charSet.charAt(i)];
-					if (lastDivider !== undefined) {
-						subDivider = lastDivider;
-					}
-				}
-				if (!subDivider) {
-					for (++i; i < charSetLen; ++i) {
-						lastDivider = dividerMap[charSet.charAt(i)];
-						if (lastDivider !== undefined) {
-							subDivider = lastDivider;
-							break;
-						}
-					}
-				}
-				return subDivider;
+				ns.warn("Deprecated widget 'FastScroll'. Please use instead 'IndexScrollbar'");
+
+				indexElement.classList.add("ui-indexscrollbar");
+				indexElement.style["height"] = scrollView.offsetHeight + "px";
+				indexElement.style["top"] = scrollView.offsetTop + "px";
+				// @deprecated
+				indexElement.classList.add(classes.uiFastscroll);
+
+				self._createDividerMap(element);
+
+				page.appendChild(indexElement);
+				index = Object.keys(self._dividerMap).join(",");
+				self.indexScrollbar = engine.instanceWidget(
+					indexElement,
+					"IndexScrollbar", {
+						"indexHeight": indexElement.clientHeight / index.length,
+						"index": index,
+						"delimiter": /[,:]/
+					});
+				return element;
 			};
 
-			/**
-			 * Scroll listview to asked divider
-			 * @method _jumpToDivider
-			 * @param {HTMLElement} divider
-			 * @protected
-			 * @member ns.widget.mobile.FastScroll
-			 */
-			Listview.prototype._jumpToDivider = function (divider) {
-				var dividerY = divider.offsetTop,
-					ui = this._ui,
-					lastListItem = ui._lastListItem,
-					bottomOffset = lastListItem.offsetHeight + lastListItem.offsetTop,
-					scrollviewHeight = ui._scrollView.offsetHeight,
-					maxScroll = bottomOffset - scrollviewHeight,
-					scrollViewBinding = engine.getBinding(ui._scrollView);
+			prototype._init = function () {
+				var self = this;
 
-				dividerY = (dividerY > maxScroll ? maxScroll : dividerY);
-
-				dividerY = Math.max(dividerY, 0);
-
-				scrollViewBinding.scrollTo(0, dividerY, scrollViewBinding.scrollDuration);
+				self._ui.scrollView = selectors.getClosestByClass(self.element, "ui-scrollview-clip");
+				self.scrollView = ns.engine.getBinding(self._ui.scrollView, "Scrollview");
 			};
 
-			/**
-			 * On fastscroll item pressed
-			 * @method _hitItem
-			 * @param {HTMLElement} listItem
-			 * @protected
-			 * @member ns.widget.mobile.FastScroll
-			 */
-			Listview.prototype._hitItem = function (listItem) {
-				var popup = this._ui._popup,
-					text = listItem.innerText,
-					divider,
-					listItemClassList = listItem.classList,
-					nextElement = listItem.nextElementSibling,
-					popupStyles = popup.style;
+			function findFirstDividerByIndex(self, index) {
+				return self._dividerMap[index];
+			}
 
+			function onSelectIndexScrollbar(self, ev) {
+				var divider,
+					element = self.element;
 
-				if (text === "#") {
-					divider = this._dividerMap.number;
-				} else {
-					divider = this._dividerMap[text] || this._findClosestDivider(text);
-				}
-
+				divider = findFirstDividerByIndex(self, ev.detail.index);
 				if (divider) {
-					this._jumpToDivider(divider);
+					self.scrollView.scrollTo(0, divider.offsetTop - element.offsetTop);
 				}
+			}
 
-				popup.innerText = text;
-				popupStyles.display = "block";
-				popupStyles.width = popup.offsetHeight + 'px';
-				popupStyles.marginLeft = -parseInt(popup.offsetWidth / 2) + 'px';
-				popupStyles.marginTop = -parseInt(popup.offsetHeight / 2) + 'px';
+			prototype._bindEvents = function () {
+				var self = this;
 
-				listItemClassList.add(listviewClasses.uiFastscrollHover);
-				if (!listItem.previousElementSibling) {
-					listItemClassList.add(listviewClasses.uiFastscrollHoverFirstItem);
-				}
-				if (nextElement) {
-					nextElement.classList.add(listviewClasses.uiFastscrollHoverDown);
-				}
+				self.eventHandlers.onSelectIndexScrollbar =
+						onSelectIndexScrollbar.bind(null, self);
+				self.indexScrollbar.addEventListener(
+					"select", self.eventHandlers.onSelectIndexScrollbar, false
+				);
 			};
 
-			/**
-			 * Add focus to shortcut item
-			 * @method _focusItem
-			 * @param {HTMLElement} listItem
-			 * @protected
-			 * @member ns.widget.mobile.FastScroll
-			 */
-			Listview.prototype._focusItem = function (listItem) {
-				this._onListItemVMouseDownBound = this._onListItemVMouseDownBound || onListItemVMouseDown.bind(null, this);
-				this._onListItemVMouseUpBound = this._onListItemVMouseUpBound || onListItemVMouseUp.bind(null, this);
-				listItem.addEventListener("vmouseover", this._onListItemVMouseDownBound, false);
-				listItem.addEventListener("vmouseout", this._onListItemVMouseUpBound, false);
+			prototype._unbindEvents = function () {
+				var self = this;
+
+				self.indexScrollbar.removeEventListener(
+					"select", self.eventHandlers.onSelectIndexScrollbar, false
+				);
 			};
 
-			/**
-			 * If max number of items is greater then 3 return array with cout of omited items.
-			 * @method _omit
-			 * @param {number} numOfItems
-			 * @param {number} maxNumOfItems
-			 * @return {?Array}
-			 * @protected
-			 * @member ns.widget.mobile.FastScroll
-			 */
-			Listview.prototype._omit = function (numOfItems, maxNumOfItems) {
-				var maxGroupNum = parseInt((maxNumOfItems - 1) / 2, 10),
-					numOfExtraItems = numOfItems - maxNumOfItems,
-					groupPos = [],
-					omitInfo = [],
-					groupPosLength,
-					group,
-					size,
-					i;
+			prototype._destroy = function () {
+				var self = this,
+					element = self.element;
 
-				if ((maxNumOfItems < 3) || (numOfItems <= maxNumOfItems)) {
-					return null;
-				}
+				self.indexScrollbar.destroy();
+				self.indexScrollbar.element.classList.remove(classes.uiFastscroll);
 
-				if (numOfExtraItems >= maxGroupNum) {
-					size = 2;
-					group = 1;
-					groupPosLength = maxGroupNum;
-				} else {
-					size = maxNumOfItems / (numOfExtraItems + 1);
-					group = size;
-					groupPosLength = numOfExtraItems;
-				}
+				self._unbindEvents();
 
-				for (i = 0; i < groupPosLength; i++) {
-					groupPos.push(parseInt(group, 10));
-					group += size;
-				}
-
-				for (i = 0; i < maxNumOfItems; i++) {
-					omitInfo.push(1);
-				}
-
-				for (i = 0; i < numOfExtraItems; i++) {
-					omitInfo[groupPos[i % maxGroupNum]]++;
-				}
-
-				return omitInfo;
-			};
-
-			/**
-			 * Creates string containing omited elements. Omits items starting from index.
-			 * Max number of omited elemets is given as length parameter
-			 * @method _makeOmitSet
-			 * @param {number} index
-			 * @param {number} length
-			 * @param {string} primaryCharacterSet
-			 * @return {string}
-			 * @protected
-			 * @member ns.widget.mobile.FastScroll
-			 */
-			Listview.prototype._makeOmitSet = function (index, length, primaryCharacterSet) {
-				var count,
-					omitSet = "";
-
-				for (count = 0; count < length; count++) {
-					omitSet += primaryCharacterSet[index + count];
-				}
-
-				return omitSet;
-			};
-
-			/**
-			 * Refresh Fast Scroll widget
-			 * @method _refresh
-			 * @protected
-			 * @member ns.widget.mobile.FastScroll
-			 */
-			Listview.prototype._refresh = function () {
-				this._onRefreshBound = this._onRefreshBound || fastscrollRefresh.bind(this);
-				this._onRefreshBound();
-			};
-
-			/**
-			 * Get or set index string:
-			 *
-			 * You can use the _indexString_ method with the fast scroll to manage string values to be used in shortcut items:
-			 *
-			 *		@example
-			 *		<div data-role="page" id="main">
-			 *			<div data-role="content">
-			 *				<ul id="fastscroll">
-			 *					<li data-role="list-divider">A</li>
-			 *					<li>Anton</li>
-			 *					<li>Arabella</li>
-			 *					<li data-role="list-divider">B</li>
-			 *					<li>Barry</li>
-			 *					<li>Bily</li>
-			 *				</ul>
-			 *			</div>
-			 *		</div>
-			 *		<script>
-			 *			// get index string
-			 *			var element = document.getElementById("fastscroll"),
-			 *				fastscroll = tau.widget.FastScroll(element, {fastscroll: true});
-			 *			fastscroll.indexString();
-			 *
-			 *			// set index string
-			 *			fastscroll.indexString("A,D,J,P,W,Z");
-			 *		</script>
-			 *
-			 * or JQueryMobile notation:
-			 *
-			 *		@example
-			 *		<div data-role="page" id="main">
-			 *			<div data-role="content">
-			 *				<ul data-role="listview" data-fastscroll="true" id="fastscroll">
-			 *					<li data-role="list-divider">A</li>
-			 *					<li>Anton</li>
-			 *					<li>Arabella</li>
-			 *					<li data-role="list-divider">B</li>
-			 *					<li>Barry</li>
-			 *					<li>Bily</li>
-			 *				</ul>
-			 *			</div>
-			 *		</div>
-			 *		<script>
-			 *			$("#fastscroll").fastscroll("indexString", "A,D,J,P,W,Z");
-			 *		</script>
-			 *
-			 * @method indexString
-			 * @param {string} [indexAlphabet] values to be used in shortcut items
-			 * @member ns.widget.mobile.FastScroll
-			 * @since 2.1
-			 * @return {?string} Primary and secondary language
-			 */
-			Listview.prototype.indexString = function (indexAlphabet) {
-				var characterSet;
-
-				if (undefined === indexAlphabet) {
-					return this._primaryLanguage + ":" + this._secondLanguage;
-				}
-
-				characterSet = indexAlphabet.split(":");
-				this._primaryLanguage = characterSet[0];
-				if (2 === characterSet.length) {
-					this._secondLanguage = characterSet[1];
-				}
-				return null;
+				events.trigger(element, eventType.DESTROYED, {
+					widget: "FastScroll",
+					parent: element.parentNode
+				});
 			};
 
 			// definition
-			ns.widget.mobile.FastScroll = Listview;
+			FastScroll.prototype = prototype;
+			ns.widget.mobile.FastScroll = FastScroll;
+
+			/**
+			 * @deprecated;
+			 */
 			engine.defineWidget(
 				"FastScroll",
-				"",
+				"ul[data-fastscroll='true']",
 				["indexString"],
-				Listview,
-				"tizen"
+				FastScroll,
+				"mobile"
 			);
+
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
-			return false;
+			return ns.widget.mobile.FastScroll;
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
