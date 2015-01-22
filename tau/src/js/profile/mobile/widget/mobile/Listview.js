@@ -1255,10 +1255,13 @@
 			 * @member ns.widget.mobile.Listview
 			 */
 			Listview.prototype._clickCheckboxRadio = function (element) {
-				var checkboxRadio = slice.call(element.querySelectorAll(".ui-checkbox label, .ui-radio label")),
-					i = checkboxRadio.length;
+				var checkboxRadio = slice.call(element.querySelectorAll(".ui-checkbox, .ui-radio")),
+					i = checkboxRadio.length,
+					input;
+
 				while (--i >= 0) {
-					eventUtils.trigger(checkboxRadio[i], "vclick");
+					input = checkboxRadio[i];
+					input.checked = (input.type === "checkbox") ? !input.checked : true;
 				}
 			};
 
@@ -1274,13 +1277,13 @@
 					page = selectors.getClosestByClass(element, Page.classes.uiPage);
 
 				element.addEventListener("vclick", function (event) {
-					var target = event.target,
-						parentTarget = target.parentNode;
+					var target = event.target;
 
 					if (target.classList.contains(classes.uiLiHasCheckbox) || target.classList.contains(classes.uiLiHasRadio)) {
 						self._clickCheckboxRadio(target);
-					} else if (parentTarget.classList.contains(classes.uiLiHasCheckbox) || parentTarget.classList.contains(classes.uiLiHasRadio)) {
-						self._clickCheckboxRadio(parentTarget);
+					} else if (target.type === "checkbox" || target.type === "radio" ) {
+						event.stopPropagation();
+						event.preventDefault();
 					}
 				}, false);
 

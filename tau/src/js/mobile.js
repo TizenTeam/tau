@@ -69,6 +69,7 @@
 			"./core/event/orientationchange",
 			"./core/event/touch",
 			// widget list
+			"./core/widget/core/Checkboxradio",
 			"./profile/mobile/widget/mobile/Page",
 			"./profile/mobile/widget/mobile/PageContainer",
 			"./profile/mobile/widget/mobile/Popup",
@@ -78,7 +79,6 @@
 			"./profile/mobile/widget/mobile/Collapsible",
 			"./profile/mobile/widget/mobile/Button",
 			"./profile/mobile/widget/mobile/Dialog",
-			"./profile/mobile/widget/mobile/Checkboxradio",
 			"./profile/mobile/widget/mobile/Listview",
 			"./profile/mobile/widget/mobile/Listdivider",
 			"./profile/mobile/widget/mobile/ListviewAutodivider",

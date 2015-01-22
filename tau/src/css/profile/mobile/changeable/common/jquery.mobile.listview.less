@@ -146,31 +146,8 @@
 	.ui-checkbox:first-child,
 	.ui-radio:first-child {
 		position: absolute;
-		top: 33 * @unit_base;
+		top: 30 * @unit_base;
 		left: 15 * @unit_base;
-		width: 32 * @unit_base;
-		height: 32 * @unit_base;
-
-		.ui-btn > .ui-btn-inner {
-			width: 40 * @unit_base;
-			height: 40 * @unit_base;
-			padding: 0;
-
-			.ui-icon {
-				width: 30 * @unit_base;
-				height: 30 * @unit_base;
-				margin: 5 * @unit_base;
-				background-color: transparent;
-
-				&.ui-icon-checkbox-on {
-					background-color: @color_checkboxradio_checkbox_bg_icon;
-				}
-
-				&.ui-icon-radio-on {
-					background-color: @color_checkboxradio_radio_bg_icon;
-				}
-			}
-		}
 	}
 }
 
@@ -621,7 +598,7 @@
 		background-color: @color_list_divider_line;
 	}
 
-	&>a {
+	a {
 		display: block;
 		color: @color_list_divider_text;
 		text-decoration: none;
@@ -649,7 +626,7 @@
 			display: none;
 		}
 
-		.ui-btn-text {
+		.ui-divider-text {
 			padding: 0;
 			height: 0;
 			a {
@@ -662,8 +639,6 @@
 			position: absolute;
 			top: 9 * @unit_base;
 			left: 15 * @unit_base;
-			width: 31.5 * @unit_base;
-			height: 31.5 * @unit_base;
 		}
 	}
 }
