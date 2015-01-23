@@ -483,6 +483,9 @@
 			*/
 			function onChangeValue(self){
 				self.element.selectedIndex = (self._ui.input.checked) ? 1 :0;
+				if (self.element.nodeName.toLowerCase() === "select") {
+					events.trigger(self.element, "change");
+				}
 			}
 
 			/**
