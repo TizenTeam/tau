@@ -10,10 +10,17 @@
   between common/layout.less and this file.
   If you have duplicate value, please change static value to variable value.
 ***************************************************************************/
+body {
+	background: @color_bg;
+	color : @color_text;
+}
+
 .ui-header {
 	height: @fixed_header_height;
 	line-height: @fixed_header_line_height;
+	background-color: @color_actionbar_title_bg;
 	.ui-title {
+		color: @color_actionbar_title_text;
 		text-align: center;
 		padding-top: @fixed_header_title_padding_top;
 
@@ -34,6 +41,7 @@
 	}
 }
 .ui-page {
+	background: @color_bg;
 	.ui-footer {
 		.ui-btn {
 			height: 100%;

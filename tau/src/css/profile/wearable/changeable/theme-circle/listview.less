@@ -1,12 +1,35 @@
-/************************
-Listview
-*************************/
-.ui-listview li {
-	font-size: @font_size_list_item;
-	min-height: @list_item_min_height;
-	padding: @list_item_padding;
-	> a {
-		padding: @list_item_anchor_padding;
-		margin: @list_anchor_margin;
+/***************************************************************************
+                  listview
+***************************************************************************/
+.ui-listview {
+	li {
+		font-size: @font_size_list_item;
+		min-height: @list_item_min_height;
+		padding: @list_item_padding;
+		border-bottom: 1px solid @color_listview_border;
+		color: @color_listview_text;
+
+		> * {
+			color: @color_listview_text;
+		}
+
+		> a {
+			padding: @list_item_anchor_padding;
+			margin: @list_anchor_margin;
+		}
+
+		&.ui-li-active {
+			background-color: @color_list_press_bg;
+			color: @color_listview_text_press;
+		}
+	}
+
+	.li-divider {
+		background-color: @color_list_divider_bg;
+		color: @color_list_divider_text;
+	}
+
+	.ui-li-sub-text {
+		color: @color_listview_sub_text;
 	}
 }
