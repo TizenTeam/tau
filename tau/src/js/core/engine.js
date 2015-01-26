@@ -698,6 +698,10 @@
 			function compareByDepth(nodeA, nodeB) {
 				var mask = Node.DOCUMENT_POSITION_CONTAINS | Node.DOCUMENT_POSITION_PRECEDING;
 
+				if (nodeA.element === nodeB.element) {
+					return 0;
+				}
+
 				if (nodeA.element.compareDocumentPosition(nodeB.element) & mask) {
 					return 1;
 				}
