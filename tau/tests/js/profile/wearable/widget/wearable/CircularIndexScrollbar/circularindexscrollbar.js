@@ -43,24 +43,6 @@
 		widget.destroy();
 	});
 
-	asyncTest("show/hide method test", 2, function() {
-		var el = document.getElementById("widget6"),
-			widget = tau.widget.CircularIndexScrollbar(el);
-
-		el.addEventListener("indexshow", function() {
-			ok(widget.element.classList.contains("ui-circularindexscrollbar-show"), "widget is shown");
-			widget.hide();
-		});
-
-		el.addEventListener("indexhide", function() {
-			ok(!widget.element.classList.contains("ui-circularindexscrollbar-show"), "widget is hidden");
-			start();
-			widget.destroy();
-		});
-
-		widget.show();
-	});
-
 	test("set/get value test", 1, function() {
 		var el = document.getElementById("widget7"),
 			widget = tau.widget.CircularIndexScrollbar(el);
