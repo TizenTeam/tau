@@ -40,6 +40,7 @@
 			"./profile/wearable/router/route/page",
 			"./profile/wearable/router/route/popup",
 			"./profile/wearable/router/route/drawer",
+			"./profile/wearable/router/route/circularindexscrollbar",
 			"./profile/wearable/router/history",
 			"./profile/wearable/expose",
 			"./profile/wearable/backward",
