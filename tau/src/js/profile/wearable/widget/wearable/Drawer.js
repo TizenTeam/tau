@@ -5,7 +5,15 @@
 */
 /**
  * #Drawer Widget in Wearable
- * Wearable Drawer widget provide drawer UX in wearable device.
+ * The drawer component is a panel that the application's sub layout on the left or right edge of the screen.
+ * This component is hidden most of the time, but user can be opened as swipe gesture from the edge of the screen or click the element that is added event handler,
+ * handler has drawer.open() method.
+ *
+ * Note!
+ * We recommend to make handler element.
+ * Because if you didn't set the handler, handler was set page element automatically.
+ * If you really want to make handler as the page element, you should notice data-drag-edge or dragEdge option value
+ * because default value, '1', is whole area of handler element.
  *
  * ## HTML Examples
  *
@@ -38,9 +46,9 @@
  *                 var handler = document.getElementById("drawerHandler"),
  *                     page = document.getElementById("drawerPage"),
  *                     drawerElement = document.querySelector(handler.getAttribute("href")),
- *                     drawer = tau.widget.Drawer(drawerElement);;
+ *                     drawer = tau.widget.Drawer(drawerElement);
  *
- *                     page.addEventListener( "pagebeforeshow", function() {
+ *                 page.addEventListener( "pagebeforeshow", function() {
  *                         drawer.setDragHandler(handler);
  *                         tau.event.on(handler, "mousedown touchstart", function(e) {
  *                             switch (e.type) {
@@ -49,7 +57,7 @@
  *                             // open drawer
  *                             drawer.transition(60);
  *                         }
- *                     }, false);
+ *                 }, false);
  *             })();
  *
  * ##Drawer state
@@ -310,6 +318,9 @@
 			 */
 			prototype._onDragStart = function(event) {
 				var self = this;
+				if (self._state === STATE.OPENED) {
+					return;
+				}
 				if (self.options.enable && !self._isDrag && self._state !== STATE.SETTLING && self._checkSideEdge(event)) {
 					self._isDrag = true;
 				} else {
