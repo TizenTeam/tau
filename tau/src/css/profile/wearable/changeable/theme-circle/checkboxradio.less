@@ -1,4 +1,14 @@
+/***************************************************************************
+                  checkbox / radio button
+***************************************************************************/
 input[type="checkbox"]:not(.ui-switch-input) {
+	background-color: @color_checkboxradio_checkbox;
+	&::after {
+		background-color: @color_checkboxradio_checkbox_line;
+	}
+	&:checked::before {
+		background-color: @color_checkboxradio_check;
+	}
 	&::before {
 		content: "";
 		-webkit-mask-image: url(images/Controller_icon/tw_btn_check_holo_dark.png);
@@ -9,9 +19,22 @@ input[type="checkbox"]:not(.ui-switch-input) {
 		position: absolute;
 		-webkit-transition: width 150ms;
 	}
+	&:active {
+		background-color: @color_checkboxradio_checkbox_press;
+		&::after {
+			background-color: @color_checkboxradio_checkbox_line_press;
+		}
+		&:checked::before {
+			background-color: @color_checkboxradio_check_press;
+		}
+	}
 }
 
 input[type="radio"] {
+	background-color: @color_checkboxradio_radiobox;
+	&::after {
+		background-color: @color_checkboxradio_radiobox_line;
+	}
 	&::before {
 		content: "";
 		background-color: @color_checkboxradio_radio;
@@ -24,6 +47,13 @@ input[type="radio"] {
 		-webkit-transition: -webkit-transform 150ms;
 	}
 	&:checked::before {
+		background-color: @color_checkboxradio_radio;
 		-webkit-transform: scale3d(1,1,1);
+	}
+	&:active {
+		background-color : @color_checkboxradio_radiobox_press;
+		&:checked::before {
+			background-color: @color_checkboxradio_radio_press;
+		}
 	}
 }

@@ -1,0 +1,37 @@
+/***************************************************************************
+                  progress
+***************************************************************************/
+
+@-webkit-keyframes indeterminate {
+	0% {
+		background-color: @color_progressbar_indeterminate;
+	}
+	25% {
+		background-color: @color_progressbar_indeterminate;
+	}
+	50% {
+		background-color: @color_progressbar_indeterminate;
+	}
+	75% {
+		background-color: @color_progressbar_indeterminate;
+	}
+	100% {
+		background-color: @color_progressbar_indeterminate;
+	}
+}
+
+progress {
+	color: @color_progressbar_text;
+}
+
+progress::-webkit-progress-bar {
+	background-color: @color_progressbar_normal_bg;
+}
+
+progress::-webkit-progress-value {
+	background-color: @color_progressbar_value_bg;
+}
+
+progress.ui-progress-indeterminate::-webkit-progress-bar {
+	background-color: @color_progressbar_value_bg;
+}

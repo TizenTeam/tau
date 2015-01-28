@@ -346,14 +346,20 @@ module.exports = function(grunt) {
 							dest: path.join(buildDir.wearable.theme, "changeable", "tau.css")
 						},
 						{
-							src: path.join(buildDir.wearable.theme, "changeable", "tau.circle.template"),
-							dest: path.join(buildDir.wearable.theme, "changeable", "tau.circle.css")
-						},
-						{
 							src: path.join(buildDir.wearable.theme, "changeable", "tau.template"),
 							dest: path.join(buildDir.wearable.theme, "blue", "tau.css")
 						},
 					]
+				},
+				wearable_circle: {
+					options: {
+						index:"0",
+						style:"Dark",
+						inputColorTableXML: path.join(themeConverterXMLPath, "wearable", "circle", "InputColorTable.xml"),
+						changeableColorTableXML: path.join(themeConverterXMLPath, "wearable", "circle", "ChangeableColorTable1.xml")
+					},
+					src: path.join(buildDir.wearable.theme, "changeable", "tau.circle.template"),
+					dest: path.join(buildDir.wearable.theme, "changeable", "tau.circle.css")
 				},
 				wearable_old: {
 					options: {
