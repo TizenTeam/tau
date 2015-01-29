@@ -421,6 +421,12 @@ li.static::before {
 .btn-icon-delete::before {
 	-webkit-mask-image: url(../popup/images/tw_ic_button_delete_holo_dark.png);
 }
+.btn-icon-check::before {
+	-webkit-mask-image: url(../popup/images/tw_ic_popup_btn_check.png);
+ }
+.btn-icon-cancel::before {
+	-webkit-mask-image: url(../popup/images/tw_ic_popup_btn_delete.png);
+ }
 /* -----------------------------------Content------------------------------------ */
 .content-input-box {
 	display: block;
