@@ -66,7 +66,10 @@
 						ui = {};
 
 					self.selectors = selectors;
-					self.options = objectUtils.merge({}, Popup.defaults, {fullSize: ns.getConfig("popupFullSize", Popup.defaults.fullSize)});
+					self.options = objectUtils.merge({}, Popup.defaults, {
+						fullSize: ns.getConfig("popupFullSize", Popup.defaults.fullSize),
+						enablePopupScroll: ns.getConfig("enablePopupScroll",Popup.defaults.enablePopupScroll)
+					});
 					/**
 					 * Popup state flag
 					 * @property {0|1|2|3} [state=null]
@@ -107,7 +110,8 @@
 					footer: false,
 					overlayClass: "",
 					history: true,
-					fullSize: false
+					fullSize: false,
+					enablePopupScroll: null
 				},
 				states = {
 					DURING_OPENING: 0,
@@ -534,6 +538,12 @@
 					content = ui.content,
 					headerHeight = 0,
 					footerHeight = 0;
+
+				if (self.options.enablePopupScroll === true) {
+					element.classList.add(classes.popupScroll);
+				} else {
+					element.classList.remove(classes.popupScroll);
+				}
 
 				if (elementClassList.contains(classes.popupScroll)) {
 					elementClassList.add(classes.build);
