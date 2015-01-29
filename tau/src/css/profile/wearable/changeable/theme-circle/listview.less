@@ -8,6 +8,7 @@
 		padding: @list_item_padding;
 		border-bottom: 1px solid @color_listview_border;
 		color: @color_listview_text;
+		text-align: center;
 
 		> * {
 			color: @color_listview_text;
@@ -25,11 +26,19 @@
 	}
 
 	.li-divider {
+		height: 33 * @unit_base;
+		min-height: 33 * @unit_base;
+		line-height: 31 * @unit_base;
 		background-color: @color_list_divider_bg;
 		color: @color_list_divider_text;
+		padding: 0;
 	}
 
 	.ui-li-sub-text {
 		color: @color_listview_sub_text;
 	}
+}
+
+.ui-header + .ui-content .ui-listview li:first-child {
+	border-top: 1px solid @color_listview_border;
 }
