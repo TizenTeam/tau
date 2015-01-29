@@ -23,20 +23,20 @@
 			-webkit-mask-image: @image_toggle_mask;
 			-webkit-mask-size: @fixed_toggleswitch_width;
 			// when the xml code is changed, all the bg-color variables must be changed.
-			background-color: @color_toggle_off_bg_press;
+			background-color: @color_toggle_off_bg;
 			.transition-duration(@toggle_transition_duration);
 		}
 		&:active {
 			&::before {
 				.transition-duration(0);
-				background-color: @color_toggle_off_bg_dim;
+				background-color: @color_toggle_off_bg_press;
 			}
 			&~ .ui-switch-activation,
 			~ .ui-switch-button{
 				.transition-duration(0);
-				background-color: @color_toggle_off_handler_off_dim;
+				background-color: @color_toggle_off_handler_press;
 				&::before {
-					background-color: @color_toggle_off_handler_dim;
+					background-color: @color_toggle_off_handler_off_press;
 				}
 			}
 		}
@@ -49,7 +49,7 @@
 		-webkit-mask-image: @image_toggle_mask;
 		-webkit-mask-size: @fixed_toggleswitch_width;
 		-webkit-mask-position: @fixed_toggleswitch_handle_position;
-		background-color: @color_toggle_off_handler_off;
+		background-color: @color_toggle_off_handler;
 		.transition-duration(@toggle_transition_duration);
 
 		&::before {
@@ -57,7 +57,7 @@
 			-webkit-mask-size: @fixed_toggleswitch_width;
 			-webkit-mask-repeat: no-repeat;
 			-webkit-mask-position: @fixed_toggleswitch_on_position;
-			background-color: @color_toggle_off_handler;
+			background-color: @color_toggle_off_handler_off;
 		}
 	}
 
@@ -67,26 +67,26 @@
 			width: @fixed_toggleswitch_handler_width;
 			height: @fixed_toggleswitch_handler_height;
 			-webkit-mask-position: @fixed_toggleswitch_handle_position;
-			background-color: @color_toggle_on_handler_on;
+			background-color: @color_toggle_on_handler;
 			.transform(translate3d(@fixed_toggleswitch_handle_on_margin_left,0,0));
 			&::before {
 				-webkit-mask-position: @fixed_toggleswitch_off_position;
-				background-color: @color_toggle_on_handler;
+				background-color: @color_toggle_on_handler_on;
 			}
 		}
 
 		&::before {
-			background-color: @color_toggle_on_bg_press;
+			background-color: @color_toggle_on_bg;
 		}
 
 		&:active {
 			&::before {
-				background-color: @color_toggle_on_bg_dim;
+				background-color: @color_toggle_on_bg_press;
 			}
 			&~ .ui-switch-activation, ~ .ui-switch-button {
-				background-color: @color_toggle_on_handler_on_dim;
+				background-color: @color_toggle_on_handler_press;
 				&::before {
-					background-color: @color_toggle_on_handler_dim;
+					background-color: @color_toggle_on_handler_on_press;
 				}
 			}
 		}
