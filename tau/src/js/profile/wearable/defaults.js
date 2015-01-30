@@ -83,6 +83,15 @@
 					return ns.setConfig("scrollEndEffectArea", value);
 				}
 			});
+
+			Object.defineProperty(ns.defaults, "enablePopupScroll", {
+				get: function(){
+					return ns.getConfig("enablePopupScroll", false);
+				},
+				set: function(value){
+					return ns.setConfig("enablePopupScroll", value);
+				}
+			});
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 		}
 	);

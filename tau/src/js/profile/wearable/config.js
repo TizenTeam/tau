@@ -24,9 +24,11 @@
 				ns.setConfig("popupFullSize", true);
 				ns.setConfig("scrollEndEffectArea", "screen");
 				ns.setConfig("enablePageScroll", true);
+				ns.setConfig("enablePopupScroll", true);
 			} else {
 				ns.setConfig("popupTransition", "slideup");
 				ns.setConfig("enablePageScroll", false);
+				ns.setConfig("enablePopupScroll", false);
 			}
 			// .. other possible options
 			// ns.setConfig('autoInitializePage', true);
