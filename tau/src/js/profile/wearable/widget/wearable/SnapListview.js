@@ -113,6 +113,13 @@
 
 				prototype = new BaseWidget(),
 
+				rotaryDirection = {
+					// right rotary direction
+					CW: "CW",
+					// left rotary direction
+					CCW: "CCW"
+				},
+
 				CLASSES_PREFIX = "ui-snap-listview",
 
 				classes = {
@@ -179,6 +186,24 @@
 				self._timer = setTimeout(scrollEndCallback, SCROLL_END_TIME_THRESHOLD);
 			}
 
+			function rotaryDetentHandler(self, event) {
+				var scrollableParent = self._ui.scrollableParent,
+					childItems = self._ui.childItems,
+					selectedIndex = self._selectedIndex,
+					direction = event.detail.direction,
+					selectedItemHeight;
+
+				if (scrollableParent && childItems && selectedIndex >= 0) {
+					selectedItemHeight = childItems[selectedIndex].itemHeight;
+
+					if (direction === rotaryDirection.CW && selectedIndex+1 < childItems.length) {
+						scrollableParent.scrollTop += selectedItemHeight;
+					} else if (direction === rotaryDirection.CCW && selectedIndex > 0) {
+						scrollableParent.scrollTop -= selectedItemHeight;
+					}
+				}
+			}
+
 			/* TODO: please check algorithm */
 			function getScrollableParent(listviewElement) {
 				var parentElement = listviewElement.parentNode;
@@ -225,9 +250,11 @@
 				var self = this,
 					ui = self._ui,
 					listviewElement = element,
-					scrollStartCallback = scrollStartHandler.bind(null, self);
+					scrollStartCallback = scrollStartHandler.bind(null, self),
+					rotaryDetentCallback = rotaryDetentHandler.bind(null, self);
 
 				self._callbacks.scrollStart = scrollStartCallback;
+				self._callbacks.rotaryDetent = rotaryDetentCallback;
 
 				ui.page = utilSelector.getClosestByClass(listviewElement, "ui-page") || window;
 				ui.childItems = listviewElement.children;
@@ -239,6 +266,11 @@
 
 				// bind scroll event to scrollable parent
 				utilEvent.on(ui.scrollableParent, "scroll", scrollStartCallback);
+				// bind rotarydetent event to window
+				utilEvent.on(window, "rotarydetent", rotaryDetentCallback);
+
+				// init selectedItem
+				scrollEndHandler(self);
 
 				return element;
 			};
@@ -253,11 +285,13 @@
 				var element = this.element;
 
 				initSnapListviewItemInfo(element);
+				scrollEndHandler(this);
 				return null;
 			};
 
 			prototype._unbindEvents = function() {
 				this._ui.scrollableParent.removeEventListener("scroll", this._callbacks.scrollStart, false);
+				window.removeEventListener("rotarydetent", this._callbacks.rotaryDetent, false);
 			};
 
 			/**
