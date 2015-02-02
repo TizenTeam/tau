@@ -18,15 +18,12 @@
 }
 	</style>
 	<div data-role="content">
-		<script id="tmp-1line-bigicon5" type="text/x-jquery-tmpl">
-			<li class="ui-li-1line-bigicon5">
-				<img src=${TEAM_LOGO} alt="icon" class="ui-li-bigicon ui-li-thumb">
-				<span class="ui-li-text-main">${NAME}</span>
-				<div data-role="button" data-inline="true" data-icon="plus" data-style="box"></div>
-			</li>
+		<script id="tmp-1line-bigicon5" type="text">
+            <img src=${TEAM_LOGO} alt="icon" class="ui-li-bigicon ui-li-thumb">
+            <span class="ui-li-text-main">${NAME}</span>
+            <div data-role="button" data-inline="true" data-icon="plus" data-style="box"></div>
 		</script>
-		<ul id="virtuallist-normal_1line-bigicon5_ul" data-role="virtuallistview" data-template="tmp-1line-bigicon5" data-row="100">
-		</ul>
+		<ul id="virtuallist-normal_1line-bigicon5_ul"></ul>
 	</div>
 	<script>
 	$( "#virtuallist-normal_1line-bigicon5" ).on( "pageshow" , function() {
@@ -42,7 +39,15 @@
 		$( window ).off( "tizenhwkey" );
 	});
 	</script>
-	<script type="text/javascript" src="virtuallist.js"></script>
+
+    <script>
+        var pageId = "virtuallist-normal_1line-bigicon5",
+            listId = "virtuallist-normal_1line-bigicon5_ul",
+            templateId = "tmp-1line-bigicon5",
+            itemClass = "ui-li-1line-bigicon5";
+    </script>
+    <script src="virtuallist-db-demo.js"></script>
+    <script src="virtuallist.js"></script>
 </div>
 </body>
 </html>

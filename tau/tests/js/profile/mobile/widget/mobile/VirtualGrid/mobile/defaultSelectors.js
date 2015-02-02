@@ -12,7 +12,7 @@
 	});
 	function isVirtualGrid(element, selector) {
 		ok(!!(tau.engine.getBinding(element, 'VirtualGrid')), "VirtualGrid was created by selector: " + selector);
-		equal(element.getAttribute('data-tau-bound'), "VirtualGrid", "VirtualGrid widget bound: " + selector);
+		ok(/([\s,]+|^)VirtualGrid([\s,]+|$)?/.test(element.getAttribute('data-tau-bound')), "VirtualGrid widget bound: " + selector);
 	}
 	test("VirtualGrid default selectors" , function () {
 		isVirtualGrid(document.getElementById('by-data-role'), "[data-role='virtualgrid']");

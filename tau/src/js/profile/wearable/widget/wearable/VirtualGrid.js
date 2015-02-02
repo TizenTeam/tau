@@ -134,7 +134,7 @@
 			prototype.draw = function () {
 				var self = this,
 					element = self.element,
-					ui = self.ui,
+					ui = self._ui,
 					newDiv = null,
 					newDivStyle = null;
 
@@ -160,7 +160,7 @@
 			 */
 			prototype._refreshScrollbar = function () {
 				var width = 0,
-					ui = this.ui;
+					ui = this._ui;
 				parent_refreshScrollbar.call(this);
 				if (ui.container) {
 					width = this.element.clientWidth + ui.spacer.clientWidth;

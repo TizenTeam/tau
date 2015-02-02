@@ -1,12 +1,29 @@
-/* Gen list : Dummy DB load */
-$("div.virtuallist_demo_page").one("pagecreate", function () {
-	/* ?_=ts code for no cache mechanism */
-	$.getScript( "virtuallist-db-demo.js", function ( data, textStatus ) {
-		$("ul.ui-virtual-list-container").virtuallistview("create", {
-			itemData: function ( idx ) {
-				return JSON_DATA[ idx ];
-			},
-			numItemData: JSON_DATA.length
+(function(pageId, listId, templateId, itemClass) {
+	var page = document.getElementById(pageId),
+		vlist;
+
+	tau.event.one(page, "pageshow", function () {
+		var elList = document.getElementById(listId);
+		vlist = tau.widget.VirtualListview(elList, {
+			dataLength: JSON_DATA.length,
+			bufferSize: 40,
+			listItemUpdater: function (listElement, newIndex) {
+				var template = document.getElementById(templateId).innerHTML;
+
+				template = template.replace(/\$\{([\w]+)\}/ig, function (pattern, field) {
+					return JSON_DATA[newIndex][field];
+				});
+
+				listElement.classList.add(itemClass);
+				listElement.innerHTML = template;
+			}
 		});
+		// Draw child elements
+		vlist.draw();
 	});
-});
+
+	tau.event.one(page, "pagebeforehide", function () {
+		// Remove all children in the vlist
+		vlist.destroy();
+	});
+}(pageId, listId, templateId, itemClass));

@@ -12,7 +12,7 @@
 	});
 	function isVirtualListview(element, selector) {
 		ok(!!(tau.engine.getBinding(element, 'VirtualListview')), "VirtualListview was created by selector: " + selector);
-		equal(element.getAttribute('data-tau-bound'), "VirtualListview", "VirtualListview widget bound: " + selector);
+		ok(/([\s,]+|^)VirtualListview([\s,]+|$)?/.test(element.getAttribute('data-tau-bound')), "VirtualListview widget bound: " + selector);
 	}
 	test("VirtualListview default selectors" , function () {
 		isVirtualListview(document.getElementById('by-data-role'), "[data-role='virtuallistview']");

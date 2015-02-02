@@ -69,7 +69,9 @@
 				var self = this;
 
 				// Call parent _configure
-				parentPrototype._configure.apply(self, arguments);
+				if (typeof parentPrototype._configure === "function") {
+					parentPrototype._configure.apply(self, arguments);
+				}
 
 				/**
 				 * @property {Object} options
@@ -108,7 +110,9 @@
 			};
 
 			prototype._build = function (element) {
-				parentPrototype._build.apply(this, arguments);
+				if (typeof parentPrototype._build === "function") {
+					parentPrototype._build.apply(this, arguments);
+				}
 
 				if (this.options.direction === HORIZONTAL) {
 					element.style.height = "100%";

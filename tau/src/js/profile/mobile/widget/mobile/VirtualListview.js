@@ -77,15 +77,6 @@
  * @extends ns.widget.mobile.Listview
  */
 
-/**
- * CSS MODIFICATION
- * creating this widget we modified CSS file.
- *
- * CHANGED:
- * .ui-virtual-list-container { position:relative; }
- *
- */
-
 (function (window, document, ns) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
@@ -93,502 +84,80 @@
 		[
 			"../../../../core/engine",
 			"../../../../core/util/selectors",
+			"../../../../core/util/DOM",
 			"../../../../core/event",
 			"../../../../core/theme",
 			"../mobile", // fetch namespace
 			"./Scrollview",
 			"./Listview",
-			"./BaseWidgetMobile"
+			"../../../../core/widget/core/VirtualListview",
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
-			/**
-			 * @property {ns.widget.mobile.Listview} Listview alias variable
-			 * @private
-			 * @static
-			 */
-			var Listview = ns.widget.mobile.Listview,
-				/**
-				 * @property {ns.engine} engine alias variable
-				 * @private
-				 * @static
-				 */
+			var VirtualListview = ns.widget.core.VirtualListview,
 				engine = ns.engine,
-				/**
-				 * @property {ns.util.selectors} utilsSelectors alias variable
-				 * @private
-				 * @static
-				 */
-				utilsSelectors = ns.util.selectors,
-				/**
-				 * @property {ns.theme} themes alias variable
-				 * @private
-				 * @static
-				 */
-				themes = ns.theme,
-				/**
-				 * @property {ns.widget.mobile.Listview} listviewPrototype
-				 * @private
-				 */
-				parentPrototype = Listview.prototype,
-				/**
-				 * Shortcut for parent's `{@link ns.widget.mobile.Listview#_build} ns.widget.mobile.Listview._build`
-				 * method from `{@link ns.widget.mobile.Listview} ns.widget.mobile.Listview.prototype`
-				 * @method
-				 * @private
-				 * @static
-				 */
-				parent_build = parentPrototype._build,
-
-				/**
-				 * @property {Object} parent_init Shortcut for parent's {@link ns.widget.mobile.Listview#_build}
-				 * method from prototype of {@link ns.widget.mobile.Listview}
-				 * @private
-				 * @static
-				 * @member ns.widget.mobile.ExtendableList
-				 */
-				parent_init = Listview.prototype._init,
-				/**
-				 * @property {Object} parent_bindEvent Shortcut for parent's {@link ns.widget.mobile.Listview#_build}
-				 * method from prototype of {@link ns.widget.mobile.Listview}
-				 * @private
-				 * @static
-				 * @member ns.widget.mobile.ExtendableList
-				 */
-				parent_bindEvents = Listview.prototype._bindEvents,
-				// Constants definition
-				/**
-				 * @property {number} SCROLL_UP defines index of scroll \_scroll.direction
-				 * to retrive if user is scrolling up
-				 * @private
-				 * @static
-				 */
-				SCROLL_UP = 0,
-				/**
-				 * @property {number} SCROLL_RIGHT defines index of scroll \_scroll.direction
-				 * to retrive if user is scrolling right
-				 * @private
-				 * @static
-				 */
-				SCROLL_RIGHT = 1,
-				/**
-				 * @property {number} SCROLL_DOWN defines index of scroll \_scroll.direction
-				 * to retrive if user is scrolling down
-				 * @private
-				 * @static
-				 */
-				SCROLL_DOWN = 2,
-				/**
-				 * @property {number} SCROLL_LEFT defines index of scroll \_scroll.direction
-				 * to retrive if user is scrolling left
-				 * @private
-				 * @static
-				 */
-				SCROLL_LEFT = 3,
-				/**
-				 * @property {string} VERTICAL Defines vertical scrolling direction. It's default direction.
-				 * @private
-				 * @static
-				 */
-				VERTICAL = "y",
-				/**
-				 * @property {string} HORIZONTAL Defines horizontal scrolling direction.
-				 * @private
-				 * @static
-				 */
-				HORIZONTAL = "x",
-				/**
-				 * @property {boolean} blockEvent Determines that scroll event should not be taken into account if scroll event accurs.
-				 * @private
-				 * @static
-				 */
-				blockEvent = false,
-				/**
-				 * Local constructor function
-				 * @method VirtualListview
-				 * @private
-				 * @member ns.widget.mobile.VirtualListview
-				 */
-				VirtualListview = function () {
-					var self = this;
-
-					/**
-					* @property {Object} ui VirtualListview widget's properties associated with
-					* User Interface
-					* @property {?HTMLElement} [ui.scrollview=null] Reference to associated
-					* {@link ns.widget.mobile.Scrollview Scrollview widget}
-					* @property {number} [ui.itemSize=0] Size of list element in piksels. If scrolling is
-					* vertically it's item width in other case it's height of item element
-					* @member ns.widget.mobile.VirtualListview
-					*/
-					self._ui = {
-						scrollview: null,
-						itemSize: 0
-					};
-
-					/**
-					* @property {Object} _scroll Holds information about scrolling state
-					* @property {Array} [_scroll.direction=[0,0,0,0]] Holds current direction of scrolling.
-					* Indexes suit to following order: [up, left, down, right]
-					* @property {number} [_scroll.lastPositionX=0] Last scroll position from top in pixels.
-					* @property {number} [_scroll.lastPositionY=0] Last scroll position from left in pixels.
-					* @property {number} [_scroll.lastJumpX=0] Difference between last and current
-					* position of horizontal scroll.
-					* @property {number} [_scroll.lastJumpY=0] Difference between last and current
-					* position of vertical scroll.
-					* @property {number} [_scroll.clipWidth=0] Width of clip - visible area for user.
-					* @property {number} [_scroll.clipHeight=0] Height of clip - visible area for user.
-					* @member ns.widget.mobile.VirtualListview
-					*/
-					self._scroll = {
-						direction: [0, 0, 0, 0],
-						lastPositionX: 0,
-						lastPositionY: 0,
-						lastJumpX: 0,
-						lastJumpY: 0,
-						//@TODO: what if there is another element in scroll view? what size of clip should be?
-						clipWidth: 0,
-						clipHeight: 0
-					};
-
-					/**
-					* @property {number} _currentIndex Current zero-based index of data set.
-					* @member ns.widget.mobile.VirtualListview
-					*/
-					self._currentIndex = 0;
-
-					/**
-					 * Returns list item value at specified index from database.
-					 *
-					 * **Method should overrided by developer using {@link ns.widget.mobile.VirtualListview#create .create} method.**
-					 * @method itemData
-					 * @param {number} index Index of data set.
-					 * @return {Object}
-					 * @member ns.widget.mobile.VirtualListview
-					 */
-					self.itemData = function () {
-						return null;
-					};
-
-					//Event function handler
-					self._scrollEventBound = null;
-
-					return self;
-				},
-				prototype = new Listview(),
-				classes = {
-					CONTAINER: "ui-virtual-list-container"
-				};
-
-
-			VirtualListview.prototype = prototype;
+				utils = ns.util,
+				utilsSelectors = utils.selectors,
+				nsData = utils.DOM.nsData,
+				prototype = new VirtualListview(),
+				//
+				// CORE METHODS
+				//
+				parent_init = prototype._init,
+				parent_refresh = prototype._refresh,
+				parent_updateListItem = prototype._updateListItem;
 
 			/**
-			 * Dictionary object containing commonly used widget classes
-			 * @property {Object} classes
-			 * @static
-			 * @member ns.widget.mobile.VirtualListview
-			 * @readonly
+			 * Initialize widget on an element.
+			 * @method _init
+			 * @param {HTMLElement} element Widget's element
+			 * @member ns.widget.core.VirtualListview
+			 * @protected
 			 */
-			VirtualListview.classes = classes;
+			prototype._init = function (element) {
+				var self = this;
 
-			prototype._configure = function () {
-				var self = this,
-					options = self.options;
+				engine.instanceWidget(element, "Listview");
 
-				// Call parent _configure
-				parentPrototype._configure.apply(self, arguments);
+				if (nsData(element, "row") !== null) {
+					ns.warn("Row option in VirtualListview is deprecated and not supported. Use bufferSize option instead.");
+				}
 
-				/**
-				 * @property {Object} options VirtualListview widget options.
-				 * @property {?Object} [options.template=null] Widget template engine.
-				 * @property {?string} [options.theme=null] Widget theme
-				 * value is used when .theme option isn't on element itself and on it's parents.
-				 * @property {number} [options.row=100] Number of items of result set. The minimum
-				 * value is 20 and the default value is 100. As the value gets higher, the loading
-				 * time increases while the system performance improves. So you need to pick a value
-				 * that provides the best performance without excessive loading time.
-				 * @property {number} [options.numItemData=0] Total number of items.
-				 * @property {boolean} [options.standalone=false] If true scrollview instance will be created inside of the widget
-				 */
-				options.template = null;
-				options.theme = null;
-				options.direction = VERTICAL;
-				options.row = 50;
-				options.numItemData = 0;
-				options.standalone = false;
+				if (nsData(element, "template") !== null) {
+					ns.warn("Template option in VirtualListview is deprecated and not supported.");
+				}
+
+				if (nsData(element, "theme") !== null) {
+					ns.warn("Theme option in VirtualListview is deprecated and not supported.");
+				}
+
+				if (nsData(element, "numItemData") !== null) {
+					ns.warn("NumItemData option in VirtualListview is deprecated and not supported. Use dataLength option instead.");
+				}
+
+				if (typeof self.options.listItemUpdater !== "function") {
+					ns.warn(["ListItemUpdater in VirtualListview is not set.",
+						"Probably you use selector for automatic creation of this widget.",
+						"Selectors for this widget are deprecated and will be removed in future.",
+						"Use setListItemUpdater to set list item updater."].join(" "));
+				}
+
+				self._ui.listview = engine.instanceWidget(element, "Listview");
+				parent_init.call(self, element);
 			};
 
-			//@TODO: Maybe this information should by provided by Scrollview
-			/**
-			 * Updates scroll information about position, direction and jump size.
-			 * @method _updateScrollInfo
-			 * @private
-			 */
-			prototype._updateScrollInfo = function () {
-				var self = this,
-					scrollInfo = self._scroll,
-					scrollDirection,
-					scrollViewElement = self._ui.scrollview.element,
-					scrollLastPositionX = scrollInfo.lastPositionX,
-					scrollLastPositionY = scrollInfo.lastPositionY,
-					// Fetch current scroll position
-					scrollviewPosX = scrollViewElement.scrollLeft,
-					scrollviewPosY = scrollViewElement.scrollTop;
-
-				self._refreshScrollbar();
-				//Reset scroll matrix
-				scrollDirection = [0, 0, 0, 0];
-
-				//Scrolling UP
-				if (scrollviewPosY < scrollLastPositionY) {
-					scrollDirection[SCROLL_UP] = 1;
-				}
-
-				//Scrolling RIGHT
-				if (scrollviewPosX > scrollLastPositionX) {
-					scrollDirection[SCROLL_RIGHT] = 1;
-				}
-
-				//Scrolling DOWN
-				if (scrollviewPosY > scrollLastPositionY) {
-					scrollDirection[SCROLL_DOWN] = 1;
-				}
-
-				//Scrolling LEFT
-				if (scrollviewPosX < scrollLastPositionX) {
-					scrollDirection[SCROLL_LEFT] = 1;
-				}
-
-				scrollInfo.lastJumpY = Math.abs(scrollviewPosY - scrollLastPositionY);
-				scrollInfo.lastJumpX = Math.abs(scrollviewPosX - scrollLastPositionX);
-				scrollInfo.lastPositionX = scrollviewPosX;
-				scrollInfo.lastPositionY = scrollviewPosY;
-				scrollInfo.direction = scrollDirection;
-				scrollInfo.clipHeight = scrollViewElement.clientHeight;
-				scrollInfo.clipWidth = scrollViewElement.clientWidth;
+			prototype._refresh = function () {
+				this._ui.listview.refresh();
+				parent_refresh.call(this);
 			};
 
-			/**
-			 * Computes list element size according to scrolling orientation
-			 * @method _computeElementSize
-			 * @param {HTMLElement} element Element whose size should be computed
-			 * @param {string} orientation Scrolling orientation
-			 * @return {number} Size of element in pixels
-			 * @member ns.widget.wearable.VirtualListview
-			 * @private
-			 * @static
-			 */
-			function _computeElementSize(element, orientation) {
-				// @TODO change to util method if it will work perfectly
-				return parseInt(orientation === VERTICAL ? element.clientHeight : element.clientWidth, 10) + 1;
-			}
+			prototype._setupScrollview = function (element) {
+				var scrollview;
 
-			/**
-			 * Scrolls and manipulates DOM element to destination index. Element at destination
-			 * index is the first visible element on the screen. Destination index can
-			 * be different from Virtual List's current index, because current index points
-			 * to first element in the buffer.
-			 * @member ns.widget.mobile.VirtualListview
-			 * @param {ns.widget.mobile.VirtualListview} self VirtualListview widget reference
-			 * @param {number} toIndex Destination index.
-			 * @method _orderElementsByIndex
-			 * @private
-			 * @static
-			 */
-			function _orderElementsByIndex(self, toIndex) {
-				var element = self.element,
-					options = self.options,
-					scrollInfo = self._scroll,
-					resultsetSize = 0,
-					dataLength = options.numItemData,
-					indexCorrection = 0,
-					bufferedElements = 0,
-					avgListItemSize = 0,
-					bufferSize = options.row,
-					i,
-					offset = 0,
-					index;
-
-				//Get size of scroll clip depended on scroll direction
-				resultsetSize = options.direction === VERTICAL ? scrollInfo.clipHeight : scrollInfo.clipWidth;
-
-				//resultsetSize = self._computeResultsetSize();
-				//Compute average list item size
-				avgListItemSize = self._computeAvgSize();
-
-				//Compute average number of elements in each buffer (before and after clip)
-				bufferedElements = Math.floor((bufferSize - Math.floor(resultsetSize / avgListItemSize)) / 2);
-
-				if (toIndex - bufferedElements <= 0) {
-					index = 0;
-					indexCorrection = 0;
-				} else {
-					index = toIndex - bufferedElements;
-				}
-
-				if (index + bufferSize >= dataLength) {
-					index = dataLength - bufferSize;
-				}
-				indexCorrection = toIndex - index;
-
-				self._loadData(index);
-				blockEvent = true;
-				offset = index * avgListItemSize;
-				if (options.direction === VERTICAL) {
-					element.style.top = offset + "px";
-				} else {
-					element.style.left = offset + "px";
-				}
-
-				for (i = 0; i < indexCorrection; i += 1) {
-					offset += _computeElementSize(element.children[i], options.direction);
-				}
-
-				if (options.direction === VERTICAL) {
-					self.ui.scrollview.element.scrollTop = offset;
-				} else {
-					self.ui.scrollview.element.scrollLeft = offset;
-				}
-				blockEvent = false;
-				self._currentIndex = index;
-			}
-
-			/**
-			 * Orders elements. Controls resultset visibility and does DOM manipulation.
-			 * @method _orderElements
-			 * @param {ns.widget.mobile.VirtualListview} self VirtualListview widget reference
-			 * @private
-			 */
-			function _orderElements(self) {
-				var element = self.element,
-					scrollInfo = self._scroll,
-					options = self.options,
-					elementStyle = element.style,
-					//Current index of data, first element of resultset
-					currentIndex = self._currentIndex,
-					//Number of items in resultset
-					bufferSize = parseInt(options.row, 10),
-					//Total number of items
-					dataLength = options.numItemData,
-					//Array of scroll direction
-					scrollDirection = scrollInfo.direction,
-					scrolledVertically = (scrollDirection[SCROLL_UP] || scrollDirection[SCROLL_DOWN]),
-					scrolledHorizontally = (scrollDirection[SCROLL_LEFT] || scrollDirection[SCROLL_RIGHT]),
-					scrollClipWidth = scrollInfo.clipWidth,
-					scrollClipHeight = scrollInfo.clipHeight,
-					scrollLastPositionY = scrollInfo.lastPositionY,
-					scrollLastPositionX = scrollInfo.lastPositionX,
-					elementPositionTop = parseInt(elementStyle.top, 10) || 0,
-					elementPositionLeft = parseInt(elementStyle.left, 10) || 0,
-					elementsToLoad = 0,
-					elementsLeftToLoad = 0,
-					temporaryElement = null,
-					avgListItemSize,
-					resultsetSize,
-					i,
-					jump = 0,
-					hiddenPart = 0,
-					newPosition;
-
-				resultsetSize = self._computeResultsetSize();
-				avgListItemSize = self._computeAvgSize(resultsetSize);
-
-				//Compute hidden part of result set and number of elements, that needed to be loaded, while user is scrolling DOWN
-				if (scrollDirection[SCROLL_DOWN]) {
-					hiddenPart = scrollLastPositionY - elementPositionTop;
-					elementsLeftToLoad = dataLength - currentIndex - bufferSize;
-				}
-
-				//Compute hidden part of result set and number of elements, that needed to be loaded, while user is scrolling UP
-				if (scrollDirection[SCROLL_UP]) {
-					hiddenPart = (elementPositionTop + resultsetSize) - (scrollLastPositionY + scrollClipHeight);
-					elementsLeftToLoad = currentIndex;
-				}
-
-				//Compute hidden part of result set and number of elements, that needed to be loaded, while user is scrolling RIGHT
-				if (scrollDirection[SCROLL_RIGHT]) {
-					hiddenPart = scrollLastPositionX - elementPositionLeft;
-					elementsLeftToLoad = dataLength - currentIndex - bufferSize;
-				}
-
-				//Compute hidden part of result set and number of elements, that needed to be loaded, while user is scrolling LEFT
-				if (scrollDirection[SCROLL_LEFT]) {
-					hiddenPart = (elementPositionLeft + resultsetSize) - (scrollLastPositionX + scrollClipWidth);
-					elementsLeftToLoad = currentIndex;
-				}
-
-				//manipulate DOM only, when at least 2/3 of result set is hidden
-				//NOTE: Result Set should be at least 3x bigger then clip size
-				if (hiddenPart > 0 && (resultsetSize / hiddenPart) <= 1.5) {
-
-					//Left half of hidden elements still hidden/cached
-					elementsToLoad = Math.floor(hiddenPart / avgListItemSize) - Math.floor((bufferSize - scrollClipHeight / avgListItemSize) / 2);
-					elementsToLoad = elementsLeftToLoad < elementsToLoad ? elementsLeftToLoad : elementsToLoad;
-
-					if (scrollDirection[SCROLL_DOWN] || scrollDirection[SCROLL_RIGHT]) {
-						//Switch currentIndex to last
-						currentIndex = currentIndex + bufferSize - 1;
-					}
-
-					for (i = elementsToLoad; i > 0; i -= 1) {
-						if (scrollDirection[SCROLL_DOWN] || scrollDirection[SCROLL_RIGHT]) {
-							temporaryElement = element.appendChild(element.firstElementChild);
-							++currentIndex;
-
-							//Updates list item using template
-							self._updateListItem(temporaryElement, currentIndex);
-							if (scrolledVertically) {
-								jump += temporaryElement.offsetHeight;
-							} else {
-								jump += temporaryElement.offsetWidth;
-							}
-						}
-
-						if (scrollDirection[SCROLL_UP] || scrollDirection[SCROLL_LEFT]) {
-							temporaryElement = element.insertBefore(element.lastElementChild, element.firstElementChild);
-							--currentIndex;
-
-							//Updates list item using template
-							self._updateListItem(temporaryElement, currentIndex);
-							if (scrolledVertically) {
-								jump -= temporaryElement.offsetHeight;
-							} else {
-								jump -= temporaryElement.offsetWidth;
-							}
-						}
-					}
-					if (scrolledVertically) {
-						newPosition = elementPositionTop + jump;
-
-						if (newPosition < 0 || currentIndex <= 0) {
-							newPosition = 0;
-							currentIndex = 0;
-						}
-
-						elementStyle.top = newPosition + "px";
-					}
-
-					if (scrolledHorizontally) {
-						newPosition = elementPositionLeft + jump;
-
-						if (newPosition < 0 || currentIndex <= 0) {
-							newPosition = 0;
-							currentIndex = 0;
-						}
-
-						elementStyle.left = newPosition + "px";
-					}
-
-					if (scrollDirection[SCROLL_DOWN] || scrollDirection[SCROLL_RIGHT]) {
-						//Switch currentIndex to first
-						currentIndex = currentIndex - bufferSize + 1;
-					}
-					//Save current index
-					self._currentIndex = currentIndex;
-				}
-			}
-
+				// @TODO: get class value from static access to class
+				scrollview = engine.getBinding(utilsSelectors.getClosestByClass(element, "ui-scrollview-clip"));
+				return scrollview.element;
+			};
 
 			/**
 			 * @method _updateListItem
@@ -598,401 +167,13 @@
 			 * @protected
 			 */
 			prototype._updateListItem = function (element, index) {
-				var self = this,
-					itemData = self.itemData,
-					$jqTmpl = self._ui.$jqTmpl,
-					templateElement;
+				var self = this;
 
 				if (typeof self.options.listItemUpdater === "function") {
-					self.options.listItemUpdater(element, index);
+					parent_updateListItem.call(self, element, index);
 				} else {
-					//@TODO THIS IS A JQUERY INCLUSION IN A TAU WIDGET!!!
-					//@TODO FIX THIS!!!
-					templateElement = $.tmpl($jqTmpl, itemData(index))[0];
-					element.innerHTML = templateElement.innerHTML;
-					if (templateElement.className) {
-						//@TODO move this to utils
-						window.DOMTokenList.prototype.add.apply(element.classList, templateElement.className.split(" "));
-					}
-					engine.createWidgets(element);
+					ns.warn("List item updater must be a function. Using jQuery Template in VirtualListview is deprecated and is not supported");
 				}
-			};
-
-			/**
-			 * Build widget structure
-			 * @method _build
-			 * @protected
-			 * @param {string} template
-			 * @param {HTMLElement} element
-			 * @return {HTMLElement}
-			 */
-			VirtualListview.prototype._build = function (element) {
-				var self = this,
-					options = self.options,
-					elementStyle = element.style,
-					styleHeight = elementStyle.height,
-					styleWidth = elementStyle.width,
-					standaloneContainer;
-
-				// Check if standalone must be forced
-				// this is not placed inside _configure method because it could be overriden by a data- attribute
-				// @TODO other properties could potentially work in this way too
-				if (styleHeight !== "" && styleHeight !== "auto" && styleWidth !== "" && styleWidth !== "auto") {
-					options.standalone = true;
-				}
-
-				// Prepare a parent container for VirtualList
-				if (options.standalone) {
-					standaloneContainer = document.createElement('div');
-
-					// Standalone container must match sizes designed by developer
-					standaloneContainer.style.width = styleWidth || "100%";
-					standaloneContainer.style.height = styleHeight || "100%";
-
-					// Remove style values
-					// @TODO reassign those values on destroy
-					elementStyle.height = "";
-					elementStyle.width = "";
-
-					// Add scrollview to content element
-					// we must add it before creating instance because some operations inside build method
-					// require presence inside DOM
-					element.parentElement.appendChild(standaloneContainer);
-
-					// Create a widget instance of it
-					self._ui.scrollview = engine.instanceWidget(standaloneContainer, "Scrollview", {
-						scroll: options.direction
-					});
-
-					// After creating scrollview widget apeend list as a child
-					self._ui.scrollview._ui.view.appendChild(element);
-				}
-
-				//Call parent's method
-				parent_build.call(self, element);
-
-				options.theme = themes.getInheritedTheme(element) || options.theme;
-				element.classList.add(classes.CONTAINER);
-
-				//Prepare element
-				elementStyle.position = "relative";
-
-				return element;
-			};
-
-			/**
-			 * Check if scrolling position is changed and updates list if it needed.
-			 * @method _updateList
-			 * @param {ns.widget.mobile.VirtualListview} self VirtualListview widget reference
-			 * @member ns.widget.mobile.VirtualListview
-			 * @private
-			 * @static
-			 */
-			function _updateList(self) {
-				var _scroll = self._scroll;
-
-				self._updateScrollInfo();
-
-				if (_scroll.lastJumpY > 0 || _scroll.lastJumpX > 0) {
-					if (!blockEvent) {
-						_orderElements(self);
-					}
-				}
-			}
-
-			/**
-			 * Configures list. Sets data source and iterator behavior.
-			 * @method _configureList
-			 * @protected
-			 * @param {Object} argumentsArray
-			 * @member ns.widget.mobile.VirtualListview
-			 */
-			prototype._configureList = function (argumentsArray) {
-				var self = this,
-					options = self.options,
-					args = argumentsArray[0] || {};
-
-				if (typeof args.itemData === "function" && (typeof args.numItemData === "function" || typeof args.numItemData === "number")) {
-					if (typeof args.numItemData === "function") {
-						options.numItemData = args.numItemData();
-					} else {
-						options.numItemData = args.numItemData <= 0 ? 0 : args.numItemData;
-					}
-					self.itemData = args.itemData;
-				}
-
-				// @TODO set minimum set size depending on current screen size
-				options.row = Math.max(20, options.row);
-
-				self._buildList();
-
-				//Update scroll info: scroll position etc... if options.standalone = true
-				if (options.standalone) {
-					self._updateScrollInfo();
-				}
-			};
-
-			/**
-			 * Sums current element set size depending on direction
-			 * @return {number} current loaded set of elements size
-			 * @protected
-			 */
-			prototype._computeResultsetSize = function () {
-				var self = this,
-					resultsetSize = 0,
-					currentDirection = self.options.direction,
-					childrenNodes = self.element.children,
-					i;
-
-				// Go through children and fetch their sizes
-				for (i = childrenNodes.length - 1; i >= 0; i -= 1) {
-					if (currentDirection === VERTICAL) {
-						resultsetSize += childrenNodes[i].offsetHeight;
-					} else {
-						resultsetSize += childrenNodes[i].offsetWidth;
-					}
-				}
-
-				return resultsetSize;
-			};
-
-
-			/**
-			 * Calculates current set size depending on currently loaded elements
-			 * @method _computeAvgSize
-			 * @param {number} [resultsetSize] result size may be passed for saving computations
-			 * @protected
-			 * @return {number} Average size of result elements
-			 */
-			prototype._computeAvgSize = function (resultsetSize) {
-				var self = this,
-					size = resultsetSize || self._computeResultsetSize(),
-					avgSize = Math.ceil(size / self.options.row);
-
-				self._avgListItemSize = avgSize;
-
-				return avgSize;
-			};
-
-			/**
-			 * Initialize list on an element
-			 * @method _init
-			 * @protected
-			 * @param {HTMLElement} element
-			 * @member ns.widget.mobile.VirtualListview
-			 */
-			prototype._init = function (element) {
-				var self = this,
-					ui = self._ui,
-					options = self.options,
-					standalone = options.standalone,
-					direction,
-					scrollviewInstance;
-
-
-				// scrollview may be set while widget is created with standalone option
-				if (standalone && !ui.scrollview || !standalone) {
-					//Get Scrollview widget instance
-					// @TODO make this asynchrous, it's currently possible that a child widget will be built before scrollview (for example VirtualGrid)
-					// @TODO this will fail also if data-scroll is set to none on target scrollable element
-					scrollviewInstance = engine.getBinding(utilsSelectors.getClosestByClass(element, 'ui-scrollview-clip'));
-					ui.scrollview = scrollviewInstance;
-				} else {
-					scrollviewInstance = ui.scrollview;
-				}
-
-				//@TODO JQUERY!
-				ui.$jqTmpl = $(document.getElementById(self.options.template));
-
-				options.row = parseInt(options.row, 10);
-
-				//Set direction, default vertical scrolling is allowed
-				direction = (options.direction.toLowerCase() === HORIZONTAL) ? HORIZONTAL : VERTICAL;
-				options.direction = direction;
-
-				// Prepare view
-				if (standalone && options.direction === HORIZONTAL) {
-					scrollviewInstance._ui.view.style.height = "100%";
-				}
-
-				parent_init.call(self, element);
-			};
-
-			/**
-			 * Builds list items
-			 * @method _buildList
-			 * @protected
-			 * @member ns.widget.mobile.VirtualListview
-			 */
-			prototype._buildList = function () {
-				var self = this,
-					listItem,
-					list = self.element,
-					childElementType = (list.tagName === "UL" || list.tagName === "OL") ? "li" : "div",
-					numberOfItems = self.options.row,
-					documentFragment = document.createDocumentFragment(),
-					direction = self.options.direction,
-					i;
-
-				for (i = 0; i < numberOfItems; ++i) {
-					listItem = document.createElement(childElementType);
-
-					if (direction === HORIZONTAL) {
-						// TODO: check if whiteSpace: nowrap is better for vertical listes
-						// NOTE: after rebuild this condition check possible duplication from _init method
-						listItem.style.float = 'left';
-					}
-
-					self._updateListItem(listItem, i);
-					documentFragment.appendChild(listItem);
-				}
-
-				list.appendChild(documentFragment);
-				self._refresh();
-			};
-
-			/**
-			 * Refresh list
-			 * @method _refresh
-			 * @member ns.widget.mobile.VirtualListview
-			 * @protected
-			 * @instance
-			 */
-			prototype._refresh = function (create) {
-				//Set default value of variable create
-				create = create === undefined ? false : create;
-				//Set default value of variable create
-				this._refreshItems(this.element, create);
-				this._refreshScrollbar();
-			};
-
-			/**
-			 * Loads data from specefied index to result set size.
-			 * @method _loadData
-			 * @protected
-			 * @param {number} index Index of first row
-			 * @member ns.widget.mobile.VirtualListview
-			 */
-			prototype._loadData = function (index) {
-				var self = this,
-					children = self.element.firstElementChild;
-
-				if (self._currentIndex !== index) {
-					self._currentIndex = index;
-					do {
-						self._updateListItem(children, index);
-						++index;
-						children = children.nextElementSibling;
-					} while (children);
-				}
-			};
-
-			/**
-			 * Sets proper scrollbar size: height (vertical), width (horizontal)
-			 * @method _refreshScrollbar
-			 * @protected
-			 * @member ns.widget.mobile.VirtualListview
-			 */
-			prototype._refreshScrollbar = function () {
-				var self = this,
-					options = self.options,
-					newViewSize = self._computeAvgSize() * options.numItemData,
-					scrollviewInstance = self._ui.scrollview,
-					// Get scrollview view element (child)
-					// @TODO remove fetching first child after createing ui.view property inside Scrollview widget
-					scrollviewView;
-
-				if (scrollviewInstance) {
-					scrollviewView = (scrollviewInstance.ui && scrollviewInstance.ui.view) || scrollviewInstance.element.firstElementChild;
-					if (options.direction === VERTICAL) {
-						scrollviewView.style.height = newViewSize + "px";
-					} else {
-						scrollviewView.style.width = newViewSize + "px";
-					}
-				}
-			};
-
-			/**
-			 * Binds VirtualListview events
-			 * @method _bindEvents
-			 * @protected
-			 * @member ns.widget.mobile.VirtualListview
-			 */
-			prototype._bindEvents = function () {
-				var self = this,
-					scrollEventBound = _updateList.bind(null, self),
-					scrollviewClip = self._ui.scrollview && self._ui.scrollview.element;
-
-				if (scrollviewClip) {
-					scrollviewClip.addEventListener("scroll", scrollEventBound, false);
-					self._scrollEventBound = scrollEventBound;
-				}
-
-				parent_bindEvents.call(self, self.element);
-			};
-
-			/**
-			 * Cleans widget's resources
-			 * @method _destroy
-			 * @protected
-			 * @member ns.widget.mobile.VirtualListview
-			 */
-			prototype._destroy = function () {
-				var self = this,
-					scrollview = self._ui.scrollview,
-					scrollviewClip = scrollview && scrollview.element,
-					scrollviewParent = scrollviewClip && scrollviewClip.parentElement,
-					element = self.element,
-					elementStyle = element.style,
-					options = self.options,
-					listItem;
-
-				// Restore start position
-				elementStyle.position = "static";
-				if (options.direction === VERTICAL) {
-					elementStyle.top = "";
-				} else {
-					elementStyle.left = "";
-				}
-
-				if (scrollviewClip) {
-					scrollviewClip.removeEventListener("scroll", self._scrollEventBound, false);
-				}
-
-				// In case we have a standalone version move element to parent of scrollview
-				// call destroy and remove it from DOM
-				if (options.standalone) {
-					scrollviewParent.appendChild(self.element);
-					scrollview.destroy();
-
-					scrollviewParent.removeChild(scrollviewClip);
-
-					self._ui.scrollview = null;
-				}
-
-				//Remove li elements.
-				// @TODO innerHTML = "" could be faster
-				while (element.firstElementChild) {
-					listItem = element.firstElementChild;
-					element.removeChild(listItem);
-				}
-			};
-
-			/**
-			 * Scrolls list to defined index.
-			 * @method scrollToIndex
-			 * @param {number} index Scroll Destination index.
-			 * @member ns.widget.mobile.VirtualListview
-			 */
-			prototype.scrollToIndex = function(index) {
-				if (index < 0) {
-					index = 0;
-				}
-				if (index >= this.options.numItemData) {
-					index = this.options.numItemData - 1;
-				}
-				this._updateScrollInfo();
-				_orderElementsByIndex(this, index);
 			};
 
 			/**
@@ -1002,18 +183,18 @@
 			 * @member ns.widget.mobile.VirtualListview
 			 */
 			prototype.create = function () {
-				this._configureList(arguments);
+				ns.warn("VirtualListview.create() method is deprecated and no more supported. Use draw() method instead.");
 			};
 
-			// definition
-			ns.widget.mobile.VirtualListview = VirtualListview;
+			VirtualListview.prototype = prototype;
 
-			engine.defineWidget(
+			ns.widget.mobile.VirtualListview = VirtualListview;
+			ns.engine.defineWidget(
 				"VirtualListview",
 				"[data-role='virtuallistview'],[data-role='virtuallist'], .ui-virtuallistview",
-				["create", "scrollToIndex"],
+				["draw", "setListItemUpdater", "scrollTo", "scrollToIndex", "create"],
 				VirtualListview,
-				'tizen'
+				"tizen"
 			);
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return ns.widget.mobile.VirtualListview;

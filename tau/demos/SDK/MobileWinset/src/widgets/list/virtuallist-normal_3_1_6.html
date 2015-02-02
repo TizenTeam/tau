@@ -9,14 +9,11 @@
 		<h1>VIRTUAL LIST - NORMAL STYLE 1LINE-TOGGLE</h1>
 	</div>
 	<div data-role="content">
-		<script id="tmp-1line-toggle" type="text/x-jquery-tmpl">
-			<li class="ui-li-1line-toggle">
-				<span class="ui-li-text-main">${NAME}</span>
-				<div data-role="toggleswitch"/></div>
-			</li>
+		<script id="tmp-1line-toggle" type="text">
+            <span class="ui-li-text-main">${NAME}</span>
+            <div data-role="toggleswitch"/></div>
 		</script>
-		<ul id="virtuallist-normal_1line-toggle_ul" data-role="virtuallistview" data-template="tmp-1line-toggle" data-row="100">
-		</ul>
+		<ul id="virtuallist-normal_1line-toggle_ul"></ul>
 	</div>
 	<script>
 	$( "#virtuallist-normal_1line-toggle" ).on( "pageshow" , function() {
@@ -32,7 +29,14 @@
 		$( window ).off( "tizenhwkey" );
 	});
 	</script>
-	<script type="text/javascript" src="virtuallist.js"></script>
+    <script>
+        var pageId = "virtuallist-normal_1line-toggle",
+            listId = "virtuallist-normal_1line-toggle_ul",
+            templateId = "tmp-1line-toggle",
+            itemClass = "ui-li-1line-toggle";
+    </script>
+    <script src="virtuallist-db-demo.js"></script>
+    <script src="virtuallist.js"></script>
 </div>
 </body>
 </html>
