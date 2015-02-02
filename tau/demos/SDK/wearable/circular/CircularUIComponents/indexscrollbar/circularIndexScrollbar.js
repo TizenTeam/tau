@@ -3,6 +3,18 @@
 		circularIndexScrollbar,
 		snapListview;
 
+	function scrollStartHandler() {
+		if (!circularIndexScrollbar.isShow()) {
+			circularIndexScrollbar.hideHandler();
+		}
+	}
+
+	function scrollEndHandler() {
+		if (!circularIndexScrollbar.isShow()) {
+			circularIndexScrollbar.showHandler();
+		}
+	}
+
 	page.addEventListener("pageshow", function(ev) {
 
 /*****************************************************************
@@ -36,7 +48,6 @@ el.addEventListener("select", function( ev ) {
 		var circularIndexScrollbarElement = document.getElementById("circularindexscrollbar"),
 			listviewElement = document.getElementById("list1"),	// list
 			listDividers = listviewElement.getElementsByClassName("li-divider"),	// list dividers
-			scroller = listviewElement.parentElement,	// the scroller (overflow-y:hidden)
 			dividers = {},	// collection of list dividers
 			indices = [],	// index list
 			divider,
@@ -62,12 +73,11 @@ el.addEventListener("select", function( ev ) {
 		circularIndexScrollbarElement.addEventListener("select", function (ev) {
 			var divider,
 				idx = ev.detail.index;
-
 			if (circularIndexScrollbar.isShow()) {
 				divider = dividers[idx];
 				if(divider) {
 					// Scroll to the li-divider element
-					scroller.scrollTop = divider.offsetTop - scroller.offsetTop;
+					page.scrollTop = divider.offsetTop - page.offsetTop;
 				}
 			}
 		});
@@ -82,21 +92,15 @@ el.addEventListener("select", function( ev ) {
 		});
 
 		// Add "scrollstart" event handler.
-		document.addEventListener("scrollstart", function () {
-			if (!circularIndexScrollbar.isShow()) {
-				circularIndexScrollbar.hideHandler();
-			}
-		});
-
+		document.addEventListener("scrollstart", scrollStartHandler);
 		// Add "scollend" event handler.
-		document.addEventListener("scrollend", function () {
-			if (!circularIndexScrollbar.isShow()) {
-				circularIndexScrollbar.showHandler();
-			}
-		});
+		document.addEventListener("scrollend", scrollEndHandler);
+
 	});
 
 	page.addEventListener("pagehide", function(ev) {
+		document.removeEventListener("scrollstart", scrollStartHandler);
+		document.removeEventListener("scrollend", scrollEndHandler);
 		circularIndexScrollbar.destroy();
 		snapListview.destroy();
 	});

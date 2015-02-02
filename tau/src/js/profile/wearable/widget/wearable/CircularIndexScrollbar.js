@@ -820,6 +820,8 @@
 				var self = this,
 					direction = event.detail.direction;
 
+				event.stopPropagation();
+
 				if (!self.options.index) {
 					return;
 				}
