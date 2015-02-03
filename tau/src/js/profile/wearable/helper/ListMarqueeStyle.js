@@ -45,11 +45,13 @@
 				}
 			}
 
-			function touchStartHandler(self) {
-				destroyMarqueeWidget(self);
+			function touchStartHandler() {
+				destroyMarqueeWidget(this);
 			}
 
-			function selectedHandler(self, e) {
+			function selectedHandler(e) {
+				var self = this;
+				destroyMarqueeWidget(self);
 				self._selectedMarqueeWidget = engine.instanceWidget(e.target.querySelector(".ui-marquee"), "Marquee", {
 					delay: self.options.marqueeDelay,
 					autoRun: false
@@ -72,8 +74,8 @@
 					touchStartCallback,
 					selectedCallback;
 
-				touchStartCallback = touchStartHandler.bind(null, self);
-				selectedCallback = selectedHandler.bind(null, self);
+				touchStartCallback = touchStartHandler.bind(self);
+				selectedCallback = selectedHandler.bind(self);
 
 				self._callbacks.touchStart = touchStartCallback;
 				self._callbacks.selected = selectedCallback;
