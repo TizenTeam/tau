@@ -205,16 +205,18 @@
 			}
 
 			/* TODO: please check algorithm */
-			function getScrollableParent(listviewElement) {
-				var parentElement = listviewElement.parentNode;
+			function getScrollableParent(element) {
+				var overflow;
 
-				while (parentElement) {
-					if ((doms.getCSSProperty(parentElement, "overflow") === "auto") && (parentElement.scrollHeight > parentElement.offsetHeight)) {
-						break;
+				while (element != document.body) {
+					overflow = doms.getCSSProperty(element, "overflow-y");
+					if (overflow === "scroll" || (overflow === "auto" && element.scrollHeight > element.clientHeight)) {
+						return element;
 					}
-					parentElement = parentElement.parentNode;
+					element = element.parentNode;
 				}
-				return parentElement;
+
+				return null;
 			}
 
 			function initSnapListviewItemInfo(listview) {
@@ -282,8 +284,11 @@
 			 * @member ns.widget.wearable.SnapListview
 			 */
 			prototype._refresh = function() {
-				var element = this.element;
+				var self = this,
+					element = self.element,
+					ui = self._ui;
 
+				ui.scrollableParent = getScrollableParent(element) || ui.page;
 				initSnapListviewItemInfo(element);
 				scrollEndHandler(this);
 				return null;
