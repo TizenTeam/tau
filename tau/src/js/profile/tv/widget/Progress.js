@@ -104,7 +104,7 @@
 			 * @protected
 			 * @member ns.widget.tv.Progress
 			 */
-			prototype._setValue = function (value) {
+			prototype._setValue = function (element, value) {
 				var self = this,
 					options = self.options;
 				if ((typeof value === "number") && (value !== options.value) && (value >= options.min) && (value <= options.max)) {

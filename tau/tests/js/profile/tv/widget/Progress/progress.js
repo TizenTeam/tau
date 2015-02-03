@@ -37,46 +37,18 @@ page.addEventListener("pageshow", function() {
         ok(progress.classList.contains('ui-progress-processing'), 'Progress has ui-progress-processing class');
     });
 
-    test("Progress - disabled progress bar", function() {
-        ej.engine.createWidgets(document);
-        var progress = document.getElementById('progress-4');
-
-        equal(progress.getAttribute('data-tau-bound'), "Progress", "Progress widget is created");
-        equal(progress.getAttribute('data-tau-built'), "Progress", "Progress widget is built");
-        equal(progress.getAttribute('data-tau-name'), "Progress", "Progress is set as data-tau-name");
-        equal(progress.getAttribute('min'), "0", "Progress widget has minimum");
-        equal(progress.getAttribute('value'), "20", "Progress widget is infinite");
-        equal(progress.getAttribute('max'), "100", "Progress widget has maximum");
-        equal(progress.getAttribute('disabled'), "disabled", "Progress widget is disabled");
-        ok(progress.classList.contains('ui-progress-controllable'), 'Progress has ui-progress-controllable class');
-        ok(progress.classList.contains('disabled'), 'Progress has disabled class');
-    });
-
-    test("Progress - progress bar", function() {
-        ej.engine.createWidgets(document);
-        var progress = document.getElementById('progress-5');
-
-        equal(progress.getAttribute('data-tau-bound'), "Progress", "Progress widget is created");
-        equal(progress.getAttribute('data-tau-built'), "Progress", "Progress widget is built");
-        equal(progress.getAttribute('data-tau-name'), "Progress", "Progress is set as data-tau-name");
-        equal(progress.getAttribute('min'), "0", "Progress widget has minimum");
-        equal(progress.getAttribute('value'), "50", "Progress widget is infinite");
-        equal(progress.getAttribute('max'), "100", "Progress widget has maximum");
-        ok(progress.classList.contains('ui-progress-controllable'), 'Progress has ui-progress-controllable class');
-    });
-
     test("Progress - _setValue & _getValue", function() {
         ej.engine.createWidgets(document);
-        var progress = document.getElementById('progress-4'),
+        var progress = document.getElementById('progress-2'),
                 widget = ej.engine.getBinding(progress, "Progress");
 
-        widget._setValue(1);
-        equal(widget._getValue(), 1, "Progress has working getter and setter for value.");
+        widget.option("value", 1);
+        equal(widget.option("value"), 1, "Progress has working getter and setter for value.");
     });
 
     test("Progress - focus & blur", function() {
         ej.engine.createWidgets(document);
-        var progress = document.getElementById('progress-5'),
+        var progress = document.getElementById('progress-1'),
                 widget = ej.engine.getBinding(progress, "Progress");
 
         ok(!progress.classList.contains('ui-focus'), 'There is no focus prior to using focus function');
