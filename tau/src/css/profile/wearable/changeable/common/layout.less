@@ -177,7 +177,9 @@ body {
                    Page Scroll
 ***************************************************************************/
 .ui-page.ui-scroll-on {
-	overflow: auto !important;
+	overflow: auto;
+	overflow-y: auto;
+	overflow-x: hidden;
 	.scrolling-mode-touch;
 
 	.ui-content {
