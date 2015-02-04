@@ -8,7 +8,7 @@
 		headerHelper;
 
 	if (tau.support.circle) {
-		document.addEventListener("pagebeforeshow", function (e) {
+		document.addEventListener("pageshow", function (e) {
 			page = e.target;
 			pageWidget = tau.widget.page(page);
 			enablePageScroll = pageWidget.option("enablePageScroll");
@@ -24,7 +24,7 @@
 			}
 		});
 
-		document.addEventListener("pagebeforehide", function (e) {
+		document.addEventListener("pagehide", function (e) {
 			if (list) {
 				listHelper.destroy();
 			}
