@@ -75,11 +75,19 @@
 			};
 
 			prototype._onComplete = function(event) {
-				this._marquee.start();
+				var marquee = this._marquee;
+
+				if (marquee) {
+					marquee.start();
+				}
 			};
 
 			prototype._onCollapse = function(event) {
-				this._marquee.reset();
+				var marquee = this._marquee;
+
+				if (marquee) {
+					marquee.reset();
+				}
 			};
 
 			prototype.init = function(headerElement, options) {
@@ -97,17 +105,19 @@
 					textElement = headerElement.querySelector("." + Classes.TITLE);
 				}
 
-
-
 				objectUtils.fastMerge(self.options, options);
 
 				self._element = headerElement;
-				textElement.classList.add(Classes.MARQUEE);
 
 				self._expandableHeader = engine.instanceWidget(headerElement, "ExpandableHeader", {
 					scrollElement: options.scrollElement
 				});
-				self._marquee = engine.instanceWidget(textElement, "Marquee", self.options);
+
+				if (textElement) {
+					textElement.classList.add(Classes.MARQUEE);
+					self._marquee = engine.instanceWidget(textElement, "Marquee", self.options);
+				}
+
 				self._bindEvents();
 			};
 

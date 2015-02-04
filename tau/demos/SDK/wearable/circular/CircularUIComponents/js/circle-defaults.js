@@ -1,10 +1,37 @@
 (function(tau) {
+	var page,
+		pageWidget,
+		enablePageScroll,
+		list,
+		listHelper,
+		header,
+		headerHelper;
 
-	// default transition
-	tau.defaults.pageTransition = "pop";
-	tau.defaults.popupTransition = "pop";
+	if (tau.support.circle) {
+		document.addEventListener("pagebeforeshow", function (e) {
+			page = e.target;
+			pageWidget = tau.widget.page(page);
+			enablePageScroll = pageWidget.option("enablePageScroll");
+			list = page.querySelector(".ui-listview");
+			header = page.querySelector(".ui-header:not(.ui-fixed)");
 
-	tau.defaults.popupFullSize = true;
+			if (list) {
+				listHelper = tau.helper.ListMarqueeStyle.create(list, {marqueeDelay: 1});
+			}
 
-	tau.defaults.scrollEndEffectArea = "screen";
+			if (header && enablePageScroll) {
+				headerHelper = tau.helper.HeaderMarqueeStyle.create(header, {});
+			}
+		});
+
+		document.addEventListener("pagebeforehide", function (e) {
+			if (list) {
+				listHelper.destroy();
+			}
+
+			if (header && enablePageScroll) {
+				headerHelper.destroy();
+			}
+		});
+	}
 }(tau));

@@ -1,7 +1,6 @@
 (function() {
 	var page = document.getElementById("pageCirulcarIndexScrollbar"),
-		circularIndexScrollbar,
-		snapListview;
+		circularIndexScrollbar;
 
 	function scrollStartHandler() {
 		if (!circularIndexScrollbar.isShow()) {
@@ -66,8 +65,6 @@ el.addEventListener("select", function( ev ) {
 
 		// Create CircularIndexScrollbar
 		circularIndexScrollbar = new tau.widget.CircularIndexScrollbar(circularIndexScrollbarElement, {index: indices});
-		// Create SnapListview
-		snapListview = new tau.widget.SnapListview(listviewElement);
 
 		// Add CircularIndexScrollbar index "select" event handler.
 		circularIndexScrollbarElement.addEventListener("select", function (ev) {
@@ -102,6 +99,5 @@ el.addEventListener("select", function( ev ) {
 		document.removeEventListener("scrollstart", scrollStartHandler);
 		document.removeEventListener("scrollend", scrollEndHandler);
 		circularIndexScrollbar.destroy();
-		snapListview.destroy();
 	});
 } ());

@@ -229,6 +229,8 @@
 					tempListItem.itemTop = tempListItem.offsetTop;
 					tempListItem.itemHeight = tempListItem.offsetHeight;
 					tempListItem.itemBottom = tempListItem.itemTop + tempListItem.itemHeight;
+					/* TODO: This line has to be removed when webkit snaplist issue is fixed */
+					tempListItem.classList.add("ui-snap-listview-item");
 				}
 			}
 
