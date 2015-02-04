@@ -11,7 +11,7 @@
  * ## Default selectors
  * In default elements matches to :
  *
- *  - INPUT with type "text" or "number" or "password" or "email" or "url" or
+ *  - INPUT with type "text" or "password" or "email" or "url" or
  *    "tel" or "month" or "week" or "datetime-local" or "color" or without any
  *    type
  *  - TEXTAREA
@@ -124,12 +124,13 @@
 				prototype = new MobileTextInput(),
 				// for detect keyboard open/hide
 				initialScreenHeight = window.innerHeight,
-				selector = "input[type='text'], input[type='number'], " +
+				selector = "input[type='text'], " +
 					"input[type='password'], input[type='email'], " +
 					"input[type='url'], input[type='tel'], textarea, " +
 					"input[type='month'], input[type='week'], " +
 					"input[type='datetime-local'], input[type='color'], " +
-					"input:not([type]), ." + classes.uiTextinput;
+					"input:not([type]), " +
+					"." +classes.uiTextinput + ":not([type='number'])";
 
 			TextInput.events = MobileTextInput.events;
 			TextInput.classes = classes;
@@ -168,10 +169,6 @@
 			prototype._init = function(element) {
 				MobileTextInputPrototype._init.call(this, element);
 
-				if (element.type === "number") {
-					wrapInputNumber(element);
-				}
-
 				findParentElement(this);
 			};
 
@@ -194,9 +191,6 @@
 				callbacks.onResize = onResize.bind(null, self);
 
 				switch (element.type) {
-					case "number":
-						element.addEventListener("keyup", onKeydownInput, false);
-						break;
 					case "textarea":
 						element.addEventListener("keyup", callbacks.onKeyupTextarea, false);
 				}
@@ -217,9 +211,6 @@
 					callbacks = self._callbacks;
 
 				switch (element.type) {
-					case "number":
-						element.removeEventListener("keyup", onKeydownInput, false);
-						break;
 					case "textarea":
 						element.removeEventListener("keyup", callbacks.onKeyupTextarea, false);
 				}
@@ -229,27 +220,6 @@
 				MobileTextInputPrototype._destroy.call(self, element);
 
 				window.removeEventListener("resize", callbacks.onResize, false);
-			};
-
-			/**
-			 * Method finds label tag for element.
-			 * @method _findLabel
-			 * @param {HTMLElement} element
-			 * @member ns.widget.tv.TextInput
-			 * @return {HTMLElement}
-			 * @protected
-			 */
-			prototype._findLabel = function(element) {
-				var container = element.parentElement;
-
-				// Input with type = "number" is opacked with
-				// an additional focusable span. Label should be
-				// looked for in a parent of this span.
-				if (element.type === "number") {
-					container = container.parentElement;
-				}
-
-				return container.querySelector("label[for='" + element.id + "']");
 			};
 
 			/**
@@ -312,24 +282,6 @@
 			}
 
 			/**
-			 * Method adds span to input.
-			 * @method wrapInputNumber
-			 * @param {EventTarget|HTMLElement} element
-			 * @private
-			 * @static
-			 * @member ns.widget.tv.TextInput
-			 */
-			function wrapInputNumber(element) {
-				var focusableInputFrame = document.createElement("span"),
-				parent = element.parentNode;
-
-				focusableInputFrame.setAttribute("tabindex", 0);
-				parent.replaceChild(focusableInputFrame, element);
-				focusableInputFrame.appendChild(element);
-				focusableInputFrame.classList.add(classes.uiNumberInput);
-			}
-
-			/**
 			 * Method returns not disabled TextInput element which is the closest
 			 * to element.
 			 * @method isEnabledTextInput
@@ -371,10 +323,7 @@
 			engine.defineWidget(
 				"TextInput",
 				selector,
-				[
-					"getLabel",
-					"setLabel"
-				],
+				[],
 				TextInput,
 				"tv",
 				true

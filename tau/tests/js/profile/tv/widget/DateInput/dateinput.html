@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Input type date - based on Spin Control widget</title>
+		<link rel="stylesheet" href="../../../../../libs/qunit-1.11.0.css" />
+	</head>
+
+	<body class="ui-pagecontainer">
+		<h1 id="qunit-header">Input type date - based on Spin Control widget</h1>
+		<h2 id="qunit-banner"></h2>
+		<div id="qunit-testrunner-toolbar"></div>
+		<h2 id="qunit-userAgent"></h2>
+		<ol id="qunit-tests"></ol>
+		<div id="qunit-fixture">
+		<div class="ui-page ui-page-active" data-role="page" id="test_inputs_page">
+			<div class="ui-content" data-role="content">
+				<input type="date" placeholder="2010-10-23" name="date" value="" id="in7"/>
+				<input type="date" placeholder="2012-01-11" name="date" value="" id="in7-dis" disabled="disabled"/>
+				<div>
+					<input type="date" value="2010-10-23" name="date" id="in8"/>
+					<label for="in8"/>
+				</div>
+				<input type="date" name="time" value="2012-01-11" id="in9"/>
+			</div>
+		</div>
+		</div>
+		<script type="text/javascript" src="./dateinput.js"></script>
+		<script src="../../../../../libs/jquery.js"></script>
+		<script src="../../../../../libs/qunit-1.11.0.js"></script>
+		<script src="../../../../../libs/support.js"></script>
+		<script type="text/javascript" src="../../../../../libs/dist/js/tau.js"></script>
+	</body>
+</html>

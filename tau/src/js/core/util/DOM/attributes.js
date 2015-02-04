@@ -85,6 +85,20 @@
 			}
 
 			/**
+			 * Special function to set attribute and property in the same time
+			 * @method setAttribute
+			 * @param {HTMLElement} element
+			 * @param {string} name
+			 * @param {Mixed} value
+			 * @member ns.util.DOM
+			 * @static
+			 */
+			function setAttribute(element, name, value) {
+				element[name] = value;
+				element.setAttribute(name, value);
+			}
+
+			/**
 			 * This function sets value of attribute data-{namespace}-{name} for element.
 			 * If the namespace is empty, the attribute data-{name} is used.
 			 * @method setNSData
@@ -211,18 +225,26 @@
 				element[name] = false;
 			};
 
+			DOM.setAttribute = setAttribute;
 			/**
-			 * Special function to set attribute and property in the same time
+			 * Special function to set attributes and propertie in the same time
 			 * @method setAttribute
 			 * @param {HTMLElement} element
-			 * @param {string} name
+			 * @param {Object} name
 			 * @param {Mixed} value
 			 * @member ns.util.DOM
 			 * @static
 			 */
-			DOM.setAttribute = function (element, name, value) {
-				element[name] = value;
-				element.setAttribute(name, value);
+			DOM.setAttributes = function (element, values) {
+				var i,
+					names = Object.keys(values),
+					name,
+					len;
+
+				for (i = 0, len = names.length; i < len; i++) {
+					name = names[i];
+					setAttribute(element, name, values[name]);
+				}
 			};
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return ns.util.DOM;

@@ -44,7 +44,8 @@
 					up: 38,
 					right: 39,
 					down: 40,
-					enter: 13
+					enter: 13,
+					tab: 9
 				},
 				EVENT_POSITION = {
 					up: "up",
