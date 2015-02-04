@@ -30,14 +30,20 @@
 			var BaseButton = ns.widget.mobile.Button,
 				BaseButtonPrototype = BaseButton.prototype,
 				BaseKeyboardSupport = ns.widget.tv.BaseKeyboardSupport,
-				objectUtils = ns.util.object,
+				utils = ns.util,
+				objectUtils = utils.object,
+				selectorsUtils = utils.selectors,
 				FUNCTION_TYPE = "function",
 				Button = function () {
-					BaseButton.call(this);
-					BaseKeyboardSupport.call(this);
-					this._callbacks = {};
+					var self = this;
+					BaseButton.call(self);
+					BaseKeyboardSupport.call(self);
+					self._callbacks = {};
 				},
 				engine = ns.engine,
+				selectors = {
+					footer: "footer"
+				},
 				classes = objectUtils.merge({}, BaseButton.classes, {
 					background: "ui-background",
 					blur: "ui-blur",
@@ -51,21 +57,67 @@
 
 			Button.events = BaseButton.events;
 			Button.classes = classes;
+			Button.selectors = selectors;
 			Button.options = prototype.options;
 			Button.prototype = prototype;
 			Button.hoverDelay = 0;
 			// definition
 			ns.widget.tv.Button = Button;
 
-			prototype._build = function (element) {
+			function createBackgroundElement(element) {
+				var backgroundElement = document.createElement("div");
+
+				backgroundElement.classList.add(classes.background);
+				element.insertBefore(backgroundElement, element.firstChild);
+				return backgroundElement;
+			}
+			/**
+			 * Builds background of button.
+			 * It is used e.g. for animated focus.
+			 * @method _buildBackground
+			 * @param element Element of widget
+			 * @protected
+			 * @member ns.widget.tv.Button
+			 */
+			prototype._buildBackground = function (element) {
 				var backgroundElement;
 
-				element = BaseButtonPrototype._build.call(this, element);
-
-				backgroundElement = document.createElement("div");
-				backgroundElement.classList.add(classes.background);
+				backgroundElement = createBackgroundElement(element);
 				backgroundElement.id = element.id + "-background";
-				element.insertBefore(backgroundElement, element.firstChild);
+			};
+
+			/**
+			 * Builds footer inside widget.
+			 * If element has a footer, the background for it will be created.
+			 * @method _buildFooter
+			 * @param element Element of widget
+			 * @protected
+			 * @member ns.widget.tv.Button
+			 */
+			prototype._buildFooter = function (element) {
+				var footer = selectorsUtils.getChildrenBySelector(element, selectors.footer)[0];
+
+				if (footer) {
+					createBackgroundElement(footer);
+				}
+			};
+
+			/**
+			 * Builds widget
+			 * @method _build
+			 * @param element Element of widget
+			 * @protected
+			 * @member ns.widget.tv.Button
+			 */
+			prototype._build = function (element) {
+				var self = this;
+
+				// build footer
+				this._buildFooter(element);
+				// build button
+				element = BaseButtonPrototype._build.call(self, element);
+				// create background element for built button
+				self._buildBackground(element);
 
 				return element;
 			};

@@ -172,7 +172,7 @@
 									display: inline-block;
 									float: left;
 								}
-								div, progress {
+								div:not(.ui-background), progress {
 									display: none
 								}
 							}
@@ -184,7 +184,6 @@
 							.ui-btn-text {
 								footer {
 									position: relative;
-									background-color: @color_drawer_footer_btn_background;
 									h2 {
 										color: @color_drawer_btn;
 										font-size: 36  * @virtual_px;
@@ -216,6 +215,10 @@
 										display: block;
 										padding-left: 25 * @virtual_px;
 										padding-right: 25 * @virtual_px;
+									}
+									.ui-background {
+										z-index: -1;
+										background-color: @color_drawer_footer_btn_background;
 									}
 								}
 							}
