@@ -11,14 +11,15 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../../core/core"
+			"../../core/core",
+			"../../core/support/tizen"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
-			var mql = window.matchMedia("(-tizen-geometric-shape: circle)");
 			// Default configuration properties for wearable
 			ns.setConfig("autoBuildOnPageChange", false, true);
-			if(mql.matches) {
+
+			if(ns.support.circle) {
 				ns.setConfig("pageTransition", "pop");
 				ns.setConfig("popupTransition", "pop");
 				ns.setConfig("popupFullSize", true);

@@ -50,13 +50,18 @@
 			}
 
 			function selectedHandler(e) {
-				var self = this;
+				var self = this,
+					marquee = e.target.querySelector(".ui-marquee");
+
 				destroyMarqueeWidget(self);
-				self._selectedMarqueeWidget = engine.instanceWidget(e.target.querySelector(".ui-marquee"), "Marquee", {
-					delay: self.options.marqueeDelay,
-					autoRun: false
-				});
-				self._selectedMarqueeWidget.start();
+
+				if (marquee) {
+					self._selectedMarqueeWidget = engine.instanceWidget(marquee, "Marquee", {
+						delay: self.options.marqueeDelay,
+						autoRun: false
+					});
+					self._selectedMarqueeWidget.start();
+				}
 			}
 
 			prototype.init = function(listDomElement, options) {

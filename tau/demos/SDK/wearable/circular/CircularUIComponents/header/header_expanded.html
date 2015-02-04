@@ -24,24 +24,6 @@
 				<li><a href="#">List 9</a></li>
 			</ul>
 		</div>
-		<script>
-			(function() {
-				var page = document.getElementById("expandableHeaderPage"),
-						header = page.querySelector("#expandableHeader"),
-						headerHelper;
-
-				page.addEventListener("pagebeforeshow", function() {
-					headerHelper = tau.helper.HeaderMarqueeStyle.create(header, {
-						scrollElement: page,
-						textElement: ".ui-title"
-					});
-				});
-
-				page.addEventListener("pagehide", function() {
-					headerHelper.destroy();
-				});
-			})();
-		</script>
 	</div>
 	<script type="text/javascript" src="lib/tau/wearable/js/tau.min.js"></script>
 </body>

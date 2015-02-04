@@ -16,6 +16,23 @@
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
+			var isTizen = !(typeof tizen === "undefined");
+
+			function isCircleShape() {
+				var testDiv = document.createElement("div"),
+					fakeBody = document.createElement("body"),
+					html = document.getElementsByTagName('html')[0],
+					style = getComputedStyle(testDiv),
+					isCircle;
+
+				testDiv.classList.add("is-circle-test");
+				fakeBody.appendChild(testDiv);
+				html.insertBefore(fakeBody, html.firstChild);
+				isCircle = style.width === "1px";
+				html.removeChild(fakeBody);
+
+				return isCircle;
+			}
 
 			ns.support = {
 				cssTransitions: true,
@@ -29,8 +46,10 @@
 				cssPointerEvents: false,
 				boundingRect: true,
 				browser: {
-					ie: false
+					ie: false,
+					tizen: isTizen
 				},
+				circle: isTizen ? window.matchMedia("(-tizen-geometric-shape: circle)").matches : isCircleShape(),
 				gradeA : function () {
 					return true;
 				}

@@ -7,6 +7,7 @@
 			"require",
 			"./core/core",
 			"./core/config",
+			"./core/support/tizen",
 			"./profile/wearable/config",
 			"./profile/wearable/defaults",
 			"./core/engine",
