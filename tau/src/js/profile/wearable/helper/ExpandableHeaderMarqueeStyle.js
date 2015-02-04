@@ -3,9 +3,9 @@
  * License : MIT License V2
  */
 /**
- * #HeaderMarqueeStyle Helper Script
+ * #ExpandableHeaderMarqueeStyle Helper Script
  * Helper script using SnapListview and Marquee.
- * @class ns.helper.HeaderMarqueeStyle
+ * @class ns.helper.ExpandableHeaderMarqueeStyle
  * @author Hyeoncheol Choi <hc7.choi@samsung.com>
  */
 (function (document, window, ns) {
@@ -40,7 +40,7 @@
 					MARQUEE: "ui-marquee"
 				},
 
-				HeaderMarqueeStyle = function (headerElement, options) {
+				ExpandableHeaderMarqueeStyle = function (headerElement, options) {
 					var self = this;
 
 					self.options = objectUtils.merge({}, defaults);
@@ -50,7 +50,7 @@
 					self.init(headerElement, options);
 				},
 
-				prototype = HeaderMarqueeStyle.prototype;
+				prototype = ExpandableHeaderMarqueeStyle.prototype;
 
 			function bindDragEvents(element) {
 
@@ -143,13 +143,13 @@
 				self._options = null;
 			};
 
-			HeaderMarqueeStyle.create = function(headerElement, options) {
-				return new HeaderMarqueeStyle(headerElement, options);
+			ExpandableHeaderMarqueeStyle.create = function(headerElement, options) {
+				return new ExpandableHeaderMarqueeStyle(headerElement, options);
 			};
 
-			ns.helper.HeaderMarqueeStyle = HeaderMarqueeStyle;
+			ns.helper.ExpandableHeaderMarqueeStyle = ExpandableHeaderMarqueeStyle;
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
-			return HeaderMarqueeStyle;
+			return ExpandableHeaderMarqueeStyle;
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");

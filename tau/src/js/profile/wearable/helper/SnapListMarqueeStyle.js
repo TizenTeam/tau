@@ -3,9 +3,9 @@
  * License : MIT License V2
  */
 /**
- * #ListMarqueeStyle Helper Script
+ * #SnapListMarqueeStyle Helper Script
  * Helper script using SnapListview and Marquee.
- * @class ns.helper.ListMarqueeStyle
+ * @class ns.helper.SnapListMarqueeStyle
  * @author Heeju Joo <heeju.joo@samsung.com>
  */
 (function (document, window, ns) {
@@ -24,7 +24,7 @@
 					marqueeDelay: 0
 				},
 
-				ListMarqueeStyle = function (listDomElement, options) {
+				SnapListMarqueeStyle = function (listDomElement, options) {
 					var self = this;
 
 					self.options = objectUtils.merge({}, defaults);
@@ -36,7 +36,7 @@
 					self.init(listDomElement, options);
 				},
 
-				prototype = ListMarqueeStyle.prototype;
+				prototype = SnapListMarqueeStyle.prototype;
 
 			function destroyMarqueeWidget(self) {
 				if (self._selectedMarqueeWidget) {
@@ -112,13 +112,13 @@
 				self._callbacks = null;
 			};
 
-			ListMarqueeStyle.create = function(listDomElement, options) {
-				return new ListMarqueeStyle(listDomElement, options);
+			SnapListMarqueeStyle.create = function(listDomElement, options) {
+				return new SnapListMarqueeStyle(listDomElement, options);
 			};
 
-			ns.helper.ListMarqueeStyle = ListMarqueeStyle;
+			ns.helper.SnapListMarqueeStyle = SnapListMarqueeStyle;
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
-			return ListMarqueeStyle;
+			return SnapListMarqueeStyle;
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");

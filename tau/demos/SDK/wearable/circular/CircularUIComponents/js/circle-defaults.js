@@ -16,11 +16,11 @@
 			header = page.querySelector(".ui-header:not(.ui-fixed)");
 
 			if (list) {
-				listHelper = tau.helper.ListMarqueeStyle.create(list, {marqueeDelay: 1});
+				listHelper = tau.helper.SnapListMarqueeStyle.create(list, {marqueeDelay: 1});
 			}
 
 			if (header && enablePageScroll) {
-				headerHelper = tau.helper.HeaderMarqueeStyle.create(header, {});
+				headerHelper = tau.helper.ExpandableHeaderMarqueeStyle.create(header, {});
 			}
 		});
 
