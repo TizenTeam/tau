@@ -205,47 +205,53 @@
 			/**
 			 * Opens drawer widget
 			 * @method open
+			 * @param {number} [duration]
 			 * @member ns.widget.tv.Drawer
 			 */
-			prototype.open = function() {
+			prototype.open = function(duration) {
 				var self = this,
 					CorePrototypeOpen = CoreDrawerPrototype.open;
 				if (typeof CorePrototypeOpen === FUNCTION_TYPE) {
-					CorePrototypeOpen.call(self);
+					CorePrototypeOpen.call(self, duration);
 				}
-				self._supportKeyboard = true;
-				self._pageWidget._supportKeyboard = false;
+				self.saveKeyboardSupport();
+				self.enableKeyboardSupport();
 			};
 
 			/**
 			 * Closes drawer widget
 			 * @method close
+			 * @param {number} [duration]
 			 * @member ns.widget.tv.Drawer
 			 */
-			prototype.close = function() {
+			prototype.close = function(duration) {
 				var self = this,
 					CorePrototypeClose = CoreDrawerPrototype.close;
 				if (typeof CorePrototypeClose === FUNCTION_TYPE) {
-					CorePrototypeClose.call(self);
+					CorePrototypeClose.call(self, duration);
 				}
-				self._supportKeyboard = false;
-				self._pageWidget._supportKeyboard = true;
+				self.disableKeyboardSupport();
+				self.restoreKeyboardSupport();
 			};
 
 			/**
 			 * Method implements opening Drawer by focus mechanism
 			 * @method _openActiveElement
+			 * @param {HTMLElement} element Link element which show element which should be open
+			 * @param {string?} [id=null] id of element to open
 			 * @member ns.widget.tv.Drawer
 			 * @protected
 			 */
-			prototype._openActiveElement = function(element) {
+			prototype._openActiveElement = function(element, id) {
 				var self = this,
-					id = element.href,
 					ui = self._ui,
 					dynamicListElement;
-				if (element.parentElement.classList.contains(classes.uiBlock)) {
+				if ((element && element.dataset.rel === "dynamic") || id) {
 					if (ui.currentDynamic) {
 						ui.currentDynamic.classList.remove(classes.uiDynamicBoxActive);
+					}
+					if (!id) {
+						id = element.href;
 					}
 					if (id) {
 						dynamicListElement = document.getElementById(id.split("#")[1]);
@@ -258,6 +264,42 @@
 						self.option("width", NARROW_SIZE);
 					}
 				}
+			};
+
+			/**
+			 * Method implements opening Drawer by focus mechanism
+			 * @method _closeActiveElement
+			 * @member ns.widget.tv.Drawer
+			 * @protected
+			 */
+			prototype._closeActiveElement = function() {
+				var self = this,
+					ui = self._ui;
+				if (ui.currentDynamic) {
+					ui.currentDynamic.classList.remove(classes.uiDynamicBoxActive);
+				}
+				self.option("width", NARROW_SIZE);
+			};
+
+			/**
+			 * Close dynamic box and ser size od drawer to narrow
+			 * @method _closeActiveElement
+			 * @member ns.widget.tv.Drawer
+			 * @protected
+			 */
+			prototype.closeDynamic = function() {
+				this._closeActiveElement();
+			};
+
+			/**
+			 * Open dynamic box and ser size of drawer to wide.
+			 * @method openDynamic
+			 * @param {string} id
+			 * @member ns.widget.tv.Drawer
+			 * @protected
+			 */
+			prototype.openDynamic = function(id) {
+				this._openActiveElement(null, id);
 			};
 
 			/**
@@ -284,17 +326,6 @@
 				}
 
 				self._translateRight();
-			};
-
-			/**
-			 * Initializes Drawer widget
-			 * @method _init
-			 * @member ns.widget.tv.Drawer
-			 * @protected
-			 */
-			prototype._init = function(element) {
-				CoreDrawerPrototype._init.call(this, element);
-				this._pageWidget = engine.instanceWidget(element.parentElement, "Page");
 			};
 
 			/**

@@ -102,13 +102,6 @@
 
 					self._callbacks = {};
 					self._lastEventLineNumber = 0;
-					/**
-					 * Parent widget
-					 * @property {ns.widget.BaseWidget} _parentWidget
-					 * @protected
-					 * @member ns.widget.tv.TextInput
-					 */
-					self._parentWidget = null;
 				},
 				/**
 				 * Dictionary for textinput related css class names
@@ -136,41 +129,6 @@
 			TextInput.classes = classes;
 			TextInput.prototype = prototype;
 			TextInput.selector = selector;
-
-			/**
-			 * Find parent widget (popup or page)
-			 * @method findParentElement
-			 * @param {ns.widget.tv.TextInput} self
-			 * @static
-			 * @private
-			 * @member ns.widget.tv.TextInput
-			 */
-			function findParentElement(self) {
-				var parent,
-					element = self.element;
-				parent = utilSelectors.getClosestByClass(element,
-					widget.core.Popup.classes.popup);
-				if (parent) {
-					self._parentWidget = engine.getBinding(parent, "Popup");
-				} else {
-					parent = utilSelectors.getClosestByClass(element,
-						widget.tv.Page.classes.uiPage);
-					self._parentWidget = engine.getBinding(parent, "Page");
-				}
-			}
-
-			/**
-			 * Init widget
-			 * @method _init
-			 * @param {HTMLElement} element
-			 * @protected
-			 * @member ns.widget.tv.TextInput
-			 */
-			prototype._init = function(element) {
-				MobileTextInputPrototype._init.call(this, element);
-
-				findParentElement(this);
-			};
 
 			/**
 			 * Init widget
@@ -273,11 +231,12 @@
 			 * @member ns.widget.tv.TextInput
 			 */
 			function onResize(self) {
-				var parent = self._parentWidget;
 				if (window.innerHeight < initialScreenHeight) {
-					parent.disableKeyboardSupport();
+					self.saveKeyboardSupport();
+					self.enableKeyboardSupport();
 				} else {
-					parent.enableKeyboardSupport();
+					self.disableKeyboardSupport();
+					self.restoreKeyboardSupport();
 				}
 			}
 

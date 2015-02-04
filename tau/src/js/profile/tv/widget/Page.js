@@ -171,8 +171,10 @@
 			 * @member ns.widget.tv.Page
 			 */
 			prototype.onShow = function() {
-				WearablePagePrototype.onShow.call(this);
-				this._supportKeyboard = true;
+				var self = this;
+				self.saveKeyboardSupport();
+				self.enableKeyboardSupport();
+				WearablePagePrototype.onShow.call(self);
 			};
 
 			/**
@@ -181,8 +183,10 @@
 			 * @member ns.widget.tv.Page
 			 */
 			prototype.onHide = function() {
-				WearablePagePrototype.onHide.call(this);
-				this._supportKeyboard = false;
+				var self = this;
+				self.disableKeyboardSupport();
+				self.restoreKeyboardSupport();
+				WearablePagePrototype.onHide.call(self);
 			};
 
 			/**

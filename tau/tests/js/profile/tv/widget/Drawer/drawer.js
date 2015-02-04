@@ -2,10 +2,17 @@ page = document.getElementById('test_drawer_page');
 page.addEventListener("pageshow", function() {
 	"use strict";
 
-	module("profile/tv/widget/Drawer", {});
+	module("profile/tv/widget/Drawer", {
+		setup: function() {
+			tau.engine.run();
+		},
+		teardown: function () {
+			tau.engine._clearBindings();
+		}
+	});
 
 	test("Drawer", function () {
-		ej.engine.createWidgets(document);
+		tau.engine.createWidgets(document);
 		var drawer = document.getElementById("drawer"),
 			classList = drawer.classList,
 			drawerPosition = drawer.getAttribute("data-position");
@@ -17,7 +24,7 @@ page.addEventListener("pageshow", function() {
 	});
 
 	test("Drawer has got main items", function () {
-		ej.engine.createWidgets(document);
+		tau.engine.createWidgets(document);
 		var drawer = document.getElementById("drawer"),
 			item;
 
@@ -34,64 +41,77 @@ page.addEventListener("pageshow", function() {
 	});
 
 	test("_openActiveElement", function () {
-		ej.engine.createWidgets(document);
+		tau.engine.createWidgets(document);
 		var drawer = document.getElementById("drawer"),
-			widget = ej.engine.getBinding(drawer, "Drawer"),
-			parent = drawer.parentElement,
+			link2 =  document.getElementById("link2"),
+			link3 =  document.getElementById("link3"),
+			widget = tau.engine.getBinding(drawer, "Drawer"),
 			optionValue = widget.options.width;
 
 		if (widget === null) {
-			widget = ej.engine.instanceWidget(drawer);
+			widget = tau.engine.instanceWidget(drawer);
 		}
 
 		widget._openActiveElement(drawer);
 		equal(widget.options.width, optionValue, "Default settings - width correct");
 
-		drawer.href = '#';
-		parent.classList.add("ui-block");
-		widget._openActiveElement(drawer);
+		widget._openActiveElement(link3);
+		equal(widget.options.width, 937, "Changes width to wide");
 
-		equal(widget.options.width, 301, "Custom settings - width correct");
+		widget._openActiveElement(link2);
+		equal(widget.options.width, 301, "Changed width to narrow");
 	});
 
-	test("open", function () {
-		ej.engine.createWidgets(document);
-		var drawer = document.getElementById("drawer"),
-			widget = ej.engine.getBinding(drawer, "Drawer");
+	asyncTest("open", function () {
+		var page = document.getElementById("test_drawer_page");
+		tau.event.one(page, "pageshow", function() {
+			tau.engine.createWidgets(document);
+			var drawer = document.getElementById("drawer"),
+				widget = tau.engine.getBinding(drawer, "Drawer"),
+				pageWidget = tau.engine.getBinding(page, "Page");
 
-		if (widget === null) {
-			widget = ej.engine.instanceWidget(drawer);
-		}
+			if (widget === null) {
+				widget = tau.engine.instanceWidget(drawer);
+			}
 
-		widget.open();
+			widget.open();
 
-		equal(widget._supportKeyboard, true, "_supportKeyboard correct");
-		equal(widget._pageWidget._supportKeyboard, false, "_pageWidget._supportKeyboard correct");
+			equal(widget._supportKeyboard, true, "_supportKeyboard correct");
+			equal(pageWidget._supportKeyboard, false, "_pageWidget._supportKeyboard correct");
+			start();
+		});
 	});
 
-	test("close", function () {
-		ej.engine.createWidgets(document);
-		var drawer = document.getElementById("drawer"),
-			widget = ej.engine.getBinding(drawer, "Drawer");
+	asyncTest("close", function () {
+		var page = document.getElementById("test_drawer_page");
+		tau.event.one(page, "pageshow", function() {
+			tau.engine.createWidgets(document);
+			var drawer = document.getElementById("drawer"),
+				widget = tau.engine.getBinding(drawer, "Drawer"),
+				pageWidget = tau.engine.getBinding(page, "Page");
 
-		if (widget === null) {
-			widget = ej.engine.instanceWidget(drawer);
-		}
+			if (widget === null) {
+				widget = tau.engine.instanceWidget(drawer);
+			}
 
-		widget.close();
+			widget.open();
 
-		equal(widget._supportKeyboard, false, "_supportKeyboard correct");
-		equal(widget._pageWidget._supportKeyboard, true, "_pageWidget._supportKeyboard correct");
+			widget.close();
+
+			equal(widget._supportKeyboard, false, "_supportKeyboard correct");
+			equal(pageWidget._supportKeyboard, true, "_pageWidget._supportKeyboard correct");
+			start();
+		});
 	});
 
 	test("_destroy", function () {
-		ej.engine.createWidgets(document);
+		tau.engine.createWidgets(document);
 		var drawer = document.getElementById("drawer"),
-			widget = ej.engine.getBinding(drawer, "Drawer"),
+			widget = tau.engine.getBinding(drawer, "Drawer"),
 			destroyEventKeyinvoked = 0;
 
 		if (widget === null) {
-			widget = ej.engine.instanceWidget(drawer);
+			widget = tau.engine.instanceWidget(drawer);
 		}
 
 		widget._destroyEventKey = function () {

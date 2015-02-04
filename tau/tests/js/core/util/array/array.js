@@ -1,4 +1,4 @@
-var range = ej.util.array.range;
+var range = tau.util.array.range;
 
 module('core/util/array');
 test('Simple array creation', function() {
@@ -57,8 +57,8 @@ test('Simple array creation - chars', function() {
 	equalChar(simple, 6, 'i');
 });
 
-test("ej.util.array - check function range", function () {
-	var array = ej.util.array;
+test("tau.util.array - check function range", function () {
+	var array = tau.util.array;
 
 	equal(typeof array.range(1, 2, 1), "object", "function range returns Array value");
 	equal(array.range(1, 2, 1)[1], 2, "function range returns value");
@@ -69,8 +69,8 @@ test("ej.util.array - check function range", function () {
 });
 
 
-test("ej.util.array - isLikeArray", function () {
-	var array = ej.util.array,
+test("tau.util.array - isLikeArray", function () {
+	var array = tau.util.array,
 		element = document.getElementById("test1"),
 		elements = document.querySelectorAll(".test1 input");
 
@@ -78,4 +78,21 @@ test("ej.util.array - isLikeArray", function () {
 	equal(array.isArrayLike(element), false, "function isLikeArray returns false for HTMLElement");
 	equal(array.isArrayLike(elements), true, "function isLikeArray returns true for NodeList");
 	equal(array.isArrayLike([2, 2, 1]), true, "function isLikeArray returns true for Array");
+});
+
+
+test("tau.util.array - forEach", function () {
+	var count = 0,
+		element = document.getElementById("test1"),
+		elements = document.querySelectorAll(".test1 input");
+
+	tau.util.array.forEach([0, 1, 2, 3, 4], function() {
+		count ++;
+	});
+
+	equal(count, 5, "function forEach is called 5 times");
+	tau.util.array.forEach(elements, function() {
+		count ++;
+	});
+	equal(count, 7, "function forEach is called 2 times");
 });

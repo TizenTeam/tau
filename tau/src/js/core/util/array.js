@@ -102,9 +102,30 @@
 				return false;
 			}
 
+			/**
+			 * Faster version of standard forEach method in array
+			 * @method forEach
+			 * @param {Array} array
+			 * @param {Function} callback
+			 * @member ns.util.array
+			 * @static
+			 */
+			function forEach(array, callback) {
+				var i,
+					length;
+				if (!(array instanceof Array)) {
+					array = [].slice.call(array);
+				}
+				length = array.length;
+				for (i = 0; i < length; i++) {
+					callback(array[i], i, array);
+				}
+			}
+
 			ns.util.array = {
 				range: range,
-				isArrayLike: isArrayLike
+				isArrayLike: isArrayLike,
+				forEach: forEach
 			};
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return ns.util.array;

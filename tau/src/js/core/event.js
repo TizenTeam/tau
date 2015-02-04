@@ -268,6 +268,46 @@
 				},
 
 				/**
+				 * Add event listener to element with prefixes for all browsers
+				 * @method fastPrefixedOn
+				 * @param {HTMLElement} element
+				 * @param {string} type
+				 * @param {Function} listener
+				 * @param {boolean} [useCapture=false]
+				 * @member ns.event
+				 * @static
+				 */
+				prefixedFastOn: function(element, type, listener, useCapture) {
+					var nameForPrefix = type.charAt(0).toLocaleUpperCase() + type.substring(1);
+
+					element.addEventListener(type, listener, useCapture || false);
+					element.addEventListener("webkit" + nameForPrefix, listener, useCapture || false);
+					element.addEventListener("moz" + nameForPrefix, listener, useCapture || false);
+					element.addEventListener("ms" + nameForPrefix, listener, useCapture || false);
+					element.addEventListener("o" + nameForPrefix, listener, useCapture || false);
+				},
+
+				/**
+				 * Remove event listener to element with prefixes for all browsers
+				 * @method fastPrefixedOff
+				 * @param {HTMLElement} element
+				 * @param {string} type
+				 * @param {Function} listener
+				 * @param {boolean} [useCapture=false]
+				 * @member ns.event
+				 * @static
+				 */
+				prefixedFastOff: function(element, type, listener, useCapture) {
+					var nameForPrefix = type.charAt(0).toLocaleUpperCase() + type.substring(1);
+
+					element.removeEventListener(type, listener, useCapture || false);
+					element.removeEventListener("webkit" + nameForPrefix, listener, useCapture || false);
+					element.removeEventListener("moz" + nameForPrefix, listener, useCapture || false);
+					element.removeEventListener("ms" + nameForPrefix, listener, useCapture || false);
+					element.removeEventListener("o" + nameForPrefix, listener, useCapture || false);
+				},
+
+				/**
 				 * Add event listener to element that can be added addEventListner
 				 * @method on
 				 * @param {HTMLElement|HTMLDocument|Window} element

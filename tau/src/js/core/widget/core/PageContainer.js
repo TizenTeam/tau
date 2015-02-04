@@ -36,6 +36,7 @@
 				DOM = util.DOM,
 				engine = ns.engine,
 				classes = {
+					pageContainer: "ui-page-container",
 					uiViewportTransitioning: "ui-viewport-transitioning",
 					out: "out",
 					in: "in",

@@ -94,6 +94,7 @@
 			"./profile/tv/widget/ControlGroup",
 			"./profile/mobile/widget/mobile/Scrollview",
 			"./profile/tv/widget/ScrollHandler",
+			"./profile/tv/widget/HomeBar",
 			// Modules to be loaded after
 			"./core/init",
 			//documentation pages

@@ -71,7 +71,7 @@
 				document.head.appendChild(style);
 
 				// set animation on element
-				domUtils.setAnimation(element, animationName + " " + elementWidth/SPEED  + "s linear 1s infinite");
+				domUtils.setPrefixedStyle(element, "animation", animationName + " " + elementWidth/SPEED  + "s linear 1s infinite");
 			}
 
 			/**
@@ -88,7 +88,7 @@
 
 				clone = element.cloneNode(true);
 				clone.classList.add(classes.clone);
-				domUtils.setAnimation(clone, "");
+				domUtils.setPrefixedStyle(clone, "animation", "");
 				cloneStyle = clone.style;
 				// set margins for cloned element
 				// this is space between text and its repeat
@@ -212,7 +212,7 @@
 					style.parentNode.removeChild(style);
 				}
 				// remove aniation set on element
-				domUtils.setAnimation(element, "");
+				domUtils.setPrefixedStyle(element, "animation", "");
 			}
 
 			/**

@@ -92,7 +92,7 @@
 				wrapper = input.parentNode,
 				instance = tau.engine.instanceWidget(input, "TextInput");
 
-			instance._destroy(input);
+			engine.destroyWidget(input);
 			//Set input as active element
 			input.focus();
 			ok(document.activeElement === input, "Input is an active element");

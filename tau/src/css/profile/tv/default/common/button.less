@@ -321,8 +321,8 @@ button.ui-btn, input.ui-btn {
 
 /* icons sizing */
 .ui-btn .ui-icon {
-	width: 80 * @virtual_px;
-	height: 80 * @virtual_px;
+	width: 76 * @virtual_px;
+	height: 76 * @virtual_px;
 }
 
 /* Padding for Icon with text */
@@ -343,13 +343,13 @@ button.ui-btn, input.ui-btn {
 .ui-icon {
 	background-repeat: no-repeat;
 	vertical-align: middle;
-	background-position: 0% 0%;
-	background-size: 100% !important;
+	background-position: center center;
+	background-size: 100% 100%;
 }
 
 .ui-icon {
 	.mask-image('images/icons/bg_ico_76_shadow.png', 'images/icons/app_ico_bg.png');
-	.mask-size(80 * @virtual_px 80 * @virtual_px);
+	.mask-size(76 * @virtual_px 76 * @virtual_px);
 	z-index: 0;
 }
 
@@ -465,13 +465,47 @@ ICON APP
 	}
 }
 
+/****************************************
+ICON ADD
+****************************************/
+.ui-icon-add,
+.ui-listview li a.ui-btn .ui-btn-inner .ui-icon.ui-icon-add {
+	background-color: @color_button_icon_add;
+	background-image: url(images/icons/ico_add.png);
+}
+
+.ui-listview li a.ui-btn.ui-btn-icon-add,
+.ui-btn-icon-add {
+	.ui-btn-inner {
+		opacity: 0.4;
+	}
+	.ui-background {
+		background-color: @color_button_icon_add_bg;
+	}
+
+	&.ui-focus {
+		.ui-btn-inner {
+			opacity: 1;
+		}
+
+		.ui-background {
+			background-color: @color_button_icon_add_box_bg_focus;
+		}
+
+		.ui-btn-inner .ui-icon.ui-icon-app,
+		.ui-icon {
+			background-color: @color_button_icon_add_focus;
+			background-image: url(images/icons/ico_add_focus.png);
+		}
+	}
+}
+
 .ui-btn-icon-right {
 	progress {
 		margin-right: 100 * @virtual_px;
 		width: auto;
 	}
 }
-
 
 /****************************************
 ANIMATION

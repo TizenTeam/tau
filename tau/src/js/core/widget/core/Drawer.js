@@ -37,6 +37,8 @@
 		[
 			"../../theme",
 			"../../util/selectors",
+			"../../util/DOM/css",
+			"../../event",
 			"../core", // fetch namespace
 			"../BaseWidget"
 		],
@@ -58,6 +60,14 @@
 				 * @readonly
 				 */
 				selectors = ns.util.selectors,
+				utilDOM = ns.util.DOM,
+				events = ns.event,
+				STATUSES = {
+					CLOSE: 0,
+					CLOSING: 1,
+					OPENING: 2,
+					OPEN: 3
+				}
 				/**
 				 * Drawer constructor
 				 * @method Drawer
@@ -87,7 +97,7 @@
 
 					self._pageSelector = null;
 
-					self._isOpen = false;
+					self._status = STATUSES.CLOSE;
 
 					self._ui = {};
 
@@ -131,7 +141,7 @@
 			 */
 			function onClick(self) {
 				// vclick event handler
-				if (self._isOpen) {
+				if (self._status === STATUSES.OPEN) {
 					self.close();
 				}
 			}
@@ -144,18 +154,25 @@
 			 * @private
 			 * @static
 			 */
-			function onTransitionEnd(self) {
+			function onTransitionEnd(self, event) {
 				var drawerOverlay = self._drawerOverlay;
 				// webkitTransitionEnd event handler
-				if (!self._isOpen) {
-					// not open -> transition -> open
-					self._isOpen = true;
-				} else {
-					// open -> transition -> close
-					self._isOpen = false;
-					if (drawerOverlay) {
-						drawerOverlay.style.visibility = "hidden";
+				// event is called many times for each property which is transitioned
+				if (!event || (self.element === event.target &&
+					self._lastEventTimeStamp !== event.timeStamp)) {
+					if (self._status === STATUSES.OPENING) {
+						// not open -> transition -> open
+						self._status = STATUSES.OPEN;
+					} else {
+						// open -> transition -> close
+						self._status = STATUSES.CLOSE;
+						if (drawerOverlay) {
+							drawerOverlay.style.visibility = "hidden";
+						}
 					}
+				}
+				if (event) {
+					self._lastEventTimeStamp = event.timeStamp;
 				}
 			}
 
@@ -193,35 +210,17 @@
 			 * @protected
 			 */
 			prototype._translate = function (x, duration) {
-				var element = this.element,
-					elementStyle = element.style,
-					transitions = {
-						normal: "none",
-						webkit: "none",
-						moz: "none",
-						ms: "none",
-						o: "none"
-					};
+				var element = this.element;
 
 				if (duration) {
-					transitions.webkit =  "-webkit-transform " + duration / 1000 + "s ease-out";
-					transitions.moz =  "-moz-transform " + duration / 1000 + "s ease-out";
-					transitions.o =  "-o-transform " + duration / 1000 + "s ease-out";
-					transitions.ms =  "-ms-transform " + duration / 1000 + "s ease-out";
-					transitions.normal =  "transform " + duration / 1000 + "s ease-out";
+					utilDOM.setPrefixedStyle(element, "transition", utilDOM.getPrefixedValue("transform " + duration / 1000 + "s ease-out"));
 				}
 
 				// there should be a helper for this :(
-				elementStyle.webkitTransform =
-					elementStyle.mozTransform =
-					elementStyle.msTransform =
-					elementStyle.oTransform =
-					elementStyle.transform = "translate3d(" + x + "px, 0px, 0px)";
-				elementStyle.webkitTransition = transitions.webkit;
-				elementStyle.mozTransition = transitions.moz;
-				elementStyle.msTransition = transitions.ms;
-				elementStyle.oTransform = transitions.o;
-				elementStyle.transition = transitions.normal;
+				utilDOM.setPrefixedStyle(element, "transform", "translate3d(" + x + "px, 0px, 0px)");
+				if (!duration) {
+					onTransitionEnd(this);
+				}
 			};
 
 			/**
@@ -293,8 +292,9 @@
 					options = self.options;
 				if (options.position === "right") {
 					// If drawer position is right, drawer should be moved right side
-					if (self._isOpen) {
+					if (self._status) {
 						// drawer opened
+
 						self._translate(window.innerWidth - options.width, 0);
 					} else {
 						// drawer closed
@@ -365,11 +365,7 @@
 				if (options.overlay && options.closeOnClick && drawerOverlay) {
 					drawerOverlay.addEventListener("vclick", self._onClickBound, false);
 				}
-				element.addEventListener("webkitTransitionEnd", self._onTransitionEndBound, false);
-				element.addEventListener("mozTransitionEnd", self._onTransitionEndBound, false);
-				element.addEventListener("msTransitionEnd", self._onTransitionEndBound, false);
-				element.addEventListener("oTransitionEnd", self._onTransitionEndBound, false);
-				element.addEventListener("transitionEnd", self._onTransitionEndBound, false);
+				events.prefixedFastOn(element, "transitionEnd", self._onTransitionEndBound, false);
 				window.addEventListener("resize", self._onResizeBound, false);
 				self._drawerPage.addEventListener("pageshow", self._onPageshowBound, false);
 			};
@@ -381,46 +377,56 @@
 			 * @return {boolean} Returns true if Drawer is open
 			 */
 			prototype.isOpen = function() {
-				return this._isOpen;
+				return this._status === STATUSES.OPEN;
 			};
 
 			/**
 			 * Opens Drawer widget
 			 * @method open
+			 * @param {number} [duration] Duration for opening, if is not set then method take value from options
 			 * @member ns.widget.core.Drawer
 			 */
-			prototype.open = function() {
+			prototype.open = function(duration) {
 				var self = this,
 					options = self.options,
 					drawerClassList = self.element.classList,
 					drawerOverlay = self._drawerOverlay;
-				if (drawerOverlay) {
-					drawerOverlay.style.visibility = "visible";
-				}
-				drawerClassList.remove(classes.close);
-				drawerClassList.add(classes.open);
-				if (options.position === "left") {
-					self._translate(0, options.duration);
-				} else {
-					self._translate(window.innerWidth - options.width, options.duration);
+				if (self._status === STATUSES.CLOSE) {
+					duration = duration !== undefined ? duration : options.duration;
+					if (drawerOverlay) {
+						drawerOverlay.style.visibility = "visible";
+					}
+					drawerClassList.remove(classes.close);
+					drawerClassList.add(classes.open);
+					self._status = STATUSES.OPENING;
+					if (options.position === "left") {
+						self._translate(0, duration);
+					} else {
+						self._translate(window.innerWidth - options.width, duration);
+					}
 				}
 			};
 
 			/**
 			 * Closes Drawer widget
 			 * @method close
+			 * @param {number} [duration] Duration for closing, if is not set then method take value from options
 			 * @member ns.widget.core.Drawer
 			 */
-			prototype.close = function() {
+			prototype.close = function(duration) {
 				var self = this,
 					options = self.options,
 					drawerClassList = self.element.classList;
-				drawerClassList.remove(classes.open);
-				drawerClassList.add(classes.close);
-				if (options.position === "left") {
-					self._translate(-options.width, options.duration);
-				} else {
-					self._translate(window.innerWidth, options.duration);
+				if (self._status === STATUSES.OPEN) {
+					duration = duration !== undefined ? duration : options.duration;
+					drawerClassList.remove(classes.open);
+					drawerClassList.add(classes.close);
+					self._status = STATUSES.CLOSING;
+					if (options.position === "left") {
+						self._translate(-options.width, duration);
+					} else {
+						self._translate(window.innerWidth, duration);
+					}
 				}
 			};
 
@@ -437,11 +443,7 @@
 				if (drawerOverlay) {
 					drawerOverlay.removeEventListener("vclick", self._onClickBound, false);
 				}
-				element.removeEventListener("webkitTransitionEnd", self._onTransitionEndBound, false);
-				element.removeEventListener("mozTransitionEnd", self._onTransitionEndBound, false);
-				element.removeEventListener("msTransitionEnd", self._onTransitionEndBound, false);
-				element.removeEventListener("oTransitionEnd", self._onTransitionEndBound, false);
-				element.removeEventListener("transitionEnd", self._onTransitionEndBound, false);
+				events.prefixedFastOff(element, "transitionEnd", self._onTransitionEndBound, false);
 				window.removeEventListener("resize", self._onResizeBound, false);
 				self._drawerPage.removeEventListener("pageshow", self._onPageshowBound, false);
 			};

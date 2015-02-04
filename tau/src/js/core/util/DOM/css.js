@@ -170,7 +170,11 @@
 						}
 					}
 
-					height += props["height"] + props["padding-top"] + props["padding-bottom"];
+					height += props["height"];
+
+					if (props["box-sizing"] !== 'border-box') {
+						height += props["padding-top"] + props["padding-bottom"];
+					}
 
 					if (includeOffset) {
 						height = offsetHeight;
@@ -256,7 +260,10 @@
 						}
 					}
 
-					width += props["width"] + props["padding-left"] + props["padding-right"];
+					width += props["width"];
+					if (props["box-sizing"] !== 'border-box') {
+						width += props["padding-left"] + props["padding-right"];
+					}
 
 					if (includeOffset) {
 						width = offsetWidth;
@@ -307,20 +314,47 @@
 			}
 
 			/**
-			 * Set animation value for element.
-			 * @method isOccupiedPlace
+			 * Set values for element with prefixes for browsers
+			 * @method setPrefixedStyle
 			 * @param {HTMLElement} element
-			 * @param {string} animation value
+			 * @param {string} property
+			 * @param {string|Object|null} value
 			 * @member ns.util.DOM
 			 * @static
 			 */
-			function setAnimation(element, animation) {
-				var style = element.style;
-				style.animation = animation;
-				style.webkitAnimation = animation;
-				style.mozAnimation = animation;
-				style.oAnimation = animation;
-				style.msAnimation = animation;
+			function setPrefixedStyle(element, property, value) {
+				var style = element.style,
+					propertyForPrefix = property.charAt(0).toLocaleUpperCase() + property.substring(1),
+					values = (typeof value === "string") ? {
+						webkit: value,
+						moz: value,
+						o: value,
+						ms: value,
+						normal: value
+					} : value;
+				style[property] = values.normal;
+				style["webkit"+propertyForPrefix] = values.webkit;
+				style["moz"+propertyForPrefix] = values.moz;
+				style["o"+propertyForPrefix] = values.o;
+				style["ms"+propertyForPrefix] = values.ms;
+			}
+
+			/**
+			 * Returns values for css property with browsers prefixes
+			 * @method getCSSProperty
+			 * @param {string} value
+			 * @return {Object}
+			 * @member ns.util.DOM
+			 * @static
+			 */
+			function getPrefixedValue(value) {
+				return {
+					webkit: "-webkit-" + value,
+					moz: "-moz-" + value,
+					o: "-ms-" + value,
+					ms: "-o-" + value,
+					normal: value
+				};
 			}
 
 			// assign methods to namespace
@@ -330,7 +364,8 @@
 			DOM.getElementWidth = getElementWidth;
 			DOM.getElementOffset = getElementOffset;
 			DOM.isOccupiedPlace = isOccupiedPlace;
-			DOM.setAnimation = setAnimation;
+			DOM.setPrefixedStyle = setPrefixedStyle;
+			DOM.getPrefixedValue = getPrefixedValue;
 
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return ns.util.DOM;

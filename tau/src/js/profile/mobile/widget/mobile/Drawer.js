@@ -123,8 +123,7 @@
 					self.open();
 					self._swiped = false;
 				}
-
-			}
+			};
 
 			/**
 			 * Check vmousedown event whether triggerred on side edge area or not
@@ -145,7 +144,7 @@
 					(position === "right" && eventClientX < window.innerWidth && eventClientX > window.innerWidth - swipeStartArea)) {
 					self._swiped = true;
 				}
-			}
+			};
 			/**
 			 * Vmousedown event handler
 			 * @method _onMouseDown
@@ -156,7 +155,7 @@
 			 */
 			prototype._onMouseDown = function(event) {
 				this._checkSideEdgeMouseDown(event);
-			}
+			};
 
 			/**
 			 * Bind events to widget

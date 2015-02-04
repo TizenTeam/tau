@@ -13,6 +13,7 @@
 		testElement9 = document.getElementById("test9"),
 		testElement10 = document.getElementById("test10"),
 		testElement11 = document.getElementById("test11"),
+		testElement12 = document.getElementById("test12"),
 		dom = tau.util.DOM;
 
 	module("core/util/DOM/css");
@@ -133,5 +134,25 @@
 		equal(dom.getElementOffset(testElement8).top, -9626, "Check offset top");
 
 		equal(dom.isOccupiedPlace(testElement8), true, "Check if element occupies place at view");
+
+		equal(dom.getElementHeight(testElement12), 60, "Box-sizing=border-box height");
+		equal(dom.getElementWidth(testElement12), 60, "Box-sizing=border-box width");
+
+	});
+
+	test("setPrefixedStyle", function () {
+		dom.setPrefixedStyle(testElement1, "transform", "translate3d(2px, 2px, 2px)");
+		equal(testElement1.style.webkitTransform, "translate3d(2px, 2px, 2px)", "style is set correctly");
+		equal(testElement1.style.transform, "translate3d(2px, 2px, 2px)", "style is set correctly");
+
+		dom.setPrefixedStyle(testElement1, "transform", {webkit: "translate3d(2px, 2px, 2px)", normal: "translate3d(4px, 4px, 4px)"});
+		equal(testElement1.style.webkitTransform, "translate3d(2px, 2px, 2px)", "style is set correctly");
+		equal(testElement1.style.transform, "translate3d(4px, 4px, 4px)", "style is set correctly");
+	});
+
+	test("setPrefixedStyle", function () {
+		var values = dom.getPrefixedValue("transform");
+		equal(values.normal, "transform", "return correct values");
+		equal(values.webkit, "-webkit-transform", "return correct values");
 	});
 }(document, tau));

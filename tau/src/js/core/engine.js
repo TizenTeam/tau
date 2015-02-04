@@ -231,7 +231,7 @@
 			 * @method getBinding
 			 * @static
 			 * @param {HTMLElement|string} element
-			 * @param {string} type widget name
+			 * @param {string} [type] widget name
 			 * @return {?Object}
 			 * @member ns.engine
 			 */

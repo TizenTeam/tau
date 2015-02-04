@@ -24,8 +24,7 @@
 			"../../../core/event",
 			"../../../core/util/selectors",
 			"../../../core/util/object",
-			"../../../core/util/DOM",
-			"./Page"
+			"../../../core/util/DOM"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
@@ -136,7 +135,7 @@
 			/**
 			 * Sets custom colors for widget elements if defined in options
 			 * @param {ns.widget.tv.Popup} self
-			 * @param {HTMLElement} element
+			 * @param {HTMLElement} [element]
 			 */
 			function setCustomPopupColors(self, element) {
 				var options = self.options;
@@ -189,8 +188,7 @@
 			};
 
 			prototype._init = function(element) {
-				var page,
-					ui = this._ui;
+				var ui = this._ui;
 
 				if (typeof CorePopupPrototype._init === FUNCTION_TYPE) {
 					CorePopupPrototype._init.call(this, element);
@@ -198,10 +196,6 @@
 				if (element.classList.contains(classes.toast)) {
 					ui.container.classList.add(classes.toast);
 				}
-				page = utilSelectors.getClosestByClass(element, classes.uiPage);
-				this._pageWidget = engine.getBinding(page, "Page");
-
-				// Add reference when running without _build method
 				ui.headerIcon = ui.headerIcon || element.querySelector("." + classes.headerIcon);
 			};
 
@@ -237,15 +231,16 @@
 				var self = this,
 					element = self.element,
 					autoFocus = options.autofocus,
-					page = self._pageWidget;
+					toastPopup = element.classList.contains(classes.toast),
+					selector = self.getActiveSelector();
 
 				// if popup is not connected with slider, we change context
+				self.saveKeyboardSupport();
 				if (options.changeContext) {
 					// if there are links inside popup, we enable keyboard support on page
 					// and enable in popup
 					self.enableKeyboardSupport();
 					BaseKeyboardSupport.blurAll();
-					page.disableKeyboardSupport();
 
 					if (autoFocus || autoFocus === 0) {
 						BaseKeyboardSupport.focusElement(element, autoFocus);
@@ -289,16 +284,13 @@
 			 * Close popup
 			 * @method close
 			 * @protected
-			 * @param {Object} options
-			 * @param {boolean} [options.noBlur=false] Disable blur on close
 			 * @member ns.widget.tv.Popup
 			 */
-			prototype.close = function(options) {
+			prototype.close = function() {
 				var self = this,
 					activeElement,
 					popupElement;
 
-				options = options || {};
 				if (self._isOpened()) {
 					if (typeof CorePopupPrototype.close === FUNCTION_TYPE) {
 						CorePopupPrototype.close.apply(self, arguments);
@@ -306,7 +298,7 @@
 
 					self._cleanArrowFocus();
 					self.disableKeyboardSupport();
-					self._pageWidget.enableKeyboardSupport();
+					self.restoreKeyboardSupport();
 
 					// remove listener on keydown in case of popup without focusable elements
 					closingOnKeydown(self, false);

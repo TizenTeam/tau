@@ -5,7 +5,7 @@
 		on = tau.event.on,
 		off = tau.event.off,
 		one = tau.event.one;
-	//module('ej.event');
+	//module('tau.event');
 
 	function clearListeners() {
 		var i,
@@ -24,6 +24,9 @@
 		}
 	});
 
+	function oneOk(event) {
+		ok(true, 'event catch');
+	}
 
 	function mouseEvent(el, type){
 		var ev = document.createEvent("MouseEvent");
@@ -52,8 +55,8 @@
 		var element = document.getElementById('prevented');
 
 		on(element, 'click', function (event) {
-			ej.event.preventDefault(event);
-			ok('First event');
+			tau.event.preventDefault(event);
+			ok(true, 'First event');
 			ok(!location.hash);
 		}, true);
 		element.click();
@@ -63,28 +66,26 @@
 		var element = document.getElementById('prevented');
 
 		on(element, 'vclick', function (event) {
-			ej.event.preventDefault(event);
-			ok('First event');
+			tau.event.preventDefault(event);
+			ok(true, 'First event');
 			ok(!location.hash);
 		}, true);
 		element.click();
 	});
 
-	test("ej.event - check function trigger", function () {
+	test("tau.event - check function trigger", function () {
 		var element = document.getElementById("events1"),
-			events = ej.event;
+			events = tau.event;
 
 		equal(typeof events.trigger(element, "vclick"), "boolean", "function trigger returns boolean value");
 	});
 
 	test( "asynchronous tests for click event", 1, function() {
 		var element = document.getElementById("events1"),
-			events = ej.event,
-			callback = function(){
-				ok(true, "click event");
-			};
+			events = tau.event,
+			callback = oneOk;
 
-		ej.engine.run();
+		tau.engine.run();
 		on(element, 'click', callback, true);
 
 		events.trigger(element, "click");
@@ -93,22 +94,18 @@
 
 	test( "asynchronous tests for vclick event", 1, function() {
 		var element = document.getElementById("events1"),
-			events = ej.event;
+			events = tau.event;
 
-		on(element, 'vclick', function(){
-			ok(true, "vclick event");
-		}, true);
+		on(element, 'vclick', oneOk, true);
 
 		events.trigger(element, "vclick");
 	});
 
 	test( "asynchronous tests for other event", 1, function() {
 		var element = document.getElementById("events1"),
-			events = ej.event;
+			events = tau.event;
 
-		on(element, "test-event", function(){
-			ok(true, "test-event event");
-		}, true);
+		on(element, "test-event", oneOk, true);
 
 		events.trigger(element, "test-event");
 	});
@@ -117,12 +114,10 @@
 		var element = document.getElementById('test1');
 
 		on(element, 'click', function (event) {
-			ej.event.stopPropagation(event);
-			ok('First event');
+			tau.event.stopPropagation(event);
+			ok(true, 'First event');
 		}, true);
-		on(document.body, 'click', function (event) {
-			ok('Second event');
-		}, false);
+		on(document.body, 'click', oneOk, false);
 
 		mouseEvent(element, 'click');
 	});
@@ -132,30 +127,26 @@
 			testEvent;
 
 		on(element, "testEvent", function (event) {
-			ej.event.stopPropagation(event);
-			ok('First event');
+			tau.event.stopPropagation(event);
+			ok(true, 'First event');
 		}, true);
-		on(document.body, "testEvent", function (event) {
-			ok('Second event');
-		}, false);
+		on(document.body, "testEvent", oneOk, false);
 
 		mouseEvent(element, 'testEvent');
 	});
 
 	test('stop propagation on cloned event', 1, function() {
 		var element = document.getElementById('test3'),
-			events = ej.event;
+			events = tau.event;
 
 		on(element, "testEvent2", function (event) {
-			ok('First event');
+			ok(true, 'First event');
 			events.stopPropagation(event);
 		}, false);
 		on(document, "testEvent1", function (event) {
 			createEvent("testEvent2", event);
 		}, true);
-		on(document, "testEvent1", function (event) {
-			ok('Second event');
-		}, false);
+		on(document, "testEvent1", oneOk, false);
 
 		events.trigger(element, 'testEvent1');
 	});
@@ -164,14 +155,14 @@
 		var element = document.getElementById('test4');
 
 		on(element, "click", function () {
-			ok('First callback');
+			ok(true, 'First callback');
 		}, true);
 		on(element, "click", function (event) {
-			ej.event.stopImmediatePropagation(event);
-			ok('Second callback');
+			tau.event.stopImmediatePropagation(event);
+			ok(true, 'Second callback');
 		}, true);
 		on(element, "click", function () {
-			ok('Third callback');
+			ok(true, 'Third callback');
 		}, true);
 
 		mouseEvent(element, 'click');
@@ -181,31 +172,31 @@
 		var element = document.getElementById('test4');
 
 		on(element, "click", function () {
-			ok('First first callback');
+			ok(true, 'First first callback');
 		}, true);
 		on(element, "click", function (event) {
-			ej.event.stopImmediatePropagation(event);
-			ok('First second callback');
+			tau.event.stopImmediatePropagation(event);
+			ok(true, 'First second callback');
 		}, true);
 		on(element, "click", function () {
-			ok('First third callback');
+			ok(true, 'First third callback');
 		}, false);
 
 		mouseEvent(element, 'click');
 	});
 	test('stop Immediate propagation', 1, function() {
 		var element = document.getElementById('test3'),
-			events = ej.event;
+			events = tau.event;
 
 		on(element, "testEvent2", function (event) {
-			ok('First event');
-			ej.event.stopImmediatePropagation(event);
+			ok(true, 'First event');
+			tau.event.stopImmediatePropagation(event);
 		}, false);
 		on(document, "testEvent1", function (event) {
 			createEvent("testEvent2", event);
 		}, true);
 		on(document, "testEvent1", function (event) {
-			ok('Second event');
+			ok(true, 'Second event');
 		}, false);
 
 		events.trigger(element, 'testEvent1');
@@ -213,41 +204,51 @@
 
 	test('stop Immediate propagation', 1, function() {
 		var element = document.getElementById('test3'),
-			events = ej.event;
+			events = tau.event;
 
 		on(element, "testEvent2", function (event) {
-			ok('First event');
+			ok(true, 'First event');
 			events.stopImmediatePropagation(event);
 		}, false);
 		on(document, "testEvent1", function (event) {
 			createEvent("testEvent2", event);
 		}, false);
-		on(document, "testEvent1", function (event) {
-			ok('Second event');
-		}, false);
+		on(document, "testEvent1", oneOk, false);
 
 		events.trigger(element, 'testEvent1');
 	});
 
 	test('on event catch on elements collection', 2, function() {
 		var elements = document.querySelectorAll('.testone input'),
-			events = ej.event;
+			events = tau.event;
 
-		on(elements, "testEventOn", function (event) {
-			ok('event catch');
-		}, false);
+		on(elements, "testEventOn", oneOk, false);
 
 		events.trigger(elements[0], "testEventOn");
 		events.trigger(elements[1], "testEventOn");
 	});
 
+	test('prefixed on on/off lement', 3, function() {
+		var elements = document.querySelectorAll('.testone input'),
+			events = tau.event;
+
+		events.prefixedFastOn(elements[0], "testEventOn", oneOk, false);
+
+		events.trigger(elements[0], "webkitTestEventOn");
+		events.trigger(elements[0], "oTestEventOn");
+		events.trigger(elements[0], "testEventOn");
+
+		events.prefixedFastOff(elements[0], "testEventOn", oneOk, false);
+		events.trigger(elements[0], "webkitTestEventOn");
+		events.trigger(elements[0], "oTestEventOn");
+		events.trigger(elements[0], "testEventOn");
+	});
+
 	test('off event catch on elements collection', 1, function() {
 		var elements = document.querySelectorAll('.testone input'),
-			events = ej.event;
+			events = tau.event;
 
-		off(elements, "testEventOn", function (event) {
-			ok('event catch');
-		}, false);
+		off(elements, "testEventOn", oneOk, false);
 
 		events.trigger(elements[0], "testEventOn");
 		events.trigger(elements[1], "testEventOn");
@@ -256,11 +257,9 @@
 
 	test('one event catch', 1, function() {
 		var element = document.getElementById('test3'),
-			events = ej.event;
+			events = tau.event;
 
-		one(element, "testEventOne", function (event) {
-			ok('event catch');
-		}, false);
+		one(element, "testEventOne", oneOk, false);
 
 		events.trigger(element, 'testEventOne');
 		events.trigger(element, 'testEventOne');
@@ -268,11 +267,9 @@
 
 	test('one event catch on elements collection', 1, function() {
 		var elements = document.querySelectorAll('.testone input'),
-			events = ej.event;
+			events = tau.event;
 
-		one(elements, "testEventOne", function (event) {
-			ok('event catch');
-		}, false);
+		one(elements, "testEventOne", oneOk, false);
 
 		events.trigger(elements[0], "testEventOne");
 		events.trigger(elements[0], "testEventOne");
@@ -280,11 +277,9 @@
 
 	test('one events (array) catch', 2, function() {
 		var element = document.getElementById('test3'),
-			events = ej.event;
+			events = tau.event;
 
-		one(element, ["testEventOne", "testEventTwo"], function (event) {
-			ok('event catch');
-		}, false);
+		one(element, ["testEventOne", "testEventTwo"], oneOk, false);
 
 		events.trigger(element, "testEventOne");
 		events.trigger(element, "testEventTwo");
@@ -292,13 +287,9 @@
 
 	test('one events (object) catch', 2, function() {
 		var element = document.getElementById('test3'),
-			events = ej.event;
+			events = tau.event;
 
-		one(element, {"testEventOne":  function (event) {
-			ok('event catch');
-		}, "testEventTwo":  function (event) {
-			ok('event catch');
-		}}, false);
+		one(element, {"testEventOne":  oneOk, "testEventTwo":  oneOk}, false);
 
 		events.trigger(element, "testEventOne");
 		events.trigger(element, "testEventTwo");
@@ -325,7 +316,7 @@
 			console.log(err);
 		}
 		return false;
-	};
+	}
 
 	test('targetRelativeCoordsFromEvent', 3, function() {
 		var element = document.getElementById('test3'),

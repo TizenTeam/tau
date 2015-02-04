@@ -138,11 +138,13 @@
 				switch (keyCode) {
 					case KEY_CODES.up:
 					case KEY_CODES.down:
-						self._pageWidget.enableKeyboardSupport();
+						self.saveKeyboardSupport();
+						self.disableKeyboardSupport();
 						break;
 					case KEY_CODES.left:
 					case KEY_CODES.right:
-						self._pageWidget.disableKeyboardSupport();
+						self.enableKeyboardSupport();
+						self.restoreKeyboardSupport();
 						break;
 				}
 			}

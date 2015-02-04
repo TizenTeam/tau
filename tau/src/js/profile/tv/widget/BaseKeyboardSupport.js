@@ -37,7 +37,7 @@
 				},
 				classes = {
 					focusDisabled: "ui-focus-disabled",
-					focusEnabled: "ui-focus-enabled",
+					focusEnabled: "ui-focus-enabled"
 				},
 				KEY_CODES = {
 					left: 37,
@@ -61,7 +61,9 @@
 				* @member ns.widget.tv.BaseKeyboardSupport
 				* @private
 				*/
-				REF_COUNTERS = [1, 1, 1];
+				REF_COUNTERS = [1, 1, 1],
+				currentKeyboardWidget,
+				previousKeyboardWidgets = [];
 
 			BaseKeyboardSupport.KEY_CODES = KEY_CODES;
 			BaseKeyboardSupport.classes = classes;
@@ -120,16 +122,18 @@
 
 			/**
 			 * Calculates neighborhood links.
-			 * @method _getNeighborhoodLinks
+			 * @method getNeighborhoodLinks
+			 * @param {HTMLElement} element Base element fo find links
+			 * @param {HTMLElement} [currentElement] current focused element
 			 * @returns {Object}
-			 * @protected
+			 * @private
+			 * @static
 			 * @member ns.widget.tv.BaseKeyboardSupport
 			 */
-			prototype._getNeighborhoodLinks = function() {
-				var self = this,
-					offset = DOM.getElementOffset,
-					links = getFocusableElements(self.keybordElement || self.element),
-					currentLink = getFocusedLink(),
+			function getNeighborhoodLinks(element, currentElement) {
+				var offset = DOM.getElementOffset,
+					links = getFocusableElements(element),
+					currentLink = currentElement || getFocusedLink(),
 					currentLinkOffset,
 					left,
 					top,
@@ -137,9 +141,12 @@
 					bottom,
 					linksOffset = [],
 					result;
-				if (currentLink) {
+
+				if (currentLink && currentLink !== document.body) {
 					currentLinkOffset = offset(currentLink);
-					linksOffset = links.map(function (link) {
+					linksOffset = links.filter(function(link) {
+						return link !== currentLink;
+					}).map(function (link) {
 						var linkOffset = offset(link),
 							differentX = Math.abs(currentLinkOffset.left - linkOffset.left),
 							differentY = Math.abs(currentLinkOffset.top - linkOffset.top),
@@ -162,8 +169,9 @@
 						return (linkOffset1.differentX === linkOffset2.differentX) ?
 							// if elements have the same top position then on a
 							// top of list will be element with
-							(linkOffset1.offset.top > linkOffset2.offset.top ? -1 : 1) :
-							(linkOffset1.differentX < linkOffset2.differentX ? -1 : 1)
+							((linkOffset1.offset.top === linkOffset2.offset.top) ? 0 :
+								(linkOffset1.offset.top > linkOffset2.offset.top ? -1 : 1)) :
+								(linkOffset1.differentX < linkOffset2.differentX ? -1 : 1)
 							// sort elements, elements with shortest distance are on top of list
 							;
 					}).map(mapToElement);
@@ -171,7 +179,8 @@
 						return (linkOffset.offset.top > currentLinkOffset.top);
 					}).sort(function (linkOffset1, linkOffset2) {
 						return (linkOffset1.differentX === linkOffset2.differentX) ?
-							(linkOffset1.offset.top < linkOffset2.offset.top ? -1 : 1) :
+							(linkOffset1.offset.top === linkOffset2.offset.top ? 0 :
+							(linkOffset1.offset.top < linkOffset2.offset.top ? -1 : 1)) :
 							(linkOffset1.differentX < linkOffset2.differentX ? -1 : 1)
 							;
 					}).map(mapToElement);
@@ -179,7 +188,8 @@
 						return (linkOffset.offset.left  < currentLinkOffset.left);
 					}).sort(function (linkOffset1, linkOffset2) {
 						return (linkOffset1.differentY === linkOffset2.differentY) ?
-							(linkOffset1.offset.left > linkOffset2.offset.left ? -1 : 1) :
+							((linkOffset1.offset.left === linkOffset2.offset.left) ? 0 :
+							(linkOffset1.offset.left > linkOffset2.offset.left ? -1 : 1)) :
 							(linkOffset1.differentY < linkOffset2.differentY ? -1 : 1)
 							;
 					}).map(mapToElement);
@@ -187,12 +197,28 @@
 						return (linkOffset.offset.left > currentLinkOffset.left );
 					}).sort(function (linkOffset1, linkOffset2) {
 						return (linkOffset1.differentY === linkOffset2.differentY) ?
-							(linkOffset1.offset.left < linkOffset2.offset.left ? -1 : 1) :
+							(linkOffset1.offset.left === linkOffset2.offset.left ? 0 :
+							(linkOffset1.offset.left < linkOffset2.offset.left ? -1 : 1)) :
 							(linkOffset1.differentY < linkOffset2.differentY ? -1 : 1)
 							;
 					}).map(mapToElement);
 				} else {
-					top = left = right = bottom = links;
+					linksOffset = links.map(function (link) {
+						var linkOffset = offset(link);
+						return {
+							offset: linkOffset,
+							element: link,
+							width: link.offsetWidth,
+							height: link.offsetHeight
+						};
+					});
+					top = left = right = bottom = linksOffset.sort(function (linkOffset1, linkOffset2) {
+						// sort elements
+						return ((linkOffset1.offset.top === linkOffset2.offset.top) ? (linkOffset1.offset.left < linkOffset2.offset.left ? -1 : 1 ) :
+								(linkOffset1.offset.top < linkOffset2.offset.top ? -1 : 1))
+							// sort elements, elements with shortest distance are on top of list
+							;
+					}).map(mapToElement);
 				}
 				result = {
 					top: top,
@@ -204,11 +230,11 @@
 			};
 
 			/**
-			 * Method trying to focus on widget or on HTMLElment and blur on active element or widget.
+			 * Method trying to focus on widget or on HTMLElement and blur on active element or widget.
 			 * @method focusOnElement
 			 * @param {?ns.widget.BaseWidget} self
 			 * @param {HTMLElement} element
-			 * @param {"left"|"right"|"top"|"bottom"} positionFrom
+			 * @param {"left"|"right"|"top"|"bottom"} [positionFrom]
 			 * @return  {boolean} Return true if focus finished success
 			 * @static
 			 * @private
@@ -248,6 +274,43 @@
 				return setFocus;
 			}
 
+			function focusOnNeighborhood(self, element, direction, currentElement) {
+				var neighborhoodLinks = getNeighborhoodLinks(element, currentElement),
+					positionFrom,
+					nextElements,
+					nextElement,
+					nextNumber = 0,
+					setFocus = false;
+				switch (direction) {
+					case KEY_CODES.left:
+						nextElements = neighborhoodLinks.left;
+						nextElement = nextElements[nextNumber];
+						positionFrom = EVENT_POSITION.left;
+						break;
+					case KEY_CODES.up:
+						nextElements = neighborhoodLinks.top;
+						nextElement = nextElements[nextNumber];
+						positionFrom = EVENT_POSITION.up;
+						break;
+					case KEY_CODES.right:
+						nextElements = neighborhoodLinks.right;
+						nextElement = nextElements[nextNumber];
+						positionFrom = EVENT_POSITION.right;
+						break;
+					case KEY_CODES.down:
+						nextElements = neighborhoodLinks.bottom;
+						nextElement = nextElements[nextNumber];
+						positionFrom = EVENT_POSITION.down;
+						break;
+				}
+
+				while (nextElement && !setFocus) {
+					// if element to focus is found
+					setFocus = focusOnElement(self, nextElement, positionFrom);
+					nextElement = nextElements[++nextNumber];
+				}
+			}
+
 			/**
 			 * Supports keyboard event.
 			 * @method _onKeyup
@@ -256,44 +319,9 @@
 			 * @member ns.widget.tv.BaseKeyboardSupport
 			 */
 			prototype._onKeyup = function(event) {
-				var self = this,
-					keyCode = event.keyCode,
-					neighborhoodLinks,
-					positionFrom,
-					nextElements,
-					nextElement,
-					nextNumber = 0,
-					setFocus = false;
+				var self = this;
 				if (self._supportKeyboard) {
-					neighborhoodLinks = self._getNeighborhoodLinks();
-					switch (keyCode) {
-						case KEY_CODES.left:
-							nextElements = neighborhoodLinks.left;
-							nextElement = nextElements[nextNumber];
-							positionFrom = EVENT_POSITION.left;
-							break;
-						case KEY_CODES.up:
-							nextElements = neighborhoodLinks.top;
-							nextElement = nextElements[nextNumber];
-							positionFrom = EVENT_POSITION.up;
-							break;
-						case KEY_CODES.right:
-							nextElements = neighborhoodLinks.right;
-							nextElement = nextElements[nextNumber];
-							positionFrom = EVENT_POSITION.right;
-							break;
-						case KEY_CODES.down:
-							nextElements = neighborhoodLinks.bottom;
-							nextElement = nextElements[nextNumber];
-							positionFrom = EVENT_POSITION.down;
-							break;
-					}
-
-					while (nextElement && !setFocus) {
-						// if element to focus is found
-						setFocus = focusOnElement(this, nextElement, positionFrom);
-						nextElement = nextElements[++nextNumber];
-					}
+					focusOnNeighborhood(this, self.keybordElement || self.element, event.keyCode)
 				}
 			};
 
@@ -307,8 +335,10 @@
 			 */
 			prototype._bindEventKey = function() {
 				var self = this;
-				self._onKeyupHandler = self._onKeyup.bind(self);
-				document.addEventListener("keyup", self._onKeyupHandler, false);
+				if (!self._onKeyupHandler) {
+					self._onKeyupHandler = self._onKeyup.bind(self);
+					document.addEventListener("keyup", self._onKeyupHandler, false);
+				}
 			};
 
 			/**
@@ -320,7 +350,9 @@
 			 * @member ns.widget.tv.BaseKeyboardSupport
 			 */
 			prototype._destroyEventKey = function() {
-				document.removeEventListener("keyup", this._onKeyupHandler, false);
+				if (this._onKeyupHandler) {
+					document.removeEventListener("keyup", this._onKeyupHandler, false);
+				}
 			};
 
 			/**
@@ -346,25 +378,31 @@
 			 * Focuses on element.
 			 * @method focusElement
 			 * @param {HTMLElement} [element] widget's element
-			 * @param {?HTMLElement|number|boolean} [elementToFocus] element to focus
+			 * @param {?HTMLElement|number|boolean|string} [elementToFocus] element to focus
 			 * @static
 			 * @member ns.widget.tv.BaseKeyboardSupport
 			 */
-			BaseKeyboardSupport.focusElement = function(element, elementToFocus) {
-				var links = getFocusableElements(element),
-					linksLength = links.length,
+			BaseKeyboardSupport.focusElement = function(element, elementToFocus, currentElement) {
+				var links,
+					linksLength,
 					i;
 				if (elementToFocus instanceof HTMLElement) {
+					links = getFocusableElements(element);
+					linksLength = links.length;
 					for (i = 0; i < linksLength; i++) {
 						if (links[i] === elementToFocus) {
 							elementToFocus.focus();
 						}
 					}
 				} else if (typeof elementToFocus === "number") {
+					links = getFocusableElements(element);
 					if (links[elementToFocus]) {
 						focusOnElement(null, links[elementToFocus]);
 					}
+				} else if (typeof elementToFocus === "string" && KEY_CODES[elementToFocus]) {
+					focusOnNeighborhood(null, element, KEY_CODES[elementToFocus], currentElement);
 				} else {
+					links = getFocusableElements(element);
 					if (links[0]) {
 						focusOnElement(null, links[0]);
 					}
@@ -378,6 +416,19 @@
 			 */
 			prototype.enableKeyboardSupport = function() {
 				this._supportKeyboard = true;
+				currentKeyboardWidget = this;
+			};
+
+			/**
+			 * Enables keyboard support on widget.
+			 * @method disableKeyboardSupport
+			 * @member ns.widget.tv.BaseKeyboardSupport
+			 */
+			prototype.restoreKeyboardSupport = function() {
+				var previousKeyboardWidget = previousKeyboardWidgets.pop();
+				if (previousKeyboardWidget) {
+					previousKeyboardWidget.enableKeyboardSupport();
+				}
 			};
 
 			/**
@@ -386,9 +437,21 @@
 			 * @member ns.widget.tv.BaseKeyboardSupport
 			 */
 			prototype.disableKeyboardSupport = function() {
+				currentKeyboardWidget = null;
 				this._supportKeyboard = false;
 			};
 
+			/**
+			 * Disables keyboard support on widget.
+			 * @method disableKeyboardSupport
+			 * @member ns.widget.tv.BaseKeyboardSupport
+			 */
+			prototype.saveKeyboardSupport = function() {
+				if (currentKeyboardWidget) {
+					previousKeyboardWidgets.push(currentKeyboardWidget);
+					currentKeyboardWidget.disableKeyboardSupport();
+				}
+			};
 			/**
 			 * Registers an active selector.
 			 * @param {string} selector
@@ -419,7 +482,7 @@
 			};
 
 			/**
-			 * Unregisters an active selector.
+			 * Unregister an active selector.
 			 * @param {string} selector
 			 * @method unregisterActiveSelector
 			 * @static

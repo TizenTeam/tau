@@ -1,284 +1,46 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta http-equiv="X-UA-Compatible" content="IE=9; IE=8">
-	<script build-remove="false">
+	<script data-build-remove="false">
 		var tauConfig = {
 			autoBuildOnPageChange: true
 		};
 	</script>
-	<script type="text/javascript" src="../../lib/tau/tv/js/tau.js" data-
-			build-remove="false"></script>
+	<script type="text/javascript" src="../../lib/tau/tv/js/tau.js"
+			data-build-remove="false"></script>
 	<link rel="stylesheet" href="../../lib/tau/tv/theme/default/tau.css">
 
 	<title>TV UI Demo</title>
-
-	<!-- for compatibility test -->
-	<meta name="apple-mobile-web-app-capable" content="yes"/>
-	<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
-	<link rel="apple-touch-icon" href="../../icon-tizen.png"/>
 </head>
 
 <body class="ui-pagecontainer" data-background="../img/bg.jpg">
 <div class="ui-page ui-page-active" id="main-drawer" data-role="page">
 	<div class="ui-content"></div>
 	<div data-role="drawer" data-position="left" id="left-drawer"
-		 data-width="301" data-close-on-click="false" data-overlay="false">
+		 data-width="700" data-close-on-click="false" data-overlay="false">
 		<a class="ui-btn ui-drawer-close"
 		   id="close" data-inline="true" data-role="button"></a>
-		<ul class="ui-listview ui-listview-first" data-role="listview">
-			<li class="ui-block">
-				<a href="#andrew" data-role="button"
-				   data-icon="source" data-iconpos="top"
-				   data-rel="dynamic"
-				   class="ui-btn ui-color-live">Andrew</a>
+		<ul class="ui-listview" style="float: left;">
+			<li>
+				<a href="simple.html">Simple HomeBar</a>
 			</li>
-			<li class="ui-block">
-				<a data-rel="dynamic" href="#live"
-				   data-role="button" data-icon="live" data-iconpos="top">Live</a>
+			<li>
+				<a href="simple-with-icons.html">Simple HomeBar with icons</a>
 			</li>
-			<li class="ui-block">
-				<a href="#tv-shows"
-				   data-icon="tv-show" data-iconpos="top"
-				   data-role="button">TV shows</a></li>
-			<li class="ui-block">
-				<a href="#movies"
-				   data-role="button" data-icon
-						="movie" data-iconpos="top">Movies</a></li>
-			<li class="ui-block">
-				<a data-rel="dynamic" href="#apps"
-				   data-role="button" data-icon
-						="app" data-iconpos="top">Apps</a></li>
-			<li class="ui-block">
-				<a href="#source"
-				   data-role="button" data-icon
-						="source" data-iconpos="top">Source</a></li>
+			<li>
+				<a href="simple-with-icons-with-add.html">Simple HomeBar with
+					icons and add button</a>
+			</li>
+			<li>
+				<a href="dynamic-with-icons.html">HomeBar with dynamic bar</a>
+			</li>
+			<li>
+				<a href="dynamic-with-header.html">HomeBar with header and
+					dynamic bar</a>
+			</li>
 		</ul>
-		<div id="live" class="ui-dynamic-box">
-			<ul class="ui-listview" data-role="listview">
-				<li class="ui-list-divider">Favorite</li>
-				<li class="ui-li-dynamic">
-					<a href="#">
-						<img src="../img/bg.jpg" />
-						<footer>
-							<img src="../img/ico_source_foc.png" />
-							<h2>Eternal sunshine of the spotless mind</h2>
-							<h3>CH 003</h3>
-							<div>
-								<time class="ui-li-dynami-from">10:00PM</time> -
-								<time class="ui-li-dynami-to">12:00PM</time>
-							</div>
-							<progress max="100" value="40"></progress>
-						</footer>
-					</a>
-				</li>
-
-				<li class="ui-li-dynamic">
-					<a href="#">
-						<img src="../img/bg.jpg" />
-						<footer>
-							<img src="../img/ico_source_foc.png" />
-							<h2>Eternal sunshine</h2>
-							<h3>CH 003</h3>
-							<div>
-								<time class="ui-li-dynami-from">10:00PM</time> -
-								<time class="ui-li-dynami-to">12:00PM</time>
-							</div>
-							<progress max="100" value="40"></progress>
-						</footer>
-					</a>
-				</li>
-
-				<li class="ui-li-dynamic">
-					<a href="#">
-						<img src="../img/bg.jpg" />
-						<footer>
-							<img src="../img/ico_source_foc.png" />
-							<h2>Eternal sunshine</h2>
-							<h3>CH 003</h3>
-							<div>
-								<time class="ui-li-dynami-from">10:00PM</time> -
-								<time class="ui-li-dynami-to">12:00PM</time>
-							</div>
-							<progress max="100" value="40"></progress>
-						</footer>
-					</a>
-				</li>
-
-				<li class="ui-li-dynamic">
-					<a href="#">
-						<img src="../img/bg.jpg" />
-						<footer>
-							<img src="../img/ico_source_foc.png" />
-							<h2>Eternal sunshine</h2>
-							<h3>CH 003</h3>
-							<div>
-								<time class="ui-li-dynami-from">10:00PM</time> -
-								<time class="ui-li-dynami-to">12:00PM</time>
-							</div>
-							<progress max="100" value="40"></progress>
-						</footer>
-					</a>
-				</li>
-			</ul>
-		</div>
-		<div id="movies" class="ui-dynamic-box">
-			<ul class="ui-listview" data-role="listview">
-				<li class="ui-list-divider">TV Shows</li>
-				<li class="ui-li-dynamic ul-li-poster">
-					<a href="#">
-					<img src="../img/7572051.3.jpg" />
-					<footer>
-						<h2>Eternal sunshine</h2>
-					</footer>
-					</a>
-				</li>
-				<li class="ui-li-dynamic ul-li-poster">
-					<a href="#">
-					<img src="../img/7572051.3.jpg" />
-					<footer>
-						<h2>Eternal sunshine</h2>
-					</footer>
-						</a>
-				</li>
-				<li class="ui-li-dynamic ul-li-poster">
-					<a href="#">
-					<img src="../img/7572051.3.jpg" />
-					<footer>
-						<h2>Eternal sunshine</h2>
-					</footer>
-						</a>
-				</li>
-				<li class="ui-li-dynamic ul-li-poster">
-					<a href="#">
-					<img src="../img/7572051.3.jpg" />
-					<footer>
-						<h2>Eternal sunshine</h2>
-					</footer>
-						</a>
-				</li>
-				<li class="ui-li-dynamic ul-li-poster">
-					<a href="#">
-					<img src="../img/7572051.3.jpg" />
-					<footer>
-						<h2>Eternal sunshine</h2>
-					</footer>
-						</a>
-				</li>
-				<li class="ui-li-dynamic ul-li-poster">
-					<a href="#">
-					<img src="../img/7572051.3.jpg" />
-					<footer>
-						<h2>Eternal sunshine</h2>
-					</footer>
-						</a>
-				</li>
-				<li class="ui-li-dynamic ul-li-poster">
-					<a href="#">
-					<img src="../img/7572051.3.jpg" />
-					<footer>
-						<h2>Eternal sunshine</h2>
-					</footer>
-						</a>
-				</li>
-				</ul>
 	</div>
-		<div id="source" class="ui-dynamic-box">
-			<ul class="ui-listview" data-role="listview">
-				<li class="ui-list-divider">TV Shows</li>
-				<li class="ui-li-dynamic ul-li-icon ui-li-dark">
-					<a href="#">
-						<img src="../img/7572051.3.jpg" />
-						<footer>
-							<h2>Eternal sunshine</h2>
-						</footer>
-					</a>
-				</li>
-				<li class="ui-li-dynamic ul-li-icon ui-li-dark">
-					<a href="#">
-						<img src="../img/7572051.3.jpg" />
-						<footer>
-							<h2>Eternal sunshine</h2>
-						</footer>
-					</a>
-				</li>
-				<li class="ui-li-dynamic ul-li-icon ui-li-dark">
-					<a href="#">
-						<img src="../img/7572051.3.jpg" />
-						<footer>
-							<h2>Eternal sunshine</h2>
-						</footer>
-					</a>
-				</li>
-				<li class="ui-li-dynamic ul-li-icon ui-li-dark">
-					<a href="#">
-						<img src="../img/7572051.3.jpg" />
-						<footer>
-							<h2>Eternal sunshine</h2>
-						</footer>
-					</a>
-				</li>
-				<li class="ui-li-dynamic ul-li-icon ui-li-dark">
-					<a href="#">
-						<img src="../img/7572051.3.jpg" />
-						<footer>
-							<h2>Eternal sunshine</h2>
-						</footer>
-					</a>
-				</li>
-				<li class="ui-li-dynamic ul-li-icon ui-li-dark">
-					<a href="#">
-						<img src="../img/7572051.3.jpg" />
-						<footer>
-							<h2>Eternal sunshine</h2>
-						</footer>
-					</a>
-				</li>
-				<li class="ui-li-dynamic ul-li-icon ui-li-dark">
-					<a href="#">
-						<img src="../img/7572051.3.jpg" />
-						<footer>
-							<h2>Eternal sunshine</h2>
-						</footer>
-					</a>
-				</li>
-			</ul>
-		</div>
-		<div id="apps" class="ui-dynamic-box">
-			<ul class="ui-listview" data-role="listview">
-				<li class="ui-list-divider">ONGOING</li>
-				<li>
-					<a href="#">
-						Someone like you
-						<img src="../img/7572051.3.jpg" />
-						<span class="li-text-sub">Owl City | Playing</span>
-					</a>
-				</li>
-				<li>
-					<a href="#" data-icon="apps" data-iconpos="right">
-						1 USB device connected
-						<span class="li-text-sub">Select to go to connected device
-							list</span>
-					</a>
-				</li>
-				<li>
-					<a href="#" data-icon="facebook" data-iconpos="right">
-						Facebook
-						<progress value="50" min="0" max="100"></progress>
-					</a>
-				</li>
-				<li class="ui-list-divider">NOTIFICATION</li>
-				<li>
-					<a href="#" data-icon="tv-show" data-iconpos="right">
-						The tonight show
-						<span class="li-text-sub">09:20 PM</span>
-						<span class="li-text-sub">Completed update | FOX</span>
-					</a>
-				</li>
-			</ul>
-		</div>
 	<script>
-
 		(function () {
 			var mainPage = document.getElementById("main-drawer"),
 					closeButton = document.getElementById("close"),
@@ -286,7 +48,7 @@
 					drawer = tau.widget.Drawer(drawerElement);
 
 			mainPage.addEventListener("pageshow", function () {
-				setTimeout(function() {
+				setTimeout(function () {
 					drawer.open();
 				}, 1000);
 			});

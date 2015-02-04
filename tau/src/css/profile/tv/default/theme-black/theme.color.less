@@ -38,12 +38,16 @@
 @color_button_basic_txt_normal: rgb(89, 89, 89); // #[color] Color of basic button text - normal
 @color_button_basic_txt_focus: rgb(255, 255, 255); // #[color] Color of basic button text - focused
 
-@color_button_icon_source: rgb(69, 143, 255); // #[color] Background color of icon source button
-@color_button_icon_app: rgb(69, 143, 255); // #[color] Background color of icon app button
+@color_button_icon_source: @default_color; // #[color] Background color of icon source button
+@color_button_icon_app: @default_color; // #[color] Background color of icon app button
 @color_button_icon_movie: rgb(255, 99, 86); // #[color] Background color of icon movie button
 @color_button_icon_show: rgb(255, 168, 0); // #[color] Background color of icon show button
-@color_button_icon_live: rgb(69, 143, 255); // #[color] Background color of icon live button
-
+@color_button_icon_live: @default_color; // #[color] Background color of icon live button
+@color_button_icon_add_bg: rgba(81, 91, 110, 0.45); // #[color] Background color of icon add button
+@color_button_icon_add: rgba(255, 255, 255, 0.30); // #[color] Color of icon add button
+@color_button_icon_add_bg_focus: rgb(20, 71, 159); // #[color] Background color of icon add button
+@color_button_icon_add_focus: rgb(255, 255, 255); // #[color] Color of icon add button
+@color_button_icon_add_box_bg_focus: @default_color; // #[color] Background color of whole box after focus
 @color_button_with_icon: rgb(255, 255, 255); // #[color] Text color of button with icon
 
 @color_button_red_text: rgb(255, 255, 255); // #[color] Red button text color
@@ -79,7 +83,7 @@
 @color_popup_header_bg: rgb(42,76,130); // #[color] header background color
 @color_popup_header_border: rgb(67, 67, 67); // #[color] header border background color
 @color_popup_text: rgb(61, 61, 61); // #[color] content text color
-@color_popup_footer_btn_focus: rgb(69, 143, 255); // #[color] button background color - focused
+@color_popup_footer_btn_focus: @default_color; // #[color] button background color - focused
 @color_popup_text_content: rgb(61, 61, 61); // #[color] list item text color
 @color_popup_shadow: rgba(0, 0, 0, 0.67); // #[color] shadow color
 @color_popover: rgb(89, 89, 89); // #[color] text color of list item in popover
@@ -135,11 +139,12 @@
                             Drawer
 ***************************************************************************/
 @color_drawer_bg: rgba(0,0,0,.85); // #[color] background color
+@color_drawer_back_bg: rgba(0,0,0,.5);
 @color_drawer_border: rgba(64, 64, 64, 1); // #[color] border color
 @color_drawer_list_press: rgba(95, 160, 233, 1); // listview button press background color
 @drawer_back_background: "./images/Drawer/ico_homebar_menu_arrow.png";
-@color_drawer_btn_close_background: rgb(69, 143, 255); // button close background color
-@color_drawer_footer_btn_background: rgb(69, 143, 255); // #[color] list item, footer button background color
+@color_drawer_btn_close_background: @default_color; // button close background color
+@color_drawer_footer_btn_background: @default_color; // #[color] list item, footer button background color
 @color_drawer_btn: rgb(255, 255, 255); // #[color] listview text color
 @color_drawer_listview_not_divider: rgb(42, 50, 64); // #[color] list item background color
 @color_drawer_listview_not_divider_border: rgb(6, 8, 11); // #[color] List bottom line background color
@@ -148,12 +153,16 @@
 @color_drawer_dynamic_footer_background: rgb(45, 45, 45); // #[color] footer background color of dynamic list elements
 @color_drawer_poster_icon_footer_background: rgb(45, 45, 45); // #[color] footer background color of poster/icon elements
 
+@drawer_up: "./images/HomeBar/ico_homebar_editmode_arrow_up.png";
+@drawer_down: "./images/HomeBar/ico_homebar_editmode_arrow_down.png";
+@drawer_close: "./images/HomeBar/ico_close.png";
+
 /***************************************************************************
                             Grid
 ***************************************************************************/
 @color_grid_txt_normal: rgb(211, 211, 211); // #[color] buttons text basic color
-@color_grid_btn_focus_border: rgb(69, 143, 255); // #[color] Focused button border color
-@color_grid_btn_focus_thumb_content: rgb(69, 143, 255); // #[color] Focused thumbnail content background color
+@color_grid_btn_focus_border: @default_color; // #[color] Focused button border color
+@color_grid_btn_focus_thumb_content: @default_color; // #[color] Focused thumbnail content background color
 
 /***************************************************************************
                             Input
@@ -162,9 +171,9 @@
 @color_input_text: rgba(61, 61, 61, 0.5); // #[color] text color
 @color_input_border: rgba(61, 61, 61, 0.5); // #[color] border color
 @color_input_text_focus: rgb(61, 61, 61); // #[color] Focused text color
-@color_input_number_text: rgb(69, 143, 255); // #[color] Number text color
-@color_input_number_bg_focus: rgb(69, 143, 255); // #[color] Focused number background color
-@color_input_number_border_focus: rgb(69, 143, 255); // #[color] Focused number border color
+@color_input_number_text: @default_color; // #[color] Number text color
+@color_input_number_bg_focus: @default_color; // #[color] Focused number background color
+@color_input_number_border_focus: @default_color; // #[color] Focused number border color
 @color_input_number_text_focus: rgb(255, 255, 255); // #[color] Focused number text color
 
 /***************************************************************************
