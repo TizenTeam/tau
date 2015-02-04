@@ -82,9 +82,6 @@
 				this.bouncingEffect = null;
 				this.scrollbar = null;
 
-				this.width = 0;
-				this.height = 0;
-
 				this.scrollerWidth = 0;
 				this.scrollerHeight = 0;
 				this.scrollerOffsetX = 0;
@@ -126,16 +123,22 @@
 			};
 
 			prototype._init = function () {
-				this.width = this.element.offsetWidth;
-				this.height = this.element.offsetHeight;
+				var options = this.options,
+					scrollerChildren = this.scroller.children,
+					elementStyle = this.element.style,
+					scrollerStyle = this.scroller.style,
+					elementHalfWidth =  this.element.offsetWidth / 2,
+					elementHalfHeight = this.element.offsetHeight / 2;
 
+				this.orientation = this.orientation ? this.orientation :
+					(options.orientation === "horizontal" ? Scroller.Orientation.HORIZONTAL : Scroller.Orientation.VERTICAL);
 				this.scrollerWidth = this.scroller.offsetWidth;
 				this.scrollerHeight = this.scroller.offsetHeight;
 
-				this.maxScrollX = this.width - this.scrollerWidth;
-				this.maxScrollY = this.height - this.scrollerHeight;
-
-				this.orientation = this.options.orientation === "horizontal" ? Scroller.Orientation.HORIZONTAL : Scroller.Orientation.VERTICAL;
+				this.maxScrollX = elementHalfWidth - this.scrollerWidth + scrollerChildren[scrollerChildren.length - 1].offsetWidth / 2;
+				this.maxScrollY = elementHalfHeight - this.scrollerHeight + scrollerChildren[scrollerChildren.length - 1].offsetHeight / 2;
+				this.minScrollX = elementHalfWidth - scrollerChildren[0].offsetWidth / 2;
+				this.minScrollY = elementHalfHeight - scrollerChildren[0].offsetHeight / 2;
 
 				this.scrolled = false;
 				this.touching = true;
@@ -146,24 +149,15 @@
 				} else {
 					this.maxScrollX = 0;
 				}
-
-				this._initLayout();
-				this._initScrollbar();
-				this._initBouncingEffect();
-			};
-
-			prototype._initLayout = function () {
-				var elementStyle = this.element.style,
-					scrollerStyle = this.scroller.style;
-
 				elementStyle.overflow = "hidden";
 				elementStyle.position = "relative";
-
 				scrollerStyle.position = "absolute";
 				scrollerStyle.top = "0px";
 				scrollerStyle.left = "0px";
 				scrollerStyle.width = this.scrollerWidth + "px";
 				scrollerStyle.height = this.scrollerHeight + "px";
+				this._initScrollbar();
+				this._initBouncingEffect();
 			};
 
 			prototype._initScrollbar = function () {
@@ -344,11 +338,11 @@
 					newY += e.detail.estimatedDeltaY;
 				}
 
-				if ( newX > 0 || newX < this.maxScrollX ) {
-					newX = newX > 0 ? 0 : this.maxScrollX;
+				if ( newX > this.minScrollX || newX < this.maxScrollX ) {
+					newX = newX > this.minScrollX ? this.minScrollX : this.maxScrollX;
 				}
-				if ( newY > 0 || newY < this.maxScrollY ) {
-					newY = newY > 0 ? 0 : this.maxScrollY;
+				if ( newY > this.minScrollY || newY < this.maxScrollY ) {
+					newY = newY > this.minScrollY ? this.minScrollY : this.maxScrollY;
 				}
 
 				if ( newX !== this.scrollerOffsetX || newY !== this.scrollerOffsetY ) {

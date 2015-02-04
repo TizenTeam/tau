@@ -79,9 +79,8 @@ pageWidget.addEventListener('pageshow', function () {
 		if (bar) {
 			equal(scrollerElement.children[1].className, "ui-scrollbar-bar-type ui-scrollbar-vertical", "bar has proper classes");
 			equal(scrollerElement.children[1].children[0].className, "ui-scrollbar-indicator", "inner bar has proper classes");
-			equal(scrollerElement.children[1].children[0].style.top, "0px", "bar has proper top");
 			ok(scrollerElement.children[1].children[0].style.height !== "0px", "bar has proper height");
-			expect(17);
+			expect(16);
 		}
 		if (useBouncingEffect){
 			equal(scrollerElement.children[1].className, "ui-scrollbar-bouncing-effect ui-top", "top effect container has proper classes");
@@ -89,14 +88,8 @@ pageWidget.addEventListener('pageshow', function () {
 			fireEvent(scrollerInner, "mousedown", {clientX: lastElementOffset.left , clientY: lastElementOffset.top + 50, which: 1});
 			fireEvent(scrollerInner, "mousemove", {clientX: lastElementOffset.left , clientY: lastElementOffset.top + 100, which: 1});
 			fireEvent(scrollerInner, "mouseup", {clientX: lastElementOffset.left , clientY: lastElementOffset.top + 100, which: 1});
-			tau.event.one(scrollerElement.children[1], "webkitAnimationEnd", function() {
-				tau.event.one(scrollerElement.children[1], "webkitAnimationEnd", function() {
-					equal(scrollerElement.children[1].className, "ui-scrollbar-bouncing-effect ui-top", "top effect container has proper classes (none)");
-					start();
-				});
-				equal(scrollerElement.children[1].className, "ui-scrollbar-bouncing-effect ui-top ui-hide", "top effect container has proper classes (hide)");
-			});
-			equal(scrollerElement.children[1].className, "ui-scrollbar-bouncing-effect ui-top ui-show", "top effect container has proper classes (show)");
+			equal(scrollerElement.children[1].className, "ui-scrollbar-bouncing-effect ui-top", "top effect container has proper classes (none)");
+			start();
 			expect(18);
 		} else {
 			start();

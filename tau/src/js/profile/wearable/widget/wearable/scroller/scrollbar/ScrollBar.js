@@ -32,6 +32,11 @@
 				utilsObject = ns.util.object,
 				selectors = ns.util.selectors,
 				scrollbarType = ns.widget.wearable.scroller.scrollbar.type,
+				Classes = {
+					wrapperClass: "ui-scrollbar-bar-type",
+					barClass: "ui-scrollbar-indicator",
+					orientationClass: "ui-scrollbar-"
+				},
 
 				Scroller = ns.widget.wearable.scroller.Scroller,
 				ScrollerScrollBar = function () {
@@ -40,7 +45,7 @@
 					this.barElement = null;
 
 					this.container = null;
-					this.clip = null;
+					this.view = null;
 
 					this.options = {};
 					this.type = null;
@@ -53,8 +58,9 @@
 				};
 
 			prototype._build = function (scrollElement) {
-				this.container = scrollElement;
-				this.clip = scrollElement.children[0];
+				this.clip = scrollElement;
+				this.view = scrollElement.children[0];
+				this.firstChild = this.view.children[0];
 				return scrollElement;
 			};
 
@@ -89,30 +95,33 @@
 			prototype._createScrollbar = function () {
 				var orientation = this.options.orientation,
 					wrapper = document.createElement("DIV"),
-					bar = document.createElement("span");
+					bar = document.createElement("span"),
+					view = this.view,
+					clip = this.clip,
+					firstChild = this.firstChild,
+					type = this.type;
 
+				clip.appendChild(wrapper);
 				wrapper.appendChild(bar);
+				wrapper.classList.add(Classes.wrapperClass);
+				bar.className = Classes.barClass;
 
-				this.type.insertAndDecorate({
-					orientation: orientation,
-					wrapper: wrapper,
-					bar: bar,
-					container: this.container,
-					clip: this.clip
-				});
+				if (orientation === Scroller.Orientation.HORIZONTAL) {
+					type.setScrollbar(view.offsetWidth, firstChild.offsetWidth, clip.offsetWidth);
+					bar.style.width = type.getScrollbarSize() + "px";
+					wrapper.classList.add(Classes.orientationClass + "horizontal");
+				} else {
+					type.setScrollbar(view.offsetHeight, firstChild.offsetHeight, clip.offsetHeight);
+					bar.style.height = type.getScrollbarSize() + "px";
+					wrapper.classList.add(Classes.orientationClass + "vertical");
+				}
 
 				this.wrapper = wrapper;
 				this.barElement = bar;
 			};
 
 			prototype._removeScrollbar = function () {
-				this.type.remove({
-					orientation: this.options.orientation,
-					wrapper: this.wrapper,
-					bar: this.barElement,
-					container: this.container,
-					clip: this.clip
-				});
+				this.clip.removeChild(this.wrapper);
 
 				this.wrapper = null;
 				this.barElement = null;
@@ -207,7 +216,7 @@
 
 				switch(event.type) {
 				case "visibilitychange":
-					page = selectors.getClosestBySelector(this.container, "." + ns.widget.wearable.Page.classes.uiPage);
+					page = selectors.getClosestBySelector(this.clip, "." + ns.widget.wearable.Page.classes.uiPage);
 					if (document.visibilityState === "visible" && page === ns.activePage) {
 						this.refresh();
 					}
@@ -229,8 +238,8 @@
 				document.removeEventListener("visibilitychange", this);
 
 				this.options = null;
-				this.container = null;
 				this.clip = null;
+				this.view = null;
 			};
 
 			ScrollerScrollBar.prototype = prototype;

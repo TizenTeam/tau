@@ -18,7 +18,7 @@ var suites = {
 			moves: [
 				{
 					name: "right",
-					cord: {x: -1000, y: 0},
+					cord: {x: -300, y: 0},
 					sections: {
 						before: [false, true, false],
 						after:  [false, false, true]
@@ -26,7 +26,7 @@ var suites = {
 				},
 				{
 					name: "left",
-					cord: {x: 1000, y: 0},
+					cord: {x: 300, y: 0},
 					sections: {
 						before: [false, true, false],
 						after:  [true, false, false]
@@ -42,7 +42,7 @@ var suites = {
 			moves: [
 				{
 					name: "top",
-					cord: {x: 0, y: -1000},
+					cord: {x: 0, y: -300},
 					sections: {
 						before: [false, true, false],
 						after:  [false, false, true]
@@ -50,7 +50,7 @@ var suites = {
 				},
 				{
 					name: "bottom",
-					cord: {x: 0, y: 1000},
+					cord: {x: 0, y: 300},
 					sections: {
 						before: [false, true, false],
 						after:  [true, false, false]
@@ -68,7 +68,7 @@ var suites = {
 		moves: [
 			{
 				name: "step left-1",
-				cord: {x: 1000, y: 0},
+				cord: {x: 300, y: 0},
 				sections: {
 					before: [false, true, false],
 					after:  [true, false, false]
@@ -76,7 +76,7 @@ var suites = {
 			},
 			{
 				name: "step left-2",
-				cord: {x: 1000, y: 0},
+				cord: {x: 300, y: 0},
 				sections: {
 					before: [true, false, false],
 					after:  [false, false, true]
@@ -84,7 +84,7 @@ var suites = {
 			},
 			{
 				name: "step left-3",
-				cord: {x: 1000, y: 0},
+				cord: {x: 300, y: 0},
 				sections: {
 					before: [false, false, true],
 					after:  [false, true, false]
@@ -92,7 +92,7 @@ var suites = {
 			},
 			{
 				name: "step right-1",
-				cord: {x: -1000, y: 0},
+				cord: {x: -300, y: 0},
 				sections: {
 					before: [false, true, false],
 					after:  [false, false, true]
@@ -100,7 +100,7 @@ var suites = {
 			},
 			{
 				name: "step right-2",
-				cord: {x: -1000, y: 0},
+				cord: {x: -300, y: 0},
 				sections: {
 					before: [false, false, true],
 					after:  [true, false, false]
@@ -117,7 +117,7 @@ var suites = {
 		moves: [
 			{
 				name: "step left-1",
-				cord: {x: 1000, y: 0},
+				cord: {x: 300, y: 0},
 				sections: {
 					before: [false, true, false],
 					after:  [true, false, false]
@@ -125,7 +125,7 @@ var suites = {
 			},
 			{
 				name: "step left-2",
-				cord: {x: 1000, y: 0},
+				cord: {x: 300, y: 0},
 				sections: {
 					before: [true, false, false],
 					after:  [true, false, false]
