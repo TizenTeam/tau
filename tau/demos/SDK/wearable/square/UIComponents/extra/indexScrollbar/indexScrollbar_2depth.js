@@ -1,9 +1,7 @@
 (function() {
 	var page = document.getElementById("pageIndexScrollbar2"),
 		isb,
-		index = [],
-		supIndex = {},
-		elIndex = {};
+		index = [];
 	page.addEventListener("pageshow", function(ev) {
 
 /*****************************************************************
@@ -128,8 +126,6 @@ el.addEventListener("select", function( ev ) {
 	page.addEventListener("pagehide", function(ev) {
 		isb.destroy();
 		index.length = 0;
-		supIndex = {};
-		elIndex = {};
 	});
 } ());
 

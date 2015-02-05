@@ -2,7 +2,7 @@
 
 var page = document.getElementById( "circularSectionchangerPage" ),
 	changer = document.getElementById( "circularSectionchanger" ),
-	sectionChanger, idx=1;
+	sectionChanger;
 
 page.addEventListener( "pagebeforeshow", function() {
 	// make SectionChanger object
