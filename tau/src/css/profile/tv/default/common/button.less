@@ -46,9 +46,12 @@
 
 		.ui-btn-text {
 			display: block;
+			.LESStext-ellipsis();
 			span {
-				display: block;
-				font-size: 22 * @virtual_px;
+				&.ui-text {
+					display: block;
+					.LESStext-ellipsis();
+				}
 				bottom: 0;
 				margin-top: 5 * @virtual_px;
 			}

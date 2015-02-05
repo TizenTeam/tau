@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>decorator.marquee</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<link rel="stylesheet" href="../../../../libs/qunit-1.11.0.css">
+	<link rel="stylesheet"
+		  href="../../../../libs/dist/theme/default/tau.css">
+	<script src="../../../../libs/qunit-1.11.0.js" type="text/javascript"></script>
+	<style>
+		#btn1, #btn6 {
+			width: 50px;
+		}
+		#list {
+			width: 200px;
+		}
+	</style>
+</head>
+<body>
+	<div id="qunit"></div>
+	<div id="qunit-fixture">
+		<div class="ui-page" id="page1">
+			<a id="btn1" class="ui-btn">
+				Long long long long long long long long text
+			</a>
+			<ul data-role="listview" id="list">
+				<li>
+					<a id="btn2" class="ui-btn">
+						Long long long long long long long long text
+						Long long long long long long long long text
+						Long long long long long long long long text
+					</a>
+				</li>
+				<li>
+					<a id="btn3" class="ui-btn">
+
+					</a>
+				</li>
+			</ul>
+			<ul data-role="listview" id="list2">
+				<li>
+					<a id="btn4" class="ui-btn">
+						Short
+					</a>
+				</li>
+				<li>
+					<a id="btn5" class="ui-btn">
+						Short
+					</a>
+				</li>
+			</ul>
+			<a id="btn6" class="ui-btn">
+				Long long long long long long long long text
+				Long long long long long long long long text
+				Long long long long long long long long text
+			</a>
+		</div>
+	</div>
+	<script src="../../../../libs/support.js"></script>
+	<script src="../../../../libs/dist/js/tau.js" type="text/javascript"></script>
+	<script src="marquee.js"></script>
+</body>
+</html>

@@ -22,6 +22,7 @@
 			"../../../core/util/selectors",
 			"../../../core/theme",
 			"../../../core/util/object",
+			"../../../core/decorator/marquee",
 			"../tv",
 			"./BaseKeyboardSupport"
 		],
@@ -51,7 +52,8 @@
 					up: "up",
 					down: "down",
 					left: "left",
-					right: "right"
+					right: "right",
+					text: "ui-text"
 				}),
 				prototype = new BaseButton();
 
@@ -103,6 +105,38 @@
 			};
 
 			/**
+			 * Builds wrapper for text nodes
+			 * @method _buildTextNodes
+			 * @param element Element of widget
+			 * @protected
+			 * @member ns.widget.tv.Button
+			 */
+			prototype._buildTextNodes = function(element) {
+				var children = element.childNodes,
+					length = children.length,
+					content,
+					newChild,
+					child,
+					i;
+
+				for (i = 0; i < length; i++) {
+					child = children[i];
+					// the child is a text
+					if (child.nodeType === 3) {
+						// we create span and replace textNode
+						content = child.textContent.trim();
+						if (content.length) {
+							newChild = document.createElement("span");
+							newChild.className = classes.text;
+							newChild.textContent = content;
+							// replace element
+							element.replaceChild(newChild, child);
+						}
+					}
+				}
+			};
+
+			/**
 			 * Builds widget
 			 * @method _build
 			 * @param element Element of widget
@@ -114,6 +148,8 @@
 
 				// build footer
 				this._buildFooter(element);
+				// build text nodes
+				this._buildTextNodes(element);
 				// build button
 				element = BaseButtonPrototype._build.call(self, element);
 				// create background element for built button
@@ -125,6 +161,7 @@
 			/**
 			 * Initializes widget
 			 * @method _init
+			 * @param element
 			 * @protected
 			 * @member ns.widget.tv.Button
 			 */
@@ -147,46 +184,82 @@
 				classList.remove(classes.blurPrefix + classes.left);
 			}
 
+			function focusCallback(instance) {
+				var container = instance.ui.container,
+					textElement = container.querySelector("." + classes.uiBtnText);
+
+				// if element is not disabled
+				if (!instance.element.classList.contains(classes.uiDisabled)) {
+					// set Marquee decorator on text element
+					if (textElement) {
+						ns.decorator.marquee.enable(textElement);
+					}
+				}
+			};
+
+			function blurCallback(instance) {
+				// disable Marquee decorator on text element
+				ns.decorator.marquee.disable(instance.ui.container);
+			};
+
 			/**
-			 * Initializes widget
-			 * @method _init
+			 * Binds events
+			 * @method _bindEvents
 			 * @protected
 			 * @member ns.widget.tv.Button
 			 */
 			prototype._bindEvents = function () {
 				var self = this,
+					element = self.element,
+					callbacks = self._callbacks,
 					background = self.ui.background,
-					transitionend;
+					eventFunction;
 
 				BaseButtonPrototype._bindEvents.call(self);
 
-				transitionend = animationEndCallback.bind(null, self.element);
-				background.addEventListener("transitionend", transitionend, false);
-				background.addEventListener("webkitTransitionEnd", transitionend, false);
-				background.addEventListener("mozTransitionEnd", transitionend, false);
-				background.addEventListener("msTransitionEnd", transitionend, false);
-				background.addEventListener("oTransitionEnd", transitionend, false);
-				self._callbacks.transitionend = transitionend;
+				eventFunction = animationEndCallback.bind(null, self.element);
+				background.addEventListener("transitionend", eventFunction, false);
+				background.addEventListener("webkitTransitionEnd", eventFunction, false);
+				background.addEventListener("mozTransitionEnd", eventFunction, false);
+				background.addEventListener("msTransitionEnd", eventFunction, false);
+				background.addEventListener("oTransitionEnd", eventFunction, false);
+				callbacks.transitionend = eventFunction;
+
+				eventFunction = focusCallback.bind(null, self);
+				element.addEventListener("focus", eventFunction, false);
+				callbacks.focus = eventFunction;
+
+				eventFunction = blurCallback.bind(null, self);
+				element.addEventListener("blur", eventFunction, false);
+				callbacks.blur = eventFunction;
 			};
 
 			/**
-			 * Initializes widget
-			 * @method _init
+			 * Destroys widget
+			 * @method _destroy
 			 * @protected
 			 * @member ns.widget.tv.Button
 			 */
 			prototype._destroy = function() {
 				var self = this,
+					element = self.element,
+					callbacks = self._callbacks,
 					background = self.ui.background,
-					transitionend,
+					eventFunction,
 					BaseButtonPrototype_destroy = BaseButtonPrototype._destroy;
 
-				transitionend = self._callbacks.transitionend;
-				background.removeEventListener("transitionend", transitionend, false);
-				background.removeEventListener("webkitTransitionEnd", transitionend, false);
-				background.removeEventListener("mozTransitionEnd", transitionend, false);
-				background.removeEventListener("msTransitionEnd", transitionend, false);
-				background.removeEventListener("oTransitionEnd", transitionend, false);
+				eventFunction = callbacks.transitionend;
+				background.removeEventListener("transitionend", eventFunction, false);
+				background.removeEventListener("webkitTransitionEnd", eventFunction, false);
+				background.removeEventListener("mozTransitionEnd", eventFunction, false);
+				background.removeEventListener("msTransitionEnd", eventFunction, false);
+				background.removeEventListener("oTransitionEnd", eventFunction, false);
+
+				eventFunction = callbacks.focus;
+				element.removeEventListener("focus", eventFunction, false);
+
+				eventFunction = callbacks.blur;
+				element.removeEventListener("blur", eventFunction, false);
 
 				if (typeof BaseButtonPrototype_destroy === FUNCTION_TYPE) {
 					BaseButtonPrototype_destroy.call(self);

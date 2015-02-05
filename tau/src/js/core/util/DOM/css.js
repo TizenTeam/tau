@@ -306,6 +306,23 @@
 				return !(element.offsetWidth <= 0 && element.offsetHeight <= 0);
 			}
 
+			/**
+			 * Set animation value for element.
+			 * @method isOccupiedPlace
+			 * @param {HTMLElement} element
+			 * @param {string} animation value
+			 * @member ns.util.DOM
+			 * @static
+			 */
+			function setAnimation(element, animation) {
+				var style = element.style;
+				style.animation = animation;
+				style.webkitAnimation = animation;
+				style.mozAnimation = animation;
+				style.oAnimation = animation;
+				style.msAnimation = animation;
+			}
+
 			// assign methods to namespace
 			DOM.getCSSProperty = getCSSProperty;
 			DOM.extractCSSProperties = extractCSSProperties;
@@ -313,6 +330,7 @@
 			DOM.getElementWidth = getElementWidth;
 			DOM.getElementOffset = getElementOffset;
 			DOM.isOccupiedPlace = isOccupiedPlace;
+			DOM.setAnimation = setAnimation;
 
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return ns.util.DOM;
