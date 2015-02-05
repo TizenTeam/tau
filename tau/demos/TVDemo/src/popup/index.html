@@ -23,23 +23,61 @@
 			<li>
 				<a data-role="button" href="ctxpopup.html">Context popup</a>
 			</li>
-			<li><a href="#popupToast" class="ui-btn" data-rel="popup">Popup
-			toast</a></li>
-			<li><a href="#1btnPopup" class="ui-btn" data-rel="popup">1btn
-			popup</a></li>
-			<li><a href="#2btnPopup" class="ui-btn" data-rel="popup">2btn
-				popup</a></li>
-			<li><a href="#radioPopup" class="ui-btn" data-rel="popup">Radio
-				popup</a></li>
-			<li><a href="#checkPopup" class="ui-btn"
-				   data-rel="popup">Checkbox popup</a></li>
-			<li><a href="#listPopup" class="ui-btn" data-rel="popup">List
-			popup 1</a></li>
-			<li><a href="#listNoTitlePopup" class="ui-btn"
-				   data-rel="popup">List popup 2</a></li>
-			<li><a href="#inputPopup" class="ui-btn" data-rel="popup">Popup
-				with input</a></li>
+			<li>
+				<a href="#popupToast" class="ui-btn" data-rel="popup">Popup toast</a>
+			</li>
+			<li>
+				<a href="#textOnlyPopup" class="ui-btn" data-rel="popup">Text-only popup</a>
+			</li>
+			<li>
+				<a href="#extendedTextOnlyPopup" class="ui-btn" data-rel="popup">Extended text-only popup</a>
+			</li>
+			<li>
+				<a href="#extended2TextOnlyPopup" class="ui-btn" data-rel="popup">Extended 2 line text-only popup</a>
+			</li>
+			<li>
+				<a href="#1btnPopup" class="ui-btn" data-rel="popup">1btn popup</a>
+			</li>
+			<li>
+				<a href="#2btnPopup" class="ui-btn" data-rel="popup">2btn popup</a>
+			</li>
+			<li>
+				<a href="#radioPopup" class="ui-btn" data-rel="popup">Radio popup</a>
+			</li>
+			<li>
+				<a href="#checkPopup" class="ui-btn"  data-rel="popup">Checkbox popup</a>
+			</li>
+			<li>
+				<a href="#listPopup" class="ui-btn" data-rel="popup">List popup 1</a>
+			</li>
+			<li>
+				<a href="#listNoTitlePopup" class="ui-btn" data-rel="popup">List popup 2</a>
+			</li>
+			<li>
+				<a href="#inputPopup" class="ui-btn" data-rel="popup">Popup with input</a>
+			</li>
 		</ul>
+	</div>
+
+	<div id="textOnlyPopup" data-role="popup">
+		<div>
+			Text only popup
+		</div>
+	</div>
+
+	<div id="extendedTextOnlyPopup" data-role="popup">
+		<div> <!-- [optional] class="ui-popup-content" -->
+			<h1>Title example</h1>
+			<p>Check the antenna cable connection.</p>
+		</div>
+	</div>
+
+	<div id="extended2TextOnlyPopup" data-role="popup">
+		<div>
+			<h1>Title example</h1>
+			<p>Check the antenna cable connection.</p>
+			<p>Disconnect and reconnect the antenna cable, wait few seconds to resume watching.</p>
+		</div>
 	</div>
 
 	<div id="1btnPopup" data-role="popup">
@@ -51,7 +89,7 @@
 			power.
 		</div>
 		<footer>
-			<a data-role="button" id="1btnPopup-cancel">Cancel</a>
+			<a data-role="button" id="1btnPopup-cancel" data-rel="back">Cancel</a>
 		</footer>
 	</div>
 
@@ -208,8 +246,8 @@
 			<input />
 		</div>
 		<footer class="ui-grid-col-2">
-			<a data-role="button" id="2btnPopup-cancel" class="ui-btn">Cancel</a>
-			<a data-role="button" id="2btnPopup-ok" class="ui-btn">OK</a>
+			<a data-role="button" id="inputPopup-cancel" class="ui-btn">Cancel</a>
+			<a data-role="button" id="inputPopup-ok" class="ui-btn">OK</a>
 		</footer>
 	</div>
 

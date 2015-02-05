@@ -141,11 +141,6 @@
 					footer: CLASSES_PREFIX + "-footer",
 					content: CLASSES_PREFIX + "-content"
 				},
-				selectors = {
-					header: "." + classes.header,
-					content: "." + classes.content,
-					footer: "." + classes.footer
-				},
 				EVENTS_PREFIX = "popup",
 				/**
 				 * Dictionary for popup related selectors
