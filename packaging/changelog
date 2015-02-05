@@ -1,4 +1,55 @@
 %changelog
+* Thu Feb 05 2015 Junhyoen Lee <juneh.lee@samsung.com> 0.10.1
+	- fix(wearable): fix Marquee sample issue
+	- fix(wearable): fix drawer sample app style
+	- refactor(wearable): change helper name
+	- fix(wearable): fix circleProgressbar position issue
+	- fix(wearable): fixed drawer bug when it is used with page scroll.
+	- refactor(wearable): apply default config(SnapList, ExpandableHeader) on circle sample.
+	- fix(wearable): clean marquee style when be triggered scroll event.
+	- fix(wearable): fix finding scrollable parent logic in SnapListview.
+	- fix(wearable): fix scroll issue in circularIndexScrollbar sample app
+	- refactor(wearable): apply "rotarydetent" event handler on SanpList to scroll list
+	- refactor(wearable): apply enablePopupScroll option and fix style
+	- feat(wearable): add fillContent option to SectionChanger widget
+	- refactor(wearable): exception for enablePageScroll option
+	- fix(wearable): fix circularindexscrollbar position issue
+	- feat(wearable) enable Popup scroll class add
+	- feat(wearable): add ExpandableHeader component.
+	- refactor(wearable): fix bg color of toggle switch
+	- refactor(wearable): remove ui-scroll-on class in sample page
+	- refactor(wearable): fix the path of each sample page
+	- feat(circle): apply to new popup UX
+	- refactor(wearable): add gradient class to marquee sample
+	- feat(wearable): select mode list in Sample app
+	- refactor(wearable): fix and apply bouncing effect style
+	- refactor(wearable): fix align and size of header and listview
+	- fix(wearable): add specific information to comment and fix bug.
+	- feat(wearable): delete footer in sample pages
+	- etc(orbis): revert patch that add ExpandableFooter component
+	- feat(circle): apply new circle changeable XML files
+	- fix(wearable): fix CircularIndexScrollbar TC error
+	- feat(wearable): fix style.less error.
+	- refactor(wearable): fix toggle switch style
+	- fix(wearable) : Stabilize footer with .ui-fixed
+	- feat(wearable): add router function to CircularIndexScrollbar widget
+	- feat(wearable): integrated wearable demo sample
+	- refactor(wearable): fix page indicator style
+	- feat(wearable): fix drawer sample page(more options).
+	- fix(wearable): SnapListview remove unnecessary method
+	- docs(wearable): Add documentation of CircularIndexScrollbar
+	- feat(wearable): Add new feature of CircularIndexScrollbar sample app
+	- etc(tool): Added grunt tool for circular sample development.
+	- feat(wearable): Add Helper Script for ListStyle.
+	- refactor(wearable): move drawer and ex footer less to common
+	- fear(wearable): page scroll on default
+	- feat(refactor): change circle theme folder name.
+	- feat(build): change circle style path.
+	- feat(build): fix grunt themeConverter module
+	- feat(wearable): apply circle css overwrite square css
+	- fix(tool): fix jshint task in build-bot
+	- refactor(wearable): fix divide list name and its padding
+
 * Wed Jan 07 2015 Heeju Joo <heeju.joo@samsung.com> 0.10.0
 	- feat(wearable): add Templates for circular UI
 	- feat(mobile, wearable): Rearrange and Rename sample applications
