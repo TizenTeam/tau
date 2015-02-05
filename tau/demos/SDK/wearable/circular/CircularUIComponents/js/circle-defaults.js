@@ -7,7 +7,7 @@
 		header,
 		headerHelper;
 
-	if (tau.support.circle) {
+	if (tau.support.shape.circle) {
 		document.addEventListener("pageshow", function (e) {
 			page = e.target;
 			pageWidget = tau.widget.page(page);

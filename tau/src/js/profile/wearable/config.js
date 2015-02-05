@@ -19,7 +19,7 @@
 			// Default configuration properties for wearable
 			ns.setConfig("autoBuildOnPageChange", false, true);
 
-			if(ns.support.circle) {
+			if(ns.support.shape.circle) {
 				ns.setConfig("pageTransition", "pop");
 				ns.setConfig("popupTransition", "pop");
 				ns.setConfig("popupFullSize", true);

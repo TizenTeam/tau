@@ -49,7 +49,9 @@
 					ie: false,
 					tizen: isTizen
 				},
-				circle: isTizen ? window.matchMedia("(-tizen-geometric-shape: circle)").matches : isCircleShape(),
+				shape: {
+					circle: isTizen ? window.matchMedia("(-tizen-geometric-shape: circle)").matches : isCircleShape(),
+				},
 				gradeA : function () {
 					return true;
 				}
