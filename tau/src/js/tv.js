@@ -89,6 +89,7 @@
 			"./profile/tv/widget/Listdivider",
 			"./profile/tv/widget/Checkboxradio",
 			"./profile/tv/widget/Progress",
+			"./profile/tv/widget/SelectMenu",
 			"./profile/mobile/widget/mobile/TabBar",
 			"./profile/tv/widget/ControlGroup",
 			"./profile/mobile/widget/mobile/Scrollview",

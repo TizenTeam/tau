@@ -128,7 +128,7 @@
 			prototype._getNeighborhoodLinks = function() {
 				var self = this,
 					offset = DOM.getElementOffset,
-					links = getFocusableElements(self.element),
+					links = getFocusableElements(self.keybordElement || self.element),
 					currentLink = getFocusedLink(),
 					currentLinkOffset,
 					left,
@@ -137,7 +137,6 @@
 					bottom,
 					linksOffset = [],
 					result;
-
 				if (currentLink) {
 					currentLinkOffset = offset(currentLink);
 					linksOffset = links.map(function (link) {
@@ -265,7 +264,6 @@
 					nextElement,
 					nextNumber = 0,
 					setFocus = false;
-
 				if (self._supportKeyboard) {
 					neighborhoodLinks = self._getNeighborhoodLinks();
 					switch (keyCode) {

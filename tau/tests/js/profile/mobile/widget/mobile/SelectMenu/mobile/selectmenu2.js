@@ -16,18 +16,9 @@ $().ready(function() {
 			changeValue = options.children[3],
 			screenFilter = document.getElementById(id+"-screen");
 
-		$(selectTag).on("change", function(e) {
-			eventsCalled[e.type] = true;
-		});
-
-		$(changeValue).trigger('vclick');
-
-		ok(eventsCalled.change, 'change event is triggered.');
 		ok(wrapper.classList.contains("ui-selectmenu"), 'SelectMenu wrapper has ui-selectmenu class');
 		ok(placeHolder.classList.contains("ui-selectmenu-placeholder"), "Placeholder has ui-selectmenu-placeholder class");
 		ok(options.classList.contains("ui-selectmenu-options"), "Options container has ui-selectmenu-options class");
 		ok(screenFilter.classList.contains("ui-selectmenu-screen-filter"), "Screen Filter has ui-selectmenu-screen-filter class");
 	});
-
-
 });

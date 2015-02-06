@@ -1,4 +1,4 @@
-/*global window, define */
+/*global window, ns*/
 /*
 * Copyright  2010 - 2014 Samsung Electronics Co., Ltd.
 * License : MIT License V2
@@ -131,6 +131,7 @@
 			"../../../../core/util/selectors",
 			"../../../../core/event",
 			"../../../../core/util/DOM/manipulation",
+		 	"../../../../core/widget/core/Page",
 			"../mobile",
 			"./BaseWidgetMobile"
 		],
@@ -143,6 +144,7 @@
 				eventUtils = ns.event,
 				selectors = ns.util.selectors,
 				slice = [].slice,
+				Page = ns.widget.core.Page,
 				indexOf = [].indexOf,
 				SelectMenu = function () {
 					var self = this;
@@ -177,13 +179,15 @@
 					* @property {boolean} [options.inline=false] Sets the SelectMenu widget as inline/normal type.
 					* @property {boolean} [options.label=false] Sets the SelectMenu widget as label/normal type.
 					* @property {boolean} [options.hidePlaceholderMenuItems=true] Hide/Reveal the placeholder option in dropdown list of the SelectMenu.
+					* @property {boolean} [options.backgroundLayer=true] Enable or disable background layer which close select menu after click
 					* @member ns.widget.mobile.SelectMenu
 					*/
 					self.options = {
 						nativeMenu: true,
 						inline: false,
 						label: false,
-						hidePlaceholderMenuItems: true
+						hidePlaceholderMenuItems: true,
+						backgroundLayer: true
 					};
 				},
 				/**
@@ -210,6 +214,7 @@
 					bottom : "ui-selectmenu-option-bottom"
 				},
 				prototype = new BaseWidget();
+
 			SelectMenu.prototype = prototype;
 			SelectMenu.classes = classes;
 
@@ -311,7 +316,11 @@
 			 * @member ns.widget.mobile.SelectMenu
 			*/
 			function convertOptionToHTML(option, isDisabled) {
-				return "<li data-value='" + option.value + "'" + (isDisabled ? (" class='" + classes.disabled + "'") : "tabindex='0'" ) + ">" + option.textContent + "</li>";
+				var className = option.className;
+				if (isDisabled) {
+					className += " " + classes.disabled;
+				}
+				return "<li data-value='" + option.value + "'" + (className ? " class='" + className + "'" : "") + (!isDisabled ?  " tabindex='0'" : "") + ">" + option.textContent + "</li>";
 			}
 
 			/**
@@ -345,7 +354,6 @@
 			 * @method constructOption
 			 * @private
 			 * @static
-			 * @param {HTMLElement} element
 			 * @param {ns.widget.mobile.SelectMenu} self
 			 * @return {string}
 			 * @member ns.widget.mobile.SelectMenu
@@ -474,21 +482,21 @@
 					fragment,
 					elementId = element.id,
 					ui = self._ui,
-					elSelect = element,
 					elPlaceHolder,
 					elSelectWrapper,
 					elOptions,
 					screenFilter,
-					elOptionContainer;
+					elOptionContainer,
+					pageClasses = Page.classes;
 
-				ui.elSelect = elSelect;
-				ui.page = selectors.getParentsByClass(elSelect, "ui-page")[0] || document.body;
-				ui.content = selectors.getParentsByClass(elSelect, "ui-content")[0];
-				ui.elDefaultOption = findDataPlaceHolder(elSelect);
+				ui.elSelect = element;
+				ui.page = selectors.getParentsByClass(element, pageClasses.uiPage)[0] || document.body;
+				ui.content = selectors.getParentsByClass(element, pageClasses.uiContent)[0] || selectors.getParentsByClass(element, pageClasses.uiHeader)[0];
+				ui.elDefaultOption = findDataPlaceHolder(element);
 				if (!ui.elOptions) {
-					self._selectedIndex = elSelect.selectedIndex;
+					self._selectedIndex = element.selectedIndex;
 				}
-				selectedOption = ui.elDefaultOption || elSelect[self._selectedIndex];
+				selectedOption = ui.elDefaultOption || element[self._selectedIndex];
 
 				elSelectWrapper = document.getElementById(elementId + "-selectmenu");
 
@@ -504,13 +512,13 @@
 						elPlaceHolder = document.createElement("span");
 						elPlaceHolder.id = elementId + "-placeholder";
 						elPlaceHolder.className = classes.placeHolder;
-						domUtils.insertNodesBefore(elSelect, elSelectWrapper);
+						domUtils.insertNodesBefore(element, elSelectWrapper);
 						elSelectWrapper.appendChild(elPlaceHolder);
-						elSelectWrapper.appendChild(elSelect);
+						elSelectWrapper.appendChild(element);
 						elSelectWrapper.classList.add(classes.native);
 						elPlaceHolder.innerHTML = selectedOption.textContent;
 					}
-					elOptions = elSelect.querySelectorAll("option");
+					elOptions = element.querySelectorAll("option");
 				} else {
 					options = constructOption(self);
 
@@ -520,15 +528,15 @@
 						elPlaceHolder = document.createElement("span");
 						elPlaceHolder.id = elementId + "-placeholder";
 						elPlaceHolder.className = classes.placeHolder;
-						domUtils.insertNodesBefore(elSelect, elSelectWrapper);
+						domUtils.insertNodesBefore(element, elSelectWrapper);
 						elSelectWrapper.appendChild(elPlaceHolder);
-						elSelectWrapper.appendChild(elSelect);
-
-						screenFilter = document.createElement("div");
-						screenFilter.className = classes.filterHidden;
-						screenFilter.classList.add(classes.filter);
-						screenFilter.id = elementId + "-screen";
-
+						elSelectWrapper.appendChild(element);
+						if (self.options.backgroundLayer) {
+							screenFilter = document.createElement("div");
+							screenFilter.className = classes.filterHidden;
+							screenFilter.classList.add(classes.filter);
+							screenFilter.id = elementId + "-screen";
+						}
 						elOptionContainer = document.createElement("ul");
 						elOptionContainer.className = classes.optionList;
 						elOptionContainer.id = elementId + "-options";
@@ -546,7 +554,9 @@
 					 *****************************************************************************************************/
 					if (isNewBuild) {
 						fragment = document.createDocumentFragment();
-						fragment.appendChild(screenFilter);
+						if (screenFilter) {
+							fragment.appendChild(screenFilter);
+						}
 						fragment.appendChild(elOptionContainer);
 						ui.page.appendChild(fragment);
 					}
@@ -555,7 +565,7 @@
 					elOptions[self._selectedIndex].classList.add(classes.selected);
 				}
 
-				elSelectWrapper.setAttribute("tabindex", 0);
+				elSelectWrapper.setAttribute("tabindex", "0");
 
 				ui.elSelectWrapper = elSelectWrapper;
 				ui.elPlaceHolder = elPlaceHolder;
@@ -581,17 +591,14 @@
 					ui = self._ui,
 					elementId = element.id;
 				if (!ui.elSelectWrapper) {
-					ui.elSelectWrapper = document.getElementById(elementId+"-selectmenu");
-					ui.elPlaceHolder = document.getElementById(elementId+"-placeholder");
+					ui.elSelectWrapper = document.getElementById(elementId + "-selectmenu");
+					ui.elPlaceHolder = document.getElementById(elementId + "-placeholder");
 					ui.elSelect = element;
 					if (!self.options.nativeMenu) {
-						ui.screenFilter = document.getElementById(elementId+"-screen");
-						ui.elOptionContainer = document.getElementById(elementId+"-options");
+						ui.screenFilter = document.getElementById(elementId + "-screen");
+						ui.elOptionContainer = document.getElementById(elementId + "-options");
 						ui.elOptions = ui.elOptionContainer.querySelectorAll("li[data-value]");
 					}
-				}
-				if (element.disabled) {
-					self._disable();
 				}
 			};
 
@@ -602,8 +609,7 @@
 			 * @member ns.widget.mobile.SelectMenu
 			 */
 			prototype._refresh = function () {
-				var self = this;
-				self._generate(self._ui.elSelect);
+				this._generate(this.element);
 			};
 
 			/**
@@ -669,7 +675,9 @@
 				if (!self.options.nativeMenu){
 					ui.elSelectWrapper.addEventListener("vclick", self._toggleMenuBound);
 					ui.elOptionContainer.addEventListener("vclick", self._changeOptionBound);
-					ui.screenFilter.addEventListener("vclick", self._toggleMenuBound);
+					if (ui.screenFilter) {
+						ui.screenFilter.addEventListener("vclick", self._toggleMenuBound);
+					}
 					window.addEventListener("throttledresize", self._onResizeBound, true);
 				} else {
 					ui.elSelect.addEventListener("change", self._nativeChangeOptionBound);
@@ -763,17 +771,22 @@
 					container = ui.elOptionContainer;
 
 				if (self._isOpen) {
-					ui.screenFilter.classList.add(classes.filterHidden);
+					if (ui.screenFilter) {
+						ui.screenFilter.classList.add(classes.filterHidden);
+					}
 					container.removeAttribute("style");
 					ui.elSelectWrapper.classList.remove(classes.active);
 					container.classList.remove(classes.active);
+					ui.elSelectWrapper.focus();
 				} else {
 					container.setAttribute("style", self._coordinateOption());
-					ui.screenFilter.classList.remove(classes.filterHidden);
+					if (ui.screenFilter) {
+						ui.screenFilter.classList.remove(classes.filterHidden);
+					}
 					ui.elSelectWrapper.classList.add(classes.active);
 					container.classList.add(classes.active);
 					container.setAttribute("tabindex", "0");
-					container.focus();
+					container.firstElementChild.focus();
 				}
 				self._isOpen = !self._isOpen;
 			};
@@ -817,7 +830,9 @@
 				if (!self.options.nativeMenu) {
 					ui.elSelectWrapper.removeEventListener("vclick", self._toggleMenuBound);
 					ui.elOptionContainer.removeEventListener("vclick", self._changeOptionBound);
-					ui.screenFilter.removeEventListener("vclick", self._toggleMenuBound);
+					if (ui.screenFilter) {
+						ui.screenFilter.removeEventListener("vclick", self._toggleMenuBound);
+					}
 					window.removeEventListener("throttledresize", self._onResizeBound, true);
 				} else{
 					ui.elSelect.removeEventListener("change", self._nativeChangeOptionBound);

@@ -25,5 +25,4 @@
 		isSelectMenu(document.getElementById('by-css-selector'), "select.ui-select-menu");
 		isNotSelectMenu(document.getElementById('element-by-css-selector'), "*.ui-select-menu:not([data-role='slider']):not([data-role='range'])");
 	});
-
 }(window.document));
