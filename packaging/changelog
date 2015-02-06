@@ -1,4 +1,9 @@
 %changelog
+* Fri Feb 06 2015 Junhyoen Lee <juneh.lee@samsung.com> 0.10.2
+	- refactor(wearable): apply helper config in CircularTemplate sample app
+	- fix(wearable): fix build warning on wearable sdk
+	- fix(core): change support.circle to support.shape.circle
+
 * Thu Feb 05 2015 Junhyoen Lee <juneh.lee@samsung.com> 0.10.1
 	- fix(wearable): fix Marquee sample issue
 	- fix(wearable): fix drawer sample app style
