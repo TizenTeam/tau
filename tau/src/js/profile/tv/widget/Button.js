@@ -11,6 +11,7 @@
  * @class ns.widget.tv.Button
  * @extends ns.widget.mobile.Button
  * @author Piotr Czajka <p.czajka@samsung.com>
+ * @author Maciej Urbanski m.urbanski@samsung.com
  */
 (function (document, ns) {
 	"use strict";
@@ -53,6 +54,7 @@
 					down: "down",
 					left: "left",
 					right: "right",
+					tooltip: "ui-tooltip",
 					text: "ui-text"
 				}),
 				prototype = new BaseButton();
@@ -73,6 +75,7 @@
 				element.insertBefore(backgroundElement, element.firstChild);
 				return backgroundElement;
 			}
+
 			/**
 			 * Builds background of button.
 			 * It is used e.g. for animated focus.
@@ -111,7 +114,7 @@
 			 * @protected
 			 * @member ns.widget.tv.Button
 			 */
-			prototype._buildTextNodes = function(element) {
+			prototype._buildTextNodes = function (element) {
 				var children = element.childNodes,
 					length = children.length,
 					content,
@@ -139,7 +142,7 @@
 			/**
 			 * Builds widget
 			 * @method _build
-			 * @param element Element of widget
+			 * @param {HTMLElement} element Element of widget
 			 * @protected
 			 * @member ns.widget.tv.Button
 			 */
@@ -155,13 +158,62 @@
 				// create background element for built button
 				self._buildBackground(element);
 
+				this._buildTooltip(element);
+
 				return element;
+			};
+
+			/**
+			 * Creates popup element and appends it container passed as argument
+			 * @method _createPopup
+			 * @return {ns.widget.Popup} reference to new widget instance
+			 * @protected
+			 * @member ns.widget.tv.Button
+			 */
+			prototype._createPopup = function (element) {
+				var pageElement = selectorsUtils.getClosestByClass(element, "ui-page"),
+					popup = document.createElement("div"),
+					options = this.options,
+					popupInstance;
+
+				// Append popup element to page with slider
+				// Append popup element to page with slider
+				pageElement.appendChild(popup);
+				// Create widget instance out of popup element
+				popupInstance = engine.instanceWidget(popup, "Popup", {
+					positionTo: "origin",
+					link: element, // positioned to slider's element
+					transition: "none",
+					overlay: false,
+					arrow: options.tooltipArrow,
+					distance: 16,
+					content: options.tooltip
+				});
+				popup.classList.add(classes.tooltip);
+
+				return popupInstance;
+			};
+
+			/**
+			 * Build tooltip
+			 * @method _buildTooltip
+			 * @param {HTMLElement} element
+			 * @return {HTMLElement}
+			 * @protected
+			 * @member ns.widget.tv.Button
+			 */
+			prototype._buildTooltip = function (element) {
+				var self = this;
+
+				if (self.options.tooltip) {
+					self._popup = self._createPopup(element);
+				}
 			};
 
 			/**
 			 * Initializes widget
 			 * @method _init
-			 * @param element
+			 * @param {HTMLElement} element
 			 * @protected
 			 * @member ns.widget.tv.Button
 			 */
@@ -171,6 +223,34 @@
 				BaseButtonPrototype._init.call(self, element);
 
 				self.ui.background = document.getElementById(self.id + "-background");
+				return element;
+			};
+
+			/**
+			 * Set configuration for widget widget
+			 * @method _configure
+			 * @param {HTMLElement} element
+			 * @protected
+			 * @member ns.widget.tv.Button
+			 */
+			prototype._configure = function (element) {
+				var self = this,
+					options;
+
+				BaseButtonPrototype._configure.call(self, element);
+
+				options = self.options || {};
+				/**
+				 * @property {?string} [options.tooltip=null] Text for tooltip
+				 * @property {?string} [options.tooltipArrow="t,b"] Position of arrow in tooltip
+				 * @property {number} [options.tooltipTimeout=3000] Define timeout for tooltip close
+				 */
+				options.tooltip = null;
+				options.tooltipArrow = "t,b";
+				options.tooltipTimeout = 3000;
+
+				self.options = options;
+
 				return element;
 			};
 
@@ -184,23 +264,49 @@
 				classList.remove(classes.blurPrefix + classes.left);
 			}
 
-			function focusCallback(instance) {
-				var container = instance.ui.container,
+			function focusCallback(self) {
+				var router = engine.getRouter(),
+					options = self.options,
+					container = self.ui.container,
 					textElement = container.querySelector("." + classes.uiBtnText);
 
 				// if element is not disabled
-				if (!instance.element.classList.contains(classes.uiDisabled)) {
+				if (!self.element.classList.contains(classes.uiDisabled)) {
 					// set Marquee decorator on text element
 					if (textElement) {
 						ns.decorator.marquee.enable(textElement);
 					}
-				}
-			};
 
-			function blurCallback(instance) {
+					if (options.tooltip) {
+						router.open(self._popup.id, {
+							rel: "popup",
+							history: false
+						});
+						clearTimeout(self._closeTimeout);
+						self._closeTimeout = setTimeout(function () {
+							router.close(self._popup.id, {
+								rel: "popup",
+								history: false
+							});
+						}, self.options.tooltipTimeout);
+					}
+				}
+			}
+
+			function blurCallback(self) {
+				var router = engine.getRouter(),
+					options = self.options;
+
 				// disable Marquee decorator on text element
-				ns.decorator.marquee.disable(instance.ui.container);
-			};
+				ns.decorator.marquee.disable(self.ui.container);
+				if (options.tooltip) {
+					clearTimeout(self._closeTimeout);
+					router.close(self._popup.id, {
+						rel: "popup",
+						history: false
+					});
+				}
+			}
 
 			/**
 			 * Binds events
@@ -240,7 +346,7 @@
 			 * @protected
 			 * @member ns.widget.tv.Button
 			 */
-			prototype._destroy = function() {
+			prototype._destroy = function () {
 				var self = this,
 					element = self.element,
 					callbacks = self._callbacks,

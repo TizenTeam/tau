@@ -35,6 +35,7 @@
 				DOM = ns.util.DOM,
 				CorePopup = ns.widget.core.ContextPopup,
 				CorePopupPrototype = CorePopup.prototype,
+				Page = ns.widget.tv.Page,
 				BaseKeyboardSupport = ns.widget.tv.BaseKeyboardSupport,
 				Popup = function () {
 					var self = this;
@@ -62,7 +63,8 @@
 					headerEmpty: "ui-header-empty",
 					footerEmpty: "ui-footer-empty",
 					content: "ui-popup-content",
-					focus: "ui-focus"
+					focus: "ui-focus",
+					uiPage: Page.classes.uiPage
 				}),
 				selectors = {
 					header: "header",
@@ -116,7 +118,7 @@
 				if (element.classList.contains(classes.toast)) {
 					this._ui.container.classList.add(classes.toast);
 				}
-				page = utilSelectors.getClosestByClass(element, ns.widget.tv.Page.classes.uiPage);
+				page = utilSelectors.getClosestByClass(element, classes.uiPage);
 				this._pageWidget = engine.getBinding(page, "Page");
 			};
 
@@ -194,9 +196,20 @@
 				}
 			};
 
-			prototype.close = function() {
-				var self = this;
+			/**
+			 * Close popup
+			 * @method close
+			 * @protected
+			 * @param {Object} options
+			 * @param {boolean} [options.noBlur=false] Disable blur on close
+			 * @member ns.widget.tv.Popup
+			 */
+			prototype.close = function(options) {
+				var self = this,
+					activeElement,
+					popupElements;
 
+				options = options || {};
 				if (self._isOpened()) {
 					if (typeof CorePopupPrototype.close === FUNCTION_TYPE) {
 						CorePopupPrototype.close.apply(self, arguments);
@@ -208,8 +221,13 @@
 
 					closingOnKeydown(self, false);
 
-					// blur any focused elements
-					document.activeElement.blur();
+					//checking that current focused element is inside this popup
+					activeElement = document.activeElement;
+					popupElements = utilSelectors.getClosestByClass(activeElement, classes.popup);
+					if (popupElements && popupElements.indexOf(self.element) > -1) {
+						// blur any focused elements
+						document.activeElement.blur();
+					}
 				}
 			};
 

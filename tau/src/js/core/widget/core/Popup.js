@@ -1,5 +1,5 @@
 /*global window, define, ns */
-/* 
+/*
  * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
  * License : MIT License V2
  */
@@ -104,6 +104,7 @@
 				 * @property {boolean} [options.overlay=true] Sets whether to show overlay when a popup is open.
 				 * @property {boolean|string} [options.header=false] Sets content of header.
 				 * @property {boolean|string} [options.footer=false] Sets content of footer.
+				 * @property {string} [options.content=null] Sets content of popup.
 				 * @property {string} [options.overlayClass=""] Sets the custom class for the popup background, which covers the entire window.
 				 * @property {string} [options.closeLinkSelector="a[data-rel='back']"] Sets selector for close buttons in popup.
 				 * @property {boolean} [options.history=true] Sets whether to alter the url when a popup is open to support the back button.
@@ -116,6 +117,7 @@
 					overlay: true,
 					header: false,
 					footer: false,
+					content: null,
 					overlayClass: "",
 					closeLinkSelector: "[data-rel='back']",
 					history: true
@@ -203,6 +205,7 @@
 				var self = this,
 					ui = self._ui,
 					selectors = self.selectors,
+					options = self.options,
 					content = ui.content || element.querySelector(selectors.content),
 					footer = ui.footer || element.querySelector(selectors.footer),
 					elementChildren = [].slice.call(element.childNodes),
@@ -218,6 +221,9 @@
 						if (node !== ui.footer && node !== ui.header) {
 							content.appendChild(node);
 						}
+					}
+					if (typeof options.content === "string") {
+						content.innerHTML = options.content;
 					}
 					element.insertBefore(content, footer);
 				}
@@ -463,7 +469,7 @@
 			 * @protected
 			 * @member ns.widget.core.Popup
 			 */
-			prototype._bindEvents = function (element) {
+			prototype._bindEvents = function () {
 				var self = this,
 					closeButtons = self.element.querySelectorAll(self.options.closeLinkSelector);
 
@@ -506,7 +512,7 @@
 			 * @protected
 			 * @member ns.widget.core.Popup
 			 */
-			prototype._unbindEvents = function (element) {
+			prototype._unbindEvents = function () {
 				var self = this,
 					closeButtons = self.element.querySelectorAll(self.options.closeLinkSelector);
 

@@ -393,6 +393,8 @@
 					ui = self._ui,
 					wrapper,
 					arrow,
+
+
 					child = element.firstChild;
 
 				// set class for element
