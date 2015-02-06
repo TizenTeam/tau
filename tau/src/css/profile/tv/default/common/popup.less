@@ -2,6 +2,8 @@
 Normal Popup
 ***********************/
 
+@no_header_border_width: 13 * @virtual_px;
+
 .ui-selectmenu-hidden {
 	top: -9999px;
 	left: -9999px;
@@ -19,6 +21,13 @@ Normal Popup
 	.border-radius(@fixed_popup_border_radius);
 	.box-shadow(0 2 * @virtual_px 5 * @virtual_px @color_popup_shadow);
 
+	&:not(.ui-popup-toast):not(.ui-ctxpopup) {
+		min-height: 411 * @virtual_px;
+
+		&.ui-header-empty {
+			min-height: 305 * @virtual_px;
+		}
+	}
 
 	&:not(.ui-popup-toast) {
 		position: absolute;
@@ -35,8 +44,28 @@ Normal Popup
 
 	&:not(.ui-ctxpopup).ui-header-empty {
 		border-top-color: @color_popup_header_bg;
-		border-top-width: 20 * @virtual_px;
+		border-top-width: @no_header_border_width;
 		border-top-style: solid;
+	}
+
+	.ui-popup-wrapper {
+		.display-flex();
+		.flex-direction(column);
+		.justify-content(space-between);
+	}
+
+	// This block corresponds to the cases where popup is missing header
+	// so the whole block will have different height
+	&:not(.ui-popup-toast):not(.ui-ctxpopup) {
+		.ui-popup-wrapper {
+			min-height: 411 * @virtual_px;
+		}
+
+		&.ui-header-empty {
+			.ui-popup-wrapper {
+				min-height: 305 * @virtual_px - @no_header_border_width;
+			}
+		}
 	}
 
 	header {
@@ -68,7 +97,16 @@ Normal Popup
 		text-align: center;
 		color: @color_popup_text;
 		background-color: @color_popup_bg;
-		padding: 80 * @virtual_px 64 * @virtual_px;
+		padding: 53 * @virtual_px 73 * @virtual_px;
+
+		// For expanding to the whole content
+		.flex(1 0 auto);
+
+		// Become flex parent for the elements below
+		.display-flex();
+		.flex-direction(column);
+		.justify-content(center);
+		.align-items(center);
 
 		p {
 			margin-top: 0;
@@ -89,8 +127,51 @@ Normal Popup
 			li {
 				font-size: @fixed_popup_body_font_size;
 				color: @color_popup_text_content;
-				> *, .ui-btn-text {
+				> *,
+				.ui-btn-text {
 					color: @color_popup_text_content;
+				}
+			}
+		}
+	}
+
+	// Padding is not even when progress bar is inside popup with headers
+	&:not(.ui-header-empty):not(.ui-footer-empty) {
+		.ui-popup-content {
+			// Padding top is 1.125 bigger than bottom (53 * 1.125 ~= 60)
+			padding-top: 64 * @virtual_px;
+			padding-bottom: 56 * @virtual_px;
+		}
+	}
+
+	// Popup settings for progress content
+	&.ui-popup-progress {
+		min-height: 378 * @virtual_px;
+
+		.ui-popup-wrapper {
+			min-height: 378 * @virtual_px;
+		}
+
+		// Wrapper should extend itself to be minimum height as parent
+		&:not(.ui-ctxpopup).ui-header-empty {
+			min-height: 208 * @virtual_px;
+
+			.ui-popup-wrapper {
+				min-height: 208 * @virtual_px - @no_header_border_width;
+			}
+		}
+
+		.ui-popup-content {
+			.flex-direction(row);
+
+			.ui-progress-processing {
+				margin: 0;
+				.flex(0 0 50 * @virtual_px); // Progress wheel width
+
+				& + * {
+					text-align: left;
+					margin-left: 20 * @virtual_px;
+					.flex(0 1 auto);
 				}
 			}
 		}
@@ -156,14 +237,28 @@ Popup with listview
 .ui-popup:not(.ui-ctxpopup) {
 	&.ui-popup-listview {
 		width: 944 * @virtual_px;
-		height: 603 * @virtual_px;
+		//height: 603 * @virtual_px;
+
+		.ui-popup-wrapper {
+			.flex-direction(row);
+			.flex-wrap(wrap);
+		}
+
+		header {
+			.align-self(stretch);
+		}
 
 		.ui-popup-content {
-			float: left;
+			// Stop being flex
+			display: block;
+
 			width: initial;
 			min-width: 670 * @virtual_px;
 			height: 501 * @virtual_px;
 			padding: 0;
+
+			.border-bottom-left-radius(@fixed_popup_border_radius);
+
 			.ui-listview {
 				margin: 0;
 
@@ -181,7 +276,6 @@ Popup with listview
 		}
 
 		footer {
-			float: left;
 			width: 273 * @virtual_px;
 			height: 501 * @virtual_px;
 			background-color: rgb(237, 237, 237) ;

@@ -34,10 +34,10 @@
 
 .tv-progress-rotating() {
 	from {
-		-webkit-transform: rotate(0deg); 
+		-webkit-transform: rotate(360deg);
 	}
 	to {
-		-webkit-transform: rotate(360deg);
+		-webkit-transform: rotate(0deg);
 	}
 }
 
@@ -115,16 +115,17 @@ progress.ui-progress-indeterminate::-webkit-progress-value {
 }
 
 .ui-progress-processing {
-	background-image: url("./images/Progress/tw_widget_popup_activity.png");
-	background-repeat: no-repeat;
-	background-size: 100% 100%;
-        .animation(rotating 1s linear inifite);
-	width:80 * @virtual_px;
-	height:80 * @virtual_px;
-	margin: 0 auto;
-	margin-top: 34 * @virtual_px;
-	margin-bottom: 14 * @virtual_px;
+	background-color: @color_default;
+	.mask-image("./images/Progress/progress_wheel.png");
+	.mask-size(50 * @virtual_px  50 * @virtual_px);
+	.mask-repeat(no-repeat);
+	width: 50 * @virtual_px;
+	height: 50 * @virtual_px;
+	margin: (34 * @virtual_px) auto  (14 * @virtual_px) auto;
+	.animation(rotating 1s linear infinite);
+	// @TODO animation delay causes "Blink" to pause before loading mask, may need a workaround
 }
+
 .ui-processing-text {
 	margin: 0 auto;
 	text-align: center;

@@ -33,7 +33,19 @@
 				<a href="#extendedTextOnlyPopup" class="ui-btn" data-rel="popup">Extended text-only popup</a>
 			</li>
 			<li>
-				<a href="#extended2TextOnlyPopup" class="ui-btn" data-rel="popup">Extended 2 line text-only popup</a>
+				<a href="#extended2TextOnlyPopup" class="ui-btn" data-rel="popup">Extended multi-line text-only popup</a>
+			</li>
+			<li>
+				<a href="#loadingPopup" class="ui-btn" data-rel="popup">Loading popup</a>
+			</li>
+			<li>
+				<a href="#multiLineLoadingPopup" class="ui-btn" data-rel="popup">Multi-line loading popup</a>
+			</li>
+			<li>
+				<a href="#extendedLoadingPopup" class="ui-btn" data-rel="popup">Extended loading popup</a>
+			</li>
+			<li>
+				<a href="#multiLineExtendedLoadingPopup" class="ui-btn" data-rel="popup">Multi-line extended loading popup</a>
 			</li>
 			<li>
 				<a href="#1btnPopup" class="ui-btn" data-rel="popup">1btn popup</a>
@@ -76,8 +88,45 @@
 		<div>
 			<h1>Title example</h1>
 			<p>Check the antenna cable connection.</p>
-			<p>Disconnect and reconnect the antenna cable, wait few seconds to resume watching.</p>
+			<p>Disconnect and reconnect the antenna cable, wait few seconds...</p>
 		</div>
+	</div>
+
+
+	<div id="loadingPopup" data-role="popup" class="ui-popup-progress">
+		<div>
+			<progress data-appeariance="circle"></progress>
+			<span>Loading</span>
+		</div>
+	</div>
+
+	<div id="multiLineLoadingPopup" data-role="popup" class="ui-popup-progress">
+		<div>
+			<progress data-appeariance="circle"></progress>
+			<span>Disconnect and reconnect the antenna cable, wait few seconds...</span>
+		</div>
+	</div>
+
+	<div id="extendedLoadingPopup" data-role="popup" class="ui-popup-progress">
+		<header>Air casting</header>
+		<div>
+			<progress data-appeariance="circle"></progress>
+			<span>Sending to Torn's Galaxy phone</span>
+		</div>
+		<footer>
+			<a data-role="button" id="extendedLoadingPopup-cancel" data-rel="back">Cancel</a>
+		</footer>
+	</div>
+
+	<div id="multiLineExtendedLoadingPopup" data-role="popup" class="ui-popup-progress">
+		<header>Air casting</header>
+		<div>
+			<progress data-appeariance="circle"></progress>
+			<span>Disconnect and reconnect the antenna cable, wait few seconds...</span>
+		</div>
+		<footer>
+			<a data-role="button" id="multiLineExtendedLoadingPopup-cancel" data-rel="back">Cancel</a>
+		</footer>
 	</div>
 
 	<div id="1btnPopup" data-role="popup">
