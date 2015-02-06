@@ -8,6 +8,7 @@
 			listSize = JSON_DATA.length,
 			lastOccuredChar = null,
 			sideIndex = {},
+			firstChar,
 			i;
 
 		vlist = tau.widget.VirtualListview(elList, {
