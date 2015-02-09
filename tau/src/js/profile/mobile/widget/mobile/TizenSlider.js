@@ -1,4 +1,4 @@
-/*global window, define */
+/*global window, define, ns */
 /*
 * Copyright  2010 - 2014 Samsung Electronics Co., Ltd.
 * License : MIT License V2
@@ -116,23 +116,6 @@
 				events = ns.event,
 				objectUtils = ns.util.object,
 				DOM = ns.util.DOM,
-				POPUP_WIDTH = {
-					"SMALL": "2.3rem",
-					"MEDIUM": "2.8rem",
-					"LARGE": "3.0rem"
-				},
-				FONT_SIZE = {
-					"SMALL": "0.95rem",
-					"MEDIUM": "0.85rem",
-					"LARGE": "0.65rem",
-					"DEFAULT": "0.45rem"
-				},
-				FONT_TOP = {
-					"SMALL": "0",
-					"MEDIUM": "-0.01rem",
-					"LARGE": "-0.1rem",
-					"DEFAULT": "-0.15rem"
-				},
 				TizenSlider = function () {
 					Slider.call(this);
 					// Some properties for example .popup must be defined once per slider
@@ -177,8 +160,8 @@
 			sliderBuild = TizenSlider.prototype._build;
 			sliderInit = TizenSlider.prototype._init;
 			sliderBindEvents = TizenSlider.prototype._bindEvents;
-			slider_refresh = TizenSlider.prototype._refresh,
-			slider_setValue = TizenSlider.prototype._setValue
+			slider_refresh = TizenSlider.prototype._refresh;
+			slider_setValue = TizenSlider.prototype._setValue;
 			slider_getValue = TizenSlider.prototype._getValue;
 
 			/**
@@ -211,19 +194,6 @@
 				options.textLeft = "";
 				options.textRight = "";
 			};
-
-			/**
-			 * Check if value is not empty
-			 * @method getValueLength
-			 * @param {number} value
-			 * @return {number}
-			 * @private
-			 * @static
-			 * @member ns.widget.mobile.TizenSlider
-			 */
-			function getValueLength(value) {
-				return (new String(value)).length;
-			}
 
 			/**
 			 * Creates popup element and appends it container passed as argument
@@ -280,7 +250,6 @@
 			TizenSlider.prototype._updateSlider = function () {
 				var self = this,
 					newValue,
-					options = self.options,
 					element = self.element,
 					popupElement;
 
@@ -325,10 +294,11 @@
 			 * @protected
 			 */
 			TizenSlider.prototype._showPopup = function () {
-				var self = this;
+				var self = this,
+					router = engine.getRouter();
 
 				if (self.options.popup && !self.popupVisible) {
-					self._popup.open();
+					router.open(self._popup.id, {rel: "popup", history: false});
 					self.popupVisible = true;
 				}
 			};
@@ -340,10 +310,11 @@
 			 * @protected
 			 */
 			TizenSlider.prototype._hidePopup = function () {
-				var self = this;
+				var self = this,
+					router = engine.getRouter();
 
 				if (self.options.popup && self.popupVisible) {
-					self._popup.close();
+					router.close(self._popup.id, {rel: "popup", history: false});
 					self.popupVisible = false;
 				}
 			};
@@ -445,7 +416,7 @@
 					ui.background.classList.remove(btnClasses.uiBtnCornerAll);
 				}
 				self._ui.handle.classList.remove(btnClasses.uiBtnCornerAll);
-				slider.querySelector('.' + btnClasses.uiBtnInner).classList.remove(btnClasses.uiBtnCornerAll);
+				slider.querySelector("." + btnClasses.uiBtnInner).classList.remove(btnClasses.uiBtnCornerAll);
 
 				switch (icon) {
 				case "bright":

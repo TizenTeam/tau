@@ -9,7 +9,7 @@ test('Default slider', function () {
 
 	equal(slider.getAttribute('data-tau-bound'), "Slider", "Slider widget is created");
 	ok(slider.classList.contains('ui-slider-input'), 'Slider has ui-slider-input class');
-	ok(slider.parentElement.querySelector("div[role='application']").classList.contains('ui-slider'), 'Slider has uislider class and container for div was built successfully');
+	ok(slider.parentElement.parentElement.querySelector("div[role='application']").classList.contains('ui-slider'), 'Slider has uislider class and container for div was built successfully');
 });
 test('highlight slider', function () {
 	var slider = document.getElementById('mySlider10');
@@ -17,7 +17,7 @@ test('highlight slider', function () {
 
 	equal(slider.getAttribute('data-tau-bound'), "Slider", "Slider widget is created");
 	ok(slider.classList.contains('ui-slider-input'), 'Slider has ui-slider-input class');
-	ok(slider.parentElement.querySelector("div[role='application']").classList.contains('ui-slider'), 'Slider has uislider class and container for div was built successfully');
+	ok(slider.parentElement.parentElement.querySelector("div[role='application']").classList.contains('ui-slider'), 'Slider has uislider class and container for div was built successfully');
 });
 test('Select slider', function () {
 	var slider = document.getElementById('mySlider11');
@@ -25,7 +25,7 @@ test('Select slider', function () {
 
 	equal(slider.getAttribute('data-tau-bound'), "Slider", "Slider widget is created");
 	ok(slider.classList.contains('ui-slider-switch'), 'Slider has ui-slider-switch class');
-	ok(slider.parentElement.querySelector("div[role='application']").classList.contains('ui-slider'), 'Slider has uislider class and container for div was built successfully');
+	ok(slider.parentElement.parentElement.querySelector("div[role='application']").classList.contains('ui-slider'), 'Slider has uislider class and container for div was built successfully');
 });
 test('Select slider', function () {
 	var slider = document.getElementById('mySlider12');
@@ -33,7 +33,7 @@ test('Select slider', function () {
 
 	equal(slider.getAttribute('data-tau-bound'), "Slider", "Slider widget is created");
 	ok(slider.classList.contains('ui-slider-switch'), 'Slider has ui-slider-switch class');
-	ok(slider.parentElement.querySelector("div[role='application']").classList.contains('ui-slider'), 'Slider has uislider class and container for div was built successfully');
+	ok(slider.parentElement.parentElement.querySelector("div[role='application']").classList.contains('ui-slider'), 'Slider has uislider class and container for div was built successfully');
 
 });
 test('Vertical slider', function () {
@@ -42,7 +42,7 @@ test('Vertical slider', function () {
 
 	equal(slider.getAttribute('data-tau-bound'), "Slider", "Slider widget is created");
 	ok(slider.classList.contains('ui-slider-input'), 'Slider has ui-slider-input class');
-	ok(slider.parentElement.querySelector("div[role='application']").classList.contains('ui-slider'), 'Slider has uislider class and container for div was built successfully');
+	ok(slider.parentElement.parentElement.querySelector("div[role='application']").classList.contains('ui-slider'), 'Slider has uislider class and container for div was built successfully');
 });
 
 asyncTest('slider events', 1, function () {
@@ -50,7 +50,7 @@ asyncTest('slider events', 1, function () {
 		handle;
 	tau.widget.Slider(slider);
 
-	handle = slider.parentElement.querySelector('.ui-slider-handle');
+	handle = slider.parentElement.parentElement.querySelector('.ui-slider-handle');
 	document.addEventListener('change', function() {
 		ok(1);
 		start();

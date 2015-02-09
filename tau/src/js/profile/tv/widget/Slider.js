@@ -1,4 +1,4 @@
-/*global window, define, ns */
+/*global ns */
 /*
  * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
  * License : MIT License V2
@@ -92,7 +92,6 @@
 					BaseKeyboardSupport.call(self);
 					self._pageWidget = null;
 					self._callbacks = {};
-					self.status = false;
 				},
 				engine = ns.engine,
 				selectors = ns.util.selectors,
@@ -134,34 +133,17 @@
 			 * @member ns.widget.tv.Slider
 			 */
 			function onKeyup(self, event) {
-				var status = self.status;
+				var keyCode = event.keyCode;
 
-				if (event.keyCode === KEY_CODES.enter) {
-					if (status) {
-						self._ui.container.focus();
+				switch (keyCode) {
+					case KEY_CODES.up:
+					case KEY_CODES.down:
 						self._pageWidget.enableKeyboardSupport();
-					} else {
-						self._ui.handle.focus();
-						showPopup(self);
+						break;
+					case KEY_CODES.left:
+					case KEY_CODES.right:
 						self._pageWidget.disableKeyboardSupport();
-					}
-					self.status = !status;
-				}
-			}
-
-			/**
-			 * Keydown event-handling method.
-			 * @method onKeydown
-			 * @param {ns.widget.tv.Slider} self
-			 * @param {Event} event
-			 * @private
-			 * @static
-			 * @member ns.widget.tv.Slider
-			 */
-			function onKeydown(self, event) {
-				if (event.keyCode !== KEY_CODES.enter && !self.status) {
-					event.preventDefault();
-					event.stopPropagation();
+						break;
 				}
 			}
 
@@ -175,6 +157,7 @@
 			 */
 			function onFocus(self) {
 				self._ui.container.classList.add("ui-focus");
+				showPopup(self);
 			}
 
 			/**
@@ -187,6 +170,7 @@
 			 */
 			function onBlur(self) {
 				self._ui.container.classList.remove("ui-focus");
+				self._hidePopup();
 			}
 
 			/**
@@ -259,14 +243,12 @@
 				BaseSliderPrototype._bindEvents.call(this, element);
 
 				callbacks.onKeyup = onKeyup.bind(null, this);
-				callbacks.onKeydown = onKeydown.bind(null, this);
 				callbacks.onFocus = onFocus.bind(null, this);
 				callbacks.onBlur = onBlur.bind(null, this);
 
 				this._bindEventKey();
 
-				container.addEventListener("keyup", callbacks.onKeyup, false);
-				container.addEventListener("keydown", callbacks.onKeydown, true);
+				container.addEventListener("keyup", callbacks.onKeyup, true);
 				container.addEventListener("focus", callbacks.onFocus, true);
 				container.addEventListener("blur", callbacks.onBlur, true);
 			};
@@ -342,7 +324,7 @@
 
 					self.trigger("update", newValue);
 				} else {
-					// If text doesn't change reposition only popup
+					// If text doesn"t change reposition only popup
 					// no need to run full refresh
 					if (self._popup) {
 						self._popup.reposition();
@@ -363,7 +345,6 @@
 
 				this._destroyEventKey();
 				container.removeEventListener("keyup", callbacks.onKeyup, false);
-				container.removeEventListener("keydown", callbacks.onKeydown, false);
 				ui.handle.removeEventListener("focus", callbacks.onFocus, true);
 				container.removeEventListener("blur", callbacks.onBlur, true);
 

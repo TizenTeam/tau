@@ -1,4 +1,4 @@
-/*global window, define */
+/*global window, define, ns */
 /*
 * Copyright  2010 - 2014 Samsung Electronics Co., Ltd.
 * License : MIT License V2
@@ -195,6 +195,7 @@
 						vertical: false
 					};
 					self._ui = {};
+					self._callbacks = {};
 					//container background
 					self.valueBackGround = null;
 					self.dragging = false;
@@ -288,8 +289,8 @@
 			 * @member ns.widget.mobile.Slider
 			 */
 			function findLabel(element) {
-				return element.parentNode.querySelector('label[for="' +
-						element.id + '"]');
+				return element.parentNode.querySelector("label[for='" +
+						element.id + "']");
 			}
 
 			/**
@@ -307,8 +308,8 @@
 					getElementWidth = DOMutils.getElementWidth.bind(DOMutils),
 					handlePercent = getElementWidth(shandle, "outer") /
 							getElementWidth(ui.slider, "outer") * 100,
-					aPercent = percent && handlePercent + (100 - handlePercent)
-							* percent / 100,
+					aPercent = percent && handlePercent + (100 - handlePercent) *
+							percent / 100,
 					bPercent = percent === 100 ? 0 : Math.min(handlePercent +
 							100 - aPercent, 100),
 					labels = ui.labels,
@@ -318,8 +319,8 @@
 				while (i--) {
 					label = labels[i];
 					label.style.width = 
-							(label.classList.contains(classes.sliderLabelA)
-									? aPercent : bPercent) + "%";
+							(label.classList.contains(classes.sliderLabelA) ?
+									aPercent : bPercent) + "%";
 				}
 			}
 
@@ -367,8 +368,8 @@
 			 * @method refresh
 			 * @param {ns.widget.mobile.Slider} self
 			 * @param {Object|number|null} val
-			 * @param {boolean} isfromControl
-			 * @param {boolean} preventInputUpdate
+			 * @param {boolean} [isfromControl = false]
+			 * @param {boolean} [preventInputUpdate = false]
 			 * @private
 			 * @static
 			 * @member ns.widget.mobile.Slider
@@ -853,6 +854,7 @@
 				element.parentNode.insertBefore(sliderContainer,
 						element.nextSibling);
 
+				sliderContainer.appendChild(element);
 				engine.instanceWidget(domHandle, "Button");
 
 				return element;
@@ -876,14 +878,14 @@
 				ui.container = document.getElementById(elementId +
 						"-container") || element;
 				ui.background = ui.slider.querySelector(self.options.vertical ?
-					"." + Slider.classes.sliderBgVertical :
-					"." + Slider.classes.sliderBg);
+					"." + classes.sliderBgVertical :
+					"." + classes.sliderBg);
 				self._type = element.tagName.toLowerCase();
 				ui.labels = selectors.getChildrenByClass(ui.slider,
-						Slider.classes.sliderLabel);
-				if ( self.options.center && ui.background )
-					ui.background.classList.add(
-							Slider.classes.sliderBgHasCenter);
+						classes.sliderLabel);
+				if ( self.options.center && ui.background ) {
+					ui.background.classList.add(classes.sliderBgHasCenter);
+				}
 				refresh(self, self._getValue());
 			};
 
@@ -1012,55 +1014,29 @@
 			};
 
 			/**
-			 * Bind events to widget
-			 * @method _bindEvents
-			 * @protected
+			 * Callback for event keydown
+			 * @method onKeyDown
+			 * @param {ns.widget.mobile.Slider} self
+			 * @param {Event} event
+			 * @private
+			 * @static
 			 * @member ns.widget.mobile.Slider
 			 */
-			Slider.prototype._bindEvents = function (element) {
-				var self = this,
-					ui = self._ui,
-					handle = ui.handle,
+			function onKeyDown(self, event) {
+				var element = self.element,
 					tagName = element.nodeName.toLowerCase(),
-					slider = ui.slider,
-					step = parseFloat( self.element.getAttribute( "step" ) ||
-							1 ),
+					index = getInitialValue(tagName, element),
+					keyCode = Slider.keyCode,
+					classList = event.target.classList,
+					step = parseFloat( self.element.getAttribute( "step" ) || "1" ),
 					min = tagName === "input" ?
-							parseFloat(element.getAttribute("min")) : 0,
-					max = tagName === "input"
-							? parseFloat(element.getAttribute("max")) :
-									element.getElementsByTagName(
-											"option").length - 1;
+						parseFloat(element.getAttribute("min")) : 0,
+					max = tagName === "input" ?
+						parseFloat(element.getAttribute("max")) :
+					element.getElementsByTagName("option").length - 1;
 
-				element.addEventListener("change", function () {
-					if (!self.mouseMoved) {
-						refresh(self, self._getValue(), true);
-					}
-				}, false);
 
-				element.addEventListener("keyup", function () {
-					refresh(self, self._getValue(), true, true);
-				}, false);
-
-				element.addEventListener("blur", function () {
-					refresh(self, self._getValue(), true);
-				}, false);
-
-				handle.addEventListener("vmousedown", function (event) {
-					events.trigger(event.target, "focus");
-				}, false);
-				handle.addEventListener("vclick", function (event) {
-					event.stopPropagation();
-					event.preventDefault();
-				}, false);
-				handle.addEventListener("keydown", function (event) {
-					var index = getInitialValue(tagName, element),
-						keyCode = Slider.keyCode,
-						classList = event.target.classList;
-
-					if (self.options.disabled) {
-						return;
-					}
+				if (!self.options.disabled) {
 
 					// In all cases prevent the default and mark the handle
 					// as active
@@ -1069,9 +1045,7 @@
 						case keyCode.END:
 						case keyCode.PAGE_UP:
 						case keyCode.PAGE_DOWN:
-						case keyCode.UP:
 						case keyCode.RIGHT:
-						case keyCode.DOWN:
 						case keyCode.LEFT:
 							event.preventDefault();
 
@@ -1090,20 +1064,69 @@
 							refresh(self, max);
 							break;
 						case keyCode.PAGE_UP:
-						case keyCode.UP:
 						case keyCode.RIGHT:
 							refresh(self, index + step);
 							break;
 						case keyCode.PAGE_DOWN:
-						case keyCode.DOWN:
 						case keyCode.LEFT:
 							//self.refresh(index - step);
 							refresh(self, index - step);
 							break;
 					}
+				}
+			}
 
+			/**
+			 * Callback for event keyup
+			 * @method onKeyUp
+			 * @param {ns.widget.mobile.Slider} self
+			 * @private
+			 * @static
+			 * @member ns.widget.mobile.Slider
+			 */
+			function onKeyUp (self) {
+				refresh(self, self._getValue(),	true, true);
+			}
 
+			/**
+			 * Bind events to widget
+			 * @method _bindEvents
+			 * @protected
+			 * @member ns.widget.mobile.Slider
+			 */
+			Slider.prototype._bindEvents = function (element) {
+				var self = this,
+					ui = self._ui,
+					handle = ui.handle,
+					callbacks = self._callbacks,
+					tagName = element.nodeName.toLowerCase(),
+					slider = ui.slider;
+
+				element.addEventListener("change", function () {
+					if (!self.mouseMoved) {
+						refresh(self, self._getValue(), true);
+					}
 				}, false);
+
+				callbacks.keyUp = onKeyUp.bind(null,self);
+				callbacks.keyDown = onKeyDown.bind(null, self);
+
+				ui.container.addEventListener("keyup", callbacks.keyUp, false);
+
+				element.addEventListener("blur", function () {
+					refresh(self, self._getValue(), true);
+				}, false);
+
+				handle.addEventListener("vmousedown", function (event) {
+					events.trigger(event.target, "focus");
+				}, false);
+				handle.addEventListener("vclick", function (event) {
+					event.stopPropagation();
+					event.preventDefault();
+				}, false);
+
+				ui.container.addEventListener("keydown", callbacks.keyDown, false);
+
 				handle.addEventListener("keyup", function () {
 					if (self._keySliding) {
 						self._keySliding = false;
