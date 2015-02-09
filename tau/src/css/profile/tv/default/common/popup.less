@@ -31,15 +31,6 @@ Normal Popup
 
 	&:not(.ui-popup-toast) {
 		position: absolute;
-
-		.ui-popup-content {
-			&:last-child {
-				-webkit-border-bottom-left-radius: @fixed_popup_border_radius;
-				-webkit-border-bottom-right-radius: @fixed_popup_border_radius;
-				border-bottom-left-radius: @fixed_popup_border_radius;
-				border-bottom-right-radius: @fixed_popup_border_radius;
-			}
-		}
 	}
 
 	&:not(.ui-ctxpopup).ui-header-empty {
@@ -83,10 +74,7 @@ Normal Popup
 		white-space: nowrap;
 
 		&:first-child {
-			-webkit-border-top-left-radius: @fixed_popup_border_radius;
-			-webkit-border-top-right-radius: @fixed_popup_border_radius;
-			border-top-left-radius: @fixed_popup_border_radius;
-			border-top-right-radius: @fixed_popup_border_radius;
+			.border-top-radius(@fixed_popup_border_radius);
 		}
 	}
 
@@ -107,6 +95,14 @@ Normal Popup
 		.flex-direction(column);
 		.justify-content(center);
 		.align-items(center);
+
+		&:first-child {
+			.border-top-radius(@fixed_popup_border_radius);
+		}
+
+		&:last-child {
+			.border-bottom-radius(@fixed_popup_border_radius);
+		}
 
 		p {
 			margin-top: 0;
@@ -184,10 +180,7 @@ Normal Popup
 		margin: 0;
 
 		&:last-child {
-			-webkit-border-bottom-left-radius: @fixed_popup_border_radius;
-			-webkit-border-bottom-right-radius: @fixed_popup_border_radius;
-			border-bottom-left-radius: @fixed_popup_border_radius;
-			border-bottom-right-radius: @fixed_popup_border_radius;
+			.border-bottom-radius(@fixed_popup_border_radius);
 		}
 
 		&.ui-grid-col-2 {
@@ -307,18 +300,32 @@ Popup Toast
 		bottom: 0;
 		top: auto;
 		height: auto;
+		min-height: 205 * @virtual_px;
 
 		&.ui-header-empty {
 			border: 0;
 		}
 
 		.ui-popup-content {
-			padding: 10*@virtual_px 16*@virtual_px 10*@virtual_px 16*@virtual_px;
+			display: table-cell;
+			vertical-align: middle;
 			background-color: @color_popup_bg;
 			text-align: center;
+			// 53vpx = 205vpx - 3 * (line height).
+			// 3 lines is the max toast capacity in UX Guide
+			padding: 53 * @virtual_px 73 * @virtual_px;
 		}
 	}
 }
+
+.ui-popup-wrapper {
+	&.ui-popup-toast {
+		display: table;
+		min-height: 205 * @virtual_px;
+		width: 100%;
+	}
+}
+
 
 /****************************************
 Active Popup
@@ -356,7 +363,8 @@ Context Popup
 
 	.ui-popup-content {
 		padding: 0;
-		border-radius: 4 * @virtual_px;
+		.border-radius(4 * @virtual_px);
+
 		li {
 			a.ui-btn {
 				color: inherit;

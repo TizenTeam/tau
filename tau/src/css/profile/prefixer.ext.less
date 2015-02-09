@@ -167,6 +167,16 @@
 	border-bottom-right-radius: @radius;
 }
 
+.border-top-radius(@radius) {
+	.border-top-left-radius(@radius);
+	.border-top-right-radius(@radius);
+}
+
+.border-bottom-radius(@radius) {
+	.border-bottom-left-radius(@radius);
+	.border-bottom-right-radius(@radius);
+}
+
 .touch-scrolling() {
 	-webkit-overflow-scrolling: touch;
 	-moz-overflow-scrolling: touch;
