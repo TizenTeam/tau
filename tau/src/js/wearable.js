@@ -38,6 +38,7 @@
 			"./profile/wearable/widget/wearable/PageIndicator",
 			"./profile/wearable/helper/SnapListMarqueeStyle",
 			"./profile/wearable/helper/ExpandableHeaderMarqueeStyle",
+			"./profile/wearable/helper/DrawerMoreStyle",
 			"./profile/wearable/router/Router",
 			"./profile/wearable/router/route/page",
 			"./profile/wearable/router/route/popup",
