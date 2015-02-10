@@ -30,7 +30,13 @@
 	<FontInfo id="T041S" style="L" size="32" />
 	<FontInfo id="T191" style="R" size="28" />
 	<FontInfo id="T271" style="L" size="42" />
-	<FontInfo id="T271P" style="L" size="64" />
+	<FontInfo id="T271P" style="L" size="42" />
+	<FontInfo id="T271S" style="L" size="64" />
+	<FontInfo id="T271D" style="L" size="42" />
+	<FontInfo id="T272" style="L" size="39" />
+	<FontInfo id="T272P" style="L" size="39" />
+	<FontInfo id="T272S" style="L" size="46" />
+	<FontInfo id="T272D" style="L" size="39" />
 	<FontInfo id="T071" style="L" size="30" giant="true" />
 	<FontInfo id="T0811" style="L" size="36" giant="true" />
 	<FontInfo id="T0812" style="R" size="30" giant="true" />
