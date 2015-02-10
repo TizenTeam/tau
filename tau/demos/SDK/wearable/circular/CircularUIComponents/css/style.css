@@ -191,7 +191,7 @@
 }
 
 .select-btn {
-	position: absolute;
+	position: fixed;
 	top: 22px;
 	left: 50%;
 	-webkit-transform: translateX(-50%);

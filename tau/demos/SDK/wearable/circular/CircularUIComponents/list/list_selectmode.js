@@ -18,11 +18,11 @@
 		addFunction = function(event){
 			var target = event.target;
 			if ( !target.classList.contains("select")) {
-				target.className = "select";
+				target.classList.add("select");
 				selectCount++;
 				modeShow();
 			} else {
-				target.className = "static";
+				target.classList.remove("select");
 				selectCount--;
 				if (selectCount <= 0) {
 					modeHide();
@@ -33,14 +33,14 @@
 		},
 		fnSelectAll = function(){
 			for (i = 0; i < listLength; i++) {
-				list[i].className = "select";
+				list[i].classList.add("select");
 			}
 			selectCount = listLength;
 			modeShow();
 		},
 		fnDeselectAll = function(){
 			for (i = 0; i < listLength; i++) {
-				list[i].className = "static";
+				list[i].classList.remove("select");
 			}
 			modeHide();
 		};
