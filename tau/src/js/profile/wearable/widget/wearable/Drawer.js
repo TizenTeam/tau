@@ -291,6 +291,8 @@
 				}
 				options.width = options.width || element.offsetWidth;
 
+				ui._targetElement.style.overflowX = "hidden";
+
 				CoreDrawerPrototype._init.call(self, element);
 			};
 			/**
