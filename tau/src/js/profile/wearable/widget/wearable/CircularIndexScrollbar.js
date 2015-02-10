@@ -183,6 +183,7 @@
 				},
 
 				classes = {
+					INDEXSCROLLBAR: "ui-circularindexscrollbar",
 					INDEXBAR: "ui-circularindexscrollbar-indexbar",
 					INDICATOR: "ui-circularindexscrollbar-indicator",
 					INDICATOR_TEXT: "ui-circularindexscrollbar-indicator-text",
@@ -236,6 +237,8 @@
 			prototype._init = function(element) {
 				var self = this,
 					options = self.options;
+
+				element.classList.add(classes.INDEXSCROLLBAR);
 
 				self._setIndices(options.index);
 				self._draw();
