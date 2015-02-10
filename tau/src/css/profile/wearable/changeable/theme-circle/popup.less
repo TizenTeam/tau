@@ -49,7 +49,7 @@ Normal Popup
 			text-indent: -9999px;
 			&.ui-btn-footer-icon::before {
 				content: "";
-				background-color: @color_popup_button_bg;
+				background-color: @color_popup_button_icon_bg;
 				-webkit-mask-size: @fixed_popup_icon_width @fixed_popup_icon_height;
 				-webkit-mask-repeat: no-repeat;
 				width: @fixed_popup_icon_width;
@@ -68,8 +68,9 @@ Normal Popup
 			}
 		}
 		.ui-btn:active {
+			background-color: @color_popup_button_bg_press;
 			&.ui-btn-footer-icon::before {
-				background-color: @color_popup_button_bg_press;
+				background-color: @color_popup_button_icon_bg_press;
 			}
 		}
 		.ui-btn:not(:only-child):nth-child(1) {
