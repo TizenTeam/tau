@@ -1,5 +1,5 @@
 #!/bin/bash
-BUILD_URL="http://10.252.81.192:8080/job/build-bot/"$BUILD_NUMBER
+BUILD_URL="http://10.251.22.242:8080/job/build-bot/"$BUILD_NUMBER
 comment=""
 files=$(git diff-tree --name-only -r $GIT_COMMIT | grep tau/src/js | sed "s/tau\///g")
 count=0
