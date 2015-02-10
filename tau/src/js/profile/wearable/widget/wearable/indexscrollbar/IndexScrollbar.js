@@ -673,6 +673,10 @@
 
 					iBar1.select( idx );	// highlight selected value
 
+					document.addEventListener(POINTER_MOVE, this.eventHandlers.touchMove);
+					document.addEventListener(POINTER_END, this.eventHandlers.touchEnd);
+					document.addEventListener("touchcancel", this.eventHandlers.touchEnd);
+
 					this._updateIndicatorAndTriggerEvent( val );
 				},
 
@@ -752,6 +756,10 @@
 						self.indexBar2.clearSelected();
 						self.indexBar2.hide();
 					}
+
+					document.removeEventListener(POINTER_MOVE, self.eventHandlers.touchMove);
+					document.removeEventListener(POINTER_END, self.eventHandlers.touchEnd);
+					document.removeEventListener("touchcancel", self.eventHandlers.touchEnd);
 				},
 
 				/**
@@ -815,9 +823,6 @@
 					self.eventHandlers.touchMove = self._onTouchMoveHandler.bind(self);
 
 					self.element.addEventListener(POINTER_START, self.eventHandlers.touchStart);
-					document.addEventListener(POINTER_MOVE, self.eventHandlers.touchMove);
-					document.addEventListener(POINTER_END, self.eventHandlers.touchEnd);
-					document.addEventListener("touchcancel", self.eventHandlers.touchEnd);
 				},
 
 				/**
@@ -829,9 +834,6 @@
 				_unbindEventToTriggerSelectEvent: function() {
 					var self = this;
 					self.element.removeEventListener(POINTER_START, self.eventHandlers.touchStart);
-					document.removeEventListener(POINTER_MOVE, self.eventHandlers.touchMove);
-					document.removeEventListener(POINTER_END, self.eventHandlers.touchEnd);
-					document.removeEventListener("touchcancel", self.eventHandlers.touchEnd);
 				},
 
 				/**
