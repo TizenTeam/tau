@@ -117,10 +117,16 @@ Popup Container Scroll
 Popup Toast
 ****************************************/
 .ui-popup.ui-popup-toast {
-	bottom: 51 * @unit_base;
+	bottom: 43 * @unit_base;
 	border: 3px solid @color_toast_popup_border;
+	position: fixed;
+	max-height: 220 * @unit_base;
 	.ui-popup-content {
 		background-color: @color_popup_bg;
+		padding: 13 * @px_base 40 * @px_base 12 * @px_base;
+		font-size: 32 * @px_base;
+		text-align: center;
+		line-height: 42 * @px_base;
 	}
 }
 
