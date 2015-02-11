@@ -180,10 +180,10 @@
 
 				self._callbacks.scrollEnd = scrollEndCallback;
 
-				clearTimeout(self._timer);
+				window.clearTimeout(self._timer);
 				removeSelectedClass(self);
 
-				self._timer = setTimeout(scrollEndCallback, SCROLL_END_TIME_THRESHOLD);
+				self._timer = window.setTimeout(scrollEndCallback, SCROLL_END_TIME_THRESHOLD);
 			}
 
 			function rotaryDetentHandler(self, event) {
@@ -315,6 +315,9 @@
 				self._ui = null;
 				self._callbacks = null;
 				self._isScrollStarted = null;
+				if (self._timer) {
+					window.clearTimeout(self._timer);
+				}
 				self._timer = null;
 				self._selectedIndex = null;
 
