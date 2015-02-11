@@ -46,10 +46,16 @@
 					self.selectors = selectors;
 					self._nearestLinkForArrow = null;
 				},
+				/**
+				 * @property {string} [arrow="t,b,l,r"] Define priority of arrow position in context popup
+				 * @property {number} [distance=16] define distance between element and border of popup
+				 * @property {number|HTMLElement|boolean|null} [autofocus=0] define element which should be focused after open popup
+				 */
 				defaults = objectUtils.merge({}, CorePopup.defaults, {
 					arrow: "t,b,l,r",
-					distance: 10,
-					positionTo: "window"
+					distance: 16,
+					positionTo: "window",
+					autofocus: 0
 				}),
 				classes = objectUtils.merge({}, CorePopup.classes, {
 					toast: "ui-popup-toast",

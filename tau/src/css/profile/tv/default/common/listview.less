@@ -147,6 +147,67 @@
 	}
 }
 
+.ui-popup-listview.ui-ctxpopup {
+	.ui-listview {
+		li {
+			padding: 0;
+			border-color: @color_popover_border;
+			a.ui-btn {
+				padding: 0;
+				margin: 0;
+
+				.ui-background {
+					background-color: @default_color;
+				}
+
+				.ui-btn-inner {
+					min-width: 220 * @virtual_px;
+					.ui-btn-text {
+						padding: 25 * @virtual_px;
+						color: @color_popover;
+						margin: 0;
+					}
+					.ui-icon {
+						height: 37 * @virtual_px;
+						width: 37 * @virtual_px;
+						top: 20 * @virtual_px;
+						left: 32 * @virtual_px;
+						-webkit-mask-size:  37 * @virtual_px  37 * @virtual_px;
+
+					}
+				}
+
+				&.ui-state-disabled {
+					background-color: white;
+					.ui-btn-inner {
+						.ui-btn-text {
+							color: @color_popover_disbaled;
+						}
+					}
+				}
+
+				&.ui-focus {
+					.ui-btn-inner {
+						.ui-btn-text {
+							color: @color_popover_focus;
+						}
+					}
+				}
+
+				&.ui-btn-icon-left {
+					.ui-btn-inner {
+						min-width: 310 * @virtual_px;
+						.ui-btn-text {
+							padding-left: 89 * @virtual_px;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+
 .ui-content > .ui-listview,
 .ui-content > .ui-scrollview-view > .ui-listview,
 {
