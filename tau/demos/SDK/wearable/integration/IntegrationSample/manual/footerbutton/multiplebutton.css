@@ -1,0 +1,51 @@
+.drawer-elem {
+	display: none;
+}
+
+@media all and (-tizen-geometric-shape: circle) {
+    .drawer-handler {
+        width:24px;
+        height: 115px;
+        position: fixed;
+        top: 122px;
+        right: 0;
+        color: transparent;
+        background-color: #a4a4a4;
+        -webkit-mask-image: url(./b_more_option.png);
+        -webkit-mask-size: 18px 36px;
+        -webkit-mask-repeat: no-repeat;
+        -webkit-mask-position: 0 40px;
+    }
+    .drawer-elem {
+		display: block;
+		background-color: rgba(255, 255, 255, 0.1);
+		border-radius: 100%;
+	}
+	.sections,
+	.options {
+		text-align: center;
+	}
+	.option-button {
+		width: 158px;
+		height: 158px;
+		background-color: #a4a4a4;
+		position: relative;
+		left: 50%;
+		transform: translate3d(-50%, -50%, 0);
+		top: 50%;
+		border-radius: 50%;
+		border: none;
+		text-align: center;
+		line-height: 158px;
+		-webkit-appearance: none;
+	}
+
+    .ui-btn::before {
+        left: 25%;
+        -webkit-mask-image: url("./tw_list_add_holo_dark.png");
+    }
+
+    .ui-bottom-button a + a {
+        display: none;
+    }
+}
