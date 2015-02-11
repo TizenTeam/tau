@@ -113,7 +113,9 @@ Normal Popup
 		h1 {
 			font-size: @fixed_popup_body_title_font_size;
 			font-weight: bold;
-			line-height: 64 * @virtual_px;
+			line-height: 35 * @virtual_px;
+			padding-top: 14.5 * @virtual_px;
+			padding-bottom: 14.5 * @virtual_px;
 			margin-top: 0;
 			margin-bottom: 0;
 		}
@@ -424,5 +426,18 @@ Context Popup
 		&.ui-focus {
 			background-color: @color_default;
 		}
+	}
+}
+
+/***********************
+    Custom Popup
+***********************/
+.ui-popup.ui-popup-custom {
+	.ui-popup-header-icon {
+		vertical-align: middle;
+		margin-right: 14 * @virtual_px;
+		max-height: 50 * @virtual_px;
+		height: auto;
+		width: auto;
 	}
 }

@@ -48,14 +48,20 @@
 					self._nearestLinkForArrow = null;
 				},
 				/**
-				 * @property {string} [arrow="t,b,l,r"] Define priority of arrow position in context popup
-				 * @property {number} [distance=16] define distance between element and border of popup
+				 * Default properties for TV implementation of Popup
+				 * @property {Object} default
+				 * @property {string} default.arrow="t,b,l,r"
+				 * @property {number} default.distance=10
+				 * @property {string|null} default.headerIcon=null
+				 * @property {string|null} default.mainColor=null
 				 * @property {number|HTMLElement|boolean|null} [autofocus=0] define element which should be focused after open popup
 				 */
 				defaults = objectUtils.merge({}, CorePopup.defaults, {
 					arrow: "t,b,l,r",
 					distance: 16,
 					positionTo: "window",
+					headerIcon: null,
+					mainColor: null,
 					autofocus: 0
 				}),
 				classes = objectUtils.merge({}, CorePopup.classes, {
@@ -63,6 +69,8 @@
 					headerEmpty: "ui-header-empty",
 					footerEmpty: "ui-footer-empty",
 					content: "ui-popup-content",
+					custom: "ui-popup-custom",
+					headerIcon: "ui-popup-header-icon",
 					focus: "ui-focus",
 					uiPage: Page.classes.uiPage
 				}),
@@ -84,6 +92,65 @@
 			Popup.prototype = prototype;
 
 			/**
+			 * Sets header icon based on options
+			 * @param {ns.widget.tv.Popup} self
+			 * @param {HTMLElement} element
+			 */
+			function setHeaderIcon(self, element) {
+				var ui = self._ui,
+					uiHeader = ui.header,
+					headerIconElement,
+					headerText;
+
+				// Prepend header icon if was given as option
+				if (uiHeader && self.options.headerIcon) {
+					element = element || self.element;
+
+					headerIconElement = element.querySelector("." + classes.headerIcon);
+
+					if (!headerIconElement) {
+						headerIconElement = document.createElement("img");
+						headerIconElement.classList.add(classes.headerIcon);
+						headerText = uiHeader.firstChild;
+
+						// Remove spaces inside blocks for keeping constant space between icon and text
+						headerText.textContent = headerText.textContent.trim();
+
+						// Insert before first child (first child should be a text node)
+						uiHeader.insertBefore(headerIconElement, headerText);
+					}
+
+					headerIconElement.src = self.options.headerIcon;
+					ui.headerIcon = headerIconElement;
+
+					// Add custom flag to make sure CSS props will work
+					element.classList.add(classes.custom);
+				}
+			}
+
+			/**
+			 * Sets custom colors for widget elements if defined in options
+			 * @param {ns.widget.tv.Popup} self
+			 * @param {HTMLElement} element
+			 */
+			function setCustomPopupColors(self, element) {
+				var options = self.options;
+
+				element = element || self.element;
+
+				if (options.mainColor) {
+					if (self._ui.header) {
+						self._ui.header.style.backgroundColor = options.mainColor;
+					} else {
+						element.style.borderTopColor = options.mainColor;
+					}
+
+					// Add custom flag to make sure CSS props will work
+					element.classList.add(classes.custom);
+				}
+			}
+
+			/**
 			 * Build the popup DOM tree
 			 * @method _build
 			 * @protected
@@ -92,13 +159,17 @@
 			 * @member ns.widget.tv.Popup
 			 */
 			prototype._build = function (element) {
-				var ui = this._ui;
+				var ui = this._ui,
+					options = this.options,
+					uiHeader;
 
 				if (typeof CorePopupPrototype._build === FUNCTION_TYPE) {
 					CorePopupPrototype._build.apply(this, arguments);
 				}
 
-				if (!ui.header) {
+				uiHeader = ui.header;
+
+				if (!uiHeader) {
 					element.classList.add(classes.headerEmpty);
 				}
 
@@ -106,20 +177,27 @@
 					element.classList.add(classes.footerEmpty);
 				}
 
+				// Settings for customized popups
+				setHeaderIcon(this, element);
+
 				return element;
 			};
 
 			prototype._init = function(element) {
-				var page;
+				var page,
+					ui = this._ui;
 
 				if (typeof CorePopupPrototype._init === FUNCTION_TYPE) {
 					CorePopupPrototype._init.call(this, element);
 				}
 				if (element.classList.contains(classes.toast)) {
-					this._ui.container.classList.add(classes.toast);
+					ui.container.classList.add(classes.toast);
 				}
 				page = utilSelectors.getClosestByClass(element, classes.uiPage);
 				this._pageWidget = engine.getBinding(page, "Page");
+
+				// Add reference when running without _build method
+				ui.headerIcon = ui.headerIcon || element.querySelector("." + classes.headerIcon);
 			};
 
 			function onKeydownClosing(self, event) {
@@ -314,7 +392,55 @@
 				this._bindEventKey();
 			};
 
+			/**
+			 * Refresh popup settings and body.
+			 * This method sets header icon and custom popup colors in case custom popup is used.
+			 * @method _refresh
+			 * @protected
+			 * @member ns.widget.tv.Popup
+			 */
+			prototype._refresh = function() {
+				var element = this.element,
+					options = this.options;
+
+				if (typeof CorePopupPrototype._refresh === FUNCTION_TYPE) {
+					CorePopupPrototype._refresh.call(this);
+				}
+
+				setHeaderIcon(this, element);
+				setCustomPopupColors(this);
+			};
+
+			/**
+			 * Show popup.
+			 * @method _onShow
+			 * @protected
+			 * @member ns.widget.tv.Popup
+			 */
+			prototype._onShow = function () {
+				setCustomPopupColors(this);
+
+				if (typeof CorePopupPrototype._onShow === FUNCTION_TYPE) {
+					CorePopupPrototype._onShow.call(this);
+				}
+			};
+
+			/**
+			 * Destroys the widget, removes the header icon if was created before
+			 * @method _destroy
+			 * @protected
+			 * @member ns.widget.tv.Popup
+			 */
 			prototype._destroy = function() {
+				var ui = this._ui;
+
+				if (ui.headerIcon) {
+					ui.headerIcon.parentElement.removeChild(ui.headerIcon);
+					ui.headerIcon = null;
+				}
+
+				// @TODO reset styles to base
+
 				this._destroyEventKey();
 				if (typeof CorePopupPrototype._destroy === FUNCTION_TYPE) {
 					CorePopupPrototype._destroy.call(this);
