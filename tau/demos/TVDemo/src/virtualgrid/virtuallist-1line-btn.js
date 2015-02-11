@@ -15,13 +15,13 @@
 			vlist.setListItemUpdater(function (elListItem, newIndex) {
 				//TODO: Update listitem here
 				var data = JSON_DATA[newIndex];
-				elListItem.innerHTML = '<a class="grid-thumbnail" data-role="button"><div class="grid-thumbnail-info">' + data.TIME +
+				elListItem.innerHTML = '<a class="ui-button grid-thumbnail" data-role="button"><div class="grid-thumbnail-info">' + data.TIME +
 					'</div><div class="grid-thumbnail-pic-full"><img class="grid-thumbnail-pic-img" src="' + data.TEAM_LOGO +
 					'" /></div><div class="grid-thumbnail-contents"><span class="grid-thumbnail-content">' + data.NAME + '</span></div></a>'
-				tau.widget.Button(elListItem.firstElementChild);
 			});
 			// Draw child elements
 			vlist.draw();
+			tau.engine.createWidgets(elList);
 		}
 	});
 	document.addEventListener("pagehide", function() {

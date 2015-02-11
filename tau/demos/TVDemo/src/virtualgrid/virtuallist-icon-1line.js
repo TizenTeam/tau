@@ -14,11 +14,11 @@
 			// Update listitem
 			vlist.setListItemUpdater(function (elListItem, newIndex) {
 				var data = JSON_DATA[newIndex];
-				elListItem.innerHTML = '<a class="grid-icon" data-icon="' + data.ICON + '" data-iconpos="top" data-role="button">' + data.TITLE + '</a>';
-				tau.widget.Button(elListItem.firstElementChild);
+				elListItem.innerHTML = '<a class="ui-button grid-icon" data-icon="' + data.ICON + '" data-iconpos="top" data-role="button">' + data.TITLE + '</a>';
 			});
 			// Draw child elements
 			vlist.draw();
+			tau.engine.createWidgets(elList);
 		}
 	});
 	document.addEventListener("pagehide", function() {

@@ -133,7 +133,7 @@
 
 				BaseButtonPrototype._init.call(self, element);
 
-				self.ui.background = document.getElementById(element.id + "-background");
+				self.ui.background = document.getElementById(self.id + "-background");
 				return element;
 			};
 
@@ -145,7 +145,7 @@
 				classList.remove(classes.blurPrefix + classes.down);
 				classList.remove(classes.blurPrefix + classes.right);
 				classList.remove(classes.blurPrefix + classes.left);
-			};
+			}
 
 			/**
 			 * Initializes widget
@@ -195,14 +195,14 @@
 
 			engine.defineWidget(
 				"Button",
-				"[data-role='button'], button, [type='button'], [type='submit'], [type='reset']",
+				"[data-role='button'], button, [type='button'], [type='submit'], [type='reset'], .ui-button",
 				[],
 				Button,
 				"tv",
 				true
 			);
 
-			BaseKeyboardSupport.registerActiveSelector("[data-role='button'], button, [type='button'], [type='submit'], [type='reset']");
+			BaseKeyboardSupport.registerActiveSelector("[data-role='button'], button, [type='button'], [type='submit'], [type='reset'], .ui-button");
 
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return ns.widget.tv.Button;
