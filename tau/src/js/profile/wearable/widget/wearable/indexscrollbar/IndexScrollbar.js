@@ -274,6 +274,7 @@
 			"../../../../../core/event",
 			"../../../../../core/event/vmouse",
 			"../../../../../core/util/object",
+			"../../../../../core/util/DOM",
 			"../../../../../core/util/DOM/css",
 			"../indexscrollbar",
 			"./IndexBar",
@@ -299,7 +300,7 @@
 				this.eventHandlers = {};
 
 			},
-			BaseWidget = ns.widget.BaseWidget,
+				BaseWidget = ns.widget.BaseWidget,
 			/**
 			 * Alias for class {@link ns.engine}
 			 * @property {Object} engine
@@ -325,6 +326,14 @@
 			 * @static
 			 */
 				utilsObject = ns.util.object,
+			/**
+			 * Alias for class ns.util.DOM
+			 * @property {ns.util.DOM} doms
+			 * @member ns.widget.wearable.IndexScrollbar
+			 * @private
+			 * @static
+			 */
+				doms = ns.util.DOM,
 				IndexBar = ns.widget.wearable.indexscrollbar.IndexBar,
 				IndexIndicator = ns.widget.wearable.indexscrollbar.IndexIndicator,
 				EventType = {
@@ -369,6 +378,7 @@
 					 */
 					this.options = {
 						moreChar: "*",
+						indexScrollbarClass: "ui-indexscrollbar",
 						selectedClass: "ui-state-selected",
 						indicatorClass: "ui-indexscrollbar-indicator",
 						delimiter: ",",
@@ -409,6 +419,9 @@
 				_init: function (element) {
 					var self = this,
 						options = self.options;
+
+					element.classList.add(options.indexScrollbarClass);
+
 					self._setIndex(element, options.index);
 					self._setMaxIndexLen(element, options.maxIndexLen);
 					self._setInitialLayout();	// This is needed for creating sub objects
@@ -950,7 +963,23 @@
 				 * @member ns.widget.wearable.IndexScrollbar
 				 */
 				_getContainer: function() {
-					return this.options.container || this.element.parentNode;
+					var container = this.options.container,
+						element = this.element,
+						parentElement = element.parentNode,
+						overflow;
+
+					if (!container) {
+						while (parentElement != document.body) {
+							overflow = doms.getCSSProperty(parentElement, "overflow-y");
+							if (overflow === "scroll" || (overflow === "auto" && parentElement.scrollHeight > parentElement.clientHeight)) {
+								return parentElement;
+							}
+							parentElement = parentElement.parentNode;
+						}
+						container = element.parentNode;
+					}
+
+					return container;
 				},
 
 				/**

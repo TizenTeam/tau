@@ -15,6 +15,26 @@
 		}
 	}
 
+	function getScrollableParent(element) {
+		var overflow,
+			style;
+
+		while (element != document.body) {
+			style = window.getComputedStyle(element);
+
+			if (style) {
+				overflow = style.getPropertyValue("overflow-y");
+				if (overflow === "scroll" || (overflow === "auto"     && element.scrollHeight > element.clientHeight)) {
+					return element;
+				}
+			}
+
+			element = element.parentNode;
+		}
+
+		return null;
+	}
+
 	page.addEventListener("pageshow", function(ev) {
 
 /*****************************************************************
@@ -50,6 +70,7 @@ el.addEventListener("select", function( ev ) {
 			listDividers = listviewElement.getElementsByClassName("li-divider"),	// list dividers
 			dividers = {},	// collection of list dividers
 			indices = [],	// index list
+			scroller,
 			divider,
 			i, idx;
 
@@ -64,48 +85,46 @@ el.addEventListener("select", function( ev ) {
 			indices.push(idx);
 		}
 
+		scroller = getScrollableParent(listviewElement);
 
 		if (!isCircle) {
-			// Create CircularIndexScrollbar
+			// Create IndexScrollbar
 			indexScrollbar = new tau.widget.IndexScrollbar(indexScrollbarElement, {index: indices});
 		} else {
 			// Create CircularIndexScrollbar
 			indexScrollbar = new tau.widget.CircularIndexScrollbar(indexScrollbarElement, {index: indices});
+			// Add SnapListview item "selected" event handler.
+			listviewElement.addEventListener("selected", function (ev) {
+				var indexValue = ev.target.textContent[0];
 
+				if (!indexScrollbar.isShow()) {
+					indexScrollbar.value(indexValue);
+				}
+			});
+
+			// Add "scrollstart" event handler.
+			document.addEventListener("scrollstart", scrollStartHandler);
+			// Add "scollend" event handler.
+			document.addEventListener("scrollend", scrollEndHandler);
 		}
 
 		// Add CircularIndexScrollbar index "select" event handler.
 		indexScrollbarElement.addEventListener("select", function (ev) {
 			var divider,
 				idx = ev.detail.index;
-			if (indexScrollbar.isShow()) {
-				divider = dividers[idx];
-				if(divider) {
-					// Scroll to the li-divider element
-					page.scrollTop = divider.offsetTop - page.offsetTop;
-				}
+			divider = dividers[idx];
+			if(divider && scroller) {
+				// Scroll to the li-divider element
+				scroller.scrollTop = divider.offsetTop - scroller.offsetTop;
 			}
 		});
-
-		// Add SnapListview item "selected" event handler.
-		listviewElement.addEventListener("selected", function (ev) {
-			var indexValue = ev.target.textContent[0];
-
-			if (!indexScrollbar.isShow()) {
-				indexScrollbar.value(indexValue);
-			}
-		});
-
-		// Add "scrollstart" event handler.
-		document.addEventListener("scrollstart", scrollStartHandler);
-		// Add "scollend" event handler.
-		document.addEventListener("scrollend", scrollEndHandler);
-
 	});
 
 	page.addEventListener("pagehide", function(ev) {
-		document.removeEventListener("scrollstart", scrollStartHandler);
-		document.removeEventListener("scrollend", scrollEndHandler);
+		if (isCircle) {
+			document.removeEventListener("scrollstart", scrollStartHandler);
+			document.removeEventListener("scrollend", scrollEndHandler);
+		}
 		indexScrollbar.destroy();
 	});
 } ());
