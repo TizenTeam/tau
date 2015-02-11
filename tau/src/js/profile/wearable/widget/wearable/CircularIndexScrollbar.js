@@ -239,7 +239,7 @@
 
 				self._setIndices(options.index);
 				self._draw();
-				self._setValueByPosition(self._activeIndexNo);
+				self._setValueByPosition(self._activeIndexNo, true);
 
 				return element;
 			};
@@ -550,9 +550,10 @@
 			 * @method _setValueByPosition
 			 * @protected
 			 * @param {stirng} index number
+			 * @param {boolean} whether "select" event is fired or not
 			 * @member ns.widget.wearable.CircularIndexScrollbar
 			 */
-			prototype._setValueByPosition = function(indexNo) {
+			prototype._setValueByPosition = function(indexNo, isFireEvent) {
 				var self = this,
 					curActiveElement,
 					indexElement,
@@ -566,12 +567,14 @@
 				indexElement = self._indexObjects[indexNo].container,
 				indicatorText = self._indicator.element.firstChild;
 
-				if(indexElement) {
+				if (indexElement) {
 					self._activeIndexNo = indexNo;
 					curActiveElement.classList.remove(classes.SELECTED);
 					indexElement.classList.add(classes.SELECTED);
 					indicatorText.innerHTML = self.options.index[indexNo];
-					eventTrigger(self.element, EventType.SELECT, {index: self.options.index[indexNo]});
+					if (isFireEvent) {
+						eventTrigger(self.element, EventType.SELECT, {index: self.options.index[indexNo]});
+					}
 				}
 			};
 
@@ -587,7 +590,7 @@
 					indexLen = self.options.index.length,
 					nextIndexNo = activeIndexNo < indexLen - 1 ? activeIndexNo + 1 : 0;
 
-				self._setValueByPosition(nextIndexNo);
+				self._setValueByPosition(nextIndexNo, true);
 			};
 
 			/**
@@ -602,7 +605,7 @@
 					indexLen = self.options.index.length,
 					prevIndexNo = activeIndexNo > 0 ? activeIndexNo - 1 : indexLen -1;
 
-				self._setValueByPosition(prevIndexNo);
+				self._setValueByPosition(prevIndexNo, true);
 			};
 			/**
 			 * Get or Set index of the CircularIndexScrollbar
@@ -636,7 +639,7 @@
 					indexNo;
 
 				if (index && (indexNo = index.indexOf(value)) >= 0) {
-					self._setValueByPosition(indexNo);
+					self._setValueByPosition(indexNo, false);
 				}
 			};
 
@@ -986,7 +989,7 @@
 				self._reset();
 				self._setIndices(options.index);
 				self._draw();
-				self._setValueByPosition(self._activeIndexNo);
+				self._setValueByPosition(self._activeIndexNo, true);
 				self._bindEvents();
 			};
 
