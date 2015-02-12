@@ -351,6 +351,32 @@
 				*/
 				getAllByDataNS: function (context, dataSelector) {
 					return slice.call(context.querySelectorAll(getDataSelector(dataSelector)));
+				},
+
+				/**
+				 * Get scrollable parent elmenent
+				 * @method getScrollableParent
+				 * @param {HTMLElement} element
+				 * @return {HTMLElement}
+				 * @static
+				 * @member ns.util.selectors
+				 */
+				getScrollableParent:  function (element) {
+					var overflow,
+						style;
+
+					while (element && element != document.body) {
+						style = window.getComputedStyle(element);
+
+						if (style) {
+							overflow = style.getPropertyValue("overflow-y");
+							if (overflow === "scroll" || (overflow === "auto" && element.scrollHeight > element.clientHeight)) {
+								return element;
+							}
+						}
+						element = element.parentNode;
+					}
+					return null;
 				}
 			};
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
