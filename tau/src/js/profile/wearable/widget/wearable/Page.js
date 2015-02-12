@@ -368,6 +368,7 @@
 					pageScrollSelector = classes.uiPageScroll,
 					headerHeight = 0,
 					footerHeight = 0,
+					footerMarginTop = 0,
 					children = [].slice.call(element.children),
 					childrenLength = children.length,
 					elementStyle = element.style,
@@ -395,6 +396,8 @@
 							needTopMargin = true;
 						}
 					} else if (node.classList.contains(footerSelector)) {
+						nodeStyle = window.getComputedStyle(node);
+						footerMarginTop = parseFloat(nodeStyle.marginTop);
 						footerHeight += doms.getElementHeight(node);
 						if (node.classList.contains(classes.uiFixed)) {
 							needBottomMargin = true;
@@ -411,8 +414,10 @@
 						marginBottom = parseFloat(contentStyle.marginBottom);
 
 						if (!element.classList.contains(pageScrollSelector)) {
-							nodeStyle.height = (screenHeight - headerHeight - footerHeight - marginTop - marginBottom) + "px";
+							nodeStyle.height = (screenHeight - headerHeight - footerHeight - marginTop - marginBottom - footerMarginTop) + "px";
 							nodeStyle.width = screenWidth + "px";
+						} else {
+							nodeStyle.minHeight = (screenHeight - headerHeight - footerHeight - marginTop - marginBottom - footerMarginTop) + "px";
 						}
 
 						if (needTopMargin) {

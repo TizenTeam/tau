@@ -163,8 +163,10 @@
 
 				_init: function (element) {
 					var o = this.options,
+						scroller = this.scroller,
 						sectionLength, i, className;
 
+					scroller.style.position = "absolute";
 					this._sectionChangerWidth = element.offsetWidth;
 					this._sectionChangerHeight = element.offsetHeight;
 					this._sectionChangerHalfWidth = this._sectionChangerWidth / 2;
@@ -177,7 +179,7 @@
 					}
 
 					this.sections = typeof o.items === "string" ?
-						this.scroller.querySelectorAll(o.items) :
+						scroller.querySelectorAll(o.items) :
 						o.items;
 					sectionLength = this.sections.length;
 
