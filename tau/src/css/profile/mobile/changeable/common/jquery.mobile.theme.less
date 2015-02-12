@@ -354,6 +354,35 @@
 	padding: 1 * @unit_base;
 }
 
+.ui-btn.ui-btn-corner-all.ui-btn-box-s {
+	.ui-btn-inner {
+		.LESSborder-radius-all( 1.2rem );
+	}
+	&.ui-btn-block .ui-btn-inner{
+		top: 6 * @unit_base;
+	}
+}
+
+.ui-header .ui-btn-box-s,
+.ui-footer .ui-btn-box-s,
+.ui-btn-back.ui-btn-up-s,
+.ui-btn-back.ui-btn-hover-s,
+.ui-btn-back.ui-btn-down-s,
+.ui-btn-footer-down.ui-btn-up-s,
+.ui-btn-footer-down.ui-btn-hover-s,
+.ui-btn-footer-down.ui-btn-down-s,
+.ui-popup .ui-btn-box-s {
+	font-weight: normal;
+	.LESSborder-radius-all( 0.9 rem );
+}
+
+.ui-btn-box-s.ui-btn-hover-s.ui-btn-corner-circle {
+	.LESSborder-radius-allimportant( 1em );
+}
+.ui-btn-box-s.ui-btn-hover-s.ui-btn-round {
+	.LESSborder-radius-allimportant( 1.2em );
+}
+
 .ui-btn-box-s.ui-btn-down-s {
 	.ui-btn-inner {
 		color: @color_button_text_press;

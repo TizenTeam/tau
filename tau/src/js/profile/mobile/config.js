@@ -20,7 +20,7 @@
 			ns.setConfig('autoBuildOnPageChange', true, true);
 			ns.setConfig('loader', true, true);
 			ns.setConfig('pageContainerBody', true, true);
-
+			ns.setConfig('popupTransition', 'slideup');
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 		}
 	);

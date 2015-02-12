@@ -4,7 +4,7 @@ $(document).one( "pagecreate", "#ctxpopup-demo", function () {
 	});
 
 	$( "#btn_text_only3, #buttonPopup1, #buttonPopup2" ).on( "vclick", function () {
-		$( "#pop_text_only" ).popup( "open" );
+		$( "#pop_text_only" ).popup( "open", {positionTo: "origin", link: event.target} );
 		return false;
 	});
 });

@@ -289,16 +289,15 @@
 				popup = document.createElement("div");
 				pageElement = (this._pageWidget && this._pageWidget.element) || document.body;
 				pageElement.appendChild(popup);
+				popup.classList.add(classes.uiSliderPopup);
 				// Create widget instance out of popup element
 				popupInstance = engine.instanceWidget(popup, "Popup", {
-					positionTo: "#" + this._ui.handle.id, // positioned to slider's element
+					positionTo: "origin",
+					link: this._ui.handle.id, // positioned to slider's element
 					transition: "none",
 					overlay: false,
-					arrow: "b,t",
-					distance: 10,
-					specialContainerClass: classes.uiSliderPopupContainer
+					arrow: "b,t"
 				});
-				popup.classList.add(classes.uiSliderPopup);
 
 				return popupInstance;
 			};

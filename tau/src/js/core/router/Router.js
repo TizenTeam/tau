@@ -218,7 +218,6 @@
 					useDefaultUrlHandling = (link.getAttribute("rel") === "external") || link.hasAttribute("target");
 					if (!useDefaultUrlHandling) {
 						options = DOM.getData(link);
-						options.link = link.id;
 						router.open(href, options, event);
 						eventUtils.preventDefault(event);
 					}

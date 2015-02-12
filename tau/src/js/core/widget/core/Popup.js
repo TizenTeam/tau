@@ -363,17 +363,24 @@
 					ui = self._ui,
 					overlay = ui.overlay;
 
-				// create overlay
-				if (enable) {
+				// if this popup is not connected with slider,
+				// we create overlay, which is invisible when
+				// the value of option overlay is false
+				/// @TODO: get class from widget
+				if (!element.classList.contains("ui-slider-popup")) {
+					// create overlay
 					if (!overlay) {
 						overlay = document.createElement("div");
 						element.parentNode.insertBefore(overlay, element);
 						ui.overlay = overlay;
 					}
 					overlay.className = classes.overlay + (overlayClass ? " " + overlayClass : "");
-				} else if (overlay) {
-					overlay.parentNode.removeChild(overlay);
-					ui.overlay = null;
+					if (enable) {
+						overlay.style.opacity = "";
+					} else {
+						// if option is set on "false", the overlay is not visible
+						overlay.style.opacity = 0;
+					}
 				}
 			};
 
@@ -430,13 +437,11 @@
 					activeClass = classes.active,
 					elementClassList = self.element.classList,
 					route = engine.getRouter().getRoute("popup"),
-					options = self.options;
+					options;
 
 				// NOTE: popup's options object is stored in window.history at the router module,
 				// and this window.history can't store DOM element object.
-				if (typeof options.positionTo !== "string") {
-					options.positionTo = null;
-				}
+				options =  objectUtils.merge({}, self.options, {positionTo: null, link: null});
 
 				// set state of popup and add proper class
 				if (active) {
@@ -612,6 +617,7 @@
 			prototype._show = function (options) {
 				var self = this,
 					transitionOptions = objectUtils.merge({}, options),
+					overlay = self._ui.overlay,
 					deferred;
 
 				// change state of popup
@@ -620,6 +626,10 @@
 				transitionOptions.ext = " in ";
 
 				self.trigger(events.before_show);
+				// show overlay
+				if (overlay) {
+					overlay.style.display = "block";
+				}
 				// start opening animation
 				self._transition(transitionOptions, self._onShow.bind(self));
 			};
@@ -631,11 +641,7 @@
 			 * @member ns.widget.core.Popup
 			 */
 			prototype._onShow = function() {
-				var self = this,
-					overlay = self._ui.overlay;
-				if (overlay) {
-					overlay.style.display = "block";
-				}
+				var self = this;
 				self._setActive(true);
 				self.trigger(events.show);
 			};
@@ -684,6 +690,7 @@
 			prototype._onHide = function() {
 				var self = this,
 					overlay = self._ui.overlay;
+
 				if (overlay) {
 					overlay.style.display = "";
 				}
@@ -818,7 +825,6 @@
 					transition = options.transition || self.options.transition || "none",
 					transitionClass = transition + options.ext,
 					element = self.element,
-					overlay = self._ui.overlay,
 					elementClassList = element.classList,
 					deferred,
 					animationEndCallback;
@@ -841,9 +847,6 @@
 						currentClass = currentClass.trim();
 						if (currentClass.length > 0) {
 							elementClassList.add(currentClass);
-							if (overlay) {
-								overlay.classList.add(currentClass);
-							}
 						}
 					});
 				} else {

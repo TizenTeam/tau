@@ -13,7 +13,7 @@
 				<!-- target button -->
 				<a href="#pop_js" id="btn_js" data-role="button" data-inline="true" data-rel="popup">Touch me!</a>
 				<!-- context popup -->
-				<div id="pop_js" data-role="popup" >
+				<div id="pop_js" data-role="popup" data-overlay="false">
 					<ul data-role="listview">
 						<li><a href="#" data-rel="back">Close</a></li>
 						<li><a href="#" data-rel="back" id="ctxpopup_update">Update Button Text</a></li>
@@ -24,7 +24,7 @@
 					<!-- target button -->
 				<a href="#pop_icon_text" id="btn_icon_text" data-role="button" data-inline="true" data-rel="popup">Icon+Text</a>
 				<!-- context popup -->
-				<div id="pop_icon_text" data-role="popup" >
+				<div id="pop_icon_text" data-role="popup" data-overlay="false">
 					<ul data-role="listview">
 						<li class="ui-li-1line-bigicon1">
 							<a href="#">
@@ -55,7 +55,7 @@
 				<br>
 				<br>
 				<a href="#pop_copy_paste" id="btn_copy_paste" data-role="button" data-inline="true" data-rel="popup">CopyPaste</a>
-				<div id="pop_copy_paste" data-role="popup" >
+				<div id="pop_copy_paste" data-role="popup" data-overlay="false">
 					<ul data-role="listview">
 						<li class='text'>
 							<a href="#">Copy</a>
@@ -71,7 +71,7 @@
 				<br>
 				<br>
 				<a href="#pop_text_only" id="btn_text_only1" data-role="button" data-inline="true" data-rel="popup">Text Only</a>
-				<div id="pop_text_only" data-role="popup" >
+				<div id="pop_text_only" data-role="popup" data-overlay="false">
 					<ul data-role="listview">
 						<li>
 							<a href="#">Menu1</a>
@@ -97,7 +97,7 @@
 				<!-- target button -->
 				<a href="#pop_buttons" id="btn_buttons" data-role="button" data-inline="true" data-rel="popup">Buttons</a>
 				<!-- context popup -->
-				<div id="pop_buttons"  data-role="popup" >
+				<div id="pop_buttons"  data-role="popup" data-overlay="false">
 					<ul data-role="listview">
 						<li><a href="#">Meenie</a></li>
 						<li><a href="#">Mynie</a></li>
@@ -113,7 +113,7 @@
 				<br>
 				<br>
 				<a href="#closeTest" id="close_btn_buttons" data-role="button" data-inline="true" data-rel="popup">CloseTest</a>
-				<div id="closeTest"  data-role="popup" >
+				<div id="closeTest"  data-role="popup" data-overlay="false">
 					<ul data-role="listview">
 						<li><a data-rel="back" href="#">Close</a></li>
 						<li><a data-rel="back" href="#">Close/javascript</a></li>
@@ -123,7 +123,7 @@
 				<br>
 			</div>
 			<a href="#positionOrigin" data-role="button" data-inline="true" data-rel="popup" data-position-to="#codeSample">Position to origin</a>
-			<div data-role="popup" id="positionOrigin" class="ui-content">
+			<div data-role="popup" id="positionOrigin" data-overlay="false">
 				<p style="color:black">I am positioned over the origin.</p>
 			</div>
 			<br>
@@ -133,7 +133,7 @@
 			<br>
 			<div data-role="button" data-inline="true" id="buttonPopup2">Open Popup - div button</div>
 		</div> <!-- /content -->
-		<div id="navi" data-role="popup" class="ui-ctxpopup-optionmenu">
+		<div id="navi" data-role="popup" class="ui-ctxpopup-optionmenu" data-overlay="false">
 			<ul data-role="listview">
 				<li><a href="#" data-rel="back">Settings</a></li>
 				<li><a href="#" data-rel="back">Add to contact</a></li>

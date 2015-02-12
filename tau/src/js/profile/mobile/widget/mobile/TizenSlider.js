@@ -106,7 +106,7 @@
 			"../mobile",
 			"./Slider",
 			"./Button",
-			"./Popup"
+			"../../../../core/widget/core/Popup"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
@@ -235,26 +235,23 @@
 			 */
 			TizenSlider.prototype._createPopup = function (container) {
 				var classes = TizenSlider.classes,
+					ui = this._ui,
 					popup,
 					popupInstance;
 
 				// Create element and append it to slider
 				popup = document.createElement("div");
+				popup.className = "ui-slider-popup";
 				container.appendChild(popup);
+				popup.classList.add(classes.uiSliderPopup);
 				// Create widget instance out of popup element
 				popupInstance = engine.instanceWidget(popup, "Popup", {
-					positionTo: "origin", // popup with arrow
-					link: this._ui.handle.id, // positioned to slider's element
+					positionTo: "origin",
+					link: ui.handle.id, // popup with arrow
 					transition: "none",
-					noScreen: true,
-					directionPriority: [
-						"top",
-						"bottom"
-					],
-					tolerance: "10,0,10,0",
-					specialContainerClass: classes.uiSliderPopupContainer
+					overlay: false,
+					arrow: "b,t"
 				});
-				popup.classList.add(classes.uiSliderPopup);
 
 				return popupInstance;
 			};
@@ -294,7 +291,7 @@
 						self._popup = self._createPopup(self._ui.container);
 					}
 
-					popupElement = self._popup.element;
+					popupElement = self._popup.element.children[0];
 				}
 
 				self._ui.handle.removeAttribute("title");
