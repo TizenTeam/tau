@@ -187,7 +187,8 @@
 					overlay: false,
 					arrow: options.tooltipArrow,
 					distance: 16,
-					content: options.tooltip
+					content: options.tooltip,
+					changeContext: false
 				});
 				popup.classList.add(classes.tooltip);
 

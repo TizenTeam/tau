@@ -55,6 +55,10 @@
 				 * @property {string|null} default.headerIcon=null
 				 * @property {string|null} default.mainColor=null
 				 * @property {number|HTMLElement|boolean|null} [autofocus=0] define element which should be focused after open popup
+				 * @property {boolean} [changeContext=true] define if context should be changed after opening popup.
+				 * If value of this property is true, it means that after opening popup, the focus will be set only
+				 * inside the popup's container and if popup does not have any focusable elements, the enter will cause
+				 * closing popup.
 				 */
 				defaults = objectUtils.merge({}, CorePopup.defaults, {
 					arrow: "t,b,l,r",
@@ -62,7 +66,8 @@
 					positionTo: "window",
 					headerIcon: null,
 					mainColor: null,
-					autofocus: 0
+					autofocus: 0,
+					changeContext: true
 				}),
 				classes = objectUtils.merge({}, CorePopup.classes, {
 					toast: "ui-popup-toast",
@@ -211,11 +216,18 @@
 			}
 
 			function closingOnKeydown(self, added) {
-				if (self.element.classList.contains(classes.toast)) {
-					if (added) {
+				var element = self.element,
+					selector = self.getActiveSelector();
+
+				if (added) {
+					// if elements inside popup are not focusable, we enabled closing on keyup
+					if (selector && !element.querySelector(selector)) {
 						self._onKeydownClosing = onKeydownClosing.bind(null, self);
 						document.addEventListener("keydown", self._onKeydownClosing, false);
-					} else {
+					}
+				} else {
+					// if listener was added, we remove it
+					if (self._onKeydownClosing) {
 						document.removeEventListener("keydown", self._onKeydownClosing, false);
 					}
 				}
@@ -225,11 +237,10 @@
 				var self = this,
 					element = self.element,
 					autoFocus = options.autofocus,
-					page = self._pageWidget,
-					toastPopup = element.classList.contains(classes.toast),
-					selector = self.getActiveSelector();
+					page = self._pageWidget;
 
-				if (toastPopup || (selector && element.querySelector(selector))) {
+				// if popup is not connected with slider, we change context
+				if (options.changeContext) {
 					// if there are links inside popup, we enable keyboard support on page
 					// and enable in popup
 					self.enableKeyboardSupport();
@@ -239,9 +250,9 @@
 					if (autoFocus || autoFocus === 0) {
 						BaseKeyboardSupport.focusElement(element, autoFocus);
 					}
-				}
 
-				closingOnKeydown(self, true);
+					closingOnKeydown(self, true);
+				}
 			};
 
 			prototype._placementCoordsWindow = function(element) {
@@ -270,7 +281,7 @@
 					}
 
 					self._setArrowFocus();
-					self._setKeyboardSupport(options || {});
+					self._setKeyboardSupport(objectUtils.merge({}, options || {}, self.options));
 				}
 			};
 
@@ -285,7 +296,7 @@
 			prototype.close = function(options) {
 				var self = this,
 					activeElement,
-					popupElements;
+					popupElement;
 
 				options = options || {};
 				if (self._isOpened()) {
@@ -297,14 +308,15 @@
 					self.disableKeyboardSupport();
 					self._pageWidget.enableKeyboardSupport();
 
+					// remove listener on keydown in case of popup without focusable elements
 					closingOnKeydown(self, false);
 
 					//checking that current focused element is inside this popup
 					activeElement = document.activeElement;
-					popupElements = utilSelectors.getClosestByClass(activeElement, classes.popup);
-					if (popupElements && popupElements.indexOf(self.element) > -1) {
+					popupElement = utilSelectors.getClosestByClass(activeElement, classes.popup);
+					if (popupElement) {
 						// blur any focused elements
-						document.activeElement.blur();
+						activeElement.blur();
 					}
 				}
 			};

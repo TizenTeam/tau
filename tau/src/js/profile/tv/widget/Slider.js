@@ -278,7 +278,8 @@
 					link: this._ui.handle.id, // positioned to slider's element
 					transition: "none",
 					overlay: false,
-					arrow: "b,t"
+					arrow: "b,t",
+					changeContext: false
 				});
 
 				return popupInstance;
