@@ -1,39 +1,8 @@
 (function() {
 	var page = document.getElementById("pageIndexScrollbar"),
 		isCircle = tau.support.shape.circle,
+		scrollHandlers = {},
 		indexScrollbar;
-
-	function scrollStartHandler() {
-		if (!indexScrollbar.isShow()) {
-			indexScrollbar.hideHandler();
-		}
-	}
-
-	function scrollEndHandler() {
-		if (!indexScrollbar.isShow()) {
-			indexScrollbar.showHandler();
-		}
-	}
-
-	function getScrollableParent(element) {
-		var overflow,
-			style;
-
-		while (element != document.body) {
-			style = window.getComputedStyle(element);
-
-			if (style) {
-				overflow = style.getPropertyValue("overflow-y");
-				if (overflow === "scroll" || (overflow === "auto"     && element.scrollHeight > element.clientHeight)) {
-					return element;
-				}
-			}
-
-			element = element.parentNode;
-		}
-
-		return null;
-	}
 
 	page.addEventListener("pageshow", function(ev) {
 
@@ -85,33 +54,45 @@ el.addEventListener("select", function( ev ) {
 			indices.push(idx);
 		}
 
-		scroller = getScrollableParent(listviewElement);
+		scroller = tau.util.selectors.getScrollableParent(listviewElement);
 
 		if (!isCircle) {
 			// Create IndexScrollbar
-			indexScrollbar = new tau.widget.IndexScrollbar(indexScrollbarElement, {index: indices});
+			indexScrollbar = new tau.widget.IndexScrollbar(indexScrollbarElement, {index: indices, container: scroller});
 		} else {
 			// Create CircularIndexScrollbar
 			indexScrollbar = new tau.widget.CircularIndexScrollbar(indexScrollbarElement, {index: indices});
-			// Add SnapListview item "selected" event handler.
-			listviewElement.addEventListener("selected", function (ev) {
-				var indexValue = ev.target.textContent[0];
 
-				if (!indexScrollbar.isShow()) {
-					indexScrollbar.value(indexValue);
+			// scroll event handlers
+			scrollHandlers = {
+				start: function () {
+					if (!indexScrollbar.isShow()) {
+						indexScrollbar.hideHandler();
+					}
+				},
+				end: function () {
+					if (!indexScrollbar.isShow()) {
+						indexScrollbar.showHandler();
+					}
 				}
-			});
+			};
 
-			// Add "scrollstart" event handler.
-			document.addEventListener("scrollstart", scrollStartHandler);
-			// Add "scollend" event handler.
-			document.addEventListener("scrollend", scrollEndHandler);
+			listviewElement.addEventListener("scrollstart", scrollHandlers.start);
+			listviewElement.addEventListener("scrollend", scrollHandlers.end);
 		}
 
-		// Add CircularIndexScrollbar index "select" event handler.
+
+		// Add SnapListview item "selected" event handler.
+		listviewElement.addEventListener("selected", function (ev) {
+			var indexValue = ev.target.textContent[0];
+			indexScrollbar.value(indexValue);
+		});
+
+		// Add IndexScrollbar index "select" event handler.
 		indexScrollbarElement.addEventListener("select", function (ev) {
 			var divider,
 				idx = ev.detail.index;
+
 			divider = dividers[idx];
 			if(divider && scroller) {
 				// Scroll to the li-divider element
@@ -122,8 +103,8 @@ el.addEventListener("select", function( ev ) {
 
 	page.addEventListener("pagehide", function(ev) {
 		if (isCircle) {
-			document.removeEventListener("scrollstart", scrollStartHandler);
-			document.removeEventListener("scrollend", scrollEndHandler);
+			listviewElement.removeEventListener("scrollstart", scrollHandlers.start);
+			listviewElement.removeEventListener("scrollend", scrollHandlers.end);
 		}
 		indexScrollbar.destroy();
 	});
