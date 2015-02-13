@@ -204,6 +204,51 @@
 			};
 
 			/**
+			 * Method trying to focus on widget or on HTMLElment and blur on active element or widget.
+			 * @method focusOnElement
+			 * @param {?ns.widget.BaseWidget} self
+			 * @param {HTMLElement} element
+			 * @param {"left"|"right"|"top"|"bottom"} positionFrom
+			 * @return  {boolean} Return true if focus finished success
+			 * @static
+			 * @private
+			 * @memberof ns.widget.tv.BaseKeyboardSupport
+			 */
+			function focusOnElement(self, element, positionFrom) {
+				var setFocus,
+					options = {},
+					currentElement = getFocusedLink(),
+					nextElementWidget,
+					currentWidget;
+				nextElementWidget = engine.getBinding(element);
+				if (nextElementWidget) {
+					// we call function focus if the element is connected with widget
+					options.direction = positionFrom;
+					options.previousElement = currentElement;
+					setFocus = nextElementWidget.focus(options);
+				} else {
+					// or only set focus on element
+					element.focus();
+					// and blur the previous one
+					if (currentElement) {
+						currentWidget = engine.getBinding(currentElement);
+						if (currentWidget) {
+							options.direction = positionFrom;
+							currentWidget.blur(options);
+						} else {
+							currentElement.blur();
+						}
+					}
+					setFocus = true;
+				}
+
+				if (self && self._openActiveElement) {
+					self._openActiveElement(nextElement);
+				}
+				return setFocus;
+			}
+
+			/**
 			 * Supports keyboard event.
 			 * @method _onKeyup
 			 * @param {Event} event
@@ -214,15 +259,11 @@
 				var self = this,
 					keyCode = event.keyCode,
 					neighborhoodLinks,
-					currentLink = getFocusedLink(),
-					currentLinkWidget,
 					positionFrom,
 					nextElements,
 					nextElement,
 					nextNumber = 0,
-					nextElementWidget,
-					setFocus = false,
-					options = {};
+					setFocus = false;
 
 				if (self._supportKeyboard) {
 					neighborhoodLinks = self._getNeighborhoodLinks();
@@ -251,31 +292,7 @@
 
 					while (nextElement && !setFocus) {
 						// if element to focus is found
-						nextElementWidget = engine.getBinding(nextElement);
-						if (nextElementWidget) {
-							// we call function focus if the element is connected with widget
-							options.direction = positionFrom;
-							options.previousElement = currentLink;
-							setFocus = nextElementWidget.focus(options);
-						} else {
-							// or only set focus on element
-							nextElement.focus();
-							// and blur the previous one
-							if (currentLink) {
-								currentLinkWidget = engine.getBinding(currentLink);
-								if (currentLinkWidget) {
-									options.direction = positionFrom;
-									currentLinkWidget.blur(options);
-								} else {
-									currentLink.blur();
-								}
-							}
-							setFocus = true;
-						}
-
-						if (self._openActiveElement) {
-							self._openActiveElement(nextElement);
-						}
+						setFocus = focusOnElement(this, nextElement, positionFrom);
 						nextElement = nextElements[++nextNumber];
 					}
 				}
@@ -328,7 +345,7 @@
 
 			/**
 			 * Focuses on element.
-			 * @method focus
+			 * @method focusElement
 			 * @param {HTMLElement} [element] widget's element
 			 * @param {?HTMLElement|number|boolean} [elementToFocus] element to focus
 			 * @static
@@ -346,11 +363,11 @@
 					}
 				} else if (typeof elementToFocus === "number") {
 					if (links[elementToFocus]) {
-						links[elementToFocus].focus();
+						focusOnElement(null, links[elementToFocus]);
 					}
 				} else {
 					if (links[0]) {
-						links[0].focus();
+						focusOnElement(null, links[0]);
 					}
 				}
 			};
