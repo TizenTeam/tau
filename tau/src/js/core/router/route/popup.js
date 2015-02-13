@@ -1,4 +1,4 @@
-/*global window, define */
+/*global window, define, ns */
 /*jslint nomen: true */
 /* Copyright  2010 - 2014 Samsung Electronics Co., Ltd.
  * License : MIT License V2
@@ -45,7 +45,7 @@
 				 * @static
 				 */
 				defaults: {
-					transition: 'none',
+					transition: "none",
 					container: null,
 					volatileRecord: true
 				},
@@ -115,14 +115,6 @@
 			 */
 			DOM = ns.util.DOM,
 			/**
-			 * Alias for array slice method
-			 * @method slice
-			 * @member ns.router.route.popup
-			 * @private
-			 * @static
-			 */
-			slice = [].slice,
-			/**
 			 * Alias for Object utils
 			 * @method slice
 			 * @member ns.router.route.popup
@@ -162,11 +154,11 @@
 				var popup,
 					hashReg = /^#/;
 
-				id = id.replace(hashReg,'');
+				id = id.replace(hashReg,"");
 				popup = document.getElementById(id);
 
 				if (popup && utilSelector.matchesSelector(popup, filter)) {
-					DOM.setNSData(popup, 'url', '#' + id);
+					DOM.setNSData(popup, "url", "#" + id);
 				} else {
 					// if we matched any element, but it doesn't match our filter
 					// reset page to null
@@ -187,7 +179,7 @@
 			 */
 			routePopup.option = function () {
 				var defaults = object.merge({}, routePopup.defaults);
-				defaults.transition = ns.getConfig('popupTransition', defaults.transition);
+				defaults.transition = ns.getConfig("popupTransition", defaults.transition);
 				return defaults;
 			};
 
@@ -307,6 +299,10 @@
 					documentUrl = pathLocation.replace(popupHashKeyReg, "");
 
 				options = options || {};
+
+				if (activePopup && !(activePopup instanceof Popup)) {
+					activePopup = engine.instanceWidget(activePopup, "Popup", options);
+				}
 				activePopup = activePopup || this.activePopup;
 
 				// if popup is active

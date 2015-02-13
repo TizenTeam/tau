@@ -1,4 +1,4 @@
-/*global window, define, XMLHttpRequest */
+/*global window, define, XMLHttpRequest, Node, HTMLElement, ns */
 /*jslint nomen: true */
 /* Copyright  2010 - 2014 Samsung Electronics Co., Ltd.
  * License : MIT License V2
@@ -296,12 +296,10 @@
 			/**
 			 * Detect rel attribute from HTMLElement
 			 * @param {HTMLElement} to
-			 * @param {Object} options
-			 * @param {Event} event
 			 * @member ns.router.Router
 			 * @method detectRel
 			 */
-			Router.prototype.detectRel = function (to, options, event) {
+			Router.prototype.detectRel = function (to) {
 				var rule,
 					i;
 
@@ -338,17 +336,7 @@
 					toElement,
 					self = this;
 
-				if (typeof to === "string") {
-					if (to[0] === "#") {
-						stringId = to.substr(1);
-					} else {
-						stringId = to;
-					}
-					toElement = document.getElementById(stringId);
-					if (toElement) {
-						to = toElement;
-					}
-				}
+				to = getHTMLElement(to);
 				rel = ((options && options.rel) || (to instanceof HTMLElement && this.detectRel(to)) || "page");
 					rule = route[rel];
 				if (_isLock) {
@@ -410,9 +398,8 @@
 					location = window.location,
 					PageClasses = Page.classes,
 					uiPageActiveClass = PageClasses.uiPageActive,
-					pageDefinition = ns.engine.getWidgetDefinition('Page'),
+					pageDefinition = ns.engine.getWidgetDefinition("Page"),
 					pageSelector = pageDefinition.selector,
-					pageElement,
 					self = this;
 
 				body = document.body;
@@ -551,6 +538,55 @@
 					self.open(firstPage, { transition: "none" });
 				}
 				this.getRoute("popup").setActive(null);
+			};
+
+			/**
+			 * Convert string id to HTMLElement or return HTMLElement if is given
+			 * @method getHTMLElement
+			 * @param {string|HTMLElement} idOrElement
+			 * @returns {HTMLElement}
+			 */
+			function getHTMLElement(idOrElement) {
+				var stringId,
+					toElement;
+				if (typeof idOrElement === "string") {
+					if (idOrElement[0] === "#") {
+						stringId = idOrElement.substr(1);
+					} else {
+						stringId = idOrElement;
+					}
+					toElement = document.getElementById(stringId);
+					if (toElement) {
+						idOrElement = toElement;
+					}
+				}
+				return idOrElement;
+			}
+
+			/*
+			* Method close route element, eg page or popup.
+			* @method close
+			* @param {string|HTMLElement} to Id of page or file url or HTMLElement of page
+			* @param {Object} [options]
+			* @param {"page"|"popup"|"external"} [options.rel = "page"] Represents kind of link as "page" or "popup" or "external" for linking to another domain
+			* @member ns.router.Router
+			*/
+			Router.prototype.close = function (to, options) {
+				var rel = (options && options.rel) || "page",
+					rule = route[rel],
+					stringId,
+					toElement;
+
+				if (rel === "back") {
+					history.back();
+				} else {
+					if (rule) {
+						to = getHTMLElement(to);
+						rule.close(to, options);
+					} else {
+						throw new Error("Not defined router rule [" + rel + "]");
+					}
+				}
 			};
 
 			/**
