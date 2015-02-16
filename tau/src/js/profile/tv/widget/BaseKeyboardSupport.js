@@ -243,7 +243,7 @@
 				}
 
 				if (self && self._openActiveElement) {
-					self._openActiveElement(nextElement);
+					self._openActiveElement(element);
 				}
 				return setFocus;
 			}

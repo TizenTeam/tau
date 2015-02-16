@@ -88,6 +88,8 @@
 			"./profile/tv/widget/Progress",
 			"./profile/mobile/widget/mobile/TabBar",
 			"./profile/tv/widget/ControlGroup",
+			"./profile/mobile/widget/mobile/Scrollview",
+			"./profile/tv/widget/ScrollHandler",
 			// Modules to be loaded after
 			"./core/init",
 			//documentation pages

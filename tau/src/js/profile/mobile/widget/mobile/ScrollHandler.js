@@ -790,30 +790,20 @@
 					ui = self.ui,
 					handle = ui.handle,
 					handleStyle = handle.style,
-					parent = element.parentNode,
-					childrenHeight = 0,
+					handlerStyle = ui.handler.style,
 					clipHeight = CSSUtils.getElementHeight(element, "inner", true),
 					clipWidth = CSSUtils.getElementWidth(element, "inner", true),
 					view = element.querySelector("." + Scrollview.classes.view),
 					viewHeight = CSSUtils.getElementHeight(view, "inner", true),
 					viewWidth = CSSUtils.getElementWidth(view, "inner", true),
-					marginTop = null,
-					child = parent.firstElementChild;
+					clipOffset = CSSUtils.getElementOffset(element),
+					offsetTop = clipOffset.top || 0,
+					marginRight = window.innerWidth - clipWidth - clipOffset.left || 0;
 
-				while (child) {
-					// filter out current scrollview
-					if (child !== element) {
-						childrenHeight += CSSUtils.getElementHeight(child, "inner", true);
-					} else if (marginTop === null) {
-						marginTop = childrenHeight;
-					}
-					child = child.nextElementSibling;
-				}
-
-				marginTop = marginTop || 0;
 
 				if (self.options.direction === 'y') {
 					handleStyle.height = floor(clipHeight / viewHeight * clipHeight) + 'px';
+					handlerStyle.marginTop = offsetTop + "px";
 				} else {
 					handleStyle.width = floor(clipWidth / viewWidth * clipWidth) + 'px';
 				}
@@ -823,7 +813,9 @@
 
 				self._availableOffsetX = max(0, viewWidth - clipWidth);
 				self._availableOffsetY = max(0, viewHeight - clipHeight);
-				ui.handler.style.marginTop = marginTop + "px";
+
+				// set handler to be on the right side of clip
+				handlerStyle.marginRight = marginRight + "px";
 			};
 
 			/**

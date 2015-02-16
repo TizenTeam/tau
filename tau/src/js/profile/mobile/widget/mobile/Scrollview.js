@@ -211,8 +211,7 @@
 			"../../../../core/widget/core/Page",
 			"../mobile", // fetch namespace
 			"./BaseWidgetMobile",
-			"./Button",
-			"../../../../core/widget/core/Page"
+			"./Button"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
@@ -945,7 +944,7 @@
 			ns.widget.mobile.Scrollview = Scrollview;
 			engine.defineWidget(
 				"Scrollview",
-				"[data-role='content']:not([data-scroll='none']):not([data-handler='true']):not(.ui-scrollview-clip):not(.ui-scrolllistview):not(.ui-scrollhandler)" +
+				".ui-content:not([data-scroll='none']):not([data-handler='true']):not(.ui-scrollview-clip):not(.ui-scrolllistview):not(.ui-scrollhandler)" +
 						", [data-scroll]:not([data-scroll='none']):not([data-handler='true']):not(.ui-scrollhandler)" +
 						", .ui-scrollview:not([data-scroll='none']):not([data-handler='true']):not(.ui-scrollhandler)",
 				[
