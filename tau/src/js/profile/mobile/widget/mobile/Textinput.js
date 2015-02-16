@@ -155,7 +155,7 @@
 					};
 
 					this._ui = {};
-					this._handlers = {};
+					this._callbacks = {};
 				},
 				/**
 				 * Alias for {ns.widget.BaseWidget}
@@ -391,7 +391,7 @@
 			 */
 			TextInput.prototype._findLabel = function(element) {
 				return element.parentNode.querySelector("label[for='" + element.id + "']");
-			}
+			};
 
 			/**
 			 * Method returns not disabled TextInput element which is the closest

@@ -145,12 +145,12 @@
 
 				self._bindEventKey();
 
-				callbacks.onKeyupTextarea = onKeyupTextarea.bind(null, self);
+				callbacks.onKeyup = onKeyupTextarea.bind(null, self);
 				callbacks.onResize = onResize.bind(null, self);
 
 				switch (element.type) {
 					case "textarea":
-						element.addEventListener("keyup", callbacks.onKeyupTextarea, false);
+						element.addEventListener("keyup", callbacks.onKeyup, false);
 				}
 
 				window.addEventListener("resize", callbacks.onResize, false);
@@ -170,7 +170,7 @@
 
 				switch (element.type) {
 					case "textarea":
-						element.removeEventListener("keyup", callbacks.onKeyupTextarea, false);
+						element.removeEventListener("keyup", callbacks.onKeyup, false);
 				}
 
 				self._destroyEventKey();

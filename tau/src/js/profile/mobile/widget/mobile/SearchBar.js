@@ -271,10 +271,12 @@
 					uiInputSearchWide: "ui-input-search-wide",
 					uiBtnCancelHide: "ui-btn-cancel-hide",
 					uiBtnCancelShow: "ui-btn-cancel-show",
-					uiFocus: 'ui-focus',
+					uiFocus: "ui-focus",
 					uiHeaderSearchBar: "ui-header-searchbar",
 					clearActive: textInputClasses.clearActive,
-					textLine: textInputClasses.textLine
+					textLine: textInputClasses.textLine,
+					uiSearchBarIconPositionLeft: "ui-search-bar-icon-left",
+					uiSearchBarIconPositionRight: "ui-search-bar-icon-right"
 				};
 
 			SearchBar.prototype = new BaseWidget();
@@ -288,17 +290,25 @@
 			SearchBar.classes = classes;
 
 			SearchBar.prototype._configure = function () {
+				var self = this,
+					options = self.options || {};
 				/**
 				 * @property {Object} options All possible widget options
 				 * @property {?string} [options.theme=null] theme of widget
 				 * @property {boolean} [options.cancelBtn=false] shows or not cancel button
+				 * @property {boolean} [options.clearButton=false] shows or not clear  button
 				 * @property {?string} [options.icon=null] type of icon on action button, possible values are the same as in button widget. If opition is not set then action button isn't showing
+				 * @property {?string} [options.buttonPosition="left"] position of icon
+				 * @property {?string} [options.defaultText=""] Default placeholder text
 				 * @member ns.widget.mobile.SearchBar
 				 */
-				this.options = this.options || {};
-				this.options.theme = null;
-				this.options.cancelBtn = false;
-				this.options.icon = null;
+				options.theme = null;
+				options.cancelBtn = false;
+				options.clearButton = true;
+				options.icon = null;
+				options.buttonPosition = "left";
+				options.defaultText = "";
+				self.options = options;
 			};
 
 			/**
@@ -384,7 +394,7 @@
 			 */
 			function findLabel(element) {
 				var elemParent = element.parentNode,
-					label = elemParent.querySelector('label[for="' + element.id + '"]');
+					label = elemParent.querySelector("label[for='" + element.id + "']");
 				return label;
 			}
 
@@ -403,16 +413,33 @@
 			}
 
 			/**
+			 * Build button position
+			 * @method _buildButtonPosition
+			 * @param {HTMLElement} container
+			 * @protected
+			 * @member ns.widget.mobile.SearchBar
+			 */
+			SearchBar.prototype._buildButtonPosition = function (container) {
+				var elementClassList = container.classList;
+				elementClassList.remove(classes.uiSearchBarIconPositionLeft);
+				elementClassList.remove(classes.uiSearchBarIconPositionRight);
+				elementClassList.add(this.options.buttonPosition === "left" ? classes.uiSearchBarIconPositionLeft : classes.uiSearchBarIconPositionRight);
+			};
+
+			/**
 			 * Build widget structure
+			 * @method _build
 			 * @param {HTMLElement} element
 			 * @returns {HTMLElement}
 			 * @protected
 			 * @member ns.widget.mobile.SearchBar
 			 */
 			SearchBar.prototype._build = function (element) {
-				var options = this.options,
+				var self = this,
+					id = self.id,
+					options = self.options,
 					protoOptions = SearchBar.prototype.options,
-					theme = options.theme || themes.getInheritedTheme(element, (protoOptions || protoOptions.theme) || 'c'),
+					theme = options.theme || themes.getInheritedTheme(element, (protoOptions || protoOptions.theme) || "c"),
 					themeClass  = classes.themePrefix + theme,
 					searchBox,
 					clearButton,
@@ -426,8 +453,8 @@
 					inputClassList = element.classList,
 					ui;
 
-				this._ui = this._ui || {};
-				ui = this._ui;
+				ui = self._ui || {};
+				self._ui = ui;
 
 				if (label) {
 					label.classList.add(classes.uiInputText);
@@ -438,25 +465,24 @@
 					element.parentNode.classList.add(classes.uiHeaderSearchBar);
 				}
 
-				if (element.autocorrect !== undefined) { // @todo && !$.support.touchOverflow ) {
-					// Set the attribute instead of the property just in case there
-					// is code that attempts to make modifications via HTML.
-					element.setAttribute("autocorrect", "off");
-					element.setAttribute("autocomplete", "off");
-				}
+				element.setAttribute("autocorrect", "off");
+				element.setAttribute("autocomplete", "off");
 
-				element.removeAttribute('type');
+				element.removeAttribute("type");
 
 				inputClassList.add(classes.uiInputText);
-				inputClassList.add(themeClass);
 
-				searchBox = document.createElement('div');
+				searchBox = document.createElement("div");
 				searchBoxClasses = searchBox.classList;
 				searchBoxClasses.add(classes.uiInputSearch);
 				searchBoxClasses.add(classes.uiShadowInset);
 				searchBoxClasses.add(classes.uiCornerAll);
 				searchBoxClasses.add(classes.uiBtnShadow);
-				searchBoxClasses.add(themeClass);
+
+				if (typeof theme === "string") {
+					inputClassList.add(themeClass);
+					searchBoxClasses.add(themeClass);
+				}
 
 				element.parentNode.replaceChild(searchBox, element);
 				searchBox.appendChild(element);
@@ -469,66 +495,64 @@
 					searchBoxClasses.add(classes.uiInputSearchDefault);
 				}
 
-				clearButton = document.createElement('a');
-				clearButton.setAttribute('href', '#');
-				clearButton.setAttribute('title', 'clear text');
-				clearButton.classList.add(classes.uiInputClear);
-				if (!element.value) {
-					clearButton.classList.add(classes.uiInputClearHidden);
+				if (options.clearBtn) {
+					clearButton = document.createElement("a");
+					clearButton.setAttribute("href", "#");
+					clearButton.setAttribute("title", "clear text");
+					clearButton.classList.add(classes.uiInputClear);
+					if (!element.value) {
+						clearButton.classList.add(classes.uiInputClearHidden);
+					}
+					clearButton.setAttribute("id", id + "-clear-button");
+					searchBox.appendChild(clearButton);
+					engine.instanceWidget(clearButton, "Button", {
+						icon: "deleteSearch",
+						iconpos: "notext",
+						corners: true,
+						shadow: true
+					});
+
+					// Give space from right
+					element.classList.add(classes.clearActive);
 				}
-				clearButton.setAttribute('id', this.id + '-clear-button');
-				searchBox.appendChild(clearButton);
-				engine.instanceWidget(clearButton, 'Button', {
-					icon: "deleteSearch",
-					iconpos: "notext",
-					corners: true,
-					shadow: true
-				});
 
-				// Give space from right
-				element.classList.add(classes.clearActive);
-
-				inputSearchBar = document.createElement('div');
+				inputSearchBar = document.createElement("div");
 				inputSearchBar.classList.add(classes.inputSearchBar);
 				searchBox.parentNode.replaceChild(inputSearchBar, searchBox);
 				inputSearchBar.appendChild(searchBox);
 
 				if (options.icon) {
 					searchBoxClasses.add(classes.uiSearchBarIcon);
-					frontIcon = document.createElement('div');
-					DOM.setNSData(frontIcon, 'role', 'button');
+					frontIcon = document.createElement("div");
+					DOM.setNSData(frontIcon, "role", "button");
 					inputSearchBar.appendChild(frontIcon);
-					engine.instanceWidget(frontIcon, 'Button', {
+					engine.instanceWidget(frontIcon, "Button", {
 						iconpos: "notext",
-						icon: options.icon
+						icon: options.icon,
+						shadow: true
 					});
 					frontIcon.classList.add(classes.uiBtnSearchFrontIcon);
+					self._buildButtonPosition(inputSearchBar);
 				}
 
 				// @TODO use TextInput widget instead
 				if (options.cancelBtn) {
-					cancelButton = document.createElement('div');
-					DOM.setNSData(cancelButton, 'role', 'button');
+					cancelButton = document.createElement("div");
+					DOM.setNSData(cancelButton, "role", "button");
 					cancelButton.classList.add(classes.uiInputCancel);
-					cancelButton.setAttribute('title', 'Clear text');
-					cancelButton.textContent = 'Cancel';
-					cancelButton.setAttribute('id', this.id + '-cancel-button');
+					cancelButton.setAttribute("title", "Clear text");
+					cancelButton.textContent = "Cancel";
+					cancelButton.setAttribute("id", id + "-cancel-button");
 
-					engine.instanceWidget(cancelButton, 'Button');
+					engine.instanceWidget(cancelButton, "Button");
 
 					inputSearchBar.appendChild(cancelButton);
 				}
 
 				// Default Text
-				defaultText = DOM.getNSData(element, "default-text");
+				defaultText = options.defaultText || element.getAttribute("placeholder") || "Search";
 
-				if (defaultText !== null) {
-					element.setAttribute("placeholder", defaultText);
-				}
-
-				if (!element.getAttribute("placeholder")) {
-					element.setAttribute("placeholder", "Search");
-				}
+				element.setAttribute("placeholder", "Search");
 
 				ui.input = element;
 				ui.clearButton = clearButton;
@@ -537,13 +561,18 @@
 				}
 				if (labelDiv) {
 					ui.labelDiv = labelDiv;
-					labelDiv.setAttribute('id', this.id + '-label-div');
+					labelDiv.setAttribute("id", id + "-label-div");
 				}
 				ui.searchBox = searchBox;
-				searchBox.setAttribute('id', this.id + '-search-box');
+				searchBox.setAttribute("id", id + "-search-box");
 
 				return element;
-			};
+			}
+
+			function clearInputAndTriggeerChange(input) {
+				input.value = "";
+				events.trigger(input, "change");
+			}
 
 			/**
 			 * Callback for click event on clear button
@@ -557,10 +586,9 @@
 			function clearButtonClick(self, event) {
 				var input = self._ui.input;
 				if (!input.getAttribute("disabled")) {
-					input.value = '';
-					events.trigger(input, 'change');
+					clearInputAndTriggeerChange(input);
 					input.focus();
-					event.preventDefault();
+					events.preventDefault(event);
 				}
 			}
 
@@ -574,22 +602,22 @@
 			 * @member ns.widget.mobile.SearchBar
 			 */
 			function cancelButtonClick(self, event) {
-				var input = self._ui.input,
+				var ui = self._ui,
+					input = ui.input,
 					localClassList;
 				if (!input.getAttribute("disabled")) {
-					event.preventDefault();
-					event.stopPropagation();
+					events.preventDefault(event);
+					events.stopPropagation(event);
 
-					input.value = '';
-					events.trigger(input, 'change');
+					clearInputAndTriggeerChange(input);
 					input.blur();
 
-					if (self.options.cancel) {
-						localClassList = self._ui.searchBox.classList;
+					if (self.options.cancelBtn) {
+						localClassList = ui.searchBox.classList;
 						localClassList.add(classes.uiInputSearchWide);
 						localClassList.remove(classes.uiInputSearchDefault);
 
-						localClassList = self._ui.cancelButton.classList;
+						localClassList = ui.cancelButton.classList;
 						localClassList.add(classes.uiBtnCancelHide);
 						localClassList.remove(classes.uiBtnCancelShow);
 					}
@@ -605,22 +633,23 @@
 			 * @member ns.widget.mobile.SearchBar
 			 */
 			function inputFocus(self) {
-				var input = self._ui.input,
+				var ui = self._ui,
+					input = ui.input,
 					localClassList;
 				if (!input.getAttribute("disabled")) {
-					localClassList = self._ui.searchBox.classList;
+					localClassList = ui.searchBox.classList;
 					localClassList.add(classes.uiFocus);
-					if (self.options.cancel) {
+					if (self.options.cancelBtn) {
 						localClassList.remove(classes.uiInputSearchWide);
 						localClassList.add(classes.uiInputSearchDefault);
 
-						localClassList = self._ui.cancelButton.classList;
+						localClassList = ui.cancelButton.classList;
 						localClassList.remove(classes.uiBtnCancelHide);
 						localClassList.add(classes.uiBtnCancelShow);
 					}
 				}
-				if (self._ui.labelDiv) {
-					self._ui.labelDiv.classList.add(classes.uiInputDefaultHidden);
+				if (ui.labelDiv) {
+					ui.labelDiv.classList.add(classes.uiInputDefaultHidden);
 				}
 			}
 
@@ -633,15 +662,16 @@
 			 * @member ns.widget.mobile.SearchBar
 			 */
 			function inputBlur(self) {
-				var inputedText = self._ui.input.value,
+				var ui = self._ui,
+					inputedText = ui.input.value,
 					classes = SearchBar.classes,
-					ui = self._ui;
+					labelDiv = ui.labelDiv;
 				ui.searchBox.classList.remove(classes.uiFocus);
-				if (ui.labelDiv) {
+				if (labelDiv) {
 					if (inputedText.length > 0) {
-						ui.labelDiv.classList.add(classes.uiInputDefaultHidden);
+						labelDiv.classList.add(classes.uiInputDefaultHidden);
 					} else {
-						ui.labelDiv.classList.remove(classes.uiInputDefaultHidden);
+						labelDiv.classList.remove(classes.uiInputDefaultHidden);
 					}
 				}
 			}
@@ -655,8 +685,9 @@
 			 * @member ns.widget.mobile.SearchBar
 			 */
 			function labelClick(self) {
-				self._ui.input.blur();
-				self._ui.input.focus();
+				var input = self._ui.input;
+				input.blur();
+				input.focus();
 			}
 
 			/**
@@ -667,14 +698,15 @@
 			 * @member ns.widget.mobile.SearchBar
 			 */
 			SearchBar.prototype._init = function (element) {
-				var ui;
-				this._ui = this._ui || {};
-				ui = this._ui;
+				var self = this,
+					ui = self._ui || {},
+					id = self.id;
+				self._ui = ui;
 				ui.input = element;
-				ui.clearButton = document.getElementById(this.id + '-clear-button');
-				ui.cancelButton = document.getElementById(this.id + '-cancel-button');
-				ui.labelDiv = document.getElementById(this.id + '-label-div');
-				ui.searchBox = document.getElementById(this.id + '-search-box');
+				ui.clearButton = document.getElementById(id + "-clear-button");
+				ui.cancelButton = document.getElementById(id + "-cancel-button");
+				ui.labelDiv = document.getElementById(id + "-label-div");
+				ui.searchBox = document.getElementById(id + "-search-box");
 			};
 
 			/**
@@ -685,17 +717,19 @@
 			*/
 			SearchBar.prototype._bindEvents = function () {
 				var handlers,
-					ui = this._ui,
+					self = this,
+					ui = self._ui,
 					input = ui.input;
-				this._handlers = this._handlers || {};
-				handlers = this._handlers;
-				handlers.clearClick = clearButtonClick.bind(null, this);
-				handlers.cancelClick = cancelButtonClick.bind(null, this);
-				handlers.inputFocus = inputFocus.bind(null, this);
-				handlers.inputBlur = inputBlur.bind(null, this);
-				handlers.labelClick = labelClick.bind(null, this);
-
-				ui.clearButton.addEventListener("vclick", handlers.clearClick, false);
+				self._callbacks = self._callbacks || {};
+				handlers = self._callbacks;
+				handlers.clearClick = clearButtonClick.bind(null, self);
+				handlers.cancelClick = cancelButtonClick.bind(null, self);
+				handlers.inputFocus = inputFocus.bind(null, self);
+				handlers.inputBlur = inputBlur.bind(null, self);
+				handlers.labelClick = labelClick.bind(null, self);
+				if(ui.clearButton) {
+					ui.clearButton.addEventListener("vclick", handlers.clearClick, false);
+				}
 				if (ui.cancelButton) {
 					ui.cancelButton.addEventListener("vclick", handlers.cancelClick, false);
 				}
@@ -703,6 +737,30 @@
 				input.addEventListener("blur", handlers.inputBlur, false);
 				if (ui.labelDiv) {
 					ui.labelDiv.addEventListener("vclick", handlers.labelClick, false);
+				}
+			};
+
+			/**
+			 * Destroy widget
+			 * @method _destroy
+			 * @protected
+			 * @member ns.widget.mobile.SearchBar
+			 */
+			SearchBar.prototype._destroy = function () {
+				var handlers,
+					ui = this._ui,
+					input = ui.input;
+				handlers = this._callbacks;
+				if(ui.clearButton) {
+					ui.clearButton.removeEventListener("vclick", handlers.clearClick, false);
+				}
+				if (ui.cancelButton) {
+					ui.cancelButton.removeEventListener("vclick", handlers.cancelClick, false);
+				}
+				input.removeEventListener("focus", handlers.inputFocus, false);
+				input.removeEventListener("blur", handlers.inputBlur, false);
+				if (ui.labelDiv) {
+					ui.labelDiv.removeEventListener("vclick", handlers.labelClick, false);
 				}
 			};
 
@@ -734,14 +792,6 @@
 			 * @since 2.3
 			 * @member ns.widget.mobile.SearchBar
 			 */
-
-			SearchBar.prototype.value = function (value) {
-				if (value) {
-					this._setValue(value);
-					return;
-				}
-				return this._getValue();
-			};
 
 			/**
 			 * Gets value for widget
@@ -783,9 +833,7 @@
 			engine.defineWidget(
 				"SearchBar",
 				"input[type='search'], [data-type='search'], [data-type='tizen-search'], .ui-searchbar",
-				[
-					"value"
-				],
+				[],
 				SearchBar,
 				"tizen"
 			);

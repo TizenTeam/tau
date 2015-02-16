@@ -4,7 +4,6 @@
 	padding: 30 * @virtual_px 20 * @virtual_px 25 * @virtual_px 20 * @virtual_px;
 	font-size: 28 * @virtual_px;
 	font-weight: bolder;
-	line-height: @fixed_button_line_height;
 	text-align: center;
 	white-space: nowrap;
 	cursor: pointer;
@@ -40,7 +39,6 @@
 		display: block;
 		position: relative;
 		zoom: 1;
-		line-height: 32 * @virtual_px;
 		margin: 0;
 		min-width: @fixed_button_inner_minimum_width;
 
@@ -351,6 +349,10 @@ button.ui-btn, input.ui-btn {
 	.mask-image('images/icons/bg_ico_76_shadow.png', 'images/icons/app_ico_bg.png');
 	.mask-size(76 * @virtual_px 76 * @virtual_px);
 	z-index: 0;
+}
+
+.ui-icon-web {
+	background-image: url(images/icons/app_ico_web.png);
 }
 
 /****************************************

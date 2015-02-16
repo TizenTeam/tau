@@ -88,6 +88,7 @@
 			"./profile/tv/widget/DateInput",
 			"./profile/tv/widget/Listdivider",
 			"./profile/tv/widget/Checkboxradio",
+			"./profile/tv/widget/SearchBar",
 			"./profile/tv/widget/Progress",
 			"./profile/tv/widget/SelectMenu",
 			"./profile/mobile/widget/mobile/TabBar",
