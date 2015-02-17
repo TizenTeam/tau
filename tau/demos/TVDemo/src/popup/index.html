@@ -24,6 +24,9 @@
 				<a data-role="button" href="ctxpopup.html">Context popup</a>
 			</li>
 			<li>
+				<a data-role="button" href="notificationpopup.html">Notification popups</a>
+			</li>
+			<li>
 				<a href="#popupToast" class="ui-btn" data-rel="popup">Popup toast</a>
 			</li>
 			<li>
@@ -80,20 +83,20 @@
 		</ul>
 	</div>
 
-	<div id="textOnlyPopup" data-role="popup">
+	<div id="textOnlyPopup" class="ui-popup">
 		<div>
 			Text only popup
 		</div>
 	</div>
 
-	<div id="extendedTextOnlyPopup" data-role="popup">
+	<div id="extendedTextOnlyPopup" class="ui-popup">
 		<div> <!-- [optional] class="ui-popup-content" -->
 			<h1>Title example</h1>
 			<p>Check the antenna cable connection.</p>
 		</div>
 	</div>
 
-	<div id="extended2TextOnlyPopup" data-role="popup">
+	<div id="extended2TextOnlyPopup" class="ui-popup">
 		<div>
 			<h1>Title example</h1>
 			<p>Check the antenna cable connection.</p>
@@ -102,21 +105,21 @@
 	</div>
 
 
-	<div id="loadingPopup" data-role="popup" class="ui-popup-progress">
+	<div id="loadingPopup" class="ui-popup ui-popup-progress">
 		<div>
 			<progress data-appeariance="circle"></progress>
 			<span>Loading</span>
 		</div>
 	</div>
 
-	<div id="multiLineLoadingPopup" data-role="popup" class="ui-popup-progress">
+	<div id="multiLineLoadingPopup" class="ui-popup ui-popup-progress">
 		<div>
 			<progress data-appeariance="circle"></progress>
 			<span>Disconnect and reconnect the antenna cable, wait few seconds...</span>
 		</div>
 	</div>
 
-	<div id="extendedLoadingPopup" data-role="popup" class="ui-popup-progress">
+	<div id="extendedLoadingPopup" class="ui-popup ui-popup-progress">
 		<header>Air casting</header>
 		<div>
 			<progress data-appeariance="circle"></progress>
@@ -127,7 +130,7 @@
 		</footer>
 	</div>
 
-	<div id="multiLineExtendedLoadingPopup" data-role="popup" class="ui-popup-progress">
+	<div id="multiLineExtendedLoadingPopup" class="ui-popup ui-popup-progress">
 		<header>Air casting</header>
 		<div>
 			<progress data-appeariance="circle"></progress>
@@ -138,7 +141,7 @@
 		</footer>
 	</div>
 
-	<div id="1btnPopup" data-role="popup">
+	<div id="1btnPopup" class="ui-popup">
 		<header>Power saving mode</header>
 		<div>
 			Turning on Power
@@ -151,7 +154,7 @@
 		</footer>
 	</div>
 
-	<div id="2btnPopup" data-role="popup">
+	<div id="2btnPopup" class="ui-popup">
 		<header>Power saving mode</header>
 		<div>
 			Turning on Power
@@ -165,7 +168,48 @@
 		</footer>
 	</div>
 
-	<div id="checkPopup" data-role="popup" class="ui-popup-listview">
+	<div id="radioPopup" class="ui-popup ui-popup-listview">
+		<header>Ringtones</header>
+		<div style="overflow-y:scroll;">
+			<ul class="ui-listview">
+				<li class="li-has-radio">
+					<a href="">
+						<input type="radio" name="radioset" id="radio-1" checked="checked" />
+						<label for="radio-1"> Tone 1 </label>
+					</a>
+				</li>
+				<li class="li-has-radio">
+					<a href="">
+						<input type="radio" name="radioset" id="radio-2" />
+						<label for="radio-2"> Tone 2 </label>
+					</a>
+				</li>
+				<li class="li-has-radio">
+					<a href="">
+						<input type="radio" name="radioset" id="radio-3" />
+						<label for="radio-3"> Tone 3 </label>
+					</a>
+				</li>
+				<li class="li-has-radio">
+					<a href="">
+						<input type="radio" name="radioset" id="radio-4" />
+						<label for="radio-4"> Tone 4 </label>
+					</a>
+				</li>
+				<li class="li-has-radio">
+					<a href="">
+						<input type="radio" name="radioset" id="radio-5" />
+						<label for="radio-5"> Tone 5 </label>
+					</a>
+				</li>
+			</ul>
+		</div>
+		<footer>
+			<a data-role="button" id="radioPopup-close" class="ui-btn">Close</a>
+		</footer>
+	</div>
+
+	<div id="checkPopup" class="ui-popup ui-popup-listview">
 		<header>When?</header>
 		<div style="overflow-y:scroll;">
 			<ul class="ui-listview">
@@ -204,7 +248,7 @@
 		</footer>
 	</div>
 
-	<div id="listPopup" data-role="popup" class="ui-popup-listview">
+	<div id="listPopup" class="ui-popup ui-popup-listview">
 		<header>Change to</header>
 		<div style="overflow-y:scroll;">
 			<ul class="ui-listview">
@@ -220,7 +264,7 @@
 		</footer>
 	</div>
 
-	<div id="listNoTitlePopup" data-role="popup" class="ui-popup-listview">
+	<div id="listNoTitlePopup" class="ui-popup ui-popup-listview">
 		<div style="overflow-y:scroll;">
 			<ul class="ui-listview">
 				<li>Ringtones 1</li>
@@ -237,13 +281,13 @@
 		</footer>
 	</div>
 
-	<div id="popupToast" data-role="popup" class="ui-popup-toast">
+	<div id="popupToast" class="ui-popup ui-popup-toast">
 		<div>
 			Saving contacts to sim on Samsung.
 		</div>
 	</div>
 
-	<div id="longPopupToast" data-role="popup" class="ui-popup-toast">
+	<div id="longPopupToast" class="ui-popup ui-popup-toast">
 		<div>
 			<p>Saving contacts to sim on Samsung. Do not turn off your TV. Saving contacts to sim on Samsung.
 				Restart will be done automatically. Saving contacts to sim on Samsung. Do not turn off your TV. Saving contacts
@@ -252,7 +296,7 @@
 		</div>
 	</div>
 
-	<div id="inputPopup" data-role="popup">
+	<div id="inputPopup" class="ui-popup">
 		<header>Power saving mode</header>
 		<div>
 			<input />

@@ -8,10 +8,20 @@
  * # Popup Widget
  * Shows a pop-up window.
  *
+ * ## Toast popup
+ * Toast popups are popups displayed as a short message on the screen bottom. Toasts usually do not require any user
+ * interaction.
+ * To create a toast popup add `ui-popup-toast` class to popup markup.
+ *
+ * ## Notification popup
+ * Notification popups are popups shown for a specific period of time.
+ * To create a notification popup, developer needs to add an additional class `ui-popup-notification`. *
+ *
  * @class ns.widget.tv.Popup
  * @extends ns.widget.core.ContextPopup
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  * @author Jadwiga Sosnowska <j.sosnowska@samsung.com>
+ * @author Piotr Karny <p.karny@samsung.com>
  */
 (function (document, ns) {
 	"use strict";
@@ -43,21 +53,26 @@
 					BaseKeyboardSupport.call(self);
 
 					self.options = objectUtils.merge(self.options, defaults);
+
 					self.selectors = selectors;
 					self._nearestLinkForArrow = null;
+
+					self._notificationTimeout = null;
 				},
 				/**
 				 * Default properties for TV implementation of Popup
-				 * @property {Object} default
-				 * @property {string} default.arrow="t,b,l,r"
-				 * @property {number} default.distance=10
-				 * @property {string|null} default.headerIcon=null
-				 * @property {string|null} default.mainColor=null
+				 * @property {Object} defaults
+				 * @property {string} defaults.arrow="t,b,l,r"
+				 * @property {number} defaults.distance=10
+				 * @property {string|null} defaults.headerIcon=null
+				 * @property {string|null} defaults.mainColor=null
 				 * @property {number|HTMLElement|boolean|null} [autofocus=0] define element which should be focused after open popup
 				 * @property {boolean} [changeContext=true] define if context should be changed after opening popup.
 				 * If value of this property is true, it means that after opening popup, the focus will be set only
 				 * inside the popup's container and if popup does not have any focusable elements, the enter will cause
 				 * closing popup.
+				 * @property {number|null} defaults.timeout=null time after what popup will close itself. `.timeout` <= 0 turns off the delayed close
+				 * @member ns.widget.tv.Popup
 				 */
 				defaults = objectUtils.merge({}, CorePopup.defaults, {
 					arrow: "t,b,l,r",
@@ -66,14 +81,28 @@
 					headerIcon: null,
 					mainColor: null,
 					autofocus: 0,
-					changeContext: true
+					changeContext: true,
+					timeout: null
 				}),
+				/**
+				 * Default values for notification popup type.
+				 * @property {Object} notificationDefaults
+				 * @property {number} notificationDefaults.actionTimeout=60000 default timeout for closing action popup
+				 * @property {number} notificationDefaults.timeout=5000 default timeout for closing normal popup
+				 * @member ns.widget.tv.Popup
+				 */
+				notificationDefaults = {
+					actionTimeout: 60000,
+					timeout: 5000
+				},
 				classes = objectUtils.merge({}, CorePopup.classes, {
 					toast: "ui-popup-toast",
 					headerEmpty: "ui-header-empty",
 					footerEmpty: "ui-footer-empty",
 					content: "ui-popup-content",
 					custom: "ui-popup-custom",
+					action: "ui-popup-action",
+					notification: "ui-popup-notification",
 					headerIcon: "ui-popup-header-icon",
 					focus: "ui-focus",
 					uiPage: Page.classes.uiPage
@@ -155,6 +184,19 @@
 			}
 
 			/**
+			 * If popup contains any input or button-like element it's considered as action popup.
+			 * This method tests if a popup is an 'action' popup.
+			 * @method _isActionPopup
+			 * @return {boolean}
+			 * @protected
+			 * @member ns.widget.tv.Popup
+			 */
+			prototype._isActionPopup = function () {
+				var element = this.element;
+				return element.classList.contains(classes.action) || !!element.querySelector("input," + engine.getWidgetDefinition("Button").selector);
+			};
+
+			/**
 			 * Build the popup DOM tree
 			 * @method _build
 			 * @protected
@@ -163,17 +205,14 @@
 			 * @member ns.widget.tv.Popup
 			 */
 			prototype._build = function (element) {
-				var ui = this._ui,
-					options = this.options,
-					uiHeader;
+				var self = this,
+					ui = self._ui;
 
 				if (typeof CorePopupPrototype._build === FUNCTION_TYPE) {
-					CorePopupPrototype._build.apply(this, arguments);
+					CorePopupPrototype._build.apply(self, arguments);
 				}
 
-				uiHeader = ui.header;
-
-				if (!uiHeader) {
+				if (!ui.header) {
 					element.classList.add(classes.headerEmpty);
 				}
 
@@ -182,13 +221,15 @@
 				}
 
 				// Settings for customized popups
-				setHeaderIcon(this, element);
+				setHeaderIcon(self, element);
 
 				return element;
 			};
 
 			prototype._init = function(element) {
-				var ui = this._ui;
+				var self = this,
+					ui = self._ui,
+					isActionPopup;
 
 				if (typeof CorePopupPrototype._init === FUNCTION_TYPE) {
 					CorePopupPrototype._init.call(this, element);
@@ -196,6 +237,22 @@
 				if (element.classList.contains(classes.toast)) {
 					ui.container.classList.add(classes.toast);
 				}
+
+				isActionPopup = self._isActionPopup();
+
+				if (isActionPopup) {
+					element.classList.add(classes.action);
+				}
+
+				// The default values for timeout must be defined here because the same `timeout` property
+				// is used for both types of popup (normal and action), but default value of that property
+				// is different depending on type
+				if (self.options.timeout === null) {
+					// Action popup has different timeout than normal popup
+					self.options.timeout = isActionPopup ? notificationDefaults.actionTimeout : notificationDefaults.timeout;
+				}
+
+				// Add reference when running without _build method
 				ui.headerIcon = ui.headerIcon || element.querySelector("." + classes.headerIcon);
 			};
 
@@ -404,8 +461,7 @@
 			 * @member ns.widget.tv.Popup
 			 */
 			prototype._refresh = function() {
-				var element = this.element,
-					options = this.options;
+				var element = this.element;
 
 				if (typeof CorePopupPrototype._refresh === FUNCTION_TYPE) {
 					CorePopupPrototype._refresh.call(this);
@@ -422,11 +478,49 @@
 			 * @member ns.widget.tv.Popup
 			 */
 			prototype._onShow = function () {
-				setCustomPopupColors(this);
+				var self = this,
+					options = self.options;
+
+				setCustomPopupColors(self);
 
 				if (typeof CorePopupPrototype._onShow === FUNCTION_TYPE) {
-					CorePopupPrototype._onShow.call(this);
+					CorePopupPrototype._onShow.call(self);
 				}
+
+				// Auto-close popup after a defined timeout
+				if (self.element.classList.contains(classes.notification) && options.timeout > 0) {
+					self._notificationTimeout = setTimeout(self.close.bind(self), options.timeout);
+				}
+			};
+
+			/**
+			 * Clears notification timeout in case it was set
+			 * @method _clearNotificationTimeout
+			 * @protected
+			 * @member ns.widget.tv.Popup
+			 */
+			prototype._clearNotificationTimeout = function () {
+				var self = this;
+				if (self._notificationTimeout) {
+					clearTimeout(self._notificationTimeout);
+					self._notificationTimeout = null;
+				}
+			};
+
+			/**
+			 * On popup hide.
+			 * @method _onHide
+			 * @protected
+			 * @member ns.widget.tv.Popup
+			 */
+			prototype._onHide = function () {
+				var self = this;
+
+				if (typeof CorePopupPrototype._onHide === FUNCTION_TYPE) {
+					CorePopupPrototype._onHide.call(self);
+				}
+
+				self._clearNotificationTimeout();
 			};
 
 			/**
@@ -436,18 +530,22 @@
 			 * @member ns.widget.tv.Popup
 			 */
 			prototype._destroy = function() {
-				var ui = this._ui;
+				var self = this,
+					ui = this._ui;
 
 				if (ui.headerIcon) {
 					ui.headerIcon.parentElement.removeChild(ui.headerIcon);
 					ui.headerIcon = null;
 				}
 
-				// @TODO reset styles to base
+				// Clear timeout in case the destroy was triggered before closing popup
+				self._clearNotificationTimeout();
 
-				this._destroyEventKey();
+					// @TODO reset styles to base
+
+				self._destroyEventKey();
 				if (typeof CorePopupPrototype._destroy === FUNCTION_TYPE) {
-					CorePopupPrototype._destroy.call(this);
+					CorePopupPrototype._destroy.call(self);
 				}
 			};
 
