@@ -12,31 +12,84 @@ Normal Popup
 
 .ui-popup {
 	position: absolute;
-	width: 688 * @virtual_px;
 	display: inline-table;
-	background-color: @color_popup_bg;
 	visibility: hidden;
 	z-index: 1000;
 	max-height: 80%;
-	.border-radius(@fixed_popup_border_radius);
-	.box-shadow(0 2 * @virtual_px 5 * @virtual_px @color_popup_shadow);
 
-	&:not(.ui-popup-toast):not(.ui-ctxpopup) {
-		min-height: 411 * @virtual_px;
+	header {
+		width: 100%;
+		text-align: center;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
 
-		&.ui-header-empty {
-			min-height: 305 * @virtual_px;
+	}
+
+	&:not(.ui-popup-no-box) {
+		width: 688 * @virtual_px;
+		.border-radius(@fixed_popup_border_radius);
+		.box-shadow(0 2 * @virtual_px 5 * @virtual_px @color_popup_shadow);
+		background-color: @color_popup_bg;
+
+		&:not(.ui-ctxpopup) {
+			&:not(.ui-popup-toast) {
+				min-height: 411 * @virtual_px;
+
+				&.ui-header-empty {
+					min-height: 305 * @virtual_px;
+
+					.ui-popup-wrapper {
+						min-height: 305 * @virtual_px - @no_header_border_width;
+					}
+				}
+
+				// This block corresponds to the cases where popup is missing header
+				// so the whole block will have different height
+				.ui-popup-wrapper {
+					min-height: 411 * @virtual_px;
+				}
+			}
+
+			&.ui-header-empty {
+				border-top-color: @color_popup_header_bg;
+				border-top-width: @no_header_border_width;
+				border-top-style: solid;
+			}
+		}
+
+		header {
+			min-height: @fixed_popup_header_height;
+			line-height: @fixed_popup_header_height;
+			font-size: @fixed_popup_header_font_size;
+			background-color: @color_popup_header_bg;
+			color: @color_popup_title_text;
+			padding-right: @fixed_popup_header_padding_right;
+			padding-left: @fixed_popup_header_padding_left;
+			&:first-child {
+				.border-top-radius(@fixed_popup_border_radius);
+			}
+		}
+
+		.ui-popup-content {
+			color: @color_popup_text;
+			background-color: @color_popup_bg;
+			font-size: @fixed_popup_body_font_size;
+			line-height: 33 * @virtual_px;
+			padding: 53 * @virtual_px 73 * @virtual_px;
+
+			&:first-child {
+				.border-top-radius(@fixed_popup_border_radius);
+			}
+
+			&:last-child {
+				.border-bottom-radius(@fixed_popup_border_radius);
+			}
 		}
 	}
 
 	&:not(.ui-popup-toast) {
 		position: absolute;
-	}
-
-	&:not(.ui-ctxpopup).ui-header-empty {
-		border-top-color: @color_popup_header_bg;
-		border-top-width: @no_header_border_width;
-		border-top-style: solid;
 	}
 
 	.ui-popup-wrapper {
@@ -45,47 +98,23 @@ Normal Popup
 		.justify-content(space-between);
 	}
 
-	// This block corresponds to the cases where popup is missing header
-	// so the whole block will have different height
-	&:not(.ui-popup-toast):not(.ui-ctxpopup) {
-		.ui-popup-wrapper {
-			min-height: 411 * @virtual_px;
+	&.ui-popup-no-box {
+		.calc-width(~"100% - " (100 * @virtual_px));
+		header {
+			font-size: @fixed_popup_header_font_size_no_box;
+			color: @color_popup_title_text_no_box;
+			font-weight: bold;
 		}
 
-		&.ui-header-empty {
-			.ui-popup-wrapper {
-				min-height: 305 * @virtual_px - @no_header_border_width;
-			}
-		}
-	}
-
-	header {
-		width: 100%;
-		min-height: @fixed_popup_header_height;
-		line-height: @fixed_popup_header_height;
-		font-size: @fixed_popup_header_font_size;
-		text-align: center;
-		background-color: @color_popup_header_bg;
-		color: @color_popup_title_text;
-		padding-right: @fixed_popup_header_padding_right;
-		padding-left: @fixed_popup_header_padding_left;
-		overflow: hidden;
-		text-overflow: ellipsis;
-		white-space: nowrap;
-
-		&:first-child {
-			.border-top-radius(@fixed_popup_border_radius);
+		.ui-popup-content {
+			font-size: @fixed_popup_toast_font_size;
+			color: @color_popup_text_no_box;
 		}
 	}
 
 	.ui-popup-content {
 		width: 100%;
-		font-size: @fixed_popup_body_font_size;
-		line-height: 33 * @virtual_px;
 		text-align: center;
-		color: @color_popup_text;
-		background-color: @color_popup_bg;
-		padding: 53 * @virtual_px 73 * @virtual_px;
 		overflow: hidden;
 
 		// For expanding to the whole content
@@ -96,14 +125,6 @@ Normal Popup
 		.flex-direction(column);
 		.justify-content(center);
 		.align-items(center);
-
-		&:first-child {
-			.border-top-radius(@fixed_popup_border_radius);
-		}
-
-		&:last-child {
-			.border-bottom-radius(@fixed_popup_border_radius);
-		}
 
 		p {
 			margin-top: 0;
@@ -133,6 +154,8 @@ Normal Popup
 			}
 		}
 	}
+
+
 
 	// Padding is not even when progress bar is inside popup with headers
 	&:not(.ui-header-empty):not(.ui-footer-empty) {
