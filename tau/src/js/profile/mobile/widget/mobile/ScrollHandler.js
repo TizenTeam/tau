@@ -298,13 +298,15 @@
 					 * @property {string} [options.handlerTheme="s"] Handler theme
 					 * @property {"x"|"y"} [options.direction="y"] The direction of the handler
 					 * @property {"x"|"y"|"xy"} [options.scroll="y"] The direction of scrolling
+					 * @property {number} [options.delay=1500] Time in ms after which the scrollhandler disappears.
 					 * @member ns.widget.mobile.ScrollHandler
 					 */
 					self.options = {
 						handler: true,
 						handlerTheme: "s",
 						direction: "y",
-						scroll: "y"
+						scroll: "y",
+						delay: 1500
 					};
 					/**
 					 * A collection of handler UI elements
@@ -547,7 +549,7 @@
 					}
 					self._hideTimer = window.setTimeout(function () {
 						self.ui.handler.classList.remove(classes.visible);
-					}, 1500);
+					}, self.options.delay);
 				}
 			}
 
@@ -672,7 +674,7 @@
 					}
 					self._hideTimer = window.setTimeout(function () {
 						self.ui.handler.classList.remove(classes.visible);
-					}, 1500);
+					}, self.options.delay);
 				}
 			}
 

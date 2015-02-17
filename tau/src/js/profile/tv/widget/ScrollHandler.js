@@ -17,17 +17,24 @@
 		[
 			"../../../profile/mobile/widget/mobile/ScrollHandler",
 			"../../../core/engine",
+			"../../../core/util/object",
 			"../tv"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
-			var BaseScrollHandler = ns.widget.mobile.ScrollHandler,
+			var engine = ns.engine,
+				objectUtils = ns.util.object,
+				BaseScrollHandler = ns.widget.mobile.ScrollHandler,
 				BaseScrollHandlerPrototype = BaseScrollHandler.prototype,
 				ScrollHandler = function () {
-					BaseScrollHandler.call(this);
+					var self = this;
+					BaseScrollHandler.call(self);
+					self.options = objectUtils.merge(self.options, defaults);
 				},
-				engine = ns.engine,
 				classes = BaseScrollHandler.classes,
+				defaults = objectUtils.merge({}, BaseScrollHandler.defaults, {
+					delay: 5000
+				}),
 				prototype = new BaseScrollHandler();
 
 			ScrollHandler.events = BaseScrollHandler.events;
