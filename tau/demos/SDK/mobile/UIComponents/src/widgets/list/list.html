@@ -42,33 +42,5 @@
 	});
 	</script>
 </div>
-
-
-
-<div data-role="page" id="3">
-	<div data-role="header" data-position="fixed">
-		<h1></h1>
-	</div>
-	<div data-role="content">
-		<ul-data-role="listview">
-		</ul>
-	</div>
-	<script>
-	$( "#3" ).on( "pageshow" , function() {
-		$( window ).on( "tizenhwkey", function ( ev ) {
-			if ( ev.originalEvent.keyName === "back" ) {
-				//bind callbacks to the H/W keys
-				window.history.back();
-			}
-		});
-	});
-	$( "#3" ).on( "pagebeforehide" , function() {
-		//unbind callbacks to the H/W keys
-		$( window ).off( "tizenhwkey" );
-	});
-	</script>
-</div>
-
-
 </body>
 </html>
