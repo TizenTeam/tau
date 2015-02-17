@@ -20,7 +20,8 @@
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 
-			var DOM = ns.util.DOM;
+			var DOM = ns.util.DOM,
+				DASH_TO_UPPER_CASE_REGEXP = /-([a-z])/gi;
 
 			/**
 			 * Returns css property for element
@@ -313,6 +314,18 @@
 				return !(element.offsetWidth <= 0 && element.offsetHeight <= 0);
 			}
 
+			function toUpperCaseFn(match, value) {
+				return value.toLocaleUpperCase();
+			}
+
+			function dashesToCamelCase(str) {
+				return str.replace(DASH_TO_UPPER_CASE_REGEXP, toUpperCaseFn);
+			}
+
+			function firstToUpperCase(str) {
+				return str.charAt(0).toLocaleUpperCase() + str.substring(1);
+			}
+
 			/**
 			 * Set values for element with prefixes for browsers
 			 * @method setPrefixedStyle
@@ -324,7 +337,7 @@
 			 */
 			function setPrefixedStyle(element, property, value) {
 				var style = element.style,
-					propertyForPrefix = property.charAt(0).toLocaleUpperCase() + property.substring(1),
+					propertyForPrefix = firstToUpperCase(dashesToCamelCase(property)),
 					values = (typeof value === "string") ? {
 						webkit: value,
 						moz: value,
@@ -332,15 +345,16 @@
 						ms: value,
 						normal: value
 					} : value;
+
 				style[property] = values.normal;
-				style["webkit"+propertyForPrefix] = values.webkit;
-				style["moz"+propertyForPrefix] = values.moz;
-				style["o"+propertyForPrefix] = values.o;
-				style["ms"+propertyForPrefix] = values.ms;
+				style["webkit" + propertyForPrefix] = values.webkit;
+				style["moz" + propertyForPrefix] = values.moz;
+				style["o" + propertyForPrefix] = values.o;
+				style["ms" + propertyForPrefix] = values.ms;
 			}
 
 			/**
-			 * Returns values for css property with browsers prefixes
+			 * Get value from element with prefixes for browsers
 			 * @method getCSSProperty
 			 * @param {string} value
 			 * @return {Object}
@@ -357,6 +371,30 @@
 				};
 			}
 
+			/**
+			 * Returns style value for css property with browsers prefixes
+			 * @method getPrefixedStyle
+			 * @param {HTMLStyle} styles
+			 * @param {string} property
+			 * @return {Object}
+			 * @member ns.util.DOM
+			 * @static
+			 */
+			function getPrefixedStyleValue(styles, property) {
+				var prefixedProperties = getPrefixedValue(property),
+					value,
+					key;
+
+				for (key in prefixedProperties) {
+					value = styles[prefixedProperties[key]];
+					if (value && value !== "none") {
+						return value;
+					}
+				}
+				return value;
+			}
+
+
 			// assign methods to namespace
 			DOM.getCSSProperty = getCSSProperty;
 			DOM.extractCSSProperties = extractCSSProperties;
@@ -366,6 +404,7 @@
 			DOM.isOccupiedPlace = isOccupiedPlace;
 			DOM.setPrefixedStyle = setPrefixedStyle;
 			DOM.getPrefixedValue = getPrefixedValue;
+			DOM.getPrefixedStyleValue = getPrefixedStyleValue;
 
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return ns.util.DOM;

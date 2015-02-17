@@ -23,6 +23,7 @@
 			"../../../core/util/selectors",
 			"../../../core/theme",
 			"../../../core/util/object",
+			"../../../core/util/DOM/css",
 			"../tv",
 			"./BaseKeyboardSupport"
 		],
@@ -32,6 +33,8 @@
 				BaseButtonPrototype = BaseButton.prototype,
 				BaseKeyboardSupport = ns.widget.tv.BaseKeyboardSupport,
 				utils = ns.util,
+				setPrefixedStyle = utils.DOM.setPrefixedStyle,
+				getPrefixedStyleValue = utils.DOM.getPrefixedStyleValue,
 				objectUtils = utils.object,
 				selectorsUtils = utils.selectors,
 				FUNCTION_TYPE = "function",
@@ -43,7 +46,8 @@
 				},
 				engine = ns.engine,
 				selectors = {
-					footer: "footer"
+					footer: "footer",
+					icon: "img.ui-li-dynamic-icon-src"
 				},
 				classes = objectUtils.merge({}, BaseButton.classes, {
 					background: "ui-background",
@@ -55,7 +59,7 @@
 					right: "right",
 					tooltip: "ui-tooltip",
 					text: "ui-text",
-					marquee: "ui-marquee"
+					icon: "ui-li-dynamic-footer-icon"
 				}),
 				prototype = new BaseButton();
 
@@ -67,6 +71,28 @@
 			Button.hoverDelay = 0;
 			// definition
 			ns.widget.tv.Button = Button;
+
+			function findIcon(element) {
+				var iconSource = element.querySelector(selectors.icon),
+					styles,
+					icon,
+					src;
+
+				if (iconSource) {
+					icon = document.createElement("span");
+					icon.classList.add(classes.icon);
+					iconSource.parentNode.replaceChild(icon, iconSource);
+					styles = window.getComputedStyle(icon);
+					src = getPrefixedStyleValue(styles, "mask-image");
+					if (src) {
+						src += ", url('" + iconSource.getAttribute("src") + "')";
+					} else {
+						src = "url('" + iconSource.getAttribute("src") + "')";
+					}
+					setPrefixedStyle(icon, "mask-image", src);
+					icon.appendChild(iconSource);
+				}
+			}
 
 			function createBackgroundElement(element) {
 				var backgroundElement = document.createElement("div");
@@ -162,6 +188,7 @@
 				self._buildBackground(element);
 
 				this._buildTooltip(element);
+				findIcon(element);
 
 				return element;
 			};
@@ -227,9 +254,9 @@
 				BaseButtonPrototype._init.call(self, element);
 
 				self.ui.background = document.getElementById(self.id + "-background");
+
 				return element;
 			};
-
 			/**
 			 * Set configuration for widget widget
 			 * @method _configure

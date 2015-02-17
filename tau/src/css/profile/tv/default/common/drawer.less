@@ -158,11 +158,15 @@
 			.ui-li-dynamic {
 				text-transform: none;
 				margin-bottom: 20 * @virtual_px;
+				padding: 0;
 				a {
 					padding: 0;
+					margin: 0;
 					.ui-btn-inner {
 
 						.ui-btn-text {
+							display: flex;
+							flex-direction: column;
 							> img {
 								width: 100%;
 								z-index: 1;
@@ -179,11 +183,19 @@
 								z-index: 2;
 								overflow: hidden;
 
-								img {
+								.ui-li-dynamic-footer-icon {
+									order: 5;
+									-webkit-mask-size: 100%;
+									background-color: rgba(137, 137, 137, 0.8);
+									display: inline;
+									float: right;
 									width: 40 * @virtual_px;
 									height: 40 * @virtual_px;
 									margin: 5 * @virtual_px 20 * @virtual_px;
 									float: right;
+									img {
+										display: none;
+									}
 								}
 								h2 {
 									font-size: 24 * @virtual_px;
@@ -222,7 +234,7 @@
 									position: relative;
 									h2 {
 										color: @color_drawer_btn;
-										font-size: 36  * @virtual_px;
+										font-size: 24  * @virtual_px;
 										float: none;
 										width: auto;
 										margin: 25 * @virtual_px 0 0 25 * @virtual_px;
@@ -232,19 +244,20 @@
 										color: @color_drawer_btn;
 										font-size: 20  * @virtual_px;
 										clear: left;
-										margin-top: 2* @virtual_px;
-										margin-right: 8* @virtual_px;
-										padding-right: 8* @virtual_px;
+										margin-top: 2 * @virtual_px;
+										margin-right: 8 * @virtual_px;
 									}
-									img {
-										margin: 25 * @virtual_px 20 * @virtual_px;
+									.ui-li-dynamic-footer-icon {
+										width: 56 * @virtual_px;
+										height: 56 * @virtual_px;
+										background-color: rgb(255, 255, 255);
+										margin: 25 * @virtual_px 20 * @virtual_px 0 20 * @virtual_px;
 									}
 									div {
 										display: inline-block;
 										float: left;
 										color: @color_drawer_btn;
 										font-size: 20  * @virtual_px;
-										margin-top: 2* @virtual_px;
 									}
 									progress {
 										clear: both;
@@ -255,6 +268,359 @@
 									.ui-background {
 										z-index: -1;
 										background-color: @color_drawer_footer_btn_background;
+									}
+								}
+								header {
+									position: absolute;
+									top: 0;
+									left: 0;
+									z-index: 10;
+									width: 100%;
+									.ui-li-dynamic-info {
+										float: right;
+										margin-top: 14 * @virtual_px;
+										margin-right: 18 * @virtual_px;
+										font-size: 22 * @virtual_px;
+										color: rgb(200, 200, 200);
+									}
+								}
+							}
+						}
+					}
+				}
+				&-1line {
+					a {
+						.ui-btn-inner {
+							.ui-btn-text {
+								footer {
+									display: flex;
+									align-items: center;
+									h2 {
+										order: 3;
+										flex: 1 0 auto;
+										font-size: 19 * @virtual_px;
+									}
+									h3 {
+										order: 1;
+										font-size: 24 * @virtual_px;
+										border-right: 0;
+										padding-right: 0;
+										font-weight: bold;
+									}
+									&::after {
+										order: 2;
+										content: "";
+										display: inline-block;
+										padding-top: 8 * @virtual_px;
+										margin-right: 12 * @virtual_px;
+										height: 8 * @virtual_px;
+										width: 1 * @virtual_px;
+										background-color: @color_drawer_btn;
+									}
+								}
+							}
+						}
+						&.ui-focus {
+							.ui-btn-inner {
+								.ui-btn-text {
+									footer {
+										h2 {
+											font-size: 19 * @virtual_px;
+											margin: 12 * @virtual_px 0 12 * @virtual_px 0;
+											line-height: 24 * @virtual_px;
+										}
+										h3 {
+											font-size: 24 * @virtual_px;
+											line-height: 26 * @virtual_px;
+											margin: 12 * @virtual_px 12 * @virtual_px 12 * @virtual_px 25 * @virtual_px;
+										}
+									}
+								}
+							}
+						}
+					}
+					&-icon {
+						a {
+							.ui-btn-inner {
+								.ui-btn-text {
+									footer {
+										display: flex;
+										h2 {
+											order: 1;
+											flex: 1 0 auto;
+											margin-left: 25 * @virtual_px;
+											font-size: 24 * @virtual_px;
+											font-weight: bold;
+										}
+										.ui-li-dynamic-footer-icon {
+											order: 2;
+										}
+									}
+								}
+							}
+							&.ui-focus {
+								.ui-btn-inner {
+									.ui-btn-text {
+										footer {
+											h2 {
+												margin: 12 * @virtual_px 0 12 * @virtual_px 25 * @virtual_px;
+											}
+											.ui-li-dynamic-footer-icon {
+												margin-top: auto;
+												margin-bottom: auto;
+												width: 40 * @virtual_px;
+												height: 40 * @virtual_px;
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+				&-icon-1line {
+					a {
+						.ui-btn-inner {
+							.ui-btn-text {
+								footer {
+									display: flex;
+									h2 {
+										order: 2;
+										flex: 1 0 auto;
+										margin: 10 * @virtual_px  25 * @virtual_px 10 * @virtual_px 0;
+										font-size: 30 * @virtual_px;
+										font-weight: bold;
+										line-height: 30 * @virtual_px;
+									}
+									.ui-li-dynamic-footer-icon {
+										width: 37 * @virtual_px;
+										height: 38 * @virtual_px; // @ webkit rendering patch original value: 37
+										order: 1;
+										margin-left: 25 * @virtual_px;
+										margin-right: 12 * @virtual_px;
+										.mask-image("images/icons/ico_bg_37.png");
+										.mask-size(37 * @virtual_px, 25 * @virtual_px);
+										.mask-composite(source-out);
+										.mask-repeat(no-repeat, no-repeat);
+										.mask-position(center, center);
+										&::after {
+											content: "";
+											background-color: white;
+											widht: 100%;
+											height: 100%;
+										}
+									}
+								}
+							}
+						}
+						&.ui-focus {
+							.ui-btn-inner {
+								.ui-btn-text {
+									footer {
+										h2 {
+											font-size: 30 * @virtual_px;
+											font-weight: bold;
+											line-height: 30 * @virtual_px;
+											margin: 10 * @virtual_px  25 * @virtual_px 10 * @virtual_px 0;
+										}
+										.ui-li-dynamic-footer-icon {
+											margin: auto 12 * @virtual_px auto 25 * @virtual_px;
+											width: 37 * @virtual_px;
+											height: 38 * @virtual_px; // @ webkit rendering patch original value: 37
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+				&-multiline {
+					a {
+						.ui-btn-inner {
+							.ui-btn-text {
+								footer {
+									display: flex;
+									align-items: center;
+									h2 {
+										order: 3;
+										flex: 1 0 auto;
+										font-size: 24 * @virtual_px;
+										line-height: normal;
+										margin: 11 * @virtual_px 0;
+									}
+									h3 {
+										display: flex;
+										align-items: center;
+										order: 1;
+										font-size: 19 * @virtual_px;
+										line-height: 22 * @virtual_px;
+										border-right: 0;
+										padding-right: 0;
+										font-weight: normal;
+										&::after {
+											content: "";
+											display: inline-block;
+											margin-left: 12 * @virtual_px;
+											height: 15 * @virtual_px;
+											width: 1 * @virtual_px;
+											background-color: @color_drawer_btn;
+										}
+									}
+									progress {
+										margin-right: 0;
+										margin-bottom: 0;
+										height: 4 * @virtual_px;
+										margin-top: 9 * @virtual_px;
+										&::-webkit-progress-bar {
+											background-color: @color_drawer_progressbar_bg;
+										}
+										&::-webkit-progress-value {
+											background-color: @color_drawer_progressbar_value;
+										}
+									}
+								}
+							}
+						}
+						&.ui-focus {
+							.ui-btn-inner {
+								.ui-btn-text {
+									footer {
+										display: inline;
+										h2 {
+											color: @color_drawer_btn;
+											font-size: 34 * @virtual_px;
+											line-height: 34 * @virtual_px;
+											font-weight: bold;
+											float: none;
+											width: auto;
+											margin: 25 * @virtual_px 0 0 25 * @virtual_px;
+											display: block;
+										}
+										h3 {
+											color: @color_drawer_btn;
+											font-size: 20 * @virtual_px;
+											font-weight: bold;
+											clear: left;
+											margin-top: 2 * @virtual_px;
+											margin-right: 0;
+											margin-bottom: 11 * @virtual_px;
+											padding-right: 8 * @virtual_px;
+										}
+										div {
+											.ui-li-dynamic-from {
+												font-size: 20 * @virtual_px;
+											}
+											.ui-li-dynamic-to {
+												font-size: 20 * @virtual_px;
+											}
+										}
+										progress {
+											height: 4 * @virtual_px;
+											margin-bottom: 20 * @virtual_px;
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+				&.ui-li-grid-icon {
+					width: 280 * @virtual_px;
+					height: 280 * @virtual_px;
+					a {
+						height: 100%;
+						.ui-btn-inner {
+							height: 100%;
+							.ui-btn-text {
+								height: 100%;
+								img {
+									width: 100%;
+									position: absolute;
+									top: 0;
+								}
+								footer {
+									display: flex;
+									h2 {
+										order: 2;
+										flex: 1 0 auto;
+										margin: 25 * @virtual_px  25 * @virtual_px 25 * @virtual_px 0;
+										color: white;
+										font-size: 30 * @virtual_px;
+										line-height: normal;
+										font-weight: bolder;
+									}
+									.ui-li-dynamic-footer-icon {
+										width: 38 * @virtual_px;
+										// webkit rendering issue, original value 37:
+										height: 38 * @virtual_px;
+										order: 1;
+										margin: auto 12 * @virtual_px auto 25 * @virtual_px;
+										.mask-image("images/icons/ico_bg_37.png");
+										.mask-size(37 * @virtual_px, 25 * @virtual_px);
+										.mask-composite(source-out);
+										.mask-repeat(no-repeat, no-repeat);
+										.mask-position(center, center);
+										background-color: @color_drawer_footer_btn_background;
+									}
+								}
+							}
+						}
+						&.ui-focus {
+							.ui-btn-inner {
+								.ui-btn-text {
+									footer {
+										h2 {
+											font-size: 30 * @virtual_px;
+											margin: 25 * @virtual_px  25 * @virtual_px 25 * @virtual_px 0;
+										}
+										.ui-li-dynamic-footer-icon {
+											margin: auto 12 * @virtual_px auto 25 * @virtual_px;
+											width: 37 * @virtual_px;
+											// webkit rendering issue, original value 37:
+											height: 38 * @virtual_px;
+											background-color: rgb(255, 255, 255);
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+				&.ui-li-grid {
+					width: 280 * @virtual_px;
+					float: left;
+					margin-left: 6 * @virtual_px;
+					a {
+						.ui-btn-inner {
+							.ui-btn-text {
+								img {
+									width: 100%;
+									position: relative;
+								}
+								footer {
+									display: block;
+									position: relative;
+									h2 {
+										font-size: 24 * @virtual_px;
+										line-height: normal;
+										padding: 0 25 * @virtual_px;
+										margin: 20 * @virtual_px  0;
+										width: 100%;
+										color: white;
+									}
+								}
+							}
+						}
+						&.ui-focus {
+							.ui-btn-inner {
+								.ui-btn-text {
+									footer {
+										h2 {
+											//font-size: 30 * @virtual_px;
+											padding: 0 25 * @virtual_px;
+											margin: 20 * @virtual_px  0;
+											width: 100%;
+										}
 									}
 								}
 							}
@@ -329,7 +695,7 @@
 
 			.ul-li-poster,
 			.ul-li-icon {
-				&:nth-child(3n+2), &:nth-child(3n) {
+				&:nth-child(2n) {
 					margin-right: 16 * @virtual_px;
 				}
 			}
