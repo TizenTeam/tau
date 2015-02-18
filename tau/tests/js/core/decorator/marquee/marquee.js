@@ -31,8 +31,8 @@
 				element = event.target;
 
 			ok(element.querySelector("." + marquee.classes.marqueeStart), "Button outside list has marquee effect.");
-			btn1.removeEventListener("focus", focusButton, false);
-			tau.event.trigger(btn1, "blur");
+			document.removeEventListener("taufocus", focusButton, false);
+			tau.event.trigger(document, "taublur", {element: btn1});
 			start();
 		}
 
@@ -46,8 +46,8 @@
 			span = document.getElementsByClassName("ui-text")[0];
 			if (span.clientWidth < span.scrollWidth) {
 				ok(true, "Button has long text inside");
-				btn1.addEventListener("focus", focusButton, false);
-				tau.event.trigger(btn1, "focus");
+				document.addEventListener("taufocus", focusButton, false);
+				tau.event.trigger(document, "taufocus", {element: btn1});
 			}
 		});
 
@@ -56,7 +56,7 @@
 				element = event.target;
 
 			ok(!element.querySelector("." + marquee.classes.marqueeStart), "Button inside list with long text does not have marquee effect on blur.");
-			btn2.removeEventListener("blur", blurList_long, false);
+			document.removeEventListener("taublur", blurList_long, false);
 			start();
 		}
 
@@ -65,9 +65,9 @@
 				btn2 = document.getElementById("btn2");
 
 			ok(element.querySelector("." + marquee.classes.marqueeStart), "Button inside list with long text has marquee effect on focus.");
-			btn2.removeEventListener("focus", focusList_long, false);
-			btn2.addEventListener("blur", blurList_long, false);
-			tau.event.trigger(btn2, "blur");
+			document.removeEventListener("taufocus", focusList_long, false);
+			document.addEventListener("taublur", blurList_long, false);
+			tau.event.trigger(document, "taublur", {element: btn2});
 		}
 
 		asyncTest("Button inside list", 3, function () {
@@ -81,8 +81,8 @@
 			span = btn2.getElementsByClassName("ui-text")[0];
 			if (span.clientWidth < span.scrollWidth) {
 				ok(true, "Button has long text inside");
-				btn2.addEventListener("focus", focusList_long, false);
-				tau.event.trigger(btn2, "focus");
+				document.addEventListener("taufocus", focusList_long, false);
+				tau.event.trigger(document, "taufocus", {element: btn2});
 			}
 		});
 
@@ -91,7 +91,7 @@
 				btn3= document.getElementById("btn3");
 
 			ok(!element.querySelector("." + marquee.classes.marqueeStart), "Button inside list with short text does not have marquee effect on focus.");
-			btn3.removeEventListener("focus", focusList_long, false);
+			document.removeEventListener("taufocus", focusList_long, false);
 			start();
 		}
 
@@ -106,8 +106,8 @@
 			span = btn3.getElementsByClassName("ui-btn-text")[0];
 			if (span.clientWidth >= span.scrollWidth) {
 				ok(true, "Button has short text inside");
-				btn3.addEventListener("focus", focusList_short, false);
-				tau.event.trigger(btn3, "focus");
+				document.addEventListener("taufocus", focusList_short, false);
+				tau.event.trigger(document, "taufocus", {element: btn3});
 			}
 		});
 
@@ -120,27 +120,6 @@
 			// add marquee effect on list
 			marquee.enable(list);
 			equal(list.querySelectorAll(marquee.classes.marqueeStart).length, 0, "No element has marquee effect.");
-
-			hidePage(document.getElementById("page1"));
-		});
-
-		test("Enable/disable marquee effect on button", function() {
-			var btn = document.getElementById("btn6");
-
-			tau.widget.Button(btn);
-			showPage(document.getElementById("page1"));
-
-			// add marquee effect on list
-			marquee.enable(btn);
-			equal(btn.querySelectorAll("." + marquee.classes.marqueeStart).length, 1, "Button has marquee effect.");
-			equal(document.querySelectorAll("[id^='marquee0']").length, 1, "Marquee stylesheet was added.");
-
-			// try to add marquee one more time
-			marquee.enable(btn);
-			equal(document.querySelectorAll("[id^='marquee0']").length, 1, "Only one stylesheet was added.");
-			// remove marquee effect on list
-			marquee.disable(btn);
-			equal(btn.querySelectorAll("." + marquee.classes.marqueeStart).length, 0, "Button does not have marquee effect.");
 
 			hidePage(document.getElementById("page1"));
 		});

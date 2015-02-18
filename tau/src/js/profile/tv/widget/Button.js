@@ -23,7 +23,6 @@
 			"../../../core/util/selectors",
 			"../../../core/theme",
 			"../../../core/util/object",
-			"../../../core/decorator/marquee",
 			"../tv",
 			"./BaseKeyboardSupport"
 		],
@@ -55,7 +54,8 @@
 					left: "left",
 					right: "right",
 					tooltip: "ui-tooltip",
-					text: "ui-text"
+					text: "ui-text",
+					marquee: "ui-marquee"
 				}),
 				prototype = new BaseButton();
 
@@ -95,7 +95,7 @@
 			 * Builds footer inside widget.
 			 * If element has a footer, the background for it will be created.
 			 * @method _buildFooter
-			 * @param element Element of widget
+			 * @param {HTMLElement} element Element of widget
 			 * @protected
 			 * @member ns.widget.tv.Button
 			 */
@@ -150,11 +150,14 @@
 				var self = this;
 
 				// build footer
-				this._buildFooter(element);
+				self._buildFooter(element);
 				// build text nodes
-				this._buildTextNodes(element);
+				self._buildTextNodes(element);
 				// build button
 				element = BaseButtonPrototype._build.call(self, element);
+
+				// Mark base element for marquee decorator
+				self.ui.buttonText.classList.add(classes.marquee);
 				// create background element for built button
 				self._buildBackground(element);
 
@@ -267,17 +270,10 @@
 
 			function focusCallback(self) {
 				var router = engine.getRouter(),
-					options = self.options,
-					container = self.ui.container,
-					textElement = container.querySelector("." + classes.uiBtnText);
+					options = self.options;
 
 				// if element is not disabled
 				if (!self.element.classList.contains(classes.uiDisabled)) {
-					// set Marquee decorator on text element
-					if (textElement) {
-						ns.decorator.marquee.enable(textElement);
-					}
-
 					if (options.tooltip) {
 						router.open(self._popup.id, {
 							rel: "popup",
@@ -298,8 +294,6 @@
 				var router = engine.getRouter(),
 					options = self.options;
 
-				// disable Marquee decorator on text element
-				ns.decorator.marquee.disable(self.ui.container);
 				if (options.tooltip) {
 					clearTimeout(self._closeTimeout);
 					router.close(self._popup.id, {

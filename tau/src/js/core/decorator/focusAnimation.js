@@ -1,4 +1,4 @@
-/*global CustomEvent, define, window, ns */
+/*global define, window, ns */
 
 /* Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
 * License : MIT License V2
@@ -49,7 +49,7 @@
 						element.classList.add(classes.focusPrefix + direction);
 					}
 				}
-			};
+			}
 
 			function prepareBlurAnimation(event) {
 				var options = event.detail || {},
@@ -63,19 +63,19 @@
 						element.classList.add(classes.blurPrefix + direction);
 					}
 				}
-			};
+			}
 
 			function enable() {
 				status = true;
 				document.addEventListener("taufocus", prepareFocusAnimation, false);
 				document.addEventListener("taublur", prepareBlurAnimation, false);
-			};
+			}
 
 			function disable() {
 				status = false;
 				document.removeEventListener("taufocus", prepareFocusAnimation, false);
 				document.removeEventListener("taublur", prepareBlurAnimation, false);
-			};
+			}
 
 			animation = {
 				classes: classes,

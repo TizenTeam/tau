@@ -109,7 +109,9 @@
 			"./profile/tv/page/design/elements",
 			"./profile/tv/page/design/navigation",
 			// tv differences
-			"./profile/tv/page/differences/introduction"
+			"./profile/tv/page/differences/introduction",
+			"./core/decorator/focusAnimation",
+			"./core/decorator/marquee"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");

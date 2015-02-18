@@ -16,8 +16,7 @@
 			"../tv",
 			"../../../core/engine",
 			"../../../core/util/object",
-			"../../../core/util/DOM/css",
-			"../../../core/decorator/focusAnimation"
+			"../../../core/util/DOM/css"
 		],
 
 		function () {

@@ -1,4 +1,4 @@
-/* global CustomEvent, define, window, ns */
+/* global define, window, ns */
 
 /* Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
  * License : MIT License V2
@@ -24,13 +24,13 @@
 				classes = {
 					marquee: "ui-marquee",
 					marqueeStart: "ui-marquee-start",
-					clone: "ui-marquee-clone",
-					text: "ui-text"
+					clone: "ui-marquee-clone"
 				},
 				// number of pixels per s
 				SPEED = 80,
 				// space in pixels between repeat
-				SPACE = 50;
+				SPACE = 50,
+				status;
 
 			/**
 			 * Prepare animation stylesheet and css style on element.
@@ -52,17 +52,17 @@
 				// the id of stylesheet is the same as name of animation used on element
 				style.id = animationName;
 				// @-webkit-keyframes
-				animation = "@-webkit-keyframes " + animationName +" {"
-					+ " 0% {  text-indent: 0px; }"
-					+ " 100% { text-indent: -" + elementWidth + "px } }";
+				animation = "@-webkit-keyframes " + animationName +" {" +
+					" 0% {  text-indent: 0px; }" +
+					" 100% { text-indent: -" + elementWidth + "px } }";
 				// @keyframes
-				animation += " @keyframes " + animationName +" {"
-				+ " 0% {  text-indent: 0px; }"
-				+ " 100% { text-indent: -" + elementWidth + "px } }";
+				animation += " @keyframes " + animationName +" {" +
+				  " 0% {  text-indent: 0px; }" +
+				  " 100% { text-indent: -" + elementWidth + "px } }";
 				// @-moz-keyframes
-				animation += " @-moz-keyframes " + animationName +" {"
-				+ " 0% {  text-indent: 0px; }"
-				+ " 100% { text-indent: -" + elementWidth + "px } }";
+				animation += " @-moz-keyframes " + animationName +" {" +
+				  " 0% {  text-indent: 0px; }" +
+				  " 100% { text-indent: -" + elementWidth + "px } }";
 				// create text node with definition of animation
 				animationNode = document.createTextNode(animation);
 
@@ -109,8 +109,7 @@
 			 * @static
 			 */
 			function setMarqueeOnElement(element, index, withoutCopy) {
-				var marqueeStartClass = classes.marqueeStart,
-					elementClasses = element.classList;
+				var elementClasses = element.classList;
 
 				// if text is longer than space, the marquee will be set
 				if (element.clientWidth < element.scrollWidth) {
@@ -123,7 +122,7 @@
 					return true;
 				}
 				return false;
-			};
+			}
 
 			/**
 			 * Enable marquee on children of element
@@ -150,7 +149,7 @@
 						return true;
 					}
 					if (child.children.length) {
-						// status OR resulat of function setChildren
+						// status OR result of function setChildren
 						status |= setChildren(child, index + i);
 					} else {
 						status |= setMarqueeOnElement(child, index + i);
@@ -158,37 +157,40 @@
 				}
 
 				return status;
-			};
+			}
 
 			/**
 			 * Enable marquee on given element.
-			 * @method setMarquee
-			 * @param {HTMLElement} element
+			 * @method prepareFocusAnimation
+			 * @param {Event} event
 			 * @member ns.decorator.marquee
 			 * @private
 			 * @static
 			 */
-			function enable(element) {
-				var children = element.children,
+			function prepareFocusAnimation(event) {
+				var options = event.detail || {},
+					baseElement = options.element,
+					element = baseElement && baseElement.querySelector("." + classes.marquee),
+					children = element.children,
 					length = children.length,
-					status = false,
-					child,
-					i;
+					success = false;
 
-				// if element has children, we try to set marquee on elements inside
-				if (length) {
-					status = setChildren(element, "0");
-					// if marquee was not set on any child, we set it on element,
-					// but without making copy of element
-					if (!status) {
-						status = setMarqueeOnElement(element, "0", true);
+				if (element) {
+					// if element has children, we try to set marquee on elements inside
+					if (length) {
+						success = setChildren(element, "0");
+						// if marquee was not set on any child, we set it on element,
+						// but without making copy of element
+						if (!success) {
+							success = setMarqueeOnElement(element, "0", true);
+						}
+					} else {
+						// if element hasn't got children, the marquee is set on it
+						success = setMarqueeOnElement(element, "0");
 					}
-				} else {
-					// if element hasn't got children, the marquee is set on it
-					status = setMarqueeOnElement(element, "0");
 				}
-				return status;
-			};
+				return success;
+			}
 
 			/**
 			 * Remove animation connected with marquee.
@@ -203,15 +205,15 @@
 					style;
 
 				// the id of created stylesheet is the same as name of elements' animation
-				style = document.getElementById(elementStyle.animationName)
-					|| document.getElementById(elementStyle.webkitAnimationName)
-					|| document.getElementById(elementStyle.mozAnimationName);
+				style = document.getElementById(elementStyle.animationName) ||
+					document.getElementById(elementStyle.webkitAnimationName) ||
+					document.getElementById(elementStyle.mozAnimationName);
 
 				// remove stylesheet
 				if (style) {
 					style.parentNode.removeChild(style);
 				}
-				// remove aniation set on element
+				// remove animation set on element
 				domUtils.setPrefixedStyle(element, "animation", "");
 			}
 
@@ -236,14 +238,16 @@
 
 			/**
 			 * Disable marquee on given element.
-			 * @method setMarquee
-			 * @param {HTMLElement} element
+			 * @method prepareBlurAnimation
+			 * @param {Event} event
 			 * @member ns.decorator.marquee
 			 * @private
 			 * @static
 			 */
-			function disable(element) {
-				var marqueeStartElements = element.querySelectorAll("." + classes.marqueeStart),
+			function prepareBlurAnimation(event) {
+				var options = event.detail || {},
+					element = options.element,
+					marqueeStartElements = element && [].slice.call(element.querySelectorAll("." + classes.marqueeStart)),
 					length = marqueeStartElements.length,
 					item,
 					i;
@@ -254,19 +258,56 @@
 					removeCopiedElement(item);
 					removeAnimation(item);
 				}
-			};
+			}
+
+			/**
+			 * Enable decorator
+			 * @method enable
+			 * @member ns.decorator.marquee
+			 * @static
+			 */
+			function enable() {
+				if (!status) {
+					document.addEventListener("taufocus", prepareFocusAnimation, false);
+					document.addEventListener("taublur", prepareBlurAnimation, false);
+				}
+				status = true;
+			}
+
+			/**
+			 * Disable decorator
+			 * @method enable
+			 * @member ns.decorator.marquee
+			 * @static
+			 */
+			function disable() {
+				status = false;
+				document.removeEventListener("taufocus", prepareFocusAnimation, false);
+				document.removeEventListener("taublur", prepareBlurAnimation, false);
+			}
 
 			marquee = {
 				classes: classes,
 
 				enable: enable,
-				disable: disable
+				disable: disable,
+				/**
+				 * Return status of decorator
+				 * @method isEnabled
+				 * @member ns.decorator.marquee
+				 * @static
+				 */
+				isEnabled: function () {
+					return status;
+				}
 			};
 
 			ns.decorator.marquee = marquee;
 
+			enable();
+
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
-			return animation;
+			return marquee;
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");

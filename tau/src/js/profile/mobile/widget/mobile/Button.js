@@ -207,7 +207,7 @@
 					uiSubmit: "ui-submit",
 					uiBtnActive: "ui-btn-active",
 					uiBtnIconNotext: "ui-btn-icon-notext",
-					uiBtnIconRight: 'ui-btn-icon-right'
+					uiBtnIconRight: "ui-btn-icon-right"
 				},
 				eventsAdded = false,
 				prototype = new BaseWidget();
@@ -704,7 +704,6 @@
 					},
 					buttonInner,
 					buttonText,
-					buttonIcon,
 					buttonStyle,
 					buttonClassList,
 					buttonClassArray = [],
@@ -718,7 +717,6 @@
 					container,
 					innerTextLength,
 					label,
-					prototypeOptions = prototype.options,
 					i;
 
 				// Create default structure of button
