@@ -17,8 +17,8 @@
 				var data = JSON_DATA[newIndex];
 				elListItem.innerHTML = '<a class="ui-button grid-thumbnail"><div class="grid-thumbnail-pic-full"><img class="grid-thumbnail-pic-img" src="' +
 					data.TEAM_LOGO +
-					'" /></div><div class="grid-thumbnail-contents"><span class="grid-thumbnail-content">' + data.NAME +
-					'</span><span class="grid-thumbnail-subtext">' + data.FROM + '</span></div></a>'
+					'" /></div><div class="grid-thumbnail-contents"><h3 class="grid-thumbnail-content">' + data.NAME +
+					'</h3><span class="grid-thumbnail-subtext">' + data.FROM + '</span></div></a>'
 			});
 			// Draw child elements
 			vlist.draw();
