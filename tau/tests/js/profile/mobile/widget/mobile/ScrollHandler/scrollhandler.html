@@ -43,13 +43,19 @@
 
 				test('Scrollhander created', 7, function () {
 					var content = document.getElementById('content1'),
+						ScrollHandler = ej.engine.getBinding(document.getElementById('content1')),
 						clipStyle = window.getComputedStyle(content),
 						view;
 
 					equal(content.getAttribute('data-tau-bound'), 'ScrollHandler', 'ScrollHandler added');
 					ok(content.classList.contains("ui-scrollview-clip"), 'ScrollHandler created');
 					equal(clipStyle.getPropertyValue("overflow"), 'scroll', 'Overflow: scroll');
-					equal(content.childNodes.length, 2, 'Content body wrapped in ui-scrollview-view and ScrollHandler beside');
+					if (ScrollHandler.options.scrollIndicator) {
+						equal(content.childNodes.length, 4, 'Content body wrapped in ui-scrollview-view and ScrollHandler beside');
+					} else {
+						equal(content.childNodes.length, 2, 'Content body wrapped in ui-scrollview-view and ScrollHandler beside');
+					}
+
 					view = content.children[0];
 					ok(view.classList.contains('ui-scrollview-view'), 'Content body wrapped in ui-scrollview-view');
 

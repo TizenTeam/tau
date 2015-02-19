@@ -33,7 +33,8 @@
 				},
 				classes = BaseScrollHandler.classes,
 				defaults = objectUtils.merge({}, BaseScrollHandler.defaults, {
-					delay: 5000
+					delay: 5000,
+					scrollIndicator: true
 				}),
 				prototype = new BaseScrollHandler();
 

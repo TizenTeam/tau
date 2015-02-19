@@ -9,64 +9,23 @@
 		min-width: 100%;
 		box-sizing: border-box;
 	}
+
+	// top indicator is shown
+	&.ui-scrollindicator-top {
+		.ui-overflow-indicator-top {
+			display: block;
+		}
+	}
+	//bottom indicator is shown
+	&.ui-scrollindicator-bottom {
+		.ui-overflow-indicator-bottom {
+			display: block;
+		}
+	}
 }
 
 .ui-scrolllistview .ui-li-divider {
 	z-index: 10;
-}
-
-.ui-scrollbar {
-	position: absolute;
-	overflow: hidden;
-
-	opacity: 0;
-}
-
-.ui-scrollbar-visible {
-	opacity: 1;
-}
-
-.ui-scrollbar- {
-	&x {
-		right: 2 * @virtual_px;
-		bottom: 2 * @virtual_px;
-		left: 2 * @virtual_px;
-		height: 8 * @virtual_px;
-
-		.ui-scrollbar-thumb {
-			width: 100%;
-			height: 5 * @virtual_px;
-			.border-radius(2 * @virtual_px);
-		}
-	}
-
-	&y {
-		top: 0;
-		right: 2 * @virtual_px;
-		bottom: 0;
-		width: 8 * @virtual_px;
-
-		.ui-scrollbar-thumb {
-			width:  5 * @virtual_px;
-			height: 100%;
-			.border-radius(2 * @virtual_px);
-			.LESSbox-shadow(1 * @virtual_px, 1 * @virtual_px, 4 * @virtual_px, rgba(8, 8, 8, 50) )
-		}
-	}
-}
-
-
-.ui-scrollbar-track {
-	position: relative;
-	width: 100%;
-	height: 100%;
-}
-
-.ui-scrollbar-thumb {
-	position: absolute;
-	top: 0;
-	left: 0;
-	background-color: @color_scrollview_handler_dark;
 }
 
 .ui-scroll-jump-top-bg {
@@ -87,48 +46,27 @@
 
 .ui-overflow-indicator-top,
 .ui-overflow-indicator-bottom {
-	position: absolute;
+	position: fixed;
 	display: none;
-	width: 100%;
-	height: 29 * @virtual_px;
-	opacity: 1;
+	height: 47 * @virtual_px;
 
-	background-repeat: no-repeat;
-	background-size: 100% 100%;
+	.mask-repeat(repeat-x);
 }
 
 .ui-overflow-indicator-top {
-	top: 0;
+	.mask-image("./images/Scrollview/scrollbar_mask_top.png");
+	.mask-position(top);
 }
 
 .ui-overflow-indicator-bottom {
-	bottom: 0;
+	.mask-image("./images/Scrollview/scrollbar_mask_bottom.png");
+	.mask-position(bottom);
 }
 
-.ui-overflow-effect-bottom {
-	position: absolute;
-	display: none;
-	bottom: 0;
-	width:100%;
-}
-
-.ui-overflow-top {
-	opacity: 1;
-	&.ui-overflow-top-hide {
-		height: 0 !important;
-	}
-}
-.ui-overflow-bottom {
-	opacity: 1;
-	&.ui-overflow-bottom-hide {
-		height: 0 !important;
-	}
-}
 
 /*
  * the values below are for the group index
  */
-
 .ui-content {
 	&.ui-scrollview-clip {
 		/*
@@ -157,42 +95,3 @@
 		}
 	}
 }
-
-
-
-/* overflowAnimation resource */
-.ui-overflow-indicator-bar-1 { background-image: url(images/bouncing_effect/top/bouncing_top_01.png); }
-.ui-overflow-indicator-bar-2 { background-image: url(images/bouncing_effect/top/bouncing_top_02.png); }
-.ui-overflow-indicator-bar-3 { background-image: url(images/bouncing_effect/top/bouncing_top_03.png); }
-.ui-overflow-indicator-bar-4 { background-image: url(images/bouncing_effect/top/bouncing_top_04.png); }
-.ui-overflow-indicator-bar-5 { background-image: url(images/bouncing_effect/top/bouncing_top_05.png); }
-.ui-overflow-indicator-bar-6 { background-image: url(images/bouncing_effect/top/bouncing_top_06.png); }
-.ui-overflow-indicator-bar-7 { background-image: url(images/bouncing_effect/top/bouncing_top_07.png); }
-.ui-overflow-indicator-bar-8 { background-image: url(images/bouncing_effect/top/bouncing_top_08.png); }
-.ui-overflow-indicator-bar-9 { background-image: url(images/bouncing_effect/top/bouncing_top_09.png); }
-.ui-overflow-indicator-bar-10 { background-image: url(images/bouncing_effect/top/bouncing_top_10.png); }
-.ui-overflow-indicator-bar-11 { background-image: url(images/bouncing_effect/top/bouncing_top_11.png); }
-.ui-overflow-indicator-bar-12 { background-image: url(images/bouncing_effect/top/bouncing_top_12.png); }
-.ui-overflow-indicator-bar-13 { background-image: url(images/bouncing_effect/top/bouncing_top_13.png); }
-.ui-overflow-indicator-bar-14 { background-image: url(images/bouncing_effect/top/bouncing_top_14.png); }
-.ui-overflow-indicator-bar-15 { background-image: url(images/bouncing_effect/top/bouncing_top_15.png); }
-.ui-overflow-indicator-bar-16 { background-image: url(images/bouncing_effect/top/bouncing_top_16.png); }
-.ui-overflow-indicator-bar-17 { background-image: url(images/bouncing_effect/top/bouncing_top_17.png); }
-
-.ui-overflow-indicator-b-bar-1 { background-image: url(images/bouncing_effect/bottom/bouncing_bottom_01.png); }
-.ui-overflow-indicator-b-bar-2 { background-image: url(images/bouncing_effect/bottom/bouncing_bottom_02.png); }
-.ui-overflow-indicator-b-bar-3 { background-image: url(images/bouncing_effect/bottom/bouncing_bottom_03.png); }
-.ui-overflow-indicator-b-bar-4 { background-image: url(images/bouncing_effect/bottom/bouncing_bottom_04.png); }
-.ui-overflow-indicator-b-bar-5 { background-image: url(images/bouncing_effect/bottom/bouncing_bottom_05.png); }
-.ui-overflow-indicator-b-bar-6 { background-image: url(images/bouncing_effect/bottom/bouncing_bottom_06.png); }
-.ui-overflow-indicator-b-bar-7 { background-image: url(images/bouncing_effect/bottom/bouncing_bottom_07.png); }
-.ui-overflow-indicator-b-bar-8 { background-image: url(images/bouncing_effect/bottom/bouncing_bottom_08.png); }
-.ui-overflow-indicator-b-bar-9 { background-image: url(images/bouncing_effect/bottom/bouncing_bottom_09.png); }
-.ui-overflow-indicator-b-bar-10 { background-image: url(images/bouncing_effect/bottom/bouncing_bottom_10.png); }
-.ui-overflow-indicator-b-bar-11 { background-image: url(images/bouncing_effect/bottom/bouncing_bottom_11.png); }
-.ui-overflow-indicator-b-bar-12 { background-image: url(images/bouncing_effect/bottom/bouncing_bottom_12.png); }
-.ui-overflow-indicator-b-bar-13 { background-image: url(images/bouncing_effect/bottom/bouncing_bottom_13.png); }
-.ui-overflow-indicator-b-bar-14 { background-image: url(images/bouncing_effect/bottom/bouncing_bottom_14.png); }
-.ui-overflow-indicator-b-bar-15 { background-image: url(images/bouncing_effect/bottom/bouncing_bottom_15.png); }
-.ui-overflow-indicator-b-bar-16 { background-image: url(images/bouncing_effect/bottom/bouncing_bottom_16.png); }
-.ui-overflow-indicator-b-bar-17 { background-image: url(images/bouncing_effect/bottom/bouncing_bottom_17.png); }

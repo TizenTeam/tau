@@ -252,7 +252,8 @@
 					 */
 					self.options = {
 						scroll: "y",
-						scrollJump: false
+						scrollJump: false,
+						scrollIndicator: false
 					};
 					/**
 					 * Dictionary for holding internal DOM elements
@@ -285,6 +286,10 @@
 						jumpTop: null,
 						jumpBottom: null
 					};
+
+					self._timers = {
+						scrollIndicatorHide: null
+					};
 				},
 				/**
 				 * Dictionary for scrollview css classes
@@ -301,7 +306,13 @@
 					view: "ui-scrollview-view",
 					clip: "ui-scrollview-clip",
 					jumpTop: "ui-scroll-jump-top-bg",
-					jumpLeft: "ui-scroll-jump-left-bg"
+					jumpLeft: "ui-scroll-jump-left-bg",
+					indicatorTop: "ui-overflow-indicator-top",
+					indicatorBottom: "ui-overflow-indicator-bottom",
+					indicatorTopShown: "ui-scrollindicator-top",
+					indicatorBottomShown: "ui-scrollindicator-bottom",
+					indicatorLeftShown: "ui-scrollindicator-left",
+					indicatorRightShown: "ui-scrollindicator-right"
 				};
 
 			// Changes static position to relative
@@ -489,8 +500,12 @@
 				}
 
 				ui.view = view;
-				// @TODO
-				//this._addOverflowIndicator(element);
+
+				// add scroll indicators
+				if (options.scrollIndicator) {
+					self._addOverflowIndicator(element);
+				}
+
 				return element;
 			};
 
@@ -531,7 +546,121 @@
 				if ((clip.getAttribute("data-overflow-enable") || "true") === "false") {
 					return;
 				}
-				clip.insertAdjacentHTML("beforeend", '<div class="ui-overflow-indicator-top"></div><div class="ui-overflow-indicator-bottom"></div>');
+				clip.insertAdjacentHTML("beforeend",
+					"<div class='" + classes.indicatorTop + "'></div><div class='" + classes.indicatorBottom + "'></div>");
+			};
+
+			/**
+			 * Clear classes and styles of indicators
+			 * @param {HTMLElement} element
+			 * @method clearIndicator
+			 * @private
+			 * @member ns.widget.mobile.Scrollview
+			 */
+			function clearIndicator (element) {
+				var clipClasses = element.classList,
+					topIndicator = selectors.getChildrenByClass(element, classes.indicatorTop)[0],
+					bottomIndicator = selectors.getChildrenByClass(element, classes.indicatorBottom)[0];
+
+				clipClasses.remove(classes.indicatorTopShown);
+				clipClasses.remove(classes.indicatorBottomShown);
+				clipClasses.remove(classes.indicatorRightShown);
+				clipClasses.remove(classes.indicatorLeftShown);
+				topIndicator.style = "";
+				bottomIndicator.style = "";
+			}
+
+			/**
+			 * Set top and bottom indicators
+			 * @param {HTMLElement} clip
+			 * @param {object} options
+			 * @method setTopAndBottomIndicators
+			 * @private
+			 * @member ns.widget.mobile.Scrollview
+			 */
+			function setTopAndBottomIndicators (clip, options) {
+				var topIndicator = selectors.getChildrenByClass(clip, classes.indicatorTop)[0],
+					bottomIndicator = selectors.getChildrenByClass(clip, classes.indicatorBottom)[0],
+					style;
+
+				// set top indicator
+				if (topIndicator) {
+					style = topIndicator.style;
+					style.width = options.width + "px";
+					style.top = options.clipTop + "px";
+					style.backgroundColor = options.color;
+				}
+				if (bottomIndicator) {
+					// set bottom indicator
+					style = bottomIndicator.style;
+					style.width = options.width + "px";
+					style.top = options.clipTop + options.clipHeight - DOMUtils.getElementHeight(bottomIndicator) + "px";
+					style.backgroundColor = options.color;
+				}
+			}
+
+			/**
+			 * Show scroll indicators.
+			 * @param {object} options
+			 * @method _showScrollIndicator
+			 * @protected
+			 * @member ns.widget.mobile.Scrollview
+			 */
+			Scrollview.prototype._showScrollIndicator = function () {
+				var self = this,
+					clip = self.element,
+					view = self._ui.view,
+					scrollTop = clip.scrollTop,
+					clipHeight = DOMUtils.getElementHeight(clip),
+					clipOffset = DOMUtils.getElementOffset(clip),
+					viewHeight = DOMUtils.getElementHeight(view),
+					viewWidth = DOMUtils.getElementWidth(view),
+					viewOffset = DOMUtils.getElementOffset(view);
+
+				clearIndicator(clip);
+
+				switch (self.options.scroll) {
+					case "x":
+						// @todo
+						break;
+					case "xy":
+						// @todo
+						break;
+					default:
+						setTopAndBottomIndicators(clip, {
+							clipTop: clipOffset.top,
+							clipHeight: clipHeight,
+							width: viewWidth,
+							color: window.getComputedStyle(clip).backgroundColor
+						});
+						if (viewOffset.top - scrollTop < clipOffset.top) {
+							// the top is not visible
+							clip.classList.add(classes.indicatorTopShown);
+						}
+						if (viewOffset.top - scrollTop + viewHeight > clipOffset.top + clipHeight) {
+							// the bottom is not visible
+							clip.classList.add(classes.indicatorBottomShown);
+						}
+				}
+			};
+
+			/**
+			 * Hide scroll indicators.
+			 * @method _hideScrollIndicator
+			 * @protected
+			 * @member ns.widget.mobile.Scrollview
+			 */
+			Scrollview.prototype._hideScrollIndicator = function () {
+				var self = this,
+					timers = self._timers,
+					timer = timers.scrollIndicatorHide;
+
+				if (timer) {
+					window.clearTimeout(timer);
+				}
+				timers.scrollIndicatorHide = window.setTimeout(function () {
+					clearIndicator(self.element);
+				}, 1500);
 			};
 
 			/**
@@ -913,16 +1042,24 @@
 						}
 					}, false);
 
+					if (self.options.scrollIndicator) {
+						callbacks.scrollUpdate = self._showScrollIndicator.bind(self);
+						element.addEventListener("scrollupdate", callbacks.scrollUpdate , false);
+						callbacks.scrollStop = self._hideScrollIndicator.bind(self);
+						element.addEventListener("scrollstop", callbacks.scrollStop , false);
+					}
+
 				}
 			};
 
 			Scrollview.prototype._destroy = function () {
-				var ui = this._ui,
+				var self = this,
+					ui = self._ui,
 					page = ui.page,
 					scrollJump = this.options.scrollJump,
 					jumpTop = ui.jumpVerticalButton,
 					jumpLeft = ui.jumpHorizontalButton,
-					callbacks = this._callbacks,
+					callbacks = self._callbacks,
 					repositionJumpsCallback = callbacks.repositionJumps,
 					jumpTopCallback = callbacks.jumpTop,
 					jumpLeftCallback = callbacks.jumpLeft;
@@ -937,6 +1074,14 @@
 					if (jumpLeft && jumpLeftCallback) {
 						jumpLeft.firstChild.removeEventListener("vclick", jumpLeftCallback, false);
 					}
+				}
+
+				if (self.options.scrollIndicator) {
+					element.removeEventListener("scrollupdate", callbacks.scrollUpdate , false);
+				}
+
+				if (self._timers.scrollIndicatorHide) {
+					window.clearTimeout(self._timers.scrollIndicatorHide);
 				}
 
 			};
