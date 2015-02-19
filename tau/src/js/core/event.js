@@ -280,11 +280,11 @@
 				prefixedFastOn: function(element, type, listener, useCapture) {
 					var nameForPrefix = type.charAt(0).toLocaleUpperCase() + type.substring(1);
 
-					element.addEventListener(type, listener, useCapture || false);
+					element.addEventListener(type.toLowerCase(), listener, useCapture || false);
 					element.addEventListener("webkit" + nameForPrefix, listener, useCapture || false);
 					element.addEventListener("moz" + nameForPrefix, listener, useCapture || false);
 					element.addEventListener("ms" + nameForPrefix, listener, useCapture || false);
-					element.addEventListener("o" + nameForPrefix, listener, useCapture || false);
+					element.addEventListener("o" + nameForPrefix.toLowerCase(), listener, useCapture || false);
 				},
 
 				/**
@@ -300,11 +300,11 @@
 				prefixedFastOff: function(element, type, listener, useCapture) {
 					var nameForPrefix = type.charAt(0).toLocaleUpperCase() + type.substring(1);
 
-					element.removeEventListener(type, listener, useCapture || false);
+					element.removeEventListener(type.toLowerCase(), listener, useCapture || false);
 					element.removeEventListener("webkit" + nameForPrefix, listener, useCapture || false);
 					element.removeEventListener("moz" + nameForPrefix, listener, useCapture || false);
 					element.removeEventListener("ms" + nameForPrefix, listener, useCapture || false);
-					element.removeEventListener("o" + nameForPrefix, listener, useCapture || false);
+					element.removeEventListener("o" + nameForPrefix.toLowerCase(), listener, useCapture || false);
 				},
 
 				/**

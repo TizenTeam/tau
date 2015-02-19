@@ -127,19 +127,23 @@
 		[
 			"../tv",
 			"../../../core/widget/core/Listview",
+			"../../../core/util/object",
 			"../../../core/engine"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 			var CoreListview = ns.widget.core.Listview,
 				engine = ns.engine,
+				utilObject = ns.util.object,
 				Listview = function () {
 					CoreListview.call(this);
 				},
 				prototype = new CoreListview();
 
 			Listview.events = CoreListview.events;
-			Listview.classes = CoreListview.classes;
+			Listview.classes = utilObject.merge({}, CoreListview.classes, {
+				transparent: "ui-listview-transparent"
+			});
 
 			Listview.prototype = prototype;
 			ns.widget.tv.Listview = Listview;

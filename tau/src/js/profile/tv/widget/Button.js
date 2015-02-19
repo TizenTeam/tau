@@ -21,6 +21,7 @@
 			"../../../profile/mobile/widget/mobile/Button",
 			"../../../core/engine",
 			"../../../core/util/selectors",
+			"../../../core/event",
 			"../../../core/theme",
 			"../../../core/util/object",
 			"../../../core/util/DOM/css",
@@ -35,6 +36,7 @@
 				utils = ns.util,
 				setPrefixedStyle = utils.DOM.setPrefixedStyle,
 				getPrefixedStyleValue = utils.DOM.getPrefixedStyleValue,
+				utilEvent = ns.event,
 				objectUtils = utils.object,
 				selectorsUtils = utils.selectors,
 				FUNCTION_TYPE = "function",
@@ -113,9 +115,10 @@
 			 */
 			prototype._buildBackground = function (element) {
 				var backgroundElement;
-
-				backgroundElement = createBackgroundElement(element);
-				backgroundElement.id = element.id + "-background";
+				if (this.options.background) {
+					backgroundElement = createBackgroundElement(element);
+					backgroundElement.id = element.id + "-background";
+				}
 			};
 
 			/**
@@ -129,7 +132,7 @@
 			prototype._buildFooter = function (element) {
 				var footer = selectorsUtils.getChildrenBySelector(element, selectors.footer)[0];
 
-				if (footer) {
+				if (footer && this.options.background) {
 					createBackgroundElement(footer);
 				}
 			};
@@ -148,19 +151,20 @@
 					newChild,
 					child,
 					i;
-
-				for (i = 0; i < length; i++) {
-					child = children[i];
-					// the child is a text
-					if (child.nodeType === 3) {
-						// we create span and replace textNode
-						content = child.textContent.trim();
-						if (content.length) {
-							newChild = document.createElement("span");
-							newChild.className = classes.text;
-							newChild.textContent = content;
-							// replace element
-							element.replaceChild(newChild, child);
+				if (this.options.marquee) {
+					for (i = 0; i < length; i++) {
+						child = children[i];
+						// the child is a text
+						if (child.nodeType === 3) {
+							// we create span and replace textNode
+							content = child.textContent.trim();
+							if (content.length) {
+								newChild = document.createElement("span");
+								newChild.className = classes.text;
+								newChild.textContent = content;
+								// replace element
+								element.replaceChild(newChild, child);
+							}
 						}
 					}
 				}
@@ -276,10 +280,14 @@
 				 * @property {?string} [options.tooltip=null] Text for tooltip
 				 * @property {?string} [options.tooltipArrow="t,b"] Position of arrow in tooltip
 				 * @property {number} [options.tooltipTimeout=3000] Define timeout for tooltip close
+				 * @property {boolean} [options.marquee=true] Marquee on text in button
+				 * @property {boolean} [options.background=true] add background in button
 				 */
 				options.tooltip = null;
 				options.tooltipArrow = "t,b";
 				options.tooltipTimeout = 3000;
+				options.marquee = true;
+				options.background = true;
 
 				self.options = options;
 
@@ -347,11 +355,9 @@
 				BaseButtonPrototype._bindEvents.call(self);
 
 				eventFunction = animationEndCallback.bind(null, self.element);
-				background.addEventListener("transitionend", eventFunction, false);
-				background.addEventListener("webkitTransitionEnd", eventFunction, false);
-				background.addEventListener("mozTransitionEnd", eventFunction, false);
-				background.addEventListener("msTransitionEnd", eventFunction, false);
-				background.addEventListener("oTransitionEnd", eventFunction, false);
+				if (background) {
+					utilEvent.prefixedFastOn(background, "transitionEnd", eventFunction, false);
+				}
 				callbacks.transitionend = eventFunction;
 
 				eventFunction = focusCallback.bind(null, self);
@@ -378,12 +384,9 @@
 					BaseButtonPrototype_destroy = BaseButtonPrototype._destroy;
 
 				eventFunction = callbacks.transitionend;
-				background.removeEventListener("transitionend", eventFunction, false);
-				background.removeEventListener("webkitTransitionEnd", eventFunction, false);
-				background.removeEventListener("mozTransitionEnd", eventFunction, false);
-				background.removeEventListener("msTransitionEnd", eventFunction, false);
-				background.removeEventListener("oTransitionEnd", eventFunction, false);
-
+				if (background) {
+					utilEvent.prefixedFastOff(background, "transitionEnd", eventFunction, false);
+				}
 				eventFunction = callbacks.focus;
 				element.removeEventListener("focus", eventFunction, false);
 

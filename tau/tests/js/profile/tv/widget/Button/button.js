@@ -18,12 +18,12 @@
             ok(button.classList.contains('ui-shadow'), 'Button has ui-shadow class');
             ok(button.classList.contains('ui-btn-up-s'), 'Button has ui-btn-up-s class');
 
-            ok(button.childElementCount === 2, "Button has an inner span");
+            equal(button.childElementCount, 2, "Button has 2 children");
             var innerSpan = button.childNodes[1];
             ok(innerSpan.classList.contains('ui-btn-inner'), 'Span has ui-btn-inner class');
             ok(innerSpan.classList.contains('ui-btn-hastxt'), 'Span has ui-btn-hastxt class');
 
-            ok(innerSpan.childElementCount === 1, "Span has an inner span");
+            equal(innerSpan.childElementCount, 1, "inner span has one children");
             var deepSpan = innerSpan.childNodes[0];
             ok(deepSpan.classList.contains('ui-btn-text'), 'Span has ui-btn-text class');
         });

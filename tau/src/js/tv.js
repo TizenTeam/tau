@@ -96,6 +96,7 @@
 			"./profile/mobile/widget/mobile/Scrollview",
 			"./profile/tv/widget/ScrollHandler",
 			"./profile/tv/widget/HomeBar",
+			"./profile/tv/widget/ContextualMenu",
 			// Modules to be loaded after
 			"./core/init",
 			//documentation pages

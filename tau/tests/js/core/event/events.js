@@ -228,20 +228,24 @@
 		events.trigger(elements[1], "testEventOn");
 	});
 
-	test('prefixed on on/off lement', 3, function() {
+	test('prefixed on on/off lement', 5, function() {
 		var elements = document.querySelectorAll('.testone input'),
 			events = tau.event;
 
 		events.prefixedFastOn(elements[0], "testEventOn", oneOk, false);
 
 		events.trigger(elements[0], "webkitTestEventOn");
-		events.trigger(elements[0], "oTestEventOn");
-		events.trigger(elements[0], "testEventOn");
+		events.trigger(elements[0], "mozTestEventOn");
+		events.trigger(elements[0], "msTestEventOn");
+		events.trigger(elements[0], "otesteventon");
+		events.trigger(elements[0], "testeventon");
 
 		events.prefixedFastOff(elements[0], "testEventOn", oneOk, false);
 		events.trigger(elements[0], "webkitTestEventOn");
-		events.trigger(elements[0], "oTestEventOn");
-		events.trigger(elements[0], "testEventOn");
+		events.trigger(elements[0], "mozTestEventOn");
+		events.trigger(elements[0], "msTestEventOn");
+		events.trigger(elements[0], "otesteventon");
+		events.trigger(elements[0], "testeventon");
 	});
 
 	test('off event catch on elements collection', 1, function() {
