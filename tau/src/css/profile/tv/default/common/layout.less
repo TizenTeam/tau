@@ -1,5 +1,5 @@
 /***************************************************************************
-                   Common Style
+									 Common Style
 ***************************************************************************/
 body {
 	height: 100vh;
@@ -41,6 +41,20 @@ body {
 			margin-bottom: 59 * @virtual_px;
 			.border-bottom-left-radius(@fixed_layout_page_border_radius);
 			.border-bottom-right-radius(@fixed_layout_page_border_radius);
+		}
+	}
+
+	&.ui-gray-page {
+		.ui-content,
+		.ui-header {
+			background-color: @color_gray_content_bg;
+			color: @color_gray_content_text;
+		}
+
+		.ui-header {
+			h1, h2, h3, h4, h5, h6 {
+				color: inherit;
+			}
 		}
 	}
 }
@@ -120,7 +134,7 @@ body {
 			-moz-mask-image: -moz-linear-gradient(left, rgba(0,0,0,1) 65%, rgba(0,0,0,0) 80%);
 			-ms-mask-image: -ms-linear-gradient(left, rgba(0,0,0,1) 65%, rgba(0,0,0,0) 8 0%);
 			-o-mask-image: -o-linear-gradient(left, rgba(0,0,0,1) 65%, rgba(0,0,0,0) 80%);
-			mask-image: linear-gradient(left, rgba(0,0,0,1) 65%, rgba(0,0,0,0) 80%); 
+			mask-image: linear-gradient(left, rgba(0,0,0,1) 65%, rgba(0,0,0,0) 80%);
 		}
 	}
 
@@ -218,7 +232,7 @@ body {
 }
 
 /***************************************************************************
-                   Grid layout
+									 Grid layout
 ***************************************************************************/
 .ui-grid-col {
 	> * {

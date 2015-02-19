@@ -809,7 +809,9 @@
 				 * @property {string} classes.uiLiIcon class of icon included in li element
 				 * @property {string} classes.uiLiHasIcon class of li element which has icon
 				 * @property {string} classes.uiLiHasCheckbox class of li element which has checkbox
+				 * @property {string} classes.uiLiHasCheckboxDisabled class of li element which has checkbox disabled
 				 * @property {string} classes.uiLiHasRadio class of li element which has radio button
+				 * @property {string} classes.uiLiHasRadioDisabled class of li element which has radio button disabled
 				 * @property {string} classes.uiLiHasRightCircleBtn class of li element which has circle button
 				 * @property {string} classes.uiLiHasRightBtn class of li element which has button allign to right
 				 * @property {string} classes.uiLiCount class of count included in li element
@@ -841,7 +843,9 @@
 					uiLiIcon: "ui-li-icon",
 					uiLiHasIcon: "ui-li-has-icon",
 					uiLiHasCheckbox: "ui-li-has-checkbox",
+					uiLiHasCheckboxDisabled: "ui-li-has-checkbox-disabled",
 					uiLiHasRadio: "ui-li-has-radio",
+					uiLiHasRadioDisabled: "ui-li-has-radio-disabled",
 					uiLiHasRightCircleBtn: "ui-li-has-right-circle-btn",
 					uiLiHasRightBtn: "ui-li-has-right-btn",
 					uiLiCount: "ui-li-count",
@@ -960,13 +964,22 @@
 			function addCheckboxRadioClasses(container) {
 				var inputAttr = container.querySelector("input"),
 					typeOfInput,
-					contenerClassList = container.classList;
+					contenerClassList = container.classList,
+					disabled = false;
+
 				if (inputAttr) {
 					typeOfInput = inputAttr.getAttribute("type");
+					disabled = inputAttr.hasAttribute("disabled");
 					if (typeOfInput === "checkbox") {
 						contenerClassList.add(classes.uiLiHasCheckbox);
+						if (disabled) {
+							contenerClassList.add(classes.uiLiHasCheckboxDisabled);
+						}
 					} else if (typeOfInput === "radio") {
 						contenerClassList.add(classes.uiLiHasRadio);
+						if (disabled) {
+							contenerClassList.add(classes.uiLiHasRadioDisabled);
+						}
 					}
 				}
 			}
@@ -1471,6 +1484,10 @@
 
 					if (item.querySelector("." + classes.uiLiCount)) {
 						itemClassList.add(classes.uiLiHasCount);
+					}
+
+					if (item.hasAttribute("tabindex") === false) {
+						item.setAttribute("tabindex", 0);
 					}
 
 					if (selectors.matchesSelector(item, engine.getWidgetDefinition("ListDivider").selector)) {

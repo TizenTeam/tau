@@ -15,6 +15,7 @@
 		[
 			"../tv",
 			"../../../core/engine",
+			"../../../core/event",
 			"../../../core/util/object",
 			"../../../core/util/DOM/css"
 		],
@@ -24,6 +25,7 @@
 			var engine = ns.engine,
 				DOM = ns.util.DOM,
 				object = ns.util.object,
+				eventUtils = ns.event,
 				BaseKeyboardSupport = function () {
 					object.merge(this, prototype);
 					// prepare selector
@@ -241,27 +243,31 @@
 			 */
 			function focusOnElement(self, element, positionFrom) {
 				var setFocus,
-					options = {},
+					options = {
+						direction: positionFrom
+					},
 					currentElement = getFocusedLink(),
 					nextElementWidget,
 					currentWidget;
 				nextElementWidget = engine.getBinding(element);
 				if (nextElementWidget) {
 					// we call function focus if the element is connected with widget
-					options.direction = positionFrom;
 					options.previousElement = currentElement;
 					setFocus = nextElementWidget.focus(options);
 				} else {
 					// or only set focus on element
 					element.focus();
+					options.element = element;
+					eventUtils.trigger(document, "taufocus", options);
 					// and blur the previous one
 					if (currentElement) {
 						currentWidget = engine.getBinding(currentElement);
 						if (currentWidget) {
-							options.direction = positionFrom;
 							currentWidget.blur(options);
 						} else {
 							currentElement.blur();
+							options.element = currentElement;
+							eventUtils.trigger(document, "taublur", options);
 						}
 					}
 					setFocus = true;

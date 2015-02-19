@@ -1,9 +1,9 @@
-/*global window, define */
+/*global window, define, ns */
 /* 
  * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
  * License : MIT License V2
  */
-/*jslint nomen: true */
+/*jslint nomen: true, plusplus: true */
 /**
  * # Listview Widget
  * Shows a list view.
@@ -65,17 +65,21 @@
 	define(
 		[
 			"../core",
+			"../../util/selectors",
 			"../BaseWidget"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 			var BaseWidget = ns.widget.BaseWidget,
 				engine = ns.engine,
+				selectorUtils = tau.util.selectors,
 				Listview = function () {
 					return this;
 				},
 				classes = {
-					LISTVIEW: "ui-listview"
+					LISTVIEW: "ui-listview",
+					LISTITEM_HAS_RADIO: "li-has-radio",
+					LISTITEM_HAS_CHECKBOX: "li-has-checkbox"
 				},
 				prototype = new BaseWidget();
 
@@ -154,7 +158,10 @@
 				var items = element.children,
 					itemsLength = items.length,
 					item,
-					i;
+					i,
+					background = document.createElement("div");
+
+				background.className = classes.LISTITEM_BACKGROUND;
 
 				element.classList.add(classes.LISTVIEW);
 
@@ -164,7 +171,7 @@
 						self._changeLinksToButton(item.firstElementChild);
 					}
 				}
-			};
+			}
 
 			/**
 			* @method _destroy

@@ -50,6 +50,13 @@
 				 */
 				engine = ns.engine,
 				/**
+				 * {Object} Alias for {@link ns.util.selectors}
+				 * @member ns.widget.tv.Checkboxradio
+				 * @private
+				 * @static
+				 */
+				selectorUtils = ns.util.selectors,
+				/**
 				 * {Object} List of classes which can be added to widget`s element
 				 * @member ns.widget.tv.Checkboxradio
 				 * @private
@@ -57,9 +64,12 @@
 				 * @readonly
 				 */
 				classes = {
-					focused: "focus",
+					focused: "ui-focus",
 					container: "checkboxradio-container",
-					checkboxradioInListview: "checkboxradio-in-listview"
+					checkboxradioInListview: "checkboxradio-in-listview",
+					listItemWithRadio: "li-has-radio",
+					listItemWithCheckbox: "li-has-checkbox",
+					background: "ui-background"
 				},
 				/**
 				 * {Constant} Constant describing type of functions
@@ -70,8 +80,16 @@
 				 */
 				FUNCTION_TYPE = "function",
 				Checkboxradio = function () {
-					MobileCheckboxradio.call(this);
-					BaseKeyboardSupport.call(this);
+					var self = this;
+
+					MobileCheckboxradio.call(self);
+					BaseKeyboardSupport.call(self);
+					/**
+					 * Checkbox radio type
+					 * @property {"radio"|"checkbox"} type
+					 */
+					self.type = "";
+					self._onKeyDownRadioBound = null;
 				},
 				/**
 				 * {Object} List of remote control / keyboard button key codes
@@ -83,6 +101,8 @@
 				KEY_CODES = {
 					up: 38,
 					down: 40,
+					left: 37,
+					right: 39,
 					enter: 13
 				},
 				/**
@@ -103,6 +123,40 @@
 				activeSelector = "input[type='radio']:not([disabled]):not(." + classInListview + "), "
 					+ "[type='checkbox']:not([disabled]):not(." + classInListview + ")",
 				/**
+				 * {string} Focusable predecessor selector
+				 * @member ns.widget.tv.Checkboxradio
+				 * @private
+				 * @static
+				 * @readonly
+				 */
+				focusablePredecessorSelector = "*[tabindex], "
+					+ "." + classes.listItemWithCheckbox + ", "
+					+ "." + classes.listItemWithRadio,
+				/**
+				 * {string} Checkboxradio selector
+				 * @member ns.widget.tv.Checkboxradio
+				 * @private
+				 * @static
+				 * @readonly
+				 */
+				widgetSelector = "input[type='checkbox'], input[type='radio']",
+				/**
+				 * {string} Listview selector - value filled in runtime
+				 * @member ns.widget.tv.Checkboxradio
+				 * @private
+				 * @static
+				 * @readonly
+				 */
+				listViewSelector = "",
+				/**
+				 * {HTMLElement} Background node clone for memory optimization
+				 * @member ns.widget.tv.Checkboxradio
+				 * @private
+				 * @static
+				 * @readonly
+				 */
+				backgroundElement = null,
+				/**
 				 * {Object} Checkboxradio widget prototype
 				 * @member ns.widget.tv.Checkboxradio
 				 * @private
@@ -113,6 +167,117 @@
 			Checkboxradio.prototype = prototype;
 			Checkboxradio.classes = classes;
 
+			/**
+			 * Method overrides input behavior on keydown event (radio).
+			 * @method onKeydownRadio
+			 * @param {Event} event
+			 * @private
+			 * @static
+			 * @member ns.widget.tv.Checkboxradio
+			 */
+			function onKeydownRadio(event) {
+				var keyCode = event.keyCode;
+
+				if (keyCode === KEY_CODES.down ||
+						keyCode === KEY_CODES.up ||
+						keyCode === KEY_CODES.left ||
+						keyCode === KEY_CODES.right
+						) {
+					event.preventDefault();
+					event.stopPropagation();
+				}
+			}
+
+			/**
+			 * Method overrides input behavior on keydown event (radiobutton`s container).
+			 * @method onKeyup
+			 * @param {Event} event
+			 * @param {HTMLInputElement} [input=undefined]
+			 * @private
+			 * @static
+			 * @member ns.widget.tv.Checkboxradio
+			 */
+			function onKeyup(event, input) {
+				var checkboxradio;
+				if (event.keyCode === KEY_CODES.enter) {
+					// event.target is a container
+					checkboxradio = input || event.target.querySelector(widgetSelector);
+					if (checkboxradio && (!checkboxradio.disabled)) {
+						checkboxradio.checked = !checkboxradio.checked;
+						event.stopPropagation();
+						event.preventDefault();
+					}
+				}
+			}
+
+			/**
+			 * Method overrides input behavior on focus event (radiobutton`s container).
+			 * @method onFocus
+			 * @param {Event} event
+			 * @param {HTMLInputElement} [input=undefined]
+			 * @private
+			 * @static
+			 * @member ns.widget.tv.Checkboxradio
+			 */
+			function onFocus(event, input) {
+				// event.target is a container
+				var checkboxradio = input || event.target.querySelector(widgetSelector);
+				if (checkboxradio && (!checkboxradio.disabled)) {
+					if (input) {
+						checkboxradio.parentNode.focus();
+					}
+					checkboxradio.classList.add(classes.focused);
+					checkboxradio.parentNode.classList.add(classes.focused);
+					event.stopPropagation();
+					event.preventDefault();
+				}
+			}
+
+			/**
+			 * Method overrides input behavior on blur event (radiobutton`s container).
+			 * @method onBlur
+			 * @param {Event} event
+			 * @param {HTMLInputElement} [input=undefined]
+			 * @private
+			 * @static
+			 * @member ns.widget.tv.Checkboxradio
+			 */
+			function onBlur(event, input) {
+				// event.target is a container
+				var checkboxradio = input || event.target.querySelector(widgetSelector);
+				if (checkboxradio && (!checkboxradio.disabled)) {
+					if (input) {
+						checkboxradio.parentNode.blur();
+					}
+					checkboxradio.classList.remove(classes.focused);
+					checkboxradio.parentNode.classList.remove(classes.focused);
+				}
+			}
+
+			/**
+			 * Checks if checkboxradio is in a listview
+			 * @method isInListview
+			 * @param {HTMLElement} Element
+			 * @return {boolean} True if an element is in a listview
+			 * @private
+			 * @static
+			 * @member ns.widget.tv.Checkboxradio
+			 */
+			function isInListview(element) {
+				if (listViewSelector.length === 0) {
+					listViewSelector = engine.getWidgetDefinition("Listview").selector;
+				}
+				return !!ns.util.selectors.getClosestBySelector(element, listViewSelector);
+			}
+
+			/**
+			 * Builds and returns input wrapper
+			 * @method _buildWrapper
+			 * @param {HTMLInputElement} element
+			 * @return {HTMLDivElement}
+			 * @protected
+			 * @member ns.widget.tv.Checkboxradio
+			 */
 			prototype._buildWrapper = function (element) {
 				var wrapper;
 
@@ -121,12 +286,32 @@
 
 				// add special class
 				wrapper.classList.add(classes.container);
-				if ((!element.disabled) && (element.type === "radio") && (!element.classList.contains(classInListview))) {
+				if (!element.disabled && element.classList.contains(classes.checkboxradioInListview)) {
 					wrapper.setAttribute("tabindex", 0);
 				}
+
+				if (!backgroundElement) {
+					backgroundElement = document.createElement("div");
+					backgroundElement.className = classes.background;
+				}
+
+				if (wrapper.firstChild) {
+					wrapper.insertBefore(backgroundElement.cloneNode(), element);
+				} else {
+					wrapper.appendChild(backgroundElement.cloneNode());
+				}
+
 				return wrapper;
 			};
 
+			/**
+			 * Builds and returns label element
+			 * @method _buildLabel
+			 * @param {HTMLInputElement} element
+			 * @return {HTMLLabelElement}
+			 * @protected
+			 * @member ns.widget.tv.Checkboxradio
+			 */
 			prototype._buildLabel = function (element) {
 				var label = this._findLabel(element.parentNode, element.id);
 				// label is not a button as in profile mobile
@@ -149,7 +334,7 @@
 			 * @protected
 			 * @member ns.widget.tv.Checkboxradio
 			 */
-			prototype._build = function(element) {
+			prototype._build = function (element) {
 				// set proper class if element in on the listview
 				if (isInListview(element)) {
 					element.classList.add(classInListview);
@@ -167,26 +352,30 @@
 			 * @protected
 			 * @member ns.widget.tv.Checkboxradio
 			 */
-			prototype._bindEvents = function(element) {
+			prototype._bindEvents = function (element) {
 				var focusablePredecessor,
-					parentNode;
+					parentNode,
+					self = this;
 
-				document.addEventListener("keyup", this, false);
+				element.addEventListener("focus", self);
+				element.addEventListener("blur", self);
+				element.addEventListener("keyup", self);
+				element.addEventListener("down", self);
 
 				if (element.classList.contains(classInListview)) {
-					focusablePredecessor = getInnerFocusablePredecessor(element);
+					focusablePredecessor = selectorUtils.getClosestBySelector(element,
+							focusablePredecessorSelector);
 					if (focusablePredecessor !== null) {
-						focusablePredecessor.addEventListener("keyup", onKeydownContainer, false);
-						focusablePredecessor.addEventListener("focus", onFocusContainer, false);
-						focusablePredecessor.addEventListener("blur", onBlurContainer, false);
+						focusablePredecessor.addEventListener("keyup", onKeyup, false);
+						focusablePredecessor.addEventListener("focus", onFocus, false);
+						focusablePredecessor.addEventListener("blur", onBlur, false);
 					}
 				} else if (element.type === "radio") {
 					parentNode = element.parentNode;
-					parentNode.addEventListener("keyup", onKeydownContainer, false);
-					parentNode.addEventListener("focus", onFocusContainer, false);
-					parentNode.addEventListener("blur", onBlurContainer, false);
-				} else {
-					element.addEventListener("keyup", onKeydownCheckbox, false);
+					parentNode.addEventListener("keyup", onKeyup, false);
+					parentNode.addEventListener("keydown", onKeydownRadio, false);
+					parentNode.addEventListener("focus", onFocus, false);
+					parentNode.addEventListener("blur", onBlur, false);
 				}
 			};
 
@@ -197,172 +386,68 @@
 			 * @protected
 			 * @member ns.widget.tv.Checkboxradio
 			 */
-			prototype._destroy = function(element) {
+			prototype._destroy = function (element) {
 				var focusablePredecessor,
-					parentNode;
+					parentNode,
+					self = this;
+
+				element.removeEventListener("focus", self);
+				element.removeEventListener("blur", self);
+				element.removeEventListener("keyup", self);
+				element.removeEventListener("keydown", self);
 
 				if (element.classList.contains(classInListview)) {
-					focusablePredecessor = getInnerFocusablePredecessor(element);
+					focusablePredecessor = selectorUtils.getClosestBySelector(element,
+							focusablePredecessorSelector);
 					if (focusablePredecessor !== null) {
-						focusablePredecessor.removeEventListener("keyup", onKeydownContainer, false);
-						focusablePredecessor.removeEventListener("focus", onFocusContainer, false);
-						focusablePredecessor.removeEventListener("blur", onBlurContainer, false);
+						focusablePredecessor.removeEventListener("keyup", onKeyup, false);
+						focusablePredecessor.removeEventListener("focus", onFocus, false);
+						focusablePredecessor.removeEventListener("blur", onBlur, false);
 					}
 				} else if (element.type === "radio") {
 					parentNode = element.parentNode;
-					parentNode.removeEventListener("keyup", onKeydownContainer, false);
-					parentNode.removeEventListener("focus", onFocusContainer, false);
-					parentNode.removeEventListener("blur", onBlurContainer, false);
-				} else {
-					element.removeEventListener("keyup", onKeydownCheckbox, false);
+					parentNode.removeEventListener("keyup", onKeyup, false);
+					parentNode.removeEventListener("keydown", onKeydownRadio, false);
+					parentNode.removeEventListener("focus", onFocus, false);
+					parentNode.removeEventListener("blur", onBlur, false);
 				}
-
-				document.removeEventListener("keyup", this, false);
 			};
 
 			/**
-			 * Method overrides input behavior on keydown event (checkbox).
-			 * @method onKeydownCheckbox
+			 * Initialize checkbox widget
+			 * @method _init
+			 * @param {HTMLInputElement} element
+			 * @protected
+			 * @member ns.widget.tv.Checkboxradio
+			 */
+			prototype._init = function (element) {
+				this.type = element.type;
+			};
+
+			/**
+			 * Handles blur/focus events on input
 			 * @param {Event} event
-			 * @private
-			 * @static
 			 * @member ns.widget.tv.Checkboxradio
 			 */
-			function onKeydownCheckbox(event) {
-				var element = event.target;
-				if (element) {
-					if (event.keyCode === KEY_CODES.enter) {
-						element.checked = !element.checked;
-						event.stopPropagation();
-						event.preventDefault();
-					}
+			prototype.handleEvent = function (event) {
+				switch (event.type) {
+				case "focus":
+					return onFocus(event, this.element);
+				case "blur":
+					return onBlur(event, this.element);
+				case "keydown":
+					return onKeydownRadio(event);
+				case "keyup":
+					return onKeyup(event, this.element);
 				}
-			}
-
-			/**
-			 * Returns radiobutton / checkbox stored in a container or null
-			 * @method findRadioCheckboxInContainer
-			 * @param {HTMLElement} container
-			 * @return {HTMLInputElement} Returns radio button stored in container or null
-			 * @private
-			 * @static
-			 * @member ns.widget.tv.Checkboxradio
-			 */
-			function findRadioCheckboxInContainer (container) {
-				var ancestors = container.getElementsByTagName("input"),
-					length = ancestors.length,
-					ancestor,
-					type,
-					i;
-
-				for (i = 0; i < length; i++) {
-					ancestor = ancestors[i];
-					type = ancestor.type;
-					if ((type === "radio") || (type === "checkbox")) {
-						return ancestor;
-					}
-				}
-				return null;
-			}
-
-			/**
-			 * Method overrides input behavior on keydown event (radiobutton`s container).
-			 * @method onKeydownContainer
-			 * @param {Event} event
-			 * @private
-			 * @static
-			 * @member ns.widget.tv.Checkboxradio
-			 */
-			function onKeydownContainer(event) {
-				var checkboxradio;
-				if (event.keyCode === KEY_CODES.enter) {
-					// event.target is a container
-					checkboxradio = findRadioCheckboxInContainer(event.target);
-					if (checkboxradio && (!checkboxradio.disabled)) {
-						checkboxradio.checked = !checkboxradio.checked;
-						event.stopPropagation();
-						event.preventDefault();
-					}
-				}
-			}
-
-			/**
-			 * Method overrides input behavior on focus event (radiobutton`s container).
-			 * @method onFocusContainer
-			 * @param {Event} event
-			 * @private
-			 * @static
-			 * @member ns.widget.tv.Checkboxradio
-			 */
-			function onFocusContainer(event) {
-				// event.target is a container
-				var checkboxradio = findRadioCheckboxInContainer(event.target);
-				if (checkboxradio && (!checkboxradio.disabled)) {
-					checkboxradio.parentNode.focus();
-					checkboxradio.classList.add(classes.focused);
-					event.stopPropagation();
-					event.preventDefault();
-				}
-			}
-
-			/**
-			 * Method overrides input behavior on blur event (radiobutton`s container).
-			 * @method onBlurContainer
-			 * @param {Event} event
-			 * @private
-			 * @static
-			 * @member ns.widget.tv.Checkboxradio
-			 */
-			function onBlurContainer(event) {
-				// event.target is a container
-				var checkboxradio = findRadioCheckboxInContainer(event.target);
-				if (checkboxradio && (!checkboxradio.disabled)) {
-					checkboxradio.parentNode.blur();
-					checkboxradio.classList.remove(classes.focused);
-				}
-			}
-
-			/**
-			 * Method returns first focusable predecessor of
-			 * checkboxradio with class name classes.inner
-			 * @method getInnerFocusablePredecessor
-			 * @param {HTMLElement} Element
-			 * @private
-			 * @static
-			 * @member ns.widget.tv.Checkboxradio
-			 */
-			function getInnerFocusablePredecessor (element) {
-				var predecessor = element.parentNode;
-				while (predecessor.getAttribute("tabindex") === null) {
-					predecessor = predecessor.parentElement;
-					if (!predecessor || !predecessor.getAttribute) {
-						return null;
-					}
-				}
-				return predecessor;
-			}
-
-			/**
-			 * Checks if checkboxradio is in a listview
-			 * @method isInListview
-			 * @param {HTMLElement} Element
-			 * @return {boolean} True if an element is in a listview
-			 * @private
-			 * @static
-			 * @member ns.widget.tv.Checkboxradio
-			 */
-			function isInListview (element) {
-				var selector = engine.getWidgetDefinition("Listview").selector;
-
-				return (ns.util.selectors.getClosestBySelector(element, selector) !== null);
-			}
+			};
 
 			// definition
 			ns.widget.tv.Checkboxradio = Checkboxradio;
 
 			engine.defineWidget(
 				"Checkboxradio",
-				"input[type='checkbox'], input[type='radio']",
+				widgetSelector,
 				[],
 				Checkboxradio,
 				"tv",

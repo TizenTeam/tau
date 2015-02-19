@@ -54,6 +54,10 @@
 						return "matchesSelector";
 					}
 
+					if (typeof el.matches === "function") {
+						return "matches";
+					}
+
 					return false;
 				}());
 

@@ -171,11 +171,14 @@
 				var options = event.detail || {},
 					baseElement = options.element,
 					element = baseElement && baseElement.querySelector("." + classes.marquee),
-					children = element.children,
-					length = children.length,
+					children,
+					length,
 					success = false;
 
 				if (element) {
+					children = element.children;
+					length = children.length;
+
 					// if element has children, we try to set marquee on elements inside
 					if (length) {
 						success = setChildren(element, "0");
