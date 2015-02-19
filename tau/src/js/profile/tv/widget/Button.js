@@ -49,7 +49,8 @@
 				engine = ns.engine,
 				selectors = {
 					footer: "footer",
-					icon: "img.ui-li-dynamic-icon-src"
+					icon: "img.ui-li-dynamic-icon-src",
+					thumb: "img.ui-thumb-src"
 				},
 				classes = objectUtils.merge({}, BaseButton.classes, {
 					background: "ui-background",
@@ -62,7 +63,8 @@
 					tooltip: "ui-tooltip",
 					text: "ui-text",
 					icon: "ui-li-dynamic-footer-icon",
-					marquee: "ui-marquee"
+					marquee: "ui-marquee",
+					thumbnail: "thumb"
 				}),
 				prototype = new BaseButton();
 
@@ -75,28 +77,122 @@
 			// definition
 			ns.widget.tv.Button = Button;
 
-			function findIcon(element) {
-				var iconSource = element.querySelector(selectors.icon),
-					styles,
-					icon,
-					src;
+			function setMaskFromIcon(icon) {
+				var styles,
+					currentMask,
+					src = icon.style.getPropertyValue("background-image");
 
-				if (iconSource) {
-					icon = document.createElement("span");
-					icon.classList.add(classes.icon);
-					iconSource.parentNode.replaceChild(icon, iconSource);
+				if (src) {
 					styles = window.getComputedStyle(icon);
-					src = getPrefixedStyleValue(styles, "mask-image");
-					if (src) {
-						src += ", url('" + iconSource.getAttribute("src") + "')";
+					currentMask = getPrefixedStyleValue(styles, "mask-image");
+					if (currentMask) {
+						currentMask += ", " + src;
 					} else {
-						src = "url('" + iconSource.getAttribute("src") + "')";
+						currentMask = src;
 					}
-					setPrefixedStyle(icon, "mask-image", src);
-					icon.appendChild(iconSource);
+					setPrefixedStyle(icon, "mask-image", currentMask);
 				}
 			}
 
+			function setMaskFromImage(iconSource, self) {
+				var styles,
+					currentMask = "",
+					icon,
+					src;
+
+				src = iconSource.getAttribute("src");
+				if (src) {
+					src = "url('" + src + "')";
+					icon = document.createElement("span");
+					icon.classList.add(classes.icon);
+					iconSource.parentNode.replaceChild(icon, iconSource);
+
+					styles = window.getComputedStyle(icon);
+					currentMask = getPrefixedStyleValue(styles, "mask-image");
+					if (currentMask) {
+						currentMask += ", " + src;
+					} else {
+						currentMask = src;
+					}
+					setPrefixedStyle(icon, "mask-image", currentMask);
+
+					icon.appendChild(iconSource);
+					self.ui.icon = icon;
+				}
+			}
+
+			function findIcon(element, self) {
+				var iconSource = element.querySelector(selectors.icon),
+					icon = self.ui.icon;
+
+				// use icon from data-icon attribute as mask-image
+				if (icon) {
+					setMaskFromIcon(icon);
+				}
+				// use <img>.src attribute as mask-image
+				if (iconSource) {
+					setMaskFromImage(iconSource, self);
+				}
+			}
+
+			function findThumbnail(element, self) {
+				var thumbSource = element.querySelector(selectors.thumb),
+					parent = element.querySelector("." + classes.uiBtnInner),
+					styles,
+					thumb;
+
+				if (thumbSource) {
+					thumb = document.createElement("div");
+					thumb.classList.add(classes.thumbnail);
+					thumbSource.parentNode.removeChild(thumbSource);
+
+					thumb.style.setProperty(
+						"background-image",
+						"url('" + thumbSource.getAttribute("src") + "')"
+					);
+
+					parent.appendChild(thumb);
+					thumb.appendChild(thumbSource);
+				}
+			}
+
+			function findIconTitle (element, self) {
+				var iconTitle = element.querySelector(".ui-icon-title"),
+					styles,
+					iconStyle,
+					ui,
+					icon,
+					iconWrapper,
+					currentMask,
+					src;
+
+				if (iconTitle) {
+					ui = self.ui;
+					icon = ui.icon;
+					iconStyle = icon.style;
+					src = icon.style.getPropertyValue("background-image");
+					iconWrapper = document.createElement("div");
+					iconWrapper.classList.add("ui-icon-wrapper");
+					iconWrapper.appendChild(icon);
+					iconWrapper.appendChild(iconTitle);
+					ui.inner.appendChild(iconWrapper);
+
+					styles = window.getComputedStyle(icon);
+
+					currentMask = getPrefixedStyleValue(iconStyle, "mask-image");
+					if (currentMask) {
+						currentMask += ", " + src;
+					} else {
+						currentMask = src;
+					}
+					setPrefixedStyle(icon, "mask-image", currentMask);
+
+					iconStyle.setProperty(
+						"background-image",
+						""
+					);
+				}
+			}
 			function createBackgroundElement(element) {
 				var backgroundElement = document.createElement("div");
 
@@ -193,8 +289,10 @@
 				self._buildBackground(element);
 
 				this._buildTooltip(element);
-				findIcon(element);
 
+				findThumbnail(element, this);
+				findIcon(element, this);
+				findIconTitle(element, this);
 				return element;
 			};
 

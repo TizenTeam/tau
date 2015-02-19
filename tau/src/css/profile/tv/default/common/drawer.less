@@ -185,7 +185,7 @@
 
 								.ui-li-dynamic-footer-icon {
 									order: 5;
-									-webkit-mask-size: 100%;
+									.mask-size(100%);
 									background-color: rgba(137, 137, 137, 0.8);
 									display: inline;
 									float: right;
@@ -659,6 +659,194 @@
 				}
 			}
 
+			.ui-li-thumb {
+				padding: 0;
+				a {
+					margin: 0;
+					padding: 0;
+					.ui-btn-inner {
+						display: flex;
+						.ui-btn-text {
+							color: @color_list_btn_txt;
+							flex: 1 0 auto;
+							margin: 32 * @virtual_px 32 * @virtual_px 37 * @virtual_px 38 * @virtual_px;
+							.ui-text {
+								margin: 0;
+								font-size: 32 * @virtual_px;
+								line-height: normal;
+								font-weight: bold;
+							}
+							.li-text-sub {
+								margin: 0;
+								font-size: 20 * @virtual_px;
+								line-height: normal;
+								color: @color_list_btn_txt;
+							}
+						}
+						.thumb {
+							min-height: 124 * @virtual_px;
+							min-width: 124 * @virtual_px;
+							background-position: center center;
+							background-size: 100%;
+							img {
+								display: none;
+							}
+						}
+					}
+					&.ui-focus {
+						.ui-btn-inner {
+							.ui-btn-text {
+								color: @color_list_btn_txt_focus;
+								.ui-text {
+									font-weight: bold;
+								}
+								.li-text-sub {
+									color: @color_list_btn_txt_focus;
+								}
+							}
+						}
+					}
+				}
+			}
+
+			.ui-li-lines-icon {
+				padding: 0;
+				a {
+					margin: 0;
+					padding: 0;
+					.ui-btn-inner {
+						display: flex;
+						width: 100%;
+						align-items: center;
+						.ui-btn-text {
+							display: flex;
+							flex: 1 0 auto;
+							flex-direction: column;
+							margin: 32 * @virtual_px 0 37 * @virtual_px 38 * @virtual_px;
+							padding-right: 0 * @virtual_px;
+							color: @color_list_btn_txt;
+							.ui-text {
+								margin: 0;
+								font-size: 32 * @virtual_px;
+								line-height: normal;
+								font-weight: bold;
+							}
+							.li-text-sub {
+								margin: 0;
+								font-size: 20 * @virtual_px;
+								line-height: normal;
+								color: @color_list_btn_txt;
+							}
+						}
+						.ui-icon {
+							min-height: 80 * @virtual_px;
+							min-width: 80 * @virtual_px;
+							position: relative;
+							right: 0;
+							top: 0;
+							margin: auto 32 * @virtual_px;
+							.mask-composite(source-over, source-out);
+						}
+					}
+					&.ui-focus {
+						.ui-btn-inner {
+							.ui-btn-text {
+								color: @color_list_btn_txt_focus;
+								.ui-text {
+									font-weight: bold;
+								}
+								.li-text-sub {
+									color: @color_list_btn_txt_focus;
+								}
+							}
+							.ui-icon {
+								background-color: white;
+								.mask-composite(source-over);
+							}
+						}
+					}
+				}
+			}
+
+			.ui-li-icon-progressbar {
+				padding: 0;
+				a {
+					margin: 0;
+					padding: 0;
+					.ui-btn-inner {
+						display: flex;
+						width: 100%;
+						align-items: center;
+						.ui-btn-text {
+							color: @color_list_btn_txt;
+							flex: 1 0 auto;
+							flex-direction: column;
+							margin: 32 * @virtual_px 0 47 * @virtual_px 38 * @virtual_px;
+							padding-right: 0;
+							.ui-text {
+								display: inline-block;
+								margin: 0;
+								font-size: 32 * @virtual_px;
+								line-height: normal;
+								font-weight: normal;
+							}
+							progress {
+								margin-right: 0;
+								margin-bottom: 0;
+								height: 4 * @virtual_px;
+								margin-top: 9 * @virtual_px;
+								&::-webkit-progress-bar {
+									background-color: @color_drawer_progressbar_bg;
+								}
+								&::-webkit-progress-value {
+									background-color: @color_drawer_progressbar_value;
+								}
+							}
+							label {
+								float: right;
+								font-size: 20 * @virtual_px;
+								line-height: 100%;
+								margin-top: 24 * @virtual_px;
+							}
+						}
+						.ui-icon {
+							min-height: 80 * @virtual_px;
+							min-width: 80 * @virtual_px;
+							position: relative;
+							right: 0;
+							top: 0;
+							margin: auto 32 * @virtual_px;
+							.mask-composite(source-over, source-out);
+						}
+					}
+					&.ui-focus {
+						.ui-btn-inner {
+							.ui-btn-text {
+								color: @color_list_btn_txt_focus;
+								.ui-text {
+									font-weight: bold;
+								}
+								.li-text-sub {
+									color: @color_list_btn_txt_focus;
+								}
+							}
+							.ui-icon {
+								background-color: white;
+								.mask-composite(source-over);
+							}
+						}
+					}
+					&:not(.ui-focus) {
+						.ui-btn-inner {
+							.ui-icon {
+								background-image: none !important;
+							}
+						}
+					}
+				}
+			}
+
+
 			.ul-li-icon {
 				height: 185 * @virtual_px;
 				a .ui-btn-inner .ui-btn-text {
@@ -704,6 +892,97 @@
 		}
 	}
 }
+
+.ui-listview {
+	li.ui-li-contextual-menu {
+		padding: 0;
+		a {
+			&.ui-btn {
+				margin: 0;
+				padding: 0;
+				.ui-btn-inner {
+					display: flex;
+					width: 100%;
+					align-items: center;
+					.ui-btn-text {
+						order: 2;
+						flex: 1 0 auto;
+						display: flex;
+						align-items: center;
+						margin: 0;
+						padding: 0;
+						.ui-text {
+							margin: 0;
+							font-size: 24 * @virtual_px;
+							line-height: 24 * @virtual_px;
+							font-weight: normal;
+							color: @color_list_btn_txt;
+						}
+						img {
+							margin: 0 0 0 14 * @virtual_px;
+							float: none;
+							width: auto;
+							height: auto;
+						}
+						.ui-status-icon {
+							opacity: 0.7;
+							width: 30 * @virtual_px;
+							height: 30 * @virtual_px;
+						}
+					}
+					.ui-icon-wrapper {
+						display: flex;
+						flex-direction: column;
+						width: 95 * @virtual_px;
+						align-items: center;
+						.ui-icon {
+							flex: 1 0 auto;
+							position: relative;
+							margin: 29 * @virtual_px 19 * @virtual_px 3 * @virtual_px 32 * @virtual_px;
+							width: 44 * @virtual_px;
+							height: 44 * @virtual_px;
+							.mask-size(100%);
+							.mask-composite(source-over, source-out);
+							left: 0;
+						}
+						.ui-icon-title {
+							flex: 1 0 auto;
+							font-size: 24 * @virtual_px;
+							line-height: 24 * @virtual_px;
+							margin-bottom: 19 * @virtual_px;
+							text-align: center;
+							margin-left: 13 * @virtual_px;
+							color: @color_list_btn_txt;
+						}
+					}
+				}
+			}
+			&.ui-focus {
+				.ui-btn-inner {
+					.ui-btn-text {
+						.ui-text {
+							color: @color_list_btn_txt_focus;
+						}
+						.ui-status-icon {
+							opacity: 1.0;
+						}
+					}
+					.ui-icon-wrapper {
+						.ui-icon {
+							background-color: white;
+						}
+						.ui-icon-title {
+							color: @color_list_btn_txt_focus;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+
+
 
 .ui-drawer-overlay {
 	position: absolute;

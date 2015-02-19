@@ -210,7 +210,8 @@
 					uiBtnIconRight: "ui-btn-icon-right"
 				},
 				eventsAdded = false,
-				prototype = new BaseWidget();
+				prototype = new BaseWidget(),
+				ICON_FILE_REGEXP = /[.]/;
 
 			prototype.options = {
 				theme: null,
@@ -612,7 +613,9 @@
 			prototype._createIcon = function mobileButtonCreateIcon(element) {
 				var iconElement = document.createElement("span"),
 					iconElementClassList = iconElement.classList,
-					ui = this.ui;
+					ui = this.ui,
+					icon = this.options.icon,
+					iconAsSourceFile = ICON_FILE_REGEXP.test(icon);
 
 				// Due to visibility non-breaking space on button cancel
 				// in SearchBar widget
@@ -621,11 +624,15 @@
 				}
 				// Set icon classes
 				iconElementClassList.add(classes.uiIcon);
-				iconElementClassList.add(classes.uiIconPrefix + this.options.icon);
+				if (!iconAsSourceFile) {
+					iconElementClassList.add(classes.uiIconPrefix + icon);
+				} else {
+					iconElement.style["background-image"] = "url(" + icon + ")";
+				}
 
 				//set icon information on container
-				if (element) {
-					element.classList.add(classes.uiBtnIconPrefix + this.options.icon);
+				if (element && !iconAsSourceFile) {
+					element.classList.add(classes.uiBtnIconPrefix + icon);
 				}
 
 				// Add icon element to DOM
