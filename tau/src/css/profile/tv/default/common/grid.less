@@ -20,18 +20,24 @@
 			margin-left: -53 * @virtual_px;
 			background-size: 106 * @virtual_px 106 * @virtual_px;
 		}
-		&:not(.ui-focus) {
-			background-color: rgb(28, 62, 59);
-		}
 	}
 	.grid-thumbnail {
 		width: 303 * @virtual_px;
 		margin: 0 20 * @virtual_px 20 * @virtual_px 0;
 		display: block;
 		overflow: hidden;
+		padding: 8 * @virtual_px;
+
+		.ui-background {
+			background-color: rgb(69, 143, 255);
+		}
 
 		&.ui-btn .ui-btn-inner {
 			margin: 0;
+		}
+
+		.ui-btn-text.ui-btn-text-padding-left {
+			padding-left: 0 !important;
 		}
 
 		.grid-thumbnail-info {
@@ -81,56 +87,42 @@
 		}
 
 		.grid-thumbnail-contents {
-			background: rgb(33, 36, 13);
+			background: rgba(0, 0, 0, 0.3);
 			padding: 15 * @virtual_px 20 * @virtual_px;
+			text-align: center;
 			font-size: 26 * @virtual_px;
 			overflow: hidden;
 			text-overflow: ellipsis;
 			color: rgb(211, 211, 211);
 			z-index: 2;
+
 			.grid-thumbnail-content {
 				overflow: hidden;
 				text-overflow: ellipsis;
 				height: 31 * @virtual_px;
-				display: block;
+				display: block;				
+
+			}			
+			
+			h1, h2, h3, h4 {
+				font-size: 30 * @virtual_px !important;
+				font-weight: normal !important;
+				margin: 0;
 			}
+
 			.grid-thumbnail-subtext {
 				overflow: hidden;
 				text-overflow: ellipsis;
 				color: rgb(128,128,128);
 				font-size: 22 * @virtual_px;
-				margin-top: -6 * @virtual_px;
+				margin-top: -2 * @virtual_px;
 				display: block;
 			}
 		}
 
 		&.ui-btn.ui-focus {
-			.grid-thumbnail-pic {
-				border: solid  @color_grid_btn_focus_border;
-				border-top-width: 8 * @virtual_px;
-				border-left-width: 8 * @virtual_px;
-				border-right-width: 8 * @virtual_px;
-				img {
-					top: 144 * @virtual_px;
-					left: 144 * @virtual_px;
-					margin: -100 * @virtual_px;
-				}
-			}
-
-			.grid-thumbnail-pic-full {
-				border: solid  @color_grid_btn_focus_border;
-				border-top-width: 8 * @virtual_px;
-				border-left-width: 8 * @virtual_px;
-				border-right-width: 8 * @virtual_px;
-				img {
-					top: 144 * @virtual_px;
-					left: 144 * @virtual_px;
-					margin: -152 * @virtual_px;
-				}
-			}
-
 			.grid-thumbnail-contents {
-				background: @color_grid_btn_focus_thumb_content;
+				background-color: transparent;
 				.grid-thumbnail-content, .grid-thumbnail-subtext {
 					color: rgb(255, 255, 255);
 				}
@@ -139,7 +131,7 @@
 
 		&.ui-btn.ui-selected {
 			.ui-btn-inner {
-				border: solid rgb(255, 169, 85) 10 * @virtual_px;
+				border: solid rgb(69, 143, 255) 10 * @virtual_px;
 			}
 			.ui-btn-text{
 				margin: -10  * @virtual_px;
