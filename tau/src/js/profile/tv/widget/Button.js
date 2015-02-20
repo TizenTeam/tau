@@ -59,7 +59,8 @@
 					right: "right",
 					tooltip: "ui-tooltip",
 					text: "ui-text",
-					icon: "ui-li-dynamic-footer-icon"
+					icon: "ui-li-dynamic-footer-icon",
+					marquee: "ui-marquee"
 				}),
 				prototype = new BaseButton();
 

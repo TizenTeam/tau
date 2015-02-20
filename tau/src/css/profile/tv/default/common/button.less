@@ -66,7 +66,7 @@
 		.appearance(button);
 		opacity: .1;
 		cursor: pointer;
-		background: transparent;
+		background-color: transparent;
 		font-size: 1 * @virtual_px;
 		border: none;
 		line-height: 999 * @virtual_px;
@@ -343,6 +343,7 @@ button.ui-btn, input.ui-btn {
 	vertical-align: middle;
 	background-position: center center;
 	background-size: 100% 100%;
+	.transition(background 200ms);
 }
 
 .ui-icon {
@@ -360,7 +361,8 @@ ICON LIVE
 ****************************************/
 .ui-icon-live,
 .ui-listview li a.ui-btn .ui-btn-inner .ui-icon.ui-icon-live {
-	background: rgb(69, 143, 255) url(images/icons/ico_live_foc.png);
+	background-color: @default_color;
+	background-image: url(images/icons/ico_live_foc.png);
 }
 
 .ui-listview li a.ui-btn.ui-btn-icon-live,
@@ -399,7 +401,8 @@ ICON SHOW
 ****************************************/
 .ui-icon-tv-show,
 .ui-listview li a.ui-btn .ui-btn-inner .ui-icon.ui-icon-tv-show {
-	background: rgb(255, 168, 0) url(images/icons/ico_tv_show_foc.png);
+	background-color: rgb(255, 168, 0);
+	background-image: url(images/icons/ico_tv_show_foc.png);
 }
 
 .ui-listview li a.ui-btn.ui-btn-icon-tv-show,
@@ -421,7 +424,8 @@ ICON MOVE
 ****************************************/
 .ui-icon-movie,
 .ui-listview li a.ui-btn .ui-btn-inner .ui-icon.ui-icon-movie {
-	background: rgb(255, 99, 86) url(images/icons/ico_moive_foc.png);
+	background-image: url(images/icons/ico_moive_foc.png);
+	background-color: rgb(255, 99, 86);
 }
 
 .ui-listview li a.ui-btn.ui-btn-icon-movie,
@@ -444,7 +448,8 @@ ICON SOURCE
 ****************************************/
 .ui-icon-source,
 .ui-listview li a.ui-btn .ui-btn-inner .ui-icon.ui-icon-source {
-	background: rgb(155, 122, 255) url(images/icons/ico_source_foc.png);
+	background-image: url(images/icons/ico_source_foc.png);
+	background-color: rgb(155, 122, 255);
 }
 
 .ui-listview li a.ui-btn.ui-btn-icon-source,
@@ -466,7 +471,8 @@ ICON APP
 ****************************************/
 .ui-icon-app,
 .ui-listview li a.ui-btn .ui-btn-inner .ui-icon.ui-icon-app {
-	background: rgb(71, 210, 188) url(images/icons/ico_app_foc.png);
+	background-color: rgb(71, 210, 188);
+	background-image: url(images/icons/ico_app_foc.png);
 }
 
 .ui-listview li a.ui-btn.ui-btn-icon-app,

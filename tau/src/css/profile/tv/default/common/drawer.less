@@ -72,7 +72,7 @@
 .ui-drawer {
 	position: absolute;
 	margin: 0;
-	z-index: 1201;
+	z-index: 900;
 	&.ui-drawer-left {
 		border-right: 1 * @virtual_px solid @color_drawer_border;
 		/* drawer right border color same to list border bottom color */
@@ -643,6 +643,7 @@
 							margin: 25 * @virtual_px;
 							width: 135 * @virtual_px;
 							float: none;
+							.transition(font 200ms);
 						}
 					}
 				}
@@ -675,6 +676,7 @@
 						footer {
 							h2 {
 								color: black;
+								.transition(color 200ms);
 							}
 						}
 
@@ -705,7 +707,7 @@
 
 .ui-drawer-overlay {
 	position: absolute;
-	z-index: 1200;
+	z-index: 899;
 }
 
 .ui-header.ui-bar-s {
@@ -752,7 +754,7 @@
 		top: 0;
 		width: 100%;
 		height: 100%;
-		z-index: 1202;
+		z-index: 901;
 		background-color: rgba(0, 0, 0, 0.7);
 	}
 
@@ -763,11 +765,10 @@
 	&-container {
 		position: absolute;
 		top: 0;
-		z-index: 1203;
+		z-index: 902;
 		transition: all 0.2s ease-out;
 	}
 	&-box {
-		background: white;
 		position: absolute;
 		left: 0;
 		bottom: 50 * @virtual_px;
@@ -801,6 +802,7 @@
 		position: absolute;
 		text-align: center;
 		opacity: 0.5;
+		.transition(opacity 200ms);
 
 		&.ui-focus {
 			opacity: 1;
@@ -824,6 +826,7 @@
 			.ui-btn-inner {
 				padding: 76 * @virtual_px 30 * @virtual_px 14 * @virtual_px;
 			}
+			.transition(font 200ms);
 
 			&.ui-focus {
 				font-size: 25 * @virtual_px;

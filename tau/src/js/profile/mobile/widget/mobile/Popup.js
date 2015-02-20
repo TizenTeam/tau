@@ -160,7 +160,7 @@
  *
  * To be sure that popup will be opened in context style with arrow, we can set properties _data-position-to="origin"_ as well as _id_ in the related with popup link as in the example above.
  *
- * Moreovme resulte can be achieve by setting only _id_ and not setting _positionTo_ in link because popup has value "origin" for option _positionTo_ by default.
+ * Moreover, the same result can be achieve by setting only _id_ and not setting _positionTo_ in link because popup has value "origin" for option _positionTo_ by default.
  *
  *		@example
  *		<!-- in link id is set -->
