@@ -1054,6 +1054,7 @@
 
 			Scrollview.prototype._destroy = function () {
 				var self = this,
+					element = self.element,
 					ui = self._ui,
 					page = ui.page,
 					scrollJump = this.options.scrollJump,

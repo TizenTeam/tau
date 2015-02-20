@@ -13,13 +13,13 @@
 	// top indicator is shown
 	&.ui-scrollindicator-top {
 		.ui-overflow-indicator-top {
-			display: block;
+			opacity: 1;
 		}
 	}
 	//bottom indicator is shown
 	&.ui-scrollindicator-bottom {
 		.ui-overflow-indicator-bottom {
-			display: block;
+			opacity: 1;
 		}
 	}
 }
@@ -47,11 +47,24 @@
 .ui-overflow-indicator-top,
 .ui-overflow-indicator-bottom {
 	position: fixed;
-	display: none;
+	opacity: 0;
+	display: block;
+	.transition(opacity 400ms);
 	height: 47 * @virtual_px;
 
 	.mask-repeat(repeat-x);
 }
+
+.ui-page.ui-footer-empty .ui-content .ui-overflow-indicator-top {
+	.border-top-left-radius(@fixed_layout_page_border_radius);
+	.border-top-right-radius(@fixed_layout_page_border_radius);
+}
+
+.ui-page.ui-footer-empty .ui-content .ui-overflow-indicator-bottom {
+	.border-bottom-left-radius(@fixed_layout_page_border_radius);
+	.border-bottom-right-radius(@fixed_layout_page_border_radius);
+}
+
 
 .ui-overflow-indicator-top {
 	.mask-image("./images/Scrollview/scrollbar_mask_top.png");

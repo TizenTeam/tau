@@ -128,6 +128,14 @@
 	transition-property: @property1, @property2;
 }
 
+.transition-transform(@value) {
+	-webkit-transition: -webkit-transform @value;
+	-moz-transition: -moz-transform @value;
+	-o-transition: -o-transform @value;
+	-ms-transition: -ms-transform @value;
+	transition: transform @value;
+}
+
 .user-select(@value) {
 	-webkit-user-select: @value;
 	-moz-user-select: @value;

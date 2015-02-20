@@ -62,7 +62,7 @@
 
 			engine.defineWidget(
 				"ScrollHandler",
-				".ui-content[data-handler='true']:not([data-scroll='none']):not(.ui-scrollview-clip):not(.ui-scrolllistview),[data-handler='true'], .ui-scrollhandler",
+				".ui-content:not([data-scroll='none']):not(.ui-scrollview-clip):not(.ui-scrolllistview),[data-handler='true'], .ui-scrollhandler",
 				[
 					"enableHandler",
 					"scrollTo",
