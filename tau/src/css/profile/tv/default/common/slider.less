@@ -1,7 +1,7 @@
 /** Slider unit divisor */
 @unit_base_slider: @virtual_px * 0.5;
 /** Slider popup z-index */
-@z_base_slider_popup: 11;
+@z_base_slider_popup: 111;
 
 label.ui-slider {
 	display: block;
@@ -116,7 +116,7 @@ div.ui-slider:not(.ui-toggle-switch) {
 		&.ui-focus {
 			background-color: transparent;
 		}
-		top: -0.75rem;
+		top: -14 * @virtual_px;
 		margin-top: 0;
 	}
 	.ui-btn-inner {
@@ -128,6 +128,7 @@ div.ui-slider:not(.ui-toggle-switch) {
 
 	a.ui-slider-handle-press {
 		background-image: url(images/Slider/00_slider_handle_press.png);
+		.transition(background 200ms);
 
 		.ui-btn-text {
 			color: @color_slider_handle_text_press;
@@ -137,7 +138,7 @@ div.ui-slider:not(.ui-toggle-switch) {
 
 a.ui-slider-handle {
 	position: relative;
-	z-index: 10;
+	z-index: 110;
 
 	min-width: 40 * @virtual_px;
 	min-height: 40 * @virtual_px;
@@ -146,6 +147,7 @@ a.ui-slider-handle {
 
 	color: @color_slider_handle_text;
 	font-size: 0.95rem;
+	margin-left: -19 * @virtual_px;
 
 	background: url(images/Slider/00_slider_handle.png) no-repeat;
 	.LESSbackground-size(@fixed_slider_handle_width, @fixed_slider_handle_height);
@@ -227,5 +229,5 @@ a.ui-slider-handle {
 	width: 5 * @virtual_px;
 	height: 20 * @virtual_px;
 	background-color: #555;
-	z-index: 10;
+	z-index: 110;
 }

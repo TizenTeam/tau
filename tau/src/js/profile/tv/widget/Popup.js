@@ -235,8 +235,8 @@
 					selector = self.getActiveSelector();
 
 				// if popup is not connected with slider, we change context
-				self.saveKeyboardSupport();
 				if (options.changeContext) {
+					self.saveKeyboardSupport();
 					// if there are links inside popup, we enable keyboard support on page
 					// and enable in popup
 					self.enableKeyboardSupport();

@@ -158,6 +158,7 @@
 			 * @member ns.widget.tv.Slider
 			 */
 			function onFocus(self) {
+				self.enableKeyboardSupport();
 				self._ui.container.classList.add("ui-focus");
 				showPopup(self);
 			}
