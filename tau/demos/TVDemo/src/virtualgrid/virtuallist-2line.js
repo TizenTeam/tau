@@ -2,7 +2,7 @@
 	var page = document.getElementById("page-vlist-2line"),
 		vlist;
 
-	document.addEventListener("pageshow", function() {
+	tau.event.one(page, "pageshow", function() {
 		var elList = document.getElementById("vlist-2line");
 		if (elList) {
 			vlist = tau.widget.VirtualGrid(elList);
@@ -25,7 +25,7 @@
 			tau.engine.createWidgets(elList);
 		}
 	});
-	document.addEventListener("pagehide", function() {
+	tau.event.one(page, "pagehide", function() {
 		// Remove all children in the vlist
 		if (vlist) {
 			vlist.destroy();

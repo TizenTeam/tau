@@ -1,8 +1,12 @@
-(function() {
+/*global JSON_DATA*/
+(function(tau) {
+	"use strict";
+
 	var page = document.getElementById("page-vlist-icon-1line"),
+		tauEvent = tau.event,
 		vlist;
 
-	document.addEventListener("pageshow", function() {
+	tauEvent.one(document, "pageshow", function() {
 		var elList = document.getElementById("vlist-icon-1line");
 		if (elList) {
 			vlist = tau.widget.VirtualGrid(elList);
@@ -16,15 +20,17 @@
 				var data = JSON_DATA[newIndex];
 				elListItem.innerHTML = '<a class="ui-button grid-icon" data-icon="' + data.ICON + '" data-iconpos="top" data-role="button">' + data.TITLE + '</a>';
 			});
+
 			// Draw child elements
 			vlist.draw();
 			tau.engine.createWidgets(elList);
 		}
 	});
-	document.addEventListener("pagehide", function() {
+
+	tauEvent.one(document, "pagehide", function() {
 		// Remove all children in the vlist
 		if (vlist) {
 			vlist.destroy();
 		}
 	});
-}());
+}(window.tau));
