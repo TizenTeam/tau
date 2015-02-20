@@ -9,7 +9,7 @@
  * Shows a pop-up window.
  *
  * ## Toast popup
- * Toast popups are popups displayed as a short message on the screen bottom. Toasts usually do not require any user
+ * Toast popups are displayed as a short message on the screen bottom. Toasts usually do not require any user
  * interaction.
  * To create a toast popup add `ui-popup-toast` class to popup markup.
  *
@@ -53,11 +53,13 @@
 					BaseKeyboardSupport.call(self);
 
 					self.options = objectUtils.merge(self.options, defaults);
-
 					self.selectors = selectors;
+
 					self._nearestLinkForArrow = null;
 
-					self._notificationTimeout = null;
+					self._timers = {
+						notification: null
+					};
 				},
 				/**
 				 * Default properties for TV implementation of Popup
@@ -101,8 +103,8 @@
 					footerEmpty: "ui-footer-empty",
 					content: "ui-popup-content",
 					custom: "ui-popup-custom",
-					action: "ui-popup-action",
 					notification: "ui-popup-notification",
+					ticker: "ui-popup-ticker",
 					headerIcon: "ui-popup-header-icon",
 					focus: "ui-focus",
 					uiPage: Page.classes.uiPage
@@ -184,19 +186,6 @@
 			}
 
 			/**
-			 * If popup contains any input or button-like element it's considered as action popup.
-			 * This method tests if a popup is an 'action' popup.
-			 * @method _isActionPopup
-			 * @return {boolean}
-			 * @protected
-			 * @member ns.widget.tv.Popup
-			 */
-			prototype._isActionPopup = function () {
-				var element = this.element;
-				return element.classList.contains(classes.action) || !!element.querySelector("input," + engine.getWidgetDefinition("Button").selector);
-			};
-
-			/**
 			 * Build the popup DOM tree
 			 * @method _build
 			 * @protected
@@ -220,38 +209,65 @@
 					element.classList.add(classes.footerEmpty);
 				}
 
+				// build notification popup
+				// if timeout is set, it means that it is a notification popup
+				if (self.options.timeout !== null) {
+					element.classList.add(classes.notification);
+				}
+
 				// Settings for customized popups
 				setHeaderIcon(self, element);
 
 				return element;
 			};
 
+			/**
+			 * If popup contains any input or button-like element it's considered as action popup.
+			 * This method tests if a popup is an 'action' popup.
+			 * @method _isActionPopup
+			 * @return {boolean}
+			 * @protected
+			 * @member ns.widget.tv.Popup
+			 */
+			prototype._isActionPopup = function () {
+				return !!this.element.querySelector(this.getActiveSelector());
+			};
+
+			prototype._initTimeout = function () {
+				var self = this,
+					options = self.options,
+					isActionPopup = self._isActionPopup();
+
+				// if popup is a notification message, the timeout is set
+				if (self.element.classList.contains(classes.notification)) {
+					// The default values for timeout must be defined here because the same `timeout` property
+					// is used for both types of popup (normal and action), but default value of that property
+					// is different depending on type
+					if (options.timeout === null) {
+						// Action popup has different timeout than normal popup
+						options.timeout = isActionPopup ? notificationDefaults.actionTimeout : notificationDefaults.timeout;
+					}
+				} else {
+					options.timeout = null;
+				}
+			};
+
 			prototype._init = function(element) {
 				var self = this,
-					ui = self._ui,
-					isActionPopup;
+					ui = self._ui;
 
 				if (typeof CorePopupPrototype._init === FUNCTION_TYPE) {
 					CorePopupPrototype._init.call(this, element);
 				}
+
+				// init toast popup
 				if (element.classList.contains(classes.toast)) {
 					ui.container.classList.add(classes.toast);
 				}
 
-				isActionPopup = self._isActionPopup();
-
-				if (isActionPopup) {
-					element.classList.add(classes.action);
-				}
-
-				// The default values for timeout must be defined here because the same `timeout` property
-				// is used for both types of popup (normal and action), but default value of that property
-				// is different depending on type
-				if (self.options.timeout === null) {
-					// Action popup has different timeout than normal popup
-					self.options.timeout = isActionPopup ? notificationDefaults.actionTimeout : notificationDefaults.timeout;
-				}
-
+				// set value of timeout for notification popup
+				self._initTimeout();
+				
 				// Add reference when running without _build method
 				ui.headerIcon = ui.headerIcon || element.querySelector("." + classes.headerIcon);
 			};
@@ -267,12 +283,9 @@
 			}
 
 			function closingOnKeydown(self, added) {
-				var element = self.element,
-					selector = self.getActiveSelector();
-
 				if (added) {
 					// if elements inside popup are not focusable, we enabled closing on keyup
-					if (selector && !element.querySelector(selector)) {
+					if (self._isActionPopup()) {
 						self._onKeydownClosing = onKeydownClosing.bind(null, self);
 						document.addEventListener("keydown", self._onKeydownClosing, false);
 					}
@@ -287,9 +300,7 @@
 			prototype._setKeyboardSupport = function (options) {
 				var self = this,
 					element = self.element,
-					autoFocus = options.autofocus,
-					toastPopup = element.classList.contains(classes.toast),
-					selector = self.getActiveSelector();
+					autoFocus = options.autofocus;
 
 				// if popup is not connected with slider, we change context
 				if (options.changeContext) {
@@ -461,14 +472,16 @@
 			 * @member ns.widget.tv.Popup
 			 */
 			prototype._refresh = function() {
-				var element = this.element;
+				var self = this,
+					element = self.element;
 
 				if (typeof CorePopupPrototype._refresh === FUNCTION_TYPE) {
-					CorePopupPrototype._refresh.call(this);
+					CorePopupPrototype._refresh.call(self);
 				}
 
-				setHeaderIcon(this, element);
-				setCustomPopupColors(this);
+				setHeaderIcon(self, element);
+				setCustomPopupColors(self);
+				self._initTimeout();
 			};
 
 			/**
@@ -487,25 +500,25 @@
 					CorePopupPrototype._onShow.call(self);
 				}
 
-				// Auto-close popup after a defined timeout
-				if (self.element.classList.contains(classes.notification) && options.timeout > 0) {
-					self._notificationTimeout = setTimeout(self.close.bind(self), options.timeout);
+				// Auto-close popup after a defined timeout if it is a notification popup
+				if (self.element.classList.contains(classes.notification)) {
+					self._timers.notification = setTimeout(self.close.bind(self), options.timeout);
 				}
 			};
 
 			/**
 			 * Clears notification timeout in case it was set
 			 * @method _clearNotificationTimeout
-			 * @protected
+			 * @param {ns.widget.tv.Popup} self
+			 * @private
 			 * @member ns.widget.tv.Popup
 			 */
-			prototype._clearNotificationTimeout = function () {
-				var self = this;
-				if (self._notificationTimeout) {
-					clearTimeout(self._notificationTimeout);
-					self._notificationTimeout = null;
+			function clearNotificationTimeout(self) {
+				if (self._timers.notification) {
+					clearTimeout(self._timers.notification);
+					self._timers.notification = null;
 				}
-			};
+			}
 
 			/**
 			 * On popup hide.
@@ -520,7 +533,7 @@
 					CorePopupPrototype._onHide.call(self);
 				}
 
-				self._clearNotificationTimeout();
+				clearNotificationTimeout(self);
 			};
 
 			/**
@@ -539,7 +552,7 @@
 				}
 
 				// Clear timeout in case the destroy was triggered before closing popup
-				self._clearNotificationTimeout();
+				clearNotificationTimeout(self);
 
 					// @TODO reset styles to base
 

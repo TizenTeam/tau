@@ -12,7 +12,7 @@
 		ok(Popup.prototype instanceof tauWidget.core.ContextPopup, "Popup prototype is an instance of core.ContextPopup");
 	});
 
-	test("Class properties", 12, function () {
+	test("Class properties", 11, function () {
 		var tauWidget = tau.widget,
 			Popup = tauWidget.tv.Popup,
 			referenceClasses = {
@@ -21,7 +21,6 @@
 				footerEmpty: "ui-footer-empty",
 				content: "ui-popup-content",
 				custom: "ui-popup-custom",
-				action: "ui-popup-action",
 				notification: "ui-popup-notification",
 				headerIcon: "ui-popup-header-icon",
 				focus: "ui-focus",
@@ -39,7 +38,7 @@
 		strictEqual(typeof events, "object", ".events property is defined");
 	});
 
-	test("Instance properties", 23, function () {
+	test("Instance properties", 21, function () {
 		var tauWidget = tau.widget,
 			engine = tau.engine,
 			Popup = tauWidget.tv.Popup,
@@ -49,6 +48,7 @@
 			fixture = document.getElementById("qunit-fixture"),
 			element = document.createElement("div"),
 			elementAction = document.createElement("div"),
+			buttonElement = document.createElement("button"),
 			referenceSelectors = {
 				header: "header",
 				content: "div",
@@ -68,7 +68,11 @@
 		// For action type popup the timeout is different
 		referenceOptionsAction.timeout = 60000;
 
-		elementAction.classList.add("ui-popup-action");
+		elementAction.appendChild(buttonElement);
+//		engine.instanceWidget(inputElement, "Textbox");
+
+		elementAction.classList.add("ui-popup-notification");
+		element.classList.add("ui-popup-notification");
 
 		fixture.appendChild(element);
 		fixture.appendChild(elementAction);
@@ -95,8 +99,5 @@
 		Object.keys(referenceSelectors).forEach(function (key) {
 			strictEqual(instance.selectors[key], referenceSelectors[key], ".selectors['" + key + "'] == " + instance.selectors[key]);
 		});
-
-		strictEqual(instance._nearestLinkForArrow, null, "._nearestLinkForArrow is defined and equals null");
-		strictEqual(instance._notificationTimeout, null, "._notificationTimeout is defined and equals null");
 	});
 }(window.tau));

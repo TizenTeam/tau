@@ -47,8 +47,8 @@
 			strictEqual(buttonPopup.getAttribute("data-tau-built"), "Popup", "Popup with footer buttons has been created");
 
 			ok(!referencePopup.classList.contains("ui-popup-action"), "Reference popup has no ui-popup-action");
-			ok(inputPopup.classList.contains("ui-popup-action"), "Popup with `input` has `ui-popup-action` class");
-			ok(buttonPopup.classList.contains("ui-popup-action"), "Popup with footer buttons has `ui-popup-action` class");
+			ok(tau.engine.getBinding(buttonPopup).options.timeout !== null, "Popup with input has `ui-popup-action` class");
+			ok(tau.engine.getBinding(inputPopup).options.timeout !== null, "Popup with footer buttons has `ui-popup-action` class");
 		});
 
 		function timeoutCheck(elementId, timeoutLimit) {
