@@ -572,17 +572,14 @@
 			* @member ns.router.Router
 			*/
 			Router.prototype.close = function (to, options) {
-				var rel = (options && options.rel) || "page",
-					rule = route[rel],
-					stringId,
-					toElement;
+				var rel = (options && options.rel) || "back",
+					rule = route[rel];
 
 				if (rel === "back") {
 					history.back();
 				} else {
 					if (rule) {
-						to = getHTMLElement(to);
-						rule.close(to, options);
+						rule.close(getHTMLElement(to), options);
 					} else {
 						throw new Error("Not defined router rule [" + rel + "]");
 					}

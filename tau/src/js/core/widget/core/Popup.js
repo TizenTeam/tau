@@ -513,12 +513,10 @@
 			 * @member ns.widget.core.Popup
 			 */
 			prototype._unbindEvents = function () {
-				var self = this,
-					closeButtons = self.element.querySelectorAll(self.options.closeLinkSelector);
+				var self = this;
 
 				self._ui.page.removeEventListener("pagebeforehide", self, false);
 				window.removeEventListener("resize", self, false);
-				eventUtils.off(closeButtons, "click", self, false);
 				self._unbindOverlayEvents();
 			};
 
@@ -710,7 +708,8 @@
 				var self = this;
 				switch(event.type) {
 					case "pagebeforehide":
-						self.close({transition: "none"});
+						// we need close active popup if exists
+						engine.getRouter().close(null, {transition: "none", rel: "popup"});
 						break;
 					case "resize":
 						self._onResize(event);
@@ -718,10 +717,6 @@
 					case "click":
 						if ( event.target === self._ui.overlay ) {
 							self._onClickOverlay(event);
-						} else if (utilSelector.getClosestBySelector(event.target, self.options.closeLinkSelector)) {
-							self.close();
-							event.preventDefault();
-							event.stopPropagation();
 						}
 						break;
 				}
@@ -754,7 +749,7 @@
 				event.stopPropagation();
 
 				if (options.dismissible) {
-					this.close();
+					engine.getRouter().close();
 				}
 			};
 
