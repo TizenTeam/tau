@@ -22,14 +22,14 @@
 		}
 	}
 	.grid-thumbnail {
-		width: 303 * @virtual_px;
+		width: 304 * @virtual_px;
 		margin: 0 20 * @virtual_px 20 * @virtual_px 0;
 		display: block;
 		overflow: hidden;
 		padding: 8 * @virtual_px;
 
 		.ui-background {
-			background-color: rgb(69, 143, 255);
+			background-color: @default_color;
 		}
 
 		&.ui-btn .ui-btn-inner {
@@ -53,8 +53,8 @@
 
 		.grid-thumbnail-pic {
 			z-index: 2;
-			width: 303 * @virtual_px;
-			height: 303 * @virtual_px;
+			width: 288 * @virtual_px;
+			height: 288 * @virtual_px;
 			overflow: hidden;
 			background-color: rgb(26,70,95);
 			position: relative;
@@ -64,25 +64,25 @@
 				max-width: 200 * @virtual_px;
 				max-height: 200 * @virtual_px;
 				position: absolute;
-				top: 152 * @virtual_px;
-				left: 152 * @virtual_px;
+				top: 144 * @virtual_px;
+				left: 144 * @virtual_px;
 				margin: -100 * @virtual_px;
 			}
 		}
 
 		.grid-thumbnail-pic-full {
-			width: 303 * @virtual_px;
-			height: 303 * @virtual_px;
+			width: 288 * @virtual_px;
+			height: 288 * @virtual_px;
 			overflow: hidden;
 			position: relative;
 			z-index: 2;
 			img {
-				min-width: 303 * @virtual_px;
-				min-height: 303 * @virtual_px;
+				min-width: 288 * @virtual_px;
+				min-height: 288 * @virtual_px;
 				position: absolute;
-				top: 152 * @virtual_px;
-				left: 152 * @virtual_px;
-				margin: -152 * @virtual_px;
+				top: 144 * @virtual_px;
+				left: 144 * @virtual_px;
+				margin: -144 * @virtual_px;
 			}
 		}
 
@@ -131,7 +131,7 @@
 
 		&.ui-btn.ui-selected {
 			.ui-btn-inner {
-				border: solid rgb(69, 143, 255) 10 * @virtual_px;
+				border: solid @default_color 10 * @virtual_px;
 			}
 			.ui-btn-text{
 				margin: -10  * @virtual_px;
