@@ -156,21 +156,31 @@ label.ui-input-text {
 	margin: 0 0 .3em;
 }
 
-.ui-input-text {
+input:not([type=number]):not([type=checkbox]):not([type=radio]):not([type=date]):not([type=time]).ui-input-text,
+textarea.ui-input-text {
 	.appearance(none);
 
-	padding: .4em;
-	line-height: 1.4;
-	font-size: 16 * @virtual_px;
+	background-color: @color_list_editfield;
+	background-image: none;
+	padding: 11 * @virtual_px 24 * @virtual_px;
+	font-size: 32 * @virtual_px;
 	display: block;
-	width: 95%;
-}
+	.border-radius(5 * @virtual_px);
+	border: solid 4px @color_list_editfield;
+	color: rgb(204, 204, 204);
+	.transition-property(color, border, border-radius);
+	.transition-duration(200ms);
 
-textarea.ui-input-text {
-	height: 50 * @virtual_px;
-	resize: none;
-	.transition(height 200ms linear);
-	white-space: normal;
+	&.pin {
+		padding: 14 * @virtual_px;
+		text-align: center;
+	}
+
+	&.ui-focus {
+		.border-radius(0);
+		border-color: @default_color;
+		color: rgb(61,61,61);
+	}
 }
 
 .ui-input-clear-hidden {

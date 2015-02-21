@@ -147,8 +147,6 @@
 .border-radius(@args) {
 	-webkit-border-radius: @args;
     border-radius: @args;
-
-    background-clip: padding-box;
 }
 
 
@@ -359,6 +357,13 @@
     -o-transition-property: @property;
     -ms-transition-property: @property;
     transition-property: @property;
+}
+.transition-property(@property1, @property2, @property3) {
+    -webkit-transition-property: @property1, @property2, @property3;
+    -moz-transition-property: @property1, @property2, @property3;
+    -o-transition-property: @property1, @property2, @property3;
+    -ms-transition-property: @property1, @property2, @property3;
+    transition-property: @property1, @property2, @property3;
 }
 .transition-timing-function(@function:ease) {
     -webkit-transition-timing-function: @function;
