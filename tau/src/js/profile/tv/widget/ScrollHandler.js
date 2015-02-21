@@ -57,6 +57,23 @@
 				return element;
 			};
 
+			prototype._setProperWidth = function () {
+				var self = this,
+					element = self.element,
+					view = self._ui.view,
+					contentStyle = window.getComputedStyle(element),
+					width = parseFloat(contentStyle.width),
+					paddingLeft = parseFloat(contentStyle.paddingLeft),
+					paddingRight = parseFloat(contentStyle.paddingRight);
+				view.style.width = Math.floor(width - paddingLeft - paddingRight) + "px";
+			};
+
+			prototype._init = function (element) {
+				element = BaseScrollHandlerPrototype._init.call(this, element);
+				this._setProperWidth();
+				return element;
+			};
+
 			// definition
 			ns.widget.tv.ScrollHandler = ScrollHandler;
 

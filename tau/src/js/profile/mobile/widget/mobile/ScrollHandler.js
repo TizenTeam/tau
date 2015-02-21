@@ -706,7 +706,6 @@
 				thumb.className = classes.thumb;
 				track.className = classes.track;
 
-				handle.setAttribute("tabindex", 0);
 				handle.setAttribute("aria-label", (options.direction === "y" ? "Vertical" : "Horizontal") + " handler, double tap and move to scroll");
 
 				handle.appendChild(thumb);
