@@ -39,6 +39,10 @@ Normal Popup
 				&.ui-header-empty {
 					min-height: 305 * @virtual_px;
 
+					border-top-color: @color_popup_header_bg;
+					border-top-width: @no_header_border_width;
+					border-top-style: solid;
+
 					.ui-popup-wrapper {
 						min-height: 305 * @virtual_px - @no_header_border_width;
 					}
@@ -49,12 +53,6 @@ Normal Popup
 				.ui-popup-wrapper {
 					min-height: 411 * @virtual_px;
 				}
-			}
-
-			&.ui-header-empty {
-				border-top-color: @color_popup_header_bg;
-				border-top-width: @no_header_border_width;
-				border-top-style: solid;
 			}
 		}
 
