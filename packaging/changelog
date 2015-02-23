@@ -1,4 +1,8 @@
 %changelog
+* Mon Feb 23 2015 Junhyoen Lee <juneh.lee@samsung.com> 0.10.4
+	- fix(wearable): fix circularIndexScrollbar indicator hide issue (sample)
+	- refactor(wearable): fix header and footer sample and remove ui-scroll-on
+
 * Mon Feb 23 2015 Junhyoen Lee <juneh.lee@samsung.com> 0.10.3
 	- fix(circle): delete header-small style of circle profile
 	- refactor(wearable): add integrated samples
