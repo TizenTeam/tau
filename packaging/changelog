@@ -1,4 +1,44 @@
 %changelog
+* Mon Feb 23 2015 Junhyoen Lee <juneh.lee@samsung.com> 0.10.3
+	- fix(circle): delete header-small style of circle profile
+	- refactor(wearable): add integrated samples
+	- feat(circle): add bottomButton style of footer button
+	- fix(mobile): fix 'Select All' sample page(NABI-1988)
+	- fix(wearable): fix footer button icon position issue(NABI-1992)
+	- feat(wearable): add moreoptions integration sample page
+	- fix(wearable): fix wrong image path of popup style.css
+	- fix(wearable): remove unnecessary style in marquee
+	- fix(wearable): fix position issue of circularIndexScrollbar Sample
+	- feat(circle): add thumbnail sample page
+	- feat(core): add getScrollableParent method in selectors util
+	- fix(wearable): fix SectionChanger scroll issue
+	- refactor(wearable): fix title fade out style
+	- refactor(wearable): remove ui-scroll-on class in sample page
+	- fix(wearable): add drawer, sectionchanger default height
+	- fix(wearable): remove small header style.
+	- fix(wearable): fix null exception when snap list destory.
+	- fix(wearable): select list fix
+	- fix(wearable): li:lastChild border delete
+	- fix(wearable): small-progress scroll fix
+	- fix(wearable): fixed drawer bugs.
+	- refector(wearable): refectoring indexScrollBar for converting circular and square shape.
+	- fix(wearable): fix radio spelling.
+	- fix(circle): fix toast popup position and layout
+	- fix(circle): change header background color
+	- fix(circle): fixed popup button background color
+	- feat(circle): changeable xml files changed.
+	- fix(wearable): fix indexscrollbar scroll issue
+	- refactor(wearble): delete empty item
+	- refactor(wearable): fix circular processing
+	- fix(wearable): change jenkins server IP in jenkins build script
+	- fix(circle): fix header title padding left
+	- fix(circle): fix the progress less file
+	- refactor(wearable): fix large toggle switch class name
+	- feat(wearable): add Integration Sample App
+	- refactor(wearable): controls in Sample App scroll fix
+	- fix(wearable): modify indexscrollbar sample app for support square and circle shape
+	- refactor(wearable) fix progress/processing style
+
 * Fri Feb 06 2015 Junhyoen Lee <juneh.lee@samsung.com> 0.10.2
 	- refactor(wearable): apply helper config in CircularTemplate sample app
 	- fix(wearable): fix build warning on wearable sdk
