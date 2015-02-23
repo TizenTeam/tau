@@ -1,5 +1,6 @@
 .ui-virtualgrid, .ui-grid {
-	.ui-btn {
+	.ui-btn,
+	.ui-btn.ui-disabled {
 		color: @color_grid_txt_normal;
 	}
 
@@ -19,6 +20,57 @@
 			.mask-size(106 * @virtual_px 106 * @virtual_px);
 			margin-left: -53 * @virtual_px;
 			background-size: 106 * @virtual_px 106 * @virtual_px;
+		}
+
+		&.ui-btn-icon-live.ui-shadow:not(.ui-focus):not(.ui-disabled) .ui-btn-inner:after,
+		&.ui-btn-icon-movie.ui-shadow:not(.ui-focus):not(.ui-disabled) .ui-btn-inner:after,
+		&.ui-btn-icon-tv-show.ui-shadow:not(.ui-focus):not(.ui-disabled) .ui-btn-inner:after,
+		&.ui-btn-icon-source.ui-shadow:not(.ui-focus):not(.ui-disabled) .ui-btn-inner:after,
+		&.ui-btn-icon-app.ui-shadow:not(.ui-focus):not(.ui-disabled) .ui-btn-inner:after,
+		&.ui-btn-icon-add.ui-shadow:not(.ui-focus):not(.ui-disabled) .ui-btn-inner:after {
+			width: 106 * @virtual_px;
+			height: 106 * @virtual_px;
+			background-size: 109 * @virtual_px 105 * @virtual_px;
+			background-position: -2 * @virtual_px 0;
+		}
+
+		&.grid-2-line {
+
+			&.ui-btn-icon-top .ui-btn-inner.ui-btn-hastxt {
+				padding-top: 80 * @virtual_px;
+			}
+
+			.grid-icon-contents {
+				padding: 0 20 * @virtual_px;
+				text-align: center;
+				font-size: 26 * @virtual_px;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				color: @color_grid_2_line_content;
+				z-index: 2;
+
+				.grid-icon-content {
+					overflow: hidden;
+					text-overflow: ellipsis;
+					height: 31 * @virtual_px;
+					display: block;
+				}
+
+				h1, h2, h3, h4 {
+					font-size: 30 * @virtual_px;
+					font-weight: normal;
+					margin: 0;
+				}
+
+				.grid-icon-subtext {
+					overflow: hidden;
+					text-overflow: ellipsis;
+					color: @color_grid_2_line_content_subtext;
+					font-size: 22 * @virtual_px;
+					margin-top: -2 * @virtual_px;
+					display: block;
+				}
+			}
 		}
 	}
 	.grid-thumbnail {

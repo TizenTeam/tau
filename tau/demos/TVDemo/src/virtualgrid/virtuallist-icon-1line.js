@@ -18,7 +18,12 @@
 			// Update listitem
 			vlist.setListItemUpdater(function (elListItem, newIndex) {
 				var data = JSON_DATA[newIndex];
-				elListItem.innerHTML = '<a class="ui-button grid-icon" data-icon="' + data.ICON + '" data-iconpos="top" data-role="button">' + data.TITLE + '</a>';
+				elListItem.innerHTML =
+					'<a class="ui-button grid-icon"' +
+							(data.DISABLED ? 'disabled="disabled" ' : '') +
+							'data-icon="' + data.ICON + '" data-iconpos="top" data-role="button">' +
+						data.TITLE +
+					'</a>';
 			});
 
 			// Draw child elements

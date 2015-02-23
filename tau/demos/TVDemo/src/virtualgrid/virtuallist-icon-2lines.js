@@ -19,15 +19,14 @@
 			// Update listitem
 			vlist.setListItemUpdater(function (elListItem, newIndex) {
 				var data = JSON_DATA[newIndex];
-				elListItem.innerHTML = '<div class="ui-button grid-thumbnail-icon-2lines"> ' +
-					'<div class="grid-thumbnail-icon-2lines-pic">' +
-						'<img class="grid-thumbnail-icon-2lines-pic-img" src="' + data.ICON + '"  />' +
-					'</div>' +
-					'<div class="grid-thumbnail-icon-2lines-contents">' +
-						'<span class="grid-thumbnail-icon-2lines-1-line">' + data.TITLE + '</span>' +
-						'<span class="grid-thumbnail-icon-2lines-2-line">' + data.SUBTITLE + '</span>' +
-					'</div>' +
-				'</div>';
+				elListItem.innerHTML =
+					'<a class="ui-button grid-icon grid-2-line" data-icon="' + data.ICON +
+							'" data-iconpos="top" ' + (data.DISABLED ? ' disabled="disabled"' : '') + '>' +
+						'<div class="grid-icon-contents">' +
+							'<h3 class="grid-icon-content">' + data.TITLE + '</h3>' +
+							'<span class="grid-icon-subtext">' + data.SUBTITLE + '</span>' +
+						'</div>' +
+					'</a>';
 			});
 			// Draw child elements
 			vlist.draw();

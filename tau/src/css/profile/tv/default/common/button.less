@@ -74,7 +74,10 @@
 
 
 	a&.ui-state-disabled, &:disabled {
-		background-color: rgba(red(@color_button_basic_normal), green(@color_button_basic_normal), blue(@color_button_basic_normal), 0.4);
+		.ui-icon,
+		.ui-btn-text {
+			opacity: 0.3;
+		}
 	}
 }
 
@@ -346,10 +349,31 @@ button.ui-btn, input.ui-btn {
 	.transition(background 200ms);
 }
 
+.ui-btn-icon-live.ui-shadow:not(.ui-focus):not(.ui-disabled) .ui-btn-inner:after,
+.ui-btn-icon-movie.ui-shadow:not(.ui-focus):not(.ui-disabled) .ui-btn-inner:after,
+.ui-btn-icon-tv-show.ui-shadow:not(.ui-focus):not(.ui-disabled) .ui-btn-inner:after,
+.ui-btn-icon-source.ui-shadow:not(.ui-focus):not(.ui-disabled) .ui-btn-inner:after,
+.ui-btn-icon-app.ui-shadow:not(.ui-focus):not(.ui-disabled) .ui-btn-inner:after,
+.ui-btn-icon-add.ui-shadow:not(.ui-focus):not(.ui-disabled) .ui-btn-inner:after {
+	content: "";
+	width: 76 * @virtual_px;
+	height: 76 * @virtual_px;
+	top: 0;
+	left: 0;
+	right: 0;
+	margin: auto;
+	display: block;
+	position: absolute;
+	background: url('images/icons/bg_ico_76_shadow.png') no-repeat;
+	background-size: 77 * @virtual_px 76 * @virtual_px;
+	background-position: -3 * @virtual_px -1 * @virtual_px;
+}
+
 .ui-icon {
-	.mask-image('images/icons/bg_ico_76_shadow.png', 'images/icons/app_ico_bg.png');
+	.mask-image('images/icons/app_ico_bg.png');
 	.mask-size(100%);
 	z-index: 0;
+	position: relative;
 }
 
 .ui-icon-web {
