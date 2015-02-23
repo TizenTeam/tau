@@ -70,7 +70,6 @@
 			"./core/event/hwkey",
 			"./core/event/throttledresize",
 			"./core/event/orientationchange",
-			"./core/event/touch",
 			// widget list
 			"./core/widget/core/Checkboxradio",
 			"./core/widget/core/Button",

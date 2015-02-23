@@ -757,14 +757,14 @@
 			function createWrapper(domSlider) {
 				var wrapper,
 					domSliderChildNode = domSlider.childNodes,
-					j, length;
+					i, length;
 
 				wrapper = createElement("div");
 				wrapper.className = classes.sliderInneroffset;
 
-				for (j = 0, length = domSliderChildNode.length;
-						j < length; j++) {
-					wrapper.appendChild(domSliderChildNode[j]);
+				for (i = 0, length = domSliderChildNode.length;
+						i < length; i++) {
+					wrapper.appendChild(domSliderChildNode[i]);
 				}
 				return wrapper;
 			}

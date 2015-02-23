@@ -19,7 +19,6 @@
 			"../core/event",
 			"../core/event/vmouse",
 			"../core/event/orientationchange",
-			"../core/event/touch"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");

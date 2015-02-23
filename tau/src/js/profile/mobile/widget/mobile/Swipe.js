@@ -153,7 +153,6 @@
 		[
 			"../../../../core/engine",
 			"../../../../core/event",
-			"../../../../core/event/touch",
 			"../../../../core/util/anim/Animation",
 			"../mobile", //namespace
 			"./BaseWidgetMobile"

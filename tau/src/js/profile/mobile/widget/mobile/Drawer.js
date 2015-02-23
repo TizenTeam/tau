@@ -91,14 +91,65 @@
 				},
 				prototype = new CoreDrawer();
 
+				Gesture = ns.event.gesture,
+				prototype = new CoreDrawer(),
+				classes = CoreDrawer.classes;
+
 			Drawer.prototype = prototype;
+			Drawer.classes = classes;
 
 			/**
-			 * Configure Drawer widget
-			 * @method _configure
-			 * @protected
-			 * @member ns.widget.wearable.Drawer
+			 * Swipe event handler
+			 * @method _onSwipe
+			 * @private
+			 * @static
+			 * @param {Event} event
+			 * @member ns.widget.mobile.Drawer
 			 */
+			prototype._onSwipe = function(event) {
+				// If swipe event has the direction value is right,
+				// drawer that was positioned left side should be opened.
+				// So 'direction' has reverse value for swipe direction.
+				var self = this,
+					direction = event.detail.direction === "left" ? "right" : "left";
+
+				if (self.options.position === direction && self._swiped) {
+					self.open();
+					self._swiped = false;
+				}
+			};
+
+			/**
+			 * Check vmousedown event whether triggerred on side edge area or not
+			 * @method _checkSideEdgeMouseDown
+			 * @private
+			 * @static
+			 * @param {Event} event
+			 * @member ns.widget.mobile.Drawer
+			 */
+			prototype._checkSideEdgeMouseDown = function(event) {
+				var self = this,
+					eventClientX = event.clientX,
+					options = self.options,
+					position = options.position,
+					swipeStartArea = window.innerWidth * options.swipeStartAreaRatio;
+
+				if ((position === "left" && eventClientX > 0 && eventClientX < swipeStartArea) ||
+					(position === "right" && eventClientX < window.innerWidth && eventClientX > window.innerWidth - swipeStartArea)) {
+					self._swiped = true;
+				}
+			};
+			/**
+			 * Vmousedown event handler
+			 * @method _onMouseDown
+			 * @private
+			 * @static
+			 * @param {Event} event
+			 * @member ns.widget.mobile.Drawer
+			 */
+			prototype._onMouseDown = function(event) {
+				this._checkSideEdgeMouseDown(event);
+			};
 			prototype._configure = function() {
 				var self = this;
 				/**
