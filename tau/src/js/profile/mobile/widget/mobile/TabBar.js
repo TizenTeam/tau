@@ -164,16 +164,16 @@
 			"../../../../core/util/grid",
 			"../../../../core/util/DOM/attributes",
 			"../../../../core/event/vmouse",
+			"../../../../core/widget/core/Scrollview",
 			"../mobile",  // fetch namespace
 			"./BaseWidgetMobile",
-			"./Button",
-			"./Scrollview"
+			"./Button"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 			var ButtonClasses = ns.widget.mobile.Button.classes,
 				BaseWidget = ns.widget.mobile.BaseWidgetMobile,
-				Scrollview = ns.widget.mobile.Scrollview,
+				Scrollview = ns.widget.core.Scrollview,
 				engine = ns.engine,
 				selectors = ns.util.selectors,
 				grid = ns.util.grid,

@@ -93,7 +93,6 @@
 			"./profile/tv/widget/SelectMenu",
 			"./profile/mobile/widget/mobile/TabBar",
 			"./profile/tv/widget/ControlGroup",
-			"./profile/mobile/widget/mobile/Scrollview",
 			"./profile/tv/widget/ScrollHandler",
 			"./profile/tv/widget/HomeBar",
 			"./profile/tv/widget/ContextualMenu",
