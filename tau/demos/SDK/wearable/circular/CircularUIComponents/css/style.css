@@ -150,7 +150,7 @@
 	margin-right: -8px;
 }
 .ui-listview li.li-has-thumb-left label{
-	padding: 31.5px 40px 31.5px 94px;
+	padding: 31.5px 40px 31.5px 102px;
 }
 .ui-listview li img {
 	position: absolute;
@@ -161,10 +161,21 @@
 	background-color: rgba(245, 245, 245, 1);
 }
 .ui-listview li.li-has-thumb-right img {
-	right: 30px;
+	right: 16px;
 }
 .ui-listview li.li-has-thumb-left img {
-	left: 30px;
+	left: 16px;
+}
+@media all and (-tizen-geometric-shape: circle) {
+	.ui-listview li.li-has-thumb-left label {
+		padding: 31.5px 40px 31.5px 94px;
+	}
+	.ui-listview li.li-has-thumb-right img {
+		right: 30px;
+	}
+	.ui-listview li.li-has-thumb-left img {
+		left: 30px;
+	}
 }
 .ui-listview li.li-has-multiline.li-has-checkbox label,
 .ui-listview li.li-has-multiline.li-has-radio label,
