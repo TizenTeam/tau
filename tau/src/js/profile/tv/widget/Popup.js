@@ -285,7 +285,7 @@
 			function closingOnKeydown(self, added) {
 				if (added) {
 					// if elements inside popup are not focusable, we enabled closing on keyup
-					if (self._isActionPopup()) {
+					if (!self._isActionPopup()) {
 						self._onKeydownClosing = onKeydownClosing.bind(null, self);
 						document.addEventListener("keydown", self._onKeydownClosing, false);
 					}
