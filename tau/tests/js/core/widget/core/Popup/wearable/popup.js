@@ -151,8 +151,8 @@
 		asyncTest("test popup close onpagehide", 1, function () {
 			tau.event.one(page, "pageshow", function() {
 				popup1Widget = engine.instanceWidget(popup1, INSTANCE_WIDGET);
-				tau.event.one(page, "pagebeforehide", function() {
-					ok(!popup1Widget._isOpened(), "Popup is not open");
+				tau.event.one(popup1, "popuphide", function() {
+					ok(true, "Popup is not open");
 					start();
 				});
 				tau.event.one(popup1, PopupClass.events.show, function() {
