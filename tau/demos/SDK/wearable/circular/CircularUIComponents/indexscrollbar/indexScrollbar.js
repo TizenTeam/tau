@@ -77,8 +77,8 @@ el.addEventListener("select", function( ev ) {
 				}
 			};
 
-			listviewElement.addEventListener("scrollstart", scrollHandlers.start);
-			listviewElement.addEventListener("scrollend", scrollHandlers.end);
+			scroller.addEventListener("scrollstart", scrollHandlers.start);
+			scroller.addEventListener("scrollend", scrollHandlers.end);
 		}
 
 
@@ -103,8 +103,8 @@ el.addEventListener("select", function( ev ) {
 
 	page.addEventListener("pagehide", function(ev) {
 		if (isCircle) {
-			listviewElement.removeEventListener("scrollstart", scrollHandlers.start);
-			listviewElement.removeEventListener("scrollend", scrollHandlers.end);
+			scroller.removeEventListener("scrollstart", scrollHandlers.start);
+			scroller.removeEventListener("scrollend", scrollHandlers.end);
 		}
 		indexScrollbar.destroy();
 	});
