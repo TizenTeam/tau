@@ -100,9 +100,11 @@
 		height: 100vh;
 
 		&.ui-dynamic-box-no-content {
-			.display-flex();
-			.flex-direction(column);
-			.justify-content(center);
+			&.ui-dynamic-box-active {
+				.display-flex();
+				.flex-direction(column);
+				.justify-content(center);
+			}
 			padding: 30 * @virtual_px;
 			header {
 				width: 100%;
