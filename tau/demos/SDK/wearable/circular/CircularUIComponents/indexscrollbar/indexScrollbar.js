@@ -2,6 +2,7 @@
 	var page = document.getElementById("pageIndexScrollbar"),
 		isCircle = tau.support.shape.circle,
 		scrollHandlers = {},
+		scroller,
 		indexScrollbar;
 
 	page.addEventListener("pageshow", function(ev) {
@@ -39,7 +40,6 @@ el.addEventListener("select", function( ev ) {
 			listDividers = listviewElement.getElementsByClassName("li-divider"),	// list dividers
 			dividers = {},	// collection of list dividers
 			indices = [],	// index list
-			scroller,
 			divider,
 			i, idx;
 
