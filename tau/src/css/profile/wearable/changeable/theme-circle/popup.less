@@ -44,8 +44,8 @@ Normal Popup
 		.ui-btn {
 			height: @fixed_popup_footer_height;
 			width: @fixed_popup_footer_width;
-			border-radius: @fixed_popup_footer_width / 2;
-			position: fixed;
+			border-radius: 50%;
+			position: absolute;
 			text-indent: -9999px;
 			&.ui-btn-footer-icon::before {
 				content: "";
@@ -58,11 +58,11 @@ Normal Popup
 			}
 		}
 		.ui-btn:only-child {
-			top: @fixed_popup_single_btn_top;
+			top: 0;
 			left: 50%;
-			transform: translate3d(-50%, 0, 0);
+			transform: translate3d(-50%, -100%, 0);
 			&.ui-btn-footer-icon::before {
-				top: @fixed_popup_single_btn_icon_top;
+				bottom: @fixed_popup_btn_margin;
 				left: 50%;
 				transform: translate3d(-50%, 0, 0);
 			}
@@ -75,27 +75,38 @@ Normal Popup
 		}
 		.ui-btn:not(:only-child):nth-child(1) {
 			top: 50%;
-			left: @fixed_popup_double_btn_indent;
-			transform: translate3d(0, -50%, 0);
+			left: 0;
+			transform: translate3d(-100%, -50%, 0);
 			&.ui-btn-footer-icon::before {
 				top: 50%;
-				left:-@fixed_popup_double_btn_indent;
+				right: @fixed_popup_btn_margin;
 				transform: translate3d(0, -50%, 0);
 			}
 		}
 		.ui-btn:not(:only-child):nth-child(2) {
 			top: 50%;
-			right: @fixed_popup_double_btn_indent;
-			transform: translate3d(0, -50%, 0);
+			right: 0;
+			transform: translate3d(100%, -50%, 0);
 			&.ui-btn-footer-icon::before {
 				top: 50%;
-				right: -@fixed_popup_double_btn_indent;
+				left: @fixed_popup_btn_margin;
 				transform: translate3d(0, -50%, 0);
 			}
 		}
 	}
 }
 
+.ui-popup.ui-popup-active {
+	.ui-popup-footer {
+		.ui-btn:nth-child(n) {
+			transform: translate3d(-50%, -50%, 0);
+			transition: transform 300ms;
+		}
+		.ui-btn:nth-child(2) {
+			transform: translate3d(50%, -50%, 0);
+		}
+	}
+}
 /***********************
 Popup Container Scroll
 ***********************/
