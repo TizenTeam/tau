@@ -698,6 +698,20 @@
 			};
 
 			/**
+			 * Returns element containing the widget
+			 * @member ns.widget.mobile.BaseWidgetMobile
+			 * @return {HTMLElement|null}
+			 * @instance
+			 */
+			prototype._getContainer = function () {
+				var self = this;
+
+				if (self._ui && self._ui.container) {
+					return self._ui.container;
+				}
+				return self.element;
+			};
+			/**
 			 * Set text on button before build
 			 * @method _buildText
 			 * @param {HTMLElement|HTMLInputElement|HTMLButtonElement} element

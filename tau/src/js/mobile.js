@@ -119,6 +119,7 @@
 			"./profile/mobile/router/route/dialog",
 			"./core/router/history",
 			"./profile/wearable/expose",
+			"./core/widget/core/Box",
 			// Modules to be loaded after
 			"./core/init",
 			//documentation pages

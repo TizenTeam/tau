@@ -15,3 +15,53 @@
 	background-size:50% 50%;
 	background-image: url(test.png);
 }
+
+
+#sample-box {
+	width: 100%;
+	height: 1000px;
+	background: aliceblue;
+}
+
+#float-page .a {
+	width: 200px;
+	height: 100px;
+	background-color: #ff0000;
+}
+#float-page .b {
+	width: 30%;
+	height: 20%;
+	background-color: #0000ff;
+}
+#float-page .c {
+	width: 40%;
+	height: 100px;
+	background-color: #008000;
+}
+#float-page .d {
+	width: 300px;
+	height: 20%;
+	background-color: #00ffff;
+}
+#float-page .e {
+	width: 200px;
+	height: 10%;
+	background-color: deepskyblue;
+}
+#float-page .f {
+	width: 30%;
+	height: 100px;
+	background-color: #ffff00;
+}
+
+#float-page .ea {
+	width: 30%;
+	height: 50%;
+	background-color: indianred;
+}
+#float-page .eb {
+	width: 100px;
+	height: 100%;
+	background-color: blueviolet;
+}
+

@@ -409,6 +409,20 @@
 			};
 
 			/**
+			 * Returns base element widget
+			 * @member ns.widget.BaseWidget
+			 * @return {HTMLElement|null}
+			 * @instance
+			 */
+			prototype.getContainer = function () {
+				var self = this;
+				if (typeof self._getContainer === TYPE_FUNCTION) {
+					return self._getContainer();
+				}
+				return self.element;
+			};
+
+			/**
 			 * Bind widget events attached in init mode
 			 * @method _bindEvents
 			 * @param {HTMLElement} element Base element of widget

@@ -73,7 +73,6 @@
 		ok(widget, "Widget was created");
 		ok(widget.element, "Widget has element");
 	});
-
 	test("Checking .getBinding method - one parameter", function () {
 		var tempBinding,
 			tempBinding2;

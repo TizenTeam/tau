@@ -50,7 +50,7 @@
 				var definition = evt.detail,
 					name = definition.name;
 
-				 ns.widget[name] = widgetConstructor.bind(null, name);
+				ns.widget[name] = widgetConstructor.bind(null, name);
 
 			}, true);
 

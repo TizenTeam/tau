@@ -1,0 +1,26 @@
+.ui-box {
+	&-float {
+		.align-content(flex-start);
+		display: flex;
+		.flex-wrap(wrap);
+		&-left {
+			.justify-content(flex-start);
+		}
+		&-right {
+			.justify-content(flex-end);
+		}
+		&-center {
+			.justify-content(center);
+		}
+		&-top {
+			.align-items(flex-start);
+		}
+		&-middle {
+			.align-items(center);
+		}
+		&-bottom {
+			.align-items(flex-end);
+		}
+	}
+}
+
