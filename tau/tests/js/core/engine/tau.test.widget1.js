@@ -1,17 +1,17 @@
 (function (window, ej) {
 	"use strict";
-	ej.test = ej.test || {};
-	ej.test.widget1 = (function (){
+	tau.test = tau.test || {};
+	tau.test.widget1 = (function (){
 		var testWidget = function () {};
 
-		ej.engine.defineWidget(
+		tau.engine.defineWidget(
 			"Test1",
 			"div.test-widget-by-definition",
 			[],
 			testWidget
 		);
 
-		testWidget.prototype = new ej.widget.BaseWidget();
+		testWidget.prototype = new tau.widget.BaseWidget();
 
 		testWidget.prototype._build = function (element) {
 
@@ -28,7 +28,7 @@
 		testWidget.prototype._bindEvents = function (element) {
 			element.addEventListener("test-event", function (evt) {
 				var data = evt.detail.testData;
-				ej.event.trigger(element, "test-event-bounce", {"testData": data*data});
+				tau.event.trigger(element, "test-event-bounce", {"testData": data*data});
 			}, false);
 		};
 		testWidget.prototype._destroy = function (element) {

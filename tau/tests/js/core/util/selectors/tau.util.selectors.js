@@ -1,8 +1,8 @@
-var selectors = ej.util.selectors;
+var selectors = tau.util.selectors;
 
 module("core/util/selectors");
 
-test("ej.util.selectors - check function matchesSelector", function () {
+test("tau.util.selectors - check function matchesSelector", function () {
 	var elem1 = document.getElementById("selectors1-parent"),
 		elem2 = document.getElementById("selectors1-child");
 
@@ -11,7 +11,7 @@ test("ej.util.selectors - check function matchesSelector", function () {
 	equal(selectors.matchesSelector(elem2, "[data-type='selector']"), false, "function matchesSelector returns false value");
 });
 
-test("ej.util.selectors - check functions with 'children'", function () {
+test("tau.util.selectors - check functions with 'children'", function () {
 	var elem1 = document.getElementById("selectors1-parent"),
 		child1 = document.getElementById("selectors1-child");
 
@@ -29,7 +29,7 @@ test("ej.util.selectors - check functions with 'children'", function () {
 	equal(selectors.getChildrenByTag(elem1, "a").length, 0, "function getChildrenByTag doesn't find element with a tag");
 });
 
-test("ej.util.selectors - check functions with 'closest'", function () {
+test("tau.util.selectors - check functions with 'closest'", function () {
 	var elem1 = document.getElementById("selectors1-parent"),
 		child1 = document.getElementById("selectors1-child"),
 		child2 = document.getElementById("selectors1-child-second");

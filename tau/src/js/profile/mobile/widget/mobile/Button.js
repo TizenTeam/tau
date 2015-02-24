@@ -224,7 +224,8 @@
 				mini: null,
 				bar: false,
 				style: null,
-				wrapperEls: "span"
+				wrapperEls: "span",
+				text: null
 			};
 
 				Button.prototype = prototype;
@@ -483,6 +484,7 @@
 				 * @property {boolean} [options.bar=false] if button is part of bar then you should set true
 				 * @property {"circle"|"nobg"|null} [options.style=null] style of button
 				 * @property {"span"|"div"} [options.wrapperEls="span"] wrapper tag name of button
+				 * @property {string} [options.text=null] text for button
 				 * @member ns.widget.mobile.Button
 				 */
 				ns.util.object.merge(this.options, prototypeOptions);
@@ -696,6 +698,20 @@
 			};
 
 			/**
+			 * Set text on button before build
+			 * @method _buildText
+			 * @param {HTMLElement|HTMLInputElement|HTMLButtonElement} element
+			 * @protected
+			 * @member ns.widget.mobile.Button
+			 */
+			prototype._buildText = function(element) {
+				var text = this.options.text;
+				if (text) {
+					element.textContent = text;
+				}
+			};
+
+			/**
 			* Build structure of button widget
 			* @method _build
 			* @param {HTMLElement|HTMLInputElement} element
@@ -718,7 +734,7 @@
 					elementTypeName,
 					innerClass = classes.uiBtnInner,
 					textClass = classes.uiBtnText,
-					options = this.options,
+					options = self.options,
 					buttonValue,
 					buttonInnerHTML,
 					container,
@@ -726,6 +742,7 @@
 					label,
 					i;
 
+				self._buildText(element);
 				// Create default structure of button
 				buttonInner = document.createElement(options.wrapperEls);
 				buttonInner.id = element.id + "-div-inner";
@@ -781,7 +798,7 @@
 				}
 
 				container.setAttribute("tabindex", 0);
-				if ( (element.getAttribute("data-role") === "button" && !options.bar) ||
+				if ( (!options.bar) ||
 					(elementTagName === "input" && ((elementTypeName === "submit") || (elementTypeName === "reset") || (elementTypeName === "button")) ) ||
 					(elementTagName === "button") ) {
 					buttonClassArray.push(classes.uiBtnBoxThemePrefix + options.theme);

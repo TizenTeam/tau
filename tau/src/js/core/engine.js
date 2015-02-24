@@ -505,6 +505,27 @@
 			}
 
 			/**
+			 * If element not exist create base element for widget.
+			 * @method ensureElement
+			 * @param {HTMLElement} element
+			 * @param {ns.widget.BaseWidget} Widget
+			 * @return {HTMLElement}
+			 * @static
+			 * @private
+			 * @member ns.engine
+			 */
+			function ensureElement(element, Widget) {
+				if (!element || !element instanceof HTMLElement) {
+					if (typeof Widget.createEmptyElement === TYPE_FUNCTION) {
+						element = Widget.createEmptyElement();
+					} else {
+						element = document.createElement("div");
+					}
+				}
+				return element;
+			}
+
+			/**
 			 * Load widget
 			 * @method processWidget
 			 * @param {HTMLElement} element base element of widget
@@ -523,10 +544,15 @@
 					/**
 					 * @type {ns.widget.BaseWidget} widgetInstance
 					 */
-					widgetInstance = Widget ? new Widget(element) : false,
+					widgetInstance,
 					buildAttribute,
-					parentEnhance = selectors.getParentsBySelectorNS(element, 'enhance=false'),
+					parentEnhance,
 					existingBinding;
+
+				element = ensureElement(element, Widget);
+				widgetInstance = Widget ? new Widget(element) : false;
+				// if any parent has attribute data-enhance=false then stop building widgets
+				parentEnhance = selectors.getParentsBySelectorNS(element, 'enhance=false');
 
 				// While processing widgets queue other widget may built this one before
 				// it reaches it's turn
@@ -677,7 +703,8 @@
 			 * @member ns.engine
 			 */
 			function processHollowWidget(element, definition, options) {
-				var name = element.getAttribute(DATA_NAME) || (definition && definition.name);
+				var name = (element && element.getAttribute(DATA_NAME)) ||
+						(definition && definition.name);
 				//>>excludeStart("tauDebug", pragmas.tauDebug);
 				if (!name) {
 					ns.error("Processing hollow widget without name on element:", element);
@@ -863,6 +890,36 @@
 					router.destroy();
 				}
 			}
+
+			/**
+			 * Add to object value at index equal to type of arg.
+			 * @method getType
+			 * @param {Object} result
+			 * @param {*} arg
+			 * @return {Object}
+			 * @static
+			 * @private
+			 * @member ns.engine
+			 */
+			function getType(result, arg) {
+				var type = arg instanceof HTMLElement ? "HTMLElement" : typeof arg;
+				result[type] = arg;
+				return result;
+			}
+
+			/**
+			 * Convert args array to object with keys being types and arguments mapped by values
+			 * @method getArgumentsTypes
+			 * @param {Arguments[]} args
+			 * @return {Object}
+			 * @static
+			 * @private
+			 * @member ns.engine
+			 */
+			function getArgumentsTypes(args) {
+				return tau.util.array.reduce(args, getType, {});
+			}
+
 			/*
 			 document.addEventListener(eventType.BOUND, function () {
 			 //@TODO dump it to file for faster binding by ids
@@ -986,22 +1043,28 @@
 				 * Build instance of widget and binding events
 				 * Returns error when empty element is passed
 				 * @method instanceWidget
-				 * @param {HTMLElement} element
+				 * @param {HTMLElement} [element]
 				 * @param {string} name
-				 * @param {Object} options
+				 * @param {Object} [options]
 				 * @return {?Object}
 				 * @static
 				 * @member ns.engine
 				 */
 				instanceWidget: function (element, name, options) {
-					var binding = getBinding(element, name),
-						definition;
+					var binding,
+						definition,
+						argumentsTypes = getArgumentsTypes(arguments);
 
-					if (!element) {
-						ns.error("'element' cannot be empty");
-						return null;
+					// Map arguments with specific types to correct variables
+					// Only name is required argument
+					element = argumentsTypes.HTMLElement;
+					name = argumentsTypes.string;
+					options = argumentsTypes.object;
+					// If element exists try to find existing binding
+					if (element) {
+						binding = getBinding(element, name);
 					}
-
+					// If didn't found binding build new widget
 					if (!binding && widgetDefs[name]) {
 						definition = widgetDefs[name];
 						element = processHollowWidget(element, definition, options);

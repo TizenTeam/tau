@@ -231,17 +231,17 @@
 			 */
 			prototype._buildHeader = function(element) {
 				var self = this,
-					header = utilSelectors.getChildrenBySelector(element, "header,[data-role='header'],." + classes.uiHeader)[0];
+					header;
 
-				// add class if header does not exist
+				WearablePagePrototype._buildHeader.call(self, element);
+				header = self._ui.header;
+
 				if (!header) {
 					element.classList.add(classes.uiHeaderEmpty);
 				} else {
-					header.classList.add(classes.uiHeader);
 					self._buildButtonsInHeader(header);
 					self._buildTitleInHeader(header);
 				}
-				self._ui.header = header;
 			};
 
 			/**
@@ -252,65 +252,11 @@
 			 * @member ns.widget.tv.Page
 			 */
 			prototype._buildFooter = function(element) {
-				var footer = utilSelectors.getChildrenBySelector(element, "footer,[data-role='footer'],." + classes.uiFooter)[0];
+				WearablePagePrototype._buildFooter.call(this, element);
 
-				// add class if footer does not exist
-				if (!footer) {
+				if (!this._ui.footer) {
 					element.classList.add(classes.uiFooterEmpty);
-				} else {
-					footer.classList.add(classes.uiFooter);
 				}
-				this._ui.footer = footer;
-			};
-
-			/**
-			 * Method creates empty page footer.
-			 * @method _buildContent
-			 * @param {HTMLElement} element
-			 * @protected
-			 * @member ns.widget.tv.Page
-			 */
-			prototype._buildContent = function(element) {
-				var content = utilSelectors.getChildrenByClass(element, classes.uiContent)[0],
-					next,
-					child = element.firstChild,
-					ui = this._ui;
-				if (!content) {
-					content = document.createElement("div");
-					while (child) {
-						next = child.nextSibling;
-						if (child !== ui.footer && child !== ui.header) {
-							content.appendChild(child);
-						}
-						child = next;
-					}
-				}
-
-				element.insertBefore(content, ui.footer);
-				content.classList.add(classes.uiContent);
-				ui.content = content;
-			};
-
-			/**
-			 * Build page
-			 * @method _build
-			 * @param {HTMLElement} element
-			 * @return {HTMLElement}
-			 * @protected
-			 * @member ns.widget.tv.Page
-			 */
-			prototype._build = function(element) {
-				var self = this;
-
-				if (typeof WearablePagePrototype._build === FUNCTION_TYPE) {
-					WearablePagePrototype._build.call(self, element);
-				}
-
-				self._buildHeader(element);
-				self._buildFooter(element);
-				self._buildContent(element);
-
-				return element;
 			};
 
 			/**

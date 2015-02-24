@@ -214,6 +214,7 @@
 			"../../engine",
 			"../../util/DOM/css",
 			"../../util/DOM/attributes",
+			"../../util/selectors",
 			"../BaseWidget",
 			"../core"
 		],
@@ -244,6 +245,14 @@
 				 */
 				doms = util.DOM,
 				/**
+				 * Alias for {@link ns.util.selectors}
+				 * @property {Object} utilSelectors
+				 * @member ns.widget.core.Page
+				 * @private
+				 * @static
+				 */
+				utilSelectors = util.selectors,
+				/**
 				 * Alias for {@link ns.engine}
 				 * @property {Object} engine
 				 * @member ns.widget.core.Page
@@ -272,6 +281,7 @@
 
 					self._contentStyleAttributes = ["height", "width", "minHeight", "marginTop", "marginBottom"];
 
+					self._ui = {};
 				},
 				/**
 				 * Dictionary for page related event types
@@ -346,6 +356,29 @@
 			Page.events = EventType;
 
 			/**
+			 * Configure default options for widget
+			 * @method _configure
+			 * @protected
+			 * @member ns.widget.core.Page
+			 */
+			prototype._configure = function() {
+				var options = this.options || {};
+				/**
+				 * Object with default options
+				 * @property {Object} options
+				 * @property {boolean|string|null} [options.header=false] Sets content of header.
+				 * @property {boolean|string|null} [options.footer=false] Sets content of footer.
+				 * @property {string} [options.content=null] Sets content of popup.
+				 * @member ns.widget.core.Page
+				 * @static
+				 */
+				options.header = null;
+				options.footer = null;
+				options.content = null;
+				this.options = options;
+			};
+
+			/**
 			 * Sets top-bottom css attributes for content element
 			 * to allow it to fill the page dynamically
 			 * @method _contentFill
@@ -416,6 +449,156 @@
 			};
 
 			/**
+			 * Setter for footer option
+			 * @method _setFooter
+			 * @param {HTMLElement} element
+			 * @param {string} value
+			 * @protected
+			 * @member ns.widget.core.Page
+			 */
+			prototype._setFooter = function(element, value) {
+				var self = this,
+					ui = self._ui,
+					footer = ui.footer;
+
+				// footer element if footer does not exist and value is true or string
+				if (!footer && value) {
+					footer = document.createElement("footer");
+					element.appendChild(footer);
+					ui.footer = footer;
+				}
+				if (footer) {
+					// remove child if footer does not exist and value is set to false
+					if (value === false) {
+						element.removeChild(footer);
+					} else {
+						// if options is set to true, to string or not is set
+						// add class
+						footer.classList.add(classes.uiFooter);
+						// if is string fill content by string value
+						if (typeof value === "string") {
+							ui.footer.textContent = value;
+						}
+					}
+					// and remember options
+					self.options.footer = value;
+				}
+			};
+
+			/**
+			 * Setter for header option
+			 * @method _setHeader
+			 * @param {HTMLElement} element
+			 * @param {string} value
+			 * @protected
+			 * @member ns.widget.core.Page
+			 */
+			prototype._setHeader = function(element, value) {
+				var self = this,
+					ui = self._ui,
+					header = ui.header;
+
+				// header element if header does not exist and value is true or string
+				if (!header && value) {
+					header = document.createElement("header");
+					element.appendChild(header);
+					ui.header = header;
+				}
+				if (header) {
+					// remove child if header does not exist and value is set to false
+					if (value === false) {
+						element.removeChild(header);
+					} else {
+						// if options is set to true, to string or not is set
+						// add class
+						header.classList.add(classes.uiHeader);
+						// if is string fill content by string value
+						if (typeof value === "string") {
+							ui.header.textContent = value;
+						}
+					}
+					// and remember options
+					self.options.header = value;
+				}
+			};
+
+			/**
+			 * Setter for content option
+			 * @method _setContent
+			 * @param {HTMLElement} element
+			 * @param {string} value
+			 * @protected
+			 * @member ns.widget.core.Page
+			 */
+			prototype._setContent = function(element, value) {
+				if (typeof value === "string") {
+					this.options.content =
+						this._ui.content.textContent = value;
+				}
+			};
+
+			/**
+			 * Method creates empty page header. It also checks for additional
+			 * content to be added in header.
+			 * @method _buildHeader
+			 * @param {HTMLElement} element
+			 * @protected
+			 * @member ns.widget.core.Page
+			 */
+			prototype._buildHeader = function(element) {
+				var self = this;
+				self._ui.header = utilSelectors.getChildrenBySelector(element, "header,[data-role='header'],." + classes.uiHeader)[0];
+				self._setHeader(element, self.options.header);
+			};
+
+			/**
+			 * Method creates empty page footer.
+			 * @method _buildFooter
+			 * @param {HTMLElement} element
+			 * @protected
+			 * @member ns.widget.core.Page
+			 */
+			prototype._buildFooter = function(element) {
+				var self = this;
+
+				self._ui.footer = utilSelectors.getChildrenBySelector(element, "footer,[data-role='footer'],." + classes.uiFooter)[0];
+				self._setFooter(element, self.options.footer);
+			};
+
+			/**
+			 * Method creates empty page content.
+			 * @method _buildContent
+			 * @param {HTMLElement} element
+			 * @protected
+			 * @member ns.widget.core.Page
+			 */
+			prototype._buildContent = function(element) {
+				var self = this,
+					content = utilSelectors.getChildrenBySelector(element, "[data-role='content'],." + classes.uiContent)[0],
+					next,
+					child = element.firstChild,
+					ui = self._ui;
+				// content must always exists
+				if (!content) {
+					content = document.createElement("div");
+					while (child) {
+						next = child.nextSibling;
+						if (child !== ui.footer && child !== ui.header) {
+							content.appendChild(child);
+						}
+						child = next;
+					}
+				}
+
+				// we put it before footer or if footer not exists as last child of element
+				element.insertBefore(content, ui.footer);
+				content.classList.add(classes.uiContent);
+				ui.content = content;
+				// we set content text if is set in options.content
+				self._setContent(element, self.options.content);
+			};
+
+			/**
 			 * Build page
 			 * @method _build
 			 * @param {HTMLElement} element
@@ -424,7 +607,11 @@
 			 * @member ns.widget.core.Page
 			 */
 			prototype._build = function (element) {
+				var self = this;
 				element.classList.add(classes.uiPage);
+				self._buildHeader(element);
+				self._buildFooter(element);
+				self._buildContent(element);
 				return element;
 			};
 

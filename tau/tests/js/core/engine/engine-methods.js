@@ -68,18 +68,10 @@
 	});
 
 	test('Checking .instanceWidget method with empty element', function() {
-		var oldErrorLog = console.error,
-			logSpy = function() {
-				ok(true, "Error was thrown");
-			};
+		var widget = engine.instanceWidget('Button');
 
-		// Change internal method (used inside instanceWidget) into spy function
-		console.error = logSpy;
-
-		engine.instanceWidget(null, 'Button');
-
-		// Restore real method
-		console.error = oldErrorLog;
+		ok(widget, "Widget was created");
+		ok(widget.element, "Widget has element");
 	});
 
 	test("Checking .getBinding method - one parameter", function () {

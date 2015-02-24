@@ -45,7 +45,7 @@
 			};
 
 			document.addEventListener('destroyed', afterDestroy, true);
-			tau.widget.FastScroll('contacts').destroy();
+			tau.widget.FastScroll(document.getElementById('contacts')).destroy();
 		});
 
 	});

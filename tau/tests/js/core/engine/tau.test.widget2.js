@@ -1,11 +1,11 @@
 (function (window, ej) {
 	"use strict";
-	ej.test.widget2 = (function (){
-		var parentWidget = ej.test.widget1,
+	tau.test.widget2 = (function (){
+		var parentWidget = tau.test.widget1,
 			parentPrototype = parentWidget.prototype,
 			testWidget = function () {};
 
-		testWidget.prototype = new ej.test.widget1();
+		testWidget.prototype = new tau.test.widget1();
 
 		testWidget.prototype._build = function (element) {
 			parentPrototype._build.apply(this, arguments);
@@ -24,7 +24,7 @@
 			return a+a+a;
 		};
 
-		ej.engine.defineWidget(
+		tau.engine.defineWidget(
 			"Test2",
 			"div.test-widget-by-definition2",
 			[],

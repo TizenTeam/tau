@@ -229,8 +229,12 @@
 		.border-box();
 		height: 74 * @unit_base;
 		margin-top: 17 * @unit_base;
-		width: 100%;
-		line-height: 54 * @unit_base;
+		&:not(.ui-btn-inline) {
+			width: 100%;
+		}
+		.ui-btn-inner .ui-btn-text {
+			line-height: 54 * @unit_base;
+		}
 	}
 	&.ui-footer-btn-1 {
 		display: flex;

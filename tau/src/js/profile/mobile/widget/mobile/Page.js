@@ -397,23 +397,21 @@
 			// @param {string} pageTheme page theme name
 			function buildSections(options, pageElement, pageTheme) {
 				var pageClassList = pageElement.classList,
-					pageClasses = Page.classes,
 					fullscreen = options.fullscreen;
 
 				if (fullscreen) {
 					// "fullscreen" overlay positioning
-					pageClassList.add(pageClasses.uiHeaderFullscreen);
-					pageClassList.add(pageClasses.uiFooterFullscreen);
+					pageClassList.add(classes.uiHeaderFullscreen);
+					pageClassList.add(classes.uiFooterFullscreen);
 				} else {
 					// If not fullscreen, add class to page to set top or bottom padding
-					pageClassList.add(pageClasses.uiHeaderFixed);
-					pageClassList.add(pageClasses.uiFooterFixed);
+					pageClassList.add(classes.uiHeaderFixed);
+					pageClassList.add(classes.uiFooterFixed);
 				}
 
-				[].slice.call(pageElement.querySelectorAll("[data-role='header'],[data-role='content'],[data-role='footer'],." +
-						pageClasses.uiPageHeader +
-						",." + pageClasses.uiPageContent +
-						",." + pageClasses.uiPageFooter))
+				[].slice.call(pageElement.querySelectorAll("." + classes.uiHeader +
+						",." + classes.uiContent +
+						",." + classes.uiFooter))
 					.forEach(function (section) {
 						var role = section.getAttribute("data-role"),
 							sectionTheme = section.getAttribute("data-theme"),
@@ -432,9 +430,9 @@
 							previousElementOfHeaderButton;
 
 						if (!role) {
-							if (sectionClassList.contains(pageClasses.uiHeader)) {
+							if (sectionClassList.contains(classes.uiHeader)) {
 								role = "header";
-							} else if (sectionClassList.contains(pageClasses.uiContent)) {
+							} else if (sectionClassList.contains(classes.uiContent)) {
 								role = "content";
 							} else {
 								role = "footer";
@@ -443,7 +441,7 @@
 							section.setAttribute("data-role", role);
 						}
 
-						sectionClassList.add(pageClasses.uiPrefix + role);
+						sectionClassList.add(classes.uiPrefix + role);
 
 						// Adding transition classes for all matched elements
 						// @todo support transition form config
@@ -460,17 +458,17 @@
 							section.setAttribute("role", "main");
 							currentTheme = sectionTheme || options.contentTheme;
 							if (currentTheme) {
-								sectionClassList.add(pageClasses.uiBodyPrefix + currentTheme);
+								sectionClassList.add(classes.uiBodyPrefix + currentTheme);
 							}
 						} else {
 							currentTheme = sectionTheme || (role === "header" ? options.headerTheme : options.footerTheme) || pageTheme;
-							sectionClassList.add(pageClasses.uiBarPrefix + currentTheme);
+							sectionClassList.add(classes.uiBarPrefix + currentTheme);
 
 							// We always set the ui-[header|footer]-fixed class to match Tizen design needs
-							sectionClassList.add(pageClasses.uiPrefix + role + pageClasses.fixedSuffix);
+							sectionClassList.add(classes.uiPrefix + role + classes.fixedSuffix);
 
 							if (fullscreen) {
-								sectionClassList.add(pageClasses.uiPrefix + role + pageClasses.fullscreenSuffix);
+								sectionClassList.add(classes.uiPrefix + role + classes.fullscreenSuffix);
 							}
 
 							section.setAttribute("role", role === "header" ? "banner" : "contentinfo");
@@ -479,20 +477,20 @@
 								headerAnchors = selectors.getChildrenBySelector(section, "a, div.naviframe-button, button, [data-role=button]");
 								headerAnchors.forEach(function (anchor) {
 									var anchorClassList = anchor.classList;
-									leftButton = anchorClassList.contains(pageClasses.uiBtnLeft);
-									rightButton = anchorClassList.contains(pageClasses.uiBtnRight);
+									leftButton = anchorClassList.contains(classes.uiBtnLeft);
+									rightButton = anchorClassList.contains(classes.uiBtnRight);
 								});
 
-								if (!leftButton && headerAnchors[0] && !headerAnchors[0].classList.contains(pageClasses.uiBtnRight)) {
+								if (!leftButton && headerAnchors[0] && !headerAnchors[0].classList.contains(classes.uiBtnRight)) {
 									leftButton = headerAnchors[0];
 									utilsDOM.setNSData(leftButton, "role", "button");
-									leftButton.classList.add(pageClasses.uiBtnLeft);
+									leftButton.classList.add(classes.uiBtnLeft);
 								}
 
 								if (!rightButton && headerAnchors[1]) {
 									rightButton = headerAnchors[1];
 									utilsDOM.setNSData(rightButton, "role", "button");
-									rightButton.classList.add(pageClasses.uiBtnRight);
+									rightButton.classList.add(classes.uiBtnRight);
 								}
 
 								headerButtons = selectors.getChildrenBySelector(section, "a,[data-role='button']");
@@ -505,8 +503,8 @@
 
 									});
 								}
-								if (section.querySelector("." + pageClasses.uiTitleTextSub)) {
-									sectionClassList.add(pageClasses.uiTitleMultiline);
+								if (section.querySelector("." + classes.uiTitleTextSub)) {
+									sectionClassList.add(classes.uiTitleMultiline);
 								}
 							} else if (role === "footer") {
 								footerButtons = selectors.getChildrenBySelector(section, "a,div.naviframe-button,[data-role='button'],button,[type='button'],[type='submit'],[type='reset']");
@@ -523,7 +521,7 @@
 											role: "button"
 										});
 									});
-									section.classList.add(pageClasses.uiFooterBtn + footerButtons.length);
+									section.classList.add(classes.uiFooterBtn + footerButtons.length);
 								}
 							}
 
@@ -533,7 +531,7 @@
 									width,
 									titleStyle = title.style;
 
-								title.classList.add(pageClasses.uiTitle);
+								title.classList.add(classes.uiTitle);
 								title.setAttribute("role", "heading");
 								title.setAttribute("aria-level", 1);
 								title.setAttribute("aria-label", "title");
@@ -576,6 +574,19 @@
 			}
 
 			/**
+			 * Configure widget
+			 * @method _configure
+			 * @param {HTMLElement} element
+			 * @protected
+			 * @member ns.widget.mobile.Page
+			 */
+			prototype._configure = function(element) {
+				CorePagePrototype._configure.call(this, element);
+				// in mobile header should always be build by default
+				this.options.header = true;
+			};
+
+			/**
 			 * Build page
 			 * @method _build
 			 * @param {HTMLElement} element
@@ -584,6 +595,7 @@
 			 * @member ns.widget.mobile.Page
 			 */
 			Page.prototype._build = function (element) {
+				CorePagePrototype._build.call(this, element);
 				buildStructure(this.options, element);
 				return element;
 			};
@@ -625,13 +637,13 @@
 					len;
 
 				CorePagePrototype._contentFill.call(self, element);
-				content = element.querySelector("[data-role=content],." + pageClasses.uiPageContent);
+				content = element.querySelector("." + pageClasses.uiContent);
 				if (content) {
 					//>>excludeStart("tauDebug", pragmas.tauDebug);
 					ns.log("Page (contentFill) on ", self.id, " styles was recalculated");
 					//>>excludeEnd("tauDebug");
 					contentStyle = content.style;
-					header = element.querySelector("[data-role=header],." + pageClasses.uiPageHeader);
+					header = element.querySelector("." + pageClasses.uiHeader);
 
 					if (header) {
 						headerDivider = header.getElementsByClassName(pageClasses.uiHeaderDivider);
@@ -647,7 +659,7 @@
 						top = utilsDOM.getElementHeight(header);
 					}
 
-					footer = element.querySelector("[data-role=footer],." + pageClasses.uiPageFooter);
+					footer = element.querySelector("." + pageClasses.uiFooter);
 					bottom = utilsDOM.getElementHeight(footer);
 
 					contentStyle.top = top + "px";
