@@ -3,6 +3,7 @@
 		listview = document.querySelector('#selectModePage .ui-listview'),
 		list = listview.getElementsByTagName("li"),
 		listLength = list.length,
+		selectWrapper = document.querySelector(".select-mode"),
 		selectBtn = document.getElementById("select-btn"),
 		selectBtnText =  document.getElementById("select-btn-text"),
 		selectAll = document.getElementById("select-all"),
@@ -43,11 +44,20 @@
 				list[i].classList.remove("select");
 			}
 			modeHide();
-		};
+		},
+		fnPopup = function() {
+			selectWrapper.classList.add("open");
+			event.preventDefault();
+			event.stopPropagation();
+		},
+		fnPopupClose = function() {
+			selectWrapper.classList.remove("open");
+		}
 
 	function modeShow() {
-		handler.style.display = "inherit";
-		selectBtn.style.display = "inherit";
+		selectWrapper.classList.remove("open");
+		handler.style.display = "block";
+		selectWrapper.classList.add("show-btn");
 		textRefresh();
 	}
 	function textRefresh() {
@@ -55,8 +65,9 @@
 			selectCount < 10 ? "0" + selectCount : selectCount;
 	}
 	function modeHide() {
+		selectWrapper.classList.remove("open");
 		handler.style.display = "none";
-		selectBtn.style.display = "none";
+		selectWrapper.classList.remove("show-btn");
 		selectCount = 0;
 	}
 
@@ -64,6 +75,8 @@
 		listview.addEventListener('click', addFunction, false);
 		selectAll.addEventListener("click", fnSelectAll, false);
 		deselectAll.addEventListener("click", fnDeselectAll, false);
+		selectBtn.addEventListener("click", fnPopup, false);
+		selectWrapper.addEventListener("click", fnPopupClose, false);
 		modeHide();
 	}, false);
 	page.addEventListener("pagehide", function(ev) {
@@ -72,6 +85,20 @@
 		deselectAll.removeEventListener("click", fnDeselectAll, false);
 		modeHide();
 	}, false);
+
+	document.addEventListener( 'tizenhwkey', function( ev ) {
+		if( ev.keyName === "back" ) {
+			if (selectWrapper.classList.contains("open")) {
+				selectWrapper.classList.remove("open");
+				ev.preventDefault();
+				ev.stopPropagation();
+			} else if (selectWrapper.classList.contains("show-btn")) {
+				fnDeselectAll();
+				ev.preventDefault();
+				ev.stopPropagation();
+			}
+		}
+	} );
 
 /***************************** drawer **********************************/
 	page.addEventListener( "pagebeforeshow", function() {
