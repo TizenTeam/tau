@@ -315,12 +315,13 @@
 				// Create widget instance out of popup element
 				popupInstance = engine.instanceWidget(popup, "Popup", {
 					positionTo: "origin",
-					link: element, // positioned to slider's element
+					link: element, // positioned to button's element
 					transition: "none",
 					overlay: false,
 					arrow: options.tooltipArrow,
 					distance: 16,
 					content: options.tooltip,
+					timeout: options.tooltipTimeout,
 					changeContext: false
 				});
 				popup.classList.add(classes.tooltip);
@@ -413,13 +414,6 @@
 							rel: "popup",
 							history: false
 						});
-						clearTimeout(self._closeTimeout);
-						self._closeTimeout = setTimeout(function () {
-							router.close(self._popup.id, {
-								rel: "popup",
-								history: false
-							});
-						}, self.options.tooltipTimeout);
 					}
 				}
 			}
@@ -429,7 +423,6 @@
 					options = self.options;
 
 				if (options.tooltip) {
-					clearTimeout(self._closeTimeout);
 					router.close(self._popup.id, {
 						rel: "popup",
 						history: false

@@ -153,8 +153,6 @@ Normal Popup
 		}
 	}
 
-
-
 	// Padding is not even when progress bar is inside popup with headers
 	&:not(.ui-header-empty):not(.ui-footer-empty) {
 		.ui-popup-content {
@@ -240,7 +238,7 @@ Normal Popup
 				color: @color_button_basic_txt_normal;
 			}
 
-			&.ui-btn-down-s, &.ui-focus{
+			&.ui-btn-down-s, &.ui-focus {
 				background-color: @color_popup_footer_btn_focus;
 				color: @color_button_basic_txt_focus;
 			}
@@ -253,13 +251,39 @@ Normal Popup
 		left: 20 * @virtual_px !important;
 		margin: 0 !important;
 	}
-}
 
-.ui-tooltip {
-	font-size: 22 * @virtual_px;
-	color: @color_tooltip;
-	text-align: center;
-	padding: 21 * @virtual_px;
+	&.ui-tooltip {
+		font-size: 22 * @virtual_px;
+		color: @color_tooltip;
+		text-align: center;
+		padding: 21 * @virtual_px;
+		&.ui-ctxpopup {
+			&.ui-popup-arrow-b {
+				.ui-arrow {
+					background-image: url("images/tooltip/tooltip_arrow.png");
+					background-color: transparent;
+					background-repeat: no-repeat;
+					transform: none;
+					margin-bottom: -19 * @virtual_px;
+					width: 12 * @virtual_px;
+					height: 12 * @virtual_px;
+				}
+			}
+
+			/*arrow at the top of popup*/
+			&.ui-popup-arrow-t {
+				.ui-arrow {
+					background-image: url("images/tooltip/tooltip_arrow_up.png");
+					background-color: transparent;
+					background-repeat: no-repeat;
+					transform: none;
+					margin-top: -20 * @virtual_px;
+					width: 12 * @virtual_px;
+					height: 12 * @virtual_px;
+				}
+			}
+		}
+	}
 }
 
 /****************************************
@@ -398,6 +422,11 @@ Context Popup
 	position: absolute;
 	box-shadow: none;
 	width: initial;
+	border-image-source: url(images/tooltip/tooltip_bg.png);
+	border-image-slice: 6 6 8 6 fill;
+	border-image-width: auto;
+	border-image-outset: 8 * @virtual_px;
+	.border-radius(0);
 
 	.ui-popup-content {
 		padding: 0;
