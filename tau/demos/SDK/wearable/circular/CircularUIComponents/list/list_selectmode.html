@@ -3,12 +3,12 @@
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
 	<title>Wearable UI</title>
-	<link rel="stylesheet"  href="../lib/tau/wearable/theme/circle/tau.min.css">
+	<link rel="stylesheet"  href="../lib/tau/wearable/theme/default/tau.min.css">
 	<link rel="stylesheet"  href="../css/style.css">
 </head>
 <body>
 	<div class="ui-page" id="selectModePage">
-		<link rel="stylesheet" href="./list_selectmode.css">
+        <link rel="stylesheet" href="./list_selectmode.css">
 		<div class="ui-content">
 			<ul class="ui-listview">
 				<li>List one</li>
@@ -20,21 +20,20 @@
 			</ul>
 		</div>
 
-		<!-- select button -->
-		<div class="select-btn ui-popup" id="select-btn" style="display:none">
-			<a href="#popupOptionText" class="select-btn-text" id="select-btn-text"
-				data-rel="popup" data-position-to="origin"></a>
-		</div>
+        <div class="select-mode">
+		    <!-- select button -->
+		    <div class="select-btn" id="select-btn">
+                <a class="select-btn-text" id="select-btn-text"></a>
+            </div>
+            <!-- select option popup -->
+            <div class="select-popup">
+                <ul class="ui-listview">
+                    <li><a href="#" id="select-all">Select all</a></li>
+                    <li><a href="#" id="deselect-all">Deselect all</a></li>
+                </ul>
+            </div>
+        </div>
 
-		<!-- select option popup -->
-		<div id="popupOptionText" class="ui-popup">
-			<div class="ui-popup-content" id="popupContainer">
-				<ul class="ui-listview">
-					<li><a href="#" id="select-all" data-rel="back">Select all</a></li>
-					<li><a href="#" id="deselect-all" data-rel="back">Deselect all</a></li>
-				</ul>
-			</div>
-		</div>
 
 		<!-- Drawer Handler -->
 		<a id="handler" href="#rightDrawer" class="drawer-handler">Right Handler</a>
