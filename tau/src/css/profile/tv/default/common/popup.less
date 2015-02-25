@@ -258,6 +258,12 @@ Normal Popup
 		text-align: center;
 		padding: 21 * @virtual_px;
 		&.ui-ctxpopup {
+			border-image-source: url(images/tooltip/tooltip_bg.png);
+			border-image-slice: 6 6 8 6 fill;
+			border-image-width: auto;
+			border-image-outset: 8 * @virtual_px;
+			.border-radius(0);
+
 			&.ui-popup-arrow-b {
 				.ui-arrow {
 					background-image: url("images/tooltip/tooltip_arrow.png");
@@ -422,11 +428,6 @@ Context Popup
 	position: absolute;
 	box-shadow: none;
 	width: initial;
-	border-image-source: url(images/tooltip/tooltip_bg.png);
-	border-image-slice: 6 6 8 6 fill;
-	border-image-width: auto;
-	border-image-outset: 8 * @virtual_px;
-	.border-radius(0);
 
 	.ui-popup-content {
 		padding: 0;
@@ -435,6 +436,17 @@ Context Popup
 		li {
 			a.ui-btn {
 				color: inherit;
+				.ui-btn-inner:after {
+					background-image: none;
+				}
+				&.ui-state-disabled,
+				.ui-btn:disabled  {
+					opacity: 1;
+					.ui-icon,
+					.ui-btn-text {
+						opacity: 1;
+					}
+				}
 			}
 		}
 	}
