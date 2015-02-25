@@ -10,11 +10,58 @@
 		color: @color_listview_text;
 		text-align: center;
 
+		&.ui-li-btn {
+			padding: 0;
+			.ui-btn {
+				padding: @list_btn_padding;
+				margin: 0;
+				line-height: inherit;
+				&.ui-btn-icon::before {
+					content: "";
+					background-color: @color_footer_button_icon_bg;
+					-webkit-mask-size: @fixed_list_btn_icon_size @fixed_list_btn_icon_size;
+					-webkit-mask-repeat: no-repeat;
+					-webkit-mask-position: 0 0;
+					width: @fixed_list_btn_icon_size;
+					height: @fixed_list_btn_icon_size;
+					top : 50%;
+					transform: translate3d(0, -50%, 0);
+					position: absolute;
+				}
+			}
+
+			&.ui-grid-col-2 .ui-btn {
+				padding: @list_2btn_padding;
+			}
+			&.ui-grid-col-3 {
+				.ui-btn {
+					padding: @list_3btn_padding;
+					height: 100%;
+					text-indent: -9999px;
+				}
+				:first-child {
+					&::before {
+						left: @fixed_list_btn_icon_margin;
+					}
+				}
+				:nth-child(2) {
+					&::before {
+						left: 50%;
+						transform: translate3d(-50%, -50%, 0);
+					}
+				}
+				:last-child {
+					&::before {
+						right: @fixed_list_btn_icon_margin;
+					}
+				}
+			}
+		}
 		> * {
 			color: @color_listview_text;
 		}
 
-		> a {
+		> a, button {
 			padding: @list_item_anchor_padding;
 			margin: @list_anchor_margin;
 		}
