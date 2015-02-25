@@ -22,6 +22,7 @@
 
 			if (list) {
 				listHelper = tau.helper.SnapListStyle.create(list);
+				page.setAttribute("tizen-circular-scrollbar", "");
 			}
 
 			if (header && enablePageScroll) {
@@ -33,6 +34,7 @@
 			if (listHelper) {
 				listHelper.destroy();
 				listHelper = null;
+				page.removeAttribute("tizen-circular-scrollbar");
 			}
 
 			if (headerHelper) {
