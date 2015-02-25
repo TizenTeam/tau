@@ -10,13 +10,18 @@
 	if (tau.support.shape.circle) {
 		document.addEventListener("pageshow", function (e) {
 			page = e.target;
+
+			if (page.id === "pageMarqueeList") {
+				return;
+			}
+
 			pageWidget = tau.widget.page(page);
 			enablePageScroll = pageWidget.option("enablePageScroll");
 			list = page.querySelector(".ui-listview");
 			header = page.querySelector(".ui-header:not(.ui-fixed)");
 
 			if (list) {
-				listHelper = tau.helper.SnapListMarqueeStyle.create(list, {marqueeDelay: 1});
+				listHelper = tau.helper.SnapListStyle.create(list);
 			}
 
 			if (header && enablePageScroll) {
@@ -25,12 +30,14 @@
 		});
 
 		document.addEventListener("pagehide", function (e) {
-			if (list) {
+			if (listHelper) {
 				listHelper.destroy();
+				listHelper = null;
 			}
 
-			if (header && enablePageScroll) {
+			if (headerHelper) {
 				headerHelper.destroy();
+				headerHelper = null;
 			}
 		});
 	}

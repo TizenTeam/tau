@@ -13,6 +13,7 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
+			"./SnapListStyle",
 			"../helper",
 			"../../../core/engine",
 			"../../../core/util/object"
@@ -28,10 +29,9 @@
 					var self = this;
 
 					self.options = objectUtils.merge({}, defaults);
-					self._snapListviewWidget = null;
+					self._snapListStyleHelper = null;
 					self._selectedMarqueeWidget = null;
 					self._callbacks = {};
-
 
 					self.init(listDomElement, options);
 				},
@@ -69,8 +69,8 @@
 
 				objectUtils.fastMerge(self.options, options);
 
-				// create SnapListview widget
-				self._snapListviewWidget = engine.instanceWidget(listDomElement, "SnapListview");
+				// create SnapListStyle helper
+				self._snapListStyleHelper = tau.helper.SnapListStyle.create(listDomElement);
 				self.bindEvents();
 			};
 
@@ -104,10 +104,10 @@
 
 				self.unbindEvents();
 				destroyMarqueeWidget(self);
-				self._snapListviewWidget.destroy();
+				self._snapListStyleHelper.destroy();
 
 				self.options = null;
-				self._snapListviewWidget = null;
+				self._snapListStyleHelper = null;
 				self._selectedMarqueeWidget = null;
 				self._callbacks = null;
 			};

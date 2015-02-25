@@ -113,13 +113,6 @@
 
 				prototype = new BaseWidget(),
 
-				rotaryDirection = {
-					// right rotary direction
-					CW: "CW",
-					// left rotary direction
-					CCW: "CCW"
-				},
-
 				CLASSES_PREFIX = "ui-snap-listview",
 
 				classes = {
@@ -186,24 +179,6 @@
 				self._timer = window.setTimeout(scrollEndCallback, SCROLL_END_TIME_THRESHOLD);
 			}
 
-			function rotaryDetentHandler(self, event) {
-				var scrollableParent = self._ui.scrollableParent,
-					childItems = self._ui.childItems,
-					selectedIndex = self._selectedIndex,
-					direction = event.detail.direction,
-					selectedItemHeight;
-
-				if (scrollableParent && childItems && selectedIndex >= 0) {
-					selectedItemHeight = childItems[selectedIndex].itemHeight;
-
-					if (direction === rotaryDirection.CW && selectedIndex+1 < childItems.length) {
-						scrollableParent.scrollTop += selectedItemHeight;
-					} else if (direction === rotaryDirection.CCW && selectedIndex > 0) {
-						scrollableParent.scrollTop -= selectedItemHeight;
-					}
-				}
-			}
-
 			/* TODO: please check algorithm */
 			function getScrollableParent(element) {
 				var overflow;
@@ -254,11 +229,9 @@
 				var self = this,
 					ui = self._ui,
 					listviewElement = element,
-					scrollStartCallback = scrollStartHandler.bind(null, self),
-					rotaryDetentCallback = rotaryDetentHandler.bind(null, self);
+					scrollStartCallback = scrollStartHandler.bind(null, self);
 
 				self._callbacks.scrollStart = scrollStartCallback;
-				self._callbacks.rotaryDetent = rotaryDetentCallback;
 
 				ui.page = utilSelector.getClosestByClass(listviewElement, "ui-page") || window;
 				ui.childItems = listviewElement.children;
@@ -270,8 +243,6 @@
 
 				// bind scroll event to scrollable parent
 				utilEvent.on(ui.scrollableParent, "scroll", scrollStartCallback);
-				// bind rotarydetent event to window
-				utilEvent.on(window, "rotarydetent", rotaryDetentCallback);
 
 				// init selectedItem
 				scrollEndHandler(self);
@@ -298,7 +269,6 @@
 
 			prototype._unbindEvents = function() {
 				this._ui.scrollableParent.removeEventListener("scroll", this._callbacks.scrollStart, false);
-				window.removeEventListener("rotarydetent", this._callbacks.rotaryDetent, false);
 			};
 
 			/**
@@ -322,6 +292,40 @@
 				self._selectedIndex = null;
 
 				return null;
+			};
+
+			/**
+			 * Get selectedIndex
+			 * @method getSelectedIndex
+			 * @return {number} index
+			 * @public
+			 * @member ns.widget.wearable.SnapListview
+			 */
+			prototype.getSelectedIndex = function() {
+				return this._selectedIndex;
+			};
+
+			/**
+			 * Scroll SnapList by index
+			 * @method scrollToPosition
+			 * @param {number} index
+			 * @public
+			 * @member ns.widget.wearable.SnapListview
+			 */
+			prototype.scrollToPosition = function(index) {
+				var ui = this._ui,
+					selectedIndex = this._selectedIndex,
+					listItems = ui.childItems,
+					scrollableParent = ui.scrollableParent,
+					listItemLength = listItems.length,
+					indexItem = listItems[index],
+					selectedItem = listItems[selectedIndex];
+
+				if (index > selectedIndex && selectedIndex + 1 < listItemLength) {
+					scrollableParent.scrollTop += indexItem.itemTop - selectedItem.itemBottom + (indexItem.itemHeight / 2 + selectedItem.itemHeight / 2);
+				} else if (index < selectedIndex && selectedIndex > 0) {
+					scrollableParent.scrollTop -= selectedItem.itemTop - indexItem.itemBottom + (indexItem.itemHeight / 2 + selectedItem.itemHeight / 2);
+				}
 			};
 
 			SnapListview.prototype = prototype;
