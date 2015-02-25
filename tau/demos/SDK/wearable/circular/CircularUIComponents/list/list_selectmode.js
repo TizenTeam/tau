@@ -10,11 +10,10 @@
 		deselectAll = document.getElementById("deselect-all"),
 		elPageIndicator = document.getElementById("pageIndicator"),
 		pageIndicator,
-		handlers = [].slice.call(document.getElementsByClassName("drawer-handler")),
 		drawerSectionChanger = document.getElementById("drawerSectionChanger"),
-		drawerElements = [],
-		handler = document.getElementById("handler"),
+		drawerElement = page.querySelector("#rightDrawer"),
 		selectCount,
+		drawerHelper,
 		i,
 		addFunction = function(event){
 			var target = event.target;
@@ -52,6 +51,19 @@
 		},
 		fnPopupClose = function() {
 			selectWrapper.classList.remove("open");
+		},
+		fnBackKey = function() {
+			var drawer = tau.widget.Drawer(drawerElement),
+				classList = selectWrapper.classList;
+			if( event.keyName === "back" && drawer.getState() === "closed" && classList.contains("show-btn")) {
+				if (classList.contains("open")) {
+					classList.remove("open");
+				} else {
+					fnDeselectAll();
+				}
+				event.preventDefault();
+				event.stopPropagation();
+			}
 		}
 
 	function modeShow() {
@@ -79,56 +91,28 @@
 		selectWrapper.addEventListener("click", fnPopupClose, false);
 		modeHide();
 	}, false);
+
 	page.addEventListener("pagehide", function(ev) {
 		listview.removeEventListener('click', addFunction, false);
 		selectAll.removeEventListener("click", fnSelectAll, false);
 		deselectAll.removeEventListener("click", fnDeselectAll, false);
+		document.removeEventListener('tizenhwkey', fnBackKey);
 		modeHide();
 	}, false);
 
-	document.addEventListener( 'tizenhwkey', function( ev ) {
-		if( ev.keyName === "back" ) {
-			if (selectWrapper.classList.contains("open")) {
-				selectWrapper.classList.remove("open");
-				ev.preventDefault();
-				ev.stopPropagation();
-			} else if (selectWrapper.classList.contains("show-btn")) {
-				fnDeselectAll();
-				ev.preventDefault();
-				ev.stopPropagation();
-			}
-		}
-	} );
-
-/***************************** drawer **********************************/
 	page.addEventListener( "pagebeforeshow", function() {
 		tau.widget.SectionChanger(drawerSectionChanger, {
 			circular: false,
 			orientation: "horizontal",
 			useBouncingEffect: false
 		});
-		handlers.forEach(function(handler) {
-			var drawerElement = document.querySelector(handler.getAttribute("href")),
-					drawer = tau.widget.Drawer(drawerElement);
-			drawer.setDragHandler(handler);
-			tau.event.on(handler, "touchstart touchend", function(e){
-				if(drawer.getState().search(/settling/) === 0) {
-					return;
-				}
-				switch (e.type) {
-					case "touchstart":
-						// open drawer
-						drawer.transition(60);
-						e.preventDefault();
-						e.stopPropagation();
-						break;
-					case "touchend":
-						drawer.close();
-						break;
-				}
-			}, false);
-			drawerElements.push(drawer);
+
+		/********** drawer ******************/
+		drawerHelper = tau.helper.DrawerMoreStyle.create(drawerElement, {
+			handler: ".drawer-handler"
 		});
+
+		document.addEventListener('tizenhwkey', fnBackKey);
 
 		/**********  pageIndicator **********/
 		pageIndicator =  tau.widget.PageIndicator(elPageIndicator, { numberOfPages: 3 });
