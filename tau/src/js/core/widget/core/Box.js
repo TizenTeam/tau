@@ -5,9 +5,7 @@
  */
 /*jslint nomen: true */
 /*
- * ## JavaScript API
- *
- * Box widget for layout.
+ * # Box widget for layout
  *
  * @class ns.widget.core.Box
  * @extends ns.widget.core.LayoutDOMWidget
@@ -21,6 +19,7 @@
 			"../../engine",
 			"../../util/selectors",
 			"../../util/DOM/attributes",
+			"../../util/object",
 			"../../support",
 			"./LayoutDOMWidget"
 		],
@@ -30,44 +29,77 @@
 			var CoreLayoutWidget = ns.widget.core.LayoutDOMWidget,
 				engine = ns.engine,
 				objectUtil = ns.util.object,
-
+				domUtil = ns.util.DOM,
 				Box = function () {
-					this.options = {
-						layout: "default",
-						layoutAlign: "left",
-						verticalAlign: "top",
-						horizontalSpacing: 0,
-						verticalSpacing: 0
-					};
-					this._styleContainer = null;
-					CoreLayoutWidget.call(this);
+					var self = this;
+
+					CoreLayoutWidget.call(self);
+					// set options
+					self.options = objectUtil.merge(self.options, defaults);
+					// set object for current layout
+					self._currentLayout = {};
+					// set stylesheet
+					self._styleSheet = null;
 				},
-				CLASSES_PREFIX = "ui-box",
-				classes =  objectUtil.merge({}, CoreLayoutWidget.classes,{
-					box: CLASSES_PREFIX,
-					float: CLASSES_PREFIX + "-float",
-					floatLeft: CLASSES_PREFIX + "-float-left",
-					floatRight: CLASSES_PREFIX + "-float-right",
-					floatCenter: CLASSES_PREFIX + "-float-center",
-					floatTop: CLASSES_PREFIX + "-float-top",
-					floatMiddle: CLASSES_PREFIX + "-float-middle",
-					floatBottom: CLASSES_PREFIX + "-float-bottom"
+				classes =  objectUtil.merge({}, CoreLayoutWidget.classes, {
+					box: "ui-box"
 				}),
-				prototype = new CoreLayoutWidget();
+				defaults = {
+					layout: "default"
+				},
+				/**
+				 * Dictionary for layouts.
+				 * All registered layouts are saved in this object.
+				 */
+				layouts = {},
+				prototype = new CoreLayoutWidget(),
+				TYPE_FUNCTION = "function";
+
+			Box.classes = classes;
+			Box.layouts = layouts;
 
 			/**
-			 * Dictionary for Box related css class names
-			 * @property {Object} classes
+			 * Configure widget
+			 * @method _configure
+			 * @param {HTMLElement} element
 			 * @member ns.widget.core.Box
-			 * @static
-			 * @readonly
+			 * @protected
 			 */
-			Box.classes = classes;
+			prototype._configure = function(element) {
+				var self = this,
+					options = self.options,
+					currentLayout;
 
-			function insertCSSStyleSheet(rule, styleContainer) {
-				var id = ns.getUniqueId(),
-					styleElement = null;
+				if (typeof CoreLayoutWidget._configure === TYPE_FUNCTION) {
+					CoreLayoutWidget._configure.call(self);
+				}
 
+				// read which layout is used
+				options.layout = domUtil.getNSData(element, "layout");
+				// try to set current layout
+				currentLayout = layouts[options.layout];
+				// if  such layout is registered, we configure it
+				if (currentLayout) {
+					// set and configure current layout
+					self._currentLayout = currentLayout;
+					currentLayout.configure(self, element);
+				}
+			};
+
+			/**
+			 * Insert CSS rule for layout
+			 * @method insertCSSRule
+			 * @param {string} rule
+			 * @member ns.widget.core.Box
+			 * @protected
+			 */
+			prototype.insertCSSRule = function(rule) {
+				var self = this,
+					id = ns.getUniqueId(),
+					styleElement = self._styleSheet,
+					styleContainer = styleElement && styleElement.sheet;
+
+				// create style
 				if (!styleContainer) {
 					styleElement = document.createElement("style");
 					// a text node hack, it forces the browser
@@ -81,111 +113,74 @@
 				} else {
 					styleContainer.deleteRule(0);
 				}
-				styleContainer.insertRule(rule , 0);
-				return styleContainer;
-			}
+				// insert new rule
+				styleContainer.insertRule(rule, 0);
 
-			function setComponentsSpacing(self, element, horizontal, vertical) {
-				var propertyValue = "#" + element.id + ".ui-box-float > *:not(script)" +
-						"{margin: " + horizontal / 2 + "px " + vertical / 2 + "px" + ";}";
-
-				self._styleContainer = insertCSSStyleSheet(propertyValue, self._styleContainer);
-			}
+				// set stylesheet, which was added
+				self._styleSheet = styleElement;
+			};
 
 			/**
-			 * Implementation of float layout
+			 * Enable new layout.
+			 * This function is called during building and on calling function "layout".
+			 * @method enableNewLayout
+			 * @param {ns.widget.core.Box} self
+			 * @param {HTMLElement} element
+			 * @param {string} name Name of layout
+			 * @member ns.widget.core.Box
+			 * @private
 			 */
-			function setFloatLayout(self, element, options) {
-				var classList = element.classList;
-
-				// base class for float layout
-				classList.add(classes.float);
-
-				// configuration
-				switch (options.layoutAlign) {
-					case "right" : classList.add(classes.floatRight);
-						break;
-					case "center" : classList.add(classes.floatCenter);
-						break;
-					default : // top
-						classList.add(classes.floatLeft);
-				}
-
-				switch (options.verticalAlign) {
-					case "middle" : classList.add(classes.floatMiddle);
-						break;
-					case "bottom" : classList.add(classes.floatBottom);
-						break;
-					default : // top
-						classList.add(classes.floatTop);
-				}
-
-				setComponentsSpacing(self, element, options.horizontalSpacing, options.verticalSpacing);
-			}
-
-			function resetFloatLayout(element) {
-				var classList = element.classList;
-				classList.remove(classes.floatRight);
-				classList.remove(classes.floatCenter);
-				classList.remove(classes.floatLeft);
-				classList.remove(classes.floatTop);
-				classList.remove(classes.floatMiddle);
-				classList.remove(classes.floatBottom);
-			}
-
-			function setLayout(self, element, layout) {
-				var options = self.options;
+			function enableNewLayout(self, element, name) {
+				var newLayout;
 
 				element = element || self.element;
+				name = name || self.options.layout;
+				newLayout = layouts[name];
 
-				layout = layout || options.layout;
-				switch (layout) {
-					case "float" :
-						setFloatLayout(self, element, options);
-					break;
+				if (newLayout) {
+					// if layout is registered, we set it
+					self.options.layout = name;
+					self._currentLayout = newLayout;
+					// configure and enable layout
+					newLayout.configure(self, element);
+					newLayout.enable(self, element);
 				}
 			}
-			function resetLayout(self, element) {
-				var layout = self.options.layout;
 
-				switch (layout) {
-					case "float" :
-						resetFloatLayout(element);
-					break;
+			/**
+			 * Set layout
+			 * @method _setLayout
+			 * @param {HTMLElement} element
+			 * @param {string} value
+			 * @member ns.widget.core.Box
+			 * @protected
+			 */
+			prototype._setLayout = function (element, value) {
+				var self = this;
+
+				// if layout is changed, we try to reset the current one and enable the new one
+				if (self._currentLayout.name !== value) {
+					// if new options is different than the current one, we reset current layout
+					disableCurrentLayout(self);
+					// and set the new one
+					enableNewLayout(self, element, value);
 				}
-			}
+			};
+
 			/**
 			 * Update element's positions
+			 * @method _layout
 			 * @param {HTMLElement} element
 			 * @return {HTMLElement}
+			 * @member ns.widget.core.Box
 			 * @protected
 			 */
 			prototype._layout = function (element) {
 				var self = this;
 
 				element = element || self.element;
-				setLayout(self, element);
-				return element;
-			};
+				self._setLayout(element, self.options.layout);
 
-			/**
-			 * Update element's positions
-			 * @method _setLayout
-			 * @param {HTMLElement} element
-			 * @param {string} value layout name
-			 * @return {HTMLElement}
-			 * @protected
-			 * @member ns.widget.core.Box
-			 */
-			prototype._setLayout = function (element, value) {
-				var self = this,
-					options = self.options;
-
-				if (options.layout !== value) {
-					resetLayout(element, options.layout);
-					options.layout = value;
-					setLayout(self, element, value);
-				}
 				return element;
 			};
 
@@ -194,29 +189,101 @@
 			 * @method _build
 			 * @param {HTMLElement} element
 			 * @return {HTMLElement}
-			 * @protected
 			 * @member ns.widget.core.Box
+			 * @protected
 			 */
 			prototype._build = function (element) {
-				if (typeof this._layout === "function") {
-					this._layout(element);
+				var self = this;
+
+				if (typeof CoreLayoutWidget._build === TYPE_FUNCTION) {
+					CoreLayoutWidget._build.call(self, element);
 				}
+				// set layout
+				enableNewLayout(self, element);
+
 				return element;
+			};
+
+			/**
+			 * Disable current layout.
+			 * This function is called during destroying widget and changing layout.
+			 * Function "layout" calls this function before setting new layout.
+			 * @method disableCurrentLayout
+			 * @param {ns.widget.core.Box} self
+			 * @member ns.widget.core.Box
+			 * @private
+			 */
+			function disableCurrentLayout(self) {
+				var layout = self._currentLayout,
+					styleSheet = self._styleSheet;
+
+				if (typeof layout.disable === TYPE_FUNCTION) {
+					// disable layout
+					layout.disable(self, self.element);
+
+					// set options
+					self.options.layout = defaults.layout;
+					self._currentLayout = {};
+
+					// remove stylesheet
+					if (styleSheet) {
+						document.head.removeChild(styleSheet);
+						self._styleSheet = null;
+					}
+				}
+			}
+
+			/**
+			 * Destroy widget.
+			 * @method _destroy
+			 * @member ns.widget.core.Box
+			 * @protected
+			 */
+			prototype._destroy = function () {
+				var self = this;
+
+				disableCurrentLayout(self);
+				if (typeof CoreLayoutWidget._destroy === TYPE_FUNCTION) {
+					CoreLayoutWidget._destroy.call(self);
+				}
 			};
 
 			/**
 			 * Refresh Box
 			 * @method _refresh
-			 * @param {HTMLElement} element
 			 * @return {HTMLElement}
 			 * @protected
 			 * @member ns.widget.core.Box
 			 */
-			prototype._refresh = function (element) {
-				element = element || this.element;
-				if (typeof this._layout === "function") {
-					this._layout(element);
+			prototype._refresh = function () {
+				var self = this;
+				if (typeof CoreLayoutWidget._refresh === TYPE_FUNCTION) {
+					CoreLayoutWidget._refresh.call(self);
 				}
+				self._layout(self.element);
+			};
+
+			/**
+			 * Register new layout.
+			 * @method register
+			 * @param {HTMLElement} name
+			 * @param {Object} layout
+			 * @static
+			 * @member ns.widget.core.Box
+			 */
+			Box.register = function (name, layout) {
+				layouts[name] = layout;
+			};
+
+			/**
+			 * Unregister layout.
+			 * @method unregister
+			 * @param {HTMLElement} name
+			 * @static
+			 * @member ns.widget.core.Box
+			 */
+			Box.unregister = function (name) {
+				delete layouts[name];
 			};
 
 			Box.prototype = prototype;

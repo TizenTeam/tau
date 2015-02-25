@@ -120,6 +120,7 @@
 			"./core/router/history",
 			"./profile/wearable/expose",
 			"./core/widget/core/Box",
+			"./core/layout/float",
 			// Modules to be loaded after
 			"./core/init",
 			//documentation pages

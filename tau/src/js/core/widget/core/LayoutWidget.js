@@ -38,6 +38,7 @@
 				TYPE_FUNCTION = "function",
 
 				LayoutWidget = function () {
+					this.options = {};
 				};
 
 			prototype.layout = function () {
