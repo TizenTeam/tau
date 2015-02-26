@@ -1,4 +1,5 @@
-/*global window, ns*/
+/*global window, ns, define */
+/*jslint nomen: true */
 /*
 * Copyright  2010 - 2014 Samsung Electronics Co., Ltd.
 * License : MIT License V2
@@ -189,6 +190,43 @@
 						hidePlaceholderMenuItems: true,
 						backgroundLayer: true
 					};
+
+					/**
+					 * @property {Function|null} _toggleMenuBound callback for select action
+					 * @protected
+					 * @member ns.widget.mobile.SelectMenu
+					 */
+					self._toggleMenuBound =  null;
+					/**
+					 * @property {Function|null} _changeOptionBound callback for change value
+					 * @protected
+					 * @member ns.widget.mobile.SelectMenu
+					 */
+					self._changeOptionBound = null;
+					/**
+					 * @property {Function|null} _onResizeBound callback for throttledresize
+					 * @protected
+					 * @member ns.widget.mobile.SelectMenu
+					 */
+					self._onResizeBound = null;
+					/**
+					 * @property {Function|null} _nativeChangeOptionBound callback for change value
+					 * @protected
+					 * @member ns.widget.mobile.SelectMenu
+					 */
+					self._nativeChangeOptionBound = null;
+					/**
+					 * @property {Function|null} _focusBound callback for focus action
+					 * @protected
+					 * @member ns.widget.mobile.SelectMenu
+					 */
+					self._focusBound = null;
+					/**
+					 * @property {Function|null} _blurBound callback for blur action
+					 * @protected
+					 * @member ns.widget.mobile.SelectMenu
+					 */
+					self._blurBound = null;
 				},
 				/**
 				 * Dictionary for SelectMenu related css class names
@@ -211,7 +249,8 @@
 					inline : "ui-selectmenu-inline",
 					native : "ui-select-native",
 					top : "ui-selectmenu-option-top",
-					bottom : "ui-selectmenu-option-bottom"
+					bottom : "ui-selectmenu-option-bottom",
+					focus : "ui-focus"
 				},
 				prototype = new BaseWidget();
 
@@ -283,6 +322,40 @@
 				self._toggleSelect();
 				event.stopPropagation();
 				event.preventDefault();
+			}
+
+			/**
+			 * Function adds ui-focus class on focus
+			 * @private
+			 * @static
+			 * @param {ns.widget.mobile.SelectMenu} self
+			 * @param {Event} event
+			 * @member ns.widget.mobile.SelectMenu
+			 */
+			function onFocus(self, event) {
+				var ui = self._ui,
+					target = event.target;
+				if (target === ui.elSelectWrapper ||
+						 target.parentNode === ui.elOptionContainer) {
+					target.classList.add(classes.focus);
+				}
+			}
+
+			/**
+			 * Function removes ui-focus class on focus
+			 * @private
+			 * @static
+			 * @param {ns.widget.mobile.SelectMenu} self
+			 * @param {Event} event
+			 * @member ns.widget.mobile.SelectMenu
+			 */
+			function onBlur(self, event) {
+				var ui = self._ui,
+					target = event.target;
+				if (target === ui.elSelectWrapper ||
+						 target.parentNode === ui.elOptionContainer) {
+					target.classList.remove(classes.focus);
+				}
 			}
 
 			/**
@@ -666,15 +739,24 @@
 			 */
 			prototype._bindEvents = function () {
 				var self = this,
-					ui = self._ui;
+					ui = self._ui,
+					elOptionContainer = ui.elOptionContainer,
+					elSelectWrapper = ui.elSelectWrapper;
 
 				self._toggleMenuBound = toggleMenu.bind(null, self);
-				self._changeOptionBound = changeOption.bind(null,self);
-				self._onResizeBound = onResize.bind(null,self);
-				self._nativeChangeOptionBound = nativeChangeOption.bind(null,self);
-				if (!self.options.nativeMenu){
-					ui.elSelectWrapper.addEventListener("vclick", self._toggleMenuBound);
-					ui.elOptionContainer.addEventListener("vclick", self._changeOptionBound);
+				self._changeOptionBound = changeOption.bind(null, self);
+				self._onResizeBound = onResize.bind(null, self);
+				self._nativeChangeOptionBound = nativeChangeOption.bind(null, self);
+				self._focusBound = onFocus.bind(null, self);
+				self._blurBound = onBlur.bind(null, self);
+
+				elSelectWrapper.addEventListener("focus", self._focusBound);
+				elSelectWrapper.addEventListener("blur", self._blurBound);
+				if (!self.options.nativeMenu) {
+					elSelectWrapper.addEventListener("vclick", self._toggleMenuBound);
+					elOptionContainer.addEventListener("vclick", self._changeOptionBound);
+					elOptionContainer.addEventListener("focusin", self._focusBound); // bubble
+					elOptionContainer.addEventListener("focusout", self._blurBound); // bubble
 					if (ui.screenFilter) {
 						ui.screenFilter.addEventListener("vclick", self._toggleMenuBound);
 					}
@@ -826,15 +908,22 @@
 			 */
 			prototype._destroy = function () {
 				var self = this,
-					ui = self._ui;
+					ui = self._ui,
+					elSelectWrapper = ui.elSelectWrapper,
+					elOptionContainer = ui.elOptionContainer;
+
+				elSelectWrapper.removeEventListener("focus", self._focusBound);
+				elSelectWrapper.removeEventListener("blur", self._blurBound);
 				if (!self.options.nativeMenu) {
-					ui.elSelectWrapper.removeEventListener("vclick", self._toggleMenuBound);
-					ui.elOptionContainer.removeEventListener("vclick", self._changeOptionBound);
+					elSelectWrapper.removeEventListener("vclick", self._toggleMenuBound);
+					elOptionContainer.removeEventListener("vclick", self._changeOptionBound);
+					elOptionContainer.removeEventListener("focusin", self._focusBound);
+					elOptionContainer.removeEventListener("focusout", self._blurBound);
 					if (ui.screenFilter) {
 						ui.screenFilter.removeEventListener("vclick", self._toggleMenuBound);
 					}
 					window.removeEventListener("throttledresize", self._onResizeBound, true);
-				} else{
+				} else {
 					ui.elSelect.removeEventListener("change", self._nativeChangeOptionBound);
 				}
 			};
