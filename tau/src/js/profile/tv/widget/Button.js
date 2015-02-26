@@ -319,7 +319,7 @@
 					transition: "none",
 					overlay: false,
 					arrow: options.tooltipArrow,
-					distance: 16,
+					distance: 22,
 					content: options.tooltip,
 					timeout: options.tooltipTimeout,
 					changeContext: false

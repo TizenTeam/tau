@@ -79,6 +79,29 @@
 			opacity: 0.3;
 		}
 	}
+
+	&.ui-btn-icon_only {
+		padding: 0;
+		min-width: 110 * @virtual_px;
+		.ui-background {
+			display: none;
+		}
+		.ui-btn-inner {
+			padding-top: 0;
+			.ui-icon {
+				width: 110 * @virtual_px;
+				height: 110 * @virtual_px;
+				display: block;
+				position: relative;
+				margin: auto;
+				top: 0;
+				left: 0;
+			}
+			.ui-btn-text {
+				display: none;
+			}
+		}
+	}
 }
 
 .ui-listview {
@@ -355,7 +378,7 @@ button.ui-btn, input.ui-btn {
 .ui-btn-icon-source,
 .ui-btn-icon-app,
 .ui-btn-icon-add {
-	&.ui-shadow:not(.ui-focus):not(.ui-disabled) .ui-btn-inner:after {
+	&.ui-shadow:not(.ui-focus):not(.ui-disabled).not(.ui-btn-icon_only) .ui-btn-inner:after {
 		content: "";
 		width: 76 * @virtual_px;
 		height: 76 * @virtual_px;
