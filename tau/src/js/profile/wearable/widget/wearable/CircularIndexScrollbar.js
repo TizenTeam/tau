@@ -222,7 +222,8 @@
 						"R", "S", "T", "U", "V", "W", "X", "Y", "Z", "1"
 					],
 					maxVisibleIndex: 30,
-					duration: 500
+					duration: 500,
+					showDelay: 0,
 				};
 			};
 
@@ -243,6 +244,7 @@
 				self._setIndices(options.index);
 				self._draw();
 				self._setValueByPosition(self._activeIndexNo, true);
+				setTimeout(self.showHandler.bind(self), options.showDelay);
 
 				return element;
 			};
