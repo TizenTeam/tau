@@ -146,7 +146,7 @@
 					marqueeStyle: style.SLIDE,
 					speed: 60,
 					iteration: 1,
-					delay: 2000,
+					delay: 0,
 					timingFunction: "linear",
 					ellipsisEffect: "gradient",
 					autoRun: true
