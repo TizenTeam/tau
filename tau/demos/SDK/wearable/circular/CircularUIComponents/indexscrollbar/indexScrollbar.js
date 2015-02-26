@@ -1,5 +1,6 @@
 (function() {
 	var page = document.getElementById("pageIndexScrollbar"),
+		listviewElement = document.getElementById("list1"),
 		isCircle = tau.support.shape.circle,
 		scrollHandlers = {},
 		scroller,
@@ -36,7 +37,6 @@ el.addEventListener("select", function( ev ) {
 ******************************************************************/
 
 		var indexScrollbarElement = document.getElementById("indexscrollbar"),
-			listviewElement = document.getElementById("list1"),	// list
 			listDividers = listviewElement.getElementsByClassName("li-divider"),	// list dividers
 			dividers = {},	// collection of list dividers
 			indices = [],	// index list
@@ -77,8 +77,8 @@ el.addEventListener("select", function( ev ) {
 				}
 			};
 
-			scroller.addEventListener("scrollstart", scrollHandlers.start);
-			scroller.addEventListener("scrollend", scrollHandlers.end);
+			listviewElement.addEventListener("scrollstart", scrollHandlers.start);
+			listviewElement.addEventListener("scrollend", scrollHandlers.end);
 		}
 
 
@@ -103,8 +103,8 @@ el.addEventListener("select", function( ev ) {
 
 	page.addEventListener("pagehide", function(ev) {
 		if (isCircle) {
-			scroller.removeEventListener("scrollstart", scrollHandlers.start);
-			scroller.removeEventListener("scrollend", scrollHandlers.end);
+			listviewElement.removeEventListener("scrollstart", scrollHandlers.start);
+			listviewElement.removeEventListener("scrollend", scrollHandlers.end);
 		}
 		indexScrollbar.destroy();
 	});

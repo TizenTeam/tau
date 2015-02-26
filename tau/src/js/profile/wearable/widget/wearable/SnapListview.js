@@ -147,7 +147,7 @@
 				self._isScrollStarted = false;
 
 				// trigger "scrollend" event
-				utilEvent.trigger(self._ui.scrollableParent, eventType.SCROLL_END);
+				utilEvent.trigger(self.element, eventType.SCROLL_END);
 
 				for (i=0 ; i < listItemLength; i++) {
 					tempListItem = listItems[i];
@@ -168,7 +168,7 @@
 				if (!self._isScrollStarted) {
 					self._isScrollStarted = true;
 					// trigger "scrollstart" event
-					utilEvent.trigger(self._ui.scrollableParent, eventType.SCROLL_START);
+					utilEvent.trigger(self.element, eventType.SCROLL_START);
 				}
 
 				self._callbacks.scrollEnd = scrollEndCallback;
