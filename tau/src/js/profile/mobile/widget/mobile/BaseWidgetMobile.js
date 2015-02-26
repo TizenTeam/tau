@@ -31,13 +31,9 @@
 				parent_disable = basePrototype.disable,
 				parent_enable = basePrototype.enable,
 				prototype = new BaseWidget(),
-				disableClass = "ui-state-disabled",
-				ariaDisabled = "aria-disabled",
 				slice = [].slice;
 
-			BaseWidgetMobile.classes = {
-				disable: disableClass
-			};
+			BaseWidgetMobile.classes = BaseWidget.classes;
 
 			/**
 			 * Configures widget object from definition.
@@ -111,8 +107,6 @@
 
 				parent_disable.apply(self, args);
 				elementClasses.add(self.widgetFullName + "-disabled");
-				elementClasses.add(disableClass);
-				element.setAttribute(ariaDisabled, true);
 				// @TODO
 				//this.hoverable.removeClass( "ui-state-hover" );
 				//this.focusable.removeClass( "ui-state-focus" );
@@ -132,8 +126,6 @@
 
 				parent_enable.apply(self, args);
 				elementClasses.remove(self.widgetFullName + "-disabled");
-				elementClasses.remove(disableClass);
-				element.setAttribute(ariaDisabled, false);
 				// @TODO
 				//this.hoverable.removeClass( "ui-state-hover" );
 				//this.focusable.removeClass( "ui-state-focus" );

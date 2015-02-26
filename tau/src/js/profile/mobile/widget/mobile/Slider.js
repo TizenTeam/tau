@@ -1215,13 +1215,15 @@
 			 * @member ns.widget.mobile.Slider
 			 */
 			Slider.prototype._enable = function (element) {
-				var btnClasses = Button.classes,
-					slider = this._ui.slider;
+				var self = this,
+					btnClasses = Button.classes,
+					slider = self._ui.slider;
 
+				element = element || self.element;
 				element.removeAttribute("disabled");
 				slider.classList.remove( btnClasses.uiDisabled );
 				slider.setAttribute("aria-disabled", false);
-				this.options.disabled = false;
+				self.options.disabled = false;
 			};
 
 			/**
@@ -1265,13 +1267,15 @@
 			 * @member ns.widget.mobile.Slider
 			 */
 			Slider.prototype._disable = function (element) {
-				var btnClasses = Button.classes,
-					slider = this._ui.slider;
+				var self = this,
+					btnClasses = Button.classes,
+					slider = self._ui.slider;
 
+				element = element || self.element;
 				element.setAttribute("disabled", "disabled");
 				slider.classList.add( btnClasses.uiDisabled );
 				slider.setAttribute( "aria-disabled", true );
-				this.options.disabled = true;
+				self.options.disabled = true;
 			};
 
 			// @TODO add destroy() method

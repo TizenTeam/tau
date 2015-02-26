@@ -17,7 +17,8 @@
 			"../../../core/engine",
 			"../../../core/event",
 			"../../../core/util/object",
-			"../../../core/util/DOM/css"
+			"../../../core/util/DOM/css",
+			"../../../core/widget/BaseWidget"
 		],
 
 		function () {
@@ -54,7 +55,8 @@
 					left: "left",
 					right: "right"
 				},
-				selectorSuffix = ":not(." + classes.focusDisabled + ")",
+				selectorSuffix = ":not(." + classes.focusDisabled + ")" +
+								":not(." + ns.widget.BaseWidget.classes.disable + ")",
 				selectors = ["a", "." + classes.focusEnabled, "[tabindex]"],
 				selectorsString = "",
 				/**

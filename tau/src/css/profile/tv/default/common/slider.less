@@ -204,6 +204,10 @@ a.ui-slider-handle {
 	text-align: center;
 	.calc-width(~"100% - " 40 * @virtual_px);
 
+	&.ui-disabled {
+		opacity: 0.3;
+	}
+
 	a {
 		&:focus {
 			background-color: @color_slider_value;

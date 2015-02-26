@@ -186,7 +186,13 @@
 				 * @static
 				 * @readonly
 				 */
-				TYPE_FUNCTION = "function";
+				TYPE_FUNCTION = "function",
+				disableClass = "ui-state-disabled",
+				ariaDisabled = "aria-disabled";
+
+			BaseWidget.classes = {
+				disable: disableClass
+			};
 
 			/**
 			 * Protected method configuring the widget
@@ -569,10 +575,14 @@
 			 */
 			prototype.disable = function () {
 				var self = this,
-					args = slice.call(arguments);
+					args = slice.call(arguments),
+					element = self.element;
+
+				element.classList.add(disableClass);
+				element.setAttribute(ariaDisabled, true);
 
 				if (typeof self._disable === TYPE_FUNCTION) {
-					args.unshift(self.element);
+					args.unshift(element);
 					self._disable.apply(self, args);
 				}
 				return this;
@@ -606,10 +616,14 @@
 			 */
 			prototype.enable = function () {
 				var self = this,
-					args = slice.call(arguments);
+					args = slice.call(arguments),
+					element = self.element;
+
+				element.classList.remove(disableClass);
+				element.setAttribute(ariaDisabled, false);
 
 				if (typeof self._enable === TYPE_FUNCTION) {
-					args.unshift(self.element);
+					args.unshift(element);
 					self._enable.apply(self, args);
 				}
 				return this;

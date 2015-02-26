@@ -99,7 +99,8 @@
 				// Slider inherits TizenSlider classes with additional
 				// "ui-focus".
 				classes = objectUtils.merge({}, BaseSlider.classes, {
-					focus: "ui-focus"
+					focus: "ui-focus",
+					disabled: ns.widget.BaseWidget.classes.disable
 				}),
 				FUNCTION_TYPE = "function",
 				prototype = new BaseSlider(),
@@ -158,9 +159,11 @@
 			 * @member ns.widget.tv.Slider
 			 */
 			function onFocus(self) {
-				self.enableKeyboardSupport();
-				self._ui.container.classList.add("ui-focus");
-				showPopup(self);
+				if (!self.isDisabled()) {
+					self.enableKeyboardSupport();
+					self._ui.container.classList.add(classes.focus);
+					showPopup(self);
+				}
 			}
 
 			/**
@@ -172,8 +175,10 @@
 			 * @member ns.widget.tv.Slider
 			 */
 			function onBlur(self) {
-				self._ui.container.classList.remove("ui-focus");
-				self._hidePopup();
+				if (!self.isDisabled()) {
+					self._ui.container.classList.remove(classes.focus);
+					self._hidePopup();
+				}
 			}
 
 			/**
@@ -193,7 +198,8 @@
 				this._pageWidget = engine.getBinding(pageElement, "Page");
 
 				element = BaseSliderPrototype._build.call(this, element);
-				// focus is enabled only on container
+				// focus is enabled only on container, because the position of whole slider (not only handler)
+				// is important for setting focus by BaseKeyboardSupport
 				container = ui.container;
 				container.classList.add(BaseKeyboardSupport.classes.focusEnabled);
 				container.setAttribute("tabindex", 0);
@@ -230,6 +236,39 @@
 
 				this.enableKeyboardSupport();
 				this._pageWidget = this._pageWidget || engine.getBinding(pageElement, "Page");
+			};
+
+			/**
+			 * Enable slider
+			 * @method _enable
+			 * @param {HTMLInputElement|HTMLSelectElement} element
+			 * @protected
+			 * @member ns.widget.tv.Slider
+			 */
+			prototype._enable = function (element) {
+				var self = this,
+					container = self._ui.container;
+
+				BaseSliderPrototype._enable.call(self, element);
+				container.classList.remove(classes.disabled);
+				container.setAttribute("aria-disabled", false);
+			};
+
+			/**
+			 * Disable slider
+			 * @method _disable
+			 * @param {HTMLInputElement|HTMLSelectElement} element
+			 * @protected
+			 * @member ns.widget.tv.Slider
+			 */
+			prototype._disable = function (element) {
+				var self = this,
+					container = self._ui.container;
+
+				BaseSliderPrototype._disable.call(self, element);
+				// set disability on container
+				container.classList.add(classes.disabled);
+				container.setAttribute("aria-disabled", true);
 			};
 
 			/**
