@@ -84,8 +84,10 @@ el.addEventListener("select", function( ev ) {
 
 		// Add SnapListview item "selected" event handler.
 		listviewElement.addEventListener("selected", function (ev) {
-			var indexValue = ev.target.textContent[0];
-			indexScrollbar.value(indexValue);
+			if (!indexScrollbar.isShow()) {
+				var indexValue = ev.target.textContent[0];
+				indexScrollbar.value(indexValue);
+			}
 		});
 
 		// Add IndexScrollbar index "select" event handler.
