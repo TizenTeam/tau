@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, user-scalable=no"/>
+	<title>Layout Widgets - Float (default: left)</title>
+	<link rel="stylesheet" href="../../../lib/tau/mobile/theme/default/tau.css">
+	<link rel="stylesheet" href="../../../css/style.css">
+	<script data-build-remove="false">
+		var tauConfig = {
+			"autorun": false
+		};
+	</script>
+	<script type="text/javascript" src="../../../lib/tau/mobile/js/tau.js" data-build-remove="false"></script>
+</head>
+<body>
+<div data-role="page" id="relative-page">
+	<div data-role="header">
+		<h1 class="ui-page-title">Relative layout</h1>
+	</div>
+	<div data-role="content">
+		<div id="sample-box">
+
+		</div>
+	</div>
+
+	<script>
+		function createButtonInstance() {
+			var element = document.createElement("a");
+
+			element.textContent = "Test " + Math.random();
+
+			return tau.widget.Button(element);
+		}
+
+		function pageShow() {
+			var layoutInstance = tau.engine.instanceWidget(document.getElementById("sample-box"), "Box", {
+				layout: "relative",
+				position: {
+					// Position
+					// "index_or_selector" : "xPosition[-yPosition]"
+					"1": "left-center",
+					"2": "center-bottom",
+					":nth-child(4)": "right-top",
+					"3": "center-center"
+				}
+			});
+
+			layoutInstance.append(createButtonInstance());
+			layoutInstance.append(createButtonInstance());
+			layoutInstance.append(createButtonInstance());
+			layoutInstance.append(createButtonInstance());
+		}
+
+		//document.getElementById("relative-page").addEventListener("pageshow", pageShow);
+		tau.event.one(document.getElementById("relative-page"), "pageshow", pageShow);
+	</script>
+</div>
+</body>
+</html>

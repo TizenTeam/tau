@@ -22,5 +22,56 @@
 			.align-items(flex-end);
 		}
 	}
+
+	&-relative {
+		position: relative;
+		height: 100%;
+
+		> *:not(script) {
+			position: absolute;
+		}
+
+		> .position {
+			&-top {
+				top: 0;
+			}
+
+			&-left {
+				left: 0;
+			}
+
+			&-right {
+				right: 0;
+			}
+
+			&-bottom {
+				bottom: 0;
+			}
+
+			&-center {
+				&.position-bottom,
+				&.position-top {
+					left: 50%;
+					.transform(translate(-50%, 0));
+				}
+
+				&.position-left,
+				&.position-right {
+					top: 50%;
+					.transform(translate(0, -50%));
+				}
+
+				// Instead of redefining every property for -center class
+				// :not if none other position class is defined
+				&:not(.position-top):not(.position-right):not(.position-bottom):not(.position-left) {
+					top: 50%;
+					left: 50%;
+					.transform(translate(-50%, -50%));
+				}
+			}
+		}
+	}
+
+
 }
 
