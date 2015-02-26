@@ -11,16 +11,12 @@
 		document.addEventListener("pageshow", function (e) {
 			page = e.target;
 
-			if (page.id === "pageMarqueeList") {
-				return;
-			}
-
 			pageWidget = tau.widget.page(page);
 			enablePageScroll = pageWidget.option("enablePageScroll");
 			list = page.querySelector(".ui-listview");
 			header = page.querySelector(".ui-header:not(.ui-fixed)");
 
-			if (list) {
+			if (list && page.id !== "pageMarqueeList") {
 				listHelper = tau.helper.SnapListStyle.create(list);
 				page.setAttribute("tizen-circular-scrollbar", "");
 			}
