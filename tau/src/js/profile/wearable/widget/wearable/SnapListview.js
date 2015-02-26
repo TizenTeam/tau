@@ -149,12 +149,12 @@
 					self._isScrollStarted = true;
 					// trigger "scrollstart" event
 					utilEvent.trigger(self.element, eventType.SCROLL_START);
+					removeSelectedClass(self);
 				}
 
 				self._callbacks.scrollEnd = scrollEndCallback;
 
 				window.clearTimeout(self._timer);
-				removeSelectedClass(self);
 
 				self._timer = window.setTimeout(scrollEndCallback, SCROLL_END_TIME_THRESHOLD);
 			}
@@ -203,12 +203,10 @@
 				for (i=0 ; i < listItemLength; i++) {
 					tempListItem = listItems[i];
 					if ((tempListItem.itemTop < scrollElementCenter) && (tempListItem.itemBottom >= scrollElementCenter)) {
-						if (self._selectedIndex !== i) {
-							self._selectedIndex = i;
-							tempListItem.classList.add(classes.SNAP_LISTVIEW_SELECTED);
-							// trigger "selected" event
-							utilEvent.trigger(tempListItem, eventType.SELECTED);
-						}
+						self._selectedIndex = i;
+						tempListItem.classList.add(classes.SNAP_LISTVIEW_SELECTED);
+						// trigger "selected" event
+						utilEvent.trigger(tempListItem, eventType.SELECTED);
 						break;
 					}
 				}

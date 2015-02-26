@@ -96,7 +96,7 @@
 					self._basicText = null;
 				},
 
-				SCROLL_END_THRESHOLD = 500,
+				SCROLL_END_THRESHOLD = 300,
 				/**
 				 * Dictionary for page related css class names
 				 * @property {Object} classes
