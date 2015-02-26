@@ -134,32 +134,12 @@
 			}
 
 			function scrollEndHandler(self) {
-				var ui = self._ui,
-					listItems = ui.childItems,
-					scrollableElement = ui.scrollableParent,
-					scrollableElementScrollTop = scrollableElement.scrollTop,
-					scrollableElementOffsetHeight = scrollableElement.offsetHeight,
-					scrollElementCenter = scrollableElementScrollTop + scrollableElementOffsetHeight/2,
-					listItemLength = listItems.length,
-					i,
-					tempListItem;
-
 				self._isScrollStarted = false;
 
 				// trigger "scrollend" event
 				utilEvent.trigger(self.element, eventType.SCROLL_END);
 
-				for (i=0 ; i < listItemLength; i++) {
-					tempListItem = listItems[i];
-					if ((tempListItem.itemTop < scrollElementCenter) && (tempListItem.itemBottom >= scrollElementCenter)) {
-						self._selectedIndex = i;
-						tempListItem.classList.add(classes.SNAP_LISTVIEW_SELECTED);
-
-						// trigger "selected" event
-						utilEvent.trigger(tempListItem, eventType.SELECTED);
-						break;
-					}
-				}
+				setSelection(self);
 			}
 
 			function scrollStartHandler(self) {
@@ -209,6 +189,32 @@
 				}
 			}
 
+			function setSelection(self) {
+				var ui = self._ui,
+					listItems = ui.childItems,
+					scrollableElement = ui.scrollableParent,
+					scrollableElementScrollTop = scrollableElement.scrollTop,
+					scrollableElementOffsetHeight = scrollableElement.offsetHeight,
+					scrollElementCenter = scrollableElementScrollTop + scrollableElementOffsetHeight/2,
+					listItemLength = listItems.length,
+					i,
+					tempListItem;
+
+				for (i=0 ; i < listItemLength; i++) {
+					tempListItem = listItems[i];
+					if ((tempListItem.itemTop < scrollElementCenter) && (tempListItem.itemBottom >= scrollElementCenter)) {
+						if (self._selectedIndex !== i) {
+							self._selectedIndex = i;
+							tempListItem.classList.add(classes.SNAP_LISTVIEW_SELECTED);
+							// trigger "selected" event
+							utilEvent.trigger(tempListItem, eventType.SELECTED);
+						}
+						break;
+					}
+				}
+
+			}
+
 			prototype._build = function(element) {
 				if (!element.classList.contains(classes.SNAP_LISTVIEW)) {
 					element.classList.add(classes.SNAP_LISTVIEW);
@@ -245,7 +251,7 @@
 				utilEvent.on(ui.scrollableParent, "scroll", scrollStartCallback);
 
 				// init selectedItem
-				scrollEndHandler(self);
+				setSelection(self);
 
 				return element;
 			};
@@ -263,7 +269,7 @@
 
 				ui.scrollableParent = getScrollableParent(element) || ui.page;
 				initSnapListviewItemInfo(element);
-				scrollEndHandler(this);
+				setSelection(self);
 				return null;
 			};
 
