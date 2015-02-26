@@ -20,7 +20,7 @@
         equal(marqueeWidget.option("timingFunction"), 'linear', 'Default marquee timing function is linear');
         equal(marqueeWidget.option("iteration"), 1, 'Default iteration count is 1');
         equal(marqueeWidget.option("speed"), 60, 'Default speed of marquee is 60(px/sec)');
-        equal(marqueeWidget.option("delay"), 2000, 'Default delay time is 2ms');
+        equal(marqueeWidget.option("delay"), 0, 'Default delay time is 0');
         equal(marqueeWidget.option("autoRun"), true, 'Default autoRun option is true');
         equal(marqueeWidget.option("ellipsisEffect"), 'gradient', 'Default ellipsisEffect option is gradient');
         equal(marqueeObject.style.webkitAnimationName, marqueeWidget.option("marqueeStyle") + "-" + marqueeEl.id, 'Marquee Animation Name set');
