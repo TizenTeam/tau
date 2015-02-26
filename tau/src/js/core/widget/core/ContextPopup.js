@@ -324,6 +324,7 @@
 				defaults = objectUtils.merge({}, Popup.defaults, {
 					arrow: "l,b,r,t",
 					positionTo: "window",
+					positionOriginCenter: false,
 					distance: 0,
 					link: null
 				}),
@@ -770,7 +771,7 @@
 				elementClassList.add(classes.arrowDir + arrowType);
 				self._ui.arrow.setAttribute("type", arrowType);
 
-				if (typeof x !== "number" && typeof y !== "number") {
+				if ((typeof x !== "number" && typeof y !== "number") || self.options.positionOriginCenter) {
 					// if we found element, which was clicked, but the coordinates of event
 					// was not available, we have to count these coordinates to the center of proper edge of element.
 					emulatedPosition = emulatePositionOfClick(arrowType, clickedElement);

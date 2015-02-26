@@ -80,6 +80,7 @@
 					arrow: "t,b,l,r",
 					distance: 16,
 					positionTo: "window",
+					positionOriginCenter: true,
 					headerIcon: null,
 					mainColor: null,
 					autofocus: 0,
