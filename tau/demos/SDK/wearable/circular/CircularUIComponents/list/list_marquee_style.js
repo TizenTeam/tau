@@ -7,7 +7,9 @@
 		list = page.querySelector(".ui-listview");
 
 		if (list) {
-			listHelper = tau.helper.SnapListMarqueeStyle.create(list);
+			listHelper = tau.helper.SnapListMarqueeStyle.create(list, {
+				marqueeDelay: 1000
+			});
 			page.setAttribute("tizen-circular-scrollbar", "");
 		}
 	});

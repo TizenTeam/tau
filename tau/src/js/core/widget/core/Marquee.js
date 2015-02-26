@@ -19,7 +19,7 @@
  *	</div>
  *	<script>
  *		var marqueeEl = document.getElementById("marquee"),
- *			marqueeWidget = new tau.widget.Marquee(marqueeEl, {marqueeStyle: "scroll", delay: "3"});
+ *			marqueeWidget = new tau.widget.Marquee(marqueeEl, {marqueeStyle: "scroll", delay: "3000"});
  *	</script>
  *
  * @author Heeju Joo <heeju.joo@samsung.com>
@@ -135,7 +135,7 @@
 				 * @property {string|"slide"|"scroll"|"alternate"} [options.marqueeStyle="slide"] Sets the default style for the marquee
 				 * @property {number} [options.speed=60] Sets the speed(px/sec) for the marquee
 				 * @property {number|"infinite"} [options.iteration=1] Sets the iteration count number for marquee
-				 * @property {number} [options.delay=2] Sets the delay(sec) for marquee
+				 * @property {number} [options.delay=2000] Sets the delay(ms) for marquee
 				 * @property {"linear"|"ease"|"ease-in"|"ease-out"|"cubic-bezier(n,n,n,n)"} [options.timingFunction="linear"] Sets the timing function for marquee
 				 * @property {"gradient"|"ellipsis"|"none"} [options.ellipsisEffect="gradient"] Sets the end-effect(gradient) of marquee
 				 * @property {boolean} [options.autoRun=true] Sets the status of autoRun
@@ -146,7 +146,7 @@
 					marqueeStyle: style.SLIDE,
 					speed: 60,
 					iteration: 1,
-					delay: 2,
+					delay: 2000,
 					timingFunction: "linear",
 					ellipsisEffect: "gradient",
 					autoRun: true
@@ -231,7 +231,7 @@
 				marqueeInnerElementStyle.webkitAnimationDuration = duration + "s";
 				marqueeInnerElementStyle.webkitAnimationIterationCount = options.iteration;
 				marqueeInnerElementStyle.webkitAnimationTimingFunction = options.timingFunction;
-				marqueeInnerElementStyle.webkitAnimationDelay = options.delay + "s";
+				marqueeInnerElementStyle.webkitAnimationDelay = options.delay + "ms";
 			}
 
 			function setEllipsisEffectStyle(self, ellipsisEffectOption) {
