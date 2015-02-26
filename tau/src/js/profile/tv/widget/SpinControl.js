@@ -529,8 +529,10 @@
 			 * @member ns.widget.tv.SpinControl
 			 */
 			function onKeyup(self, event) {
+				var keyCode = event.keyCode;
+
 				if (self.options.active) {
-					switch (event.keyCode) {
+					switch (keyCode) {
 						case KEY_CODES.up:
 							disableInsertDigit(self);
 							onUp(self, event);
@@ -561,8 +563,13 @@
 							break;
 						default :
 							// check num pad
-							if (event.keyCode >= 48 && event.keyCode <= 57) {
-								insertDigit(self, event.keyCode - 48);
+							if (keyCode >= 48 && keyCode <= 57) {
+								insertDigit(self, keyCode - 48);
+								events.stopImmediatePropagation(event);
+								events.preventDefault(event);
+							}
+							if (keyCode >= 96 && keyCode <= 105) {
+								insertDigit(self, keyCode - 96);
 								events.stopImmediatePropagation(event);
 								events.preventDefault(event);
 							}
