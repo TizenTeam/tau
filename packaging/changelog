@@ -1,4 +1,27 @@
 %changelog
+* Thu Feb 26 2015 Junhyoen Lee <juneh.lee@samsung.com> 0.10.5
+	- fix(wearable): fix SCROLL_END_TIME_THRESHOLD in SnapListview
+	- refactor(wearable): fix list item anchor wrong padding-right
+	- fix(werable): fix marquee default delay time
+	- fix(wearable): fix marquee list style demo.
+	- fix(wearable): fix index move issue in circularIndexScrollbar sample(NABI-2000)
+	- feat(wearable): add showDelay option to circularIndexScrollbar
+	- fix(wearable): fix SnapListview init logic
+	- fix(wearable): fire scrollstart/scrollend event from scroller to list element in SnapListview
+	- fix(wearable): fix marguee default delay time unit and fix sample app
+	- refactor(wearable): fix select mode list sample
+	- feat(wearable): set default tizen-circular-scrollbar attribute
+	- refactor(wearable): seperate SnapListStyle helper from SnapListMarqueeStyle helper
+	- refactor(wearable): fix button with icon style for rect. ui
+	- refactor(wearable): fix select mode list sample
+	- refactor(wearable): rollback option popup style
+	- feat(wearable): add rotary event sample
+	- feat(circle): add list button style
+	- feat(wearable): fix swipelist position issue and add swipelist sample in circular sample app
+	- feat(circle): add new UX of popup
+	- fix(wearable): fix thumbnail positoin in list
+	- fix(wearable): fix undefined variable issue in circularindexscrollbar sample - move scroller variable to global
+
 * Mon Feb 23 2015 Junhyoen Lee <juneh.lee@samsung.com> 0.10.4
 	- fix(wearable): fix circularIndexScrollbar indicator hide issue (sample)
 	- refactor(wearable): fix header and footer sample and remove ui-scroll-on
