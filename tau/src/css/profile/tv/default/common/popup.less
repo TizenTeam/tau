@@ -27,11 +27,6 @@ Normal Popup
 	}
 
 	&:not(.ui-popup-no-box) {
-		width: 688 * @virtual_px;
-		.border-radius(@fixed_popup_border_radius);
-		.box-shadow(0 2 * @virtual_px 5 * @virtual_px @color_popup_shadow);
-		background-color: @color_popup_bg;
-
 		&:not(.ui-ctxpopup) {
 			&:not(.ui-popup-toast) {
 				min-height: 411 * @virtual_px;
@@ -87,6 +82,10 @@ Normal Popup
 	}
 
 	&:not(.ui-popup-toast) {
+		background-color: @color_popup_bg;
+		width: 688 * @virtual_px;
+		.border-radius(@fixed_popup_border_radius);
+		.box-shadow(0 2 * @virtual_px 5 * @virtual_px @color_popup_shadow);
 		position: absolute;
 	}
 
@@ -359,41 +358,38 @@ Popup Toast
 .ui-popup {
 	&.ui-popup-toast {
 		position: absolute;
-		.calc-width(~"100% - " (82 * @virtual_px));
+		width: 1838 * @virtual_px;
 		margin-left: 41 * @virtual_px;
 		margin-right: 41 * @virtual_px;
 		margin-bottom: 38 * @virtual_px;
 		font-size: @fixed_popup_toast_font_size;
-		border: 3 * @virtual_px solid @color_popup_border;
 		bottom: 0;
 		top: auto;
-		height: auto;
-		min-height: 205 * @virtual_px;
+		height: 205 * @virtual_px;
+		border-image-source: url(images/popup/modal_dialogs_banner_bg.png);
+		border-image-slice: 15 18 21 18 fill;
+		border-image-width: auto;
+		border-width: 21 * @virtual_px;
+		.border-radius(0);
 
-		&.ui-header-empty {
-			border: 0;
-		}
-
-		.ui-popup-content {
-			display: table-cell;
-			vertical-align: middle;
+		.ui-popup-wrapper {
 			background-color: @color_popup_bg;
-			text-align: center;
-			// 53vpx = 205vpx - 3 * (line height).
-			// 3 lines is the max toast capacity in UX Guide
-			padding: 53 * @virtual_px 73 * @virtual_px;
+			display: table;
+			width: 100%;
+			height: 163 * @virtual_px;
+
+			.ui-popup-content {
+				display: table-cell;
+				vertical-align: middle;
+				background-color: @color_popup_bg;
+				text-align: center;
+				// 53vpx = 205vpx - 3 * (line height).
+				// 3 lines is the max toast capacity in UX Guide
+				padding: 0 73 * @virtual_px;
+			}
 		}
 	}
 }
-
-.ui-popup-wrapper {
-	&.ui-popup-toast {
-		display: table;
-		min-height: 205 * @virtual_px;
-		width: 100%;
-	}
-}
-
 
 /****************************************
 Active Popup
@@ -418,6 +414,11 @@ Active Popup
 	height: 100%;
 	z-index: 999;
 	background-color: rgba(0, 0, 0, 0.7);
+	&.ui-popup-toast-overlay {
+		.mask-image("images/popup/modal_banner_type_shadow.png");
+		.mask-position(bottom);
+		.mask-repeat(repeat-x);
+	}
 }
 
 

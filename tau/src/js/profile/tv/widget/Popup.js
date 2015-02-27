@@ -100,6 +100,7 @@
 				},
 				classes = objectUtils.merge({}, CorePopup.classes, {
 					toast: "ui-popup-toast",
+					toastOverlay: "ui-popup-toast-overlay",
 					headerEmpty: "ui-header-empty",
 					footerEmpty: "ui-footer-empty",
 					content: "ui-popup-content",
@@ -264,6 +265,7 @@
 				// init toast popup
 				if (element.classList.contains(classes.toast)) {
 					ui.container.classList.add(classes.toast);
+					ui.overlay.classList.add(classes.toastOverlay);
 				}
 
 				// set value of timeout for notification popup
