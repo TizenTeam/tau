@@ -4,11 +4,13 @@
 
 .tv-progress-indeterminate() {
 	from {
-		background-image: url('./images/Progress/tw_progressbar_indeterminate1_holo_dark.png');
+		.mask-image('./images/Progress/tw_progressbar_indeterminate1_holo_dark.png');
+		.mask-position(0);
 	}
 
 	to {
-		background-image: url('./images/Progress/tw_progressbar_indeterminate2_holo_dark.png');
+		.mask-image('./images/Progress/tw_progressbar_indeterminate1_holo_dark.png');
+		.mask-position(20 * @virtual_px);
 	}
 }
 
@@ -68,7 +70,7 @@ progress {
 	margin-top: 14 * @virtual_px;
 	margin-bottom: 14 * @virtual_px;
 	width: 100%;
-	height: 6 * @virtual_px;
+	height: 4 * @virtual_px;
 	.appearance(none);
 	border: none;
 }
@@ -76,22 +78,27 @@ progress {
 progress::-webkit-progress-bar {
 	position: relative;
 	background-color: @color_progressbar_normal_bg;
-	border-radius: 2 * @virtual_px;
 	overflow: hidden;
 }
 
-progress::-webkit-progress-value {
-	background-color: @color_progressbar_value_bg;
-	height:6 * @virtual_px;
-	border-radius: 2 * @virtual_px;
-	overflow: hidden;
+progress {
+	&:not(.ui-progress-color)::-webkit-progress-value {
+		background-color: @color_progressbar_value_bg;
+	}
+	&.ui-progress-color::-webkit-progress-value {
+		background-color: @default_color;
+	}
+	&::-webkit-progress-value {
+		height: 6 * @virtual_px;
+		overflow: hidden;
+	}
 }
 progress.ui-progress-indeterminate::-webkit-progress-value {
 	background-repeat: no-repeat;
 	background-size: 100% 100%;
 	// this has no sense because we are styling a webkit prop but leave it
 	// nonetheless
-	.animation(indeterminate 150ms infinite);
+	.animation(indeterminate 300ms linear infinite);
 }
 
 .ui-progress-proportion {
