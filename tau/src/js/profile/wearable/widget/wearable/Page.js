@@ -262,6 +262,7 @@
 					 * @member ns.widget.wearable.Page
 					 */
 					self.contentFillAfterResizeCallback = null;
+					self._initialContentStyle = {};
 					/**
 					 * Options for widget.
 					 * It is empty object, because widget Page does not have any options.
@@ -338,6 +339,8 @@
 					uiPageScroll: "ui-scroll-on",
 					uiFixed: "ui-fixed"
 				},
+
+				CONTENT_STYLE = ["height", "width", "minHeight", "marginTop", "marginBottom"],
 				prototype = new BaseWidget();
 
 			Page.classes = classes;
@@ -408,6 +411,7 @@
 				for (i = 0; i < childrenLength; i++) {
 					node = children[i];
 					if (node.classList.contains(contentSelector)) {
+						self._storeContentStyle(node);
 						nodeStyle = node.style;
 						contentStyle = window.getComputedStyle(node);
 						marginTop = parseFloat(contentStyle.marginTop);
@@ -427,6 +431,36 @@
 							nodeStyle.marginBottom = footerHeight + "px";
 						}
 					}
+				}
+			};
+
+			prototype._clearContent = function () {
+				var content = this.element.querySelector("." + classes.uiContent);
+
+				if (content) {
+					this._restoreContentStyle(content);
+				}
+			};
+
+			prototype._storeContentStyle = function (content) {
+				var initialContentStyle = this._initialContentStyle,
+					length = CONTENT_STYLE.length,
+					contentStyle = content.style,
+					i;
+
+				for (i = 0; i < length; i++) {
+					initialContentStyle[CONTENT_STYLE[i]] = contentStyle[CONTENT_STYLE[i]];
+				}
+			};
+
+			prototype._restoreContentStyle = function (content) {
+				var initialContentStyle = this._initialContentStyle,
+					length = CONTENT_STYLE.length,
+					contentStyle = content.style,
+					i;
+
+				for (i = 0; i < length; i++) {
+					contentStyle[CONTENT_STYLE[i]] = initialContentStyle[CONTENT_STYLE[i]];
 				}
 			};
 
@@ -490,6 +524,7 @@
 			 * @member ns.widget.wearable.Page
 			 */
 			prototype._refresh = function () {
+				this._clearContent();
 				this._contentFill();
 			};
 
@@ -535,6 +570,7 @@
 			 * @member ns.widget.wearable.Page
 			 */
 			prototype.onHide = function () {
+				this._clearContent();
 				this.trigger(EventType.HIDE);
 			};
 
@@ -554,7 +590,6 @@
 				//>>excludeEnd("tauDebug");
 
 				window.removeEventListener("resize", self.contentFillAfterResizeCallback, false);
-
 				// destroy widgets on children
 				engine.destroyAllWidgets(element, true);
 			};
