@@ -72,3 +72,34 @@
 	background-color: blueviolet;
 }
 
+/*LINEAR*/
+#linear-page #sample-box {
+	height: 400px;
+}
+.ui-btn{
+	width: 100%;
+}
+.ui-scrollview-view .a {
+	width: 200px;
+	height: 100px;
+	background-color: #ff0000;
+	flex: 0 1 auto;
+}
+.ui-scrollview-view .b {
+	width: 30%;
+	height: 30%;
+	background-color: #0000ff;
+	flex: 0 1 auto;
+}
+.ui-scrollview-view .c {
+	width: 40%;
+	height: 120px;
+	background-color: #008000;
+	flex: 0 1 auto;
+}
+.ui-scrollview-view .d {
+	width: 300px;
+	height: 40%;
+	background-color: #00ffff;
+	flex: 0 1 auto;
+}

@@ -71,7 +71,22 @@
 			}
 		}
 	}
-
-
+	&-float-middle {
+		.align-items(center);
+	}
+	&-float-bottom {
+		.align-items(flex-end);
+	}
+	&-linear-horizont {
+		display: flex;
+		flex-direction: row;
+	}
+	&-linear-vertical {
+		display: flex;
+		flex-direction: column;
+	}
+}
+&.ui-box-linear-wrap {
+	flex-wrap: wrap;
 }
 
