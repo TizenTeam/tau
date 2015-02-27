@@ -68,14 +68,13 @@
 				SpinControl = ns.widget.tv.SpinControl,
 				engine = ns.engine,
 				events = ns.event,
-				selectors = ns.util.selectors,
 				utilDOM = ns.util.DOM,
 				DateInput = function () {
 					var self = this;
 					BaseWidget.call(self);
 					BaseKeyboardSupport.call(self);
 					self._callbacks = {
-						onExit: null
+						onBlur: null
 					};
 					self._ui = {
 						wrapper: null,
@@ -134,7 +133,7 @@
 				var wrapper = document.createElement("div"),
 					parent = element.parentNode,
 					day = document.createElement("input"),
-					month = document.createElement("input"),
+					month,
 					placeholder = document.createElement("div"),
 					year,
 					currentDate = new Date(),
@@ -221,12 +220,11 @@
 			 * Method removes span from input.
 			 * @method unwrap
 			 * @param {ns.widget.tv.DateInput} self
-			 * @param {EventTarget|HTMLElement} element
 			 * @private
 			 * @static
 			 * @member ns.widget.tv.DateInput
 			 */
-			function unwrap(self, element) {
+			function unwrap(self) {
 				var ui = self._ui;
 
 				ui.wrapper.parentNode.replaceChild(self.element, ui.wrapper);
@@ -234,27 +232,32 @@
 			}
 
 			function onFocus(self) {
-				if (self._supportKeyboard) {
+				if (!self.options.active) {
 					if (!self._ui.wrapper.classList.contains(classes.focus)) {
 						self._ui.wrapper.classList.add(classes.focus);
 					}
 				}
 			}
 
-			function onExit(self) {
-				self._exit();
+			function removeFocus(self) {
+				if (self._ui.wrapper) {
+					self._ui.wrapper.classList.remove(classes.focus);
+				}
+			}
+
+			function onBlur(self) {
+				if (!self.options.active) {
+					removeFocus(self);
+				}
 			}
 
 			prototype._exit = function () {
 				var self = this;
 
-				if (self._supportKeyboard) {
-					if (self && self._ui && self._ui.wrapper) {
-						if (!self.options.active) {
-							self._ui.wrapper.classList.remove(classes.focus);
-						}
-					}
+				if (self.options.active) {
 					self.setActive(false);
+				} else {
+					removeFocus(self);
 				}
 			};
 
@@ -273,7 +276,6 @@
 			};
 
 			prototype._onClickOverlay = function () {
-				this.enableKeyboardSupport();
 				this._exit();
 			};
 
@@ -289,6 +291,30 @@
 				SpinControl.prototype.disablePlaceholder.call(this);
 			};
 
+			function enable(self) {
+				var wrapper = self._ui.wrapper;
+
+				wrapper.classList.add(classes.active);
+				self.saveKeyboardSupport();
+				self.disableKeyboardSupport();
+				wrapper.removeAttribute("tabindex", 0);
+				self._showOverlay();
+				self._day.enableFocus();
+			}
+
+			function disable(self) {
+				var wrapper = self._ui.wrapper;
+
+				self._hideOverlay();
+				wrapper.classList.remove(classes.active);
+				self.enableKeyboardSupport();
+				self.restoreKeyboardSupport();
+				self._day.disableFocus();
+				self._month.disableFocus();
+				self._year.disableFocus();
+				wrapper.setAttribute("tabindex", 0);
+			}
+
 			prototype.setActive = function (active) {
 				var self = this,
 					options = self.options;
@@ -303,22 +329,14 @@
 						}
 					}
 
-					self._day.setActive(active);
-					self._month.setActive(active);
 					self._year.setActive(active);
+					self._month.setActive(active);
+					self._day.setActive(active);
 
 					if (active) {
-						self._ui.wrapper.classList.add(classes.active);
-						//average vertical position;
-						self.disableKeyboardSupport();
-						self._showOverlay();
+						enable(self);
 					} else {
-						self._hideOverlay();
-						self._ui.wrapper.classList.remove(classes.active);
-						self.enableKeyboardSupport();
-						self._day.disableFocus();
-						self._month.disableFocus();
-						self._year.disableFocus();
+						disable(self);
 					}
 					options.active = active;
 				}
@@ -352,21 +370,18 @@
 						switch (event.target) {
 							case self._first._ui.wrapper:
 									if (event.shiftKey) {
-										self.enableKeyboardSupport();
-										onExit(self, event);
+										self._exit();
 									}
 								break;
 							case self._last._ui.wrapper:
 									if (!event.shiftKey) {
-										self.enableKeyboardSupport();
-										onExit(self, event);
+										self._exit();
 									}
 								break;
 						}
 						break;
 				}
 			}
-
 
 			/**
 			 * Method on keyup event.
@@ -381,26 +396,32 @@
 				switch (event.keyCode) {
 					case KEY_CODES.left:
 						switch (event.target) {
-							case self._day._ui.wrapper:
-									self.enableKeyboardSupport();
-									onExit(self, event);
+							case self._month._ui.wrapper:
+								self._day.enableFocus();
+								break;
+							case self._year._ui.wrapper:
+								self._month.enableFocus();
 								break;
 						}
+						events.stopImmediatePropagation(event);
 						break;
 					case KEY_CODES.right:
 						switch (event.target) {
-							case self._year._ui.wrapper:
-									self.enableKeyboardSupport();
-									onExit(self, event);
+							case self._day._ui.wrapper:
+								self._month.enableFocus();
+								break;
+							case self._month._ui.wrapper:
+								self._year.enableFocus();
 								break;
 						}
+						events.stopImmediatePropagation(event);
 						break;
+
 					case KEY_CODES.enter:
 						if (self.options.active) {
 							if (!self._day._insertNumberMode &&
 								!self._month._insertNumberMode &&
 								!self._year._insertNumberMode) {
-								self.enableKeyboardSupport();
 								self._exit();
 							}
 						}
@@ -446,14 +467,14 @@
 					ui = self._ui,
 					wrapper = ui.wrapper;
 
-				callbacks.onExit = onExit.bind(null, self);
+				callbacks.onBlur = onBlur.bind(null, self);
 				callbacks.onActive = onActive.bind(null, self);
 				callbacks.onFocus = onFocus.bind(null, self);
 				callbacks.onKeyUp = onKeyUp.bind(null, self);
 				callbacks.onKeyDown = onKeyDown.bind(null, self);
 				callbacks.onMonthChange = onMonthChange.bind(null, self);
 
-				wrapper.addEventListener("blur", callbacks.onExit, true);
+				wrapper.addEventListener("blur", callbacks.onBlur, true);
 				wrapper.addEventListener("vclick", callbacks.onActive, true);
 				wrapper.addEventListener("focus", callbacks.onFocus, true);
 				wrapper.addEventListener("keyup", callbacks.onKeyUp, true);
@@ -478,8 +499,8 @@
 					wrapper = ui.wrapper;
 
 				wrapper.removeEventListener("focus", callbacks.onFocus);
-				wrapper.removeEventListener("blur", callbacks.onExit);
-				wrapper.removeEventListener("keyup", callbacks.onKeyup, true);
+				wrapper.removeEventListener("blur", callbacks.onBlur);
+				wrapper.removeEventListener("keyup", callbacks.onKeyUp, true);
 				wrapper.removeEventListener("vclick", callbacks.onActive);
 				wrapper.removeEventListener("keydown", callbacks.onKeyDown, true);
 
@@ -525,13 +546,8 @@
 						ui.year, "SpinControl");
 				}
 
-				self._day.disableKeyboardSupport();
-				self._month.disableKeyboardSupport();
-				self._year.disableKeyboardSupport();
 				self._first = self._day;
 				self._last = self._year;
-
-				self.enableKeyboardSupport();
 			};
 
 			/**
@@ -558,7 +574,7 @@
 				self._first = null;
 				self._last = null;
 
-				unwrap(self, element);
+				unwrap(self);
 			};
 
 			widget.tv.DateInput = DateInput;

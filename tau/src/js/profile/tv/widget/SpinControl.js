@@ -70,7 +70,6 @@
 				SpinControl = function () {
 					var self = this;
 					BaseWidget.call(self);
-					BaseKeyboardSupport.call(self);
 
 					self._callbacks = {
 						onFocus: null,
@@ -191,7 +190,7 @@
 
 			function onFocus(self) {
 				if (!self.element.hasAttribute("disabled")) {
-					self.enableFocus();
+					self.addFocusClass();
 				}
 			}
 
@@ -312,21 +311,40 @@
 			 * @method disableFocus
 			 * @member ns.widget.tv.SpinControl
 			 */
-			prototype.enableFocus = function () {
+			prototype.addFocusClass = function () {
 				this._ui.wrapper.classList.add(classes.focus);
 			};
 
 			/**
-			 * Disables focus on widget
-			 * @method disableFocus
+			 * Remove focus classes from element
+			 * @method removeFocusClass
 			 * @member ns.widget.tv.SpinControl
 			 */
-			prototype.disableFocus = function () {
+			prototype.removeFocusClass = function () {
 				var wrapper = this._ui.wrapper;
 
 				if (wrapper) {
 					wrapper.classList.remove(classes.focus);
 				}
+			};
+
+			/**
+			 * Enables focus on widget
+			 * @method enableFocus
+			 * @member ns.widget.tv.SpinControl
+			 */
+			prototype.enableFocus = function () {
+				this.addFocusClass();
+				this._ui.wrapper.focus();
+			};
+
+			/**
+			 * Remove focus from widget
+			 * @method disableFocus
+			 * @member ns.widget.tv.SpinControl
+			 */
+			prototype.disableFocus = function () {
+				this.removeFocusClass();
 			};
 
 			prototype.enablePlaceholder = function () {
@@ -364,15 +382,13 @@
 					}
 					if (active) {
 						self._ui.wrapper.classList.add(classes.active);
-						self.enableKeyboardSupport();
 						if (document.activeElement === self._ui.wrapper) {
-							self.enableFocus();
+							self.addFocusClass();
 						}
 						self._showOverlay();
 					} else {
 						self._hideOverlay();
 						self._ui.wrapper.classList.remove(classes.active);
-						self.disableKeyboardSupport();
 					}
 					options.active = active;
 				}
@@ -463,8 +479,7 @@
 				var element = self.element,
 					value = parseInt(self._temporaryValue.replace(placeholderCharRegExp, ""));
 
-				return (parseInt(element.max) >= value &&
-					parseInt(element.min) <= value) ? true : false;
+				return parseInt(element.max, 10) >= value && parseInt(element.min, 10) <= value;
 			}
 
 			/**
@@ -549,9 +564,11 @@
 							break;
 						case KEY_CODES.left:
 						case KEY_CODES.right:
-							disableInsertDigit(self);
+							if (self._insertNumberMode) {
+								disableInsertDigit(self);
+							}
 							// we do not jump to other element
-							//events.stopImmediatePropagation(event);
+							events.stopImmediatePropagation(event);
 							break;
 						case KEY_CODES.enter:
 							if (self._insertNumberMode) {
@@ -703,8 +720,6 @@
 					element.value ||
 					element.getAttribute("placeholder")
 				);
-
-				self.disableKeyboardSupport();
 			};
 
 			/**

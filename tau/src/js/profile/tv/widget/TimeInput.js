@@ -68,14 +68,13 @@
 				SpinControl = ns.widget.tv.SpinControl,
 				engine = ns.engine,
 				events = ns.event,
-				selectors = ns.util.selectors,
 				utilDOM = ns.util.DOM,
 				TimeInput = function () {
 					var self = this;
 					BaseWidget.call(self);
 					BaseKeyboardSupport.call(self);
 					self._callbacks = {
-						onExit: null
+						onBlur: null
 					};
 					self._ui = {
 						wrapper: null,
@@ -135,7 +134,7 @@
 				var wrapper = document.createElement("div"),
 					parent = element.parentNode,
 					hours = document.createElement("input"),
-					minutes = document.createElement("input"),
+					minutes,
 					placeholder = document.createElement("div"),
 					ui = self._ui,
 					currentTime = new Date(),
@@ -151,13 +150,13 @@
 					"value": element.getAttribute("placeholder") ||
 						currentTime.getHours()
 				});
-				minutes = hours.cloneNode();
+				minutes = hours.cloneNode(false);
 				utilDOM.setAttributes(minutes, {
 					"max": 59,
 					"value": element.getAttribute("placeholder") ||
 						currentTime.getMinutes()
 				});
-				seconds = minutes.cloneNode();
+				seconds = minutes.cloneNode(false);
 				utilDOM.setAttributes(seconds, {
 					"value": element.getAttribute("placeholder") ||
 					currentTime.getSeconds()
@@ -236,27 +235,32 @@
 			}
 
 			function onFocus(self, ev) {
-				if (self._supportKeyboard) {
+				if (!self.options.active) {
 					if (!self._ui.wrapper.classList.contains(classes.focus)) {
 						self._ui.wrapper.classList.add(classes.focus);
 					}
 				}
 			}
 
-			function onExit(self) {
-				self._exit();
+			function removeFocus(self) {
+				if (self._ui.wrapper) {
+					self._ui.wrapper.classList.remove(classes.focus);
+				}
+			}
+
+			function onBlur(self) {
+				if (!self.options.active) {
+					removeFocus(self);
+				}
 			}
 
 			prototype._exit = function () {
 				var self = this;
 
-				if (self._supportKeyboard) {
-					if (self && self._ui && self._ui.wrapper) {
-						if (!self.options.active) {
-							self._ui.wrapper.classList.remove(classes.focus);
-						}
-					}
+				if (self.options.active) {
 					self.setActive(false);
+				} else {
+					removeFocus(self);
 				}
 			};
 
@@ -275,7 +279,6 @@
 			};
 
 			prototype._onClickOverlay = function () {
-				this.enableKeyboardSupport();
 				this._exit();
 			};
 
@@ -291,6 +294,30 @@
 				SpinControl.prototype.disablePlaceholder.call(this);
 			};
 
+			function enable(self) {
+				var wrapper = self._ui.wrapper;
+
+				self.saveKeyboardSupport();
+				self.disableKeyboardSupport();
+				wrapper.classList.add(classes.active);
+				wrapper.removeAttribute("tabindex");
+				self._showOverlay();
+				self._hours.enableFocus();
+			}
+
+			function disable(self) {
+				var wrapper = self._ui.wrapper;
+
+				self.enableKeyboardSupport();
+				self.restoreKeyboardSupport();
+				self._hideOverlay();
+				wrapper.classList.remove(classes.active);
+				self._hours.disableFocus();
+				self._minutes.disableFocus();
+				self._seconds.disableFocus();
+				wrapper.setAttribute("tabindex", 0);
+			}
+
 			prototype.setActive = function (active) {
 				var self = this,
 					options = self.options;
@@ -305,21 +332,14 @@
 						}
 					}
 
-					self._hours.setActive(active);
-					self._minutes.setActive(active);
 					self._seconds.setActive(active);
+					self._minutes.setActive(active);
+					self._hours.setActive(active);
 
 					if (active) {
-						self._ui.wrapper.classList.add(classes.active);
-						self.disableKeyboardSupport();
-						self._showOverlay();
+						enable(self);
 					} else {
-						self._hideOverlay();
-						self._ui.wrapper.classList.remove(classes.active);
-						self.enableKeyboardSupport();
-						self._hours.disableFocus();
-						self._minutes.disableFocus();
-						self._seconds.disableFocus();
+						disable(self);
 					}
 					options.active = active;
 				}
@@ -353,13 +373,13 @@
 						switch (event.target) {
 							case self._first._ui.wrapper:
 									if (event.shiftKey) {
-										self.enableKeyboardSupport();
+										events.stopImmediatePropagation(event);
 										self._exit();
 									}
 								break;
 							case self._last._ui.wrapper:
 									if (!event.shiftKey) {
-										self.enableKeyboardSupport();
+										events.stopImmediatePropagation(event);
 										self._exit();
 									}
 								break;
@@ -379,28 +399,34 @@
 			 */
 			function onKeyUp(self, event) {
 				switch (event.keyCode) {
+
 					case KEY_CODES.left:
 						switch (event.target) {
-							case self._first._ui.wrapper:
-									self.enableKeyboardSupport();
-									self._exit();
+							case self._minutes._ui.wrapper:
+								self._hours.enableFocus();
+								break;
+							case self._seconds._ui.wrapper:
+								self._minutes.enableFocus();
 								break;
 						}
 						break;
 					case KEY_CODES.right:
 						switch (event.target) {
-							case self._last._ui.wrapper:
-									self.enableKeyboardSupport();
-									self._exit();
+							case self._hours._ui.wrapper:
+								self._minutes.enableFocus();
+								break;
+							case self._minutes._ui.wrapper:
+								self._seconds.enableFocus();
 								break;
 						}
+						events.stopImmediatePropagation(event);
 						break;
+
 					case KEY_CODES.enter:
 						if (self.options.active) {
 							if (!self._hours._insertNumberMode &&
 								!self._minutes._insertNumberMode &&
 								!self._seconds._insertNumberMode) {
-									self.enableKeyboardSupport();
 									self._exit();
 							}
 						}
@@ -434,13 +460,13 @@
 					ui = self._ui,
 					wrapper = ui.wrapper;
 
-				callbacks.onExit = onExit.bind(null, self);
+				callbacks.onBlur = onBlur.bind(null, self);
 				callbacks.onActive = onActive.bind(null, self);
 				callbacks.onFocus = onFocus.bind(null, self);
 				callbacks.onKeyUp = onKeyUp.bind(null, self);
 				callbacks.onKeyDown = onKeyDown.bind(null, self);
 
-				wrapper.addEventListener("blur", callbacks.onExit, true);
+				wrapper.addEventListener("blur", callbacks.onBlur, true);
 				wrapper.addEventListener("vclick", callbacks.onActive, true);
 				wrapper.addEventListener("focus", callbacks.onFocus, true);
 				wrapper.addEventListener("keyup", callbacks.onKeyUp, true);
@@ -461,7 +487,7 @@
 					ui = self._ui,
 					wrapper = ui.wrapper;
 
-				wrapper.removeEventListener("blur", callbacks.onExit, true);
+				wrapper.removeEventListener("blur", callbacks.onBlur, true);
 				wrapper.removeEventListener("vclick", callbacks.onActive, true);
 				wrapper.removeEventListener("focus", callbacks.onFocus, true);
 				wrapper.removeEventListener("keyup", callbacks.onKeyUp, true);
@@ -505,13 +531,8 @@
 						ui.seconds, "SpinControl");
 				}
 
-				self._hours.disableKeyboardSupport();
-				self._minutes.disableKeyboardSupport();
-				self._seconds.disableKeyboardSupport();
 				self._first = self._hours;
 				self._last = self._seconds;
-
-				self.enableKeyboardSupport();
 			};
 
 			/**
