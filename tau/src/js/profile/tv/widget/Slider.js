@@ -182,6 +182,18 @@
 			}
 
 			/**
+			 * Configure slider widget
+			 * @method _configure
+			 * @param {HTMLInputElement|HTMLSelectElement} element
+			 * @protected
+			 * @member ns.widget.tv.Slider
+			 */
+			prototype._configure = function(element) {
+				BaseSliderPrototype._configure.call(this, element);
+				this.options.popup = true;
+			};
+
+			/**
 			 * Build structure of slider widget
 			 * @method _build
 			 * @param {HTMLInputElement|HTMLSelectElement} element

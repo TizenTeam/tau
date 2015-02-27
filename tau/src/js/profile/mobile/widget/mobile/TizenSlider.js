@@ -174,7 +174,7 @@
 				/**
 				 * All possible widget options
 				 * @property {Object} options
-				 * @property {boolean} [options.popup=true] enables popup
+				 * @property {boolean} [options.popup=false] enables popup
 				 * @property {boolean} [options.center=false] creates additional markup to pointing center of the slider
 				 * @property {string} [options.icon=""] icon type
 				 * @property {string} [options.innerLabel=false] Displays the value inside the handler
@@ -182,11 +182,13 @@
 				 * @property {string} [options.textRight=""] text attached to right
 				 * @member ns.widget.mobile.TizenSlider
 				 */
-				var options = this.options;
+				var options;
 
 				if (typeof sliderConfigure === "function") {
 					sliderConfigure.call(this);
 				}
+
+				options = this.options;
 				options.popup = false;
 				options.center = false;
 				options.innerLabel = false;
