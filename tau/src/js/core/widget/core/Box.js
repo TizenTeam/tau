@@ -1,5 +1,5 @@
-/*global window, define */
-/*
+/*global window, define, ns */
+/* 
  * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
  * License : MIT License V2
  */
@@ -110,8 +110,6 @@
 					styleElement.id = id;
 					document.head.appendChild(styleElement);
 					styleContainer = styleElement.sheet;
-				} else {
-					styleContainer.deleteRule(0);
 				}
 				// insert new rule
 				styleContainer.insertRule(rule, 0);
@@ -156,32 +154,21 @@
 			 * @protected
 			 */
 			prototype._setLayout = function (element, value) {
-				var self = this;
+				var self = this,
+					currentLayoutName = self._currentLayout.name;
 
-				// if layout is changed, we try to reset the current one and enable the new one
-				if (self._currentLayout.name !== value) {
-					// if new options is different than the current one, we reset current layout
-					disableCurrentLayout(self);
-					// and set the new one
+				if (currentLayoutName) {
+					// if layout is changed, we try to reset the current one and enable the new one
+					if (currentLayoutName !== value) {
+						// if new options is different than the current one, we reset current layout
+						disableCurrentLayout(self);
+						// and set the new one
+						enableNewLayout(self, element, value);
+					}
+				} else {
+					// Enable layout for the first time
 					enableNewLayout(self, element, value);
 				}
-			};
-
-			/**
-			 * Update element's positions
-			 * @method _layout
-			 * @param {HTMLElement} element
-			 * @return {HTMLElement}
-			 * @member ns.widget.core.Box
-			 * @protected
-			 */
-			prototype._layout = function (element) {
-				var self = this;
-
-				element = element || self.element;
-				self._setLayout(element, self.options.layout);
-
-				return element;
 			};
 
 			/**

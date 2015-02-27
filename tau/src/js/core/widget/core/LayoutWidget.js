@@ -1,4 +1,4 @@
-/*global window:false, HTMLElement:false, Object:false*/
+/*global define, ns, window:false, HTMLElement:false, Object:false*/
 /*
  * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
  * License : MIT License V2
@@ -122,6 +122,7 @@
 					self._appendComponent(widget[i]);
 				}
 
+				// @TODO do we need to call .layout method after every .append
 				self.layout();
 			};
 
