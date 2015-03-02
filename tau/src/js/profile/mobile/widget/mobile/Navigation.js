@@ -145,6 +145,7 @@
 
 					self._navigateTrigger = null;
 					self._ui = {
+						page: null,
 						container: null
 					};
 					self._barLength = null;
@@ -156,6 +157,7 @@
 				 * @member ns.widget.mobile.Navigation
 				 */
 				classes = {
+					page : "ui-page",
 					header : "ui-header",
 					titleNavigation : "ui-title-navigation",
 					navigation: "ui-navigation",
@@ -197,7 +199,7 @@
 			 * @member ns.widget.mobile.Navigation
 			 */
 			prototype.create = function (navigationHistory) {
-				if (!document.querySelector("." + classes.navigationUl + " > *:first-child")) {
+				if (!this.element.querySelector("." + classes.navigationUl + " > *:first-child")) {
 					this._make(navigationHistory);
 				} else {
 					ns.warn("Navigation Bar should be created only once.");
@@ -267,6 +269,7 @@
 			 * @member ns.widget.mobile.Navigation
 			 */
 			prototype._init = function (element){
+				this._ui.page = selectors.getParentsByClass(element, classes.page)[0];
 				this._ui.container = selectors.getChildrenByClass(element, classes.navigationUl)[0];
 			};
 

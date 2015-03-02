@@ -24,10 +24,12 @@ var historyMaker = function(event) {
 		}
 	},
 	historyDrawer = function(event) {
-		var navi = document.getElementById("navigation"),
+		var pageId = event.target.id,
+			page = document.getElementById(pageId),
+			navi = page.getElementsByClassName("ui-navigation")[0],
 			naviWidget = tau.widget.Navigation(navi);
 
-		if (document.getElementsByClassName("ui-navigation-ul")[0]
+		if (page.getElementsByClassName("ui-navigation-ul")[0]
 				.childElementCount) {
 			tau.warn("Create method should be called only once in a page");
 		} else {
