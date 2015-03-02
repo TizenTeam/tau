@@ -15,7 +15,6 @@
         text-overflow: ellipsis;
         overflow: hidden;
         line-height: 32px;
-        color: rgb(51, 51, 51);
 }
 
 .ui-listview .li-text-sub-right-icon {
@@ -198,7 +197,7 @@
 	margin-left: 0;
 }
 .ui-listview li.li-has-multiline.li-has-toggle label:not(.ui-toggleswitch) {
-	padding-right: 123px;
+	padding-right: 75px;
 }
 
 .select-btn {
