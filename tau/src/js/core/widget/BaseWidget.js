@@ -470,11 +470,6 @@
 
 				options = options || {};
 
-				if (self.isDisabled()) {
-					// widget is disabled, so we cannot set focus
-					return false;
-				}
-
 				blurElement = options.previousElement;
 				// we try to blur element, which has focus previously
 				if (blurElement) {
@@ -511,11 +506,6 @@
 			prototype.blur = function (options) {
 				var self = this,
 					element = self.element;
-
-				if (self.isDisabled()) {
-					// widget is disabled, so we cannot blur it
-					return false;
-				}
 
 				options = objectUtils.merge({}, options, {element: element});
 

@@ -266,14 +266,14 @@
 			}
 
 			// Return not disabled button element which is the closest to element
-			// @method closestEnabledButton
+			// @method closestButton
 			// @param {HTMLElement} element
 			// @return {HTMLElement}
 			// @private
 			// @static
 			// @member ns.widget.mobile.Button
-			function closestEnabledButton(element) {
-				return selectorsUtils.getClosestBySelector(element, "." + classes.uiBtn + ":not(." + classes.uiDisabled + ")");
+			function closestButton(element) {
+				return selectorsUtils.getClosestBySelector(element, "." + classes.uiBtn);
 			}
 
 			/**
@@ -318,7 +318,7 @@
 			// @static
 			// @member ns.widget.mobile.Button
 			function onFocus(event) {
-				var button = closestEnabledButton(event.target);
+				var button = closestButton(event.target);
 				if (button) {
 					button.classList.add(classes.uiFocus);
 					button.classList.remove(classes.uiBlur);
@@ -332,7 +332,7 @@
 			// @static
 			// @member ns.widget.mobile.Button
 			function onBlur(event) {
-				var button = closestEnabledButton(event.target);
+				var button = closestButton(event.target);
 				if (button) {
 					button.classList.add(classes.uiBlur);
 					button.classList.remove(classes.uiFocus);
@@ -827,13 +827,6 @@
 				// Used to control styling in headers/footers, where buttons default to `inline` style.
 				if (options.inline !== null) {
 					buttonClassArray.push(options.inline ? classes.uiBtnInline : classes.uiBtnBlock);
-				}
-
-				// Default disable element
-				if (attributes.disabled) {
-					disableElement(element, container);
-				} else {
-					enableElement(element, container);
 				}
 
 				innerClass += options.corners ? " "  + classes.uiBtnCornerAll : "";

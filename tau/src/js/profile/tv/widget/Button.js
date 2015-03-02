@@ -508,6 +508,10 @@
 
 			BaseKeyboardSupport.registerActiveSelector("[data-role='button'], button, [type='button'], [type='submit'], [type='reset'], .ui-button");
 
+			//register selectors also for disable buttons in Context Popup and Contectual Menu
+			BaseKeyboardSupport.registerActiveSelector(".ui-ctxpopup [data-role='button'], .ui-ctxpopup button, .ui-ctxpopup [type='button'], .ui-ctxpopup [type='submit'], .ui-ctxpopup [type='reset'], .ui-ctxpopup .ui-button", true);
+			BaseKeyboardSupport.registerActiveSelector(".ui-contextual-menu [data-role='button'], .ui-contextual-menu button, .ui-contextual-menu [type='button'], .ui-contextual-menu [type='submit'], .ui-contextual-menu [type='reset'], .ui-contextual-menu .ui-button", true);
+
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return ns.widget.tv.Button;
 		}

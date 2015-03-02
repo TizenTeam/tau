@@ -17,6 +17,7 @@
 			"../../../core/engine",
 			"../../../core/event",
 			"../../../core/util/object",
+			"../../../core/util/array",
 			"../../../core/util/DOM/css",
 			"../../../core/widget/BaseWidget"
 		],
@@ -26,6 +27,7 @@
 			var engine = ns.engine,
 				DOM = ns.util.DOM,
 				object = ns.util.object,
+				utilArray = ns.util.array,
 				eventUtils = ns.event,
 				BaseKeyboardSupport = function () {
 					object.merge(this, prototype);
@@ -57,21 +59,36 @@
 				},
 				selectorSuffix = ":not(." + classes.focusDisabled + ")" +
 								":not(." + ns.widget.BaseWidget.classes.disable + ")",
-				selectors = ["a", "." + classes.focusEnabled, "[tabindex]"],
+				// define standard focus selectors
+				// includeDisabled: false - disabled element will be not focusable
+				// includeDisabled: true - disabled element will be focusable
+				// count - number of defined selectors
+				selectors = [{
+						value: "a",
+						includeDisabled: false,
+						count: 1
+					}, {
+						value: "." + classes.focusEnabled,
+						includeDisabled: false,
+						count: 1
+					}, {
+						value: "[tabindex]",
+						includeDisabled: false,
+						count: 1
+					}],
 				selectorsString = "",
 				/**
 				* @property {Array} Array containing number of registrations of each selector
 				* @member ns.widget.tv.BaseKeyboardSupport
 				* @private
 				*/
-				REF_COUNTERS = [1, 1, 1],
 				currentKeyboardWidget,
 				previousKeyboardWidgets = [];
 
 			BaseKeyboardSupport.KEY_CODES = KEY_CODES;
 			BaseKeyboardSupport.classes = classes;
 			/**
-			 * Get focussed element.
+			 * Get focused element.
 			 * @method getFocusedLink
 			 * @returns {HTMLElement}
 			 * @private
@@ -116,7 +133,17 @@
 			 * @member ns.widget.tv.BaseKeyboardSupport
 			 */
 			function prepareSelector() {
-				selectorsString = selectors.join(selectorSuffix + ",") + selectorSuffix;
+				var length = selectors.length;
+				selectorsString = "";
+				utilArray.forEach(selectors, function(object, index){
+					selectorsString += object.value;
+					if (!object.includeDisabled) {
+						selectorsString += selectorSuffix;
+					}
+					if (index < length - 1) {
+						selectorsString += ",";
+					}
+				});
 			}
 
 			prototype.getActiveSelector = function() {
@@ -230,7 +257,7 @@
 					right: right
 				};
 				return result;
-			};
+			}
 
 			/**
 			 * Method trying to focus on widget or on HTMLElement and blur on active element or widget.
@@ -386,6 +413,7 @@
 			 * @method focusElement
 			 * @param {HTMLElement} [element] widget's element
 			 * @param {?HTMLElement|number|boolean|string} [elementToFocus] element to focus
+			 * @param {HTMLElement} [currentElement] define element which is interpreted as current focused
 			 * @static
 			 * @member ns.widget.tv.BaseKeyboardSupport
 			 */
@@ -459,29 +487,56 @@
 					currentKeyboardWidget.disableKeyboardSupport();
 				}
 			};
+
+			/**
+			 * Convert selector object to string
+			 * @method getValueOfSelector
+			 * @param {Object} selectorObject
+			 * @static
+			 * @private
+			 * @return {string}
+			 * @member ns.widget.tv.BaseKeyboardSupport
+			 */
+			function getValueOfSelector(selectorObject){
+				return selectorObject.value
+			}
+
+			/**
+			 * Find index in selectors array for given selector
+			 * @method findSelectorIndex
+			 * @param {string} selector
+			 * @static
+			 * @private
+			 * @member ns.widget.tv.BaseKeyboardSupport
+			 */
+			function findSelectorIndex(selector) {
+				return utilArray.map(selectors, getValueOfSelector).indexOf(selector);
+			}
 			/**
 			 * Registers an active selector.
 			 * @param {string} selector
+			 * @param {boolean} includeDisabled
 			 * @method registerActiveSelector
 			 * @static
 			 * @member ns.widget.tv.BaseKeyboardSupport
 			 */
-			BaseKeyboardSupport.registerActiveSelector = function (selector) {
+			BaseKeyboardSupport.registerActiveSelector = function (selector, includeDisabled) {
 				var selectorArray = selector.split(","),
 					index;
 
-				selectorArray.forEach(function(currentSelector){
+				utilArray.forEach(selectorArray, function(currentSelector){
 					currentSelector = currentSelector.trim();
-					index = selectors.indexOf(currentSelector);
+					index = findSelectorIndex(currentSelector);
 
 					// check if not registered yet
 					if (index === -1) {
-						selectors.push(currentSelector);
-						// new selector - create reference counter for it
-						REF_COUNTERS.push(1);
+						selectors.push({
+							value: currentSelector,
+							includeDisabled: includeDisabled,
+							count: 1
+						});
 					} else {
-						// such a selector exist - increment reference counter
-						++REF_COUNTERS[index];
+						selectors[index].count++;
 					}
 				});
 
@@ -499,17 +554,16 @@
 				var selectorArray = selector.split(","),
 					index;
 
-				selectorArray.forEach(function(currentSelector){
+				utilArray.forEach(selectorArray, function(currentSelector){
 					currentSelector = currentSelector.trim();
-					index = selectors.indexOf(currentSelector);
+					index = findSelectorIndex(currentSelector);
 
 					if (index !== -1) {
-						--REF_COUNTERS[index];
+						--selectors[index].count;
 						// check reference counter
-						if (REF_COUNTERS[index] === 0) {
+						if (selectors[index].count === 0) {
 							// remove selector
 							selectors.splice(index, 1);
-							REF_COUNTERS.splice(index, 1);
 						}
 					}
 				});

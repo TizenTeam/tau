@@ -122,10 +122,47 @@
 				}
 			}
 
+
+			/**
+			 * Faster version of standard filter method in array
+			 * @method filter
+			 * @param {Array} array
+			 * @param {Function} callback
+			 * @member ns.util.array
+			 * @static
+			 */
+			function filter(array, callback) {
+				var result = [];
+				forEach(array, function(value, index, fullArray) {
+					if (callback(value, index, fullArray)) {
+						result.push(value);
+					}
+				});
+				return result;
+			}
+
+			/**
+			 * Faster version of standard map method in array
+			 * @method map
+			 * @param {Array} array
+			 * @param {Function} callback
+			 * @member ns.util.array
+			 * @static
+			 */
+			function map(array, callback) {
+				var result = [];
+				forEach(array, function(value, index, fullArray) {
+					result.push(callback(value, index, fullArray));
+				});
+				return result;
+			}
+
 			ns.util.array = {
 				range: range,
 				isArrayLike: isArrayLike,
-				forEach: forEach
+				forEach: forEach,
+				filter: filter,
+				map: map
 			};
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return ns.util.array;
