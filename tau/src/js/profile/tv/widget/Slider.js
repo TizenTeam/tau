@@ -189,8 +189,16 @@
 			 * @member ns.widget.tv.Slider
 			 */
 			prototype._configure = function(element) {
+				var options;
 				BaseSliderPrototype._configure.call(this, element);
-				this.options.popup = true;
+
+				options = this.options;
+				options.popup = true;
+
+				if (options.textLeft === null && options.textRight === null) {
+					options.textLeft = element.getAttribute("min");
+					options.textRight = element.getAttribute("max");
+				}
 			};
 
 			/**
