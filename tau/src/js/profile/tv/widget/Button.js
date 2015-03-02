@@ -64,7 +64,8 @@
 					text: "ui-text",
 					icon: "ui-li-dynamic-footer-icon",
 					marquee: "ui-marquee",
-					thumbnail: "thumb"
+					thumbnail: "thumb",
+					textType: "ui-button-text"
 				}),
 				prototype = new BaseButton();
 
@@ -212,7 +213,7 @@
 			prototype._buildBackground = function (element) {
 				var backgroundElement;
 				if (this.options.background) {
-					backgroundElement = createBackgroundElement(element);
+					backgroundElement = createBackgroundElement(this.ui.container);
 					backgroundElement.id = element.id + "-background";
 				}
 			};
@@ -274,7 +275,8 @@
 			 * @member ns.widget.tv.Button
 			 */
 			prototype._build = function (element) {
-				var self = this;
+				var self = this,
+					ui = self.ui;
 
 				// build footer
 				self._buildFooter(element);
@@ -283,8 +285,14 @@
 				// build button
 				element = BaseButtonPrototype._build.call(self, element);
 
+				// build "Button_text",
+				// @todo: probably all classes from button should be copied to container
+				if (element.classList.contains(classes.textType)) {
+					ui.container.classList.add(classes.textType);
+				}
+
 				// Mark base element for marquee decorator
-				self.ui.buttonText.classList.add(classes.marquee);
+				ui.buttonText.classList.add(classes.marquee);
 				// create background element for built button
 				self._buildBackground(element);
 

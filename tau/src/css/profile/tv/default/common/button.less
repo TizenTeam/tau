@@ -15,7 +15,7 @@
 	min-width: @fixed_button_minimum_width;
 	border-radius: 4 * @virtual_px;
 	background-color: @color_button_basic_normal;
-	.ui-default;
+	color: @color_button_basic_txt_normal;
 
 	&.ui-multiline {
 		padding-top: @fixed_button_multiline_padding_top;
@@ -72,12 +72,10 @@
 		line-height: 999 * @virtual_px;
 	}
 
-
-	a&.ui-state-disabled, &:disabled {
-		.ui-icon,
-		.ui-btn-text {
-			opacity: 0.3;
-		}
+	// disable Button_basic
+	&.ui-state-disabled, &:disabled {
+		opacity: 0.4;
+		cursor: default;
 	}
 
 	&.ui-btn-icon_only {
@@ -102,6 +100,61 @@
 			}
 		}
 	}
+
+	// focused Button_basic
+	&.ui-focus {
+		.ui-text {
+			color: @color_button_basic_txt_focus;
+		}
+	}
+
+	// Button_text
+	&.ui-button-text {
+		border-image-source: url(images/Button/btn_text_nor.png);
+		border-image-slice: 4 fill;
+		border-image-width: auto;
+		border-bottom-width: 3 * @virtual_px;
+		.border-radius(6 * @virtual_px);
+
+		.ui-text {
+			color: @color_type_button_text_normal;
+		}
+
+		&.ui-focus {
+			.ui-text {
+				color: @color_type_button_text_txt_focus;
+			}
+		}
+
+		&.ui-state-disabled {
+			opacity: 0.2;
+		}
+	}
+
+	// button with icon
+	&[data-icon] {
+		font-weight: inherit;
+		background-color: @color_button_icon_normal;
+
+		.ui-text {
+			color: @color_button_icon_text;
+		}
+		&.ui-focus {
+			.ui-text {
+				color: @color_button_icon_text_focus;
+			}
+		}
+
+		&.ui-state-disabled {
+			opacity: 1;
+			.ui-text {
+				color: @color_button_icon_text_dim;
+			}
+			.ui-icon {
+				opacity: 0.2;
+			}
+		}
+	}
 }
 
 .ui-listview {
@@ -110,84 +163,17 @@
 	}
 }
 
-.ui-btn[data-icon], .ui-drawer-close, li a.ui-btn{
+.ui-drawer-close, li a.ui-btn{
 	font-weight: inherit;
 	background-color: inherit;
 	color: @color_button_with_icon;
 	overflow: hidden;
 }
 
-.ui-default {
-	color: @color_button_basic_txt_normal;
-
-	a&.ui-state-disabled, &:disabled {
-		color: @color_button_default_text_disable;
-		cursor: default;
-	}
-}
-
-.ui-color-red {
-	color: @color_button_red_text;
-	background-color: @color_button_red_normal_bg;
-
-	a&:active:hover, &:enabled:active:hover {
-		background-color: @color_button_red_press_bg;
-	}
-
-	&:enabled:focus {
-		background-color: @color_button_red_focus_bg;
-	}
-
-	a&.ui-state-disabled, &:disabled {
-		color: @color_button_red_text_disable;
-		background-color: @color_button_red_disable_bg;
-		cursor: default;
-	}
-}
-
-.ui-color-orange {
-	color: @color_button_orange_text;
-	background-color: @color_button_orange_normal_bg;
-
-	a&:active:hover, &:enabled:active:hover {
-		background-color: @color_button_orange_press_bg;
-	}
-
-	&:enabled:focus {
-		background-color: @color_button_orange_focus_bg;
-	}
-
-	a&.ui-state-disabled, &:disabled {
-		color: @color_button_orange_text_disable;
-		background-color: @color_button_orange_disable_bg;
-		cursor: default;
-	}
-}
-
-.ui-color-green {
-	color: @color_button_green_text;
-	background-color: @color_button_green_normal_bg;
-
-	a&:active:hover, &:enabled:active:hover {
-		background-color: @color_button_green_press_bg;
-	}
-
-	&:enabled:focus {
-		background-color: @color_button_green_focus_bg;
-	}
-
-	a&.ui-state-disabled, &:disabled {
-		color: @color_button_green_text_disable;
-		background-color: @color_button_green_disable_bg;
-		cursor: default;
-	}
-}
-
 .ui-btn, .ui-btn:active {
 	.ui-background {
 		outline: none;
 		background-color: @color_default;
-		color: @color_button_basic_txt_focus;
 	}
 }
 
