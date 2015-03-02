@@ -1,13 +1,13 @@
 (function(){
-	var page = document.getElementById( "pageCircleProgressBar" ),
-	progressBar = document.getElementById("circleprogress"),
-	minusBtn = document.getElementById("minus"),
-	plusBtn = document.getElementById("plus"),
-	resultDiv = document.getElementById("result"),
-	isCircle = tau.support.shape.circle,
-	progressBarWidget,
-	resultText,
-	i;
+	var page = document.getElementById( "pageSmallCircleProgressBar" ),
+		progressBar = document.getElementById("circleprogress"),
+		minusBtn = document.getElementById("minus"),
+		plusBtn = document.getElementById("plus"),
+		resultDiv = document.getElementById("result"),
+		isCircle = tau.support.shape.circle,
+		progressBarWidget,
+		resultText,
+		i;
 
 	function printResult() {
 		resultText = progressBarWidget.value();
@@ -77,12 +77,11 @@
 	}
 
 	function pageBeforeShowHandler() {
+		progressBarWidget = new tau.widget.CircleProgressBar(progressBar, {size: "small"});
 		if (isCircle) {
-		// make Circle Progressbar object
-			progressBarWidget = new tau.widget.CircleProgressBar(progressBar, {size: "full"});
+			// make Circle Progressbar object
 			document.addEventListener("rotarydetent", rotaryDetentHandler);
 		} else {
-			progressBarWidget = new tau.widget.CircleProgressBar(progressBar, {size: "large"});
 			minusBtn.addEventListener("click", minusBtnClickHandler);
 			plusBtn.addEventListener("click", plusBtnClickHandler);
 		}
@@ -98,6 +97,6 @@
 		progressBarWidget.destroy();
 	};
 
-	page.addEventListener("pagebeforeshow", pageBeforeShowHandler);
-	page.addEventListener("pagehide", pageHideHandler);
+	page.addEventListener( "pagebeforeshow", pageBeforeShowHandler);
+	page.addEventListener( "pagehide", pageHideHandler);
 }());

@@ -483,13 +483,6 @@ input[type="checkbox"]#checkboxControl {
 	margin-left: 50%;
 	-webkit-transform: translateX(-50%);
 }
-
-.ui-progressbar-small {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	-webkit-transform: translate3d(-50%, -50%, 0);
-}
 /* --------------------------------Processing in circle------------------------------ */
 .small-processing-container {
 	position: absolute;
