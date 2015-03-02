@@ -25,16 +25,37 @@
 					up: "up",
 					down: "down",
 					left: "left",
-					right: "right"
+					right: "right",
+					background: "ui-background"
 				},
-				status;
+				status,
+				ANIMATION_DELAY = 200;
 
 			function removeAnimationClasses(element, prefix) {
 				var elementClasses = element.classList;
+
 				elementClasses.remove(prefix + classes.left);
 				elementClasses.remove(prefix + classes.up);
 				elementClasses.remove(prefix + classes.right);
 				elementClasses.remove(prefix + classes.down);
+			}
+
+			function setAnimation(element, delay) {
+				var backgrounds = element.querySelectorAll("." + classes.background),
+					length = backgrounds.length,
+					style,
+					transition,
+					i;
+
+				for (i = 0; i < length; i++) {
+					style = backgrounds[i].style;
+					transition = (delay || ANIMATION_DELAY) + "ms";
+					style.webkitTransitionDuration = transition;
+					style.mozTransitionDuration = transition;
+					style.oTransitionDuration = transition;
+					style.msTransitionDuration = transition;
+					style.transitionDuration = transition;
+				}
 			}
 
 			function prepareFocusAnimation(event) {
@@ -43,6 +64,7 @@
 					direction = options.direction;
 
 				if (element) {
+					setAnimation(element, options.duration);
 					removeAnimationClasses(element, classes.blurPrefix);
 					removeAnimationClasses(element, classes.focusPrefix);
 					if (direction) {
@@ -57,6 +79,7 @@
 					direction = options.direction;
 
 				if (element) {
+					setAnimation(element, options.duration);
 					removeAnimationClasses(element, classes.focusPrefix);
 					removeAnimationClasses(element, classes.blurPrefix);
 					if (direction) {

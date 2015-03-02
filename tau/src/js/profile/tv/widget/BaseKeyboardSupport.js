@@ -34,7 +34,9 @@
 				atan2 = Math.atan2,
 				PI = Math.PI,
 				BaseKeyboardSupport = function () {
-					object.merge(this, prototype);
+					var self = this;
+
+					object.merge(self, prototype);
 					// prepare selector
 					if (selectorsString === "") {
 						prepareSelector();
@@ -42,6 +44,8 @@
 					this._onKeyupHandler = null;
 					this._onClickHandler = null;
 					this._focusedElement = null;
+					// time of keydown event
+					self.keydownEventTimeStart = null; // [ms]
 				},
 				prototype = {
 					_supportKeyboard: false
@@ -64,6 +68,10 @@
 					left: "left",
 					right: "right"
 				},
+				/**
+				 * state of key pressed
+				 */
+				keyIsPressed = false,
 				selectorSuffix = ":not(." + classes.focusDisabled + ")" +
 								":not(." + ns.widget.BaseWidget.classes.disable + ")",
 				// define standard focus selectors
@@ -90,7 +98,8 @@
 				* @private
 				*/
 				currentKeyboardWidget,
-				previousKeyboardWidgets = [];
+				previousKeyboardWidgets = [],
+				ANIMATION_MIN_TIME = 50;
 
 			BaseKeyboardSupport.KEY_CODES = KEY_CODES;
 			BaseKeyboardSupport.classes = classes;
@@ -312,21 +321,21 @@
 			 * @method focusOnElement
 			 * @param {?ns.widget.BaseWidget} self
 			 * @param {HTMLElement} element
-			 * @param {"left"|"right"|"top"|"bottom"} [positionFrom]
+			 * @param {Object} [options]
 			 * @return  {boolean} Return true if focus finished success
 			 * @static
 			 * @private
 			 * @memberof ns.widget.tv.BaseKeyboardSupport
 			 */
-			function focusOnElement(self, element, positionFrom) {
+			function focusOnElement(self, element, options) {
 				var setFocus,
-					options = {
-						direction: positionFrom
-					},
 					currentElement = (self && self._focusedElement) || getFocusedLink(),
 					nextElementWidget,
 					currentWidget;
+
+				options = options || {};
 				nextElementWidget = engine.getBinding(element);
+
 				if (nextElementWidget) {
 					// we call function focus if the element is connected with widget
 					options.previousElement = currentElement;
@@ -397,13 +406,13 @@
 				return null;
 			}
 
-			function focusOnNeighborhood(self, element, direction, currentElement) {
+			function focusOnNeighborhood(self, element, options, currentElement) {
 				var	positionFrom = "",
 					nextElements = [],
 					nextElement = null,
 					nextNumber = 0,
 					setFocus = false;
-				switch (direction) {
+				switch (options.direction) {
 					case KEY_CODES.left:
 						positionFrom = EVENT_POSITION.left;
 						break;
@@ -416,6 +425,8 @@
 					case KEY_CODES.down:
 						positionFrom = EVENT_POSITION.down;
 						break;
+					default:
+						return;
 				}
 				nextElement = fetchCustomFocusElement(element, positionFrom);
 				if (!nextElement) {
@@ -425,7 +436,9 @@
 
 				while (nextElement && !setFocus) {
 					// if element to focus is found
-					setFocus = focusOnElement(self, nextElement, positionFrom);
+					setFocus = focusOnElement(self, nextElement, {
+						direction: positionFrom
+					});
 					nextElement = nextElements[++nextNumber];
 				}
 			}
@@ -440,7 +453,14 @@
 			prototype._onKeyup = function(event) {
 				var self = this;
 				if (self._supportKeyboard) {
-					focusOnNeighborhood(this, self.keybordElement || self.element, event.keyCode);
+					if (!keyIsPressed) {
+						focusOnNeighborhood(self, self.keybordElement || self.element, {
+							direction: event.keyCode
+						});
+					} else {
+						keyIsPressed = false;
+					}
+					self.keydownEventTimeStart = null;
 				}
 			};
 
@@ -478,6 +498,46 @@
 			};
 
 			/**
+			 * Supports keyboard event.
+			 * @method _onKeydown
+			 * @param {Event} event
+			 * @protected
+			 * @member ns.widget.tv.BaseKeyboardSupport
+			 */
+			prototype._onKeydown = function(event) {
+				var self = this,
+					delay = ns.getConfig("keyboardLongpressInterval", 100),
+					currentTime,
+					options;
+
+				// if widget supports keyboard's events
+				if (self._supportKeyboard) {
+					currentTime = (new Date()).getTime();
+					// we check if it is a single event or repeated one
+					// @note: On TV property .repeat for event is not available, so we have to count time
+					// between events
+					if (!self.keydownEventTimeStart || (currentTime - self.keydownEventTimeStart > delay)) {
+						// stop scrolling
+						//event.preventDefault();
+						//event.stopPropagation();
+						// set that this is a long press
+						keyIsPressed = true;
+
+						// if it is repeated event, we make animation shorter
+						options = {
+							direction: event.keyCode
+						};
+						if (self.keydownEventTimeStart) {
+							options.duration = ((delay - 30) >= ANIMATION_MIN_TIME ? delay - 30 : ANIMATION_MIN_TIME);
+						}
+						// set focus on next element
+						focusOnNeighborhood(self, self.element, options);
+						self.keydownEventTimeStart = currentTime;
+					}
+				}
+			};
+
+			/**
 			 * Add Supports keyboard event.
 			 *
 			 * This method should be called in _bindEvent method in widget.
@@ -489,7 +549,9 @@
 				var self = this;
 				if (!self._onKeyupHandler) {
 					self._onKeyupHandler = self._onKeyup.bind(self);
+					self._onKeydownHandler = self._onKeydown.bind(self);
 					document.addEventListener("keyup", self._onKeyupHandler, false);
+					document.addEventListener("keydown", self._onKeydownHandler, false);
 				}
 			};
 
@@ -518,6 +580,7 @@
 			prototype._destroyEventKey = function() {
 				if (this._onKeyupHandler) {
 					document.removeEventListener("keyup", this._onKeyupHandler, false);
+					document.removeEventListener("keydown", this._onKeydownHandler, false);
 				}
 			};
 
@@ -558,13 +621,17 @@
 			 * @param {HTMLElement} [element] widget's element
 			 * @param {?HTMLElement|number|boolean|string} [elementToFocus] element to focus
 			 * @param {HTMLElement} [currentElement] define element which is interpreted as current focused
+			 * @param {Object} [options]
 			 * @static
 			 * @member ns.widget.tv.BaseKeyboardSupport
 			 */
-			BaseKeyboardSupport.focusElement = function(element, elementToFocus, currentElement) {
+			BaseKeyboardSupport.focusElement = function(element, elementToFocus, options) {
 				var links,
 					linksLength,
 					i;
+
+				options = options || {};
+
 				if (elementToFocus instanceof HTMLElement) {
 					links = getFocusableElements(element);
 					linksLength = links.length;
@@ -576,14 +643,15 @@
 				} else if (typeof elementToFocus === "number") {
 					links = getFocusableElements(element);
 					if (links[elementToFocus]) {
-						focusOnElement(null, links[elementToFocus]);
+						focusOnElement(null, links[elementToFocus], options);
 					}
 				} else if (typeof elementToFocus === "string" && KEY_CODES[elementToFocus]) {
-					focusOnNeighborhood(null, element, KEY_CODES[elementToFocus], currentElement);
+					options.direction = KEY_CODES[elementToFocus];
+					focusOnNeighborhood(null, element, options);
 				} else {
 					links = getFocusableElements(element);
 					if (links[0]) {
-						focusOnElement(null, links[0]);
+						focusOnElement(null, links[0], options);
 					}
 				}
 			};

@@ -402,13 +402,28 @@
 			};
 
 			function animationEndCallback(element) {
-				var classList = element.classList;
+				var classList = element.classList,
+					backgrounds = element.querySelectorAll("." + classes.background),
+					length = backgrounds.length,
+					style,
+					i;
 
+				// remove classes
 				classList.remove(classes.blur);
 				classList.remove(classes.blurPrefix + classes.up);
 				classList.remove(classes.blurPrefix + classes.down);
 				classList.remove(classes.blurPrefix + classes.right);
 				classList.remove(classes.blurPrefix + classes.left);
+
+				// remove transition
+				for (i = 0; i < length; i++) {
+					style = backgrounds[i].style;
+					style.webkitTransitionDuration = "";
+					style.mozTransitionDuration = "";
+					style.oTransitionDuration = "";
+					style.msTransitionDuration = "";
+					style.transitionDuration = "";
+				}
 			}
 
 			function focusCallback(self) {

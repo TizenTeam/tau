@@ -251,7 +251,7 @@
 				var options = event.detail || {},
 					element = options.element,
 					marqueeStartElements = element && [].slice.call(element.querySelectorAll("." + classes.marqueeStart)),
-					length = marqueeStartElements.length,
+					length = marqueeStartElements && marqueeStartElements.length,
 					item,
 					i;
 
