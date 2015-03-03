@@ -1,5 +1,5 @@
 /*global window, define, ns, HTMLElement */
-/* 
+/*
  * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
  * License : MIT License V2
  */
@@ -18,6 +18,7 @@
 			"../../../core/event",
 			"../../../core/util/object",
 			"../../../core/util/array",
+			"../../../core/util/selectors",
 			"../../../core/util/DOM/css",
 			"../../../core/widget/BaseWidget"
 		],
@@ -29,12 +30,18 @@
 				object = ns.util.object,
 				utilArray = ns.util.array,
 				eventUtils = ns.event,
+				selectorUtils = ns.util.selectors,
+				atan2 = Math.atan2,
+				PI = Math.PI,
 				BaseKeyboardSupport = function () {
 					object.merge(this, prototype);
 					// prepare selector
 					if (selectorsString === "") {
 						prepareSelector();
 					}
+					this._onKeyupHandler = null;
+					this._onClickHandler = null;
+					this._focusedElement = null;
 				},
 				prototype = {
 					_supportKeyboard: false
@@ -149,6 +156,47 @@
 			prototype.getActiveSelector = function() {
 				return selectorsString;
 			};
+
+
+			/**
+			 * Returns angle between two elements
+			 * @method getRelativeAngle
+			 * @private
+			 * @member ns.widget.tv.BaseKeyboardSupport
+			 * @param {HTMLElement} context
+			 * @param {HTMLElement} referenceElement
+			 * @return {number}
+			 */
+			function getRelativeAngle(context, referenceElement) {
+				var contextRect = context.getBoundingClientRect(),
+					referenceRect = referenceElement.getBoundingClientRect();
+				return atan2(contextRect.top - referenceRect.top, contextRect.left - referenceRect.left) * 180 / PI;
+			}
+
+			/**
+			 * Returns direction from angle
+			 * @method getDirectionFromAngle
+			 * @private
+			 * @member ns.widget.tv.BaseKeyboardSupport
+			 * @param {number} angle
+			 * @return {string}
+			 */
+			function getDirectionFromAngle(angle) {
+				var a = Math.abs(angle);
+				if (a >= 0 && a < 45) { // motion right
+					return EVENT_POSITION.right;
+				}
+
+				if (a > 135 && a <= 180) { // motion left
+					return EVENT_POSITION.left;
+				}
+
+				if (angle < 0) { // negative is motion up
+					return EVENT_POSITION.up;
+				}
+
+				return EVENT_POSITION.down;
+			}
 
 			/**
 			 * Calculates neighborhood links.
@@ -275,7 +323,7 @@
 					options = {
 						direction: positionFrom
 					},
-					currentElement = getFocusedLink(),
+					currentElement = (self && self._focusedElement) || getFocusedLink(),
 					nextElementWidget,
 					currentWidget;
 				nextElementWidget = engine.getBinding(element);
@@ -302,9 +350,13 @@
 					setFocus = true;
 				}
 
-				if (self && self._openActiveElement) {
-					self._openActiveElement(element);
+				if (self) {
+					self._focusedElement = element;
+					if (self._openActiveElement) {
+						self._openActiveElement(element);
+					}
 				}
+
 				return setFocus;
 			}
 
@@ -355,7 +407,40 @@
 			prototype._onKeyup = function(event) {
 				var self = this;
 				if (self._supportKeyboard) {
-					focusOnNeighborhood(this, self.keybordElement || self.element, event.keyCode)
+					focusOnNeighborhood(this, self.keybordElement || self.element, event.keyCode);
+				}
+			};
+
+			/**
+			 * Mouse click listener
+			 * @method _onClick
+			 * @protected
+			 * @member ns.widget.tv.BaseKeyboardSupport
+			 */
+			prototype._onClick = function(event) {
+				var self = this,
+						target = event.target,
+						element = null,
+						currentElement = self._focusedElement,
+						fromPosition = EVENT_POSITION.down;
+				if (self._supportKeyboard) {
+					// check matching or find matching parent
+					element = selectorUtils.matchesSelector(selectorsString, element)
+							? target
+							: null;
+					// maybe some parent could be focused
+					if (!element) {
+						element = selectorUtils.getClosestBySelector(target, selectorsString);
+					}
+
+					if (element) {
+						if (currentElement) {
+							fromPosition = getDirectionFromAngle(
+								getRelativeAngle(element, currentElement)
+							);
+						}
+						focusOnElement(self, element, fromPosition);
+					}
 				}
 			};
 
@@ -376,6 +461,20 @@
 			};
 
 			/**
+			 * Adds support for mouse events
+			 * @method _bindEventMouse
+			 * @protected
+			 * @member ns.widget.tv.BaseKeyboardSupport
+			 */
+			prototype._bindEventMouse = function () {
+				var self = this;
+				if (!self._onClickHandler) {
+					self._onClickHandler = self._onClick.bind(self);
+					document.addEventListener("click", self._onClickHandler, false);
+				}
+			};
+
+			/**
 			 * Supports keyboard event.
 			 *
 			 * This method should be called in _destroy method in widget.
@@ -390,13 +489,25 @@
 			};
 
 			/**
+			 * Removes support for mouse events
+			 * @method _destroyEventMouse
+			 * @protected
+			 * @member ns.widget.tv.BaseKeyboardSupport
+			 */
+			prototype._destroyEventMouse = function () {
+				if (this._onClickHandler) {
+					document.removeEventListener("click", this._onClickHandler, false);
+				}
+			};
+
+			/**
 			 * Blurs from focused element.
 			 * @method blur
 			 * @static
 			 * @member ns.widget.tv.BaseKeyboardSupport
 			 */
 			BaseKeyboardSupport.blurAll = function() {
-				var focusedElement = getFocusedLink(),
+				var focusedElement = this._focusedElement || getFocusedLink(),
 					focusedElementWidget = focusedElement && engine.getBinding(focusedElement);
 
 				if (focusedElementWidget) {

@@ -392,6 +392,7 @@
 			prototype._bindEvents = function(element) {
 				WearablePagePrototype._bindEvents.call(this, element);
 				this._bindEventKey();
+				this._bindEventMouse();
 			};
 
 			/**
@@ -402,6 +403,7 @@
 			 */
 			prototype._destroy = function() {
 				this._destroyEventKey();
+				this._destroyEventMouse();
 				WearablePagePrototype._destroy.call(this);
 			};
 
