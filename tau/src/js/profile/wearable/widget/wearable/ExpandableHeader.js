@@ -85,7 +85,9 @@
 				CustomEvents = {
 					EXPAND: "headerexpand",
 					COLLAPSE: "headercollapse",
-					COMPLETE: "headerexpandcomplete"
+					COMPLETE: "headerexpandcomplete",
+					BEFORE_EXPAND: "headerbeforeexpand",
+					BEFORE_COLLAPSE: "headerbeforecollapse"
 				},
 
 				ExpandableHeader = function () {
@@ -107,7 +109,7 @@
 				classes = {
 					ExpandableHeader: "ui-expandable-header",
 					EXPAND: "ui-header-expand",
-					BASIC: "ui-header-basic",
+					COLLAPSE: "ui-header-collapse",
 					TITLE: "ui-title"
 				},
 				prototype = new BaseWidget();
@@ -208,10 +210,11 @@
 					scrollElement = element.parentNode;
 				}
 
+				events.trigger(element, CustomEvents.BEFORE_EXPAND);
 				element.classList.add(classes.EXPAND);
-				events.trigger(element, CustomEvents.EXPAND);
 				self._topOffset = element.offsetHeight - basicHeight;
 				scrollElement.scrollTop = self._topOffset;
+				events.trigger(element, CustomEvents.EXPAND);
 				ui._titleElement = titleElement;
 				ui._scrollElement = scrollElement;
 			};
@@ -229,9 +232,10 @@
 					scrollElement = self._ui._scrollElement;
 
 				if(element.classList.contains(classes.EXPAND)) {
+					events.trigger(element, CustomEvents.BEFORE_COLLAPSE);
 					scrollElement.scrollTop = scrollElement.scrollTop - self._topOffset;
 					element.classList.remove(classes.EXPAND);
-					element.classList.add(classes.BASIC);
+					element.classList.add(classes.COLLAPSE);
 					events.trigger(element, CustomEvents.COLLAPSE);
 				}
 			};
@@ -254,9 +258,10 @@
 					if (scrollElement.scrollTop === 0) {
 						events.trigger(element, CustomEvents.COMPLETE);
 					} else if (scrollElement.scrollTop > self._topOffset) {
+						events.trigger(element, CustomEvents.BEFORE_COLLAPSE);
 						scrollElement.scrollTop = scrollElement.scrollTop - self._topOffset;
 						element.classList.remove(classes.EXPAND);
-						element.classList.add(classes.BASIC);
+						element.classList.add(classes.COLLAPSE);
 						events.trigger(element, CustomEvents.COLLAPSE);
 					}
 				}
@@ -277,9 +282,10 @@
 					scrollElement = self._ui._scrollElement,
 					element = self.element;
 
-				if (scrollElement.scrollTop === 0 && element.classList.contains(classes.BASIC)) {
+				if (scrollElement.scrollTop === 0 && element.classList.contains(classes.COLLAPSE)) {
+					events.trigger(element, CustomEvents.BEFORE_EXPAND);
 					element.classList.add(classes.EXPAND);
-					element.classList.remove(classes.BASIC);
+					element.classList.remove(classes.COLLAPSE);
 					scrollElement.scrollTop = self._topOffset;
 					events.trigger(element, CustomEvents.EXPAND);
 				}
