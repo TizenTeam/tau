@@ -89,8 +89,11 @@ progress {
 		background-color: @default_color;
 	}
 	&::-webkit-progress-value {
-		height: 6 * @virtual_px;
+		height: 100%;
 		overflow: hidden;
+	}
+	&.ui-progress-big {
+		height: 8 * @virtual_px;
 	}
 }
 progress.ui-progress-indeterminate::-webkit-progress-value {
@@ -107,7 +110,6 @@ progress.ui-progress-indeterminate::-webkit-progress-value {
 	font-size: @fixed_progress_proportion_font_size;
 	padding-left: 16 * @virtual_px;
 	padding-right: 16 * @virtual_px;
-	margin-top: -10 * @virtual_px;
 	color: @color_progressbar_text;
 	width: 34 * @virtual_px;
 }
@@ -126,6 +128,10 @@ progress.ui-progress-indeterminate::-webkit-progress-value {
 		display: block;
 		flex: 1;
 		width: inherit;
+		margin-top: 10 * @virtual_px;
+		&.ui-progress-big {
+			margin-top: 15 * @virtual_px;
+		}
 	}
 
 	.ui-progress-ratio {
@@ -141,6 +147,16 @@ progress.ui-progress-indeterminate::-webkit-progress-value {
 		width: inherit;
 		font-size: 22 * @virtual_px;
 	}
+
+	&.ui-progress-big {
+		progress {
+			height: 8 * @virtual_px;
+			margin-top: 15 * @virtual_px;
+		}
+		.ui-progress-ratio, .ui-progress-proportion {
+			font-size: 34 * @virtual_px;
+		}
+	}
 }
 
 .ui-progress-ratio {
@@ -149,7 +165,6 @@ progress.ui-progress-indeterminate::-webkit-progress-value {
 	font-size: @fixed_progress_ratio_font_size;
 	padding-left: 16 * @virtual_px;
 	padding-right: 16 * @virtual_px;
-	margin-top: -10 * @virtual_px;
 	color: @color_progressbar_text;
 	width: 34 * @virtual_px;
 }
@@ -172,4 +187,12 @@ progress.ui-progress-indeterminate::-webkit-progress-value {
 	width: 168 * @virtual_px;
 	font-size: 24 * @virtual_px;
 	color: @color_progressbar_text;
+}
+
+progress.ui-progress-color + .ui-progress-ratio {
+	color: @default_color;
+}
+
+progress.ui-progress-big + .ui-progress-ratio {
+	font-size: 34 * @virtual_px;
 }
