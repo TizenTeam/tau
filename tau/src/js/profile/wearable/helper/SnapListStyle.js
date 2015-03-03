@@ -83,6 +83,10 @@
 				self._callbacks = null;
 			};
 
+			prototype.getSnapList = function() {
+				return this._snapListviewWidget;
+			};
+
 			SnapListStyle.create = function(listDomElement) {
 				return new SnapListStyle(listDomElement);
 			};

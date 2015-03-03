@@ -69,9 +69,9 @@
 
 				objectUtils.fastMerge(self.options, options);
 
+				self.bindEvents();
 				// create SnapListStyle helper
 				self._snapListStyleHelper = tau.helper.SnapListStyle.create(listDomElement);
-				self.bindEvents();
 			};
 
 			prototype.bindEvents = function() {

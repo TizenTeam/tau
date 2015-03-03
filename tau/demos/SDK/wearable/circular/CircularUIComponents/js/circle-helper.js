@@ -4,8 +4,11 @@
 		enablePageScroll,
 		list,
 		listHelper,
+		snapList,
 		header,
-		headerHelper;
+		headerHelper,
+		headerExpandHandler,
+		headerCollapseHandler;
 
 	if (tau.support.shape.circle) {
 		document.addEventListener("pageshow", function (e) {
@@ -23,6 +26,21 @@
 
 			if (header && enablePageScroll) {
 				headerHelper = tau.helper.ExpandableHeaderMarqueeStyle.create(header, {});
+
+				if (listHelper) {
+					snapList = listHelper.getSnapList();
+
+					headerCollapseHandler = function() {
+						snapList.enable();
+					};
+
+					headerExpandHandler = function() {
+						snapList.disable();
+					};
+
+					header.addEventListener("headercollapse", headerCollapseHandler, false);
+					header.addEventListener("headerbeforeexpand", headerExpandHandler, false);
+				}
 			}
 		});
 
@@ -36,6 +54,11 @@
 			if (headerHelper) {
 				headerHelper.destroy();
 				headerHelper = null;
+
+				if (snapList) {
+					header.removeEventListener("headercollapse", headerCollapseHandler, false);
+					header.removeEventListener("headerbeforeexpand", headerExpandHandler, false);
+				}
 			}
 		});
 	}

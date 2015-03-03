@@ -1,16 +1,31 @@
 (function() {
 	var page = document.getElementById("pageMarqueeList"),
 		listHelper,
-		list;
+		headerCollapseHandler,
+		headerExpandHandler;
 
 	page.addEventListener( "pageshow", function() {
-		list = page.querySelector(".ui-listview");
+		var list = page.querySelector(".ui-listview"),
+			snapList;
 
 		if (list) {
 			listHelper = tau.helper.SnapListMarqueeStyle.create(list, {
 				marqueeDelay: 1000
 			});
+
+			snapList = tau.widget.SnapListview(list);
 			page.setAttribute("tizen-circular-scrollbar", "");
+
+			headerCollapseHandler = function() {
+				snapList.enable();
+			};
+
+			headerExpandHandler = function() {
+				snapList.disable();
+			};
+
+			document.addEventListener("headercollapse", headerCollapseHandler, false);
+			document.addEventListener("headerbeforeexpand", headerExpandHandler, false);
 		}
 	});
 
@@ -19,6 +34,9 @@
 			listHelper.destroy();
 			listHelper = null;
 			page.removeAttribute("tizen-circular-scrollbar");
+
+			document.removeEventListener("headercollapse", headerCollapseHandler, false);
+			document.removeEventListener("headerbeforeexpand", headerExpandHandler, false);
 		}
 	});
 

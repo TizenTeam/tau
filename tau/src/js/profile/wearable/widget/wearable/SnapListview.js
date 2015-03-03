@@ -111,6 +111,7 @@
 					self._timer = null;
 					self._isScrollStarted = false;
 					self._selectedIndex = null;
+					self._enabled = true;
 				},
 
 				prototype = new BaseWidget(),
@@ -119,13 +120,14 @@
 
 				classes = {
 					SNAP_CONTAINER: "ui-snap-container",
+					SNAP_DISABLED: "ui-snap-disabled",
 					SNAP_LISTVIEW: CLASSES_PREFIX,
 					SNAP_LISTVIEW_SELECTED: CLASSES_PREFIX + "-selected",
 					SNAP_LISTVIEW_ITEM: CLASSES_PREFIX + "-item"
 				},
 
 				// time threshold for detect scroll end
-				SCROLL_END_TIME_THRESHOLD = 350;
+				SCROLL_END_TIME_THRESHOLD = 300;
 
 			SnapListview.classes = classes;
 
@@ -143,17 +145,24 @@
 				// trigger "scrollend" event
 				utilEvent.trigger(self.element, eventType.SCROLL_END);
 
-				setSelection(self);
+				if (self._enabled) {
+					setSelection(self);
+				}
 			}
 
 			function scrollStartHandler(self) {
-				var scrollEndCallback = scrollEndHandler.bind(null, self);
+				var scrollEndCallback;
+
+				scrollEndCallback = scrollEndHandler.bind(null, self);
 
 				if (!self._isScrollStarted) {
 					self._isScrollStarted = true;
 					// trigger "scrollstart" event
 					utilEvent.trigger(self.element, eventType.SCROLL_START);
-					removeSelectedClass(self);
+
+					if (self._enabled) {
+						removeSelectedClass(self);
+					}
 				}
 
 				self._callbacks.scrollEnd = scrollEndCallback;
@@ -218,7 +227,7 @@
 					i,
 					tempListItem,
 					gapOfBeforeItem,
-					gapOfNextItem;
+					gapOfAfterItem;
 
 				for (i=0 ; i < listItemLength; i++) {
 					tempListItem = listItems[i];
@@ -226,6 +235,7 @@
 					gapOfAfterItem = listItems[i+1] ? (listItems[i+1].itemTop - tempListItem.itemBottom) / 2 : scrollableElement.scrollHeight - tempListItem.itemBottom;
 
 					if ((tempListItem.itemTop - gapOfBeforeItem < scrollElementCenter) && (tempListItem.itemBottom + gapOfAfterItem >= scrollElementCenter)) {
+						removeSelectedClass(self);
 						self._selectedIndex = i;
 						tempListItem.classList.add(classes.SNAP_LISTVIEW_SELECTED);
 						// trigger "selected" event
@@ -316,6 +326,22 @@
 				return null;
 			};
 
+			prototype._enable = function() {
+				var self = this,
+					scrollableParent = self._ui.scrollableParent;
+
+				scrollableParent.classList.remove(classes.SNAP_DISABLED);
+				self._enabled = true;
+			};
+
+			prototype._disable = function() {
+				var self = this,
+					scrollableParent = self._ui.scrollableParent;
+
+				scrollableParent.classList.add(classes.SNAP_DISABLED);
+				self._enabled = false;
+			};
+
 			/**
 			 * Get selectedIndex
 			 * @method getSelectedIndex
@@ -336,6 +362,7 @@
 			 */
 			prototype.scrollToPosition = function(index) {
 				var ui = this._ui,
+					enabled = this._enabled,
 					selectedIndex = this._selectedIndex,
 					listItems = ui.childItems,
 					scrollableParent = ui.scrollableParent,

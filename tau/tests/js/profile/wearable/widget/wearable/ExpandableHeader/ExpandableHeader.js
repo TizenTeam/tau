@@ -7,8 +7,4 @@ test ( "ExpandableFooter", function() {
 	tau.widget.ExpandableHeader(header, {
 		scrollElement: page
 	});
-
-	page.scrollTop = 0;
-	ok(header.classList.contains("ui-header-expand"), "Header expanded and has the ui-header-expand class");
-
 });

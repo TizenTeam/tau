@@ -96,9 +96,10 @@
 					self._ui = {};
 					self._expanded = false;
 					self._basicText = null;
+					self._initialExpandTimeoutId = null;
 				},
 
-				SCROLL_END_THRESHOLD = 300,
+				SCROLL_END_THRESHOLD = 350,
 				/**
 				 * Dictionary for page related css class names
 				 * @property {Object} classes
@@ -210,13 +211,16 @@
 					scrollElement = element.parentNode;
 				}
 
-				events.trigger(element, CustomEvents.BEFORE_EXPAND);
-				element.classList.add(classes.EXPAND);
-				self._topOffset = element.offsetHeight - basicHeight;
-				scrollElement.scrollTop = self._topOffset;
-				events.trigger(element, CustomEvents.EXPAND);
 				ui._titleElement = titleElement;
 				ui._scrollElement = scrollElement;
+
+				self._initialExpandTimeoutId = window.setTimeout(function(){
+					events.trigger(element, CustomEvents.BEFORE_EXPAND);
+					element.classList.add(classes.EXPAND);
+					self._topOffset = element.offsetHeight - basicHeight;
+					scrollElement.scrollTop = self._topOffset;
+					events.trigger(element, CustomEvents.EXPAND);
+				}, 0);
 			};
 
 			/**
@@ -327,6 +331,7 @@
 			 * @member ns.widget.wearable.ExpandableHeader
 			 */
 			prototype._destroy = function () {
+				window.clearTimeout(this._initialExpandTimeoutId);
 				this._unbindEvents();
 			};
 
