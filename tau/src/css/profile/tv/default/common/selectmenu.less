@@ -4,12 +4,14 @@
 	display: table;
 	position: relative;
 	background-color: @color_selectmenu_bg;
+	color: @color_selectmenu_list_item_txt;
 
 	.border-radius(8 * @virtual_px);
 
 	height: 72 * @virtual_px;
 	&:focus,
 	&:active {
+		color: @color_selectmenu_list_item_focus_txt;
 		background-color: @color_default;
 		span::before {
 			background-color: @color_selectmenu_list_item_bg;
@@ -29,13 +31,16 @@
 
 		width: 26 * @virtual_px;
 		height: 26 * @virtual_px;
-		background-color: @color_selectmenu_placeholder;
+		background-color: @color_selectmenu_list_item_txt;
 		overflow: auto;
 		margin: auto 24 * @virtual_px auto auto;
 
 		.mask-repeat(no-repeat);
 		.mask-image("images/Selectmenu/ico_dropdown_menu_open_arrow.png");
 		.mask-size(26 * @virtual_px 26 * @virtual_px);
+	}
+	&:focus span::before {
+		background-color: @color_selectmenu_list_item_bg;
 	}
 
 	&.ui-selectmenu-label {
@@ -149,6 +154,11 @@
 					}
 				}
 
+				&:focus::after {
+					background-color: @color_selectmenu_list_item_focus_txt;
+				}
+
+
 				& span {
 					background-color: @color_selectmenu_list_item_selected;
 				}
@@ -172,26 +182,7 @@
 
 					overflow: auto;
 					margin: auto 24 * @virtual_px auto auto;
-					&::after {
-						content: "";
-						position: absolute;
 
-						right: 0;
-						top: 0;
-						left: 20 * @virtual_px;
-						bottom: 0;
-
-						width: 26 * @virtual_px;
-						height: 26 * @virtual_px;
-						.mask-repeat(no-repeat);
-						.mask-image("images/Selectmenu/ico_dropdown_menu_check.png");
-						.mask-size(26 * @virtual_px 26 * @virtual_px);
-
-						background-color: @color_selectmenu_list_item_focus;
-
-						overflow: auto;
-						margin: auto 24 * @virtual_px auto auto;
-					}
 				}
 			}
 		}
