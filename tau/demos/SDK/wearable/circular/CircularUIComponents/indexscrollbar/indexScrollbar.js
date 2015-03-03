@@ -37,7 +37,7 @@ el.addEventListener("select", function( ev ) {
 ******************************************************************/
 
 		var indexScrollbarElement = document.getElementById("indexscrollbar"),
-			listDividers = listviewElement.getElementsByClassName("li-divider"),	// list dividers
+			listDividers = listviewElement.getElementsByClassName("ui-listview-divider"),	// list dividers
 			dividers = {},	// collection of list dividers
 			indices = [],	// index list
 			divider,
@@ -97,7 +97,7 @@ el.addEventListener("select", function( ev ) {
 
 			divider = dividers[idx];
 			if(divider && scroller) {
-				// Scroll to the li-divider element
+				// Scroll to the ui-listview-divider element
 				scroller.scrollTop = divider.offsetTop - scroller.offsetTop;
 			}
 		});

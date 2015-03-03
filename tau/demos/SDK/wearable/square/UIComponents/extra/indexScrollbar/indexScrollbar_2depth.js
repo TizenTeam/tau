@@ -117,7 +117,7 @@ el.addEventListener("select", function( ev ) {
 				index = ev.detail.index;
 			el = indexData.keyItem[index];
 			if(el) {
-				// Scroll to the li-divider element
+				// Scroll to the ui-listview-divider element
 				elScroller.scrollTop = el.offsetTop - elScroller.offsetTop;
 			}
 		});

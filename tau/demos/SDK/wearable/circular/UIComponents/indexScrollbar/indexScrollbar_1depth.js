@@ -40,7 +40,7 @@ el.addEventListener("select", function( ev ) {
 
 		var elisb = document.getElementById("indexscrollbar1"),
 			elList = document.getElementById("list1"),	// list
-			elDividers = elList.getElementsByClassName("li-divider"),	// list dividers
+			elDividers = elList.getElementsByClassName("ui-listview-divider"),	// list dividers
 			elScroller = elList.parentElement,	// the scroller (overflow-y:hidden)
 			dividers = {},	// collection of list dividers
 			indices = [],	// index list
@@ -70,7 +70,7 @@ el.addEventListener("select", function( ev ) {
 				idx = ev.detail.index;
 			elDivider = dividers[idx];
 			if(elDivider) {
-				// Scroll to the li-divider element
+				// Scroll to the ui-listview-divider element
 				elScroller.scrollTop = elDivider.offsetTop - elScroller.offsetTop;
 			}
 		});
