@@ -103,7 +103,9 @@
 						childItems: {}
 					};
 
-					self.options = {};
+					self.options = {
+						selector: "li:not(.ui-listview-divider)"
+					};
 
 					self._callbacks = {};
 					self._timer = null;
@@ -116,8 +118,10 @@
 				CLASSES_PREFIX = "ui-snap-listview",
 
 				classes = {
+					SNAP_CONTAINER: "ui-snap-container",
 					SNAP_LISTVIEW: CLASSES_PREFIX,
-					SNAP_LISTVIEW_SELECTED: CLASSES_PREFIX + "-selected"
+					SNAP_LISTVIEW_SELECTED: CLASSES_PREFIX + "-selected",
+					SNAP_LISTVIEW_ITEM: CLASSES_PREFIX + "-item"
 				},
 
 				// time threshold for detect scroll end
@@ -174,9 +178,24 @@
 				return null;
 			}
 
-			function initSnapListviewItemInfo(listview) {
-				var listItems = listview.children,
-					listItemLength = listItems.length,
+			function setSnapListviewItem(element) {
+				var ui = this._ui,
+					options = this.options,
+					listviewElement = element;
+
+				childItems = listviewElement.querySelectorAll(options.selector);
+				ui.page = utilSelector.getClosestByClass(listviewElement, "ui-page") || window;
+				ui.childItems = childItems;
+				ui.scrollableParent = getScrollableParent(listviewElement) || ui.page;
+
+				 if (childItems && (childItems.length > 0)) {
+					ui.scrollableParent.classList.add(classes.SNAP_CONTAINER);
+					initSnapListviewItemInfo(childItems);
+				}
+			};
+
+			function initSnapListviewItemInfo(listItems) {
+				var listItemLength = listItems.length,
 					i, tempListItem;
 
 				for (i=0 ; i < listItemLength; i++) {
@@ -184,8 +203,7 @@
 					tempListItem.itemTop = tempListItem.offsetTop;
 					tempListItem.itemHeight = tempListItem.offsetHeight;
 					tempListItem.itemBottom = tempListItem.itemTop + tempListItem.itemHeight;
-					/* TODO: This line has to be removed when webkit snaplist issue is fixed */
-					tempListItem.classList.add("ui-snap-listview-item");
+					tempListItem.classList.add(classes.SNAP_LISTVIEW_ITEM);
 				}
 			}
 
@@ -198,11 +216,16 @@
 					scrollElementCenter = scrollableElementScrollTop + scrollableElementOffsetHeight/2,
 					listItemLength = listItems.length,
 					i,
-					tempListItem;
+					tempListItem,
+					gapOfBeforeItem,
+					gapOfNextItem;
 
 				for (i=0 ; i < listItemLength; i++) {
 					tempListItem = listItems[i];
-					if ((tempListItem.itemTop < scrollElementCenter) && (tempListItem.itemBottom >= scrollElementCenter)) {
+					gapOfBeforeItem = listItems[i-1] ? (tempListItem.itemTop - listItems[i-1].itemBottom) / 2 : tempListItem.itemTop;
+					gapOfAfterItem = listItems[i+1] ? (listItems[i+1].itemTop - tempListItem.itemBottom) / 2 : scrollableElement.scrollHeight - tempListItem.itemBottom;
+
+					if ((tempListItem.itemTop - gapOfBeforeItem < scrollElementCenter) && (tempListItem.itemBottom + gapOfAfterItem >= scrollElementCenter)) {
 						self._selectedIndex = i;
 						tempListItem.classList.add(classes.SNAP_LISTVIEW_SELECTED);
 						// trigger "selected" event
@@ -237,13 +260,7 @@
 
 				self._callbacks.scrollStart = scrollStartCallback;
 
-				ui.page = utilSelector.getClosestByClass(listviewElement, "ui-page") || window;
-				ui.childItems = listviewElement.children;
-				ui.scrollableParent = getScrollableParent(listviewElement) || ui.page;
-
-				if (ui.childItems && (ui.childItems.length > 0)) {
-					initSnapListviewItemInfo(listviewElement);
-				}
+				setSnapListviewItem.call(self, element);
 
 				// bind scroll event to scrollable parent
 				utilEvent.on(ui.scrollableParent, "scroll", scrollStartCallback);
@@ -266,8 +283,9 @@
 					ui = self._ui;
 
 				ui.scrollableParent = getScrollableParent(element) || ui.page;
-				initSnapListviewItemInfo(element);
+				setSnapListviewItem.call(self, element);
 				setSelection(self);
+
 				return null;
 			};
 
