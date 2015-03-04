@@ -294,6 +294,7 @@
 				ui._targetElement.style.overflowX = "hidden";
 
 				CoreDrawerPrototype._init.call(self, element);
+				self._state = STATE.CLOSED;
 			};
 			/**
 			 * Swipe event handler
