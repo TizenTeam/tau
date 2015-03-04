@@ -1,4 +1,19 @@
 %changelog
+* Wed Mar 04 2015 Junhyoen Lee <juneh.lee@samsung.com> 0.10.6
+	- refactor(wearable): add enable/disable method in SnapListview
+	- fix(wearable): add init state of drawer
+	- feat(wearable): add 'headerbeforeexpand' and 'headerbeforecollapse' events
+	- refactor(wearable): add selector option in SnapListview
+	- refector(wearable): change li-divider class to ui-listview-divider class
+	- refactor(wearable): fix typo in contorls checkbox
+	- refactor(wearable): fix progress title short
+	- refactor(wearable): add <a> tag to list_subtext items.(P150226-05031)
+	- refactor(wearable): fix processing and circular index scroll bar size
+	- refactor(wearable): list - subtext style change
+	- refactor(wearable): fix circle progress sample
+	- fix(wearable): remove bottomMarginTop claculation logic in page
+	- fix(wearable): add _clearContent method in page(NABI-1995)
+
 * Thu Feb 26 2015 Junhyoen Lee <juneh.lee@samsung.com> 0.10.5
 	- fix(wearable): fix SCROLL_END_TIME_THRESHOLD in SnapListview
 	- refactor(wearable): fix list item anchor wrong padding-right
