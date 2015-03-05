@@ -261,6 +261,8 @@ Normal Popup
 			border-image-slice: 6 6 8 6 fill;
 			border-image-width: auto;
 			border-image-outset: 8 * @virtual_px;
+			// in border width units vw is not acceptable, we have to use px
+			border-width: round(8 * @one_px) ;
 			.border-radius(0);
 
 			&.ui-popup-arrow-b {
@@ -369,7 +371,8 @@ Popup Toast
 		border-image-source: url(images/popup/modal_dialogs_banner_bg.png);
 		border-image-slice: 15 18 21 18 fill;
 		border-image-width: auto;
-		border-width: 21 * @virtual_px;
+		// in border width units vw is not acceptable, we have to use px
+		border-width: round(21 * @one_px);
 		.border-radius(0);
 
 		.ui-popup-wrapper {

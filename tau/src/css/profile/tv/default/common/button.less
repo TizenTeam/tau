@@ -115,7 +115,8 @@
 		border-image-source: url(images/Button/btn_text_nor.png);
 		border-image-slice: 4 fill;
 		border-image-width: auto;
-		border-bottom-width: 3 * @virtual_px;
+		// in border width units vw is not acceptable, we have to use px
+		border-bottom-width: round(3 * @one_px);
 		.border-radius(6 * @virtual_px);
 
 		.ui-text {
