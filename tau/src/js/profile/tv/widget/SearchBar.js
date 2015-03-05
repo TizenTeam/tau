@@ -28,6 +28,7 @@
 				BaseKeyboardSupport = ns.widget.tv.BaseKeyboardSupport,
 				KEY_CODES = BaseKeyboardSupport.KEY_CODES,
 				engine = ns.engine,
+				initialScreenHeight = window.innerHeight,
 				objectUtils = ns.util.object,
 				SearchBar = function() {
 					var self = this;
@@ -93,7 +94,7 @@
 			/**
 			 * Method overrides Textarea behavior on keyup event.
 			 * @method onKeyUp
-			 * @param {TextInput} self
+			 * @param {SearchBar} self
 			 * @param {Event} event
 			 * @private
 			 * @static
@@ -123,6 +124,26 @@
 				self._previousCharPosition = charCount;
 			}
 
+
+			/**
+			 * Enable or disable keyboard support after resize od screen (open
+			 * virtual keyboard)
+			 * @method onResize
+			 * @param {ns.widget.tv.SearchBar} self
+			 * @private
+			 * @static
+			 * @member ns.widget.tv.SearchBar
+			 */
+			function onResize(self) {
+				if (window.innerHeight < initialScreenHeight) {
+					self.saveKeyboardSupport();
+					self.enableKeyboardSupport();
+				} else {
+					self.disableKeyboardSupport();
+					self.restoreKeyboardSupport();
+				}
+			}
+
 			/**
 			 * Bind events to widget
 			 * @method _bindEvents
@@ -138,7 +159,10 @@
 				self._bindEventKey();
 
 				callbacks.onKeyup = onKeyUp.bind(null, self);
+				callbacks.onResize = onResize.bind(null, self);
+
 				element.addEventListener("keyup", callbacks.onKeyup, false);
+				window.addEventListener("resize", callbacks.onResize, false);
 			};
 
 			/**
@@ -157,6 +181,7 @@
 				self._destroyEventKey();
 
 				element.removeEventListener("keyup", callbacks.onKeyup, false);
+				window.removeEventListener("resize", callbacks.onResize, false);
 			};
 
 			engine.defineWidget(
