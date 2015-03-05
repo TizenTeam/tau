@@ -1,5 +1,0 @@
-.ui-bottom-button .ui-btn::before {
-    left: 50%;
-    transform: translate3d(-50%, 0, 0);
-    -webkit-mask-image: url("./tw_list_add_holo_dark.png");
-}
