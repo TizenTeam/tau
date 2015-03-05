@@ -3,6 +3,8 @@ Normal Popup
 ***********************/
 
 @no_header_border_width: 13 * @virtual_px;
+@popup_box_shadow_radius: 9;
+@popup_box_shadow_radius_total: 2 * @popup_box_shadow_radius;
 
 .ui-selectmenu-hidden {
 	top: -9999px;
@@ -29,24 +31,38 @@ Normal Popup
 	&:not(.ui-popup-no-box) {
 		&:not(.ui-ctxpopup) {
 			&:not(.ui-popup-toast) {
-				min-height: 411 * @virtual_px;
+				// 411 - 18px of box-shadow
+				min-height: (411 - @popup_box_shadow_radius_total) * @virtual_px;
 
-				&.ui-header-empty {
-					min-height: 305 * @virtual_px;
-
-					border-top-color: @color_popup_header_bg;
-					border-top-width: @no_header_border_width;
-					border-top-style: solid;
+				&.ui-popup-progress {
+					min-height: (378 - @popup_box_shadow_radius_total) * @virtual_px;
 
 					.ui-popup-wrapper {
-						min-height: 305 * @virtual_px - @no_header_border_width;
+						min-height: (378 - @popup_box_shadow_radius_total) * @virtual_px - @no_header_border_width;
+					}
+				}
+
+				&.ui-header-empty {
+					min-height: (305 - @popup_box_shadow_radius_total) * @virtual_px;
+					border-top: @no_header_border_width solid @color_popup_header_bg;
+
+					.ui-popup-wrapper {
+						min-height: (305 - @popup_box_shadow_radius_total) * @virtual_px - @no_header_border_width;
+					}
+
+					&.ui-popup-progress {
+						min-height: (208 - @popup_box_shadow_radius_total) * @virtual_px;
+
+						.ui-popup-wrapper {
+							min-height: (208 - @popup_box_shadow_radius_total) * @virtual_px - @no_header_border_width;
+						}
 					}
 				}
 
 				// This block corresponds to the cases where popup is missing header
 				// so the whole block will have different height
 				.ui-popup-wrapper {
-					min-height: 411 * @virtual_px;
+					min-height: (411 - @popup_box_shadow_radius_total) * @virtual_px;
 				}
 			}
 		}
@@ -59,6 +75,7 @@ Normal Popup
 			color: @color_popup_title_text;
 			padding-right: @fixed_popup_header_padding_right;
 			padding-left: @fixed_popup_header_padding_left;
+
 			&:first-child {
 				.border-top-radius(@fixed_popup_border_radius);
 			}
@@ -83,9 +100,10 @@ Normal Popup
 
 	&:not(.ui-popup-toast) {
 		background-color: @color_popup_bg;
-		width: 688 * @virtual_px;
+		// 688 - total box-shadow width
+		width: (688 - @popup_box_shadow_radius_total) * @virtual_px;
 		.border-radius(@fixed_popup_border_radius);
-		.box-shadow(0 2 * @virtual_px 5 * @virtual_px @color_popup_shadow);
+		.box-shadow(0 2 * @virtual_px @popup_box_shadow_radius * @virtual_px @color_popup_shadow);
 		position: absolute;
 	}
 
@@ -96,6 +114,9 @@ Normal Popup
 	}
 
 	&.ui-popup-no-box {
+		background-color: transparent;
+		.box-shadow(none);
+
 		.calc-width(~"100% - " (100 * @virtual_px));
 		header {
 			font-size: @fixed_popup_header_font_size_no_box;
@@ -163,21 +184,6 @@ Normal Popup
 
 	// Popup settings for progress content
 	&.ui-popup-progress {
-		min-height: 378 * @virtual_px;
-
-		.ui-popup-wrapper {
-			min-height: 378 * @virtual_px;
-		}
-
-		// Wrapper should extend itself to be minimum height as parent
-		&:not(.ui-ctxpopup).ui-header-empty {
-			min-height: 208 * @virtual_px;
-
-			.ui-popup-wrapper {
-				min-height: 208 * @virtual_px - @no_header_border_width;
-			}
-		}
-
 		.ui-popup-content {
 			.flex-direction(row);
 
@@ -298,8 +304,7 @@ Popup with listview
 ****************************************/
 .ui-popup:not(.ui-ctxpopup) {
 	&.ui-popup-listview {
-		width: 944 * @virtual_px;
-		//height: 603 * @virtual_px;
+		width: (944 - @popup_box_shadow_radius_total) * @virtual_px;
 
 		.ui-popup-wrapper {
 			.flex-direction(row);
@@ -338,17 +343,19 @@ Popup with listview
 		}
 
 		footer {
-			width: 273 * @virtual_px;
+			width: 256 * @virtual_px;
 			height: 501 * @virtual_px;
 			background-color: rgb(237, 237, 237) ;
+
 			> .ui-btn {
 				margin-left: 20 * @virtual_px;
 				margin-right: 20 * @virtual_px;
 				margin-top: 10 * @virtual_px;
-				width: 233 * @virtual_px;
-			}
-			> .ui-btn:first-child {
-				margin-top: 20 * @virtual_px;
+				width: 216 * @virtual_px;
+
+				&:first-child {
+					margin-top: 20 * @virtual_px;
+				}
 			}
 		}
 	}
