@@ -301,6 +301,7 @@
 				findThumbnail(element, this);
 				findIcon(element, this);
 				findIconTitle(element, this);
+
 				return element;
 			};
 
@@ -454,6 +455,22 @@
 			}
 
 			/**
+			 * Stopping the event from propagation and default action
+			 * @method disableEvent
+			 * @param {ns.widget.tv.Button} self
+			 * @param {Event} event
+			 * @private
+			 * @static
+			 * @member ns.widget.tv.Button
+			 */
+			function disableEvent(self, event) {
+				if (self.isDisabled()) {
+					event.preventDefault();
+					event.stopImmediatePropagation();
+				}
+			}
+
+			/**
 			 * Binds events
 			 * @method _bindEvents
 			 * @protected
@@ -481,6 +498,11 @@
 				eventFunction = blurCallback.bind(null, self);
 				element.addEventListener("blur", eventFunction, false);
 				callbacks.blur = eventFunction;
+
+				callbacks.disable = disableEvent.bind(null, self);
+
+				element.addEventListener("vclick", callbacks.disable, true);
+				element.addEventListener("click", callbacks.disable, false);
 			};
 
 			/**
@@ -510,6 +532,9 @@
 				if (typeof BaseButtonPrototype_destroy === FUNCTION_TYPE) {
 					BaseButtonPrototype_destroy.call(self);
 				}
+
+				element.removeEventListener("vclick", callbacks.disable, true);
+				element.removeEventListener("click", callbacks.disable, false);
 			};
 
 			engine.defineWidget(
