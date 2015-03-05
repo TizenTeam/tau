@@ -31,6 +31,7 @@
         equal(typeof widget.options.iteration, 'number', 'Property marquee.options.iteration exists');
         equal(typeof widget.options.delay, 'number', 'Property marquee.options.delay exists');
         equal(typeof widget.options.timingFunction, 'string', 'Property marquee.options.timingFunction exists');
+        equal(typeof widget.options.runOnlyOnEllipsisText, 'boolean', 'Property marquee.options.runOnlyEllipsisText exists');
         equal(typeof widget.options.autoRun, 'boolean', 'Property marquee.options.autoRun exists');
         equal(typeof widget.options.ellipsisEffect, 'string', 'Property marquee.options.autoRun exists');
 

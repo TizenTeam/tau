@@ -68,6 +68,7 @@
 					this._ui.styleSheelElement = null;
 
 					this._state = states.STOPPED;
+					this._hasEllipsisText = false;
 
 					this.options = objectUtils.merge({}, Marquee.defaults);
 
@@ -149,6 +150,7 @@
 					delay: 0,
 					timingFunction: "linear",
 					ellipsisEffect: "gradient",
+					runOnlyOnEllipsisText: true,
 					autoRun: true
 				};
 
@@ -181,12 +183,12 @@
 					case style.SLIDE:
 						customKeyFrame = "@-webkit-keyframes " + keyFrameName + " {"
 										+ "0% { -webkit-transform: translate3d(0, 0, 0);}"
-										+ "98%, 100% { -webkit-transform: translate3d(-" + (textWidth - containerWidth) + "px, 0, 0);} }";
+										+ "95%, 100% { -webkit-transform: translate3d(-" + (textWidth - containerWidth) + "px, 0, 0);} }";
 						break;
 					case style.SCROLL:
 						customKeyFrame = "@-webkit-keyframes " + keyFrameName + " {"
 										+ "0% { -webkit-transform: translate3d(0, 0, 0);}"
-										+ "100% { -webkit-transform: translate3d(-100%, 0, 0);} }";
+										+ "95%, 100% { -webkit-transform: translate3d(-100%, 0, 0);} }";
 						break;
 					case style.ALTERNATE:
 						customKeyFrame = "@-webkit-keyframes " + keyFrameName + " {"
@@ -234,12 +236,12 @@
 				marqueeInnerElementStyle.webkitAnimationDelay = options.delay + "ms";
 			}
 
-			function setEllipsisEffectStyle(self, ellipsisEffectOption) {
+			function setEllipsisEffectStyle(self, ellipsisEffectOption, hasEllipsisText) {
 				var marqueeElement = self.element;
 
 				switch (ellipsisEffectOption) {
 					case ellipsisEffect.GRADIENT:
-						if (marqueeElement.offsetWidth < self._ui.marqueeInnerElement.scrollWidth) {
+						if (hasEllipsisText) {
 							marqueeElement.classList.add(classes.MARQUEE_GRADIENT);
 						}
 						break;
@@ -293,11 +295,14 @@
 			prototype._init = function(element) {
 				var self = this;
 
-				self._ui.marqueeInnerElement = self._ui.marqueeInnerElement || element.querySelector(selector.MARQUEE_CONTENT)
+				self._ui.marqueeInnerElement = self._ui.marqueeInnerElement || element.querySelector(selector.MARQUEE_CONTENT);
+				self._hasEllipsisText = element.offsetWidth < self._ui.marqueeInnerElement.scrollWidth;
 
-				setEllipsisEffectStyle(self, self.options.ellipsisEffect);
-				setAnimationStyle(self, self.options);
-				setAutoRunState(self, self.options.autoRun);
+				if (!(self.options.runOnlyOnEllipsisText && !self._hasEllipsisText)) {
+					setEllipsisEffectStyle(self, self.options.ellipsisEffect, self._hasEllipsisText);
+					setAnimationStyle(self, self.options);
+					setAutoRunState(self, self.options.autoRun);
+				}
 
 				return element;
 			};
@@ -328,7 +333,13 @@
 				var self = this;
 
 				self._resetStyle();
-				setEllipsisEffectStyle(self, self.options);
+				self._hasEllipsisText = self.element.offsetWidth < self._ui.marqueeInnerElement.scrollWidth;
+
+				if (self.options.runOnlyOnEllipsisText && !self._hasEllipsisText) {
+					return;
+				}
+
+				setEllipsisEffectStyle(self, self.options.ellipsisEffect, self._hasEllipsisText);
 				setAnimationStyle(self, self.options);
 				setAutoRunState(self, self.options.autoRun);
 			};
@@ -430,6 +441,10 @@
 			prototype.start = function() {
 				var self = this;
 
+				if (self.options.runOnlyOnEllipsisText && !self._hasEllipsisText) {
+					return;
+				}
+
 				switch (self._state) {
 					case states.IDLE:
 						setAnimationStyle(self, self.options);
@@ -465,6 +480,10 @@
 				var self = this,
 					marqueeInnerElementClassList = self._ui.marqueeInnerElement.classList;
 
+				if (self.options.runOnlyOnEllipsisText && !self._hasEllipsisText) {
+					return;
+				}
+
 				if (self._state == states.IDLE) {
 					return;
 				}
@@ -495,6 +514,10 @@
 				var self = this,
 					marqueeElementClassList = self.element.classList,
 					marqueeInnerElementClassList = self._ui.marqueeInnerElement.classList;
+
+				if (self.options.runOnlyOnEllipsisText && !self._hasEllipsisText) {
+					return;
+				}
 
 				if (self._state == states.IDLE) {
 					return;
