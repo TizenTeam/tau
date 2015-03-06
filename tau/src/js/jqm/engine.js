@@ -390,7 +390,6 @@
 									//>>excludeStart("tauDebug", pragmas.tauDebug);
 									ns.log("Running jqm constructor for " + widgetName);
 									//>>excludeEnd("tauDebug");
-									$(widget.element)[widgetName]();
 								} catch(e) {
 									// suppress errors in not debug mode
 									//>>excludeStart("tauDebug", pragmas.tauDebug);
