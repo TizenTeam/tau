@@ -27,7 +27,7 @@
 				 * @static
 				 * @member ns.widget.wearable.scroller.scrollbar.type.interface
 				 */
-				insertAndDecorate: function (/* options */) {
+				setScrollbarLayout: function (/* options */) {
 				},
 				/**
 				 * Removes element.

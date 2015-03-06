@@ -67,7 +67,14 @@
 					CLOSING: 1,
 					OPENING: 2,
 					OPEN: 3
-				}
+				},
+				/**
+				 * Default values
+				 * @property {number} 240
+				 */
+				DEFAUT = {
+					WIDTH: 240
+				},
 				/**
 				 * Drawer constructor
 				 * @method Drawer
@@ -76,7 +83,7 @@
 					var self = this;
 					/**
 					 * Drawer field containing options
-					 * @property {number} Position of Drawer ("left" or "right")
+					 * @property {string} Position of Drawer ("left" or "right")
 					 * @property {number} Width of Drawer
 					 * @property {number} Duration of Drawer entrance animation
 					 * @property {boolean} If true Drawer will be closed on arrow click
@@ -84,14 +91,13 @@
 					 */
 					self.options = {
 						position : "left",
-						width : 240,
+						width : 0,
 						duration : 100,
 						closeOnClick: true,
 						overlay: true
 					};
 
 					self._onOverlayClickBound = null;
-					self._onTransitionEndBound = null;
 					self._onResizeBound = null;
 					self._onPageshowBound = null;
 
@@ -112,6 +118,7 @@
 				 * @readonly
 				 */
 				classes = {
+					page : "ui-page",
 					drawer : "ui-drawer",
 					header : "ui-drawer-header",
 					left : "ui-drawer-left",
@@ -147,36 +154,6 @@
 			}
 
 			/**
-			 * webkitTransitionEnd event handler
-			 * @method onTransitionEnd
-			 * @param {ns.widget.core.Drawer} self
-			 * @member ns.widget.core.Drawer
-			 * @private
-			 * @static
-			 */
-			function onTransitionEnd(self, event) {
-				var drawerOverlay = self._drawerOverlay;
-				// webkitTransitionEnd event handler
-				// event is called many times for each property which is transitioned
-				if (!event || (self.element === event.target &&
-					self._lastEventTimeStamp !== event.timeStamp)) {
-					if (self._status === STATUSES.OPENING) {
-						// not open -> transition -> open
-						self._status = STATUSES.OPEN;
-					} else {
-						// open -> transition -> close
-						self._status = STATUSES.CLOSE;
-						if (drawerOverlay) {
-							drawerOverlay.style.visibility = "hidden";
-						}
-					}
-				}
-				if (event) {
-					self._lastEventTimeStamp = event.timeStamp;
-				}
-			}
-
-			/**
 			 * Resize event handler
 			 * @method onResize
 			 * @param {ns.widget.core.Drawer} self
@@ -202,6 +179,37 @@
 			}
 
 			/**
+			 * webkitTransitionEnd event handler
+			 * @method _onTransitionEnd
+			 * @param {ns.widget.core.Drawer} self
+			 * @member ns.widget.core.Drawer
+			 * @private
+			 * @static
+			 */
+			prototype._onTransitionEnd = function (event) {
+				var self = this,
+					drawerOverlay = self._drawerOverlay;
+				// webkitTransitionEnd event handler
+				// event is called many times for each property which is transitioned
+				if (!event || (self.element === event.target &&
+					self._lastEventTimeStamp !== event.timeStamp)) {
+					if (self._status === STATUSES.OPENING) {
+						// not open -> transition -> open
+						self._status = STATUSES.OPEN;
+					} else {
+						// open -> transition -> close
+						self._status = STATUSES.CLOSE;
+						if (drawerOverlay) {
+							drawerOverlay.style.visibility = "hidden";
+						}
+					}
+				}
+				if (event) {
+					self._lastEventTimeStamp = event.timeStamp;
+				}
+			};
+
+			/**
 			 * Drawer translate function
 			 * @method _translate
 			 * @param {number} x
@@ -219,11 +227,11 @@
 				// there should be a helper for this :(
 				utilDOM.setPrefixedStyle(element, "transform", "translate3d(" + x + "px, 0px, 0px)");
 				if (!duration) {
-					onTransitionEnd(this);
+					this._onTransitionEnd();
 				}
 			};
 
-			/**
+				/**
 			 * Build structure of Drawer widget
 			 * @method _build
 			 * @param {HTMLElement} element
@@ -235,8 +243,8 @@
 				var self = this,
 					headerElement;
 				element.classList.add(classes.drawer);
-				self._drawerPage = selectors.getClosestByClass(element, this._pageSelector);
-				self._drawerPage.style.overflow = "hidden";
+				self._drawerPage = selectors.getClosestByClass(element, classes.page);
+				self._drawerPage.style.overflowX = "hidden";
 
 				headerElement = element.nextElementSibling;
 				while (headerElement) {
@@ -271,6 +279,7 @@
 				var self = this,
 					options = self.options;
 
+				options.width = options.width || DEFAUT.WIDTH;
 				if (options.position === "right") {
 					element.classList.add(classes.right);
 					self._translate(window.innerWidth, 0);
@@ -358,9 +367,11 @@
 					drawerOverlay = self._drawerOverlay,
 					element = self.element;
 				self._onClickBound = onClick.bind(null, self);
-				self._onTransitionEndBound = onTransitionEnd.bind(null, self);
 				self._onResizeBound = onResize.bind(null, self);
 				self._onPageshowBound = onPageshow.bind(null, self);
+				self._onTransitionEndBound = function(e) {
+					self._onTransitionEnd(e);
+				};
 
 				if (options.overlay && options.closeOnClick && drawerOverlay) {
 					drawerOverlay.addEventListener("vclick", self._onClickBound, false);

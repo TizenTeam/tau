@@ -105,6 +105,20 @@
 				this.options = {};
 			}
 
+			function calculateCustomLayout(direction, elements, lastIndex) {
+				var len = lastIndex !== undefined ? lastIndex : elements.length,
+					result = 0,
+					i;
+				for (i = 0; i < len; i++) {
+					result += direction === Scroller.Orientation.HORIZONTAL ? elements[i].offsetWidth : elements[i].offsetHeight;
+				}
+				return result;
+			}
+			function calculateCenter(direction, elements, index) {
+				var result = calculateCustomLayout(direction, elements, index + 1);
+				result -= direction === Scroller.Orientation.HORIZONTAL ? elements[index].offsetWidth / 2 : elements[index].offsetHeight / 2;
+				return result;
+			}
 			utilsObject.inherit(SectionChanger, Scroller, {
 				_build: function (element) {
 
@@ -131,22 +145,33 @@
 					 * @property {boolean} [options.useBouncingEffect=false] Shows a scroll end effect on the scroll edge.
 					 * @property {string} [options.items="section"] Defines the section element selector.
 					 * @property {string} [options.activeClass="ui-section-active"] Specifies the CSS classes which define the active section element. Add the specified class (ui-section-active) to a *section* element to indicate which section must be shown first. By default, the first section is shown first.
+					 * @property {boolean} [options.fillContent=true] declare to section tag width to fill content or not.
 					 * @member ns.widget.wearable.SectionChanger
 					 */
-					var options = this.options;
-					options.items = "section";
-					options.activeClass = "ui-section-active";
-					options.circular = false;
-					options.animate = true;
-					options.animateDuration = 100;
-					options.orientation = "horizontal";
-					options.changeThreshold = -1;
-					options.useTab = false;
+					this.options = utilsObject.merge(this.options, {
+						items: "section",
+						activeClass: "ui-section-active",
+						circular: false,
+						animate: true,
+						animateDuration: 100,
+						orientation: "horizontal",
+						changeThreshold: -1,
+						useTab: false,
+						fillContent: true
+					});
 				},
 
 				_init: function (element) {
 					var o = this.options,
+						scroller = this.scroller,
 						sectionLength, i, className;
+
+					scroller.style.position = "absolute";
+					this._sectionChangerWidth = element.offsetWidth;
+					this._sectionChangerHeight = element.offsetHeight;
+					this._sectionChangerHalfWidth = this._sectionChangerWidth / 2;
+					this._sectionChangerHalfHeight = this._sectionChangerHeight / 2;
+					this.orientation = o.orientation === "horizontal" ? Scroller.Orientation.HORIZONTAL : Scroller.Orientation.VERTICAL;
 
 					if (o.scrollbar === "tab") {
 						o.scrollbar = false;
@@ -154,9 +179,8 @@
 					}
 
 					this.sections = typeof o.items === "string" ?
-						this.scroller.querySelectorAll(o.items) :
+						scroller.querySelectorAll(o.items) :
 						o.items;
-
 					sectionLength = this.sections.length;
 
 					if (o.circular && sectionLength < 3) {
@@ -176,18 +200,18 @@
 						this.sectionPositions[i] = i;
 					}
 
-					this.setActiveSection(this.activeIndex);
-
 					this._prepareLayout();
+					this._initLayout();
 					this._super();
 					this._repositionSections(true);
+					this.setActiveSection(this.activeIndex);
 
 					// set corret options values.
 					if (!o.animate) {
 						o.animateDuration = 0;
 					}
 					if (o.changeThreshold < 0) {
-						o.changeThreshold = this.width / 2;
+						o.changeThreshold = this._sectionChangerHalfWidth;
 					}
 
 					if (this.enabled && sectionLength > 1) {
@@ -201,47 +225,52 @@
 				_prepareLayout: function () {
 					var o = this.options,
 						sectionLength = this.sections.length,
-						width = this.element.offsetWidth,
-						height = this.element.offsetHeight,
-						orientation = o.orientation === "horizontal" ? Scroller.Orientation.HORIZONTAL : Scroller.Orientation.VERTICAL,
+						width = this._sectionChangerWidth,
+						height = this._sectionChangerHeight,
+						orientation = this.orientation,
 						scrollerStyle = this.scroller.style,
 						tabHeight;
 
 					if (o.useTab) {
 						this._initTabIndicator();
 						tabHeight = this.tabIndicatorElement.offsetHeight;
-						this.element.style.height = (height - tabHeight) + "px";
 						height -= tabHeight;
+						this._sectionChangerHalfHeight = height / 2;
+						this.element.style.height = height + "px";
+						this._sectionChangerHeight = height;
 					}
 
 					if (orientation === Scroller.Orientation.HORIZONTAL) {
-						scrollerStyle.width = width * sectionLength + "px"; //set Scroller width
+						scrollerStyle.width = (o.fillContent ? width * sectionLength : calculateCustomLayout(orientation, this.sections)) + "px";
 						scrollerStyle.height = height + "px"; //set Scroller width
 					} else {
 						scrollerStyle.width = width + "px"; //set Scroller width
-						scrollerStyle.height = height * sectionLength + "px"; //set Scroller width
+						scrollerStyle.height = (o.fillContent ? height * sectionLength : calculateCustomLayout(orientation, this.sections)) + "px";
 					}
+
 				},
 
 				_initLayout: function () {
 					var sectionStyle = this.sections.style,
-						width = this.width,
-						height = this.height,
-						i, sectionLength, top, left;
+						left = 0,
+						top = 0,
+						i, sectionLength;
 
 					//section element has absolute position
 					for (i = 0, sectionLength = this.sections.length; i < sectionLength; i++) {
 						//Each section set initialize left position
 						sectionStyle = this.sections[i].style;
-
 						sectionStyle.position = "absolute";
-						sectionStyle.width = width + "px";
-						sectionStyle.height = height + "px";
+						if (this.options.fillContent) {
+							sectionStyle.width = this._sectionChangerWidth + "px";
+							sectionStyle.height = this._sectionChangerHeight + "px";
+						}
+
 						if (this.orientation === Scroller.Orientation.HORIZONTAL) {
 							top = 0;
-							left = width * i;
+							left = calculateCustomLayout(this.orientation, this.sections, i);
 						} else {
-							top = height * i;
+							top = calculateCustomLayout(this.orientation, this.sections, i);
 							left = 0;
 						}
 
@@ -249,7 +278,6 @@
 						sectionStyle.left = left + "px";
 					}
 
-					this._super();
 				},
 
 				_initBouncingEffect: function () {
@@ -260,31 +288,29 @@
 				},
 
 				_translateScrollbar: function (x, y, duration, autoHidden) {
-					var standard = this.orientation === Scroller.Orientation.HORIZONTAL ? this.width : this.height,
-						preOffset = this.sectionPositions[this.activeIndex] * standard,
-						offset = this.activeIndex * standard,
-						fixedOffset = offset - preOffset;
+					var offset;
 
 					if (!this.scrollbar) {
 						return;
 					}
 
 					if (this.orientation === Scroller.Orientation.HORIZONTAL) {
-						offset = -x + fixedOffset;
+						offset = (-x + this.minScrollX);
 					} else {
-						offset = -y + fixedOffset;
+						offset = (-y + this.minScrollY);
 					}
 
 					this.scrollbar.translate(offset, duration, autoHidden);
 				},
 
 				_translateScrollbarWithPageIndex: function (pageIndex, duration) {
-					var standard = this.orientation === Scroller.Orientation.HORIZONTAL ? this.width : this.height,
-						offset = pageIndex * standard;
+					var offset;
 
 					if (!this.scrollbar) {
 						return;
 					}
+
+					offset = calculateCustomLayout(this.orientation, this.sections, this.activeIndex);
 
 					this.scrollbar.translate(offset, duration);
 				},
@@ -416,12 +442,14 @@
 						scrollbarDuration = duration,
 						oldActiveIndex = this.activeIndex,
 						newX=0,
-						newY=0;
+						newY= 0,
+						centerX = 0,
+						centerY = 0;
 
 					if (this.orientation === Scroller.Orientation.HORIZONTAL) {
-						newX = -this.width * position;
+						newX = -calculateCenter(this.orientation, this.sections, position);
 					} else {
-						newY = -this.height * position;
+						newY = -calculateCenter(this.orientation, this.sections, position);
 					}
 
 					if (this.beforeIndex - index > 1 || this.beforeIndex - index < -1) {
@@ -432,7 +460,13 @@
 					this.beforeIndex = this.activeIndex;
 
 					if (newX !== this.scrollerOffsetX || newY !== this.scrollerOffsetY) {
-						this._translate(newX, newY, duration);
+						if (this.orientation === Scroller.Orientation.HORIZONTAL) {
+							centerX = this._sectionChangerHalfWidth + newX;
+						} else {
+							centerY = this._sectionChangerHalfHeight + newY;
+						}
+
+						this._translate(centerX, centerY, duration);
 						this._translateScrollbarWithPageIndex(index, scrollbarDuration);
 					} else {
 						this._endScroll();
@@ -540,21 +574,28 @@
 						curPosition = this.sectionPositions[this.activeIndex],
 						centerPosition = window.parseInt(sectionLength/2, 10),
 						circular = this.options.circular,
+						centerX = 0,
+						centerY = 0,
 						i, sectionStyle, sIdx, top, left, newX, newY;
 
 					if (this.orientation === Scroller.Orientation.HORIZONTAL) {
-						newX = -(this.width * (circular ? centerPosition : this.activeIndex));
+						newX = -(calculateCenter(this.orientation, this.sections, (circular ? centerPosition : this.activeIndex)));
 						newY = 0;
 					} else {
 						newX = 0;
-						newY = -(this.height * (circular ? centerPosition : this.activeIndex));
+						newY = -(calculateCenter(this.orientation, this.sections, (circular ? centerPosition : this.activeIndex)));
 					}
 
 					this._translateScrollbarWithPageIndex(this.activeIndex);
 
 					if (init || (curPosition === 0 || curPosition === sectionLength - 1)) {
 
-						this._translate(newX, newY);
+						if (this.orientation === Scroller.Orientation.HORIZONTAL) {
+							centerX = this._sectionChangerHalfWidth + newX;
+						} else {
+							centerY = this._sectionChangerHalfHeight + newY;
+						}
+						this._translate(centerX, centerY);
 
 						if (circular) {
 							for (i = 0; i < sectionLength; i++) {
@@ -565,9 +606,9 @@
 
 								if (this.orientation === Scroller.Orientation.HORIZONTAL) {
 									top = 0;
-									left = this.width * i;
+									left = calculateCustomLayout(this.orientation, this.sections, i);
 								} else {
-									top = this.height * i;
+									top = calculateCustomLayout(this.orientation, this.sections, i);
 									left = 0;
 								}
 

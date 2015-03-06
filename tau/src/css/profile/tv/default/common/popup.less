@@ -397,9 +397,9 @@ Active Popup
 
 .ui-popup-active.ui-popup {
 	visibility: visible;
-	top: 0;
-	left: 0;
-	bottom: 0;
+	.transform(translate3d(-50%, -50%, 0));
+	left: 50%;
+	top: 50%;
 
 	&.ui-popup-toast {
 		top: auto;
@@ -429,6 +429,7 @@ Context Popup
 	position: absolute;
 	box-shadow: none;
 	width: initial;
+	.transform(translate3d(0, 0, 0));
 
 	.ui-popup-content {
 		padding: 0;

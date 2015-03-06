@@ -1,0 +1,23 @@
+.ui-page-indicator {
+	position: absolute;
+	left: 50%;
+	.transform(translate3d(-50%, 0, 0));
+}
+
+.ui-page-indicator-item {
+	position: relative;
+	display: inline-block;
+	width: 13 * @unit_base;
+	height: 13 * @unit_base;
+	-webkit-mask-image: -webkit-radial-gradient(black 4 * @unit_base, transparent 6 * @unit_base);
+	background-color: @color_page_indicator_normal;
+	margin-right: 9 * @unit_base;
+	.transition-duration(150ms);
+	&:last-child {
+		margin-right: 0;
+	}
+	&.ui-page-indicator-active {
+		background-color: @color_page_indicator_selected;
+		.transition-duration(150ms);
+	}
+}

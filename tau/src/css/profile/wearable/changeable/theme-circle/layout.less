@@ -1,0 +1,99 @@
+/***************************************************************************
+                   Common Style
+
+***************************************************************************/
+/***************************************************************************
+                   Development Tip
+  If you want to implement specific css code of circle device,
+  you should implement specific code here.
+  But when you implement code, you should check duplicate value
+  between common/layout.less and this file.
+  If you have duplicate value, please change static value to variable value.
+***************************************************************************/
+body {
+	background: @color_bg;
+	color : @color_text;
+}
+
+.ui-header {
+	height: @fixed_header_height;
+	line-height: @fixed_header_line_height;
+	background-color: @color_actionbar_title_bg;
+	.ui-title {
+		color: @color_actionbar_title_text;
+		text-align: center;
+		padding-top: @fixed_header_title_padding_top;
+		margin-left: 40 * @unit_base;
+		margin-right: 40 * @unit_base;
+		padding-left: 24 * @unit_base;
+		padding-right: 24 * @unit_base;
+		&.ui-icon {
+			background: none !important;
+			padding-left: 24 * @unit_base;
+		}
+	}
+
+	&.ui-has-more {
+		.ui-title {
+			padding-right: 24 * @unit_base;
+			-webkit-mask-image: -webkit-linear-gradient(left, rgba(0,0,0,1) 80%, rgba(0,0,0,0) 95%);
+		}
+		.ui-more {
+			position: fixed;
+			top: 163 * @px_base;
+			right: 8 * @px_base;
+			width: @fixed_header_more_width;
+			height: @fixed_header_more_height;
+			&.ui-icon-overflow {
+				background-color: @color_moreoptions_bg;
+			}
+		}
+	}
+}
+.ui-page {
+	background: @color_bg;
+	.ui-footer.ui-bottom-button{
+		overflow: hidden;
+		.ui-btn {
+			width: @fixed_footer_btn_width;
+			height: @fixed_footer_btn_height;
+			position: relative;
+			left: 50%;
+			transform: translate3d(-50%, 0, 0);
+			border-radius: 50%;
+			text-indent: -9999px;
+			margin-bottom: @fixed_footer_btn_margin_bottom;
+			&:only-child::before {
+				left: 50%;
+				transform: translate3d(-50%, 0, 0);
+			}
+			&::before {
+				content: "";
+				background-color: @color_footer_button_icon_bg;
+				-webkit-mask-size: 60 * @unit_base 60 * @unit_base;
+				-webkit-mask-repeat: no-repeat;
+				width: 60 * @unit_base;
+				height: 60 * @unit_base;
+				position: absolute;
+				bottom: @fixed_page_footer_padding_bottom;
+			}
+		}
+	}
+}
+
+/***************************************************************************
+                   Page Scroll
+***************************************************************************/
+.ui-page.ui-scroll-on {
+	.ui-content {
+		margin-top: 122 * @unit_base;
+		margin-bottom: 98 * @unit_base;
+		padding-top: 0;
+	}
+	.ui-header ~ .ui-content {
+		margin-top: 0;
+	}
+	.ui-content ~ .ui-footer:not(.ui-expandable-footer) {
+		margin-top: -85 * @unit_base;
+	}
+}

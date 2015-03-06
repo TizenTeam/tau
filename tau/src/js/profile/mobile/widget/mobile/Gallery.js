@@ -119,7 +119,7 @@
 			 */
 			function getHeight(element) {
 				var page = selectors.getClosestBySelectorNS(element, "role=page"),
-					content = selectors.getAllByDataNS(element, "role=content"),
+					content = selectors.getAllByDataNS(page, "role=content")[0],
 					header = selectors.getAllByDataNS(page, "role=header"),
 					footer = selectors.getAllByDataNS(page, "role=footer"),
 					headerHeight = header.length ? doms.getElementHeight(header[0]) : 0,

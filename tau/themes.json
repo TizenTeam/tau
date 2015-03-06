@@ -18,7 +18,8 @@
 				"images": "images/",
 				"src": "theme.less",
 				"default": "true",
-				"changeable-path": "wearable/changeable/theme-changeable/"
+				"changeable-path": "wearable/changeable/theme-changeable/",
+				"circle-path": "wearable/changeable/circle/"
 			}
 		],
 

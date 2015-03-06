@@ -57,6 +57,41 @@
 				 }
 			});
 
+			Object.defineProperty(ns.defaults, "popupFullSize", {
+				get: function(){
+					return ns.getConfig("popupFullSize", false);
+				},
+				set: function(value){
+					return ns.setConfig("popupFullSize", value);
+				}
+			});
+
+			Object.defineProperty(ns.defaults, "enablePageScroll", {
+				get: function(){
+					return ns.getConfig("enablePageScroll", false);
+				},
+				set: function(value){
+					return ns.setConfig("enablePageScroll", value);
+				}
+			});
+
+			Object.defineProperty(ns.defaults, "scrollEndEffectArea", {
+				get: function(){
+					return ns.getConfig("scrollEndEffectArea", "content");
+				},
+				set: function(value){
+					return ns.setConfig("scrollEndEffectArea", value);
+				}
+			});
+
+			Object.defineProperty(ns.defaults, "enablePopupScroll", {
+				get: function(){
+					return ns.getConfig("enablePopupScroll", false);
+				},
+				set: function(value){
+					return ns.setConfig("enablePopupScroll", value);
+				}
+			});
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 		}
 	);

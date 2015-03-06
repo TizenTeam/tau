@@ -1,4 +1,198 @@
 %changelog
+* Wed Mar 04 2015 Junhyoen Lee <juneh.lee@samsung.com> 0.10.6
+	- refactor(wearable): add enable/disable method in SnapListview
+	- fix(wearable): add init state of drawer
+	- feat(wearable): add 'headerbeforeexpand' and 'headerbeforecollapse' events
+	- refactor(wearable): add selector option in SnapListview
+	- refector(wearable): change li-divider class to ui-listview-divider class
+	- refactor(wearable): fix typo in contorls checkbox
+	- refactor(wearable): fix progress title short
+	- refactor(wearable): add <a> tag to list_subtext items.(P150226-05031)
+	- refactor(wearable): fix processing and circular index scroll bar size
+	- refactor(wearable): list - subtext style change
+	- refactor(wearable): fix circle progress sample
+	- fix(wearable): remove bottomMarginTop claculation logic in page
+	- fix(wearable): add _clearContent method in page(NABI-1995)
+
+* Thu Feb 26 2015 Junhyoen Lee <juneh.lee@samsung.com> 0.10.5
+	- fix(wearable): fix SCROLL_END_TIME_THRESHOLD in SnapListview
+	- refactor(wearable): fix list item anchor wrong padding-right
+	- fix(werable): fix marquee default delay time
+	- fix(wearable): fix marquee list style demo.
+	- fix(wearable): fix index move issue in circularIndexScrollbar sample(NABI-2000)
+	- feat(wearable): add showDelay option to circularIndexScrollbar
+	- fix(wearable): fix SnapListview init logic
+	- fix(wearable): fire scrollstart/scrollend event from scroller to list element in SnapListview
+	- fix(wearable): fix marguee default delay time unit and fix sample app
+	- refactor(wearable): fix select mode list sample
+	- feat(wearable): set default tizen-circular-scrollbar attribute
+	- refactor(wearable): seperate SnapListStyle helper from SnapListMarqueeStyle helper
+	- refactor(wearable): fix button with icon style for rect. ui
+	- refactor(wearable): fix select mode list sample
+	- refactor(wearable): rollback option popup style
+	- feat(wearable): add rotary event sample
+	- feat(circle): add list button style
+	- feat(wearable): fix swipelist position issue and add swipelist sample in circular sample app
+	- feat(circle): add new UX of popup
+	- fix(wearable): fix thumbnail positoin in list
+	- fix(wearable): fix undefined variable issue in circularindexscrollbar sample - move scroller variable to global
+
+* Mon Feb 23 2015 Junhyoen Lee <juneh.lee@samsung.com> 0.10.4
+	- fix(wearable): fix circularIndexScrollbar indicator hide issue (sample)
+	- refactor(wearable): fix header and footer sample and remove ui-scroll-on
+
+* Mon Feb 23 2015 Junhyoen Lee <juneh.lee@samsung.com> 0.10.3
+	- fix(circle): delete header-small style of circle profile
+	- refactor(wearable): add integrated samples
+	- feat(circle): add bottomButton style of footer button
+	- fix(mobile): fix 'Select All' sample page(NABI-1988)
+	- fix(wearable): fix footer button icon position issue(NABI-1992)
+	- feat(wearable): add moreoptions integration sample page
+	- fix(wearable): fix wrong image path of popup style.css
+	- fix(wearable): remove unnecessary style in marquee
+	- fix(wearable): fix position issue of circularIndexScrollbar Sample
+	- feat(circle): add thumbnail sample page
+	- feat(core): add getScrollableParent method in selectors util
+	- fix(wearable): fix SectionChanger scroll issue
+	- refactor(wearable): fix title fade out style
+	- refactor(wearable): remove ui-scroll-on class in sample page
+	- fix(wearable): add drawer, sectionchanger default height
+	- fix(wearable): remove small header style.
+	- fix(wearable): fix null exception when snap list destory.
+	- fix(wearable): select list fix
+	- fix(wearable): li:lastChild border delete
+	- fix(wearable): small-progress scroll fix
+	- fix(wearable): fixed drawer bugs.
+	- refector(wearable): refectoring indexScrollBar for converting circular and square shape.
+	- fix(wearable): fix radio spelling.
+	- fix(circle): fix toast popup position and layout
+	- fix(circle): change header background color
+	- fix(circle): fixed popup button background color
+	- feat(circle): changeable xml files changed.
+	- fix(wearable): fix indexscrollbar scroll issue
+	- refactor(wearble): delete empty item
+	- refactor(wearable): fix circular processing
+	- fix(wearable): change jenkins server IP in jenkins build script
+	- fix(circle): fix header title padding left
+	- fix(circle): fix the progress less file
+	- refactor(wearable): fix large toggle switch class name
+	- feat(wearable): add Integration Sample App
+	- refactor(wearable): controls in Sample App scroll fix
+	- fix(wearable): modify indexscrollbar sample app for support square and circle shape
+	- refactor(wearable) fix progress/processing style
+
+* Fri Feb 06 2015 Junhyoen Lee <juneh.lee@samsung.com> 0.10.2
+	- refactor(wearable): apply helper config in CircularTemplate sample app
+	- fix(wearable): fix build warning on wearable sdk
+	- fix(core): change support.circle to support.shape.circle
+
+* Thu Feb 05 2015 Junhyoen Lee <juneh.lee@samsung.com> 0.10.1
+	- fix(wearable): fix Marquee sample issue
+	- fix(wearable): fix drawer sample app style
+	- refactor(wearable): change helper name
+	- fix(wearable): fix circleProgressbar position issue
+	- fix(wearable): fixed drawer bug when it is used with page scroll.
+	- refactor(wearable): apply default config(SnapList, ExpandableHeader) on circle sample.
+	- fix(wearable): clean marquee style when be triggered scroll event.
+	- fix(wearable): fix finding scrollable parent logic in SnapListview.
+	- fix(wearable): fix scroll issue in circularIndexScrollbar sample app
+	- refactor(wearable): apply "rotarydetent" event handler on SanpList to scroll list
+	- refactor(wearable): apply enablePopupScroll option and fix style
+	- feat(wearable): add fillContent option to SectionChanger widget
+	- refactor(wearable): exception for enablePageScroll option
+	- fix(wearable): fix circularindexscrollbar position issue
+	- feat(wearable) enable Popup scroll class add
+	- feat(wearable): add ExpandableHeader component.
+	- refactor(wearable): fix bg color of toggle switch
+	- refactor(wearable): remove ui-scroll-on class in sample page
+	- refactor(wearable): fix the path of each sample page
+	- feat(circle): apply to new popup UX
+	- refactor(wearable): add gradient class to marquee sample
+	- feat(wearable): select mode list in Sample app
+	- refactor(wearable): fix and apply bouncing effect style
+	- refactor(wearable): fix align and size of header and listview
+	- fix(wearable): add specific information to comment and fix bug.
+	- feat(wearable): delete footer in sample pages
+	- etc(orbis): revert patch that add ExpandableFooter component
+	- feat(circle): apply new circle changeable XML files
+	- fix(wearable): fix CircularIndexScrollbar TC error
+	- feat(wearable): fix style.less error.
+	- refactor(wearable): fix toggle switch style
+	- fix(wearable) : Stabilize footer with .ui-fixed
+	- feat(wearable): add router function to CircularIndexScrollbar widget
+	- feat(wearable): integrated wearable demo sample
+	- refactor(wearable): fix page indicator style
+	- feat(wearable): fix drawer sample page(more options).
+	- fix(wearable): SnapListview remove unnecessary method
+	- docs(wearable): Add documentation of CircularIndexScrollbar
+	- feat(wearable): Add new feature of CircularIndexScrollbar sample app
+	- etc(tool): Added grunt tool for circular sample development.
+	- feat(wearable): Add Helper Script for ListStyle.
+	- refactor(wearable): move drawer and ex footer less to common
+	- fear(wearable): page scroll on default
+	- feat(refactor): change circle theme folder name.
+	- feat(build): change circle style path.
+	- feat(build): fix grunt themeConverter module
+	- feat(wearable): apply circle css overwrite square css
+	- fix(tool): fix jshint task in build-bot
+	- refactor(wearable): fix divide list name and its padding
+
+* Wed Jan 07 2015 Heeju Joo <heeju.joo@samsung.com> 0.10.0
+	- feat(wearable): add Templates for circular UI
+	- feat(mobile, wearable): Rearrange and Rename sample applications
+	- feat(wearable): add marquee sample
+	- feat(wearable): add SnapListview(with Marquee) sample
+	- feat(wearable): fix drag gesture option in drawer widget and increase animation duration
+	- feat(wearable): Sample Application of WearableCircle
+	- etc(wearable): delete previous sample
+	- feat(wearable): option popup style for orbis
+	- refactor(wearable): fix popup wrapper sizing condition
+	- feat(wearable): add unitTC of Drawer widget
+	- feat(wearable): Add SnapListview widget
+	- etc(tool): set up build-bot with jenkins server
+	- feat(wearable): add router function to Drawer widget
+	- feat(Orbis): add Drawer widget
+	- refactor(wearable): add full size popup option
+	- feat(wearable): Apply popup and page content style
+	- feat(wearable): list with toggle for orbis
+	- feat(orbis): add ExpandableFooter widget
+	- etc(wearable):toggle control page for orbis sample
+	- fix(wearable) : adjust position of input
+	- feat(wearable): PageIndicator widget
+	- feat(wearable): toggle switch style for orbis
+	- refactor(wearable): fix name of the configure file
+	- feat(wearable): list with icon style for orbis
+	- fix(wearable): nested gesture event issue.
+	- feat(wearable): add circular index scrollbar widget
+	- feat(wearable): fixed TC error of popup widget
+	- feat(core): Add Marquee widget
+	- fix(wearable): add UnitTC for CircleProgressBar Widget
+	- fix(wearable): modify _setValue() method CircleProgressBar
+	- feat(wearable): Apply popup header and footer style.
+	- feat(wearable): Apply page header and footer style.
+	- feat(wearable): popup content padding css fix
+	- refactor(wearable): remove duplication on checkbox animation
+	- refactor(wearable): adjust padding of page content
+	- feat(wearable): apply small header
+	- refactor(wearable):filename change to circle-config
+	- feat(wearable): Add CircleProgressBar widget
+	- fix(core):fix if statement for DOM attribute method
+	- feat(wearable): radio button animation using css
+	- feat(wearable): Toast Popup and Remove positioning JS
+	- fix(all): copy mixin from tau branch to circle branch
+	- feat(wearable): normal popup style for orbis
+	- feat(wearable): listview style for orbis
+	- feat(wearable): move action icon list to app style
+	- feat(wearable): processing(full size) for orbis
+	- feat(wearable): change default value for circle.
+	- feat(wearable): Added pop style of popup transition.
+	- feat(wearable): Added pop style of page transition.
+	- feat(wearable): checkbox animation using css
+	- feat(wearable): adjust default font size for rem base
+	- feat(wearable): add CSS layout implement enviroment and rule
+	- feat(wearable): orbis base patch
+	- feat(wearable): Added circle theme and sample app for Orbis.
+
 * Thu Nov 27 2014 Heeju Joo <heeju.joo@samsung.com> 0.9.32
 	- etc(resource): remove unnecessary image files
 	- etc(resource): remove unclear-license image files
@@ -14,7 +208,7 @@
 	- etc(tool): TCT tests packaging
 	- TCT: Test builder
 	- fix(mobile): slider center option fix
-	- fix(changeable):Fixes of less files. 	-- clear descriptions of the variables
+	- fix(changeable):Fixes of less files.  -- clear descriptions of the variables
 	- (fix) core: fix problem with closing popup
 	- fix(mobile): Popup is unnecessarily shown and incorrectly positioned
 	- docs(tv): Documentation for page/design/elements created

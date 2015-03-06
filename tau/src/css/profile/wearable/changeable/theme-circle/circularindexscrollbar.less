@@ -1,0 +1,26 @@
+/***************************************************************************
+                  circular index scroll bar
+***************************************************************************/
+.ui-circularindexscrollbar {
+	.ui-circularindexscrollbar-indexbar {
+		background: -webkit-radial-gradient(center, ellipse cover, transparent 59%, @color_circularindexscrollbar_bg 59%);
+	}
+
+	.ui-circularindexscrollbar-index {
+		span {
+			color: @color_circularindexscrollbar_text_normal;
+		}
+
+		&.ui-state-selected span{
+			color: @color_circularindexscrollbar_text_selected;
+		}
+	}
+
+	.ui-circularindexscrollbar-indicator {
+		background-color: @color_circularindexscrollbar_indicator_bg;
+	}
+
+	.ui-circularindexscrollbar-indicator-text {
+		color: @color_circularindexscrollbar_indicator_text;
+	}
+}

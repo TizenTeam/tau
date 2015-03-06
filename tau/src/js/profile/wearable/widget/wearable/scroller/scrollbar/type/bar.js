@@ -29,66 +29,34 @@
 
 			type.bar = utilsObject.merge({}, typeInterface, {
 				options: {
-					wrapperClass: "ui-scrollbar-bar-type",
-					barClass: "ui-scrollbar-indicator",
-					orientationClass: "ui-scrollbar-",
-					margin: 2,
 					animationDuration: 500
 				},
 
 				/**
-				 *
-				 * @method insertAndDecorate
-				 * @param data
+				 * @method setScrollbar
+				 * @param viewLayout
+				 * @param firstChildLayout
+				 * @param clipLayout
 				 * @static
 				 * @member ns.widget.wearable.scroller.scrollbar.type.bar
 				 */
-				insertAndDecorate: function( data ) {
-					var scrollbarElement = data.wrapper,
-						barElement = data.bar,
-						container = data.container,
-						clip = data.clip,
-						orientation = data.orientation,
-						margin = this.options.margin,
-						clipSize = orientation === Scroller.Orientation.VERTICAL ? clip.offsetHeight : clip.offsetWidth,
-						containerSize = orientation === Scroller.Orientation.VERTICAL ? container.offsetHeight : container.offsetWidth,
-						orientationClass = this.options.orientationClass + (orientation === Scroller.Orientation.VERTICAL ? "vertical" : "horizontal"),
-						barStyle = barElement.style;
 
-					this.containerSize = containerSize;
-					this.maxScrollOffset = clipSize - containerSize;
-					this.scrollZoomRate = containerSize / clipSize;
-					this.barSize = window.parseInt( containerSize / (clipSize/containerSize) ) - ( margin * 2 );
-
-					scrollbarElement.className = this.options.wrapperClass + " " + orientationClass;
-					barElement.className = this.options.barClass;
-
-					if ( orientation === Scroller.Orientation.VERTICAL ) {
-						barStyle.height = this.barSize + "px";
-						barStyle.top = "0px";
-					} else {
-						barStyle.width = this.barSize + "px";
-						barStyle.left = "0px";
-					}
-
-					container.appendChild(scrollbarElement);
+				setScrollbar: function(viewLayout, firstChildLayout, clipLayout) {
+					this._viewLayout = viewLayout;
+					this._clipLayout = clipLayout;
+					this._firstChildLayout = firstChildLayout;
+					this._ratio = clipLayout / firstChildLayout;
 				},
 
 				/**
-				 * @method insertAndDecorate
-				 * @param data
+				 * @method getScrollbarSize
+				 * @return scrollbar size
 				 * @static
 				 * @member ns.widget.wearable.scroller.scrollbar.type.bar
 				 */
-				remove: function (data) {
-					var scrollbarElement = data.wrapper,
-						container = data.container;
-
-					if ( container && scrollbarElement) {
-						container.removeChild(scrollbarElement);
-					}
+				getScrollbarSize: function() {
+					return this._firstChildLayout / this._viewLayout * this._firstChildLayout * this._ratio;
 				},
-
 				/**
 				 * @method offset
 				 * @param orientation
@@ -99,9 +67,7 @@
 				offset: function( orientation, offset ) {
 					var x, y;
 
-					offset = offset !== this.maxScrollOffset ?
-						offset * this.scrollZoomRate :
-						this.containerSize - this.barSize - this.options.margin * 2;
+					offset = offset * this._clipLayout / this._viewLayout;
 
 					if ( orientation === Scroller.Orientation.VERTICAL ) {
 						x = 0;

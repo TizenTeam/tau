@@ -1,0 +1,72 @@
+.ui-circle-progress {
+	display: none;
+}
+
+// specific style for progressbar
+.ui-progressbar.ui-progressbar-full {
+	position: fixed;
+	top: 0; left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+.ui-progressbar.ui-progressbar-large {
+	width: 100 * @unit_base;
+	height: 100 * @unit_base;
+}
+
+.ui-progressbar.ui-progressbar-medium {
+	width: 84 * @unit_base;
+	height: 84 * @unit_base;
+}
+
+.ui-progressbar.ui-progressbar-small {
+	width: 56 * @unit_base;
+	height: 56 * @unit_base;
+}
+
+// common style for progressbar
+.ui-progressbar {
+	position: relative;
+	display: inline-block;
+	pointer-events: none;
+
+	.ui-progressbar-value.ui-progressbar-half {
+		clip: rect(auto, auto, auto, auto);
+		.ui-progressbar-value-right {
+			-webkit-transform: rotate(180deg);
+		}
+	}
+	.ui-progressbar-value {
+		clip: rect(0, 1em, 1em, .5em);
+		width: 100%;
+		height: 100%;
+		position: absolute;
+
+		.ui-progressbar-value-left {
+			border: 8 * @unit_base solid @color_circleprogressbar_value;
+			border-radius: 50%;
+			clip: rect(0, .5em, 1em, 0);
+			height: 100%;
+			width: 100%;
+			position: absolute;
+		}
+
+		.ui-progressbar-value-right {
+			border: 8 * @unit_base solid @color_circleprogressbar_value;
+			border-radius: 50%;
+			clip: rect(0, .5em, 1em, 0);
+			width: 100%;
+			height: 100%;
+			position: absolute;
+		}
+	}
+
+	.ui-progressbar-bg {
+		border: 8 * @unit_base solid @color_circleprogressbar_bg;
+		border-radius: 50%;
+		width: 100%;
+		height: 100%;
+	}
+
+}

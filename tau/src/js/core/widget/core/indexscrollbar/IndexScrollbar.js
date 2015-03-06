@@ -299,32 +299,40 @@
 				this.eventHandlers = {};
 
 			},
-			BaseWidget = ns.widget.BaseWidget,
-			/**
-			 * Alias for class {@link ns.engine}
-			 * @property {Object} engine
-			 * @member ns.widget.core.IndexScrollbar
-			 * @private
-			 * @static
-			 */
+				BaseWidget = ns.widget.BaseWidget,
+				/**
+				 * Alias for class {@link ns.engine}
+				 * @property {Object} engine
+				 * @member ns.widget.core.IndexScrollbar
+				 * @private
+				 * @static
+				 */
 				engine = ns.engine,
-
-			/**
-			 * Alias for class {@link ns.event}
-			 * @property {Object} events
-			 * @member ns.widget.core.IndexScrollbar
-			 * @private
-			 * @static
-			 */
+				/**
+				 * Alias for class {@link ns.event}
+				 * @property {Object} events
+				 * @member ns.widget.core.IndexScrollbar
+				 * @private
+				 * @static
+				 */
 				events = ns.event,
-			/**
-			 * Alias for class {@link ns.util.object}
-			 * @property {Object} utilsObject
-			 * @member ns.widget.core.IndexScrollbar
-			 * @private
-			 * @static
-			 */
+				/**
+				 * Alias for class {@link ns.util.object}
+				 * @property {Object} utilsObject
+				 * @member ns.widget.core.IndexScrollbar
+				 * @private
+				 * @static
+				 */
 				utilsObject = ns.util.object,
+				/**
+				 * Alias for class ns.util.DOM
+				 * @property {ns.util.DOM} doms
+				 * @member ns.widget.wearable.IndexScrollbar
+				 * @private
+				 * @static
+				 */
+				doms = ns.util.DOM,
+
 				IndexBar = ns.widget.core.indexscrollbar.IndexBar,
 				IndexIndicator = ns.widget.core.indexscrollbar.IndexIndicator,
 				EventType = {
@@ -369,6 +377,7 @@
 					 */
 					this.options = {
 						moreChar: "*",
+						indexScrollbarClass: "ui-indexscrollbar",
 						selectedClass: "ui-state-selected",
 						indicatorClass: "ui-indexscrollbar-indicator",
 						delimiter: ",",
@@ -409,6 +418,9 @@
 				_init: function (element) {
 					var self = this,
 						options = self.options;
+
+					element.classList.add(options.indexScrollbarClass);
+
 					self._setIndex(element, options.index);
 					self._setMaxIndexLen(element, options.maxIndexLen);
 					self._setInitialLayout();	// This is needed for creating sub objects
@@ -675,6 +687,10 @@
 
 					iBar1.select( idx );	// highlight selected value
 
+					document.addEventListener(POINTER_MOVE, this.eventHandlers.touchMove);
+					document.addEventListener(POINTER_END, this.eventHandlers.touchEnd);
+					document.addEventListener("touchcancel", this.eventHandlers.touchEnd);
+
 					this._updateIndicatorAndTriggerEvent( val );
 				},
 
@@ -754,6 +770,10 @@
 						self.indexBar2.clearSelected();
 						self.indexBar2.hide();
 					}
+
+					document.removeEventListener(POINTER_MOVE, self.eventHandlers.touchMove);
+					document.removeEventListener(POINTER_END, self.eventHandlers.touchEnd);
+					document.removeEventListener("touchcancel", self.eventHandlers.touchEnd);
 				},
 
 				/**
@@ -817,9 +837,6 @@
 					self.eventHandlers.touchMove = self._onTouchMoveHandler.bind(self);
 
 					self.element.addEventListener(POINTER_START, self.eventHandlers.touchStart);
-					document.addEventListener(POINTER_MOVE, self.eventHandlers.touchMove);
-					document.addEventListener(POINTER_END, self.eventHandlers.touchEnd);
-					document.addEventListener("touchcancel", self.eventHandlers.touchEnd);
 				},
 
 				/**
@@ -831,9 +848,6 @@
 				_unbindEventToTriggerSelectEvent: function() {
 					var self = this;
 					self.element.removeEventListener(POINTER_START, self.eventHandlers.touchStart);
-					document.removeEventListener(POINTER_MOVE, self.eventHandlers.touchMove);
-					document.removeEventListener(POINTER_END, self.eventHandlers.touchEnd);
-					document.removeEventListener("touchcancel", self.eventHandlers.touchEnd);
 				},
 
 				/**
@@ -950,7 +964,23 @@
 				 * @member ns.widget.core.IndexScrollbar
 				 */
 				_getContainer: function() {
-					return this.options.container || this.element.parentNode;
+					var container = this.options.container,
+						element = this.element,
+						parentElement = element.parentNode,
+						overflow;
+
+					if (!container) {
+						while (parentElement && parentElement != document.body) {
+							overflow = doms.getCSSProperty(parentElement, "overflow-y");
+							if (overflow === "scroll" || (overflow === "auto" && parentElement.scrollHeight > parentElement.clientHeight)) {
+								return parentElement;
+							}
+							parentElement = parentElement.parentNode;
+						}
+						container = element.parentNode;
+					}
+
+					return container || element.parentNode;
 				},
 
 				/**

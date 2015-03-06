@@ -261,6 +261,7 @@
 					 * @member ns.widget.core.Page
 					 */
 					self.contentFillAfterResizeCallback = null;
+					self._initialContentStyle = {};
 					/**
 					 * Options for widget.
 					 * It is empty object, because widget Page does not have any options.
@@ -334,13 +335,23 @@
 					uiHeader: "ui-header",
 					uiFooter: "ui-footer",
 					uiContent: "ui-content",
-					uiPageScroll: "ui-page-scroll"
+					uiPageScroll: "ui-scroll-on",
+					uiFixed: "ui-fixed"
 				},
+
+				CONTENT_STYLE = ["height", "width", "minHeight", "marginTop", "marginBottom"],
 				prototype = new BaseWidget();
 
 			Page.classes = classes;
 			Page.events = EventType;
-
+			/**
+			 * Configure Page Widget
+			 * @method _configure
+			 * @member ns.widget.wearable.Page
+			 */
+			prototype._configure = function () {
+				this.options.enablePageScroll = ns.getConfig("enablePageScroll");
+			}
 			/**
 			 * Sets top-bottom css attributes for content element
 			 * to allow it to fill the page dynamically
@@ -349,16 +360,21 @@
 			 */
 			prototype._contentFill = function () {
 				var self = this,
+					option = self.options,
 					element = self.element,
 					screenWidth = window.innerWidth,
 					screenHeight = window.innerHeight,
 					contentSelector = classes.uiContent,
 					headerSelector = classes.uiHeader,
 					footerSelector = classes.uiFooter,
-					extraHeight = 0,
+					pageScrollSelector = classes.uiPageScroll,
+					headerHeight = 0,
+					footerHeight = 0,
 					children = [].slice.call(element.children),
 					childrenLength = children.length,
 					elementStyle = element.style,
+					needTopMargin = false,
+					needBottomMargin = false,
 					i,
 					node,
 					contentStyle,
@@ -369,23 +385,78 @@
 				elementStyle.width = screenWidth + "px";
 				elementStyle.height = screenHeight + "px";
 
+				if (option.enablePageScroll === true) {
+					element.classList.add(pageScrollSelector);
+				}
+
 				for (i = 0; i < childrenLength; i++) {
 					node = children[i];
-					if (node.classList.contains(headerSelector) ||
-								node.classList.contains(footerSelector)) {
-						extraHeight += doms.getElementHeight(node);
+					if (node.classList.contains(headerSelector)) {
+						headerHeight = doms.getElementHeight(node);
+						if (node.classList.contains(classes.uiFixed)) {
+							needTopMargin = true;
+						}
+					} else if (node.classList.contains(footerSelector)) {
+						footerHeight += doms.getElementHeight(node);
+						if (node.classList.contains(classes.uiFixed)) {
+							needBottomMargin = true;
+						}
 					}
 				}
+
 				for (i = 0; i < childrenLength; i++) {
 					node = children[i];
-					nodeStyle = node.style;
 					if (node.classList.contains(contentSelector)) {
+						self._storeContentStyle(node);
+						nodeStyle = node.style;
 						contentStyle = window.getComputedStyle(node);
 						marginTop = parseFloat(contentStyle.marginTop);
 						marginBottom = parseFloat(contentStyle.marginBottom);
-						nodeStyle.height = (screenHeight - extraHeight - marginTop - marginBottom) + "px";
-						nodeStyle.width = screenWidth + "px";
+
+						if (!element.classList.contains(pageScrollSelector)) {
+							nodeStyle.height = (screenHeight - headerHeight - footerHeight - marginTop - marginBottom) + "px";
+							nodeStyle.width = screenWidth + "px";
+						} else {
+							nodeStyle.minHeight = (screenHeight - headerHeight - footerHeight - marginTop - marginBottom) + "px";
+						}
+
+						if (needTopMargin) {
+							nodeStyle.marginTop = headerHeight + "px";
+						}
+						if (needBottomMargin) {
+							nodeStyle.marginBottom = footerHeight + "px";
+						}
 					}
+				}
+			};
+
+			prototype._clearContent = function () {
+				var content = this.element.querySelector("." + classes.uiContent);
+
+				if (content) {
+					this._restoreContentStyle(content);
+				}
+			};
+
+			prototype._storeContentStyle = function (content) {
+				var initialContentStyle = this._initialContentStyle,
+					length = CONTENT_STYLE.length,
+					contentStyle = content.style,
+					i;
+
+				for (i = 0; i < length; i++) {
+					initialContentStyle[CONTENT_STYLE[i]] = contentStyle[CONTENT_STYLE[i]];
+				}
+			};
+
+			prototype._restoreContentStyle = function (content) {
+				var initialContentStyle = this._initialContentStyle,
+					length = CONTENT_STYLE.length,
+					contentStyle = content.style,
+					i;
+
+				for (i = 0; i < length; i++) {
+					contentStyle[CONTENT_STYLE[i]] = initialContentStyle[CONTENT_STYLE[i]];
 				}
 			};
 
@@ -471,6 +542,7 @@
 			 * @member ns.widget.core.Page
 			 */
 			prototype._refresh = function () {
+				this._clearContent();
 				this._contentFill();
 			};
 
@@ -516,6 +588,7 @@
 			 * @member ns.widget.core.Page
 			 */
 			prototype.onHide = function () {
+				this._clearContent();
 				this.trigger(EventType.HIDE);
 			};
 
@@ -535,7 +608,6 @@
 				//>>excludeEnd("tauDebug");
 
 				window.removeEventListener("resize", self.contentFillAfterResizeCallback, false);
-
 				// destroy widgets on children
 				engine.destroyAllWidgets(element, true);
 			};
