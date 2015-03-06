@@ -241,6 +241,8 @@
 					element.classList.remove(classes.EXPAND);
 					element.classList.add(classes.COLLAPSE);
 					events.trigger(element, CustomEvents.COLLAPSE);
+					clearTimeout(self._timer);
+					self._timer = setTimeout(self._onScrollEnd.bind(self, event), SCROLL_END_THRESHOLD);
 				}
 			};
 
