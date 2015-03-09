@@ -105,6 +105,7 @@
 			"./profile/mobile/widget/mobile/Button",
 			"./core/widget/core/Tabs",
 			"./profile/mobile/widget/mobile/GridList",
+			"./profile/mobile/widget/mobile/ColoredListview",
 			"./profile/mobile/expose",
 			// default theme
 			"../css/profile/mobile/changeable/theme-changeable/theme",

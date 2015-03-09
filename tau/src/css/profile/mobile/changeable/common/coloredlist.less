@@ -1,0 +1,25 @@
+.ui-colored-list-clip .ui-scrollview-view {
+	overflow: hidden;
+}
+
+.ui-listview {
+	&.ui-colored-list {
+		position: relative;
+		.transform(translate3d(0, 0, 0));
+		.ui-li.ui-li-anchor, .ui-li.ui-btn, .ui-li-static {
+			background-color: transparent;
+			border-bottom: 0;
+		}
+		.ui-li.ui-li-anchor:active, .ui-li.ui-btn:active, .ui-li-static:active {
+			background-color: @color_list_press;
+		}
+	}
+}
+/****************************************************************/
+/*                   Dummy                                      */
+/****************************************************************/
+.ui-colored-list-canvas {
+	.transform(translate3d(0, 0, 0));
+	position: absolute;
+	left: 0;
+}
