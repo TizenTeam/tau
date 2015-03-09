@@ -1,4 +1,5 @@
-.input-focus {
+/** Abstract class */
+.LESSinput-focus {
 	.border-radius(0);
 	border-color: @default_color;
 	color: @color_input_text_focus;
@@ -6,6 +7,19 @@
 		color: @color_input_text_focus;
 	}
 	background-clip: padding-box;
+}
+
+/** Abstract class */
+.LESSsmall-or-inside-popup {
+	.border-radius(0);
+	padding: 7 * @virtual_px 14 * @virtual_px;
+	font-size: 24 * @virtual_px;
+	border: solid 4px @color_input_border_small;
+	color: @color_input_text_small;
+	&.ui-focus {
+		.LESSinput-focus();
+		border: solid 4px @color_input_border_small_focus;
+	}
 }
 
 input:not([type=number]):not([type=checkbox]):not([type=radio]):not([type=date]):not([type=time]).ui-input-text,
@@ -31,8 +45,19 @@ textarea.ui-input-text {
 		text-align: center;
 	}
 
-	&.ui-focus {
-		.input-focus();
+	&:not(.ui-textinput-small).ui-focus {
+		.LESSinput-focus();
+	}
+
+	&.ui-textinput-small {
+		.LESSsmall-or-inside-popup();
+	}
+}
+
+.ui-popup {
+	input:not([type=number]):not([type=checkbox]):not([type=radio]):not([type=date]):not([type=time]).ui-input-text,
+	textarea.ui-input-text {
+		.LESSsmall-or-inside-popup();
 	}
 }
 
@@ -53,7 +78,7 @@ textarea.ui-input-text {
 
 		&.ui-focus {
 			input:not([type=number]):not([type=checkbox]):not([type=radio]):not([type=date]):not([type=time]).ui-input-text {
-				.input-focus();
+				.LESSinput-focus();
 			}
 		}
 
