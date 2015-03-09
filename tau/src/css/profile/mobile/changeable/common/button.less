@@ -1,0 +1,269 @@
+button.ui-btn,
+input[type="button"].ui-btn {
+	-webkit-appearance: none;
+	width: 100%;
+	border: none;
+	outline: none;
+}
+
+a.ui-btn {
+	text-decoration: none;
+}
+
+.ui-btn {
+	position: relative;
+	display: block;
+	padding: 8 * @unit_base 24 * @unit_base 11 * @unit_base;
+	min-height: 60 * @unit_base;
+	vertical-align: middle;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	text-align: center;
+	color: @color_button_text_normal;
+	font-size: @font_size_button_text;
+	white-space: nowrap;
+	cursor: pointer;
+	background-color: @color_button_bg;
+	box-sizing: border-box;
+
+	&:not(.ui-btn-circle):not(.ui-btn-nobg) {
+		.core_button_bg();
+		&::before {
+			z-index: -1;
+			.core_button_bg();
+			background-color: @color_button_bg_press;
+		}
+	}
+
+	&.ui-inline {
+		display: inline-block;
+		width: auto;
+	}
+
+	&::before {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		opacity: 0;
+		content: "";
+		-webkit-transform: scale(.8);
+		-webkit-transition: transform 200ms linear;
+	}
+
+	&:active::before {
+		opacity: 0.5;
+		-webkit-transform: scale(1);
+	}
+}
+
+.ui-btn.ui-btn-circle {
+	width: 74 * @unit_base;
+	height: 74 * @unit_base;
+	background-color: @color_button_icon_bg;
+	border-radius: 50% 50%;
+	text-indent: -9999 * @unit_base;
+
+	&::after {
+		top: 14 * @unit_base;
+		left: 14 * @unit_base;
+	}
+
+	&::before {
+		background-color: @color_button_bg_press;
+		border-radius: 50% 50%;
+	}
+}
+
+.ui-btn.ui-btn-nobg {
+	width: 60 * @unit_base;
+	height: 60 * @unit_base;
+	background-color: transparent;
+	text-indent: -9999 * @unit_base;
+
+	&::after {
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background-color: @color_button_nobg;
+	}
+
+	&:active::after {
+		background-color: @color_button_nobg_press;
+	}
+
+	&::before {
+		border-radius: 30% 30%;
+		background-color: @color_button_bg_press;
+	}
+
+	&:active::before {
+		opacity: 0.2;
+		-webkit-transform: scale(1);
+	}
+
+	&.ui-icon-add {
+		&::after {
+			background-color: @color_button_add;
+		}
+		&:active::after {
+			background-color: @color_button_add_press;
+		}
+	}
+
+	&.ui-icon-delete {
+		&::after {
+			background-color: @color_button_delete;
+		}
+		&:active::after {
+			background-color: @color_button_delete_press;
+		}
+	}
+}
+
+.ui-btn-icon {
+	&.ui-btn-icon-only {
+		text-indent: -9999 * @unit_base;
+		width: 126 * @unit_base;
+		&::after {
+			top: 50%;
+			left: 50%;
+			margin-top: -23 * @unit_base;
+			margin-left: -23 * @unit_base;
+		}
+	}
+
+	&::after{
+		position: absolute;
+		width: 46 * @unit_base;
+		height: 46 * @unit_base;
+		background-color: @color_button_icon;
+		-webkit-mask-size: 100%;
+		content: "";
+	}
+
+	&.ui-btn-icon-left {
+		padding-left: 96 * @unit_base;
+		&::after {
+			top: 7 * @unit_base;
+			left: 40 * @unit_base;
+		}
+	}
+
+	&.ui-btn-icon-right {
+		padding-right: 96 * @unit_base;
+		&::after {
+			top: 7 * @unit_base;
+			right: 40 * @unit_base;
+		}
+	}
+
+	&.ui-btn-icon-top {
+		padding-top: 96 * @unit_base;
+		&::after {
+			top: 40 * @unit_base;
+			left: 50%;
+			margin-left: -23 * @unit_base;
+		}
+	}
+
+	&.ui-btn-icon-bottom {
+		padding-bottom: 96 * @unit_base;
+		&::after {
+			bottom: 40 * @unit_base;
+			left: 50%;
+			margin-left: -23 * @unit_base;
+		}
+	}
+
+	&.ui-icon-add::after {
+		-webkit-mask-image: url(images/controls/core_button_add.png);
+	}
+	&.ui-icon-cancel::after {
+		-webkit-mask-image: url(images/controls/core_button_cancel.png);
+	}
+	&.ui-icon-delete::after {
+		-webkit-mask-image: url(images/controls/core_button_delete.png);
+	}
+	&.ui-icon-reorder::after {
+		-webkit-mask-image: url(images/controls/core_button_reorder.png);
+	}
+
+	&.ui-icon-call::after {
+		-webkit-mask-image: url(images/controls/button/00_button_call.png);
+	}
+	&.ui-icon-arrow-r::after {
+		-webkit-mask-image: url(images/controls/button/00_button_right.png);
+	}
+	&.ui-icon-arrow-l::after {
+		-webkit-mask-image: url(images/controls/button/00_button_left.png);
+	}
+	&.ui-icon-arrow-u::after {
+		-webkit-mask-image: url(images/controls/button/00_button_expand_opened.png);
+	}
+	&.ui-icon-arrow-d::after {
+		-webkit-mask-image: url(images/controls/button/00_button_expand_closed.png);
+	}
+	&.ui-icon-plus::after {
+		-webkit-mask-image: url(images/controls/button/00_button_add.png);
+	}
+	&.ui-icon-minus::after {
+		-webkit-mask-image: url(images/controls/button/00_button_delete.png);
+	}
+	&.ui-icon-forward::after {
+		-webkit-mask-image: url(images/controls/button/00_button_expand_send.png);
+	}
+	&.ui-icon-alert::after {
+		-webkit-mask-image: url(images/controls/button/00_button_warning.png);
+	}
+	&.ui-icon-info::after {
+		-webkit-mask-image: url(images/controls/button/00_button_info.png);
+	}
+	&.ui-icon-rename::after {
+		-webkit-mask-image: url(images/controls/button/00_button_rename.png);
+	}
+	&.ui-icon-star::after {
+		-webkit-mask-image: url(images/controls/00_icon_favorite_bg_72x72.png);
+	}
+	&.ui-icon-search::after {
+		-webkit-mask-image: url(images/controls/00_icon_search.png);
+	}
+	&.ui-icon-scrolltop::after {
+		-webkit-mask-image: url(images/controls/00_icon_jump.png);
+	}
+	&.ui-icon-scrollleft::after {
+		-webkit-mask-image: url(images/controls/00_icon_jump_left.png);
+	}
+	&.ui-icon-check::after {
+		-webkit-mask-image: url(images/controls/button/00_button_check.png);
+	}
+	&.ui-icon-gear::after {
+		-webkit-mask-image: url(images/controls/button/00_button_gear.png);
+	}
+	&.ui-icon-refresh::after {
+		-webkit-mask-image: url(images/controls/button/00_button_refresh.png);
+	}
+	&.ui-icon-back::after {
+		-webkit-mask-image: url(images/controls/button/00_button_back.png);
+	}
+	&.ui-icon-grid::after {
+		-webkit-mask-image: url(images/controls/button/00_button_grid.png);
+	}
+	&.ui-icon-home::after {
+		-webkit-mask-image: url(images/controls/button/00_button_home.png);
+	}
+	&.ui-icon-naviframe-drawer::after {
+		-webkit-mask-image: url(images/page/core_icon_drawer.png);
+	}
+	&.ui-icon-naviframe-selectall::after {
+		-webkit-mask-image: url(images/page/00_icon_select_all.png);
+	}
+	&.ui-icon-naviframe-delete::after {
+		-webkit-mask-image: url(images/page/00_icon_delete.png);
+	}
+	&.ui-icon-naviframe-edit::after {
+		-webkit-mask-image: url(images/page/00_icon_edit.png);
+	}
+}

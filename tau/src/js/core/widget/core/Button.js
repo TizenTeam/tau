@@ -26,7 +26,8 @@
 					BTN_NOBG: "ui-btn-nobg",
 					BTN_ICON_ONLY: "ui-btn-icon-only",
 					BTN_ICON_POSITION_PREFIX: "ui-btn-icon-",
-					MULTILINE: "ui-multiline"
+					MULTILINE: "ui-multiline",
+					NAVIFRAME_BUTTON: "naviframe-button"
 				},
 				buttonStyle = {
 					CIRCLE: "circle",
@@ -76,16 +77,12 @@
 
 				switch (style) {
 					case buttonStyle.CIRCLE:
-						if (innerTextLength === 0) {
-							buttonClassList.remove(classes.BTN_NOBG);
-							buttonClassList.add(classes.BTN_CIRCLE);
-						}
+						buttonClassList.remove(classes.BTN_NOBG);
+						buttonClassList.add(classes.BTN_CIRCLE);
 						break;
 					case buttonStyle.NOBG:
-						if (innerTextLength === 0) {
-							buttonClassList.remove(classes.BTN_CIRCLE);
-							buttonClassList.add(classes.BTN_NOBG);
-						}
+						buttonClassList.remove(classes.BTN_CIRCLE);
+						buttonClassList.add(classes.BTN_NOBG);
 						break;
 					default:
 				}
@@ -158,11 +155,12 @@
 			 */
 			prototype._setIconpos = function (element, iconpos) {
 				var options = this.options,
+					style = options.style,
 					innerTextLength = element.textContent.length || (element.value ? element.value.length : 0);
 
 				iconpos = iconpos || options.iconpos;
 
-				if (options.icon) {
+				if (options.icon && style !== buttonStyle.CIRCLE  && style !== buttonStyle.NOBG) {
 					if (innerTextLength > 0) {
 						element.classList.add(classes.BTN_ICON_POSITION_PREFIX + iconpos);
 					} else {
@@ -188,7 +186,7 @@
 				if (options.iconpos === "notext" && !element.getAttribute("title")) {
 					element.setAttribute("title", buttonText);
 				}
-				if (!buttonText.length && elementTagName !== "label") {
+				if (!buttonText.length && elementTagName !== "label" && element.classList.contains(classes.NAVIFRAME_BUTTON)) {
 					element.textContent = options.icon.replace("naviframe-", "");
 				}
 			};
