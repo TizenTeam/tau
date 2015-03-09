@@ -6,7 +6,7 @@
 /**
  * # Bouncing effect
  * Bouncing effect for scroller widget.
- * @class ns.widget.wearable.scroller.effect.Bouncing
+ * @class ns.widget.core.scroller.effect.Bouncing
  * @since 2.3
  */
 (function (document, ns) {
@@ -34,7 +34,7 @@
 				/**
 				 * target element for bouncing effect
 				 * @property {HTMLElement} targetElement
-				 * @member ns.widget.wearable.scroller.effect.Bouncing
+				 * @member ns.widget.core.scroller.effect.Bouncing
 				 */
 					self._targetElement = null;
 
@@ -87,7 +87,7 @@
 						maxElement = self._maxEffectElement = document.createElement("DIV"),
 						className = classes.bouncingEffect;
 
-					if ( self._orientation === ns.widget.wearable.scroller.Scroller.Orientation.HORIZONTAL ) {
+					if ( self._orientation === ns.widget.core.scroller.Scroller.Orientation.HORIZONTAL ) {
 						minElement.className = className + " " + classes.left;
 						maxElement.className = className + " " + classes.right;
 					} else {
@@ -116,7 +116,7 @@
 				 * @method drag
 				 * @param x
 				 * @param y
-				 * @member ns.widget.wearable.scroller.effect.Bouncing
+				 * @member ns.widget.core.scroller.effect.Bouncing
 				 */
 				drag: function( x, y ) {
 					this._isDrag = true;
@@ -126,7 +126,7 @@
 				/**
 				 * ...
 				 * @method dragEnd
-				 * @member ns.widget.wearable.scroller.effect.Bouncing
+				 * @member ns.widget.core.scroller.effect.Bouncing
 				 */
 				dragEnd: function() {
 					var self = this;
@@ -140,7 +140,7 @@
 				/**
 				 * Shows effect.
 				 * @method show
-				 * @member ns.widget.wearable.scroller.effect.Bouncing
+				 * @member ns.widget.core.scroller.effect.Bouncing
 				 */
 				show: function() {
 					var self = this;
@@ -153,7 +153,7 @@
 				/**
 				 * Hides effect.
 				 * @method hide
-				 * @member ns.widget.wearable.scroller.effect.Bouncing
+				 * @member ns.widget.core.scroller.effect.Bouncing
 				 */
 				hide: function() {
 					var self = this;
@@ -238,7 +238,7 @@
 				/**
 				 * Supports events.
 				 * @method handleEvent
-				 * @member ns.widget.wearable.scroller.effect.Bouncing
+				 * @member ns.widget.core.scroller.effect.Bouncing
 				 */
 				handleEvent: function( event ) {
 					if (event.type.toLowerCase().indexOf("animationend") > -1) {
@@ -253,7 +253,7 @@
 				/**
 				 * Destroys effect.
 				 * @method destroy
-				 * @member ns.widget.wearable.scroller.effect.Bouncing
+				 * @member ns.widget.core.scroller.effect.Bouncing
 				 */
 				destroy: function() {
 					var self = this,
@@ -286,7 +286,7 @@
 				}
 			};
 
-			ns.widget.wearable.scroller.effect.Bouncing = Bouncing;
+			ns.widget.core.scroller.effect.Bouncing = Bouncing;
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 		}
 	);

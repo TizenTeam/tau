@@ -6,7 +6,7 @@
 /**
  * #Type Interface
  * Interface for types used in scroll bar widget.
- * @class ns.widget.wearable.scroller.scrollbar.type.interface
+ * @class ns.widget.core.scroller.scrollbar.type.interface
  */
 (function (document, ns) {
 	"use strict";
@@ -19,13 +19,13 @@
 			//>>excludeEnd("tauBuildExclude");
 			// scroller.start event trigger when user try to move scroller
 
-			ns.widget.wearable.scroller.scrollbar.type.interface = {
+			ns.widget.core.scroller.scrollbar.type.interface = {
 				/**
 				 * Inserts elements end decorate.
 				 * @method insertAndDecorate
 				 * @param options
 				 * @static
-				 * @member ns.widget.wearable.scroller.scrollbar.type.interface
+				 * @member ns.widget.core.scroller.scrollbar.type.interface
 				 */
 				setScrollbarLayout: function (/* options */) {
 				},
@@ -34,7 +34,7 @@
 				 * @method remove
 				 * @param options
 				 * @static
-				 * @member ns.widget.wearable.scroller.scrollbar.type.interface
+				 * @member ns.widget.core.scroller.scrollbar.type.interface
 				 */
 				remove: function (/* options */) {
 				},
@@ -44,7 +44,7 @@
 				 * @param scrollbarElement
 				 * @param barElement
 				 * @static
-				 * @member ns.widget.wearable.scroller.scrollbar.type.interface
+				 * @member ns.widget.core.scroller.scrollbar.type.interface
 				 */
 				start: function (/* scrollbarElement, barElement */) {
 				},
@@ -54,7 +54,7 @@
 				 * @param scrollbarElement
 				 * @param barElement
 				 * @static
-				 * @member ns.widget.wearable.scroller.scrollbar.type.interface
+				 * @member ns.widget.core.scroller.scrollbar.type.interface
 				 */
 				end: function (/* scrollbarElement, barElement */) {
 				},
@@ -64,7 +64,7 @@
 				 * @param orientation
 				 * @param offset
 				 * @static
-				 * @member ns.widget.wearable.scroller.scrollbar.type.interface
+				 * @member ns.widget.core.scroller.scrollbar.type.interface
 				 */
 				offset: function (/* orientation, offset  */) {
 				}

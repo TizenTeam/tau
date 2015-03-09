@@ -6,7 +6,7 @@
  * #Effect namespace
  * Namespace with effects for scroller widget.
  * @author Maciej Urbanski <m.urbanski@samsung.com>
- * @class ns.widget.wearable.scroller.effect
+ * @class ns.widget.core.scroller.effect
  */
 (function (window, ns) {
 	"use strict";
@@ -17,9 +17,9 @@
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
-			ns.widget.wearable.scroller.effect = ns.widget.wearable.scroller.effect || {};
+			ns.widget.core.scroller.effect = ns.widget.core.scroller.effect || {};
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
-			return ns.widget.wearable.scroller.effect;
+			return ns.widget.core.scroller.effect;
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");

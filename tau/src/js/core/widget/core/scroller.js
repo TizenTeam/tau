@@ -2,24 +2,24 @@
 /* Copyright  2010 - 2014 Samsung Electronics Co., Ltd.
  * License : MIT License V2
  */
-/*
- * #Scrollbar namespace
- * Namespace with scrollbar for scroller widget.
+/**
+ * #Scroller namespace
+ * Namespace contains classes and objects connected with scroller widget.
+ * @class ns.widget.wearable.scroller
  * @author Maciej Urbanski <m.urbanski@samsung.com>
- * @class ns.widget.wearable.scroller.scrollbar
  */
 (function (window, ns) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../scroller"
+			"../core"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
-			ns.widget.wearable.scroller.scrollbar = ns.widget.wearable.scroller.scrollbar || {};
+			ns.widget.core.scroller = ns.widget.core.scroller || {};
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
-			return ns.widget.wearable.scroller.scrollbar;
+			return ns.widget.core.scroller;
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");

@@ -6,7 +6,7 @@
  * #type namespace
  * Namespace with types of scroll bars..
  * @author Maciej Urbanski <m.urbanski@samsung.com>
- * @class ns.widget.wearable.scroller.scrollbar.type
+ * @class ns.widget.core.scroller.scrollbar.type
  */
 (function (window, ns) {
 	"use strict";
@@ -17,10 +17,10 @@
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
-			/** @namespace ns.widget.wearable */
-			ns.widget.wearable.scroller.scrollbar.type = ns.widget.wearable.scroller.scrollbar.type || {};
+			/** @namespace ns.widget.core */
+			ns.widget.core.scroller.scrollbar.type = ns.widget.core.scroller.scrollbar.type || {};
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
-			return ns.widget.wearable.scroller.scrollbar.type;
+			return ns.widget.core.scroller.scrollbar.type;
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");

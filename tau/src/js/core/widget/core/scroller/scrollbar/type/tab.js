@@ -6,8 +6,8 @@
 /**
  * #Tab Type
  * Tab type support for scroll bar widget.
- * @class ns.widget.wearable.scroller.scrollbar.type.tab
- * @extends ns.widget.wearable.scroller.scrollbar.type.interface
+ * @class ns.widget.core.scroller.scrollbar.type.tab
+ * @extends ns.widget.core.scroller.scrollbar.type.interface
  */
 (function (document, ns) {
 	"use strict";
@@ -17,15 +17,15 @@
 			"../type",
 			"./interface",
 			"../../Scroller",
-			"../../../../../../../core/util/object"
+			"../../../../../../core/util/object"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 			// scroller.start event trigger when user try to move scroller
 			var utilsObject = ns.util.object,
-				type = ns.widget.wearable.scroller.scrollbar.type,
+				type = ns.widget.core.scroller.scrollbar.type,
 				typeInterface = type.interface,
-				Scroller = ns.widget.wearable.scroller.Scroller;
+				Scroller = ns.widget.core.scroller.Scroller;
 
 			type.tab = utilsObject.merge({}, typeInterface, {
 				options: {
@@ -38,7 +38,7 @@
 				 * @method insertAndDecorate
 				 * @param data
 				 * @static
-				 * @member ns.widget.wearable.scroller.scrollbar.type.tab
+				 * @member ns.widget.core.scroller.scrollbar.type.tab
 				 */
 				insertAndDecorate: function (data) {
 					var scrollbarElement = data.wrapper,
@@ -86,7 +86,7 @@
 				 * @method remove
 				 * @param data
 				 * @static
-				 * @member ns.widget.wearable.scroller.scrollbar.type.tab
+				 * @member ns.widget.core.scroller.scrollbar.type.tab
 				 */
 				remove: function (data) {
 					var scrollbarElement = data.wrapper,
@@ -103,7 +103,7 @@
 				 * @param orientation
 				 * @param offset
 				 * @static
-				 * @member ns.widget.wearable.scroller.scrollbar.type.tab
+				 * @member ns.widget.core.scroller.scrollbar.type.tab
 				 */
 				offset: function (orientation, offset) {
 					return {

@@ -6,7 +6,7 @@
 /**
  * # Scroller Widget
  * Widget creates scroller on content.
- * @class ns.widget.wearable.scroller.Scroller
+ * @class ns.widget.core.scroller.Scroller
  * @since 2.3
  * @extends ns.widget.BaseWidget
  */
@@ -15,10 +15,10 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../../../../../core/engine",
-			"../../../../../core/util/object",
-			"../../../../../core/event",
-			"../../../../../core/event/gesture",
+			"../../../../core/engine",
+			"../../../../core/util/object",
+			"../../../../core/event",
+			"../../../../core/event/gesture",
 			"./effect/Bouncing",
 			"../scroller"
 		],
@@ -32,7 +32,7 @@
 				utilsEvents = ns.event,
 				eventTrigger = utilsEvents.trigger,
 				prototype = new BaseWidget(),
-				EffectBouncing = ns.widget.wearable.scroller.effect.Bouncing,
+				EffectBouncing = ns.widget.core.scroller.effect.Bouncing,
 				eventType = {
 					/**
 					 * event trigger when scroller start
@@ -111,7 +111,7 @@
 				 * @property {""|"bar"|"tab"} [options.scrollbar=""]
 				 * @property {boolean} [options.useBouncingEffect=false]
 				 * @property {"vertical"|"horizontal"} [options.orientation="vertical"]
-				 * @member ns.widget.wearable.Scroller
+				 * @member ns.widget.core.Scroller
 				 */
 				this.options = utilsObject.merge({}, this.options, {
 					scrollDelay: 0,
@@ -165,7 +165,7 @@
 					scrollbarType;
 
 				if ( type ) {
-					scrollbarType = ns.widget.wearable.scroller.scrollbar.type[type];
+					scrollbarType = ns.widget.core.scroller.scrollbar.type[type];
 					if ( scrollbarType ) {
 						this.scrollbar = engine.instanceWidget(this.element, "ScrollBar", {
 							type: scrollbarType,
@@ -260,7 +260,7 @@
 			 * Set options for widget.
 			 * @method setOptions
 			 * @param {Object} options
-			 * @member ns.widget.wearable.scroller.Scroller
+			 * @member ns.widget.core.scroller.Scroller
 			 */
 			prototype.setOptions = function (options) {
 				var name;
@@ -284,7 +284,7 @@
 			 * @param x
 			 * @param y
 			 * @param duration
-			 * @member ns.widget.wearable.scroller.Scroller
+			 * @member ns.widget.core.scroller.Scroller
 			 */
 			prototype.scrollTo = function (x, y, duration) {
 				this._translate(x, y, duration);
@@ -415,7 +415,7 @@
 			/**
 			 * Cancels scroll.
 			 * @method cancel
-			 * @member ns.widget.wearable.scroller.Scroller
+			 * @member ns.widget.core.scroller.Scroller
 			 */
 			prototype.cancel = function () {
 				this.scrollCanceled = true;
@@ -478,7 +478,7 @@
 
 			Scroller.prototype = prototype;
 
-			ns.widget.wearable.scroller.Scroller = Scroller;
+			ns.widget.core.scroller.Scroller = Scroller;
 
 			engine.defineWidget(
 				"Scroller",

@@ -6,7 +6,7 @@
 /**
  * #TabIndicator Widget
  * Widget create tabs indicator.
- * @class ns.widget.wearable.TabIndicator
+ * @class ns.widget.core.TabIndicator
  * @since 2.3
  * @extends ns.widget.BaseWidget
  */
@@ -15,10 +15,10 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../../../../core/engine",
-			"../../../../core/util/object",
-			"../../../../core/widget/BaseWidget",
-			"../wearable"
+			"../../engine",
+			"../../../core/util/object",
+			"../../../core/widget/BaseWidget",
+			"../core"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
@@ -34,7 +34,7 @@
 				/**
 				 * Triggered when tab is changing
 				 * @event tabchange
-				 * @member ns.widget.wearable.TabIndicator
+				 * @member ns.widget.core.TabIndicator
 				 */
 				change: "tabchange"
 			};
@@ -57,7 +57,7 @@
 					 * @property {string} [options.wrapperClass="ui-tab-indicator]
 					 * @property {string} [options.itemClass="ui-tab-item"]
 					 * @property {string} [options.activeClass="ui-tab-active"]
-					 * @member ns.widget.wearable.TabIndicator
+					 * @member ns.widget.core.TabIndicator
 					 */
 					this.options = {
 						margin: 4,
@@ -121,7 +121,7 @@
 				/**
 				 * @method setActive
 				 * @param position
-				 * @member ns.widget.wearable.TabIndicator
+				 * @member ns.widget.core.TabIndicator
 				 */
 				setActive: function ( position ) {
 					var o = this.options,
@@ -147,7 +147,7 @@
 				/**
 				 * @method setSize
 				 * @param size
-				 * @member ns.widget.wearable.TabIndicator
+				 * @member ns.widget.core.TabIndicator
 				 */
 				setSize: function( size ) {
 					var needRefresh = this.tabSize !== size;
@@ -167,7 +167,7 @@
 				}
 			});
 
-			ns.widget.wearable.TabIndicator = TabIndicator;
+			ns.widget.core.TabIndicator = TabIndicator;
 
 			engine.defineWidget(
 				"TabIndicator",

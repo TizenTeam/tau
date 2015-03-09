@@ -69,7 +69,7 @@
  *             })();
  *         </script>
  *
- * @class ns.widget.wearable.SectionChanger
+ * @class ns.widget.core.SectionChanger
  * @since 2.2
  * @extends ns.widget.BaseWidget
  */
@@ -78,16 +78,16 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../../../../core/engine",
-			"../../../../core/event/gesture",
-			"../../../../core/widget/BaseWidget",
+			"../../engine",
+			"../../../core/event/gesture",
+			"../../../core/widget/BaseWidget",
 			"./scroller/Scroller",
 			"./TabIndicator",
-			"../wearable"
+			"../core"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
-			var Scroller = ns.widget.wearable.scroller.Scroller,
+			var Scroller = ns.widget.core.scroller.Scroller,
 				Gesture = ns.event.gesture,
 				engine = ns.engine,
 				utilsObject = ns.util.object,
@@ -96,7 +96,7 @@
 					/**
 					 * Triggered when the section is changed.
 					 * @event sectionchange
-					 * @member ns.widget.wearable.SectionChanger
+					 * @member ns.widget.core.SectionChanger
 					 */
 					CHANGE: "sectionchange"
 				};
@@ -146,7 +146,7 @@
 					 * @property {string} [options.items="section"] Defines the section element selector.
 					 * @property {string} [options.activeClass="ui-section-active"] Specifies the CSS classes which define the active section element. Add the specified class (ui-section-active) to a *section* element to indicate which section must be shown first. By default, the first section is shown first.
 					 * @property {boolean} [options.fillContent=true] declare to section tag width to fill content or not.
-					 * @member ns.widget.wearable.SectionChanger
+					 * @member ns.widget.core.SectionChanger
 					 */
 					this.options = utilsObject.merge(this.options, {
 						items: "section",
@@ -392,7 +392,7 @@
 				 * This method manages events.
 				 * @method handleEvent
 				 * @returns {Event} event
-				 * @member ns.widget.wearable.SectionChanger
+				 * @member ns.widget.core.SectionChanger
 				 */
 				handleEvent: function (event) {
 					this._super(event);
@@ -435,7 +435,7 @@
 				 * @param {number} index
 				 * @param {number} duration For smooth scrolling,
 				 * the duration parameter must be in milliseconds.
-				 * @member ns.widget.wearable.SectionChanger
+				 * @member ns.widget.core.SectionChanger
 				 */
 				setActiveSection: function (index, duration) {
 					var position = this.sectionPositions[ index ],
@@ -482,7 +482,7 @@
 				 * Gets the currently active section element's index.
 				 * @method getActiveSectionIndex
 				 * @returns {number}
-				 * @member ns.widget.wearable.SectionChanger
+				 * @member ns.widget.core.SectionChanger
 				 */
 				getActiveSectionIndex: function () {
 					return this.activeIndex;
@@ -638,11 +638,11 @@
 				}
 			});
 
-			ns.widget.wearable.SectionChanger = SectionChanger;
+			ns.widget.core.SectionChanger = SectionChanger;
 
 			engine.defineWidget(
 				"SectionChanger",
-				".scroller",
+				"[data-role='section-changer'], .ui-section-changer",
 				["getActiveSectionIndex", "setActiveSection"],
 				SectionChanger
 			);

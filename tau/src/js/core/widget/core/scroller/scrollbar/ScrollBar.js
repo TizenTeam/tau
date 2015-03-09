@@ -6,7 +6,7 @@
 /**
  * #Scroll Bar Widget
  * Widget creates scroll bar.
- * @class ns.widget.wearable.scroller.scrollbar.ScrollBar
+ * @class ns.widget.core.scroller.scrollbar.ScrollBar
  * @extends ns.widget.BaseWidget
  */
 (function (document, ns) {
@@ -14,13 +14,13 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../../../../../../core/engine",
-			"../../../../../../core/util/object",
-			"../../../../../../core/util/selectors",
+			"../../../../engine",
+			"../../../../util/object",
+			"../../../../util/selectors",
 			"../scrollbar",
 			"./type/bar",
-			"../../../../../../core/widget/BaseWidget",
-			"../../../../../../core/widget/core/Page",
+			"../../../../../core/widget/core/Page",
+			"../../../../../core/widget/BaseWidget",
 			"../Scroller"
 		],
 		function () {
@@ -31,14 +31,15 @@
 				prototype = new BaseWidget(),
 				utilsObject = ns.util.object,
 				selectors = ns.util.selectors,
-				scrollbarType = ns.widget.wearable.scroller.scrollbar.type,
+				Page = ns.widget.core.Page,
 				Classes = {
 					wrapperClass: "ui-scrollbar-bar-type",
 					barClass: "ui-scrollbar-indicator",
-					orientationClass: "ui-scrollbar-"
+					orientationClass: "ui-scrollbar-",
+					page: Page.classes.uiPage
 				},
 
-				Scroller = ns.widget.wearable.scroller.Scroller,
+				Scroller = ns.widget.core.scroller.Scroller,
 				ScrollerScrollBar = function () {
 
 					this.wrapper = null;
@@ -70,7 +71,7 @@
 				 * @property {boolean} [options.type=false]
 				 * @property {number} [options.displayDelay=700]
 				 * @property {"vertical"|"horizontal"} [options.orientation="vertical"]
-				 * @member ns.widget.wearable.scroller.scrollbar.ScrollBar
+				 * @member ns.widget.core.scroller.scrollbar.ScrollBar
 				 */
 				this.options = utilsObject.merge({}, this.options, {
 					type: false,
@@ -139,7 +140,7 @@
 			 * @method translate
 			 * @param offset
 			 * @param duration
-			 * @member ns.widget.wearable.scroller.scrollbar.ScrollBar
+			 * @member ns.widget.core.scroller.scrollbar.ScrollBar
 			 */
 			prototype.translate = function (offset, duration, autoHidden) {
 				var orientation = this.options.orientation,
@@ -225,14 +226,14 @@
 			 * Supports events.
 			 * @method handleEvent
 			 * @param event
-			 * @member ns.widget.wearable.scroller.scrollbar.ScrollBar
+			 * @member ns.widget.core.scroller.scrollbar.ScrollBar
 			 */
 			prototype.handleEvent = function(event) {
 				var page;
 
 				switch(event.type) {
 				case "visibilitychange":
-					page = selectors.getClosestBySelector(this.container, "." + ns.widget.core.Page.classes.uiPage);
+					page = selectors.getClosestBySelector(this.clip, "." + Classes.page);
 					if (document.visibilityState === "visible" && page === ns.activePage) {
 						this.refresh();
 					}
@@ -260,7 +261,7 @@
 
 			ScrollerScrollBar.prototype = prototype;
 
-			ns.widget.wearable.scroller.scrollbar.ScrollBar = ScrollerScrollBar;
+			ns.widget.core.scroller.scrollbar.ScrollBar = ScrollerScrollBar;
 
 			engine.defineWidget(
 				"ScrollBar",

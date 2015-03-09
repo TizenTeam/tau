@@ -5,7 +5,7 @@
 		[
 			"../../core/engine",
 			"./widget/wearable/IndexScrollbar",
-			"./widget/wearable/SectionChanger",
+			"../../core/widget/core/SectionChanger",
 			"./widget/wearable/SwipeList",
 			"./widget/wearable/VirtualListview",
 		],

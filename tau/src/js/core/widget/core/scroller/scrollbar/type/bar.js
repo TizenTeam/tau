@@ -6,8 +6,8 @@
 /**
  * #Bar Type
  * Bar type support for scroll bar widget.
- * @class ns.widget.wearable.scroller.scrollbar.type.bar
- * @extends ns.widget.wearable.scroller.scrollbar.type.interface
+ * @class ns.widget.core.scroller.scrollbar.type.bar
+ * @extends ns.widget.core.scroller.scrollbar.type.interface
  */
 (function (document, ns) {
 	"use strict";
@@ -17,15 +17,15 @@
 			"../type",
 			"./interface",
 			"../../Scroller",
-			"../../../../../../../core/util/object"
+			"../../../../../../core/util/object"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 			// scroller.start event trigger when user try to move scroller
 			var utilsObject = ns.util.object,
-				type = ns.widget.wearable.scroller.scrollbar.type,
+				type = ns.widget.core.scroller.scrollbar.type,
 				typeInterface = type.interface,
-				Scroller = ns.widget.wearable.scroller.Scroller;
+				Scroller = ns.widget.core.scroller.Scroller;
 
 			type.bar = utilsObject.merge({}, typeInterface, {
 				options: {
@@ -38,7 +38,7 @@
 				 * @param firstChildLayout
 				 * @param clipLayout
 				 * @static
-				 * @member ns.widget.wearable.scroller.scrollbar.type.bar
+				 * @member ns.widget.core.scroller.scrollbar.type.bar
 				 */
 
 				setScrollbar: function(viewLayout, firstChildLayout, clipLayout) {
@@ -52,7 +52,7 @@
 				 * @method getScrollbarSize
 				 * @return scrollbar size
 				 * @static
-				 * @member ns.widget.wearable.scroller.scrollbar.type.bar
+				 * @member ns.widget.core.scroller.scrollbar.type.bar
 				 */
 				getScrollbarSize: function() {
 					return this._firstChildLayout / this._viewLayout * this._firstChildLayout * this._ratio;
@@ -62,7 +62,7 @@
 				 * @param orientation
 				 * @param offset
 				 * @static
-				 * @member ns.widget.wearable.scroller.scrollbar.type.bar
+				 * @member ns.widget.core.scroller.scrollbar.type.bar
 				 */
 				offset: function( orientation, offset ) {
 					var x, y;
@@ -87,7 +87,7 @@
 				 * @method start
 				 * @param scrollbarElement
 				 * @static
-				 * @member ns.widget.wearable.scroller.scrollbar.type.bar
+				 * @member ns.widget.core.scroller.scrollbar.type.bar
 				 */
 				start: function( scrollbarElement/*, barElement */) {
 					var style = scrollbarElement.style,
@@ -104,7 +104,7 @@
 				 * @method end
 				 * @param scrollbarElement
 				 * @static
-				 * @member ns.widget.wearable.scroller.scrollbar.type.bar
+				 * @member ns.widget.core.scroller.scrollbar.type.bar
 				 */
 				end: function( scrollbarElement/*, barElement */) {
 					var style = scrollbarElement.style,
