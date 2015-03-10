@@ -45,6 +45,9 @@
 			padding: 0;
 			margin-right: 26 * @virtual_px;
 			margin-bottom: 28 * @virtual_px;
+			&[data-icon]:not(.ui-btn-icon_only) {
+				background-color: transparent;
+			}
 
 			.ui-btn-inner {
 				min-width: 104 * @virtual_px;

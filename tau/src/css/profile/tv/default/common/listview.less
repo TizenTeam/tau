@@ -255,6 +255,9 @@
 			a.ui-btn {
 				padding: 0;
 				margin: 0;
+				&[data-icon]:not(.ui-btn-icon_only) {
+					background-color: transparent;
+				}
 
 				.ui-background {
 					background-color: @default_color;

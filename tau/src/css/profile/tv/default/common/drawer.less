@@ -41,6 +41,11 @@
 		a {
 			width: auto;
 			height: auto;
+
+			&.ui-btn, &.ui-btn[data-icon]:not(.ui-btn-icon_only) {
+				background-color: transparent;
+			}
+
 			.ui-btn-inner {
 				color: @color_drawer_btn;
 				overflow: visible;

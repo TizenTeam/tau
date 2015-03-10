@@ -14,7 +14,9 @@
 	min-height: @fixed_button_minimum_height;
 	min-width: @fixed_button_minimum_width;
 	border-radius: 4 * @virtual_px;
-	background-color: @color_button_basic_normal;
+	&:not(.ui-btn-icon_only) {
+		background-color: @color_button_basic_normal;
+	}
 	color: @color_button_basic_txt_normal;
 
 	&.ui-multiline {
@@ -137,7 +139,9 @@
 	// button with icon
 	&[data-icon] {
 		font-weight: inherit;
-		background-color: @color_button_icon_normal;
+		&:not(.ui-btn-icon_only) {
+			background-color: @color_button_icon_normal;
+		}
 
 		.ui-text {
 			color: @color_button_icon_text;
