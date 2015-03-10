@@ -111,6 +111,7 @@
 			"./profile/mobile/widget/mobile/ToggleSwitch.extra",
 			"./profile/mobile/widget/mobile/Navigation",
 			"./profile/mobile/widget/mobile/IndexScrollbar",
+			"./profile/mobile/widget/mobile/FloatingButton",
 			"./profile/mobile/expose",
 			// default theme
 			"../css/profile/mobile/changeable/theme-changeable/theme",

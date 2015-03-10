@@ -26,7 +26,7 @@ a.ui-btn {
 	background-color: @color_button_bg;
 	box-sizing: border-box;
 
-	&:not(.ui-btn-circle):not(.ui-btn-nobg) {
+	&:not(.ui-btn-circle):not(.ui-btn-nobg):not(.ui-floatingbutton-item) {
 		.core_button_bg();
 		&::before {
 			z-index: -1;
@@ -40,7 +40,7 @@ a.ui-btn {
 		width: auto;
 	}
 
-	&::before {
+	&:not(.ui-floatingbutton-item)::before {
 		position: absolute;
 		top: 0;
 		left: 0;
