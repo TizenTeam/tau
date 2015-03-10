@@ -470,7 +470,7 @@
 				var self = this;
 				if (!self._onClickHandler) {
 					self._onClickHandler = self._onClick.bind(self);
-					document.addEventListener("click", self._onClickHandler, false);
+					document.addEventListener("vmousedown", self._onClickHandler, false);
 				}
 			};
 
@@ -496,7 +496,7 @@
 			 */
 			prototype._destroyEventMouse = function () {
 				if (this._onClickHandler) {
-					document.removeEventListener("click", this._onClickHandler, false);
+					document.removeEventListener("vmousedown", this._onClickHandler, false);
 				}
 			};
 
