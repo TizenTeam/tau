@@ -101,7 +101,7 @@ div.ui-slider:not(.ui-toggle-switch) {
 
 	margin: 15 * @virtual_px 20 * @virtual_px;
 
-	.ui-btn {
+	.ui-slider-handle {
 		&.ui-focus {
 			background-color: transparent;
 		}
@@ -109,20 +109,10 @@ div.ui-slider:not(.ui-toggle-switch) {
 		margin-top: 0;
 		padding: 0;
 	}
-	.ui-btn-inner {
-		padding: 0.3rem 0 0 0;
-	}
-	.ui-btn-text {
-		color: @color_slider_handle_text;
-	}
 
 	a.ui-slider-handle-press {
 		background-image: url(images/Slider/00_slider_handle_press.png);
 		.transition(background 200ms);
-
-		.ui-btn-text {
-			color: @color_slider_handle_text_press;
-		}
 	}
 }
 

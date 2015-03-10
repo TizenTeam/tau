@@ -759,9 +759,6 @@
 
 				//temporary way to send initial parameters
 				//to the instanceWidget method
-				domHandle.setAttribute("data-corners", "true");
-				domHandle.setAttribute("data-theme", theme);
-				domHandle.setAttribute("data-shadow", "true");
 
 				domHandle.setAttribute("role", "range");
 				domHandle.setAttribute("aria-valuemin", min);
@@ -770,8 +767,6 @@
 				domHandle.setAttribute("aria-valuetext", initValue);
 				domHandle.setAttribute("title", initValue);
 				domHandle.setAttribute("aria-labelledby", "labelID");
-				domHandle.setAttribute("inline", "false");
-				domHandle.setAttribute("data-bar", "true");
 				domHandle.setAttribute("id", elementId + "-handle");
 
 				if (tagName === "select") {
@@ -1153,23 +1148,20 @@
 					refresh(self, event);
 					return false;
 				}, false);
-				/*TODO - add vmousemove support*/
 
-				this._onVmouseMove = onVmouseMove.bind(null, this);
-				slider.addEventListener("vmousemove", this._onVmouseMove,
-						false);
+				callbacks.vmouseMove = onVmouseMove.bind(null, self);
+				document.addEventListener("vmousemove", callbacks.vmouseMove, false);
 
 				slider.addEventListener("vclick", function (event) {
 					event.stopPropagation();
 					event.preventDefault();
 				}, false);
+
 				//prevent scrolling when slider is in use
-				slider.addEventListener("touchmove", onTouchMove, false);
+				document.addEventListener("touchmove", onTouchMove, false);
 
-				this._sliderMouseUp = sliderMouseUp.bind(null, this);
-				slider.addEventListener("vmouseup", this._sliderMouseUp,
-						false);
-
+				callbacks.mouseUp = sliderMouseUp.bind(null, self);
+				document.addEventListener("vmouseup", callbacks.mouseUp, false);
 			};
 
 			/**
