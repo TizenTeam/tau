@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width,user-scalable=no"/>
+	<script src="./lib/jquery.js"></script>
+	<script src="./js/jquery.tmpl.min.js"></script>
+	<script type="text/javascript" src="./lib/tau/mobile/js/tau.js" data-build-remove="false"></script>
+	<link rel="stylesheet"  href="./lib/tau/mobile/theme/default/tau.css">
+
+	<title>Tizen ui</title>
+
+	<!-- for compatibility test -->
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<link rel="apple-touch-icon" href="icon-tizen.png" />
+</head>
+
+<body>
+	<div data-role="page" id="main">
+		<div data-role="header" data-position="fixed">
+			<h1>Tizen Web UI</h1>
+		</div>
+		<div data-role="content">
+			<ul data-role="listview">
+				<li data-role="list-divider">UI Components</li>
+				<li><a href="components/headerfooter/index.html">Header and Footer</a></li>
+				<li><a href="components/navigationelements/index.html">Navigation Elements</a></li>
+				<li><a href="components/list/index.html">List</a></li>
+				<li><a href="components/controls/index.html">Controls</a></li>
+				<li><a href="components/popup/index.html">Popup</a></li>
+				<li><a href="components/lightview/index.html">Light View</a></li>
+				<li><a href="components/badge/index.html">Badge</a></li>
+				<li><a href="components/drawer/index.html">Drawer</a></li>
+				<li><a href="components/gallery/index.html">Gallery</a></li>
+				<li><a href="components/multimediaview/index.html">Multimedia View</a></li>
+			</ul>
+		</div>
+		<script>
+			$( "#main" ).on( "pageshow" , function() {
+				//bind callbacks to the H/W keys
+				$( window ).on( "tizenhwkey" , function( e ) {
+					if ( e.originalEvent.keyName == "back"
+							&& window.tizen
+							&& window.tizen.application ) {
+						window.tizen.application.getCurrentApplication().exit();
+						return false;
+					}
+				} );
+			} );
+			$( "#main" ).on( "pagebeforehide" , function() {
+				//unbind callbacks to the H/W keys
+				$( window ).off( "tizenhwkey" );
+			} );
+		</script>
+
+	</div>
+</body>
+</html>

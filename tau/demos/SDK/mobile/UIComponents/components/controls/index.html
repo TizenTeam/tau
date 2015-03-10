@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script type="text/javascript" src="../../lib/tau/mobile/js/tau.js" data-build-remove="false"></script>
+</head>
+<body>
+<div data-role="page" id="demo-page">
+	<div data-role="header" data-position="fixed">
+		<h1>Controls</h1>
+	</div>
+	<div data-role="content">
+		<ul data-role="listview">
+			<li><a href="#">Button</a></li>
+            <li><a href="#">Select Menu</a></li>
+            <li><a href="#">Floating Button</a></li>
+            <li><a href="#">Toggle</a></li>
+            <li><a href="#">Check Box</a></li>
+            <li><a href="#">Radio Button</a></li>
+            <li><a href="#">Input Box</a></li>
+            <li><a href="#">Token Text Area</a></li>
+            <li><a href="#">Search Filter Bar</a></li>
+            <li><a href="#">Activity Indicator</a></li>
+            <li><a href="#">Progress Indicator</a></li>
+            <li><a href="#">Slider</a></li>
+            <li><a href="#">Page Indicator</a></li>
+            <li><a href="#">Handler</a></li>
+            <li><a href="#">Fast Scroll</a></li>
+            <li><a href="#">Picker</a></li>
+		</ul>
+	</div>
+	<script>
+		$( "#demo-page" ).on( "pageshow" , function() {
+			//bind callbacks to the H/W keys
+			$( window ).on( "tizenhwkey" , function( e ) {
+				if( e.originalEvent.keyName === "back" ) {
+					window.history.back();
+				}
+			});
+		});
+		$( "#demo-page" ).on( "pagebeforehide" , function() {
+			//unbind callbacks to the H/W keys
+			$( window ).off( "tizenhwkey" );
+		});
+	</script>
+</div>
+</body>
+</html>
