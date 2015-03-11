@@ -2,8 +2,6 @@
 <html>
 <head>
 	<meta name="viewport" content="width=device-width,user-scalable=no"/>
-	<script src="./lib/jquery.js"></script>
-	<script src="./js/jquery.tmpl.min.js"></script>
 	<script type="text/javascript" src="./lib/tau/mobile/js/tau.js" data-build-remove="false"></script>
 	<link rel="stylesheet"  href="./lib/tau/mobile/theme/default/tau.css">
 
@@ -35,24 +33,7 @@
 				<li><a href="components/multimediaview/index.html">Multimedia View</a></li>
 			</ul>
 		</div>
-		<script>
-			$( "#main" ).on( "pageshow" , function() {
-				//bind callbacks to the H/W keys
-				$( window ).on( "tizenhwkey" , function( e ) {
-					if ( e.originalEvent.keyName == "back"
-							&& window.tizen
-							&& window.tizen.application ) {
-						window.tizen.application.getCurrentApplication().exit();
-						return false;
-					}
-				} );
-			} );
-			$( "#main" ).on( "pagebeforehide" , function() {
-				//unbind callbacks to the H/W keys
-				$( window ).off( "tizenhwkey" );
-			} );
-		</script>
-
 	</div>
+    <script src="app.js"></script>
 </body>
 </html>

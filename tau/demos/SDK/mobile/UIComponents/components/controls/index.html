@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <link rel="stylesheet"  href="../../lib/tau/mobile/theme/default/tau.css">
 	<script type="text/javascript" src="../../lib/tau/mobile/js/tau.js" data-build-remove="false"></script>
 </head>
 <body>
@@ -28,20 +29,6 @@
             <li><a href="#">Picker</a></li>
 		</ul>
 	</div>
-	<script>
-		$( "#demo-page" ).on( "pageshow" , function() {
-			//bind callbacks to the H/W keys
-			$( window ).on( "tizenhwkey" , function( e ) {
-				if( e.originalEvent.keyName === "back" ) {
-					window.history.back();
-				}
-			});
-		});
-		$( "#demo-page" ).on( "pagebeforehide" , function() {
-			//unbind callbacks to the H/W keys
-			$( window ).off( "tizenhwkey" );
-		});
-	</script>
 </div>
 </body>
 </html>
