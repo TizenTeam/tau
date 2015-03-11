@@ -13,7 +13,7 @@ grunt build
 result_build=$?
 
 # Unit Test
-grunt test:wearable
+grunt test
 result_test=$?
 
 # JSHint
@@ -60,7 +60,7 @@ else
 "
 fi
 
-comment=$comment"Coverage : <"$BUILD_URL"/cobertura>"
+#comment=$comment"Coverage : <"$BUILD_URL"/cobertura>"
 
 # Publish comment
 ssh -p 29418 webuifw.sec@168.219.209.56 gerrit review --message "\"$comment\"" $GERRIT_PATCHSET_REVISION

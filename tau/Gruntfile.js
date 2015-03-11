@@ -667,11 +667,7 @@ module.exports = function(grunt) {
 
 			qunit: {
 				options: {
-					'--web-security': 'no',
-					coverage: {
-						src: ["tests/libs/dist/js/tau.js"],
-						instrumentedFiles: "temp/"
-					}
+					'--web-security': 'no'
 				}
 			},
 
