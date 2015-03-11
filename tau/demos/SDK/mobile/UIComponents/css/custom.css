@@ -15,3 +15,7 @@
 	background-size:50% 50%;
 	background-image: url(test.png);
 }
+
+.popup-content-padding {
+	padding: 18px 24px;
+}
