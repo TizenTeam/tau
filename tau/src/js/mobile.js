@@ -108,6 +108,7 @@
 			"./profile/mobile/widget/mobile/ScrollHandler",
 			"./profile/mobile/widget/mobile/Drawer",
 			"./profile/mobile/widget/mobile/ToggleSwitch",
+			"./profile/mobile/widget/mobile/ToggleSwitch.extra",
 			"./profile/mobile/widget/mobile/Navigation",
 			"./profile/mobile/widget/mobile/IndexScrollbar",
 			"./profile/mobile/expose",

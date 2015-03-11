@@ -1,0 +1,103 @@
+/*new button type like*/
+
+.ui-toggle-container {
+	position: relative;
+	width: 60 * @unit_base;
+	height: 60 * @unit_base;
+
+	input[type="checkbox"].ui-toggle-switch {
+		width: 60 * @unit_base;
+		height: 60 * @unit_base;
+		border-radius: 50%;
+		background-color: @color_toggle_handle_off_bg; /*@color_toggle_bg;*/
+		-webkit-appearance: none;
+		outline: 0;
+		margin: 0;
+		-webkit-backface-visibility: hidden;
+
+		&::before {
+			content: "";
+			position: absolute;
+			height: 100%;
+			width: 100%;
+			background-color: @color_toggle_handle_on_bg;
+			-webkit-border-radius: 50%;
+			border-radius: 50%;
+			opacity: 0;
+			-webkit-transform: scale(0.7);
+			-webkit-transition: transform 300ms ease-out, opacity 400ms ease-out;
+			transform: scale(0.7);
+			transition: transform 300ms ease-out, opacity 400ms ease-out;
+		}
+
+		&:checked {
+			&::before {
+				opacity: 1;
+				-webkit-transition: transform 300ms ease-out, opacity 400ms ease-out;
+				-webkit-transform: scale(1);
+				transition: transform 300ms ease-out, opacity 400ms ease-out;
+				transform: scale(1);
+			}
+			~ .ui-switch-handler {
+				&::before {
+					-webkit-transform: scale(0);
+					transform: scale(0);
+					-webkit-transition: transform 100ms ease-out;
+					transition: transform 100ms ease-out;
+				}
+				&::after {
+					-webkit-transition: transform 250ms ease-out 50ms;
+					transition: transform 250ms ease-out 50ms;
+					-webkit-transform: scale(1);
+					transform: scale(1);
+				}
+			}
+			&:disabled{
+				background-color: transparent;
+				&::before {
+					background-color: @color_toggle_handle_dim_bg;
+				}
+			}
+		}
+
+		&:disabled {
+			background-color: @color_toggle_handle_dim_bg;
+		}
+	}
+
+	.ui-switch-handler {
+		position: absolute;
+		width: 30 * @unit_base;
+		height: 30 * @unit_base;
+		top:50%;
+		left:50%;
+		transform: translate(-50%, -50%);
+		pointer-events: none;
+
+		&:before,
+		&:after {
+			content: "";
+			position: absolute;
+			height: 100%;
+			width: 100%;
+			-webkit-mask-position: center;
+		}
+
+		&:before {
+			background-color: @color_toggle_handle_off_icon;
+			-webkit-mask-image: url("images/controls/core_toggle_icon_off.svg");
+			-webkit-transform: scale(1);
+			transform: scale(1);
+			-webkit-transition: transform 250ms ease-out 50ms;
+			transition: transform 250ms ease-out 50ms;
+		}
+		&:after {
+			background-color: @color_toggle_handle_off_icon;
+			-webkit-mask-image: url("images/controls/core_toggle_icon_on.svg");
+			-webkit-transform: scale(0);
+			transform: scale(0);
+			-webkit-transition: transform 100ms ease-out;
+			transition: transform 100ms ease-out;
+		}
+	}
+}
