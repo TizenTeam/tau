@@ -175,7 +175,7 @@
 							if (!instance || !built) {
 								engine.instanceWidget(element, instanceWidgetName, options);
 							} else {
-								instance.configure(null, element, options);
+								instance.option(options);
 							}
 						} else {
 							if (instance === null) {
