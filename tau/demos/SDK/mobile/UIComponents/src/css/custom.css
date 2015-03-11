@@ -22,84 +22,62 @@
 	background: aliceblue;
 }
 
-#float-page .a,
+.layout-page .a,
 .example-child-box.a {
 	width: 200px;
 	height: 100px;
 	background-color: #ff0000;
 }
-#float-page .b,
+.layout-page .b,
 .example-child-box.b {
 	width: 30%;
-	height: 20%;
+	height: 60px;
 	background-color: #0000ff;
 }
-#float-page .c,
+.layout-page .c,
 .example-child-box.c {
 	width: 40%;
 	height: 100px;
 	background-color: #008000;
 }
-#float-page .d,
+.layout-page .d,
 .example-child-box.d {
 	width: 300px;
-	height: 20%;
+	height: 40px;
 	background-color: #00ffff;
 }
-#float-page .e,
+.layout-page .e,
 .example-child-box.e {
 	width: 200px;
-	height: 10%;
+	height: 70px;
 	background-color: deepskyblue;
 }
-#float-page .f,
+.layout-page .f,
 .example-child-box.f {
 	width: 30%;
 	height: 100px;
 	background-color: #ffff00;
 }
 
-#float-page .ea,
+.layout-page .ea,
 .example-child-box.ea {
 	width: 30%;
-	height: 50%;
+	height: 50px;
 	background-color: indianred;
 }
-#float-page .eb,
+.layout-page .eb,
 .example-child-box.eb {
 	width: 100px;
-	height: 100%;
+	height: 100px;
 	background-color: blueviolet;
 }
-
-/*LINEAR*/
-#linear-page #sample-box {
+.layout-page #sample-box {
 	height: 400px;
 }
 .ui-btn{
 	width: 100%;
 }
-.ui-scrollview-view .a {
-	width: 200px;
-	height: 100px;
-	background-color: #ff0000;
-	flex: 0 1 auto;
-}
-.ui-scrollview-view .b {
-	width: 30%;
-	height: 30%;
-	background-color: #0000ff;
-	flex: 0 1 auto;
-}
-.ui-scrollview-view .c {
-	width: 40%;
-	height: 120px;
-	background-color: #008000;
-	flex: 0 1 auto;
-}
-.ui-scrollview-view .d {
-	width: 300px;
-	height: 40%;
-	background-color: #00ffff;
-	flex: 0 1 auto;
+
+.layout-page .ui-box-linear-horizont {
+	height: 400px;
 }

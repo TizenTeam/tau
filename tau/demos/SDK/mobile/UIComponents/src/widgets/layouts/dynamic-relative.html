@@ -2,33 +2,30 @@
 <html>
 <head>
 	<meta name="viewport" content="width=device-width, user-scalable=no"/>
-	<title>Layout Widgets - Float (default: left)</title>
+	<title>Relative layout in JS</title>
 	<link rel="stylesheet" href="../../../lib/tau/mobile/theme/default/tau.css">
 	<script type="text/javascript" src="../../../lib/tau/mobile/js/tau.js" data-build-remove="false"></script>
 	<link rel="stylesheet" href="../../../src/css/custom.css">
 </head>
 <body>
-<div data-role="page" id="relative-page">
-	<div data-role="header">
-		<h1 class="ui-page-title">Relative layout</h1>
-	</div>
+<div data-role="page" id="relative-page-js" class="layout-page">
+	<header>
+		<h1>Relative in JS</h1>
+	</header>
 	<div data-role="content">
-		<div id="sample-box">
-
+		<div id="relative-sample-box-js">
 		</div>
 	</div>
 
 	<script>
 		function createButtonInstance() {
-			var element = document.createElement("a");
-
-			element.textContent = "Test " + Math.random();
-
-			return tau.widget.Button(element);
+			var button = tau.widget.Button();
+			button.value("Test " + Math.random());
+			return button;
 		}
 
 		function pageShow() {
-			var layoutInstance = tau.engine.instanceWidget(document.getElementById("sample-box"), "Box", {
+			var layoutInstance = tau.widget.Box(document.getElementById("relative-sample-box-js"), {
 				layout: "relative",
 				position: {
 					// Position
@@ -40,14 +37,14 @@
 				}
 			});
 
-			layoutInstance.append(createButtonInstance());
-			layoutInstance.append(createButtonInstance());
-			layoutInstance.append(createButtonInstance());
-			layoutInstance.append(createButtonInstance());
+			layoutInstance.append([createButtonInstance(),
+					createButtonInstance(),
+					createButtonInstance(),
+					createButtonInstance()]);
 		}
 
 		//document.getElementById("relative-page").addEventListener("pageshow", pageShow);
-		tau.event.one(document.getElementById("relative-page"), "pageshow", pageShow);
+		tau.event.one(document.getElementById("relative-page-js"), "pageshow", pageShow);
 	</script>
 </div>
 </body>
