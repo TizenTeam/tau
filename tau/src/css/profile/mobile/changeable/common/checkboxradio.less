@@ -1,0 +1,168 @@
+/* Basic checkbox */
+input[type="checkbox"].ui-checkbox {  content: "";
+	position: relative;
+	height: 38 * @unit_base;
+	width: 38 * @unit_base;
+	border: 1px solid @color_checkboxradio_checkbox_bg_line_on;
+	border-radius: 15%;
+	box-sizing: border-box;
+	-webkit-appearance: none;
+	outline: none;
+}
+
+input[type="checkbox"].ui-checkbox:not(.favorite) {
+
+	&::before,
+	&::after {
+		content: "";
+		position: absolute;
+	}
+
+	&::before {
+		top: 50%;
+		left: 50%;
+		margin-top: -19 * @unit_base;
+		margin-left: -19 * @unit_base;
+		height: 38 * @unit_base;
+		width: 38 * @unit_base;
+		border-radius: 15%;
+		background-color: @color_checkboxradio_checkbox_bg_on;
+		-webkit-appearance: none;
+		-webkit-mask-position: center;
+		opacity: 0;
+		-webkit-transition: transform 150ms ease-out 300ms, opacity 300ms ease-out 150ms;
+		-webkit-transform: scale(0);
+		-webkit-backface-visibility: hidden;
+	}
+
+	&:checked::before {
+		opacity: 1;
+		-webkit-transform: scale(1);
+		-webkit-transition: transform 150ms ease-out, opacity 300ms ease-out;
+	}
+
+	&::after {
+		height: 0;
+		margin-top: 38 * @unit_base;
+		width: 38 * @unit_base;
+		box-sizing: content-box;
+		background-color: @color_checkboxradio_checkbox_bg_icon;
+		-webkit-mask-image: url("images/controls/core_check_icon.png");
+		-webkit-mask-size: 38 * @unit_base;
+		-webkit-mask-position: center bottom;
+		-webkit-transition-property: height, margin;
+		-webkit-transition-timing-function: ease-in-out;
+		-webkit-transition-duration: 150ms;
+	}
+
+	&:checked::after {
+		-webkit-mask-position: center bottom;
+		margin-top: 0;
+		height: 38 * @unit_base;
+		-webkit-transition-property: height, margin;
+		-webkit-transition-timing-function: ease-in-out;
+		-webkit-transition-duration: 150ms;
+		-webkit-transition-delay: 150ms;
+	}
+}
+
+/* Favorite checkbox */
+input[type="checkbox"].ui-checkbox.favorite {
+border: none;
+
+	&::before,
+	&::after {
+		content: "";
+		position: absolute;
+		height: 38 * @unit_base;
+		width: 38 * @unit_base;
+		-webkit-mask-position: center;
+	}
+
+	&::after {
+		background-color: @color_checkboxradio_favorite_on;
+	 	opacity: 0;
+	 	-webkit-mask-image: url("images/controls/core_icon_favorite_on.svg");
+		-webkit-transition:transform 300ms ease-out 100ms, opacity 500ms ease-out;
+	 	-webkit-transform: scale(0);
+	  	-webkit-backface-visibility: hidden;
+	 }
+	&:checked:disabled::after {
+		background-color: @color_checkboxradio_favorite_dim;
+		-webkit-transform: none;
+	}
+	&:checked::after {
+		-webkit-transform: scale(1);
+		-webkit-transition: transform 300ms ease-out, opacity 300ms ease-out;
+		opacity: 1;
+	}
+	&::before {
+		background-color: @color_checkboxradio_favorite_line_on;
+		-webkit-mask-image: url("images/controls/core_icon_favorite_off_ef.svg");
+	}
+
+	&:checked:disabled::before {
+		background-color : transparent;
+	}
+
+	&:disabled::before{
+		background-color: @color_checkboxradio_favorite_dim;
+	}
+}
+
+/* Basic Radio */
+input[type="radio"].ui-radio {
+	height: 38 * @unit_base;
+	width: 38 * @unit_base;
+	position: relative;
+	border: 1px solid @color_checkboxradio_radio_bg_on;
+	border-radius: 50%;
+	background-color: transparent;
+	box-sizing: border-box;
+	overflow: visible;
+	outline: none;
+
+	-webkit-appearance: none;
+	-webkit-transition-property: border, background-color;
+	-webkit-transition-timing-function: ease-out;
+	-webkit-transition-duration: 200ms;
+	opacity: 1;
+
+	&:checked {
+		border: 4 * @unit_base solid @color_checkboxradio_radio_bg_on;// TOBE @color_checkboxradio_radio_bg_icon;
+		background-color: white;
+	}
+
+	&::before {
+		content: "";
+		position: absolute;
+		height: 20 * @unit_base;
+		width: 20 * @unit_base;
+		top: 50%;
+		left: 50%;
+		margin-top: -10 * @unit_base;
+		margin-left: -10 * @unit_base;
+		border-radius: 50%;
+		background-color: @color_checkboxradio_radio_bg_on;
+		-webkit-mask-size: 38 * @unit_base;
+		opacity: 0;
+
+		-webkit-transition-property: transform, opacity, margin;
+		-webkit-transition-timing-function: ease-out;
+		-webkit-transition-duration: 300ms;
+		-webkit-transform: scale(0);
+		-webkit-backface-visibility: hidden;
+	}
+	&:checked:disabled {
+			background-color: @color_checkboxradio_radio_bg_dim;
+	}
+
+	&:checked::before {
+		opacity: 1;
+		-webkit-transform: scale(1);
+	}
+}
+input[type="checkbox"].ui-checkbox:disabled:not(.favorite),
+input[type="radio"].ui-radio:disabled {
+	opacity: 0.3;
+}

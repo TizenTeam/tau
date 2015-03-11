@@ -1,4 +1,4 @@
-/*global window, define */
+/*global window, define, ns */
 /*
 * Copyright  2010 - 2014 Samsung Electronics Co., Ltd.
 * License : MIT License V2
@@ -111,13 +111,13 @@
 					* @member ns.widget.mobile.Checkboxradio
 					*/
 					self.options = {
-						theme: 's'
+						theme: "s"
 					};
 
 					self._callbacks = {
 						onLabelClick : null,
 						onInputClick : null
-					}
+					};
 
 					self.inputType = "";
 					self.checkedClass = "";
@@ -220,7 +220,7 @@
 
 				// Always set checked to true for radios
 				// for checkboxes toggle value
-				element.checked = (element.type === 'checkbox') ? !element.checked : true;
+				element.checked = (element.type === "checkbox") ? !element.checked : true;
 
 				if (element.checked) {
 					self._getInputSet().forEach(function (el) {
@@ -364,8 +364,6 @@
 			Checkboxradio.prototype._buildLabel = function (element) {
 				var inputType =  this.inputType,
 					options = this.options,
-					checkedState,
-					checkedClass,
 					icon,
 					label,
 					mini,
@@ -440,9 +438,8 @@
 				return wrapper;
 			};
 
-			Checkboxradio.prototype._buildIcon = function (element) {
-				var inputType = this.inputType,
-					icon,
+			Checkboxradio.prototype._buildIcon = function () {
+				var icon,
 					iconParent,
 					iconWrapper;
 
@@ -477,7 +474,7 @@
 					return element;
 				}
 
-				if (element.hasAttribute('checked')) {
+				if (element.hasAttribute("checked")) {
 					// quick fix to resolve problem in tests when sometimes attribute checked isn't proper interpreted to property in object
 					element.checked = true;
 				}
@@ -537,8 +534,8 @@
 
 				callbacks.onLabelClick = onLabelClick.bind(null, this);
 				callbacks.onInputClick = onInputClick.bind(null, this);
-				this.label.addEventListener('vclick', callbacks.onLabelClick, true);
-				this.element.addEventListener('vclick', callbacks.onInputClick, false);
+				this.label.addEventListener("vclick", callbacks.onLabelClick, true);
+				this.element.addEventListener("vclick", callbacks.onInputClick, false);
 			};
 
 			/**
@@ -551,7 +548,7 @@
 			Checkboxradio.prototype._getInputSet = function () {
 				var parent;
 
-				if (this.inputType === 'checkbox') {
+				if (this.inputType === "checkbox") {
 					return [this.element];
 				}
 
@@ -612,7 +609,7 @@
 			*/
 			Checkboxradio.prototype._enable = function () {
 				dom.removeAttribute(this.element, "disabled");
-				this.wrapper.classList.remove('ui-disabled');
+				this.wrapper.classList.remove("ui-disabled");
 			};
 
 			/**
@@ -623,7 +620,7 @@
 			*/
 			Checkboxradio.prototype._disable = function () {
 				dom.setAttribute(this.element, "disabled", true);
-				this.wrapper.classList.add('ui-disabled');
+				this.wrapper.classList.add("ui-disabled");
 			};
 
 			/**
@@ -635,8 +632,8 @@
 			Checkboxradio.prototype._destroy = function () {
 				var self = this,
 					callbacks = self._callbacks;
-				self.label.removeEventListener('vclick', callbacks.onLabelClick, true);
-				self.element.removeEventListener('vclick', callbacks.onInputClick, false);
+				self.label.removeEventListener("vclick", callbacks.onLabelClick, true);
+				self.element.removeEventListener("vclick", callbacks.onInputClick, false);
 			};
 
 			/**
@@ -709,14 +706,15 @@
 				"Checkboxradio",
 				"input[type='checkbox']:not(.ui-slider-switch-input):not([data-role='toggleswitch']):not(.ui-toggleswitch)," +
 				"input[type='radio']," +
-				"input.ui-checkbox",
+				"input.ui-checkbox," +
+				"input.ui-radio",
 				[
 					"enable",
 					"disable",
 					"refresh"
 				],
 				Checkboxradio,
-				'mobile'
+				"mobile"
 			);
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return ns.widget.mobile.Checkboxradio;

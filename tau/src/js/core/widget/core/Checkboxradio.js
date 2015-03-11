@@ -1,4 +1,9 @@
 /*global window, define, ns */
+/*
+ * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
+ * License : MIT License V2
+ */
+/*jslint nomen: true, plusplus: true */
 (function (document, ns) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
@@ -18,17 +23,23 @@
 				Checkboxradio = function () {
 					var self = this;
 
-					self._label = null;
 					self._inputtype = null;
 				},
 				classes = {
-					DISABLED: "ui-state-disabled",
 					UI_PREFIX: "ui-"
 				},
 				prototype = new BaseWidget();
 
 			Checkboxradio.prototype = prototype;
 
+			/**
+			* Build Checkboxradio widget
+			* @method _build
+			* @param {HTMLElement} element
+			* @protected
+			* @member ns.widget.Checkboxradio
+			* @instance
+			*/
 			prototype._build = function (element) {
 				var inputtype = element.getAttribute("type"),
 					elementClassList = element.classList;
@@ -44,112 +55,7 @@
 			};
 
 			/**
-			* Inits widget
-			* @method _init
-			* @param {HTMLElement} element
-			* @protected
-			* @member ns.widget.Checkboxradio
-			* @instance
-			*/
-			prototype._init = function (element) {
-				var self = this;
-
-				self._label = element.labels ? element.labels[0] : null;
-				self._inputtype = element.getAttribute("type");
-			};
-
-			/**
-			* Returns either a set of radios with the same name attribute or a single checkbox
-			* @method getInputSet
-			* @return {Array}
-			* @protected
-			* @member ns.widget.Checkboxradio
-			* @instance
-			*/
-			prototype._getInputSet = function () {
-				var self = this,
-					element = self.element,
-					parent;
-
-				if (self._inputtype === "checkbox") {
-					return [element];
-				}
-
-				parent = selectors.getClosestBySelector(element, "form, fieldset, .ui-page, [data-role='page'], [data-role='dialog']");
-
-				if (parent) {
-					return slice.call(parent.querySelectorAll("input[name='" + element.name + "'][type='" + self._inputtype + "']"));
-				}
-
-				return [];
-			};
-
-			/**
-			* Refreshes widget
-			* @method _refresh
-			* @member ns.widget.Checkboxradio
-			* @instance
-			*/
-			prototype._refresh = function () {
-				var self = this,
-					element = this.element;
-
-				if (element.getAttribute("disabled")) {
-					self._disable();
-				} else {
-					self._enable();
-				}
-			};
-
-			/**
-			* Enables widget
-			* @method _enable
-			* @member ns.widget.Checkboxradio
-			* @protected
-			* @instance
-			*/
-			prototype._enable = function (element) {
-				if (element) {
-					element.classList.remove(classes.DISABLED);
-					element.removeAttribute("disabled");
-				}
-			};
-
-			/**
-			* Disables widget
-			* @method _disable
-			* @protected
-			* @member ns.widget.Checkboxradio
-			* @instance
-			*/
-			prototype._disable = function (element) {
-				if (element) {
-					element.classList.add(classes.DISABLED);
-					element.setAttribute("disabled", true);
-				}
-			};
-
-			/**
-			* Return checked checkboxradio element
-			* @method getCheckedElement
-			* @return {?HTMLElement}
-			* @member ns.widget.Checkboxradio
-			* @new
-			*/
-			prototype.getCheckedElement = function () {
-				var radios = this._getInputSet(),
-					i,
-					max = radios.length;
-				for (i = 0; i < max; i++) {
-					if (radios[i].checked) {
-						return radios[i];
-					}
-				}
-				return null;
-			};
-
-			/**
-			* Returns value of checkbox if it is checked or value of radios with the same name
+			* Returns the value of checkbox or radio
 			* @method _getValue
 			* @member ns.widget.Checkboxradio
 			* @return {?string}
@@ -158,16 +64,11 @@
 			* @new
 			*/
 			prototype._getValue = function () {
-				var checkedElement = this.getCheckedElement();
-
-				if (checkedElement) {
-					return checkedElement.value;
-				}
-				return null;
+				return this.element.value;
 			};
 
 			/**
-			* Check element with value
+			* Set value to the checkbox or radio
 			* @method _setValue
 			* @param {string} value
 			* @member ns.widget.Checkboxradio
@@ -177,37 +78,7 @@
 			* @new
 			*/
 			prototype._setValue = function (value) {
-				var self = this,
-					radios = self._getInputSet(),
-					checkedElement,
-					i,
-					max = radios.length;
-
-				for (i = 0; i < max; i++) {
-					if (radios[i].value === value) {
-						checkedElement = self.getCheckedElement();
-						if (checkedElement) {
-							checkedElement.checked = false;
-						}
-						radios[i].checked = true;
-						return self;
-					}
-				}
-				return self;
-			};
-
-			/**
-			* Cleans widget's resources
-			* @method _destroy
-			* @protected
-			* @member ns.widget.Checkboxradio
-			* @instance
-			*/
-			prototype._destroy = function () {
-				var self = this;
-
-				self._label = null;
-				self._inputtype = null;
+				this.element.value = value;
 			};
 
 			// definition

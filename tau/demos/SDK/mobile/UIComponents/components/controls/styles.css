@@ -1,0 +1,10 @@
+.my-check-controlgroup .ui-checkbox,
+.content-primary input[type="radio"] {
+	top: 10px;
+}
+.checkbox-result,
+.favorite-result,
+.radio-result{
+	text-align: center;
+	line-height: 50px
+}
