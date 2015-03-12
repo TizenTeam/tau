@@ -32,6 +32,7 @@
 				eventUtils = ns.event,
 				selectorUtils = ns.util.selectors,
 				atan2 = Math.atan2,
+				keyIsPressed = false,
 				PI = Math.PI,
 				BaseKeyboardSupport = function () {
 					var self = this;
@@ -46,6 +47,8 @@
 					this._focusedElement = null;
 					// time of keydown event
 					self.keydownEventTimeStart = null; // [ms]
+					// flag for keydown event
+					self.keydownEventRepeated = false;
 				},
 				prototype = {
 					_supportKeyboard: false
@@ -68,10 +71,6 @@
 					left: "left",
 					right: "right"
 				},
-				/**
-				 * state of key pressed
-				 */
-				keyIsPressed = false,
 				selectorSuffix = ":not(." + classes.focusDisabled + ")" +
 								":not(." + ns.widget.BaseWidget.classes.disable + ")",
 				// define standard focus selectors
@@ -211,18 +210,22 @@
 			 * Calculates neighborhood links.
 			 * @method getNeighborhoodLinks
 			 * @param {HTMLElement} element Base element fo find links
-			 * @param {"top"|"right"|"bottom"|"left"} direction
 			 * @param {HTMLElement} [currentElement] current focused element
+			 * @param {Object} [options] Options for function
+			 * @param {Function} [options._filterNeighbors] Function used to filtering focusable elements
+			 * @param {"top"|"right"|"bottom"|"left"} [options.direction] direction
 			 * @returns {Object}
 			 * @private
 			 * @static
 			 * @member ns.widget.tv.BaseKeyboardSupport
 			 */
-			function getNeighborhoodLinks(element, direction, currentElement) {
+			function getNeighborhoodLinks(element, currentElement, options) {
 				var offset = DOM.getElementOffset,
 					links = getFocusableElements(element),
+					direction = options.direction,
 					currentLink = currentElement || getFocusedLink(),
 					customFocus = (currentLink && fetchCustomFocusElement(currentLink, direction, element)),
+					filterNeighbors = options._filterNeighbors,
 					currentLinkOffset,
 					linksOffset = [];
 
@@ -254,7 +257,7 @@
 						case "up":
 							return linksOffset.filter(function (linkOffset) {
 								// filter only element upper in compare with current element
-								return (linkOffset.offset.top < currentLinkOffset.top);
+								return filterNeighbors ? filterNeighbors("top", linkOffset, currentLink, currentLinkOffset) : (linkOffset.offset.top < currentLinkOffset.top);
 							}).sort(function (linkOffset1, linkOffset2) {
 								// sort elements
 								return (linkOffset1.differentX === linkOffset2.differentX) ?
@@ -268,7 +271,7 @@
 							}).map(mapToElement);
 						case "right":
 							return linksOffset.filter(function (linkOffset) {
-								return (linkOffset.offset.left > currentLinkOffset.left );
+								return filterNeighbors ? filterNeighbors("right", linkOffset, currentLink, currentLinkOffset) :(linkOffset.offset.left > currentLinkOffset.left );
 							}).sort(function (linkOffset1, linkOffset2) {
 								return (linkOffset1.differentY === linkOffset2.differentY) ?
 									(linkOffset1.offset.left === linkOffset2.offset.left ? 0 :
@@ -278,7 +281,7 @@
 							}).map(mapToElement);
 						case "down":
 							return linksOffset.filter(function (linkOffset) {
-								return (linkOffset.offset.top > currentLinkOffset.top);
+								return filterNeighbors ? filterNeighbors("bottom", linkOffset, currentLink, currentLinkOffset) : (linkOffset.offset.top > currentLinkOffset.top);
 							}).sort(function (linkOffset1, linkOffset2) {
 								return (linkOffset1.differentX === linkOffset2.differentX) ?
 									(linkOffset1.offset.top === linkOffset2.offset.top ? 0 :
@@ -288,7 +291,7 @@
 							}).map(mapToElement);
 						default:
 							return linksOffset.filter(function (linkOffset) {
-								return (linkOffset.offset.left  < currentLinkOffset.left);
+								return filterNeighbors ? filterNeighbors("left", linkOffset, currentLink, currentLinkOffset) : (linkOffset.offset.left  < currentLinkOffset.left);
 							}).sort(function (linkOffset1, linkOffset2) {
 								return (linkOffset1.differentY === linkOffset2.differentY) ?
 									((linkOffset1.offset.left === linkOffset2.offset.left) ? 0 :
@@ -409,9 +412,10 @@
 			function focusOnNeighborhood(self, element, options, currentElement) {
 				var	positionFrom = "",
 					nextElements = [],
-					nextElement = null,
+					nextElement,
 					nextNumber = 0,
 					setFocus = false;
+
 				switch (options.direction) {
 					case KEY_CODES.left:
 						positionFrom = EVENT_POSITION.left;
@@ -428,18 +432,33 @@
 					default:
 						return;
 				}
+				options.direction = positionFrom;
 				nextElement = fetchCustomFocusElement(element, positionFrom);
 				if (!nextElement) {
-					nextElements = getNeighborhoodLinks(element, positionFrom, currentElement);
+					nextElements = getNeighborhoodLinks(element, currentElement, options);
 					nextElement = nextElements[nextNumber];
 				}
 
-				while (nextElement && !setFocus) {
-					// if element to focus is found
-					setFocus = focusOnElement(self, nextElement, {
-						direction: positionFrom
-					});
-					nextElement = nextElements[++nextNumber];
+				options.direction = positionFrom;
+
+				if (options._last) {
+					// we are looking for element to focus from the farthest to the nearest
+					nextNumber = nextElements.length - 1;
+					nextElement = nextElements[nextNumber];
+					while (nextElement && !setFocus) {
+						// if element to focus is found
+						setFocus = focusOnElement(self, nextElement, options);
+						nextElement = nextElements[--nextNumber];
+					}
+				} else {
+					// we are looking for element to focus from the nearest
+					nextNumber = 0;
+					nextElement = nextElements[nextNumber];
+					while (nextElement && !setFocus) {
+						// if element to focus is found
+						setFocus = focusOnElement(self, nextElement, options);
+						nextElement = nextElements[++nextNumber];
+					}
 				}
 			}
 
@@ -453,14 +472,12 @@
 			prototype._onKeyup = function(event) {
 				var self = this;
 				if (self._supportKeyboard) {
-					if (!keyIsPressed) {
-						focusOnNeighborhood(self, self.keybordElement || self.element, {
-							direction: event.keyCode
-						});
-					} else {
-						keyIsPressed = false;
+					if (!self.keydownEventRepeated) {
+						// short press was detected
+						self._onShortPress(event);
 					}
 					self.keydownEventTimeStart = null;
+					self.keydownEventRepeated = false;
 				}
 			};
 
@@ -498,6 +515,104 @@
 			};
 
 			/**
+			 * This function is used as a filtering function in function getNeighborhoodLinks.
+			 * @method _onKeyup
+			 * @param {String} direction
+			 * @param {Object} filteredElement Infomation about element, which is being already filtered.
+			 * @param {HTMLElement} element Current element
+			 * @param {Object} [elementOffset] Offset of current element
+			 * @private
+			 * @static
+			 * @member ns.widget.tv.BaseKeyboardSupport
+			 */
+			function filterNeighbors(direction, filteredElement, element, elementOffset) {
+				var filteredElementOffset = filteredElement.offset,
+					filteredElementHeight = filteredElement.height,
+					filteredElementWidth = filteredElement.width,
+					elementHeight = element.offsetHeight,
+					elementWidth = element.offsetWidth;
+
+				elementOffset = elementOffset || DOM.getElementOffset(element);
+
+				switch (direction) {
+					case "top":
+						// we are looking for elements, which are above the current element, but
+						// only in the same column
+						if (elementOffset.left >= filteredElementOffset.left + filteredElementWidth ||
+							elementOffset.left + elementWidth <= filteredElementOffset.left) {
+							// if element is on the right or on the left of the current element,
+							// we remove it from the set
+							return false;
+						}
+						return filteredElementOffset.top < elementOffset.top;
+					case "bottom":
+						// we are looking for elements, which are under the current element, but
+						// only in the same column
+						if (elementOffset.left >= filteredElementOffset.left + filteredElementWidth ||
+							elementOffset.left + elementWidth <= filteredElementOffset.left) {
+							return false;
+						}
+						return filteredElementOffset.top > elementOffset.top;
+					case "left":
+						// we are looking for elements, which are on the left of the current element, but
+						// only in the same row
+						if (elementOffset.top >= filteredElementOffset.top + filteredElementHeight ||
+							elementOffset.top + elementHeight <= filteredElementOffset.top) {
+							return false;
+						}
+						return filteredElementOffset.left  < elementOffset.left;
+					case "right":
+						// we are looking for elements, which are ont the right of the current element, but
+						// only in the same row
+						if (elementOffset.top >= filteredElementOffset.top + filteredElementHeight ||
+							elementOffset.top + elementHeight <= filteredElementOffset.top) {
+							return false;
+						}
+						return filteredElementOffset.left > elementOffset.left;
+				}
+			}
+
+			/**
+			 * Supports keyboard long press event.
+			 * It is called on keydown event, when the long press was not detected.
+			 * @method _onLongPress
+			 * @param {Event} event
+			 * @protected
+			 * @member ns.widget.tv.BaseKeyboardSupport
+			 */
+			prototype._onLongPress = function(event) {
+				var self = this,
+					delay = ns.getConfig("keyboardLongpressInterval", 100),
+					options = {
+						direction: event.keyCode,
+						// it is repeated event, so we make animation shorter
+						duration: ((delay - 30) >= ANIMATION_MIN_TIME ? delay - 30 : ANIMATION_MIN_TIME),
+						_last: true, // option for function focusOnNeighborhood
+						_filterNeighbors: filterNeighbors // option for function getNeighborhoodLinks
+					};
+
+				// set focus on next element
+				focusOnNeighborhood(self, self.element, options);
+			};
+
+			/**
+			 * Supports keyboard short press event.
+			 * It is called on keyup event, when the long press was not detected.
+			 * @method _onShortPress
+			 * @param {Event} event
+			 * @protected
+			 * @member ns.widget.tv.BaseKeyboardSupport
+			 */
+			prototype._onShortPress = function(event) {
+				var self = this;
+
+				// set focus on next element
+				focusOnNeighborhood(self, self.element, {
+					direction: event.keyCode
+				});
+			};
+
+			/**
 			 * Supports keyboard event.
 			 * @method _onKeydown
 			 * @param {Event} event
@@ -507,15 +622,18 @@
 			prototype._onKeydown = function(event) {
 				var self = this,
 					delay = ns.getConfig("keyboardLongpressInterval", 100),
-					currentTime,
-					options;
+					currentTime;
 
 				// if widget supports keyboard's events
 				if (self._supportKeyboard) {
+					// stop scrolling
+					event.preventDefault();
+					event.stopPropagation();
+
 					currentTime = (new Date()).getTime();
 					// we check if it is a single event or repeated one
 					// @note: On TV property .repeat for event is not available, so we have to count time
-					// between events
+					//        between events
 					if (!self.keydownEventTimeStart || (currentTime - self.keydownEventTimeStart > delay)) {
 						// stop scrolling
 						//event.preventDefault();
@@ -528,10 +646,10 @@
 							direction: event.keyCode
 						};
 						if (self.keydownEventTimeStart) {
-							options.duration = ((delay - 30) >= ANIMATION_MIN_TIME ? delay - 30 : ANIMATION_MIN_TIME);
+							// long press was detected
+							self._onLongPress(event);
+							self.keydownEventRepeated = true;
 						}
-						// set focus on next element
-						focusOnNeighborhood(self, self.element, options);
 						self.keydownEventTimeStart = currentTime;
 					}
 				}
@@ -620,7 +738,6 @@
 			 * @method focusElement
 			 * @param {HTMLElement} [element] widget's element
 			 * @param {?HTMLElement|number|boolean|string} [elementToFocus] element to focus
-			 * @param {HTMLElement} [currentElement] define element which is interpreted as current focused
 			 * @param {Object} [options]
 			 * @static
 			 * @member ns.widget.tv.BaseKeyboardSupport
