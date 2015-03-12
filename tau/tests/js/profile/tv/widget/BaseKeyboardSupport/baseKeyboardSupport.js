@@ -36,29 +36,30 @@
     });
 
     test("focusElement", function () {
-        var input = document.getElementById("input-1"),
-            inputWidget = engine.instanceWidget(input, "TextInput"),
+        var button = document.getElementById("input-1"),
+            //inputWidget = engine.instanceWidget(input, "TextInput"),
+			buttonWidget = engine.instanceWidget(button, "Button"),
             body = document.getElementsByTagName("body")[0],
             eventUp = document.createEvent("KeyboardEvent"),
             initMethod = "initKeyboardEvent",
             focused,
             titleLink = document.getElementsByTagName("a")[0];
 
-        inputWidget.enableKeyboardSupport();
+		buttonWidget.enableKeyboardSupport();
 
-        keyboardSupport.focusElement(body, input);
+        keyboardSupport.focusElement(body, button);
         focused = document.querySelector(":focus") || document.activeElement;
-        equal(focused.className.indexOf("ui-input-text") >= 0, true, "Element is properly focused");
+        equal(focused, buttonWidget.element, "Element is properly focused");
 
         keyboardSupport.blurAll();
         keyboardSupport.focusElement(body, 0);
         focused = document.querySelector(":focus") || document.activeElement;
-        notEqual(focused, input, "Input has not change it's state");
+        notEqual(focused, button, "Input has not change it's state");
 
         keyboardSupport.blurAll();
         keyboardSupport.focusElement(body);
         focused = document.querySelector(":focus") || document.activeElement;
-        notEqual(focused, input, "Input has not change it's state");
+        notEqual(focused, button, "Input has not change it's state");
     });
 
     if (!window.navigator.userAgent.match("PhantomJS")) {

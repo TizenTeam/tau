@@ -16,16 +16,15 @@
 		});
 
 		function testInput(id, isDisabled) {
-			var input = document.getElementById(id),
-				textLine = input.nextSibling;
+			var input = document.getElementById(id);
 
 			//after build
 			equal(input.getAttribute("data-tau-bound"), "TextInput", "Input widget is created");
 			equal(input.getAttribute("aria-disabled"), isDisabled, "Input widget is enabled");
 			ok(input.classList.contains("ui-input-text"), "Input has ui-input-text class");
 			ok(input.classList.contains("ui-body-a"), "Input has ui-body-a class");
-			//Check if text line was created
-			ok(textLine.classList.contains("ui-text-line"), "Text line has ui-text-line class");
+			//Check if text line wasn't create
+			equal(input.parentNode.querySelector(".ui-text-line"), null, "The widget has not text line");
 		}
 
 		function triggerKeyboardEvent(el, keyCode) {

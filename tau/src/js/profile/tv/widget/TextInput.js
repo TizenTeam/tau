@@ -111,12 +111,15 @@
 				 */
 				classes = utilObject.merge({}, MobileTextInput.classes, {
 					uiDisabled: widget.mobile.Button.classes.uiDisabled,
-					uiNumberInput: "ui-number-input"
+					uiFocus: "ui-focus",
+					uiInputBox: "input-box"
 				}),
 				KEY_CODES = BaseKeyboardSupport.KEY_CODES,
 				prototype = new MobileTextInput(),
 				// for detect keyboard open/hide
 				initialScreenHeight = window.innerHeight,
+				//state check if user enter input inside container or leaves it
+				stateForElement = false,
 				selector = "input[type='text'], " +
 					"input[type='password'], input[type='email'], " +
 					"input[type='url'], input[type='tel'], textarea, " +
@@ -130,6 +133,81 @@
 			TextInput.prototype = prototype;
 			TextInput.selector = selector;
 
+			function wrapInput(element, self) {
+				var inputBox = document.createElement("div"),
+					parentElement = element.parentNode,
+					ui = self._ui;
+
+				inputBox.classList.add(classes.uiInputBox);
+				inputBox.setAttribute("tabindex", 0);
+				inputBox.style.width = element.offsetWidth + "px";
+				parentElement.replaceChild(inputBox, element);
+
+				inputBox.appendChild(element);
+				element.classList.add("fitInputToBox");
+
+				ui.inputBox = inputBox;
+			}
+			/**
+			 * Init widget
+			 * @method _bindEvents
+			 * @param {HTMLElement} element
+			 * @protected
+			 * @member ns.widget.tv.TextInput
+			 */
+			prototype._build = function(element) {
+				var self = this;
+				element = MobileTextInputPrototype._build.call(self, element);
+				wrapInput(element, self);
+
+				return element;
+			};
+
+			/**
+			 * Method finds label tag for element.
+			 * @method _findLabel
+			 * @param {HTMLElement} element
+			 * @member ns.widget.tv.TextInput
+			 * @return {HTMLElement}
+			 * @protected
+			 */
+			prototype._findLabel = function (element) {
+				return element.parentNode.parentNode.querySelector("label[for='" + element.id + "']");
+			};
+
+			/**
+			 * Callback for focus event on input
+			 * @method inputFocus
+			 * @param {ns.widget.tv.TextInput} self
+			 * @static
+			 * @private
+			 * @member ns.widget.tv.TextInput
+			 */
+			function inputFocus(self) {
+				var ui = self._ui,
+					input = self.element;
+
+				self.disableKeyboardSupport();
+				if (!input.getAttribute("disabled")) {
+					input.parentElement.classList.add(classes.uiFocus);
+				}
+			}
+
+			/**
+			 * Callback for blur event on input
+			 * @method inputBlur
+			 * @param {ns.widget.tv.TextInput} self
+			 * @static
+			 * @private
+			 * @member ns.widget.tv.TextInput
+			 */
+			function inputBlur(self, event) {
+				var ui = self._ui,
+					input = self.element;
+
+				input.parentElement.classList.remove(classes.uiFocus);
+			}
+
 			/**
 			 * Init widget
 			 * @method _bindEvents
@@ -139,19 +217,25 @@
 			 */
 			prototype._bindEvents = function(element) {
 				var self = this,
-					callbacks = self._callbacks;
+					callbacks = self._callbacks,
+					parentElement = element.parentElement;
+
+				callbacks.inputFocus = inputFocus.bind(null, self);
+				callbacks.inputBlur = inputBlur.bind(null, self);
+
+				parentElement.addEventListener("focus", callbacks.inputFocus, false);
+				parentElement.addEventListener("blur", callbacks.inputBlur, false);
 
 				MobileTextInputPrototype._bindEvents.call(self, element);
 
 				self._bindEventKey();
 
-				callbacks.onKeyup = onKeyupTextarea.bind(null, self);
+				callbacks.onKeyupElementContainer = onKeyupElementContainer.bind(null, self);
+
 				callbacks.onResize = onResize.bind(null, self);
 
-				switch (element.type) {
-					case "textarea":
-						element.addEventListener("keyup", callbacks.onKeyup, false);
-				}
+				element.addEventListener("keyup", onKeyupElement, false);
+				parentElement.addEventListener("keyup", callbacks.onKeyupElementContainer, false);
 
 				window.addEventListener("resize", callbacks.onResize, false);
 			};
@@ -168,10 +252,10 @@
 				var self = this,
 					callbacks = self._callbacks;
 
-				switch (element.type) {
-					case "textarea":
-						element.removeEventListener("keyup", callbacks.onKeyup, false);
-				}
+				element.removeEventListener("keyup", onKeyupElement, false);
+				element.parentElement.removeEventListener("keyup", callbacks.onKeyupElementContainer, false);
+
+				element.removeEventListener("keyup", callbacks.onKeyupElementContainer, false);
 
 				self._destroyEventKey();
 
@@ -181,44 +265,66 @@
 			};
 
 			/**
-			 * Method overrides Textarea behavior on keyup event.
-			 * @method onKeyupTextarea
-			 * @param {TextInput} self
+			 * Callback enable/disbale focus on input element
+			 * @method onKeyupElement
+			 * @param {ns.widget.tv.TextInput} self
 			 * @param {Event} event
 			 * @private
 			 * @static
 			 * @member ns.widget.tv.TextInput
 			 */
-			function onKeyupTextarea(self, event) {
-				var textarea = self.element,
-					value = textarea.value,
-					linesNumber = value.split("\n").length,
-					currentLineNumber = value.substr(0, textarea.selectionStart).split("\n").length;
+			function onKeyupElementContainer(self, event) {
+				var element = self.element,
+					elementTypeName = element.tagName.toLowerCase(),
+					eventTarget = event.target;
 
 				switch (event.keyCode) {
-					case KEY_CODES.up:
-						// if cursor is not at the first line
-						// or the previous event was not in the first line
-						if (currentLineNumber > 1 || self._lastEventLineNumber !== 1) {
-							// we do not jump to other element
-							event.stopImmediatePropagation();
+					case KEY_CODES.enter:
+						//when the keyboard is on
+						if (window.innerHeight < initialScreenHeight) {
+							self.saveKeyboardSupport();
+							self.enableKeyboardSupport();
+						} else {
+							self.disableKeyboardSupport();
+							self.restoreKeyboardSupport();
+							//check if enter to the input or textarea and get focus
+							if (stateForElement) {
+								//for element types which are inputs if I press enter for the second time then focus should be moved to box(container)
+								if (elementTypeName === "input") {
+									eventTarget.parentElement.focus();
+								}
+							} else {
+								//only on container
+								if (eventTarget.tagName.toLowerCase() === "div"){
+									eventTarget.querySelector(elementTypeName).focus();
+									//preserve class ui-focus on container for css styling
+									eventTarget.classList.add(classes.uiFocus);
+								}
+							}
+							stateForElement = !stateForElement;
 						}
-						break;
-					case KEY_CODES.down:
-						// if cursor is not at the last line
-						// or the previous event was not in the last line
-						if (currentLineNumber < linesNumber || self._lastEventLineNumber !== linesNumber) {
-							// we do not jump to other element
-							event.stopImmediatePropagation();
-						}
-						break;
-					case KEY_CODES.left:
-					case KEY_CODES.right:
-							// we do not jump to other element
-							event.stopImmediatePropagation();
 						break;
 				}
-				self._lastEventLineNumber = currentLineNumber;
+			}
+
+			/**
+			 * Callback to prevent key movement inside input
+			 * @method onKeyupElement
+			 * @param {Event} event
+			 * @static
+			 * @private
+			 * @member ns.widget.tv.TextInput
+			 */
+			function onKeyupElement(event) {
+				switch (event.keyCode) {
+					case KEY_CODES.up:
+					case KEY_CODES.down:
+					case KEY_CODES.left:
+					case KEY_CODES.right:
+						// when we are focused on input element, prevent actions on arrows
+						event.stopImmediatePropagation();
+						break;
+				}
 			}
 
 			/**
@@ -231,12 +337,19 @@
 			 * @member ns.widget.tv.TextInput
 			 */
 			function onResize(self) {
+				var elem;
+
 				if (window.innerHeight < initialScreenHeight) {
 					self.saveKeyboardSupport();
 					self.enableKeyboardSupport();
 				} else {
 					self.disableKeyboardSupport();
 					self.restoreKeyboardSupport();
+					//when textarea after closing the keyboard has focus then change focus to container
+					elem = document.querySelector("textarea.ui-focus");
+					if (elem) {
+						elem.parentNode.focus();
+					}
 				}
 			}
 
@@ -255,28 +368,6 @@
 					!element.classList.contains(classes.uiDisabled) && !element.disabled;
 			}
 
-			/**
-			 * Method overrides input behavior on keydown event.
-			 * @method onKeydownInput
-			 * @param {Event} event
-			 * @private
-			 * @static
-			 * @member ns.widget.tv.TextInput
-			 */
-			function onKeydownInput(event) {
-				var target = event.target,
-					isEnabled = isEnabledTextInput(target),
-					parent = target.parentNode;
-
-				if (isEnabled) {
-					event.stopPropagation();
-					event.preventDefault();
-					if (event.keyCode !== KEY_CODES.up && event.keyCode !== KEY_CODES.down) {
-						parent.focus();
-					}
-				}
-			}
-
 			widget.tv.TextInput = TextInput;
 
 			engine.defineWidget(
@@ -288,7 +379,7 @@
 				true
 			);
 
-			BaseKeyboardSupport.registerActiveSelector("." + classes.uiTextinput);
+			BaseKeyboardSupport.registerActiveSelector("." + classes.uiInputBox);
 
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return ns.widget.tv.TextInput;

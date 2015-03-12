@@ -30,9 +30,12 @@ textarea.ui-input-text {
 	background-image: none;
 	padding: 11 * @virtual_px 24 * @virtual_px;
 	font-size: 32 * @virtual_px;
+
+	/*to remove next 3
 	display: block;
 	.border-radius(5 * @virtual_px);
 	border: solid 4px @color_list_editfield;
+*/
 	color: @color_input_text;
 	&::-webkit-input-placeholder {
 		color: @color_input_text;
@@ -45,6 +48,7 @@ textarea.ui-input-text {
 		text-align: center;
 	}
 
+/*to disable*/
 	&:not(.ui-textinput-small).ui-focus {
 		.LESSinput-focus();
 	}
@@ -74,6 +78,10 @@ textarea.ui-input-text {
 			padding-right: 30 * @virtual_px;
 			padding-left: 15 * @virtual_px;
 			width: 100%;
+
+			display: block;
+			.border-radius(5 * @virtual_px);
+			border: solid 4px @color_list_editfield;
 		}
 
 		&.ui-focus {

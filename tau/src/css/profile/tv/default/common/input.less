@@ -1,3 +1,34 @@
+.input-focus-parent {
+	border-color: @default_color;
+	color: @color_input_text_focus;
+	&::-webkit-input-placeholder {
+		color: @color_input_text_focus;
+	}
+	background-clip: padding-box;
+}
+
+.input-box{
+	background: @color_list_editfield;
+	display: block;
+
+	border-style: solid;
+	border: solid @color_list_editfield;
+	border-width: 5 * @one_px;
+	.border-radius(5 * @one_px);
+
+	input:not([type=number]):not([type=checkbox]):not([type=radio]), textarea {
+		border: none;
+	}
+
+	&.ui-focus{
+		.input-focus-parent();
+	}
+
+	.fitInputToBox{
+		width: 100%;
+	}
+}
+
 input:not([type=number]):not([type=checkbox]):not([type=radio]), textarea {
 	background-color: @color_input_bg;
 	color: @color_input_text;
