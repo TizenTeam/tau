@@ -12,11 +12,33 @@
 			});
 
 			// Update listitem
-			vlist.setListItemUpdater(function (elListItem, newIndex) {
+			vlist.setListItemUpdater(function (elListItem, newIndex, rowCount) {
 				//TODO: Update listitem here
-				var data = JSON_DATA[newIndex];
+				var data = JSON_DATA[newIndex],
+					dataFocusRight = "",
+					dataFocusLeft = "",
+					btnSelector = "a.ui-btn";
+
+				if (newIndex === 0) {
+					dataFocusLeft = 'data-focus-left="::virtualgrid(' + (JSON_DATA.length - 1) +') ' + btnSelector + '" ';
+				} else if (newIndex % rowCount === 0) {
+					dataFocusLeft = 'data-focus-left="::virtualgrid(' + (newIndex - 1) + ') ' + btnSelector + '" ';
+				}
+
+				if (newIndex === JSON_DATA.length - 1) {
+					dataFocusRight = 'data-focus-right="::virtualgrid(0) ' + btnSelector + '" ';
+				} else if (newIndex % rowCount === 4) {
+					dataFocusRight = 'data-focus-right="::virtualgrid(' + (newIndex + 1) + ') ' + btnSelector + '" ';
+				}
+
 				elListItem.innerHTML =
-					'<a class="ui-button grid-thumbnail grid-icon" data-icon="play-movie" data-role="button">' +
+					'<a '+
+						'class="ui-button grid-thumbnail grid-icon" ' +
+						'data-icon="play-movie" ' +
+						'data-role="button" ' +
+						dataFocusLeft +
+						dataFocusRight +
+						'>' +
 						'<div class="grid-thumbnail-info">' +
 							data.TIME +
 						'</div>' +

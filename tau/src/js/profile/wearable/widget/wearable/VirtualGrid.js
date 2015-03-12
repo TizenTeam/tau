@@ -66,6 +66,8 @@
 				 * @static
 				 */
 				VERTICAL = "y",
+				FOCUS_SELECTOR = "::virtualgrid",
+				FOCUS_SELECTOR_PATTERN = /(::virtualgrid\((\d+)\))/gi,
 				/**
 				 * Alias for class VirtualGrid
 				 * @method VirtualGrid
@@ -97,6 +99,7 @@
 							return null;
 						}
 					};
+					this._onFocusQuery = null;
 					return this;
 				},
 
@@ -124,7 +127,9 @@
 				 * @private
 				 * @static
 				 */
-				parent_refreshScrollbar = VirtualListPrototype._refreshScrollbar;
+				parent_refreshScrollbar = VirtualListPrototype._refreshScrollbar,
+				parent_bindEvents = VirtualListPrototype._bindEvents,
+				parent_destroy = VirtualListPrototype._destroy;
 
 			/**
 			 * This method draws item.
@@ -150,6 +155,41 @@
 				}
 				self._initListItem();
 				parent_draw.call(self);
+			};
+
+			function onFocusQuery(self, event) {
+				var data = event.detail,
+					selector = data.selector,
+					index = -1;
+				if (selector.indexOf(FOCUS_SELECTOR) > -1) {
+					data.selector = selector = selector.replace(FOCUS_SELECTOR_PATTERN,
+							function (match, widgetMatch, indexMatch) {
+						if (widgetMatch && indexMatch) {
+							index = indexMatch | 0;
+							return "#" + self.id + " [data-index='" + index + "']";
+						}
+						return match;
+					});
+
+					if (index > -1) {
+						self.scrollToIndex(index);
+						data.nextElement = document.querySelector(selector);
+						event.preventDefault(); // consume
+					}
+				}
+			}
+
+			prototype._bindEvents = function (element) {
+				var self = this;
+				parent_bindEvents.call(self, element);
+				self._onFocusQuery = onFocusQuery.bind(null, self);
+				self.element.addEventListener("focusquery", self._onFocusQuery);
+			};
+
+			prototype._destroy = function (element) {
+				var self = this;
+				parent_destroy.call(self, element);
+				self.element.removeEventListener("focusquery", self._onFocusQuery);
 			};
 
 			/**
@@ -240,6 +280,7 @@
 					elementI = document.createElement("div");
 					elementIStyle = elementI.style;
 					elementIStyle.overflow = "hidden";
+					elementI.setAttribute("data-index", count * index + i);
 
 					if (options.orientation === VERTICAL) {
 						elementI.style.float = "left";
@@ -249,7 +290,7 @@
 					}
 
 					if (count * index + i < options.originalDataLength) {
-						this.options.listItemUpdater(elementI, count * index + i);
+						this.options.listItemUpdater(elementI, count * index + i, count);
 					}
 					element.appendChild(elementI);
 				}

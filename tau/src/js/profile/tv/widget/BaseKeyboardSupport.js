@@ -202,23 +202,24 @@
 			 * Calculates neighborhood links.
 			 * @method getNeighborhoodLinks
 			 * @param {HTMLElement} element Base element fo find links
+			 * @param {"top"|"right"|"bottom"|"left"} direction
 			 * @param {HTMLElement} [currentElement] current focused element
 			 * @returns {Object}
 			 * @private
 			 * @static
 			 * @member ns.widget.tv.BaseKeyboardSupport
 			 */
-			function getNeighborhoodLinks(element, currentElement) {
+			function getNeighborhoodLinks(element, direction, currentElement) {
 				var offset = DOM.getElementOffset,
 					links = getFocusableElements(element),
 					currentLink = currentElement || getFocusedLink(),
+					customFocus = (currentLink && fetchCustomFocusElement(currentLink, direction, element)),
 					currentLinkOffset,
-					left,
-					top,
-					right,
-					bottom,
-					linksOffset = [],
-					result;
+					linksOffset = [];
+
+				if (customFocus) {
+					return [customFocus];
+				}
 
 				if (currentLink && currentLink !== document.body) {
 					currentLinkOffset = offset(currentLink);
@@ -239,72 +240,71 @@
 							xyProportion: xyProportion
 						};
 					});
-					top = linksOffset.filter(function (linkOffset) {
-						// filter only element upper in compare with current element
-						return (linkOffset.offset.top < currentLinkOffset.top);
-					}).sort(function (linkOffset1, linkOffset2) {
-						// sort elements
-						return (linkOffset1.differentX === linkOffset2.differentX) ?
-							// if elements have the same top position then on a
-							// top of list will be element with
-							((linkOffset1.offset.top === linkOffset2.offset.top) ? 0 :
-								(linkOffset1.offset.top > linkOffset2.offset.top ? -1 : 1)) :
-								(linkOffset1.differentX < linkOffset2.differentX ? -1 : 1)
-							// sort elements, elements with shortest distance are on top of list
-							;
-					}).map(mapToElement);
-					bottom = linksOffset.filter(function (linkOffset) {
-						return (linkOffset.offset.top > currentLinkOffset.top);
-					}).sort(function (linkOffset1, linkOffset2) {
-						return (linkOffset1.differentX === linkOffset2.differentX) ?
-							(linkOffset1.offset.top === linkOffset2.offset.top ? 0 :
-							(linkOffset1.offset.top < linkOffset2.offset.top ? -1 : 1)) :
-							(linkOffset1.differentX < linkOffset2.differentX ? -1 : 1)
-							;
-					}).map(mapToElement);
-					left = linksOffset.filter(function (linkOffset) {
-						return (linkOffset.offset.left  < currentLinkOffset.left);
-					}).sort(function (linkOffset1, linkOffset2) {
-						return (linkOffset1.differentY === linkOffset2.differentY) ?
-							((linkOffset1.offset.left === linkOffset2.offset.left) ? 0 :
-							(linkOffset1.offset.left > linkOffset2.offset.left ? -1 : 1)) :
-							(linkOffset1.differentY < linkOffset2.differentY ? -1 : 1)
-							;
-					}).map(mapToElement);
-					right = linksOffset.filter(function (linkOffset) {
-						return (linkOffset.offset.left > currentLinkOffset.left );
-					}).sort(function (linkOffset1, linkOffset2) {
-						return (linkOffset1.differentY === linkOffset2.differentY) ?
-							(linkOffset1.offset.left === linkOffset2.offset.left ? 0 :
-							(linkOffset1.offset.left < linkOffset2.offset.left ? -1 : 1)) :
-							(linkOffset1.differentY < linkOffset2.differentY ? -1 : 1)
-							;
-					}).map(mapToElement);
-				} else {
-					linksOffset = links.map(function (link) {
-						var linkOffset = offset(link);
-						return {
-							offset: linkOffset,
-							element: link,
-							width: link.offsetWidth,
-							height: link.offsetHeight
-						};
-					});
-					top = left = right = bottom = linksOffset.sort(function (linkOffset1, linkOffset2) {
-						// sort elements
-						return ((linkOffset1.offset.top === linkOffset2.offset.top) ? (linkOffset1.offset.left < linkOffset2.offset.left ? -1 : 1 ) :
-								(linkOffset1.offset.top < linkOffset2.offset.top ? -1 : 1))
-							// sort elements, elements with shortest distance are on top of list
-							;
-					}).map(mapToElement);
+
+					switch (direction) {
+						case "up":
+							return linksOffset.filter(function (linkOffset) {
+								// filter only element upper in compare with current element
+								return (linkOffset.offset.top < currentLinkOffset.top);
+							}).sort(function (linkOffset1, linkOffset2) {
+								// sort elements
+								return (linkOffset1.differentX === linkOffset2.differentX) ?
+									// if elements have the same top position then on a
+									// top of list will be element with
+									((linkOffset1.offset.top === linkOffset2.offset.top) ? 0 :
+										(linkOffset1.offset.top > linkOffset2.offset.top ? -1 : 1)) :
+										(linkOffset1.differentX < linkOffset2.differentX ? -1 : 1)
+									// sort elements, elements with shortest distance are on top of list
+									;
+							}).map(mapToElement);
+						case "right":
+							return linksOffset.filter(function (linkOffset) {
+								return (linkOffset.offset.left > currentLinkOffset.left );
+							}).sort(function (linkOffset1, linkOffset2) {
+								return (linkOffset1.differentY === linkOffset2.differentY) ?
+									(linkOffset1.offset.left === linkOffset2.offset.left ? 0 :
+									(linkOffset1.offset.left < linkOffset2.offset.left ? -1 : 1)) :
+									(linkOffset1.differentY < linkOffset2.differentY ? -1 : 1)
+									;
+							}).map(mapToElement);
+						case "down":
+							return linksOffset.filter(function (linkOffset) {
+								return (linkOffset.offset.top > currentLinkOffset.top);
+							}).sort(function (linkOffset1, linkOffset2) {
+								return (linkOffset1.differentX === linkOffset2.differentX) ?
+									(linkOffset1.offset.top === linkOffset2.offset.top ? 0 :
+									(linkOffset1.offset.top < linkOffset2.offset.top ? -1 : 1)) :
+									(linkOffset1.differentX < linkOffset2.differentX ? -1 : 1)
+									;
+							}).map(mapToElement);
+						default:
+							return linksOffset.filter(function (linkOffset) {
+								return (linkOffset.offset.left  < currentLinkOffset.left);
+							}).sort(function (linkOffset1, linkOffset2) {
+								return (linkOffset1.differentY === linkOffset2.differentY) ?
+									((linkOffset1.offset.left === linkOffset2.offset.left) ? 0 :
+									(linkOffset1.offset.left > linkOffset2.offset.left ? -1 : 1)) :
+									(linkOffset1.differentY < linkOffset2.differentY ? -1 : 1)
+									;
+							}).map(mapToElement);
+						}
 				}
-				result = {
-					top: top,
-					left: left,
-					bottom: bottom,
-					right: right
-				};
-				return result;
+				linksOffset = utilArray.map(links, function (link) {
+					var linkOffset = offset(link);
+					return {
+						offset: linkOffset,
+						element: link,
+						width: link.offsetWidth,
+						height: link.offsetHeight
+					};
+				});
+				return utilArray.map(linksOffset.sort(function (linkOffset1, linkOffset2) {
+					// sort elements
+					return ((linkOffset1.offset.top === linkOffset2.offset.top) ? (linkOffset1.offset.left < linkOffset2.offset.left ? -1 : 1 ) :
+							(linkOffset1.offset.top < linkOffset2.offset.top ? -1 : 1))
+						// sort elements, elements with shortest distance are on top of list
+						;
+				}), mapToElement);
 			}
 
 			/**
@@ -360,34 +360,67 @@
 				return setFocus;
 			}
 
+			function fetchCustomFocusElement(element, direction, queryContext) {
+				var selector = element.getAttribute("data-focus-" + direction),
+					eventData = {
+						selector: selector,
+						direction: direction,
+						currentElement: element,
+						nextElement: null
+					},
+					useQueryContext = element.getAttribute("data-focus-container-context") === "true",
+					customQueryContextSelector = element.getAttribute("data-focus-context");
+
+				if (selector) {
+					// notify observers about custom query for focus element
+					// observers can catch the event and choose their own elements
+					// this supports customSelectors like ::virtualgrid-* which
+					// is implemented in virtualgrid, if the event was not consumed
+					// assume normal selector
+					if (eventUtils.trigger(element, "focusquery", eventData, true, true)) {
+						if (useQueryContext) {
+							if (customQueryContextSelector) {
+								queryContext = document.querySelector(customQueryContextSelector);
+							}
+							if (queryContext) {
+								return queryContext.parentNode.querySelector(selector);
+							}
+						}
+						return element.parentNode.querySelector(selector);
+					}
+					// if some code managed to fill nextElement use it
+					if (eventData.nextElement) {
+						return eventData.nextElement;
+					}
+				}
+
+				return null;
+			}
+
 			function focusOnNeighborhood(self, element, direction, currentElement) {
-				var neighborhoodLinks = getNeighborhoodLinks(element, currentElement),
-					positionFrom,
-					nextElements,
-					nextElement,
+				var	positionFrom = "",
+					nextElements = [],
+					nextElement = null,
 					nextNumber = 0,
 					setFocus = false;
 				switch (direction) {
 					case KEY_CODES.left:
-						nextElements = neighborhoodLinks.left;
-						nextElement = nextElements[nextNumber];
 						positionFrom = EVENT_POSITION.left;
 						break;
 					case KEY_CODES.up:
-						nextElements = neighborhoodLinks.top;
-						nextElement = nextElements[nextNumber];
 						positionFrom = EVENT_POSITION.up;
 						break;
 					case KEY_CODES.right:
-						nextElements = neighborhoodLinks.right;
-						nextElement = nextElements[nextNumber];
 						positionFrom = EVENT_POSITION.right;
 						break;
 					case KEY_CODES.down:
-						nextElements = neighborhoodLinks.bottom;
-						nextElement = nextElements[nextNumber];
 						positionFrom = EVENT_POSITION.down;
 						break;
+				}
+				nextElement = fetchCustomFocusElement(element, positionFrom);
+				if (!nextElement) {
+					nextElements = getNeighborhoodLinks(element, positionFrom, currentElement);
+					nextElement = nextElements[nextNumber];
 				}
 
 				while (nextElement && !setFocus) {

@@ -452,6 +452,9 @@
 
 				if (index + bufferSize >= dataLength) {
 					index = dataLength - bufferSize;
+					if (index < 0) {
+						index = 0;
+					}
 					isLastBuffer = true;
 				}
 				indexCorrection = toIndex - index;
