@@ -1,8 +1,8 @@
 /*global window, define, ns */
 /*
-* Copyright  2010 - 2014 Samsung Electronics Co., Ltd.
-* License : MIT License V2
-*/
+ * Copyright  2010 - 2014 Samsung Electronics Co., Ltd.
+ * License : MIT License V2
+ */
 /*jslint nomen: true, plusplus: true */
 /**
  * # Search Bar Widget
@@ -233,24 +233,19 @@
 //>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../../../../core/engine",
-			"../../../../core/theme",
-			"../../../../core/event",
-			"../../../../core/util/DOM/attributes",
-			"../../../../core/util/DOM/manipulation",
-			"../mobile",  // fetch namespace
-			"./BaseWidgetMobile",
-			"./TextInput"
+			"../../../core/engine",
+			"../../../core/event",
+			"../../../core/util/DOM/attributes",
+			"../../../core/util/DOM/manipulation",
+			"../../../core/widget/BaseWidget"
 		],
 		function () {
 //>>excludeEnd("tauBuildExclude");
 			var SearchBar = function () {
 					return this;
 				},
-				BaseWidget = ns.widget.mobile.BaseWidgetMobile,
-				textInputClasses = ns.widget.mobile.TextInput.classes,
+				BaseWidget = ns.widget.BaseWidget,
 				engine = ns.engine,
-				themes = ns.theme,
 				DOM = ns.util.DOM,
 				events = ns.event,
 				classes = {
@@ -259,7 +254,6 @@
 					uiShadowInset: "ui-shadow-inset",
 					uiCornerAll: "ui-corner-all",
 					uiBtnShadow: "ui-btn-shadow",
-					themePrefix: "ui-body-",
 					uiInputSearchDefault: "ui-input-search-default",
 					uiSearchBarIcon: "ui-search-bar-icon",
 					uiInputClear: "ui-input-clear",
@@ -273,8 +267,8 @@
 					uiBtnCancelShow: "ui-btn-cancel-show",
 					uiFocus: "ui-focus",
 					uiHeaderSearchBar: "ui-header-searchbar",
-					clearActive: textInputClasses.clearActive,
-					textLine: textInputClasses.textLine,
+					clearActive: "ui-text-input-clear-active",
+					textLine: "ui-text-input-textline",
 					uiSearchBarIconPositionLeft: "ui-search-bar-icon-left",
 					uiSearchBarIconPositionRight: "ui-search-bar-icon-right"
 				};
@@ -304,7 +298,7 @@
 				 */
 				options.theme = null;
 				options.cancelBtn = false;
-				options.clearButton = true;
+				options.clearBtn = true;
 				options.icon = null;
 				options.buttonPosition = "left";
 				options.defaultText = "";
@@ -333,12 +327,12 @@
 			 * @member ns.widget.mobile.SearchBar
 			 */
 			/**
-			* Enable SearchBar
-			* @method _enable
-			* @param {HTMLElement} element
-			* @member ns.widget.mobile.SearchBar
-			* @protected
-			*/
+			 * Enable SearchBar
+			 * @method _enable
+			 * @param {HTMLElement} element
+			 * @member ns.widget.mobile.SearchBar
+			 * @protected
+			 */
 			SearchBar.prototype._enable = function (element) {
 				element = element || this.element;
 				if (element) {
@@ -369,12 +363,12 @@
 			 * @member ns.widget.mobile.SearchBar
 			 */
 			/**
-			* Disable SearchBar
-			* @method _disable
-			* @param {HTMLElement} element
-			* @member ns.widget.mobile.SearchBar
-			* @protected
-			*/
+			 * Disable SearchBar
+			 * @method _disable
+			 * @param {HTMLElement} element
+			 * @member ns.widget.mobile.SearchBar
+			 * @protected
+			 */
 			SearchBar.prototype._disable = function (element) {
 				element = element || this.element;
 				if (element) {
@@ -438,9 +432,6 @@
 				var self = this,
 					id = self.id,
 					options = self.options,
-					protoOptions = SearchBar.prototype.options,
-					theme = options.theme || themes.getInheritedTheme(element, (protoOptions || protoOptions.theme) || "c"),
-					themeClass  = classes.themePrefix + theme,
 					searchBox,
 					clearButton,
 					cancelButton,
@@ -478,11 +469,6 @@
 				searchBoxClasses.add(classes.uiShadowInset);
 				searchBoxClasses.add(classes.uiCornerAll);
 				searchBoxClasses.add(classes.uiBtnShadow);
-
-				if (typeof theme === "string") {
-					inputClassList.add(themeClass);
-					searchBoxClasses.add(themeClass);
-				}
 
 				element.parentNode.replaceChild(searchBox, element);
 				searchBox.appendChild(element);
@@ -711,11 +697,11 @@
 			};
 
 			/**
-			* Bind events to widget
-			* @method _bindEvents
-			* @protected
-			* @member ns.widget.mobile.SearchBar
-			*/
+			 * Bind events to widget
+			 * @method _bindEvents
+			 * @protected
+			 * @member ns.widget.mobile.SearchBar
+			 */
 			SearchBar.prototype._bindEvents = function () {
 				var handlers,
 					self = this,
@@ -833,10 +819,10 @@
 			ns.widget.mobile.SearchBar = SearchBar;
 			engine.defineWidget(
 				"SearchBar",
-				"input[type='search'], [data-type='search'], [data-type='tizen-search'], .ui-searchbar",
+				"input[name='search'], div[data-type='search'], div[data-type='tizen-search'], .ui-searchbar",
 				[],
 				SearchBar,
-				"tizen"
+				"mobile"
 			);
 //>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return ns.widget.mobile.SearchBar;

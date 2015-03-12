@@ -15,7 +15,7 @@
 //>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-		 	"../../../profile/mobile/widget/mobile/SearchBar",
+			"../../../support/mobile/widget/SearchBar",
 			"../../../core/engine",
 			"../../../core/util/object",
 			"./BaseKeyboardSupport",
@@ -159,7 +159,7 @@
 			 * @member ns.widget.tv.SearchBar
 			 */
 			function onKeyupInputContainer(self, event) {
-				var element = self.element
+				var element = self.element;
 
 				switch (event.keyCode) {
 					case KEY_CODES.enter:
@@ -241,7 +241,7 @@
 			 * @private
 			 * @member ns.widget.tv.SearchBar
 			 */
-			function searchbarContainerBlur(self, event) {
+			function searchbarContainerBlur(self) {
 				self.element.parentElement.parentElement.classList.remove(classes.uiFocus);
 			}
 
