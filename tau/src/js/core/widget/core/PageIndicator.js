@@ -5,7 +5,7 @@
 /**
  * #PageIndicator Widget
  * Widget create dots page indicator.
- * @class ns.widget.wearable.PageIndicator
+ * @class ns.widget.core.PageIndicator
  * @extends ns.widget.BaseWidget
  */
 (function (document, ns) {
@@ -13,9 +13,9 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-		 	"../../../../core/engine",
-		 	"../../../../core/widget/BaseWidget",
-			"../wearable"
+		 	"../../engine",
+		 	"../../widget/BaseWidget",
+			"../core"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
@@ -42,21 +42,20 @@
 				 * @property {Object} options
 				 * @property {number} [options.maxPage=5] Maximum number of indicator dots.
 				 * @property {number} [options.numberOfPages=null] Number of pages to be linked to PageIndicator.
-				 * @member ns.widget.wearable.PageIndicator
+				 * @member ns.widget.core.PageIndicator
 				 */
 				this.options = {
 					maxPage: 5,
 					numberOfPages: null
 				};
 			};
-
 			/**
 			 * Build PageIndicator
 			 * @method _build
 			 * @param {HTMLElement} element
 			 * @return {HTMLElement}
 			 * @protected
-			 * @member ns.widget.wearable.PageIndicator
+			 * @member ns.widget.core.PageIndicator
 			 */
 			prototype._build = function (element) {
 				this._createIndicator(element);
@@ -68,7 +67,7 @@
 			 * @method _createIndicator
 			 * @param {HTMLElement} element
 			 * @protected
-			 * @member ns.widget.wearable.PageIndicator
+			 * @member ns.widget.core.PageIndicator
 			 */
 			prototype._createIndicator = function (element) {
 				var self = this,
@@ -100,7 +99,7 @@
 			 * @method _removeIndicator
 			 * @param {HTMLElement} element
 			 * @protected
-			 * @member ns.widget.wearable.PageIndicator
+			 * @member ns.widget.core.PageIndicator
 			 */
 			prototype._removeIndicator =  function (element) {
 				element.textContent = "";
@@ -110,7 +109,7 @@
 			 * This method sets a dot to active state.
 			 * @method setActive
 			 * @param {number} index to be active state.
-			 * @member ns.widget.wearable.PageIndicator
+			 * @member ns.widget.core.PageIndicator
 			 */
 			prototype.setActive = function (position) {
 				var self = this,
@@ -155,7 +154,7 @@
 			 * Refresh widget structure
 			 * @method _refresh
 			 * @protected
-			 * @member ns.widget.wearable.PageIndicator
+			 * @member ns.widget.core.PageIndicator
 			 */
 			prototype._refresh = function () {
 				var self = this;
@@ -167,7 +166,7 @@
 			 * Destroy widget
 			 * @method _destroy
 			 * @protected
-			 * @member ns.widget.wearable.PageIndicator
+			 * @member ns.widget.core.PageIndicator
 			 */
 			prototype._destroy = function () {
 				this._removeIndicator(this.element);
@@ -175,16 +174,17 @@
 
 			PageIndicator.prototype = prototype;
 
-			// definition
-			ns.widget.wearable.PageIndicator = PageIndicator;
+			ns.widget.core.PageIndicator = PageIndicator;
+
 			engine.defineWidget(
 				"PageIndicator",
-				".ui-page-indicator",
+				"[data-role='page-indicator'], .ui-page-indicator",
 				["setActive"],
 				PageIndicator,
-				"wearable"
+				"core"
 			);
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
+			return ns.widget.core.PageIndicator;
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");

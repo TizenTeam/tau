@@ -75,6 +75,8 @@
 			"./core/widget/core/Button",
 			"./core/widget/core/Listview",
 			"./core/widget/core/PanelChanger",
+			"./core/widget/core/SectionChanger",
+			"./core/widget/core/PageIndicator",
 			"./profile/mobile/widget/mobile/Page",
 			"./profile/mobile/widget/mobile/PageContainer",
 			"./profile/mobile/widget/mobile/Popup",

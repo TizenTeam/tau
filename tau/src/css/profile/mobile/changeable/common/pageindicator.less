@@ -1,0 +1,25 @@
+.ui-page-indicator {
+	position: absolute;
+	left: 50%;
+	.transform(translate3d(-50%, 0, 0));
+}
+
+.ui-page-indicator-item {
+	position: relative;
+	display: inline-block;
+	width: 24 * @unit_base;
+	height: 24 * @unit_base;
+	-webkit-mask-image: -webkit-radial-gradient(black 6 * @unit_base, transparent 9 * @unit_base);
+	-webkit-transform: scale3d(0.7, 0.7, 1);
+	background-color: @color_page_indicator_off_page;
+	margin-right: 15 * @unit_base;
+	-webkit-transition-duration: 150ms;
+	&:last-child {
+		margin-right: 0;
+	}
+	&.ui-page-indicator-active {
+		background-color: @color_page_indicator_on_page;
+		-webkit-transform: scale3d(1, 1, 1);
+		-webkit-transition-duration: 150ms;
+	}
+}
