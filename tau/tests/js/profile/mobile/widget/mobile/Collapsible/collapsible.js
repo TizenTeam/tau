@@ -85,88 +85,6 @@
 		ok(movedContent.parentNode.previousElementSibling.classList.contains('ui-collapsible-heading'), 'Content previous sibling is heading (has ui-collapsible-heading class)');
 	});
 
-	test('Widget closed inside set should get `set` properties as options', function () {
-		var collapsible9 = document.getElementById('collapsible9'),
-			widgetObject,
-			widgetOptions;
-
-		$("#collapsible9").collapsible();
-		widgetObject = ej.engine.getBinding(collapsible9);
-		widgetOptions = widgetObject.options;
-
-		equal(widgetOptions.theme, 'z', 'Option: Theme set from parent `set`');
-		equal(widgetOptions.contentTheme, 'x', 'Option: Content theme set from parent `set`');
-		equal(widgetOptions.collapsedIcon, 'back', 'Option: Collapsed set icon from parent `set`');
-		equal(widgetOptions.expandedIcon, 'forward', 'Option: Expanded set icon from parent `set`');
-		equal(widgetOptions.iconpos, 'bottom', 'Option: iconpos set from parent `set`');
-		strictEqual(widgetOptions.inset, false, 'Option: inset set from parent `set`');
-		strictEqual(widgetOptions.mini, true, 'Option: mini set from parent `set`');
-	});
-
-	test('Widget should set default theme to "s" when no options passed and not inside set', function () {
-		var collapsible11 = document.getElementById('collapsible11'),
-			widgetOptions;
-
-		$("#collapsible11").collapsible();
-		widgetOptions = ej.engine.getBinding(collapsible11) && ej.engine.getBinding(collapsible11).options;
-
-		strictEqual(widgetOptions.theme, 's', 'Theme is set to \'s\'');
-	});
-
-	test('Widget content should get class based on theme', function () {
-		var collapsible11 = document.getElementById('collapsible11'),
-			collapsible12 = document.getElementById('collapsible12'),
-			widgetOptions11,
-			widgetOptions12,
-			content11,
-			content12;
-
-		$("#collapsible11").collapsible();
-		content11 = collapsible11.querySelectorAll('.ui-collapsible-content')[0];
-		widgetOptions11 = ej.engine.getBinding(collapsible11) && ej.engine.getBinding(collapsible11).options;
-
-		strictEqual(widgetOptions11.contentTheme, null, 'Content theme is set to null');
-		ok(!content11.classList.contains('ui-body-s'), 'Content doesn\'t have default theme class');
-		ok(!content11.classList.contains('ui-body-'), 'Content doesn\'t have \'ui-body-\' class');
-
-
-		$("#collapsible12").collapsible();
-		content12 = collapsible12.querySelectorAll('.ui-collapsible-content')[0];
-		widgetOptions12 = ej.engine.getBinding(collapsible12) && ej.engine.getBinding(collapsible12).options;
-
-		strictEqual(widgetOptions12.contentTheme, 'f', 'Content theme is set to \'f\'');
-		ok(content12.classList.contains('ui-body-f'), 'Content has \'ui-body-f\' class');
-	});
-
-	test('Widget should set proper classes when options.inset === true', function () {
-		var collapsible12 = document.getElementById('collapsible12'),
-			collapsible13 = document.getElementById('collapsible13'),
-			widgetOptions12,
-			widgetOptions13,
-			header12,
-			header13;
-
-		$("#collapsible12").collapsible();
-		$("#collapsible13").collapsible();
-		widgetOptions12 = ej.engine.getBinding(collapsible12).options;
-		widgetOptions13 = ej.engine.getBinding(collapsible13).options;
-		header12 = collapsible12.firstElementChild;
-		header13 = collapsible13.firstElementChild;
-
-		strictEqual(widgetOptions12.inset, true, 'Inset option set to true');
-		ok(collapsible12.classList.contains('ui-collapsible-inset'), 'Collapsible contains ui-collapsible-inset class');
-
-		ok(header12.classList.contains('ui-corner-top'), 'Header contains ui-corner-top');
-		ok(header12.classList.contains('ui-corner-bottom'), 'Header contains ui-corner-bottom');
-		//-------------------
-		strictEqual(widgetOptions13.inset, false, 'Inset option set to false');
-		ok(!collapsible13.classList.contains('ui-collapsible-inset'), 'Collapsible doesn\'t contain ui-collapsible-inset class');
-
-
-		ok(!header13.classList.contains('ui-corner-top'), 'Header doesn\'t contain ui-corner-top');
-		ok(!header13.classList.contains('ui-corner-bottom'), 'Header doesn\'t contain ui-corner-bottom');
-	});
-
 	asyncTest('Widget destroy', function () {
 		var afterDestroy = function (event) {
 				ok(true, '"destroyed" event was triggered on document');
@@ -198,8 +116,6 @@
 		//ok(headIcon.classList.contains('ui-icon-arrow-u'), 'Header icon has class ui-icon-arrow-u');
 		//ok(!headIcon.classList.contains('ui-icon-arrow-d'), 'Header icon has no class ui-icon-arrow-d');
 
-		equal(headStatus.innerHTML, ' Expandable list, tap to open list', 'Header status text is proper');
-
 		ok(content.classList.contains('ui-collapsible-content-collapsed'), 'Content has ui-collapsible-content-collapsed class');
 		equal(content.getAttribute('aria-hidden'), 'true', 'Content has aria-hidden=true attribute');
 
@@ -226,8 +142,6 @@
 		// @TODO This tests fail inside console, probably due to instanteWidget call which creates Button widget after assertions below
 		//ok(headIcon.classList.contains('ui-icon-arrow-d'), 'Header icon has class ui-icon-arrow-d ');
 		//ok(!headIcon.classList.contains('ui-icon-arrow-u'), 'Header icon has no class ui-icon-arrow-u ');
-
-		equal(headStatus.innerHTML, ' Expandable list, tap to close list', 'Header status text is proper');
 
 		ok(!content.classList.contains('ui-collapsible-content-collapsed'), 'Content doesn\'t have ui-collapsible-content-collapsed class');
 		equal(content.getAttribute('aria-hidden'), 'false', 'Content has aria-hidden=false attribute');

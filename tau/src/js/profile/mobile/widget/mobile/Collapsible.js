@@ -1,4 +1,4 @@
-/*global window, define */
+/*global window, define, ns */
 /*
 * Copyright  2010 - 2014 Samsung Electronics Co., Ltd.
 * License : MIT License V2
@@ -18,7 +18,7 @@
  * ####Create collapsible div using data-role
  *
  *		@example
- *		<div id="collapsible" data-role="collapsible" data-inset="false">
+ *		<div id="collapsible" data-role="collapsible">
  *			<h1>Collapsible head</h1>
  *			<div>Content</div>
  *		</div>
@@ -27,7 +27,7 @@
  *
  *		@example
  *		<ul data-role="listview">
- *			<li data-role="collapsible" data-inset="false">
+ *			<li data-role="collapsible">
  *				<h2>Collapsible head</h2>
  *				<-- sub list -->
  *				<ul data-role="listview">
@@ -40,7 +40,7 @@
  * ####Create using class selector
  *
  *		@example
- *		<div id="collapsible" class="ui-collapsible" data-inset="false">
+ *		<div id="collapsible" class="ui-collapsible">
  *			<h1>Collapsible head</h1>
  *			<div>Content</div>
  *		</div>
@@ -125,12 +125,6 @@
 				 */
 			var BaseWidget = ns.widget.mobile.BaseWidgetMobile,
 				/**
-				 * @property {Object} Button alias variable
-				 * @private
-				 * @static
-				 */
-				Button = ns.widget.core.Button,
-				/**
 				 * @property {Object} engine alias variable
 				 * @private
 				 * @static
@@ -149,24 +143,11 @@
 				 */
 				events = ns.event,
 				/**
-				 * Shortcut for slice method from Array.prototype
-				 * @method slice
-				 * @private
-				 * @static
-				 */
-				slice = [].slice,
-				/**
 				 * @property {Object} domUtils alias variable
 				 * @private
 				 * @static
 				 */
 				domUtils = ns.util.DOM,
-				/**
-				 * @property {Object} themes alias variable
-				 * @private
-				 * @static
-				 */
-				themes = ns.theme,
 				/**
 				 * Local constructor function
 				 * @method Collapsible
@@ -193,22 +174,12 @@
 					 * value is used when collapsible is not in a collapsible-set or option isn't set
 					 * @property {?string} [options.iconpos=null] Icon position, `{@link ns.widget.mobile.Collapsible#defaultOptions}.iconPos`
 					 * value is used when collapsible is not in a collapsible-set or option isn't set
-					 * @property {boolean} [options.inset=true] Determines if widget should be shown as inset
 					 * @property {boolean} [options.mini=false] Sets widget to mini version
 					 * @member ns.widget.mobile.Collapsible
 					 */
 					this.options = {
-						expandCueText: " Expandable list, tap to open list",
-						collapseCueText: " Expandable list, tap to close list",
 						collapsed: true,
-						heading: "h1,h2,h3,h4,h5,h6,legend,li",
-						theme: null,
-						contentTheme: null,
-						collapsedIcon: null,
-						expandedIcon: null,
-						iconpos: null,
-						inset: false,
-						mini: false
+						heading: "h1,h2,h3,h4,h5,h6,legend,li"
 					};
 					// theme, collapsedIcon, expandedIcon, iconpos set as null
 					// because they may be overriden with collapsible-set options
@@ -227,41 +198,15 @@
 					uiCollapsibleContent: "ui-collapsible-content",
 					uiCollapsibleContentCollapsed: "ui-collapsible-content-collapsed",
 					uiCollapsibleCollapsed: "ui-collapsible-collapsed",
-					uiCollapsibleInset: "ui-collapsible-inset",
 					uiCollapsibleHeading: "ui-collapsible-heading",
 					uiCollapsibleHeadingCollapsed: "ui-collapsible-heading-collapsed",
 					uiCollapsibleHeadingStatus: "ui-collapsible-heading-status",
 					uiCollapsibleHeadingToggle: "ui-collapsible-heading-toggle",
-					uiCornerTop: "ui-corner-top",
-					uiCornerBottom: "ui-corner-bottom",
-					uiIcon: "ui-icon",
-					uiLiActive: "ui-li-active",
-					// Prefixes
-					uiBodyPrefix: "ui-body-",
-					uiIconPrefix: "ui-icon-",
-					uiDisabled: "ui-disabled"
+					uiLiActive: "ui-li-active"
 				};
 
 
 			Collapsible.prototype = new BaseWidget();
-
-			/**
-			 * Default options for settings of collapsible widget
-			 * @property {Object} defaultOptions
-			 * @property {string} defaultOptions.theme="s"
-			 * @property {string} defaultOptions.collapsedIcon="arrow-u"
-			 * @property {string} defaultOptions.expandedIcon="arrow-d"
-			 * @property {string} defaultOptions.iconpos="right"
-			 * @static
-			 * @readonly
-			 * @member ns.widget.mobile.Collapsible
-			 */
-			Collapsible.defaultOptions = {
-				theme: "s",
-				collapsedIcon: "arrow-u",
-				expandedIcon: "arrow-d",
-				iconpos: "right"
-			};
 
 			Collapsible.classes = classes;
 
@@ -274,17 +219,12 @@
 			 * @member ns.widget.mobile.Collapsible
 			 */
 			Collapsible.prototype._build = function (element) {
-				var defaults = Collapsible.defaultOptions,
-					options = this.options,
+				var options = this.options,
 					elementClassList = element.classList,
 					header,
 					headerLink,
-					headerLinkClassList,
 					headerStatus,
-					content,
-					alterHeader,
-					parentCollapsibleSet = selectors.getClosestBySelector(element, "[data-role='collapsible-set']"),
-					getDataFromParentSet = domUtils.getNSData.bind(null, parentCollapsibleSet);
+					alterHeader;
 
 				if ((element.parentNode.tagName.toLowerCase() === "ul") && (element.tagName.toLowerCase() === "div")) {
 					ns.warn("Don't make the collapsible list using <div>. It violates standard of HTML rule. Instead of, please use <li>.");
@@ -316,61 +256,8 @@
 
 				// Move header out
 				header = element.insertBefore(header, element.firstChild);
-				// .. and set reference to content
-				content = header.nextElementSibling;
-
-				if (parentCollapsibleSet) {
-					// If set theme from parent set or closest element and if everything is empty set default
-					if (!options.theme) {
-						options.theme = getDataFromParentSet("theme") || themes.getInheritedTheme(element) || defaults.theme;
-					}
-
-					if (!options.contentTheme) {
-						options.contentTheme = getDataFromParentSet("content-theme");
-					}
-					//Get the preference for collapsed icon in the set
-					if (!options.collapsedIcon) {
-						options.collapsedIcon = getDataFromParentSet("collapsed-icon");
-					}
-					// Get the preference for expanded icon in the set
-					if (!options.expandedIcon) {
-						options.expandedIcon = getDataFromParentSet("expanded-icon");
-					}
-					// Gets the preference icon position in the set
-					if (!options.iconpos) {
-						options.iconpos = getDataFromParentSet("iconpos");
-					}
-					// Inherit the preference for inset from collapsible-set
-					if (getDataFromParentSet("inset") !== undefined) {
-						options.inset = getDataFromParentSet("inset");
-					}
-					// Gets the preference for mini in the set
-					if (!options.mini) {
-						options.mini = getDataFromParentSet("mini");
-					}
-				} else {
-					if (!options.theme) {
-						options.theme = themes.getInheritedTheme(element) || defaults.theme;
-					}
-				}
-
-				if (options.contentTheme) {
-					content.classList.add(classes.uiBodyPrefix + options.contentTheme);
-				}
 
 				// Based on value from:
-				// elements data-collapsed-icon or passed options
-				// [-> collapsible-set data-collapsed-icon]
-				// -> defaultValue
-				options.collapsedIcon = options.collapsedIcon || defaults.collapsedIcon;
-				// Based on value from:
-				// elements data-expanded-icon or passed options
-				// [-> collapsible-set data-collapsed-icon]
-				// -> defaultValue
-				options.expandedIcon = options.expandedIcon || defaults.expandedIcon;
-
-				options.iconpos = options.iconpos || defaults.iconpos;
-
 				headerStatus = document.createElement("span");
 				headerStatus.classList.add(classes.uiCollapsibleHeadingStatus);
 
@@ -378,21 +265,11 @@
 
 				domUtils.wrapInHTML(header.childNodes, "<a class='" + classes.uiCollapsibleHeadingToggle + "'></a>");
 				headerLink = header.firstElementChild;
-				headerLinkClassList = headerLink.classList;
-
-				headerLinkClassList.add(classes.uiIconPrefix + options.iconpos);
-				headerLinkClassList.add(classes.uiIconPrefix + options.collapsedIcon);
 
 				headerLink.removeAttribute("role");
 
 				// Append everything to header
 				header.appendChild(headerLink);
-
-				if (options.inset) {
-					elementClassList.add(classes.uiCollapsibleInset);
-					header.classList.add(classes.uiCornerTop);
-					header.classList.add(classes.uiCornerBottom);
-				}
 
 				Collapsible.prototype.options = options;
 
@@ -405,15 +282,11 @@
 			// @param {Object} options
 			// @param {Event} event
 			// @private
-			function toggleCollapsibleHandler(element, options, event) {
+			function toggleCollapsibleHandler(element, event) {
 				var elementClassList = element.classList,
 					header = selectors.getChildrenByClass(element, classes.uiCollapsibleHeading)[0],
 					headerClassList = header.classList,
-					headerStatus = header.querySelector("." + classes.uiCollapsibleHeadingStatus),
-					headerLink = header.firstElementChild,
-					headerLinkClassList = headerLink.classList,
 					content = selectors.getChildrenByClass(element, classes.uiCollapsibleContent)[0],
-					parentCollapsibleSet = selectors.getClosestBySelector(element, "[data-role='collapsible-set']"),
 					isCollapse = event.type === "collapse";
 
 				if (event.defaultPrevented) {
@@ -432,44 +305,15 @@
 				//Toggle functions switched to if/else statement due to toggle bug on Tizen
 				if (isCollapse) {
 					headerClassList.add(classes.uiCollapsibleHeadingCollapsed);
-					headerLinkClassList.remove(classes.uiIconPrefix + options.expandedIcon);
-					headerLinkClassList.add(classes.uiIconPrefix + options.collapsedIcon);
 					elementClassList.add(classes.uiCollapsibleCollapsed);
 					content.classList.add(classes.uiCollapsibleContentCollapsed);
 				} else {
 					headerClassList.remove(classes.uiCollapsibleHeadingCollapsed);
-					headerLinkClassList.add(classes.uiIconPrefix + options.expandedIcon);
-					headerLinkClassList.remove(classes.uiIconPrefix + options.collapsedIcon);
 					elementClassList.remove(classes.uiCollapsibleCollapsed);
 					content.classList.remove(classes.uiCollapsibleContentCollapsed);
 				}
 
-				headerStatus.innerHTML = isCollapse ? options.expandCueText : options.collapseCueText;
-
-				if(options.expandedIcon === options.collapsedIcon) {
-					headerLinkClassList.add(classes.uiIconPrefix + options.collapsedIcon);
-				}
-
 				content.setAttribute("aria-hidden", isCollapse);
-
-				if (options.contentTheme && options.inset && (!parentCollapsibleSet || domUtils.getNSData(element, "collapsible-last"))) {
-					slice.call(header.querySelectorAll("." + classes.uiCollapsibleHeadingToggle)).forEach(function (value) {
-
-						if (isCollapse) {
-							value.classList.add(classes.uiCornerBottom);
-						} else {
-							value.classList.remove(classes.uiCornerBottom);
-						}
-					});
-
-					if (isCollapse) {
-						headerLink.classList.add(classes.uiCornerBottom);
-						content.classList.remove(classes.uiCornerBottom);
-					} else {
-						headerLink.classList.remove(classes.uiCornerBottom);
-						content.classList.add(classes.uiCornerBottom);
-					}
-				}
 
 				// @TODO ?
 				//content.trigger( "updatelayout" );
@@ -500,7 +344,7 @@
 					};
 
 				// Declare handlers with and assign them to local variables
-				toggleHandler = eventHandlers.toggleHandler = toggleCollapsibleHandler.bind(null, element, options);
+				toggleHandler = eventHandlers.toggleHandler = toggleCollapsibleHandler.bind(null, element);
 				removeActiveClass = eventHandlers.removeActiveClass = setActiveHeaderLinkClass.bind(null, false);
 				eventHandlers.addActiveClass = setActiveHeaderLinkClass.bind(null, true);
 				eventHandlers.toggleCollapsiness = function toggleCollapsiness(event) {
@@ -534,7 +378,7 @@
 			 * This method refreshes collapsible.
 			 *
 			 *		@example
-			 *		<div id="collapsible" data-role="collapsible" data-inset="false">
+			 *		<div id="collapsible" data-role="collapsible">
 			 *			<h6>Collapsible head</h6>
 			 *			<div>Content</div>
 			 *		</div>
@@ -547,7 +391,7 @@
 			 * If jQuery is loaded:
 			 *
 			 *		@example
-			 *		<div id="collapsible" data-role="collapsible" data-inset="false">
+			 *		<div id="collapsible" data-role="collapsible">
 			 *			<h6>Collapsible head</h6>
 			 *			<div>Content</div>
 			 *		</div>
@@ -575,7 +419,7 @@
 			 * Removes the collapsible functionality completely.
 			 *
 			 *		@example
-			 *		<div id="collapsible" data-role="collapsible" data-inset="false">
+			 *		<div id="collapsible" data-role="collapsible">
 			 *			<h6>Collapsible head</h6>
 			 *			<div>Content</div>
 			 *		</div>
@@ -588,7 +432,7 @@
 			 * If jQuery is loaded:
 			 *
 			 *		@example
-			 *		<div id="collapsible" data-role="collapsible" data-inset="false">
+			 *		<div id="collapsible" data-role="collapsible">
 			 *			<h6>Collapsible head</h6>
 			 *			<div>Content</div>
 			 *		</div>
@@ -656,7 +500,7 @@
 			 * then second argument will be intemperate as value to set.
 			 *
 			 *		@example
-			 *		<div id="collapsible" data-role="collapsible" data-inset="false">
+			 *		<div id="collapsible" data-role="collapsible">
 			 *			<h6>Collapsible head</h6>
 			 *			<div>Content</div>
 			 *		</div>
@@ -672,7 +516,7 @@
 			 * If jQuery is loaded:
 			 *
 			 *		@example
-			 *		<div id="collapsible" data-role="collapsible" data-inset="false">
+			 *		<div id="collapsible" data-role="collapsible">
 			 *			<h6>Collapsible head</h6>
 			 *			<div>Content</div>
 			 *		</div>
@@ -706,7 +550,7 @@
 			 * related with disabled state.
 			 *
 			 *		@example
-			 *		<div id="collapsible" data-role="collapsible" data-inset="false">
+			 *		<div id="collapsible" data-role="collapsible">
 			 *			<h6>Collapsible head</h6>
 			 *			<div>Content</div>
 			 *		</div>
@@ -719,7 +563,7 @@
 			 * If jQuery is loaded:
 			 *
 			 *		@example
-			 *		<div id="collapsible" data-role="collapsible" data-inset="false">
+			 *		<div id="collapsible" data-role="collapsible">
 			 *			<h6>Collapsible head</h6>
 			 *			<div>Content</div>
 			 *		</div>
@@ -740,7 +584,7 @@
 			 * classes related with enabled state.
 			 *
 			 *		@example
-			 *		<div id="collapsible" data-role="collapsible" data-inset="false">
+			 *		<div id="collapsible" data-role="collapsible">
 			 *			<h6>Collapsible head</h6>
 			 *			<div>Content</div>
 			 *		</div>
@@ -753,7 +597,7 @@
 			 * If jQuery is loaded:
 			 *
 			 *		@example
-			 *		<div id="collapsible" data-role="collapsible" data-inset="false">
+			 *		<div id="collapsible" data-role="collapsible">
 			 *			<h6>Collapsible head</h6>
 			 *			<div>Content</div>
 			 *		</div>
@@ -771,7 +615,7 @@
 			 * Trigger an event on widget's element.
 			 *
 			 *		@example
-			 *		<div id="collapsible" data-role="collapsible" data-inset="false">
+			 *		<div id="collapsible" data-role="collapsible">
 			 *			<h6>Collapsible head</h6>
 			 *			<div>Content</div>
 			 *		</div>
@@ -784,7 +628,7 @@
 			 * If jQuery is loaded:
 			 *
 			 *		@example
-			 *		<div id="collapsible" data-role="collapsible" data-inset="false">
+			 *		<div id="collapsible" data-role="collapsible">
 			 *			<h6>Collapsible head</h6>
 			 *			<div>Content</div>
 			 *		</div>
@@ -806,7 +650,7 @@
 			 * Add event listener to widget's element.
 			 *
 			 *		@example
-			 *		<div id="collapsible" data-role="collapsible" data-inset="false">
+			 *		<div id="collapsible" data-role="collapsible">
 			 *			<h6>Collapsible head</h6>
 			 *			<div>Content</div>
 			 *		</div>
@@ -821,7 +665,7 @@
 			 * If jQuery is loaded:
 			 *
 			 *		@example
-			 *		<div id="collapsible" data-role="collapsible" data-inset="false">
+			 *		<div id="collapsible" data-role="collapsible">
 			 *			<h6>Collapsible head</h6>
 			 *			<div>Content</div>
 			 *		</div>
@@ -843,7 +687,7 @@
 			 * Remove event listener to widget's element.
 			 *
 			 *		@example
-			 *		<div id="collapsible" data-role="collapsible" data-inset="false">
+			 *		<div id="collapsible" data-role="collapsible">
 			 *			<h6>Collapsible head</h6>
 			 *			<div>Content</div>
 			 *		</div>
@@ -863,7 +707,7 @@
 			 * If jQuery is loaded:
 			 *
 			 *		@example
-			 *		<div id="collapsible" data-role="collapsible" data-inset="false">
+			 *		<div id="collapsible" data-role="collapsible">
 			 *			<h6>Collapsible head</h6>
 			 *			<div>Content</div>
 			 *		</div>
