@@ -1,0 +1,123 @@
+.ui-popup.ui-ctxpopup {
+	width: auto;
+	padding:0 0 0 0;
+	background-color: transparent;
+	.ui-popup-content {
+		width: auto;
+	}
+	.ui-popup-wrapper {
+		background-color: @color_ctxpopup_background;
+		border: 2 * @unit_base solid @color_ctxpopup_background_border;
+		border-radius: 10 * @unit_base;
+		box-shadow: none;
+		max-width: 516 * @unit_base;
+		overflow: auto;
+	}
+	:focus {
+		outline:none;
+	}
+	&.slideup.in {
+		.slideupfade.in;
+	}
+	&.slideup.out {
+		.slideupfade.out.reverse;
+	}
+	.ui-arrow {
+		width: 46 * @unit_base;
+		height: 13 * @unit_base;
+		overflow: hidden;
+		position: absolute;
+		display: none;
+		animation-duration: 0;
+		-webkit-animation-duration: 0;
+
+		span {
+			width: 14 * @unit_base;
+			height: 14 * @unit_base;
+			border: 4 * @unit_base solid @color_ctxpopup_background_border;
+			box-shadow: none;
+			background-color: @color_ctxpopup_background;
+			position:absolute;
+			top: 6 * @unit_base;
+			left: 16 * @unit_base;
+			-webkit-transform: rotate(55deg) skew(24deg);
+			transform: rotate(55deg) skew(24deg);
+			animation-duration: 0;
+			-webkit-animation-duration: 0;
+		}
+	}
+
+	&.ui-popup-arrow-b {
+		padding: 5*@unit_base 5*@unit_base 0 5*@unit_base;
+	}
+
+	&.ui-popup-arrow-t {
+		padding: 0 5*@unit_base 5*@unit_base 5*@unit_base;
+	}
+
+	&.ui-popup-arrow-r {
+		padding: 5*@unit_base 0 5*@unit_base 5*@unit_base;
+	}
+
+	&.ui-popup-arrow-l {
+		padding: 5*@unit_base 5*@unit_base 5 0*@unit_base;
+	}
+
+	&.ui-popup-arrow-b .ui-arrow {
+		display: block;
+		bottom: -11 * @unit_base;
+		-webkit-transform: rotate(180deg);
+		transform: rotate(180deg);
+	}
+	&.ui-popup-arrow-t .ui-arrow {
+		display: block;
+		top: -8 * @unit_base;
+	}
+	&.ui-popup-arrow-r .ui-arrow {
+		display: block;
+		left : -8 * @unit_base;
+		-webkit-transform: rotate(-90deg);
+		transform: rotate(-90deg);
+	}
+	&.ui-popup-arrow-l .ui-arrow {
+		display: block;
+		right:- 8 * @unit_base;
+		-webkit-transform: rotate(90deg);
+		transform: rotate(90deg);
+	}
+
+	.ui-listview li.ui-btn-up-s, .ui-listview li.ui-btn-hover-s {
+		background: transparent;
+	}
+
+	.ui-listview {
+		max-width: 620 * @unit_base;
+		margin: 0;
+		border: none;
+	}
+
+	.ui-listview .ui-li {
+		color: @color_ctxpopup_text;
+		font-size: @font_size_ctxpopup_text;
+		border-top: 1 * @unit_base solid @color_ctxpopup_divider;
+		border-bottom: 1 * @unit_base solid @color_ctxpopup_divider;
+
+		&:first-child {
+			border-top-width: 0;
+		}
+		&:last-child {
+			border-bottom-width: 0;
+		}
+		&.ui-li-anchor {
+			&>a {
+				box-sizing: border-box;
+			}
+			&:not(:last-child){
+				border-bottom: 1px solid @color_ctxpopup_divider;
+			}
+			&.ui-li-active {
+				background-color: @color_ctxpopup_btn_press;
+			}
+		}
+	}
+}

@@ -44,3 +44,46 @@
 .ui-popup-listview .ui-popup-header.popup-2line-title h1 {
 	padding-top: 10px;
 }
+
+/* Contextual popup custom style*/
+.ui-popup.ui-ctxpopup.horizontal-ctxpopup .ui-listview {
+	max-width: initial;
+	display: inline-block;
+	list-style: none;
+	vertical-align: middle;
+	margin: 0;
+	float: left;
+	white-space: nowrap;
+}
+
+.ui-popup.ui-ctxpopup.horizontal-ctxpopup .ui-listview li {
+	line-height: 37px;
+	height: 64px;
+	float: left;
+	display: inline;
+	border-right: 2px solid rgba(8, 8, 8, 0.2);
+	text-align: center;
+	border-bottom: none !important;
+	border-top: none;
+}
+
+.ui-popup.ui-ctxpopup.horizontal-ctxpopup .ui-listview li:last-child {
+	border-right: none;
+}
+
+.ui-popup.ui-ctxpopup.horizontal-ctxpopup .ui-listview li a {
+	padding: 13px 24px;
+}
+
+#ctxpopup_horizontal_scroll .ui-listview{
+	width: 580px;
+}
+
+#ctxpopup_horizontal_2line .ui-listview li a {
+	width: 127px;
+	line-height: 30px;
+	padding: 17px 12px;
+}
+#ctxpopup_horizontal_2line .ui-listview:first-child {
+	border-bottom: 2px solid rgba(8, 8, 8, 0.2);
+}
