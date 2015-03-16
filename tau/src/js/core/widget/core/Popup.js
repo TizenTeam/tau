@@ -74,9 +74,11 @@
 						ui = {};
 
 					self.selectors = selectors;
-					self.options = objectUtils.merge({}, Popup.defaults);
+					self.options = objectUtils.merge({}, Popup.defaults, {
+						fullSize: ns.getConfig("popupFullSize", Popup.defaults.fullSize),
+						enablePopupScroll: ns.getConfig("enablePopupScroll",Popup.defaults.enablePopupScroll)
+					});
 					self.storedOptions = null;
-
 					/**
 					 * Popup state flag
 					 * @property {0|1|2|3} [state=null]
@@ -90,6 +92,7 @@
 					ui.footer = null;
 					ui.content = null;
 					ui.container = null;
+					ui.wrapper = null;
 					self._ui = ui;
 
 					// event callbacks
@@ -120,7 +123,9 @@
 					content: null,
 					overlayClass: "",
 					closeLinkSelector: "[data-rel='back']",
-					history: true
+					history: true,
+					fullSize: false,
+					enablePopupScroll: null
 				},
 				states = {
 					DURING_OPENING: 0,
@@ -141,7 +146,11 @@
 					overlay: CLASSES_PREFIX + "-overlay",
 					header: CLASSES_PREFIX + "-header",
 					footer: CLASSES_PREFIX + "-footer",
-					content: CLASSES_PREFIX + "-content"
+					content: CLASSES_PREFIX + "-content",
+					wrapper: CLASSES_PREFIX + "-wrapper",
+					build: "ui-build",
+					popupScroll: "ui-scroll-on",
+					fixed: "ui-fixed"
 				},
 				EVENTS_PREFIX = "popup",
 				/**
@@ -155,6 +164,7 @@
 					content: "." + classes.content,
 					footer: "." + classes.footer
 				},
+				EVENTS_PREFIX = "popup",
 				/**
 				 * Dictionary for popup related events
 				 * @property {Object} events
@@ -337,12 +347,30 @@
 			 */
 			prototype._build = function (element) {
 				var self = this,
-					container = self._ui.container || element;
+					ui = self._ui,
+					wrapper,
+					child = element.firstChild;
+
+				// set class for element
+				element.classList.add(classes.popup);
+
+				// create wrapper
+				wrapper = document.createElement("div");
+				wrapper.classList.add(classes.wrapper);
+				ui.wrapper = wrapper;
+				ui.container = wrapper;
+				// move all children to wrapper
+				while (child) {
+					wrapper.appendChild(child);
+					child = element.firstChild;
+				}
+				// add wrapper and arrow to popup element
+				element.appendChild(wrapper);
 
 				// build header, footer and content
-				this._buildHeader(container);
-				this._buildFooter(container);
-				this._buildContent(container);
+				this._buildHeader(ui.container);
+				this._buildFooter(ui.container);
+				this._buildContent(ui.container);
 
 				// set overlay
 				this._setOverlay(element, this.options.overlay);
@@ -421,7 +449,9 @@
 				ui.header = ui.header || element.querySelector(selectors.header);
 				ui.footer = ui.footer || element.querySelector(selectors.footer);
 				ui.content = ui.content || element.querySelector(selectors.content);
-				ui.container = element;
+				ui.wrapper = ui.wrapper || element.querySelector("." + classes.wrapper);
+				ui.container = ui.wrapper || element;
+
 				// @todo - use selector from page's definition in engine
 				ui.page = utilSelector.getClosestByClass(element, "ui-page") || window;
 			};
@@ -518,6 +548,54 @@
 				self._ui.page.removeEventListener("pagebeforehide", self, false);
 				window.removeEventListener("resize", self, false);
 				self._unbindOverlayEvents();
+			};
+
+			/**
+			 * Layouting popup structure
+			 * @method layout
+			 * @member ns.widget.core.Popup
+			 */
+			prototype._layout = function (element) {
+				var self = this,
+					elementClassList = element.classList,
+					ui = self._ui,
+					wrapper = ui.wrapper,
+					header = ui.header,
+					footer = ui.footer,
+					content = ui.content,
+					headerHeight = 0,
+					footerHeight = 0;
+
+				if (self.options.enablePopupScroll === true) {
+					element.classList.add(classes.popupScroll);
+				} else {
+					element.classList.remove(classes.popupScroll);
+				}
+
+				if (elementClassList.contains(classes.popupScroll)) {
+					elementClassList.add(classes.build);
+
+					if (header) {
+						headerHeight = header.offsetHeight;
+						if (header.classList.contains(classes.fixed)) {
+							content.style.marginTop = headerHeight + "px";
+						}
+					}
+					if (footer) {
+						footerHeight = footer.offsetHeight;
+						if (footer.classList.contains(classes.fixed)) {
+							content.style.marginBottom = footerHeight + "px";
+						}
+					}
+
+					wrapper.style.height = Math.min(content.offsetHeight + headerHeight + footerHeight, element.offsetHeight) + "px";
+
+					elementClassList.remove(classes.build);
+				}
+
+				if (self.options.fullSize && !elementClassList.contains("ui-popup-toast") && !elementClassList.contains("ui-ctxpopup")) {
+					wrapper.style.height = window.innerHeight + "px";
+				}
 			};
 
 			/**
@@ -618,6 +696,9 @@
 					transitionOptions = objectUtils.merge({}, options),
 					overlay = self._ui.overlay,
 					deferred;
+
+				// layouting
+				self._layout(self.element);
 
 				// change state of popup
 				self.state = states.DURING_OPENING;
@@ -859,10 +940,28 @@
 			 */
 			prototype._destroy = function() {
 				var self = this,
-					element = self.element;
+					element = self.element,
+					ui = self._ui,
+					wrapper = ui.wrapper,
+					child;
+
+				if (wrapper) {
+					// restore all children from wrapper
+					child = wrapper.firstChild;
+					while (child) {
+						element.appendChild(child);
+						child = wrapper.firstChild;
+					}
+
+					if (wrapper.parentNode) {
+						wrapper.parentNode.removeChild(wrapper);
+					}
+				}
 
 				self._unbindEvents(element);
 				self._setOverlay(element, false);
+
+				ui.wrapper = null;
 			};
 
 			Popup.prototype = prototype;

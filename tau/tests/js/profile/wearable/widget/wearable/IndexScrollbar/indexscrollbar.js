@@ -249,27 +249,6 @@
 		start();
 	}
 
-	asyncTest ("Touch", 3, function () {
-		var elem1 = document.getElementById("touch"),
-			widget,
-			elemA,
-			elemOffset;
-
-		// make widget visible for a while
-		document.getElementById("first").style.left = "1em";
-		document.getElementById("first").style.top = "1em";
-
-		widget = ej.engine.instanceWidget(elem1, "IndexScrollbar");
-		toucheventHandler = touchevent.bind(null, elem1, widget);
-		elemA = elem1.children[0].children[0];
-		elemOffset = ej.util.DOM.getElementOffset(elemA);
-
-		ej.event.one(document, "vmousedown", toucheventHandler);
-
-		fireEvent(elem1, "vmousedown", {clientX: elemOffset.left, clientY: elemOffset.top});
-		widget.destroy();
-	});
-
 	test ("Resize", function () {
 		var elem1 = document.getElementById("resize");
 
@@ -293,3 +272,25 @@
 		ej.event.trigger(window, "resize");
 		equal(widget.options.maxIndexLen, 15,"maxIndexLen after resize - normal container");
 	});
+
+	asyncTest ("Touch", 3, function () {
+		var elem1 = document.getElementById("touch"),
+			widget,
+			elemA,
+			elemOffset;
+
+		// make widget visible for a while
+		document.getElementById("first").style.left = "1em";
+		document.getElementById("first").style.top = "1em";
+
+		widget = ej.engine.instanceWidget(elem1, "IndexScrollbar");
+		toucheventHandler = touchevent.bind(null, elem1, widget);
+		elemA = elem1.children[0].children[0];
+		elemOffset = ej.util.DOM.getElementOffset(elemA);
+
+		ej.event.one(document, "vmousedown", toucheventHandler);
+
+		fireEvent(elem1, "vmousedown", {clientX: elemOffset.left, clientY: elemOffset.top});
+		widget.destroy();
+	});
+

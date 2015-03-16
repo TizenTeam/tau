@@ -646,8 +646,10 @@
 							widgetInstance = widgetGroup[widgetName];
 
 							//Destroy widget
-							widgetInstance.destroy();
-							widgetInstance.trigger("widgetdestroyed");
+							if (widgetInstance) {
+								widgetInstance.destroy();
+								widgetInstance.trigger("widgetdestroyed");
+							}
 						}
 					}
 				}

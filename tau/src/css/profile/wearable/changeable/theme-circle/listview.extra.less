@@ -1,0 +1,41 @@
+/***************************************************************************
+                  listview extra
+***************************************************************************/
+.ui-listview .ui-li-has-action-icon {
+	.ui-action-text {
+		&::after {
+			background-color: @color_text;
+		}
+	}
+
+	.ui-action-delete {
+		background-color: @color_list_actionicon_image_normal;
+	}
+	.ui-action-setting {
+		background-color: @color_list_actionicon_image_normal;
+	}
+	.ui-action-add {
+		background-color: @color_list_actionicon_image_normal;
+	}
+
+	&.ui-li-active {
+		& .ui-action-text:active {
+			background-color: @color_list_press_bg;
+			color: @color_listview_text_press;
+		}
+	}
+
+	.ui-action-delete:active, .ui-action-setting:active, .ui-action-add:active {
+		background-color: @color_list_press_bg;
+		color: @color_listview_text_press;
+	}
+}
+
+.ui-listview .li-divider {
+	height: 33 * @unit_base;
+	min-height: 33 * @unit_base;
+	line-height: 31 * @unit_base;
+	background-color: @color_list_divider_bg;
+	color: @color_list_divider_text;
+	padding: 0;
+}

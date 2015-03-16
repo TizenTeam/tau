@@ -1,0 +1,39 @@
+.ui-marquee {
+	position: relative;
+	white-space: nowrap;
+	overflow: hidden;
+	-webkit-user-select: none;
+}
+
+.ui-marquee.ui-marquee-gradient {
+	text-overflow: clip;
+}
+.ui-marquee.ui-marquee-gradient::after {
+	content: "";
+	width: 110 * @unit_base;
+	height: 100%;
+	background: -webkit-linear-gradient(left, transparent 0%, @color_listview_fadeout_bg 100%);
+	position: absolute;
+	right: 0;
+}
+
+.ui-marquee.ui-marquee-ellipsis {
+	.ui-marquee-content {
+		display: block;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+}
+
+.ui-marquee-content {
+	overflow: visible;
+	display: inline-block;
+}
+
+.ui-marquee-anim-running {
+	-webkit-animation-play-state: running;
+}
+
+.ui-marquee-anim-stopped {
+	-webkit-animation-play-state: paused;
+}

@@ -1,4 +1,4 @@
-input[type="checkbox"],
+input[type="checkbox"]:not(.ui-switch-input),
 input[type="radio"] {
 	box-sizing: border-box;
 	padding: 0;
@@ -56,52 +56,45 @@ input[type="radio"]:active:checked::before {
 	width: 56px; height: 56px;
 	position: absolute;
 }
-
-input[type="checkbox"] {
-	.mask-image('images/Controller_icon/tw_btn_checkbox_holo_dark.png');
-	.mask-repeat(no-repeat);
-	background-color: @color_checkboxradio_checkbox;
-}
-
-input[type="checkbox"]::after {
-	content: "";
-	background-color: @color_checkboxradio_checkbox_line;
-	.mask-image('images/Controller_icon/tw_btn_checkbox_line_holo_dark.png');
-	.mask-repeat(no-repeat);
-	width: 56px;
-	height: 56px;
-	position: absolute;
-}
-
-input[type="checkbox"]:checked::before {
-	content: "";
-	.mask-image('images/Controller_icon/tw_btn_check_holo_dark.png');
-	.mask-repeat(no-repeat);
-	background-color: @color_checkboxradio_check;
-	width: 56px; height: 56px;
-	position: absolute;
-}
-
-input[type="checkbox"]:active {
-	.mask-image('images/Controller_icon/tw_btn_checkbox_holo_dark.png');
-	.mask-repeat(no-repeat);
-	background-color: @color_checkboxradio_checkbox_press;
-}
-
-input[type="checkbox"]:active::after {
-	content: "";
-	.mask-image('images/Controller_icon/tw_btn_checkbox_line_holo_dark.png');
-	.mask-repeat(no-repeat);
-	background-color: @color_checkboxradio_checkbox_line_press;
-	width: 56px; height: 56px;
-	position: absolute;
-}
-
-input[type="checkbox"]:active:checked::before {
-	content: "";
-	.mask-image('images/Controller_icon/tw_btn_check_holo_dark.png');
-	.mask-repeat(no-repeat);
-	background-color: @color_checkboxradio_check_press;
-	width: 56px; height: 56px;
-	position: absolute;
+input[type="checkbox"]:not(.ui-switch-input) {
+  		.mask-image('images/Controller_icon/tw_btn_checkbox_holo_dark.png');
+  		.mask-repeat('no-repeat');
+		background-color: @color_checkboxradio_checkbox;
+		&::after {
+			content: "";
+			background-color: @color_checkboxradio_checkbox_line;
+			.mask-image('images/Controller_icon/tw_btn_checkbox_line_holo_dark.png');
+			.mask-repeat('no-repeat');
+			width: 56px; height: 56px;
+			position: absolute;
+		}
+		&:checked::before {
+			content: "";
+			.mask-image('images/Controller_icon/tw_btn_check_holo_dark.png');
+			.mask-repeat('no-repeat');
+			background-color: @color_checkboxradio_check;
+			width: 56px; height: 56px;
+			position: absolute;
+		}
+		&:active {
+			.mask-image('images/Controller_icon/tw_btn_checkbox_holo_dark.png');
+			.mask-repeat('no-repeat');
+			background-color: @color_checkboxradio_checkbox_press;
+        	&::after {
+				content: "";
+				.mask-image('images/Controller_icon/tw_btn_checkbox_line_holo_dark.png');
+				.mask-repeat('no-repeat');
+				background-color: @color_checkboxradio_checkbox_line_press;
+				width: 56px; height: 56px;
+				position: absolute;
+			}
+			&:checked::before {
+				content: "";
+				.mask-image('images/Controller_icon/tw_btn_check_holo_dark.png');
+				.mask-repeat('no-repeat');
+				background-color: @color_checkboxradio_check_press;
+				width: 56px; height: 56px;
+				position: absolute;
+			}
+        }
 }

@@ -321,13 +321,13 @@
 				 * @static
 				 * @private
 				 */
-				defaults = objectUtils.merge({}, Popup.defaults, {
+				defaults = {
 					arrow: "l,b,r,t",
 					positionTo: "window",
 					positionOriginCenter: false,
 					distance: 0,
 					link: null
-				}),
+				},
 
 				ContextPopup = function () {
 					var self = this,
@@ -340,7 +340,6 @@
 
 					// set ui
 					ui = self._ui || {};
-					ui.wrapper = null;
 					ui.arrow = null;
 					self._ui = ui;
 				},
@@ -352,11 +351,9 @@
 				 */
 				CLASSES_PREFIX = "ui-popup",
 				classes = objectUtils.merge({}, Popup.classes, {
-					wrapper: CLASSES_PREFIX + "-wrapper",
 					context: "ui-ctxpopup",
 					arrow: "ui-arrow",
-					arrowDir: CLASSES_PREFIX + "-arrow-",
-					build: "ui-build"
+					arrowDir: CLASSES_PREFIX + "-arrow-"
 				}),
 
 				/**
@@ -376,7 +373,7 @@
 
 				prototype = new Popup();
 
-			ContextPopup.defaults = defaults;
+			ContextPopup.defaults = objectUtils.merge({}, Popup.defaults, defaults);
 			ContextPopup.classes = classes;
 			ContextPopup.events = events;
 			ContextPopup.positionTypes = positionTypes;
@@ -392,26 +389,13 @@
 			prototype._build = function (element) {
 				var self = this,
 					ui = self._ui,
-					wrapper,
-					arrow,
+					arrow;
 
-
-					child = element.firstChild;
+				// build elements of popup
+				PopupPrototype._build.call(self, element);
 
 				// set class for element
 				element.classList.add(classes.popup);
-
-				// create wrapper
-				wrapper = document.createElement("div");
-				wrapper.classList.add(classes.wrapper);
-				ui.wrapper = wrapper;
-				ui.container = wrapper;
-
-				// move all children to wrapper
-				while (child) {
-					wrapper.appendChild(child);
-					child = element.firstChild;
-				}
 
 				// create arrow
 				arrow = document.createElement("div");
@@ -419,12 +403,8 @@
 				arrow.classList.add(classes.arrow);
 				ui.arrow = arrow;
 
-				// add wrapper and arrow to popup element
-				element.appendChild(wrapper);
+				// add arrow to popup element
 				element.appendChild(arrow);
-
-				// build elements of popup
-				PopupPrototype._build.call(self, element);
 
 				return element;
 			};
@@ -442,11 +422,18 @@
 
 				PopupPrototype._init.call(this, element);
 
-				ui.wrapper = ui.wrapper || element.querySelector("." + classes.wrapper);
 				ui.arrow = ui.arrow || element.querySelector("." + classes.arrow);
+			};
 
-				// set container of popup elements
-				ui.container = ui.wrapper;
+			/**
+			 * Layouting popup structure
+			 * @method layout
+			 * @member ns.widget.core.ContextPopup
+			 */
+			prototype._layout = function (element) {
+				var self = this;
+				this._reposition();
+				PopupPrototype._layout.call(self, element);
 			};
 
 			/**
@@ -469,6 +456,7 @@
 
 				// set height of content
 				self._setContentHeight();
+
 				// set position of popup
 				self._placementCoords(options);
 
@@ -907,7 +895,6 @@
 						contentStyle.minHeight = contentHeight + "px";
 					}
 				}
-
 			};
 
 			/**
@@ -947,42 +934,15 @@
 				var self = this,
 					element = self.element,
 					ui = self._ui,
-					wrapper = ui.wrapper,
-					arrow = ui.arrow,
-					child;
+					arrow = ui.arrow;
 
 				PopupPrototype._destroy.call(self);
-
-				if (wrapper) {
-					// restore all children from wrapper
-					child = wrapper.firstChild;
-					while (child) {
-						element.appendChild(child);
-						child = wrapper.firstChild;
-					}
-
-					if (wrapper.parentNode) {
-						wrapper.parentNode.removeChild(wrapper);
-					}
-				}
 
 				if (arrow && arrow.parentNode) {
 					arrow.parentNode.removeChild(arrow);
 				}
 
-				ui.wrapper = null;
 				ui.arrow = null;
-			};
-
-			/**
-			 * Show popup.
-			 * @method _destroy
-			 * @protected
-			 * @member ns.widget.core.ContextPopup
-			 */
-			prototype._show = function(options) {
-				this._reposition(options);
-				PopupPrototype._show.call(this, options);
 			};
 
 			/**

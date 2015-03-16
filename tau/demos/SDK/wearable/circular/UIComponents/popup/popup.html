@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, user-scalable=no"/>
+	<title>Wearable UI</title>
+    <link rel="stylesheet" href="../lib/tau/wearable/theme/default/tau.min.css">
+    <link rel="stylesheet" media="all and (-tizen-geometric-shape: circle)" href="../lib/tau/wearable/theme/default/tau.circle.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+<div id="popupPage" class="ui-page">
+	<header class="ui-header">
+		<h2 class="ui-title">Popup</h2>
+	</header>
+	<div class="ui-content">
+		<ul class="ui-listview">
+			<li class="ui-listview-divider">Button</li>
+			<li><a href="#1btnPopup" data-rel="popup">1btn popup</a></li>
+			<li><a href="#2btnPopup" data-rel="popup">2btn popup</a></li>
+			<li class="ui-listview-divider">Header Footer</li>
+			<li><a href="#headerPopup" data-rel="popup">Header popup</a></li>
+			<li><a href="#footerPopup" data-rel="popup">Footer popup</a></li>
+			<li><a href="#contentPopup" data-rel="popup">Content popup</a></li>
+			<li class="ui-listview-divider">List</li>
+			<li><a href="#listPopup" data-rel="popup">List popup</a></li>
+			<li class="ui-listview-divider">Input</li>
+			<li><a href="#radioPopup" data-rel="popup">Radio popup</a></li>
+			<li><a href="#checkPopup" data-rel="popup">Check popup</a></li>
+		</ul>
+	</div>
+
+	<div id="1btnPopup" class="ui-popup">
+		<div class="ui-popup-header">Popup Header</div>
+		<div class="ui-popup-content">
+			Turning on Power
+			saving mode will
+			limit the maximum
+			power.
+		</div>
+		<div class="ui-popup-footer">
+			<a id="1btnPopup-cancel" href="#" class="ui-btn ui-btn-footer-icon btn-icon-showonphone" data-rel="back">Cancel</a>
+		</div>
+	</div>
+
+	<div id="2btnPopup" class="ui-popup">
+		<div class="ui-popup-header">Popup Header</div>
+		<div class="ui-popup-content">
+			Turning on Power
+			saving mode will
+			limit the maximum
+			power.
+		</div>
+		<div class="ui-popup-footer ui-grid-col-2">
+			<a id="2btnPopup-cancel" href="#" class="ui-btn ui-btn-footer-icon btn-icon-share" data-rel="back">Cancel</a>
+			<a id="2btnPopup-ok" href="#" class="ui-btn ui-btn-footer-icon btn-icon-delete" data-rel="back">OK</a>
+		</div>
+	</div>
+
+	<div id="headerPopup" class="ui-popup">
+		<div class="ui-popup-header">Popup Header</div>
+		<div class="ui-popup-content">
+			Turning on Power
+			saving mode will
+			limit the maximum
+			power.
+		</div>
+	</div>
+	
+	<div id="footerPopup" class="ui-popup">
+		<div class="ui-popup-content">
+			Turning on Power
+			saving mode will
+			limit the maximum
+			power.
+		</div>
+		<div class="ui-popup-footer">
+			<a id="footerPopup-cancel" href="#" class="ui-btn ui-btn-footer-icon btn-icon-showonphone" data-rel="back">Cancel</a>
+		</div>
+	</div>
+
+	<div id="contentPopup" class="ui-popup">
+		<div class="ui-popup-content">
+			Turning on Power
+			saving mode will
+			limit the maximum
+			power.
+		</div>
+	</div>
+
+	<div id="headerPopup" class="ui-popup">
+		<div class="ui-popup-header">Popup Header</div>
+		<div class="ui-popup-content">
+			Turning on Power
+			saving mode will
+			limit the maximum
+			power.
+		</div>
+		<div class="ui-popup-footer">
+			<a id="headerPopup-cancel" href="#" class="ui-btn ui-btn-footer-icon btn-icon-showonphone" data-rel="back">Cancel</a>
+		</div>
+	</div>
+
+	<div id="listPopup" class="ui-popup">
+		<div class="ui-popup-header">Popup Header</div>
+		<div class="ui-popup-content">
+			<ul class="ui-listview">
+				<li><a href="">Phone</a></li>
+				<li><a href="">Headset</a></li>
+				<li><a href="">Keyboard</a></li>
+				<li><a href="">Touchpad</a></li>
+				<li><a href="">Touchball</a></li>
+			</ul>
+		</div>
+		<div class="ui-popup-footer">
+			<a id="listPopup-cancel" href="#" class="ui-btn ui-btn-footer-icon btn-icon-showonphone" data-rel="back">Cancel</a>
+		</div>
+	</div>
+
+	<div id="radioPopup" class="ui-popup">
+		<div class="ui-popup-header">Popup Header</div>
+		<div class="ui-popup-content">
+			<ul class="ui-listview">
+				<li class="li-has-radio">
+					<label>
+						Radio 1
+						<input type="radio" name="radioset" id="radio-1" checked="checked" />
+					</label>
+				</li>
+				<li class="li-has-radio">
+					<label>
+						Radio 2
+						<input type="radio" name="radioset" id="radio-2" />
+					</label>
+				</li>
+				<li class="li-has-radio">
+					<label>
+						Radio 3
+						<input type="radio" name="radioset" id="radio-3" />
+					</label>
+				</li>
+				<li class="li-has-radio">
+					<label>
+						Radio 4
+						<input type="radio" name="radioset" id="radio-4" />
+					</label>
+				</li>
+				<li class="li-has-radio">
+					<label>
+						Radio 5
+						<input type="radio" name="radioset" id="radio-5" />
+					</label>
+				</li>
+			</ul>
+		</div>
+		<div class="ui-popup-footer">
+			<a id="radioPopup-cancel" href="#" class="ui-btn ui-btn-footer-icon btn-icon-showonphone" data-rel="back">Cancel</a>
+		</div>
+	</div>
+
+	<div id="checkPopup" class="ui-popup">
+		<div class="ui-popup-header">When?</div>
+		<div class="ui-popup-content">
+			<ul class="ui-listview">
+				<li class="li-has-checkbox">
+					<label>
+						Check 1
+						<input type="checkbox"/>
+					</label>
+				</li>
+				<li class="li-has-checkbox">
+					<label>
+						Check 2
+						<input type="checkbox"/>
+					</label>
+				</li>
+				<li class="li-has-checkbox">
+					<label>
+						Check 3
+						<input type="checkbox"/>
+					</label>
+				</li>
+				<li class="li-has-checkbox">
+					<label>
+						Check 4
+						<input type="checkbox"/>
+					</label>
+				</li>
+				<li class="li-has-checkbox">
+					<label>
+						Check 5
+						<input type="checkbox"/>
+					</label>
+				</li>
+			</ul>
+		</div>
+		<div class="ui-popup-footer">
+			<a id="checkPopup-cancel" href="#" class="ui-btn ui-btn-footer-icon btn-icon-showonphone" data-rel="back">Cancel</a>
+		</div>
+	</div>
+</div>
+<script type="text/javascript" src="../lib/tau/wearable/js/tau.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,69 @@
+
+.ui-listview .ui-li-has-action-icon {
+	.ui-action-text {
+		width: calc(~"100% - "77*@unit_base);
+		height: 100%;
+		&::after {
+			content: "";
+			position: absolute;
+			height: 56 * @unit_base;
+			width: 2 * @unit_base;
+			background-color: @color_text;
+			right: 68 * @unit_base;
+			top: 20%;
+		}
+	}
+
+	.ui-action-divider {
+		display: none;
+	}
+
+	.ui-action-delete, .ui-action-setting, .ui-action-add {
+		position: absolute;
+		height: 100%;
+		width: 72 * @unit_base;
+		right:0;
+		top: 0;
+		-webkit-mask-size: 56 * @unit_base 56 * @unit_base;
+		-webkit-mask-repeat: no-repeat;
+		-webkit-mask-position: center center;
+		padding: 0;
+		margin: 0;
+	}
+
+	.ui-action-delete {
+		-webkit-mask-image: url(./images/listview/tw_list_delete_holo_dark.png);
+		background-color: @color_list_actionicon_image_normal;
+	}
+	.ui-action-setting {
+		-webkit-mask-image: url(./images/listview/tw_list_setting_holo_dark.png);
+		background-color: @color_list_actionicon_image_normal;
+	}
+	.ui-action-add {
+		-webkit-mask-image: url(./images/listview/tw_list_add_holo_dark.png);
+		background-color: @color_list_actionicon_image_normal;
+	}
+
+	&.ui-li-active {
+		background-color: transparent;
+		& .ui-action-text:active {
+			background-color: @color_list_press_bg;
+			color: @color_listview_text_press;
+		}
+	}
+
+	.ui-action-delete:active, .ui-action-setting:active, .ui-action-add:active {
+		background-color: @color_list_press_bg;
+		color: @color_listview_text_press;
+	}
+}
+
+.ui-listview .li-divider {
+	height: 30 * @unit_base;
+	min-height: 30 * @unit_base;
+	line-height: 30 * @unit_base;
+	padding: 0 8 * @unit_base 0 16 * @unit_base;
+	background-color: @color_list_divider_bg;
+	color: @color_list_divider_text;
+	font-size: 24 * @unit_base;
+}

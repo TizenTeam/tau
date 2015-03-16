@@ -1,0 +1,67 @@
+/***************************************************************************
+                  listview
+***************************************************************************/
+.ui-listview {
+	li {
+		font-size: @font_size_list_item;
+		min-height: @list_item_min_height;
+		padding: @list_item_padding;
+		border-bottom: 1px solid @color_listview_border;
+		color: @color_listview_text;
+		text-align: center;
+
+		&.ui-li-btn {
+			padding: 0;
+			.ui-btn {
+				padding: @list_btn_padding;
+				margin: 0;
+				line-height: inherit;
+			}
+
+			&.ui-grid-col-2 .ui-btn {
+				padding: @list_2btn_padding;
+			}
+			&.ui-grid-col-3 {
+				.ui-btn {
+					padding: @list_3btn_padding;
+					height: 100%;
+					text-indent: -9999px;
+				}
+			}
+		}
+		> * {
+			color: @color_listview_text;
+		}
+
+		> a, button {
+			padding: @list_item_anchor_padding;
+			margin: @list_anchor_margin;
+		}
+
+		&.ui-li-active {
+			background-color: @color_list_press_bg;
+			color: @color_listview_text_press;
+		}
+		&:last-child {
+			border: 0;
+		}
+	}
+
+	.ui-listview-divider {
+		height: 33 * @unit_base;
+		min-height: 33 * @unit_base;
+		line-height: 31 * @unit_base;
+		background-color: @color_list_divider_bg;
+		color: @color_list_divider_text;
+		padding: 0;
+	}
+
+	.ui-li-sub-text {
+		color: @color_listview_sub_text;
+		font-size: 24 * @unit_base;
+	}
+}
+
+.ui-header + .ui-content .ui-listview li:first-child {
+	border-top: 1px solid @color_listview_border;
+}

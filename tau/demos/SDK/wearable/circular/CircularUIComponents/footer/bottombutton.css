@@ -1,0 +1,3 @@
+.ui-bottom-button .ui-btn::before {
+    -webkit-mask-image: url("./images/tw_list_add_holo_dark.png");
+}

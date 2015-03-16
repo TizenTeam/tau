@@ -58,7 +58,7 @@
 
 
 					// Add to DOM tree
-					options.container.insertBefore(element, options.referenceElement);
+					options.referenceElement.parentNode.insertBefore(element, options.referenceElement);
 					self.fitToContainer();
 				},
 
