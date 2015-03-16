@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet"  href="../../lib/tau/mobile/theme/default/tau.css">
+    <script type="text/javascript" src="../../lib/tau/mobile/js/tau.js" data-build-remove="false"></script>
+</head>
+<body>
+<div data-role="page" id="toast-demo-page">
+    <div data-role="header" data-position="fixed">
+        <h1>Toast Popup</h1>
+    </div>
+    <div data-role="content">
+        <ul data-role="listview">
+            <li><a href="#popup_toast" data-inline="true" data-rel="popup" data-position-to="window">Toast 1(using popup)</a></li>
+            <li><a href="#" id="noti_toast_show">Toast 2(using notification)</a></li>
+        </ul>
+        <div id="popup_toast" data-role="popup" class="ui-popup ui-popup-toast" data-overlay="false">
+            <div class="ui-popup-content">
+                Toast popup text Toast popup text
+            </div>
+        </div>
+        <div data-role="notification" id="noti_popup" data-type="popup">
+            <p>Toast popup text Toast popup text</p>
+        </div>
+    </div>
+    <script>
+    document.getElementById("toast-demo-page").addEventListener( "pageshow", function() {
+        document.getElementById("noti_toast_show").addEventListener( "vclick", function() {
+            tau.widget.Notification(document.getElementById("noti_popup")).open();
+        });
+    });
+    </script>
+</div>

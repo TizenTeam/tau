@@ -1,0 +1,102 @@
+/* Popup Toast and smallpopup will be integrated */
+/* Popup Toast */
+.ui-popup.ui-popup-toast {
+	background-color: transparent;
+}
+.ui-popup.ui-popup-toast .ui-popup-content {
+	position: relative;
+	margin-bottom: 64 * @unit_base;
+	margin-left: auto;
+	margin-right: auto;
+	max-width: 472 * @unit_base;
+	.core_popup_noti_bg();
+
+	padding: 7 * @unit_base 24 * @unit_base 10 * @unit_base 24 * @unit_base;
+	line-height: 37 * @unit_base;
+	color: @color_toast_text;
+	font-size: @font_size_toast_text;
+}
+
+.ui-popup.ui-popup-toast .ui-popup-content::before {
+	position: absolute;
+	content: '';
+	width: 100%;
+	height: 100%;
+	margin: -7 * @unit_base -24 * @unit_base -10 * @unit_base -24 * @unit_base;
+	.core_popup_noti_bg_stroke();
+}
+
+/* smallpopup */
+.m-notification-ui-smallpopup-show() {
+	from {
+		display: none;
+		opacity: 0;
+		.transform(scaleY(0));
+	} to {
+		display: block;
+		opacity: 1;
+		.transform(scaleY(1));
+	}
+}
+
+@-webkit-keyframes ui-smallpopup-show {
+	.m-notification-ui-smallpopup-show();
+}
+
+@-moz-keyframes ui-smallpopup-show {
+	.m-notification-ui-smallpopup-show();
+}
+
+@-ms-keyframes ui-smallpopup-show {
+	.m-notification-ui-smallpopup-show();
+}
+
+@-o-keyframes ui-smallpopup-show {
+	.m-notification-ui-smallpopup-show();
+}
+
+@keyframes ui-smallpopup-show {
+	.m-notification-ui-smallpopup-show();
+}
+
+.ui-smallpopup {
+	position: fixed;
+	display: none;
+	margin-bottom: 64 * @unit_base;
+	max-width: 472 * @unit_base;
+	z-index: @z_base_smallpopup;
+
+	.core_popup_noti_bg();
+	vertical-align: middle;
+	font-size: @font_size_toast_text;
+	word-break: break-all;
+}
+.ui-smallpopup::before {
+	position: absolute;
+	content: '';
+	width: 100%;
+	height: 100%;
+	.core_popup_noti_bg_stroke();
+}
+
+.ui-smallpopup.fix {
+	display: block;
+}
+
+.ui-smallpopup.show {
+	display: block;
+	.animation(ui-smallpopup-show 500ms 1 ease);
+}
+
+.ui-smallpopup.hide {
+	display: none;
+}
+
+.ui-smallpopup-text-bg {
+	position: relative;
+	padding: 7 * @unit_base 24 * @unit_base 10 * @unit_base 24 * @unit_base;
+	line-height: 37 * @unit_base;
+	margin: 0;
+	color: @color_toast_text;
+	font-size: @font_size_toast_text;
+}
