@@ -100,7 +100,10 @@
 
 					switch( ge.eventType ) {
 						case Gesture.Event.MOVE:
-							if ( !this.triggerd && ge.pointers.length >= 2) {
+							if (ge.pointers.length === 1 && ge.distance > 35) {
+								result = Gesture.Result.FINISHED;
+								return result;
+							} else if ( !this.triggerd && ge.pointers.length >= 2) {
 								this.triggerd = true;
 								sender.sendEvent( event.start, ge );
 								ge.preventDefault();

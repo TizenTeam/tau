@@ -1,8 +1,7 @@
 (function() {
-	var list = document.getElementById("select-list"),
+	var list = document.getElementById("gridlist"),
 		checkboxes = list.querySelectorAll("input[type='checkbox']"),
 		elSelectAll = document.getElementById("select-all"),
-		check = [],
 		isAll = false;
 
 

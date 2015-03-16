@@ -434,11 +434,12 @@
 	-webkit-mask-image: url("images/00_button_grid.png");
 }
 .ui-btn-icon.ui-icon-home::after {
-    -webkit-mask-image: url("images/00_button_home.png");
+	-webkit-mask-image: url("images/00_button_home.png");
 }
 .vertical-list {
     height: 300px;
 }
+
 /****************************************************************/
 /*                      Text Input demo                         */
 /****************************************************************/
@@ -449,6 +450,7 @@
     padding-right: 5px;
     box-sizing: border-box;
 }
+
 /****************************************************************/
 /*                      Gallery demo                            */
 /****************************************************************/
@@ -458,4 +460,47 @@
     top: 0;
     bottom: 0;
     margin: auto;
+}
+
+/****************************************************************/
+/*                      Grid List                               */
+/****************************************************************/
+.ui-gridlist .ui-gridlist-item > label {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+.ui-gridlist .ui-gridlist-item > label > input[type="checkbox"] {
+	position: absolute;
+	top: 3%;
+	right: 3%;
+}
+
+.ui-gridlist-handler {
+	-webkit-mask-image: url("images/core_button_reorder.png");
+	-webkit-mask-size: 100%;
+	background-color: rgba(82, 199, 217, 1);
+}
+
+#grid-badge-page .ui-gridlist-item .grid-badge {
+	position: absolute;
+	border-radius: 50px;
+	background-color: rgba(252, 116, 58, 1);
+	color: rgba(255, 255, 255, 1);
+	top: 7%;
+	right: 7%;
+	text-align: center;
+	padding: 2% 7%;
+	font-size: 80%;
+}
+
+#grid-check-page .li-select-all input[type="checkbox"].ui-checkbox {
+	position: absolute;
+	left: auto;
+	right: 16px;
+	top: 50%;
+	margin-top: -13px;
 }

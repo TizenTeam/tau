@@ -69,7 +69,7 @@
 				 * @property {string[]} types
 				 * @member ns.event.gesture.Drag
 				 */
-				types: ["drag", "dragstart", "dragend", "dragcancel"],
+				types: ["drag", "dragstart", "dragend", "dragcancel", "dragprepare"],
 
 				/**
 				 * Default values for drag gesture
@@ -114,7 +114,8 @@
 							drag: this.types[0],
 							start: this.types[1],
 							end: this.types[2],
-							cancel: this.types[3]
+							cancel: this.types[3],
+							prepare: this.types[4]
 						},
 						direction = ge.direction,
 						angle = Math.abs(ge.angle);
@@ -176,10 +177,17 @@
 					switch( ge.eventType ) {
 						case Gesture.Event.START:
 							this.triggerd = false;
+							if (sender.sendEvent( event.prepare, ge ) === false) {
+								result = Gesture.Result.FINISHED;
+							}
 							break;
 						case Gesture.Event.MOVE:
 							if ( !this.triggerd ) {
-								sender.sendEvent( event.start, ge );
+								if (sender.sendEvent( event.start, ge ) === false) {
+									result = Gesture.Result.FINISHED;
+									ge.preventDefault();
+									break;
+								}
 							}
 							result = sender.sendEvent( event.drag, ge ) ? Gesture.Result.RUNNING : Gesture.Result.FINISHED;
 							ge.preventDefault();
