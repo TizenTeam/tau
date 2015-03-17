@@ -642,9 +642,6 @@
 						keyIsPressed = true;
 
 						// if it is repeated event, we make animation shorter
-						options = {
-							direction: event.keyCode
-						};
 						if (self.keydownEventTimeStart) {
 							// long press was detected
 							self._onLongPress(event);
@@ -829,7 +826,7 @@
 			 * @member ns.widget.tv.BaseKeyboardSupport
 			 */
 			function getValueOfSelector(selectorObject){
-				return selectorObject.value
+				return selectorObject.value;
 			}
 
 			/**

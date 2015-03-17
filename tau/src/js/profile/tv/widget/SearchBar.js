@@ -35,7 +35,6 @@
 					var self = this;
 
 					BaseSearchBar.call(self);
-					BaseTextInput.call(self);
 					self._callbacks = {};
 					BaseKeyboardSupport.call(self);
 					self._previousCharPosition = 0;
@@ -250,8 +249,10 @@
 			 */
 			prototype._bindEvents = function(element) {
 				var self = this,
-					callbacks = self._callbacks;
-				BaseSearchBarPrototype._bindEvents.call(self, element),
+					callbacks = self._callbacks,
+					inputBox;
+
+				BaseSearchBarPrototype._bindEvents.call(self, element);
 				inputBox = element.parentElement.parentElement;
 
 				self._bindEventKey();
@@ -268,6 +269,7 @@
 				callbacks.onKeyupInput = onKeyupInput.bind(null, self);
 
 				element.addEventListener("keyup", callbacks.onKeyupInput, false);
+
 				inputBox.addEventListener("keyup", callbacks.onKeyupInputContainer, false);
 				inputBox.addEventListener("focus", callbacks.inputFocus, false);
 				inputBox.addEventListener("blur", callbacks.inputBlur, false);
@@ -311,9 +313,10 @@
 			//BaseKeyboardSupport.registerActiveSelector("." + classes.uiInputText);
 
 			BaseKeyboardSupport.registerActiveSelector("." + classes.uiInputSearch);
+			ns.widget.tv.SearchBar = SearchBar;
 
 //>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
-			return ns.widget.tv.SearchBar = SearchBar;
+			return SearchBar;
 		}
 	);
 //>>excludeEnd("tauBuildExclude");
