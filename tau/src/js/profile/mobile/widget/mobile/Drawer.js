@@ -78,7 +78,6 @@
 	define(
 		[
 			"../../../../core/widget/core/Drawer",
-			"../../../../core/util/object",
 			"../../../../core/engine"
 		],
 
@@ -86,10 +85,8 @@
 			//>>excludeEnd("tauBuildExclude");
 			var CoreDrawer = ns.widget.core.Drawer,
 				engine = ns.engine,
-				object = ns.util.object,
 				Drawer = function () {
 					var self = this;
-					self.options = CoreDrawer.options;
 					CoreDrawer.call(self);
 				},
 				prototype = new CoreDrawer();
@@ -100,7 +97,6 @@
 			 * Configure Drawer widget
 			 * @method _configure
 			 * @protected
-			 * @param {HTMLElement} element
 			 * @member ns.widget.wearable.Drawer
 			 */
 			prototype._configure = function() {
@@ -110,15 +106,12 @@
 				 * @property {string} [options.drawerTarget="ui-page"] Drawer appended target. Value type is CSS selector type.
 				 * @property {string} [options.position="left"] Drawer position. "left" or "right"
 				 * @property {boolean} [options.enable=true] Enable drawer widget.
-				 * @property {Number} [options.dragEdge=1] Start dragging gesture possible area ratio of target or handler between 0 and 1.
+				 * @property {Number} [options.dragEdge=0.05] Start dragging gesture possible area ratio of target or handler between 0 and 1.
 				 */
-				object.merge(self.options, {
-					dragEdge: 0.05
-				});
+				self.options.dragEdge = 0.05;
 			};
 			prototype._build = function(element) {
 				CoreDrawer.prototype._build.call(this, element);
-				element.style.top = 0;
 				return element;
 			};
 

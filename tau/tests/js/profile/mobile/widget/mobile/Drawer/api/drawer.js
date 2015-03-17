@@ -34,7 +34,6 @@
 		equal(typeof Drawer.classes, 'object', 'Property drawer.classes exists');
 		equal(typeof Drawer.classes.close, 'string', 'Property drawer.classes.close exists');
 		equal(typeof Drawer.classes.drawer, 'string', 'Property drawer.classes.drawer exists');
-		equal(typeof Drawer.classes.header, 'string', 'Property drawer.classes.header exists');
 		equal(typeof Drawer.classes.left, 'string', 'Property drawer.classes.left exists');
 		equal(typeof Drawer.classes.open, 'string', 'Property drawer.classes.open exists');
 		equal(typeof Drawer.classes.overlay, 'string', 'Property drawer.classes.overlay exists');

@@ -123,7 +123,6 @@
 				object = ns.util.object,
 				Drawer = function () {
 					var self = this;
-					self.options = CoreDrawer.options;
 					CoreDrawer.call(self);
 				},
 				prototype = new CoreDrawer();
@@ -141,14 +140,9 @@
 				var self = this;
 				/**
 				 * Widget options
-				 * @property {string} [options.drawerTarget="ui-page"] Drawer appended target. Value type is CSS selector type.
-				 * @property {string} [options.position="left"] Drawer position. "left" or "right"
-				 * @property {boolean} [options.enable=true] Enable drawer widget.
-				 * @property {Number} [options.dragEdge=1] Start dragging gesture possible area ratio of target or handler between 0 and 1.
+				 * @property {number} [options.width=0] If you set width is 0, drawer width will set as the css style.
 				 */
-				object.merge(self.options, {
-					width: 0
-				});
+				self.options.width = 0;
 			};
 			/**
 			 * Set Drawer drag handler.

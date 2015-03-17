@@ -52,27 +52,25 @@
 }
 
 .ui-header {
-	&.ui-drawer-header {
-		.ui-btn.ui-drawer-button.ui-btn-icon-only {
-			position: absolute;
-			top: 0;
-			left: 0;
+	.ui-btn.ui-drawer-button.ui-btn-icon-only {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width : 55 * @unit_base;
+		height : 72 * @unit_base;
+
+		&:active {
+			background-color : @color_drawer_icon_press;
+		}
+
+		&::after {
 			width : 55 * @unit_base;
 			height : 72 * @unit_base;
-
-			&:active {
-				background-color : @color_drawer_icon_press;
-			}
-
-			&::after {
-				width : 55 * @unit_base;
-				height : 72 * @unit_base;
-				-webkit-mask-size: 100%;
-				background-color: @color_drawer_icon;
-				margin-top: 0;
-				top: 0;
-				left: 0;
-			}
+			-webkit-mask-size: 100%;
+			background-color: @color_drawer_icon;
+			margin-top: 0;
+			top: 0;
+			left: 0;
 		}
 	}
 }

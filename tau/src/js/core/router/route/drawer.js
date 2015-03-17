@@ -26,8 +26,7 @@
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 			var CoreDrawer = ns.widget.core.Drawer,
-				util = ns.util,
-				path = util.path,
+				path = ns.util.path,
 				history = ns.router.history,
 				engine = ns.engine,
 				routeDrawer = {},
@@ -70,7 +69,6 @@
 			 * This method opens the drawer.
 			 * @method open
 			 * @param {HTMLElement} drawerElement
-			 * @param {Object} [options]
 			 * @member ns.router.route.drawer
 			 */
 			routeDrawer.open = function (drawerElement) {
@@ -102,7 +100,6 @@
 			 * @param {string} html HTML code to parse
 			 * @param {string} absUrl Absolute url for parsed page
 			 * @member ns.router.route.drawer
-			 * @return {?HTMLElement} Element of page in parsed document.
 			 */
 			routeDrawer.parse = function (html, absUrl) {
 				return null;
@@ -135,6 +132,7 @@
 			 * @method onHashChange
 			 * @param {String} url
 			 * @param {Object} options
+			 * @param {String} prev Previous url string
 			 * @static
 			 * @member ns.router.route.drawer
 			 * @return {null}
