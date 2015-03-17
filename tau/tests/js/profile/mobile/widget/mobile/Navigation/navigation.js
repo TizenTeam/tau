@@ -5,30 +5,30 @@ $().ready(function() {
 		}
 	});
 
+
 	test ("Navigation" , function () {
 		var navigation = document.getElementsByTagName('nav')[0],
-			nvBar = tau.widget.Navigation(navigation),
-			header = navigation.parentNode,
-			ul = navigation.children[0],
+			nvBar = new tau.widget.Navigation(navigation),
+			container = navigation.children[0],
 			eventsCalled = {},
-			li,
-			historyArray = [{pageId: "test1"}, {pageId: "test2"}];
+			item;
 
-		nvBar.create(historyArray);
+		nvBar.push("test1");
+		nvBar.push("test2");
 
-		li = ul.children;
-		$(li[0]).on("navigate", function(event){
+		item = container.children;
+		$(navigation).on("navigate", function(event){
 			eventsCalled[event.type] = true;
 		});
-		$(li[0]).trigger('vclick');
+		$(item[0]).trigger('vclick');
 
 		equal(eventsCalled.navigate, true, "navigate event is triggered");
 		ok(navigation.classList.contains("ui-navigation"), 'nav has ui-navigation class');
-		ok(header.classList.contains("ui-title-navigation"), 'header has ui-title-navigation class');
-		ok(ul.classList.contains("ui-navigation-ul"), 'ul has ui-navigation-ul class');
-		ok(li[0].classList.contains("ui-navigation-li"), 'li has ui-navigation-li class');
-		equal(li.length, historyArray.length, "li-cluster has created well");
-		equal(li[0].innerHTML, "test1", "li has appropriate name");
+		ok(container.classList.contains("ui-navigation-container"), 'ul has ui-navigation-ul class');
+		ok(item[0].classList.contains("ui-navigation-item"), 'item has ui-navigation-item class');
+		ok(item[0].classList.contains("ui-navigation-active"), 'item has ui-navigation-active class');
+		equal(item.length, 1, "Navigation has deleted the next item when click the before item");
+		equal(item[0].innerHTML, "test1", "item has appropriate name");
 
 	});
 });

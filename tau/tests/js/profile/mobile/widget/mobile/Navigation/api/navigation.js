@@ -22,17 +22,15 @@
 		equal(typeof widget.disable, 'function', 'Method navigation.disable exists');
 		equal(typeof widget.enable, 'function', 'Method navigation.enable exists');
 		equal(typeof widget.refresh, 'function', 'Method navigation.refresh exists');
-		equal(typeof widget.create, 'function', 'Method navigation.create exists');
+		equal(typeof widget.push, 'function', 'Method navigation.push exists');
 
 		equal(typeof Navigation.classes, 'object', 'Property navigation.classes exists');
-		equal(typeof Navigation.classes.header, 'string', 'Property navigation.classes.header exists');
-		equal(typeof Navigation.classes.titleNavigation, 'string', 'Property navigation.classes.titleNavigation exists');
-		equal(typeof Navigation.classes.navigation, 'string', 'Property navigation.classes.navigation exists');
-		equal(typeof Navigation.classes.navigationUl, 'string', 'Property navigation.classes.navigationUl exists');
-		equal(typeof Navigation.classes.navigationLi, 'string', 'Property navigation.classes.navigationLi exists');
+		equal(typeof Navigation.classes.NAVIGATION, 'string', 'Property navigation.classes.NAVIGATION exists');
+		equal(typeof Navigation.classes.NAVIGATION_CONTAINER, 'string', 'Property navigation.classes.NAVIGATION_CONTAINER exists');
+		equal(typeof Navigation.classes.NAVIGATION_ITEM, 'string', 'Property navigation.classes.NAVIGATION_ITEM exists');
+		equal(typeof Navigation.classes.NAVIGATION_ACTIVE, 'string', 'Property navigation.calsses.NAVIGATION_ACTIVE exists')
 
 		equal(typeof widget._build, 'function', 'Method navigation._build exists');
 		equal(typeof widget._bindEvents, 'function', 'Method navigation._bindEvents exists');
-		equal(typeof widget._init, 'function', 'Method navigation._init exists');
 	});
 }(tau));

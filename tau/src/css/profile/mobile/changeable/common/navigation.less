@@ -1,0 +1,61 @@
+.ui-navigation{
+	&::-webkit-scrollbar {
+		display : none;
+	}
+
+	height : 50 * @unit_base;
+	background-color : @color_navigation_bg;
+	border-top : 2px solid @color_navigation_text; //TOBE @color_navigation_tab_divider;
+
+	white-space: nowrap;
+	overflow-x: scroll;
+	overflow-y: hidden;
+
+	.ui-navigation-container {
+		margin : 0;
+		padding : 0;
+		display : inline-block;
+		list-style-type : none;
+
+		.ui-navigation-item:first-child {
+			padding-left : 24 * @unit_base;
+
+			&::before {
+				content: none;
+			}
+		}
+		.ui-navigation-item {
+			position: relative;
+			height : 50 * @unit_base;
+			line-height : 50 * @unit_base;
+			vertical-align : top;
+			overflow: hidden;
+			display : inline-block;
+			color: @color_navigation_text;
+			font-size : @font_size_navigation_bar_text;
+			opacity: 0.5;
+			-webkit-transition: opacity 300ms ease-in-out;
+			-webkit-backface-visibility: hidden;
+
+			&::before {
+				content: "";
+				display : inline-block;
+				height : 50 * @unit_base;
+				width : 45 * @unit_base;
+				opacity: 0.5;
+				background-color : @color_navigation_bar_icon;
+				-webkit-mask-image : url("images/00_navigation_bar_icon_arrow.png");
+				-webkit-mask-size : 100% 100%
+			}
+
+			&:last-child {
+				margin-right: 24 * @unit_base;
+			}
+			&.ui-navigation-active {
+				opacity: 1;
+				-webkit-transition: opacity 300ms ease-in-out;
+			}
+		}
+
+	}
+}
