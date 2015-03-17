@@ -21,6 +21,7 @@
 			ns.setConfig('loader', true, true);
 			ns.setConfig('pageContainerBody', true, true);
 			ns.setConfig('popupTransition', 'slideup');
+			ns.setConfig('pageTransition', 'slide');
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 		}
 	);
