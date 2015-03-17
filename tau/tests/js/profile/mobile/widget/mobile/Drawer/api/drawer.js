@@ -11,7 +11,7 @@
 		equal(typeof ns.widget.mobile.Drawer, 'function', 'Class ns.widget.mobile.Drawer exists');
 
 		widget = ns.engine.instanceWidget(document.getElementById("drawer"), "Drawer");
-		Drawer = ns.widget.mobile.Drawer;
+		Drawer = ns.widget.core.Drawer;
 
 		equal(typeof widget.configure, 'function', 'Method drawer.configure exists');
 		equal(typeof widget._getCreateOptions, 'function', 'Method drawer._getCreateOptions exists');

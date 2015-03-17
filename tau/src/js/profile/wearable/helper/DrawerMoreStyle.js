@@ -33,7 +33,7 @@
 					sectionChanger: ".ui-section-changer"
 				},
 				classes = {
-					page: "ui-page",
+					page: "ui-page"
 				},
 
 				DrawerMoreStyle = function (element, options) {

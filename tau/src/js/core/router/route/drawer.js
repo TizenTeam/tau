@@ -14,27 +14,22 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../../../../core/engine",
-			"../../../../core/util/DOM/attributes",
-			"../../../../core/util/path",
-			"../../../../core/util/selectors",
-			"../../../../core/util/object",
-			"../../../../core/router/route",
-			"../../../../core/router/history",
-			"../../widget/wearable/Drawer"
+			"../../engine",
+			"../../util/DOM/attributes",
+			"../../util/path",
+			"../../util/selectors",
+			"../../util/object",
+			"../route",
+			"../history",
+			"../../widget/core/Drawer"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
-			var WearableDrawer = ns.widget.wearable.Drawer,
-				WearableDrawerPrototype = WearableDrawer.prototype,
+			var CoreDrawer = ns.widget.core.Drawer,
 				util = ns.util,
 				path = util.path,
-				DOM = util.DOM,
-				object = util.object,
-				utilSelector = util.selectors,
 				history = ns.router.history,
 				engine = ns.engine,
-				slice = [].slice,
 				routeDrawer = {},
 				drawerHashKey = "drawer=true",
 				drawerHashKeyReg = /([&|\?]drawer=true)/;
@@ -56,7 +51,7 @@
 			 * @member ns.router.route.drawer
 			 * @static
 			 */
-			routeDrawer.filter = "." + WearableDrawer.classes.drawer;
+			routeDrawer.filter = "." + CoreDrawer.classes.drawer;
 
 
 			/**
@@ -78,9 +73,8 @@
 			 * @param {Object} [options]
 			 * @member ns.router.route.drawer
 			 */
-			routeDrawer.open = function (drawerElement, options) {
-				var self = this,
-					drawer = engine.instanceWidget(drawerElement, "Drawer");
+			routeDrawer.open = function (drawerElement) {
+				var drawer = engine.instanceWidget(drawerElement, "Drawer");
 				drawer.open();
 			};
 
@@ -92,8 +86,7 @@
 			 * @return {?HTMLElement} drawerElement
 			 */
 			routeDrawer.find = function (absUrl) {
-				var self = this,
-					dataUrl = path.convertUrlToDataUrl(absUrl),
+				var dataUrl = path.convertUrlToDataUrl(absUrl),
 					activePage = engine.getRouter().getContainer().getActivePage(),
 					drawer;
 

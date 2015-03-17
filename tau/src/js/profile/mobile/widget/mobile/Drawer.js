@@ -78,110 +78,48 @@
 	define(
 		[
 			"../../../../core/widget/core/Drawer",
-			"../../../../core/widget/core/Page",
+			"../../../../core/util/object",
 			"../../../../core/engine"
 		],
 
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 			var CoreDrawer = ns.widget.core.Drawer,
-				CoreDrawerPrototype = CoreDrawer.prototype,
-				Page = ns.widget.core.Page,
 				engine = ns.engine,
+				object = ns.util.object,
 				Drawer = function () {
 					var self = this;
+					self.options = CoreDrawer.options;
 					CoreDrawer.call(self);
-					self.options.swipeStartAreaRatio = 0.05;
-					self._pageSelector = Page.classes.uiPage;
-
-					self._onSwipeBound = null;
-					self._onMouseDownBound = null;
-					self._onSideEdgeMouseUpBound = null;
-					self._swiped = false;
 				},
-				prototype = new CoreDrawer(),
-				classes = CoreDrawer.classes;
+				prototype = new CoreDrawer();
 
 			Drawer.prototype = prototype;
-			Drawer.classes = classes;
 
 			/**
-			 * Swipe event handler
-			 * @method _onSwipe
-			 * @private
-			 * @static
-			 * @param {Event} event
-			 * @member ns.widget.mobile.Drawer
-			 */
-			prototype._onSwipe = function(event) {
-				// If swipeleft event was triggered at drawer position right,
-				// drawer should be opend. So 'direction' has reverse value for swipe direction.
-				var self = this,
-					direction = event.type === "swipeleft" ? "right" : "left";
-
-				if (self.options.position === direction && self._swiped) {
-					self.open();
-					self._swiped = false;
-				}
-			};
-
-			/**
-			 * Check vmousedown event whether triggerred on side edge area or not
-			 * @method _checkSideEdgeMouseDown
-			 * @private
-			 * @static
-			 * @param {Event} event
-			 * @member ns.widget.mobile.Drawer
-			 */
-			prototype._checkSideEdgeMouseDown = function(event) {
-				var self = this,
-					eventClientX = event.clientX,
-					options = self.options,
-					position = options.position,
-					swipeStartArea = window.innerWidth * options.swipeStartAreaRatio;
-
-				if ((position === "left" && eventClientX > 0 && eventClientX < swipeStartArea) ||
-					(position === "right" && eventClientX < window.innerWidth && eventClientX > window.innerWidth - swipeStartArea)) {
-					self._swiped = true;
-				}
-			};
-			/**
-			 * Vmousedown event handler
-			 * @method _onMouseDown
-			 * @private
-			 * @static
-			 * @param {Event} event
-			 * @member ns.widget.mobile.Drawer
-			 */
-			prototype._onMouseDown = function(event) {
-				this._checkSideEdgeMouseDown(event);
-			};
-
-			/**
-			 * Bind events to widget
-			 * @method _bindEvents
+			 * Configure Drawer widget
+			 * @method _configure
 			 * @protected
-			 * @member ns.widget.mobile.Drawer
+			 * @param {HTMLElement} element
+			 * @member ns.widget.wearable.Drawer
 			 */
-			prototype._bindEvents = function() {
-				var self = this,
-					page = self._drawerPage;
-				CoreDrawerPrototype._bindEvents.call(self);
-
-				self._onMouseDownBound = self._onMouseDown.bind(self);
-				self._onSwipeBound = self._onSwipe.bind(self);
-				page.addEventListener("vmousedown", self._onMouseDownBound, false);
-				page.addEventListener("swipeleft", self._onSwipeBound, false);
-				page.addEventListener("swiperight", self._onSwipeBound, false);
+			prototype._configure = function() {
+				var self = this;
+				/**
+				 * Widget options
+				 * @property {string} [options.drawerTarget="ui-page"] Drawer appended target. Value type is CSS selector type.
+				 * @property {string} [options.position="left"] Drawer position. "left" or "right"
+				 * @property {boolean} [options.enable=true] Enable drawer widget.
+				 * @property {Number} [options.dragEdge=1] Start dragging gesture possible area ratio of target or handler between 0 and 1.
+				 */
+				object.merge(self.options, {
+					dragEdge: 0.05
+				});
 			};
-
-			prototype._destroy = function() {
-				var self = this,
-					page = self._drawerPage;
-				CoreDrawerPrototype._destroy.call(self);
-				page.removeEventListener("vmousedown", self._onMouseDownBound, false);
-				page.removeEventListener("swipeleft", self._onSwipeBound, false);
-				page.removeEventListener("swiperight", self._onSwipeBound, false);
+			prototype._build = function(element) {
+				CoreDrawer.prototype._build.call(this, element);
+				element.style.top = 0;
+				return element;
 			};
 
 			ns.widget.mobile.Drawer = Drawer;
@@ -189,9 +127,12 @@
 				"Drawer",
 				"[data-role='drawer'], .ui-drawer",
 				[
+					"transition",
+					"setDragHandler",
 					"open",
 					"close",
-					"isOpen"
+					"isOpen",
+					"getState"
 				],
 				Drawer,
 				"mobile"
