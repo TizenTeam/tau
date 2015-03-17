@@ -33,7 +33,7 @@
 					sectionChanger: ".ui-section-changer"
 				},
 				classes = {
-					page: "ui-page",
+					page: "ui-page"
 				},
 
 				DrawerMoreStyle = function (element, options) {
@@ -52,12 +52,12 @@
 			function bindDragEvents(element) {
 
 				events.on(element, "touchstart touchend mousedown mouseup" , this, false);
-			};
+			}
 
 			function unBindDragEvents(element) {
 
 				events.off(element, "touchstart touchend mousedown mouseup" , this, false);
-			};
+			}
 
 			prototype.handleEvent = function(event) {
 				var self = this;

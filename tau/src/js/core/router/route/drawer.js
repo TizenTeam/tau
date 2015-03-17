@@ -14,27 +14,21 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../../../../core/engine",
-			"../../../../core/util/DOM/attributes",
-			"../../../../core/util/path",
-			"../../../../core/util/selectors",
-			"../../../../core/util/object",
-			"../../../../core/router/route",
-			"../../../../core/router/history",
-			"../../widget/wearable/Drawer"
+			"../../engine",
+			"../../util/DOM/attributes",
+			"../../util/path",
+			"../../util/selectors",
+			"../../util/object",
+			"../route",
+			"../history",
+			"../../widget/core/Drawer"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
-			var WearableDrawer = ns.widget.wearable.Drawer,
-				WearableDrawerPrototype = WearableDrawer.prototype,
-				util = ns.util,
-				path = util.path,
-				DOM = util.DOM,
-				object = util.object,
-				utilSelector = util.selectors,
+			var CoreDrawer = ns.widget.core.Drawer,
+				path = ns.util.path,
 				history = ns.router.history,
 				engine = ns.engine,
-				slice = [].slice,
 				routeDrawer = {},
 				drawerHashKey = "drawer=true",
 				drawerHashKeyReg = /([&|\?]drawer=true)/;
@@ -56,7 +50,7 @@
 			 * @member ns.router.route.drawer
 			 * @static
 			 */
-			routeDrawer.filter = "." + WearableDrawer.classes.drawer;
+			routeDrawer.filter = "." + CoreDrawer.classes.drawer;
 
 
 			/**
@@ -75,12 +69,10 @@
 			 * This method opens the drawer.
 			 * @method open
 			 * @param {HTMLElement} drawerElement
-			 * @param {Object} [options]
 			 * @member ns.router.route.drawer
 			 */
-			routeDrawer.open = function (drawerElement, options) {
-				var self = this,
-					drawer = engine.instanceWidget(drawerElement, "Drawer");
+			routeDrawer.open = function (drawerElement) {
+				var drawer = engine.instanceWidget(drawerElement, "Drawer");
 				drawer.open();
 			};
 
@@ -92,8 +84,7 @@
 			 * @return {?HTMLElement} drawerElement
 			 */
 			routeDrawer.find = function (absUrl) {
-				var self = this,
-					dataUrl = path.convertUrlToDataUrl(absUrl),
+				var dataUrl = path.convertUrlToDataUrl(absUrl),
 					activePage = engine.getRouter().getContainer().getActivePage(),
 					drawer;
 
@@ -109,7 +100,6 @@
 			 * @param {string} html HTML code to parse
 			 * @param {string} absUrl Absolute url for parsed page
 			 * @member ns.router.route.drawer
-			 * @return {?HTMLElement} Element of page in parsed document.
 			 */
 			routeDrawer.parse = function (html, absUrl) {
 				return null;
@@ -142,6 +132,7 @@
 			 * @method onHashChange
 			 * @param {String} url
 			 * @param {Object} options
+			 * @param {String} prev Previous url string
 			 * @static
 			 * @member ns.router.route.drawer
 			 * @return {null}

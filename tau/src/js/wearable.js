@@ -47,8 +47,8 @@
 			"./core/router/history",
 			"./core/router/route/page",
 			"./core/router/route/popup",
+			"./core/router/route/drawer",
 			"./profile/wearable/router/route/circularindexscrollbar",
-			"./profile/wearable/router/route/drawer",
 			"./profile/wearable/expose",
 			"./profile/wearable/backward",
 			// Modules to be loaded after

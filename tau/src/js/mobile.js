@@ -119,6 +119,7 @@
 			"./core/router/Router",
 			"./core/router/route/page",
 			"./core/router/route/popup",
+			"./core/router/route/drawer",
 			"./profile/mobile/router/route/dialog",
 			"./core/router/history",
 			"./profile/wearable/expose",
