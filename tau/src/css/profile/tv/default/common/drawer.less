@@ -1106,12 +1106,19 @@
 		.transition(all 0.2s ease-out);
 		overflow: hidden;
 		a.ui-btn {
-			padding: 25 * @virtual_px 0 5 * @virtual_px 0;
+			padding: 0;
+			height: 100%;
 			font-size: 21 * @virtual_px;
 			font-weight: bold;
 			.border-radius(0);
 			.ui-btn-inner {
-				padding: 76 * @virtual_px 30 * @virtual_px 14 * @virtual_px;
+				margin-top: 25 * @virtual_px;
+				margin-bottom: 14 * @virtual_px;
+				padding: 76 * @virtual_px 30 * @virtual_px 0;
+
+				.ui-text {
+					line-height: 35 * @virtual_px;
+				}
 			}
 			.transition(font 200ms);
 
