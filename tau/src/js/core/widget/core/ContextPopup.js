@@ -478,8 +478,8 @@
 					element = self.element,
 					windowWidth = window.innerWidth,
 					windowHeight = window.innerHeight,
-					popupWidth = element.offsetWidth,
-					popupHeight = element.offsetHeight,
+					popupWidth = domUtils.getElementWidth(element, "outer"),
+					popupHeight = domUtils.getElementHeight(element, "outer"),
 					// offset coordinates of clicked element
 					clickElementRect = clickedElement.getBoundingClientRect(),
 					clickElementOffsetX = clickElementRect.left,
@@ -582,7 +582,10 @@
 						"padding-top": 0,
 						"padding-bottom": 0,
 						"padding-left": 0,
-						"padding-right": 0
+						"padding-right": 0,
+						"border-top-width": 0,
+						"border-left-width": 0,
+						"box-sizing": null
 					},
 					wrapperProperties = {
 						"margin-top": 0,
@@ -602,10 +605,12 @@
 						"r": {pos: y, min: "top", max: "bottom", posField: "y", valField: "h", styleField: "top"}
 					},
 					param = params[bestRectangle.dir],
-					surplus;
+					surplus,
+					addPadding;
 
 				domUtils.extractCSSProperties(popupElement, popupProperties);
 				domUtils.extractCSSProperties(wrapper, wrapperProperties);
+				addPadding = popupProperties["box-sizing"] === "border-box";
 				margins	= {
 					"t": popupProperties["padding-top"] + wrapperProperties["margin-top"] + wrapperProperties["padding-top"],
 					"b": popupProperties["padding-bottom"] + wrapperProperties["margin-bottom"] + wrapperProperties["padding-bottom"],
@@ -644,7 +649,7 @@
 					}
 				}
 
-				arrowStyle[param.styleField] = (param.pos - arrowHalfWidth - bestRectangle[param.posField]) + "px";
+				arrowStyle[param.styleField] = (param.pos - arrowHalfWidth - bestRectangle[param.posField] - (addPadding ? popupProperties["border-" + param.styleField + "-width"] : 0)) + "px";
 
 				return bestRectangle;
 			}
