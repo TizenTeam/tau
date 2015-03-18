@@ -5,19 +5,18 @@
 * License : MIT License V2
 */
 /**
- * #SelectMenu Widget
- * SelectMenu widget provide creating SelectMenu widget in the form of dropdown list and managing its operation.
+ * #DropdownMenu Widget
+ * DropdownMenu widget provide creating DropdownMenu widget in the form of dropdown list and managing its operation.
  *
  * ##Default selector
- * In default all select elements with _data-role=select_ or with class .ui-select-menu
- * are changed to Tizen WebUI SelectMenu. Additionally elements with
- * _data-native-menu=false_ will use custom popups for option selection
+ * In default all select elements are changed to Tizen WebUI DropdownMenu.
+ * Additionally elements with _data-native-menu=false_ will use custom popups for option selection
  *
  * ###  HTML Examples
  *
- * ####  Create SelectMenu
- * Default value of data-native-menu attribute is true and it makes native SelectMenu.
- * This widget also offers the possibility of having custom SelectMenu.
+ * ####  Create DropdownMenu
+ * Default value of data-native-menu attribute is true and it makes native DropdownMenu.
+ * This widget also offers the possibility of having custom DropdownMenu.
  *
  * 		@example
  *		<select data-native-menu="false">
@@ -28,40 +27,26 @@
  *		</select>
  *
  * ## Manual constructor
- * For manual creation of SelectMenu widget you can use constructor of widget.
+ * For manual creation of DropdownMenu widget you can use constructor of widget.
  *
  * 		@example
- *		<select id="selectmenu" data-native-menu="false">
+ *		<select id="dropdownmenu" data-native-menu="false">
  *			<option value="1">Item1</option>
  *			<option value="2">Item2</option>
  *			<option value="3">Item3</option>
  *			<option value="4">Item4</option>
  *		</select>
  *		<script>
- *			var element = document.getElementById("selectmenu"),
- *				widget = tau.widget.SelectMenu(element);
+ *			var element = document.getElementById("dropdownmenu"),
+ *				widget = tau.widget.DropdownMenu(element);
  *		</script>
  *
- * ##Label type
- * You can declare to the type of SelectMenu manually.
- * If you set data-label attribute to true(Default is false.), SelectMenu has label type.
- * The size of label type is inherited its parent element.
- *
- * 		@example
- * 		<div style="width:300px; height:150px;">
- *			<select id="selectmenu" data-native-menu="false" data-label="true">
- *				<option value="1">Item1</option>
- *				<option value="2">Item2</option>
- *				<option value="3">Item3</option>
- *				<option value="4">Item4</option>
- *			</select>
- *		</div>
  *
  * ##Inline type
- * When data-inline attribute is set to true, width of the SelectMenu is determined by its text. (Default is false.)
+ * When data-inline attribute is set to true, width of the DropdownMenu is determined by its text. (Default is false.)
  *
  *			@example
- * 			<select id="selectmenu" data-native-menu="false" data-inline="true">
+ * 			<select id="dropdownmenu" data-native-menu="false" data-inline="true">
  *				<option value="1">Item1</option>
  *				<option value="2">Item2</option>
  *				<option value="3">Item3</option>
@@ -74,7 +59,7 @@
  * If you don't want that, you can use data-hide-placeholder-menu-items="false" attribute.
  *
  *		@example
- *		<select id="selectmenu" data-native-menu="false" data-hide-placeholder-menu-items="false">
+ *		<select id="dropdownmenu" data-native-menu="false" data-hide-placeholder-menu-items="false">
  *			<option value="choose-one" data-placeholder="true">Choose an option</option>
  *			<option value="1">Item1</option>
  *			<option value="2">Item2</option>
@@ -88,37 +73,37 @@
  * First API is from tau namespace: RECOMMEND
  *
  *		@example
- *		var element = document.getElementById("selectmenu"),
- *			widget = tau.widget.SelectMenu(element);
+ *		var element = document.getElementById("dropdownmenu"),
+ *			widget = tau.widget.DropdownMenu(element);
  *		widget.methodName(methodArgument1, methodArgument2, ...);
  *
  * Second API is jQuery Mobile API and for call _methodName_ you can use: Support for backward compatibility
  *
  *		@example
- *		$(".selector").selectmenu("methodName", methodArgument1, methodArgument2, ...);
+ *		$(".selector").dropdownmenu("methodName", methodArgument1, methodArgument2, ...);
  *
- * - "open" - SelectMenu open
+ * - "open" - DropdownMenu open
  *
  * 		@example
- * 		var elSelectMenu = document.getElementById("selectmenu"),
- * 			widget = tau.widget.SelectMenu(elSelectMenu);
+ * 		var elDropdownMenu = document.getElementById("dropdownmenu"),
+ * 			widget = tau.widget.DropdownMenu(elDropdownMenu);
  * 		widget.open();
  *
- * - "close" - SelectMenu close
+ * - "close" - DropdownMenu close
  *
  * 		@example
- * 		var elSelectMenu = document.getElementById("selectmenu"),
- * 			widget = tau.widget.SelectMenu(elSelectMenu);
+ * 		var elDropdownMenu = document.getElementById("dropdownmenu"),
+ * 			widget = tau.widget.DropdownMenu(elDropdownMenu);
  * 		widget.close();
  *
- * - "refresh" - This method refreshs the SelectMenu widget.
+ * - "refresh" - This method refreshs the DropdownMenu widget.
  *
  * 		@example
- * 		var elSelectMenu = document.getElementById("selectmenu"),
- * 			widget = tau.widget.SelectMenu(elSelectMenu);
+ * 		var elDropdownMenu = document.getElementById("dropdownmenu"),
+ * 			widget = tau.widget.DropdownMenu(elDropdownMenu);
  * 		widget.refresh();
  *
- * @class ns.widget.mobile.SelectMenu
+ * @class ns.widget.mobile.DropdownMenu
  * @extends ns.widget.mobile.BaseWidgetMobile
  * @author Hagun Kim <hagun.kim@samsung.com>
  */
@@ -147,21 +132,22 @@
 				slice = [].slice,
 				Page = ns.widget.core.Page,
 				indexOf = [].indexOf,
-				SelectMenu = function () {
+				DropdownMenu = function () {
 					var self = this;
 					/**
-					* @property {boolean} _isOpen Open/Close status of SelectMenu
-					* @member ns.widget.mobile.SelectMenu
+					* @property {boolean} _isOpen Open/Close status of DropdownMenu
+					* @member ns.widget.mobile.DropdownMenu
 					*/
 					self._isOpen = false;
+					self._isClosing = false;
 					/**
-					* @property {number} _selectedIndex Index of selected option in SelectMenu
-					* @member ns.widget.mobile.SelectMenu
+					* @property {number} _selectedIndex Index of selected option in DropdownMenu
+					* @member ns.widget.mobile.DropdownMenu
 					*/
 					self._selectedIndex = null;
 					/**
-					* @property {Object} _ui Object with html elements connected with SelectMenu
-					* @member ns.widget.mobile.SelectMenu
+					* @property {Object} _ui Object with html elements connected with DropdownMenu
+					* @member ns.widget.mobile.DropdownMenu
 					*/
 					self._ui = {
 						elSelectWrapper: null,
@@ -175,96 +161,96 @@
 						elDefaultOption: null
 					};
 					/**
-					* @property {Object} options Object with default options
-					* @property {boolean} [options.nativeMenu=true] Sets the SelectMenu widget as native/custom type.
-					* @property {boolean} [options.inline=false] Sets the SelectMenu widget as inline/normal type.
-					* @property {boolean} [options.label=false] Sets the SelectMenu widget as label/normal type.
-					* @property {boolean} [options.hidePlaceholderMenuItems=true] Hide/Reveal the placeholder option in dropdown list of the SelectMenu.
-					* @property {boolean} [options.backgroundLayer=true] Enable or disable background layer which close select menu after click
-					* @member ns.widget.mobile.SelectMenu
-					*/
+					 * @property {Object} options Object with default options
+					 * @property {boolean} [options.nativeMenu=true] Sets the DropdownMenu widget as native/custom type.
+					 * @property {boolean} [options.inline=false] Sets the DropdownMenu widget as inline/normal type.
+					 * @property {boolean} [options.hidePlaceholderMenuItems=true] Hide/Reveal the placeholder option in dropdown list of the DropdownMenu.
+					 * @member ns.widget.mobile.DropdownMenu
+					 */
 					self.options = {
 						nativeMenu: true,
 						inline: false,
-						label: false,
-						hidePlaceholderMenuItems: true,
-						backgroundLayer: true
+						hidePlaceholderMenuItems: true
 					};
-
 					/**
 					 * @property {Function|null} _toggleMenuBound callback for select action
 					 * @protected
-					 * @member ns.widget.mobile.SelectMenu
+					 * @member ns.widget.mobile.DropdownMenu
 					 */
 					self._toggleMenuBound =  null;
 					/**
 					 * @property {Function|null} _changeOptionBound callback for change value
 					 * @protected
-					 * @member ns.widget.mobile.SelectMenu
+					 * @member ns.widget.mobile.DropdownMenu
 					 */
 					self._changeOptionBound = null;
 					/**
 					 * @property {Function|null} _onResizeBound callback for throttledresize
 					 * @protected
-					 * @member ns.widget.mobile.SelectMenu
+					 * @member ns.widget.mobile.DropdownMenu
 					 */
 					self._onResizeBound = null;
 					/**
 					 * @property {Function|null} _nativeChangeOptionBound callback for change value
 					 * @protected
-					 * @member ns.widget.mobile.SelectMenu
+					 * @member ns.widget.mobile.DropdownMenu
 					 */
 					self._nativeChangeOptionBound = null;
 					/**
 					 * @property {Function|null} _focusBound callback for focus action
 					 * @protected
-					 * @member ns.widget.mobile.SelectMenu
+					 * @member ns.widget.mobile.DropdownMenu
 					 */
 					self._focusBound = null;
 					/**
 					 * @property {Function|null} _blurBound callback for blur action
 					 * @protected
-					 * @member ns.widget.mobile.SelectMenu
+					 * @member ns.widget.mobile.DropdownMenu
 					 */
 					self._blurBound = null;
+					// event callbacks
+					self._callbacks = {};
 				},
 				/**
-				 * Dictionary for SelectMenu related css class names
+				 * Dictionary for DropdownMenu related css class names
 				 * @property {Object} classes
-				 * @member ns.widget.mobile.SelectMenu
+				 * @member ns.widget.mobile.DropdownMenu
 				 * @static
 				 */
 				classes = {
-					selectWrapper : "ui-selectmenu",
-					optionGroup : "ui-selectmenu-optiongroup",
-					placeHolder : "ui-selectmenu-placeholder",
-					optionList : "ui-selectmenu-options",
-					selected : "ui-selectmenu-selected",
-					active : "ui-selectmenu-active",
-					filter : "ui-selectmenu-screen-filter",
-					filterHidden : "ui-selectmenu-filter-hidden",
-					label : "ui-selectmenu-label",
-					disabled : "ui-selectmenu-disabled",
+					selectWrapper : "ui-dropdownmenu",
+					optionGroup : "ui-dropdownmenu-optiongroup",
+					placeHolder : "ui-dropdownmenu-placeholder",
+					optionList : "ui-dropdownmenu-options",
+					optionsWrapper : "ui-dropdownmenu-options-wrapper",
+					selected : "ui-dropdownmenu-selected",
+					active : "ui-dropdownmenu-active",
+					opening : "ui-dropdownmenu-options-opening",
+					closing: "ui-dropdownmenu-options-closing",
+					opened: "ui-dropdownmenu-options-opened",
+					filter : "ui-dropdownmenu-overlay",
+					filterHidden : "ui-dropdownmenu-overlay-hidden",
+					disabled : "ui-dropdownmenu-disabled",
 					widgetDisabled : "ui-disabled",
-					inline : "ui-selectmenu-inline",
-					native : "ui-select-native",
-					top : "ui-selectmenu-option-top",
-					bottom : "ui-selectmenu-option-bottom",
+					inline : "ui-dropdownmenu-inline",
+					native : "ui-dropdownmenu-native",
+					top : "ui-dropdownmenu-options-top",
+					bottom : "ui-dropdownmenu-options-bottom",
 					focus : "ui-focus"
 				},
 				prototype = new BaseWidget();
 
-			SelectMenu.prototype = prototype;
-			SelectMenu.classes = classes;
+			DropdownMenu.prototype = prototype;
+			DropdownMenu.classes = classes;
 
 			/**
 			 * vclick to toggle menu event handler
 			 * @method toggleMenu
 			 * @private
 			 * @static
-			 * @param {ns.widget.mobile.SelectMenu} self
+			 * @param {ns.widget.mobile.DropdownMenu} self
 			 * @param {Event} event
-			 * @member ns.widget.mobile.SelectMenu
+			 * @member ns.widget.mobile.DropdownMenu
 			*/
 			function toggleMenu(self, event) {
 				self._toggleSelect();
@@ -277,9 +263,9 @@
 			 * @method changeOption
 			 * @private
 			 * @static
-			 * @param {ns.widget.mobile.SelectMenu} self
+			 * @param {ns.widget.mobile.DropdownMenu} self
 			 * @param {Event} event
-			 * @member ns.widget.mobile.SelectMenu
+			 * @member ns.widget.mobile.DropdownMenu
 			*/
 			function changeOption(self, event) {
 				var target = event.target,
@@ -295,12 +281,12 @@
 			}
 
 			/**
-			 * Change option in native selectmenu
+			 * Change option in native DropdownMenu
 			 * @method nativeChangeOption
 			 * @private
 			 * @static
-			 * @param {ns.widget.mobile.SelectMenu} self
-			 * @member ns.widget.mobile.SelectMenu
+			 * @param {ns.widget.mobile.DropdownMenu} self
+			 * @member ns.widget.mobile.DropdownMenu
 			*/
 			function nativeChangeOption(self) {
 				var ui = self._ui,
@@ -313,9 +299,9 @@
 			 * @method onResize
 			 * @private
 			 * @static
-			 * @param {ns.widget.mobile.SelectMenu} self
+			 * @param {ns.widget.mobile.DropdownMenu} self
 			 * @param {Event} event
-			 * @member ns.widget.mobile.SelectMenu
+			 * @member ns.widget.mobile.DropdownMenu
 			*/
 			function onResize(self, event) {
 				self._isOpen = !self._isOpen;
@@ -328,9 +314,9 @@
 			 * Function adds ui-focus class on focus
 			 * @private
 			 * @static
-			 * @param {ns.widget.mobile.SelectMenu} self
+			 * @param {ns.widget.mobile.DropdownMenu} self
 			 * @param {Event} event
-			 * @member ns.widget.mobile.SelectMenu
+			 * @member ns.widget.mobile.DropdownMenu
 			 */
 			function onFocus(self, event) {
 				var ui = self._ui,
@@ -345,9 +331,9 @@
 			 * Function removes ui-focus class on focus
 			 * @private
 			 * @static
-			 * @param {ns.widget.mobile.SelectMenu} self
+			 * @param {ns.widget.mobile.DropdownMenu} self
 			 * @param {Event} event
-			 * @member ns.widget.mobile.SelectMenu
+			 * @member ns.widget.mobile.DropdownMenu
 			 */
 			function onBlur(self, event) {
 				var ui = self._ui,
@@ -359,13 +345,13 @@
 			}
 
 			/**
-			 * Toggle enable/disable selectmenu
+			 * Toggle enable/disable DropdownMenu
 			 * @method setDisabledStatus
 			 * @private
 			 * @static
 			 * @param {HTMLElement} element
 			 * @param {Boolean} isDisabled
-			 * @member ns.widget.mobile.SelectMenu
+			 * @member ns.widget.mobile.DropdownMenu
 			*/
 			function setDisabledStatus(element, isDisabled) {
 				var classList = element.classList;
@@ -386,7 +372,7 @@
 			 * @param {HTMLElement} option
 			 * @param {Boolean} isDisabled
 			 * @return {string}
-			 * @member ns.widget.mobile.SelectMenu
+			 * @member ns.widget.mobile.DropdownMenu
 			*/
 			function convertOptionToHTML(option, isDisabled) {
 				var className = option.className;
@@ -404,7 +390,7 @@
 			 * @param {HTMLElement} element
 			 * @param {HTMLElement} container
 			 * @return {Object}
-			 * @member ns.widget.mobile.SelectMenu
+			 * @member ns.widget.mobile.DropdownMenu
 			*/
 			function getOffsetOfElement(element, container) {
 				var top = element.offsetTop,
@@ -423,13 +409,13 @@
 			}
 
 			/**
-			 * Construct element of option of selectmenu
+			 * Construct element of option of DropdownMenu
 			 * @method constructOption
 			 * @private
 			 * @static
-			 * @param {ns.widget.mobile.SelectMenu} self
+			 * @param {ns.widget.mobile.DropdownMenu} self
 			 * @return {string}
-			 * @member ns.widget.mobile.SelectMenu
+			 * @member ns.widget.mobile.DropdownMenu
 			*/
 			function constructOption(self) {
 				var i,
@@ -455,13 +441,13 @@
 					// for <option> tag
 					if (tag === "OPTION") {
 						/* When data-hide-placeholder-menu-items is true,
-						 * <option> with data-placeholder="true" is hidden in selectmenu.
-						 * It means that the <option> doesn't have to be selectmenu element.
+						 * <option> with data-placeholder="true" is hidden in DropdownMenu.
+						 * It means that the <option> doesn't have to be DropdownMenu element.
 						 */
 						if (widgetOptions.hidePlaceholderMenuItems && getData(forElement, "placeholder")) {
 							continue;
 						}
-						// normal <option> tag will be selectmenu element.
+						// normal <option> tag will be DropdownMenu element.
 						options += convertOptionToHTML(forElement, isDisabled);
 					} else if (tag === "OPTGROUP"){
 						// for <optgroup> tag
@@ -487,33 +473,17 @@
 			 * @static
 			 * @param {HTMLElement} element
 			 * @return {HTMLElement}
-			 * @member ns.widget.mobile.SelectMenu
+			 * @member ns.widget.mobile.DropdownMenu
 			*/
 			function findDataPlaceHolder(element) {
 				return element.querySelector("option[data-placeholder='true']");
 			}
 
 			/**
-			 * Check whether the type is label or not
-			 * @method _checkLabel
-			 * @protected
-			 * @member ns.widget.mobile.SelectMenu
-			 */
-			prototype._checkLabel = function () {
-				var self = this,
-					ui = self._ui;
-				if (self.options.label) {
-					ui.elSelectWrapper.classList.add(classes.label);
-				} else {
-					ui.elSelectWrapper.classList.remove(classes.label);
-				}
-			};
-
-			/**
 			 * Check whether the type is Inline or not
 			 * @method _checkInline
 			 * @protected
-			 * @member ns.widget.mobile.SelectMenu
+			 * @member ns.widget.mobile.DropdownMenu
 			 */
 			prototype._checkInline = function () {
 				var self = this,
@@ -527,29 +497,29 @@
 			};
 
 			/**
-			 * Build structure of SelectMenu widget
+			 * Build structure of DropdownMenu widget
 			 * @method _build
 			 * @param {HTMLElement} element
 			 * @return {HTMLElement}
 			 * @protected
-			 * @member ns.widget.mobile.SelectMenu
+			 * @member ns.widget.mobile.DropdownMenu
 			 */
 			prototype._build = function (element) {
-				this._generate(element);
+				this._generate(element, true);
 				return element;
 			};
 
 			/**
-			 * Generate Placeholder and Options elements for SelectMenu
+			 * Generate Placeholder and Options elements for DropdownMenu
 			 * @method _generate
 			 * @param {HTMLElement} element
+			 * @param {boolean} create
 			 * @return {HTMLElement}
 			 * @protected
-			 * @member ns.widget.mobile.SelectMenu
+			 * @member ns.widget.mobile.DropdownMenu
 			 */
-			prototype._generate = function (element) {
+			prototype._generate = function (element, create) {
 				var self = this,
-					isNewBuild = false,
 					options = "",
 					selectedOption,
 					fragment,
@@ -560,80 +530,69 @@
 					elOptions,
 					screenFilter,
 					elOptionContainer,
+					elOptionWrapper,
 					pageClasses = Page.classes;
 
 				ui.elSelect = element;
 				ui.page = selectors.getParentsByClass(element, pageClasses.uiPage)[0] || document.body;
 				ui.content = selectors.getParentsByClass(element, pageClasses.uiContent)[0] || selectors.getParentsByClass(element, pageClasses.uiHeader)[0];
 				ui.elDefaultOption = findDataPlaceHolder(element);
-				if (!ui.elOptions) {
-					self._selectedIndex = element.selectedIndex;
-				}
-				selectedOption = ui.elDefaultOption || element[self._selectedIndex];
 
-				elSelectWrapper = document.getElementById(elementId + "-selectmenu");
+				self._selectedIndex = element.selectedIndex;
 
-				if (elSelectWrapper === null) {
+				if(create) {
+					selectedOption = ui.elDefaultOption || element[element.selectedIndex];
 					elSelectWrapper = document.createElement("div");
 					elSelectWrapper.className = classes.selectWrapper;
-					elSelectWrapper.id = elementId + "-selectmenu";
-				}
+					elSelectWrapper.id = elementId + "-dropdownmenu";
 
-				if (self.options.nativeMenu) {
-					elPlaceHolder = document.getElementById(elementId + "-placeholder");
-					if (elPlaceHolder === null) {
-						elPlaceHolder = document.createElement("span");
-						elPlaceHolder.id = elementId + "-placeholder";
-						elPlaceHolder.className = classes.placeHolder;
-						domUtils.insertNodesBefore(element, elSelectWrapper);
-						elSelectWrapper.appendChild(elPlaceHolder);
-						elSelectWrapper.appendChild(element);
+					elPlaceHolder = document.createElement("span");
+					elPlaceHolder.id = elementId + "-placeholder";
+					elPlaceHolder.className = classes.placeHolder;
+					domUtils.insertNodesBefore(element, elSelectWrapper);
+					elSelectWrapper.appendChild(elPlaceHolder);
+					elSelectWrapper.appendChild(element);
+					if(self.options.nativeMenu) {
 						elSelectWrapper.classList.add(classes.native);
-						elPlaceHolder.innerHTML = selectedOption.textContent;
-					}
-					elOptions = element.querySelectorAll("option");
-				} else {
-					options = constructOption(self);
+					} else {
+						screenFilter = document.createElement("div");
+						screenFilter.className = classes.filterHidden;
+						screenFilter.classList.add(classes.filter);
+						screenFilter.id = elementId + "-overlay";
 
-					elPlaceHolder = document.getElementById(elementId + "-placeholder");
+						elOptionWrapper = document.createElement("div");
+						elOptionWrapper.className = classes.optionsWrapper;
+						elOptionWrapper.id = elementId + "-options-wrapper";
 
-					if (elPlaceHolder === null) {
-						elPlaceHolder = document.createElement("span");
-						elPlaceHolder.id = elementId + "-placeholder";
-						elPlaceHolder.className = classes.placeHolder;
-						domUtils.insertNodesBefore(element, elSelectWrapper);
-						elSelectWrapper.appendChild(elPlaceHolder);
-						elSelectWrapper.appendChild(element);
-						if (self.options.backgroundLayer) {
-							screenFilter = document.createElement("div");
-							screenFilter.className = classes.filterHidden;
-							screenFilter.classList.add(classes.filter);
-							screenFilter.id = elementId + "-screen";
-						}
 						elOptionContainer = document.createElement("ul");
 						elOptionContainer.className = classes.optionList;
 						elOptionContainer.id = elementId + "-options";
-						isNewBuild = true;
-					} else {
-						screenFilter = document.getElementById(elementId + "-screen");
-						elOptionContainer = document.getElementById(elementId + "-options");
-					}
 
-					elPlaceHolder.innerHTML = selectedOption.textContent;
-					elOptionContainer.innerHTML = options;
+						elOptionWrapper.appendChild(elOptionContainer);
 
-					/*****************************************************************************************************
-					 * FIX ME : When scrollview is removed, elOptionContainer can be located around SelectTag.
-					 *****************************************************************************************************/
-					if (isNewBuild) {
 						fragment = document.createDocumentFragment();
-						if (screenFilter) {
-							fragment.appendChild(screenFilter);
-						}
-						fragment.appendChild(elOptionContainer);
+						fragment.appendChild(screenFilter);
+						fragment.appendChild(elOptionWrapper);
 						ui.page.appendChild(fragment);
 					}
+				} else {
+					selectedOption = element[element.selectedIndex];
+					elSelectWrapper = document.getElementById(elementId + "-dropdownmenu");
+					elPlaceHolder = document.getElementById(elementId + "-placeholder");
+					elOptionWrapper = document.getElementById(elementId + "-options-wrapper");
+					if (!self.options.nativeMenu) {
+						screenFilter = document.getElementById(elementId + "-overlay");
+						elOptionContainer = document.getElementById(elementId + "-options");
+					}
+				}
 
+				elPlaceHolder.innerHTML = selectedOption.textContent;
+
+				if (self.options.nativeMenu) {
+					elOptions = element.querySelectorAll("option");
+				} else {
+					options = constructOption(self);
+					elOptionContainer.innerHTML = options;
 					elOptions = elOptionContainer.querySelectorAll("li[data-value]");
 					elOptions[self._selectedIndex].classList.add(classes.selected);
 				}
@@ -645,30 +604,31 @@
 				ui.elOptions = elOptions;
 				ui.screenFilter = screenFilter;
 				ui.elOptionContainer = elOptionContainer;
+				ui.elOptionWrapper = elOptionWrapper;
 
-				self._checkLabel();
 				self._checkInline();
 
 				return element;
 			};
 
 			/**
-			 * Init of SelectMenu widget
+			 * Init of DropdownMenu widget
 			 * @method _init
 			 * @param {HTMLElement} element
 			 * @protected
-			 * @member ns.widget.mobile.SelectMenu
+			 * @member ns.widget.mobile.DropdownMenu
 			 */
 			prototype._init = function (element) {
 				var self = this,
 					ui = self._ui,
 					elementId = element.id;
 				if (!ui.elSelectWrapper) {
-					ui.elSelectWrapper = document.getElementById(elementId + "-selectmenu");
+					ui.elSelectWrapper = document.getElementById(elementId + "-dropdownmenu");
 					ui.elPlaceHolder = document.getElementById(elementId + "-placeholder");
+					ui.elOptionWrapper = document.getElementById(elementId + "-options-wrapper");
 					ui.elSelect = element;
 					if (!self.options.nativeMenu) {
-						ui.screenFilter = document.getElementById(elementId + "-screen");
+						ui.screenFilter = document.getElementById(elementId + "-overlay");
 						ui.elOptionContainer = document.getElementById(elementId + "-options");
 						ui.elOptions = ui.elOptionContainer.querySelectorAll("li[data-value]");
 					}
@@ -676,20 +636,20 @@
 			};
 
 			/**
-			 * Refresh of SelectMenu widget
+			 * Refresh of DropdownMenu widget
 			 * @method _refresh
 			 * @protected
-			 * @member ns.widget.mobile.SelectMenu
+			 * @member ns.widget.mobile.DropdownMenu
 			 */
 			prototype._refresh = function () {
-				this._generate(this.element);
+				this._generate(this.element, false);
 			};
 
 			/**
 			* Enables widget
 			* @method _enable
 			*  @protected
-			* @member ns.widget.mobile.SelectMenu
+			* @member ns.widget.mobile.DropdownMenu
 			*/
 			prototype._enable = function () {
 				setDisabledStatus(this._ui.elSelectWrapper, false);
@@ -700,7 +660,7 @@
 			* Disables widget
 			* @method _disable
 			*  @protected
-			* @member ns.widget.mobile.SelectMenu
+			* @member ns.widget.mobile.DropdownMenu
 			*/
 			prototype._disable = function () {
 				setDisabledStatus(this._ui.elSelectWrapper, true);
@@ -708,9 +668,9 @@
 			};
 
 			/**
-			 * Open SelectMenu
+			 * Open DropdownMenu
 			 * @method open
-			 * @member ns.widget.mobile.SelectMenu
+			 * @member ns.widget.mobile.DropdownMenu
 			 */
 			prototype.open = function () {
 				var self = this;
@@ -720,9 +680,9 @@
 			};
 
 			/**
-			 * Close SelectMenu
+			 * Close DropdownMenu
 			 * @method close
-			 * @member ns.widget.mobile.SelectMenu
+			 * @member ns.widget.mobile.DropdownMenu
 			 */
 			prototype.close = function () {
 				var self = this;
@@ -732,10 +692,10 @@
 			};
 
 			/**
-			 * Bind events of SelectMenu widget
+			 * Bind events of DropdownMenu widget
 			 * @method _bindEvents
 			 * @protected
-			 * @member ns.widget.mobile.SelectMenu
+			 * @member ns.widget.mobile.DropdownMenu
 			 */
 			prototype._bindEvents = function () {
 				var self = this,
@@ -771,7 +731,7 @@
 			 * @method _coordinateOption
 			 * @return {String}
 			 * @protected
-			 * @member ns.widget.mobile.SelectMenu
+			 * @member ns.widget.mobile.DropdownMenu
 			 */
 			prototype._coordinateOption = function () {
 				var self = this,
@@ -782,32 +742,41 @@
 					areaInfo,
 					optionStyle,
 					ui = self._ui,
-					overLapValue,
 					optionHeight = ui.elOptionContainer.offsetHeight,
-					scrollTop = ui.elOptionContainer.parentNode.querySelector(".ui-scrollview-clip").scrollTop;
+					options = self.options,
+					scrollTop = ui.elOptionWrapper.parentNode.querySelector(".ui-scrollview-clip").scrollTop,
+					height;
 
 				self._offset = getOffsetOfElement(ui.elSelectWrapper, ui.page);
 				areaInfo = self._chooseDirection();
 				// the option list width is shorter than the placeholder.
-				width = ui.elPlaceHolder.offsetWidth - (parseFloat(placeholderStyle.paddingLeft) * 2);
+				width = ui.elPlaceHolder.offsetWidth - (parseFloat(placeholderStyle.paddingLeft) * 2) + "px;";
+				height = optionHeight;
 				// This part decides the location and direction of option list.
 				offsetLeft = self._offset.left;
-				overLapValue = areaInfo.overLapValue;
 				optionStyle = "left: " + offsetLeft + "px; ";
+
+				if (options.inline === true) {
+					height = ui.elOptionContainer.children[0].offsetHeight * 5;
+					width = "auto;";
+				}
+
 				if (areaInfo.direction === "top") {
 					offsetTop = 0;
-					if (optionHeight < areaInfo.topArea) {
-						offsetTop = self._offset.top - optionHeight + 1- scrollTop + overLapValue;
+					if (height < areaInfo.topArea) {
+						offsetTop = self._offset.top - height - scrollTop;
+					} else {
+						height = areaInfo.topArea;
 					}
-					optionStyle += "top: " + offsetTop + "px; width: " + width + "px; max-height: " + (areaInfo.topArea + 1 + overLapValue) + "px;";
-					ui.elOptionContainer.classList.add(classes.top);
-					ui.elOptionContainer.classList.remove(classes.bottom);
+					ui.elOptionWrapper.classList.add(classes.top);
 				} else {
-					offsetTop = self._offset.top + ui.elPlaceHolder.offsetHeight - 1 - scrollTop - overLapValue;
-					optionStyle += "top: " + offsetTop + "px; width: " + width + "px; max-height: " + (areaInfo.belowArea + 1 + overLapValue) + "px;";
-					ui.elOptionContainer.classList.add(classes.bottom);
-					ui.elOptionContainer.classList.remove(classes.top);
+					offsetTop = self._offset.top + ui.elPlaceHolder.offsetHeight - scrollTop;
+					if (height > areaInfo.belowArea) {
+						height = areaInfo.belowArea;
+					}
+					ui.elOptionWrapper.classList.add(classes.bottom);
 				}
+				optionStyle += "top: " + offsetTop + "px; width: " + width + " max-height: " + height + "px;";
 				return optionStyle;
 			};
 
@@ -816,24 +785,22 @@
 			 * @method _chooseDirection
 			 * @return {Object}
 			 * @protected
-			 * @member ns.widget.mobile.SelectMenu
+			 * @member ns.widget.mobile.DropdownMenu
 			 */
 			prototype._chooseDirection = function () {
 				var self = this,
 					ui = self._ui,
 					areaInfo = {
-						belowArea : null,
-						topArea : null,
-						direction : null,
-						overLapValue : null
+						belowArea : 0,
+						topArea : 0,
+						direction : ""
 					},
 					currentOffset = self._offset;
 
 				areaInfo.belowArea = ui.page.offsetHeight - currentOffset.top - ui.elPlaceHolder.offsetHeight + ui.content.scrollTop;
 				areaInfo.topArea = currentOffset.top - ui.content.scrollTop;
-				areaInfo.overLapValue = ui.elOptions[0].offsetHeight / 8;
 
-				if ((areaInfo.belowArea < areaInfo.topArea) && (ui.elOptionContainer.offsetHeight > areaInfo.belowArea + areaInfo.overLapValue)) {
+				if ((areaInfo.belowArea < areaInfo.topArea) && (ui.elOptionContainer.offsetHeight > areaInfo.belowArea)) {
 					areaInfo.direction = "top";
 				} else {
 					areaInfo.direction = "bottom";
@@ -845,39 +812,106 @@
 			 * Open and Close Option List
 			 * @method _toggleSelect
 			 * @protected
-			 * @member ns.widget.mobile.SelectMenu
+			 * @member ns.widget.mobile.DropdownMenu
 			 */
 			prototype._toggleSelect = function () {
 				var self = this,
 					ui = self._ui,
-					container = ui.elOptionContainer;
+					optionContainer = ui.elOptionContainer,
+					optionWrapperClassList = ui.elOptionWrapper.classList;
 
-				if (self._isOpen) {
-					if (ui.screenFilter) {
-						ui.screenFilter.classList.add(classes.filterHidden);
-					}
-					container.removeAttribute("style");
-					ui.elSelectWrapper.classList.remove(classes.active);
-					container.classList.remove(classes.active);
+				if (self._isOpen && !optionWrapperClassList.contains(classes.opening)) {
+					optionWrapperClassList.remove(classes.opened);
+					self._callbacks.hideAnimationEnd = hideAnimationEndHandler.bind(null, self);
+					eventUtils.prefixedFastOn(optionContainer, "animationEnd", self._callbacks.hideAnimationEnd, false);
+					self._hide();
 					ui.elSelectWrapper.focus();
+				} else if(optionWrapperClassList.contains(classes.closing) || optionWrapperClassList.contains(classes.opening)) {
+					return;
 				} else {
-					container.setAttribute("style", self._coordinateOption());
-					if (ui.screenFilter) {
-						ui.screenFilter.classList.remove(classes.filterHidden);
-					}
-					ui.elSelectWrapper.classList.add(classes.active);
-					container.classList.add(classes.active);
-					container.setAttribute("tabindex", "0");
-					container.firstElementChild.focus();
+					optionWrapperClassList.add(classes.opening);
+					self._callbacks.showAnimationEnd = showAnimationEndHandler.bind(null, self);
+					eventUtils.prefixedFastOn(optionContainer, "animationEnd", self._callbacks.showAnimationEnd, false);
+					self._show();
 				}
 				self._isOpen = !self._isOpen;
+			};
+
+			/**
+			 * Function animationEnd event handler when showing
+			 * @private
+			 * @static
+			 * @param {ns.widget.mobile.DropdownMenu} self
+			 * @member ns.widget.mobile.DropdownMenu
+			 */
+			function showAnimationEndHandler(self) {
+				var ui = self._ui;
+				ui.elOptionWrapper.classList.add(classes.opened);
+				eventUtils.prefixedFastOff(ui.elOptionContainer, "animationEnd", self._callbacks.showAnimationEnd, false);
+				ui.elOptionWrapper.classList.remove(classes.opening);
+			}
+
+			/**
+			 * Function animationEnd event handler when hiding
+			 * @private
+			 * @static
+			 * @param {ns.widget.mobile.DropdownMenu} self
+			 * @member ns.widget.mobile.DropdownMenu
+			 */
+			function hideAnimationEndHandler(self) {
+				var wrapper = self._ui.elOptionWrapper,
+					wrapperClassList = wrapper.classList,
+					optionContainer = self._ui.elOptionContainer;
+				wrapperClassList.remove(classes.active);
+				wrapper.removeAttribute("style");
+				eventUtils.prefixedFastOff(optionContainer, "animationEnd", self._callbacks.hideAnimationEnd, false);
+				wrapperClassList.remove(classes.closing);
+				wrapperClassList.remove(classes.top);
+				wrapperClassList.remove(classes.bottom);
+			}
+
+			/**
+			 * Hide DropdownMenu options
+			 * @method _hide
+			 * @protected
+			 * @member ns.widget.mobile.DropdownMenu
+			 */
+			prototype._hide = function() {
+				var self = this,
+					ui = self._ui,
+					wrapper = ui.elOptionWrapper;
+				if (ui.screenFilter) {
+					ui.screenFilter.classList.add(classes.filterHidden);
+				}
+				self._ui.elSelectWrapper.classList.remove(classes.active);
+				wrapper.classList.add(classes.closing);
+			};
+
+			/**
+			 * Show DropdownMenu options
+			 * @method _hide
+			 * @protected
+			 * @member ns.widget.mobile.DropdownMenu
+			 */
+			prototype._show = function() {
+				var self = this,
+					ui = self._ui,
+					wrapper = ui.elOptionWrapper;
+				wrapper.setAttribute("style", self._coordinateOption());
+				if (ui.screenFilter) {
+					ui.screenFilter.classList.remove(classes.filterHidden);
+				}
+				ui.elSelectWrapper.classList.add(classes.active);
+				wrapper.classList.add(classes.active);
+				wrapper.setAttribute("tabindex", "0");
+				wrapper.firstElementChild.focus();
 			};
 
 			/**
 			 * Change Value of Select tag and Placeholder
 			 * @method changeOption
 			 * @protected
-			 * @member ns.widget.mobile.SelectMenu
+			 * @member ns.widget.mobile.DropdownMenu
 			 */
 			prototype._changeOption = function () {
 				var self = this,
@@ -901,10 +935,10 @@
 			};
 
 			/**
-			 * Destroy SelectMenu widget
+			 * Destroy DropdownMenu widget
 			 * @method _destroy
 			 * @protected
-			 * @member ns.widget.mobile.SelectMenu
+			 * @member ns.widget.mobile.DropdownMenu
 			 */
 			prototype._destroy = function () {
 				var self = this,
@@ -928,18 +962,19 @@
 				}
 			};
 
-			ns.widget.mobile.SelectMenu = SelectMenu;
+			ns.widget.mobile.DropdownMenu = DropdownMenu;
+
 			engine.defineWidget(
-				"SelectMenu",
+				"DropdownMenu",
 				"select:not([data-role='slider']):not([data-role='range']):not([data-role='toggleswitch']):not(.ui-toggleswitch):not(.ui-slider)" +
 				", select.ui-select-menu:not([data-role='slider']):not([data-role='range']):not([data-role='toggleswitch'])",
 				["open", "close"],
-				SelectMenu,
+				DropdownMenu,
 				"mobile"
 			);
 
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
-			return ns.widget.mobile.SelectMenu;
+			return ns.widget.mobile.DropdownMenu;
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");

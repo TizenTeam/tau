@@ -15,7 +15,8 @@
 	define(
 		[
 			"require",
-			"support/mobile/widget/ToggleSwitch.extra"
+			"support/mobile/widget/ToggleSwitch.extra",
+			"support/mobile/widget/DropdownMenu.extra"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
