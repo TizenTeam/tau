@@ -74,10 +74,7 @@
 						ui = {};
 
 					self.selectors = selectors;
-					self.options = objectUtils.merge({}, Popup.defaults, {
-						fullSize: ns.getConfig("popupFullSize", Popup.defaults.fullSize),
-						enablePopupScroll: ns.getConfig("enablePopupScroll",Popup.defaults.enablePopupScroll)
-					});
+					self.options = objectUtils.merge({}, Popup.defaults);
 					self.storedOptions = null;
 					/**
 					 * Popup state flag
@@ -123,9 +120,7 @@
 					content: null,
 					overlayClass: "",
 					closeLinkSelector: "[data-rel='back']",
-					history: true,
-					fullSize: false,
-					enablePopupScroll: null
+					history: true
 				},
 				states = {
 					DURING_OPENING: 0,
@@ -148,11 +143,8 @@
 					footer: CLASSES_PREFIX + "-footer",
 					content: CLASSES_PREFIX + "-content",
 					wrapper: CLASSES_PREFIX + "-wrapper",
-					build: "ui-build",
-					popupScroll: "ui-scroll-on",
-					fixed: "ui-fixed"
+					build: "ui-build"
 				},
-				EVENTS_PREFIX = "popup",
 				/**
 				 * Dictionary for popup related selectors
 				 * @property {Object} selectors
@@ -556,46 +548,6 @@
 			 * @member ns.widget.core.Popup
 			 */
 			prototype._layout = function (element) {
-				var self = this,
-					elementClassList = element.classList,
-					ui = self._ui,
-					wrapper = ui.wrapper,
-					header = ui.header,
-					footer = ui.footer,
-					content = ui.content,
-					headerHeight = 0,
-					footerHeight = 0;
-
-				if (self.options.enablePopupScroll === true) {
-					element.classList.add(classes.popupScroll);
-				} else {
-					element.classList.remove(classes.popupScroll);
-				}
-
-				if (elementClassList.contains(classes.popupScroll)) {
-					elementClassList.add(classes.build);
-
-					if (header) {
-						headerHeight = header.offsetHeight;
-						if (header.classList.contains(classes.fixed)) {
-							content.style.marginTop = headerHeight + "px";
-						}
-					}
-					if (footer) {
-						footerHeight = footer.offsetHeight;
-						if (footer.classList.contains(classes.fixed)) {
-							content.style.marginBottom = footerHeight + "px";
-						}
-					}
-
-					wrapper.style.height = Math.min(content.offsetHeight + headerHeight + footerHeight, element.offsetHeight) + "px";
-
-					elementClassList.remove(classes.build);
-				}
-
-				if (self.options.fullSize && !elementClassList.contains("ui-popup-toast") && !elementClassList.contains("ui-ctxpopup")) {
-					wrapper.style.height = window.innerHeight + "px";
-				}
 			};
 
 			/**

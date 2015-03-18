@@ -9,6 +9,8 @@
 Normal Popup
 ***********************/
 .ui-popup {
+	width:100%;
+	height: 100%;
 	border-radius: 50%;
 	overflow: hidden;
 	background-color: @color_popup_bg;
@@ -145,11 +147,5 @@ Popup Toast
 Option Popup
 ***********************/
 .ui-popup.ui-ctxpopup {
-	.ui-popup-content {
-		padding: 10 * @px_base 16 * @px_base 9 * @px_base 16 * @px_base;
-		.ui-listview,
-		.ui-inline-listview {
-			margin: -9 * @unit_base -16 * @unit_base -9 * @unit_base -16 * @unit_base;
-		}
-	}
+	height: auto;
 }
