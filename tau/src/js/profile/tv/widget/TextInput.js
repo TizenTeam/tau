@@ -112,7 +112,8 @@
 				classes = utilObject.merge({}, MobileTextInput.classes, {
 					uiDisabled: widget.mobile.Button.classes.uiDisabled,
 					uiFocus: "ui-focus",
-					uiInputBox: "input-box"
+					uiInputBox: "input-box",
+					highlight: "ui-highlight"
 				}),
 				KEY_CODES = BaseKeyboardSupport.KEY_CODES,
 				prototype = new MobileTextInput(),
@@ -135,8 +136,7 @@
 
 			function wrapInput(element, self) {
 				var inputBox = document.createElement("div"),
-					parentElement = element.parentNode,
-					ui = self._ui;
+					parentElement = element.parentNode;
 
 				inputBox.classList.add(classes.uiInputBox);
 				inputBox.setAttribute("tabindex", 0);
@@ -144,9 +144,8 @@
 				parentElement.replaceChild(inputBox, element);
 
 				inputBox.appendChild(element);
-				element.classList.add("fitInputToBox");
 
-				ui.inputBox = inputBox;
+				self._ui.inputBox = inputBox;
 			}
 			/**
 			 * Init widget
@@ -292,8 +291,12 @@
 								//for element types which are inputs if I press enter for the second time then focus should be moved to box(container)
 								if (elementTypeName === "input") {
 									eventTarget.parentElement.focus();
+									// input is not highlighted
+									element.classList.remove(classes.highlight);
 								}
 							} else {
+								// input is highlighted
+								element.classList.add(classes.highlight);
 								//only on container
 								if (eventTarget.tagName.toLowerCase() === "div"){
 									eventTarget.querySelector(elementTypeName).focus();

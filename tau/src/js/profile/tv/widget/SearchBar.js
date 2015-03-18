@@ -46,8 +46,9 @@
 				 * @static
 				 */
 				classes = objectUtils.merge({}, BaseSearchBar.classes, {
-						iconBox: "ui-search-bar-icon-box"
-					}),
+					iconBox: "ui-search-bar-icon-box",
+					highlight: "ui-highlight"
+				}),
 				prototype = new BaseSearchBar();
 
 			SearchBar.prototype = prototype;
@@ -172,12 +173,14 @@
 							//check if enter to the input or textarea and get focus
 							if (stateForElement) {
 								eventTarget.parentElement.parentElement.focus();
+								// input is not highlighted
+								element.classList.remove(classes.highlight);
 							} else {
+								// input is highlighted
+								element.classList.add(classes.highlight);
 								//only on container
 								if (eventTarget.tagName.toLowerCase() === "div"){
 									eventTarget.querySelector(elementTypeName).focus();
-									//preserve class ui-focus on container for css styling
-									eventTarget.classList.add(classes.uiFocus);
 								}
 							}
 							stateForElement = !stateForElement;
@@ -250,10 +253,9 @@
 			prototype._bindEvents = function(element) {
 				var self = this,
 					callbacks = self._callbacks,
-					inputBox;
+					inputBox = element.parentElement.parentElement;
 
-				BaseSearchBarPrototype._bindEvents.call(self, element);
-				inputBox = element.parentElement.parentElement;
+				BaseSearchBarPrototype._bindEvents.call(self, element),
 
 				self._bindEventKey();
 

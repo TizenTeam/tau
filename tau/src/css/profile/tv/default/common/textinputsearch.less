@@ -1,6 +1,14 @@
-/** Abstract class */
+/** Abstract class for standard input */
+.LESSinput-normal {
+	.border-radius(5 * @virtual_px);
+	border-color: @color_list_editfield;
+	border-width: 5 * @virtual_px;
+	border-style: solid;
+	color: @color_input_text;
+}
+
+/** Abstract class for standard input, which is focused*/
 .LESSinput-focus {
-	.border-radius(0);
 	border-color: @default_color;
 	color: @color_input_text_focus;
 	&::-webkit-input-placeholder {
@@ -9,18 +17,36 @@
 	background-clip: padding-box;
 }
 
-/** Abstract class */
-.LESSsmall-or-inside-popup {
+/** Abstract class for standard input, which is hightlighted */
+.LESSinput-highlight {
+	.LESSinput-normal();
+	/* and blue caret*/
+}
+
+/** Abstract class for small input */
+.LESSsmall-or-inside-popup-normal{
 	.border-radius(0);
 	padding: 7 * @virtual_px 14 * @virtual_px;
 	font-size: 24 * @virtual_px;
-	border: solid 4px @color_input_border_small;
+	border-style: solid;
+	border-width: 4 * @virtual_px;
+	border-color: @color_input_border_small;
 	color: @color_input_text_small;
-	&.ui-focus {
-		.LESSinput-focus();
-		border: solid 4px @color_input_border_small_focus;
-	}
 }
+
+/** Abstract class for small input, which is focused */
+.LESSsmall-or-inside-popup-focus {
+	.LESSinput-focus();
+	border-color: @color_input_border_small_focus;
+}
+
+/** Abstract class for small input, which is hightlighted */
+.LESSsmall-or-inside-popup-highlight {
+	.LESSsmall-or-inside-popup-normal();
+	border-color: @color_list_editfield;
+	/* and blue caret*/
+}
+
 
 input:not([type=number]):not([type=checkbox]):not([type=radio]):not([type=date]):not([type=time]).ui-input-text,
 textarea.ui-input-text {
@@ -31,11 +57,6 @@ textarea.ui-input-text {
 	padding: 11 * @virtual_px 24 * @virtual_px;
 	font-size: 32 * @virtual_px;
 
-	/*to remove next 3
-	display: block;
-	.border-radius(5 * @virtual_px);
-	border: solid 4px @color_list_editfield;
-*/
 	color: @color_input_text;
 	&::-webkit-input-placeholder {
 		color: @color_input_text;
@@ -54,17 +75,77 @@ textarea.ui-input-text {
 	}
 
 	&.ui-textinput-small {
-		.LESSsmall-or-inside-popup();
+		.LESSsmall-or-inside-popup-normal();
+		&.ui-focus {
+			.LESSsmall-or-inside-popup-focus();
+		}
 	}
 }
 
+
+/** Input in popup is always small */
 .ui-popup {
+	// container for textbox, which can be focusable
+	.input-box {
+		&.ui-focus {
+			input:not([type=number]):not([type=checkbox]):not([type=radio]):not([type=date]):not([type=time]).ui-input-text,
+			textarea.ui-input-text {
+				&.ui-highlight {
+					.LESSsmall-or-inside-popup-highlight();
+				}
+				.LESSsmall-or-inside-popup-focus();
+			}
+		}
+		input:not([type=number]):not([type=checkbox]):not([type=radio]):not([type=date]):not([type=time]).ui-input-text,
+		textarea.ui-input-text {
+			&.ui-textinput-small,
+			&:not(.ui-textinput-small) {
+				.LESSsmall-or-inside-popup-normal();
+			}
+		}
+	}
+}
+
+/** Input in container (e.g. search bar and text input) */
+.input-box,
+.ui-input-search {
+	// normal container
 	input:not([type=number]):not([type=checkbox]):not([type=radio]):not([type=date]):not([type=time]).ui-input-text,
 	textarea.ui-input-text {
-		.LESSsmall-or-inside-popup();
+		&:not(.ui-textinput-small) {
+			.LESSinput-normal();
+		}
+
+		&.ui-textinput-small {
+			.LESSsmall-or-inside-popup-normal();
+		}
+	}
+	// focused container
+	&.ui-focus {
+		input:not([type=number]):not([type=checkbox]):not([type=radio]):not([type=date]):not([type=time]).ui-input-text,
+		textarea.ui-input-text {
+			&:not(.ui-textinput-small) {
+				.LESSinput-focus();
+				// ready to write
+				&.ui-highlight {
+					.LESSinput-highlight();
+				}
+			}
+
+			&.ui-textinput-small {
+				.LESSsmall-or-inside-popup-focus();
+				// ready to write
+				&.ui-highlight {
+					.LESSsmall-or-inside-popup-highlight();
+				}
+			}
+		}
 	}
 }
 
+
+
+/** Search bar */
 .input-search-bar {
 	position: relative;
 	overflow: hidden;
@@ -80,14 +161,6 @@ textarea.ui-input-text {
 			width: 100%;
 
 			display: block;
-			.border-radius(5 * @virtual_px);
-			border: solid 4px @color_list_editfield;
-		}
-
-		&.ui-focus {
-			input:not([type=number]):not([type=checkbox]):not([type=radio]):not([type=date]):not([type=time]).ui-input-text {
-				.LESSinput-focus();
-			}
 		}
 
 		.ui-search-bar-icon-box {
