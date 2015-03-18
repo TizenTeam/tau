@@ -592,7 +592,7 @@
 					};
 
 				// set focus on next element
-				focusOnNeighborhood(self, self.element, options);
+				focusOnNeighborhood(self, self.keyboardElement || self.element, options);
 			};
 
 			/**
@@ -607,7 +607,7 @@
 				var self = this;
 
 				// set focus on next element
-				focusOnNeighborhood(self, self.element, {
+				focusOnNeighborhood(self, self.keyboardElement || self.element, {
 					direction: event.keyCode
 				});
 			};

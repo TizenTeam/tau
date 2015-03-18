@@ -194,7 +194,7 @@
 				BaseSelectMenuPrototype._init.call(self, element);
 
 				//change base element for keyboard support
-				self.keybordElement = ui.elOptionContainer;
+				self.keyboardElement = ui.elOptionContainer;
 			};
 
 			/**
