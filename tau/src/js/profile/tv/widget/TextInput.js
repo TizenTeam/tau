@@ -140,7 +140,6 @@
 
 				inputBox.classList.add(classes.uiInputBox);
 				inputBox.setAttribute("tabindex", 0);
-				inputBox.style.width = element.offsetWidth + "px";
 				parentElement.replaceChild(inputBox, element);
 
 				inputBox.appendChild(element);

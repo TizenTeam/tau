@@ -1,10 +1,10 @@
-input:not([type=number]):not([type=checkbox]):not([type=radio]), textarea {
+input:not([type=number]):not([type=checkbox]):not([type=radio]),
+textarea {
 	background-color: @color_input_bg;
 	color: @color_input_text;
 	text-align: left;
 	vertical-align: middle;
 	font-size: 32 * @virtual_px;
-	font: bold;
 
 	&:focus {
 		color: @color_input_text_focus;
@@ -25,7 +25,6 @@ input[type=password].pin {
   vertical-align: middle;
   text-align: center;
   font-size: 45 * @virtual_px;
-  font: bold;
   width: 58 * @virtual_px;
   height: 58 * @virtual_px;
 }
@@ -38,4 +37,8 @@ input[type=password].pin {
 			margin: -17 * @virtual_px 0;
 		}
 	}
+}
+
+.input-box {
+	display: inline-block;
 }
