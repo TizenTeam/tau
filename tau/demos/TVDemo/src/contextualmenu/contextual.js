@@ -9,7 +9,8 @@
 	}, false);
 
 	function click(event) {
-		if (event.target.tagName === "A" || event.target.tagName === "a") {
+		var inButton = tau.util.selectors.getClosestByTag(event.target, "a");
+		if (inButton) {
 			setTimeout(function() {
 				if (contextWidget.isOpen()) {
 					contextWidget.close();
@@ -20,6 +21,6 @@
 		}
 	}
 
-	page.removeEventListener("click", click);
-	page.addEventListener("click", click);
+	page.removeEventListener("vclick", click);
+	page.addEventListener("vclick", click);
 }());
