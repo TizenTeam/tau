@@ -30,7 +30,7 @@
 				engine = ns.engine,
 				initialScreenHeight = window.innerHeight,
 				objectUtils = ns.util.object,
-				stateForElement = false,
+				elementIsFocused = false,
 				SearchBar = function() {
 					var self = this;
 
@@ -63,8 +63,10 @@
 			 */
 			prototype._buildIcon = function(element) {
 				var icon = document.createElement("span");
+
 				icon.classList.add(classes.iconBox);
 				element.parentNode.appendChild(icon);
+				// this element has set tabindex, so it will be focusable by BaseKeyboardSupport
 				element.parentNode.parentNode.setAttribute("tabindex", 0);
 			};
 
@@ -157,33 +159,22 @@
 			 * @member ns.widget.tv.SearchBar
 			 */
 			function onKeyupInputContainer(self, event) {
-				var element = self.element,
-					eventTarget = event.target,
-					elementTypeName = element.tagName.toLowerCase();
+				var element = self.element
 
 				switch (event.keyCode) {
 					case KEY_CODES.enter:
 						//when the keyboard is on
 						if (window.innerHeight < initialScreenHeight) {
 							self.saveKeyboardSupport();
-							self.enableKeyboardSupport();
-						} else {
 							self.disableKeyboardSupport();
-							self.restoreKeyboardSupport();
-							//check if enter to the input or textarea and get focus
-							if (stateForElement) {
-								eventTarget.parentElement.parentElement.focus();
-								// input is not highlighted
-								element.classList.remove(classes.highlight);
+						} else {
+							if (elementIsFocused) {
+								element.blur();
+								element.parentElement.parentElement.focus();
 							} else {
 								// input is highlighted
-								element.classList.add(classes.highlight);
-								//only on container
-								if (eventTarget.tagName.toLowerCase() === "div"){
-									eventTarget.querySelector(elementTypeName).focus();
-								}
+								element.focus();
 							}
-							stateForElement = !stateForElement;
 						}
 						break;
 				}
@@ -191,35 +182,67 @@
 
 			/**
 			 * Callback for focus event on input
-			 * @method inputFocus
+			 * @method searchbarFocus
 			 * @param {ns.widget.tv.SearchBar} self
 			 * @static
 			 * @private
 			 * @member ns.widget.tv.SearchBar
 			 */
-			function inputFocus(self) {
-				var ui = self._ui,
-					input = self.element;
+			function searchbarFocus(self) {
+				var searchbar = self.element;
 
+				elementIsFocused = true;
+				if (!searchbar.getAttribute("disabled")) {
+					searchbar.classList.add(classes.highlight);
+					searchbar.parentElement.parentElement.classList.add(classes.uiFocus);
+				}
+				self.saveKeyboardSupport();
 				self.disableKeyboardSupport();
-				if (!input.getAttribute("disabled")) {
-					input.parentElement.classList.add(classes.uiFocus);
+			}
+
+			/**
+			 * Callback for focus event on container of input
+			 * @method searchbarContainerFocus
+			 * @param {ns.widget.tv.SearchBar} self
+			 * @static
+			 * @private
+			 * @member ns.widget.tv.SearchBar
+			 */
+			function searchbarContainerFocus(self) {
+				var searchbar = self.element;
+
+				if (!searchbar.getAttribute("disabled")) {
+					searchbar.parentElement.parentElement.classList.add(classes.uiFocus);
 				}
 			}
 
 			/**
 			 * Callback for blur event on input
-			 * @method inputBlur
+			 * @method searchbarBlur
 			 * @param {ns.widget.tv.SearchBar} self
 			 * @static
 			 * @private
 			 * @member ns.widget.tv.SearchBar
 			 */
-			function inputBlur(self) {
-				var ui = self._ui,
-					input = self.element;
+			function searchbarBlur(self) {
+				var searchbar = self.element;
 
-				input.parentElement.classList.remove(classes.uiFocus);
+				elementIsFocused = false;
+				searchbar.classList.remove(classes.highlight);
+				searchbar.parentElement.parentElement.classList.remove(classes.uiFocus);
+				self.restoreKeyboardSupport();
+			}
+
+			/**
+			 * Callback for blur event on container of input
+			 * @method searchbarContainerBlur
+			 * @param {ns.widget.tv.SearchBar} self
+			 * @static
+			 * @private
+			 * @member ns.widget.tv.SearchBar
+			 */
+			function searchbarContainerBlur(self, event) {
+				self.element.parentElement.parentElement.classList.remove(classes.uiFocus);
 			}
 
 			/**
@@ -265,16 +288,21 @@
 				element.addEventListener("keyup", callbacks.onKeyup, false);
 				window.addEventListener("resize", callbacks.onResize, false);
 
-				callbacks.inputFocus = inputFocus.bind(null, self);
-				callbacks.inputBlur = inputBlur.bind(null, self);
+				callbacks.searchbarFocus = searchbarFocus.bind(null, self);
+				callbacks.searchbarBlur = searchbarBlur.bind(null, self);
+				callbacks.searchbarContainerFocus = searchbarContainerFocus.bind(null, self);
+				callbacks.searchbarContainerBlur = searchbarContainerBlur.bind(null, self);
 				callbacks.onKeyupInputContainer = onKeyupInputContainer.bind(null, self);
 				callbacks.onKeyupInput = onKeyupInput.bind(null, self);
 
 				element.addEventListener("keyup", callbacks.onKeyupInput, false);
 
 				inputBox.addEventListener("keyup", callbacks.onKeyupInputContainer, false);
-				inputBox.addEventListener("focus", callbacks.inputFocus, false);
-				inputBox.addEventListener("blur", callbacks.inputBlur, false);
+
+				inputBox.addEventListener("focus", callbacks.searchbarContainerFocus, false);
+				inputBox.addEventListener("blur", callbacks.searchbarContainerBlur, false);
+				element.addEventListener("focus", callbacks.searchbarFocus, false);
+				element.addEventListener("blur", callbacks.searchbarBlur, false);
 
 			};
 
@@ -299,8 +327,11 @@
 
 				element.removeEventListener("keyup", callbacks.onKeyupInput, false);
 				inputBox.removeEventListener("keyup", callbacks.onKeyupInputContainer, false);
-				inputBox.removeEventListener("focus", callbacks.inputFocus, false);
-				inputBox.removeEventListener("blur", callbacks.inputBlur, false);
+
+				inputBox.removeEventListener("focus", callbacks.searchbarContainerFocus, false);
+				inputBox.removeEventListener("blur", callbacks.searchbarContainerBlur, false);
+				element.removeEventListener("focus", callbacks.searchbarFocus, false);
+				element.removeEventListener("blur", callbacks.searchbarBlur, false);
 			};
 
 			engine.defineWidget(
@@ -312,9 +343,6 @@
 				true
 			);
 
-			//BaseKeyboardSupport.registerActiveSelector("." + classes.uiInputText);
-
-			BaseKeyboardSupport.registerActiveSelector("." + classes.uiInputSearch);
 			ns.widget.tv.SearchBar = SearchBar;
 
 //>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);

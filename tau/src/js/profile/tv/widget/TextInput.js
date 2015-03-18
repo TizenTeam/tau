@@ -120,7 +120,7 @@
 				// for detect keyboard open/hide
 				initialScreenHeight = window.innerHeight,
 				//state check if user enter input inside container or leaves it
-				stateForElement = false,
+				elementIsFocused = false,
 				selector = "input[type='text'], " +
 					"input[type='password'], input[type='email'], " +
 					"input[type='url'], input[type='tel'], textarea, " +
@@ -182,10 +182,28 @@
 			 * @member ns.widget.tv.TextInput
 			 */
 			function inputFocus(self) {
-				var ui = self._ui,
-					input = self.element;
+				var input = self.element;
 
+				elementIsFocused = true;
+				if (!input.getAttribute("disabled")) {
+					input.classList.add(classes.highlight);
+					input.parentElement.classList.add(classes.uiFocus);
+				}
+				self.saveKeyboardSupport();
 				self.disableKeyboardSupport();
+			}
+
+			/**
+			 * Callback for focus event on container of input
+			 * @method inputContainerFocus
+			 * @param {ns.widget.tv.TextInput} self
+			 * @static
+			 * @private
+			 * @member ns.widget.tv.TextInput
+			 */
+			function inputContainerFocus(self) {
+				var input = self.element;
+
 				if (!input.getAttribute("disabled")) {
 					input.parentElement.classList.add(classes.uiFocus);
 				}
@@ -200,10 +218,24 @@
 			 * @member ns.widget.tv.TextInput
 			 */
 			function inputBlur(self, event) {
-				var ui = self._ui,
-					input = self.element;
+				var input = self.element;
 
+				elementIsFocused = false;
+				input.classList.remove(classes.highlight);
 				input.parentElement.classList.remove(classes.uiFocus);
+				self.restoreKeyboardSupport();
+			}
+
+			/**
+			 * Callback for blur event on container of input
+			 * @method inputContainerBlur
+			 * @param {ns.widget.tv.TextInput} self
+			 * @static
+			 * @private
+			 * @member ns.widget.tv.TextInput
+			 */
+			function inputContainerBlur(self, event) {
+				self.element.parentElement.classList.remove(classes.uiFocus);
 			}
 
 			/**
@@ -220,9 +252,14 @@
 
 				callbacks.inputFocus = inputFocus.bind(null, self);
 				callbacks.inputBlur = inputBlur.bind(null, self);
+				callbacks.inputContainerFocus = inputContainerFocus.bind(null, self);
+				callbacks.inputContainerBlur = inputContainerBlur.bind(null, self);
 
-				parentElement.addEventListener("focus", callbacks.inputFocus, false);
-				parentElement.addEventListener("blur", callbacks.inputBlur, false);
+				parentElement.addEventListener("focus", callbacks.inputContainerFocus, false);
+				parentElement.addEventListener("blur", callbacks.inputContainerBlur, false);
+
+				element.addEventListener("focus", callbacks.inputFocus, false);
+				element.addEventListener("blur", callbacks.inputBlur, false);
 
 				MobileTextInputPrototype._bindEvents.call(self, element);
 
@@ -248,10 +285,17 @@
 			 */
 			prototype._destroy = function(element) {
 				var self = this,
-					callbacks = self._callbacks;
+					callbacks = self._callbacks,
+					parentElement = element.parentElement;
+
+				parentElement.removeEventListener("focus", callbacks.inputContainerFocus, false);
+				parentElement.removeEventListener("blur", callbacks.inputContainerBlur, false);
+
+				element.removeEventListener("focus", callbacks.inputFocus, false);
+				element.removeEventListener("blur", callbacks.inputBlur, false);
 
 				element.removeEventListener("keyup", onKeyupElement, false);
-				element.parentElement.removeEventListener("keyup", callbacks.onKeyupElementContainer, false);
+				parentElement.removeEventListener("keyup", callbacks.onKeyupElementContainer, false);
 
 				element.removeEventListener("keyup", callbacks.onKeyupElementContainer, false);
 
@@ -264,7 +308,7 @@
 
 			/**
 			 * Callback enable/disbale focus on input element
-			 * @method onKeyupElement
+			 * @method onKeyupElementContaine
 			 * @param {ns.widget.tv.TextInput} self
 			 * @param {Event} event
 			 * @private
@@ -281,29 +325,19 @@
 						//when the keyboard is on
 						if (window.innerHeight < initialScreenHeight) {
 							self.saveKeyboardSupport();
-							self.enableKeyboardSupport();
-						} else {
 							self.disableKeyboardSupport();
-							self.restoreKeyboardSupport();
-							//check if enter to the input or textarea and get focus
-							if (stateForElement) {
-								//for element types which are inputs if I press enter for the second time then focus should be moved to box(container)
-								if (elementTypeName === "input") {
-									eventTarget.parentElement.focus();
-									// input is not highlighted
-									element.classList.remove(classes.highlight);
+						} else {
+							if (elementIsFocused) {
+								//check if enter to the input or textarea and get focus
+								if (elementTypeName !== "textarea") {
+									element.blur();
+									element.parentElement.focus();
 								}
+								// @todo: add support for exit
 							} else {
 								// input is highlighted
-								element.classList.add(classes.highlight);
-								//only on container
-								if (eventTarget.tagName.toLowerCase() === "div"){
-									eventTarget.querySelector(elementTypeName).focus();
-									//preserve class ui-focus on container for css styling
-									eventTarget.classList.add(classes.uiFocus);
-								}
+								element.focus();
 							}
-							stateForElement = !stateForElement;
 						}
 						break;
 				}

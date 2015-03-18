@@ -20,6 +20,7 @@
 /** Abstract class for standard input, which is hightlighted */
 .LESSinput-highlight {
 	.LESSinput-normal();
+	color: @color_input_text_focus;
 	/* and blue caret*/
 }
 
@@ -38,6 +39,7 @@
 .LESSsmall-or-inside-popup-focus {
 	.LESSinput-focus();
 	border-color: @color_input_border_small_focus;
+	color: @color_input_text_small;
 }
 
 /** Abstract class for small input, which is hightlighted */
@@ -108,7 +110,7 @@ textarea.ui-input-text {
 
 /** Input in container (e.g. search bar and text input) */
 .input-box,
-.ui-input-search {
+.input-search-bar {
 	// normal container
 	input:not([type=number]):not([type=checkbox]):not([type=radio]):not([type=date]):not([type=time]).ui-input-text,
 	textarea.ui-input-text {
