@@ -397,7 +397,7 @@
 				var initialContentStyle = this._initialContentStyle,
 					contentStyleAttributes = this._contentStyleAttributes,
 					content = this.element.querySelector("." + classes.uiContent),
-					contentStyle = content.style;
+					contentStyle = content ? content.style : {};
 
 				contentStyleAttributes.forEach(function(name) {
 					initialContentStyle[name] = contentStyle[name];
@@ -408,7 +408,7 @@
 				var initialContentStyle = this._initialContentStyle,
 					contentStyleAttributes = this._contentStyleAttributes,
 					content = this.element.querySelector("." + classes.uiContent),
-					contentStyle = content.style;
+					contentStyle = content ? content.style : {};
 
 				contentStyleAttributes.forEach(function(name) {
 					contentStyle[name] = initialContentStyle[name];
