@@ -1,4 +1,4 @@
-function onPageShow(ev) {
+function onPageShow(e) {
 
 	var contentElement = document.getElementById("append-example-content"),
 		sampleBox,
@@ -23,4 +23,6 @@ function onPageShow(ev) {
 
 }
 
-document.addEventListener('pageshow', onPageShow);
+document.getElementById("append-example-page").addEventListener('pageshow', onPageShow);
+
+
