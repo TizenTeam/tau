@@ -40,6 +40,7 @@
 					uiViewportTransitioning: "ui-viewport-transitioning",
 					out: "out",
 					in: "in",
+					reverse: "reverse",
 					uiPreIn: "ui-pre-in",
 					uiBuild: "ui-page-build"
 				},
@@ -169,14 +170,13 @@
 					elementClassList = element.classList,
 					transition = !fromPageWidget || !options.transition ? "none" : options.transition,
 					deferred = options.deferred,
-					reverse = "reverse",
 					clearClasses = [classes.in, classes.out, classes.uiPreIn, transition],
 					oldDeferredResolve,
 					classlist,
 					oneEvent;
 
 				if (options.reverse) {
-					clearClasses.push(reverse);
+					clearClasses.push(classes.reverse);
 				}
 				elementClassList.add(classes.uiViewportTransitioning);
 				oldDeferredResolve = deferred.resolve;
@@ -231,7 +231,7 @@
 						classlist.add(transition);
 						classlist.add(classes.out);
 						if (options.reverse) {
-							classlist.add(reverse);
+							classlist.add(classes.reverse);
 						}
 					}
 
