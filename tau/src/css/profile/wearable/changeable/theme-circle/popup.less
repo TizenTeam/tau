@@ -8,14 +8,24 @@
 /***********************
 Normal Popup
 ***********************/
+.ui-popup::before {
+	content: "";
+	position:absolute;
+	width: 354 * @px_base;
+	height: 354 * @px_base;
+	border-radius: 50%;
+	border: solid 3 * @px_base @color_popup_border;
+	z-index: 9999;
+	pointer-events: none;
+}
 .ui-popup {
 	width:100%;
 	height: 100%;
-	border-radius: 50%;
 	overflow: hidden;
 	background-color: @color_popup_bg;
-	border: 3px solid @color_popup_border;
+	border: 0;
 
+	-webkit-mask-image: -webkit-radial-gradient(center, ellipse cover, @color_popup_bg 180 * @px_base, transparent 180 * @px_base);
 	.ui-popup-header {
 		text-align: center;
 		min-height: @fixed_popup_header_height;
