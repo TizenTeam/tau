@@ -197,7 +197,7 @@
 					 * without excessive loading time. It's recomended to set bufferSize at least 3 times bigger than number
 					 * of visible elements.
 					 * @property {number} [options.dataLength=0] Total number of items.
-					 * @property {string} [options.orientation="y"] Scrolling orientation. Default vertical scrolling enabled.
+					 * @property {string} [options.orientation=VERTICAL] Scrolling orientation. Default VERTICAL scrolling enabled.
 					 * @property {Object} options.listItemUpdater Holds reference to method which modifies list item, depended
 					 * at specified index from database. **Method should be overridden by developer using
 					 * {@link ns.widget.core.VirtualListview#setListItemUpdater} method.** or defined as a config
@@ -231,9 +231,9 @@
 
 					return self;
 				},
-				POINTER_START = 'vmousedown',
-				POINTER_MOVE = 'vmousemove',
-				POINTER_END = 'vmouseup',
+				POINTER_START = "vmousedown",
+				POINTER_MOVE = "vmousemove",
+				POINTER_END = "vmouseup",
 
 			// Cached prototype for better minification
 				prototype = new BaseWidget();
@@ -743,7 +743,6 @@
 					options = self.options,
 					orientation,
 					scrollview,
-					scrollviewStyle,
 					spacer,
 					spacerStyle;
 

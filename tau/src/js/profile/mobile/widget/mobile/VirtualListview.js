@@ -1,4 +1,4 @@
-/*global window, define, $, ns */
+/*global window, define, ns */
 /*
 * Copyright  2010 - 2014 Samsung Electronics Co., Ltd.
 * License : MIT License V2
@@ -90,7 +90,7 @@
 			"../mobile", // fetch namespace
 			"./Scrollview",
 			"./Listview",
-			"../../../../core/widget/core/VirtualListview",
+			"../../../../core/widget/core/VirtualListview"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");

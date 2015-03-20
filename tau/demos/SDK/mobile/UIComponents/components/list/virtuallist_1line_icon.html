@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script type="text/javascript" src="../../lib/tau/mobile/js/tau.js" data-build-remove="false"></script>
+</head>
+<body>
+<div data-role="page" id="virtuallist-normal_1line-bigicon5" class="virtuallist_demo_page">
+	<div data-role="header" data-position="fixed">
+		<h1>Virtual list - 1line-bigicon5</h1>
+	</div>
+	<div data-role="content">
+		<ul id="virtuallist-normal_1line-bigicon5_ul"></ul>
+	</div>
+
+    <!-- sample list for virtual list -->
+    <script id="tmp-1line-bigicon5" type="text">
+        <img src="core_icon_favorite_on.svg" alt="icon" class="ui-li-bigicon ui-li-thumb">
+        <span class="ui-li-text-main">${NAME}</span>
+    </script>
+    <script>
+        var pageId = "virtuallist-normal_1line-bigicon5",
+            listId = "virtuallist-normal_1line-bigicon5_ul",
+            templateId = "tmp-1line-bigicon5",
+            itemClass = "ui-li-1line-bigicon5";
+    </script>
+    <script src="virtuallist-db-demo.js"></script>
+    <script src="virtuallist.js"></script>
+	<link rel="stylesheet" href="virtuallist.css">
+</div>
+</body>
+</html>
