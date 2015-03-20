@@ -4,7 +4,7 @@
  $:false, console:false */
 (function (document, ej) {
 	'use strict';
-	module('profile/mobile/widget/mobile/Listview', {
+	module('profile/mobile/widget/mobile/Listview.extra', {
 		teardown: function () {
 			ej.engine._clearBindings();
 		}
@@ -23,4 +23,3 @@
 		$(list).off('listviewafterrefresh');
 	});
 }(document, window.ej));
-

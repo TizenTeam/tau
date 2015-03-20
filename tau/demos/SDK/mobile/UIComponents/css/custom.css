@@ -87,3 +87,217 @@
 #ctxpopup_horizontal_2line .ui-listview:first-child {
 	border-bottom: 2px solid rgba(8, 8, 8, 0.2);
 }
+
+/*************************************************
+                Listview
+**************************************************/
+.li-text-sub {
+    position: absolute;
+    top: 0;
+    right: 24px;
+    height: 100%;
+    line-height: 90px;
+    float: right;
+    text-align: right;
+    font-size: 24px;
+    color: rgba(77, 77, 77, 1);
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+/********************* list have right button **********************/
+.li-has-right-btn .ui-btn,
+.li-has-right-circle-btn .ui-btn {
+    position: absolute;
+    top: 50%;
+    right: 19px;
+}
+
+.li-has-right-btn .ui-btn {
+    margin-top: -30px;
+}
+
+.li-has-right-circle-btn .ui-btn {
+    margin-top: -37px;
+}
+
+/******************* list have left thumbnail image ********************/
+.ui-li-anchor.li-has-thumb > a,
+.ui-li-static.li-has-thumb {
+    padding-left: 76px;
+}
+.ui-li-anchor.li-has-thumb > a .li-thumb,
+.ui-li-static.li-has-thumb .li-thumb {
+    position: absolute;
+    left: 24px;
+    top: 50%;
+    margin-top: -20px;
+    width: 40px;
+    height: 40px;
+}
+
+/***************** list has checkbox/radio ***********************/
+.ui-li-anchor.li-has-checkbox > a,
+.ui-li-anchor.li-has-radio > a,
+.ui-li-static.li-has-checkbox,
+.ui-li-static.li-has-radio {
+    padding-left: 75px;
+}
+
+.li-has-checkbox .ui-checkbox:first-child,
+.li-has-radio .ui-checkbox:first-child,
+.li-has-checkbox .ui-radio:first-child,
+.li-has-radio .ui-radio:first-child {
+    position: absolute;
+    top: 50%;
+    margin-top: -20px;
+    left: 24px;
+}
+
+/**************** list has checkbox/radio and thumbnail ************/
+.ui-li-anchor.li-has-checkbox.li-has-thumb > a,
+.ui-li-anchor.li-has-radio.li-has-thumb > a,
+.ui-li-static.li-has-checkbox.li-has-thumb,
+.ui-li-static.li-has-radio.li-has-thumb {
+    padding-left: 116px;
+}
+.ui-li-anchor.li-has-checkbox.li-has-thumb > a .li-thumb,
+.ui-li-anchor.li-has-radio.li-has-thumb > a .li-thumb,
+.ui-li-static.li-has-checkbox.li-has-thumb .li-thumb,
+.ui-li-static.li-has-radio.li-has-thumb .li-thumb {
+    position: absolute;
+    left: 72.5px;
+}
+
+/**************** right toggle switch ************/
+.li-has-right-btn .ui-toggle-label {
+    position: absolute;
+    top: 50% !important;
+    margin-top: -30px;
+    right: 19px !important;
+    left: auto;
+}
+
+/****************************************************************/
+/*              Multiline List Style                            */
+/****************************************************************/
+.li-has-multiline.ui-li-anchor > a,
+.li-has-multiline.ui-li-static {
+    padding-top: 17px;
+    padding-bottom: 57px;
+}
+.li-has-multiline .li-text-sub {
+    top: 59px;
+    left: 24px;
+    line-height: 33px;
+    float: left;
+    text-align: left;
+    height: auto;
+}
+.li-has-multiline .li-text-sub,
+.li-has-multiline .li-text-sub3 {
+    max-width: 100%;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    right: auto;
+}
+.li-has-multiline .li-text-sub .li-icon-sub,
+.li-has-multiline .li-text-sub3 .li-icon-sub,
+.li-has-multiline .li-text-sub img,
+.li-has-multiline .li-text-sub3 img {
+    position: relative;
+    width: 23px;
+    height: 23px;
+    margin-right: 1px;
+    margin-bottom: 0;
+}
+.li-has-multiline .li-text-sub2,
+.li-has-multiline .li-text-sub3 {
+    position: absolute;
+    font-size: 24px;
+    color: rgba(77, 77, 77, 1);
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    overflow: hidden;
+}
+.li-has-multiline .li-text-sub2 {
+    top: 0;
+    right: 24px;
+    float: right;
+    text-align: right;
+    height: 100%;
+    line-height: 108px;
+}
+.li-has-multiline .li-text-sub3 {
+    top: 91px;
+    left: 24px;
+    line-height: 38px;
+}
+.li-has-multiline .ui-progressbar {
+    margin-left: -6px;
+    margin-top: 14px;
+    margin-bottom: -4px;
+    width: 100%;
+}
+.li-has-multiline.ui-li-anchor.li-has-thumb > a .li-text-sub,
+.li-has-multiline.ui-li-static.li-has-thumb .li-text-sub {
+    left: 76px;
+}
+.li-has-multiline.ui-li-anchor.li-has-checkbox > a .li-text-sub,
+.li-has-multiline.ui-li-anchor.li-has-radio > a .li-text-sub,
+.li-has-multiline.ui-li-static.li-has-checkbox .li-text-sub,
+.li-has-multiline.ui-li-static.li-has-radio .li-text-sub {
+    left: 75px;
+}
+.li-has-multiline.ui-li-anchor.li-has-thumb.li-has-checkbox > a .li-text-sub,
+.li-has-multiline.ui-li-anchor.li-has-thumb.li-has-radio > a .li-text-sub,
+.li-has-multiline.ui-li-static.li-has-thumb.li-has-checkbox .li-text-sub,
+.li-has-multiline.ui-li-static.li-has-thumb.li-has-radio .li-text-sub {
+    left: 116px;
+}
+.li-has-multiline.ui-li-anchor.li-has-thumb.li-thumbnail-right > a,
+.li-has-multiline.ui-li-static.li-has-thumb.li-thumbnail-right {
+    padding-left: 24px;
+}
+.li-has-multiline.ui-li-anchor.li-has-thumb.li-thumbnail-right > a .li-thumb,
+.li-has-multiline.ui-li-static.li-has-thumb.li-thumbnail-right .li-thumb {
+    float: right;
+    left: auto;
+    right: 19px;
+}
+.li-has-multiline.ui-li-anchor.li-has-thumb.li-thumbnail-right > a .li-text-sub,
+.li-has-multiline.ui-li-static.li-has-thumb.li-thumbnail-right .li-text-sub {
+    left: 24px;
+}
+.li-has-multiline.li-has-3-lines.ui-li-anchor > a,
+.li-has-multiline.li-has-3-lines.ui-li-static {
+    padding-bottom: 83px;
+}
+
+/****************************************************************/
+/*              Selectable List Style                           */
+/****************************************************************/
+#select-list .li-select-all {
+	padding-left: 24px;
+}
+
+#select-list .li-select-all input[type="checkbox"].ui-checkbox {
+    position: absolute;
+	left: auto;
+    right: 24px;
+    top: 50%;
+    margin-top: -20px;
+}
+
+#select-list .li-select-all.li-check-all.ui-li-anchor a {
+    color: #348187;
+}
+
+#select-list .li-select-all label {
+    display: block;
+    padding: 28px 24px;
+    margin: -28px -24px;
+}

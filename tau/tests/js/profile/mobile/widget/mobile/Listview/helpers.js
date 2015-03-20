@@ -7,7 +7,6 @@
 function listviewItemTests(listviewItem) {
 	'use strict';
 	ok(listviewItem !== undefined, 'List item instance exists');
-	ok(listviewItem.classList.contains('ui-li'), 'List item has ui-li class');
 	ok(listviewItem.classList.contains('ui-li-static'), 'List item has ui-li-static class');
 	equal(listviewItem.getAttribute('tabindex'), '0', 'List item has tabindex=0');
 }
@@ -15,7 +14,6 @@ function listviewItemTests(listviewItem) {
 function dividerTests(divider) {
 	'use strict';
 	ok(divider !== undefined, 'divider instance exists');
-	ok(divider.classList.contains('ui-li'), 'divider item has ui-li class');
 	ok(divider.classList.contains('ui-li-divider'), 'divider item has ui-li-divider class');
 	ok(divider.classList.contains('ui-bar-s'), 'divider item has ui-bar-s class');
 	equal(divider.getAttribute('tabindex'), '0', 'Divider item has tabindex=0');

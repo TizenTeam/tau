@@ -25,20 +25,6 @@
 					}
 				},
 
-				customizeListview = function () {
-					var Listview = ns.widget.mobile.Listview;
-					if (Listview) {
-						// clear listview
-						(function (o) {
-							o.theme = THEME;
-							o.countTheme = THEME;
-							o.headerTheme = THEME;
-							o.dividerTheme = THEME;
-							o.splitTheme = THEME;
-						}(Listview.prototype.options));
-					}
-				},
-
 				customizeButton = function () {
 					var Button = ns.widget.mobile.Button;
 					if (Button) {
@@ -117,7 +103,6 @@
 				self._enable();
 
 				customizePage();
-				customizeListview();
 				customizeButton();
 				customizeFrameworkData();
 

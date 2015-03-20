@@ -6,7 +6,7 @@
 $().ready(function() {
 	'use strict';
 
-	module('profile/mobile/widget/mobile/Listview', {
+	module('profile/mobile/widget/mobile/Listview.extra', {
 		setup: function () {
 			ej.engine.run();
 		},
@@ -90,9 +90,6 @@ $().ready(function() {
 		divider = $divider.get(0);
 		dividerTests(divider);
 		dividerBuildTests(divider);
-
-		// ListDivider as last element
-		ok(divider.classList.contains('ui-li-last'), 'divider, Last item has ui-li-last class');
 
 		equal(document.getElementById('ref2'), ref, "Earlier created reference not lost");
 	});

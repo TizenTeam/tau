@@ -65,35 +65,20 @@
 	define(
 		[
 			"../core",
-			"../../util/selectors",
 			"../BaseWidget"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 			var BaseWidget = ns.widget.BaseWidget,
 				engine = ns.engine,
-				selectorUtils = tau.util.selectors,
 				Listview = function () {
-					return this;
 				},
 				classes = {
-					LISTVIEW: "ui-listview",
-					LISTITEM_HAS_RADIO: "li-has-radio",
-					LISTITEM_HAS_CHECKBOX: "li-has-checkbox"
+					LISTVIEW: "ui-listview"
 				},
 				prototype = new BaseWidget();
 
-			Listview.events = {};
 			Listview.classes = classes;
-
-			Listview.classes = classes;
-
-			prototype._changeLinksToButton = function(item) {
-				engine.instanceWidget(
-					item,
-					"Button"
-				);
-			};
 
 			/**
 			* build Listview
@@ -104,29 +89,7 @@
 			* @member ns.widget.core.Listview
 			*/
 			prototype._build = function (element) {
-				rebuild(this, element);
-				return element;
-			};
-
-			/**
-			* Init Listview Widget
-			* @method _init
-			* @param {HTMLElement} element
-			* @member ns.widget.core.Listview
-			* @protected
-			*/
-			prototype._init = function (element) {
-				return element;
-			};
-
-			/**
-			* Bind events to widget
-			* @method _bindEvents
-			* @param {HTMLElement} element
-			* @member ns.widget.core.Listview
-			* @protected
-			*/
-			prototype._bindEvents = function (element) {
+				element.classList.add(classes.LISTVIEW);
 				return element;
 			};
 
@@ -137,68 +100,19 @@
 			* @member ns.widget.core.Listview
 			*/
 			prototype._refresh = function () {
-				var self = this,
-					element = self.element;
-
-				rebuild(self, element);
-
-				return element;
-			};
-
-			/**
-			 * Method rebuild widget.
-			 * @method rebuild
-			 * @param {Listview} self
-			 * @param {HTMLElement} element
-			 * @private
-			 * @static
-			 * @member ns.widget.core.Listview
-			 */
-			function rebuild(self, element) {
-				var items = element.children,
-					itemsLength = items.length,
-					item,
-					i,
-					background = document.createElement("div");
-
-				background.className = classes.LISTITEM_BACKGROUND;
-
-				element.classList.add(classes.LISTVIEW);
-
-				for (i = 0; i < itemsLength; i++) {
-					item = items[i];
-					if (item.firstElementChild && item.firstElementChild.tagName === "A") {
-						self._changeLinksToButton(item.firstElementChild);
-					}
-				}
-			}
-
-			/**
-			* @method _destroy
-			* @private
-			* @member ns.widget.core.Listview
-			*/
-			prototype._destroy = function () {
-				var items = this.element.children,
-					itemsLength = items.length,
-					item,
-					i,
-					widget;
-
-				for (i = 0; i < itemsLength; i++) {
-					item = items[i];
-					if (item.firstElementChild && item.firstElementChild.tagName === "A") {
-						widget = engine.getBinding(item.firstElementChild, "Button");
-						if (widget !== null) {
-							widget.destroy();
-						}
-					}
-				}
+				return this.element;
 			};
 
 			Listview.prototype = prototype;
 			ns.widget.core.Listview = Listview;
 
+			engine.defineWidget(
+				"Listview",
+				"[data-role='listview'], .ui-listview",
+				[],
+				Listview,
+				"core"
+			);
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return Listview;
 		}

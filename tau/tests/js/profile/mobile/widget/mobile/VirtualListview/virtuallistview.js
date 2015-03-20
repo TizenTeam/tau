@@ -63,7 +63,6 @@ var unit_virtuallistview = function (element, templateName) {
 		i = 100;
 		tmpElement = widget.element.firstElementChild;
 		do {
-			testPass = tmpElement.classList.contains(listviewClasses.uiLi) ? testPass : false;
 			testPass = tmpElement.classList.contains(listviewClasses.uiLiStatic) ? testPass : false;
 			i -= 1;
 			tmpElement = tmpElement.nextElementSibling;

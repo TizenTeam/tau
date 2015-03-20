@@ -145,6 +145,88 @@
 				transparent: "ui-listview-transparent"
 			});
 
+			/**
+			 * Method rebuild widget.
+			 * @method rebuild
+			 * @param {Listview} self
+			 * @param {HTMLElement} element
+			 * @private
+			 * @static
+			 * @member ns.widget.core.Listview
+			 */
+			function rebuild(self, element) {
+				var items = element.children,
+					itemsLength = items.length,
+					item,
+					i;
+
+				for (i = 0; i < itemsLength; i++) {
+					item = items[i];
+					if (item.firstElementChild && item.firstElementChild.tagName === "A") {
+						self._changeLinksToButton(item.firstElementChild);
+					}
+				}
+			}
+
+			prototype._changeLinksToButton = function(item) {
+				engine.instanceWidget(
+					item,
+					"Button"
+				);
+			};
+
+			/**
+			 * build Listview
+			 * @method _build
+			 * @private
+			 * @param {HTMLElement} element
+			 * @return {HTMLElement}
+			 * @member ns.widget.core.Listview
+			 */
+			prototype._build = function (element) {
+				rebuild(this, element);
+				return CoreListview.prototype._build.call(this, element);
+			};
+
+			/**
+			 * refresh structure
+			 * @method _refresh
+			 * @return {HTMLElement}
+			 * @member ns.widget.core.Listview
+			 */
+			prototype._refresh = function () {
+				var self = this,
+					element = self.element;
+
+				rebuild(self, element);
+
+				return element;
+			};
+
+			/**
+			 * @method _destroy
+			 * @private
+			 * @member ns.widget.core.Listview
+			 */
+			prototype._destroy = function () {
+				var items = this.element.children,
+					itemsLength = items.length,
+					item,
+					i,
+					widget;
+
+				for (i = 0; i < itemsLength; i++) {
+					item = items[i];
+					if (item.firstElementChild && item.firstElementChild.tagName === "A") {
+						widget = engine.getBinding(item.firstElementChild, "Button");
+						if (widget !== null) {
+							widget.destroy();
+						}
+					}
+				}
+			};
+
+
 			Listview.prototype = prototype;
 			ns.widget.tv.Listview = Listview;
 

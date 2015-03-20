@@ -19,8 +19,6 @@
 
 		equal(list.getAttribute('data-tau-bound'), "Listview", "List widget is created");
 		ok(list.classList.contains('ui-listview'), 'List has ui-listview class');
-		ok(li1.classList.contains('ui-li'), 'List item has ui-li class');
-		ok(li1.classList.contains('ui-li-static'), 'List item has ui-li-static class');
 
 		dividerTests(li1.previousElementSibling);
 		dividerTests(li4.previousElementSibling);

@@ -31,9 +31,6 @@
 				link3 = document.createElement("a"),
 				link4 = document.createElement("a"),
 				list = document.getElementById("list-with-data-role"),
-				itemLink,
-				innerButtonSpan,
-				innerButtonTextSpan,
 				listWidget = engine.instanceWidget(list, "Listview");
 
 			// append new li element and refresh list;
@@ -57,16 +54,6 @@
 			//check if link is changed to button
 			li3 = document.getElementById("li-dr-3");
 			equal(li3.childNodes.length, 1, "List item contains one link");
-			itemLink = li3.childNodes[0];
-			equal(itemLink.getAttribute("data-tau-bound"), "Button", "Button widget is created for linka <a>");
-			ok(itemLink.classList.contains("ui-btn"), "List has ui-listview class");
-
-			//check if button is inner button with text
-			innerButtonSpan = itemLink.getElementsByTagName("SPAN")[0];
-			ok(innerButtonSpan.classList.contains("ui-btn-inner"), "Link span has ui-btn-inner class");
-			equal(innerButtonSpan.childNodes.length, 1, "Second span for link is created");
-			innerButtonTextSpan = innerButtonSpan.childNodes[0];
-			ok(innerButtonTextSpan.classList.contains("ui-btn-text"), "Link span has ui-btn-text class");
 		});
 
 		test('Destroy', function () {
@@ -74,14 +61,10 @@
 				listWidget = engine.instanceWidget(list, "Listview");
 
 			equal(list.getAttribute("data-tau-bound"), "Listview", "List widget is created");
-			ok(list.querySelectorAll("[data-tau-bound=Button]").length > 0,
-				"A elements changed into Button widgets");
 
 			engine.destroyWidget(list, "Listview");
 
 			equal(list.getAttribute("data-tau-bound"), null, "List widget is destroyed");
-			ok(list.querySelectorAll("[data-tau-bound=Button]").length === 0,
-				"Inner button widgets destroyed");
 		});
 
 }(window, window.document));

@@ -73,6 +73,7 @@
 			// widget list
 			"./core/widget/core/Checkboxradio",
 			"./core/widget/core/Button",
+			"./core/widget/core/Listview",
 			"./profile/mobile/widget/mobile/Page",
 			"./profile/mobile/widget/mobile/PageContainer",
 			"./profile/mobile/widget/mobile/Popup",
@@ -82,6 +83,7 @@
 			"./profile/mobile/widget/mobile/Collapsible",
 			"./profile/mobile/widget/mobile/Dialog",
 			"./profile/mobile/widget/mobile/Listview",
+			"./profile/mobile/widget/mobile/Listview.extra",
 			"./profile/mobile/widget/mobile/Listdivider",
 			"./profile/mobile/widget/mobile/ListviewAutodivider",
 			"./profile/mobile/widget/mobile/ExtendableList",
