@@ -106,31 +106,57 @@
 					var self = this;
 
 					self._ui = {
-						progressbarBgElement: null,
-						progressbarValueElement: null
+						progressBarBgElement: null,
+						progressBarValueElement: null,
+						progressBarValueBackElement: null,
+						styleSheetElement: null
 					};
 					self._min = null;
 					self._oldValue = null;
+					self._state = states.CHANGING;
 				},
+
+				states = {
+					CHANGING: "changing",
+					COMPLETE: "complete"
+				},
+
+				CLASSES_PREFIX = "ui-progressbar",
+				/**
+				 * Dictionary for progress related css class names
+				 * @property {Object} classes
+				 * @static
+				 * @member ns.widget.mobile.ProgressBar
+				 * @readonly
+				 */
 				classes = {
-					uiProgressbar: "ui-progressbar",
-					uiProgressbarBg: "ui-progressbar-bg",
-					uiProgressbarValue: "ui-progressbar-value",
-					uiProgressbarActivity: "ui-progressbar-activity"
+					uiProgressbar: CLASSES_PREFIX,
+					uiProgressbarBg: CLASSES_PREFIX + "-bg",
+					uiProgressbarValue: CLASSES_PREFIX + "-value",
+					uiProgressbarValueFront: CLASSES_PREFIX + "-value-front",
+					uiProgressbarValueBack: CLASSES_PREFIX + "-value-back",
+					uiProgressbarActivity: CLASSES_PREFIX + "-activity"
 				},
+
+				selector = {
+					progressbarBg : "." + CLASSES_PREFIX + "-bg",
+					progressbarValue: "." + CLASSES_PREFIX + "-value",
+					progressbarValueBack: "." + CLASSES_PREFIX + "-value-back",
+					uiProgressbarActivity: "." + CLASSES_PREFIX + "-activity"
+				},
+
+				valueAnimation = {
+					keyFrameName: "progressFront",
+					duration: 1350
+				},
+
 				eventType = {
 					/**
 					 * Event is triggered when value of widget is changing.
 					 * @event change
 					 * @member ns.widget.mobile.ProgressBar
 					 */
-					/**
-					 * Event is triggered when value of widget riches maximal value.
-					 * @event complete
-					 * @member ns.widget.mobile.ProgressBar
-					 */
 					CHANGE: "change",
-					COMPLETE: "complete"
 				};
 
 			ProgressBar.prototype = prototype;
@@ -154,8 +180,46 @@
 				};
 			};
 
+			function progressEndHandler(self) {
+				self.element.classList.add("ui-progress-complete");
+			}
+
+			function setAnimationKeyframe(self) {
+				var customKeyFrame,
+					styleElement = document.createElement("style"),
+					remainWidth = self._ui.progressBarBgElement.offsetHeight,
+					progressBarValueBackOffsetWidth = self._ui.progressBarValueBackElement.offsetWidth,
+					progressBarValueFrontLeft = progressBarValueBackOffsetWidth - remainWidth;
+
+
+				customKeyFrame = "@-webkit-keyframes test2 {"
+				+ "0% { width: 100%; left: 0; }"
+				+ "100% { width: " + remainWidth +"px; left: " + progressBarValueFrontLeft + "px;} }";
+
+				if (customKeyFrame) {
+					self.element.appendChild(styleElement);
+					styleElement.sheet.insertRule(customKeyFrame, 0);
+
+					self._ui.styleSheelElement = styleElement;
+				}
+			}
+
+			function setAnimationStyle(self, options) {
+				var progressBarValueElement = self._ui.progressBarValueElement,
+					progressBarValueBackElement = self._ui.progressBarValueBackElement,
+					progressBarValueElementStyle = progressBarValueElement.style,
+					progressBarValueBackElementStyle = progressBarValueBackElement.style;
+
+				progressBarValueElement.classList.add("ui-progressbar-value-front-anim");
+
+				progressBarValueElementStyle.width = (options.value / options.max * 100) + "%";
+				progressBarValueBackElementStyle.width = (options.value / options.max * 100) + "%";
+				setAnimationKeyframe(self);
+
+				progressBarValueBackElementStyle.webkitTransition = "width 800ms ease-out"
+			}
 			/**
-			 * Build structure of progress widget
+			 * Build structure of ProgressBar
 			 * @method _build
 			 * @param {HTMLElement} element
 			 * @return {HTMLElement}
@@ -163,30 +227,35 @@
 			 * @member ns.widget.mobile.ProgressBar
 			 */
 			prototype._build = function (element) {
-				var classes = ProgressBar.classes,
-					self = this,
-					options = self.options,
+				var self = this,
 					ui = self._ui,
+					options = self.options,
 					progressBarBgElement,
-					progressBarValueElement;
+					progressBarValueElement,
+					progressBarValueBackElement = null;
 
 				progressBarBgElement = document.createElement("div");
 				progressBarValueElement = document.createElement("div");
 
 				element.classList.add(classes.uiProgressbar);
 				progressBarBgElement.classList.add(classes.uiProgressbarBg);
+				progressBarValueElement.classList.add(classes.uiProgressbarValue);
 
 				if (options.type === "activitybar") {
 					progressBarValueElement.classList.add(classes.uiProgressbarActivity);
-				} else {
-					progressBarValueElement.classList.add(classes.uiProgressbarValue);
+				} else if (options.type === "progressbar") {
+					progressBarValueElement.classList.add(classes.uiProgressbarValueFront);
+
+					progressBarValueBackElement = document.createElement("div");
+					progressBarValueBackElement.classList.add(classes.uiProgressbarValueBack);
 				}
 
 				progressBarBgElement.appendChild(progressBarValueElement);
 				element.appendChild(progressBarBgElement);
 
-				ui.progressbarBgElement = progressBarBgElement;
-				ui.progressbarValueElement = progressBarValueElement;
+				ui.progressBarBgElement = progressBarBgElement;
+				ui.progressBarValueElement = progressBarValueElement;
+				ui.progressBarValueBackElement = progressBarValueBackElement;
 
 				return element;
 			};
@@ -204,18 +273,27 @@
 					options = self.options,
 					ui = self._ui;
 
-				ui.progressbarBgElement = ui.progressbarBgElement || element.querySelector("." + classes.uiProgressbarBg);
-				ui.progressbarValueElement = ui.progressbarValueElement || element.querySelector("." + classes.uiProgressbarValue);
+				ui.progressBarBgElement = ui.progressBarBgElement || element.querySelector(selector.uiProgressbarBg);
+				ui.progressBarValueElement = ui.progressBarValueElement || element.querySelector(selector.uiProgressbarValue) || element.querySelector(selector.uiProgressbarActivity);
+				ui.progressBarValueBackElement = ui.progressBarValueBackElement || element.querySelector(selector.uiProgressbarValueBack);
 
-				ui.progressbarValueElement.style.width = options.value + "%";
+				ui.progressBarValueElement.style.width = options.value + "%";
 
-				element.setAttribute("role", "ProgressBar");
-				element.setAttribute("aria-valuemin", options.min);
-				element.setAttribute("aria-valuenow", options.value);
-				element.setAttribute("aria-valuemax", options.max);
+				if (ui.progressBarValueBackElement) {
+					ui.progressBarBgElement.appendChild(ui.progressBarValueBackElement);
+				}
 
-				self._min = options.min;
 				self._oldValue = options.value;
+
+				if (options.type === "progressbar") {
+					element.setAttribute("role", "ProgressBar");
+					element.setAttribute("aria-valuemin", options.min);
+					element.setAttribute("aria-valuenow", options.value);
+					element.setAttribute("aria-valuemax", options.max);
+
+					setAnimationStyle(self, self.options);
+					self._ui.progressBarValueElement.classList.remove("ui-progressbar-value-front-anim");
+				}
 
 				return element;
 			};
@@ -261,15 +339,23 @@
 			 * @member ns.widget.mobile.ProgressBar
 			 */
 			prototype._setValue = function (value) {
-				var options = this.options;
+				var self = this,
+					options = self.options,
+					element = self.element,
+					progressBarValueElement = self._ui.progressBarValueElement,
+					animationEndCallback = progressEndHandler.bind(null, self);
+
 				if (typeof value === "number") {
 					value = Math.min(options.max, Math.max(options.min, value));
+					options.value = value;
+					// value changed
 					if (value !== options.value) {
-						events.trigger(this.element, eventType.CHANGE);
 						options.value = value;
+						events.trigger(element, eventType.CHANGE);
 					}
-					if (value === options.max) {
-						events.trigger(this.element, eventType.COMPLETE);
+					// value complete
+					if (value === options.max && options.type === "progressbar") {
+						events.one(progressBarValueElement, "webkitAnimationEnd", animationEndCallback)
 					}
 					this.refresh();
 					return true;
@@ -323,16 +409,35 @@
 			 * @protected
 			 */
 			prototype._refresh = function () {
-				var element = this.element,
-					options = this.options,
-					elementChild = element.firstElementChild.firstElementChild;
+				var self = this,
+					element = self.element,
+					options = self.options;
 
-				element.setAttribute("aria-valuenow", options.value);
-				elementChild.style.display = "";
-				elementChild.style.width = options.value + "%";
+				if (options.type === "progressbar") {
+					element.setAttribute("aria-valuenow", options.value);
+					/*elementChild.style.display = "";
+					 elementChild.style.width = options.value + "%";*/
+					setAnimationStyle(self, self.options);
+					/* TODO: when webkitanimationEnd event fired, please remove this line */
+					//self._ui.progressBarValueElement.classList.remove("ui-progressbar-value-front-anim");
+				}
+				self._oldValue = options.value;
 			};
 
-			// definition
+			prototype._destroy = function () {
+				var self = this,
+					element = self.element,
+					firstChild = element.firstChild;
+
+				while (firstChild) {
+					element.removeChild(firstChild);
+					firstChild = element.firstChild;
+				}
+
+				self._ui = null;
+			};
+
+			ProgressBar.prototype = prototype;
 			ns.widget.mobile.ProgressBar = ProgressBar;
 			engine.defineWidget(
 				"ProgressBar",
@@ -342,7 +447,7 @@
 				"mobile"
 			);
 
-//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
+			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return ns.widget.mobile.ProgressBar;
 		}
 	);

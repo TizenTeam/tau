@@ -1,7 +1,45 @@
-.ui-progressbar-value {
+@-webkit-keyframes test1
+{
+	0% { width: 0; }
+	100% { width: 100%; }
+}
+@-webkit-keyframes test2
+{
+	0% { width: 100%; left: 0; }
+	100% { width: 10px; left: 195px; }
+}
+
+.ui-progressbar-value-front-anim::after {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	background-color: #167fcd; //@color_progress_value_front;
+	width: 100%;
 	height: 100%;
-	background-color: @color_progress_value;
+
+	-webkit-animation: test1 650ms 0s ease-out, test2 700ms 650ms ease-out;
+	-webkit-animation-fill-mode: forwards;
+
 	.LESSborder-radius-all( 10 * @unit_base );
+}
+.ui-progressbar-value-front {
+	height: 100%;
+	left: 0;
+	top: 0;
+	z-index: 1000;
+	position: absolute;
+
+	.LESSborder-radius-all( 10 * @unit_base );
+}
+
+.ui-progressbar-value-back {
+	height: 100%;
+	position: absolute;
+	left: 0;
+	top: 0;
+	background-color: #74d4eb;//@color_progress_value_back;
+	.LESSborder-radius-all( 10 * @unit_base);
 }
 
 .ui-progressbar-bg {
@@ -56,4 +94,3 @@
 @keyframes activitybar {
 	.m-progress-activitybar();
 }
-

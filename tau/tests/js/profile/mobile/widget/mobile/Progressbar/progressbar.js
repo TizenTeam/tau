@@ -1,98 +1,24 @@
-/*
- * Unit Test: Progressbar
- *
- * Kamil Stepczuk <k.stepczuk@samsung.com>
- */
-
-module("profile/mobile/widget/mobile/Progressbar");
-
-/**
- * Unit test widget api
- * @param widget
- */
-var apiProgressBar = function (widget) {
-	var getWidth = function (widget) {
-		return ej.engine.instanceWidget(widget).value();
-		},
-		i,
-		value;
-	ok(widget.classList.contains("ui-progressbar"), "API: Create");
-	for (i = 5; i--;) {
-		value = Math.floor(Math.random() * 100);
-		equal(ej.engine.instanceWidget(widget).value(value), true, "API: set value " + value);
-		equal(getWidth(widget), value, "API: get value " + value);
-	}
-};
-
-/**
- * Unit test Aria
- * @param widget
- */
-var ariaProgressBar = function (widget) {
-	ej.engine.instanceWidget(widget).value(22);
-	equal(widget.getAttribute("aria-valuenow"), 22, "ARIA: aria-valuenow");
-	equal(widget.getAttribute("aria-valuemax"), 100, "ARIA: aria-valuemax");
-	equal(widget.getAttribute("aria-valuemin"), 0, "ARIA: aria-valuemin");
-	equal(widget.getAttribute("role"), "ProgressBar", "ARIA: role");
-
-};
-
-/**
- * Unit test events
- * @param widget
- */
-var eventsProgressBar = function (widget) {
-	var change = false,
-		complete = false;
-
-	widget.addEventListener("change", function () {
-		change = true;
+$().ready(function() {
+	module("profile/mobile/widget/mobile/Progressbar", {
+		teardown: function () {
+			ej.engine._clearBindings();
+		}
 	});
-	widget.addEventListener("complete", function () {
-		complete = true;
+
+	test ( "Progressbar activity style", function () {
+		var progressActivity = document.getElementById("progressActivity"),
+			progressActivityValue = progressActivity.querySelector(".ui-progressbar-value");
+
+		ok(progressActivity.classList.contains("ui-progressbar"), 'Progressbar has ui-progressbar class');
+		ok(progressActivityValue.classList.contains("ui-progressbar-activity"), 'Activity style has ui-progressbar-activity class in value element');
 	});
-	ej.engine.instanceWidget(widget).value(100);
 
-	ok(change, "Event change called");
-	ok(complete, "Event complete called");
+	test ( "Progressbar progressbar style", function () {
+		var progressBar = document.getElementById("progressBar"),
+			progressBarValue = progressBar.querySelector(".ui-progressbar-value");
 
-};
-
-/**
- * Unit test css
- * @param widget
- */
-var cssProgressBar = function (widget) {
-	var cssClass = {
-		uiProgressbar: "ui-progressbar",
-		uiProgressbarBg: "ui-progressbar-bg",
-		uiProgressbarValue: "ui-progressbar-value"
-	};
-	ok(widget.classList.contains(cssClass.uiProgressbar), "CSS " + cssClass.uiProgressbar + " added");
-	ok(widget.firstChild.classList.contains(cssClass.uiProgressbarBg), "CSS " + cssClass.uiProgressbar + " added");
-	ok(widget.firstChild.firstChild.classList.contains(cssClass.uiProgressbarValue), "CSS " + cssClass.uiProgressbar + " added");
-
-};
-
-
-var element = document.getElementById("progressbar");
-test("API", function () {
-	ej.engine.instanceWidget(element, 'ProgressBar');
-	apiProgressBar(element);
-});
-
-test("Events", function () {
-	ej.engine.instanceWidget(element, 'ProgressBar');
-
-	eventsProgressBar(element);
-});
-
-test("Aria", function () {
-	ej.engine.instanceWidget(element, 'ProgressBar');
-	ariaProgressBar(element);
-});
-
-test("CSS", function () {
-	ej.engine.instanceWidget(element, 'ProgressBar');
-	cssProgressBar(element);
+		ok(progressBar.classList.contains("ui-progressbar"), 'Progressbar has ui-progressbar class');
+		ok(progressBarValue.classList.contains("ui-progressbar-value-front"), 'Progressbar style has ui-progressbar-value-front class in value element');
+		ok(progressBarValue.nextSibling.classList.contains("ui-progressbar-value-back"), 'Progressbar style has ui-progressbar-value-back element');
+	});
 });
