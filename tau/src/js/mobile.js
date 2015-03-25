@@ -114,6 +114,7 @@
 			"./profile/mobile/widget/mobile/Navigation",
 			"./profile/mobile/widget/mobile/IndexScrollbar",
 			"./profile/mobile/widget/mobile/FloatingButton",
+			"./profile/mobile/widget/mobile/Button",
 			"./core/widget/core/Tabs",
 			"./profile/mobile/expose",
 			// default theme

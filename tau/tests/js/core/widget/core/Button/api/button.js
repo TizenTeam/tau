@@ -10,7 +10,6 @@ test ("API of Button Widget", function() {
 
 	equal(typeof widget._configure, "function", "Method Button._configure exists");
 	equal(typeof widget._setStyle, 'function', 'Method Button._setStyle exists');
-	equal(typeof widget._setMultiline, 'function', 'Method Button._setMultiline exists');
 	equal(typeof widget._setInline, 'function', 'Method Button._setInline exists');
 	equal(typeof widget._setIcon, 'function', 'Method Button._setIcom exists');
 	equal(typeof widget._setIconpos, 'function', 'Method Button._setIconpos exists');

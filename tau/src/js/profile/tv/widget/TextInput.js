@@ -72,11 +72,11 @@
 		[
 			"../tv",
 			"../../../profile/mobile/widget/mobile/Textinput",
-			"../../../profile/mobile/widget/mobile/Button",
 			"../../../core/engine",
 			"../../../core/util/selectors",
 			"../../../core/util/object",
 			"./Page",
+			"./MobileButton",
 			"./BaseKeyboardSupport"
 		],
 		function () {
@@ -92,7 +92,6 @@
 				 * @static
 				 * @private
 				 */
-				utilSelectors = ns.util.selectors,
 				utilObject = ns.util.object,
 				engine = ns.engine,
 				TextInput = function () {
@@ -110,7 +109,7 @@
 				 * @static
 				 */
 				classes = utilObject.merge({}, MobileTextInput.classes, {
-					uiDisabled: widget.mobile.Button.classes.uiDisabled,
+					uiDisabled: widget.tv.MobileButton.classes.uiDisabled,
 					uiFocus: "ui-focus",
 					uiInputBox: "input-box",
 					highlight: "ui-highlight"

@@ -18,7 +18,6 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../../../profile/mobile/widget/mobile/Button",
 			"../../../core/engine",
 			"../../../core/util/selectors",
 			"../../../core/event",
@@ -26,11 +25,12 @@
 			"../../../core/util/object",
 			"../../../core/util/DOM/css",
 			"../tv",
+			"./MobileButton",
 			"./BaseKeyboardSupport"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
-			var BaseButton = ns.widget.mobile.Button,
+			var BaseButton = ns.widget.tv.MobileButton,
 				BaseButtonPrototype = BaseButton.prototype,
 				BaseKeyboardSupport = ns.widget.tv.BaseKeyboardSupport,
 				utils = ns.util,
@@ -136,10 +136,9 @@
 				}
 			}
 
-			function findThumbnail(element, self) {
+			function findThumbnail(element) {
 				var thumbSource = element.querySelector(selectors.thumb),
 					parent = element.querySelector("." + classes.uiBtnInner),
-					styles,
 					thumb;
 
 				if (thumbSource) {

@@ -57,7 +57,7 @@
 			"../../../core/event",
 			"../../../core/widget/BaseWidget",
 			"../../../core/widget/core/Popup",
-			"../../../profile/mobile/widget/mobile/Button",
+			"./MobileButton",
 			"./BaseKeyboardSupport"
 		],
 		function () {
@@ -103,7 +103,7 @@
 				 * @static
 				 */
 				classes = {
-					disabled: widget.mobile.Button.classes.uiDisabled,
+					disabled: widget.tv.MobileButton.classes.uiDisabled,
 					spinControl: "ui-spin-control",
 					focus: "ui-spin-control-focus",
 					active: "ui-spin-control-active",
@@ -627,8 +627,7 @@
 			 * @member ns.widget.tv.SpinControl
 			 */
 			prototype._bindEvents = function() {
-				var element = this.element,
-					self = this,
+				var self = this,
 					callbacks = this._callbacks,
 					ui = self._ui,
 					wrapper = ui.wrapper;
@@ -655,8 +654,7 @@
 			 * @member ns.widget.tv.SpinControl
 			 */
 			prototype._unbindEvents = function() {
-				var element = this.element,
-					self = this,
+				var self = this,
 					callbacks = this._callbacks,
 					ui = self._ui,
 					wrapper = ui.wrapper;

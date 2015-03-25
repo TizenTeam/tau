@@ -25,9 +25,7 @@
 					BTN_CIRCLE: "ui-btn-circle",
 					BTN_NOBG: "ui-btn-nobg",
 					BTN_ICON_ONLY: "ui-btn-icon-only",
-					BTN_ICON_POSITION_PREFIX: "ui-btn-icon-",
-					MULTILINE: "ui-multiline",
-					NAVIFRAME_BUTTON: "naviframe-button"
+					BTN_ICON_POSITION_PREFIX: "ui-btn-icon-"
 				},
 				buttonStyle = {
 					CIRCLE: "circle",
@@ -46,17 +44,15 @@
 			 * @protected
 			 * @member ns.widget.core.Button
 			 */
-			prototype._configure = function (element) {
+			prototype._configure = function () {
 				this.options = {
 					// common options
-					inline: false,
+					inline: false,//url
 					icon: null,
 					disabled: false,
 					// mobile options
 					style: null,
-					iconpos: "left",
-					// wearable options
-					multiline: false
+					iconpos: "left"
 				};
 			};
 
@@ -70,8 +66,7 @@
 			 */
 			prototype._setStyle = function (element, style) {
 				var options = this.options,
-					buttonClassList = element.classList,
-					innerTextLength = element.textContent.length || (element.value ? element.value.length : 0);
+					buttonClassList = element.classList;
 
 				style = style || options.style;
 
@@ -85,24 +80,6 @@
 						buttonClassList.add(classes.BTN_NOBG);
 						break;
 					default:
-				}
-			};
-
-			/**
-			 * Set multiline option
-			 * @method _setMultiline
-			 * @param {HTMLElement} element
-			 * @param {boolean} multiline
-			 * @protected
-			 * @member ns.widget.core.Button
-			 */
-			prototype._setMultiline = function (element, multiline) {
-				var options = this.options;
-
-				multiline = multiline || options.multiline;
-
-				if (multiline) {
-					element.classList.add(classes.MULTILINE);
 				}
 			};
 
@@ -141,6 +118,7 @@
 				if (icon) {
 					element.classList.add(classes.BTN_ICON);
 					element.classList.add(classes.ICON_PREFIX + icon);
+
 					self._setTitleForIcon(element);
 				}
 			};
@@ -177,17 +155,13 @@
 			 * @member ns.widget.core.Button
 			 */
 			prototype._setTitleForIcon = function (element) {
-				var self = this,
-					elementTagName = element.tagName.toLowerCase(),
-					options = self.options,
+				var options = this.options,
 					buttonText = element.textContent;
 
 				// Add title to element if button not has text.
 				if (options.iconpos === "notext" && !element.getAttribute("title")) {
 					element.setAttribute("title", buttonText);
-				}
-				if (!buttonText.length && elementTagName !== "label" && element.classList.contains(classes.NAVIFRAME_BUTTON)) {
-					element.textContent = options.icon.replace("naviframe-", "");
+					ns.warn("iconpos='notext' is deprecated.");
 				}
 			};
 
@@ -225,7 +199,6 @@
 				}
 
 				self._setStyle(element);
-				self._setMultiline(element);
 				self._setInline(element);
 				self._setIconpos(element);
 				self._setIcon(element);
@@ -245,7 +218,6 @@
 					element = this.element;
 
 				self._setStyle(element);
-				self._setMultiline(element);
 				self._setInline(element);
 				self._setIconpos(element);
 				self._setIcon(element);
