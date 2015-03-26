@@ -1,4 +1,42 @@
 %changelog
+* Thu Mar 26 2015 Junhyoen Lee <juneh.lee@samsung.com> 0.10.8
+	- etc(tool): Device details and results separated per device
+	- etc(tool): Simplified input test application
+	- etc(tool): Running tests on many devices at once
+	- etc(tool): Performance result output to file
+	- etc(tool): Real device performance checks
+	- etc(tool): TAU performance automatic check with Phantom
+	- fix(tv): fix position of arrow in tooltip in button
+	- refactor(mobile): add aplication for layouts
+	- refactor(mobile): In demo app reorganize exaples of layouts
+	- prototype: Layout widgets - Linear
+	- feat(all): Relative layout
+	- fix(all): _layout, _setLayout change and removed removeRule
+	- feat(mobile): add structure for layouts
+	- prototype: Layout widgets
+	- feature(core, mobile): Enable build wigdets from JS code
+	- fix(wearable): modify popup border draw method
+	- feature(tv): Popover - Prevent events on elements
+	- fix(tv): Fix opening and closing contextual menu in DemoTV app
+	- fix(tv): fix problem with keyboard for input
+	- fix(tv): Fix navigation in SelectMenu
+	- fix(core): modify class adding when reverse page
+	- fix(tv): Textinput - fixed problem with pin input size
+	- fix(tv): change style for input and searchbar
+	- fix(core): fix restore content style bug when page has not content.
+	- refector(wearable): created wearable page widget and popup widget for enable page scroll option.
+	- fix(tv): Fix focus animation on buttons
+	- refactor(common): apply jenkins build-bot
+	- fix(tv): Fixed exception inside SearchBar
+	- fix(tv): fix size of "pin button" in drawer
+	- fix(tv): fix size of buttons in drawer
+
+* Wed Mar 11 2015 Junhyoen Lee <juneh.lee@samsung.com> 0.10.7
+	- refactor(wearable): call scrollend handler with setTimeout when expandableHeader is collapsed. (NABI-2040)
+	- refactor(wearable): remove no subtext list item at Subtext List (P150305-02536)
+	- fix(wearable) : context popup size fix
+	- refactor(wearable): remove integration sample app.
+
 * Wed Mar 04 2015 Junhyoen Lee <juneh.lee@samsung.com> 0.10.6
 	- refactor(wearable): add enable/disable method in SnapListview
 	- fix(wearable): add init state of drawer
