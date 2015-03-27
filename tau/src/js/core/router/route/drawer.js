@@ -33,6 +33,7 @@
 				drawerHashKey = "drawer=true",
 				drawerHashKeyReg = /([&|\?]drawer=true)/;
 
+			routeDrawer.orderNumber = 1000;
 			/**
 			 * Property containing default properties
 			 * @property {Object} defaults
@@ -139,10 +140,12 @@
 			 */
 			routeDrawer.onHashChange = function (url, options, prev) {
 				var self = this,
-					activeDrawer = self._activeDrawer;
+					activeDrawer = self._activeDrawer,
+					stateUrl = prev.stateUrl;
 
-				if (activeDrawer && prev.search(drawerHashKey) > 0 && url.search(drawerHashKey) < 0) {
+				if (activeDrawer && stateUrl.search(drawerHashKey) > 0 && url.search(drawerHashKey) < 0) {
 					activeDrawer.close(options);
+					return true;
 				}
 				return null;
 			};

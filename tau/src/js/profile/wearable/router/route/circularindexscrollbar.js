@@ -40,6 +40,7 @@
 				circularindexscrollbarHashKeyReg = /([&|\?]circularindexscrollbar=true)/,
 				INDEXSCROLLBAR_SELECTOR = ".ui-circularindexscrollbar";
 
+			routeCircularIndexScrollbar.orderNumber = 2000;
 			/**
 			 * Property defining selector for filtering only circularIndexScrollbar elements
 			 * @property {string} filter
@@ -122,6 +123,7 @@
 				} else if (pathLocation !== documentUrl) {
 					history.back();
 				}
+				this.active = true;
 			};
 
 			/**
@@ -135,10 +137,12 @@
 			 */
 			routeCircularIndexScrollbar.onHashChange = function (url, options, prev) {
 				var self = this,
-					activeWidget = self._activeWidget;
+					activeWidget = self._activeWidget,
+					stateUrl = prev.stateUrl;;
 
-				if (activeWidget && prev.search(circularindexscrollbarHashKey) > 0 && url.search(circularindexscrollbarHashKey) < 0) {
+				if (activeWidget && stateUrl.search(circularindexscrollbarHashKey) > 0 && url.search(circularindexscrollbarHashKey) < 0) {
 					activeWidget.hide(options);
+					return true;
 				}
 				return null;
 			};

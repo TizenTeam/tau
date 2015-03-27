@@ -136,6 +136,14 @@
 				 */
 				_isLock = false,
 
+				ORDER_NUMBER = {
+					1: "page",
+					10: "panel",
+					100: "popup",
+					1000: "drawer",
+					2000: "circularindexscrollbar"
+				},
+
 				Page = ns.widget.core.Page,
 
 				Router = function () {
@@ -237,6 +245,8 @@
 				var state = event.state,
 					prevState = history.activeState,
 					rules = routerMicro.route,
+					maxOrderNumber = 0,
+					orderNumberArray = [],
 					ruleKey,
 					options,
 					to,
@@ -264,13 +274,22 @@
 					url = path.getLocation();
 
 					for (ruleKey in rules) {
-						if (rules.hasOwnProperty(ruleKey) && rules[ruleKey].onHashChange(url, options, prevState.stateUrl)) {
-							isContinue = false;
+						if (rules.hasOwnProperty(ruleKey)) {
+							if (rules[ruleKey].active) {
+								orderNumberArray.push(rules[ruleKey].orderNumber);
+							}
 						}
+					}
+					maxOrderNumber = Math.max.apply(null, orderNumberArray);
+					if (rules[ORDER_NUMBER[maxOrderNumber]] && rules[ORDER_NUMBER[maxOrderNumber]].onHashChange(url, options, prevState)) {
+						if (maxOrderNumber === 10) {
+							// rule is panel
+							return;
+						}
+						isContinue = false;
 					}
 
 					history.setActive(state);
-
 					if (isContinue) {
 						router.open(to, options);
 					}

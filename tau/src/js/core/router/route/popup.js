@@ -170,6 +170,7 @@
 				return popup;
 			}
 
+			routePopup.orderNumber = 100;
 			/**
 			 * This method returns default options for popup router.
 			 * @method option
@@ -280,6 +281,7 @@
 				} else {
 					openPopup();
 				}
+				this.active = true;
 			};
 
 			/**
@@ -347,6 +349,7 @@
 					// even if popup has been closed
 					// To prevent this onHashChange after closing popup we need to change
 					// disable volatile mode to allow pushing new history elements
+					this.active = false;
 					return true;
 				}
 				return false;

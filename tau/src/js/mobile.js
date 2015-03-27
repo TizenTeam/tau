@@ -123,6 +123,7 @@
 			"./core/router/route/page",
 			"./core/router/route/popup",
 			"./core/router/route/drawer",
+			"./core/router/route/panel",
 			"./profile/mobile/router/route/dialog",
 			"./core/router/history",
 			"./profile/wearable/expose",

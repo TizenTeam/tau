@@ -61,7 +61,9 @@
 			 * @protected
 			 */
 			prototype._build = function(element) {
+				var routePanel = engine.getRouter().getRoute("panel");
 				element.classList.add(classes.PANEL);
+				routePanel.setActive(element);
 
 				return element;
 			};

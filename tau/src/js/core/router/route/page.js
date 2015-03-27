@@ -70,6 +70,7 @@
 				return page;
 			}
 
+			routePage.orderNumber = 1;
 			/**
 			 * Property containing default properties
 			 * @property {Object} defaults
@@ -158,6 +159,7 @@
 
 				//set page title
 				document.title = pageTitle;
+				this.active = true;
 				this.getContainer().change(toPage, options);
 			};
 
