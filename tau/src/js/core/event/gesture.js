@@ -16,7 +16,8 @@
 				"./gesture/instance",
 				"./gesture/manager",
 				"./gesture/plugins/drag",
-				"./gesture/plugins/swipe"],
+				"./gesture/plugins/swipe",
+				"./gesture/plugins/pinch"],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 			var instances = [],
