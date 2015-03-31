@@ -81,3 +81,10 @@
 .layout-page .ui-box-linear-horizont {
 	height: 400px;
 }
+
+#noti-demo {
+	box-sizing: border-box;
+}
+#noti-icon1 {
+	margin-bottom: 10px;
+}
