@@ -21,7 +21,7 @@
 
 			if(ns.support.shape.circle) {
 				ns.setConfig("pageTransition", "pop");
-				ns.setConfig("popupTransition", "pop");
+				ns.setConfig("popupTransition", "slideup");
 				ns.setConfig("popupFullSize", true);
 				ns.setConfig("scrollEndEffectArea", "screen");
 				ns.setConfig("enablePageScroll", true);
