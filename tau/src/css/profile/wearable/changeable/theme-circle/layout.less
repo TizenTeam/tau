@@ -90,31 +90,32 @@ body {
 		text-align: center;
 	}
 	.ui-footer.ui-bottom-button{
-		overflow: hidden;
+		position: fixed !important;
+		bottom: 0;
+		z-index: 1000;
+		height: 28%;
 		.ui-btn {
-			width: @fixed_footer_btn_width;
-			height: @fixed_footer_btn_height;
-			position: relative;
 			left: 50%;
-			transform: translate3d(-50%, 0, 0);
+			width: 195%;
+			height: 700%;
+			position: relative;
 			border-radius: 50%;
-			text-indent: -9999px;
-			margin-bottom: @fixed_footer_btn_margin_bottom;
-			&:only-child::before {
-				left: 50%;
-				transform: translate3d(-50%, 0, 0);
+			margin: 0;
+			padding: 8% 23%;
+			-webkit-transition: transform 150ms ease-out;
+			-webkit-transform: translate3d(-50%, 0, 0);
+
+			&:active {
+				background-color: @color_button_default_press_bg;
+				-webkit-transform: translate3d(-50%, -6%, 0);
 			}
-			&::before {
-				content: "";
-				background-color: @color_footer_button_icon_bg;
-				-webkit-mask-size: 60 * @unit_base 60 * @unit_base;
-				-webkit-mask-repeat: no-repeat;
-				width: 60 * @unit_base;
-				height: 60 * @unit_base;
-				position: absolute;
-				bottom: @fixed_page_footer_padding_bottom;
+
+			&.ui-btn-icon-only::before {
+				top: 0;
+				transform: translate3d(-50%, 50%, 0);
 			}
 		}
+
 	}
 }
 

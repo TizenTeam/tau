@@ -162,7 +162,24 @@ body {
 	position: absolute;
 	bottom: 0;
 	left: 0;
+
+	.ui-btn.ui-btn-icon-only {
+		position: relative;
+		text-indent: -9999 * @unit_base;
+		&::before {
+			content: "";
+			position: absolute;
+			-webkit-mask-size: 50 * @unit_base 50 * @unit_base;
+			-webkit-mask-repeat: no-repeat;
+			width: 50 * @unit_base;
+			height: 50 * @unit_base;
+			top: 50%;
+			left: 50%;
+			transform: translate3d(-50%, -50%, 0);
+		}
+	}
 }
+
 
 /***************************************************************************
                    Page Scroll
