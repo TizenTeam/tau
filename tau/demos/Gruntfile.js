@@ -7,7 +7,6 @@ module.exports = function(grunt) {
 		// Path to build framework
 		basePath = "SDK",
 		wearableAppRoot = path.join(basePath, "wearable"),
-		wearableCircleAppRoot = path.join(wearableAppRoot, "circular"),
 
 		MEDIA_QUERY = {
 			"ALL": "all",
@@ -20,13 +19,13 @@ module.exports = function(grunt) {
 					options: {
 						update: {selector:"link[href*='.circle.']",attribute:"media", value:MEDIA_QUERY.ALL}
 					},
-					src: path.join(wearableCircleAppRoot, "*/index.html")
+					src: path.join(wearableAppRoot, "*/index.html")
 				},
 				default: {
 					options: {
 						update: {selector:"link[href*='.circle.']",attribute:"media", value:MEDIA_QUERY.CIRCLE}
 					},
-					src: path.join(wearableCircleAppRoot, "*/index.html")
+					src: path.join(wearableAppRoot, "*/index.html")
 				}
 			}
 		});
