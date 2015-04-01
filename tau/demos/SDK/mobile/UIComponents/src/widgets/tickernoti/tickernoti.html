@@ -18,20 +18,6 @@
 		<div data-role="button" id="noti-icon1" data-inline="true">Change Icon - Phone</div>
 		<div data-role="button" id="noti-icon2" data-inline="true">Change Icon - Message</div><br>
 	</div><!-- /content -->
-	<script>
-	$( "#tikernoti-demo" ).on( "pageshow" , function() {
-		$( window ).on( "tizenhwkey", function ( ev ) {
-			if ( ev.originalEvent.keyName === "back" ) {
-				//bind callbacks to the H/W keys
-				window.history.back();
-			}
-		});
-	});
-	$( "#tikernoti-demo" ).on( "pagebeforehide" , function() {
-		//unbind callbacks to the H/W keys
-		$( window ).off( "tizenhwkey" );
-	});
-	</script>
 	<script type="text/javascript" src="noti.js"></script>
 </div> <!-- /page -->
 </body>

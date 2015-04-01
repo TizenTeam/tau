@@ -233,24 +233,6 @@
 
 	</div> <!-- /content -->
 	<script src="popupwindow.js"></script>
-	<script>
-	$( "#popupwindow-demo" ).on( "pageshow" , function() {
-		$( window ).on( "tizenhwkey", function ( ev ) {
-			if ( ev.originalEvent.keyName === "back" ) {
-				//bind callbacks to the H/W keys
-				window.history.back();
-				return false;
-			}
-		});
-		$('#noti-demo').on('vclick', function ( e ) {
-			$('#toast').notification('open');
-		});
-	});
-	$( "#popupwindow-demo" ).on( "pagebeforehide" , function() {
-		//unbind callbacks to the H/W keys
-		$( window ).off( "tizenhwkey" );
-	});
-	</script>
 </div> <!-- /page -->
 
 </body>

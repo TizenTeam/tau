@@ -64,20 +64,6 @@
 			</ul>
 		</div><!-- content -->
 	<script src="fastscroll.js"></script>
-	<script>
-	$( "#fastscroll-demo" ).on( "pageshow" , function() {
-		$( window ).on( "tizenhwkey", function ( ev ) {
-			if ( ev.originalEvent.keyName === "back" ) {
-				//bind callbacks to the H/W keys
-				window.history.back();
-			}
-		});
-	});
-	$( "#fastscroll-demo" ).on( "pagebeforehide" , function() {
-		//unbind callbacks to the H/W keys
-		$( window ).off( "tizenhwkey" );
-	});
-	</script>
 </div><!-- page -->
 </body>
 </html>

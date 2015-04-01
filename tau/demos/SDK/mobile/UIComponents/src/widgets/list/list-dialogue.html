@@ -233,20 +233,6 @@
 		</ul>
 		</form>
 	</div>
-	<script>
-	$( "#genlist-dialog" ).on( "pageshow" , function() {
-		$( window ).on( "tizenhwkey", function ( ev ) {
-			if ( ev.originalEvent.keyName === "back" ) {
-				//bind callbacks to the H/W keys
-				window.history.back();
-			}
-		});
-	});
-	$( "#genlist-dialog" ).on( "pagebeforehide" , function() {
-		//unbind callbacks to the H/W keys
-		$( window ).off( "tizenhwkey" );
-	});
-	</script>
 </div>
 
 </body>

@@ -20,20 +20,6 @@
 			<li class="ui-li-bubble-receive"><p>Picture test</p><img src="list-bubble-sample1.png" /><span class="ui-li-bubble-time">9:40 PM</span></li>
 		</ul>
 	</div>
-	<script>
-	$( "#genlist-bubble" ).on( "pageshow" , function() {
-		$( window ).on( "tizenhwkey", function ( ev ) {
-			if ( ev.originalEvent.keyName === "back" ) {
-				//bind callbacks to the H/W keys
-				window.history.back();
-			}
-		});
-	});
-	$( "#genlist-bubble" ).on( "pagebeforehide" , function() {
-		//unbind callbacks to the H/W keys
-		$( window ).off( "tizenhwkey" );
-	});
-	</script>
 </div>
 </body>
 </html>

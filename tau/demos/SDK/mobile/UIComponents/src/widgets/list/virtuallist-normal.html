@@ -24,20 +24,6 @@
 		</script>
         <ul id="virtuallist-normal_1line_ul"></ul>
 	</div>
-	<script>
-	$( "#virtuallist-normal_1line" ).on( "pageshow" , function() {
-		$( window ).on( "tizenhwkey", function ( ev ) {
-			if ( ev.originalEvent.keyName === "back" ) {
-				//bind callbacks to the H/W keys
-				window.history.back();
-			}
-		});
-	});
-	$( "#virtuallist-normal_1line" ).on( "pagebeforehide" , function() {
-		//unbind callbacks to the H/W keys
-		$( window ).off( "tizenhwkey" );
-	});
-	</script>
     <script>
         var pageId = "virtuallist-normal_1line",
             listId = "virtuallist-normal_1line_ul",

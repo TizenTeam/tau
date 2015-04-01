@@ -14,21 +14,7 @@
 			There are no conversations yet. You can add
 			a conversation by taping on the 'New' action
 			below or by tapping.
-	</div><!-- /content -->
-	<script>
-	$( "#emptystate-demo" ).on( "pageshow" , function() {
-		$( window ).on( "tizenhwkey", function ( ev ) {
-			if ( ev.originalEvent.keyName === "back" ) {
-				//bind callbacks to the H/W keys
-				window.history.back();
-			}
-		});
-	});
-	$( "#emptystate-demo" ).on( "pagebeforehide" , function() {
-		//unbind callbacks to the H/W keys
-		$( window ).off( "tizenhwkey" );
-	});
-	</script>
+	</div><!-- /content -->>
 </div><!-- /page -->
 </body>
 </html>

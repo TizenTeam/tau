@@ -14,20 +14,6 @@
 				<p>Title text Button 02 sample</p>
 			</ul>
 		</div>
-		<script>
-		$( "#navi_title_text_2" ).on( "pageshow" , function() {
-			$( window ).on( "tizenhwkey", function ( ev ) {
-				if ( ev.originalEvent.keyName === "back" ) {
-					//bind callbacks to the H/W keys
-					window.history.back();
-				}
-			});
-		});
-		$( "#navi_title_text_2" ).on( "pagebeforehide" , function() {
-			//unbind callbacks to the H/W keys
-			$( window ).off( "tizenhwkey" );
-		});
-		</script>
 	</div>
 </body>
 </html>

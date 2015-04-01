@@ -17,20 +17,6 @@
 					<input id="mySliderV9" name="mySliderV9" type="range" data-center="true" value="5" min="0" max="10" data-vertical="150">
 
 			</div><!-- /content -->
-			<script>
-			$( "#vertical-slider-demo" ).on( "pageshow" , function() {
-				$( window ).on( "tizenhwkey", function ( ev ) {
-					if ( ev.originalEvent.keyName === "back" ) {
-						//bind callbacks to the H/W keys
-						window.history.back();
-					}
-				});
-			});
-			$( "#vertical-slider-demo" ).on( "pagebeforehide" , function() {
-				//unbind callbacks to the H/W keys
-				$( window ).off( "tizenhwkey" );
-			});
-			</script>
 		</div> <!-- /page -->
 	</body>
 </html>

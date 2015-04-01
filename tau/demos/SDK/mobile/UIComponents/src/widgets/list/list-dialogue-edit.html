@@ -66,20 +66,6 @@
 
 		</ul>
 	</div>
-	<script>
-	$( "#genlist-dialog-edit" ).on( "pageshow" , function() {
-		$( window ).on( "tizenhwkey", function ( ev ) {
-			if ( ev.originalEvent.keyName === "back" ) {
-				//bind callbacks to the H/W keys
-				window.history.back();
-			}
-		});
-	});
-	$( "#genlist-dialog-edit" ).on( "pagebeforehide" , function() {
-		//unbind callbacks to the H/W keys
-		$( window ).off( "tizenhwkey" );
-	});
-	</script>
 	<script src="list-edit.js"></script>
 </div>
 </body>
