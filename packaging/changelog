@@ -1,4 +1,14 @@
 %changelog
+* Wed Apr 01 2015 Heeju Joo <heeju.joo@samsung.com> 0.10.9
+	- feat(wearable): add scroller on page and apply basic style
+	- refactor(wearable): apply new xml files for wc1
+	- fix(wearable): modify toast popup border issue
+	- fix(mobile): fix navigationbar create&destroy error
+	- refactor(wearable): add runOnlyOnEllipsisText option in Marquee
+	- feat(mobile): add custom css style for UIComonents
+	- fix(mobile): fix template(Tizen MultiPage)
+	- feat(wearble): integrate/rename wearable Sample apps
+
 * Thu Mar 26 2015 Junhyoen Lee <juneh.lee@samsung.com> 0.10.8
 	- etc(tool): Device details and results separated per device
 	- etc(tool): Simplified input test application
