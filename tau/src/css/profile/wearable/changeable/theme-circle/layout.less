@@ -52,7 +52,9 @@ body {
 }
 .ui-page {
 	background: @color_bg;
-	-webkit-mask-image: -webkit-radial-gradient(#000 50vw, transparent 0);
+	.mask-image('images/Common/masking_bg.png');
+	.mask-repeat(no-repeat);
+	.mask-size(100% 100%);
 	&::before {
 		content: "";
 		position: fixed;
