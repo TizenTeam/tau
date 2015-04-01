@@ -274,6 +274,7 @@
 				 */
 				classes = object.merge({
 					uiPageScroll: "ui-scroll-on",
+					uiScroller: "ui-scroller",
 					uiFixed: "ui-fixed"
 				}, Page.classes),
 
@@ -311,17 +312,28 @@
 					needTopMargin = false,
 					needBottomMargin = false,
 					i,
+					len,
 					node,
 					contentStyle,
 					marginTop,
 					marginBottom,
-					nodeStyle;
+					nodeStyle,
+					scroller,
+					fragment;
 
 				elementStyle.width = screenWidth + "px";
 				elementStyle.height = screenHeight + "px";
 
-				if (option.enablePageScroll === true) {
+				if (option.enablePageScroll === true && !element.children[0].classList.contains(classes.uiScroller)) {
 					element.classList.add(pageScrollSelector);
+					scroller = document.createElement("div");
+					scroller.classList.add(classes.uiScroller);
+					fragment = document.createDocumentFragment();
+					for (i=0,len=element.children.length;i<len;i++) {
+						fragment.appendChild(element.children[0]);
+					}
+					element.appendChild(scroller);
+					scroller.appendChild(fragment);
 				}
 
 				for (i = 0; i < childrenLength; i++) {

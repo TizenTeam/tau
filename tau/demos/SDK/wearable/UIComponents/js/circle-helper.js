@@ -2,6 +2,7 @@
 	var page,
 		pageWidget,
 		enablePageScroll,
+		elScroller,
 		list,
 		listHelper,
 		snapList,
@@ -16,12 +17,13 @@
 
 			pageWidget = tau.widget.page(page);
 			enablePageScroll = pageWidget.option("enablePageScroll");
+			elScroller = page.querySelector(".ui-scroller");
 			list = page.querySelector(".ui-listview");
 			header = page.querySelector(".ui-header:not(.ui-fixed)");
 
 			if (list && page.id !== "pageMarqueeList") {
 				listHelper = tau.helper.SnapListStyle.create(list);
-				page.setAttribute("tizen-circular-scrollbar", "");
+				elScroller.setAttribute("tizen-circular-scrollbar", "");
 			}
 
 			if (header && enablePageScroll) {
@@ -48,7 +50,7 @@
 			if (listHelper) {
 				listHelper.destroy();
 				listHelper = null;
-				page.removeAttribute("tizen-circular-scrollbar");
+				elScroller.removeAttribute("tizen-circular-scrollbar");
 			}
 
 			if (headerHelper) {

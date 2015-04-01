@@ -1,5 +1,6 @@
 (function() {
 	var page = document.getElementById("pageMarqueeList"),
+		elScroller,
 		listHelper,
 		headerCollapseHandler,
 		headerExpandHandler;
@@ -14,7 +15,12 @@
 			});
 
 			snapList = tau.widget.SnapListview(list);
-			page.setAttribute("tizen-circular-scrollbar", "");
+			elScroller = page.querySelector(".ui-scroller");
+			if(elScroller) {
+				elScroller.setAttribute("tizen-circular-scrollbar", "");
+			} else {
+				page.setAttribute("tizen-circular-scrollbar", "");
+			}
 
 			headerCollapseHandler = function() {
 				snapList.enable();
@@ -33,7 +39,11 @@
 		if (listHelper) {
 			listHelper.destroy();
 			listHelper = null;
-			page.removeAttribute("tizen-circular-scrollbar");
+			if(elScroller) {
+				elScroller.removeAttribute("tizen-circular-scrollbar");
+			} else {
+				page.removeAttribute("tizen-circular-scrollbar");
+			}
 
 			document.removeEventListener("headercollapse", headerCollapseHandler, false);
 			document.removeEventListener("headerbeforeexpand", headerExpandHandler, false);
