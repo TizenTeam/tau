@@ -6,48 +6,64 @@
 	<FontInfo id="T0211P" style="L" size="36" giant="true" />
 	<FontInfo id="T0211D" style="L" size="36" giant="true" />
 	<FontInfo id="T0211S" style="L" size="36" giant="true" />
-	<FontInfo id="T0212" style="R" size="36" giant="true" />
-	<FontInfo id="T022" style="R" size="24" />
-	<FontInfo id="T022P" style="R" size="24" />
-	<FontInfo id="T022D" style="R" size="24" />
-	<FontInfo id="T022S" style="R" size="24" />
+	<FontInfo id="T0212" style="L" size="36" giant="true" />
+	<FontInfo id="T0213" style="L" size="28" />
+	<FontInfo id="T0213P" style="L" size="28" />
+	<FontInfo id="T0213D" style="L" size="28" />
+	<FontInfo id="T022" style="L" size="24" />
+	<FontInfo id="T022P" style="L" size="24" />
+	<FontInfo id="T022D" style="L" size="24" />
+	<FontInfo id="T022S" style="L" size="24" />
 	<FontInfo id="T0231" style="L" size="24" />
 	<FontInfo id="T171" style="M" size="32" />
 	<FontInfo id="T181" style="L" size="28" />
 	<FontInfo id="T221" style="L" size="36" giant="true" />
 	<FontInfo id="T171P" style="M" size="32" />
 	<FontInfo id="T181P" style="L" size="28" />
-	<FontInfo id="T013" style="L" size="32" />
-	<FontInfo id="T014" style="R" size="36" />
+	<FontInfo id="T013" style="L" size="28" />
+	<FontInfo id="T014" style="M" size="32" />
+	<FontInfo id="T024" style="L" size="24" />
+	<FontInfo id="T024P" style="L" size="24" />
+	<FontInfo id="T024D" style="L" size="24" />
+	<FontInfo id="T024S" style="L" size="24" />
+	<FontInfo id="T015" style="L" size="24" />
 	<FontInfo id="T0311" style="L" size="22" />
 	<FontInfo id="T0311P" style="L" size="22" />
-	<FontInfo id="T0312" style="R" size="70" />
+	<FontInfo id="T0312" style="L" size="70" />
 	<FontInfo id="T0312P" style="L" size="80" />
 	<FontInfo id="T0314" style="L" size="32" />
 	<FontInfo id="T041" style="L" size="32" />
 	<FontInfo id="T041P" style="L" size="32" />
 	<FontInfo id="T041D" style="L" size="32" />
 	<FontInfo id="T041S" style="L" size="32" />
-	<FontInfo id="T191" style="R" size="28" />
-	<FontInfo id="T271" style="L" size="42" />
-	<FontInfo id="T271P" style="L" size="42" />
-	<FontInfo id="T271S" style="L" size="64" />
-	<FontInfo id="T271D" style="L" size="42" />
-	<FontInfo id="T272" style="L" size="39" />
-	<FontInfo id="T272P" style="L" size="39" />
-	<FontInfo id="T272S" style="L" size="46" />
-	<FontInfo id="T272D" style="L" size="39" />
-	<FontInfo id="T071" style="L" size="30" giant="true" />
+	<FontInfo id="T191" style="M" size="32" />
+	<FontInfo id="T271" style="L" size="65" />
+	<FontInfo id="T271P" style="L" size="65" />
+	<FontInfo id="T271S" style="L" size="65" />
+	<FontInfo id="T271D" style="L" size="65" />
+	<FontInfo id="T271SP" style="L" size="65" />
+	<FontInfo id="T272" style="L" size="50" />
+	<FontInfo id="T272P" style="L" size="50" />
+	<FontInfo id="T272S" style="L" size="50" />
+	<FontInfo id="T272D" style="L" size="50" />
+	<FontInfo id="T272SP" style="L" size="50" />
+	<FontInfo id="T273" style="L" size="24" />
+	<FontInfo id="T273P" style="L" size="24" />
+	<FontInfo id="T273S" style="L" size="24" />
+	<FontInfo id="T273D" style="L" size="24" />
+	<FontInfo id="T273SP" style="L" size="24" />
+	<FontInfo id="T274" style="L" size="55" />
+	<FontInfo id="T274P" style="L" size="55" />
+	<FontInfo id="T274S" style="L" size="55" />
+	<FontInfo id="T274D" style="L" size="55" />
+	<FontInfo id="T274SP" style="L" size="55" />
+	<FontInfo id="T071" style="L" size="24" giant="true" />
 	<FontInfo id="T0811" style="L" size="36" giant="true" />
-	<FontInfo id="T0812" style="R" size="30" giant="true" />
+	<FontInfo id="T0812" style="L" size="30" giant="true" />
 	<FontInfo id="T091" style="M" size="30" />
 	<FontInfo id="T092" style="L" size="32" giant="true" />
-	<FontInfo id="T093" style="L" size="28" />
-	<FontInfo id="T093P" style="L" size="28" />
-	<FontInfo id="T093D" style="L" size="28" />
 	<FontInfo id="T097" style="L" size="32" giant="true" />
 	<FontInfo id="T151" style="L" size="40" />
+	<FontInfo id="T098" style="L" size="32" />
 	<FontInfo id="T161" style="L" size="28" />
-	<FontInfo id="T201" style="L" size="24" />
-	<FontInfo id="T251" style="L" size="28" />
 </FontInfoTable>
