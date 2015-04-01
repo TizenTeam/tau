@@ -1,59 +1,111 @@
 /***************************************************************************
                   checkbox / radio button
 ***************************************************************************/
+input[type="checkbox"]:not(.ui-switch-input),
+input[type="radio"] {
+	height: 86px;
+	width: 86px;
+	background-color: transparent;
+	background-image: -webkit-radial-gradient(transparent, transparent 60%, @color_checkboxradio_uncheck_line 62%, @color_checkboxradio_uncheck_line 69%, transparent 71%, transparent);
+}
+
 input[type="checkbox"]:not(.ui-switch-input) {
-	background-color: @color_checkboxradio_checkbox;
-	&::after {
-		background-color: @color_checkboxradio_checkbox_line;
-	}
-	&:checked::before {
-		background-color: @color_checkboxradio_check;
-	}
+	-webkit-mask-image: none;
+	// gray check mark(when unchecking) & green background(when checking)
 	&::before {
 		content: "";
-		-webkit-mask-image: url(images/Controller_icon/tw_btn_check_holo_dark.png);
-		-webkit-mask-repeat: no-repeat;
-		background-color: @color_checkboxradio_check;
-		width: 0;
-		height: 56px;
+		.mask-image('images/Controller_icon/Check/tw_btn_check_holo_dark.png');
+		background-color: @color_checkboxradio_uncheck;
+		height: 100%;
+		width: 100%;
+		border-radius: 50%;
+		opacity: 0.5;
+		.transition(opacity 300ms ease-out);
 		position: absolute;
-		-webkit-transition: width 150ms;
+		.mask-size(100%);
+		.mask-position(center bottom);
 	}
-	&:active {
-		background-color: @color_checkboxradio_checkbox_press;
+	// check mark
+	&::after {
+		.mask-image('images/Controller_icon/Check/tw_btn_check_holo_dark.png');
+		.mask-repeat(repeat);
+		.mask-position(center bottom);
+		background-color: @color_checkboxradio_check;
+		height: 0;
+		.transition-property(height);
+		.transition-duration(300ms);
+		bottom: 0;
+		.mask-size(100%);
+	}
+	&:checked {
 		&::after {
-			background-color: @color_checkboxradio_checkbox_line_press;
+			height: 100%;
 		}
-		&:checked::before {
-			background-color: @color_checkboxradio_check_press;
+		&::before {
+			-webkit-mask-image: none;
+			opacity: 1;
+			background-color: @color_checkboxradio_checkbox_bg;
+		}
+	}
+
+	&:active {
+		-webkit-mask-image: none;
+		background-color: transparent;
+		&::after {
+			width: 100%;
+			height: 0;
+		}
+		&:checked {
+			&::before {
+				background-color: @color_checkboxradio_checkbox_bg;
+				width: 100%;
+				height: 100%;
+			}
+			&::after {
+				background-color: @color_checkboxradio_check;
+				height: 100%;
+			}
 		}
 	}
 }
 
 input[type="radio"] {
-	background-color: @color_checkboxradio_radiobox;
+	background-color: transparent;
+	-webkit-mask-image: none;
 	&::after {
-		background-color: @color_checkboxradio_radiobox_line;
+		content: none;
 	}
 	&::before {
 		content: "";
 		background-color: @color_checkboxradio_radio;
-		-webkit-mask-image: url(images/Controller_icon/tw_btn_radio_holo_dark.png);
-		-webkit-mask-repeat: no-repeat;
-		width: 56px;
-		height: 56px;
+		.mask-image('images/Controller_icon/Radio/tw_btn_radio_holo_dark.png');
+		.mask-repeat(no-repeat);
+		width: 100%;
+		height: 100%;
+		.mask-size(100% 100%);
 		position: absolute;
-		-webkit-transform: scale3d(0,0,0);
-		-webkit-transition: -webkit-transform 150ms;
+		.transform(scale3d(0.2, 0.2, 0.2));
+		opacity: 0;
+		.transition(all 300ms);
 	}
 	&:checked::before {
 		background-color: @color_checkboxradio_radio;
-		-webkit-transform: scale3d(1,1,1);
+		.mask-image('images/Controller_icon/Radio/tw_btn_radio_holo_dark.png');
+		.transform(scale3d(1,1,1));
+		opacity: 1;
 	}
 	&:active {
-		background-color : @color_checkboxradio_radiobox_press;
+		background-color: transparent;
+		-webkit-mask-image: initial;
+		&::after {
+			content: none;
+		}
 		&:checked::before {
-			background-color: @color_checkboxradio_radio_press;
+			background-color: @color_checkboxradio_radio;
+			.mask-image('images/Controller_icon/Radio/tw_btn_radio_holo_dark.png');
+		}
+		&:checked::after {
+			content: none;
 		}
 	}
 }
