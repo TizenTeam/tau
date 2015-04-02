@@ -3,6 +3,10 @@
 ***************************************************************************/
 .ui-page-indicator-item {
 	background-color: @color_page_indicator_normal;
+	width: 10 * @unit_base;
+	height: 10 * @unit_base;
+	-webkit-mask-image: -webkit-radial-gradient(black 3 * @unit_base, transparent 5 * @unit_base);
+	margin-right: 8 * @unit_base;
 	&.ui-page-indicator-active {
 		background-color: @color_page_indicator_selected;
 	}
