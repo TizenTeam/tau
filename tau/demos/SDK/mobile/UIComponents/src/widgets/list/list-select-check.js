@@ -1,44 +1,46 @@
-var page = document.getElementById("listcheck"),
-	selectAll = tau.widget.Checkboxradio(document.getElementsByName("check")[0]),
-	navSelectAll = document.getElementById("navSelectAll"),
-	check = [],
-	isAll = false;
-
-check[0] = tau.widget.Checkboxradio(document.getElementsByName("select-check1")[0]);
-check[1] = tau.widget.Checkboxradio(document.getElementsByName("select-check2")[0]);
-check[2] = tau.widget.Checkboxradio(document.getElementsByName("select-check3")[0]);
-
+/* global tau*/
+var selectAll = tau.widget.Checkboxradio(document.getElementsByName("check")[0]),
+	checkboxWidgets = [
+		tau.widget.Checkboxradio(document.getElementsByName("select-check1")[0]),
+		tau.widget.Checkboxradio(document.getElementsByName("select-check2")[0]),
+		tau.widget.Checkboxradio(document.getElementsByName("select-check3")[0])
+	];
 
 function checkAllCheckbox() {
-	var val = selectAll.value() === null ? false : true,
+	var val = selectAll.value() === null,
+		len = checkboxWidgets.length,
 		i;
-	for ( i in check ) {
-		if( check.hasOwnProperty(i) ) {
-			check[i].element.checked = val;
-			check[i].refresh();
-		}
+
+	for (i = 0; i < len; i++) {
+		checkboxWidgets[i].element.checked = !val;
+		checkboxWidgets[i].refresh();
 	}
-	isAll = val === true ? true : false;
 }
 
-function checkCheckboxs(event) {
-	if (!isAll) {
-		if (event.target.getAttribute("name") !== "check") {
-			selectAll.element.checked = false;
-			selectAll.refresh();
-		}
-		return;
-	}
-	isAll = false;
-}
-
-function onNavBtnClick() {
-	var val = selectAll.value() === null ? true : false;
-	selectAll.element.checked = val;
+function checkAll() {
+	selectAll.element.checked = (selectAll.value() === null);
 	selectAll.refresh();
 	selectAll.trigger("change");
 }
 
+function watchCheckboxes() {
+	"use strict";
+	var allSelected = true,
+		i = checkboxWidgets.length - 1;
+
+	while(i >= 0 && allSelected) {
+		allSelected = checkboxWidgets[i].value() !== null;
+		i--;
+	}
+
+	selectAll.element.checked = allSelected;
+	selectAll.refresh();
+}
+
+// Attach event listeners
 selectAll.on("change", checkAllCheckbox);
-page.addEventListener("change", checkCheckboxs);
-navSelectAll.addEventListener("click", onNavBtnClick);
+
+// Listen to every checkbox and check/uncheck "select all" on change
+checkboxWidgets.forEach(function (checkbox) {
+	checkbox.on("change", watchCheckboxes);
+});
