@@ -443,20 +443,24 @@ li.static::before {
 	height: 82px;
 	line-height: 82px;
 	margin-top: 16px;
-	padding-left: 68px;
+	padding-left: 75px;
 	position: relative;
 	vertical-align: middle;
 }
 .content-input-box > input[type="checkbox"] {
 	position: absolute;
-	left: 0;
-	top: 15px;
+	left: 15px;
+	top: 50%;
+	transform: translate3d(0, -50%, 0);
 }
 .content-input-box.multi-line {
 	display: block;
-	padding-left: 66px;
+	padding-left: 75px;
 	margin-top: 16px;
 	line-height: inherit;
+}
+.content-input-box-sub-text {
+    display: block;
 }
 /* --------------------------------Toggle Switch------------------------------ */
 .ui-toggleswitch {
@@ -479,13 +483,13 @@ li.static::before {
 	text-align: center;
 }
 input[type="checkbox"]#checkboxControl {
-	margin-left: 50%;
-	-webkit-transform: translateX(-50%);
+    display: block;
+    left: 50%;
+    transform: translate3d(-50%, 0, 0);
 }
 .radio-sample-container {
-	display: inline-block;
-	margin-left: 50%;
-	-webkit-transform: translateX(-50%);
+    width: 100%;
+    text-align: center;
 }
 /* --------------------------------Processing in circle------------------------------ */
 .small-processing-container {
