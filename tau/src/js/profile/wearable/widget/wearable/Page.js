@@ -276,7 +276,7 @@
 					uiPageScroll: "ui-scroll-on",
 					uiScroller: "ui-scroller",
 					uiFixed: "ui-fixed"
-				}, Page.classes),
+				}, CorePage.classes),
 
 				prototype = new CorePage();
 
