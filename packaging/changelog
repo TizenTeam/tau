@@ -1,4 +1,12 @@
 %changelog
+* Thu Apr 02 2015 Heeju Joo <heeju.joo@samsung.com> 0.10.10
+	- feat(mobile): fix page back method in TAU mobile Templates
+	- refector(tool) fix sample app paths for changing shape mideaquery.
+	- fix(mobile): modify page back(hwback) method
+	- fix(mobile) less: back button doesn't work when a popup is open
+	- fix(mobile): make overflow style of page to hidden
+	- refactor(wearable): remove vw masking and apply image masking
+
 * Wed Apr 01 2015 Heeju Joo <heeju.joo@samsung.com> 0.10.9
 	- feat(wearable): add scroller on page and apply basic style
 	- refactor(wearable): apply new xml files for wc1
