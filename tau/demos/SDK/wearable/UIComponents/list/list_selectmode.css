@@ -125,6 +125,12 @@
 .select-popup .ui-listview {
     margin: 0;
 }
+.select-popup .ui-listview::before {
+    display: none;
+}
+.select-popup .ui-listview::after {
+    display: none;
+}
 .select-popup .ui-listview li {
     font-size: 1.75rem;
     text-align: center;
@@ -141,7 +147,7 @@
 .select-popup .ui-listview li a {
     color: rgba(245, 245, 245, 1);
     padding: 27px 0;
-    margin: -29px -40px;
+    margin: -43px -40px;
     margin-left: 0;
     margin-right: 0;
 }

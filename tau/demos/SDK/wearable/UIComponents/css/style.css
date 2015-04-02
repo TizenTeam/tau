@@ -39,6 +39,7 @@
 .ui-listview.expand-list li.li-has-2line.ui-snap-listview-selected .ui-marquee{
 	-webkit-transform: translate3d(0, 0, 0);
 	-webkit-transition: all ease 1s;
+	margin-top: -10px;
 }
 
 .ui-listview.expand-list li.li-has-2line .ui-li-sub-text{
@@ -84,6 +85,12 @@
         padding-bottom: 5px;
         min-height: 100px;
 }
+.ui-listview.ui-snap-listview li.li-has-multiline {
+	padding-top: 9px;
+	padding-bottom: 8px;
+	min-height: 130px;
+	line-height: initial;
+}
 .ui-listview li.li-has-radio.disabled,
 .ui-listview li.li-has-radio.disabled > *,
 .ui-listview li.li-has-checkbox.disabled,
@@ -100,7 +107,11 @@
         padding-top: 11px;
         padding-bottom: 12px;
 }
-
+.ui-listview.ui-snap-listview li.li-has-multiline > a {
+	margin-top: 0;
+	padding-top: 5px;
+	padding-bottom: 4px;
+}
 .ui-listview li.li-has-multiline-sup {
         padding-top: 6px;
         padding-bottom: 5px;
@@ -119,8 +130,15 @@
 .ui-listview li input[type="radio"] {
         position: absolute;
         right: 30px;
-        top: 0px;
+        top: 0;
         margin-top: 25px;
+}
+.ui-listview.ui-snap-listview li input[type="checkbox"]:not(.ui-switch-input),
+.ui-listview.ui-snap-listview li input[type="radio"] {
+	position: absolute;
+	right: 30px;
+	top: 0;
+	margin-top: 21px;
 }
 .ui-listview .li-has-toggle .ui-toggleswitch {
 	position: absolute;
@@ -148,8 +166,14 @@
 	margin-left: -38px;
 	margin-right: -8px;
 }
-.ui-listview li.li-has-thumb-left label{
-	padding: 31.5px 40px 31.5px 102px;
+.ui-listview.ui-snap-listview li.li-has-checkbox label,
+.ui-listview.ui-snap-listview li.li-has-radio label,
+.ui-listview.ui-snap-listview li.li-has-toggle > label,
+.ui-listview.ui-snap-listview li.li-has-thumb-right label{
+	padding: 27px 94px 21px 40px;
+}
+.ui-listview.ui-snap-listview li.li-has-thumb-left label{
+	padding: 27px 40px 21px 102px;
 }
 .ui-listview li img {
 	position: absolute;
@@ -191,6 +215,18 @@
 	margin-left: -16px;
 	margin-right: -16px;
 }
+.ui-listview.ui-snap-listview li.li-has-multiline.li-has-checkbox label,
+.ui-listview.ui-snap-listview li.li-has-multiline.li-has-radio label,
+.ui-listview.ui-snap-listview li.li-has-multiline.li-has-toggle label:not(.ui-toggleswitch) {
+	padding-right: 104px;
+}
+.ui-listview.ui-snap-listview li.li-has-multiline.li-has-checkbox label,
+.ui-listview.ui-snap-listview li.li-has-multiline.li-has-radio label,
+.ui-listview.ui-snap-listview li.li-has-multiline.li-has-toggle label:not(.ui-toggleswitch),
+.ui-listview.ui-snap-listview li.li-has-multiline.li-has-thumb-right label,
+.ui-listview.ui-snap-listview li.li-has-multiline.li-has-thumb-left label {
+	padding-top: 27px;
+}
 .ui-listview li.li-has-multiline.li-has-thumb-left label {
 	padding-left: 64px;
 	padding-right: 40px;
@@ -206,10 +242,9 @@
 	left: 50%;
 	margin-left: -50px;
 
-	height: 79px;
+	height: 75px;
 	width: 100px;
-	border: 5px solid rgb(29, 72, 105);
-	line-height: 79px;
+	line-height: 75px;
 	border-radius: 40px;
 
 	text-align: center;
@@ -219,10 +254,13 @@
 }
 .select-btn-text {
 	display: block;
-	line-height: 69px;
+	line-height: 75px;
 }
 .ui-listview li.select {
 	background-color: rgb(8, 42, 57);
+}
+.ui-listview.ui-snap-listview li.select {
+	background-color: initial;
 }
 li.static::before {
 	content:"";
@@ -325,7 +363,7 @@ li.static::before {
 	width: 2px;
 	background-color: rgba(245, 245, 245, 1);
 	right: 87px;
-	top: 25%;
+	top: 30%;
 }
 .li-has-action-icon .li-action-icon-button {
 	position: absolute;
