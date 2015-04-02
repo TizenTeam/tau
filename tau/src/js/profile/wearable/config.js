@@ -20,7 +20,7 @@
 			ns.setConfig("autoBuildOnPageChange", false, true);
 
 			if(ns.support.shape.circle) {
-				ns.setConfig("pageTransition", "pop");
+				ns.setConfig("pageTransition", "slideup");
 				ns.setConfig("popupTransition", "slideup");
 				ns.setConfig("popupFullSize", true);
 				ns.setConfig("scrollEndEffectArea", "screen");
