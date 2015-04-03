@@ -157,14 +157,16 @@
 .ui-listview li.li-has-checkbox label,
 .ui-listview li.li-has-radio label,
 .ui-listview li.li-has-toggle > label,
-.ui-listview li.li-has-thumb-right label,
-.ui-listview li.li-has-thumb-left label{
+.ui-listview li.li-has-thumb-right label {
 	display: block;
 	padding: 31.5px 94px 31.5px 40px;
 	margin-top: -30px;
 	margin-bottom: -21px;
 	margin-left: -38px;
 	margin-right: -8px;
+}
+.ui-listview li.li-has-thumb-left label {
+    padding-left: 70px;
 }
 .ui-listview.ui-snap-listview li.li-has-checkbox label,
 .ui-listview.ui-snap-listview li.li-has-radio label,
