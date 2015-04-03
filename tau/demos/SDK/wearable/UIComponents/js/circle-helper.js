@@ -13,7 +13,7 @@
 		i, len;
 
 	if (tau.support.shape.circle) {
-		document.addEventListener("pageshow", function (e) {
+		document.addEventListener("pagebeforeshow", function (e) {
 			page = e.target;
 
 			pageWidget = tau.widget.page(page);
@@ -47,7 +47,7 @@
 			}
 		});
 
-		document.addEventListener("pagehide", function (e) {
+		document.addEventListener("pagebeforehide", function (e) {
 			len = listHelper.length;
 			if (len) {
 				if (headerHelper) {

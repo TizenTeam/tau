@@ -5,7 +5,7 @@
 		headerCollapseHandler,
 		headerExpandHandler;
 
-	page.addEventListener( "pageshow", function() {
+	page.addEventListener( "pagebeforeshow", function() {
 		var list = page.querySelector(".ui-listview"),
 			snapList;
 
@@ -35,7 +35,7 @@
 		}
 	});
 
-	page.addEventListener( "pagehide", function() {
+	page.addEventListener( "pagebeforehide", function() {
 		if (listHelper) {
 			listHelper.destroy();
 			listHelper = null;
