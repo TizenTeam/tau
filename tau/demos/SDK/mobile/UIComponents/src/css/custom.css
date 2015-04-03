@@ -75,7 +75,7 @@
 	height: 400px;
 }
 .ui-btn{
-	width: 100%;
+	width: auto;
 }
 
 .layout-page .ui-box-linear-horizont {
