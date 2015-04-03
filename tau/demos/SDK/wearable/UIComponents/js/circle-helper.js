@@ -62,6 +62,8 @@
 					}
 				}
 				listHelper = [];
+			}
+			if (elScroller) {
 				elScroller.removeAttribute("tizen-circular-scrollbar");
 			}
 		});
