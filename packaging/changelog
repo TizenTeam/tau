@@ -1,4 +1,31 @@
 %changelog
+* Fri Apr 03 2015 Hagun Kim <hagun.kim@samsung.com> 0.10.11
+	- integrate(common): integrate Drawer component
+	- refactor(wearable): remove virtual list from demo app
+	- refactor(wearable): fix snaplist create and destroy timing
+	- refactor(wearable): fix app css style for divider list
+	- fix(wearable): remove list section on section changer page.
+	- refactor(wearable): fix app css style for thumbnail list
+	- fix(mobile): fix incorrect style css in mobile sample(TMWC-433)
+	- fix(wearable): modify incorrect color code value
+	- fix(wearable): fix circular scrollbar attribute remove issue
+	- etc(tool): update TAU release script(2.3.1SDK version)
+	- fix(core): fix activeClass remove issue in anchorHighlight
+	- feat(wearable) : apply latest list style of WC1
+	- refactor(wearable): fix position of checkbox and radio in demo app
+	- refactor(wearable): remove swipe list sample and fix demo title.
+	- feat(wearable): modify animation of  page transition
+	- feat(wearable): apply popup style for tizen 2.3.1
+	- refactor(wearable): adjust size of page indicator
+	- feat(wearable): apply bottom button style for tizen 2.3.1
+	- refactor(wearable): fix title style for wc1
+	- refactor(wearable): fix body text style for wc1
+	- feat(wearable) apply marquee style for tizen 2.3.1
+	- refactor(wearable): apply toggle switch style for wc1
+	- feat(wearable): processing animation
+	- fix(mobile): UIComponent select all list issue fix
+	- refactor(wearable): apply checkbox and radio button style for wc1
+	- fix(wearable): fix typo in wearable page widget
 * Thu Apr 02 2015 Heeju Joo <heeju.joo@samsung.com> 0.10.10
 	- feat(mobile): fix page back method in TAU mobile Templates
 	- refector(tool) fix sample app paths for changing shape mideaquery.
