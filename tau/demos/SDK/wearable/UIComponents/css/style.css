@@ -365,7 +365,8 @@ li.static::before {
 	width: 2px;
 	background-color: rgba(245, 245, 245, 1);
 	right: 87px;
-	top: 30%;
+	top: 50%;
+	transform: translate3d(0, -50%, 0);
 }
 .li-has-action-icon .li-action-icon-button {
 	position: absolute;
