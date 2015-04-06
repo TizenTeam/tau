@@ -181,15 +181,15 @@
 	position: absolute;
 	top: 50%;
 	-webkit-transform: translate3d(0, -50%, 0);
-	width: 56px;
-	height: 56px;
+	width: 86px;
+	height: 86px;
 	background-color: rgba(245, 245, 245, 1);
 }
 .ui-listview li.li-has-thumb-right img {
-	right: 16px;
+	right: 15px;
 }
 .ui-listview li.li-has-thumb-left img {
-	left: 16px;
+	left: 15px;
 }
 @media all and (-tizen-geometric-shape: circle) {
 	.ui-listview li.li-has-thumb-left label {
@@ -275,11 +275,12 @@ li.static::before {
 	left: 40%;
 	-webkit-transform: translateX(-50%);
 	-webkit-transition: width 150ms, left 150ms;
-}li.select::before {
+}
+li.select::before {
 	content:"";
 	-webkit-mask-image: url(../list/images/tw_list_check_ic.png);
 	-webkit-mask-repeat: no-repeat;
-	background-color: rgba(112, 186, 15, 1);
+	background-color: rgba(115, 191, 15, 1);
 	width: 56px;
 	height: 56px;
 	position: absolute;
@@ -287,10 +288,38 @@ li.static::before {
 	-webkit-transform: translateX(-50%);
 	-webkit-transition: width 150ms, left 150ms;
 }
+li.select::after {
+	content:"";
+	-webkit-mask-image: url(../list/images/tw_list_check_line.png);
+	-webkit-mask-repeat: no-repeat;
+	background-color: rgba(224, 224, 224, 1);
+	width: 56px;
+	height: 56px;
+	position: absolute;
+	left: 50%;
+	-webkit-transform: translateX(-50%);
+	-webkit-transition: width 150ms, left 150ms;
+}
+
 .ui-listview-li li img {
 	height: 56px;
 	width: 56px;
 	background-color: rgb(8, 42, 57);
+}
+
+.ui-listview.ui-snap-listview li{
+	-webkit-mask-image : -webkit-linear-gradient(left,transparent,#fff 30%,#fff 70%,transparent);
+}
+
+.ui-listview.ui-snap-listview li.li-has-thumb-right,
+.ui-listview.ui-snap-listview li.li-has-thumb-left,
+.ui-listview.ui-snap-listview li.li-has-action-icon,
+.ui-listview.ui-snap-listview li.li-has-toggle,
+.ui-listview.ui-snap-listview li.li-has-checkbox,
+.ui-listview.ui-snap-listview li.li-has-radio,
+.ui-listview.ui-snap-listview li.ui-li-btn
+{
+	-webkit-mask-image: none;
 }
 /* ------------------------------------------------------------------------------ */
 /* -----------------------------------  NEXT DEPTH------------------------------------ */
@@ -361,17 +390,17 @@ li.static::before {
 .li-has-action-icon .li-action-text::after {
 	content: "";
 	position: absolute;
-	height: 56px;
+	height: 60px;
 	width: 2px;
-	background-color: rgba(245, 245, 245, 1);
-	right: 87px;
+	background-color: rgba(8, 8, 8, 0.3);
+	right: 103px;
 	top: 50%;
 	transform: translate3d(0, -50%, 0);
 }
 .li-has-action-icon .li-action-icon-button {
 	position: absolute;
 	height: 100%;
-	width: 68px;
+	width: 86px;
 	right: 0;
 	top: 0;
 	-webkit-mask-size: 53px 53px;
@@ -379,7 +408,8 @@ li.static::before {
 	-webkit-mask-position: center center;
 	padding: 0;
 	margin: 0;
-	margin-right: 20px;
+	margin-left:2px;
+	margin-right: 15px;
 }
 .li-has-action-icon .li-action-icon-button.li-action-delete {
 	-webkit-mask-image: url(../list/images/tw_list_delete_holo_dark.png);

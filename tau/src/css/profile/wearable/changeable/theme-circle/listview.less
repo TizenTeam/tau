@@ -1,5 +1,5 @@
 /***************************************************************************
-                  listview
+				  listview
 ***************************************************************************/
 .ui-listview {
 	li {
@@ -86,7 +86,7 @@
 		}
 
 		&::before {
-			content:"";
+			content: "";
 			position: absolute;
 			width: 96%;
 			height: @list_item_min_height;
@@ -100,7 +100,7 @@
 			z-index: -2;
 		}
 		&::after {
-			content:"";
+			content: "";
 			position: absolute;
 			width: 96%;
 			height: @list_item_min_height;
@@ -114,26 +114,49 @@
 			z-index: -1;
 		}
 
-		&:active::before {
-			background-color: @color_listview_focus_press;
-		}
-		&:active::after {
-			background-color: @color_listview_focus_ef_press;
-		}
-
 		&.ui-state-disabled {
 			position: relative;
 			&::before {
 				top: 0;
 				transform: translate3d(-50%, 0, 0);
 			}
-			&::after {
+		  	&::after {
 				top: 0;
 				transform: translate3d(-50%, 0, 0);
 			}
-
-			&:active::before {
-				background-color: @color_listview_focus_press;
+		}
+		li {
+			&.ui-li-active {
+				background-color: transparent;
+				color: @color_listview_text_press;
+				&::before {
+					content: "";
+					position: absolute;
+					width: 96%;
+					height: @list_item_min_height;
+					left: 50%;
+					top: 50%;
+					transform: translate3d(-50%, -50%, 0);
+					background-color: @color_listview_focus_press;
+					.mask-image('images/listview/b_list_focus_bg.png');
+					.mask-repeat(no-repeat);
+					.mask-size(100% 100%);
+					z-index: -2;
+				}
+				&::after {
+					content: "";
+					position: absolute;
+					width: 96%;
+					height: @list_item_min_height;
+					left: 50%;
+					top: 50%;
+					transform: translate3d(-50%, -50%, 0);
+					background-color: @color_listview_focus_ef_press;
+					.mask-image('images/listview/b_list_focus_bg_ef.png');
+					.mask-repeat(no-repeat);
+					.mask-size(100% 100%);
+					z-index: -1;
+				}
 			}
 		}
 	}
