@@ -508,6 +508,16 @@ li.select::after {
 	background-color: rgba(0, 149, 255, 1);
 	-webkit-mask-image: url(../popup/images/tw_ic_popup_btn_delete.png);
  }
+@media all and (-tizen-geometric-shape: circle) {
+	.ui-popup-content .btn-additional {
+		width: 160px;
+		height: 160px;
+		border-radius: 50% 50%;
+		background-color: rgba(10, 64, 94, 1);
+		margin: 19px auto auto;
+		padding: 59px 5px;
+	}
+}
 /* -----------------------------------Content------------------------------------ */
 .content-input-box {
 	display: block;

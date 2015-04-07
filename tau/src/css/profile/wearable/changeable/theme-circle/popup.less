@@ -65,12 +65,17 @@ Normal Popup
 	.ui-popup-content {
 		color: @color_popup_content_text;
 		background-color: transparent;
-		padding: 16% 19% 4% 19%;
+		padding: 16% 8% 4%;
 		text-align: center;
 		.ui-listview,
 		.ui-inline-listview {
 			margin: -25 * @unit_base -55 * @unit_base -16 * @unit_base -55 * @unit_base;
 		}
+	}
+
+	&.ui-has-side-buttons .ui-popup-content{
+		padding-left: 19%;
+		padding-right: 19%;
 	}
 
 	.ui-popup-footer.ui-side-button{
@@ -122,13 +127,14 @@ Normal Popup
 		width: 0;
 		height: 0;
 		.ui-btn {
+			position: absolute;
 			top: 100%;
 			left: 50%;
 			height: 195%;
 			width: 195%;
 			border-radius: 50%;
 			border: none;
-			position: absolute;
+			padding: 8% 22% 175%;
 			-webkit-transition: all 150ms ease-out;
 			-webkit-transform: translate3d(-50%, 0, 0);
 
