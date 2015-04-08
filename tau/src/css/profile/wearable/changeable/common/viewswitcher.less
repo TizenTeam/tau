@@ -1,0 +1,28 @@
+.ui-view-switcher {
+	height: 100%;
+	overflow: hidden;
+	&.ui-animation-carousel {
+		.ui-view {
+			display: none;
+			position: absolute;
+			height: 100%;
+			z-index: -1000;
+			background-color: @color_moreoptions_side_bg;
+			&.ui-view-active {
+				display: inline;
+				z-index: 100;
+				left: 50%;
+				transform: translate3d(-50%, 0, 0);
+				background-color: @color_moreoptions_bg;
+			}
+			&.ui-view-next {
+				display: inline;
+				right: 0;
+			}
+			&.ui-view-previous {
+				display: inline;
+				left: 0;
+			}
+		}
+	}
+}
