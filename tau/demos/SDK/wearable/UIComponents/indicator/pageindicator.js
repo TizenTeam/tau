@@ -1,8 +1,9 @@
 (function() {
 
 var self = this,
-	page = document.getElementById( "pageIndicatorPage" ),
-	changer = document.getElementById( "hsectionchanger" ),
+	page = document.getElementById("pageIndicatorPage"),
+	changer = document.getElementById("hsectionchanger"),
+	sections = document.querySelectorAll("section"),
 	sectionChanger,
 	elPageIndicator = document.getElementById("pageIndicator"),
 	pageIndicator,
@@ -10,7 +11,7 @@ var self = this,
 
 page.addEventListener( "pagebeforeshow", function() {
 	// make PageIndicator
-	pageIndicator =  tau.widget.PageIndicator(elPageIndicator, { numberOfPages: 8 });
+	pageIndicator =  tau.widget.PageIndicator(elPageIndicator, { numberOfPages: sections.length });
 	pageIndicator.setActive(0);
 	// make SectionChanger object
 	sectionChanger = new tau.widget.SectionChanger(changer, {
