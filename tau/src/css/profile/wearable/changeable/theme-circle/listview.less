@@ -87,7 +87,7 @@
 
 		&::before {
 			content: "";
-			position: absolute;
+			position: fixed;
 			width: 96%;
 			height: @list_item_min_height;
 			left: 50%;
@@ -101,7 +101,7 @@
 		}
 		&::after {
 			content: "";
-			position: absolute;
+			position: fixed;
 			width: 96%;
 			height: @list_item_min_height;
 			left: 50%;
@@ -119,10 +119,12 @@
 			&::before {
 				top: 0;
 				transform: translate3d(-50%, 0, 0);
+				position: absolute;
 			}
 		  	&::after {
 				top: 0;
 				transform: translate3d(-50%, 0, 0);
+				position: absolute;
 			}
 		}
 		li {
