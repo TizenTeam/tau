@@ -1,4 +1,23 @@
 %changelog
+* Wed Apr 08 2015 Hagun Kim <hagun.kim@samsung.com> 0.10.12
+	- feat(common): add ViewSwitcher component
+	- refactor(wearable): change position of list highlight
+	- feat(common): delete build requirement of spec
+	- fix(mobile) demos: UIComponents - Text overlap with toggle button
+	- fix(wearable): fix popup style for tizen 2.3.1
+	- refactor(wearable): apply additional list style for wc1
+	- fix(wearable): change max page number in page indicator demo.
+	- refactor(wearable): apply VI for indicator
+	- fix(mobile): ToggleSwitch few code fixes
+	- fix(wearable): set overflow hidden on ui-page(P150407-05351)
+	- fix(wearable): fix bottomButton padding for tizen 2.3.1
+	- refactor(wearable) : remove unusable images
+	- fix(mobile): set active Tab using tabbar option
+	- fix(mobile) demos: UIComponents - context popup example fix
+	- fix(mobile): add min-height value to list static mode(NABI-2071)
+	- fix(mobile): fix tickernoti sample page issue(TMWC-413)
+	- fix(mobile): fix button default style and flex prefix(TMWC-421)
+
 * Fri Apr 03 2015 Hagun Kim <hagun.kim@samsung.com> 0.10.11
 	- integrate(common): integrate Drawer component
 	- refactor(wearable): remove virtual list from demo app
@@ -26,6 +45,7 @@
 	- fix(mobile): UIComponent select all list issue fix
 	- refactor(wearable): apply checkbox and radio button style for wc1
 	- fix(wearable): fix typo in wearable page widget
+
 * Thu Apr 02 2015 Heeju Joo <heeju.joo@samsung.com> 0.10.10
 	- feat(mobile): fix page back method in TAU mobile Templates
 	- refector(tool) fix sample app paths for changing shape mideaquery.
