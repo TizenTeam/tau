@@ -7,11 +7,7 @@ Group:      Development/Other
 License:    MIT
 BuildArch:  noarch
 BuildRequires:  make
-%ifarch %{arm}
-BuildRequires:  nodejs-x86-arm
-%else
 BuildRequires: nodejs
-%endif
 
 Source0:    %{name}-%{version}.tar.gz
 
