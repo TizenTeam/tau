@@ -215,6 +215,8 @@
 			"../../../../core/util/selectors",
 			"../../../../core/util/DOM/attributes",
 			"../../../../core/util/DOM/manipulation",
+			"../../../../core/event",
+			"../../../../core/event/gesture",
 			"../../../../core/widget/core/Page",
 			"../wearable"
 		],
@@ -261,6 +263,22 @@
 				 */
 				object = ns.util.object,
 				/**
+				 * Alias for {@link ns.event}
+				 * @property {Object} object
+				 * @member ns.widget.wearable.Page
+				 * @private
+				 * @static
+				 */
+				utilsEvents = ns.event,
+				/**
+				 * Alias for {@link ns.event.gesture}
+				 * @property {Object} object
+				 * @member ns.widget.wearable.Page
+				 * @private
+				 * @static
+				 */
+				Gesture = utilsEvents.gesture,
+				/**
 				 * Alias for {@link ns.engine}
 				 * @property {Object} engine
 				 * @member ns.widget.wearable.Page
@@ -268,6 +286,18 @@
 				 * @static
 				 */
 				engine = ns.engine,
+
+				EXPANDABLE_SIZE = 100,
+
+				EXPANDABLE_TOLERANCE = 5,
+
+				CustomEvents = {
+					EXPAND: "headerexpand",
+					COLLAPSE: "headercollapse",
+					COMPLETE: "headerexpandcomplete",
+					BEFORE_EXPAND: "headerbeforeexpand",
+					BEFORE_COLLAPSE: "headerbeforecollapse"
+				},
 
 				Page = function () {
 					var self = this;
@@ -285,10 +315,13 @@
 					uiHeader: "ui-header",
 					uiPageScroll: "ui-scroll-on",
 					uiScroller: "ui-scroller",
-					uiFixed: "ui-fixed"
+					uiFixed: "ui-fixed",
+					uiHasExpandableHeader: "ui-has-expandable-header"
 				}, CorePage.classes),
 
 				prototype = new CorePage();
+
+			Page.expandableHeaderEvents = CustomEvents;
 
 			/**
 			 * Configure Page Widget
@@ -314,7 +347,8 @@
 					children = [].slice.call(element.children),
 					elementStyle = element.style,
 					scroller,
-					fragment;
+					fragment,
+					firstChild;
 
 				elementStyle.width = screenWidth + "px";
 				elementStyle.height = screenHeight + "px";
@@ -336,7 +370,128 @@
 					} else {
 						element.insertBefore(scroller, element.firstChild);
 					}
+
+					firstChild = fragment.firstChild;
+
+					if (firstChild && firstChild.classList.contains(classes.uiHeader)) {
+						self._ui.expandableHeader = {
+							scroller: scroller,
+							header: firstChild,
+							drag: null,
+							expanded: false,
+							startY: 0,
+							currentY: 0,
+							moveY: 0,
+							max: EXPANDABLE_SIZE,
+							tolerance: EXPANDABLE_TOLERANCE
+						};
+						scroller.classList.add(classes.uiHasExpandableHeader);
+						self._bindExpandableHeaderEvents();
+					}
+
 					scroller.appendChild(fragment);
+				}
+			};
+
+			prototype._bindExpandableHeaderEvents = function () {
+				var self = this,
+					scroller = self._ui.expandableHeader.scroller,
+					drag;
+
+				drag = new utilsEvents.gesture.Drag({
+					blockHorizontal: true
+				});
+
+				utilsEvents.enableGesture(scroller, drag);
+
+				self._ui.expandableHeader.drag = drag;
+
+				utilsEvents.on(scroller, "drag dragstart dragend dragcancel", self);
+			};
+
+			prototype._unbindEvents = function () {
+				var self = this,
+					expandableHeader = self._ui.expandableHeader;
+
+				if (expandableHeader) {
+					utilsEvents.on(expandableHeader.scroller, "drag dragstart dragend dragcancel", self);
+				}
+			};
+
+			prototype._start = function (event) {
+				var self = this,
+					expandableHeader = self._ui.expandableHeader,
+					scroller = expandableHeader.scroller;
+
+				if (event.detail.direction === "down" && scroller.scrollTop === 0 && !expandableHeader.expanded) {
+					utilsEvents.trigger(expandableHeader.header, CustomEvents.BEFORE_EXPAND);
+					expandableHeader.expanded = true;
+					expandableHeader.drag.options.blockHorizontal = false;
+					utilsEvents.trigger(expandableHeader.header, CustomEvents.EXPAND);
+				}
+				expandableHeader.startY = event.detail.estimatedY + expandableHeader.currentY;
+			};
+
+			prototype._drag = function (event) {
+				var self = this,
+					expandableHeader = self._ui.expandableHeader,
+					moveY = event.detail.estimatedY - expandableHeader.startY,
+					transform;
+
+				if (expandableHeader.expanded) {
+					if (moveY >= 0 && moveY <= expandableHeader.max) {
+						transform = "translate3d(0, " + moveY + "px, 0)";
+						expandableHeader.scroller.style.webkitTransform = transform;
+						expandableHeader.moveY = moveY;
+					} else if (moveY < 0){
+						utilsEvents.trigger(expandableHeader.header, CustomEvents.BEFORE_COLLAPSE);
+						expandableHeader.scroller.style.webkitTransform = "";
+						expandableHeader.drag.options.blockHorizontal = true;
+						expandableHeader.expanded = false;
+						expandableHeader.currentY = 0;
+						utilsEvents.trigger(expandableHeader.header, CustomEvents.COLLAPSE);
+						event.preventDefault();
+					}
+				} else {
+					event.preventDefault();
+				}
+			};
+
+			prototype._end = function (event) {
+				var expandableHeader = this._ui.expandableHeader;
+
+				expandableHeader.currentY = expandableHeader.moveY;
+
+				if (expandableHeader.expanded && expandableHeader.currentY >= expandableHeader.max - expandableHeader.tolerance) {
+					utilsEvents.trigger(expandableHeader.header, CustomEvents.COMPLETE);
+				}
+			};
+
+			prototype.handleEvent = function (event) {
+				var self = this;
+
+				switch (event.type) {
+					case "dragstart":
+						self._start(event);
+						break;
+					case "drag":
+						self._drag(event);
+						break;
+					case "dragend":
+					case "dragcancel":
+						self._end(event);
+						break;
+				}
+			};
+
+			prototype.onHide = function (event) {
+				var self = this,
+					expandableHeader = self._ui.expandableHeader;
+
+				CorePage.prototype.onHide.call(self);
+
+				if (expandableHeader) {
+					expandableHeader.scroller.style.webkitTransform = "";
 				}
 			};
 

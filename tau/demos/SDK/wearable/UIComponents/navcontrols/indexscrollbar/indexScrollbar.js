@@ -3,6 +3,7 @@
 		listviewElement = document.getElementById("list1"),
 		isCircle = tau.support.shape.circle,
 		scrollHandlers = {},
+		headerHandlers = {},
 		scroller,
 		indexScrollbar;
 
@@ -63,22 +64,32 @@ el.addEventListener("select", function( ev ) {
 			// Create CircularIndexScrollbar
 			indexScrollbar = new tau.widget.CircularIndexScrollbar(indexScrollbarElement, {index: indices});
 
-			// scroll event handlers
 			scrollHandlers = {
 				start: function () {
-					if (!indexScrollbar.isShow()) {
-						indexScrollbar.hideHandler();
-					}
+					indexScrollbar.hideHandler();
 				},
 				end: function () {
-					if (!indexScrollbar.isShow()) {
-						indexScrollbar.showHandler();
-					}
+					indexScrollbar.showHandler();
+				}
+			};
+
+			headerHandlers = {
+				collapse: function () {
+					listviewElement.addEventListener("scrollstart", scrollHandlers.start);
+					listviewElement.addEventListener("scrollend", scrollHandlers.end);
+				},
+
+				expand: function () {
+					listviewElement.removeEventListener("scrollstart", scrollHandlers.start);
+					listviewElement.removeEventListener("scrollend", scrollHandlers.end);
+					indexScrollbar.hideHandler();
 				}
 			};
 
 			listviewElement.addEventListener("scrollstart", scrollHandlers.start);
 			listviewElement.addEventListener("scrollend", scrollHandlers.end);
+			page.addEventListener("headercollapse", headerHandlers.collapse);
+			page.addEventListener("headerexpand", headerHandlers.expand);
 		}
 
 
@@ -107,6 +118,8 @@ el.addEventListener("select", function( ev ) {
 		if (isCircle) {
 			listviewElement.removeEventListener("scrollstart", scrollHandlers.start);
 			listviewElement.removeEventListener("scrollend", scrollHandlers.end);
+			page.removeEventListener("headercollapse", headerHandlers.collapse);
+			page.removeEventListener("headerexpand", headerHandlers.expand);
 		}
 		indexScrollbar.destroy();
 	});

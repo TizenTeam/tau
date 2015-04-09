@@ -23,7 +23,6 @@
 			"./core/widget/core/ViewSwitcher",
 			"./profile/wearable/widget/wearable/Page",
 			"./profile/wearable/widget/wearable/Popup",
-			"./profile/wearable/widget/wearable/ExpandableHeader",
 			"./profile/wearable/widget/wearable/Drawer",
 			"./profile/wearable/widget/wearable/CircleProgressBar",
 			"./profile/wearable/widget/wearable/Listview",

@@ -18,14 +18,14 @@
 			"../../../core/engine",
 			"../../../core/util/object",
 			"../../../core/widget/core/Marquee",
-			"../widget/wearable/ExpandableHeader"
+			"../widget/wearable/Page"
 		],
 		function () {//>>excludeEnd("tauBuildExclude");
 			var engine = ns.engine,
 				objectUtils = ns.util.object,
 				events = ns.event,
 				Marquee = ns.widget.core.Marquee,
-				ExpandableHeader = ns.widget.wearable.ExpandableHeader,
+				Page = ns.widget.wearable.Page,
 				defaults = {
 					delay: 0,
 					marqueeStyle: "scroll",
@@ -34,7 +34,7 @@
 					interation: "infinite",
 					autoRun: false
 				},
-				Events = ExpandableHeader.events,
+				Events = Page.expandableHeaderEvents,
 				Classes = {
 					TITLE: "ui-title",
 					MARQUEE: "ui-marquee"
@@ -44,7 +44,6 @@
 					var self = this;
 
 					self.options = objectUtils.merge({}, defaults);
-					self._expandableHeader = null;
 					self._marqueeWidget = null;
 
 					self.init(headerElement, options);
@@ -109,10 +108,6 @@
 
 				self._element = headerElement;
 
-				self._expandableHeader = engine.instanceWidget(headerElement, "ExpandableHeader", {
-					scrollElement: options.scrollElement
-				});
-
 				if (textElement) {
 					textElement.classList.add(Classes.MARQUEE);
 					self._marquee = engine.instanceWidget(textElement, "Marquee", self.options);
@@ -138,7 +133,6 @@
 
 				self._unbindEvents();
 				self._element = null;
-				self._expandableHeader = null;
 				self._marquee = null;
 				self._options = null;
 			};
