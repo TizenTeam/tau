@@ -17,7 +17,7 @@
 	if (checkbox) {
 		checkbox.addEventListener("change", function(){
 			checkboxSubText.innerText =
-				checkbox.checked === true ? "Checked" : "unChecked";
+				checkbox.checked === true ? "Checked" : "Unchecked";
 		});
 	}
 
