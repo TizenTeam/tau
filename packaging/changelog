@@ -1,4 +1,7 @@
 %changelog
+* Thu Apr 09 2015 Heeju Joo <heeju.joo@samsung.com> 0.10.13
+	- fix(demos): modify config.xml in demo sample/template
+
 * Wed Apr 08 2015 Hagun Kim <hagun.kim@samsung.com> 0.10.12
 	- feat(common): add ViewSwitcher component
 	- refactor(wearable): change position of list highlight
