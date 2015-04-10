@@ -27,6 +27,8 @@
 	<FontInfo id="T024D" style="L" size="24" />
 	<FontInfo id="T024S" style="L" size="24" />
 	<FontInfo id="T015" style="L" size="24" />
+	<FontInfo id="T016" style="L" size="28" />
+	<FontInfo id="T016D" style="L" size="28" />
 	<FontInfo id="T0311" style="L" size="22" />
 	<FontInfo id="T0311P" style="L" size="22" />
 	<FontInfo id="T0312" style="L" size="70" />
@@ -65,5 +67,6 @@
 	<FontInfo id="T097" style="L" size="32" giant="true" />
 	<FontInfo id="T151" style="L" size="40" />
 	<FontInfo id="T098" style="L" size="32" />
+	<FontInfo id="T099" style="L" size="28" giant="true" />
 	<FontInfo id="T161" style="L" size="28" />
 </FontInfoTable>
