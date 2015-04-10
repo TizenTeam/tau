@@ -22,7 +22,7 @@
 			list = page.querySelectorAll(".ui-listview");
 			header = page.querySelector(".ui-header:not(.ui-fixed)");
 
-			if (page.id !== "pageMarqueeList") {
+			if (page.id !== "pageMarqueeList" && page.id !== "pageTestVirtualList") {
 				len = list.length;
 				for (i = 0; i < len; i++) {
 					listHelper[i] = tau.helper.SnapListStyle.create(list[i]);

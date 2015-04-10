@@ -1,13 +1,13 @@
 (function() {
 	var page = document.getElementById("pageTestVirtualList"),
+		elList = document.getElementById("vlist1"),
 		vlist;
 
-	page.addEventListener("pageshow", function() {
-		var elList = document.getElementById("vlist1");
-
+	page.addEventListener("pagebeforeshow", function() {
 		vlist = tau.widget.VirtualListview(elList, {
-				dataLength: JSON_DATA.length,
-				bufferSize: 40
+			dataLength: JSON_DATA.length,
+			bufferSize: 40,
+			scrollElement: "ui-scroller"
 		});
 
 		// Update listitem
@@ -22,5 +22,7 @@
 	page.addEventListener("pagehide", function() {
 		// Remove all children in the vlist
 		vlist.destroy();
+
 	});
+
 }());
