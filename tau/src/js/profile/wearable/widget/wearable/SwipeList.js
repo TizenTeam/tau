@@ -228,7 +228,7 @@
 				if (options.container) {
 					this.container = page.querySelector(options.container);
 				} else {
-					this.container = this._findScrollableElement(this.element);
+					this.container = element.parentNode;
 				}
 
 				this.container.style.position = "relative";
@@ -387,13 +387,6 @@
 						self._transitionEnd();
 					}
 				}());
-			};
-
-			prototype._findScrollableElement = function (elem) {
-				while ((elem.scrollHeight <= elem.offsetHeight) && (elem.scrollWidth <= elem.offsetWidth)) {
-					elem = elem.parentNode;
-				}
-				return elem;
 			};
 
 			prototype._findSwipeTarget = function (element) {
