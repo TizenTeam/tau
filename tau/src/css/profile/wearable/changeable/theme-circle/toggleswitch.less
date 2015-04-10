@@ -24,18 +24,14 @@
 	}
 
 	& .ui-switch-input {
-		background-color: transparent;
-		background-image: -webkit-radial-gradient(transparent, transparent 60%, @color_checkboxradio_uncheck_line 62%, @color_checkboxradio_uncheck_line 69%, transparent 71%, transparent);
+		background-color: @color_toggle_off_bg;
+		.mask-image('images/Controller_icon/On_Off/tw_btn_control_bg_holo_dark.png');
+		.mask-size(100% 100%);
+		.transition(all 300ms);
 		&::before {
-			.transition(all 300ms);
-			border-radius: 50%;
-			opacity: 0;
-			-webkit-mask-image: none;
+			content: none;
 		}
 		&:active {
-			&::before {
-				background-color: transparent;
-			}
 			&~ .ui-switch-activation,
 			~ .ui-switch-button{
 				background-color: transparent;
@@ -77,10 +73,7 @@
 	}
 
 	& .ui-switch-input:checked {
-		&::before {
-			opacity: 1;
-			background-color: @color_toggle_on_bg;
-		}
+		background-color: @color_toggle_on_bg;
 		&~ .ui-switch-activation,
 		~ .ui-switch-button {
 			width: 100%;
