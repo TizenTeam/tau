@@ -126,7 +126,7 @@
 					length = attributes.length;
 
 					for (i = 0; i < length; ++i){
-						nodeName  = attributes.item(i).name,
+						nodeName  = attributes.item(i).name;
 						nodeValue = attributes.item(i).value;
 						replacement.setAttribute(nodeName, nodeValue);
 					}

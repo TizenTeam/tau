@@ -1,4 +1,4 @@
-/*global window, define, console */
+/*global window, define, console, ns */
 /* Copyright  2010 - 2014 Samsung Electronics Co., Ltd.
  * License : MIT License V2
  */
@@ -212,12 +212,12 @@
 			function setAnimationStyle(self, options) {
 				var marqueeInnerElement = self._ui.marqueeInnerElement,
 					marqueeInnerElementStyle = marqueeInnerElement.style,
-					duration = getAnimationDuration(self, isNaN(parseInt(options.speed))? defaults.speed : options.speed ),
+					duration = getAnimationDuration(self, isNaN(parseInt(options.speed, 10))? defaults.speed : options.speed ),
 					marqueeKeyFrame = setMarqueeKeyFrame(self, options.marqueeStyle),
 					iteration;
 
 				// warning when option value is not correct.
-				if (isNaN(parseInt(options.speed))) {
+				if (isNaN(parseInt(options.speed, 10))) {
 					ns.warn("speed value must be number(px/sec)");
 				}
 				if ((options.iteration !== "infinite") && isNaN(options.iteration)) {
@@ -293,7 +293,7 @@
 			prototype._init = function(element) {
 				var self = this;
 
-				self._ui.marqueeInnerElement = self._ui.marqueeInnerElement || element.querySelector(selector.MARQUEE_CONTENT)
+				self._ui.marqueeInnerElement = self._ui.marqueeInnerElement || element.querySelector(selector.MARQUEE_CONTENT);
 
 				setEllipsisEffectStyle(self, self.options.ellipsisEffect);
 				setAnimationStyle(self, self.options);
@@ -315,7 +315,7 @@
 
 				self._callbacks.animationEnd = animationEndCallback;
 
-				utilEvent.one(marqueeInnerElement, "webkitAnimationEnd", animationEndCallback)
+				utilEvent.one(marqueeInnerElement, "webkitAnimationEnd", animationEndCallback);
 			};
 
 			/**
@@ -465,7 +465,7 @@
 				var self = this,
 					marqueeInnerElementClassList = self._ui.marqueeInnerElement.classList;
 
-				if (self._state == states.IDLE) {
+				if (self._state === states.IDLE) {
 					return;
 				}
 
@@ -496,14 +496,14 @@
 					marqueeElementClassList = self.element.classList,
 					marqueeInnerElementClassList = self._ui.marqueeInnerElement.classList;
 
-				if (self._state == states.IDLE) {
+				if (self._state === states.IDLE) {
 					return;
 				}
 
 				self._state = states.IDLE;
 				marqueeInnerElementClassList.remove(classes.ANIMATION_RUNNING, classes.ANIMATION_STOPPED);
 				marqueeInnerElementClassList.add(classes.ANIMATION_IDLE);
-				if (self.options.ellipsisEffect == ellipsisEffect.ELLIPSIS) {
+				if (self.options.ellipsisEffect === ellipsisEffect.ELLIPSIS) {
 					marqueeElementClassList.add(classes.MARQUEE_ELLIPSIS);
 				}
 
