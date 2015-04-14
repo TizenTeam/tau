@@ -10,7 +10,8 @@
 		deselectAll = document.getElementById("deselect-all"),
 		elPageIndicator = document.getElementById("pageIndicator"),
 		pageIndicator,
-		drawerSectionChanger = document.getElementById("drawerSectionChanger"),
+		drawerViewSwitcher = page.querySelector("#drawerViewSwitcher"),
+		views = page.querySelectorAll(".ui-view"),
 		drawerElement = page.querySelector("#rightDrawer"),
 		selectCount,
 		drawerHelper,
@@ -101,25 +102,24 @@
 	}, false);
 
 	page.addEventListener( "pagebeforeshow", function() {
-		tau.widget.SectionChanger(drawerSectionChanger, {
-			circular: false,
-			orientation: "horizontal",
-			useBouncingEffect: false
-		});
+		/**********  pageIndicator **********/
+		pageIndicator =  tau.widget.PageIndicator(elPageIndicator, { numberOfPages: 3 });
+		pageIndicator.setActive(0);
+
+		tau.widget.ViewSwitcher(drawerViewSwitcher);
 
 		/********** drawer ******************/
 		drawerHelper = tau.helper.DrawerMoreStyle.create(drawerElement, {
 			handler: ".drawer-handler"
 		});
+		document.addEventListener('tizenhwkey', fnBackKey);	
 
-		document.addEventListener('tizenhwkey', fnBackKey);
-
-		/**********  pageIndicator **********/
-		pageIndicator =  tau.widget.PageIndicator(elPageIndicator, { numberOfPages: 3 });
-		pageIndicator.setActive(0);
-
-		drawerSectionChanger.addEventListener("sectionchange", function(e){
-			pageIndicator.setActive(e.detail.active);
+		drawerViewSwitcher.addEventListener("viewchange", function(event) {
+			var index = event.detail.index;
+			if (index < 0 || index > views.length - 1) {
+				return;
+			}
+			pageIndicator.setActive(event.detail.index);
 		}, false);
 	});
 }());
