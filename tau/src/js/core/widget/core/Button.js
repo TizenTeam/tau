@@ -30,7 +30,7 @@
 				buttonStyle = {
 					CIRCLE: "circle",
 					NOBG: "nobg"
-				};
+				},
 
 				prototype = new BaseWidget();
 

@@ -5,48 +5,13 @@
 @font_size_popup_toast: 24 * @unit_base;
 @font_size_popup_body: 34 * @unit_base;
 
-/***********************
-Normal Popup
-***********************/
-.ui-popup::after {
-	content: "";
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	background-color: @color_popup_edge_shadow;
-	-webkit-mask-size: 100% 100%;
-	-webkit-mask-repeat: no-repeat;
-	-webkit-mask-image: url(images/Popup/b_popup_edge_shadow.png);
-	pointer-events: none;
-}
-
-.ui-popup::before {
-	content: "";
-	position: absolute;
-	top: 0;
-	left: 0;
-	z-index: -1;
-	width: 100%;
-	height: 100%;
-	background-color: @color_popup_bg_cover;
-	-webkit-mask-size: 100% 100%;
-	-webkit-mask-repeat: no-repeat;
-	-webkit-mask-image: url(images/Popup/tw_popup_bg_cover.png);
-	pointer-events: none;
-}
-
 .ui-popup {
 	width:100%;
 	height: 100%;
 	overflow: hidden;
 	border: 0;
 	border-radius: 50% 50%;
-	background-color: @color_popup_bg;
-	-webkit-mask-size: 100% 100%;
-	-webkit-mask-repeat: no-repeat;
-	-webkit-mask-image: url(images/Popup/tw_popup_bg.png);
+	background-image: -webkit-radial-gradient(transparent -100%, transparent -90%, @color_bg_cover 69%), -webkit-radial-gradient(@color_bg 71%, transparent 0px);
 
 	.ui-popup-header {
 		text-align: center;
@@ -82,14 +47,11 @@ Normal Popup
 		width: 0;
 		height: 0;
 		.ui-btn {
-			height: 195%;
-			width: 195%;
-			border-radius: 50%;
+			height: 100%;
+			width: 26%;
 			border: none;
 			position: absolute;
 			text-indent: -9999px;
-			background-color: @color_popup_side_button_bg;
-			-webkit-transition: all 150ms ease-out;
 			&::before {
 				content: "";
 				-webkit-mask-size: @fixed_popup_icon_width @fixed_popup_icon_height;
@@ -98,27 +60,43 @@ Normal Popup
 				height: @fixed_popup_icon_height;
 				position: absolute;
 			}
-			&:active {
-				background-color: @color_popup_side_button_bg_press;
-			}
 		}
 
 		.ui-btn:nth-child(n) {
 			top: 50%;
-			right: 100%;
-			-webkit-transition: all 250ms ease-out;
-			-webkit-transform: translate3d(0, -50%, 0);
+			-webkit-transform: translate(0, -50%);
+			background: -webkit-radial-gradient(center, circle cover, @color_popup_side_button_bg 50%, transparent 50%);
+			background-repeat: no-repeat;
+			background-size: 570% 150%;
 			&::before {
 				top: 50%;
-				right: 0.7%;
-				-webkit-transition: all 250ms ease-out;
-				-webkit-transform: translate3d(0, -50%, 0);
+				-webkit-transition: all 150ms ease-out;
+				-webkit-transform: translate(0, -50%);
+			}
+			&:active {
+				background: -webkit-radial-gradient(center, circle cover, @color_popup_side_button_bg_press 50%, transparent 50%);
+				background-repeat: no-repeat;
+				background-size: 570% 150%;
+			}
+		}
+		.ui-btn:nth-child(1) {
+			background-position: 83% 50%;
+			right: 100%;
+			&::before {
+				left: 38%;
+			}
+			&:active {
+				background-position: 83% 50%;
 			}
 		}
 		.ui-btn:nth-child(2) {
 			left: 100%;
+			background-position: 17% 50%;
 			&::before {
-				left: 0.7%;
+				right: 38%;
+			}
+			&:active {
+				background-position: 17% 50%;
 			}
 		}
 	}
@@ -130,21 +108,27 @@ Normal Popup
 			position: absolute;
 			top: 100%;
 			left: 50%;
-			height: 195%;
-			width: 195%;
-			border-radius: 50%;
+			height: 36%;
+			width: 100%;
 			border: none;
-			padding: 8% 22% 175%;
+			padding: 8% 22% 16%;
+			background: -webkit-radial-gradient(center, circle cover, @color_footer_button_bg 50%, transparent 50%);
+			background-position: 50% 17%;
+			background-repeat: no-repeat;
+			background-size: 300% 840%;
 			-webkit-transition: all 150ms ease-out;
-			-webkit-transform: translate3d(-50%, 0, 0);
+			-webkit-transform: translate(-50%, 0);
 
 			&:active {
-				background-color: @color_footer_button_bg_press;
+				background: -webkit-radial-gradient(center, circle cover, @color_footer_button_bg_press 50%, transparent 50%);
+				background-position: 50% 17%;
+				background-repeat: no-repeat;
+				background-size: 300% 840%;
 			}
 
 			&.ui-btn-icon-only::before {
 				top: 26 * @unit_base;
-				-webkit-transform: translate3d(-50%, 0, 0);
+				-webkit-transform: translate(-50%, 0);
 			}
 		}
 	}
@@ -154,40 +138,33 @@ Normal Popup
 	.ui-popup-footer.ui-side-button {
 		&:active {
 			.ui-btn:not(:active) {
-				-webkit-transform: translate3d(0, -50%, 0);
-				&:nth-child(1)::before {
-					right: 0.7%;
-				}
-				&:nth-child(2)::before {
-					left: 0.7%;
-				}
+				-webkit-transform: translate(0, -50%);
 			}
 		}
 		.ui-btn:nth-child(n) {
-			-webkit-transform: translate3d(9%, -50%, 0);
 			-webkit-transition: all 400ms ease-out;
 			&:active {
-				-webkit-transform: translate3d(16%, -50%, 0);
-				&::before {
-					right: 4.2%;
-				}
+				-webkit-transition: all 150ms ease-out;
+			}
+		}
+		.ui-btn:nth-child(1) {
+			-webkit-transform: translate3d(68%, -50%, 0);
+			&:active {
+				-webkit-transform: translate3d(100%, -50%, 0);
 			}
 		}
 		.ui-btn:nth-child(2) {
-			-webkit-transform: translate3d(-9%, -50%, 0);
+			-webkit-transform: translate3d(-68%, -50%, 0);
 			&:active {
-				-webkit-transform: translate3d(-16%, -50%, 0);
-				&::before {
-					left: 4.2%
-				}
+				-webkit-transform: translate3d(-100%, -50%, 0);
 			}
 		}
 	}
 	.ui-popup-footer.ui-bottom-button {
 		.ui-btn {
-			transform: translate3d(-50%, -14%, 0);
+			transform: translate3d(-50%, -77%, 0);
 			&:active {
-				transform: translate3d(-50%, -20%, 0);
+				transform: translate3d(-50%, -100%, 0);
 			}
 		}
 	}
