@@ -92,38 +92,18 @@
 			height: @list_item_min_height;
 			left: 50%;
 			top: 50%;
-			transform: translate3d(-50%, -50%, 0);
-			background-color: @color_listview_focus;
-			.mask-image('images/listview/b_list_focus_bg.png');
-			.mask-repeat(no-repeat);
-			.mask-size(100% 100%);
-			z-index: -2;
-		}
-		&::after {
-			content: "";
-			position: fixed;
-			width: 96%;
-			height: @list_item_min_height;
-			left: 50%;
-			top: 50%;
-			transform: translate3d(-50%, -50%, 0);
-			background-color: @color_listview_focus_ef;
-			.mask-image('images/listview/b_list_focus_bg_ef.png');
-			.mask-repeat(no-repeat);
-			.mask-size(100% 100%);
-			z-index: -1;
+			transform: translate(-50%, -50%);
+			background-image: -webkit-radial-gradient(@color_listview_focus_ef -90%, transparent),
+				-webkit-radial-gradient(@color_listview_focus 100%, transparent);
+			border-radius:20vw;
+			pointer-events: none;
 		}
 
 		&.ui-state-disabled {
 			position: relative;
 			&::before {
 				top: 0;
-				transform: translate3d(-50%, 0, 0);
-				position: absolute;
-			}
-		  	&::after {
-				top: 0;
-				transform: translate3d(-50%, 0, 0);
+				transform: translate(-50%, 0);
 				position: absolute;
 			}
 		}
@@ -138,26 +118,9 @@
 					height: @list_item_min_height;
 					left: 50%;
 					top: 50%;
-					transform: translate3d(-50%, -50%, 0);
-					background-color: @color_listview_focus_press;
-					.mask-image('images/listview/b_list_focus_bg.png');
-					.mask-repeat(no-repeat);
-					.mask-size(100% 100%);
-					z-index: -2;
-				}
-				&::after {
-					content: "";
-					position: absolute;
-					width: 96%;
-					height: @list_item_min_height;
-					left: 50%;
-					top: 50%;
-					transform: translate3d(-50%, -50%, 0);
-					background-color: @color_listview_focus_ef_press;
-					.mask-image('images/listview/b_list_focus_bg_ef.png');
-					.mask-repeat(no-repeat);
-					.mask-size(100% 100%);
-					z-index: -1;
+					transform: translate(-50%, -50%);
+					background-image: -webkit-radial-gradient(@color_listview_focus_ef_press -90%, transparent), -webkit-radial-gradient(@color_listview_focus_press 100%, transparent);
+					border-radius:20vw;
 				}
 			}
 		}

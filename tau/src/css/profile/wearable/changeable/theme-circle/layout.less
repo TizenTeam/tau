@@ -51,35 +51,8 @@ body {
 	}
 }
 .ui-page {
-	background: @color_bg;
-	.mask-image('images/Common/masking_bg.png');
-	.mask-repeat(no-repeat);
-	.mask-size(100% 100%);
-	&::before {
-		content: "";
-		position: fixed;
-		width: 100%;
-		height: 100%;
-		z-index: -1;
-		.mask-image('images/Title_bar/b_detail_bg_cover.png');
-		.mask-repeat(no-repeat);
-		.mask-size(100% 100%);
-		background-color: @color_bg_cover;
-		pointer-events: none;
-	}
-	&::after {
-		content: "";
-		position: fixed;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-		.mask-image('images/List/b_body_edge_shadow.png');
-		.mask-repeat(no-repeat);
-		.mask-size(100% 100%);
-		background-color: @color_bg_cover;
-		pointer-events: none;
-	}
+	background-image: -webkit-radial-gradient(transparent -100%, transparent -90%, @color_bg_cover 69%), -webkit-radial-gradient(@color_bg 71%, transparent 0px);
+	background-position: 0px 0px, 0px 0px;
 	.ui-scroller {
 		width: 100%;
 		height: 100%;
@@ -104,16 +77,16 @@ body {
 			margin: 0;
 			padding: 8% 22% 175%;
 			-webkit-transition: transform 150ms ease-out;
-			-webkit-transform: translate3d(-50%, 0, 0);
+			-webkit-transform: translate(-50%, 0);
 
 			&:active {
 				background-color: @color_button_default_press_bg;
-				-webkit-transform: translate3d(-50%, -6%, 0);
+				-webkit-transform: translate(-50%, -6%);
 			}
 
 			&.ui-btn-icon-only::before {
 				top: 0;
-				transform: translate3d(-50%, 50%, 0);
+				transform: translate(-50%, 50%);
 			}
 		}
 
@@ -125,6 +98,7 @@ body {
 ***************************************************************************/
 .ui-page.ui-scroll-on {
 	overflow: hidden;
+	.touch-scrolling-clear();
 
 	.ui-content {
 		margin-top: 122 * @unit_base;
