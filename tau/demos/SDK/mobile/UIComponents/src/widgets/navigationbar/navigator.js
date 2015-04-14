@@ -35,6 +35,7 @@ var historyMaker = function(event) {
 		} else {
 			naviWidget.create(navigationHistory);
 		}
+		$(navi).one("navigate", historyMove);
 	},
 	historyMove = function(event) {
 		var selectedIndex = event.originalEvent.detail,
@@ -49,5 +50,4 @@ var historyMaker = function(event) {
 
 	$(document).one("pagebeforeshow", historyMaker);
 	$(document).one("pageshow", historyDrawer);
-	$("nav").one("navigate", historyMove);
 })();
