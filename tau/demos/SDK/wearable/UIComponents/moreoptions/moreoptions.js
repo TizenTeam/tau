@@ -5,13 +5,30 @@
 		handler = page.querySelector(".ui-more"),
 		elPageIndicator = page.querySelector("#pageIndicator"),
 		views = page.querySelectorAll(".ui-view"),
-		viewSwitcherElement = page.querySelector("#viewSwitcher");
+		viewSwitcherElement = page.querySelector("#viewSwitcher"),
+		viewSwitcher,
+		rotaryHandlerBound;
 
+	function rotaryHandler(event) {
+		var direction = event.detail.direction,
+			activeIndex = viewSwitcher.getActiveIndex();
+
+		event.stopPropagation();
+		if(direction === "CW") {
+			// right
+			if (activeIndex < views.length - 1) {
+				viewSwitcher.setActiveIndex(activeIndex + 1);
+			}
+		} else {
+			// left
+			if (activeIndex > 0) {
+				viewSwitcher.setActiveIndex(activeIndex - 1);
+			}
+		}
+	}
 	page.addEventListener( "pagebeforeshow", function() {
 		var popupWidget,
-			pageIndicator = tau.widget.PageIndicator(elPageIndicator, { numberOfPages: 5 }),
-			lastActiveIndex,
-			viewSwitcher;
+			pageIndicator = tau.widget.PageIndicator(elPageIndicator, { numberOfPages: 5 });
 
 		pageIndicator.setActive(1);
 
@@ -20,24 +37,8 @@
 				handler: ".ui-more"
 			});
 			viewSwitcher = tau.widget.ViewSwitcher(viewSwitcherElement);
-			document.addEventListener("rotarydetent", function(event) {
-				var direction = event.detail.direction,
-					activeIndex = viewSwitcher.getActiveIndex();
-
-				event.stopPropagation();
-				if(direction === "CW") {
-					// right
-					if (activeIndex < views.length - 1) {
-						viewSwitcher.setActiveIndex(activeIndex + 1);
-					}
-				} else {
-					// left
-					if (activeIndex > 0) {
-						viewSwitcher.setActiveIndex(activeIndex - 1);
-					}
-				}
-				lastActiveIndex = activeIndex;
-			});
+			rotaryHandlerBound = rotaryHandler.bind(this);
+			document.addEventListener("rotarydetent", rotaryHandlerBound);
 		} else {
 			// Shape is square
 			popupWidget = tau.widget.Popup(popup);
@@ -53,5 +54,8 @@
 			}
 			pageIndicator.setActive(event.detail.index);
 		}, false);
+	});
+	page.addEventListener( "pagebeforehide", function() {
+		document.removeEventListener("rotarydetent", rotaryHandlerBound);
 	});
 })();
