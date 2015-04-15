@@ -1,24 +1,21 @@
-.ui-progressbar-small {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	-webkit-transform: translate3d(-50%, -50%, 0);
-}
 .result {
-	font-size:35px;
+	font-size:52px;
 	text-align:center;
-    top: 38%;
-    left: 50%;
-    -webkit-transform: translate3d(-50%, -50%, 0);
-    position: absolute;
+	display:inline;
+	line-height:56px;
+	margin-right:15px;
+}
+.ui-content{
+	display: flex;
+	display: -webkit-flex;
+	align-items:center;
+	-webkit-align-items:center;
+	justify-content: center;
+	-webkit-justify-content: center;
 }
 
 @media all and (-tizen-geometric-shape: circle) {
-	.result {
-       top: 67%;
-		margin: 0;
+	.ui-footer {
+		display: none;
 	}
-    .ui-footer {
-        display: none;
-    }
 }

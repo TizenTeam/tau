@@ -11,10 +11,10 @@
 
 /* ---------------------------------- LISTVIEW ---------------------------------- */
 .ui-listview li .li-text-sub {
-        display: block;
-        text-overflow: ellipsis;
-        overflow: hidden;
-        line-height: 32px;
+	display: block;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	line-height: 32px;
 }
 
 .ui-listview .li-text-sub-right-icon {
@@ -81,9 +81,9 @@
 }
 
 .ui-listview li.li-has-multiline {
-        padding-top: 6px;
-        padding-bottom: 5px;
-        min-height: 100px;
+	padding-top: 6px;
+	padding-bottom: 5px;
+	min-height: 100px;
 }
 .ui-listview.ui-snap-listview li.li-has-multiline {
 	padding-top: 9px;
@@ -99,13 +99,13 @@
 .ui-listview li.li-has-multiline.disabled > *,
 .ui-listview li.li-has-multiline-sup.disabled,
 .ui-listview li.li-has-multiline-sup.disabled > * {
-        color: rgb(51, 51, 51);
+	color: rgb(51, 51, 51);
 }
 .ui-listview li.li-has-multiline > a {
-        margin-top: -6px;
-        margin-bottom: -6px;
-        padding-top: 11px;
-        padding-bottom: 12px;
+	margin-top: -6px;
+	margin-bottom: -6px;
+	padding-top: 11px;
+	padding-bottom: 12px;
 }
 .ui-listview.ui-snap-listview li.li-has-multiline > a {
 	margin-top: 0;
@@ -113,25 +113,25 @@
 	padding-bottom: 4px;
 }
 .ui-listview li.li-has-multiline-sup {
-        padding-top: 6px;
-        padding-bottom: 5px;
-        min-height: 100px;
+	padding-top: 6px;
+	padding-bottom: 5px;
+	min-height: 100px;
 }
 .ui-listview li.li-has-multiline-sup > a {
-        margin-top: -36px;
-        margin-bottom: -5px;
-        padding-top: 36px;
-        padding-bottom: 5px;
+	margin-top: -36px;
+	margin-bottom: -5px;
+	padding-top: 36px;
+	padding-bottom: 5px;
 }
 .ui-listview li {
-        position: relative;
+	position: relative;
 }
 .ui-listview li input[type="checkbox"]:not(.ui-switch-input),
 .ui-listview li input[type="radio"] {
-        position: absolute;
-        right: 30px;
-        top: 0;
-        margin-top: 25px;
+	position: absolute;
+	right: 30px;
+	top: 0;
+	margin-top: 25px;
 }
 .ui-listview.ui-snap-listview li input[type="checkbox"]:not(.ui-switch-input),
 .ui-listview.ui-snap-listview li input[type="radio"] {
@@ -166,7 +166,7 @@
 	margin-right: -8px;
 }
 .ui-listview li.li-has-thumb-left label {
-    padding-left: 70px;
+	padding-left: 70px;
 }
 .ui-listview.ui-snap-listview li.li-has-checkbox label,
 .ui-listview.ui-snap-listview li.li-has-radio label,
@@ -181,27 +181,17 @@
 	position: absolute;
 	top: 50%;
 	-webkit-transform: translate3d(0, -50%, 0);
-	width: 86px;
-	height: 86px;
+	width: 56px;
+	height: 56px;
 	background-color: rgba(245, 245, 245, 1);
 }
 .ui-listview li.li-has-thumb-right img {
-	right: 15px;
+	right: 16px;
 }
 .ui-listview li.li-has-thumb-left img {
-	left: 15px;
+	left: 16px;
 }
-@media all and (-tizen-geometric-shape: circle) {
-	.ui-listview li.li-has-thumb-left label {
-		padding: 31.5px 40px 31.5px 94px;
-	}
-	.ui-listview li.li-has-thumb-right img {
-		right: 30px;
-	}
-	.ui-listview li.li-has-thumb-left img {
-		left: 30px;
-	}
-}
+
 .ui-listview li.li-has-multiline.li-has-checkbox label,
 .ui-listview li.li-has-multiline.li-has-radio label,
 .ui-listview li.li-has-multiline.li-has-toggle label:not(.ui-toggleswitch),
@@ -280,19 +270,7 @@ li.select::before {
 	content:"";
 	-webkit-mask-image: url(../list/images/tw_list_check_ic.png);
 	-webkit-mask-repeat: no-repeat;
-	background-color: rgba(115, 191, 15, 1);
-	width: 56px;
-	height: 56px;
-	position: absolute;
-	left: 50%;
-	-webkit-transform: translateX(-50%);
-	-webkit-transition: width 150ms, left 150ms;
-}
-li.select::after {
-	content:"";
-	-webkit-mask-image: url(../list/images/tw_list_check_line.png);
-	-webkit-mask-repeat: no-repeat;
-	background-color: rgba(224, 224, 224, 1);
+	background-color: rgba(112, 186, 15, 1);
 	width: 56px;
 	height: 56px;
 	position: absolute;
@@ -307,24 +285,10 @@ li.select::after {
 	background-color: rgb(8, 42, 57);
 }
 
-.ui-listview.ui-snap-listview li{
-	-webkit-mask-image : -webkit-linear-gradient(left,transparent,#fff 30%,#fff 70%,transparent);
-}
-
-.ui-listview.ui-snap-listview li.li-has-thumb-right,
-.ui-listview.ui-snap-listview li.li-has-thumb-left,
-.ui-listview.ui-snap-listview li.li-has-action-icon,
-.ui-listview.ui-snap-listview li.li-has-toggle,
-.ui-listview.ui-snap-listview li.li-has-checkbox,
-.ui-listview.ui-snap-listview li.li-has-radio,
-.ui-listview.ui-snap-listview li.ui-li-btn
-{
-	-webkit-mask-image: none;
-}
 /* ------------------------------------------------------------------------------ */
 /* -----------------------------------  NEXT DEPTH------------------------------------ */
 .ui-listview li.li-has-next-depth {
-        padding-right: 60px;
+	padding-right: 60px;
 }
 .ui-listview li.li-has-next-depth a,
 .ui-listview li.li-has-next-depth.disabled {
@@ -341,9 +305,9 @@ li.select::after {
 	top: 50%;
 	margin-top: -25px;
 	background-repeat: no-repeat;
-    background-size: 50px 50px;
-    background-position: right center;
-    background-image: url(../extra/images/Controller_icon/tw_btn_next_depth_holo_dark.png);
+	background-size: 50px 50px;
+	background-position: right center;
+	background-image: url(../extra/images/Controller_icon/tw_btn_next_depth_holo_dark.png);
 }
 .ui-listview li.li-has-next-depth.disabled a:after {
 	position: absolute;
@@ -353,10 +317,10 @@ li.select::after {
 	height: 50px;
 	top: 50%;
 	margin-top: -25px;
-    background-repeat: no-repeat;
-    background-size: 50px 50px;
-    background-position: right center;
-    background-image: url(../extra/images/Controller_icon/tw_btn_next_depth_disabled_holo_dark.png);
+	background-repeat: no-repeat;
+	background-size: 50px 50px;
+	background-position: right center;
+	background-image: url(../extra/images/Controller_icon/tw_btn_next_depth_disabled_holo_dark.png);
 }
 .ui-listview li.li-has-next-depth a:active:after,
 .ui-listview li.li-has-next-depth a:focus:after {
@@ -367,18 +331,18 @@ li.select::after {
 	height: 50px;
 	top: 50%;
 	margin-top: -25px;
-    background-repeat: no-repeat;
-    background-size: 50px 50px;
-    background-position: right center;
-    background-image: url(../extra/images/Controller_icon/tw_btn_next_depth_focused_holo_dark.png);
+	background-repeat: no-repeat;
+	background-size: 50px 50px;
+	background-position: right center;
+	background-image: url(../extra/images/Controller_icon/tw_btn_next_depth_focused_holo_dark.png);
 }
 .ui-listview li.li-has-next-depth.disabled,
 .ui-listview li.li-has-next-depth.disabled a,
 .ui-listview li.li-has-next-depth.disabled .li-text-sub {
-    color: rgb(51, 51, 51);
+	color: rgb(51, 51, 51);
 }
 .disabled {
-    pointer-events: none;
+	pointer-events: none;
 }
 /* ------------------------------------------------------------------------------ */
 /* -------------------------Action Icon------------------------------- */
@@ -390,17 +354,17 @@ li.select::after {
 .li-has-action-icon .li-action-text::after {
 	content: "";
 	position: absolute;
-	height: 60px;
+	height: 56px;
 	width: 2px;
-	background-color: rgba(8, 8, 8, 0.3);
-	right: 103px;
+	background-color: rgba(245, 245, 245, 1);
+	right: 87px;
 	top: 50%;
 	transform: translate3d(0, -50%, 0);
 }
 .li-has-action-icon .li-action-icon-button {
 	position: absolute;
 	height: 100%;
-	width: 86px;
+	width: 68px;
 	right: 0;
 	top: 0;
 	-webkit-mask-size: 53px 53px;
@@ -408,8 +372,7 @@ li.select::after {
 	-webkit-mask-position: center center;
 	padding: 0;
 	margin: 0;
-	margin-left:2px;
-	margin-right: 15px;
+	margin-right: 20px;
 }
 .li-has-action-icon .li-action-icon-button.li-action-delete {
 	-webkit-mask-image: url(../list/images/tw_list_delete_holo_dark.png);
@@ -508,16 +471,7 @@ li.select::after {
 	background-color: rgba(0, 149, 255, 1);
 	-webkit-mask-image: url(../popup/images/tw_ic_popup_btn_delete.png);
  }
-@media all and (-tizen-geometric-shape: circle) {
-	.ui-popup-content .btn-additional {
-		width: 160px;
-		height: 160px;
-		border-radius: 50% 50%;
-		background-color: rgba(10, 64, 94, 1);
-		margin: 19px auto auto;
-		padding: 59px 5px;
-	}
-}
+
 /* -----------------------------------Content------------------------------------ */
 .content-input-box {
 	display: block;
@@ -541,14 +495,14 @@ li.select::after {
 	line-height: inherit;
 }
 .content-input-box-sub-text {
-    display: block;
+	display: block;
 }
-/* --------------------------------Toggle Switch------------------------------ */
+/* ----------------------------------Toggle Switch-------------------------------- */
 .ui-toggleswitch {
 	display: block;
 	margin: 0 auto;
 }
-/* --------------------------------Controls in Circle------------------------------ */
+/* -------------------------------------Controls---------------------------------- */
 .checkbox-text,
 .radio-text {
 	margin-top: 60px;
@@ -564,18 +518,90 @@ li.select::after {
 	text-align: center;
 }
 input[type="checkbox"]#checkboxControl {
-    display: block;
-    left: 50%;
-    transform: translate3d(-50%, 0, 0);
+	display: block;
+	left: 50%;
+	transform: translate3d(-50%, 0, 0);
 }
 .radio-sample-container {
-    width: 100%;
-    text-align: center;
+	width: 100%;
+	text-align: center;
 }
-/* --------------------------------Processing in circle------------------------------ */
+/* --------------------------------Processing------------------------------ */
 .small-processing-container {
 	position: absolute;
 	top: 50%;
 	left: 50%;
 	-webkit-transform: translate3d(-50%, -50%, 0);
+}
+
+
+
+@media all and (-tizen-geometric-shape: circle) {
+	/* ------------------ LISTVIEW ------------------------ */
+	.ui-listview li img {
+		width: 86px;
+		height: 86px;
+	}
+	.ui-listview li.li-has-thumb-right img {
+		right: 15px;
+	}
+	.ui-listview li.li-has-thumb-left img {
+		left: 15px;
+	}
+	.ui-listview li.li-has-thumb-left label {
+		padding: 31.5px 40px 31.5px 94px;
+	}
+	.ui-listview li.li-has-thumb-right img {
+		right: 30px;
+	}
+	.ui-listview li.li-has-thumb-left img {
+		left: 30px;
+	}
+	li.select::before{
+		background-color: rgba(115, 191, 15, 1);
+	}
+	li.select::after {
+		content:"";
+		-webkit-mask-image: url(../list/images/tw_list_check_line.png);
+		-webkit-mask-repeat: no-repeat;
+		background-color: rgba(224, 224, 224, 1);
+		width: 56px;
+		height: 56px;
+		position: absolute;
+		left: 50%;
+		-webkit-transform: translateX(-50%);
+		-webkit-transition: width 150ms, left 150ms;
+	}
+	.ui-listview.ui-snap-listview li{
+		-webkit-mask-image : -webkit-linear-gradient(left,transparent,#fff 30%,#fff 70%,transparent);
+	}
+	.ui-listview.ui-snap-listview li.li-has-thumb-right,
+	.ui-listview.ui-snap-listview li.li-has-thumb-left,
+	.ui-listview.ui-snap-listview li.li-has-action-icon,
+	.ui-listview.ui-snap-listview li.li-has-toggle,
+	.ui-listview.ui-snap-listview li.li-has-checkbox,
+	.ui-listview.ui-snap-listview li.li-has-radio,
+	.ui-listview.ui-snap-listview li.ui-li-btn
+	{
+		-webkit-mask-image: none;
+	}
+	.li-has-action-icon .li-action-text::after{
+		height: 60px;
+		background-color: rgba(8, 8, 8, 0.3);
+		right: 103px;
+	}
+	.li-has-action-icon .li-action-icon-button{
+		width: 86px;
+		margin-left:2px;
+		margin-right: 15px;
+	}
+	/* ------------------ POPUP ------------------------ */
+	.ui-popup-content .btn-additional {
+		width: 160px;
+		height: 160px;
+		border-radius: 50% 50%;
+		background-color: rgba(10, 64, 94, 1);
+		margin: 19px auto auto;
+		padding: 59px 5px;
+	}
 }
