@@ -1,4 +1,10 @@
 %changelog
+* Wed Apr 15 2015 Heeju Joo <heeju.joo@samsung.com> 0.10.15
+	- fix(wearable): add removeEventHandler of moreoptions sample js
+	- fix(wearable): Viewswitcher Vertical gesture threshold fixed
+	- refactor(wearable): remove unnecessary sample page id
+	- fix(demo): modify required version in config.xml
+
 * Wed Apr 15 2015 Heeju Joo <heeju.joo@samsung.com> 0.10.14
 	- fix(mobile): remove marqueestyle list sample
 	- feat(wearable): apply ViewSwitcher to list selectmode
