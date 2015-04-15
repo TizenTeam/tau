@@ -4,7 +4,7 @@
 		listElement = page.getElementsByClassName( "ui-swipelist-list" )[0],
 		swipeList;
 
-	page.addEventListener( "pageshow", function() {
+	page.addEventListener( "pagebeforeshow", function() {
 		// make SwipeList object
 		swipeList = tau.widget.SwipeList( listElement, {
 			swipeTarget: "li",
@@ -12,7 +12,7 @@
 		});
 	});
 
-	page.addEventListener( "pagehide", function() {
+	page.addEventListener( "pagebeforehide", function() {
 		// release object
 		swipeList.destroy();
 	});
