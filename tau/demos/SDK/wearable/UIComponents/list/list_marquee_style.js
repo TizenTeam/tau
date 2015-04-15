@@ -1,9 +1,7 @@
 (function() {
 	var page = document.getElementById("pageMarqueeList"),
 		elScroller,
-		listHelper,
-		headerCollapseHandler,
-		headerExpandHandler;
+		listHelper;
 
 	page.addEventListener( "pagebeforeshow", function() {
 		var list = page.querySelector(".ui-listview"),
@@ -21,17 +19,6 @@
 			} else {
 				page.setAttribute("tizen-circular-scrollbar", "");
 			}
-
-			headerCollapseHandler = function() {
-				snapList.enable();
-			};
-
-			headerExpandHandler = function() {
-				snapList.disable();
-			};
-
-			document.addEventListener("headercollapse", headerCollapseHandler, false);
-			document.addEventListener("headerbeforeexpand", headerExpandHandler, false);
 		}
 	});
 
@@ -44,9 +31,6 @@
 			} else {
 				page.removeAttribute("tizen-circular-scrollbar");
 			}
-
-			document.removeEventListener("headercollapse", headerCollapseHandler, false);
-			document.removeEventListener("headerbeforeexpand", headerExpandHandler, false);
 		}
 	});
 
