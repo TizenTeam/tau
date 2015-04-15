@@ -1,4 +1,21 @@
 %changelog
+* Wed Apr 15 2015 Heeju Joo <heeju.joo@samsung.com> 0.10.14
+	- fix(mobile): remove marqueestyle list sample
+	- feat(wearable): apply ViewSwitcher to list selectmode
+	- fix(mobile): modify navigationbar issue (TMWC-658)
+	- feat(wearable): apply viewSwitcher to multiple bottom button
+	- fix(wearable): fixed bug that it doesn't work list item link.
+	- refactor(wearable): update main page of demo sample
+	- feat(wearable): refactor bottom button and side button
+	- fix(wearable): reduce composited layers for page.
+	- fix(wearable): modify swipelist layout issue
+	- fix(mobile): modify listview margin/padding in ctxpopup
+	- refactor(wearable): fix checkbox, radio style for WC1
+	- refactor(wearable): change demo page structure
+	- refactor(wearable): fix toggle switch style for WC1
+	- refactor(wearable): apply the latest xml files for WC1
+	- fix(wearable): fix checkbox sample lower case text
+
 * Thu Apr 09 2015 Heeju Joo <heeju.joo@samsung.com> 0.10.13
 	- fix(demos): modify config.xml in demo sample/template
 
