@@ -24,6 +24,7 @@
 			<li id="go_textbox_popup"><a href="#textbox_popup" data-inline="true" data-rel="popup" data-position-to="window">Popup has textbox</a></li>
 			<li><a href="#positionWindow" data-rel="popup" data-position-to="window">Position</a></li>
 			<li id="noti-demo"><a href="#">Notification(toast popup)</a></li>
+			<li id="chain_popups"><a href="#firstPopup" data-inline="true" data-rel="popup" data-position-to="window">Popups' chain</a></li>
 		</ul>
 
 		<!-- Center info Popup -->
@@ -231,6 +232,32 @@
 			Will be closed after 3sec.</p>
 		</div>
 
+		<div id="firstPopup" data-role="popup" class="center_title_1btn">
+			<div class="ui-popup-title">
+				<h1>Question 1</h1>
+			</div>
+			<div class="ui-popup-text">
+				What is your name?
+			</div>
+			<div class="ui-popup-button-bg">
+				<a data-role="button" class="ui-btn" data-rel="back">Next</a>
+			</div>
+		</div>
+
+		<div id="secondPopup" data-role="popup" class="center_title_2btn">
+			<div class="ui-popup-title">
+				<h1>Question 2</h1>
+			</div>
+			<div class="ui-popup-text">
+				What is your surname?
+			</div>
+			<div class="ui-popup-button-bg">
+				<a data-role="button" id="buttonPrevious" class="ui-btn">Previous</a>
+				<a data-role="button" class="ui-btn" data-rel="back">Exit</a>
+			</div>
+		</div>
+
+
 	</div> <!-- /content -->
 	<script src="popupwindow.js"></script>
 	<script>
@@ -250,6 +277,30 @@
 		//unbind callbacks to the H/W keys
 		$( window ).off( "tizenhwkey" );
 	});
+	</script>
+	<script>
+		var page = document.getElementById("popupwindow-demo"),
+				popup1 = document.getElementById("firstPopup"),
+				popup2 = document.getElementById("secondPopup"),
+				previousButton = document.getElementById("buttonPrevious");
+
+		function openPopup1 () {
+			tau.openPopup(popup1);
+		}
+
+		function openPopup2 () {
+			tau.openPopup(popup2);
+		}
+
+		tau.event.one(page, "pageshow", function() {
+			// after clicking on button with data-rel='back'
+			popup1.addEventListener("popuphide", openPopup2, false);
+			previousButton.addEventListener("vclick", openPopup1, false);
+		});
+		tau.event.one(page, "pagehide", function() {
+			popup1.removeEventListener("popuphide", openPopup2, false);
+			previousButton.removeEventListener("vclick", openPopup1, false)
+		});
 	</script>
 </div> <!-- /page -->
 
