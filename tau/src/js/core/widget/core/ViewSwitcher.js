@@ -360,7 +360,7 @@
 					element,
 					new events.gesture.Drag({
 						blockVertical: true,
-						threshold: 0
+						angleThreshold: 50
 					}),
 					new events.gesture.Swipe({
 						orientation: Gesture.Orientation.HORIZONTAL
