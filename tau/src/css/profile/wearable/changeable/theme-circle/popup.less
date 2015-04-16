@@ -190,24 +190,16 @@ Popup Toast
 ****************************************/
 .ui-popup.ui-popup-toast {
 	min-height: 30%;
-	border: none;
+	border-top: 3px solid @color_toast_popup_border;
+	border-bottom: 3px solid @color_toast_popup_border;
 	margin-bottom: 13%;
-	background-color: @color_popup_bg;
-	-webkit-mask-image: url(images/Popup/tw_toast_popup_bg.png);
+	background-color: @color_toast_popup_bg;
+	background-image: none;
 	.ui-popup-content {
 		background-color: transparent;
 		font-size: 32 * @px_base;
 		text-align: center;
 		line-height: 42 * @px_base;
-	}
-	&::after {
-		background-color: @color_popup_toast_border;
-		-webkit-mask-image: url(images/Popup/tw_toast_popup_outline.png);
-	}
-
-	&::before {
-		background-color: @color_popup_bg_cover;
-		-webkit-mask-image: url(images/Popup/tw_toast_popup_bg_cover.png);
 	}
 }
 
