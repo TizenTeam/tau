@@ -1,4 +1,4 @@
-/*global window, define */
+/*global window, define, ns */
 /* Copyright  2010 - 2014 Samsung Electronics Co., Ltd.
  * License : MIT License V2
  */
@@ -212,7 +212,9 @@
 			"../../../../core/engine",
 			"../../../../core/util/DOM/css",
 			"../../../../core/util/object",
+			"../../../../core/util/selectors",
 			"../../../../core/util/DOM/attributes",
+			"../../../../core/util/DOM/manipulation",
 			"../../../../core/widget/core/Page",
 			"../wearable"
 		],
@@ -226,7 +228,6 @@
 			 * @static
 			 */
 			var CorePage = ns.widget.core.Page,
-				CorePagePrototype = CorePage.prototype,
 				/**
 				 * Alias for {@link ns.util}
 				 * @property {Object} util
@@ -243,6 +244,14 @@
 				 * @static
 				 */
 				doms = util.DOM,
+				/**
+				 * Alias for {@link ns.util.selectors}
+				 * @property {Object} selectors
+				 * @member ns.widget.wearable.Page
+				 * @private
+				 * @static
+				 */
+				selectors = util.selectors,
 				/**
 				 * Alias for {@link ns.util.object}
 				 * @property {Object} object
@@ -273,6 +282,7 @@
 				 * @readonly
 				 */
 				classes = object.merge({
+					uiHeader: "ui-header",
 					uiPageScroll: "ui-scroll-on",
 					uiScroller: "ui-scroller",
 					uiFixed: "ui-fixed"
@@ -300,80 +310,33 @@
 					element = self.element,
 					screenWidth = window.innerWidth,
 					screenHeight = window.innerHeight,
-					contentSelector = classes.uiContent,
-					headerSelector = classes.uiHeader,
-					footerSelector = classes.uiFooter,
 					pageScrollSelector = classes.uiPageScroll,
-					headerHeight = 0,
-					footerHeight = 0,
 					children = [].slice.call(element.children),
-					childrenLength = children.length,
 					elementStyle = element.style,
-					needTopMargin = false,
-					needBottomMargin = false,
-					i,
-					len,
-					node,
-					contentStyle,
-					marginTop,
-					marginBottom,
-					nodeStyle,
 					scroller,
 					fragment;
 
 				elementStyle.width = screenWidth + "px";
 				elementStyle.height = screenHeight + "px";
 
-				if (option.enablePageScroll === true && !element.children[0].classList.contains(classes.uiScroller)) {
+				if (option.enablePageScroll === true && !element.querySelector("." + classes.uiScroller)) {
 					element.classList.add(pageScrollSelector);
 					scroller = document.createElement("div");
 					scroller.classList.add(classes.uiScroller);
 					fragment = document.createDocumentFragment();
-					for (i=0,len=element.children.length;i<len;i++) {
-						fragment.appendChild(element.children[0]);
+
+					children.forEach( function(value) {
+						if ( selectors.matchesSelector(value, ".ui-header:not(.ui-fixed), .ui-content, .ui-footer:not(.ui-fixed)")) {
+							fragment.appendChild(value);
+						}
+					});
+
+					if (element.children.length > 0 && element.children[0].classList.contains(classes.uiHeader)) {
+						doms.insertNodeAfter(element.children[0], scroller);
+					} else {
+						element.insertBefore(scroller, element.firstChild);
 					}
-					element.appendChild(scroller);
 					scroller.appendChild(fragment);
-				}
-
-				for (i = 0; i < childrenLength; i++) {
-					node = children[i];
-					if (node.classList.contains(headerSelector)) {
-						headerHeight = doms.getElementHeight(node);
-						if (node.classList.contains(classes.uiFixed)) {
-							needTopMargin = true;
-						}
-					} else if (node.classList.contains(footerSelector)) {
-						footerHeight += doms.getElementHeight(node);
-						if (node.classList.contains(classes.uiFixed)) {
-							needBottomMargin = true;
-						}
-					}
-				}
-
-				for (i = 0; i < childrenLength; i++) {
-					node = children[i];
-					if (node.classList.contains(contentSelector)) {
-						self._storeContentStyle(node);
-						nodeStyle = node.style;
-						contentStyle = window.getComputedStyle(node);
-						marginTop = parseFloat(contentStyle.marginTop);
-						marginBottom = parseFloat(contentStyle.marginBottom);
-
-						if (!element.classList.contains(pageScrollSelector)) {
-							nodeStyle.height = (screenHeight - headerHeight - footerHeight - marginTop - marginBottom) + "px";
-							nodeStyle.width = screenWidth + "px";
-						} else {
-							nodeStyle.minHeight = (screenHeight - headerHeight - footerHeight - marginTop - marginBottom) + "px";
-						}
-
-						if (needTopMargin) {
-							nodeStyle.marginTop = headerHeight + "px";
-						}
-						if (needBottomMargin) {
-							nodeStyle.marginBottom = footerHeight + "px";
-						}
-					}
 				}
 			};
 

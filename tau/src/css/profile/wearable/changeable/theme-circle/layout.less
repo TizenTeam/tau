@@ -66,13 +66,6 @@ body {
 .ui-page {
 	background-image: -webkit-radial-gradient(transparent -100%, transparent -90%, @color_bg_cover 69%), -webkit-radial-gradient(@color_bg 71%, transparent 0px);
 	background-position: 0px 0px, 0px 0px;
-	.ui-scroller {
-		width: 100%;
-		height: 100%;
-		overflow: hidden;
-		overflow-y: auto;
-		.touch-scrolling();
-	}
 	.ui-content {
 		text-align: center;
 	}
@@ -122,11 +115,16 @@ body {
 
 	.ui-content {
 		margin-top: 122 * @unit_base;
-		margin-bottom: 114 * @unit_base;
+		padding-bottom: 114 * @unit_base;
 		padding-top: 0;
 	}
-	.ui-header ~ .ui-content {
-		margin-top: 0;
+	.ui-header  {
+		~ .ui-content {
+			margin-top: 0;
+		}
+		~ .ui-scroller > .ui-content {
+			margin-top: 0;
+		}
 	}
 	.ui-content ~ .ui-footer:not(.ui-expandable-footer) {
 		margin-top: -85 * @unit_base;

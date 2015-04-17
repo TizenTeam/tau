@@ -1,4 +1,4 @@
-.ui-page {
+.custom-page {
 	position: absolute;
 	top: -99999em;
 	left: -99999em;
@@ -16,6 +16,6 @@
 	height: 1000px !important;
 }
 
-.ui-page {
+.custom-page {
 	height: 500px !important;
 }

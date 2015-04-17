@@ -1,6 +1,5 @@
 (function() {
-	var page = document.getElementById("pageTestVirtualGrid");
-	page.addEventListener("pageshow", function() {
+	window.addEventListener("load", function() {
 		var elGrid = document.getElementById("vgrid1"),
 			config = {
 				//Declare total number of items
@@ -25,9 +24,5 @@
 		});
 		// Draw child elements
 		vGrid.draw();
-	});
-	page.addEventListener("pagehide", function() {
-		// Remove all children in the vGrid
-		vGrid.destroy();
 	});
 }());

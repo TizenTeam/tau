@@ -20,26 +20,34 @@ body {
 	width: 100%;
 	height: 100%;
 	overflow: hidden;
-	display:none;
 	position: absolute;
 	top:0;
 	left:0;
+	display: none;
 	background: @color_bg;
 	&.ui-page-active {
-		display: block;
+		display: flex;
+		display: -webkit-flex;
+		flex-direction: column;
+		-webkit-flex-direction: column;
 	}
 	&.ui-page-build {
-		display: block;
+		display: flex;
+		display: -webkit-flex;
+		flex-direction: column;
+		-webkit-flex-direction: column;
 		visibility: hidden;
 	}
 	.w-layout-no-tap-color();
 }
 
 .ui-content {
-	width:auto;
-	height: 100%;
+	width: 100%;
+	height: auto;
 	overflow: auto;
 	.touch-scrolling();
+	flex: 1;
+	-webkit-flex: 1;
 }
 
 .ui-header {
@@ -55,7 +63,7 @@ body {
 		font-weight: bold;
 		white-space: nowrap;
 		overflow: hidden;
-		margin: 0px;
+		margin: 0;
 		padding-left: @fixed_header_title_padding;
 		padding-right: @fixed_header_title_padding;
 		-webkit-mask-image: -webkit-linear-gradient(left, rgba(0,0,0,1) 80%, rgba(0,0,0,0) 95%);
@@ -159,7 +167,7 @@ body {
 .ui-footer {
 	width: 100%;
 	height: @fixed_footer_height;
-	position: absolute;
+	position: relative;
 	bottom: 0;
 	left: 0;
 
@@ -185,13 +193,19 @@ body {
                    Page Scroll
 ***************************************************************************/
 .ui-page.ui-scroll-on {
-	overflow: auto;
-	overflow-y: auto;
-	overflow-x: hidden;
-	.touch-scrolling();
-
+	.ui-scroller {
+		width: 100%;
+		height: auto;
+		overflow: hidden;
+		overflow-y: auto;
+		.touch-scrolling();
+		flex: 1;
+		-webkit-flex: 1;
+	}
 	.ui-content {
 		height: auto !important;
+		flex: none;
+		-webkit-flex: none;
 	}
 
 	.ui-footer {
@@ -199,20 +213,11 @@ body {
 	}
 }
 
-.ui-header.ui-fixed {
-	position: fixed !important;
-	top: 0;
-	left: 0;
-	width: 100%;
-	z-index: @z_base_header_footer;
-}
-
 .ui-footer.ui-fixed {
 	position: fixed !important;
 	bottom: 0;
 	left: 0;
 	width: 100%;
-	z-index: @z_base_header_footer;
 	-webkit-transform : translate3d(0, 0, 0);
 }
 

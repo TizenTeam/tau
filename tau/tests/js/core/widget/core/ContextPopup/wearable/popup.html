@@ -11,11 +11,16 @@
 		<script src="../../../../../../libs/support.js"></script>
 		<script type="text/javascript">
 			var tauConfig = {
-				autorun: false
+				autorun: false,
+				pageTransition: "none"
 			};
 		</script>
 		<script type="text/javascript"
 			src="../../../../../../libs/dist/js/tau.js"></script>
+		<script type="text/javascript">
+			tau.setConfig("pageTransition", "none");
+			tau.setConfig("popupTransition", "none");
+		</script>
 		<style>
 			#popup2Link {
 				height: 50px;
