@@ -104,11 +104,21 @@
 					};
 
 					self.options = {
-						selector: "li:not(.ui-listview-divider)"
+						selector: "li:not(.ui-listview-divider)",
+						animate: "none",
+						scale: {
+							from: 0.77,
+							to: 1
+						},
+						opacity: {
+							from: 0.7,
+							to: 1
+						}
 					};
 
+					self._listItems = [];
 					self._callbacks = {};
-					self._timer = null;
+					self._scrollEndTimeoutId = null;
 					self._isScrollStarted = false;
 					self._selectedIndex = null;
 					self._enabled = true;
@@ -131,52 +141,135 @@
 
 			SnapListview.classes = classes;
 
+			SnapListview.ListItem = function(element, visiableOffset) {
+				var offsetTop = element.offsetTop,
+					height = element.offsetHeight;
+
+				this.element = element;
+				this.rate = -1;
+
+				this.coord = {
+					top: offsetTop,
+					bottom: offsetTop + height
+				};
+
+				this.position = {
+					begin: offsetTop - visiableOffset,
+					start: offsetTop - visiableOffset + height,
+					stop: offsetTop,
+					end: offsetTop + height
+				};
+
+				element.classList.add(classes.SNAP_LISTVIEW_ITEM);
+			};
+
+			SnapListview.ListItem.prototype = {
+				animate: function(offset, callback) {
+					var element = this.element,
+						p = this.position,
+						begin = p.begin,
+						end = p.end,
+						start = p.start,
+						stop = p.stop,
+						rate;
+
+					if (offset >= start && offset <= stop) {
+						rate = Math.min(1, Math.abs((offset - start) / (stop - start)));
+					} else if ((offset > begin && offset < start) || (offset < end && offset > stop)) {
+						rate = 0;
+					} else {
+						rate = -1;
+					}
+
+					if (this.rate !== rate) {
+						callback(element, rate);
+						this.rate = rate;
+					}
+				}
+			};
+
 			function removeSelectedClass(self) {
 				var selectedIndex = self._selectedIndex;
 
 				if (selectedIndex !== null) {
-					self._ui.childItems[selectedIndex].classList.remove(classes.SNAP_LISTVIEW_SELECTED);
+					self._listItems[selectedIndex].element.classList.remove(classes.SNAP_LISTVIEW_SELECTED);
 				}
 			}
 
-			function scrollEndHandler(self) {
+			function setSelection(self) {
+				var ui = self._ui,
+					listItems = self._listItems,
+					scrollableElement = ui.scrollableParent,
+					scrollableElementScrollTop = scrollableElement.scrollTop,
+					scrollableElementScrollHeight = scrollableElement.scrollHeight,
+					scrollableElementOffsetHeight = scrollableElement.offsetHeight,
+					scrollElementCenter = scrollableElementScrollTop + scrollableElementOffsetHeight/2,
+					listItemLength = listItems.length,
+					i,
+					tempListItem,
+					tempListItemCoord,
+					gapOfBeforeItem,
+					gapOfAfterItem;
+
+				for (i=0 ; i < listItemLength; i++) {
+					tempListItem = listItems[i];
+					tempListItemCoord = tempListItem.coord;
+					gapOfBeforeItem = listItems[i-1] ? (tempListItemCoord.top - listItems[i-1].coord.bottom) / 2 : tempListItemCoord.top;
+					gapOfAfterItem = listItems[i+1] ? (listItems[i+1].coord.top - tempListItemCoord.bottom) / 2 : scrollableElementScrollHeight - tempListItemCoord.bottom;
+
+					if ((tempListItemCoord.top - gapOfBeforeItem < scrollElementCenter) && (tempListItemCoord.bottom + gapOfAfterItem >= scrollElementCenter)) {
+						removeSelectedClass(self);
+						self._selectedIndex = i;
+						tempListItem.element.classList.add(classes.SNAP_LISTVIEW_SELECTED);
+						utilEvent.trigger(tempListItem.element, eventType.SELECTED);
+						break;
+					}
+				}
+
+			}
+
+			function listItemAnimate(self) {
+				var anim = self.options.animate,
+					animateCallback = self._callbacks[anim],
+					scrollPosition;
+
+				if (animateCallback) {
+					scrollPosition = self._ui.scrollableParent.scrollTop;
+					self._listItems.forEach(function(item) {
+						item.animate(scrollPosition, animateCallback);
+					});
+				}
+			}
+
+			function scrollEndCallback(self) {
 				self._isScrollStarted = false;
 
 				// trigger "scrollend" event
 				utilEvent.trigger(self.element, eventType.SCROLL_END);
 
-				if (self._enabled) {
-					setSelection(self);
-				}
+				setSelection(self);
 			}
 
-			function scrollStartHandler(self) {
-				var scrollEndCallback;
-
-				scrollEndCallback = scrollEndHandler.bind(null, self);
+			function scrollHandler(self) {
+				var callbacks = self._callbacks,
+					scrollEndCallback = callbacks.scrollEnd;
 
 				if (!self._isScrollStarted) {
 					self._isScrollStarted = true;
-					// trigger "scrollstart" event
+					removeSelectedClass(self);
 					utilEvent.trigger(self.element, eventType.SCROLL_START);
-
-					if (self._enabled) {
-						removeSelectedClass(self);
-					}
 				}
 
-				self._callbacks.scrollEnd = scrollEndCallback;
+				listItemAnimate(self);
 
-				window.clearTimeout(self._timer);
-
-				self._timer = window.setTimeout(scrollEndCallback, SCROLL_END_TIME_THRESHOLD);
+				window.clearTimeout(self._scrollEndTimeoutId);
+				self._scrollEndTimeoutId = window.setTimeout(scrollEndCallback, SCROLL_END_TIME_THRESHOLD);
 			}
 
-			/* TODO: please check algorithm */
 			function getScrollableParent(element) {
 				var overflow;
 
-				while (element != document.body) {
+				while (element !== document.body) {
 					overflow = doms.getCSSProperty(element, "overflow-y");
 					if (overflow === "scroll" || (overflow === "auto" && element.scrollHeight > element.clientHeight)) {
 						return element;
@@ -187,63 +280,24 @@
 				return null;
 			}
 
-			function setSnapListviewItem(element) {
-				var ui = this._ui,
-					options = this.options,
-					listviewElement = element;
+			function initSnapListview(element) {
+				var self = this,
+					ui = self._ui,
+					options = self.options,
+					listItems = self._listItems,
+					listviewElement = element,
+					scroller = ui.scrollableParent,
+					visiableOffset = scroller.parentNode.offsetHeight;
 
-				childItems = listviewElement.querySelectorAll(options.selector);
 				ui.page = utilSelector.getClosestByClass(listviewElement, "ui-page") || window;
-				ui.childItems = childItems;
 				ui.scrollableParent = getScrollableParent(listviewElement) || ui.page;
+				ui.scrollableParent.classList.add(classes.SNAP_CONTAINER);
 
-				 if (childItems && (childItems.length > 0)) {
-					ui.scrollableParent.classList.add(classes.SNAP_CONTAINER);
-					initSnapListviewItemInfo(childItems);
-				}
-			};
+				[].slice.call(listviewElement.querySelectorAll(options.selector)).forEach(function(element) {
+					listItems.push(new SnapListview.ListItem(element, visiableOffset));
+				});
 
-			function initSnapListviewItemInfo(listItems) {
-				var listItemLength = listItems.length,
-					i, tempListItem;
-
-				for (i=0 ; i < listItemLength; i++) {
-					tempListItem = listItems[i];
-					tempListItem.itemTop = tempListItem.offsetTop;
-					tempListItem.itemHeight = tempListItem.offsetHeight;
-					tempListItem.itemBottom = tempListItem.itemTop + tempListItem.itemHeight;
-					tempListItem.classList.add(classes.SNAP_LISTVIEW_ITEM);
-				}
-			}
-
-			function setSelection(self) {
-				var ui = self._ui,
-					listItems = ui.childItems,
-					scrollableElement = ui.scrollableParent,
-					scrollableElementScrollTop = scrollableElement.scrollTop,
-					scrollableElementOffsetHeight = scrollableElement.offsetHeight,
-					scrollElementCenter = scrollableElementScrollTop + scrollableElementOffsetHeight/2,
-					listItemLength = listItems.length,
-					i,
-					tempListItem,
-					gapOfBeforeItem,
-					gapOfAfterItem;
-
-				for (i=0 ; i < listItemLength; i++) {
-					tempListItem = listItems[i];
-					gapOfBeforeItem = listItems[i-1] ? (tempListItem.itemTop - listItems[i-1].itemBottom) / 2 : tempListItem.itemTop;
-					gapOfAfterItem = listItems[i+1] ? (listItems[i+1].itemTop - tempListItem.itemBottom) / 2 : scrollableElement.scrollHeight - tempListItem.itemBottom;
-
-					if ((tempListItem.itemTop - gapOfBeforeItem < scrollElementCenter) && (tempListItem.itemBottom + gapOfAfterItem >= scrollElementCenter)) {
-						removeSelectedClass(self);
-						self._selectedIndex = i;
-						tempListItem.classList.add(classes.SNAP_LISTVIEW_SELECTED);
-						// trigger "selected" event
-						utilEvent.trigger(tempListItem, eventType.SELECTED);
-						break;
-					}
-				}
-
+				listItemAnimate(self);
 			}
 
 			prototype._build = function(element) {
@@ -264,19 +318,36 @@
 			 */
 			prototype._init = function(element) {
 				var self = this,
-					ui = self._ui,
-					listviewElement = element,
-					scrollStartCallback = scrollStartHandler.bind(null, self);
+					options = this.options,
+					scaleForm = options.scale.from,
+					scaleTo = options.scale.to,
+					opacityForm = options.opacity.from,
+					opacityTo = options.opacity.to;
 
-				self._callbacks.scrollStart = scrollStartCallback;
+				self._callbacks = {
+					scroll: scrollHandler.bind(null, self),
+					scrollEnd: scrollEndCallback.bind(null, self),
+					scale : function(listItemElement, rate) {
+						var scale = 1,
+							opacity = 1;
 
-				setSnapListviewItem.call(self, element);
+						if (rate < 0) {
+							listItemElement.style.webkitTransform = "";
+							listItemElement.style.opacity = "";
+							return;
+						}
+						
+						rate = rate > 0.5 ? 1 - rate : rate;
 
-				// bind scroll event to scrollable parent
-				utilEvent.on(ui.scrollableParent, "scroll", scrollStartCallback);
+						scale = scaleForm + ((scaleTo - scaleForm) * rate*2);
+						opacity = opacityForm + ((opacityTo - opacityForm) * rate*2); 
 
-				// init selectedItem
-				setSelection(self);
+						listItemElement.style.webkitTransform = "scale3d("+scale+","+scale+","+scale+")";
+						listItemElement.style.opacity = opacity;
+					}
+				};
+
+				this._refresh();
 
 				return element;
 			};
@@ -293,14 +364,18 @@
 					ui = self._ui;
 
 				ui.scrollableParent = getScrollableParent(element) || ui.page;
-				setSnapListviewItem.call(self, element);
+				initSnapListview.call(self, element);
 				setSelection(self);
 
 				return null;
 			};
 
+			prototype._bindEvents = function() {
+				utilEvent.on(this._ui.scrollableParent, "scroll", this._callbacks.scroll, false);
+			};
+
 			prototype._unbindEvents = function() {
-				this._ui.scrollableParent.removeEventListener("scroll", this._callbacks.scrollStart, false);
+				this._ui.scrollableParent.removeEventListener("scroll", this._callbacks.scroll, false);
 			};
 
 			/**
@@ -316,11 +391,13 @@
 
 				self._ui = null;
 				self._callbacks = null;
+				self._listItems = null;
 				self._isScrollStarted = null;
-				if (self._timer) {
-					window.clearTimeout(self._timer);
+
+				if (self._scrollEndTimeoutId) {
+					window.clearTimeout(self._scrollEndTimeoutId);
 				}
-				self._timer = null;
+				self._scrollEndTimeoutId = null;
 				self._selectedIndex = null;
 
 				return null;
@@ -364,16 +441,23 @@
 				var ui = this._ui,
 					enabled = this._enabled,
 					selectedIndex = this._selectedIndex,
-					listItems = ui.childItems,
+					listItems = this._listItems,
 					scrollableParent = ui.scrollableParent,
 					listItemLength = listItems.length,
-					indexItem = listItems[index],
-					selectedItem = listItems[selectedIndex];
+					indexItem,
+					selectedItem;
+
+				if (!enabled || index < 0 || index > listItemLength-1) {
+					return;
+				}
+
+				indexItem = listItems[index].coord;
+				selectedItem = listItems[selectedIndex].coord;
 
 				if (index > selectedIndex && selectedIndex + 1 < listItemLength) {
-					scrollableParent.scrollTop += indexItem.itemTop - selectedItem.itemBottom + (indexItem.itemHeight / 2 + selectedItem.itemHeight / 2);
+					scrollableParent.scrollTop += indexItem.top - selectedItem.bottom + ((indexItem.bottom-indexItem.top) / 2 + (selectedItem.bottom-selectedItem.top) / 2);
 				} else if (index < selectedIndex && selectedIndex > 0) {
-					scrollableParent.scrollTop -= selectedItem.itemTop - indexItem.itemBottom + (indexItem.itemHeight / 2 + selectedItem.itemHeight / 2);
+					scrollableParent.scrollTop -= selectedItem.top - indexItem.bottom + ((indexItem.bottom-indexItem.top) / 2 + (selectedItem.bottom-selectedItem.top) / 2);
 				}
 			};
 
