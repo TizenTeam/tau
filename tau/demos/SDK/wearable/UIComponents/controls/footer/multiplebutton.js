@@ -6,7 +6,7 @@
 	page.addEventListener( "pagebeforeshow", function() {
 		if (tau.support.shape.circle) {
 			tau.helper.DrawerMoreStyle.create(drawer, {
-				handler: ".drawer-handler",
+				handler: ".drawer-handler"
 			});
 			viewSwitcher = tau.widget.ViewSwitcher(viewSwitcherElement);
 		}

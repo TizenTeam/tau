@@ -47,12 +47,18 @@ body {
 		}
 		.ui-more {
 			position: fixed;
-			top: 163 * @px_base;
-			right: 8 * @px_base;
+			top: 50%;
+			right: 0;
 			width: @fixed_header_more_width;
 			height: @fixed_header_more_height;
+			transform: translate(0, -50%);
 			&.ui-icon-overflow {
 				background-color: @color_moreoptions_bg;
+				.mask-position(29 * @unit_base 4 * @unit_base);
+
+				&[disabled="disabled"] {
+					.mask-position(29 * @unit_base 4 * @unit_base);
+				}
 			}
 		}
 	}
