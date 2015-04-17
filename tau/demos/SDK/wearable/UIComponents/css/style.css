@@ -595,6 +595,9 @@ input[type="checkbox"]#checkboxControl {
 		margin-left:2px;
 		margin-right: 15px;
 	}
+	.ui-listview .li-has-action-icon.ui-li-active .li-action-text:active {
+		background-color: transparent;
+	}
 	/* ------------------ POPUP ------------------------ */
 	.ui-popup-content .btn-additional {
 		width: 160px;
