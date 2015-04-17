@@ -37,7 +37,9 @@
 						snapList;
 
 					elScroller = page.querySelector(".ui-scroller");
-					list = elScroller.querySelector(".ui-listview");
+					if (elScroller) {
+						list = elScroller.querySelector(".ui-listview");
+					}
 
 					if (elScroller && list) {
 						listHelper = tau.helper.SnapListStyle.create(list, {animate: "scale"});
