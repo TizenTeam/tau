@@ -44,6 +44,7 @@
 					if (elScroller && list) {
 						listHelper = tau.helper.SnapListStyle.create(list, {animate: "scale"});
 						snapList = listHelper.getSnapList();
+
 						headerCollapseHandler = snapList.enable.bind(snapList);
 						headerExpandHandler = snapList.disable.bind(snapList);
 						page.addEventListener("headercollapse", headerCollapseHandler, false);
@@ -56,10 +57,12 @@
 
 				page.addEventListener("pagebeforehide", function (e) {
 					if (listHelper) {
-						listHelper[i].destroy();
-						page.removeEventListener("headercollapse", headerCollapseHandler[i], false);
-						page.removeEventListener("headerbeforeexpand", headerExpandHandler[i], false);
+						listHelper.destroy();
+
+						page.removeEventListener("headercollapse", headerCollapseHandler, false);
+						page.removeEventListener("headerbeforeexpand", headerExpandHandler, false);
 						listHelper = null;
+
 						if (elScroller) {
 							elScroller.removeAttribute("tizen-circular-scrollbar");
 						}
