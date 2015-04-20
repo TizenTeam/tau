@@ -287,9 +287,11 @@
 				 */
 				engine = ns.engine,
 
-				EXPANDABLE_SIZE = 100,
+				EXPANDABLE_SIZE = 88,
 
 				EXPANDABLE_TOLERANCE = 5,
+
+				EXPANDABLE_ANIMATION_TIME = 30,
 
 				CustomEvents = {
 					EXPAND: "headerexpand",
@@ -382,6 +384,7 @@
 							startY: 0,
 							currentY: 0,
 							moveY: 0,
+							animationTime: EXPANDABLE_ANIMATION_TIME,
 							max: EXPANDABLE_SIZE,
 							tolerance: EXPANDABLE_TOLERANCE
 						};
@@ -421,10 +424,9 @@
 
 			prototype._start = function (event) {
 				var self = this,
-					expandableHeader = self._ui.expandableHeader,
-					scroller = expandableHeader.scroller;
+					expandableHeader = self._ui.expandableHeader;
 
-				if (event.detail.direction === "down" && scroller.scrollTop === 0 && !expandableHeader.expanded) {
+				if (event.detail.direction === "down" && expandableHeader.scroller.scrollTop === 0 && !expandableHeader.expanded) {
 					utilsEvents.trigger(expandableHeader.header, CustomEvents.BEFORE_EXPAND);
 					expandableHeader.expanded = true;
 					expandableHeader.drag.options.blockHorizontal = false;
@@ -436,20 +438,30 @@
 			prototype._drag = function (event) {
 				var self = this,
 					expandableHeader = self._ui.expandableHeader,
+					scroller = expandableHeader.scroller,
 					moveY = expandableHeader.startY + event.detail.estimatedY,
+					diffY = expandableHeader.moveY - moveY,
+					max = expandableHeader.max,
 					transform;
 
 				if (expandableHeader.expanded) {
-					if (moveY >= 0 && moveY <= expandableHeader.max) {
+					scroller.style.webkitTransition = "";
+					if (moveY >= 0) {
+						if (diffY > 30 || moveY > max) {
+							scroller.style.webkitTransition = "-webkit-transform" + expandableHeader.animationTime + "ms linear";
+						}
+						moveY = moveY < max ? moveY : max;
 						transform = "translate3d(0, " + moveY + "px, 0)";
-						expandableHeader.scroller.style.webkitTransform = transform;
+						scroller.style.webkitTransform = transform;
 						expandableHeader.moveY = moveY;
 					} else if (moveY < 0){
 						utilsEvents.trigger(expandableHeader.header, CustomEvents.BEFORE_COLLAPSE);
-						expandableHeader.scroller.style.webkitTransform = "";
+						scroller.style.webkitTransform = "";
+						scroller.scrollTop = 0;
 						expandableHeader.drag.options.blockHorizontal = true;
 						expandableHeader.expanded = false;
 						expandableHeader.currentY = 0;
+						expandableHeader.moveY = 0;
 						utilsEvents.trigger(expandableHeader.header, CustomEvents.COLLAPSE);
 						event.preventDefault();
 					}
