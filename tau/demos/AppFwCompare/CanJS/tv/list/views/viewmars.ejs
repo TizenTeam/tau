@@ -1,0 +1,8 @@
+<% list(list_players, function(player){ %>
+<li class="li-has-multiline"><%= player.attr('NAME') %>
+    <span class="li-text-sub">
+        <span><%= player.FROM %></span>
+            (<span><%= player.ACTIVE %></span>)
+    </span>
+</li>
+<% }) %>
