@@ -149,6 +149,8 @@
 	color: rgba(245, 245, 245, 1);
 	padding: 27px 0;
 	min-height: 100px;
+	border-image:none;
+	-webkit-mask-image: none;
 }
 
 .select-popup .ui-listview li:last-child {

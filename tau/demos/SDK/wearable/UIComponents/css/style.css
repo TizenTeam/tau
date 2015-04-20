@@ -576,16 +576,16 @@ input[type="checkbox"]#checkboxControl {
 		-webkit-transform: translateX(-50%);
 		-webkit-transition: width 150ms, left 150ms;
 	}
-	.ui-listview.ui-snap-listview li{
+	.ui-listview li{
 		-webkit-mask-image : -webkit-linear-gradient(left,transparent,#fff 30%,#fff 70%,transparent);
 	}
-	.ui-listview.ui-snap-listview li.li-has-thumb-right,
-	.ui-listview.ui-snap-listview li.li-has-thumb-left,
-	.ui-listview.ui-snap-listview li.li-has-action-icon,
-	.ui-listview.ui-snap-listview li.li-has-toggle,
-	.ui-listview.ui-snap-listview li.li-has-checkbox,
-	.ui-listview.ui-snap-listview li.li-has-radio,
-	.ui-listview.ui-snap-listview li.ui-li-btn
+	.ui-listview li.li-has-thumb-right,
+	.ui-listview li.li-has-thumb-left,
+	.ui-listview li.li-has-action-icon,
+	.ui-listview li.li-has-toggle,
+	.ui-listview li.li-has-checkbox,
+	.ui-listview li.li-has-radio,
+	.ui-listview li.ui-li-btn
 	{
 		-webkit-mask-image: none;
 	}
@@ -608,6 +608,12 @@ input[type="checkbox"]#checkboxControl {
 	.ui-listview li.li-has-multiline.li-has-thumb-right label {
 		padding-right: 105px;
 		padding-left: 30px;
+	}
+	.ui-listview li.select {
+		background-color: transparent;
+	}
+	.ui-listview li.ui-listview-divider{
+		border-image: none;
 	}
 	/* ------------------ POPUP ------------------------ */
 	.ui-popup-content .btn-additional {
