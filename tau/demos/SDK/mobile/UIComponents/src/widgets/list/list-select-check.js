@@ -1,26 +1,23 @@
 /* global tau*/
-var selectAll = tau.widget.Checkboxradio(document.getElementsByName("check")[0]),
-	checkboxWidgets = [
+var checkboxWidgets = [
 		tau.widget.Checkboxradio(document.getElementsByName("select-check1")[0]),
 		tau.widget.Checkboxradio(document.getElementsByName("select-check2")[0]),
 		tau.widget.Checkboxradio(document.getElementsByName("select-check3")[0])
 	];
 
-function checkAllCheckbox() {
-	var val = selectAll.value() === null,
-		len = checkboxWidgets.length,
+function checkAllCheckbox(allChecked) {
+	var len = checkboxWidgets.length,
 		i;
 
 	for (i = 0; i < len; i++) {
-		checkboxWidgets[i].element.checked = !val;
+		checkboxWidgets[i].element.checked = !allChecked;
 		checkboxWidgets[i].refresh();
 	}
 }
 
 function checkAll() {
-	selectAll.element.checked = (selectAll.value() === null);
-	selectAll.refresh();
-	selectAll.trigger("change");
+	var allChecked = watchCheckboxes();
+	checkAllCheckbox(allChecked);
 }
 
 function watchCheckboxes() {
@@ -33,14 +30,5 @@ function watchCheckboxes() {
 		i--;
 	}
 
-	selectAll.element.checked = allSelected;
-	selectAll.refresh();
+	return allSelected;
 }
-
-// Attach event listeners
-selectAll.on("change", checkAllCheckbox);
-
-// Listen to every checkbox and check/uncheck "select all" on change
-checkboxWidgets.forEach(function (checkbox) {
-	checkbox.on("change", watchCheckboxes);
-});
