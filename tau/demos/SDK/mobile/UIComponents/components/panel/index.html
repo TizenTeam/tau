@@ -5,13 +5,13 @@
 	<script type="text/javascript" src="../../lib/tau/mobile/js/tau.js" data-build-remove="false"></script>
 </head>
 <body>
-<div data-role="page" id="panelPage">
+<div id="panelPage" data-role="page">
 	<div data-role="header" data-position="fixed">
 		<h1>Navigation bar</h1>
-		<nav data-role="navigation" id="navigation">
+		<nav id="navigation" data-role="navigation">
 		</nav>
 	</div>
-	<div data-role="panel-changer">
+	<div id="panelChanger" data-role="panel-changer">
 		<div id="mainpanel" data-role="panel" style="background-color:#ffff4f">
 			<ul data-role="listview">
 				<li>
@@ -29,6 +29,7 @@
 			</div>
 		</div>
 	</div>
+	<script src="./panel.js"></script>
 </div>
 </body>
 </html>
