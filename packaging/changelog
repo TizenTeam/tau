@@ -1,4 +1,34 @@
 %changelog
+* Mon Apr 20 2015 Heeju Joo <heeju.joo@samsung.com> 0.10.16
+	- fix(wearable): fix expandableHeader expand logic
+	- refactor(wearable): add marquee on header helper in demo
+	- fix(mobile): fix selectall list script code
+	- fix(wearable): remove scrollbar on popup
+	- fix(demos): fix bug release event callback in animation list.
+	- fix(wearable): fix expandableHeader expand issue
+	- fix(mobile): modify page exit statement in sample
+	- fix(wearable): remove "ui-state-disabled" style in snapListView
+	- fix(wearable): fix previous page scroll position issue
+	- refactor(wearable): fix list animation script
+	- refactor(wearable): remove list basic animation and add sample separately.
+	- refactor(wearable): refactor expandableHeader
+	- refactor(wearable): fix page component
+	- feat(wearable): apply scale VI of snaplist.
+	- fix(mobile): remove decorationline in textarea (TMWC-728)
+	- fix(wearable): drawer handler size fixed
+	- fix(wearable): modify required_version in config.xml
+	- refactor(wearable): add marquee list demo sample
+	- refactor(wearable): fix bg and border of toast popup
+	- refactor(wearable): remove button list
+	- feat(wearable): fix config.xml error
+	- refactor(wearable): modify app css and fix bugs
+	- fix(wearable): remove expandableHeade
+	- feat(wearable): add ui-header-small style
+	- feat(core): add preventDefault check logic on drag
+	- fix(wearable): add snaplist style
+	- refactor(wearable): fix generating and destroying timing in swipe list
+	- refactor(wearable): add virtual list sample
+
 * Wed Apr 15 2015 Heeju Joo <heeju.joo@samsung.com> 0.10.15
 	- fix(wearable): add removeEventHandler of moreoptions sample js
 	- fix(wearable): Viewswitcher Vertical gesture threshold fixed
