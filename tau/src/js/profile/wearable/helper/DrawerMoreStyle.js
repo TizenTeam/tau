@@ -19,7 +19,7 @@
 			"../../../core/util/object",
 			"../../../core/util/selectors",
 			"../widget/wearable/Drawer",
-			"../../../core/widget/core/ViewSwitcher"
+			"../../../core/widget/core/viewswitcher/ViewSwitcher"
 		],
 		function () {//>>excludeEnd("tauBuildExclude");
 			var engine = ns.engine,

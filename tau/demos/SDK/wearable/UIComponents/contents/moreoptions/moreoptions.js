@@ -8,8 +8,10 @@
 		elPageIndicator = page.querySelector("#pageIndicator"),
 		views = page.querySelectorAll(".ui-view"),
 		viewSwitcherElement = page.querySelector("#viewSwitcher"),
+		drawerMore,
 		viewSwitcher,
-		rotaryHandlerBound;
+		rotaryHandlerBound,
+		clickHandlerBound;
 
 	function rotaryHandler(event) {
 		var direction = event.detail.direction,
@@ -28,25 +30,24 @@
 			}
 		}
 	}
+	function clickHandler(event) {
+		tau.openPopup(popup);
+	}
 	page.addEventListener( "pagebeforeshow", function() {
-		var popupWidget,
-			pageIndicator = tau.widget.PageIndicator(elPageIndicator, { numberOfPages: 5 });
-
-		pageIndicator.setActive(1);
+		var pageIndicator = tau.widget.PageIndicator(elPageIndicator, { numberOfPages: views.length });
 
 		if (tau.support.shape.circle) {
-			tau.helper.DrawerMoreStyle.create(drawer, {
+			drawerMore = tau.helper.DrawerMoreStyle.create(drawer, {
 				handler: ".ui-more"
 			});
 			viewSwitcher = tau.widget.ViewSwitcher(viewSwitcherElement);
+			pageIndicator.setActive(viewSwitcher.getActiveIndex());
 			rotaryHandlerBound = rotaryHandler.bind(this);
 			document.addEventListener("rotarydetent", rotaryHandlerBound);
 		} else {
 			// Shape is square
-			popupWidget = tau.widget.Popup(popup);
-			tau.event.on(handler, "click", function(e){
-				popupWidget.open();
-			}, false);
+			clickHandlerBound = clickHandler.bind(null);
+			handler.addEventListener("click", clickHandlerBound);
 		}
 
 		viewSwitcherElement.addEventListener("viewchange", function(event) {
@@ -54,10 +55,15 @@
 			if (index < 0 || index > views.length - 1) {
 				return;
 			}
-			pageIndicator.setActive(event.detail.index);
+			pageIndicator.setActive(index);
 		}, false);
 	});
 	page.addEventListener( "pagebeforehide", function() {
-		document.removeEventListener("rotarydetent", rotaryHandlerBound);
+		if (tau.support.shape.circle) {
+			document.removeEventListener("rotarydetent", rotaryHandlerBound);
+			handler.removeEventListener("click", clickHandlerBound);
+			viewSwitcher.destroy();
+			drawerMore.destroy();
+		}
 	});
 }());

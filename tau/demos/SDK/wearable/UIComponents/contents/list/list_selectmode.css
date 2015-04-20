@@ -42,8 +42,9 @@
 	border-radius: 50%;
 	top: -webkit-calc(50% - 70px);
 }
-
-
+.ui-view-switcher .ui-view-carousel-dim {
+	border-radius: 50%;
+}
 
 .show-btn .select-btn {
 	visibility: visible;

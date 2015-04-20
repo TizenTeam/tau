@@ -20,7 +20,7 @@
 			"./core/widget/core/Button",
 			"./core/widget/core/Checkboxradio",
 			"./core/widget/core/Marquee",
-			"./core/widget/core/ViewSwitcher",
+			"./core/widget/core/viewswitcher/ViewSwitcher",
 			"./profile/wearable/widget/wearable/Page",
 			"./profile/wearable/widget/wearable/Popup",
 			"./profile/wearable/widget/wearable/Drawer",
