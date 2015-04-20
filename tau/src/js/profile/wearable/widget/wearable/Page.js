@@ -399,7 +399,8 @@
 					drag;
 
 				drag = new utilsEvents.gesture.Drag({
-					blockHorizontal: true
+					blockHorizontal: true,
+					angleThreshold: 45
 				});
 
 				utilsEvents.enableGesture(scroller, drag);
@@ -429,13 +430,13 @@
 					expandableHeader.drag.options.blockHorizontal = false;
 					utilsEvents.trigger(expandableHeader.header, CustomEvents.EXPAND);
 				}
-				expandableHeader.startY = event.detail.estimatedY + expandableHeader.currentY;
+				expandableHeader.startY = expandableHeader.currentY - event.detail.pointer.clientY;
 			};
 
 			prototype._drag = function (event) {
 				var self = this,
 					expandableHeader = self._ui.expandableHeader,
-					moveY = event.detail.estimatedY - expandableHeader.startY,
+					moveY = expandableHeader.startY + event.detail.estimatedY,
 					transform;
 
 				if (expandableHeader.expanded) {
