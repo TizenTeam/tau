@@ -41,7 +41,7 @@
 			"./profile/wearable/widget/wearable/PageIndicator",
 			"./profile/wearable/helper/SnapListStyle",
 			"./profile/wearable/helper/SnapListMarqueeStyle",
-			"./profile/wearable/helper/ExpandableHeaderMarqueeStyle",
+			"./profile/wearable/helper/HeaderMarqueeStyle",
 			"./profile/wearable/helper/DrawerMoreStyle",
 			"./core/router/Router",
 			"./core/router/history",

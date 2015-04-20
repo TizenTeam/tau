@@ -3,9 +3,9 @@
  * License : MIT License V2
  */
 /**
- * #ExpandableHeaderMarqueeStyle Helper Script
+ * #HeaderMarqueeStyle Helper Script
  * Helper script using SnapListview and Marquee.
- * @class ns.helper.ExpandableHeaderMarqueeStyle
+ * @class ns.helper.HeaderMarqueeStyle
  * @author Hyeoncheol Choi <hc7.choi@samsung.com>
  */
 (function (document, window, ns) {
@@ -40,26 +40,24 @@
 					MARQUEE: "ui-marquee"
 				},
 
-				ExpandableHeaderMarqueeStyle = function (headerElement, options) {
+				HeaderMarqueeStyle = function (pageElement, options) {
 					var self = this;
 
 					self.options = objectUtils.merge({}, defaults);
 					self._marqueeWidget = null;
 
-					self.init(headerElement, options);
+					self.init(pageElement, options);
 				},
 
-				prototype = ExpandableHeaderMarqueeStyle.prototype;
+				prototype = HeaderMarqueeStyle.prototype;
 
 			function bindDragEvents(element) {
-
 				events.on(element, Events.COLLAPSE + " " + Events.COMPLETE , this, false);
-			};
+			}
 
 			function unBindDragEvents(element) {
-
 				events.off(element, Events.COLLAPSE + " " + Events.COMPLETE , this, false);
-			};
+			}
 
 			prototype.handleEvent = function(event) {
 				var self = this;
@@ -89,42 +87,38 @@
 				}
 			};
 
-			prototype.init = function(headerElement, options) {
+			prototype.init = function(pageElement, options) {
 				var self = this,
-					textElement,
-					scrollElement;
+					textElement;
 
 				if (options.textElement) {
 					if (typeof options.textElement === "string") {
-						textElement = headerElement.querySelector(options.textElement);
+						textElement = pageElement.querySelector(options.textElement);
 					} else {
 						textElement = options.textElement;
 					}
 				} else {
-					textElement = headerElement.querySelector("." + Classes.TITLE);
+					textElement = pageElement.querySelector("." + Classes.TITLE);
 				}
 
 				objectUtils.fastMerge(self.options, options);
 
-				self._element = headerElement;
+				self._element = pageElement;
 
 				if (textElement) {
 					textElement.classList.add(Classes.MARQUEE);
 					self._marquee = engine.instanceWidget(textElement, "Marquee", self.options);
+					self._bindEvents();
 				}
-
-				self._bindEvents();
 			};
 
 			prototype._bindEvents = function() {
 				var self = this;
-
 				bindDragEvents.call(self, self._element);
 			};
 
 			prototype._unbindEvents = function() {
 				var self = this;
-
 				unBindDragEvents.call(self, self._element);
 			};
 
@@ -137,13 +131,13 @@
 				self._options = null;
 			};
 
-			ExpandableHeaderMarqueeStyle.create = function(headerElement, options) {
-				return new ExpandableHeaderMarqueeStyle(headerElement, options);
+			HeaderMarqueeStyle.create = function(pageElement, options) {
+				return new HeaderMarqueeStyle(pageElement, options);
 			};
 
-			ns.helper.ExpandableHeaderMarqueeStyle = ExpandableHeaderMarqueeStyle;
+			ns.helper.HeaderMarqueeStyle = HeaderMarqueeStyle;
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
-			return ExpandableHeaderMarqueeStyle;
+			return HeaderMarqueeStyle;
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
