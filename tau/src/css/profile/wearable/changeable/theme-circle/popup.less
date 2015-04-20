@@ -13,6 +13,10 @@
 	border-radius: 50% 50%;
 	background-image: -webkit-radial-gradient(transparent -100%, transparent -90%, @color_bg_cover 69%), -webkit-radial-gradient(@color_bg 71%, transparent 0px);
 
+	& ::-webkit-scrollbar {
+		display: none;
+	}
+
 	.ui-popup-header {
 		text-align: center;
 		min-height: @fixed_popup_header_height;
