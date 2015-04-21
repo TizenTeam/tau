@@ -200,7 +200,7 @@
 	display: block;
 	padding-bottom: 12px;
 	padding-left: 16px;
-	padding-right: 64px;
+	padding-right: 90px;
 	padding-top: 11px;
 	margin-top: -6px;
 	margin-bottom: -6px;
@@ -601,6 +601,13 @@ input[type="checkbox"]#checkboxControl {
 	}
 	.ui-listview .li-has-action-icon.ui-li-active .li-action-text:active {
 		background-color: transparent;
+	}
+	.ui-listview li.li-has-multiline.li-has-thumb-left label {
+		padding-left: 90px;
+	}
+	.ui-listview li.li-has-multiline.li-has-thumb-right label {
+		padding-right: 105px;
+		padding-left: 30px;
 	}
 	/* ------------------ POPUP ------------------------ */
 	.ui-popup-content .btn-additional {
