@@ -99,7 +99,10 @@
 
 					self._ui = {
 						page: null,
-						scrollableParent: null,
+						scrollableParent: {
+							element: null,
+							height: 0
+						},
 						childItems: {}
 					};
 
@@ -150,7 +153,7 @@
 
 				this.coord = {
 					top: offsetTop,
-					bottom: offsetTop + height
+					height: height
 				};
 
 				this.position = {
@@ -199,30 +202,21 @@
 			function setSelection(self) {
 				var ui = self._ui,
 					listItems = self._listItems,
-					scrollableElement = ui.scrollableParent,
-					scrollableElementScrollTop = scrollableElement.scrollTop,
-					scrollableElementScrollHeight = scrollableElement.scrollHeight,
-					scrollableElementOffsetHeight = scrollableElement.offsetHeight,
-					scrollElementCenter = scrollableElementScrollTop + scrollableElementOffsetHeight/2,
+					scrollableParent = ui.scrollableParent,
+					scrollCenter = scrollableParent.element.scrollTop + scrollableParent.height / 2,
 					listItemLength = listItems.length,
-					i,
-					tempListItem,
-					tempListItemCoord,
-					gapOfBeforeItem,
-					gapOfAfterItem;
+					tempListItem, tempListItemCoord, i;
 
 				for (i=0 ; i < listItemLength; i++) {
 					tempListItem = listItems[i];
 					tempListItemCoord = tempListItem.coord;
-					gapOfBeforeItem = listItems[i-1] ? (tempListItemCoord.top - listItems[i-1].coord.bottom) / 2 : tempListItemCoord.top;
-					gapOfAfterItem = listItems[i+1] ? (listItems[i+1].coord.top - tempListItemCoord.bottom) / 2 : scrollableElementScrollHeight - tempListItemCoord.bottom;
 
-					if ((tempListItemCoord.top - gapOfBeforeItem < scrollElementCenter) && (tempListItemCoord.bottom + gapOfAfterItem >= scrollElementCenter)) {
+					if ((tempListItemCoord.top < scrollCenter) && (tempListItemCoord.top + tempListItemCoord.height >= scrollCenter)) {
 						removeSelectedClass(self);
 						self._selectedIndex = i;
 						tempListItem.element.classList.add(classes.SNAP_LISTVIEW_SELECTED);
 						utilEvent.trigger(tempListItem.element, eventType.SELECTED);
-						break;
+						return;
 					}
 				}
 
@@ -234,7 +228,7 @@
 					scrollPosition;
 
 				if (animateCallback) {
-					scrollPosition = self._ui.scrollableParent.scrollTop;
+					scrollPosition = self._ui.scrollableParent.element.scrollTop;
 					self._listItems.forEach(function(item) {
 						item.animate(scrollPosition, animateCallback);
 					});
@@ -280,20 +274,23 @@
 				return null;
 			}
 
-			function initSnapListview(element) {
+			function initSnapListview(listview) {
 				var self = this,
 					ui = self._ui,
 					options = self.options,
 					listItems = self._listItems,
-					listviewElement = element,
-					scroller = ui.scrollableParent,
-					visiableOffset = scroller.parentNode.offsetHeight;
+					scroller, visiableOffset;
 
-				ui.page = utilSelector.getClosestByClass(listviewElement, "ui-page") || window;
-				ui.scrollableParent = getScrollableParent(listviewElement) || ui.page;
-				ui.scrollableParent.classList.add(classes.SNAP_CONTAINER);
 
-				[].slice.call(listviewElement.querySelectorAll(options.selector)).forEach(function(element) {
+				ui.page = utilSelector.getClosestByClass(listview, "ui-page") || window;
+				scroller = getScrollableParent(listview) || ui.page;
+				scroller.classList.add(classes.SNAP_CONTAINER);
+				visiableOffset = ui.page.offsetHeight;
+
+				ui.scrollableParent.element = scroller;
+				ui.scrollableParent.height = visiableOffset;
+
+				[].slice.call(listview.querySelectorAll(options.selector)).forEach(function(element) {
 					listItems.push(new SnapListview.ListItem(element, visiableOffset));
 				});
 
@@ -363,7 +360,6 @@
 					element = self.element,
 					ui = self._ui;
 
-				ui.scrollableParent = getScrollableParent(element) || ui.page;
 				initSnapListview.call(self, element);
 				setSelection(self);
 
@@ -371,11 +367,11 @@
 			};
 
 			prototype._bindEvents = function() {
-				utilEvent.on(this._ui.scrollableParent, "scroll", this._callbacks.scroll, false);
+				utilEvent.on(this._ui.scrollableParent.element, "scroll", this._callbacks.scroll, false);
 			};
 
 			prototype._unbindEvents = function() {
-				this._ui.scrollableParent.removeEventListener("scroll", this._callbacks.scroll, false);
+				this._ui.scrollableParent.element.removeEventListener("scroll", this._callbacks.scroll, false);
 			};
 
 			/**
@@ -405,7 +401,7 @@
 
 			prototype._enable = function() {
 				var self = this,
-					scrollableParent = self._ui.scrollableParent;
+					scrollableParent = self._ui.scrollableParent.element;
 
 				scrollableParent.classList.remove(classes.SNAP_DISABLED);
 				self._enabled = true;
@@ -413,7 +409,7 @@
 
 			prototype._disable = function() {
 				var self = this,
-					scrollableParent = self._ui.scrollableParent;
+					scrollableParent = self._ui.scrollableParent.element;
 
 				scrollableParent.classList.add(classes.SNAP_DISABLED);
 				self._enabled = false;
@@ -440,25 +436,18 @@
 			prototype.scrollToPosition = function(index) {
 				var ui = this._ui,
 					enabled = this._enabled,
-					selectedIndex = this._selectedIndex,
 					listItems = this._listItems,
 					scrollableParent = ui.scrollableParent,
 					listItemLength = listItems.length,
-					indexItem,
-					selectedItem;
+					indexItem;
 
 				if (!enabled || index < 0 || index > listItemLength-1) {
 					return;
 				}
 
 				indexItem = listItems[index].coord;
-				selectedItem = listItems[selectedIndex].coord;
 
-				if (index > selectedIndex && selectedIndex + 1 < listItemLength) {
-					scrollableParent.scrollTop += indexItem.top - selectedItem.bottom + ((indexItem.bottom-indexItem.top) / 2 + (selectedItem.bottom-selectedItem.top) / 2);
-				} else if (index < selectedIndex && selectedIndex > 0) {
-					scrollableParent.scrollTop -= selectedItem.top - indexItem.bottom + ((indexItem.bottom-indexItem.top) / 2 + (selectedItem.bottom-selectedItem.top) / 2);
-				}
+				scrollableParent.element.scrollTop = indexItem.top - scrollableParent.height / 2 + indexItem.height / 2;
 			};
 
 			SnapListview.prototype = prototype;
