@@ -15,6 +15,12 @@
 }
 
 @media all and (-tizen-geometric-shape: circle) {
+	.result{
+		-webkit-transform: translateY(-70%);
+	}
+	.ui-progressbar-small{
+		-webkit-transform: translateY(-70%);
+	}
 	.ui-footer {
 		display: none;
 	}
