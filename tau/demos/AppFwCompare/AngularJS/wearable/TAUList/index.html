@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html ng-app="helloApp">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="description" content=""/>
+
+    <title>Application title</title>
+
+    <link rel="stylesheet" href="lib/tau/theme/default/tau.min.css" />
+
+    <style>
+        /* Added missing styles for multiline list */
+        .ui-listview li .li-text-sub {
+            display: block;
+            color: rgb(189, 167, 146);
+            font-size: 28px;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            line-height: 32px;
+        }
+        .ui-listview li.li-has-multiline {
+            padding-top: 6px;
+            padding-bottom: 5px;
+            min-height: 100px;
+        }
+    </style>
+
+
+    <script src="lib/angular.min.js"></script>
+    <script src="lib/tau/js/tau.min.js"></script>
+    <script src="lib/db.js"></script>
+    <script src="js/controllers.js"></script>
+</head>
+<body ng-controller="HelloController">
+<div class="ui-page">
+    <header class="ui-header">
+        <h1 class="ui-title">AngularJS + TAU</h1>
+    </header>
+    <div class="ui-content">
+        <ul class="ui-listview" id="listviewtest">
+            <li ng-repeat="player in players">{{ player.NAME }} <span class="li-text-sub">{{ player.FROM }} ({{ player.ACTIVE }})</span></li>
+        </ul>
+    </div>
+    <footer class="ui-footer">
+        <a class="ui-btn" id="go-go-gadget" ng-click="loadPlayers()">Go Go Gadget!</a>
+    </footer>
+</div>
+</body>
+</html>
