@@ -34,6 +34,7 @@
 			"../../engine",
 			"../../event",
 			"../../util/object",
+			"../../util/DOM",
 			"../BaseWidget"
 		],
 		function() {
@@ -57,10 +58,17 @@
 				/**
 				 * Alias for class ns.util.object
 				 * @property {Object} objectUtils
-				 * @member ns.widget.core.Popup
+				 * @member ns.widget.core.Marquee
 				 * @private
 				 */
 				objectUtils = ns.util.object,
+				/**
+				 * Alias for class ns.util.DOM
+				 * @property {Object} domUtil
+				 * @member ns.widget.core.Marquee
+				 * @private
+				 */
+				domUtil = ns.util.DOM,
 
 				Marquee = function() {
 					this._ui = {};
@@ -296,7 +304,7 @@
 				var self = this;
 
 				self._ui.marqueeInnerElement = self._ui.marqueeInnerElement || element.querySelector(selector.MARQUEE_CONTENT);
-				self._hasEllipsisText = element.offsetWidth < self._ui.marqueeInnerElement.scrollWidth;
+				self._hasEllipsisText = element.offsetWidth - domUtil.getCSSProperty(element, "padding-right", null, "float") < self._ui.marqueeInnerElement.scrollWidth;
 
 				if (!(self.options.runOnlyOnEllipsisText && !self._hasEllipsisText)) {
 					setEllipsisEffectStyle(self, self.options.ellipsisEffect, self._hasEllipsisText);
