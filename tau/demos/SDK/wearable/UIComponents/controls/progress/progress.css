@@ -2,22 +2,22 @@
 	position: absolute;
 	top: 50%;
 	left: 50%;
-	-webkit-transform: translate3d(-50%, -50%, 0);
+	-webkit-transform: translate(-50%, -50%);
 }
 .result {
 	font-size:25px;
 	text-align:center;
 	top: 50%;
 	left: 50%;
-	-webkit-transform: translate3d(-50%, -50%, 0);
+	-webkit-transform: translate(-50%, -50%);
 	position: absolute;
 }
 
 @media all and (-tizen-geometric-shape: circle) {
-	.result {
-		font-size:35px;
-	}
 	.ui-footer {
 		display: none;
+	}
+	.result {
+		font-size:35px;
 	}
 }
