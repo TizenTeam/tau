@@ -231,8 +231,10 @@
 					this.container = element.parentNode;
 				}
 
-				this.container.style.position = "relative";
-
+				this.scrollableElement = selectors.getScrollableParent(element);
+				if (!this.scrollableElement) {
+					this.scrollableElement = this.container;
+				}
 				this.swipeElement = page.querySelector(options.swipeElement);
 				this.swipeLeftElement = options.swipeLeftElement ? page.querySelector(options.swipeLeftElement) : undefined;
 				this.swipeRightElement = options.swipeRightElement ? page.querySelector(options.swipeRightElement) : undefined;
@@ -241,8 +243,8 @@
 					this.swipeElementStyle = this.swipeElement.style;
 					this.swipeElementStyle.display = "none";
 					this.swipeElementStyle.background = "transparent";
-					this.swipeElementStyle.width = this.container.offsetWidth + "px";
-					this.swipeElementStyle.height = this.container.offsetHeight + "px";
+					this.swipeElementStyle.width = this.scrollableElement.offsetWidth + "px";
+					this.swipeElementStyle.height = this.scrollableElement.offsetHeight + "px";
 				}
 
 				if (this.swipeLeftElement) {
@@ -405,7 +407,7 @@
 
 			prototype._start = function (e) {
 				var gesture = e.detail,
-					containerTop, width, height, top;
+					width, height, top;
 
 				this._dragging = false;
 				this._cancelled = false;
@@ -416,10 +418,7 @@
 
 					width = this.activeTarget.offsetWidth;
 					height = this.activeTarget.offsetHeight;
-					containerTop = this.container.scrollTop;
-					top = this.activeTarget.offsetTop - containerTop;
-
-					this.swipeElementStyle.top = containerTop + "px";
+					top = this.activeTarget.offsetTop - this.scrollableElement.scrollTop;
 
 					if (this.swipeLeftElementStyle) {
 						this.swipeLeftElementStyle.width = width + "px";
