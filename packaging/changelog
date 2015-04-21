@@ -1,4 +1,14 @@
 %changelog
+* Tue Apr 21 2015 Heeju Joo <heeju.joo@samsung.com> 0.10.17
+	- fix(wearable): modify detect ellipsisText in marquee
+	- fix(wearable): fix popup transition issue(P150417-06227)
+	- fix(wearable): fix overlapped sub text in thumbnail list
+	- fix(wearable): fix progress layout issue
+	- feat(wearable): add popup toast(graphic style)
+	- fix(wearable): fix swipelist position issue
+	- refactor(wearable) : modify position of small progress
+	- fix(wearable): fixed page structure about display flex.
+
 * Mon Apr 20 2015 Heeju Joo <heeju.joo@samsung.com> 0.10.16
 	- fix(wearable): fix expandableHeader expand logic
 	- refactor(wearable): add marquee on header helper in demo
