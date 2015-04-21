@@ -1,18 +1,33 @@
 <!DOCTYPE html>
 <html ng-app="helloApp">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-    <meta name="description" content=""/>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+	<meta name="description" content=""/>
+	<script>
+		var time = {},
+			observer = new WebKitMutationObserver(function(mutations) {
+			time.mutation = Date.now();
+			});
 
-    <title>Application title</title>
+		setTimeout(function () {
+			alert(time.mutation - performance.timing.navigationStart + "ms");
+		}, 4000);
+		document.addEventListener("DOMContentLoaded", function () {
+			observer.observe(document.getElementById("observed-element"), {
+				attributes: true, childList: true, characterData: true, subtree: true
+				});
+		});
+	</script>
 
-    <script src="lib/angular.min.js"></script>
-    <script src="js/controllers.js"></script> <!-- or in the body end, framework specific -->
+	<title>Application title</title>
+
+	<script src="lib/angular.min.js"></script>
+	<script src="js/controllers.js"></script> <!-- or in the body end, framework specific -->
 </head>
 <body ng-controller="HelloController">
-    <div>
-        Hello world: {{keyword}}!
-    </div>
+	<div id="observed-element" style="font-size: 100px;">
+		Hello world: {{keyword}}!
+	</div>
 </body>
 </html>
