@@ -27,7 +27,6 @@
 			"./profile/wearable/widget/wearable/CircleProgressBar",
 			"./profile/wearable/widget/wearable/Listview",
 			"./profile/wearable/widget/wearable/IndexScrollbar",
-			"./profile/wearable/widget/wearable/CircularIndexScrollbar",
 			"./profile/wearable/widget/wearable/Progress",
 			"./profile/wearable/widget/wearable/Progressing",
 			"./profile/wearable/widget/wearable/ToggleSwitch",

@@ -1,42 +1,10 @@
 (function() {
 	var page = document.getElementById("pageIndexScrollbar"),
 		listviewElement = document.getElementById("list1"),
-		isCircle = tau.support.shape.circle,
-		scrollHandlers = {},
-		headerHandlers = {},
 		scroller,
 		indexScrollbar;
 
 	page.addEventListener("pageshow", function(ev) {
-
-/*****************************************************************
-	CircularIndexScrollbar example
-
-* Usage
-------------------------------------------------------------------
-<div id="foo" class="ui-circularindexScrollbar" data-index="1,2,3"></div>
-
-// Create an CircularIndexScrollbar
-var el = document.getElementById("foo"),
-    circularIndexScrollBar = tau.widget.CircularIndexScrollbar(el);
-
-// Bind select event callback
-el.addEventListener("select", function( ev ) {
-	// the index string is stored in the ev.detail.index.
-	var index = ev.detail.index;
-
-	// Do anything you want with this index.
-	console.log(index);
-});
-------------------------------------------------------------------
-
-* HTML property
-
-  * data-index : A string, having index strings concatenated by ','. For example,
-                 "A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z".
-
-******************************************************************/
-
 		var indexScrollbarElement = document.getElementById("indexscrollbar"),
 			listDividers = listviewElement.getElementsByClassName("ui-listview-divider"),	// list dividers
 			dividers = {},	// collection of list dividers
@@ -56,51 +24,8 @@ el.addEventListener("select", function( ev ) {
 		}
 
 		scroller = tau.util.selectors.getScrollableParent(listviewElement);
-
-		if (!isCircle) {
-			// Create IndexScrollbar
-			indexScrollbar = new tau.widget.IndexScrollbar(indexScrollbarElement, {index: indices, container: scroller});
-		} else {
-			// Create CircularIndexScrollbar
-			indexScrollbar = new tau.widget.CircularIndexScrollbar(indexScrollbarElement, {index: indices});
-
-			scrollHandlers = {
-				start: function () {
-					indexScrollbar.hideHandler();
-				},
-				end: function () {
-					indexScrollbar.showHandler();
-				}
-			};
-
-			headerHandlers = {
-				collapse: function () {
-					listviewElement.addEventListener("scrollstart", scrollHandlers.start);
-					listviewElement.addEventListener("scrollend", scrollHandlers.end);
-				},
-
-				expand: function () {
-					listviewElement.removeEventListener("scrollstart", scrollHandlers.start);
-					listviewElement.removeEventListener("scrollend", scrollHandlers.end);
-					indexScrollbar.hideHandler();
-				}
-			};
-
-			listviewElement.addEventListener("scrollstart", scrollHandlers.start);
-			listviewElement.addEventListener("scrollend", scrollHandlers.end);
-			page.addEventListener("headercollapse", headerHandlers.collapse);
-			page.addEventListener("headerexpand", headerHandlers.expand);
-		}
-
-
-		// Add SnapListview item "selected" event handler.
-		listviewElement.addEventListener("selected", function (ev) {
-			if (!indexScrollbar.isShow()) {
-				var indexValue = ev.target.textContent[0];
-				indexScrollbar.value(indexValue);
-			}
-		});
-
+		// Create IndexScrollbar
+		indexScrollbar = new tau.widget.IndexScrollbar(indexScrollbarElement, {index: indices, container: scroller});
 		// Add IndexScrollbar index "select" event handler.
 		indexScrollbarElement.addEventListener("select", function (ev) {
 			var divider,
@@ -115,12 +40,6 @@ el.addEventListener("select", function( ev ) {
 	});
 
 	page.addEventListener("pagehide", function(ev) {
-		if (isCircle) {
-			listviewElement.removeEventListener("scrollstart", scrollHandlers.start);
-			listviewElement.removeEventListener("scrollend", scrollHandlers.end);
-			page.removeEventListener("headercollapse", headerHandlers.collapse);
-			page.removeEventListener("headerexpand", headerHandlers.expand);
-		}
 		indexScrollbar.destroy();
 	});
 } ());
