@@ -247,15 +247,16 @@
 					rules = routerMicro.route,
 					maxOrderNumber = 0,
 					orderNumberArray = [],
+					inTransition = router.getContainer().inTransition,
 					ruleKey,
 					options,
 					to,
 					url,
 					isContinue = true,
-					reverse,
+					reverse = state && history.getDirection(state) === "back",
 					transition;
 
-				if (_isLock) {
+				if (_isLock || (inTransition && reverse)) {
 					history.disableVolatileMode();
 					history.replace(prevState, prevState.stateTitle, prevState.stateUrl);
 					return;
@@ -263,7 +264,6 @@
 
 				if (state) {
 					to = state.url;
-					reverse = history.getDirection(state) === "back";
 					transition = reverse ? ((prevState && prevState.transition) || "none") : state.transition;
 					options = object.merge({}, state, {
 						reverse: reverse,

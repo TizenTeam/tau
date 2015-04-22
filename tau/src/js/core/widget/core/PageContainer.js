@@ -51,6 +51,7 @@
 					 * @member ns.widget.core.PageContainer
 					 */
 					this.activePage = null;
+					this.inTransition = false;
 				},
 				EventType = {
 					/**
@@ -189,6 +190,7 @@
 				if (options.reverse) {
 					clearClasses.push(classes.reverse);
 				}
+				self.inTransition = true;
 				elementClassList.add(classes.uiViewportTransitioning);
 				oldDeferredResolve = deferred.resolve;
 				deferred.resolve = function () {
@@ -196,6 +198,7 @@
 						toPageWidgetClassList = toPageWidget.element.classList;
 
 					elementClassList.remove(classes.uiViewportTransitioning);
+					self.inTransition = false;
 					clearClasses.forEach(function (className) {
 						toPageWidgetClassList.remove(className);
 					});
