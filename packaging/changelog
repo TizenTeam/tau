@@ -1,4 +1,7 @@
 %changelog
+* Wed Apr 22 2015 Heeju Joo <heeju.joo@samsung.com> 0.10.18
+	- fix(wearable): remove circularIndexScrollbar
+
 * Tue Apr 21 2015 Heeju Joo <heeju.joo@samsung.com> 0.10.17
 	- fix(wearable): modify detect ellipsisText in marquee
 	- fix(wearable): fix popup transition issue(P150417-06227)
