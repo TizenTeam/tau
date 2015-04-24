@@ -344,7 +344,8 @@
 					}
 				};
 
-				this._refresh();
+				initSnapListview.call(self, element);
+				setSelection(self);
 
 				return element;
 			};
@@ -360,18 +361,28 @@
 					element = self.element,
 					ui = self._ui;
 
+				self._unbindEvents();
+
 				initSnapListview.call(self, element);
 				setSelection(self);
+
+				self._bindEvents();
 
 				return null;
 			};
 
 			prototype._bindEvents = function() {
-				utilEvent.on(this._ui.scrollableParent.element, "scroll", this._callbacks.scroll, false);
+				var element = this._ui.scrollableParent.element;
+				if (element) {
+					utilEvent.on(element, "scroll", this._callbacks.scroll, false);
+				}
 			};
 
 			prototype._unbindEvents = function() {
-				this._ui.scrollableParent.element.removeEventListener("scroll", this._callbacks.scroll, false);
+				var element = this._ui.scrollableParent.element;
+				if (element) {
+					utilEvent.off(element, "scroll", this._callbacks.scroll, false);
+				}
 			};
 
 			/**
