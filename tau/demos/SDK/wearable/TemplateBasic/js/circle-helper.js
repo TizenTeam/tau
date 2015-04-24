@@ -1,25 +1,28 @@
 (function(tau) {
 	var page,
 		pageWidget,
-		enablePageScroll,
-		header,
+		elScroller,
 		headerHelper;
 
 	if (tau.support.shape.circle) {
-		document.addEventListener("pageshow", function (e) {
+		document.addEventListener("pagebeforeshow", function (e) {
 			page = e.target;
 			pageWidget = tau.widget.page(page);
-			enablePageScroll = pageWidget.option("enablePageScroll");
-			header = page.querySelector(".ui-header:not(.ui-fixed)");
+			elScroller = page.querySelector(".ui-scroller");
 
-			if (header && enablePageScroll) {
-				headerHelper = tau.helper.ExpandableHeaderMarqueeStyle.create(header, {});
+			if (elScroller) {
+				elScroller.setAttribute("tizen-circular-scrollbar", "");
 			}
+
+			headerHelper = tau.helper.HeaderMarqueeStyle.create(page, {});
 		});
 
-		document.addEventListener("pagehide", function (e) {
-			if (header && enablePageScroll) {
-				headerHelper.destroy();
+		document.addEventListener("pagebeforehide", function (e) {
+			headerHelper.destroy();
+			headerHelper = null;
+
+			if(elScroller) {
+				elScroller.removeAttribute("tizen-circular-scrollbar");
 			}
 		});
 	}
