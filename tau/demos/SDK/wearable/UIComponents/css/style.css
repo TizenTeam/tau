@@ -639,4 +639,15 @@ input[type="checkbox"]#checkboxControl {
 		margin: 19px auto auto;
 		padding: 59px 5px;
 	}
+	/* -------------Small progress sample page-----------*/
+	#pageSmallCircleProgressBar .ui-footer {
+		display: none;
+	}
+	#pageSmallCircleProgressBar .result{
+		-webkit-transform: translate(0, -70%);
+	}
+	#pageSmallCircleProgressBar .ui-progressbar-small{
+		-webkit-transform: translate(0, -70%);
+	}
+
 }

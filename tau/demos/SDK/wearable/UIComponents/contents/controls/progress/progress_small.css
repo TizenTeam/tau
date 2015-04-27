@@ -13,15 +13,3 @@
 	justify-content: center;
 	-webkit-justify-content: center;
 }
-
-@media all and (-tizen-geometric-shape: circle) {
-	.ui-footer {
-		display: none;
-	}
-	.result{
-		-webkit-transform: translate(0, -70%);
-	}
-	.ui-progressbar-small{
-		-webkit-transform: translate(0, -70%);
-	}
-}
