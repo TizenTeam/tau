@@ -589,6 +589,21 @@ input[type="checkbox"]#checkboxControl {
 	{
 		-webkit-mask-image: none;
 	}
+	.ui-listview li.li-has-checkbox label,
+	.ui-listview li.li-has-radio label,
+	.ui-listview li.li-has-toggle > label,
+	.ui-listview li.li-has-thumb-right label {
+		margin-top: -28.5px;
+		margin-bottom: -28.5px;
+		margin-left: -40px;
+		margin-right: -40px;
+	}
+	.ui-listview.ui-snap-listview li.li-has-checkbox label,
+	.ui-listview.ui-snap-listview li.li-has-radio label,
+	.ui-listview.ui-snap-listview li.li-has-toggle > label,
+	.ui-listview.ui-snap-listview li.li-has-thumb-right label{
+		padding: 28.5px 130px 28.5px 40px;
+	}
 	.li-has-action-icon .li-action-text::after{
 		height: 60px;
 		background-color: rgba(8, 8, 8, 0.3);
