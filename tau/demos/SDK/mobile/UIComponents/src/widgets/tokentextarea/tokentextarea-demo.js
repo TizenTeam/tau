@@ -1,3 +1,5 @@
+/*global $,jQuery */
+/*jslint unparam: true */
 ( function ( $, window ) {
 	$( document ).one( "pagecreate", "#tokentextarea", function () {
 		$( "#MBTaddItemTest" ).on( "click", function () {

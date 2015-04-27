@@ -1,3 +1,5 @@
+/*global $,tau,navigationHistory,historyMove */
+/*jslint unparam: true */
 (function() {
 var historyMaker = function(event) {
 		//make browsing history be stored in navigationHistory array.
@@ -23,6 +25,14 @@ var historyMaker = function(event) {
 			}
 		}
 	},
+	historyMove = function(event) {
+		var selectedIndex = event.originalEvent.detail,
+			barLength = navigationHistory.length;
+
+		//clear unnecessary array of history out
+		navigationHistory.splice(selectedIndex + 1, barLength - selectedIndex );
+		history.go(- (barLength - selectedIndex) + 1);
+	},
 	historyDrawer = function(event) {
 		var pageId = event.target.id,
 			page = document.getElementById(pageId),
@@ -36,18 +46,10 @@ var historyMaker = function(event) {
 			naviWidget.create(navigationHistory);
 		}
 		$(navi).one("navigate", historyMove);
-	},
-	historyMove = function(event) {
-		var selectedIndex = event.originalEvent.detail,
-			barLength = navigationHistory.length;
-
-		//clear unnecessary array of history out
-		navigationHistory.splice(selectedIndex + 1, barLength - selectedIndex );
-		history.go(- (barLength - selectedIndex) + 1);
 	};
 
 	window.navigationHistory = window.navigationHistory || [];
 
 	$(document).one("pagebeforeshow", historyMaker);
 	$(document).one("pageshow", historyDrawer);
-})();
+}());

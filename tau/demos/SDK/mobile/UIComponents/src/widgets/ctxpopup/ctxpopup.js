@@ -1,3 +1,4 @@
+/*global $ */
 $(document).one( "pagecreate", "#ctxpopup-demo", function () {
 	$( "#pop_js" ).on( "vclick", "#ctxpopup_update", function () {
 		$( "#btn_js" ).text( "Peekaboo!" );

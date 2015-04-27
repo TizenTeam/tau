@@ -1,4 +1,4 @@
-/* global tau*/
+/*global tau,watchCheckboxes */
 var checkboxWidgets = [
 		tau.widget.Checkboxradio(document.getElementsByName("select-check1")[0]),
 		tau.widget.Checkboxradio(document.getElementsByName("select-check2")[0]),

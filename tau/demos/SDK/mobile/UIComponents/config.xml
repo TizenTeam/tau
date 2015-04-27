@@ -3,8 +3,9 @@
     <access origin="*"></access>
     <tizen:application id="vUf39tzQ3s.UIComponents" package="vUf39tzQ3s" required_version="2.2"/>
     <content src="src/index.html"/>
+    <feature name="http://tizen.org/feature/screen.size.all"/>
     <icon src="icon.png"/>
     <name>UIComponents</name>
     <tizen:privilege name="http://tizen.org/privilege/fullscreen"/>
-    <tizen:setting context-menu="disable"/>
+    <tizen:profile name="mobile"/>
 </widget>
