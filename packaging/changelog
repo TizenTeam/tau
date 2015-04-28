@@ -1,4 +1,17 @@
 %changelog
+* Tue Apr 28 2015 Hagun Kim <hagun.kim@samsung.com> 0.10.19
+	- refactor(wearable): fix image path in toast popup
+	- fix(wearable): fix template sample app warning for SDK
+	- fix(mobile): fix MobileUIComponents warning for SDK 2.3.1
+	- fix(wearable): call unbind/bindEvents at snaplist refresh()
+	- fix(wearable): fixed to footer was showing issue when page transition (P150424-02263)
+	- fix(wearable): adjust label size to fit li in round UI
+	- fix(wearable): remove unecessary class on index.html(template)
+	- fix(core): clean up animatino event listener on changing page
+	- refactor(wearable) : add basic List style (not include snap-list)
+	- fix(wearable): fix snapListview scrollToPosition
+	- refactor(wearable) : reorganize wearable sample directory
+
 * Wed Apr 22 2015 Heeju Joo <heeju.joo@samsung.com> 0.10.18
 	- fix(wearable): remove circularIndexScrollbar
 
