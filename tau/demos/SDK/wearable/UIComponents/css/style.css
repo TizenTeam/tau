@@ -512,7 +512,6 @@ li.select::before {
 .checkbox-sub-text,
 .radio-sub-text {
 	margin-top: 48px;
-	margin-bottom: 55px;
 	font-size: 26px;
 	text-align: center;
 }
@@ -536,7 +535,6 @@ input[type="checkbox"]#checkboxControl {
 #processingPage .ui-scroller::-webkit-scrollbar {
 	display: none;
 }
-
 
 @media all and (-tizen-geometric-shape: circle) {
 	/* ------------------ LISTVIEW ------------------------ */
