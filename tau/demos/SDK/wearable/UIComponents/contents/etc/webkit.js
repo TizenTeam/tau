@@ -1,3 +1,4 @@
+/*jslint unparam: true */
 (function() {
 	var page = document.getElementById("page_webkitui");
 

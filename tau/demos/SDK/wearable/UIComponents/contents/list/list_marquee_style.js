@@ -1,18 +1,18 @@
+/*global tau */
 (function() {
 	var page = document.getElementById("pageMarqueeList"),
 		elScroller,
 		listHelper;
 
 	page.addEventListener( "pagebeforeshow", function() {
-		var list = page.querySelector(".ui-listview"),
-			snapList;
+		var list = page.querySelector(".ui-listview");
 
 		if (list) {
 			listHelper = tau.helper.SnapListMarqueeStyle.create(list, {
 				marqueeDelay: 1000
 			});
 
-			snapList = tau.widget.SnapListview(list);
+			tau.widget.SnapListview(list);
 			elScroller = page.querySelector(".ui-scroller");
 			if(elScroller) {
 				elScroller.setAttribute("tizen-circular-scrollbar", "");
@@ -34,4 +34,4 @@
 		}
 	});
 
-})();
+}());

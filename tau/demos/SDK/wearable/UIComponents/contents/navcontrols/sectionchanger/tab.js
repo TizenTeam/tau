@@ -1,3 +1,4 @@
+/*global tau */
 (function() {
 
 var page = document.getElementById( "tabsectionchangerPage" ),
@@ -17,4 +18,4 @@ page.addEventListener( "pagehide", function() {
 	// release object
 	sectionChanger.destroy();
 });
-})();
+}());

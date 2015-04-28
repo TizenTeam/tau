@@ -88,7 +88,7 @@
 .select-mode::after {
 	transform: scale(0);
 	transition-property: transform;
-	transition-duration: 0;
+	transition-duration: 0s;
 	z-index: 100;
 	content: "";
 	position: fixed;

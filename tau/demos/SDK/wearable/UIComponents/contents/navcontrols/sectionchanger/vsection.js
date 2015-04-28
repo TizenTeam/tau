@@ -1,8 +1,9 @@
+/*global tau */
 (function() {
 
 var page = document.getElementById( "vsectionchangerPage" ),
 	changer = document.getElementById( "vsectionchanger" ),
-	sectionChanger, idx=1;
+	sectionChanger;
 
 page.addEventListener( "pagebeforeshow", function() {
 	// make SectionChanger object
@@ -16,4 +17,4 @@ page.addEventListener( "pagehide", function() {
 	// release object
 	sectionChanger.destroy();
 });
-})();
+}());

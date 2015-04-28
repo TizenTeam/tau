@@ -1,3 +1,5 @@
+/*global tau */
+/*jslint unparam: true */
 (function() {
 	var page = document.getElementById("pageIndexScrollbar"),
 		listviewElement = document.getElementById("list1"),

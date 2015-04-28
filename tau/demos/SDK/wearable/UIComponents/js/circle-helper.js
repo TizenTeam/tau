@@ -1,6 +1,7 @@
+/*global tau */
+/*jslint unparam: true */
 (function(tau) {
 	var page,
-		pageWidget,
 		elScroller,
 		list,
 		headerHelper,
@@ -13,8 +14,6 @@
 	if (tau.support.shape.circle) {
 		document.addEventListener("pagebeforeshow", function (e) {
 			page = e.target;
-
-			pageWidget = tau.widget.page(page);
 			elScroller = page.querySelector(".ui-scroller");
 			if (elScroller) {
 				list = elScroller.querySelectorAll(".ui-listview");

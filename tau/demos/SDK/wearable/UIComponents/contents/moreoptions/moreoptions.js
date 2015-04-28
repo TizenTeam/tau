@@ -1,3 +1,5 @@
+/*global tau */
+/*jslint unparam: true */
 (function(){
 	var page = document.querySelector("#moreoptionsPage"),
 		popup = page.querySelector("#moreoptionsPopup"),
@@ -58,4 +60,4 @@
 	page.addEventListener( "pagebeforehide", function() {
 		document.removeEventListener("rotarydetent", rotaryHandlerBound);
 	});
-})();
+}());

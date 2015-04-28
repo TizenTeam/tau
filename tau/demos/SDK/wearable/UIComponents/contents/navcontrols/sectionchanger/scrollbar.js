@@ -1,8 +1,9 @@
+/*global tau */
 (function() {
 
 var page = document.getElementById( "barsectionchangerPage" ),
 	changer = document.getElementById( "barsectionchanger" ),
-	sectionChanger, idx=1;
+	sectionChanger;
 
 page.addEventListener( "pagebeforeshow", function() {
 	// make SectionChanger object
@@ -18,4 +19,4 @@ page.addEventListener( "pagehide", function() {
 	// release object
 	sectionChanger.destroy();
 });
-})();
+}());

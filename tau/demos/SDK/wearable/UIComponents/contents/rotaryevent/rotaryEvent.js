@@ -1,3 +1,4 @@
+/*global tau */
 (function(){
 	var page = document.getElementById( "pageRotaryEvent" ),
 		progressBar,
@@ -20,15 +21,15 @@
 
 			if (direction === "CW") {
 				// Right direction
-				if (parseInt(progressBarWidget.value()) < 100) {
-					value = parseInt(progressBarWidget.value()) + 1;
+				if (parseInt(progressBarWidget.value(), 10) < 100) {
+					value = parseInt(progressBarWidget.value(), 10) + 1;
 				} else {
 					value = 100;
 				}
 			} else if (direction === "CCW") {
 				// Left direction
-				if (parseInt(progressBarWidget.value()) > 0) {
-					value = parseInt(progressBarWidget.value()) - 1;
+				if (parseInt(progressBarWidget.value(), 10) > 0) {
+					value = parseInt(progressBarWidget.value(), 10) - 1;
 				} else {
 					value = 0;
 				}

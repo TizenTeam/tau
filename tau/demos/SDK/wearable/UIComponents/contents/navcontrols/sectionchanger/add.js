@@ -1,3 +1,4 @@
+/*global tau */
 (function() {
 
 var page = document.getElementById( "addSectionchangerPage" ),
@@ -42,4 +43,4 @@ page.addEventListener( "pagehide", function() {
 	addBtn.removeEventListener( "click", addSection );
 	removeBtn.removeEventListener( "click", removeSection );
 });
-})();
+}());

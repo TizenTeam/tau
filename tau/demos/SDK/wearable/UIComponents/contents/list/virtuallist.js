@@ -1,3 +1,4 @@
+/*global tau, JSON_DATA */
 (function() {
 	var page = document.getElementById("pageTestVirtualList"),
 		elList = document.getElementById("vlist1"),

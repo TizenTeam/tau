@@ -1,3 +1,4 @@
+/*global tau */
 (function(){
 	var page = document.getElementById("sectionChangerPage"),
 		sectionChanger = document.getElementById("sectionChanger");
@@ -8,4 +9,4 @@
 			fillContent: false
 		});
 	});
-})();
+}());

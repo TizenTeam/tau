@@ -1,3 +1,4 @@
+/*global tau */
 (function() {
 
 var page = document.getElementById( "nestedsectionchangerPage" ),
@@ -27,4 +28,4 @@ page.addEventListener( "pagehide", function() {
 	vsectionChanger.destroy();
 });
 
-})();
+}());

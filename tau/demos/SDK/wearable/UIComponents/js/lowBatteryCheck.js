@@ -1,4 +1,8 @@
 ( function () {
+	function onError(error){
+		console.warn( "An error occurred " + error.message );
+	}
+
 	var systeminfo = {
 
 		systeminfo: null,
@@ -57,11 +61,6 @@
 			}
 		}
 	};
-
-	function onError(error){
-		console.warn( "An error occurred " + error.message );
-	}
-
 	systeminfo.init();
 
 } () );

@@ -1,3 +1,4 @@
+/*global tau */
 (function(){
 	var page = document.getElementById( "pageCircleProgressBar" ),
 	progressBar = document.getElementById("circleprogress"),
@@ -7,12 +8,14 @@
 	isCircle = tau.support.shape.circle,
 	progressBarWidget,
 	resultText,
+	pageBeforeShowHandler,
+	pageHideHandler,
 	i;
 
 	function printResult() {
 		resultText = progressBarWidget.value();
 		resultDiv.innerHTML = resultText + "%";
-	};
+	}
 
 	function clearVariables() {
 		page = null;
@@ -20,18 +23,7 @@
 		minusBtn = null;
 		plusBtn = null;
 		resultDiv = null;
-	};
-
-	function unbindEvents() {
-		page.removeEventListener("pageshow", pageBeforeShowHandler);
-		page.removeEventListener("pagehide", pageHideHandler);
-		if (isCircle) {
-			document.removeEventListener("rotarydetent", rotaryDetentHandler);
-		} else {
-			minusBtn.removeEventListener("click", minusBtnClickHandler);
-			plusBtn.removeEventListener("click", plusBtnClickHandler);
-		}
-	};
+	}
 
 	function minusBtnClickHandler() {
 		i = i-10;
@@ -40,7 +32,7 @@
 		}
 		progressBarWidget.value(i);
 		printResult();
-	};
+	}
 
 	function plusBtnClickHandler() {
 		i = i+10;
@@ -49,12 +41,12 @@
 		}
 		progressBarWidget.value(i);
 		printResult();
-	};
+	}
 
 	function rotaryDetentHandler() {
 		// Get rotary direction
 		var direction = event.detail.direction,
-		value = parseInt(progressBarWidget.value());
+		value = parseInt(progressBarWidget.value(), 10);
 
 		if (direction === "CW") {
 			// Right direction
@@ -76,7 +68,18 @@
 		printResult();
 	}
 
-	function pageBeforeShowHandler() {
+	function unbindEvents() {
+		page.removeEventListener("pageshow", pageBeforeShowHandler);
+		page.removeEventListener("pagehide", pageHideHandler);
+		if (isCircle) {
+			document.removeEventListener("rotarydetent", rotaryDetentHandler);
+		} else {
+			minusBtn.removeEventListener("click", minusBtnClickHandler);
+			plusBtn.removeEventListener("click", plusBtnClickHandler);
+		}
+	}
+
+	pageBeforeShowHandler = function () {
 		if (isCircle) {
 		// make Circle Progressbar object
 			progressBarWidget = new tau.widget.CircleProgressBar(progressBar, {size: "full"});
@@ -87,11 +90,11 @@
 			plusBtn.addEventListener("click", plusBtnClickHandler);
 		}
 
-		i = parseInt(progressBarWidget.value());
+		i = parseInt(progressBarWidget.value(), 10);
 		resultDiv.innerHTML = i + "%";
 	};
 
-	function pageHideHandler() {
+	pageHideHandler = function () {
 		unbindEvents();
 		clearVariables();
 		// release object
