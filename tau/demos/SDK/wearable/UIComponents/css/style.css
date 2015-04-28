@@ -473,7 +473,7 @@ li.select::before {
  }
 .btn-icon-toast-check::after {
 	background-color: rgba(255, 255, 255, 1);
-	-webkit-mask-image: url(../popup/images/tw_ic_popup_btn_check.png);
+	-webkit-mask-image: url(../contents/popup/images/tw_ic_popup_btn_check.png);
 }
 
 /* -----------------------------------Content------------------------------------ */
