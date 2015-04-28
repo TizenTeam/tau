@@ -538,6 +538,9 @@ input[type="checkbox"]#checkboxControl {
 	-webkit-transform: translate3d(-50%, -50%, 0);
 }
 
+#processingPage .ui-scroller::-webkit-scrollbar {
+	display: none;
+}
 
 
 @media all and (-tizen-geometric-shape: circle) {
