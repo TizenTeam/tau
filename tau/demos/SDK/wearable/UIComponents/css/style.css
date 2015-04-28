@@ -39,7 +39,7 @@
 .ui-listview.expand-list li.li-has-2line.ui-snap-listview-selected .ui-marquee{
 	-webkit-transform: translate3d(0, 0, 0);
 	-webkit-transition: all ease 1s;
-	margin-top: -10px;
+	margin-top: 0;
 }
 
 .ui-listview.expand-list li.li-has-2line .ui-li-sub-text{
@@ -106,11 +106,6 @@
 	margin-bottom: -6px;
 	padding-top: 11px;
 	padding-bottom: 12px;
-}
-.ui-listview.ui-snap-listview li.li-has-multiline > a {
-	margin-top: 0;
-	padding-top: 5px;
-	padding-bottom: 4px;
 }
 .ui-listview li.li-has-multiline-sup {
 	padding-top: 6px;
@@ -633,6 +628,17 @@ input[type="checkbox"]#checkboxControl {
 	.ui-listview li.ui-listview-divider{
 		border-image: none;
 	}
+	.ui-listview.ui-snap-listview li.li-has-multiline > a {
+	    padding-top: 24px;
+	    padding-bottom: 23px;
+	}
+	.ui-listview.ui-snap-listview li.li-has-multiline.li-has-2line-sub > a {
+	    padding-top: 10px;
+	    padding-bottom: 9px;
+	}
+	.ui-listview.expand-list li.li-has-2line.ui-snap-listview-selected .ui-marquee{
+	    margin-top: -10px;
+    }
 	/* ------------------ POPUP ------------------------ */
 	.ui-popup-content .btn-additional {
 		width: 160px;
