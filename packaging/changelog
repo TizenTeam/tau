@@ -1,4 +1,13 @@
 %changelog
+* Wed Apr 29 2015 Junyoung Park <jy-.park@samsung.com> 0.10.20
+	- fix(wearable): add viewswitcher dim style in bottom button
+	- fix(core): remodeling ViewSwitcher component code architecture
+	- feat(wearable): add warning screen in indexScrollbar,rotaryevent page
+	- fix(wearable): modify padding value in lists
+	- refactor(wearable): hide scrollbar on full processing page
+	- fix(wearable): modify border color for normal list
+	- fix(wearable): fix UIComponents warning for SDK
+
 * Tue Apr 28 2015 Hagun Kim <hagun.kim@samsung.com> 0.10.19
 	- refactor(wearable): fix image path in toast popup
 	- fix(wearable): fix template sample app warning for SDK
