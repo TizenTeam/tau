@@ -658,5 +658,13 @@ input[type="checkbox"]#checkboxControl {
 	#pageSmallCircleProgressBar .ui-progressbar-small{
 		-webkit-transform: translate(0, -70%);
 	}
-
+	/* -------------Marquee-----------*/
+	.ui-btn#start {
+		padding-left: 20%;
+		padding-right: 0;
+	}
+	.ui-btn#reset {
+		padding-right: 20%;
+		padding-left: 0;
+	}
 }
