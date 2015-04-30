@@ -1,4 +1,12 @@
 %changelog
+* Thu Apr 30 2015 Hagun Kim <hagun.kim@samsung.com> 0.10.21
+	- refactor(wearable): fix css of rotary event sample
+	- fix(wearble): fix popup footer-button style
+	- fix(wearable): fix popup footer margin issue (P150430-00436)
+	- refactor(wearable): fix vertical size to remove scrollbar
+	- fix(wearable): fix the page event release logic.
+	- fix(wearable): adjust padding of button in marquee sample
+
 * Wed Apr 29 2015 Junyoung Park <jy-.park@samsung.com> 0.10.20
 	- fix(wearable): add viewswitcher dim style in bottom button
 	- fix(core): remodeling ViewSwitcher component code architecture
