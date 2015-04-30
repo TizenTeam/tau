@@ -331,6 +331,7 @@
 			 * @member ns.widget.wearable.Page
 			 */
 			prototype._configure = function () {
+				CorePage.prototype._configure.call(this);
 				this.options.enablePageScroll = ns.getConfig("enablePageScroll");
 			};
 			/**
@@ -396,6 +397,11 @@
 				}
 			};
 
+			prototype._destroy = function () {
+				this._unbindEvents();
+				CorePage.prototype._destroy.call(this);
+			};
+
 			prototype._bindExpandableHeaderEvents = function () {
 				var self = this,
 					scroller = self._ui.expandableHeader.scroller,
@@ -415,10 +421,14 @@
 
 			prototype._unbindEvents = function () {
 				var self = this,
-					expandableHeader = self._ui.expandableHeader;
+					expandableHeader = self._ui.expandableHeader,
+					scroller;
 
 				if (expandableHeader) {
-					utilsEvents.on(expandableHeader.scroller, "drag dragstart dragend dragcancel", self);
+					scroller = expandableHeader.scroller;
+
+					utilsEvents.disableGesture(scroller);
+					utilsEvents.off(scroller, "drag dragstart dragend dragcancel", self);
 				}
 			};
 
