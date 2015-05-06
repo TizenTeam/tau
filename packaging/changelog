@@ -1,4 +1,7 @@
 %changelog
+* Wed May 06 2015 Heeju Joo <heeju.joo@samsung.com> 0.10.22
+	- fix(wearable): fix app css loading issues.
+
 * Thu Apr 30 2015 Hagun Kim <hagun.kim@samsung.com> 0.10.21
 	- refactor(wearable): fix css of rotary event sample
 	- fix(wearble): fix popup footer-button style
