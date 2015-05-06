@@ -2,6 +2,8 @@
 /*jslint plusplus: true */
 (function (phantom, require) {
 	"use strict";
+	var NUMBER_OF_REQUIRED_ARGUMENTS = 4;
+
 	function info(msg) {
 		console.log("INFO: " + msg);
 	}
@@ -18,22 +20,31 @@
 		var fs = require("fs"),
 			page = require("webpage").create(),
 			system = require("system"),
+			config = require("./config.js"),
 			args = phantom.args,
 			injected = args[0].replace(/\"/gi, "").trim().split(","),
 			input = args[1].replace(/\"/gi, "").trim(),
 			output = args[2].replace(/\"/gi, "").trim(),
+			os = args[3].replace(/\"/gi, "").trim(),
 			timeout = 20,
 			eventsHandled = [];
 
 		info("source file: " + input);
 		info("build output file: " + output);
 
+		page.onConsoleMessage = function(msg, lineNum, sourceId) {
+			console.log('CONSOLE: ' + msg + ' (from line #' + lineNum + ' in "' + sourceId + '")');
+		};
+
 		page.onInitialized = function () {
 			var i,
-				l;
+				l,
+				injectedFile;
+
 			for (i = 0, l = injected.length; i < l; ++i) {
-				info("injecting: " + injected[i]);
-				page.injectJs(injected[i]);
+				injectedFile = injected[i].replace("\\\\", "\\");
+				info("injecting: " + injectedFile);
+				page.injectJs(injectedFile);
 			}
 			page.evaluate(function () {
 				var handleBound = function () {
@@ -77,7 +88,10 @@
 		};
 
 		page.onLoadFinished = function (status) {
-			page.evaluateAsync(function () {
+			var i,
+				scripts;
+
+			function testTau() {
 				if (!window.tau && !window.ej) {
 					window.callPhantom({
 						message: "TAU framework not found in page",
@@ -92,7 +106,8 @@
 
 					if (window.tau.getConfig('autoBuildOnPageChange') === false) {
 						window.callPhantom({
-							message: "PhanomJS: Aborting because TAU config.autoBuildOnPageChange is set to false"
+							message: "PhanomJS: Not all widgets will be built because TAU config.autoBuildOnPageChange is set to false",
+							type: "warning"
 						});
 						window.callPhantom({
 							control: 'exit',
@@ -100,7 +115,27 @@
 						});
 					}
 				}
+			}
+
+			scripts = page.evaluate(function () {
+				return [].slice.call(document.scripts)
+							.map(function (script) {
+								return script.src;
+							})
+						.filter(function (str) {
+								return !!str;
+							});
 			});
+
+			// load and run js scripts
+			if (os === "win") {
+				for (i = 0; i < scripts.length; i++) {
+					page.injectJs(scripts[i]);
+				}
+			}
+
+			// test TAU existance;
+			page.evaluateJavaScript(testTau);
 
 			if (status === "fail") {
 				err("unable to open source file");
@@ -115,11 +150,11 @@
 		};
 
 		page.onConsoleMessage = info;
-
+		page.settings.webSecurityEnabled = false;
 		page.open(input + "#build");
 	}
 
-	if (phantom.args.length === 3) {
+	if (phantom.args.length === NUMBER_OF_REQUIRED_ARGUMENTS) {
 		try {
 			run();
 		} catch (e) {
