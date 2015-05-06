@@ -4,24 +4,30 @@
 	exports.config = {
 		wearable: {
 			themes: {
-				"black": "wearable/theme-black"
+				"changeable": "wearable/changeable/theme-changeable"
 			},
-			defaultTheme: "black",
+			defaultTheme: "changeable",
 			useGlobalize: false
 		},
 		mobile: {
 			themes: {
-				"black": "mobile/theme-black",
-				"white": "mobile/theme-white"
+				"changeable": "mobile/changeable/theme-changeable"
+			},
+			defaultTheme: "changeable",
+			useGlobalize: true
+		},
+		tv: {
+			themes: {
+				"black": "tv/default/theme-black"
 			},
 			defaultTheme: "black",
-			useGlobalize: true
+			useGlobalize: false
 		},
 		custom: {
 			themes: {
-				"wearable-black": "wearable/theme-black",
-				"mobile-black": "mobile/theme-black",
-				"mobile-white": "mobile/theme-white"
+				"wearable-changeable":  "wearable/changeable/theme-changeable",
+				"mobile-changeable": "mobile/changeable/theme-changeable",
+				"tv-black": "tv/default/theme-black"
 			},
 			defaultTheme: null,
 			useGlobalize: true
