@@ -13,7 +13,7 @@
 		print("---------------------");
 		print("");
 		print("Available options:");
-		print("--profile=NAME       Profile of framework (NAME = wearable|mobile|custom)");
+		print("--profile=NAME       Profile of framework (NAME = wearable|mobile|tv|custom)");
 		print("--custom-file=PATH   Path for entry file (it only works with option --profile=custom)");
 		print("");
 		return false;

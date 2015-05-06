@@ -6,7 +6,7 @@
 		common = require("./builder/common.js"),
 		args = common.parseArguments(environment['sun.java.command']), // hack for spaces in param values bug
 		os = common.getOS(),
-		profiles = args.profile ? [args.profile.split(",")] : ['wearable', 'mobile', 'tv'],
+		profiles = args.profile ? args.profile.split(",") : ['wearable', 'mobile', 'tv'],
 		rootNamespace = args['root-namespace'],
 		customFile = (args["custom-file"] || "").replace(/^~/i, environment["user.home"]);
 
