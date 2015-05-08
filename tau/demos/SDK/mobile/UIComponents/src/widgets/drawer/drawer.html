@@ -15,20 +15,6 @@
 			<li><a href="drawer-right.html">Drawer - right</a></li>
 		</ul>
 	</div>
-	<script>
-		$( "#drawer-demo" ).on( "pageshow" , function() {
-			//bind callbacks to the H/W keys
-			$( window ).on( "tizenhwkey" , function( e ) {
-				if( e.originalEvent.keyName === "back" ) {
-					window.history.back();
-				}
-			});
-		});
-		$( "#drawer-demo" ).on( "pagebeforehide" , function() {
-			//unbind callbacks to the H/W keys
-			$( window ).off( "tizenhwkey" );
-		});
-	</script>
 </div>
 </body>
 </html>

@@ -1,37 +1,411 @@
 /***********************
 Processing
 ***********************/
-.w-processing-rotating() {
-  from { .rotate(0deg); }
-  to { .rotate(360deg); }
+@-webkit-keyframes fullprocess {
+	0% {
+		-webkit-mask-position: 0 0;
+	}
+	1.5% {
+		-webkit-mask-position: -360px 0;
+	}
+	3% {
+		-webkit-mask-position: -720px 0;
+	}
+	4.5% {
+		-webkit-mask-position: -1080px 0;
+	}
+	6% {
+		-webkit-mask-position: -1440px 0;
+	}
+	7.5% {
+		-webkit-mask-position: -1800px 0;
+	}
+	9% {
+		-webkit-mask-position: -2160px 0;
+	}
+	10.5% {
+		-webkit-mask-position: -2520px 0;
+	}
+	12% {
+		-webkit-mask-position: 0 -360px;
+	}
+	13.5% {
+		-webkit-mask-position: -360px -360px;
+	}
+	15% {
+		-webkit-mask-position: -720px -360px;
+	}
+	16.5% {
+		-webkit-mask-position: -1080px -360px;
+	}
+	18% {
+		-webkit-mask-position: -1440px -360px;
+	}
+	19.5% {
+		-webkit-mask-position: -1800px -360px;
+	}
+	21% {
+		-webkit-mask-position: -2160px -360px;
+	}
+	22.5% {
+		-webkit-mask-position: -2520px -360px;
+	}
+	24% {
+		-webkit-mask-position: 0 -720px;
+	}
+	25.5% {
+		-webkit-mask-position: -360px -720px;
+	}
+	27% {
+		-webkit-mask-position: -720px -720px;
+	}
+	28.5% {
+		-webkit-mask-position: -1080px -720px;
+	}
+	30% {
+		-webkit-mask-position: -1440px -720px;
+	}
+	31.5% {
+		-webkit-mask-position: -1800px -720px;
+	}
+	33% {
+		-webkit-mask-position: -2160px -720px;
+	}
+	34.5% {
+		-webkit-mask-position: -2520px -720px;
+	}
+	36% {
+		-webkit-mask-position: 0 -1080px;
+	}
+	37.5% {
+		-webkit-mask-position: -360px -1080px;
+	}
+	39% {
+		-webkit-mask-position: -720px -1080px;
+	}
+	40.5% {
+		-webkit-mask-position: -1080px -1080px;
+	}
+	42% {
+		-webkit-mask-position: -1440px -1080px;
+	}
+	43.5% {
+		-webkit-mask-position: -1800px -1080px;
+	}
+	45% {
+		-webkit-mask-position: -2160px -1080px;
+	}
+	46.5% {
+		-webkit-mask-position: -2520px -1080px;
+	}
+	48% {
+		-webkit-mask-position: 0 -1440px;
+	}
+	49.5% {
+		-webkit-mask-position: -360px -1440px;
+	}
+	51% {
+		-webkit-mask-position: -720px -1440px;
+	}
+	52.5% {
+		-webkit-mask-position: -1080px -1440px;
+	}
+	54% {
+		-webkit-mask-position: -1440px -1440px;
+	}
+	55.5% {
+		-webkit-mask-position: -1800px -1440px;
+	}
+	57% {
+		-webkit-mask-position: -2160px -1440px;
+	}
+	58.5% {
+		-webkit-mask-position: -2520px -1440px;
+	}
+	60% {
+		-webkit-mask-position: 0 -1800px;
+	}
+	61.5% {
+		-webkit-mask-position: -360px -1800px;
+	}
+	63% {
+		-webkit-mask-position: -720px -1800px;
+	}
+	64.5% {
+		-webkit-mask-position: -1080px -1800px;
+	}
+	66% {
+		-webkit-mask-position: -1440px -1800px;
+	}
+	67.5% {
+		-webkit-mask-position: -1800px -1800px;
+	}
+	69% {
+		-webkit-mask-position: -2160px -1800px;
+	}
+	70.5% {
+		-webkit-mask-position: -2520px -1800px;
+	}
+	72% {
+		-webkit-mask-position: 0 -2160px;
+	}
+	73.5% {
+		-webkit-mask-position: -360px -2160px;
+	}
+	75% {
+		-webkit-mask-position: -720px -2160px;
+	}
+	76.5% {
+		-webkit-mask-position: -1080px -2160px;
+	}
+	78% {
+		-webkit-mask-position: -1440px -2160px;
+	}
+	79.5% {
+		-webkit-mask-position: -1800px -2160px;
+	}
+	81% {
+		-webkit-mask-position: -2160px -2160px;
+	}
+	82.5% {
+		-webkit-mask-position: -2520px -2160px;
+	}
+	84% {
+		-webkit-mask-position: 0 -2520px;
+	}
+	85.5% {
+		-webkit-mask-position: -360px -2520px;
+	}
+	87% {
+		-webkit-mask-position: -720px -2520px;
+	}
+	88.5% {
+		-webkit-mask-position: -1080px -2520px;
+	}
+	90% {
+		-webkit-mask-position: -1440px -2520px;
+	}
+	92% {
+		-webkit-mask-position: -1800px -2520px;
+	}
+	94% {
+		-webkit-mask-position: -2160px -2520px;
+	}
+	96% {
+		-webkit-mask-position: -2520px -2520px;
+	}
+	100% {
+		-webkit-mask-position: 0 -2880px;
+	}
 }
 
-@-webkit-keyframes rotating {
-	.w-processing-rotating();
-}
-
-@-moz-keyframes rotating {
-	.w-processing-rotating();
-}
-
-@-ms-keyframes rotating {
-	.w-processing-rotating();
-}
-
-@-o-keyframes rotating {
-	.w-processing-rotating();
-}
-
-@keyframes rotating {
-	.w-processing-rotating();
+@-webkit-keyframes smallprocess {
+	0% {
+		-webkit-mask-position: 0 0;
+	}
+	1.5% {
+		-webkit-mask-position: -56px 0;
+	}
+	3% {
+		-webkit-mask-position: -112px 0;
+	}
+	4.5% {
+		-webkit-mask-position: -168px 0;
+	}
+	6% {
+		-webkit-mask-position: -224px 0;
+	}
+	7.5% {
+		-webkit-mask-position: -280px 0;
+	}
+	9% {
+		-webkit-mask-position: -336px 0;
+	}
+	10.5% {
+		-webkit-mask-position: -392px 0;
+	}
+	12% {
+		-webkit-mask-position: 0 -56px;
+	}
+	13.5% {
+		-webkit-mask-position: -56px -56px;
+	}
+	15% {
+		-webkit-mask-position: -112px -56px;
+	}
+	16.5% {
+		-webkit-mask-position: -168px -56px;
+	}
+	18% {
+		-webkit-mask-position: -224px -56px;
+	}
+	19.5% {
+		-webkit-mask-position: -280px -56px;
+	}
+	21% {
+		-webkit-mask-position: -336px -56px;
+	}
+	22.5% {
+		-webkit-mask-position: -392px -56px;
+	}
+	24% {
+		-webkit-mask-position: 0 -112px;
+	}
+	25.5% {
+		-webkit-mask-position: -56px -112px;
+	}
+	27% {
+		-webkit-mask-position: -112px -112px;
+	}
+	28.5% {
+		-webkit-mask-position: -168px -112px;
+	}
+	30% {
+		-webkit-mask-position: -224px -112px;
+	}
+	31.5% {
+		-webkit-mask-position: -280px -112px;
+	}
+	33% {
+		-webkit-mask-position: -336px -112px;
+	}
+	34.5% {
+		-webkit-mask-position: -392px -112px;
+	}
+	36% {
+		-webkit-mask-position: 0 -168px;
+	}
+	37.5% {
+		-webkit-mask-position: -56px -168px;
+	}
+	39% {
+		-webkit-mask-position: -112px -168px;
+	}
+	40.5% {
+		-webkit-mask-position: -168px -168px;
+	}
+	42% {
+		-webkit-mask-position: -224px -168px;
+	}
+	43.5% {
+		-webkit-mask-position: -280px -168px;
+	}
+	45% {
+		-webkit-mask-position: -336px -168px;
+	}
+	46.5% {
+		-webkit-mask-position: -392px -168px;
+	}
+	48% {
+		-webkit-mask-position: 0 -224px;
+	}
+	49.5% {
+		-webkit-mask-position: -56px -224px;
+	}
+	51% {
+		-webkit-mask-position: -112px -224px;
+	}
+	52.5% {
+		-webkit-mask-position: -168px -224px;
+	}
+	54% {
+		-webkit-mask-position: -224px -224px;
+	}
+	55.5% {
+		-webkit-mask-position: -280px -224px;
+	}
+	57% {
+		-webkit-mask-position: -336px -224px;
+	}
+	58.5% {
+		-webkit-mask-position: -392px -224px;
+	}
+	60% {
+		-webkit-mask-position: 0 -280px;
+	}
+	61.5% {
+		-webkit-mask-position: -56px -280px;
+	}
+	63% {
+		-webkit-mask-position: -112px -280px;
+	}
+	64.5% {
+		-webkit-mask-position: -168px -280px;
+	}
+	66% {
+		-webkit-mask-position: -224px -280px;
+	}
+	67.5% {
+		-webkit-mask-position: -280px -280px;
+	}
+	69% {
+		-webkit-mask-position: -336px -280px;
+	}
+	70.5% {
+		-webkit-mask-position: -392px -280px;
+	}
+	72% {
+		-webkit-mask-position: 0 -336px;
+	}
+	73.5% {
+		-webkit-mask-position: -56px -336px;
+	}
+	75% {
+		-webkit-mask-position: -112px -336px;
+	}
+	76.5% {
+		-webkit-mask-position: -168px -336px;
+	}
+	78% {
+		-webkit-mask-position: -224px -336px;
+	}
+	79.5% {
+		-webkit-mask-position: -280px -336px;
+	}
+	81% {
+		-webkit-mask-position: -336px -336px;
+	}
+	82.5% {
+		-webkit-mask-position: -392px -336px;
+	}
+	84% {
+		-webkit-mask-position: 0 -392px;
+	}
+	85.5% {
+		-webkit-mask-position: -56px -392px;
+	}
+	87% {
+		-webkit-mask-position: -112px -392px;
+	}
+	88.5% {
+		-webkit-mask-position: -168px -392px;
+	}
+	90% {
+		-webkit-mask-position: -224px -392px;
+	}
+	92% {
+		-webkit-mask-position: -280px -392px;
+	}
+	94% {
+		-webkit-mask-position: -336px -392px;
+	}
+	96% {
+		-webkit-mask-position: -392px -392px;
+	}
+	100% {
+		-webkit-mask-position: 0 -448px;
+	}
 }
 
 .ui-processing {
-	background-color: @color_processing_activity_01;
-	.mask-image('./images/Processing/tw_progress_small_loading_bg.png');
-	.mask-size(100% 100%);
-	.mask-repeat(no-repeat);
-	.animation(rotating 1s linear infinite);
+	background-color: @color_processing;
+	-webkit-mask-image: url("./images/Processing/processingsmall.png");
+	-webkit-mask-repeat: no-repeat;
+	-webkit-animation-duration: 2s;
+	-webkit-animation-iteration-count: infinite;
+	-webkit-animation-timing-function: step-start;
+	-webkit-animation-name: smallprocess;
+
 	width: 56 * @unit_base;
 	height: 56 * @unit_base;
 	margin: 0 auto;
@@ -62,14 +436,14 @@ Processing
 
 .ui-processing.ui-processing-full-size::after {
 	content: "";
-	background-color: @color_full_processing;
-	-webkit-mask-image: url("./images/Processing/tw_progress_full_loading_bg.png");
-	-webkit-mask-size: 100% 100%;
+	background-color: @color_processing;
+	-webkit-mask-image: url("./images/Processing/processingfull.png");
 	-webkit-mask-repeat: no-repeat;
-	-webkit-animation: rotating 1s linear infinite;
-
+	-webkit-animation-duration: 2s;
+	-webkit-animation-iteration-count: infinite;
+	-webkit-animation-timing-function: step-start;
+	-webkit-animation-name: fullprocess;
 	width: 100%;
 	height: 100%;
-
 	position: absolute;
 }

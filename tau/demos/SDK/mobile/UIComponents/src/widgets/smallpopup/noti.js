@@ -1,3 +1,5 @@
+/*global $ */
+/*jslint unparam: true */
 $( "div.noti-demo" ).on("pagecreate", function () {
 	$('#noti-demo').on('vmouseup', function ( e ) {
 		$('#notification').notification('open');

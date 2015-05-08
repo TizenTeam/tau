@@ -54,20 +54,6 @@
 			<li><a href="buttonNolist.html">Buttons Pages(not in list) </a></li>
 		</ul>
 	</div>
-	<script>
-	$( "#ButtonDemo" ).on( "pageshow" , function() {
-		$( window ).on( "tizenhwkey", function ( ev ) {
-			if ( ev.originalEvent.keyName === "back" ) {
-				//bind callbacks to the H/W keys
-				window.history.back();
-			}
-		});
-	});
-	$( "#ButtonDemo" ).on( "pagebeforehide" , function() {
-		//unbind callbacks to the H/W keys
-		$( window ).off( "tizenhwkey" );
-	});
-	</script>
 </div>
 
 </body>

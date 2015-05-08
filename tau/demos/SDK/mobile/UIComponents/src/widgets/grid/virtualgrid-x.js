@@ -1,4 +1,5 @@
-/*global jQuery, JSON_DATA*/
+/*global $, jQuery, JSON_DATA*/
+/*jslint unparam: true */
 (function ($){
 	"use strict";
 
@@ -11,6 +12,7 @@
 				},
 				numItemData: JSON_DATA.length,
 				cacheItemData: function ( minIdx, maxIdx ) {
+					return;
 				}
 			});
 		});

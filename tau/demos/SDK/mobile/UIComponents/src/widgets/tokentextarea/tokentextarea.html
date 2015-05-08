@@ -32,20 +32,6 @@
 					</div>
 				</div>
 			</div>
-			<script>
-			$( "#tokentextarea" ).on( "pageshow" , function() {
-				$( window ).on( "tizenhwkey", function ( ev ) {
-					if ( ev.originalEvent.keyName === "back" ) {
-						//bind callbacks to the H/W keys
-						window.history.back();
-					}
-				});
-			});
-			$( "#tokentextarea" ).on( "pagebeforehide" , function() {
-				//unbind callbacks to the H/W keys
-				$( window ).off( "tizenhwkey" );
-			});
-			</script>
 			<script src="tokentextarea-demo.js"></script>
 		</div>
 	</body>

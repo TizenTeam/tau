@@ -32,19 +32,6 @@
 			<li><a href="virtualgrid-size.html">Virtual grid - Size</a></li>
 		</ul>
 	</div>
-	<script>
-	$( "#virtualgrid_grid_page" ).on( "pageshow" , function() {
-		$( window ).on( "tizenhwkey", function ( ev ) {
-			if ( ev.originalEvent.keyName === "back" ) {
-				//bind callbacks to the H/W keys
-				window.history.back();
-			}
-		});
-	}).on( "pagebeforehide" , function() {
-		//unbind callbacks to the H/W keys
-		$( window ).off( "tizenhwkey" );
-	});
-	</script>
 </div>
 </body>
 </html>

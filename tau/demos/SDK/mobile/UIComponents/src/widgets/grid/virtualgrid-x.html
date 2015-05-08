@@ -37,19 +37,6 @@
 		<div id="virtualgrid-demo" data-direction="x" data-role="virtualgrid" data-template="tizen-demo-namecard">
 		</div>
 	</div>
-	<script>
-	$( "#virtualgrid_x_page" ).on( "pageshow" , function() {
-		$( window ).on( "tizenhwkey", function ( ev ) {
-			if ( ev.originalEvent.keyName === "back" ) {
-				//bind callbacks to the H/W keys
-				window.history.back();
-			}
-		});
-	}).on( "pagebeforehide" , function() {
-		//unbind callbacks to the H/W keys
-		$( window ).off( "tizenhwkey" );
-	});
-	</script>
 	<link rel="stylesheet" href="namecard.css" />
 	<script type="text/javascript" src="virtualgrid-x.js"></script>
 </div>

@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:     0.10.8
+Version:     0.10.22
 Release:    0
 VCS:        magnolia/framework/web/web-ui-fw#web-ui-fw_0.2.59-4-ge6c6c9d348559057a2b3d4ade5c021b0a28cbc7d
 Summary:    Tizen Web UI Framework Library
@@ -7,11 +7,7 @@ Group:      Development/Other
 License:    MIT
 BuildArch:  noarch
 BuildRequires:  make
-%ifarch %{arm}
-BuildRequires:  nodejs-x86-arm
-%else
 BuildRequires: nodejs
-%endif
 
 Source0:    %{name}-%{version}.tar.gz
 

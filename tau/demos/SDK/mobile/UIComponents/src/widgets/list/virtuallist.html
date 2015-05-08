@@ -17,20 +17,6 @@
 					<li><a href="virtuallist-normal_3_2_7.html">Virtual List Normal Style 2line-star1</a></li>
 				</ul>
 			</div>
-			<script>
-			$( "#list" ).on( "pageshow" , function() {
-				$( window ).on( "tizenhwkey", function ( ev ) {
-					if ( ev.originalEvent.keyName === "back" ) {
-						//bind callbacks to the H/W keys
-						window.history.back();
-					}
-				});
-			});
-			$( "#list" ).on( "pagebeforehide" , function() {
-				//unbind callbacks to the H/W keys
-				$( window ).off( "tizenhwkey" );
-			});
-			</script>
 		</div>
 	</div>
 	</body>

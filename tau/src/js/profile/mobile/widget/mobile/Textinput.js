@@ -611,7 +611,6 @@
 				default:
 					if (element.tagName.toLowerCase() === "textarea") {
 						setAria(element);
-						ui.textLine = createDecorationLine(element);
 					}
 				}
 

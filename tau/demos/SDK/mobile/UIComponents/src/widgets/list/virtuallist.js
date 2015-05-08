@@ -1,3 +1,5 @@
+/*global $,tau,JSON_DATA,pageId,listId,templateId,itemClass */
+/*jslint unparam: true */
 (function(pageId, listId, templateId, itemClass) {
 	var page = document.getElementById(pageId),
 		vlist;

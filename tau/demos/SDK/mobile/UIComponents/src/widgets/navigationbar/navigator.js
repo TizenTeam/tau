@@ -1,3 +1,5 @@
+/*global $,tau,navigationHistory,historyMove */
+/*jslint unparam: true */
 (function() {
 var historyMaker = function(event) {
 		//make browsing history be stored in navigationHistory array.
@@ -23,17 +25,6 @@ var historyMaker = function(event) {
 			}
 		}
 	},
-	historyDrawer = function(event) {
-		var navi = document.getElementById("navigation"),
-			naviWidget = tau.widget.Navigation(navi);
-
-		if (document.getElementsByClassName("ui-navigation-ul")[0]
-				.childElementCount) {
-			tau.warn("Create method should be called only once in a page");
-		} else {
-			naviWidget.create(navigationHistory);
-		}
-	},
 	historyMove = function(event) {
 		var selectedIndex = event.originalEvent.detail,
 			barLength = navigationHistory.length;
@@ -41,11 +32,24 @@ var historyMaker = function(event) {
 		//clear unnecessary array of history out
 		navigationHistory.splice(selectedIndex + 1, barLength - selectedIndex );
 		history.go(- (barLength - selectedIndex) + 1);
+	},
+	historyDrawer = function(event) {
+		var pageId = event.target.id,
+			page = document.getElementById(pageId),
+			navi = page.getElementsByClassName("ui-navigation")[0],
+			naviWidget = tau.widget.Navigation(navi);
+
+		if (page.getElementsByClassName("ui-navigation-ul")[0]
+				.childElementCount) {
+			tau.warn("Create method should be called only once in a page");
+		} else {
+			naviWidget.create(navigationHistory);
+		}
+		$(navi).one("navigate", historyMove);
 	};
 
 	window.navigationHistory = window.navigationHistory || [];
 
 	$(document).one("pagebeforeshow", historyMaker);
 	$(document).one("pageshow", historyDrawer);
-	$("nav").one("navigate", historyMove);
-})();
+}());

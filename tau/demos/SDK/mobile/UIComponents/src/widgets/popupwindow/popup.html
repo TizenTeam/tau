@@ -260,48 +260,6 @@
 
 	</div> <!-- /content -->
 	<script src="popupwindow.js"></script>
-	<script>
-	$( "#popupwindow-demo" ).on( "pageshow" , function() {
-		$( window ).on( "tizenhwkey", function ( ev ) {
-			if ( ev.originalEvent.keyName === "back" ) {
-				//bind callbacks to the H/W keys
-				window.history.back();
-				return false;
-			}
-		});
-		$('#noti-demo').on('vclick', function ( e ) {
-			$('#toast').notification('open');
-		});
-	});
-	$( "#popupwindow-demo" ).on( "pagebeforehide" , function() {
-		//unbind callbacks to the H/W keys
-		$( window ).off( "tizenhwkey" );
-	});
-	</script>
-	<script>
-		var page = document.getElementById("popupwindow-demo"),
-				popup1 = document.getElementById("firstPopup"),
-				popup2 = document.getElementById("secondPopup"),
-				previousButton = document.getElementById("buttonPrevious");
-
-		function openPopup1 () {
-			tau.openPopup(popup1);
-		}
-
-		function openPopup2 () {
-			tau.openPopup(popup2);
-		}
-
-		tau.event.one(page, "pageshow", function() {
-			// after clicking on button with data-rel='back'
-			popup1.addEventListener("popuphide", openPopup2, false);
-			previousButton.addEventListener("vclick", openPopup1, false);
-		});
-		tau.event.one(page, "pagehide", function() {
-			popup1.removeEventListener("popuphide", openPopup2, false);
-			previousButton.removeEventListener("vclick", openPopup1, false)
-		});
-	</script>
 </div> <!-- /page -->
 
 </body>

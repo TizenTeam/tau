@@ -21,7 +21,7 @@ function fireEvent(el, type, props) {
 	return false;
 }
 
-pageWidget.addEventListener('pageshow', function () {
+window.addEventListener('load', function () {
 	asyncTest("tau.widget.wearable.scroller.Scroller _build method", function () {
 		var scrollerElement = document.getElementById('scroller'),
 			scrollerInner = scrollerElement.children[0],

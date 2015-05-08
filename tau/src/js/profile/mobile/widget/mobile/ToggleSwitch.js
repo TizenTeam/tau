@@ -1,4 +1,4 @@
-/*global window, define */
+/*global window, define, ns */
 /*
 * Copyright  2010 - 2014 Samsung Electronics Co., Ltd.
 * License : MIT License V2
@@ -215,8 +215,8 @@
 				var getElementWidth = DOMutils.getElementWidth,
 					handlePercent = getElementWidth(self._ui.handle, "outer") /
 							getElementWidth(self._ui.slider, "outer") * 100,
-					aPercent = percent && handlePercent + (100 - handlePercent)
-							* percent / 100,
+					aPercent = percent && handlePercent +
+							(100 - handlePercent) * percent / 100,
 					bPercent = percent === 100 ? 0 : Math.min(handlePercent +
 							100 - aPercent, 100),
 					i = self._labels.length,
@@ -225,8 +225,8 @@
 				while (i--) {
 					label = self._labels[i];
 					label.style.width =
-							(label.classList.contains(classes.sliderLabelA)
-									? aPercent : bPercent) + "%";
+							(label.classList.contains(classes.sliderLabelA) ?
+								aPercent : bPercent) + "%";
 				}
 			}
 
@@ -322,7 +322,7 @@
 				// If changes came from input value change
 				} else {
 					if (value === null) {
-						value = getInitialValue(tagName, control);
+						value = getInitialValue(controlType, control);
 					}
 					if (isNaN(value)) {
 						return;
@@ -539,6 +539,10 @@
 				event.preventDefault();
 			}
 
+			function onLabelVclick(input, ev) {
+				input.checked = (input.type === "checkbox") ? !input.checked : true;
+				events.preventDefault(ev);
+			}
 			/**
 			 * Manage intearaction of widget with key down events
 			 * @method onKeydown
@@ -613,7 +617,7 @@
 			function onKeyupHandle (self) {
 				if (self._keySliding) {
 					self._keySliding = false;
-					handle.classList.remove(classes.sliderStateActive);
+					self._ui.handle.classList.remove(classes.sliderStateActive);
 				}
 			}
 
@@ -752,7 +756,8 @@
 			*/
 			function createWrapper(domSlider) {
 				var wrapper,
-					domSliderChildNode = domSlider.childNodes;
+					domSliderChildNode = domSlider.childNodes,
+					j, length;
 
 				wrapper = createElement("div");
 				wrapper.className = classes.sliderInneroffset;
@@ -855,6 +860,7 @@
 			/**
 			* Remove events from Slider which is based on Select Tag
 			* @method removeEventsFromToggleBasedOnSelect
+			* @param {ns.widget.mobile.ToggleSwitch} self
 			* @param {HTMLElement} element
 			* @param {HTMLElement} handle
 			* @param {HTMLElement} slider
@@ -862,9 +868,9 @@
 			* @static
 			* @member ns.widget.mobile.ToggleSwitch
 			*/
-			function removeEventsFromToggleBasedOnSelect(element, handle, slider) {
-				element.removeEventListener("change", self._onChange,
-						false);
+			function removeEventsFromToggleBasedOnSelect(self, element, handle, slider) {
+
+				element.removeEventListener("change", self._onChange, false);
 				element.removeEventListener("keyup", self._onKeyupElement, false);
 				element.removeEventListener("blur", self._onBlur, false);
 
@@ -884,7 +890,7 @@
 
 			/**
 			* Build Slider based on Select Tag
-			* @method removeEventsFromToggleBasedOnSelect
+			* @method buildSliderBasedOnSelectTag
 			* @param {ns.widget.mobile.ToggleSwitch} self
 			* @param {HTMLElement} element
 			* @param {HTMLElement} sliderContainer
@@ -906,7 +912,7 @@
 					theme = options.theme = options.theme || parentTheme;
 
 				trackTheme = options.trackTheme = options.trackTheme ||
-				parentTheme
+				parentTheme;
 
 				domSlider.setAttribute("id", elementId + "-slider");
 				sliderBtnDownTheme = btnClasses.uiBtnDownThemePrefix +
@@ -1009,13 +1015,13 @@
 			ToggleSwitch.prototype._build = function (element) {
 				var roleType,
 					elementsOption,
-					options = this.options,
 					label = createElement("label"),
 					divHandler = createElement("div"),
 					divInneroffset = createElement("div"),
 					controlType = element.nodeName.toLowerCase(),
 					sliderContainer = createElement("div");
 
+				this._ui.label = label;
 				//when the input with input[data-role='toggleswitch'],
 				//button like toggle
 				if (controlType === "input") {
@@ -1315,16 +1321,19 @@
 			*/
 			ToggleSwitch.prototype._bindEvents = function () {
 				var self = this,
+					ui = self._ui,
 					element = self.element,
-					handle = self._ui.handle,
+					handle = ui.handle,
 					tagName = element.nodeName.toLowerCase(),
-					slider = self._ui.slider,
+					slider = ui.slider,
 					elementsOption = element.querySelector("option") || "";
 
-				if (tagName === "input" || elementsOption.innerText === ""){
+				if (tagName === "input" || elementsOption.innerText === "") {
 					self._onChangeValue = onChangeValue.bind(null, self);
-					self._ui.input.addEventListener('change',
-							self._onChangeValue, true);
+					self._onLabelVclick = onLabelVclick.bind(null, ui.input);
+
+					ui.input.addEventListener("change", self._onChangeValue, true);
+					ui.label.addEventListener("vclick", self._onLabelVclick, true);
 				} else {
 					bindCallbacksForSelectTag(self);
 
@@ -1362,33 +1371,34 @@
 			 * @member ns.widget.mobile.ToggleSwitch
 			 */
 			ToggleSwitch.prototype._destroy = function () {
-				var label,
-					self = this,
+				var self = this,
 					element = self.element,
-					handle = self._ui.handle,
-					slider = self._ui.slider,
+					ui = self._ui,
+					handle = ui.handle,
+					slider = ui.slider,
+					label = ui.label,
 					tagName = element.nodeName.toLowerCase(),
 					elementsOption = element.querySelector("option") || "";
 
 				if (tagName === "input" || elementsOption.innerText === "") {
-					self._ui.input.removeEventListener('change',
-							self._onChangeValue, true);
+					ui.input.removeEventListener("change", self._onChangeValue, true);
+					label.addEventListener("vclick", self._onLabelVclick, true);
 
 					//cleaning toggle based on input type
 					if (tagName === "input") {
-						label = element.parentElement;
-
-						label.innerHTML = '';
 						label.classList.remove(classes.toggleInputLabel);
-						label.parentElement.insertBefore(element,label);
+						if (label.parentElement) {
+							label.parentElement.insertBefore(element, label);
+						}
+						label.innerHTML = "";
 
 						element.removeAttribute("aria-disabled");
 						element.classList.remove(classes.toggleSwitchInput);
 
 					//cleaning toggle based on select type
 					} else {
-						if (element.nextElementSibling.tagName.toLowerCase()
-								=== "label") {
+						if (element.nextElementSibling &&
+							element.nextElementSibling.tagName.toLowerCase() === "label") {
 							//remove attributes
 							removeAttributesWhenDestroy(element);
 							//remove classes
@@ -1399,7 +1409,7 @@
 						}
 					}
 				} else {
-					removeEventsFromToggleBasedOnSelect(element, handle, slider);
+					removeEventsFromToggleBasedOnSelect(self, element, handle, slider);
 
 					removeAttributesWhenDestroy(element);
 					element.classList.remove(classes.sliderSwitch);

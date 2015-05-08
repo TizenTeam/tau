@@ -32,6 +32,7 @@
 					CIRCLE: "circle",
 					NOBG: "nobg"
 				},
+
 				prototype = new BaseWidget();
 
 			Button.classes = classes;

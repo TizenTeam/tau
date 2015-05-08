@@ -7,14 +7,7 @@
 
 .ui-marquee.ui-marquee-gradient {
 	text-overflow: clip;
-}
-.ui-marquee.ui-marquee-gradient::after {
-	content: "";
-	width: 110 * @unit_base;
-	height: 100%;
-	background: -webkit-linear-gradient(left, transparent 0%, @color_listview_fadeout_bg 100%);
-	position: absolute;
-	right: 0;
+	 -webkit-mask-image: -webkit-linear-gradient(left, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 85%, transparent 100%);
 }
 
 .ui-marquee.ui-marquee-ellipsis {

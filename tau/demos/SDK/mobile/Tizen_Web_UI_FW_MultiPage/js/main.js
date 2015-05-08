@@ -1,45 +1,18 @@
-var backEventListener = null;
+( function () {
+    window.addEventListener( 'tizenhwkey', function( ev ) {
+        if( ev.keyName === "back" ) {
+            var activePopup = document.querySelector( '.ui-popup-active' ),
+                page = document.getElementsByClassName( 'ui-page-active' )[0],
+                pageid = page ? page.id : "";
 
-var unregister = function() {
-    if ( backEventListener !== null ) {
-        window.removeEventListener( 'tizenhwkey', backEventListener, false );
-        backEventListener = null;
-        window.tizen.application.getCurrentApplication().exit();
-    }
-}
-
-//Initialize function
-var init = function () {
-    // register once
-    if ( backEventListener !== null ) {
-        return;
-    }
-    
-    // TODO:: Do your initialization job
-    console.log("init() called");
-    
-    var backEvent = function(e) {
-        if ( e.keyName == "back" ) {
-            try {
-                if ( $.mobile.urlHistory.activeIndex <= 0 ) {
-                    // if first page, terminate app
-                    unregister();
-                } else {
-                    // move previous page
-                    $.mobile.urlHistory.activeIndex -= 1;
-                    $.mobile.urlHistory.clearForward();
-                    window.history.back();
+            if( pageid === "one" && !activePopup ) {
+                try {
+                    tizen.application.getCurrentApplication().exit();
+                } catch (ignore) {
                 }
-            } catch( ex ) {
-                unregister();
+            } else {
+                window.history.back();
             }
         }
-    }
-    
-    // add eventListener for tizenhwkey (Back Button)
-    window.addEventListener( 'tizenhwkey', backEvent, false );
-    backEventListener = backEvent;
-};
-
-$(document).bind( 'pageinit', init );
-$(document).unload( unregister );
+    } );
+} () );
