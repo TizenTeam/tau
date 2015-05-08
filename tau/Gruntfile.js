@@ -43,7 +43,7 @@ module.exports = function(grunt) {
 
 		wrapStart = "(function(window, document, undefined) {\n" +
 			"'use strict';\n" +
-			"var ns = window."+ rootNamespace +" = {},\n" +
+			"var ns = window."+ rootNamespace +" = window." + rootNamespace + " || {},\n" +
 			"nsConfig = window." + config + " = window." + config + " || {};\n" +
 			"nsConfig.rootNamespace = '" + rootNamespace + "';\n" +
 			"nsConfig.fileName = '" + fileName + "';\n" +
@@ -279,6 +279,32 @@ module.exports = function(grunt) {
 					}
 				},
 
+				mobile_support: {
+					options: {
+						baseUrl: srcJs,
+						optimize: "none",
+						findNestedDependencies: false,
+						removeCombined: true,
+						skipModuleInsertion: true,
+						name: "mobile.support-2.3",
+						exclude: [
+							"mobile"
+						],
+						out: path.join( buildDir.mobile.js, name + ".support-2.3" ) + ".js",
+						pragmas: {
+							tauPerformance: !tauPerformance
+						},
+						pragmasOnSave: {
+							tauBuildExclude: true,
+							tauDebug: !tauDebug
+						},
+						wrap: {
+							start: wrapStart,
+							end: wrapEnd
+						}
+					}
+				},
+
 				tv: {
 					options: {
 						baseUrl: srcJs,
@@ -321,6 +347,10 @@ module.exports = function(grunt) {
 						{
 							src: path.join(srcCss, "mobile","changeable","theme-changeable", "theme.less"),
 							dest: path.join(buildRoot, "mobile", "theme", "changeable", "tau.template")
+						},
+						{
+							src: path.join("src", "css", "support", "mobile","changeable","theme-changeable", "theme.support-2.3.less"),
+							dest: path.join(buildRoot, "mobile", "theme", "changeable", "tau.support-2.3.template")
 						}
 					]
 				},
@@ -343,8 +373,16 @@ module.exports = function(grunt) {
 						inputColorTableXML: path.join(themeConverterXMLPath, "mobile", "InputColorTable.xml"),
 						changeableColorTableXML: path.join(themeConverterXMLPath, "mobile", "ChangeableColorTable1.xml")
 					},
-					src: path.join(buildDir.mobile.theme, "changeable", "tau.template"),
-					dest: path.join(buildDir.mobile.theme, "changeable", "tau.css")
+					files: [
+						{
+							src: path.join(buildDir.mobile.theme, "changeable", "tau.support-2.3.template"),
+							dest: path.join(buildDir.mobile.theme, "changeable", "tau.support-2.3.css")
+						},
+						{
+							src: path.join(buildDir.mobile.theme, "changeable", "tau.template"),
+							dest: path.join(buildDir.mobile.theme, "changeable", "tau.css")
+						}
+					]
 				},
 				wearable: {
 					createColorMapFile: grunt.option("generate-colormap") || false,

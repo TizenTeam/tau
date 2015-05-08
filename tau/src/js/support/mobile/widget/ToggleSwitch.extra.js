@@ -10,14 +10,14 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../../../../core/engine",
-			"../../../../core/theme",
-			"../../../../core/util/DOM/attributes",
-			"../../../../core/util/DOM/manipulation",
-			"../../../../core/event",
-			"../../../../core/widget/core/Button",
-			"../mobile", // fetch namespace
-			"./BaseWidgetMobile"
+			"../../../core/engine",
+			"../../../core/theme",
+			"../../../core/util/DOM/attributes",
+			"../../../core/util/DOM/manipulation",
+			"../../../core/event",
+			"../../../core/widget/core/Button",
+			"../../../profile/mobile/widget/mobile", // fetch namespace
+			"../../../profile/mobile/widget/mobile/BaseWidgetMobile"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
@@ -38,7 +38,7 @@
 					 * "true" then toggle switch has css property
 					 * display = "inline"
 					 * @property {string} [options.theme=null] theme of widget
-					 * @member ns.widget.mobile.ToggleSwitchExtra					 *
+					 * @member ns.widget.mobile.ToggleSwitchExtra				 *
 					 */
 					self.options = {
 						trackTheme: null,

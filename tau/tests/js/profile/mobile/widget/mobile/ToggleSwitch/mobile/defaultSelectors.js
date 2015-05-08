@@ -14,17 +14,11 @@
 		ok(!!(tau.engine.getBinding(element, "ToggleSwitch")), "ToggleSwitch was created by selector: " + selector);
 		equal(element.getAttribute('data-tau-bound'), "ToggleSwitch", "ToggleSwitch widget bound: " + selector);
 	}
-	function isToggleSwitchExtra(element, selector) {
-		ok(!!(tau.engine.getBinding(element, "ToggleSwitchExtra")), "ToggleSwitch was created by selector: " + selector);
-		equal(element.getAttribute('data-tau-bound'), "ToggleSwitchExtra", "ToggleSwitch widget bound: " + selector);
-	}
 	test("ToggleSwitch default selectors" , function () {
 		isToggleSwitch(document.getElementById('select-data-role-toggleswitch'), "select[data-role='toggleswitch']");
 		isToggleSwitch(document.getElementById('input-data-role-toggleswitch'), "input[type='checkbox'][data-role='toggleswitch']");
 		isToggleSwitch(document.getElementById('by-class-selector'), "select.ui-toggleswitch");
 		isToggleSwitch(document.getElementById('input-class-toggleswitch'), "input.ui-toggleswitch");
-
-		isToggleSwitchExtra(document.getElementById('select-data-role-slider'), "select[data-role='slider']");
 	});
 
 }(window.document));
