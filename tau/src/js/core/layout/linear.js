@@ -43,13 +43,14 @@
 					linearDistance: 10,
 					linearFill: false,
 					linearWrap: false
-				};
+				},
+				cssRules = [],
+				LAYOUTABLE_ELEMENTS_SELECTOR = "*:not(script)";
 
 			linear.name = "linear";
 			linear.classes = classes;
 			linear.defaults = defaults;
-			cssRules = [],
-			LAYOUTABLE_ELEMENTS_SELECTOR = "*:not(script)",
+
 			linear.configure = function (self, element) {
 				// set defaults
 				self.options = objectUtil.merge({}, defaults, self.options);
