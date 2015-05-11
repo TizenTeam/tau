@@ -308,7 +308,11 @@
 
 				classes = objectUtils.merge({}, CorePopup.classes, {
 					popupScroll: "ui-scroll-on",
-					fixed: "ui-fixed"
+					fixed: "ui-fixed",
+					sideButton: "ui-side-button",
+					hasSideButtons: "ui-has-side-buttons",
+					toast: "ui-popup-toast",
+					ctx: "ui-ctxpopup"
 				}),
 
 				Popup = function () {
@@ -361,6 +365,9 @@
 						if (footer.classList.contains(classes.fixed)) {
 							content.style.marginBottom = footerHeight + "px";
 						}
+						if (footer.classList.contains(classes.sideButton)) {
+							elementClassList.add(classes.hasSideButtons);
+						}
 					}
 
 					wrapper.style.height = Math.min(content.offsetHeight + headerHeight + footerHeight, element.offsetHeight) + "px";
@@ -368,7 +375,7 @@
 					elementClassList.remove(classes.build);
 				}
 
-				if (self.options.fullSize && !elementClassList.contains("ui-popup-toast") && !elementClassList.contains("ui-ctxpopup")) {
+				if (self.options.fullSize && !elementClassList.contains(classes.toast) && !elementClassList.contains(classes.ctx)) {
 					wrapper.style.height = window.innerHeight + "px";
 				}
 			};

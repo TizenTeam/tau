@@ -2,7 +2,7 @@ button.ui-btn,
 input[type="button"].ui-btn {
 	-webkit-appearance: none;
 	box-sizing: border-box;
-	width: 100%;
+	width: auto;
 	border: none;
 	outline: none;
 }
@@ -13,7 +13,8 @@ a.ui-btn {
 
 .ui-btn {
 	position: relative;
-	display: block;
+	display: inline-block;
+	box-sizing: border-box;
 	padding: 10 * @unit_base 22 * @unit_base;
 	vertical-align: middle;
 	overflow: hidden;

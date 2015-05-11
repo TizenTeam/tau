@@ -142,22 +142,6 @@
 			</ul>
 		</div>
 		<script src="ctxpopup.js"></script>
-		<script>
-		$( "#ctxpopup-demo" ).on( "pageshow" , function() {
-			//bind callbacks to the H/W keys
-			$( window ).on( "tizenhwkey" , function( e ) {
-				if ( e.originalEvent.keyName === "menu" ) {
-					$( "#navi" ).popup( "open" );
-				}else if( e.originalEvent.keyName === "back" ) {
-					window.history.back();
-				}
-			});
-		});
-		$( "#ctxpopup-demo" ).on( "pagebeforehide" , function() {
-			//unbind callbacks to the H/W keys
-			$( window ).off( "tizenhwkey" );
-		});
-		</script>
 	</div> <!-- /page -->
 </body>
 </html>

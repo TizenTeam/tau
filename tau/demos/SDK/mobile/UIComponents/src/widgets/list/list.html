@@ -13,7 +13,6 @@
 			<li data-role="list-divider">Item styles</li>
 			<li><a href="list-normal_anchor.html">Normal lists add anchor</a></li>
 			<li><a href="list-normal_no_anchor.html">Normal lists no anchor</a></li>
-			<li><a href="list-normal_color.html">Colored lists</a></li>
 			<li><a href="list-edit.html">Lists with edit field</a></li>
 			<li><a href="list-dialogue.html">Dialogue list</a></li>
 			<li><a href="list-dialogue-edit.html">Dialogue list (Edit mode)</a></li>
@@ -31,20 +30,6 @@
 			<li><a href="virtuallist-normal_3_2_7.html">Virtual List Normal Style 2line-star1</a></li>
 		</ul>
 	</div>
-	<script>
-	$( "#list" ).on( "pageshow" , function() {
-		$( window ).on( "tizenhwkey", function ( ev ) {
-			if ( ev.originalEvent.keyName === "back" ) {
-				//bind callbacks to the H/W keys
-				window.history.back();
-			}
-		});
-	});
-	$( "#list" ).on( "pagebeforehide" , function() {
-		//unbind callbacks to the H/W keys
-		$( window ).off( "tizenhwkey" );
-	});
-	</script>
 </div>
 </body>
 </html>

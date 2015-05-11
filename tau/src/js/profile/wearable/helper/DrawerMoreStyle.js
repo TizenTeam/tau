@@ -19,7 +19,7 @@
 			"../../../core/util/object",
 			"../../../core/util/selectors",
 			"../widget/wearable/Drawer",
-			"../widget/wearable/SectionChanger"
+			"../../../core/widget/core/viewswitcher/ViewSwitcher"
 		],
 		function () {//>>excludeEnd("tauBuildExclude");
 			var engine = ns.engine,
@@ -27,10 +27,10 @@
 				events = ns.event,
 				selectors = ns.util.selectors,
 				Drawer = ns.widget.wearable.Drawer,
-				SectionChanger = ns.widget.wearable.SectionChanger,
+				ViewSwitcher = ns.widget.core.ViewSwitcher,
 				defaults = {
 					more: ".ui-more",
-					sectionChanger: ".ui-section-changer"
+					viewSwitcher: ".ui-view-switcher"
 				},
 				classes = {
 					page: "ui-page"
@@ -42,7 +42,7 @@
 					self.options = objectUtils.merge({}, defaults);
 					self._drawerWidget = null;
 					self._handlerElement = null;
-					self._sectionChangerWidget = null;
+					self._viewSwitcherWidget = null;
 
 					self.init(element, options);
 				},
@@ -87,12 +87,12 @@
 				var self = this,
 					pageElement = selectors.getClosestByClass(element, classes.page),
 					handlerElement,
-					sectionChangerElement;
+					viewSwitcherElement;
 
 				objectUtils.fastMerge(self.options, options);
 
 				handlerElement = pageElement.querySelector(self.options.handler);
-				sectionChangerElement = element.querySelector(self.options.sectionChanger);
+				viewSwitcherElement = element.querySelector(self.options.viewSwitcher);
 
 				self._drawerWidget = engine.instanceWidget(element, "Drawer");
 				if (handlerElement) {
@@ -100,8 +100,8 @@
 					self._handlerElement = handlerElement;
 					self._bindEvents();
 				}
-				if (sectionChangerElement) {
-					self._sectionChangerWidget = engine.instanceWidget(sectionChangerElement, "SectionChanger", self.options);
+				if (viewSwitcherElement) {
+					self._viewSwitcherWidget = engine.instanceWidget(viewSwitcherElement, "ViewSwitcher", self.options);
 				}
 			};
 
@@ -125,7 +125,7 @@
 				}
 				self._drawerWidget = null;
 				self._handlerElement = null;
-				self._sectionChangerWidget = null;
+				self._viewSwitcherWidget = null;
 			};
 
 			DrawerMoreStyle.create = function(element, options) {

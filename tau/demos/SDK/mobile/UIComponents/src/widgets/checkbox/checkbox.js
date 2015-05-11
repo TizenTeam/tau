@@ -1,3 +1,5 @@
+/*global $ */
+/*jslint unparam: true */
 $( document ).one( "pagecreate", "#checkbox-demo", function () {
 	$( "#check-1" ).on( "vclick", function () {
 		var value = $( "#checkbox-1" ).prop( "checked" );

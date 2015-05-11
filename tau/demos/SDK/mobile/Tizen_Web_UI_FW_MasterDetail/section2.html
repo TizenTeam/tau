@@ -34,20 +34,6 @@
                     </ul>
             </div>
         </div><!-- /content -->
-	<script>
-		$( "#section2" ).on( "pageshow" , function() {
-			//bind callbacks to the H/W keys
-			$( window ).on( "tizenhwkey" , function( e ) {
-				if ( e.originalEvent.keyName == "back") {
-					history.back();
-				}
-			} );
-		} );
-		$( "#section2" ).on( "pagebeforehide" , function() {
-			//unbind callbacks to the H/W keys
-			$( window ).off( "tizenhwkey" );
-		} );
-	</script>
     </div><!-- /page -->
 </body>
 </html>

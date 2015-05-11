@@ -1,3 +1,4 @@
+/*global $ */
 $( document ).one( "pagecreate", "#dynamical-elements-demo", function () {
 	var myArray = [];
 	function addCheckbox() {

@@ -13,6 +13,7 @@ input[type="radio"] {
 	background-color: @color_checkboxradio_radiobox;
 	.mask-image('images/Controller_icon/tw_btn_radiobox_holo_dark.png');
 	.mask-repeat(no-repeat);
+	.mask-size(100% 100%);
 }
 
 input[type="radio"]::after {
@@ -20,7 +21,9 @@ input[type="radio"]::after {
 	background-color: @color_checkboxradio_radiobox_line;
 	.mask-image('images/Controller_icon/tw_btn_radiobox_line.png');
 	.mask-repeat(no-repeat);
-	width: 56px; height: 56px;
+	.mask-size(100% 100%);
+	width: 100%;
+	height: 100%;
 	position: absolute;
 }
 
@@ -29,7 +32,9 @@ input[type="radio"]:checked::before {
 	background-color: @color_checkboxradio_radio;
 	.mask-image('images/Controller_icon/tw_btn_radio_holo_dark.png');
 	.mask-repeat(no-repeat);
-	width: 56px; height: 56px;
+	.mask-size(100% 100%);
+	width: 100%;
+	height: 100%;
 	position: absolute;
 }
 
@@ -44,7 +49,8 @@ input[type="radio"]:active::after {
 	background-color: @color_checkboxradio_radiobox_line_press;
 	.mask-image('images/Controller_icon/tw_btn_radiobox_line.png');
 	.mask-repeat(no-repeat);
-	width: 56px; height: 56px;
+	width: 100%;
+	height: 100%;
 	position: absolute;
 }
 
@@ -52,49 +58,52 @@ input[type="radio"]:active:checked::before {
 	content: "";
 	background-color: @color_checkboxradio_radio_press;
 	.mask-image('images/Controller_icon/tw_btn_radio_holo_dark.png');
-	.mask-repeat('no-repeat');
-	width: 56px; height: 56px;
+	.mask-repeat(no-repeat);
+	width: 100%;
+	height: 100%;
 	position: absolute;
 }
+
 input[type="checkbox"]:not(.ui-switch-input) {
-  		.mask-image('images/Controller_icon/tw_btn_checkbox_holo_dark.png');
-  		.mask-repeat('no-repeat');
-		background-color: @color_checkboxradio_checkbox;
+	.mask-image('images/Controller_icon/tw_btn_checkbox_holo_dark.png');
+	.mask-repeat(no-repeat);
+	.mask-size(100% 100%);
+	background-color: @color_checkboxradio_checkbox;
+	&::after {
+		content: "";
+		background-color: @color_checkboxradio_checkbox_line;
+		.mask-image('images/Controller_icon/tw_btn_checkbox_line_holo_dark.png');
+		.mask-repeat(no-repeat);
+		.mask-size(100% 100%);
+		width: 100%;
+		height: 100%;
+		position: absolute;
+	}
+	&:checked::before {
+		content: "";
+		.mask-image('images/Controller_icon/tw_btn_check_holo_dark.png');
+		.mask-repeat(no-repeat);
+		.mask-size(100% 100%);
+		background-color: @color_checkboxradio_check;
+		width: 100%;
+		height: 100%;
+		position: absolute;
+	}
+	&:active {
+		background-color: @color_checkboxradio_checkbox_press;
 		&::after {
 			content: "";
-			background-color: @color_checkboxradio_checkbox_line;
-			.mask-image('images/Controller_icon/tw_btn_checkbox_line_holo_dark.png');
-			.mask-repeat('no-repeat');
-			width: 56px; height: 56px;
+			background-color: @color_checkboxradio_checkbox_line_press;
+			width: 100%;
+	        height: 100%;
 			position: absolute;
 		}
 		&:checked::before {
 			content: "";
-			.mask-image('images/Controller_icon/tw_btn_check_holo_dark.png');
-			.mask-repeat('no-repeat');
-			background-color: @color_checkboxradio_check;
-			width: 56px; height: 56px;
+			background-color: @color_checkboxradio_check_press;
+			width: 100%;
+			height: 100%;
 			position: absolute;
 		}
-		&:active {
-			.mask-image('images/Controller_icon/tw_btn_checkbox_holo_dark.png');
-			.mask-repeat('no-repeat');
-			background-color: @color_checkboxradio_checkbox_press;
-        	&::after {
-				content: "";
-				.mask-image('images/Controller_icon/tw_btn_checkbox_line_holo_dark.png');
-				.mask-repeat('no-repeat');
-				background-color: @color_checkboxradio_checkbox_line_press;
-				width: 56px; height: 56px;
-				position: absolute;
-			}
-			&:checked::before {
-				content: "";
-				.mask-image('images/Controller_icon/tw_btn_check_holo_dark.png');
-				.mask-repeat('no-repeat');
-				background-color: @color_checkboxradio_check_press;
-				width: 56px; height: 56px;
-				position: absolute;
-			}
-        }
+	}
 }

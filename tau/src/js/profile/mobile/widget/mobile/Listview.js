@@ -1255,7 +1255,7 @@
 			 * @member ns.widget.mobile.Listview
 			 */
 			Listview.prototype._clickCheckboxRadio = function (element) {
-				var checkboxRadio = slice.call(element.querySelectorAll(".ui-checkbox, .ui-radio")),
+				var checkboxRadio = slice.call(element.querySelectorAll(".ui-checkbox, .ui-radio, .ui-slider-switch-input")),
 					i = checkboxRadio.length,
 					input;
 
@@ -1279,9 +1279,11 @@
 				element.addEventListener("vclick", function (event) {
 					var target = event.target;
 
-					if (target.classList.contains(classes.uiLiHasCheckbox) || target.classList.contains(classes.uiLiHasRadio)) {
+					if (target.classList.contains(classes.uiLiHasCheckbox) ||
+						target.classList.contains(classes.uiLiHasRadio) ||
+						target.classList.contains(classes.uiLiHasRightBtn)) {
 						self._clickCheckboxRadio(target);
-					} else if (target.type === "checkbox" || target.type === "radio" ) {
+					} else if (target.type === "checkbox" || target.type === "radio") {
 						event.stopPropagation();
 						event.preventDefault();
 					}

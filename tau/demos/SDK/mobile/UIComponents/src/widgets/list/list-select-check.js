@@ -1,44 +1,34 @@
-var page = document.getElementById("listcheck"),
-	selectAll = tau.widget.Checkboxradio(document.getElementsByName("check")[0]),
-	navSelectAll = document.getElementById("navSelectAll"),
-	check = [],
-	isAll = false;
+/*global tau,watchCheckboxes */
+var checkboxWidgets = [
+		tau.widget.Checkboxradio(document.getElementsByName("select-check1")[0]),
+		tau.widget.Checkboxradio(document.getElementsByName("select-check2")[0]),
+		tau.widget.Checkboxradio(document.getElementsByName("select-check3")[0])
+	];
 
-check[0] = tau.widget.Checkboxradio(document.getElementsByName("select-check1")[0]);
-check[1] = tau.widget.Checkboxradio(document.getElementsByName("select-check2")[0]);
-check[2] = tau.widget.Checkboxradio(document.getElementsByName("select-check3")[0]);
-
-
-function checkAllCheckbox() {
-	var val = selectAll.value() === null ? false : true,
+function checkAllCheckbox(allChecked) {
+	var len = checkboxWidgets.length,
 		i;
-	for ( i in check ) {
-		if( check.hasOwnProperty(i) ) {
-			check[i].element.checked = val;
-			check[i].refresh();
-		}
+
+	for (i = 0; i < len; i++) {
+		checkboxWidgets[i].element.checked = !allChecked;
+		checkboxWidgets[i].refresh();
 	}
-	isAll = val === true ? true : false;
 }
 
-function checkCheckboxs(event) {
-	if (!isAll) {
-		if (event.target.getAttribute("name") !== "check") {
-			selectAll.element.checked = false;
-			selectAll.refresh();
-		}
-		return;
+function checkAll() {
+	var allChecked = watchCheckboxes();
+	checkAllCheckbox(allChecked);
+}
+
+function watchCheckboxes() {
+	"use strict";
+	var allSelected = true,
+		i = checkboxWidgets.length - 1;
+
+	while(i >= 0 && allSelected) {
+		allSelected = checkboxWidgets[i].value() !== null;
+		i--;
 	}
-	isAll = false;
-}
 
-function onNavBtnClick() {
-	var val = selectAll.value() === null ? true : false;
-	selectAll.element.checked = val;
-	selectAll.refresh();
-	selectAll.trigger("change");
+	return allSelected;
 }
-
-selectAll.on("change", checkAllCheckbox);
-page.addEventListener("change", checkCheckboxs);
-navSelectAll.addEventListener("click", onNavBtnClick);

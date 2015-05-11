@@ -183,7 +183,9 @@
 					activeALength = activeA.length,
 					i;
 				for (i = 0; i < activeALength; i++) {
-					activeA[i].classList.remove(activeClassLI);
+					if (activeA[i]) {
+						activeA[i].classList.remove(activeClassLI);
+					}
 				}
 			}
 

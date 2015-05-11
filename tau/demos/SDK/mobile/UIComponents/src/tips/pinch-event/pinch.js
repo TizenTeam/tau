@@ -13,6 +13,8 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
+/*global $ */
+/*jslint unparam: true */
 $( document ).one( "pageshow", "#pinch_page", function () {
 	var last_ratio = 1,
 		current_ratio;
@@ -34,7 +36,7 @@ $( document ).one( "pageshow", "#pinch_page", function () {
 
 		ratio = get_ratio( p.ratio );
 
-		if ( current_ratio == ratio ) {
+		if ( current_ratio === ratio ) {
 			return;
 		}
 
@@ -48,6 +50,7 @@ $( document ).one( "pageshow", "#pinch_page", function () {
 	});
 
 	$("#pinch_demo").on( "pinchstart", function ( e, p ) {
+		return;
 	});
 
 	$("#pinch_demo").on( "pinchend", function ( e, p ) {

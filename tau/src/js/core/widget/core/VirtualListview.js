@@ -9,6 +9,7 @@
 	define(
 		[
 			"../../engine",
+			"../../util/selectors",
 			"../../event",
 			"../../event/vmouse",
 			"../BaseWidget",
@@ -118,6 +119,10 @@
 				 */
 				lastTouchPos =	{},
 
+				selectors = ns.util.selectors,
+
+				utilEvent = ns.event,
+
 				/**
 				 * Local constructor function
 				 * @method VirtualListview
@@ -205,7 +210,8 @@
 						bufferSize: 100,
 						dataLength: 0,
 						orientation: VERTICAL,
-						listItemUpdater: null
+						listItemUpdater: null,
+						scrollElement: null
 					};
 
 					/**
@@ -673,6 +679,7 @@
 				if (_scroll.lastJumpY > 0 || _scroll.lastJumpX > 0) {
 					if (!blockEvent) {
 						_orderElements(self);
+						utilEvent.trigger(self.element, "vlistupdate");
 					}
 				}
 			}
@@ -703,7 +710,6 @@
 				element.classList.add(classes.uiVirtualListContainer);
 				return element;
 			};
-
 
 			prototype._setupScrollview = function (element, orientation) {
 				var scrollview,
@@ -746,7 +752,16 @@
 
 				//Set orientation, default vertical scrolling is allowed
 				orientation = options.orientation.toLowerCase() === HORIZONTAL ? HORIZONTAL : VERTICAL;
-				scrollview = self._setupScrollview(element, orientation);
+				if (options.scrollElement) {
+					if (typeof options.scrollElement === "string") {
+						scrollview = selectors.getClosestBySelector(element, "." + options.scrollElement);
+					} else {
+						scrollview = options.scrollElement;
+					}
+				}
+				if(!scrollview) {
+					scrollview = self._setupScrollview(element, orientation);
+				}
 
 				// Prepare spacer (element which makes scrollbar proper size)
 				spacer = document.createElement("div");

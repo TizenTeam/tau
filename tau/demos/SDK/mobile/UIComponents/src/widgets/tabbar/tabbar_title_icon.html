@@ -19,20 +19,6 @@
 
 	<div data-role="content">
 	</div>
-
-	<script>
-	$( "#tabbar_title_icon" ).on( "pageshow" , function() {
-		$(window).on("tizenhwkey", function (event) {
-			if (event.originalEvent.keyName === "back") {
-				//bind callbacks to the H/W keys
-				window.history.back();
-			}
-		});
-	}).on("pagebeforehide", function () {
-		//unbind callbacks to the H/W keys
-		$(window).off("tizenhwkey");
-	});
-	</script>
 </div>
 
 </body>

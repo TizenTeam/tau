@@ -1,3 +1,5 @@
+/*global $ */
+/*jslint unparam: true */
 $(document).one( "pagecreate", "#progressbar-demo", function () {
 	var progressbar_running;
 
