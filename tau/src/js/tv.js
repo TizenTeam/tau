@@ -95,7 +95,7 @@
 			"./profile/tv/widget/SearchBar",
 			"./profile/tv/widget/Progress",
 			"./profile/tv/widget/SelectMenu",
-			"./profile/mobile/widget/mobile/TabBar",
+			"./core/widget/core/tab/Tabbar",
 			"./profile/tv/widget/ControlGroup",
 			"./profile/tv/widget/ScrollHandler",
 			"./profile/tv/widget/HomeBar",

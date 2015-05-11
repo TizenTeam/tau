@@ -82,7 +82,7 @@
 			"../../../core/event/gesture",
 			"../../../core/widget/BaseWidget",
 			"./scroller/Scroller",
-			"./TabIndicator",
+			"./tab/TabIndicator",
 			"../core"
 		],
 		function () {

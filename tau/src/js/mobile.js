@@ -70,6 +70,7 @@
 			"./core/event/hwkey",
 			"./core/event/throttledresize",
 			"./core/event/orientationchange",
+			"./core/widget/core/SectionChanger",
 			// widget list
 			"./core/widget/core/Checkboxradio",
 			"./core/widget/core/Button",
@@ -91,7 +92,7 @@
 			"./profile/mobile/widget/mobile/ListviewAutodivider",
 			"./profile/mobile/widget/mobile/ExtendableList",
 			"./profile/mobile/widget/mobile/Fastscroll",
-			"./profile/mobile/widget/mobile/TabBar",
+			"./core/widget/core/tab/Tabbar",
 			"./profile/mobile/widget/mobile/Fieldcontain",
 			"./profile/mobile/widget/mobile/Controlgroup",
 			"./profile/mobile/widget/mobile/Textinput",
@@ -117,6 +118,7 @@
 			"./profile/mobile/widget/mobile/Navigation",
 			"./profile/mobile/widget/mobile/IndexScrollbar",
 			"./profile/mobile/widget/mobile/FloatingButton",
+			"./core/widget/core/Tabs",
 			"./profile/mobile/expose",
 			// default theme
 			"../css/profile/mobile/changeable/theme-changeable/theme",

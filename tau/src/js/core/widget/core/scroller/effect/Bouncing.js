@@ -187,7 +187,7 @@
 				},
 
 				_getValue: function(x, y) {
-					return this._orientation === ns.widget.wearable.scroller.Scroller.Orientation.HORIZONTAL ? x : y;
+					return this._orientation === ns.widget.core.scroller.Scroller.Orientation.HORIZONTAL ? x : y;
 				},
 
 				_beginShow: function() {

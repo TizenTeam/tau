@@ -1,0 +1,40 @@
+/***************************************************************************
+					Tabbar
+***************************************************************************/
+
+.ui-tabbar {
+	.ui-btn-active {
+		background-color: initial;
+	}
+}
+
+.ui-footer .ui-tabbar.ui-tabbar-portrait {
+	width: 100%;
+	height: 114 * @unit_base;
+	a {
+		color: @color_tabbar_footer_icon_bg;
+		&::before {
+			left: 0;
+			background-color: @color_tabbar_footer_icon_bg;
+		}
+		&.ui-tab-active {
+			color: @color_tabbar_footer_icon_bg_press;
+			&.ui-tab-active::before {
+				background-color: @color_tabbar_footer_icon_bg_press;
+			}
+		}
+	}
+	&.ui-tabbar-with-icon {
+		a {
+			width: 48 * @unit_base;
+			&::after {
+				top: 50%;
+				transform: translate3d(-50%, -50%, 0);
+				background-color: @color_tabbar_footer_icon_bg;
+			}
+			&.ui-tab-active::after {
+				background-color: @color_tabbar_footer_icon_bg_press;
+			}
+		}
+	}
+}

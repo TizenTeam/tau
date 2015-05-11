@@ -122,7 +122,7 @@
 				});
 			};
 
-			prototype._init = function () {
+			prototype._init = function (element) {
 				var options = this.options,
 					scrollerChildren = this.scroller.children,
 					elementStyle = this.element.style,
@@ -158,6 +158,7 @@
 				scrollerStyle.height = this.scrollerHeight + "px";
 				this._initScrollbar();
 				this._initBouncingEffect();
+				return element;
 			};
 
 			prototype._initScrollbar = function () {
@@ -274,7 +275,7 @@
 			prototype._refresh = function () {
 				this._clear();
 				this._unbindEvents();
-				this._init();
+				this._init(this.element);
 				this._bindEvents();
 			};
 
