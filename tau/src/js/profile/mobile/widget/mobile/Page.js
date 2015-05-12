@@ -574,19 +574,6 @@
 			}
 
 			/**
-			 * Configure widget
-			 * @method _configure
-			 * @param {HTMLElement} element
-			 * @protected
-			 * @member ns.widget.mobile.Page
-			 */
-			prototype._configure = function(element) {
-				CorePagePrototype._configure.call(this, element);
-				// in mobile header should always be build by default
-				this.options.header = true;
-			};
-
-			/**
 			 * Build page
 			 * @method _build
 			 * @param {HTMLElement} element
