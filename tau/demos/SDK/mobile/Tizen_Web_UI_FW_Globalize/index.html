@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width,user-scalable=no"/>
+	<title>Tizen UI - Select menu</title>
+	<link rel="stylesheet"  href="lib/tau/mobile/theme/default/tau.css">
+	<link rel="stylesheet"  href="style/css/rtl.css">
+	<link rel="stylesheet"  href="style/css/custom.css">
+	<script type="text/javascript" src="lib/cldr.js" data-build-remove="false"></script>
+	<script type="text/javascript" src="lib/cldr/event.js" data-build-remove="false"></script>
+	<script type="text/javascript" src="lib/cldr/supplemental.js" data-build-remove="false"></script>
+	<script type="text/javascript" src="lib/globalize.js" data-build-remove="false"></script>
+	<script type="text/javascript" src="lib/globalize/number.js" data-build-remove="false"></script>
+	<script type="text/javascript" src="lib/globalize/currency.js" data-build-remove="false"></script>
+	<script type="text/javascript" src="lib/globalize/date.js" data-build-remove="false"></script>
+	<script type="text/javascript" src="lib/globalize/message.js" data-build-remove="false"></script>
+	<script type="text/javascript" src="lib/globalize/plural.js" data-build-remove="false"></script>
+	<script type="text/javascript" src="lib/tau/mobile/js/tau.js" data-build-remove="false"></script>
+	<script type="text/javascript" src="script/main.js" data-build-remove="false"></script>
+
+</head>
+<body>
+
+<div data-role="page" id="main">
+	<div data-role="header" data-position="fixed">
+		<h1>Globalize</h1>
+	</div>
+
+	<div data-role="content">
+		<ul data-role="listview" data-icon="1line-textonly">
+			<li data-role="list-divider">Select Country</li>
+			<li>
+				<select name="select-language" id="select-language" data-native-menu="false">
+					<option value="ko-KR">Korea</option>
+					<option value="en-US">UniteState</option>
+					<option value="ar-EG">Egypt</option>
+					<option value="zh-CN">China</option>
+				</select>
+			</li>
+			<li class="ui-li-static test"></li>
+			<li class="ui-li-static test"></li>
+			<li class="ui-li-static test"></li>
+			<li class="ui-li-static test"></li>
+			<li class="ui-li-static test"></li>
+			<li class="ui-li-static test"></li>
+
+			<li data-role="list-divider">
+				<label for="select-language">Locale Information</label>
+			</li>
+			<li class="ui-li-static">
+				<p style="color: blue">Current Language:</p>
+				<p id="current_language"></p>
+				<p style="color: blue">Calendar data:</p>
+				<p id="calendar_data"></p>
+			</li>
+		</ul>
+	</div> <!-- /content -->
+</div> <!-- /page -->
+
+</body>
+</html>
+

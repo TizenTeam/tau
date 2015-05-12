@@ -1,5 +1,5 @@
 /*global window, define */
-/* 
+/*
  * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
  * License : MIT License V2
  */
@@ -8,45 +8,85 @@
  * Object supports globalize options.
  * @class ns.util.globalize
  */
-(function (window, document, ns, Globalize) {
+
+(function (window, document, ns) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../util",
-			"../../../../libs/globalize/lib/globalize"
+			"core/util/deferred"
 		],
-		function () {
+		function (deferred) {
 			//>>excludeEnd("tauBuildExclude");
-			var loadedCultures = {};
+			var isGlobalizeInit = false,
+				cldrDataCategory = {main:"main", supplemental:"supplemental"},
+				cldrDataCache = {
+					main: {},
+					supplemental: {}
+				},
+				customDataCache = {},
+				cldrJsonNames = {
+					main: [ //has language dependency
+						"currencies",
+						"ca-gregorian",
+						"numbers"
+					],
+					supplemental: [
+						"scriptMetaData",
+						"likelySubtags",
+						"currencyData",
+						"plurals",
+						"timeData",
+						"weekData",
+						"numberingSystems" // this is for arab locale
+					]
+				},
+				UtilDeferred = ns.util.deferred,
+				globalizeInstance = null,
+				rtlClassName = "ui-script-direction-rtl",
+				extension = ".json",
+				cldrDataName = "cldr-data",
+				libPath = "lib",
+				customLocalePathName = "locale";
+
+			/**
+			 * Get filtered path from array
+			 * @method pathFilter
+			 * @param {Array} path
+			 * @return {string}
+			 * @private
+			 */
+			function pathFilter(path) {
+				return path.filter(function (item) {
+					return item;
+				} ).join("/");
+			}
 
 			/**
 			 * Get Language code
 			 * @method getLang
-			 * @param {?string} language
+			 * @param {string} language
 			 * @return {string}
 			 * @private
-			 * @member ns.util.globalize
-			 * @static
 			 */
 			function getLang(language) {
 				var lang = language ||
-						document.getElementsByTagName('html')[0].getAttribute('lang') ||
-						window.navigator.language.split('.')[0] || // Webkit, Safari + workaround for Tizen
-						'en',
+						document.getElementsByTagName("html")[0].getAttribute("lang") ||
+						window.navigator.language.split(".")[0] || // Webkit, Safari + workaround for Tizen
+						"en",
 					countryCode = null,
-					countryCodeIdx = lang.lastIndexOf('-'),
-					ignoreCodes = ['Cyrl', 'Latn', 'Mong'];	// Not country code!
+					countryCodeIdx = lang.lastIndexOf("-"),
+					ignoreCodes = ["Cyrl", "Latn", "Mong"];	// Not country code!
 				if (countryCodeIdx !== -1) {	// Found country code!
 					countryCode = lang.substr(countryCodeIdx + 1);
-					if (ignoreCodes.join('-').indexOf(countryCode) < 0) {
+					if (ignoreCodes.join("-").indexOf(countryCode) < 0) {
 						// countryCode is not found from ignoreCodes.
 						// Make countryCode to uppercase.
-						lang = [lang.substr(0, countryCodeIdx), countryCode.toUpperCase()].join('-');
+						lang = [lang.substr(0, countryCodeIdx), countryCode.toUpperCase()].join("-");
 					}
 				}
-				// NOTE: 'en' to 'en-US', because globalize has no 'en' culture file.
-				lang = (lang === 'en' ? 'en-US' : lang);
+				// NOTE: "en-US"" to "en" because we do not use CLDR full data TODO:Make Guide document for CLDR full data
+				lang = getNeutralLang(lang);
 				return lang;
 			}
 
@@ -56,218 +96,437 @@
 			 * @param {string} lang
 			 * @return {string}
 			 * @private
-			 * @member ns.util.globalize
-			 * @static
 			 */
 			function getNeutralLang(lang) {
-				var neutralLangIdx = lang.lastIndexOf('-'),
+				var neutralLangIdx = lang.lastIndexOf("-"),
 					neutralLang;
 				if (neutralLangIdx !== -1) {
 					neutralLang = lang.substr(0, neutralLangIdx);
+				} else {
+					neutralLang = lang;
 				}
 				return neutralLang;
 			}
 
 			/**
-			 * Get path to the culture file
-			 * @method getCultureFilePath
+			 * Get path of CLDR data
+			 * @method getCldrFilesPath
+			 * @param {string} subPath
 			 * @param {string} lang
-			 * @param {Array} cultureDictionary
+			 * @param {string} jsonName
 			 * @return {string}
 			 * @private
-			 * @member ns.util.globalize
-			 * @static
 			 */
-			function getCultureFilePath(lang, cultureDictionary) {
-				var path = null,
-					frameworkData = ns.frameworkData;
-				if (typeof lang === "string") {
-					if (cultureDictionary && cultureDictionary[lang]) {
-						path = cultureDictionary[lang];
+			function getCldrFilesPath(subPath, lang, jsonName) {
+				var path;
+
+				lang = (subPath === "supplemental") ? null : lang;
+
+				// Default Globalize culture file path
+				path = [
+					libPath,
+					cldrDataName,
+					subPath,
+					lang,
+					jsonName + extension //TODO:Use gregorian
+				];
+
+				return pathFilter(path);
+			}
+
+			/**
+			 * Get path of Custom data which is matched with language
+			 * @method getCustomFilesPath
+			 * @param {string} lang
+			 * @return {string}
+			 * @private
+			 */
+			function getCustomFilesPath(lang) {
+				return pathFilter([
+					customLocalePathName,
+					lang + extension
+				]);
+			}
+
+			/**
+			 * Loads json file
+			 * @method loadJSON
+			 * @param {string} path
+			 * @return {Deferred}
+			 * @private
+			 */
+			function loadJSON(path) {
+				var xhrObj,
+					jsonObj,
+					info,
+					deferred = new UtilDeferred();
+				if (path) {	// Invalid path -> Regard it as "404 Not Found" error.
+					try {
+						xhrObj = new XMLHttpRequest();
+						xhrObj.onreadystatechange = function () {
+							if (xhrObj.readyState === 4) {
+								switch(xhrObj.status) {
+									case 0:
+									case 200:
+										jsonObj = JSON.parse(xhrObj.responseText);
+										info = {"state":xhrObj.status, "path":path, "data":jsonObj};
+										deferred.resolve(info);
+										break;
+									case 404:
+										info = {"state":xhrObj.status, "path":path, "data":null};
+										deferred.reject(info);
+										break;
+									default:
+										jsonObj = JSON.parse(xhrObj.responseText);
+										info = {"state":xhrObj.status, "path":path, "data":jsonObj};
+										deferred.reject(info);
+										break;
+								}
+							}
+						};
+						xhrObj.open("GET", path, true);
+						xhrObj.send("");
+					} catch (e) {
+						info = {"state":-1, "path":path, "data":null};
+						deferred.reject(info);
+					}
+				} else {
+					info = {"state":-2, "path":path, "data":null};
+					deferred.reject(info);
+
+				}
+				return deferred;
+			}
+
+			/**
+			 * Loads CLDR data
+			 * @method loadCldrData
+			 * @param {string|null} language
+			 * @param {string} category
+			 * @return {Deferred}
+			 * @private
+			 */
+			function loadCldrData(language, category) {
+				var path,
+					cldrDataTotal = cldrJsonNames[category].length,
+					cache =  null,
+					deferred = new UtilDeferred();
+
+				if (language) {// when category is "main" , language must have value like "en" , "ko" .etc
+					if (!cldrDataCache[category].hasOwnProperty(language)) {
+						cache = cldrDataCache[category][language] = {};
 					} else {
-						// Default Globalize culture file path
-						path = [
-							frameworkData.jsPath,
-							//ns.getConfig('version'),
-							'cultures',
-							['globalize', 'culture', lang, 'js'].join('.')
-						].join('/');
+						cache = cldrDataCache[category][language];
 					}
+				} else {// when category is "supplement" language is empty
+					cache = cldrDataCache[category];
 				}
-				return path;
+
+				cldrJsonNames[category].forEach(function (fileName) {
+
+					path = getCldrFilesPath(category, language, fileName);
+
+					if (!cache[path]) {
+						loadJSON(path).then(function (info) {
+							var jsonObj = info.data,
+								key = info.path;
+
+							cache[key] = jsonObj; //cache likelySubtags for Globalize
+							Globalize.load(jsonObj); //load likeySubtags json
+							if (Object.keys(cache).length === cldrDataTotal) {
+								deferred.resolve(language);
+							}
+
+						}, deferred.reject);
+
+					} else {
+						//Globalize.load(cache[path]);
+						deferred.resolve(language);
+					}
+				});
+
+				return deferred;
 			}
 
 			/**
-			 * Throw error when the file cannot be loaded
-			 * @method printLoadError
-			 * @param {string} path
+			 * Loads custom data
+			 * @method loadCustomData
+			 * @param {string} localeId
+			 * @return {Deferred}
 			 * @private
-			 * @member ns.util.globalize
-			 * @static
 			 */
-			function printLoadError(path) {
-				//>>excludeStart("tauDebug", pragmas.tauDebug);
-				ns.error("Error loading culture file (" + path + ") is failed to load.");
-				//>>excludeEnd("tauDebug");
-			}
+			function loadCustomData(localeId) {
+				var path = null,
+					deferred = new UtilDeferred(),
+					cache = customDataCache;
 
-			/**
-			 * Error handler
-			 * @method _errCB
-			 * @param {string} path
-			 * @param {?Function} errCB
-			 * @private
-			 * @member ns.util.globalize
-			 * @static
-			 */
-			function _errCB(path, errCB) {
-				if (typeof errCB === 'function') {
-					errCB(path);
+				path = getCustomFilesPath(localeId);
+				if (!cache[path]) {
+					loadJSON(path).then(function (info) {
+							cache[path]=info;
+							deferred.resolve(info);
+						},
+						deferred.reject);
 				} else {
-					printLoadError(path);
+					deferred.resolve(cache[path]);
 				}
+				return deferred;
 			}
 
 			/**
-			 * Loads culture file
-			 * @method loadCultureFile
-			 * @param {string} path
+			 * Init Globalize
+			 * @method initGlobalize
+			 * @return {Deferred}
 			 * @private
-			 * @member ns.util.globalize
-			 * @static
 			 */
-			function loadCultureFile(path) {
-				var script,
-					xhrObj;
-				if (path) {	// Invalid path -> Regard it as '404 Not Found' error.
-					if (loadedCultures[path] === undefined) {
-						try {
-							script = document.createElement('script');
-							// get some kind of XMLHttpRequest
-							xhrObj = new XMLHttpRequest();
-							// open and send a synchronous request
-							xhrObj.open('GET', path, false);
-							xhrObj.send('');
-							// add the returned content to a newly created script tag
-							script.type = "text/javascript";
-							script.text = xhrObj.responseText;
-							document.body.appendChild(script);
-							loadedCultures[path] = true;
-						} catch (ignore) {
+			function initGlobalize() {
+				var deferred = new UtilDeferred();
+				isGlobalizeInit = true;
+				loadCldrData(null, cldrDataCategory.supplemental).then(deferred.resolve, deferred.reject);
+				return deferred;
+			}
+
+			/**
+			 * Check script direction of locale
+			 * @method isRTL
+			 * @param {string} locale
+			 * @private
+			 */
+			function isRTL(locale) {
+				var path = getCldrFilesPath(cldrDataCategory.supplemental, locale, cldrJsonNames.supplemental[0]),
+					scriptMetaData = cldrDataCache.supplemental[path] || null,
+					result = null;
+
+				locale = Globalize.locale().attributes.script;
+
+				if (scriptMetaData) {
+					scriptMetaData.some(function (item) {
+						if (item.IDENTIFIER === locale) {
+							switch(item.RTL) {
+								case "YES":
+									result = true;
+									break;
+								case "NO":
+									result = false;
+									break;
+								case "UNKNOWN":
+									result = true;
+									break;
+							}
+							return true;
 						}
-					}
+					});
+					return result;
 				} else {
-					_errCB(path);
+					throw new Error("Globalize is not initialized");
 				}
 			}
 
-			ns.util.globalize = {
-				/**
-				* Load Globalize culture file, and set default culture.
-				* @method loadGlobalizeCulture
-				* Language code. ex) en-US, en, ko-KR, ko, If language is not
-				* given, read language from html 'lang' attribute,
-				* or from system setting.
-				* @param {string} language
-				* Dictionary having language code->
-				* @param {string[]} cultureDictionary
-				* @member ns.util.globalize
-				* @return {string}
-				*/
-				loadGlobalizeCulture: function (language, cultureDictionary) {
-					var path,
-						lang;
-					lang = getLang(language);
-					path = getCultureFilePath(lang, cultureDictionary);
-					loadCultureFile(path,
-						function () {
-							var nLang,
-								npath;
-							nLang = getNeutralLang(lang);
-							npath = getCultureFilePath(nLang, cultureDictionary);
-							loadCultureFile(npath, null);
-						}, function (lang) {
-							Globalize.culture(lang);
-						}, lang);
-					return lang;
-				},
-				/**
-				 * Set globalize object for default language.
-				 * @method setGlobalize
-				 * @member ns.util.globalize
-				 * @return {?string}
-				 */
-				setGlobalize: function () {
-					var lang,
-						self = this;
-					/*
-					* Tizen has rule that language was set by region setting
-					*/
-					if (window.tizen) {
+
+			/**
+			 * Load Basic Locale files for "locale id" in cldr-data directory
+			 * @method loadLocaleData
+			 * Language code. ex) en-US, en, ko-KR, ko, If language is not
+			 * given,
+			 * first. Check window.tizen.systeminfo to get locale infomation
+			 * second. Check language from html "lang" attribute.
+			 * @param {string} localeId
+			 * @return {Deferred}
+			 * @private
+			 */
+			function loadLocaleData(localeId) {
+				var deferred = new UtilDeferred();
+
+				if (!isGlobalizeInit) {
+					initGlobalize().then(function () {
+						loadLocaleData(localeId).then(function (locale) {
+							deferred.resolve(locale);
+						}, deferred.reject);
+					});
+				} else {
+					if (window.tizen && !localeId) {
 						window.tizen.systeminfo.getPropertyValue("LOCALE", function (locale) {
 							var countryLang = locale.country;
 							if (countryLang) {
-								countryLang = countryLang.replace("_", "-");
+								countryLang = getNeutralLang(countryLang.replace("_", "-")); //TODO: Need to fix local id type
 							}
-							countryLang = self.loadGlobalizeCulture(countryLang);
-							return Globalize.culture(countryLang);
+							loadCldrData(countryLang, cldrDataCategory.main).then(function (locale) {
+								deferred.resolve(locale);
+							},deferred.reject);
 						});
 					} else {
-						lang = this.loadGlobalizeCulture();
-						return Globalize.culture(lang);
+						//first  find "lang" attribute in html
+						//second find "locale" in navigator in window.navigator
+						loadCldrData(localeId, cldrDataCategory.main).then(function (locale) {
+							deferred.resolve(locale);
+						},deferred.reject);
+
 					}
-					return null;
-				},
-				/**
-				* Load custom globalize culture file
-				* Find current system language, and load appropriate culture
-				* file from given culture file list.
-				* @method loadCustomGlobalizeCulture
-				* collection of 'language':'culture file path' key-val pair.
-				* @param {string[]} cultureDictionary
-				* @member ns.util.globalize
-				* @example
-				* var myCultures = {
-				*	"en"	: "culture/en.js",
-				*	"fr"	: "culture/fr.js",
-				*	"ko-KR" : "culture/ko-KR.js"
-				* };
-				* loadCultomGlobalizeCulture( myCultures );
-				*
-				* ex) culture/fr.js
-				* -------------------------------
-				* Globalize.addCultureInfo( "fr", {
-				*   messages: {
-				*	"hello" : "bonjour",
-				*	"translate" : "traduire"
-				*   }
-				* } );
-				* -------------------------------
-				*/
-				loadCustomGlobalizeCulture: function (cultureDictionary) {
-					this.loadGlobalizeCulture(null, cultureDictionary);
-				},
-
-				/**
-				* return culture object from Globalize library
-				* @method culture
-				* @return {Object}
-				* @member ns.util.globalize
-				*/
-				culture: function () {
-					this.setGlobalize();
-					return Globalize.culture();
 				}
-			};
+				return deferred;
+			}
 
-			document.addEventListener("DOMContentLoaded", function () {
-				var globalize = ns.util.globalize;
-				globalize.setGlobalize();
-			}, false);
+			/**
+			 * Update class of body to indicate right-to-left language
+			 * @method updateScriptDirectionClass
+			 * if give language is rtl type than add class ("ui-script-direction-rtl") in body element
+			 * @private
+			 */
+			function updateScriptDirectionClass() {
+				var rtl = isRTL(Globalize.locale().locale),
+					body = document.body,
+					classList = body.classList;
+				if (rtl) {
+					if (!classList.contains(rtlClassName)) {
+						classList.add(rtlClassName);
+					}
+					Globalize.prototype.rtl = true;
+				} else {
+					if (classList.contains(rtlClassName)) {
+						classList.remove(rtlClassName);
+					}
+					Globalize.prototype.rtl = false;
+				}
+			}
+
+			/**
+			 * Update Globalize prototype
+			 * @method updateGlobalize
+			 * @private
+			 */
+			function updateGlobalize() {
+				Globalize.prototype.getLocale = ns.util.globalize.getLocale;
+				Globalize.prototype.getCalendar = ns.util.globalize.getCalendar;
+			}
+
+			/**
+			 * Check Globalize and Cldr object in window object to use core/util/globalize.js
+			 * @method checkDependency
+			 * @private
+			 */
+			function checkDependency() {
+				return (window.Globalize && window.Cldr);
+			}
+
+			ns.util.globalize = {
+
+				/**
+				 * Put the module into module array of core.util.globalize
+				 * @method importModule
+				 * @param {string} fileName
+				 * @member ns.util.globalize
+				 * @static
+				 */
+				importModule: function (fileName) {
+					var module = fileName.split("/"),
+						path = module.shift(),
+						moduleMain = cldrJsonNames.main,
+						moduleSupplemental = cldrJsonNames.supplemental,
+						i = 0,
+						j;
+
+					fileName = module.shift();
+
+					switch(path) {
+						case "main":
+							for(j = moduleMain.length ; i < j ; i++) {
+								if (moduleMain[i] === fileName) {
+									return;
+								}
+							}
+							moduleMain.push(fileName);
+							break;
+						case "supplemental":
+							for(j = moduleSupplemental.length ; i < j ; i++) {
+								if (moduleSupplemental[i] === fileName) {
+									return;
+								}
+							}
+							moduleSupplemental.push(fileName);
+							break;
+					}
+				},
+
+				/**
+				 * Set Locale. This API is Async API.
+				 * Please use deferred callback functions which are returned( .done(), .then() .etc)
+				 * @method setLocale
+				 * @param {string} localeId
+				 * @member ns.util.globalize
+				 * @return {Deferred}
+				 * @static
+				 */
+				setLocale: function (localeId) {
+					var deferred = new UtilDeferred();
+					localeId = getLang(localeId);
+					if (checkDependency()) {
+						loadLocaleData(localeId)
+							.then(function (locale) {
+								Globalize.locale(locale);
+								Globalize(locale);
+								return locale;
+							},deferred.reject)
+							.done(function (locale) {
+								loadCustomData(locale)
+									.then(function (info) {
+										Globalize.loadMessages(info.data);
+										globalizeInstance = new Globalize(locale);
+										deferred.resolve(globalizeInstance);
+									},function () {
+										globalizeInstance = new Globalize(locale);
+										deferred.resolve(globalizeInstance); //we do not care of failure of "loadCustomData on purpose"
+									});
+							})
+							.done(updateScriptDirectionClass)
+							.done(updateGlobalize);
+
+						return deferred;
+					} else {
+						throw new Error("Globalize is not loaded");
+					}
+
+				},
+
+				/**
+				 * Get Locale.
+				 * @method getLocale
+				 * @return {string} Current locale
+				 * @member ns.util.globalize
+				 * @static
+				 */
+				getLocale: function () {
+					if(checkDependency()) {
+						return Globalize.locale().locale;
+					} else {
+						throw new Error("Globalize is not loaded");
+					}
+
+				},
+
+				/**
+				 * Get gregorian calendar.
+				 * @method getCalendar
+				 * @return {Object} gregorian calendar data given locale.
+				 * @member ns.util.globalize
+				 * @static
+				 */
+				getCalendar: function () {
+					//default is gregorian calendar
+					//TODO: Need to implementation in jquery/globalize
+					//TODO: Need to implemenation of validation
+					if (checkDependency() && globalizeInstance) {
+						return globalizeInstance.cldr.main("dates/calendars/gregorian");
+					} else {
+						throw new Error("Globalize is not initialized");
+					}
+
+				}
+
+			};
 
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return ns.util.globalize;
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
-}(window, window.document, ns, window.Globalize));
+}(window, window.document, ns));

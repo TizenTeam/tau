@@ -46,7 +46,7 @@ module.exports = function (grunt) {
 					}
 				});
 				grunt.config('qunit.main-'+ profileName, testModules);
-                                grunt.config("qunit-tap.main-"+ profileName, {output: path.join("report/tap/" , profileName , "/")});
+				grunt.config("qunit-tap.main-"+ profileName, {output: path.join("report/tap/" , profileName , "/")});
 			} else if (singleTest !== '') {
 				testModules.push(singleTest);
 				grunt.config('qunit.main-'+ profileName, testModules);

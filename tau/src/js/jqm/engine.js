@@ -254,7 +254,7 @@
 						};
 						$.tizen = $.tizen || {};
 						tizen = $.tizen;
-						tizen.loadCustomGlobalizeCulture = ns.util.globalize.loadCustomGlobalizeCulture.bind(ns.util.globalize);
+						tizen.globalize = ns.util.globalize;
 						$.mobile.tizen = utilsObject.merge($.mobile.tizen, {
 							_widgetPrototypes: {},
 							disableSelection : function (elements) {
@@ -418,8 +418,8 @@
 							load: load.themeCSS
 						};
 						tizen.loadTheme = ns.theme.loadTheme.bind(ns.theme);
-						tizen.loadGlobalizeCulture = ns.util.globalize.loadGlobalizeCulture.bind(ns.util.globalize);
-						tizen.setGlobalize = util.globalize.setGlobalize.bind(ns.util.globalize);
+						//tizen.loadGlobalizeCulture = ns.util.globalize.loadGlobalizeCulture.bind(ns.util.globalize);
+						tizen.setLocale = util.globalize.setLocale;
 						tizen.setViewport = ns.theme.setViewport.bind(ns.theme);
 						tizen.scaleBaseFontSize = ns.theme.scaleBaseFontSize.bind(ns.theme);
 						tizen.setScaling = ns.theme.setScaling.bind(ns.theme);

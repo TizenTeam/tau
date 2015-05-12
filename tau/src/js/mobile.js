@@ -135,7 +135,9 @@
 			"./profile/mobile/page/layout",
 			"./profile/mobile/page/multipage",
 			"./profile/mobile/page/change",
-			"./profile/mobile/page/pageevents"
+			"./profile/mobile/page/pageevents",
+			// globalize
+			"./core/util/globalize"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");

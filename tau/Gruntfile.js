@@ -517,20 +517,6 @@ module.exports = function(grunt) {
 					dest: path.join( dist, "LICENSE" ) + ".MIT"
 				},
 
-				"globalize-mobile": {
-					expand: true,
-					cwd: "libs/globalize/lib/",
-					src: "cultures/**/*",
-					dest: buildDir.mobile.js
-				},
-
-				"globalize-tv": {
-					expand: true,
-					cwd: "libs/globalize/lib/",
-					src: "cultures/**/*",
-					dest: buildDir.tv.js
-				},
-
 				"sdk-docs": {
 					files: [
 						{expand: true, cwd: "tools/grunt/tasks/templates/files", src: "**/*", dest: "docs/sdk/mobile/html"},
@@ -960,12 +946,12 @@ module.exports = function(grunt) {
 	grunt.registerTask("image", [ "copy:wearableDefaultImages", "copy:mobileDefaultImages", "copy:tvDefaultImages" ]);
 	grunt.registerTask("image-changeable", [ "copy:wearableChangeableImages", "copy:wearableColorThemeImages", "copy:mobileChangeableImages" ]);
 	grunt.registerTask("css", [ "clean:theme", "less", "themeConverter", "cssmin", "image", "image-changeable", "symlink" ]);
-	grunt.registerTask("js", [ "clean:js", "requirejs", "jsmin", "themesjs", "copy:globalize-mobile", "copy:globalize-tv", "copy:mobileJquery" ]);
+	grunt.registerTask("js", [ "clean:js", "requirejs", "jsmin", "themesjs", "copy:mobileJquery" ]);
 	grunt.registerTask("license", [ "concat:licenseJs", "concat:licenseDefaultCss", "concat:licenseChangeableCss", "concat:licenseWearableCss", "copy:license" ]);
 	grunt.registerTask("sdk-docs", [ "docs-html:mobile", "docs-html:wearable", "docs-html:tv", "copy:sdk-docs" ]);
 	grunt.registerTask("dld-docs", [ "docs-html:mobile-dld", "docs-html:wearable-dld"]);
 
-	grunt.registerTask("build", ["clean", "lint", "css", "js", "license", "version"]);
+	grunt.registerTask("build", ["clean", "lint", "css", "globalize", "js", "license", "version"]);
 	grunt.registerTask("release", [ "build", "test", "sdk-docs" ]);
 	grunt.registerTask("default", [ "release" ]);
 };
