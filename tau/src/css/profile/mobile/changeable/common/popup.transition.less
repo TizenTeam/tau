@@ -1,4 +1,4 @@
-.ui-popup {
+.ui-popup:not(.ui-ctxpopup):not(.ui-popup-toast) {
 	&.slideup.out {
 		.animation(popupslideouttobottom 550ms ease-out 150ms);
 	}
@@ -7,14 +7,14 @@
 	}
 }
 
-.ui-popup.slideup.in {
+.ui-popup.slideup.in:not(.ui-ctxpopup):not(.ui-popup-toast) {
 	.ui-popup-wrapper {
 		.transform(translateY(100%));
 		.animation(popupwrapperslideinfrombottom 550ms ease-out 150ms);
 	}
 }
 
-.ui-popup.slideup.out {
+.ui-popup.slideup.out:not(.ui-ctxpopup):not(.ui-popup-toast) {
 	.ui-popup-wrapper {
 		.transform(translateY(50*@unit_base));
 		.animation(popupwrapperslideouttobottom 400ms ease-out);
