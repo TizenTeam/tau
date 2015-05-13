@@ -1,8 +1,8 @@
 /*global window, define, ns */
 /*
-* Copyright  2010 - 2014 Samsung Electronics Co., Ltd.
-* License : MIT License V2
-*/
+ * Copyright  2010 - 2014 Samsung Electronics Co., Ltd.
+ * License : MIT License V2
+ */
 /*jslint nomen: true, plusplus: true */
 
 /**
@@ -95,9 +95,9 @@
 
 	define(
 		[
-			"../../../../core/engine",
-			"../mobile",
-			"./BaseWidgetMobile"
+			"../../../core/engine",
+			"../../../profile/mobile/widget/mobile",
+			"../../../profile/mobile/widget/mobile/BaseWidgetMobile"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
@@ -180,24 +180,24 @@
 			 * @member ns.widget.mobile.Progress
 			 */
 			Progress.prototype._build = function (element) {
-					/* cached options object
-					* type Object
-					*/
+				/* cached options object
+				 * type Object
+				 */
 				var options = this.options,
-					/*
-					* created HTML element of progress container
-					* type HTMLElement
-					*/
+				/*
+				 * created HTML element of progress container
+				 * type HTMLElement
+				 */
 					progressElement = document.createElement("div"),
-					/*
-					* created HTML element of progress container
-					* type HTMLElement
-					*/
+				/*
+				 * created HTML element of progress container
+				 * type HTMLElement
+				 */
 					progressPendingElement,
-					/*
-					* cached classList of element
-					* type DOMTokenList
-					*/
+				/*
+				 * cached classList of element
+				 * type DOMTokenList
+				 */
 					elementClasses = element.classList,
 					progressClasses = progressElement.classList;
 
@@ -208,12 +208,12 @@
 					elementClasses.add(classes.uiProgressContainerCircle);
 					progressClasses.add(classes.uiProgressCircle);
 					switch (options.size) {
-					case "small":
-						progressClasses.add(classes.uiProgressCircleSmall);
-						break;
-					case "large":
-						progressClasses.add(classes.uiProgressCircleLarge);
-						break;
+						case "small":
+							progressClasses.add(classes.uiProgressCircleSmall);
+							break;
+						case "large":
+							progressClasses.add(classes.uiProgressCircleLarge);
+							break;
 					}
 					this.runningClass = classes.uiProgressCircleRunning;
 
@@ -245,7 +245,7 @@
 					options = self.options;
 				if (self._uiProgress === null) {
 					self._uiProgress = element.querySelector(classes.uiProgressPrefix +
-							options.style);
+					options.style);
 				}
 				self._setRunning(options.running);
 			};

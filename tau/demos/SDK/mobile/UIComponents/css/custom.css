@@ -312,3 +312,13 @@
 .ui-tabbar-with-icon a[data-icon="naviframe-search"]:after {
 	-webkit-mask-image: url("../lib/tau/mobile/theme/changeable/images/controls/00_icon_search.png");
 }
+
+/****************************************************************/
+/*              Activity Indicator demo                         */
+/****************************************************************/
+.activity-bg {
+    background: white;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 5px;
+}

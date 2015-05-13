@@ -16,7 +16,8 @@
 		[
 			"require",
 			"support/mobile/widget/ToggleSwitch.extra",
-			"support/mobile/widget/DropdownMenu.extra"
+			"support/mobile/widget/DropdownMenu.extra",
+			"support/mobile/widget/Progress.extra"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");

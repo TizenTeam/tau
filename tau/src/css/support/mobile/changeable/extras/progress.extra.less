@@ -61,30 +61,30 @@
 	.animation(ui-rotate-animation 1s infinite linear);
 }
 
-/* Progress - pending style */
-.m-progress-indeterminate() {
-	from { .mask-image('./images/00_progress_pending_bg_01.png');}
-	to { .mask-image('./images/00_progress_pending_bg_02.png');}
+/* Progress Bar - pending style */
+.m-progress-pending() {
+	from { .mask-position(0 0); }
+	to { .mask-position(100 * @unit_base 0); }
 }
 
-@-webkit-keyframes indeterminate {
-	.m-progress-indeterminate();
+@-webkit-keyframes pending {
+	.m-progress-pending();
 }
 
-@-moz-keyframes indeterminate {
-	.m-progress-indeterminate();
+@-moz-keyframes pending {
+	.m-progress-pending();
 }
 
-@-ms-keyframes indeterminate {
-	.m-progress-indeterminate();
+@-ms-keyframes pending {
+	.m-progress-pending();
 }
 
-@-o-keyframes indeterminate {
-	.m-progress-indeterminate();
+@-o-keyframes pending {
+	.m-progress-pending();
 }
 
-@keyframes indeterminate {
-	.m-progress-indeterminate();
+@keyframes pending {
+	.m-progress-pending();
 }
 
 .ui-progress-pending {
@@ -95,7 +95,7 @@
 	padding-top: 0;
 	padding-bottom: 0;
 	background-color: @color_progress_value;
-	.mask-image('./images/00_progress_pending_bg_01.png');
+	.mask-image('./images/core_progress_pending_bg.svg');
 	background-size: 100% 100%;
 	background-repeat: no-repeat;
 	.LESSborder-radius-all( 10 * @unit_base );
@@ -103,5 +103,6 @@
 }
 
 .ui-progress-pending-running {
-	.animation(indeterminate 300ms infinite);
+	.animation(pending 500ms infinite linear);
 }
+

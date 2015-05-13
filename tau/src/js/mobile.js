@@ -101,7 +101,7 @@
 			"./profile/mobile/widget/mobile/Swipe",
 			"./profile/mobile/widget/mobile/DropdownMenu",
 			"./profile/mobile/widget/mobile/SearchBar",
-			"./profile/mobile/widget/mobile/Progress",
+			"./profile/mobile/widget/mobile/ActivityIndicator",
 			"./profile/mobile/widget/mobile/MultimediaView",
 			"./profile/mobile/widget/mobile/Progressbar",
 			"./profile/mobile/widget/mobile/Tokentextarea",
