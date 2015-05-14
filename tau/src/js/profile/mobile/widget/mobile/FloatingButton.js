@@ -29,7 +29,7 @@
 				prototype = new BaseWidget(),
 				MATRIX_REGEXP = /matrix\((.*), (.*), (.*), (.*), (.*), (.*)\)/,
 				RGBA_REGEXP = /rgba\(([0-9]+), ([0-9]+), ([0-9]+), ([0-9]+)\)/,
-				SNAP_WIDTH = 19;
+				SNAP_WIDTH = 19,
 				FloatingButton = function () {
 					this.element = null;
 					this.options = {};
