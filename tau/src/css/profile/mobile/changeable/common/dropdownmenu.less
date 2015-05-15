@@ -32,13 +32,12 @@
 		vertical-align: middle;
 		position: relative;
 		height: 100%;
-		line-height: 72*@unit_base;
+		line-height: 90 * @unit_base;
 		white-space: nowrap;
 		padding: 0 46 * @unit_base 0 24 * @unit_base;
 		overflow: hidden;
 		text-overflow: ellipsis;
-		font-size: @font_size_selectmenu_list;
-		border: 1px solid @color_dropdownmenu_border_placeholder;
+		font-size: @font_size_dropdownmenu_placeholder;
 		background-color: @color_dropdownmenu_placeholder_bg;
 		color: @color_dropdownmenu_placeholder_text;
 		&::before {
@@ -57,8 +56,8 @@
 			position: absolute;
 			.calc-width(~"100% - " (48 * @unit_base));
 			height: 2px;
-			bottom: 14px;
-			right: 24px;
+			bottom: 14 * @unit_base;
+			right: 24 * @unit_base;
 			background-color: @color_dropdownmenu_underline;
 		}
 	}
@@ -205,7 +204,7 @@
 		li {
 			padding: 0 15 * @unit_base 0 15 * @unit_base;
 			border-top: 1px solid @color_dropdownmenu_list_line;
-			font-size: @font_size_selectmenu_list;
+			font-size: @font_size_dropdownmenu_option;
 			display: block;
 			position: relative;
 			min-height: 72 * @unit_base;
