@@ -55,8 +55,7 @@
 
 			prototype.bindEvents = function() {
 				var self = this,
-					touchStartCallback,
-					selectedCallback;
+					rotaryDetentCallback;
 
 				rotaryDetentCallback = rotaryDetentHandler.bind(self);
 
