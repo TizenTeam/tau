@@ -98,61 +98,60 @@
 			//>>excludeEnd("tauBuildExclude");
 
 			var BaseWidget = ns.widget.mobile.BaseWidgetMobile,
-
-
 				events = ns.event,
-				/**
-				 * @property {ns.engine} engine Alias for class ns.engine
-				 * @member ns.widget.mobile.ProgressBar
-				 * @private
-				 */
 				engine = ns.engine,
+				prototype = new BaseWidget(),
 
 				ProgressBar = function () {
+					var self = this;
 
+					self._ui = {
+						progressbarBgElement: null,
+						progressbarValueElement: null
+					};
+					self._min = null;
+					self._oldValue = null;
+				},
+				classes = {
+					uiProgressbar: "ui-progressbar",
+					uiProgressbarBg: "ui-progressbar-bg",
+					uiProgressbarValue: "ui-progressbar-value",
+					uiProgressbarActivity: "ui-progressbar-activity"
+				},
+				eventType = {
 					/**
-					 * Object with default options
-					 * @property {Object} options
-					 * @property {number} [options.value=0] value of progress
-					 * bar
-					 * @property {number} [options.min=0] minimal value of
-					 * progress bar
-					 * @property {number} [options.max=100] maximal value of
-					 * progress bar
+					 * Event is triggered when value of widget is changing.
+					 * @event change
 					 * @member ns.widget.mobile.ProgressBar
 					 */
-					this.options = {
-						value: 0,
-						max: 100,
-						min: 0
-					};
+					/**
+					 * Event is triggered when value of widget riches maximal value.
+					 * @event complete
+					 * @member ns.widget.mobile.ProgressBar
+					 */
+					CHANGE: "change",
+					COMPLETE: "complete"
 				};
 
-			/**
-			 * Event is triggered when value of widget is changing.
-			 * @event change
-			 * @member ns.widget.mobile.ProgressBar
-			 */
+			ProgressBar.prototype = prototype;
+			ProgressBar.classes = classes;
 
-			/**
-			 * Event is triggered when value of widget riches maximal value.
-			 * @event complete
-			 * @member ns.widget.mobile.ProgressBar
-			 */
-
-			ProgressBar.prototype = new BaseWidget();
-
-			/**
-			 * Dictionary for progress related css class names
-			 * @property {Object} classes
-			 * @static
-			 * @member ns.widget.mobile.ProgressBar
-			 * @readonly
-			 */
-			ProgressBar.classes = {
-				uiProgressbar: "ui-progressbar",
-				uiProgressbarBg: "ui-progressbar-bg",
-				uiProgressbarValue: "ui-progressbar-value"
+			prototype._configure = function () {
+				/**
+				 * Object with default options
+				 * @property {Object} options
+				 * @property {number} [options.value=0] value of progress bar
+				 * @property {number} [options.min=0] minimal value of progress bar
+				 * @property {number} [options.max=100] maximal value of progress bar
+				 * @property {"activitybar"|"progressbar"} [options.type="progressbar"] type of progress bar
+				 * @member ns.widget.mobile.ProgressBar
+				 */
+				this.options = {
+					value: 0,
+					max: 100,
+					min: 0,
+					type: "progressbar"
+				};
 			};
 
 			/**
@@ -163,13 +162,11 @@
 			 * @protected
 			 * @member ns.widget.mobile.ProgressBar
 			 */
-			ProgressBar.prototype._build = function (element) {
-				/* cached ProgressBar.classes object
-				* type Object
-				*/
+			prototype._build = function (element) {
 				var classes = ProgressBar.classes,
 					self = this,
 					options = self.options,
+					ui = self._ui,
 					progressBarBgElement,
 					progressBarValueElement;
 
@@ -178,24 +175,47 @@
 
 				element.classList.add(classes.uiProgressbar);
 				progressBarBgElement.classList.add(classes.uiProgressbarBg);
-				progressBarValueElement.classList.add(classes.uiProgressbarValue);
 
-				progressBarValueElement.style.width = options.value + "%";
+				if (options.type === "activitybar") {
+					progressBarValueElement.classList.add(classes.uiProgressbarActivity);
+				} else {
+					progressBarValueElement.classList.add(classes.uiProgressbarValue);
+				}
 
-				progressBarValueElement.style.display = "none";
+				progressBarBgElement.appendChild(progressBarValueElement);
+				element.appendChild(progressBarBgElement);
+
+				ui.progressbarBgElement = progressBarBgElement;
+				ui.progressbarValueElement = progressBarValueElement;
+
+				return element;
+			};
+
+			/**
+			 * Init progress widget
+			 * @method _init
+			 * @param {HTMLElement} element
+			 * @return {HTMLElement}
+			 * @protected
+			 * @member ns.widget.mobile.ProgressBar
+			 */
+			prototype._init = function (element) {
+				var self = this,
+					options = self.options,
+					ui = self._ui;
+
+				ui.progressbarBgElement = ui.progressbarBgElement || element.querySelector("." + classes.uiProgressbarBg);
+				ui.progressbarValueElement = ui.progressbarValueElement || element.querySelector("." + classes.uiProgressbarValue);
+
+				ui.progressbarValueElement.style.width = options.value + "%";
 
 				element.setAttribute("role", "ProgressBar");
 				element.setAttribute("aria-valuemin", options.min);
 				element.setAttribute("aria-valuenow", options.value);
 				element.setAttribute("aria-valuemax", options.max);
 
-				progressBarBgElement.appendChild(progressBarValueElement);
-				element.appendChild(progressBarBgElement);
-
-				// fix for compare tests
-				self.min = options.min;
-				self.valueDiv = progressBarValueElement;
-				self.oldValue = options.value;
+				self._min = options.min;
+				self._oldValue = options.value;
 
 				return element;
 			};
@@ -227,8 +247,7 @@
 			 *	</script>
 			 * @method value
 			 * @param {number} [value] Value to set on progress bar
-			 * @return {number} In get mode returns current value of progress
-			 * bar
+			 * @return {number} In get mode returns current value of progress bar
 			 * @since 2.3
 			 * @member ns.widget.mobile.ProgressBar
 			 */
@@ -241,16 +260,16 @@
 			 * @protected
 			 * @member ns.widget.mobile.ProgressBar
 			 */
-			ProgressBar.prototype._setValue = function (value) {
+			prototype._setValue = function (value) {
 				var options = this.options;
 				if (typeof value === "number") {
 					value = Math.min(options.max, Math.max(options.min, value));
 					if (value !== options.value) {
-						events.trigger(this.element, "change");
+						events.trigger(this.element, eventType.CHANGE);
 						options.value = value;
 					}
 					if (value === options.max) {
-						events.trigger(this.element, "complete");
+						events.trigger(this.element, eventType.COMPLETE);
 					}
 					this.refresh();
 					return true;
@@ -265,7 +284,7 @@
 			 * @protected
 			 * @member ns.widget.mobile.ProgressBar
 			 */
-			ProgressBar.prototype._getValue = function () {
+			prototype._getValue = function () {
 				return this.options.value;
 			};
 
@@ -303,7 +322,7 @@
 			 * @member ns.widget.mobile.ProgressBar
 			 * @protected
 			 */
-			ProgressBar.prototype._refresh = function () {
+			prototype._refresh = function () {
 				var element = this.element,
 					options = this.options,
 					elementChild = element.firstElementChild.firstElementChild;
@@ -320,7 +339,7 @@
 				"[data-role='progressbar'], .ui-progressbar",
 				["value"],
 				ProgressBar,
-				"tizen"
+				"mobile"
 			);
 
 //>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
