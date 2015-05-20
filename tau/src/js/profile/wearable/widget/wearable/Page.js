@@ -409,7 +409,8 @@
 
 				drag = new utilsEvents.gesture.Drag({
 					blockHorizontal: true,
-					angleThreshold: 45
+					threshold: 20,
+					angleThreshold: 80
 				});
 
 				utilsEvents.enableGesture(scroller, drag);
