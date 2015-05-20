@@ -134,7 +134,9 @@
 			"./profile/mobile/page/layout",
 			"./profile/mobile/page/multipage",
 			"./profile/mobile/page/change",
-			"./profile/mobile/page/pageevents"
+			"./profile/mobile/page/pageevents",
+			// app framework modules
+			"./core/util/pathToRegexp"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");

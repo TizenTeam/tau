@@ -116,7 +116,9 @@
 			// tv differences
 			"./profile/tv/page/differences/introduction",
 			"./core/decorator/focusAnimation",
-			"./core/decorator/marquee"
+			"./core/decorator/marquee",
+			// app framework modules
+			"./core/util/pathToRegexp"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");

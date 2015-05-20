@@ -52,7 +52,9 @@
 			"./profile/wearable/expose",
 			"./profile/wearable/backward",
 			// Modules to be loaded after
-			"./core/init"
+			"./core/init",
+			// app framework modules
+			"./core/util/pathToRegexp"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
