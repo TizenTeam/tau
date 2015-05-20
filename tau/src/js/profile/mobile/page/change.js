@@ -179,3 +179,6 @@
  * @page ns.page.change
  * @seeMore layout.htm Application Page Layout
  */
+//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
+define("profile/mobile/page/change", function(){})
+//>>excludeEnd("tauBuildExclude");

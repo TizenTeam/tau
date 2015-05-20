@@ -178,12 +178,10 @@
 							this.triggerd = false;
 							break;
 						case Gesture.Event.MOVE:
-
-							result = Gesture.Result.RUNNING;
 							if ( !this.triggerd ) {
 								sender.sendEvent( event.start, ge );
 							}
-							sender.sendEvent( event.drag, ge );
+							result = sender.sendEvent( event.drag, ge ) ? Gesture.Result.RUNNING : Gesture.Result.FINISHED;
 							ge.preventDefault();
 							this.triggerd = true;
 							break;

@@ -112,120 +112,22 @@
 	define(
 		[
 			"../../../../core/widget/core/Drawer",
-			"../../../../core/util/DOM",
-			"../../../../core/util/DOM/css",
-			"../../../../core/util/object",
-			"../../../../core/util/selectors",
-			"../../../../core/event",
-			"../../../../core/event/gesture",
-			"../../../../core/router/history",
-			"../../../../core/widget/core/Page",
-			"../../../../core/engine"
+			"../../../../core/engine",
+			"../../../../core/util/object"
 		],
 
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 			var CoreDrawer = ns.widget.core.Drawer,
-				CoreDrawerPrototype = CoreDrawer.prototype,
-				Page = ns.widget.core.Page,
 				engine = ns.engine,
-				domUtils = ns.util.DOM,
 				object = ns.util.object,
-				selectors = ns.util.selectors,
-				events = ns.event,
-				Gesture = ns.event.gesture,
-				history = ns.router.history,
-				classes = CoreDrawer.classes,
-				STATE = {
-					CLOSED: "closed",
-					OPENED: "opened",
-					SLIDING: "sliding",
-					SETTLING: "settling"
-				},
-				CUSTOM_EVENTS = {
-					OPEN: "draweropen",
-					CLOSE: "drawerclose"
-				},
-
 				Drawer = function () {
 					var self = this;
 					CoreDrawer.call(self);
-
-					self._isDrag = false;
-					self._state = STATE.CLOSED;
-					self._settlingType = STATE.CLOSED;
-					self._traslatedX = 0;
 				},
 				prototype = new CoreDrawer();
 
-
 			Drawer.prototype = prototype;
-			Drawer.classes = classes;
-
-			/**
-			 * Unbind drag events
-			 * @method unbindDragEvents
-			 * @param {HTMLElement} element
-			 * @member ns.widget.core.Drawer
-			 * @private
-			 * @static
-			 */
-			function unbindDragEvents(element) {
-				var self = this;
-
-				ns.event.disableGesture(element);
-				events.off(element, "drag dragstart dragend dragcancel swipe", self, false);
-			}
-
-			/**
-			 * bind drag events
-			 * @method bindDragEvents
-			 * @param {HTMLElement} element
-			 * @member ns.widget.core.Drawer
-			 * @private
-			 * @static
-			 */
-			function bindDragEvents(element) {
-				var self = this;
-				self._eventBoundElement = element;
-				ns.event.enableGesture(
-					element,
-
-					new ns.event.gesture.Drag(),
-					new ns.event.gesture.Swipe({
-						orientation: Gesture.Orientation.HORIZONTAL
-					})
-				);
-
-				events.on(element, "drag dragstart dragend dragcancel swipe", self, false);
-			};
-
-			/**
-			 * Handle events
-			 * @method handleEvent
-			 * @param {Event} event
-			 * @member ns.widget.core.Drawer
-			 */
-			prototype.handleEvent = function(event) {
-				var self = this;
-				switch (event.type) {
-					case "drag":
-						self._onDrag(event);
-						break;
-					case "dragstart":
-						self._onDragStart(event);
-						break;
-					case "dragend":
-						self._onDragEnd(event);
-						break;
-					case "dragcancel":
-						self._onDragCancel(event);
-						break;
-					case "swipe":
-						self._onSwipe(event);
-						break;
-				}
-			};
 
 			/**
 			 * Configure Drawer widget
@@ -234,316 +136,14 @@
 			 * @param {HTMLElement} element
 			 * @member ns.widget.wearable.Drawer
 			 */
-			prototype._configure = function(element) {
+			prototype._configure = function() {
 				var self = this;
 				/**
 				 * Widget options
-				 * @property {string} [options.drawerTarget="ui-page"] Drawer appended target. Value type is CSS selector type.
-				 * @property {string} [options.position="left"] Drawer position. "left" or "right"
-				 * @property {boolean} [options.enable=true] Enable drawer widget.
-				 * @property {Number} [options.dragEdge=1] Start dragging gesture possible area ratio of target or handler between 0 and 1.
+				 * @property {number} [options.width=0] If you set width is 0, drawer width will set as the css style.
 				 */
-				object.merge(self.options, {
-					duration: 300,
-					drawerTarget: "." + Page.classes.uiPage,
-					position: "left",
-					enable: true,
-					dragEdge: 1
-				});
+				self.options.width = 0;
 			};
-
-			/**
-			 * init Drawer widget
-			 * @method _init
-			 * @protected
-			 * @param {HTMLElement} element
-			 * @member ns.widget.wearable.Drawer
-			 */
-			prototype._init = function(element) {
-				this._initLayout();
-				return element;
-			};
-
-			/**
-			 * init Drawer widget layout
-			 * @method _initLayout
-			 * @protected
-			 * @param {HTMLElement} element
-			 * @member ns.widget.wearable.Drawer
-			 */
-			prototype._initLayout = function() {
-				var self = this,
-					options = self.options,
-					element = self.element,
-					ui = self._ui,
-					placeholder = document.createComment(element.id + "-placeholder");
-
-				ui._pageElement = selectors.getClosestByClass(element, Page.classes.uiPage);
-				ui._targetElement = selectors.getClosestBySelector(element, options.drawerTarget);
-				ui._targetElement.appendChild(element);
-				if (!ui._placeholder) {
-					ui._placeholder = placeholder;
-					element.parentNode.insertBefore(placeholder, element);
-				}
-				options.width = options.width || element.offsetWidth;
-
-				ui._targetElement.style.overflowX = "hidden";
-
-				CoreDrawerPrototype._init.call(self, element);
-				self._state = STATE.CLOSED;
-			};
-			/**
-			 * Swipe event handler
-			 * @method _onSwipe
-			 * @protected
-			 * @param {Event} event
-			 * @member ns.widget.wearable.Drawer
-			 */
-			prototype._onSwipe = function(event) {
-				var self = this,
-					direction = event.detail.direction === "left" ? "right" : "left",
-					options = self.options;
-
-				if (options.enable && options.position === direction) {
-					self.open();
-				}
-			};
-			/**
-			 * Dragstart event handler
-			 * @method _onDragStart
-			 * @protected
-			 * @param {Event} event
-			 * @member ns.widget.wearable.Drawer
-			 */
-			prototype._onDragStart = function(event) {
-				var self = this;
-				if (self._state === STATE.OPENED) {
-					return;
-				}
-				if (self.options.enable && !self._isDrag && self._state !== STATE.SETTLING && self._checkSideEdge(event)) {
-					self._isDrag = true;
-				} else {
-					self.close();
-				}
-			};
-			/**
-			 * Drag event handler
-			 * @method _onDrag
-			 * @protected
-			 * @param {Event} event
-			 * @member ns.widget.wearable.Drawer
-			 */
-			prototype._onDrag = function(event) {
-				var self = this,
-					deltaX = event.detail.deltaX,
-					options = self.options,
-					translatedX = self._traslatedX,
-					movedX;
-
-				if (options.enable && self._isDrag && self._state !== STATE.SETTLING) {
-					if (options.position === "left"){
-						movedX = -options.width + deltaX + translatedX;
-						if (movedX < 0) {
-							self._translate(movedX, 0);
-						}
-					} else {
-						movedX = options.width + deltaX - translatedX;
-						if (movedX > 0) {
-							self._translate(movedX, 0);
-						}
-					}
-				}
-			};
-			/**
-			 * DragEnd event handler
-			 * @method _onDragEnd
-			 * @protected
-			 * @param {Event} event
-			 * @member ns.widget.wearable.Drawer
-			 */
-			prototype._onDragEnd = function(event) {
-				var self = this,
-					options = self.options,
-					detail = event.detail;
-				if (options.enable && self._isDrag) {
-					if (Math.abs(detail.deltaX) > options.width / 2) {
-						self.open();
-					} else if (self._state !== STATE.SETTLING) {
-						self.close();
-					}
-				}
-				self._isDrag = false;
-			};
-			/**
-			 * DragCancel event handler
-			 * @method _onDragCancel
-			 * @protected
-			 * @param {Event} event
-			 * @member ns.widget.wearable.Drawer
-			 */
-			prototype._onDragCancel = function(event) {
-				var self = this;
-				if (self.options.enable && self._isDrag) {
-					self.close();
-				}
-				self._isDrag = false;
-			};
-			/**
-			 * TransitionEnd event handler
-			 * @method _onTransitionEnd
-			 * @protected
-			 * @param {Event} event
-			 * @member ns.widget.wearable.Drawer
-			 */
-			prototype._onTransitionEnd = function(event) {
-				var self = this,
-					element = self.element,
-					position = self.options.position;
-
-				if (self._state === STATE.SETTLING) {
-					if (self._settlingType === STATE.OPENED) {
-						self.trigger(CUSTOM_EVENTS.OPEN, {
-							position: position
-						});
-						self._setActive(true);
-						self._state = STATE.OPENED;
-					} else {
-						self.trigger(CUSTOM_EVENTS.CLOSE, {
-							position: position
-						});
-						self._setActive(false);
-						self._state = STATE.CLOSED;
-					}
-				}
-
-				CoreDrawerPrototype._onTransitionEnd.call(self, event);
-			};
-
-			/**
-			 * Check dragstart event whether triggerred on side edge area or not
-			 * @method _checkSideEdge
-			 * @protected
-			 * @param {Event} event
-			 * @member ns.widget.wearable.Drawer
-			 */
-			prototype._checkSideEdge = function(event) {
-				var self = this,
-					detail = event.detail,
-					eventClientX = detail.pointer.clientX - detail.estimatedDeltaX,
-					options = self.options,
-					position = options.position,
-					boundElement = self._eventBoundElement,
-					boundElementOffsetWidth = boundElement.offsetWidth,
-					boundElementRightEdge = boundElement.offsetLeft + boundElementOffsetWidth,
-					dragStartArea = boundElementOffsetWidth * options.dragEdge;
-
-				if ((position === "left" && eventClientX > 0 && eventClientX < dragStartArea) ||
-					(position === "right" && eventClientX > boundElementRightEdge - dragStartArea &&
-						eventClientX < boundElementRightEdge)) {
-					return true;
-				}
-				return false;
-			};
-
-			/**
-			 * Bind events to widget
-			 * @method _bindEvents
-			 * @protected
-			 * @member ns.widget.wearable.Drawer
-			 */
-			prototype._bindEvents = function() {
-				var self = this,
-					targetElement = self._ui._targetElement;
-				CoreDrawerPrototype._bindEvents.call(self);
-
-				bindDragEvents.call(self, targetElement);
-			};
-
-			/**
-			 * Enable Drawer widget
-			 * @method _enable
-			 * @protected
-			 * @member ns.widget.wearable.Drawer
-			 */
-			prototype._enable = function() {
-				this._oneOption("enable", true);
-			};
-
-			/**
-			 * Disable Drawer widget
-			 * @method _disable
-			 * @protected
-			 * @member ns.widget.wearable.Drawer
-			 */
-			prototype._disable = function() {
-				this._oneOption("enable", false);
-			};
-
-			/**
-			 * Destroy Drawer widget
-			 * @method _destroy
-			 * @protected
-			 * @member ns.widget.wearable.Drawer
-			 */
-			prototype._destroy = function() {
-				var self = this,
-					element = self.element,
-					placeholder = self._ui._placeholder,
-					placeholderParent = placeholder.parentNode;
-
-				placeholderParent.insertBefore(element, placeholder);
-				placeholderParent.removeChild(placeholder);
-				CoreDrawerPrototype._destroy.call(self);
-				unbindDragEvents.call(self, self._eventBoundElement);
-
-			};
-
-			prototype._translate = function(x, duration) {
-				var self = this,
-					element = this.element;
-
-				if (self._state !== STATE.SETTLING) {
-					self._state = STATE.SLIDING;
-				}
-
-				if (duration) {
-					domUtils.setPrefixedStyle(element, "transition", domUtils.getPrefixedValue("transform " + duration / 1000 + "s ease-out"));
-				}
-
-				domUtils.setPrefixedStyle(element, "transform", "translate3d(" + x + "px, 0px, 0px)");
-
-				if (self.options.overlay) {
-					self._setOverlay(x);
-				}
-			};
-
-			prototype._setOverlay = function (x) {
-				var self = this,
-					options = self.options,
-					overlay = self._drawerOverlay,
-					overlayStyle = overlay.style,
-					absX = Math.abs(x),
-					ratio = options.position === "right" ? absX / window.innerWidth : absX / options.width;
-
-				if(ratio < 1) {
-					overlayStyle.visibility = "visible";
-				} else {
-					overlayStyle.visibility = "hidden";
-				}
-				overlayStyle.opacity = 1 - ratio;
-			};
-
-			prototype._setActive = function (active) {
-				var self = this,
-					route = engine.getRouter().getRoute("drawer");
-
-				if (active) {
-					route.setActive(self);
-				} else {
-					route.setActive(null);
-				}
-			};
-
 			/**
 			 * Set Drawer drag handler.
 			 * If developer use handler, drag event is bound at handler only.
@@ -575,12 +175,6 @@
 			 * @param {Element} element
 			 * @member ns.widget.wearable.Drawer
 			 */
-			prototype.setDragHandler = function(element) {
-				var self = this;
-				self.options.dragEdge = 1;
-				unbindDragEvents.call(self, self._eventBoundElement);
-				bindDragEvents.call(self, element);
-			};
 
 			/**
 			 * Transition Drawer widget.
@@ -613,16 +207,6 @@
 			 * @param {Integer} position
 			 * @member ns.widget.wearable.Drawer
 			 */
-			prototype.transition = function(position) {
-				var self = this,
-					options = self.options;
-				if (options.position === "left"){
-					self._translate(-options.width + position, options.duration);
-				} else {
-					self._translate(options.width - position , options.duration);
-				}
-				self._traslatedX = position;
-			};
 			/**
 			 * Open Drawer widget.
 			 *
@@ -652,14 +236,6 @@
 			 * @public
 			 * @member ns.widget.wearable.Drawer
 			 */
-			prototype.open = function(){
-				var self = this;
-				if (self._state !== STATE.OPENED) {
-					self._state = STATE.SETTLING;
-					self._settlingType = STATE.OPENED;
-					CoreDrawerPrototype.open.call(self);
-				}
-			};
 			/**
 			 * Close Drawer widget.
 			 *
@@ -687,31 +263,12 @@
 			 * @public
 			 * @member ns.widget.wearable.Drawer
 			 */
-			prototype.close = function(options){
-				var self = this,
-					reverse = options ? options.reverse : false;
-				if (self._state !== STATE.CLOSED) {
-					if (!reverse && self._state === STATE.OPENED) {
-						// This method was fired by JS code or this widget.
-						history.back();
-						return;
-					}
-					self._state = STATE.SETTLING;
-					self._settlingType = STATE.CLOSED;
-					CoreDrawerPrototype.close.call(self);
-				}
-			};
 			/**
 			 * Refresh Drawer widget.
 			 * @method refresh
 			 * @protected
 			 * @member ns.widget.wearable.Drawer
 			 */
-			prototype._refresh = function() {
-				var self = this;
-				CoreDrawerPrototype._refresh.call(self);
-				self._initLayout();
-			};
 			/**
 			 * Get state of Drawer widget.
 			 *
@@ -740,9 +297,6 @@
 			 * @public
 			 * @member ns.widget.wearable.Drawer
 			 */
-			prototype.getState = function() {
-				return this._state;
-			};
 			ns.widget.wearable.Drawer = Drawer;
 			engine.defineWidget(
 				"Drawer",
@@ -752,6 +306,7 @@
 					"setDragHandler",
 					"open",
 					"close",
+					"isOpen",
 					"getState"
 				],
 				Drawer,

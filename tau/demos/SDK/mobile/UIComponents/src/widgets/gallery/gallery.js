@@ -1,3 +1,5 @@
+/*global $ */
+/*jslint unparam: true */
 $( document ).one("pagecreate", "#gallery-demo", function () {
 	$('#gallery-demo').on('pageshow', function () {
 		$('#gallery').gallery('add', '../test/01.jpg');
@@ -14,7 +16,7 @@ $( document ).one("pagecreate", "#gallery-demo", function () {
 		$('#gallery-add').on('vmouseup', function ( e ) {
 			$('#gallery').gallery('add', '../test/10.jpg');
 			$('#gallery').gallery('add', '../test/11.jpg');
-			if( 0 == ($('#gallery').gallery('length')) ) {
+			if( 0 === ($('#gallery').gallery('length')) ) {
 					$(".ui-page-active .ui-tabbar").tabbar("enable", 1);
 			}
 			$('#gallery').gallery('refresh');
@@ -22,7 +24,7 @@ $( document ).one("pagecreate", "#gallery-demo", function () {
 
 		$('#gallery-del').on('vmouseup', function ( e ) {
 			$('#gallery').gallery('remove');
-			if( 0 == ($('#gallery').gallery('length')) ) {
+			if( 0 === ($('#gallery').gallery('length')) ) {
 				$(".ui-page-active .ui-tabbar").tabbar("disable", 1);
 			}
 		});

@@ -9,7 +9,6 @@
 }
 .ui-switch-sub-text {
 	margin-top: @fixed_toggleswitch_sub_text_margin_top;
-	margin-bottom: @fixed_toggleswitch_sub_text_margin_bottom;
 	font-size: @fixed_toggleswitch_sub_text_font_size;
 	color: @color_switch_sub_text;
 }
@@ -18,25 +17,25 @@
 	width: @fixed_toggleswitch_width;
 	height: @fixed_toggleswitch_height;
 
+	&.ui-toggleswitch-large {
+		width: @fixed_toggleswitch_width;
+		height: @fixed_toggleswitch_height;
+	}
+
 	& .ui-switch-input {
+		background-color: @color_toggle_off_bg;
+		.mask-image('images/Controller_icon/On_Off/tw_btn_control_bg_holo_dark.png');
+		.mask-size(100% 100%);
+		.transition(all 300ms);
 		&::before {
-			-webkit-mask-image: @image_toggle_mask;
-			-webkit-mask-size: @fixed_toggleswitch_width;
-			// when the xml code is changed, all the bg-color variables must be changed.
-			background-color: @color_toggle_off_bg;
-			.transition-duration(@toggle_transition_duration);
+			content: none;
 		}
 		&:active {
-			&::before {
-				.transition-duration(0);
-				background-color: @color_toggle_off_bg_press;
-			}
 			&~ .ui-switch-activation,
 			~ .ui-switch-button{
-				.transition-duration(0);
-				background-color: @color_toggle_off_handler_press;
+				background-color: transparent;
 				&::before {
-					background-color: @color_toggle_off_handler_off_press;
+					background-color: transparent;
 				}
 			}
 		}
@@ -44,87 +43,60 @@
 
 	& .ui-switch-activation,
 	.ui-switch-button {
-		width: @fixed_toggleswitch_handler_width;
-		height: @fixed_toggleswitch_handler_height;
-		-webkit-mask-image: @image_toggle_mask;
-		-webkit-mask-size: @fixed_toggleswitch_width;
-		-webkit-mask-position: @fixed_toggleswitch_handle_position;
-		background-color: @color_toggle_off_handler;
-		.transition-duration(@toggle_transition_duration);
-
+		width: 100%;
+		height: 100%;
+		-webkit-mask-image: none;
+		background-color: transparent;
+		transform: none;
 		&::before {
-			-webkit-mask-image: @image_toggle_mask;
-			-webkit-mask-size: @fixed_toggleswitch_width;
-			-webkit-mask-repeat: no-repeat;
-			-webkit-mask-position: @fixed_toggleswitch_on_position;
-			background-color: @color_toggle_off_handler_off;
+			.mask-image('images/Controller_icon/On_Off/tw_btn_control_on_holo_dark.png');
+			.transform(scale(0));
+			.transition(all 300ms);
+			background-color: @color_toggle_on_handler;
+			.mask-size(100% 100%);
+			.mask-position(0);
+		}
+		&::after {
+			content: "";
+			width: 100%;
+			height: 100%;
+			.mask-image('images/Controller_icon/On_Off/tw_btn_control_off_holo_dark.png');
+			.mask-size(100% 100%);
+			.mask-position(0);
+			.transform(scale(1.0));
+			.transition(transform 300ms);
+			background-color: @color_toggle_off_handler;
+			position: absolute;
+			left: 0;
 		}
 	}
 
 	& .ui-switch-input:checked {
+		background-color: @color_toggle_on_bg;
 		&~ .ui-switch-activation,
 		~ .ui-switch-button {
-			width: @fixed_toggleswitch_handler_width;
-			height: @fixed_toggleswitch_handler_height;
-			-webkit-mask-position: @fixed_toggleswitch_handle_position;
-			background-color: @color_toggle_on_handler;
-			.transform(translate3d(@fixed_toggleswitch_handle_on_margin_left,0,0));
+			width: 100%;
+			height: 100%;
+			-webkit-mask-image: none;
+			background-color: transparent;
+			transform: none;
 			&::before {
-				-webkit-mask-position: @fixed_toggleswitch_off_position;
-				background-color: @color_toggle_on_handler_on;
+				.transform(scale(1.0));
+				background-color: @color_toggle_on_handler;
+				.mask-position(0);
+			}
+			&::after {
+				.transform(scale(0));
 			}
 		}
-
-		&::before {
-			background-color: @color_toggle_on_bg;
-		}
-
 		&:active {
 			&::before {
-				background-color: @color_toggle_on_bg_press;
+				background-color: @color_toggle_on_bg;
 			}
 			&~ .ui-switch-activation, ~ .ui-switch-button {
-				background-color: @color_toggle_on_handler_press;
+				background-color: transparent;
 				&::before {
-					background-color: @color_toggle_on_handler_on_press;
-				}
-			}
-		}
-	}
-
-	&.ui-toggleswitch-large {
-		width: @fixed_toggleswitch_large_width;
-		height: @fixed_toggleswitch_large_height;
-
-		& .ui-switch-activation, .ui-switch-button {
-			width: @fixed_toggleswitch_large_handler_width;
-			height: @fixed_toggleswitch_large_handler_height;
-			-webkit-mask-image: @image_toggle_large_mask;
-			-webkit-mask-size: @fixed_toggleswitch_large_width;
-			-webkit-mask-position: @fixed_toggleswitch_large_handle_position;
-			&::before {
-				-webkit-mask-image: @image_toggle_large_mask;
-				-webkit-mask-size: @fixed_toggleswitch_large_width;
-				-webkit-mask-position: @fixed_toggleswitch_large_on_position;
-			}
-		}
-
-		& .ui-switch-input {
-			&::before {
-				-webkit-mask-image: @image_toggle_large_mask;
-				-webkit-mask-size: @fixed_toggleswitch_large_width;
-			}
-		}
-
-		& .ui-switch-input:checked {
-			&~ .ui-switch-activation,
-			~ .ui-switch-button {
-				width: @fixed_toggleswitch_large_handler_width;
-				height: @fixed_toggleswitch_large_handler_height;
-				-webkit-mask-position: @fixed_toggleswitch_large_handle_position;
-				.transform(translate3d(@fixed_toggleswitch_large_handle_on_margin_left,0,0));
-				&::before {
-					-webkit-mask-position: @fixed_toggleswitch_large_off_position;
+					background-color: @color_toggle_on_handler;
 				}
 			}
 		}

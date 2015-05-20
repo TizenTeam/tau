@@ -24,6 +24,7 @@
 			<li id="go_textbox_popup"><a href="#textbox_popup" data-inline="true" data-rel="popup" data-position-to="window">Popup has textbox</a></li>
 			<li><a href="#positionWindow" data-rel="popup" data-position-to="window">Position</a></li>
 			<li id="noti-demo"><a href="#">Notification(toast popup)</a></li>
+			<li id="chain_popups"><a href="#firstPopup" data-inline="true" data-rel="popup" data-position-to="window">Popups' chain</a></li>
 		</ul>
 
 		<!-- Center info Popup -->
@@ -231,26 +232,34 @@
 			Will be closed after 3sec.</p>
 		</div>
 
+		<div id="firstPopup" data-role="popup" class="center_title_1btn">
+			<div class="ui-popup-title">
+				<h1>Question 1</h1>
+			</div>
+			<div class="ui-popup-text">
+				What is your name?
+			</div>
+			<div class="ui-popup-button-bg">
+				<a data-role="button" class="ui-btn" data-rel="back">Next</a>
+			</div>
+		</div>
+
+		<div id="secondPopup" data-role="popup" class="center_title_2btn">
+			<div class="ui-popup-title">
+				<h1>Question 2</h1>
+			</div>
+			<div class="ui-popup-text">
+				What is your surname?
+			</div>
+			<div class="ui-popup-button-bg">
+				<a data-role="button" id="buttonPrevious" class="ui-btn">Previous</a>
+				<a data-role="button" class="ui-btn" data-rel="back">Exit</a>
+			</div>
+		</div>
+
+
 	</div> <!-- /content -->
 	<script src="popupwindow.js"></script>
-	<script>
-	$( "#popupwindow-demo" ).on( "pageshow" , function() {
-		$( window ).on( "tizenhwkey", function ( ev ) {
-			if ( ev.originalEvent.keyName === "back" ) {
-				//bind callbacks to the H/W keys
-				window.history.back();
-				return false;
-			}
-		});
-		$('#noti-demo').on('vclick', function ( e ) {
-			$('#toast').notification('open');
-		});
-	});
-	$( "#popupwindow-demo" ).on( "pagebeforehide" , function() {
-		//unbind callbacks to the H/W keys
-		$( window ).off( "tizenhwkey" );
-	});
-	</script>
 </div> <!-- /page -->
 
 </body>

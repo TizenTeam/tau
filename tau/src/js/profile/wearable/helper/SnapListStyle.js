@@ -23,12 +23,12 @@
 				objectUtils = ns.util.object,
 				selectors = ns.util.selectors,
 
-				SnapListStyle = function (listDomElement) {
+				SnapListStyle = function (listDomElement, options) {
 					var self = this;
 
 					self._snapListviewWidget = null;
 					self._callbacks = {};
-					self.init(listDomElement);
+					self.init(listDomElement, options);
 				},
 
 				prototype = SnapListStyle.prototype;
@@ -45,18 +45,17 @@
 					}
 			}
 
-			prototype.init = function(listDomElement) {
+			prototype.init = function(listDomElement, options) {
 				var self = this;
 
 				// create SnapListview widget
-				self._snapListviewWidget = engine.instanceWidget(listDomElement, "SnapListview");
+				self._snapListviewWidget = engine.instanceWidget(listDomElement, "SnapListview", options);
 				self.bindEvents();
 			};
 
 			prototype.bindEvents = function() {
 				var self = this,
-					touchStartCallback,
-					selectedCallback;
+					rotaryDetentCallback;
 
 				rotaryDetentCallback = rotaryDetentHandler.bind(self);
 
@@ -87,8 +86,8 @@
 				return this._snapListviewWidget;
 			};
 
-			SnapListStyle.create = function(listDomElement) {
-				return new SnapListStyle(listDomElement);
+			SnapListStyle.create = function(listDomElement, options) {
+				return new SnapListStyle(listDomElement, options);
 			};
 
 			ns.helper.SnapListStyle = SnapListStyle;

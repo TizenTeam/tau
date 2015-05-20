@@ -17,20 +17,6 @@
 		<a id="gallery-del" href="#" data-role="button">DELETE</a>
 	</div>
 	<script src="gallery.js"></script>
-	<script>
-	$( "#gallery-demo" ).on( "pageshow" , function() {
-		$( window ).on( "tizenhwkey", function ( ev ) {
-			if ( ev.originalEvent.keyName === "back" ) {
-				//bind callbacks to the H/W keys
-				window.history.back();
-			}
-		});
-	});
-	$( "#gallery-demo" ).on( "pagebeforehide" , function() {
-		//unbind callbacks to the H/W keys
-		$( window ).off( "tizenhwkey" );
-	});
-	</script>
 </div> <!-- /page -->
 </body>
 </html>

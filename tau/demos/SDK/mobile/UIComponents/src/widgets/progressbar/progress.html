@@ -19,20 +19,6 @@
 					<div id="foo" data-role="progress" data-style="circle"></div>
 				</div>
 			</div> <!-- /content -->
-			<script>
-			$( "#pregress-demo" ).on( "pageshow" , function() {
-				$( window ).on( "tizenhwkey", function ( ev ) {
-					if ( ev.originalEvent.keyName === "back" ) {
-						//bind callbacks to the H/W keys
-						window.history.back();
-					}
-				});
-			});
-			$( "#pregress-demo" ).on( "pagebeforehide" , function() {
-				//unbind callbacks to the H/W keys
-				$( window ).off( "tizenhwkey" );
-			});
-			</script>
 		</div> <!-- /page -->
 	</body>
 </html>

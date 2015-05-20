@@ -43,20 +43,6 @@
             <li>Gay</li>
         </ul>
 	</div>
-	<script>
-	$( "#searchbar-demo-page-normal" ).on( "pageshow" , function() {
-		$( window ).on( "tizenhwkey", function ( ev ) {
-			if ( ev.originalEvent.keyName === "back" ) {
-				//bind callbacks to the H/W keys
-				window.history.back();
-			}
-		});
-	});
-	$( "#searchbar-demo-page-normal" ).on( "pagebeforehide" , function() {
-		//unbind callbacks to the H/W keys
-		$( window ).off( "tizenhwkey" );
-	});
-	</script>
 	<script src="searchbar.js"></script>
 </div><!-- /page -->
 </body>

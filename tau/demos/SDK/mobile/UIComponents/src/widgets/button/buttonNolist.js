@@ -1,3 +1,5 @@
+/*global $ */
+/*jslint unparam: true */
 // Expand all textarea height automatically
 $('#ButtonNolist').one( "pagecreate", function () {
 	$( this ).on({

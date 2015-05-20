@@ -1,3 +1,5 @@
+/*global $,window,jQuery */
+/*jslint unparam: true */
 ( function ( $, window ) {
 	$("#fastscroll-demo").bind( "pageshow", function ( e ) {
 		$( "#contacts" ).fastscroll( "indexString",

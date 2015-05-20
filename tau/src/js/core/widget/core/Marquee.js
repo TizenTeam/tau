@@ -1,4 +1,4 @@
-/*global window, define, console */
+/*global window, define, console, ns */
 /* Copyright  2010 - 2014 Samsung Electronics Co., Ltd.
  * License : MIT License V2
  */
@@ -34,6 +34,7 @@
 			"../../engine",
 			"../../event",
 			"../../util/object",
+			"../../util/DOM",
 			"../BaseWidget"
 		],
 		function() {
@@ -57,10 +58,17 @@
 				/**
 				 * Alias for class ns.util.object
 				 * @property {Object} objectUtils
-				 * @member ns.widget.core.Popup
+				 * @member ns.widget.core.Marquee
 				 * @private
 				 */
 				objectUtils = ns.util.object,
+				/**
+				 * Alias for class ns.util.DOM
+				 * @property {Object} domUtil
+				 * @member ns.widget.core.Marquee
+				 * @private
+				 */
+				domUtil = ns.util.DOM,
 
 				Marquee = function() {
 					this._ui = {};
@@ -68,6 +76,7 @@
 					this._ui.styleSheelElement = null;
 
 					this._state = states.STOPPED;
+					this._hasEllipsisText = false;
 
 					this.options = objectUtils.merge({}, Marquee.defaults);
 
@@ -149,6 +158,7 @@
 					delay: 0,
 					timingFunction: "linear",
 					ellipsisEffect: "gradient",
+					runOnlyOnEllipsisText: true,
 					autoRun: true
 				};
 
@@ -181,12 +191,12 @@
 					case style.SLIDE:
 						customKeyFrame = "@-webkit-keyframes " + keyFrameName + " {"
 										+ "0% { -webkit-transform: translate3d(0, 0, 0);}"
-										+ "98%, 100% { -webkit-transform: translate3d(-" + (textWidth - containerWidth) + "px, 0, 0);} }";
+										+ "95%, 100% { -webkit-transform: translate3d(-" + (textWidth - containerWidth) + "px, 0, 0);} }";
 						break;
 					case style.SCROLL:
 						customKeyFrame = "@-webkit-keyframes " + keyFrameName + " {"
 										+ "0% { -webkit-transform: translate3d(0, 0, 0);}"
-										+ "100% { -webkit-transform: translate3d(-100%, 0, 0);} }";
+										+ "95%, 100% { -webkit-transform: translate3d(-100%, 0, 0);} }";
 						break;
 					case style.ALTERNATE:
 						customKeyFrame = "@-webkit-keyframes " + keyFrameName + " {"
@@ -212,12 +222,12 @@
 			function setAnimationStyle(self, options) {
 				var marqueeInnerElement = self._ui.marqueeInnerElement,
 					marqueeInnerElementStyle = marqueeInnerElement.style,
-					duration = getAnimationDuration(self, isNaN(parseInt(options.speed))? defaults.speed : options.speed ),
+					duration = getAnimationDuration(self, isNaN(parseInt(options.speed, 10))? defaults.speed : options.speed ),
 					marqueeKeyFrame = setMarqueeKeyFrame(self, options.marqueeStyle),
 					iteration;
 
 				// warning when option value is not correct.
-				if (isNaN(parseInt(options.speed))) {
+				if (isNaN(parseInt(options.speed, 10))) {
 					ns.warn("speed value must be number(px/sec)");
 				}
 				if ((options.iteration !== "infinite") && isNaN(options.iteration)) {
@@ -234,12 +244,12 @@
 				marqueeInnerElementStyle.webkitAnimationDelay = options.delay + "ms";
 			}
 
-			function setEllipsisEffectStyle(self, ellipsisEffectOption) {
+			function setEllipsisEffectStyle(self, ellipsisEffectOption, hasEllipsisText) {
 				var marqueeElement = self.element;
 
 				switch (ellipsisEffectOption) {
 					case ellipsisEffect.GRADIENT:
-						if (marqueeElement.offsetWidth < self._ui.marqueeInnerElement.scrollWidth) {
+						if (hasEllipsisText) {
 							marqueeElement.classList.add(classes.MARQUEE_GRADIENT);
 						}
 						break;
@@ -293,11 +303,14 @@
 			prototype._init = function(element) {
 				var self = this;
 
-				self._ui.marqueeInnerElement = self._ui.marqueeInnerElement || element.querySelector(selector.MARQUEE_CONTENT)
+				self._ui.marqueeInnerElement = self._ui.marqueeInnerElement || element.querySelector(selector.MARQUEE_CONTENT);
+				self._hasEllipsisText = element.offsetWidth - domUtil.getCSSProperty(element, "padding-right", null, "float") < self._ui.marqueeInnerElement.scrollWidth;
 
-				setEllipsisEffectStyle(self, self.options.ellipsisEffect);
-				setAnimationStyle(self, self.options);
-				setAutoRunState(self, self.options.autoRun);
+				if (!(self.options.runOnlyOnEllipsisText && !self._hasEllipsisText)) {
+					setEllipsisEffectStyle(self, self.options.ellipsisEffect, self._hasEllipsisText);
+					setAnimationStyle(self, self.options);
+					setAutoRunState(self, self.options.autoRun);
+				}
 
 				return element;
 			};
@@ -315,7 +328,7 @@
 
 				self._callbacks.animationEnd = animationEndCallback;
 
-				utilEvent.one(marqueeInnerElement, "webkitAnimationEnd", animationEndCallback)
+				utilEvent.one(marqueeInnerElement, "webkitAnimationEnd", animationEndCallback);
 			};
 
 			/**
@@ -328,7 +341,13 @@
 				var self = this;
 
 				self._resetStyle();
-				setEllipsisEffectStyle(self, self.options);
+				self._hasEllipsisText = self.element.offsetWidth < self._ui.marqueeInnerElement.scrollWidth;
+
+				if (self.options.runOnlyOnEllipsisText && !self._hasEllipsisText) {
+					return;
+				}
+
+				setEllipsisEffectStyle(self, self.options.ellipsisEffect, self._hasEllipsisText);
 				setAnimationStyle(self, self.options);
 				setAutoRunState(self, self.options.autoRun);
 			};
@@ -430,6 +449,10 @@
 			prototype.start = function() {
 				var self = this;
 
+				if (self.options.runOnlyOnEllipsisText && !self._hasEllipsisText) {
+					return;
+				}
+
 				switch (self._state) {
 					case states.IDLE:
 						setAnimationStyle(self, self.options);
@@ -465,6 +488,10 @@
 				var self = this,
 					marqueeInnerElementClassList = self._ui.marqueeInnerElement.classList;
 
+				if (self.options.runOnlyOnEllipsisText && !self._hasEllipsisText) {
+					return;
+				}
+
 				if (self._state == states.IDLE) {
 					return;
 				}
@@ -496,6 +523,10 @@
 					marqueeElementClassList = self.element.classList,
 					marqueeInnerElementClassList = self._ui.marqueeInnerElement.classList;
 
+				if (self.options.runOnlyOnEllipsisText && !self._hasEllipsisText) {
+					return;
+				}
+
 				if (self._state == states.IDLE) {
 					return;
 				}
@@ -503,7 +534,7 @@
 				self._state = states.IDLE;
 				marqueeInnerElementClassList.remove(classes.ANIMATION_RUNNING, classes.ANIMATION_STOPPED);
 				marqueeInnerElementClassList.add(classes.ANIMATION_IDLE);
-				if (self.options.ellipsisEffect == ellipsisEffect.ELLIPSIS) {
+				if (self.options.ellipsisEffect === ellipsisEffect.ELLIPSIS) {
 					marqueeElementClassList.add(classes.MARQUEE_ELLIPSIS);
 				}
 

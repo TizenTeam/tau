@@ -13,21 +13,7 @@
 		<div id="gallery3d" data-role="gallery3d" style="width: 100%;"></div>
 		<div style="width:100%; white-space:nowrap; text-overflow:ellipsis;" id="filename">&nbsp;</div>
 	</div><!-- /content -->
-
-	<script>
-	$( "#gallery3d-demo" ).on( "pageshow" , function() {
-		$( window ).on( "tizenhwkey", function ( ev ) {
-			if ( ev.originalEvent.keyName === "back" ) {
-				//bind callbacks to the H/W keys
-				window.history.back();
-			}
-		});
-	});
-	$( "#gallery3d-demo" ).on( "pagebeforehide" , function() {
-		//unbind callbacks to the H/W keys
-		$( window ).off( "tizenhwkey" );
-	});
-	</script><!-- /footer -->
+<!-- /footer -->
 
 	<script>
 		$( "#gallery3d" ).on( "gallery3dcreate", function () {

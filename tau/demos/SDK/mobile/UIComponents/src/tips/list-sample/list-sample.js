@@ -1,3 +1,5 @@
+/*global $ */
+/*jslint unparam: true */
 $( document ).one( "pagecreate", "#list-sample", function () {
 	var id = 0,
 		add_item = function () {

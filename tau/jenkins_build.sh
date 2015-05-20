@@ -8,6 +8,9 @@ result_build=0
 result_test=0
 result_jshint=0
 
+# Install node modules
+npm install
+
 # Build
 grunt build
 result_build=$?

@@ -21,7 +21,6 @@
 
 .ui-switch-sub-text {
 	margin-top: @fixed_toggleswitch_sub_text_margin_top;
-	margin-bottom: @fixed_toggleswitch_sub_text_margin_bottom;
 	font-size: @fixed_toggleswitch_sub_text_font_size;
 	text-align: center;
 	color: @color_switch_sub_text;
@@ -32,6 +31,11 @@
 	display: inline-block;
 	width: @fixed_toggleswitch_width;
 	height: @fixed_toggleswitch_height;
+	overflow: hidden;
+	&.ui-toggleswitch-large {
+		width: @fixed_toggleswitch_large_width;
+		height: @fixed_toggleswitch_large_height;
+	}
 
 	& .ui-switch-input {
 		position: absolute;
@@ -45,10 +49,10 @@
 			position: absolute;
 			width: 100%;
 			height: 100%;
-			-webkit-mask-image: @image_toggle_large_mask;
-			-webkit-mask-size: @fixed_toggleswitch_width;
-			-webkit-mask-repeat: no-repeat;
-			-webkit-mask-position: 0 0;
+			.mask-image('images/Controller_icon/toggle_changeable.png');
+			.mask-size(100% 400%);
+			.mask-repeat(no-repeat);
+			.mask-position(0 0);
 			background-color: @color_toggle_off_bg_press;
 			z-index: 0;
 		}
@@ -69,12 +73,12 @@
 
 	& .ui-switch-activation,
 	.ui-switch-button {
-		width: @fixed_toggleswitch_handler_width;
-		height: @fixed_toggleswitch_handler_height;
-		-webkit-mask-image: @image_toggle_large_mask;
-		-webkit-mask-size: @fixed_toggleswitch_width;
-		-webkit-mask-repeat: no-repeat;
-		-webkit-mask-position: @fixed_toggleswitch_handle_position;
+		width: 100%;
+		height: 100%;
+		.mask-image('images/Controller_icon/toggle_changeable.png');
+		.mask-size(100% 400%);
+		.mask-repeat(no-repeat);
+		.mask-position(0 33.3%);
 		background-color: @color_toggle_off_handler;
 		position: absolute;
 		top: 0;
@@ -87,10 +91,10 @@
 			position: absolute;
 			width: 100%;
 			height: 100%;
-			-webkit-mask-image: @image_toggle_large_mask;
-			-webkit-mask-size: @fixed_toggleswitch_width;
-			-webkit-mask-repeat: no-repeat;
-			-webkit-mask-position: @fixed_toggleswitch_on_position;
+			.mask-image('images/Controller_icon/toggle_changeable.png');
+			.mask-size(100% 400%);
+			.mask-repeat(no-repeat);
+			.mask-position(0 66.7%);
 			background-color: @color_toggle_off_handler_off;
 			top: 0;
 			left: 0;
@@ -100,19 +104,19 @@
 	& .ui-switch-input:checked {
 		& ~ .ui-switch-activation,
 		~ .ui-switch-button {
-			width: @fixed_toggleswitch_handler_width;
-			height: @fixed_toggleswitch_handler_height;
-			-webkit-mask-position: @fixed_toggleswitch_handle_position;
+			width: 100%;
+			height: 100%;
 			background-color: @color_toggle_on_handler;
-			.transform(translate3d(@fixed_toggleswitch_handle_on_margin_left, 0, 0));
+			.mask-position(0 33%);  // To correct position error
+			.transform(translate3d(36.23%, 0, 0));
 			&::before {
-				-webkit-mask-position: @fixed_toggleswitch_off_position;
+				.mask-position(0 100%);
 				background-color: @color_toggle_on_handler_on;
 			}
 		}
 
 		&::before {
-			background-color: @color_toggle_on_bg;;
+			background-color: @color_toggle_on_bg;
 		}
 
 		&:active {
@@ -123,47 +127,6 @@
 				background-color: @color_toggle_on_handler_press;
 				&::before {
 					background-color: @color_toggle_on_handler_on_press;
-				}
-			}
-		}
-	}
-
-	&.ui-toggleswitch-large {
-		width: @fixed_toggleswitch_large_width;
-		height: @fixed_toggleswitch_large_height;
-		display: block;
-		margin: 0 auto;
-
-		& .ui-switch-activation,
-		.ui-switch-button {
-			width: @fixed_toggleswitch_large_handler_width;
-			height: @fixed_toggleswitch_large_handler_height;
-			-webkit-mask-image: @image_toggle_large_mask;
-			-webkit-mask-size: @fixed_toggleswitch_large_width;
-			-webkit-mask-position: @fixed_toggleswitch_large_handle_position;
-			&::before {
-				-webkit-mask-image: @image_toggle_large_mask;
-				-webkit-mask-position: @fixed_toggleswitch_large_on_position;
-				-webkit-mask-size: @fixed_toggleswitch_large_width;
-			}
-		}
-
-		& .ui-switch-input {
-			&::before {
-				-webkit-mask-image: @image_toggle_large_mask;
-				-webkit-mask-size: @fixed_toggleswitch_large_width;
-			}
-		}
-
-		& .ui-switch-input:checked {
-			&~ .ui-switch-activation,
-			~ .ui-switch-button {
-				width: @fixed_toggleswitch_large_handler_width;
-				height: @fixed_toggleswitch_large_handler_height;
-				-webkit-mask-position: @fixed_toggleswitch_large_handle_position;
-				.transform(translate3d(@fixed_toggleswitch_large_handle_on_margin_left,0,0));
-				&::before {
-					-webkit-mask-position: @fixed_toggleswitch_large_off_position;
 				}
 			}
 		}

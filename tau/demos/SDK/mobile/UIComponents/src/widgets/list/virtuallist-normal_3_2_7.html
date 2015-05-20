@@ -32,20 +32,6 @@
 			</script>
 		<ul id="virtuallist-normal_2line-star1_ul"></ul>
 	</div>
-	<script>
-	$( "#virtuallist-normal_2line-star1" ).on( "pageshow" , function() {
-		$( window ).on( "tizenhwkey", function ( ev ) {
-			if ( ev.originalEvent.keyName === "back" ) {
-				//bind callbacks to the H/W keys
-				window.history.back();
-			}
-		});
-	});
-	$( "#virtuallist-normal_2line-star1" ).on( "pagebeforehide" , function() {
-		//unbind callbacks to the H/W keys
-		$( window ).off( "tizenhwkey" );
-	});
-	</script>
     <script>
         var pageId = "virtuallist-normal_2line-star1",
             listId = "virtuallist-normal_2line-star1_ul",

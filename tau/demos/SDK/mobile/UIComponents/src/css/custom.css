@@ -75,9 +75,13 @@
 	height: 400px;
 }
 .ui-btn{
-	width: 100%;
+	width: auto;
 }
 
 .layout-page .ui-box-linear-horizont {
 	height: 400px;
+}
+
+.noti-btn{
+	margin: 20px auto;
 }

@@ -42,20 +42,6 @@
 
 				</div><!--/content-primary -->
 			</div>
-			<script>
-			$( "#radio-demo" ).on( "pageshow" , function() {
-				$( window ).on( "tizenhwkey", function ( ev ) {
-					if ( ev.originalEvent.keyName === "back" ) {
-						//bind callbacks to the H/W keys
-						window.history.back();
-					}
-				});
-			});
-			$( "#radio-demo" ).on( "pagebeforehide" , function() {
-				//unbind callbacks to the H/W keys
-				$( window ).off( "tizenhwkey" );
-			});
-			</script>
 			<script src="radio.js"></script>
 		</div> <!-- page -->
 	</body>

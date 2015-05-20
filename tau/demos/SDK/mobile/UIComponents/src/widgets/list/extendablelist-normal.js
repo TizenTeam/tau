@@ -1,3 +1,5 @@
+/*global $,tau,JSON_DATA*/
+/*jslint unparam: true */
 $("#genlist_extendable_normal_page").one("pagecreate", function ( el ) {
 	/*?_=ts code for no cache mechanism*/
 	$.getScript( "./virtuallist-db-demo.js", function ( data, textStatus ) {

@@ -35,3 +35,6 @@
  * @page ns.page.multipage
  * @seeMore layout.htm Application Page Layout
  */
+//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
+define("profile/mobile/page/multipage", function(){})
+//>>excludeEnd("tauBuildExclude");

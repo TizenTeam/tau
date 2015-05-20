@@ -26,6 +26,7 @@
 		appConfig = require("./appconfig.js"),
 		common = require("./common.js"),
 		cleaner = require("./cleaner.js"),
+		path = require("./path.js"),
 		FileFilterUtils = org.apache.commons.io.filefilter.FileFilterUtils,
 		File = java.io.File;
 
@@ -53,6 +54,9 @@
 		try {
 			appConfig.load(appConfigFile);
 			sourceHTMLRelPath = appConfig.get("content", "src");
+			if (common.getOS() === "win") {
+				sourceHTMLRelPath = sourceHTMLRelPath.replace("/", "\\");
+			}
 		} catch (e) {
 			logger.error("error while parsing config", e);
 			return printHelp();
@@ -63,7 +67,7 @@
 			logger.warning("application contnet link not found in config, using index.html as source file for build");
 		}
 
-		// ensure the dire exists
+		// ensure the destination directory exists
 		try {
 			common.mkdir(destination);
 		} catch (e) {
@@ -74,6 +78,7 @@
 		htmlBuildPath = destination + sep + sourceHTMLRelPath;
 		htmlBuildFiles.push(htmlBuildPath);
 
+		// copy all files/dirs to destination dir apart from dot ones, wtg files and build folder
 		logger.info("copying files: " + source + sep + "* => " + destination + sep + "*");
 		try {
 			common.copyContents(
@@ -103,6 +108,8 @@
 			return false;
 		}
 
+		// choose which html files will be built in the next step
+		// (in mode "multiple" not only "index.html", but all html files of application are pushed on building stack)
 		if (mode === 'multiple') {
 			listFiles = common.listFiles(
 				source,
@@ -124,6 +131,11 @@
 			}
 		}
 
+		// Building process for each file
+		// 1. Remove all scripts from processed path beside framework library.
+		// 2. Run phantom.
+		// 3. Change paths in file to relative.
+		// 4. Restore all script, which are removed in the first step.
 		i = htmlBuildFiles.length;
 		while (--i >= 0) {
 			htmlBuildFile = htmlBuildFiles[i];
@@ -146,6 +158,9 @@
 				processStatus = false;
 			}
 
+			// change paths in file from absolute to relative ones
+			path.clearPath(htmlBuildFile, destination);
+
 			if (scriptsReplaced) {
 				try {
 					logger.info("Restoring scripts inside build path: " + htmlBuildFile);
@@ -154,7 +169,6 @@
 					logger.warning("Restoring scripts inside build path failed", e);
 				}
 			}
-
 		}
 
 		logger.info("build" + (!processStatus ? ' with errors' : '') + " finished in " + (((+new Date()) - time) / 1000).toFixed(2) + "s");

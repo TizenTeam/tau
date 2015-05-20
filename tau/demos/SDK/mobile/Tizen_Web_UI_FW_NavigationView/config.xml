@@ -4,6 +4,6 @@
     <content src="index.html"/>
     <feature name="http://tizen.org/feature/screen.size.all"/>
     <icon src="icon.png"/>
-    <name>NavigationView</name>
+    <name>TAUNavigationView</name>
     <tizen:setting context-menu="disable"/>
 </widget>

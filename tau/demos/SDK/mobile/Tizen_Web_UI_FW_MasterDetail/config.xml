@@ -4,6 +4,6 @@
     <content src="index.html"/>
     <feature name="http://tizen.org/feature/screen.size.all"/>
     <icon src="icon.png"/>
-    <name>MasterDetail</name>
+    <name>TAUMasterDetail</name>
     <tizen:setting context-menu="disable"/>
 </widget>

@@ -48,20 +48,6 @@
 			<li><a href="#">Sawyer Wakefield</a></li>
 		</ul>
 	</div><!-- /content -->
-	<script>
-	$( "#v-handler-demo" ).on( "pageshow" , function() {
-		$( window ).on( "tizenhwkey", function ( ev ) {
-			if ( ev.originalEvent.keyName === "back" ) {
-				//bind callbacks to the H/W keys
-				window.history.back();
-			}
-		});
-	});
-	$( "#v-handler-demo" ).on( "pagebeforehide" , function() {
-		//unbind callbacks to the H/W keys
-		$( window ).off( "tizenhwkey" );
-	});
-	</script>
 </div><!-- /page -->
 </body>
 </html>
