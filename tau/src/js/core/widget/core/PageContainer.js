@@ -297,9 +297,10 @@
 			 * This method displays a progress bar indicating loading process.
 			 * @method showLoading
 			 * @member ns.widget.core.PageContainer
+			 * @param {number} [delay=0]
 			 * @return {null}
 			 */
-			prototype.showLoading = function () {
+			prototype.showLoading = function (delay) {
 				//>>excludeStart("tauDebug", pragmas.tauDebug);
 				ns.warn("PageContainer.prototype.showLoading not yet implemented");
 				//>>excludeEnd("tauDebug");

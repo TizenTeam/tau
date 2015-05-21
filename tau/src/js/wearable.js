@@ -44,6 +44,7 @@
 			"./profile/wearable/helper/ExpandableHeaderMarqueeStyle",
 			"./profile/wearable/helper/DrawerMoreStyle",
 			"./core/router/Router",
+			"./core/template/html",
 			"./core/router/history",
 			"./core/router/route/page",
 			"./core/router/route/popup",

@@ -80,6 +80,7 @@
 			"./profile/tv/widget/PageContainer",
 			"./profile/tv/widget/Drawer",
 			"./core/router/Router",
+			"./core/template/html",
 			"./core/router/route/page",
 			"./core/router/route/popup",
 			"./profile/tv/router/route/dynamic",

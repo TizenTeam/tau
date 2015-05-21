@@ -1,6 +1,6 @@
 /*global window, define, Math, ns*/
 /*jslint bitwise: true */
-/* 
+/*
  * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
  * License : MIT License V2
  */

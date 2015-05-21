@@ -117,6 +117,7 @@
 			"../css/profile/mobile/changeable/theme-changeable/theme",
 			// router modules
 			"./core/router/Router",
+			"./core/template/html",
 			"./core/router/route/page",
 			"./core/router/route/popup",
 			"./profile/mobile/router/route/dialog",

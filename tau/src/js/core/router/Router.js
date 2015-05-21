@@ -1,4 +1,4 @@
-/*global window, define, XMLHttpRequest, Node, HTMLElement, ns */
+/*global window, define, Node, HTMLElement, ns */
 /*jslint nomen: true */
 /* Copyright  2010 - 2014 Samsung Electronics Co., Ltd.
  * License : MIT License V2
@@ -27,7 +27,8 @@
 			"./route", // fetch namespace
 			"./history",
 			"../widget/core/Page",
-			"../widget/core/PageContainer"
+			"../widget/core/PageContainer",
+			"../template"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
@@ -130,11 +131,13 @@
 
 				/**
 				 * Router locking flag
-				 * @property {boolean} [_isLock]
+				 * @property {boolean} [isLock]
 				 * @member ns.router.Router
 				 * @private
 				 */
-				_isLock = false,
+				isLock = false,
+
+				template = ns.template,
 
 				Page = ns.widget.core.Page,
 
@@ -182,8 +185,8 @@
 			/**
 			 * Find the closest link for element
 			 * @method findClosestLink
-			 * @param {HTMLElement} element
-			 * @return {HTMLElement}
+			 * @param {Node|EventTarget} element
+			 * @return {?Node}
 			 * @private
 			 * @static
 			 * @member ns.router.Router
@@ -191,11 +194,11 @@
 			function findClosestLink(element) {
 				while (element) {
 					if (element.nodeType === Node.ELEMENT_NODE && element.nodeName && element.nodeName === "A") {
-						break;
+						return element;
 					}
 					element = element.parentNode;
 				}
-				return element;
+				return null;
 			}
 
 			/**
@@ -245,34 +248,33 @@
 					reverse,
 					transition;
 
-				if (_isLock) {
+				if (isLock) {
 					history.disableVolatileMode();
 					history.replace(prevState, prevState.stateTitle, prevState.stateUrl);
-					return;
-				}
+				} else {
+					if (state) {
+						to = state.url;
+						reverse = history.getDirection(state) === "back";
+						transition = reverse ? ((prevState && prevState.transition) || "none") : state.transition;
+						options = object.merge({}, state, {
+							reverse: reverse,
+							transition: transition,
+							fromHashChange: true
+						});
 
-				if (state) {
-					to = state.url;
-					reverse = history.getDirection(state) === "back";
-					transition = reverse ? ((prevState && prevState.transition) || "none") : state.transition;
-					options = object.merge({}, state, {
-						reverse: reverse,
-						transition: transition,
-						fromHashChange: true
-					});
+						url = path.getLocation();
 
-					url = path.getLocation();
-
-					for (ruleKey in rules) {
-						if (rules.hasOwnProperty(ruleKey) && rules[ruleKey].onHashChange(url, options, prevState.stateUrl)) {
-							isContinue = false;
+						for (ruleKey in rules) {
+							if (rules.hasOwnProperty(ruleKey) && rules[ruleKey].onHashChange(url, options, prevState.stateUrl)) {
+								isContinue = false;
+							}
 						}
-					}
 
-					history.setActive(state);
+						history.setActive(state);
 
-					if (isContinue) {
-						router.open(to, options);
+						if (isContinue) {
+							router.open(to, options);
+						}
 					}
 				}
 			}
@@ -297,6 +299,7 @@
 			 * Detect rel attribute from HTMLElement
 			 * @param {HTMLElement} to
 			 * @member ns.router.Router
+			 * @return {?string}
 			 * @method detectRel
 			 */
 			Router.prototype.detectRel = function (to) {
@@ -304,9 +307,11 @@
 					i;
 
 				for (i in route) {
-					rule = route[i];
-					if (selectors.matchesSelector(to, rule.filter)) {
-						return i;
+					if (route.hasOwnProperty(i)) {
+						rule = route[i];
+						if (selectors.matchesSelector(to, rule.filter)) {
+							return i;
+						}
 					}
 				}
 			};
@@ -325,58 +330,56 @@
 			 * @param {boolean} [options.volatileRecord = false] Sets if the current history entry will be modified or a new one will be created.
 			 * @param {boolean} [options.dataUrl] Sets if page has url attribute.
 			 * @param {?string} [options.container = null] It is used in RoutePopup as selector for container.
+			 * @param {Event} [event] Event object
 			 * @member ns.router.Router
 			 */
 			Router.prototype.open = function (to, options, event) {
 				var rel,
 					rule,
-					deferred = {},
+					deferred,
 					filter,
-					stringId,
-					toElement,
 					self = this;
 
 				to = getHTMLElement(to);
-				rel = ((options && options.rel) || (to instanceof HTMLElement && this.detectRel(to)) || "page");
+				rel = ((options && options.rel) || (to instanceof HTMLElement && self.detectRel(to)) || "page");
 					rule = route[rel];
-				if (_isLock) {
-					return;
-				}
-
-				if (rel === "back") {
-					history.back();
-					return;
-				}
-
-				if (rule) {
-					options = object.merge(
-						{
-							rel: rel
-						},
-						this.defaults,
-						rule.option(),
-						options
-					);
-					filter = rule.filter;
-					deferred.resolve = function (options, content) {
-						rule.open(content, options, event);
-					};
-					deferred.reject = function (options) {
-						eventUtils.trigger(self.container.element, "changefailed", options);
-					};
-					if (typeof to === "string") {
-						if (to.replace(/[#|\s]/g, "")) {
-							this._loadUrl(to, options, rule, deferred);
-						}
+				if (!isLock) {
+					if (rel === "back") {
+						history.back();
 					} else {
-						if (to && selectors.matchesSelector(to, filter)) {
-							deferred.resolve(options, to);
+						if (rule) {
+							options = object.merge(
+								{
+									rel: rel
+								},
+								this.defaults,
+								rule.option(),
+								options
+							);
+							filter = rule.filter;
+							deferred = {
+								resolve: function (options, content) {
+									rule.open(content, options, event);
+								},
+								reject: function (options) {
+									eventUtils.trigger(self.container.element, "changefailed", options);
+								}
+							};
+							if (typeof to === "string") {
+								if (to.replace(/[#|\s]/g, "")) {
+									this._loadUrl(to, options, rule, deferred);
+								}
+							} else {
+								if (to && selectors.matchesSelector(to, filter)) {
+									deferred.resolve(options, to);
+								} else {
+									deferred.reject(options);
+								}
+							}
 						} else {
-							deferred.reject(options);
+							throw new Error("Not defined router rule [" + rel + "]");
 						}
 					}
-				} else {
-					throw new Error("Not defined router rule [" + rel + "]");
 				}
 			};
 
@@ -396,8 +399,8 @@
 					ruleKey,
 					rules = routerMicro.route,
 					location = window.location,
-					PageClasses = Page.classes,
-					uiPageActiveClass = PageClasses.uiPageActive,
+					pageClasses = Page.classes,
+					uiPageActiveClass = pageClasses.uiPageActive,
 					pageDefinition = ns.engine.getWidgetDefinition("Page"),
 					pageSelector = pageDefinition.selector,
 					self = this;
@@ -472,7 +475,9 @@
 				window.removeEventListener("popstate", self.popStateHandler, false);
 				window.removeEventListener("hashchange", self.hashChangeHandler, false);
 				if (body) {
-					body.removeEventListener("pagebeforechange", self.pagebeforechangeHandler, false);
+					if (self.pagebeforechangeHandler) {
+						body.removeEventListener("pagebeforechange", self.pagebeforechangeHandler, false);
+					}
 					body.removeEventListener("vclick", self.linkClickHandler, false);
 				}
 			};
@@ -622,11 +627,11 @@
 			};
 
 			Router.prototype.lock = function () {
-				_isLock = true;
+				isLock = true;
 			};
 
 			Router.prototype.unlock = function () {
-				_isLock = false;
+				isLock = false;
 			};
 
 			/**
@@ -654,53 +659,34 @@
 			Router.prototype._loadUrl = function (url, options, rule, deferred) {
 				var absUrl = path.makeUrlAbsolute(url, path.getLocation()),
 					content,
-					request,
-					detail = {},
 					self = this;
-
-				// If the caller provided data append the data to the URL.
-				if (options.data) {
-					absUrl = path.addSearchParams(absUrl, options.data);
-					options.data = undefined;
-				}
 
 				content = rule.find(absUrl);
 
 				if (!content && path.isEmbedded(absUrl)) {
-					deferred.reject(detail);
-					return;
-				}
-				// If the content we are interested in is already in the DOM,
-				// and the caller did not indicate that we should force a
-				// reload of the file, we are done. Resolve the deferrred so that
-				// users can bind to .done on the promise
-				if (content) {
-					detail = object.fastMerge({absUrl: absUrl}, options);
-					deferred.resolve(detail, content);
-					return;
-				}
+					deferred.reject({});
+				} else {
+					// If the content we are interested in is already in the DOM,
+					// and the caller did not indicate that we should force a
+					// reload of the file, we are done. Resolve the deferrred so that
+					// users can bind to .done on the promise
+					if (content) {
+						deferred.resolve(object.fastMerge({absUrl: absUrl}, options), content);
+					} else {
 
-				if (options.showLoadMsg) {
-					self._showLoading(options.loadMsgDelay);
-				}
-
-				// Load the new content.
-				request = new XMLHttpRequest();
-				request.responseType = "document";
-				request.overrideMimeType("text/html");
-				request.open("GET", absUrl);
-				request.addEventListener("error", self._loadError.bind(self, absUrl, options, deferred));
-				request.addEventListener("load", function (event) {
-					var request = event.target;
-					if (request.readyState === 4) {
-						if (request.status === 200 || (request.status === 0 && request.responseXML)) {
-							self._loadSuccess(absUrl, options, rule, deferred, request.responseXML);
-						} else {
-							self._loadError(absUrl, options, deferred);
+						if (options.showLoadMsg) {
+							self._showLoading(options.loadMsgDelay);
 						}
+
+						template.render(absUrl, options.data || {}, function (status, element) {
+							if (status.success) {
+								self._loadSuccess(absUrl, options, rule, deferred, element);
+							} else {
+								self._loadError(absUrl, options, deferred);
+							}
+						});
 					}
-				});
-				request.send();
+				}
 			};
 
 			/**
@@ -836,7 +822,7 @@
 			/**
 			 * This function returns proper route.
 			 * @method getRoute
-			 * @param {string} Type of route
+			 * @param {string} type Type of route
 			 * @return {?ns.router.route.interface}
 			 * @member ns.router.Router
 			 */

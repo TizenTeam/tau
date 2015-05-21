@@ -100,7 +100,7 @@
 		* get from nsConfig
 		* @method getConfig
 		* @param {string} key
-		* @param {*} defaultValue
+		* @param {*} [defaultValue] value returned when config is not set
 		* @return {*}
 		* @static
 		* @member ns
