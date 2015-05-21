@@ -19,7 +19,7 @@ module.exports = function (grunt) {
 			var result = require('rjs-build-analysis').parse(output),
 				slice = [].slice,
 				testModules = [],
-				jsAddTests = grunt.option('js_add_test') ? grunt.option('js_add_test').split(",") : ["api", profileName],
+				jsAddTests = grunt.option('js_add_test') ? grunt.option('js_add_test').split(",") : ["api", "support", profileName],
 				singleTest = grunt.option('single_test') ? grunt.option('single_test') : '';
 
 			if (profileName === "mobile") {
