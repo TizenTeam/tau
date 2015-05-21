@@ -71,9 +71,8 @@
 	define(
 		[
 			"../tv",
-			"../../../profile/mobile/widget/mobile/Textinput",
+			"../../../profile/mobile/widget/mobile/TextInput",
 			"../../../core/engine",
-			"../../../core/util/selectors",
 			"../../../core/util/object",
 			"./Page",
 			"./MobileButton",
@@ -146,6 +145,47 @@
 				self._ui.inputBox = inputBox;
 			}
 			/**
+			 * Returns label value.
+			 * @method getLabel
+			 * @return {string} Label value or null
+			 * @member ns.widget.tv.TextInput
+			 */
+			prototype.getLabel = function () {
+				var label = this._findLabel(this.element);
+				if (label !== null) {
+					return label.innerHTML;
+				}
+				return null;
+			};
+
+			/**
+			 * Sets label value.
+			 * @method setLabel
+			 * @param {string} Label text
+			 * @member ns.widget.tv.TextInput
+			 */
+			prototype.setLabel = function (text) {
+				var self = this,
+					element = self.element,
+					label;
+
+				if (typeof text === "string") {
+					label = self._findLabel(element);
+					if (label === null) {
+						// create new label
+						label = document.createElement("label");
+						label.setAttribute("for", element.id);
+						// add to parent
+						element.parentElement.appendChild(label);
+					}
+					label.innerHTML = text;
+				}
+			};
+			prototype._configure = function() {
+				var self = this;
+				self.options.textLine = false;
+			};
+			/**
 			 * Init widget
 			 * @method _bindEvents
 			 * @param {HTMLElement} element
@@ -154,6 +194,7 @@
 			 */
 			prototype._build = function(element) {
 				var self = this;
+
 				element = MobileTextInputPrototype._build.call(self, element);
 				wrapInput(element, self);
 
@@ -216,7 +257,7 @@
 			 * @private
 			 * @member ns.widget.tv.TextInput
 			 */
-			function inputBlur(self, event) {
+			function inputBlur(self) {
 				var input = self.element;
 
 				elementIsFocused = false;
@@ -233,7 +274,7 @@
 			 * @private
 			 * @member ns.widget.tv.TextInput
 			 */
-			function inputContainerBlur(self, event) {
+			function inputContainerBlur(self) {
 				self.element.parentElement.classList.remove(classes.uiFocus);
 			}
 
@@ -316,8 +357,7 @@
 			 */
 			function onKeyupElementContainer(self, event) {
 				var element = self.element,
-					elementTypeName = element.tagName.toLowerCase(),
-					eventTarget = event.target;
+					elementTypeName = element.tagName.toLowerCase();
 
 				switch (event.keyCode) {
 					case KEY_CODES.enter:
@@ -388,27 +428,12 @@
 				}
 			}
 
-			/**
-			 * Method returns not disabled TextInput element which is the closest
-			 * to element.
-			 * @method isEnabledTextInput
-			 * @param {EventTarget|HTMLElement} element
-			 * @return {?HTMLElement}
-			 * @private
-			 * @static
-			 * @member ns.widget.tv.TextInput
-			 */
-			function isEnabledTextInput(element) {
-				return element && element.classList.contains(MobileTextInput.classes.uiInputText) &&
-					!element.classList.contains(classes.uiDisabled) && !element.disabled;
-			}
-
 			widget.tv.TextInput = TextInput;
 
 			engine.defineWidget(
 				"TextInput",
 				selector,
-				[],
+				["setLabel", "getLabel"],
 				TextInput,
 				"tv",
 				true

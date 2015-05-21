@@ -240,7 +240,7 @@
 			"../../../../core/util/DOM/manipulation",
 			"../mobile",  // fetch namespace
 			"./BaseWidgetMobile",
-			"./Textinput"
+			"./TextInput"
 		],
 		function () {
 //>>excludeEnd("tauBuildExclude");
@@ -568,7 +568,7 @@
 				searchBox.setAttribute("id", id + "-search-box");
 
 				return element;
-			}
+			};
 
 			function clearInputAndTriggeerChange(input) {
 				input.value = "";

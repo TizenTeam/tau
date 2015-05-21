@@ -21,13 +21,8 @@
 		isTextInput(document.getElementById('input-email'), "input[type='email']");
 		isTextInput(document.getElementById('input-url'), "input[type='url']");
 		isTextInput(document.getElementById('input-tel'), "input[type='tel']");
-		isTextInput(document.getElementById('input-month'), "input[type='month']");
-		isTextInput(document.getElementById('input-week'), "input[type='week']");
-		isTextInput(document.getElementById('input-datetime-local'), "input[type='datetime-local']");
-		isTextInput(document.getElementById('input-color'), "input[type='color']");
-		isTextInput(document.getElementById('input-not-type'), "input:not([type])");
+		isTextInput(document.getElementById('input-not-type'), "input:not([type]).ui-text-input");
 		isTextInput(document.getElementById('textarea'), "textarea");
-		isTextInput(document.getElementById('by-css-selector'), ".ui-textinput");
 	});
 
 }(window.document));

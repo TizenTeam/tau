@@ -24,7 +24,8 @@
 			"support/mobile/widget/Collapsible.extra",
 			"support/mobile/widget/Collapsibleset.extra",
 			"support/mobile/widget/Slider.extra",
-			"support/mobile/widget/TizenSlider.extra"
+			"support/mobile/widget/TizenSlider.extra",
+			"support/mobile/widget/TextInput.extra"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");

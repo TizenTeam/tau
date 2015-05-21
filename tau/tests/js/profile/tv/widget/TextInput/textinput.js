@@ -18,11 +18,9 @@
 		function testInput(id, isDisabled) {
 			var input = document.getElementById(id);
 
-			//after build
-			equal(input.getAttribute("data-tau-bound"), "TextInput", "Input widget is created");
+			tau.widget.TextInput(input);
 			equal(input.getAttribute("aria-disabled"), isDisabled, "Input widget is enabled");
-			ok(input.classList.contains("ui-input-text"), "Input has ui-input-text class");
-			ok(input.classList.contains("ui-body-a"), "Input has ui-body-a class");
+			ok(input.classList.contains("ui-text-input"), "Input has ui-text-input class");
 			//Check if text line wasn't create
 			equal(input.parentNode.querySelector(".ui-text-line"), null, "The widget has not text line");
 		}
