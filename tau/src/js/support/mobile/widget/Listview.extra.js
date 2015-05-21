@@ -712,15 +712,15 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../../../../core/engine",
-			"../../../../core/util/DOM/attributes",
-			"../../../../core/util/DOM/css",
-			"../../../../core/util/selectors",
-			"../../../../core/event",
-			"../../../../core/event/vmouse",
-			"../mobile",
-			"./BaseWidgetMobile",
-			"./Listview"
+			"../../../core/engine",
+			"../../../core/util/DOM/attributes",
+			"../../../core/util/DOM/css",
+			"../../../core/util/selectors",
+			"../../../core/event",
+			"../../../core/event/vmouse",
+			"../../../profile/mobile/widget/mobile",
+			"../../../profile/mobile/widget/mobile/BaseWidgetMobile",
+			"../../../profile/mobile/widget/mobile/Listview"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");

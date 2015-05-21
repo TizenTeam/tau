@@ -17,7 +17,10 @@
 			"require",
 			"support/mobile/widget/ToggleSwitch.extra",
 			"support/mobile/widget/DropdownMenu.extra",
-			"support/mobile/widget/Progress.extra"
+			"support/mobile/widget/Progress.extra",
+			"support/mobile/widget/Listview.extra",
+			"support/mobile/widget/ExtendableList",
+			"support/mobile/widget/ListviewAutodivider"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");

@@ -63,6 +63,10 @@ module.exports = function (grunt) {
 			"qunit-main": true,
 			default: true
 		},
+		mobile_support: {
+			"qunit-main": true,
+			default: true
+		},
 		tv: {
 			"qunit-main": true,
 			default: true
@@ -104,6 +108,7 @@ module.exports = function (grunt) {
 		{expand: true, cwd: path.join(buildFrameworkPath, "tv", "js/"), src: "**", dest: path.join("tests", "libs", "dist", "js")},
 		{expand: true, cwd: path.join(buildFrameworkPath, "tv", "theme/"), src: "**", dest: path.join("tests", "libs", "dist", "theme")}
 	]};
+	configProperty["test-libs-mobile_support"] = configProperty["test-libs-mobile"];
 	configProperty["test-libs-jqm"] = configProperty["test-libs-mobile"];
 	configProperty["test-libs-jqm13"] = configProperty["test-libs-mobile"];
 	configProperty["test-libs-jqm14"] = configProperty["test-libs-mobile"];

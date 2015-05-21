@@ -12,13 +12,11 @@
 'use strict';
 var unit_virtuallistview = function (element, templateName) {
 	function checkWidgetStructure(widget, element, templateName) {
-		var listviewClasses = ej.widget.mobile.Listview.classes,
-			tmpElement = null,
+		var tmpElement = null,
 			testPass,
 			i;
 
 		//Check UL CSS classes
-		ok(element.classList.contains(listviewClasses.uiListview), "[HTML] UL was created with Listview class");
 		ok(element.classList.contains('ui-virtual-list-container'), "[HTML] UL was created with VirtualListview class");
 
 		widget.setListItemUpdater(function (listElement, rowIndex) {
@@ -57,17 +55,6 @@ var unit_virtuallistview = function (element, templateName) {
 			i -= 1;
 		} while (i > 0 && testPass);
 		ok(testPass, '[HTML] All LI was created with template structure');
-
-		//Check LI CSS classes
-		testPass = true;
-		i = 100;
-		tmpElement = widget.element.firstElementChild;
-		do {
-			testPass = tmpElement.classList.contains(listviewClasses.uiLiStatic) ? testPass : false;
-			i -= 1;
-			tmpElement = tmpElement.nextElementSibling;
-		} while (i > 0 && testPass);
-		ok(testPass, '[HTML] All LI was created with Listview classes');
 
 		return true;
 	}

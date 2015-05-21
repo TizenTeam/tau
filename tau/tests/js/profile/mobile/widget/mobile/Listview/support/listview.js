@@ -6,7 +6,7 @@
 $().ready(function() {
 	'use strict';
 
-	module('profile/mobile/widget/mobile/Listview.extra', {
+	module('profile/mobile/widget/mobile/Listview', {
 		setup: function () {
 			ej.engine.run();
 		},

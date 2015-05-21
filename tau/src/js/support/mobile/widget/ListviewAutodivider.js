@@ -1,4 +1,4 @@
-/*global window, define */
+/*global window, define, ns */
 /*
 * Copyright  2010 - 2014 Samsung Electronics Co., Ltd.
 * License : MIT License V2
@@ -41,12 +41,12 @@
 	//>>excludeStart('tauBuildExclude', pragmas.tauBuildExclude);
 	define(
 		[
-			"../../../../core/engine",
-			"../../../../core/util/selectors",
-			"../../../../core/util/DOM/attributes",
-			"../mobile",
-			"./Listview",
-			"./Listdivider"
+			"../../../core/engine",
+			"../../../core/util/selectors",
+			"../../../core/util/DOM/attributes",
+			"../../../profile/mobile/widget/mobile",
+			"../../../profile/mobile/widget/mobile/Listview",
+			"../../../profile/mobile/widget/mobile/BaseWidgetMobile"
 		],
 		function () {
 			//>>excludeEnd('tauBuildExclude');

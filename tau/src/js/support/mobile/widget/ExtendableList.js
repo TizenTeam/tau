@@ -181,13 +181,13 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../../../../core/engine",
-			"../../../../core/util",
-			"../../../../core/util/DOM",
-			"../../../../core/theme",
-			"../mobile", // fetch namespace
-			"./Listview",
-			"./BaseWidgetMobile"
+			"../../../core/engine",
+			"../../../core/util",
+			"../../../core/util/DOM",
+			"../../../core/theme",
+			"../../../profile/mobile/widget/mobile", // fetch namespace
+			"../../../profile/mobile/widget/mobile/Listview",
+			"../../../profile/mobile/widget/mobile/BaseWidgetMobile"
 		],
 		function() {
 			//>>excludeEnd("tauBuildExclude");
@@ -254,7 +254,7 @@
 						listItemUpdater: null,
 						itemData: null,
 						listItemLoader: null,
-						loadmore: 'tmp_load_more',
+						loadmore: "tmp_load_more",
 						template: null
 					};
 
@@ -319,7 +319,7 @@
 			 */
 			function _unbindLoader(self, loaderItem) {
 				if (self._listItemLoaderBound !== null) {
-					loaderItem.removeEventListener('vclick', self._listItemLoaderBound, false);
+					loaderItem.removeEventListener("vclick", self._listItemLoaderBound, false);
 				}
 				self._listItemLoaderBound = null;
 			}
@@ -336,7 +336,7 @@
 				if (loaderItem) {
 					_unbindLoader(self, loaderItem);
 					self._listItemLoaderBound = self._buildList.bind(self);
-					loaderItem.addEventListener('vclick', self._listItemLoaderBound, false);
+					loaderItem.addEventListener("vclick", self._listItemLoaderBound, false);
 				}
 			}
 
@@ -473,11 +473,11 @@
 					options.bufferSize = config.bufferSize;
 				}
 
-				if (typeof config.listItemLoader === 'function') {
+				if (typeof config.listItemLoader === "function") {
 					options.listItemLoader = config.listItemLoader;
 				}
 
-				if (typeof config.listItemUpdater === 'function') {
+				if (typeof config.listItemUpdater === "function") {
 					options.listItemUpdater = config.listItemUpdater;
 				}
 			};
@@ -505,8 +505,8 @@
 
 				// Assign templates
 				// NOTE: jQuery is used here!
-				$tmpl.item = $('#' + options.template);
-				$tmpl.more = $('#' + options.loadmore);
+				$tmpl.item = $("#" + options.template);
+				$tmpl.more = $("#" + options.loadmore);
 
 				self._configureNormal(config);
 			};
