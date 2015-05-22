@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet"  href="../../lib/tau/mobile/theme/default/tau.css">
+	<link rel="stylesheet" href="../../lib/tau/mobile/theme/default/tau.min.css">
+	<link rel="stylesheet" href="../../css/custom.css">
 	<script type="text/javascript" src="../../lib/tau/mobile/js/tau.min.js" data-build-remove="false"></script>
-	<script type="text/javascript" src="../../lib/tau/mobile/js/tau.support-2.3.min.js" data-build-remove="false"></script>
 </head>
 <body>
 <div data-role="page" id="dropdownmenu-demo">
@@ -13,7 +13,7 @@
 	<div data-role="content">
 		<ul data-role="listview">
 			<li data-role="list-divider">Native</li>
-			<li>
+			<li class="ui-li-static">
 				<select name="select-custom-0" id="select-custom-0" data-native-menu="true">
 				    <option value="1">1</option>
 				    <option value="2">2</option>
@@ -23,7 +23,7 @@
 			</li>
 
 			<li data-role="list-divider">Basic</li>
-			<li>
+			<li class="ui-li-static">
 				<select name="select-custom-1" id="select-custom-1" data-native-menu="false">
 					<option value="choose-one" data-placeholder="true">Choose one...</option>
 				    <option value="1">The 1st Option</option>
@@ -34,7 +34,7 @@
 			</li>
 
 			<li data-role="list-divider">Inline</li>
-			<li>
+			<li class="ui-li-static">
 				<select name="select-custom-2" id="select-custom-2" data-native-menu="false" data-inline="true">
 				    <option value="1">Mobile</option>
 				    <option value="2">Fax (Home)</option>
@@ -47,7 +47,7 @@
 			</li>
 
 			<li data-role="list-divider"><label for="select-custom-4">Long list</label></li>
-			<li>
+			<li class="ui-li-static">
 				<select name="select-custom-4" id="select-custom-4" data-native-menu="false">
 		        <option value="AL">Alabama</option>
 		        <option value="AK">Alaska</option>
@@ -103,7 +103,7 @@
 			</li>
 
 			<li data-role="list-divider">1 option selected</li>
-			<li>
+			<li class="ui-li-static">
 				<select name="select-custom-5" id="select-custom-5" data-native-menu="false">
 				    <option value="1">The 1st Option</option>
 				    <option value="2">The 2nd Option</option>
@@ -113,7 +113,7 @@
 			</li>
 
 			<li data-role="list-divider">1 option disabled</li>
-			<li>
+			<li class="ui-li-static">
 				<select name="select-custom-6" id="select-custom-6" data-native-menu="false">
 				    <option value="1">The 1st Option</option>
 				    <option value="2">The 2nd Option</option>
@@ -123,7 +123,7 @@
 			</li>
 
 			<li data-role="list-divider">Optgroup</li>
-			<li>
+			<li class="ui-li-static">
 				<select name="select-custom-7" id="select-custom-7" data-native-menu="false">
 				    <optgroup label="Group 1">
 				        <option value="1">The 1st Option</option>
@@ -140,7 +140,7 @@
 			</li>
 
 			<li data-role="list-divider">Optgroup disabled</li>
-			<li>
+			<li class="ui-li-static">
 				<select name="select-custom-8" id="select-custom-8" data-native-menu="false">
 				    <optgroup label="Group 1" disabled>
 				        <option value="1">The 1st Option</option>
@@ -157,7 +157,7 @@
 			</li>
 
 			<li data-role="list-divider">SelectMenu disabled</li>
-			<li>
+			<li class="ui-li-static">
 				<select name="select-custom-9" id="select-custom-9" data-native-menu="false" disabled="true">
 				    <option value="1">The 1st Option</option>
 				    <option value="2">The 2nd Option</option>

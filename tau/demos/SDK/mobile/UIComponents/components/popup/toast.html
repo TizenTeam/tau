@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet"  href="../../lib/tau/mobile/theme/default/tau.css">
-    <script type="text/javascript" src="../../lib/tau/mobile/js/tau.js" data-build-remove="false"></script>
+	<link rel="stylesheet" href="../../lib/tau/mobile/theme/default/tau.css">
+	<link rel="stylesheet" href="../../css/custom.css">
+	<script type="text/javascript" src="../../lib/tau/mobile/js/tau.js" data-build-remove="false"></script>
 </head>
 <body>
 <div data-role="page" id="toast-demo-page">
@@ -11,8 +12,8 @@
     </div>
     <div data-role="content">
         <ul data-role="listview">
-            <li><a href="#popup_toast" data-inline="true" data-rel="popup" data-position-to="window">Toast 1(using popup)</a></li>
-            <li><a href="#" id="noti_toast_show">Toast 2(using notification)</a></li>
+            <li class="ui-li-anchor"><a href="#popup_toast" data-inline="true" data-rel="popup" data-position-to="window">Toast 1(using popup)</a></li>
+            <li class="ui-li-anchor"><a href="#" id="noti_toast_show">Toast 2(using notification)</a></li>
         </ul>
         <div id="popup_toast" data-role="popup" class="ui-popup ui-popup-toast" data-overlay="false">
             <div class="ui-popup-content">
