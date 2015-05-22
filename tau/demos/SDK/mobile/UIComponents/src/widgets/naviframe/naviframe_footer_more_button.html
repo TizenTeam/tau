@@ -24,22 +24,6 @@
 		<div data-role="button" data-inline="true" class="naviframe-button">BUTTON1</div>
 		<div data-role="button" data-inline="true" class="naviframe-button">BUTTON2</div>
 	</div>
-	<script>
-	$( "#navi_foot_button" ).on( "pageshow" , function() {
-		//bind callbacks to the H/W keys
-		$( window ).on( "tizenhwkey" , function( e ) {
-			if ( e.originalEvent.keyName === "menu" ) {
-				$( "#pop_js" ).popup( "open" );
-			}else if( e.originalEvent.keyName === "back" ) {
-				window.history.back();
-			}
-		});
-	});
-	$( "#navi_foot_button" ).on( "pagebeforehide" , function() {
-		//unbind callbacks to the H/W keys
-		$( window ).off( "tizenhwkey" );
-	});
-	</script>
 </div>
 </body>
 </html>

@@ -43,126 +43,88 @@ class Job:
 # Git info
 class webuifw(Git):
 	addr="168.219.209.56:29418/framework/web/web-ui-fw"
-	branch="devel/tau"
+	branch="devel/tizen_2.3.1"
 
-class webapp(Git):
-	addr="slp-info.sec.samsung.net:29418/tizenw/sdk-web-apps"
-	branch="devel/webappfw/tizenw"
-
-class sdkWearable(Git):
-	addr="121.133.176.96:29429/profile/tizenw/sdk/web-ide-resources"
-	branch="gear_1.0"
-
-class sdkTizenWearable(Git):
-	addr="121.133.176.49:29419/sdk/ide/profile/wearable/web-ide-resources"
+class MobileUIComponent(Git):
+	addr="168.219.209.56:29418/apps/mobile/web/sample/tizen-winset"
 	branch="tizen_2.3"
 
-class sdkTizenMobile(Git):
-	addr="121.133.176.49:29419/sdk/ide/profile/mobile/web-ide-resources"
+class TAUMasterDetail(Git):
+	addr="168.219.209.56:29418/apps/mobile/web/template/tau-master-detail"
+	branch="tizen_2.3"
+
+class TAUMultiPage(Git):
+	addr="168.219.209.56:29418/apps/mobile/web/template/tau-multi-page"
+	branch="tizen_2.3"
+
+class TAUNavigationView(Git):
+	addr="168.219.209.56:29418/apps/mobile/web/template/tau-navigation-view"
+	branch="tizen_2.3"
+
+class TAUSinglePage(Git):
+	addr="168.219.209.56:29418/apps/mobile/web/template/tau-single-page"
+	branch="tizen_2.3"
+
+class WearableUIComponent(Git):
+	addr="168.219.209.56:29418/apps/wearable/web/sample/wearable-widget-sample"
+	branch="tizen_2.3"
+
+class TAUBasic(Git):
+	addr="168.219.209.56:29418/apps/wearable/web/template/tau-basic"
+	branch="tizen_2.3"
+
+class TAUList(Git):
+	addr="168.219.209.56:29418/apps/wearable/web/template/tau-list"
 	branch="tizen_2.3"
 
 # job list
 jobs = {
-	"1_wearable_sdk": Job(
+	"mobile": Job(
 		webuifw,
-		sdkWearable,
+		[MobileUIComponent, TAUMasterDetail, TAUMultiPage, TAUNavigationView, TAUSinglePage],
 		[
-			SrcDest("tau/demos/SDK/TemplateBasic", "samples/web/Template/Tizen/Wearable\ UI/Basic/project"),
-			SrcDest("tau/demos/SDK/TemplateList", "samples/web/Template/Tizen/Wearable\ UI/List/project"),
-			SrcDest("tau/demos/SDK/WearableWidgetSample", "samples/web/Sample/Tizen/Web\ App/WearableWidgets/project"),
-			SrcDest("tau/dist/wearable", "samples/web/Template/Tizen/Wearable\ UI/Basic/project/lib/tau/wearable"),
-			SrcDest("tau/dist/wearable", "samples/web/Template/Tizen/Wearable\ UI/List/project/lib/tau/wearable"),
-			SrcDest("tau/dist/wearable", "samples/web/Sample/Tizen/Web\ App/WearableWidgets/project/lib/tau/wearable")
-		], ["cd web-ui-fw/tau", "grunt build", "theme dist/wearable/theme blue"],
-		[
-			"samples/web/Sample/Tizen/Web\ App/Altimeter/project",
-			"samples/web/Sample/Tizen/Web\ App/AnalogWatch/project",
-			"samples/web/Sample/Tizen/Web\ App/Calendar/project",
-			"samples/web/Sample/Tizen/Web\ App/Camera/project",
-			"samples/web/Sample/Tizen/Web\ App/ClockWidget/project",
-			"samples/web/Sample/Tizen/Web\ App/MediaControl/project",
-			"samples/web/Sample/Tizen/Web\ App/Pedometer/project",
-			"samples/web/Sample/Tizen/Web\ App/StopWatch/project",
-			"samples/web/Sample/Tizen/Web\ App/VoiceRecorder/project",
-			"samples/web/Sample/Tizen/Web\ App/WearableWidgets/project",
-		]),
-	"2_tizen_sdk_wearable_profile": Job(
-		webuifw,
-		sdkTizenWearable,
-		[
-			SrcDest("tau/demos/SDK/TemplateBasic", "addons/TAU/samples/web/Template/Tizen/Wearable\ UI/Basic/project"),
-			SrcDest("tau/demos/SDK/TemplateList", "addons/TAU/samples/web/Template/Tizen/Wearable\ UI/List/project"),
-			SrcDest("tau/demos/SDK/WearableWidgetSample", "addons/TAU/samples/web/Sample/Tizen/Web\ App/WearableWidgets/project"),
-			SrcDest("tau/dist/wearable", "addons/TAU/samples/web/Template/Tizen/Wearable\ UI/Basic/project/lib/tau/wearable"),
-			SrcDest("tau/dist/wearable", "addons/TAU/samples/web/Template/Tizen/Wearable\ UI/List/project/lib/tau/wearable"),
-			SrcDest("tau/dist/wearable", "addons/TAU/samples/web/Sample/Tizen/Web\ App/WearableWidgets/project/lib/tau/wearable")
-		], ["cd web-ui-fw/tau", "grunt build", "theme dist/wearable/theme brown"],
-		[
-			"samples/web/Sample/Tizen/Web\ App/AnalogWatch/project",
-			"addons/TAU/samples/web/Sample/Tizen/Web\ App/Calendar/project",
-			"addons/TAU/samples/web/Sample/Tizen/Web\ App/Camera/project",
-			"samples/web/Sample/Tizen/Web\ App/ClockWidget/project",
-			"addons/TAU/samples/web/Sample/Tizen/Web\ App/Pedometer/project",
-			"addons/TAU/samples/web/Sample/Tizen/Web\ App/StopWatch/project",
-			"addons/TAU/samples/web/Sample/Tizen/Web\ App/VoiceRecorder/project",
-			"addons/TAU/samples/web/Sample/Tizen/Web\ App/WearableWidgets/project",
-		]),
-	"3_tizen_sdk_mobile_profile": Job(
-		webuifw,
-		sdkTizenMobile,
-		[
-			SrcDest("tau/demos/SDK/MobileWinset", "addons/TAU/samples/web/Sample/Tizen/Web\ App/TizenWinset/project"),
-			SrcDest("tau/demos/SDK/Tizen_Web_UI_FW_MasterDetail", "addons/TAU/samples/web/Template/Tizen/Tizen\ Web\ UI\ Framework/Tizen_Web_UI_FW_MasterDetail/project"),
-			SrcDest("tau/demos/SDK/Tizen_Web_UI_FW_MultiPage", "addons/TAU/samples/web/Template/Tizen/Tizen\ Web\ UI\ Framework/Tizen_Web_UI_FW_MultiPage/project"),
-			SrcDest("tau/demos/SDK/Tizen_Web_UI_FW_NavigationView", "addons/TAU/samples/web/Template/Tizen/Tizen\ Web\ UI\ Framework/Tizen_Web_UI_FW_NavigationView/project"),
-			SrcDest("tau/demos/SDK/Tizen_Web_UI_FW_SinglePage", "addons/TAU/samples/web/Template/Tizen/Tizen\ Web\ UI\ Framework/Tizen_Web_UI_FW_SinglePage/project"),
-			SrcDest("tau/dist/mobile", "addons/TAU/samples/web/Sample/Tizen/Web\ App/TizenWinset/project/lib/tau/mobile"),
-			SrcDest("tau/dist/mobile", "addons/TAU/samples/web/Template/Tizen/Tizen\ Web\ UI\ Framework/Tizen_Web_UI_FW_MasterDetail/project/lib/tau/mobile"),
-			SrcDest("tau/dist/mobile", "addons/TAU/samples/web/Template/Tizen/Tizen\ Web\ UI\ Framework/Tizen_Web_UI_FW_MultiPage/project/lib/tau/mobile"),
-			SrcDest("tau/dist/mobile", "addons/TAU/samples/web/Template/Tizen/Tizen\ Web\ UI\ Framework/Tizen_Web_UI_FW_NavigationView/project/lib/tau/mobile"),
-			SrcDest("tau/dist/mobile", "addons/TAU/samples/web/Template/Tizen/Tizen\ Web\ UI\ Framework/Tizen_Web_UI_FW_SinglePage/project/lib/tau/mobile"),
+			SrcDest("web-ui-fw/tau/demos/SDK/mobile/UIComponents", "tizen-winset/project"),
+			SrcDest("web-ui-fw/tau/dist/mobile", "tizen-winset/project/lib/tau"),
+			SrcDest("web-ui-fw/tau/demos/SDK/mobile/Tizen_Web_UI_FW_MasterDetail", "tau-master-detail/project"),
+			SrcDest("web-ui-fw/tau/dist/mobile", "tau-master-detail/project/lib/tau"),
+            SrcDest("web-ui-fw/tau/demos/SDK/mobile/Tizen_Web_UI_FW_MultiPage", "tau-multi-page/project"),
+            SrcDest("web-ui-fw/tau/dist/mobile", "tau-multi-page/project/lib/tau"),
+            SrcDest("web-ui-fw/tau/demos/SDK/mobile/Tizen_Web_UI_FW_NavigationView", "tau-navigation-view/project"),
+			SrcDest("web-ui-fw/tau/dist/mobile", "tau-navigation-view/project/lib/tau"),
+			SrcDest("web-ui-fw/tau/demos/SDK/mobile/Tizen_Web_UI_FW_SinglePage", "tau-single-page/project"),
+			SrcDest("web-ui-fw/tau/dist/mobile", "tau-single-page/project/lib/tau")
 		], ["cd web-ui-fw/tau", "grunt build"],
 		[
-			"addons/TAU/samples/web/Sample/Tizen/Web\ App/BluetoothChat/project",
-			"addons/TAU/samples/web/Sample/Tizen/Web\ App/CallLog/project",
-			"addons/TAU/samples/web/Sample/Tizen/Web\ App/Chatter/project",
-			"samples/web/Sample/Tizen/Web\ App/Compass/project",
-			"addons/TAU/samples/web/Sample/Tizen/Web\ App/ContactsExchanger/project",
-			"addons/TAU/samples/web/Sample/Tizen/Web\ App/EventManager/project",
-			"addons/TAU/samples/web/Sample/Tizen/Web\ App/ExercisePlanner/project",
-			"addons/TAU/samples/web/Sample/Tizen/Web\ App/FileManager/project",
-			"addons/TAU/samples/web/Sample/Tizen/Web\ App/MediaContent/project",
-			"samples/web/Sample/Tizen/Web\ App/NPRuntime/project",
-			"samples/web/Sample/Tizen/Web\ App/Piano/project",
-			"samples/web/Sample/Tizen/Web\ App/SelfCamera/project",
-			"addons/TAU/samples/web/Sample/Tizen/Web\ App/SensorBall/project",
-			"addons/TAU/samples/web/Sample/Tizen/Web\ App/SystemInfo/project",
-			"addons/TAU/samples/web/Sample/Tizen/Web\ App/TizenWinset/project",
-			"samples/web/Sample/Tizen/Web\ App/TouchPaint/project",
-			"addons/TAU/samples/web/Sample/Tizen/Hybrid\ Application/HybridWebApp/project",
+			SrcDest("web-ui-fw/tau/dist/VERSION", "tizen-winset/project/lib/tau/VERSION"),
+			SrcDest("web-ui-fw/tau/dist/LICENSE.MIT", "tizen-winset/project/lib/tau/LICENSE.MIT"),
+			SrcDest("web-ui-fw/tau/dist/VERSION", "tau-master-detail/project/lib/tau/VERSION"),
+			SrcDest("web-ui-fw/tau/dist/LICENSE.MIT", "tau-master-detail/project/lib/tau/LICENSE.MIT"),
+			SrcDest("web-ui-fw/tau/dist/VERSION", "tau-multi-page/project/lib/tau/VERSION"),
+			SrcDest("web-ui-fw/tau/dist/LICENSE.MIT", "tau-multi-page/project/lib/tau/LICENSE.MIT"),
+			SrcDest("web-ui-fw/tau/dist/VERSION", "tau-navigation-view/project/lib/tau/VERSION"),
+			SrcDest("web-ui-fw/tau/dist/LICENSE.MIT", "tau-navigation-view/project/lib/tau/LICENSE.MIT"),
+			SrcDest("web-ui-fw/tau/dist/VERSION", "tau-single-page/project/lib/tau/VERSION"),
+			SrcDest("web-ui-fw/tau/dist/LICENSE.MIT", "tau-single-page/project/lib/tau/LICENSE.MIT")
 		]),
-	"4_wearable_sdk_webapps": Job(
-		webuifw,
-		webapp,
-		[
-			SrcDest("tau/dist/wearable", "Altimeter/lib/tau/wearable"),
-			SrcDest("tau/dist/wearable", "AppController/lib/tau/wearable"),
-			SrcDest("tau/dist/wearable", "Calendar/lib/tau/wearable"),
-			SrcDest("tau/dist/wearable", "Camera/lib/tau/wearable"),
-			SrcDest("tau/dist/wearable", "DigitalAlarmLED/lib/tau/wearable"),
-			SrcDest("tau/dist/wearable", "MediaControl/lib/tau/wearable"),
-			SrcDest("tau/dist/wearable", "Evernote/lib/tau/wearable"),
-			SrcDest("tau/dist/wearable", "QRCodeReader/lib/tau/wearable"),
-			SrcDest("tau/dist/wearable", "ScanAndPlay/lib/tau/wearable"),
-			SrcDest("tau/dist/wearable", "ShoppingList/lib/tau/wearable"),
-			SrcDest("tau/dist/wearable", "SunburnMonitor/lib/tau/wearable"),
-			SrcDest("tau/dist/wearable", "TouchPaint/lib/tau/wearable"),
-			SrcDest("tau/dist/wearable", "Weather/lib/tau/wearable"),
-			SrcDest("tau/dist/wearable", "Pedometer/lib/tau/wearable"),
-			SrcDest("tau/dist/wearable", "StopWatch/lib/tau/wearable"),
-			SrcDest("tau/dist/wearable", "WatchOnWeb/lib/tau/wearable"),
-			SrcDest("tau/dist/wearable", "VoiceRecorder/lib/tau/wearable"),
-		], ["cd web-ui-fw/tau", "grunt build"], None)
+	"wearable": Job(
+    		webuifw,
+    		[WearableUIComponent, TAUBasic, TAUList],
+    		[
+    			SrcDest("web-ui-fw/tau/demos/SDK/wearable/UIComponents", "wearable-widget-sample/project"),
+    			SrcDest("web-ui-fw/tau/dist/wearable", "wearable-widget-sample/project/lib/tau"),
+    			SrcDest("web-ui-fw/tau/demos/SDK/wearable/TemplateBasic", "tau-basic/project"),
+    			SrcDest("web-ui-fw/tau/dist/wearable", "tau-basic/project/lib/tau"),
+    			SrcDest("web-ui-fw/tau/demos/SDK/wearable/TemplateList", "tau-list/project"),
+    			SrcDest("web-ui-fw/tau/dist/wearable", "tau-list/project/lib/tau")
+    		], ["cd web-ui-fw/tau", "grunt build"],
+    		[
+    			SrcDest("web-ui-fw/tau/dist/VERSION", "wearable-widget-sample/project/lib/tau/VERSION"),
+    			SrcDest("web-ui-fw/tau/dist/LICENSE.MIT", "wearable-widget-sample/project/lib/tau/LICENSE.MIT"),
+    			SrcDest("web-ui-fw/tau/dist/VERSION", "tau-basic/project/lib/tau/VERSION"),
+    			SrcDest("web-ui-fw/tau/dist/LICENSE.MIT", "tau-basic/project/lib/tau/LICENSE.MIT"),
+    			SrcDest("web-ui-fw/tau/dist/VERSION", "tau-list/project/lib/tau/VERSION"),
+    			SrcDest("web-ui-fw/tau/dist/LICENSE.MIT", "tau-list/project/lib/tau/LICENSE.MIT")
+    		])
 }
 
 def cloneGit(git, targetdir):
@@ -201,8 +163,10 @@ def main():
 		os.chdir(jobdir)
 		job = jobs[k]
 
+		# Clone TAU git
+		cloneGit(job.srcgit, jobdir)
 		# Clone src and dest git
-		for git in [job.srcgit, job.destgit]:
+		for git in job.destgit:
 			cloneGit(git, jobdir)
 
 		# Preprocess
@@ -210,12 +174,6 @@ def main():
 			for c in job.preprocess:
 				if c.split()[0] == "cd":
 					os.chdir(c.split()[1])
-				elif c.split()[0] == "theme":
-					dstlink = 'default'
-					srclink = c.split()[2]
-					os.chdir(c.split()[1])
-					cmd('rm default')
-					os.symlink(srclink, dstlink)
 				else:
 					cmd(c)
 			os.chdir(jobdir)
@@ -223,46 +181,26 @@ def main():
 		# update all dirs
 		os.chdir(jobdir)
 		for srcdest in job.fromtolist:
-			srcdir = os.path.join(os.path.basename(job.srcgit.addr), srcdest.src)
-			destdir = os.path.join(os.path.basename(job.destgit.addr), srcdest.dest)
+			srcdir = srcdest.src
+			destdir = srcdest.dest
 			print("copy %s* to %s"%(srcdir, destdir))
-			if os.path.isdir( destdir.replace("\\", "")):
-				shutil.rmtree(destdir.replace("\\", ""))
-			elif os.path.islink( destdir.replace("\\", "")):
+			if os.path.islink( destdir.replace("\\", "")):
 				os.remove( destdir.replace("\\", "") )
+				destdir = os.path.join(destdir, k)
+			elif os.path.isdir( destdir.replace("\\", "")):
+				shutil.rmtree(destdir.replace("\\", ""))
 			else:
-				desttemp = os.path.abspath(os.path.join(os.path.abspath(destdir), '..'))
+				desttemp = os.path.abspath(os.path.join(os.path.abspath(destdir), ".."))
 				os.remove( desttemp.replace("\\", "") )
-			shutil.copytree( srcdir.replace("\\", ""), destdir.replace("\\", ""), symlinks=True)
-		#update version
+			shutil.copytree( srcdir.replace("\\", ""), destdir.replace("\\", ""), symlinks=True, ignore=shutil.ignore_patterns('.project', '.rds_delta', '.sdk_delta.info', '.sign', '.tproject'))
+
 		os.chdir(jobdir)
 		if job.postprocess:
-			#update version in version.txt of projects
-			for project in job.postprocess:
-				projectdir = os.path.join(os.path.basename(job.destgit.addr), project)
-				os.chdir(projectdir.replace("\ ", " "))
-				for linenum, line in enumerate( fileinput.FileInput(FILE_VERSION, inplace=1)):
-					if linenum==0:
-						version = line.split(".")
-						subVersion = int(version[2]) + 1
-						newVersion = version[0] + "." + version[1] + "." + str(subVersion)
-						line = line.replace(line, newVersion)
-						print line.rstrip()
-					else:
-						print line.rstrip()
-				os.chdir(jobdir)
-			#update changelog and manifest
-			os.chdir(os.path.basename(job.srcgit.addr))
-			for linenum, line in enumerate( fileinput.FileInput(FILE_SPEC)):
-				if linenum==1:
-					versionLine = line.split("    ")
-					tauVersion = versionLine[1]
-					break
-			print("tau version %s"%(tauVersion))
-
-			os.chdir(jobdir)
-			os.chdir(os.path.basename(job.destgit.addr))
-			cmd("./update-pkg-version.py " + tauVersion)
+			for srcdest in job.postprocess:
+				srcdir = srcdest.src
+				destdir = srcdest.dest
+				print("copy %s to %s"%(srcdir, destdir))
+				shutil.copy(srcdir, destdir)
 
 		#remove unnecessary dir
 		os.chdir(jobdir)

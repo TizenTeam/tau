@@ -1,3 +1,4 @@
+/*global $,Globalize */
 $("#localepage").ready(function() {
 	// add current datetime with browser language format
 	// NOTE: Globalize.* functions must be run after docoument ready.

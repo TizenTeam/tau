@@ -27,7 +27,7 @@
 
 	elList.addEventListener("draw", function() {
 		var vList = tau.widget.VirtualGrid(elList);
-		test("ej.widget.micro.VirtualList draw method", 8, function () {
+		test("VirtualList draw method", 8, function () {
 			var children = elList.children,
 				nextDiv = elList.nextElementSibling,
 				li = children[0];
@@ -42,7 +42,7 @@
 			ok(li.innerHTML, 'LI element has proper innerHTML');
 		});
 
-		test("ej.widget.micro.VirtualList scrollToIndex method", 5, function () {
+		test("VirtualList scrollToIndex method", 5, function () {
 			var scrollview = elList.parentNode,
 				li = elList.children[0];
 
@@ -58,7 +58,7 @@
 			ok(scrollview.scrollTop >= 14399, 'scrollTop is set to >= 14399');
 		});
 
-		test("ej.widget.micro.VirtualList on scroll action", 2, function () {
+		test("VirtualList on scroll action", 2, function () {
 			var scrollview = elList.parentNode,
 				top,
 				li;
@@ -72,33 +72,33 @@
 			ok(scrollview.scrollTop > 120, 'scrollTop is set to > 110');
 		});
 
-		asyncTest("ej.widget.micro.VirtualList tap methods", 3, function () {
+		asyncTest("VirtualList tap methods", 3, function () {
 			var li = elList.children[0],
 				tapholdThreshold = 300;
 
 			// Simulate tap
-			triggerTouchEvent(li, 'touchstart');
+			triggerTouchEvent(li, 'vmousedown');
 
 			setTimeout(function() {
-				triggerTouchEvent(li, 'touchend');
+				triggerTouchEvent(li, 'vmouseup');
 				ok(li.classList.contains('ui-listview-active'), 'touch hold works');
 
 				// Simulate scrolling
-				triggerTouchEvent(li, 'touchstart');
-				triggerTouchEvent(li, 'touchmove', [{clientX:1000, clientY :1000}]);
+				triggerTouchEvent(li, 'vmousedown');
+				triggerTouchEvent(li, 'vmousemove', [{clientX:1000, clientY :1000}]);
 
 				setTimeout(function() {
-					triggerTouchEvent(li, 'touchend');
+					triggerTouchEvent(li, 'vmouseup');
 
 					// Check if highlight is removed
 					ok(!li.classList.contains('ui-listview-active'), 'touch highlight remove works');
 
 					// Simulate TAP 2 - move but keep position in distance tolerance
-					triggerTouchEvent(li, 'touchstart', [{clientX: 0, clientY: 0}]);
-					triggerTouchEvent(li, 'touchmove', [{clientX: 3, clientY: 3}]);
+					triggerTouchEvent(li, 'vmousedown', [{clientX: 0, clientY: 0}]);
+					triggerTouchEvent(li, 'vmousemove', [{clientX: 3, clientY: 3}]);
 
 					setTimeout(function() {
-						triggerTouchEvent(li, 'touchend');
+						triggerTouchEvent(li, 'vmouseup');
 
 						// Check if item is highlighted
 						ok(li.classList.contains('ui-listview-active'), 'touch hold with tolerance distance works');
@@ -112,7 +112,7 @@
 			// End of tap simulation
 		});
 
-		test("ej.widget.micro.VirtualList destroy method", 4, function () {
+		test("VirtualList destroy method", 4, function () {
 			var children = elList.children,
 				nextDiv = elList.nextElementSibling,
 				li = children[0];

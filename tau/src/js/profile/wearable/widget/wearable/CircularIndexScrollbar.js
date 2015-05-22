@@ -536,7 +536,6 @@
 					transform;
 
 				if (self._isShow) {
-					ns.warn("hideHandler() can be used only when CircularIndexSCrollbar is hidden.");
 					return;
 				}
 

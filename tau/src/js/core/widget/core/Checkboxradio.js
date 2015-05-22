@@ -1,3 +1,4 @@
+/*global window, define, ns */
 (function (document, ns) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);

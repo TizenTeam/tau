@@ -1,3 +1,4 @@
+/*global $ */
 $( document ).one( "pageshow", ":jqmData(role='page')", function ( ev ) {
 	var page = ev.target;
 

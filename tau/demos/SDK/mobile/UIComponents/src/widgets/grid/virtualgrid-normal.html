@@ -27,19 +27,6 @@
 		<div id="virtualgrid-demo" data-role="virtualgrid" data-rotation="false">
 		</div>
 	</div>
-	<script>
-	$( "#virtualgrid_normal_page" ).on( "pageshow" , function() {
-		$( window ).on( "tizenhwkey", function ( ev ) {
-			if ( ev.originalEvent.keyName === "back" ) {
-				//bind callbacks to the H/W keys
-				window.history.back();
-			}
-		});
-	}).on( "pagebeforehide" , function() {
-		//unbind callbacks to the H/W keys
-		$( window ).off( "tizenhwkey" );
-	});
-	</script>
 	<link rel="stylesheet" href="namecard.css" />
 	<script type="text/javascript" src="virtualgrid-db-demo.js"></script>
 	<script type="text/javascript" src="virtualgrid.js"></script>

@@ -1,4 +1,209 @@
 %changelog
+* Wed May 06 2015 Heeju Joo <heeju.joo@samsung.com> 0.10.22
+	- fix(wearable): fix app css loading issues.
+
+* Thu Apr 30 2015 Hagun Kim <hagun.kim@samsung.com> 0.10.21
+	- refactor(wearable): fix css of rotary event sample
+	- fix(wearble): fix popup footer-button style
+	- fix(wearable): fix popup footer margin issue (P150430-00436)
+	- refactor(wearable): fix vertical size to remove scrollbar
+	- fix(wearable): fix the page event release logic.
+	- fix(wearable): adjust padding of button in marquee sample
+
+* Wed Apr 29 2015 Junyoung Park <jy-.park@samsung.com> 0.10.20
+	- fix(wearable): add viewswitcher dim style in bottom button
+	- fix(core): remodeling ViewSwitcher component code architecture
+	- feat(wearable): add warning screen in indexScrollbar,rotaryevent page
+	- fix(wearable): modify padding value in lists
+	- refactor(wearable): hide scrollbar on full processing page
+	- fix(wearable): modify border color for normal list
+	- fix(wearable): fix UIComponents warning for SDK
+
+* Tue Apr 28 2015 Hagun Kim <hagun.kim@samsung.com> 0.10.19
+	- refactor(wearable): fix image path in toast popup
+	- fix(wearable): fix template sample app warning for SDK
+	- fix(mobile): fix MobileUIComponents warning for SDK 2.3.1
+	- fix(wearable): call unbind/bindEvents at snaplist refresh()
+	- fix(wearable): fixed to footer was showing issue when page transition (P150424-02263)
+	- fix(wearable): adjust label size to fit li in round UI
+	- fix(wearable): remove unecessary class on index.html(template)
+	- fix(core): clean up animatino event listener on changing page
+	- refactor(wearable) : add basic List style (not include snap-list)
+	- fix(wearable): fix snapListview scrollToPosition
+	- refactor(wearable) : reorganize wearable sample directory
+
+* Wed Apr 22 2015 Heeju Joo <heeju.joo@samsung.com> 0.10.18
+	- fix(wearable): remove circularIndexScrollbar
+
+* Tue Apr 21 2015 Heeju Joo <heeju.joo@samsung.com> 0.10.17
+	- fix(wearable): modify detect ellipsisText in marquee
+	- fix(wearable): fix popup transition issue(P150417-06227)
+	- fix(wearable): fix overlapped sub text in thumbnail list
+	- fix(wearable): fix progress layout issue
+	- feat(wearable): add popup toast(graphic style)
+	- fix(wearable): fix swipelist position issue
+	- refactor(wearable) : modify position of small progress
+	- fix(wearable): fixed page structure about display flex.
+
+* Mon Apr 20 2015 Heeju Joo <heeju.joo@samsung.com> 0.10.16
+	- fix(wearable): fix expandableHeader expand logic
+	- refactor(wearable): add marquee on header helper in demo
+	- fix(mobile): fix selectall list script code
+	- fix(wearable): remove scrollbar on popup
+	- fix(demos): fix bug release event callback in animation list.
+	- fix(wearable): fix expandableHeader expand issue
+	- fix(mobile): modify page exit statement in sample
+	- fix(wearable): remove "ui-state-disabled" style in snapListView
+	- fix(wearable): fix previous page scroll position issue
+	- refactor(wearable): fix list animation script
+	- refactor(wearable): remove list basic animation and add sample separately.
+	- refactor(wearable): refactor expandableHeader
+	- refactor(wearable): fix page component
+	- feat(wearable): apply scale VI of snaplist.
+	- fix(mobile): remove decorationline in textarea (TMWC-728)
+	- fix(wearable): drawer handler size fixed
+	- fix(wearable): modify required_version in config.xml
+	- refactor(wearable): add marquee list demo sample
+	- refactor(wearable): fix bg and border of toast popup
+	- refactor(wearable): remove button list
+	- feat(wearable): fix config.xml error
+	- refactor(wearable): modify app css and fix bugs
+	- fix(wearable): remove expandableHeade
+	- feat(wearable): add ui-header-small style
+	- feat(core): add preventDefault check logic on drag
+	- fix(wearable): add snaplist style
+	- refactor(wearable): fix generating and destroying timing in swipe list
+	- refactor(wearable): add virtual list sample
+
+* Wed Apr 15 2015 Heeju Joo <heeju.joo@samsung.com> 0.10.15
+	- fix(wearable): add removeEventHandler of moreoptions sample js
+	- fix(wearable): Viewswitcher Vertical gesture threshold fixed
+	- refactor(wearable): remove unnecessary sample page id
+	- fix(demo): modify required version in config.xml
+
+* Wed Apr 15 2015 Heeju Joo <heeju.joo@samsung.com> 0.10.14
+	- fix(mobile): remove marqueestyle list sample
+	- feat(wearable): apply ViewSwitcher to list selectmode
+	- fix(mobile): modify navigationbar issue (TMWC-658)
+	- feat(wearable): apply viewSwitcher to multiple bottom button
+	- fix(wearable): fixed bug that it doesn't work list item link.
+	- refactor(wearable): update main page of demo sample
+	- feat(wearable): refactor bottom button and side button
+	- fix(wearable): reduce composited layers for page.
+	- fix(wearable): modify swipelist layout issue
+	- fix(mobile): modify listview margin/padding in ctxpopup
+	- refactor(wearable): fix checkbox, radio style for WC1
+	- refactor(wearable): change demo page structure
+	- refactor(wearable): fix toggle switch style for WC1
+	- refactor(wearable): apply the latest xml files for WC1
+	- fix(wearable): fix checkbox sample lower case text
+
+* Thu Apr 09 2015 Heeju Joo <heeju.joo@samsung.com> 0.10.13
+	- fix(demos): modify config.xml in demo sample/template
+
+* Wed Apr 08 2015 Hagun Kim <hagun.kim@samsung.com> 0.10.12
+	- feat(common): add ViewSwitcher component
+	- refactor(wearable): change position of list highlight
+	- feat(common): delete build requirement of spec
+	- fix(mobile) demos: UIComponents - Text overlap with toggle button
+	- fix(wearable): fix popup style for tizen 2.3.1
+	- refactor(wearable): apply additional list style for wc1
+	- fix(wearable): change max page number in page indicator demo.
+	- refactor(wearable): apply VI for indicator
+	- fix(mobile): ToggleSwitch few code fixes
+	- fix(wearable): set overflow hidden on ui-page(P150407-05351)
+	- fix(wearable): fix bottomButton padding for tizen 2.3.1
+	- refactor(wearable) : remove unusable images
+	- fix(mobile): set active Tab using tabbar option
+	- fix(mobile) demos: UIComponents - context popup example fix
+	- fix(mobile): add min-height value to list static mode(NABI-2071)
+	- fix(mobile): fix tickernoti sample page issue(TMWC-413)
+	- fix(mobile): fix button default style and flex prefix(TMWC-421)
+
+* Fri Apr 03 2015 Hagun Kim <hagun.kim@samsung.com> 0.10.11
+	- integrate(common): integrate Drawer component
+	- refactor(wearable): remove virtual list from demo app
+	- refactor(wearable): fix snaplist create and destroy timing
+	- refactor(wearable): fix app css style for divider list
+	- fix(wearable): remove list section on section changer page.
+	- refactor(wearable): fix app css style for thumbnail list
+	- fix(mobile): fix incorrect style css in mobile sample(TMWC-433)
+	- fix(wearable): modify incorrect color code value
+	- fix(wearable): fix circular scrollbar attribute remove issue
+	- etc(tool): update TAU release script(2.3.1SDK version)
+	- fix(core): fix activeClass remove issue in anchorHighlight
+	- feat(wearable) : apply latest list style of WC1
+	- refactor(wearable): fix position of checkbox and radio in demo app
+	- refactor(wearable): remove swipe list sample and fix demo title.
+	- feat(wearable): modify animation of  page transition
+	- feat(wearable): apply popup style for tizen 2.3.1
+	- refactor(wearable): adjust size of page indicator
+	- feat(wearable): apply bottom button style for tizen 2.3.1
+	- refactor(wearable): fix title style for wc1
+	- refactor(wearable): fix body text style for wc1
+	- feat(wearable) apply marquee style for tizen 2.3.1
+	- refactor(wearable): apply toggle switch style for wc1
+	- feat(wearable): processing animation
+	- fix(mobile): UIComponent select all list issue fix
+	- refactor(wearable): apply checkbox and radio button style for wc1
+	- fix(wearable): fix typo in wearable page widget
+
+* Thu Apr 02 2015 Heeju Joo <heeju.joo@samsung.com> 0.10.10
+	- feat(mobile): fix page back method in TAU mobile Templates
+	- refector(tool) fix sample app paths for changing shape mideaquery.
+	- fix(mobile): modify page back(hwback) method
+	- fix(mobile) less: back button doesn't work when a popup is open
+	- fix(mobile): make overflow style of page to hidden
+	- refactor(wearable): remove vw masking and apply image masking
+
+* Wed Apr 01 2015 Heeju Joo <heeju.joo@samsung.com> 0.10.9
+	- feat(wearable): add scroller on page and apply basic style
+	- refactor(wearable): apply new xml files for wc1
+	- fix(wearable): modify toast popup border issue
+	- fix(mobile): fix navigationbar create&destroy error
+	- refactor(wearable): add runOnlyOnEllipsisText option in Marquee
+	- feat(mobile): add custom css style for UIComonents
+	- fix(mobile): fix template(Tizen MultiPage)
+	- feat(wearble): integrate/rename wearable Sample apps
+
+* Thu Mar 26 2015 Junhyoen Lee <juneh.lee@samsung.com> 0.10.8
+	- etc(tool): Device details and results separated per device
+	- etc(tool): Simplified input test application
+	- etc(tool): Running tests on many devices at once
+	- etc(tool): Performance result output to file
+	- etc(tool): Real device performance checks
+	- etc(tool): TAU performance automatic check with Phantom
+	- fix(tv): fix position of arrow in tooltip in button
+	- refactor(mobile): add aplication for layouts
+	- refactor(mobile): In demo app reorganize exaples of layouts
+	- prototype: Layout widgets - Linear
+	- feat(all): Relative layout
+	- fix(all): _layout, _setLayout change and removed removeRule
+	- feat(mobile): add structure for layouts
+	- prototype: Layout widgets
+	- feature(core, mobile): Enable build wigdets from JS code
+	- fix(wearable): modify popup border draw method
+	- feature(tv): Popover - Prevent events on elements
+	- fix(tv): Fix opening and closing contextual menu in DemoTV app
+	- fix(tv): fix problem with keyboard for input
+	- fix(tv): Fix navigation in SelectMenu
+	- fix(core): modify class adding when reverse page
+	- fix(tv): Textinput - fixed problem with pin input size
+	- fix(tv): change style for input and searchbar
+	- fix(core): fix restore content style bug when page has not content.
+	- refector(wearable): created wearable page widget and popup widget for enable page scroll option.
+	- fix(tv): Fix focus animation on buttons
+	- refactor(common): apply jenkins build-bot
+	- fix(tv): Fixed exception inside SearchBar
+	- fix(tv): fix size of "pin button" in drawer
+	- fix(tv): fix size of buttons in drawer
+
+* Wed Mar 11 2015 Junhyoen Lee <juneh.lee@samsung.com> 0.10.7
+	- refactor(wearable): call scrollend handler with setTimeout when expandableHeader is collapsed. (NABI-2040)
+	- refactor(wearable): remove no subtext list item at Subtext List (P150305-02536)
+	- fix(wearable) : context popup size fix
+	- refactor(wearable): remove integration sample app.
+
 * Wed Mar 04 2015 Junhyoen Lee <juneh.lee@samsung.com> 0.10.6
 	- refactor(wearable): add enable/disable method in SnapListview
 	- fix(wearable): add init state of drawer

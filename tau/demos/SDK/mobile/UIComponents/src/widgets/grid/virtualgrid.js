@@ -1,4 +1,4 @@
-/*global JSON_DATA*/
+/*global tau, JSON_DATA*/
 (function() {
 	var page = document.getElementById("virtualgrid_normal_page"),
 		vgrid;

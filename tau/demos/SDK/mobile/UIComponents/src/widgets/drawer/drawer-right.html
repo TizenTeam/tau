@@ -38,18 +38,6 @@
 				}
 			} );
 		} ) ();
-		$( "#drawer-right-demo" ).on( "pageshow" , function() {
-			//bind callbacks to the H/W keys
-			$( window ).on( "tizenhwkey" , function( e ) {
-				if( e.originalEvent.keyName === "back" ) {
-					window.history.back();
-				}
-			});
-		});
-		$( "#drawer-right-demo" ).on( "pagebeforehide" , function() {
-			//unbind callbacks to the H/W keys
-			$( window ).off( "tizenhwkey" );
-		});
 	</script>
 </div>
 </body>

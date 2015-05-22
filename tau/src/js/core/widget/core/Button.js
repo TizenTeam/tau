@@ -1,3 +1,4 @@
+/*global window, define, ns */
 (function (document, ns) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
@@ -30,7 +31,7 @@
 				buttonStyle = {
 					CIRCLE: "circle",
 					NOBG: "nobg"
-				};
+				},
 
 				prototype = new BaseWidget();
 
@@ -54,7 +55,7 @@
 					style: null,
 					iconpos: "left",
 					// wearable options
-					multiline: false,
+					multiline: false
 				};
 			};
 
@@ -75,13 +76,13 @@
 
 				switch (style) {
 					case buttonStyle.CIRCLE:
-						if (innerTextLength == 0) {
+						if (innerTextLength === 0) {
 							buttonClassList.remove(classes.BTN_NOBG);
 							buttonClassList.add(classes.BTN_CIRCLE);
 						}
 						break;
 					case buttonStyle.NOBG:
-						if (innerTextLength == 0) {
+						if (innerTextLength === 0) {
 							buttonClassList.remove(classes.BTN_CIRCLE);
 							buttonClassList.add(classes.BTN_NOBG);
 						}
@@ -192,6 +193,13 @@
 				}
 			};
 
+			/**
+			 * Sets button to disabled if element.disabled or element.disabled property is true,
+			 * or class is set to ui-state-disabled
+			 * @method _setDisabled
+			 * @param {HTMLElement} element
+			 * @protected
+			 */
 			prototype._setDisabled = function (element) {
 				var self = this,
 					options = self.options,
@@ -248,7 +256,8 @@
 				return null;
 			};
 
-			/* Get value of button
+			/**
+			 * Get value of button
 			 * @method _getValue
 			 * @protected
 			 * @member ns.widget.core.Button
@@ -257,7 +266,8 @@
 				return this.element.textContent;
 			};
 
-			/* Set value of button
+			/**
+			 * Set value of button
 			 * @method _setValue
 			 * @param {string} value
 			 * @protected
@@ -275,8 +285,7 @@
 			 * @member ns.widget.core.Button
 			 */
 			prototype._enable = function (element) {
-				var options = this.options,
-					tagName = element.tagName.toLowerCase();
+				var options = this.options;
 
 				if (element) {
 					if (element.tagName.toLowerCase() === "button") {
@@ -316,7 +325,7 @@
 				"core"
 			);
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
-			return ns.widget.Button;
+			return ns.widget.core.Button;
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");

@@ -1,3 +1,4 @@
+/*global $ */
 $( document ).one("pagecreate", "#datetimepicker-demo", function () {
 
 	$("#demo-date").on("change", function ( ) {

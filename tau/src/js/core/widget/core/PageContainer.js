@@ -220,7 +220,7 @@
 						);
 						deferred.resolve();
 					};
-					eventUtils.one(
+					eventUtils.on(
 						toPageWidget.element,
 						[
 							animationend,

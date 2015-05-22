@@ -10,6 +10,8 @@ Popup Transition
 	&.slideup.out {
 		.animation-name(popupslideouttobottom);
 		.animation-duration(250ms);
+		-webkit-animation-fill-mode: forwards;
+		animation-fill-mode: forwards;
 		.transition-timing-function(ease-in-out);
 	}
 }

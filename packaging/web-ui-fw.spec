@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:     0.10.6
+Version:     0.10.22
 Release:    0
 VCS:        magnolia/framework/web/web-ui-fw#web-ui-fw_0.2.59-4-ge6c6c9d348559057a2b3d4ade5c021b0a28cbc7d
 Summary:    Tizen Web UI Framework Library
@@ -7,11 +7,6 @@ Group:      Development/Other
 License:    MIT
 BuildArch:  noarch
 BuildRequires:  make
-%ifarch %{arm}
-BuildRequires:  nodejs-x86-arm
-%else
-BuildRequires: nodejs
-%endif
 
 Source0:    %{name}-%{version}.tar.gz
 
@@ -57,26 +52,3 @@ Summary:    Tizen Web UI Framework Theme : tizen-black
 /usr/share/tizen-web-ui-fw/*/themes/tizen-black
 /usr/share/tizen-web-ui-fw/*/themes/tizen-tizen
 /usr/share/tizen-web-ui-fw/latest
-
-##############################
-%package -n tau-mobile
-BuildArch:  noarch
-Summary:    TAU : mobile
-%Description -n tau-mobile
-	TAU : mobile-js
-%files -n tau-mobile
-%manifest tau-mobile.manifest
-/usr/share/tau/*.MIT
-/usr/share/tau/VERSION
-/usr/share/tau/mobile/js
-
-##############################
-%package -n tau-mobile-theme-changeable
-BuildArch:  noarch
-Summary:    TAU-mobile-theme : changeable
-%Description -n tau-mobile-theme-changeable
-	TAU mobile theme : changeable
-%files -n tau-mobile-theme-changeable
-%manifest tau-mobile-theme-changeable.manifest
-/usr/share/tau/mobile/theme/changeable
-/usr/share/tau/mobile/theme/default

@@ -1,3 +1,5 @@
+/*global $ */
+/*jslint unparam: true */
 $( document ).one( "pagecreate", "#pageUpdateDemo", function () {
 	$( "#hideheader" ).on( "vclick", function ( e ) {
 		var $elPage = $( ".ui-page-active" );

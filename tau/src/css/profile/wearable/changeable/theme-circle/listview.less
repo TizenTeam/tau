@@ -1,15 +1,49 @@
 /***************************************************************************
-                  listview
+				  listview
 ***************************************************************************/
 .ui-listview {
 	li {
 		font-size: @font_size_list_item;
 		min-height: @list_item_min_height;
 		padding: @list_item_padding;
-		border-bottom: 1px solid @color_listview_border;
+		border:0 none;
+		border-bottom: 1.5px solid transparent;
+		border-image: -webkit-linear-gradient(0deg, transparent, #245B85, transparent) 1;
 		color: @color_listview_text;
 		text-align: center;
+		line-height: @list_item_line_height;
 
+		&.ui-listview-divider {
+			height: 33 * @unit_base;
+			min-height: 33 * @unit_base;
+			line-height: 31 * @unit_base;
+			background-color: transparent;
+			color: @color_list_divider_text;
+			display: -webkit-flex;
+			padding: 0;
+			&::before {
+				content:"";
+				height: 100%;
+				width: auto;
+				.mask-image("images/listview/tw_list_sub_line_left.png");
+				.mask-repeat(no-repeat);
+				.mask-size(100% 2px);
+				.mask-position(-12 * @unit_base 50%);
+				background: @color_list_divider_bg;
+				-webkit-flex: 1
+			}
+			&::after {
+				content:"";
+				height: 100%;
+				width: auto;
+				.mask-image("images/listview/tw_list_sub_line_right.png");
+				.mask-repeat(no-repeat);
+				.mask-size(100% 2px);
+				.mask-position(12 * @unit_base 50%);
+				background: @color_list_divider_bg;
+				-webkit-flex: 1
+			}
+		}
 		&.ui-li-btn {
 			padding: 0;
 			.ui-btn {
@@ -39,29 +73,56 @@
 		}
 
 		&.ui-li-active {
-			background-color: @color_list_press_bg;
+			background-color: transparent;
 			color: @color_listview_text_press;
+			&::before{
+				content: "";
+				position: absolute;
+				width: 100%;
+				height: 100%;
+				left: 50%;
+				top: 50%;
+				transform: translate(-50%, -50%);
+				background-image: -webkit-radial-gradient(@color_listview_focus_ef_press -90%, transparent), -webkit-radial-gradient(@color_listview_focus_press 100%, transparent);
+				pointer-events: none;
+			}
 		}
 		&:last-child {
 			border: 0;
 		}
 	}
 
-	.ui-listview-divider {
-		height: 33 * @unit_base;
-		min-height: 33 * @unit_base;
-		line-height: 31 * @unit_base;
-		background-color: @color_list_divider_bg;
-		color: @color_list_divider_text;
-		padding: 0;
-	}
+	&.ui-snap-listview {
+		.ui-li-sub-text {
+			color: @color_listview_sub_text;
+			font-size: 24 * @unit_base;
+		}
 
-	.ui-li-sub-text {
-		color: @color_listview_sub_text;
-		font-size: 24 * @unit_base;
-	}
-}
+		&::before {
+			content: "";
+			position: fixed;
+			width: 96%;
+			height: @list_item_min_height;
+			left: 50%;
+			top: 50%;
+			transform: translate(-50%, -50%);
+			background-image: -webkit-radial-gradient(@color_listview_focus_ef -90%, transparent),
+				-webkit-radial-gradient(@color_listview_focus 100%, transparent);
+			border-radius:20vw;
+			pointer-events: none;
+		}
 
-.ui-header + .ui-content .ui-listview li:first-child {
-	border-top: 1px solid @color_listview_border;
+		li {
+			border:none;
+			&.ui-li-active {
+				background-color: transparent;
+				color: @color_listview_text_press;
+				&::before {
+					width: 96%;
+					height: @list_item_min_height;
+					border-radius:20vw;
+				}
+			}
+		}
+	}
 }

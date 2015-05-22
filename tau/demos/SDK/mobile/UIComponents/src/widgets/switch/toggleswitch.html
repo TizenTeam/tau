@@ -21,7 +21,7 @@
 		</select>
 
 		<p>define toggleswitch based on select tag and data-role="slider"</p>
-		<select name="flip-11" id="flip-11" data-role="slider">
+		<select name="flip-12" id="flip-12" data-role="slider">
 			<option value="off"></option>
 			<option value="on"></option>
 		</select>
@@ -48,24 +48,7 @@
 			</select>
 			<br>
 		</div>
-
-
 	</div> <!-- /content -->
-
-	<script>
-	$( "#switch-demo" ).on( "pageshow" , function() {
-		$( window ).on( "tizenhwkey", function ( ev ) {
-			if ( ev.originalEvent.keyName === "back" ) {
-				//bind callbacks to the H/W keys
-				window.history.back();
-			}
-		});
-	});
-	$( "#switch-demo" ).on( "pagebeforehide" , function() {
-		//unbind callbacks to the H/W keys
-		$( window ).off( "tizenhwkey" );
-	});
-	</script>
 	<link rel="stylesheet" href="toggleswitch.css" />
 </div> <!-- page -->
 </body>

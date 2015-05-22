@@ -8,10 +8,10 @@ QUnit.config.reorder = false;
 (function (ns) {
 	"use strict";
 
-	var page = document.getElementById("page"),
-		testContent = document.getElementById("testContent"),
+	var sectionTest = document.querySelector("#sectiontest"),
+		testContent = document.querySelector("#testContent"),
 		tapholdThreshold = 200,
-		sectionContent = page.querySelector(".ui-content"),
+		sectionContent = sectionTest.querySelector("#sectionchanger"),
 		i = 1, j = 1,
 
 		CSS_ACTIVE = "ui-section-active";
@@ -83,8 +83,7 @@ QUnit.config.reorder = false;
 		j = j + 1;
 	}
 
-	page.addEventListener("pageshow", function pageShow() {
-
+	window.addEventListener("load", function() {
 
 		suites.orientation.forEach(function each(suite) {
 
@@ -137,8 +136,6 @@ QUnit.config.reorder = false;
 			});
 
 		});
-
-
 		module("profile/wearable/widget/wearable/SectionChanger", {
 			setup: function setup() {
 				setupModule(this, suites.circular.options, true);
@@ -189,7 +186,7 @@ QUnit.config.reorder = false;
 		module("profile/wearable/widget/wearable/SectionChanger", {
 			setup: function setup() {
 				setupModule(this, suites.bouncing.options, true);
-				this.scrollbars = page.querySelectorAll(".ui-scrollbar-bouncing-effect");
+				this.scrollbars = sectionTest.querySelectorAll(".ui-scrollbar-bouncing-effect");
 			},
 			teardown: function teardown() {
 				teardownModule(this, suites.bouncing.moves.length + 1);
@@ -266,7 +263,7 @@ QUnit.config.reorder = false;
 					expect(i);
 
 				while (i--) {
-					ok(page.querySelectorAll(contains[i]).length > 0, "Element " + contains[i] + " exists");
+					ok(sectionTest.querySelectorAll(contains[i]).length > 0, "Element " + contains[i] + " exists");
 				}
 
 			});

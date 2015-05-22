@@ -14,6 +14,14 @@ tau/dist
 tau/node_modules
 tau/.buildpath
 tau/.*project
+tau/demos/SDK/mobile/UIComponents/.project
+tau/demos/SDK/mobile/UIComponents/.sdk_delta.info
+tau/demos/SDK/mobile/UIComponents/.settings/
+tau/demos/SDK/mobile/UIComponents/.sign/
+tau/demos/SDK/wearable/UIComponents/.project
+tau/demos/SDK/wearable/UIComponents/.sdk_delta.info
+tau/demos/SDK/wearable/UIComponents/.settings/
+tau/demos/SDK/wearable/UIComponents/.sign/
 tau/demos/TVDemo/.project
 tau/demos/TVDemo/TVDemo.wgt
 tau/demos/TVDemo/.rds_delta
