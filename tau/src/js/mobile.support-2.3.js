@@ -20,7 +20,9 @@
 			"support/mobile/widget/Progress.extra",
 			"support/mobile/widget/Listview.extra",
 			"support/mobile/widget/ExtendableList",
-			"support/mobile/widget/ListviewAutodivider"
+			"support/mobile/widget/ListviewAutodivider",
+			"support/mobile/widget/Collapsible.extra",
+			"support/mobile/widget/Collapsibleset.extra"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");

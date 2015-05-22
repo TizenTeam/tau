@@ -89,14 +89,14 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../../../../core/engine",
-			"../mobile",
-			"../../../../core/theme",
-			"../../../../core/event",
-			"../../../../core/util/DOM/attributes",
-			"../../../../core/util/selectors",
-			"./BaseWidgetMobile",
-			"./Collapsible"
+			"../../../core/engine",
+			"../../../profile/mobile/widget/mobile",
+			"../../../core/theme",
+			"../../../core/event",
+			"../../../core/util/DOM/attributes",
+			"../../../core/util/selectors",
+			"../../../profile/mobile/widget/mobile/BaseWidgetMobile",
+			"../../../profile/mobile/widget/mobile/GroupIndex"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
@@ -137,6 +137,7 @@
 				 * @static
 				 */
 				BaseWidget = widget.mobile.BaseWidgetMobile,
+				GroupIndex = widget.mobile.GroupIndex,
 				prototype = new BaseWidget(),
 
 				CollapsibleSet = function () {
@@ -173,12 +174,12 @@
 			 * @member ns.widget.mobile.CollapsibleSet
 			 */
 			CollapsibleSet.classes = {
-				uiCollapsible: "ui-collapsible",
+				uiCollapsible: GroupIndex.classes.uiGroupIndex,
 				uiCollapsibleSet: "ui-collapsible-set",
-				uiCollapsibleHeading: "ui-collapsible-heading",
+				uiCollapsibleHeading: GroupIndex.classes.uiGroupIndexHeading,
 				uiCornerTop: "ui-corner-top",
 				uiCornerBottom: "ui-corner-bottom",
-				uiCollapsibleContent : "ui-collapsible-content"
+				uiCollapsibleContent : GroupIndex.classes.uiGroupIndexContent
 			};
 
 

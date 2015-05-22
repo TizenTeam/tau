@@ -1,36 +1,35 @@
-.ui-listview .ui-li.ui-collapsible,
-.ui-listview .ui-collapsible {
+.ui-listview .ui-li.ui-group-index,
+.ui-listview .ui-group-index {
 	padding: 0;
-	border-bottom: 0;
-	border-top: 2px solid @color_list_divider_line;
+	border-bottom: 1px solid @color_list_border_bottom;
 }
 
 .ui-listview .ui-listview {
 	margin: 0;
 }
-.ui-collapsible-collapsed + .ui-collapsible .ui-collapsible-heading .ui-btn {
+.ui-group-index-collapsed + .ui-group-index .ui-group-index-heading .ui-btn {
 	border-top-width: 0;
 }
-.ui-collapsible-set .ui-collapsible .ui-collapsible-heading .ui-btn {
+.ui-group-index-set .ui-group-index .ui-group-index-heading .ui-btn {
 	border-top-width: 1px;
 }
-.ui-collapsible-heading, .ui-collapsible-content > li {
+.ui-group-index-heading, .ui-group-index-content > li {
 	position: relative;
 }
 
-.ui-listview .ui-collapsible.ui-li-static {
+.ui-listview .ui-group-index.ui-li-static {
 	padding: 0;
 }
 
-.ui-collapsible-heading {
+.ui-group-index-heading {
 	font-size: @font_size_list_main_text;
 	display: block;
 	margin: 0;
 	padding: 0;
 	position: relative;
 	background-color: @color_list_divider_bg;
-
-	.ui-collapsible-heading-toggle {
+	border-bottom: 1px solid @color_list_border_bottom;
+	.ui-group-index-heading-toggle {
 		position: relative;
 		display: block;
 		padding-top: 13 * @unit_base;
@@ -48,7 +47,7 @@
 			.mask-repeat(no-repeat);
 			.mask-position(center);
 			.mask-size(100%);
-			background-color: @color_list_collapsible_arrow;
+			background-color: @color_list_groupindex_arrow;
 			width: 60 * @unit_base;
 			height: 60 * @unit_base;
 			content: "";
@@ -58,25 +57,25 @@
 	}
 }
 
-.ui-collapsible-collapsed .ui-collapsible-heading-toggle {
+.ui-group-index-collapsed .ui-group-index-heading-toggle {
 	&::after {
 		.transition(all 330ms ease);
 		.rotate(180deg);
 	}
 }
 
-.ui-collapsible-heading-status {
+.ui-group-index-heading-status {
 	position: absolute;
 	top: -9999px;
 	left:0px;
 }
 
-.ui-collapsible-content li {
+.ui-group-index-content li {
 	padding: 30 * @unit_base 15 * @unit_base;
 	border-bottom: 1px solid @color_list_border_bottom;
 }
 
-.ui-collapsible-content {
+.ui-group-index-content {
 	display: block;
 	margin: 0 -24px;
 	padding: 0 24px;
@@ -88,16 +87,22 @@
 	max-height: 9999px;
 	overflow: visible;
 	.transition(all 300ms ease);
-
+	.ui-listview {
+		padding: 0;
+	}
+	li {
+		background-color: #fff;
+	}
 }
-.ui-collapsible-content-collapsed {
+.ui-group-index-content-collapsed {
 	overflow: hidden;
 	max-height: 0 !important;
 	display: none;
+	.transition(all 300ms ease);
 }
-.ui-collapsible-set {
+.ui-group-index-set {
 	margin: .5em 0;
-	.ui-collapsible {
+	.ui-group-index {
 		margin: -1px 0 0;
 		&:first-child {
 			margin-top: 0;
@@ -105,7 +110,7 @@
 	}
 }
 
-.ui-collapsible.ui-state-disabled {
+.ui-group-index.ui-state-disabled {
 	cursor: default !important;
 	pointer-events: none;
 	filter: alpha(opacity=30);

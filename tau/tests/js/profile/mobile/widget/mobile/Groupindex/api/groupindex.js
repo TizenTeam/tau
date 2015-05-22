@@ -7,11 +7,11 @@
 		equal(typeof ns, "object", "ns exists");
 		equal(typeof ns.widget, "object", "ns.widget exists");
 		equal(typeof ns.widget.mobile, "object", "ns.widget.mobile exists");
-		equal(typeof ns.widget.mobile.Collapsible, "function", "ns.widget.mobile.Collapsible exists");
+		equal(typeof ns.widget.mobile.GroupIndex, "function", "ns.widget.mobile.Collapsible exists");
 	});
 
 	test("Check widget options existance and default values", function () {
-		var widget = new ns.widget.mobile.Collapsible(),
+		var widget = new ns.widget.mobile.GroupIndex(),
 			options = widget.options;
 
 		equal(typeof options, "object", "Options object exists");
