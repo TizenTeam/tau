@@ -15,14 +15,14 @@
 <div id="qunit-fixture">
 	<div data-role="page" id="page1">
 		<div data-role="content">
-			<select id="select-range" data-role="range">
-				<option value="on"></option>
-				<option value="off"></option>
-			</select>
-			<select id="by-class-selector" class="ui-slider">
-				<option value="on"></option>
-				<option value="off"></option>
-			</select>
+			<ul data-role="listview">
+				<li data-role="list-divider">Normal slider</li>
+				<li><input id="mySlider1" name="mySlider1" data-popup="false" type="range" value="5" min="0" max="10" /></li>
+				<li data-role="list-divider">Icon slider</li>
+				<li><input id="mySlider3" name="mySlider3" data-popup="false" type="range" value="5" min="0" max="10" data-icon="bright"/></li>
+				<li data-role="list-divider">Center Point slider</li>
+				<li><input id="mySlider5" name="mySlider5" type="range" data-center="true" data-popup="false" data-icon="text" data-text-left="0" data-text-right="10" value="5" min="0" max="10"></li>
+			</ul>
 		</div>
 	</div>
 </div>
@@ -36,6 +36,7 @@
 		};
 	</script>
 	<script type="text/javascript" src="../../../../../../../libs/dist/js/tau.js"></script>
+	<script type="text/javascript" src="../../../../../../../libs/dist/js/tau.support-2.3.js"></script>
 
 </body>
 </html>

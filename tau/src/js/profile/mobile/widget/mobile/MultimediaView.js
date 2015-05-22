@@ -31,7 +31,7 @@
 			"../../../../core/widget/core/Button",
 			'./BaseWidgetMobile',
 			'./Scrollview',
-			'./Slider',
+			'./../../../../support/mobile/widget/Slider.extra',
 			'./Progressbar'
 		],
 		function () {

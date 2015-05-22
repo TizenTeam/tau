@@ -418,4 +418,6 @@
 }
 .ui-btn-icon.ui-icon-home::after {
 	-webkit-mask-image: url("images/00_button_home.png");
+.vertical-list {
+    height: 300px;
 }

@@ -22,7 +22,9 @@
 			"support/mobile/widget/ExtendableList",
 			"support/mobile/widget/ListviewAutodivider",
 			"support/mobile/widget/Collapsible.extra",
-			"support/mobile/widget/Collapsibleset.extra"
+			"support/mobile/widget/Collapsibleset.extra",
+			"support/mobile/widget/Slider.extra",
+			"support/mobile/widget/TizenSlider.extra"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
