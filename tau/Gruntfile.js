@@ -1,3 +1,4 @@
+/* jshint -W088 */
 module.exports = function(grunt) {
 	"use strict";
 
@@ -70,17 +71,18 @@ module.exports = function(grunt) {
 					var exts = [".min.js", ".js"],
 						licenseFiles = [],
 						device,
-						src;
+						src,
+						pushLicenseFile = function( ext ) {
+							src = path.join( buildDir[device].js, name ) + ext;
+							licenseFiles.push({
+								src: [path.join( "license", "Flora" ) + ".txt", src],
+								dest: src
+							});
+						};
 
 					for(device in buildDir) {
 						if( buildDir.hasOwnProperty(device) ) {
-							exts.forEach(function( ext ) {
-								src = path.join( buildDir[device].js, name ) + ext;
-								licenseFiles.push({
-									src: [path.join( "license", "Flora" ) + ".txt", src],
-									dest: src
-								});
-							});
+							exts.forEach(pushLicenseFile);
 						}
 					}
 
@@ -89,7 +91,7 @@ module.exports = function(grunt) {
 			},
 
 			css: {
-				getDefault: function( device, version ) {
+				getDefault: function( device ) {
 					var list = themes.device[device],
 						i=0,
 						len=list.length,
@@ -115,7 +117,31 @@ module.exports = function(grunt) {
 						list,
 						len,
 						theme,
-						src;
+						src,
+						pushChangableFiles = function( ext ) {
+							src = path.join( buildDir[device].theme, version, name ) + ext;
+							licenseFiles.push({
+								src: [path.join( "license", "Flora" ) + ".txt", src],
+								dest: src
+							});
+						},
+						pushNonChangableFiles = function( ext ) {
+							src = path.join( buildDir[device].theme, theme.name, name ) + ext;
+							licenseFiles.push({
+								src: [path.join( "license", "Flora" ) + ".txt", src],
+								dest: src
+							});
+						},
+						pushWearableFiles = function( ext ) {
+						len = wearableThemeColors.length;
+						for (i = 0; i < len; i++) {
+							src = path.join( buildDir[version].theme, wearableThemeColors[i], name ) + ext;
+							licenseFiles.push({
+								src: [path.join( "license", "Flora" ) + ".txt", src],
+								dest: src
+							});
+						}
+					};
 
 					for(device in buildDir) {
 						if( buildDir.hasOwnProperty(device) ) {
@@ -124,39 +150,18 @@ module.exports = function(grunt) {
 
 							if (version === "changeable") {
 								theme = list[0];
-								exts.forEach(function( ext ) {
-									src = path.join( buildDir[device].theme, version, name ) + ext;
-									licenseFiles.push({
-										src: [path.join( "license", "Flora" ) + ".txt", src],
-										dest: src
-									});
-								});
+								exts.forEach(pushChangableFiles);
 							} else {
 								for(; i < len; i++) {
 									theme = list[i];
-									exts.forEach(function( ext ) {
-										src = path.join( buildDir[device].theme, theme.name, name ) + ext;
-										licenseFiles.push({
-											src: [path.join( "license", "Flora" ) + ".txt", src],
-											dest: src
-										});
-									});
+									exts.forEach(pushNonChangableFiles);
 								}
 							}
 						}
 					}
 					if (version === "wearable") {
 						theme = themes.device[version];
-						exts.forEach(function( ext ) {
-							len = wearableThemeColors.length;
-							for (i = 0; i < len; i++) {
-								src = path.join( buildDir[version].theme, wearableThemeColors[i], name ) + ext;
-								licenseFiles.push({
-									src: [path.join( "license", "Flora" ) + ".txt", src],
-									dest: src
-								});
-							}
-						});
+						exts.forEach(pushWearableFiles);
 					}
 
 					return licenseFiles;
@@ -325,6 +330,30 @@ module.exports = function(grunt) {
 							end: wrapEnd
 						}
 					}
+				},
+
+				unit_test: {
+					options: {
+						baseUrl: srcJs,
+						optimize: "none",
+						findNestedDependencies: true,
+						skipModuleInsertion: true,
+						out: path.join(buildRoot, "unit", "tau.js"),
+						include: [
+							"core/event"
+						],
+						pragmas: {
+							tauPerformance: !tauPerformance
+						},
+						pragmasOnSave: {
+							tauBuildExclude: true,
+							tauDebug: !tauDebug
+						},
+						wrap: {
+							start: wrapStart,
+							end: wrapEnd
+						}
+					}
 				}
 			},
 
@@ -399,7 +428,7 @@ module.exports = function(grunt) {
 						{
 							src: path.join(buildDir.wearable.theme, "changeable", "tau.template"),
 							dest: path.join(buildDir.wearable.theme, "blue", "tau.css")
-						},
+						}
 					]
 				},
 				wearable_circle: {
@@ -451,10 +480,10 @@ module.exports = function(grunt) {
 						src: ["**/*.css", "!**/*.min.css"],
 						dest: buildRoot,
 						rename: function (dest, src) {
-							var folder = src.substring(0, src.lastIndexOf('/'));
-							var filename = src.substring(src.lastIndexOf('/'), src.length);
-							filename = filename.substring(0, filename.lastIndexOf('.'));
-							return dest +"/"+ folder + filename + '.min.css';
+							var folder = src.substring(0, src.lastIndexOf("/")),
+								filename = src.substring(src.lastIndexOf("/"), src.length);
+							filename = filename.substring(0, filename.lastIndexOf("."));
+							return dest +"/"+ folder + filename + ".min.css";
 						}
 					}]
 				},
@@ -465,10 +494,10 @@ module.exports = function(grunt) {
 					src: ["**/*.template"],
 					dest: buildRoot,
 					rename: function (dest, src) {
-						var folder = src.substring(0, src.lastIndexOf('/'));
-						var filename = src.substring(src.lastIndexOf('/'), src.length);
-						filename = filename.substring(0, filename.lastIndexOf('.'));
-						return dest +"/"+ folder + filename + '.min.template';
+						var folder = src.substring(0, src.lastIndexOf("/")),
+							filename = src.substring(src.lastIndexOf("/"), src.length);
+						filename = filename.substring(0, filename.lastIndexOf("."));
+						return dest +"/"+ folder + filename + ".min.template";
 					}
 				}
 			},
@@ -520,7 +549,7 @@ module.exports = function(grunt) {
 					files: [
 						{
 							expand: true,
-							cwd: 'libs/animation/',
+							cwd: "libs/animation/",
 							src: "**",
 							dest: path.join(dist, "animation/")
 						}
@@ -564,34 +593,34 @@ module.exports = function(grunt) {
 			"developer-guide-extract": {
 				core: {
 					files: [{
-						src: ['src/js/core/**/*.js'],
-						dest: 'docs/guide/source/inline/core/',
+						src: ["src/js/core/**/*.js"],
+						dest: "docs/guide/source/inline/core/",
 						// Part of the path removed in destination
-						destBase: 'src/js/core/'
+						destBase: "src/js/core/"
 					}]
 				},
 				wearable: {
 					files: [{
-						src: ['src/js/profile/wearable/**/*.js'],
-						dest: 'docs/guide/source/inline/wearable/',
+						src: ["src/js/profile/wearable/**/*.js"],
+						dest: "docs/guide/source/inline/wearable/",
 						// Part of the path removed in destination
-						destBase: 'src/js/profile/wearable/'
+						destBase: "src/js/profile/wearable/"
 					}]
 				},
 				mobile: {
 					files: [{
-						src: 'src/js/profile/mobile/**/*.js',
-						dest: 'docs/guide/source/inline/mobile/',
+						src: "src/js/profile/mobile/**/*.js",
+						dest: "docs/guide/source/inline/mobile/",
 						// Part of the path removed in destination
-						destBase: 'src/js/profile/mobile/'
+						destBase: "src/js/profile/mobile/"
 					}]
 				},
 				tv: {
 					files: [{
-						src: ['src/js/profile/tv/**/*.js'],
-						dest: 'docs/guide/source/inline/tv/',
+						src: ["src/js/profile/tv/**/*.js"],
+						dest: "docs/guide/source/inline/tv/",
 						// Part of the path removed in destination
-						destBase: 'src/js/profile/tv/'
+						destBase: "src/js/profile/tv/"
 					}]
 				}
 			},
@@ -619,16 +648,16 @@ module.exports = function(grunt) {
 
 			"remove-unused": {
 				"images": {
-					resourcesPath: 'src/css',
+					resourcesPath: "src/css",
 					imageFiles: [
-						'src/css/**/*.png',
-						'src/css/**/*.jpg',
-						'src/css/**/*.jpeg'
+						"src/css/**/*.png",
+						"src/css/**/*.jpg",
+						"src/css/**/*.jpeg"
 					],
 					// Finding css files instead of less will ensure that every custom created filename will be
 					// present in the output
 					codeFiles: [
-						'dist/**/*.css'
+						"dist/**/*.css"
 					]
 				}
 			},
@@ -636,41 +665,41 @@ module.exports = function(grunt) {
 			"string-replace": {
 				jsduck: {
 					files: {
-						'tmp/jsduck/' : 'dist/**/tau.js'
+						"tmp/jsduck/" : "dist/**/tau.js"
 					},
 					options: {
 						replacements: [
 							{
 								pattern: /.*\@namespace.*/gi,
-								replacement: ''
+								replacement: ""
 							},
 							{
 								pattern: /.*\@instance.*/ig,
-								replacement: ''
+								replacement: ""
 							},
 							{
 								pattern: /.*\@expose.*/ig,
-								replacement: ''
+								replacement: ""
 							},
 							{
 								pattern: /.*\@internal.*/ig,
-								replacement: ''
+								replacement: ""
 							},
 							{
 								pattern: /.*\@example.*/ig,
-								replacement: ''
+								replacement: ""
 							},
 							{
 								pattern: /.*\@page.*/ig,
-								replacement: ''
+								replacement: ""
 							},
 							{
 								pattern: /.*\@title.*/ig,
-								replacement: ''
+								replacement: ""
 							},
 							{
 								pattern: /.*\@seeMore.*/ig,
-								replacement: ''
+								replacement: ""
 							}
 						]
 					}
@@ -697,22 +726,25 @@ module.exports = function(grunt) {
 				theme: [ buildDir.mobile.theme, buildDir.wearable.theme, buildDir.tv.theme ],
 				docs: {
 					expand: true,
-					src: ['docs/sdk', 'docs/js']
+					src: ["docs/sdk", "docs/js"]
 				},
 				tmp: {
 					expand: true,
-					src: ['tmp']
+					src: ["tmp"]
 				},
 				guide: {
 					expand: true,
-					src: ['docs/guide/built', 'docs/guide/source/inline']
+					src: ["docs/guide/built", "docs/guide/source/inline"]
 				}
 			},
 
 			qunit: {
 				options: {
-					'--web-security': 'no'
-				}
+					"--web-security": "no"
+				},
+				"unit-docs": [
+					"tests/docs/unit/all.html"
+				]
 			},
 
 			"qunit-tap": {
@@ -724,7 +756,7 @@ module.exports = function(grunt) {
 					template: "sdk",
 					version: version,
 					files: {
-						src: ['dist/mobile/js/tau.js']
+						src: ["dist/mobile/js/tau.js"]
 					}
 				},
 				wearable: {
@@ -732,14 +764,14 @@ module.exports = function(grunt) {
 					template: "sdk",
 					version: version,
 					files: {
-						src: ['dist/wearable/js/tau.js']
+						src: ["dist/wearable/js/tau.js"]
 					}
 				},
 				tv: {
 					profile: "tv",
 					template: "sdk",
 					files: {
-						src: ['dist/tv/js/tau.js']
+						src: ["dist/tv/js/tau.js"]
 					}
 				},
 				"mobile-dld": {
@@ -747,7 +779,7 @@ module.exports = function(grunt) {
 					template: "dld",
 					version: version,
 					files: {
-						src: ['dist/mobile/js/tau.js']
+						src: ["dist/mobile/js/tau.js"]
 					}
 				},
 				"wearable-dld": {
@@ -755,7 +787,16 @@ module.exports = function(grunt) {
 					template: "dld",
 					version: version,
 					files: {
-						src: ['dist/wearable/js/tau.js']
+						src: ["dist/wearable/js/tau.js"]
+					}
+				},
+				unit: {
+					profile: "core",
+					template: "sdk",
+					version: version,
+					failOnError: true,
+					files: {
+						src: ["dist/unit/tau.js"]
 					}
 				}
 			},
@@ -805,18 +846,18 @@ module.exports = function(grunt) {
 		obj();
 	});
 
-	grunt.registerTask('jsduck', ['clean:tmp', 'clean:docs', 'string-replace:jsduck', 'jsduckDocumentation']);
+	grunt.registerTask("jsduck", ["clean:tmp", "clean:docs", "string-replace:jsduck", "jsduckDocumentation"]);
 
 	function runJSDuck(profile, callback) {
-		var cmd = 'jsduck',
-			src = [path.join('tmp', 'jsduck', "dist", profile, "js")],
-			dest = path.join('docs', 'jsduck', profile),
+		var cmd = "jsduck",
+			src = [path.join("tmp", "jsduck", "dist", profile, "js")],
+			dest = path.join("docs", "jsduck", profile),
 			args,
-			environmentClasses = ['DocumentFragment', 'CustomEvent',
-				'HTMLUListElement', 'HTMLOListElement', 'HTMLCollection',
-				'HTMLBaseElement', 'HTMLImageElement', 'WebGLRenderingContext',
+			environmentClasses = ["DocumentFragment", "CustomEvent",
+				"HTMLUListElement", "HTMLOListElement", "HTMLCollection",
+				"HTMLBaseElement", "HTMLImageElement", "WebGLRenderingContext",
 				"HTMLSelectElement", "HTMLInputElement", "CSSRule",
-				'WebGLProgram', 'jQuery', 'DOMTokenList', "HTMLLinkElement",
+				"WebGLProgram", "jQuery", "DOMTokenList", "HTMLLinkElement",
 				"HTMLScriptElement", "HTMLCanvasElement", "MouseEvent", "TouchEvent",
 				"HTMLHeadElement", "HTMLInputElement", "HTMLButtonElement",
 				"jQuery.Event",
@@ -826,18 +867,18 @@ module.exports = function(grunt) {
 		if (!grunt.file.exists("docs")) {
 			grunt.file.mkdir("docs");
 		}
-		if (!grunt.file.exists(path.join('docs', 'jsduck'))) {
-			grunt.file.mkdir(path.join('docs', 'jsduck'));
+		if (!grunt.file.exists(path.join("docs", "jsduck"))) {
+			grunt.file.mkdir(path.join("docs", "jsduck"));
 		}
-		if (!grunt.file.exists(path.join('docs', 'jsduck', profile))) {
-			grunt.file.mkdir(path.join('docs', 'jsduck', profile));
+		if (!grunt.file.exists(path.join("docs", "jsduck", profile))) {
+			grunt.file.mkdir(path.join("docs", "jsduck", profile));
 		}
 
 		args = src.concat([
-			'--title=' + name.toUpperCase() + " - " + version,
-			'--eg-iframe=./tools/jsduck/'+ profile +'-preview.html',
-			'--external=' + environmentClasses.join(','),
-			'--output', dest
+			"--title=" + name.toUpperCase() + " - " + version,
+			"--eg-iframe=./tools/jsduck/"+ profile +"-preview.html",
+			"--external=" + environmentClasses.join(","),
+			"--output", dest
 		]);
 
 		grunt.verbose.writeflags(args, "Arguments");
@@ -846,12 +887,12 @@ module.exports = function(grunt) {
 			cmd: cmd,
 			args: args
 		}, function (error, result, code) {
-			grunt.file.delete(path.join('tmp', 'jsduck', "dist", profile, "js"), {force: true});
-			if (code === 127) {   // 'command not found'
+			grunt.file.delete(path.join("tmp", "jsduck", "dist", profile, "js"), {force: true});
+			if (code === 127) {   // "command not found"
 				return grunt.warn(
-					'You need to have Ruby and JSDuck installed and in your PATH for ' +
-					'this task to work. ' +
-					'See https://github.com/dpashkevich/grunt-jsduck for details.'
+					"You need to have Ruby and JSDuck installed and in your PATH for " +
+					"this task to work. " +
+					"See https://github.com/dpashkevich/grunt-jsduck for details."
 				);
 			}
 			callback(error);
@@ -861,7 +902,7 @@ module.exports = function(grunt) {
 		jsduck.stderr.pipe(process.stderr);
 	}
 
-	grunt.registerTask('jsduckDocumentation', 'Compile JSDuck documentation', function () {
+	grunt.registerTask("jsduckDocumentation", "Compile JSDuck documentation", function () {
 		var async = require("async"),
 			done = this.async();
 
@@ -877,54 +918,56 @@ module.exports = function(grunt) {
 		var requirejs = initConfig.requirejs,
 			profileName,
 			source,
-			ver,
 			themeName;
 
-		for (profileName in themes['device']) {
-			themes['device'][profileName].forEach(function (theme) {
-				for (ver in themeVersion) {
-					if (themeVersion.hasOwnProperty(ver)) {
-						if (themeVersion[ver] === "changeable") {
-							theme = themes["device"][profileName][0];
-							themeName = "changeable";
-						} else {
-							themeName = theme.name
-						}
+		function defineRequireForTheme(theme) {
+			var ver;
+			for (ver in themeVersion) {
+				if (themeVersion.hasOwnProperty(ver)) {
+					if (themeVersion[ver] === "changeable") {
+						theme = themes["device"][profileName][0];
+						themeName = "changeable";
+					} else {
+						themeName = theme.name;
+					}
 
-						source = path.join("..", "css", "profile", profileName, themeVersion[ver], "theme-" + theme.name, 'theme');
-						if (grunt.file.exists(path.join(srcJs, source + '.js'))) {
-							requirejs["themejs_" + profileName + '_'+ themeVersion[ver] + "_" + theme.name] = {
-								options: {
-									baseUrl: srcJs,
-									optimize: "none",
-									skipModuleInsertion: true,
-									exclude: [ profileName ],
-									name: path.join("..", "css", "profile", profileName, themeVersion[ver], "theme-" + theme.name, 'theme'),
-									out: path.join( buildDir[profileName].theme, themeName, 'theme' ) + '.js',
-									pragmas: {
-										tauPerformance: true
-									},
-									pragmasOnSave: {
-										tauBuildExclude: true,
-										tauDebug: true
-									},
-									wrap: {
-										start: '(function (ns) {',
-										end: '}(tau));'
-									}
+					source = path.join("..", "css", "profile", profileName, themeVersion[ver], "theme-" + theme.name, "theme");
+					if (grunt.file.exists(path.join(srcJs, source + ".js"))) {
+						requirejs["themejs_" + profileName + "_"+ themeVersion[ver] + "_" + theme.name] = {
+							options: {
+								baseUrl: srcJs,
+								optimize: "none",
+								skipModuleInsertion: true,
+								exclude: [ profileName ],
+								name: path.join("..", "css", "profile", profileName, themeVersion[ver], "theme-" + theme.name, "theme"),
+								out: path.join( buildDir[profileName].theme, themeName, "theme" ) + ".js",
+								pragmas: {
+									tauPerformance: true
+								},
+								pragmasOnSave: {
+									tauBuildExclude: true,
+									tauDebug: true
+								},
+								wrap: {
+									start: "(function (ns) {",
+									end: "}(tau));"
 								}
-							};
-						}
+							}
+						};
 					}
 				}
-			});
+			}
+		}
+
+		for (profileName in themes["device"]) {
+			themes["device"][profileName].forEach(defineRequireForTheme);
 		}
 	})();
 
 	function themesjs() {
 		var task;
 		for (task in initConfig.requirejs) {
-			if (initConfig.requirejs.hasOwnProperty(task) && task.indexOf('themejs_') !== -1) {
+			if (initConfig.requirejs.hasOwnProperty(task) && task.indexOf("themejs_") !== -1) {
 				grunt.task.run("requirejs:" + task);
 			}
 		}
@@ -947,7 +990,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks("grunt-debug-task");
 
 	// Load framework custom tasks
-	grunt.loadTasks('tools/grunt/tasks');
+	grunt.loadTasks("tools/grunt/tasks");
 
 	// Task list
 	grunt.registerTask("themesjs", "Generate themes files using requirejs", themesjs);  // Generate separate themes files
