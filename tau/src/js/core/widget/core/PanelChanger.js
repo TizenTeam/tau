@@ -117,6 +117,9 @@
 				}
 				ui.activePanel.style.display = "block";
 				self._direction = "forward";
+				localStorage[DEFAULT.STORAGE_NAME] = [];
+				self.history.push(ui.activePanel.id);
+				localStorage[DEFAULT.STORAGE_NAME] = JSON.stringify(self.history);
 				this._initLayout();
 				return element;
 			};
@@ -219,7 +222,7 @@
 				events.trigger(ui.activePanel, eventType.BEFORE_HIDE);
 				panel.classList.add(classes.PRE_IN);
 
-				self.history = JSON.parse(localStorage[DEFAULT.STORAGE_NAME]);
+				self.history = JSON.parse(localStorage[DEFAULT.STORAGE_NAME] || "[]");
 				if (direction === "forward") {
 					self.history.push(panel.getAttribute("id"));
 					localStorage[DEFAULT.STORAGE_NAME] = JSON.stringify(self.history);

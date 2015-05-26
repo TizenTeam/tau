@@ -80,7 +80,7 @@
 			routePanel.onHashChange = function (url, options, prev) {
 				var self = this,
 					storageName = panelChanger.default.STORAGE_NAME,
-					panelHistory = JSON.parse(localStorage[storageName]),
+					panelHistory = JSON.parse(localStorage[storageName] || "[]"),
 					panelChangerComponent = self._panelChangerComponent,
 					activePanel = panelHistory[panelHistory.length - 1];
 
