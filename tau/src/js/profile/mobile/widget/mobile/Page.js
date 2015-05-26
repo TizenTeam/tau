@@ -597,7 +597,7 @@
 			Page.prototype._bindEvents = function (element) {
 				var self = this;
 				CorePagePrototype._bindEvents.call(self, element);
-				element.addEventListener("pageshow", self.contentFillAfterResizeCallback, false);
+				element.addEventListener("pagebeforeshow", self.contentFillAfterResizeCallback, false);
 				element.addEventListener("updatelayout", self.contentFillAfterResizeCallback, false);
 			};
 
