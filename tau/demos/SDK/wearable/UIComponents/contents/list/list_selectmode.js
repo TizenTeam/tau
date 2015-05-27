@@ -16,6 +16,8 @@
 		views = page.querySelectorAll(".ui-view"),
 		drawerElement = page.querySelector("#rightDrawer"),
 		handler = document.getElementById("handler"),
+		viewSwitcherComponent,
+		rotaryHandlerBound,
 		selectCount,
 		drawerHelper,
 		i,
@@ -101,6 +103,26 @@
 		}
 	};
 
+	function rotaryHandler(event) {
+		var direction = event.detail.direction,
+			activeIndex = viewSwitcherComponent.getActiveIndex();
+
+		if (tau.widget.Drawer(drawerElement).getState() === "opened") {
+			event.stopPropagation();
+			if(direction === "CW") {
+				// right
+				if (activeIndex < views.length - 1) {
+					viewSwitcherComponent.setActiveIndex(activeIndex + 1);
+				}
+			} else {
+				// left
+				if (activeIndex > 0) {
+					viewSwitcherComponent.setActiveIndex(activeIndex - 1);
+				}
+			}
+		}
+	}
+
 	page.addEventListener("pageshow", function(ev) {
 		listview.addEventListener('click', addFunction, false);
 		selectAll.addEventListener("click", fnSelectAll, false);
@@ -115,6 +137,7 @@
 		selectAll.removeEventListener("click", fnSelectAll, false);
 		deselectAll.removeEventListener("click", fnDeselectAll, false);
 		document.removeEventListener('tizenhwkey', fnBackKey);
+		document.removeEventListener("rotarydetent", rotaryHandlerBound);
 		modeHide();
 		drawerHelper.destroy();
 	}, false);
@@ -124,14 +147,15 @@
 		pageIndicator =  tau.widget.PageIndicator(elPageIndicator, { numberOfPages: 3 });
 		pageIndicator.setActive(0);
 
-		tau.widget.ViewSwitcher(drawerViewSwitcher);
+		viewSwitcherComponent = tau.widget.ViewSwitcher(drawerViewSwitcher);
 
 		/********** drawer ******************/
 		drawerHelper = tau.helper.DrawerMoreStyle.create(drawerElement, {
 			handler: ".drawer-handler"
 		});
-		document.addEventListener('tizenhwkey', fnBackKey);	
-
+		document.addEventListener('tizenhwkey', fnBackKey);
+		rotaryHandlerBound = rotaryHandler.bind(this);
+		document.addEventListener("rotarydetent", rotaryHandlerBound);
 		drawerViewSwitcher.addEventListener("viewchange", function(event) {
 			var index = event.detail.index;
 			if (index < 0 || index > views.length - 1) {
