@@ -1,4 +1,7 @@
 %changelog
+* Wed May 27 2015 Hyeoncheol Choi <hc7.choi@samsung.com> 0.10.24
+	- fix(wearable): fix rotary event handling in select mode
+
 * Wed May 20 2015 Hagun Kim <hagun.kim@samsung.com> 0.10.23
 	- feat(wearable): fix expandable header issue (P150519-05888)
 	- refactor(wearable): change images in processing
