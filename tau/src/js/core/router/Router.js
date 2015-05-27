@@ -23,6 +23,7 @@
 			"../util/selectors",
 			"../util/path",
 			"../util/object",
+			"../util/pathToRegexp",
 			"../router",
 			"./route", // fetch namespace
 			"./history",
@@ -64,6 +65,7 @@
 				 * @private
 				 */
 				path = util.path,
+				pathToRegexp = util.pathToRegexp,
 				/**
 				 * Local alias for ns.util.selectors
 				 * @property {Object} selectors Alias for {@link ns.util.selectors}
@@ -162,6 +164,8 @@
 					 * @member ns.router.Router
 					 */
 					self.settings = {};
+
+					self.routes = [];
 				};
 
 			/**
@@ -214,13 +218,18 @@
 				var link = findClosestLink(event.target),
 					href,
 					useDefaultUrlHandling,
-					options;
+					options,
+					rel = null;
 
 				if (link && event.which === 1) {
 					href = link.getAttribute("href");
-					useDefaultUrlHandling = (link.getAttribute("rel") === "external") || link.hasAttribute("target");
+					rel = link.getAttribute("rel");
+					useDefaultUrlHandling = rel === "external" || link.hasAttribute("target");
 					if (!useDefaultUrlHandling) {
 						options = DOM.getData(link);
+						if (rel) {
+							options.rel = rel;
+						}
 						router.open(href, options, event);
 						eventUtils.preventDefault(event);
 					}
@@ -317,6 +326,97 @@
 			};
 
 			/**
+			 * Ads route to routing table
+			 * @param {string} path
+			 * @param {Function} callback
+			 * @member ns.router.Router
+			 * @method addRoute
+			 */
+			Router.prototype.addRoute = function (path, callback) {
+				var self = this,
+					routes = self.routes,
+					pathExists = routes.some(function (value) {
+						return value.path === path;
+					}),
+					route = null;
+				if (!pathExists) {
+					route = {
+						path: path,
+						callback: callback,
+						regexp: null,
+						keys: []
+					};
+					route.regexp = pathToRegexp(path, route.keys);
+					routes.push(route);
+				}
+			};
+
+			/**
+			 * Removes route from routing table
+			 * @param {string} path
+			 * @member ns.router.Router
+			 * @method removeRoute
+			 */
+			Router.prototype.removeRoute = function (path) {
+				this.routes = this.routes.filter(function (value) {
+					return value.path !== path;
+				});
+			};
+
+			/**
+			 * Iterates through routes, tries to find matching and executes it
+			 * @param {Array} routes
+			 * @param {string} path
+			 * @param {object} deferred
+			 * @param {object} options
+			 * @param {ns.router.Router} router
+			 * @return {boolean}
+			 * @member ns.router.Router
+			 * @static
+			 * @private
+			 */
+			function loadRouteFromList(routes, path, deferred, options, router) {
+				return routes.some(function (route) {
+					var matches = route.regexp.exec(path),
+						container = router.container.element,
+						deferredTemplate = {},
+						params = [];
+					if (matches && matches.length > 0) {
+						deferredTemplate.resolve = function (content) {
+							if (options.showLoadMsg) {
+								router._hideLoading();
+							}
+							if (content) {
+								if (typeof content === "string") {
+									container.insertAdjacentHTML("beforeend", content);
+									content = container.lastElementChild;
+								}
+								if (content) { // double check
+									if (!DOM.hasNSData(content, "url")) {
+										DOM.setNSData(content, "url", path);
+									}
+									deferred.resolve(options, content);
+								}
+								return true;
+							}
+							deferred.reject(options);
+							return false;
+						};
+						deferredTemplate.reject = function () {
+							deferred.reject();
+						};
+
+						params = matches.splice(1);
+						params.unshift(deferredTemplate);
+						route.callback.apply(null, params);
+						return true;
+					}
+
+					return false;
+				});
+			}
+
+			/**
 			 * Change page to page given in parameter "to".
 			 * @method open
 			 * @param {string|HTMLElement} to Id of page or file url or HTMLElement of page
@@ -367,7 +467,9 @@
 							};
 							if (typeof to === "string") {
 								if (to.replace(/[#|\s]/g, "")) {
-									this._loadUrl(to, options, rule, deferred);
+									if (!loadRouteFromList(self.routes, to.replace(/^[^#]*#/i, ""), deferred, options, self)) {
+										this._loadUrl(to, options, rule, deferred);
+									}
 								}
 							} else {
 								if (to && selectors.matchesSelector(to, filter)) {
@@ -659,7 +761,8 @@
 			Router.prototype._loadUrl = function (url, options, rule, deferred) {
 				var absUrl = path.makeUrlAbsolute(url, path.getLocation()),
 					content,
-					self = this;
+					self = this,
+					data = options.data || {};
 
 				content = rule.find(absUrl);
 
@@ -678,7 +781,8 @@
 							self._showLoading(options.loadMsgDelay);
 						}
 
-						template.render(absUrl, options.data || {}, function (status, element) {
+						data.fullDocument = true;
+						template.render(absUrl, data, function (status, element) {
 							if (status.success) {
 								self._loadSuccess(absUrl, options, rule, deferred, element);
 							} else {

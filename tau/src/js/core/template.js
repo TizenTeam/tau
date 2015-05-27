@@ -136,7 +136,7 @@
 
 				// if template system exists then we go to him
 				if (templateFunction) {
-					templateFunction(globalOptions, path, data, callback);
+					templateFunction(globalOptions, path, data || {}, callback);
 				} else {
 					// else we return error
 					callback({

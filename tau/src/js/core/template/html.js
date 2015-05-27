@@ -21,12 +21,17 @@
 				util = ns.util,
 				utilPath = util.path;
 
-			function callbackFunction(callback, event) {
+			function callbackFunction(callback, data, event) {
 				var request = event.target,
-					status = {};
+					status = {},
+					element = null;
 				if (request.readyState === 4) {
 					status.success = (request.status === 200 || (request.status === 0 && request.responseXML));
-					callback(status, request.responseXML);
+					element = request.responseXML;
+					if (!data.fullDocument) {
+						element = element.body.firstChild;
+					}
+					callback(status, element);
 				}
 			}
 
@@ -38,13 +43,13 @@
 			 * @param callback
 			 */
 			function htmlTemplate(globalOptions, path, data, callback) {
-				var absUrl = path.makeUrlAbsolute((globalOptions.pathPrefix || "" ) + path, utilPath.getLocation()),
+				var absUrl = utilPath.makeUrlAbsolute((globalOptions.pathPrefix || "" ) + path, utilPath.getLocation()),
 					request,
-					eventCallback = callbackFunction.bind(null, callback);
+					eventCallback = callbackFunction.bind(null, callback, data);
 
 				// If the caller provided data append the data to the URL.
 				if (data) {
-					absUrl = path.addSearchParams(path, data);
+					absUrl = utilPath.addSearchParams(path, data);
 				}
 
 				// Load the new content.
