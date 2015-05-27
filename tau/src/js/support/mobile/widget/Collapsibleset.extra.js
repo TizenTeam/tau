@@ -1,4 +1,4 @@
-/*global window, define */
+/*global window, define, ns */
 /*
 * Copyright  2010 - 2014 Samsung Electronics Co., Ltd.
 * License : MIT License V2
@@ -96,7 +96,7 @@
 			"../../../core/util/DOM/attributes",
 			"../../../core/util/selectors",
 			"../../../profile/mobile/widget/mobile/BaseWidgetMobile",
-			"../../../profile/mobile/widget/mobile/GroupIndex"
+			"../../../profile/mobile/widget/mobile/Expandable"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
@@ -137,7 +137,7 @@
 				 * @static
 				 */
 				BaseWidget = widget.mobile.BaseWidgetMobile,
-				GroupIndex = widget.mobile.GroupIndex,
+				Expandable = widget.mobile.Expandable,
 				prototype = new BaseWidget(),
 
 				CollapsibleSet = function () {
@@ -174,12 +174,12 @@
 			 * @member ns.widget.mobile.CollapsibleSet
 			 */
 			CollapsibleSet.classes = {
-				uiCollapsible: GroupIndex.classes.uiGroupIndex,
+				uiCollapsible: Expandable.classes.uiExpandable,
 				uiCollapsibleSet: "ui-collapsible-set",
-				uiCollapsibleHeading: GroupIndex.classes.uiGroupIndexHeading,
+				uiCollapsibleHeading: Expandable.classes.uiExpandableHeading,
 				uiCornerTop: "ui-corner-top",
 				uiCornerBottom: "ui-corner-bottom",
-				uiCollapsibleContent : GroupIndex.classes.uiGroupIndexContent
+				uiCollapsibleContent : Expandable.classes.uiExpandableContent
 			};
 
 

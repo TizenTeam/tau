@@ -5,7 +5,7 @@
 * License : MIT License V2
 */
 /**
- * #GroupIndex Alias for Collapsible Widget
+ * #Expandable Alias for Collapsible Widget
  *
  * @class ns.widget.mobile.Collapsible
  * @author Hyeoncheol Choi <hc7.choi@samsung.com>
@@ -16,19 +16,19 @@
 	define(
 		[
 			"../../../core/engine",
-			"../../../profile/mobile/widget/mobile/GroupIndex"
+			"../../../profile/mobile/widget/mobile/Expandable"
 		],
 
 		function () {
 			//>>excludeEnd("tauBuildExclude");
-			var GroupIndex = ns.widget.mobile.GroupIndex,
+			var Expandable = ns.widget.mobile.Expandable,
 				engine = ns.engine;
-			ns.widget.mobile.Collapsible = GroupIndex;
+			ns.widget.mobile.Collapsible = Expandable;
 			engine.defineWidget(
 				"Collapsible",
 				"[data-role='collapsible'], .ui-collapsible",
 				["open", "close"],
-				GroupIndex,
+				Expandable,
 				"mobile"
 			);
 

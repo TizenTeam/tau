@@ -85,7 +85,7 @@
 			"./profile/mobile/widget/mobile/Popup",
 			"./profile/mobile/widget/mobile/Scrollview",
 			"./profile/mobile/widget/mobile/Circularview",
-			"./profile/mobile/widget/mobile/GroupIndex",
+			"./profile/mobile/widget/mobile/Expandable",
 			"./profile/mobile/widget/mobile/Dialog",
 			"./profile/mobile/widget/mobile/Listview",
 			"./profile/mobile/widget/mobile/Listdivider",
