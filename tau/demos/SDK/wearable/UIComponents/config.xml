@@ -3,7 +3,7 @@
 	<tizen:application id="1234567890.UIComponents" package="1234567890" required_version="2.3"/>
 	<content src="index.html"/>
 	<icon src="icon.png"/>
-	<name>UI Component Demo</name>
+	<name>UIComponents</name>
 	<feature name="http://tizen.org/feature/screen.size.normal"/>
 	<tizen:privilege name="http://tizen.org/privilege/application.launch"/>
 	<tizen:privilege name="http://tizen.org/privilege/filesystem.read"/>
