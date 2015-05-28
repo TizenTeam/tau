@@ -142,6 +142,7 @@
 
 				if (activeWidget && stateUrl.search(circularindexscrollbarHashKey) > 0 && url.search(circularindexscrollbarHashKey) < 0) {
 					activeWidget.hide(options);
+					self.active = false;
 					return true;
 				}
 				return null;

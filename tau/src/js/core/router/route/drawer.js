@@ -123,6 +123,7 @@
 				if(activeDrawer) {
 					url = path.addHashSearchParams(documentUrl, drawerHashKey);
 					history.replace({}, "", url);
+					this.active = true;
 				} else if (pathLocation !== documentUrl) {
 					history.back();
 				}
@@ -145,6 +146,7 @@
 
 				if (activeDrawer && stateUrl.search(drawerHashKey) > 0 && url.search(drawerHashKey) < 0) {
 					activeDrawer.close(options);
+					this.active = false;
 					return true;
 				}
 				return null;
