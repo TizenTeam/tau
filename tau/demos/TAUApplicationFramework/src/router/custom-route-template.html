@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width,user-scalable=no"/>
+		<script src="../../lib/tau/mobile/js/tau.js" data-build-remove="false"></script>
+		<script src="../../lib/highlightjs/highlight.min.js"></script>
+		<script src="../highlighting.js"></script>
+		<link rel="stylesheet"  href="../../lib/tau/mobile/theme/default/tau.css">
+		<link rel="stylesheet"  href="../../lib/highlightjs/styles/github.css">
+		<link rel="stylesheet"  href="../custom.css">
+		<title>TAU Application Framework</title>
+		<!-- for compatibility test -->
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<link rel="apple-touch-icon" href="icon-tizen.png" />
+	</head>
+	<body>
+		<div data-role="page" id="custom-route-page-template">
+			<div data-role="header" data-position="fixed">
+				<h1>Loading pages from templates</h1>
+			</div>
+			<div data-role="content">
+				<pre><code class="javascript">
+var router = tau.engine.getRouter();
+router.addRoute("page-template", function (deferred) {
+	tau.template.render("templates/page-template.html", {}, function (status, data) {
+		if (status.success) {
+			deferred.resolve(data.body);
+		} else {
+			deferred.reject();
+		}
+	});
+});
+				</code></pre>
+			</div>
+				<script>
+					var router = tau.engine.getRouter();
+					router.addRoute("page-template", function (deferred) {
+						tau.template.render("templates/page-template.html", {}, function (status, data) {
+							if (status.success) {
+								deferred.resolve(data); // @TODO THIS HAS TO BE FIXED IN TEMPLATES!!
+							} else {
+								deferred.reject();
+							}
+						});
+					});
+				</script>
+				<footer>
+					<a href="#page-template">Test it</a>
+				</footer>
+		</div>
+	</body>
+</html>

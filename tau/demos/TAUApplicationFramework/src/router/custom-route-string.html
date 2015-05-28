@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width,user-scalable=no"/>
+		<script src="../../lib/tau/mobile/js/tau.js" data-build-remove="false"></script>
+		<script src="../../lib/highlightjs/highlight.min.js"></script>
+		<script src="../highlighting.js"></script>
+		<link rel="stylesheet"  href="../../lib/tau/mobile/theme/default/tau.css">
+		<link rel="stylesheet"  href="../../lib/highlightjs/styles/github.css">
+		<link rel="stylesheet"  href="../custom.css">
+		<title>TAU Application Framework</title>
+		<!-- for compatibility test -->
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<link rel="apple-touch-icon" href="icon-tizen.png" />
+	</head>
+	<body>
+		<div data-role="page" id="custom-route-string-page">
+			<div data-role="header" data-position="fixed">
+				<h1>Loading pages from string</h1>
+			</div>
+			<div data-role="content">
+				<pre><code class="javascript">
+var router = tau.engine.getRouter();
+router.addRoute("page-string", function (deferred) {
+	// return page as string
+	deferred.resolve('&lt;div data-role="page"&gt;Hello world!&lt;/div&gt;');
+});
+				</code></pre>
+			</div>
+				<script>
+					var router = tau.engine.getRouter();
+					router.addRoute("page-string", function (deferred) {
+						deferred.resolve('<div data-role="page">Hello world!</a>');
+					});
+				</script>
+				<footer>
+					<a href="#page-string">Test it</a>
+				</footer>
+		</div>
+	</body>
+</html>
