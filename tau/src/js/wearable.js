@@ -26,6 +26,7 @@
 			"./profile/wearable/widget/wearable/Page",
 			"./profile/wearable/widget/wearable/Popup",
 			"./profile/wearable/widget/wearable/Drawer",
+			"./profile/wearable/widget/wearable/Slider",
 			"./profile/wearable/widget/wearable/CircleProgressBar",
 			"./profile/wearable/widget/wearable/Listview",
 			"./profile/wearable/widget/wearable/IndexScrollbar",

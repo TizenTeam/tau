@@ -13,21 +13,21 @@
 			<div data-role="content">
 				<ul data-role="listview">
 					<li data-role="list-divider">Normal slider</li>
-					<li><input id="normal" name="mySlider1" type="range" value="5" min="0" max="10" /></li>
+					<li class="ui-li-static"><input id="normal" name="mySlider1" type="range" value="5" min="0" max="10" /></li>
 					<li data-role="list-divider">Expand slider</li>
-					<li><input id="expand" name="mySlider2" type="range" data-expand="true" value="50" min="0" max="100" /></li>
+					<li class="ui-li-static"><input id="expand" name="mySlider2" type="range" data-expand="true" value="50" min="0" max="100" /></li>
 					<li data-role="list-divider">Center slider</li>
-					<li><input id="center_normal" name="mySlider3" type="range" data-center="true" value="5" min="0" max="10"></li>
-					<li><input id="center_expand" name="mySlider4" type="range" data-expand="true" data-center="true" value="50" min="0" max="100"></li>
+					<li class="ui-li-static"><input id="center_normal" name="mySlider3" type="range" data-type="center" value="5" min="0" max="10"></li>
+					<li class="ui-li-static"><input id="center_expand" name="mySlider4" type="range" data-expand="true" data-type="center" value="50" min="0" max="100"></li>
 					<li data-role="list-divider">Virtical slider</li>
-					<li class="vertical-list" style="height: 300px">
-						<input id="vertical_normal" name="mySlider5" type="range" data-direction="vertical" value="50" min="0" max="99"/>
-						<input id="vertical_expand" name="mySlider6" type="range" data-direction="vertical" data-expand="true" value="5" min="0" max="10"/>
+					<li class="ui-li-static vertical-list" style="height: 300px">
+						<input id="vertical_normal" name="mySlider5" type="range" data-orientation="vertical" value="50" min="0" max="99"/>
+						<input id="vertical_expand" name="mySlider6" type="range" data-orientation="vertical" data-expand="true" value="5" min="0" max="10"/>
 					</li>
 					<li data-role="list-divider">Virtical center slider</li>
-					<li class="vertical-list" style="height: 300px">
-						<input id="vertical_center_normal" name="mySlider6" type="range" data-center="true" data-direction="vertical" value="5" min="0" max="10"/>
-						<input id="vertical_center_expand" name="mySlider6" type="range" data-center="true" data-direction="vertical" data-expand="true" value="5" min="0" max="10"/>
+					<li class="ui-li-static vertical-list" style="height: 300px">
+						<input id="vertical_center_normal" name="mySlider6" type="range" data-type="center" data-orientation="vertical" value="5" min="0" max="10"/>
+						<input id="vertical_center_expand" name="mySlider6" type="range" data-type="center" data-orientation="vertical" data-expand="true" value="5" min="0" max="10"/>
 					</li>
 				</ul>
 			</div><!-- /content -->

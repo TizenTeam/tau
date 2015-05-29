@@ -74,13 +74,13 @@
 					var self = this;
 					/**
 					 * Widget options
-					 * @property {boolean} [options.center=false] Slider center mode. true or false
-					 * @property {string} [options.direction="horizontal"] Slider direction. horizontal or vertical
+					 * @property {boolean} [options.type="normal"] Slider type. 'normal', 'center' or 'circle'
+					 * @property {string} [options.orientation="horizontal"] Slider orientation. horizontal or vertical
 					 * @property {boolean} [options.expand=false] Slider expand mode. true or false
-					 */
+					 **/
 					self.options = {
-						center: false,
-						direction: DEFAULT.HORIZONTAL,
+						type: "normal",
+						orientation: DEFAULT.HORIZONTAL,
 						expand: false
 					};
 					self._ui = {};
@@ -115,11 +115,11 @@
 					element,
 
 					new Gesture.Drag({
-						orientation: self.options.direction,
+						orientation: self.options.orientation,
 						threshold: 0
 					})
 				);
-				events.on(element, "mousedown touchstart mouseup touchend drag dragend dragcancel", self, false);
+				events.on(element, "dragstart drag dragend dragcancel", self, false);
 			}
 
 			/**
@@ -134,7 +134,7 @@
 				var element = self._ui.barElement;
 
 				events.disableGesture(element);
-				events.off(element, "mousedown touchstart mouseup touchend drag dragend dragcancel", self, false);
+				events.off(element, "dragstart drag dragend dragcancel", self, false);
 			}
 
 			/**
@@ -204,7 +204,7 @@
 					barElement = ui.barElement,
 					handlerElement = ui.handlerElement;
 
-				if (options.direction === DEFAULT.HORIZONTAL) {
+				if (options.orientation === DEFAULT.HORIZONTAL) {
 					barElement.classList.remove(classes.SLIDER_VERTICAL);
 					barElement.classList.add(classes.SLIDER_HORIZONTAL)
 				} else {
@@ -212,13 +212,13 @@
 					barElement.classList.add(classes.SLIDER_VERTICAL);
 				}
 
-				options.center ? barElement.classList.add(classes.SLIDER_CENTER) : barElement.classList.remove(classes.SLIDER_CENTER);
+				options.type === "center" ? barElement.classList.add(classes.SLIDER_CENTER) : barElement.classList.remove(classes.SLIDER_CENTER);
 
 				options.expand ? handlerElement.classList.add(classes.SLIDER_HANDLER_EXPAND) : handlerElement.classList.remove(classes.SLIDER_HANDLER_EXPAND);
 
 
 				self._barElementWidth = ui.barElement.offsetWidth;
-				if (self.options.direction !== DEFAULT.HORIZONTAL) {
+				if (self.options.orientation !== DEFAULT.HORIZONTAL) {
 					self._barElementHeight = ui.barElement.offsetHeight;
 				}
 				self._setValue(self._value);
@@ -239,7 +239,7 @@
 					handlerElementValidStyle,
 					center, validStyle, inValidStyle;
 
-				if (self.options.direction === DEFAULT.HORIZONTAL) {
+				if (self.options.orientation === DEFAULT.HORIZONTAL) {
 					center = self._barElementWidth / 2;
 					validValue =  self._barElementWidth * value / self._interval;
 					validStyle = validValue < center ? "right" : "left";
@@ -278,7 +278,7 @@
 					handlerElementValidStyle,
 					validValue;
 
-				if (options.direction === DEFAULT.HORIZONTAL) {
+				if (options.orientation === DEFAULT.HORIZONTAL) {
 					barElementLength = self._barElementWidth;
 					valueElementValidStyle = "width";
 					handlerElementValidStyle = "left";
@@ -308,9 +308,9 @@
 				if (value < self._min || value > self._max) {
 					value = value < 0 ? self._min : self._max;
 				}
-				if (options.center) {
+				if (options.type === "center") {
 					self._setCenterValue(value);
-				} else {
+				} else if (options.type === "normal") {
 					self._setNormalValue(value);
 				}
 
@@ -340,14 +340,11 @@
 			prototype.handleEvent = function(event) {
 				var self = this;
 				switch (event.type) {
-					case "mousedown":
-					case "touchstart":
+					case "dragstart":
 						self._onDragstart(event);
 						break;
 					case "dragend":
 					case "dragcancel":
-					case "mouseup":
-					case "touchend":
 						self._onDragend(event);
 						break;
 					case "drag":
@@ -369,11 +366,11 @@
 					validPosition,
 					value;
 				if (self._active) {
-					validPosition = self.options.direction === DEFAULT.HORIZONTAL ?
+					validPosition = self.options.orientation === DEFAULT.HORIZONTAL ?
 						event.detail.estimatedX - ui.barElement.offsetLeft :
 						event.detail.estimatedY - utilDOM.getElementOffset(ui.barElement).top + selectors.getScrollableParent(self.element).scrollTop;
 
-					value = self.options.direction === DEFAULT.HORIZONTAL ?
+					value = self.options.orientation === DEFAULT.HORIZONTAL ?
 						self._interval * validPosition / self._barElementWidth :
 						self._interval * validPosition / self._barElementHeight;
 					self._setValue(value);
@@ -390,10 +387,10 @@
 			prototype._onDragstart = function(event) {
 				var self = this,
 					ui = self._ui,
-					validPosition = self.options.direction === DEFAULT.HORIZONTAL ?
-						event.pageX - ui.barElement.offsetLeft :
-						event.pageY - utilDOM.getElementOffset(ui.barElement).top + selectors.getScrollableParent(self.element).scrollTop,
-					value = self.options.direction === DEFAULT.HORIZONTAL ?
+					validPosition = self.options.orientation === DEFAULT.HORIZONTAL ?
+						event.detail.estimatedX - ui.barElement.offsetLeft :
+						event.detail.estimatedY - utilDOM.getElementOffset(ui.barElement).top + selectors.getScrollableParent(self.element).scrollTop,
+					value = self.options.orientation === DEFAULT.HORIZONTAL ?
 						self._interval * validPosition / self._barElementWidth :
 						self._interval * validPosition / self._barElementHeight;
 
@@ -448,7 +445,7 @@
 			 */
 			prototype._destroy = function() {
 				var self = this;
-				unbindEvents();
+				unbindEvents(self);
 				self._ui = null;
 				self._options = null;
 			};
