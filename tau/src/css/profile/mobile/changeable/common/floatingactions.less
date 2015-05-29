@@ -1,19 +1,19 @@
-.ui-floatingbutton {
+.ui-floatingactions {
 	position: fixed;
 	right: 0;
 	bottom : 4%;
 	height: 90 * @unit_base;
 	padding-left: 39 * @unit_base;
 	padding-right: 39 * @unit_base;
-	background-color: @color_floatingbutton_bg;
+	background-color: @color_floatingactions_bg;
 	-webkit-transform: translate3d(24 * @unit_base, 0, 0);
 	.core_button_bg();
 
 	&:active {
-		background-color: @color_floatingbutton_bg_press;
+		background-color: @color_floatingactions_bg_press;
 	}
 
-	.ui-floatingbutton-item {
+	.ui-floatingactions-item {
 		display: inline-block;
 		width: 60 * @unit_base;;
 		height: 60 * @unit_base;
@@ -26,11 +26,11 @@
 			left: 0;
 			width: 60 * @unit_base;
 			height: 60 * @unit_base;
-			background-color: @color_floatingbutton_icon;
+			background-color: @color_floatingactions_icon;
 		}
 
 		&:active::after {
-			background-color: @color_floatingbutton_icon_press;
+			background-color: @color_floatingactions_icon_press;
 		}
 
 		&::before {
@@ -39,7 +39,7 @@
 			left: 0;
 			width: 60 * @unit_base;
 			height: 60 * @unit_base;
-			background-color: @color_floatingbutton_icon_bg;
+			background-color: @color_floatingactions_icon_bg;
 			border-radius: 50% 50%;
 			content: "";
 			opacity: 0;

@@ -111,7 +111,7 @@
 			"./profile/mobile/widget/mobile/ToggleSwitch",
 			"./profile/mobile/widget/mobile/Navigation",
 			"./profile/mobile/widget/mobile/IndexScrollbar",
-			"./profile/mobile/widget/mobile/FloatingButton",
+			"./profile/mobile/widget/mobile/FloatingActions",
 			"./profile/mobile/widget/mobile/Button",
 			"./core/widget/core/Tabs",
 			"./profile/mobile/expose",

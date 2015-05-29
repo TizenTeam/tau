@@ -4,9 +4,9 @@
  */
 /*jslint nomen: true */
 /**
- * # FloatingButton component
+ * # FloatingActions component
  * Widget create floting button
- * @class ns.widget.mobile.FloatingButton
+ * @class ns.widget.mobile.FloatingActions
  * @extends ns.widget.BaseWidget
 */
 (function (document, ns) {
@@ -30,7 +30,7 @@
 				MATRIX_REGEXP = /matrix\((.*), (.*), (.*), (.*), (.*), (.*)\)/,
 				RGBA_REGEXP = /rgba\(([0-9]+), ([0-9]+), ([0-9]+), ([0-9]+)\)/,
 				SNAP_WIDTH = 19,
-				FloatingButton = function () {
+				FloatingActions = function () {
 					this.element = null;
 					this.options = {};
 					this._style = null;
@@ -49,7 +49,7 @@
 			* Configure component
 			* @method _configure
 			* @protected
-			* @member ns.widget.mobile.FloatingButton
+			* @member ns.widget.mobile.FloatingActions
 			*/
 			prototype._configure = function() {
 				this.options = {
@@ -65,7 +65,7 @@
 			* @method _init
 			* @param {HTMLElement} element
 			* @protected
-			* @member ns.widget.mobile.FloatingButton
+			* @member ns.widget.mobile.FloatingActions
 			*/
 			prototype._init = function(element) {
 				var self = this;
@@ -83,7 +83,7 @@
 			* Bind events
 			* @method _bindEvents
 			* @protected
-			* @member ns.widget.mobile.FloatingButton
+			* @member ns.widget.mobile.FloatingActions
 			*/
 			prototype._bindEvents = function() {
 				var self = this,
@@ -104,7 +104,7 @@
 			* Unbind events
 			* @method _unbindEvents
 			* @protected
-			* @member ns.widget.mobile.FloatingButton
+			* @member ns.widget.mobile.FloatingActions
 			*/
 			prototype._unbindEvents = function() {
 				utilsEvents.disableGesture(this.element);
@@ -115,7 +115,7 @@
 			* Refresh component
 			* @method _refresh
 			* @protected
-			* @member ns.widget.mobile.FloatingButton
+			* @member ns.widget.mobile.FloatingActions
 			*/
 			prototype._refresh = function() {
 				var self = this,
@@ -132,7 +132,7 @@
 			* Destroy component
 			* @method _destroy
 			* @protected
-			* @member ns.widget.mobile.FloatingButton
+			* @member ns.widget.mobile.FloatingActions
 			*/
 			prototype._destroy = function() {
 				var self = this;
@@ -149,7 +149,7 @@
 			* Init component style
 			* @method _initStyle
 			* @protected
-			* @member ns.widget.mobile.FloatingButton
+			* @member ns.widget.mobile.FloatingActions
 			*/
 			prototype._initStyle = function() {
 				var self = this,
@@ -158,7 +158,7 @@
 					padding = self._padding,
 					fromColor = self._fromColor,
 					colorTransitionRatio = self._colorTransitionRatio,
-					transform, distance, r, g, b;
+					transform, distance, r, g, b, a;
 
 				style.paddingLeft = padding.left + "px";
 				style.paddingRight = SNAP_WIDTH + padding.right + "px";
@@ -180,7 +180,7 @@
 			* Set position for move effect
 			* @method _setPosition
 			* @protected
-			* @member ns.widget.mobile.FloatingButton
+			* @member ns.widget.mobile.FloatingActions
 			*/
 			prototype._setPosition = function() {
 				var self = this,
@@ -213,7 +213,7 @@
 			* Set scope for move effect
 			* @method _setScope
 			* @protected
-			* @member ns.widget.mobile.FloatingButton
+			* @member ns.widget.mobile.FloatingActions
 			*/
 			prototype._setScope = function() {
 				var self = this,
@@ -235,7 +235,7 @@
 			* Set color transition ratio
 			* @method _setTransitionRatio
 			* @protected
-			* @member ns.widget.mobile.FloatingButton
+			* @member ns.widget.mobile.FloatingActions
 			*/
 			prototype._setColorTransitionRatio = function() {
 				var self = this,
@@ -262,7 +262,7 @@
 			* Dragstart event handler
 			* @method _start
 			* @protected
-			* @member ns.widget.mobile.FloatingButton
+			* @member ns.widget.mobile.FloatingActions
 			*/
 			prototype._start = function(event) {
 				var style = this.element.style;
@@ -278,7 +278,7 @@
 			* Drag event handler
 			* @method _move
 			* @protected
-			* @member ns.widget.mobile.FloatingButton
+			* @member ns.widget.mobile.FloatingActions
 			*/
 			prototype._move = function(event) {
 				var self = this,
@@ -321,7 +321,7 @@
 			* Dragend event handler
 			* @method _end
 			* @protected
-			* @member ns.widget.mobile.FloatingButton
+			* @member ns.widget.mobile.FloatingActions
 			*/
 			prototype._end = function(event) {
 				var self = this,
@@ -333,7 +333,7 @@
 					hasSingle = self._hasSingle,
 					colorTransitionRatio = self._colorTransitionRatio,
 					fromColor = self._fromColor,
-					transform, translateX, distance, r, g, b, a;
+					transform, translateX, distance, r, g, b, a, transition;
 
 				transition = "all " + duration + "ms linear";
 				style.webkitTransition = transition;
@@ -386,7 +386,7 @@
 			* Touchstart event handler
 			* @method _touchStart
 			* @protected
-			* @member ns.widget.mobile.FloatingButton
+			* @member ns.widget.mobile.FloatingActions
 			*/
 			prototype._touchStart = function(event) {
 				var style = this._style,
@@ -404,7 +404,7 @@
 			* Touchend event handler
 			* @method _touchEnd
 			* @protected
-			* @member ns.widget.mobile.FloatingButton
+			* @member ns.widget.mobile.FloatingActions
 			*/
 			prototype._touchEnd = function(event) {
 				var style = this._style,
@@ -423,7 +423,7 @@
 			 * @method handleEvent
 			 * @public
 			 * @param {Event} event Event
-			 * @member ns.widget.mobile.FloatingButton
+			 * @member ns.widget.mobile.FloatingActions
 			 */
 			prototype.handleEvent = function(event) {
 				var self = this;
@@ -451,19 +451,19 @@
 			};
 
 			// definition
-			FloatingButton.prototype = prototype;
-			ns.widget.mobile.FloatingButton = FloatingButton;
+			FloatingActions.prototype = prototype;
+			ns.widget.mobile.FloatingActions = FloatingActions;
 
 			engine.defineWidget(
-				"FloatingButton",
-				"[data-role='floatingbutton'], .ui-floatingbutton",
+				"FloatingActions",
+				"[data-role='floatingactions'], .ui-floatingactions",
 				[],
-				FloatingButton,
+				FloatingActions,
 				"mobile"
 			);
 
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
-			return ns.widget.mobile.FloatingButton;
+			return ns.widget.mobile.FloatingActions;
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
