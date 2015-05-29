@@ -164,10 +164,88 @@
 			};
 
 			/**
-			 * Ads route to routing table
+			 * Adds route to routing table
+			 *
+			 * Developer can add custom routes to Router by *addRouter* method.
+			 * The method takes two arguments, the first one is a route name and the second one is a callback method.
+			 *
+			 * The callback is invoked with a particularly important parameter _deferred_.
+			 * Developer should handle success by calling _deferred.resolve()_
+			 * and failed exception by _deferred.reject()_ method.
+			 *
+			 * #### Custom route with loading page from template
+			 *
+			 *		@example
+			 *		<script>
+			 *		var router = tau.engine.getRouter();
+			 *		router.addRoute("page-template", function (deferred) {
+			 *			tau.template.render("templates/page-template.html", {}, function (status, data) {
+			 *				if (status.success) {
+			 *					deferred.resolve(data);
+			 *				} else {
+			 *					deferred.reject();
+			 *				}
+			 *			});
+			 *		});
+			 *		</script>
+			 *
+			 * #### Custom route with loading page from string
+			 *
+			 *		@example
+			 *		<script>
+			 *			var router = tau.engine.getRouter();
+			 *			router.addRoute("page-string", function (deferred) {
+			 *				deferred.resolve('<div data-role="page">Hello world!</a>');
+			 *			});
+			 *		</script>
+			 *
+			 * #### Custom route with loading popup from template
+			 *
+			 *		@example
+			 *		<script>
+			 *			var router = tau.engine.getRouter();
+			 *			router.addRoute("popup-template", function (deferred) {
+			 *				tau.template.render("templates/popup-template.html", {}, function (status, data) {
+			 *					if (status.success) {
+			 *						deferred.resolve(data);
+			 *				} else {
+			 *						deferred.reject();
+			 *					}
+			 *				});
+			 *			});
+			 *		</script>
+			 *
+			 * #### Custom route with creating pages on the fly
+			 *
+			 *		@example
+			 *		<script>
+			 *			var router = tau.engine.getRouter();
+			 *			router.addRoute("page-dynamic", function (deferred) {
+			 *				var page = document.createElement("div");
+			 *				page.dataset.role = "page";
+			 *				page.textContent = "Hello world!";
+			 *				deferred.resolve(page);
+			 *			});
+			 *		</script>
+			 *
+			 * #### Method addRoute allows to define parameters provided in route
+			 *
+			 *		@example
+			 *		<script>
+			 *			var router = tau.engine.getRouter();
+			 *			router.addRoute("page-params/:param1/:param2", function (deferred, param1, param2) {
+			 *				deferred.resolve(
+			 *					'<div data-role="page">' +
+			 *					'<div>param1: <strong>' + param1 + '</strong></div>' +
+			 *					'<div>param2: <strong>' + param2 + '</strong></div>' +
+			 *					'</a>'
+			 *				);
+			 *			});
+			 *		</script>
+			 *
 			 * @param {string} path
 			 * @param {Function} callback
-			 * @member ns.Controller
+			 * @member ns.router.Router
 			 * @method addRoute
 			 */
 			proto.addRoute = function (path, callback) {
