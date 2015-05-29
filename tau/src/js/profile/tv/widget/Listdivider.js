@@ -19,7 +19,7 @@
 		[
 			"../../../core/engine",
 			"../tv",
-			"../../../profile/mobile/widget/mobile/Listdivider"
+			"../../../support/mobile/widget/ListDivider.extra"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
@@ -43,6 +43,10 @@
 
 			prototype._build = function (element) {
 				element = MobileListDivider.prototype._build.call(this, element);
+				return element;
+			};
+			prototype._init = function (element) {
+				element = MobileListDivider.prototype._init.call(this, element);
 				element.removeAttribute("tabindex");
 				return element;
 			};

@@ -47,7 +47,7 @@
 			var list = document.getElementById('list'),
 				widget = window.tau.engine.instanceWidget(list, "ListDivider");
 
-			equal(typeof widget._configure, "function", "Contains _configure");
+			equal(typeof widget._init, "function", "Contains _init");
 			equal(typeof widget._build, "function", "Contains _build");
 		});
 	});
