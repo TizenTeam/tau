@@ -22,9 +22,9 @@
 	define(
 		[
 			"../tv",
-			"../../../profile/mobile/widget/mobile/Checkboxradio",
 			"../../../core/engine",
 			"../../../core/util/selectors",
+			"./MobileCheckboxradio",
 			"./BaseKeyboardSupport"
 		],
 		function () {
@@ -34,7 +34,7 @@
 			 * @private
 			 * @static
 			 */
-			var MobileCheckboxradio = ns.widget.mobile.Checkboxradio,
+			var MobileCheckboxradio = ns.widget.tv.MobileCheckboxradio,
 				/**
 				 * {Object} Alias for {@link ns.widget.tv.BaseKeyboardSupport}
 				 * @member ns.widget.tv.Checkboxradio

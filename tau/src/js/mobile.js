@@ -72,7 +72,8 @@
 			"./core/event/orientationchange",
 			"./core/widget/core/SectionChanger",
 			// widget list
-			"./core/widget/core/Checkboxradio",
+			"./core/widget/core/Checkbox",
+			"./core/widget/core/Radio",
 			"./core/widget/core/Button",
 			"./core/widget/core/Listview",
 			"./core/widget/core/PanelChanger",

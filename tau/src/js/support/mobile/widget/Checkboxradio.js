@@ -9,10 +9,10 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../core",
-			"../../engine",
-			"../../util/selectors",
-			"../BaseWidget"
+			"../../../core/widget/core",
+			"../../../core/engine",
+			"../../../core/util/selectors",
+			"../../../core/widget/BaseWidget"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
@@ -82,7 +82,7 @@
 			};
 
 			// definition
-			ns.widget.core.Checkboxradio = Checkboxradio;
+			ns.widget.mobile.Checkboxradio = Checkboxradio;
 			engine.defineWidget(
 				"Checkboxradio",
 				"input[type='checkbox']:not(.ui-slider-switch-input):not([data-role='toggleswitch']):not(.ui-toggleswitch), " +
@@ -94,7 +94,7 @@
 				""
 			);
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
-			return ns.widget.core.Checkboxradio;
+			return ns.widget.mobile.Checkboxradio;
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");

@@ -92,14 +92,14 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../../../../core/engine",
-			"../../../../core/event",
-			"../../../../core/util/selectors",
-			"../../../../core/util/DOM/attributes",
-			"../../../../core/util/DOM/manipulation",
-			"../../../../core/widget/core/Button",
-			"../mobile", // fetch namespace
-			"./BaseWidgetMobile"
+			"../../../core/engine",
+			"../../../core/event",
+			"../../../core/util/selectors",
+			"../../../core/util/DOM/attributes",
+			"../../../core/util/DOM/manipulation",
+			"../../../core/widget/core/Button",
+			"../../mobile/widget/mobile", // fetch namespace
+			"../../mobile/widget/mobile/BaseWidgetMobile"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
@@ -701,7 +701,8 @@
 			};
 
 			// definition
-			ns.widget.mobile.Checkboxradio = Checkboxradio;
+			ns.widget.tv.MobileCheckboxradio = Checkboxradio;
+			/*
 			engine.defineWidget(
 				"Checkboxradio",
 				"input[type='checkbox']:not(.ui-slider-switch-input):not([data-role='toggleswitch']):not(.ui-toggleswitch)," +
@@ -716,8 +717,9 @@
 				Checkboxradio,
 				"mobile"
 			);
+			*/
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
-			return ns.widget.mobile.Checkboxradio;
+			return ns.widget.tv.MobileCheckboxradio;
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");

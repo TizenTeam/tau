@@ -15,6 +15,7 @@
 	define(
 		[
 			"require",
+			"support/mobile/widget/Checkboxradio",
 			"support/mobile/widget/ToggleSwitch.extra",
 			"support/mobile/widget/DropdownMenu.extra",
 			"support/mobile/widget/Progress.extra",
