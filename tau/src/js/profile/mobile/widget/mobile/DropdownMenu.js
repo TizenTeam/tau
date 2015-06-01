@@ -117,7 +117,7 @@
 			"../../../../core/util/selectors",
 			"../../../../core/event",
 			"../../../../core/util/DOM/manipulation",
-		 	"../../../../core/widget/core/Page",
+			"../../../../core/widget/core/Page",
 			"../mobile",
 			"./BaseWidgetMobile"
 		],
@@ -304,10 +304,12 @@
 			 * @member ns.widget.mobile.DropdownMenu
 			*/
 			function onResize(self, event) {
-				self._isOpen = !self._isOpen;
-				self._toggleSelect();
-				event.stopPropagation();
-				event.preventDefault();
+				if (self._isOpen === true) {
+					self._isOpen = !self._isOpen;
+					self._toggleSelect();
+					event.stopPropagation();
+					event.preventDefault();
+				}
 			}
 
 			/**
