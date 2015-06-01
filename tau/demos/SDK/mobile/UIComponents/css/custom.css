@@ -417,7 +417,8 @@
 	-webkit-mask-image: url("images/00_button_grid.png");
 }
 .ui-btn-icon.ui-icon-home::after {
-	-webkit-mask-image: url("images/00_button_home.png");
+    -webkit-mask-image: url("images/00_button_home.png");
+}
 .vertical-list {
     height: 300px;
 }
@@ -430,4 +431,14 @@
     padding-left: 5px;
     padding-right: 5px;
     box-sizing: border-box;
+}
+/****************************************************************/
+/*                      Gallery demo                            */
+/****************************************************************/
+.gallery-section > img {
+    width: 100%;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto;
 }

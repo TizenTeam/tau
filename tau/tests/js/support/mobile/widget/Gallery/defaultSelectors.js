@@ -1,11 +1,9 @@
-/*global module, test, asyncTest, ok, equal, tau, window */
-(function(document) {
-	"use strict";
+/*global window, console, test, equal, module, ej, asyncTest, start, HTMLElement, HTMLDivElement */
+/*jslint nomen: true */
+(function (window, document) {
+	'use strict';
 
-	module("gallery", {
-		setup: function () {
-			tau.engine.run();
-		},
+	module('Gallery Support selector test', {
 		teardown: function () {
 			tau.engine._clearBindings();
 		}
@@ -20,4 +18,4 @@
 		isGallery(document.getElementById('by-class-selector'), '.ui-gallery');
 	});
 
-}(window.document));
+}(window, window.document));

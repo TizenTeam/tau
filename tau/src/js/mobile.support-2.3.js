@@ -28,7 +28,8 @@
 			"support/mobile/widget/Slider.extra",
 			"support/mobile/widget/TizenSlider.extra",
 			"support/mobile/widget/TextInput.extra",
-			"support/mobile/widget/TokenTextArea.extra"
+			"support/mobile/widget/TokenTextArea.extra",
+			"support/mobile/widget/Gallery"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
