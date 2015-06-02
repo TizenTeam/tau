@@ -26,6 +26,8 @@
 			"require",
 			"./core",
 			"./event",
+			"./history",
+			"./history/manager",
 			"./util/selectors",
 			"./util/object"
 		],
@@ -46,6 +48,7 @@
 				 */
 				eventUtils = ns.event,
 				objectUtils = ns.util.object,
+				historyManager = ns.history.manager,
 				selectors = ns.util.selectors,
 				/**
 				 * @property {Object} widgetDefs Object with widgets definitions
@@ -155,15 +158,7 @@
 					WIDGET_BUILT: "widgetbuilt",
 					BOUND: "bound"
 				},
-				engine,
-				/**
-				 * @property {Object} router Router object
-				 * @private
-				 * @static
-				 * @member ns.engine
-				 */
-				router;
-
+				engine;
 			/**
 			 * This function prepares selector for widget' definition
 			 * @method selectorChange
@@ -884,14 +879,8 @@
 			 * @member ns.engine
 			 */
 			function build() {
-				if (router) {
-					// @TODO: Consider passing viewport options via script tag arguments (web-ui-fw style).
 					setViewport();
-
-					eventUtils.trigger(document, "beforerouterinit", router, false);
-					router.init(justBuild);
-					eventUtils.trigger(document, "routerinit", router, false);
-				}
+					eventUtils.trigger(document, "build", this, false);
 			}
 
 			/**
@@ -901,9 +890,7 @@
 			 * @member ns.engine
 			 */
 			function stop() {
-				if (router) {
-					router.destroy();
-				}
+				historyManager.disable();
 			}
 
 			/**
@@ -1020,6 +1007,7 @@
 					window.tauPerf.get("framework", "run()");
 					//>>excludeEnd("tauPerformance");
 					stop();
+					historyManager.enable();
 
 					eventUtils.fastOn(document, "create", createEventHandler);
 
@@ -1034,28 +1022,6 @@
 						eventUtils.fastOn(document, "DOMContentLoaded", build.bind(engine));
 						break;
 					}
-				},
-
-				/**
-				 * Return router
-				 * @method getRouter
-				 * @return {Object}
-				 * @static
-				 * @member ns.engine
-				 */
-				getRouter: function () {
-					return router;
-				},
-
-				/**
-				 * Initialize router. This method should be call in file with router class definition.
-				 * @method initRouter
-				 * @param {Function} RouterClass Router class
-				 * @static
-				 * @member ns.engine
-				 */
-				initRouter: function (RouterClass) {
-					router = new RouterClass();
 				},
 
 				/**

@@ -26,7 +26,8 @@
 			"../util/pathToRegexp",
 			"../router",
 			"./route", // fetch namespace
-			"./history",
+			"../history",
+			"../history/manager",
 			"../widget/core/Page",
 			"../widget/core/PageContainer",
 			"../template"
@@ -99,13 +100,21 @@
 				 */
 				routerMicro = ns.router,
 				/**
-				 * Local alias for ns.router.history
-				 * @property {Object} history Alias for {@link ns.router.history}
+				 * Local alias for ns.history
+				 * @property {Object} history Alias for {@link ns.history}
 				 * @member ns.router.Router
 				 * @static
 				 * @private
 				 */
-				history = routerMicro.history,
+				history = ns.history,
+				/**
+				 * Local alias for ns.history.manager.events
+				 * @property {Object} historyManagerEvents Alias for (@link ns.history.manager.events}
+				 * @member ns.router.Router
+				 * @static
+				 * @private
+				 */
+				historyManagerEvents = ns.history.manager.events,
 				/**
 				 * Local alias for ns.router.route
 				 * @property {Object} route Alias for namespace ns.router.route
@@ -130,6 +139,14 @@
 				 * @static
 				 */
 				slice = [].slice,
+				/**
+				 * Local instance of the Router
+				 * @property {Object} routerInstance
+				 * @member ns.router.Router
+				 * @static
+				 * @private
+				 */
+				routerInstance = null,
 
 				/**
 				 * Router locking flag
@@ -166,6 +183,8 @@
 					self.settings = {};
 
 					self.routes = [];
+					self.onstatechangehandler = null; // mem containers
+					self.onhashchangehandler = null;
 				};
 
 			/**
@@ -185,124 +204,6 @@
 				loadMsgDelay: 0,
 				volatileRecord: false
 			};
-
-			/**
-			 * Find the closest link for element
-			 * @method findClosestLink
-			 * @param {Node|EventTarget} element
-			 * @return {?Node}
-			 * @private
-			 * @static
-			 * @member ns.router.Router
-			 */
-			function findClosestLink(element) {
-				while (element) {
-					if (element.nodeType === Node.ELEMENT_NODE && element.nodeName && element.nodeName === "A") {
-						return element;
-					}
-					element = element.parentNode;
-				}
-				return null;
-			}
-
-			/**
-			 * Handle event link click
-			 * @method linkClickHandler
-			 * @param {ns.router.Router} router
-			 * @param {Event} event
-			 * @private
-			 * @static
-			 * @member ns.router.Router
-			 */
-			function linkClickHandler(router, event) {
-				var link = findClosestLink(event.target),
-					href,
-					useDefaultUrlHandling,
-					options,
-					rel = null;
-
-				if (link && event.which === 1) {
-					href = link.getAttribute("href");
-					rel = link.getAttribute("rel");
-					useDefaultUrlHandling = rel === "external" || link.hasAttribute("target");
-					if (!useDefaultUrlHandling) {
-						options = DOM.getData(link);
-						if (rel) {
-							options.rel = rel;
-						}
-						router.open(href, options, event);
-						eventUtils.preventDefault(event);
-					}
-				}
-			}
-
-			/**
-			 * Handle event for pop state
-			 * @method popStateHandler
-			 * @param {ns.router.Router} router
-			 * @param {Event} event
-			 * @private
-			 * @static
-			 * @member ns.router.Router
-			 */
-			function popStateHandler(router, event) {
-				var state = event.state,
-					prevState = history.activeState,
-					rules = routerMicro.route,
-					ruleKey,
-					options,
-					to,
-					url,
-					isContinue = true,
-					reverse,
-					transition;
-
-				if (isLock) {
-					history.disableVolatileMode();
-					history.replace(prevState, prevState.stateTitle, prevState.stateUrl);
-				} else {
-					if (state) {
-						to = state.url;
-						reverse = history.getDirection(state) === "back";
-						transition = reverse ? ((prevState && prevState.transition) || "none") : state.transition;
-						options = object.merge({}, state, {
-							reverse: reverse,
-							transition: transition,
-							fromHashChange: true
-						});
-
-						url = path.getLocation();
-
-						for (ruleKey in rules) {
-							if (rules.hasOwnProperty(ruleKey) && rules[ruleKey].onHashChange(url, options, prevState.stateUrl)) {
-								isContinue = false;
-							}
-						}
-
-						history.setActive(state);
-
-						if (isContinue) {
-							router.open(to, options);
-						}
-					}
-				}
-			}
-
-			/**
-			 * URI Hash change handler
-			 * @param {ns.router.Router} router
-			 * @param {Event} event
-			 * @member ns.router.Router
-			 * @method hashChangeHandler
-			 * @private
-			 */
-			function hashChangeHandler(router, event) {
-				var toPageURL = event.newURL;
-
-				if (toPageURL) {
-					router.open(toPageURL, {fromHashChange: true});
-				}
-			}
 
 			/**
 			 * Detect rel attribute from HTMLElement
@@ -507,6 +408,8 @@
 					pageSelector = pageDefinition.selector,
 					self = this;
 
+				eventUtils.trigger(document, "beforerouterinit", this, false);
+
 				body = document.body;
 				containerElement = ns.getConfig("pageContainer") || body;
 				pages = slice.call(containerElement.querySelectorAll(pageSelector));
@@ -553,6 +456,7 @@
 						if (firstPage) {
 							self.register(container, firstPage);
 						}
+						eventUtils.trigger(document, "routerinit", this, false);
 						return;
 					}
 				}
@@ -565,6 +469,7 @@
 
 				container = engine.instanceWidget(containerElement, "pagecontainer");
 				self.register(container, firstPage);
+				eventUtils.trigger(document, "routerinit", this, false);
 			};
 
 			/**
@@ -574,14 +479,13 @@
 			 */
 			Router.prototype.destroy = function () {
 				var self = this;
-				window.removeEventListener("popstate", self.popStateHandler, false);
-				window.removeEventListener("hashchange", self.hashChangeHandler, false);
 				if (body) {
 					if (self.pagebeforechangeHandler) {
 						body.removeEventListener("pagebeforechange", self.pagebeforechangeHandler, false);
 					}
-					body.removeEventListener("vclick", self.linkClickHandler, false);
 				}
+				document.removeEventListener(historyManagerEvents.HASHCHANGE, self.hashchangehandler, false);
+				document.removeEventListener(historyManagerEvents.STATECHANGE, self.onstatechangehandler, false);
 			};
 
 			/**
@@ -614,6 +518,26 @@
 				return this.firstPage;
 			};
 
+			function onHistoryHashChange(router, event) {
+				var options = event.detail,
+					rules = routerMicro.route,
+					ruleKey = "";
+				for (ruleKey in rules) {
+					if (rules.hasOwnProperty(ruleKey) && rules[ruleKey].onHashChange(options.url, options, options.stateUrl)) {
+						eventUtils.preventDefault(event);
+						eventUtils.stopImmediatePropagation(event);
+						return;
+					}
+				}
+			}
+
+			function onHistoryStateChange(router, event) {
+				var options = event.detail;
+				router.open(options.href || options.url, options);
+				eventUtils.preventDefault(event);
+				eventUtils.stopImmediatePropagation(event);
+			}
+
 			/**
 			 * Method registers page container and the first page.
 			 * @method register
@@ -625,22 +549,18 @@
 				var self = this;
 				self.container = container;
 				self.firstPage = firstPage;
-
-				self.linkClickHandler = linkClickHandler.bind(null, self);
-				self.popStateHandler = popStateHandler.bind(null, self);
-				self.hashChangeHandler = hashChangeHandler.bind(null, self);
-
-				document.addEventListener("vclick", self.linkClickHandler, false);
-				window.addEventListener("popstate", self.popStateHandler, false);
-
-				window.addEventListener("hashchange", self.hashChangeHandler, false);
+				self.hashchangehandler = onHistoryHashChange.bind(null, self);
+				self.onstatechangehandler = onHistoryStateChange.bind(null, self);
 
 				eventUtils.trigger(document, "themeinit", self);
+
+				document.addEventListener(historyManagerEvents.HASHCHANGE, self.hashchangehandler, false);
+				document.addEventListener(historyManagerEvents.STATECHANGE, self.onstatechangehandler, false);
 
 				if (ns.getConfig("loader", false)) {
 					container.element.appendChild(self.getLoader().element);
 				}
-				history.enableVolatileRecord();
+				history.enableVolatileMode();
 				if (firstPage) {
 					self.open(firstPage, { transition: "none" });
 				}
@@ -952,9 +872,55 @@
 				return engine.instanceWidget(loaderElement, "Loader");
 			};
 
+			/**
+			 * Creates a new instance of the router and returns it
+			 * @method newInstance
+			 * @member ns.router.Router
+			 * @static
+			 * @return {ns.router.Router}
+			 */
+			Router.newInstance = function () {
+				return (routerInstance = new Router());
+			};
+
+			/**
+			 * Returns a instance of the router, creates a new if does not exist
+			 * @method getInstance
+			 * @member ns.router.Router
+			 * @return {ns.router.Router}
+			 * @static
+			 */
+			Router.getInstance = function () {
+				if (!routerInstance) {
+					return this.newInstance();
+				}
+				return routerInstance;
+			};
+
 			routerMicro.Router = Router;
 
-			engine.initRouter(Router);
+			/**
+			 * Returns router instance
+			 * @deprecated
+			 * @return {ns.router.Router}
+			 */
+			engine.getRouter = function () { //@TODO FIX HACK old API
+				//@TODO this is suppressed since the tests are unreadable
+				// tests need fixes
+				//ns.warn("getRouter() method is deprecated! Use tau.router.Router.getInstance() instead");
+				return Router.getInstance();
+			};
+
+			if (!ns.getConfig("disableRouter", false)) {
+				document.addEventListener("build", function (event) {
+					Router.getInstance().init(event.detail && event.detail.justBuild);
+				}, false);
+				document.addEventListener(historyManagerEvents.DISABLED, function () {
+					Router.getInstance().destroy();
+				}, false);
+			}
+
+			//engine.initRouter(Router);
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return routerMicro.Router;
 		}

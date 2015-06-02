@@ -6,7 +6,7 @@
  * #History
  * Object controls history changes.
  *
- * @class ns.router.history
+ * @class ns.history
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  */
 (function (window, ns) {
@@ -14,8 +14,7 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../router",
-			"../util/object"
+			"./util/object"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
@@ -29,7 +28,7 @@
 					 * Property contains active state in history.
 					 * @property {Object} activeState
 					 * @static
-					 * @member ns.router.history
+					 * @member ns.history
 					 */
 					activeState : null,
 
@@ -40,7 +39,7 @@
 					 * @param {string} stateTitle The title of state
 					 * @param {string} url The new history entry's URL
 					 * @static
-					 * @member ns.router.history
+					 * @member ns.history
 					 */
 					replace: function (state, stateTitle, url) {
 						var newState = object.merge({}, state, {
@@ -56,7 +55,7 @@
 					 * This method moves backward through history.
 					 * @method back
 					 * @static
-					 * @member ns.router.history
+					 * @member ns.history
 					 */
 					back: function () {
 						windowHistory.back();
@@ -67,7 +66,7 @@
 					 * @method setActive
 					 * @param {Object} state Activated state
 					 * @static
-					 * @member ns.router.history
+					 * @member ns.history
 					 */
 					setActive: function (state) {
 						if (state) {
@@ -75,7 +74,7 @@
 							historyActiveIndex = state.uid;
 
 							if (state.volatileRecord) {
-								history.enableVolatileRecord();
+								history.enableVolatileMode();
 								return;
 							}
 						}
@@ -89,7 +88,7 @@
 					 * @param {Object} state Checked state
 					 * @return {"back"|"forward"}
 					 * @static
-					 * @member ns.router.history
+					 * @member ns.history
 					 */
 					getDirection: function (state) {
 						if (state) {
@@ -100,11 +99,11 @@
 
 					/**
 					 * This method sets volatile mode to true.
-					 * @method enableVolatileRecord
+					 * @method enableVolatileMode
 					 * @static
-					 * @member ns.router.history
+					 * @member ns.history
 					 */
-					enableVolatileRecord: function () {
+					enableVolatileMode: function () {
 						historyVolatileMode = true;
 					},
 
@@ -112,13 +111,13 @@
 					 * This method sets volatile mode to false.
 					 * @method disableVolatileMode
 					 * @static
-					 * @member ns.router.history
+					 * @member ns.history
 					 */
 					disableVolatileMode: function () {
 						historyVolatileMode = false;
 					}
 				};
-			ns.router.history = history;
+			ns.history = history;
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 		}
 	);

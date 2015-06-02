@@ -119,7 +119,8 @@
 		 * @member ns
 		*/
 		ns.setConfig = function (key, value, asDefault) {
-			if (!asDefault || (asDefault && nsConfig[key] === undefined)) {
+			if ((!asDefault || (asDefault && nsConfig[key] === undefined))
+					&& value !== undefined) {
 				nsConfig[key] = value;
 			}
 		};

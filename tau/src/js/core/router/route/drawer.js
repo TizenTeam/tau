@@ -20,14 +20,14 @@
 			"../../util/selectors",
 			"../../util/object",
 			"../route",
-			"../history",
+			"../../history",
 			"../../widget/core/Drawer"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 			var CoreDrawer = ns.widget.core.Drawer,
 				path = ns.util.path,
-				history = ns.router.history,
+				history = ns.history,
 				engine = ns.engine,
 				routeDrawer = {},
 				drawerHashKey = "drawer=true",

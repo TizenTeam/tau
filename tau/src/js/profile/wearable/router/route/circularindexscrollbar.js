@@ -20,7 +20,7 @@
 			"../../../../core/util/selectors",
 			"../../../../core/util/object",
 			"../../../../core/router/route",
-			"../../../../core/router/history",
+			"../../../../core/history",
 			"../../widget/wearable/CircularIndexScrollbar"
 		],
 		function () {

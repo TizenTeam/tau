@@ -20,19 +20,10 @@
 			"../util",
 			"./object",
 			"./selectors",
-			"./DOM/attributes",
-			"../engine"
+			"./DOM/attributes"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
-				/**
-				* Local alias for ns.engine
-				* @property {Object} engine Alias for {@link ns.engine}
-				* @member ns.util.path
-				* @static
-				* @private
-				*/
-			var engine = ns.engine,
 				/**
 				* Local alias for ns.util.object
 				* @property {Object} utilsObject Alias for {@link ns.util.object}
@@ -40,7 +31,7 @@
 				* @static
 				* @private
 				*/
-				utilsObject = ns.util.object,
+			var utilsObject = ns.util.object,
 				/**
 				* Local alias for ns.util.selectors
 				* @property {Object} utilsSelectors Alias for {@link ns.util.selectors}
@@ -653,7 +644,7 @@
 						samePath = urlStructure.hrefNoHash === documentUrl.hrefNoHash || (documentBaseDiffers && urlStructure.hrefNoHash === documentBase.hrefNoHash);
 
 						// Get the first page element.
-						firstPage = engine.getRouter().firstPage;
+						firstPage = ns.router.Router.getInstance().firstPage; //@TODO fix router requirement or move to router
 
 						// Get the id of the first page element if it has one.
 						firstPageId = firstPage ? firstPage.id : undefined;

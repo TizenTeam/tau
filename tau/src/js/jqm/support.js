@@ -16,12 +16,14 @@
 		[
 			"./namespace",
 			"../core/engine",
-			"../core/util/object"
+			"../core/util/object",
+			"../core/router/Router"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 			var support = ns.support,
-				object = ns.util.object;
+				object = ns.util.object,
+				Router = ns.router.Router;
 
 			ns.jqm.support = {
 				/**
@@ -36,7 +38,7 @@
 				 * @member ns.jqm.support
 				 */
 				init: function () {
-					var router = ns.engine.getRouter();
+					var router = Router.getInstance();
 					if ($) {
 						object.merge($.support, support);
 						ns.support = $.support;

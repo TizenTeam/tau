@@ -17,7 +17,7 @@
 			"../../core/engine",
 			"../../core/widget/core/Page",
 			"../../core/router/route",
-			"../../core/router/history"
+			"../../core/history"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
@@ -29,7 +29,7 @@
 			document.addEventListener("routerinit", function (evt) {
 				var router = evt.detail,
 					routePage = router.getRoute("page"),
-					history = ns.router.history,
+					history = ns.history,
 					back = history.back.bind(router),
 					classes = ns.widget.core.Page.classes,
 					pageActiveClass = classes.uiPageActive;

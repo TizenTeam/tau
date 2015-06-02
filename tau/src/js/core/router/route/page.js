@@ -21,7 +21,7 @@
 			"../../util/object",
 			"../../widget/core/Page",
 			"../route",
-			"../history"
+			"../../history"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
@@ -30,7 +30,7 @@
 				DOM = util.DOM,
 				object = util.object,
 				utilSelector = util.selectors,
-				history = ns.router.history,
+				history = ns.history,
 				engine = ns.engine,
 				Page = ns.widget.core.Page,
 				baseElement,
@@ -124,7 +124,7 @@
 				var pageTitle = document.title,
 					url,
 					state = {},
-					router = engine.getRouter();
+					router = ns.router.Router.getInstance(); //@TODO fix mutual inclusion
 
 				if (toPage === router.getFirstPage() && !options.dataUrl) {
 					url = path.documentUrl.hrefNoHash;
@@ -170,7 +170,7 @@
 			 */
 			routePage.find = function (absUrl) {
 				var self = this,
-					router = engine.getRouter(),
+					router = ns.router.Router.getInstance(),
 					dataUrl = self._createDataUrl(absUrl),
 					initialContent = router.getFirstPage(),
 					pageContainer = router.getContainer(),
@@ -333,7 +333,7 @@
 			 * @static
 			 */
 			routePage.getContainer = function () {
-				return engine.getRouter().getContainer();
+				return ns.router.Router.getInstance().getContainer(); //@TODO fix mutual inclusion
 			};
 
 			/**

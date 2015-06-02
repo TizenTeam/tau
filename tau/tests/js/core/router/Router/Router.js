@@ -9,10 +9,11 @@ document.addEventListener('DOMContentLoaded', function () {
 	module('tau.router.wearable.Router public methods', {
 		teardown: function () {
 			tau.engine._clearBindings();
-			router.destroy();
+			tau.engine.stop();
 		},
 		setup: function() {
-
+			window.tauConfig = {autorun: false};
+			tau.engine.run();
 		}
 	});
 	test('init for justBuild:true', function () {
@@ -181,9 +182,9 @@ document.addEventListener('DOMContentLoaded', function () {
 				};
 			router.init();
 			setTimeout(function() {
-			document.addEventListener('pageshow', onPageShow, true);
-			document.addEventListener('popupshow', onPopupShow, true);
-			router.open('test-data/externalPage.html');
+				document.addEventListener('pageshow', onPageShow, true);
+				document.addEventListener('popupshow', onPopupShow, true);
+				router.open('test-data/externalPage.html');
 			}, 1000);
 		});
 	}

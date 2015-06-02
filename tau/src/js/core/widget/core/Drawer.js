@@ -40,7 +40,7 @@
 			"../../util/DOM/css",
 			"../../event",
 			"../../event/gesture",
-			"../../router/history",
+			"../../history",
 			"../core", // fetch namespace
 			"./Page",
 			"../BaseWidget"
@@ -66,7 +66,7 @@
 				selectors = ns.util.selectors,
 				utilDOM = ns.util.DOM,
 				events = ns.event,
-				history = ns.router.history,
+				history = ns.history,
 				Gesture = ns.event.gesture,
 				Page = ns.widget.core.Page,
 				STATE = {

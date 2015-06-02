@@ -115,6 +115,9 @@
 			"./profile/mobile/expose",
 			// default theme
 			"../css/profile/mobile/changeable/theme-changeable/theme",
+			// history module
+			"./core/history",
+			"./core/history/manager",
 			// router modules
 			"./core/router/Router",
 			"./core/template/html",
@@ -122,7 +125,6 @@
 			"./core/router/route/popup",
 			"./core/router/route/drawer",
 			"./profile/mobile/router/route/dialog",
-			"./core/router/history",
 			"./profile/wearable/expose",
 			"./core/widget/core/Box",
 			"./core/layout/float",

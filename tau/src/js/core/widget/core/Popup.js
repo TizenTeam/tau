@@ -68,6 +68,13 @@
 				 * @private
 				 */
 				eventUtils = ns.event,
+				/**
+				 * Alias for Router, loose requirement
+				 * @property {ns.router.Router} Router
+				 * @member ns.widget.core.Popup
+				 * @private
+				 */
+				Router = ns.router && ns.router.Router,
 
 				Popup = function () {
 					var self = this,
@@ -459,7 +466,7 @@
 				var self = this,
 					activeClass = classes.active,
 					elementClassList = self.element.classList,
-					route = engine.getRouter().getRoute("popup"),
+					route = Router && Router.getInstance().getRoute("popup"),
 					options;
 
 				// NOTE: popup's options object is stored in window.history at the router module,
@@ -469,14 +476,18 @@
 				// set state of popup and add proper class
 				if (active) {
 					// set global variable
-					route.setActive(self, options);
+					if (route) {
+						route.setActive(self, options);
+					}
 					// add proper class
 					elementClassList.add(activeClass);
 					// set state of popup 	358
 					self.state = states.OPENED;
 				} else {
 					// no popup is opened, so set global variable on "null"
-					route.setActive(null, options);
+					if (route) {
+						route.setActive(null, options);
+					}
 					// remove proper class
 					elementClassList.remove(activeClass);
 					// set state of popup
@@ -571,8 +582,8 @@
 					self._storeOpenOptions(options);
 
 					newOptions = objectUtils.merge(self.options, options);
-					if (!newOptions.dismissible) {
-						engine.getRouter().lock();
+					if (!newOptions.dismissible && Router) {
+						Router.getInstance().lock();
 					}
 					self._show(newOptions);
 				}
@@ -590,8 +601,8 @@
 					newOptions = objectUtils.merge(self.options, options);
 
 				if (self._isActive()) {
-					if (!newOptions.dismissible) {
-						engine.getRouter().unlock();
+					if (!newOptions.dismissible && Router) {
+						Router.getInstance().unlock();
 					}
 					self._hide(newOptions);
 				}
@@ -742,7 +753,9 @@
 				switch(event.type) {
 					case "pagebeforehide":
 						// we need close active popup if exists
-						engine.getRouter().close(null, {transition: "none", rel: "popup"});
+						if (Router) {
+							Router.getInstance().close(null, {transition: "none", rel: "popup"});
+						}
 						break;
 					case "resize":
 						self._onResize(event);
@@ -781,8 +794,8 @@
 				event.preventDefault();
 				event.stopPropagation();
 
-				if (options.dismissible) {
-					engine.getRouter().close();
+				if (options.dismissible && Router) {
+					Router.getInstance().close();
 				}
 			};
 
