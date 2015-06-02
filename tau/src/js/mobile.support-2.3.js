@@ -31,8 +31,9 @@
 			"support/mobile/widget/TokenTextArea.extra",
 			"support/mobile/widget/Gallery",
 			"support/mobile/widget/Fastscroll",
-			"support/mobile/widget/Controlgroup"
-
+			"support/mobile/widget/Controlgroup",
+			"support/mobile/widget/Circularview",
+			"support/mobile/widget/Datetimepicker"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
