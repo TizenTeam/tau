@@ -2,7 +2,7 @@
 (function(document) {
 	"use strict";
 
-	module("tokentextarea", {
+	module("support/mobile/widget/Tokentextarea.extra", {
 		setup: function () {
 			tau.engine.run();
 		},

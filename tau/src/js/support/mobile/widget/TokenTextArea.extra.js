@@ -180,11 +180,11 @@
 //>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../../../../core/engine",
-			"../../../../core/util/selectors",
-			"../../../../core/widget/core/Page",
-			"../mobile",
-			"./BaseWidgetMobile"
+			"../../../core/engine",
+			"../../../core/util/selectors",
+			"../../../core/widget/core/Page",
+			"../../../profile/mobile/widget/mobile",
+			"../../../profile/mobile/widget/mobile/BaseWidgetMobile"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");

@@ -99,7 +99,7 @@
 			"./profile/mobile/widget/mobile/SearchBar",
 			"./profile/mobile/widget/mobile/ActivityIndicator",
 			"./profile/mobile/widget/mobile/Progressbar",
-			"./profile/mobile/widget/mobile/Tokentextarea",
+			"./profile/mobile/widget/mobile/TextEnveloper",
 			"./profile/mobile/widget/mobile/Notification",
 			"./profile/mobile/widget/mobile/Gallery",
 			"./profile/mobile/widget/mobile/VirtualListview",
