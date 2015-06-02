@@ -56,6 +56,12 @@ a.ui-btn {
 		opacity: 1;
 		-webkit-transform: scale(1);
 	}
+
+	&.ui-state-disabled {
+		pointer-events: none;
+		background-color: @color_button_bg_dim;
+		color: @color_button_text_dim;
+	}
 }
 
 .ui-btn.ui-btn-circle {
