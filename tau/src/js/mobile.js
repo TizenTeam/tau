@@ -90,7 +90,6 @@
 			"./profile/mobile/widget/mobile/Listview",
 			"./core/widget/core/tab/Tabbar",
 			"./profile/mobile/widget/mobile/Fieldcontain",
-			"./profile/mobile/widget/mobile/Controlgroup",
 			"./profile/mobile/widget/mobile/TextInput",
 			"./profile/mobile/widget/mobile/Datetimepicker",
 			"./profile/mobile/widget/mobile/Swipe",

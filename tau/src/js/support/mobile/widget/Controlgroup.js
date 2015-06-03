@@ -30,11 +30,10 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../../../../core/engine",
-			"../../../../core/util/selectors",
-			"../../../../core/util/DOM/manipulation",
-			"../mobile", // fetch namespace
-			"./BaseWidgetMobile"
+			"../../../core/engine",
+			"../../../core/util/selectors",
+			"../../../core/util/DOM/manipulation",
+			"../../../profile/mobile/widget/mobile/BaseWidgetMobile"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");

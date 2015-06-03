@@ -17,7 +17,7 @@
 	define(
 		[
 			"../tv",
-			"../../mobile/widget/mobile/Controlgroup",
+			"./MobileControlgroup",
 			"../../../core/engine",
 			"../../../core/util/selectors"
 		],
