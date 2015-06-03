@@ -31,6 +31,7 @@
 			"support/mobile/widget/TizenSlider.extra",
 			"support/mobile/widget/TextInput.extra",
 			"support/mobile/widget/TokenTextArea.extra",
+			"support/mobile/widget/Fieldcontain",
 			"support/mobile/widget/Gallery",
 			"support/mobile/widget/Fastscroll",
 			"support/mobile/widget/Controlgroup",
