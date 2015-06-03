@@ -25,6 +25,8 @@
 			"support/mobile/widget/ListDivider",
 			"support/mobile/widget/Collapsible",
 			"support/mobile/widget/Collapsibleset",
+			"support/mobile/widget/Dialog",
+			"support/mobile/widget/Dialog.route",
 			"support/mobile/widget/Slider.extra",
 			"support/mobile/widget/TizenSlider.extra",
 			"support/mobile/widget/TextInput.extra",

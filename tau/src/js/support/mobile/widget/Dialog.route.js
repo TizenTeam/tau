@@ -14,14 +14,14 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../../../../core/engine",
-			"../../../../core/util/DOM/attributes",
-			"../../../../core/util/path",
-			"../../../../core/util/selectors",
-			"../../../../core/util/object",
-			"../../widget/mobile/Dialog",
-			"../../../../core/router/route",
-			"../../../../core/router/history"
+			"../../../core/engine",
+			"../../../core/util/DOM/attributes",
+			"../../../core/util/path",
+			"../../../core/util/selectors",
+			"../../../core/util/object",
+			"../../../core/router/route",
+			"../../../core/router/history",
+			"./Dialog"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
