@@ -88,7 +88,6 @@
 			"./profile/mobile/widget/mobile/Expandable",
 			"./profile/mobile/widget/mobile/Dialog",
 			"./profile/mobile/widget/mobile/Listview",
-			"./profile/mobile/widget/mobile/Fastscroll",
 			"./core/widget/core/tab/Tabbar",
 			"./profile/mobile/widget/mobile/Fieldcontain",
 			"./profile/mobile/widget/mobile/Controlgroup",

@@ -1,4 +1,4 @@
-	module("profile/wearable/widget/wearable/indexscrollbar/IndexScrollbar", {
+	module("profile/wearable/widget/mobile/indexscrollbar/IndexScrollbar", {
 		teardown: function () {
 			ej.engine._clearBindings();
 		}
@@ -75,15 +75,13 @@
 		equal(list.children.length, 11, "List has 11 children");
 		equal(list.children[0].textContent, "A", "First child is 'A'");
 		equal(list.children[1].textContent, "*", "Second child is '*'");
-		equal(list.children[2].textContent, "G", "Third child is 'G");
+		equal(list.children[2].textContent, "G", "Third child is 'H");
 		equal(list.children[3].textContent, "*", "4. child is '*'");
-		equal(list.children[4].textContent, "L", "5. child is 'L'");
+		equal(list.children[4].textContent, "L", "5. child is 'O'");
 		equal(list.children[5].textContent, "*", "6. child is '*'");
-		equal(list.children[6].textContent, "Q", "7. child is 'Q'");
+		equal(list.children[6].textContent, "Q", "7. child is 'U'");
 		equal(list.children[7].textContent, "*", "8. child is '*'");
-		equal(list.children[8].textContent, "V", "9. child is 'V'");
-		equal(list.children[9].textContent, "*", "10. child is '*'");
-		equal(list.children[10].textContent, "1", "11. child is '1'");
+		equal(list.children[8].textContent, "V", "9. child is '1'");
 	});
 
 	test ("Built list with supplementaryIndex", function () {
@@ -279,10 +277,10 @@
 		document.getElementById("container").classList.add("small");
 		ej.event.trigger(window, "resize");
 		list = widget.element.children[0];
-		equal(list.children.length, 3, "List has 3 children");
+		equal(list.children.length, 9, "List has 3 children");
 		equal(list.children[0].textContent, "1", "First child is '1'");
 		equal(list.children[1].textContent, "*", "Second child is '*'");
-		equal(list.children[2].textContent, "15", "Third child is '15");
+		equal(list.children[2].textContent, "5", "Third child is '5");
 
 		document.getElementById("container").classList.remove("small");
 		document.getElementById("container").classList.add("big");

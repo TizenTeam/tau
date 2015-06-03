@@ -391,7 +391,9 @@
 						keepSelectEventDelay: 50,
 						container: null,
 						supplementaryIndex: null,
-						supplementaryIndexMargin: 1
+						supplementaryIndexMargin: 1,
+						moreCharLineHeight: 9,
+						verticalCenter: true
 					};
 				},
 
@@ -489,9 +491,10 @@
 						container: element,
 						offsetLeft: 0,
 						index: options.index,
-						verticalCenter: true,
+						verticalCenter: options.verticalCenter,
 						indexHeight: options.indexHeight,
-						maxIndexLen: options.maxIndexLen
+						maxIndexLen: options.maxIndexLen,
+						moreCharLineHeight: options.moreCharLineHeight
 					});
 
 					// indexBar2

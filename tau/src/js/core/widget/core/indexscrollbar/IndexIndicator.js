@@ -75,10 +75,8 @@
 					element.style.width = container.offsetWidth + "px";
 					element.style.height = container.offsetHeight + "px";
 
-					if ( containerPosition !== "absolute" && containerPosition !== "relative" ) {
-						element.style.top = container.offsetTop + "px";
-						element.style.left = container.offsetLeft + "px";
-					}
+					element.style.top = container.offsetTop + "px";
+					element.style.left = container.offsetLeft + "px";
 				},
 
 				/**

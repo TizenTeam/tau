@@ -30,6 +30,7 @@
 			"support/mobile/widget/TextInput.extra",
 			"support/mobile/widget/TokenTextArea.extra",
 			"support/mobile/widget/Gallery"
+			"support/mobile/widget/Fastscroll"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");

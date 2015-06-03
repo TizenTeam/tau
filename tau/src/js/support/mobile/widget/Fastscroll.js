@@ -123,12 +123,12 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../../../../core/engine",
-			"../../../../core/event",
-			"../../../../core/util/selectors",
-			"../../../../core/widget/core/indexscrollbar/IndexScrollbar",
-			"../mobile",
-			"./BaseWidgetMobile"
+			"../../../core/engine",
+			"../../../core/event",
+			"../../../core/util/selectors",
+			"../../../core/widget/core/indexscrollbar/IndexScrollbar",
+			"../../../profile/mobile/widget/mobile/BaseWidgetMobile",
+			"../../../profile/mobile/widget/mobile"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
