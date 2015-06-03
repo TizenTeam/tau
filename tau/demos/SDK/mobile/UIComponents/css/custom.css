@@ -99,44 +99,44 @@
 	width: 83px;
 	line-height: 30px;
 	padding: 17px 2px;
-    font-size: 15px;
+	font-size: 15px;
 }
 #ctxpopup_horizontal_2line .ui-listview:first-child {
 	border-bottom: 2px solid rgba(8, 8, 8, 0.2);
 }
 
 /*************************************************
-                Listview
+				Listview
 **************************************************/
 .li-text-sub {
-    position: absolute;
-    top: 0;
-    right: 16px;
-    height: 100%;
-    line-height: 60px;
-    float: right;
-    text-align: right;
-    font-size: 16px;
-    color: rgba(77, 77, 77, 1);
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
+	position: absolute;
+	top: 0;
+	right: 16px;
+	height: 100%;
+	line-height: 60px;
+	float: right;
+	text-align: right;
+	font-size: 16px;
+	color: rgba(77, 77, 77, 1);
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
 }
 
 /********************* list have right button **********************/
 .li-has-right-btn .ui-btn,
 .li-has-right-circle-btn .ui-btn {
-    position: absolute;
-    top: 50%;
-    right: 16px;
+	position: absolute;
+	top: 50%;
+	right: 16px;
 }
 
 .li-has-right-btn .ui-btn {
-    margin-top: -20px;
+	margin-top: -20px;
 }
 
 .li-has-right-circle-btn .ui-btn {
-    margin-top: -25px;
+	margin-top: -25px;
 }
 
 .li-has-right-circle-btn .ui-btn-nobg {
@@ -146,16 +146,16 @@
 /******************* list have left thumbnail image ********************/
 .ui-li-anchor.li-has-thumb > a,
 .ui-li-static.li-has-thumb {
-    padding-left: 51px;
+	padding-left: 51px;
 }
 .ui-li-anchor.li-has-thumb > a .li-thumb,
 .ui-li-static.li-has-thumb .li-thumb {
-    position: absolute;
-    left: 16px;
-    top: 50%;
-    margin-top: -13px;
-    width: 27px;
-    height: 27px;
+	position: absolute;
+	left: 16px;
+	top: 50%;
+	margin-top: -13px;
+	width: 27px;
+	height: 27px;
 }
 
 /***************** list has checkbox/radio ***********************/
@@ -163,17 +163,17 @@
 .ui-li-anchor.li-has-radio > a,
 .ui-li-static.li-has-checkbox,
 .ui-li-static.li-has-radio {
-    padding-left: 50px;
+	padding-left: 50px;
 }
 
 .li-has-checkbox input.ui-checkbox:first-child,
 .li-has-radio input.ui-checkbox:first-child,
 .li-has-checkbox input.ui-radio:first-child,
 .li-has-radio input.ui-radio:first-child {
-    position: absolute;
-    top: 50%;
-    margin-top: -13px;
-    left: 16px;
+	position: absolute;
+	top: 50%;
+	margin-top: -13px;
+	left: 16px;
 }
 
 /**************** list has checkbox/radio and thumbnail ************/
@@ -181,23 +181,23 @@
 .ui-li-anchor.li-has-radio.li-has-thumb > a,
 .ui-li-static.li-has-checkbox.li-has-thumb,
 .ui-li-static.li-has-radio.li-has-thumb {
-    padding-left: 77px;
+	padding-left: 77px;
 }
 .ui-li-anchor.li-has-checkbox.li-has-thumb > a .li-thumb,
 .ui-li-anchor.li-has-radio.li-has-thumb > a .li-thumb,
 .ui-li-static.li-has-checkbox.li-has-thumb .li-thumb,
 .ui-li-static.li-has-radio.li-has-thumb .li-thumb {
-    position: absolute;
-    left: 48px;
+	position: absolute;
+	left: 48px;
 }
 
 /**************** right toggle switch ************/
 .li-has-right-btn .ui-toggle-container {
-    position: absolute;
-    top: 50%;
-    margin-top: -20px;
-    right: 16px;
-    left: auto;
+	position: absolute;
+	top: 50%;
+	margin-top: -20px;
+	right: 16px;
+	left: auto;
 }
 
 /****************************************************************/
@@ -205,97 +205,97 @@
 /****************************************************************/
 .ui-listview .li-has-multiline.ui-li-anchor > a,
 .li-has-multiline.ui-li-static {
-    padding-top: 11px;
-    padding-bottom: 38px;
+	padding-top: 11px;
+	padding-bottom: 38px;
 }
 .li-has-multiline .li-text-sub {
-    top: 39px;
-    left: 16px;
-    line-height: 22px;
-    float: left;
-    text-align: left;
-    height: auto;
+	top: 39px;
+	left: 16px;
+	line-height: 22px;
+	float: left;
+	text-align: left;
+	height: auto;
 }
 .li-has-multiline .li-text-sub,
 .li-has-multiline .li-text-sub3 {
-    max-width: 100%;
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-    right: auto;
+	max-width: 100%;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	right: auto;
 }
 .li-has-multiline .li-text-sub .li-icon-sub,
 .li-has-multiline .li-text-sub3 .li-icon-sub,
 .li-has-multiline .li-text-sub img,
 .li-has-multiline .li-text-sub3 img {
-    position: relative;
-    width: 15px;
-    height: 15px;
-    margin-right: 1px;
-    margin-bottom: 0;
+	position: relative;
+	width: 15px;
+	height: 15px;
+	margin-right: 1px;
+	margin-bottom: 0;
 }
 .li-has-multiline .li-text-sub2,
 .li-has-multiline .li-text-sub3 {
-    position: absolute;
-    font-size: 16px;
-    color: rgba(77, 77, 77, 1);
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    -o-text-overflow: ellipsis;
-    overflow: hidden;
+	position: absolute;
+	font-size: 16px;
+	color: rgba(77, 77, 77, 1);
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	-o-text-overflow: ellipsis;
+	overflow: hidden;
 }
 .li-has-multiline .li-text-sub2 {
-    top: 0;
-    right: 16px;
-    float: right;
-    text-align: right;
-    height: 100%;
-    line-height: 72px;
+	top: 0;
+	right: 16px;
+	float: right;
+	text-align: right;
+	height: 100%;
+	line-height: 72px;
 }
 .li-has-multiline .li-text-sub3 {
-    top: 61px;
-    left: 16px;
-    line-height: 25px;
+	top: 61px;
+	left: 16px;
+	line-height: 25px;
 }
 .li-has-multiline .ui-progressbar {
-    margin-left: -4px;
-    margin-top: 9px;
-    margin-bottom: -3px;
-    width: 100%;
+	margin-left: -4px;
+	margin-top: 9px;
+	margin-bottom: -3px;
+	width: 100%;
 }
 .li-has-multiline.ui-li-anchor.li-has-thumb > a .li-text-sub,
 .li-has-multiline.ui-li-static.li-has-thumb .li-text-sub {
-    left: 51px;
+	left: 51px;
 }
 .li-has-multiline.ui-li-anchor.li-has-checkbox > a .li-text-sub,
 .li-has-multiline.ui-li-anchor.li-has-radio > a .li-text-sub,
 .li-has-multiline.ui-li-static.li-has-checkbox .li-text-sub,
 .li-has-multiline.ui-li-static.li-has-radio .li-text-sub {
-    left: 50px;
+	left: 50px;
 }
 .li-has-multiline.ui-li-anchor.li-has-thumb.li-has-checkbox > a .li-text-sub,
 .li-has-multiline.ui-li-anchor.li-has-thumb.li-has-radio > a .li-text-sub,
 .li-has-multiline.ui-li-static.li-has-thumb.li-has-checkbox .li-text-sub,
 .li-has-multiline.ui-li-static.li-has-thumb.li-has-radio .li-text-sub {
-    left: 77px;
+	left: 77px;
 }
 .li-has-multiline.ui-li-anchor.li-has-thumb.li-thumbnail-right > a,
 .li-has-multiline.ui-li-static.li-has-thumb.li-thumbnail-right {
-    padding-left: 16px;
+	padding-left: 16px;
 }
 .li-has-multiline.ui-li-anchor.li-has-thumb.li-thumbnail-right > a .li-thumb,
 .li-has-multiline.ui-li-static.li-has-thumb.li-thumbnail-right .li-thumb {
-    float: right;
-    left: auto;
-    right: 16px;
+	float: right;
+	left: auto;
+	right: 16px;
 }
 .li-has-multiline.ui-li-anchor.li-has-thumb.li-thumbnail-right > a .li-text-sub,
 .li-has-multiline.ui-li-static.li-has-thumb.li-thumbnail-right .li-text-sub {
-    left: 16px;
+	left: 16px;
 }
 .li-has-multiline.li-has-3-lines.ui-li-anchor > a,
 .li-has-multiline.li-has-3-lines.ui-li-static {
-    padding-bottom: 55px;
+	padding-bottom: 55px;
 }
 
 /****************************************************************/
@@ -306,21 +306,21 @@
 }
 
 #select-list .li-select-all input[type="checkbox"].ui-checkbox {
-    position: absolute;
+	position: absolute;
 	left: auto;
-    right: 16px;
-    top: 50%;
-    margin-top: -13px;
+	right: 16px;
+	top: 50%;
+	margin-top: -13px;
 }
 
 #select-list .li-select-all.li-check-all.ui-li-anchor a {
-    color: #348187;
+	color: #348187;
 }
 
 #select-list .li-select-all label {
-    display: block;
-    padding: 19px 16px;
-    margin: -19px -16px;
+	display: block;
+	padding: 19px 16px;
+	margin: -19px -16px;
 }
 .ui-tabbar-with-icon a[data-icon="naviframe-call"]:after {
 	-webkit-mask-image: url("images/00_button_add.png");
@@ -335,13 +335,24 @@
 }
 
 /****************************************************************/
-/*              Activity Indicator demo                         */
+/*              Progress Indicator demo                         */
 /****************************************************************/
-.activity-bg {
-    background: white;
-    width: 100%;
-    box-sizing: border-box;
-    padding: 5px;
+.activity-bg,
+.progress-bg {
+	background: white;
+	width: 100%;
+	box-sizing: border-box;
+	padding: 5px;
+}
+#result {
+	font-size: 30px;
+	width: 72px;
+	text-align: center;
+}
+#result,
+#circle {
+	display: block;
+	margin: 0 auto;
 }
 
 /****************************************************************/
@@ -441,29 +452,29 @@
 	-webkit-mask-image: url("images/00_button_home.png");
 }
 .vertical-list {
-    height: 300px;
+	height: 300px;
 }
 
 /****************************************************************/
 /*                      Text Input demo                         */
 /****************************************************************/
 .textinput-box {
-    margin-top: 17px;
-    margin-bottom: 17px;
-    padding-left: 5px;
-    padding-right: 5px;
-    box-sizing: border-box;
+	margin-top: 17px;
+	margin-bottom: 17px;
+	padding-left: 5px;
+	padding-right: 5px;
+	box-sizing: border-box;
 }
 
 /****************************************************************/
 /*                      Gallery demo                            */
 /****************************************************************/
 .gallery-section > img {
-    width: 100%;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    margin: auto;
+	width: 100%;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	margin: auto;
 }
 
 /****************************************************************/
@@ -525,24 +536,24 @@
 }
 
 /**************************************
-            TABS Badge
+			TABS Badge
 ***************************************/
 .tabs-badge {
-    position: absolute;
-    border-radius: 50px;
-    background-color: rgba(43, 129, 143, 0.6);
-    color: rgba(255, 255, 255, 1);
-    top: 2px;
-    right: 14px;
-    text-align: center;
-    padding: 4px 8px;
-    font-size: 13px;
+	position: absolute;
+	border-radius: 50px;
+	background-color: rgba(43, 129, 143, 0.6);
+	color: rgba(255, 255, 255, 1);
+	top: 2px;
+	right: 14px;
+	text-align: center;
+	padding: 4px 8px;
+	font-size: 13px;
 }
 
 /**************************************
-            Virtual List
+			Virtual List
 ***************************************/
 .virtual-icon {
-    width: 35px;
-    height: 35px;
+	width: 35px;
+	height: 35px;
 }

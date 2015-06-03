@@ -9,7 +9,6 @@
  * Shows a control that indicates the progress percentage of an on-going operation.
  *
  * @class ns.widget.tv.Progress
- * @extends ns.widget.core.Progress
  */
 (function (document, ns) {
 	"use strict";
@@ -17,45 +16,91 @@
 	define(
 		[
 			"../tv",
-			"../../../core/widget/core/Progress",
+			"../../../core/widget/BaseWidget",
 			"../../../core/engine"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 
-			var CoreProgress = ns.widget.core.Progress,
-				CoreProgressPrototype = CoreProgress.prototype,
+			var BaseWidget = ns.widget.BaseWidget,
+
 				engine = ns.engine,
+
 				classes = {
+					indeterminate: "ui-progress-indeterminate",
+					process: "ui-progress-processing",
 					disabled: "disabled",
 					focused: "ui-focus",
 					thumb: "ui-progress-thumb"
 				},
 
-				Progress = function () {
-					CoreProgress.call(this);
-					/**
-					 * Object with default options
-					 * @property {Object} options
-					 * @property {number} [options.value=0] value of progress
-					 * bar
-					 * @property {number} [options.min=0] minimal value of
-					 * progress bar
-					 * @property {number} [options.max=100] maximal value of
-					 * progress bar
-					 * @member ns.widget.tv.ProgressBar
-					 */
-					this.options = {
-						value: 0,
-						max: 100,
-						min: 0
-					};
+				TYPE = {
+					bar: "bar",
+					circle: "circle"
 				},
-				FUNCTION_TYPE = "function",
-				prototype = new CoreProgress();
 
-			Progress.prototype = prototype;
+				Progress = function () {
+					this.options = {};
+				},
 
+				prototype = new BaseWidget();
+
+
+			Progress.classes = classes;
+
+			prototype._configure = function () {
+				/**
+				 * Object with default options
+				 * @property {Object} options
+				 * @property {number} [options.value=0] value of progress
+				 * bar
+				 * @property {number} [options.min=0] minimal value of
+				 * progress bar
+				 * @property {number} [options.max=100] maximal value of
+				 * progress bar
+				 * @member ns.widget.tv.ProgressBar
+				 */
+				this.options = {
+					infinite: false,
+					appeariance: TYPE.bar,
+					value: 0,
+					max: 100,
+					min: 0
+				};
+			};
+
+			prototype._build = function (element) {
+				var options = this.options,
+					classList = element.classList,
+					replacement = document.createElement("div"),
+					i,
+					attributes = element.attributes,
+					length,
+					nodeName,
+					nodeValue;
+
+				if (options.appeariance === TYPE.circle) {
+					classList.add(classes.process);
+					length = attributes.length;
+
+					for (i = 0; i < length; ++i){
+						nodeName  = attributes.item(i).name;
+						nodeValue = attributes.item(i).value;
+						replacement.setAttribute(nodeName, nodeValue);
+					}
+
+					replacement.innerHTML = element.innerHTML;
+					element.parentNode.replaceChild(replacement, element);
+				} else if (options.appeariance === TYPE.bar) {
+
+					if (options.infinite === true) {
+						classList.add(classes.indeterminate);
+					}
+
+				}
+
+				return element;
+			};
 			/**
 			 * Initializes progress
 			 * @method _init
@@ -69,9 +114,6 @@
 					max = parseInt(element.getAttribute("max"), 10),
 					value = parseInt(element.getAttribute("value"), 10),
 					options = self.options;
-				if (typeof CoreProgressPrototype._init === FUNCTION_TYPE) {
-					CoreProgressPrototype._init.call(self, element);
-				}
 
 				// remember attributes value
 				if (isNaN(min) || min === null) {
@@ -157,6 +199,11 @@
 				}
 			};
 
+			prototype._destroy = function () {
+				this.options = null;
+			};
+
+			Progress.prototype = prototype;
 			ns.widget.tv.Progress = Progress;
 
 			engine.defineWidget(
