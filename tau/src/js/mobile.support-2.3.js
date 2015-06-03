@@ -22,7 +22,7 @@
 			"support/mobile/widget/Listview.extra",
 			"support/mobile/widget/ExtendableList",
 			"support/mobile/widget/ListviewAutodivider",
-			"support/mobile/widget/ListDivider.extra",
+			"support/mobile/widget/ListDivider",
 			"support/mobile/widget/Collapsible.extra",
 			"support/mobile/widget/Collapsibleset.extra",
 			"support/mobile/widget/Slider.extra",

@@ -19,7 +19,7 @@
 		[
 			"../../../core/engine",
 			"../tv",
-			"../../../support/mobile/widget/ListDivider.extra"
+			"../../../support/mobile/widget/ListDivider"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
