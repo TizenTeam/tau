@@ -21,6 +21,7 @@
 			"support/mobile/widget/Progress.extra",
 			"support/mobile/widget/Listview.extra",
 			"support/mobile/widget/ExtendableList",
+			"support/mobile/widget/Notification",
 			"support/mobile/widget/ListviewAutodivider",
 			"support/mobile/widget/ListDivider",
 			"support/mobile/widget/Collapsible",

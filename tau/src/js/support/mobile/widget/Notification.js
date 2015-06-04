@@ -162,13 +162,12 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../../../../core/engine",
-			"../../../../core/util/selectors",
-			"../../../../core/util/DOM",
-			"../../../../core/theme",
-			"../../../../core/widget/core/Page",
-			"../mobile", // fetch namespace
-			"./BaseWidgetMobile"
+			"../../../core/engine",
+			"../../../core/util/selectors",
+			"../../../core/util/DOM",
+			"../../../core/theme",
+			"../../../core/widget/core/Page",
+			"../../../profile/mobile/widget/mobile/BaseWidgetMobile"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");

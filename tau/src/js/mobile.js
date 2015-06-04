@@ -94,7 +94,6 @@
 			"./profile/mobile/widget/mobile/ActivityIndicator",
 			"./profile/mobile/widget/mobile/Progressbar",
 			"./profile/mobile/widget/mobile/TextEnveloper",
-			"./profile/mobile/widget/mobile/Notification",
 			"./profile/mobile/widget/mobile/VirtualListview",
 			"./profile/mobile/widget/mobile/VirtualGrid",
 			"./profile/mobile/widget/mobile/Loader",
