@@ -21,10 +21,7 @@
 			"../../../../core/engine",
 			"../../../../core/util/object",
 			"../../../../core/util/DOM/css",
-			// ScrollHandler and ScrollView are required before because widget those must
-			// be created before VirtualGrid
 			"./Scrollview",
-			"./ScrollHandler",
 			"./VirtualListview"
 		],
 		function () {

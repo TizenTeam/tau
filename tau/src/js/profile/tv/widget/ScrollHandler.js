@@ -20,7 +20,7 @@
 			"../../../core/util/object",
 			"../../../core/util/DOM/css",
 			"../../../core/widget/core/Scrollview",
-			"../../../profile/mobile/widget/mobile/ScrollHandler"
+			"./MobileScrollHandler"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");

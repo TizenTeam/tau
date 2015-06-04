@@ -98,7 +98,6 @@
 			"./profile/mobile/widget/mobile/VirtualListview",
 			"./profile/mobile/widget/mobile/VirtualGrid",
 			"./profile/mobile/widget/mobile/Loader",
-			"./profile/mobile/widget/mobile/ScrollHandler",
 			"./profile/mobile/widget/mobile/Drawer",
 			"./profile/mobile/widget/mobile/ToggleSwitch",
 			"./profile/mobile/widget/mobile/Navigation",
