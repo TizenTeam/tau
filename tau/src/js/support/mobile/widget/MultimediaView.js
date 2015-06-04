@@ -17,22 +17,21 @@
 	//>>excludeStart('tauBuildExclude', pragmas.tauBuildExclude);
 	define(
 		[
-			'../../../../core/engine',
-			'../../../../core/widget',
-			'../../../../core/theme',
-			'../../../../core/support',
-			'../../../../core/util/DOM/manipulation',
-			'../../../../core/util/DOM/css',
-			'../../../../core/util/DOM/attributes',
-			'../../../../core/util/selectors',
-			'../../../../core/util/object',
-			'../../../../core/event',
-			"../../../../core/widget/core/Page",
-			"../../../../core/widget/core/Button",
-			'./BaseWidgetMobile',
-			'./Scrollview',
-			'./../../../../support/mobile/widget/Slider.extra',
-			'./Progressbar'
+			'../../../core/engine',
+			'../../../core/theme',
+			'../../../core/support',
+			'../../../core/util/DOM/manipulation',
+			'../../../core/util/DOM/css',
+			'../../../core/util/DOM/attributes',
+			'../../../core/util/selectors',
+			'../../../core/util/object',
+			'../../../core/event',
+			'../../../core/widget/core/Page',
+			'../../../core/widget/core/Button',
+			'../../../profile/mobile/widget/mobile/Scrollview',
+			'../../../profile/mobile/widget/mobile/Progressbar',
+			'../../../profile/mobile/widget/mobile/BaseWidgetMobile',
+			'./Slider.extra'
 		],
 		function () {
 			//>>excludeEnd('tauBuildExclude');
