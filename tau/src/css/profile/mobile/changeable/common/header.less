@@ -1,8 +1,7 @@
 /* Header style */
 .ui-header {
 	position : fixed;
-	display: -webkit-flex;
-	display: flex;
+	.display-flex();
 	flex-direction: row;
 	width: 100%;
 	top : 0;
@@ -16,9 +15,8 @@
 
 	.ui-title {
 		display: block;
-		-webkit-flex: 1;
-		flex: 1;
-		order: 2;
+		.flex(1);
+		.order(2);
 		height : 52 * @unit_base;
 		color: @color_bar_title_text;
 		font-size  : @font_size_bar_title_text;
@@ -56,10 +54,10 @@
 		background-color: transparent;
 		font-size: 21 * @unit_base;
 		&.ui-header-btn-left {
-			order: 1;
+			.order(1);
 		}
 		&.ui-header-btn-right {
-			order: 3;
+			.order(3);
 		}
 		&.ui-btn-icon {
 			width: 60 * @unit_base;
