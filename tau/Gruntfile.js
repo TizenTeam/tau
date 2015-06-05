@@ -763,7 +763,7 @@ module.exports = function(grunt) {
 				},
 
 				css: {
-					files : [ "src/css/profile/**/*.less", "src/css/profile/**/*.png" ],
+					files : [ "src/css/**/*.less", "src/css/**/*.png" ],
 					tasks : ["css"]
 				}
 
