@@ -2,7 +2,7 @@
 .ui-header {
 	position : fixed;
 	.display-flex();
-	flex-direction: row;
+	flex-direction: column;
 	width: 100%;
 	top : 0;
 	z-index : @z_base_header_footer;
@@ -16,7 +16,7 @@
 	.ui-title {
 		display: block;
 		.flex(1);
-		.order(2);
+		.order(1);
 		height : 52 * @unit_base;
 		color: @color_bar_title_text;
 		font-size  : @font_size_bar_title_text;
@@ -45,7 +45,7 @@
 	}
 
 	.ui-btn, button, [data-role="button"] {
-		position: relative;
+		position: absolute;
 		.appearance(none);
 		border: none;
 		outline: none;
@@ -53,21 +53,17 @@
 		cursor: pointer;
 		background-color: transparent;
 		font-size: 21 * @unit_base;
-		&.ui-header-btn-left {
-			.order(1);
-		}
-		&.ui-header-btn-right {
-			.order(3);
-		}
 		&.ui-btn-icon {
 			width: 60 * @unit_base;
 			height: 60 * @unit_base;
 		}
 		&.ui-header-btn-left.ui-btn-icon {
-			margin: 8 * @unit_base -68 * @unit_base 14 * @unit_base 8 * @unit_base;
+			top: 8 * @unit_base;
+			left: 14 * @unit_base;
 		}
 		&.ui-header-btn-right.ui-btn-icon {
-			margin: 8 * @unit_base 8 * @unit_base 14 * @unit_base -68 * @unit_base;
+			top: 8 * @unit_base;
+			right: 14 * @unit_base;
 		}
 		&.ui-btn-icon::after {
 			width: 60 * @unit_base;
@@ -81,14 +77,19 @@
 		}
 		&:not(.ui-btn-icon) {
 			text-indent: 0;
-			height: 52 * @unit_base;
-			width: 89 * @unit_base;
+			height: 100%;
+			min-width: 131 * @unit_base;
 			color: @color_button_text_normal;
+			top: 0;
 			&.ui-header-btn-left {
-				margin: auto -113 * @unit_base auto 24 * @unit_base;
+				left: 0;
+				padding-left: 24 * @unit_base;
+				padding-right: 18 * @unit_base;
 			}
 			&.ui-header-btn-right {
-				margin: auto 24 * @unit_base auto -113 * @unit_base;
+				right: 0;
+				padding-left: 18 * @unit_base;
+				padding-right: 24 * @unit_base;
 			}
 			&:active {
 				color: @color_button_text_press;

@@ -1,24 +1,27 @@
 /* Header style */
 .ui-header {
 	> .ui-btn, > button, > [data-role="button"] {
-		margin: 8 * @unit_base -68 * @unit_base 14 * @unit_base 8 * @unit_base;
-		order: 1;
+		left: 8 * @unit_base;
 	}
-	.ui-btn, button, [data-role="button"]:last-child {
-		margin: 8 * @unit_base 8 * @unit_base 14 * @unit_base -68 * @unit_base;
-		order: 3;
+	.ui-btn:last-of-type:not(:only-of-type), button:last-of-type:not(:only-of-type), [data-role="button"]:last-of-type:not(:only-of-type) {
+		left: initial;
+		right: 8 * @unit_base;
 	}
 
 	img {
+		position: absolute;
 		width: 60 * @unit_base;
 		height: 60 * @unit_base;
-		margin: auto -68 * @unit_base auto 8 * @unit_base;
+		top: 8 * @unit_base;
+		left: 8 * @unit_base;
 	}
 
 	.ui-btn, button, [data-role="button"] {
-		&[data-icon] {
+		&[data-icon], .ui-btn-icon {
+			min-width: 0;
 			width: 60 * @unit_base;
 			height: 60 * @unit_base;
+			top: 8 * @unit_base;
 		}
 		&::after {
 			position: absolute;
