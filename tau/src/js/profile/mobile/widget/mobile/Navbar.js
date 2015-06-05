@@ -139,7 +139,7 @@
 			"../../../../core/util/selectors",
 			"../../../../core/event/vmouse",
 			"../mobile",
-			"../../../../core/widget/Button",
+			"../../../../core/widget/core/Button",
 			"./BaseWidgetMobile"
 		],
 		function () {

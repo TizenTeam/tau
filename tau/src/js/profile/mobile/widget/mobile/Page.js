@@ -93,43 +93,6 @@
  *
  * jQuery mobile format is also supported.
  *
- * ### Fullscreen
- *
- * Determines if the page is shown fullscreen. The default value is
- * *false*.
- *
- * You can change this by all available methods for options setting.
- *
- * #### By data-fullscreen attribute
- *
- *		@example
- *		<div data-role="page" data-fullscreen="true"></div>
- *
- * #### By config object passed to constructor
- *
- *		@example
- *		<div id="myPage"></div>
- *		<script type="text/javascript">
- *			var page = tau.widget.Page(document.getElementById("myPage"), {"fullscreen": true});
- *		</script>
- *
- * #### By setting the option after widget creation
- *
- *		@example
- *		<div data-role="page"></div>
- *		<script type="text/javascript">
- *			var page = tau.widget.Page(document.getElementById("myPage"));
- *			page.option("fullscreen", true);
- *		</script>
- *
- * #### By using jQuery API
- *
- *		@example
- *		<div data-role="page"></div>
- *		<script type="text/javascript">
- *			$("#myPage").page({"fullscreen": true});
- *		</script>
- *
  * ### Themes
  *
  * By using theme options we can change the default theme of a Page
@@ -178,6 +141,7 @@
  *
  * @author Hyunkook Cho <hk0713.cho@samsung.com>
  * @author Junhyeon Lee <juneh.lee@samsung.com>
+ * @author Hyeoncheol Choi <hc7.choi@samsung.com>
  * @author Damian Osipiuk <d.osipiuk@samsung.com>
  * @author Jadwiga Sosnowska <j.sosnowska@samsung.com>
  * @author Krzysztof Antoszek <k.antoszek@samsung.com>
@@ -313,15 +277,10 @@
 			 * @property {string} [classes.uiTitleMultiline='ui-title-multiline'] Title multiline class
 			 * @property {string} [classes.uiPage='ui-page'] Main page class
 			 * @property {string} [classes.uiPageActive='ui-page-active'] Page active class
-			 * @property {string} [classes.uiHeaderFullscreen='ui-page-header-fullscreen'] Page header fullscreen class
-			 * @property {string} [classes.uiFooterFullscreen='ui-page-footer-fullscreen'] Page footer fullscreen class
-			 * @property {string} [classes.uiHeaderFixed='ui-page-header-fixed'] Page header fixed class
-			 * @property {string} [classes.uiFooterFixed='ui-page-footer-fixed'] Page footer fixed class
 			 * @property {string} [classes.uBtnLeft='ui-btn-left'] Left button class
 			 * @property {string} [classes.uiBtnRight='ui-btn-right'] Right button class
 			 * @property {string} [classes.uiBtnRightPrefix='ui-btn-right-'] Right button prefix
 			 * @property {string} [classes.fixedSuffix='-fixed'] Class fixed suffix
-			 * @property {string} [classes.fullscreenSuffix='-fullscreen'] class fullscreen suffix
 			 * @member ns.widget.mobile.Page
 			 * @static
 			 * @readonly
@@ -336,16 +295,11 @@
 				uiTitleTextSub: "ui-title-text-sub",
 				uiTitleMultiline: "ui-title-multiline",
 				uiFooterBtn: "ui-footer-btn-",
-				uiHeaderFullscreen: "ui-page-header-fullscreen",
-				uiFooterFullscreen: "ui-page-footer-fullscreen",
-				uiHeaderFixed: "ui-page-header-fixed",
-				uiFooterFixed: "ui-page-footer-fixed",
 				uiOverlayPrefix: "ui-overlay-",
 				uiBtnLeft: "ui-btn-left",
 				uiBtnRight: "ui-btn-right",
 				uiBtnRightPrefix: "ui-btn-right-",
 				fixedSuffix: "-fixed",
-				fullscreenSuffix: "-fullscreen",
 				uiHeaderDivider: "ui-header-divider"
 				// @todo put all used classes here
 			});
@@ -355,22 +309,12 @@
 			/**
 			 * Object with default options
 			 * @property {Object} options
-			 * @property {boolean} [options.fullscreen=false] Fullscreen page flag
-			 * @property {string} [options.theme='s'] Page theme
 			 * @property {boolean} [options.domCache=false] Use DOM cache
-			 * @property {?string} [options.contentTheme=null] Page content theme
-			 * @property {string} [options.headerTheme='s'] Page header theme. If headerTheme is empty `theme` will be used
-			 * @property {string} [options.footerTheme='s'] Page footer theme. If footerTheme is empty `theme` will be used
 			 * @member ns.widget.mobile.Page
 			 */
 			Page.prototype.options = {
-				theme: "s",
-				contentTheme: null,
-				headerTheme: "s",
-				footerTheme: "s",
-				fullscreen: false,
 				domCache: false,
-				keepNativeDefault: ns.getConfig("keepNative"),
+				keepNativeDefault: ns.getConfig("keepNative")
 			};
 
 			/**
@@ -394,40 +338,16 @@
 			// @method buildSections
 			// @param {Object} options Object with options for widget
 			// @param {HTMLElement} pageElement main element of widget
-			// @param {string} pageTheme page theme name
-			function buildSections(options, pageElement, pageTheme) {
-				var pageClassList = pageElement.classList,
-					fullscreen = options.fullscreen;
-
-				if (fullscreen) {
-					// "fullscreen" overlay positioning
-					pageClassList.add(classes.uiHeaderFullscreen);
-					pageClassList.add(classes.uiFooterFullscreen);
-				} else {
-					// If not fullscreen, add class to page to set top or bottom padding
-					pageClassList.add(classes.uiHeaderFixed);
-					pageClassList.add(classes.uiFooterFixed);
-				}
+			function buildSections(options, pageElement) {
+				var pageClassList = pageElement.classList;
 
 				[].slice.call(pageElement.querySelectorAll("." + classes.uiHeader +
 						",." + classes.uiContent +
 						",." + classes.uiFooter))
 					.forEach(function (section) {
 						var role = section.getAttribute("data-role"),
-							sectionTheme = section.getAttribute("data-theme"),
-							currentTheme,
 							sectionClassList = section.classList,
-							transition,
-							headerButtons,
-							headerButtonsWidth = 0,
-							headerAnchors,
-							headerDivider,
-							footerButtons,
-							footerWidth,
-							moreButton,
-							leftButton,
-							rightButton,
-							previousElementOfHeaderButton;
+							transition;
 
 						if (!role) {
 							if (sectionClassList.contains(classes.uiHeader)) {
@@ -437,107 +357,27 @@
 							} else {
 								role = "footer";
 							}
-
 							section.setAttribute("data-role", role);
 						}
 
 						sectionClassList.add(classes.uiPrefix + role);
 
-						// Adding transition classes for all matched elements
-						// @todo support transition form config
-						transition = section.getAttribute("data-transition") || "";
-
-						if (transition && transition !== "none") {
-							if (transition === "slide") {
-								transition = role === "header" ? "slidedown" : "slideup";
-							}
-							sectionClassList.add(transition);
-						}
-
 						if (role === "content") {
 							section.setAttribute("role", "main");
-							currentTheme = sectionTheme || options.contentTheme;
-							if (currentTheme) {
-								sectionClassList.add(classes.uiBodyPrefix + currentTheme);
-							}
 						} else {
-							currentTheme = sectionTheme || (role === "header" ? options.headerTheme : options.footerTheme) || pageTheme;
-							sectionClassList.add(classes.uiBarPrefix + currentTheme);
-
 							// We always set the ui-[header|footer]-fixed class to match Tizen design needs
 							sectionClassList.add(classes.uiPrefix + role + classes.fixedSuffix);
 
-							if (fullscreen) {
-								sectionClassList.add(classes.uiPrefix + role + classes.fullscreenSuffix);
-							}
-
-							section.setAttribute("role", role === "header" ? "banner" : "contentinfo");
-
 							if (role === "header") {
-								headerAnchors = selectors.getChildrenBySelector(section, "a, div.naviframe-button, button, [data-role=button]");
-								headerAnchors.forEach(function (anchor) {
-									var anchorClassList = anchor.classList;
-									leftButton = anchorClassList.contains(classes.uiBtnLeft);
-									rightButton = anchorClassList.contains(classes.uiBtnRight);
-								});
-
-								if (!leftButton && headerAnchors[0] && !headerAnchors[0].classList.contains(classes.uiBtnRight)) {
-									leftButton = headerAnchors[0];
-									utilsDOM.setNSData(leftButton, "role", "button");
-									leftButton.classList.add(classes.uiBtnLeft);
-								}
-
-								if (!rightButton && headerAnchors[1]) {
-									rightButton = headerAnchors[1];
-									utilsDOM.setNSData(rightButton, "role", "button");
-									rightButton.classList.add(classes.uiBtnRight);
-								}
-
-								headerButtons = selectors.getChildrenBySelector(section, "a,[data-role='button']");
-								if (headerButtons.length) {
-									headerButtons.forEach(function (button) {
-										engine.instanceWidget(button, "Button");
-										previousElementOfHeaderButton = button.previousElementSibling;
-										// @TODO move this calculation after page show
-										headerButtonsWidth += 90;//utilsDOM.getElementWidth(button, true) + 2;
-
-									});
-								}
-								if (section.querySelector("." + classes.uiTitleTextSub)) {
-									sectionClassList.add(classes.uiTitleMultiline);
-								}
-							} else if (role === "footer") {
-								footerButtons = selectors.getChildrenBySelector(section, "a,div.naviframe-button,[data-role='button'],button,[type='button'],[type='submit'],[type='reset']");
-								if (footerButtons.length) {
-									//TODO rethink this solution
-									footerWidth = section.offsetWidth || window.innerWidth;
-									moreButton = selectors.getChildrenBySelector(section, "[data-icon='naviframe-more']");
-									if (moreButton.length) {
-										footerWidth -= utilsDOM.getElementWidth(moreButton[0]);
-									}
-									footerButtons.forEach(function (button) {
-										var buttonStyle = button.style;
-										engine.instanceWidget(button, "Button", {
-											role: "button"
-										});
-									});
-									section.classList.add(classes.uiFooterBtn + footerButtons.length);
+								if (section.querySelectorAll("[data-role='button'], button, .ui-btn").length) {
+									section.setAttribute("data-enhance", false);
 								}
 							}
-
 							selectors.getChildrenBySelector(section, "h1, h2, h3, h4, h5, h6").forEach(function (title) {
-								var headerImgsWidth = 0,
-									headerSrcNum = 0,
-									width,
-									titleStyle = title.style;
-
 								title.classList.add(classes.uiTitle);
 								title.setAttribute("role", "heading");
 								title.setAttribute("aria-level", 1);
 								title.setAttribute("aria-label", "title");
-								width = window.innerWidth - headerButtonsWidth - headerImgsWidth * headerSrcNum * 4;
-
-								titleStyle.width = width + "px";
 							});
 						}
 					});
@@ -548,14 +388,12 @@
 			// @param {Object} options object with options for create page
 			// @param {HTMLElement} element base element of page
 			function buildStructure(options, element) {
-				var pageTheme = options.theme,
-					dataPageTitle = utilsDOM.getNSData(element, "title"),
+				var dataPageTitle = utilsDOM.getNSData(element, "title"),
 					pageTitle = dataPageTitle,
 					titleElement,
 					classes = Page.classes;
 
 				element.classList.add(classes.uiPage);
-				element.classList.add(classes.uiBodyPrefix + pageTheme);
 
 				if (!pageTitle) {
 					titleElement = selectors.getChildrenByDataNS(element, "role=header")[0];
@@ -570,7 +408,7 @@
 				if (!dataPageTitle && pageTitle) {
 					utilsDOM.setNSData(element, "title", pageTitle);
 				}
-				buildSections(options, element, pageTheme);
+				buildSections(options, element);
 			}
 
 			/**

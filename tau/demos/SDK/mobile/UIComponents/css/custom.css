@@ -1,3 +1,8 @@
+/* Header */
+.btn-icon-back::after {
+   -webkit-mask-image: url(./images/core_icon_back.png);
+}
+
 .my-check-button-style {
 	margin: 10px;
 }

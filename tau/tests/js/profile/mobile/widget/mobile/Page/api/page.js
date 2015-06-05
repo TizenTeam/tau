@@ -23,19 +23,10 @@
 		equal(typeof widget.option, 'function', 'Method page.option exists');
 
 		equal(typeof widget.options, 'object', 'Property page.options exists');
-
-		equal(typeof widget.options.fullscreen, 'boolean', 'Property page.options.fullscreen exists');
-		equal(widget.options.fullscreen, false, 'Proper default page.options.fullscreen value');
-
 		equal(typeof widget.options.theme, 'string', 'Property page.options.theme exists');
-		equal(typeof widget.options.contentTheme, 'object', 'Property page.contentTheme exists');
-		equal(typeof widget.options.headerTheme, 'string', 'Property page.headerTheme exists');
-		equal(typeof widget.options.footerTheme, 'string', 'Property page.footerTheme exists');
-
-		equal(typeof widget.options.theme, "string", 'Proper default page.options.theme value');
-		equal(widget.options.contentTheme, null, 'Proper default page.contentTheme value');
-		equal(typeof widget.options.headerTheme, "string", 'Proper default page.headerTheme value');
-		equal(typeof widget.options.footerTheme, "string", 'Proper default page.footerTheme value');
+		equal(typeof widget.options.domCache, 'boolean', 'Property page.options.domCache exists');
+		equal(typeof widget.options.headerTheme, 'string', 'Property page.options.headerTheme exists');
+		equal(typeof widget.options.footerTheme, 'string', 'Property page.options.footerTheme exists');
 
 		equal(typeof widget.backBtnText, 'string', 'Property page.backBtnText exists');
 		equal(typeof widget.backBtnTheme, 'object', 'Property page.backBtnTheme exists');

@@ -1,6 +1,15 @@
 /***************************************************************************
 					Tabbar
 ***************************************************************************/
+.ui-header.ui-tabs-with-title {
+	flex-direction: column;
+	.ui-title {
+		order: 1;
+	}
+	*:not(.ui-title) {
+		order: 2;
+	}
+}
 
 .ui-tabbar {
 	.ui-btn-active {

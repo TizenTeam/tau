@@ -3,6 +3,7 @@
 ***************************************************************************/
 
 .ui-tabbar {
+	width: 100%;
 	height: 82 * @unit_base;
 	&.ui-tabbar-with-icon {
 		a {
@@ -24,29 +25,32 @@
 			}
 		}
 	}
-	&.ui-tabbar-with-title {
-		height: 57 * @unit_base;
-		&.ui-tabbar-with-icon {
-			height: 57 * @unit_base;
+	&.ui-tabbar-portrait, &.ui-tabbar-landscape {
+		&.ui-tabbar-with-title {
+			height: 52 * @unit_base;
+			&.ui-tabbar-with-icon {
+				height: 52 * @unit_base;
+				a {
+					line-height: 52 * @unit_base;
+					bottom: -45 * @unit_base;
+					&::after {
+						top: 9 * @unit_base;
+						left: -50%;
+						-webkit-mask-size: 40 * @unit_base 40 * @unit_base;
+					}
+				}
+			}
 			a {
-				line-height: 57 * @unit_base;
+				line-height: 52 * @unit_base;
+				font-size: 23 * @unit_base;
 				bottom: -45 * @unit_base;
-				&::after {
-					top: 9 * @unit_base;
-					left: -50%;
-					-webkit-mask-size: 40 * @unit_base 40 * @unit_base;
+				&::before {
+					bottom: 20 * @unit_base;
 				}
 			}
 		}
-		a {
-			line-height: 57 * @unit_base;
-			font-size: 28 * @unit_base;
-			bottom: -45 * @unit_base;
-			&::before {
-				bottom: 20 * @unit_base;
-			}
-		}
 	}
+
 	&.ui-tabbar-portrait {
 		&.ui-tabbar-with-icon {
 			height: 108 * @unit_base;

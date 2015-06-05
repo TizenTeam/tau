@@ -169,6 +169,7 @@
 			"../../../event",
 			"../Scrollview",
 			"../Tab",
+			"../Page",
 			"../../../event"
 		],
 		function () {
@@ -176,6 +177,7 @@
 			var Tab = ns.widget.core.Tab,
 				TabPrototype = Tab.prototype,
 				engine = ns.engine,
+				Page = ns.widget.core.Page,
 				selectors = ns.util.selectors,
 				domUtils = ns.util.DOM,
 
@@ -211,6 +213,7 @@
 					TABBAR: "ui-tabbar",
 					TAB_ACTIVE: "ui-tab-active",
 					TITLE: "ui-title",
+					TABS_WITH_TITLE: "ui-tabs-with-title",
 					TABBAR_WITH_TITLE: "ui-tabbar-with-title",
 					TABBAR_WITH_ICON: "ui-tabbar-with-icon",
 					TABBAR_PORTRAIT: "ui-tabbar-portrait",
@@ -242,6 +245,19 @@
 				}
 				return null;
 			}
+
+			function findTitle(element) {
+				var parentNode = element.parentNode,
+					title;
+				while(parentNode && !parentNode.classList.contains(Page.classes.uiPage)) {
+					title = parentNode.querySelector("." + classes.TITLE);
+					if (title) {
+						return title;
+					}
+					parentNode = parentNode.parentNode;
+				}
+				return 0;
+			}
 			/**
 			 * Build method
 			 * @method _build
@@ -254,12 +270,13 @@
 				var self = this,
 					type = self._type,
 					ui = self._ui,
-					title = element.parentNode.querySelector("." + classes.TITLE),
+					title = findTitle(element),
 					tabs = element.querySelectorAll("li"),
 					links = element.querySelectorAll("A");
 
 				element.classList.add(classes.TABBAR);
 				if (title) {
+					title.parentNode.classList.add(classes.TABS_WITH_TITLE);
 					element.classList.add(classes.TABBAR_WITH_TITLE);
 					type.withTitle = true;
 				}
