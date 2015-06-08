@@ -97,7 +97,7 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../../../support/mobile/widget/DropdownMenu.extra",
+			"../../../support/mobile/widget/SelectMenu.js",
 			"../../../core/engine",
 			"../../../core/theme",
 			"../../../core/util/selectors",
