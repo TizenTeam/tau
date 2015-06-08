@@ -1,4 +1,10 @@
 %changelog
+* Mon Jun 08 2015 Hagun Kim <hagun.kim@samsung.com> 0.10.25
+	- fix(wearable): fixed bug of SnapListMarqueeStyle Helper when using rotary scroll. [P150605-06742]
+	- fix(demos): change timing of showing processing widget [P150605-06759]
+	- fix(wearable): fixed display scroll end effect when page header expanded.
+	- etc(sample): rename wearable demo in config.xml
+
 * Wed May 27 2015 Hyeoncheol Choi <hc7.choi@samsung.com> 0.10.24
 	- fix(wearable): fix rotary event handling in select mode
 
