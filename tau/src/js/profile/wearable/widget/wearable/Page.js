@@ -439,6 +439,9 @@
 
 				if (event.detail.direction === "down" && expandableHeader.scroller.scrollTop === 0 && !expandableHeader.expanded) {
 					utilsEvents.trigger(expandableHeader.header, CustomEvents.BEFORE_EXPAND);
+					if (expandableHeader.scroller) {
+						expandableHeader.scroller.style.overflow = "hidden";
+					}
 					expandableHeader.expanded = true;
 					expandableHeader.drag.options.blockHorizontal = false;
 					utilsEvents.trigger(expandableHeader.header, CustomEvents.EXPAND);
@@ -473,6 +476,9 @@
 						expandableHeader.expanded = false;
 						expandableHeader.currentY = 0;
 						expandableHeader.moveY = 0;
+						if (expandableHeader.scroller) {
+							expandableHeader.scroller.style.overflow = "";
+						}
 						utilsEvents.trigger(expandableHeader.header, CustomEvents.COLLAPSE);
 						event.preventDefault();
 					}
@@ -488,6 +494,10 @@
 
 				if (expandableHeader.expanded && expandableHeader.currentY >= expandableHeader.max - expandableHeader.tolerance) {
 					utilsEvents.trigger(expandableHeader.header, CustomEvents.COMPLETE);
+				} else if (!expandableHeader.expanded) {
+					if (expandableHeader.scroller) {
+						expandableHeader.scroller.style.overflow = "";
+					}
 				}
 			};
 
@@ -516,6 +526,9 @@
 
 				if (expandableHeader) {
 					expandableHeader.scroller.style.webkitTransform = "";
+					if (expandableHeader.scroller) {
+						expandableHeader.scroller.style.overflow = "";
+					}
 				}
 			};
 
