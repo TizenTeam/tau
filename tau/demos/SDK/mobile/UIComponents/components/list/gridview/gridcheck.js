@@ -1,5 +1,5 @@
 (function() {
-	var list = document.getElementById("gridlist"),
+	var list = document.getElementById("gridview"),
 		checkboxes = list.querySelectorAll("input[type='checkbox']"),
 		elSelectAll = document.getElementById("select-all"),
 		isAll = false;

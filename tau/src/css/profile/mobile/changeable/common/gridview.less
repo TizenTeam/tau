@@ -1,40 +1,40 @@
-.ui-gridlist {
+.ui-gridview {
 	position: relative;
 	width: 100%;
 	height: 100%;
 	padding: 0;
 	margin: 0;
-	background-color: @color_gridlist_bg;
+	background-color: @color_gridview_bg;
 	list-style: none;
 
-	.ui-gridlist-item {
+	.ui-gridview-item {
 		position: absolute;
 		-webkit-transition: all 0.2s ease-out;
 		width: 100px;
-		&.ui-gridlist-helper {
+		&.ui-gridview-helper {
 			-webkit-transition: none;
 			-webkit-transform: translate3d(0, 0, 0);
 		}
-		.ui-gridlist-handler {
+		.ui-gridview-handler {
 			display: none;
 		}
 	}
 
-	&.ui-gridlist-label-in .ui-gridlist-label {
+	&.ui-gridview-label-in .ui-gridview-label {
 		display: block;
-		color: @color_gridlist_text_in
+		color: @color_gridview_text_in
 	}
 
-	&.ui-gridlist-label-out .ui-gridlist-label {
+	&.ui-gridview-label-out .ui-gridview-label {
 		display: block;
 		margin: 0;
-		color: @color_gridlist_text_out;
+		color: @color_gridview_text_out;
 		height: 60 * @unit_base;
 	}
 
-	&.ui-gridlist-reorder {
-		.ui-gridlist-item {
-			.ui-gridlist-handler {
+	&.ui-gridview-reorder {
+		.ui-gridview-item {
+			.ui-gridview-handler {
 				display: block;
 				position: absolute;
 				width: 40%;
@@ -50,13 +50,13 @@
 	}
 }
 
-.ui-gridlist-image {
+.ui-gridview-image {
 	display: block;
 	width: 100%;
 	pointer-events: none;
 }
 
-.ui-gridlist-label {
+.ui-gridview-label {
 	display: none;
 	width: 100%;
 	height: 30 * @unit_base;
@@ -64,7 +64,7 @@
 	padding: 0 8 * @unit_base;
 	box-sizing: border-box;
 	margin: -30 * @unit_base 0 0 0;
-	font-size: @font_size_gridlist;
+	font-size: @font_size_gridview;
 	text-align: center;
 	overflow: hidden;
 	text-overflow: ellipsis;

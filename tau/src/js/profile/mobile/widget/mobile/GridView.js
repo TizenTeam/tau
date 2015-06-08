@@ -19,7 +19,7 @@
 				utilsEvents = ns.event,
 				utilsSelectors = ns.util.selectors,
 				utilsDom = ns.util.DOM,
-				STYLE_PATTERN = ".ui-gridlist li:nth-child({index})",
+				STYLE_PATTERN = ".ui-gridview li:nth-child({index})",
 				MATRIX_REGEXP = /matrix\((.*), (.*), (.*), (.*), (.*), (.*)\)/,
 				DATA_ROLE = "data-role",
 				direction = {
@@ -32,16 +32,16 @@
 					NONE: "none"
 				},
 				classes = {
-					GRIDLIST: "ui-gridlist",
-					ITEM: "ui-gridlist-item",
-					HELPER: "ui-gridlist-helper",
-					HOLDER: "ui-gridlist-holder",
-					LABEL: "ui-gridlist-label",
-					LABEL_IN: "ui-gridlist-label-in",
-					LABEL_OUT: "ui-gridlist-label-out",
-					HANDLER: "ui-gridlist-handler"
+					GRIDLIST: "ui-gridview",
+					ITEM: "ui-gridview-item",
+					HELPER: "ui-gridview-helper",
+					HOLDER: "ui-gridview-holder",
+					LABEL: "ui-gridview-label",
+					LABEL_IN: "ui-gridview-label-in",
+					LABEL_OUT: "ui-gridview-label-out",
+					HANDLER: "ui-gridview-handler"
 				},
-				GridList = function () {
+				GridView = function () {
 					var self = this;
 					self.options = {};
 					self._direction = 0;
@@ -58,8 +58,8 @@
 				},
 				prototype = new BaseWidget();
 
-			GridList.prototype = prototype;
-			GridList.classes = classes;
+			GridView.prototype = prototype;
+			GridView.classes = classes;
 
 			function getScrollableParent(element) {
 				var overflow;
@@ -421,7 +421,7 @@
 					);
 					utilsEvents.on(element, "drag dragstart dragend dragcancel dragprepare", self, true);
 					utilsEvents.off(element, "pinchin pinchout", self);
-					element.classList.add("ui-gridlist-reorder");
+					element.classList.add("ui-gridview-reorder");
 				} else {
 					utilsEvents.enableGesture(
 						element,
@@ -429,7 +429,7 @@
 					);
 					utilsEvents.off(element, "drag dragstart dragend dragcancel dragprepare", self, true);
 					utilsEvents.on(element, "pinchin pinchout", self);
-					element.classList.remove("ui-gridlist-reorder");
+					element.classList.remove("ui-gridview-reorder");
 				}
 
 				options.reorder = reorder;
@@ -542,17 +542,17 @@
 				options.label = labelCheck;
 			};
 
-			ns.widget.mobile.GridList = GridList;
+			ns.widget.mobile.GridView = GridView;
 
 			engine.defineWidget(
-				"GridList",
-				"ul.ui-gridlist, ul[data-role='gridlist']",
+				"GridView",
+				"ul.ui-gridview, ul[data-role='gridview']",
 				[],
-				GridList,
+				GridView,
 				"mobile"
 			);
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
-			return ns.widget.mobile.GridList;
+			return ns.widget.mobile.GridView;
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");

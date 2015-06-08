@@ -105,7 +105,6 @@
 	border-bottom: 2px solid rgba(8, 8, 8, 0.2);
 }
 
-<<<<<<< HEAD
 /*************************************************
                 Listview
 **************************************************/
@@ -466,7 +465,7 @@
 /****************************************************************/
 /*                      Grid List                               */
 /****************************************************************/
-.ui-gridlist .ui-gridlist-item > label {
+.ui-gridview .ui-gridview-item > label {
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -474,19 +473,19 @@
 	height: 100%;
 }
 
-.ui-gridlist .ui-gridlist-item > label > input[type="checkbox"] {
+.ui-gridview .ui-gridview-item > label > input[type="checkbox"] {
 	position: absolute;
 	top: 3%;
 	right: 3%;
 }
 
-.ui-gridlist-handler {
+.ui-gridview-handler {
 	-webkit-mask-image: url("images/core_button_reorder.png");
 	-webkit-mask-size: 100%;
 	background-color: rgba(82, 199, 217, 1);
 }
 
-#grid-badge-page .ui-gridlist-item .grid-badge {
+#grid-badge-page .ui-gridview-item .grid-badge {
 	position: absolute;
 	border-radius: 50px;
 	background-color: rgba(252, 116, 58, 1);
@@ -505,6 +504,7 @@
 	top: 50%;
 	margin-top: -13px;
 }
+
 /****************************************************************/
 /*			Search Input demo			*/
 /****************************************************************/

@@ -1,5 +1,5 @@
 var elPage = document.getElementById("grid-page"),
-	elGrid = document.getElementById("gridlist"),
+	elGrid = document.getElementById("gridview"),
 	modeBtn = document.getElementById("modeBtn"),
 	gridList;
 
@@ -14,7 +14,7 @@ function modeHandler() {
 }
 
 elPage.addEventListener("pageshow", function() {
-	gridList = tau.widget.GridList(elGrid);
+	gridList = tau.widget.GridView(elGrid);
 	modeBtn.addEventListener("click", modeHandler);
 });
 
