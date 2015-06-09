@@ -50,7 +50,7 @@
 
 					equal(content.getAttribute('data-tau-bound'), 'ScrollHandler', 'ScrollHandler added');
 					ok(content.classList.contains("ui-scrollview-clip"), 'ScrollHandler created');
-					equal(clipStyle.getPropertyValue("overflow"), 'scroll', 'Overflow: scroll');
+					equal(clipStyle.getPropertyValue("overflow"), 'auto', 'Overflow: auto');
 					if (ScrollHandler.options.scrollIndicator) {
 						equal(content.childNodes.length, 4, 'Content body wrapped in ui-scrollview-view and ScrollHandler beside');
 					} else {
@@ -72,9 +72,9 @@
 				test('ScrollHandler with data-direction=y', 3, function () {
 					var content = document.getElementById('content4'),
 						clipStyle = window.getComputedStyle(content);
-					equal(clipStyle.getPropertyValue("overflow-y"), "scroll", 'Added vertical scroll');
+					equal(clipStyle.getPropertyValue("overflow-y"), "auto", 'Added vertical scroll');
 					equal(clipStyle.getPropertyValue("overflow-x"), "hidden", 'No horizontal scroll');
-					equal(clipStyle.getPropertyValue("overflow"), "scroll", 'Main scroll not changed');
+					equal(clipStyle.getPropertyValue("overflow"), "auto", 'Main scroll not changed');
 				});
 
 				test('getScrollPosition', 2, function () {

@@ -459,7 +459,7 @@
 						clipStyle.overflow = "scroll";
 						break;
 					default:
-						clipStyle.overflowY = "scroll";
+						clipStyle.overflowY = "auto";
 						break;
 				}
 

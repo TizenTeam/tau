@@ -99,6 +99,9 @@
 					 * @member ns.widget.core.SectionChanger
 					 */
 					CHANGE: "sectionchange"
+				},
+				classes = {
+					uiSectionChanger: "ui-section-changer"
 				};
 
 			function SectionChanger() {
@@ -132,6 +135,7 @@
 					this.beforeIndex = 0;
 
 					this._super(element);
+					element.classList.add(classes.uiSectionChanger);
 					return element;
 				},
 
@@ -164,11 +168,17 @@
 				_init: function (element) {
 					var o = this.options,
 						scroller = this.scroller,
+						offsetHeight,
 						sectionLength, i, className;
 
 					scroller.style.position = "absolute";
+					offsetHeight = element.offsetHeight;
+					if (offsetHeight === 0) {
+						offsetHeight = element.parentNode.offsetHeight;
+						element.style.height = offsetHeight + "px";
+					}
 					this._sectionChangerWidth = element.offsetWidth;
-					this._sectionChangerHeight = element.offsetHeight;
+					this._sectionChangerHeight = offsetHeight;
 					this._sectionChangerHalfWidth = this._sectionChangerWidth / 2;
 					this._sectionChangerHalfHeight = this._sectionChangerHeight / 2;
 					this.orientation = o.orientation === "horizontal" ? Scroller.Orientation.HORIZONTAL : Scroller.Orientation.VERTICAL;

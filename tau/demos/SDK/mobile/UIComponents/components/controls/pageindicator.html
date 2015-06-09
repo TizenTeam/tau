@@ -8,49 +8,49 @@
 <body>
 <div class="ui-page" id="page-indicator-page">
     <div class="ui-header" data-position="fixed">
-        <h1>Controls</h1>
+        <h1>Page Indicator</h1>
     </div>
-    <div class="ui-content ui-scrollview-clip">
-    <div class="ui-page-indicator" id="pageIndicator" data-number-of-pages="4" style="position:absolute; transform: translate3d(-50%, -100%, 0); left: 50%; bottom: 0;"></div>
-    <div id="hsectionchanger" class="ui-section-changer">
-        <!-- section changer has only one child. -->
-        <div>
-            <section class="ui-section-active">
-                <ul data-role="listview">
-                    <li class="ui-li-anchor"><a href="#">List 1</a></li>
-                    <li class="ui-li-anchor"><a href="#">List 2</a></li>
-                    <li class="ui-li-anchor"><a href="#">List 3</a></li>
-                    <li class="ui-li-anchor"><a href="#">List 4</a></li>
-                    <li class="ui-li-anchor"><a href="#">List 5</a></li>
-                    <li class="ui-li-anchor"><a href="#">List 6</a></li>
-                    <li class="ui-li-anchor"><a href="#">List 7</a></li>
-                </ul>
-            </section>
-            <section>
-                <ul data-role="listview">
-                    <li class="ui-li-anchor"><a href="#">List 1</a></li>
-                    <li class="ui-li-anchor"><a href="#">List 2</a></li>
-                </ul>
-            </section>
-            <section>
-                <ul data-role="listview">
-                    <li class="ui-li-anchor"><a href="#">List 1</a></li>
-                    <li class="ui-li-anchor"><a href="#">List 2</a></li>
-                    <li class="ui-li-anchor"><a href="#">List 3</a></li>
-                </ul>
-            </section>
-            <section>
-                <ul data-role="listview">
-                    <li class="ui-li-anchor"><a href="#">List 1</a></li>
-                    <li class="ui-li-anchor"><a href="#">List 2</a></li>
-                    <li class="ui-li-anchor"><a href="#">List 3</a></li>
-                    <li class="ui-li-anchor"><a href="#">List 4</a></li>
-                </ul>
-            </section>
-        </div>
-    </div>
-    </div>
-    <script src="./pageindicator.js"></script>
+	<div class="ui-content">
+		<div class="ui-page-indicator" id="pageIndicator" data-number-of-pages="4" style="transform: translate3d(-50%, -100%, 0); bottom: 0; z-index: 101;"></div>
+		<div id="hsectionchanger" class="ui-section-changer">
+			<!-- section changer has only one child. -->
+			<div>
+                <section class="ui-section-active">
+                    <ul class="ui-listview">
+                        <li class="ui-li-static">List 1</li>
+                        <li class="ui-li-static">List 2</li>
+                        <li class="ui-li-static">List 3</li>
+                        <li class="ui-li-static">List 4</li>
+                        <li class="ui-li-static">List 5</li>
+                        <li class="ui-li-static">List 6</li>
+                        <li class="ui-li-static">List 7</li>
+                    </ul>
+                </section>
+                <section>
+	                <ul class="ui-listview">
+	                    <li class="ui-li-static">List 1</li>
+	                    <li class="ui-li-static">List 2</li>
+	                </ul>
+	            </section>
+	            <section>
+	                <ul class="ui-listview">
+	                    <li class="ui-li-static">List 1</li>
+	                    <li class="ui-li-static">List 2</li>
+	                    <li class="ui-li-static">List 3</li>
+	                </ul>
+	            </section>
+	            <section>
+	                <ul class="ui-listview">
+	                    <li class="ui-li-static">List 1</li>
+	                    <li class="ui-li-static">List 2</li>
+	                    <li class="ui-li-static">List 3</li>
+	                    <li class="ui-li-static">List 4</li>
+	                </ul>
+	            </section>
+	        </div>
+	    </div>
+	</div>
+	<script src="./pageindicator.js"></script>
 </div>
 </body>
 </html>
