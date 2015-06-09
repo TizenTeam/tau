@@ -1,6 +1,8 @@
-.my-check-controlgroup .ui-checkbox,
-.content-primary input[type="radio"] {
-	top: 10px;
+.ui-checkbox {
+	top: 8px;
+}
+.ui-radio {
+	top: 4px;
 }
 .checkbox-result,
 .favorite-result,
