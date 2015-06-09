@@ -169,8 +169,8 @@
 					ui = self._ui;
 
 				ui.page = selectors.getClosestByClass(element, classes.PAGE);
-				ui.tabbar = element.querySelector("[data-role='tabbar']");
-				ui.sectionChanger = element.querySelector("[data-role='section-changer']");
+				ui.tabbar = element.querySelector("[data-role='tabbar'], .ui-tabbar");
+				ui.sectionChanger = element.querySelector("[data-role='section-changer'], .ui-section-changer");
 				self._component.tabbar = tau.widget.TabBar(ui.tabbar);
 				self._changed = false;
 				self._lastIndex = 0;
