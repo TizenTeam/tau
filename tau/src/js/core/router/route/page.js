@@ -88,7 +88,7 @@
 			 * @member ns.router.route.page
 			 * @static
 			 */
-			routePage.filter = engine.getWidgetDefinition("Page").selector;
+			routePage.filter = engine.getWidgetDefinition("Page").selector.replace(/(\s*)/g, "" );
 
 			/**
 			 * Returns default route options used inside Router.
