@@ -112,7 +112,7 @@
 				ui.footer = ui.page.querySelector("." + classes.FOOTER);
 				ui.activePanel = ui.page.querySelector("." + classes.ACTIVE_PANEL);
 				if (!ui.activePanel) {
-					ui.activePanel = ui.page.querySelector("[data-role='panel']");
+					ui.activePanel = ui.page.querySelector("[data-role='panel'], .ui-panel");
 					ui.activePanel.classList.add(classes.ACTIVE_PANEL);
 				}
 				ui.activePanel.style.display = "block";
@@ -204,7 +204,7 @@
 					i, len;
 
 				if (!panel && id.length > 1) {
-					panel = xml.querySelector(id) || xml.querySelector("[data-role='panel']");
+					panel = xml.querySelector(id) || xml.querySelector("[data-role='panel'], .ui-panel");
 				}
 
 				if (!panel) {
