@@ -6,22 +6,22 @@
 	<script type="text/javascript" src="../../lib/tau/mobile/js/tau.js" data-build-remove="false"></script>
 </head>
 <body>
-<div id="panelPage" data-role="page">
-	<div data-role="header" data-position="fixed">
+<div id="panelPage" class="ui-page">
+	<div class="ui-header" data-position="fixed">
 		<h1>Navigation bar</h1>
-		<nav id="navigation" data-role="navigation">
+		<nav id="navigation" class="ui-navigation">
 		</nav>
 	</div>
-	<div id="panelChanger" data-role="panel-changer">
+	<div id="panelChanger" class="ui-panel-changer">
 		<div id="mainpanel" data-role="panel" style="background-color:#ffff4f">
-			<ul data-role="listview">
+			<ul class="ui-listview">
 				<li class="ui-li-anchor">
 					<a href="./panel.html#panel2">Go Panel 2</a>
 				</li>
 				<li class="ui-li-anchor"><a href="#center_info" data-inline="true" data-rel="popup" data-position-to="window">Popup with only text</a></li>
 			</ul>
 			<!-- Center info Popup -->
-			<div id="center_info" data-role="popup" class="center_info">
+			<div id="center_info" class="ui-popup center_info">
 				<div class="ui-popup-text"> <p>
 					Pop-up dialog box, a child
 					window that blocks user inter-

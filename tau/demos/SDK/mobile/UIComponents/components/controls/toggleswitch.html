@@ -6,20 +6,20 @@
 	<script type="text/javascript" src="../../lib/tau/mobile/js/tau.min.js" data-build-remove="false"></script>
 </head>
 <body>
-<div data-role="page" id="switch-demo">
-	<div data-role="header">
+<div class="ui-page" id="switch-demo">
+	<div class="ui-header">
 		<h1>Toggle switch</h1>
 	</div>
 
-	<div class="content" data-role="content">
+	<div class="content" class="ui-content">
 		<p>1-1. Proper way of definding toggleswitch with &lt;input&gt; tag</p>
-		<input type="checkbox" name="toggle-1" id="toggle-1" data-role="toggleswitch"/>
+		<input type="checkbox" name="toggle-1" id="toggle-1" class="ui-toggleswitch"/>
 
 		<p>1-2.Proper way of definding disabled toggleswitch with &lt;input&gt; tag</p>
-		<input type="checkbox" name="toggle-2" id="toggle-2" data-role="toggleswitch" disabled/>
+		<input type="checkbox" name="toggle-2" id="toggle-2" class="ui-toggleswitch" disabled/>
 
-		<p>2. Define toggleswitch based on &lt;select&gt; tag and data-role="toggleswitch"</p>
-		<select name="flip-1" id="flip-1" data-role="toggleswitch">
+		<p>2. Define toggleswitch based on &lt;select&gt; tag and class="ui-toggleswitch"</p>
+		<select name="flip-1" id="flip-1" class="ui-toggleswitch">
 			<option value="off"></option>
 			<option value="on"></option>
 		</select>
