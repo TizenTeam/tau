@@ -481,7 +481,7 @@
 			ns.widget.mobile.ColoredListview = ColoredListview;
 			engine.defineWidget(
 				"ColoredListview",
-				"[data-role='coloredlistview']",
+				"[data-role='coloredlistview'], .ui-colored-list",
 				[],
 				ColoredListview,
 				"mobile"
