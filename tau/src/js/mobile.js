@@ -89,7 +89,6 @@
 			"./profile/mobile/widget/mobile/Listview",
 			"./core/widget/core/tab/Tabbar",
 			"./profile/mobile/widget/mobile/TextInput",
-			"./profile/mobile/widget/mobile/Swipe",
 			"./profile/mobile/widget/mobile/DropdownMenu",
 			"./profile/mobile/widget/mobile/ActivityIndicator",
 			"./profile/mobile/widget/mobile/Progressbar",

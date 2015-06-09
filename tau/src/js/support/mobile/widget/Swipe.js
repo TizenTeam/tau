@@ -151,11 +151,10 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../../../../core/engine",
-			"../../../../core/event",
-			"../../../../core/util/anim/Animation",
-			"../mobile", //namespace
-			"./BaseWidgetMobile"
+			"../../../core/engine",
+			"../../../core/event",
+			"../../../core/util/anim/Animation",
+			"../../../profile/mobile/widget/mobile/BaseWidgetMobile"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
