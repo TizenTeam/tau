@@ -1,4 +1,4 @@
-.ui-popup:not(.ui-ctxpopup):not(.ui-popup-toast) {
+.ui-popup:not(.ui-ctxpopup) {
 	&.slideup.out {
 		.animation(popupslideouttobottom 550ms ease-out 150ms);
 	}
@@ -7,14 +7,14 @@
 	}
 }
 
-.ui-popup.slideup.in:not(.ui-ctxpopup):not(.ui-popup-toast) {
+.ui-popup.slideup.in:not(.ui-ctxpopup) {
 	.ui-popup-wrapper {
 		.transform(translateY(100%));
 		.animation(popupwrapperslideinfrombottom 550ms ease-out 150ms);
 	}
 }
 
-.ui-popup.slideup.out:not(.ui-ctxpopup):not(.ui-popup-toast) {
+.ui-popup.slideup.out:not(.ui-ctxpopup) {
 	.ui-popup-wrapper {
 		.transform(translateY(50*@unit_base));
 		.animation(popupwrapperslideouttobottom 400ms ease-out);
@@ -45,11 +45,11 @@
 
 .m-transitions-popupoverlayfadein() {
 	from { opacity: 0; }
-	to { opactiy: 1; }
+	to { opacity: 1; }
 }
 .m-transitions-popupoverlayfadeout() {
 	from { opacity: 1; }
-	to { opactiy: 0; }
+	to { opacity: 0; }
 }
 
 @-webkit-keyframes popupslideouttobottom {
