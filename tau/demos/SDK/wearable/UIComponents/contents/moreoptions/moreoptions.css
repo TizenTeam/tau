@@ -11,29 +11,4 @@
 	#moreoptionsPopup {
 		display: none;
 	}
-	.sections,
-	.options {
-		text-align: center;
-	}
-	.option-button {
-		width: 100%;
-		height: 100%;
-		position: relative;
-		text-align: center;
-		line-height: 140px;
-		-webkit-appearance: none;
-		background-color: transparent;
-		border-radius: 50%;
-		border: 0;
-		color: #000000;
-	}
-	.ui-view-switcher .ui-view.custom-view {
-		width: 140px;
-		height: 140px;
-		border-radius: 50%;
-		top: -webkit-calc(50% - 70px);
-	}
-	.ui-view-switcher .ui-view-carousel-dim {
-		border-radius: 50%;
-	}
 }

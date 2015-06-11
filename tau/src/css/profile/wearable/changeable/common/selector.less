@@ -1,0 +1,130 @@
+.ui-selector {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	background-color: @color_selector_layer_bg;
+	.ui-layer {
+		position: absolute;
+		display: none;
+		width: 54 * @unit_base;
+		height: 54 * @unit_base;
+		border-radius: 50%;
+
+		&.ui-layer-active {
+			display: block;
+			width: 100%;
+			height: 100%;
+			z-index: 100;
+			.ui-item[data-index] {
+				visibility: visible;
+				.transition(transform 300ms ease-out);
+			}
+		}
+
+
+		&.ui-layer-hide {
+			.ui-item {
+				visibility: visible;
+				.transition(transform 100ms ease-out);
+			}
+		}
+		&.ui-layer-prev {
+			display: block;
+			top: 50%;
+			left: 50%;
+			margin: -28 * @unit_base;
+			z-index: 3;
+			background-color: @color_selector_layer_sub1_bg;
+		}
+
+		&.ui-layer-prev-prev {
+			display: block;
+			top: 50%;
+			left: 50%;
+			margin: -28 * @unit_base;
+			z-index: 2;
+			background-color: @color_selector_layer_sub2_bg;
+		}
+
+		&.ui-layer-next {
+			display: block;
+			top: 50%;
+			left: 50%;
+			margin: -28 * @unit_base;
+			z-index: 3;
+			background-color: @color_selector_layer_sub1_bg;
+		}
+
+		&.ui-layer-next-next {
+			display: block;
+			top: 50%;
+			left: 50%;
+			margin: -28 * @unit_base;
+			z-index: 2;
+			background-color: @color_selector_layer_sub2_bg;
+		}
+
+		.ui-item {
+			background-color: @color_selector_icon_bg;
+			position: absolute;
+			visibility: hidden;
+			width: 56 * @unit_base;
+			height: 56 * @unit_base;
+			top: 50%;
+			left: 50%;
+			border-radius: 50%;
+			margin: -28 * @unit_base;
+			z-index: 102;
+			&:active {
+				background-color: @color_selector_icon_bg_press;
+			}
+		}
+	}
+	.ui-selector-indicator, .ui-selector-indicator-arrow {
+		position: absolute;
+		width: 182 * @unit_base;
+		height: 182 * @unit_base;
+		top: 50%;
+		left: 50%;
+		margin: -91 * @unit_base;
+		text-align: center;
+		line-height: 182 * @unit_base;
+		font-size: 28 * @unit_base;
+	}
+	.ui-selector-indicator {
+		z-index: 2;
+	}
+	.ui-selector-indicator-arrow {
+		z-index: 1;
+		&::after {
+			position: absolute;
+			content: "";
+			width: 100%;
+			height: 100%;
+			top: 0;
+			left: 0;
+			.mask-image('./images/Common/b_more_option_center_bg.png');
+			.mask-size(100% 100%);
+			background-color: @color_selector_handler_bg;
+			.mask-repeat(no-repeat);
+		}
+		&::before {
+			position: absolute;
+			content: "";
+			width: 100%;
+			height: 100%;
+			top: 0;
+			left: 0;
+			.mask-image('./images/Common/b_more_option_center_stroke.png');
+			.mask-size(100% 100%);
+			.mask-repeat(no-repeat);
+			background-color: @color_selector_handler_border;
+
+		}
+		&:active::before {
+			background-color: @color_selector_handler_border_press;
+		}
+	}
+}

@@ -38,6 +38,7 @@
 			"./profile/wearable/widget/wearable/scroller/Scroller",
 			"./profile/wearable/widget/wearable/scroller/scrollbar/ScrollBar",
 			"./profile/wearable/widget/wearable/PageIndicator",
+			"./profile/wearable/widget/wearable/Selector",
 			"./profile/wearable/helper/SnapListStyle",
 			"./profile/wearable/helper/SnapListMarqueeStyle",
 			"./profile/wearable/helper/HeaderMarqueeStyle",
