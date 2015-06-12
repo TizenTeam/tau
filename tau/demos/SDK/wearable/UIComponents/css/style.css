@@ -762,6 +762,23 @@ input[type="checkbox"]#checkboxControl {
 	-webkit-justify-content: center;
 }
 
+/* -------------------------Circular Page Indicator------------------------ */
+#pageIndicatorCirclePage::after {
+	content: "This component is not supported in rectangular device";
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	display: -webkit-flex;
+	background-color: rgba(0, 0, 0, 0.6);
+	color: rgba(0,149,255,1);
+	text-align: center;
+	padding-left: 20px;
+	padding-right: 20px;
+	-webkit-align-items: center;
+	-webkit-justify-content: center;
+}
+
 @media all and (-tizen-geometric-shape: circle) {
 	/* ------------------ LISTVIEW ------------------------ */
 	.ui-listview li img {
@@ -900,6 +917,10 @@ input[type="checkbox"]#checkboxControl {
 	}
 	/* -------------Rotary Event-----------*/
 	#pageRotaryEvent::after {
+		content: none;
+	}
+	/* -------------Circular Page Indicator-----------*/
+	#pageIndicatorCirclePage::after {
 		content: none;
 	}
 }

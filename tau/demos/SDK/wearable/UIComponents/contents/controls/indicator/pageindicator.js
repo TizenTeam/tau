@@ -1,7 +1,7 @@
 /*global tau */
 (function() {
 
-var page = document.getElementById("pageIndicatorPage"),
+var page = document.getElementById("pageIndicatorPage") || document.getElementById("pageIndicatorCirclePage"),
 	changer = document.getElementById("hsectionchanger"),
 	sections = document.querySelectorAll("section"),
 	sectionChanger,

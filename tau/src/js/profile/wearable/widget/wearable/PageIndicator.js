@@ -30,8 +30,20 @@
 				classes = {
 					indicator: "ui-page-indicator",
 					indicatorActive: "ui-page-indicator-active",
-					indicatorItem: "ui-page-indicator-item"
+					indicatorItem: "ui-page-indicator-item",
+					linearIndicator: "ui-page-indicator-linear",
+					circularIndicator: "ui-page-indicator-circular"
 				},
+				maxDots = {
+					IN_CIRCLE: 60,
+					IN_LINEAR: 5
+				},
+				layoutType = {
+					LINEAR: "linear",
+					CIRCULAR: "circular"
+				},
+				DISTANCE_FROM_EDGE = 15,
+
 				prototype = new BaseWidget();
 
 			PageIndicator.classes = classes;
@@ -40,13 +52,17 @@
 				/**
 				 * Options for widget.
 				 * @property {Object} options
-				 * @property {number} [options.maxPage=5] Maximum number of indicator dots.
+				 * @property {number} [options.maxPage=null] Maximum number of dots(pages) in indicator.
 				 * @property {number} [options.numberOfPages=null] Number of pages to be linked to PageIndicator.
+				 * @property {string} [options.layout="linear"] Layout type of page indicator.
+				 * @property {number} [options.intervalAngle=6] angle between each dot in page indicator.
 				 * @member ns.widget.wearable.PageIndicator
 				 */
 				this.options = {
-					maxPage: 5,
-					numberOfPages: null
+					maxPage: null,
+					numberOfPages: null,
+					layout: "linear",
+					intervalAngle: 6
 				};
 			};
 
@@ -59,7 +75,11 @@
 			 * @member ns.widget.wearable.PageIndicator
 			 */
 			prototype._build = function (element) {
-				this._createIndicator(element);
+				var self = this;
+				self._createIndicator(element);
+				if (self.options.layout === layoutType.CIRCULAR) {
+					self._circularPositioning(element);
+				}
 				return element;
 			};
 
@@ -74,25 +94,80 @@
 				var self = this,
 					i,
 					len,
+					maxPage,
 					span,
-					options = self.options;
+					numberOfPages = self.options.numberOfPages;
 
-				if(options.numberOfPages === null) {
+				if(numberOfPages === null) {
 					ns.error("build error: numberOfPages is null");
 					return;
 				}
 
-				len = options.numberOfPages < options.maxPage ? options.numberOfPages : options.maxPage;
+				self.options.layout = self.options.layout.toLowerCase();
+
+				if (self.options.layout === layoutType.CIRCULAR) {
+					element.classList.remove(classes.linearIndicator);
+					element.classList.add(classes.circularIndicator);
+				} else {
+					element.classList.remove(classes.circularIndicator);
+					element.classList.add(classes.linearIndicator);
+				}
+
+				maxPage = self._getMaxPage();
+
+				len = numberOfPages < maxPage ? numberOfPages : maxPage;
 
 				for(i = 0; i < len; i++) {
 					span = document.createElement("span");
 					span.classList.add(classes.indicatorItem);
 
-					if (i === self._activeIndex) {
-						span.classList.add(classes.indicatorActive);
-					}
 					element.appendChild(span);
 				}
+			};
+
+			/**
+			 * Make circular positioned indicator
+			 * @method _circularPositioning
+			 * @param {HTMLElement} element
+			 * @protected
+			 * @member ns.widget.wearable.PageIndicator
+			 */
+			prototype._circularPositioning = function (element) {
+				var self = this,
+					items = element.children,
+					numberOfDots = items.length,
+					intervalAngle = self.options.intervalAngle - "0",
+					translatePixel,
+					style,
+					i;
+
+				translatePixel = element.offsetWidth / 2 - DISTANCE_FROM_EDGE;
+
+				for(i=0;i<numberOfDots;i++) {
+					style = "rotate(" + (i * intervalAngle - 90 - (numberOfDots-1) * intervalAngle * 0.5) + "deg) translate(" +
+						translatePixel + "px) ";
+
+					items[i].style.transform = style;
+				}
+
+			};
+
+			/**
+			 * Return maximum number of dots(pages) in indicator
+			 * @method _getMaxPage
+			 * @protected
+			 * @member ns.widget.wearable.PageIndicator
+			 */
+			prototype._getMaxPage = function() {
+				var self = this,
+					options = self.options,
+					maxPage;
+				if (options.layout === layoutType.CIRCULAR) {
+					maxPage = options.maxPage || maxDots.IN_CIRCLE;
+				} else {
+					maxPage = options.maxPage || maxDots.IN_LINEAR;
+				}
+				return maxPage;
 			};
 
 			/**
@@ -109,37 +184,40 @@
 			/**
 			 * This method sets a dot to active state.
 			 * @method setActive
-			 * @param {number} index to be active state.
+			 * @param {number} position index to be active state.
 			 * @member ns.widget.wearable.PageIndicator
 			 */
 			prototype.setActive = function (position) {
 				var self = this,
-					i,
-					len,
 					dotIndex = position,
 					elPageIndicatorItems = self.element.children,
-					maxPage = self.options.maxPage,
+					maxPage,
 					numberOfPages = self.options.numberOfPages,
-					middle = window.parseInt(maxPage/2, 10),
+					middle,
 					numberOfCentralDotPages = 0,
-					indicatorActive = classes.indicatorActive;
+					indicatorActive = classes.indicatorActive,
+					previousActive;
+
+				if(position === null || position === undefined) {
+					return;
+				}
 
 				self._activeIndex = position;
+				maxPage = self._getMaxPage();
+				middle = window.parseInt(maxPage/2, 10);
 
 				if(numberOfPages > maxPage) {
-					len = maxPage;
 					numberOfCentralDotPages = numberOfPages - maxPage;
 				} else if(numberOfPages === null) {
 					ns.error("setActive error: numberOfPages is null");
 					return;
 				} else if(numberOfPages === 0) {
 					return;
-				} else {
-					len = numberOfPages;
 				}
 
-				for(i = 0; i < len; i++) {
-					elPageIndicatorItems[i].classList.remove(indicatorActive);
+				previousActive = self.element.querySelector("." + indicatorActive);
+				if(previousActive) {
+					previousActive.classList.remove(indicatorActive);
 				}
 
 				if ((middle < position) && (position <= (middle + numberOfCentralDotPages))) {
@@ -158,9 +236,13 @@
 			 * @member ns.widget.wearable.PageIndicator
 			 */
 			prototype._refresh = function () {
-				var self = this;
-				self._removeIndicator(self.element);
-				self._createIndicator(self.element);
+				var self = this,
+					element = self.element;
+				self._removeIndicator(element);
+				self._createIndicator(element);
+				if (self.options.layout === layoutType.CIRCULAR) {
+					self._circularPositioning(element);
+				}
 			};
 
 			/**
