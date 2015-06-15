@@ -16,15 +16,6 @@ document.addEventListener('DOMContentLoaded', function () {
 			tau.engine.run();
 		}
 	});
-	test('init for justBuild:true', function () {
-		router.init(true);
-		equal(router.justBuild, true, 'Router has set property justBuild:true');
-	});
-
-	test('init for justBuild:false', function () {
-		router.init(false);
-		equal(router.justBuild, false, 'Router has not property justBuild');
-	});
 /*
 	test('init for justBuild:false and active page', function () {
 		var activePage = helper.createPage('activePage'),

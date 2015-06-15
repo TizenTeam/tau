@@ -71,6 +71,8 @@
 			"./core/event/throttledresize",
 			"./core/event/orientationchange",
 			"./core/event/touch",
+			// controller
+			"./core/controller",
 			// widget list
 			"./core/widget/core/Checkboxradio",
 			"./core/widget/core/Button",

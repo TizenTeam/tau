@@ -879,6 +879,7 @@
 			 * @member ns.engine
 			 */
 			function build() {
+					historyManager.enable();
 					setViewport();
 					eventUtils.trigger(document, "build", this, false);
 			}
@@ -1007,7 +1008,6 @@
 					window.tauPerf.get("framework", "run()");
 					//>>excludeEnd("tauPerformance");
 					stop();
-					historyManager.enable();
 
 					eventUtils.fastOn(document, "create", createEventHandler);
 

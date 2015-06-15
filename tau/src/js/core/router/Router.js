@@ -114,7 +114,7 @@
 				 * @static
 				 * @private
 				 */
-				historyManagerEvents = ns.history.manager.events,
+				historyManagerEvents = history.manager.events,
 				/**
 				 * Local alias for ns.router.route
 				 * @property {Object} route Alias for namespace ns.router.route
@@ -392,7 +392,7 @@
 			 * @param {boolean} justBuild
 			 * @member ns.router.Router
 			 */
-			Router.prototype.init = function (justBuild) {
+			Router.prototype.init = function () {
 				var page,
 					containerElement,
 					container,
@@ -400,6 +400,7 @@
 					pages,
 					activePages,
 					ruleKey,
+					justBuild = engine.getJustBuild(),
 					rules = routerMicro.route,
 					location = window.location,
 					pageClasses = Page.classes,
@@ -912,8 +913,8 @@
 			};
 
 			if (!ns.getConfig("disableRouter", false)) {
-				document.addEventListener("build", function (event) {
-					Router.getInstance().init(event.detail && event.detail.justBuild);
+				document.addEventListener(historyManagerEvents.ENABLED, function () {
+					Router.getInstance().init();
 				}, false);
 				document.addEventListener(historyManagerEvents.DISABLED, function () {
 					Router.getInstance().destroy();
