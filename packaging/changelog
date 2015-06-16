@@ -1,4 +1,8 @@
 %changelog
+* Tue Jun 16 2015 Hagun Kim <hagun.kim@samsung.com> 0.10.26
+	- refactor(wearable): add circular indicator option
+	- fix(wearable): remove debug code.
+
 * Mon Jun 08 2015 Hagun Kim <hagun.kim@samsung.com> 0.10.25
 	- fix(wearable): fixed bug of SnapListMarqueeStyle Helper when using rotary scroll. [P150605-06742]
 	- fix(demos): change timing of showing processing widget [P150605-06759]

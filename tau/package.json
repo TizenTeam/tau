@@ -2,7 +2,7 @@
   "name": "tau",
   "title": "tau",
   "description": "Tizen Advanced UI",
-  "version": "0.10.25",
+  "version": "0.10.26",
   "devDependencies": {
     "async": "~0.9.0",
     "cli-table": "^0.3.1",
