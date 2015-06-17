@@ -205,12 +205,14 @@
 						url = path.addHashSearchParams(documentUrl, popupHashKey);
 						history.replace(options, "", url);
 					}
+					this.active = true;
 				} else if (pathLocation !== documentUrl) {
 					// If popup is being closed, the history.back() is called
 					// but only if url has special hash.
 					// Url is changed after opening animation and in some cases,
 					// the popup is closed before this animation and then the history.back
 					// could cause undesirable change of page.
+					this.active = false;
 					history.back();
 				}
 			};
