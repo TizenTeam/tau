@@ -1,4 +1,4 @@
-/*global window, define */
+/*global window, define, ns */
 /* Copyright  2010 - 2014 Samsung Electronics Co., Ltd.
  * License : MIT License V2
  */
@@ -278,7 +278,7 @@
 				var self = this,
 					ui = self._ui,
 					options = self.options,
-					listItems = self._listItems,
+					listItems = [],
 					scroller, visiableOffset;
 
 
@@ -294,6 +294,7 @@
 					listItems.push(new SnapListview.ListItem(element, visiableOffset));
 				});
 
+				self._listItems = listItems;
 				listItemAnimate(self);
 			}
 
@@ -333,11 +334,11 @@
 							listItemElement.style.opacity = "";
 							return;
 						}
-						
+
 						rate = rate > 0.5 ? 1 - rate : rate;
 
 						scale = scaleForm + ((scaleTo - scaleForm) * rate*2);
-						opacity = opacityForm + ((opacityTo - opacityForm) * rate*2); 
+						opacity = opacityForm + ((opacityTo - opacityForm) * rate*2);
 
 						listItemElement.style.webkitTransform = "scale3d("+scale+","+scale+","+scale+")";
 						listItemElement.style.opacity = opacity;
@@ -358,8 +359,7 @@
 			 */
 			prototype._refresh = function() {
 				var self = this,
-					element = self.element,
-					ui = self._ui;
+					element = self.element;
 
 				self._unbindEvents();
 
