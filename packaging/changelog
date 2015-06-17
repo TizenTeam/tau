@@ -1,4 +1,8 @@
 %changelog
+* Wed Jun 17 2015 Hagun Kim <hagun.kim@samsung.com> 0.10.27
+	- fix(wearable): fix refresh snaplistview issue
+	- refactor(core): remove hashChangeHandler
+
 * Tue Jun 16 2015 Hagun Kim <hagun.kim@samsung.com> 0.10.26
 	- refactor(wearable): add circular indicator option
 	- fix(wearable): remove debug code.
