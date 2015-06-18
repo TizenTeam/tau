@@ -341,7 +341,7 @@
 			function buildSections(options, pageElement) {
 				var pageClassList = pageElement.classList;
 
-				[].slice.call(pageElement.querySelectorAll("." + classes.uiHeader +
+				[].slice.call(pageElement.querySelectorAll("[data-role='header'],[data-role='content'],[data-role='footer'],." + classes.uiHeader +
 						",." + classes.uiContent +
 						",." + classes.uiFooter))
 					.forEach(function (section) {

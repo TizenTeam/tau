@@ -531,9 +531,39 @@
 			 * @member ns.widget.core.Page
 			 */
 			prototype._setContent = function(element, value) {
-				if (typeof value === "string") {
-					this.options.content =
-						this._ui.content.textContent = value;
+				var self = this,
+					ui = self._ui,
+					content = ui.content,
+					child = element.firstChild,
+					next;
+
+				if (!content && value) {
+					content = document.createElement("div");
+					while (child) {
+						next = child.nextSibling;
+						if (child !== ui.footer && child !== ui.header) {
+							content.appendChild(child);
+						}
+						child = next;
+					}
+					element.insertBefore(content, ui.footer);
+					ui.content = content;
+				}
+				if (content) {
+					// remove child if content exist and value is set to false
+					if (value === false) {
+						element.removeChild(content);
+					} else {
+						// if options is set to true, to string or not is set
+						// add class
+						content.classList.add(classes.uiContent);
+						// if is string fill content by string value
+						if (typeof value === "string") {
+							content.textContent = value;
+						}
+					}
+					// and remember options
+					self.options.content = value;
 				}
 			};
 
@@ -573,28 +603,9 @@
 			 * @member ns.widget.core.Page
 			 */
 			prototype._buildContent = function(element) {
-				var self = this,
-					content = utilSelectors.getChildrenBySelector(element, "[data-role='content'],." + classes.uiContent)[0],
-					next,
-					child = element.firstChild,
-					ui = self._ui;
-				// content must always exists
-				if (!content) {
-					content = document.createElement("div");
-					while (child) {
-						next = child.nextSibling;
-						if (child !== ui.footer && child !== ui.header) {
-							content.appendChild(child);
-						}
-						child = next;
-					}
-				}
+				var self = this;
 
-				// we put it before footer or if footer not exists as last child of element
-				element.insertBefore(content, ui.footer);
-				content.classList.add(classes.uiContent);
-				ui.content = content;
-				// we set content text if is set in options.content
+				self._ui.content = utilSelectors.getChildrenBySelector(element, "[data-role='content'],." + classes.uiContent)[0];
 				self._setContent(element, self.options.content);
 			};
 

@@ -186,7 +186,7 @@
 
 				CoreISBPrototype._configure.call(self);
 				if (!self.options.container) {
-					self.options.container = clip;
+					self.options.container = clip || element.parentNode;
 				}
 				if (indices.length) {
 					self.options.index = indices;

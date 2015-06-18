@@ -85,6 +85,7 @@
 			"../tv",
 			"../../../core/widget/core/Page",
 			"../../../core/engine",
+			"../../../core/util/object",
 			"../../../core/util/DOM/css",
 			"../../../core/util/DOM/attributes",
 			"../../../core/util/selectors",
@@ -134,6 +135,7 @@
 				 * @static
 				 */
 				DOM = util.DOM,
+				object = util.object,
 				/**
 				 * Alias for {@link ns.util.selectors}
 				 * @property {Object} utilSelectors
@@ -146,6 +148,7 @@
 					var self = this;
 					BaseKeyboardSupport.call(self);
 					self._ui = self._ui || {};
+					self.options = object.copy(Page.prototype.options);
 				},
 				/**
 				 * Alias for {@link ns.engine}
@@ -219,6 +222,19 @@
 				if (title) {
 					title.classList.add(classes.uiTitle);
 				}
+			};
+
+			/**
+			 * _configure method for TV Pages
+			 * @method _configure
+			 * @param {HTMLElement} element
+			 * @protected
+			 * @member ns.widget.tv.Page
+			 */
+			prototype._configure = function(element) {
+				var self = this;
+				WearablePagePrototype._configure.call(self, element);
+				self.options.content = true;
 			};
 
 			/**
