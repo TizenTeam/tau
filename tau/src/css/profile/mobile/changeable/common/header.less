@@ -2,7 +2,7 @@
 .ui-header {
 	position : fixed;
 	.display-flex();
-	flex-direction: column;
+	.flex-direction(column);
 	width: 100%;
 	top : 0;
 	z-index : @z_base_header_footer;
@@ -106,14 +106,14 @@
 			left: 0;
 			opacity: 0;
 			.transform(scale(.7));
-			.transition(transform 200ms linear);
+			.transition(-webkit-transform 200ms linear);
 			z-index: -1;
 		}
 		&:active::before {
 			opacity: 1;
 			.transform(scale(1));
 			background-color: @color_button_nobg_press;
-			.transition(transform 200ms linear);
+			.transition(-webkit-transform 200ms linear);
 		}
 	}
 }

@@ -41,9 +41,7 @@
  *
  *		@example
  *		<div data-role="page">
- *			<div data-role="content">
- *			 	Content
- *			</div>
+ *			<div data-role="content">Content</div>
  *			<div data-role="footer">
  *				<div data-role="tabbar">
  *					<ul>
@@ -70,10 +68,8 @@
  *					</ul>
  *				</div>
  *			</div>
- *			<div data-role="content">
- *			 	Content
- *			</div>
- *		</div>
+ *			<div data-role="content">Content</div>
+ *      </div>
  *		<script>
  *			(function (document) {
  *				var pageElement = document.getElementById("tab-bar-page"),
@@ -106,9 +102,7 @@
  *					</ul>
  *				</div>
  *			</div>
- *			<div data-role="content">
- *			 	Content
- *			</div>
+ *			<div data-role="content">Content</div>
  *		</div>
  *		<script>
  *			(function (document) {
@@ -178,7 +172,6 @@
 				TabPrototype = Tab.prototype,
 				engine = ns.engine,
 				Page = ns.widget.core.Page,
-				selectors = ns.util.selectors,
 				domUtils = ns.util.DOM,
 
 				TabBar = function () {
@@ -212,12 +205,14 @@
 				classes = {
 					TABBAR: "ui-tabbar",
 					TAB_ACTIVE: "ui-tab-active",
+					TAB_NO_TEXT: "ui-tab-no-text",
 					TITLE: "ui-title",
 					TABS_WITH_TITLE: "ui-tabs-with-title",
 					TABBAR_WITH_TITLE: "ui-tabbar-with-title",
 					TABBAR_WITH_ICON: "ui-tabbar-with-icon",
 					TABBAR_PORTRAIT: "ui-tabbar-portrait",
-					TABBAR_LANDSCAPE: "ui-tabbar-landscape"
+					TABBAR_LANDSCAPE: "ui-tabbar-landscape",
+					TABBAR_TEXT: "ui-tabbar-text"
 				},
 				events = ns.event,
 				DEFAULT_NUMBER = {
@@ -233,18 +228,6 @@
 
 			TabBar.prototype = prototype;
 			TabBar.classes = classes;
-
-			function getActiveIndex(elements) {
-				var length = elements.length,
-					i;
-
-				for (i = 0; i < length; i++) {
-					if(elements[i].classList.contains(classes.TAB_ACTIVE)) {
-						return i;
-					};
-				}
-				return null;
-			}
 
 			function findTitle(element) {
 				var parentNode = element.parentNode,
@@ -272,9 +255,19 @@
 					ui = self._ui,
 					title = findTitle(element),
 					tabs = element.querySelectorAll("li"),
-					links = element.querySelectorAll("A");
+					links = element.querySelectorAll("li a"),
+					innerText, i, liLength, link, text;
 
 				element.classList.add(classes.TABBAR);
+				if (links.length === 0) {
+					links = element.querySelectorAll("li div");
+					if (links.length ===0) {
+						ns.warn("There is no tab element");
+						ui.links = links;
+						ui.tabs = tabs;
+						return element;
+					}
+				}
 				if (title) {
 					title.parentNode.classList.add(classes.TABS_WITH_TITLE);
 					element.classList.add(classes.TABBAR_WITH_TITLE);
@@ -283,6 +276,19 @@
 				if (links[0].hasAttribute("data-icon")) {
 					element.classList.add(classes.TABBAR_WITH_ICON);
 					type.withIcon = true;
+				}
+
+				for(i=0, liLength=tabs.length; i<liLength; i++) {
+					link = links[i];
+					text = link.firstChild;
+					if (text) {
+						innerText = document.createElement("span");
+						innerText.classList.add(classes.TABBAR_TEXT);
+						innerText.appendChild(link.firstChild);
+						link.appendChild(innerText);
+					} else {
+						link.classList.add(classes.TAB_NO_TEXT);
+					}
 				}
 
 				ui.links = links;
@@ -331,12 +337,14 @@
 					}
 				}
 				for (i = 0; i < length; i++) {
-					tabs[i].style.width = parseInt(offsetWidth / devideNumber) + "px";
+					tabs[i].style.width = parseInt(offsetWidth / devideNumber, 10) + "px";
 				}
-				self._wholeWidth = parseInt(offsetWidth / devideNumber) * length;
+				self._wholeWidth = parseInt(offsetWidth / devideNumber, 10) * length;
 				self._translatedX = 0;
 				self._lastX = 0;
+
 				self._setActive(options.active);
+
 				return element;
 			};
 
@@ -407,7 +415,7 @@
 			 * translate tabbar element
 			 * @method _translate
 			 * @param {Number} x position
-			 * @param {Number} animation duration
+			 * @param {Number} duration of animation
 			 * @protected
 			 * @member ns.widget.core.TabBar
 			 */
@@ -436,15 +444,19 @@
 					ui = self._ui,
 					options = self.options,
 					selectTab = event.currentTarget.querySelector("A"),
-					index;
+					index, i, tabLength;
 
-				ui.links[options.active].classList.remove(classes.TAB_ACTIVE);
-				selectTab.classList.add(classes.TAB_ACTIVE);
-				index = getActiveIndex(ui.links);
-				options.active = index;
-				self._setTabbarPosition();
-				TabPrototype._setActive.call(self, index);
+				for(i=0, tabLength=ui.links.length; i<tabLength; i++) {
+					if(ui.links[i] === selectTab) {
+						index = i;
+						break;
+					}
+					index = 0;
+				}
 
+				if(options.autoChange) {
+					self._setActive(index);
+				}
 			};
 
 			/**
@@ -462,7 +474,7 @@
 					limitWidth = element.offsetWidth - self._wholeWidth;
 
 				if (movedX > 0) {
-					movedX = 0
+					movedX = 0;
 				} else if (movedX < limitWidth) {
 					movedX = limitWidth;
 				}
@@ -472,10 +484,9 @@
 			 * Dragend event handler
 			 * @method _onDragEnd
 			 * @protected
-			 * @param {Event} event
 			 * @member ns.widget.core.TabBar
 			 */
-			prototype._onDragEnd = function(event) {
+			prototype._onDragEnd = function() {
 				var self = this;
 
 				self._translatedX = self._lastX;
@@ -492,6 +503,10 @@
 				var self = this,
 					options = self.options,
 					ui = self._ui;
+
+				if (ui.links.length === 0) {
+					return;
+				}
 
 				ui.links[options.active].classList.remove(classes.TAB_ACTIVE);
 				ui.links[index].classList.add(classes.TAB_ACTIVE);
@@ -512,7 +527,7 @@
 					activeIndex = self.options.active,
 					relativeWidth = -self._lastX + offsetWidth,
 					tabs = self._ui.tabs,
-					activeTabOffsetWidth = tabs[0].offsetWidth * (activeIndex + 1);
+					activeTabOffsetWidth = tabs[0].offsetWidth * ((activeIndex - 0) + 1);
 
 				if (activeTabOffsetWidth > relativeWidth) {
 					self._translate(offsetWidth - activeTabOffsetWidth, DEFAULT_NUMBER.DURATION);
