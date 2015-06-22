@@ -143,6 +143,9 @@
 						resolve: function () {
 							if (fromPageWidget) {
 								fromPageWidget.onHide();
+								if (options.reverse) {
+									fromPageWidget.destroy();
+								}
 								self._removeExternalPage(fromPageWidget, options);
 							}
 							toPageWidget.onShow();
@@ -331,7 +334,6 @@
 				var fromPage = fromPageWidget.element;
 				options = options || {};
 				if (options.reverse && DOM.hasNSData(fromPage, "external")) {
-					fromPageWidget.destroy();
 					if (fromPage.parentNode) {
 						fromPage.parentNode.removeChild(fromPage);
 						self.trigger(EventType.PAGE_REMOVE);
