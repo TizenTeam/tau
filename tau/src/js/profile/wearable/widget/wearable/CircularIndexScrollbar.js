@@ -1,4 +1,4 @@
-/*global window, define, Event, console */
+/*global window, define, ns */
 /* Copyright  2010 - 2014 Samsung Electronics Co., Ltd.
  * License : MIT License V2
  */
@@ -111,6 +111,7 @@
  *         </div>
  *
  * @author Junyoung Park <jy-.park@samsung.com>
+ * @author Hagun Kim <hagun.kim@samsung.com>
  * @class ns.widget.wearable.CircularIndexScrollbar
  * @extends ns.widget.BaseWidget
  */
@@ -130,28 +131,19 @@
 				engine = ns.engine,
 				utilsEvents = ns.event,
 				eventTrigger = utilsEvents.trigger,
-				Gesture = utilsEvents.gesture,
-				MIN_INDEX = 3,
-				ID_INDICATOR_POSTFIX = "-indicator",
 				prototype = new BaseWidget(),
 
 				CircularIndexScrollbar = function() {
-				// Support calling without 'new' keyword
-					this.element = null;
-					this._indexBar = null;
-					this._centralAngle = 0;
-					this._activeIndexNo = 0;
-					this._isShow = false;
-					this._indexObjects = [];
-					this._indicator = {
-						element: null,
-						style: null,
-						startX: 0,
-						positionX: 0,
-						maxPositionX: 0,
-						minPositionX: 0,
-						dragging: false,
+					this._phase = null;
+					this._tid = {
+						phaseOne: 0,
+						phaseThree: 0
 					};
+					this._detent = {
+						phaseOne: 0
+					};
+					this.options = {};
+					this._activeIndex = 0;
 				},
 
 				rotaryDirection = {
@@ -167,30 +159,14 @@
 					 * @event select
 					 * @member ns.widget.wearable.CircularIndexScrollbar
 					 */
-					SELECT: "select",
-					/**
-					 * Event triggered after CircularIndexScrollbar is shown
-					 * @event indexshow
-					 * @member ns.widget.wearable.CircularIndexScrollbar
-					 */
-					INDEX_SHOW: "indexshow",
-					/**
-					 * Event triggered after CircularIndexScrollbar is hidden
-					 * @event indexhide
-					 * @member ns.widget.wearable.CircularIndexScrollbar
-					 */
-					INDEX_HIDE: "indexhide"
+					SELECT: "select"
 				},
 
 				classes = {
 					INDEXSCROLLBAR: "ui-circularindexscrollbar",
-					INDEXBAR: "ui-circularindexscrollbar-indexbar",
 					INDICATOR: "ui-circularindexscrollbar-indicator",
 					INDICATOR_TEXT: "ui-circularindexscrollbar-indicator-text",
-					INDICATOR_MINIMIZE: "ui-circularindexscrollbar-indicator-minimize",
-					INDEX: "ui-circularindexscrollbar-index",
-					SHOW: "ui-circularindexscrollbar-show",
-					SELECTED: "ui-state-selected",
+					SHOW: "ui-circularindexscrollbar-show"
 				};
 
 			CircularIndexScrollbar.prototype = prototype;
@@ -205,7 +181,6 @@
 				/**
 				 * All possible component options
 				 * @property {Object} options
-				 * @property {string} [options.moreChar="."] more character
 				 * @property {string} [options.delimiter=","] delimiter in index
 				 * @property {string|Array} [options.index=["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","1"]] indices list
 				 * String with list of letters separate be delimiter or array of letters
@@ -214,17 +189,35 @@
 				 * @member ns.widget.wearable.CircularIndexScrollbar
 				 */
 				this.options = {
-					moreChar: ".",
 					delimiter: ",",
 					index: [
 						"A", "B", "C", "D", "E", "F", "G", "H",
 						"I", "J", "K", "L", "M", "N", "O", "P", "Q",
 						"R", "S", "T", "U", "V", "W", "X", "Y", "Z", "1"
-					],
-					maxVisibleIndex: 30,
-					duration: 500,
-					showDelay: 0,
+					]
 				};
+			};
+
+			/**
+			 * This method build component.
+			 * @method _build
+			 * @protected
+			 * @param {HTMLElement} element
+			 * @member ns.widget.wearable.CircularIndexScrollbar
+			 */
+			prototype._build = function(element) {
+				var indicator,
+					indicatorText;
+
+				indicator = document.createElement("div");
+				indicator.classList.add(classes.INDICATOR);
+				indicatorText = document.createElement("span");
+				indicatorText.classList.add(classes.INDICATOR_TEXT);
+				indicator.appendChild(indicatorText);
+				element.appendChild(indicator);
+				element.classList.add(classes.INDEXSCROLLBAR);
+
+				return element;
 			};
 
 			/**
@@ -239,12 +232,10 @@
 				var self = this,
 					options = self.options;
 
-				element.classList.add(classes.INDEXSCROLLBAR);
+				self._phase = 1;
 
 				self._setIndices(options.index);
-				self._draw();
-				self._setValueByPosition(self._activeIndexNo, true);
-				setTimeout(self.showHandler.bind(self), options.showDelay);
+				self._setValueByPosition(self._activeIndex, true);
 
 				return element;
 			};
@@ -259,8 +250,7 @@
 			 */
 			prototype._setIndices = function(value) {
 				var self = this,
-					options = self.options,
-					maxVisibleIndex = options.maxVisibleIndex;
+					options = self.options;
 
 				if (value === null) {
 					ns.warn("CircularIndexScrollbar must have indices.");
@@ -272,312 +262,31 @@
 					value = value.split(options.delimiter); // delimiter
 				}
 
-				if (maxVisibleIndex < MIN_INDEX) {
-					ns.warn("CircularIndexScrollbar is required at least 3 maxVisibleIndex, otherwise it may not work.");
-					self.options.maxVisibleIndex = MIN_INDEX;
-				}
-
-				if (value.length < MIN_INDEX) {
-					ns.warn("CircularIndexScrollbar is required at least 3 indices, otherwise it may not work.");
-				}
-
-				self._centralAngle = 360 / (value.length > maxVisibleIndex ? maxVisibleIndex : value.length);
 				options.index = value;
 			};
-
-			/**
-			 * This method draw index elements and indicator in the CircularIndexScrollbar
-			 * @method _draw
-			 * @protected
-			 * @member ns.widget.wearable.CircularIndexScrollbar
-			 */
-			prototype._draw = function() {
-				var self = this,
-					options = self.options,
-					element = self.element,
-					indexBar = document.createElement("div"),
-					indicator = document.createElement("a"),
-					indicatorText = document.createElement("div"),
-					windowWidth = window.innerWidth,
-					indicatorWidth;
-
-				if (options.index) {
-					if (options.index.length < options.maxVisibleIndex) {
-						self._drawBasicIndices(indexBar);
-					} else {
-						self._drawOmitIndices(indexBar);
-					}
-				}
-
-				indexBar.classList.add(classes.INDEXBAR);
-				indicator.classList.add(classes.INDICATOR);
-				indicator.classList.add(classes.INDICATOR_MINIMIZE);
-				indicatorText.classList.add(classes.INDICATOR_TEXT);
-
-				indicator.id  = element.id + ID_INDICATOR_POSTFIX;
-				indicator.href = "#" + element.id;
-				indicator.setAttribute("data-rel", self.name.toLowerCase());
-
-				self._indicator.style = indicator.style;
-				self._indicator.element = indicator;
-				self._indexBar = indexBar;
-
-				element.appendChild(indexBar);
-				indicator.appendChild(indicatorText);
-				element.appendChild(indicator);
-
-				indicatorWidth = indicator.clientWidth;
-				self._indicator.maxPositionX = windowWidth/2 - indicatorWidth/2;
-				self._indicator.minPositionX = -indicatorWidth * 0.75;
-			};
-
-			/**
-			 * This method draw basic style index elements in the CircularIndexScrollbar
-			 * @method _drawBasicIndices
-			 * @param {Element} indexBar
-			 * @protected
-			 * @member ns.widget.wearable.CircularIndexScrollbar
-			 */
-			prototype._drawBasicIndices = function(indexBar) {
-				var self = this,
-					options = self.options,
-					child,
-					i;
-
-				for (i = 0; i < options.index.length; i++) {
-					child = document.createElement("div");
-					self._setChildStyle(child, i, options.index[i]);
-					indexBar.appendChild(child);
-					self._indexObjects.push({index: options.index[i], container: child});
-				}
-			};
-
-			/**
-			 * This method draw omit style index elements in the CircularIndexScrollbar
-			 * @method _drawOmitIndices
-			 * @param {Element} indexBar
-			 * @protected
-			 * @member ns.widget.wearable.CircularIndexScrollbar
-			 */
-			prototype._drawOmitIndices = function(indexBar) {
-				var self = this,
-					options = self.options,
-					index = options.index,
-					indexLen = index.length,
-					maxVisibleIndex = options.maxVisibleIndex,
-					leftIndexLen = indexLen - parseInt((maxVisibleIndex+1) / 2, 10),
-					nIndexPerItem = parseInt(leftIndexLen / parseInt(maxVisibleIndex / 2, 10), 10 ),
-					nIndexPerItemLeft = leftIndexLen % parseInt(maxVisibleIndex / 2, 10),
-					indexNo = 0,
-					omitIndexLen = 0,
-					child,
-					i;
-
-				for (i = 0; i < maxVisibleIndex; i++) {
-					child = document.createElement("div");
-					if (i % 2) {
-						omitIndexLen = nIndexPerItem + (nIndexPerItemLeft-- > 0 ? 1 : 0);
-						self._setChildStyle(child, i, options.moreChar);
-						while (omitIndexLen-- > 0) {
-							self._indexObjects.push({index: index[indexNo++],container: child});
-						}
-					} else {
-						self._setChildStyle(child, i, index[indexNo]);
-						self._indexObjects.push({index: index[indexNo++], container: child});
-					}
-					indexBar.appendChild(child);
-				}
-			};
-
-			/**
-			 * This method set the style of index elements
-			 * @method _setChildStyle
-			 * @param {HTMLElement} index element
-			 * @param {number} index
-			 * @param {string} value of index
-			 * @protected
-			 * @member ns.widget.wearable.CircularIndexScrollbar
-			 */
-			prototype._setChildStyle = function(child, index, value) {
-				var self = this,
-					inner = document.createElement("span"),
-					centralAngle = self._centralAngle,
-					skewAngle = 90 - centralAngle,
-					rotateAngle,
-					transform;
-
-				rotateAngle = index * centralAngle + 90 - centralAngle/2;
-				transform = "rotate(" + rotateAngle + "deg) skew(" + skewAngle + "deg)";
-
-				child.classList.add(classes.INDEX);
-				child.style.webkitTransform = transform;
-				child.style.transform = transform;
-
-				// inner element
-				transform  = "skew(" + (-skewAngle) + "deg) rotate(" + (centralAngle/2 - 90) + "deg)";
-
-				inner.innerText = value;
-				inner.style.webkitTransform = transform;
-				inner.style.transform = transform;
-
-				child.appendChild(inner);
-			};
-
-			/**
-			 * Show the CircularIndexScrollbar
-			 * @method show
-			 * @public
-			 * @member ns.widget.wearable.CircularIndexScrollbar
-			 */
-			prototype.show = function() {
-				var self = this,
-					options = self.options,
-					indicator = self._indicator,
-					style = indicator.style,
-					transition,
-					transform;
-
-				if (self._isShow && !indicator.dragging) {
-					return;
-				}
-
-				transition = "-webkit-transform " + options.duration + "ms ease-out";
-				transform = "translate3d(" + indicator.maxPositionX + "px, 0, 0)";
-
-				self._isShow = true;
-				self.element.classList.add(classes.SHOW);
-				style.webkitTransition = transition;
-				style.transition = transition;
-				style.webkitTransform = transform;
-				style.transform = transform;
-			};
-
-			/**
-			 * Hide the CircularIndexScrollbar
-			 * @method hide
-			 * @public
-			 * @member ns.widget.wearable.CircularIndexScrollbar
-			 */
-			prototype.hide = function(routerOptions) {
-				var self = this,
-					options = self.options,
-					indicator = self._indicator,
-					style = indicator.style,
-					reverse = routerOptions ? routerOptions.reverse : false,
-					transition,
-					transform;
-
-				if (!self._isShow && !indicator.dragging) {
-					return;
-				}
-
-				if (!reverse && self._isShow) {
-					// This method was fired by JS code or this widget.
-					history.back();
-					return;
-				}
-
-				transition = "-webkit-transform " + options.duration + "ms ease-out";
-				transform = "translate3d(" + indicator.minPositionX + "px, 0, 0)";
-
-				self.element.classList.remove(classes.SHOW);
-				style.webkitTransition = transition;
-				style.transition = transition;
-				style.webkitTransform = transform;
-				style.transform = transform;
-				self._isShow = false;
-			};
-
-			/**
-			 * This method returns status of widget.
-			 * @method isShow
-			 * @public
-			 * @member ns.widget.wearable.CircularIndexScrollbar
-			 */
-			prototype.isShow = function() {
-				return this._isShow;
-			};
-
-			/**
-			 * This method show the CircularIndexScrollbar handler.
-			 * @method showHandler
-			 * @public
-			 * @member ns.widget.wearable.CircularIndexScrollbar
-			 */
-			prototype.showHandler = function() {
-				var self = this,
-					indicatorStyle = self._indicator.style,
-					transition,
-					transform;
-
-				if (self._isShow) {
-					return;
-				}
-
-				transition = "-webkit-transform " + self.options.duration / 5 + "ms ease-out";
-				transform = "translate3d(" + self._indicator.minPositionX + "px, 0, 0)";
-
-				indicatorStyle.transition = transition;
-				indicatorStyle.webkitTransition = transition;
-				indicatorStyle.transform = transform;
-				indicatorStyle.webkitTransform = transform;
-			};
-
-			/**
-			 * This method hide the CircularIndexScrollbar handler.
-			 * @method hideHandler
-			 * @public
-			 * @member ns.widget.wearable.CircularIndexScrollbar
-			 */
-			prototype.hideHandler = function() {
-				var self = this,
-					indicatorStyle = self._indicator.style,
-					transition,
-					transform;
-
-				if (self._isShow) {
-					return;
-				}
-
-				transition = "-webkit-transform " + self.options.duration / 5 + "ms ease-out";
-				transform = "translate3d(" + -self._indicator.element.clientWidth + "px, 0, 0)";
-
-				indicatorStyle.transition = transition;
-				indicatorStyle.webkitTransition = transition;
-				indicatorStyle.transform = transform;
-				indicatorStyle.webkitTransform = transform;
-			}
 
 			/**
 			 * This method select the index
 			 * @method _setValueByPosition
 			 * @protected
-			 * @param {stirng} index number
-			 * @param {boolean} whether "select" event is fired or not
+			 * @param {string} index index number
+			 * @param {boolean} isFireEvent whether "select" event is fired or not
 			 * @member ns.widget.wearable.CircularIndexScrollbar
 			 */
-			prototype._setValueByPosition = function(indexNo, isFireEvent) {
+			prototype._setValueByPosition = function(index, isFireEvent) {
 				var self = this,
-					curActiveElement,
-					indexElement,
 					indicatorText;
 
 				if (!self.options.index) {
 					return;
 				}
 
-				curActiveElement = self._indexObjects[self._activeIndexNo].container,
-				indexElement = self._indexObjects[indexNo].container,
-				indicatorText = self._indicator.element.firstChild;
+				indicatorText = self.element.querySelector("." + classes.INDICATOR_TEXT);
 
-				if (indexElement) {
-					self._activeIndexNo = indexNo;
-					curActiveElement.classList.remove(classes.SELECTED);
-					indexElement.classList.add(classes.SELECTED);
-					indicatorText.innerHTML = self.options.index[indexNo];
-					if (isFireEvent) {
-						eventTrigger(self.element, EventType.SELECT, {index: self.options.index[indexNo]});
-					}
+				self._activeIndex = index;
+				indicatorText.innerHTML = self.options.index[index];
+				if (isFireEvent) {
+					eventTrigger(self.element, EventType.SELECT, {index: self.options.index[index]});
 				}
 			};
 
@@ -589,11 +298,16 @@
 			 */
 			prototype._nextIndex = function() {
 				var self = this,
-					activeIndexNo = self._activeIndexNo,
+					activeIndex = self._activeIndex,
 					indexLen = self.options.index.length,
-					nextIndexNo = activeIndexNo < indexLen - 1 ? activeIndexNo + 1 : 0;
+					nextIndex;
 
-				self._setValueByPosition(nextIndexNo, true);
+				if (activeIndex < indexLen -1 ) {
+					nextIndex = activeIndex + 1;
+				} else {
+					return;
+				}
+				self._setValueByPosition(nextIndex, true);
 			};
 
 			/**
@@ -604,12 +318,18 @@
 			 */
 			prototype._prevIndex = function() {
 				var self = this,
-					activeIndexNo = self._activeIndexNo,
-					indexLen = self.options.index.length,
-					prevIndexNo = activeIndexNo > 0 ? activeIndexNo - 1 : indexLen -1;
+					activeIndex = self._activeIndex,
+					prevIndex;
 
-				self._setValueByPosition(prevIndexNo, true);
+				if (activeIndex > 0) {
+					prevIndex = activeIndex - 1;
+				} else {
+					return;
+				}
+
+				self._setValueByPosition(prevIndex, true);
 			};
+
 			/**
 			 * Get or Set index of the CircularIndexScrollbar
 			 *
@@ -633,16 +353,16 @@
 			 * This method select the index
 			 * @method _setValue
 			 * @protected
-			 * @param {stirng} value of index
+			 * @param {string} value of index
 			 * @member ns.widget.wearable.CircularIndexScrollbar
 			 */
 			prototype._setValue = function(value) {
 				var self = this,
 					index = self.options.index,
-					indexNo;
+					indexNumber;
 
-				if (index && (indexNo = index.indexOf(value)) >= 0) {
-					self._setValueByPosition(indexNo, false);
+				if (index && (indexNumber = index.indexOf(value)) >= 0) {
+					self._setValueByPosition(indexNumber, false);
 				}
 			};
 
@@ -657,161 +377,9 @@
 					index = self.options.index;
 
 				if (index) {
-					return index[self._activeIndexNo];
+					return index[self._activeIndex];
 				} else {
 					return null;
-				}
-			};
-
-			/**
-			 * This method is a "dragstart" event handler
-			 * @method _start
-			 * @protected
-			 * @param {Event} event Event
-			 * @member ns.widget.wearable.CircularIndexScrollbar
-			 */
-			prototype._start = function(event) {
-				var self = this,
-					indicator = self._indicator;
-
-				indicator.dragging = true;
-				indicator.startX = event.detail.estimatedX;
-				indicator.positionX = indicator.element.getBoundingClientRect().left;
-				indicator.style.webkitTransition = "none";
-				indicator.style.transition = "none";
-
-				indicator.element.classList.remove(classes.INDICATOR_MINIMIZE);
-			};
-
-			/**
-			 * This method is a "dragmove" event handler
-			 * @method _move
-			 * @protected
-			 * @param {Event} event Event
-			 * @member ns.widget.wearable.CircularIndexScrollbar
-			 */
-			prototype._move = function(event) {
-				var self = this,
-					indicator = self._indicator,
-					showPositionX = indicator.maxPositionX,
-					hiddenPositionX = indicator.minPositionX,
-					moveX = indicator.positionX + (event.detail.estimatedX - indicator.startX),
-					transform;
-
-					if (moveX >= hiddenPositionX && moveX <= showPositionX) {
-						transform = "translate3d(" + moveX + "px, 0, 0)";
-						indicator.style.webkitTransform = transform;
-						indicator.style.transform = transform;
-					} else if (moveX > showPositionX && !self._isShow) {
-						self.show();
-					} else if (moveX < hiddenPositionX && self._isShow) {
-						self.hide();
-					}
-			};
-
-			/**
-			 * This method is a "dragend" event handler
-			 * @method _end
-			 * @protected
-			 * @param {Event} event Event
-			 * @member ns.widget.wearable.CircularIndexScrollbar
-			 */
-			prototype._end = function(event) {
-				var self = this,
-					indicator = self._indicator,
-					positionX = indicator.element.getBoundingClientRect().left;
-
-				if (!indicator.dragging) {
-					return;
-				}
-
-				if (positionX > (indicator.maxPositionX + indicator.minPositionX) / 2) {
-					self.show();
-				} else {
-					self.hide();
-				}
-
-				indicator.dragging = false;
-			};
-
-			/**
-			 * This method is a "swipe" event handler
-			 * @method _swipe
-			 * @protected
-			 * @param {Event} event Event
-			 * @member ns.widget.wearable.CircularIndexScrollbar
-			 */
-			prototype._swipe = function(event) {
-				var self = this,
-					gesture = event.detail;
-
-				if (gesture.direction === Gesture.Direction.RIGHT) {
-					self._indicator.element.classList.remove(classes.INDICATOR_MINIMIZE);
-					self.show();
-				} else {
-					self.hide();
-				}
-
-				self._indicator.dragging = false;
-			};
-
-			/**
-			 * This method is a "mousewheel" event handler
-			 * @method _onMouseWheelHandler
-			 * @param {Event} event Event
-			 * @protected
-			 * @member ns.widget.wearable.CircularIndexScrollbar
-			 */
-			prototype._wheel = function(event) {
-				var self = this,
-					delta = event.wheelDelta;
-
-				if (!self.options.index) {
-					return;
-				}
-
-				if(delta) {
-					if(delta < 0) {
-						self._nextIndex();
-					} else {
-						self._prevIndex();
-					}
-				}
-			};
-
-			/**
-			 * This method is a "transitionend" event handler on indexbar
-			 * @method _transitionEnd
-			 * @protected
-			 * @param {Event} event Event
-			 * @member ns.widget.wearable.CircularIndexScrollbar
-			 */
-			prototype._transitionEnd = function(event) {
-				var self = this;
-
-				if (self._isShow) {
-					utilsEvents.on(document, "rotarydetent", self);
-					self._setActive(true);
-					eventTrigger(self.element, EventType.INDEX_SHOW);
-				} else {
-					utilsEvents.off(document, "rotarydetent", self);
-					self._setActive(false);
-					eventTrigger(self.element, EventType.INDEX_HIDE);
-				}
-			};
-
-			/**
-			 * This method is a "transitionend" event handler on indicator
-			 * @method _indicatorTransitionEnd
-			 * @protected
-			 * @param {Event} event Event
-			 * @member ns.widget.wearable.CircularIndexScrollbar
-			 */
-			prototype._indicatorTransitionEnd = function(event) {
-				var self = this;
-
-				if (!self._isShow) {
-					self._indicator.element.classList.add(classes.INDICATOR_MINIMIZE);
 				}
 			};
 
@@ -826,16 +394,64 @@
 				var self = this,
 					direction = event.detail.direction;
 
-				event.stopPropagation();
-
 				if (!self.options.index) {
 					return;
 				}
 
-				if(direction === rotaryDirection.CW) {
-					self._nextIndex();
+				if (self._phase === 1) {
+					self._rotaryPhaseOne();
+				} else if (self._phase === 3) {
+					event.stopPropagation();
+					self._rotaryPhaseThree(direction);
+				}
+			};
+
+			/**
+			 * This method is for phase 1 operation.
+			 * @method _rotaryPhaseOne
+			 * @protected
+			 * @member ns.widget.wearable.CircularIndexScrollbar
+			 */
+			prototype._rotaryPhaseOne = function() {
+				var self = this;
+				clearTimeout(self._tid.phaseOne);
+				self._tid.phaseOne = setTimeout(function(){
+					if (self._phase === 1) {
+						self._detent.phaseOne = 0;
+					}
+				}, 100);
+
+				if (self._detent.phaseOne > 3) {
+					self._phase = 3;
+					clearTimeout(self._tid.phaseOne);
+					self._detent.phaseOne = 0;
 				} else {
-					self._prevIndex();
+					self._detent.phaseOne++;
+				}
+			};
+
+			/**
+			 * This method is for phase 3 operation.
+			 * @method _rotaryPhaseThree
+			 * @protected
+			 * @param {string} direction direction of rotarydetent event
+			 * @member ns.widget.wearable.CircularIndexScrollbar
+			 */
+			prototype._rotaryPhaseThree = function(direction) {
+				var self = this;
+				clearTimeout(self._tid.phaseThree);
+				self._tid.phaseThree = setTimeout(function(){
+					self.element.classList.remove(classes.SHOW);
+					self._phase = 1;
+				}, 1000);
+
+				if(self._phase === 3) {
+					self.element.classList.add(classes.SHOW);
+					if (direction === rotaryDirection.CW) {
+						self._nextIndex();
+					} else {
+						self._prevIndex();
+					}
 				}
 			};
 
@@ -850,29 +466,6 @@
 				var self = this;
 
 				switch (event.type) {
-					case "dragstart":
-						self._start(event);
-						break;
-					case "drag":
-						self._move(event);
-						break;
-					case "dragend":
-					case "dragcancel":
-						self._end(event);
-						break;
-					case "swipe":
-						self._swipe(event);
-						break;
-					case "mousewheel":
-						self._wheel(event);
-						break;
-					case "webkitTransitionEnd":
-						if (self._indexBar === event.target) {
-							self._transitionEnd(event);
-						} else {
-							self._indicatorTransitionEnd(event);
-						}
-						break;
 					case "rotarydetent":
 						self._rotary(event);
 						break;
@@ -886,24 +479,9 @@
 			 * @member ns.widget.wearable.CircularIndexScrollbar
 			 */
 			prototype._bindEvents = function() {
-				var self = this,
-					indicator = self._indicator.element;
+				var self = this;
 
-				utilsEvents.enableGesture(
-					indicator,
-
-					new utilsEvents.gesture.Drag({
-						blockVertical: true
-					}),
-
-					new utilsEvents.gesture.Swipe({
-						orientation: Gesture.Orientation.HORIZONTAL
-					})
-				);
-
-				utilsEvents.on(indicator, "drag dragstart dragend dragcancel swipe webkitTransitionEnd", self);
-				utilsEvents.on(self.element, "mousewheel", self);
-				utilsEvents.on(self._indexBar, "webkitTransitionEnd", self);
+				utilsEvents.on(document, "rotarydetent", self);
 			};
 
 			/**
@@ -913,68 +491,9 @@
 			 * @member ns.widget.wearable.CircularIndexScrollbar
 			 */
 			prototype._unbindEvents = function() {
-				var self = this,
-					indicator = self._indicator.element,
-					indexBar = self._indexBar;
-
-				if (self.element) {
-					utilsEvents.off(self.element, "mousewheel", self);
-				}
-
-				if (indicator) {
-					utilsEvents.disableGesture(indicator);
-					utilsEvents.off(indicator, "drag dragstart dragend dragcancel swipe", self);
-				}
-
-				if (indexBar) {
-					utilsEvents.off(indexBar, "webkitTransitionEnd", self);
-				}
-
-				utilsEvents.off(document, "rotarydetent", self);
-			};
-
-			/**
-			 * This method sets active for router.
-			 * @method _setActive
-			 * @protected
-			 * @member ns.widget.wearable.CircularIndexScrollbar
-			 */
-			prototype._setActive = function (active) {
-				var self = this,
-					route = engine.getRouter().getRoute("circularindexscrollbar");
-
-				if (active) {
-					route.setActive(self);
-				} else {
-					route.setActive(null);
-				}
-			};
-
-			/**
-			 * This method resets widget.
-			 * @method _reset
-			 * @protected
-			 * @member ns.widget.wearable.CircularIndexScrollbar
-			 */
-			prototype._reset = function() {
 				var self = this;
 
-				self._indexBar = null;
-				self._isShow = false;
-				self._activeIndexNo = 0;
-				self._centralAngle = 0;
-				self._indexObjects = [];
-				self._indicator = {
-					element: null,
-					style: null,
-					startX: 0,
-					positionX: 0,
-					maxPositionX: 0,
-					minPositionX: 0,
-					dragging: false,
-				};
-
-				self.element.classList.remove(classes.SHOW);
+				utilsEvents.off(document, "rotarydetent", self);
 			};
 
 			/**
@@ -988,11 +507,8 @@
 					options = self.options;
 
 				self._unbindEvents();
-				self._destroySubObjects();
-				self._reset();
 				self._setIndices(options.index);
-				self._draw();
-				self._setValueByPosition(self._activeIndexNo, true);
+				self._setValueByPosition(self._activeIndex, true);
 				self._bindEvents();
 			};
 
@@ -1004,25 +520,7 @@
 			 */
 			prototype._destroy = function() {
 				var self = this;
-				if (self.isBound()) {
-					self._unbindEvents();
-					self._destroySubObjects();
-					self._indexBar = null;
-					self._indicator = null;
-					self._indexObjects = null;
-				}
-			};
-
-			/**
-			 * This method destroys sub-elements: index elements and indicator.
-			 * @method _destroySubObjects
-			 * @protected
-			 * @member ns.widget.wearable.CircularIndexScrollbar
-			 */
-			prototype._destroySubObjects = function() {
-				var container = this.element;
-
-				container.textContent = "";
+				self._unbindEvents();
 			};
 
 			// definition
