@@ -15,6 +15,7 @@
 	define(
 		[
 			"require",
+			"support/mobile/event/touch",
 			"support/mobile/router/Router",
 			"support/mobile/widget/Checkboxradio",
 			"support/mobile/widget/ToggleSwitch.extra",
