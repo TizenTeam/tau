@@ -33,7 +33,7 @@
 			"support/mobile/widget/ScrollHandler",
 			"support/mobile/widget/SearchBar",
 			"support/mobile/widget/Swipe",
-			"support/mobile/widget/TextInput.extra",
+			"support/mobile/widget/TextInput",
 			"support/mobile/widget/TokenTextArea.extra",
 			"support/mobile/widget/Fieldcontain",
 			"support/mobile/widget/Gallery",
