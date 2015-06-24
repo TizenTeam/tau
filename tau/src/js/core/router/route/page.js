@@ -161,6 +161,7 @@
 				document.title = pageTitle;
 				this.active = true;
 				this.getContainer().change(toPage, options);
+
 			};
 
 			/**

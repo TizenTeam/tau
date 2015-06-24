@@ -67,7 +67,8 @@
 					 * @event pagechange
 					 * @member ns.widget.core.PageContainer
 					 */
-					PAGE_CHANGE: "pagechange"
+					PAGE_CHANGE: "pagechange",
+					PAGE_REMOVE: "pageremove"
 				},
 				animationend = "animationend",
 				webkitAnimationEnd = "webkitAnimationEnd",
@@ -333,6 +334,7 @@
 					fromPageWidget.destroy();
 					if (fromPage.parentNode) {
 						fromPage.parentNode.removeChild(fromPage);
+						self.trigger(EventType.PAGE_REMOVE);
 					}
 				}
 			};

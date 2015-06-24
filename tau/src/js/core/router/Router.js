@@ -704,6 +704,7 @@
 				}
 
 				// Load the new content.
+				eventUtils.trigger(self.getContainer().element, options.rel + "beforeload");
 				request = new XMLHttpRequest();
 				request.responseType = "document";
 				request.overrideMimeType("text/html");
@@ -714,6 +715,7 @@
 					if (request.readyState === 4) {
 						if (request.status === 200 || (request.status === 0 && request.responseXML)) {
 							self._loadSuccess(absUrl, options, rule, deferred, request.responseXML);
+							eventUtils.trigger(self.getContainer().element, options.rel + "load");
 						} else {
 							self._loadError(absUrl, options, deferred);
 						}
