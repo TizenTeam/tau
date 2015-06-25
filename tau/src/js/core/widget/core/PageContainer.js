@@ -336,7 +336,7 @@
 				if (options.reverse && DOM.hasNSData(fromPage, "external")) {
 					if (fromPage.parentNode) {
 						fromPage.parentNode.removeChild(fromPage);
-						self.trigger(EventType.PAGE_REMOVE);
+						this.trigger(EventType.PAGE_REMOVE);
 					}
 				}
 			};
