@@ -113,11 +113,13 @@
 .ui-listview .ui-li-has-multiline {
 	&.ui-li-anchor > a,
 	&.ui-li-static {
+		color: @color_list_main_text_normal;
 		padding-top: 17 * @unit_base;
 		padding-bottom: 57 * @unit_base;
 	}
 
 	.ui-li-text-sub {
+		color: @color_list_sub_text_normal;
 		top: 59 * @unit_base;
 		left: 24 * @unit_base;
 		line-height: 32 * @unit_base;
@@ -210,7 +212,7 @@
 		[data-role="button"] {
 			&:not(.ui-slider-handle) {
 				position: absolute;
-				top: 25 * @unit_base;
+				top: 50%;
 				right: 19 * @unit_base;
 				margin: 0;
 			}
@@ -280,7 +282,7 @@
 		&.ui-li-static.ui-li-has-right-circle-btn {
 			[data-role="button"] {
 				&:not(.ui-slider-handle) {
-					top: round(39.5 * @unit_base);
+					top: 50%;
 				}
 			}
 		}
@@ -290,7 +292,7 @@
 			> .ui-btn {
 				&:not(.ui-slider-handle) {
 					&.ui-btn-icon_only {
-						top: round(39.5 * @unit_base);
+						top: 50%;
 					}
 				}
 			}
