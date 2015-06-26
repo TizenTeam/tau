@@ -352,6 +352,7 @@
 				CLASSES_PREFIX = "ui-popup",
 				classes = objectUtils.merge({}, Popup.classes, {
 					context: "ui-ctxpopup",
+					contextOverlay: "ui-ctxpopup-overlay",
 					arrow: "ui-arrow",
 					arrowDir: CLASSES_PREFIX + "-arrow-"
 				}),
@@ -396,6 +397,11 @@
 
 				// set class for element
 				element.classList.add(classes.popup);
+
+				// set class for contextpopup
+				if ((self.options.positionTo === "origin") && ui.overlay) {
+					ui.overlay.classList.add(classes.contextOverlay);
+				}
 
 				// create arrow
 				arrow = document.createElement("div");
