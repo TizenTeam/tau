@@ -74,7 +74,6 @@
 			};
 
 			prototype._onTouchStart = function(event) {
-				this._drawerWidget.transition(60);
 				event.preventDefault();
 				event.stopPropagation();
 			};

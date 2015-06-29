@@ -39,10 +39,22 @@
  * ## Manual constructor
  *
  *          @example
- *              (function(){
- *                  var page = document.getElementById("main");
+ *              (function() {
+ *                  var page = document.getElementById("selectorPage"),
+ *                      selector = document.getElementById("selector"),
+ *                      clickBound;
+ *
+ *                  function onClick(event) {
+ *                      var activeItem = selector.querySelector(".ui-item-active");
+ *                      //console.log(activeItem.getAttribute("data-title"));
+ *                  }
  *                  page.addEventListener("pagebeforeshow", function() {
- *                      tau.widget.Selector(document.getElementById("selector"));
+ *                      clickBound = onClick.bind(null);
+ *                      tau.widget.Selector(selector);
+ *                      selector.addEventListener("click", clickBound, false);
+ *                  });
+ *                  page.addEventListener("pagebeforehide", function() {
+ *                      selector.removeEventListener("click", clickBound, false);
  *                  });
  *              })();
  *
@@ -54,8 +66,6 @@
  * {String} indicatorArrowSelector [options.indicatorArrowSelector=".ui-selector-indicator-arrow"] or You can set attribute on tag [data-indicator-arrow-selector=".ui-selector-indicator-arrow"] Selector indicator arrow selector that style is css style.
  * {Number} itemDegree [options.itemDegree=30] or You can set attribute on tag [data-item-degree=30] Items degree each other.
  * {Number} itemRadius [options.itemRadius=140] or You can set attribute on tag [data-item-radius=140] Items radius between center and it.
- * {String} itemNormalScale [options.itemNormalScale="scale(1)"] or You can set attribute on tag [data-item-normal-scale="scale(1)"] Item normal status scale.
- * {String} itemActiveScale [options.itemActiveScale="scale(1.18)"] or You can set attribute on tag [data-item-active-scale="scale(1.18)"] Item active status scale.
  * {Number} maxItemNumber [options.maxItemNumber=11] or You can set attribute on tag [data-max-item-number=11] Max item number on one layer. If you change the itemDegree, we recommend to consider to modify this value for fit your Selector layout.
  * {boolean} indicatorAutoControl [options.indicatorAutoControl=true] or You can set attribute on tag [data-indicator-auto-control=true] Indicator auto control switch. If you want to control your indicator manually, change this options to false.
  *
@@ -83,7 +93,6 @@
 				utilDom = ns.util.DOM,
 				Gesture = ns.event.gesture,
 				events = ns.event,
-				selectors = ns.util.selectors,
 				utilsObject = ns.util.object,
 				Selector = function () {
 					var self = this;
@@ -106,13 +115,16 @@
 					INDICATOR_PREV_END: "ui-selector-indicator-prev-end",
 					INDICATOR_ARROW: "ui-selector-indicator-arrow"
 				},
+				STATIC = {
+					RADIUS_RATIO: 0.78
+				},
 				DEFAULT = {
-					ITEM_SELECTOR: ".ui-item",
+					ITEM_SELECTOR: "."+ classes.ITEM,
 					INDICATOR_SELECTOR: "." + classes.INDICATOR,
 					INDICATOR_ARROW_SELECTOR: "." + classes.INDICATOR_ARROW,
 					ITEM_DEGREE: 30,
 					MAX_ITEM_NUMBER: 11,
-					ITEM_RADIUS: 140,
+					ITEM_RADIUS: -1,
 					ITEM_START_DEGREE: 60,
 					ITEM_END_DEGREE: 240,
 					ITEM_NORMAL_SCALE: "scale(1)",
@@ -164,7 +176,6 @@
 						items[i].classList.add(classes.ITEM_ACTIVE);
 						layer.classList.add(classes.LAYER_ACTIVE);
 					}
-					setItemTransform(items[i], DEFAULT.ITEM_END_DEGREE, options.itemRadius, -DEFAULT.ITEM_END_DEGREE, options.itemNormalScale);
 				}
 				return layers;
 			}
@@ -263,24 +274,24 @@
 				if (validPrevLayer && validPrevLayer.classList.contains(classes.LAYER)) {
 					validPrevLayer.classList.add(classes.LAYER_PREV);
 					prevLayerDeg = DEFAULT.ITEM_END_DEGREE + DEFAULT.ITEM_DEGREE / 6;
-					setItemTransform(validPrevLayer, prevLayerDeg, radius, -prevLayerDeg, options.itemNormalScale);
+					setItemTransform(validPrevLayer, prevLayerDeg, radius, -prevLayerDeg, DEFAULT.ITEM_NORMAL_SCALE);
 					ppLayer = validPrevLayer.previousElementSibling;
 					ppLayerDeg = DEFAULT.ITEM_END_DEGREE + DEFAULT.ITEM_DEGREE / 4;
 					if (ppLayer && ppLayer.classList.contains(classes.LAYER)) {
 						ppLayer.classList.add(classes.LAYER_PREV_PREV);
-						setItemTransform(ppLayer, ppLayerDeg, radius, -ppLayerDeg, options.itemNormalScale);
+						setItemTransform(ppLayer, ppLayerDeg, radius, -ppLayerDeg, DEFAULT.ITEM_NORMAL_SCALE);
 					}
 				}
 
 				if (validNextLayer && validNextLayer.classList.contains(classes.LAYER)) {
 					validNextLayer.classList.add(classes.LAYER_NEXT);
 					nextLayerDeg = DEFAULT.ITEM_START_DEGREE + DEFAULT.ITEM_DEGREE / 6;
-					setItemTransform(validNextLayer, -nextLayerDeg, radius, nextLayerDeg, options.itemNormalScale);
+					setItemTransform(validNextLayer, -nextLayerDeg, radius, nextLayerDeg, DEFAULT.ITEM_NORMAL_SCALE);
 					nnLayer = validNextLayer.nextElementSibling;
 					nnLayerDeg = DEFAULT.ITEM_START_DEGREE + DEFAULT.ITEM_DEGREE / 4;
 					if (nnLayer && nnLayer.classList.contains(classes.LAYER)) {
 						nnLayer.classList.add(classes.LAYER_NEXT_NEXT);
-						setItemTransform(nnLayer, -nnLayerDeg, radius, nnLayerDeg, options.itemNormalScale);
+						setItemTransform(nnLayer, -nnLayerDeg, radius, nnLayerDeg, DEFAULT.ITEM_NORMAL_SCALE);
 					}
 				}
 				validLayer.classList.add(classes.LAYER_ACTIVE);
@@ -307,9 +318,7 @@
 				 * @property {string} indicatorSelector [options.indicatorSelector=".ui-selector-indicator"] Selector indicator selector that style is css selector.
 				 * @property {string} indicatorArrowSelector [options.indicatorArrowSelector=".ui-selector-indicator-arrow"] Selector indicator arrow selector that style is css style.
 				 * @property {Number} itemDegree [options.itemDegree=30] Each items locate degree.
-				 * @property {Number} itemRadius [options.itemRadius=140] Items locate radius between center to it.
-				 * @property {String} itemNormalScale [options.itemNormalScale="scale(1)"] Item normal status scale.
-				 * @property {String} itemActiveScale [options.itemActiveScale="scale(1.18)"] Item active status scale.
+				 * @property {Number} itemRadius [options.itemRadius=-1] Items locate radius between center to it. Default value is determined by Selector element layout.
 				 * @property {Number} maxItemNumber [options.maxItemNumber=11] Max item number on one layer. If you change the itemDegree, we recommend to consider to modify this value for fit your Selector layout.
 				 * @property {boolean} indicatorAutoControl [options.indicatorAutoControl=true] Indicator auto control switch. If you want to control your indicator manually, change this options to false.
 				 */
@@ -319,8 +328,6 @@
 					indicatorArrowSelector: DEFAULT.INDICATOR_ARROW_SELECTOR,
 					itemDegree: DEFAULT.ITEM_DEGREE,
 					itemRadius: DEFAULT.ITEM_RADIUS,
-					itemNormalScale: DEFAULT.ITEM_NORMAL_SCALE,
-					itemActiveScale: DEFAULT.ITEM_ACTIVE_SCALE,
 					maxItemNumber: DEFAULT.MAX_ITEM_NUMBER,
 					indicatorAutoControl: true
 				});
@@ -346,6 +353,7 @@
 					layers;
 
 				if (items && items.length) {
+
 					layers = buildLayers(element, items, options);
 					element.classList.add(classes.SELECTOR);
 
@@ -390,9 +398,21 @@
 			 */
 			prototype._init = function(element) {
 				var self = this,
-					activeLayerIndex = self._getActiveLayer();
+					options = self.options,
+					items = self._ui.items,
+					activeLayerIndex = self._getActiveLayer(),
+					activeItemIndex = self._getActiveItem(),
+					validLayout = element.offsetWidth > element.offsetHeight ? element.offsetHeight : element.offsetWidth,
+					i, len;
 
 				self._started = false;
+				self._activeItemIndex = activeItemIndex === null ? 0 : activeItemIndex;
+				options.itemRadius = options.itemRadius < 0 ? validLayout / 2 * STATIC.RADIUS_RATIO : options.itemRadius;
+				len = items.length;
+				for (i = 0; i < len; i++) {
+					utilDom.setNSData(items[i], "index", i);
+					setItemTransform(items[i], DEFAULT.ITEM_END_DEGREE, options.itemRadius, -DEFAULT.ITEM_END_DEGREE, DEFAULT.ITEM_NORMAL_SCALE);
+				}
 				if (activeLayerIndex === null) {
 					self._activeLayerIndex = 0;
 					self._setActiveLayer(0);
@@ -412,27 +432,18 @@
 			 */
 			prototype._initItems = function(layer) {
 				var self = this,
-					ui = self._ui,
 					options = self.options,
-					items = layer.querySelectorAll("." + classes.ITEM),
-					activeItem = layer.querySelector("." + classes.ITEM_ACTIVE),
+					items = layer.querySelectorAll(options.itemSelector),
 					degree,
 					i, len;
 
-				ui.items = items;
 				len = items.length > options.maxItemNumber ? options.maxItemNumber : items.length;
 				for (i = 0; i < len; i++) {
-					utilDom.setNSData(items[i], "index", i);
 					degree = -DEFAULT.ITEM_START_DEGREE + (options.itemDegree * i);
-					setItemTransform(items[i], degree, options.itemRadius, -degree, options.itemNormalScale);
+					setItemTransform(items[i], degree, options.itemRadius, -degree, DEFAULT.ITEM_NORMAL_SCALE);
 				}
 
-				if (activeItem) {
-					self._setActiveItem(parseInt(utilDom.getNSData(activeItem, "index")));
-				} else {
-					self._setActiveItem(0);
-				}
-
+				self._setActiveItem(self._activeItemIndex);
 			};
 
 			/**
@@ -548,19 +559,20 @@
 			 */
 			prototype._setActiveItem = function(index) {
 				var self = this,
+					element = self.element,
 					ui = self._ui,
 					options = self.options,
 					items = ui.items,
-					active = self._getActiveItem();
+					index = index !== undefined ? index : 0,
+					active = element.querySelector("." + classes.ITEM_ACTIVE);
 
+				if (active) {
+					active.style.transform = active.style.transform.replace(DEFAULT.ITEM_ACTIVE_SCALE, DEFAULT.ITEM_NORMAL_SCALE);
+					active.classList.remove(classes.ITEM_ACTIVE);
+				}
 				if (items.length) {
-					if (active !== null) {
-						items[active].style.transform = items[active].style.transform.replace(options.itemActiveScale, options.itemNormalScale);
-						items[active].classList.remove(classes.ITEM_ACTIVE);
-					}
-
 					items[index].classList.add(classes.ITEM_ACTIVE);
-					items[index].style.transform = items[index].style.transform.replace(options.itemNormalScale, options.itemActiveScale);
+					items[index].style.transform = items[index].style.transform.replace(DEFAULT.ITEM_NORMAL_SCALE, DEFAULT.ITEM_ACTIVE_SCALE);
 					if (self.options.indicatorAutoControl) {
 						self._setIndicatorIndex(index);
 					}
@@ -587,14 +599,16 @@
 					item = ui.items[index],
 					title = utilDom.getNSData(item, "title"),
 					indicator = ui.indicator,
-					indicatorArrow = ui.indicatorArrow;
+					indicatorArrow = ui.indicatorArrow,
+					idcIndex = index % self.options.maxItemNumber;
 
 				if (indicator.children.length === 0) {
 					indicator.textContent = title ? title : "ITEM";
 				}
 
+
 				utilDom.setNSData(indicator, "index", index);
-				setIndicatorTransform(indicatorArrow, self.options.itemDegree * index);
+				setIndicatorTransform(indicatorArrow, self.options.itemDegree * idcIndex);
 			};
 
 			/**
@@ -683,10 +697,9 @@
 					options = self.options,
 					direction = event.detail.direction,
 					activeLayer = ui.layers[self._activeLayerIndex],
+					activeLayerItemsLength = activeLayer.querySelectorAll(options.itemSelector).length,
 					prevLayer = activeLayer.previousElementSibling,
-					nextLayer = activeLayer.nextElementSibling,
-					indicatorIndex = ui.indicator && parseInt(utilDom.getNSData(ui.indicator, "index"), 10),
-					len = ui.items.length - 1;
+					nextLayer = activeLayer.nextElementSibling;
 
 				event.stopPropagation();
 				if (!options.indicatorAutoControl) {
@@ -694,10 +707,9 @@
 				}
 				if (direction === "CW") {
 					// check length
-					if (indicatorIndex === len) {
+					if (self._activeItemIndex === (activeLayerItemsLength + self._activeLayerIndex * options.maxItemNumber) - 1) {
 						if (prevLayer && prevLayer.classList.contains(classes.LAYER_PREV)) {
-							ui.items[self._activeItemIndex].classList.remove(classes.ITEM_ACTIVE);
-							prevLayer.getElementsByClassName(classes.ITEM)[0].classList.add(classes.ITEM_ACTIVE);
+							self._activeItemIndex = self._activeItemIndex - activeLayerItemsLength - prevLayer.querySelectorAll(options.itemSelector).length + 1;
 							self._changeLayer(self._activeLayerIndex - 1);
 						} else {
 							setIndicatorTransform(ui.indicatorArrow, options.itemDegree * self._activeItemIndex + options.itemDegree / 3);
@@ -710,10 +722,9 @@
 					}
 				} else {
 					// check 0
-					if (indicatorIndex === 0) {
+					if (self._activeItemIndex % options.maxItemNumber === 0) {
 						if (nextLayer && nextLayer.classList.contains(classes.LAYER_NEXT)) {
-							ui.items[self._activeItemIndex].classList.remove(classes.ITEM_ACTIVE);
-							nextLayer.getElementsByClassName(classes.ITEM)[nextLayer.childElementCount - 1].classList.add(classes.ITEM_ACTIVE);
+							self._activeItemIndex = self._activeItemIndex + activeLayerItemsLength + nextLayer.querySelectorAll(options.itemSelector).length - 1;
 							self._changeLayer(self._activeLayerIndex + 1);
 						} else {
 							setIndicatorTransform(ui.indicatorArrow, -options.itemDegree / 3);
@@ -742,14 +753,13 @@
 				layer.classList.add(classes.LAYER_HIDE);
 				len = items.length;
 				for (i = 0; i < len; i++) {
-					setItemTransform(items[i], -DEFAULT.ITEM_START_DEGREE, self.options.itemRadius, DEFAULT.ITEM_START_DEGREE, options.itemNormalScale);
+					setItemTransform(items[i], -DEFAULT.ITEM_START_DEGREE, self.options.itemRadius, DEFAULT.ITEM_START_DEGREE, DEFAULT.ITEM_NORMAL_SCALE);
 				}
 
 				setTimeout(function() {
 					len = items.length;
 					for (i = 0; i < len; i++) {
-						utilDom.removeNSData(items[i], "index");
-						setItemTransform(items[i], DEFAULT.ITEM_END_DEGREE, self.options.itemRadius, -DEFAULT.ITEM_END_DEGREE, options.itemNormalScale);
+						setItemTransform(items[i], DEFAULT.ITEM_END_DEGREE, self.options.itemRadius, -DEFAULT.ITEM_END_DEGREE, DEFAULT.ITEM_NORMAL_SCALE);
 					}
 					layer.classList.remove(classes.LAYER_HIDE);
 				}, 150);
@@ -792,17 +802,6 @@
 					self._setActiveLayer(index);
 				}, 150);
 
-			};
-
-			/**
-			 * Change active layer
-			 * @method changeLayer
-			 * @param {Number} index
-			 * @public
-			 * @member ns.widget.wearable.Selector
-			 */
-			prototype.changeLayer = function(index) {
-				this._changeLayer(index);
 			};
 
 			/**
@@ -880,7 +879,6 @@
 				"Selector",
 				".ui-selector",
 				[
-					"changeLayer",
 					"changeItem",
 					"addItem",
 					"removeItem"

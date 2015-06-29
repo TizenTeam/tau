@@ -16,7 +16,7 @@
 
 		if (tau.support.shape.circle) {
 			helper = tau.helper.DrawerMoreStyle.create(drawer, {
-				handler: ".drawer-handler"
+				handler: ".ui-more"
 			});
 		} else {
 			// Shape is square

@@ -18,7 +18,6 @@ test("API" , function () {
 	equal(typeof widget.refresh, 'function', 'Method Selector.refresh exists');
 	equal(typeof widget.option, 'function', 'Method Selector.option exists');
 
-	equal(typeof widget.changeLayer, 'function', 'Method Selector.changeLayer exists');
 	equal(typeof widget.changeItem, 'function', 'Method Selector.changeItem exists');
 	equal(typeof widget.addItem, 'function', 'Method Selector.addItem exists');
 	equal(typeof widget.removeItem, 'function', 'Method Selector.removeItem exists');
