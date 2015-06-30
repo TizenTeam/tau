@@ -21,8 +21,8 @@
 			</div>
 			<div data-role="content">
 				<pre><code class="javascript">
-var router = tau.engine.getRouter();
-router.addRoute("page-params/:param1/:param2", function (deferred, param1, param2) {
+var controller = tau.Controller.getInstance();
+controller.addRoute("page-params/:param1/:param2", function (deferred, param1, param2) {
 	deferred.resolve(
 			'&lt;div data-role="page"&gt;' +
 			'&lt;div&gt;param1: &lt;strong&gt;' + param1 + '&lt;/strong&gt;&lt;/div&gt;' +
@@ -36,8 +36,8 @@ router.addRoute("page-params/:param1/:param2", function (deferred, param1, param
 				</code></pre>
 			</div>
 				<script>
-					var router = tau.engine.getRouter();
-					router.addRoute("page-params/:param1/:param2", function (deferred, param1, param2) {
+					var controller = tau.Controller.getInstance();
+					controller.addRoute("page-params/:param1/:param2", function (deferred, param1, param2) {
 						deferred.resolve(
 								'<div data-role="page">' +
 								'<div>param1: <strong>' + param1 + '</strong></div>' +

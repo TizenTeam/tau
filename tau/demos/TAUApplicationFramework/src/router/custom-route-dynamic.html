@@ -21,8 +21,8 @@
 			</div>
 			<div data-role="content">
 				<pre><code class="javascript">
-var router = tau.engine.getRouter();
-router.addRoute("page-dynamic", function (deferred) {
+var controller = tau.Controller.getInstance();
+controller.addRoute("page-dynamic", function (deferred) {
 	var page = document.createElement("div");
 	page.dataset.role = "page";
 	page.textContent = "Hello world!";
@@ -31,8 +31,8 @@ router.addRoute("page-dynamic", function (deferred) {
 				</code></pre>
 			</div>
 				<script>
-					var router = tau.engine.getRouter();
-					router.addRoute("page-dynamic", function (deferred) {
+					var controller = tau.Controller.getInstance();
+					controller.addRoute("page-dynamic", function (deferred) {
 						var page = document.createElement("div");
 						page.dataset.role = "page";
 						page.textContent = "Hello world!";

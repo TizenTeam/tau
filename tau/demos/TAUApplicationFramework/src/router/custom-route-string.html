@@ -21,16 +21,16 @@
 			</div>
 			<div data-role="content">
 				<pre><code class="javascript">
-var router = tau.engine.getRouter();
-router.addRoute("page-string", function (deferred) {
+var controller = tau.Controller.getInstance();
+controller.addRoute("page-string", function (deferred) {
 	// return page as string
 	deferred.resolve('&lt;div data-role="page"&gt;Hello world!&lt;/div&gt;');
 });
 				</code></pre>
 			</div>
 				<script>
-					var router = tau.engine.getRouter();
-					router.addRoute("page-string", function (deferred) {
+					var controller = tau.Controller.getInstance();
+					controller.addRoute("page-string", function (deferred) {
 						deferred.resolve('<div data-role="page">Hello world!</a>');
 					});
 				</script>

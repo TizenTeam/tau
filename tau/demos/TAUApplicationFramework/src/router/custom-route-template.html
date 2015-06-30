@@ -21,8 +21,8 @@
 			</div>
 			<div data-role="content">
 				<pre><code class="javascript">
-var router = tau.engine.getRouter();
-router.addRoute("page-template", function (deferred) {
+var controller = tau.Controller.getInstance();
+controller.addRoute("page-template", function (deferred) {
 	tau.template.render("templates/page-template.html", {}, function (status, data) {
 		if (status.success) {
 			deferred.resolve(data.body);
@@ -34,8 +34,8 @@ router.addRoute("page-template", function (deferred) {
 				</code></pre>
 			</div>
 				<script>
-					var router = tau.engine.getRouter();
-					router.addRoute("page-template", function (deferred) {
+					var controller = tau.Controller.getInstance();
+					controller.addRoute("page-template", function (deferred) {
 						tau.template.render("templates/page-template.html", {}, function (status, data) {
 							if (status.success) {
 								deferred.resolve(data); // @TODO THIS HAS TO BE FIXED IN TEMPLATES!!
