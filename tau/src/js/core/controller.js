@@ -69,7 +69,7 @@
 					if (matches && matches.length > 0) {
 						deferredTemplate.resolve = function (content) {
 							if (content) {
-								eventUtils.trigger(document, EVENT_CONTENT_AVAILABLE, content);
+								eventUtils.trigger(document, EVENT_CONTENT_AVAILABLE, {content: content, options: options});
 							}
 							deferred.resolve(options, content);
 							return true;
