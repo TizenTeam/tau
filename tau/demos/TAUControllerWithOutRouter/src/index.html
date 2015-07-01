@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width,user-scalable=no"/>
+		<script type="text/javascript">
+			var tauConfig = {
+				"disableRouter": true
+			}
+		</script>
+		<script src="../lib/tau/js/tau.js" data-build-remove="false"></script>
+		<link rel="stylesheet" href="../lib/tau/theme/default/tau.css">
+		<link rel="stylesheet" href="custom.css">
+		<title>Only TAU Controller Without Router</title>
+	</head>
+	<body>
+		<div class="ui-page" id="main">
+			<div class="ui-content">
+				<ul id="list" class="ui-listview">
+
+				</ul>
+			</div>
+		</div>
+		<div class="ui-page" id="details">
+			<div class="ui-content">
+				<p id="info2"></p>
+			</div>
+		</div>
+		<script type="text/javascript">
+			var data = [
+					{preview: "link1", data: "somepage1"},
+					{preview: "link2", data: "somepage2"},
+					{preview: "link3", data: "somepage3"},
+					{preview: "link4", data: "somepage4"},
+					{preview: "link5", data: "somepage5"}
+				],
+				mainPage = document.getElementById("main"),
+				detailsPage = document.getElementById("details"),
+				list = document.getElementById("list"),
+				length = data.length,
+				li,
+				a,
+				i;
+
+			for(i = 0; i < length; i++){
+				li = document.createElement("LI");
+				a = document.createElement("A");
+				a.href = "#details/" + i;
+				a.textContent = data[i].preview;
+				li.appendChild(a);
+				list.appendChild(li);
+			}
+
+			//some external router can be used in this place
+			tau.engine.instanceWidget(mainPage, "page");
+			detailsPage.style.display = "none";
+
+			//tau.event.one(mainPage, "pageshow", function() {
+			document.addEventListener('DOMContentLoaded', function() {
+				tau.Controller.getInstance().addRoute("details/:id", function (defer, id) {
+					//some external router can be used in this place
+					mainPage.style.display = "none";
+					detailsPage.style.display = "block";
+					document.getElementById("info2").innerText = "You click the link " + data[id].preview + " id: " + id;
+					defer.resolve();
+				});
+			}, false);
+		</script>
+	</body>
+</html>
+
