@@ -1,4 +1,9 @@
 %changelog
+* Wed Jul 01 2015 Hagun Kim <hagun.kim@samsung.com> 0.10.29
+	- fix(wearable): fix moreoptions handler width and position(P150625-07282)
+	- feat(wearable): add circular index scrollbar component
+	- fix(wearable): modify config.xml in UIComponent
+
 * Mon Jun 22 2015 Hagun Kim <hagun.kim@samsung.com> 0.10.28
 	- feat(wearble): add Selector component
 	- fix(wearable): fix full processing demo sample
