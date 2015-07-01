@@ -515,3 +515,7 @@
 	background-color: transparent;
 	padding: 10px 14px 9px 14px;
 }
+
+.li-search-hidden {
+	display: none;
+}

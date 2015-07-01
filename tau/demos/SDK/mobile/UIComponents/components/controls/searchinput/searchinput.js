@@ -1,23 +1,42 @@
-$( document ).one( "pageshow", ":jqmData(role='page')", function ( ev ) {
-    var page = ev.target;
+(function() {
+	var page = document.getElementById("searchInputPage"),
+		search =  document.getElementById("demo-page-search-input"),
+		list = document.getElementById("searchList"),
+		listItems = list.querySelectorAll("[data-filtertext]"),
+		listItemsArray = [].slice.call(listItems),
+		searchHandlerBound,
+		searchClearBound;
 
-    $( "#" + page.id + "-search-input" ).on( "input change", function ( ev ) {
-        var regEx,
-            sinput = ev.target,
-            content = $( page ).children(":jqmData(role='content')")[0];
+	function searchHandler() {
+		listItemsArray.forEach(function(item){
+			var itemText = item.getAttribute("data-filtertext");
+			if ( itemText.toString().toLowerCase().indexOf(search.value) === -1 ) {
+				item.classList.add("li-search-hidden");
+			} else {
+				item.classList.remove("li-search-hidden");
+			}
+		});
+	}
 
-        regEx = new RegExp(".*" + $( sinput ).val().toLowerCase());
+	function searchClear() {
+		if(search.value === "") {
+			listItemsArray.forEach(function(item) {
+				item.classList.remove("li-search-hidden");
+			});
+		}
+	}
 
-        $( content ).find( "li" ).each( function () {
-            if ( $( this ).text().toLowerCase().match(regEx) ) {
-                $( this ).show();
-            } else {
-                $( this ).hide();
-            }
-        });
+	page.addEventListener("pagebeforeshow", function() {
+		searchHandlerBound = searchHandler.bind(this);
+		searchClearBound = searchClear.bind(this);
+		search.addEventListener("keyup", searchHandlerBound, false);
+		search.addEventListener("search", searchClearBound, false);
+	});
 
-        $( content ).scrollview( "scrollTo", 0, 0, 0 );
-    });
-});
+	page.addEventListener("pagehide", function() {
+		search.removeEventListener("keyup", searchHandlerBound, false);
+		search.removeEventListener("search", searchClearBound, false);
+	});
 
+})();
 
