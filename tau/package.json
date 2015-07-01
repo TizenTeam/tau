@@ -15,6 +15,7 @@
     "grunt-contrib-concat": "~0.5.0",
     "grunt-contrib-copy": "0.4.1",
     "grunt-contrib-cssmin": "0.6.1",
+    "grunt-contrib-compress": "0.13.0",
     "grunt-contrib-jshint": "0.6.3",
     "grunt-contrib-less": "~0.7.0",
     "grunt-contrib-qunit": "0.2.2",
@@ -23,16 +24,20 @@
     "grunt-contrib-uglify": "0.3.2",
     "grunt-contrib-watch": "~0.6.1",
     "grunt-debug-task": "~0.1.4",
+    "grunt-exec": "latest",
     "grunt-jsduck": "~1.0.0",
     "grunt-lib-phantomjs": "^0.6.0",
     "grunt-qunit-istanbul": "~0.4.7",
     "grunt-qunit-tap": "~2.0.0",
     "grunt-string-replace": "~0.2.4",
+    "grunt-open": "~0.2.3",
+    "grunt-contrib-connect": "~0.10.1",
     "marked": "0.3.2",
     "mu2": "~0.5.20",
     "rjs-build-analysis": "~0.0.3",
     "underscore": "1.6.0",
-    "xml2js": "~0.4.4"
+    "xml2js": "~0.4.4",
+    "shelljs": "latest"
   },
   "main": "Gruntfile.js"
 }
