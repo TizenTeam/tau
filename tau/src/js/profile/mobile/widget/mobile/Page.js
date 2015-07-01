@@ -368,11 +368,6 @@
 							// We always set the ui-[header|footer]-fixed class to match Tizen design needs
 							sectionClassList.add(classes.uiPrefix + role + classes.fixedSuffix);
 
-							if (role === "header") {
-								if (section.querySelectorAll("[data-role='button'], button, .ui-btn").length) {
-									section.setAttribute("data-enhance", false);
-								}
-							}
 							selectors.getChildrenBySelector(section, "h1, h2, h3, h4, h5, h6").forEach(function (title) {
 								title.classList.add(classes.uiTitle);
 								title.setAttribute("role", "heading");
