@@ -1,6 +1,6 @@
 /*global window, define, ns */
 /*jslint browser: true, nomen: true */
-(function (window, document, ns) {
+(function (window, document) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
@@ -67,8 +67,11 @@
 						}
 						if (!triggerStateChange(options)) {
 							// mark as handled
-							eventUtils.preventDefault(event);
-							return false;
+							// but not on back
+							if (!rel || (rel && rel !== "back")) {
+								eventUtils.preventDefault(event);
+								return false;
+							}
 						}
 					}
 				}
@@ -146,4 +149,4 @@
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
-}(window, window.document, ns));
+}(window, window.document));

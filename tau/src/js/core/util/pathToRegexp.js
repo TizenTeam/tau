@@ -14,7 +14,7 @@
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  *
  */
-(function (window, ns) {
+(function (window) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
@@ -32,4 +32,4 @@
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
-}(window, ns));
+}(window));

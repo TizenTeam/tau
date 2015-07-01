@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		setup: function() {
 			window.tauConfig = {autorun: false};
 			tau.engine.run();
+
 		}
 	});
 /*
@@ -45,9 +46,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	asyncTest('open enbedded #firstPage', function () {
 		var onPageShow = function () {
-				start();
 				equal(router.container.activePage.element.id, 'firstPage', 'router.open("#firstPage")');
 				document.removeEventListener('pageshow', onPageShow, true);
+				start();
 			};
 		tau.set('autoInitializePage', false);
 		router.init();
@@ -57,9 +58,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	asyncTest('open enbedded #secondPage', function () {
 		var onPageShow = function () {
-				start();
 				equal(router.container.activePage.element.id, 'secondPage', 'router.open("#secondPage")');
 				document.removeEventListener('pageshow', onPageShow, true);
+				start();
+
 			};
 		tau.set('autoInitializePage', false);
 		router.init();

@@ -9,7 +9,7 @@
  * @author Maciej Moczulski <m.moczulski@samsung.com>
  * @author Piotr Karny <p.karny@samsung.com>
  */
-(function (window, document, ns) {
+(function (window, document) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
@@ -251,4 +251,4 @@
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
-}(window, window.document, ns));
+}(window, window.document));

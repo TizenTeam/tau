@@ -12,7 +12,7 @@
  * framework.
  * @class ns.event
  */
-(function (window, ns) {
+(function (window) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
@@ -428,4 +428,4 @@
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
-}(window, ns));
+}(window));

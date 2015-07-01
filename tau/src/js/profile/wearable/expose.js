@@ -23,7 +23,9 @@
 			//>>excludeEnd("tauBuildExclude");
 
 			document.addEventListener("beforerouterinit", function () {
-				ns.setConfig('autoInitializePage', ns.autoInitializePage);
+				if (ns.autoInitializePage !== undefined) {
+					ns.setConfig('autoInitializePage', ns.autoInitializePage);
+				}
 			}, false);
 
 			document.addEventListener("routerinit", function (evt) {

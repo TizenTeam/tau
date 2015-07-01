@@ -14,10 +14,22 @@
  * @author Piotr Karny <p.karny@samsung.com>
  * @author Tomasz Lukawski <t.lukawski@samsung.com>
  */
-(function (document, ns, nsConfig) {
+(function (document) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(function () {
+		// Initializing ns in require mode, when framework is built then this
+		// part is deleting
+		var ns = ns || {
+					info: {
+						profile: "custom"
+					}
+				},
+			nsConfig = nsConfig || {};
+		// in require mode we need export ns in windows
+		window.ns = ns;
+		window.nsConfig = nsConfig;
+
 		//>>excludeEnd("tauBuildExclude");
 		var idNumberCounter = 0,
 			currentDate = +new Date(),
@@ -153,4 +165,4 @@
 		return ns;
 	});
 	//>>excludeEnd("tauBuildExclude");
-}(window.document, ns, nsConfig));
+}(window.document));

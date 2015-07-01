@@ -10,7 +10,7 @@
  * @class ns.Controller
  * @author Krzysztof Antoszek <k.antoszek@samsung.com>
  */
-(function (ns, document) {
+(function (document) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
@@ -41,6 +41,7 @@
 
 					self.routes = [];
 					self.onStateChange = null;
+					self.currentRoute = null;
 				},
 				controllerInstance = null,
 				proto = Controller.prototype;
@@ -68,13 +69,14 @@
 					var matches = route.regexp.exec(path),
 						deferredTemplate = {},
 						params = [];
-					if (matches && matches.length > 0) {
+					if (matches && matches.length > 0 && controller.currentRoute !== route) {
 						deferredTemplate.resolve = function (content) {
 							if (content) {
 								options.fromHashChange = true;
 								eventUtils.trigger(document, EVENT_CONTENT_AVAILABLE, {content: content, options: options});
 							}
 							deferred.resolve(options, content);
+							controller.currentRoute = route;
 							return true;
 						};
 						deferredTemplate.reject = function () {
@@ -193,7 +195,6 @@
 				// check existing of event listener
 				if (!self.onStateChange) {
 					self.onStateChange = onHistoryStateChange.bind(null, self);
-
 					window.addEventListener(historyManagerEvents.STATECHANGE, self.onStateChange, true);
 				}
 			};
@@ -234,4 +235,4 @@
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
-}(ns, window.document));
+}(window.document));

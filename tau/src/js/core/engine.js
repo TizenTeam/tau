@@ -18,7 +18,7 @@
  * @author Tomasz Lukawski <t.lukawski@samsung.com>
  * @author Przemyslaw Ciezkowski <p.ciezkowski@samsung.com>
  */
-(function (window, document, ns) {
+(function (window, document) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
@@ -920,7 +920,7 @@
 			 * @member ns.engine
 			 */
 			function getArgumentsTypes(args) {
-				return tau.util.array.reduce(args, getType, {});
+				return ns.util.array.reduce(args, getType, {});
 			}
 
 			/*
@@ -1098,4 +1098,4 @@
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
-}(window, window.document, ns));
+}(window, window.document));

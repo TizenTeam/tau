@@ -10,7 +10,7 @@
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  * @author Piotr Karny <p.karny@samsung.com>
  */
-(function (ns) {
+(function () {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
@@ -185,4 +185,4 @@
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
-}(ns));
+}());

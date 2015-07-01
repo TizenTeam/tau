@@ -12,7 +12,7 @@
  * @author Jadwiga Sosnowska <j.sosnowska@partner.samsung.com>
  * @author Damian Osipiuk <d.osipiuk@samsung.com>
  */
-(function (document, ns) {
+(function (document) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
@@ -388,4 +388,4 @@
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
-}(window.document, ns));
+}(window.document));
