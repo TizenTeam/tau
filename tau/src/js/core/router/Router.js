@@ -393,8 +393,11 @@
 					}
 				}
 				document.removeEventListener(historyManagerEvents.HASHCHANGE, self.hashchangehandler, false);
+				self.hashchangehandler = null;
 				document.removeEventListener(historyManagerEvents.STATECHANGE, self.onstatechangehandler, false);
+				self.onstatechangehandler = null;
 				document.removeEventListener("controller-content-available", self.oncontrollercontent, false);
+				self.oncontrollercontent = null;
 			};
 
 			/**
@@ -497,16 +500,21 @@
 				var self = this;
 				self.container = container;
 				self.firstPage = firstPage;
-				self.hashchangehandler = onHistoryHashChange.bind(null, self);
-				self.onstatechangehandler = onHistoryStateChange.bind(null, self);
-				self.oncontrollercontent = onControllerContent.bind(null, self);
 
 				eventUtils.trigger(document, "themeinit", self);
 
-				document.addEventListener(historyManagerEvents.HASHCHANGE, self.hashchangehandler, false);
-				document.addEventListener(historyManagerEvents.STATECHANGE, self.onstatechangehandler, false);
-				document.addEventListener("controller-content-available", self.oncontrollercontent, false);
-
+				if (!self.hashchangehandler) {
+					self.hashchangehandler = onHistoryHashChange.bind(null, self);
+					document.addEventListener(historyManagerEvents.HASHCHANGE, self.hashchangehandler, false);
+				}
+				if (!self.onstatechangehandler) {
+					self.onstatechangehandler = onHistoryStateChange.bind(null, self);
+					document.addEventListener(historyManagerEvents.STATECHANGE, self.onstatechangehandler, false);
+				}
+				if (!self.oncontrollercontent) {
+					self.oncontrollercontent = onControllerContent.bind(null, self);
+					document.addEventListener("controller-content-available", self.oncontrollercontent, false);
+				}
 				if (ns.getConfig("loader", false)) {
 					container.element.appendChild(self.getLoader().element);
 				}

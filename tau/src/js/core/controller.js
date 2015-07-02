@@ -153,14 +153,21 @@
 
 			proto.init = function () {
 				var self = this;
-				self.onStateChange = onHistoryStateChange.bind(null, self);
 
-				window.addEventListener(historyManagerEvents.STATECHANGE, self.onStateChange, true);
+				// check existing of event listener
+				if (!self.onStateChange) {
+					self.onStateChange = onHistoryStateChange.bind(null, self);
+
+					window.addEventListener(historyManagerEvents.STATECHANGE, self.onStateChange, true);
+				}
 			};
 
 			proto.destroy = function () {
 				var self = this;
 				window.removeEventListener(historyManagerEvents.STATECHANGE, self.onStateChange, true);
+
+				// destroy callback to give possibility to another init
+				self.onStateChange = null;
 			};
 
 			Controller.newInstance = function () {
