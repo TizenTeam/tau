@@ -120,6 +120,7 @@
 				localStorage[DEFAULT.STORAGE_NAME] = [];
 				self.history.push(ui.activePanel.id);
 				localStorage[DEFAULT.STORAGE_NAME] = JSON.stringify(self.history);
+				self._animationType = self.options.animationType;
 				this._initLayout();
 				return element;
 			};
@@ -167,7 +168,7 @@
 					url = address ? address.split(/[#|?]+/)[0] : null;
 
 				if (animationType) {
-					self.options.animationType = animationType;
+					self._animationType = animationType;
 				}
 				self._direction = direction;
 				request.responseType = "document";
@@ -207,13 +208,14 @@
 					panel = xml.querySelector(id) || xml.querySelector("[data-role='panel'], .ui-panel");
 				}
 
+
 				if (!panel) {
 					console.warn("Panel is not existed");
 					return;
 				} else {
 					element.appendChild(panel);
 				}
-				ui._toPanel = panel;
+				ui.toPanel = panel;
 				events.trigger(panel, eventType.BEFORE_CREATE);
 				panel.style.display = "none";
 				engine.createWidgets(element);
@@ -246,9 +248,9 @@
 			prototype._show = function() {
 				var self = this,
 					options = self.options,
-					toPanel = self._ui._toPanel,
+					toPanel = self._ui.toPanel,
 					fromPanel = self._ui.activePanel,
-					type = options.animationType,
+					type = self._animationType,
 					animationClasses = self._animationClasses;
 
 				self._animating = true;
@@ -328,7 +330,7 @@
 			prototype._onAnimationEnd = function(event) {
 				var self = this,
 					element = self.element,
-					toPanel = self._ui._toPanel,
+					toPanel = self._ui.toPanel,
 					activePanel = self._ui.activePanel,
 					animationClasses = self._animationClasses;
 
