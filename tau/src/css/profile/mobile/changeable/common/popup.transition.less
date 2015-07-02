@@ -1,6 +1,6 @@
 .ui-popup:not(.ui-ctxpopup) {
 	&.slideup.out {
-		.animation(popupslideouttobottom 550ms ease-out 150ms);
+		.animation(popupslideouttobottom 400ms ease-out);
 	}
 	&.slideup.in {
 		.animation(popupslideinfrombottom 400ms ease-out);
@@ -10,19 +10,22 @@
 .ui-popup.slideup.in:not(.ui-ctxpopup) {
 	.ui-popup-wrapper {
 		.transform(translateY(100%));
-		.animation(popupwrapperslideinfrombottom 550ms ease-out 150ms);
+		.animation(popupwrapperslideinfrombottom 350ms ease-out 50ms);
 	}
 }
 
 .ui-popup.slideup.out:not(.ui-ctxpopup) {
 	.ui-popup-wrapper {
 		.transform(translateY(50*@unit_base));
-		.animation(popupwrapperslideouttobottom 400ms ease-out);
+		.animation(popupwrapperslideouttobottom 4000ms ease-out);
 	}
 }
 
-.ui-popup-overlay:not(.ui-ctxpopup-overlay) {
+.ui-popup-overlay.slideup.in:not(.ui-ctxpopup-overlay) {
 	.animation(popupoverlayfadein 400ms ease-out);
+}
+.ui-popup-overlay.slideup.out:not(.ui-ctxpopup-overlay) {
+	.animation(popupoverlayfadeout 400ms ease-out);
 }
 
 .m-transitions-popupslideouttobottom() {

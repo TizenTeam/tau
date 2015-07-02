@@ -398,11 +398,6 @@
 				// set class for element
 				element.classList.add(classes.popup);
 
-				// set class for contextpopup
-				if ((self.options.positionTo === "origin") && ui.overlay) {
-					ui.overlay.classList.add(classes.contextOverlay);
-				}
-
 				// create arrow
 				arrow = document.createElement("div");
 				arrow.appendChild(document.createElement("span"));
@@ -452,6 +447,7 @@
 			prototype._reposition = function(options) {
 				var self = this,
 					element = self.element,
+					ui = self._ui,
 					elementClassList = element.classList;
 
 				options = objectUtils.merge({}, self.options, options);
@@ -462,6 +458,11 @@
 
 				// set height of content
 				self._setContentHeight();
+
+				// set class for contextpopup
+				if ((options.positionTo === "origin") && ui.overlay) {
+					ui.overlay.classList.add(classes.contextOverlay);
+				}
 
 				// set position of popup
 				self._placementCoords(options);

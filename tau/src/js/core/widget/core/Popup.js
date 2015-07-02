@@ -723,10 +723,11 @@
 				var self = this,
 					overlay = self._ui.overlay;
 
+				self._setActive(false);
+
 				if (overlay) {
 					overlay.style.display = "";
 				}
-				self._setActive(false);
 				self._restoreOpenOptions();
 				self.trigger(events.hide);
 			};
@@ -855,6 +856,7 @@
 					transitionClass = transition + options.ext,
 					element = self.element,
 					elementClassList = element.classList,
+					overlayClassList = self._ui.overlay.classList,
 					deferred,
 					animationEndCallback;
 
@@ -876,6 +878,7 @@
 						currentClass = currentClass.trim();
 						if (currentClass.length > 0) {
 							elementClassList.add(currentClass);
+							overlayClassList.add(currentClass);
 						}
 					});
 				} else {
