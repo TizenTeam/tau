@@ -8,28 +8,22 @@ Normal Popup
 	position: absolute;
 	left: 0;
 	width: 100%;
-	max-height: calc(~"100% - "70*@unit_base);
+	margin-top: 80 * @unit_base;
 	z-index: (@z_base_popup + 1) !important;
 	background-color: @color_popup_bg;
 	border: 0;
 
 	&.ui-popup-active {
-		display: -webkit-flex;
+		display: block;
 	}
 
 	&.in {
-		display: -webkit-flex;
+		display: block;
 	}
 
 	&.ui-build {
-		display: -webkit-flex;
+		display: block;
 		visibility: hidden;
-	}
-
-	.ui-popup-wrapper {
-		-webkit-flex: 1;
-		display: -webkit-flex;
-		-webkit-flex-direction: column;
 	}
 
 	.ui-popup-header {
@@ -51,7 +45,6 @@ Normal Popup
 	}
 
 	.ui-popup-content {
-		-webkit-flex: 1;
 		width: 100%;
 		background-color: @color_popup_bg;
 		color: @color_popup_text;

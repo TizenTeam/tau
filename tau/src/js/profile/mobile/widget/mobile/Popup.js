@@ -499,6 +499,7 @@
 			"../../../../core/engine",
 			"../../../../core/util/object",
 			"../../../../core/util/selectors",
+			"../../../../core/util/DOM",
 			"../../../../core/widget/core/ContextPopup",
 			"../mobile"
 		],
@@ -510,6 +511,8 @@
 				positionTypes = CorePopup.positionTypes,
 
 				engine = ns.engine,
+
+				doms = ns.util.DOM,
 
 				objectUtils = ns.util.object,
 
@@ -587,6 +590,18 @@
 					}
 					CorePopupPrototype._refresh.call(this);
 				}
+			};
+
+			/**
+			 * set height of content
+			 * @method _setContentHeight
+			 * @protected
+			 * @member ns.widget.mobile.Popup
+			 * */
+			Popup.prototype._setContentHeight = function () {
+				var computedMaxHeight = window.innerHeight - doms.getCSSProperty(this.element, "margin-top", 0, "float");
+
+				CorePopupPrototype._setContentHeight.call(this, computedMaxHeight);
 			};
 
 			/**

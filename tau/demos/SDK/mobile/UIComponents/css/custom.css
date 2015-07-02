@@ -27,7 +27,7 @@
 
 .ui-popup-header.popup-2line-title,
 .ui-popup-listview .ui-popup-header.popup-2line-title {
-	height: 93px;
+	height: 62px;
 	padding: 0;
 }
 .popup-2line-title h1,
@@ -37,17 +37,17 @@
 }
 
 .popup-2line-title h1 {
-	font-size: 32px;
-	line-height: 43px;
-	padding-top: 20px;
+	font-size: 21px;
+	line-height: 28.5px;
+	padding-top: 13px;
 }
 .popup-2line-title h2 {
-	font-size: 22px;
-	line-height: 30px;
+	font-size: 15px;
+	line-height: 20.5px;
 }
 
 .ui-popup-listview .ui-popup-header.popup-2line-title h1 {
-	padding-top: 10px;
+	padding-top: 6.5px;
 }
 
 /* Contextual popup custom style*/
