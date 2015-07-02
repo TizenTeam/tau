@@ -2,23 +2,16 @@
 <html>
 	<head>
 		<meta name="viewport" content="width=device-width,user-scalable=no"/>
-		<script src="../../lib/tau/mobile/js/tau.js" data-build-remove="false"></script>
-		<script src="../../lib/highlightjs/highlight.min.js"></script>
-		<script src="../highlighting.js"></script>
-		<link rel="stylesheet"  href="../../lib/tau/mobile/theme/default/tau.css">
+		<link rel="stylesheet"  href="../../lib/tau/theme/default/tau.css">
 		<link rel="stylesheet"  href="../../lib/highlightjs/styles/github.css">
-		<link rel="stylesheet"  href="../custom.css">
+		<link rel="stylesheet"  href="../css/custom.css">
 		<title>TAU Application Framework</title>
-		<!-- for compatibility test -->
-		<meta name="apple-mobile-web-app-capable" content="yes" />
-		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
-		<link rel="apple-touch-icon" href="icon-tizen.png" />
 	</head>
 	<body>
-		<div data-role="page" id="custom-route-string-page">
-			<div data-role="header" data-position="fixed">
-				<h1>Loading pages from string</h1>
-			</div>
+		<div class="ui-page" id="custom-route-string-page">
+			<header>
+				<h2 class="ui-title">Loading pages from string</h2>
+			</header>
 			<div data-role="content">
 				<pre><code class="javascript">
 var controller = tau.Controller.getInstance();
@@ -28,15 +21,18 @@ controller.addRoute("page-string", function (deferred) {
 });
 				</code></pre>
 			</div>
-				<script>
-					var controller = tau.Controller.getInstance();
-					controller.addRoute("page-string", function (deferred) {
-						deferred.resolve('<div data-role="page">Hello world!</a>');
-					});
-				</script>
-				<footer>
-					<a href="#page-string">Test it</a>
-				</footer>
+			<script>
+				var controller = tau.Controller.getInstance();
+				controller.addRoute("page-string", function (deferred) {
+					deferred.resolve('<div data-role="page">Hello world!</a>');
+				});
+			</script>
+			<footer>
+				<a class="ui-btn ui-button" href="#page-string">Test it</a>
+			</footer>
 		</div>
+		<script type="text/javascript" src="../../lib/tau/js/tau.js" data-build-remove="false"></script>
+		<script src="../../lib/highlightjs/highlight.min.js"></script>
+		<script src="../js/highlighting.js"></script>
 	</body>
 </html>
