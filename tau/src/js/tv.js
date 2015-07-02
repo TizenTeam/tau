@@ -119,7 +119,10 @@
 			"./core/decorator/focusAnimation",
 			"./core/decorator/marquee",
 			// app framework modules
-			"./core/util/pathToRegexp"
+			"./core/util/pathToRegexp",
+			// controller
+			"./core/controller"
+
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");

@@ -55,7 +55,8 @@
 			// Modules to be loaded after
 			"./core/init",
 			// app framework modules
-			"./core/util/pathToRegexp"
+			"./core/util/pathToRegexp",
+			"./core/controller"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
