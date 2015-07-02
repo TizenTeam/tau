@@ -519,3 +519,26 @@
 .li-search-hidden {
 	display: none;
 }
+
+/**************************************
+            TABS Badge
+***************************************/
+.tabs-badge {
+    position: absolute;
+    border-radius: 50px;
+    background-color: rgba(43, 129, 143, 0.6);
+    color: rgba(255, 255, 255, 1);
+    top: 2px;
+    right: 14px;
+    text-align: center;
+    padding: 4px 8px;
+    font-size: 13px;
+}
+
+/**************************************
+            Virtual List
+***************************************/
+.virtual-icon {
+    width: 35px;
+    height: 35px;
+}

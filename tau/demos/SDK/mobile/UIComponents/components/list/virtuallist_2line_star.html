@@ -15,16 +15,16 @@
 	<!-- sample list for virtual list -->
 	<script id="tmp-2line-star1" type="text">
 		<span class="ui-li-text-main">${NAME}</span>
-		<span class="ui-li-text-sub">${ACTIVE}
-			<img src="core_icon_favorite_on.svg" alt="favorite" class="ui-li-icon-sub">
+		<span class="li-text-sub">${ACTIVE}
+			<img src="images/00_winset_icon_favorite_on.png" alt="icon" class="virtual-icon">
 		</span>
-		<span class="ui-li-text-sub2">${FROM}</span>
+		<span class="li-text-sub3">${FROM}</span>
 	</script>
     <script>
         var pageId = "virtuallist-normal_2line-star1",
             listId = "virtuallist-normal_2line-star1_ul",
             templateId = "tmp-2line-star1",
-            itemClass = "ui-li-has-multiline";
+            itemClass = ["ui-li-static", "li-has-multiline", "li-has-3-lines", "li-has-right-btn"];
     </script>
     <script src="virtuallist-db-demo.js"></script>
     <script src="virtuallist.js"></script>

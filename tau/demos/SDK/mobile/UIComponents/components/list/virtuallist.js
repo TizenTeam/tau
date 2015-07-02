@@ -20,7 +20,13 @@
 			});
 
 			listElement.innerHTML = template;
-			listElement.classList.add(itemClass);
+			if (itemClass.length) {
+				itemClass.forEach(function(value) {
+					listElement.classList.add(value);
+				});
+			} else {
+				listElement.classList.add(itemClass);
+			}
 		});
 
 		// Draw child elements
