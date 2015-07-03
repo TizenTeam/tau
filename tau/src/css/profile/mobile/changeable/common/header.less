@@ -6,7 +6,7 @@
 	width: 100%;
 	top : 0;
 	z-index : @z_base_header_footer;
-	min-height : 82 * @unit_base;
+	min-height : 110 * @unit_base;
 	overflow: hidden;
 	border: none;
 	background : @color_bar_header_bg; /* Header Background */
@@ -18,7 +18,7 @@
 	> .ui-title {
 		display: block;
 		.order(0);
-		height : 52 * @unit_base;
+		height : 67 * @unit_base;
 		color: @color_bar_title_text;
 		font-size  : @font_size_bar_title_text;
 		font-weight : 500; /* tizen font weight tuning */
@@ -26,21 +26,21 @@
 		overflow: hidden;
 		white-space: nowrap;
 		text-align: center;
-		margin: 11 * @unit_base 24 * @unit_base 19 * @unit_base;
-		line-height: 52 * @unit_base;
+		margin: 15 * @unit_base 32 * @unit_base 28 * @unit_base;
+		line-height: 67 * @unit_base;
 	}
 
 	> .ui-title-text-main {
-		margin-top: 2 * @unit_base;
+		margin-top: 6 * @unit_base;
 		margin-bottom: 0;
-		font-size: 32 * @unit_base;
+		font-size: 42 * @unit_base;
 	}
 	> .ui-title-text-sub {
 		position: absolute;
 		left: 50%;
-		bottom: 7 * @unit_base;
+		bottom: 9 * @unit_base;
 		.transform(translateX(-50%));
-		font-size: 22 * @unit_base;
+		font-size: 28 * @unit_base;
 		text-overflow: ellipsis;
 		white-space: nowrap;
 	}
@@ -53,25 +53,25 @@
 		padding: 0;
 		cursor: pointer;
 		background-color: transparent;
-		font-size: 21 * @unit_base;
+		font-size: 32 * @unit_base;
 		&.ui-header-btn-icon {
-			width: 60 * @unit_base;
-			height: 60 * @unit_base;
+			width: 80 * @unit_base;
+			height: 80 * @unit_base;
 		}
 		&.ui-header-btn-left.ui-header-btn-icon {
-			top: 8 * @unit_base;
-			left: 14 * @unit_base;
+			top: 13 * @unit_base;
+			left: 17 * @unit_base;
 		}
 		&.ui-header-btn-right.ui-header-btn-icon {
-			top: 8 * @unit_base;
-			right: 14 * @unit_base;
+			top: 13 * @unit_base;
+			right: 17 * @unit_base;
 		}
 
 		&.ui-header-btn-icon::after {
 			content: "";
 			position: absolute;
-			width: 60 * @unit_base;
-			height: 60 * @unit_base;
+			width: 80 * @unit_base;
+			height: 80 * @unit_base;
 			top: 0;
 			left: 0;
 			.mask-size(100% 100%);
@@ -83,10 +83,10 @@
 		&.ui-header-btn-text {
 			text-indent: 0;
 			height: 100%;
-			min-width: 131 * @unit_base;
+			min-width: 175 * @unit_base;
 			color: @color_button_text_normal;
 			text-align: center;
-			line-height: 82 * @unit_base;
+			line-height: 110 * @unit_base;
 			top: 0;
 			&.ui-header-btn-left {
 				left: 0;
@@ -94,8 +94,14 @@
 			&.ui-header-btn-right {
 				right: 0;
 			}
+			&::before {
+				border-radius: 15%;
+			}
 			&:active {
 				color: @color_button_text_press;
+				&::before {
+					.transform(scale(1));
+				}
 			}
 		}
 
@@ -104,7 +110,7 @@
 			content: "";
 			width: 100%;
 			height: 100%;
-			border-radius: 0;
+			border-radius: 50%;
 			top: 0;
 			left: 0;
 			opacity: 0;
@@ -114,9 +120,12 @@
 		}
 		&:active::before {
 			opacity: 1;
-			.transform(scale(1));
+			.transform(scale(1.3));
 			background-color: @color_button_nobg_press;
 			.transition(-webkit-transform 200ms linear);
+		}
+		&:focus {
+			border: 1px solid black;
 		}
 	}
 }

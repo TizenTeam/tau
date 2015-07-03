@@ -3,7 +3,7 @@
 	position: absolute;
 	right: 0;	//TODO:bidi
 	top: 0;
-	width: 32 * @unit_base;
+	width: 40 * @unit_base;
 	height: 100%;
 	padding-left: 2 * @unit_base;
 	//background-color: @color_indexscrollbar_bg;
@@ -30,24 +30,24 @@
 			text-align: center;
 			vertical-align: middle;
 			font-size: @font_size_fastscroll_rollover_text;
-			height: 28 * @unit_base;
-			line-height: 28 * @unit_base;
+			height: 40 * @unit_base;
+			line-height: 40 * @unit_base;
 			font-weight: bold;
-			border-bottom: 1 * @px_base solid @color_indexscrollbar_divider;
-			border-left: 2 * @unit_base solid @color_indexscrollbar_line;
+			border-bottom: 2 * @px_base solid @color_indexscrollbar_divider;
+			border-left: 2 * @px_base solid @color_indexscrollbar_line;
 		}
 		li.ui-state-selected {
-			border-left: 2 * @unit_base solid @color_indexscrollbar_divider;
+			border-left: 2 * @px_base solid @color_indexscrollbar_divider;
 			&::before {
 				content: "";
 				position: absolute;
-				height: 28 * @unit_base;
-				width: 26 * @unit_base;
+				height: 40 * @unit_base;
+				width: 40 * @unit_base;
 				left: 0;
 				box-sizing: border-box;
-				border-top: 2 * @unit_base solid @color_indexscrollbar_line;
-				border-right: 2 * @unit_base solid @color_indexscrollbar_line;
-				border-bottom: 2 * @unit_base solid @color_indexscrollbar_line;
+				border-top: 2 * @px_base solid @color_indexscrollbar_line;
+				border-right: 2 * @px_base solid @color_indexscrollbar_line;
+				border-bottom: 2 * @px_base solid @color_indexscrollbar_line;
 			}
 		}
 	}
@@ -77,14 +77,14 @@
 	display: none;
 
 	>span {
-		width: 126 * @unit_base;
-		line-height: 126 * @unit_base;
+		width: 168 * @unit_base;
+		line-height: 168 * @unit_base;
 		position: absolute;
 		display: block;
 		top: 50%;
 		left: 50%;
 		.transform(translate(-50%, -50%));
-		font-size: 70 * @unit_base;
+		font-size: 112 * @unit_base;
 		border-radius: 50%;
 		text-align: center;
 		.border-box();

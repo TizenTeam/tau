@@ -128,7 +128,7 @@
 .li-has-right-circle-btn .ui-btn {
     position: absolute;
     top: 50%;
-    right: 13px;
+    right: 16px;
 }
 
 .li-has-right-btn .ui-btn {
@@ -137,6 +137,10 @@
 
 .li-has-right-circle-btn .ui-btn {
     margin-top: -25px;
+}
+
+.li-has-right-circle-btn .ui-btn-nobg {
+	margin-top: -20px;
 }
 
 /******************* list have left thumbnail image ********************/
@@ -190,9 +194,9 @@
 /**************** right toggle switch ************/
 .li-has-right-btn .ui-toggle-container {
     position: absolute;
-    top: 50% !important;
+    top: 50%;
     margin-top: -20px;
-    right: 19px !important;
+    right: 16px;
     left: auto;
 }
 
@@ -283,7 +287,7 @@
 .li-has-multiline.ui-li-static.li-has-thumb.li-thumbnail-right .li-thumb {
     float: right;
     left: auto;
-    right: 13px;
+    right: 16px;
 }
 .li-has-multiline.ui-li-anchor.li-has-thumb.li-thumbnail-right > a .li-text-sub,
 .li-has-multiline.ui-li-static.li-has-thumb.li-thumbnail-right .li-text-sub {
@@ -487,14 +491,14 @@
 
 #grid-badge-page .ui-gridview-item .grid-badge {
 	position: absolute;
-	border-radius: 50px;
+	border-radius: 25px;
 	background-color: rgba(252, 116, 58, 1);
 	color: rgba(255, 255, 255, 1);
-	top: 7%;
-	right: 7%;
+	top: 4px;
+	right: 4px;
 	text-align: center;
-	padding: 2% 7%;
-	font-size: 80%;
+	padding: 2px 6px;
+	font-size: 13px;
 }
 
 #grid-check-page .li-select-all input[type="checkbox"].ui-checkbox {

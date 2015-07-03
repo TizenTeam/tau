@@ -5,14 +5,16 @@
 }
 .ui-popup.ui-popup-toast .ui-popup-content {
 	position: relative;
-	margin-bottom: 64 * @unit_base;
-	margin-left: auto;
-	margin-right: auto;
-	max-width: 472 * @unit_base;
+	margin-bottom: 72 * @unit_base;
+	width: auto;
+	max-width: 620 * @unit_base;
+	display: inline-block;
+	left: 50%;
+	.transform(translate(-50%));
 	.core_popup_noti_bg();
 
-	padding: 7 * @unit_base 24 * @unit_base 10 * @unit_base 24 * @unit_base;
-	line-height: 37 * @unit_base;
+	padding: 9 * @unit_base 28 * @unit_base 12 * @unit_base;
+	line-height: 41 * @unit_base;
 	color: @color_toast_text;
 	font-size: @font_size_toast_text;
 }
@@ -22,7 +24,7 @@
 	content: '';
 	width: 100%;
 	height: 100%;
-	margin: -7 * @unit_base -24 * @unit_base -10 * @unit_base -24 * @unit_base;
+	margin: -9 * @unit_base -28 * @unit_base -12 * @unit_base;
 	.core_popup_noti_bg_stroke();
 }
 

@@ -4,7 +4,7 @@
 		display : none;
 	}
 
-	height : 50 * @unit_base;
+	height : 70 * @unit_base;
 	background-color : @color_navigation_bg;
 	border-top : 2px solid @color_navigation_text; //TOBE @color_navigation_tab_divider;
 
@@ -19,7 +19,7 @@
 		list-style-type : none;
 
 		.ui-navigation-item:first-child {
-			padding-left : 24 * @unit_base;
+			padding-left : 32 * @unit_base;
 
 			&::before {
 				content: none;
@@ -27,30 +27,30 @@
 		}
 		.ui-navigation-item {
 			position: relative;
-			height : 50 * @unit_base;
-			line-height : 50 * @unit_base;
+			height : 70 * @unit_base;
+			line-height : 70 * @unit_base;
 			vertical-align : top;
 			overflow: hidden;
 			display : inline-block;
 			color: @color_navigation_text;
 			font-size : @font_size_navigation_bar_text;
-			opacity: 0.5;
+			opacity: 0.7;
 			-webkit-transition: opacity 300ms ease-in-out;
 			-webkit-backface-visibility: hidden;
 
 			&::before {
 				content: "";
 				display : inline-block;
-				height : 50 * @unit_base;
-				width : 45 * @unit_base;
-				opacity: 0.5;
+				height : 70 * @unit_base;
+				width : 60 * @unit_base;
+				opacity: 0.7;
 				background-color : @color_navigation_bar_icon;
 				-webkit-mask-image : url("images/00_navigation_bar_icon_arrow.png");
 				-webkit-mask-size : 100% 100%
 			}
 
 			&:last-child {
-				margin-right: 24 * @unit_base;
+				margin-right: 32 * @unit_base;
 			}
 			&.ui-navigation-active {
 				opacity: 1;

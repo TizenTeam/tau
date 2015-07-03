@@ -4,14 +4,14 @@
 
 .ui-tabbar {
 	width: 100%;
-	height: 82 * @unit_base;
+	height: 110 * @unit_base;
 	&.ui-tabbar-with-icon {
 		a {
 			&::after {
 				content: "";
 				position: absolute;
-				width: 46 * @unit_base;
-				height: 46 * @unit_base;
+				width: 60 * @unit_base;
+				height: 60 * @unit_base;
 				background-color: @color_tabbar_icon_bg_normal;
 				-webkit-mask-position: 0 0;
 				-webkit-mask-size: 100% 100%;
@@ -25,16 +25,16 @@
 	}
 	&.ui-tabbar-portrait, &.ui-tabbar-landscape {
 		&.ui-tabbar-with-title {
-			height: 52 * @unit_base;
+			height: 76 * @unit_base;
 			&.ui-tabbar-with-icon {
-				height: 57 * @unit_base;
+				height: 76 * @unit_base;
 				a {
-					font-size: 23 * @unit_base;
+					font-size: 38 * @unit_base;
 					&::after {
 						top: 45%;
 						left: 30%;
-						width: 40 * @unit_base;
-						height: 40 * @unit_base;
+						width: 60 * @unit_base;
+						height: 60 * @unit_base;
 						.transform(translate(-50%, -50%));
 					}
 					&.ui-tab-no-text {
@@ -49,7 +49,7 @@
 				}
 			}
 			a {
-				font-size: 23 * @unit_base;
+				font-size: 38 * @unit_base;
 				span {
 					top: 40%;
 				}
@@ -59,9 +59,9 @@
 
 	&.ui-tabbar-portrait {
 		&.ui-tabbar-with-icon {
-			height: 108 * @unit_base;
+			height: 144 * @unit_base;
 			a {
-				font-size: 23 * @unit_base;
+				font-size: 30 * @unit_base;
 				span {
 					top: 70%;
 				}
@@ -81,7 +81,7 @@
 
 	&.ui-tabbar-landscape {
 		&.ui-tabbar-with-icon {
-			height: 82 * @unit_base;
+			height: 110 * @unit_base;
 			a {
 				span {
 					left: 60%;
@@ -108,7 +108,7 @@
 		}
 	}
 	a {
-		font-size: 28 * @unit_base;
+		font-size: 38 * @unit_base;
 		display: block;
 		position: absolute;
 		left: 0;
@@ -157,8 +157,8 @@
 		display: inline-block;
 		position: relative;
 		height: 100%;
-	}
-	li:active {
-		background-color: @color_tabbar_tab_bg_press;
+		&:active {
+			background-color: @color_tabbar_tab_bg_press;
+		}
 	}
 }

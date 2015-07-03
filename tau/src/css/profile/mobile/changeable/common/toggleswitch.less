@@ -2,15 +2,15 @@
 
 .ui-toggle-container {
 	position: relative;
-	width: 60 * @unit_base;
-	height: 60 * @unit_base;
+	width: 80 * @unit_base;
+	height: 80 * @unit_base;
 
 	.ui-switch-handler {
 		position: absolute;
 		width: 100%;
 		height: 100%;
-		top:0;
-		left:0%;
+		top: 0;
+		left: 0;
 		background-color: transparent;
 		pointer-events: none;
 
@@ -28,19 +28,19 @@
 			background-color: @color_toggle_handle_off_icon;
 			-webkit-mask-image: url("images/controls/core_toggle_icon_off.svg");
 			.transform(scale(1));
-			.transition(transform 250ms ease-out 50ms);
+			.transition(-webkit-transform 250ms ease-out 50ms);
 		}
 		&:after {
 			background-color: @color_toggle_handle_off_icon;
 			-webkit-mask-image: url("images/controls/core_toggle_icon_on.svg");
 			.transform(scale(0));
-			.transition(transform 100ms ease-out);
+			.transition(-webkit-transform 100ms ease-out);
 		}
 	}
 
 	input[type="checkbox"].ui-toggle-switch {
-		width: 60 * @unit_base;
-		height: 60 * @unit_base;
+		width: 80 * @unit_base;
+		height: 80 * @unit_base;
 		border-radius: 50%;
 		background-color: @color_toggle_handle_off_bg; /*@color_toggle_bg;*/
 		-webkit-appearance: none;
@@ -58,11 +58,11 @@
 			~ .ui-switch-handler {
 				&::before {
 					.transform(scale(0));
-					.transition(transform 100ms ease-out);
+					.transition(-webkit-transform 100ms ease-out);
 				}
 				&::after {
 					.transform(scale(1));
-					.transition(transform 250ms ease-out 50ms);
+					.transition(-webkit-transform 250ms ease-out 50ms);
 				}
 			}
 		}

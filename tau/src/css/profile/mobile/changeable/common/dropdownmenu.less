@@ -13,7 +13,7 @@
 	width: 100%;
 	display: block;
 	position: relative;
-	height: 90 * @unit_base;
+	height: 120 * @unit_base;
 	&:focus {
 		outline: none;
 	}
@@ -32,9 +32,9 @@
 		vertical-align: middle;
 		position: relative;
 		height: 100%;
-		line-height: 90 * @unit_base;
+		line-height: 120 * @unit_base;
 		white-space: nowrap;
-		padding: 0 46 * @unit_base 0 24 * @unit_base;
+		padding: 0 62 * @unit_base 0 32 * @unit_base;
 		overflow: hidden;
 		text-overflow: ellipsis;
 		font-size: @font_size_dropdownmenu_placeholder;
@@ -43,10 +43,10 @@
 		&::before {
 			content: "";
 			position: absolute;
-			bottom: 23 * @unit_base;
-			right: 24 * @unit_base;
-			width: 16 * @unit_base;
-			height: 16 * @unit_base;
+			bottom: 32 * @unit_base;
+			right: 32 * @unit_base;
+			width: 20 * @unit_base;
+			height: 20 * @unit_base;
 			-webkit-mask-image: url(images/core_dropdown_label_icon_arrow.png);
 			-webkit-mask-size: 100%;
 			background-color: @color_dropdownmenu_icon;
@@ -54,10 +54,10 @@
 		&::after {
 			content: "";
 			position: absolute;
-			.calc-width(~"100% - " (48 * @unit_base));
+			.calc-width(~"100% - " (64 * @unit_base));
 			height: 2px;
-			bottom: 14 * @unit_base;
-			right: 24 * @unit_base;
+			bottom: 19 * @unit_base;
+			right: 32 * @unit_base;
 			background-color: @color_dropdownmenu_underline;
 		}
 	}
@@ -159,13 +159,13 @@
 	visibility: hidden;
 	top: -9999 * @unit_base;
 	overflow: hidden;
-	margin: 0 24 * @unit_base;
+	margin: 0 32 * @unit_base;
 	z-index: (@z_base_popup + 1);
 	&.ui-dropdownmenu-options-top {
-		margin-top: 15 * @unit_base;
+		margin-top: 20 * @unit_base;
 	}
 	&.ui-dropdownmenu-options-bottom {
-		margin-top: -15 * @unit_base;
+		margin-top: -20 * @unit_base;
 	}
 	&.ui-dropdownmenu-active {
 		visibility: visible;
@@ -202,13 +202,13 @@
 			color: @color_dropdownmenu_option_font_dim;
 		}
 		li {
-			padding: 0 15 * @unit_base 0 15 * @unit_base;
+			padding: 0 30 * @unit_base 0 30 * @unit_base;
 			border-top: 1px solid @color_dropdownmenu_list_line;
 			font-size: @font_size_dropdownmenu_option;
 			display: block;
 			position: relative;
-			min-height: 72 * @unit_base;
-			line-height: 72 * @unit_base;
+			min-height: 96 * @unit_base;
+			line-height: 96 * @unit_base;
 			white-space: nowrap;
 			overflow: hidden;
 			text-overflow: ellipsis;

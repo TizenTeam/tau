@@ -1,8 +1,8 @@
 /* Basic checkbox */
 input[type="checkbox"].ui-checkbox:not(.ui-toggle-switch) {
 	position: relative;
-	height: 38 * @unit_base;
-	width: 38 * @unit_base;
+	height: 50 * @unit_base;
+	width: 50 * @unit_base;
 	border: 1px solid @color_checkboxradio_checkbox_bg_line_on;
 	border-radius: 15%;
 	box-sizing: border-box;
@@ -60,8 +60,8 @@ input[type="checkbox"].ui-checkbox:not(.favorite) {
 /* Favorite checkbox */
 input[type="checkbox"].ui-checkbox.favorite {
 	border: none;
-	width: 60 * @unit_base;
-	height: 60 * @unit_base;
+	width: 80 * @unit_base;
+	height: 80 * @unit_base;
 
 	&::before,
 	&::after {
@@ -102,61 +102,4 @@ input[type="checkbox"].ui-checkbox.favorite {
 	&:disabled::before{
 		background-color: @color_checkboxradio_favorite_dim;
 	}
-}
-
-/* Basic Radio */
-input[type="radio"].ui-radio {
-	height: 38 * @unit_base;
-	width: 38 * @unit_base;
-	position: relative;
-	border: 1px solid @color_checkboxradio_radio_bg_on;
-	border-radius: 50%;
-	background-color: transparent;
-	box-sizing: border-box;
-	overflow: visible;
-	outline: none;
-
-	-webkit-appearance: none;
-	-webkit-transition-property: border, background-color;
-	-webkit-transition-timing-function: ease-out;
-	-webkit-transition-duration: 200ms;
-	opacity: 1;
-
-	&:checked {
-		border: 4 * @unit_base solid @color_checkboxradio_radio_bg_on;// TOBE @color_checkboxradio_radio_bg_icon;
-		background-color: white;
-	}
-
-	&::before {
-		content: "";
-		position: absolute;
-		height: 20 * @unit_base;
-		width: 20 * @unit_base;
-		top: 50%;
-		left: 50%;
-		margin-top: -10 * @unit_base;
-		margin-left: -10 * @unit_base;
-		border-radius: 50%;
-		background-color: @color_checkboxradio_radio_bg_on;
-		-webkit-mask-size: 100%;
-		opacity: 0;
-
-		-webkit-transition-property: transform, opacity, margin;
-		-webkit-transition-timing-function: ease-out;
-		-webkit-transition-duration: 300ms;
-		-webkit-transform: scale(0);
-		-webkit-backface-visibility: hidden;
-	}
-	&:checked:disabled {
-		background-color: @color_checkboxradio_radio_bg_dim;
-	}
-
-	&:checked::before {
-		opacity: 1;
-		-webkit-transform: scale(1);
-	}
-}
-input[type="checkbox"].ui-checkbox:disabled:not(.favorite),
-input[type="radio"].ui-radio:disabled {
-	opacity: 0.3;
 }
