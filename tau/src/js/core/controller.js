@@ -19,6 +19,7 @@
 			"./event",
 			"./util/path",
 			"./util/pathToRegexp",
+			"./util/object",
 			"./history",
 			"./history/manager"
 		],
@@ -29,6 +30,7 @@
 				pathUtils = ns.util.path,
 				pathToRegexp = ns.util.pathToRegexp,
 				history = ns.history,
+				object = ns.util.object,
 				historyManager = ns.history.manager,
 				historyManagerEvents = historyManager.events,
 				EVENT_PATH_RESOLVED = "controller-path-resolved",
@@ -69,6 +71,7 @@
 					if (matches && matches.length > 0) {
 						deferredTemplate.resolve = function (content) {
 							if (content) {
+								options.fromHashChange = true;
 								eventUtils.trigger(document, EVENT_CONTENT_AVAILABLE, {content: content, options: options});
 							}
 							deferred.resolve(options, content);
@@ -91,7 +94,8 @@
 			function onHistoryStateChange(controller, event) {
 				var options = event.detail,
 					url = options.url || options.href || "",
-					deferred = {};
+					deferred = {},
+					state = {};
 
 				if (options.rel === "back") {
 					history.back();
@@ -102,15 +106,27 @@
 
 				deferred.resolve = function (options) {
 					eventUtils.trigger(document, EVENT_PATH_RESOLVED, options);
+					// change URL
+					state = object.merge(
+						{},
+						options,
+						{
+							url: url
+						}
+					);
+					history.replace(state, options.title || "", url);
+
 					eventUtils.preventDefault(event);
 					eventUtils.stopImmediatePropagation(event);
 				};
 
 				deferred.reject = function (options) {
 					eventUtils.trigger(document, EVENT_PATH_REJECTED, options);
+					eventUtils.preventDefault(event);
+					eventUtils.stopImmediatePropagation(event);
 				};
 
-				loadRouteFromList(controller, controller.routes, url.replace(/^[^#]*#/i, ""), deferred, options)
+				loadRouteFromList(controller, controller.routes, url.replace(/^[^#]*#/i, ""), deferred, options);
 			}
 
 			/**
