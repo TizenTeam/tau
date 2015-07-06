@@ -84,6 +84,7 @@
 						params = matches.splice(1);
 						params.unshift(deferredTemplate);
 						route.callback.apply(null, params);
+
 						return true;
 					}
 
@@ -128,6 +129,27 @@
 
 				loadRouteFromList(controller, controller.routes, url.replace(/^[^#]*#/i, ""), deferred, options);
 			}
+
+			/**
+			 * Change page to page given in parameter "to".
+			 * @param {string} to new hash
+			 * @member ns.Controller
+			 * @method open
+			 */
+			proto.open = function (to) {
+				//the following method has a problem with history back, if there is no router then
+				//window.history.replaceState is used but history.back doesn't work properly
+				location.hash = "#" + to;
+			};
+
+			/**
+			 * Back to previous controller state
+			 * @member ns.Controller
+			 * @method back
+			 */
+			proto.back = function () {
+				history.back();
+			};
 
 			/**
 			 * Ads route to routing table

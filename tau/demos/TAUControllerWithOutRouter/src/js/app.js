@@ -67,6 +67,6 @@
 			deferred.resolve(detailsPage);
 		});
 
-		//controller.open("main");
+		controller.open("main");
 	});
 }());
