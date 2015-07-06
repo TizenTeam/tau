@@ -488,6 +488,14 @@
 				}
 			};
 
+			Page.prototype._storeContentStyle = function () {
+				return;
+			};
+
+			Page.prototype._restoreContentStyle = function () {
+				return;
+			};
+
 			/**
 			 * Set page active / unactive
 			 * Sets ui-overlay-... class on `body` depending on current theme
