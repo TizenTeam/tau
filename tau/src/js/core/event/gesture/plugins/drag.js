@@ -77,15 +77,13 @@
 				 * @property {boolean} [defaults.blockHorizontal=false]
 				 * @property {boolean} [defaults.blockVertical=false]
 				 * @property {number} [defaults.threshold=10]
-				 * @property {number} [defaults.angleThreshold=20]
 				 * @property {number} [defaults.delay=0]
 				 * @member ns.event.gesture.Drag
 				 */
 				defaults: {
 					blockHorizontal: false,
 					blockVertical: false,
-					threshold: 10,
-					angleThreshold: 20,
+					threshold: 20,
 					delay: 0
 				},
 
@@ -108,7 +106,6 @@
 				handler: function( gestureEvent, sender, options ) {
 					var ge = gestureEvent,
 						threshold = options.threshold,
-						angleThreshold = options.angleThreshold,
 						result = Gesture.Result.PENDING,
 						event = {
 							drag: this.types[0],
@@ -116,8 +113,7 @@
 							end: this.types[2],
 							cancel: this.types[3]
 						},
-						direction = ge.direction,
-						angle = Math.abs(ge.angle);
+						direction = ge.direction;
 
 					if ( !this.triggerd && ge.eventType === Gesture.Event.MOVE ) {
 						if ( Math.abs(ge.deltaX) < threshold && Math.abs(ge.deltaY) < threshold ) {
@@ -133,20 +129,10 @@
 							}
 							return Gesture.Result.PENDING;
 						}
-
 						if ( options.blockHorizontal && Gesture.utils.isHorizontal( ge.direction ) ||
 							options.blockVertical && Gesture.utils.isVertical( ge.direction ) ) {
 							return Gesture.Result.FINISHED;
 						}
-
-						if ( options.blockHorizontal && ( angle < 90 - angleThreshold || angle > 90 + angleThreshold ) ) {
-							return Gesture.Result.FINISHED;
-						}
-
-						if ( options.blockVertical && ( angle > 0 + angleThreshold && angle < 180 - angleThreshold ) ) {
-							return Gesture.Result.FINISHED;
-						}
-
 						this.fixedStartPointX = 0;
 						this.fixedStartPointY = 0;
 						if ( Gesture.utils.isHorizontal( ge.direction ) ) {
@@ -188,7 +174,6 @@
 
 						case Gesture.Event.BLOCKED:
 						case Gesture.Event.END:
-
 							result = Gesture.Result.FINISHED;
 							if ( this.triggerd ) {
 								sender.sendEvent( event.end, ge );
@@ -198,7 +183,6 @@
 							break;
 
 						case Gesture.Event.CANCEL:
-
 							result = Gesture.Result.FINISHED;
 							if ( this.triggerd ) {
 								sender.sendEvent( event.cancel, ge );
