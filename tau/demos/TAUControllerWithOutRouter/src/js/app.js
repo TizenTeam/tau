@@ -6,10 +6,7 @@
 
 	window.addEventListener("tizenhwkey", function (event) {
 		if (event.keyName === "back") {
-			var page = document.getElementsByClassName("show")[0],
-				pageId = page ? page.id : "";
-
-			if (pageId === "main") {
+			if (!mainPage.classList.contains("hidden")) {
 				try {
 					tizen.application.getCurrentApplication().exit();
 				} catch (ignore) {
@@ -23,13 +20,17 @@
 	document.addEventListener("DOMContentLoaded", function () {
 		var controller = tau.Controller.getInstance();
 
-		controller.addRoute("main", function (deferred, id) {
+		controller.addRoute("main", function (deferred) {
 			var listTag = document.getElementById("list"),
 				length = movieList.length,
 				liTag,
 				linkTag,
 				i;
 
+			// clear list
+			listTag.innerHTML = "";
+
+			// fill list
 			for (i = 0; i < length; i++) {
 				liTag = document.createElement("LI");
 				linkTag = document.createElement("A");
@@ -39,15 +40,30 @@
 				listTag.appendChild(liTag);
 			}
 
+			// show page
 			mainPage.classList.remove("hidden");
+
+			// hide details page
+			detailsPage.classList.add("hidden");
+
+			// inform controller that everything is ok
+			deferred.resolve(mainPage);
 		});
 
 		controller.addRoute("details/:id", function (deferred, id) {
 			var movieData = movieList[id];
 
-			detailsPage.querySelector(".ui-content").textContent = "Movie \"" + movieData.name + "\" was produced in " + movieData.year + ".";
+			// fill content
+			detailsPage.querySelector("div").textContent = "Movie \"" + movieData.name + "\" was produced in " + movieData.year + ".";
+
+			// hide main page
 			mainPage.classList.add("hidden");
+
+			// show detaild page
 			detailsPage.classList.remove("hidden");
+
+
+			// inform controller that everything is ok
 			deferred.resolve(detailsPage);
 		});
 
