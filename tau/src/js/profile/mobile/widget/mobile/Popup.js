@@ -548,22 +548,6 @@
 
 			Popup.prototype = new CorePopup();
 
-			/**
-			* Build structure of popup widget
-			* @method _build
-			* @param {HTMLElement} element
-			* @return {HTMLElement}
-			* @protected
-			* @member ns.widget.mobile.Popup
-			*/
-			Popup.prototype._build = function (element) {
-				var page = utilSelector.getClosestByClass(element, "ui-page") || document.body;
-				if (element.parentNode !== page) {
-					page.appendChild(element);
-				}
-				return CorePopupPrototype._build.call(this, element);
-			};
-
 			Popup.prototype._setDirectionPriority = function(element, value) {
 				if (value) {
 					this.options.arrow = value.map(function(arrow) {

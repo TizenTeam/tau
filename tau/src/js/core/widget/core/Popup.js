@@ -21,6 +21,7 @@
 			"../../util/object",
 			"../../util/deferred",
 			"../../util/selectors",
+			"../../router/Router",
 			"../BaseWidget",
 			"../core"
 		],
@@ -348,7 +349,8 @@
 				var self = this,
 					ui = self._ui,
 					wrapper,
-					child = element.firstChild;
+					child = element.firstChild,
+					page = utilSelector.getClosestByClass(element, "ui-page") || document.body;
 
 				// set class for element
 				element.classList.add(classes.popup);
@@ -370,6 +372,11 @@
 				this._buildHeader(ui.container);
 				this._buildFooter(ui.container);
 				this._buildContent(ui.container);
+
+				// add popup to page or body
+				if (element.parentNode !== page) {
+					page.appendChild(element);
+				}
 
 				// set overlay
 				this._setOverlay(element, this.options.overlay);
@@ -409,6 +416,16 @@
 						// if option is set on "false", the overlay is not visible
 						overlay.style.opacity = 0;
 					}
+				}
+			};
+
+			prototype._destroyOverlay = function(element) {
+				var self = this,
+					overlay = self._ui.overlay;
+
+				self._setOverlay(element, false);
+				if (overlay) {
+					overlay.parentNode.removeChild(overlay);
 				}
 			};
 
@@ -924,7 +941,7 @@
 				}
 
 				self._unbindEvents(element);
-				self._setOverlay(element, false);
+				self._destroyOverlay(element);
 
 				ui.wrapper = null;
 			};

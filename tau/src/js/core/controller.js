@@ -116,18 +116,16 @@
 						}
 					);
 					history.replace(state, options.title || "", url);
-
-					eventUtils.preventDefault(event);
-					eventUtils.stopImmediatePropagation(event);
 				};
 
 				deferred.reject = function (options) {
 					eventUtils.trigger(document, EVENT_PATH_REJECTED, options);
-					eventUtils.preventDefault(event);
-					eventUtils.stopImmediatePropagation(event);
 				};
 
-				loadRouteFromList(controller, controller.routes, url.replace(/^[^#]*#/i, ""), deferred, options);
+				if (loadRouteFromList(controller, controller.routes, url.replace(/^[^#]*#/i, ""), deferred, options)) {
+					eventUtils.preventDefault(event);
+					eventUtils.stopImmediatePropagation(event);
+				}
 			}
 
 			/**

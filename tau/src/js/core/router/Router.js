@@ -505,15 +505,15 @@
 
 				if (!self.hashchangehandler) {
 					self.hashchangehandler = onHistoryHashChange.bind(null, self);
-					document.addEventListener(historyManagerEvents.HASHCHANGE, self.hashchangehandler, false);
+					window.addEventListener(historyManagerEvents.HASHCHANGE, self.hashchangehandler, false);
 				}
 				if (!self.onstatechangehandler) {
 					self.onstatechangehandler = onHistoryStateChange.bind(null, self);
-					document.addEventListener(historyManagerEvents.STATECHANGE, self.onstatechangehandler, false);
+					window.addEventListener(historyManagerEvents.STATECHANGE, self.onstatechangehandler, false);
 				}
 				if (!self.oncontrollercontent) {
 					self.oncontrollercontent = onControllerContent.bind(null, self);
-					document.addEventListener("controller-content-available", self.oncontrollercontent, false);
+					window.addEventListener("controller-content-available", self.oncontrollercontent, false);
 				}
 				if (ns.getConfig("loader", false)) {
 					container.element.appendChild(self.getLoader().element);

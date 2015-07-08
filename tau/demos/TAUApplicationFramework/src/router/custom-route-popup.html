@@ -30,6 +30,16 @@ controller.addRoute("page-template", function (deferred) {
 				var controller = tau.Controller.getInstance();
 				controller.addRoute("popup-template", function (deferred) {
 					tau.template.render("templates/popup-template.html", {}, function (status, data) {
+						var page = document.getElementById("custom-route-popup-template"),
+							popup = document.getElementById("popup-template");
+						// check if popup exists and remove it
+						if (popup) {
+							tau.engine.getBinding(popup).destroy();
+							popup.parentNode.removeChild(popup);
+						}
+						// add popup to page
+						page.appendChild(data);
+						// resolve or reject deferred
 						if (status.success) {
 							deferred.resolve(data); // @TODO THIS HAS TO BE FIXED IN TEMPLATES!!
 						} else {
