@@ -184,8 +184,9 @@
 
 				self._min = attrMin ? attrMin : 0;
 				self._max = attrMax ? attrMax : 100;
-				self._value = attrValue ? attrValue : 0;
+				self._value = attrValue ? attrValue : self.element.value;
 				self._interval = self._max - self._min;
+				self._previousValue = self._value;
 
 				self._initLayout();
 				return element;
@@ -241,14 +242,14 @@
 
 				if (self.options.orientation === DEFAULT.HORIZONTAL) {
 					center = self._barElementWidth / 2;
-					validValue =  self._barElementWidth * value / self._interval;
+					validValue =  self._barElementWidth * (value - self._min) / self._interval;
 					validStyle = validValue < center ? "right" : "left";
 					inValidStyle = validValue < center ? "left" : "right";
 					valueElementValidStyle = "width";
 					handlerElementValidStyle = "left";
 				} else {
 					center = self._barElementHeight / 2;
-					validValue =  self._barElementHeight * value / self._interval;
+					validValue =  self._barElementHeight * (value - self._min) / self._interval;
 					validStyle = validValue < center ? "bottom" : "top";
 					inValidStyle = validValue < center ? "top" : "bottom";
 					valueElementValidStyle = "height";
@@ -288,7 +289,7 @@
 					handlerElementValidStyle = "top";
 				}
 
-				validValue = barElementLength * value / self._interval;
+				validValue = barElementLength * (value - self._min) / self._interval;
 				ui.valueElement.style[valueElementValidStyle] = validValue + "px";
 				ui.handlerElement.style[handlerElementValidStyle] = validValue + "px";
 			};
@@ -303,20 +304,31 @@
 			prototype._setValue = function(value) {
 				var self = this,
 					ui = self._ui,
-					options = self.options;
+					options = self.options,
+					element = self.element,
+					intValue;
 
-				if (value < self._min || value > self._max) {
-					value = value < 0 ? self._min : self._max;
+				if (value < self._min) {
+					value = self._min;
+				} else if (value > self._max) {
+					value = self._max;
 				}
+
+				intValue = parseInt(value, 10);
+
 				if (options.type === "center") {
 					self._setCenterValue(value);
 				} else if (options.type === "normal") {
 					self._setNormalValue(value);
 				}
 
-				self.element.setAttribute("value", parseInt(value));
-				if (self.options.expand) {
-					ui.handlerElement.innerText =  parseInt(value);
+				if (element.value - 0 !== intValue) {
+					element.setAttribute("value", intValue);
+					element.value = intValue;
+					if (self.options.expand) {
+						ui.handlerElement.innerText = intValue;
+					}
+					events.trigger(element, "input");
 				}
 			};
 
@@ -373,6 +385,8 @@
 					value = self.options.orientation === DEFAULT.HORIZONTAL ?
 						self._interval * validPosition / self._barElementWidth :
 						self._interval * validPosition / self._barElementHeight;
+
+					value += self._min;
 					self._setValue(value);
 				}
 			};
@@ -395,6 +409,7 @@
 						self._interval * validPosition / self._barElementHeight;
 
 				ui.handlerElement.classList.add(classes.SLIDER_HANDLER_ACTIVE);
+				value += self._min;
 				self._setValue(value);
 				self._active = true;
 			};
@@ -407,9 +422,14 @@
 			 * @protected
 			 */
 			prototype._onDragend = function(event) {
-				var ui = this._ui;
+				var self = this,
+					ui = self._ui;
 				ui.handlerElement.classList.remove(classes.SLIDER_HANDLER_ACTIVE);
-				this._active = false;
+				self._active = false;
+				if (self._previousValue !== self.element.value) {
+					events.trigger(self.element, "change");
+				}
+				self._previousValue = self.element.value;
 			};
 
 			/**
@@ -444,8 +464,10 @@
 			 * @protected
 			 */
 			prototype._destroy = function() {
-				var self = this;
+				var self = this,
+					barElement = self._ui.barElement;
 				unbindEvents(self);
+				barElement.parentNode.removeChild(barElement);
 				self._ui = null;
 				self._options = null;
 			};
