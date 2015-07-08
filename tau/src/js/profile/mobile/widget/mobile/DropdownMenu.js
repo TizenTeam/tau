@@ -946,22 +946,27 @@
 				var self = this,
 					ui = self._ui,
 					elSelectWrapper = ui.elSelectWrapper,
-					elOptionContainer = ui.elOptionContainer;
+					elOptionContainer = ui.elOptionContainer,
+					screenFilter = ui.screenFilter;
 
 				elSelectWrapper.removeEventListener("focus", self._focusBound);
 				elSelectWrapper.removeEventListener("blur", self._blurBound);
+				domUtils.replaceWithNodes(ui.elSelectWrapper, ui.elSelect);
 				if (!self.options.nativeMenu) {
 					elSelectWrapper.removeEventListener("vclick", self._toggleMenuBound);
 					elOptionContainer.removeEventListener("vclick", self._changeOptionBound);
 					elOptionContainer.removeEventListener("focusin", self._focusBound);
 					elOptionContainer.removeEventListener("focusout", self._blurBound);
-					if (ui.screenFilter) {
-						ui.screenFilter.removeEventListener("vclick", self._toggleMenuBound);
+					ui.elOptionWrapper.parentNode.removeChild(ui.elOptionWrapper);
+					if (screenFilter) {
+						screenFilter.removeEventListener("vclick", self._toggleMenuBound);
+						screenFilter.parentNode.removeChild(screenFilter);
 					}
 					window.removeEventListener("throttledresize", self._onResizeBound, true);
 				} else {
 					ui.elSelect.removeEventListener("change", self._nativeChangeOptionBound);
 				}
+				ui = null;
 			};
 
 			ns.widget.mobile.DropdownMenu = DropdownMenu;
