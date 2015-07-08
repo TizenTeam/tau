@@ -557,3 +557,12 @@
 	width: 35px;
 	height: 35px;
 }
+
+/**************************************
+            Slider
+***************************************/
+#slider-demo .ui-slider-vertical {
+	left: 50%;
+	-webkit-transform: translate(-50%);
+	margin: 0;
+}
