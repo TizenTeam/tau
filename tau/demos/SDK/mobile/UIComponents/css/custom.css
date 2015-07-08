@@ -203,7 +203,7 @@
 /****************************************************************/
 /*              Multiline List Style                            */
 /****************************************************************/
-.li-has-multiline.ui-li-anchor > a,
+.ui-listview .li-has-multiline.ui-li-anchor > a,
 .li-has-multiline.ui-li-static {
     padding-top: 11px;
     padding-bottom: 38px;
