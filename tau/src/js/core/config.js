@@ -24,6 +24,7 @@
 			ns.setConfig('version', '');
 			ns.setConfig('allowCrossDomainPages', false, true);
 			ns.setConfig('domCache', false, true);
+			ns.setConfig('useDataAttributes', true, true);
 			// .. other possible options
 			// ns.setConfig('autoBuildOnPageChange', true);
 			// ns.setConfig('autoInitializePage', true);

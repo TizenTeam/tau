@@ -193,7 +193,7 @@
 			 * @member ns.engine
 			 * @static
 			 */
-			function defineWidget(name, selector, methods, widgetClass, namespace, redefine, widgetNameToLowercase) {
+			function defineWidget(name, selector, methods, widgetClass, namespace, redefine, widgetNameToLowercase, BaseElement) {
 				var definition;
 				// Widget name is absolutely required
 				if (name) {
@@ -210,7 +210,8 @@
 							selectors: selector ? selector.split(",").map(selectorChange) : [],
 							widgetClass: widgetClass || null,
 							namespace: namespace || "",
-							widgetNameToLowercase: widgetNameToLowercase === undefined ? true : !!widgetNameToLowercase
+							widgetNameToLowercase: widgetNameToLowercase === undefined ? true : !!widgetNameToLowercase,
+							BaseElement: BaseElement
 						};
 
 						widgetDefs[name] = definition;

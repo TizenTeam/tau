@@ -16,6 +16,7 @@
 			"./core/engine",
 			// widget list
 			"./core/util/anchorHighlight",
+			"./core/widget/customElements",
 			"./core/widget/core/PageContainer",
 			"./core/widget/core/Button",
 			"./core/widget/core/Checkbox",

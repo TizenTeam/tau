@@ -951,7 +951,7 @@ module.exports = function(grunt) {
 	grunt.registerTask("sdk-docs", [ "docs-html:mobile", "docs-html:wearable", "docs-html:tv", "copy:sdk-docs" ]);
 	grunt.registerTask("dld-docs", [ "docs-html:mobile-dld", "docs-html:wearable-dld"]);
 
-	grunt.registerTask("build", ["clean", "lint", "css", "globalize", "js", "license", "version"]);
+	grunt.registerTask("build", ["clean", "lint", "css", "js", "license", "version"]);
 	grunt.registerTask("release", [ "build", "test", "sdk-docs" ]);
 	grunt.registerTask("default", [ "release" ]);
 };

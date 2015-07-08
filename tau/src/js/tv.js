@@ -71,6 +71,7 @@
 			"./core/engine",
 			// widget list
 			"./core/util/anchorHighlight",
+			"./core/widget/customElements",
 			"./profile/tv/widget/Button",
 			"./profile/tv/widget/Listview",
 			"./profile/tv/widget/Page",

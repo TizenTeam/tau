@@ -1,0 +1,14 @@
+{
+  "name": "sinon-qunit-1.0.0",
+  "_cacheHeaders": {
+    "ETag": "\"208207-98b-5197ab1e78d40\"",
+    "Last-Modified": "Sat, 27 Jun 2015 07:20:45 GMT",
+    "Content-Length": "2443",
+    "Content-Type": "application/javascript"
+  },
+  "_release": "e-tag:208207-98",
+  "main": "index.js",
+  "_source": "http://sinonjs.org/releases/sinon-qunit-1.0.0.js",
+  "_target": "*",
+  "_originalSource": "http://sinonjs.org/releases/sinon-qunit-1.0.0.js"
+}

@@ -86,14 +86,14 @@
 		}
 	}
 
-	li.ui-btn-up-s, li.ui-btn-hover-s {
+	.ui-btn-up-s, li.ui-btn-hover-s {
 		background: none;
 		background-color: @color_list_bg;
 		color:		@color_list_main_text_unfocus;
 		box-shadow: none;
 		.LESSborder-radius-all(0);
 	}
-	li.ui-btn-down-s {
+	.ui-btn-down-s {
 		background: none;
 		background-color: @color_list_press;
 		color:		@color_list_main_text_focus;
@@ -104,12 +104,12 @@
 		}
 	}
 	/* listview: fonts for li with a link */
-	li.ui-btn-up-s > .ui-li > .ui-btn-text > a.ui-link-inherit,
-	li.ui-btn-hover-s > .ui-li > .ui-btn-text > a.ui-link-inherit {
+	.ui-btn-up-s > .ui-li > .ui-btn-text > a.ui-link-inherit,
+	.ui-btn-hover-s > .ui-li > .ui-btn-text > a.ui-link-inherit {
 		color:		@color_list_main_text_unfocus;
 	}
 
-	li.ui-btn-down-s > .ui-li > .ui-btn-text > a.ui-link-inherit {
+	.ui-btn-down-s > .ui-li > .ui-btn-text > a.ui-link-inherit {
 		color:		@color_list_main_text_focus;
 	}
 }
@@ -292,7 +292,7 @@
 	}
 }
 
-li.ui-li-thumbnail-right {
+.ui-li-thumbnail-right {
 	img.ui-li-bigicon.ui-li-thumb {
 		left : auto;
 		right : 0px;
@@ -478,13 +478,13 @@ li.ui-li-thumbnail-right {
 		}
 	}
 
-	+ li.ui-li-dialogue {
+	+ .ui-li-dialogue {
 		border-top-left-radius : 3px;
 		border-top-right-radius : 3px;
 	}
 }
 
-.ui-listview li.ui-divider-btn {
+.ui-listview .ui-divider-btn {
 	&:active {
 		background-color: @color_list_divider_bg_press;
 

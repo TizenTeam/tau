@@ -39,7 +39,9 @@
 				[],
 				Listview,
 				"mobile",
-				true
+				true,
+				true,
+				HTMLUListElement
 			);
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return ns.widget.mobile.Listview;

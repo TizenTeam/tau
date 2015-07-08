@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<widget xmlns="http://www.w3.org/ns/widgets" xmlns:tizen="http://tizen.org/ns/widgets" id="http://yourdomain/CustomElementSTest" version="1.0.0" viewmodes="maximized">
+    <tizen:application id="aRBBsTpr7C.CustomElementsTest" package="aRBBsTpr7C" required_version="2.2"/>
+    <content src="src/index.html"/>
+    <feature name="http://tizen.org/feature/screen.size.all"/>
+    <icon src="icon.png"/>
+    <name>CustomElementsTest</name>
+    <tizen:setting screen-orientation="auto-rotation" context-menu="enable" background-support="disable" encryption="disable" install-location="auto" hwkey-event="enable"/>
+</widget>

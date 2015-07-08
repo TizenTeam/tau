@@ -80,8 +80,12 @@
 			};
 
 			function getDataName(name) {
-				var namespace = ns.getConfig(namespace);
-				return "data-" + (namespace ? namespace + "-" : "") + name;
+				var namespace = ns.getConfig(namespace),
+					prefix = "";
+				if (!ns.getConfig("useDataAttributes")) {
+					prefix = "data-";
+				}
+				return prefix + (namespace ? namespace + "-" : "") + name;
 			}
 
 			/**
