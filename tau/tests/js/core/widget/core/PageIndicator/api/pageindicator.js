@@ -5,9 +5,9 @@ test("API" , function () {
         widget;
     equal(typeof tau, 'object', 'Class tau exists');
     equal(typeof tau.widget, 'object', 'Class tau.widget exists');
-    equal(typeof tau.widget.wearable, 'object', 'Class tau.widget.wearable exists');
-    equal(typeof tau.widget.wearable.PageIndicator, 'function', 'Class tau.widget.wearable.PageIndicator exists');
-    widget = tau.widget.PageIndicator(elPageIndicator, {numberOfPages : 5});
+    equal(typeof tau.widget.core, 'object', 'Class tau.widget.wearable exists');
+    equal(typeof tau.widget.core.PageIndicator, 'function', 'Class tau.widget.wearable.PageIndicator exists');
+    widget = tau.widget.PageIndicator(elPageIndicator);
 
     equal(typeof widget.configure, 'function', 'Method PageIndicator.configure exists');
     equal(typeof widget._createIndicator, 'function', 'Method PageIndicator._getCreateOptions exists');

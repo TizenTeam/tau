@@ -1,12 +1,12 @@
-module("tau.widget.wearable.PageIndicator", {});
+module("tau.widget.core.PageIndicator", {});
 
 var pageWidget = document.getElementById("pageIndicatorPage");
 pageWidget.addEventListener("pageshow", function() {
-    test("tau.widget.wearable.PageIndicator Test", function() {
+    test("tau.widget.core.PageIndicator Test", function() {
         var elPageIndicator1 = document.getElementById("pageIndicator1"),
             elPageIndicator2 = document.getElementById("pageIndicator2"),
-            pageIndicator1 = tau.widget.PageIndicator(elPageIndicator1, { numberOfPages : 3 }),
-            pageIndicator2 = tau.widget.PageIndicator(elPageIndicator2, { numberOfPages : 10 }),
+            pageIndicator1 = tau.widget.PageIndicator(elPageIndicator1),
+            pageIndicator2 = tau.widget.PageIndicator(elPageIndicator2),
             i,pos;
 
         function checkMarkUp(widget) {
