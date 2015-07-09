@@ -14,4 +14,7 @@
 		mainText.textContent = title;
 		subText.textContent = "Layer index " + layerIndex;
 	});
+	indicator.addEventListener("click", function() {
+		//console.log("click");
+	});
 })();
