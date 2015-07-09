@@ -8,6 +8,11 @@
     text-align: center;
     line-height: 182px;
     font-size: 28px;
+    /*
+        If you want to add click or other various event to custom indicator,
+        you should add 'z-index' to custom indicator css as upper than 3, layer has z-index value is 3.
+    */
+    z-index: 100;
 }
 .custom-indicator .main-text {
     position: relative;
