@@ -42,6 +42,6 @@ pageWidget.addEventListener("pageshow", function() {
             }
             ok(elPageIndicator2.children[pos].classList.contains("ui-page-indicator-active"), "corresponding dot is active");
         }
-        equal(elPageIndicator2.children.length, pageIndicator2.options.maxPage, "ok");
+        equal(elPageIndicator2.children.length, pageIndicator2._getMaxPage(), "ok");
     });
 }, false);

@@ -19,7 +19,7 @@
 			"../../../core/util/object",
 			"../../../core/util/selectors",
 			"../widget/wearable/Drawer",
-			"../../../core/widget/core/viewswitcher/ViewSwitcher"
+			"../widget/wearable/Selector"
 		],
 		function () {//>>excludeEnd("tauBuildExclude");
 			var engine = ns.engine,
@@ -27,10 +27,10 @@
 				events = ns.event,
 				selectors = ns.util.selectors,
 				Drawer = ns.widget.wearable.Drawer,
-				ViewSwitcher = ns.widget.core.ViewSwitcher,
+				Selector = ns.widget.wearable.Selector,
 				defaults = {
 					more: ".ui-more",
-					viewSwitcher: ".ui-view-switcher"
+					selector: ".ui-selector"
 				},
 				classes = {
 					page: "ui-page"
@@ -42,7 +42,7 @@
 					self.options = objectUtils.merge({}, defaults);
 					self._drawerWidget = null;
 					self._handlerElement = null;
-					self._viewSwitcherWidget = null;
+					self._selectorWidget = null;
 
 					self.init(element, options);
 				},
@@ -74,7 +74,6 @@
 			};
 
 			prototype._onTouchStart = function(event) {
-				this._drawerWidget.transition(60);
 				event.preventDefault();
 				event.stopPropagation();
 			};
@@ -87,12 +86,12 @@
 				var self = this,
 					pageElement = selectors.getClosestByClass(element, classes.page),
 					handlerElement,
-					viewSwitcherElement;
+					selectorElement;
 
 				objectUtils.fastMerge(self.options, options);
 
 				handlerElement = pageElement.querySelector(self.options.handler);
-				viewSwitcherElement = element.querySelector(self.options.viewSwitcher);
+				selectorElement = element.querySelector(self.options.selector);
 
 				self._drawerWidget = engine.instanceWidget(element, "Drawer");
 				if (handlerElement) {
@@ -100,8 +99,8 @@
 					self._handlerElement = handlerElement;
 					self._bindEvents();
 				}
-				if (viewSwitcherElement) {
-					self._viewSwitcherWidget = engine.instanceWidget(viewSwitcherElement, "ViewSwitcher", self.options);
+				if (selectorElement) {
+					self._selectorWidget = engine.instanceWidget(selectorElement, "Selector");
 				}
 			};
 
@@ -125,7 +124,7 @@
 				}
 				self._drawerWidget = null;
 				self._handlerElement = null;
-				self._viewSwitcherWidget = null;
+				self._selectorWidget = null;
 			};
 
 			DrawerMoreStyle.create = function(element, options) {

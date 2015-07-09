@@ -293,22 +293,14 @@
 					if (isContinue) {
 						router.open(to, options);
 					}
-				}
-			}
-
-			/**
-			 * URI Hash change handler
-			 * @param {ns.router.Router} router
-			 * @param {Event} event
-			 * @member ns.router.Router
-			 * @method hashChangeHandler
-			 * @private
-			 */
-			function hashChangeHandler(router, event) {
-				var toPageURL = event.newURL;
-
-				if (toPageURL) {
-					router.open(toPageURL, {fromHashChange: true});
+				} else {
+					url = path.getLocation();
+					if (prevState) {
+						if (prevState.absUrl !== url && prevState.stateUrl !== url) {
+							history.enableVolatileRecord();
+							router.open(url);
+						}
+					}
 				}
 			}
 
@@ -489,7 +481,6 @@
 			Router.prototype.destroy = function () {
 				var self = this;
 				window.removeEventListener("popstate", self.popStateHandler, false);
-				window.removeEventListener("hashchange", self.hashChangeHandler, false);
 				if (body) {
 					body.removeEventListener("pagebeforechange", self.pagebeforechangeHandler, false);
 					body.removeEventListener("vclick", self.linkClickHandler, false);
@@ -540,12 +531,9 @@
 
 				self.linkClickHandler = linkClickHandler.bind(null, self);
 				self.popStateHandler = popStateHandler.bind(null, self);
-				self.hashChangeHandler = hashChangeHandler.bind(null, self);
 
 				document.addEventListener("vclick", self.linkClickHandler, false);
 				window.addEventListener("popstate", self.popStateHandler, false);
-
-				window.addEventListener("hashchange", self.hashChangeHandler, false);
 
 				eventUtils.trigger(document, "themeinit", self);
 

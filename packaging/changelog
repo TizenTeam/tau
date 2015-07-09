@@ -1,4 +1,37 @@
 %changelog
+* Wed Jul 01 2015 Hagun Kim <hagun.kim@samsung.com> 0.10.29
+	- fix(wearable): fix moreoptions handler width and position(P150625-07282)
+	- feat(wearable): add circular index scrollbar component
+	- fix(wearable): modify config.xml in UIComponent
+
+* Mon Jun 22 2015 Hagun Kim <hagun.kim@samsung.com> 0.10.28
+	- feat(wearble): add Selector component
+	- fix(wearable): fix full processing demo sample
+
+* Wed Jun 17 2015 Hagun Kim <hagun.kim@samsung.com> 0.10.27
+	- fix(wearable): fix refresh snaplistview issue
+	- refactor(core): remove hashChangeHandler
+
+* Tue Jun 16 2015 Hagun Kim <hagun.kim@samsung.com> 0.10.26
+	- refactor(wearable): add circular indicator option
+	- fix(wearable): remove debug code.
+
+* Mon Jun 08 2015 Hagun Kim <hagun.kim@samsung.com> 0.10.25
+	- fix(wearable): fixed bug of SnapListMarqueeStyle Helper when using rotary scroll. [P150605-06742]
+	- fix(demos): change timing of showing processing widget [P150605-06759]
+	- fix(wearable): fixed display scroll end effect when page header expanded.
+	- etc(sample): rename wearable demo in config.xml
+
+* Wed May 27 2015 Hyeoncheol Choi <hc7.choi@samsung.com> 0.10.24
+	- fix(wearable): fix rotary event handling in select mode
+
+* Wed May 20 2015 Hagun Kim <hagun.kim@samsung.com> 0.10.23
+	- feat(wearable): fix expandable header issue (P150519-05888)
+	- refactor(wearable): change images in processing
+	- fix(wearable): fixed undefined variable bug in snap list style helper.
+	- integrate(common): integrate Drawer component
+	- fix(wearable): fix incorrect image path in style.css
+
 * Wed May 06 2015 Heeju Joo <heeju.joo@samsung.com> 0.10.22
 	- fix(wearable): fix app css loading issues.
 

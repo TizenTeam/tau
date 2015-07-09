@@ -49,17 +49,48 @@ body {
 		.ui-more {
 			position: fixed;
 			top: 50%;
-			right: 0;
+			right: -@fixed_header_more_width / 2 * @unit_base;
 			width: @fixed_header_more_width;
 			height: @fixed_header_more_height;
 			transform: translate(0, -50%);
 			&.ui-icon-overflow {
-				background-color: @color_moreoptions_bg;
-				.mask-position(29 * @unit_base 4 * @unit_base);
-
+				.mask-image();
+				.mask-position(initial);
+				background-color: transparent;
 				&[disabled="disabled"] {
-					.mask-position(29 * @unit_base 4 * @unit_base);
+					.mask-position(initial);
 				}
+				&:active {
+					background-color: transparent;
+				}
+			}
+			&::before {
+				content: "";
+				position: absolute;
+				width: 140 * @unit_base;
+				height: 140 * @unit_base;
+				background-color: @color_moreoptions_handler;
+				border-radius: 50%;
+				.transform(scale(0));
+				top: 0;
+				right: 0;
+				.transition(transform ease-out 300ms);
+			}
+			&:active::before {
+				.transition(transform ease-out 300ms);
+				.transform(scale(1));
+			}
+			&::after {
+				content: "";
+				position: absolute;
+				width: 32 * @unit_base;
+				height: 36 * @unit_base;
+				.mask-box-image("images/Actionbar/tw_ic_menu_moreoverflow_holo_dark.png");
+				background-color: @color_moreoptions_bg;
+				border-radius: 50%;
+				top: 50%;
+				right: 50%;
+				.transform(translate(0, -50%));
 			}
 		}
 	}

@@ -85,15 +85,17 @@
 				self._callbacks.touchStart = touchStartCallback;
 				self._callbacks.selected = selectedCallback;
 
-				document.addEventListener("touchstart", touchStartCallback);
-				document.addEventListener("selected", selectedCallback);
+				document.addEventListener("touchstart", touchStartCallback, false);
+				document.addEventListener("rotarydetent", touchStartCallback, false);
+				document.addEventListener("selected", selectedCallback, false);
 			};
 
 			prototype.unbindEvents = function() {
 				var self = this;
 
-				document.removeEventListener("touchstart", self._callbacks.touchStart);
-				document.removeEventListener("selected", self._callbacks.selected);
+				document.removeEventListener("touchstart", self._callbacks.touchStart, false);
+				document.removeEventListener("rotarydetent", self._callbacks.touchStart, false);
+				document.removeEventListener("selected", self._callbacks.selected, false);
 
 				self._callbacks.touchStart = null;
 				self._callbacks.selected = null;

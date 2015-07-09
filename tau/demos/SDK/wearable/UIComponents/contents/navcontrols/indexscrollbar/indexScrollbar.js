@@ -3,6 +3,7 @@
 (function() {
 	var page = document.getElementById("pageIndexScrollbar"),
 		listviewElement = document.getElementById("list1"),
+		isCircle = tau.support.shape.circle,
 		scroller,
 		indexScrollbar;
 
@@ -26,8 +27,19 @@
 		}
 
 		scroller = tau.util.selectors.getScrollableParent(listviewElement);
-		// Create IndexScrollbar
-		indexScrollbar = new tau.widget.IndexScrollbar(indexScrollbarElement, {index: indices, container: scroller});
+
+		if (!isCircle) {
+			indexScrollbar = new tau.widget.IndexScrollbar(indexScrollbarElement, {index: indices, container: scroller});
+		} else {
+			// Create IndexScrollbar
+			indexScrollbar = new tau.widget.CircularIndexScrollbar(indexScrollbarElement, {index: indices});
+
+			// Add SnapListview item "selected" event handler.
+			listviewElement.addEventListener("selected", function (ev) {
+				var indexValue = ev.target.textContent[0];
+				indexScrollbar.value(indexValue);
+			});
+		}
 
 		// Add IndexScrollbar index "select" event handler.
 		indexScrollbarElement.addEventListener("select", function (ev) {
@@ -35,7 +47,7 @@
 				idx = ev.detail.index;
 
 			divider = dividers[idx];
-			if(divider && scroller) {
+			if (divider && scroller) {
 				// Scroll to the ui-listview-divider element
 				scroller.scrollTop = divider.offsetTop - scroller.offsetTop;
 			}

@@ -696,8 +696,21 @@ input[type="checkbox"]#checkboxControl {
 	-webkit-transform: translate3d(-50%, -50%, 0);
 }
 
-#processingPage .ui-scroller::-webkit-scrollbar {
-	display: none;
+/* -------------------------Full Processing------------------------ */
+#processingPage::after {
+	content: "This component is not supported in rectangular device";
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	display: -webkit-flex;
+	background-color: rgba(0, 0, 0, 0.6);
+	color: rgba(0,149,255,1);
+	text-align: center;
+	padding-left: 20px;
+	padding-right: 20px;
+	-webkit-align-items: center;
+	-webkit-justify-content: center;
 }
 
 
@@ -747,6 +760,23 @@ input[type="checkbox"]#checkboxControl {
     transform: translate3d(-50%, 0, 0);
 }
 #pageRotaryEvent::after {
+	content: "This component is not supported in rectangular device";
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	display: -webkit-flex;
+	background-color: rgba(0, 0, 0, 0.6);
+	color: rgba(0,149,255,1);
+	text-align: center;
+	padding-left: 20px;
+	padding-right: 20px;
+	-webkit-align-items: center;
+	-webkit-justify-content: center;
+}
+
+/* -------------------------Circular Page Indicator------------------------ */
+#pageIndicatorCirclePage::after {
 	content: "This component is not supported in rectangular device";
 	position: absolute;
 	top: 0;
@@ -902,4 +932,79 @@ input[type="checkbox"]#checkboxControl {
 	#pageRotaryEvent::after {
 		content: none;
 	}
+	/* -------------Circular Page Indicator-----------*/
+	#pageIndicatorCirclePage::after {
+		content: none;
+	}
+	/* -------------Full Processing-----------*/
+	#processingPage::after {
+		content: none;
+	}
+	#processingPage .ui-scroller::-webkit-scrollbar {
+		display: none;
+	}
+}
+
+.ui-item.ui-item-active::before{
+	background-color: #3261ba;
+}
+.delete-icon::before {
+	position: absolute;
+	content: "";
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	-webkit-mask-image: url(./images/b_more_option_delete_icon.png);
+	-webkit-mask-size: 100% 100%;
+	background-color: rgb(89, 88, 91);
+	-webkit-mask-repeat: no-repeat;
+}
+.human-icon::before {
+	position: absolute;
+	content: "";
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	-webkit-mask-image: url(./images/b_more_option_human_icon.png);
+	-webkit-mask-size: 100% 100%;
+	background-color: rgb(89, 88, 91);
+	-webkit-mask-repeat: no-repeat;
+}
+.show-icon::before {
+	position: absolute;
+	content: "";
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	-webkit-mask-image: url(./images/b_more_option_show_on_device_icon.png);
+	-webkit-mask-size: 100% 100%;
+	background-color: rgb(89, 88, 91);
+	-webkit-mask-repeat: no-repeat;
+}
+.x-icon::before {
+	position: absolute;
+	content: "";
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	-webkit-mask-image: url(./images/tw_toast_popup_delete.png);
+	-webkit-mask-size: 100% 100%;
+	background-color: rgb(89, 88, 91);
+	-webkit-mask-repeat: no-repeat;
+}
+.fail-icon::before {
+	position: absolute;
+	content: "";
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	-webkit-mask-image: url(./images/tw_toast_popup_fail.png);
+	-webkit-mask-size: 100% 100%;
+	background-color: rgb(89, 88, 91);
+	-webkit-mask-repeat: no-repeat;
 }

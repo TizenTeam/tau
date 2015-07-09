@@ -10,10 +10,6 @@
 		selectBtnText =  document.getElementById("select-btn-text"),
 		selectAll = document.getElementById("select-all"),
 		deselectAll = document.getElementById("deselect-all"),
-		elPageIndicator = document.getElementById("pageIndicator"),
-		pageIndicator,
-		drawerViewSwitcher = page.querySelector("#drawerViewSwitcher"),
-		views = page.querySelectorAll(".ui-view"),
 		drawerElement = page.querySelector("#rightDrawer"),
 		handler = document.getElementById("handler"),
 		selectCount,
@@ -120,24 +116,10 @@
 	}, false);
 
 	page.addEventListener( "pagebeforeshow", function() {
-		/**********  pageIndicator **********/
-		pageIndicator =  tau.widget.PageIndicator(elPageIndicator, { numberOfPages: 3 });
-		pageIndicator.setActive(0);
-
-		tau.widget.ViewSwitcher(drawerViewSwitcher);
-
 		/********** drawer ******************/
 		drawerHelper = tau.helper.DrawerMoreStyle.create(drawerElement, {
 			handler: ".drawer-handler"
 		});
-		document.addEventListener('tizenhwkey', fnBackKey);	
-
-		drawerViewSwitcher.addEventListener("viewchange", function(event) {
-			var index = event.detail.index;
-			if (index < 0 || index > views.length - 1) {
-				return;
-			}
-			pageIndicator.setActive(event.detail.index);
-		}, false);
+		document.addEventListener('tizenhwkey', fnBackKey);
 	});
 }());

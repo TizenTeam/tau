@@ -16,6 +16,7 @@
 		<ChangeableColorInfo id="B0242" inputColor="-" hue="89" saturation="86" value="66" alpha="100" />
 		<ChangeableColorInfo id="B041P" inputColor="3" hue="0" saturation="0" value="0" alpha="100" />
 		<ChangeableColorInfo id="B0511" inputColor="1" hue="0" saturation="25" value="6" alpha="100" />
+		<ChangeableColorInfo id="B0511D" inputColor="K" hue="0" saturation="0" value="0" alpha="70" />
 		<ChangeableColorInfo id="B0511P" inputColor="1" hue="-1" saturation="12" value="41" alpha="100" />
 		<ChangeableColorInfo id="B0513" inputColor="1" hue="0" saturation="0" value="0" alpha="100" />
 		<ChangeableColorInfo id="B0514" inputColor="1" hue="0" saturation="-36" value="33" alpha="100" minSaturation="39" />
@@ -23,9 +24,14 @@
 		<ChangeableColorInfo id="B052L1" inputColor="4" hue="0" saturation="0" value="0" alpha="100" />
 		<ChangeableColorInfo id="B052L1D" inputColor="4" hue="0" saturation="0" value="0" alpha="20" />
 		<ChangeableColorInfo id="B0553" inputColor="1" hue="-2" saturation="29" value="0" alpha="100" />
+		<ChangeableColorInfo id="B0554" inputColor="W" hue="0" saturation="0" value="0" alpha="100" />
+		<ChangeableColorInfo id="B0554P" inputColor="W" hue="0" saturation="0" value="-23" alpha="100" />
+		<ChangeableColorInfo id="B0554D" inputColor="W" hue="0" saturation="0" value="27" alpha="100" />
 		<ChangeableColorInfo id="B056" inputColor="2" hue="-5" saturation="-2" value="0" alpha="100" />
 		<ChangeableColorInfo id="B056P" inputColor="3" hue="0" saturation="5" value="8" alpha="100" maxSaturation="80" />
 		<ChangeableColorInfo id="B056D" inputColor="2" hue="-9" saturation="-5" value="-10" alpha="100" maxValue="25" />
+		<ChangeableColorInfo id="B058L1" inputColor="K" hue="0" saturation="0" value="37" alpha="100" />
+		<ChangeableColorInfo id="B058L2" inputColor="K" hue="0" saturation="0" value="17" alpha="100" />
 		<ChangeableColorInfo id="B061L1E" inputColor="1" hue="2" saturation="25" value="-3" alpha="100" />
 		<ChangeableColorInfo id="B061L2" inputColor="3" hue="0" saturation="2" value="-9" alpha="100" />
 		<ChangeableColorInfo id="B061L7" inputColor="2" hue="-5" saturation="0" value="0" alpha="100" />
@@ -33,6 +39,10 @@
 		<ChangeableColorInfo id="B065L4P" inputColor="3" hue="0" saturation="5" value="8" alpha="100" maxSaturation="80" />
 		<ChangeableColorInfo id="B065L4D" inputColor="2" hue="-9" saturation="-5" value="-10" alpha="100" maxValue="25" />
 		<ChangeableColorInfo id="B065L6" inputColor="2" hue="1" saturation="0" value="24" alpha="100" maxValue="60" />
+		<ChangeableColorInfo id="B057" inputColor="K" hue="0" saturation="0" value="0" alpha="75" />
+		<ChangeableColorInfo id="B057P" inputColor="K" hue="0" saturation="0" value="0" alpha="75" />
+		<ChangeableColorInfo id="B057L1" inputColor="K" hue="0" saturation="0" value="37" alpha="100" />
+		<ChangeableColorInfo id="B057L1P" inputColor="K" hue="0" saturation="0" value="67" alpha="100" />
 		<ChangeableColorInfo id="B071" inputColor="K" hue="0" saturation="0" value="37" alpha="100" />
 		<ChangeableColorInfo id="B0712" inputColor="K" hue="0" saturation="0" value="45" alpha="100" />
 		<ChangeableColorInfo id="B0722" inputColor="K" hue="0" saturation="0" value="10" alpha="100" />

@@ -1,0 +1,47 @@
+.custom-indicator {
+    position: absolute;
+    width: 182px;
+    height: 182px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    line-height: 182px;
+    font-size: 28px;
+}
+.custom-indicator .main-text {
+    position: relative;
+    height: 60%;
+    line-height: 135px;
+    font-size: 35px;
+    color: #ffffff;
+}
+.custom-indicator .sub-text {
+    position: relative;
+    height: 40%;
+    line-height: 35px;
+    font-size: 20px;
+    color: #88b1ff;
+}
+.custom-indicator-arrow {
+    position: absolute;
+    width: 182px;
+    height: 182px;
+    top: 50%;
+    left: 50%;
+    margin: -91px;
+    border-radius: 50%;
+    border: solid;
+}
+.custom-indicator-arrow::before {
+    content: "";
+    position:absolute;
+    box-sizing: border-box;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: solid 3px #88b1ff;
+    background-color: #fafafa;
+    top: 0;
+    right: 34px;
+}
