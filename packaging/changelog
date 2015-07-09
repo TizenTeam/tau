@@ -1,4 +1,166 @@
 %changelog
+* Thu Jul 09 2015 Hagun Kim <hagun.kim@samsung.com> 0.10.30
+	- refactor(core): fix page indicator
+	- refactor(wearable): modify sensitivity for drag event
+	- fix(wearable): modify base degree of items and indicator
+	- fix(wearable): modify custom indicator sample of Selector
+	- refactor(etc): update release script to tizen_2.4
+	- refactor(mobile): remove expand slider in demo sample
+	- feat(core): progress refactoring
+	- refactor(mobile): remove created elements when the component destroy
+	- fix(mobile): fix custom css for listview for jira issue
+	- fix(mobile): fix slider for jira issues
+	- refactor(mobile): modify css for HD resolution
+	- refactor(wearable): modify sensitivity for drag event
+	- fix(mobile): fix popup display layout
+	- feat(mobile): add moremenu(popup) sample
+	- fix(mobile): fix page scroll position issue
+	- fix(mobile): fix popup transition display
+	- fix(mobile): modify to mobile sample app menu tree
+	- refactor(mobile): remove unused popup less file
+	- fix(mobile): fix panel animation type issue
+	- fix(mobile): remove to set enhance false routine in header
+	- refactor(mobile): fix anchor css in listview
+	- refactor(mobile): fix search input demo
+	- fix(core): fix page move back issue
+	- refactor(mobile): modify ctxpopup display
+	- fix(core): fix error console message in PageContainer
+	- refactor(mobile): fix selector for anchor tag in footer
+	- fix(mobile): add color value and modify top value in support css
+	- feat(mobile): add touch event(tap)
+	- refactor(mobile): fix tabbar component
+	- fix(mobile): add footer has only a tag style
+	- fix(build): fix grunt watch module observe path of css
+	- fix(core): add to be not external page inner widget destroy
+	- fix(core): add page life cycle events
+	- fix(mobile): add router.activePage property
+	- refactor(mobile): remove "extra" in support/TextInput
+	- refactor(mobile): fix wrong classes of content in demo html
+	- fix(core): popup close bug when using open method of popup widget directly.
+	- refactor(core): remove automatic content creating logic
+	- etc(sample): rename SDK demos
+	- docs(all): Add globalize doucment Add folder structure image Add markdown format document Fix guide document template
+	- refactor(mobile): apply ui class to activity indicator sample
+	- refactor(mobile): remove controlgroup element in chkbox and radio samples
+	- refactor(mobile): add transition animation to toast popup
+	- refactor(mobile): apply ui class to section changer sample
+	- refactor(mobile): apply ui class to panel sample
+	- refactor(mobile): apply ui class to tabs sample
+	- refactor(mobile): apply ui class to colored list sample
+	- refactor(core): modify page selector in routePage
+	- refactor(mobile): change a way to use from data-role to ui class
+	- refactor(mobile): deprecated Swipe widget.
+	- refactor(mobile): rename from GridList to GridView
+	- refactor(mobile): rename from dropdown.extra to selectmenu
+	- feat(mobile): add ColoredListview component
+	- fix(mobile): fix header layout ordering method
+	- feat(core) : add searchInput widget
+	- refactor(mobile): add missing vendor prefix via mixin
+	- feat(mobile): add GridList component
+	- feat(core): add pinch gesture
+	- fix(mobile): delete scrollview side padding
+	- fix(mobile): modify tabbar icon bg color
+	- refactor(mobile): refactoring header and footer
+	- refector(mobile): deprecate SplitView widget.
+	- refector(mobile): removed Gallary3D widget.
+	- refector(mobile): deprecated MultimediaView widget.
+	- refector(mobile): deprecated Notification Widget.
+	- refector(mobile): deprecated ScrollHandler widget.
+	- refector(mobile): deprecated Fieldcontain widget.
+	- refector(mobile): deprecated Dialog widget.
+	- refactor(mobile): deprecate DateTimepicker and Circularview.
+	- refactor(mobile): deprecate Controlgroup
+	- feat(mobile): contextual popup style modification for 2.4
+	- feat(mobile): apply flex layout to popup
+	- refactor(mobile): fix missing comma and path for support module
+	- feat(mobile): refactoring IndexScrollbar component
+	- refactor(mobile): rename support/collapsible,collapsibleset
+	- refactor(mobile): refactoring gallery sample
+	- feat(mobile): add dim style for button
+	- feat(mobile): remove selector <section> from Scrollview
+	- refactor(mobile): renaming ListDivider.extra to ListDivider
+	- feat(mobile): add TextEnveloper component
+	- feat(core): Add globalize Merge from tau_tv Migrates from Globalize0.x to Globalize1.x Adds RTL check feature Adds getCalendar feature Adds i18n basic features Moves Custom locale path Removes custom path in cldr-data path Fixes locale to locales Add tau.css in index.html of Globalize sample Add globalize in tv, mobile, wearable profile Moves varialbe in globalize.js Fixes syntax for jshint Fixes sample source formmating
+	- refactor(mobile): renaming ListDivider
+	- refactor(mobile): rename floating button to floating actions
+	- refactor(mobile): fix padding of button with icon
+	- feat(core): Slider component refactoring
+	- refactor(mobile): rename and refactoring Expandable
+	- refactor(core): divide checkbox and radio
+	- refactor(mobile): fix dropdown menu bug
+	- fix(core): fix some widgets routing issue
+	- fix(mobile): fix page layout configure timing
+	- fix(mobile): fix header option of page component to false
+	- feat(mobile): TextInput for 2.4 theme
+	- fix(mobile): fix panel changer router issue
+	- feat(core): add core slider component
+	- feat(mobile): renaming collapsible to groupindex
+	- feat(mobile): progressbar(progressbar style) for 2.4 theme
+	- refactor(mobile): fix all list in demo sample
+	- refactor(mobile): fix button component
+	- feat(mobile): progressbar(activitybar) style for 2.4 theme
+	- refactor(mobile): move listview extra into support module and fix tc
+	- refactor(tool): add path to test for support directories
+	- feat(mobile): activityIndicator for 2.4 mobile
+	- refactor(mobile): fix broken toggle switch layout
+	- refactor(mobile): fix broken checkbox and radio layout
+	- feat(mobile): set @unit_base ration to 360/540
+	- fix(wearable): fixed undefined variable bug in snap list style helper.
+	- refactor(mobile): fix missing unit_base in dropdown menu less
+	- feat(mobile): apply unitbase ratio
+	- fix(mobile): fix UIComponent config.xml file
+	- fix(mobile): fix error in FloatingButton
+	- feat(mobile): apply DropdownMenu for tizen 2.4
+	- refactor(mobile): apply bg color of list that don't use colored list
+	- refactor(mobile): update color and font code xml
+	- feat(mobile): add 2.3 support files developing enviroment
+	- feat(mobile): add Tabs component
+	- refactor(core): move pageindicator from wearable to core
+	- feat(mobile): add Navigation and PanelChanger sample
+	- feat(mobile): add Navigation style for 2.4
+	- feat(core): add Panel-Router and back rules of Router
+	- feat(wearable): add panel and panelchanger
+	- feat(mobile): apply listview style for tizen 2.4
+	- feat(mobile): add FloatingButton component
+	- feat(mobile): add Checkbox and Radio style for 2.4
+	- feat(mobile): add trasition for popup
+	- feat(mobile): contextpopup theme modification (2.4 ref UX)
+	- feat(mobile): add toggleswitch style for 2.4
+	- integrate(common): integrate Drawer component
+	- refactor(mobile): apply style for group index
+	- feat(mobile): add handler style for 2.4
+	- feat(mobile): add VirtualList style for 2.4
+	- feat(mobile): page transition style added
+	- feat(mobile): Toast popup theme for 2.4 UX
+	- feat(mobile): import css/custom.css in index.html(UIComponent)
+	- feat(mobile): add popup sample
+	- feat(mobile): popup theme modification (2.4 ref GUI)
+	- feat(mobile): add multimediaview for tizen 2.4
+	- integration(core): move sectionChanger to core
+	- feat(mobile): modify page background
+	- feat(mobile): modify button theme for 2.4
+	- refactor(mobile) : remove ListViewFilter
+	- feat(mobile): update latest Color xml files
+	- fix(tc): fix TC error of drawer
+	- refactor(mobile): remove jqm script tag and jqm back key events
+	- refactor(mobile): fix jqm constructor
+	- integration(mobile): delete touch.js events
+	- feat(mobile): add new mobile demo sample
+	- refactor(mobile): rename former mobile demo sample
+	- tool(all): remove node_modules folder
+	- fix(common): delete Makefile grunt operation
+	- fix(common): add npm install command in jenkins build scirpt
+	- fix(tv): Fix strict mode issue
+	- fix(tools): fix problem with TAU after building by TAU Builder
+	- fix(tools): create file README for application builder
+	- fix(tools): fix script for building tau
+	- integrate(common): integrate Drawer component
+	- fix(tool): fix problem with paths in application builder
+	- fix(mobile): fix phantom.fix.js waring in sdk
+	- feat(wearable): add example for chain of popups
+	- feat(mobile): add example for chain of popups
+	- fix(all): Fixed broken tests in newest phantom version
+
 * Wed Jul 01 2015 Hagun Kim <hagun.kim@samsung.com> 0.10.29
 	- fix(wearable): fix moreoptions handler width and position(P150625-07282)
 	- feat(wearable): add circular index scrollbar component
