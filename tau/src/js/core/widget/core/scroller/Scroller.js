@@ -115,7 +115,7 @@
 				 */
 				this.options = utilsObject.merge({}, this.options, {
 					scrollDelay: 0,
-					threshold: 10,
+					threshold: 30,
 					scrollbar: "",
 					useBouncingEffect: false,
 					orientation: "vertical"	// vertical or horizontal,
