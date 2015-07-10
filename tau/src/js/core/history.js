@@ -119,6 +119,7 @@
 				};
 			ns.history = history;
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
+			return history;
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");

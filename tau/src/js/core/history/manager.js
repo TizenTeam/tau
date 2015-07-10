@@ -18,7 +18,7 @@
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 			var manager = Object.create(null), // we don't need the Object proto
-				WINDOW_EVENT_POPSATE = "popstate",
+				WINDOW_EVENT_POPSTATE = "popstate",
 				WINDOW_EVENT_HASHCHANGE = "hashchange",
 				DOC_EVENT_VCLICK = "vclick",
 				LINK_SELECTOR = "a",
@@ -86,7 +86,9 @@
 					continuation = true;
 				if (manager.locked) {
 					history.disableVolatileMode();
-					history.replace(lastState, lastState.stateTitle, lastState.stateUrl);
+					if (lastState) {
+						history.replace(lastState, lastState.stateTitle, lastState.stateUrl);
+					}
 				} else if (state) {
 					reverse = history.getDirection(state) === "back";
 					options = objectUtils.merge(options, state, {
@@ -95,7 +97,7 @@
 						fromHashChange: true
 					});
 
-					if (!eventUtils.trigger(document, EVENT_HASHCHANGE, objectUtils.merge(options,
+					if (lastState && !eventUtils.trigger(document, EVENT_HASHCHANGE, objectUtils.merge(options,
 							{url: pathUtils.getLocation(), stateUrl: lastState.stateUrl}), true, true)) {
 						continuation = false;
 					}
@@ -107,7 +109,7 @@
 				}
 			}
 
-			function onHashChage(event) {
+			function onHashChange(event) {
 				var newURL = event.newURL;
 				if (newURL) {
 					triggerStateChange({href: newURL, fromHashChange: true});
@@ -127,8 +129,8 @@
 
 			manager.enable = function () {
 				document.addEventListener(DOC_EVENT_VCLICK, onLinkAction, false);
-				window.addEventListener(WINDOW_EVENT_POPSATE, onPopState, false);
-				window.addEventListener(WINDOW_EVENT_HASHCHANGE, onHashChage, false);
+				window.addEventListener(WINDOW_EVENT_POPSTATE, onPopState, false);
+				window.addEventListener(WINDOW_EVENT_HASHCHANGE, onHashChange, false);
 				history.enableVolatileMode();
 				this.enabled = true;
 				eventUtils.trigger(document, EVENT_ENABLED, this);
@@ -136,8 +138,8 @@
 
 			manager.disable = function () {
 				document.removeEventListener(DOC_EVENT_VCLICK, onLinkAction, false);
-				window.removeEventListener(WINDOW_EVENT_POPSATE, onPopState, false);
-				window.removeEventListener(WINDOW_EVENT_HASHCHANGE, onHashChage, false);
+				window.removeEventListener(WINDOW_EVENT_POPSTATE, onPopState, false);
+				window.removeEventListener(WINDOW_EVENT_HASHCHANGE, onHashChange, false);
 				history.disableVolatileMode();
 				this.enabled = false;
 				eventUtils.trigger(document, EVENT_DISABLED, this);
