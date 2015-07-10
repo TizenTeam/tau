@@ -89,7 +89,7 @@ jobs = {
 		[
 			SrcDest("web-ui-fw/tau/demos/SDK/mobile/UIComponents", "tizen-winset/project"),
 			SrcDest("web-ui-fw/tau/dist/mobile", "tizen-winset/project/lib/tau"),
-			SrcDest("web-ui-fw/tau/dist/mobile", "tizen-globalize/project/lib/tau"),
+			SrcDest("web-ui-fw/tau/dist/mobile", "tizen-globalize/project/lib/tau/mobile"),
 			SrcDest("web-ui-fw/tau/demos/SDK/mobile/MasterDetail", "tau-master-detail/project"),
 			SrcDest("web-ui-fw/tau/dist/mobile", "tau-master-detail/project/lib/tau"),
             		SrcDest("web-ui-fw/tau/demos/SDK/mobile/MultiPage", "tau-multi-page/project"),
