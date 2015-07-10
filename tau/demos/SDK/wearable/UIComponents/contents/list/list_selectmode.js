@@ -12,6 +12,7 @@
 		deselectAll = document.getElementById("deselect-all"),
 		drawerElement = page.querySelector("#rightDrawer"),
 		handler = document.getElementById("handler"),
+		selector = page.querySelector("#selector"),
 		selectCount,
 		drawerHelper,
 		i,
@@ -121,5 +122,18 @@
 			handler: ".drawer-handler"
 		});
 		document.addEventListener('tizenhwkey', fnBackKey);
+	});
+
+	/*
+	 * When user click the indicator of Selector, drawer will close.
+	 */
+	selector.addEventListener("click", function(event) {
+		var target = event.target,
+			drawerComponent = tau.widget.Drawer(drawerElement);
+
+		// 'ui-selector-indicator' is default indicator class name of Selector component
+		if (target.classList.contains("ui-selector-indicator")) {
+			drawerComponent.close();
+		}
 	});
 }());

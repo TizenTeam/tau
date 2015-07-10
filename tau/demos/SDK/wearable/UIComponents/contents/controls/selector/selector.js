@@ -6,7 +6,7 @@
 
 	function onClick(event) {
 		var activeItem = selector.querySelector(".ui-item-active"),
-			target = event.target;;
+			target = event.target;
 		//console.log(activeItem.getAttribute("data-title"));
 		/*
 		 * Default indicator class selector is "ui-selector-indicator".
