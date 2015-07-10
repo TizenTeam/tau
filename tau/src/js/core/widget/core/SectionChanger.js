@@ -1,4 +1,4 @@
-/*global window, define, Event, console */
+/*global window, define, ns*/
 /* Copyright  2010 - 2014 Samsung Electronics Co., Ltd.
  * License : MIT License V2
  */
@@ -224,11 +224,6 @@
 						o.changeThreshold = this._sectionChangerHalfWidth;
 					}
 
-					if (this.enabled && sectionLength > 1) {
-						this.enable();
-					} else {
-						this.disable();
-					}
 					return element;
 				},
 
