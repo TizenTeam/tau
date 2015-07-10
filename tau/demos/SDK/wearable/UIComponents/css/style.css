@@ -570,14 +570,18 @@ li.select::before {
 }
 #selectModePage .select-popup .ui-listview li a {
 	color: rgba(245, 245, 245, 1);
-	padding: 27px 0;
-	margin: -43px -40px;
-	margin-left: 0;
-	margin-right: 0;
 }
 #selectModePage .select-popup .ui-listview li a:active {
 	color: rgba(245, 245, 245, 1);
 	background-color: rgba(23, 73, 115, 1);
+}
+#select-all {
+	line-height: 60px;
+	padding-bottom: 10px;
+}
+#deselect-all {
+	line-height: 60px;
+	padding-top: 10px;
 }
 
 /* -----------------------------------  OPTION POPUP------------------------------------ */
