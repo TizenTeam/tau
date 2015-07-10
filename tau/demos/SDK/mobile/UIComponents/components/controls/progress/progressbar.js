@@ -15,20 +15,19 @@
 
 		setTimeout(function() {
 			progressBarWidget.value(100);
-		}, 3000);
+		}, 1000);
 		setTimeout(function() {
 			progressBarWidget2.value(50);
 			progressBarWidget3.value(70);
-		}, 4000);
+		}, 2000);
 		setTimeout(function() {
 			progressBarWidget2.value(70);
 			progressBarWidget3.value(30);
-		}, 6000);
+		}, 300);
 		setTimeout(function() {
 			progressBarWidget2.value(100);
 			progressBarWidget3.value(100);
-		}, 6000);
-
+		}, 4000);
 	};
 
 	page.addEventListener("pagebeforeshow", pageBeforeShowHandler);
