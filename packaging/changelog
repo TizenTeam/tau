@@ -1,4 +1,10 @@
 %changelog
+* Mon Jul 13 2015 Hagun Kim <hagun.kim@samsung.com> 0.10.29-1
+	- fix(mobile2.3.1): add destroy method in slider
+	- fix(wearable): modify base degree of items and indicator
+	- fix(wearable): modify custom indicator sample of Selector
+	- refactor(wearable): modify sensitivity for drag event
+
 * Wed Jul 01 2015 Hagun Kim <hagun.kim@samsung.com> 0.10.29
 	- fix(wearable): fix moreoptions handler width and position(P150625-07282)
 	- feat(wearable): add circular index scrollbar component
