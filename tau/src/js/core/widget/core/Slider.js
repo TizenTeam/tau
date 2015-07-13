@@ -325,6 +325,7 @@
 				if (element.value - 0 !== intValue) {
 					element.setAttribute("value", intValue);
 					element.value = intValue;
+					self._value = intValue;
 					if (self.options.expand) {
 						ui.handlerElement.innerText = intValue;
 					}
