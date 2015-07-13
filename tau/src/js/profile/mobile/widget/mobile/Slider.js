@@ -154,6 +154,7 @@
 			"../../../../core/theme",
 			"../../../../core/util/DOM/attributes",
 			"../../../../core/util/DOM/css",
+			"../../../../core/util/DOM/manipulation",
 			"../../../../core/event",
 			"../../../../core/util/selectors",
 			"../../../../core/event/vmouse",
@@ -1082,6 +1083,32 @@
 			}
 
 			/**
+			 * Callback for event change
+			 * @method onChangeEvent
+			 * @param {ns.widget.mobile.Slider} self
+			 * @private
+			 * @static
+			 * @member ns.widget.mobile.Slider
+			 */
+			function onChangeEvent (self) {
+				if (!self.mouseMoved) {
+					refresh(self, self._getValue(), true);
+				}
+			}
+
+			/**
+			 * Callback for event blur
+			 * @method onBlur
+			 * @param {ns.widget.mobile.Slider} self
+			 * @private
+			 * @static
+			 * @member ns.widget.mobile.Slider
+			 */
+			function onBlur (self) {
+				refresh(self, self._getValue(), true);
+			}
+
+			/**
 			 * Bind events to widget
 			 * @method _bindEvents
 			 * @protected
@@ -1095,20 +1122,17 @@
 					tagName = element.nodeName.toLowerCase(),
 					slider = ui.slider;
 
-				element.addEventListener("change", function () {
-					if (!self.mouseMoved) {
-						refresh(self, self._getValue(), true);
-					}
-				}, false);
+				callbacks.changeEvent = onChangeEvent.bind(null, self);
+				callbacks.blur = onBlur.bind(null, self);
+
+				element.addEventListener("change", callbacks.changeEvent, false);
 
 				callbacks.keyUp = onKeyUp.bind(null,self);
 				callbacks.keyDown = onKeyDown.bind(null, self);
 
 				ui.container.addEventListener("keyup", callbacks.keyUp, false);
 
-				element.addEventListener("blur", function () {
-					refresh(self, self._getValue(), true);
-				}, false);
+				element.addEventListener("blur", callbacks.blur, false);
 
 				handle.addEventListener("vmousedown", function (event) {
 					events.trigger(event.target, "focus");
@@ -1268,7 +1292,22 @@
 				self.options.disabled = true;
 			};
 
-			// @TODO add destroy() method
+			/**
+			 * Destroy slider
+			 * @method _destroy
+			 * @protected
+			 * @member ns.widget.mobile.Slider
+			 */
+			Slider.prototype._destroy = function () {
+				var self = this,
+					callbacks = self._callbacks;
+				document.removeEventListener("touchmove", onTouchMove);
+				document.removeEventListener("vmouseup", callbacks.mouseUp);
+				self.element.removeEventListener("change", callbacks.changeEvent);
+				self.element.removeEventListener("blur", callbacks.blur);
+				DOMutils.replaceWithNodes(self._ui.container, self.element);
+				self._ui = null;
+			};
 
 			ns.widget.mobile.Slider = Slider;
 			engine.defineWidget(
