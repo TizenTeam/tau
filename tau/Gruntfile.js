@@ -326,7 +326,6 @@ module.exports = function(grunt) {
 						}
 					}
 				}
-
 			},
 
 			less : {
@@ -517,6 +516,17 @@ module.exports = function(grunt) {
 					dest: path.join( dist, "LICENSE" ) + ".MIT"
 				},
 
+				animation: {
+					files: [
+						{
+							expand: true,
+							cwd: 'libs/animation/',
+							src: "**",
+							dest: path.join(dist, "animation/")
+						}
+					]
+				},
+
 				"sdk-docs": {
 					files: [
 						{expand: true, cwd: "tools/grunt/tasks/templates/files", src: "**/*", dest: "docs/sdk/mobile/html"},
@@ -683,7 +693,7 @@ module.exports = function(grunt) {
 			},
 
 			clean: {
-				js: [ buildDir.mobile.js, buildDir.wearable.js, buildDir.tv.js ],
+				js: [ buildDir.mobile.js, buildDir.wearable.js, buildDir.tv.js, "dist/animation/*" ],
 				theme: [ buildDir.mobile.theme, buildDir.wearable.theme, buildDir.tv.theme ],
 				docs: {
 					expand: true,
@@ -946,7 +956,7 @@ module.exports = function(grunt) {
 	grunt.registerTask("image", [ "copy:wearableDefaultImages", "copy:mobileDefaultImages", "copy:tvDefaultImages" ]);
 	grunt.registerTask("image-changeable", [ "copy:wearableChangeableImages", "copy:wearableColorThemeImages", "copy:mobileChangeableImages" ]);
 	grunt.registerTask("css", [ "clean:theme", "less", "themeConverter", "cssmin", "image", "image-changeable", "symlink" ]);
-	grunt.registerTask("js", [ "clean:js", "requirejs", "jsmin", "themesjs", "copy:mobileJquery" ]);
+	grunt.registerTask("js", [ "clean:js", "requirejs", "jsmin", "themesjs", "copy:mobileJquery", "copy:animation" ]);
 	grunt.registerTask("license", [ "concat:licenseJs", "concat:licenseDefaultCss", "concat:licenseChangeableCss", "concat:licenseWearableCss", "copy:license" ]);
 	grunt.registerTask("sdk-docs", [ "docs-html:mobile", "docs-html:wearable", "docs-html:tv", "copy:sdk-docs" ]);
 	grunt.registerTask("dld-docs", [ "docs-html:mobile-dld", "docs-html:wearable-dld"]);
