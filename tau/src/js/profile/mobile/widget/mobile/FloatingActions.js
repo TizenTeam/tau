@@ -5,10 +5,25 @@
 /*jslint nomen: true */
 /**
  * # FloatingActions component
- * Widget create floting button
+ * Floating actions component creates a floating button at the bottom of the screen.
+ *
+ * ##Default Selectors
+ * By default, all elements with the class="ui-floatingactions" or data-role="floatingactions" attribute are displayed as floating actions components.
+ *
+ * ##Manual constructor
+ *      @example
+ *      <div class="ui-floatingactions" id="floating">
+ *          <button class="ui-floatingactions-item" data-icon="floating-add"/>
+ *          <button class="ui-floatingactions-item" data-icon="floating-search"/>
+ *      </div>
+ *      <script>
+ *          var elFloatingActions = document.getElementById("floating"),
+ *                flaotingActions = tau.widget.FloatingActions(elFloatingActions);
+ *      </script>
+ *
  * @class ns.widget.mobile.FloatingActions
  * @extends ns.widget.BaseWidget
-*/
+ */
 (function (document, ns) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
@@ -52,6 +67,14 @@
 			* @member ns.widget.mobile.FloatingActions
 			*/
 			prototype._configure = function() {
+				/**
+				 * @property {Object} options Object with default options
+				 * @property {string} [options.fromRgba="rgba(66, 162, 207, 1)"] color when the floating button is positioned at the left end
+				 * @property {string} [options.toRgba="rgba(54, 132, 168, 1)"] color when the floating button is positioned at the right end
+				 * @property {number} [options.opacity=0.9] opacity when the floating button is clicked
+				 * @property {number} [options.duration=300] animation duration for color and opacity (unit of time : millisecond)
+				 * @member ns.widget.mobile.FloatingActions
+				 */
 				this.options = {
 					fromRgba: "rgba(66, 162, 207, 1)",
 					toRgba: "rgba(54, 132, 168, 1)",
@@ -119,7 +142,7 @@
 			*/
 			prototype._refresh = function() {
 				var self = this,
-					element = sefl.element;
+					element = self.element;
 
 				self._hasSingle = element.children.length > 1 ? false : true;
 				self._setPosition();
@@ -418,7 +441,7 @@
 				style.opacity = "1";
 			};
 
-			/*
+			/**
 			 * Handle events
 			 * @method handleEvent
 			 * @public
