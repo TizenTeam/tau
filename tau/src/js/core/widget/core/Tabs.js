@@ -9,46 +9,56 @@
  * The Tabs component is a controller component for operate closely with tabbar and sectionChanger.
  * So this component should be used with tabbar and sectionChanger.
  *
- * Note!
- * The sectionChanger component is provided since tizen 2.4.
+ * ##Default selectors
+ * By default, all elements with the class="ui-tabs" or data-role="tabs" attribute are displayed as a tabs components.
  *
  * ##HTML Examples
  *
  *      @examples
- *      <div data-role="tabs">
- *          <div data-role="tabbar">
+ *      <div id="tabs" class="ui-tabs">
+ *          <div class="ui-tabbar">
  *              <ul>
  *                  <li><a href="#" class="ui-btn-active">Tab1</a></li>
  *                  <li><a href="#">Tab2</a></li>
  *                  <li><a href="#">Tab3</a></li>
  *              </ul>
  *          </div>
- *          <div data-role="section-changer" id="sectionChanger" class="ui-section-changer">
+ *          <div class="ui-section-changer">
  *              <div>
  *                  <section class="ui-section-active">
- *                      <ul data-role="listview">
- *                          <li data-role="list-divider">
- *                              ...
+ *                      <ul class="ui-listview">
+ *                          <li class="ui-li-static">
+ *                              Section 1
  *                          </li>
  *                      </ul>
  *                  </section>
  *                  <section class="ui-section-active">
- *                      <ul data-role="listview">
- *                          <li data-role="list-divider">
- *                              ...
+ *                      <ul class="ui-listview">
+ *                          <li class="ui-li-static">
+ *                              Section 2
  *                          </li>
  *                      </ul>
  *                  </section>
  *                  <section class="ui-section-active">
- *                      <ul data-role="listview">
- *                          <li data-role="list-divider">
- *                              ...
+ *                      <ul class="ui-listview">
+ *                          <li class="ui-li-static">
+ *                              Section 3
  *                          </li>
  *                      </ul>
  *                  </section>
  *              </div>
  *          </div>
  *      </div>
+ *
+ * ##Manual constructor
+ * For manual creation of tabs widget you can use constructor of widget
+ *
+ *      @example
+ *      <script>
+ *          var tabsElement = document.getElementById("tabs"),
+ *                tabs;
+ *          tabs = tau.widget.Tabs(tabsElement);
+ *      </script>
  *
  * @class ns.widget.core.Tabs
  * @extends ns.widget.core.BaseWidget
