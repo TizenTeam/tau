@@ -185,17 +185,44 @@ define(
 			var callback = function (defer) {
 					defer.resolve();
 					ok(true, "Known route");
+					eventUtils.off(document, "historystatechange", eventCallback);
 					start();
+				},
+				eventCallback = function() {
+					ok(true, "Hash was changed only once");
 				},
 				c = Controller.getInstance();
 
 			c.init();
-			c.addRoute("testback", callback);
-			eventUtils.one(document, "historystatechange", function() {
-				ok(true, "Hash was changed only once");
-			});
-			document.location.hash = "test";
-			document.location.hash = "testback";
+			c.addRoute("testback2", callback);
+			eventUtils.on(document, "historystatechange", eventCallback);
+			document.location.hash = "test2";
+			document.location.hash = "testback2";
+		});
+
+		asyncTest("open/back methods", 3, function () {
+			var calls = 0,
+				callback = function (defer) {
+					calls++;
+					defer.resolve();
+					ok(true, "Known route");
+					if (calls == 2) {
+						start();
+					} else {
+						c.open("test4");
+					}
+				},
+				callback2 = function (defer) {
+					defer.resolve();
+					ok(true, "Known route");
+					c.back();
+				},
+				c = Controller.getInstance();
+
+			c.init();
+			c.addRoute("test3", callback);
+			c.addRoute("test4", callback2);
+			c.open("test3");
 		});
 
 		test("destoy test", function () {

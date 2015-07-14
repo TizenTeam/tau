@@ -25,9 +25,7 @@
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
-			var engine = ns.engine,
-				eventUtils = ns.event,
-				pathUtils = ns.util.path,
+			var eventUtils = ns.event,
 				pathToRegexp = ns.util.pathToRegexp,
 				history = ns.history,
 				object = ns.util.object,
@@ -108,16 +106,20 @@
 				}
 
 				deferred.resolve = function (options) {
-					eventUtils.trigger(document, EVENT_PATH_RESOLVED, options);
 					// change URL
-					state = object.merge(
-						{},
-						options,
-						{
-							url: url
-						}
-					);
-					history.replace(state, options.title || "", url);
+					if (!options.fromHashChange) {
+						// insert to history only if not from hashchange event
+						// hash change event has own history item
+						state = object.merge(
+							{},
+							options,
+							{
+								url: url
+							}
+						);
+						history.replace(state, options.title || "", url);
+					}
+					eventUtils.trigger(document, EVENT_PATH_RESOLVED, options);
 				};
 
 				deferred.reject = function (options) {
@@ -202,7 +204,6 @@
 			proto.destroy = function () {
 				var self = this;
 				window.removeEventListener(historyManagerEvents.STATECHANGE, self.onStateChange, true);
-
 				// destroy callback to give possibility to another init
 				self.onStateChange = null;
 			};
