@@ -106,7 +106,7 @@
 				var self = this,
 					options = self.options || {};
 
-				options.ColoredListviewNumber = 15;
+				options.coloredListviewNumber = 15;
 
 			};
 
@@ -404,8 +404,8 @@
 					liElementOffsetHeight = self._liElementOffsetHeight,
 					listNumber = liElementOffsetTop.length,
 					alphaValue = 0.96,
-					optionColoredListviewNumber = self.options.ColoredListviewNumber,
-					max = listNumber < optionColoredListviewNumber ? listNumber : optionColoredListviewNumber,
+					optionColoredListviewNumber = parseInt(self.options.coloredListviewNumber, 10),
+					max = optionColoredListviewNumber ? optionColoredListviewNumber : listNumber,
 					validMax = ColoredListviewTop + max,
 					listTop,
 					top,
@@ -415,9 +415,9 @@
 				}
 
 				top = liElementOffsetTop[ColoredListviewTop];
-				for (i = ColoredListviewTop; i < validMax; i++) {
+				for (i = ColoredListviewTop; i < validMax + 1; i++) {
 					listTop = liElementOffsetTop[i] - top + DEFAULT.FIRST_SPACE;
-					if (i === validMax - 1) {
+					if (i === validMax) {
 						setRectangle(gl, 0, listTop, offsetWidth, offsetHeight - listTop);
 					} else if (i === ColoredListviewTop) {
 						setRectangle(gl, 0, 0, offsetWidth, liElementOffsetHeight[i] + DEFAULT.FIRST_SPACE);
