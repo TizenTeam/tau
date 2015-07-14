@@ -14,11 +14,13 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"./core"
+			"./core",
+			"./util/path"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
-			var template,
+			var utilPath = ns.util.path,
+				template,
 				templateFunctions = {},
 				globalOptions = {
 					"pathPrefix": "",
@@ -108,6 +110,32 @@
 			}
 
 			/**
+			 * Create absolute path for given path.
+			 * If parameter withProfile is true, the returned path will have name of profile
+			 * separated by dots before the last dot.
+			 * @method getAbsUrl
+			 * @param {string} path
+			 * @param {boolean} withProfile Create path with profile's name
+			 * @return {string} changed path
+			 * @private
+			 * @static
+			 */
+			function getAbsUrl(path, withProfile) {
+				var profile = ns.info.profile,
+					lastDot = path.lastIndexOf(".");
+
+				if (utilPath.isAbsoluteUrl(path)) {
+					return path;
+				}
+
+				if (withProfile) {
+					path = path.substring(0, lastDot) + "." + profile + path.substring(lastDot);
+				}
+
+				return utilPath.makeUrlAbsolute((globalOptions.pathPrefix || "" ) + path, utilPath.getLocation());
+			}
+
+			/**
 			 * Return HTMLElement for given path
 			 *
 			 * 	@example
@@ -126,7 +154,23 @@
 			 * @member ns.template
 			 */
 			function render(path, data, callback, engineName) {
-				var templateFunction = templateFunctions[engineName || get("default") || ""];
+				var templateFunction = templateFunctions[engineName || get("default") || ""],
+					targetCallback = function (status, element) {
+						// add current patch
+						status.absUrl = targetPath;
+						callback(status, element);
+					},
+					templateCallback = function (status, element) {
+						if (status.success) {
+							// path was found and callback can be called
+							targetCallback(status, element);
+						} else {
+							// try one more time with path without profile
+							targetPath = getAbsUrl(path, false);
+							templateFunction(globalOptions, targetPath, data || {}, targetCallback);
+						}
+					},
+					targetPath;
 
 				// if template engine name and default name is not given then we
 				// take first registered engine
@@ -136,7 +180,8 @@
 
 				// if template system exists then we go to him
 				if (templateFunction) {
-					templateFunction(globalOptions, path, data || {}, callback);
+					targetPath = getAbsUrl(path, true);
+					templateFunction(globalOptions,targetPath, data || {}, templateCallback);
 				} else {
 					// else we return error
 					callback({

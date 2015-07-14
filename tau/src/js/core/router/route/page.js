@@ -82,12 +82,12 @@
 			};
 
 			/**
-			 * Property defining selector for filtering only page elements
+			 * Property defining selector without spaces for filtering only page elements.
 			 * @property {string} filter
 			 * @member ns.router.route.page
 			 * @static
 			 */
-			routePage.filter = engine.getWidgetDefinition("Page").selector;
+			routePage.filter = engine.getWidgetDefinition("Page").selector.replace(/\s/g, "");
 
 			/**
 			 * Returns default route options used inside Router.

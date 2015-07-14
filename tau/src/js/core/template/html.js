@@ -43,7 +43,7 @@
 			 * @param callback
 			 */
 			function htmlTemplate(globalOptions, path, data, callback) {
-				var absUrl = utilPath.makeUrlAbsolute((globalOptions.pathPrefix || "" ) + path, utilPath.getLocation()),
+				var absUrl = path,
 					request,
 					eventCallback = callbackFunction.bind(null, callback, data);
 

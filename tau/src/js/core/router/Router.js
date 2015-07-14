@@ -444,8 +444,9 @@
 			}
 
 			function onHistoryStateChange(router, event) {
-				var options = event.detail;
-				router.open(options.href || options.url, options);
+				var options = event.detail,
+					url = options.reverse ? options.url : (options.href || options.url);
+				router.open(url, options);
 				eventUtils.preventDefault(event);
 				eventUtils.stopImmediatePropagation(event);
 			}
@@ -660,11 +661,13 @@
 						}
 
 						data.fullDocument = true;
-						template.render(absUrl, data, function (status, element) {
+						// we put url, not the whole path to function render,
+						// because this path can be modified by template's module
+						template.render(url, data, function (status, element) {
 							if (status.success) {
-								self._loadSuccess(absUrl, options, rule, deferred, element);
+								self._loadSuccess(status.absUrl, options, rule, deferred, element);
 							} else {
-								self._loadError(absUrl, options, deferred);
+								self._loadError(status.absUrl, options, deferred);
 							}
 						});
 					}
