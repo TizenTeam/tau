@@ -1,4 +1,44 @@
 /*global window, define, ns */
+/* Copyright  2010 - 2014 Samsung Electronics Co., Ltd.
+ * License : MIT License V2
+ */
+/*jslint nomen: true */
+/**
+ * # GridView component
+ * Grid View components provides a list of grid-type and presents contents that are easily identified as images.
+ *
+ * ##Default Selectors
+ * By default, all ul elements with the class="ui-gridview" or data-role="gridview" attribute are displayed as grid view components.
+ *
+ * ##Manual constructor
+ *
+ *      @example
+ *      <ul id="gridview" class="ui-gridview">
+ *          <li class="ui-gridview-item">
+ *              <img class="ui-gridview-image" src="images/1.jpg">
+ *              <div class="ui-gridview-handler"></div>
+ *          </li>
+ *          <li class="ui-gridview-item">
+ *              <img class="ui-gridview-image" src="images/2.jpg">
+ *              <div class="ui-gridview-handler"></div>
+ *          </li>
+ *          <li class="ui-gridview-item">
+ *              <img class="ui-gridview-image" src="images/3.jpg">
+ *              <div class="ui-gridview-handler"></div>
+ *          </li>
+ *          <li class="ui-gridview-item">
+ *              <img class="ui-gridview-image" src="images/4.jpg">
+ *              <div class="ui-gridview-handler"></div>
+ *          </li>
+ *      </ul>
+ *      <script>
+ *          var elGridView = document.getElementById("gridview"),
+ *               gridView = tau.widget.GridView(elGridView);
+ *      </script>
+ *
+ * @class ns.widget.mobile.GridView
+ * @extends ns.widget.BaseWidget
+ */
 (function (document, ns) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
@@ -75,7 +115,24 @@
 				return null;
 			}
 
+			/**
+			 * Configure options for GridView
+			 * @method _configure
+			 * @protected
+			 * @member ns.widget.mobile.GridView
+			 */
 			prototype._configure = function () {
+				/**
+				 * Options for widget.
+				 * @property {Object} options
+				 * @property {number} [options.cols=4] the number of columns to be displayed
+				 * @property {boolean} [options.reorder=false] represents whether grid view is reorder mode
+				 * @property {string} [options.label="none"] type of label to be attatched to grid item("none", "in", "out")
+				 * @property {number} [options.minWidth=null] minimum width px of grid item(number or "auto")
+				 * @property {number} [options.minCols=1] the minimum number of columns
+				 * @property {number} [options.maxCols=5] the maximum number of columns
+				 * @member ns.widget.mobile.GridView
+				 */
 				this.options = {
 					cols: 4,
 					reorder: false,
@@ -87,10 +144,25 @@
 				this._direction = direction.NEXT;
 			};
 
+			/**
+			 * Build GridView
+			 * @method _build
+			 * @param {HTMLElement} element
+			 * @return {HTMLElement}
+			 * @protected
+			 * @member ns.widget.mobile.GridView
+			 */
 			prototype._build = function (element) {
 				return element;
 			};
 
+			/**
+			 * Initialize GridView
+			 * @method _init
+			 * @param {HTMLElement} element
+			 * @protected
+			 * @member ns.widget.mobile.GridView
+			 */
 			prototype._init = function (element) {
 				var self = this,
 					ui = self._ui;
@@ -106,9 +178,21 @@
 				self._ui.scrollableParent = getScrollableParent(element) || self._ui.content;
 			};
 
+			/**
+			 * Bind events for GridView
+			 * @method _bindEvents
+			 * @protected
+			 * @member ns.widget.mobile.GridView
+			 */
 			prototype._bindEvents = function () {
 			};
 
+			/**
+			 * Unbind events for GridView
+			 * @method _unbindEvents
+			 * @protected
+			 * @member ns.widget.mobile.GridView
+			 */
 			prototype._unbindEvents = function () {
 				var self = this,
 					element = self.element;
@@ -119,6 +203,12 @@
 				utilsEvents.off(element, "pinchin pinchout", self);
 			};
 
+			/**
+			 * Refresh GridView
+			 * @method _refresh
+			 * @protected
+			 * @member ns.widget.mobile.GridView
+			 */
 			prototype._refresh = function () {
 				var self = this,
 					ui = self._ui,
@@ -136,11 +226,24 @@
 				self._ui.scrollableParent = getScrollableParent(element) || self._ui.content;
 			};
 
+			/**
+			 * Destroy GridView
+			 * @method _destroy
+			 * @protected
+			 * @member ns.widget.mobile.GridView
+			 */
 			prototype._destroy = function () {
 				this._unbindEvents();
 				this._removeGridStyle();
 			};
 
+			/**
+			 * Handle events
+			 * @method handleEvent
+			 * @public
+			 * @param {Event} event Event
+			 * @member ns.widget.mobile.GridView
+			 */
 			prototype.handleEvent = function(event) {
 				var self = this;
 
@@ -173,6 +276,13 @@
 				}
 			};
 
+			/**
+			 * Method for dragstart event
+			 * @method _start
+			 * @protected
+			 * @param {Event} event Event
+			 * @member ns.widget.mobile.GridView
+			 */
 			prototype._start = function (event) {
 				var self = this,
 					element = self.element,
@@ -211,6 +321,13 @@
 				self._ui.helper = helper;
 			};
 
+			/**
+			 * Method for drag event
+			 * @method _move
+			 * @protected
+			 * @param {Event} event Event
+			 * @member ns.widget.mobile.GridView
+			 */
 			prototype._move = function (event) {
 				var self = this,
 					ui = self._ui,
@@ -257,6 +374,12 @@
 				}
 			};
 
+			/**
+			 * Method for dragend event
+			 * @method _end
+			 * @protected
+			 * @member ns.widget.mobile.GridView
+			 */
 			prototype._end = function () {
 				var self = this,
 					element = self.element,
@@ -272,6 +395,12 @@
 				self._ui.helper = {};
 			};
 
+			/**
+			 * Method for pinchout event
+			 * @method _out
+			 * @protected
+			 * @member ns.widget.mobile.GridView
+			 */
 			prototype._out = function () {
 				var self = this,
 					options = self.options,
@@ -285,6 +414,12 @@
 				}
 			};
 
+			/**
+			 * Method for pinchin event
+			 * @method _in
+			 * @protected
+			 * @member ns.widget.mobile.GridView
+			 */
 			prototype._in = function () {
 				var self = this,
 					options = self.options,
@@ -298,6 +433,13 @@
 				}
 			};
 
+			/**
+			 * Check whether a selected item is overlapped with adjacent items
+			 * @method _compareOverlapItem
+			 * @protected
+			 * @param {HTMLElement} item
+			 * @member ns.widget.mobile.GridView
+			 */
 			prototype._compareOverlapItem = function (item) {
 				var self = this,
 					helper = self._ui.helper,
@@ -325,6 +467,12 @@
 				return false;
 			};
 
+			/**
+			 * Calculate and set the height of grid view depending on the number of columns
+			 * @method _calculateListHeight
+			 * @protected
+			 * @member ns.widget.mobile.GridView
+			 */
 			prototype._calculateListHeight = function () {
 				var self = this,
 					listElements = self._ui.listElements,
@@ -337,6 +485,12 @@
 				}, 300);
 			};
 
+			/**
+			 * Update information of each list item
+			 * @method _refreshItemsInfo
+			 * @protected
+			 * @member ns.widget.mobile.GridView
+			 */
 			prototype._refreshItemsInfo = function () {
 				var self = this,
 					listElements = self._ui.listElements,
@@ -360,6 +514,12 @@
 
 			};
 
+			/**
+			 * Create holder element to help reordering
+			 * @method _createHolder
+			 * @protected
+			 * @member ns.widget.mobile.GridView
+			 */
 			prototype._createHolder = function () {
 				var holder = document.createElement("li"),
 					classList = holder.classList;
@@ -370,6 +530,12 @@
 				return holder;
 			};
 
+			/**
+			 * Set the width of each item
+			 * @method _setItemWidth
+			 * @protected
+			 * @member ns.widget.mobile.GridView
+			 */
 			prototype._setItemWidth = function() {
 				var self = this,
 					options = self.options,
@@ -396,9 +562,17 @@
 				options.cols = cols;
 			};
 
+			/**
+			 * Get parent page element
+			 * @method _getParentPage
+			 * @protected
+			 * @param {HTMLElement} element
+			 * @return {HTMLElement}
+			 * @member ns.widget.mobile.GridView
+			 */
 			prototype._getParentPage = function (element) {
 				while (element && element !== document.body) {
-					if (element.getAttribute(DATA_ROLE) === "page") {
+					if (element.getAttribute(DATA_ROLE) === "page" || element.classList.contains("ui-page") === true) {
 						return element;
 					}
 					element = element.parentNode;
@@ -406,6 +580,14 @@
 				return document.body;
 			};
 
+			/**
+			 * Toggle grid view reordering mode
+			 * @method _setReorder
+			 * @protected
+			 * @param {HTMLElement} element
+			 * @param {boolean} reorder
+			 * @member ns.widget.mobile.GridView
+			 */
 			prototype._setReorder = function (element, reorder) {
 				var self = this,
 					options = self.options;
@@ -435,6 +617,12 @@
 				options.reorder = reorder;
 			};
 
+			/**
+			 * Set style for grid view
+			 * @method _setGridStyle
+			 * @protected
+			 * @member ns.widget.mobile.GridView
+			 */
 			prototype._setGridStyle = function () {
 				var self = this,
 					length = self._ui.listElements.length,
@@ -461,6 +649,15 @@
 				self._styleElement = styleElement;
 			};
 
+			/**
+			 * Define transform style for positioning of grid items
+			 * @method _getTransformStyle
+			 * @protected
+			 * @param {number} col
+			 * @param {number} row
+			 * @param {number} index
+			 * @member ns.widget.mobile.GridView
+			 */
 			prototype._getTransformStyle = function (col, row, index) {
 				var x = col * 100 + "%",
 					y = row * 100 + "%",
@@ -472,6 +669,12 @@
 				return style;
 			};
 
+			/**
+			 * Remove style node
+			 * @method _removeGridStyle
+			 * @protected
+			 * @member ns.widget.mobile.GridView
+			 */
 			prototype._removeGridStyle = function() {
 				var styleElement = this._styleElement;
 
@@ -481,6 +684,13 @@
 				}
 			};
 
+			/**
+			 * Add an item to grid view
+			 * @method addItem
+			 * @public
+			 * @param {HTMLElement} item
+			 * @member ns.widget.mobile.GridView
+			 */
 			prototype.addItem = function (item) {
 				var self = this,
 					listElements = self._ui.listElements,
@@ -505,6 +715,13 @@
 				styleElement.textContent = styles.concat("\n" + self._getTransformStyle(col, row, length));
 			};
 
+			/**
+			 * Remove an item from grid view
+			 * @method removeItem
+			 * @public
+			 * @param {HTMLElement} item
+			 * @member ns.widget.mobile.GridView
+			 */
 			prototype.removeItem = function (item) {
 				var self = this,
 					element = self.element,
@@ -523,6 +740,14 @@
 				}
 			};
 
+			/**
+			 * Set label type for grid view
+			 * @method _setLabel
+			 * @protected
+			 * @param {HTMLElement} element
+			 * @param {string} label
+			 * @member ns.widget.mobile.GridView
+			 */
 			prototype._setLabel = function (element, label) {
 				var self = this,
 					options = self.options,
