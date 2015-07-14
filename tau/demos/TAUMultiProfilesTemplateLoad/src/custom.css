@@ -1,0 +1,44 @@
+pre {
+	font-size: 0.7em;
+}
+.mtemplate div {
+	height:30px;
+	width:100%;
+	background-image: url("img/mobile.png");
+	background-repeat: repeat;
+	background-size: 30px 30px;
+}
+.ttemplate .listContainer {
+	width: 200px;
+	float:left;
+}
+.ttemplate .imageContainer {
+	width: 600px;
+	float:left;
+}
+.ttemplate .imageContainer div{
+	height:30px;
+	width:600px;
+	background-image: url("img/tv.png");
+	background-repeat: repeat;
+	background-size: 30px 30px;
+}
+.ttemplate .imageContainer img{
+	width:600px;
+}
+	
+
+.wtemplate div {
+	height:30px;
+	width:100%;
+	background-image: url("img/watch.png");
+	background-repeat: repeat;
+	background-size: 30px 30px;
+}
+.mtemplate div, .ttemplate div, .wtemplate div{
+	text-align: center;
+}
+
+.movieimage {
+	background-image: url("img/movie.jpg");
+}
