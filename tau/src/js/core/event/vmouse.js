@@ -152,7 +152,7 @@
 				var evt = new CustomEvent(newType, {
 						"bubbles": original.bubbles,
 						"cancelable": original.cancelable,
-						"detail": original.detail
+						"detail": properties.detail || original.detail
 					}),
 					orginalType = original.type,
 					changeTouches,
@@ -202,7 +202,6 @@
 
 			eventProps = [
 				"currentTarget",
-				"detail",
 				"button",
 				"buttons",
 				"clientX",

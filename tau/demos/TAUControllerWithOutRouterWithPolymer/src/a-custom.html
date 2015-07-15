@@ -1,0 +1,26 @@
+<dom-module id="a-custom">
+    <script>
+        Polymer({
+            is: 'a-custom',
+            properties: {
+                "object": Object
+            },
+            attributeChanged: function () {
+                var self = this;
+                    console.log("attribute changed");
+                    if (this.object && this.id) {
+                        window.movieList[this.id] = this.object;
+                        var el2 = document.createElement('paper-item');
+                        el2.attached = function() {
+                            setTimeout(function() {
+                                document.querySelector("iron-list").scrollToIndex(0);
+                            });
+                        };
+                        el2.innerHTML = "<a href='#details/" + this.id + "'> <span>" + this.object.name + "</span>  </a>";
+                        this.appendChild(el2);
+                    }
+            }
+        });
+    </script>
+
+</dom-module>

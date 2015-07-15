@@ -168,7 +168,7 @@
 			 * @private
 			 */
 			function testTag(tagName, node) {
-				return node.tagName.toLowerCase() === tagName;
+				return ("" + node.tagName).toLowerCase() === tagName;
 			}
 
 			/**
