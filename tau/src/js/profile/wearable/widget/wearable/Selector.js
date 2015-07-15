@@ -699,7 +699,8 @@
 					activeLayer = ui.layers[self._activeLayerIndex],
 					activeLayerItemsLength = activeLayer.querySelectorAll(options.itemSelector).length,
 					prevLayer = activeLayer.previousElementSibling,
-					nextLayer = activeLayer.nextElementSibling;
+					nextLayer = activeLayer.nextElementSibling,
+					bounceDegree;
 
 				event.stopPropagation();
 				if (!options.indicatorAutoControl) {
@@ -712,9 +713,11 @@
 							self._activeItemIndex = self._activeItemIndex - activeLayerItemsLength - prevLayer.querySelectorAll(options.itemSelector).length + 1;
 							self._changeLayer(self._activeLayerIndex - 1);
 						} else {
-							setIndicatorTransform(ui.indicatorArrow, options.itemDegree * self._activeItemIndex + options.itemDegree / 3);
+							bounceDegree = DEFAULT.ITEM_START_DEGREE + options.itemDegree * (self._activeItemIndex % options.maxItemNumber);
+							setIndicatorTransform(ui.indicatorArrow, bounceDegree + options.itemDegree / 3);
+							//setIndicatorTransform(ui.indicatorArrow, options.itemDegree * self._activeItemIndex + options.itemDegree / 3);
 							setTimeout(function() {
-								setIndicatorTransform(ui.indicatorArrow, options.itemDegree * self._activeItemIndex);
+								setIndicatorTransform(ui.indicatorArrow, bounceDegree);
 							}, 100)
 						}
 					} else {
@@ -727,9 +730,9 @@
 							self._activeItemIndex = self._activeItemIndex + activeLayerItemsLength + nextLayer.querySelectorAll(options.itemSelector).length - 1;
 							self._changeLayer(self._activeLayerIndex + 1);
 						} else {
-							setIndicatorTransform(ui.indicatorArrow, -options.itemDegree / 3);
+							setIndicatorTransform(ui.indicatorArrow, DEFAULT.ITEM_START_DEGREE - DEFAULT.ITEM_START_DEGREE / 3);
 							setTimeout(function() {
-								setIndicatorTransform(ui.indicatorArrow, 0);
+								setIndicatorTransform(ui.indicatorArrow, DEFAULT.ITEM_START_DEGREE);
 							}, 100)
 						}
 					} else {
