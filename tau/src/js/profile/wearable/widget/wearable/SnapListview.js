@@ -285,7 +285,7 @@
 				ui.page = utilSelector.getClosestByClass(listview, "ui-page") || window;
 				scroller = getScrollableParent(listview) || ui.page;
 				scroller.classList.add(classes.SNAP_CONTAINER);
-				visiableOffset = ui.page.offsetHeight;
+				visiableOffset = scroller.clientHeight || ui.page.offsetHeight;
 
 				ui.scrollableParent.element = scroller;
 				ui.scrollableParent.height = visiableOffset;
