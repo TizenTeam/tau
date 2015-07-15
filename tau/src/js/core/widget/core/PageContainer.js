@@ -1,4 +1,4 @@
-/*global window, define */
+/*global window, define, ns */
 /* Copyright  2010 - 2014 Samsung Electronics Co., Ltd.
  * License : MIT License V2
  */
@@ -15,7 +15,7 @@
  * @author Piotr Karny <p.karny@samsung.com>
  * @author Krzysztof Głodowski <k.glodowski@samsung.com>
  */
-(function (document, ns) {
+(function (document) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
@@ -146,12 +146,16 @@
 							}
 							toPageWidget.onShow();
 							//>>excludeStart("tauPerformance", pragmas.tauPerformance);
-							window.tauPerf.get("framework", "Trigger: pagechange");
+							if (window.tauPerf) {
+								window.tauPerf.get("framework", "Trigger: pagechange");
+							}
 							//>>excludeEnd("tauPerformance");
 							self.trigger(EventType.PAGE_CHANGE);
 							//>>excludeStart("tauPerformance", pragmas.tauPerformance);
-							window.tauPerf.get("framework", "After trigger: pagechange");
-							window.tauPerf.finish();
+							if (window.tauPerf) {
+								window.tauPerf.get("framework", "After trigger: pagechange");
+								window.tauPerf.finish();
+							}
 							//>>excludeEnd("tauPerformance");
 						}
 					};
@@ -354,4 +358,4 @@
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
-}(window.document, ns));
+}(window.document));

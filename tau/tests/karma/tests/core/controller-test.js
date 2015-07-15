@@ -11,7 +11,15 @@ define(
 		"use strict";
 		var events = Controller.events;
 
-		historyManager.enable();
+		module("tau.controller", {
+			teardown: function () {
+				historyManager.disable();
+			},
+			setup: function () {
+				historyManager.enable();
+
+			}
+		});
 
 		test("class tests", function () {
 			equal(typeof Controller, "function", "controller class exists");

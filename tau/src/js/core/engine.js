@@ -1004,8 +1004,10 @@
 				 */
 				run: function () {
 					//>>excludeStart("tauPerformance", pragmas.tauPerformance);
-					window.tauPerf.start("framework");
-					window.tauPerf.get("framework", "run()");
+					if (window.tauPerf) {
+						window.tauPerf.start("framework");
+						window.tauPerf.get("framework", "run()");
+					}
 					//>>excludeEnd("tauPerformance");
 					stop();
 

@@ -1,4 +1,4 @@
-/*global window, define, Node, HTMLElement, ns */
+/*global window, define, HTMLElement, ns, Element */
 /*jslint nomen: true */
 /* Copyright  2010 - 2014 Samsung Electronics Co., Ltd.
  * License : MIT License V2
@@ -66,7 +66,6 @@
 				 * @private
 				 */
 				path = util.path,
-				pathToRegexp = util.pathToRegexp,
 				/**
 				 * Local alias for ns.util.selectors
 				 * @property {Object} selectors Alias for {@link ns.util.selectors}

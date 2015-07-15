@@ -9,7 +9,7 @@
  * @class ns.template
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  */
-(function (window, document, ns) {
+(function (window, document) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
@@ -206,4 +206,4 @@
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
-}(window, window.document, ns));
+}(window, window.document));

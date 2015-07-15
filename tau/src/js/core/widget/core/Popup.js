@@ -11,7 +11,7 @@
  * @class ns.widget.core.Popup
  * @extends ns.widget.Popup
  */
-(function (ns) {
+(function () {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
@@ -966,4 +966,4 @@
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
-}(ns));
+}());

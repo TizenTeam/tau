@@ -10,7 +10,7 @@
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  * @author Damian Osipiuk <d.osipiuk@samsung.com>
  */
-(function (window, document, ns) {
+(function (window, document) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
@@ -376,7 +376,7 @@
 					activePage = ns.router.Router.getInstance().getContainer().getActivePage(), //@TODO fix mutual inclision
 					popup;
 
-				popup = activePage.element.querySelector("[data-url='" + dataUrl + "']" + self.filter);
+				popup = activePage && activePage.element.querySelector("[data-url='" + dataUrl + "']" + self.filter);
 
 				if (!popup && dataUrl && !path.isPath(dataUrl)) {
 					popup = findPopupAndSetDataUrl(dataUrl, self.filter);
@@ -466,4 +466,4 @@
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
-}(window, window.document, ns));
+}(window, window.document));

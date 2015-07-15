@@ -23,7 +23,8 @@
 		var ns = ns || {
 					info: {
 						profile: "custom"
-					}
+					},
+					tauPerf: {}
 				},
 			nsConfig = nsConfig || {};
 		// in require mode we need export ns in windows

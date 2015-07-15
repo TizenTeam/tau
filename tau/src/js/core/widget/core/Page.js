@@ -206,7 +206,7 @@
  * @author Piotr Karny <p.karny@samsung.com>
  * @author Damian Osipiuk <d.osipiuk@samsung.com>
  */
-(function (document, ns) {
+(function (document) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
@@ -714,7 +714,9 @@
 			 */
 			prototype.onShow = function () {
 				//>>excludeStart("tauPerformance", pragmas.tauPerformance);
-				window.tauPerf.get("framework", "Trigger: pageshow");
+				if (window.tauPerf) {
+					window.tauPerf.get("framework", "Trigger: pageshow");
+				}
 				//>>excludeEnd("tauPerformance");
 				this.trigger(EventType.SHOW);
 			};
@@ -806,4 +808,4 @@
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
-}(window.document, ns));
+}(window.document));
