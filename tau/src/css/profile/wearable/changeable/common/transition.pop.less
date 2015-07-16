@@ -1,31 +1,60 @@
-@-webkit-keyframes popnone {
-    from { opacity: 1; }
-    to { opacity: 1; }
-}
 @-webkit-keyframes popin {
-    from { transform: scale3d(0, 0, 1); }
-    to { transform: scale3d(1, 1, 1); }
+    from {
+		transform: scale3d(0.3, 0.3, 1);
+		opacity: 0;
+	}
+    to {
+		transform: scale3d(1, 1, 1);
+		opacity: 1;
+	}
 }
 @-webkit-keyframes popout {
-    from { transform: scale3d(1, 1, 1); }
-    to { transform: scale3d(0, 0, 1); }
+    from {
+		transform: scale3d(1, 1, 1);
+		opacity: 1;
+	}
+    to {
+		transform: scale3d(1.7, 1.7, 1);
+		opacity: 0;
+	}
+}
+@-webkit-keyframes popoutreverse {
+	from {
+		transform: scale3d(1, 1, 1);
+		opacity: 1;
+	}
+	to {
+		transform: scale3d(0.3, 0.3, 1);
+		opacity: 0;
+	}
+}
+@-webkit-keyframes popinreverse {
+	from {
+		transform: scale3d(1.7, 1.7, 1);
+		opacity: 0;
+	}
+	to {
+		transform: scale3d(1, 1, 1);
+		opacity: 1;
+	}
 }
 .pop.out.reverse {
-	z-index:200;
+	z-index:100;
 	-webkit-animation-duration: 225ms;
-	-webkit-animation-name: popout;
+	-webkit-animation-name: popoutreverse;
 	-moz-animation-duration: 225ms;
-	-moz-animation-name: popout;
+	-moz-animation-name: popoutreverse;
 	animation-duration: 225ms;
-	animation-name: popout;
+	animation-name: popoutreverse;
 }
 .pop.in.reverse {
+	z-index:200;
 	-webkit-animation-duration: 225ms;
-	-webkit-animation-name: popnone;
+	-webkit-animation-name: popinreverse;
 	-moz-animation-duration: 225ms;
-	-moz-animation-name: popnone;
+	-moz-animation-name: popinreverse;
 	animation-duration: 225ms;
-	animation-name: popnone;
+	animation-name: popinreverse;
 }
 .pop.in {
 	-webkit-animation-duration: 225ms;
@@ -34,4 +63,13 @@
 	-moz-animation-name: popin;
 	animation-duration: 225ms;
 	animation-name: popin;
+}
+.pop.out {
+	z-index:200;
+	-webkit-animation-duration: 225ms;
+	-webkit-animation-name: popout;
+	-moz-animation-duration: 225ms;
+	-moz-animation-name: popout;
+	animation-duration: 225ms;
+	animation-name: popout;
 }
