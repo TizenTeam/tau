@@ -94,6 +94,8 @@
 					SELECTED: "selected"
 				},
 
+				animationTimer = null,
+
 				SnapListview = function() {
 					var self = this;
 
@@ -140,7 +142,7 @@
 				},
 
 				// time threshold for detect scroll end
-				SCROLL_END_TIME_THRESHOLD = 300;
+				SCROLL_END_TIME_THRESHOLD = 100;
 
 			SnapListview.classes = classes;
 
@@ -445,21 +447,64 @@
 			 * @member ns.widget.wearable.SnapListview
 			 */
 			prototype.scrollToPosition = function(index) {
-				var ui = this._ui,
-					enabled = this._enabled,
-					listItems = this._listItems,
+				var self = this,
+					ui = self._ui,
+					enabled = self._enabled,
+					listItems = self._listItems,
 					scrollableParent = ui.scrollableParent,
 					listItemLength = listItems.length,
-					indexItem;
+					indexItem,
+					dest;
 
-				if (!enabled || index < 0 || index > listItemLength-1) {
+				if (!enabled || index < 0 || index >= listItemLength) {
 					return;
 				}
 
+				removeSelectedClass(self);
+				
 				indexItem = listItems[index].coord;
+				dest = indexItem.top - scrollableParent.height / 2 + indexItem.height / 2;
 
-				scrollableParent.element.scrollTop = indexItem.top - scrollableParent.height / 2 + indexItem.height / 2;
+				self._selectedIndex = index;
+
+				if(animationTimer !== null) {
+					window.cancelAnimationFrame(animationTimer);
+					animationTimer = null;
+				}
+				scrollAnimation(scrollableParent.element, scrollableParent.element.scrollTop, dest, 450);
 			};
+
+			function cubicBezier (x1, y1, x2, y2) {
+				return function (t) {
+					var rp = 1 - t, rp3 = 3 * rp, p2 = t * t, p3 = p2 * t, a1 = rp3 * t * rp, a2 = rp3 * p2;
+					return a1 * y1 + a2 * y2 + p3;
+				};
+			}
+
+			function scrollAnimation(element, from, to, duration) {
+				var easeOut = cubicBezier(0.25, 0.46, 0.45, 1),
+					startTime = 0,
+					currentTime = 0,
+					progress = 0,
+					easeProgress = 0,
+					distance = to - from,
+					scrollTop = element.scrollTop;
+
+				startTime = window.performance.now();
+				animationTimer = window.requestAnimationFrame(function animation() {
+					var gap;
+					currentTime = window.performance.now();
+					progress = (currentTime - startTime) / duration;
+					easeProgress = easeOut(progress);
+					gap = distance * easeProgress;
+					element.scrollTop = scrollTop + gap;
+					if (progress <= 1 && progress >= 0) {
+						animationTimer = window.requestAnimationFrame(animation);
+					} else {
+						animationTimer = null;
+					}
+				});
+			}
 
 			SnapListview.prototype = prototype;
 			ns.widget.wearable.SnapListview = SnapListview;
