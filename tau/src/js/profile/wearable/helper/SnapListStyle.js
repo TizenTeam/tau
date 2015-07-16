@@ -34,15 +34,15 @@
 				prototype = SnapListStyle.prototype;
 
 			function rotaryDetentHandler(e) {
-					var snapListviewWidget = this._snapListviewWidget,
-						selectedIndex = snapListviewWidget.getSelectedIndex(),
-						direction = e.detail.direction;
+				var snapListviewWidget = this._snapListviewWidget,
+					selectedIndex = snapListviewWidget.getSelectedIndex(),
+					direction = e.detail.direction;
 
-					if (direction === "CW" && selectedIndex !== null) {
-						snapListviewWidget.scrollToPosition(selectedIndex + 1);
-					} else if (direction === "CCW" && selectedIndex !== null) {
-						snapListviewWidget.scrollToPosition(selectedIndex - 1);
-					}
+				if (direction === "CW" && selectedIndex !== null) {
+					 snapListviewWidget.scrollToPosition(++selectedIndex);
+				} else if (direction === "CCW" && selectedIndex !== null) {
+					 snapListviewWidget.scrollToPosition(--selectedIndex);
+				}
 			}
 
 			prototype.init = function(listDomElement, options) {
