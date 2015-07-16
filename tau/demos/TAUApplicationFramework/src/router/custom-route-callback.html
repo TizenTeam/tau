@@ -11,38 +11,28 @@
 		<script src="../js/highlighting.js"></script>
 	</head>
 	<body>
-		<div class="ui-page" id="custom-route-page-template">
+		<div class="ui-page" id="custom-route-string-page">
 			<header>
-				<h2 class="ui-title">Loading pages from templates</h2>
+				<h2 class="ui-title">Loading pages from string</h2>
 			</header>
-			<div class="ui-content">
+			<div data-role="content">
 				<pre><code class="javascript">
 var controller = tau.Controller.getInstance();
-controller.addRoute("page-template", function (deferred) {
-	tau.template.render("templates/page-template.html", {}, function (status, data) {
-		if (status.success) {
-			deferred.resolve(data.body);
-		} else {
-			deferred.reject();
-		}
-	});
+controller.addRoute("page-string", function (deferred) {					
+	alert("Hello world");
+	deferred.resolve();
 });
 				</code></pre>
 			</div>
 			<script>
 				var controller = tau.Controller.getInstance();
-				controller.addRoute("page-template", function (deferred) {
-					tau.template.render("templates/page-template.html", {}, function (status, data) {
-						if (status.success) {
-							deferred.resolve(data); // @TODO THIS HAS TO BE FIXED IN TEMPLATES!!
-						} else {
-							deferred.reject();
-						}
-					});
+				controller.addRoute("page-string", function (deferred) {					
+					alert("Hello world");
+					deferred.resolve();
 				});
 			</script>
 			<footer>
-				<a class="ui-btn ui-button" href="#page-template">Test it</a>
+				<a class="ui-btn ui-button" href="#page-string">Test it</a>
 			</footer>
 		</div>
 	</body>

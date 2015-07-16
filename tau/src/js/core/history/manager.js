@@ -8,6 +8,7 @@
 			"../engine",
 			"../event",
 			"../history",
+			"../event/vmouse",
 			"../util",
 			"../util/selectors",
 			"../util/DOM",

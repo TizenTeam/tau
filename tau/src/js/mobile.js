@@ -38,11 +38,11 @@
 			//>>excludeStart("tauPerformance", pragmas.tauPerformance);
 			"./tools/performance",
 			//>>excludeEnd("tauPerformance")
+			//>>excludeStart("tauUI", pragmas.tauUI);
 			"./core/core",
 			"./core/config",
 			"./profile/mobile/config",
 			"./core/support",
-			"./core/info",
 			"./jqm/all",
 			"./core/engine",
 			"./core/frameworkData",
@@ -71,8 +71,6 @@
 			"./core/event/throttledresize",
 			"./core/event/orientationchange",
 			"./core/event/touch",
-			// controller
-			"./core/controller",
 			// widget list
 			"./core/widget/core/Checkboxradio",
 			"./core/widget/core/Button",
@@ -122,25 +120,29 @@
 			"./core/history/manager",
 			// router modules
 			"./core/router/Router",
-			"./core/template/html",
 			"./core/router/route/page",
 			"./core/router/route/popup",
 			"./core/router/route/drawer",
 			"./profile/mobile/router/route/dialog",
+			"./core/util/pathToRegexp",
 			"./profile/wearable/expose",
 			"./core/widget/core/Box",
 			"./core/layout/float",
 			"./core/layout/linear",
 			"./core/layout/relative",
 			// Modules to be loaded after
-			"./core/init",
 			//documentation pages
 			"./profile/mobile/page/layout",
 			"./profile/mobile/page/multipage",
 			"./profile/mobile/page/change",
 			"./profile/mobile/page/pageevents",
-			// app framework modules
-			"./core/util/pathToRegexp"
+			//>>excludeEnd("tauUI");
+			//>>excludeStart("tauMVC", pragmas.tauMVC);
+			"./core/controller",
+			//>>excludeEnd("tauMVC");
+			"./core/template/html",
+			"./core/info",
+			"./core/init"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");

@@ -8,11 +8,11 @@
 			//>>excludeStart("tauPerformance", pragmas.tauPerformance);
 			"./tools/performance",
 			//>>excludeEnd("tauPerformance");
+			//>>excludeStart("tauUI", pragmas.tauUI);
 			"./core/core",
 			"./core/config",
 			"./core/support/tizen",
 			"./profile/wearable/config",
-			"./core/info",
 			"./core/engine",
 			// widget list
 			"./core/util/anchorHighlight",
@@ -42,10 +42,9 @@
 			"./profile/wearable/helper/SnapListMarqueeStyle",
 			"./profile/wearable/helper/HeaderMarqueeStyle",
 			"./profile/wearable/helper/DrawerMoreStyle",
-			"./core/router/Router",
-			"./core/template/html",
 			"./core/history",
 			"./core/history/manager",
+			"./core/router/Router",
 			"./core/router/route/page",
 			"./core/router/route/popup",
 			"./core/router/route/drawer",
@@ -53,10 +52,14 @@
 			"./profile/wearable/expose",
 			"./profile/wearable/backward",
 			// Modules to be loaded after
-			"./core/init",
-			// app framework modules
+			//>>excludeEnd("tauUI");
+			//>>excludeStart("tauMVC", pragmas.tauMVC);
 			"./core/util/pathToRegexp",
-			"./core/controller"
+			"./core/controller",
+			//>>excludeEnd("tauMVC");
+			"./core/template/html",
+			"./core/info",
+			"./core/init"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");

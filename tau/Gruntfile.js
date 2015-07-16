@@ -244,7 +244,55 @@ module.exports = function(grunt) {
 						name: "wearable",
 						out: path.join( buildDir.wearable.js, name ) + ".js",
 						pragmas: {
-							tauPerformance: !tauPerformance
+							tauPerformance: !tauPerformance,
+							tauMVC: true,
+							tauUI: false
+						},
+						pragmasOnSave: {
+							tauBuildExclude: true,
+							tauDebug: !tauDebug
+						},
+						wrap: {
+							start: wrapStart,
+							end: wrapEnd
+						}
+					}
+				},
+				wearableMVC: {
+					options: {
+						baseUrl: srcJs,
+						optimize: "none",
+						findNestedDependencies: true,
+						skipModuleInsertion: true,
+						name: "wearable",
+						out: path.join( buildDir.wearable.js, name ) + ".mvc.js",
+						pragmas: {
+							tauPerformance: !tauPerformance,
+							tauMVC: false,
+							tauUI: true
+						},
+						pragmasOnSave: {
+							tauBuildExclude: true,
+							tauDebug: !tauDebug
+						},
+						wrap: {
+							start: wrapStart,
+							end: wrapEnd
+						}
+					}
+				},
+				wearableFull: {
+					options: {
+						baseUrl: srcJs,
+						optimize: "none",
+						findNestedDependencies: true,
+						skipModuleInsertion: true,
+						name: "wearable",
+						out: path.join( buildDir.wearable.js, name ) + ".full.js",
+						pragmas: {
+							tauPerformance: !tauPerformance,
+							tauMVC: false,
+							tauUI: false
 						},
 						pragmasOnSave: {
 							tauBuildExclude: true,
@@ -266,7 +314,55 @@ module.exports = function(grunt) {
 						name: "mobile",
 						out: path.join( buildDir.mobile.js, name ) + ".js",
 						pragmas: {
-							tauPerformance: !tauPerformance
+							tauPerformance: !tauPerformance,
+							tauMVC: true,
+							tauUI: false
+						},
+						pragmasOnSave: {
+							tauBuildExclude: true,
+							tauDebug: !tauDebug
+						},
+						wrap: {
+							start: wrapStart,
+							end: wrapEnd
+						}
+					}
+				},
+				mobileMVC: {
+					options: {
+						baseUrl: srcJs,
+						optimize: "none",
+						findNestedDependencies: true,
+						skipModuleInsertion: true,
+						name: "mobile",
+						out: path.join( buildDir.mobile.js, name ) + ".mvc.js",
+						pragmas: {
+							tauPerformance: !tauPerformance,
+							tauMVC: false,
+							tauUI: true
+						},
+						pragmasOnSave: {
+							tauBuildExclude: true,
+							tauDebug: !tauDebug
+						},
+						wrap: {
+							start: wrapStart,
+							end: wrapEnd
+						}
+					}
+				},
+				mobileFull: {
+					options: {
+						baseUrl: srcJs,
+						optimize: "none",
+						findNestedDependencies: true,
+						skipModuleInsertion: true,
+						name: "mobile",
+						out: path.join( buildDir.mobile.js, name ) + ".full.js",
+						pragmas: {
+							tauPerformance: !tauPerformance,
+							tauMVC: false,
+							tauUI: false
 						},
 						pragmasOnSave: {
 							tauBuildExclude: true,
@@ -288,7 +384,55 @@ module.exports = function(grunt) {
 						name: "tv",
 						out: path.join( buildDir.tv.js, name ) + ".js",
 						pragmas: {
-							tauPerformance: !tauPerformance
+							tauPerformance: !tauPerformance,
+							tauMVC: true,
+							tauUI: false
+						},
+						pragmasOnSave: {
+							tauBuildExclude: true,
+							tauDebug: !tauDebug
+						},
+						wrap: {
+							start: wrapStart,
+							end: wrapEnd
+						}
+					}
+				},
+				tvMVC: {
+					options: {
+						baseUrl: srcJs,
+						optimize: "none",
+						findNestedDependencies: true,
+						skipModuleInsertion: true,
+						name: "tv",
+						out: path.join( buildDir.tv.js, name ) + ".mvc.js",
+						pragmas: {
+							tauPerformance: !tauPerformance,
+							tauMVC: false,
+							tauUI: true
+						},
+						pragmasOnSave: {
+							tauBuildExclude: true,
+							tauDebug: !tauDebug
+						},
+						wrap: {
+							start: wrapStart,
+							end: wrapEnd
+						}
+					}
+				},
+				tvFull: {
+					options: {
+						baseUrl: srcJs,
+						optimize: "none",
+						findNestedDependencies: true,
+						skipModuleInsertion: true,
+						name: "tv",
+						out: path.join( buildDir.tv.js, name ) + ".full.js",
+						pragmas: {
+							tauPerformance: !tauPerformance,
+							tauMVC: false,
+							tauUI: false
 						},
 						pragmasOnSave: {
 							tauBuildExclude: true,
