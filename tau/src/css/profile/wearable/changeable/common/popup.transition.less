@@ -69,29 +69,41 @@ Popup Transition
 .ui-popup {
 	&.pop.in {
 		-webkit-animation-name: popuppopin;
-		-webkit-animation-duration: 250ms;
+		-webkit-animation-duration: 350ms;
 		-webkit-transition-timing-function: ease-in-out;
 		animation-name: popuppopin;
-		animation-duration: 250ms;
+		animation-duration: 350ms;
 		transition-timing-function: ease-in-out;
 	}
 	&.pop.out {
 		-webkit-animation-name: popuppopout;
-		-webkit-animation-duration: 250ms;
+		-webkit-animation-duration: 350ms;
 		-webkit-transition-timing-function: ease-in-out;
 		animation-name: popuppopout;
-		animation-duration: 250ms;
+		animation-duration: 350ms;
 		transition-timing-function: ease-in-out;
 	}
 }
 
 @-webkit-keyframes popuppopin {
-    from { transform: scale3d(0, 0, 1); }
-    to { transform: scale3d(1, 1, 1); }
+    from {
+		transform: scale3d(1.35, 1.35, 1);
+		opacity: 0;
+	}
+    to {
+		transform: scale3d(1, 1, 1);
+		opacity: 1;
+	}
 }
 @-webkit-keyframes popuppopout {
-    from { transform: scale3d(1, 1, 1); }
-    to { transform: scale3d(0, 0, 1); }
+    from {
+		transform: scale3d(1, 1, 1);
+		opacity: 1;
+	}
+    to {
+		transform: scale3d(1.35, 1.35, 1);
+		opacity: 0;
+	}
 }
 /****************************************
 Popup Overlay Transition
