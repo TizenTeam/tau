@@ -99,7 +99,11 @@
 					 * @member ns.widget.wearable.SectionChanger
 					 */
 					CHANGE: "sectionchange"
+				},
+				classes = {
+					uiSectionChanger: "ui-section-changer"
 				};
+
 
 			function SectionChanger() {
 				this.options = {};
@@ -132,6 +136,7 @@
 					this.beforeIndex = 0;
 
 					this._super(element);
+					element.classList.add(classes.uiSectionChanger);
 					return element;
 				},
 
