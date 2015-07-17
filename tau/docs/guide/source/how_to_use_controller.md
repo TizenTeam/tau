@@ -100,39 +100,30 @@ The code above has the following flow:
 * template is rendered if the data was retrieved
 * if not then the router will stop the action and page from template will not be loaded. This is done by `deferred.reject` method
 
-## Loading popups from templates
+TAU has template mechanism that supports multiple view based on which device you are working.
+You can define multiple views of one template:
 
-Example of popup loaded from template.
+Files in MyApplication/src/templates:
 
-```
-<script type="text/javascript">
-	var controller = tau.Controller.getInstance();
-	controller.addRoute("popup-template", function (deferred) {
-		tau.template.render("templates/popup-template.html", {}, function (status, data) {
-			var page = document.getElementById("custom-route-popup-template"),
-				popup = document.getElementById("popup-template");
-			// check if popup exists and remove it
-			if (popup) {
-				tau.engine.getBinding(popup).destroy();
-				popup.parentNode.removeChild(popup);
-			}
-			// add popup to page
-			page.appendChild(data);
-			// resolve or reject deferred
-			if (status.success) {
-				deferred.resolve(data);
-			} else {
-				deferred.reject();
-			}
+ - page-template.html _file with default template_
+ - page-template.mobile.html _file with template for mobile profile_
+ - page-template.tv.html _file with template for TV profile_
+ - page-template.wearable.html _file with template for wearable profile_
+
+Open a page defined in template.
+
+	<script type="text/javascript">
+		var controller = tau.Controller.getInstance();
+		controller.addRoute("page-template", function (deferred) {
+			tau.template.render("templates/page-template.html", {}, function (status, data) {
+				if (status.success) {
+					deferred.resolve(data);
+				} else {
+					deferred.reject();
+				}
+			});
 		});
-	});
-</script>
-```
+	</script>
 
-The code above has the following flow:
-* "popup-template" route is registered
-* user is navigated to "popup-template"
-* popup template is downloaded by `tau.template.render`
-* popup template is loaded
-* popup template is attached to the page
-* page with the popup is rendered
+At first it tries to find template with the name of current profile in suffix. If it can't find specific view it will choose "page-template.html".
+
