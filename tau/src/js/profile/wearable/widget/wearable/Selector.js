@@ -406,6 +406,7 @@
 					i, len;
 
 				self._started = false;
+				self._enabled = true;
 				self._activeItemIndex = activeItemIndex === null ? 0 : activeItemIndex;
 				options.itemRadius = options.itemRadius < 0 ? validLayout / 2 * STATIC.RADIUS_RATIO : options.itemRadius;
 				len = items.length;
@@ -678,6 +679,9 @@
 					pointedElement = document.elementFromPoint(event.pageX, event.pageY),
 					index;
 
+				if (!self._enabled) {
+					return;
+				}
 				if (pointedElement && pointedElement.classList.contains(classes.ITEM)) {
 					index = parseInt(utilDom.getNSData(pointedElement, "index"), 10);
 					self._setActiveItem(index);
@@ -702,10 +706,11 @@
 					nextLayer = activeLayer.nextElementSibling,
 					bounceDegree;
 
-				event.stopPropagation();
-				if (!options.indicatorAutoControl) {
+				if (!options.indicatorAutoControl || !self._enabled) {
 					return;
 				}
+				event.stopPropagation();
+
 				if (direction === "CW") {
 					// check length
 					if (self._activeItemIndex === (activeLayerItemsLength + self._activeLayerIndex * options.maxItemNumber) - 1) {
@@ -877,6 +882,26 @@
 				self._ui = null;
 			};
 
+			/**
+			 * Disable Selector
+			 * @method _disable
+			 * @protected
+			 * @member ns.widget.wearable.Selector
+			 */
+			prototype._disable = function() {
+				this._enabled = false;
+			};
+
+			/**
+			 * Enable Selector
+			 * @method _enable
+			 * @protected
+			 * @member ns.widget.wearable.Selector
+			 */
+			prototype._enable = function() {
+				this._enabled = true;
+			};
+
 			ns.widget.wearable.Selector = Selector;
 			engine.defineWidget(
 				"Selector",
@@ -884,7 +909,9 @@
 				[
 					"changeItem",
 					"addItem",
-					"removeItem"
+					"removeItem",
+					"enable",
+					"disable"
 				],
 				Selector,
 				"wearable"
