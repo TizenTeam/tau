@@ -191,6 +191,16 @@
 				});
 			};
 
+			/**
+			 * Removes routes routes from routing table
+			 * @param {string} path
+			 * @member ns.Controller
+			 * @method removeRoute
+			 */
+			proto.removeAllRoutes = function (path) {
+				this.routes = [];
+			};
+
 			proto.init = function () {
 				var self = this;
 

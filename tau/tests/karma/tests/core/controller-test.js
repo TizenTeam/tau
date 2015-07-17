@@ -13,6 +13,8 @@ define(
 
 		module("tau.controller", {
 			teardown: function () {
+				var c = Controller.getInstance();
+				c.removeAllRoutes();
 				historyManager.disable();
 			},
 			setup: function () {
@@ -121,6 +123,7 @@ define(
 				},
 				oncontent = function (event) {
 					var options = event.detail;
+					document.removeEventListener(events.PATH_REJECTED, onfailure, false);
 					document.removeEventListener(events.CONTENT_AVAILABLE, oncontent, false);
 					equal(options.content, "test", "content passed");
 				},
@@ -149,12 +152,12 @@ define(
 					start();
 				},
 				c = Controller.getInstance(),
-				button = document.createElement("a");
+				link = document.createElement("a");
 			c.init();
 			c.addRoute("testhash", callback);
-			button.href = "#testhash";
-			document.body.appendChild(button);
-			button.click();
+			link.href = "#testhash";
+			document.body.appendChild(link);
+			link.click();
 		});
 
 		asyncTest("hashchange back call", 1, function () {
