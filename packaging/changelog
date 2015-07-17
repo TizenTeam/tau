@@ -1,4 +1,17 @@
 %changelog
+* Fri Jul 17 2015 Hagun Kim <hagun.kim@samsung.com> 0.10.29-2
+	- fix(wearable): add enable/disable to Selector
+	- fix(wearable): modify Selector with drawer sample UX
+	- refactor(demo): rename indicator sample from bar to linear
+	- fix(wearable): add animation-fill-mode in page transition
+	- refactor(wearable): add class automatically in section changer
+	- refactor(wearable): add refresh logic in enable method in snap list
+	- refactor(wearable): update color code xml for wc1
+	- fix(wearable): modify snap list animation when using rotary
+	- fix(wearable): modify snap list for using in section changer
+	- fix(wearable): fix page, popup transition animation type
+	- fix(wearable): fix Selector bouncing effect issue
+
 * Mon Jul 13 2015 Hagun Kim <hagun.kim@samsung.com> 0.10.29-1
 	- fix(mobile2.3.1): add destroy method in slider
 	- fix(wearable): modify base degree of items and indicator
