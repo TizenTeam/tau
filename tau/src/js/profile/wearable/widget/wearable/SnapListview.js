@@ -417,7 +417,10 @@
 					scrollableParent = self._ui.scrollableParent.element;
 
 				scrollableParent.classList.remove(classes.SNAP_DISABLED);
-				self._enabled = true;
+				if (!self._enabled) {
+					self._enabled = true;
+					self._refresh();
+				}
 			};
 
 			prototype._disable = function() {
