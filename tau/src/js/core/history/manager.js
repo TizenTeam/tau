@@ -48,12 +48,16 @@
 			}
 
 			function onLinkAction(event) {
-				var link = selectorUtils.getClosestByTag(event.target, LINK_SELECTOR),
+				var target = event.target,
+					link = selectorUtils.getClosestByTag(target, LINK_SELECTOR),
 					href = null,
 					useDefaultUrlHandling = false,
 					options = {}, // this should be empty object but some utils that work on it
 					rel = null;   // require hasOwnProperty :(
 
+				//>>excludeStart("tauDebug", pragmas.tauDebug);
+				ns.log("Link was clicked:", target.tagName || (target.documentElement && "document") + "#" + (target.id || "--no-id--"));
+				//>>excludeEnd("tauDebug");
 				if (link && event.which === 1) {
 					href = link.getAttribute("href");
 					rel = link.getAttribute("rel");
@@ -85,6 +89,9 @@
 					options = {},
 					reverse = false,
 					continuation = true;
+				//>>excludeStart("tauDebug", pragmas.tauDebug);
+				ns.log("popstate event:", state && state.url, state, lastState);
+				//>>excludeEnd("tauDebug");
 				if (manager.locked) {
 					history.disableVolatileMode();
 					if (lastState) {
@@ -112,6 +119,9 @@
 
 			function onHashChange(event) {
 				var newURL = event.newURL;
+				//>>excludeStart("tauDebug", pragmas.tauDebug);
+				ns.log("hashchange event:", newURL);
+				//>>excludeEnd("tauDebug");
 				if (newURL) {
 					triggerStateChange({href: newURL, fromHashChange: true});
 				}

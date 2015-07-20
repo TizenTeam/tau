@@ -67,11 +67,13 @@
 					var matches = route.regexp.exec(path),
 						deferredTemplate = {},
 						params = [];
-					if (matches && matches.length > 0 && controller.currentRoute !== route) {
+					if (matches && matches.length > 0) {
 						deferredTemplate.resolve = function (content) {
 							if (content) {
-								options.fromHashChange = true;
-								eventUtils.trigger(document, EVENT_CONTENT_AVAILABLE, {content: content, options: options});
+								if (eventUtils.trigger(document, EVENT_CONTENT_AVAILABLE, {content: content, options: options})) {
+									// Routes save path to history and we nedd block saving to history by controller
+									options.notSaveToHistory = true;
+								}
 							}
 							deferred.resolve(options, content);
 							controller.currentRoute = route;
@@ -98,6 +100,10 @@
 					deferred = {},
 					state = {};
 
+				//>>excludeStart("tauDebug", pragmas.tauDebug);
+				ns.log("historystatechange event:", url, options);
+				//>>excludeEnd("tauDebug");
+
 				if (options.rel === "back") {
 					history.back();
 					eventUtils.preventDefault(event);
@@ -107,7 +113,10 @@
 
 				deferred.resolve = function (options) {
 					// change URL
-					if (!options.fromHashChange) {
+					//>>excludeStart("tauDebug", pragmas.tauDebug);
+					ns.log("resolve with options:", options);
+					//>>excludeEnd("tauDebug");
+					if (!options.fromHashChange && !options.notSaveToHistory) {
 						// insert to history only if not from hashchange event
 						// hash change event has own history item
 						state = object.merge(
