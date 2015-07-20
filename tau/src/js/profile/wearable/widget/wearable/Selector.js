@@ -805,9 +805,11 @@
 					console.warn("Please insert index between 0 to layers number");
 					return;
 				}
+				self._enabled = false;
 				self._hideItems(activeLayer);
 				setTimeout(function() {
 					self._setActiveLayer(index);
+					self._enabled = true;
 				}, 150);
 
 			};
