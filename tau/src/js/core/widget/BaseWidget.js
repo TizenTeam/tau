@@ -288,6 +288,8 @@
 					self._configure(element);
 				}
 
+				self.isCustomElement = !!element.createdCallback;
+
 				self._getCreateOptions(element);
 
 				objectUtils.fastMerge(self.options, options);
@@ -310,7 +312,7 @@
 						// based on widget.options property keys
 						var value = domUtils.getNSData(element, (option.replace(bigRegexp, function (c) {
 							return "-" + c.toLowerCase();
-						})));
+						})), null, self.isCustomElement);
 
 						if (value !== null) {
 							options[option] = value;

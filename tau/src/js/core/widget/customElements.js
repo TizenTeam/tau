@@ -18,13 +18,15 @@
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
-			var engine = ns.engine;
+			var engine = ns.engine,
+				registerdTags = {};
 
 			function defineCustomElement(event) {
 				try {
 					var name = event.detail.name,
 						BaseElement = event.detail.BaseElement || HTMLElement,
-						CustomWidgetProto = Object.create(BaseElement.prototype);
+						CustomWidgetProto = Object.create(BaseElement.prototype),
+						tagName = "tau-" + name.toLowerCase();
 
 					CustomWidgetProto._tauName = name;
 
@@ -61,16 +63,19 @@
 						}
 					};
 
-					document.registerElement("tau-" + name.toLowerCase(), {prototype: CustomWidgetProto});
+					if (registerdTags[tagName]) {
+						ns.warn(tagName + " already registred");
+					} else {
+						registerdTags[tagName] = document.registerElement(tagName, {prototype: CustomWidgetProto});
+					}
+
 				} catch (e) {
 					console.log(e);
 				}
 			}
 
-			if (typeof document.registerElement === "function") {
+			if (typeof document.registerElement === "function" && ns.getConfig("registerCustomElements", true)) {
 				document.addEventListener("widgetdefined", defineCustomElement);
-
-				ns.setConfig("useDataAttributes", false, true);
 			}
 
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);

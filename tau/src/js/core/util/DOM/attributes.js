@@ -79,10 +79,10 @@
 				return result;
 			};
 
-			function getDataName(name) {
+			function getDataName(name, skipData) {
 				var namespace = ns.getConfig(namespace),
 					prefix = "";
-				if (!ns.getConfig("useDataAttributes")) {
+				if (!skipData) {
 					prefix = "data-";
 				}
 				return prefix + (namespace ? namespace + "-" : "") + name;
@@ -123,12 +123,13 @@
 			 * @method getNSData
 			 * @param {HTMLElement} element Base element
 			 * @param {string} name Name of attribute
+			 * @param {boolean} skipData
 			 * @member ns.util.DOM
 			 * @return {?string|boolean}
 			 * @static
 			 */
-			DOM.getNSData = function (element, name) {
-				var value = element.getAttribute(getDataName(name));
+			DOM.getNSData = function (element, name, skipData) {
+				var value = element.getAttribute(getDataName(name, skipData));
 
 				if (value === "true") {
 					return true;

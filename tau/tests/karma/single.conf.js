@@ -27,6 +27,8 @@ module.exports = function (config) {
             {pattern: "tests/libs/jquery.js", included: true, served: true},
             {pattern: "libs/path-to-regexp.js", included: false, served: true},
             {pattern: "tests/libs/require.js", included: false, served: true},
+            {pattern: "demos/SDK/mobile/UIComponents/**/*", included: false, served: true},
+            {pattern: "demos/SDK/mobile/UIComponentsCE/**/*", included: false, served: true},
             {pattern: "tests/karma/tests/helpers.js", included: false, served: true, watch: true},
             {pattern: "tests/js/core/router/Router/test-data/externalPage.html", included: false, served: true, watch: false},
             {pattern: "tests/js/core/router/Router/**/*.js", included: false, served: true, watch: false},
