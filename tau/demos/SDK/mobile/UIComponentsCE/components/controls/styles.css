@@ -1,0 +1,12 @@
+.ui-checkbox {
+	top: 8px;
+}
+.ui-radio {
+	top: 4px;
+}
+.checkbox-result,
+.favorite-result,
+.radio-result{
+	text-align: center;
+	line-height: 50px
+}

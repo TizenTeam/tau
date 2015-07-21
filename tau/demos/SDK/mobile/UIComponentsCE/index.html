@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width,user-scalable=no"/>
+	<script src="lib/jquery.js"></script>
+	<script src="./js/jquery.tmpl.min.js"></script>
+	<script type="text/javascript" src="./lib/tau/mobile/js/tau.js" data-build-remove="false"></script>
+	<link rel="stylesheet" href="./lib/tau/mobile/theme/default/tau.css">
+	<link rel="stylesheet" href="./css/custom.css">
+	<title>Tizen ui</title>
+
+	<!-- for compatibility test -->
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<link rel="apple-touch-icon" href="icon-tizen.png" />
+</head>
+
+<body>
+	<tau-page class="ui-page" id="main">
+		<div class="ui-header" data-position="fixed">
+			<h1>Tizen Web UI</h1>
+		</div>
+		<tau-scrollview class="ui-content">
+			<tau-listview>
+				<li class="ui-group-index">UI Components</li>
+				<li class="ui-li-anchor"><a href="components/headerfooter/index.html">Header and Footer</a></li>
+				<li class="ui-li-anchor"><a href="components/navigationelements/index.html">Navigation Elements</a></li>
+				<li class="ui-li-anchor"><a href="components/list/index.html">List</a></li>
+				<li class="ui-li-anchor"><a href="components/controls/index.html">Controls</a></li>
+				<li class="ui-li-anchor"><a href="components/popup/index.html">Popup</a></li>
+				<li class="ui-li-anchor"><a href="components/gallery/gallery.html">Gallery</a></li>
+				<li class="ui-li-anchor"><a href="components/multimediaview/index.html">Multimedia View</a></li>
+			</tau-listview>
+		</tau-scrollview>
+	</tau-page>
+    <script src="app.js"></script>
+</body>
+</html>

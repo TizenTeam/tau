@@ -76,7 +76,7 @@ module.exports = function(grunt) {
 	grunt.registerTask("prepare-app", function() {
 		var profile = grunt.option("profile"),
 			app = grunt.option("app"),
-			destination = grunt.option("destination") || "lib/tau",
+			destination = grunt.option("destination") || (grunt.option("profiledestination") && "lib/tau/" + profile ) || "lib/tau",
 			debug = grunt.option("tau-debug"),
 			done = this.async(),
 			tasks = [],
