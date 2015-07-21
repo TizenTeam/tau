@@ -1,62 +1,62 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<link rel="stylesheet"  href="../../../lib/tau/mobile/theme/default/tau.css">
+	<link rel="stylesheet" href="../../../lib/tau/mobile/theme/default/tau.css">
 	<link rel="stylesheet" href="../../../css/custom.css">
 	<script type="text/javascript" src="../../../lib/tau/mobile/js/tau.js" data-build-remove="false"></script>
 </head>
 <body>
 
-<div class="ui-page" id="ButtonNolist">
+<tau-page class="ui-page" id="ButtonNolist">
         <div class="ui-header" data-position="fixed">
                 <h1>BUTTONS</h1>
         </div>
-        <div class="ui-content">
+        <tau-scrollview class="ui-content">
 		*Default Button
-		<button>Button</button>
+		<tau-button></tau-button>
 		HTML Code:
-		<textarea style="width:80%;padding:1em;background-color:whitesmoke;color:black;border-style:inset;font-size:20px" class="formfield" readonly="readonly" disabled><button>Button</button></textarea>
-		<br/><br/>
-		*Inline Button, Inline Button With Icon<br/>
-		<button data-inline="true">DataInline True</button>
-		<button data-inline="true" data-icon="call" data-iconpos="right">Icon Text</button>
-		<button data-inline="true" data-icon="call" data-iconpos="left">Icon Text</button>
-		<button data-inline="true" data-icon="star" data-style="nobg"></button>
-		<button data-inline="true" data-icon="rename" data-style="circle"></button><br/>
+		<tau-textinput style="width:80%;padding:1em;background-color:whitesmoke;color:black;border-style:inset;font-size:20px" class="formfield" readonly="readonly" disabled></tau-textinput><tau-button></tau-button>
+		<br><br>
+		*Inline Button, Inline Button With Icon<br>
+		<tau-button inline="true">DataInline True</tau-button>
+		<tau-button inline="true" icon="call" iconpos="right">Icon Text</tau-button>
+		<tau-button inline="true" icon="call" iconpos="left">Icon Text</tau-button>
+		<tau-button inline="true" icon="star" style="nobg"></tau-button>
+		<tau-button inline="true" icon="rename" style="circle"></tau-button><br>
 		 HTML Code:
-                <textarea style="width:80%;padding:1em;background-color:whitesmoke;color:black;border-style:inset;font-size:20px" readonly="readonly" disabled><button data-inline="true">DataInline True</button>
-<button data-inline="true" data-icon="call" data-iconpos="right">Icon Text</button>
-<button data-inline="true" data-icon="call" data-iconpos="left">Icon Text</button>
-<button data-inline="true" data-icon="favorite" data-style="nobg"></button>
-<button data-inline="true" data-icon="rename" data-style="circle"></button></textarea><br/><br/>
+                <tau-textinput style="width:80%;padding:1em;background-color:whitesmoke;color:black;border-style:inset;font-size:20px" readonly="readonly" disabled></tau-textinput><tau-button inline="true">DataInline True</tau-button>
+<tau-button inline="true" icon="call" iconpos="right">Icon Text</tau-button>
+<tau-button inline="true" icon="call" iconpos="left">Icon Text</tau-button>
+<tau-button inline="true" icon="favorite" style="nobg"></tau-button>
+<tau-button inline="true" icon="rename" style="circle"></tau-button><br><br>
 		*Default Button (A tag)
-		<a href="#buttonTest" class="ui-btn">A Tag Button</a>
+		<tau-button href="#buttonTest" class="ui-btn">A Tag Button</tau-button>
 		HTML Code:
-                <textarea style="width:80%;padding:1em;background-color:whitesmoke;color:black;border-style:inset;font-size:20px"  readonly="readonly" disabled><a href="#buttonTest" class="ui-btn">A Tag Button</a></textarea>
-		<br/><br/>
+                <tau-textinput style="width:80%;padding:1em;background-color:whitesmoke;color:black;border-style:inset;font-size:20px" readonly="readonly" disabled><tau-button href="#buttonTest" class="ui-btn">A Tag Button</tau-button></tau-textinput>
+		<br><br>
 		*Button Icon Position top, bottom (with inline)
-		<button data-icon="call" data-iconpos="top">PositionTop</button><br/>
-		<button data-icon="call" data-iconpos="bottom">PositionBottom</button><br/>
-		<button data-icon="call" data-iconpos="top" data-inline="true">PositionTop</button>
-		<button data-icon="call" data-iconpos="bottom" data-inline="true">PositionBottom</button><br/>
+		<tau-button icon="call" iconpos="top">PositionTop</tau-button><br>
+		<tau-button icon="call" iconpos="bottom">PositionBottom</tau-button><br>
+		<tau-button icon="call" iconpos="top" inline="true">PositionTop</tau-button>
+		<tau-button icon="call" iconpos="bottom" inline="true">PositionBottom</tau-button><br>
 		 HTML Code:
-		<textarea style="width:80%;padding:1em;background-color:whitesmoke;color:black;border-style:inset;font-size:20px"  readonly="readonly" disabled><button data-icon="call" data-iconpos="top">PositionTop</button>
-<button data-icon="call" data-iconpos="bottom">PositionBottom</button>
-<button data-icon="call" data-iconpos="top" data-inline="true">PositionTop</button>
-<button data-icon="call" data-iconpos="bottom" data-inline="true">PositionBottom</button></textarea><br/><br/>
-		*Custom Button:<br/>
-		<button data-inline="true" data-icon="call">0</button>
-		<button data-inline="true" data-icon="call" data-iconpos="top">1</button>
-		<button data-inline="true" data-icon="call" data-iconpos="bottom">2</button>
-		<button data-inline="true" data-icon="call" style="width:150px;height:150px">3</button>
-		<button data-inline="true" data-icon="call" data-style="circle"></button><br/>
+		<tau-textinput style="width:80%;padding:1em;background-color:whitesmoke;color:black;border-style:inset;font-size:20px" readonly="readonly" disabled></tau-textinput><tau-button icon="call" iconpos="top">PositionTop</tau-button>
+<tau-button icon="call" iconpos="bottom">PositionBottom</tau-button>
+<tau-button icon="call" iconpos="top" inline="true">PositionTop</tau-button>
+<tau-button icon="call" iconpos="bottom" inline="true">PositionBottom</tau-button><br><br>
+		*Custom Button:<br>
+		<tau-button inline="true" icon="call">0</tau-button>
+		<tau-button inline="true" icon="call" iconpos="top">1</tau-button>
+		<tau-button inline="true" icon="call" iconpos="bottom">2</tau-button>
+		<tau-button inline="true" icon="call" style="width:150px;height:150px">3</tau-button>
+		<tau-button inline="true" icon="call" style="circle"></tau-button><br>
 		HTML Code:
-		<textarea style="width:80%;padding:1em;background-color:whitesmoke;color:black;border-style:inset;font-size:20px"  readonly="readonly" disabled><button data-inline="true" data-icon="call">0</button>
-<button data-inline="true" data-icon="call" data-iconpos="top">1</button>
-<button data-inline="true" data-icon="call" data-iconpos="bottom">2</button>
-<button data-inline="true" data-icon="call" style="width:150px;height:150px">3</button></textarea>
-		CSS Code:<br/>
-		<textarea style="width:80%;padding:1em;background-color:whitesmoke;color:black;border-style:inset;font-size:20px"  readonly="readonly" disabled>.ui-icon-test{
+		<tau-textinput style="width:80%;padding:1em;background-color:whitesmoke;color:black;border-style:inset;font-size:20px" readonly="readonly" disabled></tau-textinput><tau-button inline="true" icon="call">0</tau-button>
+<tau-button inline="true" icon="call" iconpos="top">1</tau-button>
+<tau-button inline="true" icon="call" iconpos="bottom">2</tau-button>
+<tau-button inline="true" icon="call" style="width:150px;height:150px">3</tau-button>
+		CSS Code:<br>
+		<tau-textinput style="width:80%;padding:1em;background-color:whitesmoke;color:black;border-style:inset;font-size:20px" readonly="readonly" disabled>.ui-icon-test{
         background-size: 100% 100%;
         background-image: url(00_button_call);
 }
@@ -65,21 +65,21 @@
         background-position:0% 0%;
         background-size:50% 50%;
         background-image: url(00_button_call);
-}</textarea>
-		*Input Type = "Button"
-		<input type="button" value="Test button"/>
+}</tau-textinput>
+		*Input Type = &quot;Button&quot;
+		<tau-button type="button" value="Test button"></tau-button>
 		HTML Code:
-                <textarea style="width:80%;padding:1em;background-color:whitesmoke;color:black;border-style:inset;font-size:20px"  readonly="readonly" disabled><input type="button" value="test button"/></textarea>
-		<br/><br/>
+                <tau-textinput style="width:80%;padding:1em;background-color:whitesmoke;color:black;border-style:inset;font-size:20px" readonly="readonly" disabled></tau-textinput><tau-button type="button" value="test button"></tau-button>
+		<br><br>
 		Button No text
-		<div class="ui-btn" id="button1test" data-inline="false" data-style="circle"></div>
-		<br/><br/>
-		<div class="ui-btn" id="button1test2" data-inline="false"></div>
-		<br/><br/>
-		<div class="ui-btn" id="button1test3" data-inline="true" data-style="circle"></div>
-		<br/><br/>
-		<div class="ui-btn" id="button1test4" data-inline="true"></div>
-	</div>
-</div>
+		<tau-button class="ui-btn" id="button1test" inline="false" style="circle"></tau-button>
+		<br><br>
+		<tau-button class="ui-btn" id="button1test2" inline="false"></tau-button>
+		<br><br>
+		<tau-button class="ui-btn" id="button1test3" inline="true" style="circle"></tau-button>
+		<br><br>
+		<tau-button class="ui-btn" id="button1test4" inline="true"></tau-button>
+	</tau-scrollview>
+</tau-page>
 </body>
 </html>

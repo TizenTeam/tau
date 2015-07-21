@@ -6,26 +6,26 @@
 	<script type="text/javascript" src="../../lib/tau/mobile/js/tau.min.js" data-build-remove="false"></script>
 </head>
 <body>
-<div class="ui-page" id="switch-demo">
+<tau-page class="ui-page" id="switch-demo">
 	<div class="ui-header">
 		<h1>Toggle switch</h1>
 	</div>
 
-	<div class="ui-content">
+	<tau-scrollview class="ui-content">
 		<p>1-1. Proper way of definding toggleswitch with &lt;input&gt; tag</p>
-		<input type="checkbox" name="toggle-1" id="toggle-1" class="ui-toggleswitch"/>
+		<tau-toggleswitch type="checkbox" name="toggle-1" id="toggle-1" class="ui-toggleswitch"></tau-toggleswitch>
 
 		<p>1-2.Proper way of definding disabled toggleswitch with &lt;input&gt; tag</p>
-		<input type="checkbox" name="toggle-2" id="toggle-2" class="ui-toggleswitch" disabled/>
+		<tau-toggleswitch type="checkbox" name="toggle-2" id="toggle-2" class="ui-toggleswitch" disabled></tau-toggleswitch>
 
-		<p>2. Define toggleswitch based on &lt;select&gt; tag and class="ui-toggleswitch"</p>
-		<select name="flip-1" id="flip-1" class="ui-toggleswitch">
+		<p>2. Define toggleswitch based on &lt;select&gt; tag and class=&quot;ui-toggleswitch&quot;</p>
+		<tau-toggleswitch name="flip-1" id="flip-1" class="ui-toggleswitch">
 			<option value="off"></option>
 			<option value="on"></option>
-		</select>
+		</tau-toggleswitch>
 
-	</div>
-	<link rel="stylesheet" href="toggleswitch.css" />
-</div>
+	</tau-scrollview>
+	<link rel="stylesheet" href="toggleswitch.css">
+</tau-page>
 </body>
 </html>

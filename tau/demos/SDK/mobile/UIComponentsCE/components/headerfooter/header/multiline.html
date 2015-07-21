@@ -6,21 +6,21 @@
 	<script type="text/javascript" src="../../../lib/tau/mobile/js/tau.js" data-build-remove="false"></script>
 </head>
 <body>
-<div class="ui-page" id="multilinePage">
+<tau-page class="ui-page" id="multilinePage">
 	<div class="ui-header" data-position="fixed">
 		<h1 class="ui-title-text-main">Multiline</h1>
 		<div class="ui-title-text-sub">tau@samsung.com</div>
 		<a class="ui-header-btn ui-header-btn-left ui-header-btn-icon btn-icon-back"></a>
 	</div>
-	<div class="ui-content">
-		<ul class="ui-listview">
+	<tau-scrollview class="ui-content">
+		<tau-listview class="ui-listview">
 			<li class="ui-li-static">List item</li>
             <li class="ui-li-static">List item</li>
             <li class="ui-li-static">List item</li>
             <li class="ui-li-static">List item</li>
             <li class="ui-li-static">List item</li>
-		</ul>
-	</div>
-</div>
+		</tau-listview>
+	</tau-scrollview>
+</tau-page>
 </body>
 </html>

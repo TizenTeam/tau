@@ -6,13 +6,13 @@
 	<script type="text/javascript" src="../../lib/tau/mobile/js/tau.js" data-build-remove="false"></script>
 </head>
 <body>
-	<div class="ui-page" id="indexscrollbarPage">
+	<tau-page class="ui-page" id="indexscrollbarPage">
 		<div class="ui-header" data-position="fixed">
 			<h1>Index Scrollbar</h1>
 		</div>
-		<div class="ui-indexscrollbar" id="indexscrollbar"></div>
-		<div class="ui-content">
-			<ul class="ui-listview" id="isbList">
+		<tau-indexscrollbar class="ui-indexscrollbar" id="indexscrollbar"></tau-indexscrollbar>
+		<tau-scrollview class="ui-content">
+			<tau-listview class="ui-listview" id="isbList">
 				<li class="ui-group-index">A</li>
 				<li class="ui-li-static">Anton</li>
 				<li class="ui-li-static">Arabella</li>
@@ -68,11 +68,11 @@
 				<li class="ui-li-static">Orlando</li>
 				<li class="ui-group-index">1</li>
 				<li class="ui-li-static">1st Store</li>
-			</ul>
-		</div>
+			</tau-listview>
+		</tau-scrollview>
 
 		<script src="indexscrollbar.js"></script>
 
-	</div>
+	</tau-page>
 </body>
 </html>

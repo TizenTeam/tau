@@ -6,12 +6,12 @@
 	<script type="text/javascript" src="../../lib/tau/mobile/js/tau.js" data-build-remove="false"></script>
 </head>
 <body>
-<div class="ui-page" id="demo-page">
+<tau-page class="ui-page" id="demo-page">
 	<div class="ui-header" data-position="fixed">
 		<h1>List</h1>
 	</div>
-	<div class="ui-content">
-		<ul class="ui-listview">
+	<tau-scrollview class="ui-content">
+		<tau-listview class="ui-listview">
 			<li class="ui-group-index">Stacked List</li>
 			<li class="ui-li-anchor"><a href="liststyles.html">List Styles</a></li>
 			<li class="ui-li-anchor"><a href="normallist.html">Normal List</a></li>
@@ -23,8 +23,8 @@
 			<li class="ui-li-anchor"><a href="./gridview/gridview.html">Grid View</a></li>
 			<li class="ui-li-anchor"><a href="./gridview/gridwithcheck.html">Grid View with Checkbox</a></li>
 			<li class="ui-li-anchor"><a href="./gridview/gridwithbadge.html">Grid View with Badge</a></li>
-		</ul>
-	</div>
-</div>
+		</tau-listview>
+	</tau-scrollview>
+</tau-page>
 </body>
 </html>

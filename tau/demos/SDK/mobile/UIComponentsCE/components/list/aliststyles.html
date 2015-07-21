@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet"  href="../../lib/tau/mobile/theme/default/tau.css">
+    <link rel="stylesheet" href="../../lib/tau/mobile/theme/default/tau.css">
     <link rel="stylesheet" href="../../css/custom.css">
 	<script type="text/javascript" src="../../lib/tau/mobile/js/tau.js" data-build-remove="false"></script>
 </head>
 <body>
-<div class="ui-page" id="genlist-normal">
+<tau-page class="ui-page" id="genlist-normal">
 	<div class="ui-header" data-position="fixed">
 		<h1>Normal anchor lists</h1>
 	</div>
-	<div class="ui-content" data-scroll="y">
+	<tau-scrollview class="ui-content" scroll="y">
 		<form>
-		<ul class="ui-listview">
+		<tau-listview class="ui-listview">
 
 			<li class="ui-li-anchor">
 				<a href="#">
@@ -30,14 +30,14 @@
 			<li class="ui-li-anchor li-has-right-btn">
 				<a href="#">
 					1line-btn1
-					<div class="ui-btn" data-inline="true">Text Button</div>
+					<tau-button class="ui-btn" inline="true">Text Button</tau-button>
 				</a>
 			</li>
 
 			<li class="ui-li-anchor li-has-right-circle-btn">
 				<a href="#">
 					1line-btn2
-					<div class="ui-btn" data-inline="true" data-icon="plus" data-style="circle"></div>
+					<tau-button class="ui-btn" inline="true" icon="plus" style="circle"></tau-button>
 				</a>
 			</li>
 
@@ -70,7 +70,7 @@
 				<a href="#">
 					<img src="images/thumbnail.jpg" alt="icon" class="li-thumb">
 					1line-bigicon4
-					<div class="ui-btn" data-inline="true">Text Button</div>
+					<tau-button class="ui-btn" inline="true">Text Button</tau-button>
 				</a>
 			</li>
 
@@ -78,7 +78,7 @@
 				<a href="#">
 					<img src="images/thumbnail.jpg" alt="icon" class="li-thumb">
 					1line-bigicon5
-					<div class="ui-btn" data-inline="true" data-icon="plus" data-style="circle"></div>
+					<tau-button class="ui-btn" inline="true" icon="plus" style="circle"></tau-button>
 				</a>
 			</li>
 
@@ -95,22 +95,22 @@
 
 			<li class="ui-li-anchor">
 				<a href="#">
-					<input type="checkbox" name="c1line-check1" />
+					<input type="checkbox" name="c1line-check1">
 					1line-check1
 				</a>
 			</li>
 
 			<li class="ui-li-anchor li-has-checkbox li-has-right-circle-btn">
 				<a href="#">
-					<input type="checkbox" name="c1line-check2" />
+					<input type="checkbox" name="c1line-check2">
 					1line-check2
-					<div class="ui-btn" data-inline="true" data-icon="plus" data-style="circle"></div>
+					<tau-button class="ui-btn" inline="true" icon="plus" style="circle"></tau-button>
 				</a>
 			</li>
 
 			<li class="ui-li-anchor li-has-checkbox li-has-thumb">
 				<a href="#">
-					<input type="checkbox"  name="c1line-check3" />
+					<input type="checkbox" name="c1line-check3">
 					<img src="images/thumbnail.jpg" alt="icon" class="li-thumb">
 					1line-check3
 				</a>
@@ -118,31 +118,31 @@
 
 			<li class="ui-li-anchor li-has-checkbox li-has-thumb li-has-right-circle-btn">
 				<a href="#">
-					<input type="checkbox"  name="c1line-check4" />
+					<input type="checkbox" name="c1line-check4">
 					<img src="images/thumbnail.jpg" alt="icon" class="li-thumb">
 					1line-check4
-					<div class="ui-btn" data-inline="true" data-icon="plus" data-style="circle"></div>
+					<tau-button class="ui-btn" inline="true" icon="plus" style="circle"></tau-button>
 				</a>
 			</li>
 
 			<li class="ui-li-anchor li-has-radio">
 				<a href="#">
-					<input type="radio" name="1line-radio" />
+					<input type="radio" name="1line-radio">
 					1line-radio1
 				</a>
 			</li>
 
 			<li class="ui-li-anchor li-has-radio li-has-right-circle-btn">
 				<a href="#">
-					<input type="radio" name="1line-radio" />
+					<input type="radio" name="1line-radio">
 					1line-radio3
-					<div class="ui-btn" data-inline="true" data-icon="plus" data-style="circle"></div>
+					<tau-button class="ui-btn" inline="true" icon="plus" style="circle"></tau-button>
 				</a>
 			</li>
 
 			<li class="ui-li-anchor li-has-radio li-has-thumb">
 				<a href="#">
-					<input type="radio" name="1line-radio" />
+					<input type="radio" name="1line-radio">
 					<img src="images/thumbnail.jpg" alt="icon" class="li-thumb">
 					1line-radio4
 				</a>
@@ -150,16 +150,16 @@
 
 			<li class="ui-li-anchor li-has-radio li-has-thumb li-has-right-circle-btn">
 				<a href="#">
-					<input type="radio" name="1line-radio" />
+					<input type="radio" name="1line-radio">
 					1line-radio5
 					<img src="images/thumbnail.jpg" alt="icon" class="li-thumb">
-					<div class="ui-btn" data-inline="true" data-icon="plus" data-style="circle"></div>
+					<tau-button class="ui-btn" inline="true" icon="plus" style="circle"></tau-button>
 				</a>
 			</li>
 
 			<li class="ui-li-anchor li-has-radio li-has-thumb">
 				<a href="#">
-					<input type="radio" name="1line-radio" />
+					<input type="radio" name="1line-radio">
 					1line-radio6
 					<img src="images/thumbnail.jpg" alt="icon" class="li-thumb">
 				</a>
@@ -184,7 +184,7 @@
 				<a href="#">
 					2line-btn1
 					<span class="li-text-sub">Subtext</span>
-					<div class="ui-btn" data-inline="true">button</div>
+					<tau-button class="ui-btn" inline="true">button</tau-button>
 				</a>
 			</li>
 
@@ -192,7 +192,7 @@
 				<a href="#">
 					2line-btn1
 					<span class="li-text-sub">Subtext</span>
-					<div class="ui-btn" data-inline="true" data-icon="call"></div>
+					<tau-button class="ui-btn" inline="true" icon="call"></tau-button>
 				</a>
 			</li>
 
@@ -200,7 +200,7 @@
 				<a href="#">
 					2line-btn2
 					<span class="li-text-sub">Subtext</span>
-					<div class="ui-btn" data-inline="true" data-icon="call" data-style="circle"></div>
+					<tau-button class="ui-btn" inline="true" icon="call" style="circle"></tau-button>
 				</a>
 			</li>
 
@@ -219,7 +219,7 @@
 				<a href="#">
 					2line-btn-setting
 					<span class="li-text-sub">Subtext</span>
-					<div class="ui-btn" data-inline="true" data-icon="call" data-style="circle"></div>
+					<tau-button class="ui-btn" inline="true" icon="call" style="circle"></tau-button>
 				</a>
 			</li>
 
@@ -228,7 +228,7 @@
 					3line-btn-setting
 					<span class="li-text-sub">Subtext</span>
 					<span class="li-text-sub3">Long subtext line (-sub3)</span>
-					<div class="ui-btn" data-inline="true" data-icon="call" data-style="circle"></div>
+					<tau-button class="ui-btn" inline="true" icon="call" style="circle"></tau-button>
 				</a>
 			</li>
 
@@ -236,7 +236,7 @@
 				<a href="#">
 					2line-bigicon0
 					<span class="li-text-sub">Subtext<img class="li-icon-sub" src="images/00_winset_icon_favorite_on.png" alt="favorite"></span>
-					<div class="ui-btn" data-inline="true" data-icon="call" data-style="circle"></div>
+					<tau-button class="ui-btn" inline="true" icon="call" style="circle"></tau-button>
 				</a>
 			</li>
 
@@ -262,13 +262,13 @@
 					<img src="images/thumbnail.jpg" alt="icon" class="li-thumb">
 					2line-bigicon4
 					<span class="li-text-sub">Subtext</span>
-					<div class="ui-btn" data-inline="true" data-icon="call" data-style="circle"></div>
+					<tau-button class="ui-btn" inline="true" icon="call" style="circle"></tau-button>
 				</a>
 			</li>
 
 			<li class="ui-li-anchor li-has-checkbox li-has-multiline">
 				<a href="#">
-					<input type="checkbox"  name="c2line-check1" />
+					<input type="checkbox" name="c2line-check1">
 					2line-check
 					<span class="li-text-sub">Subtext</span>
 				</a>
@@ -276,16 +276,16 @@
 
 			<li class="ui-li-anchor li-has-checkbox li-has-multiline li-has-right-circle-btn">
 				<a href="#">
-					<input type="checkbox"  name="c2line-check2" />
+					<input type="checkbox" name="c2line-check2">
 					2line-check2
 					<span class="li-text-sub">Subtext</span>
-					<div class="ui-btn" data-inline="true" data-icon="call" data-style="circle"></div>
+					<tau-button class="ui-btn" inline="true" icon="call" style="circle"></tau-button>
 				</a>
 			</li>
 
 			<li class="ui-li-anchor li-has-checkbox li-has-multiline li-has-thumb">
 				<a href="#">
-					<input type="checkbox"  name="c2line-check3" />
+					<input type="checkbox" name="c2line-check3">
 					<img src="images/thumbnail.jpg" alt="icon" class="li-thumb">
 					2line-check3
 					<span class="li-text-sub">Subtext</span>
@@ -294,7 +294,7 @@
 
 			<li class="ui-li-anchor li-has-checkbox li-has-multiline li-has-radio">
 				<a href="#">
-					<input type="radio" name="2line-radio" />
+					<input type="radio" name="2line-radio">
 					2line-radio1
 					<span class="li-text-sub">Subtext</span>
 				</a>
@@ -302,7 +302,7 @@
 
 			<li class="ui-li-anchor li-has-checkbox li-has-multiline li-has-radio li-has-thumb">
 				<a href="#">
-					<input type="radio" name="2line-radio" />
+					<input type="radio" name="2line-radio">
 					<img src="images/thumbnail.jpg" alt="icon" class="li-thumb">
 					2line-radio2
 					<span class="li-text-sub">Subtext</span>
@@ -334,17 +334,17 @@
 
 			<li class="ui-li-anchor li-has-checkbox li-has-multiline li-has-thumb li-has-right-circle-btn">
 				<a href="#">
-					<input type="checkbox"  name="c2line-icon-bigicon-btn" />
+					<input type="checkbox" name="c2line-icon-bigicon-btn">
 					<img src="images/thumbnail.jpg" alt="icon" class="li-thumb">
 					2line-3items
 					<span class="li-text-sub">Subtext</span>
-					<div class="ui-btn" data-inline="true" data-icon="call" data-style="circle"></div>
+					<tau-button class="ui-btn" inline="true" icon="call" style="circle"></tau-button>
 				</a>
 			</li>
 
-		</ul>
+		</tau-listview>
 		<form>
-	</div>
-</div>
+	</form></form></tau-scrollview>
+</tau-page>
 </body>
 </html>

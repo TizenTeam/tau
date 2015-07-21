@@ -6,21 +6,21 @@
 	<script type="text/javascript" src="../../../lib/tau/mobile/js/tau.js" data-build-remove="false"></script>
 </head>
 <body>
-<div class="ui-page" id="progresscircle-demo">
+<tau-page class="ui-page" id="progresscircle-demo">
 	<div class="ui-header" data-position="fixed">
 		<h1>Progress-progress circle</h1>
 	</div><!-- /header -->
-	<div class="ui-content">
+	<tau-scrollview class="ui-content">
 		<div class="progress-bg">
 			<div class="result" id="result"></div>
-			<div data-type="circle" data-size="large" data-value="0" class="ui-progress" id="circle"></div>
+			<tau-progress type="circle" size="large" value="0" class="ui-progress" id="circle"></tau-progress>
 		</div>
-	</div><!-- /content -->
+	</tau-scrollview><!-- /content -->
 	<div class="ui-footer" data-position="fixed">
-		<a id="minus" href="#" class="ui-btn">-10%</a>
-		<a id="plus" href="#" class="ui-btn">+10%</a>
+		<tau-button id="minus" href="#" class="ui-btn">-10%</tau-button>
+		<tau-button id="plus" href="#" class="ui-btn">+10%</tau-button>
 	</div>
 	<script src="progresscircle.js"></script>
-</div><!-- /page -->
+</tau-page><!-- /page -->
 </body>
 </html>

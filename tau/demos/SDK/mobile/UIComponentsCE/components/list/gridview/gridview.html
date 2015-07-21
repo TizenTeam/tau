@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet"  href="../../../lib/tau/mobile/theme/default/tau.css">
+    <link rel="stylesheet" href="../../../lib/tau/mobile/theme/default/tau.css">
 	<script type="text/javascript" src="../../../lib/tau/mobile/js/tau.js" data-build-remove="false"></script>
 </head>
 <body>
-<div class="ui-page" id="grid-page">
+<tau-page class="ui-page" id="grid-page">
 	<div class="ui-header" data-position="fixed">
 		<h1>Grid View</h1>
 	</div>
-	<div class="ui-content">
-		<ul id="gridview" class="ui-gridview" data-label="out">
+	<tau-scrollview class="ui-content">
+		<tau-gridview id="gridview" class="ui-gridview" label="out">
 			<li class="ui-gridview-item">
 				<img class="ui-gridview-image" src="images/1.jpg">
 				<p class="ui-gridview-label">Outer Label</p>
@@ -161,12 +161,12 @@
 				<p class="ui-gridview-label">Outer Label</p>
 				<div class="ui-gridview-handler"></div>
 			</li>
-		</ul>
-	</div>
+		</tau-gridview>
+	</tau-scrollview>
 	<div class="ui-footer" data-position="fixed">
-		<button id="modeBtn" data-inline="true">Edit</button>
+		<tau-button id="modeBtn" inline="true">Edit</tau-button>
 	</div>
 	<script type="text/javascript" src="./gridview.js"></script>
-</div>
+</tau-page>
 </body>
 </html>

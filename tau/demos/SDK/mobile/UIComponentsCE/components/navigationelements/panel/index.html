@@ -6,22 +6,22 @@
 	<script type="text/javascript" src="../../../lib/tau/mobile/js/tau.js" data-build-remove="false"></script>
 </head>
 <body>
-<div id="panelPage" class="ui-page">
+<tau-page id="panelPage" class="ui-page">
 	<div class="ui-header" data-position="fixed">
 		<h1>Navigation bar</h1>
-		<nav id="navigation" class="ui-navigation">
-		</nav>
+		<tau-navigation id="navigation" class="ui-navigation">
+		</tau-navigation>
 	</div>
-	<div class="ui-content">
-		<div id="panelChanger" class="ui-panel-changer">
-			<div id="mainpanel" class="ui-panel" style="background-color:#ffff4f">
-				<ul class="ui-listview">
+	<tau-scrollview class="ui-content">
+		<tau-panelchanger id="panelChanger" class="ui-panel-changer">
+			<tau-panel id="mainpanel" class="ui-panel" style="background-color:#ffff4f">
+				<tau-listview class="ui-listview">
 					<li class="ui-li-anchor">
 						<a href="./panel.html#panel2">Go Panel 2</a>
 					</li>
 					<li class="ui-li-anchor"><a href="#1btn_popup" data-inline="true" data-rel="popup" data-position-to="window">Open Popup</a></li>
-				</ul>
-				<div id="1btn_popup" class="ui-popup">
+				</tau-listview>
+				<tau-popup id="1btn_popup" class="ui-popup">
 					<div class="ui-popup-header">Popup Header</div>
 					<div class="ui-popup-content popup-content-padding">
 						Lorem ipsum dolor sit amet,
@@ -29,13 +29,13 @@
 						doei usmod tempore sit ipsum
 					</div>
 					<div class="ui-popup-footer">
-						<a class="ui-btn" data-rel="back" data-inline="true">Cancel</a>
+						<tau-button class="ui-btn" rel="back" inline="true">Cancel</tau-button>
 					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+				</tau-popup>
+			</tau-panel>
+		</tau-panelchanger>
+	</tau-scrollview>
 	<script src="./panel.js"></script>
-</div>
+</tau-page>
 </body>
 </html>

@@ -6,12 +6,12 @@
 	<script type="text/javascript" src="../../lib/tau/mobile/js/tau.js" data-build-remove="false"></script>
 </head>
 <body>
-<div class="ui-page" id="demo-page">
+<tau-page class="ui-page" id="demo-page">
 	<div class="ui-header" data-position="fixed">
 		<h1>Header and Footer</h1>
 	</div>
-	<div class="ui-content">
-		<ul class="ui-listview">
+	<tau-scrollview class="ui-content">
+		<tau-listview class="ui-listview">
 			<li class="ui-group-index">Header with Icon Button</li>
             <li class="ui-li-anchor"><a href="header/lefticon.html">Title with left button</a></li>
             <li class="ui-li-anchor"><a href="header/righticon.html">Title with right button</a></li>
@@ -24,8 +24,8 @@
 			<li class="ui-li-anchor"><a href="header/multiline.html">Multiline Title</a></li>
             <li class="ui-group-index">Footer</li>
             <li class="ui-li-anchor"><a href="bottombutton.html">Bottom Button</a></li>
-		</ul>
-	</div>
-</div>
+		</tau-listview>
+	</tau-scrollview>
+</tau-page>
 </body>
 </html>

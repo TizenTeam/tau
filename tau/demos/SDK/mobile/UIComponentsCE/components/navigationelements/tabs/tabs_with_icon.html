@@ -6,20 +6,20 @@
 	<link rel="stylesheet" href="../../../css/custom.css">
 	<script type="text/javascript" src="../../../lib/tau/mobile/js/tau.js" data-build-remove="false"></script>
 </head>
-<div class="ui-page" id="tabs_with_icon">
-	<div class="ui-tabs">
-		<div class="ui-tabbar">
+<tau-page class="ui-page" id="tabs_with_icon">
+	<tau-tabs class="ui-tabs">
+		<tau-tabbar class="ui-tabbar">
 			<ul>
 				<li class="ui-li-anchor"><a href="#" data-icon="naviframe-call" class="ui-tab-active">Tab1</a></li>
 				<li class="ui-li-anchor"><a href="#" data-icon="naviframe-favorite">Tab2</a></li>
 				<li class="ui-li-anchor"><a href="#" data-icon="naviframe-search">Tab3</a></li>
 				<li class="ui-li-anchor"><a href="#" data-icon="naviframe-call">Tab4</a></li>
 			</ul>
-		</div>
-		<div class="ui-section-changer" id="sectionChanger">
+		</tau-tabbar>
+		<tau-sectionchanger class="ui-section-changer" id="sectionChanger">
 			<div>
 				<section class="ui-section-active">
-					<ul class="ui-listview">
+					<tau-listview class="ui-listview">
 						<li class="ui-li-anchor"><a href="#">List 1</a></li>
 						<li class="ui-li-anchor"><a href="#">List 2</a></li>
 						<li class="ui-li-anchor"><a href="#">List 3</a></li>
@@ -32,33 +32,33 @@
 						<li class="ui-li-anchor"><a href="#">List 10</a></li>
 						<li class="ui-li-anchor"><a href="#">List 11</a></li>
 						<li class="ui-li-anchor"><a href="#">List 12</a></li>
-					</ul>
+					</tau-listview>
 				</section>
 				<section>
-					<ul class="ui-listview">
+					<tau-listview class="ui-listview">
 						<li class="ui-li-anchor"><a href="#">List 1</a></li>
 						<li class="ui-li-anchor"><a href="#">List 2</a></li>
-					</ul>
+					</tau-listview>
 				</section>
 				<section>
-					<ul class="ui-listview">
+					<tau-listview class="ui-listview">
 						<li class="ui-li-anchor"><a href="#">List 1</a></li>
 						<li class="ui-li-anchor"><a href="#">List 2</a></li>
 						<li class="ui-li-anchor"><a href="#">List 3</a></li>
-					</ul>
+					</tau-listview>
 				</section>
 				<section>
-					<ul class="ui-listview">
+					<tau-listview class="ui-listview">
 						<li class="ui-li-anchor"><a href="#">List 1</a></li>
 						<li class="ui-li-anchor"><a href="#">List 2</a></li>
 						<li class="ui-li-anchor"><a href="#">List 3</a></li>
 						<li class="ui-li-anchor"><a href="#">List 4</a></li>
-					</ul>
+					</tau-listview>
 				</section>
 			</div>
-		</div>
-	</div>
-</div>
+		</tau-sectionchanger>
+	</tau-tabs>
+</tau-page>
 
 </body>
 </html>

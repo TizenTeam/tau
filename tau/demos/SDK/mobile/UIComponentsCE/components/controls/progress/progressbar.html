@@ -6,21 +6,21 @@
 	<script type="text/javascript" src="../../../lib/tau/mobile/js/tau.js" data-build-remove="false"></script>
 </head>
 <body>
-<div class="ui-page" id="progressbar-demo">
+<tau-page class="ui-page" id="progressbar-demo">
 	<div class="ui-header" data-position="fixed">
 		<h1>Progress-progress bar</h1>
 	</div><!-- /header -->
-	<div class="ui-content">
-		<ul class="ui-listview">
+	<tau-scrollview class="ui-content">
+		<tau-listview class="ui-listview">
 			<li class="ui-group-index">Progress bar 1</li>
-			<li class="ui-li-static"><div data-type="bar" data-value="30" id="progressbar" class="ui-progress"></div></li>
+			<li class="ui-li-static"><tau-progress type="bar" value="30" id="progressbar" class="ui-progress"></tau-progress></li>
 			<li class="ui-group-index">Progress bar 2</li>
-			<li class="ui-li-static"><div data-type="bar" data-value="0" id="progressbar2" class="ui-progress"></div></li>
+			<li class="ui-li-static"><tau-progress type="bar" value="0" id="progressbar2" class="ui-progress"></tau-progress></li>
 			<li class="ui-group-index">Progress bar 3</li>
-			<li class="ui-li-static"><div data-type="bar" data-value="0" id="progressbar3" class="ui-progress"></div></li>
-		</ul>
-	</div><!-- /content -->
+			<li class="ui-li-static"><tau-progress type="bar" value="0" id="progressbar3" class="ui-progress"></tau-progress></li>
+		</tau-listview>
+	</tau-scrollview><!-- /content -->
 	<script src="progressbar.js"></script>
-</div><!-- /page -->
+</tau-page><!-- /page -->
 </body>
 </html>

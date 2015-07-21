@@ -6,40 +6,40 @@
 	<script type="text/javascript" src="../../lib/tau/mobile/js/tau.js" data-build-remove="false"></script>
 </head>
 <body>
-<div class="ui-page" id="gallery-page">
+<tau-page class="ui-page" id="gallery-page">
 	<div class="ui-header" data-position="fixed">
 		<h1>Gallery</h1>
 	</div>
-	<div id="gallerySection" class="ui-content ui-section-changer" data-orientation="horizontal">
+	<tau-scrollview id="gallerySection" class="ui-content ui-section-changer" orientation="horizontal">
 		<div>
 			<section class="gallery-section">
-				<img src="images/01.jpg" />
+				<img src="images/01.jpg">
 			</section>
 			<section class="gallery-section">
-				<img src="images/02.jpg" />
+				<img src="images/02.jpg">
 			</section>
 			<section class="gallery-section">
-				<img src="images/03.jpg" />
+				<img src="images/03.jpg">
 			</section>
 			<section class="gallery-section">
-				<img src="images/04.jpg" />
+				<img src="images/04.jpg">
 			</section>
 			<section class="gallery-section">
-				<img src="images/05.jpg" />
+				<img src="images/05.jpg">
 			</section>
 			<section class="gallery-section">
-				<img src="images/06.jpg" />
+				<img src="images/06.jpg">
 			</section>
 			<section class="gallery-section">
-				<img src="images/07.jpg" />
+				<img src="images/07.jpg">
 			</section>
 		</div>
-	</div>
+	</tau-scrollview>
 	<div class="ui-footer" data-position="fixed">
-		<a id="add" href="#" class="ui-btn">ADD</a>
-		<a id="delete" href="#" class="ui-btn">DELETE</a>
+		<tau-button id="add" href="#" class="ui-btn">ADD</tau-button>
+		<tau-button id="delete" href="#" class="ui-btn">DELETE</tau-button>
 	</div>
 	<script src="gallery.js"></script>
-</div>
+</tau-page>
 </body>
 </html>

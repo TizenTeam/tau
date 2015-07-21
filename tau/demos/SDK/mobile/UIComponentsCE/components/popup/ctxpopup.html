@@ -6,61 +6,61 @@
 	<script type="text/javascript" src="../../lib/tau/mobile/js/tau.js" data-build-remove="false"></script>
 </head>
 <body>
-<div data-role="page" class="ui-page" id="ctxpopup-demo-page">
+<tau-page role="page" class="ui-page" id="ctxpopup-demo-page">
     <div class="ui-header" data-position="fixed">
         <h1>Contextual Popup</h1>
     </div>
-    <div class="ui-content">
-        <ul class="ui-listview">
+    <tau-scrollview class="ui-content">
+        <tau-listview class="ui-listview">
             <li class="ui-group-index">Horizontal Style</li>
             <li class="ui-li-anchor"><a href="#ctxpopup_horizontal_basic" data-inline="true" data-rel="popup">Horizontal Basic</a></li>
             <li class="ui-li-anchor"><a href="#ctxpopup_horizontal_scroll" data-inline="true" data-rel="popup">Horizontal Scroll</a></li>
             <li class="ui-li-anchor"><a href="#ctxpopup_horizontal_2line" data-inline="true" data-rel="popup">Horizontal 2line</a></li>
             <li class="ui-group-index">Vertical Style</li>
             <li class="ui-li-anchor"><a href="#ctxpopup_vertical_basic" data-inline="true" data-rel="popup">Vertical Basic</a></li>
-        </ul>
+        </tau-listview>
 
-        <div id="ctxpopup_horizontal_basic" class="horizontal-ctxpopup ui-popup" data-overlay="false">
-            <ul class="ui-listview">
+        <tau-popup id="ctxpopup_horizontal_basic" class="horizontal-ctxpopup ui-popup" overlay="false">
+            <tau-listview class="ui-listview">
                 <li class="ui-li-anchor"><a href="#" data-rel="back">Copy</a></li>
                 <li class="ui-li-anchor"><a href="#" data-rel="back">Cut</a></li>
                 <li class="ui-li-anchor"><a href="#" data-rel="back">Paste</a></li>
-            </ul>
-        </div>
+            </tau-listview>
+        </tau-popup>
 
-        <div id="ctxpopup_horizontal_scroll" class="horizontal-ctxpopup ui-popup" data-overlay="false">
-            <ul class="ui-listview">
+        <tau-popup id="ctxpopup_horizontal_scroll" class="horizontal-ctxpopup ui-popup" overlay="false">
+            <tau-listview class="ui-listview">
                 <li class="ui-li-anchor"><a href="#" data-rel="back">Copy</a></li>
                 <li class="ui-li-anchor"><a href="#" data-rel="back">Cut</a></li>
                 <li class="ui-li-anchor"><a href="#" data-rel="back">Paste</a></li>
                 <li class="ui-li-anchor"><a href="#" data-rel="back">Clipboard</a></li>
                 <li class="ui-li-anchor"><a href="#" data-rel="back">Close</a></li>
-            </ul>
-        </div>
-        <div id="ctxpopup_horizontal_2line" class="horizontal-ctxpopup ui-popup" data-overlay="false">
-            <ul class="ui-listview">
+            </tau-listview>
+        </tau-popup>
+        <tau-popup id="ctxpopup_horizontal_2line" class="horizontal-ctxpopup ui-popup" overlay="false">
+            <tau-listview class="ui-listview">
                 <li class="ui-li-anchor"><a href="#" data-rel="back">Select All</a></li>
                 <li class="ui-li-anchor"><a href="#" data-rel="back">Cut</a></li>
                 <li class="ui-li-anchor"><a href="#" data-rel="back">Copy</a></li>
                 <li class="ui-li-anchor"><a href="#" data-rel="back">Paste</a></li>
-            </ul>
-            <ul class="ui-listview">
+            </tau-listview>
+            <tau-listview class="ui-listview">
                 <li class="ui-li-anchor"><a href="#" data-rel="back">Clipboard</a></li>
                 <li class="ui-li-anchor"><a href="#" data-rel="back">Dictionary</a></li>
                 <li class="ui-li-anchor"><a href="#" data-rel="back">Translate</a></li>
                 <li class="ui-li-anchor"><a href="#" data-rel="back">Share via</a></li>
-            </ul>
-        </div>
+            </tau-listview>
+        </tau-popup>
 
-        <div id="ctxpopup_vertical_basic" class="ui-popup" data-overlay="false">
-            <ul class="ui-listview">
+        <tau-popup id="ctxpopup_vertical_basic" class="ui-popup" overlay="false">
+            <tau-listview class="ui-listview">
                 <li class="ui-li-anchor"><a href="#" data-rel="back">Copy</a></li>
                 <li class="ui-li-anchor"><a href="#" data-rel="back">Cut</a></li>
                 <li class="ui-li-anchor"><a href="#" data-rel="back">Paste</a></li>
                 <li class="ui-li-anchor"><a href="#" data-rel="back">Clipboard</a></li>
-            </ul>
-        </div>
-    </div>
-</div>
+            </tau-listview>
+        </tau-popup>
+    </tau-scrollview>
+</tau-page>
 </body>
 </html>

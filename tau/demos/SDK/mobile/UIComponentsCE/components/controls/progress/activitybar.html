@@ -6,15 +6,15 @@
 	<script type="text/javascript" src="../../../lib/tau/mobile/js/tau.js" data-build-remove="false"></script>
 </head>
 <body>
-<div class="ui-page" id="activitybar-demo">
+<tau-page class="ui-page" id="activitybar-demo">
 	<div class="ui-header" data-position="fixed">
 		<h1>Progress-activity bar</h1>
 	</div><!-- /header -->
-	<div class="ui-content">
-		<ul data-role="listview">
-			<li class="ui-li-static"><div data-type="activitybar" class="ui-progress"></div></li>
-		</ul>
-	</div><!-- /content -->
-</div><!-- /page -->
+	<tau-scrollview class="ui-content">
+		<tau-listview role="listview">
+			<li class="ui-li-static"><tau-progress type="activitybar" class="ui-progress"></tau-progress></li>
+		</tau-listview>
+	</tau-scrollview><!-- /content -->
+</tau-page><!-- /page -->
 </body>
 </html>

@@ -6,24 +6,24 @@
 	<script type="text/javascript" src="../../../lib/tau/mobile/js/tau.js" data-build-remove="false"></script>
 </head>
 <body>
-<div class="ui-page" id="activityindicator-demo">
+<tau-page class="ui-page" id="activityindicator-demo">
 	<div class="ui-header" data-position="fixed">
 		<h1>Progress-activity circle</h1>
 	</div><!-- /header -->
-	<div class="ui-content">
+	<tau-scrollview class="ui-content">
 		<p class="activity-p">1. Large Indicator</p>
 		<div class="activity-bg">
-			<div data-type="activitycircle" data-size="large" id="activity-large" class="ui-progress activity-circle"></div>
+			<tau-progress type="activitycircle" size="large" id="activity-large" class="ui-progress activity-circle"></tau-progress>
 		</div>
 		<p class="activity-p">2. Medium Indicator</p>
 		<div class="activity-bg">
-			<div data-type="activitycircle" data-size="medium" id="activity-medium" class="ui-progress activity-circle"></div>
+			<tau-progress type="activitycircle" size="medium" id="activity-medium" class="ui-progress activity-circle"></tau-progress>
 		</div>
 		<p class="activity-p">3. Small Indicator</p>
 		<div class="activity-bg">
-			<div data-type="activitycircle" data-size="small" id="activity-small" class="ui-progress activity-circle"></div>
+			<tau-progress type="activitycircle" size="small" id="activity-small" class="ui-progress activity-circle"></tau-progress>
 		</div>
-	</div><!-- /content -->
-</div><!-- /page -->
+	</tau-scrollview><!-- /content -->
+</tau-page><!-- /page -->
 </body>
 </html>
