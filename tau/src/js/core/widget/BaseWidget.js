@@ -175,6 +175,7 @@
 				 */
 				objectUtils = util.object,
 				BaseWidget = function () {
+					this.state = "created";
 					return this;
 				},
 				prototype = {},
@@ -293,6 +294,8 @@
 				self._getCreateOptions(element);
 
 				objectUtils.fastMerge(self.options, options);
+
+				self.state = "configured";
 			};
 
 			/**
@@ -374,6 +377,7 @@
 				element.setAttribute(engineDataTau.built, dataBuilt);
 				element.setAttribute(engineDataTau.name, dataName);
 
+				self.state = "built";
 				return node;
 			};
 
@@ -408,7 +412,7 @@
 				} else {
 					self.enable();
 				}
-
+				self.state = "initiated";
 				return self;
 			};
 
@@ -564,6 +568,7 @@
 				if (element) {
 					engine.removeBinding(element, self.name);
 				}
+				self.state = "destroyed";
 			};
 
 			/**

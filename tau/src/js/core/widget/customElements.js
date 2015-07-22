@@ -56,8 +56,9 @@
 					};
 
 					CustomWidgetProto.detachedCallback = function () {
-						if (this._tauWidget) {
-							this._tauWidget.destroy();
+						var widget = this._tauWidget;
+						if (widget && widget.state !== "destroyed") {
+							widget.destroy();
 						}
 					};
 
