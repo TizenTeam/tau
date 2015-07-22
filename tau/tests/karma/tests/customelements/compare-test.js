@@ -2,7 +2,8 @@
 define(
 	["../helpers"],
 	function (helpers) {
-		var errorsCount = 0;
+		var errorsCount = 0,
+			simpleLocation;
 
 		function prepareIframes(callback) {
 			helpers.createIframe(document, {
@@ -25,7 +26,9 @@ define(
 			var computedStyles1 = orgWindow.getComputedStyle(element1, selector),
 				computedStyles2,
 				result = [],
-				id = element1.dataset.tauName;
+				widgetName = orgWindow.tau.util.selectors.getClosestBySelector(element1, "[data-tau-name]").dataset.tauName,
+				id = widgetName,
+				errors = 0;
 
 			try {
 				computedStyles2 = ceWindow.getComputedStyle(element2, selector);
@@ -45,19 +48,24 @@ define(
 				if (computedStyles2Property && typeof computedStyles2Property) {
 					computedStyles2Property = computedStyles2Property.replace("UIComponentsCE", "UIComponents");
 				}
-				result.push({
-					property: property,
-					value1: computedStyles1[property],
-					value2: computedStyles2Property
-				});
+				if (computedStyles1[property] !== computedStyles2Property) {
+					result.push({
+						property: property,
+						value1: computedStyles1[property],
+						value2: computedStyles2Property
+					});
+				}
 			});
 
-			asyncTest(element1.tagName + id + " / " + (element2 && element2.tagName) + (selector || ""), function(result) {
-				[].forEach.call(result, function (info) {
-					equal(info.value2, info.value1, info.property);
-				});
-				start();
-			}.bind(null, result));
+			if (result.length) {
+				module(widgetName);
+				asyncTest(element1.tagName + " .(" + element1.className + ") / " + (element2 && element2.tagName) + (selector || "") + " " + simpleLocation, function (result) {
+					[].forEach.call(result, function (info) {
+						equal(info.value2, info.value1, info.property);
+					});
+					start();
+				}.bind(null, result));
+			}
 		}
 
 		function mapElement(element1, document) {
@@ -99,14 +107,12 @@ define(
 
 		function testPage(orgWindow, ceWindow, page, callback) {
 			var compareStyles = compareStylesFunction.bind(null, orgWindow, ceWindow),
-				orgDocument = orgWindow.document,
 				ceDocument = ceWindow.document,
 				widgets = page.querySelectorAll("[data-tau-name]"),
 				location = orgWindow.location + "",
-				simpleLocationIndex = location.indexOf("UIComponents"),
-				simpleLocation = location.substring(simpleLocationIndex + 12);
+				simpleLocationIndex = location.indexOf("UIComponents");
 
-			module(simpleLocation);
+			simpleLocation = location.substring(simpleLocationIndex + 12);
 
 			compareStyles(page, mapElement(page, ceDocument));
 			compareStyles(page, mapElement(page, ceDocument), ":before");
@@ -168,8 +174,7 @@ define(
 		}
 
 		function getLinks(orgWindow, ceWindow, page, callback) {
-			var orgDocument = orgWindow.document,
-				ceDocument = ceWindow.document,
+			var ceDocument = ceWindow.document,
 				links = [].slice.call(page.querySelectorAll("a[href]:not([href='#']):not([data-ignore]):not([data-rel])")),
 				internalCallback = function() {
 					var link = links.shift();
