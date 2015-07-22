@@ -572,7 +572,7 @@
 			 */
 			prototype._getParentPage = function (element) {
 				while (element && element !== document.body) {
-					if (element.getAttribute(DATA_ROLE) === "page" || element.classList.contains("ui-page") === true) {
+					if (element.getAttribute(DATA_ROLE) === "page" || element.classList.contains("ui-page") === true || element.tagName.toLowerCase() === "tau-page") {
 						return element;
 					}
 					element = element.parentNode;
@@ -645,7 +645,7 @@
 					}
 				}
 				styleElement.textContent = styles.join("\n");
-				page.appendChild(styleElement);
+				self.element.appendChild(styleElement);
 				self._styleElement = styleElement;
 			};
 

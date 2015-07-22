@@ -36,7 +36,6 @@
 
 					CustomWidgetProto.attributeChangedCallback = function (attrName, oldVal, newVal) {
 						if (this._tauWidget) {
-							console.log(attrName, attrName.indexOf("data"));
 							if (attrName.indexOf("data") !== 0 && attrName.indexOf("tau") !== 0 && attrName !== "class") {
 								if (newVal === "false") {
 									newVal = false;
@@ -44,7 +43,6 @@
 								if (newVal === "true") {
 									newVal = true;
 								}
-								console.log("changed attr", attrName, oldVal, newVal);
 								this._tauWidget.option(attrName, newVal);
 								this._tauWidget.refresh();
 							}
