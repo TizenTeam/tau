@@ -305,14 +305,16 @@
 			 */
 			prototype._getCreateOptions = function (element) {
 				var options = this.options,
-					bigRegexp = /[A-Z]/g;
+					bigRegexp = /[A-Z]/g,
+					isCustomElement = this.isCustomElement;
+
 				if (options !== undefined) {
 					Object.keys(options).forEach(function (option) {
 						// Get value from data-{namespace}-{name} element's attribute
 						// based on widget.options property keys
 						var value = domUtils.getNSData(element, (option.replace(bigRegexp, function (c) {
 							return "-" + c.toLowerCase();
-						})), null, self.isCustomElement);
+						})), isCustomElement);
 
 						if (value !== null) {
 							options[option] = value;
