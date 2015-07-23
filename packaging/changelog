@@ -1,4 +1,7 @@
 %changelog
+* Thu Jul 23 2015 Hagun Kim <hagun.kim@samsung.com> 0.10.29-3
+	- refactor(wearable): remove circular index scrollbar (fast scroll)
+
 * Fri Jul 17 2015 Hagun Kim <hagun.kim@samsung.com> 0.10.29-2
 	- fix(wearable): add enable/disable to Selector
 	- fix(wearable): modify Selector with drawer sample UX
