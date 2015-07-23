@@ -7,6 +7,21 @@
 * Listview Style - divide single / multiline style for specific
 * If you want to see any style, search them using class name.
 */
+/******************** custom elements styles *********************/
+tau-listview {
+    display: block;
+    list-style-type: disc;
+    -webkit-margin-before: 1em;
+    -webkit-margin-after: 1em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    -webkit-padding-start: 40px;
+}
+
+tau-expandable {
+    display: list-item;
+    text-align: -webkit-match-parent;
+}
 
 /******************** listview common style *********************/
 .ui-listview {
@@ -16,7 +31,7 @@
 	list-style: none;
 	counter-reset: listnumbering;
 
-	li {
+	li, tau-expandable {
 		position: relative;
 		box-sizing: content-box;
 		margin: 0;
