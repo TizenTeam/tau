@@ -996,7 +996,7 @@ input[type="checkbox"]#checkboxControl {
 }
 
 .ui-item.ui-item-active::before{
-	background-color: #3261ba;
+	background-color: rgba(116, 196, 252, 1);
 }
 .delete-icon::before {
 	position: absolute;

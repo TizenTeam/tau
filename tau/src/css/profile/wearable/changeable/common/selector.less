@@ -96,18 +96,6 @@
 	}
 	.ui-selector-indicator-arrow {
 		z-index: 0;
-		&::after {
-			position: absolute;
-			content: "";
-			width: 100%;
-			height: 100%;
-			top: 0;
-			left: 0;
-			.mask-image('./images/Common/b_more_option_center_bg.png');
-			.mask-size(100% 100%);
-			background-color: @color_selector_handler_bg;
-			.mask-repeat(no-repeat);
-		}
 		&::before {
 			position: absolute;
 			content: "";
@@ -115,10 +103,10 @@
 			height: 100%;
 			top: 0;
 			left: 0;
-			.mask-image('./images/Common/b_more_option_center_stroke.png');
+			.mask-image('./images/Common/b_rotary_selector_center_pointer.png');
 			.mask-size(100% 100%);
 			.mask-repeat(no-repeat);
-			background-color: @color_selector_handler_border;
+			background-color: rgba(116, 196, 252, 1);
 
 		}
 		&:active::before {
