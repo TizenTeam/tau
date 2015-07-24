@@ -27,6 +27,7 @@
 			"./profile/wearable/widget/wearable/CircleProgressBar",
 			"./profile/wearable/widget/wearable/Listview",
 			"./profile/wearable/widget/wearable/IndexScrollbar",
+			"./profile/wearable/widget/wearable/CircularIndexScrollbar",
 			"./profile/wearable/widget/wearable/Progress",
 			"./profile/wearable/widget/wearable/Progressing",
 			"./profile/wearable/widget/wearable/ToggleSwitch",
@@ -48,6 +49,7 @@
 			"./core/router/route/page",
 			"./core/router/route/popup",
 			"./core/router/route/drawer",
+			"./profile/wearable/router/route/circularindexscrollbar",
 			"./profile/wearable/expose",
 			"./profile/wearable/backward",
 			// Modules to be loaded after

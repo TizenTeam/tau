@@ -20,11 +20,15 @@
 			ns.setConfig("autoBuildOnPageChange", false, true);
 
 			if(ns.support.shape.circle) {
+				ns.setConfig("pageTransition", "pop");
+				ns.setConfig("popupTransition", "slideup");
+
 				ns.setConfig("popupFullSize", true);
 				ns.setConfig("scrollEndEffectArea", "screen");
 				ns.setConfig("enablePageScroll", true);
 				ns.setConfig("enablePopupScroll", true);
 			} else {
+				ns.setConfig("popupTransition", "slideup");
 				ns.setConfig("enablePageScroll", false);
 				ns.setConfig("enablePopupScroll", false);
 			}
