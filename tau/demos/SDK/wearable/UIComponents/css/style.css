@@ -572,6 +572,41 @@ li.static::before {
 	line-height: 60px;
 	padding-top: 10px;
 }
+
+/* -------------------------Animation List------------------------ */
+#pageAnimation::after {
+	content: "This component is not supported in rectangular device";
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	display: -webkit-flex;
+	background-color: rgba(0, 0, 0, 0.6);
+	color: rgba(0,149,255,1);
+	text-align: center;
+	padding-left: 20px;
+	padding-right: 20px;
+	-webkit-align-items: center;
+	-webkit-justify-content: center;
+}
+
+/* -------------------------Marquee List------------------------ */
+#pageMarqueeList::after {
+	content: "This component is not supported in rectangular device";
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	display: -webkit-flex;
+	background-color: rgba(0, 0, 0, 0.6);
+	color: rgba(0,149,255,1);
+	text-align: center;
+	padding-left: 20px;
+	padding-right: 20px;
+	-webkit-align-items: center;
+	-webkit-justify-content: center;
+}
+
 /* -----------------------------------  OPTION POPUP------------------------------------ */
 .option-icon-action::before {
 	-webkit-mask-image:url(../contents/popup/images/b_option_list_icon_action.png);
@@ -884,6 +919,14 @@ input[type="checkbox"]#checkboxControl {
 	.ui-listview.expand-list li.li-has-2line.ui-snap-listview-selected .ui-marquee{
 	    margin-top: -10px;
     }
+	/* ------------------ Animation List --------------------- */
+	#pageAnimation::after {
+		content: none;
+	}
+	/* ------------------- Marquee List --------------------- */
+	#pageMarqueeList::after {
+		content: none;
+	}
 	/* ------------------ POPUP ------------------------ */
 	.ui-popup-content .btn-additional {
 		width: 160px;
