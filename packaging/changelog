@@ -1,4 +1,11 @@
 %changelog
+* Fri Jul 24 2015 Hagun Kim <hagun.kim@samsung.com> 0.10.29-4
+	- fix(wearable): remove transition due to patent issue
+	- feat(wearable): modify selector style
+	- refactor(wearable): disable snap list in rectangular demo
+	- refactor(wearable): remove label in thumbnail list
+	- fix(wearable): fix Selector item index issue
+
 * Thu Jul 23 2015 Hagun Kim <hagun.kim@samsung.com> 0.10.29-3
 	- refactor(wearable): remove circular index scrollbar (fast scroll)
 
