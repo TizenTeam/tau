@@ -1,4 +1,8 @@
 %changelog
+* Fri Jul 24 2015 Heeju Joo <heeju.joo@samsung.com> 0.11.1
+	- feat(etc): License file has been changed in SDK demos
+	- fix(core): change license to Flora.
+
 * Fri Jul 24 2015 Hagun Kim <hagun.kim@samsung.com> 0.11.0
 	- fix(wearable): fix Selector item index issue
 	- refactor(wearable): remove circular index scrollbar (fast scroll)
