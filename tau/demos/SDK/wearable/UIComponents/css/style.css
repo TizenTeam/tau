@@ -151,8 +151,7 @@
 }
 .ui-listview li.li-has-checkbox label,
 .ui-listview li.li-has-radio label,
-.ui-listview li.li-has-toggle > label,
-.ui-listview li.li-has-thumb-right label {
+.ui-listview li.li-has-toggle > label {
 	display: block;
 	padding: 31.5px 94px 31.5px 40px;
 	margin-top: -30px;
@@ -160,16 +159,20 @@
 	margin-left: -38px;
 	margin-right: -8px;
 }
-.ui-listview li.li-has-thumb-left label {
-	padding-left: 70px;
+.ui-listview li.li-has-thumb-left {
+	padding-left: 88px;
+}
+
+.ui-listview li.li-has-thumb-right {
+	padding-right: 88px;
 }
 .ui-listview.ui-snap-listview li.li-has-checkbox label,
 .ui-listview.ui-snap-listview li.li-has-radio label,
 .ui-listview.ui-snap-listview li.li-has-toggle > label,
-.ui-listview.ui-snap-listview li.li-has-thumb-right label{
+.ui-listview.ui-snap-listview li.li-has-thumb-right{
 	padding: 27px 94px 21px 40px;
 }
-.ui-listview.ui-snap-listview li.li-has-thumb-left label{
+.ui-listview.ui-snap-listview li.li-has-thumb-left{
 	padding: 27px 40px 21px 102px;
 }
 .ui-listview li img {
@@ -189,9 +192,7 @@
 
 .ui-listview li.li-has-multiline.li-has-checkbox label,
 .ui-listview li.li-has-multiline.li-has-radio label,
-.ui-listview li.li-has-multiline.li-has-toggle label:not(.ui-toggleswitch),
-.ui-listview li.li-has-multiline.li-has-thumb-right label,
-.ui-listview li.li-has-multiline.li-has-thumb-left label {
+.ui-listview li.li-has-multiline.li-has-toggle label:not(.ui-toggleswitch) {
 	display: block;
 	padding-bottom: 12px;
 	padding-left: 16px;
@@ -210,13 +211,13 @@
 .ui-listview.ui-snap-listview li.li-has-multiline.li-has-checkbox label,
 .ui-listview.ui-snap-listview li.li-has-multiline.li-has-radio label,
 .ui-listview.ui-snap-listview li.li-has-multiline.li-has-toggle label:not(.ui-toggleswitch),
-.ui-listview.ui-snap-listview li.li-has-multiline.li-has-thumb-right label,
-.ui-listview.ui-snap-listview li.li-has-multiline.li-has-thumb-left label {
+.ui-listview.ui-snap-listview li.li-has-multiline.li-has-thumb-right,
+.ui-listview.ui-snap-listview li.li-has-multiline.li-has-thumb-left {
 	padding-top: 27px;
 }
-.ui-listview li.li-has-multiline.li-has-thumb-left label {
-	padding-left: 64px;
-	padding-right: 40px;
+.ui-listview li.li-has-multiline.li-has-thumb-left {
+	padding-left: 88px;
+	padding-right: 30px;
 	margin-left: 0;
 }
 .ui-listview li.li-has-multiline.li-has-toggle label:not(.ui-toggleswitch) {
@@ -795,7 +796,7 @@ input[type="checkbox"]#checkboxControl {
 	.ui-listview li.li-has-thumb-left img {
 		left: 15px;
 	}
-	.ui-listview li.li-has-thumb-left label {
+	.ui-listview li.li-has-thumb-left{
 		padding: 31.5px 40px 31.5px 94px;
 	}
 	.ui-listview li.li-has-thumb-right img {
@@ -831,8 +832,7 @@ input[type="checkbox"]#checkboxControl {
 	}
 	.ui-listview li.li-has-checkbox label,
 	.ui-listview li.li-has-radio label,
-	.ui-listview li.li-has-toggle > label,
-	.ui-listview li.li-has-thumb-right label {
+	.ui-listview li.li-has-toggle > label {
 		margin-top: -28.5px;
 		margin-bottom: -28.5px;
 		margin-left: -40px;
@@ -841,8 +841,11 @@ input[type="checkbox"]#checkboxControl {
 	.ui-listview.ui-snap-listview li.li-has-checkbox label,
 	.ui-listview.ui-snap-listview li.li-has-radio label,
 	.ui-listview.ui-snap-listview li.li-has-toggle > label,
-	.ui-listview.ui-snap-listview li.li-has-thumb-right label{
+	.ui-listview.ui-snap-listview li.li-has-thumb-right {
 		padding: 28.5px 130px 28.5px 40px;
+	}
+	.ui-listview.ui-snap-listview li.li-has-thumb-left {
+		padding: 28.5px 40px 28.5px 130px;
 	}
 	.li-has-action-icon .li-action-text::after{
 		height: 60px;
@@ -857,11 +860,11 @@ input[type="checkbox"]#checkboxControl {
 	.ui-listview .li-has-action-icon.ui-li-active .li-action-text:active {
 		background-color: transparent;
 	}
-	.ui-listview li.li-has-multiline.li-has-thumb-left label {
-		padding-left: 90px;
+	.ui-listview li.li-has-multiline.li-has-thumb-left {
+		padding-left: 130px;
 	}
-	.ui-listview li.li-has-multiline.li-has-thumb-right label {
-		padding-right: 105px;
+	.ui-listview li.li-has-multiline.li-has-thumb-right {
+		padding-right: 130px;
 		padding-left: 30px;
 	}
 	.ui-listview li.select {
