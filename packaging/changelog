@@ -1,4 +1,9 @@
 %changelog
+* Fri Jul 24 2015 Hagun Kim <hagun.kim@samsung.com> 0.10.29-5
+	- feat(etc): License file has been changed in SDK demos
+	- fix(all): License changed to Flora
+	- refactor(wearable): revert changes about patent issue.
+
 * Fri Jul 24 2015 Hagun Kim <hagun.kim@samsung.com> 0.10.29-4
 	- fix(wearable): remove transition due to patent issue
 	- feat(wearable): modify selector style
