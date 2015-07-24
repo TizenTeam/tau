@@ -1,4 +1,3 @@
-/*global window, define, ns */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
  *
@@ -14,25 +13,3 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/**
- * #Animation namespace
- * Namespace for animation utilities
- * @author Krzysztof Antoszek <k.antoszek@samsung.com
- * @class ns.util.anim
- */
-(function (ns) {
-	"use strict";
-	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
-	define(
-		[
-			"../util"
-		],
-		function () {
-			//>>excludeEnd("tauBuildExclude");
-			ns.util.anim = ns.util.anim || {};
-			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
-			return ns.widget;
-		}
-	);
-	//>>excludeEnd("tauBuildExclude");
-}(ns));

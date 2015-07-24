@@ -77,7 +77,7 @@ module.exports = function(grunt) {
 							exts.forEach(function( ext ) {
 								src = path.join( buildDir[device].js, name ) + ext;
 								licenseFiles.push({
-									src: [path.join( "license", "MIT" ) + ".txt", src],
+									src: [path.join( "license", "Flora" ) + ".txt", src],
 									dest: src
 								});
 							});
@@ -127,7 +127,7 @@ module.exports = function(grunt) {
 								exts.forEach(function( ext ) {
 									src = path.join( buildDir[device].theme, version, name ) + ext;
 									licenseFiles.push({
-										src: [path.join( "license", "MIT" ) + ".txt", src],
+										src: [path.join( "license", "Flora" ) + ".txt", src],
 										dest: src
 									});
 								});
@@ -137,7 +137,7 @@ module.exports = function(grunt) {
 									exts.forEach(function( ext ) {
 										src = path.join( buildDir[device].theme, theme.name, name ) + ext;
 										licenseFiles.push({
-											src: [path.join( "license", "MIT" ) + ".txt", src],
+											src: [path.join( "license", "Flora" ) + ".txt", src],
 											dest: src
 										});
 									});
@@ -152,7 +152,7 @@ module.exports = function(grunt) {
 							for (i = 0; i < len; i++) {
 								src = path.join( buildDir[version].theme, wearableThemeColors[i], name ) + ext;
 								licenseFiles.push({
-									src: [path.join( "license", "MIT" ) + ".txt", src],
+									src: [path.join( "license", "Flora" ) + ".txt", src],
 									dest: src
 								});
 							}
@@ -475,8 +475,8 @@ module.exports = function(grunt) {
 				},
 
 				license: {
-					src: "LICENSE.MIT",
-					dest: path.join( dist, "LICENSE" ) + ".MIT"
+					src: "LICENSE.Flora",
+					dest: path.join( dist, "LICENSE" ) + ".Flora"
 				},
 
 				"globalize-mobile": {
