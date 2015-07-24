@@ -1,4 +1,37 @@
 %changelog
+* Fri Jul 24 2015 Hagun Kim <hagun.kim@samsung.com> 0.11.0
+	- fix(wearable): fix Selector item index issue
+	- refactor(wearable): remove circular index scrollbar (fast scroll)
+	- refactor(etc): update script for SDK sample release
+	- fix(wearable): add enable/disable to Selector
+	- fix(wearable): modify Selector with drawer sample UX
+	- fix(wearable): add animation-fill-mode in page transition
+	- refactor(wearable): add refresh logic in enable method in snap list
+	- refactor(wearable): update color code xml for wc1
+	- fix(wearable): modify snap list animation when using rotary
+	- fix(wearable): modify snap list for using in section changer
+	- fix(wearable): fix page, popup transition animation type
+	- fix(wearable): fix Selector bouncing effect issue
+	- feat(core): add TCT auto build script
+	- feat(all): add tau.animation module
+	- demo(wearable): add animation demo for wearable
+	- fix(mobile): modify coloredListview option name
+	- refactor(mobile): add comment for option and revise typo
+	- refactor(mobile): add comment for documentation of GridView
+	- fix(core): remove sectionChanger enable check block in _init
+	- fix(core) modify documantation comment of Tabs component.
+	- refactor(mobile): fix slider for refresh function
+	- fix(etc): fix copy dir to globalization sample
+	- refactor(wearable): disable snaplist in rectangular demo
+	- refactor(wearable): rename indicator sample from bar to linear
+	- refactor(wearable): remove section changer with tab option
+	- refactor(wearable): remove label in thumbnail list
+	- fix(wearable): add don't support comment to circular slider sample
+	- fix(wearable): modify Selector with drawer sample UX
+	- fix(mobile): set less-time for progressbar sample code
+	- fix(wearable): modify select list popup custom style
+	- fix(wearable): fix overlay transition display
+
 * Thu Jul 09 2015 Hagun Kim <hagun.kim@samsung.com> 0.10.30
 	- refactor(core): fix page indicator
 	- refactor(wearable): modify sensitivity for drag event
