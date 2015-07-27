@@ -26,12 +26,39 @@
 					var name = event.detail.name,
 						BaseElement = event.detail.BaseElement || HTMLElement,
 						CustomWidgetProto = Object.create(BaseElement.prototype),
-						tagName = "tau-" + name.toLowerCase();
+						//define types on elements defined by is selector
+						controlTypes = ["search", "text"],
+						lowerName = name.toLowerCase(),
+						tagName = "tau-" + lowerName,
+						isControl = false,
+						extendTo = "";
+
+
+					if (BaseElement.name === "HTMLInputElement") {
+						extendTo = "input";
+						isControl = true;
+					}
 
 					CustomWidgetProto._tauName = name;
 
+
 					CustomWidgetProto.createdCallback = function () {
-						this._tauWidget = engine.instanceWidget(this, this._tauName);
+						var self = this,
+							//needs to be extended for elements which will be extended by "is" attribute
+							//it should contain the type in the name like "search" in 'tau-inputsearch'
+							itemText = self.getAttribute("is");
+
+						if (itemText) {
+							[].some.call(controlTypes, function(item) {
+								// if element is a control then set the proper type
+								if (itemText && itemText.indexOf(item) !== -1) {
+									self.type = item;
+									return true;
+								}
+							});
+						}
+
+						self._tauWidget = engine.instanceWidget(self, self._tauName);
 					};
 
 					CustomWidgetProto.attributeChangedCallback = function (attrName, oldVal, newVal) {
@@ -67,7 +94,11 @@
 					if (registerdTags[tagName]) {
 						ns.warn(tagName + " already registred");
 					} else {
-						registerdTags[tagName] = document.registerElement(tagName, {prototype: CustomWidgetProto});
+						if (isControl) {
+							registerdTags[tagName] = document.registerElement(tagName, {extends: extendTo, prototype: CustomWidgetProto});
+						} else {
+							registerdTags[tagName] = document.registerElement(tagName, {prototype: CustomWidgetProto});
+						}
 					}
 
 				} catch (e) {

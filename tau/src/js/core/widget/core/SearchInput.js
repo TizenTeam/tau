@@ -151,7 +151,10 @@
                 "input[type='search'], .ui-search-input",
                 [],
                 SearchInput,
-                "core"
+                "core",
+                false,
+                false,
+                HTMLInputElement
             );
             //>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
             return ns.widget.core.SearchInput;

@@ -3,6 +3,7 @@
 <head>
     <link rel="stylesheet" href="../../../lib/tau/mobile/theme/default/tau.css">
     <script type="text/javascript" src="../../../lib/tau/mobile/js/tau.js" data-build-remove="false"></script>
+    <link rel="stylesheet" href="../../../css/custom.css">
 </head>
 <body>
     <tau-page class="ui-page" id="searchInputPage">
@@ -11,7 +12,7 @@
         </div>
         <tau-scrollview class="ui-content" id="search-input-content">
             <div class="search-input-area">
-                <tau-searchinput type="search" name="search" id="demo-page-search-input" value=""></tau-searchinput>
+                <input is="tau-searchinput" id="demo-page-search-input" value=""/>
             </div>
             <tau-listview id="searchList" class="ui-listview">
                 <li data-filtertext="Hairston" class="ui-li-static">Hairston</li>
@@ -31,5 +32,6 @@
         </tau-scrollview>
         <script src="./searchinput.js"></script>
     </tau-page>
+
 </body>
 </html>
