@@ -22,10 +22,10 @@
 			var slice = Array.prototype.slice,
 				FRAMEWORK_WEBUI = "tizen-web-ui-fw",
 				FRAMEWORK_TAU = "tau",
-				IS_TAU_REGEXP = /(^|[\\\/])(tau(\.min)?\.js)$/,
-				LIB_FILENAME_REGEXP = /(^|[\\\/])((tau(\.min)?\.js)|(tizen-web-ui-fw)(\.custom|\.full)?(\.min)?\.js)$/,
-				CSS_FILENAME_REGEXP = /(^|[\\\/])((tau(\.min)?\.css)|(tizen-web-ui-fw)(\.custom|\.full)?(\.min)?\.css)$/,
-				TIZEN_THEMES_REGEXP = /^(white|black|default)$/i,
+				IS_TAU_REGEXP = /(^|[\\\/])(tau(\.full|\.mvc)?(\.min)?\.js)$/,
+				LIB_FILENAME_REGEXP = /(^|[\\\/])((tau|tizen-web-ui-fw)(\.full|\.mvc|\.custom)?(\.min)?\.js)$/,
+				CSS_FILENAME_REGEXP = /(^|[\\\/])((tau|tizen-web-ui-fw)(\.full|\.mvc|\.custom)?(\.min)?\.css)$/,
+				TIZEN_THEMES_REGEXP = /^(changeable|white|black|default)$/i,
 				MINIFIED_REGEXP = /\.min\.js$/,
 				frameworkData = {
 					/**
