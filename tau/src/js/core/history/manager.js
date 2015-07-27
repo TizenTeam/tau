@@ -70,6 +70,7 @@
 						if (href && !options.href) {
 							options.href = href;
 						}
+						history.disableVolatileMode();
 						if (!triggerStateChange(options)) {
 							// mark as handled
 							// but not on back

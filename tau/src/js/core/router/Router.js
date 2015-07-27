@@ -485,6 +485,7 @@
 
 						options.rel = rel;
 						router.open(contentNode, options);
+						eventUtils.preventDefault(event);
 					}
 				}
 			}

@@ -70,7 +70,7 @@
 					if (matches && matches.length > 0) {
 						deferredTemplate.resolve = function (content) {
 							if (content) {
-								if (eventUtils.trigger(document, EVENT_CONTENT_AVAILABLE, {content: content, options: options})) {
+								if (!eventUtils.trigger(document, EVENT_CONTENT_AVAILABLE, {content: content, options: options})) {
 									// Routes save path to history and we nedd block saving to history by controller
 									options.notSaveToHistory = true;
 								}
@@ -127,6 +127,7 @@
 							}
 						);
 						history.replace(state, options.title || "", url);
+						history.enableVolatileMode();
 					}
 					eventUtils.trigger(document, EVENT_PATH_RESOLVED, options);
 				};
