@@ -58,12 +58,14 @@ module.exports = function(grunt) {
 	
 	grunt.loadTasks("tools/app/tasks");
 
-	function prepareProfile(app, profile, destination, done) {
+	function prepareProfile(app, profile, destination, suffix, done) {
 		fs.exists(app + "/" + profile, function (exists) {
 			if (exists) {
 				app += "/" + profile;
 			}
-			grunt.config("multitau." + profile + ".options", {
+
+			suffix = suffix || "";
+			grunt.config("multitau." + profile + suffix + ".options", {
 				src: "../dist",
 				dest: app + "/" + destination,
 				profile: profile,
@@ -77,7 +79,6 @@ module.exports = function(grunt) {
 		var profile = grunt.option("profile"),
 			app = grunt.option("app"),
 			destination = grunt.option("destination") || (grunt.option("profiledestination") && "lib/tau/" + profile ) || "lib/tau",
-			debug = grunt.option("tau-debug"),
 			done = this.async(),
 			tasks = [],
 			async = require("async");
@@ -93,6 +94,23 @@ module.exports = function(grunt) {
 			tasks.push(prepareProfile.bind(null, app, "mobile", destination));
 			tasks.push(prepareProfile.bind(null, app, "tv", destination));
 		}
+
+		async.series(tasks, function () {
+			grunt.task.run("multitau");
+			done();
+		});
+
+	});
+
+	grunt.registerTask("prepare-ce-test-app", function() {
+		var profile = "mobile",
+			destination = "lib/tau/" + profile,
+			done = this.async(),
+			tasks = [],
+			async = require("async");
+
+		tasks.push(prepareProfile.bind(null, "SDK/mobile/UIComponents/", profile, destination, ""));
+		tasks.push(prepareProfile.bind(null, "SDK/mobile/UIComponentsCE/", profile, destination, "CE"));
 
 		async.series(tasks, function () {
 			grunt.task.run("multitau");
