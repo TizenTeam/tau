@@ -897,6 +897,78 @@ module.exports = function(grunt) {
 
 			performance: {
 
+			},
+
+			karma: {
+				apptest: {
+					configFile: "tests/karma/app.conf.js",
+					singleRun: true
+				}
+			},
+			multitau: {
+				options: {
+					src: "dist"
+				},
+				TAUControllerWithRouterMobile: {
+					options: {
+						profile: "mobile",
+						dest: "demos/TAUControllerWithRouter/lib/tau"
+					}
+				},
+				TAUControllerWithRouterWearable: {
+					options: {
+						profile: "wearable",
+						dest: "demos/TAUControllerWithRouter/lib/tau"
+					}
+				},
+				TAUApplicationFrameworkMobile: {
+					options: {
+						profile: "mobile",
+						dest: "demos/TAUApplicationFramework/lib/tau"
+					}
+				},
+				TAUApplicationFrameworkWearable: {
+					options: {
+						profile: "wearable",
+						dest: "demos/TAUApplicationFramework/lib/tau"
+					}
+				},
+				TAUControllerWithOutRouterMobile: {
+					options: {
+						profile: "mobile",
+						dest: "demos/TAUControllerWithOutRouter/lib/tau"
+					}
+				},
+				TAUControllerWithOutRouterWearable: {
+					options: {
+						profile: "wearable",
+						dest: "demos/TAUControllerWithOutRouter/lib/tau"
+					}
+				},
+				TAUControllerWithOutRouterWithPolymerMobile: {
+					options: {
+						profile: "mobile",
+						dest: "demos/TAUControllerWithOutRouterWithPolymer/lib/tau"
+					}
+				},
+				TAUControllerWithOutRouterWithPolymerWearable: {
+					options: {
+						profile: "wearable",
+						dest: "demos/TAUControllerWithOutRouterWithPolymer/lib/tau"
+					}
+				},
+				TAUMultiProfilesTemplateLoadMobile: {
+					options: {
+						profile: "mobile",
+						dest: "demos/TAUMultiProfilesTemplateLoad/lib/tau"
+					}
+				},
+				TAUMultiProfilesTemplateLoadWearable: {
+					options: {
+						profile: "wearable",
+						dest: "demos/TAUMultiProfilesTemplateLoad/lib/tau"
+					}
+				}
 			}
 		};
 
@@ -1055,9 +1127,11 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks("grunt-string-replace");
 	grunt.loadNpmTasks("grunt-contrib-symlink");
 	grunt.loadNpmTasks("grunt-debug-task");
+	grunt.loadNpmTasks("grunt-karma");
 
 	// Load framework custom tasks
 	grunt.loadTasks('tools/grunt/tasks');
+	grunt.loadTasks("demos/tools/app/tasks");
 
 	// Task list
 	grunt.registerTask("themesjs", "Generate themes files using requirejs", themesjs);  // Generate separate themes files
@@ -1073,5 +1147,20 @@ module.exports = function(grunt) {
 
 	grunt.registerTask("build", ["clean", "lint", "css", "js", "license", "version"]);
 	grunt.registerTask("release", [ "build", "test", "sdk-docs" ]);
+
+	grunt.registerTask("apptest", [ "build",
+		"multitau:TAUControllerWithRouterMobile",
+		"multitau:TAUControllerWithOutRouterMobile",
+		"multitau:TAUControllerWithOutRouterWithPolymerMobile",
+		"multitau:TAUMultiProfilesTemplateLoadMobile",
+		"multitau:TAUApplicationFrameworkMobile",
+		"karma",
+		"multitau:TAUControllerWithRouterWearable",
+		"multitau:TAUControllerWithOutRouterWearable",
+		"multitau:TAUControllerWithOutRouterWithPolymerWearable",
+		"multitau:TAUMultiProfilesTemplateLoadWearable",
+		"multitau:TAUApplicationFrameworkWearable",
+		"karma" ]);
+
 	grunt.registerTask("default", [ "release" ]);
 };

@@ -18,13 +18,13 @@
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
-
+			// "../lib/tau/js/tau.full.js
 			var slice = Array.prototype.slice,
 				FRAMEWORK_WEBUI = "tizen-web-ui-fw",
 				FRAMEWORK_TAU = "tau",
 				IS_TAU_REGEXP = /(^|[\\\/])(tau(\.full|\.mvc)?(\.min)?\.js)$/,
-				LIB_FILENAME_REGEXP = /(^|[\\\/])((tau|tizen-web-ui-fw)(\.full|\.mvc|\.custom)?(\.min)?\.js)$/,
-				CSS_FILENAME_REGEXP = /(^|[\\\/])((tau|tizen-web-ui-fw)(\.full|\.mvc|\.custom)?(\.min)?\.css)$/,
+				LIB_FILENAME_REGEXP = /(^|[\\\/])(tau|tizen-web-ui-fw)(\.full|\.mvc|\.custom)?(\.min)?\.js$/,
+				CSS_FILENAME_REGEXP = /(^|[\\\/])(tau|tizen-web-ui-fw)(\.full|\.mvc|\.custom)?(\.min)?\.css$/,
 				TIZEN_THEMES_REGEXP = /^(changeable|white|black|default)$/i,
 				MINIFIED_REGEXP = /\.min\.js$/,
 				frameworkData = {

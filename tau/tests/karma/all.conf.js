@@ -33,9 +33,7 @@ module.exports = function (config) {
             {pattern: "src/js/**/*.js", included: false, served: true, watch: true},
             {pattern: "dist/**/*", included: false, served: true, watch: true},
             // here put path to single test
-//            {pattern: "tests/js/**/*.js", included: false, served: true, watch: true},
-            {pattern: "tests/karma/tests/**/*-test.js", included: false, served: true, watch: true},
-//            {pattern: "tests/karma/tests/util/object/*test.js", included: false, served: true, watch: true},
+            {pattern: "tests/karma/tests/core/**/*-test.js", included: false, served: true, watch: true},
             "tests/karma/runner.js"
         ],
 

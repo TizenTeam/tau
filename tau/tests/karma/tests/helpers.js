@@ -22,6 +22,46 @@
 	};
 
 	/**
+	 * Load TAU Script
+	 * @param {Document} document standard document object or document object from iframe
+	 * @param {string} profile Profile name
+	 * @param {Function} callback callback called after load style
+	 */
+	helpers.loadTAUScript = function (document, profile, callback) {
+		var scriptTag = document.createElement("script");
+
+		scriptTag.setAttribute("src", "/base/dist/" + profile + "/js/tau.js");
+		scriptTag.onload = function() {
+			scriptTag.onload = null;
+			callback();
+		};
+
+		document.body.appendChild(scriptTag);
+	};
+
+	/**
+	 * Load TAU Script
+	 * @param {Document} document standard document object or document object from iframe
+	 * @param {string} profile Profile name
+	 * @param {Function} callback callback called after load style
+	 */
+	helpers.loadByRequire = function (window, options, modules, callback) {
+		var scriptTag = document.createElement("script");
+
+		scriptTag.setAttribute("src", "/base/tests/libs/require.js");
+		scriptTag.onload = function() {
+			var require = window.require;
+			scriptTag.onload = null;
+			if (options) {
+				require.config(options);
+			}
+			require(modules, callback);
+		};
+
+		window.document.body.appendChild(scriptTag);
+	};
+
+	/**
 	 * Remove all loaded TAU styles
 	 * @param document
 	 */
@@ -65,6 +105,25 @@
 	};
 
 	/**
+	 *
+	 * @param window
+	 * @param element
+	 * @param elementSize
+	 * @param childSizes
+	 * @param description
+	 */
+	helpers.testLayout = function(window, element, elementSize, childSizes, description) {
+		if (elementSize[0] !== undefined && elementSize[1] !== undefined) {
+			helpers.testElementSize(window, element, elementSize[0], elementSize[1], description + "; global element; ");
+		}
+		childSizes.forEach(function(childSize, i) {
+			if (childSize[0] !== undefined && childSize[1] !== undefined) {
+				helpers.testElementSize(window, element.children[i], childSize[0], childSize[1], description + "; child " + i + " element; ");
+			}
+		});
+	};
+
+	/**
 	 * Merge coverage result from iframe to current doc
 	 * @param window
 	 * @param iframeWindow
@@ -95,6 +154,20 @@
 				}
 			}
 		}
+	};
+
+	helpers.createIframe = function(document, options, callback) {
+		// create iframe
+		var iframe = document.createElement("iframe"),
+			src = options.src;
+		iframe.width = options.width || 480;
+		iframe.height = options.height || 800;
+		iframe.style.border = "none";
+		if (src) {
+			iframe.src = src;
+		}
+		iframe.onload = callback.bind(null, iframe);
+		document.body.appendChild(iframe);
 	};
 
 	window.karmaHelpers = helpers;
