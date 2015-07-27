@@ -18,17 +18,18 @@
 			<div data-role="content">
 				<pre><code class="javascript">
 var controller = tau.Controller.getInstance();
-controller.addRoute("page-string", function (deferred) {					
+controller.addRoute("page-string", function (deferred) {
 	alert("Hello world");
-	deferred.resolve();
+	// show alert, but not change history
+	deferred.reject();
 });
 				</code></pre>
 			</div>
 			<script>
 				var controller = tau.Controller.getInstance();
-				controller.addRoute("page-string", function (deferred) {					
+				controller.addRoute("page-string", function (deferred) {
 					alert("Hello world");
-					deferred.resolve();
+					deferred.reject();
 				});
 			</script>
 			<footer>

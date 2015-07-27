@@ -22,7 +22,7 @@
 			<div data-role="content">
 				<pre><code class="javascript">
 var controller = tau.Controller.getInstance();
-controller.addRoute("layers/:id", function (deferred, id) {					
+controller.addRoute("layers/:id", function (deferred, id) {
 	var layer = document.getElementById(id),
 		container = document.getElementById("layers"),
 		node = container.firstElementChild;
@@ -44,7 +44,7 @@ controller.addRoute("layers/:id", function (deferred, id) {
 			</div>
 			<script>
 				var controller = tau.Controller.getInstance();
-				controller.addRoute("layers/:id", function (deferred, id) {					
+				controller.addRoute("layers/:id", function (deferred, id) {
 					var layer = document.getElementById(id),
 						container = document.getElementById("layers"),
 						node = container.firstElementChild;
@@ -58,10 +58,10 @@ controller.addRoute("layers/:id", function (deferred, id) {
 					}
 				});
 			</script>
-			<footer>
-				<a class="ui-btn ui-button" href="#layers/one">Show layer 1</a>
-				<a class="ui-btn ui-button" href="#layers/two">Show layer 2</a>
-				<a class="ui-btn ui-button" href="#layers/three">Show layer 3</a>
+			<footer class="ui-footer ui-grid-col-3">
+				<a class="ui-btn ui-button" href="#layers/one">1</a>
+				<a class="ui-btn ui-button" href="#layers/two">2</a>
+				<a class="ui-btn ui-button" href="#layers/three">3</a>
 			</footer>
 		</div>
 	</body>
