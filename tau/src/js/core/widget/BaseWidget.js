@@ -233,6 +233,9 @@
 				 * @member ns.widget.BaseWidget
 				 */
 				self.element = self.element || null;
+
+				self.state = "configuring";
+
 				if (definition) {
 					definitionName = definition.name;
 					definitionNamespace = definition.namespace;
@@ -357,6 +360,8 @@
 
 				eventUtils.trigger(element, self.widgetEventPrefix + "beforecreate");
 
+				self.state = "building";
+
 				id = element.id;
 				if (id) {
 					self.id = id;
@@ -402,6 +407,8 @@
 			prototype.init = function (element) {
 				var self = this;
 				self.id = element.id;
+
+				self.state = "initiating";
 
 				if (typeof self._init === TYPE_FUNCTION) {
 					self._init(element);
@@ -559,6 +566,10 @@
 			prototype.destroy = function (element) {
 				var self = this;
 				element = element || self.element;
+
+				// the widget is in during destroy process
+				self.state = "destroying";
+
 				if (typeof self._destroy === TYPE_FUNCTION) {
 					self._destroy(element);
 				}
@@ -568,6 +579,7 @@
 				if (element) {
 					engine.removeBinding(element, self.name);
 				}
+				// the widget was destroyed
 				self.state = "destroyed";
 			};
 

@@ -334,6 +334,7 @@
 						self._onChangeValue, true);
 
 				removeAttributesWhenDestroy(element);
+
 				//remove visible representative
 				container.parentElement.insertBefore(element, container);
 				container.parentElement.removeChild(container);

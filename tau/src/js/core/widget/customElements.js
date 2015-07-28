@@ -57,7 +57,9 @@
 
 					CustomWidgetProto.detachedCallback = function () {
 						var widget = this._tauWidget;
-						if (widget && widget.state !== "destroyed") {
+						if (widget &&
+							widget.state !== "destroyed" &&
+							widget.state !== "destroying") {
 							widget.destroy();
 						}
 					};
