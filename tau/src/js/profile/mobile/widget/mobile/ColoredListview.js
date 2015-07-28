@@ -457,7 +457,6 @@
 			prototype._refresh = function() {
 				var self = this;
 				ListviewPrototype._refresh.call(self);
-				self._initCanvasLayout();
 			};
 
 			/**
