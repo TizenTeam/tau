@@ -12,13 +12,17 @@
 	</div>
 
 	<tau-scrollview class="ui-content">
-		<p>1-1. Proper way of definding toggleswitch with &lt;input&gt; tag</p>
+        <p>1-1. Proper way of definding toggleswitch with &lt;input&gt; tag</p>
+        <tau-toggleswitch type="checkbox" name="toggle-1" id="toggle-1"></tau-toggleswitch>
 
-		<p>1-2.Proper way of definding disabled toggleswitch with &lt;input&gt; tag</p>
+        <p>1-2.Proper way of definding disabled toggleswitch with &lt;input&gt; tag</p>
+        <tau-toggleswitch type="checkbox" name="toggle-2" id="toggle-2" disabled></tau-toggleswitch>
 
-		<p>2. Define toggleswitch based on &lt;select&gt; tag and class=&quot;ui-toggleswitch&quot;</p>
-
-
+        <p>2. Define toggleswitch based on &lt;select&gt; tag and class="ui-toggleswitch"</p>
+        <tau-toggleswitch name="flip-1" id="flip-1" class="ui-toggleswitch">
+            <option value="off"></option>
+            <option value="on"></option>
+        </tau-toggleswitch>
 	</tau-scrollview>
 	<link rel="stylesheet" href="toggleswitch.css">
 </tau-page>
