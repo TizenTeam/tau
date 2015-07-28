@@ -132,7 +132,7 @@
 
 				element.selectedIndex = (self._ui.input.checked) ? 1 : 0;
 
-				if (element.nodeName.toLowerCase() === "select") {
+				if (self._type === "select") {
 					events.trigger(element, "change");
 				}
 			}
@@ -181,6 +181,10 @@
 
 				element.parentNode.insertBefore(toggleContainer, element);
 				inputElement = setUpInput();
+
+				if (element.hasAttribute("disabled")) {
+					inputElement.setAttribute("disabled", "disabled");
+				}
 				inputElement.className = classes.toggle;
 
 				toggleContainer.appendChild(inputElement);
@@ -217,8 +221,8 @@
 			 */
 			ToggleSwitch.prototype._build = function (element) {
 				var divHandler = createElement("div"),
-					controlType = element.nodeName.toLowerCase(),
-					toggleContainer = createElement("div");
+					toggleContainer = createElement("div"),
+					controlType = element.nodeName.toLowerCase();
 
 				toggleContainer.className = classes.toggleContainer;
 				divHandler.className = classes.toggleHandler;
@@ -226,12 +230,15 @@
 				if (controlType === "input") {
 					buildToggleBasedOnInputTag(element, divHandler, toggleContainer);
 				}
-				if (controlType === "select") {
-					//hide select
+				if (controlType === "select" || controlType === "tau-toggleswitch") {
+					//hide element
 					element.style.display = "none";
-
 					buildToggleBasedOnSelectTag(element, divHandler, toggleContainer);
 				}
+
+				// check type of widget, based on select has option tags
+				this._type = element.children.length ? "select" : "input";
+
 				return element;
 			};
 
@@ -259,7 +266,7 @@
 					element = self.element;
 
 				return self._type === "input" ?
-					parseFloat(element.value) :	element.selectedIndex;
+					parseFloat(element.value) : element.selectedIndex;
 			};
 
 			/**
@@ -320,7 +327,7 @@
 			ToggleSwitch.prototype._destroy = function () {
 				var self = this,
 					element = self.element,
-					tagName = element.nodeName.toLowerCase(),
+					tagName = self._type,
 					container = element.parentElement;
 
 				self._ui.input.removeEventListener("change",
