@@ -29,6 +29,7 @@
     "grunt-qunit-tap": "~2.0.0",
     "grunt-string-replace": "~0.2.4",
     "karma": "^0.13.3",
+    "grunt-karma": "*",
     "karma-coverage": "^0.4.2",
     "karma-qunit": "^0.1.5",
     "marked": "0.3.2",

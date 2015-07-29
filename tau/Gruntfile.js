@@ -623,6 +623,13 @@ module.exports = function(grunt) {
 				}
 			},
 
+			karma: {
+				unit: {
+					configFile: "./tests/karma/single.conf.js",
+					singleRun: true
+				}
+			},
+
 			"string-replace": {
 				jsduck: {
 					files: {
@@ -935,6 +942,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks("grunt-string-replace");
 	grunt.loadNpmTasks("grunt-contrib-symlink");
 	grunt.loadNpmTasks("grunt-debug-task");
+	grunt.loadNpmTasks("grunt-karma");
 
 	// Load framework custom tasks
 	grunt.loadTasks('tools/grunt/tasks');
