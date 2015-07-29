@@ -104,14 +104,21 @@ module.exports = function(grunt) {
 	});
 
 	grunt.registerTask("prepare-ce-test-app", function() {
-		var profile = "mobile",
-			destination = "lib/tau/" + profile,
+		var profile,
+			destination,
 			done = this.async(),
 			tasks = [],
 			async = require("async");
 
-		tasks.push(prepareProfile.bind(null, "SDK/mobile/UIComponents/", profile, destination, "", true));
-		tasks.push(prepareProfile.bind(null, "SDK/mobile/UIComponentsCE/", profile, destination, "CE", true));
+		profile = "mobile";
+		destination = "lib/tau/" + profile;
+		tasks.push(prepareProfile.bind(null, "SDK/" + profile + "/UIComponents/", profile, destination, "", true));
+		tasks.push(prepareProfile.bind(null, "SDK/" + profile + "/UIComponentsCE/", profile, destination, "CE", true));
+
+		profile = "wearable";
+		destination = "lib/tau/" + profile;
+		tasks.push(prepareProfile.bind(null, "SDK/" + profile + "/UIComponents/", profile, destination, "", true));
+		tasks.push(prepareProfile.bind(null, "SDK/" + profile + "/UIComponentsCE/", profile, destination, "CE", true));
 
 		async.series(tasks, function () {
 			grunt.task.run("multitau");
