@@ -70,9 +70,9 @@
 			"./core/event/hwkey",
 			"./core/event/throttledresize",
 			"./core/event/orientationchange",
-			"./core/widget/core/SectionChanger",
-			// widget list
 			"./core/widget/customElements",
+			// widget list
+			"./core/widget/core/SectionChanger",
 			"./core/widget/core/Button",
 			"./core/widget/core/Listview",
 			"./core/widget/core/PanelChanger",

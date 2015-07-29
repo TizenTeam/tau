@@ -61,6 +61,10 @@
 							});
 						}
 
+						//>>excludeStart("tauDebug", pragmas.tauDebug);
+						ns.log("creating custom element:", self._tauName);
+						//>>excludeEnd("tauDebug");
+
 						self._tauWidget = engine.instanceWidget(self, self._tauName);
 					};
 

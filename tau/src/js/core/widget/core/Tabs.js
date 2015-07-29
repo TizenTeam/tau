@@ -73,6 +73,8 @@
 			"../../event",
 			"../../engine",
 			"../BaseWidget",
+			"./tab/Tabbar",
+			"./SectionChanger",
 			"./Page"
 		],
 
@@ -82,6 +84,8 @@
 				engine = ns.engine,
 				selectors = ns.util.selectors,
 				Page = ns.widget.core.Page,
+				Tabbar = ns.widget.TabBar,
+				Sectionchanger = ns.widget.SectionChanger,
 				events = ns.event,
 				Tabs = function () {
 					var self = this;
@@ -90,6 +94,7 @@
 					self.options = {
 						changeDuration: 0
 					};
+					self._callbacks = {};
 				},
 				classes = {
 					TABS: "ui-tabs",
@@ -114,7 +119,7 @@
 				var self = this;
 				events.on(element, "tabchange sectionchange", self, false);
 				window.addEventListener("resize", self, false);
-			};
+			}
 
 			/**
 			 * unbind Tabs component necessary events
@@ -128,7 +133,7 @@
 				var self = this;
 				events.off(element, "tabchange sectionchange", self, false);
 				window.removeEventListener("resize", self, false);
-			};
+			}
 
 			/**
 			 * Handle events
@@ -159,7 +164,6 @@
 			 * @member ns.widget.core.Tabs
 			 */
 			prototype._build = function(element){
-
 				element.classList.add(classes.TABS);
 				if (element.getElementsByClassName(classes.TITLE).length) {
 					element.classList.add(classes.WITH_TITLE);
@@ -174,40 +178,66 @@
 			 * @param {HTMLElement} element
 			 * @member ns.widget.core.Tabs
 			 */
-			prototype._init = function(element){
+			prototype._init = function(element) {
 				var self = this,
-					ui = self._ui;
+					ui = self._ui,
+					sectionChangerSelector = engine.getWidgetDefinition("SectionChanger").selector + ",tau-sectionchanger",
+					tabbarSelector = engine.getWidgetDefinition("TabBar").selector + ",tau-tabbar";
 
 				ui.page = selectors.getClosestByClass(element, classes.PAGE);
-				ui.tabbar = element.querySelector("[data-role='tabbar'], .ui-tabbar");
-				ui.sectionChanger = element.querySelector("[data-role='section-changer'], .ui-section-changer");
-				self._component.tabbar = tau.widget.TabBar(ui.tabbar);
+				ui.tabbar = element.querySelector(tabbarSelector);
+				ui.sectionChanger = element.querySelector(sectionChangerSelector);
+
 				self._changed = false;
 				self._lastIndex = 0;
+
+				self._initTabbar();
 				self._initSectionChanger();
+
 				return element;
 			};
 
 			/**
-			 * Pageshow event handler
-			 * @method _onPageBeforeShow
+			 * Set style for section changer
+			 * @method _setSectionChangerStyle
 			 * @protected
-			 * @param {Event} event
 			 * @member ns.widget.core.Tabs
 			 */
-			prototype._initSectionChanger = function() {
+			prototype._setSectionChangerStyle = function () {
 				var self = this,
 					element = self.element,
 					ui = self._ui,
-					sectionChanger = ui.sectionChanger,
-					sectionChangerStyle = sectionChanger.style,
+					sectionChangerStyle = ui.sectionChanger.style,
 					tabbar = ui.tabbar,
 					tabbarOffsetHeight = tabbar.offsetHeight;
 
 				sectionChangerStyle.width = window.innerWidth + "px";
 				sectionChangerStyle.height = element.offsetHeight - tabbarOffsetHeight + "px";
-				self._component.sectionChanger = tau.widget.SectionChanger(sectionChanger);
+			};
 
+			/**
+			 * Init section changer
+			 * @method _initSectionChanger
+			 * @protected
+			 * @member ns.widget.core.Tabs
+			 */
+			prototype._initSectionChanger = function() {
+				var self = this;
+
+				self._component.sectionChanger = Sectionchanger(self._ui.sectionChanger);
+				self._setSectionChangerStyle();
+			};
+
+			/**
+			 * Init tabbar
+			 * @method _initTabbar
+			 * @protected
+			 * @member ns.widget.core.Tabs
+			 */
+			prototype._initTabbar = function() {
+				var self = this;
+
+				self._component.tabbar = Tabbar(self._ui.tabbar);
 			};
 
 			/**
@@ -253,6 +283,17 @@
 			};
 
 			/**
+			 * Callback on event pagebeforeshow
+			 * @method onPageBeforeShow
+			 * @param self
+			 * @private
+			 * @member ns.widget.core.Tabs
+			 */
+			function onPageBeforeShow(self) {
+				self.refresh();
+			}
+
+			/**
 			 * bind event to the Tabs component
 			 * @method _bindEvents
 			 * @protected
@@ -261,6 +302,25 @@
 			prototype._bindEvents = function() {
 				var self = this;
 				bindTabsEvents.call(self, self.element);
+
+				self._callbacks.onPageBeforeShow = onPageBeforeShow.bind(null, self);
+				self._ui.page.addEventListener(Page.events.BEFORE_SHOW, self._callbacks.onPageBeforeShow);
+			};
+
+			/**
+			 * Unbind event to the Tabs component
+			 * @method _unbindEvents
+			 * @protected
+			 * @member ns.widget.core.Tabs
+			 */
+			prototype._unbindEvents = function() {
+				var self = this;
+
+				unBindTabsEvents.call(self, self.element);
+
+				if (self._callbacks.onPageBeforeShow) {
+					self._ui.page.removeEventListener(Page.events.BEFORE_SHOW, self._callbacks.onPageBeforeShow);
+				}
 			};
 
 			/**
@@ -271,7 +331,8 @@
 			 */
 			prototype._destroy = function() {
 				var self = this;
-				unBindTabsEvents.call(self, self.element);
+
+				self._unbindEvents();
 				self._ui = null;
 				self._component = null;
 			};
@@ -283,7 +344,7 @@
 			 * @member ns.widget.core.Tabs
 			 */
 			prototype._refresh = function() {
-				this._initSectionChanger();
+				this._setSectionChangerStyle();
 			};
 			/**
 			 * Set the active tab

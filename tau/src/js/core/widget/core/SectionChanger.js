@@ -79,8 +79,10 @@
 	define(
 		[
 			"../../engine",
-			"../../../core/event/gesture",
-			"../../../core/widget/BaseWidget",
+			"../../event/gesture",
+			"../../util/selectors",
+			"../BaseWidget",
+			"./Page",
 			"./scroller/Scroller",
 			"./tab/TabIndicator",
 			"../core"
@@ -90,6 +92,8 @@
 			var Scroller = ns.widget.core.scroller.Scroller,
 				Gesture = ns.event.gesture,
 				engine = ns.engine,
+				Page = ns.widget.core.Page,
+				selectors = ns.util.selectors,
 				utilsObject = ns.util.object,
 				utilsEvents = ns.event,
 				eventType = {
@@ -122,6 +126,18 @@
 				result -= direction === Scroller.Orientation.HORIZONTAL ? elements[index].offsetWidth / 2 : elements[index].offsetHeight / 2;
 				return result;
 			}
+
+			/**
+			 * Callback on event pagebeforeshow
+			 * @method onPageBeforeShow
+			 * @param self
+			 * @private
+			 * @member ns.widget.core.SectionChanger
+			 */
+			function onPageBeforeShow(self) {
+				self.refresh();
+			}
+
 			utilsObject.inherit(SectionChanger, Scroller, {
 				_build: function (element) {
 
@@ -163,6 +179,8 @@
 						useTab: false,
 						fillContent: true
 					});
+
+					this._callbacks = {};
 				},
 
 				_init: function (element) {
@@ -225,6 +243,11 @@
 					}
 
 					return element;
+				},
+
+				_refresh: function() {
+					this._super();
+					this._init(this.element);
 				},
 
 				_prepareLayout: function () {
@@ -367,10 +390,13 @@
 				},
 
 				_bindEvents: function () {
-					this._super();
+					var self = this,
+						page = selectors.getClosestByClass(self.element, Page.classes.uiPage);
+
+					self._super();
 
 					ns.event.enableGesture(
-						this.scroller,
+						self.scroller,
 
 						new ns.event.gesture.Swipe({
 							orientation: this.orientation === Scroller.Orientation.HORIZONTAL ?
@@ -379,17 +405,27 @@
 						})
 					);
 
-					utilsEvents.on(this.scroller,
-							"swipe transitionEnd webkitTransitionEnd mozTransitionEnd msTransitionEnd oTransitionEnd", this);
+					utilsEvents.on(self.scroller,
+							"swipe transitionEnd webkitTransitionEnd mozTransitionEnd msTransitionEnd oTransitionEnd", self);
+
+					self._callbacks.onPageBeforeShow = onPageBeforeShow.bind(null, self);
+					page.addEventListener(Page.events.BEFORE_SHOW, self._callbacks.onPageBeforeShow);
 				},
 
 				_unbindEvents: function () {
-					this._super();
+					var self = this,
+						page = selectors.getClosestByClass(self.element, Page.classes.uiPage);
 
-					if (this.scroller) {
-						ns.event.disableGesture(this.scroller);
-						utilsEvents.off(this.scroller,
-							"swipe transitionEnd webkitTransitionEnd mozTransitionEnd msTransitionEnd oTransitionEnd", this);
+					self._super();
+
+					if (self.scroller) {
+						ns.event.disableGesture(self.scroller);
+						utilsEvents.off(self.scroller,
+							"swipe transitionEnd webkitTransitionEnd mozTransitionEnd msTransitionEnd oTransitionEnd", self);
+					}
+
+					if (self._callbacks.onPageBeforeShow) {
+						page.removeEventListener(Page.events.BEFORE_SHOW, self._callbacks.onPageBeforeShow);
 					}
 				},
 

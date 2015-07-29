@@ -173,6 +173,7 @@
 				engine = ns.engine,
 				Page = ns.widget.core.Page,
 				domUtils = ns.util.DOM,
+				selectors = ns.util.selectors,
 
 				TabBar = function () {
 					var self = this;
@@ -194,6 +195,8 @@
 						autoChange: true,
 						autoPositionSet: true
 					};
+
+					self._callbacks = {};
 				},
 				/**
 				 * Object with class dictionary
@@ -305,10 +308,22 @@
 			 */
 			prototype._init = function (element) {
 				var self = this,
+					options = self.options;
+
+				self._translatedX = 0;
+				self._lastX = 0;
+
+				self._setSize(element);
+				self._setActive(options.active);
+
+				return element;
+			};
+
+			prototype._setSize = function(element) {
+				var self = this,
 					type = self._type,
 					tabs = self._ui.tabs,
-					options = self.options,
-					offsetWidth = element.offsetWidth,
+					offsetWidth = domUtils.getElementWidth(element),
 					length = tabs.length,
 					devideNumber = length,
 					i;
@@ -340,13 +355,28 @@
 					tabs[i].style.width = parseInt(offsetWidth / devideNumber, 10) + "px";
 				}
 				self._wholeWidth = parseInt(offsetWidth / devideNumber, 10) * length;
-				self._translatedX = 0;
-				self._lastX = 0;
-
-				self._setActive(options.active);
-
-				return element;
 			};
+
+			prototype._clearStyles = function() {
+				var tabs = this._ui.tabs,
+					length = tabs.length,
+					i;
+
+				for (i = 0; i < length; i++) {
+					tabs[i].style.width = "";
+				}
+			};
+
+			/**
+			 * Callback on event pagebeforeshow
+			 * @method onPageBeforeShow
+			 * @param self
+			 * @private
+			 * @member ns.widget.core.TabBar
+			 */
+			function onPageBeforeShow(self) {
+				self.refresh();
+			}
 
 			/**
 			 * Bind events for widget
@@ -357,6 +387,7 @@
 			prototype._bindEvents = function () {
 				var self = this,
 					element = self.element,
+					page = selectors.getClosestByClass(element, Page.classes.uiPage),
 					tabs = self._ui.tabs;
 
 				events.enableGesture(
@@ -366,6 +397,9 @@
 				events.on(element, "drag dragend", self, false);
 				events.on(tabs, "vclick", self, false);
 				window.addEventListener("resize", self, false);
+
+				self._callbacks.onPageBeforeShow = onPageBeforeShow.bind(null, self);
+				page.addEventListener(Page.events.BEFORE_SHOW, self._callbacks.onPageBeforeShow);
 			};
 
 			/**
@@ -377,6 +411,7 @@
 			prototype._unBindEvents = function () {
 				var self = this,
 					element = self.element,
+					page = selectors.getClosestByClass(element, Page.classes.uiPage),
 					tabs = self._ui.tabs;
 
 				events.disableGesture(
@@ -386,6 +421,10 @@
 				events.off(element, "drag dragend", self, false);
 				events.off(tabs, "vclick", self, false);
 				window.removeEventListener("resize", self, false);
+
+				if (self._callbacks.onPageBeforeShow) {
+					page.removeEventListener(Page.events.BEFORE_SHOW, self._callbacks.onPageBeforeShow);
+				}
 			};
 
 			/**
@@ -539,6 +578,12 @@
 					}
 				}
 			};
+
+			prototype._refresh = function() {
+				this._clearStyles();
+				this._setSize(this.element);
+			};
+
 			/**
 			 * Destroy widget
 			 * @method _destroy
