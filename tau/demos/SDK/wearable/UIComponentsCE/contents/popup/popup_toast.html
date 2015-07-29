@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, user-scalable=no">
+	<title>Wearable UI</title>
+	<link rel="stylesheet" href="../../lib/tau/wearable/theme/default/tau.min.css">
+	<link rel="stylesheet" href="../../css/style.css">
+</head>
+
+<body>
+<tau-page class="ui-page">
+	<header class="ui-header">
+		<h2 class="ui-title">Toast Popup</h2>
+	</header>
+	<tau-scrollview class="ui-content content-padding">
+		<h3>Toast</h3>
+		<div class="ui-grid-row">
+			<tau-button href="#popupToast" class="ui-btn" rel="popup">Popup toast</tau-button>
+			<tau-button href="#graphicPopupToast" class="ui-btn" rel="popup">Graphic toast</tau-button>
+		</div>
+	</tau-scrollview>
+
+	<tau-popup id="popupToast" class="ui-popup ui-popup-toast">
+		<div class="ui-popup-content">
+			It was a real pleasure for me
+		</div>
+	</tau-popup>
+
+	<tau-popup id="graphicPopupToast" class="ui-popup ui-popup-toast ui-popup-toast-graphic">
+		<div class="ui-popup-content">
+			<div class="ui-popup-toast-icon btn-icon-toast-check">check</div>
+			Please check your
+			phone number
+		</div>
+	</tau-popup>
+</tau-page>
+<script type="text/javascript" src="../../lib/tau/wearable/js/tau.min.js"></script>
+</body>
+</html>

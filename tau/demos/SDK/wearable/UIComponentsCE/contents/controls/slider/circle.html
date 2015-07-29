@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+	<title>Wearable UI</title>
+	<link rel="stylesheet" href="../../../lib/tau/wearable/theme/default/tau.css">
+	<link rel="stylesheet" media="all and (-tizen-geometric-shape: circle)" href="../../../lib/tau/wearable/theme/default/tau.circle.css">
+	<link rel="stylesheet" href="../../../css/style.css">
+</head>
+<body>
+<tau-page class="ui-page" id="circleSliderPage" enable-page-scroll="false">
+	<header class="ui-header">
+		<h2 class="ui-title">Circle Slider</h2>
+	</header>
+	<tau-scrollview class="ui-content">
+		<tau-slider id="circle" type="range" name="circleSlider" value="20" min="0" max="100"></tau-slider>
+	</tau-scrollview>
+	<script src="slider_circle.js"></script>
+</tau-page>
+<script type="text/javascript" src="../../../lib/tau/wearable/js/tau.js"></script>
+</body>
+</html>
