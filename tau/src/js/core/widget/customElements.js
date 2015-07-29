@@ -28,19 +28,22 @@
 						CustomWidgetProto = Object.create(BaseElement.prototype),
 						//define types on elements defined by is selector
 						controlTypes = ["search", "text"],
+						//define if to use elements with is attribute
+						controlElements = [{"input" :"input"}, {"dropdownmenu": "select"}],
+						customElements = ["dropdownmenu"],
 						lowerName = name.toLowerCase(),
 						tagName = "tau-" + lowerName,
-						isControl = false,
 						extendTo = "";
 
-
-					if (BaseElement.name === "HTMLInputElement") {
-						extendTo = "input";
-						isControl = true;
-					}
+					[].forEach.call(controlElements, function(item) {
+						// if element is a control then set the proper type
+						var elementKey = Object.keys(item)[0];
+						if (lowerName && lowerName.indexOf(elementKey) !== -1) {
+							extendTo = item[elementKey];
+						}
+					});
 
 					CustomWidgetProto._tauName = name;
-
 
 					CustomWidgetProto.createdCallback = function () {
 						var self = this,
@@ -63,7 +66,7 @@
 
 					CustomWidgetProto.attributeChangedCallback = function (attrName, oldVal, newVal) {
 						if (this._tauWidget) {
-							if (attrName.indexOf("data") !== 0 && attrName.indexOf("tau") !== 0 && attrName !== "class") {
+							if (this._tauWidget.options[attrName] !== undefined) {
 								if (newVal === "false") {
 									newVal = false;
 								}
@@ -82,19 +85,10 @@
 						}
 					};
 
-					CustomWidgetProto.detachedCallback = function () {
-						var widget = this._tauWidget;
-						if (widget &&
-							widget.state !== "destroyed" &&
-							widget.state !== "destroying") {
-							widget.destroy();
-						}
-					};
-
 					if (registerdTags[tagName]) {
 						ns.warn(tagName + " already registred");
 					} else {
-						if (isControl) {
+						if (extendTo !== "") {
 							registerdTags[tagName] = document.registerElement(tagName, {extends: extendTo, prototype: CustomWidgetProto});
 						} else {
 							registerdTags[tagName] = document.registerElement(tagName, {prototype: CustomWidgetProto});

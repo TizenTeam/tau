@@ -977,7 +977,10 @@
 				", select.ui-select-menu:not([data-role='slider']):not([data-role='range']):not([data-role='toggleswitch'])",
 				["open", "close"],
 				DropdownMenu,
-				"mobile"
+				"mobile",
+				false,
+				false,
+				HTMLSelectElement
 			);
 
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
