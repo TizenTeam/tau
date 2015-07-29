@@ -58,7 +58,7 @@ module.exports = function(grunt) {
 	
 	grunt.loadTasks("tools/app/tasks");
 
-	function prepareProfile(app, profile, destination, suffix, done) {
+	function prepareProfile(app, profile, destination, suffix, disablesdb, done) {
 		fs.exists(app + "/" + profile, function (exists) {
 			if (exists) {
 				app += "/" + profile;
@@ -69,7 +69,8 @@ module.exports = function(grunt) {
 				src: "../dist",
 				dest: app + "/" + destination,
 				profile: profile,
-				app: app
+				app: app,
+				disablesdb: disablesdb
 			});
 			done();
 		});
@@ -109,8 +110,8 @@ module.exports = function(grunt) {
 			tasks = [],
 			async = require("async");
 
-		tasks.push(prepareProfile.bind(null, "SDK/mobile/UIComponents/", profile, destination, ""));
-		tasks.push(prepareProfile.bind(null, "SDK/mobile/UIComponentsCE/", profile, destination, "CE"));
+		tasks.push(prepareProfile.bind(null, "SDK/mobile/UIComponents/", profile, destination, "", true));
+		tasks.push(prepareProfile.bind(null, "SDK/mobile/UIComponentsCE/", profile, destination, "CE", true));
 
 		async.series(tasks, function () {
 			grunt.task.run("multitau");

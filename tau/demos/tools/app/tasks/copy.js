@@ -124,18 +124,18 @@ module.exports = function (grunt) {
 		var config,
 			appId,
 			packageId;
-		fs.exists(dir + "/config.xml", function(exists) {
+		fs.exists(dir + path.sep + "config.xml", function(exists) {
 			if (exists) {
-				fs.readFile(dir + "/config.xml", function (err, data) {
+				fs.readFile(dir + path.sep + "config.xml", function (err, data) {
 					var parseString = require("xml2js").parseString;
 					parseString(data, function (err, result) {
 						config = result;
 						appId = result.widget["tizen:application"][0].$.id;
 						packageId = result.widget["tizen:application"][0].$.package;
 						fs.unlink(appId + ".wgt", function () {
-							exec("tools/tizen-sdk/bin/web-build " + dir + " -e .gitignore .build* .project .settings .sdk_delta.info *.wgt", function () {
-								exec("tools/tizen-sdk/bin/web-signing " + appId + "/.buildResult -n -p default:tools/" + (profile === "tv" ? "tv-" : "") + "profiles.xml", function () {
-									exec("tools/tizen-sdk/bin/web-packaging -n -o " + appId + ".wgt " + dir + "/.buildResult/", function () {
+							exec(path.join("tools", "tizen-sdk", "bin", "web-build") +" " + dir + " -e .gitignore .build* .project .settings .sdk_delta.info *.wgt", function () {
+								exec(path.join("tools", "tizen-sdk", "bin", "web-signing") + " " + appId + path.sep + ".buildResult -n -p default:tools" + path.sep + (profile === "tv" ? "tv-" : "") + "profiles.xml", function () {
+									exec(path.join("tools", "tizen-sdk", "bin", "web-packaging") + " -n -o " + appId + ".wgt " + dir + path.sep + ".buildResult" + path.sep, function () {
 										done();
 									});
 								});
@@ -154,7 +154,7 @@ module.exports = function (grunt) {
 		var deviceParam = device ? " -s " + device + " " : "";
 		exec("sdb" + deviceParam + " root on", function () {
 			exec("sdb" + deviceParam + " shell xwd -root -out /tmp/screen.xwd", function () {
-				var dir = "screenshots/"  + profile + "/" + devicesIds[device] + "/" + app + "/";
+				var dir = path.join("screenshots", profile, devicesIds[device], app) + path.sep;
 				mkdirRecursiveSync(dir);
 				dir += (new Date()).toISOString();
 				exec("sdb" + deviceParam + " pull /tmp/screen.xwd " + dir + ".xwd", function () {
@@ -184,7 +184,7 @@ module.exports = function (grunt) {
 			appId,
 			packageId,
 			deviceParam = device ? " -s " + device + " " : "";
-		fs.readFile(dir + "/config.xml", function (err, data) {
+		fs.readFile(dir + path.sep + "config.xml", function (err, data) {
 			var parseString = require("xml2js").parseString;
 			parseString(data, function (err, result) {
 				config = result;
@@ -223,52 +223,65 @@ module.exports = function (grunt) {
 			noRun = grunt.option("no-run"),
 			app = options.app || "MediaQuriesUtilDemo",
 			src = options["src"],
+			disablesdb = options["disablesdb"],
 			dest = options["dest"],
-			done = this.async();
-		if (src.substr(-1) !== "/") {
-			src += "/";
+			done = this.async(),
+			destArray = dest.split(path.sep);
+		if (src.substr(-1) !== path.sep) {
+			src += path.sep;
 		}
-		grunt.log.ok("delete " + dest);
-		fs.lstat(dest, function(error, stats) {
+		destArray.pop();
+		fs.lstat(destArray.join(path.sep), function(error, stats) {
 			if (stats && stats.isSymbolicLink()) {
-				fs.unlinkSync(dest);
-			} else {
-				unlinkRecursiveSync(dest);
+				grunt.log.ok("delete " + destArray.join(path.sep));
+				fs.unlinkSync(destArray.join(path.sep));
 			}
-			mkdirRecursiveSync(dest);
-			grunt.log.ok("copy " + src + profile + " -> " + dest);
-			copyRecursiveSync(src + profile, dest);
-			getDeviceList(profile,
-				function (devices, count) {
-					if (count) {
-						build(app, profile, function (error) {
-							var async = require("async"),
-								tasks = [];
-
-							if (error) {
-								grunt.log.error("Error on building");
-								done();
-							} else {
-								if (!noRun) {
-									devices[profile].forEach(function (device) {
-										tasks.push(run.bind(null, device, app, debug));
-										tasks.push(function (next) {
-											setTimeout(function () {
-												screenshot(device, profile, app, next);
-											}, 5000);
-										});
-									});
-									async.series(tasks, done);
-								} else {
-									done();
-								}
-							}
-						});
-					} else {
-						done();
-					}
+			fs.lstat(dest, function (error, stats) {
+				if (stats && stats.isSymbolicLink()) {
+					grunt.log.ok("delete " + dest);
+					fs.unlinkSync(dest);
+				} else {
+					unlinkRecursiveSync(dest);
 				}
-			);
+				mkdirRecursiveSync(dest);
+				grunt.log.ok("copy " + src + profile + " -> " + dest);
+				copyRecursiveSync(src + profile, dest);
+				if (disablesdb) {
+					done();
+				} else {
+					getDeviceList(profile,
+						function (devices, count) {
+							if (count) {
+								build(app, profile, function (error) {
+									var async = require("async"),
+										tasks = [];
+
+									if (error) {
+										grunt.log.error("Error on building");
+										done();
+									} else {
+										if (!noRun) {
+											devices[profile].forEach(function (device) {
+												tasks.push(run.bind(null, device, app, debug));
+												tasks.push(function (next) {
+													setTimeout(function () {
+														screenshot(device, profile, app, next);
+													}, 5000);
+												});
+											});
+											async.series(tasks, done);
+										} else {
+											done();
+										}
+									}
+								});
+							} else {
+								done();
+							}
+						}
+					);
+				}
+			});
 		});
 	});
 };
