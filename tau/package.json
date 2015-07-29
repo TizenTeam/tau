@@ -28,8 +28,12 @@
     "grunt-qunit-istanbul": "~0.4.7",
     "grunt-qunit-tap": "~2.0.0",
     "grunt-string-replace": "~0.2.4",
+    "karma": "^0.13.3",
+    "karma-coverage": "^0.4.2",
+    "karma-qunit": "^0.1.5",
     "marked": "0.3.2",
     "mu2": "~0.5.20",
+    "qunitjs": "^1.18.0",
     "rjs-build-analysis": "~0.0.3",
     "underscore": "1.6.0",
     "xml2js": "~0.4.4"

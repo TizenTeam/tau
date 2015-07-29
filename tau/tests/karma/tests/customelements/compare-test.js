@@ -2,7 +2,7 @@
 define(
 	["../helpers"],
 	function (helpers) {
-		var errorsCount = 0,
+		var errorsCount = {},
 			simpleLocation;
 
 		function prepareIframes(callback) {
@@ -28,7 +28,7 @@ define(
 				result = [],
 				widgetName = orgWindow.tau.util.selectors.getClosestBySelector(element1, "[data-tau-name]").dataset.tauName,
 				id = widgetName,
-				errors = 0;
+				testName;
 
 			try {
 				computedStyles2 = ceWindow.getComputedStyle(element2, selector);
@@ -58,13 +58,17 @@ define(
 			});
 
 			if (result.length) {
-				module(widgetName);
-				asyncTest(element1.tagName + " .(" + element1.className + ") / " + (element2 && element2.tagName) + (selector || "") + " " + simpleLocation, function (result) {
-					[].forEach.call(result, function (info) {
-						equal(info.value2, info.value1, info.property);
-					});
-					start();
-				}.bind(null, result));
+				testName = element1.tagName + " .(" + element1.className + ") / " + (element2 && element2.tagName) + (selector || "");
+				if (!errorsCount[widgetName+testName]) {
+					errorsCount[widgetName+testName] = 1;
+					module(widgetName);
+					asyncTest(testName + " " + simpleLocation, function (result) {
+						[].forEach.call(result, function (info) {
+							equal(info.value2, info.value1, info.property);
+						});
+						start();
+					}.bind(null, result));
+				}
 			}
 		}
 
@@ -108,7 +112,7 @@ define(
 		function testPage(orgWindow, ceWindow, page, callback) {
 			var compareStyles = compareStylesFunction.bind(null, orgWindow, ceWindow),
 				ceDocument = ceWindow.document,
-				widgets = page.querySelectorAll("[data-tau-name]"),
+				widgets = page && page.querySelectorAll("[data-tau-name]") || [],
 				location = orgWindow.location + "",
 				simpleLocationIndex = location.indexOf("UIComponents");
 
@@ -190,7 +194,7 @@ define(
 			internalCallback();
 		}
 
-		asyncTest("test data prefixed options on resize", function() {
+		asyncTest("test was started", function() {
 			var finished = false;
 			setTimeout(function () {
 				if (!finished) {
