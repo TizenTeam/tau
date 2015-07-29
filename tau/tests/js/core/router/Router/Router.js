@@ -240,12 +240,6 @@ function testFunction(tau, prefix, setupFunction) {
 		);
 	});
 
-	/* protected */
-	test("(protected method) _getInitialContent", function () {
-		router.init();
-		equal(router._getInitialContent(), router.firstPage, "router");
-	});
-
 }
 
 if (window.define !== undefined) {

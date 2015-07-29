@@ -1,5 +1,37 @@
 /*global window, define, ns */
 /*jslint browser: true, nomen: true */
+/**
+ * # History manager
+ *
+ * Control events connected with history change and trigger events to controller
+ * or router.
+ *
+ * @class ns.history.manager
+ * @since 2.4
+ * @author Krzysztof Antoszek <k.antoszek@samsung.com>
+ * @author Maciej Urbanski <m.urbanski@samsung.com>
+ * @author Tomasz Lukawski <t.lukawski@samsung.com>
+ */
+/**
+ * Event historystatechange
+ * @event historystatechange
+ * @class ns.history.manager
+ */
+/**
+ * Event historyhashchange
+ * @event historyhashchange
+ * @class ns.history.manager
+ */
+/**
+ * Event historyenabled
+ * @event historyenabled
+ * @class ns.history.manager
+ */
+/**
+ * Event historydisabled
+ * @event historydisabled
+ * @class ns.history.manager
+ */
 (function (window, document) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
@@ -34,6 +66,17 @@
 				EVENT_HASHCHANGE = "historyhashchange",
 				EVENT_ENABLED = "historyenabled",
 				EVENT_DISABLED = "historydisabled",
+				/**
+				 * Engine event types
+				 * @property {Object} events
+				 * @property {string} events.STATECHANGE="historystatechange" event name on history manager change state
+				 * @property {string} events.HASHCHANGE="historyhashchange" event name on history manager change hash
+				 * @property {string} events.ENABLED="historyenabled" event name on enable history manager
+				 * @property {string} events.DISABLED="historydisabled" event name on disable history manager
+				 * @static
+				 * @readonly
+				 * @member ns.history.manager
+				 */
 				events = {
 					STATECHANGE: EVENT_STATECHANGE,
 					HASHCHANGE: EVENT_HASHCHANGE,
@@ -43,10 +86,20 @@
 
 			manager.events = events;
 
+			/**
+			 * Trigger event "historystatechange" on document
+			 * @param {Object} options
+			 * @returns {boolean}
+			 */
 			function triggerStateChange(options) {
 				return eventUtils.trigger(document, EVENT_STATECHANGE, options, true, true);
 			}
 
+			/**
+			 * Callback for link click
+			 * @param {Event} event
+			 * @returns {boolean}
+			 */
 			function onLinkAction(event) {
 				var target = event.target,
 					link = selectorUtils.getClosestByTag(target, LINK_SELECTOR),
@@ -84,6 +137,11 @@
 				return true;
 			}
 
+
+			/**
+			 * Callback on popstate event.
+			 * @param {Event} event
+			 */
 			function onPopState(event) {
 				var state = event.state,
 					lastState = history.activeState,
@@ -118,6 +176,10 @@
 				}
 			}
 
+			/**
+			 * Callback on "hashchange" event
+			 * @param {Event} event
+			 */
 			function onHashChange(event) {
 				var newURL = event.newURL;
 				//>>excludeStart("tauDebug", pragmas.tauDebug);
@@ -128,17 +190,82 @@
 				}
 			}
 
+			/**
+			 * Inform that manager is enabled or not.
+			 * @property {boolean} [enabled=true]
+			 * @static
+			 * @since 2.4
+			 * @member ns.history.manager
+			 */
 			manager.enabled = true;
+			/**
+			 * Informs that manager is enabled or not.
+			 *
+			 * If manager is locked then not trigger events historystatechange.
+			 * @property {boolean} [locked=false]
+			 * @static
+			 * @since 2.4
+			 * @member ns.history.manager
+			 */
 			manager.locked = false;
 
+			/**
+			 * Locks history manager.
+			 *
+			 * Sets locked property to true.
+			 *
+			 *	@example
+			 *		tau.history.manager.lock();
+			 *
+			 * @method lock
+			 * @static
+			 * @since 2.4
+			 * @member ns.history.manager
+			 */
 			manager.lock = function () {
 				this.locked = true;
 			};
 
+			/**
+			 * Unlocks history manager.
+			 *
+			 * Sets locked property to false.
+			 *
+			 *	@example
+			 *		tau.history.manager.unlock();
+			 *
+			 * @method unlock
+			 * @static
+			 * @since 2.4
+			 * @member ns.history.manager
+			 */
 			manager.unlock = function () {
 				this.locked = false;
 			};
 
+			/**
+			 * Enables history manager.
+			 *
+			 * This method adds all event listeners connected with history manager.
+			 *
+			 * Event listeners:
+			 *
+			 *  - popstate on window
+			 *  - hashchange on window
+			 *  - vclick on document
+			 *
+			 * After set event listeners method sets property enabled to true.
+			 *
+			 *	@example
+			 *		tau.history.manager.enable();
+			 *		// add event's listeners
+			 *		// after click on link or hash change history manager will handle events
+			 *
+			 * @method enable
+			 * @static
+			 * @since 2.4
+			 * @member ns.history.manager
+			 */
 			manager.enable = function () {
 				document.addEventListener(DOC_EVENT_VCLICK, onLinkAction, false);
 				window.addEventListener(WINDOW_EVENT_POPSTATE, onPopState, false);
@@ -148,6 +275,23 @@
 				eventUtils.trigger(document, EVENT_ENABLED, this);
 			};
 
+			/**
+			 * Disables history manager.
+			 *
+			 * This method removes all event listeners connected with history manager.
+			 *
+ 			 * After set event listeners method sets property enabled to true.
+			 *
+			 * 	@example
+			 * 		tau.history.manager.disable();
+			 * 		// remove event's listeners
+			 * 		// after click on link or hash change history manager will not handle events
+			 *
+			 * @method disable
+			 * @static
+			 * @since 2.4
+			 * @member ns.history.manager
+			 */
 			manager.disable = function () {
 				document.removeEventListener(DOC_EVENT_VCLICK, onLinkAction, false);
 				window.removeEventListener(WINDOW_EVENT_POPSTATE, onPopState, false);

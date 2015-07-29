@@ -31,16 +31,16 @@
 
 					// DEPRECATED
 					// Turn on/off page loading message. Theme doubles as an object argument
-					// with the following shape: { theme: '', text: '', html: '', textVisible: '' }
+					// with the following shape: { theme: "", text: "", html: "", textVisible: "" }
 					// NOTE that the $.mobile.loading* settings and params past the first are deprecated
 					$.mobile.showPageLoadingMsg = function (theme, msgText, textonly) {
-						$.mobile.loading('show', theme, msgText, textonly);
+						$.mobile.loading("show", theme, msgText, textonly);
 						return;
 					};
 
 					// DEPRECATED
 					$.mobile.hidePageLoadingMsg = function () {
-						$.mobile.loading('hide');
+						$.mobile.loading("hide");
 						return;
 					};
 
@@ -50,11 +50,11 @@
 							theme = args[1],
 							msgText = args[2],
 							textonly = args[3],
-							element = document.querySelector('[data-role=loader]') || document.createElement('div'),
-							loader = ns.engine.instanceWidget(element, 'Loader');
-						if (method === 'show') {
+							element = document.querySelector(ns.engine.getWidgetDefinition("Loader").selector),
+							loader = ns.engine.instanceWidget(element, "Loader");
+						if (method === "show") {
 							loader.show(theme, msgText, textonly);
-						} else if (method === 'hide') {
+						} else if (method === "hide") {
 							loader.hide();
 						}
 						return;

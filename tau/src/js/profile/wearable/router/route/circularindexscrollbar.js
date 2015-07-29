@@ -127,20 +127,21 @@
 			/**
 			 * This method handles hash change.
 			 * @method onHashChange
-			 * @param {String} url
 			 * @param {Object} options
 			 * @static
 			 * @member ns.router.route.circularindexscrollbar
-			 * @return {null}
+			 * @return {boolean}
 			 */
-			routeCircularIndexScrollbar.onHashChange = function (url, options, prev) {
+			routeCircularIndexScrollbar.onHashChange = function (options) {
 				var self = this,
+					url = options.url,
+					prev = options.stateUrl,
 					activeWidget = self._activeWidget;
 
 				if (activeWidget && prev.search(circularindexscrollbarHashKey) > 0 && url.search(circularindexscrollbarHashKey) < 0) {
 					activeWidget.hide(options);
 				}
-				return null;
+				return false;
 			};
 
 			ns.router.route.circularindexscrollbar = routeCircularIndexScrollbar;

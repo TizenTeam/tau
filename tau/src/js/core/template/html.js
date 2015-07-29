@@ -1,13 +1,22 @@
-/*global window, define, XMLHttpRequest, ns*/
+/*global define, XMLHttpRequest, ns*/
 /*jslint bitwise: true */
 /* Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
 * License : MIT License V2
 */
 /**
+ * #HTML template engine
+ *
+ * Parser for HTML files.
+ *
+ * This class hasn't public interface. This class is registered as template engine
+ * in template manager.
+ *
+ * This engine give support of load HTML files for give URL.
+ *
  * @class ns.template.html
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  */
-(function (window, document) {
+(function () {
 	"use strict";
 //>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
@@ -21,6 +30,12 @@
 				util = ns.util,
 				utilPath = util.path;
 
+			/**
+			 * Callback for event load and error on  XMLHttpRequest
+			 * @param {Function} callback Function called after parse response
+			 * @param {Object} data Data passed to render function
+			 * @param {Event} event event object
+			 */
 			function callbackFunction(callback, data, event) {
 				var request = event.target,
 					status = {},
@@ -28,7 +43,11 @@
 				if (request.readyState === 4) {
 					status.success = (request.status === 200 || (request.status === 0 && request.responseXML));
 					element = request.responseXML;
+					// if option fullDocument is set then return document element
+					// Router require full document
 					if (!data.fullDocument) {
+						// otherwise return first child of body
+						// controller require only element
 						element = element.body.firstChild;
 					}
 					callback(status, element);
@@ -36,11 +55,12 @@
 			}
 
 			/**
-			 *
-			 * @param globalOptions
-			 * @param path
-			 * @param data
-			 * @param callback
+			 * Function process given path, get file by XMLHttpRequest and return
+			 * HTML element.
+			 * @param {Object} globalOptions
+			 * @param {string} path
+			 * @param {Object} data
+			 * @param {Function} callback
 			 */
 			function htmlTemplate(globalOptions, path, data, callback) {
 				var absUrl = path,
@@ -67,4 +87,4 @@
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
-}(window, window.document));
+}());

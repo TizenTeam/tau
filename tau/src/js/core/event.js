@@ -133,7 +133,7 @@
 				/**
 				* Stop event propagation
 				* @method stopPropagation
-				* @param {CustomEvent} event
+				* @param {Event} event
 				* @member ns.event
 				* @static
 				*/
@@ -149,7 +149,7 @@
 				/**
 				* Stop event propagation immediately
 				* @method stopImmediatePropagation
-				* @param {CustomEvent} event
+				* @param {Event} event
 				* @member ns.event
 				* @static
 				*/

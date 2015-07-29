@@ -130,21 +130,21 @@
 			/**
 			 * This method handles hash change.
 			 * @method onHashChange
-			 * @param {String} url
 			 * @param {Object} options
-			 * @param {String} prev Previous url string
 			 * @static
 			 * @member ns.router.route.drawer
-			 * @return {null}
+			 * @return {boolean}
 			 */
-			routeDrawer.onHashChange = function (url, options, prev) {
+			routeDrawer.onHashChange = function (options) {
 				var self = this,
+					url = options.url,
+					prev = options.stateUrl,
 					activeDrawer = self._activeDrawer;
 
 				if (activeDrawer && prev.search(drawerHashKey) > 0 && url.search(drawerHashKey) < 0) {
 					activeDrawer.close(options);
 				}
-				return null;
+				return false;
 			};
 
 			ns.router.route.drawer = routeDrawer;

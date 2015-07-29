@@ -112,7 +112,7 @@
 					* browsers that auto decode it. All references to location.href should be
 					* replaced with a call to this method so that it can be dealt with properly here
 					* @method getLocation
-					* @param {string|Object} url
+					* @param {string|Object} [url=window.location.href]
 					* @return {string}
 					* @member ns.util.path
 					*/

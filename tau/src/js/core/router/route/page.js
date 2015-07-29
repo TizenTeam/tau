@@ -251,10 +251,10 @@
 			 * @method onHashChange
 			 * @static
 			 * @member ns.router.route.page
-			 * @return {null}
+			 * @return {boolean}
 			 */
-			routePage.onHashChange = function (/* url, options */) {
-				return null;
+			routePage.onHashChange = function (/* options */) {
+				return false;
 			};
 
 			/**
