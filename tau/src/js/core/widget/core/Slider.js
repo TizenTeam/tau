@@ -67,6 +67,7 @@
 				utilDOM = ns.util.DOM,
 				events = ns.event,
 				Gesture = ns.event.gesture,
+				Page = ns.widget.core.Page,
 				DEFAULT = {
 					HORIZONTAL: "horizontal"
 				},
@@ -84,6 +85,7 @@
 						expand: false
 					};
 					self._ui = {};
+					self._callbacks = {};
 				},
 				classes = {
 					SLIDER: "ui-slider",
@@ -100,6 +102,18 @@
 			Slider.prototype = prototype;
 			Slider.classes = classes;
 
+
+			/**
+			 * Callback on event pagebeforeshow
+			 * @method onPageBeforeShow
+			 * @param self
+			 * @private
+			 * @member ns.widget.core.Slider
+			 */
+			function pageBeforeShow(self) {
+				self.refresh();
+			}
+
 			/**
 			 * Bind events
 			 * @method bindEvents
@@ -109,7 +123,8 @@
 			 * @static
 			 */
 			function bindEvents(self) {
-				var element = self._ui.barElement;
+				var element = self._ui.barElement,
+					page = selectors.getClosestByClass(element, Page.classes.uiPage);
 
 				events.enableGesture(
 					element,
@@ -120,6 +135,9 @@
 					})
 				);
 				events.on(element, "dragstart drag dragend dragcancel", self, false);
+
+				self._callbacks.onPageBeforeShow = pageBeforeShow.bind(null, self);
+				page.addEventListener(Page.events.BEFORE_SHOW, self._callbacks.onPageBeforeShow, true);
 			}
 
 			/**
@@ -131,10 +149,15 @@
 			 * @static
 			 */
 			function unbindEvents(self) {
-				var element = self._ui.barElement;
+				var element = self._ui.barElement,
+					page = selectors.getClosestByClass(element, Page.classes.uiPage);
 
 				events.disableGesture(element);
 				events.off(element, "dragstart drag dragend dragcancel", self, false);
+
+				if (self._callbacks.onPageBeforeShow) {
+					page.removeEventListener(Page.events.BEFORE_SHOW, self._callbacks.onPageBeforeShow);
+				}
 			}
 
 			/**
@@ -334,6 +357,27 @@
 			};
 
 			/**
+			 * If custom elements are used then we prevent looping.
+			 * Method check if to use setValue or just change attribute
+			 * and then customElement change callback will be called
+			 * @method _setDraggedValue
+			 * @param {number} value
+			 * @member ns.widget.core.Slider
+			 * @protected
+			 */
+			prototype._setDraggedValue = function(value) {
+				var self = this,
+					element = self.element,
+					isCustom = element.hasAttribute("is") ? true : false;
+
+				if (isCustom) {
+					element.setAttribute("value", value);
+				} else {
+					self._setValue(value);
+				}
+			};
+
+			/**
 			 * Bind events to Slider
 			 * @method _bindEvents
 			 * @member ns.widget.core.Slider
@@ -388,7 +432,7 @@
 						self._interval * validPosition / self._barElementHeight;
 
 					value += self._min;
-					self._setValue(value);
+					self._setDraggedValue(value);
 				}
 			};
 
@@ -411,7 +455,7 @@
 
 				ui.handlerElement.classList.add(classes.SLIDER_HANDLER_ACTIVE);
 				value += self._min;
-				self._setValue(value);
+				self._setDraggedValue(value);
 				self._active = true;
 			};
 
@@ -480,8 +524,12 @@
 					"value"
 				],
 				Slider,
-				"core"
+				"core",
+				false,
+				false,
+				HTMLInputElement
 			);
+
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return ns.widget.core.Slider;
 		}

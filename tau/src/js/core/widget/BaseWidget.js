@@ -316,14 +316,17 @@
 
 				if (options !== undefined) {
 					Object.keys(options).forEach(function (option) {
-						// Get value from data-{namespace}-{name} element's attribute
-						// based on widget.options property keys
-						var value = domUtils.getNSData(element, (option.replace(bigRegexp, function (c) {
-							return "-" + c.toLowerCase();
-						})), isCustomElement);
+						//type shoudn't be overiden as I need to set it up manually for customelements
+						if (option !== "type"){
+							// Get value from data-{namespace}-{name} element's attribute
+							// based on widget.options property keys
+							var value = domUtils.getNSData(element, (option.replace(bigRegexp, function (c) {
+								return "-" + c.toLowerCase();
+							})), isCustomElement);
 
-						if (value !== null) {
-							options[option] = value;
+							if (value !== null) {
+								options[option] = value;
+							}
 						}
 					});
 				}

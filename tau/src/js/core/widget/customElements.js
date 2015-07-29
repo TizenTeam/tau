@@ -27,21 +27,20 @@
 						BaseElement = event.detail.BaseElement || HTMLElement,
 						CustomWidgetProto = Object.create(BaseElement.prototype),
 						//define types on elements defined by is selector
-						controlTypes = ["search", "text"],
+						controlTypes = ["search", "text", "slider"],
 						//define if to use elements with is attribute
-						controlElements = [{"input" :"input"}, {"dropdownmenu": "select"}],
-						customElements = ["dropdownmenu"],
 						lowerName = name.toLowerCase(),
 						tagName = "tau-" + lowerName,
 						extendTo = "";
 
-					[].forEach.call(controlElements, function(item) {
-						// if element is a control then set the proper type
-						var elementKey = Object.keys(item)[0];
-						if (lowerName && lowerName.indexOf(elementKey) !== -1) {
-							extendTo = item[elementKey];
-						}
-					});
+					switch (BaseElement.name) {
+						case "HTMLInputElement" :
+							extendTo = "input";
+							break;
+						case "HTMLSelectElement" :
+							extendTo = "select";
+							break;
+					}
 
 					CustomWidgetProto._tauName = name;
 
@@ -55,7 +54,15 @@
 							[].some.call(controlTypes, function(item) {
 								// if element is a control then set the proper type
 								if (itemText && itemText.indexOf(item) !== -1) {
-									self.type = item;
+									switch (item) {
+										case "slider":
+											//force proper type as cannot extract this from name
+											self.type = "range";
+											break;
+										default:
+											self.type = item;
+											break;
+									}
 									return true;
 								}
 							});
@@ -70,15 +77,21 @@
 
 					CustomWidgetProto.attributeChangedCallback = function (attrName, oldVal, newVal) {
 						if (this._tauWidget) {
-							if (this._tauWidget.options[attrName] !== undefined) {
+							//attrName shoudn't be type as type shoudn't change
+							if (attrName.indexOf("data") !== 0 && attrName.indexOf("tau") !== 0 && attrName !== "class" && attrName !== "type") {
 								if (newVal === "false") {
 									newVal = false;
 								}
 								if (newVal === "true") {
 									newVal = true;
 								}
-								this._tauWidget.option(attrName, newVal);
-								this._tauWidget.refresh();
+
+								if (attrName === "value"){
+									this._tauWidget.value(newVal);
+								} else {
+									this._tauWidget.option(attrName, newVal);
+									this._tauWidget.refresh();
+								}
 							}
 						}
 					};
