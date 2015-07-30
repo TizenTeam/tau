@@ -7,7 +7,6 @@ module.exports = function (config) {
         // base path that will be used to resolve all patterns (eg. files, exclude)
         basePath: "../../",
 
-
         // frameworks to use
         // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
         frameworks: ["requirejs", "qunit"],
@@ -27,30 +26,20 @@ module.exports = function (config) {
             {pattern: "tests/libs/jquery.js", included: true, served: true},
             {pattern: "libs/path-to-regexp.js", included: false, served: true},
             {pattern: "tests/libs/require.js", included: false, served: true},
-            {pattern: "demos/SDK/mobile/UIComponents/**/*", included: false, served: true},
-            {pattern: "demos/SDK/mobile/UIComponentsCE/**/*", included: false, served: true},
+
+            {pattern: "demos/SDK/wearable/UIComponents/**/*", included: false, served: true},
+            {pattern: "demos/SDK/wearable/UIComponentsCE/**/*", included: false, served: true},
+
             {pattern: "tests/karma/tests/helpers.js", included: false, served: true, watch: true},
+            {pattern: "tests/karma/tests/compare-helper.js", included: false, served: true, watch: true},
             {pattern: "tests/js/core/router/Router/test-data/externalPage.html", included: false, served: true, watch: false},
             {pattern: "tests/js/core/router/Router/**/*.js", included: false, served: true, watch: false},
-            {pattern: "src/js/**/*.js", included: false, served: true, watch: true},
-            {pattern: "dist/**/*", included: false, served: true, watch: true},
-            // here put path to single test
-//            {pattern: "tests/js/**/*.js", included: false, served: true, watch: true},
-            {pattern: "tests/karma/tests/**/*-test.js", included: false, served: true, watch: true},
-//            {pattern: "tests/karma/tests/util/object/*test.js", included: false, served: true, watch: true},
+
+            // here put path to tests
+            {pattern: "tests/karma/tests/**/wearable-test.js", included: false, served: true, watch: true},
+
             "tests/karma/runner.js"
         ],
-
-        // list of files to exclude
-        exclude: [],
-
-        preprocessors: {
-            // source files, that you wanna generate coverage for
-            // do not include tests or libraries
-            // (these files will be instrumented by Istanbul)
-            "src/js/**/*.js": ["coverage"]
-        },
-
 
 
         // web server port

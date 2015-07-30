@@ -1,19 +1,23 @@
 /* global define, equal, ok, start, asyncTest, test */
 define(
-	["../helpers"],
+	["./helpers"],
 	function (helpers) {
 		var errorsCount = {},
 			simpleLocation;
 
-		function prepareIframes(callback) {
+		function prepareIframes(app, callback) {
 			helpers.createIframe(document, {
-				src: "/base/demos/SDK/mobile/UIComponents/index.html"
+				src: app.path + "/" + app.appName + "/" + app.indexFile,
+				width: app.width,
+				height: app.height
 			}, function (iframe) {
 				var iframeWindow = iframe.contentWindow;
 
 				ok(iframeWindow.tau);
 				helpers.createIframe(document, {
-					src: "/base/demos/SDK/mobile/UIComponentsCE/index.html"
+					src: app.path + "/" + app.appName + "CE/" + app.indexFile,
+					width: app.width,
+					height: app.height
 				}, function (iframeCE) {
 					var iframeCEWindow = iframeCE.contentWindow;
 					ok(iframeCEWindow.tau);
@@ -194,18 +198,22 @@ define(
 			internalCallback();
 		}
 
-		asyncTest("test was started", function() {
-			var finished = false;
-			setTimeout(function () {
-				if (!finished) {
-					start();
-				}
-			}, 120000);
-			prepareIframes(function (orgWindow, ceWindow) {
-				testPage(orgWindow, ceWindow, orgWindow.document.getElementById("main"), function () {
-					finished = true;
-					start();
+		return {
+			compare: function (app) {
+				asyncTest("test was started", function() {
+					var finished = false;
+					setTimeout(function () {
+						if (!finished) {
+							start();
+						}
+					}, 120000);
+					prepareIframes(app, function (orgWindow, ceWindow) {
+						testPage(orgWindow, ceWindow, orgWindow.document.getElementById("main"), function () {
+							finished = true;
+							start();
+						});
+					});
 				});
-			});
-		});
-	});
+			}
+		};
+});
