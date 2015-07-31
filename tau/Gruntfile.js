@@ -624,8 +624,12 @@ module.exports = function(grunt) {
 			},
 
 			karma: {
-				unit: {
-					configFile: "./tests/karma/single.conf.js",
+				CEUIComponentsMobile: {
+					configFile: "./tests/karma/uicomponents.mobile.conf.js",
+					singleRun: true
+				},
+				CEUIComponentsWearable: {
+					configFile: "./tests/karma/uicomponents.wearable.conf.js",
 					singleRun: true
 				}
 			},
