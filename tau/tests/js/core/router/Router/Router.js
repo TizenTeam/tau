@@ -1,6 +1,6 @@
 /*global document, window, module, test, equal, throws, ok, asyncTest, start, define */
 
-function testFunction(tau, prefix) {
+function testFunction(tau, prefix, setupFunction) {
 	"use strict";
 	var engine = tau.engine,
 		router = engine.getRouter();
@@ -13,6 +13,9 @@ function testFunction(tau, prefix) {
 			engine.stop();
 		},
 		setup: function () {
+			if (setupFunction) {
+				setupFunction();
+			}
 			tau.setConfig("autorun", false);
 			tau.setConfig("pageContainer", document.getElementById("qunit-fixture"));
 			engine.run();

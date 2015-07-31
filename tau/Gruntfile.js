@@ -900,8 +900,12 @@ module.exports = function(grunt) {
 			},
 
 			karma: {
-				apptest: {
+				app: {
 					configFile: "tests/karma/app.conf.js",
+					singleRun: true
+				},
+				unit: {
+					configFile: "tests/karma/all.conf.js",
 					singleRun: true
 				}
 			},
@@ -1154,13 +1158,13 @@ module.exports = function(grunt) {
 		"multitau:TAUControllerWithOutRouterWithPolymerMobile",
 		"multitau:TAUMultiProfilesTemplateLoadMobile",
 		"multitau:TAUApplicationFrameworkMobile",
-		"karma",
+		"karma:app",
 		"multitau:TAUControllerWithRouterWearable",
 		"multitau:TAUControllerWithOutRouterWearable",
 		"multitau:TAUControllerWithOutRouterWithPolymerWearable",
 		"multitau:TAUMultiProfilesTemplateLoadWearable",
 		"multitau:TAUApplicationFrameworkWearable",
-		"karma" ]);
+		"karma:app" ]);
 
 	grunt.registerTask("default", [ "release" ]);
 };

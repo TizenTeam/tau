@@ -81,10 +81,13 @@
 	 * @param {string} html HTML code to inject
 	 * @returns {Element}
 	 */
-	helpers.injectHTML =  function (html) {
-		var injectContainer = document.createElement("div");
+	helpers.injectHTML =  function (html, parentId) {
+		var injectContainer = document.createElement("div"),
+			parent = (parentId && document.getElementById(parentId)) || document.body;
 		injectContainer.innerHTML = html;
-		document.body.appendChild(injectContainer);
+		while (injectContainer.firstElementChild) {
+			parent.appendChild(injectContainer.firstElementChild);
+		}
 		return injectContainer;
 	};
 
