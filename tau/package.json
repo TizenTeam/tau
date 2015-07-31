@@ -28,7 +28,7 @@
     "grunt-qunit-istanbul": "~0.4.7",
     "grunt-qunit-tap": "~2.0.0",
     "grunt-string-replace": "~0.2.4",
-    "karma": "^0.12",
+    "karma": "^0.13",
     "grunt-karma": "*",
     "karma-coverage": "^0.4.2",
     "karma-qunit": "^0.1.5",
@@ -39,7 +39,9 @@
     "underscore": "1.6.0",
     "xml2js": "~0.4.4",
     "karma-requirejs": "~0.2.2",
-    "karma-chrome-launcher": "~0.2.0"
+    "karma-chrome-launcher": "~0.2.0",
+    "karma-html-reporter": "~0.2.6",
+    "colors": "~1.1.2"
   },
   "main": "Gruntfile.js"
 }

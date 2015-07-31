@@ -11,20 +11,30 @@ module.exports = function (config) {
         // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
         frameworks: ["requirejs", "qunit"],
 
-        reporters: ["progress", "coverage"],
+        reporters: ["progress", "html", "console", "coverage"],
 
         coverageReporter: {
             type: "html",
             dir: "reports/coverage/"
         },
 
-        plugins: ["karma-requirejs", "karma-chrome-launcher", "karma-qunit", "karma-coverage"],
+        plugins: ["karma-requirejs",
+            "karma-chrome-launcher",
+            "karma-qunit",
+            "karma-coverage",
+            "karma-html-reporter",
+            // This is ours custom module,
+            // To install, run
+            //      npm install tools/karma-plugins/console-reporter/
+            //      sudo npm install tools/karma-plugins/console-reporter/ -g
+            "karma-console-reporter"
+        ],
         autoWatch: true,
         // list of files / patterns to load in the browser
         files: [
             {pattern: "tests/libs/qunit-1.11.0.js", included: true, served: true},
             {pattern: "tests/libs/jquery.js", included: true, served: true},
-            {pattern: "libs/path-to-regexp.js", included: false, served: true},
+//            {pattern: "libs/path-to-regexp.js", included: false, served: true},
             {pattern: "tests/libs/require.js", included: false, served: true},
 
             {pattern: "demos/SDK/mobile/UIComponents/**/*", included: false, served: true},
@@ -66,6 +76,15 @@ module.exports = function (config) {
 
         // Continuous Integration mode
         // if true, Karma captures browsers, runs the tests and exits
-        singleRun: false
+        singleRun: false,
+
+        htmlReporter: {
+            outputDir: "reports/mobile", // where to put the reports
+            templatePath: null, // set if you moved jasmine_template.html
+            focusOnFailures: true, // reports show failures on start
+            namedFiles: false, // name files instead of creating sub-directories
+            pageTitle: null, // page title for reports; browser info by default
+            urlFriendlyName: false, // simply replaces spaces with _ for files/dirs
+        }
     });
 };
