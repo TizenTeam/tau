@@ -25,6 +25,7 @@
 			"../../util/DOM/attributes",
 			"../BaseWidget",
 			"../core",
+			"../../util",
 			"./Page"
 		],
 		function () {
@@ -208,7 +209,9 @@
 						});
 					}
 					self._setActivePage(toPageWidget);
-					oldDeferredResolve();
+					setTimeout(function() {
+						oldDeferredResolve();
+					}, 100);
 				};
 
 				if (transition !== "none") {
@@ -257,7 +260,7 @@
 						classlist.add(classes.reverse);
 					}
 				} else {
-					window.setTimeout(deferred.resolve, 0);
+					util.async(deferred.resolve);
 				}
 			};
 			/**

@@ -76,9 +76,11 @@
 					};
 
 					CustomWidgetProto.attributeChangedCallback = function (attrName, oldVal, newVal) {
-						if (this._tauWidget) {
-							//attrName shoudn't be type as type shoudn't change
-							if (attrName.indexOf("data") !== 0 && attrName.indexOf("tau") !== 0 && attrName !== "class" && attrName !== "type") {
+						var tauWidget = this._tauWidget;
+						if (tauWidget) {
+							if (attrName === "value") {
+								tauWidget.value(newVal);
+							} else if (tauWidget.options && tauWidget.options[attrName] !== undefined) {
 								if (newVal === "false") {
 									newVal = false;
 								}
@@ -86,12 +88,8 @@
 									newVal = true;
 								}
 
-								if (attrName === "value"){
-									this._tauWidget.value(newVal);
-								} else {
-									this._tauWidget.option(attrName, newVal);
-									this._tauWidget.refresh();
-								}
+								tauWidget.option(attrName, newVal);
+								tauWidget.refresh();
 							}
 						}
 					};

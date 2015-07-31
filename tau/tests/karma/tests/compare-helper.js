@@ -27,7 +27,7 @@ define(
 		}
 
 		function compareStylesFunction(orgWindow, ceWindow, element1, element2, selector) {
-			var computedStyles1 = orgWindow.getComputedStyle(element1, selector),
+			var computedStyles1 = element1 && orgWindow.getComputedStyle(element1, selector) || [],
 				computedStyles2,
 				result = [],
 				widgetName = orgWindow.tau.util.selectors.getClosestBySelector(element1, "[data-tau-name]").dataset.tauName,
