@@ -84,7 +84,10 @@
 				"input[type='radio'], input.ui-radio",
 				[],
 				Radio,
-				""
+				"core",
+				false,
+				false,
+				HTMLInputElement
 			);
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return ns.widget.core.Radio;

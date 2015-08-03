@@ -83,6 +83,8 @@
 			"./core/widget/core/Slider",
 			"./core/widget/core/SearchInput",
 			"./core/widget/core/progress/Progress",
+			"./core/widget/core/Checkbox",
+			"./core/widget/core/Radio",
 			"./profile/mobile/widget/mobile/Page",
 			"./profile/mobile/widget/mobile/PageContainer",
 			"./profile/mobile/widget/mobile/Popup",

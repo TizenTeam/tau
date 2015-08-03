@@ -83,8 +83,12 @@
 				"input.ui-checkbox",
 				[],
 				Checkbox,
-				""
+				"core",
+				false,
+				false,
+				HTMLInputElement
 			);
+
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return ns.widget.core.Checkbox;
 		}

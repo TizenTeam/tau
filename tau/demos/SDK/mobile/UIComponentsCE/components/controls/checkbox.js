@@ -16,5 +16,6 @@
 			var value = favortieone.checked;
 			favoriteResult.innerHTML = "The First Favorite is " + value;
 		});
+
 	});
 })();
