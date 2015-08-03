@@ -1,7 +1,7 @@
 /* global define, equal, ok, start, asyncTest, test */
 define(
-	["./helpers"],
-	function (helpers) {
+	["./helpers", "./compare-helper-excludes"],
+	function (helpers, cssPropExcludes) {
 		var errorsCount = {},
 			simpleLocation;
 
@@ -49,15 +49,17 @@ define(
 
 			[].forEach.call(computedStyles1, function (property) {
 				var computedStyles2Property = computedStyles2[property];
-				if (computedStyles2Property && typeof computedStyles2Property) {
-					computedStyles2Property = computedStyles2Property.replace("UIComponentsCE", "UIComponents");
-				}
-				if (computedStyles1[property] !== computedStyles2Property) {
-					result.push({
-						property: property,
-						value1: computedStyles1[property],
-						value2: computedStyles2Property
-					});
+				if (cssPropExcludes.indexOf(property) === -1) {
+					if (computedStyles2Property && typeof computedStyles2Property) {
+						computedStyles2Property = computedStyles2Property.replace("UIComponentsCE", "UIComponents");
+					}
+					if (computedStyles1[property] !== computedStyles2Property) {
+						result.push({
+							property: property,
+							value1: computedStyles1[property],
+							value2: computedStyles2Property
+						});
+					}
 				}
 			});
 

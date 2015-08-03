@@ -32,6 +32,7 @@ module.exports = function (config) {
 
             {pattern: "tests/karma/tests/helpers.js", included: false, served: true, watch: true},
             {pattern: "tests/karma/tests/compare-helper.js", included: false, served: true, watch: true},
+            {pattern: "tests/karma/tests/compare-helper-excludes.js", included: false, served: true, watch: true},
             {pattern: "tests/js/core/router/Router/test-data/externalPage.html", included: false, served: true, watch: false},
             {pattern: "tests/js/core/router/Router/**/*.js", included: false, served: true, watch: false},
 
