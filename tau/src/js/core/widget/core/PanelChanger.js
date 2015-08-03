@@ -39,7 +39,6 @@
 				events = ns.event,
 				classes = {
 					PANEL_CHANGER: "ui-panel-changer",
-					PAGE: page.classes.uiPage,
 					PANEL: panel.classes.PANEL,
 					ACTIVE_PANEL: panel.classes.ACTIVE_PANEL,
 					HEADER: "ui-header",
@@ -106,22 +105,28 @@
 			 */
 			prototype._init = function(element) {
 				var self = this,
-					ui = self._ui;
-				ui.page = selectors.getClosestByClass(element, classes.PAGE);
-				ui.header = ui.page.querySelector("." + classes.HEADER);
-				ui.footer = ui.page.querySelector("." + classes.FOOTER);
-				ui.activePanel = ui.page.querySelector("." + classes.ACTIVE_PANEL);
-				if (!ui.activePanel) {
-					ui.activePanel = ui.page.querySelector("[data-role='panel'], .ui-panel");
-					ui.activePanel.classList.add(classes.ACTIVE_PANEL);
+					ui = self._ui,
+					page = selectors.getClosestBySelector(element, engine.getWidgetDefinition("Page").selector),
+					activePanel;
+
+				ui.page = page;
+				ui.header = page.querySelector("." + classes.HEADER);
+				ui.footer = page.querySelector("." + classes.FOOTER);
+				activePanel = page.querySelector("." + classes.ACTIVE_PANEL);
+				if (!activePanel) {
+					activePanel = page.querySelector(engine.getWidgetDefinition("Panel").selector);
+					activePanel.classList.add(classes.ACTIVE_PANEL);
 				}
-				ui.activePanel.style.display = "block";
+				ui.activePanel = activePanel;
+				activePanel.style.display = "block";
+
 				self._direction = "forward";
 				localStorage[DEFAULT.STORAGE_NAME] = [];
 				self.history.push(ui.activePanel.id);
 				localStorage[DEFAULT.STORAGE_NAME] = JSON.stringify(self.history);
 				self._animationType = self.options.animationType;
-				this._initLayout();
+				self._initLayout();
+
 				return element;
 			};
 
@@ -137,20 +142,9 @@
 					ui = self._ui,
 					pageOffsetHeight = ui.page ? ui.page.offsetHeight : 0,
 					headerOffsetHeight = ui.header ? ui.header.offsetHeight : 0,
-					footerOffsetHeight = ui.footer ? ui.footer.offsetHeight : 0,
-					parentNode = element.parentNode;
+					footerOffsetHeight = ui.footer ? ui.footer.offsetHeight : 0;
 
 				element.style.height = pageOffsetHeight - headerOffsetHeight - footerOffsetHeight + "px";
-			};
-			/**
-			 * Bind events on PanelChanger component
-			 * @method _bindEvents
-			 * @param {HTMLElement} element
-			 * @member ns.widget.core.PanelChanger
-			 * @protected
-			 */
-			prototype._bindEvents = function(element) {
-				bindEvents.call(this, element);
 			};
 
 			/**
@@ -278,27 +272,17 @@
 			};
 
 			/**
-			 * Bind events on this component
-			 * @method bindEvents
-			 * @param {HTMLElement} element
-			 * @member ns.widget.core.PanelChanger
-			 * @private
-			 */
-			function bindEvents(element) {
-				var self = this;
-				events.on(element, "vclick", self, false);
-				events.prefixedFastOn(element, "animationEnd", self, false);
-			}
-
-			/**
 			 * Bind events on PanelChanger component
 			 * @method _bindEvents
 			 * @param {HTMLElement} element
 			 * @member ns.widget.core.PanelChanger
 			 * @protected
 			 */
-			prototype._bindEvents = function(element) {
-				bindEvents.call(this, element);
+			prototype._bindEvents = function (element) {
+				var self = this;
+				events.on(element, "vclick", self, false);
+				events.prefixedFastOn(element, "animationEnd", self, false);
+				events.on(this._ui.page, "pagebeforeshow", self, false);
 			};
 
 			/**
@@ -363,7 +347,8 @@
 			 */
 			prototype._onPagebeforeshow = function() {
 				var routePanel = engine.getRouter().getRoute("panel");
-				routePanel.setActive(this._ui._activePanel);
+				this._initLayout();
+				routePanel.setActive(this._ui.activePanel);
 			};
 
 			/**
@@ -373,15 +358,15 @@
 			 * @member ns.widget.core.PanelChanger
 			 * @private
 			 */
-			function unBindEvents(element) {
-				var self = this;
+			function unBindEvents(self, element) {
 				events.off(element, "vclick", self, false);
 				events.prefixedFastOff(element, "animationEnd", self, false);
+				events.off(self._ui.page, "pagebeforeshow", self, false);
 			}
 
 			/**
-			 * handleEvent
-			 * @method bindEvents
+			 * Handle events
+			 * @method handleEvent
 			 * @param {Event} event
 			 * @member ns.widget.core.PanelChanger
 			 * @protected
@@ -426,10 +411,12 @@
 			 */
 			prototype._destroy = function() {
 				var self = this;
+
+				unBindEvents(self, self.element);
+
 				self._ui = null;
 				self.options = null;
 				self._eventType = null;
-				unBindEvents(self.element);
 			};
 			// definition
 			ns.widget.core.PanelChanger = PanelChanger;
