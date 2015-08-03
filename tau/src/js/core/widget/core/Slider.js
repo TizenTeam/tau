@@ -1,4 +1,4 @@
-/*global window, define */
+/*global window, define, ns */
 /*jslint nomen: true */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
@@ -158,7 +158,6 @@
 			 */
 			prototype._build = function(element) {
 				var self = this,
-					options = self.options,
 					ui = self._ui,
 					barElement = document.createElement("div"),
 					valueElement = document.createElement("div"),
@@ -218,7 +217,7 @@
 
 				if (options.orientation === DEFAULT.HORIZONTAL) {
 					barElement.classList.remove(classes.SLIDER_VERTICAL);
-					barElement.classList.add(classes.SLIDER_HORIZONTAL)
+					barElement.classList.add(classes.SLIDER_HORIZONTAL);
 				} else {
 					barElement.classList.remove(classes.SLIDER_HORIZONTAL);
 					barElement.classList.add(classes.SLIDER_VERTICAL);
@@ -433,7 +432,7 @@
 			 * @member ns.widget.core.Slider
 			 * @protected
 			 */
-			prototype._onDragend = function(event) {
+			prototype._onDragend = function() {
 				var self = this,
 					ui = self._ui;
 				ui.handlerElement.classList.remove(classes.SLIDER_HANDLER_ACTIVE);
