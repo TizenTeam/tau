@@ -572,6 +572,18 @@
 				TextInput,
 				"mobile"
 			);
+
+			ns.widget.mobile.TextArea = TextInput;
+			engine.defineWidget(
+				"TextArea",
+				null,
+				[],
+				TextInput,
+				"mobile",
+				false,
+				false,
+				HTMLTextAreaElement
+			);
 //>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return ns.widget.mobile.TextInput;
 		}

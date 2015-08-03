@@ -40,6 +40,9 @@
 						case "HTMLSelectElement" :
 							extendTo = "select";
 							break;
+						case "HTMLTextAreaElement" :
+							extendTo = "textarea";
+							break;
 					}
 
 					CustomWidgetProto._tauName = name;
