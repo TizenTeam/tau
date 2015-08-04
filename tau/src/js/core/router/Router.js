@@ -198,7 +198,8 @@
 			 */
 			function findClosestLink(element) {
 				while (element) {
-					if (element.nodeType === Node.ELEMENT_NODE && element.nodeName && element.nodeName === "A") {
+					if (element.nodeType === Node.ELEMENT_NODE && element.nodeName &&
+						(element.nodeName === "A" || element.nodeName === "TAU-BUTTON")) {
 						break;
 					}
 					element = element.parentNode;
