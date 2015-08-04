@@ -5,7 +5,9 @@
 	define(
 		[
 			"../../engine",
+			"../../util/selectors",
 			"../core",
+			"./Page",
 			"../BaseWidget"
 		],
 		function () {
@@ -245,7 +247,7 @@
 			 */
 			prototype._setValue = function (value) {
 				this.element.textContent = value;
-			};
+			}
 
 			/**
 			 * Enable button
@@ -293,6 +295,28 @@
 				[],
 				Button,
 				"core"
+			);
+
+			engine.defineWidget(
+				"inputButton",
+				"input[type='button']",
+				[],
+				Button,
+				"core",
+				false,
+				false,
+				HTMLInputElement
+			);
+
+			engine.defineWidget(
+				"formButton",
+				"button",
+				[],
+				Button,
+				"core",
+				false,
+				false,
+				HTMLButtonElement
 			);
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return ns.widget.core.Button;

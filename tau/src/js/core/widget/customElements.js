@@ -27,7 +27,7 @@
 						BaseElement = event.detail.BaseElement || HTMLElement,
 						CustomWidgetProto = Object.create(BaseElement.prototype),
 						//define types on elements defined by is selector
-						controlTypes = ["search", "text", "slider", "checkbox", "radio"],
+						controlTypes = ["search", "text", "slider", "checkbox", "radio", "button"],
 						//define if to use elements with is attribute
 						lowerName = name.toLowerCase(),
 						tagName = "tau-" + lowerName,
@@ -42,6 +42,9 @@
 							break;
 						case "HTMLTextAreaElement" :
 							extendTo = "textarea";
+							break;
+						case "HTMLButtonElement" :
+							extendTo = "button";
 							break;
 					}
 
