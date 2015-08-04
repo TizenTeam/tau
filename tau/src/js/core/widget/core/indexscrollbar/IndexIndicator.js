@@ -68,15 +68,14 @@
 				 * @member ns.widget.wearable.indexscrollbar.IndexIndicator
 				 */
 				fitToContainer: function() {
-					var element = this.element,
-						container = this.options.container,
-						containerPosition = window.getComputedStyle(container).position;
+					var elementStyle = this.element.style,
+						container = this.options.container;
 
-					element.style.width = container.offsetWidth + "px";
-					element.style.height = container.offsetHeight + "px";
+					elementStyle.width = container.offsetWidth + "px";
+					elementStyle.height = container.offsetHeight + "px";
 
-					element.style.top = container.offsetTop + "px";
-					element.style.left = container.offsetLeft + "px";
+					elementStyle.top = container.offsetTop + "px";
+					elementStyle.left = container.offsetLeft + "px";
 				},
 
 				/**

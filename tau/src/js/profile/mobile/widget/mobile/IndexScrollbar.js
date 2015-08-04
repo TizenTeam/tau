@@ -236,10 +236,11 @@
 					element = self.element,
 					wrapper = element.getElementsByTagName("ul")[0],
 					lastChild = wrapper.lastChild,
-					lastChildHeight = lastChild.offsetHeight,
 					space;
 				space = element.offsetHeight - wrapper.offsetHeight;
-				lastChild.style.height = lastChildHeight + space + "px";
+				if (lastChild) {
+					lastChild.style.height = lastChild.offsetHeight + space + "px";
+				}
 			};
 
 			// definition
