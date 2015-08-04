@@ -28,13 +28,10 @@
 			(function(){
 				var page = document.getElementById("pageAnimation"),
 					listHelper,
-					headerCollapseHandler,
-					headerExpandHandler,
 					elScroller;
 
 				page.addEventListener("pagebeforeshow", function (e) {
-					var list,
-						snapList;
+					var list;
 
 					elScroller = page.querySelector(".ui-scroller");
 					if (elScroller) {
@@ -43,24 +40,15 @@
 
 					if (elScroller && list) {
 						listHelper = tau.helper.SnapListStyle.create(list, {animate: "scale"});
-						snapList = listHelper.getSnapList();
-
-						headerCollapseHandler = snapList.enable.bind(snapList);
-						headerExpandHandler = snapList.disable.bind(snapList);
-						page.addEventListener("headercollapse", headerCollapseHandler, false);
-						page.addEventListener("headerexpand", headerExpandHandler, false);
 
 						elScroller.setAttribute("tizen-circular-scrollbar", "");
 					}
-
 				});
 
 				page.addEventListener("pagebeforehide", function (e) {
 					if (listHelper) {
 						listHelper.destroy();
 
-						page.removeEventListener("headercollapse", headerCollapseHandler, false);
-						page.removeEventListener("headerbeforeexpand", headerExpandHandler, false);
 						listHelper = null;
 
 						if (elScroller) {

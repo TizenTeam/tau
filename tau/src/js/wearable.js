@@ -42,7 +42,6 @@
 			"./profile/wearable/widget/wearable/Selector",
 			"./profile/wearable/helper/SnapListStyle",
 			"./profile/wearable/helper/SnapListMarqueeStyle",
-			"./profile/wearable/helper/HeaderMarqueeStyle",
 			"./profile/wearable/helper/DrawerMoreStyle",
 			"./core/router/Router",
 			"./core/router/history",
