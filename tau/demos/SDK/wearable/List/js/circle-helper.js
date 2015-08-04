@@ -4,11 +4,8 @@
 	var page,
 		elScroller,
 		list,
-		headerHelper,
 		listHelper = [],
 		snapList = [],
-		headerExpandHandler = [],
-		headerCollapseHandler = [],
 		i, len;
 
 	if (tau.support.shape.circle) {
@@ -27,27 +24,18 @@
 					if (len) {
 						for (i = 0; i < len; i++) {
 							snapList[i] = listHelper[i].getSnapList();
-							headerCollapseHandler[i] = snapList[i].enable.bind(snapList[i]);
-							headerExpandHandler[i] = snapList[i].disable.bind(snapList[i]);
-							page.addEventListener("headercollapse", headerCollapseHandler[i], false);
-							page.addEventListener("headerexpand", headerExpandHandler[i], false);
 						}
 					}
 				}
 				elScroller.setAttribute("tizen-circular-scrollbar", "");
 			}
-			headerHelper = tau.helper.HeaderMarqueeStyle.create(page, {});
 		});
 
 		document.addEventListener("pagebeforehide", function (e) {
 			len = listHelper.length;
-			headerHelper.destroy();
-			headerHelper = null;
 			if (len) {
 				for (i = 0; i < len; i++) {
 					listHelper[i].destroy();
-					page.removeEventListener("headercollapse", headerCollapseHandler[i], false);
-					page.removeEventListener("headerexpand", headerExpandHandler[i], false);
 				}
 				listHelper = [];
 			}
