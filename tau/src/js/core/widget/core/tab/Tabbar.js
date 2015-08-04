@@ -568,7 +568,7 @@
 					tabs = self._ui.tabs,
 					activeTabOffsetWidth = tabs[0].offsetWidth * ((activeIndex - 0) + 1);
 
-				if (activeTabOffsetWidth > relativeWidth) {
+				if (activeTabOffsetWidth >= relativeWidth) {
 					self._translate(offsetWidth - activeTabOffsetWidth, DEFAULT_NUMBER.DURATION);
 				} else if (activeTabOffsetWidth < relativeWidth) {
 					if (activeTabOffsetWidth < offsetWidth) {
