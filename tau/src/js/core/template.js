@@ -36,9 +36,9 @@
 			/**
 			 * Function to get global option
 			 *
-			 * 	@example
-			 * 		tau.template.get("pathPrefix");
-			 * 		// -> "/prefix/to/all/paths"
+			 *	@example
+			 *		tau.template.get("pathPrefix");
+			 *		// -> "/prefix/to/all/paths"
 			 *
 			 * @method get
 			 * @param {string} name param name which will be return
@@ -53,8 +53,8 @@
 			/**
 			 * Function to set global option
 			 *
-			 * 	@example
-			 * 		tau.template.set("pathPrefix", "/views");
+			 *	@example
+			 *		tau.template.set("pathPrefix", "/views");
 			 *
 			 * @method set
 			 * @param {string} name param name which will be set
@@ -83,14 +83,14 @@
 			 *
 			 * after registration you can use engine in render function.
 			 *
-			 * 	@example
-			 * 		tau.template.register("inline", function(globalOptions, path, data, callback) {
+			 *	@example
+			 *		tau.template.register("inline", function(globalOptions, path, data, callback) {
 			 *			callback({
 			 *						success: true
 			 *					},
 			 *					document.createElement("div")
 			 *				);
-			 * 		});
+			 *		});
 			 *
 			 * @method register
 			 * @param {string} name Engine name
@@ -163,13 +163,13 @@
 			 *  - _boolean_ success - inform about success or error
 			 *  - _string_ description contains details on error
 			 *
-			 * 	@example
-			 * 		tau.template.render("external/path/to/file.html", {additionalParameter: true}, function(status, element) {
-			 * 			if (status.success) {
-			 * 				document.body.appendChild(element);
-			 * 			} else {
-			 * 				console.error(status.description);
-			 * 			}, "html");
+			 *	@example
+			 *		tau.template.render("external/path/to/file.html", {additionalParameter: true}, function(status, element) {
+			 *			if (status.success) {
+			 *				document.body.appendChild(element);
+			 *			} else {
+			 *				console.error(status.description);
+			 *			}, "html");
 			 *
 			 * @method render
 			 * @param {string} path Path to file ot other id for template system

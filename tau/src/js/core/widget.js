@@ -1,5 +1,5 @@
-/*global window, define */
-/* 
+/*global window, define, ns */
+/*
  * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
  * License : MIT License V2
  */
@@ -9,7 +9,7 @@
  * @author Krzysztof Antoszek <k.antoszek@samsung.com>
  * @class ns.widget
  */
-(function (document, ns) {
+(function (document) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
@@ -61,4 +61,4 @@
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
-}(window.document, ns));
+}(window.document));

@@ -280,12 +280,12 @@
 			 *
 			 * This method removes all event listeners connected with history manager.
 			 *
- 			 * After set event listeners method sets property enabled to true.
+			 * After set event listeners method sets property enabled to true.
 			 *
-			 * 	@example
-			 * 		tau.history.manager.disable();
-			 * 		// remove event's listeners
-			 * 		// after click on link or hash change history manager will not handle events
+			 *	@example
+			 *		tau.history.manager.disable();
+			 *		// remove event's listeners
+			 *		// after click on link or hash change history manager will not handle events
 			 *
 			 * @method disable
 			 * @static

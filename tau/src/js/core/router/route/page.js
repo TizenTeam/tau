@@ -106,7 +106,7 @@
 			 */
 			routePage.option = function () {
 				var defaults = object.merge({}, routePage.defaults);
-				defaults.transition = ns.getConfig('pageTransition', defaults.transition);
+				defaults.transition = ns.getConfig("pageTransition", defaults.transition);
 				return defaults;
 			};
 
@@ -131,8 +131,7 @@
 			routePage.open = function (toPage, options) {
 				var pageTitle = document.title,
 					url,
-					state = {},
-					router = ns.router.Router.getInstance(); //@TODO fix mutual inclusion
+					state = {};
 
 				if (toPage === this.getFirstElement() && !options.dataUrl) {
 					url = path.documentUrl.hrefNoHash;

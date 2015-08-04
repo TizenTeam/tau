@@ -15,7 +15,7 @@
  * @author Piotr Karny <p.karny@samsung.com>
  * @author Krzysztof Głodowski <k.glodowski@samsung.com>
  */
-(function (document) {
+(function () {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
@@ -30,7 +30,6 @@
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 			var BaseWidget = ns.widget.BaseWidget,
-				Page = ns.widget.core.Page,
 				util = ns.util,
 				eventUtils = ns.event,
 				DOM = util.DOM,
@@ -301,10 +300,9 @@
 			 * This method displays a progress bar indicating loading process.
 			 * @method showLoading
 			 * @member ns.widget.core.PageContainer
-			 * @param {number} [delay=0]
 			 * @return {null}
 			 */
-			prototype.showLoading = function (delay) {
+			prototype.showLoading = function () {
 				//>>excludeStart("tauDebug", pragmas.tauDebug);
 				ns.warn("PageContainer.prototype.showLoading not yet implemented");
 				//>>excludeEnd("tauDebug");
@@ -358,4 +356,4 @@
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
-}(window.document));
+}());

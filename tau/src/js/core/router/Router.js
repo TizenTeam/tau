@@ -1,4 +1,4 @@
-/*global define, HTMLElement, ns, Element */
+/*global define, HTMLElement, ns */
 /*jslint nomen: true */
 /* Copyright  2010 - 2014 Samsung Electronics Co., Ltd.
  * License : MIT License V2
@@ -1144,8 +1144,8 @@
 			/**
 			 * Creates a new instance of the router and returns it
 			 *
-			 * 	@example
-			 * 		var router = Router.newInstance();
+			 *	@example
+			 *		var router = Router.newInstance();
 			 *
 			 * @method newInstance
 			 * @member ns.router.Router

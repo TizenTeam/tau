@@ -1,5 +1,5 @@
-/*global define: true, window: true */
-/* 
+/*global define, window, ns*/
+/*
  * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
  * License : MIT License V2
  */
@@ -71,8 +71,8 @@
 			 * @static
 			 */
 			function getDataSelector(selector) {
-				var namespace = ns.getConfig('namespace');
-				return '[data-' + (namespace ? namespace + '-' : '') + selector + ']';
+				var namespace = ns.getConfig("namespace");
+				return "[data-" + (namespace ? namespace + "-" : "") + selector + "]";
 			}
 
 			/**
@@ -369,7 +369,7 @@
 					var overflow,
 						style;
 
-					while (element && element != document.body) {
+					while (element && element !== document.body) {
 						style = window.getComputedStyle(element);
 
 						if (style) {

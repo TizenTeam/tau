@@ -575,7 +575,7 @@
 			 * @method layout
 			 * @member ns.widget.core.Popup
 			 */
-			prototype._layout = function (element) {
+			prototype._layout = function () {
 			};
 
 			/**
@@ -674,8 +674,7 @@
 			prototype._show = function (options) {
 				var self = this,
 					transitionOptions = objectUtils.merge({}, options),
-					overlay = self._ui.overlay,
-					deferred;
+					overlay = self._ui.overlay;
 
 				// layouting
 				self._layout(self.element);

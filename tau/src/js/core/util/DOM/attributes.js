@@ -1,4 +1,4 @@
-/*global window, define */
+/*global define, ns */
 /*jslint plusplus: true */
 /* Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
 * License : MIT License V2
@@ -9,7 +9,7 @@
  * @author Maciej Moczulski <m.moczulski@samsung.com>
  * @author Piotr Karny <p.karny@samsung.com>
  */
-(function (window, document) {
+(function () {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
@@ -80,8 +80,8 @@
 			};
 
 			function getDataName(name) {
-				var namespace = ns.getConfig(namespace);
-				return "data-" + (namespace ? namespace + "-" : "") + name;
+				var namespacePrefix = ns.getConfig(namespace);
+				return "data-" + (namespacePrefix ? namespacePrefix + "-" : "") + name;
 			}
 
 			/**
@@ -251,4 +251,4 @@
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
-}(window, window.document));
+}());

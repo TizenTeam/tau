@@ -1,4 +1,4 @@
-/*global window, define */
+/*global window, define, ns */
 /*jslint nomen: true */
 /* Copyright  2010 - 2014 Samsung Electronics Co., Ltd.
  * License : MIT License V2
@@ -9,7 +9,7 @@
  * @class ns.router.route.page
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  */
-(function (document, ns) {
+(function (document) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
@@ -32,7 +32,6 @@
 				utilSelector = util.selectors,
 				history = ns.history,
 				engine = ns.engine,
-				Dialog = ns.widget.mobile.Dialog,
 				baseElement,
 				routeDialog = {},
 				previousPage,
@@ -99,7 +98,7 @@
 			 */
 			routeDialog.option = function () {
 				var defaults = object.merge({}, routeDialog.defaults);
-				defaults.transition = ns.getConfig('pageTransition', defaults.transition);
+				defaults.transition = ns.getConfig("pageTransition", defaults.transition);
 				return defaults;
 			};
 
@@ -374,4 +373,4 @@
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
-}(window.document, ns));
+}(window.document));

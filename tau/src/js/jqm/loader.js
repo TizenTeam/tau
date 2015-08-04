@@ -1,10 +1,10 @@
-/*global window, define */
+/*global window, define, ns */
 /*jslint plusplus: true, nomen: true */
-/* 
+/*
  * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
  * License : MIT License V2
  */
-(function (window, document, ns, $) {
+(function (window, document) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
@@ -16,7 +16,9 @@
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 
-			var initLoader = function () {
+			var $,
+				initLoader = function () {
+				$ = ns.jqm.jQuery;
 				if ($) {
 					$.mobile = $.mobile || {};
 
@@ -35,13 +37,11 @@
 					// NOTE that the $.mobile.loading* settings and params past the first are deprecated
 					$.mobile.showPageLoadingMsg = function (theme, msgText, textonly) {
 						$.mobile.loading("show", theme, msgText, textonly);
-						return;
 					};
 
 					// DEPRECATED
 					$.mobile.hidePageLoadingMsg = function () {
 						$.mobile.loading("hide");
-						return;
 					};
 
 					$.mobile.loading = function () {
@@ -57,7 +57,6 @@
 						} else if (method === "hide") {
 							loader.hide();
 						}
-						return;
 					};
 				}
 			};
@@ -69,4 +68,4 @@
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
-}(window, window.document, ns, ns.jqm.jQuery));
+}(window, window.document));

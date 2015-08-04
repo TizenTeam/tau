@@ -1,4 +1,4 @@
-/*global window, define */
+/*global window, define, ns */
 /* Copyright  2010 - 2014 Samsung Electronics Co., Ltd.
  * License : MIT License V2
  */
@@ -667,11 +667,10 @@
 			/**
 			 * Bind events to widget
 			 * @method _bindEvents
-			 * @param {HTMLElement} element
 			 * @protected
 			 * @member ns.widget.core.Page
 			 */
-			prototype._bindEvents = function (element) {
+			prototype._bindEvents = function () {
 				var self = this;
 				self.contentFillAfterResizeCallback = self._contentFill.bind(self);
 				window.addEventListener("resize", self.contentFillAfterResizeCallback, false);

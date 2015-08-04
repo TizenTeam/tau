@@ -1,4 +1,4 @@
-/*global window, define */
+/*global define, ns */
 /*jslint nomen: true */
 /* Copyright  2010 - 2014 Samsung Electronics Co., Ltd.
  * License : MIT License V2
@@ -9,16 +9,13 @@
  * @class ns.router.route.drawer
  * @author Hyeoncheol Choi <hc7.choi@samsung.com>
  */
-(function (document, ns) {
+(function () {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
 			"../../engine",
-			"../../util/DOM/attributes",
 			"../../util/path",
-			"../../util/selectors",
-			"../../util/object",
 			"../route",
 			"../../history",
 			"../../widget/core/Drawer"
@@ -97,11 +94,9 @@
 			 * This method parses HTML and runs scripts from parsed code.
 			 * But, drawer router doesn't need to that.
 			 * @method parse
-			 * @param {string} html HTML code to parse
-			 * @param {string} absUrl Absolute url for parsed page
 			 * @member ns.router.route.drawer
 			 */
-			routeDrawer.parse = function (html, absUrl) {
+			routeDrawer.parse = function () {
 				return null;
 			};
 
@@ -154,4 +149,4 @@
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
-}(window.document, ns));
+}());

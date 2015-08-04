@@ -1,6 +1,6 @@
 /*global window, define, ns, Node, HTMLElement */
 /*jslint nomen: true, plusplus: true, bitwise: false */
-/* 
+/*
  * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
  * License : MIT License V2
  */
@@ -17,6 +17,9 @@
  * @author Piotr Karny <p.karny@samsung.com>
  * @author Tomasz Lukawski <t.lukawski@samsung.com>
  * @author Przemyslaw Ciezkowski <p.ciezkowski@samsung.com>
+ * @author Hyunkook, Cho <hk0713.cho@samsung.com>
+ * @author Hyeoncheol Choi <hc7.choi@samsung.com>
+ * @author Piotr Ostalski <p.ostalski@samsung.com>
  */
 (function (window, document) {
 	"use strict";
@@ -29,6 +32,7 @@
 			"./history",
 			"./history/manager",
 			"./util/selectors",
+			"./util/array",
 			"./util/object"
 		],
 		function () {
@@ -47,16 +51,18 @@
 				 * @member ns.engine
 				 */
 				eventUtils = ns.event,
-				objectUtils = ns.util.object,
+				util = ns.util,
+				utilArray = util.array,
+				objectUtils = util.object,
 				historyManager = ns.history.manager,
-				selectors = ns.util.selectors,
+				selectors = util.selectors,
 				/**
-				 * @property {Object} widgetDefs Object with widgets definitions
+				 * @property {Object} widgetDefinitions Object with widgets definitions
 				 * @private
 				 * @static
 				 * @member ns.engine
 				 */
-				widgetDefs = {},
+				widgetDefinitions = {},
 				/**
 				 * @property {Object} widgetBindingMap Object with widgets bindings
 				 * @private
@@ -192,7 +198,7 @@
 				var definition;
 				// Widget name is absolutely required
 				if (name) {
-					if (!widgetDefs[name] || redefine) {
+					if (!widgetDefinitions[name] || redefine) {
 						//>>excludeStart("tauDebug", pragmas.tauDebug);
 						ns.log("defining widget:", name);
 						//>>excludeEnd("tauDebug");
@@ -208,7 +214,7 @@
 							widgetNameToLowercase: widgetNameToLowercase === undefined ? true : !!widgetNameToLowercase
 						};
 
-						widgetDefs[name] = definition;
+						widgetDefinitions[name] = definition;
 						eventUtils.trigger(document, "widgetdefined", definition, false);
 						return true;
 					}
@@ -226,7 +232,7 @@
 			 * @method getBinding
 			 * @static
 			 * @param {HTMLElement|string} element
-			 * @param {string} [type] widget name
+			 * @param {string} [type] widget name, if is empty then return first built widget
 			 * @return {?Object}
 			 * @member ns.engine
 			 */
@@ -412,7 +418,7 @@
 			 * Remove binding for widget based on element.
 			 * @method removeBinding
 			 * @param {HTMLElement|string} element
-			 * @param {string} type widget name
+			 * @param {?string} [type=null] widget name
 			 * @return {boolean}
 			 * @static
 			 * @member ns.engine
@@ -510,7 +516,7 @@
 			 * @member ns.engine
 			 */
 			function ensureElement(element, Widget) {
-				if (!element || !element instanceof HTMLElement) {
+				if (!element || !(element instanceof HTMLElement)) {
 					if (typeof Widget.createEmptyElement === TYPE_FUNCTION) {
 						element = Widget.createEmptyElement();
 					} else {
@@ -544,10 +550,12 @@
 					parentEnhance,
 					existingBinding;
 
+				// ensure that element exists, if not exists then create new
+				// this give possibility of creating widgets outside DOM
 				element = ensureElement(element, Widget);
 				widgetInstance = Widget ? new Widget(element) : false;
 				// if any parent has attribute data-enhance=false then stop building widgets
-				parentEnhance = selectors.getParentsBySelectorNS(element, 'enhance=false');
+				parentEnhance = selectors.getParentsBySelectorNS(element, "enhance=false");
 
 				// While processing widgets queue other widget may built this one before
 				// it reaches it's turn
@@ -705,7 +713,7 @@
 					ns.error("Processing hollow widget without name on element:", element);
 				}
 				//>>excludeEnd("tauDebug");
-				definition = definition || (name && widgetDefs[name]) || {
+				definition = definition || (name && widgetDefinitions[name]) || {
 					"name": name
 				};
 				return processWidget(element, definition, options);
@@ -720,6 +728,7 @@
 			 * @static
 			 */
 			function compareByDepth(nodeA, nodeB) {
+				/*jshint -W016 */
 				var mask = Node.DOCUMENT_POSITION_CONTAINS | Node.DOCUMENT_POSITION_PRECEDING;
 
 				if (nodeA.element === nodeB.element) {
@@ -729,7 +738,7 @@
 				if (nodeA.element.compareDocumentPosition(nodeB.element) & mask) {
 					return 1;
 				}
-
+				/*jshint +W016 */
 				return -1;
 			}
 
@@ -743,8 +752,8 @@
 			 */
 			function processBuildQueueItem(queueItem) {
 				// HTMLElement doesn't have .element property
-				// widgetDefs will return undefined when called widgetDefs[undefined]
-				processHollowWidget(queueItem.element || queueItem, widgetDefs[queueItem.widgetName]);
+				// widgetDefinitions will return undefined when called widgetDefinitions[undefined]
+				processHollowWidget(queueItem.element || queueItem, widgetDefinitions[queueItem.widgetName]);
 			}
 
 			/**
@@ -755,10 +764,11 @@
 			 * @member ns.engine
 			 */
 			function createWidgets(context) {
-				var builtWithoutTemplates = slice.call(context.querySelectorAll(querySelectorWidgets)),
+				// find widget which are built
+				var builtWidgetElements = slice.call(context.querySelectorAll(querySelectorWidgets)),
 					normal = [],
 					buildQueue = [],
-					selectorKeys = Object.keys(widgetDefs),
+					selectorKeys = Object.keys(widgetDefinitions),
 					excludeSelector,
 					i,
 					j,
@@ -775,13 +785,13 @@
 				ns.log("Start creating widgets on:", (context.tagName || (context.documentElement && "document")) + "#" + (context.id || "--no-id--"));
 				//>>excludeEnd("tauDebug");
 
-				// @TODO EXPERIMENTAL WIDGETS WITHOUT TEMPLATE DEFINITION
-				builtWithoutTemplates.forEach(processBuildQueueItem);
+				// process built widgets
+				builtWidgetElements.forEach(processBuildQueueItem);
 
-				/* NORMAL */
+				// process widgets didn't build
 				for (i = 0; i < len; ++i) {
 					widgetName = selectorKeys[i];
-					definition = widgetDefs[widgetName];
+					definition = widgetDefinitions[widgetName];
 					definitionSelectors = definition.selectors;
 					if (definitionSelectors.length) {
 						excludeSelector = excludeBuiltAndBound(widgetName);
@@ -843,7 +853,7 @@
 					metaTag,
 					i;
 
-				metaTagList = documentHead.querySelectorAll('[name="viewport"]');
+				metaTagList = documentHead.querySelectorAll("[name='viewport']");
 				metaTagListLength = metaTagList.length;
 
 				if (metaTagListLength > 0) {
@@ -857,11 +867,11 @@
 					}
 				} else {
 					// Create new HTML Element
-					metaTag = document.createElement('meta');
+					metaTag = document.createElement("meta");
 
 					// Set required attributes
-					metaTag.setAttribute('name', 'viewport');
-					metaTag.setAttribute('content', 'width=device-width, user-scalable=no');
+					metaTag.setAttribute("name", "viewport");
+					metaTag.setAttribute("content", "width=device-width, user-scalable=no");
 
 					// Force that viewport tag will be first child of head
 					if (documentHead.firstChild) {
@@ -879,9 +889,9 @@
 			 * @member ns.engine
 			 */
 			function build() {
-					historyManager.enable();
-					setViewport();
-					eventUtils.trigger(document, "build", this, false);
+				historyManager.enable();
+				setViewport();
+				eventUtils.trigger(document, "build");
 			}
 
 			/**
@@ -920,7 +930,7 @@
 			 * @member ns.engine
 			 */
 			function getArgumentsTypes(args) {
-				return ns.util.array.reduce(args, getType, {});
+				return utilArray.reduce(args, getType, {});
 			}
 
 			/*
@@ -960,7 +970,7 @@
 				 * @member ns.engine
 				 */
 				getDefinitions: function () {
-					return widgetDefs;
+					return widgetDefinitions;
 				},
 				/**
 				 * Returns definition of widget
@@ -971,7 +981,7 @@
 				 * @returns {Object}
 				 */
 				getWidgetDefinition: function (name) {
-					return widgetDefs[name];
+					return widgetDefinitions[name];
 				},
 				defineWidget: defineWidget,
 				getBinding: getBinding,
@@ -1040,6 +1050,7 @@
 				instanceWidget: function (element, name, options) {
 					var binding,
 						definition,
+						// match arguments and types
 						argumentsTypes = getArgumentsTypes(arguments);
 
 					// Map arguments with specific types to correct variables
@@ -1052,8 +1063,8 @@
 						binding = getBinding(element, name);
 					}
 					// If didn't found binding build new widget
-					if (!binding && widgetDefs[name]) {
-						definition = widgetDefs[name];
+					if (!binding && widgetDefinitions[name]) {
+						definition = widgetDefinitions[name];
 						element = processHollowWidget(element, definition, options);
 						binding = getBinding(element, name);
 					}

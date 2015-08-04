@@ -1,6 +1,6 @@
 /*global window, define, ns*/
 /*jslint bitwise: true */
-/* 
+/*
  * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
  * License : MIT License V2
  */
@@ -18,13 +18,15 @@
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
-			// "../lib/tau/js/tau.full.js
 			var slice = Array.prototype.slice,
 				FRAMEWORK_WEBUI = "tizen-web-ui-fw",
 				FRAMEWORK_TAU = "tau",
 				IS_TAU_REGEXP = /(^|[\\\/])(tau(\.full|\.mvc)?(\.min)?\.js)$/,
+				// Regexp detect framework js file
 				LIB_FILENAME_REGEXP = /(^|[\\\/])(tau|tizen-web-ui-fw)(\.full|\.mvc|\.custom)?(\.min)?\.js$/,
+				// Regexp detect framework css file
 				CSS_FILENAME_REGEXP = /(^|[\\\/])(tau|tizen-web-ui-fw)(\.full|\.mvc|\.custom)?(\.min)?\.css$/,
+				// Regexp detect correct theme name
 				TIZEN_THEMES_REGEXP = /^(changeable|white|black|default)$/i,
 				MINIFIED_REGEXP = /\.min\.js$/,
 				frameworkData = {
@@ -178,7 +180,7 @@
 						dataThemeName = cssElement.getAttribute("data-theme-name"),
 						// Attribute value is taken because href property gives different output
 						href = cssElement.getAttribute("href"),
-						hrefFragments  = href && href.split('/'),
+						hrefFragments  = href && href.split("/"),
 						hrefDirPart;
 
 					// If we have the theme name defined we can use it right away
@@ -235,7 +237,7 @@
 							// Profile may be defined from framework script or
 							// it can be assumed, that profile name is second up directory name
 							// e.g. pathToLib/profileName/js/tau.js
-							profileName = scriptElement.getAttribute(dataPrefix + "profile") || src.split('/').slice(-3)[0];
+							profileName = scriptElement.getAttribute(dataPrefix + "profile") || src.split("/").slice(-3)[0];
 							themePath = "/" + profileName + "/theme/" + theme;
 
 							// TAU framework library link

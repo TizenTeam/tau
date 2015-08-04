@@ -1,4 +1,4 @@
-/*global window, define */
+/*global ns, define, NodeList */
 /* Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
 * License : MIT License V2
 */
@@ -7,7 +7,7 @@
  * Utility helps work with arrays.
  * @class ns.util.array
  */
-(function (window, document) {
+(function () {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
@@ -104,7 +104,7 @@
 
 			/**
 			 * Faster version of standard forEach method in array
-	 		 * Confirmed that this method is 20 times faster then native
+			 * Confirmed that this method is 20 times faster then native
 			 * @method forEach
 			 * @param {Array} array
 			 * @param {Function} callback
@@ -218,4 +218,4 @@
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
-}(window, window.document));
+}());

@@ -372,7 +372,7 @@
 			/**
 			 * Removes route from routing table
 			 *
-			 * 	@example
+			 *	@example
 			 *	<script>
 			 *		var controller = tau.Controller.getInstance();
 			 *		controller.removeRoute("page-params/:param1/:param2");

@@ -1,6 +1,6 @@
-/*global window, define, XMLHttpRequest, console, Blob */
+/*global window, define, XMLHttpRequest, console, Blob, ns, URL */
 /*jslint nomen: true, browser: true, plusplus: true */
-/* 
+/*
  * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
  * License : MIT License V2
  */
@@ -104,7 +104,9 @@
 			function safeEvalWrap(code) {
 				return function () {
 					try {
+						/*jshint -W061 */
 						window.eval(code);
+						/*jshint +W061 */
 					} catch (e) {
 						if (typeof console !== "undefined") {
 							if (e.stack) {
@@ -245,7 +247,6 @@
 					scriptAttributes = slice.call(script.attributes),
 					src = script.getAttribute("src"),
 					path = util.path,
-					request,
 					attribute,
 					status;
 
