@@ -534,12 +534,18 @@
 				var self = this;
 
 				// remove listeners and clear handler properties
-				document.removeEventListener(historyManagerEvents.HASHCHANGE, self._onhashchangehandler, false);
-				self._onhashchangehandler = null;
-				document.removeEventListener(historyManagerEvents.STATECHANGE, self._onstatechangehandler, false);
-				self._onstatechangehandler = null;
-				document.removeEventListener("controller-content-available", self._oncontrollercontent, false);
-				self._oncontrollercontent = null;
+				if (self._onhashchangehandler) {
+					window.removeEventListener(historyManagerEvents.HASHCHANGE, self._onhashchangehandler, false);
+					self._onhashchangehandler = null;
+				}
+				if (self._onstatechangehandler) {
+					window.removeEventListener(historyManagerEvents.STATECHANGE, self._onstatechangehandler, false);
+					self._onstatechangehandler = null;
+				}
+				if (self._oncontrollercontent) {
+					window.removeEventListener("controller-content-available", self._oncontrollercontent, false);
+					self._oncontrollercontent = null;
+				}
 
 				// unset instance for singleton
 				routerInstance = null;
@@ -631,7 +637,7 @@
 					externalDocument = document.implementation.createHTMLDocument(title),
 					externalBody = externalDocument.body;
 
-				if (content instanceof Element) {
+				if (content instanceof HTMLElement) {
 					// if content is HTMLElement just set to contentNode
 					contentNode = content;
 				} else {
@@ -653,9 +659,9 @@
 			 */
 			function setURLonElement(contentNode, url) {
 				if (url) {
-					// if url is missing we need set data-url attribute for good finding by method open in router
-					url = url.replace(/^#/, "");
-					if (!DOM.hasNSData(contentNode, "url")) {
+					if (contentNode instanceof HTMLElement && !DOM.hasNSData(contentNode, "url")) {
+						// if url is missing we need set data-url attribute for good finding by method open in router
+						url = url.replace(/^#/, "");
 						DOM.setNSData(contentNode, "url", url);
 					}
 				}
@@ -714,7 +720,7 @@
 				eventUtils.trigger(document, "themeinit", self);
 
 				// sets events handlers
-				if (!self.hashchangehandler) {
+				if (!self._onhashchangehandler) {
 					self._onhashchangehandler = onHistoryHashChange.bind(null, self);
 					window.addEventListener(historyManagerEvents.HASHCHANGE, self._onhashchangehandler, false);
 				}
