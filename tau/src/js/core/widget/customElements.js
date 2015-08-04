@@ -114,7 +114,7 @@
 					}
 
 				} catch (e) {
-					console.log(e);
+					ns.log(e);
 				}
 			}
 
