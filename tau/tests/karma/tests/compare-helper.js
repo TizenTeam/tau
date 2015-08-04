@@ -15,13 +15,15 @@ define(
 
 				ok(iframeWindow.tau);
 				helpers.createIframe(document, {
-					src: app.path + "/" + app.appName + "CE/" + app.indexFile,
+					src: app.path + "/" + app.appName + "CE/" + app.indexFile + "?" + ((Math.random() * Date.now()) | 0),
 					width: app.width,
 					height: app.height
 				}, function (iframeCE) {
 					var iframeCEWindow = iframeCE.contentWindow;
 					ok(iframeCEWindow.tau);
-					callback(iframeWindow, iframeCEWindow);
+					window.setTimeout(function () {
+						callback(iframeWindow, iframeCEWindow);
+					}, 500);
 				});
 			});
 		}
@@ -142,12 +144,25 @@ define(
 			var pageChanges = 0,
 				target,
 				event = "pageshow popupshow",
+				current = null,
+				currentEl = null,
 				pageChangeCallback = function(event) {
-					pageChanges++;
-					console.log("event", event.type, event.target.id);
-					if (pageChanges === 2) {
-						target = event.target;
-						callback(target);
+					var element = event.target,
+						cls = element.classList,
+						id = element.id,
+						doc = element.ownerDocument;
+
+					console.log("got event", event.type, "on", id, event, (doc && doc.location.href || element.location.href));
+					if (id && cls && (cls.contains("ui-page") || cls.contains("ui-popup"))) {
+						if (current === null) {
+							current = id;
+							currentEl = element;
+						} else if (current === id) {
+							console.log("page match", current, id, "executing callback");
+							callback(currentEl);
+							current = null;
+							currentEl = null;
+						}
 					}
 				},
 				href = link1.getAttribute("href");
