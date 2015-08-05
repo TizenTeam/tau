@@ -19,7 +19,7 @@
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 			var engine = ns.engine,
-				registerdTags = {};
+				registeredTags = {};
 
 			function defineCustomElement(event) {
 				try {
@@ -106,13 +106,13 @@
 						}
 					};
 
-					if (registerdTags[tagName]) {
+					if (registeredTags[tagName]) {
 						ns.warn(tagName + " already registred");
 					} else {
 						if (extendTo !== "") {
-							registerdTags[tagName] = document.registerElement(tagName, {extends: extendTo, prototype: CustomWidgetProto});
+							registeredTags[tagName] = document.registerElement(tagName, {extends: extendTo, prototype: CustomWidgetProto});
 						} else {
-							registerdTags[tagName] = document.registerElement(tagName, {prototype: CustomWidgetProto});
+							registeredTags[tagName] = document.registerElement(tagName, {prototype: CustomWidgetProto});
 						}
 					}
 

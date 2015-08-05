@@ -566,3 +566,15 @@
 	-webkit-transform: translate(-50%);
 	margin: 0;
 }
+
+/**************************************
+            Textarea
+***************************************/
+#ButtonNolist .code-textarea {
+	padding: 1em;
+	background-color: whitesmoke;
+	color: black;
+	border-style: inset;
+	font-size: 20px;
+	height: 350px !important;
+}
