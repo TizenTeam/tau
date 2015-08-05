@@ -12,7 +12,7 @@ define(
 		"use strict";
 
 		testsRouter(window.ns, "/base/tests/js/core/router/Router/", function() {
-				/* jshint -W034 */
+				/*jshint -W034 */
 				helpers.injectHTML("<div data-role='page' id='firstPage' class='ui-page'>\
 			<div id='test1'></div>\
 			<a id='linkToSecondPage' href='#secondPage'>Second page</a>\
@@ -34,7 +34,7 @@ define(
 			<div>Third Popup</div>\
 		</div>\
 		</div>", "qunit-fixture");
-				/* jshint +W034 */
+				/*jshint +W034 */
 			});
 	}
 );

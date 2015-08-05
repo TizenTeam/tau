@@ -813,6 +813,24 @@
 			};
 
 			/**
+			 * Method back to previous state.
+			 *
+			 *	@example
+			 *		var router = tau.router.Router.getInstance();
+			 *		router.back();
+			 *
+			 * @method close
+			 * @member ns.router.Router
+			 */
+			Router.prototype.back = function () {
+
+				// if router is not locked
+				if (!this.locked) {
+					history.back();
+				}
+			};
+
+			/**
 			 * Method opens popup.
 			 *
 			 *	@example

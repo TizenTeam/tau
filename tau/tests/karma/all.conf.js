@@ -28,8 +28,10 @@ module.exports = function (config) {
             {pattern: "libs/path-to-regexp.js", included: false, served: true},
             {pattern: "tests/libs/require.js", included: false, served: true},
             {pattern: "tests/karma/tests/helpers.js", included: false, served: true, watch: true},
-            {pattern: "tests/js/core/router/Router/test-data/externalPage.html", included: false, served: true, watch: false},
-            {pattern: "tests/js/core/router/Router/**/*.js", included: false, served: true, watch: false},
+            {pattern: "tests/js/core/router/**/test-data/*.html", included: false, served: true, watch: false},
+            {pattern: "tests/js/core/router/**/test-data/*.js", included: false, served: true, watch: false},
+            {pattern: "tests/js/core/router/**/*.js", included: false, served: true, watch: false},
+            {pattern: "tests/js/core/history/**/*.js", included: false, served: true, watch: false},
             {pattern: "src/js/**/*.js", included: false, served: true, watch: true},
             {pattern: "dist/**/*", included: false, served: true, watch: true},
             // here put path to single test
