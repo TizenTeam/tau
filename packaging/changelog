@@ -1,4 +1,7 @@
 %changelog
+* Fri Aug 05 2015 Hyeoncheol Choi <hc7.choi@samsung.com> 0.10.29-6
+	- delete(wearable): delete expandableHeader
+
 * Fri Jul 24 2015 Hagun Kim <hagun.kim@samsung.com> 0.10.29-5
 	- feat(etc): License file has been changed in SDK demos
 	- fix(all): License changed to Flora
