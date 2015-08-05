@@ -788,6 +788,35 @@ module.exports = function(grunt) {
 
 			performance: {
 
+			},
+			multitau: {
+				options: {
+					src: "dist"
+				},
+				UIComponentsMobile: {
+					options: {
+						profile: "mobile",
+						dest: "demos/SDK/mobile/UIComponents/lib/tau/mobile"
+					}
+				},
+				UIComponentsCEMobile: {
+					options: {
+						profile: "mobile",
+						dest: "demos/SDK/mobile/UIComponentsCE/lib/tau/mobile"
+					}
+				},
+				UIComponentsWearable: {
+					options: {
+						profile: "wearable",
+						dest: "demos/SDK/wearable/UIComponents/lib/tau/wearable"
+					}
+				},
+				UIComponentsCEWearable: {
+					options: {
+						profile: "wearable",
+						dest: "demos/SDK/wearable/UIComponentsCE/lib/tau/wearable"
+					}
+				}
 			}
 		};
 
@@ -950,6 +979,7 @@ module.exports = function(grunt) {
 
 	// Load framework custom tasks
 	grunt.loadTasks('tools/grunt/tasks');
+	grunt.loadTasks("demos/tools/app/tasks");
 
 	// Task list
 	grunt.registerTask("themesjs", "Generate themes files using requirejs", themesjs);  // Generate separate themes files
@@ -965,5 +995,15 @@ module.exports = function(grunt) {
 
 	grunt.registerTask("build", ["clean", "lint", "css", "js", "license", "version"]);
 	grunt.registerTask("release", [ "build", "test", "sdk-docs" ]);
+
+	grunt.registerTask("ce-test-mobile", [ "build",
+		"multitau:UIComponentsMobile",
+		"multitau:UIComponentsCEMobile",
+		"karma:CEUIComponentsMobile"]);
+
+	grunt.registerTask("ce-test-wearable", [ "build",
+		"multitau:UIComponentsWearable",
+		"multitau:UIComponentsCEWearable",
+		"karma:CEUIComponentsWearable" ]);
 	grunt.registerTask("default", [ "release" ]);
 };
