@@ -117,7 +117,7 @@ define(
 			});
 		}
 
-		function testPage(orgWindow, ceWindow, page, callback) {
+		function testPage(app, orgWindow, ceWindow, page, callback) {
 			var compareStyles = compareStylesFunction.bind(null, orgWindow, ceWindow),
 				ceDocument = ceWindow.document,
 				widgets = page && page.querySelectorAll("[data-tau-name]") || [],
@@ -131,7 +131,7 @@ define(
 			compareStyles(page, mapElement(page, ceDocument), ":after");
 
 			[].forEach.call(widgets, compareTree.bind(null, ceDocument, compareStyles));
-			getLinks(orgWindow, ceWindow, page, function() {
+			getLinks(app, orgWindow, ceWindow, page, function() {
 				if (page.id === "main") {
 					callback();
 				} else {
@@ -140,22 +140,34 @@ define(
 			});
 		}
 
-		function clickLink(orgWindow, ceWindow, link1, link2, callback) {
+		function clickLink(app, orgWindow, ceWindow, link1, link2, callback) {
 			var pageChanges = 0,
 				target,
 				event = "pageshow popupshow",
 				current = null,
 				currentEl = null,
+				pathRegexp = new RegExp("^.*" + app.path + "/" + app.appName + "(CE)?", "i"),
+				randomIDRegexp = /tau-\d+-\d+/,
+				checkMode = 0, // 0 - id checking, 1 - base url checking
 				pageChangeCallback = function(event) {
 					var element = event.target,
 						cls = element.classList,
-						id = element.id,
-						doc = element.ownerDocument;
+						doc = element.ownerDocument || (element instanceof HTMLDocument && element),
+						location = doc && doc.location.href || "",
+						baseLocation = location.replace(pathRegexp, ""),
+						id = checkMode === 0 ? element.id : baseLocation;
 
-					console.log("got event", event.type, "on", id, event, (doc && doc.location.href || element.location.href));
+					console.log("got event", event.type, "on", id, event, location);
 					if (id && cls && (cls.contains("ui-page") || cls.contains("ui-popup"))) {
 						if (current === null) {
-							current = id;
+							if (id.match(randomIDRegexp)) {
+								console.log("random page id detected, using urls as fallback for sync", baseLocation);
+								checkMode = 1;
+								current = baseLocation;
+							} else {
+								checkMode = 0;
+								current = id;
+							}
 							currentEl = element;
 						} else if (current === id) {
 							console.log("page match", current, id, "executing callback");
@@ -198,15 +210,15 @@ define(
 			}, 100);
 		}
 
-		function getLinks(orgWindow, ceWindow, page, callback) {
+		function getLinks(app, orgWindow, ceWindow, page, callback) {
 			var ceDocument = ceWindow.document,
 				links = [].slice.call(page.querySelectorAll("a[href]:not([href='#']):not([data-ignore]):not([data-rel])")),
 				internalCallback = function() {
 					var link = links.shift();
 
 					if (link) {
-						clickLink(orgWindow, ceWindow, link, mapElement(link, ceDocument), function(page) {
-							testPage(orgWindow, ceWindow, page, internalCallback);
+						clickLink(app, orgWindow, ceWindow, link, mapElement(link, ceDocument), function(page) {
+							testPage(app, orgWindow, ceWindow, page, internalCallback);
 						});
 					} else {
 						callback();
@@ -225,7 +237,7 @@ define(
 						}
 					}, 120000);
 					prepareIframes(app, function (orgWindow, ceWindow) {
-						testPage(orgWindow, ceWindow, orgWindow.document.getElementById("main"), function () {
+						testPage(app, orgWindow, ceWindow, orgWindow.document.getElementById("main"), function () {
 							finished = true;
 							start();
 						});
