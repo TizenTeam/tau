@@ -31,7 +31,9 @@
 		[
 			"../../../../core/engine",
 			"../../../../core/event",
+			"../../../../core/widget/core/Page",
 			"../../../../core/event/gesture",
+			"../../../../core/util/selectors",
 			"../../../../core/widget/BaseWidget",
 			"../mobile"
 		],
@@ -41,12 +43,15 @@
 			var BaseWidget = ns.widget.BaseWidget,
 				engine = ns.engine,
 				utilsEvents = ns.event,
+				Page = ns.widget.core.Page,
+				selectors = ns.util.selectors,
 				prototype = new BaseWidget(),
 				MATRIX_REGEXP = /matrix\((.*), (.*), (.*), (.*), (.*), (.*)\)/,
 				RGBA_REGEXP = /rgba\(([0-9]+), ([0-9]+), ([0-9]+), ([0-9]+)\)/,
 				SNAP_WIDTH = 19,
 				FloatingActions = function () {
 					this.element = null;
+					this._paddingSet = false;
 					this.options = {};
 					this._style = null;
 					this._startX = 0;
@@ -57,6 +62,7 @@
 					this._scope = {};
 					this._colorTransitionRatio = {};
 					this._fromColor = [];
+					this._callbacks = {};
 				};
 
 
@@ -103,6 +109,17 @@
 			};
 
 			/**
+			* Callback on pagebeforeshow event
+			* @method pageBeforeShow
+			* @param self
+			* @protected
+			* @member ns.widget.mobile.FloatingActions
+			*/
+			function pageBeforeShow(self) {
+				self._refresh();
+			}
+
+			/**
 			* Bind events
 			* @method _bindEvents
 			* @protected
@@ -110,7 +127,8 @@
 			*/
 			prototype._bindEvents = function() {
 				var self = this,
-					element = self.element;
+					element = self.element,
+					page = selectors.getClosestByClass(element, Page.classes.uiPage);
 
 				utilsEvents.enableGesture(
 					element,
@@ -121,6 +139,8 @@
 				);
 
 				utilsEvents.on(element, "drag dragstart dragend dragcancel touchstart touchend vmousedown vmouseup", self);
+				self._callbacks.onPageBeforeShow = pageBeforeShow.bind(null, self);
+				page.addEventListener(Page.events.BEFORE_SHOW, self._callbacks.onPageBeforeShow, false);
 			};
 
 			/**
@@ -130,8 +150,13 @@
 			* @member ns.widget.mobile.FloatingActions
 			*/
 			prototype._unbindEvents = function() {
-				utilsEvents.disableGesture(this.element);
-				utilsEvents.off(this.element, "drag dragstart dragend dragcancel touchstart touchend vmousedown vmouseup", this);
+				var self = this,
+					element = self.element,
+					page = selectors.getClosestByClass(element, Page.classes.uiPage);
+
+				utilsEvents.disableGesture(self.element);
+				utilsEvents.off(self.element, "drag dragstart dragend dragcancel touchstart touchend vmousedown vmouseup", self);
+				page.removeEventListener(Page.events.BEFORE_SHOW, self._callbacks.onPageBeforeShow, true);
 			};
 
 			/**
@@ -161,6 +186,7 @@
 				var self = this;
 				if (self.isBound()) {
 					self._unbindEvents();
+					self._paddingSet = false;
 					self._style = null;
 					self._position = null;
 					self._scope = null;
@@ -218,6 +244,12 @@
 				paddingLeft = parseInt(elementStyle.paddingLeft);
 				paddingRight = parseInt(elementStyle.paddingRight);
 
+				//we always add SNAP_WIDTH to element.style.paddingRight
+				//if we added SNAP_WIDTH before we decrease element's paddingRight to original value
+				if(self._paddingSet) {
+					paddingRight -= SNAP_WIDTH;
+				}
+
 				position.min = -window.innerWidth + paddingLeft;
 				position.max = elementWidth - paddingRight;
 				position.center = (position.max + position.min) / 2;
@@ -230,6 +262,10 @@
 				padding.right = paddingRight;
 				padding.ratioInShow = SNAP_WIDTH / (position.center - position.left);
 				padding.ratioInHide = SNAP_WIDTH / (position.left - position.min);
+
+				if(!isNaN(paddingRight)) {
+					self._paddingSet = true;
+				}
 			};
 
 			/**
@@ -288,11 +324,12 @@
 			* @member ns.widget.mobile.FloatingActions
 			*/
 			prototype._start = function(event) {
-				var style = this.element.style;
+				var self = this,
+					style = self.element.style;
 
-				this._startX = event.detail.pointer.clientX;
+				self._startX = event.detail.pointer.clientX;
 				// get current x value of translated3d
-				this._currentX = parseInt(window.getComputedStyle(this.element).webkitTransform.match(MATRIX_REGEXP)[5]);
+				self._currentX = parseInt(window.getComputedStyle(self.element).webkitTransform.match(MATRIX_REGEXP)[5]);
 				style.webkitTransition = "none";
 				style.transition = "none";
 			};
@@ -412,9 +449,10 @@
 			* @member ns.widget.mobile.FloatingActions
 			*/
 			prototype._touchStart = function(event) {
-				var style = this._style,
-					opacity = this.options.opacity,
-					duration = this.options.duration,
+				var self = this,
+					style = self._style,
+					opacity = self.options.opacity,
+					duration = self.options.duration,
 					transition;
 
 				transition = "opacity " + duration + "ms linear";
@@ -430,9 +468,10 @@
 			* @member ns.widget.mobile.FloatingActions
 			*/
 			prototype._touchEnd = function(event) {
-				var style = this._style,
-					opacity = this.options.opacity,
-					duration = this.options.duration,
+				var self = this,
+					style = self._style,
+					opacity = self.options.opacity,
+					duration = self.options.duration,
 					transition;
 
 				transition = "opacity " + duration + "ms linear";
