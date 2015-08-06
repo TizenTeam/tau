@@ -12,7 +12,7 @@
  * framework.
  * @class ns.event
  */
-(function (window, ns) {
+(function (window) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
@@ -92,12 +92,12 @@
 				* handlers which handled this event, called preventDefault.
 				* Otherwise it returns true.
 				* @method trigger
-				* @param {HTMLElement} element
+				* @param {HTMLElement|HTMLDocument} element
 				* @param {string} type
 				* @param {?*} [data=null]
 				* @param {boolean=} [bubbles=true]
 				* @param {boolean=} [cancelable=true]
-				* @return {boolean=}
+				* @return {boolean}
 				* @member ns.event
 				* @static
 				*/
@@ -117,7 +117,7 @@
 				/**
 				 * Prevent default on original event
 				 * @method preventDefault
-				 * @param {CustomEvent} event
+				 * @param {Event} event
 				 * @member ns.event
 				 * @static
 				 */
@@ -133,7 +133,7 @@
 				/**
 				* Stop event propagation
 				* @method stopPropagation
-				* @param {CustomEvent} event
+				* @param {Event} event
 				* @member ns.event
 				* @static
 				*/
@@ -149,7 +149,7 @@
 				/**
 				* Stop event propagation immediately
 				* @method stopImmediatePropagation
-				* @param {CustomEvent} event
+				* @param {Event} event
 				* @member ns.event
 				* @static
 				*/
@@ -428,4 +428,4 @@
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
-}(window, ns));
+}(window));
