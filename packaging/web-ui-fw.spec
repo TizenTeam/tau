@@ -7,7 +7,6 @@ Group:      Development/Other
 License:    MIT
 BuildArch:  noarch
 BuildRequires:  make
-BuildRequires: nodejs
 
 Source0:    %{name}-%{version}.tar.gz
 
@@ -53,26 +52,3 @@ Summary:    Tizen Web UI Framework Theme : tizen-black
 /usr/share/tizen-web-ui-fw/*/themes/tizen-black
 /usr/share/tizen-web-ui-fw/*/themes/tizen-tizen
 /usr/share/tizen-web-ui-fw/latest
-
-##############################
-%package -n tau-mobile
-BuildArch:  noarch
-Summary:    TAU : mobile
-%Description -n tau-mobile
-	TAU : mobile-js
-%files -n tau-mobile
-%manifest tau-mobile.manifest
-/usr/share/tau/*.MIT
-/usr/share/tau/VERSION
-/usr/share/tau/mobile/js
-
-##############################
-%package -n tau-mobile-theme-changeable
-BuildArch:  noarch
-Summary:    TAU-mobile-theme : changeable
-%Description -n tau-mobile-theme-changeable
-	TAU mobile theme : changeable
-%files -n tau-mobile-theme-changeable
-%manifest tau-mobile-theme-changeable.manifest
-/usr/share/tau/mobile/theme/changeable
-/usr/share/tau/mobile/theme/default
