@@ -79,7 +79,7 @@
 			ns.widget.core.Checkbox = Checkbox;
 			engine.defineWidget(
 				"Checkbox",
-				"input[type='checkbox']:not(.ui-slider-switch-input):not([data-role='toggleswitch']):not(.ui-toggleswitch), " +
+				"input[type='checkbox']:not(.ui-slider-switch-input):not([data-role='toggleswitch']):not(.ui-toggleswitch):not(.ui-toggle-switch)," +
 				"input.ui-checkbox",
 				[],
 				Checkbox,

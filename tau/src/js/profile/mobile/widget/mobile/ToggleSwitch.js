@@ -355,7 +355,7 @@
 				"input[data-role='toggleswitch']," +
 				"select[data-role='toggleswitch']," +
 				"select.ui-toggleswitch," +
-				" input.ui-toggleswitch",
+				"input.ui-toggleswitch",
 				[],
 				ToggleSwitch,
 				"mobile"
