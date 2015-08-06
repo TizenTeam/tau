@@ -11,8 +11,9 @@ var app = app || {};
 
 		MovieRouter = Backbone.Router.extend({
 			routes: {
-				'': 'mainAction',
-				'details/:id': 'detailsAction'
+				"details/:id": "detailsAction",
+				"sort/:order": "sortAction",
+				"*actions": "mainAction"
 			},
 
 			mainAction: function () {
@@ -31,6 +32,20 @@ var app = app || {};
 				// tau change page
 				tau.widget.pagecontainer(document.body)
 					.change(detailsPage);
+			},
+
+			sortAction: function (order) {
+				console.log("router.sortAction");
+
+				app.movies.setOrder(order);
+				app.movies.sort();
+
+				// drawer close;
+				tau.widget.Drawer(document.getElementById('leftdrawer'))
+					.close({reverse: true});
+
+
+				app.router.navigate("#", true);
 			}
 		});
 

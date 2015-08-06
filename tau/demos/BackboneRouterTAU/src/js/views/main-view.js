@@ -19,7 +19,8 @@ var app = app || {};
 
 		// Delegated events for creating new items, and clearing completed ones.
 		events: {
-			'tizenhwkey #main': 'onHWKey'
+			'tizenhwkey #main': 'onHWKey',
+			'vclick #openBtn': 'openDrawer'
 		},
 
 		// At initialization we bind to the relevant events on the `movies`
@@ -53,6 +54,15 @@ var app = app || {};
 
 			this.page.refresh();
 			this.list.refresh();
+		},
+
+		openDrawer: function () {
+			console.log("main-view.openDrawer");
+
+			var drawer = tau.widget.Drawer(document.getElementById("leftdrawer"));
+			if ( !drawer.isOpen() ) {
+				drawer.open();
+			}
 		},
 
 		onHWKey: function (event) {

@@ -14,6 +14,12 @@ var app = app || {};
 		// the App already present in the HTML.
 		el: '#details',
 
+		// Delegated events for creating new items, and clearing completed ones.
+		events: {
+			"vclick #show-profit": "showProfit",
+			"vclick #profit-popup-close": "closeProfit",
+		},
+
 		// Our template for the line of statistics at the bottom of the app.
 		detailsTemplate: _.template($('#details-template').html()),
 
@@ -28,6 +34,7 @@ var app = app || {};
 			var details = document.getElementById("details-content"),
 				movie;
 
+			this.selectedId = id;
 			if (id < app.movies.length) {
 				movie = app.movies.at(id).toJSON();
 				details.innerHTML =
@@ -35,6 +42,24 @@ var app = app || {};
 						tau.util.object.merge(movie)
 					);
 			}
+			this.page.refresh();
+		},
+
+		showProfit: function (event) {
+			console.log("details-view.showProfit");
+
+			document.getElementById("profit").textContent =
+				app.movies.at(this.selectedId).get("profit")
+					.toString()
+					// format number
+					.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.");
+
+			tau.widget.Popup(document.getElementById("profit-popup")).open();
+		},
+
+		closeProfit: function (event) {
+			console.log("details-view.closeProfit");
+			tau.widget.Popup(document.getElementById("profit-popup")).close();
 		}
 
 	});

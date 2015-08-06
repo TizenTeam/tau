@@ -13,12 +13,22 @@ var app = app || {};
 
 		url: 'js/data.json',
 
-		// Filter down the list to only movie items that are still not finished.
-		remaining: function () {
+		filter: function (year) {
 			console.log("movies.remaining");
-			return this.where({completed: false});
-		}
+			return this.where({"year": year});
+		},
 
+		setOrder: function(order) {
+			switch (order) {
+				case 'year' : this.comparator = 'year';
+					break;
+				case 'name' : this.comparator = 'name';
+					break;
+				default: this.comparator = 'id';
+			}
+		},
+
+		comparator: 'order'
 	});
 
 	// Create our global collection of **Movies**.
