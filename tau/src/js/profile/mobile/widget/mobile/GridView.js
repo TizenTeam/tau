@@ -48,7 +48,6 @@
 			"../../../../core/engine",
 			"../../../../core/event",
 			"../../../../core/event/gesture",
-			"../../../../core/util/DOM",
 			"../../../../core/util/selectors",
 			"../mobile"
 		],
@@ -58,10 +57,8 @@
 				engine = ns.engine,
 				utilsEvents = ns.event,
 				utilsSelectors = ns.util.selectors,
-				utilsDom = ns.util.DOM,
 				STYLE_PATTERN = ".ui-gridview li:nth-child({index})",
 				MATRIX_REGEXP = /matrix\((.*), (.*), (.*), (.*), (.*), (.*)\)/,
-				DATA_ROLE = "data-role",
 				direction = {
 					PREV: 0,
 					NEXT: 1
@@ -101,20 +98,6 @@
 			GridView.prototype = prototype;
 			GridView.classes = classes;
 
-			function getScrollableParent(element) {
-				var overflow;
-
-				while (element !== document.body) {
-					overflow = utilsDom.getCSSProperty(element, "overflow-y");
-					if (overflow === "scroll" || (overflow === "auto" && element.scrollHeight > element.clientHeight)) {
-						return element;
-					}
-					element = element.parentNode;
-				}
-
-				return null;
-			}
-
 			/**
 			 * Configure options for GridView
 			 * @method _configure
@@ -127,7 +110,7 @@
 				 * @property {Object} options
 				 * @property {number} [options.cols=4] the number of columns to be displayed
 				 * @property {boolean} [options.reorder=false] represents whether grid view is reorder mode
-				 * @property {string} [options.label="none"] type of label to be attatched to grid item("none", "in", "out")
+				 * @property {string} [options.label="none"] type of label to be attached to grid item("none", "in", "out")
 				 * @property {number} [options.minWidth=null] minimum width px of grid item(number or "auto")
 				 * @property {number} [options.minCols=1] the minimum number of columns
 				 * @property {number} [options.maxCols=5] the maximum number of columns
@@ -169,13 +152,25 @@
 
 				ui.listElements = [].slice.call(self.element.getElementsByTagName("li"));
 				ui.listElHandler = element.querySelectorAll("." + classes.HANDLER);
+				ui.content = utilsSelectors.getClosestByClass(element, "ui-content") || window;
+				ui.scrollableParent = utilsSelectors.getScrollableParent(element) || self._ui.content;
+				ui.page = utilsSelectors.getClosestBySelector(element, engine.getWidgetDefinition("Page").selector);
 				self._setItemWidth();
 				self._setGridStyle();
 				self._setLabel(element);
 				self._setReorder(element, self.options.reorder);
 				self._calculateListHeight();
-				self._ui.content = utilsSelectors.getClosestByClass(element, "ui-content") || window;
-				self._ui.scrollableParent = getScrollableParent(element) || self._ui.content;
+			};
+
+
+			/**
+			 * Bind pageBeforeShow event
+			 * @method _onPagebeforeshow
+			 * @member ns.widget.core.GridView
+			 * @protected
+			 */
+			prototype._onPagebeforeshow = function() {
+				this.refresh();
 			};
 
 			/**
@@ -185,6 +180,7 @@
 			 * @member ns.widget.mobile.GridView
 			 */
 			prototype._bindEvents = function () {
+				utilsEvents.on(this._ui.page, "pagebeforeshow", this, false);
 			};
 
 			/**
@@ -201,6 +197,7 @@
 
 				utilsEvents.off(element, "drag dragstart dragend dragcancel dragprepare", self);
 				utilsEvents.off(element, "pinchin pinchout", self);
+				utilsEvents.off(self._ui.page, "pagebeforeshow", self, false);
 			};
 
 			/**
@@ -223,7 +220,7 @@
 				self._setReorder(element, self.options.reorder);
 				self._calculateListHeight();
 				self._ui.content = utilsSelectors.getClosestByClass(element, "ui-content") || window;
-				self._ui.scrollableParent = getScrollableParent(element) || self._ui.content;
+				self._ui.scrollableParent = utilsSelectors.getScrollableParent(element) || self._ui.content;
 			};
 
 			/**
@@ -272,6 +269,9 @@
 						break;
 					case "pinchout":
 						self._out(event);
+						break;
+					case "pagebeforeshow":
+						self._onPagebeforeshow(event);
 						break;
 				}
 			};
@@ -563,24 +563,6 @@
 			};
 
 			/**
-			 * Get parent page element
-			 * @method _getParentPage
-			 * @protected
-			 * @param {HTMLElement} element
-			 * @return {HTMLElement}
-			 * @member ns.widget.mobile.GridView
-			 */
-			prototype._getParentPage = function (element) {
-				while (element && element !== document.body) {
-					if (element.getAttribute(DATA_ROLE) === "page" || element.classList.contains("ui-page") === true || element.tagName.toLowerCase() === "tau-page") {
-						return element;
-					}
-					element = element.parentNode;
-				}
-				return document.body;
-			};
-
-			/**
 			 * Toggle grid view reordering mode
 			 * @method _setReorder
 			 * @protected
@@ -627,7 +609,6 @@
 				var self = this,
 					length = self._ui.listElements.length,
 					options = self.options,
-					page = self._getParentPage(),
 					cols = options.cols,
 					rows,
 					styleElement,
@@ -655,7 +636,7 @@
 			 * @protected
 			 * @param {number} col
 			 * @param {number} row
-			 * @param {number} index
+			 * @param {number|string} index
 			 * @member ns.widget.mobile.GridView
 			 */
 			prototype._getTransformStyle = function (col, row, index) {
@@ -711,7 +692,7 @@
 				row = Math.floor((length - 1) / cols);
 				col = (length - 1) % cols;
 
-				// add trnasform style for item added
+				// add transform style for item added
 				styleElement.textContent = styles.concat("\n" + self._getTransformStyle(col, row, length));
 			};
 
@@ -745,7 +726,7 @@
 			 * @method _setLabel
 			 * @protected
 			 * @param {HTMLElement} element
-			 * @param {string} label
+			 * @param {string} [label]
 			 * @member ns.widget.mobile.GridView
 			 */
 			prototype._setLabel = function (element, label) {
