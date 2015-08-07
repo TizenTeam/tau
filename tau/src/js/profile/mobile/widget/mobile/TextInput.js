@@ -570,7 +570,10 @@
 					", input:not([type])." + classes.uiTextInput,
 				[],
 				TextInput,
-				"mobile"
+				"mobile",
+				false,
+				false,
+				HTMLInputElement
 			);
 
 			ns.widget.mobile.TextArea = TextInput;
