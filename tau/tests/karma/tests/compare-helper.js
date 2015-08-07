@@ -28,13 +28,15 @@ define(
 			});
 		}
 
-		function compareStylesFunction(orgWindow, ceWindow, element1, element2, selector) {
+		function compareStylesFunction(orgWindow, ceWindow, element1, element2, selector, ignore) {
 			var computedStyles1 = element1 && orgWindow.getComputedStyle(element1, selector) || [],
 				computedStyles2,
 				result = [],
 				widgetName = orgWindow.tau.util.selectors.getClosestBySelector(element1, "[data-tau-name]").dataset.tauName,
 				id = widgetName,
 				testName;
+
+			ignore = ignore || [];
 
 			try {
 				computedStyles2 = ceWindow.getComputedStyle(element2, selector);
@@ -50,17 +52,19 @@ define(
 			}
 
 			[].forEach.call(computedStyles1, function (property) {
-				var computedStyles2Property = computedStyles2[property];
-				if (cssPropExcludes.indexOf(property) === -1) {
-					if (computedStyles2Property && typeof computedStyles2Property) {
-						computedStyles2Property = computedStyles2Property.replace("UIComponentsCE", "UIComponents");
-					}
-					if (computedStyles1[property] !== computedStyles2Property) {
-						result.push({
-							property: property,
-							value1: computedStyles1[property],
-							value2: computedStyles2Property
-						});
+				if (ignore.indexOf(property) === -1) {
+					var computedStyles2Property = computedStyles2[property];
+					if (cssPropExcludes.indexOf(property) === -1) {
+						if (computedStyles2Property && typeof computedStyles2Property) {
+							computedStyles2Property = computedStyles2Property.replace("UIComponentsCE", "UIComponents");
+						}
+						if (computedStyles1[property] !== computedStyles2Property) {
+							result.push({
+								property: property,
+								value1: computedStyles1[property],
+								value2: computedStyles2Property
+							});
+						}
 					}
 				}
 			});
@@ -106,13 +110,13 @@ define(
 			return currentElement;
 		}
 
-		function compareTree(ceDocument, compareStyles, element, callback) {
-			compareStyles(element, mapElement(element, ceDocument));
-			compareStyles(element, mapElement(element, ceDocument), ":before");
-			compareStyles(element, mapElement(element, ceDocument), ":after");
+		function compareTree(ceDocument, compareStyles, element, callback, ignore) {
+			compareStyles(element, mapElement(element, ceDocument), null, ignore);
+			compareStyles(element, mapElement(element, ceDocument), ":before", ignore);
+			compareStyles(element, mapElement(element, ceDocument), ":after", ignore);
 			[].forEach.call(element.children, function(childElement) {
 				if (childElement.dataset.tauName === undefined) {
-					compareTree(ceDocument, compareStyles, childElement);
+					compareTree(ceDocument, compareStyles, childElement, null, ignore);
 				}
 			});
 			if (callback) {
@@ -125,6 +129,10 @@ define(
 				setTimeout(function() {
 					compareTree(ceDocument, compareStyles, element, callback);
 				}, 300);
+			} else if (element.dataset.tauName === "Marquee") {
+				// adding ignore properties
+				// marquee on left and right iframe start in different time, we can't test transform property
+				compareTree(ceDocument, compareStyles, element, callback, ["transform", "-webkit-transform"]);
 			} else {
 				compareTree(ceDocument, compareStyles, element, callback);
 			}
