@@ -55,7 +55,7 @@ module.exports = function(grunt) {
 	// Task list
 	grunt.registerTask("dev", ["dom_munger:"+mediaType]);
 	grunt.registerTask("release", [ "dom_munger:default" ]);
-	
+
 	grunt.loadTasks("tools/app/tasks");
 
 	function prepareProfile(app, profile, destination, suffix, disablesdb, done) {
@@ -66,8 +66,8 @@ module.exports = function(grunt) {
 
 			suffix = suffix || "";
 			grunt.config("multitau." + profile + suffix + ".options", {
-				src: "../dist",
-				dest: app + "/" + destination,
+				src: ".." + path.sep + "dist",
+				dest: app + path.sep + destination,
 				profile: profile,
 				app: app,
 				disablesdb: disablesdb
@@ -79,7 +79,7 @@ module.exports = function(grunt) {
 	grunt.registerTask("prepare-app", function() {
 		var profile = grunt.option("profile"),
 			app = grunt.option("app"),
-			destination = grunt.option("destination") || (grunt.option("profiledestination") && "lib/tau/" + profile ) || "lib/tau",
+			destination = grunt.option("destination") || (grunt.option("profiledestination") && path.join("lib", "tau", profile)) || path.join("lib", "tau"),
 			disablesdb = grunt.option("disablesdb"),
 			done = this.async(),
 			tasks = [],
@@ -103,5 +103,6 @@ module.exports = function(grunt) {
 		});
 
 	});
+
 	grunt.registerTask("default", [ "release" ]);
 };

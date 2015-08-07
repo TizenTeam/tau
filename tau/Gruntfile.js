@@ -1166,5 +1166,9 @@ module.exports = function(grunt) {
 		"multitau:TAUApplicationFrameworkWearable",
 		"karma:app" ]);
 
+	grunt.registerTask("verify", [ "apptest",
+		"test",
+		"karma:unit" ]);
+
 	grunt.registerTask("default", [ "release" ]);
 };
