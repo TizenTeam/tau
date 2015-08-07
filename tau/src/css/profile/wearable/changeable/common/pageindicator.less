@@ -2,6 +2,7 @@
 		Page Indicator
 *****************************************************/
 .ui-page-indicator {
+	display: block;
 	position: absolute;
 	left: 50%;
 	.transform(translate3d(-50%, 0, 0));
@@ -14,7 +15,7 @@
 		display: inline-block;
 		width: 13 * @unit_base;
 		height: 13 * @unit_base;
-		-webkit-mask-image: -webkit-radial-gradient(black 4 * @unit_base, transparent 6 * @unit_base);
+		.mask-image(-webkit-radial-gradient(black 4 * @unit_base, transparent 6 * @unit_base));
 		background-color: @color_page_indicator_normal;
 		margin-right: 9 * @unit_base;
 		.transition-duration(250ms);
@@ -48,7 +49,7 @@
 				position: absolute;
 				width: 100%;
 				height: 100%;
-				-webkit-mask-image: -webkit-radial-gradient(black 2 * @unit_base, transparent 4 * @unit_base);
+				.mask-image(-webkit-radial-gradient(black 2 * @unit_base, transparent 4 * @unit_base));
 				background-color: @color_page_indicator_normal;
 				.transition(250ms transform ease-out);
 			}

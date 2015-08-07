@@ -60,7 +60,7 @@
 				 */
 				this.options = {
 					maxPage: null,
-					numberOfPages: null,
+					numberOfPages: 0,
 					layout: "linear",
 					intervalAngle: 6
 				};
@@ -97,9 +97,8 @@
 					span,
 					numberOfPages = self.options.numberOfPages;
 
-				if(numberOfPages === null) {
-					ns.error("build error: numberOfPages is null");
-					return;
+				if (numberOfPages === 0) {
+					ns.warn("numberOfPages is 0 in PageIndicator");
 				}
 
 				self.options.layout = self.options.layout.toLowerCase();

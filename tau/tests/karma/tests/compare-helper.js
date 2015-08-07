@@ -106,7 +106,7 @@ define(
 			return currentElement;
 		}
 
-		function compareTree(ceDocument, compareStyles, element) {
+		function compareTree(ceDocument, compareStyles, element, callback) {
 			compareStyles(element, mapElement(element, ceDocument));
 			compareStyles(element, mapElement(element, ceDocument), ":before");
 			compareStyles(element, mapElement(element, ceDocument), ":after");
@@ -115,14 +115,28 @@ define(
 					compareTree(ceDocument, compareStyles, childElement);
 				}
 			});
+			if (callback) {
+				callback();
+			}
+		}
+
+		function testWidget(ceDocument, compareStyles, element, callback) {
+			if (element.dataset.tauName === "PageIndicator") {
+				setTimeout(function() {
+					compareTree(ceDocument, compareStyles, element, callback);
+				}, 300);
+			} else {
+				compareTree(ceDocument, compareStyles, element, callback);
+			}
 		}
 
 		function testPage(app, orgWindow, ceWindow, page, callback) {
 			var compareStyles = compareStylesFunction.bind(null, orgWindow, ceWindow),
 				ceDocument = ceWindow.document,
-				widgets = page && page.querySelectorAll("[data-tau-name]") || [],
+				widgets = page && [].slice.call(page.querySelectorAll("[data-tau-name]")) || [],
 				location = orgWindow.location + "",
-				simpleLocationIndex = location.indexOf("UIComponents");
+				simpleLocationIndex = location.indexOf("UIComponents"),
+				widgetLoop;
 
 			simpleLocation = location.substring(simpleLocationIndex + 12);
 
@@ -130,20 +144,26 @@ define(
 			compareStyles(page, mapElement(page, ceDocument), ":before");
 			compareStyles(page, mapElement(page, ceDocument), ":after");
 
-			[].forEach.call(widgets, compareTree.bind(null, ceDocument, compareStyles));
-			getLinks(app, orgWindow, ceWindow, page, function() {
-				if (page.id === "main") {
-					callback();
+			widgetLoop = function() {
+				var widget = widgets.shift();
+
+				if (widget) {
+					testWidget(ceDocument, compareStyles, widget, widgetLoop);
 				} else {
-					pageBack(orgWindow, ceWindow, callback);
+					getLinks(app, orgWindow, ceWindow, page, function() {
+						if (page.id === "main") {
+							callback();
+						} else {
+							pageBack(orgWindow, ceWindow, callback);
+						}
+					});
 				}
-			});
+			};
+			widgetLoop();
 		}
 
 		function clickLink(app, orgWindow, ceWindow, link1, link2, callback) {
-			var pageChanges = 0,
-				target,
-				event = "pageshow popupshow",
+			var event = "pageshow popupshow",
 				current = null,
 				currentEl = null,
 				pathRegexp = new RegExp("^.*" + app.path + "/" + app.appName + "(CE)?", "i"),

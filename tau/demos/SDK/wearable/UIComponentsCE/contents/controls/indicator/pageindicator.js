@@ -10,8 +10,10 @@ var page = document.getElementById("pageIndicatorPage") || document.getElementBy
 	pageIndicatorHandler;
 
 page.addEventListener( "pagebeforeshow", function() {
-	// make PageIndicator
-	pageIndicator =  tau.widget.PageIndicator(elPageIndicator, { numberOfPages: sections.length });
+	// take existing instance or create new PageIndicator
+	pageIndicator =  tau.widget.PageIndicator(elPageIndicator);
+	// update number of pages
+	pageIndicator.option({numberOfPages: sections.length});
 	pageIndicator.setActive(0);
 	// make SectionChanger object
 	sectionChanger = new tau.widget.SectionChanger(changer, {
