@@ -93,7 +93,6 @@
 					element.appendChild(progressBarValueElement);
 					element.appendChild(progressBarDecoratorElement);
 
-
 					ui.progressBarValueElement = progressBarValueElement;
 					ui.progressBarDecoratorElement = progressBarDecoratorElement;
 

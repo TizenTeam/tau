@@ -6,29 +6,45 @@
 		progressBarWidget,
 		progressBarWidget2,
 		progressBarWidget3,
-		pageBeforeShowHandler;
+		pageShowHandler,
+		pageHideHandler,
+		timeout1,
+		timeout2,
+		timeout3,
+		timeout4;
 
-	pageBeforeShowHandler = function () {
+	pageShowHandler = function () {
 		progressBarWidget = new tau.widget.Progress(progressBar);
 		progressBarWidget2 = new tau.widget.Progress(progressBar2);
 		progressBarWidget3 = new tau.widget.Progress(progressBar3);
 
-		setTimeout(function() {
+		timeout1 = setTimeout(function() {
 			progressBarWidget.value(100);
 		}, 1000);
-		setTimeout(function() {
+
+		timeout2 = setTimeout(function() {
 			progressBarWidget2.value(50);
 			progressBarWidget3.value(70);
 		}, 2000);
-		setTimeout(function() {
+
+		timeout3 = setTimeout(function() {
 			progressBarWidget2.value(70);
 			progressBarWidget3.value(30);
 		}, 300);
-		setTimeout(function() {
+
+		timeout4 = setTimeout(function() {
 			progressBarWidget2.value(100);
 			progressBarWidget3.value(100);
 		}, 4000);
 	};
 
-	page.addEventListener("pagebeforeshow", pageBeforeShowHandler);
+	pageHideHandler = function () {
+		clearTimeout(timeout1);
+		clearTimeout(timeout2);
+		clearTimeout(timeout3);
+		clearTimeout(timeout4);
+	}
+
+	page.addEventListener("pageshow", pageShowHandler, false);
+	page.addEventListener("pagehide", pageHideHandler, false);
 }());

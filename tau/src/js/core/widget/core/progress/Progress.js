@@ -30,7 +30,8 @@
 			"./type/activitybar",
 			"./type/activitycircle",
 			"./type/progressbar",
-			"./type/progresscircle"
+			"./type/progresscircle",
+			"../Page"
 		],
 
 		function () {
@@ -40,7 +41,9 @@
 				events = ns.event,
 				engine = ns.engine,
 				util = ns.util,
+				selectors = ns.util.selectors,
 				utilsObject = ns.util.object,
+				Page = ns.widget.core.Page,
 				eventType = {
 					/**
 					 * Event is triggered when value of widget is changing.
@@ -74,6 +77,7 @@
 					self._type = null;
 					self._progress = null;
 					self._isAnimating = false;
+					self._callbacks = {};
 				},
 				/**
 				 * Dictionary object containing commonly used widget classes
@@ -166,15 +170,17 @@
 
 					self._oldValue = options.value;
 
+
 				if (typeof value === "number") {
 					value = Math.min(options.max, Math.max(options.min, value));
 					// value changed
 					if (value !== self._oldValue) {
 						options.value = value;
-						element.setAttribute("data-value", value);
-						element.setAttribute("value", value);
+						if (!self.isCustomElement) {
+							element.setAttribute("data-value", value);
+							element.setAttribute("value", value);
+						}
 						events.trigger(element, eventType.CHANGE);
-
 						self._progress.changeValue(self, self._oldValue, value);
 					}
 					return true;
@@ -210,6 +216,32 @@
 			};
 
 			/**
+			 * Callback on event pagebeforeshow
+			 * @method pageBeforeShow
+			 * @param self
+			 * @private
+			 * @member ns.widget.core.progress.Progress
+			 */
+			function pageBeforeShow(self) {
+				self.refresh();
+			}
+
+			/**
+			 * Bind events to Progress
+			 * @method _bindEvents
+			 * @member ns.widget.core.progress.Progress
+			 * @protected
+			 */
+			prototype._bindEvents = function() {
+				var self = this,
+					element = self.element,
+					page = selectors.getClosestByClass(element, Page.classes.uiPage);
+
+				self._callbacks.onPageBeforeShow = pageBeforeShow.bind(null, self);
+				page.addEventListener(Page.events.BEFORE_SHOW, self._callbacks.onPageBeforeShow, false);
+			}
+
+			/**
 			 * Destroys Progress component
 			 * @method _destroy
 			 * @member ns.widget.core.progress.Progress
@@ -217,7 +249,8 @@
 			 */
 			prototype._destroy = function() {
 				var self = this,
-					element = self.element;
+					element = self.element,
+					page;
 
 				while (element.firstChild) {
 					element.removeChild(element.firstChild);
@@ -225,6 +258,11 @@
 
 				self._ui = null;
 				self._oldValue = null;
+
+				if (self._callbacks.onPageBeforeShow) {
+					page = selectors.getClosestByClass(element, Page.classes.uiPage);
+					page.removeEventListener(Page.events.BEFORE_SHOW, self._callbacks.onPageBeforeShow, false);
+				}
 
 				return element;
 			};
