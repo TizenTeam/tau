@@ -1005,5 +1005,9 @@ module.exports = function(grunt) {
 		"multitau:UIComponentsWearable",
 		"multitau:UIComponentsCEWearable",
 		"karma:CEUIComponentsWearable" ]);
+
+	grunt.registerTask("verify", [ "ce-test-mobile",
+		"ce-test-wearable",
+		"test"]);
 	grunt.registerTask("default", [ "release" ]);
 };
