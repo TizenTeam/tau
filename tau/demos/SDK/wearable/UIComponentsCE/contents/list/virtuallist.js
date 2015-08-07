@@ -5,7 +5,9 @@
 		vlist;
 
 	page.addEventListener("pagebeforeshow", function() {
-		vlist = tau.widget.VirtualListview(elList, {
+		var vlist = tau.widget.VirtualListview(elList);
+
+		vlist.option({
 			dataLength: JSON_DATA.length,
 			bufferSize: 40,
 			scrollElement: "ui-scroller"

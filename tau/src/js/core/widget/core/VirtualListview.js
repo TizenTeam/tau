@@ -798,7 +798,9 @@
 					listItem,
 					list = self.element,
 					options = self.options,
-					childElementType = (list.tagName === "UL" || list.tagName === "OL") ? "li" : "div",
+					childElementType = (list.tagName === "UL" ||
+						list.tagName === "OL" ||
+						list.tagName === "TAU-VIRTUALLISTVIEW") ? "li" : "div",
 					numberOfItems = options.bufferSize,
 					documentFragment = document.createDocumentFragment(),
 					touchStartEventBound = _touchStartHandler.bind(null, self),
