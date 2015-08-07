@@ -101,7 +101,7 @@
 					};
 
 					CustomWidgetProto.attachedCallback = function () {
-						if (this._tauWidget) {
+						if (this._tauWidget && this._tauWidget.state !== "destroying") {
 							this._tauWidget.refresh();
 						}
 					};
