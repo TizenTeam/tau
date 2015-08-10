@@ -299,7 +299,7 @@
 
 			engine.defineWidget(
 				"inputButton",
-				"input[type='button']",
+				"",
 				[],
 				Button,
 				"core",
@@ -310,7 +310,7 @@
 
 			engine.defineWidget(
 				"formButton",
-				"button",
+				"",
 				[],
 				Button,
 				"core",
