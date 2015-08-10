@@ -171,7 +171,7 @@ define(
 		}
 
 		function clickLink(app, orgWindow, ceWindow, link1, link2, callback) {
-			var event = "pageshow popupshow",
+			var events = "pageshow popupshow",
 				current = null,
 				currentEl = null,
 				pathRegexp = new RegExp("^.*" + app.path + "/" + app.appName + "(CE)?", "i"),
@@ -199,6 +199,8 @@ define(
 							currentEl = element;
 						} else if (current === id) {
 							console.log("page match", current, id, "executing callback");
+							orgWindow.tau.event.off(orgWindow, events, pageChangeCallback);
+							ceWindow.tau.event.off(ceWindow, events, pageChangeCallback);
 							callback(currentEl);
 							current = null;
 							currentEl = null;
@@ -208,8 +210,8 @@ define(
 				href = link1.getAttribute("href");
 
 			if (href !== "#" && href !== "" && link1 && link2) {
-				orgWindow.tau.event.one(orgWindow, event, pageChangeCallback);
-				ceWindow.tau.event.one(ceWindow, event, pageChangeCallback);
+				orgWindow.tau.event.on(orgWindow, events, pageChangeCallback);
+				ceWindow.tau.event.on(ceWindow, events, pageChangeCallback);
 				link1.click();
 				link2.click();
 				console.log("clicked on link with href " + href);
@@ -240,7 +242,7 @@ define(
 
 		function getLinks(app, orgWindow, ceWindow, page, callback) {
 			var ceDocument = ceWindow.document,
-				links = [].slice.call(page.querySelectorAll("a[href]:not([href='#']):not([data-ignore]):not([data-rel])")),
+				links = [].slice.call(page.querySelectorAll("a[href]:not([href='#']):not([data-ignore])")),
 				internalCallback = function() {
 					var link = links.shift();
 
