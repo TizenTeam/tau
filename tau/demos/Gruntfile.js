@@ -14,6 +14,14 @@ module.exports = function(grunt) {
 			"CIRCLE": "all and (-tizen-geometric-shape: circle)"
 		};
 
+		function buildTAUArgs() {
+			var result = ["build"];
+			if (grunt.option("tau-debug")) {
+				result.push("--tau-debug");
+			}
+			return result;
+		}
+
 		grunt.initConfig({
 			dom_munger: {
 				circle: {
@@ -40,14 +48,6 @@ module.exports = function(grunt) {
 			}
 		});
 
-	function buildTAUArgs() {
-		var result = ["build"];
-		if (grunt.option("tau-debug")) {
-			result.push("--tau-debug");
-		}
-		return result
-	}
-
 	// npm tasks
 	grunt.loadNpmTasks("grunt-dom-munger");
 	grunt.loadNpmTasks("grunt-run");
@@ -58,16 +58,19 @@ module.exports = function(grunt) {
 	
 	grunt.loadTasks("tools/app/tasks");
 
-	function prepareProfile(app, profile, destination, done) {
+	function prepareProfile(app, profile, destination, suffix, disablesdb, done) {
 		fs.exists(app + "/" + profile, function (exists) {
 			if (exists) {
 				app += "/" + profile;
 			}
-			grunt.config("multitau." + profile + ".options", {
+
+			suffix = suffix || "";
+			grunt.config("multitau." + profile + suffix + ".options", {
 				src: "../dist",
 				dest: app + "/" + destination,
 				profile: profile,
-				app: app
+				app: app,
+				disablesdb: disablesdb
 			});
 			done();
 		});
@@ -76,8 +79,8 @@ module.exports = function(grunt) {
 	grunt.registerTask("prepare-app", function() {
 		var profile = grunt.option("profile"),
 			app = grunt.option("app"),
-			destination = grunt.option("destination") || "lib/tau",
-			debug = grunt.option("tau-debug"),
+			destination = grunt.option("destination") || (grunt.option("profiledestination") && "lib/tau/" + profile ) || "lib/tau",
+			disablesdb = grunt.option("disablesdb"),
 			done = this.async(),
 			tasks = [],
 			async = require("async");
@@ -87,11 +90,11 @@ module.exports = function(grunt) {
 		}
 
 		if (profile) {
-			tasks.push(prepareProfile.bind(null, app, profile, destination));
+			tasks.push(prepareProfile.bind(null, app, profile, destination, "", disablesdb));
 		} else {
-			tasks.push(prepareProfile.bind(null, app, "wearable", destination));
-			tasks.push(prepareProfile.bind(null, app, "mobile", destination));
-			tasks.push(prepareProfile.bind(null, app, "tv", destination));
+			tasks.push(prepareProfile.bind(null, app, "wearable", destination, "", disablesdb));
+			tasks.push(prepareProfile.bind(null, app, "mobile", destination, "", disablesdb));
+			tasks.push(prepareProfile.bind(null, app, "tv", destination, "", disablesdb));
 		}
 
 		async.series(tasks, function () {
