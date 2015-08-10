@@ -812,7 +812,7 @@
 				event.stopPropagation();
 
 				if (options.dismissible && Router) {
-					if (tau.getConfig("disableRouter")) {
+					if (ns.getConfig("disableRouter")) {
 						this.close();
 					} else {
 						engine.getRouter().close();

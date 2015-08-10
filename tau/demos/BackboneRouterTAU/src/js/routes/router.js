@@ -42,7 +42,7 @@ var app = app || {};
 
 				// drawer close;
 				tau.widget.Drawer(document.getElementById('leftdrawer'))
-					.close({reverse: true});
+					.close();
 
 
 				app.router.navigate("#", true);

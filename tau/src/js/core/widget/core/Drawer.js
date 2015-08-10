@@ -743,7 +743,7 @@
 					selfOptions = self.options,
 					drawerClassList = self.element.classList;
 				if (self._state !== STATE.CLOSED) {
-					if (!reverse && self._state === STATE.OPENED) {
+					if (!reverse && self._state === STATE.OPENED && !ns.getConfig("disableRouter")) {
 						// This method was fired by JS code or this widget.
 						history.back();
 						return;
