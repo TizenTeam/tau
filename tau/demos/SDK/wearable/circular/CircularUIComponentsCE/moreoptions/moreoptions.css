@@ -1,0 +1,32 @@
+#moreoptionsDrawer {
+	display: none;
+}
+
+@media all and (-tizen-geometric-shape: circle) {
+	#moreoptionsDrawer {
+		display: block;
+		background-color: rgba(255, 255, 255, 0.1);
+		border-radius: 100%;
+	}
+	#moreoptionsPopup {
+		display: none;
+	}
+	.sections,
+	.options {
+		text-align: center;
+	}
+	.option-button {
+		width: 158px;
+		height: 158px;
+		background-color: #a4a4a4;
+		position: relative;
+		left: 50%;
+		transform: translate3d(-50%, -50%, 0);
+		top: 50%;
+		border-radius: 50%;
+		border: none;
+		text-align: center;
+		line-height: 158px;
+		-webkit-appearance: none;
+	}
+}

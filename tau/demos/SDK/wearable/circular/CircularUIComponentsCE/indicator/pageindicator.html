@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+	<title>Wearable Extra UI - Section changer</title>
+	<link rel="stylesheet" href="../lib/tau/wearable/theme/circle/tau.min.css">
+</head>
+<body>
+	<tau-page id="pageIndicatorPage" class="ui-page" enable-page-scroll="false">
+	<link rel="stylesheet" href="./sectionchanger.css">
+		<header class="ui-header">
+			<h2 class="ui-title">Page Indicator</h2>
+		</header>
+
+		<tau-pageindicator id="pageIndicator" class="ui-page-indicator"></tau-pageindicator>
+
+		<tau-scrollview id="hsectionchanger" class="ui-content">
+			<!-- section changer has only one child. -->
+			<div>
+				<section class="ui-section-active" style="text-align:center">
+					<h3> Page1 of 8</h3>
+				</section>
+				<section style="text-align:center">
+					<h3> Page2 of 8</h3>
+				</section>
+				<section style="text-align:center">
+					<h3> Page3 of 8</h3>
+				</section>
+				<section style="text-align:center">
+					<h3> Page4 of 8 </h3>
+				</section>
+				<section style="text-align:center">
+					<h3> Page5 of 8 </h3>
+				</section>
+				<section style="text-align:center">
+					<h3> Page6 of 8 </h3>
+				</section>
+				<section style="text-align:center">
+					<h3> Page7 of 8 </h3>
+				</section>
+				<section style="text-align:center">
+					<h3> Page8 of 8 </h3>
+				</section>
+			</div>
+		</tau-scrollview>
+		<script src="./pageindicator.js"></script>
+	</tau-page>
+<script type="text/javascript" src="../lib/tau/wearable/js/tau.min.js"></script>
+</body>
+</html>

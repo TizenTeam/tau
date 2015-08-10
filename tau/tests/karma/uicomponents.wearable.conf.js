@@ -39,6 +39,8 @@ module.exports = function (config) {
 
             {pattern: "demos/SDK/wearable/UIComponents/**/*", included: false, served: true},
             {pattern: "demos/SDK/wearable/UIComponentsCE/**/*", included: false, served: true},
+			{pattern: "demos/SDK/wearable/circular/CircularUIComponents/**/*", included: false, served: true},
+			{pattern: "demos/SDK/wearable/circular/CircularUIComponentsCE/**/*", included: false, served: true},
 
             {pattern: "tests/karma/tests/helpers.js", included: false, served: true, watch: true},
             {pattern: "tests/karma/tests/compare-helper.js", included: false, served: true, watch: true},

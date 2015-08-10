@@ -631,6 +631,10 @@ module.exports = function(grunt) {
 				CEUIComponentsWearable: {
 					configFile: "./tests/karma/uicomponents.wearable.conf.js",
 					singleRun: true
+				},
+				CEUIComponentsWearableCircular: {
+					configFile: "./tests/karma/uicomponents.wearable.circular.conf.js",
+					singleRun: true
 				}
 			},
 
@@ -815,6 +819,18 @@ module.exports = function(grunt) {
 					options: {
 						profile: "wearable",
 						dest: "demos/SDK/wearable/UIComponentsCE/lib/tau/wearable"
+					}
+				},
+				UIComponentsWearableCircular: {
+					options: {
+						profile: "wearable",
+						dest: "demos/SDK/wearable/circular/CircularUIComponents/lib/tau/wearable"
+					}
+				},
+				UIComponentsCEWearableCircular: {
+					options: {
+						profile: "wearable",
+						dest: "demos/SDK/wearable/circular/CircularUIComponentsCE/lib/tau/wearable"
 					}
 				}
 			}
@@ -1005,6 +1021,10 @@ module.exports = function(grunt) {
 		"multitau:UIComponentsWearable",
 		"multitau:UIComponentsCEWearable",
 		"karma:CEUIComponentsWearable" ]);
+	grunt.registerTask("ce-test-wearable-circular", [ "build",
+		"multitau:UIComponentsWearableCircular",
+		"multitau:UIComponentsCEWearableCircular",
+		"karma:CEUIComponentsWearableCircular" ]);
 
 	grunt.registerTask("verify", [ "ce-test-mobile",
 		"ce-test-wearable",

@@ -244,12 +244,25 @@ define(
 			var ceDocument = ceWindow.document,
 				links = [].slice.call(page.querySelectorAll("a[href]:not([href='#']):not([data-ignore])")),
 				internalCallback = function() {
-					var link = links.shift();
+					var link = links.shift(),
+						mirrorLink;
 
 					if (link) {
-						clickLink(app, orgWindow, ceWindow, link, mapElement(link, ceDocument), function(page) {
-							testPage(app, orgWindow, ceWindow, page, internalCallback);
-						});
+						mirrorLink = mapElement(link, ceDocument);
+						if (mirrorLink === undefined) {
+							console.log("[WARNING] Probably DOM structure change at: ", link);
+							//try to find link by href attribute;
+							mirrorLink = ceDocument.querySelector("[href='" + link.getAttribute("href") + "']");
+							if (mirrorLink === undefined) {
+								console.error("Important DOM structure change at: " + link);
+							}
+						}
+
+						if (mirrorLink) {
+							clickLink(app, orgWindow, ceWindow, link, mirrorLink, function(page) {
+								testPage(app, orgWindow, ceWindow, page, internalCallback);
+							});
+						}
 					} else {
 						callback();
 					}

@@ -71,7 +71,8 @@
 			"../../../../core/util/object",
 			"../../../../core/event/gesture",
 			"../wearable",
-			"../../../../core/widget/BaseWidget"
+			"../../../../core/widget/BaseWidget",
+			"../../helper/ExpandableHeaderMarqueeStyle"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");

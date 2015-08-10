@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, user-scalable=no">
+	<title>Wearable UI</title>
+	<link rel="stylesheet" href="../lib/tau/wearable/theme/changeable/tau.min.css">
+	<link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+<tau-page id="moreoptionsPage" class="ui-page">
+	<link rel="stylesheet" href="./moreoptions.css">
+	<header class="ui-header ui-has-more">
+		<h2 class="ui-title">More Options</h2>
+		<tau-button type="button" class="ui-more ui-icon-overflow">More Options</tau-button>
+	</header>
+	<tau-scrollview class="ui-content content-padding">
+		It was a real pleasure for me to finally get to meet you. My colleagues join me in sending you our holiday greetings.
+	</tau-scrollview>
+
+	<!-- Square Profile -->
+	<tau-popup id="moreoptionsPopup" class="ui-popup" transition="slideup">
+		<div class="ui-popup-header">Options</div>
+		<div class="ui-popup-content">
+			<tau-listview class="ui-listview">
+				<li><a href="#">1</a></li>
+				<li><a href="#">2</a></li>
+				<li><a href="#">3</a></li>
+			</tau-listview>
+		</div>
+	</tau-popup>
+
+	<!-- Circle Profile -->
+	<tau-drawer id="moreoptionsDrawer" class="ui-drawer" drawer-target="#moreoptionsPage" position="right" enable="true" drag-edge="1">
+		<tau-sectionchanger id="moreoptionsSectionChanger" class="ui-section-changer">
+			<div>
+				<section>
+					<tau-button class="option-button">1</tau-button>
+				</section>
+				<section>
+					<tau-button class="option-button">2</tau-button>
+				</section>
+				<section>
+					<tau-button class="option-button">3</tau-button>
+				</section>
+			</div>
+		</tau-sectionchanger>
+	</tau-drawer>
+
+	<script type="text/javascript" src="./moreoptions.js"></script>
+</tau-page>
+<script type="text/javascript" src="../lib/tau/wearable/js/tau.min.js"></script>
+</body>
+</html>

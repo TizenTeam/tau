@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, user-scalable=no">
+	<title>Wearable UI</title>
+	<link rel="stylesheet" href="../lib/tau/wearable/theme/changeable/tau.min.css">
+	<link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+<tau-page id="popupPage" class="ui-page">
+	<header class="ui-header">
+		<h2 class="ui-title">Popup</h2>
+	</header>
+	<tau-scrollview class="ui-content">
+		<tau-listview class="ui-listview">
+			<li><a href="#1btnPopup" data-rel="popup">1btn popup</a></li>
+			<li><a href="#2btnPopup" data-rel="popup">2btn popup</a></li>
+			<li><a href="#headerPopup" data-rel="popup">Header popup</a></li>
+		</tau-listview>
+	</tau-scrollview>
+
+	<tau-popup id="1btnPopup" class="ui-popup">
+		<div class="ui-popup-content">
+			Turning on Power
+			saving mode will
+			limit the maximum
+			power.
+		</div>
+		<div class="ui-popup-footer">
+			<tau-button id="1btnPopup-cancel" href="#" class="ui-btn ui-btn-footer-icon btn-icon-check" rel="back">Check</tau-button>
+		</div>
+	</tau-popup>
+
+	<tau-popup id="2btnPopup" class="ui-popup">
+		<div class="ui-popup-content">
+			Turning on Power
+			saving mode will
+			limit the maximum
+			power.
+		</div>
+		<div class="ui-popup-footer ui-grid-col-2">
+			<tau-button id="2btnPopup-cancel" href="#" class="ui-btn ui-btn-footer-icon btn-icon-cancel" rel="back">Cancel</tau-button>
+			<tau-button id="2btnPopup-ok" href="#" class="ui-btn ui-btn-footer-icon btn-icon-check" rel="back">OK</tau-button>
+		</div>
+	</tau-popup>
+
+	<tau-popup id="headerPopup" class="ui-popup">
+		<div class="ui-popup-header">Popup Header</div>
+		<div class="ui-popup-content">
+			Turning on Power
+			saving mode will
+			limit the maximum
+			power.
+		</div>
+		<div class="ui-popup-footer">
+			<tau-button id="headerPopup-cancel" href="#" class="ui-btn ui-btn-footer-icon btn-icon-check" rel="back">Cancel</tau-button>
+		</div>
+	</tau-popup>
+</tau-page>
+<script type="text/javascript" src="../lib/tau/wearable/js/tau.min.js"></script>
+</body>
+</html>
