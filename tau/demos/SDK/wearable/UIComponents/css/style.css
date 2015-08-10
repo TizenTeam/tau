@@ -994,6 +994,12 @@ input[type="checkbox"]#checkboxControl {
 	#circleSliderPage::after {
 		content: none;
 	}
+	/* -------------More Options-----------*/
+	#moreoptionsPopupCircle {
+		background-color: rgba(255, 255, 255, 0.1);
+		-webkit-mask-image: -webkit-radial-gradient(black 71%,transparent 0);
+		background-image: none;
+	}
 }
 
 .ui-item.ui-item-active::before{

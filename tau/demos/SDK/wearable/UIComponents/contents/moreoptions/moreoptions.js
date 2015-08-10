@@ -4,44 +4,46 @@
 	var page = document.querySelector("#moreoptionsPage"),
 		popup = page.querySelector("#moreoptionsPopup"),
 		handler = page.querySelector(".ui-more"),
-		drawer = page.querySelector("#moreoptionsDrawer"),
-		selector = page.querySelector("#selector"),
-		helper,
+		popupCircle = page.querySelector("#moreoptionsPopupCircle"),
+		elSelector = page.querySelector("#selector"),
+		selector,
 		clickHandlerBound;
 
 	function clickHandler(event) {
-		tau.openPopup(popup);
-	}
-	page.addEventListener( "pagebeforeshow", function() {
-
 		if (tau.support.shape.circle) {
-			helper = tau.helper.DrawerMoreStyle.create(drawer, {
-				handler: ".ui-more"
-			});
+			tau.openPopup(popupCircle);
 		} else {
-			// Shape is square
-			clickHandlerBound = clickHandler.bind(null);
-			handler.addEventListener("click", clickHandlerBound);
+			tau.openPopup(popup);
 		}
+	}
 
-	});
-	page.addEventListener( "pagebeforehide", function() {
+	page.addEventListener( "pagebeforeshow", function() {
+		var radius = window.innerHeight / 2 * 0.8;
+
+		clickHandlerBound = clickHandler.bind(null);
+		handler.addEventListener("click", clickHandlerBound);
 		if (tau.support.shape.circle) {
-			handler.removeEventListener("click", clickHandlerBound);
-			helper.destroy();
+			selector = tau.widget.Selector(elSelector, {itemRadius: radius});
 		}
 	});
+
+	page.addEventListener( "pagebeforehide", function() {
+		handler.removeEventListener("click", clickHandlerBound);
+		if (tau.support.shape.circle) {
+			selector.destroy();
+		}
+	});
+
 	/*
 	 * When user click the indicator of Selector, drawer will close.
 	 */
-	selector.addEventListener("click", function(event) {
-		var target = event.target,
-			drawerComponent = tau.widget.Drawer(drawer);
+	elSelector.addEventListener("click", function(event) {
+		var target = event.target;
 
 		if (tau.support.shape.circle) {
 			// 'ui-selector-indicator' is default indicator class name of Selector component
 			if (target.classList.contains("ui-selector-indicator")) {
-				drawerComponent.close();
+				tau.closePopup(popupCircle);
 			}
 		}
 	});
