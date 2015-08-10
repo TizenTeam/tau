@@ -209,9 +209,7 @@
 						});
 					}
 					self._setActivePage(toPageWidget);
-					setTimeout(function() {
-						oldDeferredResolve();
-					}, 100);
+					oldDeferredResolve();
 				};
 
 				if (transition !== "none") {
