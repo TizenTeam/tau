@@ -20,7 +20,7 @@ element.addEventListener('widgetbuilt', function() {
 			nextPageWidget = tau.engine.getBinding(nextPage);
 			equal(widget.getActivePage(), nextPageWidget, 'Page changed properly');
 			start();
-		}, 10);
+		}, 40);
 	});
 	//TODO
 	//remove this test after fixing inifinite loop bug
@@ -35,7 +35,7 @@ element.addEventListener('widgetbuilt', function() {
 			nextPageWidget = tau.engine.getBinding(nextPage);
 			equal(widget.getActivePage(), nextPageWidget, 'Page changed properly');
 			start();
-		}, 10);
+		}, 40);
 	});
 	if (!window.navigator.userAgent.match('PhantomJS')) {
 		asyncTest("tau.widget.core.PageContainer change page with transition", function () {
