@@ -613,7 +613,9 @@
 					rows,
 					styleElement,
 					styles = [],
-					index = 0, row, col;
+					index = 0, row, col,
+					element = self.element,
+					elementId = element.id ? "#" + element.id : "";
 
 				styleElement = document.createElement("style");
 				styleElement.type = "text/css";
@@ -622,11 +624,13 @@
 
 				for(row = 0; row < rows; row++) {
 					for(col = 0; col < cols && index < length; col++) {
-						styles.push(self._getTransformStyle(col, row, ++index));
+						styles.push(self._getTransformStyle(elementId, col, row, ++index));
 					}
 				}
 				styleElement.textContent = styles.join("\n");
-				self.element.appendChild(styleElement);
+
+				document.head.appendChild(styleElement);
+
 				self._styleElement = styleElement;
 			};
 
@@ -634,18 +638,19 @@
 			 * Define transform style for positioning of grid items
 			 * @method _getTransformStyle
 			 * @protected
+			 * @param {string} selectorPrefix
 			 * @param {number} col
 			 * @param {number} row
 			 * @param {number|string} index
 			 * @member ns.widget.mobile.GridView
 			 */
-			prototype._getTransformStyle = function (col, row, index) {
+			prototype._getTransformStyle = function (selectorPrefix, col, row, index) {
 				var x = col * 100 + "%",
 					y = row * 100 + "%",
 					transform, style;
 
 				transform = "{ -webkit-transform: translate3d(" + x + ", " + y + ", 0); transform: translate3d(" + x + ", " + y + ", 0); }";
-				style = STYLE_PATTERN.replace("{index}", index) + transform;
+				style = selectorPrefix + STYLE_PATTERN.replace("{index}", index) + transform;
 
 				return style;
 			};
@@ -679,7 +684,8 @@
 					styles = styleElement.textContent,
 					element = self.element,
 					cols = self.options.cols,
-					col, row, length;
+					col, row, length,
+					elementId = element.id ? "#" + element.id : "";
 
 				// append item
 				item.classList.add(classes.ITEM);
@@ -693,7 +699,7 @@
 				col = (length - 1) % cols;
 
 				// add transform style for item added
-				styleElement.textContent = styles.concat("\n" + self._getTransformStyle(col, row, length));
+				styleElement.textContent = styles.concat("\n" + self._getTransformStyle(elementId, col, row, length));
 			};
 
 			/**

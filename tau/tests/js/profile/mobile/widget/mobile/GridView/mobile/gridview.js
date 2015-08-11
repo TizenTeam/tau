@@ -1,5 +1,5 @@
-/*global module, test, asyncTest, ok, equal, tau, window */
-(function(ns) {
+/*global module, test, asyncTest, ok, equal, deepEqual, tau, window */
+(function(ns, $) {
 	"use strict";
 
 	module("gridview", {
@@ -13,7 +13,11 @@
 	test("GridView" , function () {
 		var elGridView = document.getElementById("gridview"),
 			gridList = tau.widget.GridView(elGridView),
-			addedItem, listLength;
+			addedItem, listLength,
+			styleElement;
+
+		styleElement = gridList._styleElement;
+		deepEqual(styleElement.parentNode, document.head, "Style element was created in document HEAD");
 
 		ok(window.parseInt(elGridView.children[0].style.width, 10) > 0, "grid item has width");
 		$(elGridView).trigger('pinchout');
@@ -32,6 +36,10 @@
 
 		gridList.option("reorder", true);
 		ok(elGridView.classList.contains("ui-gridview-reorder"), "reorder options has been activated.");
+
+		gridList.destroy();
+		deepEqual(styleElement.parentNode, null, "(after destroy()) Style element was removed from DOM");
+		deepEqual(gridList._styleElement, null, "(after destroy()) ._styleElement property is null");
 	});
 
-}(window.tau));
+}(window.tau, jQuery));
