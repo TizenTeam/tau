@@ -1,5 +1,5 @@
 %changelog
-* Tue Aug 11 2015 Hagun Kim <hagun.kim@samsung.com> 0.10.29_7
+* Tue Aug 11 2015 Hagun Kim <hagun.kim@samsung.com> 0.10.29-7
 	- refactor(wearable): modify more options
 	- fix(common): delete package list in spec and delete tau build in makefile
 	- fix(core): change version in web-ui-fw.spec file
