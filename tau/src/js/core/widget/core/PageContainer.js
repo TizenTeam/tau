@@ -258,7 +258,7 @@
 						classlist.add(classes.reverse);
 					}
 				} else {
-					util.async(deferred.resolve);
+					window.setTimeout(deferred.resolve, 0);
 				}
 			};
 			/**
