@@ -96,15 +96,15 @@ jobs = {
 		], ["cd web-ui-fw/tau", "grunt build"],
 		[
 			SrcDest("web-ui-fw/tau/dist/VERSION", "tizen-winset/project/lib/tau/VERSION"),
-			SrcDest("web-ui-fw/tau/dist/LICENSE.MIT", "tizen-winset/project/lib/tau/LICENSE.MIT"),
+			SrcDest("web-ui-fw/tau/dist/LICENSE.Flora", "tizen-winset/project/lib/tau/LICENSE.Flora"),
 			SrcDest("web-ui-fw/tau/dist/VERSION", "tau-master-detail/project/lib/tau/VERSION"),
-			SrcDest("web-ui-fw/tau/dist/LICENSE.MIT", "tau-master-detail/project/lib/tau/LICENSE.MIT"),
+			SrcDest("web-ui-fw/tau/dist/LICENSE.Flora", "tau-master-detail/project/lib/tau/LICENSE.Flora"),
 			SrcDest("web-ui-fw/tau/dist/VERSION", "tau-multi-page/project/lib/tau/VERSION"),
-			SrcDest("web-ui-fw/tau/dist/LICENSE.MIT", "tau-multi-page/project/lib/tau/LICENSE.MIT"),
+			SrcDest("web-ui-fw/tau/dist/LICENSE.Flora", "tau-multi-page/project/lib/tau/LICENSE.Flora"),
 			SrcDest("web-ui-fw/tau/dist/VERSION", "tau-navigation-view/project/lib/tau/VERSION"),
-			SrcDest("web-ui-fw/tau/dist/LICENSE.MIT", "tau-navigation-view/project/lib/tau/LICENSE.MIT"),
+			SrcDest("web-ui-fw/tau/dist/LICENSE.Flora", "tau-navigation-view/project/lib/tau/LICENSE.Flora"),
 			SrcDest("web-ui-fw/tau/dist/VERSION", "tau-single-page/project/lib/tau/VERSION"),
-			SrcDest("web-ui-fw/tau/dist/LICENSE.MIT", "tau-single-page/project/lib/tau/LICENSE.MIT")
+			SrcDest("web-ui-fw/tau/dist/LICENSE.Flora", "tau-single-page/project/lib/tau/LICENSE.Flora")
 		]),
 	"wearable": Job(
     		webuifw,
@@ -119,11 +119,11 @@ jobs = {
     		], ["cd web-ui-fw/tau", "grunt build"],
     		[
     			SrcDest("web-ui-fw/tau/dist/VERSION", "wearable-widget-sample/project/lib/tau/VERSION"),
-    			SrcDest("web-ui-fw/tau/dist/LICENSE.MIT", "wearable-widget-sample/project/lib/tau/LICENSE.MIT"),
+    			SrcDest("web-ui-fw/tau/dist/LICENSE.Flora", "wearable-widget-sample/project/lib/tau/LICENSE.Flora"),
     			SrcDest("web-ui-fw/tau/dist/VERSION", "tau-basic/project/lib/tau/VERSION"),
-    			SrcDest("web-ui-fw/tau/dist/LICENSE.MIT", "tau-basic/project/lib/tau/LICENSE.MIT"),
+    			SrcDest("web-ui-fw/tau/dist/LICENSE.Flora", "tau-basic/project/lib/tau/LICENSE.Flora"),
     			SrcDest("web-ui-fw/tau/dist/VERSION", "tau-list/project/lib/tau/VERSION"),
-    			SrcDest("web-ui-fw/tau/dist/LICENSE.MIT", "tau-list/project/lib/tau/LICENSE.MIT")
+    			SrcDest("web-ui-fw/tau/dist/LICENSE.Flora", "tau-list/project/lib/tau/LICENSE.Flora")
     		])
 }
 
