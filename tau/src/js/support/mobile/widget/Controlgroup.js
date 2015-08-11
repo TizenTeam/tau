@@ -181,6 +181,9 @@
 				* }
 				*/
 
+				//Set options
+				options.type = element.getAttribute("data-type") || options.type;
+
 				dom.wrapInHTML(element.childNodes, "<div class='" + classes.controlGroupControls + "'></div>");
 				groupControls = selectors.getChildrenByClass(element, classes.controlGroupControls)[0];
 
