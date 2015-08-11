@@ -1,4 +1,9 @@
 %changelog
+* Tue Aug 11 2015 Hagun Kim <hagun.kim@samsung.com> 0.10.29_7
+	- refactor(wearable): modify more options
+	- fix(common): delete package list in spec and delete tau build in makefile
+	- fix(core): change version in web-ui-fw.spec file
+
 * Fri Aug 05 2015 Hyeoncheol Choi <hc7.choi@samsung.com> 0.10.29-6
 	- delete(wearable): delete expandableHeader
 
