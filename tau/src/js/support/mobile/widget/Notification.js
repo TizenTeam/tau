@@ -319,6 +319,9 @@
 					i,
 					l;
 
+				//Set options
+				options.type = element.getAttribute("data-type") || options.type;
+
 				//Set theme
 				options.theme = themes.getInheritedTheme(element) || options.theme;
 
@@ -402,6 +405,9 @@
 				//Set widget wrapper
 				uiElements.wrapper = element.firstElementChild;
 				wrapper = uiElements.wrapper;
+
+				//Set options
+				options.type = element.getAttribute("data-type") || options.type;
 
 				//Set theme
 				options.theme = themes.getInheritedTheme(element) || options.theme;
