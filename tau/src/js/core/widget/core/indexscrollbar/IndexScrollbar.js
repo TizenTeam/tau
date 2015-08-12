@@ -794,14 +794,15 @@
 					var self = this;
 
 					self.eventHandlers.onPageShow = self.refresh.bind(self);
-					self._ui.page.addEventListener(Page.events.BEFORE_SHOW, self.eventHandlers.onPageShow, false);
-
+					if (self._ui.page) {
+						self._ui.page.addEventListener(Page.events.BEFORE_SHOW, self.eventHandlers.onPageShow, false);
+					}
 				},
 
 				_unbindOnPageShow: function() {
 					var self = this;
 
-					if (self.eventHandlers.onPageShow) {
+					if (self.eventHandlers.onPageShow && self._ui.page) {
 						self._ui.page.removeEventListener(Page.events.BEFORE_SHOW, self.eventHandlers.onPageShow, false);
 					}
 				},
