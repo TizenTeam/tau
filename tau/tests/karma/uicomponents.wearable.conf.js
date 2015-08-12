@@ -39,14 +39,10 @@ module.exports = function (config) {
 
             {pattern: "demos/SDK/wearable/UIComponents/**/*", included: false, served: true},
             {pattern: "demos/SDK/wearable/UIComponentsCE/**/*", included: false, served: true},
-			{pattern: "demos/SDK/wearable/circular/CircularUIComponents/**/*", included: false, served: true},
-			{pattern: "demos/SDK/wearable/circular/CircularUIComponentsCE/**/*", included: false, served: true},
 
             {pattern: "tests/karma/tests/helpers.js", included: false, served: true, watch: true},
             {pattern: "tests/karma/tests/compare-helper.js", included: false, served: true, watch: true},
             {pattern: "tests/karma/tests/compare-helper-excludes.js", included: false, served: true, watch: true},
-            {pattern: "tests/js/core/router/Router/test-data/externalPage.html", included: false, served: true, watch: false},
-            {pattern: "tests/js/core/router/Router/**/*.js", included: false, served: true, watch: false},
 
             // here put path to tests
             {pattern: "tests/karma/tests/**/wearable-test.js", included: false, served: true, watch: true},
