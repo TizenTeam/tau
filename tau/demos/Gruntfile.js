@@ -81,6 +81,7 @@ module.exports = function(grunt) {
 		var profile = grunt.option("profile"),
 			app = grunt.option("app"),
 			destination = grunt.option("destination") || (grunt.option("profiledestination") && "lib/tau/" + profile ) || "lib/tau",
+			disablesdb = grunt.option("disablesdb"),
 			done = this.async(),
 			tasks = [],
 			async = require("async");
@@ -90,11 +91,11 @@ module.exports = function(grunt) {
 		}
 
 		if (profile) {
-			tasks.push(prepareProfile.bind(null, app, profile, destination));
+			tasks.push(prepareProfile.bind(null, app, profile, destination, "", disablesdb));
 		} else {
-			tasks.push(prepareProfile.bind(null, app, "wearable", destination));
-			tasks.push(prepareProfile.bind(null, app, "mobile", destination));
-			tasks.push(prepareProfile.bind(null, app, "tv", destination));
+			tasks.push(prepareProfile.bind(null, app, "wearable", destination, "", disablesdb));
+			tasks.push(prepareProfile.bind(null, app, "mobile", destination, "", disablesdb));
+			tasks.push(prepareProfile.bind(null, app, "tv", destination, "", disablesdb));
 		}
 
 		async.series(tasks, function () {
