@@ -1,3 +1,4 @@
+/*global module, require*/
 module.exports = function(grunt) {
 	"use strict";
 
@@ -45,7 +46,7 @@ module.exports = function(grunt) {
 		if (grunt.option("tau-debug")) {
 			result.push("--tau-debug");
 		}
-		return result
+		return result;
 	}
 
 	// npm tasks

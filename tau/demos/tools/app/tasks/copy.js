@@ -1,3 +1,4 @@
+/*global module, require*/
 var fs = require("fs"),
 	path = require("path"),
 	deviceMap = {
@@ -89,6 +90,12 @@ module.exports = function (grunt) {
 		});
 	}
 
+	/**
+	 * Gets the list of attached devices
+	 * @param profile {null|string} Defines the profile to which devices should
+	 * be matched. Use `null` to get all devices.
+	 * @param done {function} done callback
+	 */
 	function getDeviceList(profile, done) {
 		exec("sdb devices", function (error, stdout) {
 			var devices = {
@@ -101,7 +108,7 @@ module.exports = function (grunt) {
 				var portRegexp = /([0-9A-Za-z.:]+)[ \t]+(device|online|offline)[ \t]+([^ ]+)/mi,
 					match = portRegexp.exec(line);
 				if (match) {
-					if (deviceMap[match[3]] === profile) {
+					if (deviceMap[match[3]] === profile || profile === null) {
 						if (match[2] === "offline") {
 							grunt.log.warn("Offline device " + match[3]);
 						} else {
@@ -156,10 +163,12 @@ module.exports = function (grunt) {
 			exec("sdb" + deviceParam + " shell xwd -root -out /tmp/screen.xwd", function () {
 				var dir = path.join("screenshots", profile, devicesIds[device], app) + path.sep;
 				mkdirRecursiveSync(dir);
-				dir += (new Date()).toISOString();
+				// Add current date and time but remove problematic chars
+				dir += (new Date()).toISOString().replace(/[\.:]/g, "");
 				exec("sdb" + deviceParam + " pull /tmp/screen.xwd " + dir + ".xwd", function () {
 					exec("convert " + dir + ".xwd " + dir + ".png", function () {
 						fs.unlink(dir + ".xwd", function() {
+							grunt.log.ok("Screenshot saved to: " + dir + ".png");
 							done();
 						});
 					});
@@ -215,21 +224,52 @@ module.exports = function (grunt) {
 		});
 	}
 
+	grunt.registerTask("screenshot", function () {
+		var options = this.options(),
+			disableSDB = options["disablesdb"],
+			done = this.async();
+
+		if (disableSDB) {
+			grunt.log.error("SDB disabled, finishing");
+			done();
+		} else {
+			getDeviceList(null,
+				function (allDevices, count) {
+					var async = require("async"),
+						asyncTasks = [],
+						allProfiles = Object.keys(allDevices);
+
+					allProfiles.forEach(function (profile) {
+						var devices = allDevices[profile];
+
+						devices.forEach(function (device) {
+							asyncTasks.push(function (next) {
+								screenshot(device, profile, "", next);
+							});
+						});
+					});
+
+					async.series(asyncTasks, done);
+				});
+		}
+	});
 
 	grunt.registerMultiTask("multitau", "", function () {
 		var options = this.options(),
-			profile = options["profile"],
+			profile = options.profile,
 			debug = grunt.option("tau-debug"),
 			noRun = grunt.option("no-run"),
 			app = options.app || "MediaQuriesUtilDemo",
-			src = options["src"],
-			disablesdb = options["disablesdb"],
-			dest = options["dest"],
+			src = options.src,
+			disableSDB = options.disablesdb,
+			dest = options.dest,
 			done = this.async(),
 			destArray = dest.split(path.sep);
+
 		if (src.substr(-1) !== path.sep) {
 			src += path.sep;
 		}
+
 		destArray.pop();
 		fs.lstat(destArray.join(path.sep), function(error, stats) {
 			if (stats && stats.isSymbolicLink()) {
@@ -246,7 +286,7 @@ module.exports = function (grunt) {
 				mkdirRecursiveSync(dest);
 				grunt.log.ok("copy " + src + profile + " -> " + dest);
 				copyRecursiveSync(src + profile, dest);
-				if (disablesdb) {
+				if (disableSDB) {
 					done();
 				} else {
 					getDeviceList(profile,
@@ -264,6 +304,8 @@ module.exports = function (grunt) {
 											devices[profile].forEach(function (device) {
 												tasks.push(run.bind(null, device, app, debug));
 												tasks.push(function (next) {
+													// Timeout set because we need to wait
+													// for the application to start
 													setTimeout(function () {
 														screenshot(device, profile, app, next);
 													}, 5000);
