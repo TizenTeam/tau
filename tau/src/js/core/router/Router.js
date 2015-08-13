@@ -220,13 +220,18 @@
 				var link = findClosestLink(event.target),
 					href,
 					useDefaultUrlHandling,
-					options;
+					options,
+					rel;
 
 				if (link && event.which === 1) {
 					href = link.getAttribute("href");
-					useDefaultUrlHandling = (link.getAttribute("rel") === "external") || link.hasAttribute("target");
+					rel = link.getAttribute("rel");
+					useDefaultUrlHandling = (rel === "external") || link.hasAttribute("target");
 					if (!useDefaultUrlHandling) {
 						options = DOM.getData(link);
+						if (!options.rel) {
+							options.rel = rel;
+						}
 						router.open(href, options, event);
 						eventUtils.preventDefault(event);
 					}
