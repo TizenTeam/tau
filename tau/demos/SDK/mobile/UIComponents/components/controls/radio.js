@@ -1,19 +1,17 @@
-(function(){
+(function (document) {
+	"use strict";
 	var page = document.getElementById("radio-demo"),
-		radios = document.querySelectorAll(".choosepet input[type='radio']"),
-		radioresult = document.querySelector((".radio-result")),
-		idx;
+		choiceResult = document.querySelector(".radio-result");
 
-	page.addEventListener("pageshow", function(){
-		for ( idx = 0; idx < radios.length; idx++) {
-			radios[idx].addEventListener("change", function(){
-				if (this.checked) {
-					radioresult.innerHTML = "The Active Radio is " + this.id;
-				}
-			});
-		}
+	page.addEventListener("pageshow", function () {
+		page.addEventListener("change", function (event) {
+			var target = event.target;
+
+			if (target.classList.contains("ui-radio") && target.name === "radio-choice" &&
+					target.checked === true) {
+				choiceResult.textContent = "Text active radio is " + target.id;
+			}
+		});
 	});
-})();
-
-
+}(window.document));
 
