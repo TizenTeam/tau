@@ -189,8 +189,8 @@
 						options.value = value;
 						if (!self.isCustomElement) {
 							element.setAttribute("data-value", value);
-							element.setAttribute("value", value);
 						}
+						element.setAttribute("value", value);
 						events.trigger(element, eventType.CHANGE);
 						self._progress.changeValue(self, self._oldValue, value);
 					}
