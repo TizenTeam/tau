@@ -109,11 +109,12 @@
 					if (registeredTags[tagName]) {
 						ns.warn(tagName + " already registred");
 					} else {
-						if (extendTo !== "") {
-							registeredTags[tagName] = document.registerElement(tagName, {extends: extendTo, prototype: CustomWidgetProto});
-						} else {
-							registeredTags[tagName] = document.registerElement(tagName, {prototype: CustomWidgetProto});
-						}
+						registeredTags[tagName] = document.registerElement(
+							tagName,
+							(extendTo !== "") ?
+								{extends: extendTo, prototype: CustomWidgetProto} :
+								{prototype: CustomWidgetProto}
+						);
 					}
 
 				} catch (e) {

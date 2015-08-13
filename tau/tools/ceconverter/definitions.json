@@ -116,26 +116,6 @@
     "namespace": "",
     "widgetNameToLowercase": true
   },
-  "SectionChanger": {
-    "name": "SectionChanger",
-    "methods": [
-      "getActiveSectionIndex",
-      "setActiveSection",
-      "destroy",
-      "disable",
-      "enable",
-      "option",
-      "refresh",
-      "value"
-    ],
-    "selector": "[data-role='section-changer'], .ui-section-changer",
-    "selectors": [
-      "[data-role='section-changer']",
-      ".ui-section-changer:not([data-role='none'])"
-    ],
-    "namespace": "",
-    "widgetNameToLowercase": true
-  },
   "Button": {
     "name": "Button",
     "methods": [
@@ -146,15 +126,83 @@
       "refresh",
       "value"
     ],
-    "selector": "button, [data-role='button'], .ui-btn, input[type='button']",
+    "selector": "[data-role='button'], .ui-btn",
     "selectors": [
-      "button:not([data-role='none'])",
       "[data-role='button']",
-      ".ui-btn:not([data-role='none'])",
-      "input[type='button']:not([data-role='none'])"
+      ".ui-btn:not([data-role='none'])"
     ],
-    "namespace": "mobile",
+    "namespace": "core",
     "widgetNameToLowercase": true
+  },
+  "FormButton": {
+	"name": "FormButton",
+	"methods": [
+	  "destroy",
+	  "disable",
+	  "enable",
+	  "option",
+	  "refresh",
+	  "value"
+	],
+	"selector": "button",
+	"selectors": [
+	  "button:not([data-role='none'])"
+	],
+	"namespace": "core",
+	"widgetNameToLowercase": true
+  },
+  "InputButton": {
+	"name": "InputButton",
+	"methods": [
+	  "destroy",
+	  "disable",
+	  "enable",
+	  "option",
+	  "refresh",
+	  "value"
+	],
+	"selector": "input[type='button']",
+	"selectors": [
+	  "input[type='button']:not([data-role='none'])"
+	],
+	"namespace": "core",
+	"widgetNameToLowercase": true
+  },
+  "Checkbox": {
+	"name": "Checkbox",
+	"methods": [
+	  "destroy",
+	  "disable",
+	  "enable",
+	  "option",
+	  "refresh",
+	  "value"
+	],
+	"selector": "input[type='checkbox']:not(.ui-slider-switch-input):not([data-role='toggleswitch']):not(.ui-toggleswitch):not(.ui-toggle-switch),input.ui-checkbox",
+	"selectors": [
+	  "input[type='checkbox']:not(.ui-slider-switch-input):not([data-role='toggleswitch']):not(.ui-toggleswitch):not(.ui-toggle-switch)",
+	  "input.ui-checkbox:not([data-role='none'])"
+	],
+	"namespace": "core",
+	"widgetNameToLowercase": true
+  },
+  "Radio": {
+	"name": "Radio",
+	"methods": [
+	  "destroy",
+	  "disable",
+	  "enable",
+	  "option",
+	  "refresh",
+	  "value"
+	],
+	"selector": "input[type='radio'], input.ui-radio",
+	"selectors": [
+	  "input[type='radio']",
+	  "input.ui-radio:not([data-role='none'])"
+	],
+	"namespace": "core",
+	"widgetNameToLowercase": true
   },
   "Listview": {
     "name": "Listview",
@@ -327,6 +375,26 @@
     ],
     "namespace": "mobile",
     "widgetNameToLowercase": true
+  },
+  "SectionChanger": {
+	"name": "SectionChanger",
+	"methods": [
+	  "getActiveSectionIndex",
+	  "setActiveSection",
+	  "destroy",
+	  "disable",
+	  "enable",
+	  "option",
+	  "refresh",
+	  "value"
+	],
+	"selector": "[data-role='section-changer'], .ui-section-changer",
+	"selectors": [
+	  "[data-role='section-changer']",
+	  ".ui-section-changer:not([data-role='none'])"
+	],
+	"namespace": "",
+	"widgetNameToLowercase": true
   },
   "Scrollview": {
     "name": "Scrollview",

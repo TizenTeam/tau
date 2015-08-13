@@ -242,7 +242,7 @@ define(
 
 		function getLinks(app, orgWindow, ceWindow, page, callback) {
 			var ceDocument = ceWindow.document,
-				links = [].slice.call(page.querySelectorAll("a[href]:not([href='#']):not([data-ignore])")),
+				links = [].slice.call(page.querySelectorAll("a[href]:not([href='#']):not([data-ignore]):not([ignore])")),
 				internalCallback = function() {
 					var link = links.shift(),
 						mirrorLink;
