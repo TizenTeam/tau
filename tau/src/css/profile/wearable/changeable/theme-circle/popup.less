@@ -66,14 +66,13 @@
 
 		.ui-btn:nth-child(n) {
 			top: 50%;
-			-webkit-transform: translate(0, -50%);
+			.transform(translate3d(68%, -50%, 0));
 			background: -webkit-radial-gradient(center, circle cover, @color_popup_side_button_bg 50%, transparent 50%);
 			background-repeat: no-repeat;
 			background-size: 570% 150%;
 			&::before {
 				top: 50%;
-				-webkit-transition: all 150ms ease-out;
-				-webkit-transform: translate(0, -50%);
+				-webkit-transform: translate3d(0, -50%, 0);
 			}
 			&:active {
 				background: -webkit-radial-gradient(center, circle cover, @color_popup_side_button_bg_press 50%, transparent 50%);
@@ -82,6 +81,7 @@
 			}
 		}
 		.ui-btn:nth-child(1) {
+			.transform(translate3d(68%, -50%, 0));
 			background-position: 83% 50%;
 			right: 100%;
 			&::before {
@@ -92,6 +92,7 @@
 			}
 		}
 		.ui-btn:nth-child(2) {
+			.transform(translate3d(-68%, -50%, 0));
 			left: 100%;
 			background-position: 17% 50%;
 			&::before {
@@ -116,10 +117,10 @@
 			background-position: 50% 17%;
 			background-repeat: no-repeat;
 			background-size: 300% 840%;
-			-webkit-transition: all 150ms ease-out;
-			-webkit-transform: translate(-50%, 0);
+			.transform(translate3d(-50%, -77%, 0));
 
 			&:active {
+				.transition(all 300ms ease-out);
 				background: -webkit-radial-gradient(center, circle cover, @color_footer_button_bg_press 50%, transparent 50%);
 				background-position: 50% 17%;
 				background-repeat: no-repeat;
@@ -128,7 +129,7 @@
 
 			&.ui-btn-icon-only::before {
 				top: 26 * @unit_base;
-				-webkit-transform: translate(-50%, 0);
+				.transform(translate3d(-50%, 0, 0));
 			}
 		}
 	}
@@ -138,33 +139,29 @@
 	.ui-popup-footer.ui-side-button {
 		&:active {
 			.ui-btn:not(:active) {
-				-webkit-transform: translate(0, -50%);
+				.transform(translate3d(0, -50%, 0));
 			}
 		}
 		.ui-btn:nth-child(n) {
-			-webkit-transition: all 400ms ease-out;
 			&:active {
-				-webkit-transition: all 150ms ease-out;
+				.transition(all 150ms ease-out);
 			}
 		}
 		.ui-btn:nth-child(1) {
-			-webkit-transform: translate3d(68%, -50%, 0);
 			&:active {
-				-webkit-transform: translate3d(100%, -50%, 0);
+				.transform(translate3d(100%, -50%, 0));
 			}
 		}
 		.ui-btn:nth-child(2) {
-			-webkit-transform: translate3d(-68%, -50%, 0);
 			&:active {
-				-webkit-transform: translate3d(-100%, -50%, 0);
+				.transform(translate3d(-100%, -50%, 0));
 			}
 		}
 	}
 	.ui-popup-footer.ui-bottom-button {
 		.ui-btn {
-			transform: translate3d(-50%, -77%, 0);
 			&:active {
-				transform: translate3d(-50%, -100%, 0);
+				.transform(translate3d(-50%, -100%, 0));
 			}
 		}
 	}

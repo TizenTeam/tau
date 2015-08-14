@@ -1,8 +1,19 @@
 /*global window, define */
 /*
-* Copyright  2010 - 2014 Samsung Electronics Co., Ltd.
-* License : MIT License V2
-*/
+ * Copyright (c) 2015 Samsung Electronics Co., Ltd
+ *
+ * Licensed under the Flora License, Version 1.1 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://floralicense.org/license/
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 /**
  * # Selector Component
  *
@@ -406,6 +417,7 @@
 					i, len;
 
 				self._started = false;
+				self._enabled = true;
 				self._activeItemIndex = activeItemIndex === null ? 0 : activeItemIndex;
 				options.itemRadius = options.itemRadius < 0 ? validLayout / 2 * STATIC.RADIUS_RATIO : options.itemRadius;
 				len = items.length;
@@ -678,6 +690,9 @@
 					pointedElement = document.elementFromPoint(event.pageX, event.pageY),
 					index;
 
+				if (!self._enabled) {
+					return;
+				}
 				if (pointedElement && pointedElement.classList.contains(classes.ITEM)) {
 					index = parseInt(utilDom.getNSData(pointedElement, "index"), 10);
 					self._setActiveItem(index);
@@ -699,12 +714,14 @@
 					activeLayer = ui.layers[self._activeLayerIndex],
 					activeLayerItemsLength = activeLayer.querySelectorAll(options.itemSelector).length,
 					prevLayer = activeLayer.previousElementSibling,
-					nextLayer = activeLayer.nextElementSibling;
+					nextLayer = activeLayer.nextElementSibling,
+					bounceDegree;
 
-				event.stopPropagation();
-				if (!options.indicatorAutoControl) {
+				if (!options.indicatorAutoControl || !self._enabled) {
 					return;
 				}
+				event.stopPropagation();
+
 				if (direction === "CW") {
 					// check length
 					if (self._activeItemIndex === (activeLayerItemsLength + self._activeLayerIndex * options.maxItemNumber) - 1) {
@@ -712,9 +729,11 @@
 							self._activeItemIndex = self._activeItemIndex - activeLayerItemsLength - prevLayer.querySelectorAll(options.itemSelector).length + 1;
 							self._changeLayer(self._activeLayerIndex - 1);
 						} else {
-							setIndicatorTransform(ui.indicatorArrow, options.itemDegree * self._activeItemIndex + options.itemDegree / 3);
+							bounceDegree = DEFAULT.ITEM_START_DEGREE + options.itemDegree * (self._activeItemIndex % options.maxItemNumber);
+							setIndicatorTransform(ui.indicatorArrow, bounceDegree + options.itemDegree / 3);
+							//setIndicatorTransform(ui.indicatorArrow, options.itemDegree * self._activeItemIndex + options.itemDegree / 3);
 							setTimeout(function() {
-								setIndicatorTransform(ui.indicatorArrow, options.itemDegree * self._activeItemIndex);
+								setIndicatorTransform(ui.indicatorArrow, bounceDegree);
 							}, 100)
 						}
 					} else {
@@ -727,9 +746,9 @@
 							self._activeItemIndex = self._activeItemIndex + activeLayerItemsLength + nextLayer.querySelectorAll(options.itemSelector).length - 1;
 							self._changeLayer(self._activeLayerIndex + 1);
 						} else {
-							setIndicatorTransform(ui.indicatorArrow, -options.itemDegree / 3);
+							setIndicatorTransform(ui.indicatorArrow, DEFAULT.ITEM_START_DEGREE - DEFAULT.ITEM_START_DEGREE / 3);
 							setTimeout(function() {
-								setIndicatorTransform(ui.indicatorArrow, 0);
+								setIndicatorTransform(ui.indicatorArrow, DEFAULT.ITEM_START_DEGREE);
 							}, 100)
 						}
 					} else {
@@ -797,9 +816,11 @@
 					console.warn("Please insert index between 0 to layers number");
 					return;
 				}
+				self._enabled = false;
 				self._hideItems(activeLayer);
 				setTimeout(function() {
 					self._setActiveLayer(index);
+					self._enabled = true;
 				}, 150);
 
 			};
@@ -874,6 +895,26 @@
 				self._ui = null;
 			};
 
+			/**
+			 * Disable Selector
+			 * @method _disable
+			 * @protected
+			 * @member ns.widget.wearable.Selector
+			 */
+			prototype._disable = function() {
+				this._enabled = false;
+			};
+
+			/**
+			 * Enable Selector
+			 * @method _enable
+			 * @protected
+			 * @member ns.widget.wearable.Selector
+			 */
+			prototype._enable = function() {
+				this._enabled = true;
+			};
+
 			ns.widget.wearable.Selector = Selector;
 			engine.defineWidget(
 				"Selector",
@@ -881,7 +922,9 @@
 				[
 					"changeItem",
 					"addItem",
-					"removeItem"
+					"removeItem",
+					"enable",
+					"disable"
 				],
 				Selector,
 				"wearable"

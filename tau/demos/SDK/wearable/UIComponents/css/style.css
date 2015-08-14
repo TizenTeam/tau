@@ -262,18 +262,6 @@ li.static::before {
 	-webkit-transform: translateX(-50%);
 	-webkit-transition: width 150ms, left 150ms;
 }
-li.select::before {
-	content:"";
-	-webkit-mask-image: url(../contents/list/images/tw_list_check_ic.png);
-	-webkit-mask-repeat: no-repeat;
-	background-color: rgba(112, 186, 15, 1);
-	width: 56px;
-	height: 56px;
-	position: absolute;
-	left: 50%;
-	-webkit-transform: translateX(-50%);
-	-webkit-transition: width 150ms, left 150ms;
-}
 
 .ui-listview-li li img {
 	height: 56px;
@@ -866,14 +854,11 @@ input[type="checkbox"]#checkboxControl {
 	.ui-listview li.li-has-thumb-left img {
 		left: 30px;
 	}
-	li.select::before{
-		background-color: rgba(115, 191, 15, 1);
-	}
 	li.select::after {
 		content:"";
-		-webkit-mask-image: url(../contents/list/images/tw_list_check_line.png);
+		-webkit-mask-image: url(../contents/list/images/tw_list_check_ic.png);
 		-webkit-mask-repeat: no-repeat;
-		background-color: rgba(224, 224, 224, 1);
+		background-color: rgba(115, 191, 15, 1);
 		width: 56px;
 		height: 56px;
 		position: absolute;

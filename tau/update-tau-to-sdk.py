@@ -1,9 +1,10 @@
 #!/usr/bin/python
 # author Youmin Ha <youmin.ha@samsung.com>
 # author Heeju Joo <heeju.joo@samsung.com>
-# This script is used for update latest TAU library to ide source and sdk-web-apps
-# If you have any problem with this script, please contact author
+# This script is used for update latest TAU library to SDK samples git
+# If you have any problem with this script, please contact Heeju Joo <heeju.joo@samsung.com>
 import os, sys, subprocess, shutil, fileinput
+import xml.etree.ElementTree as ET
 
 cwd=os.getcwd()
 tempdir=cwd+"/_temp"
@@ -11,6 +12,7 @@ gitaccount=""
 tauVersion=""
 FILE_VERSION = "version.txt"
 FILE_SPEC = "./packaging/web-ui-fw.spec"
+FILE_XML = "./description.xml"
 
 if(len(sys.argv) > 1):
 	gitaccount=sys.argv[1]
@@ -81,6 +83,10 @@ class TAUList(Git):
 	addr="168.219.209.56:29418/apps/wearable/web/template/tau-list"
 	branch="tizen_2.4"
 
+class TAUAnimation(Git):
+	addr="168.219.209.56:29418/apps/wearable/web/sample/tizen-animation"
+	branch="tizen_2.4"
+
 # job list
 jobs = {
 	"mobile": Job(
@@ -92,9 +98,9 @@ jobs = {
 			SrcDest("web-ui-fw/tau/dist/mobile", "tizen-globalize/project/lib/tau/mobile"),
 			SrcDest("web-ui-fw/tau/demos/SDK/mobile/MasterDetail", "tau-master-detail/project"),
 			SrcDest("web-ui-fw/tau/dist/mobile", "tau-master-detail/project/lib/tau"),
-            		SrcDest("web-ui-fw/tau/demos/SDK/mobile/MultiPage", "tau-multi-page/project"),
-            		SrcDest("web-ui-fw/tau/dist/mobile", "tau-multi-page/project/lib/tau"),
-            		SrcDest("web-ui-fw/tau/demos/SDK/mobile/NavigationView", "tau-navigation-view/project"),
+			SrcDest("web-ui-fw/tau/demos/SDK/mobile/MultiPage", "tau-multi-page/project"),
+			SrcDest("web-ui-fw/tau/dist/mobile", "tau-multi-page/project/lib/tau"),
+			SrcDest("web-ui-fw/tau/demos/SDK/mobile/NavigationView", "tau-navigation-view/project"),
 			SrcDest("web-ui-fw/tau/dist/mobile", "tau-navigation-view/project/lib/tau"),
 			SrcDest("web-ui-fw/tau/demos/SDK/mobile/SinglePage", "tau-single-page/project"),
 			SrcDest("web-ui-fw/tau/dist/mobile", "tau-single-page/project/lib/tau")
@@ -114,24 +120,29 @@ jobs = {
 			SrcDest("web-ui-fw/tau/dist/LICENSE.MIT", "tau-single-page/project/lib/tau/LICENSE.MIT")
 		]),
 	"wearable": Job(
-    		webuifw,
-    		[WearableUIComponent, TAUBasic, TAUList],
-    		[
-    			SrcDest("web-ui-fw/tau/demos/SDK/wearable/UIComponents", "wearable-widget-sample/project"),
-    			SrcDest("web-ui-fw/tau/dist/wearable", "wearable-widget-sample/project/lib/tau"),
-    			SrcDest("web-ui-fw/tau/demos/SDK/wearable/Basic", "tau-basic/project"),
-    			SrcDest("web-ui-fw/tau/dist/wearable", "tau-basic/project/lib/tau"),
-    			SrcDest("web-ui-fw/tau/demos/SDK/wearable/List", "tau-list/project"),
-    			SrcDest("web-ui-fw/tau/dist/wearable", "tau-list/project/lib/tau")
-    		], ["cd web-ui-fw/tau", "npm install", "grunt build"],
-    		[
-    			SrcDest("web-ui-fw/tau/dist/VERSION", "wearable-widget-sample/project/lib/tau/VERSION"),
-    			SrcDest("web-ui-fw/tau/dist/LICENSE.MIT", "wearable-widget-sample/project/lib/tau/LICENSE.MIT"),
-    			SrcDest("web-ui-fw/tau/dist/VERSION", "tau-basic/project/lib/tau/VERSION"),
-    			SrcDest("web-ui-fw/tau/dist/LICENSE.MIT", "tau-basic/project/lib/tau/LICENSE.MIT"),
-    			SrcDest("web-ui-fw/tau/dist/VERSION", "tau-list/project/lib/tau/VERSION"),
-    			SrcDest("web-ui-fw/tau/dist/LICENSE.MIT", "tau-list/project/lib/tau/LICENSE.MIT")
-    		])
+		webuifw,
+		[WearableUIComponent, TAUBasic, TAUList, TAUAnimation],
+		[
+			SrcDest("web-ui-fw/tau/demos/SDK/wearable/UIComponents", "wearable-widget-sample/project"),
+			SrcDest("web-ui-fw/tau/dist/wearable", "wearable-widget-sample/project/lib/tau"),
+			SrcDest("web-ui-fw/tau/demos/SDK/wearable/Basic", "tau-basic/project"),
+			SrcDest("web-ui-fw/tau/dist/wearable", "tau-basic/project/lib/tau"),
+			SrcDest("web-ui-fw/tau/demos/SDK/wearable/List", "tau-list/project"),
+			SrcDest("web-ui-fw/tau/dist/wearable", "tau-list/project/lib/tau"),
+			SrcDest("web-ui-fw/tau/demos/SDK/wearable/Animation", "tizen-animation/project"),
+			SrcDest("web-ui-fw/tau/dist/wearable", "tizen-animation/project/lib/tau"),
+			SrcDest("web-ui-fw/tau/dist/animation", "tizen-animation/project/lib/tau/animation")
+		], ["cd web-ui-fw/tau", "npm install", "grunt build"],
+		[
+			SrcDest("web-ui-fw/tau/dist/VERSION", "wearable-widget-sample/project/lib/tau/VERSION"),
+			SrcDest("web-ui-fw/tau/dist/LICENSE.MIT", "wearable-widget-sample/project/lib/tau/LICENSE.MIT"),
+			SrcDest("web-ui-fw/tau/dist/VERSION", "tau-basic/project/lib/tau/VERSION"),
+			SrcDest("web-ui-fw/tau/dist/LICENSE.MIT", "tau-basic/project/lib/tau/LICENSE.MIT"),
+			SrcDest("web-ui-fw/tau/dist/VERSION", "tau-list/project/lib/tau/VERSION"),
+			SrcDest("web-ui-fw/tau/dist/LICENSE.MIT", "tau-list/project/lib/tau/LICENSE.MIT"),
+			SrcDest("web-ui-fw/tau/dist/VERSION", "tizen-animation/project/lib/tau/VERSION"),
+			SrcDest("web-ui-fw/tau/dist/LICENSE.MIT", "tizen-animation/project/lib/tau/LICENSE.MIT")
+		])
 }
 
 def cloneGit(git, targetdir):
@@ -151,9 +162,27 @@ def cloneGit(git, targetdir):
 		cmd("git fetch origin")
 		cmd("git checkout "+git.branch)
 		cmd("git rebase origin/"+git.branch)
+
 	cmd("cp ../../../commit-msg .git/hooks/")
 	os.chdir(cwd)
 
+def pushGit(targetdir, tauVersion):
+	cwd=os.getcwd()
+	os.chdir(targetdir)
+
+	# get SDK Sample project Name from xml file
+	tree = ET.parse(FILE_XML)
+	root = tree.getroot()
+	projectName = root.find('SampleName').text
+
+	# make commit and push to gerrit
+	cmd("git add -A")
+	logmsg = projectName.replace(" ", "") + "-TAU(" + tauVersion + ")release"
+
+	cmd("git commit -m " + logmsg)
+	cmd("git push origin HEAD:refs/for/tizen_2.4")
+
+	os.chdir(cwd)
 
 def main():
 	global tempdir
@@ -196,6 +225,8 @@ def main():
 				destdir = os.path.join(destdir, k)
 			elif os.path.isdir( destdir.replace("\\", "")):
 				shutil.rmtree(destdir.replace("\\", ""))
+			elif not os.path.exists(destdir.replace("\\", "")):
+				destdir = destdir
 			else:
 				desttemp = os.path.abspath(os.path.join(os.path.abspath(destdir), ".."))
 				os.remove( desttemp.replace("\\", "") )
@@ -209,9 +240,24 @@ def main():
 				print("copy %s to %s"%(srcdir, destdir))
 				shutil.copy(srcdir, destdir)
 
+		#get TAU version
+		os.chdir(os.path.basename(job.srcgit.addr))
+		for linenum, line in enumerate( fileinput.FileInput(FILE_SPEC)):
+			if linenum==1:
+				versionLine = line.split("    ")
+				tauVersion = versionLine[1]
+				break
+		print("tau version %s"%(tauVersion))
+
 		#remove unnecessary dir
 		os.chdir(jobdir)
 		cmd("rm -rf web-ui-fw")
+
+		#make commit and push to gerrit
+		projectdir = os.listdir(jobdir)
+		for project in projectdir:
+			pushGit(project, tauVersion.strip())
+
 		os.chdir(tempdir)
 	os.chdir(cwd)
 if __name__ == "__main__":

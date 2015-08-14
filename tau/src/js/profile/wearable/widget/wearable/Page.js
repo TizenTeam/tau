@@ -1,6 +1,18 @@
 /*global window, define, ns */
-/* Copyright  2010 - 2014 Samsung Electronics Co., Ltd.
- * License : MIT License V2
+/*
+ * Copyright (c) 2015 Samsung Electronics Co., Ltd
+ *
+ * Licensed under the Flora License, Version 1.1 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://floralicense.org/license/
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 /*jslint nomen: true */
 /**
@@ -287,20 +299,6 @@
 				 */
 				engine = ns.engine,
 
-				EXPANDABLE_SIZE = 88,
-
-				EXPANDABLE_TOLERANCE = 5,
-
-				EXPANDABLE_ANIMATION_TIME = 30,
-
-				CustomEvents = {
-					EXPAND: "headerexpand",
-					COLLAPSE: "headercollapse",
-					COMPLETE: "headerexpandcomplete",
-					BEFORE_EXPAND: "headerbeforeexpand",
-					BEFORE_COLLAPSE: "headerbeforecollapse"
-				},
-
 				Page = function () {
 					var self = this;
 					CorePage.call(self);
@@ -317,13 +315,10 @@
 					uiHeader: "ui-header",
 					uiPageScroll: "ui-scroll-on",
 					uiScroller: "ui-scroller",
-					uiFixed: "ui-fixed",
-					uiHasExpandableHeader: "ui-has-expandable-header"
+					uiFixed: "ui-fixed"
 				}, CorePage.classes),
 
 				prototype = new CorePage();
-
-			Page.expandableHeaderEvents = CustomEvents;
 
 			/**
 			 * Configure Page Widget
@@ -376,160 +371,12 @@
 
 					firstChild = fragment.firstChild;
 
-					if (firstChild && firstChild.classList.contains(classes.uiHeader)) {
-						self._ui.expandableHeader = {
-							scroller: scroller,
-							header: firstChild,
-							drag: null,
-							expanded: false,
-							startY: 0,
-							currentY: 0,
-							moveY: 0,
-							animationTime: EXPANDABLE_ANIMATION_TIME,
-							max: EXPANDABLE_SIZE,
-							tolerance: EXPANDABLE_TOLERANCE
-						};
-						scroller.classList.add(classes.uiHasExpandableHeader);
-						self._bindExpandableHeaderEvents();
-					}
-
 					scroller.appendChild(fragment);
 				}
 			};
 
 			prototype._destroy = function () {
-				this._unbindEvents();
 				CorePage.prototype._destroy.call(this);
-			};
-
-			prototype._bindExpandableHeaderEvents = function () {
-				var self = this,
-					scroller = self._ui.expandableHeader.scroller,
-					drag;
-
-				drag = new utilsEvents.gesture.Drag({
-					blockHorizontal: true,
-					threshold: 20,
-					angleThreshold: 80
-				});
-
-				utilsEvents.enableGesture(scroller, drag);
-
-				self._ui.expandableHeader.drag = drag;
-
-				utilsEvents.on(scroller, "drag dragstart dragend dragcancel", self);
-			};
-
-			prototype._unbindEvents = function () {
-				var self = this,
-					expandableHeader = self._ui.expandableHeader,
-					scroller;
-
-				if (expandableHeader) {
-					scroller = expandableHeader.scroller;
-
-					utilsEvents.disableGesture(scroller);
-					utilsEvents.off(scroller, "drag dragstart dragend dragcancel", self);
-				}
-			};
-
-			prototype._start = function (event) {
-				var self = this,
-					expandableHeader = self._ui.expandableHeader;
-
-				if (event.detail.direction === "down" && expandableHeader.scroller.scrollTop === 0 && !expandableHeader.expanded) {
-					utilsEvents.trigger(expandableHeader.header, CustomEvents.BEFORE_EXPAND);
-					if (expandableHeader.scroller) {
-						expandableHeader.scroller.style.overflow = "hidden";
-					}
-					expandableHeader.expanded = true;
-					expandableHeader.drag.options.blockHorizontal = false;
-					utilsEvents.trigger(expandableHeader.header, CustomEvents.EXPAND);
-				}
-				expandableHeader.startY = expandableHeader.currentY - event.detail.pointer.clientY;
-			};
-
-			prototype._drag = function (event) {
-				var self = this,
-					expandableHeader = self._ui.expandableHeader,
-					scroller = expandableHeader.scroller,
-					moveY = expandableHeader.startY + event.detail.estimatedY,
-					diffY = expandableHeader.moveY - moveY,
-					max = expandableHeader.max,
-					transform;
-
-				if (expandableHeader.expanded) {
-					scroller.style.webkitTransition = "";
-					if (moveY >= 0) {
-						if (diffY > 30 || moveY > max) {
-							scroller.style.webkitTransition = "-webkit-transform" + expandableHeader.animationTime + "ms linear";
-						}
-						moveY = moveY < max ? moveY : max;
-						transform = "translate3d(0, " + moveY + "px, 0)";
-						scroller.style.webkitTransform = transform;
-						expandableHeader.moveY = moveY;
-					} else if (moveY < 0){
-						utilsEvents.trigger(expandableHeader.header, CustomEvents.BEFORE_COLLAPSE);
-						scroller.style.webkitTransform = "";
-						scroller.scrollTop = 0;
-						expandableHeader.drag.options.blockHorizontal = true;
-						expandableHeader.expanded = false;
-						expandableHeader.currentY = 0;
-						expandableHeader.moveY = 0;
-						if (expandableHeader.scroller) {
-							expandableHeader.scroller.style.overflow = "";
-						}
-						utilsEvents.trigger(expandableHeader.header, CustomEvents.COLLAPSE);
-						event.preventDefault();
-					}
-				} else {
-					event.preventDefault();
-				}
-			};
-
-			prototype._end = function (event) {
-				var expandableHeader = this._ui.expandableHeader;
-
-				expandableHeader.currentY = expandableHeader.moveY;
-
-				if (expandableHeader.expanded && expandableHeader.currentY >= expandableHeader.max - expandableHeader.tolerance) {
-					utilsEvents.trigger(expandableHeader.header, CustomEvents.COMPLETE);
-				} else if (!expandableHeader.expanded) {
-					if (expandableHeader.scroller) {
-						expandableHeader.scroller.style.overflow = "";
-					}
-				}
-			};
-
-			prototype.handleEvent = function (event) {
-				var self = this;
-
-				switch (event.type) {
-					case "dragstart":
-						self._start(event);
-						break;
-					case "drag":
-						self._drag(event);
-						break;
-					case "dragend":
-					case "dragcancel":
-						self._end(event);
-						break;
-				}
-			};
-
-			prototype.onHide = function (event) {
-				var self = this,
-					expandableHeader = self._ui.expandableHeader;
-
-				CorePage.prototype.onHide.call(self);
-
-				if (expandableHeader) {
-					expandableHeader.scroller.style.webkitTransform = "";
-					if (expandableHeader.scroller) {
-						expandableHeader.scroller.style.overflow = "";
-					}
-				}
 			};
 
 			Page.prototype = prototype;

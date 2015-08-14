@@ -494,16 +494,22 @@ $(document).ready(function() {
 
 
 	QUnit.jUnitReport = function(data) {
-		var console = window.console;
+		var console = window.console,
+			href = location.href,
+			blob;
 
 		if( !data.end ) {
 			QUnit.start();
 		} else {
 			if (console) {
 				console.clear();
-				console.log(data.xml);
-				var blob = new Blob([data.xml], {type: "text/xml;charset=utf-8"});
-				saveAs(blob, "tests-p" + CURRENT_ITERATION + ".xml");
+				blob = new Blob([data.xml], {type: "text/xml;charset=utf-8"});
+				if (data.results.total) {
+					saveAs(blob, "tests-p" + CURRENT_ITERATION + ".xml");
+					location.href = href.replace(/\?[0-9]*/g, "?" + (parseInt(href.slice(-1),10) + 1));
+				} else {
+					saveAs(blob, "finish.tct");
+				}
 			}
 		}
 	};

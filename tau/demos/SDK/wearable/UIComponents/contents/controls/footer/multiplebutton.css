@@ -19,7 +19,7 @@
 	.drawer-elem {
 		display: block;
 		background-color: rgba(255, 255, 255, 0.1);
-		border-radius: 100%;
+		-webkit-mask-image: -webkit-radial-gradient(black 71%,transparent 0);
 	}
 	.ui-bottom-button a {
 		color: rgba(0, 149, 255, 1);
