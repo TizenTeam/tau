@@ -33,20 +33,20 @@
 						tagName = "tau-" + lowerName,
 						extendTo = "";
 
-					switch (BaseElement.name) {
-						case "HTMLInputElement" :
-							extendTo = "input";
-							break;
-						case "HTMLSelectElement" :
-							extendTo = "select";
-							break;
-						case "HTMLTextAreaElement" :
-							extendTo = "textarea";
-							break;
-						case "HTMLButtonElement" :
-							extendTo = "button";
-							break;
-					}
+						switch (BaseElement) {
+							case HTMLInputElement :
+								extendTo = "input";
+								break;
+							case HTMLSelectElement :
+								extendTo = "select";
+								break;
+							case HTMLTextAreaElement :
+								extendTo = "textarea";
+								break;
+							case HTMLButtonElement :
+								extendTo = "button";
+								break;
+						}
 
 					CustomWidgetProto._tauName = name;
 

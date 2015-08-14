@@ -276,7 +276,7 @@
 						// NOTE: element can exists outside document
 						bindingElement = widgetInstance.element;
 						if (bindingElement && !bindingElement.ownerDocument.getElementById(bindingElement.id)) {
-							ns.warn("Element ", bindingElement.id, " is outside DOM!");
+							ns.warn("Element ", bindingElement.tagName.toLowerCase() + "#" + bindingElement.id, " is outside DOM!");
 						}
 						//>>excludeEnd("tauDebug");
 
@@ -934,19 +934,6 @@
 				return result;
 			}
 
-			/**
-			 * Convert args array to object with keys being types and arguments mapped by values
-			 * @method getArgumentsTypes
-			 * @param {Arguments[]} args
-			 * @return {Object}
-			 * @static
-			 * @private
-			 * @member ns.engine
-			 */
-			function getArgumentsTypes(args) {
-				return tau.util.array.reduce(args, getType, {});
-			}
-
 			/*
 			 document.addEventListener(eventType.BOUND, function () {
 			 //@TODO dump it to file for faster binding by ids
@@ -1074,7 +1061,7 @@
 				 * Build instance of widget and binding events
 				 * Returns error when empty element is passed
 				 * @method instanceWidget
-				 * @param {HTMLElement} [element]
+				 * @param {HTMLElement|string} [element]
 				 * @param {string} name
 				 * @param {Object} [options]
 				 * @return {?Object}
@@ -1083,16 +1070,23 @@
 				 */
 				instanceWidget: function (element, name, options) {
 					var binding,
-						definition,
-						argumentsTypes = getArgumentsTypes(arguments);
+						definition;
 
-					// Map arguments with specific types to correct variables
-					// Only name is required argument
-					element = argumentsTypes.HTMLElement;
-					name = argumentsTypes.string;
-					options = argumentsTypes.object;
+					if (!!name && typeof name !== "string") {
+						ns.error("'name' argument for instanceWidget should be a string");
+					}
+
+					// Backward compatibility for method getTypes
+					// In case only one first element is passed it's changed to
+					// widget name
+					if (!name && typeof element === "string") {
+						name = element;
+						element = null;
+					}
+
 					// If element exists try to find existing binding
-					if (element) {
+					// document.body may not be instance of HTMLElement in case of webcomponents polyfill
+					if (element instanceof HTMLElement || element === document.body) {
 						binding = getBinding(element, name);
 					}
 					// If didn't found binding build new widget

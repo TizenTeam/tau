@@ -492,7 +492,7 @@
 			};
 
 			/**
-			 * Method removes all events listners set by router.
+			 * Method removes all events listeners set by router.
 			 * @method destroy
 			 * @member ns.router.Router
 			 */

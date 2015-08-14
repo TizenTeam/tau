@@ -69,7 +69,8 @@
 			 */
 			prototype._include = function (page) {
 				var element = this.element;
-				if (!page.parentNode || page.ownerDocument !== document) {
+
+				if (!page.parentNode || (page.ownerDocument !== document)) {
 					page = util.importEvaluateAndAppendElement(page, element);
 				}
 				return page;
