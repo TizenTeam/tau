@@ -994,10 +994,16 @@ input[type="checkbox"]#checkboxControl {
 	#circleSliderPage::after {
 		content: none;
 	}
+	/* -------------More Options-----------*/
+	#moreoptionsPopupCircle {
+		background-color: rgba(255, 255, 255, 0.1);
+		-webkit-mask-image: -webkit-radial-gradient(black 71%,transparent 0);
+		background-image: none;
+	}
 }
 
 .ui-item.ui-item-active::before{
-	background-color: #3261ba;
+	background-color: rgba(116, 196, 252, 1);
 }
 .delete-icon::before {
 	position: absolute;

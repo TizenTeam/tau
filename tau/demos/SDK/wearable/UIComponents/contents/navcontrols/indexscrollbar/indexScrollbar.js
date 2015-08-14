@@ -27,8 +27,17 @@
 
 		scroller = tau.util.selectors.getScrollableParent(listviewElement);
 
-		// Create IndexScrollbar
-		indexScrollbar = new tau.widget.IndexScrollbar(indexScrollbarElement, {index: indices, container: scroller});
+		if (!isCircle) {
+			indexScrollbar = new tau.widget.IndexScrollbar(indexScrollbarElement, {index: indices, container: scroller});
+		} else {
+			//Create IndexScrollbar
+			indexScrollbar = new tau.widget.CircularIndexScrollbar(indexScrollbarElement, {index: indices});
+			// Add SnapListview item "selected" event handler.
+			listviewElement.addEventListener("selected", function (ev) {
+				var indexValue = ev.target.textContent[0];
+				indexScrollbar.value(indexValue);
+			});
+		}
 
 		// Add IndexScrollbar index "select" event handler.
 		indexScrollbarElement.addEventListener("select", function (ev) {

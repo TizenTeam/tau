@@ -1,6 +1,6 @@
 /*global window, define */
 /*
-* Copyright (c) 2013 - 2014 Samsung Electronics Co., Ltd
+* Copyright (c) 2015 Samsung Electronics Co., Ltd
 *
 * Licensed under the Flora License, Version 1.1 (the "License");
 * you may not use this file except in compliance with the License.

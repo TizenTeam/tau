@@ -468,6 +468,10 @@
 			prototype._refresh = function() {
 				var self = this;
 				ListviewPrototype._refresh.call(self);
+				/* @TODO need investigation
+				this line was moved from branch tizen_2.4 but generate error in test
+				self._initCanvasLayout();
+				*/
 			};
 
 			/**
