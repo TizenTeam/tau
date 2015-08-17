@@ -3,13 +3,41 @@ var cheerio = require("cheerio"),
 	fs = require("fs"),
 	path = require("path"),
 	widgetDefinitions = require("./definitions.json"),
-	dirIn = process.argv[2],
-	dirOut = process.argv[3],
+	params,
+	dirIn,
+	dirOut,
+	profile,
 	i,
 	definition,
 	elements,
 	controlElements = {"input": 1, "select": 1, "textarea": 1, "button": 1},
-	controlTypes = {"search": 1, "text": 1, "slider": 1, "checkbox": 1, "radio": 1, "button": 1, "range": 1};
+	controlTypes = {"search": 1, "text": 1, "slider": 1, "checkbox": 1, "radio": 1, "button": 1, "range": 1},
+	config = {
+		"supportForIs": true
+	};
+
+
+function getParams(args) {
+	var i = 0,
+		keys = {},
+		temp;
+
+	args.forEach(function (value) {
+		if (value.indexOf("--") === -1) {
+			keys[i++] = value;
+		} else {
+			temp = value.replace("--", "").split("=");
+			keys[temp[0]] = temp[1];
+		}
+	});
+	return keys;
+}
+
+function configure(profile) {
+	if (profile === "wearable") {
+		config.supportForIs = false;
+	}
+}
 
 /**
  * Look ma, it's cp -R.
@@ -73,28 +101,30 @@ function convertElement($, index, element) {
 		nameLowerCase = definition.name.toLowerCase();
 
 	if (isControlElement($element) && nameLowerCase !== "toggleswitch") {
-		// add "is" attribute
-		$element.attr("is", "tau-" + nameLowerCase);
-		if (name !== "Slider") {
-			$element.removeAttr("type");
-		}
-		// clear "data-" prefix from attributes
-		for (j in attrs) {
-			if (attrs.hasOwnProperty(j)) {
-				// Several widgets still need full data-* attributes for proper working
-				// patch for conflict scrollview selector and section changer selector
-				// both need full data-scroll="none" for proper build
-				removeData = true;
-				if (j === "data-type" && name === "Slider") {
-					removeData = false;
-				}
-				//-- end patch&&
-				newJ = j;
-				if (removeData && j.indexOf("data") === 0) {
-					// remove "data-", five first chars
-					newJ = j.substr(5);
-					$element.attr(newJ, attrs[j]);
-					$element.removeAttr(j);
+		if (config.supportForIs) {
+			// add "is" attribute
+			$element.attr("is", "tau-" + nameLowerCase);
+			if (name !== "Slider") {
+				$element.removeAttr("type");
+			}
+			// clear "data-" prefix from attributes
+			for (j in attrs) {
+				if (attrs.hasOwnProperty(j)) {
+					// Several widgets still need full data-* attributes for proper working
+					// patch for conflict scrollview selector and section changer selector
+					// both need full data-scroll="none" for proper build
+					removeData = true;
+					if (j === "data-type" && name === "Slider") {
+						removeData = false;
+					}
+					//-- end patch&&
+					newJ = j;
+					if (removeData && j.indexOf("data") === 0) {
+						// remove "data-", five first chars
+						newJ = j.substr(5);
+						$element.attr(newJ, attrs[j]);
+						$element.removeAttr(j);
+					}
 				}
 			}
 		}
@@ -149,5 +179,13 @@ function convertHMTL(src, dest) {
 
 	fs.writeFileSync(dest, output);
 }
+
+
+params = getParams(process.argv);
+dirIn = params[2];
+dirOut = params[3];
+profile = params["profile"];
+
+configure(profile);
 
 copyRecursiveSync(dirIn, dirOut);
