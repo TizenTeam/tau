@@ -95,7 +95,7 @@
 				 * @static
 				 */
 				options = {
-					scrollThreshold: 5,
+					scrollThreshold: 30,
 					addActiveClassDelay: 10,
 					keepActiveClassDelay: 100
 				},

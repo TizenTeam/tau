@@ -58,6 +58,12 @@
 			}
 
 			function touchStartHandler() {
+				if (this._selectedMarqueeWidget) {
+					this._selectedMarqueeWidget.reset();
+				}
+			}
+
+			function scrollEndHandler() {
 				destroyMarqueeWidget(this);
 			}
 
@@ -89,15 +95,19 @@
 			prototype.bindEvents = function() {
 				var self = this,
 					touchStartCallback,
+					scrollEndCallback,
 					selectedCallback;
 
 				touchStartCallback = touchStartHandler.bind(self);
+				scrollEndCallback = scrollEndHandler.bind(self);
 				selectedCallback = selectedHandler.bind(self);
 
 				self._callbacks.touchStart = touchStartCallback;
+				self._callbacks.scrollEnd = scrollEndCallback;
 				self._callbacks.selected = selectedCallback;
 
 				document.addEventListener("touchstart", touchStartCallback, false);
+				document.addEventListener("scrollend", scrollEndCallback, false);
 				document.addEventListener("rotarydetent", touchStartCallback, false);
 				document.addEventListener("selected", selectedCallback, false);
 			};
@@ -106,6 +116,7 @@
 				var self = this;
 
 				document.removeEventListener("touchstart", self._callbacks.touchStart, false);
+				document.removeEventListener("scrollend", self._callbacks.scrollEnd, false);
 				document.removeEventListener("rotarydetent", self._callbacks.touchStart, false);
 				document.removeEventListener("selected", self._callbacks.selected, false);
 

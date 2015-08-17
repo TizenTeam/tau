@@ -139,6 +139,8 @@
 					self._isScrollStarted = false;
 					self._selectedIndex = null;
 					self._enabled = true;
+					self._isTouched = false;
+					self._scrollEventCount = 0;
 				},
 
 				prototype = new BaseWidget(),
@@ -154,7 +156,7 @@
 				},
 
 				// time threshold for detect scroll end
-				SCROLL_END_TIME_THRESHOLD = 100;
+				SCROLL_END_TIME_THRESHOLD = 150;
 
 			SnapListview.classes = classes;
 
@@ -233,7 +235,6 @@
 						return;
 					}
 				}
-
 			}
 
 			function listItemAnimate(self) {
@@ -250,12 +251,13 @@
 			}
 
 			function scrollEndCallback(self) {
-				self._isScrollStarted = false;
+				if(self._isTouched === false) {
+					self._isScrollStarted = false;
+					// trigger "scrollend" event
+					utilEvent.trigger(self.element, eventType.SCROLL_END);
 
-				// trigger "scrollend" event
-				utilEvent.trigger(self.element, eventType.SCROLL_END);
-
-				setSelection(self);
+					setSelection(self);
+				}
 			}
 
 			function scrollHandler(self) {
@@ -264,14 +266,35 @@
 
 				if (!self._isScrollStarted) {
 					self._isScrollStarted = true;
-					removeSelectedClass(self);
 					utilEvent.trigger(self.element, eventType.SCROLL_START);
+					self._scrollEventCount = 0;
+				}
+
+				self._scrollEventCount++;
+
+				if (self._scrollEventCount > 2 || self._isTouched === true) {
+					removeSelectedClass(self);
 				}
 
 				listItemAnimate(self);
 
-				window.clearTimeout(self._scrollEndTimeoutId);
-				self._scrollEndTimeoutId = window.setTimeout(scrollEndCallback, SCROLL_END_TIME_THRESHOLD);
+				// scrollend handler can be run only when all touches are released.
+				if(self._isTouched === false) {
+					window.clearTimeout(self._scrollEndTimeoutId);
+					self._scrollEndTimeoutId = window.setTimeout(scrollEndCallback, SCROLL_END_TIME_THRESHOLD);
+				}
+			}
+
+			function onTouchStart(self) {
+				self._isTouched = true;
+			}
+
+			function onTouchEnd(self) {
+				var scrollElement = self._ui.scrollableParent.element;
+				self._isTouched = false;
+				if (scrollElement.scrollTop === 0 || scrollElement.scrollTop === scrollElement.scrollHeight - scrollElement.offsetHeight) {
+					setSelection(self);
+				}
 			}
 
 			function getScrollableParent(element) {
@@ -386,17 +409,29 @@
 			};
 
 			prototype._bindEvents = function() {
-				var element = this._ui.scrollableParent.element;
-				if (element) {
-					utilEvent.on(element, "scroll", this._callbacks.scroll, false);
+				var self = this,
+					element = self.element,
+					scrollableElement = self._ui.scrollableParent.element;
+
+				self._callbacks.touchstart = onTouchStart.bind(null, self);
+				self._callbacks.touchend = onTouchEnd.bind(null, self);
+				if (scrollableElement) {
+					utilEvent.on(scrollableElement, "scroll", this._callbacks.scroll, false);
 				}
+				element.addEventListener("touchstart", self._callbacks.touchstart);
+				element.addEventListener("touchend", self._callbacks.touchend);
 			};
 
 			prototype._unbindEvents = function() {
-				var element = this._ui.scrollableParent.element;
-				if (element) {
-					utilEvent.off(element, "scroll", this._callbacks.scroll, false);
+				var self = this,
+					element = self.element,
+					scrollableElement = self._ui.scrollableParent.element;
+
+				if (scrollableElement) {
+					utilEvent.off(scrollableElement, "scroll", this._callbacks.scroll, false);
 				}
+				element.removeEventListener("touchstart", self._callbacks.touchstart);
+				element.removeEventListener("touchend", self._callbacks.touchend);
 			};
 
 			/**
@@ -471,7 +506,7 @@
 					indexItem,
 					dest;
 
-				if (!enabled || index < 0 || index >= listItemLength) {
+				if (!enabled || index < 0 || index >= listItemLength || self._selectedIndex === index) {
 					return;
 				}
 
