@@ -15,7 +15,7 @@
 		*Default Button
 		<button>Button</button>
 		HTML Code:
-		<textarea class="code-textarea formfield" readonly="readonly" disabled><button>Button</button></textarea>
+		<textarea class="code-textarea formfield" readonly="readonly" disabled>&lt;button&gt;Button&lt;/button&gt;</textarea>
 		<br/><br/>
 		*Inline Button, Inline Button With Icon<br/>
 		<button data-inline="true">DataInline True</button>
@@ -24,15 +24,19 @@
 		<button data-inline="true" data-icon="star" data-style="nobg"></button>
 		<button data-inline="true" data-icon="rename" data-style="circle"></button><br/>
 		 HTML Code:
-                <textarea readonly="readonly" class="code-textarea" disabled><button data-inline="true">DataInline True</button>
-<button data-inline="true" data-icon="call" data-iconpos="right">Icon Text</button>
-<button data-inline="true" data-icon="call" data-iconpos="left">Icon Text</button>
-<button data-inline="true" data-icon="favorite" data-style="nobg"></button>
-<button data-inline="true" data-icon="rename" data-style="circle"></button></textarea><br/><br/>
+        <textarea readonly="readonly" class="code-textarea" disabled>
+&lt;button data-inline="true"&gt;DataInline True&lt;/button&gt;
+&lt;button data-inline="true" data-icon="call" data-iconpos="right"&gt;Icon Text&lt;/button&gt;
+&lt;button data-inline="true" data-icon="call" data-iconpos="left"&gt;Icon Text&lt;/button&gt;
+&lt;button data-inline="true" data-icon="favorite" data-style="nobg"&gt;&lt;/button&gt;
+&lt;button data-inline="true" data-icon="rename" data-style="circle"&gt;&lt;/button&gt;
+		</textarea><br/><br/>
 		*Default Button (A tag)
 		<a href="#buttonTest" class="ui-btn" data-ignore>A Tag Button</a>
 		HTML Code:
-                <textarea readonly="readonly" class="code-textarea" disabled><a href="#buttonTest" class="ui-btn" data-ignore>A Tag Button</a></textarea>
+                <textarea readonly="readonly" class="code-textarea" disabled>
+&lt;a href="#buttonTest" class="ui-btn" data-ignore&gt;A Tag Button&lt;/a&gt;
+				</textarea>
 		<br/><br/>
 		*Button Icon Position top, bottom (with inline)
 		<button data-icon="call" data-iconpos="top">PositionTop</button><br/>
@@ -40,10 +44,12 @@
 		<button data-icon="call" data-iconpos="top" data-inline="true">PositionTop</button>
 		<button data-icon="call" data-iconpos="bottom" data-inline="true">PositionBottom</button><br/>
 		 HTML Code:
-		<textarea class="code-textarea" readonly="readonly" disabled><button data-icon="call" data-iconpos="top">PositionTop</button>
-<button data-icon="call" data-iconpos="bottom">PositionBottom</button>
-<button data-icon="call" data-iconpos="top" data-inline="true">PositionTop</button>
-<button data-icon="call" data-iconpos="bottom" data-inline="true">PositionBottom</button></textarea><br/><br/>
+		<textarea class="code-textarea" readonly="readonly" disabled>
+&lt;button data-icon="call" data-iconpos="top"&gt;PositionTop&lt;/button&gt;
+&lt;button data-icon="call" data-iconpos="bottom"&gt;PositionBottom&lt;/button&gt;
+&lt;button data-icon="call" data-iconpos="top" data-inline="true"&gt;PositionTop&lt;/button&gt;
+&lt;button data-icon="call" data-iconpos="bottom" data-inline="true"&gt;PositionBottom&lt;/button&gt;
+		</textarea><br/><br/>
 		*Custom Button:<br/>
 		<button data-inline="true" data-icon="call">0</button>
 		<button data-inline="true" data-icon="call" data-iconpos="top">1</button>
@@ -51,12 +57,15 @@
 		<button data-inline="true" data-icon="call" style="width:150px;height:150px">3</button>
 		<button data-inline="true" data-icon="call" data-style="circle"></button><br/>
 		HTML Code:
-		<textarea readonly="readonly" class="code-textarea" disabled><button data-inline="true" data-icon="call">0</button>
-<button data-inline="true" data-icon="call" data-iconpos="top">1</button>
-<button data-inline="true" data-icon="call" data-iconpos="bottom">2</button>
-<button data-inline="true" data-icon="call" style="width:150px;height:150px">3</button></textarea>
+		<textarea readonly="readonly" class="code-textarea" disabled>
+			&lt;button data-inline="true" data-icon="call"&gt;0&lt;/button&gt;
+&lt;button data-inline="true" data-icon="call" data-iconpos="top"&gt;1&lt;/button&gt;
+&lt;button data-inline="true" data-icon="call" data-iconpos="bottom"&gt;2&lt;/button&gt;
+&lt;button data-inline="true" data-icon="call" style="width:150px;height:150px"&gt;3&lt;/button&gt;
+		</textarea>
 		CSS Code:<br/>
-		<textarea class="code-textarea" readonly="readonly" disabled>.ui-icon-test{
+		<textarea class="code-textarea" readonly="readonly" disabled>
+			.ui-icon-test{
         background-size: 100% 100%;
         background-image: url(00_button_call);
 }
@@ -69,7 +78,9 @@
 		*Input Type = "Button"
 		<input type="button" value="Test button"/>
 		HTML Code:
-                <textarea readonly="readonly" class="code-textarea" disabled><input type="button" value="test button"/></textarea>
+                <textarea readonly="readonly" class="code-textarea" disabled>
+					&lt;input type="button" value="test button"/&gt;
+				</textarea>
 		<br/><br/>
 		Button No text
 		<div class="ui-btn" id="button1test" data-inline="false" data-style="circle"></div>
