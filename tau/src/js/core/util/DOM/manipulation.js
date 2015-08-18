@@ -72,6 +72,111 @@
 				DOM = ns.util.DOM;
 
 			/**
+			 * Checks if elemenent was converted via WebComponentsJS,
+			 * this will return false if WC support is native
+			 * @param {HTMLElement} node
+			 * @return {boolean}
+			 * @private
+			 * @static
+			 * @member ns.util.DOM
+			 */
+			function isNodeWebComponentPolyfilled(node) {
+				// hacks
+				if (node.__upgraded__ === true) {
+					return true;
+				}
+
+				if (node.__attached === true) {
+					return true;
+				}
+
+				if (Object.keys(node).join("-").indexOf("__impl") > -1) {
+					return true;
+				}
+
+				return false;
+			}
+
+			/**
+			 * Creates a selector for given node
+			 * @param {HTMLElement} node
+			 * @return {string}
+			 * @member ns.util.DOM
+			 * @method getNodeSelector
+			 */
+			function getNodeSelector(node) {
+				var attributes = node.attributes,
+					attributeLength = attributes.length,
+					attr = null,
+					i = 0,
+					selector = node.tagName.toLowerCase();
+				for (; i < attributeLength; ++i) {
+					attr = attributes.item(i);
+					selector += "[" + attr.name + '="' + attr.value + '"]';
+				}
+				return selector;
+			}
+
+			/**
+			 * Creates selector path (node and its parents) for given node
+			 * @param {HTMLElement} node
+			 * @return {string}
+			 * @member ns.util.DOM
+			 * @method getNodeSelectorPath
+			 */
+			function getNodeSelectorPath(node) {
+				var path = getNodeSelector(node),
+					parent = node.parentNode;
+				while (parent) {
+
+					path = getNodeSelector(parent) + ">" + path;
+
+					parent = parent.parentNode;
+					if (parent === document) {
+						parent = null;
+					}
+				}
+				return path;
+			}
+
+			DOM.getNodeSelector = getNodeSelector;
+			DOM.getNodeSelectorPath = getNodeSelectorPath;
+
+			/**
+			 * Compares a node to another node
+			 * note: this is needed because of broken WebComponents node wrapping
+			 * @param {HTMLElement} nodeA
+			 * @param {HTMLElement} nodeB
+			 * @return {boolean}
+			 * @member ns.util.DOM
+			 * @method isNodeEqual
+			 */
+			DOM.isNodeEqual = function (nodeA, nodeB) {
+				var nodeAPolyfilled = isNodeWebComponentPolyfilled(nodeA),
+					nodeBPolyfilled = isNodeWebComponentPolyfilled(nodeB),
+					foundNodeA = nodeA,
+					foundNodeB = nodeB,
+					unwrap = (window.ShadowDOMPolyfill && window.ShadowDOMPolyfill.unwrap); // hack
+
+				if (nodeAPolyfilled) {
+					if (unwrap) {
+						foundNodeA = unwrap(nodeA);
+					} else {
+						foundNodeA = document.querySelector(getNodeSelectorPath(nodeA));
+					}
+				}
+				if (nodeBPolyfilled) {
+					if (unwrap) {
+						foundNodeA = unwrap(nodeA);
+					} else {
+						foundNodeB = document.querySelector(getNodeSelectorPath(nodeB));
+					}
+				}
+
+				return foundNodeA === foundNodeB;
+			};
+
+			/**
 			 * Appends node or array-like node list array to context
 			 * @method appendNodes
 			 * @member ns.util.DOM

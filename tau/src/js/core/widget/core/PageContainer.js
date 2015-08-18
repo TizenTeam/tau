@@ -38,6 +38,7 @@
 			"../BaseWidget",
 			"../core",
 			"../../util",
+			"../../util/DOM/manipulation",
 			"./Page"
 		],
 		function () {
@@ -129,7 +130,7 @@
 				// The change should be made only if no active page exists
 				// or active page is changed to another one.
 				if (!fromPageWidget || (fromPageWidget.element !== toPage)) {
-					if (toPage.parentNode !== self.element) {
+					if (DOM.isNodeEqual(toPage.parentNode, self.element) === false) {
 						toPage = self._include(toPage);
 					}
 
