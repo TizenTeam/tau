@@ -53,12 +53,17 @@ define(
 
 			[].forEach.call(computedStyles1, function (property) {
 				if (ignore.indexOf(property) === -1) {
-					var computedStyles2Property = computedStyles2[property];
+					var computedStyles1Property = computedStyles1[property],
+						computedStyles2Property = computedStyles2[property];
+
 					if (cssPropExcludes.indexOf(property) === -1) {
-						if (computedStyles2Property && typeof computedStyles2Property) {
-							computedStyles2Property = computedStyles2Property.replace("UIComponentsCE", "UIComponents");
+						// remove "CE" suffix from url() property
+						if (computedStyles2Property && typeof computedStyles2Property === "string" &&
+							property === "-webkit-mask-image") {
+								computedStyles2Property = computedStyles2Property.replace("CE/", "/");
+								computedStyles1Property = computedStyles1Property.replace("CE/", "/");
 						}
-						if (computedStyles1[property] !== computedStyles2Property) {
+						if (computedStyles1Property !== computedStyles2Property) {
 							result.push({
 								property: property,
 								value1: computedStyles1[property],
