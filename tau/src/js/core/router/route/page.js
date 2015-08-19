@@ -152,6 +152,13 @@
 					url = DOM.getNSData(toPage, "url");
 				}
 
+				// if no url is set, apply the address of chosen page to data-url attribute
+				// and use it as url, as this is needed for history state
+				if (!url && options.href) {
+					url = options.href;
+					DOM.setNSData(toPage, "url", url);
+				}
+
 				pageTitle = DOM.getNSData(toPage, "title") || utilSelector.getChildrenBySelector(toPage, ".ui-header > .ui-title").textContent || pageTitle;
 				if (!DOM.getNSData(toPage, "title")) {
 					DOM.setNSData(toPage, "title", pageTitle);

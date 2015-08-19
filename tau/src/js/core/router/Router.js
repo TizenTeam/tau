@@ -343,7 +343,8 @@
 				var self = this,
 					rel,
 					rule,
-					deferred;
+					deferred,
+					href = typeof to === "string" ? to : null;
 
 				// create options if none passed
 				options = options || {};
@@ -369,13 +370,18 @@
 						// in back case we call history back
 						history.back();
 					} else {
+						// try to consruct href from element we are opening
+						if (!href && to instanceof HTMLElement) {
+							href = to.getAttribute("id");
+						}
 						// if rule is correct
 						if (rule) {
 							// we set options which will be applied to method open on rule
 							options = object.merge(
 								// new object to delete references
 								{
-									rel: rel
+									rel: rel,
+									href: href // pass the href as some routes need them
 								},
 								// router defaults
 								self.defaults,
