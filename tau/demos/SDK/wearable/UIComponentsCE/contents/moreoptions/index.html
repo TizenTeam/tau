@@ -10,10 +10,9 @@
 
 <body>
 <tau-page id="moreoptionsPage" class="ui-page">
-	<link rel="stylesheet" href="moreoptions.css">
 	<header class="ui-header ui-has-more">
 		<h2 class="ui-title">More Options</h2>
-		<tau-button type="button" class="ui-more ui-icon-overflow">More Options</tau-button>
+		<button class="ui-more ui-icon-overflow" is="tau-formbutton">More Options</button>
 	</header>
 	<tau-scrollview class="ui-content content-padding">
 		It was a real pleasure for me to finally get to meet you. My colleagues join me in sending you our holiday greetings.
@@ -32,7 +31,7 @@
 	</tau-popup>
 
 	<!-- Circle Profile -->
-	<tau-drawer id="moreoptionsDrawer" class="ui-drawer" drawer-target="#moreoptionsPage" position="right" enable="true" drag-edge="1">
+	<tau-popup id="moreoptionsPopupCircle" class="ui-popup">
 		<div id="selector" class="ui-selector">
 			<div class="ui-item show-icon" data-title="Show"></div>
 			<div class="ui-item human-icon" data-title="Human"></div>
@@ -67,7 +66,7 @@
 			<div class="ui-item x-icon" data-title="X Icon"></div>
 			<div class="ui-item fail-icon" data-title="Fail"></div>
 		</div>
-	</tau-drawer>
+	</tau-popup>
 
 	<script type="text/javascript" src="moreoptions.js"></script>
 </tau-page>

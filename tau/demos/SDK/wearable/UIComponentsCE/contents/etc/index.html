@@ -13,78 +13,92 @@
 		</header>
 		<tau-scrollview class="ui-content content-padding">
 			<div class="sample">
-				<h3>Radio</h3>
+				<h3>Radio
 				<div>
-					<textarea is="tau-textinput" style="width:95%;" readonly><input is="tau-radio"></textarea>
+					<textarea style="width:95%;" readonly is="tau-textinput">
+						&lt;input type=&quot;radio&quot; /&gt;
+					</textarea>
 				</div>
 				<div>
 					<input is="tau-radio">
 				</div>
-			</div>
+			</h3></div>
 
 			<div class="sample">
-				<h3>Radio Group</h3>
+				<h3>Radio Group
 				<div>
-					<textarea is="tau-textinput" style="width:95%; height:120px;" readonly><input is="tau-radio" name="sampleradio">
-					<input is="tau-radio" name="sampleradio">
-					<input is="tau-radio" name="sampleradio"></textarea>
+					<textarea style="width:95%; height:120px;" readonly is="tau-textinput">
+						&lt;input type=&quot;radio&quot; name=&quot;sampleradio&quot; /&gt;
+						&lt;input type=&quot;radio&quot; name=&quot;sampleradio&quot; /&gt;
+						&lt;input type=&quot;radio&quot; name=&quot;sampleradio&quot; /&gt;
+					</textarea>
 				</div>
 				<div>
-					<input is="tau-radio" name="sampleradio">
-					<input is="tau-radio" name="sampleradio">
-					<input is="tau-radio" name="sampleradio">
+					<input name="sampleradio" is="tau-radio">
+					<input name="sampleradio" is="tau-radio">
+					<input name="sampleradio" is="tau-radio">
 				</div>
-			</div>
+			</h3></div>
 
 			<div class="sample">
-				<h3>Checkbox</h3>
+				<h3>Checkbox
 				<div>
-					<textarea is="tau-textinput" style="width:95%;" readonly><input type="checkbox"></textarea>
+					<textarea style="width:95%;" readonly is="tau-textinput">
+						&lt;input type=&quot;checkbox&quot; /&gt;
+					</textarea>
 				</div>
 				<div>
-					<input type="checkbox">
+					<input is="tau-checkbox">
 				</div>
-			</div>
+			</h3></div>
 
 			<div class="sample">
-				<h3>Slider</h3>
+				<h3>Slider
 				<div>
-					<textarea is="tau-textinput" style="width:95%;" readonly><tau-slider type="range"></tau-slider></textarea>
+					<textarea style="width:95%;" readonly is="tau-textinput">
+						&lt;input type=&quot;range&quot; /&gt;
+					</textarea>
 				</div>
 				<div>
-					<tau-slider></tau-slider>
+					<input type="range" is="tau-slider">
 				</div>
-			</div>
+			</h3></div>
 
 			<div class="sample">
-				<h3>Button - button tag</h3>
+				<h3>Button - button tag
 				<div>
-					<textarea is="tau-textinput" style="width:95%;" readonly><tau-button>button</tau-button></textarea>
+					<textarea style="width:95%;" readonly is="tau-textinput">
+						&lt;button&gt;button
+					</textarea>
 				</div>
 				<div>
-					<tau-button>button</tau-button>
+					<button is="tau-formbutton">button</button>
 				</div>
-			</div>
+			</h3></div>
 
 			<div class="sample">
-				<h3>Button - a tag</h3>
+				<h3>Button - a tag
 				<div>
-					<textarea is="tau-textinput" style="width:95%;" readonly><a href="#">A button</a></textarea>
+					<textarea style="width:95%;" readonly is="tau-textinput">
+						&lt;a href=&quot;#&quot;&gt;A button&lt;/a&gt;
+					</textarea>
 				</div>
 				<div>
 					<a href="#">A button</a>
 				</div>
-			</div>
+			</h3></div>
 
 			<div class="sample">
-				<h3>Scroll</h3>
+				<h3>Scroll
 				<div>
-					<textarea is="tau-textinput" style="width:95%;" readonly><div class="scroll">Contents</div></textarea>
+					<textarea style="width:95%;" readonly is="tau-textinput">
+						&lt;div class=&quot;scroll&quot;&gt;Contents&lt;/div&gt;
+					</textarea>
 				</div>
 				<div>
 					<div class="scroll">You can use the overflow property when you want to have better control of the layout. The default value is visible.</div>
 				</div>
-			</div>
+			</h3></div>
 			<div class="sample">
 				<h3>Date/Time picker</h3>
 				<div>
@@ -95,7 +109,7 @@
 				</div>
 				<input type="time" id="input_webkitui_hiddentime" style="visibility:hidden; width:50px">
 				<div>
-					Hidden time: <tau-button class="ui-btn" id="button_webkitui_hiddendateopener" style="display:block">Open timepicker</tau-button><span id="webkitui_hiddentime_value"></span>
+					Hidden time: <button class="ui-btn" id="button_webkitui_hiddendateopener" style="display:block" is="tau-formbutton">Open timepicker</button><span id="webkitui_hiddentime_value"></span>
 				</div>
 			</div>
 		</tau-scrollview>
