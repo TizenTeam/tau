@@ -1,7 +1,7 @@
 /* global define, equal, ok, start, asyncTest, test */
 define(
-	["./helpers", "./compare-helper-excludes"],
-	function (helpers, cssPropExcludes) {
+	["./helpers", "./compare-helper-excludes", "./properties-typeof-compare"],
+	function (helpers, cssPropExcludes, cssPropTypeofCheck) {
 		var errorsCount = {},
 			simpleLocation;
 
@@ -68,7 +68,16 @@ define(
 								}
 							}
 						}
-						if (computedStyles1Property !== computedStyles2Property) {
+						// if property is on list then check only typeof
+						if (cssPropTypeofCheck.indexOf(property) > -1) {
+							if (typeof computedStyles1Property !== typeof computedStyles2Property) {
+								result.push({
+									property: property,
+									value1: computedStyles1[property],
+									value2: computedStyles2Property
+								});
+							}
+						} else if (computedStyles1Property !== computedStyles2Property) {
 							result.push({
 								property: property,
 								value1: computedStyles1[property],

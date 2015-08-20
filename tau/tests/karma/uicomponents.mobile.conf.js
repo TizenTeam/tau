@@ -42,6 +42,7 @@ module.exports = function (config) {
             {pattern: "tests/karma/tests/helpers.js", included: false, served: true, watch: true},
             {pattern: "tests/karma/tests/compare-helper.js", included: false, served: true, watch: true},
             {pattern: "tests/karma/tests/compare-helper-excludes.js", included: false, served: true, watch: true},
+            {pattern: "tests/karma/tests/properties-typeof-compare.js", included: false, served: true, watch: true},
 
             // here put path to single test
             {pattern: "tests/karma/tests/customelements/mobile-test.js", included: false, served: true, watch: true},

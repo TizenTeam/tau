@@ -34,20 +34,20 @@
 						tagName = "tau-" + lowerName,
 						extendTo = "";
 
-						switch (BaseElement) {
-							case HTMLInputElement :
-								extendTo = "input";
-								break;
-							case HTMLSelectElement :
-								extendTo = "select";
-								break;
-							case HTMLTextAreaElement :
-								extendTo = "textarea";
-								break;
-							case HTMLButtonElement :
-								extendTo = "button";
-								break;
-						}
+					switch (BaseElement) {
+						case HTMLInputElement :
+							extendTo = "input";
+							break;
+						case HTMLSelectElement :
+							extendTo = "select";
+							break;
+						case HTMLTextAreaElement :
+							extendTo = "textarea";
+							break;
+						case HTMLButtonElement :
+							extendTo = "button";
+							break;
+					}
 
 					CustomWidgetProto._tauName = name;
 
@@ -118,7 +118,7 @@
 			}
 
 			document.addEventListener("tauinit", function () {
-				Object.keys(registerQueue).reverse().forEach(function (tagName) {
+				Object.keys(registerQueue).forEach(function (tagName) {
 					if (registeredTags[tagName]) {
 						ns.warn(tagName + " already registred");
 					} else {
