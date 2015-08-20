@@ -303,6 +303,7 @@
 			 */
 			function onPageBeforeShow(self) {
 				self.refresh();
+				self._component.sectionChanger.refresh();
 			}
 
 			/**

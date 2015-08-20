@@ -102,7 +102,7 @@
 					};
 
 					CustomWidgetProto.attachedCallback = function () {
-						if (this._tauWidget && this._tauWidget.state !== "destroying") {
+						if (this._tauWidget.name === "FloatingActions") {
 							this._tauWidget.refresh();
 						}
 					};
@@ -110,7 +110,6 @@
 					registerQueue[tagName] = (extendTo !== "") ?
 							{extends: extendTo, prototype: CustomWidgetProto} :
 							{prototype: CustomWidgetProto};
-
 
 				} catch (e) {
 					ns.log(e);
