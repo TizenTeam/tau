@@ -57,11 +57,16 @@ define(
 						computedStyles2Property = computedStyles2[property];
 
 					if (cssPropExcludes.indexOf(property) === -1) {
-						// remove "CE" suffix from url() property
-						if (computedStyles2Property && typeof computedStyles2Property === "string" &&
-							property === "-webkit-mask-image") {
-								computedStyles2Property = computedStyles2Property.replace("CE/", "/");
-								computedStyles1Property = computedStyles1Property.replace("CE/", "/");
+						if (computedStyles2Property && typeof computedStyles2Property) {
+							if (typeof computedStyles2Property === "string") {
+								// remove "CE" suffix from url() for property like
+								// "-webkit-mask-image", "-webkit-mask-box-image-source",
+								// "-webkit-mask-box-image", "background-image"
+								if (computedStyles2Property.indexOf("url(") > -1) {
+									computedStyles2Property = computedStyles2Property.replace("CE/", "/");
+									computedStyles1Property = computedStyles1Property.replace("CE/", "/");
+								}
+							}
 						}
 						if (computedStyles1Property !== computedStyles2Property) {
 							result.push({

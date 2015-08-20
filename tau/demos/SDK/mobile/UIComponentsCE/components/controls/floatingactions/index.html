@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<link rel="stylesheet"  href="../../../lib/tau/mobile/theme/default/tau.css">
+	<link rel="stylesheet" href="../../../lib/tau/mobile/theme/default/tau.css">
 	<link rel="stylesheet" href="../../../css/custom.css">
 	<script type="text/javascript" src="../../../lib/tau/mobile/js/tau.js" data-build-remove="false"></script>
 </head>
@@ -33,10 +33,10 @@
 				<li class="ui-li-static">List Item 19</li>
 				<li class="ui-li-static">List Item 20</li>
 			</tau-listview>
-			<div class="ui-floatingactions">
-				<button is="tau-formbutton" class="ui-floatingactions-item" icon="floating-add" />
-				<button is="tau-formbutton" class="ui-floatingactions-item" icon="floating-search" />
-			</div>
+			<tau-floatingactions class="ui-floatingactions">
+				<button class="ui-floatingactions-item" is="tau-formbutton" icon="floating-add">
+				</button><button class="ui-floatingactions-item" is="tau-formbutton" icon="floating-search">
+			</button></tau-floatingactions>
 		</tau-scrollview><!-- content -->
 </tau-page><!-- page -->
 </body>

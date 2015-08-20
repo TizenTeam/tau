@@ -3,7 +3,7 @@
 <head>
 	<link rel="stylesheet" href="../../lib/tau/mobile/theme/default/tau.min.css">
 	<link rel="stylesheet" href="../../css/custom.css">
-	<script type="text/javascript" src="../../lib/tau/mobile/js/tau.js" data-build-remove="false"></script>
+	<script type="text/javascript" src="../../lib/tau/mobile/js/tau.min.js" data-build-remove="false"></script>
 </head>
 	<body>
 		<tau-page id="radio-demo" class="ui-page">
@@ -12,28 +12,28 @@
 			</div>
 			<tau-scrollview class="ui-content">
 				<div>Choose a pet:</div>
-				<input is="tau-radio" name="radio-choice" id="radio-choice-1" value="choice-1" checked="checked">
-				<label for="radio-choice-1">Cat</label><br>
+				<input name="radio-choice" id="radio-choice-1" value="choice-1" checked="checked" is="tau-radio">
+				<label for="radio-choice-1">Cat</label><br/>
 
-				<input is="tau-radio" name="radio-choice" id="radio-choice-2" value="choice-2">
-				<label for="radio-choice-2">Dog</label><br>
+				<input name="radio-choice" id="radio-choice-2" value="choice-2" is="tau-radio">
+				<label for="radio-choice-2">Dog</label><br/>
 
-				<input is="tau-radio" name="radio-choice" id="radio-choice-3" value="choice-3">
-				<label for="radio-choice-3">Hamster</label><br>
+				<input name="radio-choice" id="radio-choice-3" value="choice-3" is="tau-radio">
+				<label for="radio-choice-3">Hamster</label><br/>
 
-				<input is="tau-radio" name="radio-choice" id="radio-choice-4" value="choice-4">
+				<input name="radio-choice" id="radio-choice-4" value="choice-4" is="tau-radio">
 				<label for="radio-choice-4">Lizard</label>
 
 				<div class="radio-result">The Active Radio is ...</div>
 
-				<input is="tau-radio" type="radio" name="radio-1" id="radio-1" checked="checked" disabled="disabled">
-				<label for="radio-1">Checked, Disabled</label><br>
+				<input name="radio-1" id="radio-1" checked="checked" disabled="disabled" is="tau-radio">
+				<label for="radio-1">Checked, Disabled</label><br/>
 
-				<input is="tau-radio" type="radio" name="radio-2" id="radio-2" disabled="disabled">
-				<label for="radio-2">Disabled</label><br>
+				<input name="radio-2" id="radio-2" disabled="disabled" is="tau-radio">
+				<label for="radio-2">Disabled</label><br/>
 
-				<input is="tau-radio" type="radio" name="radio-3" id="radio-3">
-				<label for="radio-3">Unchecked</label><br>
+				<input name="radio-3" id="radio-3" is="tau-radio">
+				<label for="radio-3">Unchecked</label><br/>
 			</tau-scrollview>
 			<link rel="stylesheet" href="styles.css">
 			<script src="radio.js"></script>

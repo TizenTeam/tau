@@ -19,7 +19,8 @@
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 			var engine = ns.engine,
-				registeredTags = {};
+				registeredTags = {},
+				registerQueue = {};
 
 			function defineCustomElement(event) {
 				try {
@@ -106,21 +107,25 @@
 						}
 					};
 
-					if (registeredTags[tagName]) {
-						ns.warn(tagName + " already registred");
-					} else {
-						registeredTags[tagName] = document.registerElement(
-							tagName,
-							(extendTo !== "") ?
-								{extends: extendTo, prototype: CustomWidgetProto} :
-								{prototype: CustomWidgetProto}
-						);
-					}
+					registerQueue[tagName] = (extendTo !== "") ?
+							{extends: extendTo, prototype: CustomWidgetProto} :
+							{prototype: CustomWidgetProto};
+
 
 				} catch (e) {
 					ns.log(e);
 				}
 			}
+
+			document.addEventListener("tauinit", function () {
+				Object.keys(registerQueue).reverse().forEach(function (tagName) {
+					if (registeredTags[tagName]) {
+						ns.warn(tagName + " already registred");
+					} else {
+						registeredTags[tagName] = document.registerElement(tagName, registerQueue[tagName]);
+					}
+				});
+			});
 
 			if (typeof document.registerElement === "function" && ns.getConfig("registerCustomElements", true)) {
 				document.addEventListener("widgetdefined", defineCustomElement);

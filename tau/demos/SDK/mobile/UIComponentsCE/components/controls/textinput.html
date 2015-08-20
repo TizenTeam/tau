@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="../../css/custom.css">
     <link rel="stylesheet" href="../../lib/tau/mobile/theme/default/tau.css">
     <script type="text/javascript" src="../../lib/tau/mobile/js/tau.js" data-build-remove="false"></script>
 
@@ -14,19 +13,19 @@
     <tau-scrollview class="ui-content">
         <div class="textinput-box">
             <label for="texttype">Text Input:</label>
-            <input is="tau-textinput" type="text" name="texttype" id="texttype" placeholder="Input text here" clear-btn="true" />
+            <input name="texttype" id="texttype" placeholder="Input text here" is="tau-textinput" clear-btn="true">
         </div>
         <div class="textinput-box">
             <label for="textarea">Text Area:</label>
-            <textarea is="tau-textinput" name="textarea" id="textarea" placeholder="Input text here"></textarea>
+            <textarea name="textarea" id="textarea" placeholder="Input text here" is="tau-textinput"></textarea>
         </div>
         <div class="textinput-box">
             <label for="texttype2">Disabled Input:</label>
-            <input is="tau-textinput" type="text" name="texttype2" id="texttype2" placeholder="disabled text input" disabled="disabled" />
+            <input name="texttype2" id="texttype2" placeholder="disabled text input" disabled="disabled" is="tau-textinput">
         </div>
         <div class="textinput-box">
             <label for="textarea2">Disabled Area:</label>
-            <textarea is="tau-textinput" type="text" name="textarea2" id="textarea2" placeholder="disabled text area" clear-btn="false" disabled="disabled"></textarea>
+            <textarea name="textarea2" id="textarea2" placeholder="disabled text area" disabled="disabled" is="tau-textinput" clear-btn="false"></textarea>
         </div>
     </tau-scrollview><!-- /content -->
 </tau-page><!-- /page -->
