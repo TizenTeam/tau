@@ -452,7 +452,7 @@
 			 * @protected
 			 */
 			prototype.value = function(value) {
-				if (value) {
+				if (value !== undefined) {
 					this._setValue(value);
 				}
 				return this.element.getAttribute("value");
