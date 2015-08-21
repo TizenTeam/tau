@@ -575,12 +575,15 @@
 					element = self.element,
 					elementStyle = element.style,
 					ui = self._ui,
-					overlayStyle = ui.drawerOverlay ? ui.drawerOverlay.style : false;
+					overlayStyle = ui.drawerOverlay ? ui.drawerOverlay.style : null,
+					height;
 
 				options.width = options.width || ui.targetElement.offsetWidth;
+				height = ui.targetElement.offsetHeight;
 
-				elementStyle.width = options.width + "px";
-				elementStyle.height = ui.targetElement.offsetHeight + "px";
+				elementStyle.width = (options.width !== 0) ? options.width + "px" : "100%";
+				elementStyle.height = (height !== 0) ? height + "px" : "100%";
+				elementStyle.top = "auto";
 
 				if (overlayStyle) {
 					overlayStyle.width = window.innerWidth + "px";
@@ -595,6 +598,7 @@
 					element.classList.add(classes.left);
 					self._translate(-options.width, 0);
 				}
+
 				self._state = STATE.CLOSED;
 			};
 
