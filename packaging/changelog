@@ -1,4 +1,11 @@
 %changelog
+* Fri Aug 21 2015 Hagun Kim <hagun.kim@samsung.com> 0.11.2
+	- fix(mobile): fix slider layout issue
+	- fix(cards): delete id in config.xml
+	- delete(wearable): delete expandableHeader
+	- etc(core): Slider - fix jshint warning
+	- fix(wearable): remove demo item
+
 * Fri Jul 24 2015 Heeju Joo <heeju.joo@samsung.com> 0.11.1
 	- feat(etc): License file has been changed in SDK demos
 	- fix(core): change license to Flora.
