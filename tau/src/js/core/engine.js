@@ -1094,6 +1094,9 @@
 						definition = widgetDefs[name];
 						element = processHollowWidget(element, definition, options);
 						binding = getBinding(element, name);
+					} else if (binding !== null) {
+						// if widget was built early we should set options delivered to constructor
+						binding.option(options);
 					}
 					return binding;
 				},

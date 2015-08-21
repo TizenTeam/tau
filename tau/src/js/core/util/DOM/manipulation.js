@@ -152,11 +152,18 @@
 			 * @method isNodeEqual
 			 */
 			DOM.isNodeEqual = function (nodeA, nodeB) {
-				var nodeAPolyfilled = isNodeWebComponentPolyfilled(nodeA),
-					nodeBPolyfilled = isNodeWebComponentPolyfilled(nodeB),
+				var nodeAPolyfilled = null,
+					nodeBPolyfilled = null,
 					foundNodeA = nodeA,
 					foundNodeB = nodeB,
 					unwrap = (window.ShadowDOMPolyfill && window.ShadowDOMPolyfill.unwrap); // hack
+
+				if (nodeA === null || nodeB === null) {
+					return false;
+				} else {
+					nodeAPolyfilled = isNodeWebComponentPolyfilled(nodeA);
+					nodeBPolyfilled = isNodeWebComponentPolyfilled(nodeB);
+				}
 
 				if (nodeAPolyfilled) {
 					if (unwrap) {
