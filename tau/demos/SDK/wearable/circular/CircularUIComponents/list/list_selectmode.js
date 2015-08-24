@@ -64,7 +64,7 @@
 				event.preventDefault();
 				event.stopPropagation();
 			}
-		}
+		};
 
 	function modeShow() {
 		selectWrapper.classList.remove("open");
@@ -108,7 +108,7 @@
 		});
 
 		/********** drawer ******************/
-		drawerHelper = tau.helper.DrawerMoreStyle.create(drawerElement, {
+		drawerHelper = tau.widget.DrawerMoreStyle(drawerElement, {
 			handler: ".drawer-handler"
 		});
 

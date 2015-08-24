@@ -8,8 +8,8 @@
 		var popupWidget;
 
 		if (tau.support.shape.circle) {
-			tau.helper.DrawerMoreStyle.create(drawer, {
-				handler: ".ui-more",
+			tau.helper.DrawerMoreStyle(drawer, {
+				handler: ".ui-more"
 			});
 		} else {
 			// Shape is square

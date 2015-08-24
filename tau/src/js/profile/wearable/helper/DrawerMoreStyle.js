@@ -31,7 +31,8 @@
 			"../../../core/util/object",
 			"../../../core/util/selectors",
 			"../widget/wearable/Drawer",
-			"../widget/wearable/Selector"
+			"../widget/wearable/Selector",
+			"../../../core/widget/BaseWidget"
 		],
 		function () {//>>excludeEnd("tauBuildExclude");
 			var engine = ns.engine,
@@ -39,16 +40,16 @@
 				events = ns.event,
 				selectors = ns.util.selectors,
 				Drawer = ns.widget.wearable.Drawer,
-				Selector = ns.widget.wearable.Selector,
 				defaults = {
 					more: ".ui-more",
-					selector: ".ui-selector"
+					selector: ".ui-selector",
+					handler: ".ui-handler"
 				},
 				classes = {
 					page: "ui-page"
 				},
 
-				DrawerMoreStyle = function (element, options) {
+				DrawerMoreStyle = function (element) {
 					var self = this;
 
 					self.options = objectUtils.merge({}, defaults);
@@ -56,18 +57,17 @@
 					self._handlerElement = null;
 					self._selectorWidget = null;
 
-					self.init(element, options);
+					Drawer.call(self);
 				},
+				prototype = new Drawer();
 
-				prototype = DrawerMoreStyle.prototype;
+			DrawerMoreStyle.prototype = prototype;
 
 			function bindDragEvents(element) {
-
 				events.on(element, "touchstart touchend mousedown mouseup" , this, false);
 			}
 
-			function unBindDragEvents(element) {
-
+			function unbindDragEvents(element) {
 				events.off(element, "touchstart touchend mousedown mouseup" , this, false);
 			}
 
@@ -94,56 +94,67 @@
 				this._drawerWidget.close();
 			};
 
-			prototype.init = function(element, options) {
+			prototype._init = function(element) {
 				var self = this,
 					pageElement = selectors.getClosestByClass(element, classes.page),
 					handlerElement,
 					selectorElement;
 
-				objectUtils.fastMerge(self.options, options);
+				Drawer.prototype._init.call(self, element);
 
 				handlerElement = pageElement.querySelector(self.options.handler);
 				selectorElement = element.querySelector(self.options.selector);
 
-				self._drawerWidget = engine.instanceWidget(element, "Drawer");
 				if (handlerElement) {
-					self._drawerWidget.setDragHandler(handlerElement);
 					self._handlerElement = handlerElement;
-					self._bindEvents();
 				}
 				if (selectorElement) {
-					self._selectorWidget = engine.instanceWidget(selectorElement, "Selector");
+					self._selectorWidget = ns.widget.Selector(selectorElement);
 				}
 			};
 
 			prototype._bindEvents = function() {
 				var self = this;
 
-				bindDragEvents.call(self, self._handlerElement);
+				if (self._handlerElement) {
+					bindDragEvents.call(self, self._handlerElement);
+				}
 			};
 
 			prototype._unbindEvents = function() {
 				var self = this;
 
-				unBindDragEvents.call(self, self._handlerElement);
+				if (self._handlerElement) {
+					unbindDragEvents.call(self, self._handlerElement);
+				}
 			};
 
-			prototype.destroy = function() {
+			prototype._destroy = function() {
 				var self = this;
 
 				if (self._handlerElement) {
 					self._unbindEvents();
 				}
-				self._drawerWidget = null;
 				self._handlerElement = null;
 				self._selectorWidget = null;
 			};
 
-			DrawerMoreStyle.create = function(element, options) {
-				return new DrawerMoreStyle(element, options);
-			};
-
 			ns.helper.DrawerMoreStyle = DrawerMoreStyle;
+			engine.defineWidget(
+				"DrawerMoreStyle",
+				".ui-drawermorestyle",
+				[
+					"transition",
+					"setDragHandler",
+					"open",
+					"close",
+					"isOpen",
+					"getState"
+				],
+				DrawerMoreStyle,
+				"circular"
+			);
+
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return DrawerMoreStyle;
 		}

@@ -9,7 +9,7 @@
 			snapList;
 
 		if (list) {
-			listHelper = tau.helper.SnapListMarqueeStyle.create(list, {
+			listHelper = tau.helper.SnapListMarqueeStyle(list, {
 				marqueeDelay: 1000
 			});
 

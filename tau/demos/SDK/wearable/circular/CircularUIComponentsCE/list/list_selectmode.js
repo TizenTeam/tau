@@ -108,9 +108,10 @@
 		});
 
 		/********** drawer ******************/
-		drawerHelper = tau.helper.DrawerMoreStyle.create(drawerElement, {
+		drawerHelper = tau.helper.DrawerMoreStyle(drawerElement, {
 			handler: ".drawer-handler"
 		});
+
 
 		document.addEventListener('tizenhwkey', fnBackKey);
 

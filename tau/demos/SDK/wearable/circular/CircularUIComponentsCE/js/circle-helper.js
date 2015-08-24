@@ -25,7 +25,7 @@
 			}
 
 			if (header && enablePageScroll) {
-				headerHelper = tau.helper.ExpandableHeaderMarqueeStyle.create(header, {});
+				//headerHelper = tau.helper.ExpandableHeaderMarqueeStyle.create(header, {});
 
 				if (listHelper) {
 					snapList = listHelper.getSnapList();
