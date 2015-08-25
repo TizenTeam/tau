@@ -54,6 +54,9 @@
 		try {
 			appConfig.load(appConfigFile);
 			sourceHTMLRelPath = appConfig.get("content", "src");
+			if (common.getOS() === "win") {
+				sourceHTMLRelPath = sourceHTMLRelPath.replace("/", "\\");
+			}
 		} catch (e) {
 			logger.error("error while parsing config", e);
 			return printHelp();

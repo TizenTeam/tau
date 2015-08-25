@@ -246,7 +246,8 @@ module.exports = function (grunt) {
 				showInheritedMethods: inheritedMethods.length,
 				properties: docsStructure.properties,
 				showProperties: docsStructure.properties.length,
-				since: docsStructure.since
+				since: docsStructure.since,
+				methodsCount: publicMethodsCount
 			}).on('data', function (data) {
 				string += data.toString();
 			}).on('end', function () {
@@ -532,6 +533,17 @@ module.exports = function (grunt) {
 						})[0],
 						canBeNull = false;
 					classObj = docsStructure[memberOf];
+					property = {};
+					property.isPrivate = !!(block.tags.filter(function (tag) {
+						return tag.type === 'private';
+					})[0]);
+					property.isInternal = !!(block.tags.filter(function (tag) {
+						return tag.type === 'internal';
+					})[0]);
+					property.isProtected = !!(block.tags.filter(function (tag) {
+						return tag.type === 'protected';
+					})[0]);
+					property.isPublic = !(property.isPrivate || property.isProtected || (property.isInternal && (template !== 'dld')));
 					if (classObj) {
 						propertiesArray = tag.string.split(" ");
 						type = propertiesArray.shift().replace(/[{}]/g, '').replace(/\|/g, " | ").replace(/^\?/, function replacer() {
@@ -550,22 +562,11 @@ module.exports = function (grunt) {
 							name = propertiesArray.shift();
 							defaultValue = propertiesArray.shift();
 
-							property = {};
-
 							property.types = type;
 							property.defaultValue = defaultValue;
 							property.tags = block.tags;
-							property.description = description || block.description.full;
-							property.isPrivate = !!(block.tags.filter(function (tag) {
-								return tag.type === 'private';
-							})[0]);
-							property.isInternal = !!(block.tags.filter(function (tag) {
-								return tag.type === 'internal';
-							})[0]);
-							property.isProtected = !!(block.tags.filter(function (tag) {
-								return tag.type === 'protected';
-							})[0]);
-							property.isPublic = !(property.isPrivate || property.isProtected || (property.isInternal && (template !== 'dld')));
+							property.brief = description || block.description.summary;
+							property.description = block.description.body;
 							property.code = block.code;
 							if (name.match(/^options/)) {
 								name = name.substring(8);
@@ -579,7 +580,9 @@ module.exports = function (grunt) {
 							}
 						}
 					} else {
-						grunt.log.error('no memberOf for property ', tag.string);
+						if (property.isPublic) {
+							grunt.log.error('no memberOf for property ', tag.string);
+						}
 					}
 				});
 				block.tags.filter(function (tag) {
@@ -623,7 +626,8 @@ module.exports = function (grunt) {
 							return tag.type === 'member';
 						}).map(function (tag) {
 							return tag.string
-						})[0] || "";
+						})[0] || "",
+						length;
 					classObj = docsStructure[memberOf];
 					inherited = block.tags.filter(function (tag) {
 						return tag.type === 'inherited';
@@ -644,7 +648,8 @@ module.exports = function (grunt) {
 							name = tag.name,
 							canBeNull = false,
 							isOptional = false,
-							nameArray;
+							nameArray,
+							desriptionParts;
 						tag.types = type.replace(/\|/g, " | ").replace(/^\?/, function replacer() {
 							canBeNull = true;
 							return "";
@@ -658,12 +663,22 @@ module.exports = function (grunt) {
 						});
 						nameArray = tag.name.split('=');
 						tag.name = nameArray.shift();
+						tag.isSubParam = tag.name.indexOf(".") > -1;
 						tag.defaultValue = nameArray.shift();
+						if (/^[^"]*"[^"]*$/.test(tag.defaultValue)) {
+							desriptionParts = tag.description.match(/^([^"]*")] (.*)$/);
+							tag.defaultValue += " " + desriptionParts[1];
+							tag.description = desriptionParts[2];
+						}
 						tag.isOptional = isOptional;
 						return tag;
 					});
 					if (method.params.length) {
-						method.params[method.params.length - 1].isLast = true;
+						length = method.params.length - 1;
+						while (method.params[length].isSubParam && length > 0) {
+							length --;
+						}
+						method.params[length].isLast = true;
 					}
 					method.hasParams = !!method.params.length;
 					method.return = block.tags.filter(function (tag) {
@@ -681,6 +696,9 @@ module.exports = function (grunt) {
 					method.since = block.tags.filter(function (tag) {
 						return tag.type === 'since';
 					}).map(function (tag) {
+						if (tag.string === "2.4") {
+							method.new = true;
+						}
 						return tag.string;
 					})[0];
 					method.deprecated = block.tags.filter(function (tag) {

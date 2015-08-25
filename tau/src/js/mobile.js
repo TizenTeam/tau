@@ -38,11 +38,11 @@
 			//>>excludeStart("tauPerformance", pragmas.tauPerformance);
 			"./tools/performance",
 			//>>excludeEnd("tauPerformance")
+			//>>excludeStart("tauUI", pragmas.tauUI);
 			"./core/core",
 			"./core/config",
 			"./profile/mobile/config",
 			"./core/support",
-			"./core/info",
 			"./jqm/all",
 			"./core/engine",
 			"./core/frameworkData",
@@ -108,27 +108,36 @@
 			"./profile/mobile/expose",
 			// default theme
 			"../css/profile/mobile/changeable/theme-changeable/theme",
+			// history module
+			"./core/history",
+			"./core/history/manager",
 			// router modules
 			"./core/router/Router",
 			"./core/router/route/page",
 			"./core/router/route/popup",
 			"./core/router/route/drawer",
 			"./core/router/route/panel",
-			"./core/router/history",
 			"./profile/wearable/expose",
 			"./core/widget/core/Box",
 			"./core/layout/float",
 			"./core/layout/linear",
 			"./core/layout/relative",
 			// Modules to be loaded after
-			"./core/init",
 			//documentation pages
 			"./profile/mobile/page/layout",
 			"./profile/mobile/page/multipage",
 			"./profile/mobile/page/change",
 			"./profile/mobile/page/pageevents",
 			// globalize
-			"./core/util/globalize"
+			"./core/util/globalize",
+			//>>excludeEnd("tauUI");
+			//>>excludeStart("tauMVC", pragmas.tauMVC);
+			"./core/util/pathToRegexp",
+			"./core/controller",
+			//>>excludeEnd("tauMVC");
+			"./core/template/html",
+			"./core/info",
+			"./core/init"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");

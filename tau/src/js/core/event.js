@@ -1,4 +1,4 @@
-/*global window, ns, define, CustomEvent */
+/*global ns, define, CustomEvent */
 /*jslint nomen: true */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
@@ -14,6 +14,9 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ *
+ * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
+ * License : MIT License V2
  */
 /**
  * #Events
@@ -77,7 +80,7 @@
 					result = [],
 					i;
 
-				if (typeof names === 'string') {
+				if (typeof names === "string") {
 					names = names.split(SPLIT_BY_SPACES_REGEXP).map(trim);
 				}
 
@@ -93,7 +96,29 @@
 					}
 				}
 				return result;
-			};
+			},
+			// cached slice method
+			arraySlice = [].slice;
+
+			/**
+			 * Temporary Callback to support one call of event
+			 * @param elements
+			 * @param callbacks
+			 * @param listeners
+			 * @param useCapture
+			 * @param i
+			 * @param j
+			 */
+			function oneEventCallback(elements, callbacks, listeners, useCapture, i, j) {
+				// take only event object
+				var args = arraySlice.call(arguments, 6);
+				ns.event.fastOff(elements[i], listeners[j].type, callbacks[i][j], useCapture);
+				/*jshint -W040 */
+				// using here this is correct because we want to have this the same as in original
+				// event listner
+				listeners[j].callback.apply(this, args);
+				/*jshint +W040 */
+			}
 
 			ns.event = {
 
@@ -120,7 +145,7 @@
 							cancelable: typeof cancelable === "boolean" ? cancelable : true
 						});
 					//>>excludeStart("tauDebug", pragmas.tauDebug);
-					ns.log("triggered event " + type + " on:", element.tagName + '#' + (element.id || "--no--id--"));
+					ns.log("triggered event " + type + " on:", element.tagName + "#" + (element.id || "--no--id--"));
 					//>>excludeEnd("tauDebug");
 					return element.dispatchEvent(evt);
 				},
@@ -280,6 +305,13 @@
 
 				/**
 				 * Add event listener to element with prefixes for all browsers
+				 *
+				 *	@example
+				 * 		tau.event.prefixedFastOn(document, "animationEnd", function() {
+				 *			console.log("animation ended");
+				 *		});
+				 *		// write "animation ended" on console on event "animationEnd", "webkitAnimationEnd", "mozAnimationEnd", "msAnimationEnd", "oAnimationEnd"
+				 *
 				 * @method fastPrefixedOn
 				 * @param {HTMLElement} element
 				 * @param {string} type
@@ -300,6 +332,11 @@
 
 				/**
 				 * Remove event listener to element with prefixes for all browsers
+				 *
+				 *	@example
+				 *		tau.event.prefixedFastOff(document, "animationEnd", functionName);
+				 *		// remove listeners functionName on events "animationEnd", "webkitAnimationEnd", "mozAnimationEnd", "msAnimationEnd", "oAnimationEnd"
+				 *
 				 * @method fastPrefixedOff
 				 * @param {HTMLElement} element
 				 * @param {string} type
@@ -398,34 +435,33 @@
 				 * @static
 				 */
 				one: function(element, type, listener, useCapture) {
-					var arraySlice = [].slice,
-						i,
+					var i,
 						j,
 						elementsLength,
 						typesLength,
 						elements,
-						types,
 						listeners,
 						callbacks = [];
+					// convert single element to array
 					if (isArrayLike(element)) {
 						elements = arraySlice.call(element);
 					} else {
 						elements = [element];
 					}
 					elementsLength = elements.length;
+					// pair type with listener
 					listeners = getEventsListeners(type, listener);
 					typesLength = listeners.length;
+					// on each element
 					for (i = 0; i < elementsLength; i++) {
+						// if element has possibility of add listener
 						if (typeof elements[i].addEventListener === "function") {
 							callbacks[i] = [];
+							// for each event type
 							for (j = 0; j < typesLength; j++) {
-								callbacks[i][j] = (function(i, j) {
-									var args = arraySlice.call(arguments);
-									ns.event.fastOff(elements[i], listeners[j].type, callbacks[i][j], useCapture);
-									args.shift(); // remove the first argument of binding function
-									args.shift(); // remove the second argument of binding function
-									listeners[j].callback.apply(this, args);
-								}).bind(null, i, j);
+								// prepare temporary callback which will be removed after call
+								callbacks[i][j] = oneEventCallback.bind(null, elements, callbacks, listeners, useCapture, i, j);
+								// bind temporary callback
 								ns.event.fastOn(elements[i], listeners[j].type, callbacks[i][j], useCapture);
 							}
 						}

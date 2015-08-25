@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<widget xmlns:tizen="http://tizen.org/ns/widgets" xmlns="http://www.w3.org/ns/widgets" id="http://yourdomain/Hello-mobile" version="1.0.0" viewmodes="maximized">
+    <tizen:application id="4rCuCWnB8N.BackboneTauListMobile" package="4rCuCWnB8N" required_version="2.3"/>
+    <content src="index.html"/>
+    <feature name="http://tizen.org/feature/screen.size.all"/>
+    <icon src="icon.png"/>
+    <name>BackboneTauListMobile</name>
+    <tizen:setting background-support="disable" encryption="disable" hwkey-event="enable"/>
+</widget>

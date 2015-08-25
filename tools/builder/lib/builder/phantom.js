@@ -46,7 +46,8 @@
 				jsFile,
 				'"' + phantomFix + '"',
 				'"' + src.getAbsolutePath() + '"',
-				'"' + dst.getAbsolutePath() + '"'
+				'"' + dst.getAbsolutePath() + '"',
+				'"' + config.get("os") + '"'
 			).inheritIO(),
 			p;
 		logger.info("initializing PhantomJS, path: " + phantomPath);

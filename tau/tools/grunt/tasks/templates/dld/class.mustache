@@ -42,7 +42,7 @@ rgb(191, 191,
 		<th style="background: rgb(242, 242, 242); border-bottom: solid 1px rgb(191, 191,
 		191);border-right: solid 1px rgb(191, 191, 191)">API</th>
 		<th style="background: rgb(242, 242, 242); border-bottom: solid 1px rgb(191, 191,
-		191);border-right: solid 1px rgb(191, 191, 191)">New Development /Modification / Reuse</th>
+		191);border-right: solid 1px rgb(191, 191, 191)">New Development / Modification</th>
 		<th style="background: rgb(242, 242, 242); border-bottom: solid 1px rgb(191, 191,
 		191);border-right: solid 1px rgb(191, 191, 191)">Description</th>
 	</tr>
@@ -56,9 +56,11 @@ rgb(191, 191,
 				<td style="border-bottom: solid 1px rgb(191, 191,
 		191);border-right: solid 1px rgb(191, 191, 191)">{{name}}</td>
 				<td style="border-bottom: solid 1px rgb(191, 191,
-		191);border-right: solid 1px rgb(191, 191, 191)">New Development</td>
+		191);border-right: solid 1px rgb(191, 191, 191)">{{#new}}New Development{{/new}}{{^new}}Modification{{/new}}</td>
 				<td style="border-bottom: solid 1px rgb(191, 191,
-		191);border-right: solid 1px rgb(191, 191, 191)">{{{brief}}}</td>
+		191);border-right: solid 1px rgb(191, 191, 191)">{{{brief}}}
+
+					{{{description}}}</td>
 			</tr>
 		{{/isPublic}}
 	{{/methods}}

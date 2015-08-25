@@ -14,6 +14,9 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ *
+ * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
+ * License : MIT License V2
  */
 /**
  * #Framework Data Object
@@ -29,14 +32,16 @@
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
-
 			var slice = Array.prototype.slice,
 				FRAMEWORK_WEBUI = "tizen-web-ui-fw",
 				FRAMEWORK_TAU = "tau",
-				IS_TAU_REGEXP = /(^|[\\\/])(tau(\.min)?\.js)$/,
-				LIB_FILENAME_REGEXP = /(^|[\\\/])((tau(\.min)?\.js)|(tizen-web-ui-fw)(\.custom|\.full)?(\.min)?\.js)$/,
-				CSS_FILENAME_REGEXP = /(^|[\\\/])((tau(\.min)?\.css)|(tizen-web-ui-fw)(\.custom|\.full)?(\.min)?\.css)$/,
-				TIZEN_THEMES_REGEXP = /^(white|black|default)$/i,
+				IS_TAU_REGEXP = /(^|[\\\/])(tau(\.full|\.mvc)?(\.min)?\.js)$/,
+				// Regexp detect framework js file
+				LIB_FILENAME_REGEXP = /(^|[\\\/])(tau|tizen-web-ui-fw)(\.full|\.mvc|\.custom)?(\.min)?\.js$/,
+				// Regexp detect framework css file
+				CSS_FILENAME_REGEXP = /(^|[\\\/])(tau|tizen-web-ui-fw)(\.full|\.mvc|\.custom)?(\.min)?\.css$/,
+				// Regexp detect correct theme name
+				TIZEN_THEMES_REGEXP = /^(changeable|white|black|default)$/i,
 				MINIFIED_REGEXP = /\.min\.js$/,
 				frameworkData = {
 					/**
@@ -189,7 +194,7 @@
 						dataThemeName = cssElement.getAttribute("data-theme-name"),
 						// Attribute value is taken because href property gives different output
 						href = cssElement.getAttribute("href"),
-						hrefFragments  = href && href.split('/'),
+						hrefFragments  = href && href.split("/"),
 						hrefDirPart;
 
 					// If we have the theme name defined we can use it right away
@@ -246,7 +251,7 @@
 							// Profile may be defined from framework script or
 							// it can be assumed, that profile name is second up directory name
 							// e.g. pathToLib/profileName/js/tau.js
-							profileName = scriptElement.getAttribute(dataPrefix + "profile") || src.split('/').slice(-3)[0];
+							profileName = scriptElement.getAttribute(dataPrefix + "profile") || src.split("/").slice(-3)[0];
 							themePath = "/" + profileName + "/theme/" + theme;
 
 							// TAU framework library link

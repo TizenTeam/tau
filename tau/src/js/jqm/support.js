@@ -14,6 +14,9 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ *
+ * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
+ * License : MIT License V2
  */
 /**
  * #jQuery Mobile mapping support
@@ -27,12 +30,14 @@
 		[
 			"./namespace",
 			"../core/engine",
-			"../core/util/object"
+			"../core/util/object",
+			"../core/router/Router"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 			var support = ns.support,
-				object = ns.util.object;
+				object = ns.util.object,
+				Router = ns.router.Router;
 
 			ns.jqm.support = {
 				/**
@@ -47,7 +52,7 @@
 				 * @member ns.jqm.support
 				 */
 				init: function () {
-					var router = ns.engine.getRouter();
+					var router = Router.getInstance();
 					if ($) {
 						object.merge($.support, support);
 						ns.support = $.support;
@@ -55,9 +60,9 @@
 						$.mobile.support = $.mobile.support || {};
 						$.mobile.support.touch = support.touch;
 						$.mobile.base = support.dynamicBaseTag ? {
-							element: router.resetBase === undefined ? ns.error.bind(null, 'router PageExternal is not loaded') : router.resetBase(),
-							set: router.setBase === undefined ? ns.error.bind(null, 'router PageExternal is not loaded') : router.setBase.bind(router),
-							reset: router.resetBase === undefined ? ns.error.bind(null, 'router PageExternal is not loaded') : router.resetBase.bind(router)
+							element: router.resetBase === undefined ? ns.error.bind(null, "router PageExternal is not loaded") : router.resetBase(),
+							set: router.setBase === undefined ? ns.error.bind(null, "router PageExternal is not loaded") : router.setBase.bind(router),
+							reset: router.resetBase === undefined ? ns.error.bind(null, "router PageExternal is not loaded") : router.resetBase.bind(router)
 						} : undefined;
 						$.mobile.gradeA = ns.support.gradeA.bind(ns.support);
 						$.mobile.browser = ns.support.browser;

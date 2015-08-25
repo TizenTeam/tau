@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="description" content=""/>
+
+    <title>Hello Custom World</title>
+
+    <link rel="stylesheet" href="js/lib/wearable/theme/blue/tau.min.css">
+    <style>
+        /* Added missing styles for multiline list */
+        .ui-listview li .li-text-sub {
+            display: block;
+            color: rgb(189, 167, 146);
+            font-size: 28px;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            line-height: 32px;
+        }
+        .ui-listview li.li-has-multiline {
+            padding-top: 6px;
+            padding-bottom: 5px;
+            min-height: 100px;
+        }
+    </style>
+</head>
+<body>
+<div class="ui-page">
+    <header class="ui-header">
+        <h2 class="ui-title" data-bind="text: title">
+            <script type="text/template" id="metaData">
+                <%= model %>
+            </script>
+        </h2>
+    </header>
+    <div class="ui-content">
+        <ul class="ui-listview">
+        <script type="text/template" id="artist-list-template">
+            <% _.each(collection, function(item) { %>
+                <li>
+	                <span><%= item.get('NAME') %></span> 
+                    <span class="li-text-sub" >
+                        <span><%= item.get('FROM') %></span>
+                        (<span><%= item.get('ACTIVE') %></span>)
+                    </span>
+                </li>
+            <% }); %>
+        </script>
+        </ul>
+    </div>
+                    <span class="li-text-sub" >
+                    <span data-bind="text: FROM"></span>
+                    (<span data-bind="text: ACTIVE"></span>)
+                </span>
+</div>
+<script src="js/lib/wearable/js/tau.min.js"></script>
+<script src="js/virtuallist-db-demo.js"></script>
+<script src="js/lib/underscore.js"></script>
+<script src="js/lib/jquery-2.1.3.min.js"></script>
+<script src="js/lib/backbone-min.js"></script>
+<script src="js/script.js"></script>
+ 
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,8 +1,22 @@
-/**
- * @TODO delete tau namespace from this file
- */
-(function(){
-	module("router.micro.route.page");
+/*global document, window, module, test, equal, ok, asyncTest, start, define, expect */
+
+function testFunction (tau, prefix){
+	var engine = tau.engine,
+		router = engine.getRouter();
+	module("ns.router.route.page", {
+		teardown: function () {
+			engine._clearBindings();
+			engine.stop();
+		},
+		setup: function () {
+			tau.setConfig("autorun", false);
+			tau.setConfig("pageContainer", document.getElementById("qunit-fixture"));
+			engine.run();
+			router = engine.getRouter();
+		}
+	});
+
+	 prefix = prefix || "./";
 
 	if (!window.navigator.userAgent.match("PhantomJS")) {
 
@@ -25,19 +39,19 @@
 
 				// Go back to previous home page
 
-				tau.changePage("../index.html");
+				router.back();
 				start();
 			});
 
 			// Requesting for txt file to avoid running html files with testing data through QUnit
-			tau.changePage("./test-data/_externalPage.html");
+			router.open(prefix + "test-data/_externalPage.html");
 
 		});
 
 		asyncTest("External pages with external scripts", function () {
 			expect(2);
 			document.addEventListener("pageshow", function externalPagesTest(event) {
-				// 'pageshow' may come from different page, as we use asyncTests
+				// "pageshow" may come from different page, as we use asyncTests
 				if (event.target.id !== "page-with-external-scripts") {
 					return;
 				}
@@ -52,12 +66,12 @@
 				}
 
 				// Go back to previous home page
-				tau.changePage("../index.html");
+				router.back();
 				start();
 			});
 
 			// Requesting for txt file to avoid running html files with testing data through QUnit
-			tau.changePage("./test-data/_externalPage2.html");
+			router.open(prefix + "test-data/_externalPage2.html");
 		});
 
 		asyncTest("External script has the same attributes", function () {
@@ -71,19 +85,19 @@
 
 				document.removeEventListener("pageshow", externalPagesTest);
 
-				movedScript = document.getElementById('external-script-tag');
+				movedScript = document.getElementById("external-script-tag");
 
 				ok(!!movedScript, "Script with same ID exists");
-				ok(!movedScript.getAttribute('src'), "Script has no 'src' attribute");
-				equal(movedScript.getAttribute('data-test'), "5", "Script has same 'data-test' source");
+				ok(!movedScript.getAttribute("src"), "Script has no 'src' attribute");
+				equal(movedScript.getAttribute("data-test"), "5", "Script has same 'data-test' source");
 
 				// Go back to previous home page
-				tau.changePage("../index.html");
+				router.back();
 				start();
 			});
 
 			// Requesting for txt file to avoid running html files with testing data through QUnit
-			tau.changePage("./test-data/_externalPage2.html");
+			router.open(prefix + "test-data/_externalPage2.html");
 		});
 
 	}
@@ -91,4 +105,15 @@
 	test("empty test for Phantom", function() {
 		ok("tests was run");
 	});
-})();
+}
+
+
+if (window.define !== undefined) {
+	define(function () {
+		return testFunction;
+	});
+} else {
+	document.addEventListener("DOMContentLoaded", function () {
+		testFunction(window.tau);
+	});
+}

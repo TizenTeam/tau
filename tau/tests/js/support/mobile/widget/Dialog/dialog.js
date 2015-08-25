@@ -3,8 +3,13 @@
 	"use strict";
 
 	module('profile/mobile/widget/mobile/Dialog', {
+		teardown: function () {
+			tau.engine._clearBindings();
+			tau.engine.stop();
+		},
 		setup: function () {
-			ns.engine._clearBindings();
+			window.tauConfig = {autorun: false};
+			tau.engine.run();
 		}
 	});
 

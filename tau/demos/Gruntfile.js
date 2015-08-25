@@ -15,6 +15,14 @@ module.exports = function(grunt) {
 			"CIRCLE": "all and (-tizen-geometric-shape: circle)"
 		};
 
+		function buildTAUArgs() {
+			var result = ["build"];
+			if (grunt.option("tau-debug")) {
+				result.push("--tau-debug");
+			}
+			return result;
+		}
+
 		grunt.initConfig({
 			dom_munger: {
 				circle: {
@@ -67,8 +75,8 @@ module.exports = function(grunt) {
 
 			suffix = suffix || "";
 			grunt.config("multitau." + profile + suffix + ".options", {
-				src: "../dist",
-				dest: app + "/" + destination,
+				src: ".." + path.sep + "dist",
+				dest: app + path.sep + destination,
 				profile: profile,
 				app: app,
 				disablesdb: disablesdb
@@ -80,7 +88,7 @@ module.exports = function(grunt) {
 	grunt.registerTask("prepare-app", function() {
 		var profile = grunt.option("profile"),
 			app = grunt.option("app"),
-			destination = grunt.option("destination") || (grunt.option("profiledestination") && "lib/tau/" + profile ) || "lib/tau",
+			destination = grunt.option("destination") || (grunt.option("profiledestination") && path.join("lib", "tau", profile)) || path.join("lib", "tau"),
 			disablesdb = grunt.option("disablesdb"),
 			done = this.async(),
 			tasks = [],
@@ -128,5 +136,6 @@ module.exports = function(grunt) {
 		});
 
 	});
+
 	grunt.registerTask("default", [ "release" ]);
 };

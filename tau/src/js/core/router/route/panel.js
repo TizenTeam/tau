@@ -32,7 +32,7 @@
 			"../../util/selectors",
 			"../../util/object",
 			"../route",
-			"../history",
+			"../../history",
 			"../../widget/core/Panel"
 		],
 		function () {
@@ -95,6 +95,10 @@
 					panelHistory = JSON.parse(localStorage[storageName] || "[]"),
 					panelChangerComponent = self._panelChangerComponent,
 					activePanel = panelHistory[panelHistory.length - 1];
+
+				if (!self.active || !panelChangerComponent) {
+					return false;
+				}
 
 				if (self._panelChangerElement.querySelector("#" + activePanel).classList.contains(panelChanger.classes.PRE_IN)
 						|| panelHistory.length === 0) {

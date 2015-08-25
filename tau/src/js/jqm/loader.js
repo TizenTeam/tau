@@ -1,4 +1,4 @@
-/*global window, define */
+/*global window, define, ns */
 /*jslint plusplus: true, nomen: true */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
@@ -14,8 +14,11 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ *
+ * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
+ * License : MIT License V2
  */
-(function (window, document, ns, $) {
+(function (window, document) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
@@ -27,7 +30,9 @@
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 
-			var initLoader = function () {
+			var $,
+				initLoader = function () {
+				$ = ns.jqm.jQuery;
 				if ($) {
 					$.mobile = $.mobile || {};
 
@@ -42,17 +47,15 @@
 
 					// DEPRECATED
 					// Turn on/off page loading message. Theme doubles as an object argument
-					// with the following shape: { theme: '', text: '', html: '', textVisible: '' }
+					// with the following shape: { theme: "", text: "", html: "", textVisible: "" }
 					// NOTE that the $.mobile.loading* settings and params past the first are deprecated
 					$.mobile.showPageLoadingMsg = function (theme, msgText, textonly) {
-						$.mobile.loading('show', theme, msgText, textonly);
-						return;
+						$.mobile.loading("show", theme, msgText, textonly);
 					};
 
 					// DEPRECATED
 					$.mobile.hidePageLoadingMsg = function () {
-						$.mobile.loading('hide');
-						return;
+						$.mobile.loading("hide");
 					};
 
 					$.mobile.loading = function () {
@@ -61,14 +64,13 @@
 							theme = args[1],
 							msgText = args[2],
 							textonly = args[3],
-							element = document.querySelector('[data-role=loader]') || document.createElement('div'),
-							loader = ns.engine.instanceWidget(element, 'Loader');
-						if (method === 'show') {
+							element = document.querySelector(ns.engine.getWidgetDefinition("Loader").selector),
+							loader = ns.engine.instanceWidget(element, "Loader");
+						if (method === "show") {
 							loader.show(theme, msgText, textonly);
-						} else if (method === 'hide') {
+						} else if (method === "hide") {
 							loader.hide();
 						}
-						return;
 					};
 				}
 			};
@@ -80,4 +82,4 @@
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
-}(window, window.document, ns, ns.jqm.jQuery));
+}(window, window.document));

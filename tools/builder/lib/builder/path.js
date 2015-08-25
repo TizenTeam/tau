@@ -23,12 +23,13 @@
 	 * @returns {string}
 	 */
 	function getRelativePath(parent, child) {
-		var sep = config.get("separator");
+		var sep = config.get("os") !== "win" ? config.get("separator") : "\\\\";
+
 		if (parent && child) {
 			// replace parent direction in current path on dot
-			child = child.replaceAll(parent, ".");
+			child = child.replace(parent, ".");
 			// change every part of path separator[^separator]+ on separator..
-			child = child.replaceAll("\\" + sep + "[^\\" + sep + "]+", sep + "..");
+			child = child.replaceAll(sep + "[^" + sep + sep + "]+", sep + "..");
 			return child;
 		}
 		// if something goes wrong, the parent without any change is returned
@@ -38,7 +39,7 @@
 	exports.clearPath = function (filePath, destinationDirPath) {
 		var file = new File(filePath),
 			destinationDir = new File(destinationDirPath),
-			sep = config.get("separator"),
+			sep = config.get("os") !== "win" ? config.get("separator") : "\\\\",
 			relativePath,
 			pathToChange,
 			data;
@@ -64,7 +65,7 @@
 			// file: separator separator path_without_separator_in_the_end separator
 			pathToChange = FILE_PREFIX + sep + sep + destinationDirPath + sep;
 			// replace absolute paths on relative
-			data = data.replaceAll(pathToChange, relativePath);
+			data = data.replace(pathToChange, relativePath);
 			try {
 				// overwrite file
 				FileUtils.writeStringToFile(file, data + "\n", false);

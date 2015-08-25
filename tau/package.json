@@ -26,6 +26,8 @@
     "grunt-debug-task": "~0.1.4",
     "grunt-exec": "latest",
     "grunt-jsduck": "~1.0.0",
+    "karma": "0.13.0",
+    "grunt-karma": "*",
     "grunt-lib-phantomjs": "^0.6.0",
     "grunt-qunit-istanbul": "~0.4.7",
     "grunt-qunit-tap": "~2.0.0",

@@ -143,7 +143,7 @@
 			{{#isPublic}}
 				<tr>
 					<td>
-						<pre class="intable prettyprint">{{#return.types}}{{return.types}} {{/return.types}}<a href="#method-{{name}}">{{name}}</a> ( {{#params}}{{types}}{{#isOptional}}?{{/isOptional}} {{name}}{{#defaultValue}} = {{defaultValue}}{{/defaultValue}}{{^isLast}}, {{/isLast}}{{/params}} ) </pre>
+						<pre class="intable prettyprint">{{#return.types}}{{return.types}} {{/return.types}}<a href="#method-{{name}}">{{name}}</a> ( {{#params}}{{^isSubParam}}{{types}}{{#isOptional}}?{{/isOptional}} {{name}}{{#defaultValue}} = {{defaultValue}}{{/defaultValue}}{{^isLast}}, {{/isLast}}{{/isSubParam}}{{/params}} ) </pre>
 					</td>
 					<td>{{{brief}}}</td>
 				</tr>
@@ -161,7 +161,7 @@
 						{{{brief}}}
 					</div>
 					<div class="synopsis">
-						<pre class="signature prettyprint">{{#return.types}}{{return.types}} {{/return.types}}{{name}} ( {{#params}}{{types}}{{#isOptional}}?{{/isOptional}} {{name}}{{#defaultValue}} = {{defaultValue}}{{/defaultValue}}{{^isLast}}, {{/isLast}}{{/params}}) </pre>
+						<pre class="signature prettyprint">{{#return.types}}{{return.types}} {{/return.types}}{{name}} ( {{#params}}{{^isSubParam}}{{types}}{{#isOptional}}?{{/isOptional}} {{name}}{{#defaultValue}} = {{defaultValue}}{{/defaultValue}}{{^isLast}}, {{/isLast}}{{/isSubParam}}{{/params}}) </pre>
 					</div>
 					{{#since}}
 						<p><span class="version">Since: </span>

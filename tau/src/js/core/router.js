@@ -21,7 +21,7 @@
  * @author Krzysztof Antoszek <k.antoszek@samsung.com>
  * @class ns.router
  */
-(function (ns) {
+(function () {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
@@ -36,4 +36,4 @@
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
-}(ns));
+}());

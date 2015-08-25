@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width,user-scalable=no"/>
+	<link rel="stylesheet"  href="../../lib/tau/theme/default/tau.css">
+	<link rel="stylesheet"  href="../../lib/highlightjs/styles/github.css">
+	<link rel="stylesheet"  href="../css/custom.css">
+	<title>TAU Application Framework</title>
+	<script type="text/javascript" src="../../lib/tau/js/tau.full.js" data-build-remove="false"></script>
+	<script src="../../lib/highlightjs/highlight.min.js"></script>
+	<script src="../js/highlighting.js"></script>
+</head>
+	<body>
+		<div class="ui-page" id="custom-route-page-dynamic">
+			<header>
+				<h2 class="ui-title">Creating pages on the fly</h2>
+			</header>
+			<div data-role="content">
+				<pre><code class="javascript">
+var controller = tau.Controller.getInstance();
+controller.addRoute("page-dynamic", function (deferred) {
+	var page = document.createElement("div");
+	page.dataset.role = "page";
+	page.textContent = "Hello world!";
+	deferred.resolve(page);
+});
+				</code></pre>
+			</div>
+			<script>
+				var controller = tau.Controller.getInstance();
+				controller.addRoute("page-dynamic", function (deferred) {
+					var page = document.createElement("div");
+					page.dataset.role = "page";
+					page.textContent = "Hello world!";
+					deferred.resolve(page);
+				});
+			</script>
+			<footer>
+				<a class="ui-btn ui-button" href="#page-dynamic">Test it</a>
+			</footer>
+		</div>
+	</body>
+</html>

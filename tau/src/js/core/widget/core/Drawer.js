@@ -1,4 +1,4 @@
-/*global window, define */
+/*global window, define, ns */
 /*jslint nomen: true */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
@@ -51,7 +51,7 @@
 			"../../util/DOM/css",
 			"../../event",
 			"../../event/gesture",
-			"../../router/history",
+			"../../history",
 			"../core", // fetch namespace
 			"./Page",
 			"../BaseWidget"
@@ -77,7 +77,7 @@
 				selectors = ns.util.selectors,
 				utilDOM = ns.util.DOM,
 				events = ns.event,
-				history = ns.router.history,
+				history = ns.history,
 				Gesture = ns.event.gesture,
 				Page = ns.widget.core.Page,
 				STATE = {
@@ -264,11 +264,10 @@
 			/**
 			 * MouseUp event handler
 			 * @method _onMouseup
-			 * @param {Event} event
 			 * @member ns.widget.core.Drawer
 			 * @protected
 			 */
-			prototype._onMouseup = function (event) {
+			prototype._onMouseup = function () {
 				var self = this;
 				if (self._state === STATE.SLIDING) {
 					self.close();
@@ -277,11 +276,10 @@
 			/**
 			 * Click event handler
 			 * @method _onClick
-			 * @param {Event} event
 			 * @member ns.widget.core.Drawer
 			 * @protected
 			 */
-			prototype._onClick = function (event) {
+			prototype._onClick = function () {
 				var self = this;
 				if (self._state === STATE.OPENED) {
 					self.close();
@@ -291,11 +289,10 @@
 			/**
 			 * Resize event handler
 			 * @method _onResize
-			 * @param {Event} event
 			 * @member ns.widget.core.Drawer
 			 * @protected
 			 */
-			prototype._onResize = function (event) {
+			prototype._onResize = function () {
 				var self = this;
 				// resize event handler
 				self._refresh();
@@ -304,11 +301,10 @@
 			/**
 			 * webkitTransitionEnd event handler
 			 * @method _onTransitionEnd
-			 * @param {Event} event
 			 * @member ns.widget.core.Drawer
 			 * @protected
 			 */
-			prototype._onTransitionEnd = function (event) {
+			prototype._onTransitionEnd = function () {
 				var self = this,
 					position = self.options.position,
 					drawerOverlay = self._drawerOverlay;
@@ -430,10 +426,9 @@
 			 * DragCancel event handler
 			 * @method _onDragCancel
 			 * @protected
-			 * @param {Event} event
 			 * @member ns.widget.core.Drawer
 			 */
-			prototype._onDragCancel = function (event) {
+			prototype._onDragCancel = function () {
 				var self = this;
 				if (self.options.enable && self._isDrag) {
 					self.close();
@@ -754,7 +749,7 @@
 					selfOptions = self.options,
 					drawerClassList = self.element.classList;
 				if (self._state !== STATE.CLOSED) {
-					if (!reverse && self._state === STATE.OPENED) {
+					if (!reverse && self._state === STATE.OPENED && !ns.getConfig("disableRouter")) {
 						// This method was fired by JS code or this widget.
 						history.back();
 						return;
