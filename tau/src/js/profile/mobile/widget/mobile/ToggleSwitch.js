@@ -190,13 +190,16 @@
 			function buildToggleBasedOnSelectTag(element, divHandler, toggleContainer) {
 				var inputElement;
 
+				element.style.display = "none";
 				element.parentNode.insertBefore(toggleContainer, element);
 				inputElement = setUpInput();
 
 				if (element.hasAttribute("disabled")) {
 					inputElement.setAttribute("disabled", "disabled");
 				}
+
 				inputElement.className = classes.toggle;
+				toggleContainer.className = classes.toggleContainer;
 
 				toggleContainer.appendChild(inputElement);
 				toggleContainer.appendChild(divHandler);
@@ -216,10 +219,34 @@
 			*/
 			function buildToggleBasedOnInputTag(element, divHandler, toggleContainer) {
 				element.className = classes.toggle;
+				toggleContainer.className = classes.toggleContainer;
 
 				element.parentNode.insertBefore(toggleContainer, element);
 				toggleContainer.appendChild(element);
 				toggleContainer.appendChild(divHandler);
+			}
+
+			/**
+			 * Build Toggle based on Custom Element
+			 * @method buildToggleBasedOnCustomElement
+			 * @param {HTMLElement} divHandler
+			 * @param {HTMLElement} toggleContainer
+			 * @private
+			 * @static
+			 * @member ns.widget.mobile.ToggleSwitch
+			 */
+			function buildToggleBasedOnCustomElement(divHandler, toggleContainer) {
+				var inputElement = setUpInput();
+
+				inputElement.className = classes.toggle;
+				toggleContainer.className = classes.toggleContainer;
+
+				toggleContainer.appendChild(inputElement);
+				toggleContainer.appendChild(divHandler);
+
+				if (toggleContainer.hasAttribute("disabled")) {
+					inputElement.setAttribute("disabled", "disabled");
+				}
 			}
 
 			/**
@@ -235,20 +262,20 @@
 					toggleContainer = createElement("div"),
 					controlType = element.nodeName.toLowerCase();
 
-				toggleContainer.className = classes.toggleContainer;
-				divHandler.className = classes.toggleHandler;
 
 				if (controlType === "input") {
 					buildToggleBasedOnInputTag(element, divHandler, toggleContainer);
 				}
-				if (controlType === "select" || controlType === "tau-toggleswitch") {
-					//hide element
-					element.style.display = "none";
+				if (controlType === "select") {
 					buildToggleBasedOnSelectTag(element, divHandler, toggleContainer);
 				}
+				if (controlType === "tau-toggleswitch") {
+					buildToggleBasedOnCustomElement(divHandler, element);
+				}
 
-				// check type of widget, based on select has option tags
-				this._type = element.children.length ? "select" : "input";
+				divHandler.className = classes.toggleHandler;
+
+				this._type = controlType;
 
 				return element;
 			};
@@ -347,8 +374,10 @@
 				removeAttributesWhenDestroy(element);
 
 				//remove visible representative
-				container.parentElement.insertBefore(element, container);
-				container.parentElement.removeChild(container);
+				if (tagName === "input" || tagName === "select") {
+					container.parentElement.insertBefore(element, container);
+					container.parentElement.removeChild(container);
+				}
 
 				if (tagName === "input") {
 					element.classList.remove(classes.toggle);

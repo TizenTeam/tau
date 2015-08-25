@@ -13,16 +13,16 @@
 
 	<tau-scrollview class="ui-content">
 		<p>1-1. Proper way of definding toggleswitch with &lt;input&gt; tag</p>
-		<tau-toggleswitch name="toggle-1" id="toggle-1" class="ui-toggleswitch"></tau-toggleswitch>
+		<tau-toggleswitch name="toggle-1" id="toggle-11" class="ui-toggleswitch"></tau-toggleswitch>
 
 		<p>1-2.Proper way of definding disabled toggleswitch with &lt;input&gt; tag</p>
-		<tau-toggleswitch name="toggle-2" id="toggle-2" class="ui-toggleswitch" disabled></tau-toggleswitch>
+		<tau-toggleswitch name="toggle-2" id="toggle-21" class="ui-toggleswitch" disabled></tau-toggleswitch>
 
 		<p>2. Define toggleswitch based on &lt;select&gt; tag and class=&quot;ui-toggleswitch&quot;</p>
-		<tau-toggleswitch name="flip-1" id="flip-1" class="ui-toggleswitch">
+		<select name="flip-1" id="flip-1" class="ui-toggleswitch" is="tau-toggleswitch">
 			<option value="off"></option>
 			<option value="on"></option>
-		</tau-toggleswitch>
+		</select>
 
 	</tau-scrollview>
 	<link rel="stylesheet" href="toggleswitch.css">
