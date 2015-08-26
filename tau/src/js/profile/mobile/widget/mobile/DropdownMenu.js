@@ -554,7 +554,7 @@
 				self._selectedIndex = element.selectedIndex;
 
 				if(create) {
-					selectedOption = ui.elDefaultOption || element[element.selectedIndex];
+					selectedOption = ui.elDefaultOption || element.options.item(element.selectedIndex);
 					elSelectWrapper = document.createElement("div");
 					elSelectWrapper.className = classes.selectWrapper;
 					elSelectWrapper.id = elementId + "-dropdownmenu";
@@ -589,7 +589,7 @@
 						ui.page.appendChild(fragment);
 					}
 				} else {
-					selectedOption = element[element.selectedIndex];
+					selectedOption = element.options.item(element.selectedIndex);
 					elSelectWrapper = document.getElementById(elementId + "-dropdownmenu");
 					elPlaceHolder = document.getElementById(elementId + "-placeholder");
 					elOptionWrapper = document.getElementById(elementId + "-options-wrapper");
@@ -599,7 +599,9 @@
 					}
 				}
 
-				elPlaceHolder.innerHTML = selectedOption.textContent;
+				if (selectedOption) {
+					elPlaceHolder.innerHTML = selectedOption.textContent;
+				}
 
 				if (self.options.nativeMenu) {
 					elOptions = element.querySelectorAll("option");
