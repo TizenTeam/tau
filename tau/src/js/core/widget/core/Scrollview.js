@@ -243,11 +243,11 @@
 					var self = this,
 						ui;
 					/**
-					 * @property {Object} state Scrollview internal state object
-					 * @property {Function} state.currentTransition Instance transition function
+					 * @property {Object} _scrollState Scrollview internal state object
+					 * @property {Function} _scrollState.currentTransition Instance transition function
 					 * @readonly
 					 */
-					self.state = {
+					self._scrollState = {
 						currentTransition: null
 					};
 					/**
@@ -751,7 +751,7 @@
 			 * @member ns.widget.core.Scrollview
 			 */
 			Scrollview.prototype.translateTo = function (x, y, duration) {
-				translate(this.state, this.element, x, y, duration);
+				translate(this._scrollState, this.element, x, y, duration);
 			};
 
 			/**
