@@ -34,7 +34,6 @@
 			"../../event",
 			"../../util/selectors",
 			"../../util/object",
-			"../../router/history",
 			"../BaseWidget",
 			"../core",
 			"./Page",
@@ -62,7 +61,10 @@
 				PanelChanger = function () {
 					var self = this;
 					self._ui = {};
-					self.options = {};
+					self.options = {
+						animationType: DEFAULT.ANIMATE,
+						manageHistory: true
+					};
 					self.eventType = {};
 					self._animating = false;
 					self._animationClasses = {};
@@ -85,12 +87,7 @@
 			 * @protected
 			 */
 			prototype._configure = function() {
-				var self = this;
-				object.merge(self.options, {
-					animationType: DEFAULT.ANIMATE,
-					manageHistory: true
-				});
-				object.merge(self.eventType, panel.eventType);
+				object.merge(this.eventType, panel.eventType);
 			};
 
 			/**

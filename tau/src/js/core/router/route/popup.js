@@ -22,7 +22,7 @@
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  * @author Damian Osipiuk <d.osipiuk@samsung.com>
  */
-(function (window, document, ns) {
+(function (window, document) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
@@ -32,7 +32,7 @@
 			"../../util/DOM/attributes",
 			"../../util/object",
 			"../../widget/core/Popup",
-			"../history",
+			"../../history",
 			"../route"
 		],
 		function () {
@@ -117,7 +117,7 @@
 			 * @private
 			 * @static
 			 */
-			history = ns.router.history,
+			history = ns.history,
 			/**
 			 * Alias for {@link ns.util.DOM}
 			 * @property {Object} DOM
@@ -252,7 +252,7 @@
 			routePopup.open = function (toPopup, options, event) {
 				var self = this,
 					popup,
-					router = engine.getRouter(),
+					router = ns.router.Router.getInstance(),//@TODO fix mutual inclusion
 					events = self.events,
 					removePopup = function () {
 						document.removeEventListener(events.POPUP_HIDE, removePopup, false);
@@ -331,7 +331,7 @@
 						popupOptions.ext = options.ext || popupOptions.ext;
 						// unlock the router if it was locked
 						if (!popupOptions.dismissible) {
-							engine.getRouter().unlock();
+							ns.router.Router.getInstance().unlock();
 						}
 						// and call history.back()
 						history.back();
@@ -348,13 +348,12 @@
 			 * This method handles hash change.
 			 * It closes opened popup.
 			 * @method onHashChange
-			 * @param {string} url
 			 * @param {object} options
 			 * @return {boolean}
 			 * @member ns.router.route.popup
 			 * @static
 			 */
-			routePopup.onHashChange = function (url, options) {
+			routePopup.onHashChange = function (options) {
 				var activePopup = this.activePopup;
 
 				if (activePopup) {
@@ -390,10 +389,10 @@
 			routePopup.find = function (absUrl) {
 				var self = this,
 					dataUrl = self._createDataUrl(absUrl),
-					activePage = engine.getRouter().getContainer().getActivePage(),
+					activePage = ns.router.Router.getInstance().getContainer().getActivePage(), //@TODO fix mutual inclision
 					popup;
 
-				popup = activePage.element.querySelector("[data-url='" + dataUrl + "']" + self.filter);
+				popup = activePage && activePage.element.querySelector("[data-url='" + dataUrl + "']" + self.filter);
 
 				if (!popup && dataUrl && !path.isPath(dataUrl)) {
 					popup = findPopupAndSetDataUrl(dataUrl, self.filter);
@@ -483,4 +482,4 @@
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
-}(window, window.document, ns));
+}(window, window.document));

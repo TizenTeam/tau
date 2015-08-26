@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width,user-scalable=no"/>
+	<link rel="stylesheet"  href="../../lib/tau/theme/default/tau.css">
+	<link rel="stylesheet"  href="../../lib/highlightjs/styles/github.css">
+	<link rel="stylesheet"  href="../css/custom.css">
+	<title>TAU Application Framework</title>
+	<script type="text/javascript" src="../../lib/tau/js/tau.full.js" data-build-remove="false"></script>
+	<script src="../../lib/highlightjs/highlight.min.js"></script>
+	<script src="../js/highlighting.js"></script>
+</head>
+	<body>
+		<div class="ui-page" id="custom-route-string-page-params">
+			<header>
+				<h2 class="ui-title">Using params in routes</h2>
+			</header>
+			<div data-role="content">
+				<pre><code class="javascript">
+var controller = tau.Controller.getInstance();
+controller.addRoute("page-params/:param1/:param2", function (deferred, param1, param2) {
+	deferred.resolve(
+			'&lt;div data-role="page"&gt;' +
+			'&lt;div&gt;param1: &lt;strong&gt;' + param1 + '&lt;/strong&gt;&lt;/div&gt;' +
+			'&lt;div&gt;param2: &lt;strong&gt;' + param2 + '&lt;/strong&gt;&lt;/div&gt;' +
+			'&lt;/a&gt;'
+	);
+});
+				</code></pre>
+				<pre><code class="html">
+&lt;a href="#page-params/value1/value2"&gt;Test it&lt;/a&gt;
+				</code></pre>
+			</div>
+			<script>
+				var controller = tau.Controller.getInstance();
+				controller.addRoute("page-params/:param1/:param2", function (deferred, param1, param2) {
+					deferred.resolve(
+							'<div data-role="page">' +
+							'<div>param1: <strong>' + param1 + '</strong></div>' +
+							'<div>param2: <strong>' + param2 + '</strong></div>' +
+							'</a>'
+					);
+				});
+			</script>
+			<footer>
+				<a class="ui-btn ui-button" href="#page-params/value1/value2">Test it</a>
+			</footer>
+		</div>
+	</body>
+</html>

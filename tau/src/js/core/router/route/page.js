@@ -1,4 +1,4 @@
-/*global window, define */
+/*global window, define, ns */
 /*jslint nomen: true */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
@@ -21,7 +21,7 @@
  * @class ns.router.route.page
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  */
-(function (document, ns) {
+(function (document) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
@@ -33,7 +33,7 @@
 			"../../util/object",
 			"../../widget/core/Page",
 			"../route",
-			"../history"
+			"../../history"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
@@ -42,7 +42,7 @@
 				DOM = util.DOM,
 				object = util.object,
 				utilSelector = util.selectors,
-				history = ns.router.history,
+				history = ns.history,
 				engine = ns.engine,
 				Page = ns.widget.core.Page,
 				baseElement,
@@ -95,12 +95,20 @@
 			};
 
 			/**
-			 * Property defining selector for filtering only page elements
+			 * Property defining selector without spaces for filtering only page elements.
 			 * @property {string} filter
 			 * @member ns.router.route.page
 			 * @static
 			 */
 			routePage.filter = engine.getWidgetDefinition("Page").selector.replace(/(\s*)/g, "" );
+
+			/**
+			 * Property contains first page element
+			 * @property {?HTMLElement} firstPage
+			 * @member ns.router.route.page
+			 * @static
+			 */
+			routePage.firstPage = null;
 
 			/**
 			 * Returns default route options used inside Router.
@@ -111,7 +119,7 @@
 			 */
 			routePage.option = function () {
 				var defaults = object.merge({}, routePage.defaults);
-				defaults.transition = ns.getConfig('pageTransition', defaults.transition);
+				defaults.transition = ns.getConfig("pageTransition", defaults.transition);
 				return defaults;
 			};
 
@@ -136,10 +144,9 @@
 			routePage.open = function (toPage, options) {
 				var pageTitle = document.title,
 					url,
-					state = {},
-					router = engine.getRouter();
+					state = {};
 
-				if (toPage === router.getFirstPage() && !options.dataUrl) {
+				if (toPage === this.getFirstElement() && !options.dataUrl) {
 					url = path.documentUrl.hrefNoHash;
 				} else {
 					url = DOM.getNSData(toPage, "url");
@@ -185,9 +192,9 @@
 			 */
 			routePage.find = function (absUrl) {
 				var self = this,
-					router = engine.getRouter(),
+					router = ns.router.Router.getInstance(),
 					dataUrl = self._createDataUrl(absUrl),
-					initialContent = router.getFirstPage(),
+					initialContent = self.getFirstElement(),
 					pageContainer = router.getContainer(),
 					page,
 					selector = "[data-url='" + dataUrl + "']",
@@ -220,7 +227,7 @@
 				// We check for this case here because we don't want a first-page with
 				// an id falling through to the non-existent embedded page error case.
 				if (!page &&
-						path.isFirstPageUrl(dataUrl) &&
+						path.isFirstPageUrl(dataUrl, self.getFirstElement()) &&
 						initialContent) {
 					page = initialContent;
 				}
@@ -266,10 +273,10 @@
 			 * @method onHashChange
 			 * @static
 			 * @member ns.router.route.page
-			 * @return {null}
+			 * @return {boolean}
 			 */
-			routePage.onHashChange = function (/* url, options */) {
-				return null;
+			routePage.onHashChange = function (/* options */) {
+				return false;
 			};
 
 			/**
@@ -348,7 +355,7 @@
 			 * @static
 			 */
 			routePage.getContainer = function () {
-				return engine.getRouter().getContainer();
+				return ns.router.Router.getInstance().getContainer(); //@TODO fix mutual inclusion
 			};
 
 			/**
@@ -372,6 +379,27 @@
 			routePage.getActiveElement = function () {
 				return this.getActive().element;
 			};
+
+			/**
+			 * Method returns ths first page.
+			 * @method getFirstElement
+			 * @return {HTMLElement} the first page
+			 * @member ns.router.route.page
+			 */
+			routePage.getFirstElement = function () {
+				return this.firstPage;
+			};
+
+			/**
+			 * Method returns ths first page.
+			 * @method setFirstElement
+			 * @param {HTMLElement} firstPage the first page
+			 * @member ns.router.route.page
+			 */
+			routePage.setFirstElement = function (firstPage) {
+				this.firstPage = firstPage;
+			};
+
 			ns.router.route.page = routePage;
 
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
@@ -379,4 +407,4 @@
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
-}(window.document, ns));
+}(window.document));

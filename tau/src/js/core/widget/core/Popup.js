@@ -22,7 +22,7 @@
  * @class ns.widget.core.Popup
  * @extends ns.widget.Popup
  */
-(function (ns) {
+(function () {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
@@ -32,6 +32,7 @@
 			"../../util/object",
 			"../../util/deferred",
 			"../../util/selectors",
+			"../../router/Router",
 			"../BaseWidget",
 			"../core"
 		],
@@ -79,6 +80,13 @@
 				 * @private
 				 */
 				eventUtils = ns.event,
+				/**
+				 * Alias for Router, loose requirement
+				 * @property {ns.router.Router} Router
+				 * @member ns.widget.core.Popup
+				 * @private
+				 */
+				Router = ns.router && ns.router.Router,
 
 				Popup = function () {
 					var self = this,
@@ -352,7 +360,8 @@
 				var self = this,
 					ui = self._ui,
 					wrapper,
-					child = element.firstChild;
+					child = element.firstChild,
+					page = utilSelector.getClosestByClass(element, "ui-page") || document.body;
 
 				// set class for element
 				element.classList.add(classes.popup);
@@ -374,6 +383,11 @@
 				this._buildHeader(ui.container);
 				this._buildFooter(ui.container);
 				this._buildContent(ui.container);
+
+				// add popup to page or body
+				if (element.parentNode !== page) {
+					page.appendChild(element);
+				}
 
 				// set overlay
 				this._setOverlay(element, this.options.overlay);
@@ -413,6 +427,16 @@
 						// if option is set on "false", the overlay is not visible
 						overlay.style.opacity = 0;
 					}
+				}
+			};
+
+			prototype._destroyOverlay = function(element) {
+				var self = this,
+					overlay = self._ui.overlay;
+
+				self._setOverlay(element, false);
+				if (overlay) {
+					overlay.parentNode.removeChild(overlay);
 				}
 			};
 
@@ -470,7 +494,7 @@
 				var self = this,
 					activeClass = classes.active,
 					elementClassList = self.element.classList,
-					route = engine.getRouter().getRoute("popup"),
+					route = Router && Router.getInstance().getRoute("popup"),
 					options;
 
 				// NOTE: popup's options object is stored in window.history at the router module,
@@ -480,14 +504,18 @@
 				// set state of popup and add proper class
 				if (active) {
 					// set global variable
-					route.setActive(self, options);
+					if (route) {
+						route.setActive(self, options);
+					}
 					// add proper class
 					elementClassList.add(activeClass);
 					// set state of popup 	358
 					self.state = states.OPENED;
 				} else {
 					// no popup is opened, so set global variable on "null"
-					route.setActive(null, options);
+					if (route) {
+						route.setActive(null, options);
+					}
 					// remove proper class
 					elementClassList.remove(activeClass);
 					// set state of popup
@@ -558,7 +586,7 @@
 			 * @method layout
 			 * @member ns.widget.core.Popup
 			 */
-			prototype._layout = function (element) {
+			prototype._layout = function () {
 			};
 
 			/**
@@ -582,8 +610,8 @@
 					self._storeOpenOptions(options);
 
 					newOptions = objectUtils.merge(self.options, options);
-					if (!newOptions.dismissible) {
-						engine.getRouter().lock();
+					if (!newOptions.dismissible && Router) {
+						Router.getInstance().lock();
 					}
 					self._show(newOptions);
 				}
@@ -601,8 +629,8 @@
 					newOptions = objectUtils.merge(self.options, options);
 
 				if (self._isActive()) {
-					if (!newOptions.dismissible) {
-						engine.getRouter().unlock();
+					if (!newOptions.dismissible && Router) {
+						Router.getInstance().unlock();
 					}
 					self._hide(newOptions);
 				}
@@ -657,8 +685,7 @@
 			prototype._show = function (options) {
 				var self = this,
 					transitionOptions = objectUtils.merge({}, options),
-					overlay = self._ui.overlay,
-					deferred;
+					overlay = self._ui.overlay;
 
 				// layouting
 				self._layout(self.element);
@@ -754,7 +781,9 @@
 				switch(event.type) {
 					case "pagebeforehide":
 						// we need close active popup if exists
-						engine.getRouter().close(null, {transition: "none", rel: "popup"});
+						if (Router) {
+							Router.getInstance().close(null, {transition: "none", rel: "popup"});
+						}
 						break;
 					case "resize":
 						self._onResize(event);
@@ -793,8 +822,12 @@
 				event.preventDefault();
 				event.stopPropagation();
 
-				if (options.dismissible) {
-					engine.getRouter().close();
+				if (options.dismissible && Router) {
+					if (ns.getConfig("disableRouter")) {
+						this.close();
+					} else {
+						engine.getRouter().close();
+					}
 				}
 			};
 
@@ -925,7 +958,7 @@
 				}
 
 				self._unbindEvents(element);
-				self._setOverlay(element, false);
+				self._destroyOverlay(element);
 
 				ui.wrapper = null;
 			};
@@ -950,4 +983,4 @@
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
-}(ns));
+}());

@@ -1,4 +1,4 @@
-/*global window, define, XMLHttpRequest, console, Blob */
+/*global window, define, XMLHttpRequest, console, Blob, ns, URL */
 /*jslint nomen: true, browser: true, plusplus: true */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
@@ -14,6 +14,9 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ *
+ * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
+ * License : MIT License V2
  */
 /**
  * #Utilities
@@ -28,7 +31,7 @@
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  * @author Krzysztof Antoszek <k.antoszek@samsung.com>
  */
-(function (window, document, ns) {
+(function (window, document) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
@@ -115,7 +118,9 @@
 			function safeEvalWrap(code) {
 				return function () {
 					try {
+						/*jshint -W061 */
 						window.eval(code);
+						/*jshint +W061 */
 					} catch (e) {
 						if (typeof console !== "undefined") {
 							if (e.stack) {
@@ -256,7 +261,6 @@
 					scriptAttributes = slice.call(script.attributes),
 					src = script.getAttribute("src"),
 					path = util.path,
-					request,
 					attribute,
 					status;
 
@@ -301,4 +305,4 @@
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
-}(window, window.document, ns));
+}(window, window.document));

@@ -1,4 +1,4 @@
-/*global window, define, RegExp */
+/*global window, define, RegExp, ns */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
  *
@@ -23,7 +23,7 @@
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  * @author Piotr Karny <p.karny@samsung.com>
  */
-(function (window, document, ns) {
+(function (window, document) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
@@ -31,27 +31,18 @@
 			"../util",
 			"./object",
 			"./selectors",
-			"./DOM/attributes",
-			"../engine"
+			"./DOM/attributes"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 				/**
-				* Local alias for ns.engine
-				* @property {Object} engine Alias for {@link ns.engine}
-				* @member ns.util.path
-				* @static
-				* @private
-				*/
-			var engine = ns.engine,
-				/**
-				* Local alias for ns.util.object
-				* @property {Object} utilsObject Alias for {@link ns.util.object}
-				* @member ns.util.path
-				* @static
-				* @private
-				*/
-				utilsObject = ns.util.object,
+				 * Local alias for ns.util.object
+				 * @property {Object} utilsObject Alias for {@link ns.util.object}
+				 * @member ns.util.path
+				 * @static
+				 * @private
+				 */
+			var utilsObject = ns.util.object,
 				/**
 				* Local alias for ns.util.selectors
 				* @property {Object} utilsSelectors Alias for {@link ns.util.selectors}
@@ -132,7 +123,7 @@
 					* browsers that auto decode it. All references to location.href should be
 					* replaced with a call to this method so that it can be dealt with properly here
 					* @method getLocation
-					* @param {string|Object} url
+					* @param {string|Object} [url=window.location.href]
 					* @return {string}
 					* @member ns.util.path
 					*/
@@ -359,7 +350,7 @@
 					addSearchParams: function (url, params) {
 						var urlObject = path.parseUrl(url),
 							paramsString = (typeof params === "object") ? this.getAsURIParameters(params) : params,
-							searchChar = '',
+							searchChar = "",
 							urlObjectHash = urlObject.hash;
 
 						if (path.isEmbedded(url) && paramsString.length > 0) {
@@ -395,7 +386,7 @@
 					* @method convertUrlToDataUrl
 					* @member ns.util.path
 					* @param {string} absUrl
-					* @param {string} dialogHashKey
+					* @param {boolean} dialogHashKey
 					* @param {Object} documentBase uri structure
 					* @return {string}
 					* @static
@@ -426,7 +417,7 @@
 						if (newPath === undefined) {
 							newPath = this.parseLocation().hash;
 						}
-						return this.stripHash(newPath).replace(/[^\/]*\.[^\/*]+$/, '');
+						return this.stripHash(newPath).replace(/[^\/]*\.[^\/*]+$/, "");
 					},
 
 					/**
@@ -632,7 +623,7 @@
 						if (hasHash) {
 							hash = hash.substring(1);
 						}
-						return (hasHash ? "#" : "") + hash.replace(new RegExp('([!"#$%&\'()*+,./:;<=>?@[\\]^`{|}~])', 'g'), "\\$1");
+						return (hasHash ? "#" : "") + hash.replace(new RegExp("([!\"#$%&\'()*+,./:;<=>?@[\\]^`{|}~])", "g"), "\\$1");
 					},
 
 					/**
@@ -640,16 +631,16 @@
 					* @method isFirstPageUrl
 					* @member ns.util.path
 					* @param {string} url
-					* @param {Object} documentBase uri structure
+					* @param {HTMLElement} firstPageElement first page element
+					* @param {string} documentBase uri structure
 					* @param {boolean} documentBaseDiffers
 					* @param {Object} documentUrl uri structure
 					* @return {boolean}
 					* @static
 					*/
-					isFirstPageUrl: function (url, documentBase, documentBaseDiffers, documentUrl) {
+					isFirstPageUrl: function (url, firstPageElement, documentBase, documentBaseDiffers, documentUrl) {
 						var urlStructure,
 							samePath,
-							firstPage,
 							firstPageId,
 							hash;
 
@@ -663,11 +654,8 @@
 						// Does the url have the same path as the document?
 						samePath = urlStructure.hrefNoHash === documentUrl.hrefNoHash || (documentBaseDiffers && urlStructure.hrefNoHash === documentBase.hrefNoHash);
 
-						// Get the first page element.
-						firstPage = engine.getRouter().firstPage;
-
 						// Get the id of the first page element if it has one.
-						firstPageId = firstPage ? firstPage.id : undefined;
+						firstPageId = firstPageElement && firstPageElement.id || false;
 						hash = urlStructure.hash;
 
 						// The url refers to the first page if the path matches the document and
@@ -691,7 +679,7 @@
 					* @static
 					*/
 					isPermittedCrossDomainRequest: function (docUrl, reqUrl) {
-						return ns.getConfig('allowCrossDomainPages', false) &&
+						return ns.getConfig("allowCrossDomainPages", false) &&
 							docUrl.protocol === "file:" &&
 							reqUrl.search(/^https?:/) !== -1;
 					},
@@ -705,11 +693,11 @@
 					* @static
 					*/
 					getAsURIParameters: function (data) {
-						var url = '',
+						var url = "",
 							key;
 						for (key in data) {
 							if (data.hasOwnProperty(key)) {
-								url += encodeURIComponent(key) + '=' + encodeURIComponent(data[key]) + '&';
+								url += encodeURIComponent(key) + "=" + encodeURIComponent(data[key]) + "&";
 							}
 						}
 						return url.substring(0, url.length - 1);
@@ -751,7 +739,7 @@
 					* @static
 					*/
 					getFilePath: function (path, dialogHashKey) {
-						var splitkey = '&' + ns.getConfig('subPageUrlKey', '');
+						var splitkey = "&" + ns.getConfig("subPageUrlKey", "");
 						return path && path.split(splitkey)[0].split(dialogHashKey)[0];
 					},
 
@@ -797,7 +785,7 @@
 
 			path.documentUrl = path.parseLocation();
 
-			base = document.querySelector('base');
+			base = document.querySelector("base");
 
 			/**
 			* The document base URL for the purposes of resolving relative URLs,
@@ -837,7 +825,7 @@
 				var url = utilsDOM.getNSData(utilsSelectors.getClosestBySelector(element, selector), "url"),
 					baseUrl = path.documentBase.hrefNoHash;
 
-				if (!ns.getConfig('dynamicBaseEnabled', true) || !url || !path.isPath(url)) {
+				if (!ns.getConfig("dynamicBaseEnabled", true) || !url || !path.isPath(url)) {
 					url = baseUrl;
 				}
 
@@ -850,4 +838,4 @@
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
-}(window, window.document, ns));
+}(window, window.document));

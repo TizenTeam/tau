@@ -58,7 +58,6 @@
 			"../../util/DOM/css",
 			"../../event",
 			"../../event/gesture",
-			"../../router/history",
 			"../core", // fetch namespace
 			"./Page",
 			"../BaseWidget"

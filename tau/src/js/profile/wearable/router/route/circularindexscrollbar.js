@@ -32,7 +32,7 @@
 			"../../../../core/util/selectors",
 			"../../../../core/util/object",
 			"../../../../core/router/route",
-			"../../../../core/router/history",
+			"../../../../core/history",
 			"../../widget/wearable/CircularIndexScrollbar"
 		],
 		function () {
@@ -141,23 +141,23 @@
 			/**
 			 * This method handles hash change.
 			 * @method onHashChange
-			 * @param {String} url
 			 * @param {Object} options
 			 * @static
 			 * @member ns.router.route.circularindexscrollbar
-			 * @return {null}
+			 * @return {boolean}
 			 */
-			routeCircularIndexScrollbar.onHashChange = function (url, options, prev) {
+			routeCircularIndexScrollbar.onHashChange = function (options) {
 				var self = this,
 					activeWidget = self._activeWidget,
-					stateUrl = prev.stateUrl;;
+					url = options.url,
+					prev = options.stateUrl;
 
-				if (activeWidget && stateUrl.search(circularindexscrollbarHashKey) > 0 && url.search(circularindexscrollbarHashKey) < 0) {
+				if (activeWidget && prev.search(circularindexscrollbarHashKey) > 0 && url.search(circularindexscrollbarHashKey) < 0) {
 					activeWidget.hide(options);
 					self.active = false;
 					return true;
 				}
-				return null;
+				return false;
 			};
 
 			ns.router.route.circularindexscrollbar = routeCircularIndexScrollbar;

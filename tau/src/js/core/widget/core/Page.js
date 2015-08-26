@@ -1,4 +1,5 @@
 /*global window, define */
+/*jslint nomen: true */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
  *
@@ -13,8 +14,10 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ *
+ * Copyright  2010 - 2014 Samsung Electronics Co., Ltd.
+ * License : MIT License V2
  */
-/*jslint nomen: true */
 /**
  * # Page Widget
  * Page is main element of application's structure.
@@ -218,7 +221,7 @@
  * @author Piotr Karny <p.karny@samsung.com>
  * @author Damian Osipiuk <d.osipiuk@samsung.com>
  */
-(function (document, ns) {
+(function (document) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
@@ -690,11 +693,10 @@
 			/**
 			 * Bind events to widget
 			 * @method _bindEvents
-			 * @param {HTMLElement} element
 			 * @protected
 			 * @member ns.widget.core.Page
 			 */
-			prototype._bindEvents = function (element) {
+			prototype._bindEvents = function () {
 				var self = this;
 				self.contentFillAfterResizeCallback = self._contentFill.bind(self);
 				window.addEventListener("resize", self.contentFillAfterResizeCallback, false);
@@ -737,7 +739,9 @@
 			 */
 			prototype.onShow = function () {
 				//>>excludeStart("tauPerformance", pragmas.tauPerformance);
-				window.tauPerf.get("framework", "Trigger: pageshow");
+				if (window.tauPerf) {
+					window.tauPerf.get("framework", "Trigger: pageshow");
+				}
 				//>>excludeEnd("tauPerformance");
 				this.trigger(EventType.SHOW);
 			};
@@ -829,4 +833,4 @@
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
-}(window.document, ns));
+}(window.document));

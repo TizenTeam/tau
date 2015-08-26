@@ -64,10 +64,10 @@
 			//>>excludeStart("tauPerformance", pragmas.tauPerformance);
 			"./tools/performance",
 			//>>excludeEnd("tauPerformance")
+			//>>excludeStart("tauUI", pragmas.tauUI);
 			"./core/core",
 			"./core/config",
 			"./profile/tv/config",
-			"./core/info",
 			"./core/engine",
 			// widget list
 			"./core/util/anchorHighlight",
@@ -80,12 +80,14 @@
 			"./profile/wearable/widget/wearable/VirtualGrid",
 			"./profile/tv/widget/PageContainer",
 			"./profile/tv/widget/Drawer",
+			"./core/history",
+			"./core/history/manager",
 			"./core/router/Router",
 			"./core/router/route/page",
 			"./core/router/route/popup",
 			"./core/router/route/drawer",
 			"./profile/tv/router/route/dynamic",
-			"./core/router/history",
+			// controller
 			"./profile/wearable/expose",
 			"./profile/tv/widget/TextInput",
 			"./profile/tv/widget/SpinControl",
@@ -102,7 +104,6 @@
 			"./profile/tv/widget/HomeBar",
 			"./profile/tv/widget/ContextualMenu",
 			// Modules to be loaded after
-			"./core/init",
 			//documentation pages
 			"./profile/mobile/page/layout",
 			"./profile/mobile/page/multipage",
@@ -116,7 +117,15 @@
 			// tv differences
 			"./profile/tv/page/differences/introduction",
 			"./core/decorator/focusAnimation",
-			"./core/decorator/marquee"
+			"./core/decorator/marquee",
+			//>>excludeEnd("tauUI");
+			//>>excludeStart("tauMVC", pragmas.tauMVC);
+			"./core/util/pathToRegexp",
+			"./core/controller",
+			//>>excludeEnd("tauMVC");
+			"./core/template/html",
+			"./core/info",
+			"./core/init"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");

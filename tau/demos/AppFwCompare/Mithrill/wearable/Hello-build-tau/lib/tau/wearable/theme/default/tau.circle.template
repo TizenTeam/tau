@@ -1,0 +1,872 @@
+/***************************************************************************
+                  Body
+***************************************************************************/
+/***************************************************************************
+                   Action Bar
+***************************************************************************/
+/****************************************************************************
+               Circle Progress Bar
+****************************************************************************/
+/****************************************************************************
+		Progress Bar
+****************************************************************************/
+/****************************************************************************
+		Processing
+****************************************************************************/
+/***************************************************************************
+                   Buttons
+***************************************************************************/
+/***************************************************************************
+                   Popup
+***************************************************************************/
+/***************************************************************************
+                   Footer
+***************************************************************************/
+/***************************************************************************
+                   Toast Popup
+***************************************************************************/
+/***************************************************************************
+                   Option Popup
+***************************************************************************/
+/***************************************************************************
+                  circular index scrollbar
+***************************************************************************/
+/***************************************************************************
+                  Listview
+***************************************************************************/
+/****************************************************************************
+               Listview with Marquee
+****************************************************************************/
+/***************************************************************************
+                   Checkbox/Radio
+***************************************************************************/
+/***************************************************************************
+						Page Indicator
+***************************************************************************/
+/****************************************************************************
+		Toggle Switch
+****************************************************************************/
+/***************************************************************************
+                   Scroller
+***************************************************************************/
+/***************************************************************************
+                   More options
+***************************************************************************/
+/************************************************************************/
+/*                           fixedUIStyle.less                          */
+/************************************************************************/
+/* When system font-size is changed, winset size (ex. header, footer, button, etc,
+   include font) also changed. But in UX guide, some UI elements should have fixed
+   size regardless of system font size.
+   So, this less file supports fixed style for some elements.
+   - Layout: header, footer, button
+   - Popup : popup header, popup footer
+   - toggleswitch
+   - progress: text for ratio
+*/
+/***********************************************************************/
+/*                         Layout(FIXED)                               */
+/***********************************************************************/
+/**********************************************************************/
+/*                       Popup(FIXED)                                 */
+/**********************************************************************/
+/**********************************************************************/
+/*                      ToggleSwitch(FIXED)                           */
+/**********************************************************************/
+/**********************************************************************/
+/*                      List(FIXED)                                   */
+/**********************************************************************/
+/************************
+Listview
+*************************/
+/***************************************************************************
+                   Common Style
+
+***************************************************************************/
+/***************************************************************************
+                   Development Tip
+  If you want to implement specific css code of circle device,
+  you should implement specific code here.
+  But when you implement code, you should check duplicate value
+  between common/layout.less and this file.
+  If you have duplicate value, please change static value to variable value.
+***************************************************************************/
+body {
+  background: B011;
+  color: T011;
+}
+.ui-header {
+  height: 128px;
+  line-height: 36px;
+  background-color: B011;
+}
+.ui-header .ui-title {
+  color: T012;
+  text-align: center;
+  padding-top: 54px;
+  margin-left: 2.5rem;
+  margin-right: 2.5rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+.ui-header .ui-title.ui-icon {
+  background: none !important;
+  padding-left: 1.5rem;
+}
+.ui-header.ui-has-more .ui-title {
+  padding-right: 1.5rem;
+  -webkit-mask-image: -webkit-linear-gradient(left, #000000 80%, rgba(0, 0, 0, 0) 95%);
+}
+.ui-header.ui-has-more .ui-more {
+  position: fixed;
+  top: 163px;
+  right: 8px;
+  width: 50px;
+  height: 36px;
+}
+.ui-header.ui-has-more .ui-more.ui-icon-overflow {
+  background-color: B052L1;
+}
+.ui-page {
+  background: B011;
+}
+.ui-page .ui-footer.ui-bottom-button {
+  overflow: hidden;
+}
+.ui-page .ui-footer.ui-bottom-button .ui-btn {
+  width: 112px;
+  height: 112px;
+  position: relative;
+  left: 50%;
+  transform: translate3d(-50%, 0, 0);
+  border-radius: 50%;
+  text-indent: -9999px;
+  margin-bottom: -22px;
+}
+.ui-page .ui-footer.ui-bottom-button .ui-btn:only-child::before {
+  left: 50%;
+  transform: translate3d(-50%, 0, 0);
+}
+.ui-page .ui-footer.ui-bottom-button .ui-btn::before {
+  content: "";
+  background-color: F022L1i;
+  -webkit-mask-size: 3.75rem 3.75rem;
+  -webkit-mask-repeat: no-repeat;
+  width: 3.75rem;
+  height: 3.75rem;
+  position: absolute;
+  bottom: 23px;
+}
+/***************************************************************************
+                   Page Scroll
+***************************************************************************/
+.ui-page.ui-scroll-on .ui-content {
+  margin-top: 7.625rem;
+  margin-bottom: 6.125rem;
+  padding-top: 0;
+}
+.ui-page.ui-scroll-on .ui-header ~ .ui-content {
+  margin-top: 0;
+}
+.ui-page.ui-scroll-on .ui-content ~ .ui-footer:not(.ui-expandable-footer) {
+  margin-top: -5.3125rem;
+}
+/*
+ * Common definition for theme
+ */
+/***************************************************************
+   default font size (base font from WRT)
+   => small: 13px
+   => normal: 17px
+   => large: 20px
+
+This is only applied to gear2.
+so, we set @font_size_default as 17px on gear2 and it was changed to 16px since gear-S.
+This value only used for @rem_base, not for html font-size
+html font-size is set by WRT base font-size
+***************************************************************/
+a {
+  color: T011;
+}
+/***************************************************************************
+                  toggle switch
+***************************************************************************/
+.ui-switch-text {
+  margin-top: 60px;
+  margin-bottom: 48px;
+  font-size: 34px;
+  padding: 0;
+}
+.ui-switch-sub-text {
+  margin-top: 48px;
+  margin-bottom: 55px;
+  font-size: 26px;
+  color: T161;
+}
+.ui-toggleswitch {
+  width: 69px;
+  height: 49px;
+}
+.ui-toggleswitch .ui-switch-input::before {
+  -webkit-mask-image: url(images/Controller_icon/toggle_list_circle.png);
+  -webkit-mask-size: 69px;
+  background-color: W014L2;
+  -webkit-transition-duration: 150ms;
+  -moz-transition-duration: 150ms;
+  -o-transition-duration: 150ms;
+  -ms-transition-duration: 150ms;
+  transition-duration: 150ms;
+}
+.ui-toggleswitch .ui-switch-input:active::before {
+  -webkit-transition-duration: 0;
+  -moz-transition-duration: 0;
+  -o-transition-duration: 0;
+  -ms-transition-duration: 0;
+  transition-duration: 0;
+  background-color: W014L2P;
+}
+.ui-toggleswitch .ui-switch-input:active ~ .ui-switch-activation,
+.ui-toggleswitch .ui-switch-input:active ~ .ui-switch-button {
+  -webkit-transition-duration: 0;
+  -moz-transition-duration: 0;
+  -o-transition-duration: 0;
+  -ms-transition-duration: 0;
+  transition-duration: 0;
+  background-color: W014L4P;
+}
+.ui-toggleswitch .ui-switch-input:active ~ .ui-switch-activation::before,
+.ui-toggleswitch .ui-switch-input:active ~ .ui-switch-button::before {
+  background-color: W014L6P;
+}
+.ui-toggleswitch .ui-switch-activation,
+.ui-toggleswitch .ui-switch-button {
+  width: 49px;
+  height: 49px;
+  -webkit-mask-image: url(images/Controller_icon/toggle_list_circle.png);
+  -webkit-mask-size: 69px;
+  -webkit-mask-position: 0 -49px;
+  background-color: W014L4;
+  -webkit-transition-duration: 150ms;
+  -moz-transition-duration: 150ms;
+  -o-transition-duration: 150ms;
+  -ms-transition-duration: 150ms;
+  transition-duration: 150ms;
+}
+.ui-toggleswitch .ui-switch-activation::before,
+.ui-toggleswitch .ui-switch-button::before {
+  -webkit-mask-image: url(images/Controller_icon/toggle_list_circle.png);
+  -webkit-mask-size: 69px;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: 0 -98px;
+  background-color: W014L6;
+}
+.ui-toggleswitch .ui-switch-input:checked ~ .ui-switch-activation,
+.ui-toggleswitch .ui-switch-input:checked ~ .ui-switch-button {
+  width: 49px;
+  height: 49px;
+  -webkit-mask-position: 0 -49px;
+  background-color: W014L3;
+  -webkit-transform: translate3d(20px, 0, 0);
+  -moz-transform: translate3d(20px, 0, 0);
+  -ms-transform: translate3d(20px, 0, 0);
+  -o-transform: translate3d(20px, 0, 0);
+  transform: translate3d(20px, 0, 0);
+}
+.ui-toggleswitch .ui-switch-input:checked ~ .ui-switch-activation::before,
+.ui-toggleswitch .ui-switch-input:checked ~ .ui-switch-button::before {
+  -webkit-mask-position: 0 -147px;
+  background-color: W014L5;
+}
+.ui-toggleswitch .ui-switch-input:checked::before {
+  background-color: W014L1;
+}
+.ui-toggleswitch .ui-switch-input:checked:active::before {
+  background-color: W014L1P;
+}
+.ui-toggleswitch .ui-switch-input:checked:active ~ .ui-switch-activation,
+.ui-toggleswitch .ui-switch-input:checked:active ~ .ui-switch-button {
+  background-color: W014L3P;
+}
+.ui-toggleswitch .ui-switch-input:checked:active ~ .ui-switch-activation::before,
+.ui-toggleswitch .ui-switch-input:checked:active ~ .ui-switch-button::before {
+  background-color: W014L5P;
+}
+.ui-toggleswitch.ui-toggleswitch-large {
+  width: 136px;
+  height: 78px;
+}
+.ui-toggleswitch.ui-toggleswitch-large .ui-switch-activation,
+.ui-toggleswitch.ui-toggleswitch-large .ui-switch-button {
+  width: 78px;
+  height: 78px;
+  -webkit-mask-image: url(images/Controller_icon/toggle_circle.png);
+  -webkit-mask-size: 136px;
+  -webkit-mask-position: 0 -78px;
+}
+.ui-toggleswitch.ui-toggleswitch-large .ui-switch-activation::before,
+.ui-toggleswitch.ui-toggleswitch-large .ui-switch-button::before {
+  -webkit-mask-image: url(images/Controller_icon/toggle_circle.png);
+  -webkit-mask-size: 136px;
+  -webkit-mask-position: 0 -156px;
+}
+.ui-toggleswitch.ui-toggleswitch-large .ui-switch-input::before {
+  -webkit-mask-image: url(images/Controller_icon/toggle_circle.png);
+  -webkit-mask-size: 136px;
+}
+.ui-toggleswitch.ui-toggleswitch-large .ui-switch-input:checked ~ .ui-switch-activation,
+.ui-toggleswitch.ui-toggleswitch-large .ui-switch-input:checked ~ .ui-switch-button {
+  width: 78px;
+  height: 78px;
+  -webkit-mask-position: 0 -78px;
+  -webkit-transform: translate3d(58px, 0, 0);
+  -moz-transform: translate3d(58px, 0, 0);
+  -ms-transform: translate3d(58px, 0, 0);
+  -o-transform: translate3d(58px, 0, 0);
+  transform: translate3d(58px, 0, 0);
+}
+.ui-toggleswitch.ui-toggleswitch-large .ui-switch-input:checked ~ .ui-switch-activation::before,
+.ui-toggleswitch.ui-toggleswitch-large .ui-switch-input:checked ~ .ui-switch-button::before {
+  -webkit-mask-position: 0 -234px;
+}
+/***************************************************************************
+                  popup
+***************************************************************************/
+/***********************
+Normal Popup
+***********************/
+.ui-popup::before {
+  content: "";
+  position: absolute;
+  width: 354px;
+  height: 354px;
+  border-radius: 50%;
+  border: solid 3px B061L8;
+  z-index: 9999;
+  pointer-events: none;
+}
+.ui-popup {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: B061L1E;
+  border: 0;
+  -webkit-mask-image: -webkit-radial-gradient(center, ellipse cover, B061L1E 180px, transparent 180px);
+}
+.ui-popup .ui-popup-header {
+  text-align: center;
+  min-height: 122px;
+  background-color: B061L1E;
+  color: T091;
+  padding-top: 53px;
+  padding-right: 61px;
+  padding-bottom: 33px;
+  padding-left: 61px;
+}
+.ui-popup .ui-popup-header + .ui-popup-content {
+  padding-top: 26px;
+}
+.ui-popup .ui-popup-content {
+  color: T092;
+  background-color: B061L1E;
+  padding: 58px 55px 16px 55px;
+}
+.ui-popup .ui-popup-content .ui-listview,
+.ui-popup .ui-popup-content .ui-inline-listview {
+  margin: -1.5625rem -3.4375rem -1rem -3.4375rem;
+}
+.ui-popup .ui-popup-footer {
+  width: 0;
+  height: 0;
+}
+.ui-popup .ui-popup-footer .ui-btn {
+  height: 108px;
+  width: 108px;
+  border-radius: 50%;
+  position: absolute;
+  text-indent: -9999px;
+}
+.ui-popup .ui-popup-footer .ui-btn.ui-btn-footer-icon::before {
+  content: "";
+  background-color: F022L1i;
+  -webkit-mask-size: 48px 48px;
+  -webkit-mask-repeat: no-repeat;
+  width: 48px;
+  height: 48px;
+  position: absolute;
+}
+.ui-popup .ui-popup-footer .ui-btn:only-child {
+  top: 0;
+  left: 50%;
+  transform: translate3d(-50%, -100%, 0);
+}
+.ui-popup .ui-popup-footer .ui-btn:only-child.ui-btn-footer-icon::before {
+  bottom: 5px;
+  left: 50%;
+  transform: translate3d(-50%, 0, 0);
+}
+.ui-popup .ui-popup-footer .ui-btn:active {
+  background-color: B065L4P;
+}
+.ui-popup .ui-popup-footer .ui-btn:active.ui-btn-footer-icon::before {
+  background-color: F022L1iP;
+}
+.ui-popup .ui-popup-footer .ui-btn:not(:only-child):nth-child(1) {
+  top: 50%;
+  left: 0;
+  transform: translate3d(-100%, -50%, 0);
+}
+.ui-popup .ui-popup-footer .ui-btn:not(:only-child):nth-child(1).ui-btn-footer-icon::before {
+  top: 50%;
+  right: 5px;
+  transform: translate3d(0, -50%, 0);
+}
+.ui-popup .ui-popup-footer .ui-btn:not(:only-child):nth-child(2) {
+  top: 50%;
+  right: 0;
+  transform: translate3d(100%, -50%, 0);
+}
+.ui-popup .ui-popup-footer .ui-btn:not(:only-child):nth-child(2).ui-btn-footer-icon::before {
+  top: 50%;
+  left: 5px;
+  transform: translate3d(0, -50%, 0);
+}
+.ui-popup.ui-popup-active .ui-popup-footer .ui-btn:nth-child(n) {
+  transform: translate3d(-50%, -50%, 0);
+  transition: transform 300ms;
+}
+.ui-popup.ui-popup-active .ui-popup-footer .ui-btn:nth-child(2) {
+  transform: translate3d(50%, -50%, 0);
+}
+/***********************
+Popup Container Scroll
+***********************/
+.ui-popup.ui-scroll-on:not(.ui-ctxpopup):not(.ui-popup-toast) .ui-popup-content {
+  margin-top: 7.625rem;
+  margin-bottom: 6.125rem;
+  padding-top: 0;
+}
+.ui-popup.ui-scroll-on:not(.ui-ctxpopup):not(.ui-popup-toast) .ui-popup-header + .ui-popup-content {
+  margin-top: 0;
+  padding-top: 26px;
+}
+/****************************************
+Popup Toast
+****************************************/
+.ui-popup.ui-popup-toast {
+  bottom: 2.6875rem;
+  border: 3px solid B061L7;
+  position: fixed;
+  max-height: 13.75rem;
+}
+.ui-popup.ui-popup-toast .ui-popup-content {
+  background-color: B061L1E;
+  padding: 13px 40px 12px;
+  font-size: 32px;
+  text-align: center;
+  line-height: 42px;
+}
+/***********************
+Option Popup
+***********************/
+.ui-popup.ui-ctxpopup {
+  height: auto;
+}
+/***************************************************************************
+                  listview
+***************************************************************************/
+.ui-listview li {
+  font-size: 2.25rem;
+  min-height: 6.5625rem;
+  padding: 1.78125rem 2.5rem;
+  border-bottom: 1px solid B0222;
+  color: T0211;
+  text-align: center;
+}
+.ui-listview li.ui-li-btn {
+  padding: 0;
+}
+.ui-listview li.ui-li-btn .ui-btn {
+  padding: 1.75rem 2.5rem;
+  margin: 0;
+  line-height: inherit;
+}
+.ui-listview li.ui-li-btn.ui-grid-col-2 .ui-btn {
+  padding: 1.75rem 1.25rem;
+}
+.ui-listview li.ui-li-btn.ui-grid-col-3 .ui-btn {
+  padding: 1.75rem 1.875rem;
+  height: 100%;
+  text-indent: -9999px;
+}
+.ui-listview li > * {
+  color: T0211;
+}
+.ui-listview li > a,
+.ui-listview li button {
+  padding: 1.78125rem 2.5rem;
+  margin: -1.8125rem -2.5rem;
+}
+.ui-listview li.ui-li-active {
+  background-color: B041P;
+  color: T0211P;
+}
+.ui-listview li:last-child {
+  border: 0;
+}
+.ui-listview .ui-listview-divider {
+  height: 2.0625rem;
+  min-height: 2.0625rem;
+  line-height: 1.9375rem;
+  background-color: B012;
+  color: T0231;
+  padding: 0;
+}
+.ui-listview .ui-li-sub-text {
+  color: T022;
+  font-size: 1.5rem;
+}
+.ui-header + .ui-content .ui-listview li:first-child {
+  border-top: 1px solid B0222;
+}
+/***************************************************************************
+                  listview extra
+***************************************************************************/
+.ui-listview .ui-li-has-action-icon .ui-action-text::after {
+  background-color: T011;
+}
+.ui-listview .ui-li-has-action-icon .ui-action-delete {
+  background-color: F022L1i;
+}
+.ui-listview .ui-li-has-action-icon .ui-action-setting {
+  background-color: F022L1i;
+}
+.ui-listview .ui-li-has-action-icon .ui-action-add {
+  background-color: F022L1i;
+}
+.ui-listview .ui-li-has-action-icon.ui-li-active .ui-action-text:active {
+  background-color: B041P;
+  color: T0211P;
+}
+.ui-listview .ui-li-has-action-icon .ui-action-delete:active,
+.ui-listview .ui-li-has-action-icon .ui-action-setting:active,
+.ui-listview .ui-li-has-action-icon .ui-action-add:active {
+  background-color: B041P;
+  color: T0211P;
+}
+.ui-listview .li-divider {
+  height: 2.0625rem;
+  min-height: 2.0625rem;
+  line-height: 1.9375rem;
+  background-color: B012;
+  color: T0231;
+  padding: 0;
+}
+/***************************************************************************
+                  checkbox / radio button
+***************************************************************************/
+input[type="checkbox"]:not(.ui-switch-input) {
+  background-color: W012L1;
+}
+input[type="checkbox"]:not(.ui-switch-input)::after {
+  background-color: W231;
+}
+input[type="checkbox"]:not(.ui-switch-input):checked::before {
+  background-color: W012L2;
+}
+input[type="checkbox"]:not(.ui-switch-input)::before {
+  content: "";
+  -webkit-mask-image: url(images/Controller_icon/tw_btn_check_holo_dark.png);
+  -webkit-mask-repeat: no-repeat;
+  background-color: W012L2;
+  width: 0;
+  height: 56px;
+  position: absolute;
+  -webkit-transition: width 150ms;
+}
+input[type="checkbox"]:not(.ui-switch-input):active {
+  background-color: W012L1P;
+}
+input[type="checkbox"]:not(.ui-switch-input):active::after {
+  background-color: W231P;
+}
+input[type="checkbox"]:not(.ui-switch-input):active:checked::before {
+  background-color: W012L2P;
+}
+input[type="radio"] {
+  background-color: W013L1;
+}
+input[type="radio"]::after {
+  background-color: W241;
+}
+input[type="radio"]::before {
+  content: "";
+  background-color: W013L2;
+  -webkit-mask-image: url(images/Controller_icon/tw_btn_radio_holo_dark.png);
+  -webkit-mask-repeat: no-repeat;
+  width: 56px;
+  height: 56px;
+  position: absolute;
+  -webkit-transform: scale3d(0, 0, 0);
+  -webkit-transition: -webkit-transform 150ms;
+}
+input[type="radio"]:checked::before {
+  background-color: W013L2;
+  -webkit-transform: scale3d(1, 1, 1);
+}
+input[type="radio"]:active {
+  background-color: W013L1P;
+}
+input[type="radio"]:active:checked::before {
+  background-color: W013L2P;
+}
+/***************************************************************************
+                  button
+***************************************************************************/
+.ui-default {
+  color: T041;
+  background-color: W011;
+}
+a.ui-default:active:hover,
+.ui-default:enabled:active:hover {
+  background-color: W011P;
+}
+.ui-default:enabled:focus {
+  background-color: W011;
+}
+a.ui-default.ui-state-disabled,
+.ui-default:disabled {
+  color: T041D;
+  background-color: W011D;
+}
+.ui-color-red {
+  color: T041;
+  background-color: W012;
+}
+a.ui-color-red:active:hover,
+.ui-color-red:enabled:active:hover {
+  background-color: W012P;
+}
+.ui-color-red:enabled:focus {
+  background-color: W012;
+}
+a.ui-color-red.ui-state-disabled,
+.ui-color-red:disabled {
+  color: T041D;
+  background-color: W012D;
+}
+.ui-color-orange {
+  color: T041;
+  background-color: W013;
+}
+a.ui-color-orange:active:hover,
+.ui-color-orange:enabled:active:hover {
+  background-color: W013P;
+}
+.ui-color-orange:enabled:focus {
+  background-color: W013;
+}
+a.ui-color-orange.ui-state-disabled,
+.ui-color-orange:disabled {
+  color: T041D;
+  background-color: W013D;
+}
+.ui-color-green {
+  color: T041;
+  background-color: W014;
+}
+a.ui-color-green:active:hover,
+.ui-color-green:enabled:active:hover {
+  background-color: W014P;
+}
+.ui-color-green:enabled:focus {
+  background-color: W014;
+}
+a.ui-color-green.ui-state-disabled,
+.ui-color-green:disabled {
+  color: T041D;
+  background-color: W014D;
+}
+.ui-grid-col-1 > .ui-btn {
+  border-left: solid 1px B011;
+}
+.ui-grid-col-2 > .ui-btn {
+  border-left: solid 1px B011;
+}
+.ui-grid-col-3 > .ui-btn {
+  border-left: solid 1px B011;
+}
+/***************************************************************************
+                  circle progress bar
+***************************************************************************/
+.ui-progressbar .ui-progressbar-value .ui-progressbar-value-left {
+  border: 0.8125rem solid B065L2;
+}
+.ui-progressbar .ui-progressbar-value .ui-progressbar-value-right {
+  border: 0.8125rem solid B065L2;
+}
+.ui-progressbar .ui-progressbar-bg {
+  border: 0.8125rem solid B065L3;
+}
+.ui-progressbar.ui-progressbar-small .ui-progressbar-value .ui-progressbar-value-left,
+.ui-progressbar.ui-progressbar-small .ui-progressbar-value .ui-progressbar-value-right {
+  border: 0.3125rem solid B065L2;
+}
+.ui-progressbar.ui-progressbar-small .ui-progressbar-bg {
+  border: 0.3125rem solid B065L3;
+}
+/***************************************************************************
+                  circular index scroll bar
+***************************************************************************/
+.ui-circularindexscrollbar .ui-circularindexscrollbar-indexbar {
+  background: -webkit-radial-gradient(center, ellipse cover, transparent 59%, B0722 59%);
+}
+.ui-circularindexscrollbar .ui-circularindexscrollbar-index span {
+  color: T0311;
+}
+.ui-circularindexscrollbar .ui-circularindexscrollbar-index.ui-state-selected span {
+  color: T0311P;
+}
+.ui-circularindexscrollbar .ui-circularindexscrollbar-indicator {
+  background-color: B0731;
+}
+.ui-circularindexscrollbar .ui-circularindexscrollbar-indicator-text {
+  color: T0312P;
+}
+/***************************************************************************
+                  drawer
+***************************************************************************/
+.ui-drawer {
+  background-color: B011;
+}
+.ui-drawer-overlay {
+  background-color: B0511D;
+}
+/***************************************************************************
+                  marquee
+***************************************************************************/
+.ui-marquee.ui-marquee-gradient::after {
+  background: -webkit-linear-gradient(left, transparent 0%, B0211 100%);
+}
+/***************************************************************************
+                  page indicator
+***************************************************************************/
+.ui-page-indicator-item {
+  background-color: T0211D;
+}
+.ui-page-indicator-item.ui-page-indicator-active {
+  background-color: W1911;
+}
+/***************************************************************************
+                  processing
+***************************************************************************/
+.ui-processing {
+  background-color: B065L6;
+}
+.ui-processing.ui-processing-full-size::after {
+  background-color: B065L6;
+}
+/***************************************************************************
+                  progress
+***************************************************************************/
+@-webkit-keyframes indeterminate {
+  0% {
+    -webkit-mask-image: url(images/Progress/tw_progressbar_indeterminate1_holo_dark.png);
+    -webkit-mask-repeat: no-repeat;
+    background-color: B065L6;
+  }
+  25% {
+    -webkit-mask-image: url(images/Progress/tw_progressbar_indeterminate2_holo_dark.png);
+    -webkit-mask-repeat: no-repeat;
+    background-color: B065L6;
+  }
+  50% {
+    -webkit-mask-image: url(images/Progress/tw_progressbar_indeterminate3_holo_dark.png);
+    -webkit-mask-repeat: no-repeat;
+    background-color: B065L6;
+  }
+  75% {
+    -webkit-mask-image: url(images/Progress/tw_progressbar_indeterminate4_holo_dark.png);
+    -webkit-mask-repeat: no-repeat;
+    background-color: B065L6;
+  }
+  100% {
+    -webkit-mask-image: url(images/Progress/tw_progressbar_indeterminate5_holo_dark.png);
+    -webkit-mask-repeat: no-repeat;
+    background-color: B065L6;
+  }
+}
+progress {
+  color: T011;
+}
+progress::-webkit-progress-bar {
+  background-color: B065L3;
+}
+progress::-webkit-progress-value {
+  background-color: B065L2;
+}
+progress.ui-progress-indeterminate::-webkit-progress-bar {
+  background-color: B065L2;
+}
+.ui-scrollbar-bouncing-effect.ui-top {
+  display: none;
+}
+.ui-scrollbar-bouncing-effect.ui-bottom {
+  width: 100%;
+  height: 6.25rem;
+  left: 0;
+  -webkit-mask-size: 100% 6.25rem;
+}
+.ui-scrollbar-bouncing-effect.ui-bottom::before {
+  width: 100%;
+  height: 6.25rem;
+  -webkit-mask-size: 100% 6.25rem;
+}
+.ui-scrollbar-bouncing-effect.ui-left,
+.ui-scrollbar-bouncing-effect.ui-right {
+  width: 6.25rem;
+  height: 100%;
+  top: 0;
+  -webkit-mask-size: 6.25rem 100%;
+}
+.ui-scrollbar-bouncing-effect.ui-left::before,
+.ui-scrollbar-bouncing-effect.ui-right::before {
+  width: 6.25rem;
+  height: 100%;
+  -webkit-mask-size: 6.25rem 100%;
+}
+.ui-scrollbar-bouncing-effect.ui-bottom {
+  bottom: 0;
+  -webkit-mask-image: url("images/Scroller/bouncing_circle_bottom_glow.png");
+}
+.ui-scrollbar-bouncing-effect.ui-bottom::before {
+  -webkit-mask-image: url("images/Scroller/bouncing_circle_bottom_edge.png");
+}
+.ui-scrollbar-bouncing-effect.ui-left {
+  left: 0;
+  -webkit-mask-image: url("images/Scroller/bouncing_circle_left_glow.png");
+}
+.ui-scrollbar-bouncing-effect.ui-left::before {
+  -webkit-mask-image: url("images/Scroller/bouncing_circle_left_edge.png");
+}
+.ui-scrollbar-bouncing-effect.ui-right {
+  right: 0;
+  -webkit-mask-image: url("images/Scroller/bouncing_circle_right_glow.png");
+}
+.ui-scrollbar-bouncing-effect.ui-right::before {
+  -webkit-mask-image: url("images/Scroller/bouncing_circle_right_edge.png");
+}
+/***************************************************************************
+				   Footer Style (New style)
+***************************************************************************/
+.ui-page .ui-expandable-header {
+  height: 128px;
+}
+.ui-page .ui-expandable-header.ui-header-expand {
+  height: 179px;
+}
+.ui-page .ui-expandable-header.ui-header-expand .ui-title {
+  transform: translate3d(0, 105px, 0);
+}
+.is-circle-test {
+  width: 1px;
+}

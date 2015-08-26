@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width,user-scalable=no"/>
+		<link rel="stylesheet"  href="../../lib/tau/theme/default/tau.css">
+		<link rel="stylesheet"  href="../../lib/highlightjs/styles/github.css">
+		<link rel="stylesheet"  href="../css/custom.css">
+		<title>TAU Application Framework</title>
+		<script type="text/javascript" src="../../lib/tau/js/tau.full.js" data-build-remove="false"></script>
+		<script src="../../lib/highlightjs/highlight.min.js"></script>
+		<script src="../js/highlighting.js"></script>
+		<style>
+			#layers > * { display: none; }
+			#layers > .visible { display: block; }
+		</style>
+	</head>
+	<body>
+		<div class="ui-page" id="custom-route-string-page">
+			<header>
+				<h2 class="ui-title">Loading pages from string</h2>
+			</header>
+			<div data-role="content">
+				<pre><code class="javascript">
+var controller = tau.Controller.getInstance();
+controller.addRoute("layers/:id", function (deferred, id) {
+	var layer = document.getElementById(id),
+		container = document.getElementById("layers"),
+		node = container.firstElementChild;
+	if (layer) {
+		while (node) {
+			node.classList.remove("visible");
+			node = node.nextElementSibling;
+		}
+		layer.classList.add("visible");
+		deferred.resolve();
+	}
+});
+				</code></pre>
+				<div id="layers">
+					<div id="one">layer 1</div>
+					<div id="two">layer 2</div>
+					<div id="three">layer 3</div>
+				</div>
+			</div>
+			<script>
+				var controller = tau.Controller.getInstance();
+				controller.addRoute("layers/:id", function (deferred, id) {
+					var layer = document.getElementById(id),
+						container = document.getElementById("layers"),
+						node = container.firstElementChild;
+					if (layer) {
+						while (node) {
+							node.classList.remove("visible");
+							node = node.nextElementSibling;
+						}
+						layer.classList.add("visible");
+						deferred.resolve();
+					}
+				});
+			</script>
+			<footer class="ui-footer ui-grid-col-3">
+				<a class="ui-btn ui-button" href="#layers/one">1</a>
+				<a class="ui-btn ui-button" href="#layers/two">2</a>
+				<a class="ui-btn ui-button" href="#layers/three">3</a>
+			</footer>
+		</div>
+	</body>
+</html>

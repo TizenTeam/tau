@@ -683,7 +683,7 @@
 			ns.widget.mobile.Page = Page;
 			engine.defineWidget(
 				"Page",
-				"[data-role='page'], .ui-page",
+				"[data-role='page'],.ui-page",
 				[
 					"focus",
 					"blur",

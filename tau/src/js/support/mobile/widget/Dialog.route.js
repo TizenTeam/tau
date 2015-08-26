@@ -1,4 +1,4 @@
-/*global window, define */
+/*global window, define, ns */
 /*jslint nomen: true */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
@@ -21,7 +21,7 @@
  * @class ns.router.route.page
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  */
-(function (document, ns) {
+(function (document) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
@@ -32,7 +32,7 @@
 			"../../../core/util/selectors",
 			"../../../core/util/object",
 			"../../../core/router/route",
-			"../../../core/router/history",
+			"../../../core/history",
 			"./Dialog"
 		],
 		function () {
@@ -42,9 +42,8 @@
 				DOM = util.DOM,
 				object = util.object,
 				utilSelector = util.selectors,
-				history = ns.router.history,
+				history = ns.history,
 				engine = ns.engine,
-				Dialog = ns.widget.mobile.Dialog,
 				baseElement,
 				routeDialog = {},
 				previousPage,
@@ -111,7 +110,7 @@
 			 */
 			routeDialog.option = function () {
 				var defaults = object.merge({}, routeDialog.defaults);
-				defaults.transition = ns.getConfig('pageTransition', defaults.transition);
+				defaults.transition = ns.getConfig("pageTransition", defaults.transition);
 				return defaults;
 			};
 
@@ -137,9 +136,9 @@
 				var pageTitle = document.title,
 					url,
 					state = {},
-					router = engine.getRouter();
+					router = ns.router.Router.getInstance();
 
-				if (toPage === router.getFirstPage() && !options.dataUrl) {
+				if (toPage === router.getRoute("page").getFirstElement() && !options.dataUrl) {
 					url = path.documentUrl.hrefNoHash;
 				} else {
 					url = DOM.getNSData(toPage, "url");
@@ -190,7 +189,7 @@
 			 */
 			routeDialog.find = function (absUrl) {
 				var self = this,
-					router = engine.getRouter(),
+					router = ns.router.Router.getInstance(),
 					dataUrl = self._createDataUrl(absUrl),
 					initialContent = router.getFirstPage(),
 					pageContainer = router.getContainer(),
@@ -238,13 +237,11 @@
 			 * This method handles hash change.
 			 * It closes opened popup.
 			 * @method onHashChange
-			 * @param {string} url
-			 * @param {object} options
 			 * @return {boolean}
 			 * @member ns.router.route.popup
 			 * @static
 			 */
-			routeDialog.onHashChange = function (url, options) {
+			routeDialog.onHashChange = function () {
 				return false;
 			};
 
@@ -357,7 +354,7 @@
 			 * @static
 			 */
 			routeDialog.getContainer = function () {
-				return engine.getRouter().getContainer();
+				return ns.router.Router.getInstance().getContainer();
 			};
 
 			/**
@@ -388,4 +385,4 @@
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
-}(window.document, ns));
+}(window.document));

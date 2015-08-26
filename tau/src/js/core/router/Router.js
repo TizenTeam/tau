@@ -1,4 +1,4 @@
-/*global window, define, XMLHttpRequest, Node, HTMLElement, ns */
+/*global define, HTMLElement, ns */
 /*jslint nomen: true */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
@@ -17,14 +17,55 @@
  */
 /**
  * #Router
- * Main class to navigate between pages and popups in profile Wearable.
+ *
+ * Main class to navigate between pages, popups and other widgets which has own rules in all profiles.
+ *
+ * Class communicates with PageContainer which deactivate and activate changed pages.
+ *
+ * Router listening on events triggered by history manager.
+ *
+ * ## Getting instance
+ *
+ * To receive instance of router you should use method _getInstance_
+ *
+ * 	@example
+ * 		var router = ns.router.Router.getInstance();
+ *
+ * By default TAU create instance of router and getInstance method return this instance.
+ *
+ * ##Connected widgets
+ *
+ * Router cooperate with widgets:
+ *
+ *  - Page
+ *  - Popup
+ *  - Drawer
+ *  - Dialog (mobile)
+ *  - CircularIndexScrollBar (wearable - circle)
+ *
+ * Opening or closing these widgets are possible by create link with correct rel.
+ *
+ * ##Global options used in router
+ *
+ *  - *pageContainer* = document.body - default container element
+ *  - *pageContainerBody* = false - use body instead pageContainer option
+ *  - *autoInitializePage* = true - automatically initialize first page
+ *  - *addPageIfNotExist* = true - automatically add page if doesn't exist
+ *  - *loader* = false - enable loader on change page
+ *  - *disableRouter* = false - disable auto initialize of router
  *
  * @class ns.router.Router
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  * @author Piotr Karny <p.karny@samsung.com>
  * @author Tomasz Lukawski <t.lukawski@samsung.com>
+ * @author Hyunkook, Cho <hk0713.cho@samsung.com>
+ * @author Piotr Czajka <p.czajka@samsung.com>
+ * @author Junhyeon Lee <juneh.lee@samsung.com>
+ * @author Michał Szepielak <m.szepielak@samsung.com>
+ * @author Jadwiga Sosnowska <j.sosnowska@samsung.com>
+ * @author Heeju Joo <heeju.joo@samsung.com>
  */
-(function (window, document, ns) {
+(function (window, document) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
@@ -35,11 +76,14 @@
 			"../util/selectors",
 			"../util/path",
 			"../util/object",
+			"../util/pathToRegexp",
 			"../router",
 			"./route", // fetch namespace
-			"./history",
+			"../history",
+			"../history/manager",
 			"../widget/core/Page",
-			"../widget/core/PageContainer"
+			"../widget/core/PageContainer",
+			"../template"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
@@ -101,20 +145,28 @@
 				engine = ns.engine,
 				/**
 				 * Local alias for ns.router
-				 * @property {Object} routerMicro Alias for namespace ns.router
+				 * @property {Object} router Alias for namespace ns.router
 				 * @member ns.router.Router
 				 * @static
 				 * @private
 				 */
-				routerMicro = ns.router,
+				router = ns.router,
 				/**
-				 * Local alias for ns.router.history
-				 * @property {Object} history Alias for {@link ns.router.history}
+				 * Local alias for ns.history
+				 * @property {Object} history Alias for {@link ns.history}
 				 * @member ns.router.Router
 				 * @static
 				 * @private
 				 */
-				history = routerMicro.history,
+				history = ns.history,
+				/**
+				 * Local alias for ns.history.manager.events
+				 * @property {Object} historyManagerEvents Alias for (@link ns.history.manager.events}
+				 * @member ns.router.Router
+				 * @static
+				 * @private
+				 */
+				historyManagerEvents = history.manager.events,
 				/**
 				 * Local alias for ns.router.route
 				 * @property {Object} route Alias for namespace ns.router.route
@@ -122,7 +174,7 @@
 				 * @static
 				 * @private
 				 */
-				route = routerMicro.route,
+				route = router.route,
 				/**
 				 * Local alias for document body element
 				 * @property {HTMLElement} body
@@ -139,22 +191,23 @@
 				 * @static
 				 */
 				slice = [].slice,
-
 				/**
-				 * Router locking flag
-				 * @property {boolean} [_isLock]
+				 * Local instance of the Router
+				 * @property {Object} routerInstance
 				 * @member ns.router.Router
+				 * @static
 				 * @private
 				 */
-				_isLock = false,
+				routerInstance = null,
 
-				ORDER_NUMBER = {
-					1: "page",
-					10: "panel",
-					100: "popup",
-					1000: "drawer",
-					2000: "circularindexscrollbar"
-				},
+				/**
+				 * Template engine used to load external files, by default html
+				 * engine is loaded to TAU.
+				 * @property {ns.template} template
+				 * @static
+				 * @private
+				 */
+				template = ns.template,
 
 				Page = ns.widget.core.Page,
 
@@ -162,33 +215,60 @@
 					var self = this;
 
 					/**
-					 * Element of the page opened as first.
-					 * @property {?HTMLElement} [firstPage]
-					 * @member ns.router.Router
-					 */
-					self.firstPage = null;
-					/**
-					 * The container of widget.
-					 * @property {?ns.widget.core.PageContainer} [container]
+					 * Instance of widget PageContainer which controls page changing.
+					 * @property {?ns.widget.core.PageContainer} [container=null]
 					 * @member ns.router.Router
 					 */
 					self.container = null;
 					/**
-					 * Settings for last open method
-					 * @property {Object} [settings]
+					 * Settings for last call of method open
+					 * @property {Object} [settings={}]
 					 * @member ns.router.Router
 					 */
 					self.settings = {};
+
+					/**
+					 * Handler for event "statechange"
+					 * @property {Function} [_onstatechangehandler=null]
+					 * @member ns.router.Router
+					 * @protected
+					 * @since 2.4
+					 */
+					self._onstatechangehandler = null;
+					/**
+					 * Handler for event "hashchange"
+					 * @property {Function} [_onhashchangehandler=null]
+					 * @member ns.router.Router
+					 * @protected
+					 * @since 2.4
+					 */
+					self._onhashchangehandler = null;
+					/**
+					 * Handler for event "controllercontent"
+					 * @property {Function} [_oncontrollercontent=null]
+					 * @member ns.router.Router
+					 * @protected
+					 * @since 2.4
+					 */
+					self._oncontrollercontent = null;
+
+					/**
+					 * Router locking flag
+					 * @property {boolean} locked=false
+					 * @member ns.router.Router
+					 * @since 2.4
+					 */
+					self.locked = false;
 				};
 
 			/**
 			 * Default values for router
 			 * @property {Object} defaults
-			 * @property {boolean} [defaults.fromHashChange = false] Sets if will be changed after hashchange.
-			 * @property {boolean} [defaults.reverse = false] Sets the direction of change.
-			 * @property {boolean} [defaults.showLoadMsg = true] Sets if message will be shown during loading.
-			 * @property {number} [defaults.loadMsgDelay = 0] Sets delay time for the show message during loading.
-			 * @property {boolean} [defaults.volatileRecord = false] Sets if the current history entry will be modified or a new one will be created.
+			 * @property {boolean} [defaults.fromHashChange=false] Sets if will be changed after hashchange.
+			 * @property {boolean} [defaults.reverse=false] Sets the direction of change.
+			 * @property {boolean} [defaults.showLoadMsg=true] Sets if message will be shown during loading.
+			 * @property {number} [defaults.loadMsgDelay=0] Sets delay time for the show message during loading.
+			 * @property {boolean} [defaults.volatileRecord=false] Sets if the current history entry will be modified or a new one will be created.
 			 * @member ns.router.Router
 			 */
 			Router.prototype.defaults = {
@@ -200,132 +280,20 @@
 			};
 
 			/**
-			 * Find the closest link for element
-			 * @method findClosestLink
-			 * @param {HTMLElement} element
-			 * @return {HTMLElement}
-			 * @private
-			 * @static
+			 * Detect rel attribute from HTMLElement.
+			 *
+			 * This method tries to match element to each rule filter and return first rule name which match.
+			 *
+			 * If don't match any rule then return null.
+			 *
+			 *	@example
+			 *		var router = tau.router.Router.getInstance();
+			 *		router.detectRel(document.getElementById("pageId"));
+			 *		// if HTML element will be match to selector of page then return rule for page
+			 *
+			 * @param {HTMLElement} to element to check
 			 * @member ns.router.Router
-			 */
-			function findClosestLink(element) {
-				while (element) {
-					if (element.nodeType === Node.ELEMENT_NODE && element.nodeName &&
-						(element.nodeName === "A" || element.nodeName === "TAU-BUTTON")) {
-						break;
-					}
-					element = element.parentNode;
-				}
-				return element;
-			}
-
-			/**
-			 * Handle event link click
-			 * @method linkClickHandler
-			 * @param {ns.router.Router} router
-			 * @param {Event} event
-			 * @private
-			 * @static
-			 * @member ns.router.Router
-			 */
-			function linkClickHandler(router, event) {
-				var link = findClosestLink(event.target),
-					href,
-					useDefaultUrlHandling,
-					options,
-					rel;
-
-				if (link && event.which === 1) {
-					href = link.getAttribute("href");
-					rel = link.getAttribute("rel");
-					useDefaultUrlHandling = (rel === "external") || link.hasAttribute("target");
-					if (!useDefaultUrlHandling) {
-						options = DOM.getData(link);
-						if (!options.rel) {
-							options.rel = rel;
-						}
-						router.open(href, options, event);
-						eventUtils.preventDefault(event);
-					}
-				}
-			}
-
-			/**
-			 * Handle event for pop state
-			 * @method popStateHandler
-			 * @param {ns.router.Router} router
-			 * @param {Event} event
-			 * @private
-			 * @static
-			 * @member ns.router.Router
-			 */
-			function popStateHandler(router, event) {
-				var state = event.state,
-					prevState = history.activeState,
-					rules = routerMicro.route,
-					maxOrderNumber = 0,
-					orderNumberArray = [],
-					inTransition = router.getContainer().inTransition,
-					ruleKey,
-					options,
-					to,
-					url,
-					isContinue = true,
-					reverse = state && history.getDirection(state) === "back",
-					transition;
-
-				if (_isLock || (inTransition && reverse)) {
-					history.disableVolatileMode();
-					history.replace(prevState, prevState.stateTitle, prevState.stateUrl);
-					return;
-				}
-
-				if (state) {
-					to = state.url;
-					transition = reverse ? ((prevState && prevState.transition) || "none") : state.transition;
-					options = object.merge({}, state, {
-						reverse: reverse,
-						transition: transition,
-						fromHashChange: true
-					});
-
-					url = path.getLocation();
-
-					for (ruleKey in rules) {
-						if (rules.hasOwnProperty(ruleKey)) {
-							if (rules[ruleKey].active) {
-								orderNumberArray.push(rules[ruleKey].orderNumber);
-							}
-						}
-					}
-					maxOrderNumber = Math.max.apply(null, orderNumberArray);
-					if (rules[ORDER_NUMBER[maxOrderNumber]] && rules[ORDER_NUMBER[maxOrderNumber]].onHashChange(url, options, prevState)) {
-						if (maxOrderNumber === 10) {
-							// rule is panel
-							return;
-						}
-						isContinue = false;
-					}
-
-					history.setActive(state);
-					if (isContinue) {
-						router.open(to, options);
-					}
-				} else {
-					url = path.getLocation();
-					if (prevState) {
-						if (prevState.absUrl !== url && prevState.stateUrl !== url) {
-							history.enableVolatileRecord();
-							router.open(url);
-						}
-					}
-				}
-			}
-
-			/**
-			 * Detect rel attribute from HTMLElement
-			 * @param {HTMLElement} to
-			 * @member ns.router.Router
+			 * @return {?string}
 			 * @method detectRel
 			 */
 			Router.prototype.detectRel = function (to) {
@@ -333,180 +301,269 @@
 					i;
 
 				for (i in route) {
-					rule = route[i];
-					if (selectors.matchesSelector(to, rule.filter)) {
-						return i;
+					if (route.hasOwnProperty(i)) {
+						rule = route[i];
+						if (selectors.matchesSelector(to, rule.filter)) {
+							return i;
+						}
 					}
 				}
+
+				return null;
 			};
 
 			/**
 			 * Change page to page given in parameter "to".
+			 *
+			 *	@example
+			 *		var router = tau.router.Router.getInstance();
+			 *		router.open("pageId");
+			 *		// open page with given id
+			 *		router.open("page.html");
+			 *		// open page from html file
+			 *		router.open("popupId");
+			 *		// open popup with given id
+			 *
 			 * @method open
 			 * @param {string|HTMLElement} to Id of page or file url or HTMLElement of page
 			 * @param {Object} [options]
-			 * @param {"page"|"popup"|"external"} [options.rel = "page"] Represents kind of link as "page" or "popup" or "external" for linking to another domain.
-			 * @param {string} [options.transition = "none"] Sets the animation used during change of page.
-			 * @param {boolean} [options.reverse = false] Sets the direction of change.
-			 * @param {boolean} [options.fromHashChange = false] Sets if will be changed after hashchange.
-			 * @param {boolean} [options.showLoadMsg = true] Sets if message will be shown during loading.
-			 * @param {number} [options.loadMsgDelay = 0] Sets delay time for the show message during loading.
-			 * @param {boolean} [options.volatileRecord = false] Sets if the current history entry will be modified or a new one will be created.
+			 * @param {"page"|"popup"|"external"} [options.rel="page"] Represents kind of link as "page" or "popup" or "external" for linking to another domain.
+			 * @param {string} [options.transition="none"] Sets the animation used during change of page.
+			 * @param {boolean} [options.reverse=false] Sets the direction of change.
+			 * @param {boolean} [options.fromHashChange=false] Sets if will be changed after hashchange.
+			 * @param {boolean} [options.showLoadMsg=true] Sets if message will be shown during loading.
+			 * @param {number} [options.loadMsgDelay=0] Sets delay time for the show message during loading.
+			 * @param {boolean} [options.volatileRecord=false] Sets if the current history entry will be modified or a new one will be created.
 			 * @param {boolean} [options.dataUrl] Sets if page has url attribute.
-			 * @param {?string} [options.container = null] It is used in RoutePopup as selector for container.
+			 * @param {?string} [options.container=null] It is used in RoutePopup as selector for container.
+			 * @param {Event} [event] Event object
 			 * @member ns.router.Router
 			 */
 			Router.prototype.open = function (to, options, event) {
-				var rel,
+				var self = this,
+					rel,
 					rule,
-					deferred = {},
-					filter,
-					stringId,
-					toElement,
-					self = this;
+					deferred;
 
+				// if to is a string then convert to HTMLElement
 				to = getHTMLElement(to);
-				rel = ((options && options.rel) || (to instanceof HTMLElement && this.detectRel(to)) || "page");
-					rule = route[rel];
-				if (_isLock) {
-					return;
-				}
+				// find rel for given element; order: read from options, autodetect, "page" by default
+				rel = ((options && options.rel) || (to instanceof HTMLElement && self.detectRel(to)) || "page");
+				// take rule
+				rule = route[rel];
 
-				if (rel === "back") {
-					history.back();
-					return;
-				}
-
-				if (rule) {
-					options = object.merge(
-						{
-							rel: rel
-						},
-						this.defaults,
-						rule.option(),
-						options
-					);
-					filter = rule.filter;
-					deferred.resolve = function (options, content) {
-						rule.open(content, options, event);
-					};
-					deferred.reject = function (options) {
-						eventUtils.trigger(self.container.element, "changefailed", options);
-					};
-					if (typeof to === "string") {
-						if (to.replace(/[#|\s]/g, "")) {
-							this._loadUrl(to, options, rule, deferred);
-						}
+				// if router is not locked
+				if (!self.locked) {
+					if (rel === "back") {
+						// in back case we call history back
+						history.back();
 					} else {
-						if (to && selectors.matchesSelector(to, filter)) {
-							deferred.resolve(options, to);
+						// if rule is correct
+						if (rule) {
+							// we set options which will be applied to method open on rule
+							options = object.merge(
+								// new object to delete references
+								{
+									rel: rel
+								},
+								// router defaults
+								self.defaults,
+								// rule defaults
+								rule.option(),
+								// argument of current method
+								options
+							);
+							// callbacks called after finish loading content
+							deferred = {
+								resolve: function (options, content) {
+									// on success we apply content to method open on rule
+									rule.open(content, options, event);
+								},
+								reject: function (options) {
+									// on error we trigger event to page container
+									self.container.trigger("changefailed", options);
+								}
+							};
+							if (typeof to === "string") {
+								// if to is still string that mean didn't found element for this id
+								// we need to load URL
+								if (to.replace(/[#|\s]/g, "")) {
+									// load URL and call deferred methods after finish
+									self._loadUrl(to, options, rule, deferred);
+								}
+							} else {
+								// we found HTMLElement for given id
+								if (to && selectors.matchesSelector(to, rule.filter)) {
+									// if element match to filter then we resolve deferred
+									deferred.resolve(options, to);
+								} else {
+									// otherwise we do reject
+									deferred.reject(options);
+								}
+							}
 						} else {
-							deferred.reject(options);
+							// throw exception if rule not exists
+							throw new Error("Not defined router rule [" + rel + "]");
 						}
 					}
-				} else {
-					throw new Error("Not defined router rule [" + rel + "]");
 				}
 			};
 
 			/**
 			 * Method initializes page container and builds the first page if flag autoInitializePage is set.
+			 *
+			 *	@example
+			 *		var router = tau.router.Router.getInstance();
+			 *		router.init();
+			 *		// router now is ready to work
+			 *
+			 * var router = tau.router.Router.getInstance();
 			 * @method init
-			 * @param {boolean} justBuild
 			 * @member ns.router.Router
 			 */
-			Router.prototype.init = function (justBuild) {
-				var page,
+			Router.prototype.init = function () {
+				var self = this,
+					page,
 					containerElement,
 					container,
 					firstPage,
 					pages,
 					activePages,
 					ruleKey,
-					rules = routerMicro.route,
+					justBuild = engine.getJustBuild(),
+					rules = router.route,
 					location = window.location,
-					PageClasses = Page.classes,
-					uiPageActiveClass = PageClasses.uiPageActive,
-					pageDefinition = ns.engine.getWidgetDefinition("Page"),
+					pageClasses = Page.classes,
+					uiPageActiveClass = pageClasses.uiPageActive,
+					pageDefinition = engine.getWidgetDefinition("Page"),
 					pageSelector = pageDefinition.selector,
-					self = this;
+					activePageSelector = "." + uiPageActiveClass,
+					currentHash = location.hash;
 
+				// trigger event "beforerouterinit" on this event developer can change setting of router
+				eventUtils.trigger(document, "beforerouterinit", this, false);
+
+				// cache body in router
 				body = document.body;
+
+				// finding container:
+				// 1. find element to build PageContainer widget
 				containerElement = ns.getConfig("pageContainer") || body;
+
+				// find all pages
 				pages = slice.call(containerElement.querySelectorAll(pageSelector));
+
+				// 2. if pageContainerBody is false pageContainer will be parent of first page
 				if (!ns.getConfig("pageContainerBody", false)) {
 					containerElement = pages.length ? pages[0].parentNode : containerElement;
 				}
+
+				// inform about just build mode
 				self.justBuild = justBuild;
 
+				// if router should initialize first page
 				if (ns.getConfig("autoInitializePage", true)) {
-					firstPage = containerElement.querySelector("." + uiPageActiveClass);
-					if (!firstPage) {
-						firstPage = pages[0];
-					}
-
-					if (firstPage) {
-						activePages = containerElement.querySelectorAll("." + uiPageActiveClass);
-						slice.call(activePages).forEach(function (page) {
-							page.classList.remove("." + uiPageActiveClass);
-						});
-					}
-
-					if (location.hash) {
+					// finding first page
+					// 1. detect hash and change page if hash exists
+					if (currentHash) {
 						//simple check to determine if we should show firstPage or other
-						page = document.getElementById(location.hash.replace("#", ""));
+						page = document.getElementById(currentHash.replace("#", ""));
 						if (page && selectors.matchesSelector(page, pageSelector)) {
 							firstPage = page;
 						}
 					}
 
+					// 2. find elements with active page class
+					firstPage = firstPage || containerElement.querySelector(activePageSelector);
+
+					// 3. get first page
+					firstPage = firstPage || pages[0];
+
+					// and remove active class from other pages
+					activePages = containerElement.querySelectorAll(activePageSelector);
+					[].forEach.call(activePages, function (page) {
+						page.classList.remove(uiPageActiveClass);
+					});
+
+					// 4. if option addPageIfNotExist is true and in previous
+					// steps we didn't found any page then create new page
 					if (!firstPage && ns.getConfig("addPageIfNotExist", true)) {
+						// create container for first page
 						firstPage = Page.createEmptyElement();
-						while(containerElement.firstChild) {
+						// move all elements inside container to new page
+						while (containerElement.firstChild) {
 							firstPage.appendChild(containerElement.firstChild);
 						}
+						// append new page to container
 						containerElement.appendChild(firstPage);
 					}
+				}
 
-					if (justBuild) {
-						//>>excludeStart("tauDebug", pragmas.tauDebug);
-						ns.log("routerMicro.Router just build");
-						//>>excludeEnd("tauDebug");
-						//engine.createWidgets(containerElement, true);
-						container = engine.instanceWidget(containerElement, "pagecontainer");
-						if (firstPage) {
-							self.register(container, firstPage);
+				if (justBuild) {
+					//>>excludeStart("tauDebug", pragmas.tauDebug);
+					ns.log("Router just build");
+					//>>excludeEnd("tauDebug");
+				} else {
+					//init all rules
+					for (ruleKey in rules) {
+						if (rules.hasOwnProperty(ruleKey) && typeof rules[ruleKey].init === "function") {
+							rules[ruleKey].init();
 						}
-						return;
 					}
 				}
 
-				for (ruleKey in rules) {
-					if (rules.hasOwnProperty(ruleKey) && rules[ruleKey].init) {
-						rules[ruleKey].init();
-					}
-				}
-
+				// create PageContainer widget
 				container = engine.instanceWidget(containerElement, "pagecontainer");
+
+				// register instance of PageContainer and first page
 				self.register(container, firstPage);
+
+				// trigger event "routerinit" on document
+				eventUtils.trigger(document, "routerinit", self, false);
 			};
 
 			/**
 			 * Method removes all events listeners set by router.
+			 *
+			 * Also remove singleton instance of router;
+			 *
+			 *	@example
+			 *		var router = tau.router.Router.getInstance();
+			 *		router.destroy();
+			 *		var router2 = tau.router.Router.getInstance();
+			 *		// router !== router2
+			 *
 			 * @method destroy
 			 * @member ns.router.Router
 			 */
 			Router.prototype.destroy = function () {
 				var self = this;
-				window.removeEventListener("popstate", self.popStateHandler, false);
-				if (body) {
-					body.removeEventListener("pagebeforechange", self.pagebeforechangeHandler, false);
-					body.removeEventListener("vclick", self.linkClickHandler, false);
+
+				// remove listeners and clear handler properties
+				if (self._onhashchangehandler) {
+					window.removeEventListener(historyManagerEvents.HASHCHANGE, self._onhashchangehandler, false);
+					self._onhashchangehandler = null;
 				}
+				if (self._onstatechangehandler) {
+					window.removeEventListener(historyManagerEvents.STATECHANGE, self._onstatechangehandler, false);
+					self._onstatechangehandler = null;
+				}
+				if (self._oncontrollercontent) {
+					window.removeEventListener("controller-content-available", self._oncontrollercontent, false);
+					self._oncontrollercontent = null;
+				}
+
+				// unset instance for singleton
+				routerInstance = null;
 			};
 
 			/**
-			 * Method sets container.
+			 * Method sets instance of PageContainer widget
+			 *
+			 *	@example
+			 *		var router = tau.router.Router.getInstance();
+			 *		router.setContainer(new ns.widget.PageContainer());
+			 *
 			 * @method setContainer
 			 * @param {ns.widget.core.PageContainer} container
 			 * @member ns.router.Router
@@ -516,9 +573,14 @@
 			};
 
 			/**
-			 * Method returns container.
+			 * Method returns instance of PageContainer widget
+			 *
+			 *	@example
+			 *		var router = tau.router.Router.getInstance();
+			 *		containerWidget = router.getContainer();
+			 *
 			 * @method getContainer
-			 * @return {ns.widget.core.PageContainer} container of widget
+			 * @return {ns.widget.core.PageContainer}
 			 * @member ns.router.Router
 			 */
 			Router.prototype.getContainer = function () {
@@ -526,17 +588,126 @@
 			};
 
 			/**
-			 * Method returns ths first page.
+			 * Method returns ths first page HTMLElement
 			 * @method getFirstPage
-			 * @return {HTMLElement} the first page
+			 * @return {HTMLElement}
 			 * @member ns.router.Router
 			 */
 			Router.prototype.getFirstPage = function () {
-				return this.firstPage;
+				return this.getRoute("page").getFirstElement();
 			};
 
 			/**
+			 * Callback for event "historyhashchange" which is triggered by history manager after hash is changed
+			 * @param {ns.router.Router} router
+			 * @param {Event} event
+			 */
+			function onHistoryHashChange(router, event) {
+				var options = event.detail,
+					ruleKey = "";
+
+				//iterate on routes
+				for (ruleKey in route) {
+					if (route.hasOwnProperty(ruleKey) && route[ruleKey].onHashChange(options)) {
+						// if route block hash change event then do prevent default and stop propagate
+						eventUtils.preventDefault(event);
+						eventUtils.stopImmediatePropagation(event);
+						return;
+					}
+				}
+			}
+
+			/**
+			 * Callback for event "historystatechange" which is triggered by history manager after hash is changed
+			 * @param {ns.router.Router} router
+			 * @param {Event} event
+			 */
+			function onHistoryStateChange(router, event) {
+				var options = event.detail,
+					//
+					url = options.reverse ? options.url : (options.href || options.url);
+				router.open(url, options);
+				// prevent current event
+				eventUtils.preventDefault(event);
+				eventUtils.stopImmediatePropagation(event);
+			}
+
+			/**
+			 * Convert HTML string to HTMLElement
+			 * @param {string|HTMLElement} content
+			 * @param {string} title
+			 * @returns {?HTMLElement}
+			 */
+			function convertToNode (content, title) {
+				var contentNode = null,
+					externalDocument = document.implementation.createHTMLDocument(title),
+					externalBody = externalDocument.body;
+
+				if (content instanceof HTMLElement) {
+					// if content is HTMLElement just set to contentNode
+					contentNode = content;
+				} else {
+					// otherwise convert string to HTMLElement
+					try {
+						externalBody.insertAdjacentHTML("beforeend", content);
+						contentNode = externalBody.firstChild;
+					} catch (e) {
+						ns.error("Failed to inject element", e);
+					}
+				}
+				return contentNode;
+			}
+
+			/**
+			 * Set data-url on HTMLElement if not exists
+			 * @param {HTMLElement} contentNode
+			 * @param {string} url
+			 */
+			function setURLonElement(contentNode, url) {
+				if (url) {
+					if (contentNode instanceof HTMLElement && !DOM.hasNSData(contentNode, "url")) {
+						// if url is missing we need set data-url attribute for good finding by method open in router
+						url = url.replace(/^#/, "");
+						DOM.setNSData(contentNode, "url", url);
+					}
+				}
+			}
+
+			/**
+			 * Callback for event "controller-content-available" which is triggered by controller after application handle hash change
+			 * @param {ns.router.Router} router
+			 * @param {Event} event
+			 */
+			function onControllerContent(router, event) {
+				var data = event.detail,
+					content = data.content,
+					options = data.options,
+					contentNode = null,
+					url = (options.href || options.url);
+
+				// if controller give content
+				if (content) {
+					// convert to node if content is string
+					contentNode = convertToNode(content, options.title);
+
+					// set data-url on node
+					setURLonElement(contentNode, url);
+
+					// calling open method
+					router.open(contentNode, options);
+
+					//prevent event
+					eventUtils.preventDefault(event);
+				}
+			}
+
+			/**
 			 * Method registers page container and the first page.
+			 *
+			 *	@example
+			 *		var router = tau.router.Router.getInstance();
+			 *		router.register(new ns.widget.PageContainer(), document.getElementById("firstPage"));
+			 *
 			 * @method register
 			 * @param {ns.widget.core.PageContainer} container
 			 * @param {HTMLElement} firstPage
@@ -544,98 +715,163 @@
 			 */
 			Router.prototype.register = function (container, firstPage) {
 				var self = this;
+
+				// sets instance of PageContainer widget
 				self.container = container;
-				self.firstPage = firstPage;
 
-				self.linkClickHandler = linkClickHandler.bind(null, self);
-				self.popStateHandler = popStateHandler.bind(null, self);
+				// sets first page HTMLElement
+				self.getRoute("page").setFirstElement(firstPage);
 
-				document.addEventListener("vclick", self.linkClickHandler, false);
-				window.addEventListener("popstate", self.popStateHandler, false);
-
+				// trigger event "themeinit" to theme module
 				eventUtils.trigger(document, "themeinit", self);
 
+				// sets events handlers
+				if (!self._onhashchangehandler) {
+					self._onhashchangehandler = onHistoryHashChange.bind(null, self);
+					window.addEventListener(historyManagerEvents.HASHCHANGE, self._onhashchangehandler, false);
+				}
+				if (!self._onstatechangehandler) {
+					self._onstatechangehandler = onHistoryStateChange.bind(null, self);
+					window.addEventListener(historyManagerEvents.STATECHANGE, self._onstatechangehandler, false);
+				}
+				if (!self._oncontrollercontent) {
+					self._oncontrollercontent = onControllerContent.bind(null, self);
+					window.addEventListener("controller-content-available", self._oncontrollercontent, false);
+				}
+
+				// if loader config is set then create loader widget
 				if (ns.getConfig("loader", false)) {
 					container.element.appendChild(self.getLoader().element);
 				}
-				history.enableVolatileRecord();
+
+				// set history support
+				history.enableVolatileMode();
+
+				// if first page exist open this page without transition
 				if (firstPage) {
 					self.open(firstPage, { transition: "none" });
 				}
-				this.getRoute("popup").setActive(null);
+
+				// set active popup to null
+				self.getRoute("popup").setActive(null);
 			};
 
 			/**
 			 * Convert string id to HTMLElement or return HTMLElement if is given
-			 * @method getHTMLElement
 			 * @param {string|HTMLElement} idOrElement
-			 * @returns {HTMLElement}
+			 * @return {HTMLElement|string}
 			 */
 			function getHTMLElement(idOrElement) {
 				var stringId,
 					toElement;
+				// if given argument is string then
 				if (typeof idOrElement === "string") {
 					if (idOrElement[0] === "#") {
+						// trim first char if it is #
 						stringId = idOrElement.substr(1);
 					} else {
 						stringId = idOrElement;
 					}
+					// find element by id
 					toElement = document.getElementById(stringId);
+
 					if (toElement) {
+						// is exists element by id then return it
 						idOrElement = toElement;
 					}
+					// otherwise return string
 				}
 				return idOrElement;
 			}
 
-			/*
-			* Method close route element, eg page or popup.
-			* @method close
-			* @param {string|HTMLElement} to Id of page or file url or HTMLElement of page
-			* @param {Object} [options]
-			* @param {"page"|"popup"|"external"} [options.rel = "page"] Represents kind of link as "page" or "popup" or "external" for linking to another domain
-			* @member ns.router.Router
-			*/
+			/**
+			 * Method close route element, eg page or popup.
+			 *
+			 *	@example
+			 *		var router = tau.router.Router.getInstance();
+			 *		router.close("popupId", {transition: "none"});
+			 *
+			 * @method close
+			 * @param {string|HTMLElement} to Id of page or file url or HTMLElement of page
+			 * @param {Object} [options]
+			 * @param {"page"|"popup"|"external"} [options.rel="page"] Represents kind of link as "page" or "popup" or "external" for linking to another domain
+			 * @member ns.router.Router
+			 */
 			Router.prototype.close = function (to, options) {
 				var rel = (options && options.rel) || "back",
 					rule = route[rel];
 
-				if (rel === "back") {
-					history.back();
-				} else {
-					if (rule) {
-						rule.close(getHTMLElement(to), options);
+				// if router is not locked
+				if (!this.locked) {
+					// if rel is back then call back method
+					if (rel === "back") {
+						history.back();
 					} else {
-						throw new Error("Not defined router rule [" + rel + "]");
+						// otherwise if rule exists
+						if (rule) {
+							// call close on rule
+							rule.close(getHTMLElement(to), options);
+						} else {
+							throw new Error("Not defined router rule [" + rel + "]");
+						}
 					}
+				}
+			};
+
+			/**
+			 * Method back to previous state.
+			 *
+			 *	@example
+			 *		var router = tau.router.Router.getInstance();
+			 *		router.back();
+			 *
+			 * @method close
+			 * @member ns.router.Router
+			 */
+			Router.prototype.back = function () {
+
+				// if router is not locked
+				if (!this.locked) {
+					history.back();
 				}
 			};
 
 			/**
 			 * Method opens popup.
+			 *
+			 *	@example
+			 *		var router = tau.router.Router.getInstance();
+			 *		router.openPopup("popupId", {transition: "none"});
+			 *
 			 * @method openPopup
 			 * @param {HTMLElement|string} to Id or HTMLElement of popup.
 			 * @param {Object} [options]
-			 * @param {string} [options.transition = "none"] Sets the animation used during change of page.
-			 * @param {boolean} [options.reverse = false] Sets the direction of change.
-			 * @param {boolean} [options.fromHashChange = false] Sets if will be changed after hashchange.
-			 * @param {boolean} [options.showLoadMsg = true] Sets if message will be shown during loading.
-			 * @param {number} [options.loadMsgDelay = 0] Sets delay time for the show message during loading.
-			 * @param {boolean} [options.volatileRecord = false] Sets if the current history entry will be modified or a new one will be created.
+			 * @param {string} [options.transition="none"] Sets the animation used during change of page.
+			 * @param {boolean} [options.reverse=false] Sets the direction of change.
+			 * @param {boolean} [options.fromHashChange=false] Sets if will be changed after hashchange.
+			 * @param {boolean} [options.showLoadMsg=true] Sets if message will be shown during loading.
+			 * @param {number} [options.loadMsgDelay=0] Sets delay time for the show message during loading.
+			 * @param {boolean} [options.volatileRecord=false] Sets if the current history entry will be modified or a new one will be created.
 			 * @param {boolean} [options.dataUrl] Sets if page has url attribute.
-			 * @param {?string} [options.container = null] It is used in RoutePopup as selector for container.
+			 * @param {?string} [options.container=null] It is used in RoutePopup as selector for container.
 			 * @member ns.router.Router
 			 */
 			Router.prototype.openPopup = function (to, options) {
+				// call method open with overwrite rel option
 				this.open(to, object.fastMerge({rel: "popup"}, options));
 			};
 
 			/**
 			 * Method closes popup.
+			 *
+			 *	@example
+			 *		var router = tau.router.Router.getInstance();
+			 *		router.closePopup();
+			 *
 			 * @method closePopup
 			 * @param {Object} options
 			 * @param {string=} [options.transition]
-			 * @param {string=} [options.ext= in ui-pre-in] options.ext
+			 * @param {string=} [options.ext="in ui-pre-in"] options.ext
 			 * @member ns.router.Router
 			 */
 			Router.prototype.closePopup = function (options) {
@@ -645,120 +881,137 @@
 					popupRoute.close(null, options);
 				}
 			};
+			/**
+			 * Method close route element, eg page or popup.
+			 * @method close
+			 * @param {string|HTMLElement} to Id of page or file url or HTMLElement of page
+			 * @param {Object} [options]
+			 * @param {"page"|"popup"|"external"} [options.rel = "page"] Represents kind of link as "page" or "popup" or "external" for linking to another domain
+			 * @member ns.router.Router
+			 */
+			Router.prototype.close = function (to, options) {
+				var rel = ((options && options.rel) || "page"),
+					rule = route[rel];
 
-			Router.prototype.lock = function () {
-				_isLock = true;
-			};
-
-			Router.prototype.unlock = function () {
-				_isLock = false;
+				if (rel === "back") {
+					history.back();
+				} else {
+					if (rule) {
+						rule.close(to, options);
+					} else {
+						throw new Error("Not defined router rule [" + rel + "]");
+					}
+				}
 			};
 
 			/**
-			 * Load content from url
+			 * Lock router
+			 * @method lock
+			 * @member ns.router.Router
+			 */
+			Router.prototype.lock = function () {
+				this.locked = true;
+			};
+
+			/**
+			 * Unlock router and history manager
+			 * @method unlock
+			 * @member ns.router.Router
+			 */
+			Router.prototype.unlock = function () {
+				this.locked = false;
+			};
+
+			/**
+			 * Load content from url.
+			 *
+			 * Method prepare url and call template function to load external file.
+			 *
+			 * If option showLoadMsg is ste to tru open loader widget before start loading.
+			 *
 			 * @method _loadUrl
-			 * @param {string} url
-			 * @param {Object} options
-			 * @param {"page"|"popup"|"external"} [options.rel = "page"] Represents kind of link as "page" or "popup" or "external" for linking to another domain.
-			 * @param {string} [options.transition = "none"] Sets the animation used during change of page.
-			 * @param {boolean} [options.reverse = false] Sets the direction of change.
-			 * @param {boolean} [options.fromHashChange = false] Sets if will be changed after hashchange.
-			 * @param {boolean} [options.showLoadMsg = true] Sets if message will be shown during loading.
-			 * @param {number} [options.loadMsgDelay = 0] Sets delay time for the show message during loading.
-			 * @param {boolean} [options.volatileRecord = false] Sets if the current history entry will be modified or a new one will be created.
-			 * @param {boolean} [options.dataUrl] Sets if page has url attribute.
-			 * @param {?string} [options.container = null] It is used in RoutePopup as selector for container.
-			 * @param {string} [options.absUrl] Absolute Url for content used by deferred object.
-			 * @param {Object} rule
-			 * @param {Object} deferred
-			 * @param {Function} deferred.reject
-			 * @param {Function} deferred.resolve
+			 * @param {string} url full URL to load
+			 * @param {Object} options options for this and next methods in chain
+			 * @param {boolean} [options.showLoadMsg=true] Sets if message will be shown during loading.
+			 * @param {number} [options.loadMsgDelay=0] Sets delay time for the show message during loading.
+			 * @param {boolean} [options.data] Sets if page has url attribute.
+			 * @param {Object} rule rule which support given call
+			 * @param {Object} deferred object with callbacks
+			 * @param {Function} deferred.reject callback on error
+			 * @param {Function} deferred.resolve callback on success
 			 * @member ns.router.Router
 			 * @protected
 			 */
 			Router.prototype._loadUrl = function (url, options, rule, deferred) {
 				var absUrl = path.makeUrlAbsolute(url, path.getLocation()),
 					content,
-					request,
-					detail = {},
-					self = this;
+					self = this,
+					data = options.data || {};
 
-				// If the caller provided data append the data to the URL.
-				if (options.data) {
-					absUrl = path.addSearchParams(absUrl, options.data);
-					options.data = undefined;
-				}
-
+				// check if content is loaded in current document
 				content = rule.find(absUrl);
 
+				// if content doesn't find and url is embedded url
 				if (!content && path.isEmbedded(absUrl)) {
-					deferred.reject(detail);
-					return;
-				}
-				// If the content we are interested in is already in the DOM,
-				// and the caller did not indicate that we should force a
-				// reload of the file, we are done. Resolve the deferrred so that
-				// users can bind to .done on the promise
-				if (content) {
-					detail = object.fastMerge({absUrl: absUrl}, options);
-					deferred.resolve(detail, content);
-					return;
-				}
+					// reject
+					deferred.reject({});
+				} else {
+					// If the content we are interested in is already in the DOM,
+					// and the caller did not indicate that we should force a
+					// reload of the file, we are done. Resolve the deferred so that
+					// users can bind to .done on the promise
+					if (content) {
+						// content was found and we resolve
+						deferred.resolve(object.fastMerge({absUrl: absUrl}, options), content);
+					} else {
 
-				if (options.showLoadMsg) {
-					self._showLoading(options.loadMsgDelay);
-				}
+						// Load the new content.
+						eventUtils.trigger(self.getContainer().element, options.rel + "beforeload");
 
-				// Load the new content.
-				eventUtils.trigger(self.getContainer().element, options.rel + "beforeload");
-				request = new XMLHttpRequest();
-				request.responseType = "document";
-				request.overrideMimeType("text/html");
-				request.open("GET", absUrl);
-				request.addEventListener("error", self._loadError.bind(self, absUrl, options, deferred));
-				request.addEventListener("load", function (event) {
-					var request = event.target;
-					if (request.readyState === 4) {
-						if (request.status === 200 || (request.status === 0 && request.responseXML)) {
-							self._loadSuccess(absUrl, options, rule, deferred, request.responseXML);
-							eventUtils.trigger(self.getContainer().element, options.rel + "load");
-						} else {
-							self._loadError(absUrl, options, deferred);
+						// show loading message
+						if (options.showLoadMsg) {
+							self._showLoading(options.loadMsgDelay);
 						}
+
+						// force return full document from template system
+						data.fullDocument = true;
+						// we put url, not the whole path to function render,
+						// because this path can be modified by template's module
+						template.render(url, data, function (status, element) {
+							// if template loaded successful
+							if (status.success) {
+								self._loadSuccess(status.absUrl, options, rule, deferred, element);
+								eventUtils.trigger(self.getContainer().element, options.rel + "load");
+							} else {
+								self._loadError(status.absUrl, options, deferred);
+							}
+						});
 					}
-				});
-				request.send();
+				}
 			};
 
 			/**
 			 * Error handler for loading content by AJAX
 			 * @method _loadError
-			 * @param {string} absUrl
-			 * @param {Object} options
-			 * @param {"page"|"popup"|"external"} [options.rel = "page"] Represents kind of link as "page" or "popup" or "external" for linking to another domain.
-			 * @param {string} [options.transition = "none"] Sets the animation used during change of page.
-			 * @param {boolean} [options.reverse = false] Sets the direction of change.
-			 * @param {boolean} [options.fromHashChange = false] Sets if will be changed after hashchange.
-			 * @param {boolean} [options.showLoadMsg = true] Sets if message will be shown during loading.
-			 * @param {number} [options.loadMsgDelay = 0] Sets delay time for the show message during loading.
-			 * @param {boolean} [options.volatileRecord = false] Sets if the current history entry will be modified or a new one will be created.
-			 * @param {boolean} [options.dataUrl] Sets if page has url attribute.
-			 * @param {?string} [options.container = null] It is used in RoutePopup as selector for container.
-			 * @param {string} [options.absUrl] Absolute Url for content used by deferred object.
-			 * @param {Object} deferred
-			 * @param {Function} deferred.reject
+			 * @param {string} absUrl full URL to load
+			 * @param {Object} options options for this and next methods in chain
+			 * @param {boolean} [options.showLoadMsg=true] Sets if message will be shown during loading.
+			 * @param {Object} deferred object with callbacks
+			 * @param {Function} deferred.reject callback on error
 			 * @member ns.router.Router
 			 * @protected
 			 */
 			Router.prototype._loadError = function (absUrl, options, deferred) {
 				var detail = object.fastMerge({url: absUrl}, options),
 					self = this;
+
+				ns.error("load error, file: ", absUrl);
 				// Remove loading message.
 				if (options.showLoadMsg) {
-					self._showError(absUrl);
+					self._hideLoading();
 				}
 
-				eventUtils.trigger(self.container.element, "loadfailed", detail);
+				self.container.trigger("loadfailed", detail);
 				deferred.reject(detail);
 			};
 
@@ -768,28 +1021,20 @@
 			/**
 			 * Success handler for loading content by AJAX
 			 * @method _loadSuccess
-			 * @param {string} absUrl
-			 * @param {Object} options
-			 * @param {"page"|"popup"|"external"} [options.rel = "page"] Represents kind of link as "page" or "popup" or "external" for linking to another domain.
-			 * @param {string} [options.transition = "none"] Sets the animation used during change of page.
-			 * @param {boolean} [options.reverse = false] Sets the direction of change.
-			 * @param {boolean} [options.fromHashChange = false] Sets if will be changed after hashchange.
-			 * @param {boolean} [options.showLoadMsg = true] Sets if message will be shown during loading.
-			 * @param {number} [options.loadMsgDelay = 0] Sets delay time for the show message during loading.
-			 * @param {boolean} [options.volatileRecord = false] Sets if the current history entry will be modified or a new one will be created.
-			 * @param {boolean} [options.dataUrl] Sets if page has url attribute.
-			 * @param {?string} [options.container = null] It is used in RoutePopup as selector for container.
-			 * @param {string} [options.absUrl] Absolute Url for content used by deferred object.
-			 * @param {Object} rule
-			 * @param {Object} deferred
-			 * @param {Function} deferred.reject
-			 * @param {Function} deferred.resolve
+			 * @param {string} absUrl full URL to load
+			 * @param {Object} options options for this and next methods in chain
+			 * @param {boolean} [options.showLoadMsg=true] Sets if message will be shown during loading.
+			 * @param {Object} rule rule which support given call
+			 * @param {Object} deferred object with callbacks
+			 * @param {Function} deferred.reject callback on error
+			 * @param {Function} deferred.resolve callback on success
 			 * @param {string} html
 			 * @member ns.router.Router
 			 * @protected
 			 */
 			Router.prototype._loadSuccess = function (absUrl, options, rule, deferred, html) {
 				var detail = object.fastMerge({url: absUrl}, options),
+					// find element with given id in returned html
 					content = rule.parse(html, absUrl);
 
 				// Remove loading message.
@@ -804,39 +1049,15 @@
 				}
 			};
 
-			// TODO the first page should be a property set during _create using the logic
-			//	that currently resides in init
-			/**
-			 * Get initial content
-			 * @method _getInitialContent
-			 * @member ns.router.Router
-			 * @return {HTMLElement} the first page
-			 * @protected
-			 */
-			Router.prototype._getInitialContent = function () {
-				return this.firstPage;
-			};
-
 			/**
 			 * Show the loading indicator
 			 * @method _showLoading
-			 * @param {number} delay
+			 * @param {number} [delay=0] delay in ms
 			 * @member ns.router.Router
 			 * @protected
 			 */
 			Router.prototype._showLoading = function (delay) {
 				this.container.showLoading(delay);
-			};
-
-			/**
-			 * Report an error loading
-			 * @method _showError
-			 * @param {string} absUrl
-			 * @member ns.router.Router
-			 * @protected
-			 */
-			Router.prototype._showError = function (absUrl) {
-				ns.error("load error, file: ", absUrl);
 			};
 
 			/**
@@ -850,20 +1071,57 @@
 			};
 
 			/**
-			 * Returns true if popup is active.
+			 * Returns Page or Popup widget
+			 * @param {string} [routeName="page"] in default page or popup
+			 * @method getActive
+			 * @return {ns.widget.BaseWidget}
+			 * @member ns.router.Router
+			 */
+			Router.prototype.getActive = function (routeName) {
+				var route = this.getRoute(routeName || "page");
+				return route && route.getActive();
+			};
+
+			/**
+			 * Returns true if element in given route is active.
+			 * @param {string} [routeName="page"] in default page or popup
+			 * @method hasActive
+			 * @return {boolean}
+			 * @member ns.router.Router
+			 */
+			Router.prototype.hasActive = function (routeName) {
+				var route = this.getRoute(routeName || "page");
+				return !!(route && route.hasActive());
+			};
+
+			/**
+			 * Returns true if any popup is active.
+			 *
+			 *	@example
+			 *		var router = tau.router.Router.getInstance(),
+			 *			hasActivePopup = router.hasActivePopup();
+			 *			// -> true | false
+			 *
 			 * @method hasActivePopup
 			 * @return {boolean}
 			 * @member ns.router.Router
 			 */
 			Router.prototype.hasActivePopup = function () {
-				var popup = this.getRoute("popup");
-				return popup && popup.hasActive();
+				return this.hasActive("popup");
 			};
 
 			/**
 			 * This function returns proper route.
+			 *
+			 *	@example
+			 *		var router = tau.router.Router.getInstance(),
+			 *			route = router.getRoute("page"),
+			 *			// -> Object with pages support
+			 *			activePage = route.getActive();
+			 *			// instance of Page widget
+			 *
 			 * @method getRoute
-			 * @param {string} Type of route
+			 * @param {string} type Type of route
 			 * @return {?ns.router.route.interface}
 			 * @member ns.router.Router
 			 */
@@ -871,30 +1129,100 @@
 				return route[type];
 			};
 
-
 			/**
-			 * Returns loader widget
-			 * @return {ns.widget.mobile.Loader}
+			 * Returns instance of loader widget.
+			 *
+			 * If loader not exist then is created on first element matched to selector
+			 * or is created new element.
+			 *
+			 *	@example
+			 *		var loader = router.getLoader();
+			 *		// get or create loader
+			 *		loader.show();
+			 *		// show loader
+			 *
+			 * @return {?ns.widget.mobile.Loader}
 			 * @member ns.router.Page
 			 * @method getLoader
 			 */
 			Router.prototype.getLoader = function () {
-				var loaderElement = document.querySelector("[data-role=loader],.ui-loader");
+				var loaderDefinition = engine.getWidgetDefinition("Loader"),
+					loaderSelector = loaderDefinition.selector,
+					loaderElement;
 
-				if (!loaderElement) {
-					loaderElement = document.createElement("div");
-					DOM.setNSData(loaderElement, "role", "loader");
+				if (loaderDefinition) {
+					loaderElement = document.querySelector(loaderSelector);
+					return engine.instanceWidget(loaderElement, "Loader");
 				}
-
-				return engine.instanceWidget(loaderElement, "Loader");
+				return null;
 			};
 
-			routerMicro.Router = Router;
+			/**
+			 * Creates a new instance of the router and returns it
+			 *
+			 *	@example
+			 *		var router = Router.newInstance();
+			 *
+			 * @method newInstance
+			 * @member ns.router.Router
+			 * @static
+			 * @return {ns.router.Router}
+			 * @since 2.4
+			 */
+			Router.newInstance = function () {
+				return (routerInstance = new Router());
+			};
 
-			engine.initRouter(Router);
+			/**
+			 * Returns a instance of the router, creates a new if does not exist
+			 *
+			 *	@example
+			 *		var router = tau.router.Router.getInstance(),
+			 *			// if router not exists create new instance and return
+			 *			router2 = tau.router.Router.getInstance();
+			 *			// only return router from first step
+			 *			// router === router2
+			 *
+			 * @method getInstance
+			 * @member ns.router.Router
+			 * @return {ns.router.Router}
+			 * @since 2.4
+			 * @static
+			 */
+			Router.getInstance = function () {
+				if (!routerInstance) {
+					return this.newInstance();
+				}
+				return routerInstance;
+			};
+
+			router.Router = Router;
+
+			/**
+			 * Returns router instance
+			 * @deprecated 2,4
+			 * @return {ns.router.Router}
+			 */
+			engine.getRouter = function () { //@TODO FIX HACK old API
+				//@TODO this is suppressed since the tests are unreadable
+				// tests need fixes
+				//ns.warn("getRouter() method is deprecated! Use tau.router.Router.getInstance() instead");
+				return Router.getInstance();
+			};
+
+			if (!ns.getConfig("disableRouter", false)) {
+				document.addEventListener(historyManagerEvents.ENABLED, function () {
+					Router.getInstance().init();
+				}, false);
+				document.addEventListener(historyManagerEvents.DISABLED, function () {
+					Router.getInstance().destroy();
+				}, false);
+			}
+
+			//engine.initRouter(Router);
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
-			return routerMicro.Router;
+			return router.Router;
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
-}(window, window.document, ns));
+}(window, window.document));

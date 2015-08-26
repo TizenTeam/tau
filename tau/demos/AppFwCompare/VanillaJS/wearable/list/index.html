@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width">
+		<title>VanillaJS TAU List</title>
+		<script>
+			var tauConfig = {autorun: false};
+		</script>
+		<script src="./tau/wearable/js/tau.min.js"></script>
+		<link rel="stylesheet" href="./tau/wearable/theme/blue/tau.min.css">
+		<style>
+			/* Added missing styles for multiline list */
+			.ui-listview li .li-text-sub {
+				display: block;
+				color: rgb(189, 167, 146);
+				font-size: 28px;
+				text-overflow: ellipsis;
+				overflow: hidden;
+				line-height: 32px;
+			}
+			.ui-listview li.li-has-multiline {
+				padding-top: 6px;
+				padding-bottom: 5px;
+				min-height: 100px;
+			}
+		</style>
+		<script src="./bower_components/requirejs/require.js" data-main="./app/app.js"></script>
+	</head>
+	<body>
+		<script type="text/x-handlebars-template" id="titleview">
+			<div class="ui-title">{{title}}</div>
+		</script>
+		<script type="text/x-handlebars-template" id="listview">
+			<ul class="ui-listview"></ul>
+		</script>
+		<script type="text/x-handlebars-template" id="listitemview">
+			<li>{{NAME}} <span class="li-text-sub">{{FROM}} ({{ACTIVE}})</span></li>
+		</script>
+		<script type="text/x-handlebars-template" id="pageview">
+			<div class="ui-page">
+				<header class="ui-header">{{title}}</header>
+				<div class="ui-content">{{{content}}}</div>
+				<footer class="ui-footer">
+					<button class="ui-btn">Go Go Gadget-list!</button>
+				</footer>
+			</div>
+		</script>
+	</body>
+</html>

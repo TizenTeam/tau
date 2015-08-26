@@ -1,4 +1,4 @@
-/*global window, define */
+/*global define, ns */
 /*jslint nomen: true */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
@@ -21,25 +21,22 @@
  * @class ns.router.route.drawer
  * @author Hyeoncheol Choi <hc7.choi@samsung.com>
  */
-(function (document, ns) {
+(function () {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
 			"../../engine",
-			"../../util/DOM/attributes",
 			"../../util/path",
-			"../../util/selectors",
-			"../../util/object",
 			"../route",
-			"../history",
+			"../../history",
 			"../../widget/core/Drawer"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 			var CoreDrawer = ns.widget.core.Drawer,
 				path = ns.util.path,
-				history = ns.router.history,
+				history = ns.history,
 				engine = ns.engine,
 				routeDrawer = {},
 				drawerHashKey = "drawer=true",
@@ -110,11 +107,9 @@
 			 * This method parses HTML and runs scripts from parsed code.
 			 * But, drawer router doesn't need to that.
 			 * @method parse
-			 * @param {string} html HTML code to parse
-			 * @param {string} absUrl Absolute url for parsed page
 			 * @member ns.router.route.drawer
 			 */
-			routeDrawer.parse = function (html, absUrl) {
+			routeDrawer.parse = function () {
 				return null;
 			};
 
@@ -144,24 +139,23 @@
 			/**
 			 * This method handles hash change.
 			 * @method onHashChange
-			 * @param {String} url
 			 * @param {Object} options
-			 * @param {String} prev Previous url string
 			 * @static
 			 * @member ns.router.route.drawer
-			 * @return {null}
+			 * @return {boolean}
 			 */
-			routeDrawer.onHashChange = function (url, options, prev) {
+			routeDrawer.onHashChange = function (options) {
 				var self = this,
 					activeDrawer = self._activeDrawer,
-					stateUrl = prev.stateUrl;
+					prev = options.stateUrl,
+					url = options.url;
 
-				if (activeDrawer && stateUrl.search(drawerHashKey) > 0 && url.search(drawerHashKey) < 0) {
+				if (activeDrawer && prev.search(drawerHashKey) > 0 && url.search(drawerHashKey) < 0) {
 					activeDrawer.close(options);
 					this.active = false;
 					return true;
 				}
-				return null;
+				return false;
 			};
 
 			ns.router.route.drawer = routeDrawer;
@@ -171,4 +165,4 @@
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
-}(window.document, ns));
+}());

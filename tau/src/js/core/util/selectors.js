@@ -13,6 +13,9 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ *
+ * Copyright (c) 2010 - 2014 Samsung Electronics Co., Ltd.
+ * License : MIT License V2
  */
 /**
  * #Selectors Utility
@@ -23,7 +26,7 @@
  * @author Jadwiga Sosnowska <j.sosnowska@partner.samsung.com>
  * @author Damian Osipiuk <d.osipiuk@samsung.com>
  */
-(function (document, ns) {
+(function (document) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
@@ -82,8 +85,8 @@
 			 * @static
 			 */
 			function getDataSelector(selector) {
-				var namespace = ns.getConfig('namespace');
-				return '[data-' + (namespace ? namespace + '-' : '') + selector + ']';
+				var namespace = ns.getConfig("namespace");
+				return "[data-" + (namespace ? namespace + "-" : "") + selector + "]";
 			}
 
 			/**
@@ -179,7 +182,7 @@
 			 * @private
 			 */
 			function testTag(tagName, node) {
-				return node.tagName.toLowerCase() === tagName;
+				return ("" + node.tagName).toLowerCase() === tagName;
 			}
 
 			/**
@@ -380,7 +383,7 @@
 					var overflow,
 						style;
 
-					while (element && element != document.body) {
+					while (element && element !== document.body) {
 						style = window.getComputedStyle(element);
 
 						if (style) {
@@ -399,4 +402,4 @@
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
-}(window.document, ns));
+}(window.document));

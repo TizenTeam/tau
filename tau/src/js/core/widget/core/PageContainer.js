@@ -1,4 +1,5 @@
 /*global window, define */
+/*jslint nomen: true, plusplus: true */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
  *
@@ -13,8 +14,10 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ *
+ * Copyright  2010 - 2014 Samsung Electronics Co., Ltd.
+ * License : MIT License V2
  */
-/*jslint nomen: true, plusplus: true */
 /**
  * # PageContainer Widget
  * PageContainer is a widget, which is supposed to have multiple child pages but display only one at a time.
@@ -27,7 +30,7 @@
  * @author Piotr Karny <p.karny@samsung.com>
  * @author Krzysztof Głodowski <k.glodowski@samsung.com>
  */
-(function (document, ns) {
+(function () {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
@@ -44,7 +47,6 @@
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 			var BaseWidget = ns.widget.BaseWidget,
-				Page = ns.widget.core.Page,
 				util = ns.util,
 				eventUtils = ns.event,
 				DOM = util.DOM,
@@ -165,12 +167,16 @@
 							}
 							toPageWidget.onShow();
 							//>>excludeStart("tauPerformance", pragmas.tauPerformance);
-							window.tauPerf.get("framework", "Trigger: pagechange");
+							if (window.tauPerf) {
+								window.tauPerf.get("framework", "Trigger: pagechange");
+							}
 							//>>excludeEnd("tauPerformance");
 							self.trigger(EventType.PAGE_CHANGE);
 							//>>excludeStart("tauPerformance", pragmas.tauPerformance);
-							window.tauPerf.get("framework", "After trigger: pagechange");
-							window.tauPerf.finish();
+							if (window.tauPerf) {
+								window.tauPerf.get("framework", "After trigger: pagechange");
+								window.tauPerf.finish();
+							}
 							//>>excludeEnd("tauPerformance");
 						}
 					};
@@ -374,4 +380,4 @@
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
-}(window.document, ns));
+}());

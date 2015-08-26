@@ -1,4 +1,4 @@
-/*global window, define */
+/*global define, ns */
 /*jslint plusplus: true */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
@@ -21,7 +21,7 @@
  * @author Maciej Moczulski <m.moczulski@samsung.com>
  * @author Piotr Karny <p.karny@samsung.com>
  */
-(function (window, document, ns) {
+(function () {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
@@ -268,4 +268,4 @@
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
-}(window, window.document, ns));
+}());
