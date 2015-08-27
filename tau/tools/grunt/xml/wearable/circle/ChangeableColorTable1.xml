@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ChangeableColorTable num="1">
 	<Theme style="Dark">
-		<ChangeableColorInfo id="B011" inputColor="4" hue="0" saturation="0" value="0" alpha="100" />
+		<ChangeableColorInfo id="B011" inputColor="K" hue="0" saturation="0" value="0" alpha="100" />
 		<ChangeableColorInfo id="B013" inputColor="K" hue="0" saturation="0" value="0" alpha="100" />
 		<ChangeableColorInfo id="B014" inputColor="K" hue="0" saturation="0" value="0" alpha="100" />
 		<ChangeableColorInfo id="B012" inputColor="K" hue="0" saturation="0" value="9" alpha="100" />
@@ -29,9 +29,9 @@
 		<ChangeableColorInfo id="B212" inputColor="K" hue="0" saturation="0" value="0" alpha="100" />
 		<ChangeableColorInfo id="B2111P" inputColor="3" hue="0" saturation="1" value="22" alpha="100" />
 		<ChangeableColorInfo id="B029" inputColor="K" hue="0" saturation="0" value="0" alpha="50" />
-		<ChangeableColorInfo id="B0210" inputColor="W" hue="0" saturation="0" value="0" alpha="17" />
-		<ChangeableColorInfo id="B0210P" inputColor="W" hue="0" saturation="0" value="0" alpha="35" />
-		<ChangeableColorInfo id="B0210D" inputColor="W" hue="0" saturation="0" value="0" alpha="8" />
+		<ChangeableColorInfo id="B0210" inputColor="W" hue="0" saturation="0" value="0" alpha="50" />
+		<ChangeableColorInfo id="B0210P" inputColor="W" hue="0" saturation="0" value="0" alpha="65" />
+		<ChangeableColorInfo id="B0210D" inputColor="W" hue="0" saturation="0" value="0" alpha="25" />
 		<ChangeableColorInfo id="B0210S" inputColor="4" hue="0" saturation="0" value="-20" alpha="100" />
 		<ChangeableColorInfo id="B023" inputColor="2" hue="-4" saturation="-29" value="0" alpha="100" />
 		<ChangeableColorInfo id="B0261" inputColor="-" hue="86" saturation="92" value="75" alpha="100" />
