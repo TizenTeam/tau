@@ -1,4 +1,4 @@
-/*global window, define, NodeList, HTMLCollection */
+/*global window, define, NodeList, HTMLCollection, Element, HTMLElement */
 /*jslint plusplus: true */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
@@ -76,25 +76,36 @@
 			 * this will return false if WC support is native
 			 * @param {HTMLElement} node
 			 * @return {boolean}
-			 * @private
 			 * @static
 			 * @member ns.util.DOM
 			 */
 			function isNodeWebComponentPolyfilled(node) {
+				var keys = [];
+				if (!node) {
+					return false;
+				}
 				// hacks
-				if (node.__upgraded__ === true) {
-					return true;
+				keys = Object.keys(node).join(":");
+				return (keys.indexOf("__impl") > -1 || keys.indexOf("__upgraded__") > -1 ||
+						keys.indexOf("__attached__") > -1);
+			}
+
+			/**
+			 * Returns normal element which was wrapped
+			 * by WebComponent polyfill
+			 * @param {Object} element
+			 * @return ?HTMLelement
+			 * @member ns.util.DOM
+			 * @static
+			 */
+			function unwrapWebComponentPolyfill(element) {
+				var unwrap = window.ShadowDOMPolyfill && window.ShadowDOMPolyfill.unwrap;
+				if (element && unwrap) {
+					return unwrap(element);
 				}
 
-				if (node.__attached === true) {
-					return true;
-				}
-
-				if (Object.keys(node).join("-").indexOf("__impl") > -1) {
-					return true;
-				}
-
-				return false;
+				ns.error("Unwrap method not available");
+				return element;
 			}
 
 			/**
@@ -174,13 +185,46 @@
 				}
 				if (nodeBPolyfilled) {
 					if (unwrap) {
-						foundNodeA = unwrap(nodeA);
+						foundNodeB = unwrap(nodeB);
 					} else {
 						foundNodeB = document.querySelector(getNodeSelectorPath(nodeB));
 					}
 				}
 
 				return foundNodeA === foundNodeB;
+			};
+
+			/**
+			 * Checks if elemenent was converted via WebComponentsJS,
+			 * this will return false if WC support is native
+			 * @method isNodeWebComponentPolyfilled
+			 * @param {HTMLElement} node
+			 * @return {boolean}
+			 * @static
+			 * @member ns.util.DOM
+			 */
+			DOM.isNodeWebComponentPolyfilled = isNodeWebComponentPolyfilled;
+
+			DOM.unwrapWebComponentPolyfill = unwrapWebComponentPolyfill;
+
+			DOM.isElement = function (element) {
+				var raw = element;
+				if (!raw) {
+					return false;
+				}
+
+				// Dirty hack for bogus WebComponent polyfill
+				if (typeof raw.localName === "string" && raw.localName.length > 0) {
+					return true;
+				}
+
+				if (!(element instanceof Element)) {
+					if (isNodeWebComponentPolyfilled(element)) {
+						raw = unwrapWebComponentPolyfill(element);
+					}
+				}
+
+				return raw instanceof Element;
 			};
 
 			/**

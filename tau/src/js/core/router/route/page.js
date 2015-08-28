@@ -366,7 +366,11 @@
 			 * @static
 			 */
 			routePage.getActive = function () {
-				return this.getContainer().getActivePage();
+				var container = this.getContainer();
+				if (container) {
+					return container.getActivePage();
+				}
+				return null;
 			};
 
 			/**

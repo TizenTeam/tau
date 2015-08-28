@@ -290,7 +290,9 @@
 			 */
 			prototype._include = function (page) {
 				var element = this.element;
-				if (page.parentNode !== element) {
+				if (!page.parentNode ||
+						DOMUtil.isNodeEqual(document, page.ownerDocument) === false ||
+						DOMUtil.isNodeEqual(page.parentNode, element) === false) {
 					page = util.importEvaluateAndAppendElement(page, element);
 				}
 				return page;

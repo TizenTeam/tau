@@ -40,7 +40,8 @@
 			"../mobile",
 			"../../../../core/widget/core/PageContainer",
 			"../../../../core/engine",
-			"../../../../core/util"
+			"../../../../core/util",
+			"../../../../core/util/DOM/manipulation"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
@@ -50,6 +51,7 @@
 					CorePageContainer.call(this);
 				},
 				util = ns.util,
+				DOMUtil = ns.util.DOM,
 				engine = ns.engine,
 				prototype = new CorePageContainer(),
 				classes = CorePageContainer.classes;
@@ -70,7 +72,10 @@
 			prototype._include = function (page) {
 				var element = this.element;
 
-				if (!page.parentNode || (page.ownerDocument !== document)) {
+				// mobile router does not move nodes from different pagecontainers
+				// in the same document
+				if (!page.parentNode ||
+						DOMUtil.isNodeEqual(document, page.ownerDocument) === false) {
 					page = util.importEvaluateAndAppendElement(page, element);
 				}
 				return page;

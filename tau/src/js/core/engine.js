@@ -47,7 +47,8 @@
 			"./history/manager",
 			"./util/selectors",
 			"./util/array",
-			"./util/object"
+			"./util/object",
+			"./util/DOM/manipulation"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
@@ -68,6 +69,7 @@
 				util = ns.util,
 				utilArray = util.array,
 				objectUtils = util.object,
+				DOMUtils = util.DOM,
 				historyManager = ns.history.manager,
 				selectors = util.selectors,
 				/**
@@ -531,7 +533,7 @@
 			 * @member ns.engine
 			 */
 			function ensureElement(element, Widget) {
-				if (!element || !(element instanceof HTMLElement)) {
+			 	if (!element || !DOMUtils.isElement(element)) {
 					if (typeof Widget.createEmptyElement === TYPE_FUNCTION) {
 						element = Widget.createEmptyElement();
 					} else {
@@ -1064,15 +1066,7 @@
 				 */
 				instanceWidget: function (element, name, options) {
 					var binding,
-						definition,
-						// match arguments and types
-						argumentsTypes = getArgumentsTypes(arguments);
-
-					// Map arguments with specific types to correct variables
-					// Only name is required argument
-					element = argumentsTypes.HTMLElement;
-					name = argumentsTypes.string;
-					options = argumentsTypes.object;
+						definition;
 
 					if (!!name && typeof name !== "string") {
 						ns.error("'name' argument for instanceWidget should be a string");
@@ -1088,7 +1082,7 @@
 
 					// If element exists try to find existing binding
 					// document.body may not be instance of HTMLElement in case of webcomponents polyfill
-					if (element instanceof HTMLElement || element === document.body) {
+					if (DOMUtils.isElement(element)) {
 						binding = getBinding(element, name);
 					}
 					// If didn't found binding build new widget

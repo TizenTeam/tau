@@ -436,7 +436,7 @@
 					pageClasses = Page.classes,
 					uiPageActiveClass = pageClasses.uiPageActive,
 					pageDefinition = engine.getWidgetDefinition("Page"),
-					pageSelector = pageDefinition.selector,
+					pageSelector = pageDefinition.selector + ",tau-page",
 					activePageSelector = "." + uiPageActiveClass,
 					currentHash = location.hash;
 
@@ -514,6 +514,8 @@
 
 				// create PageContainer widget
 				container = engine.instanceWidget(containerElement, "pagecontainer");
+
+				self.setContainer(container);
 
 				// register instance of PageContainer and first page
 				self.register(container, firstPage);
