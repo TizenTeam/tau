@@ -49,7 +49,7 @@
 			var BaseWidget = ns.widget.BaseWidget,
 				util = ns.util,
 				eventUtils = ns.event,
-				DOM = util.DOM,
+				DOMUtils = util.DOM,
 				engine = ns.engine,
 				classes = {
 					pageContainer: "ui-page-container",
@@ -132,7 +132,7 @@
 				// The change should be made only if no active page exists
 				// or active page is changed to another one.
 				if (!fromPageWidget || (fromPageWidget.element !== toPage)) {
-					if (DOM.isNodeEqual(toPage.parentNode, self.element) === false) {
+					if (DOMUtils.isNodeEqual(toPage.parentNode, self.element) === false) {
 						toPage = self._include(toPage);
 					}
 
@@ -291,8 +291,8 @@
 			prototype._include = function (page) {
 				var element = this.element;
 				if (!page.parentNode ||
-						DOMUtil.isNodeEqual(document, page.ownerDocument) === false ||
-						DOMUtil.isNodeEqual(page.parentNode, element) === false) {
+						DOMUtils.isNodeEqual(document, page.ownerDocument) === false ||
+						DOMUtils.isNodeEqual(page.parentNode, element) === false) {
 					page = util.importEvaluateAndAppendElement(page, element);
 				}
 				return page;
@@ -358,7 +358,7 @@
 			prototype._removeExternalPage = function ( fromPageWidget, options) {
 				var fromPage = fromPageWidget.element;
 				options = options || {};
-				if (options.reverse && DOM.hasNSData(fromPage, "external")) {
+				if (options.reverse && DOMUtils.hasNSData(fromPage, "external")) {
 					if (fromPage.parentNode) {
 						fromPage.parentNode.removeChild(fromPage);
 						this.trigger(EventType.PAGE_REMOVE);
