@@ -189,9 +189,23 @@
 					this.state = "created";
 					return this;
 				},
+				/**
+				 * Regexp that finds all upper case letters
+				 * @property {RegExp} bigLettersRegexp
+				 * @private
+				 * @static
+				 */
+				bigLettersRegexp = /[A-Z]/g,
+				/**
+				 * Alias to {@link ns.utils.DOM.getNSData}
+				 * @property {Function} getNSData
+				 * @private
+				 * @static
+				 */
+				getNSData = domUtils.getNSData,
 				prototype = {},
 				/**
-				 * Property with string represent function type 
+				 * Property with string represent function type
 				 * (for better minification)
 				 * @property {string} [TYPE_FUNCTION="function"]
 				 * @private
@@ -273,7 +287,7 @@
 
 					/**
 					 * Namespace of the widget
-					 * @property {string} namespace 
+					 * @property {string} namespace
 					 * @member ns.widget.BaseWidget
 					 */
 					self.namespace = definitionNamespace;
@@ -313,6 +327,19 @@
 			};
 
 			/**
+			 * Changes case of text, used as callback for regexp.replace
+			 * method
+			 * @param {string} found
+			 * @return {string}
+			 * @private
+			 * @static
+			 * @member ns.widget.BaseWidget
+			 */
+			function lowerCaseRegexpCallback(found) {
+				return "-" + found.toLowerCase();
+			}
+
+			/**
 			 * Reads data-* attributes and save to options object.
 			 * @method _getCreateOptions
 			 * @param {HTMLElement} element Base element of the widget
@@ -322,22 +349,25 @@
 			 */
 			prototype._getCreateOptions = function (element) {
 				var options = this.options,
-					bigRegexp = /[A-Z]/g,
-					isCustomElement = this.isCustomElement;
+					tag = element.localName.toLowerCase();
 
-				if (options !== undefined) {
+				if (options) {
 					Object.keys(options).forEach(function (option) {
-						//type shoudn't be overiden as I need to set it up manually for customelements
-						if (option !== "type"){
-							// Get value from data-{namespace}-{name} element's attribute
-							// based on widget.options property keys
-							var value = domUtils.getNSData(element, (option.replace(bigRegexp, function (c) {
-								return "-" + c.toLowerCase();
-							})), isCustomElement);
+						var attributeName = option.replace(bigLettersRegexp, lowerCaseRegexpCallback),
+							baseValue = getNSData(element, attributeName, true),
+							prefixedValue = getNSData(element, attributeName);
 
-							if (value !== null) {
-								options[option] = value;
-							}
+						if (prefixedValue !== null) {
+							options[option] = prefixedValue;
+							return;
+						}
+
+						if (option === "type" && tag === "input") { // dont set conflicting props
+							return;
+						}
+
+						if (baseValue !== null) {
+							options[option] = baseValue;
 						}
 					});
 				}
@@ -779,7 +809,7 @@
 			/**
 			 * Returns true if widget has bounded events.
 			 *
-			 * This methods enables to check if the widget has bounded 
+			 * This methods enables to check if the widget has bounded
 			 * events through the {@link ns.widget.BaseWidget#bindEvents} method.
 			 * @method isBound
 			 * @param {string} [type] Type of widget
@@ -796,7 +826,7 @@
 			/**
 			 * Returns true if widget is built.
 			 *
-			 * This methods enables to check if the widget was built 
+			 * This methods enables to check if the widget was built
 			 * through the {@link ns.widget.BaseWidget#build} method.
 			 * @method isBuilt
 			 * @param {string} [type] Type of widget
