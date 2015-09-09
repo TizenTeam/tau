@@ -118,9 +118,7 @@
 
 	page.addEventListener( "pagebeforeshow", function() {
 		/********** drawer ******************/
-		drawerHelper = tau.helper.DrawerMoreStyle.create(drawerElement, {
-			handler: ".drawer-handler"
-		});
+		tau.engine.instanceWidget(drawerElement, "DrawerMoreStyle", {handler: ".drawer-handler"});
 		document.addEventListener('tizenhwkey', fnBackKey);
 	});
 
