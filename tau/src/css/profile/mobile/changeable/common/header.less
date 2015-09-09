@@ -1,8 +1,6 @@
 /* Header style */
 .ui-header {
 	position : fixed;
-	.display-flex();
-	.flex-direction(column);
 	width: 100%;
 	top : 0;
 	z-index : @z_base_header_footer;
@@ -12,9 +10,6 @@
 	background : @color_bar_header_bg; /* Header Background */
 	color: @color_bar_title_text;
 	.transform(translateZ(0));
-	> * {
-		.flex(1);
-	}
 	> .ui-title {
 		display: block;
 		.order(0);
