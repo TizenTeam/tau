@@ -800,8 +800,17 @@
 			 * @member ns.router.Router
 			 */
 			Router.prototype.close = function (to, options) {
-				var rel = (options && options.rel) || "back",
-					rule = route[rel];
+				var rel = "back",
+					closingWidget = getHTMLElement(to),
+					rule = null;
+
+				if (options && options.rel) {
+					rel = options.rel;
+				} else if (closingWidget) {
+					rel = this.detectRel(closingWidget);
+				}
+
+				rule = route[rel];
 
 				// if router is not locked
 				if (!this.locked) {
@@ -812,7 +821,7 @@
 						// otherwise if rule exists
 						if (rule) {
 							// call close on rule
-							rule.close(getHTMLElement(to), options);
+							rule.close(closingWidget, options);
 						} else {
 							throw new Error("Not defined router rule [" + rel + "]");
 						}
@@ -881,28 +890,6 @@
 
 				if (popupRoute) {
 					popupRoute.close(null, options);
-				}
-			};
-			/**
-			 * Method close route element, eg page or popup.
-			 * @method close
-			 * @param {string|HTMLElement} to Id of page or file url or HTMLElement of page
-			 * @param {Object} [options]
-			 * @param {"page"|"popup"|"external"} [options.rel = "page"] Represents kind of link as "page" or "popup" or "external" for linking to another domain
-			 * @member ns.router.Router
-			 */
-			Router.prototype.close = function (to, options) {
-				var rel = ((options && options.rel) || "page"),
-					rule = route[rel];
-
-				if (rel === "back") {
-					history.back();
-				} else {
-					if (rule) {
-						rule.close(to, options);
-					} else {
-						throw new Error("Not defined router rule [" + rel + "]");
-					}
 				}
 			};
 
