@@ -14,27 +14,70 @@
 </head>
 
 <body>
-<div id="main" data-role="page">
-    <div data-role="header" data-position="fixed" data-id="foo">
-        <h1>Navigation application</h1>
-        <div data-role="tabbar" data-auto-change="false" data-active="0">
+<div id="main" class="ui-page">
+    <div class="ui-tabs">
+       <h1 class="ui-title">Navigation application</h1>
+       <div class="ui-tabbar">
             <ul>
-                <li><a href="index.html">Playlist</a></li>
-                <li><a href="section1.html">Music</a></li>
-                <li><a href="section2.html">Artist</a></li>
+                <li><a href="#">Playlist</a></li>
+                <li><a href="#">Music</a></li>
+                <li><a href="#">Artist</a></li>
             </ul>
-        </div>
-    </div><!-- /header -->
+	    </div>
+        <div class="ui-section-changer">
+		    <div>
+		        <section class="ui-section-active">
+		            <ul class="ui-listview">
+		                <li class="ui-li-static">Classic</li>
+		                <li class="ui-li-static">2012 Hit song</li>
+		                <li class="ui-li-static">In the gym</li>
+		                <li class="ui-li-static">For baby</li>
+		                <li class="ui-li-static">My favorite</li>
+		            </ul>
+		        </section>
+		        <section>
+		            <ul class="ui-listview">
+                       <li class="ui-li-static">All I Want For Chritsmas Is You</li>
+                       <li class="ui-li-static">Baby(Feat.Ludacris)</li>
+                       <li class="ui-li-static">Baby I Love You</li>
+                       <li class="ui-li-static">Because Of You</li>
+                       <li class="ui-li-static">Geek In The Pink</li>
+                       <li class="ui-li-static">Hangover (Feat. Flo Rida)</li>
+                       <li class="ui-li-static">I'm Yours</li>
+                   </ul>
+		        </section>
+		        <section>
+		            <ul class="ui-listview">
+                       <li class="ui-group-index">A</li>
+                       <li class="ui-li-static">Adam Lambert</li>
+                       <li class="ui-li-static">Adele</li>
+                       <li class="ui-li-static">Amy Winehouse</li>
 
-    <div data-role="content">
-        <ul data-role="listview">
-            <li><a class="ui-li-text-main">Classic</a></li>
-            <li><a class="ui-li-text-main">2012 Hit song</a></li>
-            <li><a class="ui-li-text-main">In the gym</a></li>
-            <li><a class="ui-li-text-main">For baby</a></li>
-            <li><a class="ui-li-text-main">My favorite</a></li>
-        </ul>
-    </div><!-- /content -->
+                       <li class="ui-group-index">B</li>
+                       <li class="ui-li-static">Beyonce</li>
+
+                       <li class="ui-group-index">C</li>
+                       <li class="ui-li-static">Chris Brown</li>
+
+                       <li class="ui-group-index">D</li>
+                       <li class="ui-li-static">David Guetta</li>
+                       <li class="ui-li-static">Drake</li>
+
+                       <li class="ui-group-index">E</li>
+                       <li class="ui-li-static">Ed Sheeran</li>
+                       <li class="ui-li-static">Eric Benet</li>
+
+                       <li class="ui-group-index">F</li>
+                       <li class="ui-li-static">Far East Movement</li>
+
+                       <li class="ui-group-index">H</li>
+                       <li class="ui-li-static">Hope</li>
+                       <li class="ui-li-static">Hot Chelle Rae</li>
+                   </ul>
+		        </section>
+		    </div>
+		</div>
+    </div>
 </div><!-- /page -->
 </body>
 </html>
