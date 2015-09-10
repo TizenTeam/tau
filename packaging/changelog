@@ -1,4 +1,18 @@
 %changelog
+* Thu Sep 10 2015 Hagun Kim <hagun.kim@samsung.com> 0.11.3
+	- fix(etc): update tau release script
+	- feat(demo): modify some styles in ButtonNoList sample
+	- refactor(mobile): change progress bar class in listview
+	- refactor(mobile): modify lineheight of gridview label
+	- fix(mobile): fix set height of sectionchanger in tabs widget.
+	- fix(demo): apply new tab widget to Navigation template.
+	- fix(mobile): fix header flex layout.
+	- fix(demo): fix title of navigation bar sample in mobile UIComponent.
+	- refactor(wearable): modify styles of list focus, page bg
+	- refactor(wearable): modify select logic in snaplist
+	- feat(wearable): change resource for more options
+	- refactor(wearable): modify more options
+
 * Fri Aug 21 2015 Hagun Kim <hagun.kim@samsung.com> 0.11.2
 	- fix(mobile): fix slider layout issue
 	- fix(cards): delete id in config.xml
