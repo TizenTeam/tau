@@ -200,6 +200,11 @@
 	left: auto;
 }
 
+/**************** with progress bar ************/
+.li-has-progress .ui-progress {
+	margin-top: 10px;
+}
+
 /****************************************************************/
 /*              Multiline List Style                            */
 /****************************************************************/
@@ -257,12 +262,7 @@
 	left: 16px;
 	line-height: 25px;
 }
-.li-has-multiline .ui-progressbar {
-	margin-left: -4px;
-	margin-top: 9px;
-	margin-bottom: -3px;
-	width: 100%;
-}
+
 .li-has-multiline.ui-li-anchor.li-has-thumb > a .li-text-sub,
 .li-has-multiline.ui-li-static.li-has-thumb .li-text-sub {
 	left: 51px;
