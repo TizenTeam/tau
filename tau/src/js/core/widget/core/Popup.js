@@ -826,7 +826,9 @@
 					if (ns.getConfig("disableRouter")) {
 						this.close();
 					} else {
-						engine.getRouter().close(this.element, options);
+						if (this.state !== states.DURING_CLOSING) {
+							engine.getRouter().close(this.element, options);
+						}
 					}
 				}
 			};
