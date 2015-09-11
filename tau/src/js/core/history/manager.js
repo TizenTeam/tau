@@ -117,6 +117,7 @@
 					useDefaultUrlHandling = rel === "external" || link.hasAttribute("target");
 					if (!useDefaultUrlHandling) {
 						options = DOM.getData(link);
+						options.event = event;
 						if (rel && !options.rel) {
 							options.rel = rel;
 						}
@@ -171,6 +172,7 @@
 
 					history.setActive(state);
 					if (continuation) {
+						options.event = event;
 						triggerStateChange(options);
 					}
 				}
@@ -186,7 +188,7 @@
 				ns.log("hashchange event:", newURL);
 				//>>excludeEnd("tauDebug");
 				if (newURL) {
-					triggerStateChange({href: newURL, fromHashChange: true});
+					triggerStateChange({href: newURL, fromHashChange: true, event: event});
 				}
 			}
 

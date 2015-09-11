@@ -345,12 +345,23 @@
 					rule,
 					deferred;
 
+				// create options if none passed
+				options = options || {};
+
 				// if to is a string then convert to HTMLElement
 				to = getHTMLElement(to);
 				// find rel for given element; order: read from options, autodetect, "page" by default
 				rel = ((options && options.rel) || (to instanceof HTMLElement && self.detectRel(to)) || "page");
 				// take rule
 				rule = route[rel];
+
+				// event from options has higher priority
+				if (options.event) {
+					event = options.event;
+					// clear, since options will be stored in history state and it does not
+					// accept non-primitive values
+					options.event = null;
+				}
 
 				// if router is not locked
 				if (!self.locked) {
