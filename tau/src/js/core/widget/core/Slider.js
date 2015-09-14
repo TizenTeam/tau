@@ -522,8 +522,8 @@
 					barElement = self._ui.barElement;
 				unbindEvents(self);
 				barElement.parentNode.removeChild(barElement);
-				self._ui = null;
-				self._options = null;
+				self._ui = {};
+				self._options = {};
 			};
 			ns.widget.core.Slider = Slider;
 			engine.defineWidget(

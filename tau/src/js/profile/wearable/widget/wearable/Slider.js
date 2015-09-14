@@ -231,7 +231,9 @@
 				],
 				Slider,
 				"wearable",
-				true
+				true,
+				false,
+				HTMLInputElement
 			);
 
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
