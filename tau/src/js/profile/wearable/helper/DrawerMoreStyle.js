@@ -91,7 +91,7 @@
 			};
 
 			prototype._onTouchEnd = function(event) {
-				this._drawerWidget.close();
+				this.close();
 			};
 
 			prototype._init = function(element) {

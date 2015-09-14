@@ -74,7 +74,7 @@
 		modeHide();
 	};
 
-	fnPopup = function() {
+	fnPopup = function(event) {
 		selectWrapper.classList.add("open");
 		event.preventDefault();
 		event.stopPropagation();
@@ -84,7 +84,7 @@
 		selectWrapper.classList.remove("open");
 	};
 
-	fnBackKey = function() {
+	fnBackKey = function(event) {
 		var drawer = tau.widget.Drawer(drawerElement),
 			classList = selectWrapper.classList;
 		if( event.keyName === "back" && drawer.getState() === "closed" && classList.contains("show-btn")) {
