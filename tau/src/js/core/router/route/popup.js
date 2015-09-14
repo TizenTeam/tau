@@ -317,7 +317,7 @@
 				options = options || {};
 
 				if (activePopup && !(activePopup instanceof Popup)) {
-					activePopup = engine.instanceWidget(activePopup, "Popup", options);
+					activePopup = engine.getBinding(activePopup, "Popup");
 				}
 				activePopup = activePopup || this.activePopup;
 
