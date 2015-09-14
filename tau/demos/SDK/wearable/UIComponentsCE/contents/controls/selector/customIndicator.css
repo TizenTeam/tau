@@ -36,7 +36,6 @@
     left: 50%;
     margin: -91px;
     border-radius: 50%;
-    border: solid;
 }
 .custom-indicator-arrow::before {
     content: "";
