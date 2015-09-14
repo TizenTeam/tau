@@ -239,6 +239,7 @@
 				Page = ns.widget.core.Page,
 				pageClass = Page.classes.uiPage,
 				pageActiveClass = Page.classes.uiPageActive,
+				pageEvents = Page.events,
 				Scrollview = function () {
 					var self = this,
 						ui;
@@ -419,6 +420,27 @@
 				}
 			}
 
+			// Function sets the size for element when it's not a direct child of page
+			function setScrollViewSize(element) {
+				var elementStyle = element.style,
+					parentNode = element.parentNode,
+					parentChildLength = parentNode.children.length,
+					parentBoundingClientRect;
+
+				if (parentNode) {
+					if (parentChildLength === 1) {
+						parentBoundingClientRect = parentNode.getBoundingClientRect();
+						elementStyle.height = parentBoundingClientRect.height + "px";
+						elementStyle.width = parentBoundingClientRect.width + "px";
+					} else {
+						ns.warn("Parent container of ScrollView can only have one child");
+					}
+				} else {
+					ns.warn("Cannot set size for ScrollView when it's not connected to DOM");
+				}
+			}
+
+
 			Scrollview.classes = classes;
 
 			Scrollview.prototype = new BaseWidget();
@@ -461,6 +483,8 @@
 				makePositioned(view);
 
 				element.classList.add(classes.clip);
+				// Adding ui-content class for the proper styling with CE
+				element.classList.add("ui-content");
 
 				switch (direction) {
 					case "x":
@@ -1002,7 +1026,7 @@
 						jumpLeftCallback = function () {
 							self.scrollTo(0, element.scrollTop, 250);
 						};
-						page.addEventListener("pageshow", repositionJumpsCallback, false);
+						page.addEventListener(pageEvents.SHOW, repositionJumpsCallback, false);
 						if (jumpTop) {
 							jumpTop.firstChild.addEventListener("vclick", jumpTopCallback, false);
 						}
@@ -1076,7 +1100,7 @@
 
 				if (scrollJump) {
 					if (page && repositionJumpsCallback) {
-						page.removeEventListener("pageshow", repositionJumpsCallback, false);
+						page.removeEventListener(pageEvents.SHOW, repositionJumpsCallback, false);
 					}
 					if (jumpTop && jumpTopCallback) {
 						jumpTop.firstChild.removeEventListener("vclick", jumpTopCallback, false);
