@@ -62,7 +62,7 @@
 
 				rotateValue = 360 * (percentValue/100);
 
-				ui.progressValueLeft.style.webkitTransform = "rotate(" + rotateValue + "deg)";
+				ui.progressValueLeft.style.webkitTransform = "rotate3d(0.0, 0.0, 1.0, " + rotateValue + "deg)";
 			}
 
 			function setProgressBarSize (self) {
