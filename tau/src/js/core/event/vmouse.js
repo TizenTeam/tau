@@ -142,7 +142,7 @@
 					property = propertiesNames[i];
 					if (isNaN(properties[property]) === false || isNaN(from[property]) === false) {
 						descriptor = Object.getOwnPropertyDescriptor(to, property);
-						if (!descriptor || descriptor.writable) {
+						if (property !== "detail" && (!descriptor || descriptor.writable)) {
 							to[property] = properties[property] || from[property];
 						}
 					}
