@@ -304,6 +304,9 @@
 					translated = window.getComputedStyle(helperElement).webkitTransform.match(MATRIX_REGEXP),
 					holder, top, left;
 
+				// custom elements polyfill patch
+				helperElement = wrap(helperElement);
+				//--
 				self._refreshItemsInfo();
 				top = parseInt(translated[6], 10);
 				left = parseInt(translated[5], 10);

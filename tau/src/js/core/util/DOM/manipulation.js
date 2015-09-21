@@ -91,6 +91,26 @@
 			}
 
 			/**
+			 * Returns wrapped element which was normal HTML element
+			 * by WebComponent polyfill
+			 * @param {Object} element
+			 * @return ?HTMLelement
+			 * @member ns.util.DOM
+			 * @static
+			 */
+			function wrapWebComponentPolyfill(element) {
+				var wrap = window.ShadowDOMPolyfill && window.ShadowDOMPolyfill.wrap;
+				if (element && wrap) {
+					return wrap(element);
+				}
+				//>>excludeStart("tauDebug", pragmas.tauDebug);
+				ns.error("Wrap method not available");
+				//>>excludeEnd("tauDebug");
+
+				return element;
+			}
+
+			/**
 			 * Returns normal element which was wrapped
 			 * by WebComponent polyfill
 			 * @param {Object} element
@@ -107,7 +127,6 @@
 				ns.error("Unwrap method not available");
 				return element;
 			}
-
 			/**
 			 * Creates a selector for given node
 			 * @param {HTMLElement} node
@@ -206,6 +225,7 @@
 			DOM.isNodeWebComponentPolyfilled = isNodeWebComponentPolyfilled;
 
 			DOM.unwrapWebComponentPolyfill = unwrapWebComponentPolyfill;
+			DOM.wrapWebComponentPolyfill = wrapWebComponentPolyfill;
 
 			DOM.isElement = function (element) {
 				var raw = element;
