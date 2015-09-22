@@ -332,7 +332,9 @@
 			// Changes static position to relative
 			// @param {HTMLElement} view
 			function makePositioned(view) {
-				if (DOMUtils.getCSSProperty(view, "position") === "static") {
+				var position = DOMUtils.getCSSProperty(view, "position");
+				if (position !== "absolute") {
+					// fix for Custom Element, if parent element isn't standard HTMLElement then default position isn't static
 					view.style.position = "relative";
 				} else {
 					view.style.position = "absolute";
