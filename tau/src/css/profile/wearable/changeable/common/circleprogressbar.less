@@ -42,6 +42,9 @@
 		width: 100%;
 		height: 100%;
 		position: absolute;
+		/* this property specifies that nested elements are rendered in 3D space
+		 * default "flat" value causes rendering issue */
+		-webkit-transform-style: preserve-3d;
 
 		.ui-progressbar-value-left {
 			border: 8 * @px_base solid @color_circleprogressbar_value;
