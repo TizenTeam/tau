@@ -13,6 +13,7 @@
 		drawerElement = page.querySelector("#rightDrawer"),
 		handler = document.getElementById("handler"),
 		selector = page.querySelector("#selector"),
+		selectorComponent,
 		selectCount,
 		drawerHelper,
 		i,
@@ -119,9 +120,22 @@
 	page.addEventListener( "pagebeforeshow", function() {
 		/********** drawer ******************/
 		tau.engine.instanceWidget(drawerElement, "DrawerMoreStyle", {handler: ".drawer-handler"});
+		selectorComponent = tau.widget.Selector(selector);
+		selectorComponent.disable();
 		document.addEventListener('tizenhwkey', fnBackKey);
 	});
 
+	/*
+	 * If you want to use Selector with Snaplistview, you should control to Selector enable status
+	 * because 'rotarydetent' event has been used in both Selector and Snaplistview.
+	 */
+	drawerElement.addEventListener("draweropen", function() {
+		selectorComponent.enable();
+	});
+
+	drawerElement.addEventListener("drawerclose", function() {
+		selectorComponent.disable();
+	});
 	/*
 	 * When user click the indicator of Selector, drawer will close.
 	 */

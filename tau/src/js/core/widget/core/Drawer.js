@@ -578,7 +578,7 @@
 
 				elementStyle.width = (options.width !== 0) ? options.width + "px" : "100%";
 				elementStyle.height = (height !== 0) ? height + "px" : "100%";
-				elementStyle.top = "auto";
+				elementStyle.top = "0";
 
 				if (overlayStyle) {
 					overlayStyle.width = window.innerWidth + "px";
