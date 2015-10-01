@@ -452,10 +452,12 @@
 			 * @protected
 			 */
 			prototype.value = function(value) {
+				var self = this;
 				if (value !== undefined) {
-					this._setValue(value);
+					self._setValue(value);
 				}
-				return this.element.getAttribute("value");
+				self._previousValue = self.element.value;
+				return self.element.getAttribute("value");
 			};
 
 			/**
