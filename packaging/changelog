@@ -1,4 +1,10 @@
 %changelog
+* Thu Oct 01 2015 Hagun Kim <hagun.kim@samsung.com> 0.11.4
+	- fix(slider): fix the slider setValue method issue
+	- fix(mobile): remove moving scroll position on throttledresize.
+	- feat(mobile): added slideup page transition.
+	- fix(mobile): the bug fixed that copy detail property of event object in vmouse.
+
 * Thu Sep 10 2015 Hagun Kim <hagun.kim@samsung.com> 0.11.3
 	- fix(etc): update tau release script
 	- feat(demo): modify some styles in ButtonNoList sample
