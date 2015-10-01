@@ -1025,26 +1025,6 @@
 						eventUtils.trigger(element, "scrollupdate");
 					}, false);
 
-
-					window.addEventListener("throttledresize", function () {
-						var focusedElement = view.querySelector(".ui-focus"),
-							clipWidth,
-							clipHeight;
-						if (focusedElement) {
-							self.ensureElementIsVisible(focusedElement);
-						} else if (DOMUtils.isOccupiedPlace(element)) {
-							clipHeight = DOMUtils.getElementHeight(element);
-							clipWidth = DOMUtils.getElementWidth(element);
-							self.translateTo(
-								lastClipWidth - clipWidth,
-								lastClipHeight - clipHeight,
-								self.scrollDuration
-							);
-							lastClipHeight = clipHeight;
-							lastClipWidth = clipWidth;
-						}
-					}, false);
-
 					document.addEventListener("vmousedown", function () {
 						if (currentTransition) {
 							currentTransition = null;
