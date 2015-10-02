@@ -3,33 +3,28 @@
 (function(){
 	var page = document.querySelector("#moreoptionsPage"),
 		popup = page.querySelector("#moreoptionsPopup"),
+		popupCircle = page.querySelector("#moreoptionsPopupCircle"),
 		handler = page.querySelector(".ui-more"),
 		drawer = page.querySelector("#moreoptionsDrawer"),
 		selector = page.querySelector("#selector"),
-		helper,
+		selectorComponent,
 		clickHandlerBound;
 
 	function clickHandler(event) {
-		tau.openPopup(popup);
+		if (tau.support.shape.circle) {
+			tau.openPopup(popupCircle);
+			selectorComponent = tau.engine.instanceWidget(selector, "Selector");
+			selectorComponent.enable();
+		} else {
+			tau.openPopup(popup);
+		}
 	}
 	page.addEventListener( "pagebeforeshow", function() {
-
-		if (tau.support.shape.circle) {
-			helper = tau.helper.DrawerMoreStyle.create(drawer, {
-				handler: ".ui-more"
-			});
-		} else {
-			// Shape is square
-			clickHandlerBound = clickHandler.bind(null);
-			handler.addEventListener("click", clickHandlerBound);
-		}
-
+		clickHandlerBound = clickHandler.bind(null);
+		handler.addEventListener("click", clickHandlerBound);
 	});
 	page.addEventListener( "pagebeforehide", function() {
-		if (tau.support.shape.circle) {
-			handler.removeEventListener("click", clickHandlerBound);
-			helper.destroy();
-		}
+		handler.removeEventListener("click", clickHandlerBound);
 	});
 	/*
 	 * When user click the indicator of Selector, drawer will close.

@@ -3,20 +3,28 @@
 	var page = document.querySelector("#bottomButtonWithMorePage"),
 		drawer = page.querySelector("#moreoptionsDrawer"),
 		selector = page.querySelector("#selector"),
-		helper;
+		selectorComponent;
 
 	page.addEventListener( "pagebeforeshow", function() {
 		if (tau.support.shape.circle) {
-			helper = tau.helper.DrawerMoreStyle.create(drawer, {
-				handler: ".drawer-handler"
-			});
+			tau.engine.instanceWidget(drawer, "DrawerMoreStyle", {handler: ".drawer-handler"});
+			selectorComponent = tau.widget.Selector(selector);
+			selectorComponent.disable();
 		}
 	});
 
 	page.addEventListener( "pagebehide", function() {
 		if (tau.support.shape.circle) {
-			helper.destroy();
+
 		}
+	});
+
+	drawer.addEventListener("draweropen", function() {
+		selectorComponent.enable();
+	});
+
+	drawer.addEventListener("drawerclose", function() {
+		selectorComponent.disable();
 	});
 
 	/*
