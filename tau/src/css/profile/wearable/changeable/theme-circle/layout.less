@@ -24,10 +24,12 @@ body {
 		color: @color_actionbar_title_text;
 		text-align: center;
 		padding-top: @fixed_header_title_padding_top;
-	margin-left: 40 * @unit_base;
+		margin-left: 40 * @unit_base;
 		margin-right: 40 * @unit_base;
 		padding-left: 24 * @unit_base;
 		padding-right: 24 * @unit_base;
+		font-size: @fixed_header_title_font_size;
+		-webkit-mask-image: -webkit-linear-gradient(left, rgba(0,0,0,1) 88%, rgba(0,0,0,0) 95%);
 		&.ui-icon {
 			background: none !important;
 			padding-left: 24 * @unit_base;
@@ -44,7 +46,7 @@ body {
 	&.ui-has-more {
 		.ui-title {
 			padding-right: 24 * @unit_base;
-			-webkit-mask-image: -webkit-linear-gradient(left, rgba(0,0,0,1) 80%, rgba(0,0,0,0) 95%);
+			-webkit-mask-image: -webkit-linear-gradient(left, rgba(0,0,0,1) 88%, rgba(0,0,0,0) 95%);
 		}
 		.ui-more {
 			position: fixed;
