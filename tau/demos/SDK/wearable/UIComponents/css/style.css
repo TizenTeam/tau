@@ -86,9 +86,9 @@
 	min-height: 100px;
 }
 .ui-listview.ui-snap-listview li.li-has-multiline {
-	padding-top: 9px;
-	padding-bottom: 8px;
-	min-height: 130px;
+	padding-top: 17px;
+	padding-bottom: 17px;
+	min-height: 108px;
 	line-height: initial;
 }
 .ui-listview li.li-has-radio.disabled,
@@ -125,15 +125,8 @@
 .ui-listview li input[type="radio"] {
 	position: absolute;
 	right: 30px;
-	top: 0;
-	margin-top: 25px;
-}
-.ui-listview.ui-snap-listview li input[type="checkbox"]:not(.ui-switch-input),
-.ui-listview.ui-snap-listview li input[type="radio"] {
-	position: absolute;
-	right: 30px;
-	top: 0;
-	margin-top: 21px;
+	top: 50%;
+	-webkit-transform: translate3d(0, -50%, 0);
 }
 .ui-listview .li-has-toggle .ui-toggleswitch {
 	position: absolute;
@@ -549,28 +542,34 @@ li.static::before {
 	text-align: center;
 	border-bottom: 2px solid rgba(8, 8, 8, 1);
 	color: rgba(245, 245, 245, 1);
-	padding: 27px 0;
 	min-height: 100px;
 	border-image:none;
 	-webkit-mask-image: none;
+	margin-top: 0;
+	padding: 0;
+}
+#selectModePage .select-popup .ui-listview li.ui-li-active::before {
+	content: none;
 }
 #selectModePage .select-popup .ui-listview li:last-child {
 	border: 0;
 }
 #selectModePage .select-popup .ui-listview li a {
 	color: rgba(245, 245, 245, 1);
+	margin-top: 0;
+	line-height: 37px;
 }
 #selectModePage .select-popup .ui-listview li a:active {
 	color: rgba(245, 245, 245, 1);
 	background-color: rgba(23, 73, 115, 1);
 }
 #select-all {
-	line-height: 60px;
-	padding-bottom: 10px;
+	padding-top: 45px;
+	padding-bottom: 19px;
 }
 #deselect-all {
-	line-height: 60px;
-	padding-top: 10px;
+	padding-top: 19px;
+	padding-bottom: 44px;
 }
 
 /* -------------------------Animation List------------------------ */
@@ -836,23 +835,8 @@ input[type="checkbox"]#checkboxControl {
 @media all and (-tizen-geometric-shape: circle) {
 	/* ------------------ LISTVIEW ------------------------ */
 	.ui-listview li img {
-		width: 86px;
-		height: 86px;
-	}
-	.ui-listview li.li-has-thumb-right img {
-		right: 15px;
-	}
-	.ui-listview li.li-has-thumb-left img {
-		left: 15px;
-	}
-	.ui-listview li.li-has-thumb-left{
-		padding: 31.5px 40px 31.5px 94px;
-	}
-	.ui-listview li.li-has-thumb-right img {
-		right: 30px;
-	}
-	.ui-listview li.li-has-thumb-left img {
-		left: 30px;
+		width: 76px;
+		height: 76px;
 	}
 	li.select::after {
 		content:"";
@@ -869,6 +853,22 @@ input[type="checkbox"]#checkboxControl {
 	.ui-listview li{
 		-webkit-mask-image : -webkit-linear-gradient(left,transparent,#fff 30%,#fff 70%,transparent);
 	}
+	.ui-listview li.li-has-multiline > a {
+		margin-top: -17px;
+		margin-bottom: -17px;
+		padding-top: 17px;
+		padding-bottom: 17px;
+	}
+	.ui-listview.ui-snap-listview li.li-has-multiline.li-has-2line-sub {
+		padding-top: 12px;
+		padding-bottom: 12px;
+	}
+	.ui-listview.ui-snap-listview li.li-has-multiline.li-has-2line-sub > a {
+		margin-top: -12px;
+		margin-bottom: -12px;
+		padding-top: 12px;
+		padding-bottom: 12px;
+	}
 	.ui-listview li.li-has-thumb-right,
 	.ui-listview li.li-has-thumb-left,
 	.ui-listview li.li-has-action-icon,
@@ -882,8 +882,8 @@ input[type="checkbox"]#checkboxControl {
 	.ui-listview li.li-has-checkbox label,
 	.ui-listview li.li-has-radio label,
 	.ui-listview li.li-has-toggle > label {
-		margin-top: -28.5px;
-		margin-bottom: -28.5px;
+		margin-top: -17px;
+		margin-bottom: -17px;
 		margin-left: -40px;
 		margin-right: -40px;
 	}
@@ -891,10 +891,24 @@ input[type="checkbox"]#checkboxControl {
 	.ui-listview.ui-snap-listview li.li-has-radio label,
 	.ui-listview.ui-snap-listview li.li-has-toggle > label,
 	.ui-listview.ui-snap-listview li.li-has-thumb-right {
-		padding: 28.5px 130px 28.5px 40px;
+		padding: 17px 100px 17px 30px;
+	}
+	.ui-listview .li-has-toggle .ui-toggleswitch {
+		right: 16px;
+	}
+	.ui-listview.ui-snap-listview li.li-has-multiline.li-has-checkbox label,
+	.ui-listview.ui-snap-listview li.li-has-multiline.li-has-radio label,
+	.ui-listview.ui-snap-listview li.li-has-multiline.li-has-toggle label:not(.ui-toggleswitch) {
+		display: block;
+		padding: 17px 100px 17px 30px;
+		margin: -17px -40px -17px -40px;
 	}
 	.ui-listview.ui-snap-listview li.li-has-thumb-left {
-		padding: 28.5px 40px 28.5px 130px;
+		padding: 17px 30px 17px 100px;
+	}
+	.ui-listview.ui-snap-listview li input[type="checkbox"]:not(.ui-switch-input),
+	.ui-listview.ui-snap-listview li input[type="radio"] {
+		right: 16px;
 	}
 	.li-has-action-icon .li-action-text::after{
 		height: 60px;
@@ -909,29 +923,27 @@ input[type="checkbox"]#checkboxControl {
 	.ui-listview .li-has-action-icon.ui-li-active .li-action-text:active {
 		background-color: transparent;
 	}
-	.ui-listview li.li-has-multiline.li-has-thumb-left {
-		padding-left: 130px;
-	}
-	.ui-listview li.li-has-multiline.li-has-thumb-right {
-		padding-right: 130px;
-		padding-left: 30px;
-	}
 	.ui-listview li.select {
 		background-color: transparent;
 	}
 	.ui-listview li.ui-listview-divider{
 		border-image: none;
 	}
-	.ui-listview.ui-snap-listview li.li-has-multiline > a {
-	    padding-top: 24px;
-	    padding-bottom: 23px;
+	.ui-listview li.ui-listview-divider:first-child {
+		margin-top: 0;
 	}
-	.ui-listview.ui-snap-listview li.li-has-multiline.li-has-2line-sub > a {
-	    padding-top: 10px;
-	    padding-bottom: 9px;
+	.ui-listview.ui-snap-listview li.li-has-multiline.li-has-thumb-right,
+	.ui-listview.ui-snap-listview li.li-has-multiline.li-has-thumb-left {
+		padding-top: 17px;
 	}
-	.ui-listview.expand-list li.li-has-2line.ui-snap-listview-selected .ui-marquee{
-	    margin-top: -10px;
+	.ui-listview.expand-list li.li-has-2line .ui-marquee{
+		-webkit-transform: translate(0, 5px);
+	}
+	.ui-listview.expand-list li.li-has-2line.ui-snap-listview-selected {
+		padding-top: 15px;
+	}
+	.ui-listview.expand-list li.li-has-2line.ui-snap-listview-selected .ui-marquee {
+		line-height: 47px;
     }
 	/* ------------------ Animation List --------------------- */
 	#pageAnimation::after {
