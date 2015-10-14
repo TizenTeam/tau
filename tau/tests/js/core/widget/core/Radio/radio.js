@@ -1,6 +1,8 @@
 (function (window, document) {
 	"use strict";
 
+	module("core/widget/core/Radio");
+
 	test("Radio - Create", 2, function() {
 		var el = document.getElementById("radio-choice-1");
 

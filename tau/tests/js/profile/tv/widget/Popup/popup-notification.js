@@ -14,7 +14,7 @@
 			el.dispatchEvent(event);
 		}
 
-		module("profile/tv/widget/Popup - notifications", {
+		module("profile/tv/widget/Popup", {
 			setup: function () {
 				page = document.getElementById("test");
 				engine.instanceWidget(page, "Page");

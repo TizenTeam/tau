@@ -1,8 +1,8 @@
-module("tau.widget.core.PageIndicator", {});
+module("core/widget/core/PageIndicator", {});
 
 var pageWidget = document.getElementById("pageIndicatorPage");
 
-asyncTest("tau.widget.core.PageIndicator Test", function() {
+asyncTest("core/widget/core/PageIndicator", function() {
 	document.addEventListener("pageshow", function() {
 		var elPageIndicator1 = document.getElementById("pageIndicator1"),
 			elPageIndicator2 = document.getElementById("pageIndicator2"),

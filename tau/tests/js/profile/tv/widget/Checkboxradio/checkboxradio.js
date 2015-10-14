@@ -30,7 +30,7 @@
 			/***********************************************/
 			/************* CHECKBOX TESTS ******************/
 			/***********************************************/
-			module("profile/tv/widget/Checkboxradio - checkbox", qunitModuleConfig);
+			module("profile/tv/widget/Checkboxradio", qunitModuleConfig);
 
 			test("built", function () {
 				var checkbox = document.getElementById("checkbox-1");
@@ -70,7 +70,7 @@
 			/*****************************************************/
 			/******************* RADIO TESTS *********************/
 			/*****************************************************/
-			module("profile/tv/widget/Checkboxradio - radio", qunitModuleConfig);
+			module("profile/tv/widget/Checkboxradio", qunitModuleConfig);
 
 			test("built", function () {
 				var radio1 = document.getElementById("radio1"),

@@ -2,7 +2,7 @@
 (function(document) {
 	"use strict";
 
-	module("tabbar", {
+	module("profile/mobile/widget/mobile/TabBar", {
 		setup: function () {
 			tau.engine.run();
 		},

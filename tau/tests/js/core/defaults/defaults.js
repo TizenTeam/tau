@@ -1,4 +1,4 @@
-module("profile/wearable/defaults", {});
+module("core/defaults/defaults", {});
 
 test("tau.defaults", function () {
 	equal(typeof tau.defaults, "object", 'tau.defaults is object');

@@ -8,7 +8,7 @@
 	 */
 	var startLocation = window.location.href;
 
-	module("page", {
+	module("profile/mobile/widget/mobile/Page", {
 		setup: function () {
 			tau.engine.run();
 		},

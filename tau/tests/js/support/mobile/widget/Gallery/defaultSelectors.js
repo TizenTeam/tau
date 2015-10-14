@@ -3,7 +3,10 @@
 (function (window, document) {
 	'use strict';
 
-	module('Gallery Support selector test', {
+	module("support/mobile/widget/Gallery", {
+		setup: function () {
+			tau.engine.run();
+		},
 		teardown: function () {
 			tau.engine._clearBindings();
 		}

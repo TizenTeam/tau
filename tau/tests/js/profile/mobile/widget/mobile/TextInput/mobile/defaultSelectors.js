@@ -2,7 +2,7 @@
 (function(document) {
 	"use strict";
 
-	module("textinput", {
+	module("profile/mobile/widget/mobile/TextInput", {
 		setup: function () {
 			tau.engine.run();
 		},

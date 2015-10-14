@@ -1,4 +1,4 @@
-module("tau.widget.wearable.PageIndicator", {});
+module("core/widget/core/PageIndicator", {});
 
 test("API" , function () {
     var elPageIndicator = document.getElementById("pageIndicator"),

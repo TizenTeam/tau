@@ -1,7 +1,7 @@
 /*global $, document, CustomEvent, asyncTest, ok, start */
 $().ready(function () {
 	"use strict";
-	module('core/event/touch');
+	module('support/mobile/event/touch');
 	QUnit.config.testTimeout = 5000;
 
 	function fireEvent(type, props) {

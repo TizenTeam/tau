@@ -1,3 +1,5 @@
+module("core/widget/core/Button/api/button");
+
 test ("API of Button Widget", function() {
 	var widget;
 

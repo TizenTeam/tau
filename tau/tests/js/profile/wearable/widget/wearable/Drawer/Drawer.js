@@ -1,3 +1,5 @@
+module("profile/wearable/widget/wearable/Drawer");
+
 test ( "Drawer" , function () {
 	var handlers = [].slice.call(document.getElementsByClassName("drawer-handler"));
 

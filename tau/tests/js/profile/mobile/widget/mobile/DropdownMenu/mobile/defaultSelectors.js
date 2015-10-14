@@ -2,7 +2,7 @@
 (function(document) {
 	"use strict";
 
-	module("DropdownMenu", {
+	module("profile/mobile/widget/mobile/DropdownMenu", {
 		setup: function () {
 			tau.engine.run();
 		},

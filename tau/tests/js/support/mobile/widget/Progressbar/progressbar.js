@@ -1,5 +1,5 @@
 $().ready(function() {
-	module("profile/mobile/widget/mobile/Progressbar", {
+	module("support/mobile/widget/Progressbar", {
 		teardown: function () {
 			ej.engine._clearBindings();
 		}

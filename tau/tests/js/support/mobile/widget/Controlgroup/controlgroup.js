@@ -1,4 +1,4 @@
-module('Controlgroup', {
+module('support/mobile/widget/Controlgroup', {
 	teardown: function () {
 		ej.engine._clearBindings();
 	}

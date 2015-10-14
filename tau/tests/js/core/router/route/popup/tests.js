@@ -4,7 +4,7 @@ function testFunction (tau, prefix, setupFunction) {
 	var engine = tau.engine,
 		router = engine.getRouter();
 
-	module("ns.router.route.popup", {
+	module("core/router/route/popup", {
 		teardown: function () {
 			engine._clearBindings();
 			engine.stop();

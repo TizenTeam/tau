@@ -1,4 +1,4 @@
-module("tau.widget.Selector", {});
+module("profile/wearable/widget/wearable/Selector", {});
 
 test("API" , function () {
 	var widget;

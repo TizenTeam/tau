@@ -1,6 +1,8 @@
 (function (window, document) {
 	"use strict";
 
+	module("core/widget/core/Button");
+
 	tau.engine.defineWidget(
 		"Button",
 		"button, [data-role='button'], .ui-btn, input[type='button']",

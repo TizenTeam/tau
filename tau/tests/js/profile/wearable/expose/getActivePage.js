@@ -1,4 +1,4 @@
-module("ns.expose", {});
+module("profile/wearable/expose", {});
 
 asyncTest("ns.expose", function () {
 	document.addEventListener("pageshow", function () {

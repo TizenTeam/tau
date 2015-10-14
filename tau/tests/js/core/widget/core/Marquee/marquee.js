@@ -3,7 +3,7 @@
 (function (window, document) {
     "use strict";
 
-    module("Marquee tests", {
+    module("core/widget/core/Marquee/marquee", {
         teardown: function () {
             tau.engine._clearBindings();
         }

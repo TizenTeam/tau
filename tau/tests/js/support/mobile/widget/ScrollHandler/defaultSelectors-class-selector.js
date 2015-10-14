@@ -2,7 +2,7 @@
 (function(document) {
 	"use strict";
 
-	module("scrollhandler", {
+	module("support/mobile/widget/ScrollHandler", {
 		setup: function () {
 			tau.engine.run();
 		},

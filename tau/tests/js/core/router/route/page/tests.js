@@ -3,7 +3,7 @@
 function testFunction (tau, prefix){
 	var engine = tau.engine,
 		router = engine.getRouter();
-	module("ns.router.route.page", {
+	module("core/router/route/page", {
 		teardown: function () {
 			engine._clearBindings();
 			engine.stop();

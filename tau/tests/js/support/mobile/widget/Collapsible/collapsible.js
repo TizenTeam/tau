@@ -4,7 +4,7 @@
 (function (window, document) {
 	"use strict";
 
-	module("Collapsible support tests", {
+	module("support/mobile/widget/Collapsible", {
 		teardown: function () {
 			tau.engine._clearBindings();
 		}

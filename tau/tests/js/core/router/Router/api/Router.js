@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
 	"use strict";
 	var Router = tau.router.Router;
 
-	module("ej.router.Router create instance");
+	module("core/router/Router/api/Router");
 	test("instance", function () {
 		var router = new Router();
 		ok(typeof router, "Object", "router");

@@ -2,7 +2,7 @@
 (function(document) {
 	"use strict";
 
-	module("progressbar", {
+	module("support/profile/mobile/widget/Progress", {
 		setup: function () {
 			tau.engine.run();
 		},

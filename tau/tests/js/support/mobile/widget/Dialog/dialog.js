@@ -2,7 +2,7 @@
 (function (ns) {
 	"use strict";
 
-	module('profile/mobile/widget/mobile/Dialog', {
+	module('support/mobile/widget/Dialog', {
 		teardown: function () {
 			tau.engine._clearBindings();
 			tau.engine.stop();

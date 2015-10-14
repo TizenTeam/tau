@@ -5,7 +5,7 @@
 (function ($) {
 	"use strict";
 
-	module("profile/mobile/widget/mobile/Dialog", {
+	module("support/mobile/widget/Dialog", {
 		setup: function () {
 			$.mobile.page.prototype.options.contentTheme = "d";
 		}

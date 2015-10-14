@@ -1,6 +1,8 @@
 (function (window, document) {
 	"use strict";
 
+	module("core/widget/core/Checkbox");
+
 	test("Checkbox - Create", 2, function() {
 		var el = document.getElementById("checkbox-1");
 

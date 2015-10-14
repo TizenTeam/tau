@@ -7,7 +7,7 @@ function testFunction(tau, prefix, setupFunction) {
 
 	prefix = prefix || "";
 
-	module("tau.router.wearable.Router public methods", {
+	module("core/router/Router", {
 		teardown: function () {
 			engine._clearBindings();
 			engine.stop();

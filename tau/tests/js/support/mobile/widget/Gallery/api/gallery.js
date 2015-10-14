@@ -1,6 +1,6 @@
 (function (ns) {
 	'use strict';
-	module("profile/mobile/widget/mobile/Gallery");
+	module("support/mobile/widget/Gallery");
 
 	test ( "API ns.widget.mobile.Gallery" , function () {
 		var widget, Gallery;

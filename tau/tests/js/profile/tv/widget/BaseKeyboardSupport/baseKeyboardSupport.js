@@ -1,5 +1,5 @@
 (function (document, tau) {
-    module("ns.widget.tv.BaseKeyboardSupport Keyboard Support", {});
+    module("profile/tv/widget/BaseKeyboardSupport", {});
     var engine = tau.engine,
         keyboardSupport = tau.widget.tv.BaseKeyboardSupport;
 

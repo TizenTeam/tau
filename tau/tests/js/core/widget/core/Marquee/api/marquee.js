@@ -1,5 +1,8 @@
 (function (ns) {
     'use strict';
+
+    module("core/widget/core/Marquee/api/marquee");
+
     test ( "API of core Marquee Widget" , function () {
         var widget, Marquee;
         equal(typeof ns, 'object', 'Class ns exists');

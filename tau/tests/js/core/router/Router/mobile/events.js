@@ -1,4 +1,4 @@
-module("profile/mobile/router/Page");
+module("core/router/Router");
 
 asyncTest('Events listener in correct order', 27, function () {
 	var page = document.getElementById('first'),

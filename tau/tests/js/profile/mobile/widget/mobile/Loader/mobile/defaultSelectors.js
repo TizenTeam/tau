@@ -2,7 +2,7 @@
 (function(document) {
 	"use strict";
 
-	module("loader", {
+	module("profile/mobile/widget/mobile/Loader", {
 		setup: function () {
 			tau.engine.run();
 		},

@@ -1,5 +1,5 @@
 /*global tau, test, module, equal */
-module("tau.history");
+module("core/history/api/history");
 test ( "ns.router.history" , function () {
 	var history = tau.history;
 	equal(typeof tau, "object", "Class tau exists");

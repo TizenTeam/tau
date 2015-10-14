@@ -3,7 +3,7 @@
 (function (window, document) {
     "use strict";
 
-    module("SearchInput tests", {
+    module("core/widget/core/SearchInput", {
         teardown: function () {
             tau.engine._clearBindings();
         }

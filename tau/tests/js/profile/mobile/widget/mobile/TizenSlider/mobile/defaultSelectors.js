@@ -2,7 +2,7 @@
 (function(document) {
 	"use strict";
 
-	module("tizenslider", {
+	module("profile/mobile/widget/mobile/TizenSlider", {
 		setup: function () {
 			tau.engine.run();
 		},

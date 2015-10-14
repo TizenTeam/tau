@@ -1,7 +1,7 @@
 /* global test, module, asyncTest, equal, ok, start */
 function testFunction(tau) {
 	var history = tau.history;
-	module("ns.history");
+	module("core/history");
 
 	test("main", function () {
 		ok(history, "object history exists");

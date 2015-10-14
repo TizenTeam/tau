@@ -1,4 +1,4 @@
-module("tau.widget.Drawer", {});
+module("profile/wearable/widget/wearable/Drawer/api/drawer");
 
 test("API" , function () {
 	var widget;

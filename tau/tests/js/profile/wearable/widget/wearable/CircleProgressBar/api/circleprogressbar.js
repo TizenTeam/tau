@@ -1,4 +1,6 @@
 (function (ns) {
+    module("profile/wearable/widget/wearable/CircleProgressBar/api/circleprogressbar");
+
     test("API of CircleProgressBar Widget", function () {
         var widget, circleProgress;
         equal(typeof ns, 'object', 'Class tau exists');

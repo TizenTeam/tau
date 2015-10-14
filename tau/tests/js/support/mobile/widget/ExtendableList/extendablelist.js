@@ -11,7 +11,7 @@
 
 	var config;
 
-	module("profile/mobile/widget/mobile/ExtendableList");
+	module("support/mobile/widget/ExtendableList");
 
 	config = {
 		//Declare total number of items

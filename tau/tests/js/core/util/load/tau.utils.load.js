@@ -1,5 +1,7 @@
 var load = tau.util.load;
 
+module("core/util/load");
+
 test("tau.util.load - check the existence of objects/functions", function() {
     equal(typeof tau, "object", "tau exists");
     equal(typeof tau.util, "object", "tau.util exists");

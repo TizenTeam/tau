@@ -5,7 +5,7 @@
 
 		var engine = ej.engine;
 
-		module("profile/tv/widget/Listview", {
+		module("profile/tv/widget/Listdivider", {
 			setup: function () {
 				engine.createWidgets(document);
 			},

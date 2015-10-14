@@ -3,7 +3,7 @@
 (function (tau) {
 	"use strict";
 
-	module("profile/tv/widget/Popup - API");
+	module("profile/tv/widget/Popup");
 
 	test("Architecture", 1, function () {
 		var tauWidget = tau.widget,

@@ -3,7 +3,7 @@
 (function (window, document) {
 	"use strict";
 
-	module("Gallery markup tests", {
+	module("support/mobile/widget/Gallery", {
 		teardown: function () {
 			tau.engine._clearBindings();
 		}
