@@ -235,7 +235,9 @@
 }
 .select-btn-text {
 	display: block;
-	line-height: 75px;
+	height: 100%;
+	line-height: 60px;
+	background: url(../contents/list/images/tw_list_number_icon.png) no-repeat 50% 100%;
 }
 .ui-listview li.select {
 	background-color: rgb(8, 42, 57);
