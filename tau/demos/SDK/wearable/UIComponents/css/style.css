@@ -953,6 +953,77 @@ input[type="checkbox"]#checkboxControl {
 	#pageMarqueeList::after {
 		content: none;
 	}
+	/* ------------------- Divide List --------------------- */
+	.li-has-action-icon .li-action-text::after {
+		content: none;
+	}
+	.li-has-action-icon .li-action-icon-button.li-action-delete,
+	.li-has-action-icon .li-action-icon-button.li-action-setting,
+	.li-has-action-icon .li-action-icon-button.li-action-add {
+		-webkit-mask-image: none;
+		background-color: transparent;
+	}
+	.li-has-action-icon .li-action-icon-button.li-action-delete::after,
+	.li-has-action-icon .li-action-icon-button.li-action-setting::after,
+	.li-has-action-icon .li-action-icon-button.li-action-add:after {
+		content: "";
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		-webkit-mask-size: 53px 53px;
+		-webkit-mask-repeat: no-repeat;
+		-webkit-mask-position: center center;
+		background-color: rgba(245, 245, 245, 1);
+	}
+	.ui-listview .li-has-action-icon {
+		overflow: visible;
+	}
+	.li-has-action-icon .li-action-icon-button.li-action-delete::after {
+		-webkit-mask-image: url(../contents/list/images/tw_list_delete_holo_dark.png);
+	}
+	.li-has-action-icon .li-action-icon-button.li-action-setting::after {
+		-webkit-mask-image: url(../contents/list/images/tw_list_setting_holo_dark.png);
+	}
+	.li-has-action-icon .li-action-icon-button.li-action-add::after {
+		-webkit-mask-image: url(../contents/list/images/tw_list_add_holo_dark.png);
+	}
+	.li-has-action-icon .li-action-icon-button {
+		position: absolute;
+		height: 100%;
+		width: 108px;
+		right: 0;
+		top: 0;
+		padding: 0;
+		margin: 0;
+		border: 0;
+		background-color: transparent;
+		overflow: visible;
+	}
+	.ui-listview .li-has-action-icon .li-action-icon-button:active {
+		background-color: rgba(245, 245, 245, 1);
+	}
+	.ui-listview .li-has-action-icon .li-action-icon-button::before {
+		content: "";
+		position: absolute;
+		width: 108px;
+		height: 100%;
+		left:0;
+		top: 0;
+		-webkit-transform: scale(1);
+		transition: -webkit-transform 200ms linear;
+		border-radius: 50%;
+		background-color: rgba(30,30,30,0.7);
+		opacity: 0;
+	}
+	.ui-listview .li-has-action-icon .li-action-icon-button:active {
+		background-color: transparent;
+	}
+	.ui-listview .li-has-action-icon .li-action-icon-button:active::before {
+		opacity: 1;
+		-webkit-transform: scale(1.2);
+	}
 	/* ------------------ POPUP ------------------------ */
 	.ui-popup-content .btn-additional {
 		width: 160px;
