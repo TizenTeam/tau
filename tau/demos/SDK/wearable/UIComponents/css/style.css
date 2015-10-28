@@ -1088,7 +1088,7 @@ input[type="checkbox"]#checkboxControl {
 }
 
 .ui-item.ui-item-active::before{
-	background-color: #3261ba;
+	background-color: rgba(2, 129, 209, 1);
 }
 .delete-icon::before {
 	position: absolute;
@@ -1099,7 +1099,7 @@ input[type="checkbox"]#checkboxControl {
 	height: 100%;
 	-webkit-mask-image: url(./images/b_more_option_delete_icon.png);
 	-webkit-mask-size: 100% 100%;
-	background-color: rgb(89, 88, 91);
+	background-color: rgb(8, 8, 8);
 	-webkit-mask-repeat: no-repeat;
 }
 .human-icon::before {
@@ -1111,7 +1111,7 @@ input[type="checkbox"]#checkboxControl {
 	height: 100%;
 	-webkit-mask-image: url(./images/b_more_option_human_icon.png);
 	-webkit-mask-size: 100% 100%;
-	background-color: rgb(89, 88, 91);
+	background-color: rgb(8, 8, 8);
 	-webkit-mask-repeat: no-repeat;
 }
 .show-icon::before {
@@ -1123,7 +1123,7 @@ input[type="checkbox"]#checkboxControl {
 	height: 100%;
 	-webkit-mask-image: url(./images/b_more_option_show_on_device_icon.png);
 	-webkit-mask-size: 100% 100%;
-	background-color: rgb(89, 88, 91);
+	background-color: rgb(8, 8, 8);
 	-webkit-mask-repeat: no-repeat;
 }
 .x-icon::before {
@@ -1135,7 +1135,7 @@ input[type="checkbox"]#checkboxControl {
 	height: 100%;
 	-webkit-mask-image: url(./images/tw_toast_popup_delete.png);
 	-webkit-mask-size: 100% 100%;
-	background-color: rgb(89, 88, 91);
+	background-color: rgb(8, 8, 8);
 	-webkit-mask-repeat: no-repeat;
 }
 .fail-icon::before {
@@ -1147,6 +1147,6 @@ input[type="checkbox"]#checkboxControl {
 	height: 100%;
 	-webkit-mask-image: url(./images/tw_toast_popup_fail.png);
 	-webkit-mask-size: 100% 100%;
-	background-color: rgb(89, 88, 91);
+	background-color: rgb(8, 8, 8);
 	-webkit-mask-repeat: no-repeat;
 }
