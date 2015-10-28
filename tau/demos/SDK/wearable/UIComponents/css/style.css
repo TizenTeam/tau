@@ -639,23 +639,23 @@ li.static::before {
 }
 /* -----------------------------------POPUP------------------------------------ */
 .btn-icon-share::before {
-	background-color: rgba(0, 149, 255, 1);
+	background-color: rgba(245, 245, 245, 1);
 	-webkit-mask-image: url(../contents/popup/images/tw_ic_button_share_holo_dark.png);
 }
 .btn-icon-showonphone::before {
-	background-color: rgba(0, 149, 255, 1);
+	background-color: rgba(245, 245, 245, 1);
 	-webkit-mask-image: url(../contents/popup/images/tw_ic_button_showonphone_holo_dark.png);
 }
 .btn-icon-delete::before {
-	background-color: rgba(0, 149, 255, 1);
+	background-color: rgba(245, 245, 245, 1);
 	-webkit-mask-image: url(../contents/popup/images/tw_ic_button_delete_holo_dark.png);
 }
 .btn-icon-check::before {
-	background-color: rgba(0, 149, 255, 1);
+	background-color: rgba(245, 245, 245, 1);
 	-webkit-mask-image: url(../contents/popup/images/tw_ic_popup_btn_check.png);
  }
 .btn-icon-cancel::before {
-	background-color: rgba(0, 149, 255, 1);
+	background-color: rgba(245, 245, 245, 1);
 	-webkit-mask-image: url(../contents/popup/images/tw_ic_popup_btn_delete.png);
  }
 .btn-icon-toast-check::after {
