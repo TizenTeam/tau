@@ -172,6 +172,19 @@
 Popup Container Scroll
 ***********************/
 .ui-popup.ui-scroll-on:not(.ui-ctxpopup):not(.ui-popup-toast) {
+	.ui-popup-wrapper::after {
+		content: "";
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		pointer-events: none;
+		background-color: @color_popup_edge_inner_glow;
+		-webkit-mask-image: url(./images/Popup/b_popup_edge_inner_glow.png);
+		-webkit-mask-size: 100% 100%;
+	}
+
 	.ui-popup-content {
 		margin-top: 122 * @unit_base;
 		margin-bottom: 98 * @unit_base;
