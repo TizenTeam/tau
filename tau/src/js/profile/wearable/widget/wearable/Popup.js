@@ -343,6 +343,8 @@
 					headerHeight = 0,
 					footerHeight = 0;
 
+				self._blockPageScroll();
+
 				CorePopupPrototype._layout.call(self, element);
 
 				if (self.options.enablePopupScroll === true) {
@@ -392,7 +394,22 @@
 					wrapper = ui.wrapper;
 
 				wrapper.removeAttribute("style");
+				self._unblockPageScroll();
 				CorePopupPrototype._onHide.call(self);
+			};
+
+			prototype._blockPageScroll = function() {
+				var page = ns.widget.Page(this._ui.page);
+				if (page.getScroller) {
+					page.getScroller().style.overflow = "hidden";
+				}
+			};
+
+			prototype._unblockPageScroll = function() {
+				var page = ns.widget.Page(this._ui.page);
+				if (page.getScroller) {
+					page.getScroller().style.overflow = "";
+				}
 			};
 
 			Popup.prototype = prototype;

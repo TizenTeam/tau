@@ -375,6 +375,12 @@
 				}
 			};
 
+			prototype.getScroller = function() {
+				var element = this.element,
+					scroller = element.querySelector("." + classes.uiScroller);
+				return scroller || element.querySelector("." + classes.uiContent) || element;
+			};
+
 			prototype._destroy = function () {
 				CorePage.prototype._destroy.call(this);
 			};
