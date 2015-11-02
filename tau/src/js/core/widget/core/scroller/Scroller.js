@@ -83,6 +83,8 @@
 				HORIZONTAL: "horizontal"
 			};
 
+			Scroller.EventType = eventType;
+
 			prototype._build = function (element) {
 				if (element.children.length !== 1) {
 					throw "scroller has only one child.";

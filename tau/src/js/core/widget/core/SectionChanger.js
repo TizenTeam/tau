@@ -104,14 +104,14 @@
 				engine = ns.engine,
 				utilsObject = ns.util.object,
 				utilsEvents = ns.event,
-				eventType = {
+				eventType = ns.util.object.merge({
 					/**
 					 * Triggered when the section is changed.
 					 * @event sectionchange
 					 * @member ns.widget.core.SectionChanger
 					 */
 					CHANGE: "sectionchange"
-				},
+				}, Scroller.EventType),
 				classes = {
 					uiSectionChanger: "ui-section-changer"
 				};
@@ -423,7 +423,9 @@
 						case "msTransitionEnd":
 						case "oTransitionEnd":
 						case "transitionEnd":
-							this._endScroll();
+							if (event.target === this.scroller) {
+								this._endScroll();
+							}
 							break;
 					}
 				},
@@ -454,7 +456,7 @@
 				 * the duration parameter must be in milliseconds.
 				 * @member ns.widget.core.SectionChanger
 				 */
-				setActiveSection: function (index, duration) {
+				setActiveSection: function (index, duration, direct) {
 					var position = this.sectionPositions[ index ],
 						scrollbarDuration = duration,
 						oldActiveIndex = this.activeIndex,
@@ -464,9 +466,10 @@
 						centerY = 0;
 
 					if (this.orientation === Scroller.Orientation.HORIZONTAL) {
-						newX = -calculateCenter(this.orientation, this.sections, position);
+						newX = this._sectionChangerHalfWidth - calculateCenter(this.orientation, this.sections, position);
+
 					} else {
-						newY = -calculateCenter(this.orientation, this.sections, position);
+						newY = this._sectionChangerHalfHeight - calculateCenter(this.orientation, this.sections, position);
 					}
 
 					if (this.beforeIndex - index > 1 || this.beforeIndex - index < -1) {
@@ -477,13 +480,12 @@
 					this.beforeIndex = this.activeIndex;
 
 					if (newX !== this.scrollerOffsetX || newY !== this.scrollerOffsetY) {
-						if (this.orientation === Scroller.Orientation.HORIZONTAL) {
-							centerX = this._sectionChangerHalfWidth + newX;
-						} else {
-							centerY = this._sectionChangerHalfHeight + newY;
+						if (direct !== false) {
+							this._fireEvent( eventType.START );
+							this.scrolled = true;
 						}
 
-						this._translate(centerX, centerY, duration);
+						this._translate(newX, newY, duration);
 						this._translateScrollbarWithPageIndex(index, scrollbarDuration);
 					} else {
 						this._endScroll();
@@ -550,7 +552,7 @@
 						this.bouncingEffect.dragEnd();
 					}
 
-					this.setActiveSection(this.activeIndex, this.options.animateDuration);
+					this.setActiveSection(this.activeIndex, this.options.animateDuration, false);
 					this.dragging = false;
 				},
 
@@ -572,7 +574,7 @@
 						this._notifyChanagedSection(newIndex);
 					}
 
-					this.setActiveSection(newIndex, this.options.animateDuration);
+					this.setActiveSection(newIndex, this.options.animateDuration, false);
 					this.dragging = false;
 				},
 
