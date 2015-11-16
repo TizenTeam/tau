@@ -16,23 +16,6 @@ var cheerio = require("cheerio"),
 		"supportForIs": true
 	};
 
-
-function getParams(args) {
-	var i = 0,
-		keys = {},
-		temp;
-
-	args.forEach(function (value) {
-		if (value.indexOf("--") === -1) {
-			keys[i++] = value;
-		} else {
-			temp = value.replace("--", "").split("=");
-			keys[temp[0]] = temp[1];
-		}
-	});
-	return keys;
-}
-
 function configure(profile) {
 	if (profile === "wearable") {
 		config.supportForIs = false;
@@ -43,11 +26,15 @@ function configure(profile) {
  * Look ma, it's cp -R.
  * @param {string} src The path to the thing to copy.
  * @param {string} dest The path to the new copy.
+ * @param {string} profile to make recursiveSync on.
  */
-function copyRecursiveSync(src, dest) {
+function copyRecursiveSync(src, dest, profile) {
 	var exists = fs.existsSync(src),
 		stats = exists && fs.statSync(src),
 		isDirectory = exists && stats.isDirectory();
+
+	configure(profile);
+
 	if (exists && isDirectory) {
 		if (!fs.existsSync(dest)) {
 			fs.mkdirSync(dest);
@@ -180,12 +167,5 @@ function convertHMTL(src, dest) {
 	fs.writeFileSync(dest, output);
 }
 
+module.exports = copyRecursiveSync;
 
-params = getParams(process.argv);
-dirIn = params[2];
-dirOut = params[3];
-profile = params["profile"];
-
-configure(profile);
-
-copyRecursiveSync(dirIn, dirOut);

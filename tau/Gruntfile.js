@@ -20,6 +20,8 @@ module.exports = function(grunt) {
 		tauDebug = grunt.option("tau-debug") || false,
 		tauPerformance = grunt.option("tau-performance") || false,
 
+		ceconverter = require(__dirname + "/tools/converter/index"),
+
 		buildRoot = path.join(dist),
 		buildDir = {
 			mobile: {
@@ -1233,6 +1235,14 @@ module.exports = function(grunt) {
 
 	grunt.registerTask("build", ["clean", "lint", "css", "js", "license", "version"]);
 	grunt.registerTask("release", [ "build", "test", "sdk-docs" ]);
+
+	//convert to CE
+	grunt.registerTask("convert-app", "Replace html tags with custom elements, example: grunt convert-app:full path to source:full path to destination:profile", function (sourcePath, targetPath, profile) {
+		var profile = profile || "mobile";
+
+		//convert application
+		ceconverter(sourcePath, targetPath, profile);
+	});
 
 	grunt.registerTask("ce-test-mobile", [ "build",
 		"multitau:UIComponentsMobile",
