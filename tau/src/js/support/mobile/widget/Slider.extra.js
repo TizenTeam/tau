@@ -76,7 +76,7 @@
 				self._buildIcon(element);
 				self._buildText(element);
 
-				slider = tau.widget.Slider(element);
+				slider = ns.widget.Slider(element);
 				self.options.popup ? slider.options.expand = true : slider.options.expand = false;
 
 				slider.refresh();

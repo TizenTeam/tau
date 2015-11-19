@@ -1,4 +1,4 @@
-/*global window, define */
+/*global window, define, ns */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
  *
@@ -312,7 +312,6 @@
 				var self = this,
 					options = self.options,
 					position = self._position,
-					fromColor = self._fromColor,
 					colorTransitionRatio = self._colorTransitionRatio,
 					fromRgba = options.fromRgba.match(RGBA_REGEXP),
 					toRgba = options.toRgba.match(RGBA_REGEXP),
@@ -460,7 +459,7 @@
 			* @protected
 			* @member ns.widget.mobile.FloatingActions
 			*/
-			prototype._touchStart = function(event) {
+			prototype._touchStart = function() {
 				var self = this,
 					style = self._style,
 					opacity = self.options.opacity,
@@ -479,10 +478,9 @@
 			* @protected
 			* @member ns.widget.mobile.FloatingActions
 			*/
-			prototype._touchEnd = function(event) {
+			prototype._touchEnd = function() {
 				var self = this,
 					style = self._style,
-					opacity = self.options.opacity,
 					duration = self.options.duration,
 					transition;
 

@@ -82,14 +82,6 @@
 					listItemWithCheckbox: "li-has-checkbox",
 					background: "ui-background"
 				},
-				/**
-				 * {Constant} Constant describing type of functions
-				 * @member ns.widget.tv.Checkboxradio
-				 * @private
-				 * @static
-				 * @readonly
-				 */
-				FUNCTION_TYPE = "function",
 				Checkboxradio = function () {
 					var self = this;
 
@@ -131,8 +123,8 @@
 				 * @static
 				 * @readonly
 				 */
-				activeSelector = "input[type='radio']:not([disabled]):not(." + classInListview + "), "
-					+ "[type='checkbox']:not([disabled]):not(." + classInListview + ")",
+				activeSelector = "input[type='radio']:not([disabled]):not(." + classInListview + "), " +
+					"[type='checkbox']:not([disabled]):not(." + classInListview + ")",
 				/**
 				 * {string} Focusable predecessor selector
 				 * @member ns.widget.tv.Checkboxradio
@@ -140,9 +132,9 @@
 				 * @static
 				 * @readonly
 				 */
-				focusablePredecessorSelector = "*[tabindex], "
-					+ "." + classes.listItemWithCheckbox + ", "
-					+ "." + classes.listItemWithRadio,
+				focusablePredecessorSelector = "*[tabindex], " +
+					"." + classes.listItemWithCheckbox + ", " +
+					"." + classes.listItemWithRadio,
 				/**
 				 * {string} Checkboxradio selector
 				 * @member ns.widget.tv.Checkboxradio

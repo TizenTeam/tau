@@ -1,4 +1,4 @@
-/*global window, define */
+/*global window, define, ns */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
  *
@@ -84,7 +84,7 @@
 			 * @member ns.layout.float
 			 * @static
 			 */
-			float.configure = function(self, element) {
+			float.configure = function(self/*, element*/) {
 				// set defaults
 				self.options = objectUtil.merge({}, defaults, self.options);
 			};
@@ -153,7 +153,7 @@
 			 * @member ns.layout.float
 			 * @static
 			 */
-			float.disable = function (self, element) {
+			float.disable = function (self/*, element*/) {
 				var classList = self.element.classList;
 
 				classList.remove(classes.floatRight);

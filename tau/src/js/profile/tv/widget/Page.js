@@ -147,14 +147,6 @@
 				 */
 				DOM = util.DOM,
 				object = util.object,
-				/**
-				 * Alias for {@link ns.util.selectors}
-				 * @property {Object} utilSelectors
-				 * @member ns.widget.tv.Page
-				 * @private
-				 * @static
-				 */
-				utilSelectors = util.selectors,
 				Page = function () {
 					var self = this;
 					BaseKeyboardSupport.call(self);
@@ -169,7 +161,6 @@
 				 * @static
 				 */
 				engine = ns.engine,
-				FUNCTION_TYPE = "function",
 				prototype = new WearablePage();
 
 			classes.uiHeaderEmpty = "ui-header-empty";

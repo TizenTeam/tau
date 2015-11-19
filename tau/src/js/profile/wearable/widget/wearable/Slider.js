@@ -1,4 +1,4 @@
-/*global window, define */
+/*global window, define, HTMLInputElement, ns */
 /*jslint nomen: true */
 /**
  * # Slider Widget

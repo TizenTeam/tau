@@ -1,4 +1,4 @@
-/*global window, define */
+/*global define */
 /*jslint nomen: true */
 /**
  * # Check Box and Radio Box Widget

@@ -1,4 +1,4 @@
-/*global window, define */
+/*global window, define, ns */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
  *
@@ -832,7 +832,6 @@
 					element = this.element,
 					value,
 					tagName = element.tagName.toLowerCase(),
-					classes = Datetimepicker.classes,
 					type;
 				if (!this._ui) {
 					this._ui = document.getElementById(this.id + '-datetimepicker-ui');

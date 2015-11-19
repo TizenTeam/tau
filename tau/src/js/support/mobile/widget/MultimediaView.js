@@ -148,7 +148,6 @@
 				POINTER_MOVE_EVENT = 'vmousemove',
 				POINTER_DOWN_EVENT = 'vmousedown',
 				POINTER_UP_EVENT = 'vmouseup',
-				MEDIA_POSITION_CHANGE_TIMEOUT = 200, //[ms]
 				FULLSCREEN_DELAY = 300, //[]ms
 
 				MultimediaView = function () {
@@ -871,7 +870,7 @@
 				self._resize();
 			}
 
-			function onVolumeBarChange(self, event) {
+			function onVolumeBarChange(self) {
 				var volume = engine.getBinding(self.ui.volumeBar);
 				self._setVolume(volume.element.value / 100);
 			}

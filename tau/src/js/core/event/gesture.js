@@ -1,4 +1,4 @@
-/*global window, define, CustomEvent */
+/*global define, ns */
 /*jslint nomen: true */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd

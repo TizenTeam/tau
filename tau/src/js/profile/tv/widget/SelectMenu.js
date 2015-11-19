@@ -126,9 +126,6 @@
 				BaseKeyboardSupport = ns.widget.tv.BaseKeyboardSupport,
 				engine = ns.engine,
 				objectUtils = ns.util.object,
-				selectors = ns.util.selectors,
-				KEY_CODES = BaseKeyboardSupport.KEY_CODES,
-				slice = Array.prototype.slice,
 				SelectMenu = function () {
 					var self = this;
 
@@ -156,7 +153,6 @@
 				 */
 				classes = objectUtils.merge({}, BaseSelectMenu.classes, {
 				}),
-				FUNCTION_TYPE = "function",
 				prototype = new BaseSelectMenu();
 
 			SelectMenu.prototype = prototype;
@@ -215,8 +211,7 @@
 			 * @member ns.widget.tv.SelectMenu
 			 */
 			prototype._bindEvents = function(element) {
-				var self= this,
-					ui = self._ui;
+				var self= this;
 
 				BaseSelectMenuPrototype._bindEvents.call(self, element);
 
@@ -230,8 +225,7 @@
 			 * @member ns.widget.tv.SelectMenu
 			 */
 			prototype._destroy = function(element) {
-				var self= this,
-					ui = self._ui;
+				var self= this;
 
 				BaseSelectMenuPrototype._destroy.call(self, element);
 

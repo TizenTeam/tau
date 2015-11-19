@@ -32,8 +32,6 @@
 		],
 		function () {//>>excludeEnd("tauBuildExclude");
 			var engine = ns.engine,
-				objectUtils = ns.util.object,
-				selectors = ns.util.selectors,
 
 				SnapListStyle = function (listDomElement, options) {
 					var self = this;
@@ -45,8 +43,8 @@
 
 				prototype = SnapListStyle.prototype;
 
-			function rotaryDetentHandler(e) {
-				var snapListviewWidget = this._snapListviewWidget,
+			function rotaryDetentHandler(self, e) {
+				var snapListviewWidget = self._snapListviewWidget,
 					selectedIndex = snapListviewWidget.getSelectedIndex(),
 					direction = e.detail.direction;
 
@@ -69,7 +67,7 @@
 				var self = this,
 					rotaryDetentCallback;
 
-				rotaryDetentCallback = rotaryDetentHandler.bind(self);
+				rotaryDetentCallback = rotaryDetentHandler.bind(null, self);
 
 				self._callbacks.rotarydetent = rotaryDetentCallback;
 

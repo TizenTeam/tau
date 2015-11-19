@@ -49,7 +49,7 @@
 					page: "ui-page"
 				},
 
-				DrawerMoreStyle = function (element) {
+				DrawerMoreStyle = function () {
 					var self = this;
 
 					self.options = objectUtils.merge({}, defaults);
@@ -63,12 +63,12 @@
 
 			DrawerMoreStyle.prototype = prototype;
 
-			function bindDragEvents(element) {
-				events.on(element, "touchstart touchend mousedown mouseup" , this, false);
+			function bindDragEvents(self, element) {
+				events.on(element, "touchstart touchend mousedown mouseup", self, false);
 			}
 
-			function unbindDragEvents(element) {
-				events.off(element, "touchstart touchend mousedown mouseup" , this, false);
+			function unbindDragEvents(self, element) {
+				events.off(element, "touchstart touchend mousedown mouseup", self, false);
 			}
 
 			prototype.handleEvent = function(event) {
@@ -90,7 +90,7 @@
 				event.stopPropagation();
 			};
 
-			prototype._onTouchEnd = function(event) {
+			prototype._onTouchEnd = function() {
 				this.close();
 			};
 
@@ -117,7 +117,7 @@
 				var self = this;
 
 				if (self._handlerElement) {
-					bindDragEvents.call(self, self._handlerElement);
+					bindDragEvents(self, self._handlerElement);
 				}
 			};
 
@@ -125,7 +125,7 @@
 				var self = this;
 
 				if (self._handlerElement) {
-					unbindDragEvents.call(self, self._handlerElement);
+					unbindDragEvents(self, self._handlerElement);
 				}
 			};
 

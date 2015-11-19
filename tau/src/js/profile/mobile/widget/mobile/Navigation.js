@@ -1,4 +1,4 @@
-/*global window, define */
+/*global window, define, ns */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
  *
@@ -130,9 +130,8 @@
 			 * @param {event} event
 			 * @member ns.widget.mobile.Navigation
 			 */
-			function onClick(event) {
-				var self = this,
-					container = self._ui.container,
+			function onClick(self, event) {
+				var container = self._ui.container,
 					target = event.target,
 					position = parseInt(target.getAttribute(attributes.POSITION), 10),
 					stack = self._navigationStack,
@@ -186,7 +185,7 @@
 			prototype._bindEvents = function (element) {
 				var self = this;
 
-				self._clickBound = onClick.bind(self);
+				self._clickBound = onClick.bind(null, self);
 				element.addEventListener("vclick", self._clickBound, false);
 			};
 

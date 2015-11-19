@@ -1,4 +1,4 @@
-/*global window, define */
+/*global define, ns */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
  *
@@ -154,22 +154,6 @@
 				 * @static
 				 */
 				dom = ns.util.DOM,
-				/**
-				 * Alias to ns.util.selectors
-				 * @property {Object} selectors
-				 * @member ns.widget.mobile.ListDivider
-				 * @private
-				 * @static
-				 */
-				selectors = ns.util.selectors,
-				/**
-				 * Alias for class ns.widget.mobile.Button
-				 * @property {Function} Button
-				 * @member ns.widget.mobile.ListDivider
-				 * @static
-				 * @private
-				 */
-				Button = ns.widget.core.Button,
 
 				ListDivider = function () {
 					return this;
@@ -229,7 +213,6 @@
 				var options = this.options,
 					classes = ListDivider.classes,
 					classList = element.classList,
-					buttonClasses = Button.classes,
 					elementWithLine;
 
 				classList.add(classes.uiBarThemePrefix + options.theme);

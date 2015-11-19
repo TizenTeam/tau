@@ -1,4 +1,4 @@
-/*global window, define, ns */
+/*global window, define, ns, HTMLTextAreaElement, HTMLInputElement */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
  *

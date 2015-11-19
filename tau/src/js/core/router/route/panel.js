@@ -1,4 +1,4 @@
-/*global window, define */
+/*global window, define, localStorage, ns */
 /*jslint nomen: true */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
@@ -100,8 +100,8 @@
 					return false;
 				}
 
-				if (self._panelChangerElement.querySelector("#" + activePanel).classList.contains(panelChanger.classes.PRE_IN)
-						|| panelHistory.length === 0) {
+				if (self._panelChangerElement.querySelector("#" + activePanel).classList.contains(panelChanger.classes.PRE_IN) ||
+						panelHistory.length === 0) {
 					history.replace(prev, prev.stateTitle, prev.stateUrl);
 					return true;
 				}

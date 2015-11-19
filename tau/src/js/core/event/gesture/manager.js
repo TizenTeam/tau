@@ -385,7 +385,7 @@
 					 */
 					_resetDetecting: function() {
 						isReadyDetecting = false;
-						startEvent = null
+						startEvent = null;
 
 						this.gestureDetectors.length = 0;
 						this.runningDetectors.length = 0;

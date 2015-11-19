@@ -29,8 +29,6 @@
 			//>>excludeEnd("tauBuildExclude");
 			var BaseWidget  = ns.widget.BaseWidget,
 				engine = ns.engine,
-				selectors = ns.util.selectors,
-				slice = [].slice,
 				Checkboxradio = function () {
 					var self = this;
 

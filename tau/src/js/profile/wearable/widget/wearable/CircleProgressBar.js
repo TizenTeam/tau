@@ -322,8 +322,7 @@
 			 */
 			prototype._setValue = function (inputValue) {
 				var self = this,
-					value,
-					selfElementValue;
+					value;
 
 				if (inputValue > self._maxValue) {
 					value = self._maxValue;

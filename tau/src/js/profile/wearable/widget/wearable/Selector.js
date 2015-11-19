@@ -1,4 +1,4 @@
-/*global window, define */
+/*global window, define, ns */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
  *
@@ -175,7 +175,7 @@
 				removeLayers(element, options);
 				len = items.length;
 				for (i = 0; i < len; i++) {
-					if (!(i % options.maxItemNumber)) {
+					if (i % options.maxItemNumber === 0) {
 						layer = document.createElement("div");
 						layer.classList.add(classes.LAYER);
 						element.appendChild(layer);
@@ -539,7 +539,7 @@
 				self._initItems(validLayer);
 				events.trigger(validLayer, EVENT_TYPE, {
 					index: index
-				})
+				});
 			};
 
 			/**
@@ -565,17 +565,16 @@
 			/**
 			 * Set the active item
 			 * @method _setActiveItem
-			 * @param {Number} index
+			 * @param {Number} itemIndex
 			 * @protected
 			 * @member ns.widget.wearable.Selector
 			 */
-			prototype._setActiveItem = function(index) {
+			prototype._setActiveItem = function(itemIndex) {
 				var self = this,
 					element = self.element,
 					ui = self._ui,
-					options = self.options,
 					items = ui.items,
-					index = index !== undefined ? index : 0,
+					index = itemIndex !== undefined ? itemIndex : 0,
 					active = element.querySelector("." + classes.ITEM_ACTIVE);
 
 				if (active) {
@@ -630,7 +629,7 @@
 			 * @protected
 			 * @member ns.widget.wearable.Selector
 			 */
-			prototype._onDragstart = function(event) {
+			prototype._onDragstart = function(/*event*/) {
 				this._started = true;
 			};
 
@@ -734,7 +733,7 @@
 							//setIndicatorTransform(ui.indicatorArrow, options.itemDegree * self._activeItemIndex + options.itemDegree / 3);
 							setTimeout(function() {
 								setIndicatorTransform(ui.indicatorArrow, bounceDegree);
-							}, 100)
+							}, 100);
 						}
 					} else {
 						self._changeItem(self._activeItemIndex + 1);
@@ -749,7 +748,7 @@
 							setIndicatorTransform(ui.indicatorArrow, DEFAULT.ITEM_START_DEGREE - DEFAULT.ITEM_START_DEGREE / 3);
 							setTimeout(function() {
 								setIndicatorTransform(ui.indicatorArrow, DEFAULT.ITEM_START_DEGREE);
-							}, 100)
+							}, 100);
 						}
 					} else {
 						self._changeItem(self._activeItemIndex - 1);
@@ -766,7 +765,6 @@
 			 */
 			prototype._hideItems = function(layer) {
 				var self = this,
-					options = self.options,
 					items = layer.getElementsByClassName(classes.ITEM),
 					i, len;
 				layer.classList.add(classes.LAYER_HIDE);

@@ -1,4 +1,4 @@
-/*global window, define*/
+/*global define*/
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
  *
@@ -80,5 +80,5 @@
  * @seeMore ../index.htm Tizen Advanced UI Framework
  */
 //>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
-define("profile/mobile/page/layout", function(){})
+define("profile/mobile/page/layout", function(){});
 //>>excludeEnd("tauBuildExclude");

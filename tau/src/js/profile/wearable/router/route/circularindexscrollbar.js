@@ -1,4 +1,4 @@
-/*global window, define */
+/*global window, define, ns */
 /*jslint nomen: true */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
@@ -37,16 +37,10 @@
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
-			var CircularIndexScrollbar = ns.widget.wearable.CircularIndexScrollbar,
-				CircularIndexScrollbarPrototype = CircularIndexScrollbar.prototype,
-				util = ns.util,
+			var util = ns.util,
 				path = util.path,
-				DOM = util.DOM,
-				object = util.object,
-				utilSelector = util.selectors,
 				history = ns.router.history,
 				engine = ns.engine,
-				slice = [].slice,
 				routeCircularIndexScrollbar = {},
 				circularindexscrollbarHashKey = "circularindexscrollbar=true",
 				circularindexscrollbarHashKeyReg = /([&|\?]circularindexscrollbar=true)/,
@@ -80,7 +74,7 @@
 			 * @param {Object} [options]
 			 * @member ns.router.route.circularindexscrollbar
 			 */
-			routeCircularIndexScrollbar.open = function (element, options) {
+			routeCircularIndexScrollbar.open = function (/*element, options*/) {
 				return null;
 			};
 
@@ -92,8 +86,7 @@
 			 * @return {?HTMLElement} circularIndexScrollbarElement
 			 */
 			routeCircularIndexScrollbar.find = function (absUrl) {
-				var self = this,
-					dataUrl = path.convertUrlToDataUrl(absUrl),
+				var dataUrl = path.convertUrlToDataUrl(absUrl),
 					activePage = engine.getRouter().getContainer().getActivePage(),
 					circularIndexScrollbar;
 
@@ -111,7 +104,7 @@
 			 * @member ns.router.route.circularindexscrollbar
 			 * @return {?HTMLElement} Element of page in parsed document.
 			 */
-			routeCircularIndexScrollbar.parse = function (html, absUrl) {
+			routeCircularIndexScrollbar.parse = function (/*html, absUrl*/) {
 				return null;
 			};
 

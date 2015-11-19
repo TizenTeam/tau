@@ -1,4 +1,4 @@
-/*global window, define*/
+/*global define*/
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
  *
@@ -191,5 +191,5 @@
  * @seeMore layout.htm Application Page Layout
  */
 //>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
-define("profile/mobile/page/change", function(){})
+define("profile/mobile/page/change", function(){});
 //>>excludeEnd("tauBuildExclude");

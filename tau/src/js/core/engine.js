@@ -1,4 +1,4 @@
-/*global window, define, ns, Node, HTMLElement */
+/*global window, define, ns, Node */
 /*jslint nomen: true, plusplus: true, bitwise: false */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
@@ -67,7 +67,6 @@
 				 */
 				eventUtils = ns.event,
 				util = ns.util,
-				utilArray = util.array,
 				objectUtils = util.object,
 				DOMUtils = util.DOM,
 				historyManager = ns.history.manager,
@@ -919,35 +918,6 @@
 			 */
 			function stop() {
 				historyManager.disable();
-			}
-
-			/**
-			 * Add to object value at index equal to type of arg.
-			 * @method getType
-			 * @param {Object} result
-			 * @param {*} arg
-			 * @return {Object}
-			 * @static
-			 * @private
-			 * @member ns.engine
-			 */
-			function getType(result, arg) {
-				var type = arg instanceof HTMLElement ? "HTMLElement" : typeof arg;
-				result[type] = arg;
-				return result;
-			}
-
-			/**
-			 * Convert args array to object with keys being types and arguments mapped by values
-			 * @method getArgumentsTypes
-			 * @param {Arguments[]} args
-			 * @return {Object}
-			 * @static
-			 * @private
-			 * @member ns.engine
-			 */
-			function getArgumentsTypes(args) {
-				return utilArray.reduce(args, getType, {});
 			}
 
 			/*

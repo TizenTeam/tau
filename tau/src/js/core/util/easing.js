@@ -1,4 +1,4 @@
-/*global window, define */
+/*global define, ns */
 /*jslint nomen: true, plusplus: true */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd

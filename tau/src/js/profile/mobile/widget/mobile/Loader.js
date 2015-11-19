@@ -1,4 +1,4 @@
-/*global window, define */
+/*global window, define, ns */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
  *
@@ -349,7 +349,6 @@
 					self = this,
 					element = self.element,
 					elementClassList = element.classList,
-					body = document.body,
 					copySettings = {},
 					loadSettings = {},
 					textVisible,

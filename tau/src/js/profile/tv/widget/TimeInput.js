@@ -245,7 +245,7 @@
 				wrapper.innerHTML = "";
 			}
 
-			function onFocus(self, ev) {
+			function onFocus(self) {
 				if (!self.options.active) {
 					if (!self._ui.wrapper.classList.contains(classes.focus)) {
 						self._ui.wrapper.classList.add(classes.focus);
@@ -356,7 +356,7 @@
 				}
 			};
 
-			function onActive(self) {
+			function onActive(self, event) {
 				if (!self.options.active) {
 					if (event._originalEvent && event._originalEvent.keyCode === KEY_CODES.enter) {
 						events.stopImmediatePropagation(event);
@@ -465,8 +465,7 @@
 			 * @member ns.widget.tv.TimeInput
 			 */
 			prototype._bindEvents = function() {
-				var element = this.element,
-					self = this,
+				var self = this,
 					callbacks = this._callbacks,
 					ui = self._ui,
 					wrapper = ui.wrapper;
@@ -492,8 +491,7 @@
 			 * @member ns.widget.tv.TimeInput
 			 */
 			prototype._unbindEvents = function() {
-				var element = this.element,
-					self = this,
+				var self = this,
 					callbacks = this._callbacks,
 					ui = self._ui,
 					wrapper = ui.wrapper;

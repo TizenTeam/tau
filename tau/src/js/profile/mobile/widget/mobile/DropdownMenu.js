@@ -1,4 +1,4 @@
-/*global window, ns, define */
+/*global window, ns, define, HTMLSelectElement */
 /*jslint nomen: true */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd

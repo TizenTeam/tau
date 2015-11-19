@@ -1,4 +1,4 @@
-/*global define: true, window: true */
+/*global define: true, window: true, ns */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
  *

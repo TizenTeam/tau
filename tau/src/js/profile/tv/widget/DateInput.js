@@ -353,7 +353,7 @@
 				}
 			};
 
-			function onActive(self, ev) {
+			function onActive(self, event) {
 				if (!self.options.active) {
 					if (event._originalEvent && event._originalEvent.keyCode === KEY_CODES.enter) {
 						events.stopImmediatePropagation(event);
@@ -472,8 +472,7 @@
 			 * @member ns.widget.tv.DateInput
 			 */
 			prototype._bindEvents = function() {
-				var element = this.element,
-					self = this,
+				var self = this,
 					callbacks = this._callbacks,
 					ui = self._ui,
 					wrapper = ui.wrapper;
@@ -502,9 +501,8 @@
 			 * @protected
 			 * @member ns.widget.tv.DateInput
 			 */
-			prototype._unbindEvents = function(element) {
-				var element = this.element,
-					self = this,
+			prototype._unbindEvents = function(/*element*/) {
+				var self = this,
 					callbacks = this._callbacks,
 					ui = self._ui,
 					wrapper = ui.wrapper;
@@ -569,7 +567,7 @@
 			 * @protected
 			 * @member ns.widget.tv.DateInput
 			 */
-			prototype._destroy = function(element) {
+			prototype._destroy = function(/*element*/) {
 				var self = this;
 
 				self._hideOverlay();

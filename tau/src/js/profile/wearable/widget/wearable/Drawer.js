@@ -1,4 +1,4 @@
-/*global window, define */
+/*global window, define, ns */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
  *
@@ -131,7 +131,6 @@
 			//>>excludeEnd("tauBuildExclude");
 			var CoreDrawer = ns.widget.core.Drawer,
 				engine = ns.engine,
-				object = ns.util.object,
 				Drawer = function () {
 					var self = this;
 					CoreDrawer.call(self);

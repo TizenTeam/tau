@@ -1,4 +1,4 @@
-/*global window, define */
+/*global window, define, Globalize, ns, XMLHttpRequest */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
  *
@@ -27,7 +27,7 @@
 		[
 			"core/util/deferred"
 		],
-		function (deferred) {
+		function () {
 			//>>excludeEnd("tauBuildExclude");
 			var isGlobalizeInit = false,
 				cldrDataCategory = {main:"main", supplemental:"supplemental"},
@@ -474,7 +474,7 @@
 						loadLocaleData(localeId)
 							.then(function (locale) {
 								Globalize.locale(locale);
-								Globalize(locale);
+								Globalize(locale); // jshint ignore:line
 								return locale;
 							},deferred.reject)
 							.done(function (locale) {

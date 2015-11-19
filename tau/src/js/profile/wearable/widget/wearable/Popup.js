@@ -1,4 +1,4 @@
-/*global window, define */
+/*global window, define, ns */
 /*
  * Copyright (c) 2013 - 2014 Samsung Electronics Co., Ltd
  *
@@ -298,8 +298,6 @@
 				engine = ns.engine,
 
 				objectUtils = ns.util.object,
-
-				domUtils = ns.util.DOM,
 
 				defaults = {
 					fullSize: false,

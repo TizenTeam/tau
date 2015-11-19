@@ -1,4 +1,4 @@
-/*global window, define */
+/*global window, define, ns */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
  *
@@ -518,8 +518,6 @@
 			//>>excludeEnd("tauBuildExclude");
 			var CorePopup = ns.widget.core.ContextPopup,
 				CorePopupPrototype = CorePopup.prototype,
-
-				positionTypes = CorePopup.positionTypes,
 
 				engine = ns.engine,
 

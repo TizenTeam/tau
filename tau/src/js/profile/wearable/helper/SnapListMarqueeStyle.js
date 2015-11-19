@@ -57,13 +57,12 @@
 				}
 			}
 
-			function touchStartHandler() {
-				destroyMarqueeWidget(this);
+			function touchStartHandler(self) {
+				destroyMarqueeWidget(self);
 			}
 
-			function selectedHandler(e) {
-				var self = this,
-					marquee = e.target.querySelector(".ui-marquee");
+			function selectedHandler(self, e) {
+				var marquee = e.target.querySelector(".ui-marquee");
 
 				destroyMarqueeWidget(self);
 
@@ -83,7 +82,7 @@
 
 				self.bindEvents();
 				// create SnapListStyle helper
-				self._snapListStyleHelper = tau.helper.SnapListStyle.create(listDomElement);
+				self._snapListStyleHelper = ns.helper.SnapListStyle.create(listDomElement);
 			};
 
 			prototype.bindEvents = function() {
@@ -91,8 +90,8 @@
 					touchStartCallback,
 					selectedCallback;
 
-				touchStartCallback = touchStartHandler.bind(self);
-				selectedCallback = selectedHandler.bind(self);
+				touchStartCallback = touchStartHandler.bind(null, self);
+				selectedCallback = selectedHandler.bind(null, self);
 
 				self._callbacks.touchStart = touchStartCallback;
 				self._callbacks.selected = selectedCallback;

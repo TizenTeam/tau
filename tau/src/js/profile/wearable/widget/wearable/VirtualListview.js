@@ -1,4 +1,4 @@
-/*global window, define */
+/*global window, define, ns */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
  *
@@ -138,8 +138,7 @@
 			function() {
 				//>>excludeEnd("tauBuildExclude");
 				var VirtualListview = ns.widget.core.VirtualListview,
-					prototype = new VirtualListview(),
-					parent_init = prototype._init;
+					prototype = new VirtualListview();
 
 
 				VirtualListview.prototype = prototype;

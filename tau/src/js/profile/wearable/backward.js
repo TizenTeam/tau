@@ -1,3 +1,4 @@
+/*global define, ns */
 (function (ns) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
@@ -7,7 +8,7 @@
 			"./widget/wearable/IndexScrollbar",
 			"../../core/widget/core/SectionChanger",
 			"./widget/wearable/SwipeList",
-			"./widget/wearable/VirtualListview",
+			"./widget/wearable/VirtualListview"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");

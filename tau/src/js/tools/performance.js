@@ -1,4 +1,4 @@
-/*global define, ns, tizen */
+/*global define, ns */
 (function (ns, tizen) {
 	"use strict";
 

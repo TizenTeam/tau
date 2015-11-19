@@ -1,4 +1,4 @@
-/*global window, define */
+/*global window, define, ns */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
  *
@@ -264,7 +264,7 @@
 			 * @protected
 			 * @member ns.widget.mobile.TextEnveloper
 			 */
-			prototype._onFocus = function (event) {
+			prototype._onFocus = function (/*event*/) {
 				var self = this,
 					ui = self._ui,
 					length = ui.buttons.length,
@@ -285,7 +285,7 @@
 			 * @protected
 			 * @member ns.widget.mobile.TextEnveloper
 			 */
-			prototype._onBlur = function (event) {
+			prototype._onBlur = function (/*event*/) {
 				var self = this,
 					ui = self._ui,
 					length = ui.buttons.length,

@@ -1,4 +1,4 @@
-/*global window, define */
+/*global window, define, ns */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
  *
@@ -75,7 +75,7 @@
 				}
 			};
 
-			touch._onMouseup = function (event) {
+			touch._onMouseup = function () {
 				clearTimeout(this._timeId);
 			};
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);

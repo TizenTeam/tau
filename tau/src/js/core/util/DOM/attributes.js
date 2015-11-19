@@ -92,12 +92,12 @@
 			};
 
 			function getDataName(name, skipData) {
-				var namespace = ns.getConfig(namespace),
+				var _namespace = ns.getConfig(namespace),
 					prefix = "";
 				if (!skipData) {
 					prefix = "data-";
 				}
-				return prefix + (namespace ? namespace + "-" : "") + name;
+				return prefix + (_namespace ? _namespace + "-" : "") + name;
 			}
 
 			/**

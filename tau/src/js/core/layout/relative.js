@@ -1,4 +1,4 @@
-/*global window, define */
+/*global window, define, ns */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
  *
@@ -61,7 +61,6 @@
 					RIGHT: 8,
 					CENTER: 16
 				},
-				positionKeys = Object.keys(positionFlags),
 				// Calculate prefixed translate rules once, as they won't change afterwards
 				prefixedTranslate = (function () {
 					var transform = cssUtil.getPrefixedValue("transform"),
@@ -108,7 +107,6 @@
 				var children,
 					i,
 					len,
-					rule = "",
 					positionSelectors;
 
 				// If none global position was defined parse children
@@ -190,7 +188,7 @@
 				}
 			}
 
-			layout.configure = function(self, element) {
+			layout.configure = function(self) {
 				// set defaults
 				self.options = objectUtil.merge({}, defaults, self.options);
 			};

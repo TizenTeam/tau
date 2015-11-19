@@ -44,7 +44,6 @@
 				utilSelector = util.selectors,
 				history = ns.history,
 				engine = ns.engine,
-				Page = ns.widget.core.Page,
 				baseElement,
 				routePage = {},
 				head;

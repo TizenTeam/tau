@@ -1,4 +1,4 @@
-/*global window, define */
+/*global define, NodeList, ns */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
  *
@@ -22,7 +22,7 @@
  * Utility helps work with arrays.
  * @class ns.util.array
  */
-(function () {
+(function (ns) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
@@ -233,4 +233,4 @@
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
-}());
+}(ns));

@@ -48,8 +48,7 @@
 				PageContainer = function () {
 				},
 				engine = ns.engine,
-				prototype = new CorePageContainer(),
-				classes = CorePageContainer.classes;
+				prototype = new CorePageContainer();
 
 			PageContainer.events = CorePageContainer.events;
 			PageContainer.classes = CorePageContainer.classes;

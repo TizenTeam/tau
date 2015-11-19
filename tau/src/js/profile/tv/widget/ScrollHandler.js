@@ -71,8 +71,7 @@
 			 * @static
 			 */
 			function translate(self, xOffset, yOffset) {
-				var style = null,
-					translateString = null;
+				var translateString = null;
 
 				if (self.options.handler) {
 					translateString = "translate3d(" + (xOffset || 0) + "px, " + (yOffset || 0) + "px, 0px)";
@@ -121,7 +120,7 @@
 			 * @private
 			 * @static
 			 */
-			function handleFocus(self, event) {
+			function handleFocus(self/*, event*/) {
 				var element = self.element,
 					handler = self.ui.handler,
 					view = element.querySelector("." + Scrollview.classes.view),

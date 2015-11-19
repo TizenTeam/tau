@@ -1,4 +1,4 @@
-/*global window, define */
+/*global window, define, ns */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
  *
@@ -39,7 +39,6 @@
 			var linear = {
 				},
 				objectUtil = ns.util.object,
-				selectors = ns.util.selectors,
 				Box = ns.widget.core.Box,
 				CLASSES_PREFIX = Box.classes.box,
 				LAYOUT_PREFIX = CLASSES_PREFIX + "-linear",
@@ -55,32 +54,23 @@
 					linearFill: false,
 					linearWrap: false
 				},
-				cssRules = [],
-				LAYOUTABLE_ELEMENTS_SELECTOR = "*:not(script)";
+				cssRules = [];
 
 			linear.name = "linear";
 			linear.classes = classes;
 			linear.defaults = defaults;
 
-			linear.configure = function (self, element) {
+			linear.configure = function (self) {
 				// set defaults
 				self.options = objectUtil.merge({}, defaults, self.options);
 			};
-
-			/**
-			 * Method determines what elements can be laid
-			 * @param element
-			 */
-			function getLayoutElements(element) {
-				return selectors.getChildrenBySelector(element, LAYOUTABLE_ELEMENTS_SELECTOR);
-			}
 
 			/**
 			 * Styles support
 			 */
 			function registerRule(rule) {
 				cssRules.push(rule);
-			};
+			}
 
 			/**
 			 * Styles support
@@ -89,12 +79,10 @@
 				for(var i = 0, length = cssRules.length; i < length; i++){
 					self.insertCSSRule(cssRules[i]);
 				}
-			};
+			}
 
 			linear.enable = function (self, element) {
-				var elements = getLayoutElements(element),
-					options = self.options || {},
-					classList = element.classList;
+				var options = self.options || {};
 
 				if (options.linearLayoutDirection === "horizontal") {
 					element.classList.add(classes.linearHorizontal);
@@ -116,7 +104,7 @@
 				applyRules(self);
 			};
 
-			linear.disable = function (self, element) {
+			linear.disable = function (self) {
 				var classList = self.element.classList;
 
 				classList.remove(classes.linearHorizontal);

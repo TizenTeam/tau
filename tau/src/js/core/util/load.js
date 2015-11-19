@@ -1,4 +1,4 @@
-/*global window, define, XMLHttpRequest */
+/*global window, define, XMLHttpRequest, ns */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
  *
@@ -265,7 +265,7 @@
 					// Load and replace old styles or append new styles
 					cssSync(path, function onSuccess(styleElement) {
 						addNodeAsTheme(styleElement, themeName, previousElement);
-					}, function onFailure(xhrObj, xhrStatus, errorObj) {
+					}, function onFailure(xhrObj, xhrStatus) {
 						ns.warn("There was a problem when loading '" + themeName + "', status: " + xhrStatus);
 					});
 				} else {

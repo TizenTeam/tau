@@ -1,4 +1,4 @@
-/*global window, define */
+/*global window, define, ns */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
  *
@@ -460,10 +460,9 @@
 			 * @member ns.widget.mobile.Swipe
 			 */
 			prototype._init = function (element) {
-				/* @TODO what is swipeSelectors? */
 				this._ui = this._ui || {
 					covers: slice.call(element.querySelectorAll(selectorRoleSwipeItemCover)),
-					item: element.querySelector(swipeSelectors.swipeItem)
+					item: element.querySelector(selectorRoleSwipeItem)
 				};
 			};
 

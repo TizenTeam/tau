@@ -288,9 +288,8 @@
 				return null;
 			}
 
-			function initSnapListview(listview) {
-				var self = this,
-					ui = self._ui,
+			function initSnapListview(self, listview) {
+				var ui = self._ui,
 					options = self.options,
 					listItems = [],
 					scroller, visiableOffset;
@@ -359,7 +358,7 @@
 					}
 				};
 
-				initSnapListview.call(self, element);
+				initSnapListview(self, element);
 				setSelection(self);
 
 				return element;
@@ -377,7 +376,7 @@
 
 				self._unbindEvents();
 
-				initSnapListview.call(self, element);
+				initSnapListview(self, element);
 				setSelection(self);
 
 				self._bindEvents();

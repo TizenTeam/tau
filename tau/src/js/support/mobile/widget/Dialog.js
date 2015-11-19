@@ -1,4 +1,4 @@
-/*global window, define */
+/*global window, define, ns */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
  *
@@ -506,7 +506,7 @@
 			 * @protected
 			 * @member ns.widget.mobile.Dialog
 			 */
-			Dialog.prototype._init = function (element) {
+			Dialog.prototype._init = function (/*element*/) {
 				var pageId = this.options.page;
 
 				if (pageId) {

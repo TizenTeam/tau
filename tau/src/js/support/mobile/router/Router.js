@@ -1,4 +1,4 @@
-/*global window, define, XMLHttpRequest, Node, HTMLElement, ns */
+/*global window, define, ns */
 /*jslint nomen: true */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
@@ -37,7 +37,7 @@
 			function defineActivePage(router) {
 				Object.defineProperty(router, "activePage", {
 					get: function () {
-						return router.container.activePage
+						return router.container.activePage;
 					}
 				});
 			}

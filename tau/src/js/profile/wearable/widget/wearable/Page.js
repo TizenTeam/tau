@@ -275,22 +275,6 @@
 				 */
 				object = ns.util.object,
 				/**
-				 * Alias for {@link ns.event}
-				 * @property {Object} object
-				 * @member ns.widget.wearable.Page
-				 * @private
-				 * @static
-				 */
-				utilsEvents = ns.event,
-				/**
-				 * Alias for {@link ns.event.gesture}
-				 * @property {Object} object
-				 * @member ns.widget.wearable.Page
-				 * @private
-				 * @static
-				 */
-				Gesture = utilsEvents.gesture,
-				/**
 				 * Alias for {@link ns.engine}
 				 * @property {Object} engine
 				 * @member ns.widget.wearable.Page

@@ -1,4 +1,4 @@
-/*global window, define*/
+/*global window, define, ns*/
 /*jslint bitwise: true */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
@@ -28,13 +28,13 @@
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
-			var isTizen = !(typeof tizen === "undefined");
+			var isTizen = (typeof tizen !== "undefined");
 
 			function isCircleShape() {
 				var testDiv = document.createElement("div"),
 					fakeBody = document.createElement("body"),
 					html = document.getElementsByTagName('html')[0],
-					style = getComputedStyle(testDiv),
+					style = window.getComputedStyle(testDiv),
 					isCircle;
 
 				testDiv.classList.add("is-circle-test");
