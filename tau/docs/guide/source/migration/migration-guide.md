@@ -8,8 +8,6 @@ Web UI Framework, forward and become compatible with Tizen's new UI Framework - 
 
 ## Features overview
 
-
-
 ### What changed since 2.2.1
 
 Please fill
