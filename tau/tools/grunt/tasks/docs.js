@@ -15,7 +15,31 @@ module.exports = function (grunt) {
 		dox = require('dox'),
 		async = require('async');
 
-	grunt.registerMultiTask('docs-html', '', function () {
+	function copyObject(object) {
+		var newObject,
+				value,
+				i;
+		if (object instanceof Array) {
+			newObject = [];
+		} else {
+			newObject = {};
+		}
+		for (i in object) {
+			value = object[i];
+			newObject[i] = (typeof value === "object") ? copyObject(value) : value;
+		}
+		return newObject;
+	}
+
+	function deleteBR(string) {
+		return string.replace(/<br \/>/gm, " ");
+	}
+
+	function returnTagString(tag) {
+		return tag.string;
+	}
+
+	grunt.registerMultiTask("docs-html", "Generates API docs in SDK format", function () {
 		var done = this.async(),
 			docsStructure = {},
 			profile = this.data.profile,
@@ -105,6 +129,7 @@ module.exports = function (grunt) {
 			shortName = docsStructure.name.split(".").pop();
 			mu.compileAndRender(templateDir + 'widget.mustache', {
 				title: name,
+				customElementName: shortName !== "BaseWidget" ? "tau-" + shortName.toLowerCase() : null,
 				version: versionString,
 				namespace: docsStructure.name,
 				namespaceShort: shortName,
@@ -124,8 +149,10 @@ module.exports = function (grunt) {
 			}).on('data', function (data) {
 				string += data.toString();
 			}).on('end', function () {
-				grunt.file.write(newFile + "html/widget/" + file, string);
+				var fullFilePath = newFile + "html/widget/" + file
+				grunt.file.write(fullFilePath, string);
 				grunt.log.ok("Finished generating file for widget ", file);
+				grunt.verbose.writeln("Saved in: " + fullFilePath);
 				callback();
 			});
 		}
@@ -306,7 +333,6 @@ module.exports = function (grunt) {
 			});
 		}
 
-
 		function createClassIndex(newFile, docsStructure, rows, callback) {
 			var string = "",
 				classDoc = docsStructure;
@@ -336,7 +362,6 @@ module.exports = function (grunt) {
 				callback();
 			});
 		}
-
 
 		function createIndex(newFile, docsStructure, rows, callback) {
 			var string = "",
@@ -375,26 +400,6 @@ module.exports = function (grunt) {
 			});
 		}
 
-		function deleteBR(string) {
-			return string.replace(/<br \/>/gm, " ");
-		}
-
-		function copyObject(object) {
-			var newObject,
-				value,
-				i;
-			if (object instanceof Array) {
-				newObject = [];
-			} else {
-				newObject = {};
-			}
-			for (i in object) {
-				value = object[i];
-				newObject[i] = (typeof value === "object") ? copyObject(value) : value;
-			}
-			return newObject;
-		}
-
 		function parseDox(file) {
 			var docs,
 				doxFile = file.replace('dist', 'tmp/dox'),
@@ -425,7 +430,8 @@ module.exports = function (grunt) {
 					var pageObj = {
 						name: tag.string
 					},
-						descriptionArray;
+					descriptionArray;
+
 					docsStructure[tag.string] = pageObj;
 					pageObj.authors = block.tags.filter(function (tag) {
 						return tag.type === 'author';
@@ -463,22 +469,21 @@ module.exports = function (grunt) {
 							name: tag.string
 						},
 						descriptionArray;
+
 					docsStructure[tag.string] = classObj;
+
 					classObj.authors = block.tags.filter(function (tag) {
 						return tag.type === 'author';
-					}).map(function (tag) {
-						return tag.string
-					});
+					}).map(returnTagString);
+
 					classObj.extends = block.tags.filter(function (tag) {
 						return tag.type === 'extends';
-					}).map(function (tag) {
-						return tag.string;
-					})[0];
+					}).map(returnTagString)[0];
+
 					classObj.override = block.tags.filter(function (tag) {
 						return tag.type === 'override';
-					}).map(function (tag) {
-						return tag.string;
-					})[0];
+					}).map(returnTagString)[0];
+
 					descriptionArray = (block.description.summary || "").split("\n");
 					classObj.title = descriptionArray[0].replace(/\<.*?\>/g, "");
 					classObj.brief = descriptionArray[2] && descriptionArray[2].replace(/\<.*?\>/g, "") || "";
@@ -488,11 +493,11 @@ module.exports = function (grunt) {
 					classObj.isInternal = !!(block.tags.filter(function (tag) {
 						return tag.type === 'internal';
 					})[0]);
+
 					classObj.since = block.tags.filter(function (tag) {
 						return tag.type === 'since';
-					}).map(function (tag) {
-						return tag.string;
-					})[0];
+					}).map(returnTagString)[0];
+
 					classObj.code = block.code;
 					classObj.properties = [];
 					classObj.events = [];
@@ -528,10 +533,9 @@ module.exports = function (grunt) {
 						defaultValue,
 						memberOf = block.tags.filter(function (tag) {
 							return tag.type === 'member';
-						}).map(function (tag) {
-							return tag.string;
-						})[0],
+						}).map(returnTagString)[0],
 						canBeNull = false;
+
 					classObj = docsStructure[memberOf];
 					property = {};
 					property.isPrivate = !!(block.tags.filter(function (tag) {
@@ -570,7 +574,7 @@ module.exports = function (grunt) {
 							property.code = block.code;
 							if (name.match(/^options/)) {
 								name = name.substring(8);
-								property.name = "data-" + name.replace(/[A-Z]/g, function (c) {
+								property.name = name.replace(/[A-Z]/g, function (c) {
 									return "-" + c.toLowerCase();
 								});
 								classObj.options.push(property);
@@ -624,9 +628,7 @@ module.exports = function (grunt) {
 						name = tag.string,
 						memberOf = block.tags.filter(function (tag) {
 							return tag.type === 'member';
-						}).map(function (tag) {
-							return tag.string
-						})[0] || "",
+						}).map(returnTagString)[0] || "",
 						length;
 					classObj = docsStructure[memberOf];
 					inherited = block.tags.filter(function (tag) {
@@ -744,12 +746,13 @@ module.exports = function (grunt) {
 					if (docsStructure.hasOwnProperty(i)) {
 						modules.push(docsStructure[i]);
 						name = docsStructure[i].name;
-						// change ej or ns to tau
+						// change first namespace part to `tau`
 						namespaceArray = name.split(".").slice(1);
 						namespaceArray.unshift("tau");
 						name = namespaceArray.join(".");
 						docsStructure[i].name = name;
 						grunt.log.ok("processing: ", i, name);
+
 						if (name.match(widgetRegExp) &&
 							!(docsStructure[i].isInternal &&
 							(template !== 'dld')) &&
@@ -825,6 +828,8 @@ module.exports = function (grunt) {
 				series.push(createClassIndex.bind(null, newFile, docsStructure, rowsClasses));
 				series.push(createIndex.bind(null, newFile, docsStructure.ns, []));
 				series.push(done);
+
+				console.log("----------- ### " + newFile);
 
 				grunt.file.write(structureFile, "window.tauDocumentation = " + JSON.stringify(modules) + ";");
 				async.series(series);

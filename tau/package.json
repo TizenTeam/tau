@@ -34,8 +34,6 @@
     "grunt-string-replace": "~0.2.4",
     "grunt-open": "~0.2.3",
     "grunt-contrib-connect": "~0.10.1",
-    "karma": "^0.13",
-    "grunt-karma": "*",
     "karma-coverage": "^0.4.2",
     "karma-qunit": "^0.1.5",
     "karma-requirejs": "~0.2.2",
