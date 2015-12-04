@@ -67,7 +67,10 @@
 											self.type = "range";
 											break;
 										default:
-											self.type = item;
+											// ommit textarea elements since it has a readonly prop "type"
+											if (self.tagName.toLowerCase() !== "textarea") {
+												self.type = item;
+											}
 											break;
 									}
 									return true;
