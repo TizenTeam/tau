@@ -299,6 +299,10 @@
 				 */
 				engine = ns.engine,
 
+				scrollBarType = {
+					CIRCLE: "tizen-circular-scrollbar"
+				},
+
 				Page = function () {
 					var self = this;
 					CorePage.call(self);
@@ -313,6 +317,7 @@
 				 */
 				classes = object.merge({
 					uiHeader: "ui-header",
+					uiContent: "ui-content",
 					uiPageScroll: "ui-scroll-on",
 					uiScroller: "ui-scroller",
 					uiFixed: "ui-fixed"
@@ -345,6 +350,7 @@
 					children = [].slice.call(element.children),
 					elementStyle = element.style,
 					scroller,
+					content,
 					fragment,
 					firstChild;
 
@@ -372,6 +378,16 @@
 					firstChild = fragment.firstChild;
 
 					scroller.appendChild(fragment);
+				}
+
+				if (tau.support.shape.circle) {
+					if (scroller) {
+						scroller.setAttribute(scrollBarType.CIRCLE, "");
+					}
+					content = element.querySelector("." + classes.uiContent);
+					if (content) {
+						content.setAttribute(scrollBarType.CIRCLE, "");
+					}
 				}
 			};
 
