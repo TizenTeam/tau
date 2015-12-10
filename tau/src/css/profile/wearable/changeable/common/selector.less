@@ -82,17 +82,38 @@
 	}
 	.ui-selector-indicator, .ui-selector-indicator-arrow {
 		position: absolute;
-		width: 182 * @unit_base;
-		height: 182 * @unit_base;
+		width: 210 * @unit_base;
+		height: 210 * @unit_base;
 		top: 50%;
 		left: 50%;
-		margin: -91 * @unit_base;
+		margin: -105 * @unit_base;
 		text-align: center;
-		line-height: 182 * @unit_base;
+		line-height: 210 * @unit_base;
 		font-size: 28 * @unit_base;
 	}
 	.ui-selector-indicator {
-		z-index: 11;
+		z-index: 4;
+		width: 160 * @unit_base;
+		height: 160 * @unit_base;
+		margin: -80 * @unit_base;
+		line-height: 160 * @unit_base;
+		&::before {
+			content: "";
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			left: 0;
+			top: 0;
+			border-radius: 50%;
+			background-color: transparent;
+			.transform(scale(0.8));
+			.transition(-webkit-transform 250ms);
+		}
+		&:active::before {
+			z-index: -1;
+			background-color: @color_selector_indicator_bg;
+			.transform(scale(1.0));
+		}
 	}
 	.ui-selector-indicator-arrow {
 		z-index: 0;
@@ -120,9 +141,6 @@
 			.mask-repeat(no-repeat);
 			background-color: rgba(0, 150, 255, 1);
 
-		}
-		&:active::before {
-			background-color: @color_selector_handler_border_press;
 		}
 	}
 }
