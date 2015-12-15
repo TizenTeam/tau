@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+	<title>Virtual List for Mobile with 15000 items</title>
+	<link rel="stylesheet" href="lib/tau/theme/default/tau.css">
+	<!-- load theme file for your application -->
+	<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="ui-page virtuallist_demo_page" id="virtuallist-normal_1line">
+	<div class="ui-header" data-position="fixed">
+		<h1>Virtual list - Normal style 1line</h1>
+	</div>
+	<div class="ui-content">
+		<ul id="virtuallist-normal_1line_ul"></ul>
+	</div>
+
+	<!-- sample list for virtual list -->
+	<script id="tmp-li-1line" type="text">
+		<span class="ui-li-text-main">${NAME}</span>
+	</script>
+
+	<script>
+		var pageId = "virtuallist-normal_1line",
+			listId = "virtuallist-normal_1line_ul",
+			templateId = "tmp-li-1line",
+			itemClass = ["ui-li-static"];
+	</script>
+
+	<script type="text/javascript" src="lib/tau/js/tau.js" data-build-remove="false"></script>
+	<script type="text/javascript" src="js/virtuallist-db-demo.js"></script>
+	<script type="text/javascript" src="js/virtuallist.js"></script>
+</div>
+</body>
+</html>
