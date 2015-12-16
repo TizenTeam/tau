@@ -23,7 +23,7 @@
  * @author Konrad Lipner <k.lipner@samsung.com>
  */
 (function (document, window, ns) {
-	'use strict';
+	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
@@ -48,7 +48,7 @@
 			 * @private
 			 * @static
 			 */
-			var startX,
+			var startX = 0,
 				/**
 				 * Touch start y
 				 * @property {number} startY
@@ -56,7 +56,7 @@
 				 * @private
 				 * @static
 				 */
-				startY,
+				startY = 0,
 				/**
 				 * Did page scrolled
 				 * @property {boolean} didScroll
@@ -64,7 +64,7 @@
 				 * @private
 				 * @static
 				 */
-				didScroll,
+				didScroll = false,
 				/**
 				 * Touch target element
 				 * @property {HTMLElement} target
@@ -72,20 +72,12 @@
 				 * @private
 				 * @static
 				 */
-				target,
-				/**
-				 * Timer id of adding activeClass delay
-				 * @property {number} addActiveClassTimerID
-				 * @member ns.util.anchorHighlight
-				 * @private
-				 * @static
-				 */
-				addActiveClassTimerID,
+				target = null,
 				/**
 				 * Object with default options
 				 * @property {Object} options
 				 * Treshold after which didScroll will be set
-				 * @property {number} [options.scrollThreshold=5]
+				 * @property {number} [options.scrollThreshold=30]
 				 * Time to wait before adding activeClass
 				 * @property {number} [options.addActiveClassDelay=10]
 				 * Time to stay activeClass after touch end
@@ -108,21 +100,21 @@
 				 */
 				activeClassLI = "ui-li-active",
 				/**
-				 * Function invoked after touch move ends
-				 * @method removeTouchMove
-				 * @member ns.util.anchorHighlight
-				 * @private
-				 * @static
-				 */
-				removeTouchMove,
-				/**
 				 * Alias for class {@link ns.util.selectors}
 				 * @property {Object} selectors
 				 * @member ns.util.anchorHighlight
 				 * @private
 				 * @static
 				 */
-				selectors = ns.util.selectors;
+				selectors = ns.util.selectors,
+				// cache function
+				requestAnimationFrame = ns.util.requestAnimationFrame,
+				// cache function
+				abs = Math.abs,
+				startTime = 0,
+				startRemoveTime = 0,
+				// cache function
+				slice = Array.prototype.slice;
 
 
 			/**
@@ -135,8 +127,7 @@
 			 * @static
 			 */
 			function detectHighlightTarget(target) {
-				target = selectors.getClosestBySelector(target, 'a, label');
-				return target;
+				return selectors.getClosestBySelector(target, "a, label");
 			}
 
 			/**
@@ -149,8 +140,7 @@
 			 * @static
 			 */
 			function detectLiElement(target) {
-				target = selectors.getClosestByTag(target, 'li');
-				return target;
+				return selectors.getClosestByTag(target, "li");
 			}
 
 			/**
@@ -161,12 +151,24 @@
 			 * @static
 			 */
 			function addActiveClass() {
-				var liTarget;
-				target = detectHighlightTarget(target);
-				if (!didScroll && target && (target.tagName === "A" || target.tagName === "LABEL")) {
-					liTarget = detectLiElement(target);
-					if( liTarget ) {
-						liTarget.classList.add(activeClassLI);
+				var liTarget = null,
+					dTime = 0;
+
+				if (startTime) {
+					dTime = Date.now() - startTime;
+
+					if (dTime > options.addActiveClassDelay) {
+						startTime = 0;
+						target = detectHighlightTarget(target);
+						if (!didScroll) {
+							liTarget = detectLiElement(target);
+							if( liTarget ) {
+								liTarget.classList.add(activeClassLI);
+							}
+							liTarget = null;
+						}
+					} else {
+						requestAnimationFrame(addActiveClass);
 					}
 				}
 			}
@@ -180,7 +182,20 @@
 			 * @static
 			 */
 			function getActiveElements() {
-				return document.getElementsByClassName(activeClassLI);
+				return slice.call(document.getElementsByClassName(activeClassLI));
+			}
+
+			/**
+			 * Remove active class from current active objects
+			 */
+			function clearActiveClass () {
+				var activeA = getActiveElements(),
+					activeALength = activeA.length,
+					i = 0;
+				for (; i < activeALength; i++) {
+					activeA[i].classList.remove(activeClassLI);
+				}
+				activeA = null;
 			}
 
 			/**
@@ -191,13 +206,13 @@
 			 * @static
 			 */
 			function removeActiveClass() {
-				var activeA = getActiveElements(),
-					activeALength = activeA.length,
-					i;
-				for (i = 0; i < activeALength; i++) {
-					if (activeA[i]) {
-						activeA[i].classList.remove(activeClassLI);
-					}
+				var dTime = Date.now() - startRemoveTime;;
+
+				if (dTime > options.keepActiveClassDelay) {
+					// after touchend
+					clearActiveClass();
+				} else {
+					requestAnimationFrame(removeActiveClass);
 				}
 			}
 
@@ -210,14 +225,19 @@
 			 * @static
 			 */
 			function touchmoveHandler(event) {
-				var touch = event.touches[0];
-				didScroll = didScroll ||
-					(Math.abs(touch.clientX - startX) > options.scrollThreshold || Math.abs(touch.clientY - startY) > options.scrollThreshold);
+				var touch = event.touches[0],
+					scrollThreshold = options.scrollThreshold;
 
-				if (didScroll) {
-					removeTouchMove();
-					removeActiveClass();
+				// if move looks like scroll
+				if (!didScroll &&
+					// if move is bigger then threshold
+					(abs(touch.clientX - startX) > scrollThreshold || abs(touch.clientY - startY) > scrollThreshold)) {
+					startTime = 0;
+					// we clear active classes
+					requestAnimationFrame(clearActiveClass);
+					didScroll = true;
 				}
+				touch = null;
 			}
 
 			/**
@@ -230,23 +250,22 @@
 			 */
 			function touchstartHandler(event) {
 				var touches = event.touches,
-					touch = touches[0];
+					touch = null;
 
 				if (touches.length === 1) {
+					touch = touches[0];
 					didScroll = false;
 					startX = touch.clientX;
 					startY = touch.clientY;
 					target = event.target;
-
-					document.addEventListener("touchmove", touchmoveHandler, false);
-					clearTimeout(addActiveClassTimerID);
-					addActiveClassTimerID = setTimeout(addActiveClass, options.addActiveClassDelay);
+					startTime = event.timeStamp;
+					startRemoveTime = 0;
+					requestAnimationFrame(addActiveClass);
+					touch = null;
 				}
+				touches = null;
 			}
 
-			removeTouchMove = function () {
-				document.removeEventListener("touchmove", touchmoveHandler, false);
-			};
 
 			/**
 			 * Function invoked after touch
@@ -257,11 +276,12 @@
 			 * @static
 			 */
 			function touchendHandler(event) {
+				startRemoveTime = event.timeStamp;
+
 				if (event.touches.length === 0) {
-					clearTimeout(addActiveClassTimerID);
-					addActiveClassTimerID = null;
 					if (!didScroll) {
-						setTimeout(removeActiveClass, options.keepActiveClassDelay);
+						startTime = 0;
+						requestAnimationFrame(removeActiveClass);
 					}
 					didScroll = false;
 				}
@@ -289,6 +309,8 @@
 			function enable() {
 				document.addEventListener("touchstart", touchstartHandler, false);
 				document.addEventListener("touchend", touchendHandler, false);
+				document.addEventListener("touchmove", touchmoveHandler, false);
+
 				document.addEventListener("visibilitychange", checkPageVisibility, false);
 				window.addEventListener("pagehide", removeActiveClass, false);
 			}
@@ -302,6 +324,9 @@
 			function disable() {
 				document.removeEventListener("touchstart", touchstartHandler, false);
 				document.removeEventListener("touchend", touchendHandler, false);
+				document.removeEventListener("touchmove", touchmoveHandler, false);
+
+				document.removeEventListener("visibilitychange", checkPageVisibility, false);
 				window.removeEventListener("pagehide", removeActiveClass, false);
 			}
 

@@ -25,16 +25,14 @@ function fireEvent(el, type, props, touches) {
 		console.log(err);
 	}
 	return false;
-};
+}
 
-function hasClassName(node) {
-	var classname = "ui-li-active";
+function hasClassName(node, classname) {
 	return node.classList.contains(classname);
 }
 
-
 function checkClassTimerAnchor(target){
-	var testClass = hasClassName(target.parentNode.parentNode);
+	var testClass = hasClassName(target.parentNode.parentNode, "ui-li-active");
 	ok(testClass, "add class and find anchor element");
 	start();
 }
@@ -45,7 +43,8 @@ function checkClassAnchor(event){
 	ok(true, "event fired");
 	setTimeout(checkClassTimerAnchor.bind(null,target), 100);
 }
-asyncTest( "class added", function(){
+
+asyncTest( "class added, element inside anchor", function (){
 	var element = document.getElementById("innerAnchor");
 
 	document.addEventListener("touchstart", checkClassAnchor, false);
@@ -55,9 +54,8 @@ asyncTest( "class added", function(){
 	}, [{pageX: 0, pageY:0, clientX:0, clientY:0}]);
 });
 
-
 function checkClassTimer(target){
-	var testClass = hasClassName(target.parentNode);
+	var testClass = hasClassName(target.parentNode, "ui-li-active");
 	ok(testClass, "class added");
 	start();
 }
@@ -68,8 +66,9 @@ function checkClass(event){
 	ok(true, "event fired");
 	setTimeout(checkClassTimer.bind(null,target), 100);
 }
-asyncTest( "class added", function(){
-	var element = document.getElementById("link");
+
+asyncTest( "class added, standard anchor", function(){
+	var element = document.getElementById("link1");
 
 	document.addEventListener("touchstart", checkClass, false);
 	fireEvent(element, "touchstart", {
@@ -90,7 +89,7 @@ function checkRemoveClass(event){
 	setTimeout(checkRemoveClassTimer.bind(null,target), 100);
 }
 asyncTest( "touch move class removed", function(){
-	var element = document.getElementById("link");
+	var element = document.getElementById("link1");
 
 	document.addEventListener("touchstart", checkRemoveClass, false);
 	fireEvent(element, "touchstart", {
@@ -104,7 +103,7 @@ asyncTest( "touch move class removed", function(){
 		"clientY": 150
 	}, [{pageX: 100, pageY:100, clientX:100, clientY:100}]);
 	}, 100);
-	equal(hasClassName(element.parentNode), false, 'class removed');
+	equal(hasClassName(element.parentNode, "ui-li-active"), false, 'class removed');
 });
 
 
@@ -119,7 +118,7 @@ function checkRemoveClassEnd(event){
 	setTimeout(checkRemoveClassEndTimer.bind(null,target), 100);
 }
 asyncTest( "touch end class removed", function(){
-	var element = document.getElementById("link");
+	var element = document.getElementById("link1");
 
 	document.addEventListener("touchstart", checkRemoveClassEnd, false);
 	fireEvent(element, "touchstart", {
@@ -133,5 +132,5 @@ asyncTest( "touch end class removed", function(){
 		"clientY": 150
 	}, [{pageX: 100, pageY:100, clientX:100, clientY:100}]);
 	}, 100);
-	equal(hasClassName(element.parentNode), false, 'class removed');
+	equal(hasClassName(element.parentNode, "ui-li-active"), false, 'class removed');
 });
