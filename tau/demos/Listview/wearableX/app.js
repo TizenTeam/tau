@@ -15,6 +15,6 @@
 			}
 		}
 	});
-	tau.util.scrolling.enable(document.getElementById("content"));
+	tau.util.scrolling.enable(document.getElementById("content"), "x");
 }());
 

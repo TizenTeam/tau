@@ -19,3 +19,13 @@ body {
 	font-size:5em;
 	color:#fff;
 }
+
+.scrolling {
+	width: 22000px;
+}
+
+.scrolling span {
+	width: 100px;
+	height: 100%;
+	display: inline-block;
+}
