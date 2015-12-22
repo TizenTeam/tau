@@ -78,6 +78,9 @@
 			&:active {
 				background-color: @color_selector_icon_bg_press;
 			}
+			&::before {
+				-webkit-transition: background-color 200ms ease-out;
+			}
 		}
 	}
 	.ui-selector-indicator, .ui-selector-indicator-arrow {
