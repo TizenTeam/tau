@@ -209,6 +209,8 @@
 					var fromPageWidgetClassList = fromPageWidget && fromPageWidget.element.classList,
 						toPageWidgetClassList = toPageWidget.element.classList;
 
+					self._setActivePage(toPageWidget);
+
 					elementClassList.remove(classes.uiViewportTransitioning);
 					self.inTransition = false;
 					clearClasses.forEach(function (className) {
@@ -219,7 +221,6 @@
 							fromPageWidgetClassList.remove(className);
 						});
 					}
-					self._setActivePage(toPageWidget);
 					oldDeferredResolve();
 				};
 
