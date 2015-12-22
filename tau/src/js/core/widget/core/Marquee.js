@@ -117,7 +117,7 @@
 					MARQUEE_STOPPED: "marqueestopped"
 				},
 				/**
-			 	 * Dictionary for CSS class of marquee play state
+				 * Dictionary for CSS class of marquee play state
 				 * @property {Object} classes
 				 * @member ns.widget.core.Marquee
 				 * @static
@@ -141,7 +141,8 @@
 				style = {
 					SCROLL: "scroll",
 					SLIDE: "slide",
-					ALTERNATE: "alternate"
+					ALTERNATE: "alternate",
+					ENDTOEND: "endToEnd"
 				},
 
 				ellipsisEffect = {
@@ -197,7 +198,8 @@
 					textWidth = marqueeInnerElement.scrollWidth,
 					styleElement = document.createElement("style"),
 					keyFrameName = marqueeStyle + "-" + self.id,
-					customKeyFrame;
+					customKeyFrame,
+					returnTimeFrame;
 
 				switch (marqueeStyle) {
 					case style.SLIDE:
@@ -214,6 +216,16 @@
 						customKeyFrame = "@-webkit-keyframes " + keyFrameName + " {"
 										+ "0% { -webkit-transform: translate3d(0, 0, 0);}"
 										+ "50% { -webkit-transform: translate3d(-" + (textWidth - containerWidth) + "px, 0, 0);}"
+										+ "100% { -webkit-transform: translate3d(0, 0, 0);} }";
+						break;
+					case style.ENDTOEND:
+						returnTimeFrame = parseInt((textWidth / (textWidth + containerWidth)) * 100, 10);
+						customKeyFrame = "@-webkit-keyframes " + keyFrameName + " {"
+										+ "0% { -webkit-transform: translate3d(0, 0, 0);}"
+										+ returnTimeFrame + "% { -webkit-transform: translate3d(-100%, 0, 0); opacity: 1;}"
+										+ (returnTimeFrame+1) + "% { -webkit-transform: translate3d(-100%, 0, 0); opacity: 0; }"
+										+ (returnTimeFrame+2) + "% { -webkit-transform: translate3d(" + containerWidth + "px, 0, 0); opacity: 0; }"
+										+ (returnTimeFrame+3) + "% { -webkit-transform: translate3d(" + containerWidth + "px, 0, 0); opacity: 1; }"
 										+ "100% { -webkit-transform: translate3d(0, 0, 0);} }";
 						break;
 					default:
@@ -347,7 +359,7 @@
 			 * Refresh styles
 			 * @method _refresh
 			 * @protected
-		 	 * @memeber ns.widget.core.Marquee
+			 * @memeber ns.widget.core.Marquee
 			 */
 			prototype._refresh = function() {
 				var self = this;

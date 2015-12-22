@@ -34,7 +34,14 @@
 			var engine = ns.engine,
 				objectUtils = ns.util.object,
 				defaults = {
-					marqueeDelay: 0
+					marqueeDelay: 0,
+					marqueeStyle: "slide",
+					speed: 60,
+					iteration: 1,
+					timingFunction: "linear",
+					ellipsisEffect: "gradient",
+					runOnlyOnEllipsisText: true,
+					autoRun: false
 				},
 
 				SnapListMarqueeStyle = function (listDomElement, options) {
@@ -76,7 +83,13 @@
 				if (marquee) {
 					self._selectedMarqueeWidget = engine.instanceWidget(marquee, "Marquee", {
 						delay: self.options.marqueeDelay,
-						autoRun: false
+						marqueeStyle: self.options.marqueeStyle,
+						speed: self.options.speed,
+						iteration: self.options.iteration,
+						timingFunction: self.options.timingFunction,
+						ellipsisEffect: self.options.ellipsisEffect,
+						runOnlyOnEllipsisText: self.options.runOnlyOnEllipsisText,
+						autoRun: self.options.autoRun
 					});
 					self._selectedMarqueeWidget.start();
 				}
