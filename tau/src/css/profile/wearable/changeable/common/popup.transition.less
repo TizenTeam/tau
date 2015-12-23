@@ -105,6 +105,51 @@ Popup Transition
 		opacity: 0;
 	}
 }
+
+/****************************************
+Toast Popup Transition
+****************************************/
+.ui-popup.ui-popup-toast {
+    &.pop.in {
+        -webkit-animation-name: toastpopuppopin !important;
+        -webkit-animation-duration: 250ms;
+        -webkit-transition-timing-function: ease-in-out;
+        animation-name: toastpopuppopin !important;
+        animation-duration: 250ms;
+        transition-timing-function: ease-in-out;
+    }
+    &.pop.out {
+        -webkit-animation-name: toastpopuppopout !important;
+        -webkit-animation-duration: 250ms;
+        -webkit-transition-timing-function: ease-in-out;
+        -webkit-animation-fill-mode: forwards;
+        animation-name: toastpopuppopout !important;
+        animation-duration: 250ms;
+        animation-fill-mode: forwards;
+        transition-timing-function: ease-in-out;
+    }
+}
+
+@-webkit-keyframes toastpopuppopin {
+    from {
+        -webkit-transform: translateY(100%);
+        opacity: 0;
+    }
+    to {
+        -webkit-transform: translateY(0%);
+        opacity: 1;
+    }
+}
+@-webkit-keyframes toastpopuppopout {
+    from {
+        -webkit-transform: translateY(0%);
+        opacity: 1;
+    }
+    to {
+        -webkit-transform: translateY(100%);
+        opacity: 0;
+    }
+}
 /****************************************
 Popup Overlay Transition
 ****************************************/
