@@ -45,6 +45,7 @@
 			"./profile/wearable/widget/wearable/SnapListview",
 			"./profile/wearable/widget/wearable/SwipeList",
 			"./profile/wearable/widget/wearable/Selector",
+			"./profile/wearable/widget/wearable/Grid",
 			"./profile/wearable/helper/SnapListStyle",
 			"./profile/wearable/helper/SnapListMarqueeStyle",
 			"./profile/wearable/helper/DrawerMoreStyle",
@@ -55,6 +56,7 @@
 			"./core/router/route/popup",
 			"./core/router/route/drawer",
 			"./profile/wearable/router/route/circularindexscrollbar",
+			"./profile/wearable/router/route/grid",
 			"./profile/wearable/expose",
 			"./profile/wearable/backward",
 			// Modules to be loaded after

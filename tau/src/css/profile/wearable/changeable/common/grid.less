@@ -1,0 +1,115 @@
+.ui-grid {
+	height: 360 * @unit_base;
+	padding: 0;
+	position: absolute;
+	-webkit-transform-style: preserve-3d;
+	transform-style: preserve-3d;
+	overflow: hidden;
+	background-color: @color_grid_bg;
+	&.ui-hidden {
+		display: none;
+	}
+	li {
+		transform-origin: left center;
+		position: absolute;
+		border-radius: 100%;
+		overflow: hidden;
+		transform-style: preserve-3d;
+		a {
+			position: relative;
+			&:active:hover:before {
+				content: "";
+				width: 100%;
+				height: 100%;
+				position: absolute;
+				background-color: @color_grid_item_press;
+			}
+		}
+	}
+	/**
+	 * Gallery mode: Thumbnail 3x3
+	 */
+	&.ui-grid-3x3 {
+		&.ui-children-positioned li.ui-positioned {
+			position: absolute;
+			left: 0;
+			top: 0;
+			margin: 0 !important;
+		}
+		height: 360 * @unit_base;
+		li {
+			width: 360 * @unit_base;
+			height: 360 * @unit_base;
+			position: absolute;
+			display: inline-block;
+			&.ui-selected {
+				transform-origin: left center;
+			}
+			a {
+				display: inline-block;
+			}
+		}
+		li:nth-child(3n) {
+		}
+		img.thumb {
+			width: 100%;
+			height: 100%;
+			position: relative;
+		}
+	}
+	/**
+	 * Gallery mode: Image
+	 */
+	&.ui-grid-image {
+		padding: 0;
+		li {
+			transform-origin: center center;
+			width: 360 * @unit_base;
+			height: 360 * @unit_base;
+			border-radius: 100%;
+			overflow: hidden;
+			a {
+				display: inline-block;
+			}
+		}
+		img.thumb {
+			width: 360 * @unit_base;
+			height: 360 * @unit_base;
+			position: relative;
+		}
+	}
+	&.ui-grid-thumbnail {
+		background-color: @color_grid_thumbnail_bg;
+	}
+	/* --------------- */
+}
+
+.ui-grid-container {
+	position: relative;
+	-webkit-transform-style: preserve-3d;
+	transform-style: preserve-3d;
+	overflow-x: scroll;
+	overflow-y: hidden;
+	width: 100%;
+	height: 360 * @unit_base;
+
+	scroll-snap-type: mandatory;
+	-webkit-scroll-snap-type: mandatory;
+	scroll-snap-destination: 50% 50%;
+	-webkit-scroll-snap-destination: 50% 50%;
+
+	.ui-image-section {
+		width: 360 * @unit_base;
+		height: 360 * @unit_base;
+	}
+	.snap-point {
+		width: 1 * @unit_base;
+		height: 1 * @unit_base;
+		top: 50%;
+		position: absolute;
+		-webkit-scroll-snap-coordinate: 50% 50%;
+		scroll-snap-coordinate: 50% 50%;
+		visibility: hidden;
+	}
+
+}
