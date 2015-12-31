@@ -91,13 +91,13 @@
 
 				self._callbacks.rotarydetent = rotaryDetentCallback;
 
-				window.addEventListener("rotarydetent", rotaryDetentCallback);
+				document.addEventListener("rotarydetent", rotaryDetentCallback);
 			};
 
 			prototype.unbindEvents = function() {
 				var self = this;
 
-				window.removeEventListener("rotarydetent", self._callbacks.rotarydetent);
+				document.removeEventListener("rotarydetent", self._callbacks.rotarydetent);
 
 				self._callbacks.rotarydetent = null;
 			};
