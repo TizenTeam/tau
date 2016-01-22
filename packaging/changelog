@@ -1,4 +1,26 @@
 %changelog
+* Fri Jan 22 2016 Hagun Kim <hagun.kim@samsung.com> 0.11.5
+	- fix(mobile): don't display checked image on check box(SAD-19)
+	- fix(demo): Search input lower case bug fix.
+	- prepare example of virtual list with 15000 elements
+	- Listview: demo application
+	- fix(wearable): add color code of circular index scrollbar.
+	- fix(wearable): fix trigging scroll event when changing section by script.
+	- refactor(wearable): modify VI for bottom button
+	- refactor(wearable): add circular popup shadow
+	- fix(wearable): reduce composited layer when popup is opened.
+	- refactor(wearable): change colors for selector
+	- etc(wearable): change resource images for end effect in section changer
+	- refactor(wearable): modify VI for popup button
+	- refactor(wearable): modify circular index scrollbar indicator style
+	- refactor(wearable): add icon to select list indicator
+	- refactor(wearable): change VI for divide list button press in style.css
+	- etc(core): change color and text code xml
+	- fix(wearable): modify list style
+	- fix(wearable): modify title overlay and change header font size
+	- fix(wearable): change size of toggle switch
+	- refactor(wearable): fix multiple button sample
+
 * Thu Oct 01 2015 Hagun Kim <hagun.kim@samsung.com> 0.11.4
 	- fix(slider): fix the slider setValue method issue
 	- fix(mobile): remove moving scroll position on throttledresize.
