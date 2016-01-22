@@ -10,7 +10,7 @@
 	function searchHandler() {
 		listItemsArray.forEach(function(item){
 			var itemText = item.getAttribute("data-filtertext");
-			if ( itemText.toString().toLowerCase().indexOf(search.value) === -1 ) {
+			if ( itemText.toString().toLowerCase().indexOf(search.value.toLowerCase()) === -1 ) {
 				item.classList.add("li-search-hidden");
 			} else {
 				item.classList.remove("li-search-hidden");
