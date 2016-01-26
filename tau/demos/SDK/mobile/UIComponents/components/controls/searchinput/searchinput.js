@@ -38,5 +38,5 @@
 		search.removeEventListener("search", searchClearBound, false);
 	});
 
-})();
+}());
 

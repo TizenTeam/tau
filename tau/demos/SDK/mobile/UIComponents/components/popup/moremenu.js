@@ -1,4 +1,4 @@
-(function() {
+(function(tau) {
 	var page = document.getElementById("moremenu-page"),
 		openBtn = document.getElementById("open"),
 		morePopup = document.getElementById("moremenu"),
@@ -33,4 +33,4 @@
 
 	page.addEventListener("pageshow", pageShowHandler, false);
 	page.addEventListener("pagehide", pageHideHandler, false);
-}());
+}(window.tau));

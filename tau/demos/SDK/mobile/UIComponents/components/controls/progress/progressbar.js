@@ -1,4 +1,4 @@
-(function(){
+(function(tau){
 	var page = document.getElementById("progressbar-demo"),
 		progressBar = document.getElementById("progressbar"),
 		progressBar2 = document.getElementById("progressbar2"),
@@ -31,4 +31,4 @@
 	};
 
 	page.addEventListener("pagebeforeshow", pageBeforeShowHandler);
-}());
+}(window.tau));

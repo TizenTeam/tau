@@ -56,7 +56,6 @@
 }
 
 .ui-popup.ui-ctxpopup.horizontal-ctxpopup .ui-listview {
-	max-width: initial;
 	display: -webkit-flex;
 	vertical-align: middle;
 	margin: 0;

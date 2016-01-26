@@ -1,4 +1,4 @@
-(function() {
+(function(tau) {
 	var page = document.getElementById("indexscrollbarPage"),
 		isbElement = document.getElementById("indexscrollbar"),
 		dividers = page.getElementsByClassName("ui-group-index"),
@@ -31,4 +31,4 @@
 		isb.removeEventListener("select", selectBound);
 		isb.destroy();
 	});
-})();
+}(window.tau));

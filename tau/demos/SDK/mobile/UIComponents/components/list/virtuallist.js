@@ -1,3 +1,4 @@
+/*global pageId, listId, templateId, itemClass, tau, JSON_DATA */
 (function(pageId, listId, templateId, itemClass) {
 	var page = document.getElementById(pageId),
 		vlist;
@@ -15,9 +16,11 @@
 			var data = JSON_DATA[newIndex],
 				template = document.getElementById(templateId).innerHTML;
 
+			/*jslint unparam: true*/
 			template = template.replace(/\$\{([\w]+)\}/ig, function (pattern, field) {
 				return data[field];
 			});
+			/*jslint unparam: false*/
 
 			listElement.innerHTML = template;
 			if (itemClass.length) {

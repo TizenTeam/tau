@@ -4,7 +4,6 @@
 		elSelectAll = document.getElementById("select-all"),
 		isAll = false;
 
-
 	function selectAll() {
 		var i, len;
 		for(i=0,len=checkboxes.length;i<len;i++) {
@@ -14,5 +13,5 @@
 	}
 
 	elSelectAll.addEventListener("change", selectAll);
-})();
+}());
 

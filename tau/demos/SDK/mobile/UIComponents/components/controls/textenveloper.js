@@ -1,4 +1,4 @@
-(function() {
+(function(tau) {
 	var page = document.getElementById("textenveloperPage"),
 		textEnveloperElement = document.getElementById("textEnveloper"),
 		textEnveloper,
@@ -16,4 +16,4 @@
 	page.addEventListener("pagehide", function() {
 		textEnveloperElement.removeEventListener("newvalue", newValueBound);
 	});
-})();
+}(window.tau));

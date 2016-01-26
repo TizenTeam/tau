@@ -1,4 +1,4 @@
-(function() {
+(function(tau) {
     var page = document.getElementById("gallery-page"),
         addBtn = document.getElementById("add"),
         deleteBtn = document.getElementById("delete"),
@@ -11,6 +11,11 @@
         sectionsLength,
         sectionsParentNode,
         indexAddImage = 0;
+
+    function resetChildSectionInfo () {
+        sections = sectionChangerElement.querySelectorAll(".gallery-section");
+        sectionsLength = sections.length;
+    }
 
     function addImage () {
         var newSectionElement = document.createElement("section");
@@ -34,7 +39,7 @@
         sectionChangerWidget.refresh();
         resetChildSectionInfo();
 
-        if (sectionsLength == 1) {
+        if (sectionsLength === 1) {
             deleteBtnWidget.disable();
         }
     }
@@ -48,11 +53,6 @@
     function bindEvents() {
         addBtn.addEventListener("vclick", addImage);
         deleteBtn.addEventListener("vclick", deleteImage);
-    }
-
-    function resetChildSectionInfo () {
-        sections = sectionChangerElement.querySelectorAll(".gallery-section");
-        sectionsLength = sections.length;
     }
 
     pageShowHandler = function () {
@@ -70,4 +70,4 @@
     };
     page.addEventListener("pageshow", pageShowHandler, false);
     page.addEventListener("pagehide", pageHideHandler, false);
-}());
+}(window.tau));

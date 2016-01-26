@@ -2,7 +2,6 @@
 	var list = document.getElementById("select-list"),
 		checkboxes = list.querySelectorAll("input[type='checkbox']"),
 		elSelectAll = document.getElementById("select-all"),
-		check = [],
 		isAll = false;
 
 
@@ -15,5 +14,5 @@
 	}
 
 	elSelectAll.addEventListener("change", selectAll);
-})();
+}());
 

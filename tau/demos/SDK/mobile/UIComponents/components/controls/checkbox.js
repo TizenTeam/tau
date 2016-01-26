@@ -17,4 +17,4 @@
 			favoriteResult.innerHTML = "The First Favorite is " + value;
 		});
 	});
-})();
+}());

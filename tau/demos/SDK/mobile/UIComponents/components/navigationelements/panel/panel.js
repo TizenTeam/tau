@@ -1,4 +1,4 @@
-(function() {
+(function(tau) {
 	var page = document.querySelector("#panelPage"),
 		panelChanger = page.querySelector("#panelChanger"),
 		panelChangerComponent,
@@ -28,7 +28,7 @@
 				}
 			}
 		} else {
-			console.warn("You should insert id value in the each panels")
+			console.warn("You should insert id value in the each panels");
 		}
 	});
 	navigation.addEventListener("navigate", function(event) {
@@ -36,4 +36,4 @@
 		navigated = true;
 		panelChangerComponent.changePanel("#" + id, "slide-reverse", "back");
 	});
-})();
+}(window.tau));
