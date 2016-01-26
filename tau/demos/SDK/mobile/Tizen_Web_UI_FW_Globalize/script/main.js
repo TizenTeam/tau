@@ -1,3 +1,4 @@
+/*global tau, Globalize */
 var globalize = tau.util.globalize,
 	selector,
 	list,
@@ -6,18 +7,32 @@ var globalize = tau.util.globalize,
 	calendar_data,
 	calendar_data_area;
 
-function setLocale(selected){
-	var locale = selected.value;
-	globalize.setLocale(locale)
-		.done(updateLocaleToUI)
-		.fail(function(){
-			console.log("failed");
-		});
+function output(inp) {
+	calendar_data.appendChild(calendar_data_area).innerHTML = inp;
+}
+function syntaxHighlight(json) {
+	json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+	/*jslint regexp: true*/
+	return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
+		/*jslint regexp: false*/
+		var cls = 'number';
+		if (/^"/.test(match)) {
+			if (/:$/.test(match)) {
+				cls = 'key';
+			} else {
+				cls = 'string';
+			}
+		} else if (/true|false/.test(match)) {
+			cls = 'boolean';
+		} else if (/null/.test(match)) {
+			cls = 'null';
+		}
+		return '<span class="' + cls + '">' + match + '</span>';
+	});
 }
 
 function updateLocaleToUI(selectedLocaleInstance){
 	var number = selectedLocaleInstance.numberFormatter(),
-		like = selectedLocaleInstance.messageFormatter("like" ),
 		calendar_data = JSON.stringify(selectedLocaleInstance.getCalendar().months.format.wide, undefined, 4 ),
 		currency_unit = null;
 	list[0].innerText = selectedLocaleInstance.formatMessage("greeting/hello");
@@ -45,28 +60,15 @@ function updateLocaleToUI(selectedLocaleInstance){
 	output(syntaxHighlight(calendar_data));
 }
 
+function setLocale(selected){
+	var locale = selected.value;
+	globalize.setLocale(locale)
+		.done(updateLocaleToUI)
+		.fail(function(){
+			console.log("failed");
+		});
+}
 
-function output(inp) {
-	calendar_data.appendChild(calendar_data_area).innerHTML = inp;
-}
-function syntaxHighlight(json) {
-	json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-	return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
-		var cls = 'number';
-		if (/^"/.test(match)) {
-			if (/:$/.test(match)) {
-				cls = 'key';
-			} else {
-				cls = 'string';
-			}
-		} else if (/true|false/.test(match)) {
-			cls = 'boolean';
-		} else if (/null/.test(match)) {
-			cls = 'null';
-		}
-		return '<span class="' + cls + '">' + match + '</span>';
-	});
-}
 
 window.addEventListener( 'tizenhwkey', function( ev ) {
 
