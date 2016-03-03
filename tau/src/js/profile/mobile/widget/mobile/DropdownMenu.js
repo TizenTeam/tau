@@ -16,8 +16,8 @@
  * limitations under the License.
  */
 /**
- * #DropdownMenu Widget
- * DropdownMenu widget provide creating DropdownMenu widget in the form of dropdown list and managing its operation.
+ * #Dropdown Menu
+ * Dropdown menu component is used to select one option. It is created as a drop-down list form.
  *
  * ##Default selector
  * In default all select elements are changed to Tizen WebUI DropdownMenu.
@@ -114,6 +114,7 @@
  *            widget = tau.widget.DropdownMenu(elDropdownMenu);
  *        widget.refresh();
  *
+ * @since 2.4
  * @class ns.widget.mobile.DropdownMenu
  * @extends ns.widget.mobile.BaseWidgetMobile
  * @author Hagun Kim <hagun.kim@samsung.com>
@@ -367,7 +368,7 @@
 			 * @private
 			 * @static
 			 * @param {HTMLElement} element
-			 * @param {Boolean} isDisabled
+			 * @param {boolean} isDisabled
 			 * @member ns.widget.mobile.DropdownMenu
 			 */
 			function setDisabledStatus(element, isDisabled) {
@@ -388,7 +389,7 @@
 			 * @private
 			 * @static
 			 * @param {HTMLElement} option
-			 * @param {Boolean} isDisabled
+			 * @param {boolean} isDisabled
 			 * @return {string}
 			 * @member ns.widget.mobile.DropdownMenu
 			 */
@@ -753,7 +754,7 @@
 			/**
 			 * Coordinate Option ul element
 			 * @method _coordinateOption
-			 * @return {String}
+			 * @return {string}
 			 * @protected
 			 * @member ns.widget.mobile.DropdownMenu
 			 */

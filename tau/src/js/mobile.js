@@ -26,7 +26,7 @@
  *    Some special [utility](util/util_reference.htm) are available with TAU that supporting easy DOM methods for the Web applications.
  *
  * !!!The framework runs only on browsers supporting the HTML5/CSS standards. The draft version of the W3C specification is not fully supported.!!!
- * @class ns
+ * @class ns.mobile
  * @title Tizen Advanced UI Framework
  */
 //>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
@@ -80,8 +80,6 @@
 			// widget list
 			"./core/widget/core/Checkbox",
 			"./core/widget/core/Radio",
-			"./core/widget/core/Button",
-			"./core/widget/core/Listview",
 			"./core/widget/core/PanelChanger",
 			"./core/widget/core/PageIndicator",
 			"./core/widget/core/Slider",
@@ -120,11 +118,6 @@
 			"./profile/wearable/expose",
 			// Modules to be loaded after
 			"./core/init",
-			//documentation pages
-			"./profile/mobile/page/layout",
-			"./profile/mobile/page/multipage",
-			"./profile/mobile/page/change",
-			"./profile/mobile/page/pageevents",
 			// globalize
 			"./core/util/globalize"
 		],

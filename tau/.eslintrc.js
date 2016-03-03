@@ -305,7 +305,8 @@ module.exports = {
 		],
 		"wrap-regex": "off",
 		"yield-star-spacing": "error",
-		"yoda": "off"
+		"yoda": "off",
+		"jsdoc/require-returns-description": "off"
 	},
 	"settings": {
 		"jsdoc": {
@@ -316,7 +317,8 @@ module.exports = {
 		}
 	},
 	"plugins": [
-		"html"
+		"html",
+		"jsdoc"
 	],
 	"globals": {
 		"tizen": true

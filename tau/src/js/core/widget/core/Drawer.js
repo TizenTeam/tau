@@ -21,9 +21,10 @@
  * provides drawer functionality - container with ability to open and close with
  * an animation.
  *
- * ##Positioning Drawer left / right
+ * ### Positioning Drawer left / right (option)
  * To change position of a Drawer please set data-position attribute of Drawer
  * element to:
+ *
  * - left (left position, default)
  * - right (right position)
  *
@@ -85,6 +86,12 @@
 					SLIDING: "sliding",
 					SETTLING: "settling"
 				},
+				/**
+				 * Events
+				 * @event draweropen Event triggered then the drawer is opened.
+				 * @event drawerclose Event triggered then the drawer is closed.
+				 * @member ns.widget.core.Drawer
+				 */
 				CUSTOM_EVENTS = {
 					OPEN: "draweropen",
 					CLOSE: "drawerclose"
@@ -105,14 +112,15 @@
 					var self = this;
 					/**
 					 * Drawer field containing options
-					 * @property options.position {string} Position of Drawer ("left" or "right")
-					 * @property options.width {number} Width of Drawer
-					 * @property options.duration {number} Duration of Drawer entrance animation
-					 * @property options.closeOnClick {boolean} If true Drawer will be closed on overlay
-					 * @property options.overlay {boolean} Sets whether to show an overlay when Drawer is open.
-					 * @property options.drawerTarget {string} Set drawer target element as the css selector
-					 * @property options.enable {boolean} Enable drawer component
-					 * @property options.dragEdge {number} Set the area that can open the drawer as drag gesture in drawer target element
+					 * @property {string} options.position Position of Drawer ("left" or "right")
+					 * @property {number} options.width Width of Drawer
+					 * @property {number} options.duration Duration of Drawer entrance animation
+					 * @property {boolean} options.closeOnClick If true Drawer will be closed on overlay
+					 * @property {boolean} options.overlay Sets whether to show an overlay when Drawer is open.
+					 * @property {string} options.drawerTarget Set drawer target element as the css selector
+					 * @property {boolean} options.enable Enable drawer component
+					 * @property {number} options.dragEdge Set the area that can open the drawer as drag gesture in drawer target element
+					 * @member ns.widget.core.Drawer
 					 */
 
 					self.options = {
@@ -751,8 +759,11 @@
 
 			/**
 			 * Closes Drawer widget
+			 * @requires mobile wearable
+			 *
+			 *
 			 * @method close
-			 * @param {object} options This value is router options whether reverse or not.
+			 * @param {Object} options This value is router options whether reverse or not.
 			 * @param {number} [duration] Duration for closing, if is not set then method take value from options
 			 * @member ns.widget.core.Drawer
 			 */

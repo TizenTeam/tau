@@ -15,8 +15,10 @@
  * limitations under the License.
  */
 /**
- * #PageIndicator Widget
- * Widget create dots page indicator.
+ * #Page Indicator
+ * PageIndicator component presents as a dot-typed indicator.
+ *
+ * @since 2.4
  * @class ns.widget.core.PageIndicator
  * @extends ns.widget.BaseWidget
  */

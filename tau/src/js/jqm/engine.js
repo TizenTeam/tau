@@ -73,12 +73,11 @@
 				eventType = engine.eventType,
 
 			/**
-				 * append ns functions to jQuery Mobile namespace
-				 * @method init
-				 * @param {Object} engine ns.engine class
-				 * @member ns.jqm.engine
-				 * @static
-				 */
+			 * append ns functions to jQuery Mobile namespace
+			 * @method init
+			 * @member ns.jqm.engine
+			 * @static
+			 */
 				init = function () {
 					var keys = Object.keys(engine),
 						i,
@@ -115,8 +114,8 @@
 							ns: "",
 							/**
 							 *
-							 * @param prop
-							 * @returns {?string}
+							 * @param {string} prop
+							 * @return {?string}
 							 */
 							nsNormalize: function (prop) {
 								if (!prop) {

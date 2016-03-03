@@ -16,11 +16,13 @@
  */
 /*jslint nomen: true, plusplus: true */
 /**
- * # Popup Widget
+ * #Popup
+ * Popup component supports 2 pop-ups: the position-to-window pop-up (like a system pop-up), and the context pop-up.
  *
+ * @since 2.0
  * @author Hyunkook Cho <hk0713.cho@samsung.com>
- * @class ns.widget.core.Popup
- * @extends ns.widget.Popup
+ * @class ns.widget.mobile.Popup
+ * @extends ns.widget.core.BaseWidget
  */
 (function (ns) {
 	"use strict";
@@ -194,6 +196,8 @@
 					 * @event popupbeforeshow
 					 * @member ns.widget.core.Popup
 					 */
+					/* eslint-disable camelcase */
+					// @TODO we can't change this in this moment because this is part of API
 					before_show: EVENTS_PREFIX + "beforeshow",
 					/**
 					 * Triggered on the popup we are transitioning to, before the actual transition animation is kicked off, animation has started.
@@ -207,6 +211,7 @@
 					 * @member ns.widget.core.Popup
 					 */
 					before_hide: EVENTS_PREFIX + "beforehide"
+					/* eslint-enable camelcase */
 				},
 
 				prototype = new BaseWidget();
@@ -512,7 +517,6 @@
 			/**
 			 * Bind events
 			 * @method _bindEvents
-			 * @param {HTMLElement} element
 			 * @protected
 			 * @member ns.widget.core.Popup
 			 */
@@ -557,7 +561,6 @@
 			/**
 			 * Unbind events
 			 * @method _bindEvents
-			 * @param {HTMLElement} element
 			 * @protected
 			 * @member ns.widget.core.Popup
 			 */
@@ -627,7 +630,7 @@
 			/**
 			 * Store Open options.
 			 * @method _storeOpenOptions
-			 * @param {object} options
+			 * @param {Object} options
 			 * @protected
 			 * @member ns.widget.core.Popup
 			 */
@@ -666,7 +669,7 @@
 			/**
 			 * Show popup.
 			 * @method _show
-			 * @param {object} options
+			 * @param {Object} options
 			 * @protected
 			 * @member ns.widget.core.Popup
 			 */
@@ -711,7 +714,7 @@
 			/**
 			 * Hide popup
 			 * @method _hide
-			 * @param {object} options
+			 * @param {Object} options
 			 * @protected
 			 * @member ns.widget.core.Popup
 			 */

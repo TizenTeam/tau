@@ -62,7 +62,7 @@
 
 				/**
 				 * @method getScrollbarSize
-				 * @return scrollbar size
+				 * @return {number} scrollbar size
 				 * @static
 				 * @member ns.widget.core.scroller.scrollbar.type.bar
 				 */
@@ -71,8 +71,8 @@
 				},
 				/**
 				 * @method offset
-				 * @param orientation
-				 * @param offset
+				 * @param {string} orientation
+				 * @param {number} offset
 				 * @static
 				 * @member ns.widget.core.scroller.scrollbar.type.bar
 				 */
@@ -98,7 +98,7 @@
 
 				/**
 				 * @method start
-				 * @param scrollbarElement
+				 * @param {HTMLElement} scrollbarElement
 				 * @static
 				 * @member ns.widget.core.scroller.scrollbar.type.bar
 				 */
@@ -116,11 +116,11 @@
 
 				/**
 				 * @method end
-				 * @param scrollbarElement
+				 * @param {HTMLElement} scrollbarElement
 				 * @static
 				 * @member ns.widget.core.scroller.scrollbar.type.bar
 				 */
-				end: function (scrollbarElement/*, barElement */) {
+				end: function (scrollbarElement) {
 					var style = scrollbarElement.style,
 						duration = this.options.animationDuration;
 

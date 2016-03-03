@@ -113,9 +113,9 @@
 				//
 				// CORE METHODS
 				//
-				parent_init = prototype._init,
-				parent_refresh = prototype._refresh,
-				parent_updateListItem = prototype._updateListItem;
+				parentInit = prototype._init,
+				parentRefresh = prototype._refresh,
+				parentUpdateListItem = prototype._updateListItem;
 
 			/**
 			 * Initialize widget on an element.
@@ -149,12 +149,12 @@
 				}
 
 				self._ui.listview = engine.instanceWidget(element, "Listview");
-				parent_init.call(self, element);
+				parentInit.call(self, element);
 			};
 
 			prototype._refresh = function () {
 				this._ui.listview.refresh();
-				parent_refresh.call(this);
+				parentRefresh.call(this);
 			};
 
 			prototype._setupScrollview = function (element) {
@@ -176,7 +176,7 @@
 				var self = this;
 
 				if (typeof self.options.listItemUpdater === "function") {
-					parent_updateListItem.call(self, element, index);
+					parentUpdateListItem.call(self, element, index);
 				} else {
 					ns.warn("List item updater must be a function. Using jQuery Template in VirtualListview is deprecated and is not supported");
 				}

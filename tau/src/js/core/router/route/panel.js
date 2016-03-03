@@ -57,7 +57,7 @@
 			 * @method option
 			 * @static
 			 * @member ns.router.route.panel
-			 * @return null
+			 * @return {null}
 			 */
 			routePanel.option = function () {
 				return null;
@@ -83,7 +83,7 @@
 			/**
 			 * This method handles hash change.
 			 * @method onHashChange
-			 * @param {String} url
+			 * @param {string} url
 			 * @param {Object} options
 			 * @param {string} prev
 			 * @static

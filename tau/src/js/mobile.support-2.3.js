@@ -6,7 +6,7 @@
  * But, We need to support previous version so we divide to previous support file and current version support file.
  * This file has previous support files.
  *
- * @class ns
+ * @class ns.mobile-2-3
  * @title Tizen Advanced UI Framework
  */
 //>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);

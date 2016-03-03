@@ -18,6 +18,8 @@
 /**
  * #IndexBar widget
  * Widget creates bar with index.
+ *
+ * @internal
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  * @author Jadwiga Sosnowska <j.sosnowska@samsung.com>
  * @class ns.widget.wearable.indexscrollbar.IndexBar

@@ -46,7 +46,7 @@
 			 * @method _build
 			 * @param {HTMLElement} element
 			 * @protected
-			 * @member ns.widget.Checkboxradio
+			 * @member ns.widget.mobile.Checkboxradio
 			 * @instance
 			 */
 			prototype._build = function (element) {
@@ -66,11 +66,10 @@
 			/**
 			 * Returns the value of checkbox or radio
 			 * @method _getValue
-			 * @member ns.widget.Checkboxradio
+			 * @member ns.widget.mobile.Checkboxradio
 			 * @return {?string}
 			 * @protected
 			 * @instance
-			 * @new
 			 */
 			prototype._getValue = function () {
 				return this.element.value;
@@ -80,11 +79,10 @@
 			 * Set value to the checkbox or radio
 			 * @method _setValue
 			 * @param {string} value
-			 * @member ns.widget.Checkboxradio
-			 * @chainable
+			 * @member ns.widget.mobile.Checkboxradio
+			 * @return {ns.widget.mobile.Checkboxradio}
 			 * @instance
 			 * @protected
-			 * @new
 			 */
 			prototype._setValue = function (value) {
 				this.element.value = value;

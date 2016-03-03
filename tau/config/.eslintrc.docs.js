@@ -16,6 +16,5 @@ module.exports = {
 		"jsdoc/require-param-type": 1,
 		"jsdoc/require-returns-description": 0,
 		"jsdoc/require-returns-type": 1
-	},
-	"plugins": ["jsdoc"]
+	}
 };

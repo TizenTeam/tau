@@ -16,7 +16,7 @@
  */
 /*jslint nomen: true */
 /**
- * # FloatingActions component
+ * # Floating Actions
  * Floating actions component creates a floating button at the bottom of the screen.
  *
  * ##Default Selectors
@@ -33,6 +33,7 @@
  *                flaotingActions = tau.widget.FloatingActions(elFloatingActions);
  *      </script>
  *
+ * @since 2.4
  * @class ns.widget.mobile.FloatingActions
  * @extends ns.widget.BaseWidget
  */
@@ -250,11 +251,12 @@
 			};
 
 			/**
-			* Dragstart event handler
-			* @method _start
-			* @protected
-			* @member ns.widget.mobile.FloatingActions
-			*/
+			 * Dragstart event handler
+			 * @method _start
+			 * @param {Event} event
+			 * @protected
+			 * @member ns.widget.mobile.FloatingActions
+			 */
 			prototype._start = function (event) {
 				var self = this,
 					element = self.element;
@@ -299,6 +301,7 @@
 			/**
 			* Drag event handler
 			* @method _move
+			 * @param {Event} event
 			* @protected
 			* @member ns.widget.mobile.FloatingActions
 			*/
@@ -430,11 +433,12 @@
 			};
 
 			/**
-			* Dragend event handler
-			* @method _end
-			* @protected
-			* @member ns.widget.mobile.FloatingActions
-			*/
+			 * Dragend event handler
+			 * @method _end
+			 * @param {Event} event
+			 * @protected
+			 * @member ns.widget.mobile.FloatingActions
+			 */
 			prototype._end = function (event) {
 				var self = this;
 

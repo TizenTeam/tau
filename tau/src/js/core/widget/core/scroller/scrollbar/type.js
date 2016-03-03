@@ -19,6 +19,7 @@
  * Namespace with types of scroll bars..
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  * @class ns.widget.core.scroller.scrollbar.type
+ * @internal
  */
 (function (window, ns) {
 	"use strict";

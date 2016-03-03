@@ -16,9 +16,8 @@
  */
 /*jslint nomen: true, plusplus: true */
 /**
- * # SectionChanger Widget
- * Shows a control that you can use to scroll through multiple *section*
- * elements.
+ * # Section Changer
+ * Section changer component provides an application architecture, which has multiple sections on one page.
  *
  * The section changer widget provides an application architecture, which has
  * multiple sections on a page and enables scrolling through the *section* elements.
@@ -82,7 +81,7 @@
  *         </script>
  *
  * @class ns.widget.core.SectionChanger
- * @since 2.2
+ * @since 2.4
  * @extends ns.widget.BaseWidget
  */
 (function (document, ns) {

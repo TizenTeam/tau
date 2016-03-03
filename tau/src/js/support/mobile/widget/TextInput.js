@@ -60,11 +60,11 @@
 
 				/**
 				 * Backup of _configure methods for replacing it
-				 * @method parent_configure
+				 * @method parentConfigure
 				 * @member ns.widget.mobile.TextInputExtra
 				 * @private
 				 */
-				parent_configure = TextInputExtra.prototype._configure;
+				parentConfigure = TextInputExtra.prototype._configure;
 
 
 			TextInputExtra.selector = selector;
@@ -73,8 +73,8 @@
 			TextInputExtra.prototype._configure = function () {
 				var self = this;
 
-				if (typeof parent_configure === "function") {
-					parent_configure.call(this);
+				if (typeof parentConfigure === "function") {
+					parentConfigure.call(this);
 				}
 
 				self.options = objectUtils.merge({}, TextInputExtra.defaults, {
@@ -87,7 +87,7 @@
 			/**
 			 * Finds label tag for element.
 			 * @method _findLabel
-			 * @return {HTMLElement} element
+			 * @param {HTMLElement} element
 			 * @member ns.widget.mobile.TextInputExtra
 			 * @return {HTMLElement}
 			 */
@@ -112,7 +112,7 @@
 			/**
 			 * Sets label value.
 			 * @method setLabel
-			 * @param {string} Label text
+			 * @param {string} text Label text
 			 * @member ns.widget.mobile.TextInputExtra
 			 */
 			TextInputExtra.prototype.setLabel = function (text) {

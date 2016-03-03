@@ -18,6 +18,7 @@
 /**
  * #Progress type Interface
  * Interface for type of progress
+ * @internal
  * @class ns.widget.core.progress.type.interface
  */
 (function (document, ns) {
@@ -34,7 +35,6 @@
 				/**
 				 * Init DOM for progress
 				 * @method build
-				 * @param Progress
 				 * @static
 				 * @member ns.widget.core.progress.type.interface
 				 */
@@ -43,7 +43,6 @@
 				/**
 				 * Init Style for progress
 				 * @method init
-				 * @param Progress
 				 * @static
 				 * @member ns.widget.core.progress.type.interface
 				 */
@@ -52,7 +51,6 @@
 				/**
 				 * Init Style for progress
 				 * @method refresh
-				 * @param Progress
 				 * @static
 				 * @member ns.widget.core.progress.type.interface
 				 */
@@ -62,7 +60,6 @@
 				/**
 				 * Init Style for progress
 				 * @method changeValue
-				 * @param Progress
 				 * @static
 				 * @member ns.widget.core.progress.type.interface
 				 */
@@ -72,7 +69,6 @@
 				/**
 				 * Init Style for progress
 				 * @method destroy
-				 * @param Progress
 				 * @static
 				 * @member ns.widget.core.progress.type.interface
 				 */

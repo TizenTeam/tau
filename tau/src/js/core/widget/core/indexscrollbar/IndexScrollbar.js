@@ -16,7 +16,7 @@
  */
 /*jslint nomen: true, plusplus: true */
 /**
- * #IndexScrollbar Widget
+ * #Index Scrollbar
  * Shows an index scroll bar with indices, usually for the list.
  *
  * The index scroll bar widget shows on the screen a scrollbar with indices,
@@ -465,8 +465,6 @@
 				 * This method destroys widget.
 				 * @method _destroy
 				 * @protected
-				 * @param {HTMLElement} element
-				 * @return {HTMLElement}
 				 * @member ns.widget.core.IndexScrollbar
 				 */
 				_destroy: function () {
@@ -578,6 +576,8 @@
 				 * This method calculates maximum index length.
 				 * @method _setMaxIndexLen
 				 * @protected
+				 * @param {HTMLElement} element
+				 * @param {number} value
 				 * @member ns.widget.core.IndexScrollbar
 				 */
 				_setMaxIndexLen: function (element, value) {
@@ -1021,6 +1021,7 @@
 				 * @method _getPositionFromEvent
 				 * @return {Object} Position of event with properties "x" and "y"
 				 * @protected
+				 * @param {Event} ev
 				 * @member ns.widget.core.IndexScrollbar
 				 */
 				_getPositionFromEvent: function (ev) {

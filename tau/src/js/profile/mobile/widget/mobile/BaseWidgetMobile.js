@@ -38,9 +38,9 @@
 				},
 				BaseWidget = ns.widget.BaseWidget,
 				basePrototype = BaseWidget.prototype,
-				parent_configure = basePrototype.configure,
-				parent_disable = basePrototype.disable,
-				parent_enable = basePrototype.enable,
+				parentConfigure = basePrototype.configure,
+				parentDisable = basePrototype.disable,
+				parentEnable = basePrototype.enable,
 				prototype = new BaseWidget(),
 				slice = [].slice;
 
@@ -56,7 +56,7 @@
 			 * @param {HTMLElement} element
 			 * @param {Object} options Configure options
 			 * @member ns.widget.mobile.BaseWidgetMobile
-			 * @chainable
+			 * @return {ns.widget.mobile.BaseWidgetMobile}
 			 * @instance
 			 */
 			prototype.configure = function (definition, element, options) {
@@ -64,7 +64,7 @@
 					definitionName,
 					widgetName;
 
-				parent_configure.call(self, definition, element, options);
+				parentConfigure.call(self, definition, element, options);
 				if (definition) {
 					definitionName = definition.name;
 					widgetName = definitionName && definitionName.toLowerCase();
@@ -117,7 +117,7 @@
 					elementClasses = element.classList,
 					args = slice.call(arguments);
 
-				parent_disable.apply(self, args);
+				parentDisable.apply(self, args);
 				elementClasses.add(self.widgetFullName + "-disabled");
 				// @TODO
 				//this.hoverable.removeClass( "ui-state-hover" );
@@ -136,7 +136,7 @@
 					elementClasses = element.classList,
 					args = slice.call(arguments);
 
-				parent_enable.apply(self, args);
+				parentEnable.apply(self, args);
 				elementClasses.remove(self.widgetFullName + "-disabled");
 				// @TODO
 				//this.hoverable.removeClass( "ui-state-hover" );
@@ -153,29 +153,6 @@
 			prototype.raise = function (msg) {
 				throw "Widget [" + this.widgetName + "]: " + msg;
 			};
-
-			/**
-			 * Enhances all the children of all elements in the set of matched elements.
-			 * @method enhanceWithin
-			 * @member ns.widget.mobile.BaseWidgetMobile
-			 * @instance
-			 * @removed 2.3
-			 */
-			prototype.enhanceWithin = function () {
-				ns.log("method enhanceWithin is deprecated");
-			};
-
-			/**
-			 * Enhances all the children of all elements in the set of matched elements.
-			 * @method enhance
-			 * @member ns.widget.mobile.BaseWidgetMobile
-			 * @instance
-			 * @removed 2.3
-			 */
-			prototype.enhance = function () {
-				ns.log("method enhance is deprecated");
-			};
-
 
 			/**
 			* Returns element of widget.

@@ -18,6 +18,7 @@
 /**
  * #activityCircle Type
  * activityCircle type support for Progress widget.
+ * @internal
  * @class ns.widget.core.progress.type.activitycircle
  * @extends ns.widget.core.progress.type.interface
  */

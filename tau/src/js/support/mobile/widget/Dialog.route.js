@@ -238,8 +238,6 @@
 			 * This method handles hash change.
 			 * It closes opened popup.
 			 * @method onHashChange
-			 * @param {string} url
-			 * @param {object} options
 			 * @return {boolean}
 			 * @member ns.router.route.popup
 			 * @static

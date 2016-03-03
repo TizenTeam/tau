@@ -203,7 +203,7 @@
 			 * Create HTML link element with href
 			 * @method makeLink
 			 * @param {string} href
-			 * @returns {HTMLLinkElement}
+			 * @return {HTMLLinkElement}
 			 * @member ns.util.load
 			 * @static
 			 */

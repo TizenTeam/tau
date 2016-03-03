@@ -16,9 +16,9 @@
  */
 /*jslint nomen: true, plusplus: true */
 /**
- * # Panel Widget
- *
+ * #Panel
  * Panel is component that can have header, content, footer, listview and so on like the page component.
+ *
  * Panel has been made that developer can implement to multi panel in one page.
  * But, Panel don't need to implement in one html file. Panel can be existed other html files.
  * PanelChanger controlled Panel lifecycle so If you implement to Panel in PanelChanger, you can experience UX that multi page existed in one page.

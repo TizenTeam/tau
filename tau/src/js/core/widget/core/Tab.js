@@ -84,7 +84,6 @@
 			/**
 			 * Get the active tab
 			 * @method setActive
-			 * @param {number} index of the tab
 			 * @public
 			 * @member ns.widget.mobile.Tab
 			 */
@@ -95,7 +94,6 @@
 			/**
 			 * Get the active tab
 			 * @method setActive
-			 * @param {number} index of the tab
 			 * @public
 			 * @member ns.widget.mobile.Tab
 			 */

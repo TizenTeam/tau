@@ -15,9 +15,9 @@
  * limitations under the License.
  */
 /*
- * #Namespace For Widgets
+ * #Namespace For Core Widgets
  * @author Krzysztof Antoszek <k.antoszek@samsung.com>
- * @class ns.widget
+ * @class ns.widget.core
  */
 (function (document, ns) {
 	"use strict";

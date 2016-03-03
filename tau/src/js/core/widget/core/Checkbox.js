@@ -14,6 +14,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+/**
+ * #Checkbox
+ * Checkbox component changes the default browser checkboxes to a form more adapted to the mobile environment.
+ *
+ * @since 2.4
+ * @class ns.widget.core.Checkbox
+ * @extends ns.widget.BaseWidget
+ */
 /*jslint nomen: true, plusplus: true */
 (function (document, ns) {
 	"use strict";
@@ -45,7 +53,7 @@
 			 * @method _build
 			 * @param {HTMLElement} element
 			 * @protected
-			 * @member ns.widget.Checkbox
+			 * @member ns.widget.core.Checkbox
 			 * @instance
 			 */
 			prototype._build = function (element) {
@@ -62,11 +70,9 @@
 			/**
 			 * Returns the value of checkbox
 			 * @method _getValue
-			 * @member ns.widget.Checkbox
+			 * @member ns.widget.core.Checkbox
 			 * @return {?string}
 			 * @protected
-			 * @instance
-			 * @new
 			 */
 			prototype._getValue = function () {
 				return this.element.value;
@@ -76,11 +82,9 @@
 			 * Set value to the checkbox
 			 * @method _setValue
 			 * @param {string} value
-			 * @member ns.widget.Checkbox
-			 * @chainable
-			 * @instance
+			 * @member ns.widget.core.Checkbox
+			 * @return {ns.widget.core.Checkbox}
 			 * @protected
-			 * @new
 			 */
 			prototype._setValue = function (value) {
 				this.element.value = value;

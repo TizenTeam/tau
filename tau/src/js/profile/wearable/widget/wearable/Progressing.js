@@ -16,8 +16,8 @@
  */
 /*jslint nomen: true */
 /**
- * # Processing Widget
- * Shows that an operation is in progress.
+ * # Processing
+ * Shows a control that operates as progress infinitely.
  *
  * The processing widget shows that an operation is in progress.
  *

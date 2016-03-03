@@ -16,8 +16,9 @@
  */
 /*jslint nomen: true, plusplus: true */
 /**
- * #activityBar Type
+ * #Activity Bar Type
  * activityBar type support for Progress widget.
+ * @internal
  * @class ns.widget.core.progress.type.activitybar
  * @extends ns.widget.core.progress.type.interface
  */

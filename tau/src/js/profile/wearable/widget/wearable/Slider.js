@@ -399,7 +399,7 @@
 			/**
 			 * Set slider value
 			 * @method _setValue
-			 * @param {Number} value
+			 * @param {number} value
 			 * @member ns.widget.wearable.Slider
 			 * @return {number|null}
 			 * @public

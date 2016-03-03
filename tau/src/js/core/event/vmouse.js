@@ -103,14 +103,14 @@
 				 */
 				lastOver = null,
 				/**
-				 * @property {Number} [startX=0] Initial data for touchstart event
+				 * @property {number} [startX=0] Initial data for touchstart event
 				 * @member ns.event.vmouse
 				 * @static
 				 * @private
 				 **/
 				startX = 0,
 				/**
-				 * @property {Number} [startY=0] Initial data for touchstart event
+				 * @property {number} [startY=0] Initial data for touchstart event
 				 * @member ns.event.vmouse
 				 * @private
 				 * @static

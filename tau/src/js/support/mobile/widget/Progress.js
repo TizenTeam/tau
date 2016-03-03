@@ -129,17 +129,17 @@
 				 */
 				engine = ns.engine,
 				objectUtil = ns.util.object,
-				parent_configure = ProgressExtra.prototype._configure,
-				parent_build = ProgressExtra.prototype._build,
-				parent_init = ProgressExtra.prototype._init,
+				parentConfigure = ProgressExtra.prototype._configure,
+				parentBuild = ProgressExtra.prototype._build,
+				parentInit = ProgressExtra.prototype._init,
 
 				classes = {
 					uiProgressPendingRunning: "ui-progress-pending-running"
 				};
 
 			ProgressExtra.prototype._configure = function () {
-				if (typeof parent_configure === "function") {
-					parent_configure.call(this);
+				if (typeof parentConfigure === "function") {
+					parentConfigure.call(this);
 				}
 				this.options = objectUtil.merge({}, ProgressExtra.defaults, {
 					style: null,
@@ -163,7 +163,7 @@
 					this.options.type = "activitycircle";
 				}
 				element.classList.add(classes.uiProgressPendingRunning);
-				return parent_build.call(this, element);
+				return parentBuild.call(this, element);
 			};
 
 			/**
@@ -179,7 +179,7 @@
 
 				self._setRunning(options.running);
 
-				return parent_init.call(this, element);
+				return parentInit.call(this, element);
 			};
 
 
@@ -216,7 +216,7 @@
 			 * @param {boolean} flag if thrue then set mode to running if false
 			 * the stop running mode
 			 * @member ns.widget.mobile.Progress
-			 * @returns {boolean}
+			 * @return {boolean}
 			 */
 			ProgressExtra.prototype.running = function (flag) {
 				if (typeof flag === "boolean") {

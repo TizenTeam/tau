@@ -98,7 +98,7 @@
 			 * @param {string} edge `start` or `end` depending on orientation
 			 * @param {number} rawPosition current scroll position
 			 * @param {number} widgetInstance current widget instance
-			 * @returns {number}
+			 * @return {number}
 			 */
 			function defaultEdgeEffect(positionDiff, orientation, edge, rawPosition, widgetInstance) {
 				var ui = widgetInstance._ui,

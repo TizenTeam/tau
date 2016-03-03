@@ -444,8 +444,8 @@
 			/**
 			 * translate tabbar element
 			 * @method _translate
-			 * @param {Number} x position
-			 * @param {Number} duration of animation
+			 * @param {number} x position
+			 * @param {number} duration of animation
 			 * @protected
 			 * @member ns.widget.core.TabBar
 			 */
@@ -527,7 +527,7 @@
 			/**
 			 * set the active tab
 			 * @method _setActive
-			 * @param {Number} index
+			 * @param {number} index
 			 * @protected
 			 * @member ns.widget.core.TabBar
 			 */

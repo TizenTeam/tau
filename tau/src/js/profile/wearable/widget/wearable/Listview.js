@@ -16,7 +16,7 @@
  */
 /*jslint nomen: true */
 /**
- * # Listview Widget
+ * # Listview
  * Shows a list view.
  *
  * The list widget is used to display, for example, navigation data, results, and data entries. The following table describes the supported list classes.

@@ -97,10 +97,10 @@
 					}
 
 					if (value instanceof Object) {
-						value.__tau_hash = value.__tau_hash || ns.getUniqueId();
+						value.__tauHash = value.__tauHash || ns.getUniqueId();
 					}
 					h = (typeof value) + "-" + (value instanceof Object ?
-							value.__tau_hash : value.toString());
+							value.__tauHash : value.toString());
 
 					if (value instanceof Element) {
 						value.setAttribute("data-ns-hash", h);

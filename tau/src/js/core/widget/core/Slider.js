@@ -17,7 +17,7 @@
  */
 /**
  * #Slider
- * The slider component changes the range-type browser input to sliders.
+ * Slider component changes the range-type browser input to sliders.
  *
  * ##Default selectors
  * In default all **INPUT** tags with type equals _range_  and _data-role=slider_ are changed to TAU sliders.
@@ -44,6 +44,7 @@
  *                  // because we don't recommend this method.
  *              </script>
  *
+ * @since 2.0
  * @class ns.widget.core.Slider
  * @extends ns.widget.BaseWidget
  * @author Hyeoncheol Choi <hc7.choi@samsung.com>
@@ -373,14 +374,14 @@
 
 			/**
 			 * Set background as a gradient
-			 * @param element
-			 * @param orientation
-			 * @param reverseOrientation
-			 * @param color1
-			 * @param level1
-			 * @param color2
-			 * @param level2
-			 * @param currentValue This param is added only because gradients do not work in proper way on Tizen
+			 * @param {HTMLElement} element
+			 * @param {string} orientation
+			 * @param {string} reverseOrientation
+			 * @param {string} color1
+			 * @param {string} level1
+			 * @param {string} color2
+			 * @param {string} level2
+			 * @param {string} currentValue This param is added only because gradients do not work in proper way on Tizen
 			 * @private
 			 */
 			function setBackground(element, orientation, reverseOrientation, color1, level1, color2, level2, currentValue) {
@@ -580,7 +581,6 @@
 			/**
 			 * DragEnd event handler
 			 * @method _onDragend
-			 * @param {Event} event
 			 * @member ns.widget.core.Slider
 			 * @protected
 			 */

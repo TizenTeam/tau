@@ -16,9 +16,8 @@
  */
 /*jslint nomen: true */
 /**
- * #Expandable Widget
- * This is a simple component that allows you to expand or collapse content when
- * tapped.
+ * #Expandable
+ * Expandable component allows you to expand or collapse content when tapped.
  *
  * ## Default selectors
  * All elements with _data-role="expandable"_ or class _.ui-expandable_ are
@@ -86,6 +85,7 @@
  *
  *		expandable.methodName(methodArgument1, methodArgument2, ...);
  *
+ * @since 2.4
  * @class ns.widget.mobile.Expandable
  * @author Piotr Karny <p.karny@samsung.com>
  * @author Marcin Jakuszko <m.jakuszko@samsung.com>
@@ -191,6 +191,7 @@
 			/**
 			 * Handler function for expanding/collapsing widget
 			 * @method toggleExpandableHandler
+			 * @param {ns.widget.mobile.Expandable} self
 			 * @param {HTMLElement} element
 			 * @param {Event} event
 			 * @private

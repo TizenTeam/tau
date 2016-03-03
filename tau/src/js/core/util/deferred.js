@@ -65,7 +65,6 @@
 						 * Add handlers to be called when the Deferred object
 						 * is either resolved or rejected.
 						 * @method always
-						 * @param {...Function}
 						 * @return {ns.util.deferred} self
 						 * @member ns.util.deferred
 						 */
@@ -77,9 +76,6 @@
 						 * Add handlers to be called when the Deferred object
 						 * is resolved, rejected, or still in progress.
 						 * @method then
-						 * @param {?Function} callback assign when done
-						 * @param {?Function} callback assign when fail
-						 * @param {?Function} callback assign when progress
 						 * @return {Object} returns a new promise
 						 * @member ns.util.deferred
 						 */

@@ -350,7 +350,7 @@
 			 * Create close button.
 			 * @method createCloseButton
 			 * @param {HTMLElement} element
-			 * @param {"none"|"left"|"right"} location="none"
+			 * @param {"none"|"left"|"right"} [location="none"]
 			 * @param {string} text
 			 * @private
 			 * @static
@@ -413,7 +413,7 @@
 			 * Builds Dialog widget
 			 * @method _build
 			 * @param {HTMLElement} element
-			 * @returns {HTMLElement}
+			 * @return {HTMLElement}
 			 * @protected
 			 * @member ns.widget.mobile.Dialog
 			 */
@@ -588,7 +588,7 @@
 
 			/**
 			 * This method triggers BEFORE_HIDE event.
-			 * @methofocusd onBeforeHide
+			 * @method onBeforeHide
 			 * @member ns.widget.core.Page
 			 */
 			prototype.onBeforeHide = function () {

@@ -106,7 +106,7 @@
 			/**
 			 * Check that current target is inside scrolling element
 			 * @param {HTMLElement} target
-			 * @return boolean
+			 * @return {boolean}
 			 */
 			function detectTarget(target) {
 				while (target && target !== document) {
@@ -148,7 +148,7 @@
 
 			/**
 			 * Handler for touchmove event
-			 * @param event
+			 * @param {Event} event
 			 */
 			function touchMove(event) {
 				var touches = event.touches,
@@ -591,16 +591,17 @@
 				 * Return true is given element is current scrolling element
 				 * @method isElement
 				 * @param {HTMLElement} element element to check
-				 * @returns {boolean}
+				 * @return {boolean}
 				 * @member ns.util.scrolling
 				 */
 				isElement: function (element) {
 					return scrollingElement === element;
 				},
+
 				/**
 				 * Update max scrolling position
 				 * @method setMaxScroll
-				 * @param maxValue
+				 * @param {number} maxValue
 				 * @member ns.util.scrolling
 				 */
 				setMaxScroll: function (maxValue) {

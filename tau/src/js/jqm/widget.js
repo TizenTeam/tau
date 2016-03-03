@@ -42,6 +42,7 @@
 			var slice = [].slice,
 				/**
 				 * Wrap function in closure and wrap first argument in jquery object
+				 * @param {Function} fn
 				 */
 				wrapFn = function (fn) {
 					return function (el) {

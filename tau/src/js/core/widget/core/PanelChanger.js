@@ -16,11 +16,13 @@
  */
 /*jslint nomen: true, plusplus: true */
 /**
- * # PanelChanger Component
- * PanelChanger component is manager for panel components.
+ * # Panel Changer
+ * Panel changer and panel component provide multi page layout in a page component.
+ *
  * PanelChanger managed panel life-cycle and routing. So, If you want to use panel likes page,
  * you should wrap the pages as PanelChanger component.
  *
+ * @since 2.4
  * @class ns.widget.core.PanelChanger
  * @extends ns.widget.BaseWidget
  * @author Hyeoncheol Choi <hc7.choi@samsung.com>
@@ -170,9 +172,9 @@
 			/**
 			 * Change panel
 			 * @method _changePanel
-			 * @param {String} address
-			 * @param {String} animationType
-			 * @param {String} direction
+			 * @param {string} address
+			 * @param {string} animationType
+			 * @param {string} direction
 			 * @member ns.widget.core.PanelChanger
 			 * @protected
 			 */
@@ -205,8 +207,9 @@
 			/**
 			 * AJAX loadsuccess event handler
 			 * @method _loadSuccess
-			 * @param {String} href address string
+			 * @param {string} href address string
 			 * @param {XML} xml element
+			 * @param {string} direction
 			 * @member ns.widget.core.PanelChanger
 			 * @protected
 			 */
@@ -372,7 +375,6 @@
 			/**
 			 * Bind pageBeforeShow event
 			 * @method _onPagebeforeshow
-			 * @param {Event} event
 			 * @member ns.widget.core.PanelChanger
 			 * @protected
 			 */
@@ -426,9 +428,9 @@
 			/**
 			 * Change panel method
 			 * @method changePanel
-			 * @param {String} address
-			 * @param {String} animationType
-			 * @param {String} direction
+			 * @param {string} address
+			 * @param {string} animationType
+			 * @param {string} direction
 			 * @member ns.widget.core.PanelChanger
 			 * @public
 			 */

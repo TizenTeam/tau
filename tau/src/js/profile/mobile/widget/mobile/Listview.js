@@ -16,13 +16,13 @@
  */
 /*jslint nomen: true, plusplus: true */
 /**
- * # Listview Widget
- * The list widget is used to display, for example, navigation data, results,
- * and data entries.
- **
+ * # List View
+ * List view component is used to display, for example, navigation data, results, and data entries, in a list format.
+ *
  * @class ns.widget.mobile.Listview
  * @extends ns.widget.core.Listview
  * @author Krzysztof Antoszek <k.antoszek@samsung.com>
+ * @since 2.0
  */
 (function (window, document, ns) {
 	"use strict";

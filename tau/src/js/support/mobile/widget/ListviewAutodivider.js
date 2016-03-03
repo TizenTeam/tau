@@ -233,35 +233,35 @@
 
 				/**
 				 * Backup of _build methods for replacing it
-				 * @method parent_build
+				 * @method parentBuild
 				 * @member ns.widget.mobile.Listview.Autodividers
 				 * @private
 				 */
-				parent_build = Listview.prototype._build,
+				parentBuild = Listview.prototype._build,
 
 				/**
 				 * Backup of _configure methods for replacing it
-				 * @method parent_configure
+				 * @method parentConfigure
 				 * @member ns.widget.mobile.Listview.Autodividers
 				 * @private
 				 */
-				parent_configure = Listview.prototype._configure,
+				parentConfigure = Listview.prototype._configure,
 
 				/**
 				 * Backup of _init methods for replacing it
-				 * @method parent_init
+				 * @method parentInit
 				 * @member ns.widget.mobile.Listview.Autodividers
 				 * @private
 				 */
-				parent_init = Listview.prototype._init,
+				parentInit = Listview.prototype._init,
 
 				/**
 				 * Backup of _destroy methods for replacing it
-				 * @method parent_destroy
+				 * @method parentDestroy
 				 * @member ns.widget.mobile.Listview.Autodividers
 				 * @private
 				 */
-				parent_destroy = Listview.prototype._destroy,
+				parentDestroy = Listview.prototype._destroy,
 
 				/**
 				 * Initializing autodividers on Listview instance
@@ -272,7 +272,7 @@
 				 * @static
 				 * @private
 				 */
-				initializeAutodividers = function initializeAutodividers(self, element) {
+				initializeAutodividers = function (self, element) {
 					var onBeforeRefreshListItems = beforeRefreshListItems.bind(null, self, element);
 
 					beforeRefreshListItemsHandlers[self.id] = onBeforeRefreshListItems;
@@ -296,12 +296,11 @@
 			 * @protected
 			 * @instance
 			 */
-			Listview.prototype._addAutodividers = function addAutodividers(list) {
+			Listview.prototype._addAutodividers = function (list) {
 				replaceDividers.call(null, this, list);
 			};
 
 			/**
-			 * @expose
 			 * @method _setAutodividers
 			 * @member ns.widget.mobile.Listview.Autodividers
 			 * @param {HTMLUListElement|HTMLOListElement} element bound UList or OList HTMLElement.
@@ -310,7 +309,7 @@
 			 * @instance
 			 * @protected
 			 */
-			Listview.prototype._setAutodividers = function Listview_setAutodividers(element, enabled) {
+			Listview.prototype._setAutodividers = function (element, enabled) {
 				var options = this.options;
 
 				if (options.autodividers === enabled) {
@@ -335,11 +334,11 @@
 			 * @instance
 			 * @protected
 			 */
-			Listview.prototype._configure = function Listview_configure() {
+			Listview.prototype._configure = function () {
 				var options;
 
-				if (typeof parent_configure === "function") {
-					parent_configure.call(this);
+				if (typeof parentConfigure === "function") {
+					parentConfigure.call(this);
 				}
 
 				this.options = this.options || {};
@@ -360,9 +359,9 @@
 			 * @instance
 			 * @protected
 			 */
-			Listview.prototype._build = function Listview_build(element) {
+			Listview.prototype._build = function (element) {
 				initializeAutodividers(this, element);
-				return parent_build.call(this, element);
+				return parentBuild.call(this, element);
 			};
 
 			/**
@@ -376,14 +375,14 @@
 			 * @protected
 			 */
 
-			Listview.prototype._init = function Listview_init(element) {
+			Listview.prototype._init = function (element) {
 				var autodividers = this.options.autodividers;
 
 				if (autodividers === undefined || autodividers === null) {
 					initializeAutodividers(this, element);
 				}
-				return (typeof parent_init === "function") ?
-					parent_init.call(this, element) :
+				return (typeof parentInit === "function") ?
+					parentInit.call(this, element) :
 					element;
 			};
 
@@ -404,12 +403,12 @@
 				// delete attribute
 				element.removeAttribute("data-autodividers");
 				// recovery previous version of protected methods;
-				this._build = parent_build;
-				this._init = parent_init;
-				this._destroy = parent_destroy;
+				this._build = parentBuild;
+				this._init = parentInit;
+				this._destroy = parentDestroy;
 				// call protected method from Listview;
-				if (typeof parent_destroy === "function") {
-					parent_destroy.call(this);
+				if (typeof parentDestroy === "function") {
+					parentDestroy.call(this);
 				}
 			};
 			//>>excludeStart('tauBuildExclude', pragmas.tauBuildExclude);

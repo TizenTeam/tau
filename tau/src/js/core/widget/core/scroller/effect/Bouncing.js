@@ -19,6 +19,7 @@
  * # Bouncing effect
  * Bouncing effect for scroller widget.
  * @class ns.widget.core.scroller.effect.Bouncing
+ * @internal
  * @since 2.3
  */
 (function (document, ns) {
@@ -128,8 +129,8 @@
 				/**
 				 * ...
 				 * @method drag
-				 * @param x
-				 * @param y
+				 * @param {number} x
+				 * @param {number} y
 				 * @member ns.widget.core.scroller.effect.Bouncing
 				 */
 				drag: function (x, y) {
@@ -260,6 +261,7 @@
 				/**
 				 * Supports events.
 				 * @method handleEvent
+				 * @param {Event} event
 				 * @member ns.widget.core.scroller.effect.Bouncing
 				 */
 				handleEvent: function (event) {

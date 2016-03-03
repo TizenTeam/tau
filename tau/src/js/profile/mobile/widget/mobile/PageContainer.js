@@ -16,7 +16,7 @@
  */
 /*jslint nomen: true, plusplus: true */
 /**
- * # PageContainer Widget
+ * # PageContainer
  * PageContainer is a widget, which is supposed to have multiple child pages but display only one at a time.
  *
  * It allows for adding new pages, switching between them and displaying progress bars indicating loading process.

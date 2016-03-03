@@ -16,7 +16,9 @@
  */
 /**
  *
- * #Tabs Component
+ * #Tabs
+ * Tabs component shows an unordered list of buttons on the screen wrapped together in a single group.
+ *
  * The Tabs component is a controller component for operate closely with tabbar and sectionChanger.
  * So this component should be used with tabbar and sectionChanger.
  *
@@ -25,7 +27,7 @@
  *
  * ##HTML Examples
  *
- *      @examples
+ *      @example
  *      <div id="tabs" class="ui-tabs">
  *          <div class="ui-tabbar">
  *              <ul>
@@ -71,6 +73,7 @@
  *          tabs = tau.widget.Tabs(tabsElement);
  *      </script>
  *
+ * @since 2.4
  * @class ns.widget.core.Tabs
  * @extends ns.widget.core.BaseWidget
  * @author Hyeoncheol Choi <hc7.choi@samsung.com>

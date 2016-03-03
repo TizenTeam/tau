@@ -39,7 +39,8 @@
 			 * Callback method for regexp used in camelCaseToDashes method
 			 * @method toUpperCaseFn
 			 * @param {string} match
-			 * @param {string} value
+			 * @param {string} value1
+			 * @param {string} value2
 			 * @return {string}
 			 * @member ns.util.string
 			 * @static
@@ -89,7 +90,7 @@
 			 * Parses comma separated string to array
 			 * @method parseProperty
 			 * @param {string} property
-			 * @returns {Array} containing number or null
+			 * @return {Array} containing number or null
 			 * @member ns.util.string
 			 * @static
 			 */

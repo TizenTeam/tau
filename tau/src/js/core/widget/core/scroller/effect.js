@@ -18,6 +18,7 @@
  * #Effect namespace
  * Namespace with effects for scroller widget.
  * @author Maciej Urbanski <m.urbanski@samsung.com>
+ * @internal
  * @class ns.widget.core.scroller.effect
  */
 (function (window, ns) {

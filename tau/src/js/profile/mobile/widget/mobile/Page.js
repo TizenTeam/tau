@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 /**
- * #Page Widget
+ * #Page
  * Page widget represents the screen of an application
  *
  * ## Default selectors
@@ -148,7 +148,7 @@
  * since jQuery already supplies functionalities for them (ex. focus).
  *
  * @class ns.widget.mobile.Page
- * @extends ns.widget.mobile.BaseWidgetMobile
+ * @extends ns.widget.core.Page
  *
  * @author Hyunkook Cho <hk0713.cho@samsung.com>
  * @author Junhyeon Lee <juneh.lee@samsung.com>
@@ -327,23 +327,6 @@
 				domCache: false,
 				keepNativeDefault: ns.getConfig("keepNative")
 			};
-
-			/**
-			 * Text of back button
-			 * @property {string} [backBtnText='Back']
-			 * @member ns.widget.mobile.Page
-			 * @protected
-			 * @deprecated 2.3
-			 */
-			Page.prototype.backBtnText = "Back";
-
-			/**
-			 * Theme of back button
-			 * @property {string} [backBtnTheme=null]
-			 * @member ns.widget.mobile.Page
-			 * @deprecated 2.3
-			 */
-			Page.prototype.backBtnTheme = null;
 
 			// Build header/footer/content
 			// @method buildSections
@@ -553,74 +536,6 @@
 				CorePagePrototype._destroy.call(self);
 				element.removeEventListener("updatelayout", self.contentFillAfterResizeCallback, false);
 				element.removeEventListener("pageshow", self.contentFillAfterResizeCallback, false);
-			};
-
-			/**
-			 * Removes background from the page containing element
-			 *
-			 * #### TAU API
-			 *
-			 *		@example
-			 *		<div id="myPage"></div>
-			 *		<script type="text/javascript">
-			 *			var page = tau.widget.page(document.getElementById("myPage"));
-			 *			page.removeContainerBackground();
-			 *		</script>
-			 *
-			 *#### jQuery API
-			 *
-			 *		@example
-			 *		<div id="myPage"></div>
-			 *		<script type="text/javascript">
-			 *			$("#myPage").page("removeContainerBackground");
-			 *		</script>
-			 *
-			 * @method removeContainerBackground
-			 * @deprecated 2.3
-			 * @member ns.widget.mobile.Page
-			 */
-			Page.prototype.removeContainerBackground = function () {
-				ns.warn("removeContainerBackground is deprecated at 2.3");
-			};
-
-			/**
-			 *  Sets background for page containing element
-			 *
-			 * #### TAU API
-			 *
-			 *		@example
-			 *		<div id="myPage"></div>
-			 *		<script type="text/javascript">
-			 *			var page = tau.widget.page(document.getElementById("myPage"));
-			 *			page.setContainerBackground("s");
-			 *		</script>
-			 *
-			 * #### jQuery API
-			 *
-			 *		@example
-			 *		<div id="myPage"></div>
-			 *		<script type="text/javascript">
-			 *			$("#myPage").page("setContainerBackground", "s");
-			 *		</script>
-			 *
-			 * @method setContainerBackground
-			 * @param {string} [theme]
-			 * @deprecated 2.3
-			 * @member ns.widget.mobile.Page
-			 */
-			Page.prototype.setContainerBackground = function () {
-				ns.warn("setContainerBackground is deprecated at 2.3");
-			};
-
-			/**
-			 * Add back button
-			 * @method addBackBtn
-			 * @deprecated 2.3
-			 * @member ns.widget.mobile.Page
-			 */
-			Page.prototype.addBackBtn = function () {
-				ns.warn("addBackBtn is deprecated at 2.3");
-				return null;
 			};
 
 			/**

@@ -16,8 +16,8 @@
  */
 /*jslint nomen: true */
 /**
- * # Toggle Switch Component
- * Shows a 2-state switch.
+ * # Toggle Switch
+ * Toggle switch component is a common UI element used for binary on/off or true/false data input.
  *
  * The toggle switch widget shows a 2-state switch on the screen.
  * If defined with select type with options it creates toggles
@@ -65,6 +65,7 @@
  *
  * ToggleSwitch widget hasn't JavaScript API.
  *
+ * @since 2.0
  * @class ns.widget.mobile.ToggleSwitch
  * @extends ns.widget.BaseWidget
  */
@@ -152,7 +153,7 @@
 			 * Simplify creating dom elements
 			 * (method stricly for toggleswitch based oninput tag)
 			 * @method createElement
-			 * @param {String} name
+			 * @param {string} name
 			 * @return {HTMLElement}
 			 * @private
 			 * @static

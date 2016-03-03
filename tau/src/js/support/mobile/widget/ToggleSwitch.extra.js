@@ -167,7 +167,7 @@
 			 * Simplify creating dom elements
 			 * (method stricly for ToggleSwitchExtra based oninput tag)
 			 * @method createElement
-			 * @param {String} name
+			 * @param {string} name
 			 * @return {HTMLElement}
 			 * @private
 			 * @static
@@ -1057,6 +1057,7 @@
 			/**
 			 * Remove events from Slider which is based on Select Tag
 			 * @method removeEventsFromToggleBasedOnSelect
+			 * @param {ns.widget.mobile.ToggleSwitchExtra} self
 			 * @param {HTMLElement} element
 			 * @param {HTMLElement} handle
 			 * @param {HTMLElement} slider

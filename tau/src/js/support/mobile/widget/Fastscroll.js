@@ -177,7 +177,7 @@
 			FastScroll.classes = classes;
 
 			/**
-			 * @pram {string[]} index
+			 * @param {string[]} index
 			 * @deprecated
 			 */
 			prototype.indexString = function (index) {
@@ -226,6 +226,7 @@
 			 * Creates map of deviders
 			 * @method _createDividerMap
 			 * @protected
+			 * @param {HTMLElement} element
 			 * @member ns.widget.mobile.FastScroll
 			 */
 			prototype._createDividerMap = function (element) {

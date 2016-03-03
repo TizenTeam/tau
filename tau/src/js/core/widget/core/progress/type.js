@@ -18,7 +18,8 @@
  * #type namespace
  * Namespace with types of Progress
  * @author Maciej Urbanski <m.urbanski@samsung.com>
- * @class ns.widget.core.scroller.scrollbar.type
+ * @class ns.widget.core.progress.type
+ * @internal
  */
 (function (window, ns) {
 	"use strict";

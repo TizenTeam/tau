@@ -14,11 +14,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/*
- * #type namespace
- * ViewSwitcher animation
+/**
+ * #ViewSwitcher animation namespace
+ *
  * @author Hyeoncheol Choi <hc7.choi@samsung.com>
  * @class ns.widget.core.ViewSwitcher.animation
+ * @internal
  */
 (function (window, ns) {
 	"use strict";

@@ -275,7 +275,7 @@
  * Full list of available events is in [events list section](#events-list).
  *
  * @author Hyunkook Cho <hk0713.cho@samsung.com>
- * @class ns.widget.core.Popup
+ * @class ns.widget.wearable.Popup
  * @extends ns.widget.core.ContextPopup
  */
 (function (window, document, ns) {
@@ -328,6 +328,7 @@
 			/**
 			 * Layouting popup structure
 			 * @method layout
+			 * @param {HTMLElement} element
 			 * @member ns.widget.wearable.Popup
 			 */
 			prototype._layout = function (element) {

@@ -275,8 +275,8 @@
  * Full list of available events is in [events list section](#events-list).
  *
  * @author Hyunkook Cho <hk0713.cho@samsung.com>
- * @class ns.widget.core.Popup
- * @extends ns.widget.core.BasePopup
+ * @class ns.widget.core.ContextPopup
+ * @extends ns.widget.core.Popup
  */
 (function (window, document, ns) {
 	"use strict";
@@ -362,9 +362,12 @@
 				 * @member ns.widget.core.Popup
 				 * @static
 				 */
+				/* eslint-disable camelcase */
+				// @TODO we can't change this in this moment because this is part of API
 				events = objectUtils.merge({}, Popup.events, {
 					before_position: "beforeposition"
 				}),
+				/* eslint-enable camelcase */
 
 				positionTypes = {
 					WINDOW: "window",
@@ -430,6 +433,7 @@
 			 * Layouting popup structure
 			 * @method layout
 			 * @member ns.widget.core.ContextPopup
+			 * @param {HTMLElement} element
 			 */
 			prototype._layout = function (element) {
 				var self = this;
@@ -441,7 +445,7 @@
 			/**
 			 * Set positon and size of popup.
 			 * @method _reposition
-			 * @param {object} options
+			 * @param {Object} options
 			 * @protected
 			 * @member ns.widget.core.ContextPopup
 			 */
@@ -823,7 +827,7 @@
 			/**
 			 * Find and set the best position for popup.
 			 * @method _placementCoords
-			 * @param {object} options
+			 * @param {Object} options
 			 * @protected
 			 * @member ns.widget.core.ContextPopup
 			 */
@@ -969,10 +973,10 @@
 			/**
 			 * Set new position for popup.
 			 * @method reposition
-			 * @param options
-			 * @param options.x
-			 * @param options.y
-			 * @param options.positionTo
+			 * @param {Object} options
+			 * @param {number} options.x
+			 * @param {number} options.y
+			 * @param {string} options.positionTo
 			 * @member ns.widget.core.ContextPopup
 			 */
 			prototype.reposition = function (options) {

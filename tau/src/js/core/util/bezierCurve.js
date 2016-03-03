@@ -72,7 +72,6 @@
 			 * @method init
 			 * @param {Object} data
 			 * @return {ns.util.BezierCurve} self
-			 * @chainable
 			 * @member ns.util.bezierCurve
 			 */
 			init: function (data) {

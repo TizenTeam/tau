@@ -16,7 +16,9 @@
  */
 /*jslint nomen: true, plusplus: true */
 /**
- * #TextEnveloper component
+ * #Text Enveloper
+ * Text enveloper component changes a text item to a button.
+ *
  * The TextEnveloper component is that makes text to a chunk divided by delimiter.
  * When you managed various word block, this component is very useful.
  * This component was consisted by input area and word block area.
@@ -85,7 +87,7 @@
  * - added: 'added' event is triggered when textEnveloper button was added.
  * - removed: 'removed' event is triggered when textEnveloper button was removed.
  *
- *
+ * @since 2.4
  * @author Hyeoncheol Choi <hc7.choi@samsung.com>
  * @class ns.widget.mobile.TextEnveloper
  * @extends ns.widget.BaseWidget
@@ -273,6 +275,7 @@
 			/**
 			 * Bind event handler
 			 * @method handleEvent
+			 * @param {Event} event
 			 * @protected
 			 * @member ns.widget.mobile.TextEnveloper
 			 */
@@ -298,7 +301,6 @@
 			/**
 			 * Focus event handler of input element
 			 * @method _onFocus
-			 * @param {Event} event
 			 * @protected
 			 * @member ns.widget.mobile.TextEnveloper
 			 */
@@ -374,7 +376,6 @@
 			/**
 			 * Blur event handler of input element
 			 * @method _onBlur
-			 * @param {Event} event
 			 * @protected
 			 * @member ns.widget.mobile.TextEnveloper
 			 */
@@ -440,7 +441,7 @@
 			/**
 			 * Create button as used to word block
 			 * @method _onKeyup
-			 * @param {Event} event
+			 * @param {string} value
 			 * @protected
 			 * @member ns.widget.mobile.TextEnveloper
 			 */
@@ -504,7 +505,6 @@
 			 *
 			 * @method add
 			 * @param {string} messages
-			 * @param {number} blockIndex
 			 * @member ns.widget.mobile.TextEnveloper
 			 */
 			prototype.add = function (messages) {
@@ -536,7 +536,7 @@
 			 *			</script>
 			 *
 			 * @method remove
-			 * @param {number} blockIndex
+			 * @param {number} index
 			 * @member ns.widget.mobile.TextEnveloper
 			 */
 			prototype.remove = function (index) {

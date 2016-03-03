@@ -16,7 +16,7 @@
  */
 /*jslint nomen: true */
 /**
- * # GridView component
+ * # Grid View
  * Grid View components provides a list of grid-type and presents contents that are easily identified as images.
  *
  * ##Default Selectors
@@ -48,6 +48,7 @@
  *               gridView = tau.widget.GridView(elGridView);
  *      </script>
  *
+ * @since 2.4
  * @class ns.widget.mobile.GridView
  * @extends ns.widget.BaseWidget
  */

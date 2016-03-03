@@ -63,7 +63,6 @@
 			var styleContainer = null,
 				/**
 				 * Helper function for generating css string from
-				 * @TODO the steps array could be propably be more
 				 * optimized (most usages will use maybe up to 3-5
 				 * array elements, when it has 100) but thats not
 				 * important for the moment
@@ -77,6 +76,7 @@
 				 * @method keyframesToString
 				 * @member ns.utils.anim.Keyframes
 				 */
+				// @TODO the steps array could be propably be more
 				keyframesToString = function (prefix, name, steps) {
 					var buff = "@" + prefix + "keyframes " + name + " {",
 						i,

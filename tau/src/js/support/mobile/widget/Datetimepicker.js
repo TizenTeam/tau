@@ -192,11 +192,11 @@
 				if (target.innerText !== text) {
 					if (targetClassList.contains(classes.uiDatefieldSelected)) {
 						targetClassList.add(classes.outClass);
-						self._new_value = text;
+						self._newValue = text;
 						/*
 						 * @todo animation
 						 target.animationComplete( function () {
-						 target.text( self._new_value);
+						 target.text( self._newValue);
 						 target.addClass("in")
 						 removeClass("out");
 
@@ -206,7 +206,7 @@
 						 });
 						 });
 						 */
-						target.innerText = self._new_value;
+						target.innerText = self._newValue;
 						targetClassList.remove(classes.inClass);
 						targetClassList.remove(classes.uiDatefieldSelected);
 					} else {
@@ -459,7 +459,7 @@
 				};
 			}
 
-			function date_calibration(date) {
+			function dateCalibration(date) {
 				date.setDate(1);
 				date.setDate(date.getDate() - 1);
 			}
@@ -482,13 +482,13 @@
 						month = date.getMonth();
 						date.setFullYear(val);
 						if (date.getMonth() !== month) {
-							date_calibration();
+							dateCalibration();
 						}
 						break;
 					case "month":
 						date.setMonth(val - 1);
 						if (date.getMonth() === val) {
-							date_calibration();
+							dateCalibration();
 						}
 						break;
 					case "day":
@@ -532,7 +532,7 @@
 				self._circularview.element.removeEventListener("vclick", self.liClickHandler);
 				self._ctx.destroy();
 				ctxElement.parentNode.removeChild(ctxElement);
-				self._popup_open = false;
+				self._popupOpen = false;
 			}
 
 			function scrollEndHandler(self) {
@@ -547,8 +547,8 @@
 			/**
 			 * Method shows data selector.
 			 * @method showDataSelector
-			 * @param self
-			 * @param target
+			 * @param {ns.widget.mobile.Datetimepicker} self
+			 * @param {HTMLElement} target
 			 * @return {?Object}
 			 */
 			function showDataSelector(self, target) {
@@ -576,7 +576,7 @@
 				if (!field) {
 					return null;
 				}
-				if (self._popup_open) {
+				if (self._popupOpen) {
 					return null;
 				}
 
@@ -652,7 +652,7 @@
 					});
 
 					self.contextPopup = ctx;
-					self._popup_open = true;
+					self._popupOpen = true;
 
 					self._closePopupHandler = closePopupHandler.bind(null, self);
 					self._liClickHandler = liClickHandler.bind(null, self);
@@ -668,12 +668,12 @@
 
 			/**
 			 *
-			 * @param self
-			 * @returns {boolean}
+			 * @param {ns.widget.mobile.Datetimepicker} self
+			 * @return {boolean}
 			 */
 			function orientationHandler(self) {
-				if (self._popup_open) {
-					self._popup_open = false;
+				if (self._popupOpen) {
+					self._popupOpen = false;
 					self.contextPopup.close();
 				}
 				return false;
@@ -881,8 +881,7 @@
 					options.date = new Date();
 				}
 				this._setFormat(element, null, true);
-				this._popup_open = false;
-				this._popup_open = false;
+				this._popupOpen = false;
 			};
 
 			Datetimepicker.prototype._destroy = function () {

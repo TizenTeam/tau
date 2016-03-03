@@ -47,7 +47,7 @@
 				/**
 				 * Converts html color string to rgb array.
 				 * @method HTMLToRGB
-				 * @param {string} clr_str is of the form "#aabbcc"
+				 * @param {string} clrStr is of the form "#aabbcc"
 				 * @return {number[]} Returns: [ r, g, b ], where
 				 * r is in [0, 1]
 				 * g is in [0, 1]
@@ -55,12 +55,12 @@
 				 * @member ns.util.colors
 				 * @static
 				 */
-				HTMLToRGB: function (clr_str) {
-					clr_str = (("#" === clr_str.charAt(0)) ? clr_str.substring(1) : clr_str);
+				HTMLToRGB: function (clrStr) {
+					clrStr = (("#" === clrStr.charAt(0)) ? clrStr.substring(1) : clrStr);
 					return ([
-						clr_str.substring(0, 2),
-						clr_str.substring(2, 4),
-						clr_str.substring(4, 6)
+						clrStr.substring(0, 2),
+						clrStr.substring(2, 4),
+						clrStr.substring(4, 6)
 					].map(function (val) {
 						return parseInt(val, 16) / 255.0;
 					}));
@@ -223,7 +223,7 @@
 				/**
 				 * Converts Converts hsv to hsl.
 				 * @method HSVToHSL
-				 * @param {number[]} rgb Input: [ h, s, v ], where
+				 * @param {number[]} hsv Input: [ h, s, v ], where
 				 * h is in [0, 360]
 				 * s is in [0,   1]
 				 * v is in [0,   1]
@@ -239,10 +239,10 @@
 						delta = hsv[1] * max,
 						min = max - delta,
 						sum = max + min,
-						half_sum = sum / 2,
-						s_divisor = ((half_sum < 0.5) ? sum : (2 - max - min));
+						halfSum = sum / 2,
+						sDivisor = ((halfSum < 0.5) ? sum : (2 - max - min));
 
-					return [hsv[0], ((0 === s_divisor) ? 0 : (delta / s_divisor)), half_sum];
+					return [hsv[0], ((0 === sDivisor) ? 0 : (delta / sDivisor)), halfSum];
 				},
 
 				/**

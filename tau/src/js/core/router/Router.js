@@ -354,6 +354,7 @@
 			 * @param {boolean} [options.volatileRecord = false] Sets if the current history entry will be modified or a new one will be created.
 			 * @param {boolean} [options.dataUrl] Sets if page has url attribute.
 			 * @param {?string} [options.container = null] It is used in RoutePopup as selector for container.
+			 * @param {Event} event
 			 * @member ns.router.Router
 			 */
 			Router.prototype.open = function (to, options, event) {
@@ -569,7 +570,7 @@
 			 * Convert string id to HTMLElement or return HTMLElement if is given
 			 * @method getHTMLElement
 			 * @param {string|HTMLElement} idOrElement
-			 * @returns {HTMLElement}
+			 * @return {HTMLElement}
 			 */
 			function getHTMLElement(idOrElement) {
 				var stringId,
@@ -867,7 +868,7 @@
 			/**
 			 * This function returns proper route.
 			 * @method getRoute
-			 * @param {string} Type of route
+			 * @param {string} type Type of route
 			 * @return {?ns.router.route.interface}
 			 * @member ns.router.Router
 			 */

@@ -67,9 +67,6 @@
 				/**
 				 * Attach fields from second and next object to first object.
 				 * @method merge
-				 * @param {Object} newObject
-				 * @param {...Object} orgObject
-				 * @param {?boolean} [override=true]
 				 * @return {Object}
 				 * @static
 				 * @member ns.util.object

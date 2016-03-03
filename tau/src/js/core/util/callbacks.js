@@ -121,9 +121,7 @@
 						/**
 						 * Add a callback or a collection of callbacks to the list
 						 * @method add
-						 * @param {..Function} list
 						 * @return {ns.util.callbacks} self
-						 * @chainable
 						 * @member ns.util.callbacks
 						 */
 						add: function () {
@@ -150,9 +148,7 @@
 						/**
 						 * Remove a callback from the list
 						 * @method remove
-						 * @param {..Function} list
 						 * @return {ns.util.callbacks} self
-						 * @chainable
 						 * @member ns.util.callbacks
 						 */
 						remove: function () {
@@ -193,7 +189,6 @@
 						 * Remove all callbacks from the list
 						 * @method empty
 						 * @return {ns.util.callbacks} self
-						 * @chainable
 						 * @member ns.util.callbacks
 						 */
 						empty: function () {
@@ -205,7 +200,6 @@
 						 * Have the list do nothing anymore
 						 * @method disable
 						 * @return {ns.util.callbacks} self
-						 * @chainable
 						 * @member ns.util.callbacks
 						 */
 						disable: function () {
@@ -225,7 +219,6 @@
 						 * Lock the list in its current state
 						 * @method lock
 						 * @return {ns.util.callbacks} self
-						 * @chainable
 						 * @member ns.util.callbacks
 						 */
 						lock: function () {
@@ -251,7 +244,6 @@
 						 * @param {Object} context
 						 * @param {Array} args
 						 * @return {ns.util.callbacks} self
-						 * @chainable
 						 * @member ns.util.callbacks
 						 */
 						fireWith: function (context, args) {
@@ -269,9 +261,7 @@
 						/**
 						 * Call all the callbacks with the given arguments
 						 * @method fire
-						 * @param {...*} argument
 						 * @return {ns.util.callbacks} self
-						 * @chainable
 						 * @member ns.util.callbacks
 						 */
 						fire: function () {
@@ -283,7 +273,6 @@
 						 * least once
 						 * @method fired
 						 * @return {booblean}
-						 * @chainable
 						 * @member ns.util.callbacks
 						 */
 						fired: function () {

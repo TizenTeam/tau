@@ -16,7 +16,7 @@
  */
 /*jslint nomen: true, plusplus: true */
 /**
- * #Popup Widget
+ * #Popup
  * Widget handles creating and managing popup windows.
  *
  * ##Default selectors
@@ -458,9 +458,9 @@
  *
  * Full list of available events is in [events list section](#events-list).
 
- *
+ * @since 2.0
  * @class ns.widget.mobile.Popup
- * @extends ns.widget.BaseWidget
+ * @extends ns.widget.core.Popup
  * @author Jadwiga Sosnowska <j.sosnowska@samsung.com>
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  * @author Piotr Karny <p.karny@samsung.com>
@@ -659,45 +659,6 @@
 			/**
 			 * Set callback, which is called on "resize" event. This callback should return desired position of popup after resizing.
 			 *
-			 * This function is deprecated and function setPositionCallback should be used to set this callback.
-			 *
-			 *      @example
-			 *      <div id="popup" data-role="popup">
-			 *          <p>This is a completely basic popup, no options set.</p>
-			 *      </div>
-			 *
-			 *      <script>
-			 *          var popupWidget = tau.widget.Popup(document.getElementById("popup"));
-			 *
-			 *          popupWidget.setPositionCB(function() {
-			 *                return {x: 10, y: 20};
-			 *          });
-			 *      </script>
-			 *
-			 * If jQuery is loaded:
-			 *
-			 *      @example
-			 *      <div id="popup" data-role="popup">
-			 *          <p>This is a completely basic popup, no options set.</p>
-			 *      </div>
-			 *
-			 *      <script>
-			 *          $("#popup").popup("setPositionCB", function() {
-			 *                return {x: 10, y: 20};
-			 *          });
-			 *      </script>
-			 *
-			 * @method setPositionCB
-			 * @param {Function} callback Function called on resizing. It should return desired position of popup as object with "x" and "y" properties.
-			 * @member ns.widget.mobile.Popup
-			 * @deprecated 2.3
-			 */
-			Popup.prototype.setPositionCB = function (callback) {
-				this.setPositionCallback(callback);
-			};
-			/**
-			 * Set callback, which is called on "resize" event. This callback should return desired position of popup after resizing.
-			 *
 			 * This function should be used instead of "setPositionCB".
 			 *
 			 *      @example
@@ -729,7 +690,7 @@
 			 * @method setPositionCallback
 			 * @param {Function} callback Function called on resizing. It should return desired position of popup as object with "x" and "y" properties.
 			 * @member ns.widget.mobile.Popup
-			 * @new 2.3
+			 * @since 2.3
 			 */
 			Popup.prototype.setPositionCallback = function (callback) {
 				this._positionCallback = callback;

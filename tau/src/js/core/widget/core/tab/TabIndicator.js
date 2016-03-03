@@ -123,7 +123,7 @@
 
 			/**
 			 * @method setActive
-			 * @param index
+			 * @param {number} index
 			 * @member ns.widget.core.TabIndicator
 			 */
 			prototype._setActive = function (index) {
@@ -145,7 +145,7 @@
 
 			/**
 			 * @method setSize
-			 * @param size
+			 * @param {number} size
 			 * @member ns.widget.core.TabIndicator
 			 */
 			prototype.setSize = function (size) {

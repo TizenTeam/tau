@@ -72,12 +72,12 @@
  * ## Options
  * Selector component options
  *
- * {String} itemSelector [options.itemSelector=".ui-item"] or You can set attribute on tag [data-item-selector=".ui-item] Selector item selector that style is css selector.
- * {String} indicatorSelector [options.indicatorSelector=".ui-selector-indicator"] or You can set attribute on tag [data-indicator-selector=".ui-selector-indicator"] Selector indicator selector that style is css selector.
- * {String} indicatorArrowSelector [options.indicatorArrowSelector=".ui-selector-indicator-arrow"] or You can set attribute on tag [data-indicator-arrow-selector=".ui-selector-indicator-arrow"] Selector indicator arrow selector that style is css style.
- * {Number} itemDegree [options.itemDegree=30] or You can set attribute on tag [data-item-degree=30] Items degree each other.
- * {Number} itemRadius [options.itemRadius=140] or You can set attribute on tag [data-item-radius=140] Items radius between center and it.
- * {Number} maxItemNumber [options.maxItemNumber=11] or You can set attribute on tag [data-max-item-number=11] Max item number on one layer. If you change the itemDegree, we recommend to consider to modify this value for fit your Selector layout.
+ * {string} itemSelector [options.itemSelector=".ui-item"] or You can set attribute on tag [data-item-selector=".ui-item] Selector item selector that style is css selector.
+ * {string} indicatorSelector [options.indicatorSelector=".ui-selector-indicator"] or You can set attribute on tag [data-indicator-selector=".ui-selector-indicator"] Selector indicator selector that style is css selector.
+ * {string} indicatorArrowSelector [options.indicatorArrowSelector=".ui-selector-indicator-arrow"] or You can set attribute on tag [data-indicator-arrow-selector=".ui-selector-indicator-arrow"] Selector indicator arrow selector that style is css style.
+ * {number} itemDegree [options.itemDegree=30] or You can set attribute on tag [data-item-degree=30] Items degree each other.
+ * {number} itemRadius [options.itemRadius=140] or You can set attribute on tag [data-item-radius=140] Items radius between center and it.
+ * {number} maxItemNumber [options.maxItemNumber=11] or You can set attribute on tag [data-max-item-number=11] Max item number on one layer. If you change the itemDegree, we recommend to consider to modify this value for fit your Selector layout.
  * {boolean} indicatorAutoControl [options.indicatorAutoControl=true] or You can set attribute on tag [data-indicator-auto-control=true] Indicator auto control switch. If you want to control your indicator manually, change this options to false.
  *
  * @class ns.widget.wearable.Selector
@@ -289,7 +289,8 @@
 			/**
 			 * Add ordering classes of layers base on parameter.
 			 * @method addLayerClasses
-			 * @param {HTMLElement} activeLayer
+			 * @param {ns.widget.wearable.Selector} self
+			 * @param {HTMLElement} validLayer
 			 * @private
 			 * @member ns.widget.wearable.Selector
 			 */
@@ -351,9 +352,9 @@
 				 * @property {string} itemSelector [options.itemSelector=".ui-item"] Selector item selector that style is css selector.
 				 * @property {string} indicatorSelector [options.indicatorSelector=".ui-selector-indicator"] Selector indicator selector that style is css selector.
 				 * @property {string} indicatorArrowSelector [options.indicatorArrowSelector=".ui-selector-indicator-arrow"] Selector indicator arrow selector that style is css style.
-				 * @property {Number} itemDegree [options.itemDegree=30] Each items locate degree.
-				 * @property {Number} itemRadius [options.itemRadius=-1] Items locate radius between center to it. Default value is determined by Selector element layout.
-				 * @property {Number} maxItemNumber [options.maxItemNumber=11] Max item number on one layer. If you change the itemDegree, we recommend to consider to modify this value for fit your Selector layout.
+				 * @property {number} itemDegree [options.itemDegree=30] Each items locate degree.
+				 * @property {number} itemRadius [options.itemRadius=-1] Items locate radius between center to it. Default value is determined by Selector element layout.
+				 * @property {number} maxItemNumber [options.maxItemNumber=11] Max item number on one layer. If you change the itemDegree, we recommend to consider to modify this value for fit your Selector layout.
 				 * @property {boolean} indicatorAutoControl [options.indicatorAutoControl=true] Indicator auto control switch. If you want to control your indicator manually, change this options to false.
 				 */
 
@@ -583,7 +584,7 @@
 			/**
 			 * Set the active layer
 			 * @method _setActiveLayer
-			 * @param {Number} index
+			 * @param {number} index
 			 * @protected
 			 * @member ns.widget.wearable.Selector
 			 */
@@ -631,7 +632,7 @@
 			/**
 			 * Set the active item
 			 * @method _setActiveItem
-			 * @param {Number} index
+			 * @param {number} index
 			 * @protected
 			 * @member ns.widget.wearable.Selector
 			 */
@@ -667,7 +668,7 @@
 			/**
 			 * Set indicator index. Handler direction was set by index value.
 			 * @method _setIndicatorIndex
-			 * @param {Number} index
+			 * @param {number} index
 			 * @protected
 			 * @member ns.widget.wearable.Selector
 			 */
@@ -714,7 +715,6 @@
 			/**
 			 * Dragstart event handler
 			 * @method _onDragstart
-			 * @param {Event} event
 			 * @protected
 			 * @member ns.widget.wearable.Selector
 			 */
@@ -726,7 +726,6 @@
 			/**
 			 * Clear active class on animation end
 			 * @method _onAnimationEnd
-			 * @param {Event} event
 			 * @protected
 			 * @member ns.widget.wearable.Selector
 			 */
@@ -910,7 +909,7 @@
 			/**
 			 * Change active layer
 			 * @method _changeLayer
-			 * @param {Number} index
+			 * @param {number} index
 			 * @protected
 			 * @member ns.widget.wearable.Selector
 			 */
@@ -935,7 +934,7 @@
 			/**
 			 * Change active item on active layer
 			 * @method _changeItem
-			 * @param {Number} index
+			 * @param {number} index
 			 * @protected
 			 * @member ns.widget.wearable.Selector
 			 */
@@ -946,7 +945,7 @@
 			/**
 			 * Change active item on active layer
 			 * @method changeItem
-			 * @param {Number} index
+			 * @param {number} index
 			 * @public
 			 * @member ns.widget.wearable.Selector
 			 */
@@ -958,7 +957,7 @@
 			 * Add new item
 			 * @method addItem
 			 * @param {HTMLElement} item
-			 * @param {Number} index
+			 * @param {number} index
 			 * @public
 			 * @member ns.widget.wearable.Selector
 			 */
@@ -981,7 +980,7 @@
 			/**
 			 * Remove item on specific layer
 			 * @method removeItem
-			 * @param {Number} index
+			 * @param {number} index
 			 * @public
 			 * @member ns.widget.wearable.Selector
 			 */

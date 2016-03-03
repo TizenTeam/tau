@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/*jslint nomen: true, plusplus: true */
+/*eslint camelcase: off */
 /**
  * #Gallery Widget
  * The gallery widget shows images in a gallery on the screen.

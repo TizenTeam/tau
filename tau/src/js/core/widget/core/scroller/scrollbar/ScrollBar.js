@@ -155,8 +155,9 @@
 			/**
 			 * Translates widget.
 			 * @method translate
-			 * @param offset
-			 * @param duration
+			 * @param {number} offset
+			 * @param {number} duration
+			 * @param {boolean} autoHidden
 			 * @member ns.widget.core.scroller.scrollbar.ScrollBar
 			 */
 			prototype.translate = function (offset, duration, autoHidden) {
@@ -242,7 +243,7 @@
 			/**
 			 * Supports events.
 			 * @method handleEvent
-			 * @param event
+			 * @param {Event} event
 			 * @member ns.widget.core.scroller.scrollbar.ScrollBar
 			 */
 			prototype.handleEvent = function (event) {

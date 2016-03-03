@@ -15,9 +15,11 @@
  * limitations under the License.
  */
 /**
- * #Navigation Bar
- * Navigation Bar inside header to navigate back and forth according to
- *  navigational history array, which is created by application.
+ * # Navigation
+ * Navigation component is used inside the header to navigate back and forth according to the navigational history array,
+ * which is created by the application. By clicking a horizontally-listed element on the navigation bar,
+ * the user can move to the target page.
+ *
  * By clicking horizontally listed element on the Navigation Bar,
  *  a page is possible to navigate to the target page.
  *
@@ -65,6 +67,7 @@
  *			</div>
  *		</div>
  *
+ * @since 2.3
  * @class ns.widget.mobile.Navigation
  * @extends ns.widget.BaseWidget
  * @author Junhyeon Lee <juneh.lee@samsung.com>

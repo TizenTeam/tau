@@ -92,44 +92,44 @@
 				return cacheMedia[query];
 			}
 
-			function validStyle(prop, value, check_vend) {
+			function validStyle(prop, value, checkVend) {
 				var div = document.createElement("div"),
 					uc = function (txt) {
 						return txt.charAt(0).toUpperCase() + txt.substr(1);
 					},
-					vend_pref = function (vend) {
+					vendPref = function (vend) {
 						return "-" + vend.charAt(0).toLowerCase() + vend.substr(1) + "-";
 					},
 					returnValue,
-					check_style = function (vend) {
-						var vend_prop = vend_pref(vend) + prop + ": " + value + ";",
-							uc_vend = uc(vend),
-							propStyle = uc_vend + uc(prop);
+					checkStyle = function (vend) {
+						var vendProp = vendPref(vend) + prop + ": " + value + ";",
+							ucVend = uc(vend),
+							propStyle = ucVend + uc(prop);
 
-						div.setAttribute("style", vend_prop);
+						div.setAttribute("style", vendProp);
 
 						if (div.style[propStyle]) {
 							returnValue = true;
 						}
 					},
-					checkVendors = check_vend ? [check_vend] : vendors,
+					checkVendors = checkVend ? [checkVend] : vendors,
 					checkVendorsLength = checkVendors.length,
 					i;
 
 				for (i = 0; i < checkVendorsLength; i++) {
-					check_style(checkVendors[i]);
+					checkStyle(checkVendors[i]);
 				}
 				return !!returnValue;
 			}
 
 			/**
 			 *
-			 * @param prop
-			 * @returns {boolean}
+			 * @param {string} prop
+			 * @return {boolean}
 			 */
 			function propExists(prop) {
-				var uc_prop = prop.charAt(0).toUpperCase() + prop.substr(1),
-					props = (prop + " " + vendors.join(uc_prop + " ") + uc_prop).split(" "),
+				var ucProp = prop.charAt(0).toUpperCase() + prop.substr(1),
+					props = (prop + " " + vendors.join(ucProp + " ") + ucProp).split(" "),
 					key;
 
 				for (key = 0; key < props.length; key++) {

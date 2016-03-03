@@ -209,13 +209,13 @@
 			var Listview = ns.widget.mobile.Listview,
 
 				/**
-				 * @property {Object} parent_build Shortcut for parent's {@link ns.widget.mobile.Listview#_build}
+				 * @property {Object} parentBuild Shortcut for parent's {@link ns.widget.mobile.Listview#_build}
 				 * method from prototype of {@link ns.widget.mobile.Listview}
 				 * @private
 				 * @static
 				 * @member ns.widget.mobile.ExtendableList
 				 */
-				parent_build = Listview.prototype._build,
+				parentBuild = Listview.prototype._build,
 
 				/**
 				 * @property {Object} engine Alias for class {@link ns.engine}
@@ -295,6 +295,7 @@
 			/**
 			 * Copy alias options from old Web UI notation
 			 * @param {ns.widget.mobile.ExtendableList} self Widget instance
+			 * @param {Object} newOptions
 			 * @private
 			 * @static
 			 * @member ns.widget.mobile.ExtendableList
@@ -384,7 +385,7 @@
 				var self = this;
 
 				//Call parent's method
-				parent_build.call(self, element);
+				parentBuild.call(self, element);
 
 				// Add necessary CSS Classes
 				element.classList.add(classes.CONTAINER);
@@ -546,7 +547,7 @@
 			 *    </script>
 			 *
 			 * @method create
-			 * @param  config Configuration options {@link ns.widget.mobile.ExtendableList#options}
+			 * @param {Object} config Configuration options {@link ns.widget.mobile.ExtendableList#options}
 			 * @member ns.widget.mobile.ExtendableList
 			 */
 			prototype.create = function (config) {
@@ -738,7 +739,7 @@
 			 * Sets list item loader function. List item loader is always called after adding items process is finished. Please check examples for details.
 			 * @method _setListItemLoader
 			 * @param {HTMLElement} element Widget's HTML element
-			 * @param {Function} updateFunction Function reference.
+			 * @param {Function} loadFunction Function reference.
 			 * @protected
 			 * @member ns.widget.mobile.ExtendableList
 			 */

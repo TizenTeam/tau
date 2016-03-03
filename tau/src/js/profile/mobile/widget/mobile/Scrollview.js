@@ -180,7 +180,7 @@
  * (jQuery mobile-like API)
  *
  * @class ns.widget.mobile.Scrollview
- * @extends ns.widget.BaseWidget
+ * @extends ns.widget.core.Scrollview
  *
  * @author Krzysztof Antoszek <k.antoszek@samsung.com>
  * @author Maciej Urbanski <m.urbanski@samsung.com>

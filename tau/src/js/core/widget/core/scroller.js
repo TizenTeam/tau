@@ -17,7 +17,8 @@
 /**
  * #Scroller namespace
  * Namespace contains classes and objects connected with scroller widget.
- * @class ns.widget.wearable.scroller
+ * @class ns.widget.core.scroller
+ * @internal
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  */
 (function (window, ns) {

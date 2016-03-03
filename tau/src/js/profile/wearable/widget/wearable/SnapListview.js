@@ -219,8 +219,8 @@
 
 			/**
 			 * Check if element of list item is displayed
-			 * @param listItem
-			 * @returns {boolean}
+			 * @param {Object} listItem
+			 * @return {boolean}
 			 * @private
 			 */
 			function isListItemDisplayed(listItem) {

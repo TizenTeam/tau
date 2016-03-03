@@ -18,6 +18,7 @@
 /**
  * #progressCircle Type
  * progressCircle type support for Progress widget.
+ * @internal
  * @class ns.widget.core.progress.type.progresscircle
  * @extends ns.widget.core.progress.type.interface
  */

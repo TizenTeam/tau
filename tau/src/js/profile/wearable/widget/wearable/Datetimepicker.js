@@ -116,9 +116,9 @@
 
 			/**
 			 *
-			 * @param self
-			 * @param event
-			 * @returns {null}
+			 * @param {ns.widget.wearable.Datetimepicker} self
+			 * @param {Event} event
+			 * @return {null}
 			 */
 			function handleWheelButtons(self, event) {
 				var button = event.target,

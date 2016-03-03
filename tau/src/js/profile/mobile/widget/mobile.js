@@ -15,14 +15,13 @@
  * limitations under the License.
  */
 /**
- * #Mobile Widget Reference
+ * #Mobile UI Components
  *
- * The Tizen Web UI service provides rich Tizen widgets that are optimized for the Tizen Web browser. You can use the widgets for:
+ * The Web UI Framework (called as **TAU**; Tizen Advanced UI framework) provides rich Tizen components that are optimized for the Tizen Web browser.
  *
- * - CSS animation
- * - Rendering
+ * ##UI components list
  *
- * The following table displays the widgets provided by the Tizen Web UI service.
+ * The following table displays the components provided by the Tizen mobile Web UI Framework.
  *
  * @class ns.widget.mobile
  * @seeMore https://developer.tizen.org/dev-guide/2.2.1/org.tizen.web.uiwidget.apireference/html/web_ui_framework.htm "Web UI Framework Reference"

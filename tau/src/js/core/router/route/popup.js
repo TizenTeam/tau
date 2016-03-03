@@ -307,9 +307,9 @@
 			 * This method closes active popup.
 			 * @method close
 			 * @param {ns.widget.core.Popup} [activePopup]
-			 * @param {string=} [options.transition]
-			 * @param {string=} [options.ext= in ui-pre-in] options.ext
 			 * @param {Object} options
+			 * @param {string} [options.transition]
+			 * @param {string} [options.ext= in ui-pre-in] options.ext
 			 * @member ns.router.route.popup
 			 * @protected
 			 * @static
@@ -354,7 +354,7 @@
 			 * It closes opened popup.
 			 * @method onHashChange
 			 * @param {string} url
-			 * @param {object} options
+			 * @param {Object} options
 			 * @return {boolean}
 			 * @member ns.router.route.popup
 			 * @static

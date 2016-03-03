@@ -393,7 +393,7 @@
 			 * @static
 			 * @private
 			 * @param {HTMLElement} element base element for finding label
-			 * @returns {?HTMLElement}
+			 * @return {?HTMLElement}
 			 * @member ns.widget.mobile.SearchBar
 			 */
 			function findLabel(element) {
@@ -436,7 +436,7 @@
 			 * Build widget structure
 			 * @method _build
 			 * @param {HTMLElement} element
-			 * @returns {HTMLElement}
+			 * @return {HTMLElement}
 			 * @protected
 			 * @member ns.widget.mobile.SearchBar
 			 */
@@ -813,8 +813,8 @@
 			 * @protected
 			 * @member ns.widget.mobile.SearchBar
 			 */
-			SearchBar.prototype._setValue = function (value) {
-				this.element.value = value;
+			SearchBar.prototype._setValue = function (element, value) {
+				element.value = value;
 			};
 
 			/**

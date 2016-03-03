@@ -148,14 +148,13 @@
 					/**
 					 * Proxy events from ns namespace to jQM namespace
 					 * @method init
-					 * @param {Object} events Alias to {@link ns.event}
 					 * @member ns.jqm.event
 					 * @static
 					 */
 					init: function () {
-						var removeEvents = function (eventUtils) {
-								eventUtils.stopPropagation();
-								eventUtils.preventDefault();
+						var removeEvents = function (event) {
+								event.stopPropagation();
+								event.preventDefault();
 								return false;
 							},
 							blockedEvents = [eventType.TOUCHSTART, eventType.TOUCHEND, eventType.VCLICK, eventType.MOUSEDOWN, eventType.MOUSEUP, eventType.CLICK],

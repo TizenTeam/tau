@@ -141,6 +141,7 @@
 				 * @method excludeBuildAndBound
 				 * @private
 				 * @static
+				 * @param {string} widgetType
 				 * @member ns.engine
 				 * @return {string} :not([data-tau-built*='widgetName']):not([data-tau-bound*='widgetName'])
 				 */
@@ -203,7 +204,7 @@
 			 * @param {Object} widgetClass
 			 * @param {string} [namespace]
 			 * @param {boolean} [redefine]
-			 * @param {boolean} [widgetNameToLowercase = true]
+			 * @param {boolean} [widgetNameToLowercase=true]
 			 * @return {boolean}
 			 * @member ns.engine
 			 * @static
@@ -1015,7 +1016,7 @@
 				 * @param {string} name
 				 * @static
 				 * @member ns.engine
-				 * @returns {Object}
+				 * @return {Object}
 				 */
 				getWidgetDefinition: function (name) {
 					return widgetDefs[name];

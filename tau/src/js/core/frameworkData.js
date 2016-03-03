@@ -170,7 +170,6 @@
 				 * Following cases should be covered here (by recognizing on-page css files).
 				 * The final theme and themePath values are determined after going through all script elements
 				 *
-				 * @TODO write unit tests for covering those cases
 				 *
 				 * none                                       -> theme: null
 				 * <link href="theme.css" />                  -> theme: null
@@ -184,6 +183,7 @@
 				 * @method findThemeInLinks
 				 * @param {CSSStyleSheet} styleSheet
 				 */
+				// @TODO write unit tests for covering those cases
 				function findThemeInLinks(styleSheet) {
 					var cssElement = styleSheet.ownerNode,
 						dataThemeName = cssElement.getAttribute("data-theme-name"),
@@ -218,9 +218,9 @@
 
 				/**
 				 * Sets framework data based on found framework library
-				 * @TODO write unit cases
 				 * @param {HTMLElement} scriptElement
 				 */
+				// @TODO write unit cases
 				function findFrameworkDataInScripts(scriptElement) {
 					var src = scriptElement.getAttribute("src"),
 						profileName = "",

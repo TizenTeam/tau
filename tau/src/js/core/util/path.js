@@ -390,7 +390,7 @@
 					 * @member ns.util.path
 					 * @param {string|Object} url
 					 * @param {Object|string} params
-					 * @returns {string}
+					 * @return {string}
 					 */
 					addHashSearchParams: function (url, params) {
 						var urlObject = path.parseUrl(url),
@@ -537,7 +537,7 @@
 					 * @method isEmbedded
 					 * @member ns.util.path
 					 * @param {string} url
-					 * @returns {boolean}
+					 * @return {boolean}
 					 * @static
 					 */
 					isEmbedded: function (url) {

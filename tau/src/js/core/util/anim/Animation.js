@@ -329,7 +329,6 @@
 			 * @param {Object} stepOptions Css props to change in the keyframe
 			 * @return {ns.util.anim.Animation}
 			 * @method step
-			 * @chainable
 			 * @member ns.util.anim.Animation
 			 */
 			proto.step = function (timePoint, stepOptions) {
@@ -343,7 +342,6 @@
 			 * Resets the animation
 			 * @return {ns.util.anim.Animation}
 			 * @method reset
-			 * @chainable
 			 * @member ns.util.anim.Animation
 			 */
 			proto.reset = function () {
@@ -373,7 +371,6 @@
 			 * Starts playback
 			 * @return {ns.util.anim.Animation}
 			 * @method play
-			 * @chainable
 			 * @member ns.util.anim.Animation
 			 */
 			proto.play = function () {
@@ -384,7 +381,6 @@
 			 * Pauses playback
 			 * @return {ns.util.anim.Animation}
 			 * @method pause
-			 * @chainable
 			 * @member ns.util.anim.Animation
 			 */
 			proto.pause = function () {

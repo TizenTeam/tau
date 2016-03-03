@@ -72,7 +72,7 @@
 			 * @method option
 			 * @static
 			 * @member ns.router.route.drawer
-			 * @return null
+			 * @return {null}
 			 */
 			routeDrawer.option = function () {
 				return null;
@@ -111,7 +111,6 @@
 			 * This method parses HTML and runs scripts from parsed code.
 			 * But, drawer router doesn't need to that.
 			 * @method parse
-			 * @param {string} html HTML code to parse
 			 * @member ns.router.route.drawer
 			 */
 			routeDrawer.parse = function () {
@@ -144,9 +143,9 @@
 			/**
 			 * This method handles hash change.
 			 * @method onHashChange
-			 * @param {String} url
+			 * @param {string} url
 			 * @param {Object} options
-			 * @param {String} prev Previous url string
+			 * @param {string} prev Previous url string
 			 * @static
 			 * @member ns.router.route.drawer
 			 * @return {null}

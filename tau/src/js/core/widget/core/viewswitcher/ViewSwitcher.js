@@ -16,7 +16,9 @@
  * limitations under the License.
  */
 /**
- * #ViewSwitcher Component
+ * #ViewSwitcher
+ * Shows a viewswitcher that controls each view elements.
+ *
  * ViewSwitcher component is controller for each view elements is changing position.
  * This component managed to animation, views position, events and get/set active view index.
  * If you want to change the view as various animating, you should wrap views as the ViewSwitcher element then
@@ -170,7 +172,6 @@
 			/**
 			 * Init position of Views inner ViewSwitcher
 			 * @method _initPosition
-			 * @param {HTMLElement} element
 			 * @member ns.widget.core.viewswitcher.ViewSwitcher
 			 * @protected
 			 */
@@ -344,8 +345,9 @@
 			/**
 			 * Animate views as the requestAnimationFrame.
 			 * @method _requestFrame
-			 * @param {string} animation direction
-			 * @param {string} animation timing type (ease-out|linear)
+			 * @param {number} estimatedDeltaX
+			 * @param {string} direction
+			 * @param {string} animationTiming timing type (ease-out|linear)
 			 * @member ns.widget.core.viewswitcher.ViewSwitcher
 			 * @protected
 			 */
@@ -410,6 +412,7 @@
 			/**
 			 * Set the active view
 			 * @method setActiveIndex
+			 * @param {number} index
 			 * @member ns.widget.core.viewswitcher.ViewSwitcher
 			 * @public
 			 */

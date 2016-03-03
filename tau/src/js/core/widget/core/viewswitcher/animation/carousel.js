@@ -23,6 +23,7 @@
  * @class ns.widet.core.ViewSwitcher.animation.carousel
  * @extends ns.widget.core.ViewSwitcher.animation.interface
  * @author Hyeoncheol Choi <hc7.choi@samsung.com>
+ * @internal
  */
 (function (document, ns) {
 	"use strict";
@@ -81,8 +82,8 @@
 				/**
 				 * Init views position
 				 * @method initPosition
-				 * @param views array
-				 * @param active index
+				 * @param {Array} views array
+				 * @param {number} index
 				 * @static
 				 * @member ns.widget.core.ViewSwitcher.animation.interface
 				 */
@@ -116,9 +117,9 @@
 				/**
 				 * Animate views
 				 * @method animate
-				 * @param views array
-				 * @param active index
-				 * @param position [0 - 100 or -100 - 0]
+				 * @param {Array} views array
+				 * @param {number} index
+				 * @param {number} position [0 - 100 or -100 - 0]
 				 * @static
 				 * @member ns.widget.core.ViewSwitcher.animation.interface
 				 */
@@ -191,8 +192,8 @@
 				/**
 				 * Reset views position
 				 * @method resetPosition
-				 * @param views array
-				 * @param active index
+				 * @param {Array} views array
+				 * @param {number} index active index
 				 * @static
 				 * @member ns.widget.core.ViewSwitcher.animation.interface
 				 */

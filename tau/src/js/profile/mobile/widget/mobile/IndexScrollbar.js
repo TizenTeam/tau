@@ -16,8 +16,8 @@
  */
 /*jslint nomen: true, plusplus: true */
 /**
- * # Index Scrollbar Widget
- * The index scrollbar widget shows a shortcut list that can be bound with a other widget eg. listview.
+ * # Index Scrollbar
+ * Index scrollbar component shows a shortcut list that is bound to its parent scroll bar and list view.
  *
  * If you move the mouse on the shortcut column then a pop-up with the text currently
  * under the cursor is also displayed.

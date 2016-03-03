@@ -15,6 +15,14 @@
  * limitations under the License.
  */
 /*jslint nomen: true, plusplus: true */
+/**
+ * #Radio
+ * Radio component changes the default browser radio button to a form more adapted to the mobile environment.
+ *
+ * @since 2.4
+ * @class ns.widget.core.Radio
+ * @extends ns.widget.BaseWidget
+ */
 (function (document, ns) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
@@ -67,8 +75,6 @@
 			 * @member ns.widget.Radio
 			 * @return {?string}
 			 * @protected
-			 * @instance
-			 * @new
 			 */
 			prototype._getValue = function () {
 				return this.element.value;
@@ -79,10 +85,8 @@
 			 * @method _setValue
 			 * @param {string} value
 			 * @member ns.widget.Radio
-			 * @chainable
-			 * @instance
+			 * @return {ns.widget.Radio}
 			 * @protected
-			 * @new
 			 */
 			prototype._setValue = function (value) {
 				this.element.value = value;

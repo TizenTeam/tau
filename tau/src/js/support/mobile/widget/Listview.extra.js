@@ -739,27 +739,27 @@
 
 				/**
 				 * Backup of _build methods for replacing it
-				 * @method parent_build
+				 * @method parentBuild
 				 * @member ns.widget.mobile.ListviewExtra
 				 * @private
 				 */
-				parent_build = ListviewExtra.prototype._build,
+				parentBuild = ListviewExtra.prototype._build,
 
 				/**
 				 * Backup of _configure methods for replacing it
-				 * @method parent_configure
+				 * @method parentConfigure
 				 * @member ns.widget.mobile.ListviewExtra
 				 * @private
 				 */
-				parent_configure = ListviewExtra.prototype._configure,
+				parentConfigure = ListviewExtra.prototype._configure,
 
 				/**
 				 * Backup of _init methods for replacing it
-				 * @method parent_init
+				 * @method parentInit
 				 * @member ns.widget.mobile.ListviewExtra
 				 * @private
 				 */
-				parent_init = ListviewExtra.prototype._init,
+				parentInit = ListviewExtra.prototype._init,
 
 				/**
 				 * Alias for class {@link ns.engine}
@@ -849,8 +849,8 @@
 			ListviewExtra.prototype._configure = function () {
 				var self = this;
 
-				if (typeof parent_configure === "function") {
-					parent_configure.call(this);
+				if (typeof parentConfigure === "function") {
+					parentConfigure.call(this);
 				}
 
 				self.options = self.options || {};
@@ -974,7 +974,7 @@
 			ListviewExtra.prototype._build = function (element) {
 				//@todo check if this is ol list
 				this._refreshItems(element, true);
-				return parent_build.call(this, element);
+				return parentBuild.call(this, element);
 			};
 
 			/**
@@ -994,8 +994,8 @@
 					element.style.width = window.innerWidth + "px";
 				}
 
-				return (typeof parent_init === "function") ?
-					parent_init.call(this, element) :
+				return (typeof parentInit === "function") ?
+					parentInit.call(this, element) :
 					element;
 			};
 

@@ -756,6 +756,7 @@
 			/**
 			 * Destroy widget
 			 * @method _destroy
+			 * @param {HTMLElement} element
 			 * @protected
 			 * @member ns.widget.core.Page
 			 */

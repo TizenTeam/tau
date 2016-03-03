@@ -16,7 +16,9 @@
  */
 /*jslint nomen: true, plusplus: true */
 /**
- * # Marquee Text
+ * # Marquee
+ * Shows a component which moves left and right.
+ *
  * It makes <div> element with text move horizontally like legacy <marquee> tag
  *
  * ## Make Marquee Element

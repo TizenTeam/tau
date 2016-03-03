@@ -244,8 +244,7 @@
 			 * Special function to set attributes and propertie in the same time
 			 * @method setAttribute
 			 * @param {HTMLElement} element
-			 * @param {Object} name
-			 * @param {Mixed} value
+			 * @param {Object} values
 			 * @member ns.util.DOM
 			 * @static
 			 */

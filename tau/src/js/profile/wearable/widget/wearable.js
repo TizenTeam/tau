@@ -16,13 +16,14 @@
  */
 
 /**
- * #Wearable Widget Reference
- * The Tizen Web UI service provides rich Tizen widgets that are optimized for the Tizen Web browser. You can use the widgets for:
+ * #Wearable UI Components
+ * The Tizen Wearable Web UI framework provides rich Tizen Wearable UI Components that are optimized for the Tizen Wearable Web application. You can use the UI Components for:
  *
- * - CSS animation
- * - Rendering
+ *  - CSS animation
+ *  - Rendering
  *
- * The following table displays the widgets provided by the Tizen Web UI service.
+ * The following table displays the UI Components provided by the Tizen Wearable Web UI framework.
+ *
  * @class ns.widget.wearable
  * @seeMore https://developer.tizen.org/dev-guide/2.2.1/org.tizen.web.uiwidget.apireference/html/web_ui_framework.htm "Web UI Framework Reference"
  * @author Maciej Urbanski <m.urbanski@samsung.com>

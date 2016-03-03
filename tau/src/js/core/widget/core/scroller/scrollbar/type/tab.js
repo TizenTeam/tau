@@ -48,7 +48,7 @@
 				/**
 				 * ...
 				 * @method insertAndDecorate
-				 * @param data
+				 * @param {Object} data
 				 * @static
 				 * @member ns.widget.core.scroller.scrollbar.type.tab
 				 */
@@ -99,7 +99,7 @@
 				/**
 				 * ...
 				 * @method remove
-				 * @param data
+				 * @param {Object} data
 				 * @static
 				 * @member ns.widget.core.scroller.scrollbar.type.tab
 				 */
@@ -115,8 +115,8 @@
 				/**
 				 * ...
 				 * @method offset
-				 * @param orientation
-				 * @param offset
+				 * @param {string} orientation
+				 * @param {number} offset
 				 * @static
 				 * @member ns.widget.core.scroller.scrollbar.type.tab
 				 */

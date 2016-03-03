@@ -16,8 +16,8 @@
  */
 /*jslint nomen: true */
 /**
- * # Progress Widget
- * Shows a control that indicates the progress percentage of an on-going operation.
+ * # Progress
+ * Shows a control that indicates the linear shape progressbar percentage of an on-going operation.
  *
  * The progress widget shows a control that indicates the progress percentage of an on-going operation. This widget can be scaled to fit inside a parent container.
  *

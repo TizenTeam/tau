@@ -404,7 +404,7 @@
 			 * Returns size (width, height) as CSS string
 			 * @method toCSSSize
 			 * @param {string|Array} size has to be comma separated string (eg. "10,100") or array with 2 elements
-			 * @returns {string} if not enough arguments the method returns empty string
+			 * @return {string} if not enough arguments the method returns empty string
 			 * @member ns.util.DOM
 			 * @static
 			 */

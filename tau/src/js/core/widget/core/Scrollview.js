@@ -586,7 +586,7 @@
 			/**
 			 * Set top and bottom indicators
 			 * @param {HTMLElement} clip
-			 * @param {object} options
+			 * @param {Object} options
 			 * @method setTopAndBottomIndicators
 			 * @private
 			 * @member ns.widget.core.Scrollview
@@ -678,38 +678,49 @@
 			/**
 			 * Scrolls to specified position
 			 *
+			 * This method give possibility to scroll on Scrollview widget form JS interface of widget.
+			 *
+			 * <mobile>
+			 * On mobile profile you can use method in jQuery style.
+			 * </mobile>
+			 *
+			 * If duration is set then scroll will be animated in given time period.
+			 *
+			 * <wearable>
+			 * On wearable profile Scrollview widget isn't build automatically. Before using method scrollTo, you need
+			 * create widget on content of page.
+			 * </wearable>
 			 * ### Example usage with TAU API
 			 *
-			 *        @example
-			 *        <div class="myPageClass" data-role="page">
-			 *            <div data-role="content" data-scroll="y">
-			 *                content
-			 *            </div>
-			 *        </div>
-			 *        <script>
-			 *            var scrollview = tau.widget.Scrollview(document.querySelector(".myPageClass > div[data-role=content]"));
-			 *            scrollview.scrollTo(0, 200, 1000); // scroll to 200px vertical with 1s animation
-			 *        </script>
+			 *		@example mobile wearable
+			 *		<div class="myPageClass" data-role="page">
+			 *			<div data-role="content" data-scroll="y">
+			 *				content
+			 *			</div>
+			 *		</div>
+			 *		<script>
+			 *			var scrollview = tau.widget.Scrollview(document.querySelector(".myPageClass > div[data-role=content]"));
+			 *			scrollview.scrollTo(0, 200, 1000); // scroll to 200px vertical with 1s animation
+			 *		</script>
 			 *
 			 * ### Example usage with jQuery API
 			 *
-			 *        @example
-			 *        <div class="myPageClass" data-role="page">
-			 *            <div data-role="content" data-scroll="y">
-			 *                content
-			 *            </div>
-			 *        </div>
-			 *        <script>
-			 *            var element = $(".myPageClass > div[data-role=content]"));
-			 *            element.scrollview();
-			 *            element.scrollview("scrollTo", 0, 200, 1000); // scroll to 200px vertical with 1s animation
-			 *        </script>
+			 *		@example mobile
+			 *		<div class="myPageClass" data-role="page">
+			 *			<div data-role="content" data-scroll="y">
+			 *				content
+			 *			</div>
+			 *		</div>
+			 *		<script>
+			 *			var element = $(".myPageClass > div[data-role=content]"));
+			 *			element.scrollview();
+			 *			element.scrollview("scrollTo", 0, 200, 1000); // scroll to 200px vertical with 1s animation
+			 *		</script>
 			 *
 			 * @param {number} x
 			 * @param {number} y
 			 * @param {number=} [duration]
 			 * @method scrollTo
-			 * @protected
 			 * @member ns.widget.core.Scrollview
 			 */
 			Scrollview.prototype.scrollTo = function (x, y, duration) {
@@ -916,18 +927,6 @@
 				}
 				this.scrollTo(elementPositionX - deltaX, elementPositionY - deltaY, this.scrollDuration);
 			};
-
-			/**
-			 * This is just for compatibility
-			 * @method skipDragging
-			 * @member ns.widget.core.Scrollview
-			 * @deprecated 2.3
-			 */
-			Scrollview.prototype.skipDragging = function () {
-				if (ns.warn) {
-					ns.warn("ns.widget.core.Scrollview: skipDragging is deprecated");
-				}
-			}; // just for TWEBUIFW compat
 
 			/**
 			 * Returns scroll current position

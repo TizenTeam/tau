@@ -17,7 +17,7 @@
  *
  */
 /**
- * #Grid Widget
+ * #Grid
  *
  * @class ns.widget.wearable.Grid
  * @since 3.0
@@ -167,7 +167,7 @@
 		 * @param {Function} timingFn
 		 * @param {Function} drawFn
 		 * @param {Function} onEnd
-		 * @returns {{end: boolean, startTime: number, duration: number, timingFn: Function, drawFn: Function, onEnd: Function}}
+		 * @return {{end: boolean, startTime: number, duration: number, timingFn: Function, drawFn: Function, onEnd: Function}}
 		 */
 		anim = function anim(items, duration, timingFn, drawFn, onEnd) {
 			// item (or items) should has properties: from, to
@@ -215,9 +215,9 @@
 		},
 		CLASS_PREFIX = "ui-grid",
 		CLASSES = {
-			MODE_3x3: CLASS_PREFIX + "-3x3",
-			MODE_THUMBNAIL: CLASS_PREFIX + "-thumbnail",
-			MODE_IMAGE: CLASS_PREFIX + "-image",
+			MODE3X3: CLASS_PREFIX + "-3x3",
+			THUMBNAIL: CLASS_PREFIX + "-thumbnail",
+			IMAGE: CLASS_PREFIX + "-image",
 			THUMB: "thumb",
 			POSITIONED: "ui-positioned"
 		},
@@ -237,6 +237,7 @@
 	/**
 	 * Toggle selected item by changing class
 	 * @protected
+	 * @param {boolean} visible
 	 * @method _toggleSelectedItem
 	 * @member ns.widget.wearable.Grid
 	 * @protected
@@ -465,10 +466,10 @@
 		var element = self.element;
 
 		// remove previous classes;
-		element.classList.remove(CLASSES.MODE_IMAGE);
+		element.classList.remove(CLASSES.IMAGE);
 
 		// add new classes
-		element.classList.add(CLASSES.MODE_3x3);
+		element.classList.add(CLASSES.MODE3X3);
 
 		// set proper mode in options
 		self.options.mode = "3x3";
@@ -482,11 +483,11 @@
 
 		if (self._currentIndex > -1) {
 
-			elementClassList.remove(CLASSES.MODE_3x3);
-			elementClassList.remove(CLASSES.MODE_THUMBNAIL);
+			elementClassList.remove(CLASSES.MODE3X3);
+			elementClassList.remove(CLASSES.THUMBNAIL);
 
 			// set grid mode to image
-			elementClassList.add(CLASSES.MODE_IMAGE);
+			elementClassList.add(CLASSES.IMAGE);
 
 			// set proper mode in options
 			self.options.mode = "image";
@@ -499,7 +500,7 @@
 		// thumbnail mode is accessible only from image mode
 		if (self.options.mode === "image" && self._currentIndex !== -1) {
 
-			element.classList.add(CLASSES.MODE_THUMBNAIL);
+			element.classList.add(CLASSES.THUMBNAIL);
 
 			// set proper mode in options
 			self.options.mode = "thumbnail";
@@ -508,7 +509,7 @@
 
 	/**
 	 * Change grid mode
-	 * @param {string} toMode=["3x3","thumbnail","image"] Grid works in three mode
+	 * @param {"3x3"|"thumbnail"|"image"} toMode Grid works in three mode
 	 * @return {ns.widget.wearable.Grid}
 	 * @method mode
 	 * @member ns.widget.wearable.Grid
@@ -645,6 +646,7 @@
 	 * Widget build method
 	 * @protected
 	 * @method _build
+	 * @param {HTMLElement} element
 	 * @member ns.widget.wearable.Grid
 	 * @return {HTMLElement}
 	 */
@@ -733,8 +735,8 @@
 
 	/**
 	 * Calculation of item position
-	 * @param item
-	 * @param progress
+	 * @param {Object} item
+	 * @param {number} progress
 	 * @private
 	 * @method changeItems
 	 * @member ns.widget.wearable.Grid
@@ -1163,6 +1165,8 @@
 
 	/**
 	 * Event handlers
+	 * @param {ns.widget.wearable.Grid} self
+	 * @param {Event} ev
 	 */
 	function onClick(self, ev) {
 		self._currentIndex = findChildIndex(self, ev.target);
@@ -1242,6 +1246,7 @@
 	 * Bind event listeners to widget instance
 	 * @protected
 	 * @method _bindEvents
+	 * @param {HTMLElement} element
 	 * @member ns.widget.wearable.Grid
 	 * @protected
 	 */

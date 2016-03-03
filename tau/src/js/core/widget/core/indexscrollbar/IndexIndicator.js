@@ -18,6 +18,8 @@
 /**
  * #IndexIndicator widget
  * Class creates index indicator.
+ *
+ * @internal
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  * @author Jadwiga Sosnowska <j.sosnowska@samsung.com>
  * @class ns.widget.wearable.indexscrollbar.IndexIndicator
@@ -37,7 +39,8 @@
 				events = ns.event;
 
 			/**
-			 * @brief block 'unexpected bouncing effect' on indexscroller indicator.
+			 * block 'unexpected bouncing effect' on indexscroller indicator.
+			 * @param {Event} event
 			 */
 			function blockEvent(event) {
 				event.preventDefault();

@@ -15,9 +15,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/*jslint nomen: true */
-/*
- */
 /**
  * #BaseWidget
  * Prototype class of widget
@@ -149,7 +146,7 @@
 			 * Alias to Array.slice function
 			 * @method slice
 			 * @member ns.widget.BaseWidget
-			 * @private
+			 * @inner
 			 * @static
 			 */
 			var slice = [].slice,
@@ -211,7 +208,7 @@
 			 * @member ns.widget.BaseWidget
 			 * @protected
 			 * @template
-			 * @internal
+			 * @ignore
 			 */
 			/**
 			 * Configures widget object from definition.
@@ -224,8 +221,8 @@
 			 * @param {HTMLElement} element Element of widget
 			 * @param {Object} options Configure options
 			 * @member ns.widget.BaseWidget
-			 * @chainable
-			 * @internal
+			 * @return {ns.widget.BaseWidget}
+			 * @ignore
 			 */
 			prototype.configure = function (definition, element, options) {
 				var self = this,
@@ -352,7 +349,7 @@
 			 * @param {HTMLElement} element Element of widget before building process
 			 * @return {HTMLElement} Element of widget after building process
 			 * @member ns.widget.BaseWidget
-			 * @internal
+			 * @ignore
 			 */
 			prototype.build = function (element) {
 				var self = this,
@@ -401,8 +398,8 @@
 			 * @method init
 			 * @param {HTMLElement} element Element of widget before initialization
 			 * @member ns.widget.BaseWidget
-			 * @chainable
-			 * @internal
+			 * @return {ns.widget.BaseWidget}
+			 * @ignore
 			 */
 			prototype.init = function (element) {
 				var self = this;
@@ -455,8 +452,8 @@
 			 * @param {HTMLElement} element Base element of the widget
 			 * @param {boolean} onlyBuild Inform about the type of bindings: build/init
 			 * @member ns.widget.BaseWidget
-			 * @chainable
-			 * @internal
+			 * @return {ns.widget.BaseWidget}
+			 * @ignore
 			 */
 			prototype.bindEvents = function (element, onlyBuild) {
 				var self = this,
@@ -479,16 +476,20 @@
 			};
 
 			/**
+			 * Event triggered when method focus is called
+			 * @event taufocus
+			 * @member ns.widget.BaseWidget
+			 */
+
+			/**
 			 * Focus widget's element.
 			 *
 			 * This function calls function focus on element and if it is known
 			 * the direction of event, the proper css classes are added/removed.
 			 * @method focus
-			 * @param {object} options The options of event.
-			 * @param {"up"|"down"|"left"|"right"} direction
-			 * For example, if this parameter has value "down", it means that the movement
-			 * comes from the top (eg. down arrow was pressed on keyboard).
-			 * @param {HTMLElement} previousElement Element to blur
+			 * @param {Object} options The options of event.
+			 * @param {HTMLElement} options.previousElement Element to blur
+			 * @param {HTMLElement} options.element Element to focus
 			 * @member ns.widget.BaseWidget
 			 */
 			prototype.focus = function (options) {
@@ -523,13 +524,19 @@
 			};
 
 			/**
+			 * Event triggered then method blur is called.
+			 * @event taublur
+			 * @member ns.widget.BaseWidget
+			 */
+
+			/**
 			 * Blur widget's element.
 			 *
 			 * This function calls function blur on element and if it is known
 			 * the direction of event, the proper css classes are added/removed.
 			 * @method blur
-			 * @param {object} options The options of event.
-			 * @param {"up"|"down"|"left"|"right"} direction
+			 * @param {Object} options The options of event.
+			 * @param {HTMLElement} options.element Element to blur
 			 * @member ns.widget.BaseWidget
 			 */
 			prototype.blur = function (options) {
@@ -591,7 +598,7 @@
 			 * It calls method #\_disable.
 			 * @method disable
 			 * @member ns.widget.BaseWidget
-			 * @chainable
+			 * @return {ns.widget.BaseWidget}
 			 */
 			prototype.disable = function () {
 				var self = this,
@@ -633,7 +640,7 @@
 			 * It calls method #\_enable.
 			 * @method enable
 			 * @member ns.widget.BaseWidget
-			 * @chainable
+			 * @return {ns.widget.BaseWidget}
 			 */
 			prototype.enable = function () {
 				var self = this,
@@ -663,7 +670,7 @@
 			 * It calls method #\_refresh.
 			 * @method refresh
 			 * @member ns.widget.BaseWidget
-			 * @chainable
+			 * @return {ns.widget.BaseWidget}
 			 */
 			prototype.refresh = function () {
 				var self = this;
@@ -692,11 +699,10 @@
 			 * @member ns.widget.BaseWidget
 			 * @return {*} return value of option or undefined if method is called in setter context
 			 */
-			prototype.option = function (/*name, value*/) {
+			prototype.option = function (name, value) {
 				var self = this,
-					args = slice.call(arguments),
-					firstArgument = args.shift(),
-					secondArgument = args.shift(),
+					firstArgument = name,
+					secondArgument = value,
 					key,
 					result,
 					partResult,
@@ -769,7 +775,7 @@
 			 * @method isBound
 			 * @param {string} [type] Type of widget
 			 * @member ns.widget.BaseWidget
-			 * @internal
+			 * @ignore
 			 * @return {boolean} true if events are bounded
 			 */
 			prototype.isBound = function (type) {
@@ -787,7 +793,7 @@
 			 * @method isBuilt
 			 * @param {string} [type] Type of widget
 			 * @member ns.widget.BaseWidget
-			 * @internal
+			 * @ignore
 			 * @return {boolean} true if the widget was built
 			 */
 			prototype.isBuilt = function (type) {

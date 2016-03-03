@@ -35,7 +35,6 @@
 				/**
 				 * Inserts elements end decorate.
 				 * @method insertAndDecorate
-				 * @param options
 				 * @static
 				 * @member ns.widget.core.scroller.scrollbar.type.interface
 				 */
@@ -44,7 +43,6 @@
 				/**
 				 * Removes element.
 				 * @method remove
-				 * @param options
 				 * @static
 				 * @member ns.widget.core.scroller.scrollbar.type.interface
 				 */
@@ -53,8 +51,6 @@
 				/**
 				 * ...
 				 * @method start
-				 * @param scrollbarElement
-				 * @param barElement
 				 * @static
 				 * @member ns.widget.core.scroller.scrollbar.type.interface
 				 */
@@ -63,8 +59,6 @@
 				/**
 				 * ...
 				 * @method end
-				 * @param scrollbarElement
-				 * @param barElement
 				 * @static
 				 * @member ns.widget.core.scroller.scrollbar.type.interface
 				 */
@@ -73,8 +67,6 @@
 				/**
 				 * ...
 				 * @method offset
-				 * @param orientation
-				 * @param offset
 				 * @static
 				 * @member ns.widget.core.scroller.scrollbar.type.interface
 				 */

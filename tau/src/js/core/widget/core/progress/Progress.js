@@ -16,11 +16,13 @@
  * limitations under the License.
  */
 /**
- * #Progress Component
+ * #Progress
+ * Progress component shows that an operation is in progress.
  *
  * ##Set and Get the value
  * You can set or get the value with the value() method
  *
+ * @since 2.0
  * @class ns.widget.core.progress.Progress
  * @extends ns.widget.BaseWidget
  * @author Heeju Joo <heeju.joo@samsung.com>
@@ -196,7 +198,7 @@
 
 			/**
 			 * Return value of progress
-			 * @returns {Number}
+			 * @return {number}
 			 * @private
 			 */
 			prototype._getValue = function () {

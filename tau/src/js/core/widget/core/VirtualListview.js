@@ -15,6 +15,14 @@
  * limitations under the License.
  */
 /*jslint nomen: true, white: true, plusplus: true*/
+/**
+ * #Virtual list
+ * Shows a list view for large amounts of data.
+ *
+ * @class ns.widget.core.VirtualListview
+ * @extends ns.core.BaseWidget
+ * @since 2.0
+ */
 (function (document, ns) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
@@ -501,13 +509,13 @@
 			 *  and their contents get reloaded. Content reload is delegated to an external function (_updateListItem).
 			 * Depending on the direction, elements are
 			 * @param {VirtualList} self
-			 * @param element {Element} parent widget (the list view) of the (re)loaded element range
-			 * @param domBuffer {Element} an off-document element tfor temporary storage of prcessed elements
-			 * @param sizeGetter {function} a function calculating element size
-			 * @param loadIndex {number} element index to start loading at
-			 * @param indexDirection {number} -1 when indices decrease with each loaded element, +1 otherwise
-			 * @param elementsToLoad {number} loaded element count
-			 * @returns {number} number of pixels the positions of the widgets in the list moved.
+			 * @param {HTMLElement} element parent widget (the list view) of the (re)loaded element range
+			 * @param {HTMLElement} domBuffer an off-document element tfor temporary storage of prcessed elements
+			 * @param {Function} sizeGetter a function calculating element size
+			 * @param {number} loadIndex element index to start loading at
+			 * @param {number} indexDirection -1 when indices decrease with each loaded element, +1 otherwise
+			 * @param {number} elementsToLoad loaded element count
+			 * @return {number} number of pixels the positions of the widgets in the list moved.
 			 *  Repositioning the widget by this amount (along the scroll axis) is needed for the remaining childern
 			 *  elements not to move, relative to the viewport.
 			 * @private
@@ -556,12 +564,12 @@
 			 *  elementPosiotion* adjusted by |jump|. In case the resulting position is outside the bounds
 			 *  defined by valid index ranges (0..dataLength-1), clamp the position to tha boundary.
 			 * @param {VirtualList} self
-			 * @param dataLength {number} max valid index
-			 * @param elementStyle {Object} style of the element repositioned
-			 * @param scrollDir {number} one of the BaseWidget.SCROLL_*
-			 * @param jump {number} amount of pixels the repositioned element should be moved
-			 * @param elementPositionTop {number} current elementTop
-			 * @param elementPositionLeft {number} current elementLeft
+			 * @param {number} dataLength max valid index
+			 * @param {Object} elementStyle style of the element repositioned
+			 * @param {number} scrollDir one of the BaseWidget.SCROLL_*
+			 * @param {number} jump amount of pixels the repositioned element should be moved
+			 * @param {number} elementPositionTop current elementTop
+			 * @param {number} elementPositionLeft current elementLeft
 			 * @private
 			 */
 			function _setElementStylePosition(self, dataLength, elementStyle, scrollDir, jump, elementPositionTop, elementPositionLeft) {
@@ -632,11 +640,11 @@
 
 			/**
 			 *
-			 * @param sizeMap
-			 * @param horizontal
-			 * @param element
-			 * @param index
-			 * @returns {*}
+			 * @param {Array} sizeMap
+			 * @param {boolean} horizontal
+			 * @param {HTMLElement} element
+			 * @param {number} index
+			 * @return {*}
 			 * @private
 			 */
 			function _getElementSize(sizeMap, horizontal, element, index) {
@@ -755,7 +763,7 @@
 			 * Check if scrolling position is changed and updates list if it needed.
 			 * @method _updateList
 			 * @param {ns.widget.core.VirtualListview} self VirtualListview widget reference
-			 * @param event scroll event triggering this update
+			 * @param {Event} event scroll event triggering this update
 			 * @member ns.widget.core.VirtualListview
 			 * @private
 			 * @static

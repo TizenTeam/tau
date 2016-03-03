@@ -15,7 +15,11 @@
  * limitations under the License.
  */
 /**
- * #Drawer Widget in Wearable
+ * #Drawer
+ * Shows a panel that in the sub-layout on the left or right edge of screen.
+ *
+ * ##Introduction
+ *
  * The drawer component is a panel that the application's sub layout on the left or right edge of the screen.
  * This component is hidden most of the time, but user can be opened as swipe gesture from the edge of the screen or click the element that is added event handler,
  * handler has drawer.open() method.
@@ -114,7 +118,9 @@
  *        @example
  *        <div class="ui-drawer" data-drag-edge="1">
  *
+ * @since 2.3
  * @class ns.widget.wearable.Drawer
+ * @extends ns.widget.core.Drawer
  * @author Hyeoncheol Choi <hc7.choi@samsung.com>
  */
 (function (document, ns) {
@@ -144,7 +150,6 @@
 			 * Configure Drawer widget
 			 * @method _configure
 			 * @protected
-			 * @param {HTMLElement} element
 			 * @member ns.widget.wearable.Drawer
 			 */
 			prototype._configure = function () {
@@ -305,7 +310,7 @@
 			 *     state = drawer.getState();
 			 * </script>
 			 * @method getState
-			 * @return {String} Drawer state {"closed"|"opened"|"sliding"|"settling"}
+			 * @return {string} Drawer state {"closed"|"opened"|"sliding"|"settling"}
 			 * @public
 			 * @member ns.widget.wearable.Drawer
 			 */

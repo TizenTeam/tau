@@ -15,8 +15,8 @@
  * limitations under the License.
  */
 /**
- * # CircularIndexScrollbar UI Component
- * Shows a circularindexscrollbar with indices, usually for the list.
+ * # Circular index scroll bar
+ * Shows a circular index scroll bar which uses rotary.
  *
  * The circularindexscrollbar component shows on the screen a circularscrollbar with indices.
  * The indices can be selected by moving the rotary.

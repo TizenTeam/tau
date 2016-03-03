@@ -1,7 +1,7 @@
 /*global window, define */
 /*jslint nomen: true */
 /**
- * # Check Box and Radio Box Widget
+ * # Checkbox and radio button
  * Shows a list of options where 1 or more can be selected.
  *
  * ## Default selectors

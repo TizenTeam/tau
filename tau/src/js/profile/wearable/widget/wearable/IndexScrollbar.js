@@ -16,6 +16,8 @@
  */
 /*jslint nomen: true, plusplus: true */
 /*
+ * #Index scroll bar
+ * Shows an index scroll bar with indices, usually for the list.
  *
  * @class ns.widget.wearable.IndexScrollbar
  * @extends ns.widget.core.IndexScrollbar

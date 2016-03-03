@@ -103,8 +103,6 @@
 						/**
 						 * Method which modifies list item, depended at specified index from database.
 						 * @method options.listItemUpdater
-						 * @param {HTMLElement} element List item to be modified.
-						 * @param {number} index Index of data set.
 						 * @member ns.widget.wearable.VirtualGrid
 						 */
 						listItemUpdater: function () {

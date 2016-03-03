@@ -34,7 +34,7 @@
 			 * @method option
 			 * @static
 			 * @member ns.router.route.grid
-			 * @return null
+			 * @return {null}
 			 */
 			option: function () {
 				return null;

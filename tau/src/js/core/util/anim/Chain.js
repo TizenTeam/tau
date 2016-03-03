@@ -177,7 +177,6 @@
 					 * Adds animation to chain
 					 * @param {ns.util.anim.Animation} animation
 					 * @return {ns.util.anim.Chain}
-					 * @chainable
 					 * @method add
 					 * @member ns.util.anim.Chain
 					 */
@@ -217,7 +216,6 @@
 					 * @param {Array.<ns.util.anim.Animation>} animations
 					 * @return {ns.util.anim.Chain}
 					 * @method addMultiple
-					 * @chainable
 					 * @member ns.util.anim.Chain
 					 */
 					addMultiple: function (animations) {
@@ -233,7 +231,7 @@
 					/**
 					 * Starts playing animation chain
 					 * @method play
-					 * @chainable
+					 * @return {ns.util.anim.Chain}
 					 * @member ns.util.anim.Chain
 					 */
 					play: function () {
@@ -255,7 +253,7 @@
 					/**
 					 * Pauses playback
 					 * @method pause
-					 * @chainable
+					 * @return {ns.util.anim.Animation}
 					 * @member ns.util.anim.Chain
 					 */
 					pause: function () {

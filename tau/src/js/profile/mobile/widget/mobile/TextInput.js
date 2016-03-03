@@ -16,8 +16,8 @@
  */
 /*jslint nomen: true, plusplus: true */
 /**
- * #Text Input Widget
- * Decorator for inputs elements.
+ * #Text Input
+ * TextInput component is decorator for input elements.
  *
  * ## Default selectors
  * In default elements matches to :
@@ -90,6 +90,7 @@
  *			textInput.value("text");
  *		</script>
  *
+ * @since 2.0
  * @class ns.widget.mobile.TextInput
  * @extends ns.widget.BaseWidget
  * @author Maciej Urbanski <m.urbanski@samsung.com>
@@ -238,7 +239,7 @@
 			/**
 			 * Method adds class ui-text-input-focused to target element of event.
 			 * @method onFocus
-			 * @param {Event} event
+			 * @param {ns.widget.mobile.TextInput} self
 			 * @private
 			 * @static
 			 * @member ns.widget.mobile.TextInput
@@ -252,7 +253,7 @@
 			/**
 			 * Method adds event for showing clear button and optional resizing textarea.
 			 * @method onInput
-			 * @param {Event} event
+			 * @param {ns.widget.mobile.TextInput} self
 			 * @private
 			 * @static
 			 * @member ns.widget.mobile.TextInput
@@ -275,7 +276,7 @@
 			/**
 			 * Method removes class ui-text-input-focused from target element of event.
 			 * @method onBlur
-			 * @param {Event} event
+			 * @param {ns.widget.mobile.TextInput} self
 			 * @private
 			 * @static
 			 * @member ns.widget.mobile.TextInput
@@ -435,7 +436,6 @@
 			/**
 			* Bind events to widget
 			* @method _bindEvents
-			* @param {HTMLElement} element
 			* @protected
 			* @member ns.widget.mobile.TextInput
 			*/
@@ -464,7 +464,6 @@
 			/**
 			 * unbind events to widget
 			 * @method _unbindEvents
-			 * @param {HTMLElement} element
 			 * @protected
 			 * @member ns.widget.mobile.TextInput
 			 */
@@ -554,7 +553,6 @@
 			 * @method _getValue
 			 * @return {?string}
 			 * @member ns.widget.mobile.TextInput
-			 * @chainable
 			 * @protected
 			 * @since 2.3.1
 			 */
@@ -572,7 +570,7 @@
 			 * @method _setValue
 			 * @param {string} value
 			 * @member ns.widget.mobile.TextInput
-			 * @chainable
+			 * @return {ns.widget.mobile.TextInput}
 			 * @protected
 			 * @since 2.3.1
 			 */

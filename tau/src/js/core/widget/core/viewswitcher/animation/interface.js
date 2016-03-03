@@ -19,6 +19,7 @@
  * #Animation Interface
  * Interface for animation for used viewswitcher
  * @class ns.widget.core.viewswitcher.animation.interface
+ * @internal
  */
 (function (document, ns) {
 	"use strict";
@@ -34,8 +35,6 @@
 				/**
 				 * Init views position
 				 * @method initPosition
-				 * @param views array
-				 * @param active index
 				 * @static
 				 * @member ns.widget.core.viewswitcher.animation.interface
 				 */
@@ -44,9 +43,6 @@
 				/**
 				 * Animate views
 				 * @method animate
-				 * @param views array
-				 * @param active index
-				 * @param position
 				 * @static
 				 * @member ns.widget.core.viewswitcher.animation.interface
 				 */
@@ -55,8 +51,6 @@
 				/**
 				 * Reset views position
 				 * @method resetPosition
-				 * @param views array
-				 * @param active index
 				 * @static
 				 * @member ns.widget.core.viewswitcher.animation.interface
 				 */

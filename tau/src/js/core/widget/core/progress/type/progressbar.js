@@ -18,6 +18,7 @@
 /**
  * #progressBar Type
  * progressBar type support for Progress widget.
+ * @internal
  * @class ns.widget.core.progress.type.progressbar
  * @extends ns.widget.core.progress.type.interface
  */

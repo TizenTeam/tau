@@ -57,11 +57,11 @@
 
 			/**
 			 * Calculate polar coords to cartesian
-			 * @param centerX
-			 * @param centerY
-			 * @param radius
-			 * @param angleInDegrees
-			 * @returns {{x: number, y: number}}
+			 * @param {number} centerX
+			 * @param {number} centerY
+			 * @param {number} radius
+			 * @param {number} angleInDegrees
+			 * @return {{x: number, y: number}}
 			 */
 			function polarToCartesian(centerX, centerY, radius, angleInDegrees) {
 				var angleInRadians = angleInDegrees * PI / 180.0;
@@ -74,12 +74,12 @@
 
 			/**
 			 * Create description of path for arc
-			 * @param x
-			 * @param y
-			 * @param radius
-			 * @param startAngle Angle in degrees where arc starts
-			 * @param endAngle Angle in degrees where arc ends
-			 * @returns {string}
+			 * @param {number} x
+			 * @param {number} y
+			 * @param {number} radius
+			 * @param {number} startAngle Angle in degrees where arc starts
+			 * @param {number} endAngle Angle in degrees where arc ends
+			 * @return {string}
 			 */
 			function describeArc(x, y, radius, startAngle, endAngle) {
 				var start = polarToCartesian(x, y, radius, endAngle),
