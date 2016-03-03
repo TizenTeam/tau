@@ -70,7 +70,7 @@ module.exports = function (grunt) {
 				grunt.log.error(stderr);
 			}
 			if (stdout) {
-				grunt.log.debug(stdout);
+				grunt.log.ok(stdout);
 			}
 			callback(error, stdout, stderr);
 		});

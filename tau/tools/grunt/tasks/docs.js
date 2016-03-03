@@ -9,7 +9,53 @@
 var path = require("path"),
 	mu = require("mu2"),
 	dox = require("dox"),
-	async = require("async");
+	async = require("async"),
+	marked = require("marked"),
+	rjsBuildAnalysis = require("rjs-build-analysis"),
+	additionalDocs = {},
+	regexClearPRECODE = /\n*[ \t]*\n*<\/?(pre|code)>\n*[\t ]*\n*/gm;
+
+function prepareNote(string) {
+	return string.replace(/!!!(.*)!!!/mg, function (match, p1) {
+		return "<div class='note'><strong>Note</strong><br />" + p1 + "</div>";
+	});
+}
+
+function filterTypes(type) {
+	return type === "JavaScript" || type === "HTML" || type === "CSS";
+}
+
+function prepareExamples(description) {
+	var styles = "",
+		types = null;
+
+	description = description.replace(/<pre><code>[ \t]*(@example(.*))((.|\n)*?)<\/code><\/pre>/mg, function () {
+		if (arguments[2].indexOf("signature") > -1) {
+			styles = " signature";
+		}
+		types = arguments[2].split(" ").filter(filterTypes);
+		return "<pre class=\"prettyprint" + styles + "\">" + arguments[3] + "<span class=\"types\">" + types.join(" ") + "</span></pre>";
+	});
+	return description;
+}
+
+/**
+ * Trim function used in array map
+ * @param {string} string
+ * @return {string}
+ */
+function trimString(string) {
+	return string.trim();
+}
+
+/**
+ * Return length of string, used in array filter
+ * @param {string} string
+ * @return {number}
+ */
+function stringLength(string) {
+	return string.length;
+}
 
 module.exports = function (grunt) {
 	"use strict";
@@ -20,29 +66,79 @@ module.exports = function (grunt) {
 			profile = this.data.profile,
 			version = this.data.version || null,
 			versionString = version ? " - v" + version : "",
-			widgetRegExp = new RegExp("^tau\\.widget\\."),
-			widgetProfileRegExp = new RegExp("^tau\\.widget\\." + profile),
+			widgetRegExp = new RegExp("^tau\.widget\."),
+			regexMobileTag = /<(mobile)>(.*)<\/mobile>/g,
+			regexWearableTag = /<(wearable)>(.*)<\/wearable>/g,
 			files = [],
 			template = this.data.template,
 			templateDir = template + "/",
 			errorLogger = this.data.failOnError ? grunt.fail.fatal : grunt.log.error,
 			next;
 
-		mu.root = path.resolve("./templates");
+		mu.root = path.join(__dirname, "templates");
 
-		function createWidgetDoc(newFile, file, name, docsStructure, callback) {
+		/**
+		 * Return only strings which match to profile, used in array filter
+		 * @param {string} str
+		 * @return {boolean}
+		 */
+		function filterProfile(str) {
+			return str === profile;
+		}
+
+		/**
+		 * if tag match to profile, return content of tag, else remove content of tag.
+		 * This function is callback for regexp replace.
+		 * @param {string} match
+		 * @param {string} p1
+		 * @param {string} p2
+		 * @return {string}
+		 */
+		function clearUnmachedProfileBlocks(match, p1, p2) {
+			if (p1 === profile) {
+				return p2;
+			} else {
+				return "";
+			}
+		}
+
+
+		function convertFile(profileName, file, callback) {
+			var fileNameArray = file.split("/"),
+				string = "",
+				fileName = "";
+
+			fileNameArray.shift();
+			fileNameArray.shift();
+			fileNameArray.shift();
+			fileName = fileNameArray.join(path.sep).replace(/md$/, "htm");
+			mu.compileAndRender(templateDir + "index.mustache", {
+				description: prepareExamples(prepareNote(marked(grunt.file.read(file)))),
+				basedir: "../"
+			}).on("data", function (data) {
+				string += data.toString();
+			}).on("end", function () {
+				grunt.file.write(path.join("docs", "sdk", profileName, "html", "ui_fw_api", "page", fileName), string);
+				grunt.log.ok("Finished generating page for " + file + ".");
+				callback();
+			});
+		}
+
+		function prepareMDDocs(profileName) {
+			async.each(grunt.file.expand(path.join("src", "docs", profileName, "**", "*.md")), convertFile.bind(null, profileName));
+		}
+
+		function createWidgetDoc(newFile, file, docsStructure, callback) {
 			var string = "",
 				toc = [],
-				parentToc = {
-					1: {
-						toc: toc
-					}
-				},
 				description,
 				methods = docsStructure.methods.filter(function (method) {
-					return method.isPublic && !method.inherited;
+					return method.isPublic;
 				}),
-				publicMethodsCount = 0,
+				options = docsStructure.options,
+				events = docsStructure.events.filter(function (event) {
+					return event.isPublic;
+				}),
 				shortName,
 				extendsClass = docsStructure.extends,
 				extendsArray;
@@ -53,79 +149,86 @@ module.exports = function (grunt) {
 				extendsClass = extendsArray.join(".");
 			}
 			grunt.log.ok("Start generating file for widget ", file);
-			docsStructure.methods.sort(function (a, b) {
+			methods.sort(function (a, b) {
 				return a.name > b.name ? 1 : -1;
 			});
-			docsStructure.options.sort(function (a, b) {
+			options.sort(function (a, b) {
 				return a.name > b.name ? 1 : -1;
 			});
-			description = docsStructure.description.replace(/(<h([2-4])>)(.*?)(<\/h[2-4]>)/ig, function (match, p1, p2, p3, p4) {
-				var name = p3.replace(" ", "-").toLowerCase() + (Math.random()),
-					level = parseInt(p2, 10);
+			events.sort(function (a, b) {
+				return a.name > b.name ? 1 : -1;
+			});
+			description = docsStructure.description;
+			if (additionalDocs[docsStructure.name]) {
+				description += additionalDocs[docsStructure.name];
+			}
+			docsStructure.description = description;
+			moveDestriptionPartToBlocs(docsStructure);
+			description = docsStructure.description;
+			description = description.replace(/(<h(2)( *id="(.*?)")?>)(.*?)(<\/h2>)/ig, function (match, p1, p2, p3, p4, p5, p6) {
+				var name = p4 || p5.replace(/[ \/]/, "-").toLowerCase() + (Math.random());
 
-				parentToc[level] = {
+				toc.push({
 					href: name,
-					name: p3,
-					toc: []
-				};
-				if (parentToc[level - 1]) {
-					parentToc[level - 1].hasTOC = true;
-					parentToc[level - 1].toc.push(parentToc[level]);
+					name: p5
+				});
+				if (p4) {
+					return match;
+				} else {
+					return p1 + "<a id='" + name + "'></a>" + p5 + p6;
 				}
-				return p1 + "<a id='" + name + "'></a>" + p3 + p4;
 			});
-			if (docsStructure.options.length) {
+			// prepare tags for example in main description
+			description = prepareExamples(description);
+			// and in additional descriptions
+			docsStructure.descriptions.option = prepareExamples(docsStructure.descriptions.option || "");
+			// if options exists then add position options to table of content
+			if (options.length) {
 				toc.push({
 					href: "options-list",
-					name: "Options list",
-					toc: []
+					name: "Options"
 				});
 			}
-			if (docsStructure.events.length) {
+			// if events exists then add position events to table of content
+			if (events.length) {
 				toc.push({
 					href: "events-list",
-					name: "Events list",
-					toc: []
+					name: "Events"
 				});
 			}
+			// if methods exists then add position methods to table of content
 			if (methods.length) {
 				toc.push({
 					href: "methods-list",
-					name: "Methods list",
-					hasTOC: true,
-					toc: methods.map(function (method) {
-						method.first = (publicMethodsCount === 0);
-						publicMethodsCount++;
-						return {
-							href: "method-" + method.name,
-							name: method.name
-						};
-					})
+					name: "Methods"
 				});
 			}
 			shortName = docsStructure.name.split(".").pop();
 			mu.compileAndRender(templateDir + "widget.mustache", {
-				title: name,
+				title: shortName,
 				version: versionString,
 				namespace: docsStructure.name,
+				descriptions: docsStructure.descriptions,
 				namespaceShort: shortName,
 				brief: docsStructure.brief,
-				description: description.replace(/@example/g, "").replace(/<pre><code>\s*\n/g, "<pre class=\"prettyprint\">").replace(/<\/code>/g, ""),
+				description: description,
 				toc: toc,
-				seeMore: docsStructure.seeMore,
-				options: docsStructure.options,
-				showOptions: docsStructure.options.length,
-				events: docsStructure.events,
-				showEvents: docsStructure.events.length,
+				options: options,
+				showOptions: options.length,
+				events: events,
+				showEvents: events.length,
 				methods: methods,
 				showMethods: methods.length,
 				since: docsStructure.since,
 				extends: extendsClass,
-				extendsFile: extendsClass && extendsClass.replace(/\./g, "_") + ".htm"
+				extendsFile: extendsClass && extendsClass.replace(/\./g, "_") + ".htm",
+				basedir: "../",
+				mobile: profile === "mobile",
+				wearable: profile === "wearable"
 			}).on("data", function (data) {
 				string += data.toString();
 			}).on("end", function () {
-				grunt.file.write(newFile + "html/widget/" + file, string);
+				grunt.file.write(newFile + "html/ui_fw_api/" + profile[0].toUpperCase() + profile.substring(1) + "_UIComponents/" + file, string);
 				grunt.log.ok("Finished generating file for widget ", file);
 				callback();
 			});
@@ -236,9 +339,8 @@ module.exports = function (grunt) {
 				namespace: docsStructure.name,
 				namespaceShort: shortName,
 				brief: docsStructure.brief,
-				description: description.replace(/@example/g, "").replace(/<pre><code>\s*\n/g, "<pre class=\"prettyprint\">").replace(/<\/code>/g, ""),
+				description: prepareExamples(description),
 				toc: toc,
-				seeMore: docsStructure.seeMore,
 				options: docsStructure.options,
 				showOptions: docsStructure.options.length,
 				events: docsStructure.events,
@@ -253,7 +355,7 @@ module.exports = function (grunt) {
 			}).on("data", function (data) {
 				string += data.toString();
 			}).on("end", function () {
-				grunt.file.write(newFile + "html/class/" + file, string);
+				grunt.file.write(newFile + "html/ui_fw_api/class/" + file, string);
 				grunt.log.ok("Finished generating file for class ", file);
 				callback();
 			});
@@ -264,7 +366,7 @@ module.exports = function (grunt) {
 				widgetsDoc = docsStructure["ns." + type + "." + profile] || docsStructure["ns." + type];
 
 			rows.sort(function (a, b) {
-				return a.namespace > b.namespace ? 1 : -1;
+				return a.name.trim() > b.name.trim() ? 1 : -1;
 			});
 			if (widgetsDoc) {
 				grunt.log.ok("Started generating index for " + type + ".");
@@ -272,19 +374,18 @@ module.exports = function (grunt) {
 					title: widgetsDoc.title,
 					version: versionString,
 					description: widgetsDoc.description.replace(/@example/g, "").replace(/<pre><code>\s*\n/g, "<pre class=\"prettyprint\">").replace(/<\/code>/g, ""),
-					showSeeMore: widgetsDoc.seeMore,
-					seeMore: widgetsDoc.seeMore,
 					showTable: true,
 					table: {
-						caption: "Table: TAU " + type,
-						module: type,
+						module: type === "widget" ? "Component" : type,
 						rows: rows
 					},
-					basedir: ".."
+					basedir: "../"
 				}).on("data", function (data) {
 					string += data.toString();
 				}).on("end", function () {
-					grunt.file.write(newFile + "html/" + type + "/" + type + "_reference.htm", string);
+					grunt.file.write(newFile + "html/ui_fw_api/" + (type === "widget" ? profile[0].toUpperCase() +
+							profile.substr(1) + "_UIComponents" : type) + "/" + (type === "widget" ? profile + "_component" : type) +
+							"_list.htm", string);
 					grunt.log.ok("Finished generating index for " + type + ".");
 					callback();
 				});
@@ -294,15 +395,18 @@ module.exports = function (grunt) {
 		}
 
 		function createBlock(newFile, docsStructure, file, callback) {
-			var string = "";
+			var string = "",
+				description = docsStructure.description;
+
+			if (additionalDocs[docsStructure.name]) {
+				description += additionalDocs[docsStructure.name];
+			}
 
 			grunt.log.ok("Started generating page for " + file + ".");
 			mu.compileAndRender(templateDir + "index.mustache", {
 				title: docsStructure.title,
-				description: docsStructure.description.replace(/@example/g, "").replace(/<pre><code>\s*\n/g, "<pre class=\"prettyprint\">").replace(/<\/code>/g, ""),
-				showSeeMore: docsStructure.seeMore,
-				seeMore: docsStructure.seeMore,
-				basedir: ".."
+				description: description.replace(/@example/g, "").replace(/<pre><code>\s*\n/g, "<pre class=\"prettyprint\">").replace(/<\/code>/g, ""),
+				basedir: "../"
 			}).on("data", function (data) {
 				string += data.toString();
 			}).on("end", function () {
@@ -326,18 +430,17 @@ module.exports = function (grunt) {
 				version: versionString,
 				namespace: classDoc.name,
 				description: classDoc.description && classDoc.description.full,
-				seeMore: classDoc.seeMore,
 				table: {
 					caption: "Table: Tizen Advanced UI Classes",
 					module: "Description",
 					rows: rows
 				},
 
-				basedir: ".."
+				basedir: "../"
 			}).on("data", function (data) {
 				string += data.toString();
 			}).on("end", function () {
-				grunt.file.write(newFile + "html/class/class_reference.htm", string);
+				grunt.file.write(newFile + "html/ui_fw_api/class/class_reference.htm", string);
 				grunt.log.ok("Finished generating index for classes.");
 				callback();
 			});
@@ -355,34 +458,27 @@ module.exports = function (grunt) {
 
 			mu.compileAndRender(templateDir + "index.mustache", {
 				title: classDoc.title,
+
 				version: versionString,
 				description: classDoc.description,
-				showSeeMore: !!classDoc.seeMore,
-				seeMore: classDoc.seeMore,
 				showTable: rows.length,
 				table: {
 					caption: "Table: Tizen Advanced UI",
 					module: "Description",
 					rows: rows
 				},
-				basedir: "."
+				basedir: ""
 			}).on("data", function (data) {
 				string += data.toString();
 			}).on("end", function () {
-				grunt.file.write(newFile + "html/index.htm", string);
+				grunt.file.write(newFile + "html/ui_fw_api/ui_fw_api_cover.htm", string);
 				grunt.log.ok("Finished generating index.");
 				callback();
 			});
 		}
 
-		function prepareNote(string) {
-			return string.replace(/!!!(.*)!!!/gm, function (match, p1) {
-				return "<div class='note'>" + p1 + "</div>";
-			});
-		}
-
 		function deleteBR(string) {
-			return string.replace(/<br \/>/gm, " ");
+			return string.replace(/<br \/><br \/>/gm, "<double br />").replace(/<br \/>/gm, " ").replace(/<double br \/>/gm, "<br />");
 		}
 
 		function copyObject(object) {
@@ -402,6 +498,77 @@ module.exports = function (grunt) {
 				}
 			}
 			return newObject;
+		}
+
+		function filterStyle(style) {
+			return style === "signature";
+		}
+
+		function prepareDescriptionAndExamples(method, block) {
+			var description = deleteBR(prepareNote(block)),
+				profiles = null,
+				found = null;
+
+			while (found = /(<h[0-9]>(.*?)<\/h[0-9]>(\t|\r| |\n)*?)?<pre><code>[ \t]*(@example(.*))((.|\n)*?)<\/code><\/pre>/mg.exec(description)) {
+				// finding profile information after @example tag
+				profiles = found[5].split(" ").map(trimString).filter(stringLength);
+				// if example tag not have any information about profile or current profile is on profiles list
+				if (profiles.length === 0 || profiles.filter(filterProfile).length) {
+					// add example to example blocks
+					method.examples.push({
+						name: found[1] || "",
+						types: profiles.filter(filterTypes),
+						style: profiles.filter(filterStyle),
+						code: found[6].replace(regexClearPRECODE, "")
+					});
+				}
+				// remove example from description
+				description = description.replace(found[0], "");
+			}
+
+			// clear in description tags not matched to profile
+			description = description.replace(regexMobileTag, clearUnmachedProfileBlocks)
+				.replace(regexWearableTag, clearUnmachedProfileBlocks);
+			// save description
+			method.description = description;
+		}
+
+		function moveDestriptionPartToBlocs(object) {
+			// divide divide to title blocks
+			var descriptionBlocks = object.description.split("<h").map(trimString).filter(stringLength),
+				// map with all blocks types
+				descriptions = {};
+
+			if (descriptionBlocks.length > 1) {
+				// filter blocks
+				descriptionBlocks = descriptionBlocks.map(function (block) {
+					// divide string to lines
+					var lines = block.split("\n"),
+					// get first line
+						firstLine = lines.shift(),
+					// match first lines to parts
+						found = /([2-4].*?>)(.*?)\((.*?)(-(.*?))?\)(<\/h[2-4]>)/.exec(firstLine);
+					// if first line match to title with type
+
+					if (found) {
+						// init description block
+						descriptions[found[3]] = descriptions[found[3]] || "";
+						// add block to matched block
+						descriptions[found[3]] += "<h" + found[1] + found[2] + found[6] + lines.join("\n");
+						return "";
+					} else {
+						// this is not block with type, adding to standard description
+						return block;
+					}
+				});
+
+				descriptionBlocks = descriptionBlocks.filter(stringLength);
+				if (descriptionBlocks.length) {
+					object.description = "<H" + descriptionBlocks.join("<h");
+				}
+			}
+
+			object.descriptions = descriptions;
 		}
 
 		function parseDox(file) {
@@ -453,15 +620,6 @@ module.exports = function (grunt) {
 					pageObj.brief = descriptionArray[2] && descriptionArray[2].replace(/<.*?>/g, "") || "";
 					pageObj.description = prepareNote(deleteBR(block.description.body));
 
-					pageObj.seeMore = block.tags.filter(function (tag) {
-						return tag.type === "seeMore";
-					}).map(function (tag) {
-						var valueArray = tag.string.split(" "),
-							file = valueArray.shift(),
-							name = valueArray.join(" ");
-
-						return {file: file, name: name};
-					});
 					pageObj.methods = [];
 					pageObj.properties = [];
 					pageObj.events = [];
@@ -473,13 +631,17 @@ module.exports = function (grunt) {
 					var classObj = {
 							name: tag.string
 						},
+						nameArray = tag.string.split("."),
+						shortName = nameArray.pop(),
 						descriptionArray;
 
 					if (docsStructure[tag.string]) {
-						grunt.fail.error("double definition of class ", tag.string);
+						grunt.log.warn("double definition of class " + tag.string + ".");
 					} else {
 						docsStructure[tag.string] = classObj;
 					}
+					classObj.shortName = shortName;
+					docsStructure[tag.string] = classObj;
 					classObj.authors = block.tags.filter(function (tag) {
 						return tag.type === "author";
 					}).map(function (tag) {
@@ -509,21 +671,49 @@ module.exports = function (grunt) {
 					}).map(function (tag) {
 						return tag.string;
 					})[0];
+					classObj.deprecated = block.tags.filter(function (tag) {
+						return tag.type === "deprecated";
+					}).map(function (tag) {
+						return tag.string;
+					})[0];
 					classObj.code = block.code;
 					classObj.properties = [];
 					classObj.events = [];
 					classObj.options = [];
 					classObj.methods = [];
+					classObj.children = [];
 					if (classObj.extends && docsStructure[classObj.extends]) {
+						docsStructure[classObj.extends].children.push(classObj.name);
 						classObj.methods = docsStructure[classObj.extends].methods.map(function (method) {
 							var newMethod = copyObject(method);
 
 							newMethod.inherited = classObj.extends;
+							// mapping inherited classname to new classname
+							newMethod.params.forEach(function (param) {
+								param.types = param.types.split(" | ").map(function (type) {
+									return type === docsStructure[classObj.extends].shortName ?
+										classObj.shortName : type;
+								}).join(" | ");
+							});
+							if (newMethod.return && newMethod.return.types) {
+								newMethod.return.types = newMethod.return.types.map(function (type) {
+									return type === docsStructure[classObj.extends].shortName ?
+										classObj.shortName : type;
+								});
+							}
 							return newMethod;
 						});
 						classObj.events = docsStructure[classObj.extends].events.map(function (event) {
-							event.inherited = classObj.extends;
-							return event;
+							var _event = copyObject(event);
+
+							_event.inherited = classObj.extends;
+							return _event;
+						});
+						classObj.options = docsStructure[classObj.extends].options.map(function (option) {
+							var _option = copyObject(option);
+
+							_option.inherited = _option.extends;
+							return _option;
 						});
 					}
 					if (classObj.override && docsStructure[classObj.override]) {
@@ -587,12 +777,16 @@ module.exports = function (grunt) {
 							})[0]);
 							property.isPublic = !(property.isPrivate || property.isProtected || (property.isInternal && (template !== "dld")));
 							property.code = block.code;
-							if (name.match(/^options/)) {
+							if (name.match(/^options\./)) {
 								name = name.substring(8);
-								property.name = "data-" + name.replace(/[A-Z]/g, function (c) {
-									return "-" + c.toLowerCase();
-								});
-								classObj.options.push(property);
+								if (name) {
+									property.name = name;
+									// filter inherited options to eliminate duplicatioes
+									classObj.options = classObj.options.filter(function (option) {
+										return option.name !== name;
+									});
+									classObj.options.push(property);
+								}
 							} else {
 								property.name = name;
 								classObj.properties.push(property);
@@ -627,6 +821,10 @@ module.exports = function (grunt) {
 							event.tags = block.tags;
 							event.description = description || block.description.full;
 							event.code = block.code;
+							event.isInternal = !!(block.tags.filter(function (tag) {
+								return tag.type === "internal";
+							})[0]);
+							event.isPublic = !event.isInternal;
 							classObj.events.push(event);
 						}
 					} else {
@@ -690,18 +888,7 @@ module.exports = function (grunt) {
 						method.params[method.params.length - 1].isLast = true;
 					}
 					method.hasParams = !!method.params.length;
-					method.return = block.tags.filter(function (tag) {
-						return tag.type === "chainable";
-					}).map(function () {
-						return {
-							types: [
-								memberOf.replace("ns.widget." + profile + ".", "")
-							],
-							description: "return this"
-						};
-					}).concat(block.tags.filter(function (tag) {
-						return tag.type === "return" || tag.type === "returns";
-					}))[0];
+
 					method.since = block.tags.filter(function (tag) {
 						return tag.type === "since";
 					}).map(function (tag) {
@@ -716,10 +903,7 @@ module.exports = function (grunt) {
 					method.tags = block.tags;
 					method.examples = [];
 					method.brief = block.description.summary;
-					method.description = deleteBR(prepareNote(block.description.body.replace(/@example/g, "").replace(/(<h[0-9]>(.*?)<\/h[0-9]>(\t|\r| |\n)*?)?<pre><code>((.|\n)*?)<\/code><\/pre>/mg, function (match, p1, p2, p3, p4) {
-						method.examples.push({name: p2 || "", code: p4.replace(/\n*[ \t]*\n*<\/?(pre|code)>\n*[\t ]*\n*/gm, "")});
-						return "";
-					})));
+					prepareDescriptionAndExamples(method, block.description.body);
 					method.isPrivate = !!(block.tags.filter(function (tag) {
 						return tag.type === "private";
 					})[0]);
@@ -757,23 +941,26 @@ module.exports = function (grunt) {
 						docsStructure[i].name = name;
 						grunt.log.ok("processing: ", i, name);
 						if (name.match(widgetRegExp) &&
+							(name !== "tau.widget" && name !== "tau.widget.mobile" && name !== "tau.widget.wearable" &&
+									name !== "tau.widget.core" && name !== "tau.widget.tv") &&
 							!(docsStructure[i].isInternal &&
 							(template !== "dld")) &&
 							docsStructure[i].type !== "page") {
-							file = name.replace(/\./g, "_") + ".htm";
+							file = profile + "_" + namespaceArray.pop() + ".htm";
 							filename = name.replace(/\./g, "/") + ".js";
 							description = docsStructure[i].brief || "";
-							if (name.match(widgetProfileRegExp)) {
+							if (docsStructure[i].children.length === 0) {
 								rowsWidgets.push({
 									file: file,
 									namespace: name,
 									name: docsStructure[i].title,
 									filename: filename,
-									description: description
+									description: description,
+									since: docsStructure[i].deprecated ? "deprecated" : docsStructure[i].since
 								});
 							}
 							series.push(createWidgetDoc.bind(null, newFile,
-								file, name, docsStructure[i]));
+								file, docsStructure[i]));
 						} else if (name.match(/^tau\.event/) &&
 							!(docsStructure[i].isInternal &&
 							(template !== "dld")) &&
@@ -829,7 +1016,9 @@ module.exports = function (grunt) {
 				series.push(createBlockIndex.bind(null, newFile, docsStructure, "event", rowsEvents));
 				series.push(createBlockIndex.bind(null, newFile, docsStructure, "util", rowsUtil));
 				series.push(createClassIndex.bind(null, newFile, docsStructure, rowsClasses));
-				series.push(createIndex.bind(null, newFile, docsStructure.ns, []));
+				if (profile !== "mobile_support") {
+					series.push(createIndex.bind(null, newFile, docsStructure.ns, []));
+				}
 				series.push(done);
 
 				grunt.file.write(structureFile, "window.tauDocumentation = " + JSON.stringify(modules) + ";");
@@ -842,9 +1031,45 @@ module.exports = function (grunt) {
 				files.push(file);
 			});
 		});
+		prepareMDDocs(profile);
 		next = files.pop();
 		if (next) {
 			parseDox(next);
 		}
+	});
+
+	function prepareFilesList(done, output) {
+		var result = rjsBuildAnalysis.parse(output),
+			slice = [].slice;
+
+		if (result && result.bundles.length > 0) {
+			slice.call(result.bundles[0].children).forEach(function (modulePath) {
+				var mdFile = modulePath.replace(/(\.js)+/gi, ".md"),
+					moduleName = path.relative("src/js/", modulePath).replace(/(\.js)+/gi, "").split(path.sep),
+					files = grunt.file.expand(mdFile);
+
+				if (files.length) {
+					if (moduleName[0] === "profile") {
+						moduleName.shift();
+						moduleName.shift();
+					}
+					moduleName.unshift("tau");
+					additionalDocs[moduleName.join(".")] = prepareNote(marked(grunt.file.read(mdFile)));
+				}
+			});
+		}
+		done();
+	}
+
+	grunt.registerMultiTask("analize-docs", "", function () {
+		var configProperty = grunt.config.get("requirejs"),
+			profile = this.data.profile;
+
+		configProperty["docs-" + profile] = configProperty[profile];
+		configProperty["docs-" + profile].options.out = path.join("tmp", "docs.js");
+		configProperty["docs-" + profile].options.done = prepareFilesList.bind(null);
+		grunt.config.set("requirejs", configProperty);
+
+		grunt.task.run("requirejs:docs-" + profile, "docs-html:" + profile);
 	});
 };

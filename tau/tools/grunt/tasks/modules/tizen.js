@@ -13,8 +13,8 @@ var os = require("os"),
 (function () {
 	var file = grunt.file,
 		envConfiguration = {
-			sdkPath: path.join(process.env.HOME, "tizen-sdk"),
-			sdkWorkspacePath: path.join(process.env.HOME, "workspace"),
+			sdkPath: path.join(process.env.HOME || "", "tizen-sdk"),
+			sdkWorkspacePath: path.join(process.env.HOME || "", "workspace"),
 			tempPath: "tmp/_tizen_tools",
 			devices: []
 		},

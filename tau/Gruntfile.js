@@ -254,28 +254,29 @@ module.exports = function (grunt) {
 			eslint: {
 				js: {
 					options: {
-						jshintrc: ".eslintrc",
 						rules: {
 							camelcase: "off"
 						}
 					},
 					files: {
-						src: [path.join(srcJs, "**/*.js"), "Gruntfile.js", "tools/grunt/tasks/**/*.js", "demos/SDK/**/*.js", "!demos/SDK/**/lib/**/*.js", "demos/SDK/**/*.html", "demos/SDK/**/*.htm"]
+						src: [path.join(srcJs, "**/*.js"), "Gruntfile.js", "tools/grunt/tasks/**/*.js",
+							"!tools/grunt/tasks/templates/**/*.js", "demos/SDK/**/*.js", "!demos/SDK/**/lib/**/*.js",
+							"demos/SDK/**/*.html", "demos/SDK/**/*.htm"]
 					}
 				},
 				"js-ci": {
 					options: {
-						jshintrc: ".eslintrc",
 						format: "junit",
 						outputFile: "report/eslint/junit-output.xml"
 					},
 					files: {
-						src: [path.join(srcJs, "**/*.js"), "Gruntfile.js", "tools/grunt/tasks/**/*.js", "demos/SDK/**/*.js", "!demos/SDK/**/lib/**/*.js", "demos/SDK/**/*.html", "demos/SDK/**/*.htm"]
+						src: [path.join(srcJs, "**/*.js"), "Gruntfile.js", "tools/grunt/tasks/**/*.js", "demos/SDK/**/*.js",
+							"!tools/grunt/tasks/templates/**/*.js", "!demos/SDK/**/lib/**/*.js", "demos/SDK/**/*.html",
+							"demos/SDK/**/*.htm"]
 					}
 				},
 				single: {
 					options: {
-						jshintrc: ".eslintrc",
 						format: "junit",
 						reporterOutput: "report/eslint/junit-" + grunt.option("jshintno") + ".xml"
 					},
@@ -847,6 +848,14 @@ module.exports = function (grunt) {
 						src: ["dist/mobile/js/tau.js"]
 					}
 				},
+				mobile_support: {
+					profile: "mobile_support",
+					template: "sdk",
+					version: version,
+					files: {
+						src: ["dist/mobile/js/tau.support-2.3.js"]
+					}
+				},
 				wearable: {
 					profile: "wearable",
 					template: "sdk",
@@ -854,31 +863,18 @@ module.exports = function (grunt) {
 					files: {
 						src: ["dist/wearable/js/tau.js"]
 					}
+				}
+			},
+
+			"analize-docs": {
+				mobile: {
+					profile: "mobile"
 				},
-				"mobile-dld": {
-					profile: "mobile",
-					template: "dld",
-					version: version,
-					files: {
-						src: ["dist/mobile/js/tau.js"]
-					}
+				mobile_support: {
+					profile: "mobile_support"
 				},
-				"wearable-dld": {
-					profile: "wearable",
-					template: "dld",
-					version: version,
-					files: {
-						src: ["dist/wearable/js/tau.js"]
-					}
-				},
-				unit: {
-					profile: "core",
-					template: "sdk",
-					version: version,
-					failOnError: true,
-					files: {
-						src: ["dist/unit/tau.js"]
-					}
+				wearable: {
+					profile: "wearable"
 				}
 			},
 
@@ -1093,12 +1089,15 @@ module.exports = function (grunt) {
 	grunt.registerTask("js-mobile_support", "Prepare JS for mobile 2.3", ["clean:js", "requirejs:mobile", "requirejs:mobile_support", "jsmin", "themesjs:mobile", "copy:mobileJquery"]);
 	grunt.registerTask("js-wearable", "Prepare JS wearable", ["clean:js", "requirejs:wearable", "jsmin", "themesjs:wearable"]);
 	grunt.registerTask("license", "Add licence information to files", ["concat:licenseJs", "concat:licenseDefaultCss", "concat:licenseChangeableCss", "concat:licenseWearableCss", "copy:license"]);
-	grunt.registerTask("sdk-docs", "Prepare SDK documentation", ["docs-html:mobile", "docs-html:wearable", "copy:sdk-docs"]);
-	grunt.registerTask("build", "Build whole project", ["lint", "css", "globalize", "js", "license", "version"]);
+	grunt.registerTask("docs-mobile", ["js-mobile", "analize-docs:mobile", "copy:sdk-docs"]);
+	grunt.registerTask("docs-mobile_support", ["js-mobile_support", "analize-docs:mobile_support", "copy:sdk-docs"]);
+	grunt.registerTask("docs-wearable", ["js-wearable", "analize-docs:wearable", "copy:sdk-docs"]);
+
+grunt.registerTask("docs", ["docs-wearable", "docs-mobile_support", "docs-mobile"]);	grunt.registerTask("build", "Build whole project", ["css", "globalize", "js", "license", "version"]);
 	grunt.registerTask("build-mobile", "Build mobile project", ["css-mobile", "js-mobile", "license", "version"]);
 	grunt.registerTask("build-mobile_support", "Build mobile project for 2.3", ["css-mobile_support", "js-mobile_support", "license", "version"]);
 	grunt.registerTask("build-wearable", "Build wearable project", ["css-wearable", "js-wearable", "license", "version"]);
-	grunt.registerTask("release", "Build, est and prepare docs", ["build", "test:mobile", "test:mobile_support", "test:jqm", "test:jqm14ok", "test:wearable", "sdk-docs"]);
+	grunt.registerTask("release", "Build, est and prepare docs", ["lint", "build", "test:mobile", "test:mobile_support", "test:jqm", "test:jqm14ok", "test:wearable"]);
 	grunt.registerTask("default", "->release", ["release"]);
 	grunt.registerTask("ci", "Code style validation for CI", ["eslint:js-ci", "lesslint:less-ci", "eslint:jsdoc-ci"]);
 };

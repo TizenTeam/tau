@@ -46,9 +46,9 @@
     "mu2": "~0.5.20",
     "qunitjs": "^1.23.1",
     "rjs-build-analysis": "~0.0.3",
-    "shelljs": "latest",
     "underscore": "1.6.0",
-    "xml2js": "~0.4.4"
+    "xml2js": "~0.4.4",
+    "shelljs": "latest"
   },
   "main": "Gruntfile.js",
   "dependencies": {
