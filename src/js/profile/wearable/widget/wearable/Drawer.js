@@ -120,6 +120,8 @@
  *
  * @since 2.3
  * @class ns.widget.wearable.Drawer
+ * @component-selector .ui-drawer
+ * @component-type standalone-component
  * @extends ns.widget.core.Drawer
  * @author Hyeoncheol Choi <hc7.choi@samsung.com>
  */

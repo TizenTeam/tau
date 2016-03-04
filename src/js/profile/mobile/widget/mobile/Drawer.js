@@ -15,8 +15,8 @@
  * limitations under the License.
  */
 /**
- * #Drawer
- * Drawer component allows you to open and close a drawer to show or hide the content inside it.
+ * #Drawer Widget
+ * Drawer widget provide creating drawer widget and managing drawer operation.
  *
  * @since 2.3
  * @class ns.widget.mobile.Drawer

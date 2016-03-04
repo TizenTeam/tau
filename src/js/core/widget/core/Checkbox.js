@@ -24,6 +24,24 @@
  * @extends ns.widget.BaseWidget
  */
 /*jslint nomen: true, plusplus: true */
+/**
+ * #Checkbox
+ *
+ * ## HTML examples
+ *
+ * ### Basic use
+ *      @example template
+ *      <input type="checkbox"/>
+ *
+ * ### Checkbox with label
+ *      @example tau-checkbox
+ *      <input type="checkbox" name="${5:mycheck}" id="${3:check-test}" checked="${2:checked}"/>\n<label for="${4:check-test}">${1:Checkbox}</label>
+ *
+ * @class ns.widget.core.Checkbox
+ * @component-selector input[type="checkbox"]:not(.ui-slider-switch-input):not([data-role="toggleswitch"]):not(.ui-toggleswitch):not(.ui-switch-input), input.ui-checkbox
+ * @component-type standalone-component
+ * @component-attachable true
+ */
 (function (document, ns) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);

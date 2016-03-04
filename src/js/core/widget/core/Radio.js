@@ -17,10 +17,14 @@
 /*jslint nomen: true, plusplus: true */
 /**
  * #Radio
- * Radio component changes the default browser radio button to a form more adapted to the mobile environment.
  *
- * @since 2.4
+ *     @example template tau-radio
+ *         <input type="radio"/>
+ *
  * @class ns.widget.core.Radio
+ * @component-selector input[type=radio]
+ * @component-type standalone-component
+ * @since 2.4
  * @extends ns.widget.BaseWidget
  */
 (function (document, ns) {

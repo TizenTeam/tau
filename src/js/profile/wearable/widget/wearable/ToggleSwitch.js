@@ -25,7 +25,13 @@
  *
  * To add a toggle switch widget to the application, use the following code:
  *
- *      @example
+ *      @example template
+ *      <div class="ui-toggleswitch ui-toggleswitch-large">
+ *          <input type="checkbox" class="ui-switch-input" />
+ *          <div class="ui-switch-button"></div>
+ *      </div>
+ *
+ *      @example tau-toggle-switch
  *      <div class="ui-switch">
  *          <div class="ui-switch-text">
  *              Toggle Switch
@@ -45,6 +51,8 @@
  * ToggleSwitch widget hasn't JavaScript API.
  *
  * @class ns.widget.wearable.ToggleSwitch
+ * @component-selector .ui-toggleswitch
+ * @component-type standalone-component
  * @extends ns.widget.BaseWidget
  */
 (function (document, ns) {
@@ -79,6 +87,11 @@
 					activation: classesPrefix + "-activation",
 					input: classesPrefix + "-input",
 					text: classesPrefix + "-text"
+					/**
+					 * Set big size
+					 * @style ui-toggleswitch-large
+					 * @member ns.widget.wearable.ToggleSwitch
+					 */
 				},
 				prototype = new BaseWidget();
 

@@ -247,7 +247,7 @@
  * data-transition attribute to the link.
  *
  *        @example
- *        <a href="index.html" data-rel="popup" data-transition="slideup">I'll slide up</a>
+ *        <a href="index.html" data-rel="popup" data-transition="slideup">I will slide up</a>
  *
  * Global configuration:
  *
@@ -283,6 +283,7 @@
  * @author Hyunkook Cho <hk0713.cho@samsung.com>
  * @class ns.widget.core.ContextPopup
  * @extends ns.widget.core.Popup
+ * @component-selector [data-role="popup"], .ui-popup
  */
 (function (window, document, ns) {
 	"use strict";

@@ -18,35 +18,6 @@
  * #Button
  * Button component changes the default browser buttons to special buttons with additional features, such as icons, corners, and shadows.
  *
- * ##Default Selectors
- *
- * By default, all button elements are displayed as Tizen Web UI buttons.
- * In addition, all elements with the *class="ui-btn"* and *data-role="button"* attribute are displayed as Tizen Web UI buttons.
- *
- * ##Manual Constructor
- *
- * To manually create a button component, use the component constructor from the tau namespace:
- *
- * @example
- *    <div id="button"></div>
- *    <script>
- *      var buttonElement = document.getElementById("button"),
- *        button = tau.widget.Button(buttonElement);
- *    </script>
- *
- * The constructor requires an HTMLElement parameter to create the component, and you can get it with the
- * document.getElementById() method. The constructor can also take a second parameter, which is an object defining the
- * configuration options for the component.
- *
- * ##HTML Examples
- *
- * To create a simple button from a link using the class selector:
- *
- * @example
- *   <a href="#page2" class="ui-btn">Link button</a>
- *
- * To create a simple button using the <button> element:
- *
  * @example
  *    <button>Button element</button>
  *

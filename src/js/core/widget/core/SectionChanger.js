@@ -23,6 +23,15 @@
  *
  * ## Manual constructor
  *
+ *      @example template tau-section-changer
+ *         <div class="ui-section-changer">
+ *             <div>
+ *                 <section style="text-align:center"><span>${1:Section 1}</span></section>
+ *                 <section style="text-align:center"><span>${2:Section 2}</span></section>
+ *             </div>
+ *         </div>
+ *
+ *
  *      @example
  *         <div id="hasSectionchangerPage" class="ui-page">
  *             <header class="ui-header">
@@ -81,6 +90,8 @@
  *
  * @class ns.widget.core.SectionChanger
  * @since 2.4
+ * @component-selector [data-role="section-changer"], .ui-section-changer
+ * @component-type container-component
  * @extends ns.widget.BaseWidget
  */
 (function (document, ns) {

@@ -31,35 +31,19 @@
  *
  * You can add a basic list widget as follows:
  *
- *      @example
+ *      @example template
  *         <ul class="ui-listview">
- *             <li>1line</li>
- *             <li>2line</li>
- *             <li>3line</li>
- *             <li>4line</li>
- *             <li>5line</li>
+ *             <li><span>List Item</span></li>
  *         </ul>
  *
  * ### List with link items
  *
  * You can add a list widget with a link and press effect that allows the user to click each list item as follows:
  *
- *      @example
+ *      @example tau-listview-with-link
  *         <ul class="ui-listview">
  *             <li>
- *                 <a href="#">1line</a>
- *             </li>
- *             <li>
- *                 <a href="#">2line</a>
- *             </li>
- *             <li>
- *                 <a href="#">3line</a>
- *             </li>
- *             <li>
- *                 <a href="#">4line</a>
- *             </li>
- *             <li>
- *                 <a href="#">5line</a>
+ *                 <a href="#">List Item</a>
  *             </li>
  *         </ul>
  *
@@ -68,7 +52,27 @@
  * Listview widget hasn't JavaScript API.
  *
  * @class ns.widget.core.Listview
+ * @component-selector .ui-listview
+ * @components-constraint 'listitem'
+ * @component-type container-component
  * @extends ns.widget.BaseWidget
+ */
+/**
+ * Listview with gradient background
+ * @style ui-colored-list
+ * @member ns.widget.core.Listview
+ * @mobile
+ */
+/**
+ * Enable snap list style
+ * @style ui-snap-listview
+ * @member ns.widget.core.Listview
+ * @wearable
+ */
+/**
+ *
+ * @style ui-snap-listview
+ * @member ns.widget.core.Listview
  */
 (function (document, ns) {
 	"use strict";
@@ -121,3 +125,200 @@
 	);
 	//>>excludeEnd("tauBuildExclude");
 }(window.document, ns));
+
+/**
+ * # List Item
+ *
+ * You can add a basic list item as follows:
+ *
+ *      @example template
+ *         <li><span>List Item</span></li>
+ *
+ *
+ * @class ns.widget.core.ListItem
+ * @component-selector .ui-listview li
+ * @components-constraint 'text', 'image', 'checkbox', 'button', 'radio', 'toggleswitch', 'processing'
+ * @component-type container-component
+ * @extends ns.widget.BaseWidget
+ */
+/**
+ *
+ * @style ui-li-anchor
+ * @member ns.widget.core.ListItem
+ */
+/**
+ * Subtext for item
+ * @style li-text-sub
+ * @selector  > *
+ * @member ns.widget.core.ListItem
+ * @mobile
+ */
+/**
+ * Subtext for item
+ * @style ui-li-sub-text
+ * @selector  > *
+ * @member ns.widget.core.ListItem
+ * @wearable
+ */
+/**
+ * Item with button on the right
+ * @style li-has-right-btn
+ * @mobile
+ * @member ns.widget.core.ListItem
+ */
+/**
+ * Item with circular button on the right
+ * @style li-has-right-circle-btn
+ * @selector
+ * @member ns.widget.core.ListItem
+ * @mobile
+ */
+/**
+ * Item with thumbnail on the left
+ * @style li-has-thumb
+ * @selector
+ * @member ns.widget.core.ListItem
+ * @mobile
+ */
+/**
+ * Thumbnail inside item
+ * @style li-thumb
+ * @selector .li-has-thumb > *
+ * @member ns.widget.core.ListItem
+ * @mobile
+ */
+/**
+ * Item with checkbox
+ * @style li-has-checkbox
+ * @member ns.widget.core.ListItem
+ * @mobile
+ */
+/**
+ * Item with radio button
+ * @style li-has-radio
+ * @selector
+ * @member ns.widget.core.ListItem
+ * @mobile
+ */
+/**
+ * Item with progressbar
+ * @style li-has-progress
+ * @mobile
+ * @member ns.widget.core.ListItem
+ */
+/**
+ * Item with multilines
+ * @style li-has-multiline
+ * @mobile
+ * @member ns.widget.core.ListItem
+ */
+/**
+ * Second subtext for multiline item positioned under the first one
+ * @style ui-text-sub2
+ * @selector .li-has-multiline > *
+ * @mobile
+ * @member ns.widget.core.ListItem
+ */
+/**
+ * Subtext for multiline item positioned on the right
+ * @style ui-text-sub3
+ * @selector .li-has-multiline > *
+ * @member ns.widget.core.ListItem
+ * @mobile
+ */
+/**
+ * Item with 2 lines
+ * @style li-has-2line
+ * @wearable
+ * @member ns.widget.core.ListItem
+ */
+/**
+ * Item with 3 lines
+ * @style li-has-3-lines
+ * @mobile
+ * @member ns.widget.core.ListItem
+ */
+/**
+ *
+ * @style li-icon-sub
+ * @selector  .li-text-sub > *
+ * @member ns.widget.core.ListItem
+ * @mobile
+ */
+/**
+ *
+ * @style li-icon-sub
+ * @selector .li-text-sub3 > *
+ * @member ns.widget.core.ListItem
+ * @mobile
+ */
+/**
+ *
+ * @style ui-li-static
+ * @mobile
+ * @member ns.widget.core.ListItem
+ */
+/**
+ * Expandable item
+ * @style ui-expandable
+ * @mobile
+ * @member ns.widget.core.ListItem
+ */
+/**
+ * Divider item
+ * @style ui-group-index
+ * @mobile
+ * @member ns.widget.core.ListItem
+ */
+/**
+ * List divider
+ * @style ui-listview-divider
+ * @wearable
+ * @member ns.widget.core.ListItem
+ */
+/**
+ * Marquee item
+ * @style ui-marquee
+ * @wearable
+ * @member ns.widget.core.ListItem
+ */
+/**
+ * Marquee item with blurry effect
+ * @style ui-marquee-gradient
+ * @wearable
+ * @member ns.widget.core.ListItem
+ */
+/**
+ * Item with action icon
+ * @style ui-li-has-action-icon
+ * @wearable
+ * @member ns.widget.core.ListItem
+ */
+/**
+ * Text for action item
+ * @style ui-action-text
+ * @selector .ui-li-has-action-icon > *
+ * @wearable
+ * @member ns.widget.core.ListItem
+ */
+/**
+ * Setting icon for action item
+ * @style ui-action-setting
+ * @selector .ui-li-has-action-icon > *
+ * @wearable
+ * @member ns.widget.core.ListItem
+ */
+/**
+ * Delate icon for action item
+ * @style ui-action-delete
+ * @selector .ui-li-has-action-icon > *
+ * @wearable
+ * @member ns.widget.core.ListItem
+ */
+/**
+ * Adding icon for action item
+ * @style ui-action-add
+ * @selector .ui-li-has-action-icon > *
+ * @wearable
+ * @member ns.widget.core.ListItem
+ */

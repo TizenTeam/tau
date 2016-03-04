@@ -191,6 +191,22 @@
 					}
 					return self;
 				},
+				/**
+				 * Constructor for Animation object
+				 * @param {Object} options
+				 * @param {HTMLElement} options.element The animated element
+				 * @param {Object|null} [options.from=null] The starting step, this can be defined later
+				 * @param {Object|null} [options.to=null]  The finishing step, this can also be defined later
+				 * @param {Object[]} [options.steps=Array(0)] Animation steps, when advanced keying is required, the array must have 100 elements, which are percentages of the timeline (anmation duration)
+				 * @param {string} [options.duration="0"] The duration of the animation
+				 * @param {string} [options.direction="normal"] The direction of the animation (for possible values, refer to CSS Animation spec)
+				 * @param {string} [options.delay="0"] The delay of the animation. Please remember when using ns.util.anim.Chain with concurrent option to false, the of subsequent animations will be modified
+				 * @param {string} [options.fillMode="none"] The fill mode of the animations (for possible values, refer to CSS Animation spec)
+				 * @param {string} [options.timingFunction="ease"] Chooses the timing function for the css animation
+				 * @param {boolean} [options.autoPlay=false] Defines if the animation will start after definition
+				 * @constructor
+				 * @member ns.util.anim.Animation
+				 */
 				Animation = function (options) {
 					var self = this,
 						/**
@@ -219,6 +235,7 @@
 						 *        Animation spec)
 						 * @property {boolean} [options.autoPlay=false] Defines if the animation
 						 *        will start after definition
+						 * @member ns.util.anim.Animation
 						 */
 						opts = objectUtils.merge({
 							element: null,

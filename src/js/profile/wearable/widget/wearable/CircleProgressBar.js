@@ -20,6 +20,8 @@
  * Shows a control that indicates the progress percentage of an on-going operation by circular shape.
  *
  * @class ns.widget.wearable.CircleProgressBar
+ * @component-type standalone-component
+ * @component-selector .ui-circle-progress, .ui-progress
  * @since 2.3
  * @extends ns.widget.BaseWidget
  */

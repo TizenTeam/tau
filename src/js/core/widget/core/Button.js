@@ -172,6 +172,8 @@
  *
  * @since 2.0
  * @class ns.widget.core.Button
+ * @component-selector button, [data-role="button"], .ui-btn, input[type="button"]
+ * @component-type standalone-component
  * @extends ns.widget.BaseWidget
  */
 (function (document, ns) {
@@ -190,9 +192,24 @@
 			//>>excludeEnd("tauBuildExclude");
 			var BaseWidget = ns.widget.BaseWidget,
 				engine = ns.engine,
+				/**
+				 * Create instance of widget
+				 * @constructor
+				 * @member ns.widget.core.Button
+				 */
 				utilDOM = ns.util.DOM,
 				classes = {
+					/**
+					 * Standard button
+					 * @style ui-btn
+					 * @member ns.widget.core.Button
+					 */
 					BTN: "ui-btn",
+					/**
+					 * Disabled button
+					 * @style ui-state-disabled
+					 * @member ns.widget.core.Button
+					 */
 					DISABLED: "ui-state-disabled",
 					INLINE: "ui-inline",
 					BTN_ICON: "ui-btn-icon",
@@ -202,6 +219,37 @@
 					BTN_ICON_ONLY: "ui-btn-icon-only",
 					BTN_TEXT_LIGHT: "ui-btn-text-light",
 					BTN_TEXT_DARK: "ui-btn-text-dark",
+					/**
+					 * Change background color of button to red
+					 * @style ui-color-red
+					 * @preview <span style="background-color: red;">&nbsp;</span>
+					 * @member ns.widget.core.Button
+					 */
+					/**
+					 * Button for header
+					 * @style ui-more
+					 * @member ns.widget.core.Button
+					 */
+					/**
+					 * Button more for header
+					 * @style ui-icon-overflow
+					 * @member ns.widget.core.Button
+					 */
+					/**
+					 * Button details for header
+					 * @style ui-icon-detail
+					 * @member ns.widget.core.Button
+					 */
+					/**
+					 * Button select all for header
+					 * @style ui-icon-selectall
+					 * @member ns.widget.core.Button
+					 */
+					/**
+					 * Icon only style
+					 * @style ui-btn-icon-only
+					 * @member ns.widget.core.Button
+					 */
 					BTN_ICON_POSITION_PREFIX: "ui-btn-icon-",
 					BTN_ICON_MIDDLE: "ui-btn-icon-middle"
 				},
@@ -237,8 +285,14 @@
 				 * @property {boolean} [options.inline=false] If is set true then button has inline style
 				 * @property {?string} [options.icon=null] Set icon class name for button
 				 * @property {boolean} [options.disabled=false] Disable button if is set to true
-				 * @property {null|"circle"|"nogb"} [options.style=null] Set style of button
 				 * @property {"left"|"right"|"button"|"top"} [options.iconpos="left"] Set icon position
+				 * @member ns.widget.core.Button
+				 * @static
+				 */
+				/**
+				 * "circle" Make circle button
+				 * "nogb" Make button without background
+				 * @property {null|"circle"|"nogb"} [options.style=null] Set style of button
 				 * @member ns.widget.core.Button
 				 * @static
 				 */

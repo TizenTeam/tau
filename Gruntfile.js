@@ -21,7 +21,10 @@
 var path = require("path"),
 	autoprefixer = require("autoprefixer"),
 	async = require("async"),
-	ceconverter = require(path.join(__dirname, "/tools/converter/index"));
+	ceconverter = require(path.join(__dirname, "/tools/converter/index")),
+	// Rules for jsdoc check
+	eslintRules = require("./.eslintrc"),
+	jsdocRules = require("./config/.eslintrc.jsdoc.ci");
 
 module.exports = function (grunt) {
 	var pkg = grunt.file.readJSON("package.json"),
@@ -45,28 +48,14 @@ module.exports = function (grunt) {
 			"CIRCLE": "all and (-tizen-geometric-shape: circle)"
 		},
 
-		// Rules for jsdoc check
-		jsdocRules = {
-			"jsdoc/check-param-names": 1,
-			"jsdoc/check-tag-names": 1,
-			"jsdoc/check-types": 1,
-			"jsdoc/newline-after-description": 0,
-			"jsdoc/require-description-complete-sentence": 0,
-			"jsdoc/require-hyphen-before-param-description": 0,
-			"jsdoc/require-param": 0,
-			// @TODO temporary remove, too many errors, good named parem not required description
-			"jsdoc/require-param-description": 0,
-			"jsdoc/require-param-type": 1,
-			"jsdoc/require-returns-description": 0,
-			"jsdoc/require-returns-type": 1
-		},
-
 		// Path to framework JS sources
 		srcJs = path.join(src, "js"),
 		srcCss = themes.path,
 
 		tauDebug = grunt.option("tau-debug") || false,
 		tauPerformance = grunt.option("tau-performance") || false,
+
+		fwkDirectory = grunt.option("fwk-directory") || "../../fwk/",
 
 		buildRoot = path.join(dist),
 		buildDir = {
@@ -309,8 +298,9 @@ module.exports = function (grunt) {
 				},
 				jsdoc: {
 					options: {
-						plugins: ["jsdoc"],
-						rules: jsdocRules
+						plugins: eslintRules.plugins,
+						rules: Object.assign({}, eslintRules.rules, jsdocRules.rules),
+						settings: Object.assign({}, eslintRules.settings, jsdocRules.settings)
 					},
 					files: {
 						src: [path.join(srcJs, "**/*.js")]
@@ -318,8 +308,9 @@ module.exports = function (grunt) {
 				},
 				"jsdoc-ci": {
 					options: {
-						plugins: ["jsdoc"],
-						rules: jsdocRules,
+						plugins: jsdocRules.plugins,
+						rules: Object.assign({}, eslintRules.rules, jsdocRules.rules),
+						settings: jsdocRules.settings,
 						format: "junit",
 						outputFile: "report/eslint/junit-output-doc.xml"
 					},
@@ -839,20 +830,29 @@ module.exports = function (grunt) {
 
 				"sdk-docs": {
 					files: [
-						{
-							expand: true,
-							cwd: "tools/grunt/tasks/templates/files",
-							src: "**/*",
-							dest: "docs/sdk/mobile/html"
-						},
-						{
-							expand: true,
-							cwd: "tools/grunt/tasks/templates/files",
-							src: "**/*",
-							dest: "docs/sdk/wearable/html"
-						}
+						{expand: true, cwd: "tools/grunt/tasks/templates/sdk/files", src: "**/*", dest: "docs/sdk/mobile/html"},
+						{expand: true, cwd: "tools/grunt/tasks/templates/sdk/files", src: "**/*", dest: "docs/sdk/wearable/html"},
+						{expand: true, cwd: "tools/grunt/tasks/templates/sdk/files", src: "**/*", dest: "docs/sdk/tv/html"}
+					]
+				},
+
+				"components": {
+					files: [
+						{expand: true, cwd: "tools/grunt/tasks/templates/components/files", src: "**/*", dest: "docs/components/wearable"}
+					]
+				},
+
+				"components-images": {
+					files: [
+						{expand: true, cwd: "src/", src: "images/*", dest: "docs/components/wearable/components/"}
+					]
+				},
+				"fwk": {
+					files: [
+						{expand: true, cwd: "docs/components/wearable", src: "**/*", dest: fwkDirectory + "/tau-component-packages" }
 					]
 				}
+
 			},
 
 			licenseCss: {
@@ -1104,6 +1104,14 @@ module.exports = function (grunt) {
 					files: {
 						src: ["dist/wearable/js/tau.js"]
 					}
+				},
+				"wearable-components": {
+					profile: "wearable",
+					template: "components",
+					version: version,
+					files: {
+						src: ["dist/wearable/js/tau.js"]
+					}
 				}
 			},
 
@@ -1116,6 +1124,9 @@ module.exports = function (grunt) {
 				},
 				wearable: {
 					profile: "wearable"
+				},
+				"wearable-components": {
+					profile: "wearable-components"
 				}
 			},
 
@@ -1323,7 +1334,6 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks("grunt-postcss");
 
 	grunt.loadTasks("tools/grunt/tasks");
-	grunt.loadTasks("demos/tools/app/tasks");
 
 	grunt.registerTask("dev", ["dom_munger:" + mediaType]);
 	grunt.registerTask("release", ["dom_munger:default"]);
@@ -1353,6 +1363,8 @@ module.exports = function (grunt) {
 	grunt.registerTask("docs-mobile_support", ["js-mobile_support", "analize-docs:mobile_support", "copy:sdk-docs"]);
 	grunt.registerTask("docs-wearable", ["js-wearable", "analize-docs:wearable", "copy:sdk-docs"]);
 	grunt.registerTask("docs", ["docs-wearable", "docs-mobile_support", "docs-mobile"]);
+	grunt.registerTask("docs-components-wearable", ["js-wearable", "analize-docs:wearable-components", "copy:components", "copy:components-images", "copy:fwk"]);
+	grunt.registerTask("docs-components", ["docs-components-wearable"]);
 
 	grunt.registerTask("build", "Build whole project", ["css", "js", "license", "version"]);
 	grunt.registerTask("build-mobile", "Build mobile project", ["css-mobile", "js-mobile", "license", "version"]);

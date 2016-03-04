@@ -159,6 +159,18 @@
 				 * @member ns.widget.core.Popup
 				 * @static
 				 */
+				/**
+				 * Toast style of popup
+				 * @style ui-popup-toast
+				 * @member ns.widget.core.Popup
+				 * @wearable
+				 */
+				/**
+				 * Toast style of popup with graphic
+				 * @style ui-popup-toast-graphic
+				 * @member ns.widget.core.Popup
+				 * @wearable
+				 */
 				classes = {
 					popup: CLASSES_PREFIX,
 					active: CLASSES_PREFIX + "-active",

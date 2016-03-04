@@ -20,6 +20,8 @@
  *
  * @since 2.4
  * @class ns.widget.core.PageIndicator
+ * @component-selector [data-role="page-indicator"], .ui-page-indicator
+ * @component-type standalone-component
  * @extends ns.widget.BaseWidget
  */
 (function (document, ns) {

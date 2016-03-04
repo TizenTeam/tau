@@ -323,7 +323,8 @@ module.exports = {
 		"jsdoc": {
 			"tagNamePreference": {
 				"returns": "return",
-				"function": "method"
+				"function": "method",
+				"classdesc": "constructor"
 			},
 			"additionalTagNames": {
 				"customTags": ["internal"]

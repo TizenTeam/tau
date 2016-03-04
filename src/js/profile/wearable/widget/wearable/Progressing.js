@@ -25,7 +25,7 @@
  *
  * To add a processing widget to the application, use the following code:
  *
- *      @example
+ *      @example template tau-precessing
  *      <div class="ui-processing"></div>
  *      <div class="ui-processing-text">
  *          Description about progress
@@ -34,7 +34,8 @@
  * ## JavaScript API
  *
  * Processing widget hasn't JavaScript API.
- *
+ * @component-selector .ui-processing
+ * @component-type standalone-component
  * @class ns.widget.wearable.Progressing
  * @extends ns.widget.BaseWidget
  */
@@ -56,6 +57,11 @@
 				prototype = new BaseWidget();
 
 			Progressing.events = {};
+			/**
+			 * Set full screen size
+			 * @style ui-processing-full-size
+			 * @member ns.widget.wearable.Progressing
+			 */
 
 			/**
 			 * Build Progressing

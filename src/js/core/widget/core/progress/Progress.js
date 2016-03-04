@@ -19,11 +19,20 @@
  * #Progress
  * Progress component shows that an operation is in progress.
  *
+ * #Crete widget
+ *
+ * Shows a control that indicates the progress percentage of an on-going operation by circular shape.
+ *
+ *     @example template tau-progress
+ *         <progress class="ui-circle-progress" max="${1:100}" value="${2:20}"></progress>
+ *
+ *
  * ##Set and Get the value
  * You can set or get the value with the value() method
  *
  * @since 2.0
  * @class ns.widget.core.progress.Progress
+ * @component-selector .ui-circle-progress, .ui-progress
  * @extends ns.widget.BaseWidget
  * @author Heeju Joo <heeju.joo@samsung.com>
  */

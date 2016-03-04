@@ -170,7 +170,7 @@
  * data-transition attribute to a link:
  *
  *      @example
- *      <a href="index.html" data-transition="slideup">I'll slide up</a>
+ *      <a href="index.html" data-transition="slideup">I\'ll slide up</a>
  *
  * To set a default custom transition effect for all pages, use the pageTransition property:
  *
@@ -231,6 +231,10 @@
  *
  * @class ns.widget.core.Page
  * @extends ns.widget.BaseWidget
+ * @component-selector .ui-page
+ * @component-type container-component
+ * @component-constraint 'popup', 'drawer', 'header', 'bottom-button'
+ * @component-attachable false
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  * @author Piotr Karny <p.karny@samsung.com>
  * @author Damian Osipiuk <d.osipiuk@samsung.com>
@@ -366,6 +370,11 @@
 				 */
 				classes = {
 					uiPage: "ui-page",
+					/**
+					 * Indicates active page
+					 * @style ui-page-active
+					 * @member ns.widget.core.Page
+					 */
 					uiPageActive: "ui-page-active",
 					uiSection: "ui-section",
 					uiHeader: "ui-header",
@@ -957,3 +966,106 @@
 	);
 	//>>excludeEnd("tauBuildExclude");
 }(window.document, ns));
+/**
+ * #Footer
+ *
+ * ## Creating footer
+ *
+ *    @example template
+ *      <footer class="ui-footer"></footer>
+ *
+ * @class ns.widget.core.Footer
+ * @component-selector .ui-page > footer, .ui-page .ui-footer
+ * @component-type layout-component
+ * @extends ns.widget.BaseWidget
+ *
+ */
+
+/**
+ * #Header
+ *
+ *    @example template
+ *      <header class="ui-header"><h2 class="ui-title">Header</h2></header>
+ *
+ * @class ns.widget.core.Header
+ * @component-selector .ui-page > header, .ui-page > .ui-header
+ * @component-type layout-component
+ * @extends ns.widget.BaseWidget
+ */
+/**
+ * Button for menu with icon in header
+ * @style ui-more
+ * @selector .ui-btn
+ * @member ns.widget.core.Header
+ * @wearable
+ * @since 2.3.1
+ */
+/**
+ * Icon style for menu button
+ * @style ui-icon-detail
+ * @selector .ui-btn.ui-more
+ * @member ns.widget.core.Header
+ * @wearable
+ * @since 2.3.1
+ */
+/**
+ * Icon style for menu button
+ * @style ui-icon-overflow
+ * @selector .ui-btn.ui-more
+ * @member ns.widget.core.Header
+ * @wearable
+ * @since 2.3.1
+ */
+/**
+ * Icon style for menu button
+ * @style ui-icon-selectall
+ * @selector .ui-btn.ui-more
+ * @member ns.widget.core.Header
+ * @wearable
+ * @since 2.3.1
+ */
+
+/**
+ * #Content
+ *
+ *    @example template
+ *      <div class="ui-content"></div>
+ *
+ * @class ns.widget.core.Content
+ * @component-selector .ui-content
+ * @component-type container-component
+ * @component-constraint 'bottom-button', 'checkbox', 'listview', 'processing', 'closet-tau-circle-progress', 'radio', 'toggleswitch', 'text', 'closet-image', 'sectionchanger'
+ * @extends ns.widget.BaseWidget
+ */
+/**
+ * Defines the buttons inside column width as 100% of the screen
+ * @style ui-grid-col-1
+ * @selector div:not(.ui-grid-col-1):not(.ui-grid-col-2):not(.ui-grid-col-3):not(.ui-grid-row)
+ * @member ns.widget.core.Content
+ * @wearable
+ * @since 2.3.1
+ */
+/**
+ * Defines the buttons inside column width as 50% of the screen
+ * @style ui-grid-col-2
+ * @selector div:not(.ui-grid-col-1):not(.ui-grid-col-2):not(.ui-grid-col-3):not(.ui-grid-row)
+ * @member ns.widget.core.Content
+ * @wearable
+ * @since 2.3.1
+ */
+/**
+ * Defines the buttons inside column width as 50% of the screen
+ * @style ui-grid-col-3
+ * @selector div:not(.ui-grid-col-1):not(.ui-grid-col-2):not(.ui-grid-col-3):not(.ui-grid-row)
+ * @member ns.widget.core.Content
+ * @wearable
+ * @since 2.3.1
+ */
+/**
+ * Arranges the buttons inside in a row
+ * @style ui-grid-row
+ * @selector div:not(.ui-grid-col-1):not(.ui-grid-col-2):not(.ui-grid-col-3):not(.ui-grid-row)
+ * @member ns.widget.core.Content
+ * @wearable
+ * @since 2.3.1
+ */
