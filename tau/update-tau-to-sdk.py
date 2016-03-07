@@ -73,6 +73,21 @@ class TAUSinglePage(Git):
 	branch="tizen_2.4"
 	type="template"
 
+class WearableUIComponent(Git):
+	addr="165.213.149.170:29418/apps/wearable/web/sample/wearable-widget-sample"
+	branch="tizen_2.3"
+	type="onlineSample"
+
+class TAUBasic(Git):
+	addr="165.213.149.170:29418/apps/wearable/web/template/tau-basic"
+	branch="tizen_2.3.1"
+	type="template"
+
+class TAUList(Git):
+	addr="165.213.149.170:29418/apps/wearable/web/template/tau-list"
+	branch="tizen_2.3.1"
+	type="template"
+
 # job list
 jobs = {
 	"mobile": Job(
@@ -101,6 +116,25 @@ jobs = {
 			SrcDest("web-ui-fw/tau/dist/LICENSE.Flora", "tau-multi-page/project/lib/tau/LICENSE.Flora"),
 			SrcDest("web-ui-fw/tau/dist/VERSION", "tau-single-page/project/lib/tau/VERSION"),
 			SrcDest("web-ui-fw/tau/dist/LICENSE.Flora", "tau-single-page/project/lib/tau/LICENSE.Flora")
+		]),
+	"wearable": Job(
+		webuifw,
+		[WearableUIComponent, TAUBasic, TAUList],
+		[
+			SrcDest("web-ui-fw/tau/demos/SDK/wearable/UIComponents", "wearable-widget-sample/project"),
+			SrcDest("web-ui-fw/tau/dist/wearable", "wearable-widget-sample/project/lib/tau"),
+			SrcDest("web-ui-fw/tau/demos/SDK/wearable/TemplateBasic", "tau-basic/project"),
+			SrcDest("web-ui-fw/tau/dist/wearable", "tau-basic/project/lib/tau"),
+			SrcDest("web-ui-fw/tau/demos/SDK/wearable/TemplateList", "tau-list/project"),
+			SrcDest("web-ui-fw/tau/dist/wearable", "tau-list/project/lib/tau")
+		], ["cd web-ui-fw/tau", "npm install", "grunt build"],
+		[
+			SrcDest("web-ui-fw/tau/dist/VERSION", "wearable-widget-sample/project/lib/tau/VERSION"),
+			SrcDest("web-ui-fw/tau/dist/LICENSE.Flora", "wearable-widget-sample/project/lib/tau/LICENSE.Flora"),
+			SrcDest("web-ui-fw/tau/dist/VERSION", "tau-basic/project/lib/tau/VERSION"),
+			SrcDest("web-ui-fw/tau/dist/LICENSE.Flora", "tau-basic/project/lib/tau/LICENSE.Flora"),
+			SrcDest("web-ui-fw/tau/dist/VERSION", "tau-list/project/lib/tau/VERSION"),
+			SrcDest("web-ui-fw/tau/dist/LICENSE.Flora", "tau-list/project/lib/tau/LICENSE.Flora")
 		])
 }
 
@@ -125,27 +159,35 @@ def cloneGit(git, targetdir):
 	cmd("cp ../../../commit-msg .git/hooks/")
 	os.chdir(cwd)
 
-def pushGit(targetdir, tauVersion):
+def pushGit(targetdir, tauVersion, profile):
 	cwd=os.getcwd()
 	os.chdir(targetdir)
+	targetBranch = ""
 
 	# get SDK Sample project Name from xml file
 	tree = ET.parse(FILE_XML)
 	root = tree.getroot()
 	projectName = root.find('SampleName').text
 
-	if (targetdir.find("tizen-") > -1):
-		updateSampleVersion(tree, root)
+	if (profile == "mobile"):
+		targetBranch = "tizen_2.4"
+		if (targetdir.find("tizen-") > -1):
+			updateSampleVersion(tree, root)
+	elif (profile == "wearable"):
+		targetBranch = "tizen_2.3.1"
+		if (targetdir.find("wearable-widget-sample") > -1):
+			targetBranch = "tizen_2.3"
+			updateSampleVersion(tree, root)
 
 	# make commit and push to gerrit
 	cmd("git add -A")
 	logmsg = projectName.replace(" ", "") + "-TAU(" + tauVersion + ")release"
 
 	cmd("git commit -m " + logmsg)
-	cmd("git push origin HEAD:refs/for/tizen_2.4")
+	cmd("git push origin HEAD:refs/for/" + targetBranch)
 
 	targetCommit = subprocess.check_output("git log --format='%H' -n 1", shell=True).replace("\n", "")
-	cmd("ssh -p 29418 " + gitaccount + "@165.213.149.170 gerrit review --verified +1 --code-review +2 submit " + targetCommit)
+	cmd("ssh -p 29418 " + gitaccount + "@165.213.149.170 gerrit review --verified +1 --code-review +2 --submit " + targetCommit)
 
 	os.chdir(cwd)
 
@@ -257,7 +299,7 @@ def main():
 		#make commit and push to gerrit
 		projectdir = os.listdir(jobdir)
 		for project in projectdir:
-			pushGit(project, tauVersion.strip())
+			pushGit(project, tauVersion.strip(), k)
 
 		for git in job.destgit:
 			if git.type == "onlineSample":
