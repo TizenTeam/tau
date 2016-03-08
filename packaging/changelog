@@ -1,4 +1,31 @@
 %changelog
+* Tue Mar 08 2016 Hagun Kim <hagun.kim@samsung.com> 0.11.6
+	- refactor(wearable): modify index.html of mobile UI components
+	- refactor(wearable): modify width of circular progress bar
+	- refactor(wearable): copy 2.3.1 css to 2.4 branch
+	- refactor(wearable): fix toast popup transition
+	- refactor(wearable): add transition to icon bg of selector
+	- refactor(wearable): add new marquee option endToEnd and apply to sample
+	- fix(core): page display first when finish page transition animation.[P151215-06271]
+	- fix(wearable): set circular scrollbar as default in WC1
+	- fix(wearable): add central button bg in WC1 selector component
+	- refactor(wearable): copy 2.3.1 wearable UI Component sample to 2.4 branch
+	- refactor(wearable): copy 2.3.1 wearable list template to 2.4 branch
+	- refactor(wearable): copy 2.3.1 wearable basic template to 2.4 branch
+	- refactor(wearable): remove legacy wearable templates and sample
+	- fix(mobile): modify from data-role to class in SinglePage
+	- fix(mobile): modify from data-role to class in MasterDetail template
+	- fix(mobile): modify from data-role to class in MultiPage
+	- refactor(mobile): add display: none property to ui-page
+	- etc(tool): update release script
+	- fix(demo): Fix United States name in Globalization Demo
+	- fix(demo): fix console warning of UIComponent
+	- fix(demo): fix warning of SDK mobile UIComponents
+	- fix(demos): fix warnings of Globalization Sample
+	- etc(sample): update tizen version in config xml
+	- perf(core): scrolling util enable fast scrolling on elment
+	- perf(core): anchorHighlight perfomance fixes
+
 * Fri Jan 22 2016 Hagun Kim <hagun.kim@samsung.com> 0.11.5
 	- fix(mobile): don't display checked image on check box(SAD-19)
 	- fix(demo): Search input lower case bug fix.
