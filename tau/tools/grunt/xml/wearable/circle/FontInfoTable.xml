@@ -20,7 +20,7 @@
 	<FontInfo id="T221" style="L" size="36" giant="true" />
 	<FontInfo id="T171P" style="M" size="32" />
 	<FontInfo id="T181P" style="R" size="28" />
-	<FontInfo id="T013" style="R" size="28" />
+	<FontInfo id="T013" style="R" size="30" />
 	<FontInfo id="T014" style="M" size="40" />
 	<FontInfo id="T024" style="L" size="24" />
 	<FontInfo id="T024P" style="L" size="24" />
@@ -30,7 +30,7 @@
 	<FontInfo id="T016" style="R" size="28" />
 	<FontInfo id="T016D" style="R" size="28" />
 	<FontInfo id="T017" style="R" size="28" />
-	<FontInfo id="T018" style="R" size="24" />
+	<FontInfo id="T018" style="R" size="29" />
 	<FontInfo id="T0311" style="L" size="22" />
 	<FontInfo id="T0311P" style="L" size="22" />
 	<FontInfo id="T0312" style="L" size="70" />
@@ -41,12 +41,12 @@
 	<FontInfo id="T041D" style="R" size="32" />
 	<FontInfo id="T041S" style="R" size="32" />
 	<FontInfo id="T191" style="M" size="32" />
-	<FontInfo id="T271" typeface="SamsungSansNum-3T" style="T" size="65" />
-	<FontInfo id="T271P" typeface="SamsungSansNum-3T" style="T" size="65" />
-	<FontInfo id="T271S" typeface="SamsungSansNum-3T" style="T" size="65" />
-	<FontInfo id="T271D" typeface="SamsungSansNum-3T" style="T" size="65" />
-	<FontInfo id="T2711" typeface="SamsungSansNum-3T" style="T" size="65" />
-	<FontInfo id="T271SP" typeface="SamsungSansNum-3T" style="T" size="65" />
+	<FontInfo id="T271" style="T" size="65" />
+	<FontInfo id="T271P" style="T" size="65" />
+	<FontInfo id="T271S" style="T" size="65" />
+	<FontInfo id="T271D" style="T" size="65" />
+	<FontInfo id="T2711" style="T" size="65" />
+	<FontInfo id="T271SP" style="T" size="65" />
 	<FontInfo id="T272" style="R" size="50" />
 	<FontInfo id="T272P" style="R" size="50" />
 	<FontInfo id="T272S" style="R" size="50" />
@@ -69,7 +69,7 @@
 	<FontInfo id="T275S" style="R" size="50" />
 	<FontInfo id="T275D" style="R" size="50" />
 	<FontInfo id="T2751" style="R" size="50" />
-	<FontInfo id="T275SP" typeface="SamsungSansNum-3T" style="T" size="50" />
+	<FontInfo id="T275SP" style="T" size="50" />
 	<FontInfo id="T071" style="R" size="28" giant="true" />
 	<FontInfo id="T0811" style="L" size="36" giant="true" />
 	<FontInfo id="T0812" style="L" size="24" giant="true" />
@@ -78,7 +78,7 @@
 	<FontInfo id="T097" style="R" size="32" giant="true" />
 	<FontInfo id="T151" style="L" size="40" />
 	<FontInfo id="T098" style="R" size="32" />
-	<FontInfo id="T099" style="R" size="28" />
+	<FontInfo id="T099" style="R" size="32" />
 	<FontInfo id="T0910" style="R" size="28" />
 	<FontInfo id="T161" style="L" size="28" />
 	<FontInfo id="T111" style="R" size="36" />
@@ -96,8 +96,8 @@
 	<FontInfo id="T115P" style="R" size="28" />
 	<FontInfo id="T116" style="R" size="60" />
 	<FontInfo id="T116P" style="R" size="60" />
-	<FontInfo id="T117" style="R" size="28" />
-	<FontInfo id="T118" style="R" size="24" />
+	<FontInfo id="T117" style="R" size="30" />
+	<FontInfo id="T118" style="R" size="29" />
 	<FontInfo id="T141" style="R" size="30" />
 	<FontInfo id="T141D" style="R" size="30" />
 	<FontInfo id="T142" style="R" size="30" />
