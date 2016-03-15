@@ -137,12 +137,9 @@
 			],
 			function() {
 				//>>excludeEnd("tauBuildExclude");
-				var VirtualListview = ns.widget.core.VirtualListview,
-					prototype = new VirtualListview(),
-					parent_init = prototype._init;
+				var VirtualListview = ns.widget.core.VirtualListview;
 
-
-				VirtualListview.prototype = prototype;
+				VirtualListview.prototype = new VirtualListview();
 				ns.widget.wearable.VirtualListview = VirtualListview;
 
 				ns.engine.defineWidget(
