@@ -641,6 +641,9 @@ li.static::before {
 	background-color: rgba(245, 245, 245, 1);
 	-webkit-mask-image: url(../contents/popup/images/tw_ic_popup_btn_delete.png);
  }
+.btn-icon-toast-check {
+	margin-bottom: 16px;
+}
 .btn-icon-toast-check::after {
 	background-color: rgba(255, 255, 255, 1);
 	-webkit-mask-image: url(../contents/popup/images/tw_ic_popup_btn_check.png);

@@ -1,5 +1,5 @@
 /***************************************************************************
-                  popup
+				  popup
 ***************************************************************************/
 
 @font_size_popup_toast: 24 * @unit_base;
@@ -24,7 +24,7 @@
 		color: @color_popup_title_text;
 		padding-top: @fixed_popup_header_padding_top;
 		padding-right: @fixed_popup_header_padding_right;
-		padding-bottom: @fixed_popup_header_padding_bottom;
+		padding-bottom: 0;
 		padding-left: @fixed_popup_header_padding_left;
 		+ .ui-popup-content {
 			padding-top: 26 * @px_base;
@@ -34,6 +34,7 @@
 	.ui-popup-content {
 		color: @color_popup_content_text;
 		background-color: transparent;
+		font-size: 32 * @px_base;
 		padding: 16% 8% 4%;
 		text-align: center;
 		.ui-listview,
@@ -75,7 +76,7 @@
 		.ui-btn:nth-child(n) {
 			top: 50%;
 			.transform(translate3d(68%, -50%, 0));
-			background: -webkit-radial-gradient(center, circle cover, @color_popup_side_button_bg 50%, transparent 50%);
+			background: -webkit-radial-gradient(center, circle cover, @color_popup_side_button_bg 70%, transparent 70%);
 			background-repeat: no-repeat;
 			background-size: 570% 150%;
 			&::before {
@@ -83,7 +84,7 @@
 				-webkit-transform: translate3d(0, -50%, 0);
 			}
 			&::after {
-				background: -webkit-radial-gradient(center, circle cover, @color_popup_side_button_bg_press 50%, transparent 50%);
+				background: -webkit-radial-gradient(center, circle cover, @color_popup_side_button_bg_press 70%, transparent 70%);
 				background-repeat: no-repeat;
 				background-size: 570% 150%;
 				-webkit-transition: -webkit-transform 250ms;
@@ -97,32 +98,32 @@
 		}
 		.ui-btn:nth-child(1) {
 			.transform(translate3d(68%, -50%, 0));
-			background-position: 83% 50%;
+			background-position: 100% 50%;
 			right: 100%;
 			&::before {
 				left: 38%;
 			}
 			&::after {
-				background-position: 83% 50%;
+				background-position: 100% 50%;
 				-webkit-transform : translate(-20%,0);
 			}
 			&:active {
-				background-position: 83% 50%;
+				background-position: 100% 50%;
 			}
 		}
 		.ui-btn:nth-child(2) {
 			.transform(translate3d(-68%, -50%, 0));
 			left: 100%;
-			background-position: 17% 50%;
+			background-position: 0 50%;
 			&::before {
 				right: 38%;
 			}
 			&::after {
-				background-position: 17% 50%;
+				background-position: 0 50%;
 				-webkit-transform : translate(20%,0);
 			}
 			&:active {
-				background-position: 17% 50%;
+				background-position: 0 50%;
 			}
 		}
 	}
@@ -133,11 +134,12 @@
 			top: 100%;
 			left: 50%;
 			height: 36%;
+			line-height: 42 * @unit_base;
 			width: 100%;
 			border: none;
 			padding: 8% 22% 16%;
 			background: -webkit-radial-gradient(center, circle cover, @color_footer_button_bg 50%, transparent 50%);
-			background-position: 50% 17%;
+			background-position: 50% 16.5%;
 			background-repeat: no-repeat;
 			background-size: 300% 840%;
 			.transform(translate3d(-50%, -77%, 0));
@@ -153,7 +155,7 @@
 				left: 0;
 				top: 0;
 				background: -webkit-radial-gradient(center, circle cover, @color_footer_button_bg_press 50%, transparent 50%);
-				background-position: 50% 17%;
+				background-position: 50% 16.5%;
 				background-repeat: no-repeat;
 				background-size: 300% 840%;
 				-webkit-transform: translate(0, 10%);
@@ -186,65 +188,73 @@ Popup Container Scroll
 	}
 
 	.ui-popup-content {
-		margin-top: 122 * @unit_base;
-		margin-bottom: 98 * @unit_base;
+		margin-top: 76 * @unit_base;
+		margin-bottom: 76 * @unit_base;
 		padding-top: 0;
 	}
 
 	.ui-popup-header + .ui-popup-content {
 		margin-top: 0;
-		padding-top: 26 * @px_base;
+		padding-top: 8 * @px_base;
 	}
 
 	.ui-popup-footer {
-		margin-top: -98 * @unit_base;
+		margin-top: -76 * @unit_base;
 	}
 }
 
 /****************************************
 Popup Toast
 ****************************************/
+.sprite(@x, @xsize, @ysize, @count, @totalCount) when (@count > 0) {
+	.sprite(@x, @xsize, @ysize, (@count - 1), @totalCount);
+	@timePercentage: round((100/(@totalCount - 1)) * (@count - 1)) * 1%;
+	@{timePercentage} {
+		-webkit-mask-position: (mod((@count - 1), @x) * @xsize)  (floor((@count - 1) / @x)) * @ysize;
+	}
+}
+
+@-webkit-keyframes toastCheck {
+	.sprite(4, -82px, -82px, 19, 19);
+}
+
 .ui-popup.ui-popup-toast {
-	min-height: 30%;
-	border-top: 3px solid @color_toast_popup_border;
-	border-bottom: 3px solid @color_toast_popup_border;
-	margin-bottom: 13%;
+	min-height: 100%;
 	background-color: @color_toast_popup_bg;
 	background-image: none;
+	border: none;
+	margin: 0;
+	.ui-popup-wrapper {
+		height: 100vh !important;
+	}
 	.ui-popup-content {
+		height: auto;
+		position: relative;
+		top: 50%;
+		transform: translateY(-50%);
 		background-color: transparent;
+		color: @color_toast_text;
 		font-size: 32 * @px_base;
 		text-align: center;
-		line-height: 42 * @px_base;
+		line-height: 43 * @px_base;
 	}
 }
 
 .ui-popup.ui-popup-toast.ui-popup-toast-graphic {
-	border: none;
-	background-color: transparent;
-	margin-bottom: 24 * @unit_base;
-	pointer-events: none;
-	.ui-popup-content {
-		color: @color_toast_graphic_text;
-	}
-	.ui-popup-toast-icon {
-		width: 164 * @unit_base;
-		height: 164 * @unit_base;
-
-		&::before {
-			content: "";
-			width: 100%;
-			height: 100%;
-			position: absolute;
-			left: 0;
-			background-color: @color_toast_popup_image_bg;
-			.mask-image('images/Popup/tw_toast_popup_image_bg.png');
-			.mask-repeat(no-repeat);
-			.mask-size(100% 100%);
-		}
-
+	.ui-popup-toast-check-icon {
+		width: 82 * @unit_base;
+		height: 82 * @unit_base;
+		-webkit-mask-image: url("./images/Popup/toast_check.png");
+		-webkit-mask-repeat: no-repeat;
+		-webkit-animation-name: toastCheck;
+		-webkit-animation-duration: 300ms;
+		-webkit-animation-delay: 300ms;
+		-webkit-animation-iteration-count: 1;
+		-webkit-animation-timing-function: step-start;
+		-webkit-animation-fill-mode: forwards;
+		background-color: @color_popup_toast_check;
 		&::after {
-			.mask-size(50% 50%);
+			content: none;
 		}
 	}
 }

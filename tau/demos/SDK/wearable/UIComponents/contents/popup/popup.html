@@ -14,31 +14,32 @@
 	</header>
 	<div class="ui-content">
 		<ul class="ui-listview">
-			<li><a href="#1btnPopup" data-rel="popup">1btn popup</a></li>
-			<li><a href="#2btnPopup" data-rel="popup">2btn popup</a></li>
-			<li><a href="#headerPopup" data-rel="popup">Header popup</a></li>
-			<li><a href="#additionalBtnPopup" data-rel="popup">Additional button popup</a></li>
+            <li><a href="#2btnPopup" data-rel="popup">General</a></li>
+			<li><a href="#1btnPopup" data-rel="popup">Bottom button</a></li>
+			<li><a href="#headerPopup" data-rel="popup">Header</a></li>
+			<li><a href="#additionalBtnPopup" data-rel="popup">Single button</a></li>
 		</ul>
 	</div>
 
 	<div id="1btnPopup" class="ui-popup">
 		<div class="ui-popup-content">
-			Turning on Power
-			saving mode will
-			limit the maximum
-			power.
+			Once Samsung Gear is
+			installed, tab Next.<br>
+			If you skip, Gear will be
+			in Standalone mode.
 		</div>
 		<div class="ui-popup-footer ui-bottom-button">
-			<a id="1btnPopup-cancel" href="#" class="ui-btn ui-btn-icon-only btn-icon-check" data-rel="back">Check</a>
+			<a id="1btnPopup-cancel" href="#" class="ui-btn" data-rel="back">OK</a>
 		</div>
 	</div>
 
 	<div id="2btnPopup" class="ui-popup">
 		<div class="ui-popup-content">
-			Turning on Power
-			saving mode will
-			limit the maximum
-			power.
+			Enable flight
+			mode?<br>
+			Flight mode
+			disables Wi-Fi.<br>
+			<label style="white-space: nowrap;"><input type="checkbox" style="width: 34px; height: 34px; top: 5px; margin-right: 7px;"/>Don't repeat</label>
 		</div>
 		<div class="ui-popup-footer ui-side-button ui-grid-col-2">
 			<a id="2btnPopup-cancel" href="#" class="ui-btn btn-icon-cancel" data-rel="back">Cancel</a>
@@ -47,25 +48,28 @@
 	</div>
 
 	<div id="headerPopup" class="ui-popup">
-		<div class="ui-popup-header">Popup Header</div>
+		<div class="ui-popup-header">User consent</div>
 		<div class="ui-popup-content">
-			Turning on Power
-			saving mode will
-			limit the maximum
-			power.
+			Agree?<br>
+			GPS location and
+			use of your<br>
+			location data are
+			controlled by the
+			applications.
 		</div>
-		<div class="ui-popup-footer ui-bottom-button">
-			<a id="headerPopup-cancel" href="#" class="ui-btn ui-btn-icon-only btn-icon-check" data-rel="back">Cancel</a>
+		<div class="ui-popup-footer ui-side-button ui-grid-col-2">
+			<a id="2btnPopup-cancel" href="#" class="ui-btn btn-icon-cancel" data-rel="back">Cancel</a>
+			<a id="2btnPopup-ok" href="#" class="ui-btn btn-icon-check" data-rel="back">OK</a>
 		</div>
 	</div>
 
 	<div id="additionalBtnPopup" class="ui-popup">
 		<div class="ui-popup-content">
-			Turning on Power
-			saving mode will
-			limit the maximum
-			power.
-			<button id="additionalBtnPopup-btn" href="#" class="ui-btn btn-additional">action</button>
+			Enable flight
+			mode?<br>
+			Flight mode
+			disables Wi-Fi.
+			<button id="additionalBtnPopup-btn" href="#" class="ui-btn btn-additional">000000</button>
 		</div>
 		<div class="ui-popup-footer ui-side-button ui-grid-col-2">
 			<a id="additionalBtnPopup-cancel" href="#" class="ui-btn btn-icon-cancel" data-rel="back">Cancel</a>

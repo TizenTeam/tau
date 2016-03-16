@@ -12,25 +12,24 @@
 	<header class="ui-header">
 		<h2 class="ui-title">Toast Popup</h2>
 	</header>
-	<div class="ui-content content-padding">
-		<h3>Toast</h3>
-		<div class="ui-grid-row">
-			<a href="#popupToast" class="ui-btn" data-rel="popup">Popup toast</a>
-			<a href="#graphicPopupToast" class="ui-btn" data-rel="popup">Graphic toast</a>
-		</div>
+	<div class="ui-content">
+		<ul class="ui-listview">
+			<li><a href="#popupToast" data-rel="popup">Toast Popup</a></li>
+			<li><a href="#graphicPopupToast" data-rel="popup">Graphic Toast Popup</a></li>
+		</ul>
 	</div>
 
 	<div id="popupToast" class="ui-popup ui-popup-toast">
 		<div class="ui-popup-content">
-			It was a real pleasure for me
+			Your mobile<br>
+			network is not available
 		</div>
 	</div>
 
 	<div id="graphicPopupToast" class="ui-popup ui-popup-toast ui-popup-toast-graphic">
 		<div class="ui-popup-content">
-			<div class="ui-popup-toast-icon btn-icon-toast-check">check</div>
-			Please check your
-			phone number
+			<div class="ui-popup-toast-icon ui-popup-toast-check-icon btn-icon-toast-check">check</div>
+			Toast popup
 		</div>
 	</div>
 </div>
