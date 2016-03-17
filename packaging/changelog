@@ -1,4 +1,18 @@
 %changelog
+* Thu Mar 17 2016 Hagun Kim <hagun.kim@samsung.com> 0.11.7
+	- refactor(wearable): modify select mode list
+	- refactor(wearable): add bottom padding to listview
+	- refactor(wearable): modify selector sample and the size of active item
+	- refactor(wearable): modify bottom button sample
+	- refactor(wearable): modify page indicator sample
+	- refactor(wearable): modify section changer sample
+	- refactor(wearable): modify controls style for GUI v7.2
+	- refactor(wearable): modify popup and toast style for GUI v7.2
+	- refactor(wearable): change image resources of processing component
+	- refactor(wearable): update color code xml for GUI v7.2
+	- refactor(mobile): modify globalization index.html
+	- etc(tool): modify release tool script
+
 * Tue Mar 08 2016 Hagun Kim <hagun.kim@samsung.com> 0.11.6
 	- refactor(wearable): modify index.html of mobile UI components
 	- refactor(wearable): modify width of circular progress bar
