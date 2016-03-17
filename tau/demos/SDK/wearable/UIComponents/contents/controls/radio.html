@@ -7,20 +7,44 @@
 	<link rel="stylesheet"  href="../../css/style.css">
 </head>
 <body>
-	<div class="ui-page" data-enable-page-scroll="false">
+	<div class="ui-page">
+		<header class="ui-header">
+			<h2 class="ui-title">Screen timeout</h2>
+		</header>
 		<div class="ui-content">
-				<div class="ui-switch-text">
-					Single Radio
-				</div>
-				<div class="radio-sample-container">
-				<input type="radio" name="radio-sample" id="radioControl1" checked="checked"/>
-				<input type="radio" name="radio-sample" id="radioControl2"/>
-				</div>
-				<div class="radio-sub-text">
-					Radio state
-				</div>
+			<ul class="ui-listview">
+				<li class="li-has-radio">
+					<label>
+						5 seconds
+						<input type="radio" name="radio-sample" checked="checked"/>
+					</label>
+				</li>
+				<li class="li-has-radio">
+					<label>
+						15 seconds
+						<input type="radio" name="radio-sample"/>
+					</label>
+				</li>
+				<li class="li-has-radio">
+					<label>
+						30 seconds
+						<input type="radio" name="radio-sample"/>
+					</label>
+				</li>
+				<li class="li-has-radio">
+					<label>
+						1 minute
+						<input type="radio" name="radio-sample"/>
+					</label>
+				</li>
+				<li class="li-has-radio">
+					<label>
+						5 minutes
+						<input type="radio" name="radio-sample"/>
+					</label>
+				</li>
+			</ul>
 		</div>
-		<script src="controls.js"></script>
 	</div>
 </body>
 <script type="text/javascript" src="../../lib/tau/wearable/js/tau.min.js"></script>
