@@ -10,7 +10,7 @@
 	if (tau.support.shape.circle) {
 		document.addEventListener("pagebeforeshow", function (e) {
 			page = e.target;
-			list = page.querySelectorAll(".ui-listview");
+			list = page.querySelectorAll(".ui-listview:not(.select-mode-btn-list)");
 			if (list) {
 				if (page.id !== "pageMarqueeList" && page.id !== "pageTestVirtualList" && page.id !== "pageAnimation") {
 					len = list.length;
