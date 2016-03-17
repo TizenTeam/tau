@@ -22,9 +22,6 @@
 		-webkit-mask-image: -webkit-radial-gradient(black 71%,transparent 0);
 		background-image: none;
 	}
-	.ui-bottom-button a {
-		color: rgba(0, 149, 255, 1);
-	}
 	.ui-bottom-button a + a {
 		display: none;
 	}
