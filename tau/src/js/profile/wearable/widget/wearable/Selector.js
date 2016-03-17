@@ -139,7 +139,7 @@
 					ITEM_START_DEGREE: 30,
 					ITEM_END_DEGREE: 330,
 					ITEM_NORMAL_SCALE: "scale(1)",
-					ITEM_ACTIVE_SCALE: "scale(1.18)"
+					ITEM_ACTIVE_SCALE: "scale(1.21)"
 				},
 				EVENT_TYPE = {
 					/**

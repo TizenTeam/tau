@@ -1040,6 +1040,9 @@ input[type="checkbox"]#checkboxControl {
 		-webkit-mask-image: -webkit-radial-gradient(black 71%,transparent 0);
 		background-image: none;
 	}
+	#moreoptionsPopupCircle .ui-popup-wrapper::after {
+		content: none;
+	}
 }
 
 .ui-item.ui-item-active::before{
