@@ -45,15 +45,33 @@
 
 				prototype = SnapListStyle.prototype;
 
+			function showEdgeEffect(direction) {
+				if (window.addEdgeEffectONSCROLLTizenUIF) {
+					if (direction === "CW") {
+						window.addEdgeEffectONSCROLLTizenUIF(false, true, false, false);
+					} else {
+						window.addEdgeEffectONSCROLLTizenUIF(true, false, false, false);
+					}
+				}
+			}
+
 			function rotaryDetentHandler(e) {
 				var snapListviewWidget = this._snapListviewWidget,
 					selectedIndex = snapListviewWidget.getSelectedIndex(),
+					listItems = snapListviewWidget._listItems,
+					listItemLength = listItems.length,
 					direction = e.detail.direction;
 
 				if (direction === "CW" && selectedIndex !== null) {
-					 snapListviewWidget.scrollToPosition(++selectedIndex);
+					if (listItems[listItemLength - 1].element.classList.contains("ui-snap-listview-selected")) {
+						showEdgeEffect(direction);
+					}
+					snapListviewWidget.scrollToPosition(++selectedIndex);
 				} else if (direction === "CCW" && selectedIndex !== null) {
-					 snapListviewWidget.scrollToPosition(--selectedIndex);
+					if (listItems[0].element.classList.contains("ui-snap-listview-selected")) {
+						showEdgeEffect(direction);
+					}
+					snapListviewWidget.scrollToPosition(--selectedIndex);
 				}
 			}
 
