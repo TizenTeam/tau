@@ -811,7 +811,7 @@ input[type="checkbox"]#checkboxControl {
 		height: 76px;
 	}
 	.ui-listview li{
-		-webkit-mask-image : -webkit-linear-gradient(left,transparent,#fff 30%,#fff 70%,transparent);
+		-webkit-mask-image : -webkit-linear-gradient(left, #fff 83%,transparent 92%);
 	}
 	.ui-listview li.li-has-multiline > a {
 		margin-top: -17px;
