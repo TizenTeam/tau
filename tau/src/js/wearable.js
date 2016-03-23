@@ -46,6 +46,7 @@
 			"./profile/wearable/helper/SnapListStyle",
 			"./profile/wearable/helper/SnapListMarqueeStyle",
 			"./profile/wearable/helper/DrawerMoreStyle",
+			"./profile/wearable/helper/RotaryEventBinder",
 			"./core/router/Router",
 			"./core/router/history",
 			"./core/router/route/page",
