@@ -677,6 +677,21 @@ input[type="checkbox"]#checkboxControl {
 	width: 100%;
 	text-align: center;
 }
+/* --------------------------------Popup------------------------------ */
+.label-popup-check {
+	position: absolute;
+	left: 50%;
+	-webkit-transform: translate(-50%);
+	margin-top: 12px;
+	white-space: nowrap;
+}
+.label-popup-check input[type="checkbox"] {
+	width: 34px;
+	height: 34px;
+	top: 5px;
+	margin-right: 7px;
+}
+
 /* --------------------------------Processing------------------------------ */
 .small-processing-container {
 	position: absolute;
