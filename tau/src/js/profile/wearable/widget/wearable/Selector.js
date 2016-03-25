@@ -122,6 +122,7 @@
 					ITEM: "ui-item",
 					ITEM_ACTIVE: "ui-item-active",
 					INDICATOR: "ui-selector-indicator",
+					INDICATOR_TEXT: "ui-selector-indicator-text",
 					INDICATOR_NEXT_END: "ui-selector-indicator-next-end",
 					INDICATOR_PREV_END: "ui-selector-indicator-prev-end",
 					INDICATOR_ARROW: "ui-selector-indicator-arrow"
@@ -358,6 +359,7 @@
 					options = self.options,
 					items = element.querySelectorAll(self.options.itemSelector),
 					indicator,
+					indicatorText,
 					indicatorArrow,
 					queryIndicator,
 					queryIndicatorArrow,
@@ -378,6 +380,10 @@
 							indicator = document.createElement("div");
 							indicator.classList.add(classes.INDICATOR);
 							ui.indicator = indicator;
+							indicatorText = document.createElement("div");
+							indicatorText.classList.add(classes.INDICATOR_TEXT);
+							ui.indicatorText = indicatorText;
+							ui.indicator.appendChild(ui.indicatorText);
 							element.appendChild(ui.indicator);
 						}
 						if (queryIndicatorArrow) {
@@ -611,11 +617,12 @@
 					item = ui.items[index],
 					title = utilDom.getNSData(item, "title"),
 					indicator = ui.indicator,
+					indicatorText = ui.indicatorText,
 					indicatorArrow = ui.indicatorArrow,
 					idcIndex = index % self.options.maxItemNumber;
 
-				if (indicator.children.length === 0) {
-					indicator.textContent = title ? title : "ITEM";
+				if (indicator.children.length === 1 && indicator.children[0] === indicatorText) {
+					indicatorText.textContent = title ? title : "ITEM";
 				}
 
 				utilDom.setNSData(indicator, "index", index);
