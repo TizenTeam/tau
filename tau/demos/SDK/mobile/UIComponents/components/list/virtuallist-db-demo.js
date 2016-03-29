@@ -4,7 +4,7 @@
  * Dual licensed under the MIT or GPL Version 2 licenses.
  * http://jquery.org/license
  */
-
+/* exported JSON_DATA */
 /* Sample Data in JSON : NBA Player list more than 1,000. */
 var JSON_DATA = [
 {NAME:"Abdelnaby, Alaa", ACTIVE:"1990 - 1994", FROM:"College - Duke", TEAM_LOGO:"../test/raw.jpg"},
