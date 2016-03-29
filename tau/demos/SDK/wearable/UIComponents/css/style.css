@@ -691,6 +691,12 @@ input[type="checkbox"]#checkboxControl {
 	top: 5px;
 	margin-right: 7px;
 }
+.ui-popup.ui-popup-toast.toast-text-only .ui-popup-content {
+	padding-left: 43px;
+	padding-right: 43px;
+	font-size: 28px;
+	line-height: 37px;
+}
 
 /* --------------------------------Processing------------------------------ */
 .small-processing-container {
