@@ -1,4 +1,5 @@
 /* Sample Data in JSON : NBA Player list more than 1,000. */
+/* exported JSON_DATA */
 var JSON_DATA = [
 {NAME:"Abdelnaby, Alaa", ACTIVE:"1990 - 1994", FROM:"College - Duke", TEAM_LOGO:"../test/1_raw.jpg"},
 {NAME:"Abdul-Aziz, Zaid", ACTIVE:"1968 - 1977", FROM:"College - Iowa State", TEAM_LOGO:"../test/2_raw.jpg"},

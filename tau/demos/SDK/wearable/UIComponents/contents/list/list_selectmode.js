@@ -99,7 +99,7 @@
 		}
 	};
 
-	page.addEventListener("pageshow", function(ev) {
+	page.addEventListener("pageshow", function() {
 		listview.addEventListener('click', addFunction, false);
 		selectAll.addEventListener("click", fnSelectAll, false);
 		deselectAll.addEventListener("click", fnDeselectAll, false);
@@ -108,7 +108,7 @@
 		modeHide();
 	}, false);
 
-	page.addEventListener("pagehide", function(ev) {
+	page.addEventListener("pagehide", function() {
 		listview.removeEventListener('click', addFunction, false);
 		selectAll.removeEventListener("click", fnSelectAll, false);
 		deselectAll.removeEventListener("click", fnDeselectAll, false);

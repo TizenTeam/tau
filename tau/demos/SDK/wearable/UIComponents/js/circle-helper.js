@@ -27,7 +27,7 @@
 			}
 		});
 
-		document.addEventListener("pagebeforehide", function (e) {
+		document.addEventListener("pagebeforehide", function () {
 			len = listHelper.length;
 			if (len) {
 				for (i = 0; i < len; i++) {

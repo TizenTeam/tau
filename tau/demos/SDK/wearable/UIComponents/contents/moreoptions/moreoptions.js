@@ -9,7 +9,7 @@
 		selector,
 		clickHandlerBound;
 
-	function clickHandler(event) {
+	function clickHandler() {
 		if (tau.support.shape.circle) {
 			tau.openPopup(popupCircle);
 		} else {

@@ -7,7 +7,7 @@
 		scroller,
 		indexScrollbar;
 
-	page.addEventListener("pageshow", function(ev) {
+	page.addEventListener("pageshow", function() {
 		var indexScrollbarElement = document.getElementById("indexscrollbar"),
 			listDividers = listviewElement.getElementsByClassName("ui-listview-divider"),	// list dividers
 			dividers = {},	// collection of list dividers
@@ -53,7 +53,7 @@
 		});
 	});
 
-	page.addEventListener("pagehide", function(ev) {
+	page.addEventListener("pagehide", function() {
 		indexScrollbar.destroy();
 	});
 } ());

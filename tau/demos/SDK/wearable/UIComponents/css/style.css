@@ -649,31 +649,6 @@ li.static::before {
 	-webkit-mask-image: url(../contents/popup/images/tw_ic_popup_btn_check.png);
 }
 
-/* -----------------------------------Content------------------------------------ */
-.content-input-box {
-	display: block;
-	height: 82px;
-	line-height: 82px;
-	margin-top: 16px;
-	padding-left: 75px;
-	position: relative;
-	vertical-align: middle;
-}
-.content-input-box > input[type="checkbox"] {
-	position: absolute;
-	left: 15px;
-	top: 50%;
-	transform: translate3d(0, -50%, 0);
-}
-.content-input-box.multi-line {
-	display: block;
-	padding-left: 75px;
-	margin-top: 16px;
-	line-height: inherit;
-}
-.content-input-box-sub-text {
-	display: block;
-}
 /* ----------------------------------Toggle Switch-------------------------------- */
 .ui-toggleswitch {
 	display: block;
