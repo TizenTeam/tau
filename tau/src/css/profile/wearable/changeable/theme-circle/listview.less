@@ -1,6 +1,17 @@
 /***************************************************************************
 				  listview
 ***************************************************************************/
+.ui-page.ui-scroll-on {
+	.ui-listview {
+		margin-top: 50 * @unit_base;
+	}
+	.ui-header {
+		~ .ui-content .ui-listview {
+			margin-top: 0;
+		}
+	}
+}
+
 .ui-listview {
 	padding-bottom: 20 * @unit_base;
 	li {
