@@ -679,11 +679,8 @@ input[type="checkbox"]#checkboxControl {
 }
 /* --------------------------------Popup------------------------------ */
 .label-popup-check {
-	position: absolute;
-	left: 50%;
-	-webkit-transform: translate(-50%);
-	margin-top: 12px;
-	white-space: nowrap;
+	position: relative;
+	top: 12px;
 }
 .label-popup-check input[type="checkbox"] {
 	width: 34px;
