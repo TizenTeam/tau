@@ -40,6 +40,7 @@
 			"./profile/wearable/widget/wearable/ToggleSwitch",
 			"./profile/wearable/widget/wearable/VirtualListview",
 			"./profile/wearable/widget/wearable/VirtualGrid",
+			"./core/widget/core/VirtualListviewSimple",
 			"./profile/wearable/widget/wearable/SnapListview",
 			"./profile/wearable/widget/wearable/SwipeList",
 			"./profile/wearable/widget/wearable/Selector",
