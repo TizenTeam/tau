@@ -55,9 +55,14 @@
 				// cache max function
 				max = Math.max,
 
-				// Scrollbar config
+				// Circular scrollbar config
 				CIRCULAR_SCROLL_BAR_SIZE = 60, // degrees
-				MIN_CIRCULAR_SCROLL_THUMB_SIZE = 6,
+				CIRCULAR_SCROLL_MIN_THUMB_SIZE = 6,
+
+				// Scrollbar is placed after scrolled element
+				// that's why normal css values cannot be applied
+				// margin needs to be substracted from position
+				SCROLL_MARGIN = 11,
 
 				// ScrollBar variables
 				scrollBar = null,
@@ -65,7 +70,7 @@
 				scrollBarPosition = 0,
 				maxScrollBarPosition = 0,
 				circularScrollBar = ns.support.shape.circle,
-				circularScrollThumbSize = MIN_CIRCULAR_SCROLL_THUMB_SIZE,
+				circularScrollThumbSize = CIRCULAR_SCROLL_MIN_THUMB_SIZE,
 				svgScrollBar = null,
 				scrollBarTimeout = null,
 				fromAPI = false,
@@ -459,17 +464,21 @@
 					childElementRect = childElement.getBoundingClientRect();
 
 					if (direction) {
-						scrollBarStyle.width = boundingRect.width + "px";
-						scrollBarStyle.left = boundingRect.left + "px";
+						scrollBarWidth = (boundingRect.width - (2 * SCROLL_MARGIN));
+
+						scrollBarStyle.width = scrollBarWidth + "px";
+						scrollBarStyle.left = (boundingRect.left + SCROLL_MARGIN) + "px";
 						scrollThumbStyle.transform = "translate3d(" + scrollBarPosition + "px,0,0)";
 						// Calculate size of the thumb (only useful when enabling after content has size > 0)
-						scrollThumbStyle.width = (boundingRect.width / childElementRect.width * boundingRect.width) + "px";
+						scrollThumbStyle.width = (scrollBarWidth / childElementRect.width * scrollBarWidth) + "px";
 					} else {
-						scrollBarStyle.height = boundingRect.height + "px";
-						scrollBarStyle.top = boundingRect.top + "px";
+						scrollBarHeight = (boundingRect.height - (2 * SCROLL_MARGIN));
+
+						scrollBarStyle.height = scrollBarHeight + "px";
+						scrollBarStyle.top = (boundingRect.top + SCROLL_MARGIN) + "px";
 						scrollThumbStyle.transform = "translate3d(0," + scrollBarPosition + "px,0)";
 						// Calculate size of the thumb (only useful when enabling after content has size > 0)
-						scrollThumbStyle.height = (boundingRect.height / childElementRect.height * boundingRect.height) + "px";
+						scrollThumbStyle.height = (scrollBarHeight / childElementRect.height * scrollBarHeight) + "px";
 					}
 
 					scrollBar.appendChild(scrollThumb);
@@ -477,9 +486,9 @@
 
 					// Get max scrollbar position after appending
 					if (direction) {
-						maxScrollBarPosition = boundingRect.width - scrollThumb.getBoundingClientRect().width;
+						maxScrollBarPosition = scrollBarWidth - scrollThumb.getBoundingClientRect().width;
 					} else {
-						maxScrollBarPosition = boundingRect.height - scrollThumb.getBoundingClientRect().height;
+						maxScrollBarPosition = scrollBarHeight - scrollThumb.getBoundingClientRect().height;
 					}
 				}
 			}
@@ -540,7 +549,7 @@
 						if (scrollBar) {
 							if (circularScrollBar) {
 								// Calculate new thumb size based on max scrollbar size
-								circularScrollThumbSize = max((directionSize / (maxScrollPosition + directionSize)) * CIRCULAR_SCROLL_BAR_SIZE, MIN_CIRCULAR_SCROLL_THUMB_SIZE);
+								circularScrollThumbSize = max((directionSize / (maxScrollPosition + directionSize)) * CIRCULAR_SCROLL_BAR_SIZE, CIRCULAR_SCROLL_MIN_THUMB_SIZE);
 								maxScrollBarPosition = CIRCULAR_SCROLL_BAR_SIZE - circularScrollThumbSize;
 
 								polarUtil.updatePosition(svgScrollBar, "." + classes.thumb, {
@@ -549,6 +558,7 @@
 									r: 174 // 1px line space from screen edge
 								});
 							} else {
+								directionSize -= 2 * SCROLL_MARGIN;
 								scrollThumb.style[directionDimension] = (directionSize / (maxScrollPosition + directionSize) * directionSize) + "px";
 								// Cannot use direct value from style here because CSS may override the minimum size of thumb here
 								maxScrollBarPosition = directionSize - scrollThumb.getBoundingClientRect()[directionDimension];
