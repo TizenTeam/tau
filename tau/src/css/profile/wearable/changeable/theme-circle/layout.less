@@ -55,6 +55,8 @@ body {
 			width: @fixed_header_more_width;
 			height: @fixed_header_more_height;
 			transform: translate(0, -50%);
+			border: 0 none;
+			padding: 0;
 			&.ui-icon-overflow {
 				.mask-image();
 				.mask-position(initial);
@@ -67,39 +69,54 @@ body {
 				}
 				overflow: visible;
 			}
-			&::before {
-				content: "";
-				position: absolute;
-				width: 140 * @unit_base;
-				height: 140 * @unit_base;
-				background-color: @color_moreoptions_handler;
-				border-radius: 50%;
-				.transform(scale(0));
-				top: 50%;
-				left: 50%;
-				margin-top: -70 * @unit_base;
-				margin-left: -70 * @unit_base;
-				.transition(transform ease-out 300ms);
-			}
-			&:active::before {
-				.transition(transform ease-out 300ms);
-				.transform(scale(1));
-			}
-			&::after {
-				content: "";
-				position: absolute;
-				width: 16 * @unit_base;
-				height: 36 * @unit_base;
-				.mask-box-image("images/Actionbar/b_more_option.png");
-				background-color: @color_moreoptions_bg;
-				border-radius: 50%;
-				top: 50%;
-				right: 6 * @unit_base;
-				.transform(translate(0, -50%));
-			}
 		}
 	}
 }
+
+.ui-more {
+	position: fixed;
+	top: 50%;
+	right: 0;
+	width: @fixed_header_more_width;
+	height: @fixed_header_more_height;
+	transform: translate(0, -50%);
+	background-color: transparent;
+	overflow: visible;
+	border: 0 none;
+	padding: 0;
+	text-indent: -9999px;
+	&::before {
+		content: "";
+		position: absolute;
+		width: 140 * @unit_base;
+		height: 140 * @unit_base;
+		background-color: @color_moreoptions_handler;
+		border-radius: 50%;
+		.transform(scale(0));
+		top: 50%;
+		left: 50%;
+		margin-top: -70 * @unit_base;
+		margin-left: -70 * @unit_base;
+		.transition(transform ease-out 300ms);
+	}
+	&:active::before {
+		.transition(transform ease-out 300ms);
+		.transform(scale(1));
+	}
+	&::after {
+		content: "";
+		position: absolute;
+		width: 16 * @unit_base;
+		height: 36 * @unit_base;
+		.mask-box-image("images/Actionbar/b_more_option.png");
+		background-color: @color_moreoptions_bg;
+		border-radius: 50%;
+		top: 50%;
+		right: 6 * @unit_base;
+		.transform(translate(0, -50%));
+	}
+}
+
 .ui-page {
 	background: @color_bg;
 	.ui-content {
