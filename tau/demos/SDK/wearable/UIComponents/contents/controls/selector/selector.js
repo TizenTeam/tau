@@ -4,6 +4,9 @@
 		selectorComponent,
 		clickBound;
 
+	/**
+	 * click event handler for the selector
+	 */
 	function onClick(event) {
 		var target = event.target;
 		//console.log(activeItem.getAttribute("data-title"));
@@ -17,11 +20,21 @@
 			return;
 		}
 	}
+
+	/**
+	 * pagebeforeshow event handler
+	 * Do preparatory works and adds event listeners
+	 */
 	page.addEventListener("pagebeforeshow", function() {
 		clickBound = onClick.bind(null);
 		selectorComponent = tau.widget.Selector(selector);
 		selector.addEventListener("click", clickBound, false);
 	});
+
+	/**
+	 * pagebeforehide event handler
+	 * Destroys and removes event listeners
+	 */
 	page.addEventListener("pagebeforehide", function() {
 		selector.removeEventListener("click", clickBound, false);
 		selectorComponent.destroy();

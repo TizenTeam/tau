@@ -24,11 +24,17 @@
 		fnPopupClose,
 		fnBackKey;
 
+	/**
+	 * Updates the number of the selected list items
+	 */
 	function textRefresh() {
 		selectBtnText.innerHTML =
 			selectCount < 10 ? "0" + selectCount : selectCount;
 	}
 
+	/**
+	 * Shows select mode
+	 */
 	function modeShow() {
 		selectWrapper.classList.remove("open");
 		handler.style.display = "block";
@@ -36,6 +42,9 @@
 		textRefresh();
 	}
 
+	/**
+	 * Hides select mode
+	 */
 	function modeHide() {
 		selectWrapper.classList.remove("open");
 		handler.style.display = "none";
@@ -43,6 +52,10 @@
 		selectCount = 0;
 	}
 
+	/**
+	 * Select/Deselects a list item
+	 * click event handler for list item
+	 */
 	addFunction = function(event){
 		var target = event.target;
 		if ( !target.classList.contains("select")) {
@@ -60,6 +73,10 @@
 		}
 	};
 
+	/**
+	 * Select all list items
+	 * click event handler for 'select all' button
+	 */
 	fnSelectAll = function(){
 		for (i = 0; i < listLength; i++) {
 			list[i].classList.add("select");
@@ -68,6 +85,10 @@
 		modeShow();
 	};
 
+	/**
+	 * Deselect all list items
+	 * click event handler for 'deselect all' button
+	 */
 	fnDeselectAll = function(){
 		for (i = 0; i < listLength; i++) {
 			list[i].classList.remove("select");
@@ -75,16 +96,27 @@
 		modeHide();
 	};
 
+	/**
+	 * Shows a context popup that has select/deselect buttons
+	 * click event handler for button that displays the number of selected list items
+	 */
 	fnPopup = function() {
 		selectWrapper.classList.add("open");
 		event.preventDefault();
 		event.stopPropagation();
 	};
 
+	/**
+	 * Closes a context popup that has select/deselect buttons
+	 * click event handler for closing the popup
+	 */
 	fnPopupClose = function() {
 		selectWrapper.classList.remove("open");
 	};
 
+	/**
+	 * Back key event handler
+	 */
 	fnBackKey = function() {
 		var drawer = tau.widget.Drawer(drawerElement),
 			classList = selectWrapper.classList;
@@ -99,6 +131,10 @@
 		}
 	};
 
+	/**
+	 * pageshow event handler
+	 * Do preparatory works and adds event listeners
+	 */
 	page.addEventListener("pageshow", function() {
 		listview.addEventListener('click', addFunction, false);
 		selectAll.addEventListener("click", fnSelectAll, false);
@@ -108,6 +144,10 @@
 		modeHide();
 	}, false);
 
+	/**
+	 * pagehide event handler
+	 * Destroys and removes event listeners
+	 */
 	page.addEventListener("pagehide", function() {
 		listview.removeEventListener('click', addFunction, false);
 		selectAll.removeEventListener("click", fnSelectAll, false);
@@ -117,6 +157,10 @@
 		drawerHelper.destroy();
 	}, false);
 
+	/**
+	 * pagebeforeshow event handler
+	 * Do preparatory works and adds event listeners
+	 */
 	page.addEventListener( "pagebeforeshow", function() {
 		/********** drawer ******************/
 		drawerHelper = tau.helper.DrawerMoreStyle.create(drawerElement, {

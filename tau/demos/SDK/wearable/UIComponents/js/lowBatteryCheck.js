@@ -9,6 +9,9 @@
 
 		lowThreshold : 0.04,
 
+		/**
+		 * Listener for the battery level changes
+		 */
 		listenBatteryLowState: function(){
 			var self = this;
 			try{
@@ -31,6 +34,9 @@
 			}
 		},
 
+		/**
+		 * Check the remaining battery level is low
+		 */
 		checkBatteryLowState: function(){
 			var self = this;
 			try {

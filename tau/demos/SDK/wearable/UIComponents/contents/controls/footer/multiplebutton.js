@@ -11,6 +11,10 @@
 		tau.openPopup(popup);
 	}
 
+	/**
+	 * pagebeforeshow event handler
+	 * Do preparatory works and adds event listeners
+	 */
 	page.addEventListener( "pagebeforeshow", function() {
 		var radius = window.innerHeight / 2 * 0.8;
 
@@ -21,6 +25,10 @@
 		}
 	});
 
+	/**
+	 * pagehide event handler
+	 * Destroys and removes event listeners
+	 */
 	page.addEventListener( "pagebehide", function() {
 		if (tau.support.shape.circle) {
 			handler.removeEventListener("click", clickHandlerBound);
@@ -28,7 +36,8 @@
 		}
 	});
 
-	/*
+	/**
+	 * click event handler for the selector
 	 * When user click the indicator of Selector, the selector will be closed.
 	 */
 	elSelector.addEventListener("click", function(event) {

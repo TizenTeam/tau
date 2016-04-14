@@ -7,6 +7,10 @@
 		scroller,
 		indexScrollbar;
 
+	/**
+	 * pageshow event handler
+	 * Do preparatory works and adds event listeners
+	 */
 	page.addEventListener("pageshow", function() {
 		var indexScrollbarElement = document.getElementById("indexscrollbar"),
 			listDividers = listviewElement.getElementsByClassName("ui-listview-divider"),	// list dividers
@@ -53,6 +57,10 @@
 		});
 	});
 
+	/**
+	 * pagehide event handler
+	 * Destroys and removes event listeners
+	 */
 	page.addEventListener("pagehide", function() {
 		indexScrollbar.destroy();
 	});

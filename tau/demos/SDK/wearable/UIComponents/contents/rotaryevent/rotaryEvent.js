@@ -5,6 +5,10 @@
 		progressBarWidget,
 		rotaryDetentHandler;
 
+	/**
+	 * pagebeforeshow event handler
+	 * Do preparatory works and adds event listeners
+	 */
 	page.addEventListener("pagebeforeshow", function() {
 		var resultDiv = document.getElementById("result"),
 			direction,
@@ -43,6 +47,10 @@
 		document.addEventListener("rotarydetent", rotaryDetentHandler);
 	});
 
+	/**
+	 * pagehide event handler
+	 * Destroys and removes event listeners
+	 */
 	page.addEventListener("pagehide", function() {
 		progressBarWidget.destroy();
 		document.removeEventListener("rotarydetent", rotaryDetentHandler);

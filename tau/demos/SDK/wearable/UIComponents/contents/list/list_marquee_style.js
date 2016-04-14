@@ -4,6 +4,10 @@
 		elScroller,
 		listHelper;
 
+	/**
+	 * pagebeforeshow event handler
+	 * Do preparatory works and adds event listeners
+	 */
 	page.addEventListener( "pagebeforeshow", function() {
 		var list;
 
@@ -24,6 +28,10 @@
 		}
 	});
 
+	/**
+	 * pagehide event handler
+	 * Destroys and removes event listeners
+	 */
 	page.addEventListener( "pagebeforehide", function() {
 		if (listHelper) {
 			listHelper.destroy();

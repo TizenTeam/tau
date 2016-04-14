@@ -6,7 +6,12 @@
 		listHelper = [],
 		i, len;
 
+	// This logic works only on circular device.
 	if (tau.support.shape.circle) {
+		/**
+		 * pagebeforeshow event handler
+		 * Do preparatory works and adds event listeners
+		 */
 		document.addEventListener("pagebeforeshow", function (e) {
 			page = e.target;
 			list = page.querySelectorAll(".ui-listview:not(.select-mode-btn-list)");
@@ -20,6 +25,10 @@
 			}
 		});
 
+		/**
+		 * pagebeforehide event handler
+		 * Destroys and removes event listeners
+		 */
 		document.addEventListener("pagebeforehide", function () {
 			len = listHelper.length;
 			if (len) {
