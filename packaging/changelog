@@ -1,4 +1,19 @@
 %changelog
+* Fri Apr 15 2016 Hagun Kim <hagun.kim@samsung.com> 0.11.8
+	- refactor(wearable): add comments for verification of UI components sample
+	- refactor(wearable): modify platform version of UI components sample
+	- feat(wearable): add RotaryEventBinder helper
+	- refactor(wearable): apply edge effect and vibration to snaplist helper
+	- refactor(wearable): define styles of ui-more without header
+	- refactor(wearable): modify selector indicator text area
+	- refactor(wearable): modify label position in popup sample
+	- refactor(wearable): add margin to listview without header
+	- refactor(wearable): modify text toast popup sample style
+	- refactor(wearable): modify popup sample
+	- refactor(mobile): remove build warning in UI Components
+	- refactor(wearable): remove build warning in UI Components
+	- refactor(wearable): modify gradient in style.css
+
 * Thu Mar 17 2016 Hagun Kim <hagun.kim@samsung.com> 0.11.7
 	- refactor(wearable): modify select mode list
 	- refactor(wearable): add bottom padding to listview
