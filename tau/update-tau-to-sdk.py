@@ -6,6 +6,7 @@
 import os, sys, subprocess, shutil, fileinput
 import xml.etree.ElementTree as ET
 import jenkins
+import time
 
 cwd=os.getcwd()
 tempdir=cwd+"/_temp"
@@ -220,12 +221,14 @@ def updateSampleVersion(tree, root):
 
 def executeJenkinsJobs(git):
 	sampleGitPath = git.addr.replace("165.213.149.170:29418/", "")
-	jenkinsServer = jenkins.Jenkins('http://10.113.63.84:8080', username='sample', password='sample')
+	jenkinsServer = jenkins.Jenkins('http://10.113.63.84:8080', username='sample', password='7499d2004e9e229d1512218208a36225')
 
 	print("[Jenkins job] upload to spin " + os.path.basename(git.addr) + " / " + git.branch)
-	jenkinsServer.build_job('online_sample_upload_to_spin', {'sample_git_path': sampleGitPath, 'branch_name': git.branch})
+	jenkinsServer.build_job('online_sample_upload_to_spin', {'sample_git_path': sampleGitPath, 'branch_name': git.branch}, '7499d2004e9e229d1512218208a36225')
+	print("Waiting 10 seconds....")
+	time.sleep(10)
 	print("[Jenkins job] copy to stable " + os.path.basename(git.addr) + " / " + git.branch)
-	jenkinsServer.build_job('online_sample_copy_to_stable', {'snapshot_name': '', 'sample_list': sampleGitPath + "," + git.branch})
+	jenkinsServer.build_job('online_sample_copy_to_stable', {'snapshot_name': sampleGitPath, 'sample_list': sampleGitPath + "," + git.branch}, '7499d2004e9e229d1512218208a36225')
 
 def main():
 	global tempdir
