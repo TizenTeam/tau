@@ -7,15 +7,23 @@ var globalize = tau.util.globalize,
 	calendar_data,
 	calendar_data_area;
 
+/**
+ * Inserts the calendar data elements
+ */
 function output(inp) {
 	calendar_data.appendChild(calendar_data_area).innerHTML = inp;
 }
+
+/**
+ * Puts a class for syntax highlighting
+ */
 function syntaxHighlight(json) {
 	json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 	/*jslint regexp: true*/
 	return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
 		/*jslint regexp: false*/
 		var cls = 'number';
+		/* Starting with " and Ending with : is key, or string */
 		if (/^"/.test(match)) {
 			if (/:$/.test(match)) {
 				cls = 'key';
@@ -31,6 +39,9 @@ function syntaxHighlight(json) {
 	});
 }
 
+/**
+ * Updates the selected locale information to UI
+ */
 function updateLocaleToUI(selectedLocaleInstance){
 	var number = selectedLocaleInstance.numberFormatter(),
 		calendar_data = JSON.stringify(selectedLocaleInstance.getCalendar().months.format.wide, undefined, 4 ),
@@ -56,10 +67,14 @@ function updateLocaleToUI(selectedLocaleInstance){
 	}
 	list[5].innerText = Globalize.formatCurrency( 69900, currency_unit);
 
+	/* Updates the text of current language element */
 	current_language.innerHTML = selectedLocaleInstance.getLocale();
 	output(syntaxHighlight(calendar_data));
 }
 
+/**
+ * Sets the locale information
+ */
 function setLocale(selected){
 	var locale = selected.value;
 	globalize.setLocale(locale)
@@ -69,7 +84,9 @@ function setLocale(selected){
 		});
 }
 
-
+/**
+ * Back key event handler
+ */
 window.addEventListener( 'tizenhwkey', function( ev ) {
 
 	if( ev.keyName === "back" ) {
@@ -87,6 +104,10 @@ window.addEventListener( 'tizenhwkey', function( ev ) {
 
 } );
 
+/**
+ * pageinit event handler
+ * Do preparatory works
+ */
 document.addEventListener('pageinit', function(){
 
 	selector = document.querySelector( "#select-language" );
@@ -98,6 +119,10 @@ document.addEventListener('pageinit', function(){
 
 });
 
+/**
+ * pageshow event handler
+ * Do preparatory works and adds event listeners
+ */
 document.addEventListener('pageshow',function(){
 	setLocale(selector);
 	selector.addEventListener("change",function(){
