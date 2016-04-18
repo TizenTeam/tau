@@ -7,6 +7,9 @@
 		dividerIndexObject = {},
 		selectBound;
 
+	/**
+	 * Moves the scroll to selected index
+	 */
 	function onSelect(event) {
 		var divider = dividerIndexObject[event.detail.index];
 
@@ -14,6 +17,11 @@
 			scroller.scrollTop = divider.offsetTop;
 		}
 	}
+
+	/**
+	 * pagebeforeshow event handler
+	 * Do preparatory works and adds event listeners
+	 */
 	page.addEventListener("pagebeforeshow", function() {
 		var i, len, idx;
 		scroller = tau.util.selectors.getScrollableParent(document.getElementById("isbList"));
@@ -27,6 +35,10 @@
 		isb.addEventListener("select", selectBound);
 	});
 
+	/**
+	 * pagehide event handler
+	 * Destroys and removes event listeners
+	 */
 	page.addEventListener("pagehide", function(){
 		isb.removeEventListener("select", selectBound);
 		isb.destroy();

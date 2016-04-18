@@ -11,11 +11,17 @@
 		pageHideHandler,
 		i;
 
+	/**
+	 * Updates the percentage of the progress
+	 */
 	function printResult() {
 		resultText = progressBarWidget.value();
 		resultDiv.innerHTML = resultText + "%";
 	}
 
+	/**
+	 * Initializes global variables
+	 */
 	function clearVariables() {
 		page = null;
 		progressBar = null;
@@ -24,6 +30,9 @@
 		resultDiv = null;
 	}
 
+	/**
+	 * Click event handler for minus button
+	 */
 	function minusBtnClickHandler() {
 		i = i-10;
 		if (i < 0) {
@@ -33,6 +42,9 @@
 		printResult();
 	}
 
+	/**
+	 * Click event handler for plus button
+	 */
 	function plusBtnClickHandler() {
 		i = i+10;
 		if (i > 100) {
@@ -42,6 +54,9 @@
 		printResult();
 	}
 
+	/**
+	 * Removes event listeners
+	 */
 	function unbindEvents() {
 		page.removeEventListener("pageshow", pageBeforeShowHandler);
 		page.removeEventListener("pagehide", pageHideHandler);
@@ -49,6 +64,10 @@
 		plusBtn.removeEventListener("click", plusBtnClickHandler);
 	}
 
+	/**
+	 * pagebeforeshow event handler
+	 * Do preparatory works and adds event listeners
+	 */
 	pageBeforeShowHandler = function () {
 		progressBarWidget = new tau.widget.Progress(progressBar);
 		minusBtn.addEventListener("click", minusBtnClickHandler);
@@ -57,6 +76,10 @@
 		resultDiv.innerHTML = i + "%";
 	};
 
+	/**
+	 * pagehide event handler
+	 * Destroys and removes event listeners
+	 */
 	pageHideHandler = function () {
 		unbindEvents();
 		clearVariables();

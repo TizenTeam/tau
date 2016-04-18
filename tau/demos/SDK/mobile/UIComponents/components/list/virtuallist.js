@@ -3,6 +3,10 @@
 	var page = document.getElementById(pageId),
 		vlist;
 
+	/**
+	 * pageshow event handler
+	 * Do preparatory works and adds event listeners
+	 */
 	page.addEventListener("pageshow", function() {
 		/* Get HTML element reference */
 		var elList = document.getElementById(listId);
@@ -36,6 +40,10 @@
 		vlist.draw();
 	});
 
+	/**
+	 * pagehide event handler
+	 * Destroys and removes event listeners
+	 */
 	tau.event.one(page, "pagehide", function () {
 		// Remove all children in the vlist
 		vlist.destroy();

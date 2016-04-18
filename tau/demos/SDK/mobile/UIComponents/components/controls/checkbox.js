@@ -5,6 +5,10 @@
 		favortieone = document.getElementById("favorite-1"),
 		favoriteResult = document.querySelector(".favorite-result");
 
+	/**
+	 * pageshow event handler
+	 * Do preparatory works and adds event listeners
+	 */
 	page.addEventListener("pageshow", function(){
 
 		checkone.addEventListener("click", function(){

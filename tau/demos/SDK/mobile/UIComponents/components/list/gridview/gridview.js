@@ -4,6 +4,9 @@
 		modeBtn = document.getElementById("modeBtn"),
 		gridList;
 
+	/**
+	 * Toggles reorder/edit mode
+	 */
 	function modeHandler() {
 		if (gridList.options.reorder === true) {
 			gridList.option("reorder", false);
@@ -14,11 +17,19 @@
 		}
 	}
 
+	/**
+	 * pageshow event handler
+	 * Do preparatory works and adds event listeners
+	 */
 	elPage.addEventListener("pageshow", function() {
 		gridList = tau.widget.GridView(elGrid);
 		modeBtn.addEventListener("click", modeHandler);
 	});
 
+	/**
+	 * pagebeforehide event handler
+	 * Destroys and removes event listeners
+	 */
 	elPage.addEventListener("pagebeforehide", function() {
 		modeBtn.removeEventListener("click", modeHandler);
 	});

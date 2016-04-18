@@ -7,6 +7,9 @@
 		menukeyHandler,
 		openPopup;
 
+	/**
+	 * tizenhwkey event handler
+	 */
 	menukeyHandler = function (ev) {
 		if( ev.keyName === "menu" ) {
 			if (morePopup.classList.contains("ui-popup-active")) {
@@ -17,15 +20,26 @@
 		}
 	};
 
+	/**
+	 * Opens more menu popup
+	 */
 	openPopup = function () {
 		tau.openPopup("#moremenu");
 	};
 
+	/**
+	 * pageshow event handler
+	 * Do preparatory works and adds event listeners
+	 */
 	pageShowHandler = function () {
 		window.addEventListener( 'tizenhwkey', menukeyHandler );
 		openBtn.addEventListener( 'vclick', openPopup );
 	};
 
+	/**
+	 * pagehide event handler
+	 * Destroys and removes event listeners
+	 */
 	pageHideHandler = function () {
 		window.removeEventListener( 'tizenhwkey', menukeyHandler );
 		openBtn.removeEventListener( 'vclick', openPopup );

@@ -1,4 +1,7 @@
 ( function () {
+	/**
+	 * Back key event handler
+	 */
 	window.addEventListener( 'tizenhwkey', function( ev ) {
 		if( ev.keyName === "back" ) {
 			var page = document.getElementsByClassName( 'ui-page-active' )[0],

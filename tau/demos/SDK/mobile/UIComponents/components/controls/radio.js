@@ -4,6 +4,9 @@
 		radioresult = document.querySelector((".radio-result")),
 		idx;
 
+	/**
+	 * Updates text for an selected radio
+	 */
 	function onChangeHandler(e) {
 		var target = e.target;
 		if (target.checked) {
@@ -11,6 +14,10 @@
 		}
 	}
 
+	/**
+	 * pageshow event handler
+	 * Do preparatory works and adds event listeners
+	 */
 	page.addEventListener("pageshow", function(){
 		for ( idx = 0; idx < radios.length; idx++) {
 			radios[idx].addEventListener("change", onChangeHandler);

@@ -7,6 +7,10 @@
 		searchHandlerBound,
 		searchClearBound;
 
+	/**
+	 * Shows items that match the entered value
+	 * keyup event handler
+	 */
 	function searchHandler() {
 		listItemsArray.forEach(function(item){
 			var itemText = item.getAttribute("data-filtertext");
@@ -18,6 +22,9 @@
 		});
 	}
 
+	/**
+	 * Initializes search result
+	 */
 	function searchClear() {
 		if(search.value === "") {
 			listItemsArray.forEach(function(item) {
@@ -26,6 +33,10 @@
 		}
 	}
 
+	/**
+	 * pagebeforeshow event handler
+	 * Do preparatory works and adds event listeners
+	 */
 	page.addEventListener("pagebeforeshow", function() {
 		searchHandlerBound = searchHandler.bind(this);
 		searchClearBound = searchClear.bind(this);
@@ -33,6 +44,10 @@
 		search.addEventListener("search", searchClearBound, false);
 	});
 
+	/**
+	 * pagehide event handler
+	 * Destroys and removes event listeners
+	 */
 	page.addEventListener("pagehide", function() {
 		search.removeEventListener("keyup", searchHandlerBound, false);
 		search.removeEventListener("search", searchClearBound, false);

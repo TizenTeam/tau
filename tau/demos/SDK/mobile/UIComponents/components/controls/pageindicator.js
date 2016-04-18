@@ -5,11 +5,18 @@
 		pageIndicator,
 		pageIndicatorHandler;
 
+	/**
+	 * pageshow event handler
+	 * Do preparatory works and adds event listeners
+	 */
 	page.addEventListener("pageshow", function() {
 		pageIndicator =  tau.widget.PageIndicator(elPageIndicator);
 		pageIndicator.setActive(0);
 	});
 
+	/**
+	 * sectionchange event handler
+	 */
 	pageIndicatorHandler = function (e) {
 		pageIndicator.setActive(e.detail.active);
 	};

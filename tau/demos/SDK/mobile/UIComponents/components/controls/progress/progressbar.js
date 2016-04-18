@@ -8,6 +8,10 @@
 		progressBarWidget3,
 		pageBeforeShowHandler;
 
+	/**
+	 * pagebeforeshow event handler
+	 * Do preparatory works and adds event listeners
+	 */
 	pageBeforeShowHandler = function () {
 		progressBarWidget = new tau.widget.Progress(progressBar);
 		progressBarWidget2 = new tau.widget.Progress(progressBar2);
