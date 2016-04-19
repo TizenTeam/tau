@@ -77,9 +77,9 @@
 				 * Object with default options
 				 * @property {Object} options
 				 * Treshold after which didScroll will be set
-				 * @property {number} [options.scrollThreshold=30]
+				 * @property {number} [options.scrollThreshold=10]
 				 * Time to wait before adding activeClass
-				 * @property {number} [options.addActiveClassDelay=10]
+				 * @property {number} [options.addActiveClassDelay=50]
 				 * Time to stay activeClass after touch end
 				 * @property {number} [options.keepActiveClassDelay=100]
 				 * @member ns.util.anchorHighlight
@@ -87,8 +87,8 @@
 				 * @static
 				 */
 				options = {
-					scrollThreshold: 30,
-					addActiveClassDelay: 10,
+					scrollThreshold: 10,
+					addActiveClassDelay: 50,
 					keepActiveClassDelay: 100
 				},
 				/**
@@ -258,7 +258,7 @@
 					startX = touch.clientX;
 					startY = touch.clientY;
 					target = event.target;
-					startTime = event.timeStamp;
+					startTime = Date.now();
 					startRemoveTime = 0;
 					requestAnimationFrame(addActiveClass);
 					touch = null;
