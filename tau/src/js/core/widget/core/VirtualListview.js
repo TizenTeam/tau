@@ -21,9 +21,10 @@
 	define(
 		[
 			"../../engine",
+			"../../util",
 			"../../util/selectors",
+			"../../util/scrolling",
 			"../../event",
-			"../../event/vmouse",
 			"../BaseWidget",
 			"../core" // fetch namespace
 		],
@@ -40,6 +41,15 @@
 				// Constants definition
 				/**
 				 * Defines index of scroll `{@link ns.widget.core.VirtualListview#_scroll}.direction`
+				 * @property {number} SCROLL_NONE
+				 * to retrive if user is not scrolling
+				 * @private
+				 * @static
+				 * @member ns.widget.core.VirtualListview
+				 */
+				SCROLL_NONE = -1,
+				/**
+				 * Defines index of scroll `{@link ns.widget.core.VirtualListview#_scroll}.direction`
 				 * @property {number} SCROLL_UP
 				 * to retrive if user is scrolling up
 				 * @private
@@ -48,15 +58,6 @@
 				 */
 				SCROLL_UP = 0,
 				/**
-				 * Defines index of scroll `{@link ns.widget.core.VirtualListview#_scroll}.direction`
-				 * @property {number} SCROLL_RIGHT
-				 * to retrive if user is scrolling right
-				 * @private
-				 * @static
-				 * @member ns.widget.core.VirtualListview
-				 */
-				SCROLL_RIGHT = 1,
-				/**
 				 * Defines index of scroll {@link ns.widget.core.VirtualListview#_scroll}
 				 * @property {number} SCROLL_DOWN
 				 * to retrive if user is scrolling down
@@ -64,7 +65,7 @@
 				 * @static
 				 * @member ns.widget.core.VirtualListview
 				 */
-				SCROLL_DOWN = 2,
+				SCROLL_DOWN = 1,
 				/**
 				 * Defines index of scroll {@link ns.widget.core.VirtualListview#_scroll}
 				 * @property {number} SCROLL_LEFT
@@ -73,7 +74,17 @@
 				 * @static
 				 * @member ns.widget.core.VirtualListview
 				 */
-				SCROLL_LEFT = 3,
+				SCROLL_LEFT = 2,
+				/**
+				 * Defines index of scroll `{@link ns.widget.core.VirtualListview#_scroll}.direction`
+				 * @property {number} SCROLL_RIGHT
+				 * to retrive if user is scrolling right
+				 * @private
+				 * @static
+				 * @member ns.widget.core.VirtualListview
+				 */
+				SCROLL_RIGHT = 3,
+
 				/**
 				 * Defines vertical scrolling orientation. It's default orientation.
 				 * @property {string} VERTICAL
@@ -101,39 +112,28 @@
 				 * @private
 				 * @static
 				 */
-				timeoutHandler,
-				/**
-				 * Reference to original target object from touch event.
-				 * @property {Object} origTarget
-				 * @private
-				 * @static
-				 */
-				origTarget,
-				/**
-				 * Number of miliseconds to determine if tap event occured.
-				 * @property {number} tapholdThreshold
-				 * @private
-				 * @static
-				 */
-				tapholdThreshold = 250,
-				/**
-				 * Handler for touch event listener to examine tap occurance.
-				 * @property {Object} tapHandlerBound
-				 * @private
-				 * @static
-				 */
-				tapHandlerBound = null,
-				/**
-				 * Stores last touch position to examine tap occurance.
-				 * @property {Object} lastTouchPos
-				 * @private
-				 * @static
-				 */
-				lastTouchPos =	{},
 
-				selectors = ns.util.selectors,
+				/**
+				 * Alias for ns.util
+				 * @property {Object} util
+				 * @private
+				 * @static
+				 */
+				util = ns.util,
+
+				/**
+				 * Alias for ns.util.requestAnimationFrame
+				 * @property {Function} requestFrame
+				 * @private
+				 * @static
+				 */
+				requestFrame = util.requestAnimationFrame,
+
+				selectors = util.selectors,
 
 				utilEvent = ns.event,
+
+				utilScrolling = ns.util.scrolling,
 
 				/**
 				 * Local constructor function
@@ -176,6 +176,7 @@
 					 */
 					self._scroll = {
 						direction: [0, 0, 0, 0],
+						dir: SCROLL_NONE,
 						lastPositionX: 0,
 						lastPositionY: 0,
 						lastJumpX: 0,
@@ -233,19 +234,65 @@
 					 * @protected
 					 */
 					self._scrollEventBound = null;
+
 					/**
-					 * Binding for touch start event listener.
-					 * @method _touchStartEventBound
+					 * Render function
+					 * @method _render
+					 * @protected
+					 * @member ns.widget.core.VirtualListview
+					 */
+					self._render = render.bind(null, this);
+
+					/**
+					 * Render command list
+					 * @property {Array.<*>} _renderList
 					 * @member ns.widget.core.VirtualListview
 					 * @protected
 					 */
-					self._touchStartEventBound = null;
+					self._renderList = [];
+
+					/**
+					 * Element size cache
+					 * @property {Array.<number>} _sizeMap
+					 * @member ns.widget.core.VirtualListview
+					 * @protected
+					 */
+					self._sizeMap = [];
+
+					/**
+					 * DocumentFragment buffer for DOM offscreen manipulations
+					 * @property {DocumentFragment} _domBuffer
+					 * @member ns.widget.core.VirtualListview
+					 * @protected
+					 */
+					self._domBuffer = document.createDocumentFragment();
+
+					/**
+					 * Time for last cleared cache data
+					 * @property {number} _lastRenderClearTimestamp
+					 * @member ns.widget.core.VirtualListview
+					 * @protected
+					 */
+					self._lastRenderClearTimestamp = 0;
+
+					/**
+					 * Time to lease for clearing render caches
+					 * @property {number} _lastRenderClearTTL
+					 * @member ns.widget.core.VirtualListview
+					 * @protected
+					 */
+					self._lastRenderClearTTL = 10000;
+
+					/**
+					 * Average list item size cache
+					 * @property {number} _avgListItemSize
+					 * @member ns.widget.core.VirtualListview
+					 * @protected
+					 */
+					self._avgListItemSize = -1;
 
 					return self;
 				},
-				POINTER_START = "vmousedown",
-				POINTER_MOVE = "vmousemove",
-				POINTER_END = "vmouseup",
 
 			// Cached prototype for better minification
 				prototype = new BaseWidget();
@@ -258,154 +305,87 @@
 			 * @member ns.widget.core.VirtualListview
 			 */
 			VirtualListview.classes = {
-				uiVirtualListContainer: "ui-virtual-list-container",
-				uiListviewActive: "ui-listview-active"
+				uiVirtualListContainer: "ui-virtual-list-container"
 			};
 
 			/**
-			 * Remove highlight from items.
-			 * @method _removeHighlight
-			 * @param {ns.widget.core.VirtualListview} self Reference to VirtualListview object.
+			 * Main render function
+			 * @method render
 			 * @member ns.widget.core.VirtualListview
+			 * @param {ns.widget.core.VirtualListview} vlist Reference to VirtualListview object
+			 * @param {DOMHighResTimeStamp} timestamp The current time of the animation
 			 * @private
 			 * @static
 			 */
-			function _removeHighlight (self) {
-				var children = self.element.children,
-					i = children.length;
-				while (--i >= 0) {
-					children[i].classList.remove(VirtualListview.classes.uiListviewActive);
-				}
-			}
+			function render(vlist, timestamp) {
+				var ops = vlist._renderList,
+					i = 0,
+					l = ops.length;
 
-			/**
-			 * Checks if tap meet the condition.
-			 * @method _tapHandler
-			 * @param {ns.widget.core.VirtualListview} self Reference to VirtualListview object.
-			 * @param {Event} event Received Touch event
-			 * @member ns.widget.core.VirtualListview
-			 * @private
-			 * @static
-			 */
-			function _tapHandler (self, event) {
-				var changedTouches = event.changedTouches ||
-						(event._originalEvent &&
-							event._originalEvent.changedTouches),
-					eventTouch = (changedTouches && changedTouches.length) ?
-						changedTouches[0] :
-						event;
-
-				if (event.type === POINTER_MOVE) {
-					if (Math.abs(lastTouchPos.clientX - eventTouch.clientX) > 10 && Math.abs(lastTouchPos.clientY - eventTouch.clientY) > 10) {
-						_removeHighlight(self);
-						window.clearTimeout(timeoutHandler);
+				for (; i < l; i+=4) {
+					switch (ops[i]) {
+						case "propset":
+								ops[i + 1][ops[i + 2]] = ops[i + 3];
+							break;
 					}
-				} else {
-					_removeHighlight(self);
-					window.clearTimeout(timeoutHandler);
 				}
 
+				if (l === 0 && timestamp - vlist._lastRenderClearTimestamp > vlist._lastRenderClearTTL) {
+					vlist._lastRenderClearTimestamp = timestamp;
+					// clear
+					vlist._sizeMap.length = 0;
+					vlist._avgListItemSize = -1;
+				}
+
+				ops.length = 0;
 			}
-
-			/**
-			 * Adds highlight
-			 * @method tapholdListener
-			 * @param {ns.widget.core.VirtualListview} self Reference to VirtualListview object.
-			 * @member ns.widget.core.VirtualListview
-			 * @private
-			 * @static
-			 */
-			function tapholdListener(self) {
-				var liElement;
-
-				liElement = origTarget.tagName === "LI" ? origTarget : origTarget.parentNode;
-
-				origTarget.removeEventListener(POINTER_MOVE, tapHandlerBound, false);
-				origTarget.removeEventListener(POINTER_END, tapHandlerBound, false);
-				tapHandlerBound = null;
-
-				_removeHighlight(self);
-				liElement.classList.add(VirtualListview.classes.uiListviewActive);
-				lastTouchPos = {};
-			}
-
-			/**
-			 * Binds touching events to examine tap event.
-			 * @method _touchStartHandler
-			 * @param {ns.widget.core.VirtualListview} self Reference to VirtualListview object.
-			 * @member ns.widget.core.VirtualListview
-			 * @private
-			 * @static
-			 */
-			function _touchStartHandler (self, event) {
-				var eventData;
-
-				origTarget = event.target;
-
-				// Clean up
-				window.clearTimeout(timeoutHandler);
-				origTarget.removeEventListener(POINTER_MOVE, tapHandlerBound, false);
-				origTarget.removeEventListener(POINTER_END, tapHandlerBound, false);
-
-				timeoutHandler = window.setTimeout(tapholdListener.bind(null, self), tapholdThreshold);
-				eventData = (event.touches && event.touches.length) ? event.touches[0] : event;
-				lastTouchPos.clientX = eventData.clientX;
-				lastTouchPos.clientY = eventData.clientY;
-
-				//Add touch listeners
-				tapHandlerBound = _tapHandler.bind(null, self);
-				origTarget.addEventListener(POINTER_MOVE, tapHandlerBound, false);
-				origTarget.addEventListener(POINTER_END, tapHandlerBound, false);
-
-			}
-
 
 			/**
 			 * Updates scroll information about position, direction and jump size.
 			 * @method _updateScrollInfo
 			 * @param {ns.widget.core.VirtualListview} self VirtualListview widget reference
+			 * @param {Event} [event] scroll event object.
 			 * @member ns.widget.core.VirtualListview
 			 * @private
 			 * @static
 			 */
-			function _updateScrollInfo(self) {
+			function _updateScrollInfo(self, event) {
 				var scrollInfo = self._scroll,
-					scrollDirection = scrollInfo.direction,
+					scrollDir = SCROLL_NONE,
 					scrollViewElement = self._ui.scrollview,
 					scrollLastPositionX = scrollInfo.lastPositionX,
 					scrollLastPositionY = scrollInfo.lastPositionY,
 					scrollviewPosX = scrollViewElement.scrollLeft,
-					scrollviewPosY = scrollViewElement.scrollTop;
+					scrollviewPosY = (event && event.detail && event.detail.scrollTop) ||
+						scrollViewElement.scrollTop;
 
 				self._refreshScrollbar();
-				//Reset scroll matrix
-				scrollDirection = [0, 0, 0, 0];
 
 				//Scrolling UP
 				if (scrollviewPosY < scrollLastPositionY) {
-					scrollDirection[SCROLL_UP] = 1;
+					scrollDir = SCROLL_UP;
 				}
 
 				//Scrolling RIGHT
 				if (scrollviewPosX < scrollLastPositionX) {
-					scrollDirection[SCROLL_RIGHT] = 1;
+					scrollDir = SCROLL_RIGHT;
 				}
 
 				//Scrolling DOWN
 				if (scrollviewPosY > scrollLastPositionY) {
-					scrollDirection[SCROLL_DOWN] = 1;
+					scrollDir = SCROLL_DOWN;
 				}
 
 				//Scrolling LEFT
 				if (scrollviewPosX > scrollLastPositionX) {
-					scrollDirection[SCROLL_LEFT] = 1;
+					scrollDir = SCROLL_LEFT;
 				}
 
 				scrollInfo.lastJumpY = Math.abs(scrollviewPosY - scrollLastPositionY);
 				scrollInfo.lastJumpX = Math.abs(scrollviewPosX - scrollLastPositionX);
 				scrollInfo.lastPositionX = scrollviewPosX;
 				scrollInfo.lastPositionY = scrollviewPosY;
-				scrollInfo.direction = scrollDirection;
+				scrollInfo.dir = scrollDir;
 				scrollInfo.clipHeight = scrollViewElement.clientHeight;
 				scrollInfo.clipWidth = scrollViewElement.clientWidth;
 			}
@@ -421,8 +401,7 @@
 			 * @static
 			 */
 			function _computeElementSize(element, orientation) {
-				// @TODO change to util method if it will work perfectly
-				return parseInt(orientation === VERTICAL ? element.clientHeight : element.clientWidth, 10) + 1;
+				return parseInt((orientation === VERTICAL) ? element.clientHeight : element.clientWidth, 10);
 			}
 
 			/**
@@ -445,18 +424,20 @@
 					dataLength = options.dataLength,
 					indexCorrection = 0,
 					bufferedElements = 0,
-					avgListItemSize = 0,
+					avgListItemSize = self._avgListItemSize,
 					bufferSize = options.bufferSize,
-					i,
+					i = 0,
 					offset = 0,
-					index,
+					index = -1,
 					isLastBuffer = false;
 
 				//Get size of scroll clip depended on scroll direction
 				scrollClipSize = options.orientation === VERTICAL ? scrollInfo.clipHeight : scrollInfo.clipWidth;
 
 				//Compute average list item size
-				avgListItemSize = _computeElementSize(element, options.orientation) / bufferSize;
+				if (avgListItemSize === -1) {
+					self._avgListItemSize = avgListItemSize = _computeElementSize(element, options.orientation) / bufferSize;
+				}
 
 				//Compute average number of elements in each buffer (before and after clip)
 				bufferedElements = Math.floor((bufferSize - Math.floor(scrollClipSize / avgListItemSize)) / 2);
@@ -484,12 +465,12 @@
 					if (isLastBuffer) {
 						offset = self._ui.spacer.clientHeight;
 					}
-					element.style.top = offset + "px";
+					self._addToRenderList("propset", element.style, "margin-top", offset + "px");
 				} else {
 					if (isLastBuffer) {
 						offset = self._ui.spacer.clientWidth;
 					}
-					element.style.left = offset + "px";
+					self._addToRenderList("propset", element.style, "margin-left", offset + "px");
 				}
 
 				for (i = 0; i < indexCorrection; i += 1) {
@@ -498,13 +479,168 @@
 
 				if (options.orientation === VERTICAL) {
 					//MOBILE: self._ui.scrollview.element.scrollTop = offset;
-					self._ui.scrollview.scrollTop = offset;
+					if (utilScrolling.isElement(self._ui.scrollview)) {
+						utilScrolling.scrollTo(offset);
+					} else {
+						self._ui.scrollview.scrollTop = offset;
+					}
 				} else {
 					//MOBILE: self._ui.scrollview.element.scrollLeft = offset;
 					self._ui.scrollview.scrollLeft = offset;
 				}
 				blockEvent = false;
 				self._currentIndex = index;
+			}
+
+			/**
+			 * Loads element range into internal list item buffer. Elements are taken off one end of the children list,
+			 *  placed on the other end (i.e.: first is taken and appended ath the end when scrolling down)
+			 *  and their contents get reloaded. Content reload is delegated to an external function (_updateListItem).
+			 * Depending on the direction, elements are
+			 * @param {VirtualList} self
+			 * @param element {Element} parent widget (the list view) of the (re)loaded element range
+			 * @param domBuffer {Element} an off-document element tfor temporary storage of prcessed elements
+			 * @param sizeGetter {function} a function calculating element size
+			 * @param loadIndex {number} element index to start loading at
+			 * @param indexDirection {number} -1 when indices decrease with each loaded element, +1 otherwise
+			 * @param elementsToLoad {number} loaded element count
+			 * @returns {number} number of pixels the positions of the widgets in the list moved.
+			 *  Repositioning the widget by this amount (along the scroll axis) is needed for the remaining childern
+			 *  elements not to move, relative to the viewport.
+			 * @private
+			 */
+			function _loadListElementRange(self, element, domBuffer, sizeGetter, loadIndex, indexDirection, elementsToLoad) {
+				var temporaryElement = null,
+					jump = 0,
+					i = 0;
+
+				if (indexDirection > 0) {
+					for (i = elementsToLoad; i > 0; i--) {
+						temporaryElement = element.firstElementChild;
+
+						// move to offscreen buffer
+						domBuffer.appendChild(temporaryElement);
+
+						//Updates list item using template
+						self._updateListItem(temporaryElement, loadIndex);
+
+						// move back to document
+						element.appendChild(temporaryElement);
+
+						jump += sizeGetter(temporaryElement, loadIndex++);
+					}
+					self._currentIndex += elementsToLoad;
+				} else {
+					for (i = elementsToLoad; i > 0; i--) {
+						temporaryElement = element.lastElementChild;
+
+						// move to offscreen buffer
+						domBuffer.appendChild(temporaryElement);
+
+						//Updates list item using template
+						self._updateListItem(temporaryElement, loadIndex);
+
+						element.insertBefore(temporaryElement, element.firstElementChild);
+						jump -= sizeGetter(temporaryElement, loadIndex--);
+					}
+					self._currentIndex -= elementsToLoad;
+				}
+				return jump;
+			}
+
+			/**
+			 * For a given element style, positioning direction, set the top/left position to
+			 *  elementPosiotion* adjusted by |jump|. In case the resulting position is outside the bounds
+			 *  defined by valid index ranges (0..dataLength-1), clamp the position to tha boundary.
+			 * @param {VirtualList} self
+			 * @param dataLength {number} max valid index
+			 * @param elementStyle {Object} style of the element repositioned
+			 * @param scrollDir {number} one of the BaseWidget.SCROLL_*
+			 * @param jump {number} amount of pixels the repositioned element should be moved
+			 * @param elementPositionTop {number} current elementTop
+			 * @param elementPositionLeft {number} current elementLeft
+			 * @private
+			 */
+			function _setElementStylePosition(self,
+				dataLength, elementStyle, scrollDir, jump, elementPositionTop, elementPositionLeft) {
+				var scrolledVertically = (scrollDir & 2) === 0,
+					scrolledHorizontally = (scrollDir & 2) === 1,
+					newPosition,
+					currentIndex = self._currentIndex;
+
+				if (scrolledVertically) {
+					newPosition = elementPositionTop + jump;
+
+					if (currentIndex <= 0) {
+						self._currentIndex = currentIndex = 0;
+						newPosition = 0;
+					}
+
+					if (currentIndex >= (dataLength - 1)) {
+						newPosition = self._ui.spacer.clientHeight;
+					}
+
+					if (newPosition < 0) {
+						newPosition = 0;
+					}
+
+					self._addToRenderList("propset", elementStyle, "margin-top", newPosition + "px");
+				}
+
+				if (scrolledHorizontally) {
+					newPosition = elementPositionLeft + jump;
+
+					if (currentIndex <= 0) {
+						self._currentIndex = currentIndex = 0;
+						newPosition = 0;
+					}
+
+					if (currentIndex >= (dataLength - 1)) {
+						newPosition = self._ui.spacer.clientWidth;
+					}
+
+					if (newPosition < 0) {
+						newPosition = 0;
+					}
+
+					self._addToRenderList("propset", elementStyle, "margin-left", newPosition + "px");
+				}
+			}
+
+			/**
+			 * Sums numeric properties of an array of objects
+			 * @method sumProperty
+			 * @member ns.widget.core.VirtualListview
+			 * @param {Array.<Object>} elements An array of objects
+			 * @param {string} property The property name
+			 * @return {number}
+			 * @private
+			 * @static
+			 */
+			function sumProperty(elements, property) {
+				var result = 0,
+					i = elements.length;
+				while (--i >= 0) {
+					result += elements[i][property];
+				}
+
+				return result;
+			}
+
+			/**
+			 *
+			 * @param sizeMap
+			 * @param horizontal 
+			 * @param element
+			 * @param index
+			 * @returns {*}
+			 * @private
+			 */
+			function _getElementSize(sizeMap, horizontal, element, index) {
+				if (sizeMap[index] === undefined) {
+					sizeMap[index] = horizontal ? element.clientWidth : element.clientHeight ;
+				}
+				return sizeMap[index];
 			}
 
 			/**
@@ -528,152 +664,88 @@
 				//Total number of items
 					dataLength = options.dataLength,
 				//Array of scroll direction
-					scrollDirection = scrollInfo.direction,
-					scrolledVertically = (scrollDirection[SCROLL_UP] || scrollDirection[SCROLL_DOWN]),
-					scrolledHorizontally = (scrollDirection[SCROLL_LEFT] || scrollDirection[SCROLL_RIGHT]),
-					scrollClipWidth = scrollInfo.clipWidth,
-					scrollClipHeight = scrollInfo.clipHeight,
+					scrollDir = scrollInfo.dir,
 					scrollLastPositionY = scrollInfo.lastPositionY,
 					scrollLastPositionX = scrollInfo.lastPositionX,
-					elementPositionTop = parseInt(elementStyle.top, 10) || 0,
-					elementPositionLeft = parseInt(elementStyle.left, 10) || 0,
+					elementPositionTop = parseInt(elementStyle.marginTop, 10) || 0,
+					elementPositionLeft = parseInt(elementStyle.marginLeft, 10) || 0,
 					elementsToLoad = 0,
 					bufferToLoad = 0,
 					elementsLeftToLoad = 0,
-					temporaryElement = null,
-					avgListItemSize = 0,
-					resultsetSize = 0,
-					childrenNodes,
-					i = 0,
+					domBuffer = self._domBuffer,
+					avgListItemSize = self._avgListItemSize,
+					resultsetSize = sumProperty(
+							element.children,
+							options.orientation === VERTICAL ? "clientHeight" : "clientWidth"
+					),
+					renderList = self._renderList,
+					sizeMap = self._sizeMap,
 					jump = 0,
 					hiddenPart = 0,
-					direction,
-					newPosition;
+					indexDirection = 0,
+					loadIndex = 0;
 
-
-				childrenNodes = element.children;
-				for (i = childrenNodes.length - 1; i > 0; i -= 1) {
-					if (options.orientation === VERTICAL) {
-						resultsetSize += childrenNodes[i].clientHeight;
-					} else {
-						resultsetSize += childrenNodes[i].clientWidth;
-					}
+				if (avgListItemSize === -1) {
+					//Compute average list item size
+					self._avgListItemSize = avgListItemSize = _computeElementSize(element, options.orientation) / bufferSize;
 				}
 
-				//Compute average list item size
-				avgListItemSize = _computeElementSize(element, options.orientation) / bufferSize;
-
-				//Compute hidden part of result set and number of elements, that needed to be loaded, while user is scrolling DOWN
-				if (scrollDirection[SCROLL_DOWN]) {
-					hiddenPart = scrollLastPositionY - elementPositionTop;
-					elementsLeftToLoad = dataLength - currentIndex - bufferSize;
+				switch (scrollDir) {
+					case SCROLL_NONE:
+						break;
+					case SCROLL_DOWN:
+						hiddenPart = scrollLastPositionY - elementPositionTop;
+						elementsLeftToLoad = dataLength - currentIndex - bufferSize;
+						break;
+					case SCROLL_UP:
+						hiddenPart = (elementPositionTop + resultsetSize) - (scrollLastPositionY + scrollInfo.clipHeight);
+						elementsLeftToLoad = currentIndex;
+						break;
+					case SCROLL_RIGHT:
+						hiddenPart = scrollLastPositionX - elementPositionLeft;
+						elementsLeftToLoad = dataLength - currentIndex - bufferSize;
+						break;
+					case SCROLL_LEFT:
+						hiddenPart = (elementPositionLeft + resultsetSize) - (scrollLastPositionX - scrollInfo.clipWidth);
+						elementsLeftToLoad = currentIndex;
+						break;
 				}
 
-				//Compute hidden part of result set and number of elements, that needed to be loaded, while user is scrolling UP
-				if (scrollDirection[SCROLL_UP]) {
-					hiddenPart = (elementPositionTop + resultsetSize) - (scrollLastPositionY + scrollClipHeight);
-					elementsLeftToLoad = currentIndex;
-				}
-
-				//Compute hidden part of result set and number of elements, that needed to be loaded, while user is scrolling RIGHT
-				if (scrollDirection[SCROLL_RIGHT]) {
-					hiddenPart = scrollLastPositionX - elementPositionLeft;
-					elementsLeftToLoad = dataLength - currentIndex - bufferSize;
-				}
-
-				//Compute hidden part of result set and number of elements, that needed to be loaded, while user is scrolling LEFT
-				if (scrollDirection[SCROLL_LEFT]) {
-					hiddenPart = (elementPositionLeft + resultsetSize) - (scrollLastPositionX - scrollClipWidth);
-					elementsLeftToLoad = currentIndex;
-				}
-
-				//manipulate DOM only, when at least 2/3 of result set is hidden
-				//NOTE: Result Set should be at least 3x bigger then clip size
-				if (hiddenPart > 0 && (resultsetSize / hiddenPart) <= 1.5) {
-
+				//manipulate DOM only, when at least 1/2 of result set is hidden
+				//NOTE: Result Set should be at least 2x bigger then clip size
+				if (hiddenPart > 0 && (resultsetSize / hiddenPart) <= 2) {
 					//Left half of hidden elements still hidden/cached
-					elementsToLoad = Math.floor(hiddenPart / avgListItemSize) - Math.floor((bufferSize - scrollClipHeight / avgListItemSize) / 2);
-					elementsToLoad = elementsLeftToLoad < elementsToLoad ? elementsLeftToLoad : elementsToLoad;
-					bufferToLoad = Math.floor(elementsToLoad / bufferSize);
+					elementsToLoad = ((hiddenPart / avgListItemSize) -
+									 ((bufferSize - scrollInfo.clipHeight / avgListItemSize) / 2) | 0) | 0; // floor the value
+					elementsToLoad = Math.min(elementsLeftToLoad, elementsToLoad);
+					bufferToLoad = (elementsToLoad / bufferSize) | 0;
 					elementsToLoad = elementsToLoad % bufferSize;
+
+					if (scrollDir === SCROLL_DOWN || scrollDir === SCROLL_RIGHT) {
+						indexDirection = 1;
+					} else {
+						indexDirection = -1;
+					}
 
 					// Scrolling more then buffer
 					if (bufferToLoad > 0) {
-						if (scrollDirection[SCROLL_DOWN] || scrollDirection[SCROLL_RIGHT]) {
-							direction = 1;
-						}
-
-						if (scrollDirection[SCROLL_UP] || scrollDirection[SCROLL_LEFT]) {
-							direction = -1;
-						}
-
 						// Load data to buffer according to jumped index
-						self._loadData(currentIndex + direction * bufferToLoad * bufferSize);
+						self._loadData(currentIndex + indexDirection * bufferToLoad * bufferSize);
 
 						// Refresh current index after buffer jump
 						currentIndex = self._currentIndex;
 
-						jump += direction * bufferToLoad * bufferSize * avgListItemSize;
+						jump += indexDirection * bufferToLoad * bufferSize * avgListItemSize;
 					}
 
-					if (scrollDirection[SCROLL_DOWN] || scrollDirection[SCROLL_RIGHT]) {
-						//Switch currentIndex to last
-						currentIndex = currentIndex + bufferSize - 1;
-					}
-					for (i = elementsToLoad; i > 0; i -= 1) {
-						if (scrollDirection[SCROLL_DOWN] || scrollDirection[SCROLL_RIGHT]) {
-							temporaryElement = element.appendChild(element.firstElementChild);
-							++currentIndex;
+					loadIndex = currentIndex + (indexDirection > 0 ? bufferSize : -1);
+					// Note: currentIndex is not valid after this call.
+					jump += _loadListElementRange(self, element, domBuffer,
+						_getElementSize.bind(null, sizeMap, scrollDir & 2),
+						loadIndex, indexDirection, elementsToLoad);
 
-							//Updates list item using template
-							self._updateListItem(temporaryElement, currentIndex);
-							jump += temporaryElement.clientHeight;
-						}
-
-						if (scrollDirection[SCROLL_UP] || scrollDirection[SCROLL_LEFT]) {
-							temporaryElement = element.insertBefore(element.lastElementChild, element.firstElementChild);
-							--currentIndex;
-
-							//Updates list item using template
-							self._updateListItem(temporaryElement, currentIndex);
-							jump -= temporaryElement.clientHeight;
-						}
-					}
-					if (scrolledVertically) {
-						newPosition = elementPositionTop + jump;
-
-						if (newPosition < 0 || currentIndex <= 0) {
-							newPosition = 0;
-							currentIndex = 0;
-						}
-
-						if (currentIndex >= (dataLength - 1)) {
-							newPosition = self._ui.spacer.clientHeight;
-						}
-
-						elementStyle.top = newPosition + "px";
-					}
-
-					if (scrolledHorizontally) {
-						newPosition = elementPositionLeft + jump;
-
-						if (newPosition < 0 || currentIndex <= 0) {
-							newPosition = 0;
-						}
-
-						if (currentIndex >= (dataLength - 1)) {
-							newPosition = self._ui.spacer.clientWidth;
-						}
-
-						elementStyle.left = newPosition + "px";
-					}
-
-					if (scrollDirection[SCROLL_DOWN] || scrollDirection[SCROLL_RIGHT]) {
-						//Switch currentIndex to first
-						currentIndex = currentIndex - bufferSize + 1;
-					}
-					//Save current index
-					self._currentIndex = currentIndex;
+					_setElementStylePosition(self, dataLength, elementStyle, scrollDir, jump,
+						elementPositionTop, elementPositionLeft);
 				}
 			}
 
@@ -681,13 +753,14 @@
 			 * Check if scrolling position is changed and updates list if it needed.
 			 * @method _updateList
 			 * @param {ns.widget.core.VirtualListview} self VirtualListview widget reference
+			 * @param event scroll event triggering this update
 			 * @member ns.widget.core.VirtualListview
 			 * @private
 			 * @static
 			 */
-			function _updateList(self) {
+			function _updateList(self, event) {
 				var _scroll = self._scroll;
-				_updateScrollInfo.call(null, self);
+				_updateScrollInfo(self, event);
 				if (_scroll.lastJumpY > 0 || _scroll.lastJumpX > 0) {
 					if (!blockEvent) {
 						_orderElements(self);
@@ -724,10 +797,9 @@
 			};
 
 			prototype._setupScrollview = function (element, orientation) {
-				var scrollview,
+				var scrollview = selectors.getClosestByClass(element, "ui-scroller") || element.parentElement,
 					scrollviewStyle;
 				//Get scrollview instance
-				scrollview = element.parentElement;
 				scrollviewStyle = scrollview.style;
 
 				if (orientation === HORIZONTAL) {
@@ -756,7 +828,9 @@
 					orientation,
 					scrollview,
 					spacer,
-					spacerStyle;
+					spacerStyle,
+					elementRect = null,
+					scrollviewRect = null;
 
 				//Prepare element
 				element.style.position = "relative";
@@ -782,7 +856,7 @@
 				if (orientation === HORIZONTAL) {
 					spacerStyle.float = "left";
 				}
-				element.parentNode.appendChild(spacer);
+				scrollview.appendChild(spacer);
 
 				if (options.dataLength < options.bufferSize) {
 					options.bufferSize = options.dataLength;
@@ -791,6 +865,11 @@
 				if (options.bufferSize < 1) {
 					options.bufferSize = 1;
 				}
+
+				elementRect = element.getBoundingClientRect();
+				scrollviewRect = scrollview.getBoundingClientRect();
+				self._initTopPosition = elementRect.top - scrollviewRect.top;
+				self._initLeftPosition = elementRect.left - scrollviewRect.left;
 
 				// Assign variables to members
 				ui.spacer = spacer;
@@ -812,8 +891,7 @@
 					options = self.options,
 					childElementType = (list.tagName === "UL" || list.tagName === "OL") ? "li" : "div",
 					numberOfItems = options.bufferSize,
-					documentFragment = document.createDocumentFragment(),
-					touchStartEventBound = _touchStartHandler.bind(null, self),
+					documentFragment = self._domBuffer,
 					orientation = options.orientation,
 					i;
 
@@ -828,11 +906,9 @@
 
 					self._updateListItem(listItem, i);
 					documentFragment.appendChild(listItem);
-					listItem.addEventListener(POINTER_START, touchStartEventBound, false);
 				}
 
 				list.appendChild(documentFragment);
-				this._touchStartEventBound = touchStartEventBound;
 				this._refresh();
 			};
 
@@ -879,18 +955,40 @@
 					element = self.element,
 					options = self.options,
 					ui = self._ui,
+					scrollview = ui.scrollview,
 					spacerStyle = ui.spacer.style,
-					bufferSizePx;
+					bufferSizePx,
+					listSize = 0;
 
 				if (options.orientation === VERTICAL) {
 					//Note: element.clientHeight is variable
 					bufferSizePx = parseFloat(element.clientHeight) || 0;
-					spacerStyle.height = (bufferSizePx / options.bufferSize * options.dataLength - bufferSizePx) + "px";
+					listSize = bufferSizePx / options.bufferSize * options.dataLength;
+					if (utilScrolling.isElement(scrollview)) {
+						utilScrolling.setMaxScroll(listSize);
+					} else {
+						self._addToRenderList("propset", spacerStyle, "height", (listSize - bufferSizePx) + "px");
+					}
 				} else {
 					//Note: element.clientWidth is variable
 					bufferSizePx = parseFloat(element.clientWidth) || 0;
-					spacerStyle.width = (bufferSizePx / options.bufferSize * (options.dataLength - 1) - 4 / 3 * bufferSizePx) + "px";
+					self._addToRenderList("propset", spacerStyle, "width", (bufferSizePx / options.bufferSize * (options.dataLength - 1) - 4 / 3 * bufferSizePx) + "px");
 				}
+			};
+
+			/**
+			 * Binds VirtualListview events
+			 * @method _bindEvents
+			 * @member ns.widget.core.VirtualListview
+			 * @protected
+			 */
+			prototype._addToRenderList = function() {
+				var self = this,
+					renderList = self._renderList;
+				renderList.push.apply(renderList, arguments);
+				requestFrame(self._render);
+
+				//MOBILE: parent_bindEvents.call(self, self.element);
 			};
 
 			/**
@@ -923,8 +1021,7 @@
 					scrollviewClip = self._ui.scrollview,
 					uiSpacer = self._ui.spacer,
 					element = self.element,
-					elementStyle = element.style,
-					listItem;
+					elementStyle = element.style;
 
 				// Restore start position
 				elementStyle.position = "static";
@@ -945,9 +1042,7 @@
 
 				//Remove li elements.
 				while (element.firstElementChild) {
-					listItem = element.firstElementChild;
-					listItem.removeEventListener(POINTER_START, self._touchStartEventBound, false);
-					element.removeChild(listItem);
+					element.removeChild(element.firstElementChild);
 				}
 
 			};
@@ -959,7 +1054,12 @@
 			 * @member ns.widget.core.VirtualListview
 			 */
 			prototype.scrollTo = function(position) {
-				this._ui.scrollview.scrollTop = position;
+				var self = this;
+				if (utilScrolling.isElement(self._ui.scrollview)) {
+					utilScrolling.scrollTo(position);
+				} else {
+					self._ui.scrollview.scrollTop = position;
+				}
 			};
 
 			/**

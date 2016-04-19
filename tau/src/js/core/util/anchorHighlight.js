@@ -206,7 +206,7 @@
 			 * @static
 			 */
 			function removeActiveClass() {
-				var dTime = Date.now() - startRemoveTime;;
+				var dTime = Date.now() - startRemoveTime;
 
 				if (dTime > options.keepActiveClassDelay) {
 					// after touchend

@@ -28,14 +28,14 @@
 				elementStyle = null,
 				maxScrollPosition = 0,
 				// scrolling element
-				scollingElement = null,
+				scrollingElement = null,
 				// cache of previous overflow style to revert after disable
 				previousOverflow = "",
 				// cache abs function
 				abs = Math.abs,
 				// inform that is touched
 				isTouch = false,
-				isScoll = false,
+				isScroll = false,
 				// direction of scrolling, 0 - mean Y, 1 - mean X
 				direction = 0,
 				// cache of round function
@@ -43,13 +43,13 @@
 
 
 			/**
-			 * Chack that current target is inside scrolling element
+			 * Check that current target is inside scrolling element
 			 * @param {HTMLElement} target
 			 * @return boolean
 			 */
 			function detectTarget(target) {
 				while (target && target !== document) {
-					if (target === scollingElement) {
+					if (target === scrollingElement) {
 						return true;
 					}
 					target = target.parentElement;
@@ -65,9 +65,9 @@
 				var touches = event.touches,
 					touch = touches[0];
 
-				isScoll = detectTarget(event.target);
+				isScroll = detectTarget(event.target);
 				// is is only one touch
-				if (isScoll && touches.length === 1) {
+				if (isScroll && touches.length === 1) {
 					// save current touch point
 					startPosition = direction ? touch.clientX : touch.clientY;
 					// save current time for calculate acceleration on touchend
@@ -91,7 +91,7 @@
 					clientPosition = direction ? touch.clientX : touch.clientY;
 
 				// if touch start was on scrolled element
-				if (isScoll) {
+				if (isScroll) {
 					// if is only one touch
 					if (touches.length === 1) {
 						// calculate difference between touch start and current position
@@ -104,7 +104,7 @@
 							lastScrollPosition = -maxScrollPosition - scrollPosition;
 						}
 						// trigger event scroll
-						eventUtil.trigger(scollingElement, "scroll", {scrollTop: -(scrollPosition + lastScrollPosition)});
+						eventUtil.trigger(scrollingElement, "scroll", {scrollTop: -(scrollPosition + lastScrollPosition)});
 					}
 					// if this is first touch move
 					if (!isTouch) {
@@ -144,9 +144,9 @@
 				}
 				lastScrollPosition = 0;
 				// trigger event scroll
-				eventUtil.trigger(scollingElement, "scroll", {scrollTop: -(scrollPosition)});
+				eventUtil.trigger(scrollingElement, "scroll", {scrollTop: -(scrollPosition)});
 				// we stop scrolling
-				isScoll = false;
+				isScroll = false;
 			}
 
 			/**
@@ -180,7 +180,7 @@
 					scrollPosition = 0;
 				}
 				// trigger event scroll
-				eventUtil.trigger(scollingElement, "scroll", {scrollTop: -(scrollPosition)});
+				eventUtil.trigger(scrollingElement, "scroll", {scrollTop: -(scrollPosition)});
 			}
 
 			/**
@@ -212,10 +212,12 @@
 			 */
 			function enable(element, setDirection) {
 				var parentRectangle = null,
+					childElement = element.firstElementChild,
 					rectangle = null,
-					childElement = element.firstElementChild;
+					i = 0,
+					childrenLength = element.children.length;
 
-				if (scollingElement) {
+				if (scrollingElement) {
 					console.warn("Scrolling exist on another element, first call disable method");
 				} else {
 					// detect direction
@@ -224,8 +226,19 @@
 					} else {
 						direction = 0;
 					}
+
+					// If element has more than one child we creating
+					// container to position transform
+					if (childrenLength > 1) {
+						childElement = document.createElement("div");
+						for (; i < childrenLength; ++i) {
+							childElement.appendChild(element.firstElementChild);
+						}
+						element.appendChild(childElement);
+					}
+
 					// setting scrolling element
-					scollingElement = element;
+					scrollingElement = element;
 					// calculate maxScroll
 					parentRectangle = element.getBoundingClientRect();
 					rectangle = childElement.getBoundingClientRect();
@@ -253,6 +266,11 @@
 					document.addEventListener("touchstart", touchStart, false);
 					document.addEventListener("touchmove", touchMove, false);
 					document.addEventListener("touchend", touchEnd, false);
+
+					// clean
+					childElement = null;
+					parentRectangle = null;
+					rectangle = null;
 				}
 			}
 
@@ -266,10 +284,10 @@
 				document.removeEventListener("touchmove", touchMove, false);
 				document.removeEventListener("touchend", touchEnd, false);
 
-				scollingElement.style.overflow = previousOverflow;
+				scrollingElement.style.overflow = previousOverflow;
 
 				elementStyle = null;
-				scollingElement = null;
+				scrollingElement = null;
 			}
 
 			/**
@@ -296,7 +314,7 @@
 				 * @member ns.util.scrolling
 				 */
 				isElement: function(element) {
-					return scollingElement === element;
+					return scrollingElement === element;
 				},
 				/**
 				 * Update max scrolling position
