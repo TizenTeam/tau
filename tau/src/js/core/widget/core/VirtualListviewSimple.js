@@ -181,7 +181,9 @@
 					content = selectors.getClosestBySelector(list, ".ui-content").getBoundingClientRect(),
 					elementRect = null,
 					i,
-					scrollInitSize = scrollview.getBoundingClientRect()[sizeProperty];
+					scrollInitSize = [].reduce.call(scrollview.children, function(previousValue, currentNode) {
+						return previousValue + currentNode.getBoundingClientRect()[sizeProperty];
+					}, 0);
 
 				if (options.dataLength < numberOfItems) {
 					numberOfItems = options.dataLength;

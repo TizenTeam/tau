@@ -29,6 +29,13 @@
 					fadeIn: "fade-in"
 				},
 				bounceBack = false,
+				EVENTS = {
+					SCROLL_BEFORE_START: "beforeScrollStart",
+					SCROLL_START: "scrollStart",
+					SCROLL_END: "scrollEnd",
+					SCROLL_FLICK: "flick",
+					SCROLL: "scroll"
+				},
 				// position when was last touch start
 				startPosition = 0,
 				// current state of scroll position
@@ -128,6 +135,11 @@
 					lastTime = Date.now();
 					// reset acceleration state
 					moveToPosition = scrollPosition;
+					eventUtil.trigger(scrollingElement, EVENTS.SCROLL_BEFORE_START, {
+						scrollLeft: direction ? -scrollPosition : 0,
+						scrollTop: direction ? 0 : -scrollPosition,
+						fromAPI: fromAPI
+					});
 				}
 				// clean
 				touches = null;
@@ -160,8 +172,16 @@
 								lastScrollPosition = -maxScrollPosition - scrollPosition;
 							}
 						}
+						// trigger event scroll start if it is the first touch move
+						if (!isTouch) {
+							eventUtil.trigger(scrollingElement, EVENTS.SCROLL_START, {
+								scrollLeft: direction ? -(scrollPosition + lastScrollPosition) : 0,
+								scrollTop: direction ? 0 : -(scrollPosition + lastScrollPosition),
+								fromAPI: fromAPI
+							});
+						}
 						// trigger event scroll
-						eventUtil.trigger(scrollingElement, "scroll", {
+						eventUtil.trigger(scrollingElement, EVENTS.SCROLL, {
 							scrollLeft: direction ? -(scrollPosition + lastScrollPosition) : 0,
 							scrollTop: direction ? 0 : -(scrollPosition + lastScrollPosition),
 							inBounds: (scrollPosition + lastScrollPosition >= -maxScrollPosition) && (scrollPosition + lastScrollPosition <= 0),
@@ -187,66 +207,74 @@
 			function touchEnd() {
 				var diffTime = Date.now() - lastTime,
 					inBounds;
+				// only if the event touchmove was noticed before
+				if (isTouch) {
+					// update state of scrolling
+					scrollPosition += lastScrollPosition;
+					inBounds = (scrollPosition >= -maxScrollPosition) && (scrollPosition <= 0);
 
-				// update state of scrolling
-				scrollPosition += lastScrollPosition;
-				inBounds = (scrollPosition >= -maxScrollPosition) && (scrollPosition <= 0);
-
-				// calculate speed of touch move
-				if (inBounds && abs(lastScrollPosition / diffTime) > 1) {
-					// if it was fast move, we start animation of scrolling after touch end
-					moveToPosition = max(min(round(scrollPosition + 1000 * lastScrollPosition / diffTime), 0), -maxScrollPosition);
-					if (snapSize) {
-						moveToPosition = snapSize * round(moveToPosition / snapSize);
-					}
-					requestAnimationFrame(moveTo);
-				} else {
-					if (snapSize) {
-						moveToPosition = snapSize * round((scrollPosition + lastScrollPosition) / snapSize);
-						requestAnimationFrame(moveTo);
-					}
-					// touch move was slow, just finish render loop
-					isTouch = false;
-				}
-
-				if (bounceBack) {
-					if (!inBounds) {
+					// calculate speed of touch move
+					if (inBounds && abs(lastScrollPosition / diffTime) > 1) {
 						// if it was fast move, we start animation of scrolling after touch end
-						if (scrollPosition > 0){
-							moveToPosition = 0;
-						} else {
-							moveToPosition = -maxScrollPosition;
+						moveToPosition = max(min(round(scrollPosition + 1000 * lastScrollPosition / diffTime), 0), -maxScrollPosition);
+						if (snapSize) {
+							moveToPosition = snapSize * round(moveToPosition / snapSize);
+						}
+						if (abs(lastScrollPosition / diffTime) > 1) {
+							eventUtil.trigger(scrollingElement, EVENTS.SCROLL_FLICK, {
+								scrollLeft: direction ? -moveToPosition : 0,
+								scrollTop: direction ? 0 : -moveToPosition,
+								fromAPI: fromAPI
+							});
 						}
 						requestAnimationFrame(moveTo);
+					} else {
+						if (snapSize) {
+							moveToPosition = snapSize * round((scrollPosition + lastScrollPosition) / snapSize);
+							requestAnimationFrame(moveTo);
+						}
+						// touch move was slow, just finish render loop
+						isTouch = false;
 					}
-				} else {
-					// normalize value to be in bound [0, maxScroll]
-					if (scrollPosition < -maxScrollPosition) {
-						scrollPosition = -maxScrollPosition;
-					}
-					if (scrollPosition > 0) {
-						scrollPosition = 0;
-					}
-				}
 
-				lastScrollPosition = 0;
-				// trigger event scroll
-				eventUtil.trigger(scrollingElement, "scroll", {
-					scrollLeft: direction ? -(scrollPosition) : 0,
-					scrollTop: direction ? 0 : -(scrollPosition),
-					inBounds: inBounds,
-					fromAPI: fromAPI
-				});
-				if (!isTouch) {
-					eventUtil.trigger(scrollingElement, "scrollend", {
+					if (bounceBack) {
+						if (!inBounds) {
+							// if it was fast move, we start animation of scrolling after touch end
+							if (scrollPosition > 0) {
+								moveToPosition = 0;
+							} else {
+								moveToPosition = -maxScrollPosition;
+							}
+							requestAnimationFrame(moveTo);
+						}
+					} else {
+						// normalize value to be in bound [0, maxScroll]
+						if (scrollPosition < -maxScrollPosition) {
+							scrollPosition = -maxScrollPosition;
+						}
+						if (scrollPosition > 0) {
+							scrollPosition = 0;
+						}
+					}
+
+					lastScrollPosition = 0;
+					// trigger event scroll
+					eventUtil.trigger(scrollingElement, EVENTS.SCROLL, {
 						scrollLeft: direction ? -(scrollPosition) : 0,
 						scrollTop: direction ? 0 : -(scrollPosition),
+						inBounds: inBounds,
 						fromAPI: fromAPI
 					});
+					eventUtil.trigger(scrollingElement, EVENTS.SCROLL_END, {
+						scrollLeft: direction ? -(scrollPosition) : 0,
+						scrollTop: direction ? 0 : -(scrollPosition),
+						inBounds: inBounds,
+						fromAPI: fromAPI
+					});
+					fadeInScrollBar();
+					// we stop scrolling
+					isScrollableTarget = false;
 				}
-				fadeInScrollBar();
-				// we stop scrolling
-				isScrollableTarget = false;
 			}
 
 			/**
@@ -284,14 +312,14 @@
 						}
 					}
 					// trigger event scroll
-					eventUtil.trigger(scrollingElement, "scroll", {
+					eventUtil.trigger(scrollingElement, EVENTS.SCROLL, {
 						scrollLeft: direction ? -(scrollPosition) : 0,
 						scrollTop: direction ? 0 : -(scrollPosition),
 						inBounds: (scrollPosition >= -maxScrollPosition) && (scrollPosition <= 0),
 						fromAPI: fromAPI
 					});
 					if (!isTouch) {
-						eventUtil.trigger(scrollingElement, "scrollend", {
+						eventUtil.trigger(scrollingElement, EVENTS.SCROLL_END, {
 							scrollLeft: direction ? -(scrollPosition) : 0,
 							scrollTop: direction ? 0 : -(scrollPosition),
 							fromAPI: fromAPI
@@ -538,6 +566,11 @@
 			function scrollTo(value) {
 				moveToPosition = value;
 				fromAPI = true;
+				eventUtil.trigger(scrollingElement, EVENTS.SCROLL_BEFORE_START, {
+					scrollLeft: direction ? -scrollPosition : 0,
+					scrollTop: direction ? 0 : -scrollPosition,
+					fromAPI: fromAPI
+				});
 				requestAnimationFrame(moveTo);
 				render();
 			}
