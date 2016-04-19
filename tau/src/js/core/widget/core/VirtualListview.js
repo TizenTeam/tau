@@ -224,7 +224,8 @@
 						dataLength: 0,
 						orientation: VERTICAL,
 						listItemUpdater: null,
-						scrollElement: null
+						scrollElement: null,
+						optimizedScrolling: false
 					};
 
 					/**
@@ -305,7 +306,8 @@
 			 * @member ns.widget.core.VirtualListview
 			 */
 			VirtualListview.classes = {
-				uiVirtualListContainer: "ui-virtual-list-container"
+				uiVirtualListContainer: "ui-virtual-list-container",
+				spacer: "ui-virtual-list-spacer"
 			};
 
 			/**
@@ -781,22 +783,7 @@
 				this.options.listItemUpdater(element, index);
 			};
 
-			/**
-			 * Build widget structure
-			 * @method _build
-			 * @param {HTMLElement} element Widget's element
-			 * @return {HTMLElement} Element on which built is widget
-			 * @member ns.widget.core.VirtualListview
-			 * @protected
-			 */
-			prototype._build = function(element) {
-				var classes = VirtualListview.classes;
-
-				element.classList.add(classes.uiVirtualListContainer);
-				return element;
-			};
-
-			prototype._setupScrollview = function (element, orientation) {
+			function setupScrollview(element, orientation) {
 				var scrollview = selectors.getClosestByClass(element, "ui-scroller") || element.parentElement,
 					scrollviewStyle;
 				//Get scrollview instance
@@ -812,6 +799,72 @@
 				}
 
 				return scrollview;
+			}
+
+			function getScrollView(options, element) {
+				var scrollview = null;
+
+				if (options.scrollElement) {
+					if (typeof options.scrollElement === "string") {
+						scrollview = selectors.getClosestBySelector(element, "." + options.scrollElement);
+					} else {
+						scrollview = options.scrollElement;
+					}
+				}
+
+				if (!scrollview) {
+					scrollview = setupScrollview(element, options.orientation);
+				}
+
+				return scrollview;
+			}
+
+			/**
+			 * Build widget structure
+			 * @method _build
+			 * @param {HTMLElement} element Widget's element
+			 * @return {HTMLElement} Element on which built is widget
+			 * @member ns.widget.core.VirtualListview
+			 * @protected
+			 */
+			prototype._build = function(element) {
+				var self = this,
+					ui = self._ui,
+					classes = VirtualListview.classes,
+					options = self.options,
+					scrollview,
+					spacer = document.createElement("div"),
+					spacerStyle,
+					orientation;
+
+				//Prepare element
+				element.style.position = "relative";
+				element.classList.add(classes.uiVirtualListContainer);
+
+				//Set orientation, default vertical scrolling is allowed
+				orientation = options.orientation.toLowerCase() === HORIZONTAL ? HORIZONTAL : VERTICAL;
+
+				scrollview = getScrollView(options, element);
+
+				// Prepare spacer (element which makes scrollBar proper size)
+				spacer.classList.add(classes.spacer);
+
+				spacerStyle = spacer.style;
+				spacerStyle.display = "block";
+				spacerStyle.position = "static";
+
+				if (orientation === HORIZONTAL) {
+					spacerStyle.float = "left";
+				}
+
+				scrollview.appendChild(spacer);
+
+				// Assign variables to members
+				ui.spacer = spacer;
+				ui.scrollview = scrollview;
+				options.orientation = orientation;
+
+				return element;
 			};
 
 			/**
@@ -825,38 +878,9 @@
 				var self = this,
 					ui = self._ui,
 					options = self.options,
-					orientation,
-					scrollview,
-					spacer,
-					spacerStyle,
+					scrollview = self.scrollview || getScrollView(options, element),
 					elementRect = null,
 					scrollviewRect = null;
-
-				//Prepare element
-				element.style.position = "relative";
-
-				//Set orientation, default vertical scrolling is allowed
-				orientation = options.orientation.toLowerCase() === HORIZONTAL ? HORIZONTAL : VERTICAL;
-				if (options.scrollElement) {
-					if (typeof options.scrollElement === "string") {
-						scrollview = selectors.getClosestBySelector(element, "." + options.scrollElement);
-					} else {
-						scrollview = options.scrollElement;
-					}
-				}
-				if(!scrollview) {
-					scrollview = self._setupScrollview(element, orientation);
-				}
-
-				// Prepare spacer (element which makes scrollbar proper size)
-				spacer = document.createElement("div");
-				spacerStyle = spacer.style;
-				spacerStyle.display = "block";
-				spacerStyle.position = "static";
-				if (orientation === HORIZONTAL) {
-					spacerStyle.float = "left";
-				}
-				scrollview.appendChild(spacer);
 
 				if (options.dataLength < options.bufferSize) {
 					options.bufferSize = options.dataLength;
@@ -868,14 +892,19 @@
 
 				elementRect = element.getBoundingClientRect();
 				scrollviewRect = scrollview.getBoundingClientRect();
+				// Assign variables to members
 				self._initTopPosition = elementRect.top - scrollviewRect.top;
 				self._initLeftPosition = elementRect.left - scrollviewRect.left;
 
-				// Assign variables to members
-				ui.spacer = spacer;
+				ui.spacer = ui.spacer || scrollview.querySelector("." + VirtualListview.classes.spacer);
 				ui.scrollview = scrollview;
-				self.element = element;
-				options.orientation = orientation;
+
+				options.orientation = options.orientation.toLowerCase() === HORIZONTAL ? HORIZONTAL : VERTICAL;
+
+				if(options.optimizedScrolling) {
+					utilScrolling.enable(scrollview, options.orientation);
+					utilScrolling.enableScrollBar();
+				}
 			};
 
 			/**
@@ -899,7 +928,7 @@
 					listItem = document.createElement(childElementType);
 
 					if (orientation === HORIZONTAL) {
-						// TODO: check if whiteSpace: nowrap is better for vertical listes
+						// TODO: check if whiteSpace: nowrap is better for vertical lists
 						// NOTE: after rebuild this condition check possible duplication from _init method
 						listItem.style.float = "left";
 					}
@@ -964,7 +993,8 @@
 					//Note: element.clientHeight is variable
 					bufferSizePx = parseFloat(element.clientHeight) || 0;
 					listSize = bufferSizePx / options.bufferSize * options.dataLength;
-					if (utilScrolling.isElement(scrollview)) {
+
+					if (options.optimizedScrolling) {
 						utilScrolling.setMaxScroll(listSize);
 					} else {
 						self._addToRenderList("propset", spacerStyle, "height", (listSize - bufferSizePx) + "px");
@@ -972,7 +1002,14 @@
 				} else {
 					//Note: element.clientWidth is variable
 					bufferSizePx = parseFloat(element.clientWidth) || 0;
-					self._addToRenderList("propset", spacerStyle, "width", (bufferSizePx / options.bufferSize * (options.dataLength - 1) - 4 / 3 * bufferSizePx) + "px");
+					listSize = bufferSizePx / options.bufferSize * options.dataLength;
+
+					if (options.optimizedScrolling) {
+						utilScrolling.setMaxScroll(listSize);
+					} else {
+						self._addToRenderList("propset", spacerStyle, "width", (bufferSizePx / options.bufferSize * (options.dataLength - 1) - 4 / 3 * bufferSizePx) + "px");
+					}
+
 				}
 			};
 
@@ -1018,7 +1055,7 @@
 			 */
 			prototype._destroy = function() {
 				var self = this,
-					scrollviewClip = self._ui.scrollview,
+					scrollView = self._ui.scrollview,
 					uiSpacer = self._ui.spacer,
 					element = self.element,
 					elementStyle = element.style;
@@ -1031,8 +1068,9 @@
 					elementStyle.left = "auto";
 				}
 
-				if (scrollviewClip) {
-					scrollviewClip.removeEventListener("scroll", self._scrollEventBound, false);
+				if (scrollView) {
+					utilScrolling.disable(scrollView);
+					scrollView.removeEventListener("scroll", self._scrollEventBound, false);
 				}
 
 				//Remove spacer element
@@ -1044,7 +1082,6 @@
 				while (element.firstElementChild) {
 					element.removeChild(element.firstElementChild);
 				}
-
 			};
 
 			/**
