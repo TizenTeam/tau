@@ -198,7 +198,7 @@
 				}
 
 				elementRect = self.element.getBoundingClientRect();
-				self._itemSize = numberOfItems > 0 ? elementRect[sizeProperty] / numberOfItems : 0;
+				self._itemSize = numberOfItems > 0 ? Math.round(elementRect[sizeProperty] / numberOfItems) : 0;
 				self._numberOfItems = numberOfItems;
 				self._containerSize = content[sizeProperty];
 				self._numberOfVisibleElements = Math.ceil(content[sizeProperty] / self._itemSize);
@@ -263,10 +263,12 @@
 				var list = self.element,
 					options = self.options,
 					beginProperty = options.orientation === "vertical" ? "scrollTop" : "scrollLeft",
+					itemSize = self._itemSize,
 					scrollBegin = event.detail && event.detail[beginProperty],
 					ui = self._ui,
 					scrollChildStyle = ui.scrollview.firstElementChild.style,
 					fromIndex = 0,
+					dataLength = options.dataLength,
 					map = [],
 					freeElements,
 					numberOfItems = self._numberOfItems,
@@ -275,8 +277,8 @@
 					listItem,
 					correction = 0,
 					scroll = {
-					    scrollTop: 0,
-					    scrollLeft: 0
+						scrollTop: 0,
+						scrollLeft: 0
 					},
 					inBoundsDiff = 0,
 					nextElement;
@@ -306,29 +308,34 @@
 							if (scrollBegin < self._itemSize) {
 								fromIndex = 0;
 								correction =  0;
-							} else if (currentIndex > (self.options.dataLength - numberOfItems)) {
-								fromIndex = self.options.dataLength - numberOfItems;
-								correction = self._itemSize * (currentIndex-fromIndex);
-							} else if (currentIndex === (self.options.dataLength - numberOfItems)) {
-								fromIndex = currentIndex;
-								correction = 0;
+							} else if (currentIndex > (dataLength - numberOfItems)) {
+								fromIndex = dataLength - numberOfItems;
+								correction = itemSize * (currentIndex-fromIndex);
 							} else {
 								fromIndex = currentIndex - 1;
-								correction = self._itemSize;
+								correction = itemSize;
 							}
+
+							// Get elements which are currently presented
 							for (i = fromIndex; i < fromIndex + numberOfItems; ++i) {
 								map[i - fromIndex] = filter.call(list.children, filterElement.bind(null, i))[0];
 							}
 
+							// Get elements that should be changed
 							freeElements = filter.call(list.children, filterFreeElements.bind(null, map));
 
 							for (i = fromIndex + numberOfItems - 1; i >= fromIndex; --i) {
 
 								if (i >= 0 && i < self.options.dataLength) {
+
+									// if checked element is not presented
 									if (!map[i - fromIndex]) {
+										// get first free element
 										listItem = freeElements.shift();
 										map[i - fromIndex] = listItem;
 										self._updateListItem(listItem, i);
+
+										// Get the desired position for the element
 										if (i - fromIndex === numberOfItems - 1) {
 											list.appendChild(listItem);
 										} else {
@@ -348,13 +355,13 @@
 							// If we are somewhere in the middle of the list
 							if (scrollBegin >= 0) {
 								if (scrollBegin < self._itemSize) {
-									scroll[beginProperty] = scrollBegin % self._itemSize;
-								} else if (currentIndex > (self.options.dataLength - numberOfItems)) {
-									fromIndex = self.options.dataLength - numberOfItems;
-									correction = self._itemSize * (currentIndex-fromIndex);
-									scroll[beginProperty] = correction + scrollBegin % self._itemSize;
+									scroll[beginProperty] = scrollBegin % itemSize;
+								} else if (currentIndex > (dataLength - numberOfItems)) {
+									fromIndex = dataLength - numberOfItems;
+									correction = itemSize * (currentIndex-fromIndex);
+									scroll[beginProperty] = correction + scrollBegin % itemSize;
 								} else {
-									scroll[beginProperty] = self._itemSize + scrollBegin % self._itemSize;
+									scroll[beginProperty] = itemSize + scrollBegin % itemSize;
 								}
 							} else {
 								// In case we scroll to content before the list
