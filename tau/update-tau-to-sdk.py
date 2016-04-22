@@ -98,7 +98,8 @@ jobs = {
 			SrcDest("web-ui-fw/tau/demos/SDK/mobile/UIComponents", "tizen-winset/project"),
 			SrcDest("web-ui-fw/tau/dist/mobile", "tizen-winset/project/lib/tau"),
 			SrcDest("web-ui-fw/tau/dist/animation", "tizen-winset/project/lib/tau/animation"),
-			SrcDest("web-ui-fw/tau/dist/mobile", "tizen-globalize/project/lib/tau/mobile"),
+			SrcDest("web-ui-fw/tau/demos/SDK/mobile/Tizen_Web_UI_FW_Globalize", "tizen-globalize/project"),
+			SrcDest("web-ui-fw/tau/dist/mobile", "tizen-globalize/project/lib/tau"),
 			SrcDest("web-ui-fw/tau/demos/SDK/mobile/MasterDetail", "tau-master-detail/project"),
 			SrcDest("web-ui-fw/tau/dist/mobile", "tau-master-detail/project/lib/tau"),
 			SrcDest("web-ui-fw/tau/demos/SDK/mobile/MultiPage", "tau-multi-page/project"),
@@ -222,11 +223,20 @@ def updateSampleVersion(tree, root):
 def executeJenkinsJobs(git):
 	sampleGitPath = git.addr.replace("165.213.149.170:29418/", "")
 	jenkinsServer = jenkins.Jenkins('http://10.113.63.84:8080', username='sample', password='7499d2004e9e229d1512218208a36225')
+	iterationWaiting = 0
 
 	print("[Jenkins job] upload to spin " + os.path.basename(git.addr) + " / " + git.branch)
 	jenkinsServer.build_job('online_sample_upload_to_spin', {'sample_git_path': sampleGitPath, 'branch_name': git.branch}, '7499d2004e9e229d1512218208a36225')
-	print("Waiting 10 seconds....")
-	time.sleep(10)
+	queueInfo = jenkinsServer.get_queue_info()
+
+	while len(queueInfo) > 0:
+		iterationWaiting = iterationWaiting + 1
+		if iterationWaiting > 5:
+			print("Please check jenkins status and build manually.")
+			break
+		print("waiting remaining builds for 5 seconds.. trying #" + str(iterationWaiting) + "/5")
+		time.sleep(5)
+
 	print("[Jenkins job] copy to stable " + os.path.basename(git.addr) + " / " + git.branch)
 	jenkinsServer.build_job('online_sample_copy_to_stable', {'snapshot_name': sampleGitPath, 'sample_list': sampleGitPath + "," + git.branch}, '7499d2004e9e229d1512218208a36225')
 
