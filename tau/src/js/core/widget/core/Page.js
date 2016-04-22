@@ -399,8 +399,9 @@
 			prototype._contentFill = function () {
 				var self = this,
 					element = self.element,
-					screenWidth = window.innerWidth,
-					screenHeight = window.innerHeight,
+					rect = document.body.getBoundingClientRect(),
+					screenWidth = rect.width,
+					screenHeight = rect.height,
 					contentSelector = classes.uiContent,
 					headerSelector = classes.uiHeader,
 					footerSelector = classes.uiFooter,
