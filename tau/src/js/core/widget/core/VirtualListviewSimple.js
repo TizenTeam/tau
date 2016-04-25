@@ -137,6 +137,10 @@
 					i,
 					scrollInitSize = scrollview.getBoundingClientRect()[sizeProperty];
 
+				if (options.dataLength < numberOfItems) {
+					numberOfItems = options.dataLength;
+				}
+
 				for (i = 0; i < numberOfItems; ++i) {
 					listItem = document.createElement(childElementType);
 					self._updateListItem(listItem, i);
@@ -148,7 +152,7 @@
 				}
 
 				elementRect = self.element.getBoundingClientRect();
-				self._itemSize = elementRect[sizeProperty] / numberOfItems;
+				self._itemSize = numberOfItems > 0 ? elementRect[sizeProperty] / numberOfItems : 0;
 				self._numberOfItems = numberOfItems;
 				self._containerSize = content[sizeProperty];
 				self._numberOfVisibleElements = Math.ceil(content[sizeProperty] / self._itemSize);
