@@ -803,7 +803,7 @@ input[type="checkbox"]#checkboxControl {
 		width: 76px;
 		height: 76px;
 	}
-	.ui-listview li{
+	.ui-listview li>a{
 		-webkit-mask-image : -webkit-linear-gradient(left, #fff 83%,transparent 92%);
 	}
 	.ui-listview li.li-has-multiline > a {
