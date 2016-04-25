@@ -228,15 +228,20 @@ def executeJenkinsJobs(git):
 	print("[Jenkins job] upload to spin " + os.path.basename(git.addr) + " / " + git.branch)
 	jenkinsServer.build_job('online_sample_upload_to_spin', {'sample_git_path': sampleGitPath, 'branch_name': git.branch}, '7499d2004e9e229d1512218208a36225')
 	queueInfo = jenkinsServer.get_queue_info()
+	print "waiting remaining builds",
+	sys.stdout.flush()
 
 	while len(queueInfo) > 0:
 		iterationWaiting = iterationWaiting + 1
-		if iterationWaiting > 5:
+		if iterationWaiting > 10:
 			print("Please check jenkins status and build manually.")
 			break
-		print("waiting remaining builds for 5 seconds.. trying #" + str(iterationWaiting) + "/5")
+		print ".",
+		sys.stdout.flush()
 		time.sleep(5)
+		queueInfo = jenkinsServer.get_queue_info()
 
+	print("")
 	print("[Jenkins job] copy to stable " + os.path.basename(git.addr) + " / " + git.branch)
 	jenkinsServer.build_job('online_sample_copy_to_stable', {'snapshot_name': sampleGitPath, 'sample_list': sampleGitPath + "," + git.branch}, '7499d2004e9e229d1512218208a36225')
 
