@@ -1,0 +1,13 @@
+body {
+    margin: 0 auto;
+}
+
+.ui-listview.horizontal {
+    display: inline-flex;
+}
+
+.ui-listview li.horizontal {
+    width: 120px;
+    padding-left: 0;
+    padding-right: 0;
+}

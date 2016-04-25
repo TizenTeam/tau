@@ -219,7 +219,7 @@
 				var ui = self._ui,
 					listItems = self._listItems,
 					scrollableParent = ui.scrollableParent,
-					scrollCenter = scrollableParent.element.scrollTop + scrollableParent.height / 2,
+					scrollCenter = - scrollableParent.element.firstElementChild.getBoundingClientRect().top + scrollableParent.height / 2,
 					listItemLength = listItems.length,
 					tempListItem, tempListItemCoord, i;
 
@@ -243,7 +243,7 @@
 					scrollPosition;
 
 				if (animateCallback) {
-					scrollPosition = self._ui.scrollableParent.element.scrollTop;
+					scrollPosition = - self._ui.scrollableParent.element.firstElementChild.getBoundingClientRect().top;
 					self._listItems.forEach(function(item) {
 						item.animate(scrollPosition, animateCallback);
 					});
@@ -292,15 +292,16 @@
 			function onTouchEnd(self) {
 				var scrollElement = self._ui.scrollableParent.element;
 				self._isTouched = false;
-				if (scrollElement.scrollTop === 0 || scrollElement.scrollTop === scrollElement.scrollHeight - scrollElement.offsetHeight) {
-					setSelection(self);
-				}
+				setSelection(self);
 			}
 
 			function getScrollableParent(element) {
 				var overflow;
 
 				while (element !== document.body) {
+					if (ns.util.scrolling.isElement(element)) {
+						return element;
+					}
 					overflow = doms.getCSSProperty(element, "overflow-y");
 					if (overflow === "scroll" || (overflow === "auto" && element.scrollHeight > element.clientHeight)) {
 						return element;
@@ -327,8 +328,13 @@
 				ui.scrollableParent.element = scroller;
 				ui.scrollableParent.height = visiableOffset;
 
-				[].slice.call(listview.querySelectorAll(options.selector)).forEach(function(element) {
-					listItems.push(new SnapListview.ListItem(element, visiableOffset));
+				self._selectedIndex = null;
+
+				[].slice.call(listview.querySelectorAll(options.selector)).forEach(function(element, index) {
+					listItems.push(new SnapListview.ListItem(element, visiableOffset, scroller));
+					if (element.classList.contains(classes.SNAP_LISTVIEW_SELECTED)) {
+						self._selectedIndex = index;
+					}
 				});
 
 				self._listItems = listItems;
@@ -398,12 +404,8 @@
 				var self = this,
 					element = self.element;
 
-				self._unbindEvents();
-
 				initSnapListview.call(self, element);
 				setSelection(self);
-
-				self._bindEvents();
 
 				return null;
 			};
@@ -521,7 +523,7 @@
 					window.cancelAnimationFrame(animationTimer);
 					animationTimer = null;
 				}
-				scrollAnimation(scrollableParent.element, scrollableParent.element.scrollTop, dest, 450);
+				scrollAnimation(scrollableParent.element, - scrollableParent.element.firstElementChild.getBoundingClientRect().top, dest, 450);
 			};
 
 			function cubicBezier (x1, y1, x2, y2) {
@@ -538,7 +540,7 @@
 					progress = 0,
 					easeProgress = 0,
 					distance = to - from,
-					scrollTop = element.scrollTop;
+					scrollTop = - element.firstElementChild.getBoundingClientRect().top;
 
 				startTime = window.performance.now();
 				animationTimer = window.requestAnimationFrame(function animation() {

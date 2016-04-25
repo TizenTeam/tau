@@ -93,6 +93,7 @@
 			"./profile/mobile/widget/mobile/DropdownMenu",
 			"./profile/mobile/widget/mobile/TextEnveloper",
 			"./profile/mobile/widget/mobile/VirtualListview",
+			"./core/widget/core/VirtualListviewSimple",
 			"./profile/mobile/widget/mobile/VirtualGrid",
 			"./profile/mobile/widget/mobile/Loader",
 			"./profile/mobile/widget/mobile/Drawer",
