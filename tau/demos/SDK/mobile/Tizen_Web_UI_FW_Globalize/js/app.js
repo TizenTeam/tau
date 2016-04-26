@@ -1,5 +1,13 @@
 /*global tau, Globalize */
 (function() {
+	/**
+	 * globalize - TAU globalization utility
+	 * selector - Select element for choosing a language
+	 * list - List for test
+	 * current_language - Indicator for current language information
+	 * calendar_data - Calendar data element
+	 * calendar_data_area - Indicator for calendar data
+	 */
 	var globalize = tau.util.globalize,
 		selector,
 		list,
@@ -10,6 +18,7 @@
 
 	/**
 	 * Inserts the calendar data elements
+	 * @private
 	 */
 	function output(inp) {
 		calendar_data.appendChild(calendar_data_area).innerHTML = inp;
@@ -17,6 +26,7 @@
 
 	/**
 	 * Puts a class for syntax highlighting
+	 * @private
 	 */
 	function syntaxHighlight(json) {
 		json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
@@ -24,6 +34,7 @@
 		return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
 			/*jslint regexp: false*/
 			var cls = 'number';
+			/* Starting with " and Ending with : is key, or string */
 			if (/^"/.test(match)) {
 				if (/:$/.test(match)) {
 					cls = 'key';
@@ -41,6 +52,7 @@
 
 	/**
 	 * Updates the selected locale information to UI
+	 * @private
 	 */
 	function updateLocaleToUI(selectedLocaleInstance){
 		var number = selectedLocaleInstance.numberFormatter(),
@@ -67,12 +79,14 @@
 		}
 		list[5].innerText = Globalize.formatCurrency( 69900, currency_unit);
 
+		/* Updates the text of current language element */
 		current_language.innerHTML = selectedLocaleInstance.getLocale();
 		output(syntaxHighlight(calendar_data));
 	}
 
 	/**
 	 * Sets the locale information
+	 * @private
 	 */
 	function setLocale(selected){
 		var locale = selected.value;
