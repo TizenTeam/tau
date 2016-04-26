@@ -1,4 +1,10 @@
 (function(tau) {
+	/**
+	 * elPage - Grid view page element
+	 * elGrid - Grid view element
+	 * modeBtn - Mode toggle button element
+	 * gridList - TAU grid view instance
+	 */
 	var elPage = document.getElementById("grid-page"),
 		elGrid = document.getElementById("gridview"),
 		modeBtn = document.getElementById("modeBtn"),

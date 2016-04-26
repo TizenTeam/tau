@@ -1,4 +1,11 @@
 (function(tau) {
+	/**
+	 * page - Panel page element
+	 * panelChanger - Panel changer element
+	 * panelChangerComponent - TAU panel changer instance
+	 * navigation - navigation element
+	 * navigationComponent - TAU navigation instance
+	 */
 	var page = document.querySelector("#panelPage"),
 		panelChanger = page.querySelector("#panelChanger"),
 		panelChangerComponent,

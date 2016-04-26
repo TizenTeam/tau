@@ -1,4 +1,14 @@
 (function(tau){
+	/**
+	 * page - Progress bar page element
+	 * progressBar - Progress bar #1 element
+	 * progressBar2 - Progress bar #2 element
+	 * progressBar3 - Progress bar #3 element
+	 * progressBarWidget - TAU progress instance
+	 * progressBarWidget2 - TAU progress instance
+	 * progressBarWidget3 - TAU progress instance
+	 * pageBeforeShowHandler - pagebeforeshow event handler
+	 */
 	var page = document.getElementById("progressbar-demo"),
 		progressBar = document.getElementById("progressbar"),
 		progressBar2 = document.getElementById("progressbar2"),

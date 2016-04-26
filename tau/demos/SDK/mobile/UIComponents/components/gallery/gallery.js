@@ -1,4 +1,16 @@
 (function(tau) {
+    /**
+     * page - Gallery page element
+     * addBtn - Add button element
+     * deleteBtn - Delete button element
+     * sectionChangerElement - Section changer element
+     * sectionChangerWidget - TAU section changer instance
+     * deleteBtnWidget - TAU button instance for delete button
+     * pageShowHandler - pageshow event handler
+     * pageHideHandler - pagehide event handler
+     * sections - NodeList object for all sections in the section changer element
+     * sectionsLength - The number of sections
+     */
     var page = document.getElementById("gallery-page"),
         addBtn = document.getElementById("add"),
         deleteBtn = document.getElementById("delete"),

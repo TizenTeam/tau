@@ -1,4 +1,11 @@
 (function(tau) {
+	/**
+	 * page - Index scroll bar page element
+	 * isbElement - Index scroll bar element
+	 * dividers - NodeList object for group index elements
+	 * isb - TAU index scroll bar instance
+	 * scroller - Scrollable element
+	 */
 	var page = document.getElementById("indexscrollbarPage"),
 		isbElement = document.getElementById("indexscrollbar"),
 		dividers = page.getElementsByClassName("ui-group-index"),

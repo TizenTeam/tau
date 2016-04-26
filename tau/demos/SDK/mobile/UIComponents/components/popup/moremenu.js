@@ -1,4 +1,13 @@
 (function(tau) {
+	/**
+	 * page - More menu page element
+	 * openBtn - Button element for opening a popup
+	 * morePopup - More menu popup element
+	 * pageShowHandler - pageshow event handler
+	 * pageHideHandler - pagehide event handler
+	 * menukeyHandler - menu key event handler
+	 * openPopup - Function for opening a popup
+	 */
 	var page = document.getElementById("moremenu-page"),
 		openBtn = document.getElementById("open"),
 		morePopup = document.getElementById("moremenu"),

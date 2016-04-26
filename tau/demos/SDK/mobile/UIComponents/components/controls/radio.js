@@ -1,4 +1,9 @@
 (function(){
+	/**
+	 * page - Radio page element
+	 * radios - NodeList object for radios
+	 * radioresult - Indicator for active radio
+	 */
 	var page = document.getElementById("radio-demo"),
 		radios = document.querySelectorAll(".choosepet input[type='radio']"),
 		radioresult = document.querySelector((".radio-result")),

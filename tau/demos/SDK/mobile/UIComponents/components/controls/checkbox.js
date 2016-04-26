@@ -1,4 +1,11 @@
 (function(){
+	/**
+	 * page - Checkbox page element
+	 * checkone - Checkbox element
+	 * checkboxResult - Indicator for the checkbox state
+	 * favortieone - Favorite checkbox element
+	 * favoriteResult - Indicator for the favorite checkbox state
+	 */
 	var page = document.getElementById("checkbox-demo"),
 		checkone = document.getElementById("checkbox-1"),
 		checkboxResult = document.querySelector(".checkbox-result"),
