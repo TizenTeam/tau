@@ -1,5 +1,11 @@
 /*global tau */
 (function(){
+	/**
+	 * page - Rotary event page element
+	 * progressBar - Circle progress element
+	 * progressBarWidget - TAU circle progress instance
+	 * rotaryDetentHandler - rotarydetent event handler
+	 */
 	var page = document.getElementById( "pageRotaryEvent" ),
 		progressBar,
 		progressBarWidget,

@@ -1,5 +1,12 @@
 /*global tau */
 (function(){
+	/**
+	 * page - Multiple button page element
+	 * handler - Element for opening selector popup
+	 * popup - Selector popup element
+	 * elSelector - Selector element in the popup
+	 * selector - TAU selector instance
+	 */
 	var page = document.querySelector("#bottomButtonWithMorePage"),
 		handler = page.querySelector(".popup-handler"),
 		popup = page.querySelector("#moreButtonPopup"),
@@ -7,6 +14,9 @@
 		selector,
 		clickHandlerBound;
 
+	/**
+	 * function for opening a popup
+	 */
 	function clickHandler() {
 		tau.openPopup(popup);
 	}

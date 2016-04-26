@@ -1,5 +1,17 @@
 /*global tau */
 (function(){
+	/**
+	 * page - Progress page element
+	 * progressBar - Circle progress element
+	 * minusBtn - Minus button element
+	 * plusBtn - Plus button element
+	 * resultDiv - Indicator element for the progress percentage
+	 * isCircle - TAU button instance for delete button
+	 * progressBarWidget - TAU circle progress instance
+	 * resultText - Text value for the progress percentage
+	 * pageBeforeShowHandler - pagebeforeshow event handler
+	 * pageHideHandler - pagehide event handler
+	 */
 	var page = document.getElementById( "pageCircleProgressBar" ),
 	progressBar = document.getElementById("circleprogress"),
 	minusBtn = document.getElementById("minus"),
