@@ -25,6 +25,7 @@
 			"../../util/scrolling",
 			"../BaseWidget",
 			"../../../profile/wearable/widget/wearable/SnapListview",
+			"../../../core/support/tizen",
 			"../core" // fetch namespace
 		],
 
@@ -51,6 +52,8 @@
 				// In Virtual List we use scrolling in virtual model which is responsible for calculate touches, send event
 				// but don't render scrolled element. For rendering is responsible only Virtual List
 				utilScrolling = ns.util.scrolling,
+				circularScreen = ns.support.shape.circle,
+
 				SimpleVirtualList = function () {
 					var self = this;
 					self.options = {
@@ -58,29 +61,71 @@
 						listItemUpdater: null,
 						scrollElement: null,
 						orientation: "vertical",
-						snap: false
+						snap: false,
+						edgeEffect: circularScreen ? null : defaultEdgeEffect
 					};
-					self._ui = {};
+					self._ui = {
+						edgeEffect: null,
+						scrollview: null
+					};
 					self._scrollBegin = 0;
 					self._elementsMap = [];
 					self._itemSize = 0;
 					self._numberOfItems = 3;
+					self._edgeEffectGradientSize = 0;
 				},
+				abs = Math.abs,
+				min = Math.min,
 				floor = Math.floor,
 				filter = Array.prototype.filter,
-				prototype = new BaseWidget();
+				prototype = new BaseWidget(),
+				// Current color from changeable style
+				// @TODO change to dynamic color
+				EDGE_EFFECT_COLOR = "rgba(61, 185, 204, {1})",
+				classes = {
+					uiVirtualListContainer: "ui-virtual-list-container",
+					edgeEffect: "ui-virtual-list-edge-effect"
+				};
 
-			SimpleVirtualList.classes = {
-				uiVirtualListContainer: "ui-virtual-list-container"
-			};
+			SimpleVirtualList.classes = classes;
+
+			/**
+			 * Effect for edge scrolling on rectangular screens
+			 * @param {number} positionDiff difference from edge to current scroll
+			 * @param {string} orientation `vertical` or `horizontal`
+			 * @param {string} edge `start` or `end` depending on orientation
+			 * @param {number} rawPosition current scroll position
+			 * @param {number} widgetInstance current widget instance
+			 * @returns {number}
+			 */
+			function defaultEdgeEffect(positionDiff, orientation, edge, rawPosition, widgetInstance) {
+				var ui = widgetInstance._ui,
+					edgeEffectElement = ui.edgeEffect || ui.scrollview.querySelector("." + classes.edgeEffect),
+					edgeEffectStyle = edgeEffectElement.style,
+					gradientSize = min(abs(positionDiff / 8) - 1, 10);
+
+				if (orientation === "vertical") {
+					edgeEffectStyle.top =  (edge === "start") ? "0" : "auto";
+					edgeEffectStyle.bottom = (edge === "start") ? "auto" : "0";
+				} else {
+					edgeEffectStyle.left = (edge === "start") ? "0" : "auto";
+					edgeEffectStyle.right = (edge === "start") ? "auto" : "0";
+				}
+
+				// Saved reference to later avoid unnecessary style manipulations
+				widgetInstance._edgeEffectGradientSize = gradientSize;
+
+				edgeEffectStyle.boxShadow = "0 0 0 " + gradientSize + "px " + EDGE_EFFECT_COLOR.replace("{1}", 0.5) + "," +
+					"0 0 0 " + (gradientSize * 2) + "px " + EDGE_EFFECT_COLOR.replace("{1}", 0.4) + "," +
+					"0 0 0 " + (gradientSize * 3) + "px " + EDGE_EFFECT_COLOR.replace("{1}", 0.3) + "," +
+					"0 0 0 " + (gradientSize * 4) + "px " + EDGE_EFFECT_COLOR.replace("{1}", 0.2) + "," +
+					"0 0 0 " + (gradientSize * 5) + "px " + EDGE_EFFECT_COLOR.replace("{1}", 0.1) + "";
+
+				return 0;
+			}
 
 			function setupScrollview(element, orientation) {
-				var scrollview = selectors.getClosestByClass(element, "ui-scroller") || element.parentElement,
-					scrollviewStyle;
-				//Get scrollview instance
-				scrollviewStyle = scrollview.style;
-
-				return scrollview;
+				return selectors.getClosestByClass(element, "ui-scroller") || element.parentElement;
 			}
 
 			function getScrollView(options, element) {
@@ -126,6 +171,7 @@
 			prototype._buildList = function () {
 				var self = this,
 					listItem,
+					ui = self._ui,
 					options = self.options,
 					scrollview = self._ui.scrollview,
 					sizeProperty = options.orientation === "vertical" ? "height" : "width",
@@ -159,6 +205,7 @@
 
 				utilScrolling.enable(scrollview, options.orientation === "horizontal" ? "x" : "y", true);
 				utilScrolling.enableScrollBar();
+
 				if (scrollview.classList.contains("ui-scroller")) {
 					utilScrolling.setMaxScroll(options.dataLength * self._itemSize + scrollInitSize);
 				} else {
@@ -169,6 +216,17 @@
 					self._snapListviewWidget = tau.engine.instanceWidget(list, "SnapListview", options.snap);
 					self._snapListviewWidget.refresh();
 				}
+
+				// Add default edge effect
+				// @TODO consider changing to :after and :before
+				if (options.edgeEffect === defaultEdgeEffect) {
+					ui.edgeEffect = document.createElement("div");
+					ui.edgeEffect.classList.add(classes.edgeEffect, "orientation-" + options.orientation);
+
+					ui.scrollview.appendChild(ui.edgeEffect);
+				}
+
+				utilScrolling.setBounceBack(true);
 			};
 
 			prototype._updateListItem = function (element, index) {
@@ -203,29 +261,51 @@
 
 			function _updateList(self, event) {
 				var list = self.element,
-					beginProperty = self.options.orientation === "vertical" ? "scrollTop" : "scrollLeft",
+					options = self.options,
+					beginProperty = options.orientation === "vertical" ? "scrollTop" : "scrollLeft",
 					scrollBegin = event.detail && event.detail[beginProperty],
-					fromIndex,
+					ui = self._ui,
+					scrollChildStyle = ui.scrollview.firstElementChild.style,
+					fromIndex = 0,
 					map = [],
 					freeElements,
 					numberOfItems = self._numberOfItems,
-					i,
-					currentIndex,
+					i = 0,
+					currentIndex = 0,
 					listItem,
-					correction,
+					correction = 0,
 					scroll = {
 					    scrollTop: 0,
 					    scrollLeft: 0
 					},
+					inBoundsDiff = 0,
 					nextElement;
+
+				if (options.edgeEffect) {
+					if (!event.detail.inBounds) {
+						inBoundsDiff = scrollBegin < 0 ? scrollBegin : (scrollBegin + self._containerSize) - (options.dataLength * self._itemSize);
+
+						scrollBegin = scrollBegin - inBoundsDiff + options.edgeEffect(inBoundsDiff, // position diff
+								options.orientation, // orientation
+								(scrollBegin < 0) ? "start" : "end",  // edge
+								scrollBegin, // raw position
+								self);
+
+					} else if (self._edgeEffectGradientSize > 0) {
+						// In some rare cases gradient in default edge effect may stay greater than 0
+						// eg. fast flicking down and up without touchend
+						(ui.edgeEffect || ui.scrollview.querySelector("." + classes.edgeEffect)).style.boxShadow = "none";
+						self._edgeEffectGradientSize = 0;
+					}
+				}
+
 				if (scrollBegin !== undefined) {
 					self._scrollBegin = scrollBegin;
 					currentIndex = floor(scrollBegin / self._itemSize);
-					if (currentIndex >= 0) {
-						if (currentIndex !== floor(self._scrollBeginPrev / self._itemSize)) {
+						if (currentIndex !== floor(self._scrollBeginPrev / self._itemSize) && currentIndex >= 0) {
 							if (scrollBegin < self._itemSize) {
 								fromIndex = 0;
-								correction = 0;
+								correction =  0;
 							} else if (currentIndex > (self.options.dataLength - numberOfItems)) {
 								fromIndex = self.options.dataLength - numberOfItems;
 								correction = self._itemSize * (currentIndex-fromIndex);
@@ -239,9 +319,12 @@
 							for (i = fromIndex; i < fromIndex + numberOfItems; ++i) {
 								map[i - fromIndex] = filter.call(list.children, filterElement.bind(null, i))[0];
 							}
+
 							freeElements = filter.call(list.children, filterFreeElements.bind(null, map));
-							for (i = fromIndex + numberOfItems - 1; i >= fromIndex ; --i) {
-								if (i<self.options.dataLength) {
+
+							for (i = fromIndex + numberOfItems - 1; i >= fromIndex; --i) {
+
+								if (i >= 0 && i < self.options.dataLength) {
 									if (!map[i - fromIndex]) {
 										listItem = freeElements.shift();
 										map[i - fromIndex] = listItem;
@@ -262,21 +345,24 @@
 							scroll[beginProperty] = correction + scrollBegin % self._itemSize;
 						}
 						else {
-							if (scrollBegin < self._itemSize) {
-								scroll[beginProperty] = scrollBegin % self._itemSize;
-							} else if (currentIndex > (self.options.dataLength - numberOfItems)) {
-								fromIndex = self.options.dataLength - numberOfItems;
-								correction = self._itemSize * (currentIndex-fromIndex);
-								scroll[beginProperty] = correction + scrollBegin % self._itemSize;
-							} else if (currentIndex === (self.options.dataLength - numberOfItems)) {
-								correction = 0;
-								scroll[beginProperty] = correction + scrollBegin % self._itemSize;
+							// If we are somewhere in the middle of the list
+							if (scrollBegin >= 0) {
+								if (scrollBegin < self._itemSize) {
+									scroll[beginProperty] = scrollBegin % self._itemSize;
+								} else if (currentIndex > (self.options.dataLength - numberOfItems)) {
+									fromIndex = self.options.dataLength - numberOfItems;
+									correction = self._itemSize * (currentIndex-fromIndex);
+									scroll[beginProperty] = correction + scrollBegin % self._itemSize;
+								} else {
+									scroll[beginProperty] = self._itemSize + scrollBegin % self._itemSize;
+								}
 							} else {
-								scroll[beginProperty] = self._itemSize + scrollBegin % self._itemSize;
+								// In case we scroll to content before the list
+								scroll[beginProperty] = scrollBegin;
 							}
 						}
-						self._ui.scrollview.firstElementChild.style.transform = 'translate(' + (-scroll.scrollLeft) + 'px, ' + (-scroll.scrollTop) + 'px)';
-					}
+						scrollChildStyle.webkitTransform = "translate(" + (-scroll.scrollLeft) + "px, " + (-scroll.scrollTop) + "px)";
+
 					self._scrollBeginPrev = scrollBegin;
 				}
 				if (self._snapListviewWidget) {

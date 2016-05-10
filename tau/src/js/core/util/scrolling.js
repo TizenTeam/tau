@@ -28,6 +28,7 @@
 					thumb: "scrolling-scrollthumb",
 					fadeIn: "fade-in"
 				},
+				bounceBack = false,
 				// position when was last touch start
 				startPosition = 0,
 				// current state of scroll position
@@ -47,13 +48,14 @@
 				abs = Math.abs,
 				// inform that is touched
 				isTouch = false,
-				isScroll = false,
+				isScrollableTarget = false,
 				// direction of scrolling, 0 - mean Y, 1 - mean X
 				direction = 0,
 				// cache of round function
 				round = Math.round,
 				// cache max function
 				max = Math.max,
+				min = Math.min,
 
 				// Circular scrollbar config
 				CIRCULAR_SCROLL_BAR_SIZE = 60, // degrees
@@ -117,9 +119,9 @@
 				var touches = event.touches,
 					touch = touches[0];
 
-				isScroll = detectTarget(event.target);
+				isScrollableTarget = detectTarget(event.target);
 				// is is only one touch
-				if (isScroll && touches.length === 1) {
+				if (isScrollableTarget && touches.length === 1) {
 					// save current touch point
 					startPosition = direction ? touch.clientX : touch.clientY;
 					// save current time for calculate acceleration on touchend
@@ -143,23 +145,26 @@
 					clientPosition = direction ? touch.clientX : touch.clientY;
 
 				// if touch start was on scrolled element
-				if (isScroll) {
+				if (isScrollableTarget) {
 					// if is only one touch
 					if (touches.length === 1) {
 						fromAPI = false;
 						// calculate difference between touch start and current position
 						lastScrollPosition = clientPosition - startPosition;
-						// normalize value to be in bound [0, maxScroll]
-						if (scrollPosition + lastScrollPosition > 0) {
-							lastScrollPosition = -scrollPosition;
-						}
-						if (scrollPosition + lastScrollPosition < -maxScrollPosition) {
-							lastScrollPosition = -maxScrollPosition - scrollPosition;
+						if (!bounceBack) {
+							// normalize value to be in bound [0, maxScroll]
+							if (scrollPosition + lastScrollPosition > 0) {
+								lastScrollPosition = -scrollPosition;
+							}
+							if (scrollPosition + lastScrollPosition < -maxScrollPosition) {
+								lastScrollPosition = -maxScrollPosition - scrollPosition;
+							}
 						}
 						// trigger event scroll
 						eventUtil.trigger(scrollingElement, "scroll", {
 							scrollLeft: direction ? -(scrollPosition + lastScrollPosition) : 0,
 							scrollTop: direction ? 0 : -(scrollPosition + lastScrollPosition),
+							inBounds: (scrollPosition + lastScrollPosition >= -maxScrollPosition) && (scrollPosition + lastScrollPosition <= 0),
 							fromAPI: fromAPI
 						});
 						fadeInScrollBar();
@@ -180,12 +185,17 @@
 			 * Handler for touchend event
 			 */
 			function touchEnd() {
-				var diffTime = Date.now() - lastTime;
+				var diffTime = Date.now() - lastTime,
+					inBounds;
+
+				// update state of scrolling
+				scrollPosition += lastScrollPosition;
+				inBounds = (scrollPosition >= -maxScrollPosition) && (scrollPosition <= 0);
 
 				// calculate speed of touch move
-				if (abs(lastScrollPosition / diffTime) > 1) {
+				if (inBounds && abs(lastScrollPosition / diffTime) > 1) {
 					// if it was fast move, we start animation of scrolling after touch end
-					moveToPosition = round(scrollPosition + 1000 * lastScrollPosition / diffTime);
+					moveToPosition = max(min(round(scrollPosition + 1000 * lastScrollPosition / diffTime), 0), -maxScrollPosition);
 					if (snapSize) {
 						moveToPosition = snapSize * round(moveToPosition / snapSize);
 					}
@@ -198,20 +208,33 @@
 					// touch move was slow, just finish render loop
 					isTouch = false;
 				}
-				// update state of scrolling
-				scrollPosition += lastScrollPosition;
-				// normalize value to be in bound [0, maxScroll]
-				if (scrollPosition < -maxScrollPosition) {
-					scrollPosition = -maxScrollPosition;
+
+				if (bounceBack) {
+					if (!inBounds) {
+						// if it was fast move, we start animation of scrolling after touch end
+						if (scrollPosition > 0){
+							moveToPosition = 0;
+						} else {
+							moveToPosition = -maxScrollPosition;
+						}
+						requestAnimationFrame(moveTo);
+					}
+				} else {
+					// normalize value to be in bound [0, maxScroll]
+					if (scrollPosition < -maxScrollPosition) {
+						scrollPosition = -maxScrollPosition;
+					}
+					if (scrollPosition > 0) {
+						scrollPosition = 0;
+					}
 				}
-				if (scrollPosition > 0) {
-					scrollPosition = 0;
-				}
+
 				lastScrollPosition = 0;
 				// trigger event scroll
 				eventUtil.trigger(scrollingElement, "scroll", {
 					scrollLeft: direction ? -(scrollPosition) : 0,
 					scrollTop: direction ? 0 : -(scrollPosition),
+					inBounds: inBounds,
 					fromAPI: fromAPI
 				});
 				if (!isTouch) {
@@ -223,7 +246,7 @@
 				}
 				fadeInScrollBar();
 				// we stop scrolling
-				isScroll = false;
+				isScrollableTarget = false;
 			}
 
 			/**
@@ -234,6 +257,8 @@
 				var diffPosition = moveToPosition - scrollPosition,
 					// get absolute value
 					absDiffPosition = abs(diffPosition);
+
+				// @TODO conditions below should be changed to easing function
 				// if difference is big
 				if (scrollingElement) {
 					if (absDiffPosition > 10) {
@@ -249,20 +274,20 @@
 						scrollPosition = moveToPosition;
 						isTouch = false;
 					}
-
-					// normalize scroll value
-					if (scrollPosition < -maxScrollPosition) {
-						scrollPosition = -maxScrollPosition;
-						moveToPosition = scrollPosition;
-					}
-					if (scrollPosition > 0) {
-						scrollPosition = 0;
-						moveToPosition = scrollPosition;
+					if (!bounceBack) {
+						// normalize scroll value
+						if (scrollPosition < -maxScrollPosition) {
+							scrollPosition = -maxScrollPosition;
+						}
+						if (scrollPosition > 0) {
+							scrollPosition = 0;
+						}
 					}
 					// trigger event scroll
 					eventUtil.trigger(scrollingElement, "scroll", {
 						scrollLeft: direction ? -(scrollPosition) : 0,
 						scrollTop: direction ? 0 : -(scrollPosition),
+						inBounds: (scrollPosition >= -maxScrollPosition) && (scrollPosition <= 0),
 						fromAPI: fromAPI
 					});
 					if (!isTouch) {
@@ -287,7 +312,14 @@
 				if (newRenderedPosition !== lastRenderedPosition) {
 					// we update styles
 					lastRenderedPosition = newRenderedPosition;
-					scrollBarPosition = abs(newRenderedPosition) / maxScrollPosition * maxScrollBarPosition;
+					if (-newRenderedPosition < maxScrollPosition) {
+						scrollBarPosition = -newRenderedPosition / maxScrollPosition * maxScrollBarPosition;
+					} else {
+						scrollBarPosition = maxScrollBarPosition;
+					}
+					if (scrollBarPosition < 0) {
+						scrollBarPosition = 0;
+					}
 
 					if (!virtualMode && elementStyle) {
 						elementStyle.transform = direction ?
@@ -296,8 +328,6 @@
 					}
 
 					if (circularScrollBar) {
-						scrollBarPosition = abs(newRenderedPosition) / maxScrollPosition * maxScrollBarPosition;
-
 						polarUtil.updatePosition(svgScrollBar, "." + classes.thumb, {
 							arcStart: scrollBarPosition,
 							arcEnd: scrollBarPosition + circularScrollThumbSize,
@@ -305,8 +335,6 @@
 						});
 					} else {
 						if (scrollThumb) {
-							scrollBarPosition = abs(newRenderedPosition) / maxScrollPosition * maxScrollBarPosition;
-
 							if (direction) {
 								scrollThumb.style.transform = "translate3d(" + scrollBarPosition + "px,0,0)";
 							} else {
@@ -327,15 +355,15 @@
 			 * @param {HTMLElement} element element for scrolling
 			 * @param {"x"|"y"} [setDirection="y"] direction of scrolling
 			 * @param {boolean} setVirtualMode if is set to true then send event without scroll element
-			 * @param {number} setSnapSize
 			 * @member ns.util.scrolling
 			 */
-			function enable(element, setDirection, setVirtualMode, setSnapSize) {
+			function enable(element, setDirection, setVirtualMode) {
 				var parentRectangle = null,
 					contentRectangle = null;
 
 				virtualMode = setVirtualMode;
-				snapSize = setSnapSize;
+				bounceBack = false;
+				snapSize = false;
 
 				if (scrollingElement) {
 					console.warn("Scrolling exist on another element, first call disable method");
@@ -568,6 +596,9 @@
 			},
 			setSnapSize: function(setSnapSize) {
 				snapSize = setSnapSize;
+			},
+			setBounceBack: function(setBounceBack) {
+				bounceBack = setBounceBack;
 			}
 		};
 
