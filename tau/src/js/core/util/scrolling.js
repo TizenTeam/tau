@@ -180,6 +180,7 @@
 								fromAPI: fromAPI
 							});
 						}
+
 						// trigger event scroll
 						eventUtil.trigger(scrollingElement, EVENTS.SCROLL, {
 							scrollLeft: direction ? -(scrollPosition + lastScrollPosition) : 0,
@@ -605,8 +606,8 @@
 						tempMaxPosition = max(maxValue - directionSize, 0);
 
 					// Change size of thumb only when necessary
-					if (tempMaxPosition !== maxScrollPosition ) {
-						maxScrollPosition = tempMaxPosition;
+					if (tempMaxPosition !== maxScrollPosition) {
+						maxScrollPosition = tempMaxPosition || Number.POSITIVE_INFINITY;
 						if (scrollBar) {
 							if (circularScrollBar) {
 								// Calculate new thumb size based on max scrollbar size

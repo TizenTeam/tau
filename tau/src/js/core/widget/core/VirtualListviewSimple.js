@@ -62,7 +62,8 @@
 						scrollElement: null,
 						orientation: "vertical",
 						snap: false,
-						edgeEffect: circularScreen ? null : defaultEdgeEffect
+						edgeEffect: circularScreen ? null : defaultEdgeEffect,
+						infinite: false
 					};
 					self._ui = {
 						edgeEffect: null,
@@ -206,12 +207,15 @@
 				self._numberOfVisibleElements = Math.ceil(content[sizeProperty] / self._itemSize);
 
 				utilScrolling.enable(scrollview, options.orientation === "horizontal" ? "x" : "y", true);
-				utilScrolling.enableScrollBar();
-
-				if (scrollview.classList.contains("ui-scroller")) {
-					utilScrolling.setMaxScroll(options.dataLength * self._itemSize + scrollInitSize);
+				if (options.infinite) {
+					utilScrolling.setMaxScroll(null);
 				} else {
-					utilScrolling.setMaxScroll(options.dataLength * self._itemSize);
+					utilScrolling.enableScrollBar();
+					if (scrollview.classList.contains("ui-scroller")) {
+						utilScrolling.setMaxScroll(options.dataLength * self._itemSize + scrollInitSize);
+					} else {
+						utilScrolling.setMaxScroll(options.dataLength * self._itemSize);
+					}
 				}
 				if (options.snap) {
 					utilScrolling.setSnapSize(self._itemSize);
@@ -263,9 +267,9 @@
 
 			function _updateList(self, event) {
 				var list = self.element,
+					itemSize = self._itemSize,
 					options = self.options,
 					beginProperty = options.orientation === "vertical" ? "scrollTop" : "scrollLeft",
-					itemSize = self._itemSize,
 					scrollBegin = event.detail && event.detail[beginProperty],
 					ui = self._ui,
 					scrollChildStyle = ui.scrollview.firstElementChild.style,
@@ -275,6 +279,7 @@
 					freeElements,
 					numberOfItems = self._numberOfItems,
 					i = 0,
+					infinite = options.infinite,
 					currentIndex = 0,
 					listItem,
 					correction = 0,
@@ -283,7 +288,8 @@
 						scrollLeft: 0
 					},
 					inBoundsDiff = 0,
-					nextElement;
+					nextElement,
+					j = 0;
 
 				if (options.edgeEffect) {
 					if (!event.detail.inBounds) {
@@ -310,7 +316,7 @@
 							if (scrollBegin < self._itemSize) {
 								fromIndex = 0;
 								correction =  0;
-							} else if (currentIndex > (dataLength - numberOfItems)) {
+							} else if (currentIndex > (dataLength - numberOfItems) && !infinite) {
 								fromIndex = dataLength - numberOfItems;
 								correction = itemSize * (currentIndex-fromIndex);
 							} else {
@@ -320,25 +326,25 @@
 
 							// Get elements which are currently presented
 							for (i = fromIndex; i < fromIndex + numberOfItems; ++i) {
-								map[i - fromIndex] = filter.call(list.children, filterElement.bind(null, i))[0];
+								map[i - fromIndex] = filter.call(list.children, filterElement.bind(null, i % dataLength))[0];
 							}
 
 							// Get elements that should be changed
 							freeElements = filter.call(list.children, filterFreeElements.bind(null, map));
 
 							for (i = fromIndex + numberOfItems - 1; i >= fromIndex; --i) {
-
-								if (i >= 0 && i < self.options.dataLength) {
+								j = i % dataLength;
+								if ((i >= 0 && i < dataLength) || infinite) {
 
 									// if checked element is not presented
 									if (!map[i - fromIndex]) {
 										// get first free element
 										listItem = freeElements.shift();
 										map[i - fromIndex] = listItem;
-										self._updateListItem(listItem, i);
+										self._updateListItem(listItem, j);
 
 										// Get the desired position for the element
-										if (i - fromIndex === numberOfItems - 1) {
+										if (i - fromIndex === numberOfItems - 1 || (j  < fromIndex && (scrollBegin > self._scrollBeginPrev))) {
 											list.appendChild(listItem);
 										} else {
 											nextElement = map.filter(filterNextElement.bind(null, i - fromIndex))[0];
@@ -358,7 +364,7 @@
 							if (scrollBegin >= 0) {
 								if (scrollBegin < self._itemSize) {
 									scroll[beginProperty] = scrollBegin % itemSize;
-								} else if (currentIndex > (dataLength - numberOfItems)) {
+								} else if (currentIndex > (dataLength - numberOfItems) && (!infinite)) {
 									fromIndex = dataLength - numberOfItems;
 									correction = itemSize * (currentIndex-fromIndex);
 									scroll[beginProperty] = correction + scrollBegin % itemSize;
