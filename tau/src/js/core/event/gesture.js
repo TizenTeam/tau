@@ -29,7 +29,8 @@
 				"./gesture/manager",
 				"./gesture/plugins/drag",
 				"./gesture/plugins/swipe",
-				"./gesture/plugins/pinch"],
+				"./gesture/plugins/pinch",
+				"./gesture/plugins/longPress"],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 			var instances = [],
