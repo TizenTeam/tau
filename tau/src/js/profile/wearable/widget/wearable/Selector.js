@@ -285,10 +285,10 @@
 
 				if (validPrevLayer && validPrevLayer.classList.contains(classes.LAYER)) {
 					validPrevLayer.classList.add(classes.LAYER_PREV);
-					prevLayerDeg = DEFAULT.ITEM_END_DEGREE + DEFAULT.ITEM_DEGREE / 6;
+					prevLayerDeg = DEFAULT.ITEM_START_DEGREE - DEFAULT.ITEM_DEGREE / 6;
 					setItemTransform(validPrevLayer, prevLayerDeg, radius, -prevLayerDeg, DEFAULT.ITEM_NORMAL_SCALE);
 					ppLayer = validPrevLayer.previousElementSibling;
-					ppLayerDeg = DEFAULT.ITEM_END_DEGREE + DEFAULT.ITEM_DEGREE / 4;
+					ppLayerDeg = DEFAULT.ITEM_START_DEGREE - DEFAULT.ITEM_DEGREE / 4;
 					if (ppLayer && ppLayer.classList.contains(classes.LAYER)) {
 						ppLayer.classList.add(classes.LAYER_PREV_PREV);
 						setItemTransform(ppLayer, ppLayerDeg, radius, -ppLayerDeg, DEFAULT.ITEM_NORMAL_SCALE);
@@ -297,10 +297,10 @@
 
 				if (validNextLayer && validNextLayer.classList.contains(classes.LAYER)) {
 					validNextLayer.classList.add(classes.LAYER_NEXT);
-					nextLayerDeg = DEFAULT.ITEM_START_DEGREE - DEFAULT.ITEM_DEGREE / 6;
+					nextLayerDeg = DEFAULT.ITEM_END_DEGREE + DEFAULT.ITEM_DEGREE / 6;
 					setItemTransform(validNextLayer, nextLayerDeg, radius, -nextLayerDeg, DEFAULT.ITEM_NORMAL_SCALE);
 					nnLayer = validNextLayer.nextElementSibling;
-					nnLayerDeg = DEFAULT.ITEM_START_DEGREE - DEFAULT.ITEM_DEGREE / 4;
+					nnLayerDeg = DEFAULT.ITEM_END_DEGREE + DEFAULT.ITEM_DEGREE / 4;
 					if (nnLayer && nnLayer.classList.contains(classes.LAYER)) {
 						nnLayer.classList.add(classes.LAYER_NEXT_NEXT);
 						setItemTransform(nnLayer, nnLayerDeg, radius, -nnLayerDeg, DEFAULT.ITEM_NORMAL_SCALE);
@@ -732,13 +732,12 @@
 				if (direction === "CW") {
 					// check length
 					if (self._activeItemIndex === (activeLayerItemsLength + self._activeLayerIndex * options.maxItemNumber) - 1) {
-						if (prevLayer && prevLayer.classList.contains(classes.LAYER_PREV)) {
-							self._activeItemIndex = self._activeItemIndex - activeLayerItemsLength - prevLayer.querySelectorAll(options.itemSelector).length + 1;
-							self._changeLayer(self._activeLayerIndex - 1);
+						if (nextLayer && nextLayer.classList.contains(classes.LAYER_NEXT)) {
+							self._activeItemIndex = self._activeItemIndex + 1;
+							self._changeLayer(self._activeLayerIndex + 1);
 						} else {
 							bounceDegree = DEFAULT.ITEM_START_DEGREE + options.itemDegree * (self._activeItemIndex % options.maxItemNumber);
 							setIndicatorTransform(ui.indicatorArrow, bounceDegree + options.itemDegree / 3);
-							//setIndicatorTransform(ui.indicatorArrow, options.itemDegree * self._activeItemIndex + options.itemDegree / 3);
 							setTimeout(function() {
 								setIndicatorTransform(ui.indicatorArrow, bounceDegree);
 							}, 100)
@@ -749,9 +748,9 @@
 				} else {
 					// check 0
 					if (self._activeItemIndex % options.maxItemNumber === 0) {
-						if (nextLayer && nextLayer.classList.contains(classes.LAYER_NEXT)) {
-							self._activeItemIndex = self._activeItemIndex + activeLayerItemsLength + nextLayer.querySelectorAll(options.itemSelector).length - 1;
-							self._changeLayer(self._activeLayerIndex + 1);
+						if (prevLayer && prevLayer.classList.contains(classes.LAYER_PREV)) {
+							self._activeItemIndex = self._activeItemIndex - 1;
+							self._changeLayer(self._activeLayerIndex - 1);
 						} else {
 							setIndicatorTransform(ui.indicatorArrow, DEFAULT.ITEM_START_DEGREE - DEFAULT.ITEM_START_DEGREE / 3);
 							setTimeout(function() {
