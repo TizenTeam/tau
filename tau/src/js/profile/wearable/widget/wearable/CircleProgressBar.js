@@ -99,6 +99,7 @@
 					self._ui = ui;
 
 					self._maxValue = null;
+					self._minValue = null;
 					self._value = null;
 
 				},
@@ -135,7 +136,7 @@
 
 			/* make widget refresh with new value */
 			function refreshProgressBar (self, value) {
-				var percentValue = value / self._maxValue * 100,
+				var percentValue = (value - self._minValue) / (self._maxValue - self._minValue) * 100,
 					rotateValue,
 					ui = self._ui;
 
@@ -190,6 +191,27 @@
 				if (option.containerClassName) {
 					self._ui.progressContainer.classList.add(option.containerClassName);
 				}
+			}
+
+			function prepareValues (self) {
+				var element = self.element;
+
+				self._maxValue = doms.getNumberFromAttribute(element, "max", null, 100);
+				self._minValue = doms.getNumberFromAttribute(element, "min", null, 0);
+
+				// max value must be positive number bigger than 0
+				if (self._maxValue <= self._minValue) {
+					ns.error("max value of progress must be positive number that bigger than zero!");
+					self._maxValue = 100;
+				}
+
+				self._value = doms.getNumberFromAttribute(element, "value", null, (self._maxValue + self._minValue) / 2);
+				if (self._value > self._maxValue) {
+					self._value = self._maxValue;
+				} else if (self._value < self._minValue) {
+					self._value = self._minValue;
+				}
+				doms.setAttribute(element, "value", self._value);
 			}
 
 			prototype._configure = function () {
@@ -267,15 +289,7 @@
 				ui.progressValueLeft = ui.progressValueLeft || elementParent.querySelector(selectors.progressValueLeft);
 				ui.progressValueRight = ui.progressValueRight || elementParent.querySelector(selectors.progressValueRight);
 
-				self._maxValue = doms.getNumberFromAttribute(progressElement, "max", null, 100);
-
-				// max value must be positive number bigger than 0
-				if (self._maxValue <= 0) {
-					ns.error("max value of progress must be positive number that bigger than zero!");
-					self._maxValue = 100;
-				}
-
-				self._value = doms.getNumberFromAttribute(progressElement, "value", null, 50);
+				prepareValues(self);
 
 				checkOptions(self, options);
 				refreshProgressBar(self, self._value);
@@ -322,15 +336,14 @@
 			 */
 			prototype._setValue = function (inputValue) {
 				var self = this,
-					value,
-					selfElementValue;
+					value;
 
 				if (inputValue > self._maxValue) {
 					value = self._maxValue;
- 				} else if (inputValue < 0) {
-					value = 0;
+ 				} else if (inputValue < self._minValue) {
+					value = self._minValue;
 				} else if (isNaN(inputValue)) {
-					value = 0;
+					value = self._minValue;
 				} else {
 					value = inputValue;
 				}
@@ -353,9 +366,12 @@
 			prototype._refresh = function () {
 				var self = this;
 
-				self._reset();
+				if(typeof self._reset === "function") {
+					self._reset();
+				}
+				prepareValues(self);
 				checkOptions(self, self.options);
-				refreshProgressBar(self, self._getValue());
+				refreshProgressBar(self, self._value);
 				return null;
 			};
 
@@ -396,6 +412,7 @@
 				self.element = null;
 				self._ui = null;
 				self._maxValue = null;
+				self._minValue = null;
 				self._value = null;
 
 				return null;

@@ -3,8 +3,8 @@
 /**
  * # Slider Widget
  * Wearable Slider component has two types, first is normal slider type another is circle slider type.
- * Circle slider type has provided to rotary event handling in component side.
- * Normal slider type is default type.
+ * Circle slider type has provided to rotary and touch event handling in component side.
+ * Circle slider type is default type.
  *
  * ## Default selectors
  *
@@ -19,7 +19,6 @@
  *
  * ## JavaScript API
  *
- * Slider widget hasn't JavaScript API.
  * @class ns.widget.wearable.Slider
  */
 (function (document, ns) {
@@ -42,20 +41,31 @@
 				events = ns.event,
 				CirclePB = ns.widget.wearable.CircleProgressBar,
 				CirclePBPrototype = new CirclePB(),
+				round = Math.round,
+				floor = Math.floor,
+				atan2 = Math.atan2,
+				PI = Math.PI,
+				PI2 = PI * 2,
+				PI2_5 = PI * 5 / 2,
 				Slider = function () {
 					var self = this;
 					CoreSlider.call(self);
+					self._step = null;
+					self._middlePoint = {
+						x: 0,
+						y: 0
+					}
 				},
 				prototype = new CoreSlider();
 
 			Slider.prototype = prototype;
 
 			function bindCircleEvents(self) {
-				events.on(document, "rotarydetent", self, false);
+				events.on(document, "rotarydetent click", self, false);
 			}
 
 			function unbindCircleEvents(self) {
-				events.off(document, "rotarydetent", self, false);
+				events.off(document, "rotarydetent click", self, false);
 			}
 
 			/**
@@ -69,6 +79,8 @@
 					options = self.options;
 
 				options.size = "full";
+				options.type = "circle";
+				options.touchableWidth = 50;
 			};
 
 			/**
@@ -104,10 +116,31 @@
 
 				if (options.type === "circle") {
 					CirclePBPrototype._init.call(self, element);
+					self._circleInit();
 				} else {
 					CoreSliderPrototype._init.call(self, element);
 				}
 				return element;
+			};
+
+			/**
+			 * Init Slider widget for circular type
+			 * @method _circleInit
+			 * @protected
+			 * @member ns.widget.wearable.Slider
+			 */
+			prototype._circleInit = function() {
+				var self = this;
+
+				self._step = parseInt(self.element.getAttribute("step"), 10) || self._step || 1;
+				self._middlePoint.x = window.innerWidth / 2;
+				self._middlePoint.y = window.innerHeight / 2;
+
+				if (self._step < 1) {
+					self._step = 1;
+				} else if (self._step > self._maxValue - self._minValue) {
+					self._step = self._maxValue - self._minValue;
+				}
 			};
 
 			/**
@@ -143,6 +176,9 @@
 						case "rotarydetent":
 							self._onRotary(event);
 							break;
+						case "click":
+							self._onClick(event);
+							break;
 					}
 				} else {
 					CoreSliderPrototype.handleEvent.call(self, event);
@@ -159,22 +195,120 @@
 			prototype._onRotary = function(event) {
 				var self = this,
 					direction = event.detail.direction,
+					step = self._step,
 					value = CirclePBPrototype._getValue.call(self);
 
 				if (direction === "CW") {
-					if (value < self._maxValue) {
-						value++;
+					if (value - 0 + step < self._maxValue) {
+						value = value - 0 + step;
 					} else {
 						value = self._maxValue;
 					}
 				} else if (direction === "CCW") {
-					if (value > 0) {
-						value--;
+					if (value - 0 - step > self._minValue) {
+						value = value - 0 - step;
 					} else {
-						value = 0;
+						value = self._minValue;
 					}
 				}
 				CirclePBPrototype._setValue.call(self, value);
+			};
+
+			/**
+			 * Touchstart handler
+			 * @method _onClick
+			 * @param {Event} event
+			 * @member ns.widget.wearable.Slider
+			 * @protected
+			 */
+			prototype._onClick = function(event) {
+				var self = this,
+					clientX = event.clientX,
+					clientY = event.clientY,
+					isValid = self._isValidStartPosition(clientX, clientY);
+
+				if(!isValid) {
+					return;
+				}
+
+				event.preventDefault();
+				event.stopPropagation();
+
+				self._setValueByCoord(clientX, clientY);
+			};
+
+			/**
+			 * Check whether the click point is in valid area
+			 * @method _isValidStartPosition
+			 * @param {number} clientX
+			 * @param {number} clientY
+			 * @member ns.widget.wearable.Slider
+			 * @protected
+			 */
+			prototype._isValidStartPosition = function(clientX, clientY) {
+				var self = this,
+					middleX = self._middlePoint.x,
+					middleY = self._middlePoint.y,
+					minRadius = middleY - self.options.touchableWidth;
+
+				return ((clientY - middleY) * (clientY - middleY) + (clientX - middleX) * (clientX - middleX) > minRadius * minRadius);
+			};
+
+			/**
+			 * Set value to slider
+			 * @method _setValueByCoord
+			 * @param {number} clientX
+			 * @param {number} clientY
+			 * @member ns.widget.wearable.Slider
+			 * @protected
+			 */
+			prototype._setValueByCoord = function(clientX, clientY) {
+				var self = this,
+					value;
+
+				value = self._convertCoordToValue(clientX, clientY);
+
+				if (value === 0 && clientX === self._middlePoint.x) {
+					if (CirclePBPrototype._getValue.call(self) > (self._maxValue + self._minValue) / 2) {
+						value = self._maxValue;
+					}
+				}
+
+				if(self._step > 1) {
+					value = self._calibrateValue(value);
+					if (value > self._maxValue) {
+						value = self._maxValue;
+					}
+				}
+
+				CirclePBPrototype._setValue.call(self, parseInt(value, 10));
+			};
+
+			/**
+			 * Convert from coordinate to slider value
+			 * @method _convertCoordToValue
+			 * @param {number} clientX
+			 * @param {number} clientY
+			 * @member ns.widget.wearable.Slider
+			 * @protected
+			 */
+			prototype._convertCoordToValue = function(clientX, clientY) {
+				return round(((atan2(clientY - this._middlePoint.y, clientX - this._middlePoint.x) + PI2_5) % PI2) / PI2 * (this._maxValue - this._minValue) + this._minValue);
+			};
+
+			/**
+			 * Calibrate value using step option
+			 * @method _calibrateValue
+			 * @param {number} value
+			 * @member ns.widget.wearable.Slider
+			 * @protected
+			 */
+			prototype._calibrateValue = function(value) {
+				var self = this,
+					step = self._step,
+					half = step / 2;
+
+				return floor((value - self._minValue + half) / step) * step + self._minValue;
 			};
 
 			/**
@@ -204,6 +338,24 @@
 			};
 
 			/**
+			 * Refresh Slider component
+			 * @method refresh
+			 * @member ns.widget.wearable.Slider
+			 * @public
+			 */
+			prototype.refresh = function() {
+				var self = this,
+					options = self.options;
+
+				if (options.type === "circle") {
+					CirclePBPrototype._refresh.call(self);
+					self._circleInit();
+				} else {
+					CoreSliderPrototype.refresh.call(self);
+				}
+			};
+
+			/**
 			 * Destroy Slider component
 			 * @method _destroy
 			 * @member ns.widget.wearable.Slider
@@ -215,6 +367,8 @@
 
 				if (options.type === "circle") {
 					unbindCircleEvents(self);
+					self.element.style.display = "inline-block";
+					self.element.parentNode.removeChild(self._ui.progressContainer);
 					self._ui = null;
 					self._options = null;
 				} else {
@@ -225,7 +379,7 @@
 			ns.widget.wearable.Slider = Slider;
 			engine.defineWidget(
 				"Slider",
-				"input[data-role='slider'], input[type='range'], input[data-type='range']",
+				".ui-slider",
 				[
 					"value"
 				],
