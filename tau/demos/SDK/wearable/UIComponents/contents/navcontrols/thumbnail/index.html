@@ -32,7 +32,7 @@
 
 		@media all and (-tizen-geometric-shape: circle) {
 			section {
-				padding: 0;
+				padding: 0 13px 0 13px;
 			}
 			section:first-child .thumbnail {
 				background-image: url(../../../css/images/thumbnail_left.png);
@@ -51,11 +51,9 @@
 				position: relative;
 				text-align: center;
 				line-height: 200px;
-				transform: scale(0.8) translate3d(0, -60%, 0);
-				transition: transform 300ms;
 			}
-			.ui-section-active .thumbnail{
-				transform: scale(1) translate3d(0, -50%, 0);
+
+			.ui-section-active .thumbnail {
 				background-color: transparent;
 				border: none;
 			}
