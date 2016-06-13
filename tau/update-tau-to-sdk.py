@@ -47,46 +47,46 @@ class Job:
 # Git info
 class webuifw(Git):
 	addr="165.213.149.170:29418/framework/web/web-ui-fw"
-	branch="devel/tizen_2.4"
+	branch="devel/tizen_3.0"
 
 class MobileUIComponent(Git):
 	addr="165.213.149.170:29418/apps/mobile/web/sample/tizen-winset"
-	branch="tizen_2.4"
+	branch="tizen_3.0"
 	type="onlineSample"
 
 class TizenGlobalize(Git):
 	addr="165.213.149.170:29418/apps/mobile/web/sample/tizen-globalize"
-	branch="tizen_2.4"
+	branch="tizen_3.0"
 	type="onlineSample"
 
 class TAUMasterDetail(Git):
 	addr="165.213.149.170:29418/apps/mobile/web/template/tau-master-detail"
-	branch="tizen_2.4"
+	branch="tizen_3.0"
 	type="template"
 
 class TAUMultiPage(Git):
 	addr="165.213.149.170:29418/apps/mobile/web/template/tau-multi-page"
-	branch="tizen_2.4"
+	branch="tizen_3.0"
 	type="template"
 
 class TAUSinglePage(Git):
 	addr="165.213.149.170:29418/apps/mobile/web/template/tau-single-page"
-	branch="tizen_2.4"
+	branch="tizen_3.0"
 	type="template"
 
 class WearableUIComponent(Git):
 	addr="165.213.149.170:29418/apps/wearable/web/sample/wearable-widget-sample"
-	branch="tizen_2.3"
+	branch="tizen_3.0"
 	type="onlineSample"
 
 class TAUBasic(Git):
 	addr="165.213.149.170:29418/apps/wearable/web/template/tau-basic"
-	branch="tizen_2.3.1"
+	branch="tizen_3.0"
 	type="template"
 
 class TAUList(Git):
 	addr="165.213.149.170:29418/apps/wearable/web/template/tau-list"
-	branch="tizen_2.3.1"
+	branch="tizen_3.0"
 	type="template"
 
 # job list
@@ -171,25 +171,21 @@ def pushGit(targetdir, tauVersion, profile):
 	root = tree.getroot()
 	projectName = root.find('SampleName').text
 
-	if (profile == "mobile"):
-		targetBranch = "tizen_2.4"
-		if (targetdir.find("tizen-") > -1):
-			updateSampleVersion(tree, root)
-	elif (profile == "wearable"):
-		targetBranch = "tizen_2.3.1"
-		if (targetdir.find("wearable-widget-sample") > -1):
-			targetBranch = "tizen_2.3"
-			updateSampleVersion(tree, root)
+	targetBranch = "tizen_3.0"
+	if (profile == "mobile") and (targetdir.find("tizen-") > -1):
+		updateSampleVersion(tree, root)
+	elif (profile == "wearable") and (targetdir.find("wearable-widget-sample") > -1):
+		updateSampleVersion(tree, root)
 
 	# make commit and push to gerrit
 	cmd("git add -A")
 	logmsg = projectName.replace(" ", "") + "-TAU(" + tauVersion + ")release"
 
 	cmd("git commit -m " + logmsg)
-	cmd("git push origin HEAD:refs/for/" + targetBranch)
+	#cmd("git push origin HEAD:refs/for/" + targetBranch)
 
-	targetCommit = subprocess.check_output("git log --format='%H' -n 1", shell=True).replace("\n", "")
-	cmd("ssh -p 29418 " + gitaccount + "@165.213.149.170 gerrit review --verified +1 --code-review +2 --submit " + targetCommit)
+	#targetCommit = subprocess.check_output("git log --format='%H' -n 1", shell=True).replace("\n", "")
+	#cmd("ssh -p 29418 " + gitaccount + "@165.213.149.170 gerrit review --verified +1 --code-review +2 --submit " + targetCommit)
 
 	os.chdir(cwd)
 
@@ -319,9 +315,9 @@ def main():
 		for project in projectdir:
 			pushGit(project, tauVersion.strip(), k)
 
-		for git in job.destgit:
-			if git.type == "onlineSample":
-				executeJenkinsJobs(git)
+		#for git in job.destgit:
+		#	if git.type == "onlineSample":
+		#		executeJenkinsJobs(git)
 
 		os.chdir(tempdir)
 	os.chdir(cwd)

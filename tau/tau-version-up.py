@@ -11,7 +11,7 @@ FILE_SPEC = "../packaging/web-ui-fw.spec"
 FILE_PACKAGEJSON = "./package.json"
 
 if(len(sys.argv) < 4):
-	print("Please input TAU version, account ID, Real name for changelog\nex] ./tau-version-up.py 0.11.5 hagun.kim 'Hagun Kim'")
+	print("Please input TAU version, account ID, Real name for changelog\nex] ./tau-version-up.py 0.13.2 hagun.kim 'Hagun Kim'")
 	sys.exit(1)
 
 if(len(sys.argv) == 4):
@@ -28,7 +28,7 @@ def pushGit():
 	logmsg = "TAU " + tauVersion + " release"
 
 	cmd("git commit -s -m '" + logmsg + "'")
-	cmd("git push origin HEAD:refs/for/devel/tizen_2.4")
+	cmd("git push origin HEAD:refs/for/devel/tizen_3.0")
 
 def addReviewer():
 	targetCommit = subprocess.check_output("git log --format='%H' -n 1", shell=True).replace("\n", "")
