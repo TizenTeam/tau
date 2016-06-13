@@ -234,15 +234,19 @@
 	border-radius: 40px;
 
 	text-align: center;
-	background-color: rgb(8, 56, 94);
+	background-color: rgb(0,53,74);
 	box-shadow: 0 3px 4px rgb(17, 17, 17);
 	z-index: 90;
+}
+.select-btn:active {
+	background-color: rgb(0,71,99);
 }
 .select-btn-text {
 	display: block;
 	height: 100%;
 	line-height: 60px;
 	background: url(../contents/list/images/tw_list_number_icon.png) no-repeat 50% 100%;
+	color: rgb(245,245,245);
 }
 .ui-listview li.select {
 	background-color: rgb(8, 42, 57);
@@ -425,7 +429,7 @@ li.static::before {
 	content:"";
 	-webkit-mask-image: url(../contents/list/images/tw_list_check_ic.png);
 	-webkit-mask-repeat: no-repeat;
-	background-color: rgba(115, 191, 15, 1);
+	background-color: rgba(77,207,255,1);
 	width: 56px;
 	height: 56px;
 	position: absolute;
@@ -517,7 +521,7 @@ li.static::before {
 	-webkit-border-radius: 50%;
 	-webkit-mask-image: -webkit-radial-gradient(#000000 6.28125rem, transparent 0);
 	min-height: 12.5625rem !important;
-	background-color: rgba(2, 56, 92, 1);
+	background-color: rgb(0,53,74);
 	border: 0;
 }
 #selectModePage .select-popup .ui-listview {
@@ -553,7 +557,7 @@ li.static::before {
 }
 #selectModePage .select-popup .ui-listview li a:active {
 	color: rgba(245, 245, 245, 1);
-	background-color: rgba(23, 73, 115, 1);
+	background-color: rgb(0,71,99);
 }
 #select-all {
 	padding-top: 45px;
