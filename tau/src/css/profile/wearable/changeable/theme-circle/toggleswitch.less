@@ -31,11 +31,24 @@
 			content: none;
 		}
 		&:active {
+			background-color: @color_toggle_off_bg_press;
+			.transition(none);
 			&~ .ui-switch-activation,
 			~ .ui-switch-button{
 				background-color: transparent;
-				&::before {
-					background-color: transparent;
+				&::after {
+					.transition(none);
+					background-color: @color_toggle_off_handler_press;
+				}
+			}
+		}
+		&:disabled {
+			background-color: @color_toggle_off_bg_dim;
+			&~ .ui-switch-activation,
+			~ .ui-switch-button{
+				background-color: transparent;
+				&::after {
+					background-color: @color_toggle_off_handler_dim;
 				}
 			}
 		}
@@ -90,13 +103,22 @@
 			}
 		}
 		&:active {
-			&::before {
-				background-color: @color_toggle_on_bg;
-			}
+			background-color: @color_toggle_on_bg_press;
+			.transition(none);
 			&~ .ui-switch-activation, ~ .ui-switch-button {
 				background-color: transparent;
 				&::before {
-					background-color: @color_toggle_on_handler;
+					.transition(none);
+					background-color: @color_toggle_on_handler_press;
+				}
+			}
+		}
+		&:disabled {
+			background-color: @color_toggle_on_bg_dim;
+			&~ .ui-switch-activation, ~ .ui-switch-button {
+				background-color: transparent;
+				&::before {
+					background-color: @color_toggle_on_handler_dim;
 				}
 			}
 		}
