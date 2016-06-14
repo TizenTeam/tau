@@ -11,7 +11,7 @@
 	overflow: hidden;
 	border: 0;
 	border-radius: 50% 50%;
-	background-image: -webkit-radial-gradient(transparent -100%, transparent -90%, @color_bg_cover 69%), -webkit-radial-gradient(@color_bg 71%, transparent 0px);
+	background-color: @color_popup_bg;
 
 	& ::-webkit-scrollbar {
 		display: none;
@@ -35,7 +35,7 @@
 		color: @color_popup_content_text;
 		background-color: transparent;
 		font-size: 32 * @px_base;
-		padding: 16% 8% 4%;
+		padding: 60 * @unit_base 30 * @unit_base 10 * @unit_base;
 		text-align: center;
 		.ui-listview,
 		.ui-inline-listview {
@@ -44,16 +44,17 @@
 	}
 
 	&.ui-has-side-buttons .ui-popup-content{
-		padding-left: 19%;
-		padding-right: 19%;
+		padding-left: 64 * @unit_base;
+		padding-right: 64 * @unit_base;
 	}
 
 	.ui-popup-footer.ui-side-button{
 		.ui-btn {
+			top: 0;
 			height: 100%;
-			width: 26%;
+			width: 64 * @unit_base;
 			border: none;
-			position: absolute;
+			position: fixed;
 			text-indent: -9999px;
 			&::before {
 				content: "";
@@ -74,79 +75,48 @@
 		}
 
 		.ui-btn:nth-child(n) {
-			top: 50%;
-			.transform(translate3d(68%, -50%, 0));
-			background: -webkit-radial-gradient(center, circle cover, @color_popup_side_button_bg 70%, transparent 70%);
-			background-repeat: no-repeat;
-			background-size: 570% 150%;
+			background-color: @color_popup_side_button_bg;
 			&::before {
+				left: 50%;
 				top: 50%;
-				-webkit-transform: translate3d(0, -50%, 0);
+				-webkit-transform: translate3d(-50%, -50%, 0);
 			}
 			&::after {
-				background: -webkit-radial-gradient(center, circle cover, @color_popup_side_button_bg_press 70%, transparent 70%);
-				background-repeat: no-repeat;
-				background-size: 570% 150%;
-				-webkit-transition: -webkit-transform 250ms;
+				background-color: @color_popup_side_button_bg_press;
+				.transition(opacity 250ms);
 				opacity: 0;
 				z-index: -1;
 			}
 			&:active::after {
+				.transition(none);
 				opacity: 1;
-				-webkit-transform: translate(0,0);
 			}
 		}
 		.ui-btn:nth-child(1) {
-			.transform(translate3d(68%, -50%, 0));
-			background-position: 100% 50%;
-			right: 100%;
-			&::before {
-				left: 38%;
-			}
-			&::after {
-				background-position: 100% 50%;
-				-webkit-transform : translate(-20%,0);
-			}
-			&:active {
-				background-position: 100% 50%;
-			}
+			.mask-image("images/Popup/tw_ic_popup_left_btn_bg.png");
+			.mask-size(100% 100%);
+			left: 0;
 		}
 		.ui-btn:nth-child(2) {
-			.transform(translate3d(-68%, -50%, 0));
-			left: 100%;
-			background-position: 0 50%;
-			&::before {
-				right: 38%;
-			}
-			&::after {
-				background-position: 0 50%;
-				-webkit-transform : translate(20%,0);
-			}
-			&:active {
-				background-position: 0 50%;
-			}
+			.mask-image("images/Popup/tw_ic_popup_right_btn_bg.png");
+			.mask-size(100% 100%);
+			right: 0;
 		}
 	}
 
 	.ui-popup-footer.ui-bottom-button{
 		.ui-btn {
-			position: absolute;
-			top: 100%;
-			left: 50%;
-			height: 36%;
-			line-height: 42 * @unit_base;
+			position: fixed;
+			bottom: 0;
+			height: 100 * @unit_base;
 			width: 100%;
 			border: none;
-			padding: 8% 22% 16%;
-			background: -webkit-radial-gradient(center, circle cover, @color_footer_button_bg 50%, transparent 50%);
-			background-position: 50% 16.5%;
-			background-repeat: no-repeat;
-			background-size: 300% 840%;
-			.transform(translate3d(-50%, -77%, 0));
-			&.ui-btn-icon-only::before {
-				top: 26 * @unit_base;
-				.transform(translate3d(-50%, 0, 0));
-			}
+			line-height: 90 * @unit_base;
+			padding: 0 0 10 * @unit_base 0;
+			background-color: @color_footer_button_bg;
+			.mask-image("images/Bottom_button/tw_bottom_btn_bg.png");
+			.mask-size(100% 100%);
+
 			&::after {
 				content: "";
 				position:absolute;
@@ -154,18 +124,14 @@
 				height: 100%;
 				left: 0;
 				top: 0;
-				background: -webkit-radial-gradient(center, circle cover, @color_footer_button_bg_press 50%, transparent 50%);
-				background-position: 50% 16.5%;
-				background-repeat: no-repeat;
-				background-size: 300% 840%;
-				-webkit-transform: translate(0, 10%);
-				-webkit-transition: -webkit-transform 250ms;
+				background-color: @color_footer_button_bg_press;
+				.transition(opacity 250ms);
 				opacity: 0;
 				z-index: -1;
 			}
 			&:active::after {
+				.transition(none);
 				opacity: 1;
-				-webkit-transform: translate(0, 0);
 			}
 		}
 	}
@@ -176,7 +142,7 @@ Popup Container Scroll
 .ui-popup.ui-scroll-on:not(.ui-ctxpopup):not(.ui-popup-toast) {
 	.ui-popup-wrapper::after {
 		content: "";
-		position: absolute;
+		position: fixed;
 		left: 0;
 		top: 0;
 		width: 100%;

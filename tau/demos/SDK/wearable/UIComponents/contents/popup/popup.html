@@ -17,7 +17,7 @@
 			<li><a href="#2btnPopup" data-rel="popup">General</a></li>
 			<li><a href="#1btnPopup" data-rel="popup">Bottom button</a></li>
 			<li><a href="#headerPopup" data-rel="popup">Header</a></li>
-			<li><a href="#additionalBtnPopup" data-rel="popup">Single button</a></li>
+			<li><a href="#ProgressPopup" data-rel="popup">Progress</a></li>
 		</ul>
 	</div>
 
@@ -27,7 +27,7 @@
 			mode?<br>
 			Flight mode
 			disables Wi-Fi.<br>
-			<label class="label-popup-check"><input type="checkbox"/>Don't repeat</label>
+			<label class="label-popup-check"><input type="checkbox" checked/>Don't repeat</label>
 		</div>
 		<div class="ui-popup-footer ui-side-button ui-grid-col-2">
 			<a id="2btnPopup-cancel" href="#" class="ui-btn btn-icon-cancel" data-rel="back">Cancel</a>
@@ -63,17 +63,14 @@
 		</div>
 	</div>
 
-	<div id="additionalBtnPopup" class="ui-popup">
+	<div id="ProgressPopup" class="ui-popup">
 		<div class="ui-popup-content">
-			Enable flight
-			mode?<br>
-			Flight mode
-			disables Wi-Fi.
-			<button id="additionalBtnPopup-btn" href="#" class="ui-btn btn-additional">000000</button>
-		</div>
-		<div class="ui-popup-footer ui-side-button ui-grid-col-2">
-			<a id="additionalBtnPopup-cancel" href="#" class="ui-btn btn-icon-cancel" data-rel="back">Cancel</a>
-			<a id="additionalBtnPopup-ok" href="#" class="ui-btn btn-icon-check" data-rel="back">OK</a>
+			<div class="small-processing-container">
+				<div class="ui-processing" style="-webkit-transform: scale(1.08); position: relative;"></div>
+				<div class="ui-processing-text" style="position:relative; margin-top: 22px;">
+					Description
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
