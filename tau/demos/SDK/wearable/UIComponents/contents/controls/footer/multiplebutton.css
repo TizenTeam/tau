@@ -25,5 +25,9 @@
 	.ui-bottom-button a + a {
 		display: none;
 	}
+
+	.ui-grid-col-3.ui-bottom-button a {
+		width: 100%;
+	}
 }
 
