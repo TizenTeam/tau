@@ -10,12 +10,13 @@
 		selectBtnText =  document.getElementById("select-btn-text"),
 		selectAll = document.getElementById("select-all"),
 		deselectAll = document.getElementById("deselect-all"),
-		drawerElement = page.querySelector("#rightDrawer"),
-		handler = document.getElementById("handler"),
+		elPopup = page.querySelector("#moreoptionsPopupCircle"),
+		handler = page.querySelector(".ui-more"),
 		selector = page.querySelector("#selector"),
 		selectorComponent,
+		snapList,
 		selectCount,
-		drawerHelper,
+		popupHandler,
 		i,
 		addFunction,
 		fnSelectAll,
@@ -51,6 +52,10 @@
 		selectWrapper.classList.remove("show-btn");
 		selectCount = 0;
 	}
+
+	popupHandler = function() {
+		tau.openPopup(elPopup);
+	};
 
 	/**
 	 * Select/Deselects a list item
@@ -118,9 +123,8 @@
 	 * Back key event handler
 	 */
 	fnBackKey = function() {
-		var drawer = tau.widget.Drawer(drawerElement),
-			classList = selectWrapper.classList;
-		if( event.keyName === "back" && drawer.getState() === "closed" && classList.contains("show-btn")) {
+		var classList = selectWrapper.classList;
+		if( event.keyName === "back" && !elPopup.classList.contains("ui-popup-active") && classList.contains("show-btn")) {
 			if (classList.contains("open")) {
 				classList.remove("open");
 			} else {
@@ -152,9 +156,9 @@
 		listview.removeEventListener('click', addFunction, false);
 		selectAll.removeEventListener("click", fnSelectAll, false);
 		deselectAll.removeEventListener("click", fnDeselectAll, false);
+		handler.removeEventListener("click", popupHandler, false);
 		document.removeEventListener('tizenhwkey', fnBackKey);
 		modeHide();
-		drawerHelper.destroy();
 	}, false);
 
 	/**
@@ -162,12 +166,9 @@
 	 * Do preparatory works and adds event listeners
 	 */
 	page.addEventListener( "pagebeforeshow", function() {
-		/********** drawer ******************/
-		drawerHelper = tau.helper.DrawerMoreStyle.create(drawerElement, {
-			handler: ".drawer-handler"
-		});
-		selectorComponent = tau.widget.Selector(selector);
-		selectorComponent.disable();
+		var radius = window.innerHeight / 2 * 0.8;
+		selectorComponent = tau.widget.Selector(selector, {itemRadius: radius});
+		handler.addEventListener("click", popupHandler, false);
 		document.addEventListener('tizenhwkey', fnBackKey);
 	});
 
@@ -175,23 +176,25 @@
 	 * If you want to use Selector with Snaplistview, you should control to Selector enable status
 	 * because 'rotarydetent' event has been used in both Selector and Snaplistview.
 	 */
-	drawerElement.addEventListener("draweropen", function() {
+	elPopup.addEventListener("popupshow", function() {
+		snapList = tau.widget.SnapListview(listview);
 		selectorComponent.enable();
+		snapList.disable();
 	});
 
-	drawerElement.addEventListener("drawerclose", function() {
+	elPopup.addEventListener("popuphide", function() {
 		selectorComponent.disable();
+		snapList.enable();
 	});
 	/*
-	 * When user click the indicator of Selector, drawer will close.
+	 * When user click the indicator of Selector, popup will close.
 	 */
 	selector.addEventListener("click", function(event) {
-		var target = event.target,
-			drawerComponent = tau.widget.Drawer(drawerElement);
+		var target = event.target;
 
 		// 'ui-selector-indicator' is default indicator class name of Selector component
 		if (target.classList.contains("ui-selector-indicator")) {
-			drawerComponent.close();
+			tau.closePopup(elPopup);
 		}
 	});
 }());

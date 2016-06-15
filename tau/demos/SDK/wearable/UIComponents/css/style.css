@@ -409,22 +409,6 @@ li.static::before {
 
 /* ------------------------------------------------------------------------------ */
 /*Select List*/
-#selectModePage #handler {
-	width:70px;
-	height: 70px;
-	position: fixed;
-	top: 50%;
-	transform:translate(0, -50%);
-	right: 0;
-	color: transparent;
-	display: none;
-	background-color: #a4a4a4;
-	-webkit-mask-image: url(../contents/list/images/b_drawer.png);
-	-webkit-mask-size: 18px 36px;
-	-webkit-mask-repeat: no-repeat;
-	-webkit-mask-position: 45px 19px;
-	z-index: 1;
-}
 #selectModePage li.select::after {
 	content:"";
 	-webkit-mask-image: url(../contents/list/images/tw_list_check_ic.png);
@@ -505,6 +489,11 @@ li.static::before {
 	visibility: visible;
 	pointer-events: auto;
 }
+#selectModePage .ui-more {
+	z-index: 10;
+	display: none;
+}
+
 #selectModePage .select-popup {
 	visibility: hidden;
 	pointer-events: none;
