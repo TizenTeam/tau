@@ -290,9 +290,12 @@
 			}
 
 			function onTouchEnd(self) {
-				var scrollElement = self._ui.scrollableParent.element;
+				var scrollElement = self._ui.scrollableParent.element,
+					scrollTop = - scrollElement.firstElementChild.getBoundingClientRect().top;
 				self._isTouched = false;
-				setSelection(self);
+				if (scrollTop === 0 || scrollTop === scrollElement.scrollHeight - scrollElement.offsetHeight) {
+					setSelection(self);
+				}
 			}
 
 			function getScrollableParent(element) {
