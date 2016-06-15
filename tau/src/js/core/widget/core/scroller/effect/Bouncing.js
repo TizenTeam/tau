@@ -253,7 +253,7 @@
 				 * @member ns.widget.core.scroller.effect.Bouncing
 				 */
 				handleEvent: function( event ) {
-					if (event.type.toLowerCase().indexOf("animationend") > -1) {
+					if (event.type.toLowerCase().indexOf("animationend") > -1 && event.animationName.charAt(0) !== "-") {
 						if ( this._isShowAnimating ) {
 							this._finishShow();
 						} else if ( this._isHideAnimating ) {
