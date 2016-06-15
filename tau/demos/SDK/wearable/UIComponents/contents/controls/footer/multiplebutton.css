@@ -22,6 +22,9 @@
 		-webkit-mask-image: -webkit-radial-gradient(black 71%,transparent 0);
 		background-image: none;
 	}
+	#moreButtonPopup .ui-popup-wrapper::after {
+		content: none;
+	}
 	.ui-bottom-button a + a {
 		display: none;
 	}
