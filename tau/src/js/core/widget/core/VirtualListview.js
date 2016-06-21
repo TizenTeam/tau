@@ -783,7 +783,7 @@
 				this.options.listItemUpdater(element, index);
 			};
 
-			function setupScrollview(element, orientation) {
+			prototype._setupScrollview = function (element, orientation) {
 				var scrollview = selectors.getClosestByClass(element, "ui-scroller") || element.parentElement,
 					scrollviewStyle;
 				//Get scrollview instance
@@ -799,9 +799,9 @@
 				}
 
 				return scrollview;
-			}
+			};
 
-			function getScrollView(options, element) {
+			prototype._getScrollView = function (options, element) {
 				var scrollview = null;
 
 				if (options.scrollElement) {
@@ -813,11 +813,11 @@
 				}
 
 				if (!scrollview) {
-					scrollview = setupScrollview(element, options.orientation);
+					scrollview = this._setupScrollview(element, options.orientation);
 				}
 
 				return scrollview;
-			}
+			};
 
 			/**
 			 * Build widget structure
@@ -844,7 +844,7 @@
 				//Set orientation, default vertical scrolling is allowed
 				orientation = options.orientation.toLowerCase() === HORIZONTAL ? HORIZONTAL : VERTICAL;
 
-				scrollview = getScrollView(options, element);
+				scrollview = self._getScrollView(options, element);
 
 				// Prepare spacer (element which makes scrollBar proper size)
 				spacer.classList.add(classes.spacer);
@@ -878,7 +878,7 @@
 				var self = this,
 					ui = self._ui,
 					options = self.options,
-					scrollview = self.scrollview || getScrollView(options, element),
+					scrollview = self.scrollview || self._getScrollView(options, element),
 					elementRect = null,
 					scrollviewRect = null;
 
