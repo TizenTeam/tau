@@ -1,4 +1,10 @@
 %changelog
+* Thu Jul 07 2016 Hagun Kim <hagun.kim@samsung.com> 0.13.2
+	- refactor(wearable): modify required version of samples
+	- refactor(wearable): modify scale value for snaplist
+	- fix(wearable): revert rotary event in snaplist helper
+	- fix(core): fix to get scrollview in virtual list.
+
 * Fri Jun 17 2016 Hagun Kim <hagun.kim@samsung.com> 0.13.1
 	- refactor(wearable): change scroll end effect VI
 	- refactor(wearable): change more option in select list from drawer to popup
