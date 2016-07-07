@@ -124,7 +124,7 @@
 						selector: "li:not(.ui-listview-divider)",
 						animate: "none",
 						scale: {
-							from: 0.77,
+							from: 0.67,
 							to: 1
 						},
 						opacity: {
