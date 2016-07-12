@@ -130,7 +130,8 @@
 
 					if ( !this.triggerd && ge.eventType === Gesture.Event.MOVE ) {
 						if ( Math.abs(ge.deltaX) < threshold && Math.abs(ge.deltaY) < threshold ) {
-							if ( !tizenBrowser ) {
+							// Branching statement for specifying Tizen 2.X and Tizen 3.0
+							if (window.navigator.userAgent.indexOf("Chrome") > -1) {
 								ge.preventDefault();
 							}
 							return Gesture.Result.PENDING;

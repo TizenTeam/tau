@@ -483,7 +483,7 @@
 						if( startEvent && ev.pointers.length !== startEvent.pointers.length ) {
 							startEvent.pointers = [];
 							[].forEach.call(ev.pointers, function( pointer ) {
-								startEvent.pointers.push( objectMerge({}, pointer) );
+								startEvent.pointers.push(pointer);
 							});
 						}
 
