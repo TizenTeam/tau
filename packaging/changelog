@@ -1,4 +1,7 @@
 %changelog
+* Wed Jul 13 2016 Hagun Kim <hagun.kim@samsung.com> 0.13.3
+	- fix(gesture): fix for chromium engine
+
 * Thu Jul 07 2016 Hagun Kim <hagun.kim@samsung.com> 0.13.2
 	- refactor(wearable): modify required version of samples
 	- refactor(wearable): modify scale value for snaplist
