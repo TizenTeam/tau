@@ -81,16 +81,7 @@
 				destroyMarqueeWidget(self);
 
 				if (marquee) {
-					self._selectedMarqueeWidget = engine.instanceWidget(marquee, "Marquee", {
-						delay: self.options.marqueeDelay,
-						marqueeStyle: self.options.marqueeStyle,
-						speed: self.options.speed,
-						iteration: self.options.iteration,
-						timingFunction: self.options.timingFunction,
-						ellipsisEffect: self.options.ellipsisEffect,
-						runOnlyOnEllipsisText: self.options.runOnlyOnEllipsisText,
-						autoRun: self.options.autoRun
-					});
+					self._selectedMarqueeWidget = engine.instanceWidget(marquee, "Marquee", self.options);
 					self._selectedMarqueeWidget.start();
 				}
 			}
@@ -99,10 +90,11 @@
 				var self = this;
 
 				objectUtils.fastMerge(self.options, options);
+				self.options.delay = self.options.delay || self.options.marqueeDelay;
 
 				self.bindEvents();
 				// create SnapListStyle helper
-				self._snapListStyleHelper = tau.helper.SnapListStyle.create(listDomElement);
+				self._snapListStyleHelper = tau.helper.SnapListStyle.create(listDomElement, self.options);
 			};
 
 			prototype.bindEvents = function() {

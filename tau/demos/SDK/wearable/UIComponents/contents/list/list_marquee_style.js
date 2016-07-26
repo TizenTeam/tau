@@ -19,12 +19,9 @@
 		if (elScroller && list) {
 			listHelper = tau.helper.SnapListMarqueeStyle.create(list, {
 				marqueeDelay: 1000,
-				marqueeStyle: "endToEnd"
+				marqueeStyle: "endToEnd",
+				animate: "scale"
 			});
-
-			tau.widget.SnapListview(list);
-
-			elScroller.setAttribute("tizen-circular-scrollbar", "");
 		}
 	});
 
@@ -36,9 +33,6 @@
 		if (listHelper) {
 			listHelper.destroy();
 			listHelper = null;
-			if(elScroller) {
-				elScroller.removeAttribute("tizen-circular-scrollbar");
-			}
 		}
 	});
 

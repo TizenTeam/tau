@@ -168,6 +168,7 @@
 	page.addEventListener( "pagebeforeshow", function() {
 		var radius = window.innerHeight / 2 * 0.8;
 		selectorComponent = tau.widget.Selector(selector, {itemRadius: radius});
+		selectorComponent.disable();
 		handler.addEventListener("click", popupHandler, false);
 		document.addEventListener('tizenhwkey', fnBackKey);
 	});

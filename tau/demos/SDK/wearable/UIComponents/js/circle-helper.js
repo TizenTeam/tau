@@ -27,7 +27,7 @@
 				if (page.id !== "pageMarqueeList" && page.id !== "pageTestVirtualList" && page.id !== "pageAnimation") {
 					len = list.length;
 					for (i = 0; i < len; i++) {
-						listHelper[i] = tau.helper.SnapListStyle.create(list[i]);
+						listHelper[i] = tau.helper.SnapListStyle.create(list[i], {animate: "scale"});
 					}
 				}
 			}

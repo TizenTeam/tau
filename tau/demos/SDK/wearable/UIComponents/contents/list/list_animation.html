@@ -40,8 +40,6 @@
 
 					if (elScroller && list) {
 						listHelper = tau.helper.SnapListStyle.create(list, {animate: "scale"});
-
-						elScroller.setAttribute("tizen-circular-scrollbar", "");
 					}
 				});
 
@@ -50,10 +48,6 @@
 						listHelper.destroy();
 
 						listHelper = null;
-
-						if (elScroller) {
-							elScroller.removeAttribute("tizen-circular-scrollbar");
-						}
 					}
 				});
 			}())
