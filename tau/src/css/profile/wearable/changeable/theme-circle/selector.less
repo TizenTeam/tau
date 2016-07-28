@@ -1,0 +1,46 @@
+.ui-selector {
+	background-color: @color_selector_layer_bg;
+	.ui-layer {
+		&.ui-layer-prev {
+			background-color: @color_selector_layer_sub1_bg;
+		}
+
+		&.ui-layer-prev-prev {
+			background-color: @color_selector_layer_sub2_bg;
+		}
+
+		&.ui-layer-next {
+			background-color: @color_selector_layer_sub1_bg;
+		}
+
+		&.ui-layer-next-next {
+			background-color: @color_selector_layer_sub2_bg;
+		}
+
+		.ui-item {
+			background-color: @color_selector_icon_bg;
+			&:active {
+				background-color: @color_selector_icon_bg_press;
+			}
+			&.ui-item-active:active {
+				background-color: @color_selector_icon_bg;
+			}
+		}
+	}
+	.ui-selector-indicator {
+		&:active::before {
+			background-color: @color_selector_indicator_bg;
+		}
+		.ui-selector-indicator-text {
+			color: @color_selector_text;
+			max-height: 80 * @unit_base;
+			line-height: 40 * @unit_base;
+		}
+	}
+
+	.ui-selector-indicator-arrow {
+		&::before {
+			background-color: @color_selector_handler_bg;
+		}
+	}
+}

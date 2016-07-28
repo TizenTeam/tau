@@ -29,8 +29,7 @@
 	 * Updates the number of the selected list items
 	 */
 	function textRefresh() {
-		selectBtnText.innerHTML =
-			selectCount < 10 ? "0" + selectCount : selectCount;
+		selectBtnText.innerHTML = selectCount;
 	}
 
 	/**
