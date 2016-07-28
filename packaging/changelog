@@ -1,4 +1,7 @@
 %changelog
+* Thu Jul 28 2016 Hagun Kim <hagun.kim@samsung.com> 0.13.4
+	- refactor(wearable): add snaplist fisheye option to sample and fix app js
+
 * Wed Jul 13 2016 Hagun Kim <hagun.kim@samsung.com> 0.13.3
 	- fix(gesture): fix for chromium engine
 
