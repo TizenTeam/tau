@@ -4,7 +4,6 @@
 	var page,
 		list,
 		listHelper = [],
-		snapList = [],
 		i, len;
 
 	if (tau.support.shape.circle) {
@@ -14,13 +13,7 @@
 			if (list) {
 				len = list.length;
 				for (i = 0; i < len; i++) {
-					listHelper[i] = tau.helper.SnapListStyle.create(list[i]);
-				}
-				len = listHelper.length;
-				if (len) {
-					for (i = 0; i < len; i++) {
-						snapList[i] = listHelper[i].getSnapList();
-					}
+					listHelper[i] = tau.helper.SnapListStyle.create(list[i], {animate: "scale"});
 				}
 			}
 		});
