@@ -1,4 +1,10 @@
 %changelog
+* Fri Jul 29 2016 Hagun Kim <hagun.kim@samsung.com> 0.13.5
+	- refactor(wearable): remove unnecessary contents in ETC sample
+	- refactor(wearable): remove virtual list sample
+	- refactor(wearable): modify styles for GUI guide v0.8
+	- etc(tool): update xml color code for 2.3.2 wearable
+
 * Thu Jul 28 2016 Hagun Kim <hagun.kim@samsung.com> 0.13.4
 	- refactor(wearable): add snaplist fisheye option to sample and fix app js
 
