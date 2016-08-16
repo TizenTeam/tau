@@ -1,4 +1,52 @@
 %changelog
+* Tue Aug 16 2016 Hagun Kim <hagun.kim@samsung.com> 0.11.9
+	- fix(wearable): fix selector indicator bug
+	- refactor(mobile): remove empty style blocks in templates
+	- fix(wearable): revert rotary event in snaplist helper
+	- feat(wearable): add circular slider and sample
+	- refactor(wearable): fix layout logic in selector component
+	- feat(wearable): add long press gesture
+	- refactor(mobile): modify for verification
+	- fix(mobile): remove focus outline of header botton.
+	- feat(waearble): Application Templates - Smart Things
+	- feat(demos): Application Template - Drawer menu
+	- feat(demos) Application Template: Map
+	- feat(demos) Application Template: Alarm
+	- feat(wearable): Application Templates - Buddy list
+	- feat(demos) Application Template: Instant Settings
+	- feat(demo): Template setting view
+	- feat(demos) Applications Templates: Login Form
+	- feat (demos) Application Template: Mailbox
+	- feat(demos) Application Templates: Voice Recorder
+	- feat(demos) Application Templates: Rich Notifications
+	- feat(demos) Application Templates: Shopping List
+	- feat(demos) Application Templates: Video Player
+	- feat(demos) Appliactions Templates: Chat
+	- feat(demos): Applications Templates - Music Player
+	- feat(demos) Applications Templates: Image Gallery
+	- Template news list
+	- fix(vlist) setting up height for pages
+	- feat(vlist) As User I want have Infinite VirtualList scrolling
+	- feat(core): add custom events to scroll
+	- fix(core): VirtualListViewSimple flickering fix
+	- feat(core): VirtualListSimple Custom edge effect
+	- refactor(wearable): add comments to UI Components sample for verification
+	- refactor(mobile): add comments to Globalization sample for verification
+	- refactor(mobile): add comments to UI Components sample for verification
+	- etc(tool): modify waiting time for jenkins build in automation script
+	- fix(wearable): fix applying gradient to list item
+	- refactor(mobile): modify globalization sample for consistency
+	- refactor(wearable): modify wearable UI Components sample for consistency
+	- refactor(mobile): modify mobile UI Components sample for consistency
+	- etc(tool): fix omission of Globalization sample and jenkins job
+	- refactor(globalize): add comments for globalize sample
+	- refactor(mobile): add comments for mobile UI Components sample
+	- feat(core): Scrollbar styles maching UX guide for mobile
+	- perf(core): new widget VirtualListSimple
+	- etc(tool): modify release automation script
+	- feat(core): ScrollBar for VirtualList
+	- perf(core): fix performance of virtuallist
+
 * Fri Apr 15 2016 Hagun Kim <hagun.kim@samsung.com> 0.11.8
 	- refactor(wearable): add comments for verification of UI components sample
 	- refactor(wearable): modify platform version of UI components sample

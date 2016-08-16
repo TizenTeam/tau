@@ -2,7 +2,7 @@
   "name": "tau",
   "title": "tau",
   "description": "Tizen Advanced UI",
-  "version": "0.11.8",
+  "version": "0.11.9",
   "devDependencies": {
     "async": "~0.9.0",
     "cldr-data": "=26",
