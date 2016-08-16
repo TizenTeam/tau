@@ -133,6 +133,7 @@
 				DEFAULT = {
 					ITEM_SELECTOR: "."+ classes.ITEM,
 					INDICATOR_SELECTOR: "." + classes.INDICATOR,
+					INDICATOR_TEXT_SELECTOR: "." + classes.INDICATOR_TEXT,
 					INDICATOR_ARROW_SELECTOR: "." + classes.INDICATOR_ARROW,
 					ITEM_DEGREE: 30,
 					MAX_ITEM_NUMBER: 11,
@@ -337,6 +338,7 @@
 				self.options = utilsObject.merge(self.options, {
 					itemSelector: DEFAULT.ITEM_SELECTOR,
 					indicatorSelector: DEFAULT.INDICATOR_SELECTOR,
+					indicatorTextSelector: DEFAULT.INDICATOR_TEXT_SELECTOR,
 					indicatorArrowSelector: DEFAULT.INDICATOR_ARROW_SELECTOR,
 					itemDegree: DEFAULT.ITEM_DEGREE,
 					itemRadius: DEFAULT.ITEM_RADIUS,
@@ -362,6 +364,7 @@
 					indicatorText,
 					indicatorArrow,
 					queryIndicator,
+					queryIndicatorText,
 					queryIndicatorArrow,
 					layers;
 
@@ -373,9 +376,13 @@
 					if (options.indicatorAutoControl) {
 						queryIndicator = element.querySelector(options.indicatorSelector);
 						queryIndicatorArrow = element.querySelector(options.indicatorArrowSelector);
+						queryIndicatorText = element.querySelector(options.indicatorTextSelector);
 
 						if (queryIndicator) {
 							ui.indicator = queryIndicator;
+							if (queryIndicatorText) {
+								ui.indicatorText = queryIndicatorText;
+							}
 						} else {
 							indicator = document.createElement("div");
 							indicator.classList.add(classes.INDICATOR);
@@ -896,8 +903,13 @@
 			};
 
 			prototype._destroy = function() {
-				var self = this;
+				var self = this,
+					activeItem;
 				unbindEvents(self);
+				activeItem = self._getActiveItem();
+				if (activeItem !== null) {
+					self._ui.items[activeItem].classList.remove(classes.ITEM_ACTIVE);
+				}
 				self._ui = null;
 			};
 
