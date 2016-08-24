@@ -244,6 +244,10 @@
 				}
 			}
 
+			Router.prototype.linkClick = function(event) {
+				linkClickHandler(this, event);
+			};
+
 			/**
 			 * Handle event for pop state
 			 * @method popStateHandler

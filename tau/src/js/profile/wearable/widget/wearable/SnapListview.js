@@ -420,11 +420,14 @@
 
 				self._callbacks.touchstart = onTouchStart.bind(null, self);
 				self._callbacks.touchend = onTouchEnd.bind(null, self);
+				self._callbacks.vclick = vClickHandler.bind(null, self);
+
 				if (scrollableElement) {
 					utilEvent.on(scrollableElement, "scroll", this._callbacks.scroll, false);
 				}
 				element.addEventListener("touchstart", self._callbacks.touchstart);
 				element.addEventListener("touchend", self._callbacks.touchend);
+				element.addEventListener("vclick", self._callbacks.vclick, false);
 			};
 
 			prototype._unbindEvents = function() {
@@ -437,6 +440,7 @@
 				}
 				element.removeEventListener("touchstart", self._callbacks.touchstart);
 				element.removeEventListener("touchend", self._callbacks.touchend);
+				element.removeEventListener("vclick", self._callbacks.vclick);
 			};
 
 			/**
@@ -494,6 +498,66 @@
 				return this._selectedIndex;
 			};
 
+			function vClickHandler(self, e) {
+				var listItems = self._listItems,
+					router = engine.getRouter(),
+					targetListItem,
+					targetIndex;
+
+				targetListItem = getSnapListItem(e.target, self.element);
+
+				if (targetListItem && targetListItem.classList.contains(classes.SNAP_LISTVIEW_SELECTED)) {
+					return;
+				}
+
+				targetIndex = getIndexOfSnapListItem(targetListItem, listItems);
+
+				if (findClosestLink(e.target, self.element)) {
+					utilEvent.preventDefault(e);
+					utilEvent.stopPropagation(e);
+					if (targetIndex > -1) {
+						self._scrollToPosition(targetIndex, router.linkClick.bind(router, e));
+					}
+				} else {
+					if (targetIndex > -1) {
+						self._scrollToPosition(targetIndex);
+					}
+				}
+			}
+
+			function findClosestLink(target, listElement) {
+				var current = target;
+				while (current.parentNode && current !== listElement) {
+					if (current.nodeType === Node.ELEMENT_NODE && current.nodeName && current.nodeName === "A") {
+						return current;
+					}
+					current = current.parentNode;
+				}
+				return undefined;
+			}
+
+			function getIndexOfSnapListItem(targetListItem, targetList) {
+				var length = targetList.length,
+					i;
+				for (i=0; i<length; i++) {
+					if (targetList[i].element === targetListItem) {
+						return i;
+					}
+				}
+				return -1;
+			}
+
+			function getSnapListItem(target, listElement) {
+				var current = target;
+				while (current.parentNode && current !== listElement) {
+					if (current.classList.contains(classes.SNAP_LISTVIEW_ITEM)) {
+						return current;
+					}
+					current = current.parentNode;
+				}
+				return undefined;
+			}
+
 			/**
 			 * Scroll SnapList by index
 			 * @method scrollToPosition
@@ -502,6 +566,10 @@
 			 * @member ns.widget.wearable.SnapListview
 			 */
 			prototype.scrollToPosition = function(index) {
+				this._scrollToPosition(index);
+			};
+
+			prototype._scrollToPosition = function(index, callback) {
 				var self = this,
 					ui = self._ui,
 					enabled = self._enabled,
@@ -526,7 +594,7 @@
 					window.cancelAnimationFrame(animationTimer);
 					animationTimer = null;
 				}
-				scrollAnimation(scrollableParent.element, - scrollableParent.element.firstElementChild.getBoundingClientRect().top, dest, 450);
+				scrollAnimation(scrollableParent.element, - scrollableParent.element.firstElementChild.getBoundingClientRect().top, dest, 450, callback);
 			};
 
 			function cubicBezier (x1, y1, x2, y2) {
@@ -536,7 +604,7 @@
 				};
 			}
 
-			function scrollAnimation(element, from, to, duration) {
+			function scrollAnimation(element, from, to, duration, callback) {
 				var easeOut = cubicBezier(0.25, 0.46, 0.45, 1),
 					startTime = 0,
 					currentTime = 0,
@@ -557,6 +625,9 @@
 						animationTimer = window.requestAnimationFrame(animation);
 					} else {
 						animationTimer = null;
+						if (callback && typeof callback === "function") {
+							callback();
+						}
 					}
 				});
 			}
