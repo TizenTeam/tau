@@ -1,4 +1,13 @@
 %changelog
+* Thu Aug 25 2016 Hagun Kim <hagun.kim@samsung.com> 0.13.6
+	- refactor(wearable): modify selector component size
+	- refactor(wearable): modify snaplist
+	- refactor(wearable): modify thumbnail sample
+	- fix(wearable): fix selector indicator bug
+	- refactor(wearable): modify styles for GUI guide v0.9
+	- refactor(mobile): remove empty style blocks in templates
+	- refactor(wearable): modify 2.3.2 template
+
 * Fri Jul 29 2016 Hagun Kim <hagun.kim@samsung.com> 0.13.5
 	- refactor(wearable): remove unnecessary contents in ETC sample
 	- refactor(wearable): remove virtual list sample
