@@ -1,4 +1,7 @@
 %changelog
+* Thu Sep 01 2016 Hyunkook Cho <hk0713.cho@samsung.com> 0.13.7
+	- fix(wearable): fix selector webkit rendering issue
+
 * Thu Aug 25 2016 Hagun Kim <hagun.kim@samsung.com> 0.13.6
 	- refactor(wearable): modify selector component size
 	- refactor(wearable): modify snaplist
