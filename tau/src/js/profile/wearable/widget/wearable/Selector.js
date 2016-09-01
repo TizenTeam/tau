@@ -319,7 +319,7 @@
 			}
 
 			function setIndicatorTransform(element, selfDegree) {
-				element.style.transform = "rotate(" + selfDegree + "deg) ";
+				element.style.transform = "rotate(" + selfDegree + "deg) translate3d(0, 0, 0)";
 				element.style.transition = "transform 300ms";
 			}
 
