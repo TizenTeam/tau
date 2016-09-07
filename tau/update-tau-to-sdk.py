@@ -93,13 +93,13 @@ class TAUList(Git):
 jobs = {
 	"mobile": Job(
 		webuifw,
-		[MobileUIComponent, TizenGlobalize, TAUMasterDetail, TAUMultiPage, TAUSinglePage],
+		[MobileUIComponent, TAUMasterDetail, TAUMultiPage, TAUSinglePage],
 		[
 			SrcDest("web-ui-fw/tau/demos/SDK/mobile/UIComponents", "tizen-winset/project"),
 			SrcDest("web-ui-fw/tau/dist/mobile", "tizen-winset/project/lib/tau"),
 			SrcDest("web-ui-fw/tau/dist/animation", "tizen-winset/project/lib/tau/animation"),
-			SrcDest("web-ui-fw/tau/demos/SDK/mobile/Tizen_Web_UI_FW_Globalize", "tizen-globalize/project"),
-			SrcDest("web-ui-fw/tau/dist/mobile", "tizen-globalize/project/lib/tau"),
+			#SrcDest("web-ui-fw/tau/demos/SDK/mobile/Tizen_Web_UI_FW_Globalize", "tizen-globalize/project"),
+			#SrcDest("web-ui-fw/tau/dist/mobile", "tizen-globalize/project/lib/tau"),
 			SrcDest("web-ui-fw/tau/demos/SDK/mobile/MasterDetail", "tau-master-detail/project"),
 			SrcDest("web-ui-fw/tau/dist/mobile", "tau-master-detail/project/lib/tau"),
 			SrcDest("web-ui-fw/tau/demos/SDK/mobile/MultiPage", "tau-multi-page/project"),
@@ -110,8 +110,8 @@ jobs = {
 		[
 			SrcDest("web-ui-fw/tau/dist/VERSION", "tizen-winset/project/lib/tau/VERSION"),
 			SrcDest("web-ui-fw/tau/dist/LICENSE.Flora", "tizen-winset/project/lib/tau/LICENSE.Flora"),
-			SrcDest("web-ui-fw/tau/dist/VERSION", "tizen-globalize/project/lib/tau/VERSION"),
-			SrcDest("web-ui-fw/tau/dist/LICENSE.Flora", "tizen-globalize/project/lib/tau/LICENSE.Flora"),
+			#SrcDest("web-ui-fw/tau/dist/VERSION", "tizen-globalize/project/lib/tau/VERSION"),
+			#SrcDest("web-ui-fw/tau/dist/LICENSE.Flora", "tizen-globalize/project/lib/tau/LICENSE.Flora"),
 			SrcDest("web-ui-fw/tau/dist/VERSION", "tau-master-detail/project/lib/tau/VERSION"),
 			SrcDest("web-ui-fw/tau/dist/LICENSE.Flora", "tau-master-detail/project/lib/tau/LICENSE.Flora"),
 			SrcDest("web-ui-fw/tau/dist/VERSION", "tau-multi-page/project/lib/tau/VERSION"),
@@ -178,14 +178,15 @@ def pushGit(targetdir, tauVersion, profile):
 		updateSampleVersion(tree, root)
 
 	# make commit and push to gerrit
+	cmd("git checkout -- project/config.xml")
 	cmd("git add -A")
 	logmsg = projectName.replace(" ", "") + "-TAU(" + tauVersion + ")release"
 
 	cmd("git commit -m " + logmsg)
-	#cmd("git push origin HEAD:refs/for/" + targetBranch)
+	cmd("git push origin HEAD:refs/for/" + targetBranch)
 
-	#targetCommit = subprocess.check_output("git log --format='%H' -n 1", shell=True).replace("\n", "")
-	#cmd("ssh -p 29418 " + gitaccount + "@165.213.149.170 gerrit review --verified +1 --code-review +2 --submit " + targetCommit)
+	targetCommit = subprocess.check_output("git log --format='%H' -n 1", shell=True).replace("\n", "")
+	cmd("ssh -p 29418 " + gitaccount + "@165.213.149.170 gerrit review --verified +1 --code-review +2 --submit " + targetCommit)
 
 	os.chdir(cwd)
 
@@ -315,9 +316,9 @@ def main():
 		for project in projectdir:
 			pushGit(project, tauVersion.strip(), k)
 
-		#for git in job.destgit:
-		#	if git.type == "onlineSample":
-		#		executeJenkinsJobs(git)
+		for git in job.destgit:
+			if git.type == "onlineSample":
+				executeJenkinsJobs(git)
 
 		os.chdir(tempdir)
 	os.chdir(cwd)
