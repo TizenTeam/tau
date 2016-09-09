@@ -1,0 +1,65 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>JS-ImageDiff Jasmine Demo</title>
+
+	<meta name="description" content="Unit testing Canvas with js-imagediff JavaScript image diff utility and Jasmine." />
+
+	<link rel="shortcut icon" type="image/png"
+		  href="lib/jasmine/jasmine_favicon.png">
+	<link rel="stylesheet" type="text/css" href="lib/jasmine/jasmine.css">
+
+	<script type="text/javascript" src="lib/jasmine/jasmine.js"></script>
+	<script type="text/javascript" src="lib/jasmine/jasmine-html.js"></script>
+	<script type="text/javascript" src="lib/imagediff.js"></script>
+	<script type="text/javascript" src="lib/async.js"></script>
+	<script type="text/javascript" src="js/test.js"></script>
+</head>
+
+<body>
+<script type="text/javascript">
+	(function() {
+		var jasmineEnv = jasmine.getEnv();
+		jasmineEnv.updateInterval = 1000;
+
+		var reporter = new jasmine.HtmlReporter();
+
+		jasmineEnv.addReporter(reporter);
+
+		jasmineEnv.specFilter = function(spec) {
+			return reporter.specFilter(spec);
+		};
+
+		var currentWindowOnload = window.onload;
+
+		window.onload = function() {
+			if (currentWindowOnload) {
+				currentWindowOnload();
+			}
+			execJasmine();
+		};
+
+		function readTextFile(file, callback) {
+			var rawFile = new XMLHttpRequest();
+			rawFile.overrideMimeType("application/json");
+			rawFile.open("GET", file, true);
+			rawFile.onreadystatechange = function() {
+				if (rawFile.readyState === 4 && rawFile.status == "200") {
+					callback(rawFile.responseText);
+				}
+			};
+			rawFile.send(null);
+		}
+
+		function execJasmine() {
+			readTextFile("app/screenshots.json", function(text) {
+				window.tests = JSON.parse(text);
+				jasmineEnv.execute();
+			});
+		}
+
+	})();
+</script>
+</body>
+</html>

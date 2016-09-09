@@ -1,0 +1,30 @@
+[
+  {
+    "name": "list",
+    "time": 5000
+  },
+  {
+    "name": "list2",
+    "time": 2000
+  },
+  {
+    "name": "list-tab-2-title",
+    "time": 2000
+  },
+  {
+    "name": "list-tab-3",
+    "time": 2000
+  },
+  {
+    "name": "list-tab-4-icons",
+    "time": 2000
+  },
+  {
+    "name": "list-tab-long",
+    "time": 2000
+  },
+  {
+    "name": "list-tab-long-title",
+    "time": 2000
+  }
+]
