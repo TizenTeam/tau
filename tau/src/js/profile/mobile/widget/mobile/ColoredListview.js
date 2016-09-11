@@ -152,8 +152,9 @@
 				self._liElementOffsetTop = [];
 				self._liElementOffsetHeight = [];
 				ui.liElements = element.getElementsByTagName("li");
+				// if list is not inside scrollable element then add to parent
 				ui.clipElement = selectors.getClosestByClass(element, classes.SCROLL_CLIP);
-				ui.clipElement.classList.add(classes.COLORED_LIST_CLIP);
+
 				ui.page = selectors.getClosestByClass(element, Page.classes.uiPage);
 
 				return element;
@@ -201,10 +202,11 @@
 					canvasElement.style.top = self._liElementOffsetTop[self._ColoredListviewTop] - DEFAULT.FIRST_SPACE  + "px";
 				} else {
 					clipElement = element.parentNode;
-					clipElement.appendChild(canvasElement);
+					element.parentNode.insertBefore(canvasElement, element.parentNode.firstChild);
 					canvasElement.style.top = -DEFAULT.FIRST_SPACE + "px";
 				}
 
+				clipElement.classList.add(classes.COLORED_LIST_CLIP);
 				clipElement.style.backgroundColor = "transparent";
 
 				canvasElement.width = page.offsetWidth;
