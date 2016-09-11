@@ -1,30 +1,240 @@
 [
   {
-    "name": "list",
-    "time": 5000
+    "name": "19-list",
+    "time": 3000
   },
   {
-    "name": "list2",
-    "time": 2000
+    "name": "21-list-with-back",
+    "time": 3000
   },
   {
-    "name": "list-tab-2-title",
-    "time": 2000
+    "name": "25-list-with-2-tabs",
+    "time": 3000
   },
   {
-    "name": "list-tab-3",
-    "time": 2000
+    "name": "27-list-tab-long",
+    "time": 3000
   },
   {
-    "name": "list-tab-4-icons",
-    "time": 2000
+    "name": "28-list-tab-3",
+    "time": 3000
   },
   {
-    "name": "list-tab-long",
-    "time": 2000
+    "name": "29-list-tab-4-icons",
+    "time": 3000
   },
   {
-    "name": "list-tab-long-title",
-    "time": 2000
+    "name": "35-list-tab-2-title",
+    "time": 3000
+  },
+  {
+    "name": "38-list-tab-long-title",
+    "time": 3000
+  },
+  {
+    "name": "39-tabs-with-title-with-icons",
+    "time": 3000
+  },
+  {
+    "name": "41-navigation-bar-3",
+    "time": 3000
+  },
+  {
+    "name": "46-index-scroll-bar",
+    "time": 3000
+  },
+  {
+    "name": "53-normal-list",
+    "time": 3000
+  },
+  {
+    "name": "74-grid-view",
+    "time": 3000
+  },
+  {
+    "name": "76-grid-view-with-label",
+    "time": 3000
+  },
+  {
+    "name": "77-grid-view-with-label-2",
+    "time": 3000
+  },
+  {
+    "name": "78-grid-view-with-checkbox",
+    "time": 3000
+  },
+  {
+    "name": "79-grid-view-with-badge",
+    "time": 3000
+  },
+  {
+    "name": "80-grid-view-with-move",
+    "time": 3000
+  },
+  {
+    "name": "81-popup-with-grid-view",
+    "time": 3000
+  },
+  {
+    "name": "84-group-index",
+    "time": 3000
+  },
+  {
+    "name": "85-group-index-with-checkbox",
+    "time": 3000
+  },
+  {
+    "name": "86-progress",
+    "time": 3000
+  },
+  {
+    "name": "88-activity",
+    "time": 3000
+  },
+  {
+    "name": "90-list-with-circle-button",
+    "time": 3000
+  },
+  {
+    "name": "91-contact-card-with-circle-buttons",
+    "time": 3000
+  },
+  {
+    "name": "93-box-buttons",
+    "time": 3000
+  },
+  {
+    "name": "106-text-input",
+    "time": 3000
+  },
+  {
+    "name": "108-email-input",
+    "time": 3000
+  },
+  {
+    "name": "111-dropdown-menu",
+    "time": 3000
+  },
+  {
+    "name": "112-dropdown-menu-open",
+    "time": 3000
+  },
+  {
+    "name": "118-slider-vertical",
+    "time": 3000
+  },
+  {
+    "name": "119-slider-vertical-2",
+    "time": 3000
+  },
+  {
+    "name": "120-slider-vertical-3",
+    "time": 3000
+  },
+  {
+    "name": "121-sliders",
+    "time": 3000
+  },
+  {
+    "name": "136-popup-2-buttons",
+    "time": 3000,
+    "width": 241,
+    "height": 429
+  },
+  {
+    "name": "142-popup-2-buttons-image",
+    "time": 3000,
+    "width": 241,
+    "height": 429
+  },
+  {
+    "name": "144-popup-2-buttons-checkbox",
+    "time": 3000,
+    "width": 241,
+    "height": 429
+  },
+  {
+    "name": "145-popup-toast",
+    "time": 3000,
+    "width": 241,
+    "height": 429
+  },
+  {
+    "name": "146-popup-toast-big",
+    "time": 3000,
+    "width": 241,
+    "height": 429
+  },
+  {
+    "name": "147-popup-toast-button",
+    "time": 3000,
+    "width": 241,
+    "height": 429
+  },
+  {
+    "name": "150-popup-contextual",
+    "time": 3000,
+    "width": 241,
+    "height": 429
+  },
+  {
+    "name": "152-popup-contextual-2",
+    "time": 3000,
+    "width": 241,
+    "height": 429
+  },
+  {
+    "name": "153-more-menu",
+    "time": 3000,
+    "width": 241,
+    "height": 429
+  },
+  {
+    "name": "160-floating-button",
+    "time": 3000,
+    "width": 241,
+    "height": 429
+  },
+  {
+    "name": "161-floating-button-2",
+    "time": 3000,
+    "width": 241,
+    "height": 429
+  },
+  {
+    "name": "162-floating-button-3",
+    "time": 3000,
+    "width": 156,
+    "height": 277
+  },
+  {
+    "name": "162-floating-button-4",
+    "time": 3000,
+    "width": 156,
+    "height": 277
+  },
+  {
+    "name": "162-floating-button-5",
+    "time": 3000,
+    "width": 156,
+    "height": 277
+  },
+  {
+    "name": "162-floating-button-6",
+    "time": 3000,
+    "width": 156,
+    "height": 277
+  },
+  {
+    "name": "162-floating-button-7",
+    "time": 3000,
+    "width": 156,
+    "height": 277
+  },
+  {
+    "name": "162-floating-button-8",
+    "time": 3000,
+    "width": 156,
+    "height": 277
   }
 ]

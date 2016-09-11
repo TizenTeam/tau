@@ -10,6 +10,7 @@ var fs = require("fs"),
 		"SM-Z300H": "mobile",
 		"device-1": "mobile",
 		"device-2": "mobile",
+		"tm1": "mobile",
 		"m-0912-1": "mobile",
 		"<unknown>": "tv",
 		"Wearable-B2": "wearable"
@@ -22,6 +23,7 @@ var fs = require("fs"),
 		"SM-V700": "gear2",
 		"SM-Z130H": "kiran",
 		"SM-Z300H": "z3",
+		"tm1": "z3",
 		"device-1": "redwood",
 		"device-2": "redwood",
 		"<unknown>": "tv",
@@ -164,13 +166,15 @@ module.exports = function (grunt) {
 		});
 	}
 
-	function screenshot(device, profile, app, name, done) {
+	function screenshot(device, profile, app, screen, done) {
 		var deviceParam = device ? " -s " + device + " " : "";
 		exec("sdb" + deviceParam + " root on", function () {
 			exec("sdb" + deviceParam + " shell xwd -root -out /tmp/screen.xwd", function () {
-				var dir = app + "/../result/" + name;
+				var dir = app + "/../result/" + screen.name;
 				exec("sdb" + deviceParam + " pull /tmp/screen.xwd " + dir + ".xwd", function () {
-					exec("convert -resize 257 -crop 257x457+0+15 " + dir + ".xwd " + dir + ".png", function () {
+					var width = screen.width || 257,
+						height = screen.height || 442;
+					exec("convert -resize " + width + " " + dir + ".xwd " + dir + ".png", function () {
 						fs.unlink(dir + ".xwd", function () {
 							done();
 						});
@@ -287,14 +291,21 @@ module.exports = function (grunt) {
 							} else {
 								if (!noRun) {
 									devices[profile].forEach(function (device) {
-										console.log(__dirname);
 										var screenshots = require('../../../' + app + 'screenshots.json');
 										tasks.push(run.bind(null, device, app, debug));
+										tasks.push(function(next) {
+											setTimeout(function () {
+												next();
+											}, 7000);
+										});
 										screenshots.forEach(function(screenshotItem) {
 											tasks.push(function (next) {
-												setTimeout(function () {
-													screenshot(device, profile, app, screenshotItem.name, next);
-												}, screenshotItem.time);
+												var startTime = Date.now();
+												screenshot(device, profile, app, screenshotItem, function() {
+													setTimeout(function () {
+														next();
+													}, screenshotItem.time - (Date.now() - startTime));
+												});
 											});
 										});
 									});

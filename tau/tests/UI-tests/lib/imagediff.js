@@ -290,12 +290,17 @@
                 this.message = function () {
                     var
                         div     = get('div'),
+                        title     = get('div'),
                         a       = get('div', '<div>Actual:</div>'),
                         b       = get('div', '<div>Expected:</div>'),
                         c       = get('div', '<div>Diff:</div>'),
                         diff    = imagediff.diff(this.actual, expected),
                         canvas  = getCanvas(),
-                        context;
+                        context,
+                        src = this.actual.src,
+                        srcArray = src.split('/');
+
+                    title.innerHTML = srcArray.pop();
 
                     canvas.height = diff.height;
                     canvas.width  = diff.width;
@@ -312,6 +317,7 @@
                     b.appendChild(toCanvas(expected));
                     c.appendChild(canvas);
 
+                    div.appendChild(title);
                     div.appendChild(a);
                     div.appendChild(b);
                     div.appendChild(c);
