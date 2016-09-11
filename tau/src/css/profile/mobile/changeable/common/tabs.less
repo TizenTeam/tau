@@ -3,14 +3,19 @@
 	height: 100%;
 	overflow: hidden;
 	.ui-title {
-		height: 104 * @unit_base;
-		line-height: 104 * @unit_base;
+		height: 106 * @unit_base;
+		line-height: 106 * @unit_base;
 		position: relative;
-		font-size: 50 * @unit_base;
-		font-weight: normal;
+		font-size: @font_size_tabs_title_text;
+		font-weight: 200;
 		text-align: center;
 		margin: 0;
 		color: @color_tabs_title_text;
+		background-color: @color_tabs_title_bg;
+	}
+	.ui-tabbar {
+		height: 109 * @unit_base;
+		background-color: @color_tabs_tabbar_bg;
 	}
 	&.ui-tabs-with-title .ui-tabbar-link {
 		height: 52 * @unit_base;

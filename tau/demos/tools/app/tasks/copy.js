@@ -10,6 +10,7 @@ var fs = require("fs"),
 		"SM-Z300H": "mobile",
 		"device-1": "mobile",
 		"device-2": "mobile",
+		"m-0912-1": "mobile",
 		"<unknown>": "tv",
 		"Wearable-B2": "wearable"
 	},
@@ -103,7 +104,7 @@ module.exports = function (grunt) {
 				},
 				count = 0;
 			stdout.split("\n").forEach(function (line) {
-				var portRegexp = /([0-9A-Za-z.:]+)[ \t]+(device|online|offline)[ \t]+([^ ]+)/mi,
+				var portRegexp = /([0-9A-Za-z.:-]+)[ \t]+(device|online|offline)[ \t]+([^ ]+)/mi,
 					match = portRegexp.exec(line);
 				if (match) {
 					if (match[2] === "offline") {
