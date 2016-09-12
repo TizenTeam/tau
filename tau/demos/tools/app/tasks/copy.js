@@ -245,10 +245,20 @@ module.exports = function (grunt) {
 		});
 	}
 
+	function writeTestName(app, name, callback) {
+		fs.writeFile(app + "/test.txt", name || "", function(err) {
+			if(err) {
+				return console.log(err);
+			}
+
+			callback();
+		});
+	}
 
 	grunt.registerMultiTask("multitau", "", function () {
 		var options = this.options(),
 			profile = options["profile"],
+			testToRun = grunt.option("test"),
 			async = require("async"),
 			debug = grunt.option("tau-debug"),
 			noRun = grunt.option("no-run"),
@@ -283,37 +293,44 @@ module.exports = function (grunt) {
 			], getDeviceList.bind(null, profile,
 				function (devices, count) {
 					if (count) {
-						build(app, profile, function (error) {
-							var tasks = [];
-							if (error) {
-								grunt.log.error("Error on building");
-								done();
-							} else {
-								if (!noRun) {
-									devices[profile].forEach(function (device) {
-										var screenshots = require('../../../' + app + 'screenshots.json');
-										tasks.push(run.bind(null, device, app, debug));
-										tasks.push(function(next) {
-											setTimeout(function () {
-												next();
-											}, 7000);
-										});
-										screenshots.forEach(function(screenshotItem) {
-											tasks.push(function (next) {
-												var startTime = Date.now();
-												screenshot(device, profile, app, screenshotItem, function() {
-													setTimeout(function () {
-														next();
-													}, screenshotItem.time - (Date.now() - startTime));
+						writeTestName(app, testToRun, function() {
+							build(app, profile, function (error) {
+								var tasks = [];
+								if (error) {
+									grunt.log.error("Error on building");
+									done();
+								} else {
+									if (!noRun) {
+										devices[profile].forEach(function (device) {
+											var screenshots = require('../../../' + app + 'screenshots.json');
+											tasks.push(run.bind(null, device, app, debug));
+											tasks.push(function(next) {
+												setTimeout(function () {
+													next();
+												}, 7000);
+											});
+											if (testToRun) {
+												screenshots = screenshots.filter(function (item) {
+													return item.name === testToRun;
+												});
+											}
+											screenshots.forEach(function(screenshotItem) {
+												tasks.push(function (next) {
+													var startTime = Date.now();
+													screenshot(device, profile, app, screenshotItem, function() {
+														setTimeout(function () {
+															next();
+														}, screenshotItem.time - (Date.now() - startTime));
+													});
 												});
 											});
 										});
-									});
-									async.series(tasks, done);
-								} else {
-									done();
+										async.series(tasks, done);
+									} else {
+										done();
+									}
 								}
-							}
+							});
 						});
 					} else {
 						done();

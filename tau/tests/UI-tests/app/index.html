@@ -27,21 +27,27 @@
 			rawFile.send(null);
 		}
 
-		//usage:
-		readTextFile("screenshots.json", function(text){
-			var tests = JSON.parse(text),
-					first = true;
-					interval = setInterval(function() {
-						var test = tests.shift(),
-								dir = first ? '' : '../';
-						first = false;
-						if (test) {
-							tau.changePage(dir + 'tests/' + test.name +
-									'.html');
-						} else {
-							clearInterval(interval);
-						}
-					}, 3000);
+		readTextFile("test.txt", function(testName) {
+			readTextFile("screenshots.json", function (text) {
+				var tests = JSON.parse(text),
+						first = true;
+				if (testName) {
+					tests = tests.filter(function (item) {
+						return item.name === testName;
+					});
+				}
+				interval = setInterval(function () {
+					var test = tests.shift(),
+							dir = first ? '' : '../';
+					first = false;
+					if (test) {
+						tau.changePage(dir + 'tests/' + test.name +
+								'.html');
+					} else {
+						clearInterval(interval);
+					}
+				}, 3000);
+			});
 		});
 
 

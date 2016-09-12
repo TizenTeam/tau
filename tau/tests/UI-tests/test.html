@@ -53,9 +53,17 @@
 		}
 
 		function execJasmine() {
-			readTextFile("app/screenshots.json", function(text) {
-				window.tests = JSON.parse(text);
-				jasmineEnv.execute();
+			readTextFile("app/test.txt", function(testName) {
+				readTextFile("app/screenshots.json", function(text) {
+					var tests = JSON.parse(text);
+					if (testName) {
+						tests = tests.filter(function (item) {
+							return item.name === testName;
+						});
+					}
+					window.tests = tests;
+					jasmineEnv.execute();
+				});
 			});
 		}
 

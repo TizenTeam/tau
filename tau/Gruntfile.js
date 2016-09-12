@@ -956,12 +956,15 @@ module.exports = function(grunt) {
 	grunt.registerTask("image", [ "copy:wearableDefaultImages", "copy:mobileDefaultImages", "copy:tvDefaultImages" ]);
 	grunt.registerTask("image-changeable", [ "copy:wearableChangeableImages", "copy:wearableColorThemeImages", "copy:mobileChangeableImages" ]);
 	grunt.registerTask("css", [ "clean:theme", "less", "themeConverter", "cssmin", "image", "image-changeable", "symlink" ]);
+	grunt.registerTask("css-mobile", [ "clean:theme", "less:mobile", "themeConverter:mobile", "cssmin", "copy:mobileDefaultImages", "copy:wearableColorThemeImages", "symlink:mobileDefaultTheme" ]);
 	grunt.registerTask("js", [ "clean:js", "requirejs", "jsmin", "themesjs", "copy:mobileJquery", "copy:animation" ]);
+	grunt.registerTask("js-mobile", [ "clean:js", "requirejs:mobile", "jsmin", "themesjs", "copy:mobileJquery", "copy:animation" ]);
 	grunt.registerTask("license", [ "concat:licenseJs", "concat:licenseDefaultCss", "concat:licenseChangeableCss", "concat:licenseWearableCss", "copy:license" ]);
 	grunt.registerTask("sdk-docs", [ "docs-html:mobile", "docs-html:wearable", "docs-html:tv", "copy:sdk-docs" ]);
 	grunt.registerTask("dld-docs", [ "docs-html:mobile-dld", "docs-html:wearable-dld"]);
 
 	grunt.registerTask("build", ["clean", "lint", "css", "globalize", "js", "license", "version"]);
+	grunt.registerTask("build-mobile", ["clean", "lint", "css-mobile", "globalize", "js-mobile", "license", "version"]);
 	grunt.registerTask("release", [ "build", "test", "sdk-docs" ]);
 	grunt.registerTask("default", [ "release" ]);
 };

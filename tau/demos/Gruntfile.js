@@ -36,12 +36,19 @@ module.exports = function(grunt) {
 					},
 					cmd: "grunt",
 					args: buildTAUArgs()
+				},
+				"build-mobile": {
+					options: {
+						cwd: "../"
+					},
+					cmd: "grunt",
+					args: buildTAUArgs("mobile")
 				}
 			}
 		});
 
-	function buildTAUArgs() {
-		var result = ["build"];
+	function buildTAUArgs(profile) {
+		var result = [profile === "mobile" ? "build-mobile" : "build"];
 		if (grunt.option("tau-debug")) {
 			result.push("--tau-debug");
 		}
