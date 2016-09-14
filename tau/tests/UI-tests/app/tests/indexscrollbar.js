@@ -42,6 +42,14 @@
 		isb.addEventListener("select", selectBound);
 	});
 
+	page.addEventListener("pageshow", function() {
+		var element = document.getElementById("indexscrollbar");
+		var evt = new CustomEvent("vmousedown", {});
+		evt.clientX = window.innerWidth - 10;
+		evt.clientY = 320;
+		element.dispatchEvent(evt);
+	});
+
 	/**
 	 * pagehide event handler
 	 * Destroys and removes event listeners
