@@ -416,7 +416,7 @@
 					offsetHeight = ui.canvasElement.offsetHeight,
 					liElementOffsetHeight = self._liElementOffsetHeight,
 					listNumber = liElementOffsetTop.length,
-					alphaValue = 0.96,
+					alphaValue = 0.95, // @note: value obtained by trial and error to match tizen 3.0 ui guide
 					optionColoredListviewNumber = parseInt(self.options.coloredListviewNumber, 10),
 					max = optionColoredListviewNumber ? optionColoredListviewNumber : listNumber,
 					validMax = ColoredListviewTop + max,
@@ -443,7 +443,7 @@
 					//// Draw the rectangle.
 					gl.drawArrays(gl.TRIANGLES, 0, 6);
 
-					alphaValue -= 0.04;
+					alphaValue -= 0.08; // @note: value obtained by trial and error to match tizen 3.0 ui guide
 				}
 			};
 
