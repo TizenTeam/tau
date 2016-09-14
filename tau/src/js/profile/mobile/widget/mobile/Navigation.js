@@ -6,7 +6,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://floralicense.org/license/
+ * http://floralicense.org/license/
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -241,7 +241,9 @@
 					stack = self._navigationStack,
 					container = self._ui.container,
 					itemLength = container.childElementCount,
-					list;
+					list,
+					arrow,
+					text;
 
 				stack.push(id);
 				itemLength > 0 && container.children[itemLength - 1].classList.remove(classes.NAVIGATION_ACTIVE);
@@ -249,11 +251,19 @@
 				list = document.createElement("li");
 				list.setAttribute(attributes.POSITION, itemLength);
 				list.classList.add(classes.NAVIGATION_ITEM);
-				list.innerHTML = id;
 
-				setTimeout(function(){
-					list.classList.add(classes.NAVIGATION_ACTIVE);
-				}, 0);
+				if (itemLength > 0) {
+					arrow = document.createElement("span");
+					arrow.classList.add("ui-arrow");
+					list.appendChild(arrow);
+				}
+
+				text = document.createElement("span");
+				text.classList.add("ui-text");
+				text.innerHTML = id;
+				list.appendChild(text);
+
+				list.classList.add(classes.NAVIGATION_ACTIVE);
 
 				container.appendChild(list);
 				if (container.offsetWidth > element.offsetWidth) {

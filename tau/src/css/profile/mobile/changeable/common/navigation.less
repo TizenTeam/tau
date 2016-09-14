@@ -4,9 +4,9 @@
 		display : none;
 	}
 
-	height : 70 * @unit_base;
+	height : 68 * @unit_base;
 	background-color : @color_navigation_bg;
-	border-top : 2px solid @color_navigation_text; //TOBE @color_navigation_tab_divider;
+	border-top : 2 * @unit_base solid @color_navigation_text; //TOBE @color_navigation_tab_divider;
 
 	white-space: nowrap;
 	overflow-x: scroll;
@@ -19,7 +19,7 @@
 		list-style-type : none;
 
 		.ui-navigation-item:first-child {
-			padding-left : 32 * @unit_base;
+			padding-left : 18 * @unit_base;
 
 			&::before {
 				content: none;
@@ -27,36 +27,55 @@
 		}
 		.ui-navigation-item {
 			position: relative;
-			height : 70 * @unit_base;
-			line-height : 70 * @unit_base;
+			height : 68 * @unit_base;
+			line-height : 68 * @unit_base;
 			vertical-align : top;
 			overflow: hidden;
 			display : inline-block;
 			color: @color_navigation_text;
 			font-size : @font_size_navigation_bar_text;
-			opacity: 0.7;
-			-webkit-transition: opacity 300ms ease-in-out;
-			-webkit-backface-visibility: hidden;
 
-			&::before {
-				content: "";
-				display : inline-block;
-				height : 70 * @unit_base;
-				width : 60 * @unit_base;
-				opacity: 0.7;
+			.ui-arrow {
+				float: left;
+				height : 68 * @unit_base;
+				width : 36 * @unit_base;
+				color: @color_navigation_text;
 				background-color : @color_navigation_bar_icon;
-				-webkit-mask-image : url("images/00_navigation_bar_icon_arrow.png");
+				-webkit-mask-image : url("images/core_navigation_bar_icon_arrow.png");
 				-webkit-mask-size : 100% 100%
+			}
+
+			.ui-text {
+				float: left;
+				height : 43 * @unit_base;
+				opacity: @color_navigation_text;
+				padding: 6 * @unit_base 14 * @unit_base 9 * @unit_base;
+				line-height: 43 * @unit_base;
+				margin-top: 6 * @unit_base;
+				-webkit-transition: color 300ms ease-in-out;
+				-webkit-backface-visibility: hidden;
+				-webkit-touch-callout: none;
+				-webkit-user-select: none;
+				user-select: none;
 			}
 
 			&:last-child {
 				margin-right: 32 * @unit_base;
 			}
 			&.ui-navigation-active {
-				opacity: 1;
-				-webkit-transition: opacity 300ms ease-in-out;
+				.ui-text {
+					color: @color_navigation_text_press;
+				}
 			}
 		}
 
+		.ui-navigation-item:active {
+			.ui-text {
+				background-color: @color_navigation_core_navi_press;
+				-webkit-mask-box-image: url("images/nine-patch/core_navi_press.png") 19 fill;
+				-webkit-mask-box-image-repeat: stretch;
+				color: @color_navigation_text_press;
+			}
+		}
 	}
 }

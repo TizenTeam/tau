@@ -10,6 +10,12 @@
 	background : @color_bar_header_bg; /* Header Background */
 	color: @color_bar_title_text;
 	.transform(translateZ(0));
+	&.ui-header-navigation {
+		min-height : 100 * @unit_base;
+		> .ui-title {
+			margin: 20 * @unit_base 32 * @unit_base 14 * @unit_base;
+		}
+	}
 	> .ui-title {
 		display: block;
 		.order(0);
@@ -51,7 +57,7 @@
 		font-size: 32 * @unit_base;
 		&.ui-header-btn-icon {
 			width: 80 * @unit_base;
-			height: 80 * @unit_base;
+			height: 70 * @unit_base;
 		}
 		&.ui-header-btn-left.ui-header-btn-icon {
 			top: 15 * @unit_base;
@@ -66,7 +72,7 @@
 			content: "";
 			position: absolute;
 			width: 80 * @unit_base;
-			height: 80 * @unit_base;
+			height: 70 * @unit_base;
 			top: 0;
 			left: 0;
 			.mask-size(100% 100%);
