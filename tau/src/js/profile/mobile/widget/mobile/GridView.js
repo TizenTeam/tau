@@ -555,7 +555,9 @@
 					minWidth = options.minWidth,
 					listElements = self._ui.listElements,
 					length = listElements.length,
-					cols, i, width;
+					cols, i, width,
+					borderSize = parentWidth / 360,
+					elementStyle = null;
 
 				if (minWidth === "auto") {
 					minWidth = listElements[0].offsetWidth;
@@ -565,10 +567,21 @@
 				}
 
 				cols = minWidth ? Math.floor(parentWidth / minWidth) : options.cols;
-				width = parentWidth / cols + "px";
+
+				self._itemSize = (parentWidth - (cols-1) * borderSize) / cols;
+				self._borderSize = borderSize;
+
+				width = self._itemSize + "px";
 
 				for (i = 0; i < length; i++) {
-					listElements[i].style.width = width;
+					elementStyle = listElements[i].style;
+					// all without last in raw should have right border
+					if (i % cols < cols-1) {
+						elementStyle.borderRightWidth = borderSize + "px";
+					}
+					// all should have top border
+					elementStyle.borderTopWidth = borderSize + "px";
+					elementStyle.width = width;
 				}
 
 				options.cols = cols;
@@ -671,8 +684,9 @@
 			 * @member ns.widget.mobile.GridView
 			 */
 			prototype._getTransformStyle = function (col, row, index) {
-				var x = col * 100 + "%",
-					y = row * 100 + "%",
+				var size = this._itemSize + this._borderSize,
+					x = col * size + "px",
+					y = row * (size + (this.options.label === labels.OUT ? 30 : 0)) + "px",
 					transform, style;
 
 				transform = "{ -webkit-transform: translate3d(" + x + ", " + y + ", 0); transform: translate3d(" + x + ", " + y + ", 0); }";
