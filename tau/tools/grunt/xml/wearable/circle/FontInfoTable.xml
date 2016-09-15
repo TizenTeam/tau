@@ -11,18 +11,15 @@
 	<FontInfo id="T022P" style="R" size="24" />
 	<FontInfo id="T022D" style="R" size="24" />
 	<FontInfo id="T022S" style="R" size="24" />
-	<FontInfo id="T0217" style="R" size="24" />
-	<FontInfo id="T0217P" style="R" size="24" />
-	<FontInfo id="T0217D" style="R" size="24" />
-	<FontInfo id="T0217S" style="R" size="24" />
 	<FontInfo id="T0231" style="R" size="24" />
 	<FontInfo id="T171" style="M" size="32" />
 	<FontInfo id="T181" style="R" size="28" />
 	<FontInfo id="T171P" style="M" size="32" />
+	<FontInfo id="T171D" style="M" size="32" />
 	<FontInfo id="T181P" style="R" size="28" />
 	<FontInfo id="T013" style="R" size="30" />
 	<FontInfo id="T014" style="M" size="40" />
-	<FontInfo id="T092" style="R" size="24" />
+	<FontInfo id="T015" style="R" size="24" />
 	<FontInfo id="T016" style="R" size="28" />
 	<FontInfo id="T016D" style="R" size="28" />
 	<FontInfo id="T017" style="R" size="28" />
@@ -69,6 +66,7 @@
 	<FontInfo id="T099" style="R" size="32" />
 	<FontInfo id="T0910" style="R" size="28" />
 	<FontInfo id="T117" style="R" size="30" />
+	<FontInfo id="T118" style="R" size="29" />
 	<FontInfo id="T141" style="R" size="30" />
 	<FontInfo id="T141D" style="R" size="30" />
 	<FontInfo id="T142" style="R" size="30" />
