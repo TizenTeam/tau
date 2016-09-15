@@ -493,12 +493,6 @@
 	right: 3%;
 }
 
-.ui-gridview-handler {
-	-webkit-mask-image: url("images/core_button_reorder.png");
-	-webkit-mask-size: 100%;
-	background-color: rgba(82, 199, 217, 1);
-}
-
 #grid-badge-page .ui-gridview-item .grid-badge {
 	position: absolute;
 	border-radius: 25px;

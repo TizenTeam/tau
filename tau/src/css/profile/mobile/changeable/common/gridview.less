@@ -38,16 +38,15 @@
 	&.ui-gridview-reorder {
 		.ui-gridview-item {
 			.ui-gridview-handler {
+				-webkit-mask-image: url("images/core_grid_button_reorder.png");
+				-webkit-mask-size: 100%;
+				background-color: @color_button_add;
 				display: block;
 				position: absolute;
-				width: 40%;
-				right: 3%;
-				top: 3%;
-				&::before {
-					content: "";
-					display: block;
-					margin-top: 100%;
-				}
+				width: 50 * @unit_base;
+				height: 50 * @unit_base;
+				right: 9 * @unit_base;
+				top: 9 * @unit_base;
 			}
 		}
 	}
