@@ -29,14 +29,19 @@
 	 */
 	elPage.addEventListener("pageshow", function() {
 		gridList = tau.widget.GridView(elGrid);
-		modeBtn.addEventListener("click", modeHandler);
+		if (modeBtn) {
+			modeBtn.addEventListener("click", modeHandler);
+		}
 	});
 
 	/**
-	 * pagebeforehide event handler
-	 * Destroys and removes event listeners
-	 */
+	  * pagebeforehide event handler
+	  * Destroys and removes event listeners
+	  */
 	elPage.addEventListener("pagebeforehide", function() {
-		modeBtn.removeEventListener("click", modeHandler);
+		if (modeBtn) {
+			modeBtn.removeEventListener("click", modeHandler);
+		}
 	});
+
 }(window.tau));
