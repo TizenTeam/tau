@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<style>
+
+    .container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+    }
+
+    .images {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 360px;
+        height: 640px;
+    }
+
+    #result, #pattern {
+        position: absolute;
+        top: 0;
+        left: 0;
+        opacity: 0.5;
+        width: 360px;
+    }
+
+    label {
+        height: 30px;
+        line-height: 30px;
+        display: inline-flex;
+        width: 20%;
+        font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+        padding: 1%;
+    }
+
+    label.small {
+        width: 10%;
+    }
+
+    input[type="range"] {
+        flex: 1;
+    }
+
+    input {
+        margin: 0 10px;
+    }
+</style>
+<script type="text/javascript">
+  (function () {
+
+    var testName = window.location.hash.substr(1);
+
+    function readTextFile(file, callback) {
+      var rawFile = new XMLHttpRequest();
+      rawFile.overrideMimeType("application/json");
+      rawFile.open("GET", file, true);
+      rawFile.onreadystatechange = function () {
+        if (rawFile.readyState === 4 && rawFile.status == "200") {
+          callback(rawFile.responseText);
+        }
+      };
+      rawFile.send(null);
+    }
+
+    function buildCompare(testName, tests) {
+      var div = document.createElement('div'),
+        opacityInput = null,
+        invertInput = null,
+        resultImg = null,
+        leftInput = null,
+        topInput = null,
+        left = 0,
+        top = 0;
+      document.body.appendChild(div);
+      div.classList.add("container");
+      div.innerHTML = '<div class="images"><img id="pattern" src="images/' + testName +
+        '.png" /><img id="result" src="result/' + testName +
+        '.png" style="filter: invert(1)"/></div><label class="small">Result control:</label></lable><label>Opacity : <input type="range" min="0" max="1" step="0.1" value="0.5" id="opacity" /></label>' +
+        '<label>Invert: <input type="range" min="0" max="1" step="0.1" value="1" id="invert" /></label>' +
+        '<label>Left: <input type="number" id="left" min="-120" max="120" step="1" value="0" /></label>' +
+        '<label>Top: <input type="number"  id="top" min="-120" max="120" step="1" value="0"/></label>';
+
+      opacityInput = document.getElementById("opacity");
+      invertInput = document.getElementById("invert");
+      leftInput = document.getElementById("left");
+      topInput = document.getElementById("top");
+      resultImg = document.getElementById("result");
+      opacityInput.addEventListener('mousemove', function (event) {
+        var value = event.target.value;
+
+        resultImg.style.opacity = value;
+      });
+      invertInput.addEventListener('mousemove', function (event) {
+        var value = event.target.value;
+
+        resultImg.style.filter = 'invert(' + value + ')';
+      });
+      function positionEvent(event) {
+        if (event.target === leftInput) {
+          left = event.target.value;
+        } else {
+          top = event.target.value;
+        }
+        console.log(event.target.value);
+
+        resultImg.style.transform = 'translate(' + left
+          + 'px, ' + top + 'px)';
+      }
+
+      leftInput.addEventListener('keyup', positionEvent);
+      topInput.addEventListener('keyup', positionEvent);
+    }
+
+    readTextFile("app/test.txt", function (testNameFile) {
+      testName = testName || testNameFile;
+      readTextFile("app/screenshots.json", function (text) {
+        var tests = JSON.parse(text);
+        if (testName) {
+          tests = tests.filter(function (item) {
+            return item.name === testName;
+          });
+        }
+        buildCompare(testName, tests);
+      });
+    });
+
+  })();
+</script>
+</body>
+</html>
