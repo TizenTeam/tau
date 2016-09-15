@@ -479,19 +479,6 @@
 /****************************************************************/
 /*                      Grid List                               */
 /****************************************************************/
-.ui-gridview .ui-gridview-item > label {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-}
-
-.ui-gridview .ui-gridview-item > label > input[type="checkbox"] {
-	position: absolute;
-	top: 3%;
-	right: 3%;
-}
 
 #grid-badge-page .ui-gridview-item .grid-badge {
 	position: absolute;
