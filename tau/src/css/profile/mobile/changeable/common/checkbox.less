@@ -3,11 +3,10 @@ input[type="checkbox"].ui-checkbox:not(.ui-toggle-switch) {
 	position: relative;
 	height: 50 * @unit_base;
 	width: 50 * @unit_base;
-	border: 1px solid @color_checkboxradio_checkbox_bg_line_on;
-	border-radius: 15%;
 	box-sizing: border-box;
 	-webkit-appearance: none;
 	outline: none;
+	margin: 0;
 }
 
 input[type="checkbox"].ui-checkbox:not(.favorite) {
@@ -21,19 +20,17 @@ input[type="checkbox"].ui-checkbox:not(.favorite) {
 	&::before {
 		height: 100%;
 		width: 100%;
-		border-radius: 15%;
 		background-color: @color_checkboxradio_checkbox_bg_on;
-		-webkit-appearance: none;
+		-webkit-mask-image: url("images/controls/core_check_stroke.svg"), url("images/controls/core_check_bg.svg");
+		-webkit-mask-size: 100%, 0;
 		-webkit-mask-position: center;
-		opacity: 0;
-		-webkit-transition: transform 150ms ease-out 300ms, opacity 300ms ease-out 150ms;
-		-webkit-transform: scale(0);
+		-webkit-mask-repeat: no-repeat;
+		-webkit-appearance: none;
+		-webkit-transition: -webkit-mask-size 150ms ease-out 300ms;
 	}
 
 	&:checked::before {
-		opacity: 1;
-		-webkit-transform: scale(1);
-		-webkit-transition: transform 150ms ease-out, opacity 300ms ease-out;
+		-webkit-mask-size: 100%, 100%;
 	}
 
 	&::after {
@@ -42,7 +39,7 @@ input[type="checkbox"].ui-checkbox:not(.favorite) {
 		width: 100%;
 		box-sizing: content-box;
 		background-color: @color_checkboxradio_checkbox_bg_icon;
-		-webkit-mask-image: url("images/controls/core_check_icon.png");
+		-webkit-mask-image: url("images/controls/core_check_icon.svg");
 		-webkit-mask-size: 100%;
 		-webkit-mask-position: center bottom;
 		-webkit-transition-property: height;
