@@ -122,6 +122,7 @@
 	overflow: hidden;
 }
 
+
 /********************* list have right button **********************/
 .li-has-right-btn .ui-btn,
 .li-has-right-circle-btn .ui-btn {
@@ -158,17 +159,17 @@
 }
 
 /***************** list has checkbox/radio ***********************/
-.ui-li-anchor.li-has-checkbox > a,
-.ui-li-anchor.li-has-radio > a,
-.ui-li-static.li-has-checkbox,
-.ui-li-static.li-has-radio {
+.ui-li-anchor.li-has-checkbox:not(.li-has-right-checkbox) > a,
+.ui-li-anchor.li-has-radio:not(.li-has-right-radio) > a,
+.ui-li-static.li-has-checkbox:not(.li-has-right-checkbox),
+.ui-li-static.li-has-radio:not(.li-has-right-radio) {
 	padding-left: 50px;
 }
 
-.li-has-checkbox input.ui-checkbox:first-child,
-.li-has-radio input.ui-checkbox:first-child,
-.li-has-checkbox input.ui-radio:first-child,
-.li-has-radio input.ui-radio:first-child {
+.li-has-checkbox:not(.li-has-right-checkbox) input.ui-checkbox:first-child,
+.li-has-radio:not(.li-has-right-radio) input.ui-checkbox:first-child,
+.li-has-checkbox:not(.li-has-right-checkbox) input.ui-radio:first-child,
+.li-has-radio:not(.li-has-right-radio) input.ui-radio:first-child {
 	position: absolute;
 	top: 50%;
 	margin-top: -13px;
@@ -176,18 +177,62 @@
 }
 
 /**************** list has checkbox/radio and thumbnail ************/
-.ui-li-anchor.li-has-checkbox.li-has-thumb > a,
-.ui-li-anchor.li-has-radio.li-has-thumb > a,
-.ui-li-static.li-has-checkbox.li-has-thumb,
-.ui-li-static.li-has-radio.li-has-thumb {
+.ui-li-anchor.li-has-checkbox:not(.li-has-right-checkbox).li-has-thumb > a,
+.ui-li-anchor.li-has-radio:not(.li-has-right-radio).li-has-thumb > a,
+.ui-li-static.li-has-checkbox:not(.li-has-right-checkbox).li-has-thumb,
+.ui-li-static.li-has-radio:not(.li-has-right-radio).li-has-thumb {
 	padding-left: 77px;
 }
 .ui-li-anchor.li-has-checkbox.li-has-thumb > a .li-thumb,
-.ui-li-anchor.li-has-radio.li-has-thumb > a .li-thumb,
+.ui-li-anchor.li-has-radio:not(.li-has-right-radio).li-has-thumb > a .li-thumb,
 .ui-li-static.li-has-checkbox.li-has-thumb .li-thumb,
-.ui-li-static.li-has-radio.li-has-thumb .li-thumb {
+.ui-li-static.li-has-radio:not(.li-has-right-radio).li-has-thumb .li-thumb {
 	position: absolute;
 	left: 48px;
+}
+
+
+/********************* list have right checkbox ********************/
+
+.li-has-checkbox.li-has-right-checkbox .ui-checkbox {
+	position: absolute !important;
+	top: 21px;
+	right: 16px;
+	left: auto !important;
+}
+
+.li-has-checkbox.li-has-right-checkbox .ui-checkbox.favorite {
+	right: 8px;
+	top: 11px;
+}
+
+.li-has-checkbox.li-has-right-checkbox .ui-checkbox:first-child {
+	right: 61px;
+}
+
+.li-has-checkbox.li-has-right-checkbox .ui-checkbox.favorite:first-child {
+	right: 55px;
+}
+
+.li-has-checkbox.li-has-right-checkbox .ui-checkbox {
+	margin-top: -20px;
+}
+
+/********************* list have right checkbox ********************/
+
+.li-has-radio.li-has-right-radio .ui-radio {
+	position: absolute !important;
+	top: 35px;
+	right: 13px;
+	left: auto !important;
+}
+
+.li-has-radio.li-has-right-radio .ui-radio:first-child {
+	right: 60px;
+}
+
+.li-has-radio.li-has-right-radio .ui-radio {
+	margin-top: -20px;
 }
 
 /**************** right toggle switch ************/
@@ -195,8 +240,17 @@
 	position: absolute;
 	top: 50%;
 	margin-top: -20px;
-	right: 16px;
+	right: 14px;
 	left: auto;
+}
+
+/**************** with progress bar ************/
+.li-has-progress .ui-progress {
+	margin-top: 10px;
+}
+
+.li-has-right-btn .ui-toggle-container:first-child {
+	right: 58px;
 }
 
 /****************************************************************/
