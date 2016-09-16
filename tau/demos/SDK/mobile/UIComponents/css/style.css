@@ -199,10 +199,6 @@
 	left: auto;
 }
 
-/**************** with progress bar ************/
-.li-has-progress .ui-progress {
-	margin-top: 10px;
-}
 
 /****************************************************************/
 /*              Multiline List Style                            */

@@ -11,13 +11,25 @@
 		<h1>Progress-progress bar</h1>
 	</div><!-- /header -->
 	<div class="ui-content">
-		<ul class="ui-listview">
-			<li class="ui-group-index">Progress bar 1</li>
-			<li class="ui-li-static"><div data-type="bar" data-value="30" id="progressbar" class="ui-progress"></div></li>
-			<li class="ui-group-index">Progress bar 2</li>
-			<li class="ui-li-static"><div data-type="bar" data-value="0" id="progressbar2" class="ui-progress"></div></li>
-			<li class="ui-group-index">Progress bar 3</li>
-			<li class="ui-li-static"><div data-type="bar" data-value="0" id="progressbar3" class="ui-progress"></div></li>
+		<ul class="ui-listview ui-colored-list">
+			<li class="ui-li-static ui-li-has-progress">
+				<div data-type="bar" data-value="50" id="progressbar" class="ui-progress"></div>
+			</li>
+			<li class="ui-li-static ui-li-has-progress-with-labels">
+				<div data-type="bar" data-value="50" id="progressbar2" class="ui-progress"></div>
+				<div class="ui-progress-bar-label-left-bottom">Lorem</div>
+				<div class="ui-progress-bar-label-right-top">Lorem</div>
+				<div class="ui-progress-bar-label-right-bottom">Lorem</div>
+			</li>
+			<li class="ui-li-static ui-li-has-progress">
+				<div data-type="activitybar" id="progressbar3" class="ui-progress"></div>
+			</li>
+			<li class="ui-li-static ui-li-has-progress-with-labels">
+				<div data-type="activitybar" id="progressbar4" class="ui-progress"></div>
+				<div class="ui-progress-bar-label-left-bottom">Lorem</div>
+				<div class="ui-progress-bar-label-right-top">Lorem</div>
+				<div class="ui-progress-bar-label-right-bottom">Lorem</div>
+			</li>
 		</ul>
 	</div><!-- /content -->
 	<script src="progressbar.js"></script>

@@ -5,21 +5,46 @@
 	position: relative;
 	overflow: hidden;
 	min-width: 24 * @unit_base;
-	height: 7 * @unit_base;
+	height: 8 * @unit_base;
 
-	margin-left: 36 * @unit_base;
-	margin-right: 36 * @unit_base;
+	margin-left: 32 * @unit_base;
+	margin-right: 32 * @unit_base;
 
 	.LESSborder-radius-all( 10 * @unit_base );
 	background-color: @color_progress_bg;
+
 }
+
+.ui-progress-bar-label-left-bottom {
+	position: absolute;
+	padding: 8 * @unit_base 0;
+	color: @color_progress_label_left_bottom;
+	font-size: @font_size_progress_label_left;
+	left: 32 * @unit_base;
+}
+.ui-progress-bar-label-right-bottom {
+	position: absolute;
+	right: 32 * @unit_base;
+	padding: 8 * @unit_base 0;
+	color: @color_progress_label_right_bottom;
+	font-size: @font_size_progress_label_right;
+}
+.ui-progress-bar-label-right-top {
+	position: absolute;
+	padding: 8 * @unit_base 0;
+	right: 32 * @unit_base;
+	top: 14 * @unit_base;
+	color: @color_progress_label_right_top;
+	font-size: @font_size_progress_label_right;
+}
+
 .ui-progress-bar-decorator {
 	height: 100%;
 	left: 0;
 	top: 0;
 	z-index: 1000;
 	position: absolute;
-	background-color: @color_progress_decorator;//#167fcd;
+	background-color: @color_progress_pending;//#167fcd;
 	opacity: 1;
 
 	.LESSborder-radius-all( 10 * @unit_base );
@@ -33,6 +58,8 @@
 	background-color: @color_progress_value;//#74d4eb;
 	.LESSborder-radius-all( 10 * @unit_base);
 }
+
+
 /*************************************************
 *            Progress Circle type                *
 **************************************************/
@@ -397,4 +424,13 @@
 }
 @keyframes circle3path {
 	.animation-circle3path();
+}
+
+.ui-listview li.ui-li-has-progress {
+	height: 8 * @unit_base;
+	padding: (120 - 8) / 2 * @unit_base 0;
+}
+.ui-listview li.ui-li-has-progress-with-labels {
+	height: 8 * @unit_base;
+	padding: (144 - 8) / 2 * @unit_base 0;
 }
