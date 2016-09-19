@@ -1,4 +1,11 @@
 // TAU extensions for prefixer
+.mask-image(@url1, @url2, @url3) {
+	-webkit-mask-image: url(@url1), url(@url2), url(@url3);
+	-moz-mask-image: url(@url1), url(@url2), url(@url3);
+	-ms-mask-image: url(@url1), url(@url2), url(@url3);
+	-o-mask-image: url(@url1), url(@url2), url(@url3);
+	mask-image: url(@url1), url(@url2), url(@url3);
+}
 .mask-image(@url1, @url2) {
 	-webkit-mask-image: url(@url1), url(@url2);
 	-moz-mask-image: url(@url1), url(@url2);
@@ -69,6 +76,14 @@
 	-ms-mask-box-image-slice: @rect;
 	-o-mask-box-image-slice: @rect;
 	mask-box-image-slice: @rect;
+}
+
+.mask-size(@size1, @size2, @size3) {
+	-webkit-mask-size: @size1, @size2, @size3;
+	-moz-mask-size: @size1, @size2, @size3;
+	-ms-mask-size: @size1, @size2, @size3;
+	-o-mask-size: @size1, @size2, @size3;
+	mask-size: @size1, @size2, @size3;
 }
 
 .mask-size(@size1, @size2) {

@@ -125,3 +125,80 @@ Popup Overlay
 	height: 100%;
 	z-index: @z_base_popup;
 }
+
+/*************************
+Activity Popup
+**************************/
+.ui-popup .ui-popup-activity {
+	text-align: right;
+}
+@-webkit-keyframes popup-activity {
+	from {
+		.transform(rotate(0deg));
+	}
+	to {
+		.transform(rotate(360deg));
+	}
+}
+@keyframes popup-activity {
+	from {
+		.transform(rotate(0deg));
+	}
+	to {
+		.transform(rotate(360deg));
+	}
+}
+.ui-popup .ui-popup-activity.ui-popup-activity-small {
+	text-align: right;
+	height: 78 * @unit_base;
+	padding: 16 * @unit_base 32 * @unit_base;
+	font-size: @font_size_popup_activity_small;
+	color: @color_popup_activity_small_text;
+	&::after {
+		content: "";
+		width: 44 * @unit_base;
+		height: 44 * @unit_base;
+		margin-left: 32 * @unit_base;
+		background-color: @color_popup_activity_indicator_a;
+		.mask-image("images/core_activity_indicator_a.svg",
+			"images/core_activity_indicator_b.svg",
+			"images/core_activity_indicator_c.svg");
+		.mask-size(100% 100%, 100% 100%, 100% 100%);
+		float: right;
+		.animation-name(popup-activity);
+		.animation-duration(1s);
+		.animation-timing-function(linear);
+		.animation-iteration-count(infinite);
+	}
+}
+.ui-popup .ui-popup-activity.ui-popup-activity-medium {
+	text-align: left;
+	height: 120 * @unit_base;
+	padding: 32 * @unit_base 32 * @unit_base;
+	font-size: @font_size_popup_activity_medium;
+	color: @color_popup_activity_medium_text;
+	&::before {
+		content: "";
+		width: 56 * @unit_base;
+		height: 56 * @unit_base;
+		margin-right: 32 * @unit_base;
+		background-color: @color_popup_activity_indicator_a;
+		float: left;
+		.mask-image("images/core_activity_indicator_a.svg",
+			"images/core_activity_indicator_b.svg",
+			"images/core_activity_indicator_c.svg");
+		.mask-size(100% 100%, 100% 100%, 100% 100%);
+		.animation-name(popup-activity);
+		.animation-duration(1s);
+		.animation-timing-function(linear);
+		.animation-iteration-count(infinite);
+	}
+}
+
+.ui-popup .ui-popup-activity.ui-popup-activity-large {
+	text-align: center;
+	height: 0;
+	background-color: @color_popup_activity_indicator_a;
+	.mask-image("images/core_activity_indicator_c.svg");
+	.mask-size(100% 100%);
+}
