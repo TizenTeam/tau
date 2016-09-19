@@ -123,22 +123,13 @@
 }
 
 /********************* list have right button **********************/
-.li-has-right-btn .ui-btn,
-.li-has-right-circle-btn .ui-btn {
+.li-has-right-btn .ui-btn {
 	position: absolute;
 	top: 50%;
 	right: 16px;
 }
 
 .li-has-right-btn .ui-btn {
-	margin-top: -20px;
-}
-
-.li-has-right-circle-btn .ui-btn {
-	margin-top: -25px;
-}
-
-.li-has-right-circle-btn .ui-btn-nobg {
 	margin-top: -20px;
 }
 

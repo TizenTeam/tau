@@ -124,22 +124,13 @@
 
 
 /********************* list have right button **********************/
-.li-has-right-btn .ui-btn,
-.li-has-right-circle-btn .ui-btn {
+.li-has-right-btn .ui-btn {
 	position: absolute;
 	top: 50%;
 	right: 16px;
 }
 
 .li-has-right-btn .ui-btn {
-	margin-top: -20px;
-}
-
-.li-has-right-circle-btn .ui-btn {
-	margin-top: -25px;
-}
-
-.li-has-right-circle-btn .ui-btn-nobg {
 	margin-top: -20px;
 }
 
@@ -423,18 +414,6 @@
 }
 .ui-btn-icon.ui-icon-minus:not(.ui-btn-circle):active::after {
 	background-color: rgba(186, 28, 28, 1);
-}
-.ui-btn-icon.ui-icon-add::after {
-	-webkit-mask-image: url("images/core_button_add.png");
-}
-.ui-btn-icon.ui-icon-cancel::after {
-	-webkit-mask-image: url("images/core_button_cancel.png");
-}
-.ui-btn-icon.ui-icon-delete::after {
-	-webkit-mask-image: url("images/core_button_delete.png");
-}
-.ui-btn-icon.ui-icon-reorder::after {
-	-webkit-mask-image: url("images/core_button_reorder.png");
 }
 .ui-btn-icon.ui-icon-call::after {
 	-webkit-mask-image: url("images/00_button_call.png");
