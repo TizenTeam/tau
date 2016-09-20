@@ -13,7 +13,6 @@
 	width: 100%;
 	display: block;
 	position: relative;
-	height: 120 * @unit_base;
 	&:focus {
 		outline: none;
 	}
@@ -34,10 +33,11 @@
 		height: 100%;
 		line-height: 120 * @unit_base;
 		white-space: nowrap;
-		padding: 0 62 * @unit_base 0 32 * @unit_base;
+		padding: 0 52 * @unit_base 0 32 * @unit_base;
 		overflow: hidden;
 		text-overflow: ellipsis;
 		font-size: @font_size_dropdownmenu_placeholder;
+		text-indent: 16 * @unit_base;
 		background-color: @color_dropdownmenu_placeholder_bg;
 		color: @color_dropdownmenu_placeholder_text;
 		&::before {
@@ -55,7 +55,7 @@
 			content: "";
 			position: absolute;
 			.calc-width(~"100% - " (64 * @unit_base));
-			height: 2px;
+			height: 2 * @unit_base;
 			bottom: 19 * @unit_base;
 			right: 32 * @unit_base;
 			background-color: @color_dropdownmenu_underline;
@@ -75,7 +75,7 @@
 .ui-dropdownmenu-disabled {
 	opacity: 1;
 	.ui-dropdownmenu-placeholder {
-		color: @color_dropdownmenu_font_dim;
+		color: @color_dropdownmenu_placeholder_text_dim;
 	}
 }
 
@@ -192,8 +192,8 @@
 		list-style: none;
 		padding: 0;
 		margin: 0;
-		border-left: 2px solid @color_dropdownmenu_list_group_stroke;
-		border-right: 2px solid @color_dropdownmenu_list_group_stroke;
+		border-left: 2 * @unit_base solid @color_dropdownmenu_list_group_stroke;
+		border-right: 2 * @unit_base solid @color_dropdownmenu_list_group_stroke;
 		background-color: @color_dropdownmenu_label_bg;
 		&:focus {
 			outline: none;
@@ -229,4 +229,11 @@
 
 .ui-dropdownmenu-active::-webkit-scrollbar {
 	display: none;
+}
+
+.ui-listview li.ui-li-static.ui-li-has-dropdownmenu {
+	padding: 0;
+	.ui-dropdownmenu-placeholder {
+		line-height: 118 * @unit_base;
+	}
 }
