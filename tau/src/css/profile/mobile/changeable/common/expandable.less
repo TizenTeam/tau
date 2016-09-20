@@ -1,40 +1,46 @@
 .ui-listview .ui-expandable {
 	padding: 0;
-	border-bottom: 1px solid @color_list_border_bottom;
+	margin: 0;
+	border-top: 1 * @unit_base solid @color_navigation_tab_divider;
+	min-height: 64 * @unit_base;
+	.user-select(none);
+}
+
+.ui-listview .ui-expandable .ui-expandable-heading-toggle:active {
+	color: @color_list_divider_text_expandable_press;
 }
 
 .ui-expandable-heading {
-	font-size: @font_size_groupindex_text;
+	font-size: 32 * @unit_base;
 	font-weight: normal;
 	display: block;
-	margin: 0;
 	padding: 0;
+	margin: 0;
 	position: relative;
-	background-color: @color_groupindex_bg;
-	border-bottom: 1px solid @color_list_border_bottom;
 
 	.ui-expandable-heading-toggle {
 		position: relative;
 		display: block;
-		padding-top: 19 * @unit_base;
-		padding-bottom: 19 * @unit_base;
-		padding-right: 112 * @unit_base;
-		padding-left: 32 * @unit_base;
-		color: @color_groupindex_text;
+		color: @color_list_divider_text;
 		text-decoration: none;
+		padding-top: 12 * @unit_base;
+		padding-bottom: 12 * @unit_base;
+		padding-right: 113 * @unit_base;
+		padding-left: 32 * @unit_base;
+		height: 40 * @unit_base;
 
 		&::after {
 			content: "";
 			position: absolute;
-			right: 12 * @unit_base;
+			right: 25 * @unit_base;
 			top: 0;
 			.mask-image('images/core_icon_expand_open.png');
 			.mask-repeat(no-repeat);
 			.mask-position(center);
 			.mask-size(100%);
 			background-color: @color_expandable_heading_arrow;
-			width: 80 * @unit_base;
-			height: 80 * @unit_base;
+			width: 66 * @unit_base;
+			height: 66 * @unit_base;
 			.transition(all 330ms ease);
 			.rotate(0);
 		}
@@ -51,6 +57,9 @@
 	&::after {
 		.transition(all 330ms ease);
 		.rotate(180deg);
+		background-color: @color_expandable_heading_arrow;
+		right: 23 * @unit_base;
+		top: -4 * @unit_base;
 	}
 }
 
@@ -58,7 +67,7 @@
 	display: block;
 	border-left-width: 0;
 	border-right-width: 0;
-	border-top: none;      /* Overrides ui-body-* */
+	border-top: none;	  /* Overrides ui-body-* */
 	background-image: none; /* Overrides ui-body-* */
 	max-height: 9999px;
 	overflow: visible;
@@ -86,4 +95,10 @@
 			background-color: @color_expandable_heading_arrow_dim;
 		}
 	}
+}
+
+.ui-expandable .ui-listview .ui-li-static {
+	height: 54 * @unit_base;
+	line-height: 54 * @unit_base;
+	padding: 33 * @unit_base;
 }
