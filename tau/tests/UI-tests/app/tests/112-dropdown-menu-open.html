@@ -5,20 +5,18 @@
 	<script type="text/javascript" src="../lib/tau/mobile/js/tau.js" data-build-remove="false"></script>
 </head>
 <body>
-<div class="ui-page">
+<div class="ui-page" id="dropdownmenu-open">
 	<div class="ui-header" data-position="fixed">
 		<h1>Title</h1>
 	</div>
 	<div class="ui-content">
 		<ul class="ui-listview ui-colored-list">
-			<li class="ui-li-static">
-				<select name="select-custom-1" id="select-custom-1" data-native-menu="false">
-					<option value="choose-one" data-placeholder="true">Dropdown
-					</option>
-					<option value="1">The 1st Option</option>
-					<option value="2">The 2nd Option</option>
-					<option value="3" >The 3rd Option</option>
-					<option value="4">The 4th Option</option>
+			<li class="ui-li-static ui-li-has-dropdownmenu">
+				<select name="select-custom-1" value="2" id="select-custom-1" data-native-menu="false">
+					<option value="choose-one" data-placeholder="true">Dropdown</option>
+					<option value="1">List 01</option>
+					<option value="2">List 02</option>
+					<option value="3" disabled>List 03</option>
 				</select>
 			</li>
 			<li class="ui-li-static">List Item 01</li>
@@ -33,6 +31,7 @@
 			<li class="ui-li-static">List Item 10</li>
 		</ul>
 	</div>
+	<script type="text/javascript" src="112-dropdown-menu-open.js"></script>
 </div>
 </body>
 </html>
