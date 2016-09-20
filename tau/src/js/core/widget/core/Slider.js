@@ -78,6 +78,12 @@
 				utilDOM = ns.util.DOM,
 				events = ns.event,
 				Gesture = ns.event.gesture,
+				COLORS = {
+					BACKGROUND: "rgba(145, 145, 145, 0.7)",
+					ACTIVE: "rgba(61, 185, 204, 1)",
+					WARNING_BG: "rgba(201, 133, 133, 1)",
+					WARNING: "rgba(255, 25, 25, 1)"
+				},
 				DEFAULT = {
 					HORIZONTAL: "horizontal"
 				},
@@ -92,7 +98,10 @@
 					self.options = {
 						type: "normal",
 						orientation: DEFAULT.HORIZONTAL,
-						expand: false
+						expand: false,
+						warning: false,
+						warningLevel: 0,
+						disabled: false
 					};
 					self._ui = {};
 				},
@@ -104,7 +113,11 @@
 					SLIDER_HANDLER: "ui-slider-handler",
 					SLIDER_HANDLER_EXPAND: "ui-slider-handler-expand",
 					SLIDER_CENTER: "ui-slider-center",
-					SLIDER_HANDLER_ACTIVE: "ui-slider-handler-active"
+					SLIDER_HANDLER_ACTIVE: "ui-slider-handler-active",
+					SLIDER_WARNING: "ui-slider-warning",
+					SLIDER_DISABLED: "ui-disabled",
+					SLIDER_HANDLER_VALUE: "ui-slider-handler-value",
+					SLIDER_HANDLER_SMALL: "ui-slider-handler-small"
 				},
 				prototype = new BaseWidget();
 
@@ -169,12 +182,13 @@
 				valueElement.classList.add(classes.SLIDER_VALUE);
 				barElement.appendChild(valueElement);
 				handlerElement.classList.add(classes.SLIDER_HANDLER);
-
 				barElement.appendChild(handlerElement);
+
 				element.parentNode.appendChild(barElement);
 				ui.valueElement = valueElement;
 				ui.handlerElement = handlerElement;
 				ui.barElement = barElement;
+
 				return element;
 			};
 
@@ -197,6 +211,8 @@
 				self._value = attrValue ? attrValue : self.element.value;
 				self._interval = self._max - self._min;
 				self._previousValue = self._value;
+				self._warningLevel = parseInt(self.options.warningLevel, 10);
+				self._setDisabled(element);
 
 				self._initLayout();
 				return element;
@@ -233,6 +249,7 @@
 					self._barElementHeight = ui.barElement.offsetHeight;
 				}
 				self._setValue(self._value);
+				self._setSliderColors(self._value);
 			};
 
 			/**
@@ -247,30 +264,31 @@
 					ui = self._ui,
 					validValue,
 					valueElementValidStyle,
-					handlerElementValidStyle,
+					barElementLength,
 					center, validStyle, inValidStyle;
 
 				if (self.options.orientation === DEFAULT.HORIZONTAL) {
-					center = self._barElementWidth / 2;
-					validValue =  self._barElementWidth * (value - self._min) / self._interval;
+					barElementLength = self._barElementWidth;
+					center = barElementLength / 2;
+					validValue =  barElementLength * (value - self._min) / self._interval;
 					validStyle = validValue < center ? "right" : "left";
 					inValidStyle = validValue < center ? "left" : "right";
 					valueElementValidStyle = "width";
-					handlerElementValidStyle = "left";
+					ui.handlerElement.style["left"] = validValue + "px";
 				} else {
-					center = self._barElementHeight / 2;
-					validValue =  self._barElementHeight * (value - self._min) / self._interval;
-					validStyle = validValue < center ? "bottom" : "top";
-					inValidStyle = validValue < center ? "top" : "bottom";
+					barElementLength = self._barElementHeight;
+					center = barElementLength / 2;
+					validValue =  barElementLength * (value - self._min) / self._interval;
+					validStyle = validValue < center ? "top" : "bottom";
+					inValidStyle = validValue < center ? "bottom" : "top";
 					valueElementValidStyle = "height";
-					handlerElementValidStyle = "top";
+					ui.handlerElement.style["top"] = (barElementLength - validValue) + "px";
 				}
 
 				ui.valueElement.style[validStyle] = "50%";
 				ui.valueElement.style[inValidStyle] = "initial";
 
 				ui.valueElement.style[valueElementValidStyle] = Math.abs(center - validValue) + "px";
-				ui.handlerElement.style[handlerElementValidStyle] = validValue + "px";
 			};
 
 			/**
@@ -285,23 +303,19 @@
 					ui = self._ui,
 					options = self.options,
 					barElementLength,
-					valueElementValidStyle,
-					handlerElementValidStyle,
 					validValue;
 
 				if (options.orientation === DEFAULT.HORIZONTAL) {
 					barElementLength = self._barElementWidth;
-					valueElementValidStyle = "width";
-					handlerElementValidStyle = "left";
+					validValue = barElementLength * (value - self._min) / self._interval;
+					ui.valueElement.style["width"] = validValue + "px";
+					ui.handlerElement.style["left"] = validValue + "px";
 				} else {
 					barElementLength = self._barElementHeight;
-					valueElementValidStyle = "height";
-					handlerElementValidStyle = "top";
+					validValue = barElementLength * (value - self._min) / self._interval;
+					ui.valueElement.style["height"] = validValue + "px";
+					ui.handlerElement.style["top"] = (barElementLength - validValue) + "px";
 				}
-
-				validValue = barElementLength * (value - self._min) / self._interval;
-				ui.valueElement.style[valueElementValidStyle] = validValue + "px";
-				ui.handlerElement.style[handlerElementValidStyle] = validValue + "px";
 			};
 
 			/**
@@ -316,7 +330,8 @@
 					ui = self._ui,
 					options = self.options,
 					element = self.element,
-					intValue;
+					intValue,
+					expendedClasses;
 
 				if (value < self._min) {
 					value = self._min;
@@ -332,14 +347,136 @@
 					self._setNormalValue(value);
 				}
 
+				self._setHandlerStyle(value);
+				self._updateSliderColors(value);
+
+				if (self.options.expand) {
+					expendedClasses = classes.SLIDER_HANDLER_VALUE;
+					if (intValue > 99 || intValue < -10) {
+						expendedClasses += " " + classes.SLIDER_HANDLER_SMALL;
+					}
+					ui.handlerElement.innerHTML = "<span class=" + expendedClasses + ">" + intValue + "</span>";
+				}
+
 				if (element.value - 0 !== intValue) {
 					element.setAttribute("value", intValue);
 					element.value = intValue;
 					self._value = intValue;
-					if (self.options.expand) {
-						ui.handlerElement.innerText = intValue;
-					}
 					events.trigger(element, "input");
+				}
+			};
+
+			/**
+			 * Set background as a gradient
+			 * @param element
+			 * @param orientation
+			 * @param reverseOrientation
+			 * @param color1
+			 * @param level1
+			 * @param color2
+			 * @param level2
+			 * @param currentValue This param is added only because gradients do not work in proper way on Tizen
+			 * @private
+			 */
+			function setBackground(element, orientation, reverseOrientation, color1, level1, color2, level2, currentValue) {
+				// gradients on Tizen do not work in proper way, so this condition is workaround
+				// if gradients work properly, this should be removed!
+				if (parseInt(currentValue, 10) > parseInt(level1, 10)) {
+					element.style.background = "-webkit-linear-gradient(" + reverseOrientation + "," +
+						color1 + " " + level1 + ", " + color2 + " " + level2 + ")";
+				} else {
+					element.style.background = color1;
+				}
+			}
+
+			/**
+			 * Set warning level for slider
+			 * @param {number} value
+			 * @member ns.widget.core.Slider
+			 * @protected
+			 */
+			prototype._setSliderColors = function(value) {
+				var self = this,
+					ui = self._ui,
+					barElement = ui.barElement,
+					sliderValueElement = ui.valueElement,
+					orientation,
+					reverseOrientation,
+					barLength,
+					warningLevel,
+					level;
+
+				if (self.options.type === "normal" && self.options.warning && value >= self._min && value <= self._max) {
+					if (self.options.orientation === DEFAULT.HORIZONTAL) {
+						orientation = "right";
+						reverseOrientation = "left";
+						barLength = self._barElementWidth;
+					} else {
+						orientation = "top";
+						reverseOrientation = "bottom";
+						barLength = self._barElementHeight;
+					}
+					warningLevel = barLength * self._warningLevel / (self._max - self._min) + "px";
+					level = barLength * value / (self._max - self._min) + "px";
+
+					// set background for value bar and slider bar
+					setBackground(sliderValueElement, orientation, reverseOrientation, COLORS.ACTIVE, warningLevel, COLORS.WARNING, warningLevel, level);
+					setBackground(barElement, orientation, reverseOrientation, COLORS.BACKGROUND, warningLevel, COLORS.WARNING_BG, warningLevel,
+						parseInt(warningLevel) + 2);
+				} else {
+					// gradients on Tizen do not work in proper way, so this is workaround
+					// if gradients work properly, this should be removed!
+					sliderValueElement.style.background = COLORS.ACTIVE;
+					barElement.style.background = COLORS.BACKGROUND;
+				}
+			};
+
+			// gradients on Tizen do not work in proper way, so this is workaround
+			// if gradients work properly, this should be removed!
+			prototype._updateSliderColors = function(value) {
+				this._setSliderColors(value);
+			};
+
+			/**
+			 * Set style for handler
+			 * @param {number} value
+			 * @member ns.widget.core.Slider
+			 * @protected
+			 */
+			prototype._setHandlerStyle = function(value) {
+				var self = this;
+
+				if (self.options.warning) {
+					if (value >= self._warningLevel) {
+						self._ui.handlerElement.classList.add(classes.SLIDER_WARNING);
+					} else {
+						self._ui.handlerElement.classList.remove(classes.SLIDER_WARNING);
+					}
+				}
+			};
+
+			prototype._setDisabled = function (element) {
+				var self = this,
+					options = self.options;
+
+				if (options.disabled === true || element.disabled) {
+					self._disable(element);
+				} else {
+					self._enable(element);
+				}
+			};
+
+			prototype._enable = function(element) {
+				if (element) {
+					this.options.disabled = false;
+					this._ui.barElement.classList.remove(classes.SLIDER_DISABLED);
+				}
+			};
+
+			prototype._disable = function(element) {
+				if (element) {
+					this.options.disabled = true;
+					this._ui.barElement.classList.add(classes.SLIDER_DISABLED);
 				}
 			};
 
@@ -362,17 +499,20 @@
 			 */
 			prototype.handleEvent = function(event) {
 				var self = this;
-				switch (event.type) {
-					case "dragstart":
-						self._onDragstart(event);
-						break;
-					case "dragend":
-					case "dragcancel":
-						self._onDragend(event);
-						break;
-					case "drag":
-						self._onDrag(event);
-						break;
+
+				if (!this.options.disabled) {
+					switch (event.type) {
+						case "dragstart":
+							self._onDragstart(event);
+							break;
+						case "dragend":
+						case "dragcancel":
+							self._onDragend(event);
+							break;
+						case "drag":
+							self._onDrag(event);
+							break;
+					}
 				}
 			};
 
@@ -391,7 +531,8 @@
 				if (self._active) {
 					validPosition = self.options.orientation === DEFAULT.HORIZONTAL ?
 						event.detail.estimatedX - ui.barElement.offsetLeft :
-						event.detail.estimatedY - utilDOM.getElementOffset(ui.barElement).top + selectors.getScrollableParent(self.element).scrollTop;
+						self._barElementHeight -
+						(event.detail.estimatedY - utilDOM.getElementOffset(ui.barElement).top + selectors.getScrollableParent(self.element).scrollTop),
 
 					value = self.options.orientation === DEFAULT.HORIZONTAL ?
 						self._interval * validPosition / self._barElementWidth :
@@ -414,7 +555,8 @@
 					ui = self._ui,
 					validPosition = self.options.orientation === DEFAULT.HORIZONTAL ?
 						event.detail.estimatedX - ui.barElement.offsetLeft :
-						event.detail.estimatedY - utilDOM.getElementOffset(ui.barElement).top + selectors.getScrollableParent(self.element).scrollTop,
+						self._barElementHeight -
+						(event.detail.estimatedY - utilDOM.getElementOffset(ui.barElement).top + selectors.getScrollableParent(self.element).scrollTop),
 					value = self.options.orientation === DEFAULT.HORIZONTAL ?
 						self._interval * validPosition / self._barElementWidth :
 						self._interval * validPosition / self._barElementHeight;
@@ -467,6 +609,7 @@
 			 * @protected
 			 */
 			prototype.refresh = function() {
+				this._setDisabled();
 				this._initLayout();
 			};
 

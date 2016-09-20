@@ -6,17 +6,19 @@
 		<script type="text/javascript" src="../../lib/tau/mobile/js/tau.js" data-build-remove="false"></script>
 	</head>
 	<body>
-		<div class="ui-page">
+		<div id="page" class="ui-page">
 			<div class="ui-content">
-				<ul class="ui-listview">
-					<li class="ui-li-static vertical-list" style="height: 300px">
-						<input type="range" data-orientation="vertical" value="50" min="0" max="99"/>
+				<ul class="ui-listview" style="overflow-y:scroll;">
+					<li class="ui-li-static vertical-list active" style="height: 320px;float: left;padding-left: 12px;">
+						<input name="mySlider1" type="range" data-orientation="vertical" value="9" min="0" max="18"/>
 					</li>
-					<li class="ui-li-static vertical-list" style="height: 300px">
-						<input type="range" data-type="center" data-orientation="vertical" value="5" min="0" max="10"/>
+					<li class="ui-li-static vertical-list active" style="height: 320px;float: left;padding-left: 12px;">
+						<input id="expandedSlider" name="mySlider2" type="range" data-orientation="vertical" value="9"
+							min="0" max="18" data-expand="true"/>
 					</li>
 				</ul>
 			</div><!-- /content -->
+			<script type="text/javascript" src="118-slider.js"></script>
 		</div> <!-- /page -->
 	</body>
 </html>
