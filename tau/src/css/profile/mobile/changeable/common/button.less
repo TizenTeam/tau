@@ -10,6 +10,17 @@ a.ui-btn {
 	text-decoration: none;
 }
 
+.ui-content {
+	.ui-btn {
+		&:not(.ui-btn-circle):not(.ui-btn-nobg):not(.ui-floatingactions-item) {
+			background-color: @color_button_bg;
+			&::before {
+				background-color: @color_button_bg_press;
+			}
+		}
+	}
+}
+
 .ui-btn {
 	position: relative;
 	display: block;
@@ -29,11 +40,9 @@ a.ui-btn {
 	&:not(.ui-btn-circle):not(.ui-btn-nobg):not(.ui-floatingactions-item) {
 		z-index: 0;
 		border-radius: 52 * @unit_base;
-		background-color: @color_button_bg;
 		&::before {
 			z-index: -1;
 			border-radius: 52 * @unit_base;
-			background-color: @color_button_bg_press;
 		}
 	}
 
