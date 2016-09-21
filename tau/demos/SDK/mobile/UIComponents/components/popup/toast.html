@@ -13,10 +13,17 @@
     <div data-role="content">
         <ul data-role="listview">
             <li class="ui-li-anchor"><a href="#popup_toast" data-inline="true" data-rel="popup" data-position-to="window">Toast Popup</a></li>
+            <li class="ui-li-anchor"><a href="#popup_btn_toast" data-inline="true" data-rel="popup" data-position-to="window">Toast Popup with button</a></li>
         </ul>
         <div id="popup_toast" data-role="popup" class="ui-popup ui-popup-toast">
             <div class="ui-popup-content">
                 Toast popup text Toast popup text
+            </div>
+        </div>
+        <div id="popup_btn_toast" data-role="popup"
+             class="ui-popup ui-popup-toast">
+            <div class="ui-popup-content ui-popup-toast-has-button">
+                3 deleted <button class="ui-btn">UNDO</button>
             </div>
         </div>
     </div>

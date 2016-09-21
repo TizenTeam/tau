@@ -19,6 +19,28 @@
 	font-size: @font_size_toast_text;
 	font-stretch: condensed;
 	-webkit-font-stretch: condensed;
+
+	&.ui-popup-toast-has-button {
+		text-align: left;
+		min-width: 532 * @unit_base;
+		padding-right: 0;
+
+		.ui-btn {
+			padding: 0 0 0 50 * @unit_base;
+			border-left: 2 * @unit_base solid @color_toast_divider;
+			color: @color_toast_button_text;
+			font-size: @font_size_toast_button_text;
+			background-color: transparent;
+			display: inline;
+			width: auto;
+			height: auto;
+			min-height: 41 * @unit_base;
+			line-height: 41 * @unit_base;
+			margin: 0 50 * @unit_base;
+			border-radius: 0;
+			float: right;
+		}
+	}
 }
 
 .ui-popup.ui-popup-toast .ui-popup-content::before {
