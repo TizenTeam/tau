@@ -481,18 +481,6 @@
 	background-color: rgba(82, 199, 217, 1);
 }
 
-#grid-badge-page .ui-gridview-item .grid-badge {
-	position: absolute;
-	border-radius: 25px;
-	background-color: rgba(252, 116, 58, 1);
-	color: rgba(255, 255, 255, 1);
-	top: 4px;
-	right: 4px;
-	text-align: center;
-	padding: 2px 6px;
-	font-size: 13px;
-}
-
 #grid-check-page .li-select-all input[type="checkbox"].ui-checkbox {
 	position: absolute;
 	left: auto;
