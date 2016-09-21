@@ -57,6 +57,7 @@
 	define(
 		[
 			"../../../../core/widget/BaseWidget",
+			"../../../../profile/mobile/widget/mobile/Popup",
 			"../../../../core/engine",
 			"../../../../core/event",
 			"../../../../core/event/gesture",
@@ -71,6 +72,10 @@
 				utilsEvents = ns.event,
 				utilsSelectors = ns.util.selectors,
 				utilsDom = ns.util.DOM,
+				Popup = ns.widget.mobile.Popup,
+				PopupConstructor = ns.widget.Popup,
+				popupSelector = Popup.selector,
+				popupEvents = Popup.events,
 				STYLE_PATTERN = ".ui-gridview li:nth-child({index})",
 				MATRIX_REGEXP = /matrix\((.*), (.*), (.*), (.*), (.*), (.*)\)/,
 				DATA_ROLE = "data-role",
@@ -98,6 +103,7 @@
 					self.options = {};
 					self._direction = 0;
 					self._styleElement = null;
+					self._inPopup = null;
 					self._ui = {
 						listElements: [],
 						listElHandler: null,
@@ -107,6 +113,7 @@
 						scrollableParent: null,
 						content: null
 					};
+					self._refreshSizesCallback = refreshSizes.bind(null, this);
 				},
 				prototype = new BaseWidget();
 
@@ -125,6 +132,14 @@
 				}
 
 				return null;
+			}
+
+			function refreshSizes(gridViewInstance) {
+				gridViewInstance._setItemWidth();
+				gridViewInstance._setGridStyle();
+				gridViewInstance._refreshItemsInfo();
+				gridViewInstance._calculateListHeight();
+				gridViewInstance._inPopup.refresh();
 			}
 
 			/**
@@ -177,7 +192,8 @@
 			 */
 			prototype._init = function (element) {
 				var self = this,
-					ui = self._ui;
+					ui = self._ui,
+					popup = null;
 
 				ui.listElements = [].slice.call(self.element.getElementsByTagName("li"));
 				ui.listElHandler = element.querySelectorAll("." + classes.HANDLER);
@@ -188,6 +204,10 @@
 				self._calculateListHeight();
 				self._ui.content = utilsSelectors.getClosestByClass(element, "ui-content") || window;
 				self._ui.scrollableParent = getScrollableParent(element) || self._ui.content;
+				popup = utilsSelectors.getClosestBySelector(element, popupSelector);
+				if (popup) {
+					self._inPopup = PopupConstructor(popup);
+				}
 			};
 
 			/**
@@ -197,6 +217,11 @@
 			 * @member ns.widget.mobile.GridView
 			 */
 			prototype._bindEvents = function () {
+				var popup = this._inPopup;
+
+				if (popup) {
+					utilsEvents.on(popup.element, popupEvents.before_show, this._refreshSizesCallback);
+				}
 			};
 
 			/**
@@ -207,12 +232,16 @@
 			 */
 			prototype._unbindEvents = function () {
 				var self = this,
-					element = self.element;
+					element = self.element,
+					popup = self._inPopup;
 
 				utilsEvents.disableGesture(element);
 
 				utilsEvents.off(element, "drag dragstart dragend dragcancel dragprepare", self);
 				utilsEvents.off(element, "pinchin pinchout", self);
+				if (popup) {
+					utilsEvents.off(popup.element, popupEvents.before_show, this._refreshSizesCallback);
+				}
 			};
 
 			/**
@@ -247,6 +276,7 @@
 			prototype._destroy = function () {
 				this._unbindEvents();
 				this._removeGridStyle();
+				this._inPopup = null;
 			};
 
 			/**
@@ -300,13 +330,18 @@
 					element = self.element,
 					helper = self._ui.helper,
 					helperElement = event.detail.srcEvent.srcElement.parentElement,
+					helperElementComputed = window.getComputedStyle(helperElement, null),
 					helperStyle = helperElement.style,
-					translated = window.getComputedStyle(helperElement).webkitTransform.match(MATRIX_REGEXP),
-					holder, top, left;
+					translated = helperElementComputed.getPropertyValue("webkit-transform").match(MATRIX_REGEXP),
+					holder,
+					top = 0,
+					left = 0;
 
 				self._refreshItemsInfo();
-				top = parseInt(translated[6], 10);
-				left = parseInt(translated[5], 10);
+				if (translated.length > 0) {
+					top = parseInt(translated[6], 10);
+					left = parseInt(translated[5], 10);
+				}
 				helperElement.classList.add(classes.HELPER);
 				holder = self._createHolder();
 				element.insertBefore(holder, helperElement);
@@ -325,8 +360,8 @@
 
 				helper.startX = event.detail.estimatedX;
 				helper.startY = event.detail.estimatedY;
-				helper.width = helperElement.offsetWidth;
-				helper.height = helperElement.offsetHeight;
+				helper.width = parseFloat(helperElementComputed.getPropertyValue("width")) || 0;
+				helper.height = parseFloat(helperElementComputed.getPropertyValue("height")) || 0;
 
 				self._ui.holder = holder;
 				helper.element = helperElement;
@@ -491,8 +526,10 @@
 					itemHeight, rows;
 
 				window.setTimeout(function () {
+					var firstLiComputed = listElements.length && window.getComputedStyle(listElements[0], null);
+
 					rows = Math.ceil(listElements.length / self.options.cols);
-					itemHeight = listElements[0].offsetHeight;
+					itemHeight = parseFloat(firstLiComputed.getPropertyValue("width")) || 0;
 					self.element.style.height = (itemHeight * rows) + "px";
 				}, 300);
 			};
@@ -508,16 +545,26 @@
 					listElements = self._ui.listElements,
 					length = listElements.length,
 					listItems = [],
-					translated, li, i;
+					translated,
+					li,
+					i,
+					top = 0,
+					liComputed = null,
+					left = 0;
 
 				for (i = 0; i < length; i++) {
 					li = listElements[i];
-					translated = window.getComputedStyle(li).webkitTransform.match(MATRIX_REGEXP);
+					liComputed = window.getComputedStyle(li, null);
+					translated = liComputed.getPropertyValue("webkit-transform").match(MATRIX_REGEXP);
+					if (translated && translated.length > 0) {
+						top = parseInt(translated[6], 10);
+						left = parseInt(translated[5], 10);
+					}
 					listItems.push({
-						top: parseInt(translated[6], 10),
-						left: parseInt(translated[5], 10),
-						height: li.offsetHeight,
-						width: li.offsetWidth,
+						top: top,
+						left: left,
+						height: parseFloat(liComputed.getPropertyValue("width")) || 0,
+						width: parseFloat(liComputed.getPropertyValue("width")) || 0,
 						element: li
 					});
 				}
@@ -551,16 +598,18 @@
 			prototype._setItemWidth = function() {
 				var self = this,
 					options = self.options,
-					parentWidth = self.element.offsetWidth,
+					parentComputedStyle = window.getComputedStyle(self.element, null),
+					parentWidth = parseFloat(parentComputedStyle.getPropertyValue("width")) || 0,
 					minWidth = options.minWidth,
 					listElements = self._ui.listElements,
 					length = listElements.length,
+					firstLiComputed = listElements.length && window.getComputedStyle(listElements[0], null),
 					cols, i, width,
 					borderSize = parentWidth / 360,
 					elementStyle = null;
 
 				if (minWidth === "auto") {
-					minWidth = listElements[0].offsetWidth;
+					minWidth = parseFloat(firstLiComputed.getPropertyValue("width")) || 0;
 					options.minWidth = minWidth;
 				} else {
 					minWidth = parseInt(minWidth, 10);
@@ -724,11 +773,12 @@
 					styles = styleElement.textContent,
 					element = self.element,
 					cols = self.options.cols,
-					col, row, length;
+					col, row, length,
+					firstLiComputed = listElements.length && window.getComputedStyle(listElements[0], null);
 
 				// append item
 				item.classList.add(classes.ITEM);
-				item.style.width = listElements[0].offsetWidth + "px";
+				item.style.width = (parseFloat(firstLiComputed.getPropertyValue("width")) || 0) + "px";
 				element.appendChild(item);
 				listElements.push(item);
 

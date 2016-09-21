@@ -80,6 +80,8 @@
 				 */
 				eventUtils = ns.event,
 
+				POPUP_SELECTOR = "[data-role='popup'], .ui-popup",
+
 				Popup = function () {
 					var self = this,
 						ui = {};
@@ -206,6 +208,7 @@
 			Popup.classes = classes;
 			Popup.events = events;
 			Popup.defaults = defaults;
+			Popup.selector = POPUP_SELECTOR;
 
 			/**
 			 * Build the content of popup
@@ -936,7 +939,7 @@
 
 			engine.defineWidget(
 				"Popup",
-				"[data-role='popup'], .ui-popup",
+				POPUP_SELECTOR,
 				[
 					"open",
 					"close",

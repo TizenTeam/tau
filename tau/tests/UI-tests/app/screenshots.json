@@ -79,7 +79,9 @@
   },
   {
     "name": "81-popup-with-grid-view",
-    "time": 3000
+    "time": 3000,
+    "width": 227,
+    "height": 403
   },
   {
     "name": "84-group-index",

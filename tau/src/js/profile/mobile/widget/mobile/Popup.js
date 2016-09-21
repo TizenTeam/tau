@@ -525,6 +525,8 @@
 
 				doms = ns.util.DOM,
 
+				POPUP_SELECTOR = "[data-role='popup'], .ui-popup",
+
 				objectUtils = ns.util.object,
 
 				utilSelector = ns.util.selectors,
@@ -559,6 +561,8 @@
 				AFTER_OPEN: "popupafteropen",
 				AFTER_CLOSE: "popupafterclose"
 			});
+
+			Popup.selector = POPUP_SELECTOR;
 
 			Popup.prototype = new CorePopup();
 
@@ -733,7 +737,7 @@
 			ns.widget.mobile.Popup = Popup;
 			engine.defineWidget(
 				"Popup",
-				"[data-role='popup'], .ui-popup",
+				POPUP_SELECTOR,
 				[
 					"open",
 					"close",
