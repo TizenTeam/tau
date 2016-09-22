@@ -61,13 +61,18 @@
 	 * click event handler for list item
 	 */
 	addFunction = function(event){
-		var target = event.target;
-		if ( !target.classList.contains("select")) {
-			target.classList.add("select");
+		var target = event.target,
+			spanElem = document.createElement("span"),
+            li = (target.nodeName.toLowerCase() === "span") ? target.parentElement : target;
+
+		if (!li.classList.contains("select")) {
+			li.classList.add("select");
+			li.appendChild(spanElem);
 			selectCount++;
 			modeShow();
 		} else {
-			target.classList.remove("select");
+			li.classList.remove("select");
+			li.removeChild(li.firstElementChild);
 			selectCount--;
 			if (selectCount <= 0) {
 				modeHide();

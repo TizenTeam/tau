@@ -421,17 +421,27 @@ li.static::before {
 
 /* ------------------------------------------------------------------------------ */
 /*Select List*/
-#selectModePage li.select::after {
+#selectModePage li.select span {
+	-webkit-transition: width 150ms, left 150ms;
+}
+#selectModePage li.select span::after, #selectModePage li.select span::before {
 	content:"";
-	-webkit-mask-image: url(../contents/list/images/tw_list_check_ic.png);
-	-webkit-mask-repeat: no-repeat;
-	background-color: rgba(77,207,255,1);
 	width: 56px;
 	height: 56px;
 	position: absolute;
 	left: 50%;
+    top: 25%;
 	-webkit-transform: translateX(-50%);
-	-webkit-transition: width 150ms, left 150ms;
+	-webkit-mask-repeat: no-repeat;
+}
+#selectModePage li.select span::after {
+	-webkit-mask-image: url(../contents/list/images/tw_list_check_line.png);
+	background-color: white;
+}
+#selectModePage li.select span::before {
+	content:"";
+	-webkit-mask-image: url(../contents/list/images/tw_list_check_ic.png);
+	background-color: rgba(77,207,255,1);
 }
 #selectModePage #rightDrawer {
 	background-color: transparent;
