@@ -129,7 +129,7 @@ Popup with listview
 Popup MoreMenu
 *************************/
 .ui-popup.ui-popup-moremenu {
-	max-height: 840 * @unit_base;
+	max-height: 600 * @unit_base;
 }
 
 /*************************
@@ -224,4 +224,9 @@ Activity Popup
 	background-color: @color_popup_activity_indicator_a;
 	.mask-image("images/core_activity_indicator_c.svg");
 	.mask-size(100% 100%);
+}
+
+/** Colored list **/
+.ui-popup.ui-popup-has-colored-list .ui-popup-content {
+	padding: 0;
 }
