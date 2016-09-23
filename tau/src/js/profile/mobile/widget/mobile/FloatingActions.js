@@ -66,6 +66,13 @@
 					this._padding = {};
 					this._position = {};
 					this._scope = {};
+				},
+				WIDGET_CLASS = "ui-floatingactions",
+				classes = {
+					WIDGET: WIDGET_CLASS,
+					TRANSITIONS: WIDGET_CLASS + "-transitions",
+					EXPAND_TO_LEFT: WIDGET_CLASS + "-expand-to-left",
+					EXPAND_TO_RIGHT: WIDGET_CLASS + "-expand-to-right"
 				};
 
 
@@ -79,10 +86,12 @@
 				/**
 				 * @property {Object} options Object with default options
 				 * @property {number} [options.duration=300] animation duration for color and opacity (unit of time : millisecond)
+				 * @property {string} [options.position='right-min'] widget position [right-min | right-1st-button | right-2nd-button | center | left-1st-button | left-2nd-button | left-min]
 				 * @member ns.widget.mobile.FloatingActions
 				 */
 				this.options = {
-					duration: 300
+					duration: 300,
+					position: "right-1st-icon"
 				};
 			};
 
@@ -98,8 +107,9 @@
 
 				self._style = element.style;
 				self._hasSingle = element.children.length <= 1;
-				self._setPosition();
+				self._positionCalculation();
 				self._setScope();
+				self._updatePosition();
 				return element;
 			};
 
@@ -146,8 +156,9 @@
 					element = self.element;
 
 				self._hasSingle = element.children.length <= 1;
-				self._setPosition();
+				self._positionCalculation();
 				self._setScope();
+				self._updatePosition();
 			};
 
 			/**
@@ -169,11 +180,11 @@
 
 			/**
 			* Set position for move effect
-			* @method _setPosition
+			* @method _positionCalculation
 			* @protected
 			* @member ns.widget.mobile.FloatingActions
 			*/
-			prototype._setPosition = function() {
+			prototype._positionCalculation = function() {
 				var self = this,
 					element = self.element,
 					elementStyle = window.getComputedStyle(element),
@@ -229,13 +240,44 @@
 			* @member ns.widget.mobile.FloatingActions
 			*/
 			prototype._start = function(event) {
-				var style = this.element.style;
+				var self = this,
+					element = self.element;
 
-				this._startX = event.detail.pointer.clientX;
+				self._startX = event.detail.pointer.clientX;
 				// get current x value of translated3d
-				this._currentX = parseInt(window.getComputedStyle(this.element).webkitTransform.match(MATRIX_REGEXP)[5]);
-				style.webkitTransition = "none";
-				style.transition = "none";
+				self._currentX = parseInt(window.getComputedStyle(element).webkitTransform.match(MATRIX_REGEXP)[5]);
+				element.classList.remove(classes.TRANSITIONS);
+				self._clearExpandWidget();
+			};
+
+			prototype._clearExpandWidget = function () {
+				var classList = this.element.classList;
+
+				classList.remove(classes.EXPAND_TO_LEFT);
+				classList.remove(classes.EXPAND_TO_RIGHT);
+			};
+
+			prototype._expandWidget = function (name) {
+				var self = this,
+					classList = self.element.classList;
+
+				switch (name) {
+					case "left-min" :
+					case "left-1st-icon" :
+					case "left-2nd-icon" :
+						classList.add(classes.EXPAND_TO_LEFT);
+						classList.remove(classes.EXPAND_TO_RIGHT);
+						break;
+					case "center" :
+						self._clearExpandWidget();
+						break;
+					case "right-min" :
+					case "right-1st-icon" :
+					case "right-2nd-icon" :
+						classList.remove(classes.EXPAND_TO_LEFT);
+						classList.add(classes.EXPAND_TO_RIGHT);
+						break;
+				}
 			};
 
 			/**
@@ -260,44 +302,132 @@
 			};
 
 			/**
+			 * Set widget position by position name
+			 * @method _setPosition
+			 * @param {HTMLElement} element widget html element
+			 * @param {string} name name of preset position
+			 * @protected
+			 * @member ns.widget.mobile.FloatingActions
+			 */
+			prototype._setPosition = function (element, name) {
+				var self = this,
+					hasSingle = self._hasSingle;
+
+				if (hasSingle && name === "left-2nd-icon") {
+					name = "left-1st-icon";
+					tau.warn("Cannot set 2nd icon when widget has 1 icon");
+				}
+				if (hasSingle && name === "right-2nd-icon") {
+					name = "right-1st-icon";
+					tau.warn("Cannot set 2nd icon when widget has 1 icon");
+				}
+
+				self.options.position = name;
+
+				self._updatePosition();
+			};
+
+			/**
+			 * Get widget position by position name
+			 * @method _getPositionByName
+			 * @param {string} name name of preset position
+			 * @protected
+			 * @member ns.widget.mobile.FloatingActions
+			 */
+			prototype._getPositionByName = function (name) {
+				var position = this._position;
+
+				switch (name) {
+					case "left-min": return position.min;
+					case "left-2nd-icon": return position.leftOneButton;
+					case "left-1st-icon": return position.left;
+					case "center": return position.center;
+					case "right-1st-icon": return position.right;
+					case "right-2nd-icon": return position.rightOneButton;
+					case "right-min": return position.max;
+					default: return position.max;
+				}
+			};
+
+			/**
+			 * Set widget position by position name
+			 * @method _getPositionByName
+			 * @protected
+			 * @member ns.widget.mobile.FloatingActions
+			 */
+			prototype._updatePosition = function () {
+				var self = this,
+					style = self.element.style,
+					transition,
+					duration = self.options.duration,
+					positionName = self.options.position,
+					transform;
+
+				self.element.classList.add(classes.TRANSITIONS);
+
+				transform = "translate3d(" + self._getPositionByName(positionName) + "px, 0, 0)";
+				style.webkitTransform = transform;
+				style.transform = transform;
+
+				self._expandWidget(positionName);
+			};
+
+			/**
+			 * Get widget position name by position X
+			 * @method _getPositionNameByPosition
+			 * @param {number} positionX current widget position
+			 * @protected
+			 * @member ns.widget.mobile.FloatingActions
+			 */
+			prototype._getPositionNameByPosition = function (positionX) {
+				var self = this,
+					element = self.element,
+					scope = self._scope,
+					hasSingle = self._hasSingle;
+
+				if (positionX < scope.min) {
+					return "left-min";
+				} else if (!hasSingle && positionX < scope.leftOneButton) {
+					return "left-2nd-icon";
+				} else if (positionX < scope.left) {
+					return "left-1st-icon";
+				} else if (positionX < scope.center) {
+					return "center";
+				} else if (positionX < scope.right) {
+					return "right-1st-icon";
+				} else if (!hasSingle && positionX < scope.rightOneButton){
+					return "right-2nd-icon";
+				} else {
+					return "right-min";
+				}
+			};
+
+			/**
+			 * Move widget to position X
+			 * @method _moveTo
+			 * @param {number} positionX current widget position
+			 * @protected
+			 * @member ns.widget.mobile.FloatingActions
+			 */
+			prototype._moveTo = function (positionX) {
+				var self = this;
+
+				self.options.position = self._getPositionNameByPosition(positionX);
+				self._updatePosition();
+			};
+
+			/**
 			* Dragend event handler
 			* @method _end
 			* @protected
 			* @member ns.widget.mobile.FloatingActions
 			*/
 			prototype._end = function(event) {
-				var self = this,
-					style = self._style,
-					duration = self.options.duration,
-					moveX = event.detail.estimatedX - self._startX + self._currentX,
-					position = self._position,
-					scope = self._scope,
-					hasSingle = self._hasSingle,
-					transform, translateX, transition;
+				var self = this;
 
-				transition = "all " + duration + "ms linear";
-				style.webkitTransition = transition;
-				style.transition = transition;
-
-				if (moveX < scope.min) {
-					translateX = position.min;
-				} else if (!hasSingle && moveX < scope.leftOneButton) {
-					translateX = position.leftOneButton;
-				} else if (moveX < scope.left) {
-					translateX = position.left;
-				} else if (moveX < scope.center) {
-					translateX = position.center;
-				} else if (moveX < scope.right) {
-					translateX = position.right;
-				} else if (!hasSingle && moveX < scope.rightOneButton){
-					translateX = position.rightOneButton;
-				} else {
-					translateX = position.max;
-				}
-
-				transform = "translate3d(" + translateX + "px, 0, 0)";
-				style.webkitTransform = transform;
-				style.transform = transform;
+				self._moveTo(
+					event.detail.estimatedX - self._startX + self._currentX
+				);
 			};
 
 			/**
@@ -326,11 +456,12 @@
 
 			// definition
 			FloatingActions.prototype = prototype;
+			FloatingActions.classes = classes;
 			ns.widget.mobile.FloatingActions = FloatingActions;
 
 			engine.defineWidget(
 				"FloatingActions",
-				"[data-role='floatingactions'], .ui-floatingactions",
+				"[data-role='floatingactions'], ." + WIDGET_CLASS,
 				[],
 				FloatingActions,
 				"mobile"

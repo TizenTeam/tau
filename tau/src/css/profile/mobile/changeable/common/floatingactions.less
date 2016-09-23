@@ -1,3 +1,22 @@
+.ui-content .ui-floatingactions {
+	background-color: @color_floatingactions_bg;
+	&:active {
+		background-color: @color_floatingactions_bg_press;
+	}
+	.ui-floatingactions-item {
+		background-color: transparent;
+		&::after {
+			background-color: @color_floatingactions_icon;
+		}
+		&:active::after {
+			background-color: @color_floatingactions_icon_press;
+		}
+		&::before {
+			background-color: @color_floatingactions_icon_press_effect;
+		}
+	}
+}
+
 .ui-floatingactions {
 	position: fixed;
 	right: 0;
@@ -7,9 +26,15 @@
 	padding-right: 30 * @unit_base;
 	.transform(translate3d(24 * @unit_base, 0, 0));
 	.core_floating_button_bg();
+	background-color: @color_floatingactions_out_bg;
 
 	&:active {
-		background-color: @color_floatingactions_bg_press;
+		background-color: @color_floatingactions_out_bg_press;
+	}
+
+	&.ui-floatingactions-transitions {
+		.transition-property(all);
+		.transition-duration(500ms);
 	}
 
 	.ui-floatingactions-item {
@@ -24,11 +49,11 @@
 			left: 20 * @unit_base;
 			width: 80 * @unit_base;
 			height: 80 * @unit_base;
-			background-color: @color_floatingactions_icon;
+			background-color: @color_floatingactions_out_icon;
 		}
 
 		&:active::after {
-			background-color: @color_floatingactions_icon_press;
+			background-color: @color_floatingactions_out_icon_press;
 		}
 
 		&::before {
@@ -38,7 +63,7 @@
 			left: 0;
 			width: 120 * @unit_base;
 			height: 120 * @unit_base;
-			background-color: @color_floatingactions_icon_press_effect;
+			background-color: @color_floatingactions_out_icon_press_effect;
 			border-radius: 50% 50%;
 			opacity: 0;
 			.transform(scale(0.7));
@@ -59,6 +84,13 @@
 		}
 	}
 	.ui-floatingactions-item ~ .ui-floatingactions-item {
-		margin-left: 20 * @unit_base;
+		margin-left: -20 * @unit_base;
+	}
+	&.ui-floatingactions-expand-to-right {
+		padding-right: 60 * @unit_base;
+		right: -30 * @unit_base;
+	}
+	&.ui-floatingactions-expand-to-left {
+		padding-left: 60 * @unit_base;
 	}
 }
