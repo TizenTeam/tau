@@ -15,6 +15,7 @@ var fs = require("fs"),
 		"m-0913-1": "mobile",
 		"m-0914-1": "mobile",
 		"m-0916-1": "mobile",
+		"m-0923-1": "mobile",
 		"000011d200006469": "mobile",
 		"<unknown>": "tv",
 		"Wearable-B2": "wearable"
