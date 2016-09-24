@@ -721,3 +721,30 @@
     flex-wrap: wrap;
     -webkit-flex-wrap: wrap;
 }
+
+/**************************************
+            Indexscrollbar
+***************************************/
+.ui-indexscrollbar ul li:first-child {
+	height: 40px;
+	border-top: 1px solid rgba(61, 185, 204, 0.1);
+	position: relative;
+}
+.ui-indexscrollbar ul li:last-child {
+	border-bottom-color: transparent;
+}
+.ui-indexscrollbar ul li:first-child::before {
+	content: "";
+	height: 20px;
+	width: 20px;
+	position: absolute;
+	top: -22px;
+	left: 0;
+	background-color: rgba(61, 185, 204, 0.87);;
+	mask-image: url("../tests/images/indexscrollbar_find_icon.png");
+	mask-size: 80%;
+	mask-position: center center;
+	-webkit-mask-image: url("../tests/images/indexscrollbar_find_icon.png");
+	-webkit-mask-size: 80%;
+	-webkit-mask-position: center center;
+}

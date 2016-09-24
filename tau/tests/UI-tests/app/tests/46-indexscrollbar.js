@@ -9,6 +9,7 @@
 	var page = document.getElementById("indexscrollbarPage"),
 		isbElement = document.getElementById("indexscrollbar"),
 		dividers = page.getElementsByClassName("ui-group-index"),
+		testedIndex = document.getElementById("tested-index"),
 		isb,
 		scroller,
 		dividerIndexObject = {},
@@ -43,10 +44,25 @@
 	});
 
 	page.addEventListener("pageshow", function() {
-		var element = document.getElementById("indexscrollbar");
-		var evt = new CustomEvent("vmousedown", {});
-		evt.clientX = window.innerWidth - 10;
-		evt.clientY = 320;
+		var element = document.getElementById("indexscrollbar"),
+			evt = new CustomEvent("vmousedown", {}),
+			liElements = [].slice.call(document.querySelectorAll(".ui-indexscrollbar li")),
+			testedIndex = null,
+			rect = null;
+
+		liElements.some(function (element) {
+			if (element.textContent === "N") {
+				testedIndex = element;
+				return true;
+			}
+			return false;
+		});
+
+		rect = testedIndex.getBoundingClientRect();
+
+		evt.clientX = rect.left + rect.width / 2;
+		evt.clientY = rect.top + rect.height / 2;
+
 		element.dispatchEvent(evt);
 	});
 

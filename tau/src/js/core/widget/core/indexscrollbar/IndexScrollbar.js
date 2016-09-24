@@ -405,7 +405,8 @@
 						supplementaryIndex: null,
 						supplementaryIndexMargin: 1,
 						moreCharLineHeight: 9,
-						verticalCenter: true
+						verticalCenter: true,
+						indicatorAlignTo: "container"
 					};
 				},
 
@@ -525,7 +526,8 @@
 					self.indicator = new IndexIndicator(document.createElement("DIV"), {
 						container: self._getContainer(),
 						referenceElement: self.element,
-						className: options.indicatorClass
+						className: options.indicatorClass,
+						alignTo: options.indicatorAlignTo
 					});
 
 				},

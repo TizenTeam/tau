@@ -6,7 +6,6 @@
 	width: 40 * @unit_base;
 	height: 100%;
 	padding-left: 2 * @unit_base;
-	//background-color: @color_indexscrollbar_bg;
 	background-color: @color_indexscrollbar_bg;
 	z-index: 1000;
 	overflow: visible;	// To show 2nd indexbar
@@ -17,38 +16,58 @@
 	ul {
 		list-style-type: none;
 		margin: 0;
-		padding: 0;
-		position:absolute;
+		position: absolute;
 		width: 100%;
+		height: 100%;
+		left: 0;
+		visibility: visible;
+		.display-flex();
+		.flex-direction(column);
+		.align-items(stretch);
+		.justify-content(center);
+		padding: 0;
+		box-sizing: border-box;
+
 		li {
 			cursor: pointer;
-			//color: @color_indexscrollbar_text;
 			color: @color_indexscrollbar_text;
 			display: block;
-			box-sizing: border-box;
+			.display-flex();
 			width: 100%;
 			text-align: center;
-			vertical-align: middle;
 			font-size: @font_size_fastscroll_rollover_text;
-			height: 40 * @unit_base;
-			line-height: 40 * @unit_base;
+			min-height: 40 * @unit_base;
+			max-height: 40 * @unit_base;
 			font-weight: bold;
-			border-bottom: 2 * @px_base solid @color_indexscrollbar_divider;
-			border-left: 2 * @px_base solid @color_indexscrollbar_line;
+			border-bottom: 2 * @unit_base solid @color_indexscrollbar_divider;
+			border-left: 2 * @unit_base solid @color_indexscrollbar_line;
+			.flex(1);
+			.justify-content(center);
+			.align-items(center);
 		}
 		li.ui-state-selected {
 			border-left: 2 * @px_base solid @color_indexscrollbar_divider;
+			position: relative;
+			width: 36 * @unit_base;
 			&::before {
 				content: "";
 				position: absolute;
-				height: 40 * @unit_base;
-				width: 40 * @unit_base;
-				left: 0;
-				box-sizing: border-box;
-				border-top: 2 * @px_base solid @color_indexscrollbar_line;
-				border-right: 2 * @px_base solid @color_indexscrollbar_line;
-				border-bottom: 2 * @px_base solid @color_indexscrollbar_line;
+				height: 100%;
+				width: 34 * @unit_base;
+				left: -2 * @unit_base;
+				top: -2 * @unit_base;
+				border: 2 * @unit_base solid @color_indexscrollbar_line;
+				border-left: none;
 			}
+		}
+		&::before,
+		&::after {
+			content: "";
+			width: 40 * @unit_base;
+			border-left: 2 * @unit_base solid @color_indexscrollbar_line;
+			.display-flex();
+			.flex(1);
+			pointer-events: none;
 		}
 	}
 	ul.ui-indexscrollbar-supplementary {

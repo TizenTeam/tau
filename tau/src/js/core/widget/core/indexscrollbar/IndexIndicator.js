@@ -58,6 +58,7 @@
 				_options: {
 					className: "ui-indexscrollbar-indicator",
 					selectedClass: "ui-selected",
+					alignTo: "container",
 					container: null
 				},
 				_init: function() {
@@ -77,18 +78,29 @@
 				/**
 				 * Fits size to container.
 				 * @method fitToContainer
+				 * @param {HTMLElement} alignTo align indicator position relative to particular element
 				 * @member ns.widget.wearable.indexscrollbar.IndexIndicator
 				 */
-				fitToContainer: function() {
-					var element = this.element,
-						container = this.options.container,
-						containerPosition = window.getComputedStyle(container).position;
+				fitToContainer: function (alignTo) {
+					var self = this,
+						element = self.element,
+						style = element.style,
+						options = self.options,
+						container = options.container,
+						containerRect = container.getBoundingClientRect();
 
-					element.style.width = container.offsetWidth + "px";
-					element.style.height = container.offsetHeight + "px";
+					alignTo = alignTo || options.alignTo;
 
-					element.style.top = container.offsetTop + "px";
-					element.style.left = container.offsetLeft + "px";
+					style.width = containerRect.width + "px";
+					if (alignTo === "container") {
+						style.height = containerRect.height + "px";
+					} else {
+						style.height = (containerRect.height + containerRect.top) + "px";
+					}
+
+
+					style.top = ((alignTo === "container") ? containerRect.top : 0) + "px";
+					style.left = containerRect.left + "px";
 				},
 
 				/**
@@ -102,9 +114,10 @@
 					value = value.toUpperCase();
 
 					var selected = value.substr(value.length - 1),
-						remained = value.substr(0, value.length - 1),
-						inner = "<span>" + remained + "</span><span class=\"ui-selected\">" + selected + "</span>";
-					this.element.firstChild.innerHTML = inner;	// Set indicator text
+						remained = value.substr(0, value.length - 1);
+
+					this.element.firstChild.innerHTML = "<span>" + remained + "</span><span class=\"ui-selected\">" +
+						selected + "</span>";	// Set indicator text
 				},
 
 				/**
