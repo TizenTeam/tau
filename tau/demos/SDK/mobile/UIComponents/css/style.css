@@ -149,17 +149,17 @@
 }
 
 /***************** list has checkbox/radio ***********************/
-.ui-li-anchor.li-has-checkbox > a,
-.ui-li-anchor.li-has-radio > a,
-.ui-li-static.li-has-checkbox,
-.ui-li-static.li-has-radio {
+.ui-li-anchor.li-has-checkbox:not(.li-has-right-checkbox) > a,
+.ui-li-anchor.li-has-radio:not(.li-has-right-radio) > a,
+.ui-li-static.li-has-checkbox:not(.li-has-right-checkbox),
+.ui-li-static.li-has-radio:not(.li-has-right-radio) {
 	padding-left: 50px;
 }
 
-.li-has-checkbox input.ui-checkbox:first-child,
-.li-has-radio input.ui-checkbox:first-child,
-.li-has-checkbox input.ui-radio:first-child,
-.li-has-radio input.ui-radio:first-child {
+.li-has-checkbox:not(.li-has-right-checkbox) input.ui-checkbox:first-child,
+.li-has-radio:not(.li-has-right-radio) input.ui-checkbox:first-child,
+.li-has-checkbox:not(.li-has-right-checkbox) input.ui-radio:first-child,
+.li-has-radio:not(.li-has-right-radio) input.ui-radio:first-child {
 	position: absolute;
 	top: 50%;
 	margin-top: -13px;
@@ -167,18 +167,62 @@
 }
 
 /**************** list has checkbox/radio and thumbnail ************/
-.ui-li-anchor.li-has-checkbox.li-has-thumb > a,
-.ui-li-anchor.li-has-radio.li-has-thumb > a,
-.ui-li-static.li-has-checkbox.li-has-thumb,
-.ui-li-static.li-has-radio.li-has-thumb {
+.ui-li-anchor.li-has-checkbox:not(.li-has-right-checkbox).li-has-thumb > a,
+.ui-li-anchor.li-has-radio:not(.li-has-right-radio).li-has-thumb > a,
+.ui-li-static.li-has-checkbox:not(.li-has-right-checkbox).li-has-thumb,
+.ui-li-static.li-has-radio:not(.li-has-right-radio).li-has-thumb {
 	padding-left: 77px;
 }
 .ui-li-anchor.li-has-checkbox.li-has-thumb > a .li-thumb,
-.ui-li-anchor.li-has-radio.li-has-thumb > a .li-thumb,
+.ui-li-anchor.li-has-radio:not(.li-has-right-radio).li-has-thumb > a .li-thumb,
 .ui-li-static.li-has-checkbox.li-has-thumb .li-thumb,
-.ui-li-static.li-has-radio.li-has-thumb .li-thumb {
+.ui-li-static.li-has-radio:not(.li-has-right-radio).li-has-thumb .li-thumb {
 	position: absolute;
 	left: 48px;
+}
+
+
+/********************* list have right checkbox ********************/
+
+.li-has-checkbox.li-has-right-checkbox .ui-checkbox {
+	position: absolute !important;
+	top: 21px;
+	right: 16px;
+	left: auto !important;
+}
+
+.li-has-checkbox.li-has-right-checkbox .ui-checkbox.favorite {
+	right: 8px;
+	top: 11px;
+}
+
+.li-has-checkbox.li-has-right-checkbox .ui-checkbox:first-child {
+	right: 61px;
+}
+
+.li-has-checkbox.li-has-right-checkbox .ui-checkbox.favorite:first-child {
+	right: 55px;
+}
+
+.li-has-checkbox.li-has-right-checkbox .ui-checkbox {
+	margin-top: -20px;
+}
+
+/********************* list have right checkbox ********************/
+
+.li-has-radio.li-has-right-radio .ui-radio {
+	position: absolute !important;
+	top: 35px;
+	right: 13px;
+	left: auto !important;
+}
+
+.li-has-radio.li-has-right-radio .ui-radio:first-child {
+	right: 60px;
+}
+
+.li-has-radio.li-has-right-radio .ui-radio {
+	margin-top: -20px;
 }
 
 /**************** right toggle switch ************/
@@ -186,8 +230,17 @@
 	position: absolute;
 	top: 50%;
 	margin-top: -20px;
-	right: 16px;
+	right: 14px;
 	left: auto;
+}
+
+/**************** with progress bar ************/
+.li-has-progress .ui-progress {
+	margin-top: 10px;
+}
+
+.li-has-right-btn .ui-toggle-container:first-child {
+	right: 58px;
 }
 
 
@@ -463,10 +516,17 @@
 /****************************************************************/
 /*                      Grid List                               */
 /****************************************************************/
-.ui-gridview-handler {
-	-webkit-mask-image: url("images/core_button_reorder.png");
-	-webkit-mask-size: 100%;
-	background-color: rgba(82, 199, 217, 1);
+
+#grid-badge-page .ui-gridview-item .grid-badge {
+	position: absolute;
+	border-radius: 25px;
+	background-color: rgba(252, 116, 58, 1);
+	color: rgba(255, 255, 255, 1);
+	top: 4px;
+	right: 4px;
+	text-align: center;
+	padding: 2px 6px;
+	font-size: 13px;
 }
 
 #grid-check-page .li-select-all input[type="checkbox"].ui-checkbox {
@@ -475,6 +535,25 @@
 	right: 16px;
 	top: 50%;
 	margin-top: -13px;
+}
+
+#popup_grid_page .ui-popup .ui-gridview .ui-gridview-item .ui-gridview-image {
+	width: auto;
+	margin: 0 auto;
+}
+
+#popup_grid_page .ui-popup .ui-gridview .ui-gridview-item .ui-gridview-label {
+	margin-top: -5px;
+	font-size: 16px;
+}
+
+#popup_grid_page .ui-popup .ui-gridview {
+	margin: 0 0 20px -16px;
+}
+
+#textinput-demo .ui-content .ui-scrollview-view > div:nth-child(2) {
+	background: rgba(250, 250, 250, 1);
+	height: 285px;
 }
 
 /****************************************************************/
