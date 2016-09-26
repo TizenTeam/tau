@@ -25,14 +25,14 @@
 	}
 	&.ui-tabbar-portrait, &.ui-tabbar-landscape {
 		&.ui-tabbar-with-title {
-			height: 76 * @unit_base;
+			height: 74 * @unit_base;
 			&.ui-tabbar-with-icon {
-				height: 76 * @unit_base;
+				height: 74 * @unit_base;
 				a {
-					font-size: 38 * @unit_base;
+					font-size: 36 * @unit_base;
 					&::after {
-						top: 45%;
-						left: 30%;
+						top: 35%;
+						left: 35%;
 						width: 60 * @unit_base;
 						height: 60 * @unit_base;
 						.transform(translate(-50%, -50%));
@@ -44,7 +44,7 @@
 						}
 					}
 					span {
-						top: 45%;
+						top: 35%;
 					}
 				}
 			}
@@ -77,6 +77,11 @@
 				}
 			}
 		}
+		&.ui-tabbar-with-title.ui-tabbar-with-icon {
+			span {
+				left: 58%;
+			}
+		}
 	}
 
 	&.ui-tabbar-landscape {
@@ -100,7 +105,7 @@
 		}
 		&.ui-tabbar-with-title.ui-tabbar-with-icon {
 			span {
-				left: 55%;
+				left: 58%;
 			}
 			a::after {
 				left: 43%;
