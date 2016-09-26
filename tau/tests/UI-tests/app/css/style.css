@@ -530,16 +530,16 @@
 
 #popup_grid_page .ui-popup .ui-gridview .ui-gridview-item .ui-gridview-image {
 	width: auto;
-	margin: 0 auto 5px auto;
+	margin: 0 auto;
 }
 
 #popup_grid_page .ui-popup .ui-gridview .ui-gridview-item .ui-gridview-label {
-	margin-top: 8px;
+	margin-top: -5px;
 	font-size: 16px;
 }
 
 #popup_grid_page .ui-popup .ui-gridview {
-	margin: 16px 0 30px 0;
+	margin: 0 0 20px -16px;
 }
 
 /****************************************************************/
