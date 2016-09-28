@@ -39,6 +39,9 @@
 					var self = this;
 					self._ui = {};
 				},
+				slice = Array.prototype.slice,
+				requestAnimationFrame = window.requestAnimationFrame || window.webkitRequestAnimationFrame,
+				cancelAnimationFrame = window.cancelAnimationFrame || window.webkitCancelAnimationFrame,
 				/**
 				 * Alias for class {@link ns.engine}
 				 * @property {Object} engine
@@ -56,6 +59,7 @@
 				 * @private
 				 */
 				Page = ns.widget.core.Page,
+				Expandable = ns.widget.mobile.Expandable,
 
 				Listview = ns.widget.mobile.Listview,
 				ListviewPrototype = Listview.prototype,
@@ -145,13 +149,22 @@
 			 */
 			prototype._init = function (element) {
 				var self = this,
-					ui = self._ui;
+					ui = self._ui,
+					expandableClass = Expandable.classes.uiExpandable,
+					expandableHeadingSelector = Expandable.selectors.HEADING;
 
 				self._scrollTop = 0;
 				self._ColoredListviewTop = 0;
 				self._liElementOffsetTop = [];
 				self._liElementOffsetHeight = [];
-				ui.liElements = element.getElementsByTagName("li");
+				ui.liElements = slice.call(element.getElementsByTagName("li")).map(function (element) {
+					return {
+						element: element,
+						collapsible: element.classList.contains(expandableClass),
+						collapsibleParent: selectors.getClosestByClass(element, expandableClass),
+						collapsibleHeader: selectors.getChildrenBySelector(element, expandableHeadingSelector)[0]
+					}
+				});
 				// if list is not inside scrollable element then add to parent
 				ui.clipElement = selectors.getClosestByClass(element, classes.SCROLL_CLIP);
 
@@ -178,17 +191,16 @@
 					i, len;
 
 				if (ui.canvasElement) {
+					//>>excludeStart("tauDebug", pragmas.tauDebug);
+					ns.error("ColoredListView: canvas element is missing, aborting...");
+					//>>excludeEnd("tauDebug");
 					return;
 				}
 				canvasElement = document.createElement("canvas");
 				canvasElement.classList.add(classes.CANVAS);
 				ui.canvasElement = canvasElement;
 
-				len = ui.liElements.length;
-				for (i = 0; i < len; i++){
-					self._liElementOffsetTop[i] = ui.liElements[i].offsetTop;
-					self._liElementOffsetHeight[i] = ui.liElements[i].offsetHeight;
-				}
+				self._getItemsHeightAndPosition();
 
 				if (clipElement){
 					// List in scrollview
@@ -196,6 +208,9 @@
 
 					if (self._scrollTop) {
 						// It was scrolled before that means ColoredListview element made before and don't need to init more.
+						//>>excludeStart("tauDebug", pragmas.tauDebug);
+						ns.info("ColoredListView: Canvas element already moved from top");
+						//>>excludeEnd("tauDebug");
 						return;
 					}
 
@@ -229,6 +244,8 @@
 				if (ui.clipElement) {
 					events.on(ui.clipElement, "scroll", self, false);
 				}
+
+				events.on(self.element, "expand collapse", self, false);
 			};
 
 			/**
@@ -246,6 +263,8 @@
 				if (ui.clipElement) {
 					events.off(ui.clipElement, "scroll", self, false);
 				}
+
+				events.off(self.element, "expand collapse", self, false);
 			};
 
 			/**
@@ -262,6 +281,11 @@
 						self._initCanvasLayout();
 						break;
 					case "scroll":
+						self._scrollHandler();
+						break;
+					case "expand":
+					case "collapse":
+						self._getItemsHeightAndPosition();
 						self._scrollHandler();
 						break;
 				}
@@ -283,7 +307,7 @@
 
 				if (self._startTime && Date.now() - self._startTime > 1000) {
 					if (self._requestId) {
-						window.webkitCancelRequestAnimationFrame(self._requestId);
+						cancelAnimationFrame(self._requestId);
 					}
 				}
 				if (scrollTop > liElementOffsetTop[ColoredListviewTop + 1]) {
@@ -321,10 +345,33 @@
 
 				self._checkTop();
 				if (self._requestId) {
-					window.webkitCancelRequestAnimationFrame(self._requestId);
+					cancelAnimationFrame(self._requestId);
 				}
 				self._startTime = Date.now();
-				self._requestId = window.webkitRequestAnimationFrame(self._checkTop.bind(self));
+				self._requestId = requestAnimationFrame(self._checkTop.bind(self));
+			};
+
+			prototype._getItemsHeightAndPosition = function () {
+				var self = this,
+					ui = self._ui,
+					i,
+					len = ui.liElements.length,
+					currentItem = null;
+
+				for (i = 0; i < len; i++){
+					currentItem = ui.liElements[i];
+					self._liElementOffsetTop[i] = currentItem.element.offsetTop;
+					self._liElementOffsetHeight[i] = currentItem.element.offsetHeight;
+
+					// If current element is collapsible, height should be based on header
+					if (currentItem.collapsible) {
+						self._liElementOffsetHeight[i] = currentItem.collapsibleHeader.offsetHeight;
+					// If current element has a collapsible parent (element from sublist)
+					// offset from top will return invalid values, this is handled here
+					} else if(currentItem.collapsibleParent) {
+						self._liElementOffsetTop[i] += currentItem.collapsibleParent.offsetTop;
+					}
+				}
 			};
 
 			/**
@@ -335,6 +382,11 @@
 			 */
 			prototype._makeWebglColoredListview = function () {
 				var self = this,
+					webglSettings = {
+						alpha: true,
+						premultipliedAlpha: false,
+						antialias: false
+					},
 					canvasElement = self._ui.canvasElement,
 					gl,
 					program,
@@ -348,8 +400,11 @@
 
 				///////////Canvas//////////////////////////
 				// Get A WebGL context
-				gl = canvasElement.getContext("experimental-webgl",{premultipliedAlpha: false});
+				gl = canvasElement.getContext("webgl", webglSettings) || canvasElement.getContext("experimental-webgl", webglSettings);
 				if (!gl) {
+					//>>excludeStart("tauDebug", pragmas.tauDebug);
+					ns.error("ColoredListView: WebGL context is missing");
+					//>>excludeEnd("tauDebug");
 					return;
 				}
 
@@ -416,7 +471,7 @@
 					offsetHeight = ui.canvasElement.offsetHeight,
 					liElementOffsetHeight = self._liElementOffsetHeight,
 					listNumber = liElementOffsetTop.length,
-					alphaValue = 0.95, // @note: value obtained by trial and error to match tizen 3.0 ui guide
+					alphaValue = 1.0,
 					optionColoredListviewNumber = parseInt(self.options.coloredListviewNumber, 10),
 					max = optionColoredListviewNumber ? optionColoredListviewNumber : listNumber,
 					validMax = ColoredListviewTop + max,
@@ -438,12 +493,18 @@
 						setRectangle(gl, 0, listTop, offsetWidth, liElementOffsetHeight[i]);
 					}
 
-					gl.uniform4f(self._colorLocation, 1, 1, 1, alphaValue);
+					// @note: #FAFAFA (B0211 code)
+					gl.uniform4f(self._colorLocation, 0.98, 0.98, 0.98, alphaValue);
 
 					//// Draw the rectangle.
 					gl.drawArrays(gl.TRIANGLES, 0, 6);
 
-					alphaValue -= 0.08; // @note: value obtained by trial and error to match tizen 3.0 ui guide
+					// Alpha reduced only when element is visible
+					if (liElementOffsetHeight[i] > 0) {
+						// @note: based on Mobile GUI Guidelines
+						// "The opacity of list decrease 4% per list.(The opacity of 1st list is 100%)"
+						alphaValue -= 0.04;
+					}
 				}
 			};
 

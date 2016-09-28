@@ -137,6 +137,15 @@
 				 */
 				domUtils = ns.util.DOM,
 
+				/**
+				 * @property {Object} expandableSelectors selectors used in this widget
+				 * @private
+				 * @static
+				 */
+				expandableSelectors = {
+					HEADING: "h1,h2,h3,h4,h5,h6,legend,li"
+				},
+
 				Expandable = function () {
 					/**
 					 * Expandable widget options.
@@ -146,7 +155,7 @@
 					 */
 					this.options = {
 						collapsed: true,
-						heading: "h1,h2,h3,h4,h5,h6,legend,li"
+						heading: expandableSelectors.HEADING
 					};
 
 					this._eventHandlers = {};
@@ -177,6 +186,7 @@
 
 			Expandable.prototype = new BaseWidget();
 			Expandable.classes = classes;
+			Expandable.selectors = expandableSelectors;
 
 			/**
 			 * Handler function for expanding/collapsing widget
