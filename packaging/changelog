@@ -1,4 +1,57 @@
 %changelog
+* Wed Sep 28 2016 Tomasz Lukawski <t.lukawski@samsung.com> 0.13.8
+	- (fix) Wrong popup size
+	- fix(tests): extended screenshot time for popup demo
+	- fix(mobile): Changed 106-text-input example textarea container height and color
+	- fix(mobile) Fixed gridview in popup position
+	- (fix) Problem with header icons 2
+	- fix(mobile) Buttons - style fixes
+	- (fix) Problem with header icons
+	- fix(mobile) Floating actions - more tests
+	- fix(mobile) MoreMenu - layout issue
+	- fix(mobile): fix test for vertical slider
+	- fix(mobile) Floating button - layout fix
+	- fix(mobile) Improper spacing between breadcrum elements in navigation bar
+	- (fix) Right sign has no white border
+	- (fix) style of inputs
+	- fix(mobile) Dropdown menu - fix for options on open
+	- (fix) Changed behavior of Gridview in Popup
+	- fix(mobile) Circle Button on listview
+	- fix(mobile) Popup toast with button - layout fix
+	- fix(mobile) Popup toast - layout fix
+	- fix(mobile) Popup with checkbox - fix layout
+	- fix(mobile) Popup with image - fix layout
+	- fix(mobile) Popup layout and colors
+	- (fix) prepare checkboxes in group list
+	- (fix) Changed checkbox look in app, and box sizing of listview
+	- fix(mobile) fix position of buttons on listview
+	- fix(mobile) Title has wrong height
+	- fix(core): fix release script.
+	- fix(mobile) Dropdown menu on listview has wrong size
+	- fix(mobile) Gridview with badge - fix for size, position and color
+	- fix(mobile) Popup with Activity
+	- fix(mobile) Progress bar size, position, color and labels
+	- (fix) fix layout for group list
+	- (fix) position and size of navigation element
+	- (fix) fix position of checkbox inside grid
+	- (fix) positions for gridview handler button
+	- (fix) gridview label "in" position and sizes
+	- (fix) gridview label "out" position and sizes
+	- (fix) Style of select all list item
+	- (fix) Fix borders on grid
+	- fix(mobile) Fix for Tabbar style
+	- fix(theme) Update changeable color tables for Tizen 3.0
+	- (fix) Fix and extend test for index scroll bar
+	- (fix) change default Tizen font is tesing app to 'SamsungOneUI' font
+	- (fix) changed position of back button in headers
+	- (fix) Changed colored list row alpha values to match tizen 3.0 ux
+	- (fix) Fix building of colored list
+	- (util) Enable run one UI test and build only mobile TAU
+	- (util) Extend tool to automatic testing UX guide
+	- (fix) Fix tabbar color and font sizes
+	- (fix) Fix position of title in header
+	- (util) Prepare tool to automatic testing UX guide
+
 * Thu Sep 01 2016 Hyunkook Cho <hk0713.cho@samsung.com> 0.13.7
 	- fix(wearable): fix selector webkit rendering issue
 
