@@ -6,7 +6,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://floralicense.org/license/
+ *	 http://floralicense.org/license/
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -43,6 +43,7 @@
 					indicator: "ui-page-indicator",
 					indicatorActive: "ui-page-indicator-active",
 					indicatorItem: "ui-page-indicator-item",
+					indicatorDashed: "ui-page-indicator-dashed",
 					linearIndicator: "ui-page-indicator-linear",
 					circularIndicator: "ui-page-indicator-circular"
 				},
@@ -68,13 +69,15 @@
 				 * @property {number} [options.numberOfPages=null] Number of pages to be linked to PageIndicator.
 				 * @property {string} [options.layout="linear"] Layout type of page indicator.
 				 * @property {number} [options.intervalAngle=6] angle between each dot in page indicator.
+				 * @property {string} [options.style="dashed"] style of the page indicator "dotted" "dashed"
 				 * @member ns.widget.core.PageIndicator
 				 */
 				this.options = {
 					maxPage: null,
 					numberOfPages: null,
 					layout: "linear",
-					intervalAngle: 6
+					intervalAngle: 6,
+					style: "dashed"
 				};
 			};
 			/**
@@ -86,10 +89,15 @@
 			 * @member ns.widget.core.PageIndicator
 			 */
 			prototype._build = function (element) {
-				var self = this;
+				var self = this,
+					options = self.options;
+
 				self._createIndicator(element);
-				if (self.options.layout === layoutType.CIRCULAR) {
+				if (options.layout === layoutType.CIRCULAR) {
 					self._circularPositioning(element);
+				}
+				if (options.style === "dashed") {
+					element.classList.add(classes.indicatorDashed);
 				}
 				return element;
 			};
