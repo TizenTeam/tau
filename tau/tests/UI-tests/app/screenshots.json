@@ -46,6 +46,12 @@
     "time": 3000
   },
   {
+    "name": "44-scroll-bar",
+    "time": 3000,
+    "width": 402,
+    "height": 714
+  },
+  {
     "name": "46-index-scroll-bar",
     "time": 3000
   },
