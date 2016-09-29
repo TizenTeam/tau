@@ -1,4 +1,7 @@
 %changelog
+* Thu Sep 29 2016 Tomasz Lukawski <t.lukawski@samsung.com> 0.13.9
+	- fix(wearable): Removed disabled class from list item examples
+
 * Wed Sep 28 2016 Tomasz Lukawski <t.lukawski@samsung.com> 0.13.8
 	- (fix) Wrong popup size
 	- fix(tests): extended screenshot time for popup demo
