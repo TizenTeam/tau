@@ -27,6 +27,7 @@
 	.transform(translate3d(24 * @unit_base, 0, 0));
 	.core_floating_button_bg();
 	background-color: @color_floatingactions_out_bg;
+	z-index: 1000;
 
 	&:active {
 		background-color: @color_floatingactions_out_bg_press;
@@ -94,3 +95,9 @@
 		padding-left: 60 * @unit_base;
 	}
 }
+
+.ui-floatingactions ~ .ui-content {
+	box-sizing: border-box;
+	border-bottom: 254 * @unit_base solid transparent;
+}
+
