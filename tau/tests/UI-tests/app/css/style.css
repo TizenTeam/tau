@@ -593,3 +593,131 @@
 	-webkit-transform: translate(-50%);
 	margin: 0;
 }
+
+/**************************************
+            Button Text
+***************************************/
+#button-page {
+    color: white;
+}
+#button-page p {
+    margin: 0;
+    padding: 0;
+}
+/*top*/
+#button-page  #top {
+    height: 109px;
+    background-color: white;
+}
+#button-page  #top img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    float: left;
+}
+#button-page  #top #intro1 img{
+    padding-top: 15px;
+    padding-left: 15px;
+}
+#button-page  #top #intro1 p {
+    display: inline-block;
+    float: left;
+    margin-right: 75px;
+    padding-left: 10px;
+}
+#button-page  #top #intro1 input {
+    width: 34px;
+    height: 34px;
+    padding-top: 8px;
+}
+#button-page  #top #intro1 p:nth-of-type(1) {
+    color: dimgrey;
+    padding-top: 15px;
+    font-size: 20px;
+}
+#button-page  #top #intro1  p:nth-of-type(2) {
+    color: lightgrey;
+    padding-top: 1px;
+    font-size: 16px;
+}
+#button-page  #top #intro1  p:nth-of-type(2):after {
+    clear:both;
+}
+#button-page  #top #intro2 {
+    position: relative;
+    height: 48px;
+}
+#button-page  #top #intro2 #details {
+    position: absolute;
+    left: 60px;
+    top: 28px;
+    height: 22px;
+    min-height: 22px;
+    font-size:15px;
+}
+#button-page  #top #intro2 p {
+    position: absolute;
+    right: 30px;
+    top: 36px;
+    color: dimgrey;
+    font-size: 14px;
+}
+
+
+#button-page #calendar {
+    position: relative;
+}
+/*title and top button*/
+#button-page #calendar #today {
+    position: absolute;
+    right: 10px;
+    top: 20px;
+}
+#button-page #calendar #title {
+    height: 24px;
+    padding-top: 52px;
+    text-align: center;
+    font-size: 24px;
+}
+/*days names*/
+#button-page #calendar ul {
+    list-style-type: none;
+    text-decoration: none;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+    font-size: 16px;
+    margin: 27px 10px 6px;
+    display: flex;
+    display: -webkit-flex;
+    justify-content: space-around;
+    -webkit-justify-content: space-between;
+    align-items: center;
+    -webkit-align-items: center;
+}
+#button-page #calendar ul li{
+    width: 46px;
+    height: 46px;
+    line-height: 46px;
+    padding: 0;
+    margin: 0;
+}
+#button-page #calendar ul li:nth-child(19) {
+    position: relative
+}
+#button-page #calendar ul li:nth-child(19):after {
+    content: "";
+    position: absolute;
+    top:5px;
+    left: 5px;
+    width: 36px;
+    height: 36px;
+    background-color: rgba(20, 20, 20, 0.5);
+    border-radius: 50%;
+}
+#button-page #calendar #days ul {
+    font-size: 21px;
+    margin: 0 10px;
+    flex-wrap: wrap;
+    -webkit-flex-wrap: wrap;
+}
