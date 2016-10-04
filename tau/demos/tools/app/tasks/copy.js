@@ -179,8 +179,8 @@ module.exports = function (grunt) {
 				var dir = app + "/../result/" + screen.name;
 				exec("sdb" + deviceParam + " pull /tmp/screen.xwd " + dir + ".xwd", function () {
 					var width = screen.width || 257,
-						height = screen.height || 442;
-					exec("convert -resize " + width + " " + dir + ".xwd " + dir + ".png", function () {
+						height = screen.height || 457;
+					exec("convert -resize " + width + "x" + height + "\\! " +  dir + ".xwd " + dir + ".png", function () {
 						fs.unlink(dir + ".xwd", function () {
 							done();
 						});
