@@ -264,5 +264,35 @@
     "time": 3000,
     "width": 402,
     "height": 714
+  },
+  {
+    "name": "165-empty-state",
+    "time": 3000,
+    "width": 336,
+    "height": 598
+  },
+  {
+    "name": "166-empty-state-with-floating-action",
+    "time": 3000,
+    "width": 552,
+    "height": 981
+  },
+  {
+    "name": "168-empty-state-search",
+    "time": 3000,
+    "width": 552,
+    "height": 948
+  },
+  {
+    "name": "171-welcome-page",
+    "time": 3000,
+    "width": 720,
+    "height": 1240
+  },
+  {
+    "name": "176-details",
+    "time": 3000,
+    "width": 552,
+    "height": 981
   }
 ]
