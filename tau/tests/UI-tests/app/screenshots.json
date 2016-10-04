@@ -250,5 +250,11 @@
     "time": 3000,
     "width": 241,
     "height": 428
+  },
+  {
+    "name": "173-search-bar-clear-button",
+    "time": 3000,
+    "width": 402,
+    "height": 714
   }
 ]
