@@ -1,4 +1,13 @@
 %changelog
+* Wed Oct 05 2016 Tomasz Lukawski <t.lukawski@samsung.com> 0.13.10
+	- fix(wearable) "Select all" and "deselect all"option is not working properly (TSAM-8590)
+	- (fix) No page indicator widget
+	- fix(mobile) GroupIndex - fix for layout
+	- (fix) Prepare tests for "Text button"
+	- test(mobile): Test for SearchBar
+	- fix(mobile): Group index background fix
+	- feat(mobile): UI Components example and test for scrollbar handler
+
 * Thu Sep 29 2016 Tomasz Lukawski <t.lukawski@samsung.com> 0.13.9
 	- fix(wearable): Removed disabled class from list item examples
 
