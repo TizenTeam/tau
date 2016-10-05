@@ -1,4 +1,7 @@
 %changelog
+* Wed Oct 05 2016 Tomasz Lukawski <t.lukawski@samsung.com> 0.13.11
+	- fix: no access to required node module (cldr-data@26.0.17)
+
 * Wed Oct 05 2016 Tomasz Lukawski <t.lukawski@samsung.com> 0.13.10
 	- fix(wearable) "Select all" and "deselect all"option is not working properly (TSAM-8590)
 	- (fix) No page indicator widget
