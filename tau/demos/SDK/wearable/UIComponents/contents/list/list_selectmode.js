@@ -57,29 +57,54 @@
 	};
 
 	/**
+	 * Select particular item
+	 * @param {HTMLLIElement} li element to select
+	 */
+	function selectItem(li) {
+		li.classList.add("select");
+		li.appendChild(document.createElement("span"));
+		selectCount++;
+		modeShow();
+	}
+
+	/**
+	 * Deselect particular item
+	 * @param {HTMLLIElement} li element to deselect
+	 */
+	function deselectItem(li) {
+		li.classList.remove("select");
+		if (li.firstElementChild) {
+			li.removeChild(li.firstElementChild);
+		}
+		selectCount--;
+		if (selectCount <= 0) {
+			modeHide();
+		} else {
+			textRefresh();
+		}
+	}
+
+	/**
+	 * Toggle select state on particular item
+	 * @param {HTMLLIElement} li element to toggle
+	 */
+	function toggleSelectedItem(li) {
+		if (!li.classList.contains("select")) {
+			selectItem(li);
+		} else {
+			deselectItem(li);
+		}
+	}
+
+	/**
 	 * Select/Deselects a list item
 	 * click event handler for list item
 	 */
 	addFunction = function(event){
 		var target = event.target,
-			spanElem = document.createElement("span"),
             li = (target.nodeName.toLowerCase() === "span") ? target.parentElement : target;
 
-		if (!li.classList.contains("select")) {
-			li.classList.add("select");
-			li.appendChild(spanElem);
-			selectCount++;
-			modeShow();
-		} else {
-			li.classList.remove("select");
-			li.removeChild(li.firstElementChild);
-			selectCount--;
-			if (selectCount <= 0) {
-				modeHide();
-			} else {
-				textRefresh();
-			}
-		}
+		toggleSelectedItem(li);
 	};
 
 	/**
@@ -88,7 +113,7 @@
 	 */
 	fnSelectAll = function(){
 		for (i = 0; i < listLength; i++) {
-			list[i].classList.add("select");
+			selectItem(list[i]);
 		}
 		selectCount = listLength;
 		modeShow();
@@ -100,7 +125,7 @@
 	 */
 	fnDeselectAll = function(){
 		for (i = 0; i < listLength; i++) {
-			list[i].classList.remove("select");
+			deselectItem(list[i]);
 		}
 		modeHide();
 	};
