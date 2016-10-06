@@ -19,13 +19,14 @@ input[type="search"].ui-search-input {
   padding-right: 8 * @unit_base;
   border: 0;
   outline: 0;
-  border-bottom: 2px solid @color_search_border_default;
+  border-bottom: 2 * @unit_base solid @color_search_border_default;
   font-size: @font_size_search_input_text;
   overflow: hidden;
   background-color: @color_search_input_bg;
   text-shadow: 0 0 0 @color_search_text_done;
   color: @color_search_border_typing;
   -webkit-text-fill-color: transparent;
+
   &:focus {
     text-shadow: 0 0 0 @color_search_text_typing;
     border-color: @color_search_border_typing;
@@ -60,7 +61,7 @@ input[type="search"][disabled]{
   background-color:transparent;
 }
 input[type="search"].ui-search-input.ui-state-disabled {
-  text-shadow: 0px 0px 0px @color_search_text_dim;
+  text-shadow: 0 0 0 @color_search_text_dim;
   border-bottom: 2px solid @color_search_text_dim;
 
   &::-webkit-input-placeholder {
@@ -72,3 +73,86 @@ input[type="search"].ui-search-input.ui-state-disabled {
 	background-color: @color_search_clear_icon_dim;
   }
 }
+
+@searchbar_margin_right: (17 + 15) * @unit_base;
+
+// Icon from right width, + margin from right , +2 + 15 (space between icon based on UX Guide)
+@searchbar_space_from_right: (80 + 17 + 2 + 15) * @unit_base;
+@searchbar_space_from_left: (80 + 10) * @unit_base;
+@searchbar_cutoff_icon_left: @searchbar_space_from_left + @searchbar_margin_right;
+@searchbar_space_from_both: @searchbar_space_from_left + @searchbar_space_from_right;
+
+.ui-header {
+  input[type="search"].ui-search-input {
+    color: @color_header_search_text_cursor;
+    border-bottom-color: @color_header_search_line;
+    position: absolute;
+    height: 80 * @unit_base;
+    margin-top: 15 * @unit_base;
+    text-shadow: 0 0 0 @color_header_search_text_done;
+    display: block;
+    box-sizing: border-box;
+    margin-left: 10 * @unit_base;
+    margin-right: @searchbar_margin_right;
+    width: ~"calc(100% - @{searchbar_margin_right})";
+    overflow: visible;
+
+    &:focus,
+    &:active {
+      text-shadow: 0 0 0 @color_header_search_text;
+    }
+
+    &[disabled],
+    &.ui-state-disabled {
+      text-shadow: 0 0 0 @color_header_search_text_done_dim;
+
+      &::-webkit-input-placeholder {
+        color: @color_header_search_placeholder_text_dim;
+      }
+
+    }
+
+    &::-webkit-input-placeholder {
+      color: @color_header_search_placeholder_text;
+    }
+
+    &::-webkit-search-cancel-button {
+      margin-right: -15 * @unit_base;
+      border-radius: 40px;
+
+      position: relative;
+      right: 0;
+      top: 0;
+
+      -webkit-mask-image: none;
+      background: transparent url("images/core_button_icon_clear.png") center center no-repeat;
+      background-size: 70 * @unit_base 70 * @unit_base;
+      -webkit-transition: top .2s, right .2s, width .2s, height .2s, background-color .2s;
+      transition: top .2s, right .2s, width .2s, height .2s, background-color .2s;
+
+      &:active {
+        background-color: @color_header_search_clear_icon_press;
+        height: 114 * @unit_base;
+        width: 114 * @unit_base;
+        right: -17 * @unit_base;
+        top: -17 * @unit_base;
+      }
+    }
+  }
+}
+
+.ui-header-btn-right ~ .ui-header-btn-left ~ input[type="search"].ui-search-input,
+.ui-header-btn-left ~ .ui-header-btn-right ~ input[type="search"].ui-search-input {
+  width: ~"calc(100% - @{searchbar_space_from_both})";
+  margin-left: @searchbar_space_from_left;
+}
+
+.ui-header-btn-left ~ input[type="search"].ui-search-input {
+  width: ~"calc(100% - @{searchbar_cutoff_icon_left})";
+  margin-left: @searchbar_space_from_left;
+}
+
+.ui-header-btn-right ~ input[type="search"].ui-search-input {
+  width: ~"calc(100% - @{searchbar_space_from_right})";
+}
+

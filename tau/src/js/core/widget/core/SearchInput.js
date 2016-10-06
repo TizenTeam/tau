@@ -92,11 +92,7 @@
             prototype._build = function (element) {
                 var searchInputClassList = element.classList;
 
-                if (!searchInputClassList.contains(classes.SEARCHINPUT)) {
-                    searchInputClassList.add(classes.SEARCHINPUT);
-                }
-
-                searchInputClassList.add(classes.uiSearchInput);
+                searchInputClassList.add(classes.SEARCHINPUT);
 
                 if (!element.getAttribute("placeholder")) {
                     element.setAttribute("placeholder", "Search");
