@@ -25,10 +25,14 @@
 					BTN_CIRCLE: "ui-btn-circle",
 					BTN_NOBG: "ui-btn-nobg",
 					BTN_ICON_ONLY: "ui-btn-icon-only",
+					BTN_TEXT_LIGHT: "ui-btn-text-light",
+					BTN_TEXT_DARK: "ui-btn-text-dark",
 					BTN_ICON_POSITION_PREFIX: "ui-btn-icon-"
 				},
 				buttonStyle = {
 					CIRCLE: "circle",
+					TEXTLIGHT: "light",
+					TEXTDARK: "dark",
 					NOBG: "nobg"
 				},
 
@@ -78,6 +82,12 @@
 					case buttonStyle.NOBG:
 						buttonClassList.remove(classes.BTN_CIRCLE);
 						buttonClassList.add(classes.BTN_NOBG);
+						break;
+					case buttonStyle.TEXTLIGHT:
+						buttonClassList.add(classes.BTN_TEXT_LIGHT);
+						break;
+					case buttonStyle.TEXTDARK:
+						buttonClassList.add(classes.BTN_TEXT_DARK);
 						break;
 					default:
 				}
