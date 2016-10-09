@@ -956,7 +956,7 @@ module.exports = function(grunt) {
 	grunt.registerTask("image", [ "copy:wearableDefaultImages", "copy:mobileDefaultImages", "copy:tvDefaultImages" ]);
 	grunt.registerTask("image-changeable", [ "copy:wearableChangeableImages", "copy:wearableColorThemeImages", "copy:mobileChangeableImages" ]);
 	grunt.registerTask("css", [ "clean:theme", "less", "themeConverter", "cssmin", "image", "image-changeable", "symlink" ]);
-	grunt.registerTask("css-mobile", [ "clean:theme", "less:mobile", "themeConverter:mobile", "cssmin", "copy:mobileDefaultImages", "copy:wearableColorThemeImages", "symlink:mobileDefaultTheme" ]);
+	grunt.registerTask("css-mobile", [ "clean:theme", "less:mobile", "themeConverter:mobile", "cssmin", "copy:mobileDefaultImages", "copy:wearableColorThemeImages", "copy:mobileChangeableImages", "symlink:mobileDefaultTheme" ]);
 	grunt.registerTask("js", [ "clean:js", "requirejs", "jsmin", "themesjs", "copy:mobileJquery", "copy:animation" ]);
 	grunt.registerTask("js-mobile", [ "clean:js", "requirejs:mobile", "jsmin", "themesjs", "copy:mobileJquery", "copy:animation" ]);
 	grunt.registerTask("license", [ "concat:licenseJs", "concat:licenseDefaultCss", "concat:licenseChangeableCss", "concat:licenseWearableCss", "copy:license" ]);
