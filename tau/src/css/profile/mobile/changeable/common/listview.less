@@ -75,3 +75,35 @@
 		}
 	}
 }
+
+/*************** No Anchor listview details and transparent ****************/
+.ui-listview {
+	.ui-li-static {
+		position: relative;
+		color: white;
+		background-color: transparent;
+		border: none;
+		padding: 24 * @unit_base 32 * @unit_base 23 * @unit_base 32 * @unit_base;
+		height: 97 * @unit_base;
+		line-height: 54 * @unit_base;
+
+		&.li-has_icon {
+			padding: 128 * @unit_base 32 * @unit_base 23 * @unit_base 32 * @unit_base;
+			img {
+				position: absolute;
+				top: 40 * @unit_base;
+				left: 32 * @unit_base;
+			}
+		}
+
+		.li-text-sub {
+			color: white;
+			height: 43 * @unit_base;
+			position: initial;
+			float: none;
+			text-align: left;
+			display: block;
+			line-height: 43 * @unit_base;
+		}
+	}
+}

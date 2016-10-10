@@ -85,7 +85,8 @@
 				Listview = function () {
 				},
 				classes = {
-					LISTVIEW: "ui-listview"
+					LISTVIEW: "ui-listview",
+					DETAILS: "ui-details"
 				},
 				prototype = new BaseWidget();
 
