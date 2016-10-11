@@ -227,6 +227,16 @@ module.exports = function(grunt) {
 						src: [ path.join(srcJs, "**/*.js") ]
 					}
 				},
+				"js-ci": {
+					options: {
+						jshintrc: path.join(srcJs, ".jshintrc"),
+						reporter: require("jshint-junit-reporter"),
+						reporterOutput: "report/jshint/junit-output.xml"
+					},
+					files: {
+						src: [ path.join(srcJs, "**/*.js") ]
+					}
+				},
 				single: {
 					options: {
 						jshintrc: "src/js/.jshintrc",
@@ -747,6 +757,9 @@ module.exports = function(grunt) {
 				]
 			},
 
+			qunit_junit: {
+			},
+
 			"qunit-tap": {
 			},
 
@@ -1010,4 +1023,5 @@ module.exports = function(grunt) {
 	grunt.registerTask("build-mobile", ["clean", "lint", "css-mobile", "globalize", "js-mobile", "license", "version"]);
 	grunt.registerTask("release", [ "build", "test", "sdk-docs" ]);
 	grunt.registerTask("default", [ "release" ]);
+	grunt.registerTask("ci", [ "test:wearable", "test:mobile", "test:mobile_support", "test:jqm", "test:jqm14ok", "jshint:js-ci" ]);
 };

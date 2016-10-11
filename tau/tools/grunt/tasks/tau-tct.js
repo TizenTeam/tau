@@ -6,7 +6,7 @@ module.exports = function(grunt) {
 	var DOWNLOAD_PATH = process.env.TCT,
 		shell = require("shelljs"),
 		path = require("path"),
-		relativePath = path.relative("./", DOWNLOAD_PATH);
+		relativePath = path.relative("./", DOWNLOAD_PATH || "");
 
 
 	grunt.registerTask("prepare", "Prepare", function(profile) {
