@@ -260,12 +260,6 @@
     "height": 428
   },
   {
-    "name": "173-search-bar-clear-button",
-    "time": 3000,
-    "width": 402,
-    "height": 714
-  },
-  {
     "name": "165-empty-state",
     "time": 3000,
     "width": 336,
@@ -288,6 +282,12 @@
     "time": 3000,
     "width": 720,
     "height": 1240
+  },
+  {
+    "name": "173-search-bar-clear-button",
+    "time": 3000,
+    "width": 402,
+    "height": 714
   },
   {
     "name": "176-details",
