@@ -7,52 +7,52 @@
 	height: 110 * @unit_base;
 	&.ui-tabbar-with-icon {
 		a {
-			&::after {
+			.display-flex();
+			.justify-content(center);
+			.align-items(center);
+			.flex-direction(column);
+			&:after {
 				content: "";
-				position: absolute;
+				display: inline-block;
+				position: relative;
 				width: 60 * @unit_base;
 				height: 60 * @unit_base;
 				background-color: @color_tabbar_icon_bg_normal;
-				-webkit-mask-position: 0 0;
-				-webkit-mask-size: 100% 100%;
-				-webkit-mask-repeat: no-repeat;
-				.transform(translate(-50%, -50%));
+				.mask-position(0 0);
+				.mask-size(100% 100%);
+				.mask-repeat(no-repeat);
 			}
 			&.ui-tab-active:after {
 				background-color: @color_tabbar_icon_bg_press;
+			}
+			span:before {
+				bottom: -8 * @unit_base;
 			}
 		}
 	}
 	&.ui-tabbar-portrait, &.ui-tabbar-landscape {
 		&.ui-tabbar-with-title {
-			height: 74 * @unit_base;
+			height: 80 * @unit_base;
 			&.ui-tabbar-with-icon {
-				height: 74 * @unit_base;
+				height: 80 * @unit_base;
 				a {
-					font-size: 36 * @unit_base;
-					&::after {
-						top: 35%;
-						left: 35%;
-						width: 60 * @unit_base;
-						height: 60 * @unit_base;
-						.transform(translate(-50%, -50%));
+					.align-items(flex-start);
+					.flex-direction(row);
+					font-size: 38 * @unit_base;
+					line-height: 62 * @unit_base; // this value is calculated from Guideline
+					span:before {
+						bottom: 0;
 					}
-					&.ui-tab-no-text {
-						&::after {
-							top: 50%;
-							left: 50%;
-						}
-					}
-					span {
-						top: 35%;
+					&:after {
+						width: 48 * @unit_base;
+						height: 48 * @unit_base;
+						margin-top: 4 * @unit_base;
+						margin-right: 9 * @unit_base;
 					}
 				}
 			}
 			a {
 				font-size: 38 * @unit_base;
-				span {
-					top: 38%;
-				}
 			}
 		}
 	}
@@ -62,24 +62,6 @@
 			height: 144 * @unit_base;
 			a {
 				font-size: 30 * @unit_base;
-				span {
-					top: 70%;
-				}
-				&::after {
-					top: 30%;
-					left: 50%;
-				}
-				&.ui-tab-no-text {
-					&::after {
-						top: 50%;
-						left: 50%;
-					}
-				}
-			}
-		}
-		&.ui-tabbar-with-title.ui-tabbar-with-icon {
-			span {
-				left: 58%;
 			}
 		}
 	}
@@ -87,34 +69,13 @@
 	&.ui-tabbar-landscape {
 		&.ui-tabbar-with-icon {
 			height: 110 * @unit_base;
-			a {
-				span {
-					left: 60%;
-				}
-				&::after {
-					top: 50%;
-					left: 30%;
-				}
-				&.ui-tab-no-text {
-					&::after {
-						top: 50%;
-						left: 50%;
-					}
-				}
-			}
-		}
-		&.ui-tabbar-with-title.ui-tabbar-with-icon {
-			span {
-				left: 58%;
-			}
-			a::after {
-				left: 43%;
-			}
 		}
 	}
 	a {
 		font-size: 38 * @unit_base;
-		display: block;
+		.display-flex();
+		.justify-content(center);
+		.align-items(center);
 		position: absolute;
 		left: 0;
 		top: 0;
@@ -123,24 +84,23 @@
 		text-decoration: none;
 		color: @color_tabbar_text_normal;
 		span {
-			position: absolute;
-			top: 45%;
-			left: 50%;
-			.transform(translate(-50%, -50%));
-			&::before {
+			position: relative;
+			.order(1);
+			margin-bottom: 9 * @unit_base;
+			&:before {
 				content: "";
 				position: absolute;
-				width: 90%;
-				height: 3 * @unit_base;
+				width: 92%;
+				height: 4 * @unit_base;
 				background-color: @color_tabbar_border_active;
-				bottom: -8 * @unit_base;
+				bottom: -6 * @unit_base;
 				.transform(scale(0));
-				left: 5%;
+				left: 4%;
 			}
 		}
 		&.ui-tab-active {
 			color: @color_tabbar_text_selected;
-			span::before {
+			span:before {
 				.transform(scale(1));
 				.transition(-webkit-transform 100ms);
 			}
