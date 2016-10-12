@@ -16,7 +16,7 @@
 		height: 104 * @unit_base;
 		line-height: 76 * @unit_base;
 		margin: 22 * @unit_base 16 * @unit_base;
-		font-size: 40 * @unit_base;
+		font-size: @font_size_button_text;
 		background-color: @color_bottom_button_bg;
 		&:first-child {
 			margin: 22 * @unit_base 16 * @unit_base 22 * @unit_base 32 * @unit_base;
@@ -26,6 +26,9 @@
 		}
 		&:only-child {
 			margin: 22 * @unit_base 32 * @unit_base;
+		}
+		&:active:not(.ui-btn-circle):not(.ui-btn-nobg):not(.ui-floatingactions-item) {
+			background-color: @color_button_bottom_bg_press;
 		}
 	}
 }

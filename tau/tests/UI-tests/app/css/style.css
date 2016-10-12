@@ -105,7 +105,7 @@
 }
 
 /*************************************************
-				Listview
+                Listview
 **************************************************/
 .li-text-sub {
 	position: absolute;
@@ -548,7 +548,7 @@
 }
 
 /****************************************************************/
-/*			Search Input demo			*/
+/*            Search Input demo            */
 /****************************************************************/
 .search-input-area{
 	width: 100%;
@@ -563,7 +563,7 @@
 }
 
 /**************************************
-			TABS Badge
+            TABS Badge
 ***************************************/
 .tabs-badge {
 	position: absolute;
@@ -578,7 +578,7 @@
 }
 
 /**************************************
-			Virtual List
+            Virtual List
 ***************************************/
 .virtual-icon {
 	width: 35px;
@@ -651,6 +651,9 @@
 	position: absolute;
 	left: 63px;
 	top: 32px;
+	height: 22px;
+	min-height: 22px;
+	font-size:15px;
 }
 #button-page  #top #intro2 p {
 	position: absolute;
