@@ -291,12 +291,12 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../../../core/engine",
-			"../../../core/util/DOM/css",
-			"../../../core/util/selectors",
-			"../../../core/widget/core/Page",
-			"../../../core/widget/core/Scrollview",
-			"../../../profile/mobile/widget/mobile/BaseWidgetMobile"
+			"../../../../core/engine",
+			"../../../../core/util/DOM/css",
+			"../../../../core/util/selectors",
+			"../../../../core/widget/core/Page",
+			"../../../../core/widget/core/Scrollview",
+			"./BaseWidgetMobile"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
@@ -330,6 +330,7 @@
 						thumb: null,
 						track: null,
 						handle: null,
+						expander: null,
 						page: null
 					};
 					/**
@@ -413,6 +414,7 @@
 					};
 				},
 				engine = ns.engine,
+				tauEvent = ns.event,
 				CSSUtils = ns.util.DOM,
 				selectors = ns.util.selectors,
 				PageClasses = ns.widget.core.Page.classes,
@@ -446,6 +448,7 @@
 					track: "ui-handler-track",
 					handle: "ui-handler-handle",
 					thumb: "ui-handler-thumb",
+					expander: "ui-handler-expander",
 					visible: "ui-handler-visible",
 					themePrefix: "ui-handler-",
 					scrollbarDisabled: "scrollbar-disabled",
@@ -531,7 +534,7 @@
 
 			/**
 			 * Handles scroll update event
-			 * @param {ns.widget.mobile.ScrollHandler}
+			 * @param {ns.widget.mobile.ScrollHandler} self
 			 * @member ns.widget.mobile.ScrollHandler
 			 * @private
 			 * @static
@@ -547,7 +550,7 @@
 
 			/**
 			 * Handles scroll stop event
-			 * @param {ns.widget.mobile.ScrollHandler}
+			 * @param {ns.widget.mobile.ScrollHandler} self
 			 * @member ns.widget.mobile.ScrollHandler
 			 * @private
 			 * @static
@@ -622,16 +625,20 @@
 					touches = event.touches,
 					touch = touches && touches[0],
 					parent = self.element.parentNode;
+
+				// remove timer
+				if (self._hideTimer) {
+					window.clearTimeout(self._hideTimer);
+				}
+
 				self._dragging = true;
-				self._lastPointerEvents = CSSUtils.getCSSProperty(parent, "pointer-events");
-				// this is just for scroll speedup purposes
-				// through method since we are using important flag
-				parent.style.setProperty("pointer-events", "none", "important");
 				lastMouse.x = touch ? touch.clientX : event.clientX;
 				lastMouse.y = touch ? touch.clientY : event.clientY;
 
-				event.stopImmediatePropagation();
-				event.preventDefault();
+				self.ui.handle.classList.add("ui-active");
+
+				tauEvent.stopImmediatePropagation(event);
+				tauEvent.preventDefault(event);
 			}
 
 			/**
@@ -650,8 +657,8 @@
 				// check for exactly 1 touch event
 				// or a mouse event
 				if (self._dragging && (touches === undefined || touches.length <= 1)) {
-					event.stopImmediatePropagation();
-					event.preventDefault();
+					tauEvent.stopImmediatePropagation(event);
+					tauEvent.preventDefault(event);
 
 					x = touch ? touch.clientX : event.clientX;
 					y = touch ? touch.clientY : event.clientY;
@@ -661,30 +668,28 @@
 
 			/**
 			 * Handles touch end event
-			 * @param {ns.widget.mobile.ScrollHandler}
-			 * @param {MouseEvent|TouchEvent}
+			 * @param {ns.widget.mobile.ScrollHandler} self
+			 * @param {MouseEvent|TouchEvent} event
 			 * @member ns.widget.mobile.ScrollHandler
 			 * @private
 			 * @static
 			 */
 			function handleTouchend(self, event) {
-				var lastPointerEvents = self._lastPointerEvents,
-					parentStyle = self.element.parentNode.style;
+				var ui = self.ui;
+
 				if (self._dragging) {
-					parentStyle.removeProperty("pointer-events");
-					if (lastPointerEvents !== "auto") {
-						parentStyle.setProperty("pointer-events", lastPointerEvents);
-					}
 					self._dragging = false;
 
-					event.stopImmediatePropagation();
-					event.preventDefault();
+					tauEvent.stopImmediatePropagation(event);
+					tauEvent.preventDefault(event);
+
+					ui.handle.classList.remove("ui-active");
 
 					if (self._hideTimer) {
 						window.clearTimeout(self._hideTimer);
 					}
 					self._hideTimer = window.setTimeout(function () {
-						self.ui.handler.classList.remove(classes.visible);
+						ui.handler.classList.remove(classes.visible);
 					}, self.options.delay);
 				}
 			}
@@ -702,9 +707,10 @@
 					nodeStyle,
 					scrollviewViewStyle,
 					handler = document.createElement("div"),
-					handle = document.createElement("div"),
+					handle = document.createElement("a"),
+					expander = document.createElement("span"),
 					track = document.createElement("div"),
-					thumb = document.createElement("div"),
+					thumb = document.createElement("span"),
 					options = this.options,
 					ui = this.ui;
 
@@ -713,13 +719,15 @@
 				node = ScrollviewBuild.call(this, element);
 
 				handler.className = classes.handler + " " + classes.themePrefix + options.handlerTheme + " " + classes.directionPrefix + options.direction;
+				expander.className = classes.expander;
 				handle.className = classes.handle;
 				thumb.className = classes.thumb;
 				track.className = classes.track;
 
 				handle.setAttribute("aria-label", (options.direction === "y" ? "Vertical" : "Horizontal") + " handler, double tap and move to scroll");
 
-				handle.appendChild(thumb);
+				expander.appendChild(thumb);
+				handle.appendChild(expander);
 				track.appendChild(handle);
 				handler.appendChild(track);
 
@@ -745,6 +753,7 @@
 
 				ui.handler = handler;
 				ui.handle = handle;
+				ui.expander = expander;
 				ui.track = track;
 				ui.thumb = thumb;
 
@@ -802,20 +811,17 @@
 					ui = self.ui,
 					handle = ui.handle,
 					handleStyle = handle.style,
-					handlerStyle = ui.handler.style,
-					clipHeight = CSSUtils.getElementHeight(element, "inner", true),
-					clipWidth = CSSUtils.getElementWidth(element, "inner", true),
+					trackRect = ui.track.getBoundingClientRect(),
+					clipHeight = trackRect.height,
+					clipWidth = trackRect.width,
 					view = element.querySelector("." + Scrollview.classes.view),
-					viewHeight = CSSUtils.getElementHeight(view, "inner", true),
-					viewWidth = CSSUtils.getElementWidth(view, "inner", true),
-					clipOffset = CSSUtils.getElementOffset(element),
-					offsetTop = clipOffset.top || 0,
-					marginRight = window.innerWidth - clipWidth - clipOffset.left || 0;
+					viewRect = view.getBoundingClientRect(),
+					viewHeight = viewRect.height,
+					viewWidth = viewRect.width;
 
 
 				if (self.options.direction === 'y') {
 					handleStyle.height = floor(clipHeight / viewHeight * clipHeight) + 'px';
-					handlerStyle.marginTop = offsetTop + "px";
 				} else {
 					handleStyle.width = floor(clipWidth / viewWidth * clipWidth) + 'px';
 				}
@@ -825,9 +831,6 @@
 
 				self._availableOffsetX = max(0, viewWidth - clipWidth);
 				self._availableOffsetY = max(0, viewHeight - clipHeight);
-
-				// set handler to be on the right side of clip
-				handlerStyle.marginRight = marginRight + "px";
 			};
 
 			/**
@@ -859,6 +862,7 @@
 				document.addEventListener("vmousemove", callbacks.touchmove, false);
 				document.addEventListener("vmouseup", callbacks.touchend, false);
 				window.addEventListener("throttledresize", callbacks.resize, false);
+				document.addEventListener("touchcancel", callbacks.touchend, true);
 
 			};
 
@@ -958,6 +962,7 @@
 				ui.page.removeEventListener("pageshow", callbacks.touchstart, false);
 				document.removeEventListener("vmousemove", callbacks.touchmove, false);
 				document.removeEventListener("vmouseup", callbacks.touchend, false);
+				document.removeEventListener("touchcancel", callbacks.touchend, true);
 				window.removeEventListener("throttledresize", callbacks.resize, false);
 
 				ScrollviewDestroy.call(self);

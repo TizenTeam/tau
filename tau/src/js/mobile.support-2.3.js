@@ -33,7 +33,6 @@
 			"support/mobile/widget/Dialog.route",
 			"support/mobile/widget/Slider.extra",
 			"support/mobile/widget/TizenSlider.extra",
-			"support/mobile/widget/ScrollHandler",
 			"support/mobile/widget/SearchBar",
 			"support/mobile/widget/Swipe",
 			"support/mobile/widget/TextInput",

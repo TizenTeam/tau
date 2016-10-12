@@ -101,6 +101,7 @@
 			"./profile/mobile/widget/mobile/Navigation",
 			"./profile/mobile/widget/mobile/IndexScrollbar",
 			"./profile/mobile/widget/mobile/FloatingActions",
+			"./profile/mobile/widget/mobile/ScrollHandler",
 			"./profile/mobile/widget/mobile/Button",
 			"./core/widget/core/Tabs",
 			"./profile/mobile/widget/mobile/ColoredListview",
