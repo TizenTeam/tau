@@ -1,4 +1,17 @@
 %changelog
+* Wed Oct 12 2016 Tomasz Lukawski <t.lukawski@samsung.com> 0.13.12
+	- (fix) Details page - fixing
+	- fix(mobile): Missing files in build-mobile fix
+	- fix(mobile): Missing link to welcome page
+	- fix(mobile) Empty state page - fixing
+	- fix(mobile) Empty state page - preparing tests
+	- fix(mobile): Welcome page styles
+	- fix(mobile) UIComponents - update of widget examples
+	- fix(mobile) IndexScrollbar has wrong layout
+	- fix(mobile) Welcom Page - preparing test
+	- fix(mobile) Details page (list without background) - preparing test
+	- fix(mobile): SearchBar styles fix
+
 * Wed Oct 05 2016 Tomasz Lukawski <t.lukawski@samsung.com> 0.13.11
 	- fix: no access to required node module (cldr-data@26.0.17)
 
