@@ -3,6 +3,22 @@
  * Pseudo element ::before is reserved for press effect
  */
 
+
+@btn_press_effect_size: (78 * 0.15) * @unit_base;
+
+@keyframes btn_press_animation {
+	0% {
+		border-width: @btn_press_effect_size;
+		top: @btn_press_effect_size;
+		left: @btn_press_effect_size;
+		right: @btn_press_effect_size;
+		bottom: @btn_press_effect_size;
+	}
+	100% {
+		border-width: 0;
+	}
+}
+
 button.ui-btn,
 input[type="button"].ui-btn {
 	.appearance(none);
@@ -31,21 +47,6 @@ a.ui-btn {
 	background-color: @color_button_bg;
 	box-sizing: border-box;
 
-	&:not(.ui-btn-circle):not(.ui-btn-nobg):not(.ui-floatingactions-item) {
-		z-index: 0;
-		border-radius: 52 * @unit_base;
-		&::before {
-			z-index: -1;
-			border-radius: 52 * @unit_base;
-			background-color: @color_button_press_effect;
-		}
-	}
-
-	&.ui-inline {
-		display: inline-block;
-		width: auto;
-	}
-
 	&:not(.ui-floatingactions-item)::before {
 		position: absolute;
 		top: 0;
@@ -54,13 +55,43 @@ a.ui-btn {
 		height: 100%;
 		opacity: 0;
 		content: "";
-		.transform(scale(.7));
-		.transition(-webkit-transform 200ms linear);
 	}
 
-	&:active::before {
-		opacity: 1;
-		.transform(scale(1));
+	&:not(.ui-btn-circle):not(.ui-btn-nobg):not(.ui-floatingactions-item) {
+		z-index: 0;
+		border-radius: 52 * @unit_base;
+
+		&:active {
+			background-color: @color_button_bg_press;
+		}
+
+		&::before {
+			z-index: -1;
+			border-radius: 52 * @unit_base;
+			background-color: @color_button_press_effect;
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			opacity: 0;
+			content: "";
+			width: auto;
+			height: auto;
+			box-sizing: border-box;
+		}
+
+		&:active::before {
+			opacity: 1;
+			animation: btn_press_animation 200ms both;
+			border-style: solid;
+			border-color: transparent;
+		}
+	}
+
+	&.ui-inline {
+		display: inline-block;
+		width: auto;
 	}
 
 	&.ui-state-disabled {
@@ -140,6 +171,7 @@ a.ui-btn {
 		width: 80 * @unit_base;
 		height: 80 * @unit_base;
 		.transform(scale(1));
+		.transition(~"transform .2s, -webkit-transform .2s");
 	}
 	&.ui-icon-add::after {
 		.mask-image("images/controls/core_button_add.png");
@@ -175,7 +207,7 @@ a.ui-btn {
 		background-color: @color_button_icon_nobg_press;
 	}
 	&:active::before {
-		background-color: @color_button_press_effect;
+		background-color: @color_button_icon_nobg_press_effect;
 	}
 }
 
