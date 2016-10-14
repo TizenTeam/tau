@@ -56,14 +56,14 @@
 		font-size: 32 * @unit_base;
 		&.ui-header-btn-icon {
 			width: 80 * @unit_base;
-			height: 70 * @unit_base;
+			height: 80 * @unit_base;
 		}
 		&.ui-header-btn-left.ui-header-btn-icon {
 			top: 15 * @unit_base;
 			left: 10 * @unit_base;
 		}
 		&.ui-header-btn-right.ui-header-btn-icon {
-			top: 13 * @unit_base;
+			top: 15 * @unit_base;
 			right: 17 * @unit_base;
 		}
 
@@ -71,7 +71,7 @@
 			content: "";
 			position: absolute;
 			width: 80 * @unit_base;
-			height: 70 * @unit_base;
+			height: 80 * @unit_base;
 			top: 0;
 			left: 0;
 			.mask-size(100% 100%);
@@ -110,7 +110,7 @@
 			content: "";
 			width: 100%;
 			height: 100%;
-			border-radius: 50%;
+			border-radius: 10 * @unit_base;
 			top: 0;
 			left: 0;
 			opacity: 0;
@@ -118,9 +118,10 @@
 			.transition(-webkit-transform 200ms linear);
 			z-index: -1;
 		}
+
 		&:active::before {
 			opacity: 1;
-			.transform(scale(1.3));
+			.transform(scale(1));
 			background-color: @color_button_nobg_press;
 			.transition(-webkit-transform 200ms linear);
 		}
