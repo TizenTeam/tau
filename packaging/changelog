@@ -1,4 +1,12 @@
 %changelog
+* Wed Oct 19 2016 Tomasz Lukawski <t.lukawski@samsung.com> 0.13.13
+	- fix(mobile) Tabs with title and icon - icon has wrong size
+	- (fix) loading of cldr-data module
+	- fix(mobile) Listview - defaults list styles were overridden by details template
+	- tool(all): tool to control quality of current commit
+	- fix(mobile): Button press style fix
+	- (fix) Prepare new text button type
+
 * Wed Oct 12 2016 Tomasz Lukawski <t.lukawski@samsung.com> 0.13.12
 	- (fix) Details page - fixing
 	- fix(mobile): Missing files in build-mobile fix
