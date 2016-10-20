@@ -752,3 +752,34 @@
 	-webkit-mask-size: 80%;
 	-webkit-mask-position: center center;
 }
+
+/**************************************
+            email-input
+***************************************/
+#emailinput-demo .ui-scrollview-view div{
+    background-color: rgba(250, 250, 250, 1);
+}
+#emailinput-demo #select-custom-1-dropdownmenu {
+    height: 58px;
+}
+#emailinput-demo #text-area {
+    position: relative;
+    height: 248px;
+    padding: 18px 15px;
+    margin: 0 auto;
+    overflow: auto;
+    text-align: justify;
+    font-size: 20px;
+    color: rgba(61, 185, 204, 1);
+}
+#emailinput-demo #text-area .start,
+#emailinput-demo #text-area a {
+    display: inline-block;
+}
+#emailinput-demo #text-area .start {
+    width: 20px;
+    color: black;
+}
+#emailinput-demo #text-area a:active {
+    color: rgba(61, 185, 204, 1);
+}
