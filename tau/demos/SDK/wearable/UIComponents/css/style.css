@@ -89,7 +89,7 @@
 	padding-top: 17px;
 	padding-bottom: 17px;
 	min-height: 108px;
-	line-height: normal;
+	line-height: 1;
 }
 .ui-listview li.li-has-radio.disabled,
 .ui-listview li.li-has-radio.disabled > *,
