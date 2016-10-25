@@ -1,18 +1,24 @@
 .ui-popup.ui-ctxpopup {
 	width: auto;
-	padding:0 0 0 0;
+	padding: 0;
 	background-color: transparent;
+	margin-top: 0;
+	max-width: 100%;
+
 	.ui-popup-content {
 		width: auto;
 		margin: 2 * @unit_base;
+		padding: 0;
 	}
+
 	.ui-popup-wrapper {
 		background-color: @color_ctxpopup_background;
 		border: 2 * @unit_base solid @color_ctxpopup_background_border;
 		border-radius: 10 * @unit_base;
 		box-shadow: none;
-		max-width: 516 * @unit_base;
 		overflow: auto;
+		margin-left: 32 * @unit_base;
+		margin-right: 32 * @unit_base;
 	}
 	:focus {
 		outline:none;
@@ -29,33 +35,100 @@
 	}
 
 	.ui-listview {
-		max-width: 620 * @unit_base;
 		margin: 0;
 		border: none;
+
+		.display-flex();
+
+		li {
+			.flex(1 0 auto);
+		}
+
+		.ui-li-anchor a {
+			font-size: 41 * @unit_base;
+			line-height: 41 * @unit_base;
+			padding: 0 32 * @unit_base;
+			min-height: 72 * @unit_base;
+			.display-flex();
+			.flex-direction(column);
+			.align-items(center);
+			.justify-content(center);
+		}
 	}
 
-	.ui-listview .ui-li {
+	&.ui-ctxpopup-vertical {
+		.ui-listview {
+			.flex-direction(column);
+		}
+
+		.ui-listview .ui-li-anchor a {
+			height: 80 * @unit_base;
+			.flex-direction(row);
+			.align-items(center);
+			.justify-content(flex-start);
+			text-align: left;
+			padding-top: 0;
+			padding-bottom: 0;
+		}
+	}
+
+	.ui-listview li {
 		color: @color_ctxpopup_text;
 		font-size: @font_size_ctxpopup_text;
-		border-top: 1 * @unit_base solid @color_ctxpopup_divider;
-		border-bottom: 1 * @unit_base solid @color_ctxpopup_divider;
+
+		border-top: 0;
+		border-bottom: 0;
+
+		border-right: 0;
+		border-left: 2 * @unit_base solid @color_ctxpopup_divider;
 
 		&:first-child {
-			border-top-width: 0;
+			border-left-width: 0;
 		}
-		&:last-child {
-			border-bottom-width: 0;
-		}
+
 		&.ui-li-anchor {
-			&>a {
+			& > a {
 				box-sizing: border-box;
+				padding-top: 15 * @unit_base;
+				padding-bottom: 15 * @unit_base;
 			}
-			&:not(:last-child){
-				border-bottom: 1px solid @color_ctxpopup_divider;
-			}
+
 			&.ui-li-active {
 				background-color: @color_ctxpopup_btn_press;
 			}
+		}
+	}
+
+	&.ui-ctxpopup-vertical {
+		.ui-listview li {
+			border-top: 2 * @unit_base solid @color_ctxpopup_divider;
+			border-bottom: 0;
+
+			border-right: 0;
+			border-left: 0;
+
+			&:first-child {
+				border-top-width: 0;
+			}
+		}
+	}
+
+	.ui-icon {
+		width: 40 * @unit_base;
+		height: 40 * @unit_base;
+		display: block;
+		vertical-align: middle;
+		margin: 4 * @unit_base auto; // Margin from both to even up flex and give spacing from text
+	}
+
+	&.ui-ctxpopup-vertical {
+		.ui-icon {
+			display: inline-block;
+			vertical-align: middle;
+			margin-top: 0;
+			margin-bottom: 0;
+			margin-right: 20 * @unit_base;
+			margin-left: -4 * @unit_base; // UX Guide 4.3.12 (to avoid setting container class we use negative margin here)
 		}
 	}
 }
