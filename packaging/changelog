@@ -1,4 +1,14 @@
 %changelog
+* Wed Oct 26 2016 Tomasz Lukawski <t.lukawski@samsung.com> 0.13.14
+	- fix(wearable) List with sub text - UI is not as per GUI doc (TSAM-9340)
+	- (test) prepare test for email list
+	- (fix) add example to UIComponents - Popup with gridview multiline
+	- (fix) add example to UIComponents - Popup with gridview 1 line
+	- (fix) Radio button is not centered
+	- mobile(fix): Button in header press effect fix
+	- (fix) Navigation Bar has wrong size of press effect on links
+	- (fix) Bottom Button wrong background color when is pressed
+
 * Wed Oct 19 2016 Tomasz Lukawski <t.lukawski@samsung.com> 0.13.13
 	- fix(mobile) Tabs with title and icon - icon has wrong size
 	- (fix) loading of cldr-data module
