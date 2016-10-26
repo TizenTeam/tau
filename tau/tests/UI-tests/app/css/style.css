@@ -783,3 +783,10 @@
 #emailinput-demo #text-area a:active {
     color: rgba(61, 185, 204, 1);
 }
+
+.details-mock {
+	width: 100%;
+	height: 400px;
+	background-image: url(images/151-details.png);
+	background-size: 100%;
+}
