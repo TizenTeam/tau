@@ -1,5 +1,5 @@
 (function(tau) {
-	var page = document.getElementById("textenveloperPage"),
+	var page = document.getElementById("emailinput-demo"),
 		textEnveloperElement = document.getElementById("textEnveloper"),
 		textEnveloper,
 		newValueBound;
@@ -25,6 +25,8 @@
 		textEnveloper.add("Joe Peters");
 		textEnveloper.add("Ann");
 		textEnveloper.add("Park");
+		textEnveloper.add("Sam Ock");
+		textEnveloper.add("John Lee");
 	});
 
 	/**

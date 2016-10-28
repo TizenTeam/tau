@@ -1,16 +1,97 @@
 .ui-text-enveloper {
-	width: 100%;
-	padding: 10 * @unit_base 0;
-	.ui-text-enveloper-btn {
-		margin: 5 * @unit_base 5 * @unit_base;
-		&.ui-btn.ui-text-enveloper-btn-active {
-			background-color: @color_button_bg_press;
+	z-index: 1;
+	position: relative;
+	min-height: 120 * @unit_base;
+	background-color: transparent;
+	padding: 9 * @unit_base 32 * @unit_base 33 * @unit_base;
+	display: flex;
+	.flex-wrap(wrap);
+
+	.ui-text-enveloper-start {
+		line-height: 54 * @unit_base;
+		height: 54 * @unit_base;
+		font-size: @font_size_enveloper;
+		margin-top: 24 * @unit_base;
+	}
+
+	.ui-btn:not(.ui-btn-circle):not(.ui-btn-nobg):not(.ui-floatingactions-item) {
+		&.ui-text-enveloper-btn-expanded,
+		&.ui-text-enveloper-btn {
+			position: inherit;
+			line-height: 54 * @unit_base;
+			height: 54 * @unit_base;
+			border-radius: 15 * @unit_base;
+			font-size: @font_size_enveloper;
+			margin-top: 24 * @unit_base;
+			padding: 0;
+			min-height: 54 * @unit_base;
+			vertical-align :top;
+			.user-select(none);
 		}
-		&.ui-text-enveloper-btn-blur {
-			display: none;
+		&.ui-text-enveloper-btn {
+			background-color: transparent;
+			color: @color_enveloper_expanded_button_normal;
+
+			&.ui-text-enveloper-btn-blur {
+				display: none;
+			}
+
+			&.ui-text-enveloper-btn-blur + span {
+				display: none;
+			}
+
+			&:active::before {
+				opacity: 1;
+				.animation(none);
+				background-color: @color_button_icon_nobg_press_effect;
+			}
 		}
 	}
+
+	.ui-text-enveloper-start {
+		color: @color_enveloper_start_text;
+		margin-right: 32 * @unit_base;
+		display: inline-block;
+	}
+	.ui-text-enveloper-btn-expanded {
+		color: @color_enveloper_not_active_text;
+	}
+	.ui-text-enveloper-slash {
+		width: 15 * @unit_base;
+		margin: 28 * @unit_base 12 * @unit_base 0 12 * @unit_base;
+		color: @color_enveloper_expanded_button_normal;
+	}
+
 	.ui-text-enveloper-input {
-		margin-top: 5 * @unit_base;
+		display: inline-block;
+		width: auto;
+		.flex(1);
+		min-width: 120 * @unit_base;
+		line-height: 54 * @unit_base;
+		height: 54 * @unit_base;
+		margin-top: 24 * @unit_base;
+		font-size: @font_size_enveloper;
+		color: @color_enveloper_expanded_button_normal;
+		text-shadow: 0 0 0 @color_enveloper_expanded_button_normal;
+		background-color: transparent;
+	}
+
+	.ui-text-enveloper-input:active {
+		color: @color_enveloper_expanded_button_normal;
+		text-shadow: 0 0 0 @color_enveloper_expanded_button_normal;
+		-webkit-text-fill-color: transparent;
+	}
+
+	.ui-text-enveloper-input:focus {
+		color: @color_enveloper_expanded_button_normal;
+		text-shadow: 0 0 0 @color_enveloper_expanded_button_normal;
+		-webkit-text-fill-color: transparent;
+	}
+
+	div {
+		&:nth-child(2) {
+			padding-left: 0;
+			margin-left: 0;
+		}
 	}
 }

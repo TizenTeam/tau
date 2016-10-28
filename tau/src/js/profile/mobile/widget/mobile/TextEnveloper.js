@@ -6,7 +6,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://floralicense.org/license/
+ *    http://floralicense.org/license/
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -136,7 +136,11 @@
 					TEXT_ENVELOPER_INPUT: "ui-text-enveloper-input",
 					TEXT_ENVELOPER_BTN: "ui-text-enveloper-btn",
 					TEXT_ENVELOPER_BTN_ACTIVE: "ui-text-enveloper-btn-active",
-					TEXT_ENVELOPER_BTN_BLUR: "ui-text-enveloper-btn-blur"
+					TEXT_ENVELOPER_BTN_BLUR: "ui-text-enveloper-btn-blur",
+					TEXT_ENVELOPER_BTN_EXPANDED: "ui-text-enveloper-btn-expanded",
+					TEXT_ENVELOPER_START: "ui-text-enveloper-start",
+					TEXT_ENVELOPER_TEXTLINE: "ui-text-input-textline",
+					TEXT_ENVELOPER_SLASH: "ui-text-enveloper-slash"
 				},
 
 				keyCode = {
@@ -200,14 +204,25 @@
 			prototype._build = function (element) {
 				var self = this,
 					ui = self._ui,
-					input = document.createElement("input");
+					input = document.createElement("input"),
+					title = element.querySelector("." + classes.TEXT_ENVELOPER_START),
+					//if title is defined (usually its described as To, Cc, Bcc)
+					//then place it in the proper position
+					tempTitle = (title) ? title.cloneNode(true) : null;
 
 				element.classList.add(classes.TEXT_ENVELOPER);
 				input.classList.add(classes.TEXT_ENVELOPER_INPUT);
+
+				if (tempTitle) {
+					element.removeChild(title);
+					element.appendChild(tempTitle);
+				}
+
 				element.appendChild(input);
 				engine.instanceWidget(input, "TextInput");
 				ui.inputElement = input;
 				ui.buttons = [];
+				element.removeChild(document.querySelector("." + classes.TEXT_ENVELOPER_TEXTLINE));
 				return element;
 			};
 
@@ -270,7 +285,7 @@
 					length = ui.buttons.length,
 					i;
 				self._isBlurred = false;
-				if (ui.buttons.length > 1) {
+				if (length > 1 && ui.buttons[length - 2].classList.contains(classes.TEXT_ENVELOPER_BTN_BLUR)) {
 					self._remove(length - 1);
 				}
 				for (i = 0; i < length - 1; i++) {
@@ -288,6 +303,7 @@
 			prototype._onBlur = function (event) {
 				var self = this,
 					ui = self._ui,
+					input = ui.inputElement,
 					length = ui.buttons.length,
 					firstButtonValue = ui.buttons[0] ? ui.buttons[0].textContent : "",
 					i;
@@ -366,6 +382,25 @@
 					value: value,
 					index: ui.buttons.length - 1
 				}, false);
+				return button;
+			};
+
+			/**
+			 * Create slash to apear after button
+			 * @method _createSlash
+			 * @protected
+			 * @member ns.widget.mobile.TextEnveloper
+			 */
+			prototype._createSlash = function() {
+				var self = this,
+					ui = self._ui,
+					element = self.element,
+					span = document.createElement("span");
+
+				span.innerHTML = "/";
+				span.classList.add(classes.TEXT_ENVELOPER_SLASH);
+				element.insertBefore(span, ui.inputElement);
+				return span;
 			};
 
 			/**
@@ -395,6 +430,7 @@
 			 */
 			prototype.add = function (messages) {
 				this._createButton(messages);
+				this._createSlash();
 			};
 
 			/**
@@ -437,11 +473,7 @@
 
 				if (index < 0 || index > validLength) {
 					console.warn("You insert incorrect index, please check your index value");
-				} else {
-					element.removeChild(buttons[index]);
-					buttons.splice(index, 1);
-				}
-				if (self._isBlurred) {
+				} else if (self._isBlurred) {
 					if (buttons.length > 2) {
 						buttons[buttons.length - 1].textContent = buttons[0].textContent + " + " + (buttons.length - 2);
 					} else if (buttons.length === 2) {
@@ -449,7 +481,14 @@
 						buttons.pop();
 						buttons[0].classList.remove(classes.TEXT_ENVELOPER_BTN_BLUR);
 					}
+				} else {
+					if (buttons[index].nextElementSibling.classList.contains(classes.TEXT_ENVELOPER_SLASH)) {
+						element.removeChild(buttons[index].nextElementSibling);
+					}
+					element.removeChild(buttons[index]);
+					buttons.splice(index, 1);
 				}
+
 				events.trigger(element, eventName.REMOVED, {
 					value: innerText,
 					index: index

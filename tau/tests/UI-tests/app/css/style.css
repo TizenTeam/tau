@@ -191,7 +191,7 @@
 }
 
 /****************************************************************/
-/*			  Multiline List Style							*/
+/*              Multiline List Style                            */
 /****************************************************************/
 .ui-listview .li-has-multiline.ui-li-anchor > a,
 .li-has-multiline.ui-li-static {
@@ -284,7 +284,7 @@
 }
 
 /****************************************************************/
-/*			  Selectable List Style						   */
+/*              Selectable List Style                           */
 /****************************************************************/
 #select-list .li-select-all {
 	padding-left: 16px;
@@ -308,22 +308,22 @@
 	margin: -19px -16px;
 }
 
-.ui-tabbar-with-icon a[data-icon="naviframe-call"]:after {
-    -webkit-mask-image: url("images/00_button_add.png");
-    mask-image: url("images/00_button_add.png");
+.ui-tabbar-with-icon a[data-icon="naviframe-call"]::after {
+	-webkit-mask-image: url("images/00_button_add.png");
+	mask-image: url("images/00_button_add.png");
 }
 
-.ui-tabbar-with-icon a[data-icon="naviframe-favorite"]:after {
-    -webkit-mask-image: url("images/00_icon_favorite_bg_72x72.png");
-    mask-image: url("images/00_icon_favorite_bg_72x72.png");
+.ui-tabbar-with-icon a[data-icon="naviframe-favorite"]::after {
+	-webkit-mask-image: url("images/00_icon_favorite_bg_72x72.png");
+	mask-image: url("images/00_icon_favorite_bg_72x72.png");
 }
 
-.ui-tabbar-with-icon a[data-icon="naviframe-search"]:after {
-    -webkit-mask-image: url("images/00_icon_search.png");
-    mask-image: url("images/00_icon_search.png");
+.ui-tabbar-with-icon a[data-icon="naviframe-search"]::after {
+	-webkit-mask-image: url("images/00_icon_search.png");
+	mask-image: url("images/00_icon_search.png");
 }
 /****************************************************************/
-/*			  Progress Indicator demo						 */
+/*              Progress Indicator demo                         */
 /****************************************************************/
 .activity-bg,
 .progress-bg {
@@ -344,7 +344,7 @@
 }
 
 /****************************************************************/
-/*			  Button Style						   */
+/*                       Button Style                           */
 /****************************************************************/
 .ui-btn-icon.ui-icon-plus:not(.ui-btn-circle) {
 	background-color: transparent;
@@ -432,7 +432,7 @@
 }
 
 /****************************************************************/
-/*					  Text Input demo						 */
+/*                      Text Input demo                         */
 /****************************************************************/
 .textinput-box {
 	margin-top: 17px;
@@ -443,7 +443,7 @@
 }
 
 /****************************************************************/
-/*					  Gallery demo							*/
+/*                      Gallery demo                            */
 /****************************************************************/
 .gallery-section > img {
 	width: 100%;
@@ -454,7 +454,7 @@
 }
 
 /****************************************************************/
-/*					  Grid List							   */
+/*                      Grid List                               */
 /****************************************************************/
 
 #grid-badge-page .ui-gridview-item .grid-badge {
@@ -497,7 +497,7 @@
 }
 
 /****************************************************************/
-/*            Search Input demo            */
+/*                       Search Input demo                      */
 /****************************************************************/
 .search-input-area{
 	width: 100%;
@@ -535,7 +535,7 @@
 }
 
 /**************************************
-			Slider
+            Slider
 ***************************************/
 #slider-demo .ui-slider-vertical {
 	left: 50%;
@@ -544,7 +544,7 @@
 }
 
 /**************************************
-			Button Text
+            Button Text
 ***************************************/
 #button-page {
 	color: white;
@@ -589,7 +589,7 @@
 	padding-top: 1px;
 	font-size: 16px;
 }
-#button-page  #top #intro1  p:nth-of-type(2):after {
+#button-page  #top #intro1  p:nth-of-type(2)::after {
 	clear:both;
 }
 #button-page  #top #intro2 {
@@ -654,12 +654,12 @@
 #button-page #calendar ul li:nth-child(19) {
 	position: relative
 }
-#button-page #calendar ul li:nth-child(19):after {
+#button-page #calendar ul li:nth-child(19)::after {
 	content: "";
 	position: absolute;
 	top:5px;
 	left: 50%;
-    margin-left: -18px;
+	margin-left: -18px;
 	width: 36px;
 	height: 36px;
 	background-color: rgba(20, 20, 20, 0.5);

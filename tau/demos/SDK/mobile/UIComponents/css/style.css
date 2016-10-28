@@ -703,7 +703,6 @@
 }
 
 /* *************** ICONS *************** */
-
 .ui-icon.ui-icon-cut {
 	background: url(images/icon-cut.png) center center no-repeat;
 	background-size: 100%;
@@ -731,4 +730,11 @@
 #textinputwithbuttons-demo .ui-content {
 	top: 80px;
 	background: white;
+}
+
+/**************************************
+            Text Enveloper
+***************************************/
+#textenveloperPage {
+	background: rgb(255,255,255);
 }

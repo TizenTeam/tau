@@ -556,7 +556,7 @@
 
 				self._unbindEvents();
 
-				if (textLine) {
+				if (textLine.parentElement) {
 					textLine.parentElement.removeChild(ui.textLineElement);
 				}
 
