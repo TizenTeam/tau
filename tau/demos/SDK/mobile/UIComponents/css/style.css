@@ -165,6 +165,7 @@
 	top: 50%;
 	margin-top: -13px;
 	left: 16px;
+	margin-left: 0;
 }
 
 /**************** list has checkbox/radio and thumbnail ************/
@@ -240,18 +241,13 @@
 	margin-top: 10px;
 }
 
-.li-has-right-btn .ui-toggle-container:first-child {
-	right: 58px;
-}
-
-
 /****************************************************************/
 /*              Multiline List Style                            */
 /****************************************************************/
 .ui-listview .li-has-multiline.ui-li-anchor > a,
 .li-has-multiline.ui-li-static {
 	padding-top: 11px;
-	padding-bottom: 38px;
+	padding-bottom: 33px;
 }
 .li-has-multiline .li-text-sub {
 	top: 39px;
@@ -494,6 +490,31 @@
 	height: 300px;
 }
 
+.app-icon-search {
+	background-color: blue;
+}
+.app-icon-search-2 {
+	background-color: rgba(0,0,0,0.1);
+}
+.app-icon-favorite {
+	background-color: rgba(255,255,255,0.4);
+}
+.app-icon-search:after {
+	-webkit-mask-image: url("images/00_icon_search.png");
+	mask-image: url("images/00_icon_search.png");
+	background-color: white;
+}
+.app-icon-search-2:after {
+	-webkit-mask-image: url("images/00_icon_search.png");
+	mask-image: url("images/00_icon_search.png");
+	background-color: orange;
+}
+.app-icon-favorite:after {
+	-webkit-mask-image: url("images/00_icon_favorite_bg_72x72.png");
+	mask-image: url("images/00_icon_favorite_bg_72x72.png");
+	background-color: #ffbf30;
+}
+
 /****************************************************************/
 /*                      Text Input demo                         */
 /****************************************************************/
@@ -731,3 +752,5 @@
 	flex-wrap: wrap;
 	-webkit-flex-wrap: wrap;
 }
+
+

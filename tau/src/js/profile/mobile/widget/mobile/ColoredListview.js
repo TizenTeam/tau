@@ -134,7 +134,6 @@
 			 * @member ns.widget.mobile.ColoredListview
 			 */
 			prototype._build = function (element) {
-				ListviewPrototype._build.call(this, element);
 				element.classList.add(classes.COLORED_LIST);
 				return element;
 			};

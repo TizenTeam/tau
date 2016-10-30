@@ -17,6 +17,7 @@
 		overflow: visible;
 		text-align: left;
 		font-size: @font_size_list_main_text;
+		line-height: 54 * @unit_base;
 
 		box-shadow: none;
 		.LESSborder-radius-all(0);
@@ -52,14 +53,14 @@
 
 	.ui-li-anchor {
 		background-color: #fff;
-		border-bottom: 1px solid @color_list_border_bottom;
+		border-bottom: 2 * @unit_base solid @color_list_border_bottom;
 	}
 }
 
 /*************** No Anchor listview common style ****************/
 .ui-listview {
 	.ui-li-static {
-		padding: 35 * @unit_base 32 * @unit_base;
+		padding: 32 * @unit_base 32 * @unit_base;
 		background-color: @color_list_background;
 		border-bottom: 2 * @unit_base solid @color_list_border_bottom; // have to be 2 insted 1 because Tizen not render 0.5px border
 
@@ -75,6 +76,203 @@
 		}
 	}
 }
+
+/*************** No Anchor listview flex style ****************/
+.ui-listview {
+	li.ui-li-flex {
+		.display-flex();
+		padding: 0 * @unit_base 32 * @unit_base;
+		background-color: @color_list_background;
+		border-bottom: 2 * @unit_base solid @color_list_border_bottom; // have to be 2 insted 1 because Tizen not render 0.5px border
+
+		// no wrap text
+		overflow-x: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+
+		&.ui-li-select-all {
+			color: @color_list_select_all;
+
+			label {
+				display: block;
+				input[type=checkbox] {
+					float: right
+				}
+			}
+		}
+
+		.ui-li-text {
+			.display-flex();
+			// no wrap text
+			overflow-x: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			> *:not(.ui-li-text-sub-2) {
+				.flex(1);
+				// no wrap text
+				overflow-x: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+			}
+			.ui-li-text-sub-2 {
+				.align-self(flex-end);
+			}
+			width: 100%;
+		}
+		.ui-li-text-sub {
+			line-height: 44 * @unit_base;
+			font-size: @font_size_list_sub_text;
+			.display-flex();
+			// no wrap text
+			overflow-x: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			> *:not(.ui-li-text-sub-3) {
+				.flex(1);
+				// no wrap text
+				overflow-x: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+			}
+			.ui-li-text-sub-3 {
+				.align-self(flex-end);
+				margin: auto 0 auto auto;
+			}
+			span + .ui-li-text-sub-3 {
+				margin-left: 32 * @unit_base;
+			}
+
+		}
+		.ui-li-text-sub-2 {
+			line-height: 54 * @unit_base;
+			max-width: 218 * @unit_base;
+			margin-left: 32 * @unit_base;
+			font-size: @font_size_list_sub_text_2;
+			float: right;
+		}
+		.ui-li-text-sub-3 {
+			line-height: 44 * @unit_base;
+			max-width: 218 * @unit_base;
+			margin-left: 32 * @unit_base;
+			font-size: @font_size_list_sub_text_3;
+			float: right;
+		}
+		.ui-li-text-sub + .ui-li-text-sub-3 {
+			margin-top: -1rem;
+		}
+
+		.ui-li-area-a {
+			.display-flex();
+			.flex(1);
+			.order(1);
+			min-width: 1%;
+			.flex-direction(row);
+			.justify-content(flex-start);
+			margin-top: 32 * @unit_base;
+			margin-bottom: 32 * @unit_base;
+		}
+		.ui-li-area-b {
+			.order(0);
+		}
+		.ui-li-area-c {
+			.order(3);
+		}
+		.ui-li-area-d {
+			.order(2);
+		}
+		input.ui-li-area-b, .ui-li-area-b {
+			margin: 0 32 * @unit_base 0 0;
+			.align-self(center);
+		}
+
+		input.ui-li-area-c, .ui-li-area-c {
+			margin: 0 0 0 32 * @unit_base;
+			.align-self(center);
+		}
+		input.ui-li-area-d, .ui-li-area-d {
+			margin: 0 0 0 32 * @unit_base;
+			.align-self(center);
+		}
+		.ui-li-icon:after {
+			content: "";
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			.mask-size(100%);
+		}
+		.ui-li-area {
+			&.ui-li-image {
+				width: 120 * @unit_base;
+				height: 120 * @unit_base;
+			}
+			&.ui-li-circle-image {
+				width: 98 * @unit_base;
+				height: 98 * @unit_base;
+				border-radius: 100%;
+			}
+			&.ui-li-icon {
+				width: 64 * @unit_base;
+				height: 64 * @unit_base;
+				position: relative;
+			}
+
+			&.ui-li-area-a {
+				.ui-li-icon {
+					width: 50 * @unit_base;
+					min-width: 50 * @unit_base;
+					max-width: 50 * @unit_base;
+					height: 50 * @unit_base;
+					.align-self(center);
+					position: relative;
+					margin-left: 32 * @unit_base;
+					&.ui-li-icon-left {
+						.order(-1);
+						margin-right: 12 * @unit_base;
+						margin-left: 0;
+					}
+				}
+			}
+			&.ui-li-area-c {
+				&.ui-li-icon {
+					width: 80 * @unit_base;
+					height: 80 * @unit_base;
+					margin-right: -15 * @unit_base;
+					.align-items(center);
+					.justify-content(center);
+					.display-flex();
+					&:after {
+						width: 50 * @unit_base;
+						height: 50 * @unit_base;
+					}
+				}
+			}
+			&.ui-li-area-d {
+				&.ui-li-icon {
+					width: 50 * @unit_base;
+					height: 50 * @unit_base;
+				}
+			}
+		}
+		&.ui-li-multilines .ui-li-area-a {
+			margin-top: 22 * @unit_base;
+			margin-bottom: 22 * @unit_base;
+			.flex-direction(column);
+			.justify-content(center);
+			> .ui-li-icon {
+				position: absolute;
+				right: 32 * @unit_base;
+			}
+		}
+		&.ui-li-flex-reverse {
+			.ui-li-area {
+				.flex-direction(column-reverse);
+			}
+		}
+	}
+}
+
+
+
 
 /*************** No Anchor listview details and transparent ****************/
 .ui-listview.ui-details {

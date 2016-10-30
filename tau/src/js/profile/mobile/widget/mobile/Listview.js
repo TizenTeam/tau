@@ -31,7 +31,7 @@
 			"../../../../core/engine",
 			"../../../../core/widget/core/Listview",
 			"../mobile",
-			"./BaseWidgetMobile",
+			"./BaseWidgetMobile"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
@@ -39,9 +39,16 @@
 				Listview = function () {
 					CoreListview.call(this);
 				},
-				engine = ns.engine;
+				engine = ns.engine,
+				prototype = new CoreListview();
 
-			Listview.prototype = new CoreListview();
+
+			prototype._build = function (element) {
+				element = CoreListview.prototype._build.call(this, element);
+				return element;
+			};
+
+			Listview.prototype = prototype;
 
 			ns.widget.mobile.Listview = Listview;
 			engine.defineWidget(
