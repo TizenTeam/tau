@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width,user-scalable=no"/>
+	<link rel="stylesheet" href="./lib/tau/wearable/theme/default/tau.css">
+	<link rel="stylesheet" href="lib/tau/wearable/theme/default/tau.circle.min.css">
+	<link rel="stylesheet" href="./css/fonts.css">
+	<link rel="stylesheet" href="./css/style.css">
+	<script type="text/javascript" src="./lib/tau/wearable/js/tau.js" data-build-remove="false"></script>
+	<title>Tizen ui</title>
+
+	<!-- for compatibility test -->
+	<meta name="apple-wearable-web-app-capable" content="yes" />
+	<meta name="apple-wearable-web-app-status-bar-style" content="black" />
+</head>
+
+<body>
+	<script>
+		function readTextFile(file, callback) {
+			var rawFile = new XMLHttpRequest();
+			rawFile.overrideMimeType("application/json");
+			rawFile.open("GET", file, true);
+			rawFile.onreadystatechange = function() {
+				if (rawFile.readyState === 4 && (rawFile.status == "200" ||
+						rawFile.status === 0)) {
+					callback(rawFile.responseText);
+				}
+			};
+			rawFile.send(null);
+		}
+
+		var interval = 0;
+
+		readTextFile("test.txt", function(testName) {
+			readTextFile("screenshots.json", function (text) {
+				var tests = JSON.parse(text),
+						first = true;
+				if (testName) {
+					tests = tests.filter(function (item) {
+						return item.name === testName;
+					});
+				}
+				interval = setInterval(function () {
+					var test = tests.shift(),
+							dir = first ? '' : '../';
+					first = false;
+					if (test) {
+						tau.changePage(dir + 'tests/' + test.name +
+								'.html');
+					} else {
+						clearInterval(interval);
+					}
+				}, 1000);
+			});
+		});
+
+
+	</script>
+</body>
+</html>

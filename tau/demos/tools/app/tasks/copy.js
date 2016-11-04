@@ -17,6 +17,8 @@ var fs = require("fs"),
 		"m-0916-1": "mobile",
 		"m-1015-1": "mobile",
 		"000011d200006469": "mobile",
+		"tw1": "wearable",
+    "TW1": "wearable",
 		"<unknown>": "tv",
 		"Wearable-B2": "wearable"
 	},
@@ -35,7 +37,8 @@ var fs = require("fs"),
 		"<unknown>": "tv",
 		"Wearable-B2": "gear"
 	},
-	devicesIds = {};
+	devicesIds = {},
+	globalAppId = '';
 
 module.exports = function (grunt) {
 	"use strict";
@@ -139,10 +142,12 @@ module.exports = function (grunt) {
 	}
 
 	function prepareWGT(dir, appId, profile, done) {
-		exec("tools/tizen-sdk/bin/web-build " + dir + " -e .gitignore .build* .project .settings .sdk_delta.info *.wgt", function () {
-			exec("tools/tizen-sdk/bin/web-signing " + appId + "/.buildResult -n -p default:tools/" + (profile === "tv" ? "tv-" : "") + "profiles.xml", function () {
-				exec("tools/tizen-sdk/bin/web-packaging -n -o " + appId + ".wgt " + dir + "/.buildResult/", function () {
-					done();
+		exec("tools/tizen-sdk/bin/web-build " + dir + " -e .gitignore .build* .settings .sdk_delta.info *.wgt", function () {
+			exec("cp " + dir + ".project " + dir + ".buildResult/", function () {
+				exec("tools/tizen-sdk/bin/web-signing " + dir + ".buildResult -n -p Developer:tools/" + (profile === "tv" ? "tv-" : "") + "profiles.xml", function () {
+					exec("tools/tizen-sdk/bin/web-packaging -n -o " + appId + ".wgt " + dir + "/.buildResult/", function () {
+						done();
+					});
 				});
 			});
 		});
@@ -172,6 +177,45 @@ module.exports = function (grunt) {
 		});
 	}
 
+	function screenshot_tizen_3_0(device, profile, app, appId, screen, done) {
+		var deviceParam = device ? " -s " + device + " " : "";
+		exec("sdb" + deviceParam + " root on", function () {
+			exec("sdb" + deviceParam + " shell enlightenment_info -reslist", function (error, result) {
+				var regexp = new RegExp("^.*" + appId + ".*$", "gm"),
+					match = result.match(regexp)[0],
+					PID = match.split(/\s+/)[2];
+
+				exec("sdb" + deviceParam + " shell enlightenment_info -topvwins", function (error, result) {
+					var regexp = new RegExp("^.*\\\s" + PID + "\\\s.*$", "gm"),
+						match = result.match(regexp)[0],
+						winID = match.split(/\s+/)[2];
+
+					exec("sdb" + deviceParam + " shell 'cd /opt/usr/media;enlightenment_info -dump_topvwins'", function (error, result) {
+						var dir = app + "/../result/" + screen.name,
+							resultDir = result.replace("directory: ", "").replace(/[\r\n]/gm, "");
+
+						exec("sdb" + deviceParam + " pull " + resultDir + "/" + winID + ".png " + dir + ".png", function () {
+							var width = screen.width || 257,
+								height = screen.height || 457;
+
+							exec("convert -resize " + width + "x" + height + "\\! " +  dir + ".png " + dir + ".png", function () {
+								//fs.unlink(dir + ".xwd", function () {
+									exec("sdb" + deviceParam + " root off", function () {
+										done();
+									});
+								//});
+							});
+						});
+					});
+
+				});
+
+			});
+		});
+	}
+
+
+
 	function screenshot(device, profile, app, screen, done) {
 		var deviceParam = device ? " -s " + device + " " : "";
 		exec("sdb" + deviceParam + " root on", function () {
@@ -193,7 +237,7 @@ module.exports = function (grunt) {
 	function openDebuger(device, port, done) {
 		var ip = /^([0-9.]+):/.exec(device),
 			host = (ip && ip[1]) || "localhost",
-			url = "http://" + host + ":" + port + "/inspector.html?page=1";
+			url = "http://" + host + ":" + port + "/";
 		exec("chromium-browser --no-first-run --activate-on-launch  --no-default-browser-check --allow-file-access-from-files " +
 			"--disable-web-security  --disable-translate--proxy-auto-detect --proxy-bypass-list=127.0.0.1  --app=" + url,
 			function () {
@@ -201,16 +245,59 @@ module.exports = function (grunt) {
 			});
 	}
 
-	function run(device, dir, debug, done) {
+	function run_tizen_3_0(device, dir, debug, done) {
 		var config,
 			appId,
 			packageId,
 			deviceParam = device ? " -s " + device + " " : "";
+
 		fs.readFile(dir + "/config.xml", function (err, data) {
 			var parseString = require("xml2js").parseString;
 			parseString(data, function (err, result) {
 				config = result;
 				appId = result.widget["tizen:application"][0].$.id;
+				packageId = result.widget["tizen:application"][0].$.package;
+
+				globalAppId = appId;
+
+				exec("sdb" + deviceParam + " shell app_launcher -k " + appId, function () {
+					exec("sdb" + deviceParam + " shell pkgcmd -un " + packageId, function () {
+						exec("sdb" + deviceParam + " install " + appId + ".wgt", function () {
+							exec("sdb" + deviceParam + " shell app_launcher " + (debug ? "-w" : "") + " -s " + appId, function (error, stdout) {
+								var portRegexp = /port: ([0-9]+)/,
+									match = portRegexp.exec(stdout);
+								if (debug) {
+									if (device.indexOf(":") > -1) {
+										openDebuger(device, match[1], done);
+									} else {
+										exec("sdb" + deviceParam + " forward tcp:" + match[1] + " tcp:" + match[1], function () {
+											openDebuger(device, match[1], done);
+										});
+									}
+								} else {
+									done();
+								}
+							});
+						});
+					});
+				});
+			});
+		});
+	}
+
+
+	function run(device, dir, debug, done) {
+		var config,
+			appId,
+			packageId,
+			deviceParam = device ? " -s " + device + " " : "";
+
+		fs.readFile(dir + "/config.xml", function (err, data) {
+			var parseString = require("xml2js").parseString;
+			parseString(data, function (err, result) {
+				config = result;
+				appId = result.widget["tizen:application"][0].$.id;
+				globalAppId = appId;
 				packageId = result.widget["tizen:application"][0].$.package;
 				exec("sdb" + deviceParam + " shell wrt-launcher -k " + appId, function () {
 					exec("sdb" + deviceParam + " uninstall " + packageId, function () {
@@ -268,6 +355,7 @@ module.exports = function (grunt) {
 			async = require("async"),
 			debug = grunt.option("tau-debug"),
 			noRun = grunt.option("no-run"),
+			tizen_3_0 = grunt.option("tizen-3-0"),
 			app = options.app || "MediaQuriesUtilDemo",
 			src = options["src"],
 			dest = options["dest"],
@@ -308,27 +396,43 @@ module.exports = function (grunt) {
 								} else {
 									if (!noRun) {
 										devices[profile].forEach(function (device) {
-											var screenshots = require('../../../' + app + 'screenshots.json');
-											tasks.push(run.bind(null, device, app, debug));
-											tasks.push(function(next) {
-												setTimeout(function () {
-													next();
-												}, 7000);
-											});
-											if (testToRun) {
-												screenshots = screenshots.filter(function (item) {
-													return item.name === testToRun;
-												});
+											if (tizen_3_0) {
+												tasks.push(run_tizen_3_0.bind(null, device, app, debug));
+											} else {
+												tasks.push(run.bind(null, device, app, debug));
 											}
-											screenshots.forEach(function(screenshotItem) {
-												tasks.push(function (next) {
-													var startTime = Date.now();
-													screenshot(device, profile, app, screenshotItem, function() {
+											fs.exists('../../../' + app + 'screenshots.json', function(exists) {
+												if (exists) {
+													var screenshots = require('../../../' + app + 'screenshots.json');
+													tasks.push(function (next) {
 														setTimeout(function () {
 															next();
-														}, screenshotItem.time - (Date.now() - startTime));
+														}, 10000);
 													});
-												});
+													if (testToRun) {
+														screenshots = screenshots.filter(function (item) {
+															return item.name === testToRun;
+														});
+													}
+													screenshots.forEach(function (screenshotItem) {
+														tasks.push(function (next) {
+															var startTime = Date.now();
+															if (tizen_3_0) {
+																screenshot_tizen_3_0(device, profile, app, globalAppId, screenshotItem, function () {
+																	setTimeout(function () {
+																		next();
+																	}, screenshotItem.time - (Date.now() - startTime));
+																});
+															} else {
+																screenshot(device, profile, app, screenshotItem, function () {
+																	setTimeout(function () {
+																		next();
+																	}, screenshotItem.time - (Date.now() - startTime));
+																});
+															}
+														});
+													});
+												}
 											});
 										});
 										async.series(tasks, done);
