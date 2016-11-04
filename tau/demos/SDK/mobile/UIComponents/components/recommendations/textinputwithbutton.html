@@ -11,14 +11,24 @@
 		<h1>Text Input With Button</h1>
 	</div><!-- /header -->
 	<div class="ui-content">
-		<div class="textinput-box">
-			<a class="ui-btn ui-btn-icon ui-btn-icon-right-with-input btn-icon-back"></a>
-			<input class="has-right-button" type="text" name="texttype" id="texttype1" placeholder="Input text here" data-clear-btn="true"/>
-		</div>
-		<div class="textinput-box">
-			<button id="details" data-inline="true" data-style="light">Send</button>
-			<input type="text" name="texttype" id="texttype2" placeholder="Input text here" data-clear-btn="true"/>
-		</div>
+		<ul class="ui-listview ui-colored-list">
+			<li class="ui-li-static">
+				<div class="textinput-box-with-right-button">
+					<a class="ui-btn ui-btn-icon ui-btn-icon-right-with-input btn-icon-back"></a>
+					<div>
+						<input class="has-right-button" type="text" name="texttype" id="texttype1" placeholder="Input text here" data-clear-btn="true"/>
+					</div>
+				</div>
+			</li>
+			<li class="ui-li-static">
+				<div class="textinput-box-with-right-button">
+					<button id="details" data-inline="true" data-style="light">SEND</button>
+					<div>
+						<input type="text" name="texttype" id="texttype2" placeholder="Input text here" data-clear-btn="true"/>
+					</div>
+				</div>
+			</li>
+		</ul>
 	</div><!-- /content -->
 </div><!-- /page -->
 </body>

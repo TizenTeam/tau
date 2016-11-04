@@ -1,75 +1,177 @@
+@-webkit-keyframes EXPAND {
+	0% {
+		opacity: 1;
+		.transform(scale(1));
+	}
+	50% {
+		opacity: 1;
+		.transform(scale(1.3));
+	}
+	100% {
+		opacity: 0;
+		.transform(scale(1.3));
+	}
+}
+@keyframes EXPAND {
+	0% {
+		opacity: 1;
+		.transform(scale(1));
+	}
+	50% {
+		opacity: 1;
+		.transform(scale(1.3));
+	}
+	100% {
+		opacity: 0;
+		.transform(scale(1.3));
+	}
+}
+
 input, textarea {
-    font-family: @font_family;
+	font-family: @font_family;
 
-    &::-webkit-input-placeholder {
-        text-shadow: 0 0 0 @color_textinput_placeholder;
-    }
+	&::-webkit-input-placeholder {
+		text-shadow: 0 0 0 @color_textinput_placeholder;
+	}
 
-    &.ui-text-input-disabled,
-    &:disabled {
-        &::-webkit-input-placeholder {
-            text-shadow: 0 0 0 @color_textinput_placeholder_text_dim;
-        }
-    }
+	&.ui-text-input-disabled,
+	&:disabled {
+		&::-webkit-input-placeholder {
+			text-shadow: 0 0 0 @color_textinput_placeholder_text_dim;
+		}
+	}
 }
 
 textarea.ui-text-input {
-    resize: none;
-    overflow: hidden;
-    white-space: normal;
-    padding: 30 * @unit_base 32 * @unit_base;
-    .transition(height 200ms linear);
+	resize: none;
+	overflow: hidden;
+	white-space: normal;
+	padding: 30 * @unit_base 32 * @unit_base;
+	.transition(height 200ms linear);
 }
 
 input.ui-text-input {
-    padding: 0 10 * @unit_base;
-    line-height: 27 * @unit_base;
+	padding: 0 10 * @unit_base;
+	line-height: 27 * @unit_base;
 }
 
 input.ui-text-input,
 textarea.ui-text-input {
-    border: 0;
-    margin: 0;
-    .appearance(none);
-    box-sizing: border-box;
-    width: 100%;
-    line-height: 54 * @unit_base;
-    text-shadow: 0 0 0 @color_textinput_text;
-    -webkit-text-fill-color: transparent;
-    font-size: @font_size_textinput_text;
-    background-color: transparent;
-    border: none;
+	border: 0;
+	margin: 0;
+	.appearance(none);
+	box-sizing: border-box;
+	width: 100%;
+	line-height: 54 * @unit_base;
+	text-shadow: 0 0 0 @color_textinput_text;
+	-webkit-text-fill-color: transparent;
+	font-size: @font_size_textinput_text;
+	background-color: transparent;
+	border: none;
+	color: @color_textinput_textline;
 
-    &:focus {
-        outline: none;
-    }
+	&:focus {
+		outline: none;
+	}
 
-    & + .ui-text-input-textline {
-        height: 2 * @unit_base;
-        background: @color_textinput_textline_dim;
-        box-sizing: border-box;
-        display: block;
-        margin-top: 11 * @unit_base;
-    }
+	& + .ui-text-input-textline {
+		height: 2 * @unit_base;
+		background: @color_textinput_textline_dim;
+		box-sizing: border-box;
+		display: block;
+		margin-top: 11 * @unit_base;
+	}
 
-    &:focus + .ui-text-input-textline {
-        background: @color_textinput_textline;
-    }
+	&:focus + .ui-text-input-textline {
+		background: @color_textinput_textline;
+	}
 
-    & ~ .ui-text-input-clear {
-        display: block;
-        float: right;
-        position: relative;
-        top: -80 * @unit_base;
-        box-sizing: border-box;
-        width: 80 * @unit_base;
-        height: 80 * @unit_base;
-        margin-right: -5 * @unit_base;
-        .mask-image("images/controls/core_button_icon_clear.png");
-        .mask-size(contain);
-        background-color: @color_textinput_clear_icon;
-    }
-    & ~ .ui-text-input-clear-hidden {
-        visibility: hidden;
-    }
+	& ~ .ui-text-input-clear {
+		display: block;
+		float: right;
+		position: relative;
+		top: -80 * @unit_base;
+		box-sizing: border-box;
+		width: 80 * @unit_base;
+		height: 80 * @unit_base;
+		margin-right: -5 * @unit_base;
+		.mask-image("images/controls/core_button_icon_clear.png");
+		.mask-size(contain);
+		background-color: @color_textinput_clear_icon;
+	}
+	& ~ .ui-text-input-clear-hidden {
+		visibility: hidden;
+	}
+}
+
+/*special case of buttons and text-inputs:
+- wrapper is added
+- animation for buttons on white background
+*/
+.textinput-box-with-right-button {
+	.display-flex();
+	.flex-wrap(nowrap);
+	.align-items(center);
+	background-color: transparent;
+
+	div {
+		height: 80 * @unit_base;
+		padding: 16 * @unit_base 0 16 * @unit_base 16 * @unit_base;
+		.order(0);
+		.flex(1);
+	}
+
+	button.ui-btn:not(.ui-btn-circle):not(.ui-btn-nobg):not(.ui-floatingactions-item),
+	a.ui-btn:not(.ui-btn-circle):not(.ui-btn-nobg):not(.ui-floatingactions-item) {
+		max-width: 146 * @unit_base;
+		min-width: 80 * @unit_base;
+		.flex-basis(auto);
+		.order(1);
+		width: auto;
+		box-sizing: content-box;
+		margin: 0 32 * @unit_base 0 12 * @unit_base;
+		background-color: transparent;
+		overflow-x: visible;
+		overflow-y: visible;
+		color: rgba(82, 199, 217, 1);
+		.mask-box-image-source(none);
+		.align-self(flex-start);
+		margin-top: 16 * @unit_base;
+
+		&::after {
+			background-color: rgba(82, 199, 217, 1);
+		}
+
+		&::before {
+			background-color: @color_button_icon_nobg_press_effect;
+			opacity: 0;
+		}
+		&:active::before {
+				border-radius: 0;
+				.animation(EXPAND 600ms);
+				.animation-fill-mode(both);
+		}
+
+		&.ui-btn-icon {
+			margin: 0 17 * @unit_base;
+			.mask-position(0 6 * @unit_base);
+			padding: 16 * @unit_base 0;
+		}
+		&.ui-btn-icon::after,
+		&.ui-btn-icon::before {
+			height: 80 * @unit_base;
+        }
+		&.ui-btn-text-light {
+			padding-left: 16 * @unit_base;
+			padding-right: 16 * @unit_base;
+			margin-left: 16 * @unit_base;
+			margin-top: 8 * @unit_base;
+		}
+		&.ui-btn-text-light::before {
+			border-radius: 20 * @unit_base;
+		}
+		&.ui-btn-icon-right-with-input::before {
+			border-radius: 0;
+		}
+	}
 }
