@@ -19,14 +19,19 @@
 		// Update list items
 		// The attached callback is responsible for parsing and inserting HTML elements
 		vlist.setListItemUpdater( function (listElement, newIndex) {
+			// get data
 			var data = JSON_DATA[newIndex],
+				// fetch template
 				template = document.getElementById(templateId).innerHTML;
 
+			// parse template and apply values from fields
 			template = template.replace(/\$\{([\w]+)\}/ig, function (pattern, field) {
 				return data[field];
 			});
 
+			// update cell html with template
 			listElement.innerHTML = template;
+			// apply css classes for element
 			if (Array.isArray(itemClass)) {
 				itemClass.forEach(function(value) {
 					listElement.classList.add(value);

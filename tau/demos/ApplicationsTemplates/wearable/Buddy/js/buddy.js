@@ -11,6 +11,7 @@ document.addEventListener("DOMContentLoaded", function() {
 	function onClick(ev) {
 		// Get widget instance of RadialListview
 		radialListview = tau.widget.RadialListview(buddyList);
+		// if user clicked the first half of the screen, move to next element
 		if (ev.clientY < 180) {
 			radialListview.next();
 		} else {
@@ -18,6 +19,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		}
 	}
 
+	// swipe handler function
 	function onSwipe(ev) {
 		console.log("swipe", ev);
 		// Get widget instance of RadialListview
@@ -39,12 +41,15 @@ document.addEventListener("DOMContentLoaded", function() {
 			tau.event.enableGesture(
 				page,
 				new tau.event.gesture.Swipe({
+					// make swipe respond only to vertical movement
 					orientation: tau.event.gesture.Orientation.VERTICAL
 				})
 			);
 			// bind swipe gesture to page HTML element
 			tau.event.on(page, "swipe", onSwipe);
 
+			// if device is not circle shaped
+			// add support for mouse events
 			if (!tau.support.shape.circle) {
 				page.addEventListener("click", onClick);
 			}
@@ -52,6 +57,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 		// cleanup widget in order to avoid memory leak
 		tau.event.one(page, "pagehide", function () {
+			// if device was not circle shaped, remove mouse events
 			if (!tau.support.shape.circle) {
 				page.removeEventListener("click", onClick);
 			}

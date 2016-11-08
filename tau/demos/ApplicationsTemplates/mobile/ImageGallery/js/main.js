@@ -3,6 +3,7 @@
 		page2 = document.getElementById("two"),
 		getChildren = tau.util.selectors.getChildrenByTag;
 
+	// suport for application exit with hardware back key
 	window.addEventListener( "tizenhwkey", function( ev ) {
 		if( ev.keyName === "back" ) {
 			var activePopup = document.querySelector( ".ui-popup-active" ),
@@ -11,6 +12,8 @@
 
 			if( pageid === "one" && !activePopup ) {
 				try {
+					// exit the application if the user is on the first pageId
+					// and there is no active popup
 					tizen.application.getCurrentApplication().exit();
 				} catch (ignore) {
 				}
@@ -20,17 +23,23 @@
 		}
 	} );
 
+	// initialize application
 	function init() {
+		// get handler for main big image
 		var view = page2.querySelector("img");
 
+		// thumbnail click handler
 		function onClick(ev) {
 			var img = getChildren(ev.target, "img")[0];
 
+			// if thunbnail is found use it src attribute as big image src
 			if (img) {
 				view.src = img.getAttribute("src");
 			}
 		}
 
+		// to prevent double firing of events bind on pageshow
+		// and unbind on pagehide
 		page1.addEventListener("pagebeforeshow", function () {
 			page1.addEventListener("vclick", onClick, true);
 		});

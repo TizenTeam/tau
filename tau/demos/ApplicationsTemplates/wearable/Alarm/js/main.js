@@ -1,16 +1,23 @@
 ( function () {
 	var SwipeButton = tau.widget.SwipeButton,
 		Popup = tau.widget.Popup,
+		// fetch main page
 		page = document.getElementById("main"),
+		// fetch reject button
 		rejectButton = document.getElementById("reject"),
+		// fetch snooze button
 		snoozeButton = document.getElementById("snooze");
 
+	// support application exit
 	window.addEventListener( "tizenhwkey", function( ev ) {
 		if( ev.keyName === "back" ) {
 			var activePopup = document.querySelector( ".ui-popup-active" ),
 				page = document.getElementsByClassName( "ui-page-active" )[0],
 				pageid = page ? page.id : "";
 
+			// exit application if tizen hardware back key is pressed
+			// and we are on the main page and there is no active popup
+			// opened
 			if( pageid === "main" && !activePopup ) {
 				try {
 					tizen.application.getCurrentApplication().exit();
@@ -22,6 +29,11 @@
 		}
 	} );
 
+	/**
+	 Reject button swiped handler
+	 @private
+	 @static
+	*/
 	function rejectButtonSwiped() {
 		var popupElement = document.getElementById("info"),
 			popupContainer = popupElement.querySelector(".ui-popup-content");
@@ -30,6 +42,11 @@
 		Popup(popupElement).open();
 	}
 
+	/**
+	 Snooze button swiped handler
+	 @private
+	 @static
+	*/
 	function snoozeButtonSwiped() {
 		var popupElement = document.getElementById("info"),
 			popupContainer = popupElement.querySelector(".ui-popup-content");
@@ -63,4 +80,4 @@
 	page.addEventListener("pagebeforeshow", init, false);
 	page.addEventListener("pagehide", exit, false);
 
-} () );
+}());
