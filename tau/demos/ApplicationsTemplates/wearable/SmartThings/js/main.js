@@ -1,4 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
+	'use strict';
+
 	var mainPageId = "one";
 
 	// Handle for app exit
@@ -9,10 +11,11 @@ document.addEventListener("DOMContentLoaded", function () {
 				pageid = page ? page.id : "";
 
 			if (pageid === mainPageId && !activePopup) {
+				/* eslint-disable no-empty */
 				try {
 					tizen.application.getCurrentApplication().exit();
-				} catch (ignore) {
-				}
+				} catch (ignore) {}
+				/* eslint-enable */
 			} else {
 				window.history.back();
 			}

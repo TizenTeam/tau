@@ -1,4 +1,7 @@
-( function () {
+/*global tizen */
+(function (tau) {
+	'use strict';
+
 	var SwipeButton = tau.widget.SwipeButton,
 		Popup = tau.widget.Popup,
 		// fetch main page
@@ -19,10 +22,11 @@
 			// and we are on the main page and there is no active popup
 			// opened
 			if( pageid === "main" && !activePopup ) {
+				/* eslint-disable no-empty */
 				try {
 					tizen.application.getCurrentApplication().exit();
-				} catch (ignore) {
-				}
+				} catch (ignore) {}
+				/* eslint-enable */
 			} else {
 				window.history.back();
 			}
@@ -80,4 +84,4 @@
 	page.addEventListener("pagebeforeshow", init, false);
 	page.addEventListener("pagehide", exit, false);
 
-}());
+}(window.tau));

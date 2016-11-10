@@ -1,4 +1,6 @@
-(function () {
+(function (tau, tizen) {
+	'use strict';
+
 	var intervalHandle = null,
 		progressValue = 0,
 		playButton = null,
@@ -14,10 +16,11 @@
 				pageId = page ? page.id : "";
 
 			if (pageId === "player" && !activePopup) {
+				/* eslint-disable no-empty */
 				try {
 					tizen.application.getCurrentApplication().exit();
-				} catch (ignore) {
-				}
+				} catch (ignore) {}
+				/* eslint-enable */
 			} else {
 				window.history.back();
 			}
@@ -40,7 +43,19 @@
 			if (progressValue > 100) {
 				progressValue = 0;
 			}
-		}, 100)
+		}, 100);
+	}
+
+	function pause() {
+		playButton.classList.remove("on-play");
+		playButton.classList.add("on-pause");
+		stopProgress();
+	}
+
+	function start() {
+		playButton.classList.remove("on-pause");
+		playButton.classList.add("on-play");
+		startProgress();
 	}
 
 	function change(direction) {
@@ -57,18 +72,6 @@
 		coverElement.classList.add("ui-cover-" + trackId);
 		trackElement.textContent = "Track name " + trackId;
 		start();
-	}
-
-	function pause() {
-		playButton.classList.remove("on-play");
-		playButton.classList.add("on-pause");
-		stopProgress();
-	}
-
-	function start() {
-		playButton.classList.remove("on-pause");
-		playButton.classList.add("on-play");
-		startProgress();
 	}
 
 	function onNext() {
@@ -129,4 +132,4 @@
 
 	document.addEventListener("DOMContentLoaded", init, false);
 
-}());
+}(window.tau, window.tizen));

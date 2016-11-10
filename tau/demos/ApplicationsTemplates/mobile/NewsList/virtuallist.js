@@ -1,6 +1,8 @@
-(function(pageId, listId, templateId, itemClass) {
+(function(tau, news, pageId, listId, templateId, itemClass) {
+	'use strict';
+
 	var page = document.getElementById(pageId),
-		vlist;
+		vlist = null;
 
 	page.addEventListener("pageshow", function() {
 		// Get HTML element reference
@@ -13,14 +15,14 @@
 		// (this is a specially important when data object contains many rows)
 		// length of the entries in data file
 		vlist = tau.widget.VirtualListview(elList, {
-			dataLength: JSON_DATA.length,
+			dataLength: news.length,
 			bufferSize: 40
 		});
 		// Update list items
 		// The attached callback is responsible for parsing and inserting HTML elements
-		vlist.setListItemUpdater( function (listElement, newIndex) {
+		vlist.setListItemUpdater(function (listElement, newIndex) {
 			// get data
-			var data = JSON_DATA[newIndex],
+			var data = news[newIndex],
 				// fetch template
 				template = document.getElementById(templateId).innerHTML;
 
@@ -50,4 +52,4 @@
 		// Remove all children in the vlist
 		vlist.destroy();
 	});
-}(pageId, listId, templateId, itemClass));
+}(window.tau, window.JSON_DATA, window.pageId, window.listId, window.templateId, window.itemClass));

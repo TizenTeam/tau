@@ -1,11 +1,11 @@
-(function () {
+(function (tau) {
 	"use strict";
+
 	var uiControls = null,
 		uiTrack = null,
 		uiControlsTimeout = 2000,
 		uiTrackTimeout = 3000,
 		uiControlsTimeoutStart = 0,
-		uiTrackTimeoutStart = 0,
 		currentTime = 0,
 		progressBarWidget = null,
 		progressBarValue = 0,
@@ -18,17 +18,18 @@
 				pageid = page ? page.id : "";
 
 			if( pageid === "player" && !activePopup ) {
+				/* eslint-disable no-empty */
 				try {
 					tizen.application.getCurrentApplication().exit();
-				} catch (ignore) {
-				}
+				} catch (ignore) {}
+				/* eslint-enable */
 			} else {
 				window.history.back();
 			}
 		}
 	});
 
-	function handleClick() {
+	function handleClick(event) {
 		if (event.target.classList.contains("ui-play-pause") && uiControls.classList.contains("visible")) {
 			playing = !playing;
 			event.target.textContent = playing ? "Pause" : "Play";
@@ -41,7 +42,7 @@
 			}
 		}
 		if (playing) {
-			uiControlsTimeoutStart = uiTrackTimeoutStart = currentTime;
+			uiControlsTimeoutStart = currentTime;
 		}
 	}
 
@@ -68,12 +69,11 @@
 			}
 		}
 
-		requestAnimationFrame(render);
+		window.requestAnimationFrame(render);
 	}
 
 	function init() {
-		var progressBar = document.querySelector(".ui-circle-progress"),
-			progressValue = 0;
+		var progressBar = document.querySelector(".ui-circle-progress");
 
 		progressBarWidget = new tau.widget.CircleProgressBar(progressBar, {size: "full"});
 		uiControls = document.querySelector(".ui-video-player .ui-controls");
@@ -82,10 +82,10 @@
 		uiTrackTimeout = parseInt(uiTrack.dataset.timeout, 10) || uiTrackTimeout;
 
 		// emualtion of track progress
-		requestAnimationFrame(render);
+		window.requestAnimationFrame(render);
 	}
 
 	document.addEventListener("DOMContentLoaded", init, false);
 	document.addEventListener("click", handleClick, false);
 
-} () );
+}(window.tau));

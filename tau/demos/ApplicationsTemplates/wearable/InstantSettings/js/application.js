@@ -1,6 +1,8 @@
 /*global tau */
 /*jslint unparam: true */
 (function(){
+	'use strict';
+
 	var getNSData = tau.util.DOM.getNSData,
 		setNSData = tau.util.DOM.setNSData,
 		page = document.getElementById("main"),
@@ -8,13 +10,13 @@
 		elIndicator = page.querySelector(".ui-selector-indicator"),
 		elIndicatorTitle = elIndicator.querySelector(".title"),
 		elIndicatorStatus = elIndicator.querySelector(".status"),
-		selector;
+		selector = "";
 
 	/**
 	 * Logic for click on indicator
 	 * @param event
 	 */
-	function indicatorClick(event) {
+	function indicatorClick() {
 		var activeElement = elSelector.querySelector(".ui-item-active"),
 			activeElementClasses = activeElement.classList;
 

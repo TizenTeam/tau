@@ -1,4 +1,5 @@
-( function () {
+(function () {
+	'use strict';
 	window.addEventListener( "tizenhwkey", function( ev ) {
 		if( ev.keyName === "back" ) {
 			var activePopup = document.querySelector( ".ui-popup-active" ),
@@ -6,24 +7,28 @@
 				pageid = page ? page.id : "";
 
 			if( pageid === "recorder" && !activePopup ) {
+				/* eslint-disable no-empty */
 				try {
 					tizen.application.getCurrentApplication().exit();
-				} catch (ignore) {
-				}
+				} catch (ignore) {}
+				/* eslint-enable */
 			} else {
 				window.history.back();
 			}
 		}
 	} );
-} () );
+}(window.tizen));
 
 
-( function () {
+(function (tau) {
+	'use strict';
+
 	var floor = Math.floor,
 		page = document.getElementById("recorder"),
 		timeElement = document.getElementById("time"),
 		progressValue = 1,
-		interval;
+		interval = 0,
+		progressBarWidget = null;
 
 	/**
 	 * Setting label with time
@@ -87,8 +92,7 @@
 	 */
 	function init() {
 		var progressBar = page.querySelector(".ui-circle-progress"),
-			recordButton = document.getElementById("record"),
-			pauseButton = document.getElementById("pause");
+			recordButton = document.getElementById("record");
 
 		progressBarWidget = new tau.widget.CircleProgressBar(progressBar, {size: "full"});
 
@@ -99,8 +103,7 @@
 	 * Function called on pagehide
 	 */
 	function exit() {
-		var recordButton = document.getElementById("record"),
-			pauseButton = document.getElementById("pause");
+		var recordButton = document.getElementById("record");
 
 		if (interval) {
 			window.clearInterval(interval);
@@ -112,4 +115,4 @@
 	page.addEventListener("pagebeforeshow", init, false);
 	page.addEventListener("pagehide", exit, false);
 
-} () );
+}(window.tau));

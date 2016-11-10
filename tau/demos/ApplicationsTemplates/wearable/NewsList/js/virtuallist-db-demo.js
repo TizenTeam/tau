@@ -1,3 +1,4 @@
+/* eslint-disable */
 /* Sample Data in JSON : some news feeds. */
 var JSON_DATA = [
 {TITLE:"neque porro", TEXT:"neque porro quisquam est, qui dolorem ipsum quia dolor sit amet", TEAM_LOGO:"images/1.jpg", ARTICLE:"http://www.google.pl"},

@@ -1,4 +1,4 @@
-(function() {
+(function(tau) {
 	"use strict";
 
 		// Get HTML element references
@@ -10,7 +10,7 @@
 		selector = null,
 		clickHandlerBound = null;
 
-	function clickHandler(event) {
+	function clickHandler() {
 		tau.openPopup((tau.support.shape.circle) ? popupCircle : popup);
 	}
 
@@ -45,4 +45,4 @@
 		}
 	});
 
-}());
+}(window.tau));

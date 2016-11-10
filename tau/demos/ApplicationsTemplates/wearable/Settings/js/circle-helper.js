@@ -1,12 +1,14 @@
-/*global tau */
 /*jslint unparam: true */
 (function(tau) {
-	var page,
-		elScroller,
-		list,
+	'use strict';
+
+	var page = null,
+		elScroller = null,
+		list = null,
 		listHelper = [],
 		snapList = [],
-		i, len;
+		i = 0,
+		len = 0;
 
 	if (tau.support.shape.circle) {
 		document.addEventListener("pagebeforeshow", function (e) {
@@ -32,7 +34,7 @@
 			}
 		});
 
-		document.addEventListener("pagebeforehide", function (e) {
+		document.addEventListener("pagebeforehide", function () {
 			len = listHelper.length;
 			if (len) {
 				for (i = 0; i < len; i++) {
@@ -45,4 +47,4 @@
 			}
 		});
 	}
-}(tau));
+}(window.tau));

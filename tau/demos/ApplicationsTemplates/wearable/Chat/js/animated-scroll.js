@@ -1,7 +1,6 @@
-/*global tau */
 /*jslint unparam: true */
 
-(function (tau) {
+(function () {
 	"use strict";
 	/**
 	 * Cache for anim states
@@ -55,6 +54,7 @@
 			element: element,
 			propertyName: options && options.propertyName || "scrollTop"
 		};
+
 		state.render = render.bind(null, state);
 		anims.push(state);
 		return state;
@@ -94,7 +94,5 @@
 		}
 	}
 
-	// add to tau namespace
-	//tau.util.anim.scrollTo = scrollTo;
-	window._animScrollTo = scrollTo
-}(tau));
+	window._animScrollTo = scrollTo;
+}());

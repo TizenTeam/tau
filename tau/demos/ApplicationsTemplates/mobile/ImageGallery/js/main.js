@@ -1,4 +1,7 @@
-( function () {
+/*global tau */
+(function () {
+	'use strict';
+
 	var page1 = document.getElementById("one"),
 		page2 = document.getElementById("two"),
 		getChildren = tau.util.selectors.getChildrenByTag;
@@ -11,12 +14,13 @@
 				pageid = page ? page.id : "";
 
 			if( pageid === "one" && !activePopup ) {
+				/* eslint-disable no-empty */
 				try {
 					// exit the application if the user is on the first pageId
 					// and there is no active popup
 					tizen.application.getCurrentApplication().exit();
-				} catch (ignore) {
-				}
+				} catch (ignore) {}
+				/* eslint-enable */
 			} else {
 				window.history.back();
 			}

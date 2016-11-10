@@ -1,3 +1,4 @@
+/* eslint-disable */
 /* Sample Data in JSON : sample apps list. */
 var JSON_DATA = [{
 		FROM: "<Me>",

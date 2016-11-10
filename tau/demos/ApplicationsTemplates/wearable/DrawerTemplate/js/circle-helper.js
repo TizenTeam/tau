@@ -1,8 +1,9 @@
 /* global window: false */
 (function (window, tau) {
-	var page,
+	'use strict';
+
+	var page = null,
 		elScroller = document.querySelector(".ui-content"),
-		direction = 1,
 		SCROLL_STEP = 50,
 		scrollTo = window._animScrollTo;
 
@@ -15,7 +16,6 @@
 
 	if (tau.support.shape.circle) {
 		document.addEventListener("pagebeforeshow", function (e) {
-			var fn = null;
 
 			page = e.target;
 			elScroller = page.querySelector(".ui-scroller");
@@ -23,7 +23,7 @@
 			document.addEventListener("rotarydetent", onRotary, true);
 		});
 
-		document.addEventListener("pagebeforehide", function (e) {
+		document.addEventListener("pagebeforehide", function () {
 			if (elScroller) {
 				elScroller.removeAttribute("tizen-circular-scrollbar");
 			}

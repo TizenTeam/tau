@@ -1,9 +1,10 @@
+/*global tau, JSON_DATA */
 document.addEventListener("DOMContentLoaded", function() {
-	"use strict";
+	'use strict';
 
 	var page = document.getElementById("one"),
 		classes = ["ui-li-static", "li-has-multiline"],
-		vlist;
+		vlist = null;
 
 	function initVirtuallist(data, listId, templateId, itemClass) {
 		// Get HTML element reference
@@ -28,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function() {
 			});
 
 			// set proper css class for list item
-			listElement.setAttribute("class", (dataItem["FROM"] === "<Me>") ?
+			listElement.setAttribute("class", (dataItem.FROM === "<Me>") ?
 				"li-direction-from" : "li-direction-to");
 
 			listElement.innerHTML = template;

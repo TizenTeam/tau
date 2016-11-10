@@ -1,4 +1,6 @@
 (function (window, document, ns) {
+	'use strict';
+
 	var
 		// tau engine alias
 		engine = ns.engine,
@@ -243,22 +245,22 @@
 	*/
 	prototype.handleEvent = function (event) {
 		switch (event.type) {
-			case "dragstart":
-				this._start(event);
-				break;
-			case "drag":
-				this._move(event);
-				break;
-			case "dragend":
-				this._end(event);
-				break;
-			case "swipe":
-				this._swipe(event);
-				break;
-			case "dragcancel":
-			case "scroll":
-				this._cancel();
-				break;
+		case "dragstart":
+			this._start(event);
+			break;
+		case "drag":
+			this._move(event);
+			break;
+		case "dragend":
+			this._end(event);
+			break;
+		case "swipe":
+			this._swipe(event);
+			break;
+		case "dragcancel":
+		case "scroll":
+			this._cancel();
+			break;
 		}
 	};
 
@@ -268,7 +270,7 @@
 	 @protected
 	 @member SwipeButton
 	*/
-	prototype._start = function (e) {
+	prototype._start = function () {
 		var self = this;
 
 		// setup state variables to defaults
@@ -371,6 +373,7 @@
 	*/
 	prototype._cancel = function () {
 		var self = this;
+
 		self._dragging = false;
 		self._cancelled = true;
 	};

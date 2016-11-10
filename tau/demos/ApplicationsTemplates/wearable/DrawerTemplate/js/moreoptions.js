@@ -1,19 +1,21 @@
 /*global tau */
 /*jslint unparam: true */
 (function(){
+	'use strict';
+
 	var page = document.querySelector("#moreoptionsPage"),
 		popup = page.querySelector("#moreoptionsPopup"),
 		handler = page.querySelector(".ui-more"),
 		popupCircle = page.querySelector("#moreoptionsPopupCircle"),
 		elSelector = page.querySelector("#selector"),
-		selector,
-		clickHandlerBound;
+		selector = "",
+		clickHandlerBound = null;
 
 	/*
 	 * Callback called when more button is pressed
 	 * If circle is support then circle popup is opened
 	 */
-	function clickHandler(event) {
+	function clickHandler() {
 		if (tau.support.shape.circle) {
 			tau.openPopup(popupCircle);
 		} else {

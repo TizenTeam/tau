@@ -1,4 +1,4 @@
-(function () {
+(function (tau) {
 	"use strict";
 
 	window.addEventListener("tizenhwkey", function (ev) {
@@ -8,10 +8,11 @@
 				pageid = page ? page.id : "";
 
 			if (pageid === "one" && !activePopup) {
+				/* eslint-disable no-empty */
 				try {
 					tizen.application.getCurrentApplication().exit();
-				} catch (ignore) {
-				}
+				} catch (ignore) {}
+				/* eslint-enable */
 			} else {
 				window.history.back();
 			}
@@ -19,11 +20,9 @@
 	});
 
 	document.addEventListener("DOMContentLoaded", function () {
-		var page = document.getElementById("one"),
-			// Get HTML element reference
-			galleryElement = document.getElementById("gallery");
+		var galleryElement = document.getElementById("gallery");
 
 		// create gallery widget
 		tau.widget.Gallery(galleryElement);
 	});
-}());
+}(window.tau));

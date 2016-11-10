@@ -1,5 +1,6 @@
+/*global tizen */
 document.addEventListener("DOMContentLoaded", function () {
-	var page = document.getElementById("one");
+	'use strict';
 
 	window.addEventListener("tizenhwkey", function (ev) {
 		if (ev.keyName === "back") {
@@ -8,10 +9,11 @@ document.addEventListener("DOMContentLoaded", function () {
 				pageid = page ? page.id : "";
 
 			if (pageid === "one" && !activePopup) {
+				/* eslint-disable no-empty */
 				try {
 					tizen.application.getCurrentApplication().exit();
-				} catch (ignore) {
-				}
+				} catch (ignore) {}
+				/* eslint-enable */
 			} else {
 				window.history.back();
 			}

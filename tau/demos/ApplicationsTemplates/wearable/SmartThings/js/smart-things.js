@@ -1,3 +1,4 @@
+/*global tau */
 document.addEventListener("DOMContentLoaded", function() {
 	"use strict";
 
@@ -35,7 +36,7 @@ document.addEventListener("DOMContentLoaded", function() {
 			tau.event.on(page, "swipe", onSwipe);
 
 			// make Indicator widget
-			indicator =  tau.widget.PageIndicator(indicatorElement, {
+			indicator = tau.widget.PageIndicator(indicatorElement, {
 				numberOfPages: listElement.querySelectorAll("li").length
 			});
 			// set initial position of Indicator widget
@@ -56,7 +57,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		tau.event.one(page, "pagehide", function () {
 			// Destroy Indicator widget and RadialList widget
 			indicator.destroy();
-			radialList.destroy();
+			radialListview.destroy();
 		});
 
 		// create virtuallist widget

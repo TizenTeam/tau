@@ -1,9 +1,10 @@
+/*global tau, JSON_DATA */
 document.addEventListener("DOMContentLoaded", function() {
 	"use strict";
 
 	var page = document.getElementById("one"),
 		classes = ["ui-li-static", "li-has-multiline", "li-dialog"],
-		vlist;
+		vlist = null;
 
 	function initVirtuallist(data, listId, templateId, itemClasses) {
 		// Get HTML element reference
@@ -29,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 			listElement.setAttribute("class", itemClasses);
 			listElement.classList.add(
-				(dataItem["FROM"] === "<Me>") ?
+				(dataItem.FROM === "<Me>") ?
 					"li-dialog-left" :
 					"li-dialog-right"
 			);

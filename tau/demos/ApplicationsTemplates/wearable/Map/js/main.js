@@ -1,4 +1,6 @@
-( function () {
+(function (tizen) {
+	'use strict';
+
 	var SCROLL_STEP = 50,
 		page = document.getElementById("main");
 
@@ -9,10 +11,11 @@
 				pageid = page ? page.id : "";
 
 			if( pageid === "main" && !activePopup ) {
+				/* eslint-disable no-empty */
 				try {
 					tizen.application.getCurrentApplication().exit();
-				} catch (ignore) {
-				}
+				} catch (ignore) {}
+				/* eslint-enable */
 			} else {
 				window.history.back();
 			}
@@ -31,7 +34,7 @@
 			/* Left direction */
 			scroller.scrollTop -= SCROLL_STEP;
 		}
-	};
+	}
 
 	/**
 	 * Init function called on pagebeforeshow
@@ -58,4 +61,4 @@
 	page.addEventListener("pagebeforeshow", init, false);
 	page.addEventListener("pagehide", exit, false);
 
-} () );
+}(window.tizen));

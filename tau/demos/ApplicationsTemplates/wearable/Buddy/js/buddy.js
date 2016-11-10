@@ -1,5 +1,6 @@
+/*global tau */
 document.addEventListener("DOMContentLoaded", function() {
-	"use strict";
+	'use strict';
 
 	var page = document.getElementById("one"),
 		buddyList = document.getElementById("buddy-list"),
@@ -21,7 +22,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
 	// swipe handler function
 	function onSwipe(ev) {
-		console.log("swipe", ev);
 		// Get widget instance of RadialListview
 		radialListview = tau.widget.RadialListview(buddyList);
 		// Change radiallist depending from swipe direction
@@ -61,7 +61,10 @@ document.addEventListener("DOMContentLoaded", function() {
 			if (!tau.support.shape.circle) {
 				page.removeEventListener("click", onClick);
 			}
-			radialList.destroy();
+
+			if (radialListview) {
+				radialListview.destroy();
+			}
 		});
 
 		// create radiallistview widget

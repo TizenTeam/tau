@@ -23,8 +23,7 @@
  */
 (function (document, ns) {
 	"use strict";
-	var gallery = ns.widget.wearable.Gallery,
-		history = ns.router.history,
+	var history = ns.router.history,
 		routeGallery = {
 			orderNumber: 1000,
 			filter: ".ui-gallery",
@@ -50,10 +49,10 @@
 					options.title
 				);
 			},
-			onHashChange: function (url, options, prev) {
+			onHashChange: function () {
 				return null;
 			},
-			find: function (absUrl) {
+			find: function () {
 				return null;
 			}
 

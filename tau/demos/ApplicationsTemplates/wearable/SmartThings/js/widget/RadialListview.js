@@ -36,14 +36,6 @@
 		 */
 		engine = ns.engine,
 		/**
-		 * Alias for class {@link ns.util.DOM}
-		 * @property {Object} DOM
-		 * @member ns.widget.wearable.RadialListview
-		 * @private
-		 * @static
-		 */
-		DOM = ns.util.DOM,
-		/**
 		 * Alias for class {@link ns.util.object.fastMerge}
 		 * @property {Object} copyProperty
 		 * @member ns.widget.wearable.RadialListview
@@ -166,11 +158,11 @@
 	function animeItems(self, items) {
 		var len = items.length,
 			i = 0,
-			item,
-			from,
-			to,
-			state,
-			progress;
+			item = null,
+			from = null,
+			to = null,
+			state = null,
+			progress = 0;
 
 		for (; i < len; ++i) {
 			item = items[i];
@@ -209,6 +201,10 @@
 		} else {
 			item.element.classList.remove("ui-selected");
 		}
+	};
+
+	function drawItems(self, items) {
+		items.reduce(applyFx, self);
 	}
 
 	function render(self) {
@@ -224,10 +220,6 @@
 				selectedIndex: self._currentIndex
 			});
 		}
-	}
-
-	function drawItems(self, items) {
-		items.reduce(applyFx, self);
 	}
 
 	function createState(self, index) {
@@ -276,7 +268,7 @@
 			self._end = false;
 			self._render();
 		}
-	}
+	};
 
 	/**
 	 * Method changes items bassed on currentIndex
@@ -289,7 +281,7 @@
 			items = this._items;
 
 		if (self._currentIndex > items.length - 1) {
-			self._currentIndex = items.length - 1
+			self._currentIndex = items.length - 1;
 			self._toggleSelectedItem(true);
 		} else if (self._currentIndex < 0) {
 			self._currentIndex = 0;
@@ -299,7 +291,7 @@
 			selectedIndex: self._currentIndex
 		});
 		self._update();
-	}
+	};
 
 	/**
 	 * Change to next item
@@ -314,7 +306,7 @@
 		self._toggleSelectedItem(false);
 		self._currentIndex += delta * self.options.direction;
 		self._change();
-	}
+	};
 
 	/**
 	 * Change to prev item
@@ -329,7 +321,7 @@
 		self._toggleSelectedItem(false);
 		self._currentIndex -= delta * self.options.direction;
 		self._change();
-	}
+	};
 
 	function maxArrayPropertyLength(obj) {
 		var max = 0,
@@ -337,9 +329,11 @@
 			property = null;
 
 		for (i in obj) {
-			property = obj[i];
-			if (Array.isArray(property)) {
-				max = property.length;
+			if (obj.hasOwnProperty(i)) {
+				property = obj[i];
+				if (Array.isArray(property)) {
+					max = property.length;
+				}
 			}
 		}
 		return max;
@@ -396,7 +390,7 @@
 				state: createState(self, ((self._itemsToAnim) / 2 | 0) + i - currentIndex),
 				stateTo: {},
 				stateFrom: {},
-				progress: 1,
+				progress: 1
 			});
 		}
 
@@ -424,8 +418,8 @@
 	 */
 	prototype.handleEvent = function (ev) {
 		switch (ev.type) {
-			case "rotarydetent" : onRotary(this, ev);
-				break;
+		case "rotarydetent" : onRotary(this, ev);
+			break;
 		}
 	}
 
@@ -436,7 +430,7 @@
 	 * @member ns.widget.wearable.RadialListview
 	 * @protected
 	 */
-	prototype._bindEvents = function (element) {
+	prototype._bindEvents = function () {
 		document.addEventListener("rotarydetent", this, true);
 	};
 

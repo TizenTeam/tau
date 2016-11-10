@@ -1,4 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
+	'use strict';
+
 	// Handle for app exit
 	window.addEventListener("tizenhwkey", function (ev) {
 		if (ev.keyName === "back") {
@@ -7,10 +9,11 @@ document.addEventListener("DOMContentLoaded", function () {
 				pageid = page ? page.id : "";
 
 			if (pageid === "one" && !activePopup) {
+				/* eslint-disable no-empty */
 				try {
 					tizen.application.getCurrentApplication().exit();
-				} catch (ignore) {
-				}
+				} catch (ignore) {}
+				/* eslint-enable */
 			} else {
 				window.history.back();
 			}

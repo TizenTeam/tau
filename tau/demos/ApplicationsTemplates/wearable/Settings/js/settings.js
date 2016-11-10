@@ -1,12 +1,13 @@
-/*global tau */
 /*jslint unparam: true */
-(function(){
+(function(tau){
+	'use strict';
+
 	var page = document.getElementById("settingsPage"),
-		listHelper,
-		elScroller;
+		listHelper = null,
+		elScroller = null;
 
 	page.addEventListener("pagebeforeshow", function () {
-		var list;
+		var list = null;
 
 		elScroller = page.querySelector(".ui-scroller");
 		if (elScroller) {
@@ -31,4 +32,4 @@
 			}
 		}
 	});
-}());
+}(window.tau));
