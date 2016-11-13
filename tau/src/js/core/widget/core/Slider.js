@@ -469,14 +469,18 @@
 			prototype._enable = function(element) {
 				if (element) {
 					this.options.disabled = false;
-					this._ui.barElement.classList.remove(classes.SLIDER_DISABLED);
+					if (this._ui.barElement) {
+						this._ui.barElement.classList.remove(classes.SLIDER_DISABLED);
+					}
 				}
 			};
 
 			prototype._disable = function(element) {
 				if (element) {
 					this.options.disabled = true;
-					this._ui.barElement.classList.add(classes.SLIDER_DISABLED);
+					if (this._ui.barElement) {
+						this._ui.barElement.classList.add(classes.SLIDER_DISABLED);
+					}
 				}
 			};
 

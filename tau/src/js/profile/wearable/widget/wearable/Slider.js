@@ -37,10 +37,10 @@
 			//>>excludeEnd("tauBuildExclude");
 			var CoreSlider = ns.widget.core.Slider,
 				CoreSliderPrototype = CoreSlider.prototype,
+				CirclePB = ns.widget.wearable.CircleProgressBar,
+				CirclePBPrototype = CirclePB.prototype,
 				engine = ns.engine,
 				events = ns.event,
-				CirclePB = ns.widget.wearable.CircleProgressBar,
-				CirclePBPrototype = new CirclePB(),
 				round = Math.round,
 				floor = Math.floor,
 				atan2 = Math.atan2,
@@ -49,8 +49,9 @@
 				PI2_5 = PI * 5 / 2,
 				Slider = function () {
 					var self = this;
+
 					CoreSlider.call(self);
-					self._step = null;
+					self._step = 1;
 					self._middlePoint = {
 						x: 0,
 						y: 0
@@ -61,11 +62,11 @@
 			Slider.prototype = prototype;
 
 			function bindCircleEvents(self) {
-				events.on(document, "rotarydetent click", self, false);
+				events.on(document, "rotarydetent touchstart touchmove touchend", self, false);
 			}
 
 			function unbindCircleEvents(self) {
-				events.off(document, "rotarydetent click", self, false);
+				events.off(document, "rotarydetent touchstart touchmove touchend", self, false);
 			}
 
 			/**
@@ -176,7 +177,9 @@
 						case "rotarydetent":
 							self._onRotary(event);
 							break;
-						case "click":
+						case "touchstart":
+						case "touchmove":
+						case "touchend":
 							self._onClick(event);
 							break;
 					}
@@ -197,6 +200,7 @@
 					direction = event.detail.direction,
 					step = self._step,
 					value = CirclePBPrototype._getValue.call(self);
+
 
 				if (direction === "CW") {
 					if (value - 0 + step < self._maxValue) {
@@ -223,18 +227,17 @@
 			 */
 			prototype._onClick = function(event) {
 				var self = this,
-					clientX = event.clientX,
-					clientY = event.clientY,
+					pointer = event.changedTouches && event.changedTouches[0] || event,
+					clientX = pointer.clientX,
+					clientY = pointer.clientY,
 					isValid = self._isValidStartPosition(clientX, clientY);
 
-				if(!isValid) {
-					return;
+				if (isValid) {
+					event.preventDefault();
+					event.stopPropagation();
+
+					self._setValueByCoord(clientX, clientY);
 				}
-
-				event.preventDefault();
-				event.stopPropagation();
-
-				self._setValueByCoord(clientX, clientY);
 			};
 
 			/**
