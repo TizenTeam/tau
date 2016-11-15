@@ -85,6 +85,18 @@
 			margin: @list_anchor_margin;
 		}
 
+		&.li-has-multiline {
+			> a, button {
+				padding-top: 0;
+				padding-bottom: 0;
+			}
+
+			&.li-has-3line-sub {
+				padding-top: 9 * @unit_base;
+				padding-bottom: 8 * @unit_base;
+			}
+		}
+
 		&.ui-li-active {
 			background-color: transparent;
 			color: @color_listview_text_press;
@@ -129,9 +141,11 @@
 		}
 
 		.ui-snap-listview-selected {
+			line-height: 47 * @unit_base;
+
 			.ui-li-sub-text {
 				opacity: 1;
-				line-height: 1;
+				line-height: 32 * @unit_base;
 			}
 			&::before {
 				content: "";

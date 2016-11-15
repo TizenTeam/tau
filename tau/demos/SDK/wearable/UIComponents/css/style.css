@@ -81,13 +81,9 @@
 }
 
 .ui-listview li.li-has-multiline {
-	padding-top: 6px;
-	padding-bottom: 5px;
 	min-height: 100px;
 }
 .ui-listview.ui-snap-listview li.li-has-multiline {
-	padding-top: 17px;
-	padding-bottom: 17px;
 	min-height: 108px;
 	line-height: 1;
 }
@@ -104,8 +100,6 @@
 .ui-listview li.li-has-multiline > a {
 	margin-top: -6px;
 	margin-bottom: -6px;
-	padding-top: 11px;
-	padding-bottom: 12px;
 }
 .ui-listview li.li-has-multiline-sup {
 	padding-top: 6px;
