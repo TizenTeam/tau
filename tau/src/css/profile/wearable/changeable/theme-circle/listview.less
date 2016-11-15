@@ -24,7 +24,7 @@
 		border-image: -webkit-linear-gradient(0deg, transparent, #245B85, transparent) 1;
 		color: @color_listview_text;
 		text-align: center;
-		line-height: @list_item_line_height;
+		line-height: 47 * @unit_base;
 
 		&.ui-listview-divider {
 			height: 33 * @unit_base;
@@ -86,14 +86,15 @@
 		}
 
 		&.li-has-multiline {
-			> a, button {
-				padding-top: 0;
-				padding-bottom: 0;
+
+			&.li-has-2line-sub {
+				padding-top: 9 * @unit_base;
+				padding-bottom: 8 * @unit_base;
 			}
 
 			&.li-has-3line-sub {
-				padding-top: 9 * @unit_base;
-				padding-bottom: 8 * @unit_base;
+				padding-top: @unit_base;
+				padding-bottom: 4 * @unit_base;
 			}
 		}
 
@@ -123,6 +124,8 @@
 		.ui-snap-listview-item {
 			.display-flex();
 			.align-items(center);
+			.justify-content(center);
+			.flex-direction(column);
 			a {
 				.display-flex();
 				.flex-direction(column);
@@ -137,7 +140,7 @@
 			.transition-delay(0, 0);
 			.transition-duration(200ms, 150ms);
 			opacity: 0;
-			line-height: 0.01;
+			line-height: 0.01px;
 		}
 
 		.ui-snap-listview-selected {
@@ -146,6 +149,9 @@
 			.ui-li-sub-text {
 				opacity: 1;
 				line-height: 32 * @unit_base;
+			}
+			.ui-li-sub-text:nth-child(2) {
+				padding-top: 2 * @unit_base;
 			}
 			&::before {
 				content: "";
@@ -166,6 +172,16 @@
 				&::before {
 					background-color: @color_listview_focus_press;
 				}
+			}
+		}
+
+
+		&.li-has-2line-sub {
+			.ui-li-sub-text:nth-child(2) {
+				padding-top: 0;
+			}
+			.ui-li-sub-text:nth-child(3) {
+				padding-top: 2 * @unit_base;
 			}
 		}
 
