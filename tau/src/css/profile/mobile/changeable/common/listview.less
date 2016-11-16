@@ -74,6 +74,15 @@
 				}
 			}
 		}
+
+		/**************** with progress bar ************/
+		&.li-has-progress {
+			// bottom padding is smaller because we have bottom border
+			padding: 24 * @unit_base 32 * @unit_base 22 * @unit_base;
+			.ui-progress {
+				margin: 32 * @unit_base 0 20 * @unit_base 0;
+			}
+		}
 	}
 }
 
