@@ -4,7 +4,7 @@
 	padding-right: @fixed_button_padding_right;
 	padding-bottom: @fixed_button_padding_bottom;
 	padding-left: @fixed_button_padding_left;
-	margin: 0px;
+	margin: 0;
 	font-size: @fixed_button_font_size;
 	line-height: @fixed_button_line_height;
 	text-align: center;
@@ -33,6 +33,57 @@
 		background-repeat: no-repeat;
 		background-size: @fixed_button_icon_bg_size @fixed_button_icon_bg_size;
 		position: relative;
+	}
+
+	&.ui-btn-text {
+		position: relative;
+		background-color: transparent;
+		height: 33vh;
+		&::before {
+			content: '';
+			position: absolute;
+			background-color: white;
+			border-radius: 50%;
+			width: 30vw;
+			height: 30vh;
+			opacity: 0;
+			left: 50%;
+			top: 50%;
+		}
+
+		&:enabled:active:hover, &:enabled:focus {
+			background-color: transparent;
+			&::before {
+				transform: translate(-15vw, -15vh) scale(1.1);
+				animation: touch-text-btn-scale cubic-bezier(0.25,0.46,0.45,1.0) 300ms, touch-text-btn-opacity linear 733ms;
+			}
+		}
+	}
+}
+
+
+@keyframes touch-text-btn-scale {
+	0% {
+		transform: translate(-15vw, -15vh) scale(1);
+	}
+	// 300ms
+	100% {
+		transform: translate(-15vw, -15vh) scale(1.1);
+	}
+}
+
+
+@keyframes touch-text-btn-opacity {
+	0% {
+		opacity: 0.13;
+	}
+	// 533ms
+	72% {
+		opacity: 0.13;
+	}
+	// 733ms
+	100% {
+		opacity: 0;
 	}
 }
 
@@ -151,7 +202,7 @@ button.ui-btn, input.ui-btn {
 	.ui-grid-col-@{counter} > .ui-btn {
 		border-left:solid 1px @color_bg;
 		&:first-child {
-			border-left:0px none;
+			border-left:0 none;
 		}
 	}
 }
@@ -162,6 +213,6 @@ button.ui-btn, input.ui-btn {
 	margin-top: 1px;
 
 	&:first-child {
-		margin-top: 0px;
+		margin-top: 0;
 	}
 }
