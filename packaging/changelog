@@ -1,4 +1,15 @@
 %changelog
+* Wed Nov 16 2016 Tomasz Lukawski <t.lukawski@samsung.com> 0.13.17
+	- fix(mobile): Fix layout of textinput in list
+	- fix(mobile): Fix layout of li with progress
+	- fix(wearable) Cirular ProgressBar does not work properly (TSAM-9743)
+	- fix(Wearable) List item with subtext style
+	- fix(wearable): Changed background color
+	- fix(mobile): Context popup layout
+	- fix(wearable): Fixed listitem paddings and added 3 subtext item
+	- test(wearable) Header with title and subtitle test and example
+	- fix(mobile) DropDown Menu has wrong layout
+
 * Wed Nov 09 2016 Tomasz Lukawski <t.lukawski@samsung.com> 0.13.16
 	- fix(mobile) List styles - icon is placed badly
 	- feat(demos) List item with 2 subtext and icon
