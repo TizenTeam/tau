@@ -184,6 +184,14 @@ body {
 			top: 50%;
 			left: 50%;
 			transform: translate3d(-50%, -50%, 0);
+			background-color: @color_button_icon_bg;
+			transition: background 150ms;
+		}
+		&:active::before {
+			background-color: @color_button_icon_active_bg;
+		}
+		&:disabled::before {
+			background-color: @color_button_icon_disabled_bg;
 		}
 	}
 }
