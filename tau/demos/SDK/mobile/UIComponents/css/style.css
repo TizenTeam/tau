@@ -189,7 +189,7 @@
 .li-has-right-btn .ui-toggle-container {
 	position: absolute;
 	top: 50%;
-	margin-top: -20px;
+	transform: translateY(-50%);
 	right: 14px;
 	left: auto;
 }
