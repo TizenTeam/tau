@@ -19,17 +19,16 @@
  * @author  jihoon.o <jihoon.o@samsung.com>
  */
 var path = require("path"),
+	autoprefixer = require("autoprefixer"),
 	async = require("async");
 
 module.exports = function (grunt) {
 	"use strict";
-
 	var pkg = grunt.file.readJSON("package.json"),
 		themes = grunt.file.readJSON("themes.json"),
 		name = pkg.name,
 		version = pkg.version,
 		themeVersion = ["default", "changeable"],
-
 		// Path to build framework
 		dist = "dist",
 		src = "src",
@@ -463,6 +462,17 @@ module.exports = function (grunt) {
 				}
 			},
 
+			postcss: {
+				options: {
+					processors: [
+						autoprefixer({browsers: "last 10 Samsung versions, last 10 versions, last 10 ChromeAndroid versions"})
+					]
+				},
+				dist: {
+					src: path.join(buildRoot, "**", "*.css")
+				}
+			},
+
 			themeConverter: {
 				mobile: {
 					createColorMapFile: grunt.option("generate-colormap") || false,
@@ -570,6 +580,7 @@ module.exports = function (grunt) {
 								filename = src.substring(src.lastIndexOf("/"), src.length);
 
 							filename = filename.substring(0, filename.lastIndexOf("."));
+
 							return dest + "/" + folder + filename + ".min.css";
 						}
 					}]
@@ -585,6 +596,7 @@ module.exports = function (grunt) {
 							filename = src.substring(src.lastIndexOf("/"), src.length);
 
 						filename = filename.substring(0, filename.lastIndexOf("."));
+
 						return dest + "/" + folder + filename + ".min.template";
 					}
 				}
@@ -1062,6 +1074,7 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks("grunt-string-replace");
 	grunt.loadNpmTasks("grunt-contrib-symlink");
 	grunt.loadNpmTasks("grunt-debug-task");
+	grunt.loadNpmTasks("grunt-postcss");
 
 	// Load framework custom tasks
 	grunt.loadTasks("tools/grunt/tasks");
@@ -1071,22 +1084,21 @@ module.exports = function (grunt) {
 	grunt.registerTask("lint", "Validate code", ["eslint:js"/*, "eslint:jsdoc" jsdoc issues are reported only into CI process, enable this task after fix all jsdoc issues*/]);
 	grunt.registerTask("jsmin", "Minify JS files", ["findFiles:js.setMinifiedFiles", "uglify"]);
 	grunt.registerTask("image-changeable", ["copy:wearableChangeableImages", "copy:wearableColorThemeImages", "copy:mobileChangeableImages"]);
-	grunt.registerTask("css", "Prepare full CSS for whole project", ["clean:theme", "less", "themeConverter", "cssmin", "image-changeable", "symlink"]);
-	grunt.registerTask("css-mobile", "Prepare CSS for mobile profile", ["clean:theme", "less:mobile", "themeConverter:mobile", "cssmin", "copy:mobileChangeableImages", "symlink:mobileDefaultTheme"]);
-	grunt.registerTask("css-mobile_support", "Prepare CSS for mobile 2.3 version", ["clean:theme", "less:mobile_support", "themeConverter:mobile_support", "cssmin", "copy:mobileChangeableImages", "symlink:mobileDefaultTheme"]);
-	grunt.registerTask("css-wearable", "Prepare CSS for wearable", ["clean:theme", "less:wearable", "themeConverter:wearable", "cssmin", "copy:wearableChangeableImages", "copy:wearableColorThemeImages", "symlink:wearableDefaultTheme"]);
+	grunt.registerTask("css", "Prepare full CSS for whole project", ["clean:theme", "less", "themeConverter", "cssmin", "image-changeable", "symlink", "postcss"]);
+	grunt.registerTask("css-mobile", "Prepare CSS for mobile profile", ["clean:theme", "less:mobile", "themeConverter:mobile", "cssmin", "copy:mobileChangeableImages", "symlink:mobileDefaultTheme", "postcss"]);
+	grunt.registerTask("css-mobile_support", "Prepare CSS for mobile 2.3 version", ["clean:theme", "less:mobile_support", "themeConverter:mobile_support", "cssmin", "copy:mobileChangeableImages", "symlink:mobileDefaultTheme", "postcss"]);
+	grunt.registerTask("css-wearable", "Prepare CSS for wearable", ["clean:theme", "less:wearable", "themeConverter:wearable", "cssmin", "copy:wearableChangeableImages", "copy:wearableColorThemeImages", "symlink:wearableDefaultTheme", "postcss"]);
 	grunt.registerTask("js", "Prepare JS", ["clean:js", "requirejs:mobile", "requirejs:wearable", "requirejs:mobile_support", "jsmin", "themesjs", "copy:mobileJquery", "copy:animation"]);
 	grunt.registerTask("js-mobile", "Prepare JS for mobile", ["clean:js", "requirejs:mobile", "jsmin", "themesjs:mobile", "copy:mobileJquery"]);
 	grunt.registerTask("js-mobile_support", "Prepare JS for mobile 2.3", ["clean:js", "requirejs:mobile", "requirejs:mobile_support", "jsmin", "themesjs:mobile", "copy:mobileJquery"]);
 	grunt.registerTask("js-wearable", "Prepare JS wearable", ["clean:js", "requirejs:wearable", "jsmin", "themesjs:wearable"]);
 	grunt.registerTask("license", "Add licence information to files", ["concat:licenseJs", "concat:licenseDefaultCss", "concat:licenseChangeableCss", "concat:licenseWearableCss", "copy:license"]);
 	grunt.registerTask("sdk-docs", "Prepare SDK documentation", ["docs-html:mobile", "docs-html:wearable", "copy:sdk-docs"]);
-
 	grunt.registerTask("build", "Build whole project", ["lint", "css", "globalize", "js", "license", "version"]);
 	grunt.registerTask("build-mobile", "Build mobile project", ["css-mobile", "js-mobile", "license", "version"]);
 	grunt.registerTask("build-mobile_support", "Build mobile project for 2.3", ["css-mobile_support", "js-mobile_support", "license", "version"]);
 	grunt.registerTask("build-wearable", "Build wearable project", ["css-wearable", "js-wearable", "license", "version"]);
 	grunt.registerTask("release", "Build, est and prepare docs", ["build", "test:mobile", "test:mobile_support", "test:jqm", "test:jqm14ok", "test:wearable", "sdk-docs"]);
-	grunt.registerTask("default", "-> release", ["release"]);
+	grunt.registerTask("default", "->release", ["release"]);
 	grunt.registerTask("ci", "Code style validation for CI", ["eslint:js-ci", "lesslint:less-ci", "eslint:jsdoc-ci"]);
 };
