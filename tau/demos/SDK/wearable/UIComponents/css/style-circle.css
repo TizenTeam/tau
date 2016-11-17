@@ -682,16 +682,6 @@ input[type="checkbox"]#checkboxControl {
 	text-align: center;
 }
 /* --------------------------------Popup------------------------------ */
-.label-popup-check {
-	position: relative;
-	top: 12px;
-}
-.label-popup-check input[type="checkbox"] {
-	width: 34px;
-	height: 34px;
-	top: 5px;
-	margin-right: 7px;
-}
 .ui-popup.ui-popup-toast.toast-text-only .ui-popup-content {
 	padding-left: 43px;
 	padding-right: 43px;
