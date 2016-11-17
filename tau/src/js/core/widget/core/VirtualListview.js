@@ -718,7 +718,7 @@
 				if (hiddenPart > 0 && (resultsetSize / hiddenPart) <= 2) {
 					//Left half of hidden elements still hidden/cached
 					elementsToLoad = ((hiddenPart / avgListItemSize) -
-									 ((bufferSize - scrollInfo.clipHeight / avgListItemSize) / 2) | 0) | 0; // floor the value
+									 ((bufferSize - scrollInfo.clipHeight / avgListItemSize) / 5) | 0) | 0; // floor the value
 					elementsToLoad = Math.min(elementsLeftToLoad, elementsToLoad);
 					bufferToLoad = (elementsToLoad / bufferSize) | 0;
 					elementsToLoad = elementsToLoad % bufferSize;
@@ -895,6 +895,8 @@
 				// Assign variables to members
 				self._initTopPosition = elementRect.top - scrollviewRect.top;
 				self._initLeftPosition = elementRect.left - scrollviewRect.left;
+
+				scrollview.classList.add("ui-has-virtual-list");
 
 				ui.spacer = ui.spacer || scrollview.querySelector("." + VirtualListview.classes.spacer);
 				ui.scrollview = scrollview;
