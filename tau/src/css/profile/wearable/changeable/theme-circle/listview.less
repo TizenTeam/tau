@@ -210,5 +210,29 @@
 				background-color: transparent;
 			}
 		}
+
+		input[type=text], input[type=password], input[type=search], input[type=email] {
+			-webkit-mask-image: url("images/TextInput/b_list_edit_field_bg.png");
+			-webkit-mask-size: 100% 100%;
+			width: 288 * @unit_base;
+			height: 62 * @unit_base;
+			padding: 13 * @unit_base 16 * @unit_base;
+			color: @color_textinput_text;
+			font-size: 28 * @unit_base;
+			background-color: @color_textinput_bg;
+			border: none;
+			outline: none;
+
+			&:disabled {
+				color: @color_textinput_text_disabled;
+			}
+
+			&:focus {
+				background-color: transparent;
+				color: @color_textinput_text_cursor;
+				-webkit-text-fill-color: @color_textinput_text_focus;
+				font-size: 30 * @unit_base;
+			}
+		}
 	}
 }
