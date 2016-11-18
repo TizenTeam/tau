@@ -130,6 +130,25 @@
 				.display-flex();
 				.flex-direction(column);
 			}
+
+			&.ui-grid {
+				flex-direction: row;
+
+				> * {
+					&.ui-btn {
+						padding: 0;
+						margin: 0 18 * @unit_base 0 0;
+
+						&:last-child {
+							margin-right: 0;
+
+							&:first-child {
+								margin-right: 20 * @unit_base;
+							}
+						}
+					}
+				}
+			}
 		}
 		.ui-li-sub-text {
 			color: @color_listview_sub_text;

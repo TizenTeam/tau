@@ -161,8 +161,12 @@
 			SnapListview.classes = classes;
 
 			SnapListview.ListItem = function(element, visiableOffset) {
-				var offsetTop = element.offsetTop,
-					height = element.offsetHeight;
+				var offsetTop = 0,
+					height = 0;
+
+				element.classList.add(classes.SNAP_LISTVIEW_ITEM);
+				offsetTop = element.offsetTop;
+				height = element.offsetHeight;
 
 				this.element = element;
 				this.rate = -1;
@@ -178,8 +182,6 @@
 					stop: offsetTop,
 					end: offsetTop + height
 				};
-
-				element.classList.add(classes.SNAP_LISTVIEW_ITEM);
 			};
 
 			SnapListview.ListItem.prototype = {
