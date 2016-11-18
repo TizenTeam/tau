@@ -800,3 +800,21 @@ input[type="checkbox"]#checkboxControl {
 	-webkit-align-items: center;
 	-webkit-justify-content: center;
 }
+
+.app-icon-add-item {
+	background-color: rgba(0, 0, 255, 0.5);
+	display: flex;
+	margin: auto;
+}
+.app-icon-add-item:after{
+	content: "";
+	width: 100%;
+	height: 100%;
+	background-color: rgba(255, 0, 0, 1);
+	mask-image: url(../contents/popup/images/tw_ic_popup_btn_check.png);
+	mask-position: center center;
+	mask-repeat: no-repeat;
+	-webkit-mask-image: url(../contents/popup/images/tw_ic_popup_btn_check.png);
+	-webkit-mask-position: center center;
+	-webkit-mask-repeat: no-repeat;
+}
