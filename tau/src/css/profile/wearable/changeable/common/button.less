@@ -57,7 +57,7 @@
 		}
 	}
 
-	&.ui-btn-text {
+	&.ui-btn-text, &.ui-btn-no-bg.ui-btn-icon {
 		position: relative;
 		background-color: transparent;
 		height: 33vh;
@@ -79,6 +79,16 @@
 				transform: translate(-50%, -50%) scale(1.1);
 				animation: touch-text-btn-scale cubic-bezier(0.25,0.46,0.45,1.0) 300ms, touch-text-btn-opacity linear 733ms;
 			}
+		}
+	}
+
+	&.ui-btn-no-bg.ui-btn-icon {
+		width: 76 * @unit_base;
+		height: 76 * @unit_base;
+		overflow: visible;
+		&::before {
+			height: 141%;
+			width: 141%;
 		}
 	}
 }

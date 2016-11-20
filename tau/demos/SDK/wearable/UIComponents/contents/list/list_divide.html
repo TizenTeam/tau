@@ -3,8 +3,13 @@
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
 	<title>Wearable UI</title>
-	<link rel="stylesheet"  href="../../lib/tau/wearable/theme/default/tau.min.css">
-	<link rel="stylesheet"  href="../../css/style.css">
+	<link rel="stylesheet"
+				href="../../lib/tau/wearable/theme/default/tau.min.css">
+	<link rel="stylesheet"
+				href="../../lib/tau/wearable/theme/default/tau.circle.min.css">
+	<link rel="stylesheet" href="../../css/style.css">
+	<link  rel="stylesheet"
+				 href="../../css/style-circle.css">
 </head>
 <body>
 	<div class="ui-page">
@@ -13,29 +18,35 @@
 		</header>
 		<div class="ui-content">
 			<ul class="ui-listview">
-				<li class="li-has-action-icon">
-					<a class="li-action-text">List 01</a>
-					<button class="li-action-icon-button li-action-delete"></button>
+				<li class="ui-grid ui-grid-full">
+					<div>List 01</div>
+					<button class="li-action-icon-button li-action-delete ui-btn ui-btn-no-bg ui-btn-icon"></button>
 				</li>
-				<li class="li-has-action-icon">
-					<a class="li-action-text">List 02</a>
-					<button class="li-action-icon-button li-action-setting"></button>
+				<li class="ui-grid ui-grid-full">
+					<div>List 02</div>
+					<button
+							class="li-action-icon-button li-action-setting ui-btn ui-btn-no-bg ui-btn-icon"></button>
 				</li>
-				<li class="li-has-action-icon">
-					<a class="li-action-text">List 03</a>
-					<button class="li-action-icon-button li-action-add"></button>
+				<li class="ui-grid ui-grid-full">
+					<div>List 03</div>
+					<button
+							class="li-action-icon-button li-action-add ui-btn ui-btn-no-bg ui-btn-icon"></button>
 				</li>
-				<li class="li-has-action-icon">
-					<a class="li-action-text">List 04</a>
-					<button class="li-action-icon-button li-action-delete"></button>
+				<li class="ui-grid ui-grid-full">
+					<div>List 04</div>
+					<button class="li-action-icon-button li-action-delete ui-btn ui-btn-no-bg ui-btn-icon"></button>
 				</li>
-				<li class="li-has-action-icon">
-					<a class="li-action-text">List 05</a>
-					<button class="li-action-icon-button li-action-setting"></button>
+				<li class="ui-grid ui-grid-full">
+					<div>List 05</div>
+					<button
+							class="li-action-icon-button li-action-setting ui-btn ui-btn-no-bg ui-btn-icon"></button>
 				</li>
 			</ul>
 		</div>
 	</div>
 </body>
-<script type="text/javascript" src="../../lib/tau/wearable/js/tau.min.js"></script>
+<script type="text/javascript" src="../../lib/tau/wearable/js/tau.js"></script>
+<script type="text/javascript" src="../../js/circle-helper.js"></script>
+<script src="../../js/app.js"></script>
+<script src="../../js/lowBatteryCheck.js"></script>
 </html>

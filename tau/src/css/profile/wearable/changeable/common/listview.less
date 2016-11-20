@@ -8,8 +8,6 @@ Listview
 	min-height: @list_item_min_height;
 	padding: @list_item_padding;
 	border-bottom: 1px solid @color_listview_border;
-	overflow: hidden;
-	text-overflow: ellipsis;
 	white-space: nowrap;
 	position: relative;
 	color: @color_listview_text;
@@ -17,7 +15,6 @@ Listview
 	> * {
 		white-space: nowrap;
 		text-overflow: ellipsis;
-		overflow: hidden;
 		.user-select(none);
 		color: @color_listview_text;
 	}

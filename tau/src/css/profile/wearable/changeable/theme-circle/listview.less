@@ -81,8 +81,10 @@
 		}
 
 		> a, button {
-			padding: @list_item_anchor_padding;
-			margin: @list_anchor_margin;
+			&:first-child:last-child {
+				padding: @list_item_anchor_padding;
+				margin: @list_anchor_margin;
+			}
 		}
 
 		&.li-has-multiline {
@@ -133,6 +135,21 @@
 
 			&.ui-grid {
 				flex-direction: row;
+
+				&.ui-grid-full {
+					justify-content: space-between;
+
+					* {
+						flex-grow: 1;
+						flex-shrink: 1;
+
+						&.ui-btn-icon {
+							flex-grow: 0;
+							flex-shrink: 0;
+						}
+
+					}
+				}
 
 				> * {
 					&.ui-btn {
