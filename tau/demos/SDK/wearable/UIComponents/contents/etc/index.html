@@ -1,35 +1,50 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+	<meta name="viewport"
+				content="width=device-width, initial-scale=1, user-scalable=no"/>
 	<title>WearableUI</title>
-	<link rel="stylesheet"  href="../../lib/tau/wearable/theme/default/tau.min.css">
-	<link rel="stylesheet"  href="../../css/style.css">
+	<link rel="stylesheet"
+				href="../../lib/tau/wearable/theme/default/tau.min.css">
+	<link rel="stylesheet" href="../../css/style.css">
 </head>
 <body>
-	<div class="ui-page" id="page_webkitui">
-		<header class="ui-header">
-			<h2 class="ui-title">Webkit UI demos</h2>
-		</header>
-		<div class="ui-content ui-content-padding">
-			<div class="sample">
-				<h3>Date/Time picker</h3>
+<div class="ui-page" id="page_webkitui">
+	<header class="ui-header">
+		<h2 class="ui-title">Webkit UI demos</h2>
+	</header>
+	<div class="ui-content">
+		<ul class="ui-listview">
+			<li class="ui-listview-divider">Date/Time picker</li>
+			<li>Date</li>
+			<li><input type="date"/>
+			</li>
+			<li>Time</li>
+			<li><input type="time"/></li>
+			<li>
+				Hidden time
+			</li>
+			<li>
+				<button class="ui-btn" id="button_webkitui_hiddendateopener"
+								style="display:block">Open timepicker
+				</button>
+			</li>
+			<li>
 				<div>
-					Date: <input type="date" style="width:95%"/>
+				<span id="webkitui_hiddentime_value"></span>
+				<input type="time" id="input_webkitui_hiddentime"
+							 style="visibility:hidden; width:50px"/>
 				</div>
-				<div>
-					Time: <input type="time" style="width:95%"/>
-				</div>
-				<input type="time" id="input_webkitui_hiddentime" style="visibility:hidden; width:50px"/>
-				<div>
-					Hidden time: <button class="ui-btn" id="button_webkitui_hiddendateopener" style="display:block">Open timepicker</button>
-					<span id="webkitui_hiddentime_value"></span>
-				</div>
-			</div>
-		</div>
-		<script type="text/javascript" src="webkit.js"></script>
+			</li>
+			<li class="ui-listview-divider">Range</li>
+			<li><input type="range" min="0" max="100"/></li>
+			<li class="ui-listview-divider">Color</li>
+			<li><input type="color"/></li>
+		</ul>
 	</div>
-
-<script type="text/javascript" src="../../lib/tau/wearable/js/tau.min.js"></script>
+	<script type="text/javascript" src="webkit.js"></script>
+</div>
+<script type="text/javascript"
+				src="../../lib/tau/wearable/js/tau.min.js"></script>
 </body>
 </html>
