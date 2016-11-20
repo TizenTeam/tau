@@ -4,10 +4,14 @@ Processing
 
 .ui-processing {
 	background-color: @color_processing;
-}
 
-.ui-processing.ui-processing-full-size {
-	background-color: @color_processing;
+	&.ui-processing-full-size {
+		background-color: @color_processing;
+	}
+
+	&.ui-processing-alternate {
+		background-color: @color_processing_alternate;
+	}
 }
 
 /** widget interactions **/
@@ -16,4 +20,5 @@ Processing
 	right: 32 * @unit_base;
 	top: 50%;
 	transform: translateY(-50%);
+
 }
