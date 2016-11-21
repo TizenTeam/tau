@@ -15,7 +15,7 @@
 		selector = page.querySelector("#selector"),
 		selectorComponent,
 		snapList,
-		selectCount,
+		selectCount = 0,
 		popupHandler,
 		i,
 		addFunction,
@@ -30,6 +30,7 @@
 	 */
 	function textRefresh() {
 		selectBtnText.innerHTML = selectCount;
+		selectBtn.classList.toggle('select-btn-disabled', selectCount === 0);
 	}
 
 	/**
@@ -77,11 +78,10 @@
 			li.removeChild(li.firstElementChild);
 		}
 		selectCount--;
-		if (selectCount <= 0) {
-			modeHide();
-		} else {
-			textRefresh();
+		if (selectCount < 0) {
+			selectCount = 0;
 		}
+		textRefresh();
 	}
 
 	/**
@@ -102,7 +102,7 @@
 	 */
 	addFunction = function(event){
 		var target = event.target,
-            li = (target.nodeName.toLowerCase() === "span") ? target.parentElement : target;
+						li = (target.nodeName.toLowerCase() === "span") ? target.parentElement : target;
 
 		toggleSelectedItem(li);
 	};
@@ -127,7 +127,6 @@
 		for (i = 0; i < listLength; i++) {
 			deselectItem(list[i]);
 		}
-		modeHide();
 	};
 
 	/**
@@ -174,7 +173,8 @@
 		deselectAll.addEventListener("click", fnDeselectAll, false);
 		selectBtn.addEventListener("click", fnPopup, false);
 		selectWrapper.addEventListener("click", fnPopupClose, false);
-		modeHide();
+		modeShow();
+		textRefresh();
 	}, false);
 
 	/**
