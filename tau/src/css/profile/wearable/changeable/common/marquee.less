@@ -2,25 +2,25 @@
 	position: relative;
 	white-space: nowrap;
 	overflow: hidden;
-	-webkit-user-select: none;
-}
-
-.ui-marquee.ui-marquee-gradient {
-	text-overflow: clip;
-	 -webkit-mask-image: -webkit-linear-gradient(left, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 85%, transparent 100%);
-}
-
-.ui-marquee.ui-marquee-ellipsis {
-	.ui-marquee-content {
-		display: block;
-		overflow: hidden;
-		text-overflow: ellipsis;
+	.user-select(none);
+	width: 100%;
+	&.ui-marquee-gradient {
+		text-overflow: clip;
+		-webkit-mask-image: -webkit-linear-gradient(left, rgba(255, 255, 255, 1) 0, rgba(255, 255, 255, 1) 85%, transparent 100%);
 	}
-}
 
-.ui-marquee-content {
-	overflow: visible;
-	display: inline-block;
+	&.ui-marquee-ellipsis {
+		.ui-marquee-content {
+			display: block;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+	}
+
+	.ui-marquee-content {
+		overflow: visible;
+		display: inline-block;
+	}
 }
 
 .ui-marquee-anim-running {

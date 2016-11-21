@@ -110,7 +110,7 @@
 					/**
 					 * Triggered when the marquee animation end.
 					 * @event marqueeend
-					 * @memeber ns.widget.core.Marquee
+					 * @member ns.widget.core.Marquee
 					 */
 					MARQUEE_START: "marqueestart",
 					MARQUEE_END: "marqueeend",
@@ -170,7 +170,7 @@
 					iteration: 1,
 					delay: 0,
 					timingFunction: "linear",
-					ellipsisEffect: "gradient",
+					ellipsisEffect: ellipsisEffect.GRADIENT,
 					runOnlyOnEllipsisText: true,
 					autoRun: true
 				};
@@ -184,11 +184,7 @@
 			}
 
 			function getAnimationDuration(self, speed) {
-				var marqueeInnerElement = self._ui.marqueeInnerElement,
-					textWidth = marqueeInnerElement.scrollWidth,
-					duration = textWidth / speed;
-
-				return duration;
+				return self._ui.marqueeInnerElement.scrollWidth / speed;
 			}
 
 			function setMarqueeKeyFrame(self, marqueeStyle) {
@@ -196,7 +192,7 @@
 					marqueeContainer = self.element,
 					containerWidth = marqueeContainer.offsetWidth,
 					textWidth = marqueeInnerElement.scrollWidth,
-					styleElement = document.createElement("style"),
+					styleElement = self._ui.styleSheelElement || document.createElement("style"),
 					keyFrameName = marqueeStyle + "-" + self.id,
 					customKeyFrame,
 					returnTimeFrame;
@@ -204,29 +200,29 @@
 				switch (marqueeStyle) {
 					case style.SLIDE:
 						customKeyFrame = "@-webkit-keyframes " + keyFrameName + " {"
-										+ "0% { -webkit-transform: translate3d(0, 0, 0);}"
-										+ "95%, 100% { -webkit-transform: translate3d(-" + (textWidth - containerWidth) + "px, 0, 0);} }";
+							+ "0% { -webkit-transform: translate3d(0, 0, 0);}"
+							+ "95%, 100% { -webkit-transform: translate3d(-" + (textWidth - containerWidth) + "px, 0, 0);} }";
 						break;
 					case style.SCROLL:
 						customKeyFrame = "@-webkit-keyframes " + keyFrameName + " {"
-										+ "0% { -webkit-transform: translate3d(0, 0, 0);}"
-										+ "95%, 100% { -webkit-transform: translate3d(-100%, 0, 0);} }";
+							+ "0% { -webkit-transform: translate3d(0, 0, 0);}"
+							+ "95%, 100% { -webkit-transform: translate3d(-100%, 0, 0);} }";
 						break;
 					case style.ALTERNATE:
 						customKeyFrame = "@-webkit-keyframes " + keyFrameName + " {"
-										+ "0% { -webkit-transform: translate3d(0, 0, 0);}"
-										+ "50% { -webkit-transform: translate3d(-" + (textWidth - containerWidth) + "px, 0, 0);}"
-										+ "100% { -webkit-transform: translate3d(0, 0, 0);} }";
+							+ "0% { -webkit-transform: translate3d(0, 0, 0);}"
+							+ "50% { -webkit-transform: translate3d(-" + (textWidth - containerWidth) + "px, 0, 0);}"
+							+ "100% { -webkit-transform: translate3d(0, 0, 0);} }";
 						break;
 					case style.ENDTOEND:
 						returnTimeFrame = parseInt((textWidth / (textWidth + containerWidth)) * 100, 10);
 						customKeyFrame = "@-webkit-keyframes " + keyFrameName + " {"
-										+ "0% { -webkit-transform: translate3d(0, 0, 0);}"
-										+ returnTimeFrame + "% { -webkit-transform: translate3d(-100%, 0, 0); opacity: 1;}"
-										+ (returnTimeFrame+1) + "% { -webkit-transform: translate3d(-100%, 0, 0); opacity: 0; }"
-										+ (returnTimeFrame+2) + "% { -webkit-transform: translate3d(" + containerWidth + "px, 0, 0); opacity: 0; }"
-										+ (returnTimeFrame+3) + "% { -webkit-transform: translate3d(" + containerWidth + "px, 0, 0); opacity: 1; }"
-										+ "100% { -webkit-transform: translate3d(0, 0, 0);} }";
+							+ "0% { -webkit-transform: translate3d(0, 0, 0);}"
+							+ returnTimeFrame + "% { -webkit-transform: translate3d(-100%, 0, 0); opacity: 1;}"
+							+ (returnTimeFrame + 1) + "% { -webkit-transform: translate3d(-100%, 0, 0); opacity: 0; }"
+							+ (returnTimeFrame + 2) + "% { -webkit-transform: translate3d(" + containerWidth + "px, 0, 0); opacity: 0; }"
+							+ (returnTimeFrame + 3) + "% { -webkit-transform: translate3d(" + containerWidth + "px, 0, 0); opacity: 1; }"
+							+ "100% { -webkit-transform: translate3d(0, 0, 0);} }";
 						break;
 					default:
 						customKeyFrame = null;
@@ -243,12 +239,55 @@
 				return keyFrameName;
 			}
 
+			function setMarqueeGradientKeyFrame(self, marqueeStyle) {
+				var marqueeInnerElement = self._ui.marqueeInnerElement,
+					marqueeContainer = self.element,
+					containerWidth = marqueeContainer.offsetWidth,
+					textWidth = marqueeInnerElement.scrollWidth,
+					styleElement = self._ui.styleSheelElement || document.createElement("style"),
+					keyFrameName = "gradient-" + self.id,
+					customKeyFrame,
+					returnTimeFrame;
+
+				switch (marqueeStyle) {
+					case style.SLIDE:
+					case style.SCROLL:
+					case style.ALTERNATE:
+						customKeyFrame = "@-webkit-keyframes " + keyFrameName + " {"
+							+ "0% { -webkit-mask-image: -webkit-linear-gradient(left, transparent 0, rgba(255, 255, 255, 1) 15%, rgba(255, 255, 255, 1) 85%, transparent 100%)}"
+							+ "100% { -webkit-mask-image: -webkit-linear-gradient(left, transparent 0, rgba(255, 255, 255, 1) 15%, rgba(255, 255, 255, 1) 85%, transparent 100%)}";
+						break;
+					case style.ENDTOEND:
+						returnTimeFrame = parseInt((textWidth / (textWidth + containerWidth)) * 100, 10);
+						customKeyFrame = "@-webkit-keyframes " + keyFrameName + " {"
+							+ "0% { -webkit-mask-image: -webkit-linear-gradient(left, rgba(255, 255, 255, 1) 0, rgba(255, 255, 255, 1) 85%, transparent 100%)}"
+							+ "1% { -webkit-mask-image: -webkit-linear-gradient(left, transparent 0, rgba(255, 255, 255, 1) 15%, rgba(255, 255, 255, 1) 85%, transparent 100%)}"
+							+ returnTimeFrame + "% { -webkit-mask-image: -webkit-linear-gradient(left, transparent 0, rgba(255, 255, 255, 1) 15%, rgba(255, 255, 255, 1) 85%, transparent 100%)}"
+							+ (returnTimeFrame + 1) + "% { -webkit-mask-image: -webkit-linear-gradient(left, rgba(255, 255, 255, 1) 0, rgba(255, 255, 255, 1) 85%, transparent 100%)}"
+							+ "100% { -webkit-mask-image: -webkit-linear-gradient(left, rgba(255, 255, 255, 1) 0, rgba(255, 255, 255, 1) 85%, transparent 100%) } }";
+						break;
+					default:
+						customKeyFrame = null;
+						break;
+				}
+				if (customKeyFrame) {
+					self.element.appendChild(styleElement);
+					styleElement.sheet.insertRule(customKeyFrame, 0);
+
+					self._ui.styleSheelElement = styleElement;
+				}
+
+				return keyFrameName;
+			}
+
 			function setAnimationStyle(self, options) {
 				var marqueeInnerElement = self._ui.marqueeInnerElement,
 					marqueeInnerElementStyle = marqueeInnerElement.style,
 					duration = getAnimationDuration(self, isNaN(parseInt(options.speed, 10))? defaults.speed : options.speed ),
 					marqueeKeyFrame = setMarqueeKeyFrame(self, options.marqueeStyle),
-					iteration;
+					iteration,
+					marqueeElement = self.element,
+					marqueeElementStyle = marqueeElement.style;
 
 				// warning when option value is not correct.
 				if (isNaN(parseInt(options.speed, 10))) {
@@ -266,6 +305,14 @@
 				marqueeInnerElementStyle.webkitAnimationIterationCount = options.iteration;
 				marqueeInnerElementStyle.webkitAnimationTimingFunction = options.timingFunction;
 				marqueeInnerElementStyle.webkitAnimationDelay = options.delay + "ms";
+
+				if (options.ellipsisEffect === ellipsisEffect.GRADIENT) {
+					marqueeElementStyle.webkitAnimationName = setMarqueeGradientKeyFrame(self, options.marqueeStyle);
+					marqueeElementStyle.webkitAnimationDuration = duration + "s";
+					marqueeElementStyle.webkitAnimationIterationCount = options.iteration;
+					marqueeElementStyle.webkitAnimationTimingFunction = options.timingFunction;
+					marqueeElementStyle.webkitAnimationDelay = options.delay + "ms";
+				}
 			}
 
 			function setEllipsisEffectStyle(self, ellipsisEffectOption, hasEllipsisText) {
@@ -359,7 +406,7 @@
 			 * Refresh styles
 			 * @method _refresh
 			 * @protected
-			 * @memeber ns.widget.core.Marquee
+			 * @member ns.widget.core.Marquee
 			 */
 			prototype._refresh = function() {
 				var self = this;
@@ -380,16 +427,18 @@
 			 * Reset style of Marquee elements
 			 * @method _resetStyle
 			 * @protected
-			 * @memeber ns.widget.core.Marquee
+			 * @member ns.widget.core.Marquee
 			 */
 			prototype._resetStyle = function() {
 				var self = this,
 					marqueeContainer = self.element,
 					marqueeKeyframeStyleSheet = self._ui.styleSheelElement,
-					marqueeInnerElementStyle = self._ui.marqueeInnerElement.style;
+					marqueeInnerElementStyle = self._ui.marqueeInnerElement.style,
+					marqueeElementStyle = marqueeContainer.style;
 
 				if (marqueeContainer.contains(marqueeKeyframeStyleSheet)) {
 					marqueeContainer.removeChild(marqueeKeyframeStyleSheet);
+					self._ui.styleSheelElement = null;
 				}
 
 				marqueeInnerElementStyle.webkitAnimationName = "";
@@ -397,13 +446,18 @@
 				marqueeInnerElementStyle.webkitAnimationDelay = "";
 				marqueeInnerElementStyle.webkitAnimationIterationCount = "";
 				marqueeInnerElementStyle.webkitAnimationTimingFunction = "";
+				marqueeElementStyle.webkitAnimationName = "";
+				marqueeElementStyle.webkitAnimationDuration = "";
+				marqueeElementStyle.webkitAnimationDelay = "";
+				marqueeElementStyle.webkitAnimationIterationCount = "";
+				marqueeElementStyle.webkitAnimationTimingFunction = "";
 			};
 
 			/**
 			 * Remove marquee object and Reset DOM structure
 			 * @method _resetDOM
 			 * @protected
-			 * @memeber ns.widget.core.Marquee
+			 * @member ns.widget.core.Marquee
 			 */
 			prototype._resetDOM = function() {
 				var ui = this._ui;
@@ -435,7 +489,7 @@
 			/**
 			 * Set Marquee animation status Running
 			 * @method _animationStart
-			 * @memeber ns.widget.core.Marquee
+			 * @member ns.widget.core.Marquee
 			 */
 			prototype._animationStart = function() {
 				var self = this,
@@ -450,6 +504,9 @@
 
 				marqueeInnerElementClassList.remove(classes.ANIMATION_IDLE, classes.ANIMATION_STOPPED);
 				marqueeInnerElementClassList.add(classes.ANIMATION_RUNNING);
+				marqueeElementClassList.remove(classes.ANIMATION_IDLE, classes.ANIMATION_STOPPED);
+				marqueeElementClassList.add(classes.ANIMATION_RUNNING);
+
 				self.trigger(eventType.MARQUEE_START);
 			};
 
@@ -468,7 +525,7 @@
 			 *	</script>
 			 *
 			 * @method start
-			 * @memeber ns.widget.core.Marquee
+			 * @member ns.widget.core.Marquee
 			 */
 			prototype.start = function() {
 				var self = this;
@@ -510,7 +567,8 @@
 			 */
 			prototype.stop = function() {
 				var self = this,
-					marqueeInnerElementClassList = self._ui.marqueeInnerElement.classList;
+					marqueeInnerElementClassList = self._ui.marqueeInnerElement.classList,
+					marqueeElementClassList = self.element.classList;
 
 				if (self.options.runOnlyOnEllipsisText && !self._hasEllipsisText) {
 					return;
@@ -523,6 +581,9 @@
 				self._state = states.STOPPED;
 				marqueeInnerElementClassList.remove(classes.ANIMATION_RUNNING);
 				marqueeInnerElementClassList.add(classes.ANIMATION_STOPPED);
+				marqueeElementClassList.remove(classes.ANIMATION_RUNNING);
+				marqueeElementClassList.add(classes.ANIMATION_STOPPED);
+
 				self.trigger(eventType.MARQUEE_STOPPED);
 			};
 
@@ -544,6 +605,7 @@
 			 */
 			prototype.reset = function() {
 				var self = this,
+					ellipsisEffect = self.options.ellipsisEffect,
 					marqueeElementClassList = self.element.classList,
 					marqueeInnerElementClassList = self._ui.marqueeInnerElement.classList;
 
@@ -558,7 +620,7 @@
 				self._state = states.IDLE;
 				marqueeInnerElementClassList.remove(classes.ANIMATION_RUNNING, classes.ANIMATION_STOPPED);
 				marqueeInnerElementClassList.add(classes.ANIMATION_IDLE);
-				if (self.options.ellipsisEffect === ellipsisEffect.ELLIPSIS) {
+				if (ellipsisEffect === ellipsisEffect.ELLIPSIS) {
 					marqueeElementClassList.add(classes.MARQUEE_ELLIPSIS);
 				}
 
