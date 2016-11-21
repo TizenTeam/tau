@@ -58,7 +58,18 @@
 				merge = ns.util.object.merge,
 
 				// TODO UA test will move to support.
-				tizenBrowser = !!window.navigator.userAgent.match(/tizen/i);
+				isTizenWebkit2Browser = !!window.navigator.userAgent.match(/tizen/i) && (function () {
+					var result = true, version;
+					if (tizen.systeminfo.getCapability) {
+						try {
+							version = tizen.systeminfo.getCapability("http://tizen.org/feature/platform.version");
+							return version < "3.0";
+						} catch (error) {
+							console.log("Error name: " + error.name + ", message: " + error.message);
+						}
+					}
+					return result;
+				})();
 
 			ns.event.gesture.Drag = Detector.plugin.create({
 
@@ -138,7 +149,7 @@
 						}
 
 						if ( options.delay && ge.deltaTime < options.delay ) {
-							if ( !tizenBrowser ) {
+							if ( !isTizenWebkit2Browser ) {
 								ge.preventDefault();
 							}
 							return Gesture.Result.PENDING;
