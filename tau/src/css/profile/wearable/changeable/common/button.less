@@ -28,7 +28,7 @@
 	&.ui-btn-circle {
 		border-radius: 50%;
 
-		&:enabled:active:hover {
+		&.ui-btn-active {
 			animation: btn-circle-opacity-press linear 567ms;
 		}
 	}
@@ -75,10 +75,11 @@
 
 		&:enabled:active:hover, &:enabled:focus {
 			background-color: transparent;
-			&::before {
-				transform: translate(-50%, -50%) scale(1.1);
-				animation: touch-text-btn-scale cubic-bezier(0.25,0.46,0.45,1.0) 300ms, touch-text-btn-opacity linear 733ms;
-			}
+		}
+
+		&.ui-btn-active::before {
+			transform: translate(-50%, -50%) scale(1.1);
+			animation: touch-text-btn-scale cubic-bezier(0.25,0.46,0.45,1.0) 300ms, touch-text-btn-opacity linear 733ms;
 		}
 	}
 

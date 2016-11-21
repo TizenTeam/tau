@@ -105,6 +105,7 @@
 				Gesture = ns.event.gesture,
 				events = ns.event,
 				utilsObject = ns.util.object,
+				requestAnimationFrame = window.requestAnimationFrame || window.webkitRequestAnimationFrame,
 				Selector = function () {
 					var self = this;
 					self._ui = {};
@@ -122,6 +123,7 @@
 					ITEM: "ui-item",
 					ITEM_ACTIVE: "ui-item-active",
 					INDICATOR: "ui-selector-indicator",
+					INDICATOR_ACTIVE: "ui-selector-indicator-active",
 					INDICATOR_TEXT: "ui-selector-indicator-text",
 					INDICATOR_ICON: "ui-selector-indicator-icon",
 					INDICATOR_ICON_ACTIVE: "ui-selector-indicator-icon-active",
@@ -230,7 +232,8 @@
 					new Gesture.Drag()
 				);
 				events.on(document, "rotarydetent", self, false);
-				events.on(element, "dragstart drag dragend click", self, false);
+				events.on(self._ui.indicator, "animationend webkitAnimationEnd", self, false);
+				self.on("dragstart drag dragend click", self, false);
 			}
 
 			/**
@@ -531,6 +534,10 @@
 					case "rotarydetent":
 						self._onRotary(event);
 						break;
+					case "animationend":
+					case "webkitAnimationEnd":
+						self._onAnimationEnd(event);
+						break;
 				}
 			};
 
@@ -694,6 +701,19 @@
 				this._started = true;
 			};
 
+
+			/**
+			 * Clear active class on animation end
+			 * @method _onAnimationEnd
+			 * @param {Event} event
+			 * @protected
+			 * @member ns.widget.wearable.Selector
+			 */
+			prototype._onAnimationEnd = function(event) {
+				this._ui.indicator.classList.remove(classes.INDICATOR_ACTIVE);
+			};
+
+
 			/**
 			 * Drag event handler
 			 * @method _onDrag
@@ -748,14 +768,20 @@
 			prototype._onClick = function(event) {
 				var self = this,
 					pointedElement = document.elementFromPoint(event.pageX, event.pageY),
+					indicatorClassList = self._ui.indicator.classList,
 					index;
 
-				if (!self._enabled) {
-					return;
-				}
-				if (pointedElement && pointedElement.classList.contains(classes.ITEM)) {
-					index = parseInt(utilDom.getNSData(pointedElement, "index"), 10);
-					self._setActiveItem(index);
+				if (self._enabled) {
+					if (pointedElement && (pointedElement.classList.contains(classes.INDICATOR) || pointedElement.parentElement.classList.contains(classes.INDICATOR))) {
+						indicatorClassList.remove(classes.INDICATOR_ACTIVE);
+						requestAnimationFrame(function () {
+							indicatorClassList.add(classes.INDICATOR_ACTIVE)
+						});
+					}
+					if (pointedElement && pointedElement.classList.contains(classes.ITEM)) {
+						index = parseInt(utilDom.getNSData(pointedElement, "index"), 10);
+						self._setActiveItem(index);
+					}
 				}
 			};
 

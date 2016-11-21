@@ -91,14 +91,32 @@
 					addActiveClassDelay: 50,
 					keepActiveClassDelay: 100
 				},
-				/**
-				 * Class used to mark element as active
-				 * @property {string} [activeClassLI="ui-li-active"] activeClassLI
-				 * @member ns.util.anchorHighlight
-				 * @private
-				 * @static
-				 */
-				activeClassLI = "ui-li-active",
+				classes = {
+					/**
+					 * Class used to mark element as active
+					 * @property {string} [classes.ACTIVE_LI="ui-li-active"]
+					 * @member ns.util.anchorHighlight
+					 * @private
+					 * @static
+					 */
+					ACTIVE_LI: "ui-li-active",
+					/**
+					 * Class used to mark button as active
+					 * @property {string} [classes.ACTIVE_BTN="ui-btn-active"]
+					 * @member ns.util.anchorHighlight
+					 * @private
+					 * @static
+					 */
+					ACTIVE_BTN: "ui-btn-active",
+					/**
+					 * Class used to select button
+					 * @property {string} [classes.BUTTON="ui-btn"] btn
+					 * @member ns.util.anchorHighlight
+					 * @private
+					 * @static
+					 */
+					BUTTON: "ui-btn"
+				},
 				/**
 				 * Alias for class {@link ns.util.selectors}
 				 * @property {Object} selectors
@@ -144,6 +162,31 @@
 			}
 
 			/**
+			 * Get closest button element
+			 * @method detectLiElement
+			 * @param {HTMLElement} target
+			 * @return {HTMLElement}
+			 * @member ns.util.anchorHighlight
+			 * @private
+			 * @static
+			 */
+			function detectBtnElement(target) {
+				return selectors.getClosestByClass(target, classes.BUTTON);
+			}
+
+			/**
+			 * Clear active aclass on button
+			 * @method detectLiElement
+			 * @param {Event} event
+			 * @member ns.util.anchorHighlight
+			 * @private
+			 * @static
+			 */
+			function clearBtnActiveClass(event) {
+				event.target.classList.remove(classes.ACTIVE_BTN);
+			}
+
+			/**
 			 * Add active class to touched element
 			 * @method addActiveClass
 			 * @member ns.util.anchorHighlight
@@ -152,6 +195,8 @@
 			 */
 			function addActiveClass() {
 				var liTarget = null,
+					btnTarget = null,
+					btnTargetClassList = null,
 					dTime = 0;
 
 				if (startTime) {
@@ -159,13 +204,21 @@
 
 					if (dTime > options.addActiveClassDelay) {
 						startTime = 0;
+						btnTarget = detectBtnElement(target);
 						target = detectHighlightTarget(target);
 						if (!didScroll) {
 							liTarget = detectLiElement(target);
 							if( liTarget ) {
-								liTarget.classList.add(activeClassLI);
+								liTarget.classList.add(classes.ACTIVE_LI);
 							}
 							liTarget = null;
+							if (btnTarget) {
+								btnTargetClassList = btnTarget.classList;
+								btnTargetClassList.remove(classes.ACTIVE_BTN);
+								requestAnimationFrame(function(){
+									btnTargetClassList.add(classes.ACTIVE_BTN);
+								});
+							}
 						}
 					} else {
 						requestAnimationFrame(addActiveClass);
@@ -182,7 +235,7 @@
 			 * @static
 			 */
 			function getActiveElements() {
-				return slice.call(document.getElementsByClassName(activeClassLI));
+				return slice.call(document.getElementsByClassName(classes.ACTIVE_LI));
 			}
 
 			/**
@@ -193,7 +246,7 @@
 					activeALength = activeA.length,
 					i = 0;
 				for (; i < activeALength; i++) {
-					activeA[i].classList.remove(activeClassLI);
+					activeA[i].classList.remove(classes.ACTIVE_LI);
 				}
 				activeA = null;
 			}
@@ -313,6 +366,8 @@
 
 				document.addEventListener("visibilitychange", checkPageVisibility, false);
 				window.addEventListener("pagehide", removeActiveClass, false);
+				document.addEventListener("animationEnd", clearBtnActiveClass, false);
+				document.addEventListener("webkitAnimationEnd", clearBtnActiveClass, false);
 			}
 
 			/**
@@ -328,6 +383,8 @@
 
 				document.removeEventListener("visibilitychange", checkPageVisibility, false);
 				window.removeEventListener("pagehide", removeActiveClass, false);
+				document.removeEventListener("animationEnd", clearBtnActiveClass, false);
+				document.removeEventListener("webkitAnimationEnd", clearBtnActiveClass, false);
 			}
 
 			enable();
