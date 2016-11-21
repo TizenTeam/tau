@@ -1,4 +1,4 @@
-(function(tau) {
+(function() {
 	var page = document.getElementById("selectorPage"),
 		selector = document.getElementById("selector"),
 		selectorComponent,
@@ -39,4 +39,4 @@
 		selector.removeEventListener("click", clickBound, false);
 		selectorComponent.destroy();
 	});
-}(window.tau));
+}());

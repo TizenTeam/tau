@@ -123,6 +123,10 @@
 					ITEM_ACTIVE: "ui-item-active",
 					INDICATOR: "ui-selector-indicator",
 					INDICATOR_TEXT: "ui-selector-indicator-text",
+					INDICATOR_ICON: "ui-selector-indicator-icon",
+					INDICATOR_ICON_ACTIVE: "ui-selector-indicator-icon-active",
+					INDICATOR_SUBTEXT: "ui-selector-indicator-subtext",
+					INDICATOR_WITH_SUBTITLE: "ui-selector-indicator-with-subtext",
 					INDICATOR_NEXT_END: "ui-selector-indicator-next-end",
 					INDICATOR_PREV_END: "ui-selector-indicator-prev-end",
 					INDICATOR_ARROW: "ui-selector-indicator-arrow"
@@ -347,6 +351,36 @@
 				});
 			};
 
+
+			/**
+			 * Create indicator structure
+			 * @param {Object} ui
+			 * @param {HTMLElement} element
+			 */
+			function createIndicator(ui, element) {
+				var indicator,
+					indicatorText,
+					indicatorSubText,
+					indicatorIcon;
+
+				indicator = document.createElement("div");
+				indicator.classList.add(classes.INDICATOR);
+				ui.indicator = indicator;
+				indicatorText = document.createElement("div");
+				indicatorText.classList.add(classes.INDICATOR_TEXT);
+				ui.indicatorText = indicatorText;
+				ui.indicator.appendChild(ui.indicatorText);
+				indicatorIcon = document.createElement("div");
+				indicatorIcon.classList.add(classes.INDICATOR_ICON);
+				ui.indicatorIcon = indicatorIcon;
+				ui.indicator.appendChild(ui.indicatorIcon);
+				indicatorSubText = document.createElement("div");
+				indicatorSubText.classList.add(classes.INDICATOR_SUBTEXT);
+				ui.indicatorSubText = indicatorSubText;
+				ui.indicator.appendChild(ui.indicatorSubText);
+				element.appendChild(ui.indicator);
+			}
+
 			/**
 			 * Build Selector component
 			 * @method _build
@@ -360,8 +394,6 @@
 					ui = self._ui,
 					options = self.options,
 					items = element.querySelectorAll(self.options.itemSelector),
-					indicator,
-					indicatorText,
 					indicatorArrow,
 					queryIndicator,
 					queryIndicatorText,
@@ -384,14 +416,7 @@
 								ui.indicatorText = queryIndicatorText;
 							}
 						} else {
-							indicator = document.createElement("div");
-							indicator.classList.add(classes.INDICATOR);
-							ui.indicator = indicator;
-							indicatorText = document.createElement("div");
-							indicatorText.classList.add(classes.INDICATOR_TEXT);
-							ui.indicatorText = indicatorText;
-							ui.indicator.appendChild(ui.indicatorText);
-							element.appendChild(ui.indicator);
+							createIndicator(ui, element);
 						}
 						if (queryIndicatorArrow) {
 							ui.indicatorArrow = queryIndicatorArrow;
@@ -623,13 +648,34 @@
 					ui = self._ui,
 					item = ui.items[index],
 					title = utilDom.getNSData(item, "title"),
+					icon = utilDom.getNSData(item, "icon"),
+					subtext = utilDom.getNSData(item, "subtitle"),
 					indicator = ui.indicator,
 					indicatorText = ui.indicatorText,
+					indicatorIcon = ui.indicatorIcon,
+					indicatorSubText = ui.indicatorSubText,
 					indicatorArrow = ui.indicatorArrow,
 					idcIndex = index % self.options.maxItemNumber;
 
-				if (indicator.children.length === 1 && indicator.children[0] === indicatorText) {
-					indicatorText.textContent = title ? title : "ITEM";
+				if (!title && !icon) {
+					indicatorText.textContent = "ITEM";
+				}
+				if (icon) {
+					indicatorIcon.classList.add(classes.INDICATOR_ICON_ACTIVE);
+					indicatorIcon.style.backgroundImage = "url(" + icon + ")";
+					indicatorText.textContent = "";
+				} else {
+					if (title) {
+						indicatorText.textContent = title;
+					}
+					indicatorIcon.classList.remove(classes.INDICATOR_ICON_ACTIVE);
+				}
+				if (subtext) {
+					indicator.classList.add(classes.INDICATOR_WITH_SUBTITLE);
+					indicatorSubText.textContent = subtext;
+				} else {
+					indicator.classList.remove(classes.INDICATOR_WITH_SUBTITLE);
+					indicatorSubText.textContent = "";
 				}
 
 				utilDom.setNSData(indicator, "index", index);
