@@ -174,9 +174,8 @@ body {
 				z-index: -1;
 			}
 
-			&:active::after {
-				.transition(none);
-				opacity: 1;
+			&.ui-btn-active::after {
+				animation: btn-footer-opacity-press linear 565ms;
 			}
 		}
 
