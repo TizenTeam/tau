@@ -17,7 +17,7 @@
 }
 
 .ui-icon-test2{
-	background-position:0% 0%;
+	background-position: 0 0;
 	background-size:50% 50%;
 	background-image: url(test.png);
 }
@@ -60,7 +60,6 @@
 	right: 16px;
 	height: 100%;
 	line-height: 60px;
-	float: right;
 	text-align: right;
 	font-size: 16px;
 	color: rgba(77, 77, 77, 1);
@@ -206,7 +205,6 @@
 	top: 39px;
 	left: 16px;
 	line-height: 22px;
-	float: left;
 	text-align: left;
 	height: auto;
 }
@@ -241,7 +239,6 @@
 .li-has-multiline .li-text-sub2 {
 	top: 0;
 	right: 16px;
-	float: right;
 	text-align: right;
 	height: 100%;
 	line-height: 72px;
@@ -667,10 +664,9 @@
 	list-style-type: none;
 	text-decoration: none;
 	padding: 0;
-	margin: 0;
 	text-align: center;
 	font-size: 16px;
-	margin: 27px 10px 6px;
+	margin: 27px 10px 6px 0;
 	display: flex;
 	display: -webkit-flex;
 	justify-content: space-around;
