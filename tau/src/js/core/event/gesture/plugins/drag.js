@@ -21,7 +21,7 @@
  *
  * @class ns.event.gesture.Drag
  */
-( function ( ns, window, undefined ) {
+( function ( ns, window, tizen ) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define([
@@ -60,7 +60,7 @@
 				// TODO UA test will move to support.
 				isTizenWebkit2Browser = !!window.navigator.userAgent.match(/tizen/i) && (function () {
 					var result = true, version;
-					if (tizen.systeminfo.getCapability) {
+					if (tizen && tizen.systeminfo && tizen.systeminfo.getCapability) {
 						try {
 							version = tizen.systeminfo.getCapability("http://tizen.org/feature/platform.version");
 							return version < "3.0";
@@ -232,4 +232,4 @@
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
-} ( ns, window ) );
+} ( ns, window, window.tizen ) );
