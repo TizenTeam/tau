@@ -355,11 +355,12 @@
 					ui = self._ui,
 					i,
 					len = ui.liElements.length,
-					currentItem = null;
+					currentItem = null,
+					widgetOffsetTop = self.element.offsetTop;
 
 				for (i = 0; i < len; i++){
 					currentItem = ui.liElements[i];
-					self._liElementOffsetTop[i] = currentItem.element.offsetTop;
+					self._liElementOffsetTop[i] = currentItem.element.offsetTop + widgetOffsetTop;
 					self._liElementOffsetHeight[i] = currentItem.element.offsetHeight;
 
 					// If current element is collapsible, height should be based on header
@@ -368,7 +369,7 @@
 					// If current element has a collapsible parent (element from sublist)
 					// offset from top will return invalid values, this is handled here
 					} else if(currentItem.collapsibleParent) {
-						self._liElementOffsetTop[i] += currentItem.collapsibleParent.offsetTop;
+						self._liElementOffsetTop[i] += currentItem.collapsibleParent.offsetTop + widgetOffsetTop;
 					}
 				}
 			};
@@ -482,12 +483,13 @@
 				}
 
 				top = liElementOffsetTop[ColoredListviewTop];
+
 				for (i = ColoredListviewTop; i < validMax + 1; i++) {
 					listTop = liElementOffsetTop[i] - top + DEFAULT.FIRST_SPACE;
-					if (i === validMax) {
-						setRectangle(gl, 0, listTop, offsetWidth, offsetHeight - listTop);
-					} else if (i === ColoredListviewTop) {
+					if (i === ColoredListviewTop) {
 						setRectangle(gl, 0, 0, offsetWidth, liElementOffsetHeight[i] + DEFAULT.FIRST_SPACE);
+					} else if (i === validMax) {
+						setRectangle(gl, 0, listTop, offsetWidth, offsetHeight - listTop);
 					} else {
 						setRectangle(gl, 0, listTop, offsetWidth, liElementOffsetHeight[i]);
 					}
