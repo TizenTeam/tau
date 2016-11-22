@@ -59,6 +59,8 @@
 			"./profile/wearable/router/route/grid",
 			"./profile/wearable/expose",
 			"./profile/wearable/backward",
+			// events
+			"./core/event/scrolledtoedge",
 			// Modules to be loaded after
 			"./core/init"
 		],
