@@ -217,6 +217,16 @@
 				}
 			}
 
+			/**
+			 * Check if element of list item is displayed
+			 * @param listItem
+			 * @returns {boolean}
+			 * @private
+			 */
+			function isListItemDisplayed(listItem) {
+				return listItem.element.style.display !== "none";
+			}
+
 			function setSelection(self) {
 				var ui = self._ui,
 					listItems = self._listItems,
@@ -229,7 +239,8 @@
 					tempListItem = listItems[i];
 					tempListItemCoord = tempListItem.coord;
 
-					if ((tempListItemCoord.top < scrollCenter) && (tempListItemCoord.top + tempListItemCoord.height >= scrollCenter)) {
+					// element has to be displayed to be able to be selected
+					if (isListItemDisplayed(tempListItem) && (tempListItemCoord.top < scrollCenter) && (tempListItemCoord.top + tempListItemCoord.height >= scrollCenter)) {
 						removeSelectedClass(self);
 						self._selectedIndex = i;
 						tempListItem.element.classList.add(classes.SNAP_LISTVIEW_SELECTED);
@@ -400,7 +411,10 @@
 			};
 
 			/**
-			 * Refresh structure
+			 * Refresh structure.
+			 * This function has to be called every time when the structure of list changed,
+			 * eg. the visibility of item on list was changed by setting value of 'display' property
+			 *
 			 * @method _refresh
 			 * @protected
 			 * @member ns.widget.wearable.SnapListview
@@ -565,10 +579,11 @@
 			 * @method scrollToPosition
 			 * @param {number} index
 			 * @public
+			 * @return {boolean} True if the list was scrolled, false - otherwise.
 			 * @member ns.widget.wearable.SnapListview
 			 */
 			prototype.scrollToPosition = function(index) {
-				this._scrollToPosition(index);
+				return this._scrollToPosition(index);
 			};
 
 			prototype._scrollToPosition = function(index, callback) {
@@ -578,17 +593,21 @@
 					listItems = self._listItems,
 					scrollableParent = ui.scrollableParent,
 					listItemLength = listItems.length,
-					indexItem,
+					listItem = listItems[index],
+					listItemIndex,
 					dest;
 
-				if (!enabled || index < 0 || index >= listItemLength || self._selectedIndex === index) {
-					return;
+				// if list is disabled or selected index is out of range, or item on selected index
+				// is not displayed, this function returns false
+				if (!enabled || index < 0 || index >= listItemLength || self._selectedIndex === index ||
+					!isListItemDisplayed(listItem)) {
+					return false;
 				}
 
 				removeSelectedClass(self);
-				
-				indexItem = listItems[index].coord;
-				dest = indexItem.top - scrollableParent.height / 2 + indexItem.height / 2;
+
+				listItemIndex = listItems[index].coord;
+				dest = listItemIndex.top - scrollableParent.height / 2 + listItemIndex.height / 2;
 
 				self._selectedIndex = index;
 
@@ -597,6 +616,8 @@
 					animationTimer = null;
 				}
 				scrollAnimation(scrollableParent.element, - scrollableParent.element.firstElementChild.getBoundingClientRect().top, dest, 450, callback);
+
+				return true;
 			};
 
 			function cubicBezier (x1, y1, x2, y2) {

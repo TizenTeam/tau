@@ -60,18 +60,27 @@
 					selectedIndex = snapListviewWidget.getSelectedIndex(),
 					listItems = snapListviewWidget._listItems,
 					listItemLength = listItems.length,
-					direction = e.detail.direction;
+					direction = e.detail.direction,
+					scrolled = false;
 
 				if (direction === "CW" && selectedIndex !== null) {
 					if (listItems[listItemLength - 1].element.classList.contains("ui-snap-listview-selected")) {
 						showEdgeEffect(direction);
 					}
-					snapListviewWidget.scrollToPosition(++selectedIndex);
+					// try to scroll to the next element on list
+					// - the next element can be hidden, so we try as long as it is possible to change element
+					while(!scrolled && ++selectedIndex < listItemLength) {
+						scrolled = snapListviewWidget.scrollToPosition(selectedIndex);
+					}
 				} else if (direction === "CCW" && selectedIndex !== null) {
 					if (listItems[0].element.classList.contains("ui-snap-listview-selected")) {
 						showEdgeEffect(direction);
 					}
-					snapListviewWidget.scrollToPosition(--selectedIndex);
+					// try to scroll to the previous element on list
+					// - the previous element can be hidden, so we try as long as it is possible to change element
+					while(!scrolled && --selectedIndex >= 0) {
+						scrolled = snapListviewWidget.scrollToPosition(selectedIndex);
+					}
 				}
 			}
 
