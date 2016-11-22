@@ -263,8 +263,7 @@
 				progressbarValue.appendChild(progressbarValueRight);
 				progressbarContainer.appendChild(progressbarValue);
 				progressbarContainer.appendChild(progressbarBg);
-				progressElement.parentNode.appendChild(progressbarContainer);
-				progressElement.parentNode.insertBefore(progressElement, progressbarContainer);
+				progressElement.parentNode.insertBefore(progressbarContainer, progressElement);
 
 				return element;
 			};
@@ -322,10 +321,11 @@
 			 * Get value of Circle Progressbar
 			 * @method _getValue
 			 * @protected
-			 * @memeber ns.widget.wearable.CircleProgressBar
+			 * @return {number}
+			 * @member ns.widget.wearable.CircleProgressBar
 			 */
 			prototype._getValue = function () {
-				return this.element.getAttribute("value");
+				return parseInt(this.element.getAttribute("value"), 10);
 			};
 			/**
 			 * Set value of Circle Progressbar

@@ -57,16 +57,37 @@
 						y: 0
 					}
 				},
-				prototype = new CoreSlider();
+				prototype = new CoreSlider(),
+				eventType = {
+					/**
+					 * Triggered when the section is changed.
+					 * @event change
+					 * @member ns.widget.wearable.Slider
+					 */
+					CHANGE: "change"
+				},
+				PREFIX = "ui-slider",
+				classes = {
+					container: PREFIX + "-container",
+					titles: PREFIX + "-titles",
+					buttons: PREFIX + "-buttons",
+					plus: PREFIX + "-plus",
+					minus: PREFIX + "-minus",
+					number: PREFIX + "-number",
+					icon: PREFIX + "-icon",
+					title: PREFIX + "-title",
+					subtitle: PREFIX + "-subtitle"
+				},
+				slice = Array.prototype.slice;
 
 			Slider.prototype = prototype;
 
 			function bindCircleEvents(self) {
-				events.on(document, "rotarydetent touchstart touchmove touchend", self, false);
+				events.on(document, "rotarydetent touchstart touchmove touchend click", self, false);
 			}
 
 			function unbindCircleEvents(self) {
-				events.off(document, "rotarydetent touchstart touchmove touchend", self, false);
+				events.off(document, "rotarydetent touchstart touchmove touchend click", self, false);
 			}
 
 			/**
@@ -75,13 +96,31 @@
 			 * @protected
 			 * @member ns.widget.wearable.Slider
 			 */
-			prototype._configure = function() {
+			prototype._configure = function () {
 				var self = this,
 					options = self.options;
 
 				options.size = "full";
 				options.type = "circle";
 				options.touchableWidth = 50;
+				options.buttons = false;
+			};
+
+			/**
+			 * Build buttons for slider
+			 * @method _buildButtons
+			 * @protected
+			 * @param {HTMLElement} element
+			 * @member ns.widget.wearable.Slider
+			 */
+			prototype._buildButtons = function (element) {
+				var buttonsContainer = document.createElement("div");
+
+				buttonsContainer.classList.add(classes.buttons);
+				buttonsContainer.innerHTML = "<div class='" + classes.minus +
+					"'></div><div class='" +classes.number + "'></div><div class='" + classes.plus + "'></div>";
+
+				element.parentElement.insertBefore(buttonsContainer, element);
 			};
 
 			/**
@@ -91,9 +130,13 @@
 			 * @param {HTMLElement} element
 			 * @member ns.widget.wearable.Slider
 			 */
-			prototype._build = function(element) {
+			prototype._build = function (element) {
 				var self = this,
-					options = self.options;
+					options = self.options,
+					parentElement = element.parentElement,
+					sliderElements = null,
+					container = null,
+					titles = null;
 
 				if (options.type === "circle") {
 					element.style.display = "none";
@@ -101,6 +144,32 @@
 				} else {
 					CoreSliderPrototype._build.call(self, element);
 				}
+
+				if (options.buttons) {
+					self._buildButtons(element);
+				}
+
+				sliderElements = slice.call(
+					parentElement.querySelectorAll("." + classes.icon + ", ." +
+						classes.title + ", ." + classes.subtitle + ", ." + classes.buttons));
+
+				if (sliderElements.length) {
+					container = document.createElement("div");
+					container.classList.add(classes.container);
+					sliderElements.forEach(container.appendChild.bind(container));
+					parentElement.appendChild(container);
+
+					sliderElements = slice.call(
+						parentElement.querySelectorAll("." + classes.subtitle + ", ." +
+							classes.title));
+
+					titles = document.createElement("div");
+					titles.classList.add(classes.titles);
+					sliderElements.forEach(titles.appendChild.bind(titles));
+					container.appendChild(titles);
+					self._ui.container = container;
+				}
+
 				return element;
 			};
 
@@ -111,7 +180,7 @@
 			 * @param {HTMLElement} element
 			 * @member ns.widget.wearable.Slider
 			 */
-			prototype._init = function(element) {
+			prototype._init = function (element) {
 				var self = this,
 					options = self.options;
 
@@ -121,6 +190,9 @@
 				} else {
 					CoreSliderPrototype._init.call(self, element);
 				}
+				self._ui.valueField = self._ui.container.querySelector("." + classes.number);
+				// init value and redraw
+				self.value(self._value);
 				return element;
 			};
 
@@ -130,7 +202,7 @@
 			 * @protected
 			 * @member ns.widget.wearable.Slider
 			 */
-			prototype._circleInit = function() {
+			prototype._circleInit = function () {
 				var self = this;
 
 				self._step = parseInt(self.element.getAttribute("step"), 10) || self._step || 1;
@@ -150,7 +222,7 @@
 			 * @protected
 			 * @member ns.widget.wearable.Slider
 			 */
-			prototype._bindEvents = function() {
+			prototype._bindEvents = function () {
 				var self = this,
 					options = self.options;
 
@@ -168,7 +240,7 @@
 			 * @member ns.widget.wearable.Slider
 			 * @protected
 			 */
-			prototype.handleEvent = function(event) {
+			prototype.handleEvent = function (event) {
 				var self = this,
 					options = self.options;
 
@@ -180,6 +252,9 @@
 						case "touchstart":
 						case "touchmove":
 						case "touchend":
+							self._onTouch(event);
+							break;
+						case "click":
 							self._onClick(event);
 							break;
 					}
@@ -195,37 +270,22 @@
 			 * @member ns.widget.wearable.Slider
 			 * @protected
 			 */
-			prototype._onRotary = function(event) {
+			prototype._onRotary = function (event) {
 				var self = this,
-					direction = event.detail.direction,
 					step = self._step,
-					value = CirclePBPrototype._getValue.call(self);
+					value = self.value();
 
-
-				if (direction === "CW") {
-					if (value - 0 + step < self._maxValue) {
-						value = value - 0 + step;
-					} else {
-						value = self._maxValue;
-					}
-				} else if (direction === "CCW") {
-					if (value - 0 - step > self._minValue) {
-						value = value - 0 - step;
-					} else {
-						value = self._minValue;
-					}
-				}
-				CirclePBPrototype._setValue.call(self, value);
+				self.value(value + (event.detail.direction === "CW") ? step : -step);
 			};
 
 			/**
 			 * Touchstart handler
-			 * @method _onClick
+			 * @method _onTouch
 			 * @param {Event} event
 			 * @member ns.widget.wearable.Slider
 			 * @protected
 			 */
-			prototype._onClick = function(event) {
+			prototype._onTouch = function (event) {
 				var self = this,
 					pointer = event.changedTouches && event.changedTouches[0] || event,
 					clientX = pointer.clientX,
@@ -241,6 +301,23 @@
 			};
 
 			/**
+			 * Touchstart handler
+			 * @method _onClick
+			 * @param {Event} event
+			 * @member ns.widget.wearable.Slider
+			 * @protected
+			 */
+			prototype._onClick = function (event) {
+				var self = this,
+					targetClassList = event.target.classList;
+				if (targetClassList.contains(classes.plus)) {
+					self.value(self.value() + self._step);
+				} else if (targetClassList.contains(classes.minus)) {
+					self.value(self.value() - self._step);
+				}
+			};
+
+			/**
 			 * Check whether the click point is in valid area
 			 * @method _isValidStartPosition
 			 * @param {number} clientX
@@ -248,7 +325,7 @@
 			 * @member ns.widget.wearable.Slider
 			 * @protected
 			 */
-			prototype._isValidStartPosition = function(clientX, clientY) {
+			prototype._isValidStartPosition = function (clientX, clientY) {
 				var self = this,
 					middleX = self._middlePoint.x,
 					middleY = self._middlePoint.y,
@@ -265,7 +342,7 @@
 			 * @member ns.widget.wearable.Slider
 			 * @protected
 			 */
-			prototype._setValueByCoord = function(clientX, clientY) {
+			prototype._setValueByCoord = function (clientX, clientY) {
 				var self = this,
 					value;
 
@@ -276,15 +353,7 @@
 						value = self._maxValue;
 					}
 				}
-
-				if(self._step > 1) {
-					value = self._calibrateValue(value);
-					if (value > self._maxValue) {
-						value = self._maxValue;
-					}
-				}
-
-				CirclePBPrototype._setValue.call(self, parseInt(value, 10));
+				self.value(value);
 			};
 
 			/**
@@ -295,7 +364,7 @@
 			 * @member ns.widget.wearable.Slider
 			 * @protected
 			 */
-			prototype._convertCoordToValue = function(clientX, clientY) {
+			prototype._convertCoordToValue = function (clientX, clientY) {
 				return round(((atan2(clientY - this._middlePoint.y, clientX - this._middlePoint.x) + PI2_5) % PI2) / PI2 * (this._maxValue - this._minValue) + this._minValue);
 			};
 
@@ -306,7 +375,7 @@
 			 * @member ns.widget.wearable.Slider
 			 * @protected
 			 */
-			prototype._calibrateValue = function(value) {
+			prototype._calibrateValue = function (value) {
 				var self = this,
 					step = self._step,
 					half = step / 2;
@@ -319,24 +388,35 @@
 			 * @method value
 			 * @param {Number} value
 			 * @member ns.widget.wearable.Slider
+			 * @return {number|null}
 			 * @public
 			 */
-			prototype.value = function(value) {
+			prototype.value = function (value) {
 				var self = this,
-					options = self.options,
-					result;
+					currentValue = self._value,
+					options = self.options;
 
+				if (value !== undefined) {
+					if (parseInt(value, 10) > self._maxValue) {
+						value = self._maxValue;
+					}
+					if (parseInt(value, 10) < self._minValue) {
+						value = self._minValue;
+					}
+					value = self._calibrateValue(value);
+				}
 				if (options.type === "circle") {
-					if (value) {
+					if (value !== undefined) {
 						CirclePBPrototype._setValue.call(self, value);
+						self._ui.valueField.textContent = value;
+						if (value !== currentValue) {
+							self.trigger(eventType.CHANGE);
+						}
 					} else {
-						result = CirclePBPrototype._getValue.call(self);
+						return CirclePBPrototype._getValue.call(self);
 					}
 				} else {
-					result = CoreSliderPrototype.value.call(self, value);
-				}
-				if (result) {
-					return result;
+					return CoreSliderPrototype.value.call(self, value);
 				}
 			};
 
@@ -346,7 +426,7 @@
 			 * @member ns.widget.wearable.Slider
 			 * @public
 			 */
-			prototype.refresh = function() {
+			prototype.refresh = function () {
 				var self = this,
 					options = self.options;
 
@@ -382,7 +462,7 @@
 			ns.widget.wearable.Slider = Slider;
 			engine.defineWidget(
 				"Slider",
-				".ui-slider",
+				"." + PREFIX,
 				[
 					"value"
 				],

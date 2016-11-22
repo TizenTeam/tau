@@ -1170,3 +1170,7 @@ input[type="checkbox"]#checkboxControl {
 	-webkit-mask-repeat: no-repeat;
 	mask-repeat: no-repeat;
 }
+
+#slider-icon {
+	background: url(images/b_slider_btn_bg.png) no-repeat center center;
+}

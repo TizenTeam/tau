@@ -193,8 +193,13 @@
 				return false;
 			};
 
+			/**
+			 * Return value of progress
+			 * @returns {Number}
+			 * @private
+			 */
 			prototype._getValue = function() {
-				return this.element.getAttribute("value");
+				return parseInt(this.element.getAttribute("value"), 10);
 			};
 
 			prototype._animate = function (duration, progressCallback, finishCallback) {
