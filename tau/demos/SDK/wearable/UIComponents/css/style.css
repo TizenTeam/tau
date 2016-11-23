@@ -818,3 +818,16 @@ input[type="checkbox"]#checkboxControl {
 	-webkit-mask-position: center center;
 	-webkit-mask-repeat: no-repeat;
 }
+
+/* -------------------------Hyper Link Page------------------------ */
+
+#hyperLinkPage .ui-content {
+	margin: 0;
+	padding: 0;
+}
+
+#hyperLinkPage .ui-hyperlink {
+	display: block;
+	margin-top: 50%;
+	transform: translateY(-50%);
+}
