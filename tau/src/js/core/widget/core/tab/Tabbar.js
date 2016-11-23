@@ -170,6 +170,7 @@
 			"../../../util/grid",
 			"../../../util/DOM",
 			"../../../util/DOM/attributes",
+			"../../../util/DOM/css",
 			"../../../event/vmouse",
 			"../../../event",
 			"../Scrollview",
@@ -190,7 +191,8 @@
 					self._type = {
 						orientation: "portrait",
 						withIcon: false,
-						withTitle: false
+						withTitle: false,
+						static: false
 					};
 					self._ui = {};
 					/**
@@ -223,7 +225,8 @@
 					TABBAR_WITH_ICON: "ui-tabbar-with-icon",
 					TABBAR_PORTRAIT: "ui-tabbar-portrait",
 					TABBAR_LANDSCAPE: "ui-tabbar-landscape",
-					TABBAR_TEXT: "ui-tabbar-text"
+					TABBAR_TEXT: "ui-tabbar-text",
+					TABBAR_STATIC: "ui-tabbar-static"
 				},
 				events = ns.event,
 				DEFAULT_NUMBER = {
@@ -321,36 +324,41 @@
 					options = self.options,
 					offsetWidth = element.offsetWidth,
 					length = tabs.length,
-					devideNumber = length,
-					i;
+					wholeWidth = 0,
+					elementWidth = 0,
+					i = 0,
+					isStatic = false;
+
+				// get from class
+				isStatic = type.static = element.classList.contains(classes.TABBAR_STATIC);
+				// check if we have enough elements to make the list dynamic again
+				if (tabs[0]) {
+					elementWidth = domUtils.getElementWidth(tabs[0]);
+					if (elementWidth === elementWidth && (elementWidth * length < offsetWidth) && !isStatic) { // check NaN
+						isStatic = true;
+					}
+				}
 
 				if (window.innerWidth < window.innerHeight) {
 					element.classList.remove(classes.TABBAR_LANDSCAPE);
 					element.classList.add(classes.TABBAR_PORTRAIT);
 					type.orientation = "portrait";
-					if (length > DEFAULT_NUMBER.PORTRAIT_LIMIT_LENGTH) {
-						devideNumber = DEFAULT_NUMBER.PORTRAIT_DEVIDE_NUMBER;
-					}
 				} else {
 					element.classList.remove(classes.TABBAR_PORTRAIT);
 					element.classList.add(classes.TABBAR_LANDSCAPE);
 					type.orientation = "landscape";
-					if (length > DEFAULT_NUMBER.LANDSCAPE_LIMIT_LENGTH) {
-						devideNumber = DEFAULT_NUMBER.LANDSCAPE_DEVIDE_NUMBER;
-					}
 				}
-				if (type.withIcon) {
-					devideNumber = length;
-					if (type.withTitle) {
-						devideNumber = DEFAULT_NUMBER.WITH_ICON_WITH_TITLE;
-					} else if (length > DEFAULT_NUMBER.WITH_ICON_NO_TITLE) {
-						devideNumber = DEFAULT_NUMBER.WITH_ICON_NO_TITLE;
-					}
-				}
+
 				for (i = 0; i < length; i++) {
-					tabs[i].style.width = parseInt(offsetWidth / devideNumber, 10) + "px";
+					if (isStatic) { // make the elements "fit"
+						elementWidth = parseInt(offsetWidth / length, 10) || 0;
+						tabs[i].style.width = elementWidth + "px";
+					} else { // just get each element with for scroll support
+						elementWidth = domUtils.getElementWidth(tabs[i]);
+					}
+					wholeWidth += elementWidth;
 				}
-				self._wholeWidth = parseInt(offsetWidth / devideNumber, 10) * length;
+				self._wholeWidth = wholeWidth;
 				self._translatedX = 0;
 				self._lastX = 0;
 

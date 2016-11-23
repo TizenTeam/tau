@@ -129,4 +129,19 @@
 			background-color: @color_tabbar_tab_bg_press;
 		}
 	}
+
+	&:not(.ui-tabbar-static) {
+		ul {
+			li {
+				min-width: 210 * @unit_base;
+			}
+		}
+		&.ui-tabbar-landscape {
+			ul {
+				li {
+					min-width: 270 * @unit_base;
+				}
+			}
+		}
+	}
 }
