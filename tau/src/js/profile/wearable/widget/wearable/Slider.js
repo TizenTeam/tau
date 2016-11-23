@@ -190,7 +190,9 @@
 				} else {
 					CoreSliderPrototype._init.call(self, element);
 				}
-				self._ui.valueField = self._ui.container.querySelector("." + classes.number);
+				if (self._ui.container) {
+					self._ui.valueField = self._ui.container.querySelector("." + classes.number);
+				}
 				// init value and redraw
 				self.value(self._value);
 				return element;
@@ -408,7 +410,9 @@
 				if (options.type === "circle") {
 					if (value !== undefined) {
 						CirclePBPrototype._setValue.call(self, value);
-						self._ui.valueField.textContent = value;
+						if (self._ui.valueField) {
+							self._ui.valueField.textContent = value;
+						}
 						if (value !== currentValue) {
 							self.trigger(eventType.CHANGE);
 						}
