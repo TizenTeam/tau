@@ -1,4 +1,47 @@
 %changelog
+* Wed Nov 23 2016 Tomasz Lukawski <t.lukawski@samsung.com> 0.13.18
+	- feat(wearable): add hyper link
+	- feature(wearable) Add more features to slider
+	- fix(wearable): fixed ui-grid class conflict in list
+	- feat(mobile): Two mode tabbar, scrolled and static
+	- fix(wearable): Add in select all state "0"
+	- fix(wearable): Fix working of marquee text
+	- [wearable] change example of middle and small title
+	- feat(waearable) Activity indicator on load more contents
+	- feature(wearable) Change press efect activator
+	- fix(wearable): Fix press effect on footer buttons
+	- feature(wearable) Add fw style for buttons without bg
+	- fix(wearable): fix problem with hidden elements on SnapList
+	- feature(wearable): Add more styles in selector
+	- fix(mobile) ColoredListview: canvas wrong position
+	- fix(wearable) check for "tizen" global variable
+	- feat(waearable) Grid widget (Gallery sample)
+	- (fix) change look for text enveloper (text input)
+	- (fix) combine buttons on white background with textinput
+	- [Mobile] Preapare example Text input with Buttons
+	- fix(core): Fix drag event process in tizen 3.0
+	- fix(demos) UIComponents: wrong css in style.css
+	- feat(wearable): Sennding color effect for processing
+	- fix(wearable): Fix height of empty state header
+	- feature(wearable): Add more examples of native inputs
+	- fix(wearable): Fix layout of page indicator
+	- fix(wearable) Content layout
+	- feature(wearable) Add support of text input in lists
+	- feature(wearable) Add list with circle buttons
+	- fix(wearable): Fix layout of header
+	- refactor(wearable): Move small checkbox style to TAU
+	- feat(wearable): Add text button with press animation
+	- fix(mobile): add missing examples with big icons on listview
+	- fix(mobile) Toggle Switch not matching guide dimensions
+	- fix(wearable) Processing (Activity indicator) small processing on list example
+	- feat(wearable): Empty state page
+	- (fix) Prepare example and test for Matched Text
+	- fix(core): change virtual list BG color and modify number of items to load
+	- feature(wearable) Add sample with footer icon button
+	- feature(wearable): Add sample popup with images
+	- fix(mobile): change the size of icon in listitem (in application)
+	- fix(mobile) Listview - list item has wrong layout for multiline text
+
 * Wed Nov 16 2016 Tomasz Lukawski <t.lukawski@samsung.com> 0.13.17
 	- fix(mobile): Fix layout of textinput in list
 	- fix(mobile): Fix layout of li with progress

@@ -1,5 +1,5 @@
 Name:       web-ui-fw
-Version:     0.13.17
+Version:     0.13.18
 Release:    0
 VCS:        magnolia/framework/web/web-ui-fw#web-ui-fw_0.2.59-4-ge6c6c9d348559057a2b3d4ade5c021b0a28cbc7d
 Summary:    Tizen Web UI Framework Library
