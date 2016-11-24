@@ -462,7 +462,7 @@ li.static::before {
 	width: 0;
 	height: 0;
 	border: 20px solid transparent;
-	border-bottom: 20px solid rgba(2, 56, 92, 1);
+	border-bottom: 20px solid rgb(0, 53, 74);
 	left: 50%;
 	margin-left: -20px;
 }
