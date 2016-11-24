@@ -67,7 +67,8 @@
 					CANVAS: "ui-colored-list-canvas",
 					SCROLL_CLIP: "ui-scrollview-clip",
 					COLORED_LIST: "ui-colored-list",
-					COLORED_LIST_CLIP: "ui-colored-list-clip"
+					COLORED_LIST_CLIP: "ui-colored-list-clip",
+					GROUP_INDEX: "ui-group-index"
 				},
 				DEFAULT = {
 					FIRST_SPACE: 200
@@ -118,11 +119,9 @@
 			 * @member ns.widget.mobile.ColoredListview
 			 */
 			prototype._configure = function () {
-				var self = this,
-					options = self.options || {};
+				var options = this.options || {};
 
 				options.coloredListviewNumber = 15;
-
 			};
 
 			/**
@@ -154,8 +153,7 @@
 
 				self._scrollTop = 0;
 				self._ColoredListviewTop = 0;
-				self._liElementOffsetTop = [];
-				self._liElementOffsetHeight = [];
+				self._elementsDescriptions = [];
 				ui.liElements = slice.call(element.getElementsByTagName("li")).map(function (element) {
 					return {
 						element: element,
@@ -186,8 +184,7 @@
 					page = ui.page,
 					pageOffsetHeight = page.offsetHeight,
 					elementOffsetHeight = element.offsetHeight,
-					canvasElement,
-					i, len;
+					canvasElement;
 
 				if (ui.canvasElement) {
 					//>>excludeStart("tauDebug", pragmas.tauDebug);
@@ -199,9 +196,9 @@
 				canvasElement.classList.add(classes.CANVAS);
 				ui.canvasElement = canvasElement;
 
-				self._getItemsHeightAndPosition();
+				self._getItems();
 
-				if (clipElement){
+				if (clipElement) {
 					// List in scrollview
 					element.parentNode.insertBefore(canvasElement, element.parentNode.firstChild);
 
@@ -213,7 +210,7 @@
 						return;
 					}
 
-					canvasElement.style.top = self._liElementOffsetTop[self._ColoredListviewTop] - DEFAULT.FIRST_SPACE  + "px";
+					canvasElement.style.top = self._elementsDescriptions[self._ColoredListviewTop].offsetTop - DEFAULT.FIRST_SPACE  + "px";
 				} else {
 					clipElement = element.parentNode;
 					element.parentNode.insertBefore(canvasElement, element.parentNode.firstChild);
@@ -224,7 +221,8 @@
 				clipElement.style.backgroundColor = "transparent";
 
 				canvasElement.width = page.offsetWidth;
-				canvasElement.height = DEFAULT.FIRST_SPACE + (pageOffsetHeight > elementOffsetHeight ? pageOffsetHeight : elementOffsetHeight);
+				canvasElement.height = DEFAULT.FIRST_SPACE +
+					(pageOffsetHeight > elementOffsetHeight ? pageOffsetHeight : elementOffsetHeight);
 				self._makeWebglColoredListview();
 			};
 
@@ -284,7 +282,7 @@
 						break;
 					case "expand":
 					case "collapse":
-						self._getItemsHeightAndPosition();
+						self._getItems();
 						self._scrollHandler();
 						break;
 				}
@@ -300,36 +298,48 @@
 				var self = this,
 					ui = self._ui,
 					scrollTop = self._ui.clipElement.scrollTop,
-					liElementOffsetTop = self._liElementOffsetTop,
-					ColoredListviewTop = self._ColoredListviewTop,
-					liElementOffsetHeight = self._liElementOffsetHeight;
+					nextOffsetTop = 0,
+					nextOffsetHeight = 0,
+					next = null,
+					prev = null,
+					topIndex = self._ColoredListviewTop,
+					elementsDescriptions = self._elementsDescriptions;
 
 				if (self._startTime && Date.now() - self._startTime > 1000) {
 					if (self._requestId) {
 						cancelAnimationFrame(self._requestId);
 					}
 				}
-				if (scrollTop > liElementOffsetTop[ColoredListviewTop + 1]) {
-					if (scrollTop > liElementOffsetTop[ColoredListviewTop + 1] + liElementOffsetHeight[ColoredListviewTop + 1]) {
+
+				next = elementsDescriptions[topIndex + 1];
+				nextOffsetTop = next ? next.offsetTop : 0;
+				nextOffsetHeight = next ? next.offsetHeight : 0;
+
+				if (scrollTop > nextOffsetTop) {
+					if (scrollTop > nextOffsetTop + nextOffsetHeight) {
 						// scroll was moved by scrollTo.
-						while(scrollTop > liElementOffsetTop[ColoredListviewTop + 1] + liElementOffsetHeight[ColoredListviewTop + 1]) {
-							ColoredListviewTop++;
+						while (scrollTop > nextOffsetTop + nextOffsetHeight) {
+							next = elementsDescriptions[++topIndex];
+							nextOffsetTop = next ? next.offsetTop : 0;
+							nextOffsetHeight = next ? next.offsetHeight : 0;
 						}
 					}
-					ColoredListviewTop++;
-				} else if (scrollTop <= liElementOffsetTop[ColoredListviewTop]) {
-					if (scrollTop < liElementOffsetTop[ColoredListviewTop - 1]) {
+					topIndex++;
+				} else if (scrollTop <= elementsDescriptions[topIndex].offsetTop) {
+					prev = elementsDescriptions[topIndex - 1];
+					if (scrollTop < (prev ? prev.offsetTop : 0)) {
 						// scroll was moved by scrollTo
-						while(scrollTop < liElementOffsetTop[ColoredListviewTop - 1]) {
-							ColoredListviewTop--;
+						while (scrollTop < (prev ? prev.offsetTop : 0)) {
+							prev = elementsDescriptions[--topIndex];
 						}
 					}
-					if (ColoredListviewTop > 0) {
-						ColoredListviewTop--;
+					if (topIndex > 0) {
+						topIndex--;
 					}
 				}
-				self._ColoredListviewTop = ColoredListviewTop;
-				ui.canvasElement.style.top = liElementOffsetTop[ColoredListviewTop] - DEFAULT.FIRST_SPACE + "px";
+
+				self._ColoredListviewTop = topIndex;
+				ui.canvasElement.style.top = elementsDescriptions[topIndex].offsetTop - DEFAULT.FIRST_SPACE + "px";
 				self._paintWebglColoredListview();
 			};
 
@@ -350,27 +360,41 @@
 				self._requestId = requestAnimationFrame(self._checkTop.bind(self));
 			};
 
-			prototype._getItemsHeightAndPosition = function () {
+			prototype._getItems = function () {
 				var self = this,
 					ui = self._ui,
 					i,
 					len = ui.liElements.length,
 					currentItem = null,
-					widgetOffsetTop = self.element.offsetTop;
+					widgetOffsetTop = self.element.offsetTop,
+					uiLiElements = ui.liElements,
+					elementsDescriptions = self._elementsDescriptions,
+					element = null;
 
 				for (i = 0; i < len; i++){
-					currentItem = ui.liElements[i];
-					self._liElementOffsetTop[i] = currentItem.element.offsetTop + widgetOffsetTop;
-					self._liElementOffsetHeight[i] = currentItem.element.offsetHeight;
+					currentItem = uiLiElements[i];
+					element = {
+						colorChange: true,
+						offsetTop: currentItem.element.offsetTop + widgetOffsetTop,
+						offsetHeight: currentItem.element.offsetHeight
+					};
 
 					// If current element is collapsible, height should be based on header
 					if (currentItem.collapsible) {
-						self._liElementOffsetHeight[i] = currentItem.collapsibleHeader.offsetHeight;
-					// If current element has a collapsible parent (element from sublist)
-					// offset from top will return invalid values, this is handled here
+						element.offsetHeight = currentItem.collapsibleHeader.offsetHeight;
+						element.colorChange = false;
+						// If current element has a collapsible parent (element from sublist)
+						// offset from top will return invalid values, this is handled here
 					} else if(currentItem.collapsibleParent) {
-						self._liElementOffsetTop[i] += currentItem.collapsibleParent.offsetTop + widgetOffsetTop;
+						element.offsetTop += currentItem.collapsibleParent.offsetTop + widgetOffsetTop;
 					}
+
+					// Check color change for group index element
+					element.colorChange = (uiLiElements[i + 1] &&
+						uiLiElements[i + 1].element.classList.contains(classes.GROUP_INDEX)) ||
+						!currentItem.element.classList.contains(classes.GROUP_INDEX);
+
+					elementsDescriptions[i] = element;
 				}
 			};
 
@@ -400,7 +424,8 @@
 
 				///////////Canvas//////////////////////////
 				// Get A WebGL context
-				gl = canvasElement.getContext("webgl", webglSettings) || canvasElement.getContext("experimental-webgl", webglSettings);
+				gl = canvasElement.getContext("webgl", webglSettings) ||
+					canvasElement.getContext("experimental-webgl", webglSettings);
 				if (!gl) {
 					//>>excludeStart("tauDebug", pragmas.tauDebug);
 					ns.error("ColoredListView: WebGL context is missing");
@@ -466,15 +491,18 @@
 					ui = self._ui,
 					gl = self._gl,
 					ColoredListviewTop = self._ColoredListviewTop,
-					liElementOffsetTop = self._liElementOffsetTop,
 					offsetWidth = ui.canvasElement.offsetWidth,
 					offsetHeight = ui.canvasElement.offsetHeight,
-					liElementOffsetHeight = self._liElementOffsetHeight,
-					listNumber = liElementOffsetTop.length,
+					elementsDescriptions = self._elementsDescriptions,
+					element = null,
+					elementOffsetTop = 0,
+					elementOffsetHeight = 0,
+					listNumber = elementsDescriptions.length,
 					alphaValue = 1.0,
 					optionColoredListviewNumber = parseInt(self.options.coloredListviewNumber, 10),
 					max = optionColoredListviewNumber ? optionColoredListviewNumber : listNumber,
 					validMax = ColoredListviewTop + max,
+					currentTop = 0,
 					listTop,
 					top,
 					i;
@@ -482,16 +510,28 @@
 					return;
 				}
 
-				top = liElementOffsetTop[ColoredListviewTop];
+				top = elementsDescriptions[ColoredListviewTop].offsetTop;
+				currentTop = top + DEFAULT.FIRST_SPACE;
 
-				for (i = ColoredListviewTop; i < validMax + 1; i++) {
-					listTop = liElementOffsetTop[i] - top + DEFAULT.FIRST_SPACE;
-					if (i === ColoredListviewTop) {
-						setRectangle(gl, 0, 0, offsetWidth, liElementOffsetHeight[i] + DEFAULT.FIRST_SPACE);
-					} else if (i === validMax) {
-						setRectangle(gl, 0, listTop, offsetWidth, offsetHeight - listTop);
+				for (i = ColoredListviewTop; i <= validMax; i++) {
+					element = elementsDescriptions[i];
+					if (element) {
+						elementOffsetTop = element.offsetTop;
+						elementOffsetHeight = element.offsetHeight;
 					} else {
-						setRectangle(gl, 0, listTop, offsetWidth, liElementOffsetHeight[i]);
+						elementOffsetTop = 0;
+						elementOffsetHeight = 0;
+					}
+
+					listTop = elementOffsetTop - top + DEFAULT.FIRST_SPACE;
+					currentTop += elementOffsetHeight;
+
+					if (i === ColoredListviewTop) {
+						setRectangle(gl, 0, 0, offsetWidth, elementOffsetHeight + DEFAULT.FIRST_SPACE);
+					} else if (i === validMax) {
+						setRectangle(gl, 0, currentTop, offsetWidth, offsetHeight - currentTop);
+					} else {
+						setRectangle(gl, 0, listTop, offsetWidth, elementOffsetHeight);
 					}
 
 					// @note: #FAFAFA (B0211 code)
@@ -501,10 +541,12 @@
 					gl.drawArrays(gl.TRIANGLES, 0, 6);
 
 					// Alpha reduced only when element is visible
-					if (liElementOffsetHeight[i] > 0) {
+					if (elementOffsetHeight > 0) {
 						// @note: based on Mobile GUI Guidelines
 						// "The opacity of list decrease 4% per list.(The opacity of 1st list is 100%)"
-						alphaValue -= 0.04;
+						if (element.colorChange) {
+							alphaValue -= 0.04;
+						}
 					}
 				}
 			};
@@ -549,8 +591,7 @@
 				self._program = null;
 				self._colorLocation = null;
 				self._ui = null;
-				self._liElementOffsetTop = null;
-				self._liElementOffsetHeight = null;
+				self._elementsDescriptions = null;
 			};
 
 			ns.widget.mobile.ColoredListview = ColoredListview;
