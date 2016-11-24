@@ -117,6 +117,14 @@
 					 */
 					BUTTON: "ui-btn",
 					/**
+					 * Class used to select button in header (old notation)
+					 * @property {string} [classes.HEADER_BUTTON="ui-header-btn"] btn
+					 * @member ns.util.anchorHighlight
+					 * @private
+					 * @static
+					 */
+					HEADER_BUTTON: "ui-header-btn",
+					/**
 					 * Class used to select anchor in tabbar widget
 					 * @property {string} [classes.TABBAR_ANCHOR="ui-tabbar-anchor"] anchor
 					 * @member ns.util.anchorHighlight
@@ -180,7 +188,8 @@
 			 */
 			function detectBtnElement(target) {
 				return selectors.getClosestByClass(target, classes.BUTTON) ||
-					selectors.getClosestByClass(target, classes.TABBAR_ANCHOR);
+					selectors.getClosestByClass(target, classes.TABBAR_ANCHOR) ||
+					selectors.getClosestByClass(target, classes.HEADER_BUTTON);
 			}
 
 			/**
