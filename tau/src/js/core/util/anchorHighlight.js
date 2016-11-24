@@ -131,7 +131,15 @@
 					 * @private
 					 * @static
 					 */
-					TABBAR_ANCHOR: "ui-tabbar-anchor"
+					TABBAR_ANCHOR: "ui-tabbar-anchor",
+					/**
+					 * Class used to select navigation item
+					 * @property {string} [classes.NAVIGATION_BUTTON="ui-navigation-item"] btn
+					 * @member ns.util.anchorHighlight
+					 * @private
+					 * @static
+					 */
+					NAVIGATION_BUTTON: "ui-navigation-item"
 				},
 				/**
 				 * Alias for class {@link ns.util.selectors}
@@ -188,8 +196,9 @@
 			 */
 			function detectBtnElement(target) {
 				return selectors.getClosestByClass(target, classes.BUTTON) ||
-					selectors.getClosestByClass(target, classes.TABBAR_ANCHOR) ||
-					selectors.getClosestByClass(target, classes.HEADER_BUTTON);
+					selectors.getClosestByClass(target, classes.HEADER_BUTTON) ||
+					selectors.getClosestByClass(target, classes.NAVIGATION_BUTTON) ||
+					selectors.getClosestByClass(target, classes.TABBAR_ANCHOR);
 			}
 
 			/**
@@ -384,7 +393,7 @@
 
 				document.addEventListener("visibilitychange", checkPageVisibility, false);
 				window.addEventListener("pagehide", removeActiveClass, false);
-				document.addEventListener("animationEnd", clearBtnActiveClass, false);
+				document.addEventListener("animationend", clearBtnActiveClass, false);
 				document.addEventListener("webkitAnimationEnd", clearBtnActiveClass, false);
 			}
 
@@ -401,7 +410,7 @@
 
 				document.removeEventListener("visibilitychange", checkPageVisibility, false);
 				window.removeEventListener("pagehide", removeActiveClass, false);
-				document.removeEventListener("animationEnd", clearBtnActiveClass, false);
+				document.removeEventListener("animationend", clearBtnActiveClass, false);
 				document.removeEventListener("webkitAnimationEnd", clearBtnActiveClass, false);
 			}
 

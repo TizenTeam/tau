@@ -93,6 +93,7 @@
 			var BaseWidget = ns.widget.mobile.BaseWidgetMobile,
 				engine = ns.engine,
 				events = ns.event,
+				selectors = ns.util.selectors,
 				Navigation = function () {
 					var self = this;
 
@@ -114,7 +115,11 @@
 					NAVIGATION: "ui-navigation",
 					NAVIGATION_CONTAINER: "ui-navigation-container",
 					NAVIGATION_ITEM: "ui-navigation-item",
-					NAVIGATION_ACTIVE: "ui-navigation-active"
+					NAVIGATION_ACTIVE: "ui-navigation-active",
+					NAVIGATION_HIDE: "ui-navigator-hide",
+					NAVIGATION_BACK: "ui-navigator-back",
+					NAVIGATION_BACK_HIDE: "ui-navigator-back-hide",
+					NAVIGATION_ACTIVE_ANIMATION: "ui-navigator-active-animation"
 				},
 				prototype = new BaseWidget();
 
@@ -132,27 +137,22 @@
 			 */
 			function onClick(event) {
 				var self = this,
-					container = self._ui.container,
-					target = event.target,
-					position = parseInt(target.getAttribute(attributes.POSITION), 10),
+					target = selectors.getClosestByClass(event.target, classes.NAVIGATION_ITEM),
+					position = target && parseInt(target.getAttribute(attributes.POSITION), 10),
 					stack = self._navigationStack,
-					id = stack[position];
+					id = stack[position],
+					toRemoveLength = stack.length - 1 - position;
 
-				if (target && target.classList.contains(classes.NAVIGATION_ACTIVE)) {
-					return;
-				}
-				while (stack.length - 1 > position) {
-					container.removeChild(container.children[position + 1]);
-					stack.pop();
-				}
-				target.classList.add(classes.NAVIGATION_ACTIVE);
-				if(target.classList.contains(classes.NAVIGATION_ITEM)){
-					//not to trigger event on the last li vclick
-					events.trigger(self.element, "navigate", {
-						id: id,
-						//element Id to move
-						position: position
-					});
+				if (target) {
+					if (!target.classList.contains(classes.NAVIGATION_ACTIVE)) {
+						self.pop(toRemoveLength);
+						//not to trigger event on the last li vclick
+						self.trigger("navigate", {
+							id: id,
+							//element Id to move
+							position: position
+						});
+					}
 				}
 			}
 
@@ -206,51 +206,72 @@
 			};
 
 			/**
+			 * Remove navigation bar item or items
+			 * @param {number} count
+			 * @method pop
+			 * @member ns.widget.mobile.Navigation
+			 */
+			prototype.pop = function(count) {
+				var self = this,
+					container = self._ui.container,
+					stack = self._navigationStack,
+                    lastChild = container.lastChild,
+					lastChildClassList = lastChild && lastChild.classList,
+					previousLastChildclassList = lastChild && lastChild.previousElementSibling && lastChild.previousElementSibling.classList;
+
+				if (count === undefined) {
+					count = 1;
+				}
+
+				if (lastChildClassList) {
+                    lastChildClassList.add(classes.NAVIGATION_HIDE);
+                    if (previousLastChildclassList) {
+                        previousLastChildclassList.add(classes.NAVIGATION_BACK);
+                        previousLastChildclassList.add(classes.NAVIGATION_ACTIVE);
+						events.one(lastChild, "animationend, webkitAnimationEnd", function () {
+							container.removeChild(container.lastChild);
+							lastChildClassList.remove(classes.NAVIGATION_BACK);
+							if (count > 1) {
+								self.pop(count - 1);
+							}
+						});
+                    }
+                    stack.pop();
+                }
+			};
+
+			/**
 			 * Add navigation bar item only one at a time
-			 * @method add
-			 * @param {HTMLElement} targetElement
-			 * @public
+			 * @method push
+			 * @param {string} id
 			 * @member ns.widget.mobile.Navigation
 			 */
 			prototype.push = function(id) {
-				this._pushItem(id);
-			};
-
-			prototype.pop = function() {
-				var self = this,
-					container = self._ui.container,
-					stack = self._navigationStack;
-
-				container.removeChild(container.lastChild);
-				stack.pop();
-				setTimeout(function() {
-					container.lastChild.classList.add(classes.NAVIGATION_ACTIVE);
-				}, 0);
-			};
-			/**
-			 * Navigation _addItems function
-			 * @method _addItems
-			 * @private
-			 * @static
-			 * @param {HTMLElement} targetElement
-			 * @member ns.widget.mobile.Navigation
-			 */
-			prototype._pushItem = function(id) {
 				var self = this,
 					element = self.element,
 					stack = self._navigationStack,
 					container = self._ui.container,
 					itemLength = container.childElementCount,
+					lastChild = container.lastElementChild,
+					lastChildClassList = lastChild && lastChild.classList,
+					listClassList = null,
 					list,
 					arrow,
 					text;
 
 				stack.push(id);
-				itemLength > 0 && container.children[itemLength - 1].classList.remove(classes.NAVIGATION_ACTIVE);
+				if (itemLength > 0) {
+					lastChildClassList.add(classes.NAVIGATION_BACK_HIDE);
+					events.one(lastChild, "animationend webkitAnimationEnd", function() {
+						lastChildClassList.remove(classes.NAVIGATION_BACK_HIDE);
+						lastChildClassList.remove(classes.NAVIGATION_ACTIVE);
+					});
+				}
 
 				list = document.createElement("li");
 				list.setAttribute(attributes.POSITION, itemLength);
-				list.classList.add(classes.NAVIGATION_ITEM);
+				listClassList = list.classList;
+				listClassList.add(classes.NAVIGATION_ITEM);
 
 				if (itemLength > 0) {
 					arrow = document.createElement("span");
@@ -263,7 +284,11 @@
 				text.innerHTML = id;
 				list.appendChild(text);
 
-				list.classList.add(classes.NAVIGATION_ACTIVE);
+				listClassList.add(classes.NAVIGATION_ACTIVE);
+				listClassList.add(classes.NAVIGATION_ACTIVE_ANIMATION);
+				events.one(list, "animationend webkitAnimationEnd", function() {
+					listClassList.remove(classes.NAVIGATION_ACTIVE_ANIMATION);
+				});
 
 				container.appendChild(list);
 				if (container.offsetWidth > element.offsetWidth) {
