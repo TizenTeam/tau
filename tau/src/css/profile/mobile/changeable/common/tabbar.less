@@ -5,13 +5,14 @@
 .ui-tabbar {
 	width: 100%;
 	height: 110 * @unit_base;
+
 	&.ui-tabbar-with-icon {
 		a {
 			.display-flex();
 			.justify-content(center);
 			.align-items(center);
 			.flex-direction(column);
-			&:after {
+			&::after {
 				content: "";
 				display: inline-block;
 				position: relative;
@@ -22,7 +23,7 @@
 				.mask-size(100% 100%);
 				.mask-repeat(no-repeat);
 			}
-			&.ui-tab-active:after {
+			&.ui-tab-active::after {
 				background-color: @color_tabbar_icon_bg_press;
 			}
 			span:before {
@@ -30,6 +31,7 @@
 			}
 		}
 	}
+
 	&.ui-tabbar-portrait, &.ui-tabbar-landscape {
 		&.ui-tabbar-with-title {
 			height: 80 * @unit_base;
@@ -43,7 +45,7 @@
 					span:before {
 						bottom: 0;
 					}
-					&:after {
+					&::after {
 						width: 48 * @unit_base;
 						height: 48 * @unit_base;
 						margin-top: 4 * @unit_base;
@@ -71,6 +73,7 @@
 			height: 110 * @unit_base;
 		}
 	}
+
 	a {
 		font-size: 38 * @unit_base;
 		.display-flex();
@@ -87,7 +90,7 @@
 			position: relative;
 			.order(1);
 			margin-bottom: 9 * @unit_base;
-			&:before {
+			&::before {
 				content: "";
 				position: absolute;
 				width: 92%;
@@ -100,15 +103,28 @@
 		}
 		&.ui-tab-active {
 			color: @color_tabbar_text_selected;
-			span:before {
+			span::before {
 				.transform(scale(1));
 				.transition(-webkit-transform 100ms);
 			}
 		}
+		&::before {
+			content: "";
+			width: 100%;
+			height: 100%;
+			position: absolute;
+			opacity: 0;
+			background-color: @color_tabbar_tab_bg_press;
+		}
+		&.ui-btn-active {
+			color: @color_tabbar_text_press;
+			background-color: transparent;
+			&::before {
+				animation: tabbar-press linear 200ms;
+			}
+		}
 	}
-	a:active {
-		color: @color_tabbar_text_press;
-	}
+
 	ul {
 		margin: 0;
 		padding: 0;
@@ -118,6 +134,7 @@
 		white-space: nowrap;
 		font-size: 0;
 	}
+
 	li {
 		text-align: center;
 		display: inline-block;
@@ -125,9 +142,6 @@
 		min-width: 70 * @unit_base;
 		overflow: hidden;
 		height: 100%;
-		&:active {
-			background-color: @color_tabbar_tab_bg_press;
-		}
 	}
 
 	&:not(.ui-tabbar-static) {

@@ -208,6 +208,7 @@
 						autoPositionSet: true
 					};
 				},
+				CLASS_PREFIX = "ui-tabbar",
 				/**
 				 * Object with class dictionary
 				 * @property {Object} classes
@@ -216,17 +217,18 @@
 				 * @readonly
 				 */
 				classes = {
-					TABBAR: "ui-tabbar",
+					TABBAR: CLASS_PREFIX,
 					TAB_ACTIVE: "ui-tab-active",
 					TAB_NO_TEXT: "ui-tab-no-text",
 					TITLE: "ui-title",
 					TABS_WITH_TITLE: "ui-tabs-with-title",
-					TABBAR_WITH_TITLE: "ui-tabbar-with-title",
-					TABBAR_WITH_ICON: "ui-tabbar-with-icon",
-					TABBAR_PORTRAIT: "ui-tabbar-portrait",
-					TABBAR_LANDSCAPE: "ui-tabbar-landscape",
-					TABBAR_TEXT: "ui-tabbar-text",
-					TABBAR_STATIC: "ui-tabbar-static"
+					TABBAR_WITH_TITLE: CLASS_PREFIX + "-with-title",
+					TABBAR_WITH_ICON: CLASS_PREFIX + "-with-icon",
+					TABBAR_PORTRAIT: CLASS_PREFIX + "-portrait",
+					TABBAR_LANDSCAPE: CLASS_PREFIX + "-landscape",
+					TABBAR_TEXT: CLASS_PREFIX + "-text",
+					TABBAR_STATIC: CLASS_PREFIX + "-static",
+					ANCHOR: CLASS_PREFIX + "-anchor"
 				},
 				events = ns.event,
 				DEFAULT_NUMBER = {
@@ -303,6 +305,7 @@
 					} else {
 						link.classList.add(classes.TAB_NO_TEXT);
 					}
+					link.classList.add(classes.ANCHOR);
 				}
 
 				ui.links = links;
@@ -576,7 +579,7 @@
 			ns.widget.core.TabBar = TabBar;
 			engine.defineWidget(
 				"TabBar",
-				"[data-role='tabbar'], .ui-tabbar",
+				"[data-role='tabbar'], ." + CLASS_PREFIX,
 				[
 					"setActive",
 					"getActive"

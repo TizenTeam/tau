@@ -115,7 +115,15 @@
 					 * @private
 					 * @static
 					 */
-					BUTTON: "ui-btn"
+					BUTTON: "ui-btn",
+					/**
+					 * Class used to select anchor in tabbar widget
+					 * @property {string} [classes.TABBAR_ANCHOR="ui-tabbar-anchor"] anchor
+					 * @member ns.util.anchorHighlight
+					 * @private
+					 * @static
+					 */
+					TABBAR_ANCHOR: "ui-tabbar-anchor"
 				},
 				/**
 				 * Alias for class {@link ns.util.selectors}
@@ -171,12 +179,13 @@
 			 * @static
 			 */
 			function detectBtnElement(target) {
-				return selectors.getClosestByClass(target, classes.BUTTON);
+				return selectors.getClosestByClass(target, classes.BUTTON) ||
+					selectors.getClosestByClass(target, classes.TABBAR_ANCHOR);
 			}
 
 			/**
-			 * Clear active aclass on button
-			 * @method detectLiElement
+			 * Clear active class on button
+			 * @method clearBtnActiveClass
 			 * @param {Event} event
 			 * @member ns.util.anchorHighlight
 			 * @private
@@ -208,7 +217,7 @@
 						target = detectHighlightTarget(target);
 						if (!didScroll) {
 							liTarget = detectLiElement(target);
-							if( liTarget ) {
+							if (liTarget) {
 								liTarget.classList.add(classes.ACTIVE_LI);
 							}
 							liTarget = null;
