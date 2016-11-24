@@ -1,7 +1,12 @@
 /* Header */
 .btn-icon-back:after {
-   -webkit-mask-image: url(./images/core_icon_back.png);
+	 -webkit-mask-image: url(./images/core_icon_back.png);
 	mask-image: url(./images/core_icon_back.png);
+}
+
+.btn-icon-add:after {
+	-webkit-mask-image: url(./images/core_button_add.png);
+	mask-image: url(./images/core_button_add.png);
 }
 
 .my-check-button-style {
