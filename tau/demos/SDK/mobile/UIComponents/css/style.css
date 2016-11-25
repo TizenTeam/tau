@@ -604,8 +604,8 @@
 	float: left;
 }
 #button-page  #top #intro1 img{
-	padding-top: 15px;
-	padding-left: 15px;
+	margin-top: 15px;
+	margin-left: 15px;
 }
 #button-page  #top #intro1 p {
 	display: inline-block;
