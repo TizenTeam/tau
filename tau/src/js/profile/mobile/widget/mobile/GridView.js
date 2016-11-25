@@ -332,7 +332,9 @@
 					helperElement = event.detail.srcEvent.srcElement.parentElement,
 					helperElementComputed = window.getComputedStyle(helperElement, null),
 					helperStyle = helperElement.style,
-					translated = helperElementComputed.getPropertyValue("webkit-transform").match(MATRIX_REGEXP),
+					transformProperty = helperElementComputed.getPropertyValue("webkit-transform") ||
+						helperElementComputed.getPropertyValue("transform") || "",
+					translated = transformProperty.match(MATRIX_REGEXP),
 					holder,
 					top = 0,
 					left = 0;
@@ -550,12 +552,15 @@
 					i,
 					top = 0,
 					liComputed = null,
-					left = 0;
+					left = 0,
+					transformProperty = "";
 
 				for (i = 0; i < length; i++) {
 					li = listElements[i];
 					liComputed = window.getComputedStyle(li, null);
-					translated = liComputed.getPropertyValue("webkit-transform").match(MATRIX_REGEXP);
+					transformProperty = liComputed.getPropertyValue("webkit-transform") ||
+						liComputed.getPropertyValue("transform") || "";
+					translated = transformProperty.match(MATRIX_REGEXP);
 					if (translated && translated.length > 0) {
 						top = parseInt(translated[6], 10);
 						left = parseInt(translated[5], 10);
