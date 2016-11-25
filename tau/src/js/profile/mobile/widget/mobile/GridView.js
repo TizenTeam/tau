@@ -91,6 +91,7 @@
 				classes = {
 					GRIDLIST: "ui-gridview",
 					ITEM: "ui-gridview-item",
+					ITEM_ACTIVE: "ui-gridview-item-active",
 					HELPER: "ui-gridview-helper",
 					HOLDER: "ui-gridview-holder",
 					LABEL: "ui-gridview-label",
@@ -106,7 +107,6 @@
 					self._inPopup = null;
 					self._ui = {
 						listElements: [],
-						listElHandler: null,
 						listItems: [],
 						helper: {},
 						holder: {},
@@ -196,7 +196,6 @@
 					popup = null;
 
 				ui.listElements = [].slice.call(self.element.getElementsByTagName("li"));
-				ui.listElHandler = element.querySelectorAll("." + classes.HANDLER);
 				self._setItemWidth();
 				self._setGridStyle();
 				self._setLabel(element);
@@ -210,6 +209,15 @@
 				}
 			};
 
+			function animationEndCallback(event) {
+				var classList = event.target.classList;
+
+				if (classList.contains(classes.ITEM)) {
+					classList.add(classes.ITEM_ACTIVE);
+					event.target.style.animation = "";
+				}
+			}
+
 			/**
 			 * Bind events for GridView
 			 * @method _bindEvents
@@ -217,11 +225,14 @@
 			 * @member ns.widget.mobile.GridView
 			 */
 			prototype._bindEvents = function () {
-				var popup = this._inPopup;
+				var self = this,
+					popup = this._inPopup;
 
 				if (popup) {
-					utilsEvents.on(popup.element, popupEvents.before_show, this._refreshSizesCallback);
+					utilsEvents.on(popup.element, popupEvents.before_show, self._refreshSizesCallback);
 				}
+
+				self.on("animationend webkitAnimationEnd", animationEndCallback);
 			};
 
 			/**
@@ -242,6 +253,7 @@
 				if (popup) {
 					utilsEvents.off(popup.element, popupEvents.before_show, this._refreshSizesCallback);
 				}
+				self.off("animationend webkitAnimationEnd", animationEndCallback);
 			};
 
 			/**
@@ -257,7 +269,6 @@
 
 				self._removeGridStyle();
 				ui.listElements = [].slice.call(element.getElementsByTagName("li"));
-				ui.listElHandler = element.querySelectorAll("." + classes.HANDLER);
 				self._setItemWidth();
 				self._setGridStyle();
 				self._setLabel(element);
@@ -683,6 +694,15 @@
 					utilsEvents.on(element, "drag dragstart dragend dragcancel dragprepare", self, true);
 					utilsEvents.off(element, "pinchin pinchout", self);
 					element.classList.add("ui-gridview-reorder");
+					// create handlers if not exists
+					self._ui.listElements.forEach(function(liItem) {
+						var handler = null;
+						if (!liItem.querySelector('.' + classes.HANDLER)) {
+							handler = document.createElement('div');
+							handler.classList.add(classes.HANDLER);
+							liItem.appendChild(handler);
+						}
+					});
 				} else {
 					utilsEvents.enableGesture(
 						element,
@@ -704,7 +724,8 @@
 			 */
 			prototype._setGridStyle = function () {
 				var self = this,
-					length = self._ui.listElements.length,
+					listElements = self._ui.listElements,
+					length = listElements.length,
 					options = self.options,
 					page = self._getParentPage(),
 					cols = options.cols,
@@ -720,6 +741,7 @@
 
 				for(row = 0; row < rows; row++) {
 					for(col = 0; col < cols && index < length; col++) {
+						listElements[index].style.animation = "grid_show_item cubic-bezier(0.25, 0.46, 0.45, 1.00) 350ms " + (17 * index) + "ms";
 						styles.push(self._getTransformStyle(col, row, ++index));
 					}
 				}
@@ -743,7 +765,7 @@
 					y = row * (size + (this.options.label === labels.OUT ? 30 : 0)) + "px",
 					transform, style;
 
-				transform = "{ -webkit-transform: translate3d(" + x + ", " + y + ", 0); transform: translate3d(" + x + ", " + y + ", 0); }";
+				transform = "{ -webkit-transform: translate3d(" + x + ", " + y + ", 0); transform: translate3d(" + x + ", " + y + ", 0) }";
 				style = STYLE_PATTERN.replace("{index}", index) + transform;
 
 				return style;

@@ -9,18 +9,39 @@
 
 	.ui-gridview-item {
 		position: absolute;
-		-webkit-transition: all 0.2s ease-out;
 		width: 180 * @unit_base;
 		border: solid 0 transparent;
-		&.ui-gridview-helper {
-			-webkit-transition: none;
-			-webkit-transform: translate3d(0, 0, 0);
-		}
-		.ui-gridview-handler {
-			display: none;
+		opacity: 0;
+
+		&.ui-gridview-item-active {
+		  -webkit-transition: -webkit-transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 1.00);
+		  transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 1.00);
+			opacity: 1;
 		}
 
-	 	 > label {
+		&.ui-gridview-helper {
+			-webkit-transition: none;
+			transition: none;
+			transform: translate3d(0, 0, 0);
+			-webkit-transform: translate3d(0, 0, 0);
+		}
+
+		.ui-gridview-handler {
+			-webkit-mask-image: url("images/core_grid_button_reorder.png");
+			-webkit-mask-size: 100%;
+			background-color: @color_button_add;
+			display: block;
+			position: absolute;
+			width: 50 * @unit_base;
+			height: 50 * @unit_base;
+			right: 9 * @unit_base;
+			top: 9 * @unit_base;
+			opacity: 0;
+			transition: opacity 0.4s linear;
+			-webkit-transition: opacity 0.4s linear;
+		}
+
+		 > label {
 			position: absolute;
 			top: 0;
 			left: 0;
@@ -33,6 +54,28 @@
 				right: 9 * @unit_base;
 			 }
 		 }
+
+		.ui-gridview-image {
+			display: block;
+			width: 100%;
+			pointer-events: none;
+		}
+
+		.ui-gridview-label {
+			display: none;
+			position: relative;
+			width: 100%;
+			height: 39 * @unit_base;
+			line-height: 39 *@unit_base;
+			padding: 0 10 * @unit_base;
+			box-sizing: border-box;
+			margin: -39 * @unit_base 0 0 0;
+			font-size: @font_size_gridview;
+			text-align: center;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+
 		.ui-gridview-badge {
 			position: absolute;
 			border-radius: 50 * @unit_base;
@@ -64,15 +107,7 @@
 	&.ui-gridview-reorder {
 		.ui-gridview-item {
 			.ui-gridview-handler {
-				-webkit-mask-image: url("images/core_grid_button_reorder.png");
-				-webkit-mask-size: 100%;
-				background-color: @color_button_add;
-				display: block;
-				position: absolute;
-				width: 50 * @unit_base;
-				height: 50 * @unit_base;
-				right: 9 * @unit_base;
-				top: 9 * @unit_base;
+				opacity: 1;
 			}
 		}
 	}
@@ -82,23 +117,11 @@
 	-webkit-transition: none;
 }
 
-.ui-gridview-image {
-	display: block;
-	width: 100%;
-	pointer-events: none;
-}
-
-.ui-gridview-label {
-	display: none;
-	position: relative;
-	width: 100%;
-	height: 39 * @unit_base;
-	line-height: 39 *@unit_base;
-	padding: 0 10 * @unit_base;
-	box-sizing: border-box;
-	margin: -39 * @unit_base 0 0 0;
-	font-size: @font_size_gridview;
-	text-align: center;
-	overflow: hidden;
-	text-overflow: ellipsis;
+@keyframes grid_show_item {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
 }
