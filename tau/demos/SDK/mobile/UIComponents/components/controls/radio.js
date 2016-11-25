@@ -5,7 +5,7 @@
 	 * radioresult - Indicator for active radio
 	 */
 	var page = document.getElementById("radio-demo"),
-		radios = document.querySelectorAll(".choosepet input[type='radio']"),
+		radios = document.querySelectorAll("input[name='radio-choice']"),
 		radioresult = document.querySelector((".radio-result")),
 		idx;
 

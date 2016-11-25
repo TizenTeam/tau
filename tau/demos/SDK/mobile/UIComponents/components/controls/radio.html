@@ -11,30 +11,43 @@
 				<h1>Radio</h1>
 			</div>
 			<div class="ui-content">
-				<div>Choose a pet:</div>
-				<div class="choosepet">
-					<input type="radio" name="radio-choice" id="cat" value="choice-1" checked="checked" />
-					<label for="cat">Cat</label><br>
+				<ul class="ui-listview ui-colored-list">
+					<li class="ui-group-index">
+						<div>Choose a pet:</div>
+					</li>
+					<li>
+						<input type="radio" name="radio-choice" id="cat" value="choice-1" checked="checked" />
+						<label for="cat">Cat</label><br>
+					</li>
+					<li>
+						<input type="radio" name="radio-choice" id="dog" value="choice-2"  />
+						<label for="dog">Dog</label><br>
+					</li>
+					<li>
+						<input type="radio" name="radio-choice" id="hamster" value="choice-3"  />
+						<label for="hamster">Hamster</label><br>
+					</li>
+					<li>
+						<input type="radio" name="radio-choice" id="lizard" value="choice-4"  />
+						<label for="lizard">Lizard</label>
+					</li>
 
-					<input type="radio" name="radio-choice" id="dog" value="choice-2"  />
-					<label for="dog">Dog</label><br>
-
-					<input type="radio" name="radio-choice" id="hamster" value="choice-3"  />
-					<label for="hamster">Hamster</label><br>
-
-					<input type="radio" name="radio-choice" id="lizard" value="choice-4"  />
-					<label for="lizard">Lizard</label>
-				</div>
-				<div class="radio-result">The Active Radio is ...</div>
-
-				<input type="radio" name="radio-1" id="radio-1" checked="checked" disabled="disabled" />
-				<label for="radio-1">Checked, Disabled</label><br>
-
-				<input type="radio" name="radio-2" id="radio-2" disabled="disabled"/>
-				<label for="radio-2">Disabled</label><br>
-
-				<input type="radio" name="radio-3" id="radio-3"/>
-				<label for="radio-3">Unchecked</label><br>
+					<li class="ui-group-index">
+						<div class="radio-result">The Active Radio is ...</div>
+					</li>
+					<li>
+						<input type="radio" name="radio-1" id="radio-1" checked="checked" disabled="disabled" />
+						<label for="radio-1">Checked, Disabled</label><br>
+					</li>
+					<li>
+						<input type="radio" name="radio-2" id="radio-2" disabled="disabled"/>
+						<label for="radio-2">Disabled</label><br>
+					</li>
+					<li>
+						<input type="radio" name="radio-3" id="radio-3"/>
+						<label for="radio-3">Unchecked</label><br>
+					</li>
+				</ul>
 			</div>
 			<link rel="stylesheet" href="styles.css" />
 			<script src="radio.js"></script>
