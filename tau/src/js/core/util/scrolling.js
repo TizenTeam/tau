@@ -461,7 +461,10 @@
 				document.removeEventListener("touchmove", touchMove, false);
 				document.removeEventListener("touchend", touchEnd, false);
 
-				scrollingElement.style.overflow = previousOverflow;
+				// after changed page and removed it this element can not exists
+				if (scrollingElement) {
+					scrollingElement.style.overflow = previousOverflow;
+				}
 
 				elementStyle = null;
 				scrollingElement = null;
