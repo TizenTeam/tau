@@ -64,7 +64,8 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../event" // fetch namespace
+			"../event", // fetch namespace
+			"../theme"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
@@ -119,7 +120,8 @@
 				touchEventProps = ["clientX", "clientY", "pageX", "pageY", "screenX", "screenY"],
 				KEY_CODES = {
 					enter: 13
-				};
+				},
+				theme = ns.theme;
 
 			/**
 			 * Extends objects with other objects
@@ -352,11 +354,13 @@
 
 					// Check if we have touched something on our page
 					// @TODO refactor for multi touch
+                    /*
 					over = document.elementFromPoint(startX, startY);
 					if (over) {
 						lastOver = over;
 						fireEvent("vmouseover", evt);
 					}
+                    */
 					fireEvent("vmousedown", evt);
 				}
 
@@ -454,6 +458,7 @@
 			 * @member ns.event.vmouse
 			 */
 			function handleTouchCancel(evt) {
+
 				fireEvent("vmousecancel", evt);
 				lastOver = null;
 			}
@@ -537,7 +542,6 @@
 				document.addEventListener("touchstart", handleTouchStart, true);
 				document.addEventListener("touchend", handleTouchEnd, true);
 				document.addEventListener("touchmove", handleTouchMove, true);
-				document.addEventListener("touchcancel", handleTouchCancel, true);
 
 				// touchenter and touchleave are removed from W3C spec
 				// No need to listen to touchover as it has never exited
@@ -562,6 +566,7 @@
 			};
 
 			ns.event.vmouse = vmouse;
+			theme.disableContextMenu(document);
 
 			if (touchSupport) {
 				vmouse.bindTouch();
