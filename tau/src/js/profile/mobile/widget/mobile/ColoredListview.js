@@ -68,10 +68,13 @@
 					SCROLL_CLIP: "ui-scrollview-clip",
 					COLORED_LIST: "ui-colored-list",
 					COLORED_LIST_CLIP: "ui-colored-list-clip",
-					GROUP_INDEX: "ui-group-index"
+					GROUP_INDEX: "ui-group-index",
+					POPUP_CONTENT: "ui-popup-content",
+					POPUP: "ui-popup"
 				},
 				DEFAULT = {
-					FIRST_SPACE: 200
+					//FIRST_SPACE: 200
+					FIRST_SPACE: 0
 				},
 				/**
 				 * Alias to ns.util.selectors
@@ -163,7 +166,8 @@
 					}
 				});
 				// if list is not inside scrollable element then add to parent
-				ui.clipElement = selectors.getClosestByClass(element, classes.SCROLL_CLIP);
+				ui.clipElement = selectors.getClosestByClass(element, classes.SCROLL_CLIP) ||
+					selectors.getClosestByClass(element, classes.POPUP_CONTENT);
 
 				ui.page = selectors.getClosestByClass(element, Page.classes.uiPage);
 
@@ -184,17 +188,13 @@
 					page = ui.page,
 					pageOffsetHeight = page.offsetHeight,
 					elementOffsetHeight = element.offsetHeight,
-					canvasElement;
+					canvasElement = ui.canvasElement;
 
-				if (ui.canvasElement) {
-					//>>excludeStart("tauDebug", pragmas.tauDebug);
-					ns.error("ColoredListView: canvas element is missing, aborting...");
-					//>>excludeEnd("tauDebug");
-					return;
+				if (!canvasElement) {
+					canvasElement = document.createElement("canvas");
+					canvasElement.classList.add(classes.CANVAS);
+					ui.canvasElement = canvasElement;
 				}
-				canvasElement = document.createElement("canvas");
-				canvasElement.classList.add(classes.CANVAS);
-				ui.canvasElement = canvasElement;
 
 				self._getItems();
 
@@ -238,6 +238,7 @@
 					page = ui.page;
 
 				events.on(page, "pagebeforeshow", self, false);
+				events.on(page, "popuptransitionstart", self, true);
 				if (ui.clipElement) {
 					events.on(ui.clipElement, "scroll", self, false);
 				}
@@ -257,12 +258,22 @@
 					page = ui.page;
 
 				events.off(page, "pagebeforeshow", self, false);
+				events.off(page, "popuptransitionstart", self, true);
+
 				if (ui.clipElement) {
 					events.off(ui.clipElement, "scroll", self, false);
 				}
 
 				events.off(self.element, "expand collapse", self, false);
 			};
+
+			function onPopupTransitionStart(self, event) {
+				var parentPopup = selectors.getClosestByClass(self.element, classes.POPUP);
+
+				if (event.target === parentPopup) {
+					self.refresh();
+				}
+			}
 
 			/**
 			 * Add handling functions
@@ -285,6 +296,9 @@
 					case "resize":
 						self._getItems();
 						self._scrollHandler();
+						break;
+					case "popuptransitionstart":
+						onPopupTransitionStart(self, event);
 						break;
 				}
 			};
@@ -574,6 +588,7 @@
 			 */
 			prototype._refresh = function() {
 				var self = this;
+
 				ListviewPrototype._refresh.call(self);
 				self._initCanvasLayout();
 			};

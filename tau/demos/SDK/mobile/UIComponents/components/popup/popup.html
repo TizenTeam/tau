@@ -6,7 +6,7 @@
 	<script type="text/javascript" src="../../lib/tau/mobile/js/tau.js" data-build-remove="false"></script>
 </head>
 <body>
-<div data-role="page" class="ui-page" id="demo-page">
+<div data-role="page" class="ui-page" id="demo-popup-page">
 	<div class="ui-header" data-position="fixed">
 		<h1>Popup</h1>
 	</div>
@@ -25,10 +25,9 @@
 			<li class="ui-li-anchor"><a href="#2line_title_popup" data-rel="popup" data-position-to="window">2line title
 				popup</a></li>
 			<li class="ui-group-index">List</li>
-			<li class="ui-li-anchor"><a href="#listview_popup" data-rel="popup" data-position-to="window">List popup</a>
-			</li>
-			<li class="ui-li-anchor"><a href="#2line_title_listview_popup" data-rel="popup" data-position-to="window">2line
-				title List popup</a></li>
+			<li class="ui-li-anchor"><a  href="#listview_popup" data-inline="true" data-rel="popup" data-position-to="window">List popup</a></li>
+			<li class="ui-li-anchor"><a  href="#listview_popup_2" data-inline="true" data-rel="popup" data-position-to="window">List popup (2 lines)</a></li>
+			<li class="ui-li-anchor"><a  href="#2line_title_listview_popup" data-inline="true" data-rel="popup" data-position-to="window">2line title List popup</a></li>
 			<li class="ui-group-index">Content</li>
 			<li class="ui-li-anchor"><a href="#2btn_image_popup" data-rel="popup" data-position-to="window">Popup with
 				image</a></li>
@@ -103,20 +102,61 @@
 		<div id="listview_popup" class="ui-popup ui-popup-listview">
 			<div class="ui-popup-header">Popup Header</div>
 			<div class="ui-popup-content">
-				<ul class="ui-listview">
-					<li class="ui-li-anchor"><a href="#">List item 1</a></li>
-					<li class="ui-li-anchor"><a href="#">List item 2</a></li>
-					<li class="ui-li-anchor"><a href="#">List item 3</a></li>
-					<li class="ui-li-anchor"><a href="#">List item 4</a></li>
-					<li class="ui-li-anchor"><a href="#">List item 5</a></li>
-					<li class="ui-li-anchor"><a href="#">List item 6</a></li>
-					<li class="ui-li-anchor"><a href="#">List item 7</a></li>
-					<li class="ui-li-anchor"><a href="#">List item 8</a></li>
-					<li class="ui-li-anchor"><a href="#">List item 9</a></li>
+				<ul class="ui-listview ui-colored-list">
+					<li class="ui-li-anchor"><a  href="#">List item 1</a></li>
+					<li class="ui-li-anchor"><a  href="#">List item 2</a></li>
+					<li class="ui-li-anchor"><a  href="#">List item 3</a></li>
+					<li class="ui-li-anchor"><a  href="#">List item 4</a></li>
+					<li class="ui-li-anchor"><a  href="#">List item 5</a></li>
+					<li class="ui-li-anchor"><a  href="#">List item 6</a></li>
+					<li class="ui-li-anchor"><a  href="#">List item 7</a></li>
+					<li class="ui-li-anchor"><a  href="#">List item 8</a></li>
+					<li class="ui-li-anchor"><a  href="#">List item 9</a></li>
 				</ul>
 			</div>
 			<div class="ui-popup-footer">
 				<a class="ui-btn" data-rel="back">Cancel</a>
+			</div>
+		</div>
+
+		<div id="listview_popup_2" class="ui-popup ui-popup-listview">
+			<div class="ui-popup-header">Popup Header</div>
+			<div class="ui-popup-content">
+				<ul class="ui-listview ui-colored-list">
+					<li class="ui-li-flex ui-li-multilines">
+						<span class="ui-li-area ui-li-area-a">
+							<span class="ui-li-text">Primary text</span>
+							<span class="ui-li-text-2">Secondary text</span>
+						</span>
+					</li>
+					<li class="ui-li-flex ui-li-multilines">
+						<span class="ui-li-area ui-li-area-a">
+							<span class="ui-li-text">Primary text</span>
+							<span class="ui-li-text-2">Secondary text</span>
+						</span>
+					</li>
+					<li class="ui-li-flex ui-li-multilines">
+						<span class="ui-li-area ui-li-area-a">
+							<span class="ui-li-text">Primary text</span>
+							<span class="ui-li-text-2">Secondary text</span>
+						</span>
+					</li>
+					<li class="ui-li-flex ui-li-multilines">
+						<span class="ui-li-area ui-li-area-a">
+							<span class="ui-li-text">Primary text</span>
+							<span class="ui-li-text-2">Secondary text</span>
+						</span>
+					</li>
+					<li class="ui-li-flex ui-li-multilines">
+						<span class="ui-li-area ui-li-area-a">
+							<span class="ui-li-text">Primary text</span>
+							<span class="ui-li-text-2">Secondary text</span>
+						</span>
+					</li>
+				</ul>
+			</div>
+			<div class="ui-popup-footer">
+				<a class="ui-btn" data-rel="back" data-inline="true">Cancel</a>
 			</div>
 		</div>
 
@@ -151,16 +191,16 @@
 				<h2>sub text</h2>
 			</div>
 			<div class="ui-popup-content">
-				<ul class="ui-listview">
-					<li class="ui-li-anchor"><a href="#">List item 1</a></li>
-					<li class="ui-li-anchor"><a href="#">List item 2</a></li>
-					<li class="ui-li-anchor"><a href="#">List item 3</a></li>
-					<li class="ui-li-anchor"><a href="#">List item 4</a></li>
-					<li class="ui-li-anchor"><a href="#">List item 5</a></li>
-					<li class="ui-li-anchor"><a href="#">List item 6</a></li>
-					<li class="ui-li-anchor"><a href="#">List item 7</a></li>
-					<li class="ui-li-anchor"><a href="#">List item 8</a></li>
-					<li class="ui-li-anchor"><a href="#">List item 9</a></li>
+				<ul class="ui-listview ui-colored-list">
+					<li class="ui-li-anchor"><a  href="#">List item 1</a></li>
+					<li class="ui-li-anchor"><a  href="#">List item 2</a></li>
+					<li class="ui-li-anchor"><a  href="#">List item 3</a></li>
+					<li class="ui-li-anchor"><a  href="#">List item 4</a></li>
+					<li class="ui-li-anchor"><a  href="#">List item 5</a></li>
+					<li class="ui-li-anchor"><a  href="#">List item 6</a></li>
+					<li class="ui-li-anchor"><a  href="#">List item 7</a></li>
+					<li class="ui-li-anchor"><a  href="#">List item 8</a></li>
+					<li class="ui-li-anchor"><a  href="#">List item 9</a></li>
 				</ul>
 			</div>
 			<div class="ui-popup-footer">

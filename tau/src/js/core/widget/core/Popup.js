@@ -196,6 +196,12 @@
 					 */
 					before_show: EVENTS_PREFIX + "beforeshow",
 					/**
+					 * Triggered on the popup we are transitioning to, before the actual transition animation is kicked off, animation has started.
+					 * @event popuptransitionstart
+					 * @member ns.widget.core.Popup
+					 */
+					transition_start: EVENTS_PREFIX + "transitionstart",
+					/**
 					 * Triggered on the popup we are transitioning away from, before the actual transition animation is kicked off.
 					 * @event popupbeforehide
 					 * @member ns.widget.core.Popup
@@ -678,6 +684,9 @@
 				}
 				// start opening animation
 				self._transition(transitionOptions, self._onShow.bind(self));
+
+				// animation has started
+				self.trigger(events.transition_start);
 			};
 
 			/**

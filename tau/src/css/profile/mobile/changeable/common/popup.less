@@ -110,9 +110,24 @@ Normal Popup
 Popup with listview
 *************************/
 .ui-popup.ui-popup-listview {
+	background-image: url("images/page/core_theme_bg_01.png");
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+
 	.ui-popup-header {
 		padding-top: 16 * @unit_base;
 		padding-bottom: 16 * @unit_base;
+	}
+	.ui-popup-content {
+		padding: 0;
+		&::before {
+			content: "";
+			background-color: @color_popup_list_overlay_bg;
+			width: 100%;
+			height: 100%;
+			display: block;
+			position: absolute;
+		}
 	}
 }
 
