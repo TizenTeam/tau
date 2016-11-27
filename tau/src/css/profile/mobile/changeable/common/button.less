@@ -8,23 +8,31 @@
 
 @keyframes btn_press_animation {
 	0% {
-		border-width: @btn_press_effect_size;
-		top: @btn_press_effect_size;
-		left: @btn_press_effect_size;
-		right: @btn_press_effect_size;
-		bottom: @btn_press_effect_size;
+		opacity:0
+	}
+	3% {
+		opacity:1;
+	}
+	67% {
+		opacity:1;
 	}
 	100% {
-		border-width: 0;
+		opacity: 0
 	}
 }
 
 @keyframes tabbar-press {
 	0% {
-		opacity: 1;
+		opacity:0
+	}
+	3% {
+		opacity:1;
+	}
+	67% {
+		opacity:1;
 	}
 	100% {
-		opacity: 0;
+		opacity: 0
 	}
 }
 
@@ -54,6 +62,7 @@ a.ui-btn {
 	display: block;
 	padding: 8 * @unit_base 24 * @unit_base;
 	min-height: 78 * @unit_base;
+	line-height: 78 * @unit_base;
 	vertical-align: middle;
 	overflow: hidden;
 	text-overflow: ellipsis;
@@ -67,12 +76,13 @@ a.ui-btn {
 
 	&:not(.ui-floatingactions-item)::before {
 		position: absolute;
-		top: 0;
-		left: 0;
+		top: 50%;
+		left: 50%;
 		width: 100%;
 		height: 100%;
 		opacity: 0;
 		content: "";
+		.transform(translate(-50%, -50%));
 	}
 
 	&:not(.ui-btn-circle):not(.ui-btn-nobg):not(.ui-floatingactions-item) {
@@ -85,16 +95,23 @@ a.ui-btn {
 
 		&::before {
 			z-index: -1;
-			border-radius: 52 * @unit_base;
+			border-radius: 40 * @unit_base;
 			background-color: @color_button_press_effect;
 			position: absolute;
+			top: 50%;
+			left: 50%;
+			width: 100%;
+			height: 100%;
 			opacity: 0;
+			content: "";
+			.transform(translate(-50%, -50%));
 			box-sizing: border-box;
 		}
 
 		&.ui-btn-active::before {
 			opacity: 1;
-			.animation(btn_press_animation 200ms both);
+			background-color: @color_button_press_effect;
+			.animation(btn_press_animation 6150ms both);
 			border-style: solid;
 			border-color: transparent;
 		}
