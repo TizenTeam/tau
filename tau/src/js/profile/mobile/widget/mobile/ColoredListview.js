@@ -242,7 +242,7 @@
 					events.on(ui.clipElement, "scroll", self, false);
 				}
 
-				events.on(self.element, "expand collapse", self, false);
+				self.on("expand collapse resize", self, false);
 			};
 
 			/**
@@ -282,6 +282,7 @@
 						break;
 					case "expand":
 					case "collapse":
+					case "resize":
 						self._getItems();
 						self._scrollHandler();
 						break;

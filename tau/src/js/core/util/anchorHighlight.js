@@ -394,6 +394,7 @@
 				document.addEventListener("visibilitychange", checkPageVisibility, false);
 				window.addEventListener("pagehide", removeActiveClass, false);
 				document.addEventListener("animationend", clearBtnActiveClass, false);
+				document.addEventListener("animationEnd", clearBtnActiveClass, false);
 				document.addEventListener("webkitAnimationEnd", clearBtnActiveClass, false);
 			}
 
@@ -411,6 +412,7 @@
 				document.removeEventListener("visibilitychange", checkPageVisibility, false);
 				window.removeEventListener("pagehide", removeActiveClass, false);
 				document.removeEventListener("animationend", clearBtnActiveClass, false);
+				document.removeEventListener("animationEnd", clearBtnActiveClass, false);
 				document.removeEventListener("webkitAnimationEnd", clearBtnActiveClass, false);
 			}
 

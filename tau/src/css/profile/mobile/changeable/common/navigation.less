@@ -67,28 +67,28 @@
 
 			&.ui-navigator-active-animation {
 				.ui-arrow {
-					animation: navigation_active_show_animation_arrow linear 133ms;
+					.animation(navigation_active_show_animation_arrow linear 133ms);
 				}
 				.ui-text {
-					animation: navigation_active_show_animation_text linear 166ms;
+					.animation(navigation_active_show_animation_text linear 166ms);
 				}
 			}
 
 			&.ui-navigator-back {
 				.ui-arrow {
-					animation: none;
+					.animation(none);
 				}
 				.ui-text {
-					animation: navigation_active_back_animation_text linear 184ms;
+					.animation(navigation_active_back_animation_text linear 184ms);
 				}
 			}
 
 			&.ui-navigator-hide {
 				.ui-arrow {
-					animation: navigation_active_hide_animation_text linear 150ms;
+					.animation(navigation_active_hide_animation_text linear 150ms);
 				}
 				.ui-text {
-					animation: navigation_active_hide_animation_text linear 184ms;
+					.animation(navigation_active_hide_animation_text linear 184ms);
 				}
 			}
 
@@ -105,10 +105,10 @@
 
 			&.ui-navigator-back-hide {
 				.ui-arrow {
-					animation: none;
+					.animation(none);
 				}
 				.ui-text {
-					animation: navigation_active_back_hide_animation_text linear 184ms;
+					.animation(navigation_active_back_hide_animation_text linear 184ms);
 					opacity: 1;
 				}
 			}
@@ -187,7 +187,7 @@
 @keyframes navigation_press_animation {
 	0%{
 		opacity: 0;
-		transform: translate(-50%, -50%)  scale(0.7);
+		.transform(translate(-50%, -50%)  scale(0.7));
 	}
 	// 17ms
 	4% {
@@ -196,11 +196,11 @@
 	// 300ms
 	60% {
 		opacity: .3;
-		transform: translate(-50%, -50%) scale(1);
+		.transform(translate(-50%, -50%) scale(1));
 	}
 	//500ms
 	100% {
 		opacity: 0;
-		transform: translate(-50%, -50%) scale(1);
+		.transform(translate(-50%, -50%) scale(1));
 	}
 }

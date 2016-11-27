@@ -135,12 +135,14 @@
 					TEXT_ENVELOPER: "ui-text-enveloper",
 					TEXT_ENVELOPER_INPUT: "ui-text-enveloper-input",
 					TEXT_ENVELOPER_BTN: "ui-text-enveloper-btn",
+					TEXT_ENVELOPER_BTN_SELECTED: "ui-text-enveloper-btn-selected",
 					TEXT_ENVELOPER_BTN_ACTIVE: "ui-text-enveloper-btn-active",
 					TEXT_ENVELOPER_BTN_BLUR: "ui-text-enveloper-btn-blur",
 					TEXT_ENVELOPER_BTN_EXPANDED: "ui-text-enveloper-btn-expanded",
 					TEXT_ENVELOPER_START: "ui-text-enveloper-start",
 					TEXT_ENVELOPER_TEXTLINE: "ui-text-input-textline",
-					TEXT_ENVELOPER_SLASH: "ui-text-enveloper-slash"
+					TEXT_ENVELOPER_SLASH: "ui-text-enveloper-slash",
+					TEXT_ENVELOPER_SLASH_HIDDEN: "ui-text-enveloper-slash-hidden"
 				},
 
 				keyCode = {
@@ -151,7 +153,10 @@
 				eventName = {
 					NEW_VALUE: "newvalue",
 					ADDED: "added",
-					REMOVED: "removed"
+					REMOVED: "removed",
+					SELECT: "select",
+					UNSELECT: "unselect",
+					RESIZE: "resize"
 				},
 				/**
 				 * Local constructor function
@@ -166,14 +171,22 @@
 					 * @property {Object} options
 					 * @property {string} [options.label="To : "] Sets a label
 					 * as a guide for the user
-					 * @property {string} [link=""] Sets the ID of the page or
+					 * @property {string} [options.link=""] Sets the ID of the page or
 					 * the URL of other HTML file
 					 * @property {string} [options.description="+ {0}"] Manages
 					 * the message format
+					 * @property {boolean} [options.groupOnBlur = true] Group elements when blur form input
+					 * @property {boolean} [options.selectable = false] Give possibility of select elements
 					 * @member ns.widget.mobile.TextEnveloper
 					 */
 
-					self.options = {};
+					self.options = {
+						groupOnBlur: true,
+						label: "To : ",
+						link: "",
+						description: "+ {0}",
+						selectable: false
+					};
 					self._ui = {};
 				},
 
@@ -186,11 +199,13 @@
 			function bindEvents(self) {
 				var ui = self._ui;
 				events.on(ui.inputElement, "keyup blur focus", self);
+				self.on("click", self);
 			}
 
 			function unbindEvents(self) {
 				var ui = self._ui;
 				events.off(ui.inputElement, "keyup blur focus", self);
+				self.off("click", self);
 			}
 
 			/**
@@ -238,6 +253,7 @@
 				var self = this;
 				self._btnActive = false;
 				self._isBlurred = false;
+
 				return element;
 			};
 
@@ -260,6 +276,9 @@
 			prototype.handleEvent = function (event) {
 				var self = this;
 				switch (event.type) {
+					case "click":
+						self._onClick(event);
+						break;
 					case "keyup":
 						self._onKeyup(event);
 						break;
@@ -279,17 +298,71 @@
 			 * @protected
 			 * @member ns.widget.mobile.TextEnveloper
 			 */
-			prototype._onFocus = function (event) {
+			prototype._onFocus = function () {
 				var self = this,
 					ui = self._ui,
 					length = ui.buttons.length,
 					i;
-				self._isBlurred = false;
-				if (length > 1 && ui.buttons[length - 2].classList.contains(classes.TEXT_ENVELOPER_BTN_BLUR)) {
-					self._remove(length - 1);
+				if (self._isBlurred && self.options.groupOnBlur) {
+					self._isBlurred = false;
+					if (length > 1 && ui.buttons[length - 2].classList.contains(classes.TEXT_ENVELOPER_BTN_BLUR)) {
+						self._remove(length - 1);
+					}
+					for (i = 0; i < length - 1; i++) {
+						ui.buttons[i].classList.remove(classes.TEXT_ENVELOPER_BTN_BLUR);
+					}
+					self.trigger(eventName.RESIZE);
 				}
-				for (i = 0; i < length - 1; i++) {
-					ui.buttons[i].classList.remove(classes.TEXT_ENVELOPER_BTN_BLUR);
+			};
+
+
+			/**
+			 * Focus event handler of input element
+			 * @method _onFocus
+			 * @param {Event} event
+			 * @protected
+			 * @member ns.widget.mobile.TextEnveloper
+			 */
+			prototype._onClick = function (event) {
+				var self = this,
+					buttons = self._ui.buttons,
+					target = event.target,
+					targetClassList = target.classList,
+					previousElementSibling = target.previousElementSibling,
+					nextElementSibling = target.nextElementSibling,
+					previousElementSiblingClassList = null,
+					nextElementSiblingClassList = null;
+
+				if (self.options.selectable && targetClassList.contains(classes.TEXT_ENVELOPER_BTN)) {
+					previousElementSiblingClassList = previousElementSibling && previousElementSibling.classList;
+					nextElementSiblingClassList = nextElementSibling && nextElementSibling.classList;
+					if (targetClassList.contains(classes.TEXT_ENVELOPER_BTN_SELECTED)) {
+						event.target.classList.remove(classes.TEXT_ENVELOPER_BTN_SELECTED);
+						if (previousElementSibling && previousElementSibling.previousElementSibling && !previousElementSibling.previousElementSibling.classList.contains(classes.TEXT_ENVELOPER_BTN_SELECTED)) {
+							previousElementSiblingClassList.remove(classes.TEXT_ENVELOPER_SLASH_HIDDEN);
+						}
+						if (nextElementSibling && nextElementSibling.nextElementSibling && !nextElementSibling.nextElementSibling.classList.contains(classes.TEXT_ENVELOPER_BTN_SELECTED)) {
+							nextElementSiblingClassList.remove(classes.TEXT_ENVELOPER_SLASH_HIDDEN);
+						}
+						self.trigger(eventName.SELECT, {
+							value: target.textContent,
+							index: buttons.indexOf(target)
+						}, false);
+					} else {
+						targetClassList.add(classes.TEXT_ENVELOPER_BTN_SELECTED);
+						if (previousElementSiblingClassList && previousElementSiblingClassList.contains(classes.TEXT_ENVELOPER_SLASH)) {
+							previousElementSiblingClassList.add(classes.TEXT_ENVELOPER_SLASH_HIDDEN);
+						}
+						if (nextElementSiblingClassList && nextElementSiblingClassList.contains(classes.TEXT_ENVELOPER_SLASH)) {
+							nextElementSiblingClassList.add(classes.TEXT_ENVELOPER_SLASH_HIDDEN);
+						}
+						self.trigger(eventName.UNSELECT, {
+							value: target.textContent,
+							index: buttons.indexOf(target)
+						}, false);
+					}
+					event.preventDefault();
+					event.stopPropagation();
 				}
 			};
 
@@ -300,20 +373,20 @@
 			 * @protected
 			 * @member ns.widget.mobile.TextEnveloper
 			 */
-			prototype._onBlur = function (event) {
+			prototype._onBlur = function () {
 				var self = this,
 					ui = self._ui,
-					input = ui.inputElement,
 					length = ui.buttons.length,
 					firstButtonValue = ui.buttons[0] ? ui.buttons[0].textContent : "",
 					i;
 
-				if (ui.buttons.length > 1) {
+				if (ui.buttons.length > 1 && self.options.groupOnBlur) {
 					for (i = 0; i < length; i++) {
 						ui.buttons[i].classList.add(classes.TEXT_ENVELOPER_BTN_BLUR);
 					}
 					self._createButton(firstButtonValue + " + " + (length - 1));
 					self._isBlurred = true;
+					self.trigger(eventName.RESIZE);
 				}
 			};
 
@@ -338,6 +411,7 @@
 						value: value
 					}, false);
 					input.value = "";
+					self.trigger(eventName.RESIZE);
 				} else if (keyValue === keyCode.BACKSPACE) {
 					if (value === "") {
 						if (self._btnActive) {
