@@ -16,7 +16,9 @@
 		progressBarWidget,
 		progressBarWidget2,
 		progressBarWidget3,
-		pageBeforeShowHandler;
+		pageBeforeShowHandler,
+		pageBeforeHideHandler,
+		timers = [];
 
 	/**
 	 * pagebeforeshow event handler
@@ -27,22 +29,34 @@
 		progressBarWidget2 = new tau.widget.Progress(progressBar2);
 		progressBarWidget3 = new tau.widget.Progress(progressBar3);
 
-		setTimeout(function() {
+		timers[1] = setTimeout(function() {
 			progressBarWidget.value(100);
 		}, 1000);
-		setTimeout(function() {
+		timers[2] = setTimeout(function() {
 			progressBarWidget2.value(50);
 			progressBarWidget3.value(70);
 		}, 2000);
-		setTimeout(function() {
+		timers[3] = setTimeout(function() {
 			progressBarWidget2.value(70);
 			progressBarWidget3.value(30);
 		}, 300);
-		setTimeout(function() {
+		timers[4] = setTimeout(function() {
 			progressBarWidget2.value(100);
 			progressBarWidget3.value(100);
 		}, 4000);
 	};
 
+	/**
+	 * pagebeforehide event handler
+	 * Stop timers before destroy page
+	 */
+	pageBeforeHideHandler = function () {
+		clearTimeout(timers[1]);
+		clearTimeout(timers[2]);
+		clearTimeout(timers[3]);
+		clearTimeout(timers[4]);
+	};
+
 	page.addEventListener("pagebeforeshow", pageBeforeShowHandler);
+	page.addEventListener("pagebeforehide", pageBeforeHideHandler);
 }(window.tau));
