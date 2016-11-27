@@ -118,7 +118,8 @@
 		//>>excludeEnd("tauBuildExclude");
 			var BaseWidget = ns.widget.mobile.BaseWidgetMobile,
 				engine = ns.engine,
-				domUtils = ns.util.DOM,
+				util = ns.util,
+				domUtils = util.DOM,
 				objectUtils = ns.util.object,
 				utilEvent = ns.event,
 
@@ -188,8 +189,26 @@
 			 * @member ns.widget.mobile.TextInput
 			 */
 			function resizeTextArea(element) {
-				element.style.height = "auto";
-				element.style.height = element.scrollHeight + "px";
+				util.async(function () {
+					var computed = window.getComputedStyle(element, null),
+						paddingTopCSS = null,
+						paddingBottomCSS = null,
+						paddingTop = 0,
+						paddingBottom = 0;
+
+					if (computed) {
+						paddingTopCSS = computed.getPropertyValue("padding-top");
+						paddingBottomCSS = computed.getPropertyValue("padding-bottom");
+						if (typeof paddingTopCSS === "string") {
+							paddingTop = parseFloat(paddingTopCSS.replace("px", "")) || 0;
+						}
+						if (typeof paddingBottomCSS === "string") {
+							paddingBottom = parseFloat(paddingBottomCSS.replace("px", "")) || 0;
+						}
+					}
+
+					element.style.height = (element.scrollHeight - paddingTop - paddingBottom) + "px";
+				});
 			}
 			/**
 			 * Toggle visibility of the clear button

@@ -46,19 +46,31 @@ textarea.ui-text-input {
 	resize: none;
 	overflow: hidden;
 	white-space: normal;
-	padding: 30 * @unit_base 32 * @unit_base;
 	.transition(height 200ms linear);
 }
 
-input.ui-text-input {
-	padding: 0 10 * @unit_base;
-	line-height: 27 * @unit_base;
+.ui-li-static {
+	input,
+	textarea {
+		&.ui-text-input {
+			margin: 0 16 * @unit_base 0 0;
+
+			+ .ui-text-input-textline {
+				margin: 11 * @unit_base 16 * @unit_base 0 0;
+			}
+		}
+	}
+}
+
+textarea.ui-text-input {
+	height: 54 * @unit_base;
 }
 
 input.ui-text-input,
 textarea.ui-text-input {
 	border: 0;
-	margin: 0;
+	margin: 33 * @unit_base 32 * @unit_base 0 32 * @unit_base;
+	padding: 0 10 * @unit_base;
 	.appearance(none);
 	box-sizing: border-box;
 	width: 100%;
@@ -79,7 +91,7 @@ textarea.ui-text-input {
 		background: @color_textinput_textline_dim;
 		box-sizing: border-box;
 		display: block;
-		margin-top: 11 * @unit_base;
+		margin: 11 * @unit_base 32 * @unit_base 20 * @unit_base 32 * @unit_base;
 	}
 
 	&:focus + .ui-text-input-textline {
