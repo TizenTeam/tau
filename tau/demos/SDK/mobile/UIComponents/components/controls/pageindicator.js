@@ -1,7 +1,7 @@
 (function(tau) {
-	var page = document.getElementById( "page-indicator-page" ),
-		changer = document.getElementById( "hsectionchanger" ),
-		elPageIndicator = document.getElementById("pageIndicator"),
+	var page = document.querySelector( ".page-indicator-page" ),
+		changer = page.querySelector( ".ui-section-changer" ),
+		elPageIndicator = page.querySelector( ".ui-page-indicator" ),
 		pageIndicator,
 		pageIndicatorHandler;
 
