@@ -20,7 +20,8 @@ var fs = require("fs"),
 		"m-1030-1": "mobile",
 		"000011d200006469": "mobile",
 		"tw1": "wearable",
-    "TW1": "wearable",
+		"TW1": "wearable",
+		"TM1": "mobile",
 		"<unknown>": "tv",
 		"Wearable-B2": "wearable"
 	},
@@ -35,7 +36,7 @@ var fs = require("fs"),
 		"tm1": "z3",
 		"device-1": "redwood",
 		"device-2": "redwood",
-		"SM-Z9005" : "redwood",
+		"SM-Z9005": "redwood",
 		"<unknown>": "tv",
 		"Wearable-B2": "gear"
 	},
@@ -200,11 +201,11 @@ module.exports = function (grunt) {
 							var width = screen.width || 257,
 								height = screen.height || 457;
 
-							exec("convert -resize " + width + "x" + height + "\\! " +  dir + ".png " + dir + ".png", function () {
+							exec("convert -resize " + width + "x" + height + "\\! " + dir + ".png " + dir + ".png", function () {
 								//fs.unlink(dir + ".xwd", function () {
-									exec("sdb" + deviceParam + " root off", function () {
-										done();
-									});
+								exec("sdb" + deviceParam + " root off", function () {
+									done();
+								});
 								//});
 							});
 						});
@@ -217,7 +218,6 @@ module.exports = function (grunt) {
 	}
 
 
-
 	function screenshot(device, profile, app, screen, done) {
 		var deviceParam = device ? " -s " + device + " " : "";
 		exec("sdb" + deviceParam + " root on", function () {
@@ -226,7 +226,7 @@ module.exports = function (grunt) {
 				exec("sdb" + deviceParam + " pull /tmp/screen.xwd " + dir + ".xwd", function () {
 					var width = screen.width || 257,
 						height = screen.height || 457;
-					exec("convert -resize " + width + "x" + height + "\\! " +  dir + ".xwd " + dir + ".png", function () {
+					exec("convert -resize " + width + "x" + height + "\\! " + dir + ".xwd " + dir + ".png", function () {
 						fs.unlink(dir + ".xwd", function () {
 							done();
 						});
@@ -341,8 +341,8 @@ module.exports = function (grunt) {
 	}
 
 	function writeTestName(app, name, callback) {
-		fs.writeFile(app + "/test.txt", name || "", function(err) {
-			if(err) {
+		fs.writeFile(app + "/test.txt", name || "", function (err) {
+			if (err) {
 				return console.log(err);
 			}
 
@@ -373,7 +373,7 @@ module.exports = function (grunt) {
 				unlinkRecursiveSync(dest);
 			}
 			async.series([
-				function(callback) {
+				function (callback) {
 					if (profile === "tv") {
 						fixTV(callback);
 					} else {
@@ -389,7 +389,7 @@ module.exports = function (grunt) {
 			], getDeviceList.bind(null, profile,
 				function (devices, count) {
 					if (count) {
-						writeTestName(app, testToRun, function() {
+						writeTestName(app, testToRun, function () {
 							build(app, profile, function (error) {
 								var tasks = [];
 								if (error) {
@@ -403,7 +403,7 @@ module.exports = function (grunt) {
 											} else {
 												tasks.push(run.bind(null, device, app, debug));
 											}
-											fs.exists('../../../' + app + 'screenshots.json', function(exists) {
+											fs.exists('../../../' + app + 'screenshots.json', function (exists) {
 												if (exists) {
 													var screenshots = require('../../../' + app + 'screenshots.json');
 													tasks.push(function (next) {
