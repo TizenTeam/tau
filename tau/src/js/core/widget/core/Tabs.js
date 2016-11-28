@@ -99,7 +99,7 @@
 					self._ui = {};
 					self._component = {};
 					self.options = {
-						changeDuration: 0
+						changeDuration: 200
 					};
 				},
 				classes = {
