@@ -8,15 +8,13 @@ input[type="search"]::-webkit-search-cancel-button {
 	appearance: none;
 }
 
-input[type="search"].ui-search-input {
-	position:relative;
-	display: inline-block;
-	width: 100%;
+input[type="search"][disabled]{
+	background-color:transparent;
+}
+
+.ui-search-input {
 	height: 65 * @unit_base;
-	padding-top: 9 * @unit_base;
-	padding-bottom: 6 * @unit_base;
-	padding-left: 8 * @unit_base;
-	padding-right: 8 * @unit_base;
+	padding-top: 9 * @unit_base 8 * @unit_base 6 * @unit_base 8 * @unit_base;
 	border: 0;
 	outline: 0;
 	border-bottom: 2 * @unit_base solid @color_search_text_line_default_dim;
@@ -46,7 +44,6 @@ input[type="search"].ui-search-input {
 	&::-webkit-search-cancel-button {
 		margin-left: 17 *@unit_base;
 		margin-right: -15 *@unit_base;
-		background-color: red;
 		width: 80 * @unit_base;
 		height: 80 * @unit_base;
 		content: "";
@@ -66,10 +63,7 @@ input[type="search"].ui-search-input {
 	}
 }
 
-input[type="search"][disabled]{
-	background-color:transparent;
-}
-input[type="search"].ui-search-input.ui-state-disabled {
+.ui-search-input.ui-state-disabled {
 	text-shadow: 0 0 0 @color_search_text_dim;
 	border-bottom: 2px solid @color_search_text_dim;
 
@@ -91,20 +85,20 @@ input[type="search"].ui-search-input.ui-state-disabled {
 @searchbar_cutoff_icon_left: @searchbar_space_from_left + @searchbar_margin_right;
 @searchbar_space_from_both: @searchbar_space_from_left + @searchbar_space_from_right;
 
-.ui-header {
-	input[type="search"].ui-search-input {
+.ui-header-searchbar {
+	.display-flex();
+	align-items: center;
+	padding: 0 17 * @unit_base;
+	box-sizing: border-box;
+
+	> .ui-search-input {
+		text-indent: 10 * @unit_base;
 		color: @color_header_search_text_cursor;
 		border-bottom-color: @color_header_search_line;
-		position: absolute;
 		height: 80 * @unit_base;
-		margin-top: 15 * @unit_base;
 		text-shadow: 0 0 0 @color_header_search_text_done;
-		display: block;
 		box-sizing: border-box;
-		margin-left: 10 * @unit_base;
-		margin-right: @searchbar_margin_right;
-		width: ~"calc(100% - @{searchbar_margin_right})";
-		overflow: visible;
+		flex-grow: 1;
 
 		&:focus,
 		&:active {
@@ -125,20 +119,10 @@ input[type="search"].ui-search-input.ui-state-disabled {
 			color: @color_header_search_placeholder_text;
 		}
 	}
-}
 
-.ui-header-btn-right ~ .ui-header-btn-left ~ input[type="search"].ui-search-input,
-.ui-header-btn-left ~ .ui-header-btn-right ~ input[type="search"].ui-search-input {
-	width: ~"calc(100% - @{searchbar_space_from_both})";
-	margin-left: @searchbar_space_from_left;
+	> .ui-btn:not(.ui-btn-nobg) {
+		flex-shrink: 0;
+		flex-grow: 0;
+		position: relative;
+	}
 }
-
-.ui-header-btn-left ~ input[type="search"].ui-search-input {
-	width: ~"calc(100% - @{searchbar_cutoff_icon_left})";
-	margin-left: @searchbar_space_from_left;
-}
-
-.ui-header-btn-right ~ input[type="search"].ui-search-input {
-	width: ~"calc(100% - @{searchbar_space_from_right})";
-}
-

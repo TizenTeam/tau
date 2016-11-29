@@ -61,11 +61,13 @@
         [
             "../../engine",
             "../../event",
+            "../../util/selectors",
             "../BaseWidget"
         ],
         function () {
             //>>excludeEnd("tauBuildExclude");
             var BaseWidget = ns.widget.BaseWidget,
+                utilSelector = ns.util.selectors,
                 engine = ns.engine,
                 SearchInput = function () {
                     var self = this;
@@ -73,9 +75,10 @@
                 },
                 classes = {
                     SEARCHINPUT: "ui-search-input",
+                    HEADER: "ui-header",
+                    HEADER_WITH_SEARCH: "ui-header-searchbar",
                     DISABLED: "ui-state-disabled"
                 },
-
                 prototype = new BaseWidget();
 
             SearchInput.classes = classes;
@@ -90,9 +93,14 @@
              * @member ns.widget.core.SearchInput
              */
             prototype._build = function (element) {
-                var searchInputClassList = element.classList;
+                var searchInputClassList = element.classList,
+                    header = utilSelector.getClosestByClass(element, classes.HEADER);
 
                 searchInputClassList.add(classes.SEARCHINPUT);
+
+                if (header) {
+                    header.classList.add(classes.HEADER_WITH_SEARCH);
+                }
 
                 if (!element.getAttribute("placeholder")) {
                     element.setAttribute("placeholder", "Search");
