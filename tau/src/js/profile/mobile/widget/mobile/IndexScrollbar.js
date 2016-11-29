@@ -164,6 +164,7 @@
 					PAGE: Page.classes.uiPage,
 					CONTENT: Page.classes.uiContent,
 					SCROLLVIEW_CLIP: Scrollview.classes.clip,
+					FLOATING_BUTTON_CONTAINER: "ui-floatingactions",
 					GROUP_INDEX: "ui-group-index"
 				},
 				DEFAULT = {
@@ -229,11 +230,20 @@
 			prototype._setInitialLayout = function() {
 				var self = this,
 					indexScrollbar = self.element,
-					container = self.options.container,
-					indexScrollbarStyle = indexScrollbar.style;
+					options = self.options,
+					container = options.container,
+					indexScrollbarStyle = indexScrollbar.style,
+					containFloating = container.parentElement.querySelector("." + classes.FLOATING_BUTTON_CONTAINER);
 
-				indexScrollbarStyle.top = container.offsetTop + "px";
+				//if we need to shortenen the height of the index, for example when
+				//floatingButton is presented
+				if (containFloating) {
+					options.paddingBottom = container.offsetHeight -
+							containFloating.offsetTop + container.offsetTop;
+				}
+
 				indexScrollbarStyle.height = container.offsetHeight + "px";
+				indexScrollbarStyle.top = container.offsetTop + "px";
 			};
 
 			/**

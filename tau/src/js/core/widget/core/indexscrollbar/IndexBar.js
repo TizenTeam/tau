@@ -142,12 +142,19 @@
 
 				_setMaxIndexLen: function() {
 					var maxIndexLen,
-						containerHeight = this.container.offsetHeight;
-					maxIndexLen = Math.floor( containerHeight / this.options.indexHeight );
+						self = this,
+						indices = self.indices,
+						options = self.options,
+						container = self.container,
+						indexHeight = options.indexHeight,
+						containerHeight = container.offsetHeight;
+
+					maxIndexLen = Math.floor( containerHeight / indexHeight );
 					if(maxIndexLen > 0 && maxIndexLen%2 === 0) {
 						maxIndexLen -= 1;	// Ensure odd number
 					}
-					this.options.maxIndexLen = this.options.maxIndexLen > 0 ? Math.min(maxIndexLen, this.options.maxIndexLen) : maxIndexLen;
+					options.maxIndexLen = options.maxIndexLen > 0 ? Math.min(maxIndexLen, options.maxIndexLen) : maxIndexLen;
+
 				},
 
 				_makeMergedIndices: function() {
@@ -213,8 +220,23 @@
 				},
 
 				_appendToContainer: function() {
-					this.container.appendChild(this.element);
-					this.element.style.left = this.options.offsetLeft + "px";
+					var self = this,
+						options = self.options,
+						element = self.element,
+						container = self.container,
+						elementStyle = element.style,
+						divWithMargin = document.createElement("div"),
+						distanceFromBottom = options.paddingBottom + "px";
+
+					container.appendChild(element);
+					elementStyle.left = options.offsetLeft + "px";
+
+					if (options.paddingBottom) {
+						elementStyle.paddingBottom = distanceFromBottom;
+						divWithMargin.classList.add("ui-indexscrollbar-margin");
+						divWithMargin.style.height = distanceFromBottom;
+						container.appendChild(divWithMargin);
+					}
 				},
 
 				/**

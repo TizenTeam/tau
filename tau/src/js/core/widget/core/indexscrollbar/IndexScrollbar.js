@@ -507,6 +507,7 @@
 						verticalCenter: options.verticalCenter,
 						indexHeight: options.indexHeight,
 						maxIndexLen: options.maxIndexLen,
+						paddingBottom: options.paddingBottom,
 						moreCharLineHeight: options.moreCharLineHeight
 					});
 
