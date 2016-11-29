@@ -16,7 +16,8 @@
  */
 /**
  * #Anchor Highlight Utility
- * Utility enables highlight links.
+ *
+ * Utility enables highlight on clickable components.
  * @class ns.util.anchorHighlight
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  * @author Damian Osipiuk <d.osipiuk@samsung.com>
@@ -32,14 +33,14 @@
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 			/* anchorHighlightController.js
-			To prevent perfomance regression when scrolling,
-			do not apply hover class in anchor.
-			Instead, this code checks scrolling for time threshold and
-			decide how to handle the color.
-			When scrolling with anchor, it checks flag and decide to highlight anchor.
-			While it helps to improve scroll performance,
-			it lowers responsiveness of the element for 50msec.
-			*/
+			 To prevent perfomance regression when scrolling,
+			 do not apply hover class in anchor.
+			 Instead, this code checks scrolling for time threshold and
+			 decide how to handle the color.
+			 When scrolling with anchor, it checks flag and decide to highlight anchor.
+			 While it helps to improve scroll performance,
+			 it lowers responsiveness of the element for 50msec.
+			 */
 
 			/**
 			 * Touch start x
@@ -65,6 +66,14 @@
 				 * @static
 				 */
 				didScroll = false,
+				/**
+				 * Touch button target element
+				 * @property {HTMLElement} buttonTarget
+				 * @member ns.util.anchorHighlight
+				 * @private
+				 * @static
+				 */
+				buttonTarget = null,
 				/**
 				 * Touch target element
 				 * @property {HTMLElement} target
@@ -108,6 +117,14 @@
 					 * @static
 					 */
 					ACTIVE_BTN: "ui-btn-active",
+					/**
+					 * Class used to mark button as inactive
+					 * @property {string} [classes.INACTIVE_BTN="ui-btn-inactive"]
+					 * @member ns.util.anchorHighlight
+					 * @private
+					 * @static
+					 */
+					INACTIVE_BTN: "ui-btn-inactive",
 					/**
 					 * Class used to select button
 					 * @property {string} [classes.BUTTON="ui-btn"] btn
@@ -155,6 +172,10 @@
 				abs = Math.abs,
 				startTime = 0,
 				startRemoveTime = 0,
+				// inform that touch was ended
+				touchEnd = false,
+				// inform that animation of button's activation was ended
+				activeAnimationFinished = false,
 				// cache function
 				slice = Array.prototype.slice;
 
@@ -210,7 +231,65 @@
 			 * @static
 			 */
 			function clearBtnActiveClass(event) {
-				event.target.classList.remove(classes.ACTIVE_BTN);
+				var target = event.target,
+					classList = target.classList;
+				// if this is callback of activate animation and
+				if (classList.contains(classes.ACTIVE_BTN) && !classList.contains(classes.INACTIVE_BTN)) {
+					// set that animation was ended (used in touch end)
+					activeAnimationFinished = true;
+
+					// if touch end previously
+					if (touchEnd || target !== buttonTarget) {
+						// start inactivate animation
+						classList.add(classes.INACTIVE_BTN);
+					}
+				} else {
+					// this is callback for inactive animation end
+					classList.remove(classes.INACTIVE_BTN);
+					classList.remove(classes.ACTIVE_BTN);
+				}
+			}
+
+			/**
+			 * Add inactive class on touch end
+			 * @method addButtonInactiveClass
+			 * @member ns.util.anchorHighlight
+			 * @private
+			 * @static
+			 */
+			function addButtonInactiveClass() {
+				if (buttonTarget) {
+					buttonTarget.classList.add(classes.INACTIVE_BTN);
+				}
+			}
+
+			/**
+			 * Add active class on touch end
+			 * @method addButtonActiveClass
+			 * @member ns.util.anchorHighlight
+			 * @private
+			 * @static
+			 */
+			function addButtonActiveClass() {
+				buttonTarget.classList.add(classes.ACTIVE_BTN);
+				activeAnimationFinished = false;
+			}
+
+			/**
+			 * Clear classes on page or popup hide
+			 * @method hideClear
+			 * @member ns.util.anchorHighlight
+			 * @private
+			 * @static
+			 */
+			function hideClear() {
+				if (buttonTarget) {
+					buttonTarget.classList.remove(classes.ACTIVE_BTN);
+					buttonTarget.classList.remove(classes.INACTIVE_BTN);
+				}
+				if (target) {
+					target.classList.remove(classes.ACTIVE_LI);
+				}
 			}
 
 			/**
@@ -222,7 +301,6 @@
 			 */
 			function addActiveClass() {
 				var liTarget = null,
-					btnTarget = null,
 					btnTargetClassList = null,
 					dTime = 0;
 
@@ -231,7 +309,7 @@
 
 					if (dTime > options.addActiveClassDelay) {
 						startTime = 0;
-						btnTarget = detectBtnElement(target);
+						buttonTarget = detectBtnElement(target);
 						target = detectHighlightTarget(target);
 						if (!didScroll) {
 							liTarget = detectLiElement(target);
@@ -239,12 +317,11 @@
 								liTarget.classList.add(classes.ACTIVE_LI);
 							}
 							liTarget = null;
-							if (btnTarget) {
-								btnTargetClassList = btnTarget.classList;
+							if (buttonTarget) {
+								btnTargetClassList = buttonTarget.classList;
 								btnTargetClassList.remove(classes.ACTIVE_BTN);
-								requestAnimationFrame(function(){
-									btnTargetClassList.add(classes.ACTIVE_BTN);
-								});
+								btnTargetClassList.remove(classes.INACTIVE_BTN);
+								requestAnimationFrame(addButtonActiveClass);
 							}
 						}
 					} else {
@@ -267,8 +344,12 @@
 
 			/**
 			 * Remove active class from current active objects
+			 * @method clearActiveClass
+			 * @member ns.util.anchorHighlight
+			 * @private
+			 * @static
 			 */
-			function clearActiveClass () {
+			function clearActiveClass() {
 				var activeA = getActiveElements(),
 					activeALength = activeA.length,
 					i = 0;
@@ -285,14 +366,14 @@
 			 * @private
 			 * @static
 			 */
-			function removeActiveClass() {
+			function removeActiveClassLoop() {
 				var dTime = Date.now() - startRemoveTime;
 
 				if (dTime > options.keepActiveClassDelay) {
 					// after touchend
 					clearActiveClass();
 				} else {
-					requestAnimationFrame(removeActiveClass);
+					requestAnimationFrame(removeActiveClassLoop);
 				}
 			}
 
@@ -342,6 +423,7 @@
 					startRemoveTime = 0;
 					requestAnimationFrame(addActiveClass);
 					touch = null;
+					touchEnd = false;
 				}
 				touches = null;
 			}
@@ -361,9 +443,14 @@
 				if (event.touches.length === 0) {
 					if (!didScroll) {
 						startTime = 0;
-						requestAnimationFrame(removeActiveClass);
+						requestAnimationFrame(removeActiveClassLoop);
+					}
+					// if we finished activate animation then start inactive animation
+					if (activeAnimationFinished) {
+						requestAnimationFrame(addButtonInactiveClass);
 					}
 					didScroll = false;
+					touchEnd = true;
 				}
 			}
 
@@ -376,7 +463,7 @@
 			 */
 			function checkPageVisibility() {
 				if (document.visibilityState === "hidden") {
-					removeActiveClass();
+					removeActiveClassLoop();
 				}
 			}
 
@@ -392,7 +479,8 @@
 				document.addEventListener("touchmove", touchmoveHandler, false);
 
 				document.addEventListener("visibilitychange", checkPageVisibility, false);
-				window.addEventListener("pagehide", removeActiveClass, false);
+				document.addEventListener("pagehide", hideClear, false);
+				document.addEventListener("popuphide", hideClear, false);
 				document.addEventListener("animationend", clearBtnActiveClass, false);
 				document.addEventListener("animationEnd", clearBtnActiveClass, false);
 				document.addEventListener("webkitAnimationEnd", clearBtnActiveClass, false);
@@ -410,7 +498,8 @@
 				document.removeEventListener("touchmove", touchmoveHandler, false);
 
 				document.removeEventListener("visibilitychange", checkPageVisibility, false);
-				window.removeEventListener("pagehide", removeActiveClass, false);
+				document.removeEventListener("pagehide", hideClear, false);
+				document.removeEventListener("popuphide", hideClear, false);
 				document.removeEventListener("animationend", clearBtnActiveClass, false);
 				document.removeEventListener("animationEnd", clearBtnActiveClass, false);
 				document.removeEventListener("webkitAnimationEnd", clearBtnActiveClass, false);

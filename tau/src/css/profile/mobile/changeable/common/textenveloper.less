@@ -56,7 +56,7 @@
 				.transition(opacity linear 200ms);
 				.mask-box-image-source('images/nine-patch/core_focus_round.png');
 				.mask-box-image-slice(20 20 fill);
-				background-color: W161;
+				background-color: @color_enveloper_select_border_color;
 			}
 
 			&.ui-text-enveloper-btn-blur {
@@ -73,10 +73,17 @@
 				}
 			}
 
-			&.ui-btn-active::before {
-				opacity: 1;
-				background-color: B042;
-				.animation(navigation_press_animation linear 500ms);
+			&.ui-btn-active {
+				::before {
+					opacity: 1;
+					background-color: @color_enveloper_expanded_button_press;
+					.animation(navigation_press_animation linear 315ms);
+				}
+				&.ui-btn-inactive {
+					::before {
+						.animation(navigation_pressup_animation linear 200ms);
+					}
+				}
 			}
 		}
 	}

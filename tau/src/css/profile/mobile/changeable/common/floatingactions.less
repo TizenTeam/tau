@@ -1,16 +1,19 @@
 .ui-content .ui-floatingactions {
 	background-color: @color_floatingactions_bg;
-	&:active {
-		background-color: @color_floatingactions_bg_press;
-	}
-	.ui-floatingactions-item {
-		background-color: transparent;
-		&::after {
-			background-color: @color_floatingactions_icon;
+
+	.ui-btn {
+		&.ui-btn-icon.ui-btn-icon-left {
+			&::after {
+				background-color: @color_floatingactions_icon;
+			}
+
+			&.ui-btn-active {
+				&::after {
+					background-color: @color_floatingactions_icon_press;
+				}
+			}
 		}
-		&:active::after {
-			background-color: @color_floatingactions_icon_press;
-		}
+
 		&::before {
 			background-color: @color_floatingactions_icon_press_effect;
 		}
@@ -20,7 +23,7 @@
 .ui-floatingactions {
 	position: fixed;
 	right: 0;
-	bottom : 43 * @unit_base;
+	bottom: 43 * @unit_base;
 	height: 120 * @unit_base;
 	padding-left: 30 * @unit_base;
 	padding-right: 30 * @unit_base;
@@ -29,68 +32,60 @@
 	background-color: @color_floatingactions_out_bg;
 	z-index: 1000;
 
-	&:active {
-		background-color: @color_floatingactions_out_bg_press;
-	}
-
 	&.ui-floatingactions-transitions {
 		.transition-property(all);
 		.transition-duration(500ms);
 	}
 
-	.ui-floatingactions-item {
+	.ui-btn {
 		display: inline-block;
 		width: 120 * @unit_base;;
 		height: 120 * @unit_base;
-		padding: 0;
 		margin: 0;
 		background-color: transparent;
 
-		&::after {
-			left: 20 * @unit_base;
-			width: 80 * @unit_base;
-			height: 80 * @unit_base;
-			background-color: @color_floatingactions_out_icon;
-		}
-
-		&:active::after {
-			background-color: @color_floatingactions_out_icon_press;
-		}
+		.LESSui-btn-nobg();
 
 		&::before {
-			content: "";
-			position: absolute;
-			top: 0;
-			left: 0;
-			width: 120 * @unit_base;
-			height: 120 * @unit_base;
 			background-color: @color_floatingactions_out_icon_press_effect;
-			border-radius: 50% 50%;
-			opacity: 0;
-			.transform(scale(0.7));
-			.transition-duration(200ms);
-			.transition-timing-function(linear);
 		}
 
-		&:active::before {
-			.transform(scale(1));
-			opacity: 1;
+		&.ui-btn-icon.ui-btn-icon-left {
+			padding: 0;
+
+			&::after {
+				left: 50%;
+				top: 50%;
+				.transform(translate(-50%, -50%));
+				width: 80 * @unit_base;
+				height: 80 * @unit_base;
+				background-color: @color_floatingactions_out_icon;
+			}
+
+			&.ui-btn-active {
+				::after {
+					background-color: @color_floatingactions_out_icon_press;
+				}
+			}
 		}
 
 		&.ui-icon-floating-add::after {
 			.mask-image("images/controls/core_floating_icon_add.png");
 		}
+
 		&.ui-icon-floating-search::after {
 			.mask-image("images/controls/core_floating_icon_search.png");
 		}
 	}
-	.ui-floatingactions-item ~ .ui-floatingactions-item {
+	.ui-btn ~ .ui-btn {
 		margin-left: -20 * @unit_base;
 	}
+
 	&.ui-floatingactions-expand-to-right {
 		padding-right: 60 * @unit_base;
 		right: -30 * @unit_base;
 	}
+
 	&.ui-floatingactions-expand-to-left {
 		padding-left: 60 * @unit_base;
 	}

@@ -190,15 +190,22 @@
 		.transform(translate(-50%, -50%)  scale(0.7));
 	}
 	// 17ms
-	4% {
+	5% {
 		opacity: .3;
 	}
-	// 300ms
-	60% {
+	// 315ms
+	100% {
 		opacity: .3;
 		.transform(translate(-50%, -50%) scale(1));
 	}
-	//500ms
+}
+
+
+@keyframes navigation_pressup_animation {
+	0%{
+		opacity: .3;
+	}
+	// 300ms
 	100% {
 		opacity: 0;
 		.transform(translate(-50%, -50%) scale(1));

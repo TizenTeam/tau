@@ -73,17 +73,6 @@
 	overflow: hidden;
 }
 
-/********************* list have right button **********************/
-.li-has-right-btn .ui-btn {
-	position: absolute;
-	top: 50%;
-	right: 16px;
-}
-
-.li-has-right-btn .ui-btn {
-	margin-top: -20px;
-}
-
 /******************* list have left thumbnail image ********************/
 .ui-li-anchor.li-has-thumb > a,
 .ui-li-static.li-has-thumb {

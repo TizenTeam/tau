@@ -48,7 +48,7 @@
 		white-space: nowrap;
 	}
 
-	> .ui-header-btn, > .ui-btn:not(.ui-btn-circle):not(.ui-btn-nobg):not(.ui-floatingactions-item) {
+	> .ui-header-btn, > .ui-btn:not(.ui-btn-nobg) {
 		position: absolute;
 		.appearance(none);
 		border: none;
@@ -59,7 +59,6 @@
 		font-size: 32 * @unit_base;
 		font-stretch: condensed;
 		border-radius: 0;
-		background-color: transparent;
 
 		&.ui-header-btn-icon, &.ui-btn-icon {
 			width: 80 * @unit_base;
@@ -82,8 +81,6 @@
 				position: absolute;
 				width: 80 * @unit_base;
 				height: 80 * @unit_base;
-				top: 0;
-				left: 0;
 				.mask-size(100% 100%);
 				background-color: @color_button_icon;
 			}
@@ -108,14 +105,22 @@
 			left: 50%;
 			opacity: 0;
 			z-index: -1;
-			.transform(translate(-50%, -50%) scale(1));
 		}
 
-		&.ui-btn-active::before {
-			background-color: @color_button_nobg_press;
-			opacity: 0;
-			border-width: 0;
-			.animation(header_btn_press_animation linear 600ms);
+		&.ui-btn-active {
+			&::before {
+				background-color: @color_button_nobg_press;
+				border-width: 0;
+				.transform(translate(-50%, -50%) scale(1));
+				opacity: 1;
+				.animation(header_btn_press_animation linear 600ms);
+			}
+
+			&.ui-btn-inactive {
+				&::before {
+					.animation(header_btn_pressup_animation linear 600ms);
+				}
+			}
 		}
 
 		&.ui-header-btn-text, &.ui-btn-text {
@@ -147,22 +152,29 @@
 	}
 }
 
-
 @keyframes header_btn_press_animation {
 	0% {
 		.transform(translate(-50%, -50%) scale(0.9));
-		opacity: 1;
+		opacity: 0;
 	}
-	50% {
-		.transform(translate(-50%, -50%) scale(1));
-		opacity: 1;
-	}
-	67% {
-		.transform(translate(-50%, -50%) scale(1));
+	5% {
+		.transform(translate(-50%, -50%) scale(0.9));
 		opacity: 1;
 	}
 	100% {
 		.transform(translate(-50%, -50%) scale(1));
+		opacity: 1;
+	}
+}
+
+@keyframes header_btn_pressup_animation {
+	0% {
+		opacity: 1;
+	}
+	33% {
+		opacity: 1;
+	}
+	100% {
 		opacity: 0;
 	}
 }

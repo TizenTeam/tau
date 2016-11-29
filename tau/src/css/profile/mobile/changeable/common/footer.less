@@ -1,37 +1,37 @@
-.ui-footer {
-	position : fixed;
-	display: -webkit-flex;
-	display: flex;
-	flex-direction: row;
-	overflow: hidden;
-	width: 100%;
-	border: 0;
-	height : 152 * @unit_base;
-	text-align : center;
-	bottom : 0;
-	z-index: @z_base_header_footer;
+.LESSui-footer {
+	box-sizing: border-box;
+	height: 152 * @unit_base;
+	padding: 24 * @unit_base 32 * @unit_base;
+	text-align: center;
+	.display-flex();
+
 	.ui-btn {
-		.flex(1);
-		.border-box();
 		height: 104 * @unit_base;
-		line-height: 76 * @unit_base;
-		margin: 22 * @unit_base 16 * @unit_base;
-		font-size: @font_size_button_text;
-		background-color: @color_bottom_button_bg;
-		&:first-child {
-			margin: 22 * @unit_base 16 * @unit_base 22 * @unit_base 32 * @unit_base;
-		}
-		&:last-child {
-			margin: 22 * @unit_base 32 * @unit_base 22 * @unit_base 16 * @unit_base;
-		}
-		&:only-child {
-			margin: 22 * @unit_base 32 * @unit_base;
-		}
-		&:active:not(.ui-btn-circle):not(.ui-btn-nobg):not(.ui-floatingactions-item) {
-			background-color: @color_button_bottom_bg_press;
-		}
-		&.ui-state-disabled {
-			background-color: @color_button_disabled_in_fotter;
+		line-height: 104 * @unit_base;
+		margin: 0 auto;
+		max-width: 496 * @unit_base;
+
+		&.ui-btn-inline {
+			width: 100%;
 		}
 	}
+
+	.ui-btn:not(.ui-btn-circle):not(.ui-btn-nobg):not(.ui-floatingactions-item) {
+		background-color: @color_bottom_button_bg;
+
+		&.ui-btn-active::before {
+			background-color: @color_button_bottom_bg_press;
+		}
+	}
+
+	.ui-btn ~ .ui-btn {
+		margin-left: 16 * @unit_base;
+	}
+}
+
+.ui-footer {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	.LESSui-footer();
 }

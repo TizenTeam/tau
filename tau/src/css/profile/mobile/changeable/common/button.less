@@ -3,47 +3,58 @@
  * Pseudo element ::before is reserved for press effect
  */
 
-
 @btn_press_effect_size: (78 * 0.15) * @unit_base;
 
 @keyframes btn_press_animation {
 	0% {
-		opacity:0
+		opacity: 0
 	}
-	3% {
-		opacity:1;
+	100% {
+		opacity: 1
 	}
-	67% {
-		opacity:1;
+}
+
+@keyframes btn_pressup_animation {
+	0% {
+		opacity: 1;
+	}
+	33% {
+		opacity: 1;
 	}
 	100% {
 		opacity: 0
+	}
+}
+
+@keyframes btn_press_animation_nobg {
+	0% {
+		opacity: 0;
+		.transform(translate(-50%, -50%) scale(1.2));
+	}
+	5% {
+		opacity: 1;
+		.transform(translate(-50%, -50%) scale(1.3));
+	}
+	100% {
+		opacity: 1;
+		.transform(translate(-50%, -50%) scale(1.3));
 	}
 }
 
 @keyframes tabbar-press {
 	0% {
-		opacity:0
+		opacity: 0
 	}
 	3% {
-		opacity:1;
+		opacity: 1;
 	}
 	67% {
-		opacity:1;
+		opacity: 1;
 	}
 	100% {
 		opacity: 0
 	}
 }
-
-// for call animation end
-@keyframes empty_btn_press_animation {
-	0% {
-	}
-	100% {
-	}
-}
-
 
 button.ui-btn,
 input[type="button"].ui-btn {
@@ -55,16 +66,16 @@ input[type="button"].ui-btn {
 
 a.ui-btn {
 	text-decoration: none;
+	width: 100%;
 }
 
 .ui-btn {
 	position: relative;
 	display: block;
-	padding: 8 * @unit_base 24 * @unit_base;
-	min-height: 78 * @unit_base;
+	padding: 0 24 * @unit_base;
+	height: 78 * @unit_base;
 	line-height: 78 * @unit_base;
 	vertical-align: middle;
-	overflow: hidden;
 	text-overflow: ellipsis;
 	text-align: center;
 	color: @color_button_text_normal;
@@ -73,8 +84,10 @@ a.ui-btn {
 	cursor: pointer;
 	background-color: @color_button_bg;
 	box-sizing: border-box;
-
-	&:not(.ui-floatingactions-item)::before {
+	.user-select(none);
+	z-index: 0;
+	border-radius: 52 * @unit_base;
+	&::before {
 		position: absolute;
 		top: 50%;
 		left: 50%;
@@ -82,38 +95,63 @@ a.ui-btn {
 		height: 100%;
 		opacity: 0;
 		content: "";
+		border-width: 0;
 		.transform(translate(-50%, -50%));
 	}
 
-	&:not(.ui-btn-circle):not(.ui-btn-nobg):not(.ui-floatingactions-item) {
-		z-index: 0;
-		border-radius: 52 * @unit_base;
+	&::after {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		.mask-size(100% 100%);
+		.transform(translate(-50%, -50%));
+		.mask-repeat(no-repeat);
+		.mask-position(center);
+		.mask-size(100%);
+		content: "";
+	}
 
-		&.ui-btn-active {
-			background-color: @color_button_bg_press;
-		}
-
+	&:not(.ui-btn-nobg) {
 		&::before {
 			z-index: -1;
-			border-radius: 40 * @unit_base;
+			border-radius: 52 * @unit_base;
 			background-color: @color_button_press_effect;
-			position: absolute;
-			top: 50%;
-			left: 50%;
-			width: 100%;
-			height: 100%;
-			opacity: 0;
-			content: "";
-			.transform(translate(-50%, -50%));
 			box-sizing: border-box;
 		}
 
-		&.ui-btn-active::before {
-			opacity: 1;
-			background-color: @color_button_press_effect;
-			.animation(btn_press_animation 6150ms both);
-			border-style: solid;
-			border-color: transparent;
+		&.ui-btn-active {
+			&::before {
+				opacity: 1;
+				.animation(btn_press_animation 15ms linear);
+			}
+			&.ui-btn-inactive {
+				&::before {
+					.animation(btn_pressup_animation 300ms linear);
+				}
+			}
+		}
+	}
+
+	&.ui-btn-nobg {
+		.LESSui-btn-nobg();
+	}
+
+	&.ui-btn-circle,
+	&.ui-btn-nobg {
+		width: 78 * @unit_base;
+		height: 78 * @unit_base;
+		text-indent: -9999 * @unit_base;
+		padding: 20 * @unit_base 0;
+		border-radius: 50%;
+
+		&.ui-inline {
+			width: 78 * @unit_base;
+		}
+
+		&::after {
+			width: 80 * @unit_base;
+			height: 80 * @unit_base;
+			background-color: @color_button_icon;
 		}
 	}
 
@@ -127,232 +165,178 @@ a.ui-btn {
 		background-color: @color_button_bg_dim;
 		color: @color_button_text_dim;
 	}
-}
 
-.ui-btn.ui-btn-text-light,
-.ui-btn.ui-btn-text-dark {
-	min-height: 48 * @unit_base;
-	height: 48 * @unit_base;
-	line-height: 34 * @unit_base;
-	min-width: 96 * @unit_base;
-	font-size: @font_size_button_text_light_dark;
-	padding: 8 * @unit_base 24 * @unit_base;
-	.mask-box-image-source('images/nine-patch/core_button_on_bg.png');
-	.mask-box-image-slice(24 42 fill);
+	&.ui-btn-icon {
+		&.ui-btn-icon-only {
+			text-indent: -9999 * @unit_base;
+			width: 208 * @unit_base;
+		}
 
-	&.ui-btn-active {
-		font-size: @font_size_button_text_light_dark_pressed;
-		.animation(empty_btn_press_animation linear 200ms);
+		&::after {
+			width: 60 * @unit_base;
+			height: 60 * @unit_base;
+			background-color: @color_button_icon;
+		}
+
+		&.ui-btn-active {
+			&::after {
+				background-color: @color_button_icon_press;
+			}
+		}
+
+		&.ui-icon {
+			&-add::after {
+				.mask-image("images/controls/core_button_add.png");
+			}
+
+			&-delete::after {
+				.mask-image("images/controls/core_button_delete.png");
+			}
+
+			&-cancel::after {
+				.mask-image("images/controls/core_button_cancel.png");
+			}
+
+			&-reorder::after {
+				.mask-image("images/controls/core_button_reorder.png");
+			}
+		}
+
+		&.ui-btn-icon {
+			&-left {
+				padding-left: 136 * @unit_base;
+				padding-right: 68 * @unit_base;
+				&::after {
+					left: 58 * @unit_base;
+				}
+			}
+
+			&-right {
+				padding-left: 68 * @unit_base;
+				padding-right: 136 * @unit_base;
+				&::after {
+					right: 58 * @unit_base;
+					left: auto;
+				}
+			}
+
+			&-left,
+			&-right {
+				&::after {
+					top: 50%;
+					.transform(translate(0, -50%));
+				}
+			}
+
+			&-top {
+				padding-top: 130 * @unit_base;
+				padding-bottom: 72 * @unit_base;
+				&::after {
+					top: 56 * @unit_base;
+				}
+			}
+
+			&-bottom {
+				padding-top: 72 * @unit_base;
+				padding-bottom: 130 * @unit_base;
+				&::after {
+					bottom: 56 * @unit_base;
+				}
+			}
+
+			&-top,
+			&-bottom {
+				&::after {
+					left: 50%;
+					.transform(translate(-50%, 0));
+				}
+			}
+		}
+	}
+	&.ui-btn-text-light,
+	&.ui-btn-text-dark {
+		min-height: 48 * @unit_base;
+		height: 48 * @unit_base;
+		line-height: 34 * @unit_base;
+		min-width: 96 * @unit_base;
+		font-size: @font_size_button_text_light_dark;
+		padding: 8 * @unit_base 24 * @unit_base;
+		.mask-box-image-source('images/nine-patch/core_button_on_bg.png');
+		.mask-box-image-slice(24 42 fill);
+
+		&.ui-btn-active {
+			font-size: @font_size_button_text_light_dark_pressed;
+		}
 	}
 
 	&.ui-btn-text-light {
 		background-color: @color_button_light_text;
 		&.ui-btn-active {
 			background-color: @color_button_light_text_pressed;
-			.animation(empty_btn_press_animation linear 200ms);
 		}
 	}
+
 	&.ui-btn-text-dark {
 		background-color: @color_button_dark_text;
-		&.ui-btn-active {
+		&.ui-btn-active::before {
 			background-color: @color_button_dark_text_pressed;
-			.animation(empty_btn_press_animation linear 200ms);
-		}
-	}
-}
-
-.ui-btn.ui-btn-circle,
-.ui-btn.ui-btn-nobg {
-	width: 120 * @unit_base;
-	height: 120 * @unit_base;
-	background-color: transparent;
-	text-indent: -9999 * @unit_base;
-	margin: 0;
-	padding: 20 * @unit_base 0;
-	position: absolute;
-	border-radius: 50%;
-	right: 0;
-	top: 0;
-
-	&::after {
-		top: 50%;
-		left: 50%;
-		width: 80 * @unit_base;
-		height: 80 * @unit_base;
-		.mask-size(100% 100%);
-		.transform(translate(-50%,-50%));
-		background-color: @color_button_icon;
-		.mask-repeat(no-repeat);
-		.mask-position(center);
-		.mask-size(100%);
-	}
-
-	&.ui-btn-active::before {
-		opacity: 1;
-		background-color: @color_button_circle_press_effect;
-		.transform(scale(1.3));
-		.animation(empty_btn_press_animation linear 200ms);
-	}
-
-	&::before {
-		opacity: 1;
-		background-color: @color_button_icon_bg;
-		border-radius: 50% 50%;
-		top: 20 * @unit_base;
-		left: 20 * @unit_base;
-		width: 80 * @unit_base;
-		height: 80 * @unit_base;
-		.transform(scale(1));
-		.transition(~"transform .2s, -webkit-transform .2s");
-	}
-	&.ui-icon-add::after {
-		.mask-image("images/controls/core_button_add.png");
-	}
-	&.ui-icon-add.ui-btn-active::after {
-		background-color: @color_button_add_press;
-	}
-
-	&.ui-icon-delete::after {
-		.mask-image("images/controls/core_button_delete.png");
-		background-color: @color_button_delete;
-	}
-	&.ui-icon-delete.ui-btn-active::after {
-		background-color: @color_button_delete_press;
-	}
-
-	&.ui-icon-cancel::after {
-		.mask-image("images/controls/core_button_cancel.png");
-	}
-	&.ui-icon-reorder::after {
-		.mask-image("images/controls/core_button_reorder.png");
-	}
-}
-
-.ui-btn.ui-btn-nobg {
-	&::before {
-		background-color: transparent;
-	}
-	&::after {
-		background-color: @color_button_icon_nobg;
-	}
-	&.ui-btn-active::after {
-		background-color: @color_button_icon_nobg_press;
-	}
-	&.ui-btn-active::before {
-		background-color: @color_button_icon_nobg_press_effect;
-	}
-}
-
-.ui-btn-icon {
-	&.ui-btn-icon-only {
-		text-indent: -9999 * @unit_base;
-		width: 208 * @unit_base;
-		&::after {
-			top: 50%;
-			left: 50%;
-			.transform(translate(-50%, -50%));
 		}
 	}
 
-	&::after {
-		position: absolute;
-		width: 60 * @unit_base;
-		height: 60 * @unit_base;
-		background-color: @color_button_icon;
-		.mask-size(100%);
-		content: "";
-	}
-
-	&.ui-btn-icon-left {
-		padding-left: 130 * @unit_base;
-		padding-right: 72 * @unit_base;
-		&::after {
-			left: 56 * @unit_base;
-		}
-	}
-
-	&.ui-btn-icon-right {
-		padding-left: 72 * @unit_base;
-		padding-right: 130 * @unit_base;
-		&::after {
-			right: 56 * @unit_base;
-		}
-	}
-
-	&.ui-btn-icon-left,
-	&.ui-btn-icon-right {
-		&::after {
-			top: 50%;
-			.transform(translate(0, -50%));
-		}
-	}
-
-	&.ui-btn-icon-top {
-		padding-top: 130 * @unit_base;
-		padding-bottom: 72 * @unit_base;
-		&::after {
-			top: 56 * @unit_base;
-		}
-	}
-
-	&.ui-btn-icon-bottom {
-		padding-top: 72 * @unit_base;
-		padding-bottom: 130 * @unit_base;
-		&::after {
-			bottom: 56 * @unit_base;
-		}
-	}
-
-	&.ui-btn-icon-top,
-	&.ui-btn-icon-bottom {
-		&::after {
-			left: 50%;
-			.transform(translate(-50%, 0));
-		}
-	}
-
-	&.ui-btn-icon-right-with-input {
-		padding: 0;
-		width: 80 * @unit_base;
-		height: 80 * @unit_base;
-		z-index: 100;
-		border-radius: 0 !important;
-		&::after {
-			left: 0;
-			top: 0;
-			border-radius: 0;
-			width: 100%;
-			height: 100%;
-		}
-	}
 }
 
 .ui-li-has-btn {
 	.display-flex();
-	button {
-		margin-top: -14 * @unit_base;
-		margin-bottom: -14 * @unit_base;
-		margin-left: auto;
-		margin-right: auto;
+	.ui-btn {
+		margin: -14 * @unit_base auto;
 		max-width: 496 * @unit_base;
 	}
-	button ~ button {
+	.ui-btn ~ .ui-btn {
 		margin-left: 16 * @unit_base;
 	}
 }
 
-.ui-content {
-	.ui-btn {
-		&:not(.ui-btn-circle):not(.ui-btn-nobg):not(.ui-floatingactions-item) {
-			background-color: @color_button_bg_press;
+.LESSui-btn-nobg {
+	background-color: transparent;
+	color: @color_button_text_nobg;
+	&::before {
+		background-color: @color_button_bg_nobg;
+		opacity: 0;
+		border-radius: 50%;
+		width: 78 * @unit_base;
+		height: 78 * @unit_base;
+		.transform(translate(-50%, -50%) scale(1));
+	}
+	&.ui-btn-active {
+		&::before {
+			opacity: 1;
+			.transform(translate(-50%, -50%) scale(1.3));
+			.animation(btn_press_animation_nobg linear 315ms);
+		}
+		&.ui-btn-inactive {
 			&::before {
-				opacity: 0;
+				.animation(btn_pressup_animation 300ms linear);
 			}
-			&.ui-btn-active::before {
-				opacity: 1;
+		}
+	}
+	&.ui-btn-icon {
+		&::after {
+			background-color: @color_button_icon_nobg;
+		}
+		&.ui-btn-active {
+			&::after {
+				background-color: @color_button_icon_nobg_press;
+			}
+		}
+		&.ui-icon-delete {
+			&::after {
+				background-color: @color_button_delete;
+				.transition(background-color 15ms);
+			}
+			&.ui-btn-active::after {
+				background-color: @color_button_delete_press;
+				.transition(background-color 300ms);
 			}
 		}
 	}
 }
-
-

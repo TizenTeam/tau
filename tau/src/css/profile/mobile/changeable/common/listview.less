@@ -268,7 +268,7 @@
 						margin-left: 0;
 					}
 					&.ui-li-icon-middle {
-						top: 50% ;
+						top: 50%;
 						transform: translateY(-50%);
 					}
 				}
@@ -312,9 +312,6 @@
 	}
 }
 
-
-
-
 /*************** No Anchor listview details and transparent ****************/
 .ui-listview.ui-details {
 	.ui-li-static {
@@ -345,4 +342,12 @@
 			line-height: 43 * @unit_base;
 		}
 	}
+}
+
+/********************* list have right button **********************/
+.li-has-right-btn .ui-btn {
+	position: absolute;
+	top: 50%;
+	right: 17 * @unit_base;
+	.transform(translate(0, -50%));
 }
