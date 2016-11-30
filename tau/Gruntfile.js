@@ -218,10 +218,10 @@ module.exports = function(grunt) {
 		initConfig = {
 			version: version,
 
-			jshint: {
+			eslint: {
 				js: {
 					options: {
-						jshintrc: path.join(srcJs, ".jshintrc")
+						jshintrc: ".eslintrc"
 					},
 					files: {
 						src: [ path.join(srcJs, "**/*.js") ]
@@ -229,9 +229,9 @@ module.exports = function(grunt) {
 				},
 				"js-ci": {
 					options: {
-						jshintrc: path.join(srcJs, ".jshintrc"),
-						reporter: require("jshint-junit-reporter"),
-						reporterOutput: "report/jshint/junit-output.xml"
+                        jshintrc: ".eslintrc",
+						format: "junit",
+                        outputFile: "report/eslint/junit-output.xml"
 					},
 					files: {
 						src: [ path.join(srcJs, "**/*.js") ]
@@ -239,9 +239,9 @@ module.exports = function(grunt) {
 				},
 				single: {
 					options: {
-						jshintrc: "src/js/.jshintrc",
-						reporter: "checkstyle",
-						reporterOutput: "report/jshint/jshint-"+ grunt.option("jshintno") + ".xml"
+                        jshintrc: ".eslintrc",
+                        format: "junit",
+						reporterOutput: "report/eslint/junit-"+ grunt.option("jshintno") + ".xml"
 					},
 					src: grunt.option("jshintfile")
 				}
@@ -993,7 +993,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks("grunt-contrib-copy");
 	grunt.loadNpmTasks("grunt-contrib-concat");
 	grunt.loadNpmTasks("grunt-contrib-requirejs");
-	grunt.loadNpmTasks("grunt-contrib-jshint");
+	grunt.loadNpmTasks("grunt-eslint");
 	grunt.loadNpmTasks("grunt-contrib-uglify");
 	grunt.loadNpmTasks("grunt-contrib-less");
 	grunt.loadNpmTasks("grunt-contrib-cssmin");
@@ -1007,7 +1007,7 @@ module.exports = function(grunt) {
 
 	// Task list
 	grunt.registerTask("themesjs", "Generate themes files using requirejs", themesjs);  // Generate separate themes files
-	grunt.registerTask("lint", [ /* "jshint", @TODO fix all errors and revert*/ ] );
+	grunt.registerTask("lint", [ /* "eslint", @TODO fix all errors and revert*/ ] );
 	grunt.registerTask("jsmin", [ "findFiles:js.setMinifiedFiles", "uglify" ]);
 	grunt.registerTask("image", [ "copy:wearableDefaultImages", "copy:mobileDefaultImages", "copy:tvDefaultImages" ]);
 	grunt.registerTask("image-changeable", [ "copy:wearableChangeableImages", "copy:wearableColorThemeImages", "copy:mobileChangeableImages" ]);
@@ -1023,5 +1023,5 @@ module.exports = function(grunt) {
 	grunt.registerTask("build-mobile", ["clean", "lint", "css-mobile", "globalize", "js-mobile", "license", "version"]);
 	grunt.registerTask("release", [ "build", "test", "sdk-docs" ]);
 	grunt.registerTask("default", [ "release" ]);
-	grunt.registerTask("ci", [ "test:wearable", "test:mobile", "test:mobile_support", "test:jqm", "test:jqm14ok", "jshint:js-ci" ]);
+	grunt.registerTask("ci", [ "test:wearable", "test:mobile", "test:mobile_support", "test:jqm", "test:jqm14ok", "eslint:js-ci" ]);
 };
