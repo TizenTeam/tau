@@ -1,4 +1,47 @@
 %changelog
+* Wed Nov 30 2016 Tomasz Lukawski <t.lukawski@samsung.com> 0.13.19
+	- fix(mobile) Floating button covered
+	- fix(mobile): Fix layout of SearchBar
+	- fix(mobile) Fix layout of TextIntput with Button
+	- fix(mobile): Fix press effect on all cases of buttons
+	- fix(mobile): TextInput margin/padding and autoResize function
+	- fix(mobile): Fix progress dimensions
+	- fix(mobile) UIComponents: more menu as colored list
+	- refactor(mobile) Refactor Tabs examples
+	- [mobile] Search input - wrong color of line and wrong position of X
+	- fix(mobile) UIComponents: Popup with listview - layout fixes
+	- fix(mobile) Fix color of buttons in popup footers
+	- fix(mobile): Remove old buttons style page from UIComponents
+	- fix(mobile) Add section change animation after click on tab
+	- fix(mobile): Add colored list to PageIndicator examples
+	- fix(mobile): Add colored list to ScrollHandler index page
+	- fix(mobile): Add colored list to VirtualList index
+	- fix(mobile) Fix layout of TextEnveloper
+	- fix(mobile): UIComponents detail page back button fixed
+	- fix(mobile) UIComponents: layout fix for activity circle example
+	- fix(mobile): Fix layout of tex inputs example
+	- fix(mobile): UIComponents changed selectlist to ui-flex type
+	- [mobile] Index Scroll bar bugs
+	- fix(mobile) UIComponents: Remove example of joined vertical and horizontal scroll handler
+	- fix(mobile) UIComponents: fix layout for horizontal scroll handler example
+	- fix(mobile) UIComponents: console error on back from page with example of progress bar
+	- fix(mobile) UIComponents: fix layout examples of toggle, radio, checkbox
+	- feat(mobile): UIComponents indexscrollbar with floating button example
+	- fix(mobile) UIComponents: wrong shape of icon in text button example
+	- fix(mobile) Add reorder handlers when not exists
+	- fix(mobile) Fix exception on edit mode in GridView
+	- fix(mobile) Fix exception on after remove page
+	- fix(mobile): Fix layout of navigation bar
+	- fix(mobile): Fix layout of buttons in header
+	- fix(waearable) GroupIndex on colored listview
+	- fix(mobile) Tabbar - press effect shoud be compliant VI documentation
+	- fix(mobile) UIComponents - on-off list - 6th disabled radio button is not checked
+	- fix(wearable): Fix UI of UI Components
+	- fix(wearable): Fix bugs in simple slider
+	- fix(mobile): Change right icon in header
+	- fix(werable): Selectlist arrow color
+	- [mobile] Back in header not work in UIComponents
+
 * Wed Nov 23 2016 Tomasz Lukawski <t.lukawski@samsung.com> 0.13.18
 	- feat(wearable): add hyper link
 	- feature(wearable) Add more features to slider
