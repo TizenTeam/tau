@@ -111,7 +111,7 @@
 			 */
 			routeDialog.option = function () {
 				var defaults = object.merge({}, routeDialog.defaults);
-				defaults.transition = ns.getConfig('pageTransition', defaults.transition);
+				defaults.transition = ns.getConfig("pageTransition", defaults.transition);
 				return defaults;
 			};
 

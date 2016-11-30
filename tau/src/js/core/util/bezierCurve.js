@@ -20,7 +20,7 @@
  * @class ns.util.bezierCurve
  */
 (function (ns) {
-	'use strict';
+	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define([
 		"../util" // fetch namespace

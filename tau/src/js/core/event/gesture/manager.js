@@ -567,7 +567,7 @@
 					unregister: function( instance ) {
 						var idx;
 
-						if ( !!this.gestureDetectors.length ) {
+						if ( this.gestureDetectors.length ) {
 							this.unregisterBlockList.push( instance );
 							return;
 						}

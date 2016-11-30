@@ -26,9 +26,9 @@
 			var eventUtils = ns.event,
 				pagebeforechange = {
 					trigger: function (element, options) {
-						eventUtils.trigger(element, "orientationchange", {'options': options});
+						eventUtils.trigger(element, "orientationchange", {"options": options});
 					},
-					properties: ['options']
+					properties: ["options"]
 				};
 
 			ns.event.page = {

@@ -62,21 +62,21 @@
 			Datetimepicker.prototype = new BaseWidget();
 
 			Datetimepicker.classes = {
-				uiBtnPicker: 'ui-btn-picker',
-				uiDatefield: 'ui-datefield',
-				uiDatefieldPrefix: 'ui-datefield-',
-				uiDatefieldSelected: 'ui-datefield-selected',
-				uiDatefieldPeriod: 'ui-datefield-period',
-				uiLink: 'ui-link',
-				uiDatetimepickerSelector: 'ui-datetimepicker-selector',
-				uiDatetimepicker: 'ui-datetimepicker',
-				uiInputText: 'ui-input-text',
-				uiBodyPrefix: 'ui-body-',
-				uiDivider1st: 'ui-divider-1st',
-				uiDivider2nd: 'ui-divider-2nd',
-				inClass: 'in',
-				outClass: 'out',
-				current: 'current'
+				uiBtnPicker: "ui-btn-picker",
+				uiDatefield: "ui-datefield",
+				uiDatefieldPrefix: "ui-datefield-",
+				uiDatefieldSelected: "ui-datefield-selected",
+				uiDatefieldPeriod: "ui-datefield-period",
+				uiLink: "ui-link",
+				uiDatetimepickerSelector: "ui-datetimepicker-selector",
+				uiDatetimepicker: "ui-datetimepicker",
+				uiInputText: "ui-input-text",
+				uiBodyPrefix: "ui-body-",
+				uiDivider1st: "ui-divider-1st",
+				uiDivider2nd: "ui-divider-2nd",
+				inClass: "in",
+				outClass: "out",
+				current: "current"
 			};
 
 			function getCalendar() {
@@ -96,19 +96,19 @@
 			}
 
 			function createDateField(type, pat, container) {
-				var span = document.createElement('span'),
+				var span = document.createElement("span"),
 					spanClassList = span.classList,
 					classes = Datetimepicker.classes;
-				if (type !== 'seperator' && type !== 'tab') {
+				if (type !== "seperator" && type !== "tab") {
 					spanClassList.add(classes.uiBtnPicker);
-					dom.setNSData(span, 'type', type);
+					dom.setNSData(span, "type", type);
 				}
 				spanClassList.add(classes.uiDatefieldPrefix + type);
-				dom.setNSData(span, 'pat', pat);
-				if (type !== 'seperator' && type !== 'tab') {
-					dom.setNSData(span, 'role', "button");
-					dom.setNSData(span, 'inline', "true");
-					engine.instanceWidget(span, 'Button');
+				dom.setNSData(span, "pat", pat);
+				if (type !== "seperator" && type !== "tab") {
+					dom.setNSData(span, "role", "button");
+					dom.setNSData(span, "inline", "true");
+					engine.instanceWidget(span, "Button");
 				}
 				dom.appendNodes(container, span);
 				return span;
@@ -129,16 +129,16 @@
 					value = "0";
 				}
 
-				pat = dom.getNSData(target, 'pat');
+				pat = dom.getNSData(target, "pat");
 				targetClassList = target.classList;
 
 				switch (pat) {
-					case 'H':
-					case 'HH':
-					case 'h':
-					case 'hh':
+					case "H":
+					case "HH":
+					case "h":
+					case "hh":
 						hour = value;
-						if (pat.charAt(0) === 'h') {
+						if (pat.charAt(0) === "h") {
 							if (hour > 12) {
 								hour -= 12;
 							} else if (hour === 0) {
@@ -148,39 +148,39 @@
 						hour = makeTwoDigits(hour);
 						text = hour;
 						break;
-					case 'm':
-					case 'M':
-					case 'd':
-					case 's':
+					case "m":
+					case "M":
+					case "d":
+					case "s":
 						text = value;
 						break;
-					case 'mm':
-					case 'dd':
-					case 'MM':
-					case 'ss':
+					case "mm":
+					case "dd":
+					case "MM":
+					case "ss":
 						text = makeTwoDigits(value);
 						break;
-					case 'MMM':
+					case "MMM":
 						text = getCalendar().months.namesAbbr[value - 1];
 						break;
-					case 'MMMM':
+					case "MMMM":
 						text = getCalendar().months.names[value - 1];
 						break;
-					case 'yy':
+					case "yy":
 						text = makeTwoDigits(value % 100);
 						break;
-					case 'yyyy':
+					case "yyyy":
 						if (value < 10) {
-							value = '000' + value;
+							value = "000" + value;
 						} else if (value < 100) {
-							value = '00' + value;
+							value = "00" + value;
 						} else if (value < 1000) {
-							value = '0' + value;
+							value = "0" + value;
 						}
 						text = value;
 						break;
-					case 't':
-					case 'tt':
+					case "t":
+					case "tt":
 						text = value;
 						target = target.firstChild.firstChild;
 						break;
@@ -217,17 +217,17 @@
 				var options = this.options;
 
 				switch (type) {
-					case 'datetime':
-					case 'date':
-					case 'time':
+					case "datetime":
+					case "date":
+					case "time":
 						options.type = type;
 						break;
 					default:
-						options.type = 'datetime';
+						options.type = "datetime";
 						break;
 				}
 
-				dom.setNSData(element, 'type', options.type);
+				dom.setNSData(element, "type", options.type);
 				return this;
 			};
 
@@ -247,35 +247,35 @@
 				}
 
 				if (this._ui) {
-					fields = this._ui.querySelectorAll('[data-type]');
+					fields = this._ui.querySelectorAll("[data-type]");
 					fieldsLength = fields.length;
 
 					for (i = 0; i < fieldsLength; i++) {
 						field = fields[i];
-						type = dom.getNSData(field, 'type');
+						type = dom.getNSData(field, "type");
 						if (!type) {
 							type = "";
 						}
 						switch (type) {
-							case 'hour':
+							case "hour":
 								val = newdate.getHours();
 								break;
-							case 'min':
+							case "min":
 								val = newdate.getMinutes();
 								break;
-							case 'sec':
+							case "sec":
 								val = newdate.getSeconds();
 								break;
-							case 'year':
+							case "year":
 								val = newdate.getFullYear();
 								break;
-							case 'month':
+							case "month":
 								val = newdate.getMonth() + 1;
 								break;
-							case 'day':
+							case "day":
 								val = newdate.getDate();
 								break;
-							case 'period':
+							case "period":
 								val = newdate.getHours() < 12 && getCalendar().AM ? getCalendar().AM[0] : getCalendar().PM[0];
 								break;
 							default:
@@ -293,11 +293,11 @@
 
 				newValue = this._getValue();
 
-				eventUtils.trigger(element, 'change', {
+				eventUtils.trigger(element, "change", {
 					oldValue: oldValue,
 					newValue: newValue
 				});
-				eventUtils.trigger(element, 'date-changed', newValue);
+				eventUtils.trigger(element, "date-changed", newValue);
 				return this;
 			};
 
@@ -322,19 +322,19 @@
 			}
 
 			function addButton(self, container, element, pat) {
-				var button = document.createElement('a');
+				var button = document.createElement("a");
 
-				dom.setNSData(button, 'role', 'button');
-				dom.setNSData(button, 'pat', pat);
-				dom.setNSData(button, 'type', 'period');
-				button.innerText = 'period';
+				dom.setNSData(button, "role", "button");
+				dom.setNSData(button, "pat", pat);
+				dom.setNSData(button, "type", "period");
+				button.innerText = "period";
 				button.classList.add(Datetimepicker.classes.uiDatefieldPeriod);
 
-				engine.instanceWidget(button, 'Button', {
+				engine.instanceWidget(button, "Button", {
 					inline: true
 				});
 
-				button.addEventListener('vclick', function () {
+				button.addEventListener("vclick", function () {
 					switchAmPm(self, element);
 				});
 				dom.appendNodes(container, button);
@@ -365,8 +365,8 @@
 					day;
 
 				switch (field) {
-					case 'hour':
-						if (pat === 'H' || pat === 'HH') {
+					case "hour":
+						if (pat === "H" || pat === "HH") {
 							// twentyfour
 							values = range(0, 23);
 							data = range(0, 23);
@@ -392,17 +392,17 @@
 						}
 						numItems = values.length;
 						break;
-					case 'min':
-					case 'sec':
+					case "min":
+					case "sec":
 						values = range(0, 59);
 						if (pat.length === 2) {
 							values = values.map(makeTwoDigits);
 						}
 						data = range(0, 59);
-						current = (field === 'min' ? date.getMinutes() : date.getSeconds());
+						current = (field === "min" ? date.getMinutes() : date.getSeconds());
 						numItems = values.length;
 						break;
-					case 'year':
+					case "year":
 						yearlb = 1900;
 						yearhb = 2100;
 						data = range(yearlb, yearhb);
@@ -410,7 +410,7 @@
 						values = range(yearlb, yearhb);
 						numItems = values.length;
 						break;
-					case 'month':
+					case "month":
 						switch (pat.length) {
 							case 1:
 								values = range(1, 12);
@@ -434,7 +434,7 @@
 						current = date.getMonth();
 						numItems = values.length;
 						break;
-					case 'day':
+					case "day":
 						day = daysInMonth[date.getMonth()];
 						if (day === 28) {
 							day += isLeapYear(date.getFullYear());
@@ -466,29 +466,29 @@
 					month;
 
 				switch (field[1]) {
-					case 'min':
+					case "min":
 						date.setMinutes(val);
 						break;
-					case 'hour':
+					case "hour":
 						date.setHours(val);
 						break;
-					case 'sec':
+					case "sec":
 						date.setSeconds(val);
 						break;
-					case 'year':
+					case "year":
 						month = date.getMonth();
 						date.setFullYear(val);
 						if (date.getMonth() !== month) {
 							date_calibration();
 						}
 						break;
-					case 'month':
+					case "month":
 						date.setMonth(val - 1);
 						if (date.getMonth() === val) {
 							date_calibration();
 						}
 						break;
-					case 'day':
+					case "day":
 						date.setDate(val);
 						break;
 				}
@@ -500,10 +500,10 @@
 					target = event.target,
 					classes = Datetimepicker.classes;
 
-				if (target.tagName === 'A') {
-					target.parentNode.parentNode.querySelector('.' + classes.current).classList.remove(classes.current);
+				if (target.tagName === "A") {
+					target.parentNode.parentNode.querySelector("." + classes.current).classList.remove(classes.current);
 					target.parentNode.classList.add(classes.current);
-					val = dom.getNSData(target, 'val');
+					val = dom.getNSData(target, "val");
 
 					updateHandler(self, self._field, val);
 
@@ -524,8 +524,8 @@
 					targetClassList.remove(classes.uiDatefieldSelected);
 				}
 
-				ctxElement.removeEventListener('popupafterclose', self._closePopupHandler);
-				self._circularview.element.removeEventListener('vclick', self.liClickHandler);
+				ctxElement.removeEventListener("popupafterclose", self._closePopupHandler);
+				self._circularview.element.removeEventListener("vclick", self.liClickHandler);
 				self._ctx.destroy();
 				ctxElement.parentNode.removeChild(ctxElement);
 				self._popup_open = false;
@@ -580,11 +580,11 @@
 				self._field = field;
 				target.classList.add(classes.uiDatefieldSelected);
 
-				pat = dom.getNSData(target, 'pat');
+				pat = dom.getNSData(target, "pat");
 				data = populateDataSelector(self, field[1], pat);
 
 				if (!target.id) {
-					target.id = self.elememberOfment.id + '-' + pat;
+					target.id = self.elememberOfment.id + "-" + pat;
 				}
 
 				values = data.values;
@@ -594,13 +594,13 @@
 
 				if (values) {
 					datans = "data-val";
-					ul = document.createElement('ul');
+					ul = document.createElement("ul");
 					for (i = 0; i < valuesLength; i++) {
-						li = document.createElement('li');
+						li = document.createElement("li");
 						if (i === current) {
 							li.classList.add(classes.current);
 						}
-						a = document.createElement('a');
+						a = document.createElement("a");
 						a.classList.add(classes.uiLink);
 						a.setAttribute(datans, valuesData[i]);
 						a.innerText = values[i];
@@ -608,36 +608,36 @@
 						ul.appendChild(li);
 					}
 
-					div = document.createElement('div');
+					div = document.createElement("div");
 					div.classList.add(classes.uiDatetimepickerSelector);
-					div.setAttribute('data-transition', 'fade');
-					div.setAttribute('data-fade', 'false');
-					div.setAttribute('data-role', 'popup');
-					div.setAttribute('data-corners', 'false');
-					divCircularview = document.createElement('div');
+					div.setAttribute("data-transition", "fade");
+					div.setAttribute("data-fade", "false");
+					div.setAttribute("data-role", "popup");
+					div.setAttribute("data-corners", "false");
+					divCircularview = document.createElement("div");
 					divCircularview.appendChild(ul);
 
 					self._ui.appendChild(div);
 
-					ctx = engine.instanceWidget(div, 'Popup');
+					ctx = engine.instanceWidget(div, "Popup");
 					self._ctx = ctx;
-					divCircularviewContainer = document.createElement('div');
+					divCircularviewContainer = document.createElement("div");
 					div.appendChild(divCircularviewContainer);
 					divCircularviewContainer.appendChild(divCircularview);
-					divCircularviewContainer.style.overflow = 'hidden';
+					divCircularviewContainer.style.overflow = "hidden";
 					// @TODO quich fix, change to proper width
 					divCircularviewContainer.style.width = window.innerWidth +"px";
 					ctxElement = ctx.element;
 					ctxElement.parentNode.classList.add(classes.uiDatetimepicker);
-					divCircularview.setAttribute('data-list', ">li");
-					divCircularview.setAttribute('data-role', "circularview");
+					divCircularview.setAttribute("data-list", ">li");
+					divCircularview.setAttribute("data-role", "circularview");
 
-					circularview = engine.instanceWidget(divCircularview, 'Circularview');
+					circularview = engine.instanceWidget(divCircularview, "Circularview");
 					self._circularview = circularview;
 					if (!self._reflow) {
 						self._reflow = function () {
 							circularview.reflow();
-							circularview.centerTo('.' + classes.current, 0);
+							circularview.centerTo("." + classes.current, 0);
 						};
 						window.addEventListener("resize", self._reflow);
 					}
@@ -653,11 +653,11 @@
 					self._closePopupHandler = closePopupHandler.bind(null, self);
 					self._liClickHandler = liClickHandler.bind(null, self);
 					self._scrollEndHandler = scrollEndHandler.bind(null, self);
-					ctxElement.addEventListener('popupafterclose', self._closePopupHandler);
-					divCircularview.addEventListener('vclick', self._liClickHandler, true);
+					ctxElement.addEventListener("popupafterclose", self._closePopupHandler);
+					divCircularview.addEventListener("vclick", self._liClickHandler, true);
 
-					circularview.centerTo('.' + classes.current, 500);
-					ctxElement.addEventListener('scrollend', self._scrollEndHandler);
+					circularview.centerTo("." + classes.current, 500);
+					ctxElement.addEventListener("scrollend", self._scrollEndHandler);
 				}
 				return self._ui;
 			}
@@ -678,7 +678,7 @@
 			Datetimepicker.prototype._setFormat = function (element, format, create) {
 				var options = this.options,
 					token,
-					div = document.createElement('div'),
+					div = document.createElement("div"),
 					tabulatordiv,
 					pat,
 					span,
@@ -703,63 +703,63 @@
 				while (token.length > 0) {
 					pat = token.shift();
 					switch (pat) {
-						case 'H': //0 1 2 3 ... 21 22 23
-						case 'HH': //00 01 02 ... 21 22 23
-						case 'h': //0 1 2 3 ... 11 12
-						case 'hh': //00 01 02 ... 11 12
-							span = createDateField('hour', pat, div);
+						case "H": //0 1 2 3 ... 21 22 23
+						case "HH": //00 01 02 ... 21 22 23
+						case "h": //0 1 2 3 ... 11 12
+						case "hh": //00 01 02 ... 11 12
+							span = createDateField("hour", pat, div);
 							break;
-						case 'mm': //00 01 ... 59
-						case 'm': //0 1 2 ... 59
-							if (options.type === 'date') {
-								span = createDateField('month', pat, div);
+						case "mm": //00 01 ... 59
+						case "m": //0 1 2 ... 59
+							if (options.type === "date") {
+								span = createDateField("month", pat, div);
 							} else {
-								span = createDateField('min', pat, div);
+								span = createDateField("min", pat, div);
 							}
 							break;
-						case 'ss':
-						case 's':
-							span = createDateField('sec', pat, div);
+						case "ss":
+						case "s":
+							span = createDateField("sec", pat, div);
 							break;
-						case 'd': // day of month 5
-						case 'dd': // day of month(leading zero) 05
-							span = createDateField('day', pat, div);
+						case "d": // day of month 5
+						case "dd": // day of month(leading zero) 05
+							span = createDateField("day", pat, div);
 							break;
-						case 'M': // Month of year 9
-						case 'MM': // Month of year(leading zero) 09
-						case 'MMM':
-						case 'MMMM':
-							span = createDateField('month', pat, div);
+						case "M": // Month of year 9
+						case "MM": // Month of year(leading zero) 09
+						case "MMM":
+						case "MMMM":
+							span = createDateField("month", pat, div);
 							break;
-						case 'yy':	// year two digit
-						case 'yyyy': // year four digit
-							span = createDateField('year', pat, div);
+						case "yy":	// year two digit
+						case "yyyy": // year four digit
+							span = createDateField("year", pat, div);
 							break;
-						case 't': //AM / PM indicator(first letter) A, P
+						case "t": //AM / PM indicator(first letter) A, P
 						// add button
-						case 'tt': //AM / PM indicator AM/PM
+						case "tt": //AM / PM indicator AM/PM
 							// add button
 							span = addButton(this, div, element, pat);
 							break;
-						case 'g':
-						case 'gg':
-							span = createDateField('era', pat, div);
+						case "g":
+						case "gg":
+							span = createDateField("era", pat, div);
 							span.innerText = this._calendar().eras.name;
 							break;
-						case '\t':
-							span = createDateField('tab', pat, div);
-							tabulatordiv = document.createElement('div');
+						case "\t":
+							span = createDateField("tab", pat, div);
+							tabulatordiv = document.createElement("div");
 							tabulatordiv.classList.add(classes.uiDivider1st);
-							tabulatordiv.innerHTML = '&nbsp;';
+							tabulatordiv.innerHTML = "&nbsp;";
 							span.appendChild(tabulatordiv);
-							tabulatordiv = document.createElement('div');
+							tabulatordiv = document.createElement("div");
 							tabulatordiv.classList.add(classes.uiDivider2nd);
-							tabulatordiv.innerHTML = '&nbsp;';
+							tabulatordiv.innerHTML = "&nbsp;";
 							span.appendChild(tabulatordiv);
 							break;
 						default: // string or any non-clickable object
-							span = createDateField('seperator', pat, div);
-							span.innerText = pat.replace(/[\-\/]/gi, '');
+							span = createDateField("seperator", pat, div);
+							span.innerText = pat.replace(/[\-\/]/gi, "");
 							break;
 					}
 				}
@@ -789,19 +789,19 @@
 				// INFO: Since 2.3, we decided to use Webkit based date-time picker.
 				ns.warn("TAU based Datetimepicker widget will be deprecated. It is decieded to be replaced <input> based date-time picker. Please use <input type='month|week|date|time|datetime-local'> for date-time picker");
 
-				if (tagName === 'input') {
-					element.style.display = 'none';
+				if (tagName === "input") {
+					element.style.display = "none";
 					/*
 					 * @todo change to class object
 					 */
 					elementClassList.add(classes.uiInputText);
-					elementClassList.add(classes.uiBodyPrefix + 's');
+					elementClassList.add(classes.uiBodyPrefix + "s");
 				}
-				ui = document.createElement('div');
-				ui.setAttribute('id', this.id + '-datetimepicker-ui');
+				ui = document.createElement("div");
+				ui.setAttribute("id", this.id + "-datetimepicker-ui");
 				ui.classList.add(classes.uiDatefield);
 				this._ui = ui;
-				if (tagName === 'input') {
+				if (tagName === "input") {
 					dom.insertNodeAfter(element, ui);
 				} else {
 					element.appendNode(ui);
@@ -818,8 +818,8 @@
 			Datetimepicker.prototype._bindEvents = function () {
 				this._orientationHandlerBound = orientationHandler.bind(null, this);
 				this._datetimepicerClickBound = datetimepicerClick.bind(null, this);
-				this._ui.addEventListener('vclick', this._datetimepicerClickBound, true);
-				window.addEventListener('orientationchange', this._orientationHandlerBound, false);
+				this._ui.addEventListener("vclick", this._datetimepicerClickBound, true);
+				window.addEventListener("orientationchange", this._orientationHandlerBound, false);
 			};
 
 			/**
@@ -835,23 +835,23 @@
 					classes = Datetimepicker.classes,
 					type;
 				if (!this._ui) {
-					this._ui = document.getElementById(this.id + '-datetimepicker-ui');
+					this._ui = document.getElementById(this.id + "-datetimepicker-ui");
 				}
 				if (!options.format) {
 					switch (options.type) {
-						case 'datetime':
+						case "datetime":
 							this._setFormat(getCalendar().patterns.d + "\t" + getCalendar().patterns.t);
 							break;
-						case 'date':
+						case "date":
 							this._setFormat(element, getCalendar().patterns.d);
 							break;
-						case 'time':
+						case "time":
 							this._setFormat(element, getCalendar().patterns.t);
 							break;
 					}
 				}
 
-				if (element && tagName === 'input') {
+				if (element && tagName === "input") {
 					value = element.getAttribute("value");
 					if (value) {
 						options.date = new Date(value);
@@ -860,13 +860,13 @@
 					this._setType(element, type);
 					if (!options.format) {
 						switch (type) {
-							case 'datetime':
+							case "datetime":
 								this._setFormat(element, getCalendar().patterns.d + "\t" + getCalendar().patterns.t);
 								break;
-							case 'date':
+							case "date":
 								this._setFormat(element, getCalendar().patterns.d);
 								break;
-							case 'time':
+							case "time":
 								this._setFormat(element, getCalendar().patterns.t);
 								break;
 						}
@@ -882,8 +882,8 @@
 			};
 
 			Datetimepicker.prototype._destroy = function () {
-				this._ui.removeEventListener('vclick', this._datetimepicerClickBound, true);
-				window.removeEventListener('orientationchange', this._orientationHandlerBound, false);
+				this._ui.removeEventListener("vclick", this._datetimepicerClickBound, true);
+				window.removeEventListener("orientationchange", this._orientationHandlerBound, false);
 			};
 
 			Datetimepicker.prototype._setValue = function (value) {
@@ -891,14 +891,14 @@
 			};
 
 			function timetoString(time) {
-				return makeTwoDigits(time.getHours()) + ':' +
-					makeTwoDigits(time.getMinutes()) + ':' +
+				return makeTwoDigits(time.getHours()) + ":" +
+					makeTwoDigits(time.getMinutes()) + ":" +
 					makeTwoDigits(time.getSeconds());
 			}
 
 			function dateToString(date) {
-				return ((date.getFullYear() % 10000) + 10000).toString().substr(1) + '-' +
-					makeTwoDigits(date.getMonth() + 1) + '-' +
+				return ((date.getFullYear() % 10000) + 10000).toString().substr(1) + "-" +
+					makeTwoDigits(date.getMonth() + 1) + "-" +
 					makeTwoDigits(date.getDate());
 			}
 
@@ -914,14 +914,14 @@
 				var date = this._getDate(this.element),
 					rvalue;
 				switch (this.options.type) {
-					case 'time':
+					case "time":
 						rvalue = timetoString(date);
 						break;
-					case 'date':
+					case "date":
 						rvalue = dateToString(date);
 						break;
 					default:
-						rvalue = dateToString(date) + 'T' + timetoString(date);
+						rvalue = dateToString(date) + "T" + timetoString(date);
 						break;
 				}
 				return rvalue;
@@ -937,7 +937,7 @@
 				"[data-role='datetimepicker']",
 				[],
 				Datetimepicker,
-				'tizen'
+				"tizen"
 			);
 
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);

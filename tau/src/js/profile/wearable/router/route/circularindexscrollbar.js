@@ -150,7 +150,7 @@
 			routeCircularIndexScrollbar.onHashChange = function (url, options, prev) {
 				var self = this,
 					activeWidget = self._activeWidget,
-					stateUrl = prev.stateUrl;;
+					stateUrl = prev.stateUrl;
 
 				if (activeWidget && stateUrl.search(circularindexscrollbarHashKey) > 0 && url.search(circularindexscrollbarHashKey) < 0) {
 					activeWidget.hide(options);

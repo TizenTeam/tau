@@ -78,7 +78,7 @@
 					* @member ns.widget.mobile.BaseWidgetMobile
 					* @instance
 					*/
-					self.widgetBaseClass = self.namespace + '-' + widgetName;
+					self.widgetBaseClass = self.namespace + "-" + widgetName;
 					/**
 					* @property {number} uuid Number id of widget instance
 					* @member ns.widget.mobile.BaseWidgetMobile
@@ -91,14 +91,14 @@
 					 * @member ns.widget.mobile.BaseWidgetMobile
 					 * @instance
 					 */
-					self.eventNamespace = '.' + widgetName + (self.uuid || '');
+					self.eventNamespace = "." + widgetName + (self.uuid || "");
 
 					/**
 					 * @property {string} [defaultElement='<div>'] Default element for the widget
 					 * @member ns.widget.mobile.BaseWidgetMobile
 					 * @instance
 					 */
-					self.defaultElement = '<div>';
+					self.defaultElement = "<div>";
 				}
 
 				return this;
@@ -161,7 +161,7 @@
 			 * @removed 2.3
 			 */
 			prototype.enhanceWithin = function () {
-				ns.log('method enhanceWithin is deprecated');
+				ns.log("method enhanceWithin is deprecated");
 			};
 
 			/**
@@ -172,7 +172,7 @@
 			 * @removed 2.3
 			 */
 			prototype.enhance = function () {
-				ns.log('method enhance is deprecated');
+				ns.log("method enhance is deprecated");
 			};
 			
 

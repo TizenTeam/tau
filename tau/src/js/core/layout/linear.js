@@ -80,7 +80,7 @@
 			 */
 			function registerRule(rule) {
 				cssRules.push(rule);
-			};
+			}
 
 			/**
 			 * Styles support
@@ -89,7 +89,7 @@
 				for(var i = 0, length = cssRules.length; i < length; i++){
 					self.insertCSSRule(cssRules[i]);
 				}
-			};
+			}
 
 			linear.enable = function (self, element) {
 				var elements = getLayoutElements(element),

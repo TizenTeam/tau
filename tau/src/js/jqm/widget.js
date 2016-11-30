@@ -70,7 +70,7 @@
 								definition.name.toLowerCase() :
 										definition.name;
 						if ($) {
-							document.addEventListener(name + 'create', function (event) {
+							document.addEventListener(name + "create", function (event) {
 								var element = event.target,
 									instance = event.detail,
 									data = $(element).data(name);
@@ -179,8 +179,8 @@
 
 						built = instance && instance.isBuilt();
 						firstarg = args.shift();
-						if (firstarg === undefined || typeof firstarg === 'object') {
-							if (typeof firstarg === 'object') {
+						if (firstarg === undefined || typeof firstarg === "object") {
+							if (typeof firstarg === "object") {
 								options = firstarg;
 							}
 							if (!instance || !built) {
@@ -200,10 +200,10 @@
 							if (methods.indexOf(method) < 0) {
 								throw "Method " + method + " does not exist!";
 							}
-							if (name === 'listview' &&
-								method === 'option' &&
+							if (name === "listview" &&
+								method === "option" &&
 								args[0] === "autodividersSelector" &&
-								typeof args[1] === 'function') {
+								typeof args[1] === "function") {
 								// wrap first argument of callback method in JQuery object
 								args[1] = wrapFn(args[1]);
 							}
@@ -247,28 +247,28 @@
 					"",
 					[],
 					ns.widget.Page,
-					'mobile'
+					"mobile"
 				);
 				engine.defineWidget(
 					"pagelayout",
 					"",
 					[],
 					ns.widget.Page,
-					'mobile'
+					"mobile"
 				);
 				engine.defineWidget(
 					"popupwindow",
 					"",
 					[],
 					ns.widget.Popup,
-					'tizen'
+					"tizen"
 				);
 				engine.defineWidget(
 					"ctxpopup",
 					"",
 					[],
 					ns.widget.Popup,
-					'tizen'
+					"tizen"
 				);
 
 			}, false);

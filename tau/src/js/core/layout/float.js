@@ -123,9 +123,9 @@
 				classList.add(classes.float);
 
 				// configuration
-				if (options.floatLayoutAlign === 'right') {
+				if (options.floatLayoutAlign === "right") {
 					classList.add(classes.floatRight);
-				} else if (options.floatLayoutAlign === 'center') {
+				} else if (options.floatLayoutAlign === "center") {
 					classList.add(classes.floatCenter);
 				} else { // default horizontal align;
 					classList.add(classes.floatLeft);

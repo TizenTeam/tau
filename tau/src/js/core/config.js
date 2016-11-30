@@ -31,10 +31,10 @@
 			//>>excludeEnd("tauBuildExclude");
 
 			// Default configuration properties
-			ns.setConfig('rootDir', ns.getFrameworkPath(), true);
-			ns.setConfig('version', '');
-			ns.setConfig('allowCrossDomainPages', false, true);
-			ns.setConfig('domCache', false, true);
+			ns.setConfig("rootDir", ns.getFrameworkPath(), true);
+			ns.setConfig("version", "");
+			ns.setConfig("allowCrossDomainPages", false, true);
+			ns.setConfig("domCache", false, true);
 			// .. other possible options
 			// ns.setConfig('autoBuildOnPageChange', true);
 			// ns.setConfig('autoInitializePage', true);

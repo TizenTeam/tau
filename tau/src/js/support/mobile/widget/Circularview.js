@@ -278,7 +278,7 @@
 					sourceRefNode = sourceRefNodeIsElement ? element : document;
 
 				if (sourceRefNodeIsElement) {
-					sourceListSelector = sourceListSelector.replace(/^>\s*/, '');
+					sourceListSelector = sourceListSelector.replace(/^>\s*/, "");
 				}
 
 				// rewrite source to our list
@@ -465,7 +465,7 @@
 					"add"
 				],
 				CircularView,
-				'mobile'
+				"mobile"
 			);
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return ns.widget.mobile.Circularview;

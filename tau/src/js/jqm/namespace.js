@@ -35,11 +35,11 @@
 				 * @property {Object} jQuery
 				 * @member ns.jqm
 				 */
-				jQuery: ns.getConfig('jQuery') || window.jQuery
+				jQuery: ns.getConfig("jQuery") || window.jQuery
 			};
 			document.addEventListener(ns.engine.eventType.INIT, function () {
 				// Tell the world that JQM is ready to serve Tau
-				ns.event.trigger(document, 'mobileinit');
+				ns.event.trigger(document, "mobileinit");
 			}, false);
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return ns.jqm;

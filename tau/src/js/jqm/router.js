@@ -49,17 +49,17 @@
 								if (container instanceof $) {
 									container = container[0];
 								}
-								if (!container instanceof HTMLElement) {
+								if (!(container instanceof HTMLElement)) {
 									container = document.body;
 								}
-								ns.setConfig('pageContainer', container);
+								ns.setConfig("pageContainer", container);
 								$.mobile.pageContainer = $(container);
 							}
 							if ($.mobile.autoInitializePage !== undefined) {
-								ns.setConfig('autoInitializePage', $.mobile.autoInitializePage);
+								ns.setConfig("autoInitializePage", $.mobile.autoInitializePage);
 							}
 							if ($.mobile._bindPageRemove !== undefined) {
-								ns.setConfig('_bindPageRemove', $.mobile._bindPageRemove);
+								ns.setConfig("_bindPageRemove", $.mobile._bindPageRemove);
 							}
 							$.mobile.changePage = function (toPage, options) {
 								var htmlElementToPage;
@@ -69,7 +69,7 @@
 								}
 								return router.open(toPage, options);
 							};
-							document.addEventListener('pagechange', function () {
+							document.addEventListener("pagechange", function () {
 								var route = router.getRoute("page"),
 									activePage = route && route.getActive(),
 									target = activePage && activePage.element;
@@ -85,9 +85,9 @@
 							$.mobile.maxTransitionWidth = false;
 							$.mobile.minScrollBack = 250;
 							$.mobile.touchOverflowEnabled = false;
-							$.mobile.defaultDialogTransition = 'pop';
+							$.mobile.defaultDialogTransition = "pop";
 							$.mobile.pageLoadErrorMessage = "Error Loading Page";
-							$.mobile.pageLoadErrorMessageTheme = 'e';
+							$.mobile.pageLoadErrorMessageTheme = "e";
 							$.mobile.phonegapNavigationEnabled = false;
 							$.mobile.autoInitializePage = false;
 							$.mobile.pushStateEnabled = true;
@@ -105,7 +105,7 @@
 							$.mobile.getDocumentUrl = ns.util.path.getDocumentUrl;
 							$.mobile.getDocumentBase = ns.util.path.getDocumentBase;
 							$.mobile._bindPageRemove = null;
-							$.mobile.loadPage = router.loadPage === undefined ? ns.error.bind(null, 'router PageExternal is not loaded') : router.loadPage.bind(router);
+							$.mobile.loadPage = router.loadPage === undefined ? ns.error.bind(null, "router PageExternal is not loaded") : router.loadPage.bind(router);
 							$.mobile.navreadyDeferred = router.navreadyDeferred;
 							$.mobile.initializePage = null;
 							$.mobile._handleHashChange = router._hashChangeHandler;

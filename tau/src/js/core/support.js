@@ -44,7 +44,7 @@
 				testDiv = document.createElement("div"),
 				fakeBody = document.createElement("body"),
 				fakeBodyStyle = fakeBody.style,
-				html = document.getElementsByTagName('html')[0],
+				html = document.getElementsByTagName("html")[0],
 				style,
 				vendors = [ "Webkit", "Moz", "O" ],
 				webos = window.palmGetResource, //only used to rule out scrollTop
@@ -53,7 +53,7 @@
 				blackBerry,
 				testDivStyle = testDiv.style;
 
-			testDiv.id = 'jquery-mediatest';
+			testDiv.id = "jquery-mediatest";
 			fakeBody.appendChild(testDiv);
 
 			/**
@@ -92,7 +92,7 @@
 			}
 
 			function validStyle(prop, value, check_vend) {
-				var div = document.createElement('div'),
+				var div = document.createElement("div"),
 					uc = function (txt) {
 						return txt.charAt(0).toUpperCase() + txt.substr(1);
 					},
@@ -107,7 +107,7 @@
 
 						div.setAttribute("style", vend_prop);
 
-						if (!!div.style[propStyle]) {
+						if (div.style[propStyle]) {
 							returnValue = true;
 						}
 					},
@@ -141,7 +141,7 @@
 
 			function transform3dTest() {
 				var prop = "transform-3d";
-				return validStyle('perspective', '10px', 'moz') || media("(-" + vendors.join("-" + prop + "),(-") + "-" + prop + "),(" + prop + ")");
+				return validStyle("perspective", "10px", "moz") || media("(-" + vendors.join("-" + prop + "),(-") + "-" + prop + "),(" + prop + ")");
 			}
 
 			blackBerry = window.blackberry && !propExists("-webkit-transform");
@@ -161,13 +161,13 @@
 					base.setAttribute("href", fauxBase);
 					hadBase = true;
 				} else {
-					base = fauxEle = document.createElement('base');
+					base = fauxEle = document.createElement("base");
 					base.setAttribute("href", fauxBase);
 					head.appendChild(base);
 				}
 
-				link = document.createElement('a');
-				link.href = 'testurl';
+				link = document.createElement("a");
+				link.href = "testurl";
 				if (fakeBody.firstChild) {
 					fakeBody.insertBefore(link, fakeBody.firstChild);
 				} else {
@@ -194,7 +194,7 @@
 			}
 
 			function cssPointerEventsTest() {
-				var element = document.createElement('x'),
+				var element = document.createElement("x"),
 					documentElement = document.documentElement,
 					getComputedStyle = window.getComputedStyle,
 					supports,
@@ -204,10 +204,10 @@
 					return false;
 				}
 
-				elementStyle.pointerEvents = 'auto';
-				elementStyle.pointerEvents = 'x';
+				elementStyle.pointerEvents = "auto";
+				elementStyle.pointerEvents = "x";
 				documentElement.appendChild(element);
-				supports = getComputedStyle && getComputedStyle(element, '').pointerEvents === 'auto';
+				supports = getComputedStyle && getComputedStyle(element, "").pointerEvents === "auto";
 				documentElement.removeChild(element);
 				return !!supports;
 			}
@@ -225,7 +225,7 @@
 				 * @member ns.support
 				 * @static
 				 */
-				cssTransitions: (window.WebKitTransitionEvent !== undefined || validStyle('transition', 'height 100ms linear')) && !opera,
+				cssTransitions: (window.WebKitTransitionEvent !== undefined || validStyle("transition", "height 100ms linear")) && !opera,
 				/**
 				 * Informs browser support history.pushStare method
 				 * @property {boolean} pushState

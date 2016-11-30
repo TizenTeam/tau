@@ -89,7 +89,7 @@
 						/*
 						* string to detect exists jqmData selector
 						*/
-						jqmDataStr = ':jqmData',
+						jqmDataStr = ":jqmData",
 						/*
 						* map item to jQuery
 						*/
@@ -164,7 +164,7 @@
 							closestPageData: function (target) {
 								var page = ns.util.selectors.getClosestBySelector($(target)[0],
 												"[data-" + ($.mobile.ns || "") + "role='page'], [data-" + ($.mobile.ns || "") + "role='dialog']");
-								return ns.engine.instanceWidget(page, 'Page');
+								return ns.engine.instanceWidget(page, "Page");
 							},
 							enhanceable: function ( $set ) {
 								return this.haveParents( $set, "enhance" );
@@ -270,7 +270,7 @@
 							_widgetPrototypes: {},
 							disableSelection : function (elements) {
 								$(elements).each(function () {
-									ns.theme.enableSelection(this, 'none');
+									ns.theme.enableSelection(this, "none");
 								});
 							},
 							enableSelection : function (elements, value) {
@@ -335,7 +335,7 @@
 						$.removeWithDependents = function( elem ) {
 							var $elem = $( elem );
 
-							( $elem.jqmData( 'dependents' ) || $() ).remove();
+							( $elem.jqmData( "dependents" ) || $() ).remove();
 							$elem.remove();
 						};
 
@@ -344,9 +344,9 @@
 						};
 
 						$.addDependents = function( elem, newDependents ) {
-							var dependents = $( elem ).jqmData( 'dependents' ) || $();
+							var dependents = $( elem ).jqmData( "dependents" ) || $();
 
-							$( elem ).jqmData( 'dependents', $.merge( dependents, newDependents ) );
+							$( elem ).jqmData( "dependents", $.merge( dependents, newDependents ) );
 						};
 
 						$.fn.getEncodedText = function() {
@@ -387,9 +387,9 @@
 						/* support for global object $.mobile
 						* @TODO this is temporary fix, we have to think about this function
 						*/
-						$(document).bind('create', ns.engine._createEventHandler);
+						$(document).bind("create", ns.engine._createEventHandler);
 						// support creating widgets by triggering pagecreate
-						$(document).bind('pagecreate', function (event) {
+						$(document).bind("pagecreate", function (event) {
 							var originalEvent = event.originalEvent || event,
 								isPage = originalEvent.detail instanceof ns.widget.mobile.Page,
 								pageWidget;
@@ -399,7 +399,7 @@
 								ns.engine._createEventHandler(originalEvent);
 							}
 						});
-						$(document).bind('activePopup', function (event) {
+						$(document).bind("activePopup", function (event) {
 							$.mobile.popup.active = $.mobile.popupwindow.active = event.originalEvent.detail;
 						});
 
@@ -436,7 +436,7 @@
 						tizen.setScaling = ns.theme.setScaling.bind(ns.theme);
 						tizen.getParams = ns.frameworkData.getParams.bind(ns.frameworkData);
 
-						ns.setConfig('enableHWKeyHandler', $.mobile.tizen.enableHWKeyHandler);
+						ns.setConfig("enableHWKeyHandler", $.mobile.tizen.enableHWKeyHandler);
 					}
 				}
 			};

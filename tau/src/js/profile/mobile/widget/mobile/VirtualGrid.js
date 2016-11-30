@@ -138,7 +138,7 @@
 			prototype._setLineSize = function () {
 				var self = this,
 					options = self.options,
-					tempElement = document.createElement('div'),
+					tempElement = document.createElement("div"),
 					tempFirstChild,
 					tempElementFromTemplate,
 					list = self.element,
@@ -263,7 +263,7 @@
 				while (i < itemsPerLine && (rawNumItemData === undefined || nextItemIndex < rawNumItemData)) {
 					//@TODO THIS IS A JQUERY INCLUSION IN A TAU WIDGET!!!
 					//@TODO FIX THIS!!!
-					templateElement = document.createElement('div');
+					templateElement = document.createElement("div");
 					// Set item-in-line size
 					templateElement.style[direction === VERTICAL ? "width" : "height"] = elementPercentSize;
 
@@ -310,7 +310,7 @@
 				"[data-role=virtualgrid], .ui-virtualgrid",
 				["create"],
 				VirtualGrid,
-				'mobile'
+				"mobile"
 			);
 
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);

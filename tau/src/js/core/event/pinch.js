@@ -119,7 +119,7 @@
 					ratio = ratio > pinchMax ? pinchMax : delta;
 
 					if (Math.abs(ratio - pinchDetails.ratio) >= threshold) {
-						utilsEvents.trigger(event.target, 'pinch', pinchDetails);
+						utilsEvents.trigger(event.target, "pinch", pinchDetails);
 						pinchDetails.ratio = ratio;
 
 						if (interval) {
@@ -141,7 +141,7 @@
 			 * @static
 			 */
 			function handleTouchEnd(event) {
-				utilsEvents.trigger(event.target, 'pinchend', pinchDetails);
+				utilsEvents.trigger(event.target, "pinchend", pinchDetails);
 
 				pinchDetails.origin = undefined;
 				pinchDetails.current = undefined;
@@ -177,7 +177,7 @@
 					];
 
 					// Trigger pinchstart event on target element
-					utilsEvents.trigger(event.target, 'pinchstart', pinchDetails);
+					utilsEvents.trigger(event.target, "pinchstart", pinchDetails);
 
 					// Bind events
 					document.addEventListener("touchmove", handleTouchMove, true);

@@ -37,7 +37,7 @@
 
 				this.print(text, "color:blue", "color:inherit", "font-weight: bold");
 
-				this.collect("performance.data.start", sectionName, 'start', this.data[sectionName]);
+				this.collect("performance.data.start", sectionName, "start", this.data[sectionName]);
 			},
 			get: function (sectionName, stepName) {
 				var text,

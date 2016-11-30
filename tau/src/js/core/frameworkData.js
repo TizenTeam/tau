@@ -189,7 +189,7 @@
 						dataThemeName = cssElement.getAttribute("data-theme-name"),
 						// Attribute value is taken because href property gives different output
 						href = cssElement.getAttribute("href"),
-						hrefFragments  = href && href.split('/'),
+						hrefFragments  = href && href.split("/"),
 						hrefDirPart;
 
 					// If we have the theme name defined we can use it right away
@@ -246,7 +246,7 @@
 							// Profile may be defined from framework script or
 							// it can be assumed, that profile name is second up directory name
 							// e.g. pathToLib/profileName/js/tau.js
-							profileName = scriptElement.getAttribute(dataPrefix + "profile") || src.split('/').slice(-3)[0];
+							profileName = scriptElement.getAttribute(dataPrefix + "profile") || src.split("/").slice(-3)[0];
 							themePath = "/" + profileName + "/theme/" + theme;
 
 							// TAU framework library link

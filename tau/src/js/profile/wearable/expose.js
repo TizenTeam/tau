@@ -35,7 +35,7 @@
 			//>>excludeEnd("tauBuildExclude");
 
 			document.addEventListener("beforerouterinit", function () {
-				ns.setConfig('autoInitializePage', ns.autoInitializePage);
+				ns.setConfig("autoInitializePage", ns.autoInitializePage);
 			}, false);
 
 			document.addEventListener("routerinit", function (evt) {
@@ -51,13 +51,13 @@
 				 * @member tau
 				 */
 				ns.changePage = router.open.bind(router);
-				document.addEventListener('pageshow', function () {
+				document.addEventListener("pageshow", function () {
 					/**
 					 * Current active page
 					 * @property {HTMLElement} activePage
 					 * @member tau
 					 */
-					ns.activePage = document.querySelector('.' + pageActiveClass);
+					ns.activePage = document.querySelector("." + pageActiveClass);
 				});
 				/**
 				 * First page element
@@ -99,7 +99,7 @@
 				 */
 				ns.openPopup = function(to, options) {
 					var htmlElementTo;
-					if (to && to.length !== undefined && typeof to === 'object') {
+					if (to && to.length !== undefined && typeof to === "object") {
 						htmlElementTo = to[0];
 					} else {
 						htmlElementTo = to;

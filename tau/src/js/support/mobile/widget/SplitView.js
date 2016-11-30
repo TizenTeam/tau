@@ -27,7 +27,7 @@
  * @extends ns.widget.mobile.BaseWidgetMobile
  */
 (function (document, ns) {
-	'use strict';
+	"use strict";
 	//>>excludeStart('tauBuildExclude', pragmas.tauBuildExclude);
 	define(
 		[
@@ -141,16 +141,16 @@
 			 * @member ns.widget.mobile.SplitView
 			 */
 			SplitView.classes = {
-				uiPane :'ui-pane',
-				uiSplitView : 'ui-splitview',
-				uiDirectionHorizontal : 'ui-direction-horizontal',
-				uiDirectionVertical : 'ui-direction-vertical',
-				uiPageActive : 'ui-page-active',
-				uiSplitter : 'ui-spliter',
-				uiSplitterBar : 'ui-spliter-bar',
-				uiSplitterHandle : 'ui-spliter-handle',
-				uiSplitterActive : 'ui-spliter-active',
-				uiFixed : 'ui-fixed'
+				uiPane :"ui-pane",
+				uiSplitView : "ui-splitview",
+				uiDirectionHorizontal : "ui-direction-horizontal",
+				uiDirectionVertical : "ui-direction-vertical",
+				uiPageActive : "ui-page-active",
+				uiSplitter : "ui-spliter",
+				uiSplitterBar : "ui-spliter-bar",
+				uiSplitterHandle : "ui-spliter-handle",
+				uiSplitterActive : "ui-spliter-active",
+				uiFixed : "ui-fixed"
 			};
 			classes = SplitView.classes;
 
@@ -173,12 +173,12 @@
 					options = this.options,
 					pane = null;
 
-				panes = selectors.getChildrenBySelector(element, 'div');
+				panes = selectors.getChildrenBySelector(element, "div");
 				panesCount = panes.length;
 				if (panesCount !== 2) {
 					if (panesCount < 2) {
 						for (i = panesCount; i < 2; ++i) {
-							pane = document.createElement('div');
+							pane = document.createElement("div");
 							element.appendChild(pane);
 						}
 					} else {
@@ -188,7 +188,7 @@
 						panes.length = 2;
 					}
 
-					panes = selectors.getChildrenBySelector(element, 'div');
+					panes = selectors.getChildrenBySelector(element, "div");
 					panesCount = panes.length;
 				}
 
@@ -199,11 +199,11 @@
 				elementClasses.add(classes.uiSplitView);
 				elementClasses.add(options.dividerVertical ? classes.uiDirectionHorizontal : classes.uiDirectionVertical);
 
-				splitterTouchElement = document.createElement('a');
+				splitterTouchElement = document.createElement("a");
 				splitterTouchElement.classList.add(classes.uiSplitter);
-				splitterBar = document.createElement('div');
+				splitterBar = document.createElement("div");
 				splitterBar.classList.add(classes.uiSplitterBar);
-				handle = document.createElement('div');
+				handle = document.createElement("div");
 				handle.classList.add(classes.uiSplitterHandle);
 				splitterBar.appendChild(handle);
 				if (options.fixed) {
@@ -229,9 +229,9 @@
 				options.ratio = convertRatio(ratio);
 				self.dimensions.originalRatio = options.ratio.slice();
 				self.panes = selectors.getChildrenByClass(element, classes.uiPane);
-				self.splitterTouchElement = selectors.getChildrenByTag(element, 'a')[0];
+				self.splitterTouchElement = selectors.getChildrenByTag(element, "a")[0];
 				self.splitterBar = selectors.getChildrenByClass(element, classes.uiSplitterBar)[0];
-				self.splitterHandle = selectors.getChildrenByTag(self.splitterBar, 'div')[0];
+				self.splitterHandle = selectors.getChildrenByTag(self.splitterBar, "div")[0];
 				return element;
 			};
 
@@ -407,7 +407,7 @@
 					length = 0,
 					i = 0;
 				if (!Array.isArray(ratio)) {
-					ratioArray = ratio.split(',');
+					ratioArray = ratio.split(",");
 					length = ratioArray.length;
 					for (;i < length; i++) {
 						ratioArray[i] = parseFloat(ratioArray[i]);
@@ -455,22 +455,22 @@
 
 					if (ignoreMinMax || (paneWidth >= dimensions.minPaneSize && paneWidth <= dimensions.maxPaneSize)) {
 						if (isHorizontal) {
-							paneStyle.width = paneWidth + 'px';
-							paneStyle.height = height + 'px';
+							paneStyle.width = paneWidth + "px";
+							paneStyle.height = height + "px";
 						} else {
-							paneStyle.height = paneWidth + 'px';
+							paneStyle.height = paneWidth + "px";
 						}
 					}
 				});
 
 				if (isHorizontal) {
-					splitterTouchElementStyle.left = (width * ratio[0] - dimensions.splitterTouchSize / 2) + 'px';
+					splitterTouchElementStyle.left = (width * ratio[0] - dimensions.splitterTouchSize / 2) + "px";
 					splitterTouchElementStyle.top = 0;
-					splitterHandle.style.top = ((height - splitterHandleSize) / 2) + 'px';
-					self.splitterBar.style.height = height + 'px';
+					splitterHandle.style.top = ((height - splitterHandleSize) / 2) + "px";
+					self.splitterBar.style.height = height + "px";
 				}else{
 					splitterTouchElementStyle.left = 0;
-					splitterTouchElementStyle.top = (height * ratio[0] - dimensions.splitterTouchSize / 2) + 'px';
+					splitterTouchElementStyle.top = (height * ratio[0] - dimensions.splitterTouchSize / 2) + "px";
 					splitterHandle.style.top = 0;
 				}
 			};
@@ -484,7 +484,7 @@
 			prototype._refreshChildren = function() {
 				var instance;
 				this.panes.forEach(function(pane) {
-					if (DOM.getNSData(pane, 'role') === 'splitview') {
+					if (DOM.getNSData(pane, "role") === "splitview") {
 						instance = engine.getBinding(pane);
 						if (instance) {
 							instance.refresh();
@@ -557,12 +557,12 @@
 					isHorizontal = self.options.dividerVertical;
 				//clear any previous dynamic height setting
 				self.splitterBar.style.height = "";
-				dimensions.splitterSize = isHorizontal ? DOM.getElementWidth(self.splitterBar, 'outer') :
-					DOM.getElementHeight(self.splitterBar, 'outer');
+				dimensions.splitterSize = isHorizontal ? DOM.getElementWidth(self.splitterBar, "outer") :
+					DOM.getElementHeight(self.splitterBar, "outer");
 				dimensions.splitterHandleSize = isHorizontal ? DOM.getElementHeight(self.splitterHandle) :
 					DOM.getElementWidth(self.splitterHandle);
-				dimensions.splitterTouchSize = isHorizontal ? DOM.getElementWidth(self.splitterTouchElement, 'outer') :
-					DOM.getElementHeight(self.splitterTouchElement, 'outer');
+				dimensions.splitterTouchSize = isHorizontal ? DOM.getElementWidth(self.splitterTouchElement, "outer") :
+					DOM.getElementHeight(self.splitterTouchElement, "outer");
 			};
 
 			/**
@@ -636,7 +636,7 @@
 							targetView.removeChild(targetView.firstChild);
 						}
 						targetView.appendChild(element);
-						events.trigger(element, 'create');
+						events.trigger(element, "create");
 					} else {
 						//getter
 						return targetPane.children;
@@ -662,11 +662,11 @@
 
 			ns.widget.mobile.SplitView = SplitView;
 			engine.defineWidget(
-				'SplitView',
-				'[data-role="splitview"], .ui-splitview',
-				['pane', 'restore', 'maximize'],
+				"SplitView",
+				"[data-role=\"splitview\"], .ui-splitview",
+				["pane", "restore", "maximize"],
 				SplitView,
-				'tizen'
+				"tizen"
 			);
 			//>>excludeStart('tauBuildExclude', pragmas.tauBuildExclude);
 			return ns.widget.mobile.SplitView;

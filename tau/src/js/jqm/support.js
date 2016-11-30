@@ -55,9 +55,9 @@
 						$.mobile.support = $.mobile.support || {};
 						$.mobile.support.touch = support.touch;
 						$.mobile.base = support.dynamicBaseTag ? {
-							element: router.resetBase === undefined ? ns.error.bind(null, 'router PageExternal is not loaded') : router.resetBase(),
-							set: router.setBase === undefined ? ns.error.bind(null, 'router PageExternal is not loaded') : router.setBase.bind(router),
-							reset: router.resetBase === undefined ? ns.error.bind(null, 'router PageExternal is not loaded') : router.resetBase.bind(router)
+							element: router.resetBase === undefined ? ns.error.bind(null, "router PageExternal is not loaded") : router.resetBase(),
+							set: router.setBase === undefined ? ns.error.bind(null, "router PageExternal is not loaded") : router.setBase.bind(router),
+							reset: router.resetBase === undefined ? ns.error.bind(null, "router PageExternal is not loaded") : router.resetBase.bind(router)
 						} : undefined;
 						$.mobile.gradeA = ns.support.gradeA.bind(ns.support);
 						$.mobile.browser = ns.support.browser;

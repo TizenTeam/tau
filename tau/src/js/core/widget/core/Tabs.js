@@ -125,7 +125,7 @@
 				var self = this;
 				events.on(element, "tabchange sectionchange", self, false);
 				window.addEventListener("resize", self, false);
-			};
+			}
 
 			/**
 			 * unbind Tabs component necessary events
@@ -139,7 +139,7 @@
 				var self = this;
 				events.off(element, "tabchange sectionchange", self, false);
 				window.removeEventListener("resize", self, false);
-			};
+			}
 
 			/**
 			 * Handle events

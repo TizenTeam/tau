@@ -20,11 +20,11 @@
  * @class ns.util.load
  */
 (function (document, ns) {
-	'use strict';
+	"use strict";
 	//>>excludeStart('tauBuildExclude', pragmas.tauBuildExclude);
 	define(
 		[
-			'../util'
+			"../util"
 		],
 		function () {
 			//>>excludeEnd('tauBuildExclude');
@@ -88,15 +88,15 @@
 				var xhrObj = new XMLHttpRequest();
 
 				// open and send a synchronous request
-				xhrObj.open('GET', scriptPath, false);
+				xhrObj.open("GET", scriptPath, false);
 				xhrObj.send();
 				// add the returned content to a newly created script tag
 				if (xhrObj.status === 200 || xhrObj.status === 0) {
-					if (typeof successCB === 'function') {
+					if (typeof successCB === "function") {
 						successCB(xhrObj, xhrObj.status);
 					}
 				} else {
-					if (typeof errorCB === 'function') {
+					if (typeof errorCB === "function") {
 						errorCB(xhrObj, xhrObj.status, new Error(xhrObj.statusText));
 					}
 				}
@@ -113,11 +113,11 @@
 			 * @member ns.util.load
 			 */
 			function scriptSyncSuccess(successCB, xhrObj, status) {
-				var script = document.createElement('script');
-				script.type = 'text/javascript';
+				var script = document.createElement("script");
+				script.type = "text/javascript";
 				script.text = xhrObj.responseText;
 				document.body.appendChild(script);
-				if (typeof successCB === 'function') {
+				if (typeof successCB === "function") {
 					successCB(xhrObj, status);
 				}
 			}
@@ -148,13 +148,13 @@
 			 * @private
 			 */
 			function cssSyncSuccess(cssPath, successCB, xhrObj) {
-				var css = document.createElement('style');
-				css.type = 'text/css';
+				var css = document.createElement("style");
+				css.type = "text/css";
 				css.textContent = xhrObj.responseText.replace(
 					IMAGE_PATH_REGEXP,
-					'url(' + cssPath.replace(CSS_FILE_REGEXP, 'images')
+					"url(" + cssPath.replace(CSS_FILE_REGEXP, "images")
 				);
-				if (typeof successCB === 'function') {
+				if (typeof successCB === "function") {
 					successCB(css);
 				}
 			}
@@ -205,10 +205,10 @@
 			 * @static
 			 */
 			function makeLink(href) {
-				var cssLink = document.createElement('link');
-				cssLink.setAttribute('rel', 'stylesheet');
-				cssLink.setAttribute('href', href);
-				cssLink.setAttribute('name', 'tizen-theme');
+				var cssLink = document.createElement("link");
+				cssLink.setAttribute("rel", "stylesheet");
+				cssLink.setAttribute("href", href);
+				cssLink.setAttribute("name", "tizen-theme");
 				return cssLink;
 			}
 
@@ -220,8 +220,8 @@
 			 * @param {HTMLElement} [replaceElement=null] If replaceElement is given it gets replaced by node
 			 */
 			function addNodeAsTheme(node, themeName, replaceElement) {
-				setNSData(node, 'name', 'tizen-theme');
-				setNSData(node, 'theme-name', themeName);
+				setNSData(node, "name", "tizen-theme");
+				setNSData(node, "theme-name", themeName);
 
 				if (replaceElement) {
 					replaceElement.parentNode.replaceChild(node, replaceElement);
@@ -251,8 +251,8 @@
 
 					// We try to find a style / link node that matches current style or is linked to
 					// the proper theme. We cannot use ownerNode.href because this returns the absolute path
-					if (getNSData(ownerNode, 'name') === 'tizen-theme' || ownerNode.getAttribute("href") === path) {
-						if (getNSData(ownerNode, 'theme-name') === themeName) {
+					if (getNSData(ownerNode, "name") === "tizen-theme" || ownerNode.getAttribute("href") === path) {
+						if (getNSData(ownerNode, "theme-name") === themeName) {
 							// Nothing to change
 							return;
 						}
@@ -280,7 +280,7 @@
 			 * @member ns.util.load
 			 * @static
 			 */
-			load.cacheBust = (document.location.href.match(/debug=true/)) ? '?cacheBust=' + (new Date()).getTime() : '';
+			load.cacheBust = (document.location.href.match(/debug=true/)) ? "?cacheBust=" + (new Date()).getTime() : "";
 			// the binding a local methods with the namespace
 			load.scriptSync = scriptSync;
 			load.addElementToHead = addElementToHead;

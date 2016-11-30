@@ -359,7 +359,7 @@
 					addSearchParams: function (url, params) {
 						var urlObject = path.parseUrl(url),
 							paramsString = (typeof params === "object") ? this.getAsURIParameters(params) : params,
-							searchChar = '',
+							searchChar = "",
 							urlObjectHash = urlObject.hash;
 
 						if (path.isEmbedded(url) && paramsString.length > 0) {
@@ -426,7 +426,7 @@
 						if (newPath === undefined) {
 							newPath = this.parseLocation().hash;
 						}
-						return this.stripHash(newPath).replace(/[^\/]*\.[^\/*]+$/, '');
+						return this.stripHash(newPath).replace(/[^\/]*\.[^\/*]+$/, "");
 					},
 
 					/**
@@ -632,7 +632,7 @@
 						if (hasHash) {
 							hash = hash.substring(1);
 						}
-						return (hasHash ? "#" : "") + hash.replace(new RegExp('([!"#$%&\'()*+,./:;<=>?@[\\]^`{|}~])', 'g'), "\\$1");
+						return (hasHash ? "#" : "") + hash.replace(new RegExp("([!\"#$%&'()*+,./:;<=>?@[\\]^`{|}~])", "g"), "\\$1");
 					},
 
 					/**
@@ -691,7 +691,7 @@
 					* @static
 					*/
 					isPermittedCrossDomainRequest: function (docUrl, reqUrl) {
-						return ns.getConfig('allowCrossDomainPages', false) &&
+						return ns.getConfig("allowCrossDomainPages", false) &&
 							docUrl.protocol === "file:" &&
 							reqUrl.search(/^https?:/) !== -1;
 					},
@@ -705,11 +705,11 @@
 					* @static
 					*/
 					getAsURIParameters: function (data) {
-						var url = '',
+						var url = "",
 							key;
 						for (key in data) {
 							if (data.hasOwnProperty(key)) {
-								url += encodeURIComponent(key) + '=' + encodeURIComponent(data[key]) + '&';
+								url += encodeURIComponent(key) + "=" + encodeURIComponent(data[key]) + "&";
 							}
 						}
 						return url.substring(0, url.length - 1);
@@ -751,7 +751,7 @@
 					* @static
 					*/
 					getFilePath: function (path, dialogHashKey) {
-						var splitkey = '&' + ns.getConfig('subPageUrlKey', '');
+						var splitkey = "&" + ns.getConfig("subPageUrlKey", "");
 						return path && path.split(splitkey)[0].split(dialogHashKey)[0];
 					},
 
@@ -797,7 +797,7 @@
 
 			path.documentUrl = path.parseLocation();
 
-			base = document.querySelector('base');
+			base = document.querySelector("base");
 
 			/**
 			* The document base URL for the purposes of resolving relative URLs,
@@ -837,7 +837,7 @@
 				var url = utilsDOM.getNSData(utilsSelectors.getClosestBySelector(element, selector), "url"),
 					baseUrl = path.documentBase.hrefNoHash;
 
-				if (!ns.getConfig('dynamicBaseEnabled', true) || !url || !path.isPath(url)) {
+				if (!ns.getConfig("dynamicBaseEnabled", true) || !url || !path.isPath(url)) {
 					url = baseUrl;
 				}
 

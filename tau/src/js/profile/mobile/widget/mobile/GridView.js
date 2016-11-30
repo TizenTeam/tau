@@ -697,8 +697,8 @@
 					// create handlers if not exists
 					self._ui.listElements.forEach(function(liItem) {
 						var handler = null;
-						if (!liItem.querySelector('.' + classes.HANDLER)) {
-							handler = document.createElement('div');
+						if (!liItem.querySelector("." + classes.HANDLER)) {
+							handler = document.createElement("div");
 							handler.classList.add(classes.HANDLER);
 							liItem.appendChild(handler);
 						}

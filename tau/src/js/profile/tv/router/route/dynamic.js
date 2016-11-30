@@ -114,11 +114,11 @@
 				var popup,
 					hashReg = /^#/;
 
-				id = id.replace(hashReg,'');
+				id = id.replace(hashReg,"");
 				popup = document.getElementById(id);
 
 				if (popup && utilSelector.matchesSelector(popup, filter)) {
-					DOM.setNSData(popup, 'url', '#' + id);
+					DOM.setNSData(popup, "url", "#" + id);
 				} else {
 					// if we matched any element, but it doesn't match our filter
 					// reset page to null

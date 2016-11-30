@@ -185,13 +185,13 @@
 
 					height += props["height"];
 
-					if (props["box-sizing"] !== 'border-box') {
+					if (props["box-sizing"] !== "border-box") {
 						height += props["padding-top"] + props["padding-bottom"];
 					}
 
 					if (includeOffset) {
 						height = offsetHeight;
-					} else if (outer && props["box-sizing"] !== 'border-box') {
+					} else if (outer && props["box-sizing"] !== "border-box") {
 						height += props["border-top-width"] + props["border-bottom-width"];
 					}
 
@@ -259,7 +259,7 @@
 						style.position = originalPosition;
 					}
 
-					if(typeof props["width"] === 'string' && props["width"].indexOf("px") === -1) {
+					if(typeof props["width"] === "string" && props["width"].indexOf("px") === -1) {
 						//ignore non px values such as auto or %
 						props["width"] = 0;
 					}
@@ -274,13 +274,13 @@
 					}
 
 					width += props["width"];
-					if (props["box-sizing"] !== 'border-box') {
+					if (props["box-sizing"] !== "border-box") {
 						width += props["padding-left"] + props["padding-right"];
 					}
 
 					if (includeOffset) {
 						width = offsetWidth;
-					} else if (outer && props["box-sizing"] !== 'border-box') {
+					} else if (outer && props["box-sizing"] !== "border-box") {
 						width += props["border-left-width"] + props["border-right-width"];
 					}
 

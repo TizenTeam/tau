@@ -222,9 +222,9 @@
 				},
 				selectorRoleSwipe = "[data-role='swipe']",
 				selectorRoleSwipeItemCover = "[data-role='swipe-item-cover']" +
-					', .' + classes.uiSwipeItemCover,
+					", ." + classes.uiSwipeItemCover,
 				selectorRoleSwipeItem = "[data-role='swipe-item']" +
-					', .' + classes.uiSwipeItem,
+					", ." + classes.uiSwipeItem,
 				classUiBtn = ".ui-btn",
 				swipeLeftEvent = "swipeleft",
 				swipeRightEvent = "swiperight";

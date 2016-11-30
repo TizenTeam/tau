@@ -33,7 +33,7 @@
 			function isCircleShape() {
 				var testDiv = document.createElement("div"),
 					fakeBody = document.createElement("body"),
-					html = document.getElementsByTagName('html')[0],
+					html = document.getElementsByTagName("html")[0],
 					style = getComputedStyle(testDiv),
 					isCircle;
 

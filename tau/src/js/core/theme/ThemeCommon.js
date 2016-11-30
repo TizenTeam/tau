@@ -24,8 +24,8 @@
 	"use strict";
 	define(
 		[
-			'../util/object',
-			'../theme' // fetch namespace
+			"../util/object",
+			"../theme" // fetch namespace
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");

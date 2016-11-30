@@ -356,9 +356,9 @@
 					SELECT: "select"
 				},
 
-				POINTER_START = 'vmousedown',
-				POINTER_MOVE = 'vmousemove',
-				POINTER_END = 'vmouseup',
+				POINTER_START = "vmousedown",
+				POINTER_MOVE = "vmousemove",
+				POINTER_END = "vmouseup",
 
 				pointerIsPressed = false,
 				prototype = new BaseWidget();

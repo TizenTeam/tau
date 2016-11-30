@@ -77,7 +77,7 @@
 					result = [],
 					i;
 
-				if (typeof names === 'string') {
+				if (typeof names === "string") {
 					names = names.split(SPLIT_BY_SPACES_REGEXP).map(trim);
 				}
 
@@ -120,7 +120,7 @@
 							cancelable: typeof cancelable === "boolean" ? cancelable : true
 						});
 					//>>excludeStart("tauDebug", pragmas.tauDebug);
-					ns.log("triggered event " + type + " on:", element.tagName + '#' + (element.id || "--no--id--"));
+					ns.log("triggered event " + type + " on:", element.tagName + "#" + (element.id || "--no--id--"));
 					//>>excludeEnd("tauDebug");
 					return element.dispatchEvent(evt);
 				},

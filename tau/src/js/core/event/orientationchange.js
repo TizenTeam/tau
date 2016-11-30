@@ -61,7 +61,7 @@
 					 * @static
 					 */
 					trigger: function (element) {
-						eventUtils.trigger(element, "orientationchange", {'orientation': orientation});
+						eventUtils.trigger(element, "orientationchange", {"orientation": orientation});
 					},
 					/**
 					 * List of properties copied to event details object
@@ -69,7 +69,7 @@
 					 * @member ns.event.orientationchange
 					 * @static
 					 */
-					properties: ['orientation']
+					properties: ["orientation"]
 				},
 				detectOrientationByDimensions = function (omitCustomEvent) {
 					var width = window.innerWidth,
@@ -86,7 +86,7 @@
 					}
 
 					if (!omitCustomEvent) {
-						eventUtils.trigger(window, "orientationchange", {'orientation': orientation});
+						eventUtils.trigger(window, "orientationchange", {"orientation": orientation});
 					}
 				},
 				checkReportedOrientation = function () {
@@ -110,7 +110,7 @@
 					} else {
 						orientation = "landscape";
 					}
-					eventUtils.trigger(window, "orientationchange", {'orientation': orientation});
+					eventUtils.trigger(window, "orientationchange", {"orientation": orientation});
 				},
 				portraitMatchMediaQueryList;
 

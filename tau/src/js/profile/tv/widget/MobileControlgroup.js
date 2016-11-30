@@ -66,7 +66,7 @@
 					 * @member ns.widget.mobile.Controlgroup
 					 */
 					this.options = {
-						type: 'vertical',
+						type: "vertical",
 						shadow: false,
 						excludeInvisible: false,
 						mini: false
@@ -115,19 +115,19 @@
 			 * @static
 			 */
 			Controlgroup.classes = {
-				cornerAll: 'ui-btn-corner-all',
-				cornerTop: 'ui-corner-top',
-				cornerBottom: 'ui-corner-bottom',
-				cornerLeft: 'ui-corner-left',
-				cornerRight: 'ui-corner-right',
-				controlGroupLast: 'ui-controlgroup-last',
-				shadow: 'ui-shadow',
-				mini: 'ui-mini',
-				controlGroup: 'ui-controlgroup',
-				typePrefix: 'ui-controlgroup-',
-				controlGroupLabel: 'ui-controlgroup-label',
-				controlGroupControls: 'ui-controlgroup-controls',
-				controlGroupCornerAll: 'ui-corner-all'
+				cornerAll: "ui-btn-corner-all",
+				cornerTop: "ui-corner-top",
+				cornerBottom: "ui-corner-bottom",
+				cornerLeft: "ui-corner-left",
+				cornerRight: "ui-corner-right",
+				controlGroupLast: "ui-controlgroup-last",
+				shadow: "ui-shadow",
+				mini: "ui-mini",
+				controlGroup: "ui-controlgroup",
+				typePrefix: "ui-controlgroup-",
+				controlGroupLabel: "ui-controlgroup-label",
+				controlGroupControls: "ui-controlgroup-controls",
+				controlGroupCornerAll: "ui-corner-all"
 			};
 
 			/**
@@ -179,7 +179,7 @@
 				var classes = Controlgroup.classes,
 					elementClassList = element.classList,
 					options = this.options,
-					groupLegend = selectors.getChildrenByTag(element, 'legend'),
+					groupLegend = selectors.getChildrenByTag(element, "legend"),
 					groupHeading = selectors.getChildrenByClass(element, classes.controlGroupLabel),
 					groupControls,
 					cornersClasses,
@@ -198,7 +198,7 @@
 
 				if (groupLegend.length) {
 					//existing label is replaced with stylable div
-					legend = document.createElement('div');
+					legend = document.createElement("div");
 					legend.classList.add(classes.controlGroupLabel);
 					legend.innerHTML = groupLegend[0].innerHTML;
 					dom.insertNodesBefore(element.childNodes[0], legend);
@@ -209,7 +209,7 @@
 					dom.insertNodesBefore(element.childNodes[0], groupHeading);
 				}
 
-				cornersClasses = options.type === 'horizontal' ?
+				cornersClasses = options.type === "horizontal" ?
 						[classes.cornerLeft, classes.cornerRight] : [classes.cornerTop, classes.cornerBottom];
 
 				elementClassList.add(classes.controlGroupCornerAll);
@@ -221,9 +221,9 @@
 					this._setWidthForButtons(groupControls);
 				}
 
-				content = slice.call(element.querySelectorAll('.ui-btn')).filter(function (item) {
+				content = slice.call(element.querySelectorAll(".ui-btn")).filter(function (item) {
 					//@todo filter visiblity when excludeInvisible option is set
-					return !item.classList.contains('ui-slider-handle');
+					return !item.classList.contains("ui-slider-handle");
 				});
 
 				if (options.shadow) {
@@ -235,7 +235,7 @@
 				}
 
 				flipClasses(content, cornersClasses);
-				flipClasses(slice.call(element.querySelectorAll('.ui-btn-inner')), cornersClasses);
+				flipClasses(slice.call(element.querySelectorAll(".ui-btn-inner")), cornersClasses);
 
 				return element;
 			};
@@ -245,12 +245,12 @@
 					controlElementsLength,
 					widthSize,
 					i;
-				controlElements = selectors.getChildrenByTag(groupControls, 'a');
+				controlElements = selectors.getChildrenByTag(groupControls, "a");
 				controlElementsLength = controlElements.length;
 				widthSize = 100 / controlElementsLength;
 				for(i = 0; i < controlElementsLength; i++) {
-					engine.instanceWidget(controlElements[i], 'Button');
-					controlElements[i].style.width = widthSize + '%';
+					engine.instanceWidget(controlElements[i], "Button");
+					controlElements[i].style.width = widthSize + "%";
 				}
 			};
 
@@ -261,7 +261,7 @@
 				"[data-role='controlgroup'], .ui-controlgroup",
 				[],
 				Controlgroup,
-				'mobile'
+				"mobile"
 			);
 
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);

@@ -24,25 +24,25 @@
 * @author Tomasz Lukawski <t.lukawski@samsung.com>
 */
 (function (window, document, ns) {
-	'use strict';
+	"use strict";
 	//>>excludeStart('tauBuildExclude', pragmas.tauBuildExclude);
 	define(
 		[
-			'../../../core/engine',
-			'../../../core/theme',
-			'../../../core/support',
-			'../../../core/util/DOM/manipulation',
-			'../../../core/util/DOM/css',
-			'../../../core/util/DOM/attributes',
-			'../../../core/util/selectors',
-			'../../../core/util/object',
-			'../../../core/event',
-			'../../../core/widget/core/Page',
-			'../../../core/widget/core/Button',
-			'../../../profile/mobile/widget/mobile/Scrollview',
-			'../../../profile/mobile/widget/mobile/Progressbar',
-			'../../../profile/mobile/widget/mobile/BaseWidgetMobile',
-			'./Slider.extra'
+			"../../../core/engine",
+			"../../../core/theme",
+			"../../../core/support",
+			"../../../core/util/DOM/manipulation",
+			"../../../core/util/DOM/css",
+			"../../../core/util/DOM/attributes",
+			"../../../core/util/selectors",
+			"../../../core/util/object",
+			"../../../core/event",
+			"../../../core/widget/core/Page",
+			"../../../core/widget/core/Button",
+			"../../../profile/mobile/widget/mobile/Scrollview",
+			"../../../profile/mobile/widget/mobile/Progressbar",
+			"../../../profile/mobile/widget/mobile/BaseWidgetMobile",
+			"./Slider.extra"
 		],
 		function () {
 			//>>excludeEnd('tauBuildExclude');
@@ -144,10 +144,10 @@
 				*/
 				slice = [].slice,
 
-				POINTER_CLICK_EVENT = 'vclick',
-				POINTER_MOVE_EVENT = 'vmousemove',
-				POINTER_DOWN_EVENT = 'vmousedown',
-				POINTER_UP_EVENT = 'vmouseup',
+				POINTER_CLICK_EVENT = "vclick",
+				POINTER_MOVE_EVENT = "vmousemove",
+				POINTER_DOWN_EVENT = "vmousedown",
+				POINTER_UP_EVENT = "vmouseup",
 				MEDIA_POSITION_CHANGE_TIMEOUT = 200, //[ms]
 				FULLSCREEN_DELAY = 300, //[]ms
 
@@ -162,7 +162,7 @@
 					self.options = {
 						controls: true,
 						fullScreen: false,
-						theme: ''
+						theme: ""
 					};
 					self.role = null;
 					self.controlTimer = null;
@@ -189,7 +189,7 @@
 				 * @private
 				 * @static
 				 */
-				PREFIX = 'ui-multimediaview',
+				PREFIX = "ui-multimediaview",
 				/**
 				 * Directory with classes
 				 * @property {Object} classes
@@ -199,35 +199,35 @@
 				 */
 				classes = {
 					VIEW: PREFIX,
-					VIDEO: PREFIX + '-video',
-					WRAP: PREFIX + '-wrap',
-					THEME_PREFIX: PREFIX + '-',
-					BAR: PREFIX + '-bar',
-					BAR_BACKGROUND: PREFIX + '-bar-bg',
-					BAR_HIGHLIGHT: PREFIX + '-bar-highlight',
+					VIDEO: PREFIX + "-video",
+					WRAP: PREFIX + "-wrap",
+					THEME_PREFIX: PREFIX + "-",
+					BAR: PREFIX + "-bar",
+					BAR_BACKGROUND: PREFIX + "-bar-bg",
+					BAR_HIGHLIGHT: PREFIX + "-bar-highlight",
 					// control bar
-					CONTROL: PREFIX + '-control',
-					PLAY_PAUSE: 'ui-playpausebutton',
-					MUTE_ICON: 'ui-mute-icon',
-					SEEK_BAR: 'ui-seekbar',
-					DURATION_LABEL: 'ui-durationlabel',
-					PLAY_ICON: 'ui-play-icon',
-					PAUSE_ICON: 'ui-pause-icon',
-					TIMESTAMP_LABEL: 'ui-timestamplabel',
-					VOLUME_BAR: 'ui-volumebar',
-					VOLUME_ICON: 'ui-volume-icon',
-					VOLUME_BUTTON: 'ui-volumebutton',
-					VOLUME_CONTROL: 'ui-volumecontrol',
-					VOLUME_VALUE: 'ui-value',
-					VOLUME_HANDLE: 'ui-handle',
-					VOLUME_GUIDE: 'ui-guide',
-					FULLSCREEN_BUTTON: 'ui-fullscreenbutton',
-					FULLSCREEN_ON: 'ui-fullscreen-on',
-					FULLSCREEN_OFF: 'ui-fullscreen-off',
-					DURATION: 'ui-duration',
-					CURRENT_TIME: 'ui-currenttime',
-					BUTTON: 'ui-button',
-					BUTTON_DOWN: 'ui-button-down',
+					CONTROL: PREFIX + "-control",
+					PLAY_PAUSE: "ui-playpausebutton",
+					MUTE_ICON: "ui-mute-icon",
+					SEEK_BAR: "ui-seekbar",
+					DURATION_LABEL: "ui-durationlabel",
+					PLAY_ICON: "ui-play-icon",
+					PAUSE_ICON: "ui-pause-icon",
+					TIMESTAMP_LABEL: "ui-timestamplabel",
+					VOLUME_BAR: "ui-volumebar",
+					VOLUME_ICON: "ui-volume-icon",
+					VOLUME_BUTTON: "ui-volumebutton",
+					VOLUME_CONTROL: "ui-volumecontrol",
+					VOLUME_VALUE: "ui-value",
+					VOLUME_HANDLE: "ui-handle",
+					VOLUME_GUIDE: "ui-guide",
+					FULLSCREEN_BUTTON: "ui-fullscreenbutton",
+					FULLSCREEN_ON: "ui-fullscreen-on",
+					FULLSCREEN_OFF: "ui-fullscreen-off",
+					DURATION: "ui-duration",
+					CURRENT_TIME: "ui-currenttime",
+					BUTTON: "ui-button",
+					BUTTON_DOWN: "ui-button-down",
 					BUTTON_CORNER_ALL: buttonClasses.uiBtnCornerAll,
 					BUTTON_CORNER_CIRCLE: buttonClasses.uiBtnCornerCircle,
 					SHADOW: buttonClasses.uiShadow,
@@ -241,26 +241,26 @@
 				 * @private
 				 */
 				selectors = {
-					BUTTONS: '.' + classes.BUTTON,
-					VOLUME_HANDLE: '.' + classes.VOLUME_CONTROL + ' .' + classes.VOLUME_HANDLE,
-					WRAP: '.' + classes.WRAP,
-					CONTROL: '.' + classes.CONTROL,
-					SCROLLVIEW_CLIP: '.' + scrollviewClasses.clip,
-					PROGRESS_BAR_BG: '.' + progressbarClasses.uiProgressbarBg,
-					PROGRESS_BAR_VALUE: '.' + progressbarClasses.uiProgressbarValue,
-					SLIDER_CONTAINER: '.' + sliderClasses.sliderContainer,
-					SLIDER: '.' + sliderClasses.sliderContainer + ' .' + sliderClasses.slider
+					BUTTONS: "." + classes.BUTTON,
+					VOLUME_HANDLE: "." + classes.VOLUME_CONTROL + " ." + classes.VOLUME_HANDLE,
+					WRAP: "." + classes.WRAP,
+					CONTROL: "." + classes.CONTROL,
+					SCROLLVIEW_CLIP: "." + scrollviewClasses.clip,
+					PROGRESS_BAR_BG: "." + progressbarClasses.uiProgressbarBg,
+					PROGRESS_BAR_VALUE: "." + progressbarClasses.uiProgressbarValue,
+					SLIDER_CONTAINER: "." + sliderClasses.sliderContainer,
+					SLIDER: "." + sliderClasses.sliderContainer + " ." + sliderClasses.slider
 				},
 				/**
 				 * Name of video tag
 				 * @property {string} VIDEO_TAG_NAME
 				 */
-				VIDEO_TAG_NAME = 'VIDEO',
+				VIDEO_TAG_NAME = "VIDEO",
 				/**
 				 * Tag for label of media duration
 				 * @property {string} DURATION_LABEL_TAG_NAME
 				 */
-				DURATION_LABEL_TAG_NAME = 'p';
+				DURATION_LABEL_TAG_NAME = "p";
 
 			/**
 			* @property {Object} classes
@@ -280,7 +280,7 @@
 			MultimediaViewPrototype._createControl = function () {
 				var self = this,
 					view = self.element,
-					control = document.createElement('span'),
+					control = document.createElement("span"),
 					playpauseButton = control.cloneNode(),
 					seekBar = control.cloneNode(),
 					timestampLabel = control.cloneNode(),
@@ -291,7 +291,7 @@
 					fullscreenButton = control.cloneNode(),
 					durationBar = control.cloneNode();
 
-				volumeBar.innerHTML = '<input type="range" value="25" min="0" max="100" data-highlight="true" >';
+				volumeBar.innerHTML = "<input type=\"range\" value=\"25\" min=\"0\" max=\"100\" data-highlight=\"true\" >";
 				volumeBar = volumeBar.childNodes[0];
 
 				self.ui = utilsObject.merge(self.ui, {
@@ -307,10 +307,10 @@
 					durationBar: durationBar
 				});
 
-				timestampLabel.innerHTML = '<p>00:00:00</p>';
-				durationLabel.innerHTML = '<p>00:00:00</p>';
+				timestampLabel.innerHTML = "<p>00:00:00</p>";
+				durationLabel.innerHTML = "<p>00:00:00</p>";
 
-				control.classList.add(classes.CONTROL, 'fade-out');
+				control.classList.add(classes.CONTROL, "fade-out");
 
 				durationLabel.classList.add(classes.DURATION_LABEL);
 				playpauseButton.classList.add(classes.PLAY_PAUSE);
@@ -382,10 +382,10 @@
 				}
 
 				if (!self._isVideo) {
-					wrap.style.width = value + 'px';
+					wrap.style.width = value + "px";
 				}
 
-				view.style.width = value + 'px';
+				view.style.width = value + "px";
 				self._resize();
 			};
 
@@ -411,7 +411,7 @@
 					return view.getElementHeight();
 				}
 
-				view.style.height = value + 'px';
+				view.style.height = value + "px";
 				self._resize();
 			};
 
@@ -472,7 +472,7 @@
 			*/
 			MultimediaViewPrototype._resize = function () {
 				this._resizeControl();
-				this.trigger('updatelayout');
+				this.trigger("updatelayout");
 			};
 
 			/**
@@ -515,7 +515,7 @@
 				self.ui.control = control;
 
 
-				wrap = document.createElement('div');
+				wrap = document.createElement("div");
 				wrap.classList.add(classes.WRAP);
 				wrap.classList.add(classes.THEME_PREFIX + theme);
 				view.parentNode.replaceChild(wrap, view);
@@ -523,8 +523,8 @@
 				wrap.appendChild(control);
 				self.ui.wrap = wrap;
 
-				engine.instanceWidget(self.ui.volumeBar, 'Slider');
-				engine.instanceWidget(self.ui.durationBar, 'ProgressBar');
+				engine.instanceWidget(self.ui.volumeBar, "Slider");
+				engine.instanceWidget(self.ui.durationBar, "ProgressBar");
 
 				// customizing
 				// progressBar
@@ -538,8 +538,8 @@
 					self.options.fullScreen = false;
 				}
 
-				if (options.controls && utilsDOM.getNSData(view, 'controls')) {
-					utilsDOM.removeNSData(view, 'controls');
+				if (options.controls && utilsDOM.getNSData(view, "controls")) {
+					utilsDOM.removeNSData(view, "controls");
 				}
 
 				return element;
@@ -557,15 +557,15 @@
 					control = self.ui.control;
 				// @todo: check binding;
 				self.ui = utilsObject.merge(self.ui, {
-					playpauseButton: control.querySelector('.' + classes.PLAY_PAUSE),
-					seekBar: control.querySelector('.' + classes.SEEK_BAR),
-					timestampLabel: control.querySelector('.' + classes.TIMESTAMP_LABEL),
-					durationLabel: control.querySelector('.' + classes.DURATION_LABEL),
-					volumeButton: control.querySelector('.' + classes.VOLUME_BUTTON),
-					volumeControl: control.querySelector('.' + classes.VOLUME_CONTROL),
-					volumeBar: control.querySelector('.' + classes.VOLUME_BAR),
-					fullscreenButton: control.querySelector('.' + classes.FULLSCREEN_BUTTON),
-					durationBar: control.querySelector('.' + classes.DURATION),
+					playpauseButton: control.querySelector("." + classes.PLAY_PAUSE),
+					seekBar: control.querySelector("." + classes.SEEK_BAR),
+					timestampLabel: control.querySelector("." + classes.TIMESTAMP_LABEL),
+					durationLabel: control.querySelector("." + classes.DURATION_LABEL),
+					volumeButton: control.querySelector("." + classes.VOLUME_BUTTON),
+					volumeControl: control.querySelector("." + classes.VOLUME_CONTROL),
+					volumeBar: control.querySelector("." + classes.VOLUME_BAR),
+					fullscreenButton: control.querySelector("." + classes.FULLSCREEN_BUTTON),
+					durationBar: control.querySelector("." + classes.DURATION),
 				});
 				self.ui.progressBar = self.ui.durationBar.querySelector(selectors.PROGRESS_BAR_BG);
 			};
@@ -647,19 +647,19 @@
 
 				if (control) {
 					if (isVideo) {
-						control.style.left = offset.left + 'px';
+						control.style.left = offset.left + "px";
 					}
-					control.style.width = width + 'px';
+					control.style.width = width + "px";
 				}
 
 				if (seekBar) {
-					buttonWidth = utilsDOM.getElementWidth(buttons[0], 'outer', false, true);
+					buttonWidth = utilsDOM.getElementWidth(buttons[0], "outer", false, true);
 					availableWidth = utilsDOM.getElementWidth(control) - (buttonWidth * buttons.length);
 					if (!self.isVolumeHide) {
-						availableWidth -= utilsDOM.getElementWidth(volumeControl, 'outer', false, true);
+						availableWidth -= utilsDOM.getElementWidth(volumeControl, "outer", false, true);
 					}
-					availableWidth -= utilsDOM.getCSSProperty(seekBar, 'margin-left', 0, "integer");
-					seekBar.style.width = availableWidth + 'px';
+					availableWidth -= utilsDOM.getCSSProperty(seekBar, "margin-left", 0, "integer");
+					seekBar.style.width = availableWidth + "px";
 				}
 
 				if (durationLabel && !isNaN(view.duration)) {
@@ -672,9 +672,9 @@
 				}
 
 				if (utilsDOM.getElementWidth(seekBar) < (utilsDOM.getElementWidth(volumeBar) + utilsDOM.getElementWidth(timestampLabel) + utilsDOM.getElementWidth(durationLabel))) {
-					durationLabel.classList.add('hidden');
+					durationLabel.classList.add("hidden");
 				} else {
-					durationLabel.classList.remove('hidden');
+					durationLabel.classList.remove("hidden");
 				}
 			};
 
@@ -862,11 +862,11 @@
 				if (self.isVolumeHide) {
 					self.isVolumeHide = false;
 					// @todo: fadeIn
-					volumeStyle.display = 'initial';
+					volumeStyle.display = "initial";
 				} else {
 					self.isVolumeHide = true;
 					// @todo: fadeOut
-					volumeStyle.display = 'none';
+					volumeStyle.display = "none";
 				}
 				self._resize();
 			}
@@ -983,19 +983,19 @@
 				var self = this;
 
 				switch (event.type) {
-					case 'loadedmetadata':
+					case "loadedmetadata":
 						return onLoadedMetadata(self, event);
-					case 'timeupdate':
+					case "timeupdate":
 						return onTimeUpdate(self, event);
-					case 'play':
+					case "play":
 						return onPlay(self, event);
-					case 'pause':
+					case "pause":
 						return onPause(self, event);
-					case 'volumechange':
+					case "volumechange":
 						return onVolumeChange(self, event);
-					case 'change':
+					case "change":
 						return onChange(self, event);
-					case 'durationchange':
+					case "durationchange":
 						return onDurationChange(self, event);
 					case POINTER_CLICK_EVENT:
 						return onClick(self, event);
@@ -1005,9 +1005,9 @@
 						return onPointerDown(self, event);
 					case POINTER_UP_EVENT:
 						return onPointerUp(self, event);
-					case 'multimediaviewinit':
+					case "multimediaviewinit":
 						return onViewInit(self, event);
-					case 'resize':
+					case "resize":
 						return onResize(self, event);
 				}
 			};
@@ -1047,8 +1047,8 @@
 					true
 				);
 				seekBar.addEventListener(POINTER_CLICK_EVENT, self, true);
-				volumeBar.addEventListener('change', self, true);
-				window.addEventListener('resize', self, true);
+				volumeBar.addEventListener("change", self, true);
+				window.addEventListener("resize", self, true);
 
 				return element;
 			};
@@ -1087,22 +1087,22 @@
 					true
 				);
 				seekBar.removeEventListener(POINTER_CLICK_EVENT, self, true);
-				volumeBar.removeEventListener('change', self, true);
+				volumeBar.removeEventListener("change", self, true);
 
-				window.addEventListener('resize', self, true);
+				window.addEventListener("resize", self, true);
 			};
 
 			MultimediaView.prototype = MultimediaViewPrototype;
 
 			ns.widget.mobile.MultimediaView = MultimediaView;
 			engine.defineWidget(
-				'MultimediaView',
+				"MultimediaView",
 				// Multimediaview UX used native multimedia UX
 				//'video, audio, .ui-multimediaview',
-				'ui-multimediaview',
-				['width', 'height', 'fullScreen'],
+				"ui-multimediaview",
+				["width", "height", "fullScreen"],
 				MultimediaView,
-				'tizen'
+				"tizen"
 			);
 			//>>excludeStart('tauBuildExclude', pragmas.tauBuildExclude);
 			return ns.widget.mobile.MultimediaView;

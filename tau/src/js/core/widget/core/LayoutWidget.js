@@ -87,7 +87,7 @@
 			 */
 			prototype._appendWidget = function (widget) {
 				var self = this;
-				if (!self.hasOwnProperty('_children')) {
+				if (!self.hasOwnProperty("_children")) {
 					self._children = {};
 				}
 

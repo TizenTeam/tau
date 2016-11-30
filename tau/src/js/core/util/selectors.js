@@ -82,8 +82,8 @@
 			 * @static
 			 */
 			function getDataSelector(selector) {
-				var namespace = ns.getConfig('namespace');
-				return '[data-' + (namespace ? namespace + '-' : '') + selector + ']';
+				var namespace = ns.getConfig("namespace");
+				return "[data-" + (namespace ? namespace + "-" : "") + selector + "]";
 			}
 
 			/**

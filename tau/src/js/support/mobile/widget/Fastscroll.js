@@ -241,7 +241,7 @@
 
 				element = element || self.element;
 				dividers = element.querySelectorAll(
-						ns.engine.getWidgetDefinition('ListDivider').selector
+						ns.engine.getWidgetDefinition("ListDivider").selector
 					);
 				dividersLength = dividers.length;
 

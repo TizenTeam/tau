@@ -37,7 +37,7 @@
 			fileName = nsConfig.fileName,
 			infoForLog = function (args) {
 				var dateNow = new Date();
-				args.unshift('[' + rootNamespace + '][' + dateNow.toLocaleString() + ']');
+				args.unshift("[" + rootNamespace + "][" + dateNow.toLocaleString() + "]");
 			};
 
 		/**
@@ -142,7 +142,7 @@
 		 * @member ns
 		 */
 		ns.getFrameworkPath = function () {
-			var scripts = document.getElementsByTagName('script'),
+			var scripts = document.getElementsByTagName("script"),
 				countScripts = scripts.length,
 				i,
 				url,
@@ -150,10 +150,10 @@
 				count;
 			for (i = 0; i < countScripts; i++) {
 				url = scripts[i].src;
-				arrayUrl = url.split('/');
+				arrayUrl = url.split("/");
 				count = arrayUrl.length;
-				if (arrayUrl[count - 1] === fileName + '.js' || arrayUrl[count - 1] === fileName + '.min.js') {
-					return arrayUrl.slice(0, count - 1).join('/');
+				if (arrayUrl[count - 1] === fileName + ".js" || arrayUrl[count - 1] === fileName + ".min.js") {
+					return arrayUrl.slice(0, count - 1).join("/");
 				}
 			}
 			return null;

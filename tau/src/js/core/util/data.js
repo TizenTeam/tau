@@ -45,7 +45,7 @@
 				 * @private
 				 */
 				fetchDom = function (element, key) {
-					var dataKey = 'data-' + key,
+					var dataKey = "data-" + key,
 						data,
 						result;
 					if (element.hasAttribute(dataKey)) {
@@ -66,7 +66,7 @@
 				 * @private
 				 */
 				removeDom = function (element, key) {
-					var dataKey = 'data-' + key;
+					var dataKey = "data-" + key;
 					if (element.hasAttribute(dataKey)) {
 						element.removeAttribute(dataKey);
 					}

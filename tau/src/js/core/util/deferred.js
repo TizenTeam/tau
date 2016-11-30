@@ -87,11 +87,11 @@
 							var functions = arguments;
 							return new Deferred(function (newDefer) {
 								tuples.forEach(function (tuple, i) {
-									var fn = (typeof functions[i] === 'function') && functions[i];
+									var fn = (typeof functions[i] === "function") && functions[i];
 									// deferred[ done | fail | progress ] for forwarding actions to newDefer
 									deferred[tuple[1]](function () {
 										var returned = fn && fn.apply(this, arguments);
-										if (returned && (typeof returned.promise === 'function')) {
+										if (returned && (typeof returned.promise === "function")) {
 											returned.promise()
 												.done(newDefer.resolve)
 												.fail(newDefer.reject)

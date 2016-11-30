@@ -216,7 +216,7 @@
 
 			pickerPrototype._chooseControls = function (fieldName) {
 				var self = this;
-				if (fieldName === 'period') {
+				if (fieldName === "period") {
 					return self.periodControls;
 				} else {
 					return self.wheelControls;

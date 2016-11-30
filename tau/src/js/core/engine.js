@@ -526,7 +526,7 @@
 			 * @member ns.engine
 			 */
 			function ensureElement(element, Widget) {
-				if (!element || !element instanceof HTMLElement) {
+				if (!element || !(element instanceof HTMLElement)) {
 					if (typeof Widget.createEmptyElement === TYPE_FUNCTION) {
 						element = Widget.createEmptyElement();
 					} else {
@@ -563,7 +563,7 @@
 				element = ensureElement(element, Widget);
 				widgetInstance = Widget ? new Widget(element) : false;
 				// if any parent has attribute data-enhance=false then stop building widgets
-				parentEnhance = selectors.getParentsBySelectorNS(element, 'enhance=false');
+				parentEnhance = selectors.getParentsBySelectorNS(element, "enhance=false");
 
 				// While processing widgets queue other widget may built this one before
 				// it reaches it's turn
@@ -859,7 +859,7 @@
 					metaTag,
 					i;
 
-				metaTagList = documentHead.querySelectorAll('[name="viewport"]');
+				metaTagList = documentHead.querySelectorAll("[name=\"viewport\"]");
 				metaTagListLength = metaTagList.length;
 
 				if (metaTagListLength > 0) {
@@ -873,11 +873,11 @@
 					}
 				} else {
 					// Create new HTML Element
-					metaTag = document.createElement('meta');
+					metaTag = document.createElement("meta");
 
 					// Set required attributes
-					metaTag.setAttribute('name', 'viewport');
-					metaTag.setAttribute('content', 'width=device-width, user-scalable=no');
+					metaTag.setAttribute("name", "viewport");
+					metaTag.setAttribute("content", "width=device-width, user-scalable=no");
 
 					// Force that viewport tag will be first child of head
 					if (documentHead.firstChild) {

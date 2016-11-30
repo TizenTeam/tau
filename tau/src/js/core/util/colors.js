@@ -55,7 +55,7 @@
 				 * @static
 				 */
 				HTMLToRGB: function (clr_str) {
-					clr_str = (('#' === clr_str.charAt(0)) ? clr_str.substring(1) : clr_str);
+					clr_str = (("#" === clr_str.charAt(0)) ? clr_str.substring(1) : clr_str);
 					return ([
 						clr_str.substring(0, 2),
 						clr_str.substring(2, 4),

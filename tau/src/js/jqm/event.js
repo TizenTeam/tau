@@ -170,8 +170,8 @@
 							}
 						});
 
-						this.copyEventProperties(window.screen, 'orientationchange', eventUtils.orientationchange.properties);
-						this.proxyEventTriggerMethod('orientationchange', eventUtils.orientationchange.trigger);
+						this.copyEventProperties(window.screen, "orientationchange", eventUtils.orientationchange.properties);
+						this.proxyEventTriggerMethod("orientationchange", eventUtils.orientationchange.trigger);
 
 						// Proxied jQuery's trigger method to fire swipe event
 						if (orginalTrigger === undefined) {

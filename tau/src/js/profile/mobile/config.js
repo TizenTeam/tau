@@ -28,11 +28,11 @@
 			//>>excludeEnd("tauBuildExclude");
 
 			// Default configuration properties for mobile
-			ns.setConfig('autoBuildOnPageChange', true, true);
-			ns.setConfig('loader', true, true);
-			ns.setConfig('pageContainerBody', true, true);
-			ns.setConfig('popupTransition', 'slideup');
-			ns.setConfig('pageTransition', 'slide');
+			ns.setConfig("autoBuildOnPageChange", true, true);
+			ns.setConfig("loader", true, true);
+			ns.setConfig("pageContainerBody", true, true);
+			ns.setConfig("popupTransition", "slideup");
+			ns.setConfig("pageTransition", "slide");
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 		}
 	);

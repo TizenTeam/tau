@@ -813,11 +813,11 @@
 					marginRight = window.innerWidth - clipWidth - clipOffset.left || 0;
 
 
-				if (self.options.direction === 'y') {
-					handleStyle.height = floor(clipHeight / viewHeight * clipHeight) + 'px';
+				if (self.options.direction === "y") {
+					handleStyle.height = floor(clipHeight / viewHeight * clipHeight) + "px";
 					handlerStyle.marginTop = offsetTop + "px";
 				} else {
-					handleStyle.width = floor(clipWidth / viewWidth * clipWidth) + 'px';
+					handleStyle.width = floor(clipWidth / viewWidth * clipWidth) + "px";
 				}
 
 				offsets.maxX = floor(max(0, clipWidth - CSSUtils.getElementWidth(handle, "inner", true)));
