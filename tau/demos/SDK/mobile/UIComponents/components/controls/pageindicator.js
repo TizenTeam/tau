@@ -20,6 +20,9 @@
 	pageIndicatorHandler = function (e) {
 		pageIndicator.setActive(e.detail.active);
 	};
+	/**
+	 * Add listener on section change
+	 */
 	changer.addEventListener("sectionchange", pageIndicatorHandler, false);
 
 }(window.tau));
