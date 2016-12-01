@@ -47,5 +47,9 @@
     "underscore": "1.6.0",
     "xml2js": "~0.4.4"
   },
-  "main": "Gruntfile.js"
+  "main": "Gruntfile.js",
+  "dependencies": {
+    "eslint": "^3.11.1",
+    "eslint-plugin-jsdoc": "^2.4.0"
+  }
 }

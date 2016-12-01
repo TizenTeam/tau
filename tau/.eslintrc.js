@@ -300,5 +300,13 @@ module.exports = {
         "wrap-regex": "off",
         "yield-star-spacing": "error",
         "yoda": "off"
+    },
+    "settings": {
+        "jsdoc": {
+            "tagNamePreference": {
+                "returns": "return",
+                "function": "method"
+            }
+        }
     }
 };

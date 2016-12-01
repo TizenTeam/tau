@@ -1,4 +1,4 @@
-/*global module, require*/
+/*global module, require, process*/
 /* jshint -W088 */
 module.exports = function (grunt) {
 	"use strict";
@@ -14,6 +14,22 @@ module.exports = function (grunt) {
 		// Path to build framework
 		dist = "dist",
 		src = "src",
+
+		// Rules for jsdoc check
+		jsdocRules = {
+			"jsdoc/check-param-names": 1,
+			"jsdoc/check-tag-names": 1,
+			"jsdoc/check-types": 1,
+			"jsdoc/newline-after-description": 0,
+			"jsdoc/require-description-complete-sentence": 0,
+			"jsdoc/require-hyphen-before-param-description": 0,
+			"jsdoc/require-param": 1,
+			// @TODO temporary remove, too many errors, good named parem not required description
+			"jsdoc/require-param-description": 0,
+			"jsdoc/require-param-type": 1,
+			"jsdoc/require-returns-description": 1,
+			"jsdoc/require-returns-type": 1
+		},
 
 		// Path to framework JS sources
 		srcJs = path.join(src, "js"),
@@ -175,7 +191,9 @@ module.exports = function (grunt) {
 						list = themes.device[device],
 						versionPath = version ? version + "-path" : "default-path",
 						wearableThemeColors = ["blue", "brown"],
-						i = 0, len = list.length, theme;
+						i = 0,
+						len = list.length,
+						theme;
 
 					if (version === "changeable") {
 						theme = list[0];
@@ -248,6 +266,26 @@ module.exports = function (grunt) {
 						reporterOutput: "report/eslint/junit-" + grunt.option("jshintno") + ".xml"
 					},
 					src: grunt.option("jshintfile")
+				},
+				jsdoc: {
+					options: {
+						plugins: ["jsdoc"],
+						rules: jsdocRules
+					},
+					files: {
+						src: [path.join(srcJs, "**/*.js")]
+					}
+				},
+				"jsdoc-ci": {
+					options: {
+						plugins: ["jsdoc"],
+						rules: jsdocRules,
+						format: "junit",
+						outputFile: "report/eslint/junit-output-doc.xml"
+					},
+					files: {
+						src: [path.join(srcJs, "**/*.js")]
+					}
 				}
 			},
 
@@ -518,6 +556,7 @@ module.exports = function (grunt) {
 						rename: function (dest, src) {
 							var folder = src.substring(0, src.lastIndexOf("/")),
 								filename = src.substring(src.lastIndexOf("/"), src.length);
+
 							filename = filename.substring(0, filename.lastIndexOf("."));
 							return dest + "/" + folder + filename + ".min.css";
 						}
@@ -532,6 +571,7 @@ module.exports = function (grunt) {
 					rename: function (dest, src) {
 						var folder = src.substring(0, src.lastIndexOf("/")),
 							filename = src.substring(src.lastIndexOf("/"), src.length);
+
 						filename = filename.substring(0, filename.lastIndexOf("."));
 						return dest + "/" + folder + filename + ".min.template";
 					}
@@ -1055,7 +1095,7 @@ module.exports = function (grunt) {
 
 	// Task list
 	grunt.registerTask("themesjs", "Generate themes files using requirejs", themesjs);  // Generate separate themes files
-	grunt.registerTask("lint", ["eslint:js" /*"lesslint:less", @TODO fix all errors and revert*/]);
+	grunt.registerTask("lint", ["eslint:js"/*, "eslint:jsdoc" jsdoc issues are reported only into CI process, enable this task after fix all jsdoc issues*/]);
 	grunt.registerTask("jsmin", ["findFiles:js.setMinifiedFiles", "uglify"]);
 	grunt.registerTask("image", ["copy:wearableDefaultImages", "copy:mobileDefaultImages", "copy:tvDefaultImages"]);
 	grunt.registerTask("image-changeable", ["copy:wearableChangeableImages", "copy:wearableColorThemeImages", "copy:mobileChangeableImages"]);
@@ -1073,5 +1113,5 @@ module.exports = function (grunt) {
 	grunt.registerTask("default", ["release"]);
 	grunt.registerTask("ci-wearable", ["clean:test", "test:wearable"]);
 	grunt.registerTask("ci-mobile", ["clean:test", "test:mobile", "test:mobile_support", "test:jqm", "test:jqm14ok"]);
-	grunt.registerTask("ci", ["eslint:js-ci", "lesslint:less-ci"]);
+	grunt.registerTask("ci", ["eslint:js-ci", "lesslint:less-ci", "eslint:jsdoc-ci"]);
 };
