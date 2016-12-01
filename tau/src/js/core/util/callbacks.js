@@ -1,4 +1,4 @@
-/*global window, define */
+/*global window, ns, define */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
  *
@@ -20,22 +20,22 @@
  *
  * Create a callback list using the following parameters:
  *  options: an optional list of space-separated options that will change how
- *			the callback list behaves or a more traditional option object
+ *            the callback list behaves or a more traditional option object
  *
  * By default a callback list will act like an event callback list and can be
  * "fired" multiple times.
  *
  * Possible options:
  *
- *	once:			will ensure the callback list can only be fired once (like a Deferred)
+ *    once:            will ensure the callback list can only be fired once (like a Deferred)
  *
- *	memory:			will keep track of previous values and will call any callback added
- *					after the list has been fired right away with the latest "memorized"
- *					values (like a Deferred)
+ *    memory:            will keep track of previous values and will call any callback added
+ *                    after the list has been fired right away with the latest "memorized"
+ *                    values (like a Deferred)
  *
- *	unique:			will ensure a callback can only be added once (no duplicate in the list)
+ *    unique:            will ensure a callback can only be added once (no duplicate in the list)
  *
- *	stopOnFalse:	interrupt callings when a callback returns false
+ *    stopOnFalse:    interrupt callings when a callback returns false
  * @class ns.util.callbacks
  */
 (function (window, document, ns) {
@@ -135,8 +135,8 @@
 								// current firing batch?
 								if (firing) {
 									firingLength = list.length;
-								// With memory, if we're not firing then
-								// we should call right away
+									// With memory, if we're not firing then
+									// we should call right away
 								} else if (memory) {
 									firingStart = start;
 									fire(memory);
@@ -174,7 +174,7 @@
 							return this;
 						},
 						/**
-						 * Check if a given callback is in the list. 
+						 * Check if a given callback is in the list.
 						 * If no argument is given,
 						 * return whether or not list has callbacks attached.
 						 * @method has

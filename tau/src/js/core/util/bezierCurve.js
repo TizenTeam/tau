@@ -1,4 +1,4 @@
-/*global window: false, define: false, Math: false */
+/*global window: false, ns:false, define: false, Math: false */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
  *
@@ -54,7 +54,7 @@
 			 * @static
 			 */
 			arcLength3d = function (p0, p1) {
-				var d = [ p1[0] - p0[0], p1[1] - p0[1], p1[2] - p0[2] ];
+				var d = [p1[0] - p0[0], p1[1] - p0[1], p1[2] - p0[2]];
 				return Math.sqrt(d[0] * d[0] + d[1] * d[1] + d[2] * d[2]);
 			};
 		BezierCurve = function () {
@@ -141,7 +141,7 @@
 						getValue(points[0][0], points[1][0], points[2][0], points[3][0], percent),
 						getValue(points[0][2], points[1][2], points[2][2], points[3][2], percent)
 					];
-				return [ result[0], 0, result[1] ];
+				return [result[0], 0, result[1]];
 			},
 			/**
 			 * Get percent
@@ -189,7 +189,7 @@
 				return Math.atan2(tx, ty) - HALF_PI;
 			}
 		};
-		ns.util.bezierCurve =  new BezierCurve();
+		ns.util.bezierCurve = new BezierCurve();
 
 		//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 		return ns.util.bezierCurve;

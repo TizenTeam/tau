@@ -1,4 +1,4 @@
-/*global window, define */
+/*global window, ns, define */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
  *
@@ -36,10 +36,8 @@
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 
-			var linear = {
-				},
+			var linear = {},
 				objectUtil = ns.util.object,
-				selectors = ns.util.selectors,
 				Box = ns.widget.core.Box,
 				CLASSES_PREFIX = Box.classes.box,
 				LAYOUT_PREFIX = CLASSES_PREFIX + "-linear",
@@ -55,25 +53,16 @@
 					linearFill: false,
 					linearWrap: false
 				},
-				cssRules = [],
-				LAYOUTABLE_ELEMENTS_SELECTOR = "*:not(script)";
+				cssRules = [];
 
 			linear.name = "linear";
 			linear.classes = classes;
 			linear.defaults = defaults;
 
-			linear.configure = function (self, element) {
+			linear.configure = function (self) {
 				// set defaults
 				self.options = objectUtil.merge({}, defaults, self.options);
 			};
-
-			/**
-			 * Method determines what elements can be laid
-			 * @param element
-			 */
-			function getLayoutElements(element) {
-				return selectors.getChildrenBySelector(element, LAYOUTABLE_ELEMENTS_SELECTOR);
-			}
 
 			/**
 			 * Styles support
@@ -86,24 +75,22 @@
 			 * Styles support
 			 */
 			function applyRules(self) {
-				for(var i = 0, length = cssRules.length; i < length; i++){
+				for (var i = 0, length = cssRules.length; i < length; i++) {
 					self.insertCSSRule(cssRules[i]);
 				}
 			}
 
 			linear.enable = function (self, element) {
-				var elements = getLayoutElements(element),
-					options = self.options || {},
-					classList = element.classList;
+				var options = self.options || {};
 
 				if (options.linearLayoutDirection === "horizontal") {
 					element.classList.add(classes.linearHorizontal);
-					if(options.linearFill) {
+					if (options.linearFill) {
 						registerRule("#" + element.id + " > * {height: auto}");//#linear-page
 					}
 				} else {
 					element.classList.add(classes.linearVertical);
-					if(options.linearFill) {
+					if (options.linearFill) {
 						registerRule("#" + element.id + " > * {width: auto}");//#linear-page
 					}
 				}
@@ -112,11 +99,11 @@
 					element.classList.add(classes.linearWrap);
 				}
 
-				registerRule("#" + element.id + " > * {margin: "+ options.linearDistance + "px}");
+				registerRule("#" + element.id + " > * {margin: " + options.linearDistance + "px}");
 				applyRules(self);
 			};
 
-			linear.disable = function (self, element) {
+			linear.disable = function (self) {
 				var classList = self.element.classList;
 
 				classList.remove(classes.linearHorizontal);

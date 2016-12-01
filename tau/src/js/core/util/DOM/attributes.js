@@ -1,4 +1,4 @@
-/*global window, define */
+/*global window, ns, define */
 /*jslint plusplus: true */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
@@ -35,7 +35,7 @@
 
 			var selectors = ns.util.selectors,
 				DOM = ns.util.DOM,
-				namespace = "namespace";
+				NAMESPACE = "namespace";
 
 			/**
 			 * Returns given attribute from element or the closest parent,
@@ -92,7 +92,8 @@
 			};
 
 			function getDataName(name) {
-				var namespace = ns.getConfig(namespace);
+				var namespace = ns.getConfig(NAMESPACE);
+
 				return "data-" + (namespace ? namespace + "-" : "") + name;
 			}
 

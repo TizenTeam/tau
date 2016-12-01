@@ -51,12 +51,12 @@
 						if (parsed.length === 3) {
 							parsedNumber = parseFloat(parsed[1]) || 0;
 							switch (parsed[2]) {
-							case "ms":
-								miliseconds = parsedNumber;
-								break;
-							case "s":
-								miliseconds = parsedNumber * 1000;
-								break;
+								case "ms":
+									miliseconds = parsedNumber;
+									break;
+								case "s":
+									miliseconds = parsedNumber * 1000;
+									break;
 							}
 						}
 						return miliseconds;

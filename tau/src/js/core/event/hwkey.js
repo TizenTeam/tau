@@ -1,4 +1,4 @@
-/*global window, define */
+/*global window, ns, define */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
  *
@@ -35,6 +35,7 @@
 						container,
 						containerClass,
 						focused;
+
 					// Check enableHWKeyHandler property
 					if (ns.getConfig("enableHWKeyHandler", true) && activePopup) {
 						container = activePopup._ui.container;
@@ -63,7 +64,7 @@
 					var keyName = event.keyName,
 						elActiveSelectMenu,
 						activeSelectMenu;
-					if (ns.getConfig("enableHWKeyHandler", true) && (keyName === "menu" || keyName === "back")){
+					if (ns.getConfig("enableHWKeyHandler", true) && (keyName === "menu" || keyName === "back")) {
 						elActiveSelectMenu = document.querySelector("div.ui-selectmenu-active select");
 						if (elActiveSelectMenu) {
 							activeSelectMenu = ns.widget.SelectMenu(elActiveSelectMenu);
@@ -99,7 +100,7 @@
 
 			ns.event.hwkey = hwkey;
 
-			document.addEventListener(ns.engine.eventType.INIT, function() {
+			document.addEventListener(ns.engine.eventType.INIT, function () {
 				hwkey.unbind();
 				hwkey.bind();
 			}, false);

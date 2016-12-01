@@ -1,4 +1,4 @@
-/*global window, define, NodeList, HTMLCollection */
+/*global window, ns, define, NodeList, HTMLCollection */
 /*jslint plusplus: true */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd

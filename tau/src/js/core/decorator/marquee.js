@@ -64,17 +64,17 @@
 				// the id of stylesheet is the same as name of animation used on element
 				style.id = animationName;
 				// @-webkit-keyframes
-				animation = "@-webkit-keyframes " + animationName +" {" +
+				animation = "@-webkit-keyframes " + animationName + " {" +
 					" 0% {  text-indent: 0px; }" +
 					" 100% { text-indent: -" + elementWidth + "px } }";
 				// @keyframes
-				animation += " @keyframes " + animationName +" {" +
-				  " 0% {  text-indent: 0px; }" +
-				  " 100% { text-indent: -" + elementWidth + "px } }";
+				animation += " @keyframes " + animationName + " {" +
+					" 0% {  text-indent: 0px; }" +
+					" 100% { text-indent: -" + elementWidth + "px } }";
 				// @-moz-keyframes
-				animation += " @-moz-keyframes " + animationName +" {" +
-				  " 0% {  text-indent: 0px; }" +
-				  " 100% { text-indent: -" + elementWidth + "px } }";
+				animation += " @-moz-keyframes " + animationName + " {" +
+					" 0% {  text-indent: 0px; }" +
+					" 100% { text-indent: -" + elementWidth + "px } }";
 				// create text node with definition of animation
 				animationNode = document.createTextNode(animation);
 
@@ -83,7 +83,7 @@
 				document.head.appendChild(style);
 
 				// set animation on element
-				domUtils.setPrefixedStyle(element, "animation", animationName + " " + elementWidth/SPEED  + "s linear 1s infinite");
+				domUtils.setPrefixedStyle(element, "animation", animationName + " " + elementWidth / SPEED + "s linear 1s infinite");
 			}
 
 			/**

@@ -1,4 +1,4 @@
-/*global window, define */
+/*global window, ns, define */
 /*jslint nomen: true */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
@@ -111,10 +111,9 @@
 			 * But, drawer router doesn't need to that.
 			 * @method parse
 			 * @param {string} html HTML code to parse
-			 * @param {string} absUrl Absolute url for parsed page
 			 * @member ns.router.route.drawer
 			 */
-			routeDrawer.parse = function (html, absUrl) {
+			routeDrawer.parse = function () {
 				return null;
 			};
 
@@ -132,7 +131,7 @@
 
 				this._activeDrawer = activeDrawer;
 
-				if(activeDrawer) {
+				if (activeDrawer) {
 					url = path.addHashSearchParams(documentUrl, drawerHashKey);
 					history.replace({}, "", url);
 					this.active = true;

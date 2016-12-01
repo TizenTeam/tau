@@ -21,17 +21,17 @@
  *
  * @class ns.event.gesture
  */
-(function ( ns, window, undefined ) {
+(function (ns) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define([
-		"../gesture"
+			"../gesture"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 
-			var Gesture = function( elem, options ) {
-				return new ns.event.gesture.Instance( elem, options );
+			var Gesture = function (elem, options) {
+				return new ns.event.gesture.Instance(elem, options);
 			};
 
 			/**
@@ -135,11 +135,11 @@
 			 * @member ns.event.gesture
 			 * @static
 			 */
-			Gesture.createDetector = function( gesture, eventSender, options ) {
-				if ( !Gesture.plugin[gesture] ) {
+			Gesture.createDetector = function (gesture, eventSender, options) {
+				if (!Gesture.plugin[gesture]) {
 					throw gesture + " gesture is not supported";
 				}
-				return new Gesture.plugin[gesture]( eventSender, options );
+				return new Gesture.plugin[gesture](eventSender, options);
 			};
 
 			ns.event.gesture = Gesture;
@@ -147,4 +147,4 @@
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
-} ( ns, window ) );
+}(ns) );

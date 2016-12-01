@@ -20,10 +20,10 @@
  * Creates instance of gesture manager on element.
  * @class ns.event.gesture.Instance
  */
-( function ( ns, window, undefined ) {
+( function (ns) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
-	define([ "./core",
+	define(["./core",
 			"./manager",
 			"./detector",
 			"../../event",
@@ -31,13 +31,13 @@
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
-				/**
-				 * Local alias for {@link ns.event.gesture}
-				 * @property {Object}
-				 * @member ns.event.gesture.Instance
-				 * @private
-				 * @static
-				 */
+			/**
+			 * Local alias for {@link ns.event.gesture}
+			 * @property {Object}
+			 * @member ns.event.gesture.Instance
+			 * @private
+			 * @static
+			 */
 			var Gesture = ns.event.gesture,
 				/**
 				 * Local alias for {@link ns.event.gesture.Detector}
@@ -72,7 +72,7 @@
 				 */
 				merge = ns.util.object.merge;
 
-			Gesture.Instance = function( element, options ) {
+			Gesture.Instance = function (element, options) {
 
 				this.element = element;
 				this.eventDetectors = [];
@@ -90,7 +90,7 @@
 				 * @member ns.event.gesture.Instance
 				 * @protected
 				 */
-				_init: function() {
+				_init: function () {
 					this.gestureManager = Manager.getInstance();
 					this.eventSender = merge({}, Detector.Sender, {
 						sendEvent: this.trigger.bind(this)
@@ -104,13 +104,13 @@
 				 * @member ns.event.gesture.Instance
 				 * @protected
 				 */
-				_findGestureDetector: function( gesture ) {
+				_findGestureDetector: function (gesture) {
 					var detectors = Detector.plugin,
 						detector, name;
-					for ( name in detectors ) {
-						if ( detectors.hasOwnProperty( name ) ) {
-							detector = detectors[ name ];
-							if ( detector.prototype.types.indexOf( gesture ) > -1 ) {
+					for (name in detectors) {
+						if (detectors.hasOwnProperty(name)) {
+							detector = detectors[name];
+							if (detector.prototype.types.indexOf(gesture) > -1) {
 								return detector;
 							}
 						}
@@ -124,7 +124,7 @@
 				 * @chainable
 				 * @member ns.event.gesture.Instance
 				 */
-				setOptions: function( options ) {
+				setOptions: function (options) {
 					merge(this.options, options);
 					return this;
 				},
@@ -136,13 +136,13 @@
 				 * @chainable
 				 * @member ns.event.gesture.Instance
 				 */
-				addDetector: function( detectorStrategy ) {
-					var detector = new Detector( detectorStrategy, this.eventSender ),
+				addDetector: function (detectorStrategy) {
+					var detector = new Detector(detectorStrategy, this.eventSender),
 						alreadyHasDetector = !!this.eventDetectors.length;
 
 					this.eventDetectors.push(detector);
 
-					if ( !!this.eventDetectors.length && !alreadyHasDetector ) {
+					if (!!this.eventDetectors.length && !alreadyHasDetector) {
 						this.gestureManager.register(this);
 					}
 
@@ -156,14 +156,14 @@
 				 * @chainable
 				 * @member ns.event.gesture.Instance
 				 */
-				removeDetector: function( detectorStrategy ) {
-					var idx = this.eventDetectors.indexOf( detectorStrategy );
+				removeDetector: function (detectorStrategy) {
+					var idx = this.eventDetectors.indexOf(detectorStrategy);
 
-					if ( idx > -1 ) {
+					if (idx > -1) {
 						this.eventDetectors.splice(idx, 1);
 					}
 
-					if ( !this.eventDetectors.length ) {
+					if (!this.eventDetectors.length) {
 						this.gestureManager.unregister(this);
 					}
 
@@ -177,7 +177,7 @@
 				 * @param {Object} eventInfo data provided to event object
 				 * @member ns.event.gesture.Instance
 				 */
-				trigger: function( gesture, eventInfo ) {
+				trigger: function (gesture, eventInfo) {
 					return events.trigger(this.element, gesture, eventInfo, false);
 				},
 
@@ -186,7 +186,7 @@
 				 * @method getElement
 				 * @member ns.event.gesture.Instance
 				 */
-				getElement: function() {
+				getElement: function () {
 					return this.element;
 				},
 
@@ -195,7 +195,7 @@
 				 * @method getGestureDetectors
 				 * @member ns.event.gesture.Instance
 				 */
-				getGestureDetectors: function() {
+				getGestureDetectors: function () {
 					return this.eventDetectors;
 				},
 
@@ -204,7 +204,7 @@
 				 * @method destroy
 				 * @member ns.event.gesture.Instance
 				 */
-				destroy: function( ) {
+				destroy: function () {
 					this.element = null;
 					this.eventHandlers = {};
 					this.gestureManager = null;
@@ -216,4 +216,4 @@
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
-} ( ns, window ) );
+}(ns) );

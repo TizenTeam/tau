@@ -1,4 +1,4 @@
-/*global window, define */
+/*global window, ns, define */
 /*jslint nomen: true */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
@@ -116,9 +116,9 @@
 					 * @property options.dragEdge {number} Set the area that can open the drawer as drag gesture in drawer target element
 					 */
 					self.options = {
-						position : DEFAULT.POSITION,
-						width : DEFAULT.WIDTH,
-						duration : DEFAULT.DURATION,
+						position: DEFAULT.POSITION,
+						width: DEFAULT.WIDTH,
+						duration: DEFAULT.DURATION,
 						closeOnClick: true,
 						overlay: true,
 						drawerTarget: "." + Page.classes.uiPage,
@@ -147,13 +147,13 @@
 				 * @readonly
 				 */
 				classes = {
-					page : Page.classes.uiPage,
-					drawer : "ui-drawer",
-					left : "ui-drawer-left",
-					right : "ui-drawer-right",
-					overlay : "ui-drawer-overlay",
-					open : "ui-drawer-open",
-					close : "ui-drawer-close"
+					page: Page.classes.uiPage,
+					drawer: "ui-drawer",
+					left: "ui-drawer-left",
+					right: "ui-drawer-right",
+					overlay: "ui-drawer-overlay",
+					open: "ui-drawer-open",
+					close: "ui-drawer-close"
 				},
 				/**
 				 * {Object} Drawer widget prototype
@@ -216,6 +216,7 @@
 					events.on(overlayElement, "vclick", self, false);
 				}
 			}
+
 			/**
 			 * Handle events
 			 * @method handleEvent
@@ -264,11 +265,10 @@
 			/**
 			 * MouseUp event handler
 			 * @method _onMouseup
-			 * @param {Event} event
 			 * @member ns.widget.core.Drawer
 			 * @protected
 			 */
-			prototype._onMouseup = function (event) {
+			prototype._onMouseup = function () {
 				var self = this;
 				if (self._state === STATE.SLIDING) {
 					self.close();
@@ -277,11 +277,10 @@
 			/**
 			 * Click event handler
 			 * @method _onClick
-			 * @param {Event} event
 			 * @member ns.widget.core.Drawer
 			 * @protected
 			 */
-			prototype._onClick = function (event) {
+			prototype._onClick = function () {
 				var self = this;
 				if (self._state === STATE.OPENED) {
 					self.close();
@@ -291,11 +290,10 @@
 			/**
 			 * Resize event handler
 			 * @method _onResize
-			 * @param {Event} event
 			 * @member ns.widget.core.Drawer
 			 * @protected
 			 */
-			prototype._onResize = function (event) {
+			prototype._onResize = function () {
 				var self = this;
 				// resize event handler
 				self._refresh();
@@ -304,11 +302,10 @@
 			/**
 			 * webkitTransitionEnd event handler
 			 * @method _onTransitionEnd
-			 * @param {Event} event
 			 * @member ns.widget.core.Drawer
 			 * @protected
 			 */
-			prototype._onTransitionEnd = function (event) {
+			prototype._onTransitionEnd = function () {
 				var self = this,
 					position = self.options.position,
 					drawerOverlay = self._drawerOverlay;
@@ -430,10 +427,9 @@
 			 * DragCancel event handler
 			 * @method _onDragCancel
 			 * @protected
-			 * @param {Event} event
 			 * @member ns.widget.core.Drawer
 			 */
-			prototype._onDragCancel = function (event) {
+			prototype._onDragCancel = function () {
 				var self = this;
 				if (self.options.enable && self._isDrag) {
 					self.close();
@@ -796,10 +792,10 @@
 			prototype.transition = function (position) {
 				var self = this,
 					options = self.options;
-				if (options.position === "left"){
+				if (options.position === "left") {
 					self._translate(-options.width + position, options.duration);
 				} else {
-					self._translate(options.width - position , options.duration);
+					self._translate(options.width - position, options.duration);
 				}
 				self._traslatedX = position;
 			};

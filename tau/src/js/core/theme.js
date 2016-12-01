@@ -51,8 +51,8 @@
 						tag = element.tagName.toLowerCase(),
 						type = element.type;
 					if ((tag !== "input" ||
-							(type !== "text" && type !== "email" && type !== "url" && type !== "search" && type !== "tel")) &&
-							tag !== "textarea") {
+						(type !== "text" && type !== "email" && type !== "url" && type !== "search" && type !== "tel")) &&
+						tag !== "textarea") {
 						event.stopPropagation();
 						event.preventDefault();
 					}
@@ -61,7 +61,7 @@
 				THEME_JS_FILE_NAME = "theme.js",
 				THEME_CSS_FILE_NAME = "tau",
 
-				themeRegex =  /ui-(bar|body|overlay)-([a-z])\b/,
+				themeRegex = /ui-(bar|body|overlay)-([a-z])\b/,
 				deviceWidthRegex = /.*width=(device-width|\d+)\s*,?.*$/gi;
 
 			ns.theme = {
@@ -105,7 +105,7 @@
 				 * @param {number} ratio Scaling ration
 				 * @member ns.theme
 				 */
-				scaleBaseFontSize : function (themeDefaultFontSize, ratio) {
+				scaleBaseFontSize: function (themeDefaultFontSize, ratio) {
 					var scaledFontSize = Math.max(themeDefaultFontSize * ratio | 0, 4);
 					documentElement.style.fontSize = scaledFontSize + "px";
 					document.body.style.fontSize = scaledFontSize + "px";
@@ -156,14 +156,14 @@
 						elementStyle;
 
 					switch (value) {
-					case "text":
-					case "auto":
-					case "none":
-						val = value;
-						break;
-					default:
-						val = "auto";
-						break;
+						case "text":
+						case "auto":
+						case "none":
+							val = value;
+							break;
+						default:
+							val = "auto";
+							break;
 					}
 
 					if (element === document) {
@@ -204,7 +204,7 @@
 				 * @param {string} theme Choosen theme.
 				 * @member ns.theme
 				 */
-				loadTheme: function(theme) {
+				loadTheme: function (theme) {
 					var self = this,
 						themePath = frameworkData.themePath,
 						themeName = THEME_CSS_FILE_NAME,
@@ -258,7 +258,7 @@
 				 * @return {string} Width of custom viewport.
 				 * @member ns.theme
 				 */
-				setViewport: function(viewportWidth) {
+				setViewport: function (viewportWidth) {
 					var metaViewport = document.querySelector("meta[name=viewport]"),
 						content;
 
@@ -285,7 +285,7 @@
 				 * is run in mobile browser. Otherwise, false is returned.
 				 * @member ns.theme
 				 */
-				isMobileBrowser: function() {
+				isMobileBrowser: function () {
 					return window.navigator.appVersion.indexOf("Mobile") > -1;
 				},
 

@@ -21,21 +21,21 @@
  *
  * @class ns.event.gesture.Detector
  */
-( function ( ns, window, undefined ) {
+( function (ns) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
-	define([ "./core",
-		"../../util/object"
+	define(["./core",
+			"../../util/object"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
-				/**
-				 * Local alias for {@link ns.event.gesture}
-				 * @property {Object}
-				 * @member ns.event.gesture.Manager
-				 * @private
-				 * @static
-				 */
+			/**
+			 * Local alias for {@link ns.event.gesture}
+			 * @property {Object}
+			 * @member ns.event.gesture.Manager
+			 * @private
+			 * @static
+			 */
 			var Gesture = ns.event.gesture,
 				/**
 				 * Alias for method {@link ns.util.object.merge}
@@ -46,7 +46,7 @@
 				 */
 				objectMerge = ns.util.object.merge,
 
-				Detector = function( strategy, sender ) {
+				Detector = function (strategy, sender) {
 					this.sender = sender;
 					this.strategy = strategy.create();
 					this.name = this.strategy.name;
@@ -61,12 +61,13 @@
 			 * @return {Object}
 			 * @member ns.event.gesture.Detector
 			 */
-			Detector.prototype.detect = function( gestureEvent ) {
-				return this.strategy.handler( gestureEvent, this.sender, this.strategy.options );
+			Detector.prototype.detect = function (gestureEvent) {
+				return this.strategy.handler(gestureEvent, this.sender, this.strategy.options);
 			};
 
 			Detector.Sender = {
-				sendEvent: function(/* eventName, detail */) {}
+				sendEvent: function (/* eventName, detail */) {
+				}
 			};
 
 			/**
@@ -83,17 +84,17 @@
 			 * @return {ns.event.gesture.Detector} gestureHandler
 			 * @member ns.event.gesture.Detector.plugin
 			 */
-			Detector.plugin.create = function( gestureHandler ) {
+			Detector.plugin.create = function (gestureHandler) {
 
-				if ( !gestureHandler.types ) {
-					gestureHandler.types = [ gestureHandler.name ];
+				if (!gestureHandler.types) {
+					gestureHandler.types = [gestureHandler.name];
 				}
 
-				var detector = Detector.plugin[ gestureHandler.name ] = function( options ) {
+				var detector = Detector.plugin[gestureHandler.name] = function (options) {
 					this.options = objectMerge({}, gestureHandler.defaults, options);
 				};
 
-				detector.prototype.create = function() {
+				detector.prototype.create = function () {
 					return objectMerge({
 						options: this.options
 					}, gestureHandler);
@@ -109,4 +110,4 @@
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
-} ( ns, window ));
+}(ns, window));

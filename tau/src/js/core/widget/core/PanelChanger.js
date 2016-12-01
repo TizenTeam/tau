@@ -1,4 +1,4 @@
-/*global window, define */
+/*global window, ns, define */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
  *
@@ -85,7 +85,7 @@
 			 * @member ns.widget.core.PanelChanger
 			 * @protected
 			 */
-			prototype._configure = function() {
+			prototype._configure = function () {
 				var self = this;
 				object.merge(self.options, {
 					animationType: DEFAULT.ANIMATE,
@@ -102,7 +102,7 @@
 			 * @member ns.widget.core.PanelChanger
 			 * @protected
 			 */
-			prototype._build = function(element) {
+			prototype._build = function (element) {
 				element.classList.add(classes.PANEL_CHANGER);
 
 				return element;
@@ -116,7 +116,7 @@
 			 * @member ns.widget.core.PanelChanger
 			 * @protected
 			 */
-			prototype._init = function(element) {
+			prototype._init = function (element) {
 				var self = this,
 					ui = self._ui;
 				ui.page = selectors.getClosestByClass(element, classes.PAGE);
@@ -143,14 +143,13 @@
 			 * @member ns.widget.core.PanelChanger
 			 * @protected
 			 */
-			prototype._initLayout = function() {
+			prototype._initLayout = function () {
 				var self = this,
 					element = self.element,
 					ui = self._ui,
 					pageOffsetHeight = ui.page ? ui.page.offsetHeight : 0,
 					headerOffsetHeight = ui.header ? ui.header.offsetHeight : 0,
-					footerOffsetHeight = ui.footer ? ui.footer.offsetHeight : 0,
-					parentNode = element.parentNode;
+					footerOffsetHeight = ui.footer ? ui.footer.offsetHeight : 0;
 
 				element.style.height = pageOffsetHeight - headerOffsetHeight - footerOffsetHeight + "px";
 			};
@@ -161,7 +160,7 @@
 			 * @member ns.widget.core.PanelChanger
 			 * @protected
 			 */
-			prototype._bindEvents = function(element) {
+			prototype._bindEvents = function (element) {
 				bindEvents.call(this, element);
 			};
 
@@ -174,7 +173,7 @@
 			 * @member ns.widget.core.PanelChanger
 			 * @protected
 			 */
-			prototype._changePanel = function(address, animationType, direction) {
+			prototype._changePanel = function (address, animationType, direction) {
 				var self = this,
 					request = new XMLHttpRequest(),
 					url = address ? address.split(/[#|?]+/)[0] : null;
@@ -207,7 +206,7 @@
 			 * @member ns.widget.core.PanelChanger
 			 * @protected
 			 */
-			prototype._loadSuccess = function(href, xml, direction) {
+			prototype._loadSuccess = function (href, xml, direction) {
 				var self = this,
 					element = self.element,
 					id = href.substring(href.lastIndexOf("#")),
@@ -222,7 +221,7 @@
 
 
 				if (!panel) {
-					console.warn("Panel is not existed");
+					ns.warn("Panel is not existed");
 					return;
 				} else {
 					element.appendChild(panel);
@@ -257,9 +256,8 @@
 			 * @member ns.widget.core.PanelChanger
 			 * @protected
 			 */
-			prototype._show = function() {
+			prototype._show = function () {
 				var self = this,
-					options = self.options,
 					toPanel = self._ui.toPanel,
 					fromPanel = self._ui.activePanel,
 					type = self._animationType,
@@ -274,7 +272,7 @@
 				fromPanel.classList.add(animationClasses.OUT);
 				toPanel.classList.add(animationClasses.IN);
 
-				if(type === "none") {
+				if (type === "none") {
 					self._onAnimationEnd();
 				}
 			};
@@ -285,8 +283,8 @@
 			 * @member ns.widget.core.PanelChanger
 			 * @protected
 			 */
-			prototype._loadError = function() {
-				console.warn("We can't load AJAX")
+			prototype._loadError = function () {
+				ns.warn("We can't load AJAX")
 			};
 
 			/**
@@ -309,7 +307,7 @@
 			 * @member ns.widget.core.PanelChanger
 			 * @protected
 			 */
-			prototype._bindEvents = function(element) {
+			prototype._bindEvents = function (element) {
 				bindEvents.call(this, element);
 			};
 
@@ -320,7 +318,7 @@
 			 * @member ns.widget.core.PanelChanger
 			 * @protected
 			 */
-			prototype._onClick = function(event) {
+			prototype._onClick = function (event) {
 				var self = this,
 					link = event.target.tagName.toLowerCase() === "a" ? event.target : selectors.getClosestByTag(event.target, "A"),
 					href;
@@ -335,11 +333,10 @@
 			/**
 			 * animationEnd event handler
 			 * @method _onAnimationEnd
-			 * @param {Event} event
 			 * @member ns.widget.core.PanelChanger
 			 * @protected
 			 */
-			prototype._onAnimationEnd = function(event) {
+			prototype._onAnimationEnd = function () {
 				var self = this,
 					element = self.element,
 					toPanel = self._ui.toPanel,
@@ -373,7 +370,7 @@
 			 * @member ns.widget.core.PanelChanger
 			 * @protected
 			 */
-			prototype._onPagebeforeshow = function() {
+			prototype._onPagebeforeshow = function () {
 				var routePanel = engine.getRouter().getRoute("panel");
 				routePanel.setActive(this._ui._activePanel);
 			};
@@ -398,7 +395,7 @@
 			 * @member ns.widget.core.PanelChanger
 			 * @protected
 			 */
-			prototype.handleEvent = function(event) {
+			prototype.handleEvent = function (event) {
 				var self = this;
 				switch (event.type) {
 					case "vclick":
@@ -426,7 +423,7 @@
 			 * @member ns.widget.core.PanelChanger
 			 * @public
 			 */
-			prototype.changePanel = function(address, animationType, direction) {
+			prototype.changePanel = function (address, animationType, direction) {
 				this._changePanel(address, animationType, direction);
 			};
 
@@ -436,7 +433,7 @@
 			 * @member ns.widget.core.PanelChanger
 			 * @protected
 			 */
-			prototype._destroy = function() {
+			prototype._destroy = function () {
 				var self = this;
 				self._ui = null;
 				self.options = null;

@@ -43,11 +43,11 @@
 					self._maxEffectElement = null;
 
 					self.options = utilsObject.merge({}, Bouncing.defaults, {scrollEndEffectArea: ns.getConfig("scrollEndEffectArea", Bouncing.defaults.scrollEndEffectArea)});
-				/**
-				 * target element for bouncing effect
-				 * @property {HTMLElement} targetElement
-				 * @member ns.widget.core.scroller.effect.Bouncing
-				 */
+					/**
+					 * target element for bouncing effect
+					 * @property {HTMLElement} targetElement
+					 * @member ns.widget.core.scroller.effect.Bouncing
+					 */
 					self._targetElement = null;
 
 					self._isShow = false;
@@ -63,7 +63,7 @@
 				},
 				defaults = {
 					duration: 500,
-					scrollEndEffectArea : "content"
+					scrollEndEffectArea: "content"
 				},
 				classes = {
 					bouncingEffect: "ui-scrollbar-bouncing-effect",
@@ -81,25 +81,25 @@
 			Bouncing.prototype = {
 				_create: function (scrollerElement, options) {
 					var self = this;
-					if( self.options.scrollEndEffectArea === endEffectAreaType.content ){
+					if (self.options.scrollEndEffectArea === endEffectAreaType.content) {
 						self._container = scrollerElement;
 					} else {
 						self._container = selectors.getClosestByClass(scrollerElement, classes.page);
 					}
 
 					self._orientation = options.orientation;
-					self._maxValue = self._getValue( options.maxScrollX, options.maxScrollY );
+					self._maxValue = self._getValue(options.maxScrollX, options.maxScrollY);
 
 					self._initLayout();
 				},
 
-				_initLayout: function() {
+				_initLayout: function () {
 					var self = this,
 						minElement = self._minEffectElement = document.createElement("DIV"),
 						maxElement = self._maxEffectElement = document.createElement("DIV"),
 						className = classes.bouncingEffect;
 
-					if ( self._orientation === ns.widget.core.scroller.Scroller.Orientation.HORIZONTAL ) {
+					if (self._orientation === ns.widget.core.scroller.Scroller.Orientation.HORIZONTAL) {
 						minElement.className = className + " " + classes.left;
 						maxElement.className = className + " " + classes.right;
 					} else {
@@ -107,8 +107,8 @@
 						maxElement.className = className + " " + classes.bottom;
 					}
 
-					self._container.appendChild( minElement );
-					self._container.appendChild( maxElement );
+					self._container.appendChild(minElement);
+					self._container.appendChild(maxElement);
 
 					minElement.addEventListener("animationEnd", this);
 					minElement.addEventListener("webkitAnimationEnd", this);
@@ -130,9 +130,9 @@
 				 * @param y
 				 * @member ns.widget.core.scroller.effect.Bouncing
 				 */
-				drag: function( x, y ) {
+				drag: function (x, y) {
 					this._isDrag = true;
-					this._checkAndShow( x, y );
+					this._checkAndShow(x, y);
 				},
 
 				/**
@@ -140,9 +140,9 @@
 				 * @method dragEnd
 				 * @member ns.widget.core.scroller.effect.Bouncing
 				 */
-				dragEnd: function() {
+				dragEnd: function () {
 					var self = this;
-					if ( self._isShow && !self._isShowAnimating && !self._isHideAnimating ) {
+					if (self._isShow && !self._isShowAnimating && !self._isHideAnimating) {
 						self._beginHide();
 					}
 
@@ -154,9 +154,9 @@
 				 * @method show
 				 * @member ns.widget.core.scroller.effect.Bouncing
 				 */
-				show: function() {
+				show: function () {
 					var self = this;
-					if ( self._targetElement ) {
+					if (self._targetElement) {
 						self._isShow = true;
 						self._beginShow();
 					}
@@ -167,9 +167,9 @@
 				 * @method hide
 				 * @member ns.widget.core.scroller.effect.Bouncing
 				 */
-				hide: function() {
+				hide: function () {
 					var self = this;
-					if ( self._isShow ) {
+					if (self._isShow) {
 						self._minEffectElement.style.display = "none";
 						self._maxEffectElement.style.display = "none";
 						self._targetElement.classList.remove(classes.hide);
@@ -181,30 +181,30 @@
 					self._targetElement = null;
 				},
 
-				_checkAndShow: function( x, y ) {
+				_checkAndShow: function (x, y) {
 					var self = this,
 						val = self._getValue(x, y);
-					if ( !self._isShow ) {
-						if ( val >= 0 ) {
+					if (!self._isShow) {
+						if (val >= 0) {
 							self._targetElement = self._minEffectElement;
 							self.show();
-						} else if ( val <= self._maxValue ) {
+						} else if (val <= self._maxValue) {
 							self._targetElement = self._maxEffectElement;
 							self.show();
 						}
 
-					} else if ( self._isShow && !self._isDrag && !self._isShowAnimating && !self._isHideAnimating ) {
+					} else if (self._isShow && !self._isDrag && !self._isShowAnimating && !self._isHideAnimating) {
 						self._beginHide();
 					}
 				},
 
-				_getValue: function(x, y) {
+				_getValue: function (x, y) {
 					return this._orientation === ns.widget.core.scroller.Scroller.Orientation.HORIZONTAL ? x : y;
 				},
 
-				_beginShow: function() {
+				_beginShow: function () {
 					var self = this;
-					if ( !self._targetElement || self._isShowAnimating ) {
+					if (!self._targetElement || self._isShowAnimating) {
 						return;
 					}
 
@@ -217,18 +217,18 @@
 					self._isHideAnimating = false;
 				},
 
-				_finishShow: function() {
+				_finishShow: function () {
 					var self = this;
 					self._isShowAnimating = false;
-					if ( !self._isDrag ) {
+					if (!self._isDrag) {
 						self._targetElement.classList.remove(classes.show);
 						self._beginHide();
 					}
 				},
 
-				_beginHide: function() {
+				_beginHide: function () {
 					var self = this;
-					if ( self._isHideAnimating ) {
+					if (self._isHideAnimating) {
 						return;
 					}
 
@@ -239,7 +239,7 @@
 					self._isShowAnimating = false;
 				},
 
-				_finishHide: function() {
+				_finishHide: function () {
 					var self = this;
 					self._isHideAnimating = false;
 					self._targetElement.classList.remove(classes.hide);
@@ -252,11 +252,11 @@
 				 * @method handleEvent
 				 * @member ns.widget.core.scroller.effect.Bouncing
 				 */
-				handleEvent: function( event ) {
+				handleEvent: function (event) {
 					if (event.type.toLowerCase().indexOf("animationend") > -1 && event.animationName.charAt(0) !== "-") {
-						if ( this._isShowAnimating ) {
+						if (this._isShowAnimating) {
 							this._finishShow();
-						} else if ( this._isHideAnimating ) {
+						} else if (this._isHideAnimating) {
 							this._finishHide();
 						}
 					}
@@ -267,7 +267,7 @@
 				 * @method destroy
 				 * @member ns.widget.core.scroller.effect.Bouncing
 				 */
-				destroy: function() {
+				destroy: function () {
 					var self = this,
 						maxEffectElement = this._maxEffectElement,
 						minEffectElement = this._minEffectElement;
@@ -284,8 +284,8 @@
 					maxEffectElement.removeEventListener("msAnimationEnd", this);
 					maxEffectElement.removeEventListener("oAnimationEnd", this);
 
-					self._container.removeChild( minEffectElement );
-					self._container.removeChild( maxEffectElement );
+					self._container.removeChild(minEffectElement);
+					self._container.removeChild(maxEffectElement);
 
 					self._container = null;
 					self._minEffectElement = null;

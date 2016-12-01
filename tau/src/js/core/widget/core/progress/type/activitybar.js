@@ -41,7 +41,7 @@
 					uiActivitybarActivity: "ui-activity-bar-activity"
 				};
 
-			function paintProgressStyle (progress) {
+			function paintProgressStyle(progress) {
 				var ui = progress._ui,
 					options = progress.options,
 					percentValue = (options.value * 100) / (options.max - options.min);

@@ -61,7 +61,7 @@
 				backupFrameworkData = self.backup.frameworkData;
 
 				if (backupFrameworkData) {
-					for(prop in backupFrameworkData) {
+					for (prop in backupFrameworkData) {
 						if (backupFrameworkData.hasOwnProperty(prop)) {
 							ns.frameworkData[prop] = backupFrameworkData[prop];
 						}

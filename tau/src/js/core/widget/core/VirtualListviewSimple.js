@@ -38,7 +38,7 @@
 			 * @static
 			 */
 			var BaseWidget = ns.widget.BaseWidget,
-			// Constants definition
+				// Constants definition
 				/**
 				 * Defines index of scroll `{@link ns.widget.core.VirtualListview#_scroll}.direction`
 				 * @property {number} SCROLL_NONE
@@ -106,7 +106,7 @@
 					gradientSize = min(abs(positionDiff / 8) - 1, 10);
 
 				if (orientation === "vertical") {
-					edgeEffectStyle.top =  (edge === "start") ? "0" : "auto";
+					edgeEffectStyle.top = (edge === "start") ? "0" : "auto";
 					edgeEffectStyle.bottom = (edge === "start") ? "auto" : "0";
 				} else {
 					edgeEffectStyle.left = (edge === "start") ? "0" : "auto";
@@ -125,7 +125,7 @@
 				return 0;
 			}
 
-			function setupScrollview(element, orientation) {
+			function setupScrollview(element) {
 				return selectors.getClosestByClass(element, "ui-scroller") || element.parentElement;
 			}
 
@@ -182,7 +182,7 @@
 					content = selectors.getClosestBySelector(list, ".ui-content").getBoundingClientRect(),
 					elementRect = null,
 					i,
-					scrollInitSize = [].reduce.call(scrollview.children, function(previousValue, currentNode) {
+					scrollInitSize = [].reduce.call(scrollview.children, function (previousValue, currentNode) {
 						return previousValue + currentNode.getBoundingClientRect()[sizeProperty];
 					}, 0);
 
@@ -219,7 +219,7 @@
 				}
 				if (options.snap) {
 					utilScrolling.setSnapSize(self._itemSize);
-					self._snapListviewWidget = tau.engine.instanceWidget(list, "SnapListview", options.snap);
+					self._snapListviewWidget = ns.engine.instanceWidget(list, "SnapListview", options.snap);
 					self._snapListviewWidget.refresh();
 				}
 
@@ -312,71 +312,71 @@
 				if (scrollBegin !== undefined) {
 					self._scrollBegin = scrollBegin;
 					currentIndex = floor(scrollBegin / self._itemSize);
-						if (currentIndex !== floor(self._scrollBeginPrev / self._itemSize) && currentIndex >= 0) {
-							if (scrollBegin < self._itemSize) {
-								fromIndex = 0;
-								correction =  0;
-							} else if (currentIndex > (dataLength - numberOfItems) && !infinite) {
-								fromIndex = dataLength - numberOfItems;
-								correction = itemSize * (currentIndex-fromIndex);
-							} else {
-								fromIndex = currentIndex - 1;
-								correction = itemSize;
-							}
+					if (currentIndex !== floor(self._scrollBeginPrev / self._itemSize) && currentIndex >= 0) {
+						if (scrollBegin < self._itemSize) {
+							fromIndex = 0;
+							correction = 0;
+						} else if (currentIndex > (dataLength - numberOfItems) && !infinite) {
+							fromIndex = dataLength - numberOfItems;
+							correction = itemSize * (currentIndex - fromIndex);
+						} else {
+							fromIndex = currentIndex - 1;
+							correction = itemSize;
+						}
 
-							// Get elements which are currently presented
-							for (i = fromIndex; i < fromIndex + numberOfItems; ++i) {
-								map[i - fromIndex] = filter.call(list.children, filterElement.bind(null, i % dataLength))[0];
-							}
+						// Get elements which are currently presented
+						for (i = fromIndex; i < fromIndex + numberOfItems; ++i) {
+							map[i - fromIndex] = filter.call(list.children, filterElement.bind(null, i % dataLength))[0];
+						}
 
-							// Get elements that should be changed
-							freeElements = filter.call(list.children, filterFreeElements.bind(null, map));
+						// Get elements that should be changed
+						freeElements = filter.call(list.children, filterFreeElements.bind(null, map));
 
-							for (i = fromIndex + numberOfItems - 1; i >= fromIndex; --i) {
-								j = i % dataLength;
-								if ((i >= 0 && i < dataLength) || infinite) {
+						for (i = fromIndex + numberOfItems - 1; i >= fromIndex; --i) {
+							j = i % dataLength;
+							if ((i >= 0 && i < dataLength) || infinite) {
 
-									// if checked element is not presented
-									if (!map[i - fromIndex]) {
-										// get first free element
-										listItem = freeElements.shift();
-										map[i - fromIndex] = listItem;
-										self._updateListItem(listItem, j);
+								// if checked element is not presented
+								if (!map[i - fromIndex]) {
+									// get first free element
+									listItem = freeElements.shift();
+									map[i - fromIndex] = listItem;
+									self._updateListItem(listItem, j);
 
-										// Get the desired position for the element
-										if (i - fromIndex === numberOfItems - 1 || (j  < fromIndex && (scrollBegin > self._scrollBeginPrev))) {
-											list.appendChild(listItem);
+									// Get the desired position for the element
+									if (i - fromIndex === numberOfItems - 1 || (j < fromIndex && (scrollBegin > self._scrollBeginPrev))) {
+										list.appendChild(listItem);
+									} else {
+										nextElement = map.filter(filterNextElement.bind(null, i - fromIndex))[0];
+										if (!nextElement) {
+											list.insertBefore(listItem, list.firstElementChild);
 										} else {
-											nextElement = map.filter(filterNextElement.bind(null, i - fromIndex))[0];
-											if (!nextElement) {
-												list.insertBefore(listItem, list.firstElementChild);
-											} else {
-												list.insertBefore(listItem, nextElement);
-											}
+											list.insertBefore(listItem, nextElement);
 										}
 									}
 								}
 							}
-							scroll[beginProperty] = correction + scrollBegin % self._itemSize;
 						}
-						else {
-							// If we are somewhere in the middle of the list
-							if (scrollBegin >= 0) {
-								if (scrollBegin < self._itemSize) {
-									scroll[beginProperty] = scrollBegin % itemSize;
-								} else if (currentIndex > (dataLength - numberOfItems) && (!infinite)) {
-									fromIndex = dataLength - numberOfItems;
-									correction = itemSize * (currentIndex-fromIndex);
-									scroll[beginProperty] = correction + scrollBegin % itemSize;
-								} else {
-									scroll[beginProperty] = itemSize + scrollBegin % itemSize;
-								}
+						scroll[beginProperty] = correction + scrollBegin % self._itemSize;
+					}
+					else {
+						// If we are somewhere in the middle of the list
+						if (scrollBegin >= 0) {
+							if (scrollBegin < self._itemSize) {
+								scroll[beginProperty] = scrollBegin % itemSize;
+							} else if (currentIndex > (dataLength - numberOfItems) && (!infinite)) {
+								fromIndex = dataLength - numberOfItems;
+								correction = itemSize * (currentIndex - fromIndex);
+								scroll[beginProperty] = correction + scrollBegin % itemSize;
 							} else {
-								// In case we scroll to content before the list
-								scroll[beginProperty] = scrollBegin;
+								scroll[beginProperty] = itemSize + scrollBegin % itemSize;
 							}
+						} else {
+							// In case we scroll to content before the list
+							scroll[beginProperty] = scrollBegin;
 						}
-						scrollChildStyle.webkitTransform = "translate(" + (-scroll.scrollLeft) + "px, " + (-scroll.scrollTop) + "px)";
+					}
+					scrollChildStyle.webkitTransform = "translate(" + (-scroll.scrollLeft) + "px, " + (-scroll.scrollTop) + "px)";
 
 					self._scrollBeginPrev = scrollBegin;
 				}
@@ -386,8 +386,7 @@
 			}
 
 			prototype._bindEvents = function () {
-				var self = this,
-				scrollEventBound = _updateList.bind(null, this),
+				var scrollEventBound = _updateList.bind(null, this),
 					scrollview = this._ui.scrollview;
 
 				if (scrollview) {
@@ -397,7 +396,7 @@
 
 			};
 
-			prototype._destroy = function() {
+			prototype._destroy = function () {
 				utilScrolling.disable();
 			};
 
@@ -418,7 +417,7 @@
 				true
 			);
 			ns.widget.core.VirtualListviewSimple = SimpleVirtualList;
-		//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
+			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return SimpleVirtualList;
 		}
 	);

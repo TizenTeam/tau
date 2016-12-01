@@ -26,7 +26,7 @@
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
-			var BaseWidget  = ns.widget.BaseWidget,
+			var BaseWidget = ns.widget.BaseWidget,
 				engine = ns.engine,
 				Radio = function () {
 					var self = this;

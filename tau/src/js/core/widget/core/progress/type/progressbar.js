@@ -44,40 +44,40 @@
 					uiProgressbarDecorator: "ui-progress-bar-decorator"
 				},
 
-				createAnimationFrame = function(duration, call1, call2, call3) {
+				createAnimationFrame = function (duration, call1, call2, call3) {
 					return [
 						{
 							start: 0,
 							end: 800,
-							callback: function(t, end) {
+							callback: function (t, end) {
 								call1.call(this, t, end);
 							}
 						},
 						{
 							start: 800,
 							end: 1350,
-							callback: function(t, end) {
+							callback: function (t, end) {
 								call2.call(this, t, end);
 							}
 						},
 						{
 							start: 1550,
 							end: 1850,
-							callback: function(t, end) {
+							callback: function (t, end) {
 								call3.call(this, t, end);
 							}
 						}
 					];
 				};
 
-			function setAriaValues (element, options) {
+			function setAriaValues(element, options) {
 				//set Aria value
 				element.setAttribute("aria-valuenow", options.value);
 				element.setAttribute("aria-valuemin", options.min);
 				element.setAttribute("aria-valuemax", options.max);
 			}
 
-			function paintProgressStyle (progress) {
+			function paintProgressStyle(progress) {
 				var ui = progress._ui,
 					options = progress.options,
 					element = progress.element,
@@ -90,7 +90,7 @@
 			}
 
 			type.bar = utilsObject.merge({}, typeInterface, {
-				build: function(progress, element) {
+				build: function (progress, element) {
 					var ui = {},
 						progressBarValueElement,
 						progressBarDecoratorElement;
@@ -145,36 +145,36 @@
 
 					if (!progress._isAnimating) {
 						decoElement.style.opacity = 1;
-						animationFrames = createAnimationFrame(duration, function(t, end) {
-							valueElement.style.width = oldPercentValue + ((newPercentValue - oldPercentValue) * t/end) + "%";
+						animationFrames = createAnimationFrame(duration, function (t, end) {
+							valueElement.style.width = oldPercentValue + ((newPercentValue - oldPercentValue) * t / end) + "%";
 							if (newValue > oldValue) {
-								decoElement.style.width = decoElementOldWidth + ((newPercentValue - oldPercentValue) * t/end) + "%";
+								decoElement.style.width = decoElementOldWidth + ((newPercentValue - oldPercentValue) * t / end) + "%";
 							} else {
-								decoElement.style.width = decoElementOldWidth + ((oldPercentValue - newPercentValue) * t/end) + "%";
+								decoElement.style.width = decoElementOldWidth + ((oldPercentValue - newPercentValue) * t / end) + "%";
 								decoElement.style.left = oldPercentValue - parseFloat(decoElement.style.width) + "%";
 								decoElementOldLeft = parseFloat(decoElement.style.left);
 							}
-						}, function(t, end) {
+						}, function (t, end) {
 							if (newValue > oldValue) {
-								decoElement.style.left = decoElementOldLeft + ((newPercentValue - decoElementOldLeft - elementHeightPercentValue) * t/end) + "%";
-								decoElement.style.width = (decoElementOldWidth + newPercentValue - oldPercentValue) - ((decoElementOldWidth + newPercentValue - oldPercentValue - elementHeightPercentValue) * t/end) + "%";
+								decoElement.style.left = decoElementOldLeft + ((newPercentValue - decoElementOldLeft - elementHeightPercentValue) * t / end) + "%";
+								decoElement.style.width = (decoElementOldWidth + newPercentValue - oldPercentValue) - ((decoElementOldWidth + newPercentValue - oldPercentValue - elementHeightPercentValue) * t / end) + "%";
 							} else {
-								decoElement.style.width = (decoElementOldWidth + (oldPercentValue - newPercentValue)) - ((oldPercentValue - newPercentValue) * t/end) + "%";
+								decoElement.style.width = (decoElementOldWidth + (oldPercentValue - newPercentValue)) - ((oldPercentValue - newPercentValue) * t / end) + "%";
 							}
-						}, function(t, end) {
+						}, function (t, end) {
 							if (newValue >= progress.options.max) {
-									decoElement.style.opacity = 1 - t/end;
+								decoElement.style.opacity = 1 - t / end;
 							}
 						});
-						progress._animate(duration, function(t) {
-							animationFrames.forEach(function(animation){
+						progress._animate(duration, function (t) {
+							animationFrames.forEach(function (animation) {
 								if (t >= animation.start && t <= animation.end) {
-									animation.callback(t - animation.start, animation.end-animation.start);
+									animation.callback(t - animation.start, animation.end - animation.start);
 								} else if (t > animation.end) {
 									animation.callback(1, 1);
 								}
 							});
-						}, function() {
+						}, function () {
 							if (progress.options.value !== newValue) {
 								type.bar.changeValue(progress, newValue, progress.options.value);
 							}

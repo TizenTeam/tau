@@ -1,4 +1,4 @@
-/*global window, define, Object, Element */
+/*global window, ns, define, Object, Element */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
  *
@@ -52,7 +52,8 @@
 						data = element.getAttribute(dataKey);
 						try {
 							result = JSON.parse(data);
-						} catch (ignore) {}
+						} catch (ignore) {
+						}
 					}
 					return result;
 				},
@@ -82,8 +83,8 @@
 				 */
 				hashObject = function (value) {
 					if (value === undefined ||
-							value === null ||
-							value === false) {
+						value === null ||
+						value === false) {
 						throw "Hashed object/primitive can not be undefined, null or false";
 					}
 
@@ -95,7 +96,7 @@
 						value.__tau_hash = value.__tau_hash || ns.getUniqueId();
 					}
 					var h = (typeof value) + "-" + (value instanceof Object ?
-								value.__tau_hash : value.toString());
+							value.__tau_hash : value.toString());
 
 					if (value instanceof Element) {
 						value.setAttribute("data-ns-hash", h);

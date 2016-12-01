@@ -33,26 +33,26 @@
 
 			var object = {
 				/**
-				* Copy object to new object
-				* @method copy
-				* @param {Object} orgObject
-				* @return {Object}
-				* @static
-				* @member ns.util.object
-				*/
+				 * Copy object to new object
+				 * @method copy
+				 * @param {Object} orgObject
+				 * @return {Object}
+				 * @static
+				 * @member ns.util.object
+				 */
 				copy: function (orgObject) {
 					return object.merge({}, orgObject);
 				},
 
 				/**
-				* Attach fields from second object to first object.
-				* @method fastMerge
-				* @param {Object} newObject
-				* @param {Object} orgObject
-				* @return {Object}
-				* @static
-				* @member ns.util.object
-				*/
+				 * Attach fields from second object to first object.
+				 * @method fastMerge
+				 * @param {Object} newObject
+				 * @param {Object} orgObject
+				 * @return {Object}
+				 * @static
+				 * @member ns.util.object
+				 */
 				fastMerge: function (newObject, orgObject) {
 					var key;
 					for (key in orgObject) {
@@ -64,16 +64,16 @@
 				},
 
 				/**
-				* Attach fields from second and next object to first object.
-				* @method merge
-				* @param {Object} newObject
-				* @param {...Object} orgObject
-				* @param {?boolean} [override=true]
-				* @return {Object}
-				* @static
-				* @member ns.util.object
-				*/
-				merge: function ( /* newObject, orgObject, override */ ) {
+				 * Attach fields from second and next object to first object.
+				 * @method merge
+				 * @param {Object} newObject
+				 * @param {...Object} orgObject
+				 * @param {?boolean} [override=true]
+				 * @return {Object}
+				 * @static
+				 * @member ns.util.object
+				 */
+				merge: function (/* newObject, orgObject, override */) {
 					var newObject, orgObject, override,
 						key,
 						args = [].slice.call(arguments),
@@ -81,8 +81,8 @@
 						i;
 					newObject = args.shift();
 					override = true;
-					if (typeof arguments[argsLength-1] === "boolean") {
-						override = arguments[argsLength-1];
+					if (typeof arguments[argsLength - 1] === "boolean") {
+						override = arguments[argsLength - 1];
 						argsLength--;
 					}
 					for (i = 0; i < argsLength; i++) {
@@ -109,23 +109,23 @@
 				 * @member ns.util.object
 				 */
 				/* jshint -W083 */
-				inherit: function( Constructor, Base, prototype ) {
+				inherit: function (Constructor, Base, prototype) {
 					var basePrototype = new Base(),
 						property,
 						value;
 					for (property in prototype) {
 						if (prototype.hasOwnProperty(property)) {
 							value = prototype[property];
-							if ( typeof value === "function" ) {
+							if (typeof value === "function") {
 								basePrototype[property] = (function createFunctionWithSuper(Base, property, value) {
-									var _super = function() {
+									var _super = function () {
 										var superFunction = Base.prototype[property];
 										if (superFunction) {
 											return superFunction.apply(this, arguments);
 										}
 										return null;
 									};
-									return function() {
+									return function () {
 										var __super = this._super,
 											returnValue;
 

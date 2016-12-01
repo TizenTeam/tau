@@ -169,7 +169,7 @@
 			 * @member ns.widget.core.Slider
 			 * @protected
 			 */
-			prototype._build = function(element) {
+			prototype._build = function (element) {
 				var self = this,
 					ui = self._ui,
 					barElement = document.createElement("div"),
@@ -200,7 +200,7 @@
 			 * @member ns.widget.core.Slider
 			 * @protected
 			 */
-			prototype._init = function(element) {
+			prototype._init = function (element) {
 				var self = this,
 					attrMin = parseInt(element.getAttribute("min"), 10),
 					attrMax = parseInt(element.getAttribute("max"), 10),
@@ -224,7 +224,7 @@
 			 * @member ns.widget.core.Slider
 			 * @protected
 			 */
-			prototype._initLayout = function() {
+			prototype._initLayout = function () {
 				var self = this,
 					options = self.options,
 					ui = self._ui,
@@ -259,7 +259,7 @@
 			 * @member ns.widget.core.Slider
 			 * @protected
 			 */
-			prototype._setCenterValue = function(value) {
+			prototype._setCenterValue = function (value) {
 				var self = this,
 					ui = self._ui,
 					validValue,
@@ -270,7 +270,7 @@
 				if (self.options.orientation === DEFAULT.HORIZONTAL) {
 					barElementLength = self._barElementWidth;
 					center = barElementLength / 2;
-					validValue =  barElementLength * (value - self._min) / self._interval;
+					validValue = barElementLength * (value - self._min) / self._interval;
 					validStyle = validValue < center ? "right" : "left";
 					inValidStyle = validValue < center ? "left" : "right";
 					valueElementValidStyle = "width";
@@ -278,7 +278,7 @@
 				} else {
 					barElementLength = self._barElementHeight;
 					center = barElementLength / 2;
-					validValue =  barElementLength * (value - self._min) / self._interval;
+					validValue = barElementLength * (value - self._min) / self._interval;
 					validStyle = validValue < center ? "top" : "bottom";
 					inValidStyle = validValue < center ? "bottom" : "top";
 					valueElementValidStyle = "height";
@@ -298,7 +298,7 @@
 			 * @member ns.widget.core.Slider
 			 * @protected
 			 */
-			prototype._setNormalValue = function(value) {
+			prototype._setNormalValue = function (value) {
 				var self = this,
 					ui = self._ui,
 					options = self.options,
@@ -325,7 +325,7 @@
 			 * @member ns.widget.core.Slider
 			 * @protected
 			 */
-			prototype._setValue = function(value) {
+			prototype._setValue = function (value) {
 				var self = this,
 					ui = self._ui,
 					options = self.options,
@@ -395,7 +395,7 @@
 			 * @member ns.widget.core.Slider
 			 * @protected
 			 */
-			prototype._setSliderColors = function(value) {
+			prototype._setSliderColors = function (value) {
 				var self = this,
 					ui = self._ui,
 					barElement = ui.barElement,
@@ -433,7 +433,7 @@
 
 			// gradients on Tizen do not work in proper way, so this is workaround
 			// if gradients work properly, this should be removed!
-			prototype._updateSliderColors = function(value) {
+			prototype._updateSliderColors = function (value) {
 				this._setSliderColors(value);
 			};
 
@@ -443,7 +443,7 @@
 			 * @member ns.widget.core.Slider
 			 * @protected
 			 */
-			prototype._setHandlerStyle = function(value) {
+			prototype._setHandlerStyle = function (value) {
 				var self = this;
 
 				if (self.options.warning) {
@@ -466,7 +466,7 @@
 				}
 			};
 
-			prototype._enable = function(element) {
+			prototype._enable = function (element) {
 				if (element) {
 					this.options.disabled = false;
 					if (this._ui.barElement) {
@@ -475,7 +475,7 @@
 				}
 			};
 
-			prototype._disable = function(element) {
+			prototype._disable = function (element) {
 				if (element) {
 					this.options.disabled = true;
 					if (this._ui.barElement) {
@@ -490,7 +490,7 @@
 			 * @member ns.widget.core.Slider
 			 * @protected
 			 */
-			prototype._bindEvents = function() {
+			prototype._bindEvents = function () {
 				bindEvents(this);
 			};
 
@@ -501,7 +501,7 @@
 			 * @member ns.widget.core.Slider
 			 * @protected
 			 */
-			prototype.handleEvent = function(event) {
+			prototype.handleEvent = function (event) {
 				var self = this;
 
 				if (!this.options.disabled) {
@@ -527,18 +527,18 @@
 			 * @member ns.widget.core.Slider
 			 * @protected
 			 */
-			prototype._onDrag = function(event) {
+			prototype._onDrag = function (event) {
 				var self = this,
 					ui = self._ui,
 					validPosition,
 					value;
 				if (self._active) {
 					validPosition = self.options.orientation === DEFAULT.HORIZONTAL ?
-						event.detail.estimatedX - ui.barElement.offsetLeft :
-						self._barElementHeight -
-						(event.detail.estimatedY - utilDOM.getElementOffset(ui.barElement).top + selectors.getScrollableParent(self.element).scrollTop),
+					event.detail.estimatedX - ui.barElement.offsetLeft :
+					self._barElementHeight -
+					(event.detail.estimatedY - utilDOM.getElementOffset(ui.barElement).top + selectors.getScrollableParent(self.element).scrollTop),
 
-					value = self.options.orientation === DEFAULT.HORIZONTAL ?
+						value = self.options.orientation === DEFAULT.HORIZONTAL ?
 						self._interval * validPosition / self._barElementWidth :
 						self._interval * validPosition / self._barElementHeight;
 
@@ -554,16 +554,16 @@
 			 * @member ns.widget.core.Slider
 			 * @protected
 			 */
-			prototype._onDragstart = function(event) {
+			prototype._onDragstart = function (event) {
 				var self = this,
 					ui = self._ui,
 					validPosition = self.options.orientation === DEFAULT.HORIZONTAL ?
-						event.detail.estimatedX - ui.barElement.offsetLeft :
-						self._barElementHeight -
-						(event.detail.estimatedY - utilDOM.getElementOffset(ui.barElement).top + selectors.getScrollableParent(self.element).scrollTop),
+					event.detail.estimatedX - ui.barElement.offsetLeft :
+					self._barElementHeight -
+					(event.detail.estimatedY - utilDOM.getElementOffset(ui.barElement).top + selectors.getScrollableParent(self.element).scrollTop),
 					value = self.options.orientation === DEFAULT.HORIZONTAL ?
-						self._interval * validPosition / self._barElementWidth :
-						self._interval * validPosition / self._barElementHeight;
+					self._interval * validPosition / self._barElementWidth :
+					self._interval * validPosition / self._barElementHeight;
 
 				ui.handlerElement.classList.add(classes.SLIDER_HANDLER_ACTIVE);
 				value += self._min;
@@ -578,7 +578,7 @@
 			 * @member ns.widget.core.Slider
 			 * @protected
 			 */
-			prototype._onDragend = function() {
+			prototype._onDragend = function () {
 				var self = this,
 					ui = self._ui;
 				ui.handlerElement.classList.remove(classes.SLIDER_HANDLER_ACTIVE);
@@ -597,7 +597,7 @@
 			 * @member ns.widget.core.Slider
 			 * @protected
 			 */
-			prototype.value = function(value) {
+			prototype.value = function (value) {
 				var self = this;
 				if (value !== undefined) {
 					self._setValue(value);
@@ -612,7 +612,7 @@
 			 * @member ns.widget.core.Slider
 			 * @protected
 			 */
-			prototype.refresh = function() {
+			prototype.refresh = function () {
 				this._setDisabled();
 				this._initLayout();
 			};
@@ -623,7 +623,7 @@
 			 * @member ns.widget.core.Slider
 			 * @protected
 			 */
-			prototype._destroy = function() {
+			prototype._destroy = function () {
 				var self = this,
 					barElement = self._ui.barElement;
 				unbindEvents(self);

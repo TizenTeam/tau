@@ -1,4 +1,4 @@
-/*global window, define */
+/*global window, ns, define */
 /*jslint nomen: true */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
@@ -97,7 +97,7 @@
 					activePanel = panelHistory[panelHistory.length - 1];
 
 				if (self._panelChangerElement.querySelector("#" + activePanel).classList.contains(panelChanger.classes.PRE_IN)
-						|| panelHistory.length === 0) {
+					|| panelHistory.length === 0) {
 					history.replace(prev, prev.stateTitle, prev.stateUrl);
 					return true;
 				}

@@ -50,6 +50,7 @@
 
 				return this;
 			}
+
 			IndexBar.prototype = {
 				_options: {
 					container: null,
@@ -61,9 +62,9 @@
 					indexHeight: 41,
 					selectedClass: "ui-state-selected",
 					ulClass: null,
-					maxIndexLen : 0
+					maxIndexLen: 0
 				},
-				_init: function() {
+				_init: function () {
 					this.indices.original = this.options.index;
 					this.indexLookupTable = [];
 					this.indexElements = null;
@@ -74,14 +75,14 @@
 					this._makeMergedIndices();
 					this._drawDOM();
 					this._appendToContainer();
-					if(this.options.verticalCenter) {
+					if (this.options.verticalCenter) {
 						this._adjustVerticalCenter();
 					}
 					this._setIndexCellInfo();
 				},
 
-				_clear: function() {
-					while(this.element.firstChild) {
+				_clear: function () {
+					while (this.element.firstChild) {
 						this.element.removeChild(this.element.firstChild);
 					}
 
@@ -97,7 +98,7 @@
 				 * @method refresh
 				 * @member ns.widget.wearable.indexscrollbar.IndexBar
 				 */
-				refresh: function() {
+				refresh: function () {
 					this._clear();
 					this._init();
 				},
@@ -107,7 +108,7 @@
 				 * @method destroy
 				 * @member ns.widget.wearable.indexscrollbar.IndexBar
 				 */
-				destroy: function() {
+				destroy: function () {
 					this._clear();
 				},
 
@@ -116,7 +117,7 @@
 				 * @method show
 				 * @member ns.widget.wearable.indexscrollbar.IndexBar
 				 */
-				show: function() {
+				show: function () {
 					this.visibility = "visible";
 					this.element.style.visibility = this.visibility;
 				},
@@ -126,7 +127,7 @@
 				 * @method hide
 				 * @member ns.widget.wearable.indexscrollbar.IndexBar
 				 */
-				hide: function() {
+				hide: function () {
 					this.visibility = "hidden";
 					this.element.style.visibility = this.visibility;
 				},
@@ -136,53 +137,52 @@
 				 * @method isShown
 				 * @member ns.widget.wearable.indexscrollbar.IndexBar
 				 */
-				isShown: function() {
+				isShown: function () {
 					return "visible" === this.visibility;
 				},
 
-				_setMaxIndexLen: function() {
+				_setMaxIndexLen: function () {
 					var maxIndexLen,
 						self = this,
-						indices = self.indices,
 						options = self.options,
 						container = self.container,
 						indexHeight = options.indexHeight,
 						containerHeight = container.offsetHeight;
 
-					maxIndexLen = Math.floor( containerHeight / indexHeight );
-					if(maxIndexLen > 0 && maxIndexLen%2 === 0) {
+					maxIndexLen = Math.floor(containerHeight / indexHeight);
+					if (maxIndexLen > 0 && maxIndexLen % 2 === 0) {
 						maxIndexLen -= 1;	// Ensure odd number
 					}
 					options.maxIndexLen = options.maxIndexLen > 0 ? Math.min(maxIndexLen, options.maxIndexLen) : maxIndexLen;
 
 				},
 
-				_makeMergedIndices: function() {
+				_makeMergedIndices: function () {
 					var origIndices = this.indices.original,
 						origIndexLen = origIndices.length,
 						visibleIndexLen = Math.min(this.options.maxIndexLen, origIndexLen),
 						totalLeft = origIndexLen - visibleIndexLen,
-						nIndexPerItem = parseInt(totalLeft / parseInt(visibleIndexLen/2, 10), 10),
-						leftItems = totalLeft % parseInt(visibleIndexLen/2, 10),
+						nIndexPerItem = parseInt(totalLeft / parseInt(visibleIndexLen / 2, 10), 10),
+						leftItems = totalLeft % parseInt(visibleIndexLen / 2, 10),
 						indexItemSize = [],
 						mergedIndices = [],
-						i, len, position=0;
+						i, len, position = 0;
 
-					for(i = 0, len = visibleIndexLen; i < len; i++) {
+					for (i = 0, len = visibleIndexLen; i < len; i++) {
 						indexItemSize[i] = 1;
 						if (i % 2) {	// even number: omitter
 							indexItemSize[i] += nIndexPerItem + (leftItems-- > 0 ? 1 : 0);
 						}
-						position +=  indexItemSize[i];
-						mergedIndices.push( {
-							start: position-1,
+						position += indexItemSize[i];
+						mergedIndices.push({
+							start: position - 1,
 							length: indexItemSize[i]
 						});
 					}
 					this.indices.merged = mergedIndices;
 				},
 
-				_drawDOM: function() {
+				_drawDOM: function () {
 					var origIndices = this.indices.original,
 						indices = this.indices.merged,
 						indexLen = indices.length,
@@ -196,7 +196,7 @@
 						m;
 
 					frag = document.createDocumentFragment();
-					for(i=0; i < indexLen; i++) {
+					for (i = 0; i < indexLen; i++) {
 						m = indices[i];
 						text = m.length === 1 ? origIndices[m.start] : moreChar;
 						li = document.createElement("li");
@@ -207,19 +207,19 @@
 					}
 					this.element.appendChild(frag);
 
-					if(this.options.ulClass) {
-						this.element.classList.add( this.options.ulClass );
+					if (this.options.ulClass) {
+						this.element.classList.add(this.options.ulClass);
 					}
 				},
 
-				_adjustVerticalCenter: function() {
+				_adjustVerticalCenter: function () {
 					var nItem = this.indices.merged.length,
 						totalIndexLen = nItem * this.options.indexHeight,
 						vPadding = parseInt((this.container.offsetHeight - totalIndexLen) / 2, 10);
 					this.element.style.paddingTop = vPadding + "px";
 				},
 
-				_appendToContainer: function() {
+				_appendToContainer: function () {
 					var self = this,
 						options = self.options,
 						element = self.element,
@@ -245,12 +245,12 @@
 				 * @param {number} paddingTop
 				 * @member ns.widget.wearable.indexscrollbar.IndexBar
 				 */
-				setPaddingTop: function(paddingTop) {
+				setPaddingTop: function (paddingTop) {
 					var height = this.element.clientHeight,
 						oldPaddingTop = this.element.style.paddingTop,
 						containerHeight = this.container.clientHeight;
 
-					if(oldPaddingTop === "") {
+					if (oldPaddingTop === "") {
 						oldPaddingTop = 0;
 					} else {
 						oldPaddingTop = parseInt(oldPaddingTop, 10);
@@ -258,7 +258,7 @@
 
 					height = height - oldPaddingTop;
 
-					if(height > containerHeight) {
+					if (height > containerHeight) {
 						paddingTop -= (paddingTop + height - containerHeight);
 					}
 					this.element.style.paddingTop = paddingTop + "px";
@@ -273,7 +273,7 @@
 				 * @return {number}
 				 * @member ns.widget.wearable.indexscrollbar.IndexBar
 				 */
-				getOffsetTopByIndex: function(index) {
+				getOffsetTopByIndex: function (index) {
 					var cellIndex = this.indexLookupTable[index].cellIndex,
 						el = this.indexElements[cellIndex],
 						offsetTop = el.offsetTop;
@@ -281,21 +281,21 @@
 					return offsetTop;
 				},
 
-				_setIndexCellInfo: function() {
+				_setIndexCellInfo: function () {
 					var element = this.element,
 						mergedIndices = this.indices.merged,
 						containerOffsetTop = utilsDOM.getElementOffset(this.container).top,
 						listitems = this.element.querySelectorAll("LI"),
 						lookupTable = [];
 
-					[].forEach.call(listitems, function(node, idx) {
+					[].forEach.call(listitems, function (node, idx) {
 						var m = mergedIndices[idx],
 							i = m.start,
 							len = i + m.length,
 							top = containerOffsetTop + node.offsetTop,
 							height = node.offsetHeight / m.length;
 
-						for ( ; i < len; i++ ) {
+						for (; i < len; i++) {
 							lookupTable.push({
 								cellIndex: idx,
 								top: top,
@@ -315,28 +315,28 @@
 				 * @return {number}
 				 * @member ns.widget.wearable.indexscrollbar.IndexBar
 				 */
-				getIndexByPosition: function(posY) {
+				getIndexByPosition: function (posY) {
 					var table = this.indexLookupTable,
 						info,
 						i, len, range;
 
 					// boundary check
-					if( table[0] ) {
+					if (table[0]) {
 						info = table[0];
-						if(posY < info.top) {
+						if (posY < info.top) {
 							return 0;
 						}
 					}
-					if( table[table.length -1] ) {
-						info = table[table.length -1];
-						if(posY >= info.top + info.range) {
+					if (table[table.length - 1]) {
+						info = table[table.length - 1];
+						if (posY >= info.top + info.range) {
 							return table.length - 1;
 						}
 					}
-					for ( i=0, len=table.length; i < len; i++) {
+					for (i = 0, len = table.length; i < len; i++) {
 						info = table[i];
 						range = posY - info.top;
-						if ( range >= 0 && range < info.range ) {
+						if (range >= 0 && range < info.range) {
 							return i;
 						}
 					}
@@ -350,8 +350,10 @@
 				 * @return {number}
 				 * @member ns.widget.wearable.indexscrollbar.IndexBar
 				 */
-				getValueByIndex: function(idx) {
-					if(idx < 0) { idx = 0; }
+				getValueByIndex: function (idx) {
+					if (idx < 0) {
+						idx = 0;
+					}
 					return this.indices.original[idx];
 				},
 
@@ -361,13 +363,13 @@
 				 * @param {number} idx
 				 * @member ns.widget.wearable.indexscrollbar.IndexBar
 				 */
-				select: function(idx) {
+				select: function (idx) {
 					var cellIndex,
 						eCell;
 
 					this.clearSelected();
 
-					if(this.selectedIndex === idx) {
+					if (this.selectedIndex === idx) {
 						return;
 					}
 					this.selectedIndex = idx;
@@ -382,12 +384,12 @@
 				 * @method clearSelected
 				 * @member ns.widget.wearable.indexscrollbar.IndexBar
 				 */
-				clearSelected: function() {
+				clearSelected: function () {
 					var el = this.element,
 						selectedClass = this.options.selectedClass,
-						selectedElement = el.querySelectorAll("."+selectedClass);
+						selectedElement = el.querySelectorAll("." + selectedClass);
 
-					[].forEach.call(selectedElement, function(node) {
+					[].forEach.call(selectedElement, function (node) {
 						node.classList.remove(selectedClass);
 					});
 					this.selectedIndex = -1;

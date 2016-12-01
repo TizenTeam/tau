@@ -1,4 +1,4 @@
-/*global window, define */
+/*global window, ns, define */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
  *
@@ -68,7 +68,7 @@
 				/**
 				 * Converts rgb array to html color string.
 				 * @method RGBToHTML
-				 * @param {number[]} rgb Input: [ r, g, b ], where 
+				 * @param {number[]} rgb Input: [ r, g, b ], where
 				 * r is in [0, 1]
 				 * g is in [0, 1]
 				 * b is in [0, 1]
@@ -78,20 +78,20 @@
 				 */
 				RGBToHTML: function (rgb) {
 					return ("#" +
-						rgb.map(function (val) {
-							var ret = val * 255,
-								theFloor = Math.floor(ret);
-							ret = ((ret - theFloor > 0.5) ? (theFloor + 1) : theFloor);
-							ret = (((ret < 16) ? "0" : "") + (ret & 0xff).toString(16));
-							return ret;
-						})
-					.join(""));
+					rgb.map(function (val) {
+						var ret = val * 255,
+							theFloor = Math.floor(ret);
+						ret = ((ret - theFloor > 0.5) ? (theFloor + 1) : theFloor);
+						ret = (((ret < 16) ? "0" : "") + (ret & 0xff).toString(16));
+						return ret;
+					})
+						.join(""));
 				},
 
 				/**
 				 * Converts hsl to rgb.
 				 * @method HSLToRGB
-				 * @param {number[]} hsl Input: [ h, s, l ], where 
+				 * @param {number[]} hsl Input: [ h, s, l ], where
 				 * h is in [0, 360]
 				 * s is in [0,   1]
 				 * l is in [0,   1]
@@ -112,7 +112,7 @@
 						ret;
 
 					if (0 === s) {
-						ret =  [ l, l, l ];
+						ret = [l, l, l];
 					} else {
 						temp2 = ((l < 0.5) ? l * (1.0 + s) : l + s - l * s);
 						temp1 = 2.0 * l - temp2;
@@ -128,17 +128,17 @@
 
 						ret = [
 							(((6.0 * temp3.r) < 1) ? (temp1 + (temp2 - temp1) * 6.0 * temp3.r) :
-									(((2.0 * temp3.r) < 1) ? temp2 :
-											(((3.0 * temp3.r) < 2) ? (temp1 + (temp2 - temp1) * ((2.0 / 3.0) - temp3.r) * 6.0) :
-													temp1))),
+								(((2.0 * temp3.r) < 1) ? temp2 :
+									(((3.0 * temp3.r) < 2) ? (temp1 + (temp2 - temp1) * ((2.0 / 3.0) - temp3.r) * 6.0) :
+										temp1))),
 							(((6.0 * temp3.g) < 1) ? (temp1 + (temp2 - temp1) * 6.0 * temp3.g) :
-									(((2.0 * temp3.g) < 1) ? temp2 :
-											(((3.0 * temp3.g) < 2) ? (temp1 + (temp2 - temp1) * ((2.0 / 3.0) - temp3.g) * 6.0) :
-													temp1))),
+								(((2.0 * temp3.g) < 1) ? temp2 :
+									(((3.0 * temp3.g) < 2) ? (temp1 + (temp2 - temp1) * ((2.0 / 3.0) - temp3.g) * 6.0) :
+										temp1))),
 							(((6.0 * temp3.b) < 1) ? (temp1 + (temp2 - temp1) * 6.0 * temp3.b) :
-									(((2.0 * temp3.b) < 1) ? temp2 :
-											(((3.0 * temp3.b) < 2) ? (temp1 + (temp2 - temp1) * ((2.0 / 3.0) - temp3.b) * 6.0) :
-													temp1)))
+								(((2.0 * temp3.b) < 1) ? temp2 :
+									(((3.0 * temp3.b) < 2) ? (temp1 + (temp2 - temp1) * ((2.0 / 3.0) - temp3.b) * 6.0) :
+										temp1)))
 						];
 					}
 
@@ -148,7 +148,7 @@
 				/**
 				 * Converts hsv to rgb.
 				 * @method HSVToRGB
-				 * @param {number[]} hsv Input: [ h, s, v ], where 
+				 * @param {number[]} hsv Input: [ h, s, v ], where
 				 * h is in [0, 360]
 				 * s is in [0,   1]
 				 * v is in [0,   1]
@@ -165,7 +165,7 @@
 				/**
 				 * Converts rgb to hsv.
 				 * @method HSVToRGB
-				 * @param {number[]} rgb Input: [ r, g, b ], where 
+				 * @param {number[]} rgb Input: [ r, g, b ], where
 				 * r is in [0,   1]
 				 * g is in [0,   1]
 				 * b is in [0,   1]
@@ -213,7 +213,7 @@
 				/**
 				 * Converts Converts hsv to hsl.
 				 * @method HSVToHSL
-				 * @param {number[]} rgb Input: [ h, s, v ], where 
+				 * @param {number[]} rgb Input: [ h, s, v ], where
 				 * h is in [0, 360]
 				 * s is in [0,   1]
 				 * v is in [0,   1]
@@ -232,13 +232,13 @@
 						half_sum = sum / 2,
 						s_divisor = ((half_sum < 0.5) ? sum : (2 - max - min));
 
-					return [ hsv[0], ((0 === s_divisor) ? 0 : (delta / s_divisor)), half_sum ];
+					return [hsv[0], ((0 === s_divisor) ? 0 : (delta / s_divisor)), half_sum];
 				},
 
 				/**
 				 * Converts rgb to hsl
 				 * @method RGBToHSL
-				 * @param {number[]} rgb Input: [ r, g, b ], where 
+				 * @param {number[]} rgb Input: [ r, g, b ], where
 				 * r is in [0,   1]
 				 * g is in [0,   1]
 				 * b is in [0,   1]

@@ -148,7 +148,7 @@
 
 				iconpos = iconpos || options.iconpos;
 
-				if (options.icon && style !== buttonStyle.CIRCLE  && style !== buttonStyle.NOBG) {
+				if (options.icon && style !== buttonStyle.CIRCLE && style !== buttonStyle.NOBG) {
 					if (innerTextLength > 0) {
 						element.classList.add(classes.BTN_ICON_POSITION_PREFIX + iconpos);
 					} else {
@@ -193,13 +193,13 @@
 			};
 
 			/**
-			* Build Button
-			* @method _build
-			* @protected
-			* @param {HTMLElement} element
-			* @return {HTMLElement}
-			* @member ns.widget.core.Button
-			*/
+			 * Build Button
+			 * @method _build
+			 * @protected
+			 * @param {HTMLElement} element
+			 * @return {HTMLElement}
+			 * @member ns.widget.core.Button
+			 */
 			prototype._build = function (element) {
 				var self = this,
 					buttonClassList = element.classList;

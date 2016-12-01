@@ -25,8 +25,8 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-		 	"../../engine",
-		 	"../../widget/BaseWidget",
+			"../../engine",
+			"../../widget/BaseWidget",
 			"../core"
 		],
 		function () {
@@ -117,7 +117,7 @@
 					span,
 					numberOfPages = self.options.numberOfPages;
 
-				if(numberOfPages === null) {
+				if (numberOfPages === null) {
 					ns.error("build error: numberOfPages is null");
 					return;
 				}
@@ -136,7 +136,7 @@
 
 				len = numberOfPages < maxPage ? numberOfPages : maxPage;
 
-				for(i = 0; i < len; i++) {
+				for (i = 0; i < len; i++) {
 					span = document.createElement("span");
 					span.classList.add(classes.indicatorItem);
 
@@ -162,9 +162,9 @@
 
 				translatePixel = element.offsetWidth / 2 - DISTANCE_FROM_EDGE;
 
-				for(i=0;i<numberOfDots;i++) {
-					style = "rotate(" + (i * intervalAngle - 90 - (numberOfDots-1) * intervalAngle * 0.5) + "deg) translate(" +
-					translatePixel + "px) ";
+				for (i = 0; i < numberOfDots; i++) {
+					style = "rotate(" + (i * intervalAngle - 90 - (numberOfDots - 1) * intervalAngle * 0.5) + "deg) translate(" +
+						translatePixel + "px) ";
 
 					items[i].style.transform = style;
 				}
@@ -177,7 +177,7 @@
 			 * @protected
 			 * @member ns.widget.core.PageIndicator
 			 */
-			prototype._getMaxPage = function() {
+			prototype._getMaxPage = function () {
 				var self = this,
 					options = self.options,
 					maxPage;
@@ -196,7 +196,7 @@
 			 * @protected
 			 * @member ns.widget.core.PageIndicator
 			 */
-			prototype._removeIndicator =  function (element) {
+			prototype._removeIndicator = function (element) {
 				element.textContent = "";
 			};
 
@@ -217,25 +217,25 @@
 					indicatorActive = classes.indicatorActive,
 					previousActive;
 
-				if(position === null || position === undefined) {
+				if (position === null || position === undefined) {
 					return;
 				}
 
 				self._activeIndex = position;
 				maxPage = self._getMaxPage();
-				middle = window.parseInt(maxPage/2, 10);
+				middle = window.parseInt(maxPage / 2, 10);
 
-				if(numberOfPages > maxPage) {
+				if (numberOfPages > maxPage) {
 					numberOfCentralDotPages = numberOfPages - maxPage;
-				} else if(numberOfPages === null) {
+				} else if (numberOfPages === null) {
 					ns.error("setActive error: numberOfPages is null");
 					return;
-				} else if(numberOfPages === 0) {
+				} else if (numberOfPages === 0) {
 					return;
 				}
 
 				previousActive = self.element.querySelector("." + indicatorActive);
-				if(previousActive) {
+				if (previousActive) {
 					previousActive.classList.remove(indicatorActive);
 				}
 

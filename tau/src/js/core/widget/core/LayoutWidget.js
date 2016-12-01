@@ -92,7 +92,7 @@
 				}
 
 				if (widget instanceof BaseWidget &&
-						self._children[widget.id] === undefined) {
+					self._children[widget.id] === undefined) {
 					self._children[widget.id] = widget;
 					return true;
 				}

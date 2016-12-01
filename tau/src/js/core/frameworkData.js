@@ -119,7 +119,7 @@
 					 * @member ns.frameworkData
 					 * @static
 					 */
-					deviceCapa: { inputKeyBack: true, inputKeyMenu: true },
+					deviceCapa: {inputKeyBack: true, inputKeyMenu: true},
 					/**
 					 * Determines whether the framework is loaded in debug profile.
 					 * @property {boolean} debug=false
@@ -158,7 +158,7 @@
 			 * @member ns.frameworkData
 			 * @static
 			 */
-			frameworkData.getParams = function() {
+			frameworkData.getParams = function () {
 				var self = this,
 					dataPrefix = self.dataPrefix,
 					scriptElements = slice.call(document.querySelectorAll("script[src]")),
@@ -189,7 +189,7 @@
 						dataThemeName = cssElement.getAttribute("data-theme-name"),
 						// Attribute value is taken because href property gives different output
 						href = cssElement.getAttribute("href"),
-						hrefFragments  = href && href.split("/"),
+						hrefFragments = href && href.split("/"),
 						hrefDirPart;
 
 					// If we have the theme name defined we can use it right away

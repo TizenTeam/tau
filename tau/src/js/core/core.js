@@ -1,4 +1,4 @@
-/*global window, console, define, ns, nsConfig */
+/*global window, define, ns, nsConfig */
 /*jslint plusplus:true */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
@@ -25,7 +25,7 @@
  * @author Piotr Karny <p.karny@samsung.com>
  * @author Tomasz Lukawski <t.lukawski@samsung.com>
  */
-(function (document, ns, nsConfig) {
+(function (document, ns, nsConfig, console) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(function () {
@@ -41,34 +41,34 @@
 			};
 
 		/**
-		* Return unique id
-		* @method getUniqueId
-		* @static
-		* @return {string}
-		* @member ns
-		*/
+		 * Return unique id
+		 * @method getUniqueId
+		 * @static
+		 * @return {string}
+		 * @member ns
+		 */
 		ns.getUniqueId = function () {
 			return rootNamespace + "-" + ns.getNumberUniqueId() + "-" + currentDate;
 		};
 
 		/**
-		* Return unique id
-		* @method getNumberUniqueId
-		* @static
-		* @return {number}
-		* @member ns
-		*/
+		 * Return unique id
+		 * @method getNumberUniqueId
+		 * @static
+		 * @return {number}
+		 * @member ns
+		 */
 		ns.getNumberUniqueId = function () {
 			return idNumberCounter++;
 		};
 
 		/**
-		* logs supplied messages/arguments
-		* @method log
-		* @static
-		* @param {...*} argument
-		* @member ns
-		*/
+		 * logs supplied messages/arguments
+		 * @method log
+		 * @static
+		 * @param {...*} argument
+		 * @member ns
+		 */
 		ns.log = function () {
 			var args = slice.call(arguments);
 			infoForLog(args);
@@ -78,12 +78,12 @@
 		};
 
 		/**
-		* logs supplied messages/arguments ad marks it as warning
-		* @method warn
-		* @static
-		* @param {...*} argument
-		* @member ns
-		*/
+		 * logs supplied messages/arguments ad marks it as warning
+		 * @method warn
+		 * @static
+		 * @param {...*} argument
+		 * @member ns
+		 */
 		ns.warn = function () {
 			var args = slice.call(arguments);
 			infoForLog(args);
@@ -93,12 +93,12 @@
 		};
 
 		/**
-		* logs supplied messages/arguments and marks it as error
-		* @method error
-		* @static
-		* @param {...*} argument
-		* @member ns
-		*/
+		 * logs supplied messages/arguments and marks it as error
+		 * @method error
+		 * @static
+		 * @param {...*} argument
+		 * @member ns
+		 */
 		ns.error = function () {
 			var args = slice.call(arguments);
 			infoForLog(args);
@@ -108,14 +108,14 @@
 		};
 
 		/**
-		* get from nsConfig
-		* @method getConfig
-		* @param {string} key
-		* @param {*} defaultValue
-		* @return {*}
-		* @static
-		* @member ns
-		*/
+		 * get from nsConfig
+		 * @method getConfig
+		 * @param {string} key
+		 * @param {*} defaultValue
+		 * @return {*}
+		 * @static
+		 * @member ns
+		 */
 		ns.getConfig = function (key, defaultValue) {
 			return nsConfig[key] === undefined ? defaultValue : nsConfig[key];
 		};
@@ -128,7 +128,7 @@
 		 * @param {boolean} [asDefault=false] value should be treated as default (doesn't overwrites the config[key] if it already exists)
 		 * @static
 		 * @member ns
-		*/
+		 */
 		ns.setConfig = function (key, value, asDefault) {
 			if (!asDefault || (asDefault && nsConfig[key] === undefined)) {
 				nsConfig[key] = value;
@@ -163,4 +163,4 @@
 		return ns;
 	});
 	//>>excludeEnd("tauBuildExclude");
-}(window.document, ns, nsConfig));
+}(window.document, ns, nsConfig, window.console));

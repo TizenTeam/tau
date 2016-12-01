@@ -58,6 +58,7 @@
 				eventUtils = ns.event,
 				objectUtils = ns.util.object,
 				selectors = ns.util.selectors,
+				arrayUtils = ns.util.array,
 				/**
 				 * @property {Object} widgetDefs Object with widgets definitions
 				 * @private
@@ -144,7 +145,7 @@
 				 * @return {string} :not([data-tau-built*='widgetName']):not([data-tau-bound*='widgetName'])
 				 */
 				excludeBuiltAndBound = function (widgetType) {
-					return ":not([" + DATA_BUILT + "*='" + widgetType +"']):not([" + DATA_BOUND + "*='" + widgetType +"'])";
+					return ":not([" + DATA_BUILT + "*='" + widgetType + "']):not([" + DATA_BOUND + "*='" + widgetType + "'])";
 				},
 
 				/**
@@ -183,7 +184,7 @@
 			 * @member ns.engine
 			 * @static
 			 */
-			function selectorChange (selectorName) {
+			function selectorChange(selectorName) {
 				if (selectorName.match(/\[data-role=/) && !selectorName.match(/:not\(\[data-role=/)) {
 					return selectorName.trim();
 				}
@@ -308,7 +309,7 @@
 				//>>excludeEnd("tauDebug");
 
 				// If the HTMLElement never had a widget declared create an empty object
-				if(!widgetBinding) {
+				if (!widgetBinding) {
 					widgetBinding = {
 						elementId: id,
 						element: widgetInstance.element,
@@ -411,7 +412,7 @@
 			function _removeSingleBinding(bindingGroup, type) {
 				var widgetInstance = bindingGroup[type];
 
-				if (widgetInstance){
+				if (widgetInstance) {
 					if (widgetInstance.element && typeof widgetInstance.element.setAttribute === TYPE_FUNCTION) {
 						_removeWidgetFromAttributes(widgetInstance.element, type);
 					}
@@ -715,15 +716,15 @@
 			 */
 			function processHollowWidget(element, definition, options) {
 				var name = (element && element.getAttribute(DATA_NAME)) ||
-						(definition && definition.name);
+					(definition && definition.name);
 				//>>excludeStart("tauDebug", pragmas.tauDebug);
 				if (!name) {
 					ns.error("Processing hollow widget without name on element:", element);
 				}
 				//>>excludeEnd("tauDebug");
 				definition = definition || (name && widgetDefs[name]) || {
-					"name": name
-				};
+						"name": name
+					};
 				return processWidget(element, definition, options);
 			}
 
@@ -943,7 +944,7 @@
 			 * @member ns.engine
 			 */
 			function getArgumentsTypes(args) {
-				return tau.util.array.reduce(args, getType, {});
+				return arrayUtils.reduce(args, getType, {});
 			}
 
 			/*
@@ -1037,13 +1038,13 @@
 					eventUtils.trigger(document, eventType.INIT, {tau: ns});
 
 					switch (document.readyState) {
-					case "interactive":
-					case "complete":
-						build();
-						break;
-					default:
-						eventUtils.fastOn(document, "DOMContentLoaded", build.bind(engine));
-						break;
+						case "interactive":
+						case "complete":
+							build();
+							break;
+						default:
+							eventUtils.fastOn(document, "DOMContentLoaded", build.bind(engine));
+							break;
 					}
 				},
 
@@ -1114,7 +1115,7 @@
 				 */
 				setJustBuild: function (newJustBuild) {
 					// Set location hash to have a consistent behavior
-					if(newJustBuild){
+					if (newJustBuild) {
 						location.hash = "build";
 					} else {
 						location.hash = "";
@@ -1133,7 +1134,7 @@
 				getJustBuild: function () {
 					return justBuild;
 				},
-				_createEventHandler : createEventHandler
+				_createEventHandler: createEventHandler
 			};
 
 			engine.eventType = eventType;

@@ -26,11 +26,11 @@
  *
  * @example
  *
- *		<div id="test"
- *				style="width: 10px; height: 10px; background: red;"></div>
+ *        <div id="test"
+ *                style="width: 10px; height: 10px; background: red;"></div>
  *
- *		<script>
- *			var a = new tau.util.anim.Animation({
+ *        <script>
+ *            var a = new tau.util.anim.Animation({
  *				element: document.getElementById("test"),
  *				fillMode: "both",
  *				delay: "2s",
@@ -45,7 +45,7 @@
  *					console.log("Yay, finished!");
  *				}
  *			});
- *		</script>
+ *        </script>
  *
  * @class ns.util.anim.Animation
  * @author Krzysztof Antoszek <k.antoszek@samsung.com>
@@ -100,7 +100,7 @@
 				cssPropertyPrefix = ns.support.cssAnimationPrefix,
 				eventPrefix = cssPropertyPrefix.replace(/\-/gi, ""),
 				endEventName = eventPrefix.length > 0 ? eventPrefix +
-						"AnimationEnd" : "animationEnd",
+				"AnimationEnd" : "animationEnd",
 				// paused state flag
 				PAUSED = 0,
 				// playing state flag
@@ -124,17 +124,17 @@
 						onPause = options.onPause;
 					if (event.animationName === self.keyframes.id) {
 						switch (self.state) {
-						case PLAYING:
-							self.state = FINISHED;
-							if (typeof onEnd === TYPE_FUNCTION) {
-								onEnd(self, element, event);
-							}
-							break;
-						case PAUSED:
-							if (typeof onPause === TYPE_FUNCTION) {
-								onPause(self, element, event);
-							}
-							break;
+							case PLAYING:
+								self.state = FINISHED;
+								if (typeof onEnd === TYPE_FUNCTION) {
+									onEnd(self, element, event);
+								}
+								break;
+							case PAUSED:
+								if (typeof onPause === TYPE_FUNCTION) {
+									onPause(self, element, event);
+								}
+								break;
 						}
 					}
 				},
@@ -158,19 +158,19 @@
 						style = element.style,
 						keyframes = self.keyframes,
 						propString = style.getPropertyValue(cssPropertyPrefix +
-								"animation-play-state"),
+							"animation-play-state"),
 						propsArray = (propString && propString.split(",")
 								.map(trim)) || [],
 						index = keyframes ? getAnimationIndex(
 							style.getPropertyValue(cssPropertyPrefix +
-										"animation-name"),
+								"animation-name"),
 							keyframes.id
 						) : -1;
 
 					if (index > -1) {
 						propsArray[index] = state || "running";
 						style.setProperty(cssPropertyPrefix +
-								"animation-play-state", propsArray.join(","));
+							"animation-play-state", propsArray.join(","));
 						self.state = PLAYING;
 						if (typeof onPlay === TYPE_FUNCTION) {
 							window.clearTimeout(self.playTimer);
@@ -187,28 +187,28 @@
 						 * @property {Object} options
 						 * @property {HTMLElement} options.element The animated element
 						 * @property {Object|null} [options.from=null] The starting step, this
-						 * 		can be defined later
+						 *        can be defined later
 						 * @property {Object|null} [options.to=null]  The finishing step, this
-						 * 		can also be defined later
+						 *        can also be defined later
 						 * @property {Object[]} [options.steps=Array(0)] Animation steps,
-						 * 		when advanced keying is required, the array must have 100 elements,
-						 * 		which are percentages of the timeline (anmation duration)
+						 *        when advanced keying is required, the array must have 100 elements,
+						 *        which are percentages of the timeline (anmation duration)
 						 * @property {string} [options.duration="0"] The duration of the animation
 						 * @property {string} [options.direction="normal"] The direction of the
-						 * 		animation (for possible values, refer to CSS Animation spec)
+						 *        animation (for possible values, refer to CSS Animation spec)
 						 * @property {string} [options.delay="0"] The delay of the animation.
-						 * 		Please remember when using ns.util.anim.Chain with concurrent
-						 * 		option to false, the of subsequent animations will be modified
+						 *        Please remember when using ns.util.anim.Chain with concurrent
+						 *        option to false, the of subsequent animations will be modified
 						 * @property {string} [options.fillMode="none"] The fill mode of the
-						 * 		animations (for possible values, refer to CSS Animation spec)
+						 *        animations (for possible values, refer to CSS Animation spec)
 						 * @property {boolean} [options.preserve=false] Indicates if the last
-						 * 		key frame props should be kept after animation is destroyed
-						 * 		(not implemented!)
+						 *        key frame props should be kept after animation is destroyed
+						 *        (not implemented!)
 						 * @property {string} [options.timingFunction="ease"] Chooses the timing
-						 * 		function for the css animation (for possible values, refer to CSS
-						 * 		Animation spec)
+						 *        function for the css animation (for possible values, refer to CSS
+						 *        Animation spec)
 						 * @property {boolean} [options.autoPlay=false] Defines if the animation
-						 * 		will start after definition
+						 *        will start after definition
 						 */
 						opts = objectUtils.merge({
 							element: null,
@@ -267,7 +267,7 @@
 					self.keyframes = null;
 					/**
 					 * @property {number} [state=0] Animation state
-					 *		(ns.util.anim.Animation.states.*)
+					 *        (ns.util.anim.Animation.states.*)
 					 * @readonly
 					 */
 					self.state = PAUSED;
@@ -304,10 +304,10 @@
 				id = self.keyframes.id;
 				if (element) {
 					propsArray.push(id + " " + opts.duration + " " + opts.timingFunction +
-							" " + opts.delay + " " + opts.iterationCount + " " + opts.direction +
-							" " + opts.fillMode);
+						" " + opts.delay + " " + opts.iterationCount + " " + opts.direction +
+						" " + opts.fillMode);
 					element.style.setProperty(cssPropertyPrefix + "animation",
-							propsArray.join(","));
+						propsArray.join(","));
 					self._applied = true;
 				}
 			};
@@ -330,7 +330,7 @@
 			};
 
 			/**
-			 * Resets the animation			
+			 * Resets the animation
 			 * @return {ns.util.anim.Animation}
 			 * @method reset
 			 * @chainable
@@ -353,7 +353,7 @@
 					propsArray[index] = keyframes.id;
 					self.keyframes = keyframes;
 					style.setProperty(cssPropertyPrefix + "animation-name",
-							propsArray.join(","));
+						propsArray.join(","));
 				}
 
 				return self;
@@ -403,7 +403,7 @@
 						if (prop) {
 							propRegexp = new RegExp(",? ?" + keyframes.id + "[^,%]*,? ?", "i");
 							style.removeProperty(cssPropertyPrefix + "animation",
-									prop.replace(propRegexp, ""));
+								prop.replace(propRegexp, ""));
 						}
 						keyframes.destroy();
 						self._applied = false;

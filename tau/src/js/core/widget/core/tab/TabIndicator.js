@@ -1,4 +1,4 @@
-/*global window, define, Event, console */
+/*global window, ns, define, Event, console */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
  *
@@ -38,7 +38,7 @@
 				engine = ns.engine,
 				object = ns.util.object,
 
-				TabIndicator = function() {
+				TabIndicator = function () {
 					this.tabSize = 0;
 					this.width = 0;
 				},
@@ -48,14 +48,14 @@
 
 			TabIndicator.prototype = prototype;
 
-			prototype._init = function(element) {
+			prototype._init = function (element) {
 				var o = this.options;
 
 				this.width = element.offsetWidth;
-				element.classList.add( o.wrapperClass );
+				element.classList.add(o.wrapperClass);
 			};
 
-			prototype._configure = function( ) {
+			prototype._configure = function () {
 				/**
 				 * @property {Object} options Options for widget
 				 * @property {number} [options.margin=2]
@@ -75,51 +75,51 @@
 				});
 			};
 
-			prototype._createIndicator = function() {
+			prototype._createIndicator = function () {
 				var o = this.options,
 					wrap = document.createDocumentFragment(),
 					widthTable = [],
 					margin = o.margin,
 					i = 0,
 					len = this.tabSize,
-					width = this.width-margin*(len-1),
+					width = this.width - margin * (len - 1),
 					std = Math.floor(width / len),
 					remain = width % len,
-					span, offset=0;
+					span, offset = 0;
 
-				for (i=0; i < len; i++) {
+				for (i = 0; i < len; i++) {
 					widthTable[i] = std;
 				}
 
-				for ( i= Math.floor((len-remain)/2); remain > 0; i++, remain-- ) {
+				for (i = Math.floor((len - remain) / 2); remain > 0; i++, remain--) {
 					widthTable[i] += 1;
 				}
 
-				for (i=0; i < len; i++) {
+				for (i = 0; i < len; i++) {
 					span = document.createElement("span");
-					span.classList.add( o.itemClass );
+					span.classList.add(o.itemClass);
 					span.style.width = widthTable[i] + "px";
 					span.style.left = offset + "px";
 					offset += widthTable[i] + margin;
 
-					if ( i === o.active ) {
-						span.classList.add( o.activeClass );
+					if (i === o.active) {
+						span.classList.add(o.activeClass);
 					}
 					wrap.appendChild(span);
 				}
 
-				this.element.appendChild( wrap );
+				this.element.appendChild(wrap);
 			};
 
-			prototype._removeIndicator = function() {
+			prototype._removeIndicator = function () {
 				this.element.innerHTML = "";
 			};
 
-			prototype._fireEvent = function(eventName, detail) {
-				ns.fireEvent( this.element, eventName, detail );
+			prototype._fireEvent = function (eventName, detail) {
+				ns.fireEvent(this.element, eventName, detail);
 			};
 
-			prototype._refresh = function() {
+			prototype._refresh = function () {
 				this._removeIndicator();
 				this._createIndicator();
 			};
@@ -129,18 +129,18 @@
 			 * @param index
 			 * @member ns.widget.core.TabIndicator
 			 */
-			prototype._setActive = function ( index ) {
+			prototype._setActive = function (index) {
 				var o = this.options,
 					nodes = this.element.children;
 
 				o.active = index;
 
-				[].forEach.call(nodes, function( element ) {
-					element.classList.remove( o.activeClass );
+				[].forEach.call(nodes, function (element) {
+					element.classList.remove(o.activeClass);
 				});
 
-				if ( index < nodes.length ) {
-					nodes[index].classList.add( o.activeClass );
+				if (index < nodes.length) {
+					nodes[index].classList.add(o.activeClass);
 
 					TabPrototype._setActive.call(this, index);
 				}
@@ -151,21 +151,21 @@
 			 * @param size
 			 * @member ns.widget.core.TabIndicator
 			 */
-			prototype.setSize = function( size ) {
+			prototype.setSize = function (size) {
 				var needRefresh = this.tabSize !== size;
 
 				this.tabSize = size;
-				if ( needRefresh ) {
+				if (needRefresh) {
 					this.refresh();
 				}
 			};
 
-			prototype._destroy = function() {
+			prototype._destroy = function () {
 				var o = this.options;
 
 				this._removeIndicator();
 
-				this.element.classList.remove( o.wrapperClass );
+				this.element.classList.remove(o.wrapperClass);
 			};
 
 			ns.widget.core.TabIndicator = TabIndicator;

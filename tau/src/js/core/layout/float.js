@@ -1,4 +1,4 @@
-/*global window, define */
+/*global window, ns, define */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
  *
@@ -33,8 +33,7 @@
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 
-			var float = {
-				},
+			var float = {},
 				objectUtil = ns.util.object,
 				Box = ns.widget.core.Box,
 				CLASSES_PREFIX = Box.classes.box,
@@ -80,11 +79,10 @@
 			 * Configure layout.
 			 * @method configure
 			 * @param {ns.widget.core.Box} self
-			 * @param {HTMLElement} element
 			 * @member ns.layout.float
 			 * @static
 			 */
-			float.configure = function(self, element) {
+			float.configure = function (self) {
 				// set defaults
 				self.options = objectUtil.merge({}, defaults, self.options);
 			};
@@ -102,7 +100,7 @@
 					horizontal = options.floatHorizontalSpacing || defaults.floatHorizontalSpacing,
 					vertical = options.floatVerticalSpacing || defaults.floatVerticalSpacing,
 					propertyValue = "#" + element.id + ".ui-box-float > *:not(script)" +
-					"{margin: " + horizontal / 2 + "px " + vertical / 2 + "px" + ";}";
+						"{margin: " + horizontal / 2 + "px " + vertical / 2 + "px" + ";}";
 
 				self.insertCSSRule(propertyValue);
 			}
@@ -149,11 +147,10 @@
 			 * Disable layout.
 			 * @method enable
 			 * @param {ns.widget.core.Box} self
-			 * @param {HTMLElement} element
 			 * @member ns.layout.float
 			 * @static
 			 */
-			float.disable = function (self, element) {
+			float.disable = function (self) {
 				var classList = self.element.classList;
 
 				classList.remove(classes.floatRight);

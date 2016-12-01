@@ -93,24 +93,24 @@
 			Listview.classes = classes;
 
 			/**
-			* build Listview
-			* @method _build
-			* @private
-			* @param {HTMLElement} element
-			* @return {HTMLElement}
-			* @member ns.widget.core.Listview
-			*/
+			 * build Listview
+			 * @method _build
+			 * @private
+			 * @param {HTMLElement} element
+			 * @return {HTMLElement}
+			 * @member ns.widget.core.Listview
+			 */
 			prototype._build = function (element) {
 				element.classList.add(classes.LISTVIEW);
 				return element;
 			};
 
 			/**
-			* refresh structure
-			* @method _refresh
-			* @return {HTMLElement}
-			* @member ns.widget.core.Listview
-			*/
+			 * refresh structure
+			 * @method _refresh
+			 * @return {HTMLElement}
+			 * @member ns.widget.core.Listview
+			 */
 			prototype._refresh = function () {
 				return this.element;
 			};

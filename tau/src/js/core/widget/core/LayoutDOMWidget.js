@@ -1,4 +1,4 @@
-/*global window:false, HTMLElement:false, define:false */
+/*global window:false, ns:false, HTMLElement:false, define:false */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
  *
@@ -54,7 +54,7 @@
 			 */
 			prototype._appendUIContainer = function (container) {
 				if (this.element &&
-						container instanceof HTMLElement) {
+					container instanceof HTMLElement) {
 					this.element.appendChild(container);
 				}
 			};

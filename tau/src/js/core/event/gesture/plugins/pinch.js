@@ -21,7 +21,7 @@
  *
  * @class ns.event.gesture.Pinch
  */
-( function ( ns, window, undefined ) {
+( function (ns) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define([
@@ -31,13 +31,13 @@
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 
-				/**
-				 * Local alias for {@link ns.event.gesture}
-				 * @property {Object}
-				 * @member ns.event.gesture.Pinch
-				 * @private
-				 * @static
-				 */
+			/**
+			 * Local alias for {@link ns.event.gesture}
+			 * @property {Object}
+			 * @member ns.event.gesture.Pinch
+			 * @private
+			 * @static
+			 */
 			var Gesture = ns.event.gesture,
 				/**
 				 * Local alias for {@link ns.event.gesture.Detector}
@@ -98,7 +98,7 @@
 				 * @return {ns.event.gesture.Result.PENDING|ns.event.gesture.Result.END|ns.event.gesture.Result.FINISHED|ns.event.gesture.Result.BLOCK}
 				 * @member ns.event.gesture.Pinch
 				 */
-				handler: function ( gestureEvent, sender, options ) {
+				handler: function (gestureEvent, sender, options) {
 					var ge = gestureEvent,
 						result = Gesture.Result.PENDING,
 						event = {
@@ -110,30 +110,30 @@
 							out: this.types[5]
 						};
 
-					switch( ge.eventType ) {
+					switch (ge.eventType) {
 						case Gesture.Event.MOVE:
 							if (ge.pointers.length === 1 && ge.distance > 35) {
 								result = Gesture.Result.FINISHED;
 								return result;
-							} else if ( !this.triggerd && ge.pointers.length >= 2) {
+							} else if (!this.triggerd && ge.pointers.length >= 2) {
 								this.triggerd = true;
-								sender.sendEvent( event.start, ge );
+								sender.sendEvent(event.start, ge);
 								ge.preventDefault();
 								result = Gesture.Result.RUNNING;
-							} else if ( this.triggerd) {
-								if ( ( ge.deltaTime < options.timeThreshold ) &&
-									( ge.velocityX > options.velocity || ge.velocityY > options.velocity ) ) {
+							} else if (this.triggerd) {
+								if (( ge.deltaTime < options.timeThreshold ) &&
+									( ge.velocityX > options.velocity || ge.velocityY > options.velocity )) {
 									if (ge.scale < 1) {
-										sender.sendEvent( event.in, gestureEvent );
+										sender.sendEvent(event.in, gestureEvent);
 									} else {
-										sender.sendEvent( event.out, gestureEvent );
+										sender.sendEvent(event.out, gestureEvent);
 									}
 									ge.preventDefault();
 									this.triggerd = false;
 									result = Gesture.Result.FINISHED | Gesture.Result.BLOCK;
 									return result;
 								} else {
-									sender.sendEvent( event.move, ge );
+									sender.sendEvent(event.move, ge);
 									ge.preventDefault();
 									result = Gesture.Result.RUNNING;
 								}
@@ -141,16 +141,16 @@
 							break;
 						case Gesture.Event.BLOCKED:
 						case Gesture.Event.END:
-							if ( this.triggerd ) {
-								sender.sendEvent( event.end, ge );
+							if (this.triggerd) {
+								sender.sendEvent(event.end, ge);
 								ge.preventDefault();
 								this.triggerd = false;
 								result = Gesture.Result.FINISHED;
 							}
 							break;
 						case Gesture.Event.CANCEL:
-							if ( this.triggerd ) {
-								sender.sendEvent( event.cancel, ge );
+							if (this.triggerd) {
+								sender.sendEvent(event.cancel, ge);
 								ge.preventDefault();
 								this.triggerd = false;
 								result = Gesture.Result.FINISHED;
@@ -164,4 +164,4 @@
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
-} ( ns, window ) );
+}(ns) );

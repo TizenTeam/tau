@@ -26,9 +26,9 @@
  * ## Manual constructor
  * For manual creation of widget you can use constructor of widget from **tau** namespace:
  *
- *		@example
- *		var indexscrollbarElement = document.getElementById('indexscrollbar'),
- *			indexscrollbar = tau.widget.IndexScrollbar(IndexScrollbar, {index: "A,B,C"});
+ *        @example
+ *        var indexscrollbarElement = document.getElementById('indexscrollbar'),
+ *            indexscrollbar = tau.widget.IndexScrollbar(IndexScrollbar, {index: "A,B,C"});
  *
  * Constructor has one require parameter **element** which are base **HTMLElement** to create widget.
  * We recommend get this element by method *document.getElementById*. Second parameter is **options**
@@ -265,11 +265,11 @@
  *
  * First API is from tau namespace:
  *
- *		@example
- *		var indexscrollbarElement = document.getElementById('indexscrollbar'),
- *			indexscrollbar = tau.widget.IndexScrollbar(indexscrollbarElement);
+ *        @example
+ *        var indexscrollbarElement = document.getElementById('indexscrollbar'),
+ *            indexscrollbar = tau.widget.IndexScrollbar(indexscrollbarElement);
  *
- *		indexscrollbar.methodName(methodArgument1, methodArgument2, ...);
+ *        indexscrollbar.methodName(methodArgument1, methodArgument2, ...);
  *
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  * @author Jadwiga Sosnowska <j.sosnowska@samsung.com>
@@ -294,32 +294,24 @@
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
-			var IndexScrollbar = function() {
-				// Support calling without 'new' keyword
-				this.element = null;
-				this.indicator = null;
-				this.indexBar1 = null;	// First IndexBar. Always shown.
-				this.indexBar2 = null;	// 2-depth IndexBar. shown if needed.
+			var IndexScrollbar = function () {
+					// Support calling without 'new' keyword
+					this.element = null;
+					this.indicator = null;
+					this.indexBar1 = null;	// First IndexBar. Always shown.
+					this.indexBar2 = null;	// 2-depth IndexBar. shown if needed.
 
 
-				this.index = null;
-				this.touchAreaOffsetLeft = 0;
-				this.indexElements = null;
-				this.selectEventTriggerTimeoutId = null;
-				this.ulMarginTop = 0;
+					this.index = null;
+					this.touchAreaOffsetLeft = 0;
+					this.indexElements = null;
+					this.selectEventTriggerTimeoutId = null;
+					this.ulMarginTop = 0;
 
-				this.eventHandlers = {};
+					this.eventHandlers = {};
 
-			},
+				},
 				BaseWidget = ns.widget.BaseWidget,
-				/**
-				 * Alias for class {@link ns.engine}
-				 * @property {Object} engine
-				 * @member ns.widget.core.IndexScrollbar
-				 * @private
-				 * @static
-				 */
-				engine = ns.engine,
 				/**
 				 * Alias for class {@link ns.event}
 				 * @property {Object} events
@@ -456,17 +448,17 @@
 				 * @member ns.widget.core.IndexScrollbar
 				 */
 				_refresh: function () {
-					if( this._isExtended() ) {
+					if (this._isExtended()) {
 						this._unbindEvent();
 						this.indicator.hide();
-						this._extended( false );
+						this._extended(false);
 					}
 
 					this._updateLayout();
 					this.indexBar1.options.index = this.options.index;
 					this.indexBar1.refresh();
 					this._bindEvents();
-					this._extended( true );
+					this._extended(true);
 				},
 
 				/**
@@ -477,7 +469,7 @@
 				 * @return {HTMLElement}
 				 * @member ns.widget.core.IndexScrollbar
 				 */
-				_destroy: function() {
+				_destroy: function () {
 					var self = this;
 					if (self.isBound()) {
 						self._unbindEvent();
@@ -495,12 +487,12 @@
 				 * @protected
 				 * @member ns.widget.core.IndexScrollbar
 				 */
-				_createSubObjects: function() {
-					var self =  this,
+				_createSubObjects: function () {
+					var self = this,
 						options = self.options,
 						element = self.element;
 					// indexBar1
-					self.indexBar1 = new IndexBar( document.createElement("UL"), {
+					self.indexBar1 = new IndexBar(document.createElement("UL"), {
 						container: element,
 						offsetLeft: 0,
 						index: options.index,
@@ -513,7 +505,7 @@
 
 					// indexBar2
 					if (typeof options.supplementaryIndex === "function") {
-						self.indexBar2 = new IndexBar( document.createElement("UL"), {
+						self.indexBar2 = new IndexBar(document.createElement("UL"), {
 							container: element,
 							offsetLeft: -element.clientWidth - options.supplementaryIndexMargin,
 							index: [],	// empty index
@@ -539,7 +531,7 @@
 				 * @protected
 				 * @member ns.widget.core.IndexScrollbar
 				 */
-				_destroySubObjects: function() {
+				_destroySubObjects: function () {
 					var subObjs = {
 							iBar1: this.indexBar1,
 							iBar2: this.indexBar2,
@@ -548,9 +540,9 @@
 						subObj,
 						el,
 						i;
-					for(i in subObjs) {
+					for (i in subObjs) {
 						subObj = subObjs[i];
-						if(subObj) {
+						if (subObj) {
 							el = subObj.element;
 							subObj.destroy();
 							el.parentNode.removeChild(el);
@@ -583,16 +575,16 @@
 				 * @protected
 				 * @member ns.widget.core.IndexScrollbar
 				 */
-				_setMaxIndexLen: function(element, value) {
+				_setMaxIndexLen: function (element, value) {
 					var self = this,
 						options = self.options,
 						container = self._getContainer(),
 						containerHeight = container.offsetHeight;
 
 					if (value <= 0) {
-						value = Math.floor( containerHeight / options.indexHeight );
+						value = Math.floor(containerHeight / options.indexHeight);
 					}
-					if (value > 0 && value%2 === 0) {
+					if (value > 0 && value % 2 === 0) {
 						value -= 1;	// Ensure odd number
 					}
 					options.maxIndexLen = value;
@@ -604,7 +596,7 @@
 				 * @protected
 				 * @member ns.widget.core.IndexScrollbar
 				 */
-				_updateLayout: function() {
+				_updateLayout: function () {
 					this._setInitialLayout();
 					this._draw();
 
@@ -628,7 +620,7 @@
 				 * @protected
 				 * @member ns.widget.core.IndexScrollbar
 				 */
-				_removeIndicator: function() {
+				_removeIndicator: function () {
 					var indicator = this.indicator,
 						parentElem = indicator.element.parentNode;
 
@@ -645,13 +637,13 @@
 				 * @protected
 				 * @member ns.widget.core.IndexScrollbar
 				 */
-				_getEventReceiverByPosition: function(posX) {
+				_getEventReceiverByPosition: function (posX) {
 					var windowWidth = window.innerWidth,
 						elementWidth = this.element.clientWidth,
 						receiver;
 
-					if( this.options.supplementaryIndex ) {
-						if( windowWidth - elementWidth <= posX && posX <= windowWidth) {
+					if (this.options.supplementaryIndex) {
+						if (windowWidth - elementWidth <= posX && posX <= windowWidth) {
 							receiver = this.indexBar1;
 						} else {
 							receiver = this.indexBar2;
@@ -670,13 +662,13 @@
 				 * @protected
 				 * @member ns.widget.core.IndexScrollbar
 				 */
-				_updateIndicatorAndTriggerEvent: function(val) {
-					this.indicator.setValue( val );
+				_updateIndicatorAndTriggerEvent: function (val) {
+					this.indicator.setValue(val);
 					this.indicator.show();
-					if(this.selectEventTriggerTimeoutId) {
+					if (this.selectEventTriggerTimeoutId) {
 						window.clearTimeout(this.selectEventTriggerTimeoutId);
 					}
-					this.selectEventTriggerTimeoutId = window.setTimeout(function() {
+					this.selectEventTriggerTimeoutId = window.setTimeout(function () {
 						this.trigger(EventType.SELECT, {index: val});
 						this.selectEventTriggerTimeoutId = null;
 					}.bind(this), this.options.keepSelectEventDelay);
@@ -689,7 +681,7 @@
 				 * @protected
 				 * @member ns.widget.core.IndexScrollbar
 				 */
-				_onTouchStartHandler: function(event) {
+				_onTouchStartHandler: function (event) {
 					pointerIsPressed = true;
 					var touches = event.touches || event._originalEvent && event._originalEvent.touches;
 					if (touches && (touches.length > 1)) {
@@ -698,18 +690,18 @@
 						return;
 					}
 					var pos = this._getPositionFromEvent(event),
-					// At touchstart, only indexbar1 is shown.
+						// At touchstart, only indexbar1 is shown.
 						iBar1 = this.indexBar1,
-						idx = iBar1.getIndexByPosition( pos.y ),
-						val = iBar1.getValueByIndex( idx );
+						idx = iBar1.getIndexByPosition(pos.y),
+						val = iBar1.getValueByIndex(idx);
 
-					iBar1.select( idx );	// highlight selected value
+					iBar1.select(idx);	// highlight selected value
 
 					document.addEventListener(POINTER_MOVE, this.eventHandlers.touchMove);
 					document.addEventListener(POINTER_END, this.eventHandlers.touchEnd);
 					document.addEventListener("touchcancel", this.eventHandlers.touchEnd);
 
-					this._updateIndicatorAndTriggerEvent( val );
+					this._updateIndicatorAndTriggerEvent(val);
 				},
 
 				/**
@@ -719,7 +711,7 @@
 				 * @protected
 				 * @member ns.widget.core.IndexScrollbar
 				 */
-				_onTouchMoveHandler: function(event) {
+				_onTouchMoveHandler: function (event) {
 					var touches = event._originalEvent && event._originalEvent.touches;
 					if (touches && (touches.length > 1) || !pointerIsPressed) {
 						events.preventDefault(event);
@@ -727,7 +719,7 @@
 						return;
 					}
 
-					var pos = this._getPositionFromEvent( event ),
+					var pos = this._getPositionFromEvent(event),
 						iBar1 = this.indexBar1,
 						iBar2 = this.indexBar2,
 						idx,
@@ -735,19 +727,19 @@
 						val;
 
 					// Check event receiver: ibar1 or ibar2
-					iBar = this._getEventReceiverByPosition( pos.x );
-					if( iBar === iBar2 ) {
+					iBar = this._getEventReceiverByPosition(pos.x);
+					if (iBar === iBar2) {
 						iBar2.options.index = this.options.supplementaryIndex(iBar1.getValueByIndex(iBar1.selectedIndex));
 						iBar2.refresh();
 					}
 
 					// get index and value from ibar1 or ibar2
-					idx = iBar.getIndexByPosition( pos.y );
-					val = iBar.getValueByIndex( idx );
-					if(iBar === iBar2) {
+					idx = iBar.getIndexByPosition(pos.y);
+					val = iBar.getValueByIndex(idx);
+					if (iBar === iBar2) {
 						// Update val to make a concatenated string for indexIndicator
 						val = iBar1.getValueByIndex(iBar1.selectedIndex) + val;
-					} else if(iBar2 && !iBar2.isShown()) {
+					} else if (iBar2 && !iBar2.isShown()) {
 						// iBar1 is selected.
 						// Set iBar2's paddingTop, only when the iBar2 isn't shown
 						iBar2.setPaddingTop(iBar1.getOffsetTopByIndex(iBar1.selectedIndex));
@@ -756,12 +748,12 @@
 					// update ibars
 					iBar.select(idx);	// highlight selected value
 					iBar.show();
-					if( iBar1 === iBar && iBar2 ) {
+					if (iBar1 === iBar && iBar2) {
 						iBar2.hide();
 					}
 
 					// update indicator
-					this._updateIndicatorAndTriggerEvent( val );
+					this._updateIndicatorAndTriggerEvent(val);
 
 					events.preventDefault(event);
 					events.stopPropagation(event);
@@ -774,17 +766,16 @@
 				 * @protected
 				 * @member ns.widget.core.IndexScrollbar
 				 */
-				_onTouchEndHandler: function( event ) {
+				_onTouchEndHandler: function (event) {
 					var self = this,
 						touches = event._originalEvent && event._originalEvent.touches;
 
-					if (touches && (touches.length === 0) ||
-							!touches) {
+					if (touches && (touches.length === 0) || !touches) {
 						pointerIsPressed = false;
 					}
 					self.indicator.hide();
 					self.indexBar1.clearSelected();
-					if(self.indexBar2) {
+					if (self.indexBar2) {
 						self.indexBar2.clearSelected();
 						self.indexBar2.hide();
 					}
@@ -800,7 +791,7 @@
 				 * @protected
 				 * @member ns.widget.core.IndexScrollbar
 				 */
-				_bindEvents: function() {
+				_bindEvents: function () {
 					this._bindResizeEvent();
 					this._bindEventToTriggerSelectEvent();
 				},
@@ -811,7 +802,7 @@
 				 * @protected
 				 * @member ns.widget.core.IndexScrollbar
 				 */
-				_unbindEvent: function() {
+				_unbindEvent: function () {
 					this._unbindResizeEvent();
 					this._unbindEventToTriggerSelectEvent();
 				},
@@ -822,12 +813,12 @@
 				 * @protected
 				 * @member ns.widget.core.IndexScrollbar
 				 */
-				_bindResizeEvent: function() {
-					this.eventHandlers.onresize = function(/* ev */) {
+				_bindResizeEvent: function () {
+					this.eventHandlers.onresize = function (/* ev */) {
 						this.refresh();
 					}.bind(this);
 
-					window.addEventListener( "resize", this.eventHandlers.onresize );
+					window.addEventListener("resize", this.eventHandlers.onresize);
 				},
 
 				/**
@@ -836,9 +827,9 @@
 				 * @protected
 				 * @member ns.widget.core.IndexScrollbar
 				 */
-				_unbindResizeEvent: function() {
-					if ( this.eventHandlers.onresize ) {
-						window.removeEventListener( "resize", this.eventHandlers.onresize );
+				_unbindResizeEvent: function () {
+					if (this.eventHandlers.onresize) {
+						window.removeEventListener("resize", this.eventHandlers.onresize);
 					}
 				},
 
@@ -848,7 +839,7 @@
 				 * @protected
 				 * @member ns.widget.core.IndexScrollbar
 				 */
-				_bindEventToTriggerSelectEvent: function() {
+				_bindEventToTriggerSelectEvent: function () {
 					var self = this;
 					self.eventHandlers.touchStart = self._onTouchStartHandler.bind(self);
 					self.eventHandlers.touchEnd = self._onTouchEndHandler.bind(self);
@@ -863,7 +854,7 @@
 				 * @protected
 				 * @member ns.widget.core.IndexScrollbar
 				 */
-				_unbindEventToTriggerSelectEvent: function() {
+				_unbindEventToTriggerSelectEvent: function () {
 					var self = this;
 					self.element.removeEventListener(POINTER_START, self.eventHandlers.touchStart);
 				},
@@ -881,17 +872,17 @@
 					var el = this.element,
 						d = el.__data,
 						idx;
-					if(!d) {
+					if (!d) {
 						d = el.__data = {};
 					}
-					if(typeof key === "object") {
+					if (typeof key === "object") {
 						// Support data collection
-						for(idx in key) {
+						for (idx in key) {
 							this._data(idx, key[idx]);
 						}
 						return this;
 					} else {
-						if("undefined" === typeof val) {	// Getter
+						if ("undefined" === typeof val) {	// Getter
 							return d[key];
 						} else {	// Setter
 							d[key] = val;
@@ -960,8 +951,8 @@
 				 * @protected
 				 * @member ns.widget.core.IndexScrollbar
 				 */
-				_getOffset: function( el ) {
-					var left=0, top=0 ;
+				_getOffset: function (el) {
+					var left = 0, top = 0;
 					do {
 						top += el.offsetTop;
 						left += el.offsetLeft;
@@ -981,7 +972,7 @@
 				 * @protected
 				 * @member ns.widget.core.IndexScrollbar
 				 */
-				_getContainer: function() {
+				_getContainer: function () {
 					var container = this.options.container,
 						element = this.element,
 						parentElement = element.parentNode,
@@ -1008,7 +999,7 @@
 				 * @protected
 				 * @member ns.widget.core.IndexScrollbar
 				 */
-				_getPositionFromEvent: function( ev ) {
+				_getPositionFromEvent: function (ev) {
 					return ev.type.search(/^touch/) !== -1 ?
 					{x: ev.touches[0].clientX, y: ev.touches[0].clientY} :
 					{x: ev.clientX, y: ev.clientY};

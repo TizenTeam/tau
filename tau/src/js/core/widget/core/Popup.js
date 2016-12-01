@@ -37,12 +37,12 @@
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
-				/**
-				 * Alias for {@link ns.widget.BaseWidget}
-				 * @property {Function} BaseWidget
-				 * @member ns.widget.core.Popup
-				 * @private
-				 */
+			/**
+			 * Alias for {@link ns.widget.BaseWidget}
+			 * @property {Function} BaseWidget
+			 * @member ns.widget.core.Popup
+			 * @private
+			 */
 			var BaseWidget = ns.widget.BaseWidget,
 				/**
 				 * Alias for class ns.engine
@@ -398,7 +398,7 @@
 			 * @protected
 			 * @member ns.widget.Popup
 			 */
-			prototype._setOverlay = function(element, enable) {
+			prototype._setOverlay = function (element, enable) {
 				var self = this,
 					overlayClass = self.options.overlayClass,
 					ui = self._ui,
@@ -453,7 +453,7 @@
 			 * @protected
 			 * @member ns.widget.core.Popup
 			 */
-			prototype._init = function(element) {
+			prototype._init = function (element) {
 				var self = this,
 					selectors = self.selectors,
 					ui = self._ui;
@@ -484,7 +484,7 @@
 
 				// NOTE: popup's options object is stored in window.history at the router module,
 				// and this window.history can't store DOM element object.
-				options =  objectUtils.merge({}, self.options, {positionTo: null, link: null});
+				options = objectUtils.merge({}, self.options, {positionTo: null, link: null});
 
 				// set state of popup and add proper class
 				if (active) {
@@ -567,7 +567,7 @@
 			 * @method layout
 			 * @member ns.widget.core.Popup
 			 */
-			prototype._layout = function (element) {
+			prototype._layout = function () {
 			};
 
 			/**
@@ -666,8 +666,7 @@
 			prototype._show = function (options) {
 				var self = this,
 					transitionOptions = objectUtils.merge({}, options),
-					overlay = self._ui.overlay,
-					deferred;
+					overlay = self._ui.overlay;
 
 				// layouting
 				self._layout(self.element);
@@ -695,7 +694,7 @@
 			 * @protected
 			 * @member ns.widget.core.Popup
 			 */
-			prototype._onShow = function() {
+			prototype._onShow = function () {
 				var self = this;
 				self._setActive(true);
 				self.trigger(events.show);
@@ -742,7 +741,7 @@
 			 * @protected
 			 * @member ns.widget.core.Popup
 			 */
-			prototype._onHide = function() {
+			prototype._onHide = function () {
 				var self = this,
 					overlay = self._ui.overlay;
 
@@ -761,9 +760,9 @@
 			 * @param {Event} event
 			 * @member ns.widget.core.Popup
 			 */
-			prototype.handleEvent = function(event) {
+			prototype.handleEvent = function (event) {
 				var self = this;
-				switch(event.type) {
+				switch (event.type) {
 					case "pagebeforehide":
 						// we need close active popup if exists
 						engine.getRouter().close(null, {transition: "none", rel: "popup"});
@@ -772,7 +771,7 @@
 						self._onResize(event);
 						break;
 					case "click":
-						if ( event.target === self._ui.overlay ) {
+						if (event.target === self._ui.overlay) {
 							self._onClickOverlay(event);
 						}
 						break;
@@ -785,7 +784,7 @@
 			 * @protected
 			 * @member ns.widget.core.Popup
 			 */
-			prototype._refresh = function() {
+			prototype._refresh = function () {
 				var self = this;
 				self._unbindOverlayEvents();
 				self._setOverlay(self.element, self.options.overlay);
@@ -799,7 +798,7 @@
 			 * @protected
 			 * @member ns.widget.core.Popup
 			 */
-			prototype._onClickOverlay = function(event) {
+			prototype._onClickOverlay = function (event) {
 				var options = this.options;
 
 				event.preventDefault();
@@ -816,7 +815,7 @@
 			 * @protected
 			 * @member ns.widget.core.Popup
 			 */
-			prototype._onResize = function() {
+			prototype._onResize = function () {
 				if (this._isOpened()) {
 					this._refresh();
 				}
@@ -854,7 +853,7 @@
 			function setTransitionDeferred(self, resolve) {
 				var deferred = new UtilDeferred();
 
-				deferred.then(function() {
+				deferred.then(function () {
 					if (deferred === self._callbacks.transitionDeferred) {
 						resolve();
 					}
@@ -863,6 +862,7 @@
 				self._callbacks.transitionDeferred = deferred;
 				return deferred;
 			}
+
 			/**
 			 * Animate popup opening/closing
 			 * @method _transition
@@ -916,7 +916,7 @@
 			 * @protected
 			 * @member ns.widget.core.Popup
 			 */
-			prototype._destroy = function() {
+			prototype._destroy = function () {
 				var self = this,
 					element = self.element,
 					ui = self._ui,

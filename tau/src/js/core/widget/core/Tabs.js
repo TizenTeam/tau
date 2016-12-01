@@ -1,4 +1,4 @@
-/*global window, define */
+/*global window, ns, define */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
  *
@@ -147,7 +147,7 @@
 			 * @param {Event} event
 			 * @member ns.widget.core.Tabs
 			 */
-			prototype.handleEvent = function(event) {
+			prototype.handleEvent = function (event) {
 				var self = this;
 				switch (event.type) {
 					case "tabchange":
@@ -169,7 +169,7 @@
 			 * @param {HTMLElement} element
 			 * @member ns.widget.core.Tabs
 			 */
-			prototype._build = function(element){
+			prototype._build = function (element) {
 
 				element.classList.add(classes.TABS);
 				if (element.getElementsByClassName(classes.TITLE).length) {
@@ -185,7 +185,7 @@
 			 * @param {HTMLElement} element
 			 * @member ns.widget.core.Tabs
 			 */
-			prototype._init = function(element){
+			prototype._init = function (element) {
 				var self = this,
 					ui = self._ui;
 
@@ -193,7 +193,7 @@
 				ui.tabbar = element.querySelector("[data-role='tabbar'], .ui-tabbar");
 				ui.title = element.getElementsByClassName(classes.TITLE)[0];
 				ui.sectionChanger = element.querySelector("[data-role='section-changer'], .ui-section-changer");
-				self._component.tabbar = tau.widget.TabBar(ui.tabbar);
+				self._component.tabbar = ns.widget.TabBar(ui.tabbar);
 				self._changed = false;
 				self._lastIndex = 0;
 				self._initSectionChanger();
@@ -204,10 +204,9 @@
 			 * Pageshow event handler
 			 * @method _onPageBeforeShow
 			 * @protected
-			 * @param {Event} event
 			 * @member ns.widget.core.Tabs
 			 */
-			prototype._initSectionChanger = function() {
+			prototype._initSectionChanger = function () {
 				var self = this,
 					element = self.element,
 					ui = self._ui,
@@ -218,7 +217,7 @@
 
 				sectionChangerStyle.width = window.innerWidth + "px";
 				sectionChangerStyle.height = element.offsetHeight - tabbarOffsetHeight - (ui.title ? ui.title.offsetHeight : 0) + "px";
-				self._component.sectionChanger = tau.widget.SectionChanger(sectionChanger);
+				self._component.sectionChanger = ns.widget.SectionChanger(sectionChanger);
 
 			};
 
@@ -229,7 +228,7 @@
 			 * @param {Event} event
 			 * @member ns.widget.core.Tabs
 			 */
-			prototype._onTabChange = function(event) {
+			prototype._onTabChange = function (event) {
 				var self = this,
 					index = event.detail.active,
 					sectionChanger = self._component.sectionChanger;
@@ -250,7 +249,7 @@
 			 * @param {Event} event
 			 * @member ns.widget.core.Tabs
 			 */
-			prototype._onSectionChange = function(event) {
+			prototype._onSectionChange = function (event) {
 				var self = this,
 					index = event.detail.active,
 					tabbar = self._component.tabbar;
@@ -270,7 +269,7 @@
 			 * @protected
 			 * @member ns.widget.core.Tabs
 			 */
-			prototype._bindEvents = function() {
+			prototype._bindEvents = function () {
 				var self = this;
 				bindTabsEvents.call(self, self.element);
 			};
@@ -281,7 +280,7 @@
 			 * @protected
 			 * @member ns.widget.core.Tabs
 			 */
-			prototype._destroy = function() {
+			prototype._destroy = function () {
 				var self = this;
 				unBindTabsEvents.call(self, self.element);
 				self._ui = null;
@@ -294,7 +293,7 @@
 			 * @protected
 			 * @member ns.widget.core.Tabs
 			 */
-			prototype._refresh = function() {
+			prototype._refresh = function () {
 				this._initSectionChanger();
 			};
 			/**
@@ -304,13 +303,13 @@
 			 * @param {number} index
 			 * @member ns.widget.core.Tabs
 			 */
-			prototype._setIndex = function(index) {
+			prototype._setIndex = function (index) {
 				var self = this,
 					length = self._ui.sectionChanger.getElementsByTagName("section").length;
 				if (index < length && !(index < 0)) {
 					self._component.tabbar.setActive(index);
 				} else {
-					console.warn("You inserted the wrong index value");
+					ns.warn("You inserted the wrong index value");
 				}
 
 			};
@@ -322,7 +321,7 @@
 			 * @param {number} index
 			 * @member ns.widget.core.Tabs
 			 */
-			prototype.setIndex = function(index) {
+			prototype.setIndex = function (index) {
 				this._setIndex(index);
 			};
 
@@ -333,7 +332,7 @@
 			 * @return {number} index
 			 * @member ns.widget.core.Tabs
 			 */
-			prototype._getIndex = function() {
+			prototype._getIndex = function () {
 				return this._lastIndex;
 			};
 
@@ -344,7 +343,7 @@
 			 * @return {number} index
 			 * @member ns.widget.core.Tabs
 			 */
-			prototype.getIndex = function() {
+			prototype.getIndex = function () {
 				return this._getIndex();
 			};
 			ns.widget.core.Tabs = Tabs;

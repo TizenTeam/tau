@@ -1,4 +1,4 @@
-/*global window, define */
+/*global window, ns, define */
 /*jslint nomen: true, plusplus: true */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
@@ -32,16 +32,16 @@
 			//>>excludeEnd("tauBuildExclude");
 			ns.util.easing = {
 				/**
-				* Performs cubit out easing calcuclations based on time
-				* @method cubicOut
-				* @member ns.util.easing
-				* @param {number} currentTime
-				* @param {number} startValue
-				* @param {number} changeInValue
-				* @param {number} duration
-				* @return {number}
-				* @static
-				*/
+				 * Performs cubit out easing calcuclations based on time
+				 * @method cubicOut
+				 * @member ns.util.easing
+				 * @param {number} currentTime
+				 * @param {number} startValue
+				 * @param {number} changeInValue
+				 * @param {number} duration
+				 * @return {number}
+				 * @static
+				 */
 				cubicOut: function (currentTime, startValue, changeInValue, duration) {
 					currentTime /= duration;
 					currentTime--;
@@ -64,33 +64,33 @@
 				},
 
 				/**
-				* Performs out expo easing calcuclations based on time
-				* @method easeOutExpo
-				* @member ns.util.easing
-				* @param {number} currentTime
-				* @param {number} startValue
-				* @param {number} changeInValue
-				* @param {number} duration
-				* @return {number}
-				* @static
-				*/
+				 * Performs out expo easing calcuclations based on time
+				 * @method easeOutExpo
+				 * @member ns.util.easing
+				 * @param {number} currentTime
+				 * @param {number} startValue
+				 * @param {number} changeInValue
+				 * @param {number} duration
+				 * @return {number}
+				 * @static
+				 */
 				easeOutExpo: function (currentTime, startValue, changeInValue, duration) {
 					return (currentTime === duration) ?
-							startValue + changeInValue :
-								changeInValue * (-Math.pow(2, -10 * currentTime / duration) + 1) +
-								startValue;
+					startValue + changeInValue :
+					changeInValue * (-Math.pow(2, -10 * currentTime / duration) + 1) +
+					startValue;
 				},
 				/**
-				* Performs out linear calcuclations based on time
-				* @method linear
-				* @member ns.util.easing
-				* @param {number} currentTime
-				* @param {number} startValue
-				* @param {number} changeInValue
-				* @param {number} duration
-				* @return {number}
-				* @static
-				*/
+				 * Performs out linear calcuclations based on time
+				 * @method linear
+				 * @member ns.util.easing
+				 * @param {number} currentTime
+				 * @param {number} startValue
+				 * @param {number} changeInValue
+				 * @param {number} duration
+				 * @return {number}
+				 * @static
+				 */
 				linear: function (currentTime, startValue, changeInValue, duration) {
 					return startValue + duration * currentTime;
 				}

@@ -21,7 +21,7 @@
  *
  * @class ns.event.gesture.Drag
  */
-( function ( ns, window, tizen ) {
+( function (ns, window, tizen) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define([
@@ -32,13 +32,13 @@
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 
-				/**
-				 * Local alias for {@link ns.event.gesture}
-				 * @property {Object}
-				 * @member ns.event.gesture.Drag
-				 * @private
-				 * @static
-				 */
+			/**
+			 * Local alias for {@link ns.event.gesture}
+			 * @property {Object}
+			 * @member ns.event.gesture.Drag
+			 * @private
+			 * @static
+			 */
 			var Gesture = ns.event.gesture,
 				/**
 				 * Local alias for {@link ns.event.gesture.Detector}
@@ -59,17 +59,17 @@
 
 				// TODO UA test will move to support.
 				isTizenWebkit2Browser = !!window.navigator.userAgent.match(/tizen/i) && (function () {
-					var result = true, version;
-					if (tizen && tizen.systeminfo && tizen.systeminfo.getCapability) {
-						try {
-							version = tizen.systeminfo.getCapability("http://tizen.org/feature/platform.version");
-							return version < "3.0";
-						} catch (error) {
-							console.log("Error name: " + error.name + ", message: " + error.message);
+						var result = true, version;
+						if (tizen && tizen.systeminfo && tizen.systeminfo.getCapability) {
+							try {
+								version = tizen.systeminfo.getCapability("http://tizen.org/feature/platform.version");
+								return version < "3.0";
+							} catch (error) {
+								ns.error("Error name: " + error.name + ", message: " + error.message);
+							}
 						}
-					}
-					return result;
-				})();
+						return result;
+					})();
 
 			ns.event.gesture.Drag = Detector.plugin.create({
 
@@ -126,7 +126,7 @@
 				 * @return {ns.event.gesture.Result.PENDING|ns.event.gesture.Result.END|ns.event.gesture.Result.FINISHED|ns.event.gesture.Result.BLOCK}
 				 * @member ns.event.gesture.Drag
 				 */
-				handler: function( gestureEvent, sender, options ) {
+				handler: function (gestureEvent, sender, options) {
 					var ge = gestureEvent,
 						threshold = options.threshold,
 						result = Gesture.Result.PENDING,
@@ -139,8 +139,8 @@
 						},
 						direction = ge.direction;
 
-					if ( !this.triggerd && ge.eventType === Gesture.Event.MOVE ) {
-						if ( Math.abs(ge.deltaX) < threshold && Math.abs(ge.deltaY) < threshold ) {
+					if (!this.triggerd && ge.eventType === Gesture.Event.MOVE) {
+						if (Math.abs(ge.deltaX) < threshold && Math.abs(ge.deltaY) < threshold) {
 							// Branching statement for specifying Tizen 2.X and Tizen 3.0
 							if (window.navigator.userAgent.indexOf("Chrome") > -1) {
 								ge.preventDefault();
@@ -148,30 +148,30 @@
 							return Gesture.Result.PENDING;
 						}
 
-						if ( options.delay && ge.deltaTime < options.delay ) {
-							if ( !isTizenWebkit2Browser ) {
+						if (options.delay && ge.deltaTime < options.delay) {
+							if (!isTizenWebkit2Browser) {
 								ge.preventDefault();
 							}
 							return Gesture.Result.PENDING;
 						}
-						if ( options.blockHorizontal && Gesture.utils.isHorizontal( ge.direction ) ||
-							options.blockVertical && Gesture.utils.isVertical( ge.direction ) ) {
+						if (options.blockHorizontal && Gesture.utils.isHorizontal(ge.direction) ||
+							options.blockVertical && Gesture.utils.isVertical(ge.direction)) {
 							return Gesture.Result.FINISHED;
 						}
 						this.fixedStartPointX = 0;
 						this.fixedStartPointY = 0;
-						if ( Gesture.utils.isHorizontal( ge.direction ) ) {
+						if (Gesture.utils.isHorizontal(ge.direction)) {
 							this.fixedStartPointX = ( ge.deltaX < 0 ? 1 : -1 ) * threshold;
 						} else {
 							this.fixedStartPointY = ( ge.deltaY < 0 ? 1 : -1 ) * threshold;
 						}
 					}
 
-					if ( options.blockHorizontal ) {
+					if (options.blockHorizontal) {
 						direction = ge.deltaY < 0 ? Gesture.Direction.UP : Gesture.Direction.DOWN;
 					}
 
-					if ( options.blockVertical ) {
+					if (options.blockVertical) {
 						direction = ge.deltaX < 0 ? Gesture.Direction.LEFT : Gesture.Direction.RIGHT;
 					}
 
@@ -184,22 +184,22 @@
 						direction: direction
 					});
 
-					switch( ge.eventType ) {
+					switch (ge.eventType) {
 						case Gesture.Event.START:
 							this.triggerd = false;
-							if (sender.sendEvent( event.prepare, ge ) === false) {
+							if (sender.sendEvent(event.prepare, ge) === false) {
 								result = Gesture.Result.FINISHED;
 							}
 							break;
 						case Gesture.Event.MOVE:
-							if ( !this.triggerd ) {
-								if (sender.sendEvent( event.start, ge ) === false) {
+							if (!this.triggerd) {
+								if (sender.sendEvent(event.start, ge) === false) {
 									result = Gesture.Result.FINISHED;
 									ge.preventDefault();
 									break;
 								}
 							}
-							result = sender.sendEvent( event.drag, ge ) ? Gesture.Result.RUNNING : Gesture.Result.FINISHED;
+							result = sender.sendEvent(event.drag, ge) ? Gesture.Result.RUNNING : Gesture.Result.FINISHED;
 							ge.preventDefault();
 							this.triggerd = true;
 							break;
@@ -207,8 +207,8 @@
 						case Gesture.Event.BLOCKED:
 						case Gesture.Event.END:
 							result = Gesture.Result.FINISHED;
-							if ( this.triggerd ) {
-								sender.sendEvent( event.end, ge );
+							if (this.triggerd) {
+								sender.sendEvent(event.end, ge);
 								ge.preventDefault();
 								this.triggerd = false;
 							}
@@ -216,8 +216,8 @@
 
 						case Gesture.Event.CANCEL:
 							result = Gesture.Result.FINISHED;
-							if ( this.triggerd ) {
-								sender.sendEvent( event.cancel, ge );
+							if (this.triggerd) {
+								sender.sendEvent(event.cancel, ge);
 								ge.preventDefault();
 								this.triggerd = false;
 							}
@@ -232,4 +232,4 @@
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
-} ( ns, window, window.tizen ) );
+}(ns, window, window.tizen) );

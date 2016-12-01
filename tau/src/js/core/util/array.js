@@ -1,4 +1,4 @@
-/*global window, define */
+/*global window, ns, define */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
  *
@@ -116,7 +116,7 @@
 
 			/**
 			 * Faster version of standard forEach method in array
-	 		 * Confirmed that this method is 20 times faster then native
+			 * Confirmed that this method is 20 times faster then native
 			 * @method forEach
 			 * @param {Array} array
 			 * @param {Function} callback

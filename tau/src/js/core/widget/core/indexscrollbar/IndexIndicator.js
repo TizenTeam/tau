@@ -39,7 +39,7 @@
 			/**
 			 * @brief block 'unexpected bouncing effect' on indexscroller indicator.
 			 */
-			function blockEvent (event) {
+			function blockEvent(event) {
 				event.preventDefault();
 				event.stopPropagation();
 			}
@@ -61,7 +61,7 @@
 					alignTo: "container",
 					container: null
 				},
-				_init: function() {
+				_init: function () {
 					var self = this,
 						options = self.options,
 						element = self.element;
@@ -109,7 +109,7 @@
 				 * @param {string} value
 				 * @member ns.widget.wearable.indexscrollbar.IndexIndicator
 				 */
-				setValue: function( value ) {
+				setValue: function (value) {
 					this.value = value;	// remember value
 					value = value.toUpperCase();
 
@@ -125,9 +125,9 @@
 				 * @method show
 				 * @member ns.widget.wearable.indexscrollbar.IndexIndicator
 				 */
-				show: function() {
+				show: function () {
 					//this.element.style.visibility="visible";
-					this.element.style.display="block";
+					this.element.style.display = "block";
 				},
 
 				/**
@@ -135,8 +135,8 @@
 				 * @method hide
 				 * @member ns.widget.wearable.indexscrollbar.IndexIndicator
 				 */
-				hide: function() {
-					this.element.style.display="none";
+				hide: function () {
+					this.element.style.display = "none";
 				},
 
 				/**
@@ -144,10 +144,10 @@
 				 * @method destroy
 				 * @member ns.widget.wearable.indexscrollbar.IndexIndicator
 				 */
-				destroy: function() {
+				destroy: function () {
 					var element = this.element;
 
-					while(element.firstChild) {
+					while (element.firstChild) {
 						element.removeChild(element.firstChild);
 					}
 					events.off(element, ["touchstart", "touchmove"], blockEvent, false);

@@ -1,4 +1,4 @@
-/*global window, define */
+/*global window, ns, define */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
  *
@@ -28,9 +28,9 @@
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
-			var when = function( subordinate /* , ..., subordinateN */ ) {
+			var when = function (subordinate /* , ..., subordinateN */) {
 				var i = 0,
-					resolveValues = [].slice.call( arguments ),
+					resolveValues = [].slice.call(arguments),
 					length = resolveValues.length,
 
 					/**
@@ -61,15 +61,15 @@
 					 * @member ns.util.deferredWhen
 					 * @private
 					 */
-					updateFunc = function( i, contexts, values ) {
-						return function( value ) {
-							contexts[ i ] = this;
-							values[ i ] = arguments.length > 1 ? [].slice.call( arguments ) : value;
-							if ( values === progressValues ) {
-								deferred.notifyWith( contexts, values );
+					updateFunc = function (i, contexts, values) {
+						return function (value) {
+							contexts[i] = this;
+							values[i] = arguments.length > 1 ? [].slice.call(arguments) : value;
+							if (values === progressValues) {
+								deferred.notifyWith(contexts, values);
 
-							} else if ( !(--remaining) ) {
-								deferred.resolveWith( contexts, values );
+							} else if (!(--remaining)) {
+								deferred.resolveWith(contexts, values);
 							}
 						};
 					},
@@ -81,12 +81,12 @@
 				// add listeners to Deferred subordinates; treat others as resolved
 				if (length > 1) {
 					progressValues = [];
-					progressValues.length =  length;
+					progressValues.length = length;
 					progressContexts = [];
 					progressContexts.length = length;
 					resolveContexts = [];
 					resolveContexts.length = length;
-					for ( ; i < length; i++ ) {
+					for (; i < length; i++) {
 						if (resolveValues[i] && (typeof resolveValues[i].promise === "function")) {
 							resolveValues[i].promise()
 								.done(updateFunc(i, resolveContexts, resolveValues))

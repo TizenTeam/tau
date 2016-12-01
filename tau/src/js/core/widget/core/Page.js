@@ -1,4 +1,4 @@
-/*global window, define */
+/*global window, ns, define */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
  *
@@ -99,9 +99,9 @@
  * ## Manual constructor
  * For manual creation of page widget you can use constructor of widget from **tau** namespace:
  *
- *		@example
- *		var pageElement = document.getElementById("page"),
- *			page = tau.widget.page(buttonElement);
+ *        @example
+ *        var pageElement = document.getElementById("page"),
+ *            page = tau.widget.page(buttonElement);
  *
  * Constructor has one require parameter **element** which are base **HTMLElement** to create widget. We recommend get this element by method *document.getElementById*.
  *
@@ -206,11 +206,11 @@
  *
  * To call method on widget you can use tau API:
  *
- *		@example
- *		var pageElement = document.getElementById("page"),
- *			page = tau.widget.page(buttonElement);
+ *        @example
+ *        var pageElement = document.getElementById("page"),
+ *            page = tau.widget.page(buttonElement);
  *
- *		page.methodName(methodArgument1, methodArgument2, ...);
+ *        page.methodName(methodArgument1, methodArgument2, ...);
  *
  * @class ns.widget.core.Page
  * @extends ns.widget.BaseWidget
@@ -373,7 +373,7 @@
 			 * @protected
 			 * @member ns.widget.core.Page
 			 */
-			prototype._configure = function() {
+			prototype._configure = function () {
 				var options = this.options || {};
 				/**
 				 * Object with default options
@@ -445,7 +445,7 @@
 					content = this.element.querySelector("." + classes.uiContent),
 					contentStyle = content ? content.style : {};
 
-				contentStyleAttributes.forEach(function(name) {
+				contentStyleAttributes.forEach(function (name) {
 					initialContentStyle[name] = contentStyle[name];
 				});
 			};
@@ -456,7 +456,7 @@
 					content = this.element.querySelector("." + classes.uiContent),
 					contentStyle = content ? content.style : {};
 
-				contentStyleAttributes.forEach(function(name) {
+				contentStyleAttributes.forEach(function (name) {
 					contentStyle[name] = initialContentStyle[name];
 				});
 			};
@@ -469,7 +469,7 @@
 			 * @protected
 			 * @member ns.widget.core.Page
 			 */
-			prototype._setFooter = function(element, value) {
+			prototype._setFooter = function (element, value) {
 				var self = this,
 					ui = self._ui,
 					footer = ui.footer;
@@ -506,7 +506,7 @@
 			 * @protected
 			 * @member ns.widget.core.Page
 			 */
-			prototype._setHeader = function(element, value) {
+			prototype._setHeader = function (element, value) {
 				var self = this,
 					ui = self._ui,
 					header = ui.header;
@@ -543,7 +543,7 @@
 			 * @protected
 			 * @member ns.widget.core.Page
 			 */
-			prototype._setContent = function(element, value) {
+			prototype._setContent = function (element, value) {
 				var self = this,
 					ui = self._ui,
 					content = ui.content,
@@ -588,7 +588,7 @@
 			 * @protected
 			 * @member ns.widget.core.Page
 			 */
-			prototype._buildHeader = function(element) {
+			prototype._buildHeader = function (element) {
 				var self = this;
 				self._ui.header = utilSelectors.getChildrenBySelector(element, "header,[data-role='header'],." + classes.uiHeader)[0];
 				self._setHeader(element, self.options.header);
@@ -601,7 +601,7 @@
 			 * @protected
 			 * @member ns.widget.core.Page
 			 */
-			prototype._buildFooter = function(element) {
+			prototype._buildFooter = function (element) {
 				var self = this;
 
 				self._ui.footer = utilSelectors.getChildrenBySelector(element, "footer,[data-role='footer'],." + classes.uiFooter)[0];
@@ -615,7 +615,7 @@
 			 * @protected
 			 * @member ns.widget.core.Page
 			 */
-			prototype._buildContent = function(element) {
+			prototype._buildContent = function (element) {
 				var self = this;
 
 				self._ui.content = utilSelectors.getChildrenBySelector(element, "[data-role='content'],." + classes.uiContent)[0];
@@ -691,11 +691,10 @@
 			/**
 			 * Bind events to widget
 			 * @method _bindEvents
-			 * @param {HTMLElement} element
 			 * @protected
 			 * @member ns.widget.core.Page
 			 */
-			prototype._bindEvents = function (element) {
+			prototype._bindEvents = function () {
 				var self = this;
 				self.contentFillAfterResizeCallback = self._contentFill.bind(self);
 				window.addEventListener("resize", self.contentFillAfterResizeCallback, false);
@@ -784,7 +783,7 @@
 
 			Page.prototype = prototype;
 
-			Page.createEmptyElement = function() {
+			Page.createEmptyElement = function () {
 				var div = document.createElement("div");
 				div.classList.add(classes.uiPage);
 				doms.setNSData(div, "role", "page");

@@ -1,4 +1,4 @@
-/*global window, define, RegExp */
+/*global window, ns, define, RegExp */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
  *
@@ -36,45 +36,45 @@
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
-				/**
-				* Local alias for ns.engine
-				* @property {Object} engine Alias for {@link ns.engine}
-				* @member ns.util.path
-				* @static
-				* @private
-				*/
+			/**
+			 * Local alias for ns.engine
+			 * @property {Object} engine Alias for {@link ns.engine}
+			 * @member ns.util.path
+			 * @static
+			 * @private
+			 */
 			var engine = ns.engine,
 				/**
-				* Local alias for ns.util.object
-				* @property {Object} utilsObject Alias for {@link ns.util.object}
-				* @member ns.util.path
-				* @static
-				* @private
-				*/
+				 * Local alias for ns.util.object
+				 * @property {Object} utilsObject Alias for {@link ns.util.object}
+				 * @member ns.util.path
+				 * @static
+				 * @private
+				 */
 				utilsObject = ns.util.object,
 				/**
-				* Local alias for ns.util.selectors
-				* @property {Object} utilsSelectors Alias for {@link ns.util.selectors}
-				* @member ns.util.path
-				* @static
-				* @private
-				*/
+				 * Local alias for ns.util.selectors
+				 * @property {Object} utilsSelectors Alias for {@link ns.util.selectors}
+				 * @member ns.util.path
+				 * @static
+				 * @private
+				 */
 				utilsSelectors = ns.util.selectors,
 				/**
-				* Local alias for ns.util.DOM
-				* @property {Object} utilsDOM Alias for {@link ns.util.DOM}
-				* @member ns.util.path
-				* @static
-				* @private
-				*/
+				 * Local alias for ns.util.DOM
+				 * @property {Object} utilsDOM Alias for {@link ns.util.DOM}
+				 * @member ns.util.path
+				 * @static
+				 * @private
+				 */
 				utilsDOM = ns.util.DOM,
 				/**
-				* Cache for document base element
-				* @member ns.util.path
-				* @property {HTMLBaseElement} base
-				* @static
-				* @private
-				*/
+				 * Cache for document base element
+				 * @member ns.util.path
+				 * @property {HTMLBaseElement} base
+				 * @static
+				 * @private
+				 */
 				base,
 				/**
 				 * location object
@@ -121,21 +121,21 @@
 					//	[19]: ?param1=true&param2=123
 					//
 					/**
-					* @property {RegExp} urlParseRE Regular expression for parse URL
-					* @member ns.util.path
-					* @static
-					*/
+					 * @property {RegExp} urlParseRE Regular expression for parse URL
+					 * @member ns.util.path
+					 * @static
+					 */
 					urlParseRE: /^(((([^:\/#\?]+:)?(?:(\/\/)((?:(([^:@\/#\?]+)(?:\:([^:@\/#\?]+))?)@)?(([^:\/#\?\]\[]+|\[[^\/\]@#?]+\])(?:\:([0-9]+))?))?)?)?((\/?(?:[^\/\?#]+\/+)*)([^\?#]*)))?(\?[^#]+)?)((#[^\?]*)(\?.*)?)?/,
 
 					/**
-					* Abstraction to address xss (Issue #4787) by removing the authority in
-					* browsers that auto decode it. All references to location.href should be
-					* replaced with a call to this method so that it can be dealt with properly here
-					* @method getLocation
-					* @param {string|Object} url
-					* @return {string}
-					* @member ns.util.path
-					*/
+					 * Abstraction to address xss (Issue #4787) by removing the authority in
+					 * browsers that auto decode it. All references to location.href should be
+					 * replaced with a call to this method so that it can be dealt with properly here
+					 * @method getLocation
+					 * @param {string|Object} url
+					 * @return {string}
+					 * @member ns.util.path
+					 */
 					getLocation: function (url) {
 						var uri = this.parseUrl(url || window.location.href),
 							hash = uri.hash,
@@ -150,56 +150,56 @@
 					},
 
 					/**
-					* Return the original document url
-					* @method getDocumentUrl
-					* @member ns.util.path
-					* @param {boolean} [asParsedObject=false]
-					* @return {string|Object}
-					* @static
-					*/
+					 * Return the original document url
+					 * @method getDocumentUrl
+					 * @member ns.util.path
+					 * @param {boolean} [asParsedObject=false]
+					 * @return {string|Object}
+					 * @static
+					 */
 					getDocumentUrl: function (asParsedObject) {
 						return asParsedObject ? utilsObject.copy(path.documentUrl) : path.documentUrl.href;
 					},
 
 					/**
-					* Parse a location into a structure
-					* @method parseLocation
-					* @return {Object}
-					* @member ns.util.path
-					*/
+					 * Parse a location into a structure
+					 * @method parseLocation
+					 * @return {Object}
+					 * @member ns.util.path
+					 */
 					parseLocation: function () {
 						return this.parseUrl(this.getLocation());
 					},
 
 					/**
-					* Parse a URL into a structure that allows easy access to
-					* all of the URL components by name.
-					* If we're passed an object, we'll assume that it is
-					* a parsed url object and just return it back to the caller.
-					* @method parseUrl
-					* @member ns.util.path
-					* @param {string|Object} url
-					* @return {Object} uri record
-					* @return {string} return.href
-					* @return {string} return.hrefNoHash
-					* @return {string} return.hrefNoSearch
-					* @return {string} return.domain
-					* @return {string} return.protocol
-					* @return {string} return.doubleSlash
-					* @return {string} return.authority
-					* @return {string} return.username
-					* @return {string} return.password
-					* @return {string} return.host
-					* @return {string} return.hostname
-					* @return {string} return.port
-					* @return {string} return.pathname
-					* @return {string} return.directory
-					* @return {string} return.filename
-					* @return {string} return.search
-					* @return {string} return.hash
-					* @return {string} return.hashSearch
-					* @static
-					*/
+					 * Parse a URL into a structure that allows easy access to
+					 * all of the URL components by name.
+					 * If we're passed an object, we'll assume that it is
+					 * a parsed url object and just return it back to the caller.
+					 * @method parseUrl
+					 * @member ns.util.path
+					 * @param {string|Object} url
+					 * @return {Object} uri record
+					 * @return {string} return.href
+					 * @return {string} return.hrefNoHash
+					 * @return {string} return.hrefNoSearch
+					 * @return {string} return.domain
+					 * @return {string} return.protocol
+					 * @return {string} return.doubleSlash
+					 * @return {string} return.authority
+					 * @return {string} return.username
+					 * @return {string} return.password
+					 * @return {string} return.host
+					 * @return {string} return.hostname
+					 * @return {string} return.port
+					 * @return {string} return.pathname
+					 * @return {string} return.directory
+					 * @return {string} return.filename
+					 * @return {string} return.search
+					 * @return {string} return.hash
+					 * @return {string} return.hashSearch
+					 * @static
+					 */
 					parseUrl: function (url) {
 						var matches;
 						if (typeof url === "object") {
@@ -207,10 +207,10 @@
 						}
 						matches = path.urlParseRE.exec(url || "") || [];
 
-							// Create an object that allows the caller to access the sub-matches
-							// by name. Note that IE returns an empty string instead of undefined,
-							// like all other browsers do, so we normalize everything so its consistent
-							// no matter what browser we're running on.
+						// Create an object that allows the caller to access the sub-matches
+						// by name. Note that IE returns an empty string instead of undefined,
+						// like all other browsers do, so we normalize everything so its consistent
+						// no matter what browser we're running on.
 						return {
 							href: matches[0] || "",
 							hrefNoHash: matches[1] || "",
@@ -234,16 +234,16 @@
 					},
 
 					/**
-					* Turn relPath into an absolute path. absPath is
-					* an optional absolute path which describes what
-					* relPath is relative to.
-					* @method makePathAbsolute
-					* @member ns.util.path
-					* @param {string} relPath
-					* @param {string} [absPath=""]
-					* @return {string}
-					* @static
-					*/
+					 * Turn relPath into an absolute path. absPath is
+					 * an optional absolute path which describes what
+					 * relPath is relative to.
+					 * @method makePathAbsolute
+					 * @member ns.util.path
+					 * @param {string} relPath
+					 * @param {string} [absPath=""]
+					 * @return {string}
+					 * @static
+					 */
 					makePathAbsolute: function (relPath, absPath) {
 						var absStack,
 							relStack,
@@ -261,42 +261,42 @@
 						for (i = 0; i < relStack.length; i++) {
 							directory = relStack[i];
 							switch (directory) {
-							case ".":
-								break;
-							case "..":
-								if (absStack.length) {
-									absStack.pop();
-								}
-								break;
-							default:
-								absStack.push(directory);
-								break;
+								case ".":
+									break;
+								case "..":
+									if (absStack.length) {
+										absStack.pop();
+									}
+									break;
+								default:
+									absStack.push(directory);
+									break;
 							}
 						}
 						return "/" + absStack.join("/");
 					},
 
 					/**
-					* Returns true if both urls have the same domain.
-					* @method isSameDomain
-					* @member ns.util.path
-					* @param {string|Object} absUrl1
-					* @param {string|Object} absUrl2
-					* @return {boolean}
-					* @static
-					*/
+					 * Returns true if both urls have the same domain.
+					 * @method isSameDomain
+					 * @member ns.util.path
+					 * @param {string|Object} absUrl1
+					 * @param {string|Object} absUrl2
+					 * @return {boolean}
+					 * @static
+					 */
 					isSameDomain: function (absUrl1, absUrl2) {
 						return path.parseUrl(absUrl1).domain === path.parseUrl(absUrl2).domain;
 					},
 
 					/**
-					* Returns true for any relative variant.
-					* @method isRelativeUrl
-					* @member ns.util.path
-					* @param {string|Object} url
-					* @return {boolean}
-					* @static
-					*/
+					 * Returns true for any relative variant.
+					 * @method isRelativeUrl
+					 * @member ns.util.path
+					 * @param {string|Object} url
+					 * @return {boolean}
+					 * @static
+					 */
 					isRelativeUrl: function (url) {
 						// All relative Url variants have one thing in common, no protocol.
 						return path.parseUrl(url).protocol === "";
@@ -315,15 +315,15 @@
 					},
 
 					/**
-					* Turn the specified realtive URL into an absolute one. This function
-					* can handle all relative variants (protocol, site, document, query, fragment).
-					* @method makeUrlAbsolute
-					* @member ns.util.path
-					* @param {string} relUrl
-					* @param {string} absUrl
-					* @return {string}
-					* @static
-					*/
+					 * Turn the specified realtive URL into an absolute one. This function
+					 * can handle all relative variants (protocol, site, document, query, fragment).
+					 * @method makeUrlAbsolute
+					 * @member ns.util.path
+					 * @param {string} relUrl
+					 * @param {string} absUrl
+					 * @return {string}
+					 * @static
+					 */
 					makeUrlAbsolute: function (relUrl, absUrl) {
 						if (!path.isRelativeUrl(relUrl)) {
 							return relUrl;
@@ -343,19 +343,19 @@
 					},
 
 					/**
-					* Add search (aka query) params to the specified url.
-					* If page is embedded page, search query will be added after
-					* hash tag. It's allowed to add query content for both external
-					* pages and embedded pages.
-					* Examples:
-					* http://domain/path/index.html#embedded?search=test
-					* http://domain/path/external.html?s=query#embedded?s=test
-					* @method addSearchParams
-					* @member ns.util.path
-					* @param {string|Object} url
-					* @param {Object|string} params
-					* @return {string}
-					*/
+					 * Add search (aka query) params to the specified url.
+					 * If page is embedded page, search query will be added after
+					 * hash tag. It's allowed to add query content for both external
+					 * pages and embedded pages.
+					 * Examples:
+					 * http://domain/path/index.html#embedded?search=test
+					 * http://domain/path/external.html?s=query#embedded?s=test
+					 * @method addSearchParams
+					 * @member ns.util.path
+					 * @param {string|Object} url
+					 * @param {Object|string} params
+					 * @return {string}
+					 */
 					addSearchParams: function (url, params) {
 						var urlObject = path.parseUrl(url),
 							paramsString = (typeof params === "object") ? this.getAsURIParameters(params) : params,
@@ -364,7 +364,7 @@
 
 						if (path.isEmbedded(url) && paramsString.length > 0) {
 							searchChar = urlObject.hashSearch || "?";
-							return urlObject.hrefNoHash + (urlObjectHash || "") + searchChar + (searchChar.charAt(searchChar.length - 1) === "?" ? "" : "&") + paramsString ;
+							return urlObject.hrefNoHash + (urlObjectHash || "") + searchChar + (searchChar.charAt(searchChar.length - 1) === "?" ? "" : "&") + paramsString;
 						}
 
 						searchChar = urlObject.search || "?";
@@ -388,18 +388,18 @@
 					},
 
 					/**
-					* Convert absolute Url to data Url
-					* - for embedded pages strips parameters
-					* - for the same domain as document base remove domain
-					* otherwise returns decoded absolute Url
-					* @method convertUrlToDataUrl
-					* @member ns.util.path
-					* @param {string} absUrl
-					* @param {string} dialogHashKey
-					* @param {Object} documentBase uri structure
-					* @return {string}
-					* @static
-					*/
+					 * Convert absolute Url to data Url
+					 * - for embedded pages strips parameters
+					 * - for the same domain as document base remove domain
+					 * otherwise returns decoded absolute Url
+					 * @method convertUrlToDataUrl
+					 * @member ns.util.path
+					 * @param {string} absUrl
+					 * @param {string} dialogHashKey
+					 * @param {Object} documentBase uri structure
+					 * @return {string}
+					 * @static
+					 */
 					convertUrlToDataUrl: function (absUrl, dialogHashKey, documentBase) {
 						var urlObject = path.parseUrl(absUrl);
 
@@ -416,12 +416,12 @@
 					},
 
 					/**
-					* Get path from current hash, or from a file path
-					* @method get
-					* @member ns.util.path
-					* @param {string} newPath
-					* @return {string}
-					*/
+					 * Get path from current hash, or from a file path
+					 * @method get
+					 * @member ns.util.path
+					 * @param {string} newPath
+					 * @return {string}
+					 */
 					get: function (newPath) {
 						if (newPath === undefined) {
 							newPath = this.parseLocation().hash;
@@ -430,89 +430,89 @@
 					},
 
 					/**
-					* Test if a given url (string) is a path
-					* NOTE might be exceptionally naive
-					* @method isPath
-					* @member ns.util.path
-					* @param {string} url
-					* @return {boolean}
-					* @static
-					*/
+					 * Test if a given url (string) is a path
+					 * NOTE might be exceptionally naive
+					 * @method isPath
+					 * @member ns.util.path
+					 * @param {string} url
+					 * @return {boolean}
+					 * @static
+					 */
 					isPath: function (url) {
 						return (/\//).test(url);
 					},
 
 					/**
-					* Return a url path with the window's location protocol/hostname/pathname removed
-					* @method clean
-					* @member ns.util.path
-					* @param {string} url
-					* @param {Object} documentBase  uri structure
-					* @return {string}
-					* @static
-					*/
+					 * Return a url path with the window's location protocol/hostname/pathname removed
+					 * @method clean
+					 * @member ns.util.path
+					 * @param {string} url
+					 * @param {Object} documentBase  uri structure
+					 * @return {string}
+					 * @static
+					 */
 					clean: function (url, documentBase) {
 						return url.replace(documentBase.domain, "");
 					},
 
 					/**
-					* Just return the url without an initial #
-					* @method stripHash
-					* @member ns.util.path
-					* @param {string} url
-					* @return {string}
-					* @static
-					*/
+					 * Just return the url without an initial #
+					 * @method stripHash
+					 * @member ns.util.path
+					 * @param {string} url
+					 * @return {string}
+					 * @static
+					 */
 					stripHash: function (url) {
 						return url.replace(/^#/, "");
 					},
 
 					/**
-					* Return the url without an query params
-					* @method stripQueryParams
-					* @member ns.util.path
-					* @param {string} url
-					* @return {string}
-					* @static
-					*/
+					 * Return the url without an query params
+					 * @method stripQueryParams
+					 * @member ns.util.path
+					 * @param {string} url
+					 * @return {string}
+					 * @static
+					 */
 					stripQueryParams: function (url) {
 						return url.replace(/\?.*$/, "");
 					},
 
 					/**
-					* Validation proper hash
-					* @method isHashValid
-					* @member ns.util.path
-					* @param {string} hash
-					* @static
-					*/
+					 * Validation proper hash
+					 * @method isHashValid
+					 * @member ns.util.path
+					 * @param {string} hash
+					 * @static
+					 */
 					isHashValid: function (hash) {
 						return (/^#[^#]+$/).test(hash);
 					},
 
 					/**
-					* Check whether a url is referencing the same domain, or an external domain or different protocol
-					* could be mailto, etc
-					* @method isExternal
-					* @member ns.util.path
-					* @param {string|Object} url
-					* @param {Object} documentUrl uri object
-					* @return {boolean}
-					* @static
-					*/
+					 * Check whether a url is referencing the same domain, or an external domain or different protocol
+					 * could be mailto, etc
+					 * @method isExternal
+					 * @member ns.util.path
+					 * @param {string|Object} url
+					 * @param {Object} documentUrl uri object
+					 * @return {boolean}
+					 * @static
+					 */
 					isExternal: function (url, documentUrl) {
 						var urlObject = path.parseUrl(url);
 						return urlObject.protocol && urlObject.domain !== documentUrl.domain ? true : false;
 					},
 
 					/**
-					* Check if the url has protocol
-					* @method hasProtocol
-					* @member ns.util.path
-					* @param {string} url
-					* @return {boolean}
-					* @static
-					*/
+					 * Check if the url has protocol
+					 * @method hasProtocol
+					 * @member ns.util.path
+					 * @param {string} url
+					 * @return {boolean}
+					 * @static
+					 */
 					hasProtocol: function (url) {
 						return (/^(:?\w+:)/).test(url);
 					},
@@ -535,13 +535,13 @@
 					},
 
 					/**
-					* Get the url as it would look squashed on to the current resolution url
-					* @method squash
-					* @member ns.util.path
-					* @param {string} url
-					* @param {string} [resolutionUrl=undefined]
-					* @return {string}
-					*/
+					 * Get the url as it would look squashed on to the current resolution url
+					 * @method squash
+					 * @member ns.util.path
+					 * @param {string} url
+					 * @param {string} [resolutionUrl=undefined]
+					 * @return {string}
+					 */
 					squash: function (url, resolutionUrl) {
 						var href,
 							cleanedUrl,
@@ -609,24 +609,24 @@
 					},
 
 					/**
-					* Check if the hash is preservable
-					* @method isPreservableHash
-					* @member ns.util.path
-					* @param {string} hash
-					* @return {boolean}
-					*/
+					 * Check if the hash is preservable
+					 * @method isPreservableHash
+					 * @member ns.util.path
+					 * @param {string} hash
+					 * @return {boolean}
+					 */
 					isPreservableHash: function (hash) {
 						return hash.replace("#", "").indexOf(this.uiStateKey) === 0;
 					},
 
 					/**
-					* Escape weird characters in the hash if it is to be used as a selector
-					* @method hashToSelector
-					* @member ns.util.path
-					* @param {string} hash
-					* @return {string}
-					* @static
-					*/
+					 * Escape weird characters in the hash if it is to be used as a selector
+					 * @method hashToSelector
+					 * @member ns.util.path
+					 * @param {string} hash
+					 * @return {string}
+					 * @static
+					 */
 					hashToSelector: function (hash) {
 						var hasHash = (hash.substring(0, 1) === "#");
 						if (hasHash) {
@@ -636,16 +636,16 @@
 					},
 
 					/**
-					* Check if the specified url refers to the first page in the main application document.
-					* @method isFirstPageUrl
-					* @member ns.util.path
-					* @param {string} url
-					* @param {Object} documentBase uri structure
-					* @param {boolean} documentBaseDiffers
-					* @param {Object} documentUrl uri structure
-					* @return {boolean}
-					* @static
-					*/
+					 * Check if the specified url refers to the first page in the main application document.
+					 * @method isFirstPageUrl
+					 * @member ns.util.path
+					 * @param {string} url
+					 * @param {Object} documentBase uri structure
+					 * @param {boolean} documentBaseDiffers
+					 * @param {Object} documentUrl uri structure
+					 * @return {boolean}
+					 * @static
+					 */
 					isFirstPageUrl: function (url, documentBase, documentBaseDiffers, documentUrl) {
 						var urlStructure,
 							samePath,
@@ -677,19 +677,19 @@
 					},
 
 					/**
-					* Some embedded browsers, like the web view in Phone Gap, allow cross-domain XHR
-					* requests if the document doing the request was loaded via the file:// protocol.
-					* This is usually to allow the application to "phone home" and fetch app specific
-					* data. We normally let the browser handle external/cross-domain urls, but if the
-					* allowCrossDomainPages option is true, we will allow cross-domain http/https
-					* requests to go through our page loading logic.
-					* @method isPermittedCrossDomainRequest
-					* @member ns.util.path
-					* @param {Object} docUrl
-					* @param {string} reqUrl
-					* @return {boolean}
-					* @static
-					*/
+					 * Some embedded browsers, like the web view in Phone Gap, allow cross-domain XHR
+					 * requests if the document doing the request was loaded via the file:// protocol.
+					 * This is usually to allow the application to "phone home" and fetch app specific
+					 * data. We normally let the browser handle external/cross-domain urls, but if the
+					 * allowCrossDomainPages option is true, we will allow cross-domain http/https
+					 * requests to go through our page loading logic.
+					 * @method isPermittedCrossDomainRequest
+					 * @member ns.util.path
+					 * @param {Object} docUrl
+					 * @param {string} reqUrl
+					 * @return {boolean}
+					 * @static
+					 */
 					isPermittedCrossDomainRequest: function (docUrl, reqUrl) {
 						return ns.getConfig("allowCrossDomainPages", false) &&
 							docUrl.protocol === "file:" &&
@@ -697,13 +697,13 @@
 					},
 
 					/**
-					* Convert a object data to URI parameters
-					* @method getAsURIParameters
-					* @member ns.util.path
-					* @param {Object} data
-					* @return {string}
-					* @static
-					*/
+					 * Convert a object data to URI parameters
+					 * @method getAsURIParameters
+					 * @member ns.util.path
+					 * @param {Object} data
+					 * @return {string}
+					 * @static
+					 */
 					getAsURIParameters: function (data) {
 						var url = "",
 							key;
@@ -716,67 +716,67 @@
 					},
 
 					/**
-					* Document Url
-					* @member ns.util.path
-					* @property {string|null} documentUrl
-					*/
+					 * Document Url
+					 * @member ns.util.path
+					 * @property {string|null} documentUrl
+					 */
 					documentUrl: null,
 
 					/**
-					* The document base differs
-					* @member ns.util.path
-					* @property {boolean} documentBaseDiffers
-					*/
+					 * The document base differs
+					 * @member ns.util.path
+					 * @property {boolean} documentBaseDiffers
+					 */
 					documentBaseDiffers: false,
 
 					/**
-					* Set location hash to path
-					* @method set
-					* @member ns.util.path
-					* @param {string} path
-					* @static
-					*/
+					 * Set location hash to path
+					 * @method set
+					 * @member ns.util.path
+					 * @param {string} path
+					 * @static
+					 */
 					set: function (path) {
 						location.hash = path;
 					},
 
 					/**
-					* Return the substring of a file path before the sub-page key,
-					* for making a server request
-					* @method getFilePath
-					* @member ns.util.path
-					* @param {string} path
-					* @param {string} dialogHashKey
-					* @return {string}
-					* @static
-					*/
+					 * Return the substring of a file path before the sub-page key,
+					 * for making a server request
+					 * @method getFilePath
+					 * @member ns.util.path
+					 * @param {string} path
+					 * @param {string} dialogHashKey
+					 * @return {string}
+					 * @static
+					 */
 					getFilePath: function (path, dialogHashKey) {
 						var splitkey = "&" + ns.getConfig("subPageUrlKey", "");
 						return path && path.split(splitkey)[0].split(dialogHashKey)[0];
 					},
 
 					/**
-					* Remove the preceding hash, any query params, and dialog notations
-					* @method cleanHash
-					* @member ns.util.path
-					* @param {string} hash
-					* @param {string} dialogHashKey
-					* @return {string}
-					* @static
-					*/
+					 * Remove the preceding hash, any query params, and dialog notations
+					 * @method cleanHash
+					 * @member ns.util.path
+					 * @param {string} hash
+					 * @param {string} dialogHashKey
+					 * @return {string}
+					 * @static
+					 */
 					cleanHash: function (hash, dialogHashKey) {
 						return path.stripHash(hash.replace(/\?.*$/, "").replace(dialogHashKey, ""));
 					},
 
 					/**
-					* Check if url refers to the embedded page
-					* @method isEmbeddedPage
-					* @member ns.util.path
-					* @param {string} url
-					* @param {boolean} allowEmbeddedOnlyBaseDoc
-					* @return {boolean}
-					* @static
-					*/
+					 * Check if url refers to the embedded page
+					 * @method isEmbeddedPage
+					 * @member ns.util.path
+					 * @param {string} url
+					 * @param {boolean} allowEmbeddedOnlyBaseDoc
+					 * @return {boolean}
+					 * @static
+					 */
 					isEmbeddedPage: function (url, allowEmbeddedOnlyBaseDoc) {
 						var urlObject = path.parseUrl(url);
 
@@ -787,9 +787,9 @@
 						//document will be resolved against the document base.
 						if (urlObject.protocol !== "") {
 							return (urlObject.hash &&
-									( allowEmbeddedOnlyBaseDoc ?
-											urlObject.hrefNoHash === path.documentUrl.hrefNoHash :
-											urlObject.hrefNoHash === path.parseLocation().hrefNoHash ));
+							( allowEmbeddedOnlyBaseDoc ?
+							urlObject.hrefNoHash === path.documentUrl.hrefNoHash :
+							urlObject.hrefNoHash === path.parseLocation().hrefNoHash ));
 						}
 						return (/^#/).test(urlObject.href);
 					}
@@ -800,38 +800,38 @@
 			base = document.querySelector("base");
 
 			/**
-			* The document base URL for the purposes of resolving relative URLs,
-			* and the name of the default browsing context for the purposes of
-			* following hyperlinks
-			* @member ns.util.path
-			* @property {Object} documentBase uri structure
-			* @static
-			*/
+			 * The document base URL for the purposes of resolving relative URLs,
+			 * and the name of the default browsing context for the purposes of
+			 * following hyperlinks
+			 * @member ns.util.path
+			 * @property {Object} documentBase uri structure
+			 * @static
+			 */
 			path.documentBase = base ? path.parseUrl(path.makeUrlAbsolute(base.getAttribute("href"), path.documentUrl.href)) : path.documentUrl;
 
 			path.documentBaseDiffers = (path.documentUrl.hrefNoHash !== path.documentBase.hrefNoHash);
 
 			/**
-			* Get document base
-			* @method getDocumentBase
-			* @member ns.util.path
-			* @param {boolean} [asParsedObject=false]
-			* @return {string|Object}
-			* @static
-			*/
+			 * Get document base
+			 * @method getDocumentBase
+			 * @member ns.util.path
+			 * @param {boolean} [asParsedObject=false]
+			 * @return {string|Object}
+			 * @static
+			 */
 			path.getDocumentBase = function (asParsedObject) {
 				return asParsedObject ? utilsObject.copy(path.documentBase) : path.documentBase.href;
 			};
 
 			/**
-			* Find the closest page and extract out its url
-			* @method getClosestBaseUrl
-			* @member ns.util.path
-			* @param {HTMLElement} element
-			* @param {string} selector
-			* @return {string}
-			* @static
-			*/
+			 * Find the closest page and extract out its url
+			 * @method getClosestBaseUrl
+			 * @member ns.util.path
+			 * @param {HTMLElement} element
+			 * @param {string} selector
+			 * @return {string}
+			 * @static
+			 */
 			path.getClosestBaseUrl = function (element, selector) {
 				// Find the closest page and extract out its url.
 				var url = utilsDOM.getNSData(utilsSelectors.getClosestBySelector(element, selector), "url"),

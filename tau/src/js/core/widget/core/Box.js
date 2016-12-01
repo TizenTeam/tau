@@ -52,7 +52,7 @@
 					// set stylesheet
 					self._styleSheet = null;
 				},
-				classes =  objectUtil.merge({}, CoreLayoutWidget.classes, {
+				classes = objectUtil.merge({}, CoreLayoutWidget.classes, {
 					box: "ui-box"
 				}),
 				defaults = {
@@ -76,7 +76,7 @@
 			 * @member ns.widget.core.Box
 			 * @protected
 			 */
-			prototype._configure = function(element) {
+			prototype._configure = function (element) {
 				var self = this,
 					options = self.options,
 					currentLayout;
@@ -104,7 +104,7 @@
 			 * @member ns.widget.core.Box
 			 * @protected
 			 */
-			prototype.insertCSSRule = function(rule) {
+			prototype.insertCSSRule = function (rule) {
 				var self = this,
 					id = ns.getUniqueId(),
 					styleElement = self._styleSheet,

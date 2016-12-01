@@ -1,4 +1,4 @@
-/*global window, define */
+/*global window, ns, define */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
  *
@@ -61,7 +61,6 @@
 					RIGHT: 8,
 					CENTER: 16
 				},
-				positionKeys = Object.keys(positionFlags),
 				// Calculate prefixed translate rules once, as they won't change afterwards
 				prefixedTranslate = (function () {
 					var transform = cssUtil.getPrefixedValue("transform"),
@@ -97,8 +96,8 @@
 				var selector = "#" + id + " > " + LAYOUTABLE_ELEMENTS_SELECTOR,
 					nthChild = parseInt(key, 10);
 
-				if (!isNaN(nthChild)){
-					return selector + ":nth-child(" + nthChild +")";
+				if (!isNaN(nthChild)) {
+					return selector + ":nth-child(" + nthChild + ")";
 				}
 
 				return selector + key;
@@ -108,7 +107,6 @@
 				var children,
 					i,
 					len,
-					rule = "",
 					positionSelectors;
 
 				// If none global position was defined parse children
@@ -121,7 +119,7 @@
 				} else {
 					positionSelectors = Object.keys(positionSettings);
 
-					for(i = 0, len = positionSelectors.length; i < len; i++) {
+					for (i = 0, len = positionSelectors.length; i < len; i++) {
 						self.insertCSSRule(positionSelector(element.id, positionSelectors[i]) + " {" + createChildPosition(positionSettings[positionSelectors[i]]) + "}");
 					}
 				}
@@ -140,7 +138,7 @@
 				if (xPos === yPos && xPos === "center") {
 					cssStyles += "top:50%;left:50%;" + prefixedTranslate.xy;
 				} else {
-					switch(xPos) {
+					switch (xPos) {
 						case "center":
 							cssStyles += "left:50%;" + prefixedTranslate.x;
 							break;
@@ -155,7 +153,7 @@
 					}
 
 					if (yPos) {
-						switch(yPos) {
+						switch (yPos) {
 							case "center":
 								cssStyles += "top:50%;" + prefixedTranslate.y;
 								break;
@@ -184,13 +182,13 @@
 				// If position was defined on child elements
 				if (position) {
 					positionArray = parsePosition(position);
-					while(positionArray.length) {
+					while (positionArray.length) {
 						element.classList.add(positionClassPrefix + positionArray.pop());
 					}
 				}
 			}
 
-			layout.configure = function(self, element) {
+			layout.configure = function (self) {
 				// set defaults
 				self.options = objectUtil.merge({}, defaults, self.options);
 			};

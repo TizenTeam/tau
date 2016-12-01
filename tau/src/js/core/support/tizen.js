@@ -1,4 +1,4 @@
-/*global window, define*/
+/*global window, ns, define*/
 /*jslint bitwise: true */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
@@ -64,7 +64,7 @@
 				shape: {
 					circle: isTizen ? window.matchMedia("(-tizen-geometric-shape: circle)").matches : isCircleShape(),
 				},
-				gradeA : function () {
+				gradeA: function () {
 					return true;
 				}
 			};

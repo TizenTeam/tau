@@ -28,21 +28,21 @@
  *
  * #### Data attribute
  *
- *		@example
- *		<div data-role="page">
- *			<div data-role="content"><!-- this will become scrollview //-->
- *				content data
- *			</div>
- *		</div>
+ *        @example
+ *        <div data-role="page">
+ *            <div data-role="content"><!-- this will become scrollview //-->
+ *                content data
+ *            </div>
+ *        </div>
  *
  * #### CSS Class
  *
- *		@example
- *		<div data-role="page">
- *			<div class="ui-content"><!-- this will become scrollview //-->
- *				content data
- *			</div>
- *		</div>
+ *        @example
+ *        <div data-role="page">
+ *            <div class="ui-content"><!-- this will become scrollview //-->
+ *                content data
+ *            </div>
+ *        </div>
  *
  * ## Manual constructor
  *
@@ -51,28 +51,28 @@
  *
  * ### Create scrollview by TAU API
  *
- *		@example
- *		<div data-role="page" id="myPage">
- *			<div data-role="content">
- *				page content
- *			</div>
- *		</div>
- *		<script>
- *			var page = tau.widget.Page(document.getElementById("myPage")),
- *				scrollview = tau.widget.Scrollview(page.ui.content);
- *		</script>
+ *        @example
+ *        <div data-role="page" id="myPage">
+ *            <div data-role="content">
+ *                page content
+ *            </div>
+ *        </div>
+ *        <script>
+ *            var page = tau.widget.Page(document.getElementById("myPage")),
+ *                scrollview = tau.widget.Scrollview(page.ui.content);
+ *        </script>
  *
  * ### Create scrollview using jQuery API
  *
- *		@example
- *		<div data-role="page" id="myPage">
- *			<div data-role="content">
- *				page content
- *			</div>
- *		</div>
- *		<script>
- *			$("#myPage > div[data-role='content']").scrollview();
- *		</script>
+ *        @example
+ *        <div data-role="page" id="myPage">
+ *            <div data-role="content">
+ *                page content
+ *            </div>
+ *        </div>
+ *        <script>
+ *            $("#myPage > div[data-role='content']").scrollview();
+ *        </script>
  *
  * ## Options for Scrollview widget
  *
@@ -93,41 +93,41 @@
  *
  * ### By data-scroll attribute
  *
- *		@example
- *		<div data-role="page">
- *			<div data-role="content" data-scroll="none">
- *				content
- *			</div>
- *		</div>
+ *        @example
+ *        <div data-role="page">
+ *            <div data-role="content" data-scroll="none">
+ *                content
+ *            </div>
+ *        </div>
  *
  * ### By config passed to constructor
  *
- *		@example
- *		<div class="myPageClass" data-role="page">
- *			<div data-role="content">
- *				content
- *			</div>
- *		</div>
- *		<script>
- *			var contentElement = document.querySelector(".myPageClass > div[data-role=content]");
- *			tau.widget.Scrollview(contentElement, {
+ *        @example
+ *        <div class="myPageClass" data-role="page">
+ *            <div data-role="content">
+ *                content
+ *            </div>
+ *        </div>
+ *        <script>
+ *            var contentElement = document.querySelector(".myPageClass > div[data-role=content]");
+ *            tau.widget.Scrollview(contentElement, {
  *				"scroll": false
  *			});
- *		</script>
+ *        </script>
  *
  * ### By using jQuery API
  *
- *		@example
- *		<div class="myPageClass" data-role="page">
- *			<div data-role="content">
- *				content
- *			</div>
- *		</div>
- *		<script>
- *			$(".myPageClass > div[data-role='content']").scrollview({
+ *        @example
+ *        <div class="myPageClass" data-role="page">
+ *            <div data-role="content">
+ *                content
+ *            </div>
+ *        </div>
+ *        <script>
+ *            $(".myPageClass > div[data-role='content']").scrollview({
  *				"scroll": false
  *			});
- *		</script>
+ *        </script>
  *
  * ## ScrollJumps
  *
@@ -138,41 +138,41 @@
  *
  * ### By data-scroll-jump
  *
- *		@example
- *		<div data-role="page">
- *			<div data-role="content" data-scroll-jump="true">
- *				content
- *			</div>
- *		</div>
+ *        @example
+ *        <div data-role="page">
+ *            <div data-role="content" data-scroll-jump="true">
+ *                content
+ *            </div>
+ *        </div>
  *
  * ### By config passed to constructor
  *
- *		@example
- *		<div class="myPageClass" data-role="page">
- *			<div data-role="content">
- *				content
- *			</div>
- *		</div>
- *		<script>
- *			var contentElement = document.querySelector(".myPageClass > div[data-role=content]");
- *			tau.widget.Scrollview(contentElement, {
+ *        @example
+ *        <div class="myPageClass" data-role="page">
+ *            <div data-role="content">
+ *                content
+ *            </div>
+ *        </div>
+ *        <script>
+ *            var contentElement = document.querySelector(".myPageClass > div[data-role=content]");
+ *            tau.widget.Scrollview(contentElement, {
  *				"scrollJump": true
  *			});
- *		</script>
+ *        </script>
  *
  * ### By using jQuery API
  *
- *		@example
- *		<div class="myPageClass" data-role="page">
- *			<div data-role="content">
- *				content
- *			</div>
- *		</div>
- *		<script>
- *			$(".myPageClass > div[data-role='content']").scrollview({
+ *        @example
+ *        <div class="myPageClass" data-role="page">
+ *            <div data-role="content">
+ *                content
+ *            </div>
+ *        </div>
+ *        <script>
+ *            $(".myPageClass > div[data-role='content']").scrollview({
  *				"scrollJump": true
  *			});
- *		</script>
+ *        </script>
  *
  * ## Methods
  *
@@ -315,7 +315,7 @@
 				 * @static
 				 * @readonly
 				 */
-				classes =  {
+				classes = {
 					view: "ui-scrollview-view",
 					clip: "ui-scrollview-clip",
 					jumpTop: "ui-scroll-jump-top-bg",
@@ -361,8 +361,8 @@
 				}
 
 				if ((newX !== endX || newY !== endY) &&
-						(newX >= 0 && newY >= 0) &&
-						state.currentTransition) {
+					(newX >= 0 && newY >= 0) &&
+					state.currentTransition) {
 					util.requestAnimationFrame(state.currentTransition);
 				} else {
 					state.currentTransition = null;
@@ -567,7 +567,7 @@
 			 * @private
 			 * @member ns.widget.core.Scrollview
 			 */
-			function clearIndicator (element) {
+			function clearIndicator(element) {
 				var clipClasses = element.classList,
 					topIndicator = selectors.getChildrenByClass(element, classes.indicatorTop)[0],
 					bottomIndicator = selectors.getChildrenByClass(element, classes.indicatorBottom)[0];
@@ -588,7 +588,7 @@
 			 * @private
 			 * @member ns.widget.core.Scrollview
 			 */
-			function setTopAndBottomIndicators (clip, options) {
+			function setTopAndBottomIndicators(clip, options) {
 				var topIndicator = selectors.getChildrenByClass(clip, classes.indicatorTop)[0],
 					bottomIndicator = selectors.getChildrenByClass(clip, classes.indicatorBottom)[0],
 					style;
@@ -677,30 +677,30 @@
 			 *
 			 * ### Example usage with TAU API
 			 *
-			 *		@example
-			 *		<div class="myPageClass" data-role="page">
-			 *			<div data-role="content" data-scroll="y">
-			 *				content
-			 *			</div>
-			 *		</div>
-			 *		<script>
-			 *			var scrollview = tau.widget.Scrollview(document.querySelector(".myPageClass > div[data-role=content]"));
-			 *			scrollview.scrollTo(0, 200, 1000); // scroll to 200px vertical with 1s animation
-			 *		</script>
+			 *        @example
+			 *        <div class="myPageClass" data-role="page">
+			 *            <div data-role="content" data-scroll="y">
+			 *                content
+			 *            </div>
+			 *        </div>
+			 *        <script>
+			 *            var scrollview = tau.widget.Scrollview(document.querySelector(".myPageClass > div[data-role=content]"));
+			 *            scrollview.scrollTo(0, 200, 1000); // scroll to 200px vertical with 1s animation
+			 *        </script>
 			 *
 			 * ### Example usage with jQuery API
 			 *
-			 *		@example
-			 *		<div class="myPageClass" data-role="page">
-			 *			<div data-role="content" data-scroll="y">
-			 *				content
-			 *			</div>
-			 *		</div>
-			 *		<script>
-			 *			var element = $(".myPageClass > div[data-role=content]"));
-			 *			element.scrollview();
-			 *			element.scrollview("scrollTo", 0, 200, 1000); // scroll to 200px vertical with 1s animation
-			 *		</script>
+			 *        @example
+			 *        <div class="myPageClass" data-role="page">
+			 *            <div data-role="content" data-scroll="y">
+			 *                content
+			 *            </div>
+			 *        </div>
+			 *        <script>
+			 *            var element = $(".myPageClass > div[data-role=content]"));
+			 *            element.scrollview();
+			 *            element.scrollview("scrollTo", 0, 200, 1000); // scroll to 200px vertical with 1s animation
+			 *        </script>
 			 *
 			 * @param {number} x
 			 * @param {number} y
@@ -719,30 +719,30 @@
 			 *
 			 * ### Example usage with TAU API
 			 *
-			 *		@example
-			 *		<div class="myPageClass" data-role="page">
-			 *			<div data-role="content" data-scroll="y">
-			 *				content
-			 *			</div>
-			 *		</div>
-			 *		<script>
-			 *			var scrollview = tau.widget.Scrollview(document.querySelector(".myPageClass > div[data-role=content]"));
-			 *			scrollview.translateTo(0, 200, 1000); // scroll forward 200px in vertical direction with 1s animation
-			 *		</script>
+			 *        @example
+			 *        <div class="myPageClass" data-role="page">
+			 *            <div data-role="content" data-scroll="y">
+			 *                content
+			 *            </div>
+			 *        </div>
+			 *        <script>
+			 *            var scrollview = tau.widget.Scrollview(document.querySelector(".myPageClass > div[data-role=content]"));
+			 *            scrollview.translateTo(0, 200, 1000); // scroll forward 200px in vertical direction with 1s animation
+			 *        </script>
 			 *
 			 * ### Example usage with jQuery API
 			 *
-			 *		@example
-			 *		<div class="myPageClass" data-role="page">
-			 *			<div data-role="content" data-scroll="y">
-			 *				content
-			 *			</div>
-			 *		</div>
-			 *		<script>
-			 *			var element = $(".myPageClass > div[data-role=content]"));
-			 *			element.scrollview();
-			 *			element.scrollview("translateTo", 0, 200, 1000); // scroll forward 200px in vertical direction with 1s animation
-			 *		</script>
+			 *        @example
+			 *        <div class="myPageClass" data-role="page">
+			 *            <div data-role="content" data-scroll="y">
+			 *                content
+			 *            </div>
+			 *        </div>
+			 *        <script>
+			 *            var element = $(".myPageClass > div[data-role=content]"));
+			 *            element.scrollview();
+			 *            element.scrollview("translateTo", 0, 200, 1000); // scroll forward 200px in vertical direction with 1s animation
+			 *        </script>
 			 *
 			 * @param {number} x
 			 * @param {number} y
@@ -760,34 +760,34 @@
 			 *
 			 * ### Example usage with TAU API
 			 *
-			 *		@example
-			 *		<div class="myPageClass" data-role="page">
-			 *			<div data-role="content" data-scroll="y">
-			 *				content
-			 *				<div class="testElementClass">somedata</div>
-			 *			</div>
-			 *		</div>
-			 *		<script>
-			 *			var scrollview = tau.widget.Scrollview(document.querySelector(".myPageClass > div[data-role=content]")),
-			 *				testElement = document.querySelector(".testElementClass");
-			 *			scrollview.ensureElementIsVisible(testelement);
-			 *		</script>
+			 *        @example
+			 *        <div class="myPageClass" data-role="page">
+			 *            <div data-role="content" data-scroll="y">
+			 *                content
+			 *                <div class="testElementClass">somedata</div>
+			 *            </div>
+			 *        </div>
+			 *        <script>
+			 *            var scrollview = tau.widget.Scrollview(document.querySelector(".myPageClass > div[data-role=content]")),
+			 *                testElement = document.querySelector(".testElementClass");
+			 *            scrollview.ensureElementIsVisible(testelement);
+			 *        </script>
 			 *
 			 * ### Example usage with jQuery API
 			 *
-			 *		@example
-			 *		<div class="myPageClass" data-role="page">
-			 *			<div data-role="content" data-scroll="y">
-			 *				content
-			 *				<div class="testElementClass">somedata</div>
-			 *			</div>
-			 *		</div>
-			 *		<script>
-			 *			var element = $(".myPageClass > div[data-role=content]")),
-			 *				testElement = $(".testElementClass");
-			 *			element.scrollview();
-			 *			element.scrollview("ensureElementIsVisible", testElement);
-			 *		</script>
+			 *        @example
+			 *        <div class="myPageClass" data-role="page">
+			 *            <div data-role="content" data-scroll="y">
+			 *                content
+			 *                <div class="testElementClass">somedata</div>
+			 *            </div>
+			 *        </div>
+			 *        <script>
+			 *            var element = $(".myPageClass > div[data-role=content]")),
+			 *                testElement = $(".testElementClass");
+			 *            element.scrollview();
+			 *            element.scrollview("ensureElementIsVisible", testElement);
+			 *        </script>
 			 *
 			 * @param {HTMLElement} element
 			 * @method ensureElementIsVisible
@@ -863,34 +863,34 @@
 			 *
 			 * ### Example usage with TAU API
 			 *
-			 *		@example
-			 *		<div class="myPageClass" data-role="page">
-			 *			<div data-role="content" data-scroll="y">
-			 *				content
-			 *				<div class="testElementClass">somedata</div>
-			 *			</div>
-			 *		</div>
-			 *		<script>
-			 *			var scrollview = tau.widget.Scrollview(document.querySelector(".myPageClass > div[data-role=content]")),
-			 *				testElement = document.querySelector(".testElementClass");
-			 *			scrollview.centerToElement(testelement);
-			 *		</script>
+			 *        @example
+			 *        <div class="myPageClass" data-role="page">
+			 *            <div data-role="content" data-scroll="y">
+			 *                content
+			 *                <div class="testElementClass">somedata</div>
+			 *            </div>
+			 *        </div>
+			 *        <script>
+			 *            var scrollview = tau.widget.Scrollview(document.querySelector(".myPageClass > div[data-role=content]")),
+			 *                testElement = document.querySelector(".testElementClass");
+			 *            scrollview.centerToElement(testelement);
+			 *        </script>
 			 *
 			 * ### Example usage with jQuery API
 			 *
-			 *		@example
-			 *		<div class="myPageClass" data-role="page">
-			 *			<div data-role="content" data-scroll="y">
-			 *				content
-			 *				<div class="testElementClass">somedata</div>
-			 *			</div>
-			 *		</div>
-			 *		<script>
-			 *			var element = $(".myPageClass > div[data-role=content]")),
-			 *				testElement = $(".testElementClass");
-			 *			element.scrollview();
-			 *			element.scrollview("centerToElement", testElement);
-			 *		</script>
+			 *        @example
+			 *        <div class="myPageClass" data-role="page">
+			 *            <div data-role="content" data-scroll="y">
+			 *                content
+			 *                <div class="testElementClass">somedata</div>
+			 *            </div>
+			 *        </div>
+			 *        <script>
+			 *            var element = $(".myPageClass > div[data-role=content]")),
+			 *                testElement = $(".testElementClass");
+			 *            element.scrollview();
+			 *            element.scrollview("centerToElement", testElement);
+			 *        </script>
 			 *
 			 * @param {HTMLElement} element
 			 * @method centerToElement
@@ -927,31 +927,31 @@
 			/**
 			 * Returns scroll current position
 			 *
-			 *		@example
-			 *		<div class="myPageClass" data-role="page">
-			 *			<div data-role="content" data-scroll="y">
-			 *				content
-			 *			</div>
-			 *		</div>
-			 *		<script>
-			 *			var scrollview = tau.widget.Scrollview(document.querySelector(".myPageClass > div[data-role=content]")),
-			 *				currentPosition = scrollview.getScrollPosition();
-			 *		</script>
+			 *        @example
+			 *        <div class="myPageClass" data-role="page">
+			 *            <div data-role="content" data-scroll="y">
+			 *                content
+			 *            </div>
+			 *        </div>
+			 *        <script>
+			 *            var scrollview = tau.widget.Scrollview(document.querySelector(".myPageClass > div[data-role=content]")),
+			 *                currentPosition = scrollview.getScrollPosition();
+			 *        </script>
 			 *
 			 * ### Example usage with jQuery API
 			 *
-			 *		@example
-			 *		<div class="myPageClass" data-role="page">
-			 *			<div data-role="content" data-scroll="y">
-			 *				content
-			 *			</div>
-			 *		</div>
-			 *		<script>
-			 *			var element = $(".myPageClass > div[data-role=content]")),
-			 *				position;
-			 *			element.scrollview();
-			 *			position = element.scrollview("getScrollPosition");
-			 *		</script>
+			 *        @example
+			 *        <div class="myPageClass" data-role="page">
+			 *            <div data-role="content" data-scroll="y">
+			 *                content
+			 *            </div>
+			 *        </div>
+			 *        <script>
+			 *            var element = $(".myPageClass > div[data-role=content]")),
+			 *                position;
+			 *            element.scrollview();
+			 *            position = element.scrollview("getScrollPosition");
+			 *        </script>
 			 *
 			 * @return {Object}
 			 * @method getScrollPosition
@@ -974,9 +974,6 @@
 			 */
 			Scrollview.prototype._bindEvents = function (element) {
 				var scrollTimer = null,
-					view = element.children[0],
-					lastClipHeight = DOMUtils.getElementHeight(element),
-					lastClipWidth = DOMUtils.getElementWidth(element),
 					notifyScrolled = function () {
 						eventUtils.trigger(element, "scrollstop");
 						window.clearTimeout(scrollTimer);
@@ -1033,9 +1030,9 @@
 
 					if (self.options.scrollIndicator) {
 						callbacks.scrollUpdate = self._showScrollIndicator.bind(self);
-						element.addEventListener("scrollupdate", callbacks.scrollUpdate , false);
+						element.addEventListener("scrollupdate", callbacks.scrollUpdate, false);
 						callbacks.scrollStop = self._hideScrollIndicator.bind(self);
-						element.addEventListener("scrollstop", callbacks.scrollStop , false);
+						element.addEventListener("scrollstop", callbacks.scrollStop, false);
 					}
 
 				}
@@ -1067,7 +1064,7 @@
 				}
 
 				if (self.options.scrollIndicator) {
-					element.removeEventListener("scrollupdate", callbacks.scrollUpdate , false);
+					element.removeEventListener("scrollupdate", callbacks.scrollUpdate, false);
 				}
 
 				if (self._timers.scrollIndicatorHide) {

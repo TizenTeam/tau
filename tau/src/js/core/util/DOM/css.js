@@ -1,4 +1,4 @@
-/*global window, define */
+/*global window, ns, define */
 /*jslint plusplus: true */
 /*jshint -W069 */
 /*
@@ -54,21 +54,21 @@
 					value = style.getPropertyValue(property);
 					if (value) {
 						switch (type) {
-						case "integer":
-							value = parseInt(value, 10);
-							if (!isNaN(value)) {
+							case "integer":
+								value = parseInt(value, 10);
+								if (!isNaN(value)) {
+									result = value;
+								}
+								break;
+							case "float":
+								value = parseFloat(value);
+								if (!isNaN(value)) {
+									result = value;
+								}
+								break;
+							default:
 								result = value;
-							}
-							break;
-						case "float":
-							value = parseFloat(value);
-							if (!isNaN(value)) {
-								result = value;
-							}
-							break;
-						default:
-							result = value;
-							break;
+								break;
 						}
 					}
 				}
@@ -87,7 +87,7 @@
 			 * @member ns.util.DOM
 			 * @static
 			 */
-			function extractCSSProperties (element, properties, pseudoSelector, noConversion) {
+			function extractCSSProperties(element, properties, pseudoSelector, noConversion) {
 				var style = window.getComputedStyle(element, pseudoSelector),
 					property,
 					value = null,
@@ -168,13 +168,13 @@
 					}
 
 					// We are extracting raw values to be able to check the units
-					if(typeof props["height"] === "string" && props["height"].indexOf("px") === -1){
+					if (typeof props["height"] === "string" && props["height"].indexOf("px") === -1) {
 						//ignore non px values such as auto or %
 						props["height"] = 0;
 					}
 
 					for (property in props) {
-						if (props.hasOwnProperty(property) && property !== "box-sizing"){
+						if (props.hasOwnProperty(property) && property !== "box-sizing") {
 							value = parseFloat(props[property]);
 							if (isNaN(value)) {
 								value = 0;
@@ -259,12 +259,12 @@
 						style.position = originalPosition;
 					}
 
-					if(typeof props["width"] === "string" && props["width"].indexOf("px") === -1) {
+					if (typeof props["width"] === "string" && props["width"].indexOf("px") === -1) {
 						//ignore non px values such as auto or %
 						props["width"] = 0;
 					}
 					for (property in props) {
-						if (props.hasOwnProperty(property) && property !== "box-sizing"){
+						if (props.hasOwnProperty(property) && property !== "box-sizing") {
 							value = parseFloat(props[property]);
 							if (isNaN(value)) {
 								value = 0;

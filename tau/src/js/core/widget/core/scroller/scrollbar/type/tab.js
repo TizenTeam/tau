@@ -104,7 +104,7 @@
 					var scrollbarElement = data.wrapper,
 						container = data.container;
 
-					if ( container && scrollbarElement) {
+					if (container && scrollbarElement) {
 						container.removeChild(scrollbarElement);
 					}
 				},

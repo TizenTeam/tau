@@ -34,73 +34,73 @@
 			ns.defaults = {};
 
 			Object.defineProperty(ns.defaults, "autoInitializePage", {
-				 get: function(){
-					 return ns.getConfig("autoInitializePage", true);
-				 },
-				 set: function(value){
-					 return ns.setConfig("autoInitializePage", value);
-				 }
+				get: function () {
+					return ns.getConfig("autoInitializePage", true);
+				},
+				set: function (value) {
+					return ns.setConfig("autoInitializePage", value);
+				}
 			});
 
 			Object.defineProperty(ns.defaults, "dynamicBaseEnabled", {
-				 get: function(){
-					 return ns.getConfig("dynamicBaseEnabled", true);
-				 },
-				 set: function(value){
-					 return ns.setConfig("dynamicBaseEnabled", value);
-				 }
+				get: function () {
+					return ns.getConfig("dynamicBaseEnabled", true);
+				},
+				set: function (value) {
+					return ns.setConfig("dynamicBaseEnabled", value);
+				}
 			});
 
 			Object.defineProperty(ns.defaults, "pageTransition", {
-				 get: function(){
-					 return ns.getConfig("pageTransition", "none");
-				 },
-				 set: function(value){
-					 return ns.setConfig("pageTransition", value);
-				 }
+				get: function () {
+					return ns.getConfig("pageTransition", "none");
+				},
+				set: function (value) {
+					return ns.setConfig("pageTransition", value);
+				}
 			});
 
 			Object.defineProperty(ns.defaults, "popupTransition", {
-				 get: function(){
-					 return ns.getConfig("popupTransition", "none");
-				 },
-				 set: function(value){
-					 return ns.setConfig("popupTransition", value);
-				 }
+				get: function () {
+					return ns.getConfig("popupTransition", "none");
+				},
+				set: function (value) {
+					return ns.setConfig("popupTransition", value);
+				}
 			});
 
 			Object.defineProperty(ns.defaults, "popupFullSize", {
-				get: function(){
+				get: function () {
 					return ns.getConfig("popupFullSize", false);
 				},
-				set: function(value){
+				set: function (value) {
 					return ns.setConfig("popupFullSize", value);
 				}
 			});
 
 			Object.defineProperty(ns.defaults, "enablePageScroll", {
-				get: function(){
+				get: function () {
 					return ns.getConfig("enablePageScroll", false);
 				},
-				set: function(value){
+				set: function (value) {
 					return ns.setConfig("enablePageScroll", value);
 				}
 			});
 
 			Object.defineProperty(ns.defaults, "scrollEndEffectArea", {
-				get: function(){
+				get: function () {
 					return ns.getConfig("scrollEndEffectArea", "content");
 				},
-				set: function(value){
+				set: function (value) {
 					return ns.setConfig("scrollEndEffectArea", value);
 				}
 			});
 
 			Object.defineProperty(ns.defaults, "enablePopupScroll", {
-				get: function(){
+				get: function () {
 					return ns.getConfig("enablePopupScroll", false);
 				},
-				set: function(value){
+				set: function (value) {
 					return ns.setConfig("enablePopupScroll", value);
 				}
 			});

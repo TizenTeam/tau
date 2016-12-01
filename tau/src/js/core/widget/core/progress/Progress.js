@@ -170,12 +170,12 @@
 				return element;
 			};
 
-			prototype._setValue = function(value) {
+			prototype._setValue = function (value) {
 				var self = this,
 					options = self.options,
 					element = self.element;
 
-					self._oldValue = options.value;
+				self._oldValue = options.value;
 
 				if (typeof value === "number") {
 					value = Math.min(options.max, Math.max(options.min, value));
@@ -198,7 +198,7 @@
 			 * @returns {Number}
 			 * @private
 			 */
-			prototype._getValue = function() {
+			prototype._getValue = function () {
 				return parseInt(this.element.getAttribute("value"), 10);
 			};
 
@@ -209,7 +209,7 @@
 				self._isAnimating = true;
 
 				util.requestAnimationFrame(function step(timeStamp) {
-					if(startTime === null) {
+					if (startTime === null) {
 						startTime = timeStamp;
 					}
 					var currentTimeGap = timeStamp - startTime;
@@ -231,7 +231,7 @@
 			 * @member ns.widget.core.progress.Progress
 			 * @protected
 			 */
-			prototype._destroy = function() {
+			prototype._destroy = function () {
 				var self = this,
 					element = self.element;
 

@@ -129,11 +129,13 @@
 				}
 				return result;
 			}
+
 			function calculateCenter(direction, elements, index) {
 				var result = calculateCustomLayout(direction, elements, index + 1);
 				result -= direction === Scroller.Orientation.HORIZONTAL ? elements[index].offsetWidth / 2 : elements[index].offsetHeight / 2;
 				return result;
 			}
+
 			utilsObject.inherit(SectionChanger, Scroller, {
 				_build: function (element) {
 
@@ -151,7 +153,7 @@
 					return element;
 				},
 
-				_configure : function () {
+				_configure: function () {
 					this._super();
 					/**
 					 * Options for widget
@@ -392,7 +394,7 @@
 					);
 
 					utilsEvents.on(this.scroller,
-							"swipe transitionEnd webkitTransitionEnd mozTransitionEnd msTransitionEnd oTransitionEnd", this);
+						"swipe transitionEnd webkitTransitionEnd mozTransitionEnd msTransitionEnd oTransitionEnd", this);
 				},
 
 				_unbindEvents: function () {
@@ -433,9 +435,9 @@
 				_notifyChanagedSection: function (index) {
 					var activeClass = this.options.activeClass,
 						sectionLength = this.sections.length,
-						i=0, section;
+						i = 0, section;
 
-					for (i=0; i < sectionLength; i++) {
+					for (i = 0; i < sectionLength; i++) {
 						section = this.sections[i];
 						section.classList.remove(activeClass);
 						if (i === this.activeIndex) {
@@ -457,13 +459,11 @@
 				 * @member ns.widget.core.SectionChanger
 				 */
 				setActiveSection: function (index, duration, direct) {
-					var position = this.sectionPositions[ index ],
+					var position = this.sectionPositions[index],
 						scrollbarDuration = duration,
 						oldActiveIndex = this.activeIndex,
-						newX=0,
-						newY= 0,
-						centerX = 0,
-						centerY = 0;
+						newX = 0,
+						newY = 0;
 
 					if (this.orientation === Scroller.Orientation.HORIZONTAL) {
 						newX = this._sectionChangerHalfWidth - calculateCenter(this.orientation, this.sections, position);
@@ -481,7 +481,7 @@
 
 					if (newX !== this.scrollerOffsetX || newY !== this.scrollerOffsetY) {
 						if (direct !== false) {
-							this._fireEvent( eventType.START );
+							this._fireEvent(eventType.START);
 							this.scrolled = true;
 						}
 
@@ -539,7 +539,7 @@
 				},
 
 				_end: function (/* e */) {
-					if ( this.scrollbar ) {
+					if (this.scrollbar) {
 						this.scrollbar.end();
 					}
 
@@ -591,7 +591,7 @@
 					// if developer set circular option is true, this method used when webkitTransitionEnd event fired
 					var sectionLength = this.sections.length,
 						curPosition = this.sectionPositions[this.activeIndex],
-						centerPosition = window.parseInt(sectionLength/2, 10),
+						centerPosition = window.parseInt(sectionLength / 2, 10),
 						circular = this.options.circular,
 						centerX = 0,
 						centerY = 0,
@@ -619,7 +619,7 @@
 						if (circular) {
 							for (i = 0; i < sectionLength; i++) {
 								sIdx = (sectionLength + this.activeIndex - centerPosition + i) % sectionLength;
-								sectionStyle = this.sections[ sIdx ].style;
+								sectionStyle = this.sections[sIdx].style;
 
 								this.sectionPositions[sIdx] = i;
 

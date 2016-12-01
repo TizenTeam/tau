@@ -1,4 +1,4 @@
-/*global window, define */
+/*global window, ns, define */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
  *
@@ -42,7 +42,6 @@
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 			var BaseWidget = ns.widget.BaseWidget,
-				Page = ns.widget.core.Page,
 				util = ns.util,
 				eventUtils = ns.event,
 				DOM = util.DOM,
@@ -346,7 +345,7 @@
 			 * @member ns.widget.core.PageContainer
 			 * @protected
 			 */
-			prototype._removeExternalPage = function ( fromPageWidget, options) {
+			prototype._removeExternalPage = function (fromPageWidget, options) {
 				var fromPage = fromPageWidget.element;
 				options = options || {};
 				if (options.reverse && DOM.hasNSData(fromPage, "external")) {

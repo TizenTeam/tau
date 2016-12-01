@@ -32,57 +32,57 @@
  *
  * ####Create simple tab bar in header
  *
- *		@example
- *		<div data-role="page">
- *			<div data-role="header">
- *				<div data-role="tabbar">
- *					<ul>
- *						<li><a data-icon="naviframe-edit">Tabbar1</a></li>
- *						<li><a data-icon="naviframe-cancel">Tabbar2</a></li>
- *						<li><a data-icon="naviframe-call">Tabbar3</a></li>
- *					</ul>
- *				</div>
- *			</div>
- *			<div data-role="content">
- *				Content
- *			</div>
- *		</div>
+ *        @example
+ *        <div data-role="page">
+ *            <div data-role="header">
+ *                <div data-role="tabbar">
+ *                    <ul>
+ *                        <li><a data-icon="naviframe-edit">Tabbar1</a></li>
+ *                        <li><a data-icon="naviframe-cancel">Tabbar2</a></li>
+ *                        <li><a data-icon="naviframe-call">Tabbar3</a></li>
+ *                    </ul>
+ *                </div>
+ *            </div>
+ *            <div data-role="content">
+ *                Content
+ *            </div>
+ *        </div>
  *
  * ####Create simple tab bar in footer
  *
- *		@example
- *		<div data-role="page">
- *			<div data-role="content">Content</div>
- *			<div data-role="footer">
- *				<div data-role="tabbar">
- *					<ul>
- *						<li><a data-icon="naviframe-edit">Tabbar1</a></li>
- *						<li><a data-icon="naviframe-cancel">Tabbar2</a></li>
- *						<li><a data-icon="naviframe-call">Tabbar3</a></li>
- *					</ul>
- *				</div>
- *			</div>
- *		</div>
+ *        @example
+ *        <div data-role="page">
+ *            <div data-role="content">Content</div>
+ *            <div data-role="footer">
+ *                <div data-role="tabbar">
+ *                    <ul>
+ *                        <li><a data-icon="naviframe-edit">Tabbar1</a></li>
+ *                        <li><a data-icon="naviframe-cancel">Tabbar2</a></li>
+ *                        <li><a data-icon="naviframe-call">Tabbar3</a></li>
+ *                    </ul>
+ *                </div>
+ *            </div>
+ *        </div>
  *
  * ## Manual constructor
  * For manual creation of search bar widget you can use constructor of widget from
  * **tau** namespace:
  *
- *		@example
- *		<div data-role="page" id="tab-bar-page">
- *			<div data-role="header">
- *				<div id="ready-for-tab-bar">
- *					<ul>
- *						<li><a data-icon="naviframe-edit">Tabbar1</a></li>
- *						<li><a data-icon="naviframe-cancel">Tabbar2</a></li>
- *						<li><a data-icon="naviframe-call">Tabbar3</a></li>
- *					</ul>
- *				</div>
- *			</div>
- *			<div data-role="content">Content</div>
+ *        @example
+ *        <div data-role="page" id="tab-bar-page">
+ *            <div data-role="header">
+ *                <div id="ready-for-tab-bar">
+ *                    <ul>
+ *                        <li><a data-icon="naviframe-edit">Tabbar1</a></li>
+ *                        <li><a data-icon="naviframe-cancel">Tabbar2</a></li>
+ *                        <li><a data-icon="naviframe-call">Tabbar3</a></li>
+ *                    </ul>
+ *                </div>
+ *            </div>
+ *            <div data-role="content">Content</div>
  *      </div>
- *		<script>
- *			(function (document) {
+ *        <script>
+ *            (function (document) {
  *				var pageElement = document.getElementById("tab-bar-page"),
  *					tabBarElement = document.getElementById("ready-for-tab-bar"),
  *					tabBar;
@@ -93,7 +93,7 @@
  *
  *				pageElement.addEventListener("pagecreate", createPageHandle);
  *			}(document));
- *		</script>
+ *        </script>
  *
  * Constructor has one require parameter **element** which are base
  * **HTMLElement** to create widget. We recommend get this element by method
@@ -102,28 +102,28 @@
  *
  * If jQuery library is loaded, its method can be used:
  *
- *		@example
- *		<div data-role="page" id="tab-bar-page">
- *			<div data-role="header">
- *				<div id="ready-for-tab-bar">
- *					<ul>
- *						<li><a data-icon="naviframe-edit">Tabbar1</a></li>
- *						<li><a data-icon="naviframe-cancel">Tabbar2</a></li>
- *						<li><a data-icon="naviframe-call">Tabbar3</a></li>
- *					</ul>
- *				</div>
- *			</div>
- *			<div data-role="content">Content</div>
- *		</div>
- *		<script>
- *			(function (document) {
+ *        @example
+ *        <div data-role="page" id="tab-bar-page">
+ *            <div data-role="header">
+ *                <div id="ready-for-tab-bar">
+ *                    <ul>
+ *                        <li><a data-icon="naviframe-edit">Tabbar1</a></li>
+ *                        <li><a data-icon="naviframe-cancel">Tabbar2</a></li>
+ *                        <li><a data-icon="naviframe-call">Tabbar3</a></li>
+ *                    </ul>
+ *                </div>
+ *            </div>
+ *            <div data-role="content">Content</div>
+ *        </div>
+ *        <script>
+ *            (function (document) {
  *				function createPageHandle() {
  *					$("#ready-for-tab-bar").tabbar();
  *				}
  *
  *				$("#tab-bar-page").on("pagecreate", createPageHandle);
  *			}(document));
- *		</script>
+ *        </script>
  *
  * jQuery Mobile constructor has one optional parameter is **options** and it is
  * a object with options for widget.
@@ -141,20 +141,20 @@
  *
  * First API is from tau namespace:
  *
- *		@example
- *		<script>
- *		var tabBarElement = document.getElementById("tab-bar"),
- *			tabBar = tau.widget.TabBar(TabBarElement);
+ *        @example
+ *        <script>
+ *        var tabBarElement = document.getElementById("tab-bar"),
+ *            tabBar = tau.widget.TabBar(TabBarElement);
  *
- *		tabBar.methodName(methodArgument1, methodArgument2, ...);
- *		</script>
+ *        tabBar.methodName(methodArgument1, methodArgument2, ...);
+ *        </script>
  *
  * Second API is jQuery Mobile API and for call _methodName_ you can use:
  *
- *		@example
- *		<script>
- *		$(".selector").tabbar("methodName", methodArgument1, methodArgument2, ...);
- *		</script>
+ *        @example
+ *        <script>
+ *        $(".selector").tabbar("methodName", methodArgument1, methodArgument2, ...);
+ *        </script>
  *
  * @class ns.widget.core.TabBar
  * @extends ns.widget.BaseWidget
@@ -248,7 +248,7 @@
 			function findTitle(element) {
 				var parentNode = element.parentNode,
 					title;
-				while(parentNode && !parentNode.classList.contains(Page.classes.uiPage)) {
+				while (parentNode && !parentNode.classList.contains(Page.classes.uiPage)) {
 					title = parentNode.querySelector("." + classes.TITLE);
 					if (title) {
 						return title;
@@ -257,6 +257,7 @@
 				}
 				return 0;
 			}
+
 			/**
 			 * Build method
 			 * @method _build
@@ -277,7 +278,7 @@
 				element.classList.add(classes.TABBAR);
 				if (links.length === 0) {
 					links = element.querySelectorAll("li div");
-					if (links.length ===0) {
+					if (links.length === 0) {
 						ns.warn("There is no tab element");
 						ui.links = links;
 						ui.tabs = tabs;
@@ -294,7 +295,7 @@
 					type.withIcon = true;
 				}
 
-				for(i=0, liLength=tabs.length; i<liLength; i++) {
+				for (i = 0, liLength = tabs.length; i < liLength; i++) {
 					link = links[i];
 					text = link.firstChild;
 					if (text) {
@@ -416,7 +417,7 @@
 			 * @param {Event} event
 			 * @member ns.widget.core.TabBar
 			 */
-			prototype.handleEvent = function(event) {
+			prototype.handleEvent = function (event) {
 				var self = this;
 				switch (event.type) {
 					case "drag":
@@ -441,7 +442,7 @@
 			 * @protected
 			 * @member ns.widget.core.TabBar
 			 */
-			prototype._translate = function(x, duration) {
+			prototype._translate = function (x, duration) {
 				var self = this,
 					element = this.element;
 
@@ -461,22 +462,22 @@
 			 * @protected
 			 * @member ns.widget.core.TabBar
 			 */
-			prototype._onClick = function(event) {
+			prototype._onClick = function (event) {
 				var self = this,
 					ui = self._ui,
 					options = self.options,
 					selectTab = event.currentTarget.querySelector("A"),
 					index, i, tabLength;
 
-				for(i=0, tabLength=ui.links.length; i<tabLength; i++) {
-					if(ui.links[i] === selectTab) {
+				for (i = 0, tabLength = ui.links.length; i < tabLength; i++) {
+					if (ui.links[i] === selectTab) {
 						index = i;
 						break;
 					}
 					index = 0;
 				}
 
-				if(options.autoChange) {
+				if (options.autoChange) {
 					self._setActive(index);
 				}
 			};
@@ -488,7 +489,7 @@
 			 * @param {Event} event
 			 * @member ns.widget.core.TabBar
 			 */
-			prototype._onDrag = function(event) {
+			prototype._onDrag = function (event) {
 				var self = this,
 					element = self.element,
 					deltaX = event.detail.deltaX,
@@ -508,7 +509,7 @@
 			 * @protected
 			 * @member ns.widget.core.TabBar
 			 */
-			prototype._onDragEnd = function() {
+			prototype._onDragEnd = function () {
 				var self = this;
 
 				self._translatedX = self._lastX;
@@ -521,7 +522,7 @@
 			 * @protected
 			 * @member ns.widget.core.TabBar
 			 */
-			prototype._setActive = function(index) {
+			prototype._setActive = function (index) {
 				var self = this,
 					options = self.options,
 					ui = self._ui;
@@ -543,7 +544,7 @@
 			 * @protected
 			 * @member ns.widget.core.TabBar
 			 */
-			prototype._setTabbarPosition = function() {
+			prototype._setTabbarPosition = function () {
 				var self = this,
 					offsetWidth = self.element.offsetWidth,
 					activeIndex = self.options.active,
@@ -556,7 +557,7 @@
 				} else if (activeTabOffsetWidth < relativeWidth) {
 					if (activeTabOffsetWidth < offsetWidth) {
 						self._translate(0, DEFAULT_NUMBER.DURATION);
-					} else if (activeTabOffsetWidth <= relativeWidth + self._lastX){
+					} else if (activeTabOffsetWidth <= relativeWidth + self._lastX) {
 						self._translate(offsetWidth - activeTabOffsetWidth, DEFAULT_NUMBER.DURATION);
 					}
 				}

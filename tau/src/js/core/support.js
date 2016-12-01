@@ -1,4 +1,4 @@
-/*global window, define*/
+/*global window, ns, define*/
 /*jslint bitwise: true */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
@@ -33,12 +33,12 @@
 			//>>excludeEnd("tauBuildExclude");
 
 			/* $.mobile.media method: pass a CSS media type or query and get a bool return
-			note: this feature relies on actual media query support for media queries, though types will work most anywhere
-			examples:
-				$.mobile.media('screen') // tests for screen media type
-				$.mobile.media('screen and (min-width: 480px)') // tests for screen media type with window width > 480px
-				$.mobile.media('\@media screen and (-webkit-min-device-pixel-ratio: 2)') // tests for webkit 2x pixel ratio (iPhone 4)
-		*/
+			 note: this feature relies on actual media query support for media queries, though types will work most anywhere
+			 examples:
+			 $.mobile.media('screen') // tests for screen media type
+			 $.mobile.media('screen and (min-width: 480px)') // tests for screen media type with window width > 480px
+			 $.mobile.media('\@media screen and (-webkit-min-device-pixel-ratio: 2)') // tests for webkit 2x pixel ratio (iPhone 4)
+			 */
 			// TODO: use window.matchMedia once at least one UA implements it
 			var cacheMedia = {},
 				testDiv = document.createElement("div"),
@@ -46,7 +46,7 @@
 				fakeBodyStyle = fakeBody.style,
 				html = document.getElementsByTagName("html")[0],
 				style,
-				vendors = [ "Webkit", "Moz", "O" ],
+				vendors = ["Webkit", "Moz", "O"],
 				webos = window.palmGetResource, //only used to rule out scrollTop
 				opera = window.opera,
 				operamini = window.operamini && ({}).toString.call(window.operamini) === "[object OperaMini]",
@@ -296,8 +296,8 @@
 				 * @static
 				 */
 				cssAnimationPrefix: testDivStyle.hasOwnProperty("webkitAnimation") ? "-webkit-" :
-						testDivStyle.hasOwnProperty("mozAnimation") ? "-moz-" :
-								testDivStyle.hasOwnProperty("oAnimation") ? "-o-" : "",
+					testDivStyle.hasOwnProperty("mozAnimation") ? "-moz-" :
+						testDivStyle.hasOwnProperty("oAnimation") ? "-o-" : "",
 				/**
 				 * Informs browser support getBoundingClientRect
 				 * @property {boolean} boundingRect
@@ -332,7 +332,7 @@
 				 */
 				gradeA: function () {
 					return ((this.mediaquery || (this.browser.ie && this.browser.ie >= 7)) &&
-						(this.boundingRect || ((window.jQuery && window.jQuery.fn && window.jQuery.fn.jquery.match(/1\.[0-7+]\.[0-9+]?/)) !== null)));
+					(this.boundingRect || ((window.jQuery && window.jQuery.fn && window.jQuery.fn.jquery.match(/1\.[0-7+]\.[0-9+]?/)) !== null)));
 				},
 				/**
 				 * Informs browser support touch events

@@ -38,7 +38,6 @@
 			//>>excludeEnd("tauBuildExclude");
 			// scroller.start event trigger when user try to move scroller
 			var BaseWidget = ns.widget.BaseWidget,
-				Gesture = ns.event.gesture,
 				engine = ns.engine,
 				utilsObject = ns.util.object,
 				utilsEvents = ns.event,
@@ -141,7 +140,7 @@
 					scrollerChildren = this.scroller.children,
 					elementStyle = this.element.style,
 					scrollerStyle = this.scroller.style,
-					elementHalfWidth =  this.element.offsetWidth / 2,
+					elementHalfWidth = this.element.offsetWidth / 2,
 					elementHalfHeight = this.element.offsetHeight / 2;
 
 				this.orientation = this.orientation ? this.orientation :
@@ -158,7 +157,7 @@
 				this.touching = true;
 				this.scrollCanceled = false;
 
-				if ( this.orientation === Scroller.Orientation.HORIZONTAL ) {
+				if (this.orientation === Scroller.Orientation.HORIZONTAL) {
 					this.maxScrollY = 0;
 				} else {
 					this.maxScrollX = 0;
@@ -179,9 +178,9 @@
 				var type = this.options.scrollbar,
 					scrollbarType;
 
-				if ( type ) {
+				if (type) {
 					scrollbarType = ns.widget.core.scroller.scrollbar.type[type];
-					if ( scrollbarType ) {
+					if (scrollbarType) {
 						this.scrollbar = engine.instanceWidget(this.element, "ScrollBar", {
 							type: scrollbarType,
 							orientation: this.orientation
@@ -192,7 +191,7 @@
 
 			prototype._initBouncingEffect = function () {
 				var o = this.options;
-				if ( o.useBouncingEffect ) {
+				if (o.useBouncingEffect) {
 					this.bouncingEffect = new EffectBouncing(this.element, {
 						maxScrollX: this.maxScrollX,
 						maxScrollY: this.maxScrollY,
@@ -238,14 +237,14 @@
 					})
 				);
 
-				utilsEvents.on( this.scroller, "drag dragstart dragend dragcancel", this );
+				utilsEvents.on(this.scroller, "drag dragstart dragend dragcancel", this);
 				window.addEventListener("resize", this);
 			};
 
 			prototype._unbindEvents = function () {
 				if (this.scroller) {
-					ns.event.disableGesture( this.scroller );
-					utilsEvents.off( this.scroller, "drag dragstart dragend dragcancel", this );
+					ns.event.disableGesture(this.scroller);
+					utilsEvents.off(this.scroller, "drag dragstart dragend dragcancel", this);
 					window.removeEventListener("resize", this);
 				}
 			};
@@ -254,16 +253,16 @@
 			prototype.handleEvent = function (event) {
 				switch (event.type) {
 					case "dragstart":
-						this._start( event );
+						this._start(event);
 						break;
 					case "drag":
-						this._move( event );
+						this._move(event);
 						break;
 					case "dragend":
-						this._end( event );
+						this._end(event);
 						break;
 					case "dragcancel":
-						this.cancel( event );
+						this.cancel(event);
 						break;
 					case "resize":
 						this.refresh();
@@ -279,8 +278,8 @@
 			 */
 			prototype.setOptions = function (options) {
 				var name;
-				for ( name in options ) {
-					if ( options.hasOwnProperty(name) && !!options[name] ) {
+				for (name in options) {
+					if (options.hasOwnProperty(name) && !!options[name]) {
 						this.options[name] = options[name];
 					}
 				}
@@ -327,10 +326,10 @@
 				translate = "translate3d(" + x + "px," + y + "px, 0)";
 
 				scrollerStyle["-webkit-transform"] =
-						scrollerStyle["-moz-transform"] =
+					scrollerStyle["-moz-transform"] =
 						scrollerStyle["-ms-transform"] =
-						scrollerStyle["-o-transform"] =
-						scrollerStyle.transform = translate;
+							scrollerStyle["-o-transform"] =
+								scrollerStyle.transform = translate;
 				scrollerStyle.transition = transition.normal;
 				scrollerStyle["-webkit-transition"] = transition.webkit;
 				scrollerStyle["-moz-transition"] = transition.moz;
@@ -349,7 +348,7 @@
 				this.scrollbar.translate(this.orientation === Scroller.Orientation.HORIZONTAL ? -x : -y, duration, autoHidden);
 			};
 
-			prototype._start = function(/* e */) {
+			prototype._start = function (/* e */) {
 				this.scrolled = false;
 				this.dragging = true;
 				this.scrollCanceled = false;
@@ -357,61 +356,61 @@
 				this.startScrollerOffsetY = this.scrollerOffsetY;
 			};
 
-			prototype._move = function (e, pos) {
+			prototype._move = function (e) {
 				var newX = this.startScrollerOffsetX,
 					newY = this.startScrollerOffsetY,
 					autoHide = !_keepShowingScrollbarOnTouch;
 
-				if ( !this.enabled || this.scrollCanceled || !this.dragging ) {
+				if (!this.enabled || this.scrollCanceled || !this.dragging) {
 					return;
 				}
 
-				if ( this.orientation === Scroller.Orientation.HORIZONTAL ) {
+				if (this.orientation === Scroller.Orientation.HORIZONTAL) {
 					newX += e.detail.estimatedDeltaX;
 				} else {
 					newY += e.detail.estimatedDeltaY;
 				}
 
-				if ( newX > this.minScrollX || newX < this.maxScrollX ) {
+				if (newX > this.minScrollX || newX < this.maxScrollX) {
 					newX = newX > this.minScrollX ? this.minScrollX : this.maxScrollX;
 				}
-				if ( newY > this.minScrollY || newY < this.maxScrollY ) {
+				if (newY > this.minScrollY || newY < this.maxScrollY) {
 					newY = newY > this.minScrollY ? this.minScrollY : this.maxScrollY;
 				}
 
-				if ( newX !== this.scrollerOffsetX || newY !== this.scrollerOffsetY ) {
-					if ( !this.scrolled ) {
-						this._fireEvent( eventType.START );
+				if (newX !== this.scrollerOffsetX || newY !== this.scrollerOffsetY) {
+					if (!this.scrolled) {
+						this._fireEvent(eventType.START);
 					}
 					this.scrolled = true;
 
-					this._translate( newX, newY );
-					this._translateScrollbar( newX, newY, 0, autoHide );
+					this._translate(newX, newY);
+					this._translateScrollbar(newX, newY, 0, autoHide);
 					// TODO to dispatch move event is too expansive. it is better to use callback.
-					this._fireEvent( eventType.MOVE );
+					this._fireEvent(eventType.MOVE);
 
-					if ( this.bouncingEffect ) {
+					if (this.bouncingEffect) {
 						this.bouncingEffect.hide();
 					}
 				} else {
-					if ( this.bouncingEffect ) {
-						this.bouncingEffect.drag( newX, newY );
+					if (this.bouncingEffect) {
+						this.bouncingEffect.drag(newX, newY);
 					}
-					this._translateScrollbar( newX, newY, 0, autoHide );
+					this._translateScrollbar(newX, newY, 0, autoHide);
 				}
 			};
 
 			prototype._end = function (/* e */) {
-				if ( !this.dragging ) {
+				if (!this.dragging) {
 					return;
 				}
 
 				// bouncing effect
-				if ( this.bouncingEffect ) {
+				if (this.bouncingEffect) {
 					this.bouncingEffect.dragEnd();
 				}
 
-				if ( this.scrollbar ) {
+				if (this.scrollbar) {
 					this.scrollbar.end();
 				}
 
@@ -435,13 +434,13 @@
 			prototype.cancel = function () {
 				this.scrollCanceled = true;
 
-				if ( this.scrolled ) {
-					this._translate( this.startScrollerOffsetX, this.startScrollerOffsetY );
-					this._translateScrollbar( this.startScrollerOffsetX, this.startScrollerOffsetY );
-					this._fireEvent( eventType.CANCEL );
+				if (this.scrolled) {
+					this._translate(this.startScrollerOffsetX, this.startScrollerOffsetY);
+					this._translateScrollbar(this.startScrollerOffsetX, this.startScrollerOffsetY);
+					this._fireEvent(eventType.CANCEL);
 				}
 
-				if ( this.scrollbar ) {
+				if (this.scrollbar) {
 					this.scrollbar.end();
 				}
 
@@ -450,7 +449,7 @@
 			};
 
 			prototype._fireEvent = function (eventName, detail) {
-				eventTrigger( this.element, eventName, detail );
+				eventTrigger(this.element, eventName, detail);
 			};
 
 			prototype._clear = function () {
@@ -463,7 +462,7 @@
 			};
 
 			prototype._clearScrollbar = function () {
-				if ( this.scrollbar ) {
+				if (this.scrollbar) {
 					this.scrollbar.destroy();
 				}
 				this.scrollbar = null;

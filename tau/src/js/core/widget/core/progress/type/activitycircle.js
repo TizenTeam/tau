@@ -33,7 +33,7 @@
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
-			 var utilsObject = ns.util.object,
+			var utilsObject = ns.util.object,
 				type = ns.widget.core.progress.type,
 				typeInterface = type.interface,
 				classes = {
@@ -52,7 +52,7 @@
 					uiCircle3In: "ui-circle3-in"
 				};
 
-			function setSVGInnerAttribute (ui) {
+			function setSVGInnerAttribute(ui) {
 				ui.animationCircle1SVGElement.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:xlink", "http://www.w3.org/1999/xlink");
 				ui.animationCircle2SVGElement.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:xlink", "http://www.w3.org/1999/xlink");
 				ui.animationCircle3SVGElement.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:xlink", "http://www.w3.org/1999/xlink");
@@ -71,7 +71,7 @@
 
 			}
 
-			function resetActivityCircleClasses (element, optionSize) {
+			function resetActivityCircleClasses(element, optionSize) {
 				if (!element.classList.contains(classes.uiActivityCircle)) {
 					element.classList.add(classes.uiActivityCircle);
 				}
@@ -96,7 +96,7 @@
 			}
 
 			type.activitycircle = utilsObject.merge({}, typeInterface, {
-				build: function(progress, element) {
+				build: function (progress, element) {
 					var ui = {},
 						activityElement = element,
 						animationCircle1Element,

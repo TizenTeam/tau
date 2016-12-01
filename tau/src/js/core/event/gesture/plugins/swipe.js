@@ -21,9 +21,9 @@
  *
  * @class ns.event.gesture.Swipe
  */
-( function ( ns, window, undefined ) {
+( function (ns) {
 	"use strict";
-    //>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
+	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define([
 			"../core",
 			"../detector"
@@ -31,13 +31,13 @@
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 
-				/**
-				 * Local alias for {@link ns.event.gesture}
-				 * @property {Object}
-				 * @member ns.event.gesture.Swipe
-				 * @private
-				 * @static
-				 */
+			/**
+			 * Local alias for {@link ns.event.gesture}
+			 * @property {Object}
+			 * @member ns.event.gesture.Swipe
+			 * @private
+			 * @static
+			 */
 			var Gesture = ns.event.gesture,
 				/**
 				 * Local alias for {@link ns.event.gesture.Detector}
@@ -86,22 +86,22 @@
 				 * @return {ns.event.gesture.Result.PENDING|ns.event.gesture.Result.END|ns.event.gesture.Result.FINISHED|ns.event.gesture.Result.BLOCK}
 				 * @member ns.event.gesture.Swipe
 				 */
-				handler: function( gestureEvent, sender, options ) {
+				handler: function (gestureEvent, sender, options) {
 					var ge = gestureEvent,
 						result = Gesture.Result.PENDING;
 
-					if ( ge.eventType !== Gesture.Event.END ) {
+					if (ge.eventType !== Gesture.Event.END) {
 						return result;
 					}
 
-					if ( ( ge.deltaTime > options.timeThreshold ) ||
-						( options.orientation !== Gesture.utils.getOrientation( ge.direction ) ) ) {
+					if (( ge.deltaTime > options.timeThreshold ) ||
+						( options.orientation !== Gesture.utils.getOrientation(ge.direction) )) {
 						result = Gesture.Result.FINISHED;
 						return result;
 					}
 
-					if( ge.velocityX > options.velocity || ge.velocityY > options.velocity ) {
-						sender.sendEvent( this.name, gestureEvent );
+					if (ge.velocityX > options.velocity || ge.velocityY > options.velocity) {
+						sender.sendEvent(this.name, gestureEvent);
 						result = Gesture.Result.FINISHED | Gesture.Result.BLOCK;
 					}
 
@@ -112,4 +112,4 @@
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
-} ( ns, window ) );
+}(ns) );

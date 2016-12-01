@@ -27,14 +27,14 @@
  *
  * @example
  *
- *		<div id="test"
- *				style="width: 10px; height: 10px; background: red; position: absolute;">
- *		</div>
+ *        <div id="test"
+ *                style="width: 10px; height: 10px; background: red; position: absolute;">
+ *        </div>
  *
- *		<script>
- *			var element = document.getElementById("test"),
- *				chain = new tau.util.anim.Chain(
- *					{
+ *        <script>
+ *            var element = document.getElementById("test"),
+ *                chain = new tau.util.anim.Chain(
+ *                    {
  *						concurrent: false,
  *						onPlay: function () {
  *							console.log("chain started to play");
@@ -46,8 +46,8 @@
  *							console.log("chain finished");
  *						}
  *					},
- *					[
- *						{
+ *                    [
+ *                        {
  *							element: element,
  *							from: { "background-color": "red" },
  *							to: { "background-color": "blue"},
@@ -62,7 +62,7 @@
  *								console.log("animation 1 finished");
  *							}
  *						},
- *						{
+ *                        {
  *							element: element,
  *						from: { "-webkit-transform": "translate3d(0,0,0)" },
  *							to: { "-webkit-transform": "translate3d(100px, 100px, 0)"},
@@ -77,10 +77,10 @@
  *								console.log("animation 2 finished");
  *							}
  *						}
- *					]
- *				);
- *			chain.play();
- *		</script>
+ *                    ]
+ *                );
+ *            chain.play();
+ *        </script>
  *
  * @class ns.util.anim.Chain
  * @author Krzysztof Antoszek <k.antoszek@samsung.com>
@@ -130,13 +130,13 @@
 					}
 				},
 				Chain = function (options, animations) {
-						/**
-						 * @property {Object} options
-						 * @property {boolean} [options.concurent='false'] Sets the type of the chain
-						 * @property {function(ns.util.anim.Chain)} [options.onPlay=null] a callback for play start
-						 * @property {function(ns.util.anim.Chain)} [options.onPause=null] a callback for play pause
-						 * @property {function(ns.util.anim.Chain)} [options.onEnd=null] a callback for play end
-						 */
+					/**
+					 * @property {Object} options
+					 * @property {boolean} [options.concurent='false'] Sets the type of the chain
+					 * @property {function(ns.util.anim.Chain)} [options.onPlay=null] a callback for play start
+					 * @property {function(ns.util.anim.Chain)} [options.onPause=null] a callback for play pause
+					 * @property {function(ns.util.anim.Chain)} [options.onEnd=null] a callback for play end
+					 */
 					var opts = objectUtils.merge({
 							conocurrent: true,
 							onPlay: null,
@@ -189,7 +189,7 @@
 							onEndCallback = animationOptions.onEnd,
 							self = this;
 
-						if (typeof onEndCallback  === TYPE_FUNCTION) {
+						if (typeof onEndCallback === TYPE_FUNCTION) {
 							animationOptions.onEnd = function (_animation, element, event) {
 								onEndCallback(_animation, element, event);
 								handleEnd(self, _animation);
@@ -268,7 +268,7 @@
 						}
 						return self;
 					},
-					
+
 					/**
 					 * Destroys chain and animations
 					 * @method destroy

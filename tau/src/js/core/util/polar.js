@@ -1,3 +1,4 @@
+/*global window, ns, define*/
 (function (window, document, ns) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
@@ -57,7 +58,7 @@
 			 * @param endAngle Angle in degrees where arc ends
 			 * @returns {string}
 			 */
-			function describeArc(x, y, radius, startAngle, endAngle){
+			function describeArc(x, y, radius, startAngle, endAngle) {
 				var start = polarToCartesian(x, y, radius, endAngle),
 					end = polarToCartesian(x, y, radius, startAngle),
 					arcSweep = endAngle - startAngle <= 180 ? "0" : "1",
@@ -70,7 +71,7 @@
 			}
 
 			function addPath(svg, options) {
-				var path = document.createElementNS(SVGNS,"path");
+				var path = document.createElementNS(SVGNS, "path");
 
 				path.setAttribute("class", options.classes);
 				path.setAttribute("fill", "none");
@@ -103,7 +104,7 @@
 				style.transform = value;
 			}
 
-			function updatePathPosition (path, options) {
+			function updatePathPosition(path, options) {
 				var reference = 0;
 				if (options.animation) {
 					addAnimation(path, options);
@@ -120,7 +121,7 @@
 				default: defaults,
 				classes: classes,
 
-				createSVG: function(element) {
+				createSVG: function (element) {
 					var svg = document.createElementNS(SVGNS, "svg");
 					// add class to svg element
 					svg.classList.add(classes.polar);
@@ -143,8 +144,7 @@
 				},
 
 				updatePosition: function (svg, selector, options) {
-					var i = 0,
-						path = svg && svg.querySelector("path" + selector);
+					var path = svg && svg.querySelector("path" + selector);
 
 					if (path) {
 						// set options

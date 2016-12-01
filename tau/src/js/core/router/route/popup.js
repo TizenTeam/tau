@@ -38,118 +38,118 @@
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 			var
-			/**
-			 * @property {Object} Popup Alias for {@link ns.widget.Popup}
-			 * @member ns.router.route.popup
-			 * @private
-			 * @static
-			 */
-			Popup = ns.widget.core.Popup,
-			util = ns.util,
-			routePopup = {
 				/**
-				 * Object with default options
-				 * @property {Object} defaults
-				 * @property {string} [defaults.transition='none'] Sets the animation used during change of popup.
-				 * @property {?HTMLElement} [defaults.container=null] Sets container of element.
-				 * @property {boolean} [defaults.volatileRecord=true] Sets if the current history entry will be modified or a new one will be created.
+				 * @property {Object} Popup Alias for {@link ns.widget.Popup}
 				 * @member ns.router.route.popup
+				 * @private
 				 * @static
 				 */
-				defaults: {
-					transition: "none",
-					container: null,
-					volatileRecord: true
+				Popup = ns.widget.core.Popup,
+				util = ns.util,
+				routePopup = {
+					/**
+					 * Object with default options
+					 * @property {Object} defaults
+					 * @property {string} [defaults.transition='none'] Sets the animation used during change of popup.
+					 * @property {?HTMLElement} [defaults.container=null] Sets container of element.
+					 * @property {boolean} [defaults.volatileRecord=true] Sets if the current history entry will be modified or a new one will be created.
+					 * @member ns.router.route.popup
+					 * @static
+					 */
+					defaults: {
+						transition: "none",
+						container: null,
+						volatileRecord: true
+					},
+					/**
+					 * Popup Element Selector
+					 * @property {string} filter
+					 * @member ns.router.route.popup
+					 * @static
+					 */
+					filter: "." + Popup.classes.popup,
+					/**
+					 * Storage variable for active popup
+					 * @property {?HTMLElement} activePopup
+					 * @member ns.router.route.popup
+					 * @static
+					 */
+					activePopup: null,
+					/**
+					 * Dictionary for popup related event types
+					 * @property {Object} events
+					 * @property {string} [events.POPUP_HIDE='popuphide']
+					 * @member ns.router.route.popup
+					 * @static
+					 */
+					events: {
+						POPUP_HIDE: "popuphide"
+					}
 				},
 				/**
-				 * Popup Element Selector
-				 * @property {string} filter
+				 * Alias for {@link ns.engine}
+				 * @property {Object} engine
 				 * @member ns.router.route.popup
+				 * @private
 				 * @static
 				 */
-				filter: "." + Popup.classes.popup,
+				engine = ns.engine,
 				/**
-				 * Storage variable for active popup
-				 * @property {?HTMLElement} activePopup
+				 * Alias for {@link ns.util.path}
+				 * @property {Object} path
 				 * @member ns.router.route.popup
+				 * @private
 				 * @static
 				 */
-				activePopup: null,
+				path = ns.util.path,
 				/**
-				 * Dictionary for popup related event types
-				 * @property {Object} events
-				 * @property {string} [events.POPUP_HIDE='popuphide']
+				 * Alias for {@link ns.util.selectors}
+				 * @property {Object} utilSelector
 				 * @member ns.router.route.popup
+				 * @private
 				 * @static
 				 */
-				events: {
-					POPUP_HIDE: "popuphide"
-				}
-			},
-			/**
-			 * Alias for {@link ns.engine}
-			 * @property {Object} engine
-			 * @member ns.router.route.popup
-			 * @private
-			 * @static
-			 */
-			engine = ns.engine,
-			/**
-			 * Alias for {@link ns.util.path}
-			 * @property {Object} path
-			 * @member ns.router.route.popup
-			 * @private
-			 * @static
-			 */
-			path = ns.util.path,
-			/**
-			 * Alias for {@link ns.util.selectors}
-			 * @property {Object} utilSelector
-			 * @member ns.router.route.popup
-			 * @private
-			 * @static
-			 */
-			utilSelector = ns.util.selectors,
-			/**
-			 * Alias for {@link ns.router.history}
-			 * @property {Object} history
-			 * @member ns.router.route.popup
-			 * @private
-			 * @static
-			 */
-			history = ns.router.history,
-			/**
-			 * Alias for {@link ns.util.DOM}
-			 * @property {Object} DOM
-			 * @member ns.router.route.popup
-			 * @private
-			 * @static
-			 */
-			DOM = ns.util.DOM,
-			/**
-			 * Alias for Object utils
-			 * @method slice
-			 * @member ns.router.route.popup
-			 * @private
-			 * @static
-			 */
-			object = ns.util.object,
-			/**
-			 * Popup's hash added to url
-			 * @property {string} popupHashKey
-			 * @member ns.router.route.popup
-			 * @private
-			 * @static
-			 */
-			popupHashKey = "popup=true",
-			/**
-			 * Regexp for popup's hash
-			 * @property {RegExp} popupHashKeyReg
-			 * @member ns.router.route.popup
-			 * @private
-			 * @static
-			 */
-			popupHashKeyReg = /([&|\?]popup=true)/;
+				utilSelector = ns.util.selectors,
+				/**
+				 * Alias for {@link ns.router.history}
+				 * @property {Object} history
+				 * @member ns.router.route.popup
+				 * @private
+				 * @static
+				 */
+				history = ns.router.history,
+				/**
+				 * Alias for {@link ns.util.DOM}
+				 * @property {Object} DOM
+				 * @member ns.router.route.popup
+				 * @private
+				 * @static
+				 */
+				DOM = ns.util.DOM,
+				/**
+				 * Alias for Object utils
+				 * @method slice
+				 * @member ns.router.route.popup
+				 * @private
+				 * @static
+				 */
+				object = ns.util.object,
+				/**
+				 * Popup's hash added to url
+				 * @property {string} popupHashKey
+				 * @member ns.router.route.popup
+				 * @private
+				 * @static
+				 */
+				popupHashKey = "popup=true",
+				/**
+				 * Regexp for popup's hash
+				 * @property {RegExp} popupHashKeyReg
+				 * @member ns.router.route.popup
+				 * @private
+				 * @static
+				 */
+				popupHashKeyReg = /([&|\?]popup=true)/;
 
 			/**
 			 * Tries to find a popup element matching id and filter (selector).
@@ -166,7 +166,7 @@
 				var popup,
 					hashReg = /^#/;
 
-				id = id.replace(hashReg,"");
+				id = id.replace(hashReg, "");
 				popup = document.getElementById(id);
 
 				if (popup && utilSelector.matchesSelector(popup, filter)) {
@@ -268,7 +268,7 @@
 						if (event && event.touches) {
 							options.x = event.touches[0].clientX;
 							options.y = event.touches[0].clientY;
-						} else if (event){
+						} else if (event) {
 							options.x = event.clientX;
 							options.y = event.clientY;
 						}

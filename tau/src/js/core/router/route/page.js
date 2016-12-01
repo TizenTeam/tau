@@ -1,4 +1,4 @@
-/*global window, define */
+/*global window, ns, define */
 /*jslint nomen: true */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
@@ -44,7 +44,6 @@
 				utilSelector = util.selectors,
 				history = ns.router.history,
 				engine = ns.engine,
-				Page = ns.widget.core.Page,
 				baseElement,
 				routePage = {},
 				head;
@@ -100,7 +99,7 @@
 			 * @member ns.router.route.page
 			 * @static
 			 */
-			routePage.filter = engine.getWidgetDefinition("Page").selector.replace(/(\s*)/g, "" );
+			routePage.filter = engine.getWidgetDefinition("Page").selector.replace(/(\s*)/g, "");
 
 			/**
 			 * Returns default route options used inside Router.
@@ -115,7 +114,7 @@
 				return defaults;
 			};
 
-			routePage.init = function() {
+			routePage.init = function () {
 				var pages = [].slice.call(document.querySelectorAll(this.filter));
 				pages.forEach(function (page) {
 					if (!DOM.getNSData(page, "url")) {
@@ -220,8 +219,8 @@
 				// We check for this case here because we don't want a first-page with
 				// an id falling through to the non-existent embedded page error case.
 				if (!page &&
-						path.isFirstPageUrl(dataUrl) &&
-						initialContent) {
+					path.isFirstPageUrl(dataUrl) &&
+					initialContent) {
 					page = initialContent;
 				}
 

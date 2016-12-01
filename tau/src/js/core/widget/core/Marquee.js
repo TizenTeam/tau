@@ -23,16 +23,16 @@
  * If you want to use Marquee widget, you have to declare below attributes in <div> element and make Marquee widget in JS code.
  * To use a Marquee widget in your application, use the following code:
  *
- *	@example
- *	<div class="ui-content">
- *		<ul class="ui-listview">
- *			<li><div class="ui-marquee" id="marquee">Marquee widget code sample</div></li>
- *		</ul>
- *	</div>
- *	<script>
- *		var marqueeEl = document.getElementById("marquee"),
- *			marqueeWidget = new tau.widget.Marquee(marqueeEl, {marqueeStyle: "scroll", delay: "3000"});
- *	</script>
+ *    @example
+ *    <div class="ui-content">
+ *        <ul class="ui-listview">
+ *            <li><div class="ui-marquee" id="marquee">Marquee widget code sample</div></li>
+ *        </ul>
+ *    </div>
+ *    <script>
+ *        var marqueeEl = document.getElementById("marquee"),
+ *            marqueeWidget = new tau.widget.Marquee(marqueeEl, {marqueeStyle: "scroll", delay: "3000"});
+ *    </script>
  *
  * @author Heeju Joo <heeju.joo@samsung.com>
  * @class ns.widget.core.Marquee
@@ -49,7 +49,7 @@
 			"../../util/DOM",
 			"../BaseWidget"
 		],
-		function() {
+		function () {
 			//>>excludeEnd("tauBuildExclude");
 
 			var BaseWidget = ns.widget.BaseWidget,
@@ -82,7 +82,7 @@
 				 */
 				domUtil = ns.util.DOM,
 
-				Marquee = function() {
+				Marquee = function () {
 					this._ui = {};
 					this._ui.marqueeInnerElement = null;
 					this._ui.styleSheelElement = null;
@@ -283,9 +283,8 @@
 			function setAnimationStyle(self, options) {
 				var marqueeInnerElement = self._ui.marqueeInnerElement,
 					marqueeInnerElementStyle = marqueeInnerElement.style,
-					duration = getAnimationDuration(self, isNaN(parseInt(options.speed, 10))? defaults.speed : options.speed ),
+					duration = getAnimationDuration(self, isNaN(parseInt(options.speed, 10)) ? defaults.speed : options.speed),
 					marqueeKeyFrame = setMarqueeKeyFrame(self, options.marqueeStyle),
-					iteration,
 					marqueeElement = self.element,
 					marqueeElementStyle = marqueeElement.style;
 
@@ -349,7 +348,7 @@
 			 * @protected
 			 * @member ns.widget.core.Marquee
 			 */
-			prototype._build = function(element) {
+			prototype._build = function (element) {
 				var marqueeInnerElement = document.createElement("div");
 
 				while (element.hasChildNodes()) {
@@ -371,7 +370,7 @@
 			 * @protected
 			 * @member ns.widget.core.Marquee
 			 */
-			prototype._init = function(element) {
+			prototype._init = function (element) {
 				var self = this;
 
 				self._ui.marqueeInnerElement = self._ui.marqueeInnerElement || element.querySelector(selector.MARQUEE_CONTENT);
@@ -392,7 +391,7 @@
 			 * @protected
 			 * @member ns.widget.core.Marquee
 			 */
-			prototype._bindEvents = function() {
+			prototype._bindEvents = function () {
 				var self = this,
 					marqueeInnerElement = self._ui.marqueeInnerElement,
 					animationEndCallback = marqueeEndHandler.bind(null, self);
@@ -408,7 +407,7 @@
 			 * @protected
 			 * @member ns.widget.core.Marquee
 			 */
-			prototype._refresh = function() {
+			prototype._refresh = function () {
 				var self = this;
 
 				self._resetStyle();
@@ -429,7 +428,7 @@
 			 * @protected
 			 * @member ns.widget.core.Marquee
 			 */
-			prototype._resetStyle = function() {
+			prototype._resetStyle = function () {
 				var self = this,
 					marqueeContainer = self.element,
 					marqueeKeyframeStyleSheet = self._ui.styleSheelElement,
@@ -459,7 +458,7 @@
 			 * @protected
 			 * @member ns.widget.core.Marquee
 			 */
-			prototype._resetDOM = function() {
+			prototype._resetDOM = function () {
 				var ui = this._ui;
 
 				while (ui.marqueeInnerElement.hasChildNodes()) {
@@ -475,7 +474,7 @@
 			 * @protected
 			 * @member ns.widget.core.Marquee
 			 */
-			prototype._destroy = function() {
+			prototype._destroy = function () {
 				var self = this;
 
 				self._resetStyle();
@@ -491,7 +490,7 @@
 			 * @method _animationStart
 			 * @member ns.widget.core.Marquee
 			 */
-			prototype._animationStart = function() {
+			prototype._animationStart = function () {
 				var self = this,
 					marqueeElementClassList = self.element.classList,
 					marqueeInnerElementClassList = self._ui.marqueeInnerElement.classList;
@@ -515,19 +514,19 @@
 			 *
 			 * #####Running example in pure JavaScript:
 			 *
-			 *	@example
-			 *	<div class="ui-marquee" id="marquee">
-			 *		<p>MarqueeTEST TEST message TEST for marquee</p>
-			 *	</div>
-			 *	<script>
-			 *		var marqueeWidget = tau.widget.Marquee(document.getElementById("marquee"));
-			 *		marqueeWidget.start();
-			 *	</script>
+			 *    @example
+			 *    <div class="ui-marquee" id="marquee">
+			 *        <p>MarqueeTEST TEST message TEST for marquee</p>
+			 *    </div>
+			 *    <script>
+			 *        var marqueeWidget = tau.widget.Marquee(document.getElementById("marquee"));
+			 *        marqueeWidget.start();
+			 *    </script>
 			 *
 			 * @method start
 			 * @member ns.widget.core.Marquee
 			 */
-			prototype.start = function() {
+			prototype.start = function () {
 				var self = this;
 
 				if (self.options.runOnlyOnEllipsisText && !self._hasEllipsisText) {
@@ -553,19 +552,19 @@
 			 * Pause Marquee animation
 			 *
 			 * #####Running example in pure JavaScript:
-			 *	@example
-			 *	<div class="ui-marquee" id="marquee">
-			 *		<p>MarqueeTEST TEST message TEST for marquee</p>
-			 *	</div>
-			 *	<script>
-			 *		var marqueeWidget = tau.widget.Marquee(document.getElementById("marquee"));
-			 *		marqueeWidget.stop();
-			 *	</script>
+			 *    @example
+			 *    <div class="ui-marquee" id="marquee">
+			 *        <p>MarqueeTEST TEST message TEST for marquee</p>
+			 *    </div>
+			 *    <script>
+			 *        var marqueeWidget = tau.widget.Marquee(document.getElementById("marquee"));
+			 *        marqueeWidget.stop();
+			 *    </script>
 			 *
 			 * @method stop
 			 * @member ns.widget.core.Marquee
 			 */
-			prototype.stop = function() {
+			prototype.stop = function () {
 				var self = this,
 					marqueeInnerElementClassList = self._ui.marqueeInnerElement.classList,
 					marqueeElementClassList = self.element.classList;
@@ -591,19 +590,19 @@
 			 * Reset Marquee animation
 			 *
 			 * #####Running example in pure JavaScript:
-			 *	@example
-			 *	<div class="ui-marquee" id="marquee">
-			 *		<p>MarqueeTEST TEST message TEST for marquee</p>
-			 *	</div>
-			 *	<script>
-			 *		var marqueeWidget = tau.widget.Marquee(document.getElementById("marquee"));
-			 *		marqueeWidget.reset();
-			 *	</script>
+			 *    @example
+			 *    <div class="ui-marquee" id="marquee">
+			 *        <p>MarqueeTEST TEST message TEST for marquee</p>
+			 *    </div>
+			 *    <script>
+			 *        var marqueeWidget = tau.widget.Marquee(document.getElementById("marquee"));
+			 *        marqueeWidget.reset();
+			 *    </script>
 			 *
 			 * @method reset
 			 * @member ns.widget.core.Marquee
 			 */
-			prototype.reset = function() {
+			prototype.reset = function () {
 				var self = this,
 					ellipsisEffect = self.options.ellipsisEffect,
 					marqueeElementClassList = self.element.classList,

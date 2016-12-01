@@ -1,4 +1,4 @@
-/*global window, define */
+/*global window, ns, define */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
  *
@@ -51,7 +51,7 @@
 				 * @member ns.util.grid
 				 * @static
 				 * @private
-				*/
+				 */
 				gridTypes = [
 					null,
 					"solo", //1
@@ -78,15 +78,16 @@
 					}
 				});
 			}
+
 			ns.util.grid = {
 				/**
-				* make css grid
-				* @method makeGrid
-				* @param {HTMLElement} element
-				* @param {?string} [gridType="a"]
-				* @static
-				* @member ns.util.grid
-				*/
+				 * make css grid
+				 * @method makeGrid
+				 * @param {HTMLElement} element
+				 * @param {?string} [gridType="a"]
+				 * @static
+				 * @member ns.util.grid
+				 */
 				makeGrid: function (element, gridType) {
 					var gridClassList = element.classList,
 						kids = slice.call(element.children),

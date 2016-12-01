@@ -1,19 +1,19 @@
-/*global window, define */
+/*global window, ns, define */
 /*
-* Copyright (c) 2013 - 2014 Samsung Electronics Co., Ltd
-*
-* Licensed under the Flora License, Version 1.1 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-*     http://floralicense.org/license/
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-*/
+ * Copyright (c) 2013 - 2014 Samsung Electronics Co., Ltd
+ *
+ * Licensed under the Flora License, Version 1.1 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://floralicense.org/license/
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 /*jslint nomen: true, plusplus: true */
 
 /**
@@ -40,21 +40,21 @@
  *
  * #### Basic popup with header, content, footer
  *
- *		@example
- *		<div class="ui-page">
- *		    <div class="ui-popup">
- *		        <div class="ui-popup-header">Power saving mode</div>
- *		        <div class="ui-popup-content">
- *		            Turning on Power
- *		            saving mode will
- *		            limit the maximum
- *		            per
- *		        </div>
- *		        <div class="ui-popup-footer">
- *		            <button id="cancel" class="ui-btn">Cancel</button>
- *		        </div>
- *		    </div>
- *		</div>
+ *        @example
+ *        <div class="ui-page">
+ *            <div class="ui-popup">
+ *                <div class="ui-popup-header">Power saving mode</div>
+ *                <div class="ui-popup-content">
+ *                    Turning on Power
+ *                    saving mode will
+ *                    limit the maximum
+ *                    per
+ *                </div>
+ *                <div class="ui-popup-footer">
+ *                    <button id="cancel" class="ui-btn">Cancel</button>
+ *                </div>
+ *            </div>
+ *        </div>
  *
  * #### Popup with 2 buttons in the footer
  *
@@ -74,7 +74,7 @@
  *
  * If you want make popup with list checkbox(or radio) just include checkbox (radio) to popup and add class *ui-popup-checkbox-label* to popup element.
  *
- *		@example
+ *        @example
  *         <div id="listBoxPopup" class="ui-popup">
  *             <div class="ui-popup-header">When?</div>
  *             <div class="ui-popup-content" style="height:243px; overflow-y:scroll">
@@ -133,26 +133,26 @@
  *
  * Popup inherits value of option positionTo from property data-position-to set in link.
  *
- *		@example
- *		<!--definition of link, which opens popup and sets its position-->
- *		<a href="#popupOptionText" data-rel="popup"  data-position-to="origin">Text</a>
- *		<!--definition of popup, which inherites property position from link-->
- *		<div id="popupOptionText" class="ui-popup">
- *			<div class="ui-popup-content">
- *				<ul class="ui-listview">
- *				<li><a href="#">Option 1</a></li>
- *				<li><a href="#">Option 2</a></li>
- *				<li><a href="#">Option 3</a></li>
- *				<li><a href="#">Option 4</a></li>
- *				</ul>
- *			</div>
- *		</div>
+ *        @example
+ *        <!--definition of link, which opens popup and sets its position-->
+ *        <a href="#popupOptionText" data-rel="popup"  data-position-to="origin">Text</a>
+ *        <!--definition of popup, which inherites property position from link-->
+ *        <div id="popupOptionText" class="ui-popup">
+ *            <div class="ui-popup-content">
+ *                <ul class="ui-listview">
+ *                <li><a href="#">Option 1</a></li>
+ *                <li><a href="#">Option 2</a></li>
+ *                <li><a href="#">Option 3</a></li>
+ *                <li><a href="#">Option 4</a></li>
+ *                </ul>
+ *            </div>
+ *        </div>
  *
  * ### Opening and closing popup
  *
  * To open popup from "a" link using html markup, use the following code:
  *
- *		@example
+ *        @example
  *      <div class="ui-page">
  *          <header class="ui-header">
  *              <h2 class="ui-title">Call menu</h2>
@@ -214,9 +214,9 @@
  * ## Manual constructor
  * For manual creation of popup widget you can use constructor of widget from **tau** namespace:
  *
- *		@example
- *		var popupElement = document.getElementById("popup"),
- *			popup = tau.widget.popup(buttonElement);
+ *        @example
+ *        var popupElement = document.getElementById("popup"),
+ *            popup = tau.widget.popup(buttonElement);
  *
  * Constructor has one require parameter **element** which are base **HTMLElement** to create widget. We recommend get this element by method *document.getElementById*.
  *
@@ -230,23 +230,23 @@
  *
  * To call method on widget you can use tau API:
  *
- *		@example
- *		var popupElement = document.getElementById("popup"),
- *			popup = tau.widget.popup(buttonElement);
+ *        @example
+ *        var popupElement = document.getElementById("popup"),
+ *            popup = tau.widget.popup(buttonElement);
  *
- *		popup.methodName(methodArgument1, methodArgument2, ...);
+ *        popup.methodName(methodArgument1, methodArgument2, ...);
  *
  * ## Transitions
  *
  * By default, the framework doesn't apply transition. To set a custom transition effect, add the data-transition attribute to the link.
  *
- *		@example
- *		<a href="index.html" data-rel="popup" data-transition="slideup">I'll slide up</a>
+ *        @example
+ *        <a href="index.html" data-rel="popup" data-transition="slideup">I'll slide up</a>
  *
  * Global configuration:
  *
- *		@example
- *		gear.ui.defaults.popupTransition = "slideup";
+ *        @example
+ *        gear.ui.defaults.popupTransition = "slideup";
  *
  * ### Transitions list
  *
@@ -417,7 +417,7 @@
 			 * @protected
 			 * @member ns.widget.core.ContextPopup
 			 */
-			prototype._init = function(element) {
+			prototype._init = function (element) {
 				var self = this,
 					ui = self._ui;
 
@@ -444,7 +444,7 @@
 			 * @protected
 			 * @member ns.widget.core.ContextPopup
 			 */
-			prototype._reposition = function(options) {
+			prototype._reposition = function (options) {
 				var self = this,
 					element = self.element,
 					ui = self._ui,
@@ -493,10 +493,10 @@
 					clickElementOffsetY = clickElementRect.top,
 					// width of visible part of clicked element
 					clickElementOffsetWidth = Math.min(clickElementRect.width,
-							windowWidth - clickElementOffsetX),
+						windowWidth - clickElementOffsetX),
 					// height of visible part of clicked element
 					clickElementOffsetHeight = Math.min(clickElementRect.height,
-							windowHeight - clickElementOffsetY),
+						windowHeight - clickElementOffsetY),
 					// params for all types of popup
 					// "l" - popup with arrow on the left side, "r" - right, "b" - bottom, "t" - top
 					// dir - this letter is added as a suffix of class to popup's element
@@ -505,14 +505,22 @@
 					// size - available size, which is needed for this type of popup (width or height)
 					// max - maximum size of available place
 					params = {
-						"l": {dir: "l", fixedPositionField: "x", fixedPositionFactor: 1,
-							size: popupWidth, max: clickElementOffsetX},
-						"r": {dir: "r", fixedPositionField: "x", fixedPositionFactor: -1,
-							size: popupWidth, max: windowWidth - clickElementOffsetX - clickElementOffsetWidth},
-						"b": {dir: "b", fixedPositionField: "y", fixedPositionFactor: -1,
-							size: popupHeight, max: clickElementOffsetY},
-						"t": {dir: "t", fixedPositionField: "y", fixedPositionFactor: 1,
-							size: popupHeight, max: windowHeight - clickElementOffsetY - clickElementOffsetHeight}
+						"l": {
+							dir: "l", fixedPositionField: "x", fixedPositionFactor: 1,
+							size: popupWidth, max: clickElementOffsetX
+						},
+						"r": {
+							dir: "r", fixedPositionField: "x", fixedPositionFactor: -1,
+							size: popupWidth, max: windowWidth - clickElementOffsetX - clickElementOffsetWidth
+						},
+						"b": {
+							dir: "b", fixedPositionField: "y", fixedPositionFactor: -1,
+							size: popupHeight, max: clickElementOffsetY
+						},
+						"t": {
+							dir: "t", fixedPositionField: "y", fixedPositionFactor: 1,
+							size: popupHeight, max: windowHeight - clickElementOffsetY - clickElementOffsetHeight
+						}
 					},
 					bestDirection,
 					direction,
@@ -521,7 +529,7 @@
 				// set value of bestDirection on the first possible type or top
 				bestDirection = params[arrowsPriority[0]] || params.t;
 
-				arrowsPriority.forEach(function(key){
+				arrowsPriority.forEach(function (key) {
 					var param = params[key],
 						paramMax = param.max;
 					if (!direction) {
@@ -554,9 +562,9 @@
 				// check type of popup and correct value for "fixedPositionField" coordinate
 				bestOffsetInfo[direction.fixedPositionField] +=
 					(direction.fixedPositionField === "x" ?
-						(popupWidth + clickElementOffsetWidth) * direction.fixedPositionFactor :
-						(popupHeight + clickElementOffsetHeight) * direction.fixedPositionFactor)
-						/ 2 + options.distance * direction.fixedPositionFactor;
+					(popupWidth + clickElementOffsetWidth) * direction.fixedPositionFactor :
+					(popupHeight + clickElementOffsetHeight) * direction.fixedPositionFactor)
+					/ 2 + options.distance * direction.fixedPositionFactor;
 
 				// fix min/max position
 				bestOffsetInfo.x = bestOffsetInfo.x < 0 ? 0 : bestOffsetInfo.x + bestOffsetInfo.w > windowWidth ? windowWidth - bestOffsetInfo.w : bestOffsetInfo.x;
@@ -618,7 +626,7 @@
 				domUtils.extractCSSProperties(popupElement, popupProperties);
 				domUtils.extractCSSProperties(wrapper, wrapperProperties);
 				addPadding = popupProperties["box-sizing"] === "border-box";
-				margins	= {
+				margins = {
 					"t": popupProperties["padding-top"] + wrapperProperties["margin-top"] + wrapperProperties["padding-top"],
 					"b": popupProperties["padding-bottom"] + wrapperProperties["margin-bottom"] + wrapperProperties["padding-bottom"],
 					"l": popupProperties["padding-left"] + wrapperProperties["margin-left"] + wrapperProperties["padding-left"],
@@ -668,7 +676,7 @@
 			 * @protected
 			 * @member ns.widget.core.ContextPopup
 			 */
-			prototype._placementCoordsWindow = function(element) {
+			prototype._placementCoordsWindow = function (element) {
 				var elementStyle = element.style,
 					elementWidth = element.offsetWidth,
 					elementHeight = element.offsetHeight,
@@ -689,7 +697,7 @@
 			 * @protected
 			 * @member ns.widget.core.ContextPopup
 			 */
-			prototype._placementCoordsAbsolute = function(element, x, y) {
+			prototype._placementCoordsAbsolute = function (element, x, y) {
 				var elementStyle = element.style,
 					elementWidth = element.offsetWidth,
 					elementHeight = element.offsetHeight;
@@ -708,7 +716,7 @@
 			 * @protected
 			 * @member ns.widget.core.ContextPopup
 			 */
-			prototype._findClickedElement = function(x, y) {
+			prototype._findClickedElement = function (x, y) {
 				return document.elementFromPoint(x, y);
 			};
 
@@ -724,7 +732,7 @@
 				var clickedElementRect = clickedElement.getBoundingClientRect(),
 					position = {};
 
-				switch(bestDirection) {
+				switch (bestDirection) {
 					case "l":
 						// the arrow will be on the left edge of container, so x-coordinate
 						// should have value equals to the position of right edge of clicked element
@@ -736,7 +744,7 @@
 					case "r":
 						// the arrow will be on the right edge of container
 						position.x = clickedElementRect.left;
-						position.y =  clickedElementRect.top + clickedElementRect.height / 2;
+						position.y = clickedElementRect.top + clickedElementRect.height / 2;
 						break;
 					case "t":
 						// the arrow will be on the top edge of container
@@ -790,7 +798,7 @@
 				elementStyle.top = bestRectangle.y + "px";
 			};
 
-			prototype._placementCoordsElement = function (clickedElement, options) {
+			prototype._placementCoordsElement = function (clickedElement) {
 				var self = this,
 					element = self.element,
 					elementStyle = element.style,
@@ -817,13 +825,12 @@
 			 * @protected
 			 * @member ns.widget.core.ContextPopup
 			 */
-			prototype._placementCoords = function(options) {
+			prototype._placementCoords = function (options) {
 				var self = this,
 					positionTo = options.positionTo,
 					x = options.x,
 					y = options.y,
 					element = self.element,
-					elementHeight,
 					clickedElement,
 					link;
 
@@ -848,7 +855,6 @@
 					case positionTypes.WINDOW:
 						self._placementCoordsWindow(element);
 						return;
-						break;
 					case positionTypes.ABSOLUTE:
 						if (typeof x === "number" && typeof y === "number") {
 							self._placementCoordsAbsolute(element, x, y);
@@ -860,7 +866,8 @@
 						if (typeof positionTo === "string") {
 							try {
 								clickedElement = document.querySelector(options.positionTo);
-							} catch(e) {}
+							} catch (e) {
+							}
 						} else if (typeof positionTo === "object") {
 							clickedElement = positionTo;
 						}
@@ -882,7 +889,7 @@
 			 * @protected
 			 * @member ns.widget.core.ContextPopup
 			 */
-			prototype._setContentHeight = function(maxHeight) {
+			prototype._setContentHeight = function (maxHeight) {
 				var self = this,
 					element = self.element,
 					content = self._ui.content,
@@ -917,16 +924,15 @@
 			 * @protected
 			 * @member ns.widget.core.ContextPopup
 			 */
-			prototype._onHide = function() {
+			prototype._onHide = function () {
 				var self = this,
 					ui = self._ui,
 					element = self.element,
 					elementClassList = element.classList,
-					content = ui.content,
 					arrow = ui.arrow;
 
 				elementClassList.remove(classes.context);
-				["l", "r", "b", "t"].forEach(function(key) {
+				["l", "r", "b", "t"].forEach(function (key) {
 					elementClassList.remove(classes.arrowDir + key);
 				});
 
@@ -944,9 +950,8 @@
 			 * @protected
 			 * @member ns.widget.core.ContextPopup
 			 */
-			prototype._destroy = function() {
+			prototype._destroy = function () {
 				var self = this,
-					element = self.element,
 					ui = self._ui,
 					arrow = ui.arrow;
 
@@ -968,7 +973,7 @@
 			 * @param options.positionTo
 			 * @member ns.widget.core.ContextPopup
 			 */
-			prototype.reposition = function(options) {
+			prototype.reposition = function (options) {
 				if (this._isActive()) {
 					this._reposition(options);
 				}
@@ -980,7 +985,7 @@
 			 * @protected
 			 * @member ns.widget.core.ContextPopup
 			 */
-			prototype._refresh = function() {
+			prototype._refresh = function () {
 				if (this._isActive()) {
 					PopupPrototype._refresh.call(this);
 					this.reposition(this.options);

@@ -1,4 +1,4 @@
-/*global window, define, RegExp */
+/*global window, ns, define, RegExp */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
  *
@@ -142,7 +142,7 @@
 							// state = [ resolved | rejected ]
 							state = stateString;
 
-						// [ reject_list | resolve_list ].disable; progress_list.lock
+							// [ reject_list | resolve_list ].disable; progress_list.lock
 						}, tuples[i ^ 1][2].disable, tuples[2][2].lock);
 					}
 

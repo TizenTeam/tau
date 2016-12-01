@@ -1,4 +1,4 @@
-/*global window, define */
+/*global window, ns, define */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
  *
@@ -72,7 +72,7 @@
 			 * @member ns.widget.core.Panel
 			 * @protected
 			 */
-			prototype._build = function(element) {
+			prototype._build = function (element) {
 				var routePanel = engine.getRouter().getRoute("panel");
 				element.classList.add(classes.PANEL);
 				routePanel.setActive(element);
@@ -88,7 +88,7 @@
 			 * @member ns.widget.core.Panel
 			 * @protected
 			 */
-			prototype._destroy = function(element) {
+			prototype._destroy = function (element) {
 				events.trigger(element, EVENT_TYPE.HIDE);
 			};
 			// definition

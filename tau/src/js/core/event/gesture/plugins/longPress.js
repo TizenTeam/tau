@@ -21,7 +21,7 @@
  *
  * @class ns.event.gesture.LongPress
  */
-( function ( ns, window, undefined ) {
+( function (ns) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define([
@@ -31,13 +31,13 @@
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 
-				/**
-				 * Local alias for {@link ns.event.gesture}
-				 * @property {Object}
-				 * @member ns.event.gesture.LongPress
-				 * @private
-				 * @static
-				 */
+			/**
+			 * Local alias for {@link ns.event.gesture}
+			 * @property {Object}
+			 * @member ns.event.gesture.LongPress
+			 * @private
+			 * @static
+			 */
 			var Gesture = ns.event.gesture,
 				/**
 				 * Local alias for {@link ns.event.gesture.Detector}
@@ -100,23 +100,23 @@
 				 * @return {ns.event.gesture.Result.PENDING|ns.event.gesture.Result.END|ns.event.gesture.Result.FINISHED|ns.event.gesture.Result.BLOCK}
 				 * @member ns.event.gesture.LongPress
 				 */
-				handler: function( gestureEvent, sender, options ) {
+				handler: function (gestureEvent, sender, options) {
 					var ge = gestureEvent,
 						result = Gesture.Result.PENDING;
 
-					switch( ge.eventType ) {
+					switch (ge.eventType) {
 						case Gesture.Event.START:
 							this.isTriggered = false;
-							this.longPressTimeOutId = setTimeout(function() {
+							this.longPressTimeOutId = setTimeout(function () {
 								this.isTriggered = true;
-								sender.sendEvent( this.name, gestureEvent );
+								sender.sendEvent(this.name, gestureEvent);
 								result = Gesture.Result.FINISHED;
 								return result;
 							}.bind(this), options.longPressTimeThreshold);
 							break;
 
 						case Gesture.Event.MOVE:
-							if ( ge.distance > options.longPressDistanceThreshold && !this.isTriggered) {
+							if (ge.distance > options.longPressDistanceThreshold && !this.isTriggered) {
 								clearTimeout(this.longPressTimeOutId);
 								result = Gesture.Result.FINISHED;
 							}
@@ -142,4 +142,4 @@
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
-} ( ns, window ) );
+}(ns) );

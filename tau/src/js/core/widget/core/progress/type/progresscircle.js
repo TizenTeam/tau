@@ -48,7 +48,7 @@
 				};
 
 			/* make widget refresh with new value */
-			function paintProgressCircle (self) {
+			function paintProgressCircle(self) {
 				var options = self.options,
 					percentValue = (options.value * 100) / (options.max - options.min),
 					rotateValue,
@@ -60,12 +60,12 @@
 					ui.progressValue.classList.remove(classes.uiProgressCircleHalf);
 				}
 
-				rotateValue = 360 * (percentValue/100);
+				rotateValue = 360 * (percentValue / 100);
 
 				ui.progressValueLeft.style.webkitTransform = "rotate(" + rotateValue + "deg)";
 			}
 
-			function setProgressBarSize (self) {
+			function setProgressBarSize(self) {
 				var progressSize = self.options.size,
 					sizeToNumber = parseFloat(progressSize),
 					ui = self._ui;
@@ -75,7 +75,7 @@
 					ui.progressContainer.style.width = progressSize + "px";
 					ui.progressContainer.style.height = progressSize + "px";
 				} else {
-					switch(progressSize) {
+					switch (progressSize) {
 						case "full":
 						case "large":
 						case "medium":
@@ -87,13 +87,13 @@
 				}
 			}
 
-			function resetDOM (ui) {
+			function resetDOM(ui) {
 				ui.progressValue.classList.remove(classes.uiProgressbarHalf);
 				ui.progressValueLeft.style.webkitTransform = "";
 			}
 
 			type.circle = utilsObject.merge({}, typeInterface, {
-				build: function(progress, element) {
+				build: function (progress, element) {
 					var ui = {},
 						progressElement = element,
 						progresscircleBg, progresscircleValue, progresscircleValueLeft, progresscircleValueRight;

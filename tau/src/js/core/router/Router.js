@@ -43,13 +43,13 @@
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
-				/**
-				 * Local alias for ns.util
-				 * @property {Object} util Alias for {@link ns.util}
-				 * @member ns.router.Router
-				 * @static
-				 * @private
-				 */
+			/**
+			 * Local alias for ns.util
+			 * @property {Object} util Alias for {@link ns.util}
+			 * @member ns.router.Router
+			 * @static
+			 * @private
+			 */
 			var util = ns.util,
 				/**
 				 * Local alias for ns.event
@@ -244,7 +244,7 @@
 				}
 			}
 
-			Router.prototype.linkClick = function(event) {
+			Router.prototype.linkClick = function (event) {
 				linkClickHandler(this, event);
 			};
 
@@ -359,13 +359,11 @@
 					rule,
 					deferred = {},
 					filter,
-					stringId,
-					toElement,
 					self = this;
 
 				to = getHTMLElement(to);
 				rel = ((options && options.rel) || (to instanceof HTMLElement && this.detectRel(to)) || "page");
-					rule = route[rel];
+				rule = route[rel];
 				if (_isLock) {
 					return;
 				}
@@ -460,7 +458,7 @@
 
 					if (!firstPage && ns.getConfig("addPageIfNotExist", true)) {
 						firstPage = Page.createEmptyElement();
-						while(containerElement.firstChild) {
+						while (containerElement.firstChild) {
 							firstPage.appendChild(containerElement.firstChild);
 						}
 						containerElement.appendChild(firstPage);
@@ -558,7 +556,7 @@
 				}
 				history.enableVolatileRecord();
 				if (firstPage) {
-					self.open(firstPage, { transition: "none" });
+					self.open(firstPage, {transition: "none"});
 				}
 				this.getRoute("popup").setActive(null);
 			};
@@ -587,13 +585,13 @@
 			}
 
 			/*
-			* Method close route element, eg page or popup.
-			* @method close
-			* @param {string|HTMLElement} to Id of page or file url or HTMLElement of page
-			* @param {Object} [options]
-			* @param {"page"|"popup"|"external"} [options.rel = "page"] Represents kind of link as "page" or "popup" or "external" for linking to another domain
-			* @member ns.router.Router
-			*/
+			 * Method close route element, eg page or popup.
+			 * @method close
+			 * @param {string|HTMLElement} to Id of page or file url or HTMLElement of page
+			 * @param {Object} [options]
+			 * @param {"page"|"popup"|"external"} [options.rel = "page"] Represents kind of link as "page" or "popup" or "external" for linking to another domain
+			 * @member ns.router.Router
+			 */
 			Router.prototype.close = function (to, options) {
 				var rel = (options && options.rel) || "back",
 					rule = route[rel];

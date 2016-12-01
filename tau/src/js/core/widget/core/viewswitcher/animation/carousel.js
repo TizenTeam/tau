@@ -131,7 +131,7 @@
 						ex = position / 100 * vsWidth,
 						halfEx = ex / 2,
 						centerPosition = (vsHalfWidth - active.offsetWidth / 2),
-						adjPosition = (centerPosition/ (vsHalfWidth * 0.6)),
+						adjPosition = (centerPosition / (vsHalfWidth * 0.6)),
 						absEx = Math.abs(ex),
 						absPosition = Math.abs(position),
 						mark = position < 0 ? 1 : -1,

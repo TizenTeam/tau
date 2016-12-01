@@ -1,4 +1,4 @@
-/*global window, define */
+/*global window, ns, define */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
  *
@@ -43,7 +43,7 @@
 					 * @static
 					 * @member ns.router.history
 					 */
-					activeState : null,
+					activeState: null,
 
 					/**
 					 * This method replaces or pushes state to history.
@@ -56,10 +56,10 @@
 					 */
 					replace: function (state, stateTitle, url) {
 						var newState = object.merge({}, state, {
-								uid: historyVolatileMode ? historyActiveIndex : ++historyUid,
-								stateUrl: url,
-								stateTitle: stateTitle
-							});
+							uid: historyVolatileMode ? historyActiveIndex : ++historyUid,
+							stateUrl: url,
+							stateTitle: stateTitle
+						});
 						windowHistory[historyVolatileMode ? "replaceState" : "pushState"](newState, stateTitle, url);
 						history.setActive(newState);
 					},

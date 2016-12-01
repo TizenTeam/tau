@@ -95,13 +95,13 @@
 			prototype._init = function () {
 				this.type = this.options.type;
 
-				if ( !this.type ) {
+				if (!this.type) {
 					return;
 				}
 				this._createScrollbar();
 			};
 
-			prototype._bindEvents = function() {
+			prototype._bindEvents = function () {
 				document.addEventListener("visibilitychange", this);
 			};
 
@@ -167,7 +167,7 @@
 					barStyle,
 					endDelay;
 
-				if ( !this.wrapper || !this.type || this.lastScrollPosition === offset ) {
+				if (!this.wrapper || !this.type || this.lastScrollPosition === offset) {
 					return;
 				}
 
@@ -175,7 +175,7 @@
 
 				this.lastScrollPosition = offset;
 
-				offset = this.type.offset( orientation, offset );
+				offset = this.type.offset(orientation, offset);
 
 				barStyle = this.barElement.style;
 				if (duration) {
@@ -190,32 +190,32 @@
 
 				barStyle["-webkit-transform"] =
 					barStyle["-moz-transform"] =
-					barStyle["-ms-transform"] =
-					barStyle["-o-transform"] =
-					barStyle.transform = translate;
+						barStyle["-ms-transform"] =
+							barStyle["-o-transform"] =
+								barStyle.transform = translate;
 				barStyle["-webkit-transition"] = transition.webkit;
 				barStyle["-moz-transition"] = transition.moz;
 				barStyle["-ms-transition"] = transition.ms;
 				barStyle["-o-transition"] = transition.o;
 				barStyle.transition = transition.normal;
 
-				if ( !this.started ) {
+				if (!this.started) {
 					this._start();
 				}
 
-				if ( this.displayDelayTimeoutId !== null ) {
-					window.clearTimeout( this.displayDelayTimeoutId );
+				if (this.displayDelayTimeoutId !== null) {
+					window.clearTimeout(this.displayDelayTimeoutId);
 					this.displayDelayTimeoutId = null;
 				}
 
-				if ( autoHidden ) {
+				if (autoHidden) {
 					endDelay = ( duration || 0 ) + this.options.displayDelay;
 					this.displayDelayTimeoutId = window.setTimeout(this._end.bind(this), endDelay);
 				}
 			};
 
 			prototype.end = function () {
-				if ( !this.displayDelayTimeoutId ) {
+				if (!this.displayDelayTimeoutId) {
 					this.displayDelayTimeoutId = window.setTimeout(this._end.bind(this), this.options.displayDelay);
 				}
 			};
@@ -229,7 +229,7 @@
 				this.started = false;
 				this.displayDelayTimeoutId = null;
 
-				if ( this.type ) {
+				if (this.type) {
 					this.type.end(this.wrapper, this.barElement);
 				}
 			};
@@ -240,16 +240,16 @@
 			 * @param event
 			 * @member ns.widget.core.scroller.scrollbar.ScrollBar
 			 */
-			prototype.handleEvent = function(event) {
+			prototype.handleEvent = function (event) {
 				var page;
 
-				switch(event.type) {
-				case "visibilitychange":
-					page = selectors.getClosestBySelector(this.clip, "." + Classes.page);
-					if (document.visibilityState === "visible" && page === ns.activePage) {
-						this.refresh();
-					}
-					break;
+				switch (event.type) {
+					case "visibilitychange":
+						page = selectors.getClosestBySelector(this.clip, "." + Classes.page);
+						if (document.visibilityState === "visible" && page === ns.activePage) {
+							this.refresh();
+						}
+						break;
 				}
 			};
 

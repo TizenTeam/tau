@@ -1,4 +1,4 @@
-/*global window, define */
+/*global window, ns, define */
 /*jslint nomen: true */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
@@ -32,19 +32,19 @@
  * ### Examples
  * #### Build widget from JavaScript
  *
- *		@example
- *		var element = document.getElementById("id"),
- *			ns.engine.instanceWidget(element, "Button");
+ *        @example
+ *        var element = document.getElementById("id"),
+ *            ns.engine.instanceWidget(element, "Button");
  *
  * #### Build widget from jQuery
  *
- *		@example
- *		var element = $("#id").button();
+ *        @example
+ *        var element = $("#id").button();
  *
  * ## How to create new widget
  *
- *		@example
- *		(function (ns) {
+ *        @example
+ *        (function (ns) {
  *			"use strict";
  *			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
  *			define(
@@ -190,7 +190,7 @@
 				},
 				prototype = {},
 				/**
-				 * Property with string represent function type 
+				 * Property with string represent function type
 				 * (for better minification)
 				 * @property {string} [TYPE_FUNCTION="function"]
 				 * @private
@@ -269,7 +269,7 @@
 
 					/**
 					 * Namespace of the widget
-					 * @property {string} namespace 
+					 * @property {string} namespace
 					 * @member ns.widget.BaseWidget
 					 */
 					self.namespace = definitionNamespace;
@@ -744,8 +744,8 @@
 					self.options[field] = value;
 					if (self.element) {
 						self.element.setAttribute("data-" + (field.replace(/[A-Z]/g, function (c) {
-							return "-" + c.toLowerCase();
-						})), value);
+								return "-" + c.toLowerCase();
+							})), value);
 						refresh = true;
 					}
 				}
@@ -755,7 +755,7 @@
 			/**
 			 * Returns true if widget has bounded events.
 			 *
-			 * This methods enables to check if the widget has bounded 
+			 * This methods enables to check if the widget has bounded
 			 * events through the {@link ns.widget.BaseWidget#bindEvents} method.
 			 * @method isBound
 			 * @param {string} [type] Type of widget
@@ -772,7 +772,7 @@
 			/**
 			 * Returns true if widget is built.
 			 *
-			 * This methods enables to check if the widget was built 
+			 * This methods enables to check if the widget was built
 			 * through the {@link ns.widget.BaseWidget#build} method.
 			 * @method isBuilt
 			 * @param {string} [type] Type of widget

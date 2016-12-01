@@ -47,8 +47,7 @@
 				 * @member ns.widget.mobile.Tab
 				 * @readonly
 				 */
-				classes = {
-				},
+				classes = {},
 				CustomEvent = {
 					TAB_CHANGE: "tabchange"
 				},
@@ -64,7 +63,7 @@
 			 * @public
 			 * @member ns.widget.mobile.Tab
 			 */
-			prototype._setActive = function(index) {
+			prototype._setActive = function (index) {
 				var element = this.element;
 				events.trigger(element, CustomEvent.TAB_CHANGE, {
 					active: index
@@ -77,7 +76,7 @@
 			 * @public
 			 * @member ns.widget.mobile.Tab
 			 */
-			prototype.setActive = function(index) {
+			prototype.setActive = function (index) {
 				this._setActive(index);
 			};
 
@@ -88,7 +87,7 @@
 			 * @public
 			 * @member ns.widget.mobile.Tab
 			 */
-			prototype._getActive = function() {
+			prototype._getActive = function () {
 				return this.options.active;
 			};
 
@@ -99,7 +98,7 @@
 			 * @public
 			 * @member ns.widget.mobile.Tab
 			 */
-			prototype.getActive = function() {
+			prototype.getActive = function () {
 				return this._getActive();
 			};
 

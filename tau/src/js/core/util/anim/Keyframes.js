@@ -19,22 +19,22 @@
  * # Keyframes
  *
  * Keyframes class for easy keyframe css syntax creation and
- * managing. Each frame is specified as an element of an array 
+ * managing. Each frame is specified as an element of an array
  * with size 100.
  *
  * @example
- 
- *		<div id="test"
- *				style="width: 10px; height: 10px; background: red;"></div>
+
+ *        <div id="test"
+ *                style="width: 10px; height: 10px; background: red;"></div>
  *
- *		<script>
- *		var frames = [{ "background-color": "red" }],
- *			anim,
- *			keys;
+ *        <script>
+ *        var frames = [{ "background-color": "red" }],
+ *            anim,
+ *            keys;
  *
- *		frames[100] = {"background-color": "blue"};
- *		keys = new tau.util.anim.Keyframes(frames);
- *		anim = new tau.util.anim.Animation({
+ *        frames[100] = {"background-color": "blue"};
+ *        keys = new tau.util.anim.Keyframes(frames);
+ *        anim = new tau.util.anim.Animation({
  *				element: document.getElementById("test"),
  *				fillMode: "both",
  *				delay: "2s",
@@ -44,7 +44,7 @@
  *					console.log("Yay, finished!");
  *				}
  *			});
- *		</script>
+ *        </script>
  *
  * @class ns.util.anim.Keyframes
  * @author Krzysztof Antoszek <k.antoszek@samsung.com>
@@ -97,7 +97,8 @@
 				buff += "} ";
 				return buff;
 			}
-				// Reference to stylesheet
+
+			// Reference to stylesheet
 			var styleContainer = null,
 				cssPropertyPrefix = ns.support.cssAnimationPrefix,
 				Keyframes = function (steps) {
@@ -114,7 +115,7 @@
 						styleContainer = element.sheet;
 					}
 					styleContainer.insertRule(keyframesToString(cssPropertyPrefix, id, steps),
-							0);
+						0);
 					/**
 					 * Keyframes rule reference
 					 * @property {CSSRule} keyframes

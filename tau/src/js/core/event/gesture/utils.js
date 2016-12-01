@@ -20,7 +20,7 @@
  * Contains helper function to gesture support.
  * @class ns.event.gesture.utils
  */
-(function (ns, Math, undefined) {
+(function (ns, Math) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(["./core"
@@ -28,13 +28,13 @@
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 
-				/**
-				 * Local alias for {@link ns.event.gesture}
-				 * @property {Object}
-				 * @member ns.event.gesture.utils
-				 * @private
-				 * @static
-				 */
+			/**
+			 * Local alias for {@link ns.event.gesture}
+			 * @property {Object}
+			 * @member ns.event.gesture.utils
+			 * @private
+			 * @static
+			 */
 			var Gesture = ns.event.gesture;
 
 			Gesture.utils = {
@@ -51,7 +51,7 @@
 				getCenter: function (touches) {
 					var valuesX = [], valuesY = [];
 
-					[].forEach.call(touches, function(touch) {
+					[].forEach.call(touches, function (touch) {
 						// I prefer clientX because it ignore the scrolling position
 						valuesX.push(!isNaN(touch.clientX) ? touch.clientX : touch.pageX);
 						valuesY.push(!isNaN(touch.clientY) ? touch.clientY : touch.pageY);
@@ -198,4 +198,4 @@
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
-} (ns, window.Math));
+}(ns, window.Math));

@@ -1,4 +1,4 @@
-/*global window, define */
+/*global window, ns, define */
 /*jslint nomen: true */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
@@ -59,6 +59,8 @@
 				engine = ns.engine,
 				utilsObject = ns.util.object,
 				Gesture = ns.event.gesture,
+				cancelAnimationFrame = ns.util.cancelAnimationFrame,
+				requestAnimationFrame = ns.util.requestAnimationFrame,
 				/**
 				 * Default values
 				 */
@@ -190,7 +192,7 @@
 			 * @member ns.widget.core.viewswitcher.ViewSwitcher
 			 * @protected
 			 */
-			prototype._getActiveIndex = function() {
+			prototype._getActiveIndex = function () {
 				var self = this,
 					ui = self._ui,
 					views = ui._views,
@@ -211,7 +213,7 @@
 			 * @member ns.widget.core.viewswitcher.ViewSwitcher
 			 * @protected
 			 */
-			prototype._bindEvents = function() {
+			prototype._bindEvents = function () {
 				var self = this,
 					element = self.element;
 
@@ -235,7 +237,7 @@
 			 * @param {Event} event
 			 * @member ns.widget.core.viewswitcher.ViewSwitcher
 			 */
-			prototype.handleEvent = function(event) {
+			prototype.handleEvent = function (event) {
 				var self = this;
 				switch (event.type) {
 					case "drag":
@@ -258,7 +260,7 @@
 			 * @member ns.widget.core.viewswitcher.ViewSwitcher
 			 * @protected
 			 */
-			prototype._onDrag = function(event) {
+			prototype._onDrag = function (event) {
 				var self = this,
 					direction = event.detail.direction,
 					ex = event.detail.estimatedDeltaX,
@@ -282,7 +284,7 @@
 			 * @member ns.widget.core.viewswitcher.ViewSwitcher
 			 * @protected
 			 */
-			prototype._onDragStart = function(event) {
+			prototype._onDragStart = function (event) {
 				var self = this,
 					direction = event.detail.direction,
 					ui = self._ui,
@@ -301,7 +303,7 @@
 			 * @member ns.widget.core.viewswitcher.ViewSwitcher
 			 * @protected
 			 */
-			prototype._onDragEnd = function(event) {
+			prototype._onDragEnd = function (event) {
 				var self = this,
 					ui = self._ui,
 					active = ui._views[self._activeIndex],
@@ -320,7 +322,7 @@
 				self._requestFrame(estimatedDeltaX, direction);
 			};
 
-			prototype._triggerChange = function(estimatedDeltaX) {
+			prototype._triggerChange = function (estimatedDeltaX) {
 				var self = this,
 					absEx = Math.abs(estimatedDeltaX);
 				if (absEx > 50 && !self._changed) {
@@ -328,7 +330,7 @@
 						index: self._activeIndex + (estimatedDeltaX < 0 ? 1 : -1)
 					});
 					self._changed = true;
-				} else if (absEx < 50 && self._changed){
+				} else if (absEx < 50 && self._changed) {
 					self.trigger(EVENT_TYPE.CHANGE, {
 						index: self._activeIndex
 					});
@@ -343,7 +345,7 @@
 			 * @member ns.widget.core.viewswitcher.ViewSwitcher
 			 * @protected
 			 */
-			prototype._requestFrame = function(estimatedDeltaX, direction, animationTiming) {
+			prototype._requestFrame = function (estimatedDeltaX, direction, animationTiming) {
 				var self = this,
 					elementOffsetWidth = self._elementOffsetWidth,
 					animationTimingFunction = animationTiming ? animationTiming : DEFAULT.ANIMATION_TIMING_FUNCTION,
@@ -351,7 +353,7 @@
 					lastDirection = self._lastDirection,
 					ui = self._ui,
 					ex = estimatedDeltaX,
-					deltaX =  ex / elementOffsetWidth * 100,
+					deltaX = ex / elementOffsetWidth * 100,
 					animationFrame,
 					validDirection,
 					stopPosition,
@@ -374,7 +376,7 @@
 				mark = validDirection === "left" ? -1 : 1;
 				if (isStop) {
 					self._type.animate(ui._views, self._activeIndex, stopPosition * mark);
-					webkitCancelRequestAnimationFrame(animationFrame);
+					cancelAnimationFrame(animationFrame);
 					if (direction !== "backward") {
 						ui._views[self._activeIndex].classList.remove(classes.VIEW_ACTIVE);
 						self._activeIndex = self._activeIndex - mark;
@@ -400,7 +402,7 @@
 				} else if (animationTimingFunction === "linear") {
 					ex = ex + self.options.animationSpeed * mark;
 				}
-				animationFrame = webkitRequestAnimationFrame(self._requestFrame.bind(self, ex, direction, animationTiming));
+				animationFrame = requestAnimationFrame(self._requestFrame.bind(self, ex, direction, animationTiming));
 			};
 			/**
 			 * Set the active view
@@ -408,7 +410,7 @@
 			 * @member ns.widget.core.viewswitcher.ViewSwitcher
 			 * @public
 			 */
-			prototype.setActiveIndex = function(index) {
+			prototype.setActiveIndex = function (index) {
 				var self = this,
 					latestActiveIndex = self._activeIndex,
 					interval = latestActiveIndex - index,
@@ -436,7 +438,7 @@
 			 * @member ns.widget.core.viewswitcher.ViewSwitcher
 			 * @public
 			 */
-			prototype.getActiveIndex = function() {
+			prototype.getActiveIndex = function () {
 				return this._activeIndex;
 			};
 			/**
@@ -445,7 +447,7 @@
 			 * @member ns.widget.core.viewswitcher.ViewSwitcher
 			 * @protected
 			 */
-			prototype._destroy = function() {
+			prototype._destroy = function () {
 				var element = this.element;
 				events.disableGesture(element);
 				events.off(element, "drag dragstart dragend", this, false);

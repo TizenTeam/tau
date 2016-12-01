@@ -352,8 +352,8 @@
 
 					if (!virtualMode && elementStyle) {
 						elementStyle.transform = direction ?
-							"translate3d(" + lastRenderedPosition + "px,0,0)" :
-							"translate3d(0, " + lastRenderedPosition + "px,0)";
+						"translate3d(" + lastRenderedPosition + "px,0,0)" :
+						"translate3d(0, " + lastRenderedPosition + "px,0)";
 					}
 
 					if (circularScrollBar) {
@@ -395,7 +395,7 @@
 				snapSize = false;
 
 				if (scrollingElement) {
-					console.warn("Scrolling exist on another element, first call disable method");
+					ns.warn("Scrolling exist on another element, first call disable method");
 				} else {
 					// detect direction
 					direction = (setDirection === "x") ? 1 : 0;
@@ -403,7 +403,7 @@
 					// we are creating a container to position transform
 					childElement = document.createElement("div");
 					// ... and appending all children to it
-					while(element.firstElementChild) {
+					while (element.firstElementChild) {
 						childElement.appendChild(element.firstElementChild);
 					}
 
@@ -554,7 +554,7 @@
 			}
 
 			function disableScrollBar() {
-				if(scrollBar) {
+				if (scrollBar) {
 					scrollBar.parentElement.removeChild(scrollBar);
 					scrollBar = null;
 					scrollThumb = null;
@@ -592,7 +592,7 @@
 				 * @returns {boolean}
 				 * @member ns.util.scrolling
 				 */
-				isElement: function(element) {
+				isElement: function (element) {
 					return scrollingElement === element;
 				},
 				/**
@@ -601,7 +601,7 @@
 				 * @param maxValue
 				 * @member ns.util.scrolling
 				 */
-				setMaxScroll: function(maxValue) {
+				setMaxScroll: function (maxValue) {
 					var // @TODO can be cached somehow to save operations (should be only refreshed on scrollingElement dimensions change)
 						boundingRect = scrollingElement.getBoundingClientRect(),
 						directionDimension = direction ? "width" : "height",
@@ -629,15 +629,15 @@
 								maxScrollBarPosition = directionSize - scrollThumb.getBoundingClientRect()[directionDimension];
 							}
 						}
+					}
+				},
+				setSnapSize: function (setSnapSize) {
+					snapSize = setSnapSize;
+				},
+				setBounceBack: function (setBounceBack) {
+					bounceBack = setBounceBack;
 				}
-			},
-			setSnapSize: function(setSnapSize) {
-				snapSize = setSnapSize;
-			},
-			setBounceBack: function(setBounceBack) {
-				bounceBack = setBounceBack;
-			}
-		};
+			};
 
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 		}

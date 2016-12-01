@@ -53,7 +53,7 @@
 				 * @member ns.widget.core.scroller.scrollbar.type.bar
 				 */
 
-				setScrollbar: function(viewLayout, firstChildLayout, clipLayout) {
+				setScrollbar: function (viewLayout, firstChildLayout, clipLayout) {
 					this._viewLayout = viewLayout;
 					this._clipLayout = clipLayout;
 					this._firstChildLayout = firstChildLayout;
@@ -66,7 +66,7 @@
 				 * @static
 				 * @member ns.widget.core.scroller.scrollbar.type.bar
 				 */
-				getScrollbarSize: function() {
+				getScrollbarSize: function () {
 					return this._firstChildLayout / this._viewLayout * this._firstChildLayout * this._ratio;
 				},
 				/**
@@ -76,12 +76,12 @@
 				 * @static
 				 * @member ns.widget.core.scroller.scrollbar.type.bar
 				 */
-				offset: function( orientation, offset ) {
+				offset: function (orientation, offset) {
 					var x, y;
 
 					offset = offset * this._clipLayout / this._viewLayout;
 
-					if ( orientation === Scroller.Orientation.VERTICAL ) {
+					if (orientation === Scroller.Orientation.VERTICAL) {
 						x = 0;
 						y = offset;
 					} else {
@@ -101,14 +101,14 @@
 				 * @static
 				 * @member ns.widget.core.scroller.scrollbar.type.bar
 				 */
-				start: function( scrollbarElement/*, barElement */) {
+				start: function (scrollbarElement/*, barElement */) {
 					var style = scrollbarElement.style,
 						duration = this.options.animationDuration;
 					style["-webkit-transition"] =
-							style["-moz-transition"] =
+						style["-moz-transition"] =
 							style["-ms-transition"] =
-							style["-o-transition"] =
-							style.transition = "opacity " + duration / 1000 + "s ease";
+								style["-o-transition"] =
+									style.transition = "opacity " + duration / 1000 + "s ease";
 					style.opacity = 1;
 				},
 
@@ -118,14 +118,14 @@
 				 * @static
 				 * @member ns.widget.core.scroller.scrollbar.type.bar
 				 */
-				end: function( scrollbarElement/*, barElement */) {
+				end: function (scrollbarElement/*, barElement */) {
 					var style = scrollbarElement.style,
 						duration = this.options.animationDuration;
 					style["-webkit-transition"] =
-							style["-moz-transition"] =
+						style["-moz-transition"] =
 							style["-ms-transition"] =
-							style["-o-transition"] =
-							style.transition = "opacity " + duration / 1000 + "s ease";
+								style["-o-transition"] =
+									style.transition = "opacity " + duration / 1000 + "s ease";
 					style.opacity = 0;
 				}
 			});

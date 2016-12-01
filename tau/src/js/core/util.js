@@ -1,4 +1,4 @@
-/*global window, define, XMLHttpRequest, console, Blob */
+/*global window, ns, define, XMLHttpRequest, console, Blob */
 /*jslint nomen: true, browser: true, plusplus: true */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
@@ -36,22 +36,32 @@
 			"./core"
 		],
 		function () {
-		//>>excludeEnd("tauBuildExclude");
+			//>>excludeEnd("tauBuildExclude");
 			var currentFrame = null,
 				/**
 				 * requestAnimationFrame function
 				 * @method requestAnimationFrame
 				 * @static
 				 * @member ns.util
-				*/
+				 */
 				requestAnimationFrame = (window.requestAnimationFrame ||
-					window.webkitRequestAnimationFrame ||
-					window.mozRequestAnimationFrame ||
-					window.oRequestAnimationFrame ||
-					window.msRequestAnimationFrame ||
-					function (callback) {
-						currentFrame = window.setTimeout(callback.bind(callback, +new Date()), 1000 / 60);
-					}).bind(window),
+				window.webkitRequestAnimationFrame ||
+				window.mozRequestAnimationFrame ||
+				window.oRequestAnimationFrame ||
+				window.msRequestAnimationFrame ||
+				function (callback) {
+					currentFrame = window.setTimeout(callback.bind(callback, +new Date()), 1000 / 60);
+				}).bind(window),
+				cancelAnimationFrame = (window.cancelAnimationFrame ||
+				window.webkitCancelAnimationFrame ||
+				window.mozCancelAnimationFrame ||
+				window.oCancelAnimationFrame ||
+				window.msCancelAnimationFrame ||
+				function () {
+					// propably wont work if there is any more than 1
+					// active animationFrame but we are trying anyway
+					window.clearTimeout(currentFrame);
+				}).bind(window),
 				util = ns.util || {},
 				slice = [].slice;
 
@@ -80,6 +90,7 @@
 
 				return null;
 			}
+
 			util.fetchSync = fetchSync;
 
 			/**
@@ -119,16 +130,17 @@
 					} catch (e) {
 						if (typeof console !== "undefined") {
 							if (e.stack) {
-								console.error(e.stack);
+								ns.error(e.stack);
 							} else if (e.name && e.message) {
-								console.error(e.name, e.message);
+								ns.error(e.name, e.message);
 							} else {
-								console.error(e);
+								ns.error(e);
 							}
 						}
 					}
 				};
 			}
+
 			util.safeEvalWrap = safeEvalWrap;
 
 			/**
@@ -144,6 +156,7 @@
 					functionQueue[i].call(window);
 				}
 			}
+
 			util.batchCall = batchCall;
 
 			/**
@@ -184,22 +197,13 @@
 			util.requestAnimationFrame = requestAnimationFrame;
 
 			/**
-			* cancelAnimationFrame function
-			* @method cancelAnimationFrame
-			* @return {Function}
-			* @member ns.util
-			* @static
-			*/
-			util.cancelAnimationFrame = (window.cancelAnimationFrame ||
-					window.webkitCancelAnimationFrame ||
-					window.mozCancelAnimationFrame ||
-					window.oCancelAnimationFrame ||
-					window.msCancelAnimationFrame ||
-					function () {
-						// propably wont work if there is any more than 1
-						// active animationFrame but we are trying anyway
-					window.clearTimeout(currentFrame);
-				}).bind(window);
+			 * cancelAnimationFrame function
+			 * @method cancelAnimationFrame
+			 * @return {Function}
+			 * @member ns.util
+			 * @static
+			 */
+			util.cancelAnimationFrame = cancelAnimationFrame;
 
 			/**
 			 * Method make asynchronous call of function
@@ -230,12 +234,12 @@
 			};
 
 			/**
-			* Checks if specified string is a number or not
-			* @method isNumber
-			* @return {boolean}
-			* @member ns.util
-			* @static
-			*/
+			 * Checks if specified string is a number or not
+			 * @method isNumber
+			 * @return {boolean}
+			 * @member ns.util
+			 * @static
+			 */
 			util.isNumber = function (query) {
 				var parsed = parseFloat(query);
 				return !isNaN(parsed) && isFinite(parsed);
@@ -256,7 +260,6 @@
 					scriptAttributes = slice.call(script.attributes),
 					src = script.getAttribute("src"),
 					path = util.path,
-					request,
 					attribute,
 					status;
 

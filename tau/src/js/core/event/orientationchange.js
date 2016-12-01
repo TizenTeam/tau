@@ -1,4 +1,4 @@
-/*global window, define */
+/*global window, ns, define */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
  *
@@ -92,13 +92,13 @@
 				checkReportedOrientation = function () {
 					if (window.orientation) {
 						switch (window.orientation) {
-						case 90:
-						case -90:
-							orientation = "portrait";
-							break;
-						default:
-							orientation = "landscape";
-							break;
+							case 90:
+							case -90:
+								orientation = "portrait";
+								break;
+							default:
+								orientation = "landscape";
+								break;
 						}
 					} else {
 						detectOrientationByDimensions(true);

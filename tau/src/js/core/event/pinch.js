@@ -1,19 +1,19 @@
-/*global window, define */
+/*global window, ns, define */
 /*
-* Copyright (c) 2013 - 2014 Samsung Electronics Co., Ltd
-*
-* Licensed under the Flora License, Version 1.1 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-*     http://floralicense.org/license/
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-*/
+ * Copyright (c) 2013 - 2014 Samsung Electronics Co., Ltd
+ *
+ * Licensed under the Flora License, Version 1.1 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://floralicense.org/license/
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 /*jslint nomen: true*/
 /**
  * #Event pinch
@@ -37,41 +37,41 @@
 					 * @static
 					 * @member ns.event.pinch
 					 */
-					min : 0.1,
+					min: 0.1,
 					/**
 					 * Maximum move delta to trigger event
 					 * @property {number} [max=3]
 					 * @static
 					 * @member ns.event.pinch
 					 */
-					max : 3,
+					max: 3,
 					/**
 					 * Threshold of event.
 					 * @property {number} [threshold=0.01]
 					 * @static
 					 * @member ns.event.pinch
 					 */
-					threshold : 0.01,
+					threshold: 0.01,
 					/**
 					 * Interval of triggering event
 					 * @property {number} [interval=50]
 					 * @static
 					 * @member ns.event.pinch
 					 */
-					interval : 50,
+					interval: 50,
 					/**
 					 * State of event
 					 * @property {boolean} [enabled=true]
 					 * @static
 					 * @member ns.event.pinch
 					 */
-					enabled : true
+					enabled: true
 				},
 				pinchDetails = {
-					origin : [],
-					ratio : 1,
-					processing : false,
-					current : []
+					origin: [],
+					ratio: 1,
+					processing: false,
+					current: []
 				},
 				utilsEvents = ns.event,
 				pinchMin,
@@ -109,8 +109,8 @@
 
 				if (!pinchDetails.processing && pinchDetails.origin) {
 					pinchDetails.current = [
-						{ x: touchList[0].pageX, y: touchList[0].pageY },
-						{ x: touchList[1].pageX, y: touchList[1].pageY }
+						{x: touchList[0].pageX, y: touchList[0].pageY},
+						{x: touchList[1].pageX, y: touchList[1].pageY}
 					];
 
 					delta = Math.sqrt(getDistance(pinchDetails.current) / getDistance(pinchDetails.origin));
@@ -172,8 +172,8 @@
 					interval = pinch.interval;
 
 					pinchDetails.origin = [
-						{ x: touchList[0].pageX, y: touchList[0].pageY },
-						{ x: touchList[1].pageX, y: touchList[1].pageY }
+						{x: touchList[0].pageX, y: touchList[0].pageY},
+						{x: touchList[1].pageX, y: touchList[1].pageY}
 					];
 
 					// Trigger pinchstart event on target element

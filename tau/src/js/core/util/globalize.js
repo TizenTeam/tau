@@ -1,4 +1,4 @@
-/*global window, define */
+/*global window, ns, define */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
  *
@@ -20,17 +20,17 @@
  * @class ns.util.globalize
  */
 
-(function (window, document, ns) {
+(function (window, document, ns, Globalize) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
 			"core/util/deferred"
 		],
-		function (deferred) {
+		function () {
 			//>>excludeEnd("tauBuildExclude");
 			var isGlobalizeInit = false,
-				cldrDataCategory = {main:"main", supplemental:"supplemental"},
+				cldrDataCategory = {main: "main", supplemental: "supplemental"},
 				cldrDataCache = {
 					main: {},
 					supplemental: {}
@@ -70,7 +70,7 @@
 			function pathFilter(path) {
 				return path.filter(function (item) {
 					return item;
-				} ).join("/");
+				}).join("/");
 			}
 
 			/**
@@ -176,20 +176,20 @@
 						xhrObj = new XMLHttpRequest();
 						xhrObj.onreadystatechange = function () {
 							if (xhrObj.readyState === 4) {
-								switch(xhrObj.status) {
+								switch (xhrObj.status) {
 									case 0:
 									case 200:
 										jsonObj = JSON.parse(xhrObj.responseText);
-										info = {"state":xhrObj.status, "path":path, "data":jsonObj};
+										info = {"state": xhrObj.status, "path": path, "data": jsonObj};
 										deferred.resolve(info);
 										break;
 									case 404:
-										info = {"state":xhrObj.status, "path":path, "data":null};
+										info = {"state": xhrObj.status, "path": path, "data": null};
 										deferred.reject(info);
 										break;
 									default:
 										jsonObj = JSON.parse(xhrObj.responseText);
-										info = {"state":xhrObj.status, "path":path, "data":jsonObj};
+										info = {"state": xhrObj.status, "path": path, "data": jsonObj};
 										deferred.reject(info);
 										break;
 								}
@@ -198,11 +198,11 @@
 						xhrObj.open("GET", path, true);
 						xhrObj.send("");
 					} catch (e) {
-						info = {"state":-1, "path":path, "data":null};
+						info = {"state": -1, "path": path, "data": null};
 						deferred.reject(info);
 					}
 				} else {
-					info = {"state":-2, "path":path, "data":null};
+					info = {"state": -2, "path": path, "data": null};
 					deferred.reject(info);
 
 				}
@@ -220,7 +220,7 @@
 			function loadCldrData(language, category) {
 				var path,
 					cldrDataTotal = cldrJsonNames[category].length,
-					cache =  null,
+					cache = null,
 					deferred = new UtilDeferred();
 
 				if (language) {// when category is "main" , language must have value like "en" , "ko" .etc
@@ -274,7 +274,7 @@
 				path = getCustomFilesPath(localeId);
 				if (!cache[path]) {
 					loadJSON(path).then(function (info) {
-							cache[path]=info;
+							cache[path] = info;
 							deferred.resolve(info);
 						},
 						deferred.reject);
@@ -313,7 +313,7 @@
 				if (scriptMetaData) {
 					scriptMetaData.some(function (item) {
 						if (item.IDENTIFIER === locale) {
-							switch(item.RTL) {
+							switch (item.RTL) {
 								case "YES":
 									result = true;
 									break;
@@ -363,14 +363,14 @@
 							}
 							loadCldrData(countryLang, cldrDataCategory.main).then(function (locale) {
 								deferred.resolve(locale);
-							},deferred.reject);
+							}, deferred.reject);
 						});
 					} else {
 						//first  find "lang" attribute in html
 						//second find "locale" in navigator in window.navigator
 						loadCldrData(localeId, cldrDataCategory.main).then(function (locale) {
 							deferred.resolve(locale);
-						},deferred.reject);
+						}, deferred.reject);
 
 					}
 				}
@@ -438,9 +438,9 @@
 
 					fileName = module.shift();
 
-					switch(path) {
+					switch (path) {
 						case "main":
-							for(j = moduleMain.length ; i < j ; i++) {
+							for (j = moduleMain.length; i < j; i++) {
 								if (moduleMain[i] === fileName) {
 									return;
 								}
@@ -448,7 +448,7 @@
 							moduleMain.push(fileName);
 							break;
 						case "supplemental":
-							for(j = moduleSupplemental.length ; i < j ; i++) {
+							for (j = moduleSupplemental.length; i < j; i++) {
 								if (moduleSupplemental[i] === fileName) {
 									return;
 								}
@@ -476,14 +476,14 @@
 								Globalize.locale(locale);
 								Globalize(locale);
 								return locale;
-							},deferred.reject)
+							}, deferred.reject)
 							.done(function (locale) {
 								loadCustomData(locale)
 									.then(function (info) {
 										Globalize.loadMessages(info.data);
 										globalizeInstance = new Globalize(locale);
 										deferred.resolve(globalizeInstance);
-									},function () {
+									}, function () {
 										globalizeInstance = new Globalize(locale);
 										deferred.resolve(globalizeInstance); //we do not care of failure of "loadCustomData on purpose"
 									});
@@ -506,7 +506,7 @@
 				 * @static
 				 */
 				getLocale: function () {
-					if(checkDependency()) {
+					if (checkDependency()) {
 						return Globalize.locale().locale;
 					} else {
 						throw new Error("Globalize is not loaded");
@@ -540,4 +540,4 @@
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
-}(window, window.document, ns));
+}(window, window.document, ns, window.Globalize));

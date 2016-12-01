@@ -1,4 +1,4 @@
-/*global window, define, CustomEvent */
+/*global window, define, ns, CustomEvent */
 /*jslint nomen: true */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
@@ -22,15 +22,15 @@
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define([
-				"../event",
-				"./gesture/core",
-				"./gesture/utils",
-				"./gesture/instance",
-				"./gesture/manager",
-				"./gesture/plugins/drag",
-				"./gesture/plugins/swipe",
-				"./gesture/plugins/pinch",
-				"./gesture/plugins/longPress"],
+			"../event",
+			"./gesture/core",
+			"./gesture/utils",
+			"./gesture/instance",
+			"./gesture/manager",
+			"./gesture/plugins/drag",
+			"./gesture/plugins/swipe",
+			"./gesture/plugins/pinch",
+			"./gesture/plugins/longPress"],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 			var instances = [],
@@ -47,7 +47,7 @@
 			 */
 			function findInstance(element) {
 				var instance;
-				instances.forEach(function(item) {
+				instances.forEach(function (item) {
 					if (item.element === element) {
 						instance = item.instance;
 					}
@@ -64,7 +64,7 @@
 			 * @private
 			 */
 			function removeInstance(element) {
-				instances.forEach(function(item, key) {
+				instances.forEach(function (item, key) {
 					if (item.element === element) {
 						instances.splice(key, 1);
 					}
@@ -78,19 +78,19 @@
 			 * @param {...Object} [gesture] Gesture object {@link ns.event.gesture}
 			 * @member ns.event
 			 */
-			ns.event.enableGesture = function() {
+			ns.event.enableGesture = function () {
 				var element = arguments[0],
-					gestureInstance = findInstance( element ),
+					gestureInstance = findInstance(element),
 					length = arguments.length,
 					i = 1;
 
-				if ( !gestureInstance ) {
+				if (!gestureInstance) {
 					gestureInstance = new gesture.Instance(element);
 					instances.push({element: element, instance: gestureInstance});
 				}
 
-				for ( ; i < length; i++ ) {
-					gestureInstance.addDetector( arguments[i] );
+				for (; i < length; i++) {
+					gestureInstance.addDetector(arguments[i]);
 				}
 			};
 
@@ -101,21 +101,21 @@
 			 * @param {...Object} [gesture] Gesture object {@link ns.event.gesture}
 			 * @member ns.event
 			 */
-			ns.event.disableGesture = function() {
+			ns.event.disableGesture = function () {
 				var element = arguments[0],
-					gestureInstance = findInstance( element ),
+					gestureInstance = findInstance(element),
 					length = arguments.length,
 					i = 1;
 
-				if ( !gestureInstance ) {
+				if (!gestureInstance) {
 					return;
 				}
 
-				if ( length > 1 ) {
-					gestureInstance.removeDetector( arguments[i] );
+				if (length > 1) {
+					gestureInstance.removeDetector(arguments[i]);
 				} else {
 					gestureInstance.destroy();
-					removeInstance( element );
+					removeInstance(element);
 				}
 			};
 

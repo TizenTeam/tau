@@ -38,7 +38,7 @@
 				 * @static
 				 * @member ns.widget.core.progress.type.interface
 				 */
-				build: function ( /*Progress*/ ) {
+				build: function (/*Progress*/) {
 				},
 				/**
 				 * Init Style for progress
@@ -47,7 +47,7 @@
 				 * @static
 				 * @member ns.widget.core.progress.type.interface
 				 */
-				init: function ( /*Progress*/ ) {
+				init: function (/*Progress*/) {
 				},
 				/**
 				 * Init Style for progress
@@ -56,7 +56,7 @@
 				 * @static
 				 * @member ns.widget.core.progress.type.interface
 				 */
-				refresh: function( /*Progress*/ ) {
+				refresh: function (/*Progress*/) {
 
 				},
 				/**
@@ -66,7 +66,7 @@
 				 * @static
 				 * @member ns.widget.core.progress.type.interface
 				 */
-				changeValue: function( /*Progress*/ ) {
+				changeValue: function (/*Progress*/) {
 
 				},
 				/**
@@ -76,7 +76,7 @@
 				 * @static
 				 * @member ns.widget.core.progress.type.interface
 				 */
-				destroy: function( /*Progress*/ ) {
+				destroy: function (/*Progress*/) {
 
 				}
 			};
