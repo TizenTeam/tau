@@ -1,4 +1,4 @@
-/*global window, define, HTMLElement */
+/*global window, ns, define, HTMLElement */
 /*jslint plusplus: true, nomen: true */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
@@ -122,7 +122,6 @@
 				init: function () {
 					var transitions,
 						name,
-						container,
 						router = engine.getRouter(),
 						containerWidget;
 					if ($) {
@@ -152,7 +151,6 @@
 						};
 
 						$.mobile.initializePage = router.init.bind(router);
-						container = router.getContainer();
 						containerWidget = router.getContainer();
 						if (containerWidget) {
 							$.mobile.pageContainer = $(containerWidget.element);
@@ -160,10 +158,10 @@
 					}
 				}
 			};
-			document.addEventListener("routerinit", function (evt) {
+			document.addEventListener("routerinit", function () {
 				ns.jqm.router.init();
 			}, false);
-			document.addEventListener("beforerouterinit", function (evt) {
+			document.addEventListener("beforerouterinit", function () {
 				ns.jqm.router.beforeinit();
 			}, false);
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);

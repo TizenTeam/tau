@@ -31,69 +31,69 @@
  * ##Manual constructor - checkbox
  * For manual creation of Checkboxradio widget with checkbox content you can use constructor of widget:
  *
- *	@example
- *	<!-- Widget structure -->
- *	<input type="checkbox" id="checkbox-1"></input>
- *	<label for="checkbox-1">Label1</label>
- *	<input class="ui-checkbox" id="checkbox-2"></input>
- *	<label for="checkbox-2">Label2</label>
- *	<script>
- *	var checkbox = document.getElementById("checkbox-1"),
- *		widget = tau.widget.Checkboxradio(checkbox),
- *		checkbox2 = document.getElementById("checkbox-2"),
- *		widget2 = tau.widget.Checkboxradio(checkbox2);
- *	</script>
+ *    @example
+ *    <!-- Widget structure -->
+ *    <input type="checkbox" id="checkbox-1"></input>
+ *    <label for="checkbox-1">Label1</label>
+ *    <input class="ui-checkbox" id="checkbox-2"></input>
+ *    <label for="checkbox-2">Label2</label>
+ *    <script>
+ *    var checkbox = document.getElementById("checkbox-1"),
+ *        widget = tau.widget.Checkboxradio(checkbox),
+ *        checkbox2 = document.getElementById("checkbox-2"),
+ *        widget2 = tau.widget.Checkboxradio(checkbox2);
+ *    </script>
  *
  * ##Manual constructor - radio
  * For manual creation of Checkboxradio widget with radio content you can use constructor of widget:
  *
- *	@example
- *	<!-- Widget structure -->
- *	<input type="radio" id="radio-1"></input>
- *	<label for="radio-1">Label1</label>
- *	<script>
- *	var radio = document.getElementById("radio-1"),
- *		widget = tau.widget.Checkboxradio(radio);
- *	</script>
+ *    @example
+ *    <!-- Widget structure -->
+ *    <input type="radio" id="radio-1"></input>
+ *    <label for="radio-1">Label1</label>
+ *    <script>
+ *    var radio = document.getElementById("radio-1"),
+ *        widget = tau.widget.Checkboxradio(radio);
+ *    </script>
  *
  * ##HTML Examples
  *
  * ###Setting checkbox checked / unchecked
  *
- *	@example
- *	<!-- Widget structure -->
- *	<input type="checkbox" id="checkbox-1"></input>
- *	<label for="checkbox-1">Label1</label>
- *	<script>
- *	var checkbox = document.getElementById("checkbox-1");
- *	// Checked
- *	checkbox.checked = true;
- *	// Unchecked
- *	checkbox.checked = false;
- *	</script>
+ *    @example
+ *    <!-- Widget structure -->
+ *    <input type="checkbox" id="checkbox-1"></input>
+ *    <label for="checkbox-1">Label1</label>
+ *    <script>
+ *    var checkbox = document.getElementById("checkbox-1");
+ *    // Checked
+ *    checkbox.checked = true;
+ *    // Unchecked
+ *    checkbox.checked = false;
+ *    </script>
  *
  * ###Setting radio checked / unchecked
  *
- *	@example
- *	<!-- Widget structure -->
- *	<input type="radio" id="radio-1"></input>
- *	<label for="radio-1">Label1</label>
- *	<script>
- *	var radio = document.getElementById("radio-1");
- *	// Checked
- *	radio.checked = true;
- *	// Unchecked
- *	radio.checked = false;
- *	</script>
+ *    @example
+ *    <!-- Widget structure -->
+ *    <input type="radio" id="radio-1"></input>
+ *    <label for="radio-1">Label1</label>
+ *    <script>
+ *    var radio = document.getElementById("radio-1");
+ *    // Checked
+ *    radio.checked = true;
+ *    // Unchecked
+ *    radio.checked = false;
+ *    </script>
  *
  * ###Setting disabled
  *
- *	@example
- *	<!-- Widget structure -->
- *	<input type="checkbox" id="checkbox-1" disabled="disabled"></input>
- *	<label for="checkbox-1">Label1</label>
- *	<input type="radio" id="radio-1" disabled="disabled"></input>
- *	<label for="radio-1">Label2</label>
+ *    @example
+ *    <!-- Widget structure -->
+ *    <input type="checkbox" id="checkbox-1" disabled="disabled"></input>
+ *    <label for="checkbox-1">Label1</label>
+ *    <input type="radio" id="radio-1" disabled="disabled"></input>
+ *    <label for="radio-1">Label2</label>
  *
  * @class ns.widget.mobile.Checkboxradio
  * @extends ns.widget.BaseWidget
@@ -117,17 +117,17 @@
 			var Checkboxradio = function () {
 					var self = this;
 					/**
-					* @property {Object} options Object with default options
-					* @property {string} [options.theme='s'] Widget's theme
-					* @member ns.widget.mobile.Checkboxradio
-					*/
+					 * @property {Object} options Object with default options
+					 * @property {string} [options.theme='s'] Widget's theme
+					 * @member ns.widget.mobile.Checkboxradio
+					 */
 					self.options = {
 						theme: "s"
 					};
 
 					self._callbacks = {
-						onLabelClick : null,
-						onInputClick : null
+						onLabelClick: null,
+						onInputClick: null
 					};
 
 					self.inputType = "";
@@ -142,39 +142,39 @@
 					self.wrapper = null;
 				},
 				/**
-				* @property {Object} Widget Alias for {@link ns.widget.BaseWidget}
-				* @member ns.widget.mobile.Checkboxradio
-				* @private
-				* @static
-				*/
+				 * @property {Object} Widget Alias for {@link ns.widget.BaseWidget}
+				 * @member ns.widget.mobile.Checkboxradio
+				 * @private
+				 * @static
+				 */
 				BaseWidget = ns.widget.mobile.BaseWidgetMobile,
 				/**
-				* @property {Object} engine Alias for class ns.engine
-				* @member ns.widget.mobile.Checkboxradio
-				* @private
-				* @static
-				*/
+				 * @property {Object} engine Alias for class ns.engine
+				 * @member ns.widget.mobile.Checkboxradio
+				 * @private
+				 * @static
+				 */
 				engine = ns.engine,
 				/**
-				* @property {Object} selectors Alias for class ns.util.selectors
-				* @member ns.widget.mobile.Checkboxradio
-				* @private
-				* @static
-				*/
+				 * @property {Object} selectors Alias for class ns.util.selectors
+				 * @member ns.widget.mobile.Checkboxradio
+				 * @private
+				 * @static
+				 */
 				selectors = ns.util.selectors,
 				/**
-				* @property {Object} dom Alias for class ns.util.DOM
-				* @member ns.widget.mobile.Checkboxradio
-				* @private
-				* @static
-				*/
+				 * @property {Object} dom Alias for class ns.util.DOM
+				 * @member ns.widget.mobile.Checkboxradio
+				 * @private
+				 * @static
+				 */
 				dom = ns.util.DOM,
 				/**
-				* @property {Object} events Alias for class ns.event
-				* @member ns.widget.mobile.Checkboxradio
-				* @private
-				* @static
-				*/
+				 * @property {Object} events Alias for class ns.event
+				 * @member ns.widget.mobile.Checkboxradio
+				 * @private
+				 * @static
+				 */
 				events = ns.event,
 				/**
 				 * {Object} List of classes which can be added to widget`s element
@@ -192,11 +192,11 @@
 					UI: "ui-"
 				},
 				/**
-				* @property {Function} slice Alias for function Array.slice
-				* @member ns.widget.mobile.Checkboxradio
-				* @private
-				* @static
-				*/
+				 * @property {Function} slice Alias for function Array.slice
+				 * @member ns.widget.mobile.Checkboxradio
+				 * @private
+				 * @static
+				 */
 				slice = [].slice;
 
 			Checkboxradio.prototype = new BaseWidget();
@@ -301,15 +301,16 @@
 				labelClassList.remove(self.checkedClass);
 				self.wrapper.setAttribute(self.ariaCheckedAttr, false);
 			}
+
 			/**
-			* Check or uncheck checkboxradio element
-			* @method setCheckboxradioStatus
-			* @param {ns.widget.mobile.Checkboxradio} self
-			* @param {boolean} status
-			* @private
-			* @member ns.widget.mobile.Checkboxradio
-			* @new
-			*/
+			 * Check or uncheck checkboxradio element
+			 * @method setCheckboxradioStatus
+			 * @param {ns.widget.mobile.Checkboxradio} self
+			 * @param {boolean} status
+			 * @private
+			 * @member ns.widget.mobile.Checkboxradio
+			 * @new
+			 */
 			function setCheckboxradioStatus(self, status) {
 				var element = self.element;
 				if (!element.getAttribute("disabled")) {
@@ -324,16 +325,16 @@
 			}
 
 			/**
-			* Finds best matched label for given input: <br>
-			* 1. Checks if one of parents is not a label<br>
-			* 2. Checks label#for=input.id if input.id is set in parent form, fieldset, page<br>
-			* 3. Creates label
-			* @method _findLabel
-			* @return {HTMLElement}
-			* @protected
-			* @member ns.widget.mobile.Checkboxradio
-			*/
-			Checkboxradio.prototype._findLabel = function() {
+			 * Finds best matched label for given input: <br>
+			 * 1. Checks if one of parents is not a label<br>
+			 * 2. Checks label#for=input.id if input.id is set in parent form, fieldset, page<br>
+			 * 3. Creates label
+			 * @method _findLabel
+			 * @return {HTMLElement}
+			 * @protected
+			 * @member ns.widget.mobile.Checkboxradio
+			 */
+			Checkboxradio.prototype._findLabel = function () {
 				var input = this.element,
 					parent = selectors.getClosestByTag(input, "label"),
 					selector = [],
@@ -373,7 +374,7 @@
 			};
 
 			Checkboxradio.prototype._buildLabel = function (element) {
-				var inputType =  this.inputType,
+				var inputType = this.inputType,
 					options = this.options,
 					icon,
 					label,
@@ -468,13 +469,13 @@
 			};
 
 			/**
-			* Builds structure of checkboxradio widget
-			* @method _build
-			* @param {HTMLInputElement} element
-			* @return {HTMLInputElement}
-			* @protected
-			* @member ns.widget.mobile.Checkboxradio
-			*/
+			 * Builds structure of checkboxradio widget
+			 * @method _build
+			 * @param {HTMLInputElement} element
+			 * @return {HTMLInputElement}
+			 * @protected
+			 * @member ns.widget.mobile.Checkboxradio
+			 */
 			Checkboxradio.prototype._build = function (element) {
 				var self = this,
 					inputType = element.getAttribute("type");
@@ -515,12 +516,12 @@
 			};
 
 			/**
-			* Inits widget
-			* @method _init
-			* @param {HTMLElement} element
-			* @protected
-			* @member ns.widget.mobile.Checkboxradio
-			*/
+			 * Inits widget
+			 * @method _init
+			 * @param {HTMLElement} element
+			 * @protected
+			 * @member ns.widget.mobile.Checkboxradio
+			 */
 			Checkboxradio.prototype._init = function (element) {
 				var self = this;
 				self.label = self._findLabel();
@@ -535,11 +536,11 @@
 			};
 
 			/**
-			* Binds events to widget
-			* @method _bindEvents
-			* @protected
-			* @member ns.widget.mobile.Checkboxradio
-			*/
+			 * Binds events to widget
+			 * @method _bindEvents
+			 * @protected
+			 * @member ns.widget.mobile.Checkboxradio
+			 */
 			Checkboxradio.prototype._bindEvents = function () {
 				var callbacks = this._callbacks;
 
@@ -550,12 +551,12 @@
 			};
 
 			/**
-			* Returns either a set of radios with the same name attribute or a single checkbox
-			* @method getInputSet
-			* @return {Array}
-			* @protected
-			* @member ns.widget.mobile.Checkboxradio
-			*/
+			 * Returns either a set of radios with the same name attribute or a single checkbox
+			 * @method getInputSet
+			 * @return {Array}
+			 * @protected
+			 * @member ns.widget.mobile.Checkboxradio
+			 */
 			Checkboxradio.prototype._getInputSet = function () {
 				var parent;
 
@@ -576,11 +577,11 @@
 			};
 
 			/**
-			* Updates all others checkboxradio widgets with the same name attribute (only radios)
-			* @method _updateAll
-			* @protected
-			* @member ns.widget.mobile.Checkboxradio
-			*/
+			 * Updates all others checkboxradio widgets with the same name attribute (only radios)
+			 * @method _updateAll
+			 * @protected
+			 * @member ns.widget.mobile.Checkboxradio
+			 */
 			Checkboxradio.prototype._updateAll = function () {
 				this._getInputSet().forEach(function (el) {
 					var widget = engine.getBinding(el);
@@ -595,10 +596,10 @@
 			};
 
 			/**
-			* Refreshes widget
-			* @method refresh
-			* @member ns.widget.mobile.Checkboxradio
-			*/
+			 * Refreshes widget
+			 * @method refresh
+			 * @member ns.widget.mobile.Checkboxradio
+			 */
 
 			Checkboxradio.prototype.refresh = function () {
 				var element = this.element;
@@ -613,33 +614,33 @@
 			};
 
 			/**
-			* Enables widget
-			* @method _enable
-			* @member ns.widget.mobile.Checkboxradio
-			* @protected
-			*/
+			 * Enables widget
+			 * @method _enable
+			 * @member ns.widget.mobile.Checkboxradio
+			 * @protected
+			 */
 			Checkboxradio.prototype._enable = function () {
 				dom.removeAttribute(this.element, "disabled");
 				this.wrapper.classList.remove("ui-disabled");
 			};
 
 			/**
-			* Disables widget
-			* @method _disable
-			* @protected
-			* @member ns.widget.mobile.Checkboxradio
-			*/
+			 * Disables widget
+			 * @method _disable
+			 * @protected
+			 * @member ns.widget.mobile.Checkboxradio
+			 */
 			Checkboxradio.prototype._disable = function () {
 				dom.setAttribute(this.element, "disabled", true);
 				this.wrapper.classList.add("ui-disabled");
 			};
 
 			/**
-			* Cleans widget's resources
-			* @method _destroy
-			* @protected
-			* @member ns.widget.mobile.Checkboxradio
-			*/
+			 * Cleans widget's resources
+			 * @method _destroy
+			 * @protected
+			 * @member ns.widget.mobile.Checkboxradio
+			 */
 			Checkboxradio.prototype._destroy = function () {
 				var self = this,
 					callbacks = self._callbacks;
@@ -685,13 +686,13 @@
 			};
 
 			/**
-			* Check element with value
-			* @method _setValue
-			* @param {string} value
-			* @member ns.widget.mobile.Checkboxradio
-			* @chainable
-			* @new
-			*/
+			 * Check element with value
+			 * @method _setValue
+			 * @param {string} value
+			 * @member ns.widget.mobile.Checkboxradio
+			 * @chainable
+			 * @new
+			 */
 			Checkboxradio.prototype._setValue = function (value) {
 				var radios = this._getInputSet(),
 					checkedElement,
@@ -714,21 +715,21 @@
 			// definition
 			ns.widget.tv.MobileCheckboxradio = Checkboxradio;
 			/*
-			engine.defineWidget(
-				"Checkboxradio",
-				"input[type='checkbox']:not(.ui-slider-switch-input):not([data-role='toggleswitch']):not(.ui-toggleswitch)," +
-				"input[type='radio']," +
-				"input.ui-checkbox," +
-				"input.ui-radio",
-				[
-					"enable",
-					"disable",
-					"refresh"
-				],
-				Checkboxradio,
-				"mobile"
-			);
-			*/
+			 engine.defineWidget(
+			 "Checkboxradio",
+			 "input[type='checkbox']:not(.ui-slider-switch-input):not([data-role='toggleswitch']):not(.ui-toggleswitch)," +
+			 "input[type='radio']," +
+			 "input.ui-checkbox," +
+			 "input.ui-radio",
+			 [
+			 "enable",
+			 "disable",
+			 "refresh"
+			 ],
+			 Checkboxradio,
+			 "mobile"
+			 );
+			 */
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return ns.widget.tv.MobileCheckboxradio;
 		}

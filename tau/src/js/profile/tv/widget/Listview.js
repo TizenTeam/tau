@@ -179,7 +179,7 @@
 				}
 			}
 
-			prototype._changeLinksToButton = function(item) {
+			prototype._changeLinksToButton = function (item) {
 				engine.instanceWidget(
 					item,
 					"Button"

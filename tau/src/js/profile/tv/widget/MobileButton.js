@@ -28,45 +28,45 @@
  *
  * ####Create simple button from link using data-role
  *
- *		@example
- *		<a href="#page2" data-role="button">Link button</a>
+ *        @example
+ *        <a href="#page2" data-role="button">Link button</a>
  *
  * ####Create simple button from link using class selector
  *
- *		@example
- *		<a href="#page2" class="ui-button">Link button</a>
+ *        @example
+ *        <a href="#page2" class="ui-button">Link button</a>
  *
  * ####Create simple button using button's tag
  *
- *		@example
- *		<button>Button element</button>
+ *        @example
+ *        <button>Button element</button>
  *
  * ####Create simple button from input using type
  *
- *		@example
- *		<input type="button" value="Button" />
- *		<input type="submit" value="Submit Button" />
- *		<input type="reset" value="Reset Button" />
+ *        @example
+ *        <input type="button" value="Button" />
+ *        <input type="submit" value="Submit Button" />
+ *        <input type="reset" value="Reset Button" />
  *
  * ## Manual constructor
  * For manual creation of button widget you can use constructor of widget from **tau** namespace:
  *
- *		@example
- *		<div id="button"></div>
- *		<script>
- *			var buttonElement = document.getElementById('button'),
- *				button = tau.widget.Button(buttonElement, {mini: true});
- *		</script>
+ *        @example
+ *        <div id="button"></div>
+ *        <script>
+ *            var buttonElement = document.getElementById('button'),
+ *                button = tau.widget.Button(buttonElement, {mini: true});
+ *        </script>
  *
  * Constructor has one require parameter **element** which are base **HTMLElement** to create widget. We recommend to get this element by method *document.getElementById*. Second parameter is **options** and it is a object with options for widget.
  *
  * If jQuery library is loaded, its method can be used:
  *
- *		@example
- *		<div id="button"></div>
- *		<script>
- *			$('#button').button({mini: true});
- *		</script>
+ *        @example
+ *        <div id="button"></div>
+ *        <script>
+ *            $('#button').button({mini: true});
+ *        </script>
  *
  * jQuery Mobile constructor has one optional parameter is **options** and it is a object with options for widget.
  *
@@ -79,27 +79,27 @@
  * ###Mini version
  * For a more compact version that is useful in toolbars and tight spaces, add the data-mini="true" attribute to the button to create a mini version. This will produce a button that is not as tall as the standard version and has a smaller text size.
  *
- *		@example
- *		<a href="index.html" data-role="button" data-mini="true">Link button</a>
+ *        @example
+ *        <a href="index.html" data-role="button" data-mini="true">Link button</a>
  *
  *
  * ###Inline buttons
  * By default, all buttons in the body content are styled as block-level elements so they fill the width of the screen. However, if you want a more compact button that is only as wide as the text and icons inside, add the data-inline="true" attribute to the button.
  *
- *		@example
- *		<a href="index.html" data-role="button" data-inline="true">Cancel</a>
+ *        @example
+ *        <a href="index.html" data-role="button" data-inline="true">Cancel</a>
  *
  * If you have multiple buttons that should sit side-by-side on the same line, add the data-inline="true" attribute to each button. This will style the buttons to be the width of their content and float the buttons so they sit on the same line.
  *
- *		@example
- *		<a href="index.html" data-role="button" data-inline="true">Cancel</a>
- *		<a href="index.html" data-role="button" data-inline="true" data-theme="b">Save</a>
+ *        @example
+ *        <a href="index.html" data-role="button" data-inline="true">Cancel</a>
+ *        <a href="index.html" data-role="button" data-inline="true" data-theme="b">Save</a>
  *
  * ###Icon positioning
  * By default, all icons in buttons are placed to the left of the button text. This default may be overridden using the data-iconpos attribute.
  *
- *		@example
- *		<a href="index.html" data-role="button" data-icon="delete" data-iconpos="right">Delete</a>
+ *        @example
+ *        <a href="index.html" data-role="button" data-icon="delete" data-iconpos="right">Delete</a>
  *
  * Possible values of data-iconpos:<br>
  *
@@ -110,8 +110,8 @@
  *
  * You can also create an icon-only button, by setting the data-iconpos attribute to notext. The button plugin will hide the text on-screen, but add it as a title attribute on the link to provide context for screen readers and devices that support tooltips.
  *
- *		@example
- *		<a href="index.html" data-role="button" data-icon="delete" data-iconpos="notext">Delete</a>
+ *        @example
+ *        <a href="index.html" data-role="button" data-icon="delete" data-iconpos="notext">Delete</a>
  *
  * ##Methods
  *
@@ -119,26 +119,26 @@
  *
  * First API is from tau namespace:
  *
- *		@example
- *		<div id="button" data-role="button"></div>
- *		<script>
- *			var buttonElement = document.getElementById('button'),
- *				button = tau.widget.Button(buttonElement);
+ *        @example
+ *        <div id="button" data-role="button"></div>
+ *        <script>
+ *            var buttonElement = document.getElementById('button'),
+ *                button = tau.widget.Button(buttonElement);
  *
- *			// button.methodName(methodArgument1, methodArgument2, ...);
- *			// for example:
+ *            // button.methodName(methodArgument1, methodArgument2, ...);
+ *            // for example:
  *
- *			button.value("text");
- *		</script>
+ *            button.value("text");
+ *        </script>
  *
  * Second API is jQuery Mobile API and for call _methodName_ you can use:
  *
- *		@example
- *	    <div id="button"></div>
- *		<script>
- *			// $("#button").button('methodName', argument1, argument2, ...);
- *			// for example:
- *		</script>
+ *        @example
+ *        <div id="button"></div>
+ *        <script>
+ *            // $("#button").button('methodName', argument1, argument2, ...);
+ *            // for example:
+ *        </script>
  *
  * @class ns.widget.mobile.Button
  * @extends ns.widget.BaseWidget
@@ -154,7 +154,7 @@
  * @author Sergiusz Struminski <s.struminski@samsung.com>
  * @author Tomasz Lukawski <t.lukawski@samsung.com>
  */
-(function(document, ns) {
+(function (document, ns) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
@@ -167,7 +167,7 @@
 			"../../../core/theme",
 			"../../mobile/widget/mobile/BaseWidgetMobile"
 		],
-		function() {
+		function () {
 			//>>excludeEnd("tauBuildExclude");
 			var BaseWidget = ns.widget.mobile.BaseWidgetMobile,
 				engine = ns.engine,
@@ -237,7 +237,7 @@
 				wrapperEls: "span"
 			};
 
-				Button.prototype = prototype;
+			Button.prototype = prototype;
 
 			/**
 			 * Dictionary for button related css class names
@@ -706,13 +706,13 @@
 			};
 
 			/**
-			* Build structure of button widget
-			* @method _build
-			* @param {HTMLElement|HTMLInputElement} element
-			* @return {HTMLElement}
-			* @protected
-			* @member ns.widget.mobile.Button
-			*/
+			 * Build structure of button widget
+			 * @method _build
+			 * @param {HTMLElement|HTMLInputElement} element
+			 * @return {HTMLElement}
+			 * @protected
+			 * @member ns.widget.mobile.Button
+			 */
 			prototype._build = function (element) {
 				var self = this,
 					ui = self.ui,
@@ -791,41 +791,41 @@
 				}
 
 				container.setAttribute("tabindex", 0);
-				if ( (element.getAttribute("data-role") === "button" && !options.bar) ||
+				if ((element.getAttribute("data-role") === "button" && !options.bar) ||
 					(elementTagName === "input" && ((elementTypeName === "submit") || (elementTypeName === "reset") || (elementTypeName === "button")) ) ||
-					(elementTagName === "button") ) {
+					(elementTagName === "button")) {
 					buttonClassArray.push(classes.uiBtnBoxThemePrefix + options.theme);
 				}
 
 				innerTextLength = element.textContent.length || (element.value ? element.value.length : 0);
 
 				switch (buttonStyle) {
-				case "circle":
-					if (innerTextLength > 0) {
-						buttonClassArray.push(classes.uiBtnRound);
-					} else {
-						buttonClassArray.push(classes.uiBtnCornerCircle, classes.uiBtnIconOnly);
-						if (options.icon) {
-							// Style: no text, Icon only
-							innerClass += " " + classes.uiBtnCornerCircle;
-						} else {
+					case "circle":
+						if (innerTextLength > 0) {
 							buttonClassArray.push(classes.uiBtnRound);
+						} else {
+							buttonClassArray.push(classes.uiBtnCornerCircle, classes.uiBtnIconOnly);
+							if (options.icon) {
+								// Style: no text, Icon only
+								innerClass += " " + classes.uiBtnCornerCircle;
+							} else {
+								buttonClassArray.push(classes.uiBtnRound);
+							}
 						}
-					}
-					break;
-				case "nobg":
-					buttonClassArray.push(classes.uiBtnIconNobg, classes.uiBtnIconOnly);
-					if (options.icon && innerTextLength <= 0) {
-						// Style: no text, Icon only, no background
-						innerClass += " " + classes.uiBtnIconNobg;
-					}
-					break;
-				case "edit":
-					buttonClassArray.push(classes.uiBtnEdit);
-					break;
-				case "round":
-					buttonClassArray.push(classes.uiBtnRound);
-					break;
+						break;
+					case "nobg":
+						buttonClassArray.push(classes.uiBtnIconNobg, classes.uiBtnIconOnly);
+						if (options.icon && innerTextLength <= 0) {
+							// Style: no text, Icon only, no background
+							innerClass += " " + classes.uiBtnIconNobg;
+						}
+						break;
+					case "edit":
+						buttonClassArray.push(classes.uiBtnEdit);
+						break;
+					case "round":
+						buttonClassArray.push(classes.uiBtnRound);
+						break;
 					default:
 				}
 
@@ -846,7 +846,7 @@
 					enableElement(element, container);
 				}
 
-				innerClass += options.corners ? " "  + classes.uiBtnCornerAll : "";
+				innerClass += options.corners ? " " + classes.uiBtnCornerAll : "";
 
 				// Copy classes of structure
 				buttonClassList = container.classList;
@@ -894,12 +894,12 @@
 			};
 
 			/**
-			* Init widget
-			* @method _init
-			* @param {HTMLElement} element
-			* @protected
-			* @member ns.widget.mobile.Button
-			*/
+			 * Init widget
+			 * @method _init
+			 * @param {HTMLElement} element
+			 * @protected
+			 * @member ns.widget.mobile.Button
+			 */
 			prototype._init = function (element) {
 				var container = document.getElementById(element.id + "-div-container");
 				if (!container) {
@@ -911,11 +911,11 @@
 			};
 
 			/**
-			* Bind events to widget
-			* @method _bindEvents
-			* @protected
-			* @member ns.widget.mobile.Button
-			*/
+			 * Bind events to widget
+			 * @method _bindEvents
+			 * @protected
+			 * @member ns.widget.mobile.Button
+			 */
 			prototype._bindEvents = function () {
 				addGlobalEvents();
 			};
@@ -925,20 +925,20 @@
 			 *
 			 * Method removes disabled attribute on button and changes look of button to enabled state.
 			 *
-			 *	@example
-			 *	<div data-role="button" id="button"></div>
-			 *	<script>
-			 *		var element = document.getElementById("button"),
-			 *			buttonWidget = tau.widget.Button(element);
-			 *		buttonWidget.enable();
+			 *    @example
+			 *    <div data-role="button" id="button"></div>
+			 *    <script>
+			 *        var element = document.getElementById("button"),
+			 *            buttonWidget = tau.widget.Button(element);
+			 *        buttonWidget.enable();
 			 *
-			 *	</script>
+			 *    </script>
 			 *
-			 *	@example
-			 *	<div data-role="button" id="button"></div>
-			 *	<script>
-			 *		$( "#button" ).button( "enable" );
-			 *	</script>
+			 *    @example
+			 *    <div data-role="button" id="button"></div>
+			 *    <script>
+			 *        $( "#button" ).button( "enable" );
+			 *    </script>
 			 *
 			 * @method enable
 			 * @chainable
@@ -946,12 +946,12 @@
 			 */
 
 			/**
-			* Enable button
-			* @method _enable
-			* @param {HTMLElement} element
-			* @protected
-			* @member ns.widget.mobile.Button
-			*/
+			 * Enable button
+			 * @method _enable
+			 * @param {HTMLElement} element
+			 * @protected
+			 * @member ns.widget.mobile.Button
+			 */
 			prototype._enable = function (element) {
 				if (element) {
 					enableElement(element, this.ui.container);
@@ -963,26 +963,26 @@
 			 *
 			 * Return inner text of button or set text on button
 			 *
-			 *	@example
-			 *	<div data-role="button" id="button"></div>
-			 *	<script>
-			 *		var element = document.getElementById("button"),
-			 *			buttonWidget = tau.widget.Button(element),
-			 *			// value contains inner text of button
-			 *			value = buttonWidget.value();
+			 *    @example
+			 *    <div data-role="button" id="button"></div>
+			 *    <script>
+			 *        var element = document.getElementById("button"),
+			 *            buttonWidget = tau.widget.Button(element),
+			 *            // value contains inner text of button
+			 *            value = buttonWidget.value();
 			 *
-			 *		buttonWidget.value( "New text" ); // "New text" will be text of button
-			 *	</script>
+			 *        buttonWidget.value( "New text" ); // "New text" will be text of button
+			 *    </script>
 			 *
-			 *	@example
-			 *	<div data-role="button" id="button"></div>
-			 *	<script>
-			 *		// value contains inner text of button
-			 *		$( "#button" ).button( "value" );
+			 *    @example
+			 *    <div data-role="button" id="button"></div>
+			 *    <script>
+			 *        // value contains inner text of button
+			 *        $( "#button" ).button( "value" );
 			 *
-			 * 		// "New text" will be text of button
-			 *		$( "#button" ).button( "value", "New text" );
-			 *	</script>
+			 *        // "New text" will be text of button
+			 *        $( "#button" ).button( "value", "New text" );
+			 *    </script>
 			 *
 			 * @method value
 			 * @param {string} [value] Value to set on button
@@ -1029,20 +1029,20 @@
 			 *
 			 * Method sets disabled attribute on button and changes look of button to disabled state.
 			 *
-			 *	@example
-			 *	<div data-role="button" id="button"></div>
-			 *	<script>
-			 *		var element = document.getElementById("button"),
-			 *			buttonWidget = tau.widget.Button(element);
-			 *		buttonWidget.disable();
+			 *    @example
+			 *    <div data-role="button" id="button"></div>
+			 *    <script>
+			 *        var element = document.getElementById("button"),
+			 *            buttonWidget = tau.widget.Button(element);
+			 *        buttonWidget.disable();
 			 *
-			 *	</script>
+			 *    </script>
 			 *
-			 *	@example
-			 *	<div data-role="button" id="button"></div>
-			 *	<script>
-			 *		$( "#button" ).button( "disable" );
-			 *	</script>
+			 *    @example
+			 *    <div data-role="button" id="button"></div>
+			 *    <script>
+			 *        $( "#button" ).button( "disable" );
+			 *    </script>
 			 *
 			 * @method disable
 			 * @chainable
@@ -1050,12 +1050,12 @@
 			 */
 
 			/**
-			* Disable button
-			* @method _disable
-			* @param {HTMLElement} element
-			* @protected
-			* @member ns.widget.mobile.Button
-			*/
+			 * Disable button
+			 * @method _disable
+			 * @param {HTMLElement} element
+			 * @protected
+			 * @member ns.widget.mobile.Button
+			 */
 			prototype._disable = function (element) {
 				if (element) {
 					disableElement(element, this.ui.container);
@@ -1071,23 +1071,23 @@
 			 *
 			 * This method is called automatically after change any option of widget.
 			 *
-			 *	@example
-			 *	<div data-role="button" id="button"></div>
-			 *	<script>
-			 *		var element = document.getElementById("button"),
-			 *			buttonWidget = tau.widget.Button(element);
-			 *		buttonWidget.refresh();
+			 *    @example
+			 *    <div data-role="button" id="button"></div>
+			 *    <script>
+			 *        var element = document.getElementById("button"),
+			 *            buttonWidget = tau.widget.Button(element);
+			 *        buttonWidget.refresh();
 			 *
-			 *		// also will be called after
+			 *        // also will be called after
 			 *
-			 *		buttonWidget.option("mini", true);
-			 *	</script>
+			 *        buttonWidget.option("mini", true);
+			 *    </script>
 			 *
-			 *	@example
-			 *	<div data-role="button" id="button"></div>
-			 *	<script>
-			 *		$( "#button" ).button( "refresh" );
-			 *	</script>
+			 *    @example
+			 *    <div data-role="button" id="button"></div>
+			 *    <script>
+			 *        $( "#button" ).button( "refresh" );
+			 *    </script>
 			 *
 			 * @method refresh
 			 * @chainable
@@ -1095,11 +1095,11 @@
 			 */
 
 			/**
-			* Refresh button
-			* @method _refresh
-			* @protected
-			* @member ns.widget.mobile.Button
-			*/
+			 * Refresh button
+			 * @method _refresh
+			 * @protected
+			 * @member ns.widget.mobile.Button
+			 */
 			prototype._refresh = function () {
 				var self = this,
 					element = self.element,
@@ -1129,24 +1129,24 @@
 			//@todo bring back ui-btn selector and refactor _build method to make it more intelligent for checking if structure is build
 			ns.widget.tv.MobileButton = Button;
 			/*
-			engine.defineWidget(
-				"Button",
-				"[data-role='button'], button, [type='button'], [type='submit'], [type='reset'], .ui-button",
-				[],
-				Button,
-				"mobile"
-			);
-			// ButtonMarkup is alias for Button widget
-			// required for backward compatibility with jQM
-			engine.defineWidget(
-				"buttonMarkup",
-				"",
-				[],
-				Button,
-				"mobile",
-				false, // redefine: false
-				false // change name of widget to lowercase: false
-			);*/
+			 engine.defineWidget(
+			 "Button",
+			 "[data-role='button'], button, [type='button'], [type='submit'], [type='reset'], .ui-button",
+			 [],
+			 Button,
+			 "mobile"
+			 );
+			 // ButtonMarkup is alias for Button widget
+			 // required for backward compatibility with jQM
+			 engine.defineWidget(
+			 "buttonMarkup",
+			 "",
+			 [],
+			 Button,
+			 "mobile",
+			 false, // redefine: false
+			 false // change name of widget to lowercase: false
+			 );*/
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return ns.widget.tv.MobileButton;
 		}

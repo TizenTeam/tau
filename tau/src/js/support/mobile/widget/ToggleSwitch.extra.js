@@ -49,7 +49,7 @@
 					 * "true" then toggle switch has css property
 					 * display = "inline"
 					 * @property {string} [options.theme=null] theme of widget
-					 * @member ns.widget.mobile.ToggleSwitchExtra				 *
+					 * @member ns.widget.mobile.ToggleSwitchExtra                 *
 					 */
 					self.options = {
 						trackTheme: null,
@@ -88,7 +88,7 @@
 					sliderLabelTheme: "ui-slider-label-",
 					sliderInneroffset: "ui-slider-inneroffset",
 					sliderLabelA: "ui-slider-label-a",
-					sliderSnapping : "ui-slider-handle-snapping",
+					sliderSnapping: "ui-slider-handle-snapping",
 					//sliderBg: "ui-slider-bg",
 					sliderContainer: "ui-slider-container",
 					sliderStateActive: "ui-state-active"
@@ -96,7 +96,7 @@
 				keyCode = {
 					HOME: 36,
 					END: 35,
-					PAGE_UP : 33,
+					PAGE_UP: 33,
 					PAGE_DOWN: 34,
 					UP: 38,
 					RIGHT: 39,
@@ -156,7 +156,7 @@
 					aPercent = percent && handlePercent + (100 - handlePercent) *
 						percent / 100,
 					bPercent = percent === 100 ? 0 : Math.min(handlePercent +
-					100 - aPercent, 100),
+						100 - aPercent, 100),
 					i = self._labels.length,
 					label;
 
@@ -212,7 +212,7 @@
 					refresh(self, event);
 					// only after refresh() you can calculate self.userModified
 					self._userModified = self._beforeStart !==
-					element.selectedIndex;
+						element.selectedIndex;
 					events.preventDefault(event);
 				}
 			}
@@ -318,8 +318,8 @@
 					index = getInitialValue(tagName, element),
 					eventkeyCode = event.keyCode,
 					classList = event.target.classList,
-					step = parseFloat(self.element.getAttribute( "step" ) ||
-					1);
+					step = parseFloat(self.element.getAttribute("step") ||
+						1);
 
 				if (self.options.disabled) {
 					return;
@@ -369,7 +369,7 @@
 			 * @static
 			 * @member ns.widget.mobile.ToggleSwitchExtra
 			 */
-			function onKeyupHandle (self) {
+			function onKeyupHandle(self) {
 				if (self._keySliding) {
 					self._keySliding = false;
 					self._ui.handle.classList.remove(classes.sliderStateActive);
@@ -441,7 +441,7 @@
 			 * @static
 			 * @member ns.widget.mobile.ToggleSwitchExtra
 			 */
-			function bindCallbacksForSelectTag(self){
+			function bindCallbacksForSelectTag(self) {
 				self._onKeyupElement = onKeyupElement.bind(null, self);
 				self._sliderMouseUp = sliderMouseUp.bind(null, self);
 				self._onKeyupHandle = onKeyupHandle.bind(null, self);
@@ -535,9 +535,9 @@
 
 					// Calculate new left side percent
 					percent = ((data.pageX - sliderOffsetLeft) /
-					slider.offsetWidth) * 100;
+						slider.offsetWidth) * 100;
 
-				// If changes came from input value change
+					// If changes came from input value change
 				} else {
 					if (value === null) {
 						value = getInitialValue(tagName, control);
@@ -615,27 +615,27 @@
 			 * This method is called automatically after change any option
 			 * of widget.
 			 *
-			 *		@example
-			 *		<select id="slider" name="flip-11" data-role="slider">
-			 *			<option value="off"></option>
-			 *			<option value="on"></option>
-			 *		</select>
-			 *		<script>
-			 *			var slider = document.getElementById("slider"),
-			 *				  sliderWidget = tau.widget.Slider(slider),
-			 *			sliderWidget.refresh();
-			 *		</script>
+			 *        @example
+			 *        <select id="slider" name="flip-11" data-role="slider">
+			 *            <option value="off"></option>
+			 *            <option value="on"></option>
+			 *        </select>
+			 *        <script>
+			 *            var slider = document.getElementById("slider"),
+			 *                  sliderWidget = tau.widget.Slider(slider),
+			 *            sliderWidget.refresh();
+			 *        </script>
 			 *
 			 * ####If jQuery library is loaded, its method can be used:
 			 *
-			 *		@example
-			 *		<select id="slider" name="flip-11" data-role="slider">
-			 *			<option value="off"></option>
-			 *			<option value="on"></option>
-			 *		</select>
-			 *		<script>
-			 *			$( "#slider" ).slider( "refresh" );
-			 *		</script>
+			 *        @example
+			 *        <select id="slider" name="flip-11" data-role="slider">
+			 *            <option value="off"></option>
+			 *            <option value="on"></option>
+			 *        </select>
+			 *        <script>
+			 *            $( "#slider" ).slider( "refresh" );
+			 *        </script>
 			 *
 			 * @method refresh
 			 * @chainable
@@ -711,7 +711,7 @@
 					sliderImgClassList = sliderImg.classList;
 					sliderImgClassList.add(classes.sliderLabel);
 					sliderImgClassList.add(classes.sliderLabelTheme +
-					side);
+						side);
 					sliderImgClassList.add(sliderTheme);
 					sliderImgClassList.add(btnClasses.uiBtnCornerAll);
 
@@ -740,8 +740,7 @@
 				wrapper = createElement("div");
 				wrapper.className = classes.sliderInneroffset;
 
-				for (i = 0, length = domSliderChildNode.length;
-				     i < length; i++) {
+				for (i = 0, length = domSliderChildNode.length; i < length; i++) {
 					wrapper.appendChild(domSliderChildNode[i]);
 				}
 				return wrapper;
@@ -770,16 +769,16 @@
 					trackTheme;
 
 				ns.warn("Please use input[data-role='toggleswitch'] " +
-				"selector in order to define button like " +
-				"toggle, or select[data-role='toggleswitch']. " +
-				"select[data-role='slider'] is deprecated");
+					"selector in order to define button like " +
+					"toggle, or select[data-role='toggleswitch']. " +
+					"select[data-role='slider'] is deprecated");
 
 				trackTheme = options.trackTheme = options.trackTheme ||
-				parentTheme;
+					parentTheme;
 
 				domSlider.setAttribute("id", elementId + "-slider");
 				sliderBtnDownTheme = btnClasses.uiBtnDownThemePrefix +
-				trackTheme;
+					trackTheme;
 
 				addClassesForSlider(domSlider, sliderBtnDownTheme, btnClasses, options);
 
@@ -835,11 +834,11 @@
 
 				elementId = element.id;
 				self._ui.slider = document.getElementById(elementId +
-				"-slider");
+					"-slider");
 				self._ui.handle = document.getElementById(elementId +
-				"-handle");
+					"-handle");
 				self._ui.container = document.getElementById(elementId +
-				"-container") || element;
+						"-container") || element;
 				self._type = element.tagName.toLowerCase();
 				self._labels = selectors.getChildrenByClass(self._ui.slider,
 					ToggleSwitchExtra.classes.sliderLabel);
@@ -853,27 +852,27 @@
 			 * Method removes disabled attribute on slider and changes look
 			 * of slider to enabled state.
 			 *
-			 *		@example
-			 *		<select id="slider" name="flip-11" data-role="slider">
-			 *			<option value="off"></option>
-			 *			<option value="on"></option>
-			 *		</select>
-			 *		<script>
-			 *			var slider = document.getElementById("slider"),
-			 *				  sliderWidget = tau.widget.Slider(slider),
-			 *			sliderWidget.enable();
-			 *		</script>
+			 *        @example
+			 *        <select id="slider" name="flip-11" data-role="slider">
+			 *            <option value="off"></option>
+			 *            <option value="on"></option>
+			 *        </select>
+			 *        <script>
+			 *            var slider = document.getElementById("slider"),
+			 *                  sliderWidget = tau.widget.Slider(slider),
+			 *            sliderWidget.enable();
+			 *        </script>
 			 *
 			 * ####If jQuery library is loaded, its method can be used:
 			 *
-			 *		@example
-			 *		<select id="slider" name="flip-11" data-role="slider">
-			 *			<option value="off"></option>
-			 *			<option value="on"></option>
-			 *		</select>
-			 *		<script>
-			 *			$( "#slider" ).slider( "enable" );
-			 *		</script>
+			 *        @example
+			 *        <select id="slider" name="flip-11" data-role="slider">
+			 *            <option value="off"></option>
+			 *            <option value="on"></option>
+			 *        </select>
+			 *        <script>
+			 *            $( "#slider" ).slider( "enable" );
+			 *        </script>
 			 *
 			 * @method enable
 			 * @chainable
@@ -906,27 +905,27 @@
 			 * Method sets disabled attribute on slider and changes look
 			 * of slider to disabled state.
 			 *
-			 *		@example
-			 *		<select id="slider" name="flip-11" data-role="slider">
-			 *			<option value="off"></option>
-			 *			<option value="on"></option>
-			 *		</select>
-			 *		<script>
-			 *			var slider = document.getElementById("slider"),
-			 *				sliderWidget = tau.widget.Slider(slider),
-			 *			sliderWidget.disable();
-			 *		</script>
+			 *        @example
+			 *        <select id="slider" name="flip-11" data-role="slider">
+			 *            <option value="off"></option>
+			 *            <option value="on"></option>
+			 *        </select>
+			 *        <script>
+			 *            var slider = document.getElementById("slider"),
+			 *                sliderWidget = tau.widget.Slider(slider),
+			 *            sliderWidget.disable();
+			 *        </script>
 			 *
 			 * ####If jQuery library is loaded, its method can be used:
 			 *
-			 *		@example
-			 *		<select id="slider" name="flip-11" data-role="slider">
-			 *			<option value="off"></option>
-			 *			<option value="on"></option>
-			 *		</select>
-			 *		<script>
-			 *			$( "#slider" ).slider( "disable" );
-			 *		</script>
+			 *        @example
+			 *        <select id="slider" name="flip-11" data-role="slider">
+			 *            <option value="off"></option>
+			 *            <option value="on"></option>
+			 *        </select>
+			 *        <script>
+			 *            $( "#slider" ).slider( "disable" );
+			 *        </script>
 			 *
 			 * @method disable
 			 * @chainable
@@ -996,33 +995,33 @@
 			 *
 			 * Return element value or set the value
 			 *
-			 *		@example
-			 *		<select id="slider" name="flip-11" data-role="slider">
-			 *			<option value="off"></option>
-			 *			<option value="on"></option>
-			 *		</select>
-			 *		<script>
-			 *			var slider = document.getElementById("slider"),
-			 *				sliderWidget = tau.widget.Slider(slider),
-			 *			// value contains index of select tag
-			 *			value = sliderWidget.value();
-			 *			//sets the index for the toggle
-			 *			sliderWidget.value("1");
-			 *		</script>
+			 *        @example
+			 *        <select id="slider" name="flip-11" data-role="slider">
+			 *            <option value="off"></option>
+			 *            <option value="on"></option>
+			 *        </select>
+			 *        <script>
+			 *            var slider = document.getElementById("slider"),
+			 *                sliderWidget = tau.widget.Slider(slider),
+			 *            // value contains index of select tag
+			 *            value = sliderWidget.value();
+			 *            //sets the index for the toggle
+			 *            sliderWidget.value("1");
+			 *        </script>
 			 *
 			 * ####If jQuery library is loaded, its method can be used:
 			 *
-			 *		@example
-			 *		<select id="slider" name="flip-11" data-role="slider">
-			 *			<option value="off"></option>
-			 *			<option value="on"></option>
-			 *		</select>
-			 *		<script>
-			 *			// value contains index of select tag
-			 *			$( "#slider" ).slider( "value" );
-			 *			// sets the index for the toggle
-			 *			$( "#slider" ).slider( "value", "1" );
-			 *		</script>
+			 *        @example
+			 *        <select id="slider" name="flip-11" data-role="slider">
+			 *            <option value="off"></option>
+			 *            <option value="on"></option>
+			 *        </select>
+			 *        <script>
+			 *            // value contains index of select tag
+			 *            $( "#slider" ).slider( "value" );
+			 *            // sets the index for the toggle
+			 *            $( "#slider" ).slider( "value", "1" );
+			 *        </script>
 			 *
 			 * @method value
 			 * @return {string} In get mode return element value or element

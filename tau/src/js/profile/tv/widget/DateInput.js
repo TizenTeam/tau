@@ -28,25 +28,25 @@
  *
  * ####Create simple spin control on INPUT element
  *
- *		@example
- *		<form>
- *			<label for="spin-1">Time Input</label>
- *			<input type="date" name="date-1" id="date-1" value="">
- *		</form>
+ *        @example
+ *        <form>
+ *            <label for="spin-1">Time Input</label>
+ *            <input type="date" name="date-1" id="date-1" value="">
+ *        </form>
  *
  * ## Manual constructor
  * For manual creation of DateInput widget you can use constructor of widget
  * from **tau** namespace:
  *
- *		@example
- *		<form>
- *			<label for="date-2">Time Input:</label>
- *			<input type="date" name="date-2" id="date-2" value="">
- *		</form>
- *		<script>
- *			var inputElement = document.getElementById("date-2"),
- *				dateInput = tau.widget.DateInput(inputElement);
- *		</script>
+ *        @example
+ *        <form>
+ *            <label for="date-2">Time Input:</label>
+ *            <input type="date" name="date-2" id="date-2" value="">
+ *        </form>
+ *        <script>
+ *            var inputElement = document.getElementById("date-2"),
+ *                dateInput = tau.widget.DateInput(inputElement);
+ *        </script>
  *
  * Constructor has one require parameter **element** which are base
  * **HTMLElement** to create widget. We recommend get this element by method
@@ -193,23 +193,23 @@
 				wrapper.appendChild(element);
 
 				self._day = ns.engine.instanceWidget(
-						day, "SpinControl", {
-							deactivateOnExit: false,
-							showInLightBox: false,
-							usePlaceholder: false
-						});
+					day, "SpinControl", {
+						deactivateOnExit: false,
+						showInLightBox: false,
+						usePlaceholder: false
+					});
 				self._month = ns.engine.instanceWidget(
-						month, "SpinControl", {
-							deactivateOnExit: false,
-							showInLightBox: false,
-							usePlaceholder: false
-						});
+					month, "SpinControl", {
+						deactivateOnExit: false,
+						showInLightBox: false,
+						usePlaceholder: false
+					});
 				self._year = ns.engine.instanceWidget(
-						year, "SpinControl", {
-							deactivateOnExit: false,
-							showInLightBox: false,
-							usePlaceholder: false
-						});
+					year, "SpinControl", {
+						deactivateOnExit: false,
+						showInLightBox: false,
+						usePlaceholder: false
+					});
 
 				ui.wrapper = wrapper;
 				ui.day = day;
@@ -353,7 +353,7 @@
 				}
 			};
 
-			function onActive(self, ev) {
+			function onActive(self) {
 				if (!self.options.active) {
 					if (event._originalEvent && event._originalEvent.keyCode === KEY_CODES.enter) {
 						events.stopImmediatePropagation(event);
@@ -380,14 +380,14 @@
 					case KEY_CODES.tab:
 						switch (event.target) {
 							case self._first._ui.wrapper:
-									if (event.shiftKey) {
-										self._exit();
-									}
+								if (event.shiftKey) {
+									self._exit();
+								}
 								break;
 							case self._last._ui.wrapper:
-									if (!event.shiftKey) {
-										self._exit();
-									}
+								if (!event.shiftKey) {
+									self._exit();
+								}
 								break;
 						}
 						break;
@@ -430,9 +430,7 @@
 
 					case KEY_CODES.enter:
 						if (self.options.active) {
-							if (!self._day._insertNumberMode &&
-								!self._month._insertNumberMode &&
-								!self._year._insertNumberMode) {
+							if (!self._day._insertNumberMode && !self._month._insertNumberMode && !self._year._insertNumberMode) {
 								self._exit();
 							}
 						}
@@ -471,9 +469,8 @@
 			 * @protected
 			 * @member ns.widget.tv.DateInput
 			 */
-			prototype._bindEvents = function() {
-				var element = this.element,
-					self = this,
+			prototype._bindEvents = function () {
+				var self = this,
 					callbacks = this._callbacks,
 					ui = self._ui,
 					wrapper = ui.wrapper;
@@ -498,13 +495,11 @@
 			/**
 			 * Unbind events
 			 * @method _unbindEvents
-			 * @param {HTMLElement} element
 			 * @protected
 			 * @member ns.widget.tv.DateInput
 			 */
-			prototype._unbindEvents = function(element) {
-				var element = this.element,
-					self = this,
+			prototype._unbindEvents = function () {
+				var self = this,
 					callbacks = this._callbacks,
 					ui = self._ui,
 					wrapper = ui.wrapper;
@@ -532,13 +527,13 @@
 			 * @protected
 			 * @member ns.widget.tv.DateInput
 			 */
-			prototype._init = function(element) {
+			prototype._init = function (element) {
 				var self = this,
 					ui = self._ui,
 					wrapper;
 
 				element.value = element.getAttribute("placeholder") ||
-							new Date().toISOString().match(DATE_REGEXP)[0];
+					new Date().toISOString().match(DATE_REGEXP)[0];
 
 				if (ui.wrapper === null) {
 					ui = self._ui;
@@ -565,11 +560,10 @@
 			 * Destroys additional elements created by the widget,
 			 * removes classes and event listeners
 			 * @method _destroy
-			 * @param {HTMLElement} element
 			 * @protected
 			 * @member ns.widget.tv.DateInput
 			 */
-			prototype._destroy = function(element) {
+			prototype._destroy = function () {
 				var self = this;
 
 				self._hideOverlay();

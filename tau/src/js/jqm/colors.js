@@ -1,4 +1,4 @@
-/*global window, define */
+/*global window, ns, define */
 /*jslint plusplus: true, nomen: true */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
@@ -34,11 +34,11 @@
 			//>>excludeEnd("tauBuildExclude");
 			ns.jqm.colors = {
 				/**
-				* Proxy colors library from ns namespace to jQM namespace
-				* @method init
-				* @member ns.jqm.colors
-				* @static
-				*/
+				 * Proxy colors library from ns namespace to jQM namespace
+				 * @method init
+				 * @member ns.jqm.colors
+				 * @static
+				 */
 				init: function () {
 					if ($) {
 						$.mobile.tizen.clrlib = ns.util.colors;

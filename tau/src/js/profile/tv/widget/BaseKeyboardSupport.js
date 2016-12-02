@@ -43,7 +43,6 @@
 				eventUtils = ns.event,
 				selectorUtils = ns.util.selectors,
 				atan2 = Math.atan2,
-				keyIsPressed = false,
 				PI = Math.PI,
 				BaseKeyboardSupport = function () {
 					var self = this;
@@ -83,30 +82,30 @@
 					right: "right"
 				},
 				selectorSuffix = ":not(." + classes.focusDisabled + ")" +
-								":not(." + ns.widget.BaseWidget.classes.disable + ")",
+					":not(." + ns.widget.BaseWidget.classes.disable + ")",
 				// define standard focus selectors
 				// includeDisabled: false - disabled element will be not focusable
 				// includeDisabled: true - disabled element will be focusable
 				// count - number of defined selectors
 				selectors = [{
-						value: "a",
-						includeDisabled: false,
-						count: 1
-					}, {
-						value: "." + classes.focusEnabled,
-						includeDisabled: false,
-						count: 1
-					}, {
-						value: "[tabindex]",
-						includeDisabled: false,
-						count: 1
-					}],
+					value: "a",
+					includeDisabled: false,
+					count: 1
+				}, {
+					value: "." + classes.focusEnabled,
+					includeDisabled: false,
+					count: 1
+				}, {
+					value: "[tabindex]",
+					includeDisabled: false,
+					count: 1
+				}],
 				selectorsString = "",
 				/**
-				* @property {Array} Array containing number of registrations of each selector
-				* @member ns.widget.tv.BaseKeyboardSupport
-				* @private
-				*/
+				 * @property {Array} Array containing number of registrations of each selector
+				 * @member ns.widget.tv.BaseKeyboardSupport
+				 * @private
+				 */
 				currentKeyboardWidget,
 				previousKeyboardWidgets = [],
 				ANIMATION_MIN_TIME = 50;
@@ -133,7 +132,7 @@
 			 * @member ns.widget.tv.BaseKeyboardSupport
 			 */
 			function getFocusableElements(widgetElement) {
-				return [].slice.call(widgetElement.querySelectorAll(selectorsString)).filter(function(element){
+				return [].slice.call(widgetElement.querySelectorAll(selectorsString)).filter(function (element) {
 					return element.offsetWidth && window.getComputedStyle(element).visibility !== "hidden";
 				});
 			}
@@ -161,7 +160,7 @@
 			function prepareSelector() {
 				var length = selectors.length;
 				selectorsString = "";
-				utilArray.forEach(selectors, function(object, index){
+				utilArray.forEach(selectors, function (object, index) {
 					selectorsString += object.value;
 					if (!object.includeDisabled) {
 						selectorsString += selectorSuffix;
@@ -172,7 +171,7 @@
 				});
 			}
 
-			prototype.getActiveSelector = function() {
+			prototype.getActiveSelector = function () {
 				return selectorsString;
 			};
 
@@ -246,13 +245,13 @@
 
 				if (currentLink && currentLink !== document.body) {
 					currentLinkOffset = offset(currentLink);
-					linksOffset = links.filter(function(link) {
+					linksOffset = links.filter(function (link) {
 						return link !== currentLink;
 					}).map(function (link) {
 						var linkOffset = offset(link),
 							differentX = Math.abs(currentLinkOffset.left - linkOffset.left),
 							differentY = Math.abs(currentLinkOffset.top - linkOffset.top),
-							xyProportion = differentY  / differentX;
+							xyProportion = differentY / differentX;
 						return {
 							offset: linkOffset,
 							element: link,
@@ -276,17 +275,17 @@
 									// top of list will be element with
 									((linkOffset1.offset.top === linkOffset2.offset.top) ? 0 :
 										(linkOffset1.offset.top > linkOffset2.offset.top ? -1 : 1)) :
-										(linkOffset1.differentX < linkOffset2.differentX ? -1 : 1)
+									(linkOffset1.differentX < linkOffset2.differentX ? -1 : 1)
 									// sort elements, elements with shortest distance are on top of list
 									;
 							}).map(mapToElement);
 						case "right":
 							return linksOffset.filter(function (linkOffset) {
-								return filterNeighbors ? filterNeighbors("right", linkOffset, currentLink, currentLinkOffset) :(linkOffset.offset.left > currentLinkOffset.left );
+								return filterNeighbors ? filterNeighbors("right", linkOffset, currentLink, currentLinkOffset) : (linkOffset.offset.left > currentLinkOffset.left );
 							}).sort(function (linkOffset1, linkOffset2) {
 								return (linkOffset1.differentY === linkOffset2.differentY) ?
 									(linkOffset1.offset.left === linkOffset2.offset.left ? 0 :
-									(linkOffset1.offset.left < linkOffset2.offset.left ? -1 : 1)) :
+										(linkOffset1.offset.left < linkOffset2.offset.left ? -1 : 1)) :
 									(linkOffset1.differentY < linkOffset2.differentY ? -1 : 1)
 									;
 							}).map(mapToElement);
@@ -296,21 +295,21 @@
 							}).sort(function (linkOffset1, linkOffset2) {
 								return (linkOffset1.differentX === linkOffset2.differentX) ?
 									(linkOffset1.offset.top === linkOffset2.offset.top ? 0 :
-									(linkOffset1.offset.top < linkOffset2.offset.top ? -1 : 1)) :
+										(linkOffset1.offset.top < linkOffset2.offset.top ? -1 : 1)) :
 									(linkOffset1.differentX < linkOffset2.differentX ? -1 : 1)
 									;
 							}).map(mapToElement);
 						default:
 							return linksOffset.filter(function (linkOffset) {
-								return filterNeighbors ? filterNeighbors("left", linkOffset, currentLink, currentLinkOffset) : (linkOffset.offset.left  < currentLinkOffset.left);
+								return filterNeighbors ? filterNeighbors("left", linkOffset, currentLink, currentLinkOffset) : (linkOffset.offset.left < currentLinkOffset.left);
 							}).sort(function (linkOffset1, linkOffset2) {
 								return (linkOffset1.differentY === linkOffset2.differentY) ?
 									((linkOffset1.offset.left === linkOffset2.offset.left) ? 0 :
-									(linkOffset1.offset.left > linkOffset2.offset.left ? -1 : 1)) :
+										(linkOffset1.offset.left > linkOffset2.offset.left ? -1 : 1)) :
 									(linkOffset1.differentY < linkOffset2.differentY ? -1 : 1)
 									;
 							}).map(mapToElement);
-						}
+					}
 				}
 				linksOffset = utilArray.map(links, function (link) {
 					var linkOffset = offset(link);
@@ -324,7 +323,7 @@
 				return utilArray.map(linksOffset.sort(function (linkOffset1, linkOffset2) {
 					// sort elements
 					return ((linkOffset1.offset.top === linkOffset2.offset.top) ? (linkOffset1.offset.left < linkOffset2.offset.left ? -1 : 1 ) :
-							(linkOffset1.offset.top < linkOffset2.offset.top ? -1 : 1))
+						(linkOffset1.offset.top < linkOffset2.offset.top ? -1 : 1))
 						// sort elements, elements with shortest distance are on top of list
 						;
 				}), mapToElement);
@@ -421,7 +420,7 @@
 			}
 
 			function focusOnNeighborhood(self, element, options, currentElement) {
-				var	positionFrom = "",
+				var positionFrom = "",
 					nextElements = [],
 					nextElement,
 					nextNumber = 0,
@@ -480,7 +479,7 @@
 			 * @protected
 			 * @member ns.widget.tv.BaseKeyboardSupport
 			 */
-			prototype._onKeyup = function(event) {
+			prototype._onKeyup = function (event) {
 				var self = this;
 				if (self._supportKeyboard) {
 					if (!self.keydownEventRepeated) {
@@ -498,17 +497,17 @@
 			 * @protected
 			 * @member ns.widget.tv.BaseKeyboardSupport
 			 */
-			prototype._onClick = function(event) {
+			prototype._onClick = function (event) {
 				var self = this,
-						target = event.target,
-						element = null,
-						currentElement = self._focusedElement,
-						fromPosition = EVENT_POSITION.down;
+					target = event.target,
+					element = null,
+					currentElement = self._focusedElement,
+					fromPosition = EVENT_POSITION.down;
 				if (self._supportKeyboard) {
 					// check matching or find matching parent
 					element = selectorUtils.matchesSelector(selectorsString, element)
-							? target
-							: null;
+						? target
+						: null;
 					// maybe some parent could be focused
 					if (!element) {
 						element = selectorUtils.getClosestBySelector(target, selectorsString);
@@ -571,7 +570,7 @@
 							elementOffset.top + elementHeight <= filteredElementOffset.top) {
 							return false;
 						}
-						return filteredElementOffset.left  < elementOffset.left;
+						return filteredElementOffset.left < elementOffset.left;
 					case "right":
 						// we are looking for elements, which are ont the right of the current element, but
 						// only in the same row
@@ -591,7 +590,7 @@
 			 * @protected
 			 * @member ns.widget.tv.BaseKeyboardSupport
 			 */
-			prototype._onLongPress = function(event) {
+			prototype._onLongPress = function (event) {
 				var self = this,
 					delay = ns.getConfig("keyboardLongpressInterval", 100),
 					options = {
@@ -614,7 +613,7 @@
 			 * @protected
 			 * @member ns.widget.tv.BaseKeyboardSupport
 			 */
-			prototype._onShortPress = function(event) {
+			prototype._onShortPress = function (event) {
 				var self = this;
 
 				// set focus on next element
@@ -630,7 +629,7 @@
 			 * @protected
 			 * @member ns.widget.tv.BaseKeyboardSupport
 			 */
-			prototype._onKeydown = function(event) {
+			prototype._onKeydown = function (event) {
 				var self = this,
 					delay = ns.getConfig("keyboardLongpressInterval", 100),
 					currentTime;
@@ -649,8 +648,6 @@
 						// stop scrolling
 						//event.preventDefault();
 						//event.stopPropagation();
-						// set that this is a long press
-						keyIsPressed = true;
 
 						// if it is repeated event, we make animation shorter
 						if (self.keydownEventTimeStart) {
@@ -671,7 +668,7 @@
 			 * @protected
 			 * @member ns.widget.tv.BaseKeyboardSupport
 			 */
-			prototype._bindEventKey = function() {
+			prototype._bindEventKey = function () {
 				var self = this;
 				if (!self._onKeyupHandler) {
 					self._onKeyupHandler = self._onKeyup.bind(self);
@@ -704,7 +701,7 @@
 			 * @protected
 			 * @member ns.widget.tv.BaseKeyboardSupport
 			 */
-			prototype._destroyEventKey = function() {
+			prototype._destroyEventKey = function () {
 				if (this._onKeyupHandler) {
 					document.removeEventListener("keyup", this._onKeyupHandler, false);
 					document.removeEventListener("keydown", this._onKeydownHandler, false);
@@ -730,7 +727,7 @@
 			 * @static
 			 * @member ns.widget.tv.BaseKeyboardSupport
 			 */
-			BaseKeyboardSupport.blurAll = function() {
+			BaseKeyboardSupport.blurAll = function () {
 				var focusedElement = this._focusedElement || getFocusedLink(),
 					focusedElementWidget = focusedElement && engine.getBinding(focusedElement);
 
@@ -752,7 +749,7 @@
 			 * @static
 			 * @member ns.widget.tv.BaseKeyboardSupport
 			 */
-			BaseKeyboardSupport.focusElement = function(element, elementToFocus, options) {
+			BaseKeyboardSupport.focusElement = function (element, elementToFocus, options) {
 				var links,
 					linksLength,
 					i;
@@ -788,7 +785,7 @@
 			 * @method disableKeyboardSupport
 			 * @member ns.widget.tv.BaseKeyboardSupport
 			 */
-			prototype.enableKeyboardSupport = function() {
+			prototype.enableKeyboardSupport = function () {
 				this._supportKeyboard = true;
 				currentKeyboardWidget = this;
 			};
@@ -798,7 +795,7 @@
 			 * @method disableKeyboardSupport
 			 * @member ns.widget.tv.BaseKeyboardSupport
 			 */
-			prototype.restoreKeyboardSupport = function() {
+			prototype.restoreKeyboardSupport = function () {
 				var previousKeyboardWidget = previousKeyboardWidgets.pop();
 				if (previousKeyboardWidget) {
 					previousKeyboardWidget.enableKeyboardSupport();
@@ -810,7 +807,7 @@
 			 * @method disableKeyboardSupport
 			 * @member ns.widget.tv.BaseKeyboardSupport
 			 */
-			prototype.disableKeyboardSupport = function() {
+			prototype.disableKeyboardSupport = function () {
 				currentKeyboardWidget = null;
 				this._supportKeyboard = false;
 			};
@@ -820,7 +817,7 @@
 			 * @method disableKeyboardSupport
 			 * @member ns.widget.tv.BaseKeyboardSupport
 			 */
-			prototype.saveKeyboardSupport = function() {
+			prototype.saveKeyboardSupport = function () {
 				if (currentKeyboardWidget) {
 					previousKeyboardWidgets.push(currentKeyboardWidget);
 					currentKeyboardWidget.disableKeyboardSupport();
@@ -836,7 +833,7 @@
 			 * @return {string}
 			 * @member ns.widget.tv.BaseKeyboardSupport
 			 */
-			function getValueOfSelector(selectorObject){
+			function getValueOfSelector(selectorObject) {
 				return selectorObject.value;
 			}
 
@@ -851,6 +848,7 @@
 			function findSelectorIndex(selector) {
 				return utilArray.map(selectors, getValueOfSelector).indexOf(selector);
 			}
+
 			/**
 			 * Registers an active selector.
 			 * @param {string} selector
@@ -863,7 +861,7 @@
 				var selectorArray = selector.split(","),
 					index;
 
-				utilArray.forEach(selectorArray, function(currentSelector){
+				utilArray.forEach(selectorArray, function (currentSelector) {
 					currentSelector = currentSelector.trim();
 					index = findSelectorIndex(currentSelector);
 
@@ -893,7 +891,7 @@
 				var selectorArray = selector.split(","),
 					index;
 
-				utilArray.forEach(selectorArray, function(currentSelector){
+				utilArray.forEach(selectorArray, function (currentSelector) {
 					currentSelector = currentSelector.trim();
 					index = findSelectorIndex(currentSelector);
 

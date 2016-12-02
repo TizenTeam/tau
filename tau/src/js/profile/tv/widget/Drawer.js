@@ -34,90 +34,90 @@
  * ###Manual constructor
  * For manual creation of Drawer widget you can use constructor of widget:
  *
- *	@example
- *	<!-- Widget structure -->
- *	<div class="ui-page" data-role="page">
- *		<div data-role="drawer" data-position="left" id="drawer">
- *			<ul data-role="listview">
- *				<li class="ui-drawer-main-list" id="mainItem1"><a href="#">List item 1</a></li>
- *				<li class="ui-drawer-main-list" id="mainItem2"><a href="#">List item 2</a></li>
- *				<li class="ui-drawer-sub-list" id="subItem1"><a href="#">Sub item 1</a></li>
- *			</ul>
- *		</div>
- *	</div>
- *	<script>
- *	var drawer = document.getElementById("drawer"),
- *		widget = tau.widget.Drawer(drawer);
- *	</script>
+ *    @example
+ *    <!-- Widget structure -->
+ *    <div class="ui-page" data-role="page">
+ *        <div data-role="drawer" data-position="left" id="drawer">
+ *            <ul data-role="listview">
+ *                <li class="ui-drawer-main-list" id="mainItem1"><a href="#">List item 1</a></li>
+ *                <li class="ui-drawer-main-list" id="mainItem2"><a href="#">List item 2</a></li>
+ *                <li class="ui-drawer-sub-list" id="subItem1"><a href="#">Sub item 1</a></li>
+ *            </ul>
+ *        </div>
+ *    </div>
+ *    <script>
+ *    var drawer = document.getElementById("drawer"),
+ *        widget = tau.widget.Drawer(drawer);
+ *    </script>
  *
  * ###Opening / Closing Drawer. Checking if Drawer is open.
  * To open / close Drawer one can use open() and close() methods.
  * To check if Drawer is open use isOpen method.
  *
- *	@example
- *	<!-- Widget structure -->
- *	<div class="ui-page" data-role="page">
- *		<div data-role="drawer" data-position="left" id="drawer">
- *			<ul data-role="listview">
- *				<li class="ui-drawer-main-list" id="mainItem1"><a href="#">List item 1</a></li>
- *				<li class="ui-drawer-main-list" id="mainItem2"><a href="#">List item 2</a></li>
- *				<li class="ui-drawer-sub-list" id="subItem1"><a href="#">Sub item 1</a></li>
- *			</ul>
- *		</div>
- *	</div>
- *	<script>
- *	var drawer = document.getElementById("drawer"),
- *		widget = tau.widget.Drawer(drawer);
- *		// open
- *		widget.open();
- *		alert(widget.isOpen());
- *		// close
- *		widget.close();
- *		alert(widget.isOpen());
- *	</script>
+ *    @example
+ *    <!-- Widget structure -->
+ *    <div class="ui-page" data-role="page">
+ *        <div data-role="drawer" data-position="left" id="drawer">
+ *            <ul data-role="listview">
+ *                <li class="ui-drawer-main-list" id="mainItem1"><a href="#">List item 1</a></li>
+ *                <li class="ui-drawer-main-list" id="mainItem2"><a href="#">List item 2</a></li>
+ *                <li class="ui-drawer-sub-list" id="subItem1"><a href="#">Sub item 1</a></li>
+ *            </ul>
+ *        </div>
+ *    </div>
+ *    <script>
+ *    var drawer = document.getElementById("drawer"),
+ *        widget = tau.widget.Drawer(drawer);
+ *        // open
+ *        widget.open();
+ *        alert(widget.isOpen());
+ *        // close
+ *        widget.close();
+ *        alert(widget.isOpen());
+ *    </script>
  *
  * ###Positioning Drawer left
  * To position Drawer left set data-position to "left" or do not use this
  * attribute (left is default).
  *
- *	@example
- *	<!-- Widget structure -->
- *	<div class="ui-page" data-role="page">
- *		<div data-role="drawer" data-position="left" id="drawer">
- *			<ul data-role="listview">
- *				<li class="ui-drawer-main-list" id="mainItem1"><a href="#">List item 1</a></li>
- *				<li class="ui-drawer-main-list" id="mainItem2"><a href="#">List item 2</a></li>
- *				<li class="ui-drawer-sub-list" id="subItem1"><a href="#">Sub item 1</a></li>
- *			</ul>
- *		</div>
- *	</div>
+ *    @example
+ *    <!-- Widget structure -->
+ *    <div class="ui-page" data-role="page">
+ *        <div data-role="drawer" data-position="left" id="drawer">
+ *            <ul data-role="listview">
+ *                <li class="ui-drawer-main-list" id="mainItem1"><a href="#">List item 1</a></li>
+ *                <li class="ui-drawer-main-list" id="mainItem2"><a href="#">List item 2</a></li>
+ *                <li class="ui-drawer-sub-list" id="subItem1"><a href="#">Sub item 1</a></li>
+ *            </ul>
+ *        </div>
+ *    </div>
  *
- *	@example
- *	<!-- Widget structure -->
- *	<div class="ui-page" data-role="page">
- *		<div data-role="drawer" id="drawer">
- *			<ul data-role="listview">
- *				<li class="ui-drawer-main-list" id="mainItem1"><a href="#">List item 1</a></li>
- *				<li class="ui-drawer-main-list" id="mainItem2"><a href="#">List item 2</a></li>
- *				<li class="ui-drawer-sub-list" id="subItem1"><a href="#">Sub item 1</a></li>
- *			</ul>
- *		</div>
- *	</div>
+ *    @example
+ *    <!-- Widget structure -->
+ *    <div class="ui-page" data-role="page">
+ *        <div data-role="drawer" id="drawer">
+ *            <ul data-role="listview">
+ *                <li class="ui-drawer-main-list" id="mainItem1"><a href="#">List item 1</a></li>
+ *                <li class="ui-drawer-main-list" id="mainItem2"><a href="#">List item 2</a></li>
+ *                <li class="ui-drawer-sub-list" id="subItem1"><a href="#">Sub item 1</a></li>
+ *            </ul>
+ *        </div>
+ *    </div>
  *
  * ###Positioning Drawer right
  * To position Drawer right set data-position attribute to "right".
  *
- *	@example
- *	<!-- Widget structure -->
- *	<div class="ui-page" data-role="page">
- *		<div data-role="drawer" data-position="right" id="drawer">
- *			<ul data-role="listview">
- *				<li class="ui-drawer-main-list" id="mainItem1"><a href="#">List item 1</a></li>
- *				<li class="ui-drawer-main-list" id="mainItem2"><a href="#">List item 2</a></li>
- *				<li class="ui-drawer-sub-list" id="subItem1"><a href="#">Sub item 1</a></li>
- *			</ul>
- *		</div>
- *	</div>
+ *    @example
+ *    <!-- Widget structure -->
+ *    <div class="ui-page" data-role="page">
+ *        <div data-role="drawer" data-position="right" id="drawer">
+ *            <ul data-role="listview">
+ *                <li class="ui-drawer-main-list" id="mainItem1"><a href="#">List item 1</a></li>
+ *                <li class="ui-drawer-main-list" id="mainItem2"><a href="#">List item 2</a></li>
+ *                <li class="ui-drawer-sub-list" id="subItem1"><a href="#">Sub item 1</a></li>
+ *            </ul>
+ *        </div>
+ *    </div>
  *
  * @class ns.widget.tv.Drawer
  * @extends ns.widget.core.Drawer
@@ -219,7 +219,7 @@
 			 * @param {number} [duration]
 			 * @member ns.widget.tv.Drawer
 			 */
-			prototype.open = function(duration) {
+			prototype.open = function (duration) {
 				var self = this,
 					CorePrototypeOpen = CoreDrawerPrototype.open;
 				if (typeof CorePrototypeOpen === FUNCTION_TYPE) {
@@ -235,7 +235,7 @@
 			 * @param {number} [duration]
 			 * @member ns.widget.tv.Drawer
 			 */
-			prototype.close = function(duration) {
+			prototype.close = function (duration) {
 				var self = this,
 					CorePrototypeClose = CoreDrawerPrototype.close;
 				if (typeof CorePrototypeClose === FUNCTION_TYPE) {
@@ -253,7 +253,7 @@
 			 * @member ns.widget.tv.Drawer
 			 * @protected
 			 */
-			prototype._openActiveElement = function(element, id) {
+			prototype._openActiveElement = function (element, id) {
 				var self = this,
 					ui = self._ui,
 					dynamicListElement;
@@ -283,7 +283,7 @@
 			 * @member ns.widget.tv.Drawer
 			 * @protected
 			 */
-			prototype._closeActiveElement = function() {
+			prototype._closeActiveElement = function () {
 				var self = this,
 					ui = self._ui;
 				if (ui.currentDynamic) {
@@ -298,7 +298,7 @@
 			 * @member ns.widget.tv.Drawer
 			 * @protected
 			 */
-			prototype.closeDynamic = function() {
+			prototype.closeDynamic = function () {
 				this._closeActiveElement();
 			};
 
@@ -309,7 +309,7 @@
 			 * @member ns.widget.tv.Drawer
 			 * @protected
 			 */
-			prototype.openDynamic = function(id) {
+			prototype.openDynamic = function (id) {
 				this._openActiveElement(null, id);
 			};
 
@@ -319,7 +319,7 @@
 			 * @protected
 			 * @member ns.widget.tv.Drawer
 			 */
-			prototype._refresh = function() {
+			prototype._refresh = function () {
 				// Drawer layout has been set by parent element layout
 				var self = this,
 					options = self.options,
@@ -328,7 +328,7 @@
 					drawerStyle = self.element.style,
 					overlayStyle = self._drawerOverlay && self._drawerOverlay.style;
 
-				drawerStyle.width = options.width * windowWidth/MAX_WIDTH + "px";
+				drawerStyle.width = options.width * windowWidth / MAX_WIDTH + "px";
 				drawerStyle.top = headerHeight || 0 + "px";
 
 				if (overlayStyle) {
@@ -345,7 +345,7 @@
 			 * @member ns.widget.tv.Drawer
 			 * @protected
 			 */
-			prototype._bindEvents = function() {
+			prototype._bindEvents = function () {
 				var CorePrototypeBindEvents = CoreDrawerPrototype._bindEvents;
 				if (typeof CorePrototypeBindEvents === FUNCTION_TYPE) {
 					CorePrototypeBindEvents.call(this);
@@ -359,7 +359,7 @@
 			 * @member ns.widget.tv.Drawer
 			 * @protected
 			 */
-			prototype._destroy = function() {
+			prototype._destroy = function () {
 				var CorePrototypeDestroy = CoreDrawerPrototype._destroy;
 				this._destroyEventKey();
 				if (typeof CorePrototypeDestroy === FUNCTION_TYPE) {

@@ -265,7 +265,7 @@
 				}
 			};
 
-			prototype._init = function(element) {
+			prototype._init = function (element) {
 				var self = this,
 					ui = self._ui;
 
@@ -281,7 +281,7 @@
 
 				// set value of timeout for notification popup
 				self._initTimeout();
-				
+
 				// Add reference when running without _build method
 				ui.headerIcon = ui.headerIcon || element.querySelector("." + classes.headerIcon);
 			};
@@ -332,7 +332,7 @@
 				}
 			};
 
-			prototype._placementCoordsWindow = function(element) {
+			prototype._placementCoordsWindow = function (element) {
 				// if popup is not a toast popup, we set position to the center
 				if (!element.classList.contains(classes.toast) &&
 					typeof CorePopupPrototype._placementCoordsWindow === FUNCTION_TYPE) {
@@ -341,14 +341,14 @@
 				}
 			};
 
-			prototype._findClickedElement = function(x, y) {
-				var clickedElement =  document.elementFromPoint(x, y),
+			prototype._findClickedElement = function (x, y) {
+				var clickedElement = document.elementFromPoint(x, y),
 					button = utilSelectors.getClosestBySelector(clickedElement, engine.getWidgetDefinition("Button").selector);
 
 				return button || clickedElement;
 			};
 
-			prototype.open = function(options) {
+			prototype.open = function (options) {
 				var self = this;
 
 				if (!self._isActive()) {
@@ -368,7 +368,7 @@
 			 * @protected
 			 * @member ns.widget.tv.Popup
 			 */
-			prototype.close = function() {
+			prototype.close = function () {
 				var self = this,
 					activeElement,
 					popupElement;
@@ -471,7 +471,7 @@
 				arrow.classList.remove(classes.focus);
 			}
 
-			prototype._bindEvents = function(element) {
+			prototype._bindEvents = function (element) {
 				if (typeof CorePopupPrototype._bindEvents === FUNCTION_TYPE) {
 					CorePopupPrototype._bindEvents.call(this, element);
 				}
@@ -485,7 +485,7 @@
 			 * @protected
 			 * @member ns.widget.tv.Popup
 			 */
-			prototype._refresh = function() {
+			prototype._refresh = function () {
 				var self = this,
 					element = self.element;
 
@@ -556,7 +556,7 @@
 			 * @protected
 			 * @member ns.widget.tv.Popup
 			 */
-			prototype._destroy = function() {
+			prototype._destroy = function () {
 				var self = this,
 					ui = this._ui;
 
@@ -568,7 +568,7 @@
 				// Clear timeout in case the destroy was triggered before closing popup
 				clearNotificationTimeout(self);
 
-					// @TODO reset styles to base
+				// @TODO reset styles to base
 
 				self._destroyEventKey();
 				if (typeof CorePopupPrototype._destroy === FUNCTION_TYPE) {

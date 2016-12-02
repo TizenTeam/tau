@@ -31,53 +31,53 @@
  * ### Empty header & footer
  * This is the standard page which can be fully arranged as one wishes. It is the basic version for all
  * pages.
- * 	@example
- * 		<div id="normal-page" class="ui-page" data-size="mini">
- * 			<div class="ui-content content-padding">
- * 				For create normal page create tag with class <i>ui-page</i>
- * 			</div>
- * 		</div>
+ *    @example
+ *        <div id="normal-page" class="ui-page" data-size="mini">
+ *            <div class="ui-content content-padding">
+ *                For create normal page create tag with class <i>ui-page</i>
+ *            </div>
+ *        </div>
  *
  * ### Title in header
  * A standard page can me enchanced with header containing title.
- * 	@example
- * 		<div id="normal-page" class="ui-page" data-size="mini">
- * 			<header class="ui-header">
- * 				<h2 class="ui-title">Title in header</h2>
- * 			</header>
- * 			<div class="ui-content content-padding">
- * 				For create normal page create tag with class <i>ui-page</i>
- * 			</div>
- * 		</div>
+ *    @example
+ *        <div id="normal-page" class="ui-page" data-size="mini">
+ *            <header class="ui-header">
+ *                <h2 class="ui-title">Title in header</h2>
+ *            </header>
+ *            <div class="ui-content content-padding">
+ *                For create normal page create tag with class <i>ui-page</i>
+ *            </div>
+ *        </div>
  *
  * ### Buttons in header
  * You can add buttons to header in case of need. By default text will appear on the left
  * side of the header and buttons on the right side.
- * 	@example
- * 		<div id="normal-page" class="ui-page" data-size="mini">
- * 			<header class="ui-header">
- * 				<a href="#" data-role="button">button 1</a>
- * 				<a href="#" data-role="button">button 2</a>
- * 				<h2 class="ui-title">Title in header</h2>
- * 			</header>
- * 			<div class="ui-content content-padding">
- * 				For create normal page create tag with class <i>ui-page</i>
- * 			</div>
- * 		</div>
+ *    @example
+ *        <div id="normal-page" class="ui-page" data-size="mini">
+ *            <header class="ui-header">
+ *                <a href="#" data-role="button">button 1</a>
+ *                <a href="#" data-role="button">button 2</a>
+ *                <h2 class="ui-title">Title in header</h2>
+ *            </header>
+ *            <div class="ui-content content-padding">
+ *                For create normal page create tag with class <i>ui-page</i>
+ *            </div>
+ *        </div>
  *
  * ### Structure with header and footer tag
- * 	@example
- * 		<div id="normal-page" class="ui-page" data-size="mini">
- * 			<header class="ui-header">
- * 				<h2 class="ui-title">Title in header</h2>
- * 			</header>
- * 			<div class="ui-content content-padding"></div>
- * 			<footer>
- * 				<div data-role="controlgroup" data-type="horizontal">
- * 					<a href="#" data-role="button">Button in footer</a>
- * 				</div>
- * 			</footer>
- * 		</div>
+ *    @example
+ *        <div id="normal-page" class="ui-page" data-size="mini">
+ *            <header class="ui-header">
+ *                <h2 class="ui-title">Title in header</h2>
+ *            </header>
+ *            <div class="ui-content content-padding"></div>
+ *            <footer>
+ *                <div data-role="controlgroup" data-type="horizontal">
+ *                    <a href="#" data-role="button">Button in footer</a>
+ *                </div>
+ *            </footer>
+ *        </div>
  *
  * ## Focus
  * Focus on page is working straightforward. Using diectional keys will make focus move in the
@@ -147,14 +147,6 @@
 				 */
 				DOM = util.DOM,
 				object = util.object,
-				/**
-				 * Alias for {@link ns.util.selectors}
-				 * @property {Object} utilSelectors
-				 * @member ns.widget.tv.Page
-				 * @private
-				 * @static
-				 */
-				utilSelectors = util.selectors,
 				Page = function () {
 					var self = this;
 					BaseKeyboardSupport.call(self);
@@ -169,7 +161,6 @@
 				 * @static
 				 */
 				engine = ns.engine,
-				FUNCTION_TYPE = "function",
 				prototype = new WearablePage();
 
 			classes.uiHeaderEmpty = "ui-header-empty";
@@ -184,7 +175,7 @@
 			 * @method onShow
 			 * @member ns.widget.tv.Page
 			 */
-			prototype.onShow = function() {
+			prototype.onShow = function () {
 				var self = this;
 				self.saveKeyboardSupport();
 				self.enableKeyboardSupport();
@@ -196,7 +187,7 @@
 			 * @method onHide
 			 * @member ns.widget.tv.Page
 			 */
-			prototype.onHide = function() {
+			prototype.onHide = function () {
 				var self = this;
 				self.disableKeyboardSupport();
 				self.restoreKeyboardSupport();
@@ -228,7 +219,7 @@
 			 * @protected
 			 * @member ns.widget.tv.Page
 			 */
-			prototype._buildTitleInHeader = function(header) {
+			prototype._buildTitleInHeader = function (header) {
 				var title = header.querySelector("h1,h2,h3,h4,h5,h6,h7,h8");
 				if (title) {
 					title.classList.add(classes.uiTitle);
@@ -242,7 +233,7 @@
 			 * @protected
 			 * @member ns.widget.tv.Page
 			 */
-			prototype._configure = function(element) {
+			prototype._configure = function (element) {
 				var self = this;
 				WearablePagePrototype._configure.call(self, element);
 				self.options.content = true;
@@ -256,7 +247,7 @@
 			 * @protected
 			 * @member ns.widget.tv.Page
 			 */
-			prototype._buildHeader = function(element) {
+			prototype._buildHeader = function (element) {
 				var self = this,
 					header;
 
@@ -278,7 +269,7 @@
 			 * @protected
 			 * @member ns.widget.tv.Page
 			 */
-			prototype._buildFooter = function(element) {
+			prototype._buildFooter = function (element) {
 				WearablePagePrototype._buildFooter.call(this, element);
 
 				if (!this._ui.footer) {
@@ -293,7 +284,7 @@
 			 * @protected
 			 * @member ns.widget.tv.Page
 			 */
-			prototype._clearHeaderFooterInfo = function(element) {
+			prototype._clearHeaderFooterInfo = function (element) {
 				var elementClassList = element.classList;
 				elementClassList.remove(classes.uiHeaderEmpty);
 				elementClassList.remove(classes.uiFooterEmpty);
@@ -362,7 +353,7 @@
 			 * @protected
 			 * @member ns.widget.tv.Page
 			 */
-			prototype._bindEvents = function(element) {
+			prototype._bindEvents = function (element) {
 				WearablePagePrototype._bindEvents.call(this, element);
 				this._bindEventKey();
 				this._bindEventMouse();
@@ -374,7 +365,7 @@
 			 * @protected
 			 * @member ns.widget.tv.Page
 			 */
-			prototype._destroy = function() {
+			prototype._destroy = function () {
 				this._destroyEventKey();
 				this._destroyEventMouse();
 				WearablePagePrototype._destroy.call(this);
@@ -386,7 +377,7 @@
 			 * @protected
 			 * @member ns.widget.tv.Page
 			 */
-			prototype._refresh = function() {
+			prototype._refresh = function () {
 				var self = this,
 					element = self.element;
 				WearablePagePrototype._refresh.call(self);

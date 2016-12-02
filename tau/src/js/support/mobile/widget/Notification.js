@@ -25,25 +25,25 @@
  * ##Manual constructor
  * For manual creation of notification widget you can use constructor of widget:
  *
- *		@example
- *		<!-- Widget structure -->
- *		<div data-role="notification" id="notification" data-type="smallpopup">
- *			<p>Line of message</p>
- *		</div>
- *		<script>
- *			var notification = tau.widget.Notification(document.getElementById("notification"));
- *		</script>
+ *        @example
+ *        <!-- Widget structure -->
+ *        <div data-role="notification" id="notification" data-type="smallpopup">
+ *            <p>Line of message</p>
+ *        </div>
+ *        <script>
+ *            var notification = tau.widget.Notification(document.getElementById("notification"));
+ *        </script>
  *
  * If jQuery library is loaded, this method can be used:
  *
- *		@example
- *		<!-- Widget structure -->
- *		<div data-role="notification" id="notification" data-type="smallpopup">
- *			<p>Line of message</p>
- *		</div>
- *		<script>
- *			var notification = $("#notification").notification();
- *		</script>
+ *        @example
+ *        <!-- Widget structure -->
+ *        <div data-role="notification" id="notification" data-type="smallpopup">
+ *            <p>Line of message</p>
+ *        </div>
+ *        <script>
+ *            var notification = $("#notification").notification();
+ *        </script>
  *
  * ##HTML Examples
  *
@@ -52,118 +52,118 @@
  *
  * Running example in pure JavaScript:
  *
- *		@example
- *		<!-- Widget structure -->
- *		<div data-role="notification" id="notification" data-type="smallpopup">
- *			<p>Line of message</p>
- *		</div>
- *		<script>
- *			// Get widget instance or create new instance if widget not exists.
- *			var notification = tau.widget.Notification(document.getElementById("notification"));
- *			// Open notification
- *			notification.open();
- *		</script>
+ *        @example
+ *        <!-- Widget structure -->
+ *        <div data-role="notification" id="notification" data-type="smallpopup">
+ *            <p>Line of message</p>
+ *        </div>
+ *        <script>
+ *            // Get widget instance or create new instance if widget not exists.
+ *            var notification = tau.widget.Notification(document.getElementById("notification"));
+ *            // Open notification
+ *            notification.open();
+ *        </script>
  *
  * If jQuery library is loaded, this method can be used:
  *
- *		@example
- *		<!-- Widget structure -->
- *		<div data-role="notification" id="notification" data-type="smallpopup">
- *			<p>Line of message</p>
- *		</div>
- *		<script>
- *			// Open widget using jQuery notation
- *			$( "#notification" ).notification( "open" )
- *		</script>
+ *        @example
+ *        <!-- Widget structure -->
+ *        <div data-role="notification" id="notification" data-type="smallpopup">
+ *            <p>Line of message</p>
+ *        </div>
+ *        <script>
+ *            // Open widget using jQuery notation
+ *            $( "#notification" ).notification( "open" )
+ *        </script>
  *
  * ###Create notification ticker
  * Notification ticker has maximum two lines of message, other messages will be hidden. Additionally you can set an icon. Notification ticker is default positioned to the top of the page.
  *
  * Running example in pure JavaScript:
  *
- *		@example
- *		<div data-role="notification" id="notification" data-type="ticker">
- *			<p>First line of message</p>
- *			<p>Second line of message</p>
- *		</div>
- *		<script>
- *			// Get widget instance or create new instance if widget not exists.
- *			var notification = tau.widget.Notification(document.getElementById("notification"));
- *			// Open notification
- *			notification.open();
- *		</script>
+ *        @example
+ *        <div data-role="notification" id="notification" data-type="ticker">
+ *            <p>First line of message</p>
+ *            <p>Second line of message</p>
+ *        </div>
+ *        <script>
+ *            // Get widget instance or create new instance if widget not exists.
+ *            var notification = tau.widget.Notification(document.getElementById("notification"));
+ *            // Open notification
+ *            notification.open();
+ *        </script>
  *
  * If jQuery library is loaded, this method can be used:
  *
- *		@example
- *		<div data-role="notification" id="notification" data-type="ticker">
- *			<p>First line of message</p>
- *			<p>Second line of message</p>
- *		</div>
- *		<script>
- *			// Open widget using jQuery notation
- *			$( "#notification" ).notification( "open" )
- *		</script>
+ *        @example
+ *        <div data-role="notification" id="notification" data-type="ticker">
+ *            <p>First line of message</p>
+ *            <p>Second line of message</p>
+ *        </div>
+ *        <script>
+ *            // Open widget using jQuery notation
+ *            $( "#notification" ).notification( "open" )
+ *        </script>
  *
  * ###Create notification wih interval
  * Interval defines time to showing notification widget, after this it will close automatically. Values of _data-interval_ is a positive **number of miliseconds**, e.g. _data-interval="2000"_ (sets to close widget after 2 seconds). Otherwise widget will show infinietely.
  *
  * Running example in pure JavaScript:
  *
- *		@example
- *		<div data-role="notification" id="notification" data-type="ticker" data-interval="4000">
- *			<img src="icon.png">
- *			<p>I will close in 4* seconds!</p>
- *			<p>* starts counting from widget opening</p>
- *		</div>
- *		<script>
- *			// Get widget instance or create new instance if widget not exists.
- *			var notification = tau.widget.Notification(document.getElementById("notification"));
- *			// Open notification
- *			notification.open();
- *		</script>
+ *        @example
+ *        <div data-role="notification" id="notification" data-type="ticker" data-interval="4000">
+ *            <img src="icon.png">
+ *            <p>I will close in 4* seconds!</p>
+ *            <p>* starts counting from widget opening</p>
+ *        </div>
+ *        <script>
+ *            // Get widget instance or create new instance if widget not exists.
+ *            var notification = tau.widget.Notification(document.getElementById("notification"));
+ *            // Open notification
+ *            notification.open();
+ *        </script>
  *
  * If jQuery library is loaded, this method can be used:
  *
- *		@example
- *		<div data-role="notification" id="notification" data-type="ticker" data-interval="4000">
- *			<img src="icon.png">
- *			<p>I will close in 4* seconds!</p>
- *			<p>* starts counting from widget opening</p>
- *		</div>
- *		<script>
- *			// Open widget using jQuery notation
- *			$( "#notification" ).notification( "open" )
- *		</script>
+ *        @example
+ *        <div data-role="notification" id="notification" data-type="ticker" data-interval="4000">
+ *            <img src="icon.png">
+ *            <p>I will close in 4* seconds!</p>
+ *            <p>* starts counting from widget opening</p>
+ *        </div>
+ *        <script>
+ *            // Open widget using jQuery notation
+ *            $( "#notification" ).notification( "open" )
+ *        </script>
  *
  * ###Create notification ticker with icon
  * !!!Icon is only supported with notification ticker.!!!
  *
  * Running example in pure JavaScript:
  *
- *		@example
- *		<div data-role="notification" id="notification" data-type="ticker">
- *			<img src="icon.png">
- *			<p>First line of message</p>
- *			<p>Second line of message</p>
- *		</div>
- *		<script>
- *			// Open notification
- *			notification.open();
- *		</script>
+ *        @example
+ *        <div data-role="notification" id="notification" data-type="ticker">
+ *            <img src="icon.png">
+ *            <p>First line of message</p>
+ *            <p>Second line of message</p>
+ *        </div>
+ *        <script>
+ *            // Open notification
+ *            notification.open();
+ *        </script>
  *
  * If jQuery library is loaded, this method can be used:
  *
- *		@example
- *		<div data-role="notification" id="notification" data-type="ticker">
- *			<img src="icon.png">
- *			<p>First line of message</p>
- *			<p>Second line of message</p>
- *		</div>
- *		<script>
- *			// Open widget using jQuery notation
- *			$( "#notification" ).notification( "open" )
- *		</script>
+ *        @example
+ *        <div data-role="notification" id="notification" data-type="ticker">
+ *            <img src="icon.png">
+ *            <p>First line of message</p>
+ *            <p>Second line of message</p>
+ *        </div>
+ *        <script>
+ *            // Open widget using jQuery notation
+ *            $( "#notification" ).notification( "open" )
+ *        </script>
  *
  * @class ns.widget.mobile.Notification
  * @extends ns.widget.mobile.BaseWidgetMobile
@@ -296,13 +296,13 @@
 			 * @static
 			 */
 			Notification.classes = {
-				uiTicker : "ui-ticker",
-				uiTickerText1Bg : "ui-ticker-text1-bg",
-				uiTickerText2Bg : "ui-ticker-text2-bg",
-				uiTickerIcon : "ui-ticker-icon",
-				uiSmallpopup : "ui-smallpopup",
-				uiSmallpopupTextBg : "ui-smallpopup-text-bg",
-				uiTickerBtn : "ui-ticker-btn",
+				uiTicker: "ui-ticker",
+				uiTickerText1Bg: "ui-ticker-text1-bg",
+				uiTickerText2Bg: "ui-ticker-text2-bg",
+				uiTickerIcon: "ui-ticker-icon",
+				uiSmallpopup: "ui-smallpopup",
+				uiSmallpopupTextBg: "ui-smallpopup-text-bg",
+				uiTickerBtn: "ui-ticker-btn",
 				uiNotificationFix: "fix",
 				uiNotificationShow: "show",
 				uiNotificationHide: "hide"
@@ -457,32 +457,32 @@
 			 *
 			 * #####Running example in pure JavaScript:
 			 *
-			 *	@example
-			 *	<!-- Widget structure -->
-			 *	<div data-role="notification" id="notification" data-type="smallpopup">
-			 *		<p>Line of message</p>
-			 *	</div>
+			 *    @example
+			 *    <!-- Widget structure -->
+			 *    <div data-role="notification" id="notification" data-type="smallpopup">
+			 *        <p>Line of message</p>
+			 *    </div>
 			 *
-			 *	<script>
-			 *		// Get widget instance or create new instance if widget not exists.
-			 *		var notification = tau.widget.Notification(document.getElementById("notification"));
+			 *    <script>
+			 *        // Get widget instance or create new instance if widget not exists.
+			 *        var notification = tau.widget.Notification(document.getElementById("notification"));
 			 *
-			 *		// Make it enabled
-			 *		notification.enable();
-			 *	</script>
+			 *        // Make it enabled
+			 *        notification.enable();
+			 *    </script>
 			 *
 			 * #####If jQuery library is loaded, this method can be used:
 			 *
-			 *	@example
-			 *	<!-- Widget structure -->
-			 *	<div data-role="notification" id="notification" data-type="smallpopup">
-			 *		<p>Line of message</p>
-			 *	</div>
+			 *    @example
+			 *    <!-- Widget structure -->
+			 *    <div data-role="notification" id="notification" data-type="smallpopup">
+			 *        <p>Line of message</p>
+			 *    </div>
 			 *
-			 *	<script>
-			 *		// Make it enabled
-			 *		$( "#notification" ).notification( "enable" );
-			 *	</script>
+			 *    <script>
+			 *        // Make it enabled
+			 *        $( "#notification" ).notification( "enable" );
+			 *    </script>
 			 *
 			 * @method enable
 			 * @member ns.widget.mobile.Notification
@@ -502,33 +502,33 @@
 			 *
 			 * #####Running example in pure JavaScript:
 			 *
-			 *	@example
-			 *	<!-- Widget structure -->
-			 *	<div data-role="notification" id="notification" data-type="smallpopup">
-			 *		<p>Line of message</p>
-			 *	</div>
+			 *    @example
+			 *    <!-- Widget structure -->
+			 *    <div data-role="notification" id="notification" data-type="smallpopup">
+			 *        <p>Line of message</p>
+			 *    </div>
 			 *
-			 *	<script>
-			 *		// Get widget instance or create new instance if widget not exists.
-			 *		var notification = tau.widget.Notification(document.getElementById("notification"));
+			 *    <script>
+			 *        // Get widget instance or create new instance if widget not exists.
+			 *        var notification = tau.widget.Notification(document.getElementById("notification"));
 			 *
-			 *		// Make it disabled
-			 *		notification.disable();
-			 *	</script>
+			 *        // Make it disabled
+			 *        notification.disable();
+			 *    </script>
 			 *
 			 *
 			 * #####If jQuery library is loaded, this method can be used:
 			 *
-			 *	@example
-			 *	<!-- Widget structure -->
-			 *	<div data-role="notification" id="notification" data-type="smallpopup">
-			 *		<p>Line of message</p>
-			 *	</div>
+			 *    @example
+			 *    <!-- Widget structure -->
+			 *    <div data-role="notification" id="notification" data-type="smallpopup">
+			 *        <p>Line of message</p>
+			 *    </div>
 			 *
-			 *	<script>
-			 *		// Make it disabled
-			 *		$( "#notification" ).notification( "disable" );
-			 *	</script>
+			 *    <script>
+			 *        // Make it disabled
+			 *        $( "#notification" ).notification( "disable" );
+			 *    </script>
 			 *
 			 * @method disable
 			 * @member ns.widget.mobile.Notification
@@ -549,24 +549,24 @@
 			 *
 			 * #####Running example in pure JavaScript:
 			 *
-			 *	@example
-			 *	<div data-role="notification" id="notificationSelector" data-type="smallpopup">
-			 *		<p>Line of message</p>
-			 *	</div>
-			 *	<script>
-			 *		var notification = tau.widget.Notification(document.getElementById("notificationSelector"));
-			 *		notification.refresh();
-			 *	</script>
+			 *    @example
+			 *    <div data-role="notification" id="notificationSelector" data-type="smallpopup">
+			 *        <p>Line of message</p>
+			 *    </div>
+			 *    <script>
+			 *        var notification = tau.widget.Notification(document.getElementById("notificationSelector"));
+			 *        notification.refresh();
+			 *    </script>
 			 *
 			 * #####If jQuery library is loaded, this method can be used:
 			 *
-			 *	@example
-			 *	<div data-role="notification" id="notificationSelector" data-type="smallpopup">
-			 *		<p>Line of message</p>
-			 *	</div>
-			 *	<script>
-			 *		$("#notificationSelector").notification("refresh");
-			 *	</script>
+			 *    @example
+			 *    <div data-role="notification" id="notificationSelector" data-type="smallpopup">
+			 *        <p>Line of message</p>
+			 *    </div>
+			 *    <script>
+			 *        $("#notificationSelector").notification("refresh");
+			 *    </script>
 			 *
 			 * @method refresh
 			 * @chainable
@@ -611,7 +611,7 @@
 					}
 				}
 				wrapperWidth = doms.getCSSProperty(wrapper, "width", 0, "float") + doms.getCSSProperty(wrapper, "padding-left", 0, "float") + doms.getCSSProperty(wrapper, "padding-right", 0, "float");
-				wrapperStyle.left = (pageWidth - wrapperWidth)/2 + "px";
+				wrapperStyle.left = (pageWidth - wrapperWidth) / 2 + "px";
 				wrapperStyle.bottom = footerHeight + (footerHeight > 0 ? "px" : "");
 			};
 
@@ -620,24 +620,24 @@
 			 *
 			 * #####Running example in pure JavaScript:
 			 *
-			 *	@example
-			 *	<div data-role="notification" id="notificationSelector" data-type="smallpopup">
-			 *		<p>Line of message</p>
-			 *	</div>
-			 *	<script>
-			 *		var notification = tau.widget.Notification(document.getElementById("notificationSelector"));
-			 *		notification.open();
-			 *	</script>
+			 *    @example
+			 *    <div data-role="notification" id="notificationSelector" data-type="smallpopup">
+			 *        <p>Line of message</p>
+			 *    </div>
+			 *    <script>
+			 *        var notification = tau.widget.Notification(document.getElementById("notificationSelector"));
+			 *        notification.open();
+			 *    </script>
 			 *
 			 * #####If jQuery library is loaded, this method can be used:
 			 *
-			 *	@example
-			 *	<div data-role="notification" id="notificationSelector" data-type="smallpopup">
-			 *		<p>Line of message</p>
-			 *	</div>
-			 *	<script>
-			 *		$("#notificationSelector").notification("open");
-			 *	</script>
+			 *    @example
+			 *    <div data-role="notification" id="notificationSelector" data-type="smallpopup">
+			 *        <p>Line of message</p>
+			 *    </div>
+			 *    <script>
+			 *        $("#notificationSelector").notification("open");
+			 *    </script>
 			 *
 			 * @method open
 			 * @member ns.widget.mobile.Notification
@@ -667,25 +667,25 @@
 			 *
 			 * #####Running example in pure JavaScript:
 			 *
-			 *	@example
-			 *	<div data-role="notification" id="notificationSelector" data-type="ticker">
-			 *		<p>Line of message</p>
-			 *	</div>
-			 *	<script>
-			 *		var notification = tau.widget.Notification(document.getElementById("notificationSelector"));
-			 *		notification.close();
-			 *	</script>
+			 *    @example
+			 *    <div data-role="notification" id="notificationSelector" data-type="ticker">
+			 *        <p>Line of message</p>
+			 *    </div>
+			 *    <script>
+			 *        var notification = tau.widget.Notification(document.getElementById("notificationSelector"));
+			 *        notification.close();
+			 *    </script>
 			 *
 			 * #####If jQuery library is loaded, this method can be used:
 			 *
-			 *	@example
-			 *	<div data-role="notification" id="notificationSelector" data-type="ticker">
-			 *		<p>Line of message</p>
-			 *	</div>
-			 *	<script>
-			 *		// or using jQuery
-			 *		$("#notificationSelector").notification("close");
-			 *	</script>
+			 *    @example
+			 *    <div data-role="notification" id="notificationSelector" data-type="ticker">
+			 *        <p>Line of message</p>
+			 *    </div>
+			 *    <script>
+			 *        // or using jQuery
+			 *        $("#notificationSelector").notification("close");
+			 *    </script>
 			 *
 			 * @method close
 			 * @member ns.widget.mobile.Notification
@@ -710,27 +710,27 @@
 			 *
 			 * #####Running example in pure JavaScript:
 			 *
-			 *	@example
-			 *	<div data-role="notification" id="notificationSelector" data-type="smallpopup">
-			 *		<p>Line of message</p>
-			 *	</div>
-			 *	<script>
-			 *		var notification = tau.widget.Notification(document.getElementById("notificationSelector"));
-			 *		notification.icon("some-image.png");
+			 *    @example
+			 *    <div data-role="notification" id="notificationSelector" data-type="smallpopup">
+			 *        <p>Line of message</p>
+			 *    </div>
+			 *    <script>
+			 *        var notification = tau.widget.Notification(document.getElementById("notificationSelector"));
+			 *        notification.icon("some-image.png");
 			 *
-			 *		// or using jQuery
-			 *		$( "#notificationSelector" ).notification( "icon", "some-image.png" );
-			 *	</script>
+			 *        // or using jQuery
+			 *        $( "#notificationSelector" ).notification( "icon", "some-image.png" );
+			 *    </script>
 			 *
 			 * #####If jQuery library is loaded, this method can be used:
 			 *
-			 *	@example
-			 *	<div data-role="notification" id="notificationSelector" data-type="smallpopup">
-			 *		<p>Line of message</p>
-			 *	</div>
-			 *	<script>
-			 *		$( "#notificationSelector" ).notification( "icon", "some-image.png" );
-			 *	</script>
+			 *    @example
+			 *    <div data-role="notification" id="notificationSelector" data-type="smallpopup">
+			 *        <p>Line of message</p>
+			 *    </div>
+			 *    <script>
+			 *        $( "#notificationSelector" ).notification( "icon", "some-image.png" );
+			 *    </script>
 			 *
 			 * @method icon
 			 * @param {string} src icon source URL
@@ -764,61 +764,61 @@
 			 *
 			 * #####Running example in pure JavaScript:
 			 *
-			 *	@example
-			 *	<div data-role="notification" id="notificationSelector" data-type="ticker">
-			 *		<p>Line of message</p>
-			 *		<p>Second line of message</p>
-			 *	</div>
-			 *	<script>
-			 *		var notification = tau.widget.Notification(document.getElementById("notificationSelector")),
-			 *			widgetText;
-			 *		widgetText = notification.text();
+			 *    @example
+			 *    <div data-role="notification" id="notificationSelector" data-type="ticker">
+			 *        <p>Line of message</p>
+			 *        <p>Second line of message</p>
+			 *    </div>
+			 *    <script>
+			 *        var notification = tau.widget.Notification(document.getElementById("notificationSelector")),
+			 *            widgetText;
+			 *        widgetText = notification.text();
 			 *
-			 *		alert(widgetText);
-			 *		// will alert "Line of message,Second line of message"
-			 *	</script>
+			 *        alert(widgetText);
+			 *        // will alert "Line of message,Second line of message"
+			 *    </script>
 			 *
 			 * #####If jQuery library is loaded, this method can be used:
 			 *
-			 *	@example
-			 *	<div data-role="notification" id="notificationSelector" data-type="ticker">
-			 *		<p>Line of message</p>
-			 *		<p>Second line of message</p>
-			 *	</div>
-			 *	<script>
-			 *		var widgetText;
+			 *    @example
+			 *    <div data-role="notification" id="notificationSelector" data-type="ticker">
+			 *        <p>Line of message</p>
+			 *        <p>Second line of message</p>
+			 *    </div>
+			 *    <script>
+			 *        var widgetText;
 			 *
-			 *		// or using jQuery
-			 *		widgetText = $("#notificationSelector").notification("text");
+			 *        // or using jQuery
+			 *        widgetText = $("#notificationSelector").notification("text");
 			 *
-			 *		alert(widgetText);
-			 *		// will alert "Line of message,Second line of message"
-			 *	</script>
+			 *        alert(widgetText);
+			 *        // will alert "Line of message,Second line of message"
+			 *    </script>
 			 *
 			 * Setting text of notification.
 			 *
 			 * #####Running example in pure JavaScript:
 			 *
-			 *	@example
-			 *	<div data-role="notification" id="notificationSelector" data-type="ticker">
-			 *		<p>Line of message</p>
-			 *		<p>Second line of message</p>
-			 *	</div>
-			 *	<script>
-			 *		var notification = tau.widget.Notification(document.getElementById("notificationSelector"));
+			 *    @example
+			 *    <div data-role="notification" id="notificationSelector" data-type="ticker">
+			 *        <p>Line of message</p>
+			 *        <p>Second line of message</p>
+			 *    </div>
+			 *    <script>
+			 *        var notification = tau.widget.Notification(document.getElementById("notificationSelector"));
 			 *
-			 *		notification.text("This is a new Notification!", "This is an example");
-			 *	</script>
+			 *        notification.text("This is a new Notification!", "This is an example");
+			 *    </script>
 			 *
 			 * #####If jQuery library is loaded, this method can be used:
 			 *
-			 *	@example
-			 *	<div data-role="notification" id="notificationSelector" data-type="ticker">
-			 *		<p>Line of message</p>
-			 *	</div>
-			 *	<script>
-			 *		$( "#notificationSelector" ).notification( "text", "This is new Notification!", "This is an example" );
-			 *	</script>
+			 *    @example
+			 *    <div data-role="notification" id="notificationSelector" data-type="ticker">
+			 *        <p>Line of message</p>
+			 *    </div>
+			 *    <script>
+			 *        $( "#notificationSelector" ).notification( "text", "This is new Notification!", "This is an example" );
+			 *    </script>
 			 *
 			 * @method text
 			 * @param {string} text0 first line of text
@@ -896,18 +896,18 @@
 			 *
 			 * #####Running example in pure JavaScript:
 			 *
-			 *	@example
-			 *	<script>
-			 *		var notification = tau.widget.Notification(document.getElementById("notificationSelector")),
-			 *		notification.destroy();
-			 *	</script>
+			 *    @example
+			 *    <script>
+			 *        var notification = tau.widget.Notification(document.getElementById("notificationSelector")),
+			 *        notification.destroy();
+			 *    </script>
 			 *
 			 * #####If jQuery library is loaded, this method can be used:
 			 *
-			 *	@example
-			 *	<script>
-			 *		$( "#notificationSelector" ).notification( "destroy" );
-			 *	</script>
+			 *    @example
+			 *    <script>
+			 *        $( "#notificationSelector" ).notification( "destroy" );
+			 *    </script>
 			 *
 			 * @method destroy
 			 * @member ns.widget.mobile.Notification

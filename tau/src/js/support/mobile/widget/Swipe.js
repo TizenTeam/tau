@@ -1,4 +1,4 @@
-/*global window, define */
+/*global window, ns, define */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
  *
@@ -27,61 +27,61 @@
  *
  * #### Create a swipe widget using the data-role attribute with one covered item
  *
- *		@example
- *		<div id="swipe" data-role="swipe">
- *			<div data-role="swipe-item-cover">
- *				Cover - swipe to open
- *			</div>
- *			<div data-role="swipe-item">
- *				<div data-role="button" data-inline="true">First item</div>
- *			</div>
- *		</div>
+ *        @example
+ *        <div id="swipe" data-role="swipe">
+ *            <div data-role="swipe-item-cover">
+ *                Cover - swipe to open
+ *            </div>
+ *            <div data-role="swipe-item">
+ *                <div data-role="button" data-inline="true">First item</div>
+ *            </div>
+ *        </div>
  *
  * #### Create swipe widget using the class
  *
- *		@example
- *		<div id="swipe" class="ui-swipe">
- *			<div data-role="swipe-item-cover">
- *				Cover - swipe to open
- *			</div>
- *			<div data-role="swipe-item">
- *				<div data-role="button" data-inline="true">First item</div>
- *			</div>
- *		</div>
+ *        @example
+ *        <div id="swipe" class="ui-swipe">
+ *            <div data-role="swipe-item-cover">
+ *                Cover - swipe to open
+ *            </div>
+ *            <div data-role="swipe-item">
+ *                <div data-role="button" data-inline="true">First item</div>
+ *            </div>
+ *        </div>
  *
  * ## Manual constructor
  * For manual creation of swipe widget you can use constructor of widget:
  *
- *		@example
- *		<div id="swipe">
- *			<div data-role="swipe-item-cover">
- *				Cover - swipe to open
- *			</div>
- *			<div data-role="swipe-item">
- *				<div data-role="button" data-inline="true">First item</div>
- *			</div>
- *		</div>
+ *        @example
+ *        <div id="swipe">
+ *            <div data-role="swipe-item-cover">
+ *                Cover - swipe to open
+ *            </div>
+ *            <div data-role="swipe-item">
+ *                <div data-role="button" data-inline="true">First item</div>
+ *            </div>
+ *        </div>
  *
- *		<script>
- *			var swipeElement = document.getElementById("swipe"),
- *				swipe = tau.widget.Swipe(swipeElement);
- *		</script>
+ *        <script>
+ *            var swipeElement = document.getElementById("swipe"),
+ *                swipe = tau.widget.Swipe(swipeElement);
+ *        </script>
  *
  *  If jQuery library is loaded, its method can be used:
  *
- *		@example
- *		<div id="swipe">
- *			<div data-role="swipe-item-cover">
- *				Cover - swipe to open
- *			</div>
- *			<div data-role="swipe-item">
- *				<div data-role="button" data-inline="true">First item</div>
- *			</div>
- *		</div>
+ *        @example
+ *        <div id="swipe">
+ *            <div data-role="swipe-item-cover">
+ *                Cover - swipe to open
+ *            </div>
+ *            <div data-role="swipe-item">
+ *                <div data-role="button" data-inline="true">First item</div>
+ *            </div>
+ *        </div>
  *
- *		<script>
- *			var swipe = $("#swipe").swipe();
- *		</script>
+ *        <script>
+ *            var swipe = $("#swipe").swipe();
+ *        </script>
  *
  * ## Methods
  *
@@ -89,16 +89,16 @@
  *
  * First API is from tau namespace:
  *
- *		@example
- *		var swipeElement = document.getElementById("swipe"),
- *			swipe = tau.widget.Swipe(swipeElement);
+ *        @example
+ *        var swipeElement = document.getElementById("swipe"),
+ *            swipe = tau.widget.Swipe(swipeElement);
  *
- *		swipe.methodName(methodArgument1, methodArgument2, ...);
+ *        swipe.methodName(methodArgument1, methodArgument2, ...);
  *
  * Second API is jQuery Mobile API and for call _methodName_ you can use:
  *
- *		@example
- *		$(".selector").swipe("methodName", methodArgument1, methodArgument2, ...);
+ *        @example
+ *        $(".selector").swipe("methodName", methodArgument1, methodArgument2, ...);
  *
  *
  * ## Opening swipe
@@ -108,50 +108,50 @@
  *
  * To uncover items of widget, you can swipe over an element.
  *
- *		@example
- *		<div id="swipe" data-role="swipe">
- *			<div data-role="swipe-item-cover">
- *				Cover - swipe to open
- *			</div>
- *			<div data-role="swipe-item">
- *				<div data-role="button" data-inline="true">First item</div>
- *			</div>
- *		</div>
+ *        @example
+ *        <div id="swipe" data-role="swipe">
+ *            <div data-role="swipe-item-cover">
+ *                Cover - swipe to open
+ *            </div>
+ *            <div data-role="swipe-item">
+ *                <div data-role="button" data-inline="true">First item</div>
+ *            </div>
+ *        </div>
  *
  * ### Opening manually by using method "open"
  *
  * To uncoer items of widget,the method "open" can be used.
  *
- *		@example
- *		<div id="swipe" data-role="swipe">
- *			<div data-role="swipe-item-cover">
- *				Cover - swipe to open
- *			</div>
- *			<div data-role="swipe-item">
- *				<div data-role="button" data-inline="true">First item</div>
- *			</div>
- *		</div>
+ *        @example
+ *        <div id="swipe" data-role="swipe">
+ *            <div data-role="swipe-item-cover">
+ *                Cover - swipe to open
+ *            </div>
+ *            <div data-role="swipe-item">
+ *                <div data-role="button" data-inline="true">First item</div>
+ *            </div>
+ *        </div>
  *
- *		<script>
- *			var swipeWidget = tau.widget.Swipe(document.getElementById("swipe"));
- *			swipeWidget.open();
- *		<script>
+ *        <script>
+ *            var swipeWidget = tau.widget.Swipe(document.getElementById("swipe"));
+ *            swipeWidget.open();
+ *        <script>
  *
  * If jQuery is loaded:
  *
- *		@example
- *		<div id="swipe" data-role="swipe">
- *			<div data-role="swipe-item-cover">
- *				Cover - swipe to open
- *			</div>
- *			<div data-role="swipe-item">
- *				<div data-role="button" data-inline="true">First item</div>
- *			</div>
- *		</div>
+ *        @example
+ *        <div id="swipe" data-role="swipe">
+ *            <div data-role="swipe-item-cover">
+ *                Cover - swipe to open
+ *            </div>
+ *            <div data-role="swipe-item">
+ *                <div data-role="button" data-inline="true">First item</div>
+ *            </div>
+ *        </div>
  *
- *		<script>
- *			$("#swipe").swipe("open");
- *		<script>
+ *        <script>
+ *            $("#swipe").swipe("open");
+ *        <script>
  *
  *
  * @class ns.widget.mobile.Swipe
@@ -178,7 +178,7 @@
 					 * @property {?string} [options.theme=null] Sets the color
 					 * scheme for the swipe contents.
 					 * @member ns.widget.mobile.Swipe
-					*/
+					 */
 					self.options = {
 						theme: null
 					};
@@ -344,7 +344,7 @@
 				//To pass tests the animation can be triggered only once.
 				//Then I need to have a reference to previous animations,
 				//in order to destroy it when new animations appear
-				if(self.moveAnimation){
+				if (self.moveAnimation) {
 					self.moveAnimation.destroy();
 					self.opacityAnimation.destroy();
 				}
@@ -401,8 +401,8 @@
 					ui = self._ui || {};
 
 				/*
-				* @todo good support multicovers
-				*/
+				 * @todo good support multicovers
+				 */
 				ui.covers = covers;
 				ui.item = item;
 				self._ui = ui;
@@ -444,10 +444,10 @@
 				var options = this.options,
 					protoOptions = Swipe.prototype.options;
 				options.theme = options.theme ||
-						ns.theme.getInheritedTheme(
-							element,
-							(protoOptions && protoOptions.theme) || "s"
-						);
+					ns.theme.getInheritedTheme(
+						element,
+						(protoOptions && protoOptions.theme) || "s"
+					);
 				refresh(this, element);
 				return element;
 			};
@@ -461,10 +461,12 @@
 			 */
 			prototype._init = function (element) {
 				/* @TODO what is swipeSelectors? */
+				var swipeSelectors = {};
+				/* @TODO end */
 				this._ui = this._ui || {
-					covers: slice.call(element.querySelectorAll(selectorRoleSwipeItemCover)),
-					item: element.querySelector(swipeSelectors.swipeItem)
-				};
+						covers: slice.call(element.querySelectorAll(selectorRoleSwipeItemCover)),
+						item: element.querySelector(swipeSelectors.swipeItem)
+					};
 			};
 
 			/**
@@ -481,9 +483,9 @@
 					item = ui.item,
 					buttonSelector = engine.getWidgetDefinition("Button").selector;
 
-					/*
-					* @todo good support multicovers
-					*/
+				/*
+				 * @todo good support multicovers
+				 */
 
 				covers.forEach(function (cover) {
 					cover.swipeAnimateLeft = animateCover.bind(null, self, cover, 0, item);
@@ -511,9 +513,9 @@
 					covers = selfUI.covers,
 					item = selfUI.item;
 
-					/*
-					* @todo good support multicovers
-					*/
+				/*
+				 * @todo good support multicovers
+				 */
 
 				covers.forEach(function (cover) {
 					item.removeEventListener(swipeLeftEvent, cover.swipeAnimateLeft, false);
@@ -540,38 +542,38 @@
 			 *
 			 * It re-builds the whole widget.
 			 *
-			 *		@example
-			 *		<div id="swipe" data-role="swipe">
-			 *			<div data-role="swipe-item-cover">
-			 *				Swipe
-			 *			</div>
-			 *			<div data-role="swipe-item">
-			 *				<div data-role="button" data-inline="true">First item</div>
-			 *				<div data-role="button" data-inline="true">Second item</div>
-			 *			</div>
-			 *		</div>
+			 *        @example
+			 *        <div id="swipe" data-role="swipe">
+			 *            <div data-role="swipe-item-cover">
+			 *                Swipe
+			 *            </div>
+			 *            <div data-role="swipe-item">
+			 *                <div data-role="button" data-inline="true">First item</div>
+			 *                <div data-role="button" data-inline="true">Second item</div>
+			 *            </div>
+			 *        </div>
 			 *
-			 *		<script>
-			 *			var swipeWidget = tau.widget.Swipe(document.getElementById("swipe"));
-			 *			swipeWidget.refresh();
-			 *		<script>
+			 *        <script>
+			 *            var swipeWidget = tau.widget.Swipe(document.getElementById("swipe"));
+			 *            swipeWidget.refresh();
+			 *        <script>
 			 *
 			 * If jQuery is loaded:
 			 *
-			 *		@example
-			 *		<div  id="swipe" data-role="swipe">
-			 *			<div data-role="swipe-item-cover">
-			 *				Swipe
-			 *			</div>
-			 *			<div data-role="swipe-item">
-			 *				<div data-role="button" data-inline="true">First item</div>
-			 *				<div data-role="button" data-inline="true">Second item</div>
-			 *			</div>
-			 *		</div>
+			 *        @example
+			 *        <div  id="swipe" data-role="swipe">
+			 *            <div data-role="swipe-item-cover">
+			 *                Swipe
+			 *            </div>
+			 *            <div data-role="swipe-item">
+			 *                <div data-role="button" data-inline="true">First item</div>
+			 *                <div data-role="button" data-inline="true">Second item</div>
+			 *            </div>
+			 *        </div>
 			 *
-			 *		<script>
-			 *			$("#swipe").swipe("refresh");
-			 *		</script>
+			 *        <script>
+			 *            $("#swipe").swipe("refresh");
+			 *        </script>
 			 *
 			 * @method refresh
 			 * @member ns.widget.mobile.Swipe
@@ -591,38 +593,38 @@
 			 *
 			 * This will return the element back to its pre-init state.
 			 *
-			 *		@example
-			 *		<div id="swipe" data-role="swipe">
-			 *			<div data-role="swipe-item-cover">
-			 *				Swipe
-			 *			</div>
-			 *			<div data-role="swipe-item">
-			 *				<div data-role="button" data-inline="true">First item</div>
-			 *				<div data-role="button" data-inline="true">Second item</div>
-			 *			</div>
-			 *		</div>
+			 *        @example
+			 *        <div id="swipe" data-role="swipe">
+			 *            <div data-role="swipe-item-cover">
+			 *                Swipe
+			 *            </div>
+			 *            <div data-role="swipe-item">
+			 *                <div data-role="button" data-inline="true">First item</div>
+			 *                <div data-role="button" data-inline="true">Second item</div>
+			 *            </div>
+			 *        </div>
 			 *
-			 *		<script>
-			 *			var swipeWidget = tau.widget.Swipe(document.getElementById("swipe"));
-			 *			swipeWidget.destroy();
-			 *		<script>
+			 *        <script>
+			 *            var swipeWidget = tau.widget.Swipe(document.getElementById("swipe"));
+			 *            swipeWidget.destroy();
+			 *        <script>
 			 *
 			 * If jQuery is loaded:
 			 *
-			 *		@example
-			 *		<div  id="swipe" data-role="swipe">
-			 *			<div data-role="swipe-item-cover">
-			 *				Swipe
-			 *			</div>
-			 *			<div data-role="swipe-item">
-			 *				<div data-role="button" data-inline="true">First item</div>
-			 *				<div data-role="button" data-inline="true">Second item</div>
-			 *			</div>
-			 *		</div>
+			 *        @example
+			 *        <div  id="swipe" data-role="swipe">
+			 *            <div data-role="swipe-item-cover">
+			 *                Swipe
+			 *            </div>
+			 *            <div data-role="swipe-item">
+			 *                <div data-role="button" data-inline="true">First item</div>
+			 *                <div data-role="button" data-inline="true">Second item</div>
+			 *            </div>
+			 *        </div>
 			 *
-			 *		<script>
-			 *			$("#swipe").swipe("destroy");
-			 *		</script>
+			 *        <script>
+			 *            $("#swipe").swipe("destroy");
+			 *        </script>
 			 *
 			 * @method destroy
 			 * @member ns.widget.mobile.Swipe
@@ -643,45 +645,45 @@
 			/**
 			 * This method runs opening animations.
 			 *
-			 *		@example
-			 *		<div id="swipe" data-role="swipe">
-			 *			<div data-role="swipe-item-cover">
-			 *				Swipe
-			 *			</div>
-			 *			<div data-role="swipe-item">
-			 *				<div data-role="button" data-inline="true">First item</div>
-			 *				<div data-role="button" data-inline="true">Second item</div>
-			 *			</div>
-			 *		</div>
+			 *        @example
+			 *        <div id="swipe" data-role="swipe">
+			 *            <div data-role="swipe-item-cover">
+			 *                Swipe
+			 *            </div>
+			 *            <div data-role="swipe-item">
+			 *                <div data-role="button" data-inline="true">First item</div>
+			 *                <div data-role="button" data-inline="true">Second item</div>
+			 *            </div>
+			 *        </div>
 			 *
-			 *		<script>
-			 *			var swipeWidget = tau.widget.Swipe(document.getElementById("swipe"));
-			 *			swipeWidget.open();
-			 *		<script>
+			 *        <script>
+			 *            var swipeWidget = tau.widget.Swipe(document.getElementById("swipe"));
+			 *            swipeWidget.open();
+			 *        <script>
 			 *
 			 * If jQuery is loaded:
 			 *
-			 *		@example
-			 *		<div  id="swipe" data-role="swipe">
-			 *			<div data-role="swipe-item-cover">
-			 *				Swipe
-			 *			</div>
-			 *			<div data-role="swipe-item">
-			 *				<div data-role="button" data-inline="true">First item</div>
-			 *				<div data-role="button" data-inline="true">Second item</div>
-			 *			</div>
-			 *		</div>
+			 *        @example
+			 *        <div  id="swipe" data-role="swipe">
+			 *            <div data-role="swipe-item-cover">
+			 *                Swipe
+			 *            </div>
+			 *            <div data-role="swipe-item">
+			 *                <div data-role="button" data-inline="true">First item</div>
+			 *                <div data-role="button" data-inline="true">Second item</div>
+			 *            </div>
+			 *        </div>
 			 *
-			 *		<script>
-			 *			$("#swipe").swipe("open");
-			 *		</script>
+			 *        <script>
+			 *            $("#swipe").swipe("open");
+			 *        </script>
 			 *
 			 * @method open
 			 * @member ns.widget.mobile.Swipe
 			 */
 			prototype.open = function () {
 				var self = this,
-					ui =  self._ui;
+					ui = self._ui;
 
 				ui.covers.forEach(function (cover) {
 					animateCover(self, cover, 110, ui.item);
@@ -691,38 +693,38 @@
 			/**
 			 * This method checks if swipe element is opened.
 			 *
-			 *		@example
-			 *		<div id="swipe" data-role="swipe">
-			 *			<div data-role="swipe-item-cover">
-			 *				Swipe
-			 *			</div>
-			 *			<div data-role="swipe-item">
-			 *				<div data-role="button" data-inline="true">First item</div>
-			 *				<div data-role="button" data-inline="true">Second item</div>
-			 *			</div>
-			 *		</div>
+			 *        @example
+			 *        <div id="swipe" data-role="swipe">
+			 *            <div data-role="swipe-item-cover">
+			 *                Swipe
+			 *            </div>
+			 *            <div data-role="swipe-item">
+			 *                <div data-role="button" data-inline="true">First item</div>
+			 *                <div data-role="button" data-inline="true">Second item</div>
+			 *            </div>
+			 *        </div>
 			 *
-			 *		<script>
-			 *			var swipeWidget = tau.widget.Swipe(document.getElementById("swipe"));
-			 *				isOpened = swipeWidget.opened();
-			 *		<script>
+			 *        <script>
+			 *            var swipeWidget = tau.widget.Swipe(document.getElementById("swipe"));
+			 *                isOpened = swipeWidget.opened();
+			 *        <script>
 			 *
 			 * If jQuery is loaded:
 			 *
-			 *		@example
-			 *		<div  id="swipe" data-role="swipe">
-			 *			<div data-role="swipe-item-cover">
-			 *				Swipe
-			 *			</div>
-			 *			<div data-role="swipe-item">
-			 *				<div data-role="button" data-inline="true">First item</div>
-			 *				<div data-role="button" data-inline="true">Second item</div>
-			 *			</div>
-			 *		</div>
+			 *        @example
+			 *        <div  id="swipe" data-role="swipe">
+			 *            <div data-role="swipe-item-cover">
+			 *                Swipe
+			 *            </div>
+			 *            <div data-role="swipe-item">
+			 *                <div data-role="button" data-inline="true">First item</div>
+			 *                <div data-role="button" data-inline="true">Second item</div>
+			 *            </div>
+			 *        </div>
 			 *
-			 *		<script>
-			 *			var isOpened = $("#swipe").swipe("opened");
-			 *		</script>
+			 *        <script>
+			 *            var isOpened = $("#swipe").swipe("opened");
+			 *        </script>
 			 *
 			 * @method opened
 			 * @return {boolean} True, if swipe element is opened.
@@ -736,38 +738,38 @@
 			/**
 			 * This method runs closing animations.
 			 *
-			 *		@example
-			 *		<div id="swipe" data-role="swipe">
-			 *			<div data-role="swipe-item-cover">
-			 *				Swipe
-			 *			</div>
-			 *			<div data-role="swipe-item">
-			 *				<div data-role="button" data-inline="true">First item</div>
-			 *				<div data-role="button" data-inline="true">Second item</div>
-			 *			</div>
-			 *		</div>
+			 *        @example
+			 *        <div id="swipe" data-role="swipe">
+			 *            <div data-role="swipe-item-cover">
+			 *                Swipe
+			 *            </div>
+			 *            <div data-role="swipe-item">
+			 *                <div data-role="button" data-inline="true">First item</div>
+			 *                <div data-role="button" data-inline="true">Second item</div>
+			 *            </div>
+			 *        </div>
 			 *
-			 *		<script>
-			 *			var swipeWidget = tau.widget.Swipe(document.getElementById("swipe"));
-			 *			swipeWidget.close();
-			 *		<script>
+			 *        <script>
+			 *            var swipeWidget = tau.widget.Swipe(document.getElementById("swipe"));
+			 *            swipeWidget.close();
+			 *        <script>
 			 *
 			 * If jQuery is loaded:
 			 *
-			 *		@example
-			 *		<div  id="swipe" data-role="swipe">
-			 *			<div data-role="swipe-item-cover">
-			 *				Swipe
-			 *			</div>
-			 *			<div data-role="swipe-item">
-			 *				<div data-role="button" data-inline="true">First item</div>
-			 *				<div data-role="button" data-inline="true">Second item</div>
-			 *			</div>
-			 *		</div>
+			 *        @example
+			 *        <div  id="swipe" data-role="swipe">
+			 *            <div data-role="swipe-item-cover">
+			 *                Swipe
+			 *            </div>
+			 *            <div data-role="swipe-item">
+			 *                <div data-role="button" data-inline="true">First item</div>
+			 *                <div data-role="button" data-inline="true">Second item</div>
+			 *            </div>
+			 *        </div>
 			 *
-			 *		<script>
-			 *			$("#swipe").swipe("close");
-			 *		</script>
+			 *        <script>
+			 *            $("#swipe").swipe("close");
+			 *        </script>
 			 *
 			 * @method close
 			 * @member ns.widget.mobile.Swipe
@@ -785,38 +787,38 @@
 			/**
 			 * This method changes state of swipe on enabled and removes CSS classes connected with state.
 			 *
-			 *		@example
-			 *		<div id="swipe" data-role="swipe">
-			 *			<div data-role="swipe-item-cover">
-			 *				Swipe
-			 *			</div>
-			 *			<div data-role="swipe-item">
-			 *				<div data-role="button" data-inline="true">First item</div>
-			 *				<div data-role="button" data-inline="true">Second item</div>
-			 *			</div>
-			 *		</div>
+			 *        @example
+			 *        <div id="swipe" data-role="swipe">
+			 *            <div data-role="swipe-item-cover">
+			 *                Swipe
+			 *            </div>
+			 *            <div data-role="swipe-item">
+			 *                <div data-role="button" data-inline="true">First item</div>
+			 *                <div data-role="button" data-inline="true">Second item</div>
+			 *            </div>
+			 *        </div>
 			 *
-			 *		<script>
-			 *			var swipeWidget = tau.widget.Swipe(document.getElementById("swipe"));
-			 *			swipeWidget.enable();
-			 *		</script>
+			 *        <script>
+			 *            var swipeWidget = tau.widget.Swipe(document.getElementById("swipe"));
+			 *            swipeWidget.enable();
+			 *        </script>
 			 *
 			 * If jQuery is loaded:
 			 *
-			 *		@example
-			 *		<div id="swipe" data-role="swipe">
-			 *			<div data-role="swipe-item-cover">
-			 *				Swipe
-			 *			</div>
-			 *			<div data-role="swipe-item">
-			 *				<div data-role="button" data-inline="true">First item</div>
-			 *				<div data-role="button" data-inline="true">Second item</div>
-			 *			</div>
-			 *		</div>
+			 *        @example
+			 *        <div id="swipe" data-role="swipe">
+			 *            <div data-role="swipe-item-cover">
+			 *                Swipe
+			 *            </div>
+			 *            <div data-role="swipe-item">
+			 *                <div data-role="button" data-inline="true">First item</div>
+			 *                <div data-role="button" data-inline="true">Second item</div>
+			 *            </div>
+			 *        </div>
 			 *
-			 *		<script>
-			 *			$("#swipe").swipe("enable");
-			 *		</script>
+			 *        <script>
+			 *            $("#swipe").swipe("enable");
+			 *        </script>
 			 *
 			 * @method enable
 			 * @chainable
@@ -826,38 +828,38 @@
 			/**
 			 * This method changes state of swipe on disabled and adds CSS classes connected with state.
 			 *
-			 *		@example
-			 *		<div id="swipe" data-role="swipe">
-			 *			<div data-role="swipe-item-cover">
-			 *				Swipe
-			 *			</div>
-			 *			<div data-role="swipe-item">
-			 *				<div data-role="button" data-inline="true">First item</div>
-			 *				<div data-role="button" data-inline="true">Second item</div>
-			 *			</div>
-			 *		</div>
+			 *        @example
+			 *        <div id="swipe" data-role="swipe">
+			 *            <div data-role="swipe-item-cover">
+			 *                Swipe
+			 *            </div>
+			 *            <div data-role="swipe-item">
+			 *                <div data-role="button" data-inline="true">First item</div>
+			 *                <div data-role="button" data-inline="true">Second item</div>
+			 *            </div>
+			 *        </div>
 			 *
-			 *		<script>
-			 *			var swipeWidget = tau.widget.Swipe(document.getElementById("swipe"));
-			 *			swipeWidget.disable();
-			 *		</script>
+			 *        <script>
+			 *            var swipeWidget = tau.widget.Swipe(document.getElementById("swipe"));
+			 *            swipeWidget.disable();
+			 *        </script>
 			 *
 			 * If jQuery is loaded:
 			 *
-			 *		@example
-			 *		<div id="swipe" data-role="swipe">
-			 *			<div data-role="swipe-item-cover">
-			 *				Swipe
-			 *			</div>
-			 *			<div data-role="swipe-item">
-			 *				<div data-role="button" data-inline="true">First item</div>
-			 *				<div data-role="button" data-inline="true">Second item</div>
-			 *			</div>
-			 *		</div>
+			 *        @example
+			 *        <div id="swipe" data-role="swipe">
+			 *            <div data-role="swipe-item-cover">
+			 *                Swipe
+			 *            </div>
+			 *            <div data-role="swipe-item">
+			 *                <div data-role="button" data-inline="true">First item</div>
+			 *                <div data-role="button" data-inline="true">Second item</div>
+			 *            </div>
+			 *        </div>
 			 *
-			 *		<script>
-			 *			$("#swipe").swipe("disable");
-			 *		</script>
+			 *        <script>
+			 *            $("#swipe").swipe("disable");
+			 *        </script>
 			 *
 			 * @method disable
 			 * @chainable
@@ -883,42 +885,42 @@
 			 *
 			 * If you give two arguments and first argument will be a string then second argument will be intemperate as value to set.
 			 *
-			 *		@example
-			 *		<div id="swipe" data-role="swipe">
-			 *			<div data-role="swipe-item-cover">
-			 *				Swipe
-			 *			</div>
-			 *			<div data-role="swipe-item">
-			 *				<div data-role="button" data-inline="true">First item</div>
-			 *				<div data-role="button" data-inline="true">Second item</div>
-			 *			</div>
-			 *		</div>
+			 *        @example
+			 *        <div id="swipe" data-role="swipe">
+			 *            <div data-role="swipe-item-cover">
+			 *                Swipe
+			 *            </div>
+			 *            <div data-role="swipe-item">
+			 *                <div data-role="button" data-inline="true">First item</div>
+			 *                <div data-role="button" data-inline="true">Second item</div>
+			 *            </div>
+			 *        </div>
 			 *
-			 *		<script>
-			 *			var swipeWidget = tau.widget.Swipe(document.getElementById("swipe")),
-			 *				optionValue;
+			 *        <script>
+			 *            var swipeWidget = tau.widget.Swipe(document.getElementById("swipe")),
+			 *                optionValue;
 			 *
-			 *			optionValue = swipeWidget.option("theme"); // read value of option theme
-			 *			swipeWidget.option("theme", "a") // set value
-			 *		</script>
+			 *            optionValue = swipeWidget.option("theme"); // read value of option theme
+			 *            swipeWidget.option("theme", "a") // set value
+			 *        </script>
 			 *
 			 * If jQuery is loaded:
 			 *
-			 *		@example
-			 *		<div id="swipe" data-role="swipe">
-			 *			<div data-role="swipe-item-cover">
-			 *				Swipe
-			 *			</div>
-			 *			<div data-role="swipe-item">
-			 *				<div data-role="button" data-inline="true">First item</div>
-			 *				<div data-role="button" data-inline="true">Second item</div>
-			 *			</div>
-			 *		</div>
+			 *        @example
+			 *        <div id="swipe" data-role="swipe">
+			 *            <div data-role="swipe-item-cover">
+			 *                Swipe
+			 *            </div>
+			 *            <div data-role="swipe-item">
+			 *                <div data-role="button" data-inline="true">First item</div>
+			 *                <div data-role="button" data-inline="true">Second item</div>
+			 *            </div>
+			 *        </div>
 			 *
-			 *		<script>
-			 *			optionValue = $("#swipe").swipe("option", "theme");
-			 *			$("#swipe").swipe("option", "theme", "a");
-			 *		</script>
+			 *        <script>
+			 *            optionValue = $("#swipe").swipe("option", "theme");
+			 *            $("#swipe").swipe("option", "theme", "a");
+			 *        </script>
 			 *
 			 * @method option
 			 * @param {string|Object} [name] name of option
@@ -930,38 +932,38 @@
 			/**
 			 * Trigger an event on widget's element.
 			 *
-			 *		@example
-			 *		<div id="swipe" data-role="swipe">
-			 *			<div data-role="swipe-item-cover">
-			 *				Swipe
-			 *			</div>
-			 *			<div data-role="swipe-item">
-			 *				<div data-role="button" data-inline="true">First item</div>
-			 *				<div data-role="button" data-inline="true">Second item</div>
-			 *			</div>
-			 *		</div>
+			 *        @example
+			 *        <div id="swipe" data-role="swipe">
+			 *            <div data-role="swipe-item-cover">
+			 *                Swipe
+			 *            </div>
+			 *            <div data-role="swipe-item">
+			 *                <div data-role="button" data-inline="true">First item</div>
+			 *                <div data-role="button" data-inline="true">Second item</div>
+			 *            </div>
+			 *        </div>
 			 *
-			 *		<script>
-			 *			var swipeWidget = tau.widget.Swipe(document.getElementById("swipe"));
-			 *			swipeWidget.trigger("eventName");
-			 *		</script>
+			 *        <script>
+			 *            var swipeWidget = tau.widget.Swipe(document.getElementById("swipe"));
+			 *            swipeWidget.trigger("eventName");
+			 *        </script>
 			 *
 			 * If jQuery is loaded:
 			 *
-			 *		@example
-			 *		<div id="swipe" data-role="swipe">
-			 *			<div data-role="swipe-item-cover">
-			 *				Swipe
-			 *			</div>
-			 *			<div data-role="swipe-item">
-			 *				<div data-role="button" data-inline="true">First item</div>
-			 *				<div data-role="button" data-inline="true">Second item</div>
-			 *			</div>
-			 *		</div>
+			 *        @example
+			 *        <div id="swipe" data-role="swipe">
+			 *            <div data-role="swipe-item-cover">
+			 *                Swipe
+			 *            </div>
+			 *            <div data-role="swipe-item">
+			 *                <div data-role="button" data-inline="true">First item</div>
+			 *                <div data-role="button" data-inline="true">Second item</div>
+			 *            </div>
+			 *        </div>
 			 *
-			 *		<script>
-			 *			$("#swipe").swipe("trigger", "eventName");
-			 *		</script>
+			 *        <script>
+			 *            $("#swipe").swipe("trigger", "eventName");
+			 *        </script>
 			 *
 			 * @method trigger
 			 * @param {string} eventName the name of event to trigger
@@ -970,51 +972,51 @@
 			 * @param {boolean} [cancelable=true] indicating whether the event is cancelable
 			 * @return {boolean} false, if any callback invoked preventDefault on event object
 			 * @member ns.widget.mobile.Swipe
-			*/
+			 */
 
 			/**
 			 * Add event listener to widget's element.
 			 *
-			 *		@example
-			 *		<div id="swipe" data-role="swipe">
-			 *			<div data-role="swipe-item-cover">
-			 *				Swipe
-			 *			</div>
-			 *			<div data-role="swipe-item">
-			 *				<div data-role="button" data-inline="true">First item</div>
-			 *				<div data-role="button" data-inline="true">Second item</div>
-			 *			</div>
-			 *		</div>
+			 *        @example
+			 *        <div id="swipe" data-role="swipe">
+			 *            <div data-role="swipe-item-cover">
+			 *                Swipe
+			 *            </div>
+			 *            <div data-role="swipe-item">
+			 *                <div data-role="button" data-inline="true">First item</div>
+			 *                <div data-role="button" data-inline="true">Second item</div>
+			 *            </div>
+			 *        </div>
 			 *
-			 *		<script>
-			 *			var swipeWidget = tau.widget.Swipe(document.getElementById("swipe")),
-			 *				callback = function () {
+			 *        <script>
+			 *            var swipeWidget = tau.widget.Swipe(document.getElementById("swipe")),
+			 *                callback = function () {
 			 *					console.log("event fires");
 			 *				});
 			 *
-			 *			swipeWidget.on("eventName", callback);
-			 *		</script>
+			 *            swipeWidget.on("eventName", callback);
+			 *        </script>
 			 *
 			 * If jQuery is loaded:
 			 *
-			 *		@example
-			 *		<div id="swipe" data-role="swipe">
-			 *			<div data-role="swipe-item-cover">
-			 *				Swipe
-			 *			</div>
-			 *			<div data-role="swipe-item">
-			 *				<div data-role="button" data-inline="true">First item</div>
-			 *				<div data-role="button" data-inline="true">Second item</div>
-			 *			</div>
-			 *		</div>
+			 *        @example
+			 *        <div id="swipe" data-role="swipe">
+			 *            <div data-role="swipe-item-cover">
+			 *                Swipe
+			 *            </div>
+			 *            <div data-role="swipe-item">
+			 *                <div data-role="button" data-inline="true">First item</div>
+			 *                <div data-role="button" data-inline="true">Second item</div>
+			 *            </div>
+			 *        </div>
 			 *
-			 *		<script>
-			 *			var callback = function () {
+			 *        <script>
+			 *            var callback = function () {
 			 *					console.log("event fires");
 			 *				});
 			 *
-			 *			$("#swipe").swipe("on", "eventName", callback);
-			 *		</script>
+			 *            $("#swipe").swipe("on", "eventName", callback);
+			 *        </script>
 			 *
 			 * @method on
 			 * @param {string} eventName the name of event
@@ -1026,50 +1028,50 @@
 			/**
 			 * Remove event listener to widget's element.
 			 *
-			 *		@example
-			 *		<div id="swipe" data-role="swipe">
-			 *			<div data-role="swipe-item-cover">
-			 *				Swipe
-			 *			</div>
-			 *			<div data-role="swipe-item">
-			 *				<div data-role="button" data-inline="true">First item</div>
-			 *				<div data-role="button" data-inline="true">Second item</div>
-			 *			</div>
-			 *		</div>
+			 *        @example
+			 *        <div id="swipe" data-role="swipe">
+			 *            <div data-role="swipe-item-cover">
+			 *                Swipe
+			 *            </div>
+			 *            <div data-role="swipe-item">
+			 *                <div data-role="button" data-inline="true">First item</div>
+			 *                <div data-role="button" data-inline="true">Second item</div>
+			 *            </div>
+			 *        </div>
 			 *
-			 *		<script>
-			 *			var swipeWidget = tau.widget.Swipe(document.getElementById("swipe")),
-			 *				callback = function () {
+			 *        <script>
+			 *            var swipeWidget = tau.widget.Swipe(document.getElementById("swipe")),
+			 *                callback = function () {
 			 *					console.log("event fires");
 			 *				});
 			 *
-			 *			// add callback on event "eventName"
-			 *			swipeWidget.on("eventName", callback);
-			 *			// ...
-			 *			// remove callback on event "eventName"
-			 *			swipeWidget.off("eventName", callback);
-			 *		</script>
+			 *            // add callback on event "eventName"
+			 *            swipeWidget.on("eventName", callback);
+			 *            // ...
+			 *            // remove callback on event "eventName"
+			 *            swipeWidget.off("eventName", callback);
+			 *        </script>
 			 *
 			 * If jQuery is loaded:
 			 *
-			 *		@example
-			 *		<div id="swipe" data-role="swipe">
-			 *			<div data-role="swipe-item-cover">
-			 *				Swipe
-			 *			</div>
-			 *			<div data-role="swipe-item">
-			 *				<div data-role="button" data-inline="true">First item</div>
-			 *				<div data-role="button" data-inline="true">Second item</div>
-			 *			</div>
-			 *		</div>
+			 *        @example
+			 *        <div id="swipe" data-role="swipe">
+			 *            <div data-role="swipe-item-cover">
+			 *                Swipe
+			 *            </div>
+			 *            <div data-role="swipe-item">
+			 *                <div data-role="button" data-inline="true">First item</div>
+			 *                <div data-role="button" data-inline="true">Second item</div>
+			 *            </div>
+			 *        </div>
 			 *
-			 *		<script>
-			 *			// add callback on event "eventName"
-			 *			$("#swipe").swipe("on", "eventName", callback);
-			 *			// ...
-			 *			// remove callback on event "eventName"
-			 *			$("#swipe").swipe("off", "eventName", callback);
-			 *		</script>
+			 *        <script>
+			 *            // add callback on event "eventName"
+			 *            $("#swipe").swipe("on", "eventName", callback);
+			 *            // ...
+			 *            // remove callback on event "eventName"
+			 *            $("#swipe").swipe("off", "eventName", callback);
+			 *        </script>
 			 *
 			 * @method off
 			 * @param {string} eventName the name of event

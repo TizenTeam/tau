@@ -27,10 +27,8 @@
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
-			var BaseWidget  = ns.widget.BaseWidget,
+			var BaseWidget = ns.widget.BaseWidget,
 				engine = ns.engine,
-				selectors = ns.util.selectors,
-				slice = [].slice,
 				Checkboxradio = function () {
 					var self = this;
 
@@ -44,13 +42,13 @@
 			Checkboxradio.prototype = prototype;
 
 			/**
-			* Build Checkboxradio widget
-			* @method _build
-			* @param {HTMLElement} element
-			* @protected
-			* @member ns.widget.Checkboxradio
-			* @instance
-			*/
+			 * Build Checkboxradio widget
+			 * @method _build
+			 * @param {HTMLElement} element
+			 * @protected
+			 * @member ns.widget.Checkboxradio
+			 * @instance
+			 */
 			prototype._build = function (element) {
 				var inputtype = element.getAttribute("type"),
 					elementClassList = element.classList;
@@ -66,28 +64,28 @@
 			};
 
 			/**
-			* Returns the value of checkbox or radio
-			* @method _getValue
-			* @member ns.widget.Checkboxradio
-			* @return {?string}
-			* @protected
-			* @instance
-			* @new
-			*/
+			 * Returns the value of checkbox or radio
+			 * @method _getValue
+			 * @member ns.widget.Checkboxradio
+			 * @return {?string}
+			 * @protected
+			 * @instance
+			 * @new
+			 */
 			prototype._getValue = function () {
 				return this.element.value;
 			};
 
 			/**
-			* Set value to the checkbox or radio
-			* @method _setValue
-			* @param {string} value
-			* @member ns.widget.Checkboxradio
-			* @chainable
-			* @instance
-			* @protected
-			* @new
-			*/
+			 * Set value to the checkbox or radio
+			 * @method _setValue
+			 * @param {string} value
+			 * @member ns.widget.Checkboxradio
+			 * @chainable
+			 * @instance
+			 * @protected
+			 * @new
+			 */
 			prototype._setValue = function (value) {
 				this.element.value = value;
 			};

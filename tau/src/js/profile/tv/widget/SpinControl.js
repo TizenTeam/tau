@@ -28,25 +28,25 @@
  *
  * ####Create simple spin control on INPUT element
  *
- *		@example
- *		<form>
- *			<label for="spin-1">Spin Control:</label>
- *			<input type="number" name="spin-1" id="spin-1" value="">
- *		</form>
+ *        @example
+ *        <form>
+ *            <label for="spin-1">Spin Control:</label>
+ *            <input type="number" name="spin-1" id="spin-1" value="">
+ *        </form>
  *
  * ## Manual constructor
  * For manual creation of SpinControl widget you can use constructor of widget
  * from **tau** namespace:
  *
- *		@example
- *		<form>
- *			<label for="spin-2">Spin Control:</label>
- *			<input type="number" name="spin-2" id="spin-2" value="">
- *		</form>
- *		<script>
- *			var inputElement = document.getElementById("spin-2"),
- *				spinControl = tau.widget.SpinControl(inputElement);
- *		</script>
+ *        @example
+ *        <form>
+ *            <label for="spin-2">Spin Control:</label>
+ *            <input type="number" name="spin-2" id="spin-2" value="">
+ *        </form>
+ *        <script>
+ *            var inputElement = document.getElementById("spin-2"),
+ *                spinControl = tau.widget.SpinControl(inputElement);
+ *        </script>
  *
  * Constructor has one require parameter **element** which are base
  * **HTMLElement** to create widget. We recommend get this element by method
@@ -288,7 +288,7 @@
 			 * @protected
 			 * @member ns.widget.tv.SpinControl
 			 */
-			prototype._showOverlay = function() {
+			prototype._showOverlay = function () {
 				var self = this,
 					ui = self._ui,
 					options = self.options,
@@ -428,7 +428,7 @@
 
 				value = typeof value === "number" ?
 					value : value === "" ?
-						0 : parseInt(value);
+					0 : parseInt(value);
 				emptyChar = emptyChar || "0";
 
 				number.innerHTML = new Array(size - value.toFixed().length + 1).join(emptyChar) + value;
@@ -637,7 +637,7 @@
 			 * @protected
 			 * @member ns.widget.tv.SpinControl
 			 */
-			prototype._bindEvents = function() {
+			prototype._bindEvents = function () {
 				var self = this,
 					callbacks = this._callbacks,
 					ui = self._ui,
@@ -664,7 +664,7 @@
 			 * @protected
 			 * @member ns.widget.tv.SpinControl
 			 */
-			prototype._unbindEvents = function() {
+			prototype._unbindEvents = function () {
 				var self = this,
 					callbacks = this._callbacks,
 					ui = self._ui,
@@ -698,9 +698,9 @@
 				var self = this;
 
 				element.value = element.value ||
-						element.getAttribute("min") ||
-						element.getAttribute("placeholder") ||
-						0;
+					element.getAttribute("min") ||
+					element.getAttribute("placeholder") ||
+					0;
 
 				checkDisable(element);
 				wrap(self, element);
@@ -715,13 +715,13 @@
 			 * @protected
 			 * @member ns.widget.tv.SpinControl
 			 */
-			prototype._init = function(element) {
+			prototype._init = function (element) {
 				var self = this;
 
 				element.step = element.step || 1;
 				self.options.numberOfDigits = self.options.numberOfDigits ||
-						(element.getAttribute("max") && element.getAttribute("max").length) ||
-						2;
+					(element.getAttribute("max") && element.getAttribute("max").length) ||
+					2;
 
 				self._temporaryValue = new Array(self.options.numberOfDigits + 1).join(NUMBER_PLACEHOLDER_CHAR);
 
@@ -738,7 +738,7 @@
 			 * @protected
 			 * @member ns.widget.tv.SpinControl
 			 */
-			prototype._destroy = function() {
+			prototype._destroy = function () {
 				var self = this,
 					ui = self._ui;
 

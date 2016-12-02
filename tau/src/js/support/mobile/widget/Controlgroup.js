@@ -1,4 +1,4 @@
-/*global window, define */
+/*global window, ns, define */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
  *
@@ -26,12 +26,12 @@
  *
  * ### Create Controlgroup
  *
- *		@example
- *		<div data-role="controlgroup">
- *			<a href="#" data-role="button">Yes</a>
- *			<a href="#" data-role="button">No</a>
- *			<a href="#" data-role="button">Cancel</a>
- *		</div>
+ *        @example
+ *        <div data-role="controlgroup">
+ *            <a href="#" data-role="button">Yes</a>
+ *            <a href="#" data-role="button">No</a>
+ *            <a href="#" data-role="button">Cancel</a>
+ *        </div>
  *
  * @class ns.widget.mobile.Controlgroup
  * @extends ns.widget.BaseWidget
@@ -49,12 +49,12 @@
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 			/**
-			* Alias for class ns.widget.mobile.Controlgroup
-			* @method Controlgroup
-			* @member ns.widget.mobile.Controlgroup
-			* @private
-			* @static
-			*/
+			 * Alias for class ns.widget.mobile.Controlgroup
+			 * @method Controlgroup
+			 * @member ns.widget.mobile.Controlgroup
+			 * @private
+			 * @static
+			 */
 			var Controlgroup = function () {
 					/**
 					 * Object with default options
@@ -73,37 +73,37 @@
 					};
 				},
 				/**
-				* @property {Object} Widget Alias for {@link ns.widget.BaseWidget}
-				* @member ns.widget.mobile.Controlgroup
-				* @private
-				* @static
-				*/
+				 * @property {Object} Widget Alias for {@link ns.widget.BaseWidget}
+				 * @member ns.widget.mobile.Controlgroup
+				 * @private
+				 * @static
+				 */
 				BaseWidget = ns.widget.mobile.BaseWidgetMobile,
 				/**
-				* @property {Object} engine Alias for class ns.engine
-				* @member ns.widget.mobile.Controlgroup
-				* @private
-				* @static
-				*/
+				 * @property {Object} engine Alias for class ns.engine
+				 * @member ns.widget.mobile.Controlgroup
+				 * @private
+				 * @static
+				 */
 				engine = ns.engine,
 				/**
-				* @property {Object} dom Alias for class ns.util.DOM
-				* @member ns.widget.mobile.Controlgroup
-				* @private
-				* @static
-				*/
+				 * @property {Object} dom Alias for class ns.util.DOM
+				 * @member ns.widget.mobile.Controlgroup
+				 * @private
+				 * @static
+				 */
 				dom = ns.util.DOM,
 				/**
-				* @property {Object} selectors Alias for class ns.util.selectors
-				* @private
-				* @static
-				*/
+				 * @property {Object} selectors Alias for class ns.util.selectors
+				 * @private
+				 * @static
+				 */
 				selectors = ns.util.selectors,
 				/**
-				* @property {Function} slice Alias for function Array.slice
-				* @private
-				* @static
-				*/
+				 * @property {Function} slice Alias for function Array.slice
+				 * @private
+				 * @static
+				 */
 				slice = [].slice;
 
 			Controlgroup.prototype = new BaseWidget();
@@ -131,14 +131,14 @@
 			};
 
 			/**
-			* Applies css styles to Controlgroup elements
-			* @method flipClasses
-			* @param {Array} elements Array of Controlgroup elements
-			* @param {Array} cornersClasses Array of css styles for first and last element
-			* @private
-			* @static
-			* @member ns.widget.mobile.Controlgroup
-			*/
+			 * Applies css styles to Controlgroup elements
+			 * @method flipClasses
+			 * @param {Array} elements Array of Controlgroup elements
+			 * @param {Array} cornersClasses Array of css styles for first and last element
+			 * @private
+			 * @static
+			 * @member ns.widget.mobile.Controlgroup
+			 */
 			function flipClasses(elements, cornersClasses) {
 				var len = elements.length,
 					lastElementClassList,
@@ -167,14 +167,14 @@
 			}
 
 			/**
-			* Builds structure of Controlgroup widget
-			* @method _build
-			* @param {HTMLElement} element
-			* @return {HTMLElement}
-			* @protected
-			* @member ns.widget.mobile.Controlgroup
-			* @instance
-			*/
+			 * Builds structure of Controlgroup widget
+			 * @method _build
+			 * @param {HTMLElement} element
+			 * @return {HTMLElement}
+			 * @protected
+			 * @member ns.widget.mobile.Controlgroup
+			 * @instance
+			 */
 			Controlgroup.prototype._build = function (element) {
 				var classes = Controlgroup.classes,
 					elementClassList = element.classList,
@@ -187,10 +187,10 @@
 					content;
 
 				/*
-				* if (groupControls.length) {
-				*   //@todo unwrap content
-				* }
-				*/
+				 * if (groupControls.length) {
+				 *   //@todo unwrap content
+				 * }
+				 */
 
 				dom.wrapInHTML(element.childNodes, "<div class='" + classes.controlGroupControls + "'></div>");
 				groupControls = selectors.getChildrenByClass(element, classes.controlGroupControls)[0];
@@ -210,7 +210,7 @@
 				}
 
 				cornersClasses = options.type === "horizontal" ?
-						[classes.cornerLeft, classes.cornerRight] : [classes.cornerTop, classes.cornerBottom];
+					[classes.cornerLeft, classes.cornerRight] : [classes.cornerTop, classes.cornerBottom];
 
 				elementClassList.add(classes.controlGroupCornerAll);
 				elementClassList.add(classes.controlGroup);
@@ -248,7 +248,7 @@
 				controlElements = selectors.getChildrenByTag(groupControls, "a");
 				controlElementsLength = controlElements.length;
 				widthSize = 100 / controlElementsLength;
-				for(i = 0; i < controlElementsLength; i++) {
+				for (i = 0; i < controlElementsLength; i++) {
 					engine.instanceWidget(controlElements[i], "Button");
 					controlElements[i].style.width = widthSize + "%";
 				}

@@ -94,8 +94,8 @@
 					classList.add(classes.process);
 					length = attributes.length;
 
-					for (i = 0; i < length; ++i){
-						nodeName  = attributes.item(i).name;
+					for (i = 0; i < length; ++i) {
+						nodeName = attributes.item(i).name;
 						nodeValue = attributes.item(i).value;
 						replacement.setAttribute(nodeName, nodeValue);
 					}
@@ -119,7 +119,7 @@
 			 * @protected
 			 * @member ns.widget.tv.Progress
 			 */
-			prototype._init = function(element) {
+			prototype._init = function (element) {
 				var self = this,
 					min = parseInt(element.getAttribute("min"), 10),
 					max = parseInt(element.getAttribute("max"), 10),

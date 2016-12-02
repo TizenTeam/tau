@@ -1,4 +1,4 @@
-/*global window, define */
+/*global window, ns, define */
 /*jslint plusplus: true, nomen: true */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
@@ -52,13 +52,13 @@
 
 			ns.jqm.event = {
 				/**
-				* Create method on jQuery object with name represent event.
-				* @method proxyEventTriggerMethod
-				* @param {string} name Name of event and new method
-				* @param {Function} trigger Function called after invoke method
-				* @member ns.jqm.event
-				* @static
-				*/
+				 * Create method on jQuery object with name represent event.
+				 * @method proxyEventTriggerMethod
+				 * @param {string} name Name of event and new method
+				 * @param {Function} trigger Function called after invoke method
+				 * @member ns.jqm.event
+				 * @static
+				 */
 				proxyEventTriggerMethod: function (name, trigger) {
 					$.fn[name] = function () {
 						var $elements = this,
@@ -84,7 +84,7 @@
 						elementsLength = $elements.length,
 						i;
 
-					if(!eventType[type.toUpperCase()]){
+					if (!eventType[type.toUpperCase()]) {
 						orginalTrigger.call($elements, type, data);
 					}
 
@@ -149,7 +149,7 @@
 				 * @static
 				 */
 				init: function () {
-						var removeEvents = function (eventUtils) {
+					var removeEvents = function (eventUtils) {
 							eventUtils.stopPropagation();
 							eventUtils.preventDefault();
 							return false;
@@ -160,8 +160,8 @@
 
 					if ($) {
 						// setup new event shortcuts
-						registerEventNames.forEach(function(name) {
-							$.fn[name] = function(fn) {
+						registerEventNames.forEach(function (name) {
+							$.fn[name] = function (fn) {
 								return fn ? this.bind(name, fn) : this.trigger(name);
 							};
 							// jQuery < 1.8

@@ -1,4 +1,4 @@
-/*global ns */
+/*global ns, define */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
  *

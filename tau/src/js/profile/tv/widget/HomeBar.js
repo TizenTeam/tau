@@ -175,7 +175,7 @@
 					top = 0;
 
 				if (headers.length) {
-					utilArray.forEach(headers, function(li) {
+					utilArray.forEach(headers, function (li) {
 						headerUL.appendChild(li);
 					});
 					container.appendChild(headerUL);
@@ -184,7 +184,7 @@
 					container.classList.add(classes.homebar);
 					headerULStyle.top = 0;
 					headerULStyle.position = "absolute";
-					utilArray.forEach(headers, function(li) {
+					utilArray.forEach(headers, function (li) {
 						var height = utilDOM.getElementHeight(li);
 						li.classList.add(classes.block);
 						engine.instanceWidget(li.firstElementChild, "Button");
@@ -213,7 +213,7 @@
 				var children = utilsSelectors.getChildrenByTag(element, "li"),
 					top = 0;
 
-				utilArray.forEach(children, function(li) {
+				utilArray.forEach(children, function (li) {
 					var height = utilDOM.getElementHeight(li);
 					li.classList.add(classes.block);
 					engine.instanceWidget(li.firstElementChild, "Button");
@@ -230,7 +230,7 @@
 			 * @protected
 			 * @member ns.widget.tv.HomeBar
 			 */
-			prototype._build = function(element) {
+			prototype._build = function (element) {
 				buildHeaders(element);
 				positionElements(element);
 				return element;
@@ -242,7 +242,7 @@
 			 * @protected
 			 * @member ns.widget.tv.HomeBar
 			 */
-			prototype._refresh = function() {
+			prototype._refresh = function () {
 				positionElements(this.element);
 			};
 
@@ -253,7 +253,7 @@
 			 * @protected
 			 * @member ns.widget.tv.HomeBar
 			 */
-			prototype._init = function(element) {
+			prototype._init = function (element) {
 				var drawerElement = utilsSelectors.getClosestByClass(element, drawerClasses.drawer);
 				this._drawerWidget = engine.instanceWidget(drawerElement, "Drawer");
 				return element;
@@ -287,9 +287,8 @@
 			function activateOnClick(self, event) {
 				var clickedElement = utilsSelectors.getClosestByTag(event.target, "li"),
 					pageWidget = self._drawerWidget;
-				if (!self._editMode &&
-						!clickedElement.classList.contains(classes.disableMove) &&
-						self._drawerWidget.isOpen()) {
+				if (!self._editMode && !clickedElement.classList.contains(classes.disableMove) &&
+					self._drawerWidget.isOpen()) {
 					// enable edit mode
 					self._editMode = true;
 
@@ -473,6 +472,7 @@
 					background.parentNode.removeChild(background);
 				}
 			}
+
 			/**
 			 * Show edit mode structure
 			 * @method showBackground
@@ -553,7 +553,7 @@
 					newTop;
 				if (self._editMode) {
 					boxStyle = box.style,
-					containerStyle = container.style;
+						containerStyle = container.style;
 					offsetElement = utilDOM.getElementOffset(element);
 					offsetClickedElement = utilDOM.getElementOffset(clickedElement);
 					width = utilDOM.getElementWidth(element);
@@ -561,7 +561,7 @@
 					buttonSize = utilDOM.getElementHeight(ui.buttonUp);
 					clonedElement = clickedElement.cloneNode(true);
 					newTop = (offsetClickedElement.top - buttonSize - element.scrollTop);
-					if (newTop + buttonSize < offsetElement.top ) {
+					if (newTop + buttonSize < offsetElement.top) {
 						element.scrollTop += newTop + buttonSize - offsetElement.top;
 						newTop = (offsetClickedElement.top - buttonSize - element.scrollTop);
 					}
@@ -668,7 +668,7 @@
 			 * @param {HTMLLIElement} liElement Element to add
 			 * @member ns.widget.tv.HomeBar
 			 */
-			prototype.add = function(liElement) {
+			prototype.add = function (liElement) {
 				var element = this.element;
 				element.insertBefore(liElement, placeToAdd(element));
 				liElement.classList.add(classes.block);
@@ -687,7 +687,7 @@
 			 * @param {HTMLLIElement} liElement Element to remove
 			 * @member ns.widget.tv.HomeBar
 			 */
-			prototype.remove = function(liElement) {
+			prototype.remove = function (liElement) {
 				if (liElement) {
 					this._ui.clickedElement = liElement;
 					deleteElement(this);
@@ -700,7 +700,7 @@
 			 * @param {HTMLLIElement} liElement Element to move
 			 * @member ns.widget.tv.HomeBar
 			 */
-			prototype.moveUp = function(liElement) {
+			prototype.moveUp = function (liElement) {
 				if (liElement) {
 					this._ui.clickedElement = liElement;
 					moveUpOnClick(this);
@@ -713,7 +713,7 @@
 			 * @param {HTMLLIElement} liElement Element to move
 			 * @member ns.widget.tv.HomeBar
 			 */
-			prototype.moveDown = function(liElement) {
+			prototype.moveDown = function (liElement) {
 				if (liElement) {
 					this._ui.clickedElement = liElement;
 					moveDownOnClick(this);
@@ -726,7 +726,7 @@
 			 * @protected
 			 * @member ns.widget.tv.HomeBar
 			 */
-			prototype._bindEvents = function() {
+			prototype._bindEvents = function () {
 				var self = this,
 					element = self.element,
 					listeners = self._listeners;
@@ -745,7 +745,7 @@
 			 * @protected
 			 * @member ns.widget.tv.HomeBar
 			 */
-			prototype._destroy = function(element) {
+			prototype._destroy = function (element) {
 				var self = this,
 					listeners = self._listeners;
 				element.removeEventListener("vclick", listeners.click, false);

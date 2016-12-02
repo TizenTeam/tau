@@ -22,11 +22,11 @@
  *
  * !!!When implementing the list widget:!!!
  *
- *	- A button widget (data-role="button") placed in the *a* tag is
- *	 not supported in the list widget. The button must be placed in a *div* tag.
- *	- If you implement the list widget differently than described in
- *	 the examples shown below, application customization (set element
- *	 positioning) is required.
+ *    - A button widget (data-role="button") placed in the *a* tag is
+ *     not supported in the list widget. The button must be placed in a *div* tag.
+ *    - If you implement the list widget differently than described in
+ *     the examples shown below, application customization (set element
+ *     positioning) is required.
  *
  *
  * ## Default selectors
@@ -36,39 +36,39 @@
  * Additionaly all UL or OL elements with class _ui-listview_ are changed to
  *  Tizen Web UI Listview.
  *
- *		@example
- *		<ul data-role="listview">
- *			<li>Anton</li>
- *			<li>Arabella</li>
- *			<li>Barry</li>
- *			<li>Bill</li>
- *		</ul>
+ *        @example
+ *        <ul data-role="listview">
+ *            <li>Anton</li>
+ *            <li>Arabella</li>
+ *            <li>Barry</li>
+ *            <li>Bill</li>
+ *        </ul>
  *
  * #### Create Listview widget using tau method:
  *
- *		@example
- *		<ul id="list">
- *			<li>Anton</li>
- *			<li>Arabella</li>
- *			<li>Barry</li>
- *			<li>Bill</li>
- *		</ul>
- *		<script>
- *			tau.widget.Listview(document.getElementById("list"));
- *		</script>
+ *        @example
+ *        <ul id="list">
+ *            <li>Anton</li>
+ *            <li>Arabella</li>
+ *            <li>Barry</li>
+ *            <li>Bill</li>
+ *        </ul>
+ *        <script>
+ *            tau.widget.Listview(document.getElementById("list"));
+ *        </script>
  *
  * #### Create FastScroll widget using jQueryMobile notation:
  *
- *		@example
- *		<ul id="list">
- *			<li>Anton</li>
- *			<li>Arabella</li>
- *			<li>Barry</li>
- *			<li>Bill</li>
- *		</ul>
- *		<script>
- *			$('#list').listview();
- *		</script>
+ *        @example
+ *        <ul id="list">
+ *            <li>Anton</li>
+ *            <li>Arabella</li>
+ *            <li>Barry</li>
+ *            <li>Bill</li>
+ *        </ul>
+ *        <script>
+ *            $('#list').listview();
+ *        </script>
  *
  * ## Options
  *
@@ -76,167 +76,167 @@
  * _data-inset_ If this option is set to **true** the listview is wrapped by
  * additionally layer
  *
- *		@example
- *		<ul data-role="listview" data-inset="true">
- *			<li>Anton</li>
- *			<li>Arabella</li>
- *			<li>Barry</li>
- *			<li>Bill</li>
- *		</ul>
+ *        @example
+ *        <ul data-role="listview" data-inset="true">
+ *            <li>Anton</li>
+ *            <li>Arabella</li>
+ *            <li>Barry</li>
+ *            <li>Bill</li>
+ *        </ul>
  *
  * ### Theme
  * _data-theme_ Sets the theme of listview
  *
- *		@example
- *		<ul data-role="listview" data-theme="s">
- *			<li>Anton</li>
- *			<li>Arabella</li>
- *			<li>Barry</li>
- *			<li>Bill</li>
- *		</ul>
+ *        @example
+ *        <ul data-role="listview" data-theme="s">
+ *            <li>Anton</li>
+ *            <li>Arabella</li>
+ *            <li>Barry</li>
+ *            <li>Bill</li>
+ *        </ul>
  *
  * ### Divider theme
  * _data-divider-theme_ Sets the divider theme of listview
  *
- *		@example
- *		<ul data-role="listview" data-divider-theme="s">
- *			<li>Anton</li>
- *			<li>Arabella</li>
- *			<li data-role="divider">B</li>
- *			<li>Barry</li>
- *			<li>Bill</li>
- *		</ul>
+ *        @example
+ *        <ul data-role="listview" data-divider-theme="s">
+ *            <li>Anton</li>
+ *            <li>Arabella</li>
+ *            <li data-role="divider">B</li>
+ *            <li>Barry</li>
+ *            <li>Bill</li>
+ *        </ul>
  *
  *
  * ## HTML example code
  *
  * ### Basic 1-line list item with anchor.
  *
- *		@example
- *		<ul data-role="listview">
- *			<li><a href="#">Anton</a></li>
- *			<li><a href="#">Barry</a></li>
- *			<li><a href="#">Bill</a></li>
- *		</ul>
+ *        @example
+ *        <ul data-role="listview">
+ *            <li><a href="#">Anton</a></li>
+ *            <li><a href="#">Barry</a></li>
+ *            <li><a href="#">Bill</a></li>
+ *        </ul>
  *
  * ### Basic 1-line list item without anchor.
  *
- *		@example
- *		<ul data-role="listview">
- *			<li>Anton</li>
- *			<li>Barry</li>
- *			<li>Bill</li>
- *		</ul>
+ *        @example
+ *        <ul data-role="listview">
+ *            <li>Anton</li>
+ *            <li>Barry</li>
+ *            <li>Bill</li>
+ *        </ul>
  *
  * ### 1-line list item with a subtext.
  *
- *		@example
- *		<ul data-role="listview">
- *			<li><a href="#">
- *				Anton
- *				<span class="ui-li-text-sub">subtext</span>
- *				</a>
- *			</li>
- *			<li><a href="#">
- *				Barry
- *				<span class="ui-li-text-sub">subtext</span>
- *				</a>
- *			</li>
- *			<li><a href="#">
- *				Bill
- *				<span class="ui-li-text-sub">subtext</span>
- *				</a>
- *			</li>
- *		</ul>
+ *        @example
+ *        <ul data-role="listview">
+ *            <li><a href="#">
+ *                Anton
+ *                <span class="ui-li-text-sub">subtext</span>
+ *                </a>
+ *            </li>
+ *            <li><a href="#">
+ *                Barry
+ *                <span class="ui-li-text-sub">subtext</span>
+ *                </a>
+ *            </li>
+ *            <li><a href="#">
+ *                Bill
+ *                <span class="ui-li-text-sub">subtext</span>
+ *                </a>
+ *            </li>
+ *        </ul>
  *
  * ### List with sub text below the main text.
  *
  * If this attribute is not used, the sub text position is right next to
  * the main text.
  *
- *		@example
- *		<ul data-role="listview">
- *			<li class="ui-li-multiline">Anton
- *				<span class="ui-li-text-sub">subtext</span>
- *			</li>
- *			<li class="ui-li-multiline">Barry
- *				<span class="ui-li-text-sub">subtext</span>
- *			</li>
- *			<li class="ui-li-multiline">Bill
- *				<span class="ui-li-text-sub">subtext</span>
- *			</li>
- *		</ul>
+ *        @example
+ *        <ul data-role="listview">
+ *            <li class="ui-li-multiline">Anton
+ *                <span class="ui-li-text-sub">subtext</span>
+ *            </li>
+ *            <li class="ui-li-multiline">Barry
+ *                <span class="ui-li-text-sub">subtext</span>
+ *            </li>
+ *            <li class="ui-li-multiline">Bill
+ *                <span class="ui-li-text-sub">subtext</span>
+ *            </li>
+ *        </ul>
  *
  * ### List with thumbnail
  *
- *		@example
- *		<ul data-role="listview">
- *			<li><img src="a.jpg" class="ui-li-bigicon" />Anton</li>
- *			<li><img src="a.jpg" class="ui-li-bigicon" />Barry</li>
- *			<li><img src="a.jpg" class="ui-li-bigicon" />Bill</li>
- *		</ul>
+ *        @example
+ *        <ul data-role="listview">
+ *            <li><img src="a.jpg" class="ui-li-bigicon" />Anton</li>
+ *            <li><img src="a.jpg" class="ui-li-bigicon" />Barry</li>
+ *            <li><img src="a.jpg" class="ui-li-bigicon" />Bill</li>
+ *        </ul>
  *
  * ### List with thumbnail to the right.
  *
- *		@example
- *		<ul data-role="listview">
- *			<li class="ui-li-thumbnail-right">
- *				<img src="a.jpg" class="ui-li-bigicon" />
- *				Anton
- *			</li>
- *			<li class="ui-li-thumbnail-right">
- *				<img src="a.jpg" class="ui-li-bigicon" />
- *				Barry
- *			</li>
- *			<li class="ui-li-thumbnail-right">
- *				<img src="a.jpg" class="ui-li-bigicon" />
- *				Bill
- *			</li>
- *		</ul>
+ *        @example
+ *        <ul data-role="listview">
+ *            <li class="ui-li-thumbnail-right">
+ *                <img src="a.jpg" class="ui-li-bigicon" />
+ *                Anton
+ *            </li>
+ *            <li class="ui-li-thumbnail-right">
+ *                <img src="a.jpg" class="ui-li-bigicon" />
+ *                Barry
+ *            </li>
+ *            <li class="ui-li-thumbnail-right">
+ *                <img src="a.jpg" class="ui-li-bigicon" />
+ *                Bill
+ *            </li>
+ *        </ul>
  *
  * ### 1-line list item with a text button, or with a circle-shaped button.
  *
- *		@example
- *		<ul data-role="listview">
- *			<li><a href="#">
- *					Anton
- *					<div data-role="button" data-inline="true">Button</div>
- *				</a>
- *			</li>
- *			<li><a href="#">
- *					Barry
- *					<div data-role="button" data-inline="true" data-icon="plus"
- *						data-style="circle"></div>
- *				</a>
- *			</li>
- *		</ul>
+ *        @example
+ *        <ul data-role="listview">
+ *            <li><a href="#">
+ *                    Anton
+ *                    <div data-role="button" data-inline="true">Button</div>
+ *                </a>
+ *            </li>
+ *            <li><a href="#">
+ *                    Barry
+ *                    <div data-role="button" data-inline="true" data-icon="plus"
+ *                        data-style="circle"></div>
+ *                </a>
+ *            </li>
+ *        </ul>
  *
  * ### 1-line list item with a toggle switch.
  *
- *		@example
- *		<ul data-role="listview">
- *			<li>
- *				Anton
- *				<select name="flip-11" id="flip-11" data-role="slider">
- *					<option value="off"></option>
- *					<option value="on"></option>
- *				</select>
- *			</li>
- *			<li>
- *				Barry
- *				<select name="flip-12" id="flip-12" data-role="slider">
- *					<option value="off"></option>
- *					<option value="on"></option>
- *				</select>
- *			</li>
- *			<li>
- *				Bill
- *				<select name="flip-13" id="flip-13" data-role="slider">
- *					<option value="off"></option>
- *					<option value="on"></option>
- *				</select>
- *			</li>
- *		</ul>
+ *        @example
+ *        <ul data-role="listview">
+ *            <li>
+ *                Anton
+ *                <select name="flip-11" id="flip-11" data-role="slider">
+ *                    <option value="off"></option>
+ *                    <option value="on"></option>
+ *                </select>
+ *            </li>
+ *            <li>
+ *                Barry
+ *                <select name="flip-12" id="flip-12" data-role="slider">
+ *                    <option value="off"></option>
+ *                    <option value="on"></option>
+ *                </select>
+ *            </li>
+ *            <li>
+ *                Bill
+ *                <select name="flip-13" id="flip-13" data-role="slider">
+ *                    <option value="off"></option>
+ *                    <option value="on"></option>
+ *                </select>
+ *            </li>
+ *        </ul>
  *
  * ### 1-line list item with thumbnail image
  * #### - and a subtext,
@@ -244,476 +244,476 @@
  * #### - and circle-shaped button
  * #### - and a toggle switch.
  *
- *		@example
- *		<ul data-role="listview">
- *			<li><a href="#">
- *					<img src="thumbnail.jpg" class="ui-li-bigicon" />
- *					Anton
- *				</a>
- *			</li>
- *			<li><a href="#">
- *					<img src="thumbnail.jpg" class="ui-li-bigicon" />
- *					Barry
- *					<span class="ui-li-text-sub">subtext</span>
- *				</a>
- *			</li>
- *			<li><a href="#">
- *					<img src="thumbnail.jpg" class="ui-li-bigicon" />
- *					Barry
- *					<div data-role="button" data-inline="true">Button</div>
- *				</a>
- *			</li>
- *			<li><a href="#">
- *					<img src="thumbnail.jpg" class="ui-li-bigicon" />
- *					Barry
- *					<div data-role="button" data-inline="true" data-icon="plus"
- *						data-style="circle"></div>
- *				</a>
- *			</li>
- *			<li>
- *				<img src="thumbnail.jpg" class="ui-li-bigicon" />
- *				Barry
- *				<select name="flip-13" id="flip-13" data-role="slider">
- *					<option value="off"></option>
- *					<option value="on"></option>
- *				</select>
- *			</li>
- *		</ul>
+ *        @example
+ *        <ul data-role="listview">
+ *            <li><a href="#">
+ *                    <img src="thumbnail.jpg" class="ui-li-bigicon" />
+ *                    Anton
+ *                </a>
+ *            </li>
+ *            <li><a href="#">
+ *                    <img src="thumbnail.jpg" class="ui-li-bigicon" />
+ *                    Barry
+ *                    <span class="ui-li-text-sub">subtext</span>
+ *                </a>
+ *            </li>
+ *            <li><a href="#">
+ *                    <img src="thumbnail.jpg" class="ui-li-bigicon" />
+ *                    Barry
+ *                    <div data-role="button" data-inline="true">Button</div>
+ *                </a>
+ *            </li>
+ *            <li><a href="#">
+ *                    <img src="thumbnail.jpg" class="ui-li-bigicon" />
+ *                    Barry
+ *                    <div data-role="button" data-inline="true" data-icon="plus"
+ *                        data-style="circle"></div>
+ *                </a>
+ *            </li>
+ *            <li>
+ *                <img src="thumbnail.jpg" class="ui-li-bigicon" />
+ *                Barry
+ *                <select name="flip-13" id="flip-13" data-role="slider">
+ *                    <option value="off"></option>
+ *                    <option value="on"></option>
+ *                </select>
+ *            </li>
+ *        </ul>
  *
  * ### 1-line list item with check box,
  * #### - and thumbnail,
  * #### - and thumbnail and circle-shaped button.
  *
- *		@example
- *		<ul data-role="listview">
- *			<li>
- *				<form><input type="checkbox" name="c1line-check1" /></form>
- *				Anton
- *			</li>
- *			<li>
- *				<form><input type="checkbox" /></form>
- *				Barry
- *				<img src="thumbnail.jpg" class="ui-li-bigicon" />
- *			</li>
- *			<li>
- *				<form><input type="checkbox" name="c1line-check4" /></form>
- *				<img src="thumbnail.jpg" class="ui-li-bigicon" />
- *				Barry
- *				<div data-role="button" data-inline="true" data-icon="plus"
- *					data-style="circle"></div>
- *			</li>
- *		</ul>
+ *        @example
+ *        <ul data-role="listview">
+ *            <li>
+ *                <form><input type="checkbox" name="c1line-check1" /></form>
+ *                Anton
+ *            </li>
+ *            <li>
+ *                <form><input type="checkbox" /></form>
+ *                Barry
+ *                <img src="thumbnail.jpg" class="ui-li-bigicon" />
+ *            </li>
+ *            <li>
+ *                <form><input type="checkbox" name="c1line-check4" /></form>
+ *                <img src="thumbnail.jpg" class="ui-li-bigicon" />
+ *                Barry
+ *                <div data-role="button" data-inline="true" data-icon="plus"
+ *                    data-style="circle"></div>
+ *            </li>
+ *        </ul>
  *
  * ### 1-line list item with radio button,
  * #### - and thumbnail,
  * #### - and thumbnail and circle-shaped button.
  *
- *		@example
- *		<form>
- *		<ul data-role="listview">
- *			<li>
- *				<input type="radio" name="radio"/>
- *				Anton
- *			</li>
- *			<li>
- *				<input type="radio" name="radio"/>
- *				Barry
- *				<img src="thumbnail.jpg" class="ui-li-bigicon" />
- *			</li>
- *			<li>
- *				<input type="radio" name="radio"/>
- *				<img src="thumbnail.jpg" class="ui-li-bigicon" />
- *				Barry
- *				<div data-role="button" data-inline="true" data-icon="plus"
- *					data-style="circle"></div>
- *			</li>
- *		</ul>
- *		<form>
+ *        @example
+ *        <form>
+ *        <ul data-role="listview">
+ *            <li>
+ *                <input type="radio" name="radio"/>
+ *                Anton
+ *            </li>
+ *            <li>
+ *                <input type="radio" name="radio"/>
+ *                Barry
+ *                <img src="thumbnail.jpg" class="ui-li-bigicon" />
+ *            </li>
+ *            <li>
+ *                <input type="radio" name="radio"/>
+ *                <img src="thumbnail.jpg" class="ui-li-bigicon" />
+ *                Barry
+ *                <div data-role="button" data-inline="true" data-icon="plus"
+ *                    data-style="circle"></div>
+ *            </li>
+ *        </ul>
+ *        <form>
  *
  * ### Basic 2-line list item.
  *
- *		@example
- *		<ul data-role="listview">
- *			<li class="ui-li-has-multiline">
- *				<a href="#">
- *					Anton
- *					<span class="ui-li-text-sub">subtext</span>
- *				</a>
- *			</li>
- *			<li class="ui-li-has-multiline">
- *				<a href="#">
- *					Barry
- *					<span class="ui-li-text-sub">subtext</span>
- *				</a>
- *			</li>
- *			<li class="ui-li-has-multiline">
- *				<a href="#">
- *					Bill
- *					<span class="ui-li-text-sub">subtext</span>
- *				</a>
- *			</li>
- *		</ul>
+ *        @example
+ *        <ul data-role="listview">
+ *            <li class="ui-li-has-multiline">
+ *                <a href="#">
+ *                    Anton
+ *                    <span class="ui-li-text-sub">subtext</span>
+ *                </a>
+ *            </li>
+ *            <li class="ui-li-has-multiline">
+ *                <a href="#">
+ *                    Barry
+ *                    <span class="ui-li-text-sub">subtext</span>
+ *                </a>
+ *            </li>
+ *            <li class="ui-li-has-multiline">
+ *                <a href="#">
+ *                    Bill
+ *                    <span class="ui-li-text-sub">subtext</span>
+ *                </a>
+ *            </li>
+ *        </ul>
  *
  * ### 2-line list item with 2 subtexts.
  *
- *		@example
- *		<ul data-role="listview">
- *			<li class="ui-li-has-multiline">
- *				<a href="#">
- *					Anton
- *					<span class="ui-li-text-sub">subtext</span>
- *					<span class="ui-li-text-sub2">subtext 2</span>
- *				</a>
- *			</li>
- *			<li class="ui-li-has-multiline">
- *				<a href="#">
- *					Barry
- *					<span class="ui-li-text-sub">subtext</span>
- *					<span class="ui-li-text-sub2">subtext 2</span>
- *				</a>
- *			</li>
- *			<li class="ui-li-has-multiline">
- *				<a href="#">
- *					Bill
- *					<span class="ui-li-text-sub">subtext</span>
- *					<span class="ui-li-text-sub2">subtext 2</span>
- *				</a>
- *			</li>
- *		</ul>
+ *        @example
+ *        <ul data-role="listview">
+ *            <li class="ui-li-has-multiline">
+ *                <a href="#">
+ *                    Anton
+ *                    <span class="ui-li-text-sub">subtext</span>
+ *                    <span class="ui-li-text-sub2">subtext 2</span>
+ *                </a>
+ *            </li>
+ *            <li class="ui-li-has-multiline">
+ *                <a href="#">
+ *                    Barry
+ *                    <span class="ui-li-text-sub">subtext</span>
+ *                    <span class="ui-li-text-sub2">subtext 2</span>
+ *                </a>
+ *            </li>
+ *            <li class="ui-li-has-multiline">
+ *                <a href="#">
+ *                    Bill
+ *                    <span class="ui-li-text-sub">subtext</span>
+ *                    <span class="ui-li-text-sub2">subtext 2</span>
+ *                </a>
+ *            </li>
+ *        </ul>
  *
  * ### 2-line list item with a text or circle-shaped button.
  *
- *		@example
- *		<ul data-role="listview">
- *			<li class="ui-li-has-multiline">
- *				<a href="#">
- *					Anton
- *					<span class="ui-li-text-sub">subtext</span>
- *					<div data-role="button" data-inline="true">button</div>
- *				</a>
- *			</li>
- *			<li class="ui-li-has-multiline">
- *				<a href="#">
- *					Barry
- *					<span class="ui-li-text-sub">subtext</span>
- *					<div data-role="button" data-inline="true" data-icon="call"
- *						data-style="circle"></div>
- *				</a>
- *			</li>
- *		</ul>
+ *        @example
+ *        <ul data-role="listview">
+ *            <li class="ui-li-has-multiline">
+ *                <a href="#">
+ *                    Anton
+ *                    <span class="ui-li-text-sub">subtext</span>
+ *                    <div data-role="button" data-inline="true">button</div>
+ *                </a>
+ *            </li>
+ *            <li class="ui-li-has-multiline">
+ *                <a href="#">
+ *                    Barry
+ *                    <span class="ui-li-text-sub">subtext</span>
+ *                    <div data-role="button" data-inline="true" data-icon="call"
+ *                        data-style="circle"></div>
+ *                </a>
+ *            </li>
+ *        </ul>
  *
  * ### 2-line list item with 2 subtexts
  * #### - and a star-shaped icon next to the first subtext
  * #### - and 1 subtext and 2 star-shaped icons
  *
- *		@example
- *		<ul data-role="listview">
- *			<li class="ui-li-has-multiline">
- *				<a href="#">
- *					Anton
- *					<span class="ui-li-text-sub">subtext</span>
- *					<span style="position:absolute; right:16px; top:80px">
- *						<img class= "ui-li-icon-sub-right"
- *							src="00_winset_icon_favorite_on.png" />
- *					</span>
- *					<span class="ui-li-text-sub2">subtext 2</span>
- *				</a>
- *			</li>
- *			<li class="ui-li-has-multiline">
- *				<a href="#">
- *					Barry
- *					<span class="ui-li-text-sub">
- *						<img class="ui-li-icon-sub"
- *							src="00_winset_icon_favorite_on.png" />
- *						subtext
- *					</span>
- *					<span>
- *						<img class="ui-li-icon-sub-right"
- *							src="00_winset_icon_favorite_on.png" />
- *					</span>
- *				</a>
- *			</li>
- *		</ul>
+ *        @example
+ *        <ul data-role="listview">
+ *            <li class="ui-li-has-multiline">
+ *                <a href="#">
+ *                    Anton
+ *                    <span class="ui-li-text-sub">subtext</span>
+ *                    <span style="position:absolute; right:16px; top:80px">
+ *                        <img class= "ui-li-icon-sub-right"
+ *                            src="00_winset_icon_favorite_on.png" />
+ *                    </span>
+ *                    <span class="ui-li-text-sub2">subtext 2</span>
+ *                </a>
+ *            </li>
+ *            <li class="ui-li-has-multiline">
+ *                <a href="#">
+ *                    Barry
+ *                    <span class="ui-li-text-sub">
+ *                        <img class="ui-li-icon-sub"
+ *                            src="00_winset_icon_favorite_on.png" />
+ *                        subtext
+ *                    </span>
+ *                    <span>
+ *                        <img class="ui-li-icon-sub-right"
+ *                            src="00_winset_icon_favorite_on.png" />
+ *                    </span>
+ *                </a>
+ *            </li>
+ *        </ul>
  *
  * ### 2-line setting list item,
  * #### - with optionally also a toggle switch
  * #### - or circle-shaped button.
  *
- *		@example
- *		<ul data-role="listview">
- *			<li class="ui-li-has-multiline">
- *				<a href="#">
- *					Anton
- *					<span class="ui-li-text-sub">subtext</span>
- *				</a>
- *			</li>
- *			<li class="ui-li-has-multiline">
- *				Barry
- *				<span class="ui-li-text-sub">subtext</span>
- *				<select name="flip-13" id="flip-13" data-role="slider">
- *					<option value="off"></option>
- *					<option value="on"></option>
- *				</select>
- *			</li>
- *			<li class="ui-li-has-multiline">
- *				<a href="#">
- *					Bill
- *					<span class="ui-li-text-sub">subtext</span>
- *					<div data-role="button" data-inline="true" data-icon="call"
- *						data-style="circle"></div>
- *				</a>
- *			</li>
- *		</ul>
+ *        @example
+ *        <ul data-role="listview">
+ *            <li class="ui-li-has-multiline">
+ *                <a href="#">
+ *                    Anton
+ *                    <span class="ui-li-text-sub">subtext</span>
+ *                </a>
+ *            </li>
+ *            <li class="ui-li-has-multiline">
+ *                Barry
+ *                <span class="ui-li-text-sub">subtext</span>
+ *                <select name="flip-13" id="flip-13" data-role="slider">
+ *                    <option value="off"></option>
+ *                    <option value="on"></option>
+ *                </select>
+ *            </li>
+ *            <li class="ui-li-has-multiline">
+ *                <a href="#">
+ *                    Bill
+ *                    <span class="ui-li-text-sub">subtext</span>
+ *                    <div data-role="button" data-inline="true" data-icon="call"
+ *                        data-style="circle"></div>
+ *                </a>
+ *            </li>
+ *        </ul>
  *
  * ### 2-line list item with a subtext,
  * #### - and also a star-shaped icon and a circle-shaped button,
  * #### - thumbnail and a second subtext,
  *
- *		@example
- *		<ul data-role="listview">
- *			<li class="ui-li-has-multiline">
- *				<a href="#">
- *					Anton
- *					<span class="ui-li-text-sub">
- *						subtext
- *						<img class="ui-li-icon-sub"
- *							src="00_winset_icon_favorite_on.png" />
- *					</span>
- *					<div data-role="button" data-inline="true" data-icon="call"
- *						data-style="circle"></div>
- *				</a>
- *			</li>
- *			<li class="ui-li-has-multiline">
- *				<a href="#">
- *					<img src="thumbnail.jpg" class="ui-li-bigicon" />
- *					Barry
- *					<span class="ui-li-text-sub">subtext 1</span>
- *					<span class="ui-li-text-sub2">subtext 2</span>
- *				</a>
- *			</li>
- *		</ul>
+ *        @example
+ *        <ul data-role="listview">
+ *            <li class="ui-li-has-multiline">
+ *                <a href="#">
+ *                    Anton
+ *                    <span class="ui-li-text-sub">
+ *                        subtext
+ *                        <img class="ui-li-icon-sub"
+ *                            src="00_winset_icon_favorite_on.png" />
+ *                    </span>
+ *                    <div data-role="button" data-inline="true" data-icon="call"
+ *                        data-style="circle"></div>
+ *                </a>
+ *            </li>
+ *            <li class="ui-li-has-multiline">
+ *                <a href="#">
+ *                    <img src="thumbnail.jpg" class="ui-li-bigicon" />
+ *                    Barry
+ *                    <span class="ui-li-text-sub">subtext 1</span>
+ *                    <span class="ui-li-text-sub2">subtext 2</span>
+ *                </a>
+ *            </li>
+ *        </ul>
  *
  * ### 2-line list item with a subtext and check box
  * #### - and thumbnail
  * #### - and a circle-shaped button.
  *
- *		@example
- *		<ul data-role="listview">
- *			<li class="ui-li-has-multiline">
- *				<form><input type="checkbox" name="check1" /></form>
- *				Anton
- *				<span class="ui-li-text-sub">subtext</span>
- *			</li>
- *			<li class="ui-li-has-multiline">
- *				<form><input type="checkbox" name="check2" /></form>
- *				<img src="thumbnail.jpg" class="ui-li-bigicon" />
- *				Barry
- *				<span class="ui-li-text-sub">subtext</span>
- *			</li>
- *			<li class="ui-li-has-multiline">
- *				<form><input type="checkbox" name="check3" /></form>
- *				Bill
- *				<span class="ui-li-text-sub">subtext</span>
- *				<div data-role="button" data-inline="true" data-icon="call"
- *					data-style="circle"></div>
- *			</li>
- *		</ul>
+ *        @example
+ *        <ul data-role="listview">
+ *            <li class="ui-li-has-multiline">
+ *                <form><input type="checkbox" name="check1" /></form>
+ *                Anton
+ *                <span class="ui-li-text-sub">subtext</span>
+ *            </li>
+ *            <li class="ui-li-has-multiline">
+ *                <form><input type="checkbox" name="check2" /></form>
+ *                <img src="thumbnail.jpg" class="ui-li-bigicon" />
+ *                Barry
+ *                <span class="ui-li-text-sub">subtext</span>
+ *            </li>
+ *            <li class="ui-li-has-multiline">
+ *                <form><input type="checkbox" name="check3" /></form>
+ *                Bill
+ *                <span class="ui-li-text-sub">subtext</span>
+ *                <div data-role="button" data-inline="true" data-icon="call"
+ *                    data-style="circle"></div>
+ *            </li>
+ *        </ul>
  *
  * ### 2-line list item with a subtext and radio button,
  * #### - and thumbnail
  * #### - and a circle-shaped button.
  *
- *		@example
- *		<form>
- *		<ul data-role="listview">
- *			<li class="ui-li-has-multiline">
- *					<input type="radio" name="radio1" />
- *					Anton
- *					<span class="ui-li-text-sub">subtext</span>
- *			</li>
- *			<li class="ui-li-has-multiline">
- *					<input type="radio" name="radio1" />
- *					<img src="thumbnail.jpg" class="ui-li-bigicon" />
- *					Barry
- *					<span class="ui-li-text-sub">subtext</span>
- *			</li>
- *			<li class="ui-li-has-multiline">
- *					<input type="radio" name="radio1" />
- *					Barry
- *					<span class="ui-li-text-sub">subtext</span>
- *					<div data-role="button" data-inline="true" data-icon="call"
- *						data-style="circle"></div>
- *			</li>
- *		</ul>
- *		</form>
+ *        @example
+ *        <form>
+ *        <ul data-role="listview">
+ *            <li class="ui-li-has-multiline">
+ *                    <input type="radio" name="radio1" />
+ *                    Anton
+ *                    <span class="ui-li-text-sub">subtext</span>
+ *            </li>
+ *            <li class="ui-li-has-multiline">
+ *                    <input type="radio" name="radio1" />
+ *                    <img src="thumbnail.jpg" class="ui-li-bigicon" />
+ *                    Barry
+ *                    <span class="ui-li-text-sub">subtext</span>
+ *            </li>
+ *            <li class="ui-li-has-multiline">
+ *                    <input type="radio" name="radio1" />
+ *                    Barry
+ *                    <span class="ui-li-text-sub">subtext</span>
+ *                    <div data-role="button" data-inline="true" data-icon="call"
+ *                        data-style="circle"></div>
+ *            </li>
+ *        </ul>
+ *        </form>
  *
  * ### 2-line list item with a color bar,
  * #### - subtext, text button and 3 star-shaped icons,
  * #### - thumbnail, subtext, text button, and 1 star-shaped icon,
  * #### - thumbnail, subtext, and circle-shaped button.
  *
- *		@example
- *		<ul data-role="listview">
- *			<li class="ui-li-has-multiline">
- *				<a href="#">
- *					<span class="ui-li-color-bar"
- *						style="background-color: red;"></span>
- *					Anton
- *					<span class="ui-li-text-sub">subtext
- *						<img src="00_winset_icon_favorite_on.png" />
- *						<img src="00_winset_icon_favorite_on.png" />
- *						<img src="00_winset_icon_favorite_on.png" />
- *					</span>
- *					<div data-role="button" data-inline="true">button</div>
- *				</a>
- *			</li>
- *			<li class="ui-li-has-multiline">
- *				<a href="#">
- *					<span class="ui-li-color-bar"
- *						style="background-color:rgba(72, 136, 42, 1);"></span>
- *					<img src="thumbnail.jpg" class="ui-li-bigicon" />
- *					Barry
- *					<span>
- *						<img class="ui-li-icon-sub"
- *							src="00_winset_icon_favorite_on.png" />
- *					</span>
- *					<span class="ui-li-text-sub">subtext</span>
- *					<div data-role="button" data-inline="true">button</div>
- *				</a>
- *			</li>
- *			<li class="ui-li-has-multiline">
- *				<a href="#">
- *					<span class="ui-li-color-bar"
- *						style="background-color: blue;"></span>
- *					Bill
- *					<span>
- *						<img class="ui-li-icon-sub"
- *							src="00_winset_icon_favorite_on.png" />
- *					</span>
- *					<span class="ui-li-text-sub">subtext</span>
- *					<div data-role="button" data-inline="true" data-icon="call"
- *						data-style="circle"></div>
- *				</a>
- *			</li>
- *		</ul>
+ *        @example
+ *        <ul data-role="listview">
+ *            <li class="ui-li-has-multiline">
+ *                <a href="#">
+ *                    <span class="ui-li-color-bar"
+ *                        style="background-color: red;"></span>
+ *                    Anton
+ *                    <span class="ui-li-text-sub">subtext
+ *                        <img src="00_winset_icon_favorite_on.png" />
+ *                        <img src="00_winset_icon_favorite_on.png" />
+ *                        <img src="00_winset_icon_favorite_on.png" />
+ *                    </span>
+ *                    <div data-role="button" data-inline="true">button</div>
+ *                </a>
+ *            </li>
+ *            <li class="ui-li-has-multiline">
+ *                <a href="#">
+ *                    <span class="ui-li-color-bar"
+ *                        style="background-color:rgba(72, 136, 42, 1);"></span>
+ *                    <img src="thumbnail.jpg" class="ui-li-bigicon" />
+ *                    Barry
+ *                    <span>
+ *                        <img class="ui-li-icon-sub"
+ *                            src="00_winset_icon_favorite_on.png" />
+ *                    </span>
+ *                    <span class="ui-li-text-sub">subtext</span>
+ *                    <div data-role="button" data-inline="true">button</div>
+ *                </a>
+ *            </li>
+ *            <li class="ui-li-has-multiline">
+ *                <a href="#">
+ *                    <span class="ui-li-color-bar"
+ *                        style="background-color: blue;"></span>
+ *                    Bill
+ *                    <span>
+ *                        <img class="ui-li-icon-sub"
+ *                            src="00_winset_icon_favorite_on.png" />
+ *                    </span>
+ *                    <span class="ui-li-text-sub">subtext</span>
+ *                    <div data-role="button" data-inline="true" data-icon="call"
+ *                        data-style="circle"></div>
+ *                </a>
+ *            </li>
+ *        </ul>
  *
  * ### 2-line list item with a subtext and thumbnail at right
  * #### and 2 star-shaped icons
  * #### and a star-shaped icons, subtext, and thumbnail.
  *
- *		@example
- *		<ul data-role="listview">
- *			<li class="ui-li-has-multiline ui-li-thumbnail-right">
- *				<a href="#">
- *					Anton
- *					<span class="ui-li-text-sub">subtext</span>
- *					<img src="thumbnail.jpg" class="ui-li-bigicon">
- *				</a>
- *			</li>
- *			<li class="ui-li-has-multiline ui-li-thumbnail-right">
- *				<a href="#">
- *					Barry
- *					<span>
- *						<img class="ui-li-icon-sub"
- *							src="00_winset_icon_favorite_on.png" />
- *					</span>
- *					<span class="ui-li-text-sub">
- *						<img class="ui-li-icon-sub"
- *							src="00_winset_icon_favorite_on.png" />
- *						subtext
- *					</span>
- *					<img src="thumbnail.jpg" class="ui-li-bigicon" />
- *				</a>
- *			</li>
- *		</ul>
+ *        @example
+ *        <ul data-role="listview">
+ *            <li class="ui-li-has-multiline ui-li-thumbnail-right">
+ *                <a href="#">
+ *                    Anton
+ *                    <span class="ui-li-text-sub">subtext</span>
+ *                    <img src="thumbnail.jpg" class="ui-li-bigicon">
+ *                </a>
+ *            </li>
+ *            <li class="ui-li-has-multiline ui-li-thumbnail-right">
+ *                <a href="#">
+ *                    Barry
+ *                    <span>
+ *                        <img class="ui-li-icon-sub"
+ *                            src="00_winset_icon_favorite_on.png" />
+ *                    </span>
+ *                    <span class="ui-li-text-sub">
+ *                        <img class="ui-li-icon-sub"
+ *                            src="00_winset_icon_favorite_on.png" />
+ *                        subtext
+ *                    </span>
+ *                    <img src="thumbnail.jpg" class="ui-li-bigicon" />
+ *                </a>
+ *            </li>
+ *        </ul>
  *
  * ### 2-line list item with a subtext before the main text and a thumbnail.
  *
- *		@example
- *		<ul data-role="listview">
- *			<li class="ui-li-has-multiline ui-li-thumbnail-right">
- *				<a href="#">
- *					<span class="ui-li-text-sub">subtext</span>
- *					Anton
- *					<img src="thumbnail.jpg" class="ui-li-bigicon" />
- *				</a>
- *			</li>
- *			<li class="ui-li-has-multiline ui-li-thumbnail-right">
- *				<a href="#">
- *					<span class="ui-li-text-sub">subtext</span>
- *					Barry
- *					<img src="thumbnail.jpg" class="ui-li-bigicon" />
- *				</a>
- *			</li>
- *			<li class="ui-li-has-multiline ui-li-thumbnail-right">
- *				<a href="#">
- *					<span class="ui-li-text-sub">subtext</span>
- *					Bill
- *					<img src="thumbnail.jpg" class="ui-li-bigicon" />
- *				</a>
- *			</li>
- *		</ul>
+ *        @example
+ *        <ul data-role="listview">
+ *            <li class="ui-li-has-multiline ui-li-thumbnail-right">
+ *                <a href="#">
+ *                    <span class="ui-li-text-sub">subtext</span>
+ *                    Anton
+ *                    <img src="thumbnail.jpg" class="ui-li-bigicon" />
+ *                </a>
+ *            </li>
+ *            <li class="ui-li-has-multiline ui-li-thumbnail-right">
+ *                <a href="#">
+ *                    <span class="ui-li-text-sub">subtext</span>
+ *                    Barry
+ *                    <img src="thumbnail.jpg" class="ui-li-bigicon" />
+ *                </a>
+ *            </li>
+ *            <li class="ui-li-has-multiline ui-li-thumbnail-right">
+ *                <a href="#">
+ *                    <span class="ui-li-text-sub">subtext</span>
+ *                    Bill
+ *                    <img src="thumbnail.jpg" class="ui-li-bigicon" />
+ *                </a>
+ *            </li>
+ *        </ul>
  *
  * ### 2-line list item with a thumbnail and a progress bar.
  *
- *		@example
- *		<ul data-role="listview">
- *			<li class="ui-li-has-multiline">
- *				<a href="#">
- *					<img scr="thumbnail.jpg" class="ui-li-bigicon">
- *					Anton
- *					<span class="ui-li-text-sub">subtext</span>
- *					<div data-role="progressbar" id="progressbar"></div>
- *				</a>
- *			</li>
- *			<li class="ui-li-has-multiline">
- *				<a href="#">
- *					<img scr="thumbnail.jpg" class="ui-li-bigicon">
- *					Barry
- *					<span class="ui-li-text-sub">subtext</span>
- *					<div data-role="progressbar" id="progressbar"></div>
- *				</a>
- *			</li>
- *			<li class="ui-li-has-multiline">
- *				<a href="#">
- *					<img scr="thumbnail.jpg" class="ui-li-bigicon">
- *					Bill
- *					<span class="ui-li-text-sub">subtext</span>
- *					<div data-role="progressbar" id="progressbar"></div>
- *				</a>
- *			</li>
- *		</ul>
+ *        @example
+ *        <ul data-role="listview">
+ *            <li class="ui-li-has-multiline">
+ *                <a href="#">
+ *                    <img scr="thumbnail.jpg" class="ui-li-bigicon">
+ *                    Anton
+ *                    <span class="ui-li-text-sub">subtext</span>
+ *                    <div data-role="progressbar" id="progressbar"></div>
+ *                </a>
+ *            </li>
+ *            <li class="ui-li-has-multiline">
+ *                <a href="#">
+ *                    <img scr="thumbnail.jpg" class="ui-li-bigicon">
+ *                    Barry
+ *                    <span class="ui-li-text-sub">subtext</span>
+ *                    <div data-role="progressbar" id="progressbar"></div>
+ *                </a>
+ *            </li>
+ *            <li class="ui-li-has-multiline">
+ *                <a href="#">
+ *                    <img scr="thumbnail.jpg" class="ui-li-bigicon">
+ *                    Bill
+ *                    <span class="ui-li-text-sub">subtext</span>
+ *                    <div data-role="progressbar" id="progressbar"></div>
+ *                </a>
+ *            </li>
+ *        </ul>
  *
  * ### 2-line list item with a check box, thumbnail, subtext
  * ### and circle-shaped button.
  *
- *		@example
- *		<ul data-role="listview">
- *			<li class="ui-li-has-multiline">
- *				<form><input type="checkbox" name="checkbox" /></form>
- *				<img src="thumbnail.jpg" class="ui-li-bigicon" />
- *				Anton
- *				<span class="ui-li-text-sub">subtext</span>
- *				<div data-role="button" data-inline="true" data-icon="call"
- *					data-style="circle"></div>
- *			</li>
- *			<li class="ui-li-has-multiline">
- *				<form><input type="checkbox" name="checkbox" /></form>
- *				<img src="thumbnail.jpg" class="ui-li-bigicon" />
- *				Barry
- *				<span class="ui-li-text-sub">subtext</span>
- *				<div data-role="button" data-inline="true" data-icon="call"
- *					data-style="circle"></div>
- *			</li>
- *			<li class="ui-li-has-multiline">
- *				<form><input type="checkbox" name="checkbox" /></form>
- *				<img src="thumbnail.jpg" class="ui-li-bigicon" />
- *				Bill
- *				<span class="ui-li-text-sub">subtext</span>
- *				<div data-role="button" data-inline="true" data-icon="call"
- *					data-style="circle"></div>
- *			</li>
- *		</ul>
+ *        @example
+ *        <ul data-role="listview">
+ *            <li class="ui-li-has-multiline">
+ *                <form><input type="checkbox" name="checkbox" /></form>
+ *                <img src="thumbnail.jpg" class="ui-li-bigicon" />
+ *                Anton
+ *                <span class="ui-li-text-sub">subtext</span>
+ *                <div data-role="button" data-inline="true" data-icon="call"
+ *                    data-style="circle"></div>
+ *            </li>
+ *            <li class="ui-li-has-multiline">
+ *                <form><input type="checkbox" name="checkbox" /></form>
+ *                <img src="thumbnail.jpg" class="ui-li-bigicon" />
+ *                Barry
+ *                <span class="ui-li-text-sub">subtext</span>
+ *                <div data-role="button" data-inline="true" data-icon="call"
+ *                    data-style="circle"></div>
+ *            </li>
+ *            <li class="ui-li-has-multiline">
+ *                <form><input type="checkbox" name="checkbox" /></form>
+ *                <img src="thumbnail.jpg" class="ui-li-bigicon" />
+ *                Bill
+ *                <span class="ui-li-text-sub">subtext</span>
+ *                <div data-role="button" data-inline="true" data-icon="call"
+ *                    data-style="circle"></div>
+ *            </li>
+ *        </ul>
  *
  * @class ns.widget.mobile.ListviewExtra
  * @extends ns.widget.mobile.Listview
@@ -802,7 +802,7 @@
 				 * @property {string} classes.uiLiHeading class of li heading
 				 */
 				classes = {
-					uiListview : "ui-listview",
+					uiListview: "ui-listview",
 					uiLinkInherit: "ui-link-inherit",
 					uiLiThumb: "ui-li-thumb",
 					uiLiHasThumb: "ui-li-has-thumb",
@@ -1009,11 +1009,11 @@
 
 				while (--i >= 0) {
 					input = checkboxRadio[i];
-					if(input.type === "checkbox") {
+					if (input.type === "checkbox") {
 						input.checked = !input.checked;
 						eventUtils.trigger(input, "change");
 					} else {
-						if(!input.checked) {
+						if (!input.checked) {
 							input.checked = true;
 							eventUtils.trigger(input, "change");
 						}
@@ -1036,7 +1036,7 @@
 
 					if (target.classList.contains(classes.uiLiHasCheckbox) || target.classList.contains(classes.uiLiHasRadio)) {
 						self._clickCheckboxRadio(target);
-					} else if (target.type === "checkbox" || target.type === "radio" ) {
+					} else if (target.type === "checkbox" || target.type === "radio") {
 						event.stopPropagation();
 						event.preventDefault();
 					}
@@ -1208,7 +1208,7 @@
 				var element = this.element,
 					childNodes = element.children;
 
-				if(position < childNodes.length) {
+				if (position < childNodes.length) {
 					element.removeChild(childNodes[position]);
 				}
 				this.refresh();

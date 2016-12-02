@@ -1,4 +1,4 @@
-/*global window, ns*/
+/*global window, ns, define*/
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
  *
@@ -29,74 +29,74 @@
  * Default value of data-native-menu attribute is true and it makes native SelectMenu.
  * This widget also offers the possibility of having custom SelectMenu.
  *
- * 		@example
- *		<select>
- *			<option value="1">Item1</option>
- *			<option value="2">Item2</option>
- *			<option value="3">Item3</option>
- *			<option value="4">Item4</option>
- *		</select>
+ *        @example
+ *        <select>
+ *            <option value="1">Item1</option>
+ *            <option value="2">Item2</option>
+ *            <option value="3">Item3</option>
+ *            <option value="4">Item4</option>
+ *        </select>
  *
  * ## Manual constructor
  * For manual creation of SelectMenu widget you can use constructor of widget.
  *
- * 		@example
- *		<select id="selectmenu">
- *			<option value="1">Item1</option>
- *			<option value="2">Item2</option>
- *			<option value="3">Item3</option>
- *			<option value="4">Item4</option>
- *		</select>
- *		<script>
- *			var element = document.getElementById("selectmenu"),
- *				widget = tau.widget.SelectMenu(element);
- *		</script>
+ *        @example
+ *        <select id="selectmenu">
+ *            <option value="1">Item1</option>
+ *            <option value="2">Item2</option>
+ *            <option value="3">Item3</option>
+ *            <option value="4">Item4</option>
+ *        </select>
+ *        <script>
+ *            var element = document.getElementById("selectmenu"),
+ *                widget = tau.widget.SelectMenu(element);
+ *        </script>
  *
  * ##Sort type
  * You can declare to the type of SelectMenu manually.
  * If you set data-label attribute to true(Default is false.), SelectMenu has sort type.
  *
- * 		@example
- * 		<div style="width:300px; height:150px;">
- *			<select id="selectmenu" data-sort="true">
- *				<option value="1">Item1</option>
- *				<option value="2">Item2</option>
- *				<option value="3">Item3</option>
- *				<option value="4">Item4</option>
- *			</select>
- *		</div>
+ *        @example
+ *        <div style="width:300px; height:150px;">
+ *            <select id="selectmenu" data-sort="true">
+ *                <option value="1">Item1</option>
+ *                <option value="2">Item2</option>
+ *                <option value="3">Item3</option>
+ *                <option value="4">Item4</option>
+ *            </select>
+ *        </div>
  *
  * ##Methods
  * To call method on widget you can use one of existing API:
  *
  * First API is from tau namespace: RECOMMEND
  *
- *		@example
- *		var element = document.getElementById("selectmenu"),
- *			widget = tau.widget.SelectMenu(element);
- *		widget.methodName(methodArgument1, methodArgument2, ...);
+ *        @example
+ *        var element = document.getElementById("selectmenu"),
+ *            widget = tau.widget.SelectMenu(element);
+ *        widget.methodName(methodArgument1, methodArgument2, ...);
  *
  *
  * - "open" - SelectMenu open
  *
- * 		@example
- * 		var elSelectMenu = document.getElementById("selectmenu"),
- * 			widget = tau.widget.SelectMenu(elSelectMenu);
- * 		widget.open();
+ *        @example
+ *        var elSelectMenu = document.getElementById("selectmenu"),
+ *            widget = tau.widget.SelectMenu(elSelectMenu);
+ *        widget.open();
  *
  * - "close" - SelectMenu close
  *
- * 		@example
- * 		var elSelectMenu = document.getElementById("selectmenu"),
- * 			widget = tau.widget.SelectMenu(elSelectMenu);
- * 		widget.close();
+ *        @example
+ *        var elSelectMenu = document.getElementById("selectmenu"),
+ *            widget = tau.widget.SelectMenu(elSelectMenu);
+ *        widget.close();
  *
  * - "refresh" - This method refreshs the SelectMenu widget.
  *
- * 		@example
- * 		var elSelectMenu = document.getElementById("selectmenu"),
- * 			widget = tau.widget.SelectMenu(elSelectMenu);
- * 		widget.refresh();
+ *        @example
+ *        var elSelectMenu = document.getElementById("selectmenu"),
+ *            widget = tau.widget.SelectMenu(elSelectMenu);
+ *        widget.refresh();
  *
  * @class ns.widget.tv.SelectMenu
  * @extends ns.widget.mobile.SelectMenu
@@ -126,9 +126,6 @@
 				BaseKeyboardSupport = ns.widget.tv.BaseKeyboardSupport,
 				engine = ns.engine,
 				objectUtils = ns.util.object,
-				selectors = ns.util.selectors,
-				KEY_CODES = BaseKeyboardSupport.KEY_CODES,
-				slice = Array.prototype.slice,
 				SelectMenu = function () {
 					var self = this;
 
@@ -137,11 +134,11 @@
 					BaseKeyboardSupport.call(self);
 
 					/**
-					* @property {Object} options Object with default options
-					* @property {boolean} [options.nativeMenu=false] Sets the SelectMenu widget as native/custom type.
-					* @property {boolean} [options.sort=false] Sets the SelectMenu widget with sorting possibility.
-					* @member ns.widget.tv.SelectMenu
-					*/
+					 * @property {Object} options Object with default options
+					 * @property {boolean} [options.nativeMenu=false] Sets the SelectMenu widget as native/custom type.
+					 * @property {boolean} [options.sort=false] Sets the SelectMenu widget with sorting possibility.
+					 * @member ns.widget.tv.SelectMenu
+					 */
 					self.options = {
 						nativeMenu: false,
 						inline: false,
@@ -154,9 +151,7 @@
 				 * @member ns.widget.tv.SelectMenu
 				 * @static
 				 */
-				classes = objectUtils.merge({}, BaseSelectMenu.classes, {
-				}),
-				FUNCTION_TYPE = "function",
+				classes = objectUtils.merge({}, BaseSelectMenu.classes, {}),
 				prototype = new BaseSelectMenu();
 
 			SelectMenu.prototype = prototype;
@@ -198,8 +193,8 @@
 			 * @protected
 			 * @member ns.widget.tv.SelectMenu
 			 */
-			prototype._init = function(element) {
-				var self= this,
+			prototype._init = function (element) {
+				var self = this,
 					ui = self._ui;
 
 				BaseSelectMenuPrototype._init.call(self, element);
@@ -214,9 +209,8 @@
 			 * @protected
 			 * @member ns.widget.tv.SelectMenu
 			 */
-			prototype._bindEvents = function(element) {
-				var self= this,
-					ui = self._ui;
+			prototype._bindEvents = function (element) {
+				var self = this;
 
 				BaseSelectMenuPrototype._bindEvents.call(self, element);
 
@@ -229,9 +223,8 @@
 			 * @protected
 			 * @member ns.widget.tv.SelectMenu
 			 */
-			prototype._destroy = function(element) {
-				var self= this,
-					ui = self._ui;
+			prototype._destroy = function (element) {
+				var self = this;
 
 				BaseSelectMenuPrototype._destroy.call(self, element);
 
@@ -244,7 +237,7 @@
 			 * @protected
 			 * @member ns.widget.tv.SelectMenu
 			 */
-			prototype._toggleSelect = function (){
+			prototype._toggleSelect = function () {
 				var self = this;
 				if (self._isOpen) {
 					self.disableKeyboardSupport();

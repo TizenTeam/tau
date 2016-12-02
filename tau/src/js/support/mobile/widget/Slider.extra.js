@@ -39,7 +39,7 @@
 				engine = ns.engine,
 				BaseWidget = ns.widget.mobile.BaseWidgetMobile,
 				object = ns.util.object,
-				SliderExtra = function() {
+				SliderExtra = function () {
 					var self = this;
 					CoreSlider.call(self);
 					self.options = object.copy(CoreSlider.prototype.options);
@@ -57,7 +57,7 @@
 
 			SliderExtra.prototype = prototype;
 
-			prototype._configure = function(element) {
+			prototype._configure = function (element) {
 				var self = this,
 					options = self.options;
 
@@ -69,21 +69,21 @@
 				return element;
 			};
 
-			prototype._build = function(element) {
+			prototype._build = function (element) {
 				var self = this,
 					slider;
 
 				self._buildIcon(element);
 				self._buildText(element);
 
-				slider = tau.widget.Slider(element);
+				slider = ns.widget.Slider(element);
 				self.options.popup ? slider.options.expand = true : slider.options.expand = false;
 
 				slider.refresh();
 				return element;
 			};
 
-			prototype._buildIcon = function(element) {
+			prototype._buildIcon = function (element) {
 				var self = this,
 					options = self.options,
 					parentNode = element.parentNode,
@@ -97,7 +97,7 @@
 					parentNode.appendChild(icon);
 				}
 			};
-			prototype._buildText = function(element) {
+			prototype._buildText = function (element) {
 				var self = this,
 					options = self.options,
 					parentNode = element.parentNode,

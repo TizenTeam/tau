@@ -31,7 +31,7 @@
 				initialScreenHeight = window.innerHeight,
 				objectUtils = ns.util.object,
 				elementIsFocused = false,
-				SearchBar = function() {
+				SearchBar = function () {
 					var self = this;
 
 					BaseSearchBar.call(self);
@@ -61,7 +61,7 @@
 			 * @protected
 			 * @member ns.widget.tv.SearchBar
 			 */
-			prototype._buildIcon = function(element) {
+			prototype._buildIcon = function (element) {
 				var icon = document.createElement("span");
 
 				icon.classList.add(classes.iconBox);
@@ -77,7 +77,7 @@
 			 * @protected
 			 * @member ns.widget.tv.SearchBar
 			 */
-			prototype._configure = function(element) {
+			prototype._configure = function (element) {
 				BaseSearchBarPrototype._configure.call(this, element);
 				this.options.clearButton = false;
 			};
@@ -89,7 +89,7 @@
 			 * @protected
 			 * @member ns.widget.tv.SearchBar
 			 */
-			prototype._build = function(element) {
+			prototype._build = function (element) {
 				BaseSearchBarPrototype._build.call(this, element);
 				this._buildIcon(element);
 				return element;
@@ -273,14 +273,14 @@
 			 * @protected
 			 * @member ns.widget.tv.SearchBar
 			 */
-			prototype._bindEvents = function(element) {
+			prototype._bindEvents = function (element) {
 				var self = this,
 					callbacks = self._callbacks,
 					inputBox = element.parentElement.parentElement;
 
 				BaseSearchBarPrototype._bindEvents.call(self, element),
 
-				self._bindEventKey();
+					self._bindEventKey();
 
 				callbacks.onKeyup = onKeyUp.bind(null, self);
 				callbacks.onResize = onResize.bind(null, self);
@@ -313,7 +313,7 @@
 			 * @protected
 			 * @member ns.widget.tv.SearchBar
 			 */
-			prototype._destroy = function(element) {
+			prototype._destroy = function (element) {
 				var self = this,
 					callbacks = self._callbacks,
 					inputBox = element.parentElement.parentElement;

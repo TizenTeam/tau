@@ -1,4 +1,4 @@
-/*global window, define */
+/*global window, ns, define */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
  *
@@ -60,9 +60,9 @@
 					 */
 					/** @expose */
 					self.options = {
-						fixed : false,
-						dividerVertical : false,
-						ratio : [0.5, 0.5]
+						fixed: false,
+						dividerVertical: false,
+						ratio: [0.5, 0.5]
 					};
 					/**
 					 * Helper object for movement events
@@ -73,9 +73,9 @@
 					 * @member ns.widget.mobile.SplitView
 					 */
 					self.movementData = {
-						lastX : 0,
-						lastY : 0,
-						hadDownEvent : false
+						lastX: 0,
+						lastY: 0,
+						hadDownEvent: false
 					};
 					/**
 					 * Object with all used dimensions.
@@ -91,14 +91,14 @@
 					 * @member ns.widget.mobile.SplitView
 					 */
 					self.dimensions = {
-						containerWidth : 0,
-						containerHeight : 0,
-						splitterSize : 0,
-						splitterTouchSize : 0,
-						splitterHandleSize : 0,
-						originalRatio : [],
-						minPaneSize : 20,
-						maxPaneSize : 0
+						containerWidth: 0,
+						containerHeight: 0,
+						splitterSize: 0,
+						splitterTouchSize: 0,
+						splitterHandleSize: 0,
+						originalRatio: [],
+						minPaneSize: 20,
+						maxPaneSize: 0
 					};
 					/**
 					 * split view panes
@@ -141,16 +141,16 @@
 			 * @member ns.widget.mobile.SplitView
 			 */
 			SplitView.classes = {
-				uiPane :"ui-pane",
-				uiSplitView : "ui-splitview",
-				uiDirectionHorizontal : "ui-direction-horizontal",
-				uiDirectionVertical : "ui-direction-vertical",
-				uiPageActive : "ui-page-active",
-				uiSplitter : "ui-spliter",
-				uiSplitterBar : "ui-spliter-bar",
-				uiSplitterHandle : "ui-spliter-handle",
-				uiSplitterActive : "ui-spliter-active",
-				uiFixed : "ui-fixed"
+				uiPane: "ui-pane",
+				uiSplitView: "ui-splitview",
+				uiDirectionHorizontal: "ui-direction-horizontal",
+				uiDirectionVertical: "ui-direction-vertical",
+				uiPageActive: "ui-page-active",
+				uiSplitter: "ui-spliter",
+				uiSplitterBar: "ui-spliter-bar",
+				uiSplitterHandle: "ui-spliter-handle",
+				uiSplitterActive: "ui-spliter-active",
+				uiFixed: "ui-fixed"
 			};
 			classes = SplitView.classes;
 
@@ -337,7 +337,7 @@
 					case "vmousemove":
 						if (canMove) {
 							ratioDiff = (isHorizontal ? shiftX : shiftY) / shiftArea;
-							ratio.forEach(function(value, i) {
+							ratio.forEach(function (value, i) {
 								var shiftDirection = (i === 0 ? 1 : -1);
 								ratio[i] = value + (ratioDiff * shiftDirection);
 							});
@@ -355,6 +355,7 @@
 						break;
 				}
 			}
+
 			/**
 			 * Measures and layouts the children.
 			 * @method _refresh
@@ -409,7 +410,7 @@
 				if (!Array.isArray(ratio)) {
 					ratioArray = ratio.split(",");
 					length = ratioArray.length;
-					for (;i < length; i++) {
+					for (; i < length; i++) {
 						ratioArray[i] = parseFloat(ratioArray[i]);
 					}
 					return ratioArray;
@@ -424,7 +425,7 @@
 			 * @protected
 			 * @member ns.widget.mobile.SplitView
 			 */
-			prototype._layout = function(ignoreMinMax) {
+			prototype._layout = function (ignoreMinMax) {
 				var self = this,
 					options = self.options,
 					dimensions = self.dimensions,
@@ -440,7 +441,7 @@
 					width = dimensions.containerWidth,
 					height = dimensions.containerHeight,
 					availableWidth = Math.floor(isHorizontal ? width - splitterSize :
-						height - splitterSize) ;
+					height - splitterSize);
 
 				dimensions.maxPaneSize = availableWidth - dimensions.minPaneSize;
 				currentAvailable = availableWidth;
@@ -468,7 +469,7 @@
 					splitterTouchElementStyle.top = 0;
 					splitterHandle.style.top = ((height - splitterHandleSize) / 2) + "px";
 					self.splitterBar.style.height = height + "px";
-				}else{
+				} else {
 					splitterTouchElementStyle.left = 0;
 					splitterTouchElementStyle.top = (height * ratio[0] - dimensions.splitterTouchSize / 2) + "px";
 					splitterHandle.style.top = 0;
@@ -481,9 +482,9 @@
 			 * @protected
 			 * @member ns.widget.mobile.SplitView
 			 */
-			prototype._refreshChildren = function() {
+			prototype._refreshChildren = function () {
 				var instance;
-				this.panes.forEach(function(pane) {
+				this.panes.forEach(function (pane) {
 					if (DOM.getNSData(pane, "role") === "splitview") {
 						instance = engine.getBinding(pane);
 						if (instance) {
@@ -501,7 +502,7 @@
 			 * @protected
 			 * @member ns.widget.mobile.SplitView
 			 */
-			prototype._setDividerVertical = function(element, dividerVertical) {
+			prototype._setDividerVertical = function (element, dividerVertical) {
 				var self = this,
 					splitViewClasses = SplitView.classes,
 					classes = element.classList;
@@ -518,7 +519,7 @@
 			 * @protected
 			 * @member ns.widget.mobile.SplitView
 			 */
-			prototype._setFixed = function(element, fixed) {
+			prototype._setFixed = function (element, fixed) {
 				var self = this,
 					classes = SplitView.classes;
 				self.options.fixed = fixed;
@@ -538,7 +539,7 @@
 			 * @protected
 			 * @member ns.widget.mobile.SplitView
 			 */
-			prototype._setRatio = function(element, ratio) {
+			prototype._setRatio = function (element, ratio) {
 				var self = this,
 					newRatio = convertRatio(ratio);
 				self.options.ratio = newRatio;
@@ -551,7 +552,7 @@
 			 * @protected
 			 * @member ns.widget.mobile.SplitView
 			 */
-			prototype._measureSplitter = function() {
+			prototype._measureSplitter = function () {
 				var self = this,
 					dimensions = self.dimensions,
 					isHorizontal = self.options.dividerVertical;
@@ -571,13 +572,13 @@
 			 * @param {string} id the id of a pane to maximize
 			 * @member ns.widget.mobile.SplitView
 			 */
-			prototype.maximize = function(id) {
+			prototype.maximize = function (id) {
 				var self = this,
 					ratio = self.options.ratio,
 					element = selectors.getChildrenBySelector(self.element, id);
 
 				if (element) {
-					self.panes.forEach(function(pane, i) {
+					self.panes.forEach(function (pane, i) {
 						if (pane === element[0]) {
 							ratio[i] = 1;
 							ratio[i === 0 ? 1 : 0] = 0;
@@ -607,7 +608,7 @@
 			 * @return {HTMLCollection} a collection of pane's child elements
 			 * @member ns.widget.mobile.SplitView
 			 */
-			prototype.pane = function(id, element) {
+			prototype.pane = function (id, element) {
 				var self = this,
 					classes = SplitView.classes,
 					targetPane = selectors.getChildrenBySelector(self.widget(), id)[0],
@@ -625,14 +626,14 @@
 							targetView = selectors.getChildrenByClass(targetPane, scollViewClasses.view);
 							if (targetView.length) {
 								targetView = targetView[0];
-							}else {
+							} else {
 								return null;
 							}
 						} else {
 							targetView = targetPane;
 						}
 
-						while(targetView.firstChild) {
+						while (targetView.firstChild) {
 							targetView.removeChild(targetView.firstChild);
 						}
 						targetView.appendChild(element);

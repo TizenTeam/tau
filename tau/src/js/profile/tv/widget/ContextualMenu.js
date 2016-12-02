@@ -64,7 +64,7 @@
 
 			ContextualMenu.classes = classes;
 
-			function initButton (element) {
+			function initButton(element) {
 				tau.widget.Button(element, {
 					inline: true,
 					marquee: false,
@@ -79,7 +79,7 @@
 				utilArray.forEach(buttons, initButton);
 			}
 
-			function initListview (element) {
+			function initListview(element) {
 				element.classList.add(tau.widget.tv.Listview.classes.transparent);
 				tau.widget.Listview(element, {});
 			}
@@ -104,7 +104,7 @@
 			 * @protected
 			 * @member ns.widget.tv.ContextualMenu
 			 */
-			prototype._build = function(element) {
+			prototype._build = function (element) {
 				this._ui.background = createBackground(this, element);
 				createWidgets(element);
 				return element;
@@ -162,7 +162,7 @@
 			 * @method open
 			 * @member ns.widget.tv.ContextualMenu
 			 */
-			prototype.open = function() {
+			prototype.open = function () {
 				var self = this;
 				self.element.classList.add(classes.open);
 				self._isOpen = true;
@@ -177,7 +177,7 @@
 			 * @return {boolean}
 			 * @member ns.widget.tv.ContextualMenu
 			 */
-			prototype.isOpen = function() {
+			prototype.isOpen = function () {
 				return this._isOpen;
 			};
 
@@ -186,7 +186,7 @@
 			 * @method close
 			 * @member ns.widget.tv.ContextualMenu
 			 */
-			prototype.close = function() {
+			prototype.close = function () {
 				var self = this;
 				self.element.classList.remove(classes.open);
 				self._isOpen = false;
@@ -201,7 +201,7 @@
 			 * @protected
 			 * @member ns.widget.tv.ContextualMenu
 			 */
-			prototype._bindEvents = function() {
+			prototype._bindEvents = function () {
 				this._bindEventKey();
 			};
 
@@ -211,7 +211,7 @@
 			 * @protected
 			 * @member ns.widget.tv.ContextualMenu
 			 */
-			prototype._destroy = function() {
+			prototype._destroy = function () {
 				this._destroyEventKey();
 				removeBackground(this);
 			};

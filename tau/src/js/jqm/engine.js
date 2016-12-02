@@ -1,4 +1,4 @@
-/*global window, define, console */
+/*global window, ns, define */
 /*jslint plusplus: true, nomen: true */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
@@ -20,7 +20,7 @@
  * Object maps engine object from TAU namespace to jQuery Mobile namespace.
  * @class ns.jqm.engine
  */
-(function (window, document, ns, $) {
+(function (window, document, ns, $, console) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
@@ -38,19 +38,19 @@
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 			/**
-			* Alias to Array.slice function
-			* @method slice
-			* @member ns.jqm.engine
-			* @private
-			* @static
-			*/
+			 * Alias to Array.slice function
+			 * @method slice
+			 * @member ns.jqm.engine
+			 * @private
+			 * @static
+			 */
 			var slice = [].slice,
 				/**
-				* @property {Object} nsNormalizeDict directory of data-* attributes normalized name
-				* @member ns.jqm.engine
-				* @private
-				* @static
-				*/
+				 * @property {Object} nsNormalizeDict directory of data-* attributes normalized name
+				 * @member ns.jqm.engine
+				 * @private
+				 * @static
+				 */
 				nsNormalizeDict = {},
 				util = ns.util,
 				zoom = util.zoom,
@@ -66,33 +66,33 @@
 
 			ns.jqm.engine = {
 				/**
-				* append ns functions to jQuery Mobile namespace
-				* @method init
-				* @param {Object} engine ns.engine class
-				* @member ns.jqm.engine
-				* @static
-				*/
+				 * append ns functions to jQuery Mobile namespace
+				 * @method init
+				 * @param {Object} engine ns.engine class
+				 * @member ns.jqm.engine
+				 * @static
+				 */
 				init: function () {
 					var keys = Object.keys(engine),
 						i,
 						len,
 						name,
 						/*
-						* original jQuery find function
-						* type function
-						*/
+						 * original jQuery find function
+						 * type function
+						 */
 						oldFind,
 						/*
-						* regular expression to find data-{namespace}-attribute
-						*/
+						 * regular expression to find data-{namespace}-attribute
+						 */
 						jqmDataRE = /:jqmData\(([^)]*)\)/g, // @TODO fix, insecure (jslint)
 						/*
-						* string to detect exists jqmData selector
-						*/
+						 * string to detect exists jqmData selector
+						 */
 						jqmDataStr = ":jqmData",
 						/*
-						* map item to jQuery
-						*/
+						 * map item to jQuery
+						 */
 						mapItem = function (item) {
 							if (typeof item === "object" && item.selector && item.get) {
 								return item.length === 1 ? item.get(0) : item.toArray();
@@ -111,8 +111,8 @@
 
 						utilsObject.merge($.mobile, {
 							/*
-							* jQuery Mobile namespace
-							*/
+							 * jQuery Mobile namespace
+							 */
 							ns: "",
 							/**
 							 *
@@ -126,22 +126,22 @@
 								nsNormalizeDict[prop] = nsNormalizeDict[prop] || $.camelCase($.mobile.ns + prop);
 								return nsNormalizeDict[prop];
 							},
-							activeBtnClass : ns.widget.core.Button.classes.uiBtnActive,
-							activePageClass : ns.widget.mobile.Page.classes.uiPageActive,
-							focusClass : ns.widget.core.Button.classes.uiFocus,
+							activeBtnClass: ns.widget.core.Button.classes.uiBtnActive,
+							activePageClass: ns.widget.mobile.Page.classes.uiPageActive,
+							focusClass: ns.widget.core.Button.classes.uiFocus,
 							version: "1.2.0",
 							getAttrFixed: function (element, key) {
 								var value = element.getAttribute(key);
 
 								return value === "true" ? true :
-										value === "false" ? false :
-												value === null ? undefined :
-														value;
+									value === "false" ? false :
+										value === null ? undefined :
+											value;
 							},
 							path: ns.util.path,
-							back : window.history.back.bind(window.history),
-							silentScroll: function ( ypos ) {
-								if ( ypos === undefined ) {
+							back: window.history.back.bind(window.history),
+							silentScroll: function (ypos) {
+								if (ypos === undefined) {
 									ypos = $.mobile.defaultHomeScroll;
 								}
 
@@ -149,31 +149,31 @@
 								// @TODO enable event control
 								//ns.event.special.scrollstart.enabled = false;
 
-								setTimeout( function() {
-									window.scrollTo( 0, ypos );
-									events.trigger(document, "silentscroll", { x: 0, y: ypos });
-								}, 20 );
+								setTimeout(function () {
+									window.scrollTo(0, ypos);
+									events.trigger(document, "silentscroll", {x: 0, y: ypos});
+								}, 20);
 
-								setTimeout( function() {
+								setTimeout(function () {
 									// @TODO enable event control
 									//$.event.special.scrollstart.enabled = true;
-								}, 150 );
+								}, 150);
 							},
 							nsNormalizeDict: nsNormalizeDict,
-							getInheritedTheme : ns.theme.getInheritedTheme,
+							getInheritedTheme: ns.theme.getInheritedTheme,
 							closestPageData: function (target) {
 								var page = ns.util.selectors.getClosestBySelector($(target)[0],
-												"[data-" + ($.mobile.ns || "") + "role='page'], [data-" + ($.mobile.ns || "") + "role='dialog']");
+									"[data-" + ($.mobile.ns || "") + "role='page'], [data-" + ($.mobile.ns || "") + "role='dialog']");
 								return ns.engine.instanceWidget(page, "Page");
 							},
-							enhanceable: function ( $set ) {
-								return this.haveParents( $set, "enhance" );
+							enhanceable: function ($set) {
+								return this.haveParents($set, "enhance");
 							},
-							hijackable: function ( $set ) {
-								return this.haveParents( $set, "ajax" );
+							hijackable: function ($set) {
+								return this.haveParents($set, "ajax");
 							},
-							haveParents: function ( $set, attr ) {
-								if ( !$.mobile.ignoreContentEnabled ) {
+							haveParents: function ($set, attr) {
+								if (!$.mobile.ignoreContentEnabled) {
 									return $set;
 								}
 
@@ -185,15 +185,15 @@
 									i,
 									c;
 
-								for (i = 0; i < count; i++ ) {
-									$element = $set.eq( i );
+								for (i = 0; i < count; i++) {
+									$element = $set.eq(i);
 									excluded = false;
-									e = $set[ i ];
+									e = $set[i];
 
-									while ( e ) {
-										c = e.getAttribute ? e.getAttribute( "data-" + $.mobile.ns + attr ) : "";
+									while (e) {
+										c = e.getAttribute ? e.getAttribute("data-" + $.mobile.ns + attr) : "";
 
-										if ( c === "false" ) {
+										if (c === "false") {
 											excluded = true;
 											break;
 										}
@@ -201,8 +201,8 @@
 										e = e.parentNode;
 									}
 
-									if ( !excluded ) {
-										$newSet = $newSet.add( $element );
+									if (!excluded) {
+										$newSet = $newSet.add($element);
 									}
 								}
 
@@ -268,12 +268,12 @@
 						tizen.globalize = ns.util.globalize;
 						$.mobile.tizen = utilsObject.merge($.mobile.tizen, {
 							_widgetPrototypes: {},
-							disableSelection : function (elements) {
+							disableSelection: function (elements) {
 								$(elements).each(function () {
 									ns.theme.enableSelection(this, "none");
 								});
 							},
-							enableSelection : function (elements, value) {
+							enableSelection: function (elements, value) {
 								$(elements).each(function () {
 									ns.theme.enableSelection(this, value);
 								});
@@ -292,8 +292,8 @@
 						$.mobile.tizen.loadPrototype = null;
 
 						/*
-						* jqmData function from jQuery Mobile
-						*/
+						 * jqmData function from jQuery Mobile
+						 */
 						$.fn.jqmData = function (prop, value) {
 							var result;
 							if (prop !== undefined) {
@@ -328,43 +328,43 @@
 							$(context).jqmRemoveData(prop);
 						};
 
-						$.fn.removeWithDependents = function() {
-							$.removeWithDependents( this );
+						$.fn.removeWithDependents = function () {
+							$.removeWithDependents(this);
 						};
 
-						$.removeWithDependents = function( elem ) {
-							var $elem = $( elem );
+						$.removeWithDependents = function (elem) {
+							var $elem = $(elem);
 
-							( $elem.jqmData( "dependents" ) || $() ).remove();
+							( $elem.jqmData("dependents") || $() ).remove();
 							$elem.remove();
 						};
 
-						$.fn.addDependents = function( newDependents ) {
-							$.addDependents( $( this ), newDependents );
+						$.fn.addDependents = function (newDependents) {
+							$.addDependents($(this), newDependents);
 						};
 
-						$.addDependents = function( elem, newDependents ) {
-							var dependents = $( elem ).jqmData( "dependents" ) || $();
+						$.addDependents = function (elem, newDependents) {
+							var dependents = $(elem).jqmData("dependents") || $();
 
-							$( elem ).jqmData( "dependents", $.merge( dependents, newDependents ) );
+							$(elem).jqmData("dependents", $.merge(dependents, newDependents));
 						};
 
-						$.fn.getEncodedText = function() {
-							return $( "<div/>" ).text( $( this ).text() ).html();
+						$.fn.getEncodedText = function () {
+							return $("<div/>").text($(this).text()).html();
 						};
 
 						// fluent helper function for the mobile namespaced equivalent
-						$.fn.jqmEnhanceable = function() {
-							return $.mobile.enhanceable( this );
+						$.fn.jqmEnhanceable = function () {
+							return $.mobile.enhanceable(this);
 						};
 
-						$.fn.jqmHijackable = function() {
-							return $.mobile.hijackable( this );
+						$.fn.jqmHijackable = function () {
+							return $.mobile.hijackable(this);
 						};
 
 						/*
-						* Add support of jqmData() in jQuery find
-						*/
+						 * Add support of jqmData() in jQuery find
+						 */
 						oldFind = $.find;
 
 						$.find = function (selector, context, ret, extra) {
@@ -381,12 +381,12 @@
 						};
 
 						$.find.matchesSelector = function (node, expr) {
-							return $.find(expr, null, null, [ node ]).length > 0;
+							return $.find(expr, null, null, [node]).length > 0;
 						};
 
 						/* support for global object $.mobile
-						* @TODO this is temporary fix, we have to think about this function
-						*/
+						 * @TODO this is temporary fix, we have to think about this function
+						 */
 						$(document).bind("create", ns.engine._createEventHandler);
 						// support creating widgets by triggering pagecreate
 						$(document).bind("pagecreate", function (event) {
@@ -409,14 +409,14 @@
 						$.tizen.__tizen__ = tizen;
 						tizen.libFileName = "tizen-web-ui-fw(.custom|.full)?(.min)?.js";
 						tizen.log = {
-							debug : function (msg) {
+							debug: function (msg) {
 								if ($.tizen.frameworkData.debug) {
 									console.log(msg);
 								}
 							},
-							warn : console.warn.bind(console),
-							error : console.error.bind(console),
-							alert : window.alert.bind(window)
+							warn: console.warn.bind(console),
+							error: console.error.bind(console),
+							alert: window.alert.bind(window)
 						};
 						tizen.util = {
 							loadScriptSync: load.scriptSync,
@@ -424,8 +424,8 @@
 						};
 						tizen.css = {
 							cacheBust: load.cacheBust,
-							addElementToHead : load.addElementToHead.bind(load),
-							makeLink : load.makeLink.bind(load),
+							addElementToHead: load.addElementToHead.bind(load),
+							makeLink: load.makeLink.bind(load),
 							load: load.themeCSS
 						};
 						tizen.loadTheme = ns.theme.loadTheme.bind(ns.theme);
@@ -451,4 +451,4 @@
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
-}(window, window.document, ns, ns.jqm.jQuery));
+}(window, window.document, ns, ns.jqm.jQuery, window.console));

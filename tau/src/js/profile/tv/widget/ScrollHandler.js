@@ -71,8 +71,7 @@
 			 * @static
 			 */
 			function translate(self, xOffset, yOffset) {
-				var style = null,
-					translateString = null;
+				var translateString = null;
 
 				if (self.options.handler) {
 					translateString = "translate3d(" + (xOffset || 0) + "px, " + (yOffset || 0) + "px, 0px)";
@@ -104,8 +103,8 @@
 
 				translate(
 					self,
-						direction === "y" ? 0 : x,
-						direction === "x" ? 0 : y
+					direction === "y" ? 0 : x,
+					direction === "x" ? 0 : y
 				);
 
 				offsets.x = x;
@@ -115,13 +114,12 @@
 			/**
 			 * Handles Focus on elements
 			 * Focus will show scrollhandler when an element from container has been focused
-			 * @param {ns.widget.tv.ScrollHandler}
-			 * @param {MouseEvent|TouchEvent}
+			 * @param {ns.widget.tv.ScrollHandler} self
 			 * @member ns.widget.tv.ScrollHandler
 			 * @private
 			 * @static
 			 */
-			function handleFocus(self, event) {
+			function handleFocus(self) {
 				var element = self.element,
 					handler = self.ui.handler,
 					view = element.querySelector("." + Scrollview.classes.view),

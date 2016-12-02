@@ -1,4 +1,4 @@
-/*global window, define */
+/*global window, ns, define */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
  *
@@ -55,7 +55,7 @@
 				globalize = ns.util.globalize,
 				eventUtils = ns.event,
 				range = ns.util.array.range,
-				daysInMonth = [ 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 ],
+				daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
 				parsePatternRegexp = /\/|\s|dd|d|MMMM|MMM|MM|M|yyyy|yy|y|hh|h|HH|H|mm|m|ss|s|tt|t|f|gg|g|'[\w\W]*'$|[\w\W]/g,
 				fieldRegexp = /ui-datefield-([\w]*)/;
 
@@ -192,18 +192,18 @@
 						targetClassList.add(classes.outClass);
 						self._new_value = text;
 						/*
-						* @todo animation
-						target.animationComplete( function () {
-						target.text( self._new_value);
-						target.addClass("in")
-						removeClass("out");
+						 * @todo animation
+						 target.animationComplete( function () {
+						 target.text( self._new_value);
+						 target.addClass("in")
+						 removeClass("out");
 
-						target.animationComplete( function () {
-						target.removeClass("in").
-						removeClass("ui-datefield-selected");
-						});
-						});
-						*/
+						 target.animationComplete( function () {
+						 target.removeClass("in").
+						 removeClass("ui-datefield-selected");
+						 });
+						 });
+						 */
 						target.innerText = self._new_value;
 						targetClassList.remove(classes.inClass);
 						targetClassList.remove(classes.uiDatefieldSelected);
@@ -626,7 +626,7 @@
 					divCircularviewContainer.appendChild(divCircularview);
 					divCircularviewContainer.style.overflow = "hidden";
 					// @TODO quich fix, change to proper width
-					divCircularviewContainer.style.width = window.innerWidth +"px";
+					divCircularviewContainer.style.width = window.innerWidth + "px";
 					ctxElement = ctx.element;
 					ctxElement.parentNode.classList.add(classes.uiDatetimepicker);
 					divCircularview.setAttribute("data-list", ">li");
@@ -736,7 +736,6 @@
 							span = createDateField("year", pat, div);
 							break;
 						case "t": //AM / PM indicator(first letter) A, P
-						// add button
 						case "tt": //AM / PM indicator AM/PM
 							// add button
 							span = addButton(this, div, element, pat);
@@ -832,8 +831,8 @@
 					element = this.element,
 					value,
 					tagName = element.tagName.toLowerCase(),
-					classes = Datetimepicker.classes,
 					type;
+
 				if (!this._ui) {
 					this._ui = document.getElementById(this.id + "-datetimepicker-ui");
 				}

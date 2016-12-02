@@ -28,103 +28,103 @@
  *
  * In default all ListView elements with class _.ui-fastscroll_ are changed to Tizen Web UI Fast Scroll
  *
- *		@example
- *		<div data-role="page" id="main">
- *			<div data-role="content">
- *				<ul data-role="listview" data-fastscroll="true">
- *					<li data-role="list-divider">A</li>
- *					<li>Anton</li>
- *					<li>Arabella</li>
- *					<li data-role="list-divider">B</li>
- *					<li>Barry</li>
- *					<li>Bily</li>
- *				</ul>
- *			</div>
- *		</div>
+ *        @example
+ *        <div data-role="page" id="main">
+ *            <div data-role="content">
+ *                <ul data-role="listview" data-fastscroll="true">
+ *                    <li data-role="list-divider">A</li>
+ *                    <li>Anton</li>
+ *                    <li>Arabella</li>
+ *                    <li data-role="list-divider">B</li>
+ *                    <li>Barry</li>
+ *                    <li>Bily</li>
+ *                </ul>
+ *            </div>
+ *        </div>
  *
  * #### Create FastScroll widget using tau method:
  *
- *		@example
- *		<div data-role="page" id="main">
- *			<div data-role="content">
- *				<ul id="list" data-fastscroll="true">
- *					<li data-role="list-divider">A</li>
- *					<li>Anton</li>
- *					<li>Arabella</li>
- *					<li data-role="list-divider">B</li>
- *					<li>Barry</li>
- *					<li>Bily</li>
- *				</ul>
- *			</div>
- *		</div>
- *		<script>
- *			var fastscroll = tau.widget.FastScroll(document.getElementById("list"));
- *		</script>
+ *        @example
+ *        <div data-role="page" id="main">
+ *            <div data-role="content">
+ *                <ul id="list" data-fastscroll="true">
+ *                    <li data-role="list-divider">A</li>
+ *                    <li>Anton</li>
+ *                    <li>Arabella</li>
+ *                    <li data-role="list-divider">B</li>
+ *                    <li>Barry</li>
+ *                    <li>Bily</li>
+ *                </ul>
+ *            </div>
+ *        </div>
+ *        <script>
+ *            var fastscroll = tau.widget.FastScroll(document.getElementById("list"));
+ *        </script>
  *
  * #### Create FastScroll widget using jQueryMobile notation:
  *
- *		@example
- *		<div data-role="page" id="main">
- *			<div data-role="content">
- *				<ul id="list" data-fastscroll="true">
- *					<li data-role="list-divider">A</li>
- *					<li>Anton</li>
- *					<li>Arabella</li>
- *					<li data-role="list-divider">B</li>
- *					<li>Barry</li>
- *					<li>Bily</li>
- *				</ul>
- *			</div>
- *		</div>
- *		<script>
- *			var fastscroll = $("#list").fastscroll();
- *		</script>
+ *        @example
+ *        <div data-role="page" id="main">
+ *            <div data-role="content">
+ *                <ul id="list" data-fastscroll="true">
+ *                    <li data-role="list-divider">A</li>
+ *                    <li>Anton</li>
+ *                    <li>Arabella</li>
+ *                    <li data-role="list-divider">B</li>
+ *                    <li>Barry</li>
+ *                    <li>Bily</li>
+ *                </ul>
+ *            </div>
+ *        </div>
+ *        <script>
+ *            var fastscroll = $("#list").fastscroll();
+ *        </script>
  *
  * ## Options
  *
  * ### Fastscroll
  * _data-fastscroll_ option set to true, creates a fast scroll using the HTML unordered list (&lt;ul&gt;) element.
  *
- *		@example
- *		<div data-role="page" id="main">
- *			<div data-role="content">
- *				<ul id="contacts" data-role="listview" data-fastscroll="true">
- *					<li data-role="list-divider">A</li>
- *					<li>Anton</li>
- *					<li>Arabella</li>
- *					<li data-role="list-divider">B</li>
- *					<li>Barry</li>
- *					<li>Bily</li>
- *				</ul>
- *			</div>
- *		</div>
+ *        @example
+ *        <div data-role="page" id="main">
+ *            <div data-role="content">
+ *                <ul id="contacts" data-role="listview" data-fastscroll="true">
+ *                    <li data-role="list-divider">A</li>
+ *                    <li>Anton</li>
+ *                    <li>Arabella</li>
+ *                    <li data-role="list-divider">B</li>
+ *                    <li>Barry</li>
+ *                    <li>Bily</li>
+ *                </ul>
+ *            </div>
+ *        </div>
  *
  * ## Methods
  *
  * To call method on widget you can use tau API:
  *
- *		@example
- *		<div data-role="page" id="main">
- *			<div data-role="content">
- *				<ul id="contacts">
- *					<li data-role="list-divider">A</li>F
- *					<li>Anton</li>
- *					<li>Arabella</li>
- *					<li data-role="list-divider">B</li>
- *					<li>Barry</li>
- *					<li>Bily</li>
- *				</ul>
- *			</div>
- *		</div>
- *		<script>
- *			var element = document.getElementById("contacts"),
- *				contacts = tau.widget.FastScroll(element, {fastscroll: true});
+ *        @example
+ *        <div data-role="page" id="main">
+ *            <div data-role="content">
+ *                <ul id="contacts">
+ *                    <li data-role="list-divider">A</li>F
+ *                    <li>Anton</li>
+ *                    <li>Arabella</li>
+ *                    <li data-role="list-divider">B</li>
+ *                    <li>Barry</li>
+ *                    <li>Bily</li>
+ *                </ul>
+ *            </div>
+ *        </div>
+ *        <script>
+ *            var element = document.getElementById("contacts"),
+ *                contacts = tau.widget.FastScroll(element, {fastscroll: true});
  *
- *			contacts.methodName(methodArgument1, methodArgument2, ...);
+ *            contacts.methodName(methodArgument1, methodArgument2, ...);
  *
- *			// or JQueryMobile notation:
- *			$(element).contacts("methodName", methodArgument1, methodArgument2, ...);
- *		</script>
+ *            // or JQueryMobile notation:
+ *            $(element).contacts("methodName", methodArgument1, methodArgument2, ...);
+ *        </script>
  *
  * @class ns.widget.mobile.FastScroll
  * @since 2.0
@@ -241,8 +241,8 @@
 
 				element = element || self.element;
 				dividers = element.querySelectorAll(
-						ns.engine.getWidgetDefinition("ListDivider").selector
-					);
+					ns.engine.getWidgetDefinition("ListDivider").selector
+				);
 				dividersLength = dividers.length;
 
 				for (i = 0; i < dividersLength; i++) {
@@ -333,7 +333,7 @@
 				var self = this;
 
 				self.eventHandlers.onSelectIndexScrollbar =
-						onSelectIndexScrollbar.bind(null, self);
+					onSelectIndexScrollbar.bind(null, self);
 				self.indexScrollbar.addEventListener(
 					"select", self.eventHandlers.onSelectIndexScrollbar, false
 				);

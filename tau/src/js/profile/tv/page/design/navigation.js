@@ -56,8 +56,8 @@
  * One can define custom navigation for app or widget.
  * If You create new widget just omit the following part in constructor:
  *
- * 	@example
- * 	Slider = function () {
+ *    @example
+ *    Slider = function () {
  *		//(...)
  * 		BaseKeyboardSupport.call(self); //omit this line
  * 		//(...)
@@ -68,8 +68,8 @@
  * example shows turning of default navigation for using left/right
  * directions to adjust slider value.
  *
- * 	@example
- * 	function onKeyup(self, event) {
+ *    @example
+ *    function onKeyup(self, event) {
  * 		var status = self.status;
  * 		if (event.keyCode === KEY_CODES.enter) {
  * 			if (status) {
@@ -83,7 +83,7 @@
  * 			self.status = !status;
  * 		}
  * 	}
- * 	function onKeydown(self, event) {
+ *    function onKeydown(self, event) {
  * 		if (event.keyCode !== KEY_CODES.enter && !self.status) {
  * 			event.preventDefault();
  * 			event.stopPropagation();

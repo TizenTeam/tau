@@ -27,21 +27,21 @@
  *
  * #### Enhanced scrollview using data-handler attribute
  *
- *		@example
- *		<div data-role="page">
- *			<div data-role="content" data-handler="true">
- *				page content
- *			</div>
- *		</div>
+ *        @example
+ *        <div data-role="page">
+ *            <div data-role="content" data-handler="true">
+ *                page content
+ *            </div>
+ *        </div>
  *
  * #### Enhanced scrollview using css .ui-scrollhandler class
  *
- *		@example
- *		<div data-role="page">
- *			<div data-role="content" class="ui-scrollhandler">
- *				page content
- *			</div>
- *		</div>
+ *        @example
+ *        <div data-role="page">
+ *            <div data-role="content" class="ui-scrollhandler">
+ *                page content
+ *            </div>
+ *        </div>
  *
  * ## Manual constructor
  * To create the widget manually you can use 2 different APIs, the TAU
@@ -49,29 +49,29 @@
  *
  * ### Enhanced scrollview by using TAU API
  *
- *		@example
- *		<div data-role="page" id="myPage">
- *			<div data-role="content">
- *				pagecontent
- *			<div>
- *		</div>
- *		<script>
- *			var handlerElement = document.getElementById("myPage")
- *						.querySelector("[data-role=content]");
- *			tau.widget.ScrollHandler(handlerElement);
- *		</script>
+ *        @example
+ *        <div data-role="page" id="myPage">
+ *            <div data-role="content">
+ *                pagecontent
+ *            <div>
+ *        </div>
+ *        <script>
+ *            var handlerElement = document.getElementById("myPage")
+ *                        .querySelector("[data-role=content]");
+ *            tau.widget.ScrollHandler(handlerElement);
+ *        </script>
  *
  * ### Enhanced scrollview by using jQuery API
  *
- *		@example
- *		<div data-role="page" id="myPage">
- *			<div data-role="content">
- *				pagecontent
- *			<div>
- *		</div>
- *		<script>
- *			$("#myPage > div[data-role=content]").scrollhandler();
- *		</script>
+ *        @example
+ *        <div data-role="page" id="myPage">
+ *            <div data-role="content">
+ *                pagecontent
+ *            <div>
+ *        </div>
+ *        <script>
+ *            $("#myPage > div[data-role=content]").scrollhandler();
+ *        </script>
  *
  * ## Options for ScrollHandler
  *
@@ -92,42 +92,42 @@
  *
  * #### By data-handler attribute
  *
- *		@example
- *		<div data-role="page" id="myPage">
- *			<div data-role="content" data-handler="true">
- *				pagecontent
- *			<div>
- *		</div>
+ *        @example
+ *        <div data-role="page" id="myPage">
+ *            <div data-role="content" data-handler="true">
+ *                pagecontent
+ *            <div>
+ *        </div>
  *
  * #### By passing object to constructor
  *
- *		@example
- *		<div data-role="page" id="myPage">
- *			<div data-role="content">
- *				pagecontent
- *			<div>
- *		</div>
- *		<script>
- *			var handlerElement = document.getElementById("myPage")
- *						.querySelector("[data-role=content]");
- *			tau.widget.ScrollHandler(handlerElement, {
+ *        @example
+ *        <div data-role="page" id="myPage">
+ *            <div data-role="content">
+ *                pagecontent
+ *            <div>
+ *        </div>
+ *        <script>
+ *            var handlerElement = document.getElementById("myPage")
+ *                        .querySelector("[data-role=content]");
+ *            tau.widget.ScrollHandler(handlerElement, {
  *				"handler": true
  *			});
- *		</script>
+ *        </script>
  *
  * #### By using jQuery API
  *
- *		@example
- *		<div data-role="page" id="myPage">
- *			<div data-role="content">
- *				pagecontent
- *			<div>
- *		</div>
- *		<script>
- *			$("#myPage > div[data-role=content]").scrollhandler({
+ *        @example
+ *        <div data-role="page" id="myPage">
+ *            <div data-role="content">
+ *                pagecontent
+ *            <div>
+ *        </div>
+ *        <script>
+ *            $("#myPage > div[data-role=content]").scrollhandler({
  *				"handler": "true"
  *			});
- *		</script>
+ *        </script>
  *
  * ### handlerTheme
  *
@@ -139,43 +139,43 @@
  *
  * #### By data-handler-theme attribute
  *
- *		@example
- *		<div data-role="page" id="myPage">
- *			<div data-role="content" data-handler-theme="s" handler="true">
- *				pagecontent
- *			<div>
- *		</div>
+ *        @example
+ *        <div data-role="page" id="myPage">
+ *            <div data-role="content" data-handler-theme="s" handler="true">
+ *                pagecontent
+ *            <div>
+ *        </div>
  *
  *
  * #### By passing object to constructor
  *
- *		@example
- *		<div data-role="page" id="myPage">
- *			<div data-role="content">
- *				pagecontent
- *			<div>
- *		</div>
- *		<script>
- *			var handlerElement = document.getElementById("myPage")
- *						.querySelector("[data-role=content]");
- *			tau.widget.ScrollHandler(handlerElement, {
+ *        @example
+ *        <div data-role="page" id="myPage">
+ *            <div data-role="content">
+ *                pagecontent
+ *            <div>
+ *        </div>
+ *        <script>
+ *            var handlerElement = document.getElementById("myPage")
+ *                        .querySelector("[data-role=content]");
+ *            tau.widget.ScrollHandler(handlerElement, {
  *				"handlerTheme": "s"
  *			});
- *		</script>
+ *        </script>
  *
  * #### By using jQuery API
  *
- *		@example
- *		<div data-role="page" id="myPage">
- *			<div data-role="content">
- *				pagecontent
- *			<div>
- *		</div>
- *		<script>
- *			$("#myPage > div[data-role=content]").scrollhandler({
+ *        @example
+ *        <div data-role="page" id="myPage">
+ *            <div data-role="content">
+ *                pagecontent
+ *            <div>
+ *        </div>
+ *        <script>
+ *            $("#myPage > div[data-role=content]").scrollhandler({
  *				"handlerTheme": "s"
  *			});
- *		</script>
+ *        </script>
  *
  * ### direction
  *
@@ -187,42 +187,42 @@
  *
  * #### By data-handler-direction attribute
  *
- *		@example
- *		<div data-role="page" id="myPage">
- *			<div data-role="content" data-direction="y" handler="true">
- *				pagecontent
- *			<div>
- *		</div>
+ *        @example
+ *        <div data-role="page" id="myPage">
+ *            <div data-role="content" data-direction="y" handler="true">
+ *                pagecontent
+ *            <div>
+ *        </div>
  *
  * #### By passing object to constructor
  *
- *		@example
- *		<div data-role="page" id="myPage">
- *			<div data-role="content">
- *				pagecontent
- *			<div>
- *		</div>
- *		<script>
- *			var handlerElement = document.getElementById("myPage")
- *						.querySelector("[data-role=content]"),
- *			tau.widget.ScrollHandler(handlerElement, {
+ *        @example
+ *        <div data-role="page" id="myPage">
+ *            <div data-role="content">
+ *                pagecontent
+ *            <div>
+ *        </div>
+ *        <script>
+ *            var handlerElement = document.getElementById("myPage")
+ *                        .querySelector("[data-role=content]"),
+ *            tau.widget.ScrollHandler(handlerElement, {
  *				"scroll": "y"
  *			});
- *		</script>
+ *        </script>
  *
  * #### By using jQuery API
  *
- *		@example
- *		<div data-role="page" id="myPage">
- *			<div data-role="content">
- *				pagecontent
- *			<div>
- *		</div>
- *		<script>
- *			$("#myPage > div[data-role=content]").scrollhandler({
+ *        @example
+ *        <div data-role="page" id="myPage">
+ *            <div data-role="content">
+ *                pagecontent
+ *            <div>
+ *        </div>
+ *        <script>
+ *            $("#myPage > div[data-role=content]").scrollhandler({
  *				"scroll": "y"
  *			});
- *		</script>
+ *        </script>
  *
  * ### scroll
  *
@@ -234,42 +234,42 @@
  *
  * #### By data-handler-scroll attribute
  *
- *		@example
- *		<div data-role="page" id="myPage">
- *			<div data-role="content" data-scroll="x" handler="true">
- *				pagecontent
- *			<div>
- *		</div>
+ *        @example
+ *        <div data-role="page" id="myPage">
+ *            <div data-role="content" data-scroll="x" handler="true">
+ *                pagecontent
+ *            <div>
+ *        </div>
  *
  * #### By passing object to constructor
  *
- *		@example
- *		<div data-role="page" id="myPage">
- *			<div data-role="content">
- *				pagecontent
- *			<div>
- *		</div>
- *		<script>
- *			var handlerElement = document.getElementById("myPage")
- *						.querySelector("[data-role=content]"),
- *			tau.widget.ScrollHandler(handlerElement, {
+ *        @example
+ *        <div data-role="page" id="myPage">
+ *            <div data-role="content">
+ *                pagecontent
+ *            <div>
+ *        </div>
+ *        <script>
+ *            var handlerElement = document.getElementById("myPage")
+ *                        .querySelector("[data-role=content]"),
+ *            tau.widget.ScrollHandler(handlerElement, {
  *				"scroll": "x"
  *			});
- *		</script>
+ *        </script>
  *
  * #### By using jQuery API
  *
- *		@example
- *		<div data-role="page" id="myPage">
- *			<div data-role="content">
- *				pagecontent
- *			<div>
- *		</div>
- *		<script>
- *			$("#myPage > div[data-role=content]").scrollhandler({
+ *        @example
+ *        <div data-role="page" id="myPage">
+ *            <div data-role="content">
+ *                pagecontent
+ *            <div>
+ *        </div>
+ *        <script>
+ *            $("#myPage > div[data-role=content]").scrollhandler({
  *				"scroll": "x"
  *			});
- *		</script>
+ *        </script>
  *
  * ## Methods
  *
@@ -504,8 +504,8 @@
 
 				translate(
 					self,
-						direction === "y" ? 0 : x,
-						direction === "x" ? 0 : y
+					direction === "y" ? 0 : x,
+					direction === "x" ? 0 : y
 				);
 
 				offsets.x = x;
@@ -769,7 +769,7 @@
 					ui.handler = element.querySelector("." + classes.handler);
 				}
 
-				if (ui.track  === null) {
+				if (ui.track === null) {
 					ui.track = element.querySelector("." + classes.track);
 				}
 
@@ -777,7 +777,7 @@
 					ui.handle = element.querySelector("." + classes.handle);
 				}
 
-				if (ui.thumb  === null) {
+				if (ui.thumb === null) {
 					ui.thumb = element.querySelector("." + classes.thumb);
 				}
 
@@ -867,30 +867,30 @@
 			 *
 			 * #### TAU API
 			 *
-			 *		@example
-			 *		<div data-role="page" id="myPage">
-			 *			<div data-role="content">
-			 *				pagecontent
-			 *			<div>
-			 *		</div>
-			 *		<script>
-			 *			var handlerElement = document.getElementById("myPage")
-			 *						.querySelector("[data-role=content]"),
-			 *				scrollhandler = tau.widget.ScrollHandler(handlerElement);
-			 *			scrollhandler.enableHandler(true);
-			 *		</script>
+			 *        @example
+			 *        <div data-role="page" id="myPage">
+			 *            <div data-role="content">
+			 *                pagecontent
+			 *            <div>
+			 *        </div>
+			 *        <script>
+			 *            var handlerElement = document.getElementById("myPage")
+			 *                        .querySelector("[data-role=content]"),
+			 *                scrollhandler = tau.widget.ScrollHandler(handlerElement);
+			 *            scrollhandler.enableHandler(true);
+			 *        </script>
 			 *
 			 * #### jQuery API
 			 *
-			 *		@example
-			 *		<div data-role="page" id="myPage">
-			 *			<div data-role="content">
-			 *				pagecontent
-			 *			<div>
-			 *		</div>
-			 *		<script>
-			 *			#("#myPage > div[data-role=content]).scrollhandler("enableHandler", true);
-			 *		</script>
+			 *        @example
+			 *        <div data-role="page" id="myPage">
+			 *            <div data-role="content">
+			 *                pagecontent
+			 *            <div>
+			 *        </div>
+			 *        <script>
+			 *            #("#myPage > div[data-role=content]).scrollhandler("enableHandler", true);
+			 *        </script>
 			 *
 			 * @param {boolean} enable
 			 * @return {boolean}

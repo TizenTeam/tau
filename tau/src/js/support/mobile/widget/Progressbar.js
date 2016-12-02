@@ -31,19 +31,19 @@
  *
  * ####Create simple text input on INPUT element
  *
- *		@example
- *		<div id="progress-bar" data-role="progressbar"></div>
+ *        @example
+ *        <div id="progress-bar" data-role="progressbar"></div>
  *
  * ## Manual constructor
  * For manual creation of button widget you can use constructor of widget from
  * **tau** namespace:
  *
- *		@example
- *		<div id="progress-bar"></div>
- *		<script>
- *			var element = document.getElementById("progress-bar"),
- *				progressBar = tau.widget.ProgressBar(element);
- *		</script>
+ *        @example
+ *        <div id="progress-bar"></div>
+ *        <script>
+ *            var element = document.getElementById("progress-bar"),
+ *                progressBar = tau.widget.ProgressBar(element);
+ *        </script>
  *
  * Constructor has one required parameter **element** which is base
  * **HTMLElement** to create widget. We recommend fetching this element by
@@ -52,11 +52,11 @@
  *
  * If jQuery library is loaded, its method can be used:
  *
- *		@example
- *		<div id="progress-bar"></div>
- *		<script>
- *			$("#progress-bar").progressbar();
- *		</script>
+ *        @example
+ *        <div id="progress-bar"></div>
+ *        <script>
+ *            $("#progress-bar").progressbar();
+ *        </script>
  *
  * jQuery Mobile constructor has one optional parameter **options** and it is
  * a object with options for widget.
@@ -74,19 +74,19 @@
  *
  * First API is from tau namespace:
  *
- *		@example
- *		<script>
- *			var element = document.getElementById("probress-bar"),
- *				progressBar = tau.widget.ProgressBar(element);
+ *        @example
+ *        <script>
+ *            var element = document.getElementById("probress-bar"),
+ *                progressBar = tau.widget.ProgressBar(element);
  *
- *			progressBar.methodName(argument1, argument2, ...);
- *		</script>
+ *            progressBar.methodName(argument1, argument2, ...);
+ *        </script>
  *
  *
  * Second API is jQuery Mobile API and for call _methodName_ you can use:
  *
- *		@example
- *		$(".selector").progressbar("methodName", argument1, argument2, ...);
+ *        @example
+ *        $(".selector").progressbar("methodName", argument1, argument2, ...);
  *
  * @extends ns.widget.BaseWidget
  * @class ns.widget.mobile.ProgressBar
@@ -176,8 +176,8 @@
 			 */
 			ProgressBar.prototype._build = function (element) {
 				/* cached ProgressBar.classes object
-				* type Object
-				*/
+				 * type Object
+				 */
 				var classes = ProgressBar.classes,
 					self = this,
 					options = self.options,
@@ -216,26 +216,26 @@
 			 *
 			 * Return inner text of button or set text on button
 			 *
-			 *	@example
-			 *	<div id="progress-bar"></div>
-			 *	<script>
-			 *		var element = document.getElementById("progress-bar"),
-			 *			progressBarWidget = tau.widget.ProgressBar(element),
-			 *			// returns current value
-			 *			value = progressBarWidget.value();
+			 *    @example
+			 *    <div id="progress-bar"></div>
+			 *    <script>
+			 *        var element = document.getElementById("progress-bar"),
+			 *            progressBarWidget = tau.widget.ProgressBar(element),
+			 *            // returns current value
+			 *            value = progressBarWidget.value();
 			 *
-			 *		progressBarWidget.value( 30 ); // sets new value to 30
-			 *	</script>
+			 *        progressBarWidget.value( 30 ); // sets new value to 30
+			 *    </script>
 			 *
-			 *	@example
-			 *	<div id="progress-bar"></div>
-			 *	<script>
-			 *		// returns current value
-			 *		$( "#progress-bar" ).progressbar( "value" );
+			 *    @example
+			 *    <div id="progress-bar"></div>
+			 *    <script>
+			 *        // returns current value
+			 *        $( "#progress-bar" ).progressbar( "value" );
 			 *
-			 *		// set new value to 30
-			 *		$( "#progress-bar" ).progressbar( "value", 30 );
-			 *	</script>
+			 *        // set new value to 30
+			 *        $( "#progress-bar" ).progressbar( "value", 30 );
+			 *    </script>
 			 * @method value
 			 * @param {number} [value] Value to set on progress bar
 			 * @return {number} In get mode returns current value of progress
@@ -288,20 +288,20 @@
 			 * widget DOM structure. Refresh is called automatically after
 			 * change any option of widget.
 			 *
-			 *	@example
-			 *	<div id="progress-bar"></div>
-			 *	<script>
-			 *		var element = document.getElementById("progress-bar"),
-			 *			progressBarWidget = tau.widget.ProgressBar(element),
+			 *    @example
+			 *    <div id="progress-bar"></div>
+			 *    <script>
+			 *        var element = document.getElementById("progress-bar"),
+			 *            progressBarWidget = tau.widget.ProgressBar(element),
 			 *
-			 *		progressBarWidget.refresh();
-			 *	</script>
+			 *        progressBarWidget.refresh();
+			 *    </script>
 			 *
-			 *	@example
-			 *	<div id="progress-bar"></div>
-			 *	<script>
-			 *		$( "#progress-bar" ).progressbar( "refresh" );
-			 *	</script>
+			 *    @example
+			 *    <div id="progress-bar"></div>
+			 *    <script>
+			 *        $( "#progress-bar" ).progressbar( "refresh" );
+			 *    </script>
 			 *
 			 * @method refresh
 			 * @chainable

@@ -114,7 +114,7 @@
 				var popup,
 					hashReg = /^#/;
 
-				id = id.replace(hashReg,"");
+				id = id.replace(hashReg, "");
 				popup = document.getElementById(id);
 
 				if (popup && utilSelector.matchesSelector(popup, filter)) {
@@ -186,7 +186,7 @@
 			 * @return {null}
 			 * @static
 			 */
-			routeDynamic.onOpenFailed = function(/* options */) {
+			routeDynamic.onOpenFailed = function (/* options */) {
 				return null;
 			};
 
@@ -198,15 +198,15 @@
 			 * @member ns.router.route.popup
 			 * @static
 			 */
-			routeDynamic.find = function( absUrl ) {
+			routeDynamic.find = function (absUrl) {
 				var self = this,
-					dataUrl = self._createDataUrl( absUrl ),
+					dataUrl = self._createDataUrl(absUrl),
 					activePage = engine.getRouter().getContainer().getActivePage(),
 					popup;
 
 				popup = activePage.element.querySelector("[data-url='" + dataUrl + "']" + self.filter);
 
-				if ( !popup && dataUrl && !path.isPath( dataUrl ) ) {
+				if (!popup && dataUrl && !path.isPath(dataUrl)) {
 					popup = findPopupAndSetDataUrl(dataUrl, self.filter);
 				}
 
@@ -223,10 +223,10 @@
 			 * @member ns.router.route.popup
 			 * @static
 			 */
-			routeDynamic.parse = function( html, absUrl ) {
+			routeDynamic.parse = function (html, absUrl) {
 				var self = this,
 					popup,
-					dataUrl = self._createDataUrl( absUrl ),
+					dataUrl = self._createDataUrl(absUrl),
 					scripts,
 					all = document.createElement("div"),
 					scriptRunner = ns.util.runScript.bind(null, dataUrl);
@@ -257,8 +257,8 @@
 			 * @protected
 			 * @static
 			 */
-			routeDynamic._createDataUrl = function( absoluteUrl ) {
-				return path.convertUrlToDataUrl( absoluteUrl );
+			routeDynamic._createDataUrl = function (absoluteUrl) {
+				return path.convertUrlToDataUrl(absoluteUrl);
 			};
 
 			ns.router.route.dynamic = routeDynamic;

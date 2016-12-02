@@ -1,4 +1,4 @@
-/*global window, define */
+/*global window, ns, define */
 /*jslint nomen: true */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
@@ -44,10 +44,8 @@
 				utilSelector = util.selectors,
 				history = ns.router.history,
 				engine = ns.engine,
-				Dialog = ns.widget.mobile.Dialog,
 				baseElement,
 				routeDialog = {},
-				previousPage,
 				head;
 
 			/**
@@ -115,7 +113,7 @@
 				return defaults;
 			};
 
-			routeDialog.init = function() {
+			routeDialog.init = function () {
 				var pages = [].slice.call(document.querySelectorAll(this.filter));
 				pages.forEach(function (page) {
 					if (!DOM.getNSData(page, "url")) {
@@ -176,7 +174,7 @@
 
 				this.activeDialog = engine.instanceWidget(toPage, options.widget);
 
-				previousPage = this.getContainer().getActivePage();
+				this.getContainer().getActivePage();
 
 				this.getContainer().change(toPage, options);
 			};
@@ -225,9 +223,9 @@
 				// We check for this case here because we don't want a first-page with
 				// an id falling through to the non-existent embedded page error case.
 				if (!page &&
-						path.isFirstPageUrl(dataUrl) &&
-						initialContent &&
-						initialContent.parentNode) {
+					path.isFirstPageUrl(dataUrl) &&
+					initialContent &&
+					initialContent.parentNode) {
 					page = initialContent;
 				}
 
@@ -244,7 +242,7 @@
 			 * @member ns.router.route.popup
 			 * @static
 			 */
-			routeDialog.onHashChange = function (url, options) {
+			routeDialog.onHashChange = function () {
 				return false;
 			};
 

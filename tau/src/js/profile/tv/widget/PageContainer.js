@@ -24,8 +24,8 @@
  * ## Background Settings
  * Widget allows to set fullscreen background with centered content.
  *
- *		@example
- *		<body class="ui-pagecontainer" data-background="bg.jpg">...
+ *        @example
+ *        <body class="ui-pagecontainer" data-background="bg.jpg">...
  *
  *
  * @class ns.widget.tv.PageContainer
@@ -48,8 +48,7 @@
 				PageContainer = function () {
 				},
 				engine = ns.engine,
-				prototype = new CorePageContainer(),
-				classes = CorePageContainer.classes;
+				prototype = new CorePageContainer();
 
 			PageContainer.events = CorePageContainer.events;
 			PageContainer.classes = CorePageContainer.classes;
@@ -62,7 +61,7 @@
 			 * @protected
 			 * @member ns.widget.tv.PageContainer
 			 */
-			prototype._build = function ( element ) {
+			prototype._build = function (element) {
 				var optionsBackground = this.options.background;
 				if (CorePageContainerPrototype._build) {
 					element = CorePageContainerPrototype._build(element);
@@ -81,7 +80,7 @@
 			 * @protected
 			 * @member ns.widget.tv.PageContainer
 			 */
-			prototype._configure = function ( ) {
+			prototype._configure = function () {
 				var options = this.options || {};
 				/**
 				 * The background attribute specifies a background image for a widget

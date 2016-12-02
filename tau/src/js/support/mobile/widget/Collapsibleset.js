@@ -26,68 +26,68 @@
  *
  * ###Create collapsibleset by data-role
  *
- *		@example
- *		<div data-role="collapsible-set" data-theme="c" data-content-theme="d">
- *			<div data-role="collapsible" data-inset="false">
- *				<h6>Collapsible head 1</h6>
- *				<div>Content</div>
- *			</div>
- *			<div data-role="collapsible" data-inset="false">
- *				<h6>Collapsible head 2</h6>
- *				<div>Content</div>
- *			</div>
- *		</div>
+ *        @example
+ *        <div data-role="collapsible-set" data-theme="c" data-content-theme="d">
+ *            <div data-role="collapsible" data-inset="false">
+ *                <h6>Collapsible head 1</h6>
+ *                <div>Content</div>
+ *            </div>
+ *            <div data-role="collapsible" data-inset="false">
+ *                <h6>Collapsible head 2</h6>
+ *                <div>Content</div>
+ *            </div>
+ *        </div>
  *
  * ###Create collapsibleset by class
  *
- *		@example
- *		<div class="ui-collapsible-set" data-theme="c" data-content-theme="d">
- *			<div data-role="collapsible" data-inset="false">
- *				<h6>Collapsible head 1</h6>
- *				<div>Content</div>
- *			</div>
- *			<div data-role="collapsible" data-inset="false">
- *				<h6>Collapsible head 2</h6>
- *				<div>Content</div>
- *			</div>
- *		</div>
+ *        @example
+ *        <div class="ui-collapsible-set" data-theme="c" data-content-theme="d">
+ *            <div data-role="collapsible" data-inset="false">
+ *                <h6>Collapsible head 1</h6>
+ *                <div>Content</div>
+ *            </div>
+ *            <div data-role="collapsible" data-inset="false">
+ *                <h6>Collapsible head 2</h6>
+ *                <div>Content</div>
+ *            </div>
+ *        </div>
  *
  * ## Manual constructor
  * For manual creation of collapsibleset widget you can use constructor of widget:
  *
- *		@example
- *		<div id="collapsibleset" data-theme="c" data-content-theme="d">
- *			<div data-role="collapsible" data-inset="false">
- *				<h6>Collapsible head 1</h6>
- *				<div>Content</div>
- *			</div>
- *			<div data-role="collapsible" data-inset="false">
- *				<h6>Collapsible head 2</h6>
- *				<div>Content</div>
- *			</div>
- *		</div>
+ *        @example
+ *        <div id="collapsibleset" data-theme="c" data-content-theme="d">
+ *            <div data-role="collapsible" data-inset="false">
+ *                <h6>Collapsible head 1</h6>
+ *                <div>Content</div>
+ *            </div>
+ *            <div data-role="collapsible" data-inset="false">
+ *                <h6>Collapsible head 2</h6>
+ *                <div>Content</div>
+ *            </div>
+ *        </div>
  *
- *		<script>
- *			var collapsibleset = tau.widget.CollapsibleSet(document.getElementById("collapsibleset"));
- *		</script>
+ *        <script>
+ *            var collapsibleset = tau.widget.CollapsibleSet(document.getElementById("collapsibleset"));
+ *        </script>
  *
  * If jQuery library is loaded, its method can be used:
  *
- *		@example
- *		<div id="collapsibleset" data-theme="c" data-content-theme="d">
- *			<div data-role="collapsible" data-inset="false">
- *				<h6>Collapsible head 1</h6>
- *				<div>Content</div>
- *			</div>
- *			<div data-role="collapsible" data-inset="false">
- *				<h6>Collapsible head 2</h6>
- *				<div>Content</div>
- *			</div>
- *		</div>
+ *        @example
+ *        <div id="collapsibleset" data-theme="c" data-content-theme="d">
+ *            <div data-role="collapsible" data-inset="false">
+ *                <h6>Collapsible head 1</h6>
+ *                <div>Content</div>
+ *            </div>
+ *            <div data-role="collapsible" data-inset="false">
+ *                <h6>Collapsible head 2</h6>
+ *                <div>Content</div>
+ *            </div>
+ *        </div>
  *
- *		<script>
- *			var collapsibleset = $("#collapsibleset").collapsibleset();
- *		</script>
+ *        <script>
+ *            var collapsibleset = $("#collapsibleset").collapsibleset();
+ *        </script>
  *
  *
  * @class ns.widget.mobile.CollapsibleSet
@@ -112,11 +112,11 @@
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 
-				/**
-				 * @property {ns.engine} engine alias variable
-				 * @private
-				 * @static
-				 */
+			/**
+			 * @property {ns.engine} engine alias variable
+			 * @private
+			 * @static
+			 */
 			var engine = ns.engine,
 				/**
 				 * @property {ns.widget} widget alias variable
@@ -190,7 +190,7 @@
 				uiCollapsibleHeading: Expandable.classes.uiExpandableHeading,
 				uiCornerTop: "ui-corner-top",
 				uiCornerBottom: "ui-corner-bottom",
-				uiCollapsibleContent : Expandable.classes.uiExpandableContent
+				uiCollapsibleContent: Expandable.classes.uiExpandableContent
 			};
 
 
@@ -225,18 +225,18 @@
 			// @private
 			// @member ns.widget.mobile.CollapsibleSet
 			function roundCollapsibleSetBoundaries(collapsiblesInSet) {
-				if(collapsiblesInSet.length > 0) {
+				if (collapsiblesInSet.length > 0) {
 
 					var firstCollapsible = collapsiblesInSet[0],
 						classes = CollapsibleSet.classes,
 						dataAttributes = CollapsibleSet.attributes,
 						firstCollapsibleHeading = selectors.getChildrenByClass(firstCollapsible, classes.uiCollapsibleHeading)[0],
 
-						lastCollapsible = collapsiblesInSet[collapsiblesInSet.length-1],
+						lastCollapsible = collapsiblesInSet[collapsiblesInSet.length - 1],
 						lastCollapsibleHeading = selectors.getChildrenByClass(lastCollapsible, classes.uiCollapsibleHeading)[0];
 
 					//clean up borders
-					collapsiblesInSet.forEach(function(collapsibleElement) {
+					collapsiblesInSet.forEach(function (collapsibleElement) {
 						var heading = selectors.getChildrenByClass(collapsibleElement, classes.uiCollapsibleHeading)[0],
 							headingClassList = heading.classList;
 
@@ -269,10 +269,10 @@
 					collapsibleHeading = selectors.getChildrenByClass(collapsible, classes.uiCollapsibleHeading)[0],
 					collapsibleHeadingClassList = collapsibleHeading.classList,
 					collapsibleContent = selectors.getChildrenByClass(collapsible, classes.uiCollapsibleContent)[0],
-					collapsibleContentClassList =  collapsibleContent.classList;
+					collapsibleContentClassList = collapsibleContent.classList;
 
-				if(domUtils.hasNSData(collapsible, dataAttributes.last) && !!options.inset) {
-					if(isCollapse) {
+				if (domUtils.hasNSData(collapsible, dataAttributes.last) && !!options.inset) {
+					if (isCollapse) {
 						collapsibleHeadingClassList.add(classes.uiCornerBottom);
 						collapsibleContentClassList.remove(classes.uiCornerBottom);
 					} else {
@@ -281,8 +281,8 @@
 					}
 				}
 
-				if(!isCollapse) {
-					while(firstCollapsible) {
+				if (!isCollapse) {
+					while (firstCollapsible) {
 						if (firstCollapsible.nodeType === 1 && firstCollapsible !== collapsible) {
 							events.trigger(firstCollapsible, "collapse");
 						}
@@ -321,7 +321,7 @@
 
 				this.refresh();
 
-				for(i = 0; i < expandedLength; i++) {
+				for (i = 0; i < expandedLength; i++) {
 					events.trigger(expanded[i], "expand");
 				}
 
@@ -330,40 +330,40 @@
 			/**
 			 * This method refreshes collapsibleset.
 			 *
-			 *		@example
-			 *		<div id="collapsibleset" data-role="collapsible-set" data-theme="c" data-content-theme="d">
-			 *			<div data-role="collapsible" data-inset="false">
-			 *				<h6>Collapsible head 1</h6>
-			 *				<div>Content</div>
-			 *			</div>
-			 *			<div data-role="collapsible" data-inset="false">
-			 *				<h6>Collapsible head 2</h6>
-			 *				<div>Content</div>
-			 *			</div>
-			 *		</div>
+			 *        @example
+			 *        <div id="collapsibleset" data-role="collapsible-set" data-theme="c" data-content-theme="d">
+			 *            <div data-role="collapsible" data-inset="false">
+			 *                <h6>Collapsible head 1</h6>
+			 *                <div>Content</div>
+			 *            </div>
+			 *            <div data-role="collapsible" data-inset="false">
+			 *                <h6>Collapsible head 2</h6>
+			 *                <div>Content</div>
+			 *            </div>
+			 *        </div>
 			 *
-			 *		<script>
-			 *			var collapsiblesetWidget = tau.widget.CollapsibleSet(document.getElementById("collapsibleset"));
-			 *			collapsiblesetWidget.refresh();
-			 *		</script>
+			 *        <script>
+			 *            var collapsiblesetWidget = tau.widget.CollapsibleSet(document.getElementById("collapsibleset"));
+			 *            collapsiblesetWidget.refresh();
+			 *        </script>
 			 *
 			 * If jQuery is loaded:
 			 *
-			 *		@example
-			 *		<div id="collapsibleset" data-role="collapsible-set" data-theme="c" data-content-theme="d">
-			 *			<div data-role="collapsible" data-inset="false">
-			 *				<h6>Collapsible head 1</h6>
-			 *				<div>Content</div>
-			 *			</div>
-			 *			<div data-role="collapsible" data-inset="false">
-			 *				<h6>Collapsible head 2</h6>
-			 *				<div>Content</div>
-			 *			</div>
-			 *		</div>
+			 *        @example
+			 *        <div id="collapsibleset" data-role="collapsible-set" data-theme="c" data-content-theme="d">
+			 *            <div data-role="collapsible" data-inset="false">
+			 *                <h6>Collapsible head 1</h6>
+			 *                <div>Content</div>
+			 *            </div>
+			 *            <div data-role="collapsible" data-inset="false">
+			 *                <h6>Collapsible head 2</h6>
+			 *                <div>Content</div>
+			 *            </div>
+			 *        </div>
 			 *
-			 *		<script>
-			 *			$("#collapsibleset").collapsibleset("refresh");
-			 *		</script>
+			 *        <script>
+			 *            $("#collapsibleset").collapsibleset("refresh");
+			 *        </script>
 			 *
 			 * @method refresh
 			 * @chainable
@@ -383,7 +383,7 @@
 					bareCollapsiblesLength = bareCollapsibles.length,
 					i;
 
-				for(i=0; i < bareCollapsiblesLength; i++) {
+				for (i = 0; i < bareCollapsiblesLength; i++) {
 					engine.instanceWidget(bareCollapsibles[i], "Collapsible");
 				}
 
@@ -397,40 +397,40 @@
 			 *
 			 * This will return the element back to its pre-init state.
 			 *
-			 *		@example
-			 *		<div id="collapsibleset" data-role="collapsible-set" data-theme="c" data-content-theme="d">
-			 *			<div data-role="collapsible" data-inset="false">
-			 *				<h6>Collapsible head 1</h6>
-			 *				<div>Content</div>
-			 *			</div>
-			 *			<div data-role="collapsible" data-inset="false">
-			 *				<h6>Collapsible head 2</h6>
-			 *				<div>Content</div>
-			 *			</div>
-			 *		</div>
+			 *        @example
+			 *        <div id="collapsibleset" data-role="collapsible-set" data-theme="c" data-content-theme="d">
+			 *            <div data-role="collapsible" data-inset="false">
+			 *                <h6>Collapsible head 1</h6>
+			 *                <div>Content</div>
+			 *            </div>
+			 *            <div data-role="collapsible" data-inset="false">
+			 *                <h6>Collapsible head 2</h6>
+			 *                <div>Content</div>
+			 *            </div>
+			 *        </div>
 			 *
-			 *		<script>
-			 *			var collapsiblesetWidget = tau.widget.CollapsibleSet(document.getElementById("collapsibleset"));
-			 *			collapsiblesetWidget.destroy();
-			 *		</script>
+			 *        <script>
+			 *            var collapsiblesetWidget = tau.widget.CollapsibleSet(document.getElementById("collapsibleset"));
+			 *            collapsiblesetWidget.destroy();
+			 *        </script>
 			 *
 			 * If jQuery is loaded:
 			 *
-			 *		@example
-			 *		<div id="collapsibleset" data-role="collapsible-set" data-theme="c" data-content-theme="d">
-			 *			<div data-role="collapsible" data-inset="false">
-			 *				<h6>Collapsible head 1</h6>
-			 *				<div>Content</div>
-			 *			</div>
-			 *			<div data-role="collapsible" data-inset="false">
-			 *				<h6>Collapsible head 2</h6>
-			 *				<div>Content</div>
-			 *			</div>
-			 *		</div>
+			 *        @example
+			 *        <div id="collapsibleset" data-role="collapsible-set" data-theme="c" data-content-theme="d">
+			 *            <div data-role="collapsible" data-inset="false">
+			 *                <h6>Collapsible head 1</h6>
+			 *                <div>Content</div>
+			 *            </div>
+			 *            <div data-role="collapsible" data-inset="false">
+			 *                <h6>Collapsible head 2</h6>
+			 *                <div>Content</div>
+			 *            </div>
+			 *        </div>
 			 *
-			 *		<script>
-			 *			$("#collapsibleset").collapsibleset("destroy");
-			 *		</script>
+			 *        <script>
+			 *            $("#collapsibleset").collapsibleset("destroy");
+			 *        </script>
 			 *
 			 * @method destroy
 			 * @member ns.widget.mobile.CollapsibleSet
@@ -461,46 +461,46 @@
 			 *
 			 * If you give two arguments and first argument will be a string then second argument will be intemperate as value to set.
 			 *
-			 *		@example
-			 *		<div id="collapsibleset" data-role="collapsible-set" data-theme="c" data-content-theme="d">
-			 *			<div data-role="collapsible" data-inset="false">
-			 *				<h6>Collapsible head 1</h6>
-			 *				<div>Content</div>
-			 *			</div>
-			 *			<div data-role="collapsible" data-inset="false">
-			 *				<h6>Collapsible head 2</h6>
-			 *				<div>Content</div>
-			 *			</div>
-			 *		</div>
+			 *        @example
+			 *        <div id="collapsibleset" data-role="collapsible-set" data-theme="c" data-content-theme="d">
+			 *            <div data-role="collapsible" data-inset="false">
+			 *                <h6>Collapsible head 1</h6>
+			 *                <div>Content</div>
+			 *            </div>
+			 *            <div data-role="collapsible" data-inset="false">
+			 *                <h6>Collapsible head 2</h6>
+			 *                <div>Content</div>
+			 *            </div>
+			 *        </div>
 			 *
-			 *		<script>
-			 *			var collapsiblesetWidget = tau.widget.CollapsibleSet(document.getElementById("collapsibleset")),
-			 *				value;
+			 *        <script>
+			 *            var collapsiblesetWidget = tau.widget.CollapsibleSet(document.getElementById("collapsibleset")),
+			 *                value;
 			 *
-			 *			value = collapsiblesetWidget.option("mini"); // get value
-			 *			collapsiblesetWidget.option("mini", true); // set value
-			 *		</script>
+			 *            value = collapsiblesetWidget.option("mini"); // get value
+			 *            collapsiblesetWidget.option("mini", true); // set value
+			 *        </script>
 			 *
 			 * If jQuery is loaded:
 			 *
-			 *		@example
-			 *		<div id="collapsibleset" data-role="collapsible-set" data-theme="c" data-content-theme="d">
-			 *			<div data-role="collapsible" data-inset="false">
-			 *				<h6>Collapsible head 1</h6>
-			 *				<div>Content</div>
-			 *			</div>
-			 *			<div data-role="collapsible" data-inset="false">
-			 *				<h6>Collapsible head 2</h6>
-			 *				<div>Content</div>
-			 *			</div>
-			 *		</div>
+			 *        @example
+			 *        <div id="collapsibleset" data-role="collapsible-set" data-theme="c" data-content-theme="d">
+			 *            <div data-role="collapsible" data-inset="false">
+			 *                <h6>Collapsible head 1</h6>
+			 *                <div>Content</div>
+			 *            </div>
+			 *            <div data-role="collapsible" data-inset="false">
+			 *                <h6>Collapsible head 2</h6>
+			 *                <div>Content</div>
+			 *            </div>
+			 *        </div>
 			 *
-			 *		<script>
-			 *			var value;
+			 *        <script>
+			 *            var value;
 			 *
-			 *			value = $("#collapsibleset").collapsibleset("option", "mini"); // get value
-			 *			$("#collapsibleset").collapsibleset("option", "mini", true); // set value
-			 *		</script>
+			 *            value = $("#collapsibleset").collapsibleset("option", "mini"); // get value
+			 *            $("#collapsibleset").collapsibleset("option", "mini", true); // set value
+			 *        </script>
 			 *
 			 * @method option
 			 * @param {string|Object} [name] name of option
@@ -522,40 +522,40 @@
 			 *
 			 * Method adds disabled attribute on collapsibleset and changes look of collapsibleset to disabled state.
 			 *
-			 *		@example
-			 *		<div id="collapsibleset" data-role="collapsible-set" data-theme="c" data-content-theme="d">
-			 *			<div data-role="collapsible" data-inset="false">
-			 *				<h6>Collapsible head 1</h6>
-			 *				<div>Content</div>
-			 *			</div>
-			 *			<div data-role="collapsible" data-inset="false">
-			 *				<h6>Collapsible head 2</h6>
-			 *				<div>Content</div>
-			 *			</div>
-			 *		</div>
+			 *        @example
+			 *        <div id="collapsibleset" data-role="collapsible-set" data-theme="c" data-content-theme="d">
+			 *            <div data-role="collapsible" data-inset="false">
+			 *                <h6>Collapsible head 1</h6>
+			 *                <div>Content</div>
+			 *            </div>
+			 *            <div data-role="collapsible" data-inset="false">
+			 *                <h6>Collapsible head 2</h6>
+			 *                <div>Content</div>
+			 *            </div>
+			 *        </div>
 			 *
-			 *		<script>
-			 *			var collapsiblesetWidget = tau.widget.CollapsibleSet(document.getElementById("collapsibleset"));
-			 *			collapsiblesetWidget.disable();
-			 *		</script>
+			 *        <script>
+			 *            var collapsiblesetWidget = tau.widget.CollapsibleSet(document.getElementById("collapsibleset"));
+			 *            collapsiblesetWidget.disable();
+			 *        </script>
 			 *
 			 * If jQuery is loaded:
 			 *
-			 *		@example
-			 *		<div id="collapsibleset" data-role="collapsible-set" data-theme="c" data-content-theme="d">
-			 *			<div data-role="collapsible" data-inset="false">
-			 *				<h6>Collapsible head 1</h6>
-			 *				<div>Content</div>
-			 *			</div>
-			 *			<div data-role="collapsible" data-inset="false">
-			 *				<h6>Collapsible head 2</h6>
-			 *				<div>Content</div>
-			 *			</div>
-			 *		</div>
+			 *        @example
+			 *        <div id="collapsibleset" data-role="collapsible-set" data-theme="c" data-content-theme="d">
+			 *            <div data-role="collapsible" data-inset="false">
+			 *                <h6>Collapsible head 1</h6>
+			 *                <div>Content</div>
+			 *            </div>
+			 *            <div data-role="collapsible" data-inset="false">
+			 *                <h6>Collapsible head 2</h6>
+			 *                <div>Content</div>
+			 *            </div>
+			 *        </div>
 			 *
-			 *		<script>
-			 *			$("#collapsibleset").collapsibleset("disable");
-			 *		</script>
+			 *        <script>
+			 *            $("#collapsibleset").collapsibleset("disable");
+			 *        </script>
 			 *
 			 * @method disable
 			 * @chainable
@@ -567,40 +567,40 @@
 			 *
 			 * Method removes disabled attribute on collapsibleset and changes look of collapsibleset to enabled state.
 			 *
-			 *		@example
-			 *		<div id="collapsibleset" data-role="collapsible-set" data-theme="c" data-content-theme="d">
-			 *			<div data-role="collapsible" data-inset="false">
-			 *				<h6>Collapsible head 1</h6>
-			 *				<div>Content</div>
-			 *			</div>
-			 *			<div data-role="collapsible" data-inset="false">
-			 *				<h6>Collapsible head 2</h6>
-			 *				<div>Content</div>
-			 *			</div>
-			 *		</div>
+			 *        @example
+			 *        <div id="collapsibleset" data-role="collapsible-set" data-theme="c" data-content-theme="d">
+			 *            <div data-role="collapsible" data-inset="false">
+			 *                <h6>Collapsible head 1</h6>
+			 *                <div>Content</div>
+			 *            </div>
+			 *            <div data-role="collapsible" data-inset="false">
+			 *                <h6>Collapsible head 2</h6>
+			 *                <div>Content</div>
+			 *            </div>
+			 *        </div>
 			 *
-			 *		<script>
-			 *			var collapsiblesetWidget = tau.widget.CollapsibleSet(document.getElementById("collapsibleset"));
-			 *			collapsiblesetWidget.enable();
-			 *		</script>
+			 *        <script>
+			 *            var collapsiblesetWidget = tau.widget.CollapsibleSet(document.getElementById("collapsibleset"));
+			 *            collapsiblesetWidget.enable();
+			 *        </script>
 			 *
 			 * If jQuery is loaded:
 			 *
-			 *		@example
-			 *		<div id="collapsibleset" data-role="collapsible-set" data-theme="c" data-content-theme="d">
-			 *			<div data-role="collapsible" data-inset="false">
-			 *				<h6>Collapsible head 1</h6>
-			 *				<div>Content</div>
-			 *			</div>
-			 *			<div data-role="collapsible" data-inset="false">
-			 *				<h6>Collapsible head 2</h6>
-			 *				<div>Content</div>
-			 *			</div>
-			 *		</div>
+			 *        @example
+			 *        <div id="collapsibleset" data-role="collapsible-set" data-theme="c" data-content-theme="d">
+			 *            <div data-role="collapsible" data-inset="false">
+			 *                <h6>Collapsible head 1</h6>
+			 *                <div>Content</div>
+			 *            </div>
+			 *            <div data-role="collapsible" data-inset="false">
+			 *                <h6>Collapsible head 2</h6>
+			 *                <div>Content</div>
+			 *            </div>
+			 *        </div>
 			 *
-			 *		<script>
-			 *			$("#collapsibleset").collapsibleset("enable");
-			 *		</script>
+			 *        <script>
+			 *            $("#collapsibleset").collapsibleset("enable");
+			 *        </script>
 			 *
 			 * @method enable
 			 * @chainable
@@ -657,44 +657,44 @@
 			/**
 			 * Add event listener to widget's element.
 			 *
-			 *		@example
-			 *		<div id="collapsibleset" data-role="collapsible-set" data-theme="c" data-content-theme="d">
-			 *			<div data-role="collapsible" data-inset="false">
-			 *				<h6>Collapsible head 1</h6>
-			 *				<div>Content</div>
-			 *			</div>
-			 *			<div data-role="collapsible" data-inset="false">
-			 *				<h6>Collapsible head 2</h6>
-			 *				<div>Content</div>
-			 *			</div>
-			 *		</div>
+			 *        @example
+			 *        <div id="collapsibleset" data-role="collapsible-set" data-theme="c" data-content-theme="d">
+			 *            <div data-role="collapsible" data-inset="false">
+			 *                <h6>Collapsible head 1</h6>
+			 *                <div>Content</div>
+			 *            </div>
+			 *            <div data-role="collapsible" data-inset="false">
+			 *                <h6>Collapsible head 2</h6>
+			 *                <div>Content</div>
+			 *            </div>
+			 *        </div>
 			 *
-			 *		<script>
-			 *			var collapsiblesetWidget = tau.widget.CollapsibleSet(document.getElementById("collapsibleset"));
-			 *			collapsiblesetWidget.on("eventName", function () {
+			 *        <script>
+			 *            var collapsiblesetWidget = tau.widget.CollapsibleSet(document.getElementById("collapsibleset"));
+			 *            collapsiblesetWidget.on("eventName", function () {
 			 *				console.log("Event fires");
 			 *			});
-			 *		</script>
+			 *        </script>
 			 *
 			 * If jQuery is loaded:
 			 *
-			 *		@example
-			 *		<div id="collapsibleset" data-role="collapsible-set" data-theme="c" data-content-theme="d">
-			 *			<div data-role="collapsible" data-inset="false">
-			 *				<h6>Collapsible head 1</h6>
-			 *				<div>Content</div>
-			 *			</div>
-			 *			<div data-role="collapsible" data-inset="false">
-			 *				<h6>Collapsible head 2</h6>
-			 *				<div>Content</div>
-			 *			</div>
-			 *		</div>
+			 *        @example
+			 *        <div id="collapsibleset" data-role="collapsible-set" data-theme="c" data-content-theme="d">
+			 *            <div data-role="collapsible" data-inset="false">
+			 *                <h6>Collapsible head 1</h6>
+			 *                <div>Content</div>
+			 *            </div>
+			 *            <div data-role="collapsible" data-inset="false">
+			 *                <h6>Collapsible head 2</h6>
+			 *                <div>Content</div>
+			 *            </div>
+			 *        </div>
 			 *
-			 *		<script>
-			 *			$("#collapsibleset").collapsibleset("on", "eventName", function () {
+			 *        <script>
+			 *            $("#collapsibleset").collapsibleset("on", "eventName", function () {
 			 *				console.log("Event fires");
 			 *			});
-			 *		</script>
+			 *        </script>
 			 *
 			 * @method on
 			 * @param {string} eventName the name of event
@@ -706,54 +706,54 @@
 			/**
 			 * Remove event listener to widget's element.
 			 *
-			 *		@example
-			 *		<div id="collapsibleset" data-role="collapsible-set" data-theme="c" data-content-theme="d">
-			 *			<div data-role="collapsible" data-inset="false">
-			 *				<h6>Collapsible head 1</h6>
-			 *				<div>Content</div>
-			 *			</div>
-			 *			<div data-role="collapsible" data-inset="false">
-			 *				<h6>Collapsible head 2</h6>
-			 *				<div>Content</div>
-			 *			</div>
-			 *		</div>
+			 *        @example
+			 *        <div id="collapsibleset" data-role="collapsible-set" data-theme="c" data-content-theme="d">
+			 *            <div data-role="collapsible" data-inset="false">
+			 *                <h6>Collapsible head 1</h6>
+			 *                <div>Content</div>
+			 *            </div>
+			 *            <div data-role="collapsible" data-inset="false">
+			 *                <h6>Collapsible head 2</h6>
+			 *                <div>Content</div>
+			 *            </div>
+			 *        </div>
 			 *
-			 *		<script>
-			 *			var collapsiblesetWidget = tau.widget.CollapsibleSet(document.getElementById("collapsibleset")),
-			 *				callback = function () {
+			 *        <script>
+			 *            var collapsiblesetWidget = tau.widget.CollapsibleSet(document.getElementById("collapsibleset")),
+			 *                callback = function () {
 			 *					console.log("Event fires");
 			 *				};
-			 *			// add callback on event "eventName"
-			 *			collapsiblesetWidget.on("eventName", callback);
-			 *			// ...
-			 *			// remove callback on event "eventName"
-			 *			collapsiblesetWidget.off("eventName", callback);
-			 *		</script>
+			 *            // add callback on event "eventName"
+			 *            collapsiblesetWidget.on("eventName", callback);
+			 *            // ...
+			 *            // remove callback on event "eventName"
+			 *            collapsiblesetWidget.off("eventName", callback);
+			 *        </script>
 			 *
 			 * If jQuery is loaded:
 			 *
-			 *		@example
-			 *		<div id="collapsibleset" data-role="collapsible-set" data-theme="c" data-content-theme="d">
-			 *			<div data-role="collapsible" data-inset="false">
-			 *				<h6>Collapsible head 1</h6>
-			 *				<div>Content</div>
-			 *			</div>
-			 *			<div data-role="collapsible" data-inset="false">
-			 *				<h6>Collapsible head 2</h6>
-			 *				<div>Content</div>
-			 *			</div>
-			 *		</div>
+			 *        @example
+			 *        <div id="collapsibleset" data-role="collapsible-set" data-theme="c" data-content-theme="d">
+			 *            <div data-role="collapsible" data-inset="false">
+			 *                <h6>Collapsible head 1</h6>
+			 *                <div>Content</div>
+			 *            </div>
+			 *            <div data-role="collapsible" data-inset="false">
+			 *                <h6>Collapsible head 2</h6>
+			 *                <div>Content</div>
+			 *            </div>
+			 *        </div>
 			 *
-			 *		<script>
-			 *			var callback = function () {
+			 *        <script>
+			 *            var callback = function () {
 			 *					console.log("Event fires");
 			 *				};
-			 *			// add callback on event "eventName"
-			 *			$("#collapsibleset").collapsibleset("on", "eventName", callback);
-			 *			// ...
-			 *			// remove callback on event "eventName"
-			 *			$("#collapsibleset").collapsibleset("off", "eventName", callback);
-			 *		</script>
+			 *            // add callback on event "eventName"
+			 *            $("#collapsibleset").collapsibleset("on", "eventName", callback);
+			 *            // ...
+			 *            // remove callback on event "eventName"
+			 *            $("#collapsibleset").collapsibleset("off", "eventName", callback);
+			 *        </script>
 			 * @method off
 			 * @param {string} eventName the name of event
 			 * @param {Function} listener function call after event will be trigger

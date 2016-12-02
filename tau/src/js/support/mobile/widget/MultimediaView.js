@@ -16,13 +16,13 @@
  */
 /*jslint nomen: true */
 /**
-* #Multimedia View widget
+ * #Multimedia View widget
  * The multimedia view widget displays the audio and video player.
-* @class ns.widget.mobile.MultimediaView
-* @extends ns.widget.mobile.BaseWidgetMobile
-* @author Maciej Urbanski <m.urbanski@samsung.com>
-* @author Tomasz Lukawski <t.lukawski@samsung.com>
-*/
+ * @class ns.widget.mobile.MultimediaView
+ * @extends ns.widget.mobile.BaseWidgetMobile
+ * @author Maciej Urbanski <m.urbanski@samsung.com>
+ * @author Tomasz Lukawski <t.lukawski@samsung.com>
+ */
 (function (window, document, ns) {
 	"use strict";
 	//>>excludeStart('tauBuildExclude', pragmas.tauBuildExclude);
@@ -46,69 +46,69 @@
 		],
 		function () {
 			//>>excludeEnd('tauBuildExclude');
-				/**
-				* Local alias for ns.widget.mobile.BaseWidgetMobile
-				* @property {Function} BaseWidgetMobile Alias for {@link ns.widget.mobile.BaseWidgetMobile}
-				* @member ns.widget.mobile.MultimediaView
-				* @static
-				* @private
-				*/
+			/**
+			 * Local alias for ns.widget.mobile.BaseWidgetMobile
+			 * @property {Function} BaseWidgetMobile Alias for {@link ns.widget.mobile.BaseWidgetMobile}
+			 * @member ns.widget.mobile.MultimediaView
+			 * @static
+			 * @private
+			 */
 			var BaseWidget = ns.widget.mobile.BaseWidgetMobile,
 				/**
-				* Local alias for ns.engine
-				* @property {Object} engine Alias for {@link ns.engine}
-				* @member ns.widget.mobile.MultimediaView
-				* @static
-				* @private
-				*/
+				 * Local alias for ns.engine
+				 * @property {Object} engine Alias for {@link ns.engine}
+				 * @member ns.widget.mobile.MultimediaView
+				 * @static
+				 * @private
+				 */
 				engine = ns.engine,
 				/**
-				* Local alias for ns.event
-				* @property {Object} engine Alias for {@link ns.event}
-				* @member ns.widget.mobile.MultimediaView
-				* @static
-				* @private
-				*/
+				 * Local alias for ns.event
+				 * @property {Object} engine Alias for {@link ns.event}
+				 * @member ns.widget.mobile.MultimediaView
+				 * @static
+				 * @private
+				 */
 				events = ns.event,
 				/**
-				* Local alias for ns.util
-				* @property {Object} engine Alias for {@link ns.util}
-				* @member ns.widget.mobile.MultimediaView
-				* @static
-				* @private
-				*/
+				 * Local alias for ns.util
+				 * @property {Object} engine Alias for {@link ns.util}
+				 * @member ns.widget.mobile.MultimediaView
+				 * @static
+				 * @private
+				 */
 				util = ns.util,
 				/**
-				* Local alias for ns.utilsTheme
-				* @property {Object} engine Alias for {@link ns.theme}
-				* @member ns.widget.mobile.MultimediaView
-				* @static
-				* @private
-				*/
+				 * Local alias for ns.utilsTheme
+				 * @property {Object} engine Alias for {@link ns.theme}
+				 * @member ns.widget.mobile.MultimediaView
+				 * @static
+				 * @private
+				 */
 				utilsTheme = ns.theme,
 				/**
-				* Local alias for ns.util.object
-				* @property {Object} utilsDOM Alias for {@link ns.util.object}
-				* @member ns.widget.mobile.MultimediaView
-				* @static
-				* @private
-				*/
+				 * Local alias for ns.util.object
+				 * @property {Object} utilsDOM Alias for {@link ns.util.object}
+				 * @member ns.widget.mobile.MultimediaView
+				 * @static
+				 * @private
+				 */
 				utilsObject = ns.util.object,
 				/**
-				* Local alias for ns.util.DOM.manipulation & ns.util.DOM.css & ns.util.DOM.attributes
-				* @property {Object} utilsDOM Alias for {@link ns.util.DOM.*}
-				* @member ns.widget.mobile.MultimediaView
-				* @static
-				* @private
-				*/
+				 * Local alias for ns.util.DOM.manipulation & ns.util.DOM.css & ns.util.DOM.attributes
+				 * @property {Object} utilsDOM Alias for {@link ns.util.DOM.*}
+				 * @member ns.widget.mobile.MultimediaView
+				 * @static
+				 * @private
+				 */
 				utilsDOM = ns.util.DOM,
 				/**
-				* Local alias for ns.util.selectors
-				* @property {Object} utilsSelectors Alias for {@link ns.util.selectors}
-				* @member ns.widget.mobile.MultimediaView
-				* @static
-				* @private
-				*/
+				 * Local alias for ns.util.selectors
+				 * @property {Object} utilsSelectors Alias for {@link ns.util.selectors}
+				 * @member ns.widget.mobile.MultimediaView
+				 * @static
+				 * @private
+				 */
 				utilsSelectors = ns.util.selectors,
 				/**
 				 * Local alias for classes of Page widget
@@ -136,29 +136,28 @@
 				 */
 				sliderClasses = ns.widget.mobile.Slider.classes,
 				/**
-				* Alias to Array.slice
-				* @method slice
-				* @member ns.widget.mobile.MultimediaView
-				* @static
-				* @private
-				*/
+				 * Alias to Array.slice
+				 * @method slice
+				 * @member ns.widget.mobile.MultimediaView
+				 * @static
+				 * @private
+				 */
 				slice = [].slice,
 
 				POINTER_CLICK_EVENT = "vclick",
 				POINTER_MOVE_EVENT = "vmousemove",
 				POINTER_DOWN_EVENT = "vmousedown",
 				POINTER_UP_EVENT = "vmouseup",
-				MEDIA_POSITION_CHANGE_TIMEOUT = 200, //[ms]
 				FULLSCREEN_DELAY = 300, //[]ms
 
 				MultimediaView = function () {
 					var self = this;
 					/**
-					* @property {Object} options
-					* @property {Object} options.controls=true Sets the controls for the widget.
-					* @property {Object} options.fullScreen=false Defines whether the widget opens in the fullscreen view mode.
-					* @property {Object} [options.theme] Sets the widget theme. If the value is not set, the parent control's theme is used.
-					*/
+					 * @property {Object} options
+					 * @property {Object} options.controls=true Sets the controls for the widget.
+					 * @property {Object} options.fullScreen=false Defines whether the widget opens in the fullscreen view mode.
+					 * @property {Object} [options.theme] Sets the widget theme. If the value is not set, the parent control's theme is used.
+					 */
 					self.options = {
 						controls: true,
 						fullScreen: false,
@@ -263,20 +262,20 @@
 				DURATION_LABEL_TAG_NAME = "p";
 
 			/**
-			* @property {Object} classes
-			* @member ns.widget.mobile.MultimediaView
-			* @static
-			*/
+			 * @property {Object} classes
+			 * @member ns.widget.mobile.MultimediaView
+			 * @static
+			 */
 			MultimediaView.classes = classes;
 
 			/**
-			* The method builds HTML structure of control panel
-			* @method _createControl
-			* @return {HTMLElement}
-			* @member ns.widget.mobile.MultimediaView
-			* @protected
-			* @instance
-			*/
+			 * The method builds HTML structure of control panel
+			 * @method _createControl
+			 * @return {HTMLElement}
+			 * @member ns.widget.mobile.MultimediaView
+			 * @protected
+			 * @instance
+			 */
 			MultimediaViewPrototype._createControl = function () {
 				var self = this,
 					view = self.element,
@@ -356,15 +355,15 @@
 			};
 
 			/**
-			* The width method is used to get (if no value is defined)
-			*  or set the multimedia view widget width
-			* @method width
-			* @param {number} [value=undefined]
-			* @return {number|null} width Width value or null if fullScreen option is enabled
-			* @member ns.widget.mobile.MultimediaView
-			* @protected
-			* @instance
-			*/
+			 * The width method is used to get (if no value is defined)
+			 *  or set the multimedia view widget width
+			 * @method width
+			 * @param {number} [value=undefined]
+			 * @return {number|null} width Width value or null if fullScreen option is enabled
+			 * @member ns.widget.mobile.MultimediaView
+			 * @protected
+			 * @instance
+			 */
 			MultimediaViewPrototype.width = function (value) {
 				var self = this,
 					view,
@@ -390,15 +389,15 @@
 			};
 
 			/**
-			* The height method is used to get (if no value is defined)
-			*  or set the multimedia view widget height
-			* @method height
-			* @param {number} [value=undefined]
-			* @return {number|null} height Height value or null if fullScreen option is enabled or element is not video
-			* @member ns.widget.mobile.MultimediaView
-			* @protected
-			* @instance
-			*/
+			 * The height method is used to get (if no value is defined)
+			 *  or set the multimedia view widget height
+			 * @method height
+			 * @param {number} [value=undefined]
+			 * @return {number|null} height Height value or null if fullScreen option is enabled or element is not video
+			 * @member ns.widget.mobile.MultimediaView
+			 * @protected
+			 * @instance
+			 */
 			MultimediaViewPrototype.height = function (value) {
 				var self = this,
 					view = self.element;
@@ -416,16 +415,16 @@
 			};
 
 			/**
-			* The fullScreen method is used to get (if no value is defined)
-			*  or set the fullscreen mode of the multimedia view widget.
-			* If the value is true, the fullscreen mode is used;
-			*  otherwise the multimedia view widget runs in the normal mode
-			* @method fullScreen
-			* @param {boolean} value
-			* @return {boolean}
-			* @member ns.widget.mobile.MultimediaView
-			* @instance
-			*/
+			 * The fullScreen method is used to get (if no value is defined)
+			 *  or set the fullscreen mode of the multimedia view widget.
+			 * If the value is true, the fullscreen mode is used;
+			 *  otherwise the multimedia view widget runs in the normal mode
+			 * @method fullScreen
+			 * @param {boolean} value
+			 * @return {boolean}
+			 * @member ns.widget.mobile.MultimediaView
+			 * @instance
+			 */
 			MultimediaViewPrototype.fullScreen = function (value) {
 				var self = this,
 					control = self.ui.control,
@@ -463,27 +462,27 @@
 			};
 
 			/**
-			* Resize view
-			* @method fullScreen
-			* @return {boolean}
-			* @member ns.widget.mobile.MultimediaView
-			* @instance
-			* @protected
-			*/
+			 * Resize view
+			 * @method fullScreen
+			 * @return {boolean}
+			 * @member ns.widget.mobile.MultimediaView
+			 * @instance
+			 * @protected
+			 */
 			MultimediaViewPrototype._resize = function () {
 				this._resizeControl();
 				this.trigger("updatelayout");
 			};
 
 			/**
-			* The method builds HTML structure of widget
-			* @method _build
-			* @param {HTMLElement} element
-			* @return {HTMLElement}
-			* @member ns.widget.mobile.MultimediaView
-			* @protected
-			* @instance
-			*/
+			 * The method builds HTML structure of widget
+			 * @method _build
+			 * @param {HTMLElement} element
+			 * @return {HTMLElement}
+			 * @member ns.widget.mobile.MultimediaView
+			 * @protected
+			 * @instance
+			 */
 			MultimediaViewPrototype._build = function (element) {
 				var self = this,
 					view = element || self.element,
@@ -546,12 +545,12 @@
 			};
 
 			/**
-			* The method initializing widget properties
-			* @method _initControl
-			* @member ns.widget.mobile.MultimediaView
-			* @protected
-			* @instance
-			*/
+			 * The method initializing widget properties
+			 * @method _initControl
+			 * @member ns.widget.mobile.MultimediaView
+			 * @protected
+			 * @instance
+			 */
 			MultimediaViewPrototype._initControl = function () {
 				var self = this,
 					control = self.ui.control;
@@ -571,14 +570,14 @@
 			};
 
 			/**
-			* The method initializing widget properties
-			* @method _init
-			* @param {HTMLElement} element
-			* @return {HTMLElement}
-			* @member ns.widget.mobile.MultimediaView
-			* @protected
-			* @instance
-			*/
+			 * The method initializing widget properties
+			 * @method _init
+			 * @param {HTMLElement} element
+			 * @return {HTMLElement}
+			 * @member ns.widget.mobile.MultimediaView
+			 * @protected
+			 * @instance
+			 */
 			MultimediaViewPrototype._init = function (element) {
 				var self = this;
 				if (self.ui === undefined) {
@@ -594,37 +593,37 @@
 			};
 
 			/**
-			* The method configuring base options of widget
-			* @method _configure
-			* @param {HTMLElement} element
-			* @return {HTMLElement}
-			* @member ns.widget.mobile.MultimediaView
-			* @protected
-			* @instance
-			*/
+			 * The method configuring base options of widget
+			 * @method _configure
+			 * @param {HTMLElement} element
+			 * @return {HTMLElement}
+			 * @member ns.widget.mobile.MultimediaView
+			 * @protected
+			 * @instance
+			 */
 			MultimediaViewPrototype._configure = function (element) {
 				// @todo: make body of method;
 				return element;
 			};
 
 			/**
-			* The method destroy widget and unbinds event listeners
-			* @method _destroy
-			* @member ns.widget.mobile.MultimediaView
-			* @protected
-			* @instance
-			*/
+			 * The method destroy widget and unbinds event listeners
+			 * @method _destroy
+			 * @member ns.widget.mobile.MultimediaView
+			 * @protected
+			 * @instance
+			 */
 			MultimediaViewPrototype._destroy = function () {
 				var self = this;
 				self._unbindEvents();
 			};
 
 			/**
-			* Resizing of controlBar
-			* @method _resizeControl
-			* @member ns.widget.mobile.MultimediaView
-			* @protected
-			* @instance
+			 * Resizing of controlBar
+			 * @method _resizeControl
+			 * @member ns.widget.mobile.MultimediaView
+			 * @protected
+			 * @instance
 			 */
 			MultimediaViewPrototype._resizeControl = function () {
 				var self = this,
@@ -679,13 +678,13 @@
 			};
 
 			/**
-			* Convert time format, from timestamp [s] to string
-			* @method convertTimeFormat
-			* @member ns.widget.mobile.MultimediaView
-			* @param {number} systime
-			* @return {string} time time as format HH:mm:ss
-			* @private
-			* @static
+			 * Convert time format, from timestamp [s] to string
+			 * @method convertTimeFormat
+			 * @member ns.widget.mobile.MultimediaView
+			 * @param {number} systime
+			 * @return {string} time time as format HH:mm:ss
+			 * @private
+			 * @static
 			 */
 			function convertTimeFormat(systime) {
 				if (!util.isNumber(systime)) {
@@ -696,18 +695,18 @@
 					mm = parseInt((systime / 60) % 60, 10).toString(),
 					hh = parseInt(systime / 3600, 10).toString(),
 					time = ((hh.length < 2) ? "0" + hh : hh) + ":" +
-							((mm.length < 2) ? "0" + mm : mm) + ":" +
-							((ss.length < 2) ? "0" + ss : ss);
+						((mm.length < 2) ? "0" + mm : mm) + ":" +
+						((ss.length < 2) ? "0" + ss : ss);
 
 				return time;
 			}
 
 			/**
-			* Update the position of progress Bar
-			* @method _updateSeekBar
-			* @member ns.widget.mobile.MultimediaView
-			* @protected
-			* @instance
+			 * Update the position of progress Bar
+			 * @method _updateSeekBar
+			 * @member ns.widget.mobile.MultimediaView
+			 * @protected
+			 * @instance
 			 */
 			MultimediaViewPrototype._updateSeekBar = function (currenttime) {
 				var self = this,
@@ -724,11 +723,11 @@
 			};
 
 			/**
-			* Update the position of Volume Bar eg. after volume change on VIDEO element
-			* @method _updateVolumeBarState
-			* @member ns.widget.mobile.MultimediaView
-			* @protected
-			* @instance
+			 * Update the position of Volume Bar eg. after volume change on VIDEO element
+			 * @method _updateVolumeBarState
+			 * @member ns.widget.mobile.MultimediaView
+			 * @protected
+			 * @instance
 			 */
 			MultimediaViewPrototype._updateVolumeBarState = function () {
 				var self = this,
@@ -752,7 +751,7 @@
 			 */
 			MultimediaViewPrototype._toggleControlPanel = function () {
 				var controlStyle = this.ui.control.style;
-				controlStyle.opacity = (parseFloat(controlStyle.opacity) | 0) === 0 ? 1.0: 0;
+				controlStyle.opacity = (parseFloat(controlStyle.opacity) | 0) === 0 ? 1.0 : 0;
 			};
 
 			/**
@@ -871,18 +870,18 @@
 				self._resize();
 			}
 
-			function onVolumeBarChange(self, event) {
+			function onVolumeBarChange(self) {
 				var volume = engine.getBinding(self.ui.volumeBar);
 				self._setVolume(volume.element.value / 100);
 			}
 
 			function setViewPositionFromEvent(self, event) {
-				var value =  getProgressByPointerEvent(event),
+				var value = getProgressByPointerEvent(event),
 					progressBar = engine.getBinding(self.ui.durationBar);
 				progressBar.value(value);
 				//clearTimeout(self._changeMediaPositionTimeout);
 				//self._changeMediaPositionTimeout = setTimeout(function () {
-					setViewPositionByPercent(self, value);
+				setViewPositionByPercent(self, value);
 				//}, MEDIA_POSITION_CHANGE_TIMEOUT);
 			}
 
@@ -895,21 +894,26 @@
 				var target = event.target;
 				return (event.clientX - target.offsetLeft) / target.offsetWidth * 100;
 			}
+
 			function onProgressBarMove(self, event) {
 				if (self._progressBarPressed) {
 					setViewPositionFromEvent(self, event);
 				}
 			}
+
 			function onProgressBarDown(self, event) {
 				self._progressBarPressed = true;
 				setViewPositionFromEvent(self, event);
 			}
+
 			function onProgressBarUp(self) {
 				self._progressBarPressed = false;
 			}
+
 			function onButtonDown(button) {
 				button.classList.add(classes.BUTTON_DOWN);
 			}
+
 			function onButtonUp(button) {
 				button.classList.remove(classes.BUTTON_DOWN);
 			}
@@ -940,6 +944,7 @@
 						return onProgressBarMove(self, event);
 				}
 			}
+
 			function onPointerDown(self, event) {
 				var progressBarBackgruond = self.ui.progressBar;
 
@@ -952,6 +957,7 @@
 						return onButtonDown(event.target);
 				}
 			}
+
 			function onPointerUp(self, event) {
 				var progressBarBackgruond = self.ui.progressBar;
 
@@ -964,6 +970,7 @@
 						return onButtonUp(event.target);
 				}
 			}
+
 			function onChange(self, event) {
 				var volumeBar = self.ui.volumeBar;
 
@@ -972,6 +979,7 @@
 						return onVolumeBarChange(self, event);
 				}
 			}
+
 			function onResize(self, event) {
 				switch (event.target) {
 					case window:
@@ -1013,13 +1021,13 @@
 			};
 
 			/**
-			* The method binding event handlers to widget
-			* @method _bindEvents
-			* @param {HTMLElement} element
-			* @member ns.widget.mobile.MultimediaView
-			* @protected
-			* @instance
-			*/
+			 * The method binding event handlers to widget
+			 * @method _bindEvents
+			 * @param {HTMLElement} element
+			 * @member ns.widget.mobile.MultimediaView
+			 * @protected
+			 * @instance
+			 */
 			MultimediaViewPrototype._bindEvents = function (element) {
 				var self = this,
 					view = self.element,
@@ -1054,12 +1062,12 @@
 			};
 
 			/**
-			* The method unbinds event listeners
-			* @method _unbindEvents
-			* @member ns.widget.mobile.MultimediaView
-			* @protected
-			* @instance
-			*/
+			 * The method unbinds event listeners
+			 * @method _unbindEvents
+			 * @member ns.widget.mobile.MultimediaView
+			 * @protected
+			 * @instance
+			 */
 			MultimediaViewPrototype._unbindEvents = function () {
 				var self = this,
 					view = self.element,

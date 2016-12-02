@@ -1,4 +1,4 @@
-/*global define, ns, tizen */
+/*global define, ns */
 (function (ns, tizen) {
 	"use strict";
 
@@ -22,7 +22,7 @@
 			saveToFile: !!(tizen && tizen.filesystem),
 			print: function () {
 				if (!this.phantomRun) {
-					console.log.apply(console, arguments);
+					ns.log.apply(ns, arguments);
 				}
 			},
 			data: {},
@@ -100,10 +100,10 @@
 							fs.close();
 							tizen.application.getCurrentApplication().exit();
 						}, function (e) {
-							console.error("Problem with opening file for writing " + e.message);
+							ns.error("Problem with opening file for writing " + e.message);
 						}, "UTF-8");
-					}, function(e) {
-						console.error("Error: " + e.message);
+					}, function (e) {
+						ns.error("Error: " + e.message);
 						tizen.application.getCurrentApplication.exit();
 					}, "rw");
 				} else {

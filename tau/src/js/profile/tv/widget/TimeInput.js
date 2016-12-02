@@ -28,25 +28,25 @@
  *
  * ####Create simple spin control on INPUT element
  *
- *		@example
- *		<form>
- *			<label for="spin-1">Time Input</label>
- *			<input type="time" name="time-1" id="time-1" value="">
- *		</form>
+ *        @example
+ *        <form>
+ *            <label for="spin-1">Time Input</label>
+ *            <input type="time" name="time-1" id="time-1" value="">
+ *        </form>
  *
  * ## Manual constructor
  * For manual creation of TimeInput widget you can use constructor of widget
  * from **tau** namespace:
  *
- *		@example
- *		<form>
- *			<label for="time-2">Time Input:</label>
- *			<input type="time" name="time-2" id="time-2" value="">
- *		</form>
- *		<script>
- *			var inputElement = document.getElementById("time-2"),
- *				timeInput = tau.widget.TimeInput(inputElement);
- *		</script>
+ *        @example
+ *        <form>
+ *            <label for="time-2">Time Input:</label>
+ *            <input type="time" name="time-2" id="time-2" value="">
+ *        </form>
+ *        <script>
+ *            var inputElement = document.getElementById("time-2"),
+ *                timeInput = tau.widget.TimeInput(inputElement);
+ *        </script>
  *
  * Constructor has one require parameter **element** which are base
  * **HTMLElement** to create widget. We recommend get this element by method
@@ -159,13 +159,13 @@
 					"step": 1,
 					"data-loop": true,
 					"value": element.getAttribute("placeholder") ||
-						currentTime.getHours()
+					currentTime.getHours()
 				});
 				minutes = hours.cloneNode(false);
 				utilDOM.setAttributes(minutes, {
 					"max": 59,
 					"value": element.getAttribute("placeholder") ||
-						currentTime.getMinutes()
+					currentTime.getMinutes()
 				});
 				seconds = minutes.cloneNode(false);
 				utilDOM.setAttributes(seconds, {
@@ -195,23 +195,23 @@
 				wrapper.appendChild(element);
 
 				self._hours = ns.engine.instanceWidget(
-						hours, "SpinControl", {
-							deactivateOnExit: false,
-							showInLightBox: false,
-							usePlaceholder: false
-						});
+					hours, "SpinControl", {
+						deactivateOnExit: false,
+						showInLightBox: false,
+						usePlaceholder: false
+					});
 				self._minutes = ns.engine.instanceWidget(
-						minutes, "SpinControl", {
-							deactivateOnExit: false,
-							showInLightBox: false,
-							usePlaceholder: false
-						});
+					minutes, "SpinControl", {
+						deactivateOnExit: false,
+						showInLightBox: false,
+						usePlaceholder: false
+					});
 				self._seconds = ns.engine.instanceWidget(
-						seconds, "SpinControl", {
-							deactivateOnExit: false,
-							showInLightBox: false,
-							usePlaceholder: false
-						});
+					seconds, "SpinControl", {
+						deactivateOnExit: false,
+						showInLightBox: false,
+						usePlaceholder: false
+					});
 
 				ui.wrapper = wrapper;
 				ui.hours = hours;
@@ -245,7 +245,7 @@
 				wrapper.innerHTML = "";
 			}
 
-			function onFocus(self, ev) {
+			function onFocus(self) {
 				if (!self.options.active) {
 					if (!self._ui.wrapper.classList.contains(classes.focus)) {
 						self._ui.wrapper.classList.add(classes.focus);
@@ -383,16 +383,16 @@
 					case KEY_CODES.tab:
 						switch (event.target) {
 							case self._first._ui.wrapper:
-									if (event.shiftKey) {
-										events.stopImmediatePropagation(event);
-										self._exit();
-									}
+								if (event.shiftKey) {
+									events.stopImmediatePropagation(event);
+									self._exit();
+								}
 								break;
 							case self._last._ui.wrapper:
-									if (!event.shiftKey) {
-										events.stopImmediatePropagation(event);
-										self._exit();
-									}
+								if (!event.shiftKey) {
+									events.stopImmediatePropagation(event);
+									self._exit();
+								}
 								break;
 						}
 						break;
@@ -435,10 +435,8 @@
 
 					case KEY_CODES.enter:
 						if (self.options.active) {
-							if (!self._hours._insertNumberMode &&
-								!self._minutes._insertNumberMode &&
-								!self._seconds._insertNumberMode) {
-									self._exit();
+							if (!self._hours._insertNumberMode && !self._minutes._insertNumberMode && !self._seconds._insertNumberMode) {
+								self._exit();
 							}
 						}
 						break;
@@ -460,13 +458,11 @@
 			/**
 			 * Bind events
 			 * @method _bindEvents
-			 * @param {HTMLElement} element
 			 * @protected
 			 * @member ns.widget.tv.TimeInput
 			 */
-			prototype._bindEvents = function() {
-				var element = this.element,
-					self = this,
+			prototype._bindEvents = function () {
+				var self = this,
 					callbacks = this._callbacks,
 					ui = self._ui,
 					wrapper = ui.wrapper;
@@ -487,13 +483,11 @@
 			/**
 			 * Unbind events
 			 * @method _unbindEvents
-			 * @param {HTMLElement} element
 			 * @protected
 			 * @member ns.widget.tv.TimeInput
 			 */
-			prototype._unbindEvents = function() {
-				var element = this.element,
-					self = this,
+			prototype._unbindEvents = function () {
+				var self = this,
 					callbacks = this._callbacks,
 					ui = self._ui,
 					wrapper = ui.wrapper;
@@ -518,13 +512,13 @@
 			 * @protected
 			 * @member ns.widget.tv.TimeInput
 			 */
-			prototype._init = function(element) {
+			prototype._init = function (element) {
 				var self = this,
 					ui = self._ui,
 					wrapper;
 
 				element.value = element.getAttribute("placeholder") ||
-							new Date().toTimeString().match(TIME_REGEXP)[0];
+					new Date().toTimeString().match(TIME_REGEXP)[0];
 
 				if (ui.wrapper === null) {
 					// find widget components: html elements
@@ -554,7 +548,7 @@
 			 * @protected
 			 * @member ns.widget.tv.TimeInput
 			 */
-			prototype._destroy = function(element) {
+			prototype._destroy = function (element) {
 				var self = this;
 
 				self._hideOverlay();

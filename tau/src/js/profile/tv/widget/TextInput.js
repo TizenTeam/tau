@@ -32,41 +32,41 @@
  *
  * ####Create simple text input on INPUT element
  *
- *		@example
- *		<form>
- *			<label for="text-1">Text input:</label>
- *			<input type="text" name="text-1" id="text-1" value="">
- *		</form>
+ *        @example
+ *        <form>
+ *            <label for="text-1">Text input:</label>
+ *            <input type="text" name="text-1" id="text-1" value="">
+ *        </form>
  *
  * ####Create simple text input on TEXTAREA element
  *
- *		@example
- *		<form>
- *			<label for="text-1">Text input:</label>
- *			<textarea name="text-1" id="text-1"></textarea>
- *		</form>
+ *        @example
+ *        <form>
+ *            <label for="text-1">Text input:</label>
+ *            <textarea name="text-1" id="text-1"></textarea>
+ *        </form>
  *
  * ####Create simple text input on INPUT element with class ui-textinput
  *
- *		@example
- *		<form>
- *			<label for="text-1">Text input:</label>
- *			<input name="text-1" id="text-1" class="ui-textinput">
- *		</form>
+ *        @example
+ *        <form>
+ *            <label for="text-1">Text input:</label>
+ *            <input name="text-1" id="text-1" class="ui-textinput">
+ *        </form>
  *
  * ## Manual constructor
  * For manual creation of TextInput widget you can use constructor of widget
  * from **tau** namespace:
  *
- *		@example
- *		<form>
- *			<label for="text-1">Text input:</label>
- *			<input type="search" name="text-1" id="text-1" value="">
- *		</form>
- *		<script>
- *			var inputElement = document.getElementById("text-1"),
- *				textInput = tau.widget.TextInput(inputElement);
- *		</script>
+ *        @example
+ *        <form>
+ *            <label for="text-1">Text input:</label>
+ *            <input type="search" name="text-1" id="text-1" value="">
+ *        </form>
+ *        <script>
+ *            var inputElement = document.getElementById("text-1"),
+ *                textInput = tau.widget.TextInput(inputElement);
+ *        </script>
  *
  * Constructor has one require parameter **element** which are base
  * **HTMLElement** to create widget. We recommend get this element by method
@@ -136,7 +136,7 @@
 					"input[type='month'], input[type='week'], " +
 					"input[type='datetime-local'], input[type='color'], " +
 					"input:not([type]), " +
-					"." +classes.uiTextinput + ":not([type='number'])";
+					"." + classes.uiTextinput + ":not([type='number'])";
 
 			TextInput.events = MobileTextInput.events;
 			TextInput.classes = classes;
@@ -155,6 +155,7 @@
 
 				self._ui.inputBox = inputBox;
 			}
+
 			/**
 			 * Returns label value.
 			 * @method getLabel
@@ -192,7 +193,7 @@
 					label.innerHTML = text;
 				}
 			};
-			prototype._configure = function() {
+			prototype._configure = function () {
 				var self = this;
 				self.options.textLine = false;
 			};
@@ -203,7 +204,7 @@
 			 * @protected
 			 * @member ns.widget.tv.TextInput
 			 */
-			prototype._build = function(element) {
+			prototype._build = function (element) {
 				var self = this;
 
 				element = MobileTextInputPrototype._build.call(self, element);
@@ -296,7 +297,7 @@
 			 * @protected
 			 * @member ns.widget.tv.TextInput
 			 */
-			prototype._bindEvents = function(element) {
+			prototype._bindEvents = function (element) {
 				var self = this,
 					callbacks = self._callbacks,
 					parentElement = element.parentElement;
@@ -334,7 +335,7 @@
 			 * @protected
 			 * @member ns.widget.tv.TextInput
 			 */
-			prototype._destroy = function(element) {
+			prototype._destroy = function (element) {
 				var self = this,
 					callbacks = self._callbacks,
 					parentElement = element.parentElement;

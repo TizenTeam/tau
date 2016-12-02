@@ -159,10 +159,10 @@
 
 				if (maxWidth === 0 && isNaN(maxHeight)) {
 					/*
-					* Exception : When image max width and height has incorrect value.
-					* This exception is occured when this.maxImageWidth value is 0 and this.maxImageHeight value is NaN when page transition like rotation.
-					* This exception affect that image width and height values are 0.
-					*/
+					 * Exception : When image max width and height has incorrect value.
+					 * This exception is occured when this.maxImageWidth value is 0 and this.maxImageHeight value is NaN when page transition like rotation.
+					 * This exception affect that image width and height values are 0.
+					 */
 					imageStyle.width = width;
 					imageStyle.height = width * ratio;
 				} else {
@@ -321,11 +321,11 @@
 			};
 
 			/**
-			* Configure gallery widget
-			* @method _configure
-			* @protected
-			* @member ns.widget.mobile.Gallery
-			*/
+			 * Configure gallery widget
+			 * @method _configure
+			 * @protected
+			 * @member ns.widget.mobile.Gallery
+			 */
 			Gallery.prototype._configure = function () {
 				var options = this.options;
 
@@ -371,13 +371,13 @@
 			};
 
 			/**
-			* Build structure of gallery widget
-			* @method _build
-			* @param {HTMLElement} element
-			* @return {HTMLElement}
-			* @protected
-			* @member ns.widget.mobile.Gallery
-			*/
+			 * Build structure of gallery widget
+			 * @method _build
+			 * @param {HTMLElement} element
+			 * @return {HTMLElement}
+			 * @protected
+			 * @member ns.widget.mobile.Gallery
+			 */
 			Gallery.prototype._build = function (element) {
 				var classes = Gallery.classes,
 					options = this.options,
@@ -415,12 +415,12 @@
 			};
 
 			/**
-			* Init widget
-			* @method _init
-			* @param {HTMLElement} element
-			* @protected
-			* @member ns.widget.mobile.Gallery
-			*/
+			 * Init widget
+			 * @method _init
+			 * @param {HTMLElement} element
+			 * @protected
+			 * @member ns.widget.mobile.Gallery
+			 */
 			Gallery.prototype._init = function (element) {
 				var images = element.getElementsByTagName("img"),
 					classes = Gallery.classes;
@@ -439,12 +439,12 @@
 			};
 
 			/**
-			* Bind events to widget
-			* @method _bindEvents
-			* @param {HTMLElement} element
-			* @protected
-			* @member ns.widget.mobile.Gallery
-			*/
+			 * Bind events to widget
+			 * @method _bindEvents
+			 * @param {HTMLElement} element
+			 * @protected
+			 * @member ns.widget.mobile.Gallery
+			 */
 			Gallery.prototype._bindEvents = function (element) {
 				//todo
 				//galleryorientationchanged
@@ -454,7 +454,7 @@
 
 				this.vmousemoveHandler = vmousemoveEvent.bind(null, this);
 				this.vmousedownHandler = vmousedownEvent.bind(null, this);
-				this.vmouseupHandler =  vmouseupEvent.bind(null, this);
+				this.vmouseupHandler = vmouseupEvent.bind(null, this);
 				this.vmouseoutHandler = vmouseoutEvent.bind(null, this);
 				this.pageShowHandler = this.show.bind(this);
 				this.throttledresizeHandler = this.refresh.bind(this);
@@ -509,11 +509,11 @@
 				if (imageContainer) {
 					if (duration !== undefined) {
 						style = imageContainer.style;
-						style.webkitTransition =  "-webkit-transform " + (duration / 1000) + "s ease";
-						style.mozTransition =  "-moz-transform " + (duration / 1000) + "s ease";
-						style.msTransition =  "-ms-transform " + (duration / 1000) + "s ease";
-						style.oTransition =  "-o-transform " + (duration / 1000) + "s ease";
-						style.transition =  "transform " + (duration / 1000) + "s ease";
+						style.webkitTransition = "-webkit-transform " + (duration / 1000) + "s ease";
+						style.mozTransition = "-moz-transform " + (duration / 1000) + "s ease";
+						style.msTransition = "-ms-transform " + (duration / 1000) + "s ease";
+						style.oTransition = "-o-transform " + (duration / 1000) + "s ease";
+						style.transition = "transform " + (duration / 1000) + "s ease";
 					}
 					imageContainer = setTranslatePosition(imageContainer, value);
 				}
@@ -989,7 +989,7 @@
 				// if startIndex is undefined or it is not possible to convert value to integer, the old index is used
 				startIndex = parseInt(startIndex, 10);
 
-				if (isNaN(startIndex)){
+				if (isNaN(startIndex)) {
 					startIndex = this.index;
 				}
 
@@ -1096,38 +1096,38 @@
 			};
 
 			/**
-			* This method changes state of gallery on enabled and removes CSS classes connected with state.
-			*
-			*      @example
-			*      var galleryWidget = tau.widget.Gallery(document.getElementById("gallery"));
-			*
-			*      galleryWidget.enable();
-			*
-			*      // or
-			*
-			*      $( "#gallery" ).gallery( "enable" );
-			*
-			* @method enable
-			* @chainable
-			* @member ns.widget.mobile.Gallery
-			*/
+			 * This method changes state of gallery on enabled and removes CSS classes connected with state.
+			 *
+			 *      @example
+			 *      var galleryWidget = tau.widget.Gallery(document.getElementById("gallery"));
+			 *
+			 *      galleryWidget.enable();
+			 *
+			 *      // or
+			 *
+			 *      $( "#gallery" ).gallery( "enable" );
+			 *
+			 * @method enable
+			 * @chainable
+			 * @member ns.widget.mobile.Gallery
+			 */
 
 			/**
-			* This method changes state of gallery on disabled and adds CSS classes connected with state.
-			*
-			*      @example
-			*      var galleryWidget = tau.widget.Gallery(document.getElementById("gallery"));
-			*
-			*      galleryWidget.disable();
-			*
-			*      // or
-			*
-			*      $( "#gallery" ).gallery( "disable" );
-			*
-			* @method disable
-			* @chainable
-			* @member ns.widget.mobile.Gallery
-			*/
+			 * This method changes state of gallery on disabled and adds CSS classes connected with state.
+			 *
+			 *      @example
+			 *      var galleryWidget = tau.widget.Gallery(document.getElementById("gallery"));
+			 *
+			 *      galleryWidget.disable();
+			 *
+			 *      // or
+			 *
+			 *      $( "#gallery" ).gallery( "disable" );
+			 *
+			 * @method disable
+			 * @chainable
+			 * @member ns.widget.mobile.Gallery
+			 */
 
 			/**
 			 * Get/Set options of the widget.
@@ -1165,7 +1165,7 @@
 			 * @param {boolean} [cancelable=true] indicating whether the event is cancelable
 			 * @return {boolean} false, if any callback invoked preventDefault on event object
 			 * @member ns.widget.mobile.Gallery
-			*/
+			 */
 
 			/**
 			 * Add event listener to widget's element.

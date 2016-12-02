@@ -272,7 +272,7 @@
  * To open / close Drawer one can use open() and close() methods.
  * To check if Drawer is open use isOpen method.
  *
- *	@example
+ *    @example
  *      <!-- Widget structure -->
  *      <div class="ui-page">
  *          <div data-role="drawer" data-position="left" id="drawer">

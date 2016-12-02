@@ -30,19 +30,19 @@
  *
  * ####Create simple text input on INPUT element
  *
- *		@example
- *		<div id="progress" data-role="progress"></div>
+ *        @example
+ *        <div id="progress" data-role="progress"></div>
  *
  * ## Manual constructor
  * For manual creation of button widget you can use constructor of widget from
  * **tau** namespace:
  *
- *		@example
- *		<div id="progress"></div>
- *		<script>
- *			var element = document.getElementById("progress"),
- *				progress = tau.widget.Progress(element);
- *		</script>
+ *        @example
+ *        <div id="progress"></div>
+ *        <script>
+ *            var element = document.getElementById("progress"),
+ *                progress = tau.widget.Progress(element);
+ *        </script>
  *
  * Constructor has one required parameter **element** which is base
  * **HTMLElement** to create widget. We recommend get this element by method
@@ -51,11 +51,11 @@
  *
  * If jQuery library is loaded, its method can be used:
  *
- *		@example
- *		<div id="progress"></div>
- *		<script>
- *			$("#progress").progress();
- *		</script>
+ *        @example
+ *        <div id="progress"></div>
+ *        <script>
+ *            $("#progress").progress();
+ *        </script>
  *
  * jQuery Mobile constructor has one optional parameter **options** and it is
  * a object with options for widget.
@@ -73,26 +73,26 @@
  *
  * First API is from tau namespace:
  *
- *		@example
- *		<div id="progress"></div>
- *		<script>
- *			var element = document.getElementById("progress"),
- *				progress = tau.widget.Progress(element);
+ *        @example
+ *        <div id="progress"></div>
+ *        <script>
+ *            var element = document.getElementById("progress"),
+ *                progress = tau.widget.Progress(element);
  *
- *			// progress.methodName(argument1, argument2, ...);
- *			// for example
- *			progress.value(2);
- *		</script>
+ *            // progress.methodName(argument1, argument2, ...);
+ *            // for example
+ *            progress.value(2);
+ *        </script>
  *
  * Second API is jQuery Mobile API and for call _methodName_ you can use:
  *
- *		@example
- *		<div id="progress"></div>
- *		<script>
- *			// $(".selector").progress("methodName", argument1, argument2, ...);
- *			// for example
- *			$("#progress").progress("value", 2);
- *		</script>
+ *        @example
+ *        <div id="progress"></div>
+ *        <script>
+ *            // $(".selector").progress("methodName", argument1, argument2, ...);
+ *            // for example
+ *            $("#progress").progress("value", 2);
+ *        </script>
  *
  * @extends ns.widget.BaseWidget
  * @class ns.widget.mobile.Progress
@@ -186,31 +186,31 @@
 			/**
 			 * Method starts or stops running the progress.
 			 *
-			 *	@example
-			 *	<div id="progress"></div>
-			 *	<script>
-			 *		var element = document.getElementById("progress"),
-			 *			progressWidget = tau.widget.Progress(element),
-			 *			// return current state of running
-			 *			value = progressWidget.running();
+			 *    @example
+			 *    <div id="progress"></div>
+			 *    <script>
+			 *        var element = document.getElementById("progress"),
+			 *            progressWidget = tau.widget.Progress(element),
+			 *            // return current state of running
+			 *            value = progressWidget.running();
 			 *
-			 *		progressWidget.running( true ); // starts running
+			 *        progressWidget.running( true ); // starts running
 			 *
-			 *		progressWidget.running( fasle ); // stops running
-			 *	</script>
+			 *        progressWidget.running( fasle ); // stops running
+			 *    </script>
 			 *
-			 *	@example
-			 *	<div id="progress"></div>
-			 *	<script>
-			 *		// return current state of running
-			 *		$( "#progress" ).progress( "running" );
+			 *    @example
+			 *    <div id="progress"></div>
+			 *    <script>
+			 *        // return current state of running
+			 *        $( "#progress" ).progress( "running" );
 			 *
-			 *		// starts running
-			 *		$( "#progress" ).progress( "running", true );
+			 *        // starts running
+			 *        $( "#progress" ).progress( "running", true );
 			 *
-			 *		// stops running
-			 *		$( "#progress" ).progress( "running", fasle );
-			 *	</script>
+			 *        // stops running
+			 *        $( "#progress" ).progress( "running", fasle );
+			 *    </script>
 			 *
 			 * @method running
 			 * @param {boolean} flag if thrue then set mode to running if false
@@ -264,20 +264,20 @@
 			/**
 			 * Method shows progress.
 			 *
-			 *	@example
-			 *	<div id="progress"></div>
-			 *	<script>
-			 *		var element = document.getElementById("progress"),
-			 *			progressWidget = tau.widget.Progress(element);
+			 *    @example
+			 *    <div id="progress"></div>
+			 *    <script>
+			 *        var element = document.getElementById("progress"),
+			 *            progressWidget = tau.widget.Progress(element);
 			 *
-			 *		progressWidget.show();
-			 *	</script>
+			 *        progressWidget.show();
+			 *    </script>
 			 *
-			 *	@example
-			 *	<div id="progress"></div>
-			 *	<script>
-			 *		$( "#progress" ).progress( "show" );
-			 *	</script>
+			 *    @example
+			 *    <div id="progress"></div>
+			 *    <script>
+			 *        $( "#progress" ).progress( "show" );
+			 *    </script>
 			 *
 			 * @method show
 			 * @member ns.widget.mobile.Progress
@@ -289,19 +289,19 @@
 			/**
 			 * Method hides progress
 			 *
-			 *	@example
-			 *	<div id="progress"></div>
-			 *	<script>
-			 *		var element = document.getElementById("progress"),
-			 *			progressWidget = tau.widget.Progress(element);
-			 *		progressWidget.hide();
-			 *	</script>
+			 *    @example
+			 *    <div id="progress"></div>
+			 *    <script>
+			 *        var element = document.getElementById("progress"),
+			 *            progressWidget = tau.widget.Progress(element);
+			 *        progressWidget.hide();
+			 *    </script>
 			 *
-			 *	@example
-			 *	<div id="progress"></div>
-			 *	<script>
-			 *		$( "#progress" ).progress( "hide" );
-			 *	</script>
+			 *    @example
+			 *    <div id="progress"></div>
+			 *    <script>
+			 *        $( "#progress" ).progress( "hide" );
+			 *    </script>
 			 *
 			 * @method hide
 			 * @member ns.widget.mobile.Progress
@@ -318,23 +318,23 @@
 			 * of widget DOM structure. Refresh is called automatically after
 			 * change any option of widget.
 			 *
-			 *	@example
-			 *	<div id="progress"></div>
-			 *	<script>
-			 *		var element = document.getElementById("progress"),
-			 *			progressWidget = tau.widget.Progress(element);
+			 *    @example
+			 *    <div id="progress"></div>
+			 *    <script>
+			 *        var element = document.getElementById("progress"),
+			 *            progressWidget = tau.widget.Progress(element);
 			 *
-			 *		progressWidget.refresh();
+			 *        progressWidget.refresh();
 			 *
-			 *		// also will be called after
-			 *		progressWidget.option("running", true);
-			 *	</script>
+			 *        // also will be called after
+			 *        progressWidget.option("running", true);
+			 *    </script>
 			 *
-			 *	@example
-			 *	<div id="progress"></div>
-			 *	<script>
-			 *		$( "#progress" ).progress( "refresh" );
-			 *	</script>
+			 *    @example
+			 *    <div id="progress"></div>
+			 *    <script>
+			 *        $( "#progress" ).progress( "refresh" );
+			 *    </script>
 			 *
 			 * @method refresh
 			 * @chainable

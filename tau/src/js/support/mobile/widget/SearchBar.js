@@ -32,28 +32,28 @@
  *
  * ####Create simple searchbar in header
  *
- *		@example
- * 		<div data-role="page" id="search-bar-page">
- *			<div data-role="header">
- *				<label for="search-bar">Search Input:</label>
- *				<input type="search" name="search" id="search-bar"/>
- *			</div>
- *			<div data-role="content" id="search-bar-content">
- *				<p>Hairston</p>
- *				<p>Hansbrough</p>
- *				<p>Allred</p>
- *				<p>Hanrahan</p>
- *				<p>Egan</p>
- *				<p>Dare</p>
- *				<p>Edmonson</p>
- *				<p>Calip</p>
- *				<p>Baker</p>
- *				<p>Fazekas</p>
- *				<p>Garrity</p>
- *			</div>
- *		</div>
- *		<script>
- *			(function (document) {
+ *        @example
+ *        <div data-role="page" id="search-bar-page">
+ *            <div data-role="header">
+ *                <label for="search-bar">Search Input:</label>
+ *                <input type="search" name="search" id="search-bar"/>
+ *            </div>
+ *            <div data-role="content" id="search-bar-content">
+ *                <p>Hairston</p>
+ *                <p>Hansbrough</p>
+ *                <p>Allred</p>
+ *                <p>Hanrahan</p>
+ *                <p>Egan</p>
+ *                <p>Dare</p>
+ *                <p>Edmonson</p>
+ *                <p>Calip</p>
+ *                <p>Baker</p>
+ *                <p>Fazekas</p>
+ *                <p>Garrity</p>
+ *            </div>
+ *        </div>
+ *        <script>
+ *            (function (document) {
  *				var inputElement = document.getElementById("search-bar"),
  *					contentElement = document.getElementById("search-bar-content"),
  *					contentChildren = contentElement.getElementsByTagName("p"),
@@ -79,34 +79,34 @@
  *				inputElement.addEventListener("change", changeHandle);
  *				inputElement.addEventListener("keyup", changeHandle);
  *			}(document));
- *		</script>
+ *        </script>
  *
  * ## Manual constructor
  * For manual creation of search bar widget you can use constructor of widget from
  * **tau** namespace:
  *
- *		@example
- * 		<div data-role="page" id="search-bar-page">
- *			<div data-role="header">
- *				<label for="search-bar">Search Input:</label>
- *				<input name="search" id="search-bar"/>
- *			</div>
- *			<div data-role="content" id="search-bar-content">
- *				<p>Hairston</p>
- *				<p>Hansbrough</p>
- *				<p>Allred</p>
- *				<p>Hanrahan</p>
- *				<p>Egan</p>
- *				<p>Dare</p>
- *				<p>Edmonson</p>
- *				<p>Calip</p>
- *				<p>Baker</p>
- *				<p>Fazekas</p>
- *				<p>Garrity</p>
- *			</div>
- *		</div>
- *		<script>
- *			(function (document) {
+ *        @example
+ *        <div data-role="page" id="search-bar-page">
+ *            <div data-role="header">
+ *                <label for="search-bar">Search Input:</label>
+ *                <input name="search" id="search-bar"/>
+ *            </div>
+ *            <div data-role="content" id="search-bar-content">
+ *                <p>Hairston</p>
+ *                <p>Hansbrough</p>
+ *                <p>Allred</p>
+ *                <p>Hanrahan</p>
+ *                <p>Egan</p>
+ *                <p>Dare</p>
+ *                <p>Edmonson</p>
+ *                <p>Calip</p>
+ *                <p>Baker</p>
+ *                <p>Fazekas</p>
+ *                <p>Garrity</p>
+ *            </div>
+ *        </div>
+ *        <script>
+ *            (function (document) {
  *				var inputElement = document.getElementById("search-bar"),
  *					contentElement = document.getElementById("search-bar-content"),
  *					contentChildren = contentElement.getElementsByTagName("p"),
@@ -140,7 +140,7 @@
  *
  *				pageElement.addEventListener("pagecreate", createPageHandle);
  *			}(document));
- *		</script>
+ *        </script>
  *
  * Constructor has one require parameter **element** which are base
  * **HTMLElement** to create widget. We recommend get this element by method
@@ -149,28 +149,28 @@
  *
  * If jQuery library is loaded, its method can be used:
  *
- *		@example
- *		<div data-role="page" id="search-bar-page">
- *			<div data-role="header">
- *				<label for="search-bar">Search Input:</label>
- *				<input name="search" id="search-bar"/>
- *			</div>
- *			<div data-role="content" id="search-bar-content">
- *				<p>Hairston</p>
- *				<p>Hansbrough</p>
- *				<p>Allred</p>
- *				<p>Hanrahan</p>
- *				<p>Egan</p>
- *				<p>Dare</p>
- *				<p>Edmonson</p>
- *				<p>Calip</p>
- *				<p>Baker</p>
- *				<p>Fazekas</p>
- *				<p>Garrity</p>
- *			</div>
- *		</div>
- *		<script>
- *			(function (document) {
+ *        @example
+ *        <div data-role="page" id="search-bar-page">
+ *            <div data-role="header">
+ *                <label for="search-bar">Search Input:</label>
+ *                <input name="search" id="search-bar"/>
+ *            </div>
+ *            <div data-role="content" id="search-bar-content">
+ *                <p>Hairston</p>
+ *                <p>Hansbrough</p>
+ *                <p>Allred</p>
+ *                <p>Hanrahan</p>
+ *                <p>Egan</p>
+ *                <p>Dare</p>
+ *                <p>Edmonson</p>
+ *                <p>Calip</p>
+ *                <p>Baker</p>
+ *                <p>Fazekas</p>
+ *                <p>Garrity</p>
+ *            </div>
+ *        </div>
+ *        <script>
+ *            (function (document) {
  *				var inputElement = document.getElementById("search-bar"),
  *						contentElement = document.getElementById("search-bar-content"),
  *						contentChildren = contentElement.getElementsByTagName("p"),
@@ -202,7 +202,7 @@
  *
  *				$("#search-bar-page").on("pagecreate", createPageHandle);
  *			}(document));
- *		</script>
+ *        </script>
  *
  * jQuery Mobile constructor has one optional parameter is **options** and it is
  * a object with options for widget.
@@ -220,20 +220,20 @@
  *
  * First API is from tau namespace:
  *
- *		@example
- *		<script>
- *		var searchBarElement = document.getElementById('search-bar'),
- *			searchBar = tau.widget.SearchBar(searchBarElement);
+ *        @example
+ *        <script>
+ *        var searchBarElement = document.getElementById('search-bar'),
+ *            searchBar = tau.widget.SearchBar(searchBarElement);
  *
- *		searchBar.methodName(methodArgument1, methodArgument2, ...);
- *		</script>
+ *        searchBar.methodName(methodArgument1, methodArgument2, ...);
+ *        </script>
  *
  * Second API is jQuery Mobile API and for call _methodName_ you can use:
  *
- *		@example
- *		<script>
- *		$(".selector").searchbar('methodName', methodArgument1, methodArgument2, ...);
- *		</script>
+ *        @example
+ *        <script>
+ *        $(".selector").searchbar('methodName', methodArgument1, methodArgument2, ...);
+ *        </script>
  *
  * #Search Bar Widget
  * @class ns.widget.mobile.SearchBar
@@ -322,16 +322,16 @@
 			 * Method removes disabled attribute on search bar and changes look
 			 * of search bar to enabled state.
 			 *
-			 *		@example
-			 *		<script>
-			 *		var element = document.getElementById("searchbar"),
-			 *			searchBarWidget = tau.widget.SearchBar(element);
-			 *		searchBarWidget.enable();
+			 *        @example
+			 *        <script>
+			 *        var element = document.getElementById("searchbar"),
+			 *            searchBarWidget = tau.widget.SearchBar(element);
+			 *        searchBarWidget.enable();
 			 *
-			 *		// or
+			 *        // or
 			 *
-			 *		$( "#searchbar" ).searchbar( "enable" );
-			 *		</script>
+			 *        $( "#searchbar" ).searchbar( "enable" );
+			 *        </script>
 			 *
 			 * @method enable
 			 * @chainable
@@ -358,16 +358,16 @@
 			 * Method add disabled attribute on search bar and changes look
 			 * of search bar to disabled state.
 			 *
-			 *		@example
-			 *		<script>
-			 *		var element = document.getElementById("searchbar"),
-			 *			searchBarWidget = tau.widget.SearchBar(element);
-			 *		searchBarWidget.disable();
+			 *        @example
+			 *        <script>
+			 *        var element = document.getElementById("searchbar"),
+			 *            searchBarWidget = tau.widget.SearchBar(element);
+			 *        searchBarWidget.disable();
 			 *
-			 *		// or
+			 *        // or
 			 *
-			 *		$( "#searchbar" ).searchbar( "disable" );
-			 *		</script>
+			 *        $( "#searchbar" ).searchbar( "disable" );
+			 *        </script>
 			 *
 			 * @method disable
 			 * @chainable
@@ -446,7 +446,6 @@
 					searchBox,
 					clearButton,
 					cancelButton,
-					defaultText,
 					labelDiv,
 					frontIcon,
 					label = findLabel(element),
@@ -546,9 +545,6 @@
 
 					inputSearchBar.appendChild(cancelButton);
 				}
-
-				// Default Text
-				defaultText = options.defaultText || element.getAttribute("placeholder") || "Search";
 
 				element.setAttribute("placeholder", "Search");
 
@@ -725,7 +721,7 @@
 				handlers.inputFocus = inputFocus.bind(null, self);
 				handlers.inputBlur = inputBlur.bind(null, self);
 				handlers.labelClick = labelClick.bind(null, self);
-				if(ui.clearButton) {
+				if (ui.clearButton) {
 					ui.clearButton.addEventListener("vclick", handlers.clearClick, false);
 				}
 				if (ui.cancelButton) {
@@ -749,7 +745,7 @@
 					ui = this._ui,
 					input = ui.input;
 				handlers = this._callbacks;
-				if(ui.clearButton) {
+				if (ui.clearButton) {
 					ui.clearButton.removeEventListener("vclick", handlers.clearClick, false);
 				}
 				if (ui.cancelButton) {
@@ -768,21 +764,21 @@
 			 * If you call with parameter then first argument will be set as new
 			 * value of input text. Otherwise method return value of input.
 			 *
-			 *		@example
-			 *		var searchBarElement = document.getElementById("searchbar"),
-			 *			searchBarWidget = tau.widget.SearchBar(searchBarElement),
-			 *			value = searchBarWidget.value();
-			 *			// value contains inner text of button
+			 *        @example
+			 *        var searchBarElement = document.getElementById("searchbar"),
+			 *            searchBarWidget = tau.widget.SearchBar(searchBarElement),
+			 *            value = searchBarWidget.value();
+			 *            // value contains inner text of button
 			 *
-			 *		buttonWidget.value( "New text" ); // "New text" will be text of button
+			 *        buttonWidget.value( "New text" ); // "New text" will be text of button
 			 *
-			 *		// or
+			 *        // or
 			 *
-			 *		$( "#searchbar" ).searchbar( "value" );
-			 *		// value contains inner text of button
+			 *        $( "#searchbar" ).searchbar( "value" );
+			 *        // value contains inner text of button
 			 *
-			 *		$( "#searchbar" ).searchbar( "value", "New text" );
-			 *		// "New text" will be value of input
+			 *        $( "#searchbar" ).searchbar( "value", "New text" );
+			 *        // "New text" will be value of input
 			 *
 			 * @method value
 			 * @param {string} [value] Value to set on widget

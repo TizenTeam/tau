@@ -45,7 +45,7 @@
 			if (router) {
 				defineActivePage(router);
 			} else {
-				document.addEventListener("routerinit", function(event) {
+				document.addEventListener("routerinit", function (event) {
 					var router = event.detail;
 					defineActivePage(router);
 				});

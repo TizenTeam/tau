@@ -1,4 +1,4 @@
-/*global window, define */
+/*global window, ns, define */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
  *
@@ -116,7 +116,7 @@
 			function updateView(circularview) {
 				var viewStyle = circularview._view.style,
 					positionX = circularview._positionX,
-					positionXOffset = - circularview._positionXOffset,
+					positionXOffset = -circularview._positionXOffset,
 					lastStepX = circularview._lastStepX,
 					translate,
 					gapSize = Math.floor((positionX - positionXOffset) / circularview._itemWidth),
@@ -124,7 +124,7 @@
 					translateX = positionX + positionXOffset - (itemWidth * gapSize),
 					gapSizeDiff = Math.abs(gapSize - circularview._lastGapSize);
 
-				if(circularview._centerTo) {
+				if (circularview._centerTo) {
 					if (gapSize > 0) { // show more on left side
 						applyLeftItems(circularview, gapSizeDiff);
 					} else { // show more on right side
@@ -141,10 +141,10 @@
 				}
 				translate = "translate3d(" + translateX + "px, 0px, 0px)";
 				viewStyle.transform =
-						viewStyle.webkitTransform =
+					viewStyle.webkitTransform =
 						viewStyle.mozTransform =
-						viewStyle.msTransform =
-						viewStyle.oTransform = translate;
+							viewStyle.msTransform =
+								viewStyle.oTransform = translate;
 				circularview._lastGapSize = gapSize;
 			}
 

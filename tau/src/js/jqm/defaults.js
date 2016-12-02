@@ -1,4 +1,4 @@
-/*global window, define */
+/*global window, ns, define */
 /*jslint plusplus: true, nomen: true */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
@@ -32,11 +32,11 @@
 			//>>excludeEnd("tauBuildExclude");
 			ns.jqm.defaults = {
 				/**
-				* Proxy colors library from ns namespace to jQM namespace
-				* @method init
-				* @member ns.jqm.defaults
-				* @static
-				*/
+				 * Proxy colors library from ns namespace to jQM namespace
+				 * @method init
+				 * @member ns.jqm.defaults
+				 * @static
+				 */
 				init: function () {
 					if ($) {
 

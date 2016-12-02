@@ -89,7 +89,6 @@
 				 * @static
 				 * @readonly
 				 */
-				FUNCTION_TYPE = "function",
 				Checkboxradio = function () {
 					var self = this;
 
@@ -190,10 +189,10 @@
 				var keyCode = event.keyCode;
 
 				if (keyCode === KEY_CODES.down ||
-						keyCode === KEY_CODES.up ||
-						keyCode === KEY_CODES.left ||
-						keyCode === KEY_CODES.right
-						) {
+					keyCode === KEY_CODES.up ||
+					keyCode === KEY_CODES.left ||
+					keyCode === KEY_CODES.right
+				) {
 					event.preventDefault();
 					event.stopPropagation();
 				}
@@ -375,7 +374,7 @@
 
 				if (element.classList.contains(classInListview)) {
 					focusablePredecessor = selectorUtils.getClosestBySelector(element,
-							focusablePredecessorSelector);
+						focusablePredecessorSelector);
 					if (focusablePredecessor !== null) {
 						focusablePredecessor.addEventListener("keyup", onKeyup, false);
 						focusablePredecessor.addEventListener("focus", onFocus, false);
@@ -409,7 +408,7 @@
 
 				if (element.classList.contains(classInListview)) {
 					focusablePredecessor = selectorUtils.getClosestBySelector(element,
-							focusablePredecessorSelector);
+						focusablePredecessorSelector);
 					if (focusablePredecessor !== null) {
 						focusablePredecessor.removeEventListener("keyup", onKeyup, false);
 						focusablePredecessor.removeEventListener("focus", onFocus, false);
@@ -442,14 +441,14 @@
 			 */
 			prototype.handleEvent = function (event) {
 				switch (event.type) {
-				case "focus":
-					return onFocus(event, this.element);
-				case "blur":
-					return onBlur(event, this.element);
-				case "keydown":
-					return onKeydownRadio(event);
-				case "keyup":
-					return onKeyup(event, this.element);
+					case "focus":
+						return onFocus(event, this.element);
+					case "blur":
+						return onBlur(event, this.element);
+					case "keydown":
+						return onKeydownRadio(event);
+					case "keyup":
+						return onKeyup(event, this.element);
 				}
 			};
 

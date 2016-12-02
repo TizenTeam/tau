@@ -27,11 +27,11 @@
  *
  * ####Create basic Extendable List
  *
- *		@example
- *		<ul id="widgetIdSelector" data-role="extendablelist"></ul>
+ *        @example
+ *        <ul id="widgetIdSelector" data-role="extendablelist"></ul>
  *
- *		<script>
- *			var config = {
+ *        <script>
+ *            var config = {
  *				// NOTE: JSON_DATA is an object which holds all records that you want to load
  *				// Declare total number of items
  *				dataLength: JSON_DATA.length,
@@ -49,25 +49,25 @@
  *				}
  *			};
  *
- *			// Create widget using TAU notation ...
- *			tau.widget.ExtendableList(document.getElementById("widgetIdSelector"), config).create();
+ *            // Create widget using TAU notation ...
+ *            tau.widget.ExtendableList(document.getElementById("widgetIdSelector"), config).create();
  *
- *			// ... or using jQM notation
- *			$( "#widgetIdSelector" ).extendablelist( config );
- *		</script>
+ *            // ... or using jQM notation
+ *            $( "#widgetIdSelector" ).extendablelist( config );
+ *        </script>
  *
  * ####Create basic Extendable List with custom loader item
  * To set custom loader element add one **li** element to list markup. If no element will be provided, widget will create it automatically.
  * Loader element is always passed as first (**loaderContainer**) argument while calling **listItemLoader** function.
  *
- *		@example
- *		<ul id="widgetIdSelector" data-role="extendablelist">
- *			<!-- Declaration of custom loader item -->
- *			<li class="custom-class"></li>
- *		</ul>
+ *        @example
+ *        <ul id="widgetIdSelector" data-role="extendablelist">
+ *            <!-- Declaration of custom loader item -->
+ *            <li class="custom-class"></li>
+ *        </ul>
  *
- *		<script>
- *			var config = {
+ *        <script>
+ *            var config = {
  *				// NOTE: JSON_DATA is an object which holds all records that you want to load
  *				// Declare total number of items
  *				dataLength: JSON_DATA.length,
@@ -85,35 +85,35 @@
  *				}
  *			};
  *
- *			// Create widget using TAU notation ...
- *			tau.widget.ExtendableList(document.getElementById("widgetIdSelector"), config)
- *				.create();
+ *            // Create widget using TAU notation ...
+ *            tau.widget.ExtendableList(document.getElementById("widgetIdSelector"), config)
+ *                .create();
  *
- *			// ... or using jQM notation
- *			$( "#widgetIdSelector" ).extendablelist( "create", config );
- *		</script>
+ *            // ... or using jQM notation
+ *            $( "#widgetIdSelector" ).extendablelist( "create", config );
+ *        </script>
  *
  * ####Create Extendable List using jQuery Template
  * Extendable List supports jQuery Template, for further information about **jQuery.template plugin** you can find in jQuery documentation for jQuery.template plugin.
  * To switch widget in template mode _data-template_ attribute must be set or template option must be passed.
  * **NOTE:** This feature is available but not recommended due performance issue and abandoned library jQuery Template support. It will be probably replaced by more efficient template system.
  *
- *		@example
- *		<!-- Template for list item -->
- *		<script id="tmp-1line" type="text/x-jquery-tmpl">
- *			<li class="my-custom-class">${NAME}</li>
- *		</script>
+ *        @example
+ *        <!-- Template for list item -->
+ *        <script id="tmp-1line" type="text/x-jquery-tmpl">
+ *            <li class="my-custom-class">${NAME}</li>
+ *        </script>
  *
- *		<!-- Template for loader -->
- *		<script id="tmp_load_more" type="text/x-jquery-tmpl">
- *			<li class="my-custom-loader-class">
- *				Load ${NUM_MORE_ITEMS} more items
- *			</li>
- *		</script>
+ *        <!-- Template for loader -->
+ *        <script id="tmp_load_more" type="text/x-jquery-tmpl">
+ *            <li class="my-custom-loader-class">
+ *                Load ${NUM_MORE_ITEMS} more items
+ *            </li>
+ *        </script>
  *
- *		<ul id="widgetIdSelector" data-role="extendablelist" data-template="tmp-1line"></ul>
- *		<script>
- *			var config = {
+ *        <ul id="widgetIdSelector" data-role="extendablelist" data-template="tmp-1line"></ul>
+ *        <script>
+ *            var config = {
  *				// You can use itemData property, which is equivalent to listItemUpdater,
  *				// but it's deprecated and kept only for compatibility with old Web UI Framework.
  *				// Set list item updater for jQ template
@@ -127,13 +127,13 @@
  *				dataLength: JSON_DATA.length
  *			};
  *
- *			// Create widget using TAU notation
- *			tau.widget.ExtendableList(document.getElementById("widgetIdSelector"), config)
- *				.create();
+ *            // Create widget using TAU notation
+ *            tau.widget.ExtendableList(document.getElementById("widgetIdSelector"), config)
+ *                .create();
  *
- *			// ... or using jQM notation
- *			$( "#widgetIdSelector" ).extendablelist( "create", config );
- *		</script>
+ *            // ... or using jQM notation
+ *            $( "#widgetIdSelector" ).extendablelist( "create", config );
+ *        </script>
  *
  *
  * #### Setting listItemUpdater option
@@ -144,9 +144,9 @@
  * - **processedIndex** {number} Index of processed data set (zero based),
  * - **element** {HTMLElement} Current processed list item.
  *
- *		@example
- *		<script>
- *			var myNewListItemUpdater = function (processedIndex, listItem) {
+ *        @example
+ *        <script>
+ *            var myNewListItemUpdater = function (processedIndex, listItem) {
  *				// JSON_DATA is an object which holds all records that you want to load
  *				var data = JSON_DATA[processedIndex];
  *				// Do some crazy things with listItem
@@ -155,39 +155,39 @@
  *					listItem.classList.add('crazy-class');
  *				}
  *			}
- *			// Create widget using TAU notation ...
- *			tau.widget.ExtendableList(document.getElementById("widgetIdSelector"))
- *				.option("listItemUpdater", myNewListItemUpdater);
+ *            // Create widget using TAU notation ...
+ *            tau.widget.ExtendableList(document.getElementById("widgetIdSelector"))
+ *                .option("listItemUpdater", myNewListItemUpdater);
  *
- *			// ... or using jQM notation
- *			$( "#widgetIdSelector" ).extendablelist( "option", "listItemUpdater", myNewListItemUpdater );
- *		</script>
+ *            // ... or using jQM notation
+ *            $( "#widgetIdSelector" ).extendablelist( "option", "listItemUpdater", myNewListItemUpdater );
+ *        </script>
  *
  *
  * ##### Setting listItemUpdater in jQuery Template mode
  * Using **jQuery Template** mode list item updater function should takes **one parameter** and returns an Object:
  * - **processedIndex** {number} Index of processed data set (zero based).
  *
- *		@example
- *		<script>
- *			var myTemplateListItemUpdater = function (processedIndex) {
+ *        @example
+ *        <script>
+ *            var myTemplateListItemUpdater = function (processedIndex) {
  *				// JSON_DATA is an object which holds all records that you want to load
  *				return JSON_DATA[processedIndex];
  *			}
- *			// Create widget using TAU notation ...
- *			tau.widget.ExtendableList(document.getElementById("templateWidgetIdSelector"))
- *				.option("listItemUpdater", myTemplateListItemUpdater);
+ *            // Create widget using TAU notation ...
+ *            tau.widget.ExtendableList(document.getElementById("templateWidgetIdSelector"))
+ *                .option("listItemUpdater", myTemplateListItemUpdater);
  *
- *			// ... or using jQM notation
- *			$( "#templateWidgetIdSelector" ).extendablelist( "option", "listItemUpdater", myTemplateListItemUpdater );
- *		</script>
+ *            // ... or using jQM notation
+ *            $( "#templateWidgetIdSelector" ).extendablelist( "option", "listItemUpdater", myTemplateListItemUpdater );
+ *        </script>
  *
  *
  * @class ns.widget.mobile.ExtendableList
  * @extends ns.widget.mobile.Listview
  * @author Michał Szepielak <m.szepielak@samsung.com>
-*/
-(function(document, ns) {
+ */
+(function (document, ns) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
@@ -200,7 +200,7 @@
 			"../../../profile/mobile/widget/mobile/Listview",
 			"../../../profile/mobile/widget/mobile/BaseWidgetMobile"
 		],
-		function() {
+		function () {
 			//>>excludeEnd("tauBuildExclude");
 			/**
 			 * @property {ns.widget.mobile.Listview} Listview alias variable
@@ -234,7 +234,7 @@
 				 */
 				util = ns.util,
 
-				ExtendableList = function() {
+				ExtendableList = function () {
 					var self = this;
 
 					/**
@@ -399,7 +399,7 @@
 			 * @member ns.widget.mobile.ExtendableList
 			 * @protected
 			 */
-			prototype._buildList = function() {
+			prototype._buildList = function () {
 				var listItem,
 					self = this,
 					list = self.element,
@@ -443,7 +443,7 @@
 							loaderItem.parentNode.removeChild(loaderItem);
 						}
 
-						loaderItem = self.$tmpl.more.tmpl({ "NUM_MORE_ITEMS" : numberOfItems })[0];
+						loaderItem = self.$tmpl.more.tmpl({"NUM_MORE_ITEMS": numberOfItems})[0];
 					} else {
 						options.listItemLoader(loaderItem, numberOfItems);
 					}
@@ -526,10 +526,10 @@
 			/**
 			 * Creates Extendable List with provided options. For more information of usage please check HTML Examples section.
 			 *
-			 *	@example
-			 *	<script>
-			 *		var widget = tau.widget.ExtendableList(document.getElementById("widgetIdSelector")),
-			 *			config = {
+			 *    @example
+			 *    <script>
+			 *        var widget = tau.widget.ExtendableList(document.getElementById("widgetIdSelector")),
+			 *            config = {
 			 *				// Create with custom list item updater
 			 *				listItemUpdater: function (processedIndex, listItem) {
 			 *					var data = JSON_DATA[processedIndex];
@@ -539,18 +539,18 @@
 			 *				dataLength: 500
 			 *			};
 			 *
-			 *		widget.create();
+			 *        widget.create();
 			 *
-			 *		// or using jQuery Mobile
+			 *        // or using jQuery Mobile
 			 *
-			 *		$( "#widgetIdSelector" ).extendablelist( "create", config );
-			 *	</script>
+			 *        $( "#widgetIdSelector" ).extendablelist( "create", config );
+			 *    </script>
 			 *
 			 * @method create
 			 * @param  config Configuration options {@link ns.widget.mobile.ExtendableList#options}
 			 * @member ns.widget.mobile.ExtendableList
 			 */
-			prototype.create = function(config) {
+			prototype.create = function (config) {
 				var self = this,
 					options = self.options;
 
@@ -589,7 +589,7 @@
 			 * @member ns.widget.mobile.ExtendableList
 			 * @protected
 			 */
-			prototype._init = function(element) {
+			prototype._init = function (element) {
 				var self = this;
 
 				// Set current index to first element
@@ -606,15 +606,15 @@
 			 *
 			 * This method is called automatically after extending list with new list positions.
 			 *
-			 *	@example
-			 *	<script>
-			 *		var widget = tau.widget.ExtendableList(document.getElementById("widgetIdSelector"));
-			 *		widget.refresh();
+			 *    @example
+			 *    <script>
+			 *        var widget = tau.widget.ExtendableList(document.getElementById("widgetIdSelector"));
+			 *        widget.refresh();
 			 *
-			 *		// or
+			 *        // or
 			 *
-			 *		$( "#widgetIdSelector" ).extendablelist( "refresh" );
-			 *	</script>
+			 *        $( "#widgetIdSelector" ).extendablelist( "refresh" );
+			 *    </script>
 			 *
 			 * @method refresh
 			 * @param {boolean} [create=false] Sets create flag to refresh Listview in create mode. For more
@@ -631,7 +631,7 @@
 			 * @member ns.widget.mobile.ExtendableList
 			 * @protected
 			 */
-			prototype._refresh = function(create) {
+			prototype._refresh = function (create) {
 				// Create not built widgets
 				engine.createWidgets(this.element);
 				// Calling NOT overridden parent's method
@@ -644,7 +644,7 @@
 			 * @member ns.widget.mobile.ExtendableList
 			 * @protected
 			 */
-			prototype._bindEvents = function() {
+			prototype._bindEvents = function () {
 				var self = this;
 
 				_bindLoader(self, self.element.lastElementChild);
@@ -653,13 +653,13 @@
 			/**
 			 * Cleans widget's resources and removes all child elements.
 			 *
-			 *	@example
-			 *	var widget = tau.widget.ExtendableList(document.getElementById("widgetIdSelector"));
-			 *	widget.destroy();
+			 *    @example
+			 *    var widget = tau.widget.ExtendableList(document.getElementById("widgetIdSelector"));
+			 *    widget.destroy();
 			 *
-			 *	// or using jQuery Mobile
+			 *    // or using jQuery Mobile
 			 *
-			 *	$( "#widgetIdSelector" ).extendablelist( "destroy" );
+			 *    $( "#widgetIdSelector" ).extendablelist( "destroy" );
 			 * @method destroy
 			 * @member ns.widget.mobile.ExtendableList
 			 */
@@ -669,7 +669,7 @@
 			 * @member ns.widget.mobile.ExtendableList
 			 * @protected
 			 */
-			prototype._destroy = function() {
+			prototype._destroy = function () {
 				var self = this,
 					element = self.element,
 					listItem,
@@ -691,27 +691,29 @@
 			 * Recreates widget with new data set and resets list item updater. This function is used only in jQuery Template mode.
 			 * This function is still available to keep Web UI Framework compatibility and will be removed with new version of TAU
 			 *
-			 *	@example
-			 *	<script>
-			 *		var widget = tau.widget.ExtendableList(document.getElementById("widgetIdSelector")),
-			 *		// loadData should return an array.
-			 *		newDataSource = loadData() || [];
+			 *    @example
+			 *    <script>
+			 *        var widget = tau.widget.ExtendableList(document.getElementById("widgetIdSelector")),
+			 *        // loadData should return an array.
+			 *        newDataSource = loadData() || [];
 			 *
-			 *		widget.recreate(newDataSource);
+			 *        widget.recreate(newDataSource);
 			 *
-			 *		// or using jQuery Mobile
+			 *        // or using jQuery Mobile
 			 *
-			 *		$( "#widgetIdSelector" ).extendablelist( "recreate", newDataSource );
-			 *	</script>
+			 *        $( "#widgetIdSelector" ).extendablelist( "recreate", newDataSource );
+			 *    </script>
 			 *
 			 * @method recreate
 			 * @param {Array} newDataSource An array with new records for displayed list.
 			 * @deprecated 2.3
 			 * @member ns.widget.mobile.ExtendableList
 			 */
-			prototype.recreate = function(newDataSource){
+			prototype.recreate = function (newDataSource) {
 				return this.create({
-					itemData: function (idx) { return newDataSource[idx]; },
+					itemData: function (idx) {
+						return newDataSource[idx];
+					},
 					numitemdata: newDataSource.length
 				});
 			};
@@ -729,7 +731,7 @@
 			 * @protected
 			 * @member ns.widget.mobile.ExtendableList
 			 */
-			prototype._setListItemUpdater = function(element, updateFunction) {
+			prototype._setListItemUpdater = function (element, updateFunction) {
 				this.options.listItemUpdater = updateFunction;
 			};
 
@@ -741,7 +743,7 @@
 			 * @protected
 			 * @member ns.widget.mobile.ExtendableList
 			 */
-			prototype._setListItemLoader = function(element, loadFunction) {
+			prototype._setListItemLoader = function (element, loadFunction) {
 				this.options.listItemLoader = loadFunction;
 			};
 

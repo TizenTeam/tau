@@ -1,4 +1,4 @@
-/*global window, define */
+/*global window, ns, define */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
  *
@@ -54,38 +54,38 @@
  * ##HTML Examples
  * ###Create simple Tokentextarea from div using data-role:
  *
- *		@example
- *			<div data-role="tokentextarea"></div>
+ *        @example
+ *            <div data-role="tokentextarea"></div>
 
  * ###Create simple Tokentextarea from div using class:
  *
- *		@example
- *			<div class="ui-tokentextarea"></div>
+ *        @example
+ *            <div class="ui-tokentextarea"></div>
  *
  * ##Manual constructor
  * ###For manual creation of progressbar widget you can use constructor
  * of widget:
  *
- *		@example
- *			<div id="ns-tokentextarea"><div>
- *			 <script>
- *				var token = tau.widget.Tokentextarea(
- *					document.getElementById('ns-tokentextarea')
- *				);
- *			</script>
+ *        @example
+ *            <div id="ns-tokentextarea"><div>
+ *             <script>
+ *                var token = tau.widget.Tokentextarea(
+ *                    document.getElementById('ns-tokentextarea')
+ *                );
+ *            </script>
  *
  * If jQuery library is loaded, it's method can be used:
  *
- *		@example
- *			<div id="ns-tokentextarea"><div>
- *			 <script>
- *				$("#ns-tokentextarea").tokentextarea();
- *			</script>
+ *        @example
+ *            <div id="ns-tokentextarea"><div>
+ *             <script>
+ *                $("#ns-tokentextarea").tokentextarea();
+ *            </script>
  *
- *	##Options for Tokentextarea Widget
+ *    ##Options for Tokentextarea Widget
  *
- *	Options for widget can be defined as _data-..._ attributes or give as
- *	parameter in constructor.
+ *    Options for widget can be defined as _data-..._ attributes or give as
+ *    parameter in constructor.
  *
  * You can change option for widget using method **option**.
  *
@@ -95,24 +95,24 @@
  * an sms message "Send to: " label is a user guide to enter phone number
  * or choose recipient from address book.
  *
- *		@example
- *			<div data-role="tokentextarea" data-label="Send to: "></div>
+ *        @example
+ *            <div data-role="tokentextarea" data-label="Send to: "></div>
  *
  * ####data-link
  * Represents the id of the page or the URL of other HTML file.
  * The page contains data for the user, for example, an address book.
  * If the value is null, anchor button doesn't work. (Default : null)
  *
- *		@example
- *			<div data-role="tokentextarea" data-link="bar.html"></div>
+ *        @example
+ *            <div data-role="tokentextarea" data-link="bar.html"></div>
  *
  * ###data-description
  * This attribute is managing message format.
  * This message is displayed when widget status was changed to 'focusout'.
  * (Default : '+ {0}')
  *
- *		@example
- *			<div data-role="tokentextarea" data-description="bar + {0}"></div>
+ *        @example
+ *            <div data-role="tokentextarea" data-description="bar + {0}"></div>
  *
  *
  * ##Options for Tokentextarea Widget
@@ -122,47 +122,47 @@
  * ###You can change option for widget using method **option**.
  * Initialize the widget
  *
- *		@example
- *			<script>
- *				var elementToken = document.getElementById("ns-tokentextarea"),
- *				Tokentextarea = tau.widget.Tokentextarea(elementToken);
- *			</script>
+ *        @example
+ *            <script>
+ *                var elementToken = document.getElementById("ns-tokentextarea"),
+ *                Tokentextarea = tau.widget.Tokentextarea(elementToken);
+ *            </script>
  *
  * ### Custom Label
  * Get or set the label option, after initialization
  *
- *		@example
- *			<script>
- *				//getter
- *				Tokentextarea.option( "label" );
+ *        @example
+ *            <script>
+ *                //getter
+ *                Tokentextarea.option( "label" );
  *
- *				//setter
- *				Tokentextarea.option( "label", "e-mail To:" );
- *			</script>
+ *                //setter
+ *                Tokentextarea.option( "label", "e-mail To:" );
+ *            </script>
  *
  * ### Custom Link
  * Get or set the link option, after initialization
  *
- *		@example
- *			<script>
- *				//getter
- *				Tokentextarea.option( "link" );
+ *        @example
+ *            <script>
+ *                //getter
+ *                Tokentextarea.option( "link" );
  *
- *				//setter
- *				Tokentextarea.option( "link", "favorites.html");
- *			</script>
+ *                //setter
+ *                Tokentextarea.option( "link", "favorites.html");
+ *            </script>
  *
  * ### Custom description
  * Get or set the link option, after initialization
  *
- *		@example
- *			<script>
- *				//getter
- *				Tokentextarea.option( "description" );
+ *        @example
+ *            <script>
+ *                //getter
+ *                Tokentextarea.option( "description" );
  *
- *				//setter
- *				Tokentextarea.option( "description", "bar + {0}");
- *			</script>
+ *                //setter
+ *                Tokentextarea.option( "description", "bar + {0}");
+ *            </script>
  *
  * ##Methods
  *
@@ -170,16 +170,16 @@
  *
  * First API is from tau namespace:
  *
- *		@example
- *		var elementToken = document.getElementById("ns-tokentext"),
- *			tokentextarea = tau.widget.Tokentextarea(elementToken);
+ *        @example
+ *        var elementToken = document.getElementById("ns-tokentext"),
+ *            tokentextarea = tau.widget.Tokentextarea(elementToken);
  *
- *		tokentextarea.methodName(methodArgument1, methodArgument2, ...);
+ *        tokentextarea.methodName(methodArgument1, methodArgument2, ...);
  *
  * Second API is jQuery Mobile API and for call _methodName_ you can use:
  *
- *		@example
- *		$(".selector").tokentextarea("methodName", methodArgument1, ...);
+ *        @example
+ *        $(".selector").tokentextarea("methodName", methodArgument1, ...);
  *
  * @author Kamil Stepczuk <k.stepczuk@samsung.com>
  * @class ns.widget.mobile.TokenTextarea
@@ -238,10 +238,8 @@
 					uiTokentextarea: "ui-tokentextarea",
 					uiTokentextareaLabel: "ui-tokentextarea-label",
 					uiTokentextareaInput: "ui-tokentextarea-input",
-					uiTokentextareaInputVisible:
-						"ui-tokentextarea-input-visible",
-					uiTokentextareaInputInvisible:
-						"ui-tokentextarea-input-invisible",
+					uiTokentextareaInputVisible: "ui-tokentextarea-input-visible",
+					uiTokentextareaInputInvisible: "ui-tokentextarea-input-invisible",
 					uiinputText: "ui-input-text",
 					uiBodyS: "ui-body-s",
 					uiTokentextareaLinkBase: "ui-tokentextarea-link-base",
@@ -438,7 +436,7 @@
 
 				if (widget._focusStatus) {
 					if (element.classList.contains(
-						classes.uiTokentextareaSblock)) {
+							classes.uiTokentextareaSblock)) {
 						_removeTextBlock(element);
 					} else {
 						lockBlock = parent.getElementsByClassName(
@@ -513,9 +511,9 @@
 			function setMaxSizeForAllBlocks(element) {
 				var blocks = element.getElementsByClassName(
 					classes.uiTokentextareaSpanBlock
-				),
-				blocksLength = blocks.length,
-				i;
+					),
+					blocksLength = blocks.length,
+					i;
 
 				for (i = 0; i < blocksLength; i++) {
 					setMaxSizeBlock(blocks[i]);
@@ -540,7 +538,7 @@
 					classes.uiTokentextareaSpanBlock
 				);
 				lastBlock = block[block.length - 1];
-				lastBlockClasses  = lastBlock.classList;
+				lastBlockClasses = lastBlock.classList;
 
 				if (lastBlockClasses.contains(classes.uiTokentextareaSblock)) {
 					_removeTextBlock(lastBlock);
@@ -559,7 +557,7 @@
 			 */
 			function _unlockTextBlock(element) {
 				var selectedBlock = element.getElementsByClassName(
-						classes.uiTokentextareaSblock)[0];
+					classes.uiTokentextareaSblock)[0];
 				if (selectedBlock !== undefined) {
 					_unselectBlock(selectedBlock);
 				}
@@ -574,7 +572,7 @@
 			 * @static
 			 * @member ns.widget.mobile.TokenTextarea
 			 */
-			function inputKeyUp (element, event) {
+			function inputKeyUp(element, event) {
 				var keyValue = event.keyCode,
 					input = element.getElementsByTagName("input")[0],
 					inputValue = input.value,
@@ -634,7 +632,7 @@
 				element.classList.add(classes.uiTokentextarea);
 
 				inputBox.style.minWidth = 3 + "rem";
-				inputBox.style.width    = 100 +"%";
+				inputBox.style.width = 100 + "%";
 
 				labelTag.textContent = option.label;
 				labelTag.classList.add(classes.uiTokentextareaLabel);
@@ -661,7 +659,7 @@
 				moreBlock.tabIndex = 0;
 				moreBlockClasses.add(classes.uiTokentextareaLinkBase);
 				moreBlockClasses.add(classes.uiBtnBoxS);
-				moreBlock.textContent =	strings.addRecipient;
+				moreBlock.textContent = strings.addRecipient;
 				inputArea.appendChild(moreBlock);
 				element.appendChild(inputArea);
 				return element;
@@ -674,18 +672,18 @@
 			 * in place of the index. If index isn't set the token will
 			 * be inserted at the end.
 			 *
-			 *		@example
-			 *			<div data-role="tokentextarea" id="ns-tokentext"></div>
-			 *			<script>
-			 *				var tokenWidget = tau.widget.Tokentextarea(
-			 *						document.getElementById("ns-tokentext")
-			 *				);
-			 *				tokenWidget.add("foobar");
+			 *        @example
+			 *            <div data-role="tokentextarea" id="ns-tokentext"></div>
+			 *            <script>
+			 *                var tokenWidget = tau.widget.Tokentextarea(
+			 *                        document.getElementById("ns-tokentext")
+			 *                );
+			 *                tokenWidget.add("foobar");
 			 *
-			 *				//or
+			 *                //or
 			 *
-			 *				$( "#ns-tokentext" ).tokentextarea("add", "foobar");
-			 *			</script>
+			 *                $( "#ns-tokentext" ).tokentextarea("add", "foobar");
+			 *            </script>
 			 *
 			 * @method add
 			 * @param {string} messages
@@ -707,21 +705,21 @@
 			 * button at the specified index position. If the parameter
 			 * is not defined, all the widget buttons are removed.
 			 *
-			 *		@example
-			 *			<div 	data-role="tokentextarea"
-			 *					data-label="Send to: "
-			 *					id="ns-tokentext">
-			 *			</div>
-			 *			<script>
-			 *				var tokenWidget = tau.widget.Tokentextarea(
-			 *						document.getElementById("ns-tokentext")
-			 *				);
-			 *				tokenWidget.remove(1);
+			 *        @example
+			 *            <div    data-role="tokentextarea"
+			 *                    data-label="Send to: "
+			 *                    id="ns-tokentext">
+			 *            </div>
+			 *            <script>
+			 *                var tokenWidget = tau.widget.Tokentextarea(
+			 *                        document.getElementById("ns-tokentext")
+			 *                );
+			 *                tokenWidget.remove(1);
 			 *
-			 *				//or
+			 *                //or
 			 *
-			 *				$( "#ns-tokentext" ).tokentextarea("remove", "1" );
-			 *			</script>
+			 *                $( "#ns-tokentext" ).tokentextarea("remove", "1" );
+			 *            </script>
 			 *
 			 * @method remove
 			 * @param {number} blockIndex
@@ -741,18 +739,18 @@
 			 * The length method is used to retrieve the number of buttons
 			 * in the token text area widget:
 			 *
-			 *		@example
-			 *			<div data-role="tokentextarea" id="ns-tokentext"></div>
-			 *			<script>
-			 *				var tokenWidget = tau.widget.Tokentextarea(
-			 *						document.getElementById("ns-tokentext")
-			 *				);
-			 *				tokenWidget.lenght();
+			 *        @example
+			 *            <div data-role="tokentextarea" id="ns-tokentext"></div>
+			 *            <script>
+			 *                var tokenWidget = tau.widget.Tokentextarea(
+			 *                        document.getElementById("ns-tokentext")
+			 *                );
+			 *                tokenWidget.lenght();
 			 *
-			 *				//if jQuery is loaded
+			 *                //if jQuery is loaded
 			 *
-			 *				$( "#ns-tokentext" ).tokentextarea( "length" );
-			 *			</script>
+			 *                $( "#ns-tokentext" ).tokentextarea( "length" );
+			 *            </script>
 			 *
 			 * @method length
 			 * @return {number}
@@ -771,32 +769,32 @@
 			 * If a parameter is set, the parameter text is set in
 			 * the input box.
 			 *
-			 *		@example
-			 *			<div data-role="tokentextarea" id="ns-tokentext"></div>
-			 *			<script>
-			 *				// !!!set text in the input box text!!!
+			 *        @example
+			 *            <div data-role="tokentextarea" id="ns-tokentext"></div>
+			 *            <script>
+			 *                // !!!set text in the input box text!!!
 			 *
-			 *				var tokenWidget = tau.widget.Tokentextarea(
-			 *						document.getElementById("ns-tokentext")
-			 *				);
-			 *				tokenWidget.inputText("foobar");
+			 *                var tokenWidget = tau.widget.Tokentextarea(
+			 *                        document.getElementById("ns-tokentext")
+			 *                );
+			 *                tokenWidget.inputText("foobar");
 			 *
-			 *				//if jQuery is loaded
+			 *                //if jQuery is loaded
 			 *
-			 *				$( "#ns-tokentext" ).tokentextarea(
-			 *					"inputText" , "foobar");
+			 *                $( "#ns-tokentext" ).tokentextarea(
+			 *                    "inputText" , "foobar");
 			 *
-			 *				// !!!get the input box text!!!
+			 *                // !!!get the input box text!!!
 			 *
-			 *				var tokenWidget = tau.widget.Tokentextarea(
-			 *						document.getElementById("ns-tokentext")
-			 *				);
-			 *				tokenWidget.inputText();
+			 *                var tokenWidget = tau.widget.Tokentextarea(
+			 *                        document.getElementById("ns-tokentext")
+			 *                );
+			 *                tokenWidget.inputText();
 			 *
-			 *				//if jQuery is loaded
+			 *                //if jQuery is loaded
 			 *
-			 *				$( "#ns-tokentext" ).tokentextarea( "inputText" );
-			 *			</script>
+			 *                $( "#ns-tokentext" ).tokentextarea( "inputText" );
+			 *            </script>
 			 *
 			 * @method inputText
 			 * @param {string} text
@@ -822,30 +820,30 @@
 			 * set method returns string of the selected button.
 			 * If none is selected return null
 			 *
-			 *		@example
-			 *			<div data-role="tokentextarea" id="ns-tokentext"></div>
-			 *			<script>
-			 *				// !!!select first block!!!
+			 *        @example
+			 *            <div data-role="tokentextarea" id="ns-tokentext"></div>
+			 *            <script>
+			 *                // !!!select first block!!!
 			 *
-			 *				var tokenWidget = tau.widget.Tokentextarea(
-			 *						document.getElementById("ns-tokentext")
-			 *				);
-			 *				tokenWidget.add("text 1");
-			 *				tokenWidget.add("text 2");
-			 *				tokenWidget.select(0);
+			 *                var tokenWidget = tau.widget.Tokentextarea(
+			 *                        document.getElementById("ns-tokentext")
+			 *                );
+			 *                tokenWidget.add("text 1");
+			 *                tokenWidget.add("text 2");
+			 *                tokenWidget.select(0);
 			 *
-			 *				//if jQuery is loaded
+			 *                //if jQuery is loaded
 			 *
-			 *				$( "#ns-tokentext" ).tokentextarea("select" , "0");
+			 *                $( "#ns-tokentext" ).tokentextarea("select" , "0");
 			 *
-			 *				// !!!gets string from selected block!!!
+			 *                // !!!gets string from selected block!!!
 			 *
-			 *				tokenWidget.select();
+			 *                tokenWidget.select();
 			 *
-			 *				//if jQuery is loaded
+			 *                //if jQuery is loaded
 			 *
-			 *				$( "#ns-tokentext" ).tokentextarea( "select" );
-			 *			</script>
+			 *                $( "#ns-tokentext" ).tokentextarea( "select" );
+			 *            </script>
 			 *
 			 * @method select
 			 * @param {number} blockIndex
@@ -882,21 +880,21 @@
 			/**
 			 * Function ungroup elements and set focus to input
 			 *
-			 *		@example
-			 *			<div 	data-role="tokentextarea"
-			 *					data-label="Send to: "
-			 *					id="ns-tokentext">
-			 *			</div>
-			 *			<script>
-			 *				var tokenWidget = tau.widget.Tokentextarea(
-			 *						document.getElementById("ns-tokentext")
-			 *				);
-			 *				tokenWidget.focusIn(0);
+			 *        @example
+			 *            <div    data-role="tokentextarea"
+			 *                    data-label="Send to: "
+			 *                    id="ns-tokentext">
+			 *            </div>
+			 *            <script>
+			 *                var tokenWidget = tau.widget.Tokentextarea(
+			 *                        document.getElementById("ns-tokentext")
+			 *                );
+			 *                tokenWidget.focusIn(0);
 			 *
-			 *				//if jQuery is loaded
+			 *                //if jQuery is loaded
 			 *
-			 *				$( "#ns-tokentext" ).tokentextarea( "focusIn" );
-			 *			</script>
+			 *                $( "#ns-tokentext" ).tokentextarea( "focusIn" );
+			 *            </script>
 			 *
 			 * @method focusIn
 			 * @public
@@ -976,10 +974,10 @@
 			 */
 			function _getElementWidth(element) {
 				var elementView;
-				elementView =  document.defaultView
+				elementView = document.defaultView
 					.getComputedStyle(element);
 				return parseInt(
-					elementView.getPropertyValue("margin-left"), 10) +
+						elementView.getPropertyValue("margin-left"), 10) +
 					parseInt(elementView.getPropertyValue("margin-right"), 10) +
 					element.offsetWidth;
 			}
@@ -987,21 +985,21 @@
 			/**
 			 * Function group elements and hide input
 			 *
-			 *		@example
-			 *			<div 	data-role="tokentextarea"
-			 *					data-label="Send to: "
-			 *					id="ns-tokentext">
-			 *			</div>
-			 *			<script>
-			 *				var tokenWidget = tau.widget.Tokentextarea(
-			 *						document.getElementById("ns-tokentext")
-			 *				);
-			 *				tokenWidget.focusOut(0);
+			 *        @example
+			 *            <div    data-role="tokentextarea"
+			 *                    data-label="Send to: "
+			 *                    id="ns-tokentext">
+			 *            </div>
+			 *            <script>
+			 *                var tokenWidget = tau.widget.Tokentextarea(
+			 *                        document.getElementById("ns-tokentext")
+			 *                );
+			 *                tokenWidget.focusOut(0);
 			 *
-			 *				//if jQuery is loaded
+			 *                //if jQuery is loaded
 			 *
-			 *				$( "#ns-tokentext" ).tokentextarea( "focusOut" );
-			 *			</script>
+			 *                $( "#ns-tokentext" ).tokentextarea( "focusOut" );
+			 *            </script>
 			 *
 			 * @method focusOut
 			 * @public
@@ -1033,7 +1031,7 @@
 				blocks = element.getElementsByClassName(
 					classes.uiTokentextareaSpanBlock
 				);
-				blocksLenght =  blocks.length;
+				blocksLenght = blocks.length;
 				label = element
 					.getElementsByClassName(classes.uiTokentextareaLabel)[0];
 				input = element.getElementsByTagName("input")[0];
@@ -1049,7 +1047,7 @@
 
 				elementWidth = element.offsetWidth;
 				blockWidthSum += _getElementWidth(label);
-				for (i = 0; i <=  blocksLenght - 1; i++) {
+				for (i = 0; i <= blocksLenght - 1; i++) {
 					blockWidthSum += _getElementWidth(blocks[i]);
 					if (blockWidthSum >= elementWidth) {
 						hiddenBlocksCount++;
@@ -1106,7 +1104,7 @@
 				self._setMaxSizeForAllBlocksBound =
 					setMaxSizeForAllBlocks.bind(null, element);
 				parentPage.addEventListener(
-					"pageshow", self._setMaxSizeForAllBlocksBound , false);
+					"pageshow", self._setMaxSizeForAllBlocksBound, false);
 			};
 
 			/**
@@ -1139,7 +1137,7 @@
 					this._setMaxSizeForAllBlocksBound, false);
 				elementCilds = element.childNodes;
 				elementCildsLength = elementCilds.length;
-				for (i =  elementCildsLength - 1; i >= 0; i--) {
+				for (i = elementCildsLength - 1; i >= 0; i--) {
 					element.removeChild(elementCilds[i]);
 				}
 				element.classList.remove(classes.uiTokentextarea);
@@ -1165,24 +1163,24 @@
 			 * Method adds disabled attribute on Tokentextarea widget and
 			 * changes look to disabled state.
 			 *
-			 *		@example
-			 *		<div data-role="tokentexarea" id="ns-tokentex"></div>
+			 *        @example
+			 *        <div data-role="tokentexarea" id="ns-tokentex"></div>
 			 *
-			 *		<script>
-			 *			var elementToken = tau.widget.Tokentextarea(
-			 *					document.getElementById("ns-tokentext")
-			 *				);
-			 *			elementToken.disable();
-			 *		</script>
+			 *        <script>
+			 *            var elementToken = tau.widget.Tokentextarea(
+			 *                    document.getElementById("ns-tokentext")
+			 *                );
+			 *            elementToken.disable();
+			 *        </script>
 			 *
 			 * If jQuery is loaded:
 			 *
-			 *		@example
-			 *		<div data-role="tokentextarea" id="ns-tokentext"></div>
+			 *        @example
+			 *        <div data-role="tokentextarea" id="ns-tokentext"></div>
 			 *
-			 *		<script>
-			 *			$("#ns-tokentext").tokentextarea("disable");
-			 *		</script>
+			 *        <script>
+			 *            $("#ns-tokentext").tokentextarea("disable");
+			 *        </script>
 			 *
 			 * @method disable
 			 * @chainable
@@ -1195,24 +1193,24 @@
 			 * Method removes disabled attribute on Tokentextarea widget and
 			 * changes look to enabled state.
 			 *
-			 *		@example
-			 *		<div data-role="tokentextarea" id="ns-tokentext"></div>
+			 *        @example
+			 *        <div data-role="tokentextarea" id="ns-tokentext"></div>
 			 *
-			 *		<script>
-			 *			var elementToken = tau.widget.Tokentextarea(
-			 *					document.getElementById("ns-tokentext")
-			 *				);
-			 *			elementToken.enable();
-			 *		</script>
+			 *        <script>
+			 *            var elementToken = tau.widget.Tokentextarea(
+			 *                    document.getElementById("ns-tokentext")
+			 *                );
+			 *            elementToken.enable();
+			 *        </script>
 			 *
 			 * If jQuery is loaded:
 			 *
-			 *		@example
-			 *		<div data-role="tokentextarea" id="ns-tokentext"></div>
+			 *        @example
+			 *        <div data-role="tokentextarea" id="ns-tokentext"></div>
 			 *
-			 *		<script>
-			 *			$("#ns-tokentext").tokentextarea("enable");
-			 *		</script>
+			 *        <script>
+			 *            $("#ns-tokentext").tokentextarea("enable");
+			 *        </script>
 			 *
 			 * @method enable
 			 * @chainable
@@ -1222,24 +1220,24 @@
 			/**
 			 * Trigger an event on widget's element.
 			 *
-			 *		@example
-			 *		<div data-role="tokentextarea" id="ns-tokentext"></div>
+			 *        @example
+			 *        <div data-role="tokentextarea" id="ns-tokentext"></div>
 			 *
-			 *		<script>
-			 *			var elementToken = tau.widget.Tokentextarea(
-			 *					document.getElementById("ns-tokentext")
-			 *				);
-			 *			elementToken.trigger("eventName");
-			 *		</script>
+			 *        <script>
+			 *            var elementToken = tau.widget.Tokentextarea(
+			 *                    document.getElementById("ns-tokentext")
+			 *                );
+			 *            elementToken.trigger("eventName");
+			 *        </script>
 			 *
 			 * If jQuery is loaded:
 			 *
-			 *		@example
-			 *		<div data-role="tokentextarea" id="ns-tokentext"></div>
+			 *        @example
+			 *        <div data-role="tokentextarea" id="ns-tokentext"></div>
 			 *
-			 *		<script>
-			 *			$("#ns-tokentext").tokentextarea("trigger", "eventName");
-			 *		</script>
+			 *        <script>
+			 *            $("#ns-tokentext").tokentextarea("trigger", "eventName");
+			 *        </script>
 			 *
 			 * @method trigger
 			 * @param {string} eventName the name of event to trigger
@@ -1256,28 +1254,28 @@
 			/**
 			 * Add event listener to widget's element.
 			 *
-			 *		@example
-			 *		<div data-role="tokentextarea" id="ns-tokentext"></div>
+			 *        @example
+			 *        <div data-role="tokentextarea" id="ns-tokentext"></div>
 			 *
-			 *		<script>
-			 *			var elementToken = tau.widget.Tokentextarea(
-			 *					document.getElementById("ns-tokentext")
-			 *				);
-			 *			elementToken.on("eventName", function () {
+			 *        <script>
+			 *            var elementToken = tau.widget.Tokentextarea(
+			 *                    document.getElementById("ns-tokentext")
+			 *                );
+			 *            elementToken.on("eventName", function () {
 			 *				console.log("Event fires");
 			 *			});
-			 *		</script>
+			 *        </script>
 			 *
 			 * If jQuery is loaded:
 			 *
-			 *		@example
-			 *		<div data-role="tokentextarea" id="ns-tokentext"></div>
+			 *        @example
+			 *        <div data-role="tokentextarea" id="ns-tokentext"></div>
 			 *
-			 *		<script>
-			 *			$("#ns-tokentext").tokentextarea("on", "eventName",
-			 *				function () { console.log("Event fires");
+			 *        <script>
+			 *            $("#ns-tokentext").tokentextarea("on", "eventName",
+			 *                function () { console.log("Event fires");
 			 *			});
-			 *		</script>
+			 *        </script>
 			 *
 			 * @method on
 			 * @param {string} eventName the name of event
@@ -1291,40 +1289,40 @@
 			/**
 			 * Remove event listener to widget's element.
 			 *
-			 *		@example
-			 *		<div data-role="tokentextarea" id="ns-tokentext"></div>
+			 *        @example
+			 *        <div data-role="tokentextarea" id="ns-tokentext"></div>
 			 *
-			 *		<script>
-			 *			var elementToken = tau.widget.Tokentextarea(
-			 *					document.getElementById("ns-tokentext")
-			 *				),
-			 *				callback = function () {
+			 *        <script>
+			 *            var elementToken = tau.widget.Tokentextarea(
+			 *                    document.getElementById("ns-tokentext")
+			 *                ),
+			 *                callback = function () {
 			 *					console.log("Event fires");
 			 *				};
-			 *			// add callback on event "eventName"
-			 *			elementToken.on("eventName", callback);
-			 *			// ...
-			 *			// remove callback on event "eventName"
-			 *			elementToken.off("eventName", callback);
-			 *		</script>
+			 *            // add callback on event "eventName"
+			 *            elementToken.on("eventName", callback);
+			 *            // ...
+			 *            // remove callback on event "eventName"
+			 *            elementToken.off("eventName", callback);
+			 *        </script>
 			 *
 			 * If jQuery is loaded:
 			 *
-			 *		@example
-			 *		<div data-role="tokentextarea" id="ns-tokentext"></div>
+			 *        @example
+			 *        <div data-role="tokentextarea" id="ns-tokentext"></div>
 			 *
-			 *		<script>
-			 *			var callback = function () {
+			 *        <script>
+			 *            var callback = function () {
 			 *					console.log("Event fires");
 			 *				};
-			 *			// add callback on event "eventName"
-			 *			$("#ns-tokentext").tokentextarea(
-			 *				"on", "eventName", callback);
-			 *			// ...
-			 *			// remove callback on event "eventName"
-			 *			$("#ns-tokentext").tokentextarea(
-			 *				"off", "eventName", callback);
-			 *		</script>
+			 *            // add callback on event "eventName"
+			 *            $("#ns-tokentext").tokentextarea(
+			 *                "on", "eventName", callback);
+			 *            // ...
+			 *            // remove callback on event "eventName"
+			 *            $("#ns-tokentext").tokentextarea(
+			 *                "off", "eventName", callback);
+			 *        </script>
 			 *
 			 * @method off
 			 * @param {string} eventName the name of event
@@ -1350,37 +1348,37 @@
 			 * If you give two arguments and first argument will be a string
 			 * then second argument will be intemperate as value to set.
 			 *
-			 *		@example
-			 *		<div data-role="tokentextarea" id="ns-tokentext"></div>
+			 *        @example
+			 *        <div data-role="tokentextarea" id="ns-tokentext"></div>
 			 *
-			 * 			<script>
-			 *				var tokenWidet = tau.widget.Tokentextarea(
-			 *				document.getElementById("ns-tokentext")),
-			 *					tokenValue;
+			 *            <script>
+			 *                var tokenWidet = tau.widget.Tokentextarea(
+			 *                document.getElementById("ns-tokentext")),
+			 *                    tokenValue;
 			 *
-			 * 				 //getter
-			 *				tokentValue = tokenWidget.option("label");
+			 *                 //getter
+			 *                tokentValue = tokenWidget.option("label");
 			 *
-			 *				//setter
-			 *				tokenWidget.option("label","e-mail to: ");
-			 *			</script>
+			 *                //setter
+			 *                tokenWidget.option("label","e-mail to: ");
+			 *            </script>
 			 *
 			 * If jQuery is loaded:
 			 *
-			 *		@example
-			 *			<div data-role="tokentextarea" id="ns-tokentext"></div>
-			 *			<script>
-			 *				var tokenValue;
+			 *        @example
+			 *            <div data-role="tokentextarea" id="ns-tokentext"></div>
+			 *            <script>
+			 *                var tokenValue;
 			 *
-			 * 				// get value
-			 *				tokentValue = $("#ns-tokentext").tokentextarea(
-			 *					"option", "label");
+			 *                // get value
+			 *                tokentValue = $("#ns-tokentext").tokentextarea(
+			 *                    "option", "label");
 			 *
-			 *				// set value
-			 *				$("#ns-tokentext").tokentextarea(
-			 *					"option", "label", "e-mail to: "
-			 *				);
-			 *			</script>
+			 *                // set value
+			 *                $("#ns-tokentext").tokentextarea(
+			 *                    "option", "label", "e-mail to: "
+			 *                );
+			 *            </script>
 			 *
 			 * @method option
 			 * @param {string|Object} [name] name of option

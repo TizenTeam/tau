@@ -1,4 +1,4 @@
-/*global window, define */
+/*global window, ns, define */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
  *
@@ -26,7 +26,7 @@
  * and a dark background to make the "dialog" appear to be suspended above
  * the page.
  *
-  * ## Default selectors
+ * ## Default selectors
  * By default all elements with _data-role=dialog_ are changed to Tizen Web UI
  * Dialog.
  *
@@ -35,76 +35,76 @@
  *
  * #### Create simple dialog from div using data-role
  *
- *		@example
- *		<div data-role="page" id="page1">
- *			<div data-role="header">
- *				<h1>Page</h1>
- *			</div>
- *			<div data-role="content" class="ui-content">
- *				<a data-role="button" href="#dialogPage"
- *					data-rel="dialog">Open dialog</a>
- *			</div>
- *		</div>
+ *        @example
+ *        <div data-role="page" id="page1">
+ *            <div data-role="header">
+ *                <h1>Page</h1>
+ *            </div>
+ *            <div data-role="content" class="ui-content">
+ *                <a data-role="button" href="#dialogPage"
+ *                    data-rel="dialog">Open dialog</a>
+ *            </div>
+ *        </div>
  *
- *		<div data-role="dialog" id="dialogPage">
- *			<div data-role="header">
- *				<h2>Dialog</h2>
- *			</div>
- *			<div data-role="content" class="ui-content">
- *				<p>I am a dialog</p>
- *			</div>
- *		</div>
+ *        <div data-role="dialog" id="dialogPage">
+ *            <div data-role="header">
+ *                <h2>Dialog</h2>
+ *            </div>
+ *            <div data-role="content" class="ui-content">
+ *                <p>I am a dialog</p>
+ *            </div>
+ *        </div>
  *
  * #### Create simple dialog from div using class selector
  *
- *		@example
- *		<div data-role="page" id="page1">
- *			<div data-role="header">
- *				<h1>Page</h1>
- *			</div>
- *			<div data-role="content" class="ui-content">
- *				<a data-role="button" href="#dialogPage"
- *					data-rel="dialog">Open dialog</a>
- *			</div>
- *		</div>
+ *        @example
+ *        <div data-role="page" id="page1">
+ *            <div data-role="header">
+ *                <h1>Page</h1>
+ *            </div>
+ *            <div data-role="content" class="ui-content">
+ *                <a data-role="button" href="#dialogPage"
+ *                    data-rel="dialog">Open dialog</a>
+ *            </div>
+ *        </div>
  *
- *		<div data-role="dialog" id="dialogPage">
- *			<div data-role="header">
- *				<h2>Dialog</h2>
- *			</div>
- *			<div data-role="content" class="ui-content">
- *				<p>I am a dialog</p>
- *			</div>
- *		</div>
+ *        <div data-role="dialog" id="dialogPage">
+ *            <div data-role="header">
+ *                <h2>Dialog</h2>
+ *            </div>
+ *            <div data-role="content" class="ui-content">
+ *                <p>I am a dialog</p>
+ *            </div>
+ *        </div>
  *
  * ## Manual constructor
  *
- *		@example
- *		<div data-role="page" id="page1">
- *			<div data-role="header">
- *				<h1>Page</h1>
- *			</div>
- *			<div data-role="content" class="ui-content">
- *				<a data-role="button" id="btn-open" href="#">Open dialog</a>
- *			</div>
- *		</div>
+ *        @example
+ *        <div data-role="page" id="page1">
+ *            <div data-role="header">
+ *                <h1>Page</h1>
+ *            </div>
+ *            <div data-role="content" class="ui-content">
+ *                <a data-role="button" id="btn-open" href="#">Open dialog</a>
+ *            </div>
+ *        </div>
  *
- *		<div id="dialogPage">
- *			<div data-role="header">
- *				<h2>Dialog</h2>
- *			</div>
- *			<div data-role="content" class="ui-content">
- *				<p>I am a dialog</p>
- *			</div>
- *		</div>
- *		<script>
- *			var element = document.getElementById("dialogPage"),
- *				dialogOpen = function () {
+ *        <div id="dialogPage">
+ *            <div data-role="header">
+ *                <h2>Dialog</h2>
+ *            </div>
+ *            <div data-role="content" class="ui-content">
+ *                <p>I am a dialog</p>
+ *            </div>
+ *        </div>
+ *        <script>
+ *            var element = document.getElementById("dialogPage"),
+ *                dialogOpen = function () {
  *					var dialog = tau.widget.Dialog(element);
  *				};
- *			document.getElementById("btn-open")
- *				.addEventListener("vclick", dialogOpen);
- *		</script>
+ *            document.getElementById("btn-open")
+ *                .addEventListener("vclick", dialogOpen);
+ *        </script>
  *
  * ## Options for Dialog
  * Options for widget can be defined as _data-..._ attributes or given
@@ -116,97 +116,97 @@
  * _data-close-btn_ Position of the dialog close button
  * in the header
  *
- *		@example
- *		<div data-role="page" id="page1">
- *			<div data-role="header">
- *				<h1>Page</h1>
- *			</div>
- *			<div data-role="content" class="ui-content">
- *				<a data-role="button" href="#dialogPage"
- *					data-rel="dialog">Open dialog</a>
- *			</div>
- *		</div>
+ *        @example
+ *        <div data-role="page" id="page1">
+ *            <div data-role="header">
+ *                <h1>Page</h1>
+ *            </div>
+ *            <div data-role="content" class="ui-content">
+ *                <a data-role="button" href="#dialogPage"
+ *                    data-rel="dialog">Open dialog</a>
+ *            </div>
+ *        </div>
  *
- *		<div data-role="dialog" data-close-btn="left" id="dialogPage">
- *			<div data-role="header">
- *				<h2>Dialog</h2>
- *			</div>
- *			<div data-role="content" class="ui-content">
- *				<p>I am a dialog</p>
- *			</div>
- *		</div>
+ *        <div data-role="dialog" data-close-btn="left" id="dialogPage">
+ *            <div data-role="header">
+ *                <h2>Dialog</h2>
+ *            </div>
+ *            <div data-role="content" class="ui-content">
+ *                <p>I am a dialog</p>
+ *            </div>
+ *        </div>
  *
  * ### closeBtnText
  * _data-close-btn-text_ Customize text of the close button,
  * by default close button is displayed as an icon-only so the text
  * isn't visible, but is read by screen readers
  *
- *		@example
- *		<div data-role="page" id="page1">
- *			<div data-role="header">
- *				<h1>Page</h1>
- *			</div>
- *			<div data-role="content" class="ui-content">
- *				<a data-role="button" href="#dialogPage"
- *					data-rel="dialog">Open dialog</a>
- *			</div>
- *		</div>
+ *        @example
+ *        <div data-role="page" id="page1">
+ *            <div data-role="header">
+ *                <h1>Page</h1>
+ *            </div>
+ *            <div data-role="content" class="ui-content">
+ *                <a data-role="button" href="#dialogPage"
+ *                    data-rel="dialog">Open dialog</a>
+ *            </div>
+ *        </div>
  *
- *		<div data-role="dialog" data-close-btn="left"
- *			data-close-btn-text="Click to close" id="dialogPage">
- *			<div data-role="header">
- *				<h2>Dialog</h2>
- *			</div>
- *			<div data-role="content" class="ui-content">
- *				<p>I am a dialog</p>
- *			</div>
- *		</div>
+ *        <div data-role="dialog" data-close-btn="left"
+ *            data-close-btn-text="Click to close" id="dialogPage">
+ *            <div data-role="header">
+ *                <h2>Dialog</h2>
+ *            </div>
+ *            <div data-role="content" class="ui-content">
+ *                <p>I am a dialog</p>
+ *            </div>
+ *        </div>
  *
  * ### overlayTheme
  * _data-overlay-theme_ Background under dialog content color
  *
- *		@example
- *		<div data-role="page" id="page1">
- *			<div data-role="header">
- *				<h1>Page</h1>
- *			</div>
- *			<div data-role="content" class="ui-content">
- *				<a data-role="button" href="#dialogPage"
- *					data-rel="dialog">Open dialog</a>
- *			</div>
- *		</div>
+ *        @example
+ *        <div data-role="page" id="page1">
+ *            <div data-role="header">
+ *                <h1>Page</h1>
+ *            </div>
+ *            <div data-role="content" class="ui-content">
+ *                <a data-role="button" href="#dialogPage"
+ *                    data-rel="dialog">Open dialog</a>
+ *            </div>
+ *        </div>
  *
- *		<div data-role="dialog" data-overlay-theme="s" id="dialogPage">
- *			<div data-role="header">
- *				<h2>Dialog</h2>
- *			</div>
- *			<div data-role="content" class="ui-content">
- *				<p>I am a dialog</p>
- *			</div>
- *		</div>
+ *        <div data-role="dialog" data-overlay-theme="s" id="dialogPage">
+ *            <div data-role="header">
+ *                <h2>Dialog</h2>
+ *            </div>
+ *            <div data-role="content" class="ui-content">
+ *                <p>I am a dialog</p>
+ *            </div>
+ *        </div>
  *
  * ### corners
  * _data-corners_ Sets if dialog should be drawn with rounded corners
  *
- *		@example
- *		<div data-role="page" id="page1">
- *			<div data-role="header">
- *				<h1>Page</h1>
- *			</div>
- *			<div data-role="content" class="ui-content">
- *				<a data-role="button" href="#dialogPage"
- *					data-rel="dialog">Open dialog</a>
- *			</div>
- *		</div>
+ *        @example
+ *        <div data-role="page" id="page1">
+ *            <div data-role="header">
+ *                <h1>Page</h1>
+ *            </div>
+ *            <div data-role="content" class="ui-content">
+ *                <a data-role="button" href="#dialogPage"
+ *                    data-rel="dialog">Open dialog</a>
+ *            </div>
+ *        </div>
  *
- *		<div data-role="dialog" data-corners="false" id="dialogPage">
- *			<div data-role="header">
- *				<h2>Dialog</h2>
- *			</div>
- *			<div data-role="content" class="ui-content">
- *				<p>I am a dialog</p>
- *			</div>
- *		</div>
+ *        <div data-role="dialog" data-corners="false" id="dialogPage">
+ *            <div data-role="header">
+ *                <h2>Dialog</h2>
+ *            </div>
+ *            <div data-role="content" class="ui-content">
+ *                <p>I am a dialog</p>
+ *            </div>
+ *        </div>
  *
  * @class ns.widget.mobile.Dialog
  * @extends ns.widget.BaseWidget
@@ -324,11 +324,11 @@
 					 * @member ns.widget.mobile.Dialog
 					 */
 					self.options = {
-						closeBtn : "left",
-						closeBtnText : "Close",
+						closeBtn: "left",
+						closeBtnText: "Close",
 						closeLinkSelector: "a[data-rel='back']",
-						overlayTheme : "c",
-						corners : true,
+						overlayTheme: "c",
+						corners: true,
 						page: ""
 					};
 
@@ -351,16 +351,16 @@
 
 
 			/**
-			* Create close button.
-			* @method createCloseButton
-			* @param {HTMLElement} element
-			* @param {"none"|"left"|"right"} location="none"
-			* @param {string} text
-			* @private
-			* @static
-			* @member ns.widget.mobile.Dialog
-			*/
-			function createCloseButton (element, location, text) {
+			 * Create close button.
+			 * @method createCloseButton
+			 * @param {HTMLElement} element
+			 * @param {"none"|"left"|"right"} location="none"
+			 * @param {string} text
+			 * @private
+			 * @static
+			 * @member ns.widget.mobile.Dialog
+			 */
+			function createCloseButton(element, location, text) {
 				var button,
 					header;
 
@@ -407,12 +407,12 @@
 					elementClassList.add(pageClasses.uiPage);
 					elementClassList.add(pageClasses.uiPageActive);
 					elementClassList.add(dialogClasses.uiOverlayPrefix +
-							options.overlayTheme);
+						options.overlayTheme);
 				} else {
 					elementClassList.remove(pageClasses.uiPage);
 					elementClassList.remove(pageClasses.uiPageActive);
 					elementClassList.remove(dialogClasses.uiOverlayPrefix +
-							options.overlayTheme);
+						options.overlayTheme);
 					elementClassList.add(dialogClasses.uiDialogHidden);
 				}
 			};
@@ -458,7 +458,7 @@
 
 				element.classList.add(classes.uiDialog);
 				element.classList.add(classes.uiBodyPrefix +
-						elementTheme);
+					elementTheme);
 
 				for (i = 0; i < childrenLength; i++) {
 					container.appendChild(element.children[0]);
@@ -475,19 +475,19 @@
 					headersClassList = headers[i].classList;
 					headersClassList.add(classes.uiHeader);
 					headersClassList.add(classes.uiBarPrefix +
-							pageOptions.headerTheme);
+						pageOptions.headerTheme);
 				}
 
 				for (i = 0, l = content.length; i < l; i++) {
 					content[i].classList.add(classes.uiContent);
 					content[i].classList.add(classes.uiBodyPrefix +
-							contentTheme);
+						contentTheme);
 				}
 
 				for (i = 0, l = footers.length; i < l; i++) {
 					footers[i].classList.add(classes.uiFooter);
 					footers[i].classList.add(classes.uiBarPrefix +
-							pageOptions.footerTheme);
+						pageOptions.footerTheme);
 				}
 
 				element.appendChild(container);
@@ -502,11 +502,10 @@
 			/**
 			 * This method inits Dialog widget.
 			 * @method _init
-			 * @param {HTMLElement} element
 			 * @protected
 			 * @member ns.widget.mobile.Dialog
 			 */
-			Dialog.prototype._init = function (element) {
+			Dialog.prototype._init = function () {
 				var pageId = this.options.page;
 
 				if (pageId) {
@@ -533,36 +532,36 @@
 			/**
 			 * Close dialog
 			 *
-			 *		@example
-			 *		<div data-role="page" id="page1">
-			 *			<div data-role="header">
-			 *				<h1>Page</h1>
-			 *			</div>
-			 *			<div data-role="content" class="ui-content">
-			 *				<a href="#dialogPage" data-role="button"
-			 *					data-rel="dialog">Open dialog</a>
-			 *			</div>
-			 *		</div>
+			 *        @example
+			 *        <div data-role="page" id="page1">
+			 *            <div data-role="header">
+			 *                <h1>Page</h1>
+			 *            </div>
+			 *            <div data-role="content" class="ui-content">
+			 *                <a href="#dialogPage" data-role="button"
+			 *                    data-rel="dialog">Open dialog</a>
+			 *            </div>
+			 *        </div>
 			 *
-			 *		<div data-role="dialog" id="dialogPage">
-			 *			<div data-role="header">
-			 *				<h2>Dialog</h2>
-			 *			</div>
-			 *			<div data-role="content" class="ui-content">
-			 *				<div data-role="button" id="button-close">
-			 *					Close dialog
-			 *				</div>
-			 *			</div>
-			 *		</div>
-			 *		<script>
-			 *			var element = document.getElementById("dialogPage"),
-			 *				onClose = function () {
+			 *        <div data-role="dialog" id="dialogPage">
+			 *            <div data-role="header">
+			 *                <h2>Dialog</h2>
+			 *            </div>
+			 *            <div data-role="content" class="ui-content">
+			 *                <div data-role="button" id="button-close">
+			 *                    Close dialog
+			 *                </div>
+			 *            </div>
+			 *        </div>
+			 *        <script>
+			 *            var element = document.getElementById("dialogPage"),
+			 *                onClose = function () {
 			 *					// gets the dialog instance and closes Dialog
 			 *					tau.widget.Dialog(element).close();
 			 *				};
-			 *			document.getElementById("button-close")
-			 *				.addEventListener("vclick", onClose, true);
-			 *		</script>
+			 *            document.getElementById("button-close")
+			 *                .addEventListener("vclick", onClose, true);
+			 *        </script>
 			 *
 			 *
 			 * @method close
@@ -583,7 +582,7 @@
 			 */
 			function pageBeforeShowHandler(element, options, classes) {
 				document.body.classList.add(classes.uiOverlayPrefix +
-						options.overlayTheme);
+					options.overlayTheme);
 			}
 
 			/**
@@ -671,39 +670,39 @@
 			 *
 			 * The method removes event listeners.
 			 *
-			 *		@example
-			 *		<div data-role="page" id="page1">
-			 *			<div data-role="header">
-			 *				<h1>Page</h1>
-			 *			</div>
-			 *			<div data-role="content" class="ui-content">
-			 *				<a href="#dialogPage" data-role="button"
-			 *					data-rel="dialog">Open dialog</a>
-			 *			</div>
-			 *		</div>
+			 *        @example
+			 *        <div data-role="page" id="page1">
+			 *            <div data-role="header">
+			 *                <h1>Page</h1>
+			 *            </div>
+			 *            <div data-role="content" class="ui-content">
+			 *                <a href="#dialogPage" data-role="button"
+			 *                    data-rel="dialog">Open dialog</a>
+			 *            </div>
+			 *        </div>
 			 *
-			 *		<div data-role="dialog" id="dialogPage">
-			 *			<div data-role="header">
-			 *				<h2>Dialog</h2>
-			 *			</div>
-			 *			<div data-role="content" class="ui-content">
-			 *				<div data-role="button" id="button-close">
-			 *					Close dialog
-			 *				</div>
-			 *			</div>
-			 *		</div>
-			 *		<script>
-			 *			var element = document.getElementById("dialogPage"),
-			 *				onClose = function () {
+			 *        <div data-role="dialog" id="dialogPage">
+			 *            <div data-role="header">
+			 *                <h2>Dialog</h2>
+			 *            </div>
+			 *            <div data-role="content" class="ui-content">
+			 *                <div data-role="button" id="button-close">
+			 *                    Close dialog
+			 *                </div>
+			 *            </div>
+			 *        </div>
+			 *        <script>
+			 *            var element = document.getElementById("dialogPage"),
+			 *                onClose = function () {
 			 *					// gets the dialog instance, closes and destroy
 			 *					// Dialog widget
 			 *					tau.widget.Dialog(element)
 			 *						.close()
 			 *						.destroy();
 			 *				};
-			 *			document.getElementById("button-close")
-			 *				.addEventListener("vclick", onClose, true);
-			 *		</script>
+			 *            document.getElementById("button-close")
+			 *                .addEventListener("vclick", onClose, true);
+			 *        </script>
 			 *
 			 * @method _destroy
 			 * @member ns.widget.mobile.Dialog

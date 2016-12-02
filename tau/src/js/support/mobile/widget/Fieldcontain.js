@@ -1,4 +1,4 @@
-/*global window, define */
+/*global window, ns, define */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
  *
@@ -26,74 +26,74 @@
  *
  * ###Create fieldcontain by data-role
  *
- *		@example
- *		<div data-role="fieldcontain">
- *			<label for="name">Text Input:</label>
- *			<input type="text" name="name" id="name" value="" />
- *		</div>
+ *        @example
+ *        <div data-role="fieldcontain">
+ *            <label for="name">Text Input:</label>
+ *            <input type="text" name="name" id="name" value="" />
+ *        </div>
  *
  * ###Create fieldcontain by class
  *
- *		@example
- *		<div class="ui-fieldcontain">
- *			<label for="name">Text Input:</label>
- *			<input type="text" name="name" id="name" value="" />
- *		</div>
+ *        @example
+ *        <div class="ui-fieldcontain">
+ *            <label for="name">Text Input:</label>
+ *            <input type="text" name="name" id="name" value="" />
+ *        </div>
  *
  * ## Manual constructor
  * For manual creation of fieldcontain widget you can use constructor of widget:
  *
- *		@example
- *		<div id="fieldcontain">
- *			<label for="name">Text Input:</label>
- *			<input type="text" name="name" id="name" value="" />
- *		</div>
+ *        @example
+ *        <div id="fieldcontain">
+ *            <label for="name">Text Input:</label>
+ *            <input type="text" name="name" id="name" value="" />
+ *        </div>
  *
- *		<script>
- *			var fieldcontain = tau.widget.FieldContain(document.getElementById("fieldcontain"));
- *		</script>
+ *        <script>
+ *            var fieldcontain = tau.widget.FieldContain(document.getElementById("fieldcontain"));
+ *        </script>
  *
  * If jQuery library is loaded, its method can be used:
  *
- *		@example
- *		<div id="fieldcontain">
- *			<label for="name">Text Input:</label>
- *			<input type="text" name="name" id="name" value="" />
- *		</div>
+ *        @example
+ *        <div id="fieldcontain">
+ *            <label for="name">Text Input:</label>
+ *            <input type="text" name="name" id="name" value="" />
+ *        </div>
  *
- *		<script>
- *			var fieldcontain = $("#fieldcontain").fieldcontain();
- *		</script>
+ *        <script>
+ *            var fieldcontain = $("#fieldcontain").fieldcontain();
+ *        </script>
  *
  * ##Hiding labels accessibly
  * For the sake of accessibility, the framework requires that all form elements be paired with a meaningful label. To hide labels in a way that leaves them visible to assistive technologies — for example, when letting an element's placeholder attribute serve as a label — apply the helper class ui-hidden-accessible to the label itself:
  *
- *		@example
- *		<div data-role="fieldcontain">
- *			<label for="username" class="ui-hidden-accessible">Username:</label>
- *			<input type="text" name="username" id="username" value="" placeholder="Username"/>
- *		</div>
+ *        @example
+ *        <div data-role="fieldcontain">
+ *            <label for="username" class="ui-hidden-accessible">Username:</label>
+ *            <input type="text" name="username" id="username" value="" placeholder="Username"/>
+ *        </div>
  *
  * To hide labels within a field container and adjust the layout accordingly, add the class ui-hide-label to the field container as in the following:
  *
- *		@example
- *		<div data-role="fieldcontain" class="ui-hide-label">
- *			<label for="username">Username:</label>
- *			<input type="text" name="username" id="username" value="" placeholder="Username"/>
- *		</div>
+ *        @example
+ *        <div data-role="fieldcontain" class="ui-hide-label">
+ *            <label for="username">Username:</label>
+ *            <input type="text" name="username" id="username" value="" placeholder="Username"/>
+ *        </div>
  *
  * While the label will no longer be visible, it will be available to assisitive technologies such as screen readers.
  *
  * Because radio and checkbox buttons use the label to display the button text you can't use ui-hidden-accessible in this case. However, the class ui-hide-label can be used to hide the legend element:
  *
- *		@example
- *		<div data-role="fieldcontain" class="ui-hide-label">
- *			<fieldset data-role="controlgroup">
- *				<legend>Agree to the terms:</legend>
- *				<input type="checkbox" name="checkbox-agree" id="checkbox-agree" class="custom" />
- *				<label for="checkbox-agree">I agree</label>
- *			</fieldset>
- *		</div>
+ *        @example
+ *        <div data-role="fieldcontain" class="ui-hide-label">
+ *            <fieldset data-role="controlgroup">
+ *                <legend>Agree to the terms:</legend>
+ *                <input type="checkbox" name="checkbox-agree" id="checkbox-agree" class="custom" />
+ *                <label for="checkbox-agree">I agree</label>
+ *            </fieldset>
+ *        </div>
  *
  * ##Methods
  *
@@ -101,16 +101,16 @@
  *
  * First API is from tau namespace:
  *
- *		@example
- *		var fieldcontainElement = document.getElementById("fieldcontain"),
- *			fieldcontain = tau.widget.FieldContain(fieldcontainElement);
+ *        @example
+ *        var fieldcontainElement = document.getElementById("fieldcontain"),
+ *            fieldcontain = tau.widget.FieldContain(fieldcontainElement);
  *
- *		fieldcontain.methodName(methodArgument1, methodArgument2, ...);
+ *        fieldcontain.methodName(methodArgument1, methodArgument2, ...);
  *
  * Second API is jQuery Mobile API and for call _methodName_ you can use:
  *
- *		@example
- *		$("#fieldcontain").fieldcontain("methodName", methodArgument1, methodArgument2, ...);
+ *        @example
+ *        $("#fieldcontain").fieldcontain("methodName", methodArgument1, methodArgument2, ...);
  *
  *
  * @class ns.widget.mobile.FieldContain

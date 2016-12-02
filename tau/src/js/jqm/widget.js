@@ -1,4 +1,4 @@
-/*global window, define */
+/*global window, ns, define, jQuery */
 /*jslint plusplus: true, nomen: true */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
@@ -33,12 +33,12 @@
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 			/**
-			* Alias to Array.slice function
-			* @method slice
-			* @member ns.jqm.widget
-			* @private
-			* @static
-			*/
+			 * Alias to Array.slice function
+			 * @method slice
+			 * @member ns.jqm.widget
+			 * @private
+			 * @static
+			 */
 			var slice = [].slice,
 				/**
 				 * Wrap function in closure and wrap first argument in jquery object
@@ -49,26 +49,26 @@
 					};
 				},
 				/**
-				* Alias to ns.engine
-				* @member ns.jqm
-				* @private
-				* @static
-				*/
+				 * Alias to ns.engine
+				 * @member ns.jqm
+				 * @private
+				 * @static
+				 */
 				engine = ns.engine,
 				object = ns.util.object,
 				jqmWidget = {
 					/**
-					* bind widget to jqm
-					* @method init
-					* @param {Object} engine ns.engine class
-					* @param {Object} definition widget definition
-					* @member ns.jqm.widget
-					* @static
-					*/
+					 * bind widget to jqm
+					 * @method init
+					 * @param {Object} engine ns.engine class
+					 * @param {Object} definition widget definition
+					 * @member ns.jqm.widget
+					 * @static
+					 */
 					init: function (engine, definition) {
 						var name = (definition.widgetNameToLowercase) ?
-								definition.name.toLowerCase() :
-										definition.name;
+							definition.name.toLowerCase() :
+							definition.name;
 						if ($) {
 							document.addEventListener(name + "create", function (event) {
 								var element = event.target,
@@ -89,25 +89,25 @@
 					},
 
 					/**
-					* bind widget to jqm
-					* @method processDefinition
-					* @param {Object} definition widget definition
-					* @param {Object} engine ns.engine class
-					* @member ns.jqm.widget
-					* @static
-					*/
+					 * bind widget to jqm
+					 * @method processDefinition
+					 * @param {Object} definition widget definition
+					 * @param {Object} engine ns.engine class
+					 * @member ns.jqm.widget
+					 * @static
+					 */
 					processDefinition: function (definition, engine) {
 						/*
-						* name of widget
-						* type string
-						*/
+						 * name of widget
+						 * type string
+						 */
 						var name = (definition.widgetNameToLowercase) ?
 								definition.name.toLowerCase() :
-										definition.name,
+								definition.name,
 							/*
-							* list of public methods
-							* type Array
-							*/
+							 * list of public methods
+							 * type Array
+							 */
 							methods = definition.methods;
 
 						$.fn[name] = widgetConstructor(engine, name, methods, definition.name);
@@ -132,30 +132,30 @@
 					 * type Array
 					 */
 					var args = slice.call(arguments),
-					/*
-					 * element of jQuery collection
-					 * type HTMLElement
-					 */
+						/*
+						 * element of jQuery collection
+						 * type HTMLElement
+						 */
 						element,
-					/*
-					 * is built?
-					 * type Boolean
-					 */
+						/*
+						 * is built?
+						 * type Boolean
+						 */
 						built,
-					/*
-					 * name of method
-					 * type string
-					 */
+						/*
+						 * name of method
+						 * type string
+						 */
 						method,
-					/*
-					 * result value
-					 * type mixed
-					 */
+						/*
+						 * result value
+						 * type mixed
+						 */
 						resultValue,
-					/*
-					 * first argument of function
-					 * type mixed
-					 */
+						/*
+						 * first argument of function
+						 * type mixed
+						 */
 						firstarg,
 						i,
 						options = {},
@@ -169,7 +169,7 @@
 					 */
 					for (i = 0; i < this.length; i++) {
 						element = this.get(i);
-						switch(name){
+						switch (name) {
 							case "slider":
 								instance = engine.getBinding(element, "Slider") || engine.getBinding(element, "TizenSlider");
 								break;

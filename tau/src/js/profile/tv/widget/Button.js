@@ -167,9 +167,8 @@
 				}
 			}
 
-			function findIconTitle (element, self) {
+			function findIconTitle(element, self) {
 				var iconTitle = element.querySelector(".ui-icon-title"),
-					styles,
 					iconStyle,
 					ui,
 					icon,
@@ -188,7 +187,7 @@
 					iconWrapper.appendChild(iconTitle);
 					ui.inner.appendChild(iconWrapper);
 
-					styles = window.getComputedStyle(icon);
+					window.getComputedStyle(icon);
 
 					currentMask = getPrefixedStyleValue(iconStyle, "mask-image");
 					if (currentMask) {
@@ -204,6 +203,7 @@
 					);
 				}
 			}
+
 			function createBackgroundElement(element) {
 				var backgroundElement = document.createElement("div");
 
