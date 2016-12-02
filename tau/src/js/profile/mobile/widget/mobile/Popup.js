@@ -1,4 +1,4 @@
-/*global window, define */
+/*global window, ns, define */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
  *
@@ -519,8 +519,6 @@
 			var CorePopup = ns.widget.core.ContextPopup,
 				CorePopupPrototype = CorePopup.prototype,
 
-				positionTypes = CorePopup.positionTypes,
-
 				engine = ns.engine,
 
 				doms = ns.util.DOM,
@@ -597,11 +595,11 @@
 			 * @member ns.widget.mobile.Popup
 			 */
 			Popup.prototype._refresh = function() {
-				var self = this,
-					position;
+				var self = this;
+
 				if (this._isActive()) {
 					if (typeof self._positionCallback === "function") {
-						position = self._positionCallback();
+						self._positionCallback();
 					}
 					CorePopupPrototype._refresh.call(this);
 				}

@@ -45,7 +45,6 @@
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 			var CorePageContainer = ns.widget.core.PageContainer,
-				CorePageContainerPrototype = CorePageContainer.prototype,
 				PageContainer = function () {
 					CorePageContainer.call(this);
 				},

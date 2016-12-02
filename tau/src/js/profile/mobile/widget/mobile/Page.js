@@ -1,4 +1,4 @@
-
+/*global window:false, ns:false, define:false*/
 /*jslint nomen: true, plusplus: true */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
@@ -350,15 +350,12 @@
 			// @param {Object} options Object with options for widget
 			// @param {HTMLElement} pageElement main element of widget
 			function buildSections(options, pageElement) {
-				var pageClassList = pageElement.classList;
-
 				[].slice.call(pageElement.querySelectorAll("[data-role='header'],[data-role='content'],[data-role='footer'],." + classes.uiHeader +
 						",." + classes.uiContent +
 						",." + classes.uiFooter))
 					.forEach(function (section) {
 						var role = section.getAttribute("data-role"),
-							sectionClassList = section.classList,
-							transition;
+							sectionClassList = section.classList;
 
 						if (!role) {
 							if (sectionClassList.contains(classes.uiHeader)) {
@@ -622,7 +619,7 @@
 			 * @deprecated 2.3
 			 * @member ns.widget.mobile.Page
 			 */
-			Page.prototype.setContainerBackground = function (theme) {
+			Page.prototype.setContainerBackground = function () {
 				ns.warn("setContainerBackground is deprecated at 2.3");
 			};
 

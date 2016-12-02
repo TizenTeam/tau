@@ -623,8 +623,7 @@
 			function handleTouchstart(self, event) {
 				var lastMouse = self._lastMouse,
 					touches = event.touches,
-					touch = touches && touches[0],
-					parent = self.element.parentNode;
+					touch = touches && touches[0];
 
 				// remove timer
 				if (self._hideTimer) {

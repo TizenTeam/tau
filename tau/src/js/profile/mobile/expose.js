@@ -6,8 +6,8 @@
 	define(
 		[
 			"../../core/core",
-		 	"../../core/engine",
-		 	"../../core/util/object",
+			"../../core/engine",
+			"../../core/util/object",
 			"./widget/mobile/Loader",
 			"../../core/router/Router"
 		],
@@ -49,7 +49,7 @@
 			ns.openPopup = function (to, options) {
 				if (router) {
 					router.open(to, object.merge({}, options, {
-						rel : "popup"
+						rel: "popup"
 					}));
 				}
 			};
@@ -73,7 +73,7 @@
 			 * @method getActivePage
 			 * @member tau
 			 */
-			ns.getActivePage = function() {
+			ns.getActivePage = function () {
 				if (router) {
 					return router.getActivePageElement();
 				}

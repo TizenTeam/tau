@@ -1,4 +1,4 @@
-/*global window, define */
+/*global window, ns, define */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
  *
@@ -152,7 +152,7 @@
  * @author Piotr Karny <p.karny@samsung.com>
  * @author Piotr Kusztal <p.kusztal@samsung.com>
  */
-(function (window, ns) {
+(function (window, ns, $) {
 	"use strict";
 
 //>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
@@ -349,7 +349,6 @@
 					self = this,
 					element = self.element,
 					elementClassList = element.classList,
-					body = document.body,
 					copySettings = {},
 					loadSettings = {},
 					textVisible,
@@ -684,4 +683,4 @@
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
-}(window.document, ns));
+}(window.document, ns, window.$));

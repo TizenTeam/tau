@@ -1,4 +1,4 @@
-/*global window, define */
+/*global window, ns, define */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
  *
@@ -315,11 +315,11 @@
 
 				if (hasSingle && name === "left-2nd-icon") {
 					name = "left-1st-icon";
-					tau.warn("Cannot set 2nd icon when widget has 1 icon");
+					ns.warn("Cannot set 2nd icon when widget has 1 icon");
 				}
 				if (hasSingle && name === "right-2nd-icon") {
 					name = "right-1st-icon";
-					tau.warn("Cannot set 2nd icon when widget has 1 icon");
+					ns.warn("Cannot set 2nd icon when widget has 1 icon");
 				}
 
 				self.options.position = name;
@@ -358,8 +358,6 @@
 			prototype._updatePosition = function () {
 				var self = this,
 					style = self.element.style,
-					transition,
-					duration = self.options.duration,
 					positionName = self.options.position,
 					transform;
 
@@ -381,7 +379,6 @@
 			 */
 			prototype._getPositionNameByPosition = function (positionX) {
 				var self = this,
-					element = self.element,
 					scope = self._scope,
 					hasSingle = self._hasSingle;
 

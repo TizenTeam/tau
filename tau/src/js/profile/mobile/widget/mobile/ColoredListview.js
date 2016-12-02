@@ -1,4 +1,4 @@
-/*global window, define */
+/*global window, ns, define */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
  *
@@ -21,7 +21,7 @@
 * ColoredListview used WebGL technology. So, you need to check for your develop browser support the WebGL.
 */
 /*jslint nomen: true, plusplus: true */
-(function (window, document, ns) {
+(function (window, document, ns, Float32Array) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
@@ -623,4 +623,4 @@
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
-}(window, window.document, ns));
+}(window, window.document, ns, window.Float32Array));

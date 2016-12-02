@@ -31,35 +31,35 @@
  * changed to toggle switch
  * To add a toggle switch widget to the application, use the following code:
  *
- *		@example
- *		<input type="checkbox" data-role="toggleswitch">
+ *        @example
+ *        <input type="checkbox" data-role="toggleswitch">
  *
- *		@example
- *		<select name="flip-11" id="flip-11" data-role="toggleswitch">
- *			<option value="off"></option>
- *			<option value="on"></option>
- *		</select>
+ *        @example
+ *        <select name="flip-11" id="flip-11" data-role="toggleswitch">
+ *            <option value="off"></option>
+ *            <option value="on"></option>
+ *        </select>
  *
- *		@example
- *		<select name="flip-11" id="flip-11" data-role="toggleswitch">
- *			<option value="off">off option</option>
- *			<option value="on">on option</option>
- *		</select>
+ *        @example
+ *        <select name="flip-11" id="flip-11" data-role="toggleswitch">
+ *            <option value="off">off option</option>
+ *            <option value="on">on option</option>
+ *        </select>
  *
  * ## Manual constructor
  * For manual creation of toggle switch widget you can use constructor of
  * widget from **tau** namespace:
  *
- *		@example
- *		<select id="toggle" name="flip-11" id="flip-11" data-role="toggleswitch"
- *		data-mini="true">
- *			<option value="off"></option>
- *			<option value="on"></option>
- *		</select>
- *		<script>
- *			var toggleElement = document.getElementById("toggle"),
- *				toggle = tau.widget.ToggleSwitch(toggleElement);
- *		</script>
+ *        @example
+ *        <select id="toggle" name="flip-11" id="flip-11" data-role="toggleswitch"
+ *        data-mini="true">
+ *            <option value="off"></option>
+ *            <option value="on"></option>
+ *        </select>
+ *        <script>
+ *            var toggleElement = document.getElementById("toggle"),
+ *                toggle = tau.widget.ToggleSwitch(toggleElement);
+ *        </script>
  *
  * ## JavaScript API
  *
@@ -73,8 +73,8 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-		 	"../../../../core/engine",
-		 	"../../../../core/theme",
+			"../../../../core/engine",
+			"../../../../core/theme",
 			"../../../../core/util/DOM/attributes",
 			"../../../../core/util/DOM/manipulation",
 			"../../../../core/event",
@@ -86,7 +86,7 @@
 			//>>excludeEnd("tauBuildExclude");
 			var ToggleSwitch = function () {
 					var self = this;
-						self._ui = {};
+					self._ui = {};
 				},
 				BaseWidget = ns.widget.mobile.BaseWidgetMobile,
 				engine = ns.engine,
@@ -100,7 +100,7 @@
 				keyCode = {
 					HOME: 36,
 					END: 35,
-					PAGE_UP : 33,
+					PAGE_UP: 33,
 					PAGE_DOWN: 34,
 					UP: 38,
 					RIGHT: 39,
@@ -120,25 +120,25 @@
 			ToggleSwitch.classes = classes;
 
 			/**
-			* Dictionary for keyboard codes
-			* @property {Object} keyCode
-			* @member ns.widget.mobile.ToggleSwitch
-			* @static
-			* @readonly
-			*/
+			 * Dictionary for keyboard codes
+			 * @property {Object} keyCode
+			 * @member ns.widget.mobile.ToggleSwitch
+			 * @static
+			 * @readonly
+			 */
 			ToggleSwitch.keyCode = keyCode;
 
 
 			/**
-			* Callback change the value of input type=checkbox
-			* (method stricly for toggleswitch based oninput tag)
-			* @method onChangeValue
-			* @param {ns.widget.mobile.ToggleSwitch} self
-			* @private
-			* @static
-			* @member ns.widget.mobile.ToggleSwitch
-			*/
-			function onChangeValue(self){
+			 * Callback change the value of input type=checkbox
+			 * (method stricly for toggleswitch based oninput tag)
+			 * @method onChangeValue
+			 * @param {ns.widget.mobile.ToggleSwitch} self
+			 * @private
+			 * @static
+			 * @member ns.widget.mobile.ToggleSwitch
+			 */
+			function onChangeValue(self) {
 				var element = self.element;
 
 				element.selectedIndex = (self._ui.input.checked) ? 1 : 0;
@@ -149,27 +149,27 @@
 			}
 
 			/**
-			* Simplify creating dom elements
-			* (method stricly for toggleswitch based oninput tag)
-			* @method createElement
-			* @param {String} name
-			* @return {HTMLElement}
-			* @private
-			* @static
-			* @member ns.widget.mobile.ToggleSwitch
-			*/
+			 * Simplify creating dom elements
+			 * (method stricly for toggleswitch based oninput tag)
+			 * @method createElement
+			 * @param {String} name
+			 * @return {HTMLElement}
+			 * @private
+			 * @static
+			 * @member ns.widget.mobile.ToggleSwitch
+			 */
 			function createElement(name) {
 				return document.createElement(name);
 			}
 
 			/**
-			* Creates and set up input element
-			* @method setUpInput
-			* @return {HTMLElement}
-			* @private
-			* @static
-			* @member ns.widget.mobile.ToggleSwitch
-			*/
+			 * Creates and set up input element
+			 * @method setUpInput
+			 * @return {HTMLElement}
+			 * @private
+			 * @static
+			 * @member ns.widget.mobile.ToggleSwitch
+			 */
 			function setUpInput() {
 				var inputElement = createElement("input");
 
@@ -178,15 +178,15 @@
 			}
 
 			/**
-			* Build Toggle based on Select Tag
-			* @method buildToggleBasedOnSelectTag
-			* @param {HTMLElement} element
-			* @param {HTMLElement} divHandler
-			* @param {HTMLElement} toggleContainer
-			* @private
-			* @static
-			* @member ns.widget.mobile.ToggleSwitch
-			*/
+			 * Build Toggle based on Select Tag
+			 * @method buildToggleBasedOnSelectTag
+			 * @param {HTMLElement} element
+			 * @param {HTMLElement} divHandler
+			 * @param {HTMLElement} toggleContainer
+			 * @private
+			 * @static
+			 * @member ns.widget.mobile.ToggleSwitch
+			 */
 			function buildToggleBasedOnSelectTag(element, divHandler, toggleContainer) {
 				var inputElement;
 
@@ -201,15 +201,15 @@
 			}
 
 			/**
-			* Build Toggle based on Input Tag
-			* @method buildToggleBasedOnInputTag
-			* @param {HTMLElement} element
-			* @param {HTMLElement} divHandler
-			* @param {HTMLElement} toggleContainer
-			* @private
-			* @static
-			* @member ns.widget.mobile.ToggleSwitch
-			*/
+			 * Build Toggle based on Input Tag
+			 * @method buildToggleBasedOnInputTag
+			 * @param {HTMLElement} element
+			 * @param {HTMLElement} divHandler
+			 * @param {HTMLElement} toggleContainer
+			 * @private
+			 * @static
+			 * @member ns.widget.mobile.ToggleSwitch
+			 */
 			function buildToggleBasedOnInputTag(element, divHandler, toggleContainer) {
 				element.className = classes.toggle;
 
@@ -247,13 +247,13 @@
 			};
 
 			/**
-			* Initiate widget
-			* @method _init
-			* @param {HTMLElement} element
-			* @protected
-			* @member ns.widget.mobile.ToggleSwitch
-			* @instance
-			*/
+			 * Initiate widget
+			 * @method _init
+			 * @param {HTMLElement} element
+			 * @protected
+			 * @member ns.widget.mobile.ToggleSwitch
+			 * @instance
+			 */
 			ToggleSwitch.prototype._init = function (element) {
 				this._ui.input = element.parentElement.firstChild;
 			};
@@ -270,7 +270,7 @@
 					element = self.element;
 
 				return self._type === "input" ?
-					parseFloat(element.value) :	element.selectedIndex;
+					parseFloat(element.value) : element.selectedIndex;
 			};
 
 			/**
@@ -293,18 +293,18 @@
 			};
 
 			/**
-			* Binds events to widget
-			* @method _bindEvents
-			* @protected
-			* @member ns.widget.mobile.ToggleSwitch
-			* @instance
-			*/
+			 * Binds events to widget
+			 * @method _bindEvents
+			 * @protected
+			 * @member ns.widget.mobile.ToggleSwitch
+			 * @instance
+			 */
 			ToggleSwitch.prototype._bindEvents = function () {
 				var self = this;
 
 				self._onChangeValue = onChangeValue.bind(null, self);
 				self._ui.input.addEventListener("change",
-						self._onChangeValue, true);
+					self._onChangeValue, true);
 			};
 
 			/**
@@ -335,7 +335,7 @@
 					container = element.parentElement;
 
 				self._ui.input.removeEventListener("change",
-						self._onChangeValue, true);
+					self._onChangeValue, true);
 
 				removeAttributesWhenDestroy(element);
 				//remove visible representative

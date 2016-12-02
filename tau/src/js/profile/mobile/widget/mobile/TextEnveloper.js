@@ -1,4 +1,4 @@
-/*global window, define */
+/*global window, ns, define */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
  *
@@ -546,7 +546,7 @@
 					validLength = self._isBlurred ? buttons.length - 2 : buttons.length - 1;
 
 				if (index < 0 || index > validLength) {
-					console.warn("You insert incorrect index, please check your index value");
+					ns.warn("You insert incorrect index, please check your index value");
 				} else if (self._isBlurred) {
 					if (buttons.length > 2) {
 						buttons[buttons.length - 1].textContent = buttons[0].textContent + " + " + (buttons.length - 2);
