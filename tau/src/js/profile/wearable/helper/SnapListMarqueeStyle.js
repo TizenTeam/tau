@@ -86,7 +86,7 @@
 				}
 			}
 
-			prototype.init = function(listDomElement, options) {
+			prototype.init = function (listDomElement, options) {
 				var self = this;
 
 				objectUtils.fastMerge(self.options, options);
@@ -94,10 +94,10 @@
 
 				self.bindEvents();
 				// create SnapListStyle helper
-				self._snapListStyleHelper = tau.helper.SnapListStyle.create(listDomElement, self.options);
+				self._snapListStyleHelper = ns.helper.SnapListStyle.create(listDomElement, self.options);
 			};
 
-			prototype.bindEvents = function() {
+			prototype.bindEvents = function () {
 				var self = this,
 					touchStartCallback,
 					scrollEndCallback,
@@ -117,7 +117,7 @@
 				document.addEventListener("selected", selectedCallback, false);
 			};
 
-			prototype.unbindEvents = function() {
+			prototype.unbindEvents = function () {
 				var self = this;
 
 				document.removeEventListener("touchstart", self._callbacks.touchStart, false);
@@ -129,7 +129,7 @@
 				self._callbacks.selected = null;
 			};
 
-			prototype.destroy = function() {
+			prototype.destroy = function () {
 				var self = this;
 
 				self.unbindEvents();
@@ -142,7 +142,7 @@
 				self._callbacks = null;
 			};
 
-			SnapListMarqueeStyle.create = function(listDomElement, options) {
+			SnapListMarqueeStyle.create = function (listDomElement, options) {
 				return new SnapListMarqueeStyle(listDomElement, options);
 			};
 

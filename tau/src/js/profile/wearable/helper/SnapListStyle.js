@@ -32,8 +32,6 @@
 		],
 		function () {//>>excludeEnd("tauBuildExclude");
 			var engine = ns.engine,
-				objectUtils = ns.util.object,
-				selectors = ns.util.selectors,
 
 				SnapListStyle = function (listDomElement, options) {
 					var self = this;
@@ -69,7 +67,7 @@
 					}
 					// try to scroll to the next element on list
 					// - the next element can be hidden, so we try as long as it is possible to change element
-					while(!scrolled && ++selectedIndex < listItemLength) {
+					while (!scrolled && ++selectedIndex < listItemLength) {
 						scrolled = snapListviewWidget.scrollToPosition(selectedIndex);
 					}
 				} else if (direction === "CCW" && selectedIndex !== null) {
@@ -78,13 +76,13 @@
 					}
 					// try to scroll to the previous element on list
 					// - the previous element can be hidden, so we try as long as it is possible to change element
-					while(!scrolled && --selectedIndex >= 0) {
+					while (!scrolled && --selectedIndex >= 0) {
 						scrolled = snapListviewWidget.scrollToPosition(selectedIndex);
 					}
 				}
 			}
 
-			prototype.init = function(listDomElement, options) {
+			prototype.init = function (listDomElement, options) {
 				var self = this;
 
 				// create SnapListview widget
@@ -92,7 +90,7 @@
 				self.bindEvents();
 			};
 
-			prototype.bindEvents = function() {
+			prototype.bindEvents = function () {
 				var self = this,
 					rotaryDetentCallback;
 
@@ -103,7 +101,7 @@
 				window.addEventListener("rotarydetent", rotaryDetentCallback);
 			};
 
-			prototype.unbindEvents = function() {
+			prototype.unbindEvents = function () {
 				var self = this;
 
 				window.removeEventListener("rotarydetent", self._callbacks.rotarydetent);
@@ -111,7 +109,7 @@
 				self._callbacks.rotarydetent = null;
 			};
 
-			prototype.destroy = function() {
+			prototype.destroy = function () {
 				var self = this;
 
 				self.unbindEvents();
@@ -121,11 +119,11 @@
 				self._callbacks = null;
 			};
 
-			prototype.getSnapList = function() {
+			prototype.getSnapList = function () {
 				return this._snapListviewWidget;
 			};
 
-			SnapListStyle.create = function(listDomElement, options) {
+			SnapListStyle.create = function (listDomElement, options) {
 				return new SnapListStyle(listDomElement, options);
 			};
 

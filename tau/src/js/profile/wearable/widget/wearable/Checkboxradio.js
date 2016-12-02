@@ -8,7 +8,7 @@
  *
  * You can use the check box and radio box widgets to create selectable list items:
  *
-  * The check box widget shows on the screen a list of options where 1 or more can be selected. To add a check box widget to the application, use the following code:
+ * The check box widget shows on the screen a list of options where 1 or more can be selected. To add a check box widget to the application, use the following code:
  *
  *      @example
  *      <input type="checkbox" name="mycheck" id="check-test" checked="checked"/>

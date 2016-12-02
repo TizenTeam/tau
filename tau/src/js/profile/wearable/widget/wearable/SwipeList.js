@@ -1,4 +1,4 @@
-/*global window, define, Event, console */
+/*global window, ns, define, Event, console */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
  *
@@ -184,7 +184,7 @@
 				},
 				prototype = new ns.widget.BaseWidget(),
 
-				blockEvent = function(event) {
+				blockEvent = function (event) {
 					event.preventDefault();
 				};
 

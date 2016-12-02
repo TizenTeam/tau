@@ -1,4 +1,4 @@
-/*global window, define */
+/*global window, ns, define */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
  *
@@ -20,18 +20,18 @@
  * @author Heeju Joo <heeju.joo@samsung.com>
  */
 (function (ns) {
-    "use strict";
-    //>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
-    define(
-        [
-            "../../wearable"
-        ],
-        function () {
-            //>>excludeEnd("tauBuildExclude");
-            ns.helper = ns.helper || {};
-            //>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
-            return ns.helper;
-        }
-    );
-    //>>excludeEnd("tauBuildExclude");
+	"use strict";
+	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
+	define(
+		[
+			"../../wearable"
+		],
+		function () {
+			//>>excludeEnd("tauBuildExclude");
+			ns.helper = ns.helper || {};
+			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
+			return ns.helper;
+		}
+	);
+	//>>excludeEnd("tauBuildExclude");
 }(ns));

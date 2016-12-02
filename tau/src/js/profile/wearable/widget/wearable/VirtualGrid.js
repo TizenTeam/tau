@@ -1,4 +1,4 @@
-/*global window, define */
+/*global window, ns, define */
 /*jslint nomen: true, plusplus: true */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
@@ -175,13 +175,13 @@
 					index = -1;
 				if (selector.indexOf(FOCUS_SELECTOR) > -1) {
 					data.selector = selector = selector.replace(FOCUS_SELECTOR_PATTERN,
-							function (match, widgetMatch, indexMatch) {
-						if (widgetMatch && indexMatch) {
-							index = indexMatch | 0;
-							return "#" + self.id + " [data-index='" + index + "']";
-						}
-						return match;
-					});
+						function (match, widgetMatch, indexMatch) {
+							if (widgetMatch && indexMatch) {
+								index = indexMatch | 0;
+								return "#" + self.id + " [data-index='" + index + "']";
+							}
+							return match;
+						});
 
 					if (index > -1) {
 						self.scrollToIndex(index);

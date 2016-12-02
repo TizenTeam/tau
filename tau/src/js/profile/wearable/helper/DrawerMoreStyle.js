@@ -38,8 +38,6 @@
 				objectUtils = ns.util.object,
 				events = ns.event,
 				selectors = ns.util.selectors,
-				Drawer = ns.widget.wearable.Drawer,
-				Selector = ns.widget.wearable.Selector,
 				defaults = {
 					more: ".ui-more",
 					selector: ".ui-selector"
@@ -63,15 +61,15 @@
 
 			function bindDragEvents(element) {
 
-				events.on(element, "touchstart touchend mousedown mouseup" , this, false);
+				events.on(element, "touchstart touchend mousedown mouseup", this, false);
 			}
 
 			function unBindDragEvents(element) {
 
-				events.off(element, "touchstart touchend mousedown mouseup" , this, false);
+				events.off(element, "touchstart touchend mousedown mouseup", this, false);
 			}
 
-			prototype.handleEvent = function(event) {
+			prototype.handleEvent = function (event) {
 				var self = this;
 				switch (event.type) {
 					case "touchstart":
@@ -85,16 +83,16 @@
 				}
 			};
 
-			prototype._onTouchStart = function(event) {
+			prototype._onTouchStart = function (event) {
 				event.preventDefault();
 				event.stopPropagation();
 			};
 
-			prototype._onTouchEnd = function(event) {
+			prototype._onTouchEnd = function () {
 				this._drawerWidget.close();
 			};
 
-			prototype.init = function(element, options) {
+			prototype.init = function (element, options) {
 				var self = this,
 					pageElement = selectors.getClosestByClass(element, classes.page),
 					handlerElement,
@@ -116,19 +114,19 @@
 				}
 			};
 
-			prototype._bindEvents = function() {
+			prototype._bindEvents = function () {
 				var self = this;
 
 				bindDragEvents.call(self, self._handlerElement);
 			};
 
-			prototype._unbindEvents = function() {
+			prototype._unbindEvents = function () {
 				var self = this;
 
 				unBindDragEvents.call(self, self._handlerElement);
 			};
 
-			prototype.destroy = function() {
+			prototype.destroy = function () {
 				var self = this;
 
 				if (self._handlerElement) {
@@ -139,7 +137,7 @@
 				self._selectorWidget = null;
 			};
 
-			DrawerMoreStyle.create = function(element, options) {
+			DrawerMoreStyle.create = function (element, options) {
 				return new DrawerMoreStyle(element, options);
 			};
 

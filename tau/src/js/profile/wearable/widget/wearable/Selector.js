@@ -1,4 +1,4 @@
-/*global window, define */
+/*global window, ns, define */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
  *
@@ -137,7 +137,7 @@
 					RADIUS_RATIO: 0.78
 				},
 				DEFAULT = {
-					ITEM_SELECTOR: "."+ classes.ITEM,
+					ITEM_SELECTOR: "." + classes.ITEM,
 					INDICATOR_SELECTOR: "." + classes.INDICATOR,
 					INDICATOR_TEXT_SELECTOR: "." + classes.INDICATOR_TEXT,
 					INDICATOR_ARROW_SELECTOR: "." + classes.INDICATOR_ARROW,
@@ -225,7 +225,7 @@
 			 * @member ns.widget.wearable.Selector
 			 */
 			function bindEvents(self) {
-				var element= self.element;
+				var element = self.element;
 				events.enableGesture(
 					element,
 
@@ -244,13 +244,14 @@
 			 * @member ns.widget.wearable.Selector
 			 */
 			function unbindEvents(self) {
-				var element= self.element;
+				var element = self.element;
 				events.disableGesture(
 					element
 				);
 				events.off(document, "rotarydetent", self, false);
 				events.off(element, "dragstart drag dragend click", self, false);
 			}
+
 			/**
 			 * Remove ordering classes of layers base on parameter.
 			 * @method removeLayerClasses
@@ -330,7 +331,7 @@
 				element.style.transition = "transform 300ms";
 			}
 
-			prototype._configure = function() {
+			prototype._configure = function () {
 				var self = this;
 				/**
 				 * Selector component options
@@ -392,7 +393,7 @@
 			 * @protected
 			 * @member ns.widget.wearable.Selector
 			 */
-			prototype._build = function(element) {
+			prototype._build = function (element) {
 				var self = this,
 					ui = self._ui,
 					options = self.options,
@@ -433,7 +434,7 @@
 					ui.items = items;
 					ui.layers = layers;
 				} else {
-					console.warn("Please check your item selector option. Default value is '.ui-item'");
+					ns.warn("Please check your item selector option. Default value is '.ui-item'");
 					return;
 				}
 
@@ -448,7 +449,7 @@
 			 * @protected
 			 * @member ns.widget.wearable.Selector
 			 */
-			prototype._init = function(element) {
+			prototype._init = function (element) {
 				var self = this,
 					options = self.options,
 					items = self._ui.items,
@@ -483,7 +484,7 @@
 			 * @protected
 			 * @member ns.widget.wearable.Selector
 			 */
-			prototype._initItems = function(layer) {
+			prototype._initItems = function (layer) {
 				var self = this,
 					options = self.options,
 					items = layer.querySelectorAll(options.itemSelector),
@@ -505,7 +506,7 @@
 			 * @protected
 			 * @member ns.widget.wearable.Selector
 			 */
-			prototype._bindEvents = function() {
+			prototype._bindEvents = function () {
 				bindEvents(this);
 			};
 
@@ -516,7 +517,7 @@
 			 * @public
 			 * @member ns.widget.wearable.Selector
 			 */
-			prototype.handleEvent = function(event) {
+			prototype.handleEvent = function (event) {
 				var self = this;
 				switch (event.type) {
 					case "dragstart":
@@ -547,7 +548,7 @@
 			 * @protected
 			 * @member ns.widget.wearable.Selector
 			 */
-			prototype._getActiveLayer = function() {
+			prototype._getActiveLayer = function () {
 				var self = this,
 					ui = self._ui,
 					i, len;
@@ -568,7 +569,7 @@
 			 * @protected
 			 * @member ns.widget.wearable.Selector
 			 */
-			prototype._setActiveLayer = function(index) {
+			prototype._setActiveLayer = function (index) {
 				var self = this,
 					ui = self._ui,
 					active = self._activeLayerIndex,
@@ -593,7 +594,7 @@
 			 * @protected
 			 * @member ns.widget.wearable.Selector
 			 */
-			prototype._getActiveItem = function() {
+			prototype._getActiveItem = function () {
 				var self = this,
 					ui = self._ui,
 					i, len;
@@ -614,14 +615,14 @@
 			 * @protected
 			 * @member ns.widget.wearable.Selector
 			 */
-			prototype._setActiveItem = function(index) {
+			prototype._setActiveItem = function (index) {
 				var self = this,
 					element = self.element,
 					ui = self._ui,
-					options = self.options,
 					items = ui.items,
-					index = index !== undefined ? index : 0,
 					active = element.querySelector("." + classes.ITEM_ACTIVE);
+
+				index = index !== undefined ? index : 0;
 
 				if (active) {
 					active.style.transform = active.style.transform.replace(DEFAULT.ITEM_ACTIVE_SCALE, DEFAULT.ITEM_NORMAL_SCALE);
@@ -650,7 +651,7 @@
 			 * @protected
 			 * @member ns.widget.wearable.Selector
 			 */
-			prototype._setIndicatorIndex = function(index) {
+			prototype._setIndicatorIndex = function (index) {
 				var self = this,
 					ui = self._ui,
 					item = ui.items[index],
@@ -697,7 +698,7 @@
 			 * @protected
 			 * @member ns.widget.wearable.Selector
 			 */
-			prototype._onDragstart = function(event) {
+			prototype._onDragstart = function () {
 				this._started = true;
 			};
 
@@ -709,7 +710,7 @@
 			 * @protected
 			 * @member ns.widget.wearable.Selector
 			 */
-			prototype._onAnimationEnd = function(event) {
+			prototype._onAnimationEnd = function () {
 				this._ui.indicator.classList.remove(classes.INDICATOR_ACTIVE);
 			};
 
@@ -721,7 +722,7 @@
 			 * @protected
 			 * @member ns.widget.wearable.Selector
 			 */
-			prototype._onDrag = function(event) {
+			prototype._onDrag = function (event) {
 				var self = this,
 					ex = event.detail.estimatedX,
 					ey = event.detail.estimatedY,
@@ -743,7 +744,7 @@
 			 * @protected
 			 * @member ns.widget.wearable.Selector
 			 */
-			prototype._onDragend = function(event) {
+			prototype._onDragend = function (event) {
 				var self = this,
 					ex = event.detail.estimatedX,
 					ey = event.detail.estimatedY,
@@ -765,7 +766,7 @@
 			 * @protected
 			 * @member ns.widget.wearable.Selector
 			 */
-			prototype._onClick = function(event) {
+			prototype._onClick = function (event) {
 				var self = this,
 					pointedElement = document.elementFromPoint(event.pageX, event.pageY),
 					indicatorClassList = self._ui.indicator.classList,
@@ -792,7 +793,7 @@
 			 * @protected
 			 * @member ns.widget.wearable.Selector
 			 */
-			prototype._onRotary = function(event) {
+			prototype._onRotary = function (event) {
 				var self = this,
 					ui = self._ui,
 					options = self.options,
@@ -817,7 +818,7 @@
 						} else {
 							bounceDegree = DEFAULT.ITEM_START_DEGREE + options.itemDegree * (self._activeItemIndex % options.maxItemNumber);
 							setIndicatorTransform(ui.indicatorArrow, bounceDegree + options.itemDegree / 3);
-							setTimeout(function() {
+							setTimeout(function () {
 								setIndicatorTransform(ui.indicatorArrow, bounceDegree);
 							}, 100)
 						}
@@ -832,7 +833,7 @@
 							self._changeLayer(self._activeLayerIndex - 1);
 						} else {
 							setIndicatorTransform(ui.indicatorArrow, DEFAULT.ITEM_START_DEGREE - DEFAULT.ITEM_START_DEGREE / 3);
-							setTimeout(function() {
+							setTimeout(function () {
 								setIndicatorTransform(ui.indicatorArrow, DEFAULT.ITEM_START_DEGREE);
 							}, 100)
 						}
@@ -849,18 +850,18 @@
 			 * @protected
 			 * @member ns.widget.wearable.Selector
 			 */
-			prototype._hideItems = function(layer) {
+			prototype._hideItems = function (layer) {
 				var self = this,
-					options = self.options,
 					items = layer.getElementsByClassName(classes.ITEM),
 					i, len;
+
 				layer.classList.add(classes.LAYER_HIDE);
 				len = items.length;
 				for (i = 0; i < len; i++) {
 					setItemTransform(items[i], DEFAULT.ITEM_START_DEGREE, self.options.itemRadius, -DEFAULT.ITEM_START_DEGREE, DEFAULT.ITEM_NORMAL_SCALE);
 				}
 
-				setTimeout(function() {
+				setTimeout(function () {
 					len = items.length;
 					for (i = 0; i < len; i++) {
 						setItemTransform(items[i], DEFAULT.ITEM_END_DEGREE, self.options.itemRadius, -DEFAULT.ITEM_END_DEGREE, DEFAULT.ITEM_NORMAL_SCALE);
@@ -875,7 +876,7 @@
 			 * @protected
 			 * @member ns.widget.wearable.Selector
 			 */
-			prototype._refresh = function() {
+			prototype._refresh = function () {
 				var self = this,
 					ui = self._ui,
 					options = self.options,
@@ -892,18 +893,18 @@
 			 * @protected
 			 * @member ns.widget.wearable.Selector
 			 */
-			prototype._changeLayer = function(index) {
+			prototype._changeLayer = function (index) {
 				var self = this,
 					layers = self._ui.layers,
 					activeLayer = layers[self._activeLayerIndex];
 
 				if (index < 0 || index > layers.length - 1) {
-					console.warn("Please insert index between 0 to layers number");
+					ns.warn("Please insert index between 0 to layers number");
 					return;
 				}
 				self._enabled = false;
 				self._hideItems(activeLayer);
-				setTimeout(function() {
+				setTimeout(function () {
 					self._setActiveLayer(index);
 					self._enabled = true;
 				}, 150);
@@ -917,7 +918,7 @@
 			 * @protected
 			 * @member ns.widget.wearable.Selector
 			 */
-			prototype._changeItem = function(index) {
+			prototype._changeItem = function (index) {
 				this._setActiveItem(index);
 			};
 
@@ -928,7 +929,7 @@
 			 * @public
 			 * @member ns.widget.wearable.Selector
 			 */
-			prototype.changeItem = function(index) {
+			prototype.changeItem = function (index) {
 				this._changeItem(index);
 			};
 
@@ -940,7 +941,7 @@
 			 * @public
 			 * @member ns.widget.wearable.Selector
 			 */
-			prototype.addItem = function(item, index) {
+			prototype.addItem = function (item, index) {
 				var self = this,
 					element = self.element,
 					items = element.querySelectorAll(self.options.itemSelector),
@@ -963,7 +964,7 @@
 			 * @public
 			 * @member ns.widget.wearable.Selector
 			 */
-			prototype.removeItem = function(index) {
+			prototype.removeItem = function (index) {
 				var self = this,
 					ui = self._ui,
 					element = self.element;
@@ -974,7 +975,7 @@
 				self._refresh();
 			};
 
-			prototype._destroy = function() {
+			prototype._destroy = function () {
 				var self = this,
 					activeItem;
 				unbindEvents(self);
@@ -991,7 +992,7 @@
 			 * @protected
 			 * @member ns.widget.wearable.Selector
 			 */
-			prototype._disable = function() {
+			prototype._disable = function () {
 				this._enabled = false;
 			};
 
@@ -1001,7 +1002,7 @@
 			 * @protected
 			 * @member ns.widget.wearable.Selector
 			 */
-			prototype._enable = function() {
+			prototype._enable = function () {
 				this._enabled = true;
 			};
 

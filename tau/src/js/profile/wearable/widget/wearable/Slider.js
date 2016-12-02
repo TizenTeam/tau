@@ -1,4 +1,4 @@
-/*global window, define */
+/*global window, ns, define */
 /*jslint nomen: true */
 /**
  * # Slider Widget
@@ -118,7 +118,7 @@
 
 				buttonsContainer.classList.add(classes.buttons);
 				buttonsContainer.innerHTML = "<div class='" + classes.minus +
-					"'></div><div class='" +classes.number + "'></div><div class='" + classes.plus + "'></div>";
+					"'></div><div class='" + classes.number + "'></div><div class='" + classes.plus + "'></div>";
 
 				element.parentElement.insertBefore(buttonsContainer, element);
 			};

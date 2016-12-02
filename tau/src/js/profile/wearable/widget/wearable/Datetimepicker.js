@@ -1,4 +1,4 @@
-/*global window, define */
+/*global window, ns, define */
 /*jslint nomen: true, plusplus: true */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
@@ -132,46 +132,46 @@
 				// Default direction is adding change it only when minus is pressed
 				if (buttonClassList.contains(classes.uiDatetimeWheelMinus)) {
 					direction = -1;
-				// Everything else than minus / plus button should be ignored
+					// Everything else than minus / plus button should be ignored
 				} else if (!buttonClassList.contains(classes.uiDatetimeWheelPlus)) {
 					return null;
 				}
 
 				switch (activeField.dataset.fieldName) {
-				case "hour":
-					currentDate.setHours((currentDate.getHours() + direction));
-					break;
-				case "min":
-					currentDate.setMinutes((currentDate.getMinutes() + direction));
-					break;
-				case "day":
-					// No need to add modulo as Date object handles 0 as last day of month before
-					// and 32nd day in 31 day long month as 1st day of next month
-					currentDate.setDate((currentDate.getDate() + direction));
-					break;
-				case "month":
-					// Jumping from Jan 31 to Feb causes date change to March
-					// thats why we set for every change day to last day in month
-					// year jumps are safe here as Dec and Jan are same length
-					newMonth = currentDate.getMonth() + direction;
-					nextLastDay = maxDayInMonth(newMonth % 12, currentDate.getFullYear());
+					case "hour":
+						currentDate.setHours((currentDate.getHours() + direction));
+						break;
+					case "min":
+						currentDate.setMinutes((currentDate.getMinutes() + direction));
+						break;
+					case "day":
+						// No need to add modulo as Date object handles 0 as last day of month before
+						// and 32nd day in 31 day long month as 1st day of next month
+						currentDate.setDate((currentDate.getDate() + direction));
+						break;
+					case "month":
+						// Jumping from Jan 31 to Feb causes date change to March
+						// thats why we set for every change day to last day in month
+						// year jumps are safe here as Dec and Jan are same length
+						newMonth = currentDate.getMonth() + direction;
+						nextLastDay = maxDayInMonth(newMonth % 12, currentDate.getFullYear());
 
-					if (currentDate.getDate() > nextLastDay) {
-						currentDate.setDate(nextLastDay);
-					}
-					currentDate.setMonth(newMonth);
-					break;
-				case "year":
-					// Jumping from leap year back to non-leap year causes date change to March
-					// thats why we set the date to Feb 28th
-					newYear = currentDate.getFullYear() + direction;
-					nextLastDay = maxDayInMonth(currentDate.getMonth(), newYear);
+						if (currentDate.getDate() > nextLastDay) {
+							currentDate.setDate(nextLastDay);
+						}
+						currentDate.setMonth(newMonth);
+						break;
+					case "year":
+						// Jumping from leap year back to non-leap year causes date change to March
+						// thats why we set the date to Feb 28th
+						newYear = currentDate.getFullYear() + direction;
+						nextLastDay = maxDayInMonth(currentDate.getMonth(), newYear);
 
-					if (currentDate.getDate() > nextLastDay) {
-						currentDate.setDate(nextLastDay);
-					}
-					currentDate.setFullYear(newYear);
-					break;
+						if (currentDate.getDate() > nextLastDay) {
+							currentDate.setDate(nextLastDay);
+						}
+						currentDate.setFullYear(newYear);
+						break;
 				}
 
 				self._setDateFields(currentDate);

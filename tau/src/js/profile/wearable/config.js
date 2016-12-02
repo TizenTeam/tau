@@ -1,4 +1,4 @@
-/*global window, define*/
+/*global window, ns, define*/
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
  *
@@ -31,7 +31,7 @@
 			// Default configuration properties for wearable
 			ns.setConfig("autoBuildOnPageChange", false, true);
 
-			if(ns.support.shape.circle) {
+			if (ns.support.shape.circle) {
 				ns.setConfig("pageTransition", "pop");
 				ns.setConfig("popupTransition", "pop");
 

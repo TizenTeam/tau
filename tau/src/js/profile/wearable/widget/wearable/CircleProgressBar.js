@@ -27,13 +27,13 @@
  * To add a CircleProgressBar widget to the application, use the following code:
  *
  *      @example
- *	<div class="ui-page" id="pageCircleProgressBar">
- *	    <header class="ui-header"></header>
- *	    <div class="ui-content"></div>
+ *    <div class="ui-page" id="pageCircleProgressBar">
+ *        <header class="ui-header"></header>
+ *        <div class="ui-content"></div>
  *          <progress class="ui-circle-progress" id="circleprogress" max="20" value="2"></progress>
- *	</div>
- *	<script>
- *		(function(){
+ *    </div>
+ *    <script>
+ *        (function(){
  *
  *		    var page = document.getElementById( "pageCircleProgressBar" ),
  *		        progressBar = document.getElementById("circleprogress"),
@@ -51,7 +51,7 @@
  *		        progressBarWidget.destroy();
  *		    });
  *              }());
- *	</script>
+ *    </script>
  *
  *
  * @class ns.widget.wearable.CircleProgressBar
@@ -135,7 +135,7 @@
 			CircleProgressBar.classes = classes;
 
 			/* make widget refresh with new value */
-			function refreshProgressBar (self, value) {
+			function refreshProgressBar(self, value) {
 				var percentValue = (value - self._minValue) / (self._maxValue - self._minValue) * 100,
 					rotateValue,
 					ui = self._ui;
@@ -146,19 +146,19 @@
 					ui.progressValue.classList.remove(classes.uiProgressbarHalf);
 				}
 
-				rotateValue = 360 * (percentValue/100);
+				rotateValue = 360 * (percentValue / 100);
 				ui.progressValueLeft.style.webkitTransform = "rotate(" + rotateValue + "deg)";
 			}
 
-			function setThicknessStyle (self, value) {
+			function setThicknessStyle(self, value) {
 				var ui = self._ui;
 
-				ui.progressValueLeft.style.borderWidth = value +"px";
-				ui.progressValueRight.style.borderWidth = value +"px";
-				ui.progressValueBg.style.borderWidth = value +"px";
+				ui.progressValueLeft.style.borderWidth = value + "px";
+				ui.progressValueRight.style.borderWidth = value + "px";
+				ui.progressValueBg.style.borderWidth = value + "px";
 			}
 
-			function setProgressBarSize (self, progressSize) {
+			function setProgressBarSize(self, progressSize) {
 				var sizeToNumber = parseFloat(progressSize),
 					ui = self._ui;
 
@@ -167,7 +167,7 @@
 					ui.progressContainer.style.width = progressSize + "px";
 					ui.progressContainer.style.height = progressSize + "px";
 				} else {
-					switch(progressSize) {
+					switch (progressSize) {
 						case size.FULL:
 						case size.LARGE:
 						case size.MEDIUM:
@@ -179,7 +179,7 @@
 				}
 			}
 
-			function checkOptions (self, option) {
+			function checkOptions(self, option) {
 				if (option.thickness) {
 					setThicknessStyle(self, option.thickness);
 				}
@@ -193,7 +193,7 @@
 				}
 			}
 
-			function prepareValues (self) {
+			function prepareValues(self) {
 				var element = self.element;
 
 				self._maxValue = doms.getNumberFromAttribute(element, "max", null, 100);
@@ -244,10 +244,10 @@
 					progressbarContainer, progressbarBg, progressbarValue, progressbarValueLeft, progressbarValueRight;
 
 				ui.progressContainer = progressbarContainer = document.createElement("div"),
-				ui.progressValueBg = progressbarBg = document.createElement("div"),
-				ui.progressValue = progressbarValue = document.createElement("div"),
-				ui.progressValueLeft = progressbarValueLeft = document.createElement("div"),
-				ui.progressValueRight = progressbarValueRight = document.createElement("div");
+					ui.progressValueBg = progressbarBg = document.createElement("div"),
+					ui.progressValue = progressbarValue = document.createElement("div"),
+					ui.progressValueLeft = progressbarValueLeft = document.createElement("div"),
+					ui.progressValueRight = progressbarValueRight = document.createElement("div");
 
 				// set classNames of progressbar DOMs.
 				progressbarContainer.className = classes.uiProgressbar;
@@ -257,7 +257,7 @@
 				progressbarValueRight.className = classes.uiProgressbarValueRight;
 
 				// set id for progress container using "container" prefix
-				progressbarContainer.id = progressElement.id? progressElement.id + "-container" : "";
+				progressbarContainer.id = progressElement.id ? progressElement.id + "-container" : "";
 
 				progressbarValue.appendChild(progressbarValueLeft);
 				progressbarValue.appendChild(progressbarValueRight);
@@ -278,7 +278,6 @@
 			prototype._init = function (element) {
 				var self = this,
 					ui = self._ui,
-					progressElement = element,
 					elementParent = element.parentNode,
 					options = self.options;
 
@@ -301,16 +300,16 @@
 			 *
 			 * Return element value or set the value
 			 *
-			 *		@example
-			 * 		<progress class="ui-circle-progress" id="circleprogress" max="20" value="2"></progress>
-			 *		<script>
-			 *			var progressbar = document.getElementById("circleprogress"),
-							progressbarWidget = tau.widget.CircleProgressBar(progressbar),
-			 *			// return value in progress tag
-			 * 			value = progressbarWidget.value();
-			 *			// sets the value for the progress
-			 *			progressbarWidget.value("15");
-			 *		</script>
+			 *        @example
+			 *        <progress class="ui-circle-progress" id="circleprogress" max="20" value="2"></progress>
+			 *        <script>
+			 *            var progressbar = document.getElementById("circleprogress"),
+			 progressbarWidget = tau.widget.CircleProgressBar(progressbar),
+			 *            // return value in progress tag
+			 *            value = progressbarWidget.value();
+			 *            // sets the value for the progress
+			 *            progressbarWidget.value("15");
+			 *        </script>
 			 * @method value
 			 * return {string} In get mode return element value
 			 * @since 2.3
@@ -340,7 +339,7 @@
 
 				if (inputValue > self._maxValue) {
 					value = self._maxValue;
- 				} else if (inputValue < self._minValue) {
+				} else if (inputValue < self._minValue) {
 					value = self._minValue;
 				} else if (isNaN(inputValue)) {
 					value = self._minValue;
@@ -366,7 +365,7 @@
 			prototype._refresh = function () {
 				var self = this;
 
-				if(typeof self._reset === "function") {
+				if (typeof self._reset === "function") {
 					self._reset();
 				}
 				prepareValues(self);

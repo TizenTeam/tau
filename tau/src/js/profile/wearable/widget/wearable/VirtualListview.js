@@ -1,4 +1,4 @@
-/*global window, define */
+/*global window, ns, define */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
  *
@@ -33,15 +33,15 @@
  * ##Create widget container - list element
  *
 
-   &lt;ul id=&quot;vlist&quot; class=&quot;ui-listview ui-virtuallistview&quot;&gt;&lt;/ul&gt;
+ &lt;ul id=&quot;vlist&quot; class=&quot;ui-listview ui-virtuallistview&quot;&gt;&lt;/ul&gt;
 
  *
  * ##Initialize widget
  *
-	// Get HTML Element reference
-	var elList = document.getElementById("vlist"),
-		// Set up config. All config options can be found in virtual list reference
-		vListConfig = {
+ // Get HTML Element reference
+ var elList = document.getElementById("vlist"),
+ // Set up config. All config options can be found in virtual list reference
+ vListConfig = {
 		dataLength: 2000,
 		bufferSize: 40,
 		listItemUpdater: function(elListItem, newIndex){
@@ -51,7 +51,7 @@
 												data.NAME + '</span>';
 			}
 		};
-	vlist = tau.widget.VirtualListview(elList, vListConfig);
+ vlist = tau.widget.VirtualListview(elList, vListConfig);
  *
  * More config options can be found in {@link ns.widget.wearable.VirtualListview#options}
  *
@@ -62,7 +62,7 @@
  * Otherwise you will see an empty list.
  *
  *
-	vlist.setListItemUpdater(function(elListItem, newIndex){
+ vlist.setListItemUpdater(function(elListItem, newIndex){
 		// NOTE: JSON_DATA is global object with all data rows.
 		var data = JSON_DATA["newIndex"];
 		elListItem.innerHTML = '<span class="ui-li-text-main">' +
@@ -76,26 +76,26 @@
  * ##Draw child elements
  * If all configuration options are set, call draw method to draw child elements and make virtual list work.
  *
-	vlist.draw();
+ vlist.draw();
  *
  * ##Destroy Virtual List
  * It’s highly recommended to destroy widgets, when they aren’t necessary. To destroy Virtual List call destroy method.
  *
-	vlist.destroy();
+ vlist.destroy();
  *
  * ##Full working code
  *
-	var page = document.getElementById("pageTestVirtualList"),
-		vlist,
-		// Assing data.
-		JSON_DATA = [
-			{NAME:"Abdelnaby, Alaa", ACTIVE:"1990 - 1994", FROM:"College - Duke", TEAM_LOGO:"../test/1_raw.jpg"},
-			{NAME:"Abdul-Aziz, Zaid", ACTIVE:"1968 - 1977", FROM:"College - Iowa State", TEAM_LOGO:"../test/2_raw.jpg"}
-			// A lot of records.
-			// These database can be found in Gear Sample Application Winset included to Tizen SDK
-			];
+ var page = document.getElementById("pageTestVirtualList"),
+ vlist,
+ // Assing data.
+ JSON_DATA = [
+ {NAME:"Abdelnaby, Alaa", ACTIVE:"1990 - 1994", FROM:"College - Duke", TEAM_LOGO:"../test/1_raw.jpg"},
+ {NAME:"Abdul-Aziz, Zaid", ACTIVE:"1968 - 1977", FROM:"College - Iowa State", TEAM_LOGO:"../test/2_raw.jpg"}
+ // A lot of records.
+ // These database can be found in Gear Sample Application Winset included to Tizen SDK
+ ];
 
-		page.addEventListener("pageshow", function() {
+ page.addEventListener("pageshow", function() {
 			var elList = document.getElementById("vlist");
 
 			vlist = tau.widget.VirtualListview(elList, {
@@ -113,7 +113,7 @@
 			// Draw child elements
 			vlist.draw();
 		});
-		page.addEventListener("pagehide", function() {
+ page.addEventListener("pagehide", function() {
 			// Remove all children in the vlist
 			vlist.destroy();
 		});
@@ -126,32 +126,32 @@
  * @author Michał Szepielak <m.szepielak@samsung.com>
  * @author Tomasz Lukawski <t.lukawski@samsung.com>
  */
-(function(document, ns) {
+(function (document, ns) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
-			[
-				"../../../../core/engine",
-				"../../../../core/widget/core/VirtualListview",
-				"../wearable" // fetch namespace
-			],
-			function() {
-				//>>excludeEnd("tauBuildExclude");
-				var VirtualListview = ns.widget.core.VirtualListview;
+		[
+			"../../../../core/engine",
+			"../../../../core/widget/core/VirtualListview",
+			"../wearable" // fetch namespace
+		],
+		function () {
+			//>>excludeEnd("tauBuildExclude");
+			var VirtualListview = ns.widget.core.VirtualListview;
 
-				VirtualListview.prototype = new VirtualListview();
-				ns.widget.wearable.VirtualListview = VirtualListview;
+			VirtualListview.prototype = new VirtualListview();
+			ns.widget.wearable.VirtualListview = VirtualListview;
 
-				ns.engine.defineWidget(
-						"VirtualListview",
-						"",
-						["draw", "setListItemUpdater", "scrollTo", "scrollToIndex"],
-						VirtualListview,
-						"wearable"
-						);
-				//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
-				return VirtualListview;
-			}
+			ns.engine.defineWidget(
+				"VirtualListview",
+				"",
+				["draw", "setListItemUpdater", "scrollTo", "scrollToIndex"],
+				VirtualListview,
+				"wearable"
+			);
+			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
+			return VirtualListview;
+		}
 	);
 	//>>excludeEnd("tauBuildExclude");
 }(window.document, ns));

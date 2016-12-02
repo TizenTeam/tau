@@ -52,7 +52,7 @@
 
 				prototype = RotaryEventBinder.prototype;
 
-			function cubicBezier (x1, y1, x2, y2) {
+			function cubicBezier(x1, y1, x2, y2) {
 				return function (t) {
 					var rp = 1 - t, rp3 = 3 * rp, p2 = t * t, p3 = p2 * t, a1 = rp3 * t * rp, a2 = rp3 * p2;
 					if (t > 1) return 1;
@@ -90,7 +90,7 @@
 					if (direction === "CW") {
 						window.addEdgeEffectONSCROLLTizenUIF(false, true, false, false);
 					} else {
-						window.addEdgeEffectONSCROLLTizenUIF(true,false,false,false);
+						window.addEdgeEffectONSCROLLTizenUIF(true, false, false, false);
 					}
 				}
 			}
@@ -102,7 +102,7 @@
 				}
 			}
 
-			prototype._rotaryDetentHandler = function(e) {
+			prototype._rotaryDetentHandler = function (e) {
 				var self = this,
 					elScroller = self._elScroller,
 					options = self.options,
@@ -133,22 +133,22 @@
 				self._scrollTop = self._dest;
 			};
 
-			prototype._scrollEndEventHandler = function(e) {
+			prototype._scrollEndEventHandler = function (e) {
 				this._scrollTop = e.currentTarget.scrollTop;
 			};
 
-			prototype.init = function(scroller, options) {
+			prototype.init = function (scroller, options) {
 				var self = this,
 					elScroller;
 
 				elScroller = scroller instanceof HTMLElement ? scroller : document.getElementById(scroller);
 				if (elScroller === null) {
-					console.warn("Scrollable element parameter should be HTML element or id of the element.");
+					ns.warn("Scrollable element parameter should be HTML element or id of the element.");
 					return undefined;
 				}
 				elScroller = selectors.getScrollableParent(elScroller);
 				if (elScroller === null) {
-					console.warn("There is no scrollable element.");
+					ns.warn("There is no scrollable element.");
 					return undefined;
 				}
 
@@ -162,7 +162,7 @@
 				self.bindEvents();
 			};
 
-			prototype.bindEvents = function() {
+			prototype.bindEvents = function () {
 				var self = this,
 					rotaryDetentCallback,
 					scrollEventCallback;
@@ -177,7 +177,7 @@
 				self._elScroller.addEventListener("scrollend", scrollEventCallback, false);
 			};
 
-			prototype.unbindEvents = function() {
+			prototype.unbindEvents = function () {
 				var self = this;
 
 				window.removeEventListener("rotarydetent", self._callbacks.rotarydetent);
@@ -186,7 +186,7 @@
 				self._callbacks.rotarydetent = null;
 			};
 
-			prototype.destroy = function() {
+			prototype.destroy = function () {
 				var self = this;
 
 				self.unbindEvents();
@@ -196,11 +196,11 @@
 				self._callbacks = null;
 			};
 
-			prototype.getScroller = function() {
+			prototype.getScroller = function () {
 				return this._elScroller;
 			};
 
-			RotaryEventBinder.create = function(scroller, options) {
+			RotaryEventBinder.create = function (scroller, options) {
 				return new RotaryEventBinder(scroller, options);
 			};
 

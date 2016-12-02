@@ -145,7 +145,7 @@
 				eventTrigger = utilsEvents.trigger,
 				prototype = new BaseWidget(),
 
-				CircularIndexScrollbar = function() {
+				CircularIndexScrollbar = function () {
 					this._phase = null;
 					this._tid = {
 						phaseOne: 0,
@@ -189,7 +189,7 @@
 			 * @protected
 			 * @member ns.widget.wearable.CircularIndexScrollbar
 			 */
-			prototype._configure = function() {
+			prototype._configure = function () {
 				/**
 				 * All possible component options
 				 * @property {Object} options
@@ -217,7 +217,7 @@
 			 * @param {HTMLElement} element
 			 * @member ns.widget.wearable.CircularIndexScrollbar
 			 */
-			prototype._build = function(element) {
+			prototype._build = function (element) {
 				var indicator,
 					indicatorText;
 
@@ -240,7 +240,7 @@
 			 * @return {HTMLElement}
 			 * @member ns.widget.wearable.CircularIndexScrollbar
 			 */
-			prototype._init = function(element) {
+			prototype._init = function (element) {
 				var self = this,
 					options = self.options;
 
@@ -260,7 +260,7 @@
 			 * @protected
 			 * @member ns.widget.wearable.CircularIndexScrollbar
 			 */
-			prototype._setIndices = function(value) {
+			prototype._setIndices = function (value) {
 				var self = this,
 					options = self.options;
 
@@ -285,7 +285,7 @@
 			 * @param {boolean} isFireEvent whether "select" event is fired or not
 			 * @member ns.widget.wearable.CircularIndexScrollbar
 			 */
-			prototype._setValueByPosition = function(index, isFireEvent) {
+			prototype._setValueByPosition = function (index, isFireEvent) {
 				var self = this,
 					indicatorText;
 
@@ -308,13 +308,13 @@
 			 * @protected
 			 * @member ns.widget.wearable.CircularIndexScrollbar
 			 */
-			prototype._nextIndex = function() {
+			prototype._nextIndex = function () {
 				var self = this,
 					activeIndex = self._activeIndex,
 					indexLen = self.options.index.length,
 					nextIndex;
 
-				if (activeIndex < indexLen -1 ) {
+				if (activeIndex < indexLen - 1) {
 					nextIndex = activeIndex + 1;
 				} else {
 					return;
@@ -328,7 +328,7 @@
 			 * @protected
 			 * @member ns.widget.wearable.CircularIndexScrollbar
 			 */
-			prototype._prevIndex = function() {
+			prototype._prevIndex = function () {
 				var self = this,
 					activeIndex = self._activeIndex,
 					prevIndex;
@@ -347,16 +347,16 @@
 			 *
 			 * Return current index or set the index
 			 *
-			 *		@example
-			 *		<progress class="ui-circularindexscrollbar" id="circularindexscrollbar"></progress>
-			 *		<script>
-			 *			var circularindexElement = document.getElementById("circularindex"),
-			 *				circularIndexScrollbar = tau.widget.CircleProgressBar(circularindexElement),
-			 *			// return current index value
-			 *			value = circularIndexScrollbar.value();
-			 *			// sets the index value
-			 *			circularIndexScrollbar.value("C");
-			 *		</script>
+			 *        @example
+			 *        <progress class="ui-circularindexscrollbar" id="circularindexscrollbar"></progress>
+			 *        <script>
+			 *            var circularindexElement = document.getElementById("circularindex"),
+			 *                circularIndexScrollbar = tau.widget.CircleProgressBar(circularindexElement),
+			 *            // return current index value
+			 *            value = circularIndexScrollbar.value();
+			 *            // sets the index value
+			 *            circularIndexScrollbar.value("C");
+			 *        </script>
 			 * @method value
 			 * return {string} In get mode return current index value
 			 * @member ns.widget.wearable.CircularIndexScrollbar
@@ -368,7 +368,7 @@
 			 * @param {string} value of index
 			 * @member ns.widget.wearable.CircularIndexScrollbar
 			 */
-			prototype._setValue = function(value) {
+			prototype._setValue = function (value) {
 				var self = this,
 					index = self.options.index,
 					indexNumber;
@@ -384,7 +384,7 @@
 			 * @protected
 			 * @member ns.widget.wearable.CircularIndexScrollbar
 			 */
-			prototype._getValue = function() {
+			prototype._getValue = function () {
 				var self = this,
 					index = self.options.index;
 
@@ -402,7 +402,7 @@
 			 * @param {Event} event Event
 			 * @member ns.widget.wearable.CircularIndexScrollbar
 			 */
-			prototype._rotary = function(event) {
+			prototype._rotary = function (event) {
 				var self = this,
 					direction = event.detail.direction;
 
@@ -424,10 +424,10 @@
 			 * @protected
 			 * @member ns.widget.wearable.CircularIndexScrollbar
 			 */
-			prototype._rotaryPhaseOne = function() {
+			prototype._rotaryPhaseOne = function () {
 				var self = this;
 				clearTimeout(self._tid.phaseOne);
-				self._tid.phaseOne = setTimeout(function(){
+				self._tid.phaseOne = setTimeout(function () {
 					if (self._phase === 1) {
 						self._detent.phaseOne = 0;
 					}
@@ -449,15 +449,15 @@
 			 * @param {string} direction direction of rotarydetent event
 			 * @member ns.widget.wearable.CircularIndexScrollbar
 			 */
-			prototype._rotaryPhaseThree = function(direction) {
+			prototype._rotaryPhaseThree = function (direction) {
 				var self = this;
 				clearTimeout(self._tid.phaseThree);
-				self._tid.phaseThree = setTimeout(function(){
+				self._tid.phaseThree = setTimeout(function () {
 					self.element.classList.remove(classes.SHOW);
 					self._phase = 1;
 				}, 1000);
 
-				if(self._phase === 3) {
+				if (self._phase === 3) {
 					self.element.classList.add(classes.SHOW);
 					if (direction === rotaryDirection.CW) {
 						self._nextIndex();
@@ -474,7 +474,7 @@
 			 * @param {Event} event Event
 			 * @member ns.widget.wearable.CircularIndexScrollbar
 			 */
-			prototype.handleEvent = function(event) {
+			prototype.handleEvent = function (event) {
 				var self = this;
 
 				switch (event.type) {
@@ -490,7 +490,7 @@
 			 * @protected
 			 * @member ns.widget.wearable.CircularIndexScrollbar
 			 */
-			prototype._bindEvents = function() {
+			prototype._bindEvents = function () {
 				var self = this;
 
 				utilsEvents.on(document, "rotarydetent", self);
@@ -502,7 +502,7 @@
 			 * @protected
 			 * @member ns.widget.wearable.CircularIndexScrollbar
 			 */
-			prototype._unbindEvents = function() {
+			prototype._unbindEvents = function () {
 				var self = this;
 
 				utilsEvents.off(document, "rotarydetent", self);
@@ -514,7 +514,7 @@
 			 * @protected
 			 * @member ns.widget.wearable.CircularIndexScrollbar
 			 */
-			prototype._refresh = function() {
+			prototype._refresh = function () {
 				var self = this,
 					options = self.options;
 
@@ -530,7 +530,7 @@
 			 * @protected
 			 * @member ns.widget.wearable.CircularIndexScrollbar
 			 */
-			prototype._destroy = function() {
+			prototype._destroy = function () {
 				var self = this;
 				self._unbindEvents();
 			};

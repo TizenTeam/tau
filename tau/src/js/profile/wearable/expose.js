@@ -1,4 +1,4 @@
-/*global window, define */
+/*global window, ns, define */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
  *
@@ -97,7 +97,7 @@
 				 * @inheritdoc ns.router.Router#openPopup
 				 * @member tau
 				 */
-				ns.openPopup = function(to, options) {
+				ns.openPopup = function (to, options) {
 					var htmlElementTo;
 					if (to && to.length !== undefined && typeof to === "object") {
 						htmlElementTo = to[0];

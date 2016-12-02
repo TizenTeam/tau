@@ -99,9 +99,9 @@
  * ## Manual constructor
  * For manual creation of page widget you can use constructor of widget from **tau** namespace:
  *
- *		@example
- *		var pageElement = document.getElementById("page"),
- *			page = tau.widget.page(buttonElement);
+ *        @example
+ *        var pageElement = document.getElementById("page"),
+ *            page = tau.widget.page(buttonElement);
  *
  * Constructor has one require parameter **element** which are base **HTMLElement** to create widget. We recommend get this element by method *document.getElementById*.
  *
@@ -206,11 +206,11 @@
  *
  * To call method on widget you can use tau API:
  *
- *		@example
- *		var pageElement = document.getElementById("page"),
- *			page = tau.widget.page(buttonElement);
+ *        @example
+ *        var pageElement = document.getElementById("page"),
+ *            page = tau.widget.page(buttonElement);
  *
- *		page.methodName(methodArgument1, methodArgument2, ...);
+ *        page.methodName(methodArgument1, methodArgument2, ...);
  *
  * @class ns.widget.wearable.Page
  * @extends ns.widget.core.Page
@@ -275,22 +275,6 @@
 				 */
 				object = ns.util.object,
 				/**
-				 * Alias for {@link ns.event}
-				 * @property {Object} object
-				 * @member ns.widget.wearable.Page
-				 * @private
-				 * @static
-				 */
-				utilsEvents = ns.event,
-				/**
-				 * Alias for {@link ns.event.gesture}
-				 * @property {Object} object
-				 * @member ns.widget.wearable.Page
-				 * @private
-				 * @static
-				 */
-				Gesture = utilsEvents.gesture,
-				/**
 				 * Alias for {@link ns.engine}
 				 * @property {Object} engine
 				 * @member ns.widget.wearable.Page
@@ -351,8 +335,7 @@
 					elementStyle = element.style,
 					scroller,
 					content,
-					fragment,
-					firstChild;
+					fragment;
 
 				elementStyle.width = screenWidth + "px";
 				elementStyle.height = screenHeight + "px";
@@ -363,8 +346,8 @@
 					scroller.classList.add(classes.uiScroller);
 					fragment = document.createDocumentFragment();
 
-					children.forEach( function(value) {
-						if ( selectors.matchesSelector(value, ".ui-header:not(.ui-fixed), .ui-content, .ui-footer:not(.ui-fixed)")) {
+					children.forEach(function (value) {
+						if (selectors.matchesSelector(value, ".ui-header:not(.ui-fixed), .ui-content, .ui-footer:not(.ui-fixed)")) {
 							fragment.appendChild(value);
 						}
 					});
@@ -375,12 +358,10 @@
 						element.insertBefore(scroller, element.firstChild);
 					}
 
-					firstChild = fragment.firstChild;
-
 					scroller.appendChild(fragment);
 				}
 
-				if (tau.support.shape.circle) {
+				if (ns.support.shape.circle) {
 					if (scroller) {
 						scroller.setAttribute(scrollBarType.CIRCLE, "");
 					}
@@ -391,7 +372,7 @@
 				}
 			};
 
-			prototype.getScroller = function() {
+			prototype.getScroller = function () {
 				var element = this.element,
 					scroller = element.querySelector("." + classes.uiScroller);
 				return scroller || element.querySelector("." + classes.uiContent) || element;

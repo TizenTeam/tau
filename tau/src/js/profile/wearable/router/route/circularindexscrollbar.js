@@ -1,4 +1,4 @@
-/*global window, define */
+/*global window, ns, define */
 /*jslint nomen: true */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
@@ -37,16 +37,10 @@
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
-			var CircularIndexScrollbar = ns.widget.wearable.CircularIndexScrollbar,
-				CircularIndexScrollbarPrototype = CircularIndexScrollbar.prototype,
-				util = ns.util,
+			var util = ns.util,
 				path = util.path,
-				DOM = util.DOM,
-				object = util.object,
-				utilSelector = util.selectors,
 				history = ns.router.history,
 				engine = ns.engine,
-				slice = [].slice,
 				routeCircularIndexScrollbar = {},
 				circularindexscrollbarHashKey = "circularindexscrollbar=true",
 				circularindexscrollbarHashKeyReg = /([&|\?]circularindexscrollbar=true)/,
@@ -76,11 +70,9 @@
 			/**
 			 * This method opens the circularindexscrollbar.
 			 * @method open
-			 * @param {HTMLElement} element
-			 * @param {Object} [options]
 			 * @member ns.router.route.circularindexscrollbar
 			 */
-			routeCircularIndexScrollbar.open = function (element, options) {
+			routeCircularIndexScrollbar.open = function () {
 				return null;
 			};
 
@@ -92,8 +84,7 @@
 			 * @return {?HTMLElement} circularIndexScrollbarElement
 			 */
 			routeCircularIndexScrollbar.find = function (absUrl) {
-				var self = this,
-					dataUrl = path.convertUrlToDataUrl(absUrl),
+				var dataUrl = path.convertUrlToDataUrl(absUrl),
 					activePage = engine.getRouter().getContainer().getActivePage(),
 					circularIndexScrollbar;
 
@@ -111,7 +102,7 @@
 			 * @member ns.router.route.circularindexscrollbar
 			 * @return {?HTMLElement} Element of page in parsed document.
 			 */
-			routeCircularIndexScrollbar.parse = function (html, absUrl) {
+			routeCircularIndexScrollbar.parse = function () {
 				return null;
 			};
 
@@ -129,7 +120,7 @@
 
 				this._activeWidget = activeWidget;
 
-				if(activeWidget) {
+				if (activeWidget) {
 					url = path.addHashSearchParams(documentUrl, circularindexscrollbarHashKey);
 					history.replace({}, "", url);
 				} else if (pathLocation !== documentUrl) {

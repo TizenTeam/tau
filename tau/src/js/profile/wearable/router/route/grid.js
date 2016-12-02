@@ -42,9 +42,9 @@
 
 			open: function (toPage, options) {
 				history.replace({
-					url: options.url,
-					rel: options.rel
-				},
+						url: options.url,
+						rel: options.rel
+					},
 					options.url,
 					options.title
 				);

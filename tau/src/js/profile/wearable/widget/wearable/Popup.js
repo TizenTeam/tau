@@ -1,4 +1,4 @@
-/*global window, define */
+/*global window, ns, define */
 /*
  * Copyright (c) 2013 - 2014 Samsung Electronics Co., Ltd
  *
@@ -40,21 +40,21 @@
  *
  * #### Basic popup with header, content, footer
  *
- *		@example
- *		<div class="ui-page">
- *		    <div class="ui-popup">
- *		        <div class="ui-popup-header">Power saving mode</div>
- *		        <div class="ui-popup-content">
- *		            Turning on Power
- *		            saving mode will
- *		            limit the maximum
- *		            per
- *		        </div>
- *		        <div class="ui-popup-footer">
- *		            <button id="cancel" class="ui-btn">Cancel</button>
- *		        </div>
- *		    </div>
- *		</div>
+ *        @example
+ *        <div class="ui-page">
+ *            <div class="ui-popup">
+ *                <div class="ui-popup-header">Power saving mode</div>
+ *                <div class="ui-popup-content">
+ *                    Turning on Power
+ *                    saving mode will
+ *                    limit the maximum
+ *                    per
+ *                </div>
+ *                <div class="ui-popup-footer">
+ *                    <button id="cancel" class="ui-btn">Cancel</button>
+ *                </div>
+ *            </div>
+ *        </div>
  *
  * #### Popup with 2 buttons in the footer
  *
@@ -74,7 +74,7 @@
  *
  * If you want make popup with list checkbox(or radio) just include checkbox (radio) to popup and add class *ui-popup-checkbox-label* to popup element.
  *
- *		@example
+ *        @example
  *         <div id="listBoxPopup" class="ui-popup">
  *             <div class="ui-popup-header">When?</div>
  *             <div class="ui-popup-content" style="height:243px; overflow-y:scroll">
@@ -133,26 +133,26 @@
  *
  * Popup inherits value of option positionTo from property data-position-to set in link.
  *
- *		@example
- *		<!--definition of link, which opens popup and sets its position-->
- *		<a href="#popupOptionText" data-rel="popup"  data-position-to="origin">Text</a>
- *		<!--definition of popup, which inherites property position from link-->
- *		<div id="popupOptionText" class="ui-popup">
- *			<div class="ui-popup-content">
- *				<ul class="ui-listview">
- *				<li><a href="#">Option 1</a></li>
- *				<li><a href="#">Option 2</a></li>
- *				<li><a href="#">Option 3</a></li>
- *				<li><a href="#">Option 4</a></li>
- *				</ul>
- *			</div>
- *		</div>
+ *        @example
+ *        <!--definition of link, which opens popup and sets its position-->
+ *        <a href="#popupOptionText" data-rel="popup"  data-position-to="origin">Text</a>
+ *        <!--definition of popup, which inherites property position from link-->
+ *        <div id="popupOptionText" class="ui-popup">
+ *            <div class="ui-popup-content">
+ *                <ul class="ui-listview">
+ *                <li><a href="#">Option 1</a></li>
+ *                <li><a href="#">Option 2</a></li>
+ *                <li><a href="#">Option 3</a></li>
+ *                <li><a href="#">Option 4</a></li>
+ *                </ul>
+ *            </div>
+ *        </div>
  *
  * ### Opening and closing popup
  *
  * To open popup from "a" link using html markup, use the following code:
  *
- *		@example
+ *        @example
  *      <div class="ui-page">
  *          <header class="ui-header">
  *              <h2 class="ui-title">Call menu</h2>
@@ -214,9 +214,9 @@
  * ## Manual constructor
  * For manual creation of popup widget you can use constructor of widget from **tau** namespace:
  *
- *		@example
- *		var popupElement = document.getElementById("popup"),
- *			popup = tau.widget.popup(buttonElement);
+ *        @example
+ *        var popupElement = document.getElementById("popup"),
+ *            popup = tau.widget.popup(buttonElement);
  *
  * Constructor has one require parameter **element** which are base **HTMLElement** to create widget. We recommend get this element by method *document.getElementById*.
  *
@@ -230,23 +230,23 @@
  *
  * To call method on widget you can use tau API:
  *
- *		@example
- *		var popupElement = document.getElementById("popup"),
- *			popup = tau.widget.popup(buttonElement);
+ *        @example
+ *        var popupElement = document.getElementById("popup"),
+ *            popup = tau.widget.popup(buttonElement);
  *
- *		popup.methodName(methodArgument1, methodArgument2, ...);
+ *        popup.methodName(methodArgument1, methodArgument2, ...);
  *
  * ## Transitions
  *
  * By default, the framework doesn't apply transition. To set a custom transition effect, add the data-transition attribute to the link.
  *
- *		@example
- *		<a href="index.html" data-rel="popup" data-transition="slideup">I'll slide up</a>
+ *        @example
+ *        <a href="index.html" data-rel="popup" data-transition="slideup">I'll slide up</a>
  *
  * Global configuration:
  *
- *		@example
- *		gear.ui.defaults.popupTransition = "slideup";
+ *        @example
+ *        gear.ui.defaults.popupTransition = "slideup";
  *
  * ### Transitions list
  *
@@ -298,8 +298,6 @@
 				engine = ns.engine,
 
 				objectUtils = ns.util.object,
-
-				domUtils = ns.util.DOM,
 
 				defaults = {
 					fullSize: false,
@@ -388,7 +386,7 @@
 			 * @protected
 			 * @member ns.widget.wearable.Popup
 			 */
-			prototype._onHide = function() {
+			prototype._onHide = function () {
 				var self = this,
 					ui = self._ui,
 					wrapper = ui.wrapper;
@@ -398,14 +396,14 @@
 				CorePopupPrototype._onHide.call(self);
 			};
 
-			prototype._blockPageScroll = function() {
+			prototype._blockPageScroll = function () {
 				var page = ns.widget.Page(this._ui.page);
 				if (page.getScroller) {
 					page.getScroller().style.overflow = "hidden";
 				}
 			};
 
-			prototype._unblockPageScroll = function() {
+			prototype._unblockPageScroll = function () {
 				var page = ns.widget.Page(this._ui.page);
 				if (page.getScroller) {
 					page.getScroller().style.overflow = "";
