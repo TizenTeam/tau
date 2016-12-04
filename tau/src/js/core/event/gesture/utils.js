@@ -24,7 +24,7 @@
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(["./core"
-		],
+	],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 
@@ -49,7 +49,8 @@
 				 * @return {number} return.clientY position Y
 				 */
 				getCenter: function (touches) {
-					var valuesX = [], valuesY = [];
+					var valuesX = [],
+						valuesY = [];
 
 					[].forEach.call(touches, function (touch) {
 						// I prefer clientX because it ignore the scrolling position
@@ -92,6 +93,7 @@
 				getAngle: function (touch1, touch2) {
 					var y = touch2.clientY - touch1.clientY,
 						x = touch2.clientX - touch1.clientX;
+
 					return Math.atan2(y, x) * 180 / Math.PI;
 				},
 
@@ -124,6 +126,7 @@
 				getDistance: function (touch1, touch2) {
 					var x = touch2.clientX - touch1.clientX,
 						y = touch2.clientY - touch1.clientY;
+
 					return Math.sqrt((x * x) + (y * y));
 				},
 

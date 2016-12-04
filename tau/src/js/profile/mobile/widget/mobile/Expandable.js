@@ -225,7 +225,7 @@
 				eventUtil.trigger(element, isCollapse ? "collapsed" : "expanded");
 			}
 
-			function setHeadingActiveClassHandler (self, setClass) {
+			function setHeadingActiveClassHandler(self, setClass) {
 				var headingClassList = self._ui.expandableHeadingElement.classList;
 
 				if (setClass) {

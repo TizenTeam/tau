@@ -245,6 +245,7 @@
 					controlElementsLength,
 					widthSize,
 					i;
+
 				controlElements = selectors.getChildrenByTag(groupControls, "a");
 				controlElementsLength = controlElements.length;
 				widthSize = 100 / controlElementsLength;

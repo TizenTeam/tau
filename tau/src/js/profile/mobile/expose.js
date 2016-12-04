@@ -62,6 +62,7 @@
 			 */
 			ns.closePopup = function () {
 				var activePopup = ns.activePopup;
+
 				if (activePopup) {
 					activePopup.close();
 				}

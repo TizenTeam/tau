@@ -89,6 +89,7 @@
 
 			function makeTwoDigits(val) {
 				var ret = val.toString(10);
+
 				if (val < 10) {
 					ret = "0" + ret;
 				}
@@ -99,6 +100,7 @@
 				var span = document.createElement("span"),
 					spanClassList = span.classList,
 					classes = Datetimepicker.classes;
+
 				if (type !== "seperator" && type !== "tab") {
 					spanClassList.add(classes.uiBtnPicker);
 					dom.setNSData(span, "type", type);
@@ -346,6 +348,7 @@
 				var matches = pattern.match(parsePatternRegexp),
 					matchesLength = matches.length,
 					i;
+
 				for (i = 0; i < matchesLength; i++) {
 					if (matches[i].charAt(0) === "'") {
 						matches[i] = matches[i].substr(1, matches[i].length - 2);
@@ -515,6 +518,7 @@
 				var ctxElement = self._ctx.element,
 					targetClassList = self._target.classList,
 					classes = Datetimepicker.classes;
+
 				if (self._reflow) {
 					window.removeEventListener("resize", self._reflow);
 					self._reflow = null;
@@ -683,6 +687,7 @@
 					pat,
 					span,
 					classes = Datetimepicker.classes;
+
 				if (format) {
 					if (options.format === format) {
 						return null;
@@ -912,6 +917,7 @@
 			Datetimepicker.prototype._getValue = function () {
 				var date = this._getDate(this.element),
 					rvalue;
+
 				switch (this.options.type) {
 					case "time":
 						rvalue = timetoString(date);

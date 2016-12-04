@@ -130,6 +130,7 @@
 							if (list) {
 								// First, we save the current length
 								var start = list.length;
+
 								add(arguments);
 								// Do we need to add the callbacks to the
 								// current firing batch?
@@ -156,6 +157,7 @@
 							if (list) {
 								slice.call(arguments).forEach(function (arg) {
 									var index = list.indexOf(arg);
+
 									while (index > -1) {
 										list.splice(index, 1);
 										// Handle firing indexes
@@ -293,9 +295,11 @@
 				 * @member ns.util.bezierCurve
 				 * @private
 				 */
+
 				add = function (args) {
 					slice.call(args).forEach(function (arg) {
 						var type = typeof arg;
+
 						if (type === "function") {
 							if (!options.unique || !self.has(arg)) {
 								list.push(arg);

@@ -209,6 +209,7 @@
 			 */
 			function onKeyup(event, input) {
 				var checkboxradio;
+
 				if (event.keyCode === KEY_CODES.enter) {
 					// event.target is a container
 					checkboxradio = input || event.target.querySelector(widgetSelector);
@@ -232,6 +233,7 @@
 			function onFocus(event, input) {
 				// event.target is a container
 				var checkboxradio = input || event.target.querySelector(widgetSelector);
+
 				if (checkboxradio && (!checkboxradio.disabled)) {
 					if (input) {
 						checkboxradio.parentNode.focus();
@@ -255,6 +257,7 @@
 			function onBlur(event, input) {
 				// event.target is a container
 				var checkboxradio = input || event.target.querySelector(widgetSelector);
+
 				if (checkboxradio && (!checkboxradio.disabled)) {
 					if (input) {
 						checkboxradio.parentNode.blur();

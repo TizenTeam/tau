@@ -312,6 +312,7 @@
 					 * @property {number} [options.delay=1500] Time in ms after which the scrollhandler disappears.
 					 * @member ns.widget.mobile.ScrollHandler
 					 */
+
 					self.options = {
 						handler: true,
 						handlerTheme: "s",
@@ -471,6 +472,7 @@
 			function translate(self, xOffset, yOffset) {
 				var style = null,
 					translateString = null;
+
 				if (self.options.handler) {
 					style = self.ui.handle.style;
 					translateString = "translate3d(" + (xOffset || 0) + "px, " + (yOffset || 0) + "px, 0px)";
@@ -507,8 +509,8 @@
 
 				translate(
 					self,
-						direction === "y" ? 0 : x,
-						direction === "x" ? 0 : y
+					direction === "y" ? 0 : x,
+					direction === "x" ? 0 : y
 				);
 
 				offsets.x = x;
@@ -655,6 +657,7 @@
 					y = 0;
 				// check for exactly 1 touch event
 				// or a mouse event
+
 				if (self._dragging && (touches === undefined || touches.length <= 1)) {
 					tauEvent.stopImmediatePropagation(event);
 					tauEvent.preventDefault(event);
@@ -777,7 +780,7 @@
 					ui.handler = element.querySelector("." + classes.handler);
 				}
 
-				if (ui.track  === null) {
+				if (ui.track === null) {
 					ui.track = element.querySelector("." + classes.track);
 				}
 
@@ -785,7 +788,7 @@
 					ui.handle = element.querySelector("." + classes.handle);
 				}
 
-				if (ui.thumb  === null) {
+				if (ui.thumb === null) {
 					ui.thumb = element.querySelector("." + classes.thumb);
 				}
 
@@ -843,6 +846,7 @@
 				var self = this,
 					callbacks = self._callbacks,
 					ui = self.ui;
+
 				ScrollviewBindEvents.call(self, element);
 
 				callbacks.scrollstart = handleScrollstart.bind(null, self);
@@ -934,6 +938,7 @@
 				var elementClassList = this.element.classList,
 					themePrefix = classes.themePrefix,
 					themeClass = themePrefix + theme;
+
 				if (elementClassList.contains(themeClass) === false) {
 					elementClassList.remove(themePrefix + this.options.handlerTheme);
 					elementClassList.add(themeClass);

@@ -55,6 +55,7 @@
 				 */
 				fastMerge: function (newObject, orgObject) {
 					var key;
+
 					for (key in orgObject) {
 						if (orgObject.hasOwnProperty(key)) {
 							newObject[key] = orgObject[key];
@@ -79,6 +80,7 @@
 						args = [].slice.call(arguments),
 						argsLength = args.length,
 						i;
+
 					newObject = args.shift();
 					override = true;
 					if (typeof arguments[argsLength - 1] === "boolean") {
@@ -89,7 +91,7 @@
 						orgObject = args.shift();
 						if (orgObject !== null) {
 							for (key in orgObject) {
-								if (orgObject.hasOwnProperty(key) && ( override || newObject[key] === undefined )) {
+								if (orgObject.hasOwnProperty(key) && (override || newObject[key] === undefined)) {
 									newObject[key] = orgObject[key];
 								}
 							}
@@ -113,6 +115,7 @@
 					var basePrototype = new Base(),
 						property,
 						value;
+
 					for (property in prototype) {
 						if (prototype.hasOwnProperty(property)) {
 							value = prototype[property];
@@ -120,11 +123,13 @@
 								basePrototype[property] = (function createFunctionWithSuper(Base, property, value) {
 									var _super = function () {
 										var superFunction = Base.prototype[property];
+
 										if (superFunction) {
 											return superFunction.apply(this, arguments);
 										}
 										return null;
 									};
+
 									return function () {
 										var __super = this._super,
 											returnValue;
@@ -191,6 +196,7 @@
 					return object;
 				}
 			};
+
 			ns.util.object = object;
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 		}

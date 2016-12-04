@@ -247,6 +247,7 @@
 					 * @property {Function} state.currentTransition Instance transition function
 					 * @readonly
 					 */
+
 					self.state = {
 						currentTransition: null
 					};
@@ -353,6 +354,7 @@
 				var timestamp = (new Date()).getTime() - startTime,
 					newX = parseInt(easingUtils.cubicOut(timestamp, startX, translateX, duration), 10),
 					newY = parseInt(easingUtils.cubicOut(timestamp, startY, translateY, duration), 10);
+
 				if (element.scrollLeft !== endX) {
 					element.scrollLeft = newX;
 				}
@@ -443,6 +445,7 @@
 					direction = options.scroll,
 					jumpButton,
 					jumpBackground;
+
 				view.className = classes.view;
 
 				while (child) {
@@ -711,6 +714,7 @@
 			 */
 			Scrollview.prototype.scrollTo = function (x, y, duration) {
 				var element = this.element;
+
 				this.translateTo(x - element.scrollLeft, y - element.scrollTop, duration);
 			};
 
@@ -811,6 +815,7 @@
 					findPositionAnchor = function (input) {
 						var id = input.getAttribute("id"),
 							tagName = input.tagName.toLowerCase();
+
 						if (id && ["input", "textarea", "button"].indexOf(tagName) > -1) {
 							return input.parentNode.querySelector("label[for=" + id + "]");
 						}
@@ -959,6 +964,7 @@
 			 */
 			Scrollview.prototype.getScrollPosition = function () {
 				var element = this.element;
+
 				return {
 					"x": element.scrollLeft,
 					"y": element.scrollTop

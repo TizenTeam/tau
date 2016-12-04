@@ -433,6 +433,7 @@
 			 */
 			prototype._layout = function (element) {
 				var self = this;
+
 				this._reposition();
 				PopupPrototype._layout.call(self, element);
 			};
@@ -532,6 +533,7 @@
 				arrowsPriority.forEach(function (key) {
 					var param = params[key],
 						paramMax = param.max;
+
 					if (!direction) {
 						if (param.size < paramMax) {
 							direction = param;

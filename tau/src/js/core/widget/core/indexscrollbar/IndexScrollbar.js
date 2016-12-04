@@ -471,6 +471,7 @@
 				 */
 				_destroy: function () {
 					var self = this;
+
 					if (self.isBound()) {
 						self._unbindEvent();
 						self._extended(false);
@@ -492,6 +493,7 @@
 						options = self.options,
 						element = self.element;
 					// indexBar1
+
 					self.indexBar1 = new IndexBar(document.createElement("UL"), {
 						container: element,
 						offsetLeft: 0,
@@ -540,6 +542,7 @@
 						subObj,
 						el,
 						i;
+
 					for (i in subObjs) {
 						subObj = subObjs[i];
 						if (subObj) {
@@ -684,6 +687,7 @@
 				_onTouchStartHandler: function (event) {
 					pointerIsPressed = true;
 					var touches = event.touches || event._originalEvent && event._originalEvent.touches;
+
 					if (touches && (touches.length > 1)) {
 						event.preventDefault();
 						event.stopPropagation();
@@ -713,6 +717,7 @@
 				 */
 				_onTouchMoveHandler: function (event) {
 					var touches = event._originalEvent && event._originalEvent.touches;
+
 					if (touches && (touches.length > 1) || !pointerIsPressed) {
 						events.preventDefault(event);
 						events.stopPropagation(event);
@@ -841,6 +846,7 @@
 				 */
 				_bindEventToTriggerSelectEvent: function () {
 					var self = this;
+
 					self.eventHandlers.touchStart = self._onTouchStartHandler.bind(self);
 					self.eventHandlers.touchEnd = self._onTouchEndHandler.bind(self);
 					self.eventHandlers.touchMove = self._onTouchMoveHandler.bind(self);
@@ -856,6 +862,7 @@
 				 */
 				_unbindEventToTriggerSelectEvent: function () {
 					var self = this;
+
 					self.element.removeEventListener(POINTER_START, self.eventHandlers.touchStart);
 				},
 
@@ -872,6 +879,7 @@
 					var el = this.element,
 						d = el.__data,
 						idx;
+
 					if (!d) {
 						d = el.__data = {};
 					}
@@ -937,6 +945,7 @@
 				 */
 				_setIndex: function (element, value) {
 					var options = this.options;
+
 					if (typeof value === "string") {
 						value = value.split(options.delimiter);	// delimiter
 					}
@@ -952,7 +961,9 @@
 				 * @member ns.widget.core.IndexScrollbar
 				 */
 				_getOffset: function (el) {
-					var left = 0, top = 0;
+					var left = 0,
+						top = 0;
+
 					do {
 						top += el.offsetTop;
 						left += el.offsetLeft;

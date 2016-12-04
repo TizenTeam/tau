@@ -98,6 +98,7 @@
 				engine = ns.engine,
 				Drawer = function () {
 					var self = this;
+
 					CoreDrawer.call(self);
 				},
 				prototype = new CoreDrawer();
@@ -110,7 +111,7 @@
 			 * @protected
 			 * @member ns.widget.wearable.Drawer
 			 */
-			prototype._configure = function() {
+			prototype._configure = function () {
 				var self = this;
 				/**
 				 * Widget options
@@ -119,9 +120,10 @@
 				 * @property {boolean} [options.enable=true] Enable drawer widget.
 				 * @property {Number} [options.dragEdge=0.05] Start dragging gesture possible area ratio of target or handler between 0 and 1.
 				 */
+
 				self.options.dragEdge = 0.05;
 			};
-			prototype._build = function(element) {
+			prototype._build = function (element) {
 				CoreDrawer.prototype._build.call(this, element);
 				return element;
 			};

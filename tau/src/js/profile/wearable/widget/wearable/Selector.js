@@ -108,6 +108,7 @@
 				requestAnimationFrame = window.requestAnimationFrame || window.webkitRequestAnimationFrame,
 				Selector = function () {
 					var self = this;
+
 					self._ui = {};
 					self.options = {};
 				},
@@ -203,6 +204,7 @@
 				var layers = element.getElementsByClassName(classes.LAYER),
 					items,
 					i, len, j, itemLength;
+
 				if (layers.length) {
 					// Delete legacy layers
 					len = layers.length;
@@ -226,6 +228,7 @@
 			 */
 			function bindEvents(self) {
 				var element = self.element;
+
 				events.enableGesture(
 					element,
 
@@ -245,6 +248,7 @@
 			 */
 			function unbindEvents(self) {
 				var element = self.element;
+
 				events.disableGesture(
 					element
 				);
@@ -343,6 +347,7 @@
 				 * @property {Number} maxItemNumber [options.maxItemNumber=11] Max item number on one layer. If you change the itemDegree, we recommend to consider to modify this value for fit your Selector layout.
 				 * @property {boolean} indicatorAutoControl [options.indicatorAutoControl=true] Indicator auto control switch. If you want to control your indicator manually, change this options to false.
 				 */
+
 				self.options = utilsObject.merge(self.options, {
 					itemSelector: DEFAULT.ITEM_SELECTOR,
 					indicatorSelector: DEFAULT.INDICATOR_SELECTOR,
@@ -519,6 +524,7 @@
 			 */
 			prototype.handleEvent = function (event) {
 				var self = this;
+
 				switch (event.type) {
 					case "dragstart":
 						self._onDragstart(event);
@@ -575,6 +581,7 @@
 					active = self._activeLayerIndex,
 					activeLayer = ui.layers[active],
 					validLayer = ui.layers[index];
+
 				if (activeLayer) {
 					removeLayerClasses(activeLayer);
 				}
@@ -978,6 +985,7 @@
 			prototype._destroy = function () {
 				var self = this,
 					activeItem;
+
 				unbindEvents(self);
 				activeItem = self._getActiveItem();
 				if (activeItem !== null) {

@@ -42,6 +42,7 @@
 
 			touch.handleEvent = function (event) {
 				var self = this;
+
 				switch (event.type) {
 					case "mousedown":
 					case "touschstart":
@@ -60,6 +61,7 @@
 			touch._onMousedown = function (event) {
 				var self = this,
 					target = event.target;
+
 				self._target = target;
 				self._timeId = setTimeout(function () {
 					events.trigger(target, EVENT_TYPE.TAP_HOLD);
@@ -69,6 +71,7 @@
 			touch._onClick = function (event) {
 				var self = this,
 					target = event.target;
+
 				clearTimeout(self._timeId);
 				if (self._target === target) {
 					events.trigger(target, EVENT_TYPE.TAP);

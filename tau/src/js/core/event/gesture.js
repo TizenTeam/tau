@@ -22,15 +22,15 @@
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define([
-			"../event",
-			"./gesture/core",
-			"./gesture/utils",
-			"./gesture/instance",
-			"./gesture/manager",
-			"./gesture/plugins/drag",
-			"./gesture/plugins/swipe",
-			"./gesture/plugins/pinch",
-			"./gesture/plugins/longPress"],
+		"../event",
+		"./gesture/core",
+		"./gesture/utils",
+		"./gesture/instance",
+		"./gesture/manager",
+		"./gesture/plugins/drag",
+		"./gesture/plugins/swipe",
+		"./gesture/plugins/pinch",
+		"./gesture/plugins/longPress"],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 			var instances = [],
@@ -47,6 +47,7 @@
 			 */
 			function findInstance(element) {
 				var instance;
+
 				instances.forEach(function (item) {
 					if (item.element === element) {
 						instance = item.instance;

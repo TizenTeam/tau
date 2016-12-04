@@ -34,6 +34,7 @@
 			//>>excludeEnd("tauBuildExclude");
 			var engine = ns.engine,
 				TizenSlider = ns.widget.mobile.SliderExtra;
+
 			ns.widget.mobile.TizenSlider = TizenSlider;
 			engine.defineWidget(
 				"TizenSlider",

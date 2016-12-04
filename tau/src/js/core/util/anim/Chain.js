@@ -121,6 +121,7 @@
 					var onEnd = self.options.onEnd,
 						animations = self.animations,
 						index = animations.indexOf(animation);
+
 					self.current = index;
 					if (index === animations.length - 1) {
 						self.state = FINISHED;
@@ -148,6 +149,7 @@
 					 * @property {number} current Marks current animation
 					 * @readonly
 					 */
+
 					self.current = null;
 					/**
 					 * @property {Array.<ns.util.anim.Animation>} animations The animations holder
@@ -221,6 +223,7 @@
 					addMultiple: function (animations) {
 						var i,
 							l;
+
 						for (i = 0, l = animations.length; i < l; ++i) {
 							this.add(animations[i]);
 						}
@@ -238,6 +241,7 @@
 							l,
 							self = this,
 							onPlay = self.options.onPlay;
+
 						for (i = self.current, l = self.animations.length; i < l; ++i) {
 							self.animations[i].play();
 						}
@@ -259,6 +263,7 @@
 							l,
 							self = this,
 							onPause = self.options.onPause;
+
 						for (i = self.current, l = self.animations.length; i < l; ++i) {
 							self.animations[i].pause();
 						}
@@ -277,6 +282,7 @@
 					destroy: function () {
 						var i,
 							l;
+
 						for (i = 0, l = this.animations.length; i < l; ++i) {
 							this.animations[i].destroy();
 						}

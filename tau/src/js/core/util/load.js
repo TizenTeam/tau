@@ -114,6 +114,7 @@
 			 */
 			function scriptSyncSuccess(successCB, xhrObj, status) {
 				var script = document.createElement("script");
+
 				script.type = "text/javascript";
 				script.text = xhrObj.responseText;
 				document.body.appendChild(script);
@@ -149,6 +150,7 @@
 			 */
 			function cssSyncSuccess(cssPath, successCB, xhrObj) {
 				var css = document.createElement("style");
+
 				css.type = "text/css";
 				css.textContent = xhrObj.responseText.replace(
 					IMAGE_PATH_REGEXP,
@@ -184,6 +186,7 @@
 			 */
 			function addElementToHead(element, asFirstChildElement) {
 				var firstElement;
+
 				if (head) {
 					if (asFirstChildElement) {
 						firstElement = head.firstElementChild;
@@ -206,6 +209,7 @@
 			 */
 			function makeLink(href) {
 				var cssLink = document.createElement("link");
+
 				cssLink.setAttribute("rel", "stylesheet");
 				cssLink.setAttribute("href", href);
 				cssLink.setAttribute("name", "tizen-theme");
@@ -246,6 +250,7 @@
 					previousElement = null,
 					linkElement;
 				// Find css link or style elements
+
 				for (i = 0; i < styleSheetsLength; i++) {
 					ownerNode = styleSheets[i].ownerNode;
 

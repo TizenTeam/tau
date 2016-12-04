@@ -80,6 +80,7 @@
 				events = ns.event,
 				SpinControl = function () {
 					var self = this;
+
 					BaseWidget.call(self);
 
 					self._callbacks = {

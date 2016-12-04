@@ -37,6 +37,7 @@
 			fileName = nsConfig.fileName,
 			infoForLog = function (args) {
 				var dateNow = new Date();
+
 				args.unshift("[" + rootNamespace + "][" + dateNow.toLocaleString() + "]");
 			};
 
@@ -71,6 +72,7 @@
 		 */
 		ns.log = function () {
 			var args = slice.call(arguments);
+
 			infoForLog(args);
 			if (console) {
 				console.log.apply(console, args);
@@ -86,6 +88,7 @@
 		 */
 		ns.warn = function () {
 			var args = slice.call(arguments);
+
 			infoForLog(args);
 			if (console) {
 				console.warn.apply(console, args);
@@ -101,6 +104,7 @@
 		 */
 		ns.error = function () {
 			var args = slice.call(arguments);
+
 			infoForLog(args);
 			if (console) {
 				console.error.apply(console, args);
@@ -148,6 +152,7 @@
 				url,
 				arrayUrl,
 				count;
+
 			for (i = 0; i < countScripts; i++) {
 				url = scripts[i].src;
 				arrayUrl = url.split("/");

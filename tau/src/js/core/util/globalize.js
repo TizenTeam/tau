@@ -88,6 +88,7 @@
 					countryCode = null,
 					countryCodeIdx = lang.lastIndexOf("-"),
 					ignoreCodes = ["Cyrl", "Latn", "Mong"];	// Not country code!
+
 				if (countryCodeIdx !== -1) {	// Found country code!
 					countryCode = lang.substr(countryCodeIdx + 1);
 					if (ignoreCodes.join("-").indexOf(countryCode) < 0) {
@@ -111,6 +112,7 @@
 			function getNeutralLang(lang) {
 				var neutralLangIdx = lang.lastIndexOf("-"),
 					neutralLang;
+
 				if (neutralLangIdx !== -1) {
 					neutralLang = lang.substr(0, neutralLangIdx);
 				} else {
@@ -171,6 +173,7 @@
 					jsonObj,
 					info,
 					deferred = new UtilDeferred();
+
 				if (path) {	// Invalid path -> Regard it as "404 Not Found" error.
 					try {
 						xhrObj = new XMLHttpRequest();
@@ -223,13 +226,13 @@
 					cache = null,
 					deferred = new UtilDeferred();
 
-				if (language) {// when category is "main" , language must have value like "en" , "ko" .etc
+				if (language) { // when category is "main" , language must have value like "en" , "ko" .etc
 					if (!cldrDataCache[category].hasOwnProperty(language)) {
 						cache = cldrDataCache[category][language] = {};
 					} else {
 						cache = cldrDataCache[category][language];
 					}
-				} else {// when category is "supplement" language is empty
+				} else { // when category is "supplement" language is empty
 					cache = cldrDataCache[category];
 				}
 
@@ -274,9 +277,9 @@
 				path = getCustomFilesPath(localeId);
 				if (!cache[path]) {
 					loadJSON(path).then(function (info) {
-							cache[path] = info;
-							deferred.resolve(info);
-						},
+						cache[path] = info;
+						deferred.resolve(info);
+					},
 						deferred.reject);
 				} else {
 					deferred.resolve(cache[path]);
@@ -292,6 +295,7 @@
 			 */
 			function initGlobalize() {
 				var deferred = new UtilDeferred();
+
 				isGlobalizeInit = true;
 				loadCldrData(null, cldrDataCategory.supplemental).then(deferred.resolve, deferred.reject);
 				return deferred;
@@ -358,6 +362,7 @@
 					if (window.tizen && !localeId) {
 						window.tizen.systeminfo.getPropertyValue("LOCALE", function (locale) {
 							var countryLang = locale.country;
+
 							if (countryLang) {
 								countryLang = getNeutralLang(countryLang.replace("_", "-")); //TODO: Need to fix local id type
 							}
@@ -387,6 +392,7 @@
 				var rtl = isRTL(Globalize.locale().locale),
 					body = document.body,
 					classList = body.classList;
+
 				if (rtl) {
 					if (!classList.contains(rtlClassName)) {
 						classList.add(rtlClassName);
@@ -469,6 +475,7 @@
 				 */
 				setLocale: function (localeId) {
 					var deferred = new UtilDeferred();
+
 					localeId = getLang(localeId);
 					if (checkDependency()) {
 						loadLocaleData(localeId)

@@ -239,6 +239,7 @@
 			 */
 			prototype._toggleSelect = function () {
 				var self = this;
+
 				if (self._isOpen) {
 					self.disableKeyboardSupport();
 					self.restoreKeyboardSupport();

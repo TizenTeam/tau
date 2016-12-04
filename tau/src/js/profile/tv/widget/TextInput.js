@@ -106,6 +106,7 @@
 				engine = ns.engine,
 				TextInput = function () {
 					var self = this;
+
 					MobileTextInput.call(self);
 					BaseKeyboardSupport.call(self);
 
@@ -164,6 +165,7 @@
 			 */
 			prototype.getLabel = function () {
 				var label = this._findLabel(this.element);
+
 				if (label !== null) {
 					return label.innerHTML;
 				}
@@ -195,6 +197,7 @@
 			};
 			prototype._configure = function () {
 				var self = this;
+
 				self.options.textLine = false;
 			};
 			/**

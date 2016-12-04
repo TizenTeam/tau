@@ -36,6 +36,7 @@
 
 				PageIndicator = function () {
 					var self = this;
+
 					self._activeIndex = null;
 					self.options = {};
 				},
@@ -181,6 +182,7 @@
 				var self = this,
 					options = self.options,
 					maxPage;
+
 				if (options.layout === layoutType.CIRCULAR) {
 					maxPage = options.maxPage || maxDots.IN_CIRCLE;
 				} else {
@@ -257,6 +259,7 @@
 			prototype._refresh = function () {
 				var self = this,
 					element = self.element;
+
 				self._removeIndicator(element);
 				self._createIndicator(element);
 				if (self.options.layout === layoutType.CIRCULAR) {

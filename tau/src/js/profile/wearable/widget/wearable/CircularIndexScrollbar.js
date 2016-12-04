@@ -426,6 +426,7 @@
 			 */
 			prototype._rotaryPhaseOne = function () {
 				var self = this;
+
 				clearTimeout(self._tid.phaseOne);
 				self._tid.phaseOne = setTimeout(function () {
 					if (self._phase === 1) {
@@ -451,6 +452,7 @@
 			 */
 			prototype._rotaryPhaseThree = function (direction) {
 				var self = this;
+
 				clearTimeout(self._tid.phaseThree);
 				self._tid.phaseThree = setTimeout(function () {
 					self.element.classList.remove(classes.SHOW);
@@ -532,6 +534,7 @@
 			 */
 			prototype._destroy = function () {
 				var self = this;
+
 				self._unbindEvents();
 			};
 

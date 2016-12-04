@@ -198,7 +198,7 @@
 			 * @deprecated
 			 * @member ns.widget.mobile.Navigation
 			 */
-			prototype.create = function() {
+			prototype.create = function () {
 				ns.warn("Create method is deprecated because with 'create' method," +
 				"it is hard to meet the newly changed Navigation function. " +
 				"To handle Navigation Bar, please utilize 'push' method with " +
@@ -211,11 +211,11 @@
 			 * @method pop
 			 * @member ns.widget.mobile.Navigation
 			 */
-			prototype.pop = function(count) {
+			prototype.pop = function (count) {
 				var self = this,
 					container = self._ui.container,
 					stack = self._navigationStack,
-                    lastChild = container.lastChild,
+					lastChild = container.lastChild,
 					lastChildClassList = lastChild && lastChild.classList,
 					previousLastChildclassList = lastChild && lastChild.previousElementSibling && lastChild.previousElementSibling.classList;
 
@@ -224,10 +224,10 @@
 				}
 
 				if (lastChildClassList) {
-                    lastChildClassList.add(classes.NAVIGATION_HIDE);
-                    if (previousLastChildclassList) {
-                        previousLastChildclassList.add(classes.NAVIGATION_BACK);
-                        previousLastChildclassList.add(classes.NAVIGATION_ACTIVE);
+					lastChildClassList.add(classes.NAVIGATION_HIDE);
+					if (previousLastChildclassList) {
+						previousLastChildclassList.add(classes.NAVIGATION_BACK);
+						previousLastChildclassList.add(classes.NAVIGATION_ACTIVE);
 						events.one(lastChild, "animationend, webkitAnimationEnd", function () {
 							container.removeChild(container.lastChild);
 							lastChildClassList.remove(classes.NAVIGATION_BACK);
@@ -235,9 +235,9 @@
 								self.pop(count - 1);
 							}
 						});
-                    }
-                    stack.pop();
-                }
+					}
+					stack.pop();
+				}
 			};
 
 			/**
@@ -246,7 +246,7 @@
 			 * @param {string} id
 			 * @member ns.widget.mobile.Navigation
 			 */
-			prototype.push = function(id) {
+			prototype.push = function (id) {
 				var self = this,
 					element = self.element,
 					stack = self._navigationStack,
@@ -262,7 +262,7 @@
 				stack.push(id);
 				if (itemLength > 0) {
 					lastChildClassList.add(classes.NAVIGATION_BACK_HIDE);
-					events.one(lastChild, "animationend webkitAnimationEnd", function() {
+					events.one(lastChild, "animationend webkitAnimationEnd", function () {
 						lastChildClassList.remove(classes.NAVIGATION_BACK_HIDE);
 						lastChildClassList.remove(classes.NAVIGATION_ACTIVE);
 					});
@@ -286,7 +286,7 @@
 
 				listClassList.add(classes.NAVIGATION_ACTIVE);
 				listClassList.add(classes.NAVIGATION_ACTIVE_ANIMATION);
-				events.one(list, "animationend webkitAnimationEnd", function() {
+				events.one(list, "animationend webkitAnimationEnd", function () {
 					listClassList.remove(classes.NAVIGATION_ACTIVE_ANIMATION);
 				});
 

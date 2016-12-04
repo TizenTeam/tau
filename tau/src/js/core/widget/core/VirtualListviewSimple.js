@@ -56,6 +56,7 @@
 
 				SimpleVirtualList = function () {
 					var self = this;
+
 					self.options = {
 						dataLength: 0,
 						listItemUpdater: null,
@@ -296,10 +297,10 @@
 						inBoundsDiff = scrollBegin < 0 ? scrollBegin : (scrollBegin + self._containerSize) - (options.dataLength * self._itemSize);
 
 						scrollBegin = scrollBegin - inBoundsDiff + options.edgeEffect(inBoundsDiff, // position diff
-								options.orientation, // orientation
-								(scrollBegin < 0) ? "start" : "end",  // edge
-								scrollBegin, // raw position
-								self);
+							options.orientation, // orientation
+							(scrollBegin < 0) ? "start" : "end",  // edge
+							scrollBegin, // raw position
+							self);
 
 					} else if (self._edgeEffectGradientSize > 0) {
 						// In some rare cases gradient in default edge effect may stay greater than 0
@@ -358,8 +359,7 @@
 							}
 						}
 						scroll[beginProperty] = correction + scrollBegin % self._itemSize;
-					}
-					else {
+					}					else {
 						// If we are somewhere in the middle of the list
 						if (scrollBegin >= 0) {
 							if (scrollBegin < self._itemSize) {

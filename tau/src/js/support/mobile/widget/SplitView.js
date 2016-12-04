@@ -59,6 +59,7 @@
 					 * @member ns.widget.mobile.SplitView
 					 */
 					/** @expose */
+
 					self.options = {
 						fixed: false,
 						dividerVertical: false,
@@ -226,6 +227,7 @@
 				var self = this,
 					options = self.options,
 					ratio = options.ratio;
+
 				options.ratio = convertRatio(ratio);
 				self.dimensions.originalRatio = options.ratio.slice();
 				self.panes = selectors.getChildrenByClass(element, classes.uiPane);
@@ -247,6 +249,7 @@
 				var eventHandlers = this.eventHandlers,
 					splitterTouchElement = this.splitterTouchElement,
 					page = findParentPage(this.element);
+
 				eventHandlers.onTouchEvent = onTouchEvent.bind(null, this);
 				eventHandlers.onPageShow = onPageShow.bind(null, this);
 				if (page) {
@@ -266,6 +269,7 @@
 				var eventHandlers = this.eventHandlers,
 					splitterTouchElement = this.splitterTouchElement,
 					page = findParentPage(this.element);
+
 				page.removeEventListener("pageshow", eventHandlers.onPageShow, true);
 				splitterTouchElement.removeEventListener("vmousedown", eventHandlers.onTouchEvent, true);
 			};
@@ -339,6 +343,7 @@
 							ratioDiff = (isHorizontal ? shiftX : shiftY) / shiftArea;
 							ratio.forEach(function (value, i) {
 								var shiftDirection = (i === 0 ? 1 : -1);
+
 								ratio[i] = value + (ratioDiff * shiftDirection);
 							});
 							self._layout();
@@ -407,6 +412,7 @@
 				var ratioArray = [],
 					length = 0,
 					i = 0;
+
 				if (!Array.isArray(ratio)) {
 					ratioArray = ratio.split(",");
 					length = ratioArray.length;
@@ -484,6 +490,7 @@
 			 */
 			prototype._refreshChildren = function () {
 				var instance;
+
 				this.panes.forEach(function (pane) {
 					if (DOM.getNSData(pane, "role") === "splitview") {
 						instance = engine.getBinding(pane);
@@ -506,6 +513,7 @@
 				var self = this,
 					splitViewClasses = SplitView.classes,
 					classes = element.classList;
+
 				classes.remove(dividerVertical ? splitViewClasses.uiDirectionVertical : splitViewClasses.uiDirectionHorizontal);
 				classes.add(dividerVertical ? splitViewClasses.uiDirectionHorizontal : splitViewClasses.uiDirectionVertical);
 				self.options.dividerVertical = dividerVertical;
@@ -522,6 +530,7 @@
 			prototype._setFixed = function (element, fixed) {
 				var self = this,
 					classes = SplitView.classes;
+
 				self.options.fixed = fixed;
 				if (fixed) {
 					self.splitterBar.classList.add(classes.uiFixed);
@@ -542,6 +551,7 @@
 			prototype._setRatio = function (element, ratio) {
 				var self = this,
 					newRatio = convertRatio(ratio);
+
 				self.options.ratio = newRatio;
 				self.dimensions.originalRatio = newRatio.slice();
 			};
@@ -557,6 +567,7 @@
 					dimensions = self.dimensions,
 					isHorizontal = self.options.dividerVertical;
 				//clear any previous dynamic height setting
+
 				self.splitterBar.style.height = "";
 				dimensions.splitterSize = isHorizontal ? DOM.getElementWidth(self.splitterBar, "outer") :
 					DOM.getElementHeight(self.splitterBar, "outer");
@@ -596,6 +607,7 @@
 			 */
 			prototype.restore = function () {
 				var self = this;
+
 				self.options.ratio = self.dimensions.originalRatio.slice();
 				self._layout();
 			};

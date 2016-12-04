@@ -67,6 +67,7 @@
 			function media(query) {
 				var styleBlock = document.createElement("style"),
 					cssrule = "@media " + query + " { #jquery-mediatest { position:absolute; } }";
+
 				if (query.cacheMedia === undefined) {
 					//must set type for IE!
 					styleBlock.type = "text/css";
@@ -141,6 +142,7 @@
 
 			function transform3dTest() {
 				var prop = "transform-3d";
+
 				return validStyle("perspective", "10px", "moz") || media("(-" + vendors.join("-" + prop + "),(-") + "-" + prop + "),(" + prop + ")");
 			}
 
@@ -214,6 +216,7 @@
 
 			function boundingRect() {
 				var div = document.createElement("div");
+
 				return div.getBoundingClientRect !== undefined;
 			}
 
@@ -317,6 +320,7 @@
 						var v = 3,
 							div = document.createElement("div"),
 							a = div.all || [];
+
 						do {
 							div.innerHTML = "<!--[if gt IE " + (++v) + "]><br><![endif]-->";
 						} while (a[0]);

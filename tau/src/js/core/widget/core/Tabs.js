@@ -96,6 +96,7 @@
 				events = ns.event,
 				Tabs = function () {
 					var self = this;
+
 					self._ui = {};
 					self._component = {};
 					self.options = {
@@ -123,6 +124,7 @@
 			 */
 			function bindTabsEvents(element) {
 				var self = this;
+
 				events.on(element, "tabchange sectionchange", self, false);
 				window.addEventListener("resize", self, false);
 			}
@@ -137,6 +139,7 @@
 			 */
 			function unBindTabsEvents(element) {
 				var self = this;
+
 				events.off(element, "tabchange sectionchange", self, false);
 				window.removeEventListener("resize", self, false);
 			}
@@ -149,6 +152,7 @@
 			 */
 			prototype.handleEvent = function (event) {
 				var self = this;
+
 				switch (event.type) {
 					case "tabchange":
 						self._onTabChange(event);
@@ -271,6 +275,7 @@
 			 */
 			prototype._bindEvents = function () {
 				var self = this;
+
 				bindTabsEvents.call(self, self.element);
 			};
 
@@ -282,6 +287,7 @@
 			 */
 			prototype._destroy = function () {
 				var self = this;
+
 				unBindTabsEvents.call(self, self.element);
 				self._ui = null;
 				self._component = null;
@@ -306,6 +312,7 @@
 			prototype._setIndex = function (index) {
 				var self = this,
 					length = self._ui.sectionChanger.getElementsByTagName("section").length;
+
 				if (index < length && !(index < 0)) {
 					self._component.tabbar.setActive(index);
 				} else {

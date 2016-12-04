@@ -75,6 +75,7 @@
 
 			function maxDayInMonth(month, year) {
 				var maxDay = daysInMonth[month];
+
 				if (month === 1) {
 					maxDay += isLeapYear(year);
 				}
@@ -216,6 +217,7 @@
 
 			pickerPrototype._chooseControls = function (fieldName) {
 				var self = this;
+
 				if (fieldName === "period") {
 					return self.periodControls;
 				} else {
@@ -364,6 +366,7 @@
 			 */
 			pickerPrototype.getDate = function (returnString) {
 				var currentDate = this.currentDate;
+
 				if (!returnString) {
 					return currentDate;
 				}

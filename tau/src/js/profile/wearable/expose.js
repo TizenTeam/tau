@@ -50,6 +50,7 @@
 				 * @inheritdoc ns.router.Router#open
 				 * @member tau
 				 */
+
 				ns.changePage = router.open.bind(router);
 				document.addEventListener("pageshow", function () {
 					/**
@@ -99,6 +100,7 @@
 				 */
 				ns.openPopup = function (to, options) {
 					var htmlElementTo;
+
 					if (to && to.length !== undefined && typeof to === "object") {
 						htmlElementTo = to[0];
 					} else {

@@ -267,6 +267,7 @@
 					selectors = self.selectors,
 					content = ui.content || element.querySelector(selectors.content),
 					header = ui.header || element.querySelector(selectors.header);
+
 				if (!header && options.header !== false) {
 					header = document.createElement("div");
 					header.className = classes.header;
@@ -294,6 +295,7 @@
 				var self = this,
 					ui = self._ui,
 					header = ui.header;
+
 				if (header) {
 					header.parentNode.removeChild(header);
 					ui.header = null;
@@ -314,6 +316,7 @@
 					ui = self._ui,
 					options = self.options,
 					footer = ui.footer || element.querySelector(self.selectors.footer);
+
 				if (!footer && options.footer !== false) {
 					footer = document.createElement("div");
 					footer.className = classes.footer;
@@ -341,6 +344,7 @@
 				var self = this,
 					ui = self._ui,
 					footer = ui.footer;
+
 				if (footer) {
 					footer.parentNode.removeChild(footer);
 					ui.footer = null;
@@ -433,6 +437,7 @@
 			 */
 			prototype._isActive = function () {
 				var state = this.state;
+
 				return state === states.DURING_OPENING || state === states.OPENED;
 			};
 
@@ -529,6 +534,7 @@
 			 */
 			prototype._bindOverlayEvents = function () {
 				var overlay = this._ui.overlay;
+
 				if (overlay) {
 					overlay.addEventListener("click", this, false);
 				}
@@ -542,6 +548,7 @@
 			 */
 			prototype._unbindOverlayEvents = function () {
 				var overlay = this._ui.overlay;
+
 				if (overlay) {
 					overlay.removeEventListener("click", this, false);
 				}
@@ -696,6 +703,7 @@
 			 */
 			prototype._onShow = function () {
 				var self = this;
+
 				self._setActive(true);
 				self.trigger(events.show);
 			};
@@ -762,6 +770,7 @@
 			 */
 			prototype.handleEvent = function (event) {
 				var self = this;
+
 				switch (event.type) {
 					case "pagebeforehide":
 						// we need close active popup if exists
@@ -786,6 +795,7 @@
 			 */
 			prototype._refresh = function () {
 				var self = this;
+
 				self._unbindOverlayEvents();
 				self._setOverlay(self.element, self.options.overlay);
 				self._bindOverlayEvents();

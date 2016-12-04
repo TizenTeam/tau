@@ -51,6 +51,7 @@
 			DOM.inheritAttr = function (element, attr, selector) {
 				var value = element.getAttribute(attr),
 					parent;
+
 				if (!value) {
 					parent = selectors.getClosestBySelector(element, selector);
 					if (parent) {

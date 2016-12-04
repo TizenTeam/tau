@@ -68,6 +68,7 @@
 			 */
 			prototype._include = function (page) {
 				var element = this.element;
+
 				if (!page.parentNode || page.ownerDocument !== document) {
 					page = util.importEvaluateAndAppendElement(page, element);
 				}
@@ -83,6 +84,7 @@
 			 */
 			prototype._setActivePage = function (page) {
 				var self = this;
+
 				if (self.activePage) {
 					self.activePage.setActive(false, this.element);
 				}

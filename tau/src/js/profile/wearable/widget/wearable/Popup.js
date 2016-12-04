@@ -398,6 +398,7 @@
 
 			prototype._blockPageScroll = function () {
 				var page = ns.widget.Page(this._ui.page);
+
 				if (page.getScroller) {
 					page.getScroller().style.overflow = "hidden";
 				}
@@ -405,6 +406,7 @@
 
 			prototype._unblockPageScroll = function () {
 				var page = ns.widget.Page(this._ui.page);
+
 				if (page.getScroller) {
 					page.getScroller().style.overflow = "";
 				}

@@ -160,6 +160,7 @@
 			prototype._setValue = function (element, value) {
 				var self = this,
 					options = self.options;
+
 				if ((typeof value === "number") && (value !== options.value) && (value >= options.min) && (value <= options.max)) {
 					self.trigger("change");
 					if (value === self.maxValue) {
@@ -192,6 +193,7 @@
 			prototype.focus = function () {
 				var classList = this.element.classList,
 					focused = classes.focused;
+
 				if (!classList.contains(focused)) {
 					classList.add(focused);
 				}
@@ -205,6 +207,7 @@
 			prototype.blur = function () {
 				var classList = this.element.classList,
 					focused = classes.focused;
+
 				if (classList.contains(focused)) {
 					classList.remove(focused);
 				}

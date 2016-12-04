@@ -104,6 +104,7 @@
 				start: function (scrollbarElement/*, barElement */) {
 					var style = scrollbarElement.style,
 						duration = this.options.animationDuration;
+
 					style["-webkit-transition"] =
 						style["-moz-transition"] =
 							style["-ms-transition"] =
@@ -121,6 +122,7 @@
 				end: function (scrollbarElement/*, barElement */) {
 					var style = scrollbarElement.style,
 						duration = this.options.animationDuration;
+
 					style["-webkit-transition"] =
 						style["-moz-transition"] =
 							style["-ms-transition"] =

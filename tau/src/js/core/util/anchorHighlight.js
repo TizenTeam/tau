@@ -234,6 +234,7 @@
 				var target = event.target,
 					classList = target.classList;
 				// if this is callback of activate animation and
+
 				if (classList.contains(classes.ACTIVE_BTN) && !classList.contains(classes.INACTIVE_BTN)) {
 					// set that animation was ended (used in touch end)
 					activeAnimationFinished = true;
@@ -353,6 +354,7 @@
 				var activeA = getActiveElements(),
 					activeALength = activeA.length,
 					i = 0;
+
 				for (; i < activeALength; i++) {
 					activeA[i].classList.remove(classes.ACTIVE_LI);
 				}

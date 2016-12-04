@@ -48,6 +48,7 @@
 						var parsed = string.match(timeRegex),
 							miliseconds = 0,
 							parsedNumber = 0;
+
 						if (parsed.length === 3) {
 							parsedNumber = parseFloat(parsed[1]) || 0;
 							switch (parsed[2]) {
@@ -62,6 +63,7 @@
 						return miliseconds;
 					}
 				};
+
 			ns.util.date = date;
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 		}

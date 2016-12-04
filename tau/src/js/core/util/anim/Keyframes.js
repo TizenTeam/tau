@@ -81,6 +81,7 @@
 					l,
 					prop,
 					step;
+
 				for (i = 0, l = steps.length; i < l; ++i) {
 					step = steps[i];
 					if (!step) {
@@ -104,11 +105,12 @@
 				Keyframes = function (steps) {
 					var id = ns.getUniqueId(),
 						element = null;
+
 					if (!styleContainer) {
 						element = document.createElement("style");
 						// a text node hack, it forces the browser
 						// to create a stylesheet object in the
-						// HTMLStyleElement object, which we can 
+						// HTMLStyleElement object, which we can
 						// then use
 						element.appendChild(document.createTextNode(""));
 						document.head.appendChild(element);

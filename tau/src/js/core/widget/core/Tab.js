@@ -65,6 +65,7 @@
 			 */
 			prototype._setActive = function (index) {
 				var element = this.element;
+
 				events.trigger(element, CustomEvent.TAB_CHANGE, {
 					active: index
 				});

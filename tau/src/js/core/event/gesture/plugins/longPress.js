@@ -21,13 +21,13 @@
  *
  * @class ns.event.gesture.LongPress
  */
-( function (ns) {
+(function (ns) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define([
-			"../core",
-			"../detector"
-		],
+		"../core",
+		"../detector"
+	],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 
@@ -142,4 +142,4 @@
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
-}(ns) );
+}(ns));

@@ -184,6 +184,7 @@
 
 				Loader = function () {
 					var self = this;
+
 					self.action = "";
 					self.label = null;
 					self.defaultHtml = "";
@@ -429,6 +430,7 @@
 			 */
 			prototype.hide = function () {
 				var classes = Loader.classes;
+
 				document.documentElement.classList.remove(classes.uiLoading);
 			};
 

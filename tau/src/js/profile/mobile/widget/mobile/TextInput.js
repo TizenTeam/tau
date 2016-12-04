@@ -125,6 +125,7 @@
 
 				TextInput = function () {
 					var self = this;
+
 					self.options = objectUtils.merge({}, TextInput.defaults);
 					self._ui = {
 						textLineElement: null,
@@ -326,29 +327,29 @@
 			* @protected
 			*/
 			prototype._build = function (element) {
-				var self= this,
+				var self = this,
 					options = self.options,
 					type = element.type,
 					ui = self._ui;
 
 				/* set Aria and TextLine */
 				switch (type) {
-				case "text":
-				case "password":
-				case "number":
-				case "email":
-				case "url":
-				case "tel":
-					setAria(element);
-					ui.textLineElement = createTextLine(element);
-					break;
-				default:
-					if (element.tagName.toLowerCase() === "textarea") {
+					case "text":
+					case "password":
+					case "number":
+					case "email":
+					case "url":
+					case "tel":
 						setAria(element);
-						if (options.textLine) {
-							ui.textLineElement = createTextLine(element);
+						ui.textLineElement = createTextLine(element);
+						break;
+					default:
+						if (element.tagName.toLowerCase() === "textarea") {
+							setAria(element);
+							if (options.textLine) {
+								ui.textLineElement = createTextLine(element);
+							}
 						}
-					}
 				}
 
 				element.classList.add(classes.uiTextInput);
@@ -485,6 +486,7 @@
 			 */
 			prototype._enable = function () {
 				var element = this.element;
+
 				if (element) {
 					element.removeAttribute("disabled");
 					element.classList.remove(classes.uiTextInputDisabled);
@@ -520,6 +522,7 @@
 			 */
 			prototype._disable = function () {
 				var element = this.element;
+
 				if (element) {
 					element.setAttribute("disabled", "disabled");
 					element.classList.add(classes.uiTextInputDisabled);
@@ -535,8 +538,9 @@
 			 * @protected
 			 * @since 2.3.1
 			 */
-			prototype._getValue = function ()  {
+			prototype._getValue = function () {
 				var element = this.element;
+
 				if (element) {
 					return element.value;
 				}
@@ -554,6 +558,7 @@
 			 */
 			prototype._setValue = function (value) {
 				var element = this.element;
+
 				if (element) {
 					element.value = value;
 				}

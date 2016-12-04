@@ -30,7 +30,7 @@
 			"../../../core/util/object",
 			"../../../core/util/selectors"
 		],
-		function () {//>>excludeEnd("tauBuildExclude");
+		function () { //>>excludeEnd("tauBuildExclude");
 			var engine = ns.engine,
 
 				SnapListStyle = function (listDomElement, options) {

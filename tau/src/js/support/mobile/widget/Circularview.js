@@ -98,6 +98,7 @@
 					items = list.children,
 					lastIndex = items.length - 1,
 					i;
+
 				for (i = 0; i < gapSizeDiff; i++) {
 					list.insertBefore(items[lastIndex], items[0])
 					;
@@ -108,6 +109,7 @@
 				var list = circularview._list,
 					items = list.children,
 					i;
+
 				for (i = 0; i < gapSizeDiff; i++) {
 					list.appendChild(items[0]);
 				}
@@ -324,6 +326,7 @@
 				var self = this,
 					callbacks = self._callbacks,
 					eventType = self.options.eventType;
+
 				callbacks.dragstart = handleDragStart.bind(null, this);
 				callbacks.dragmove = handleDragMove.bind(null, this);
 				callbacks.dragend = handleDragEnd.bind(null, this);
@@ -383,6 +386,7 @@
 			CircularView.prototype.reflow = function () {
 				var self = this,
 					position = this.getScrollPosition();
+
 				self._refresh();
 				self.scrollTo(position.x, position.y, self.options.scrollDuration);
 			};
@@ -445,6 +449,7 @@
 					element = self.element,
 					callbacks = self._callbacks,
 					eventType = self.options.eventType;
+
 				if (element) {
 					element.removeEventListener(dragEvents[eventType].start, callbacks.dragstart, false);
 					element.removeEventListener(dragEvents[eventType].move, callbacks.dragmove, false);

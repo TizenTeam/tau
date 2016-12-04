@@ -106,6 +106,7 @@
 
 			function updatePathPosition(path, options) {
 				var reference = 0;
+
 				if (options.animation) {
 					addAnimation(path, options);
 				} else {
@@ -124,6 +125,7 @@
 				createSVG: function (element) {
 					var svg = document.createElementNS(SVGNS, "svg");
 					// add class to svg element
+
 					svg.classList.add(classes.polar);
 					// if element is set, add svg as child node
 					if (element) {

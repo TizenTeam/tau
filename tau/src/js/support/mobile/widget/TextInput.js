@@ -125,6 +125,7 @@
 			 */
 			TextInputExtra.prototype.getLabel = function () {
 				var label = this._findLabel(this.element);
+
 				if (label !== null) {
 					return label.innerHTML;
 				}

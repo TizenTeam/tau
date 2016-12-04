@@ -86,6 +86,7 @@
 			//>>excludeEnd("tauBuildExclude");
 			var ToggleSwitch = function () {
 					var self = this;
+
 					self._ui = {};
 				},
 				BaseWidget = ns.widget.mobile.BaseWidgetMobile,

@@ -149,6 +149,7 @@
 					 * @property {boolean} _isOpen Open/Close status of DropdownMenu
 					 * @member ns.widget.mobile.DropdownMenu
 					 */
+
 					self._isOpen = false;
 					self._isClosing = false;
 					/**
@@ -282,6 +283,7 @@
 				var target = event.target,
 					tag = target.tagName,
 					classList = target.classList;
+
 				if (tag === "LI" && !classList.contains(classes.optionGroup) && !classList.contains(classes.disabled)) {
 					self._selectedIndex = indexOf.call(self._ui.elOptions, target);
 					self._changeOption();
@@ -302,6 +304,7 @@
 			function nativeChangeOption(self) {
 				var ui = self._ui,
 					selectedOption = ui.elSelect[ui.elSelect.selectedIndex];
+
 				ui.elPlaceHolder.textContent = selectedOption.textContent;
 			}
 
@@ -334,6 +337,7 @@
 			function onFocus(self, event) {
 				var ui = self._ui,
 					target = event.target;
+
 				if (target === ui.elSelectWrapper ||
 					target.parentNode === ui.elOptionContainer) {
 					target.classList.add(classes.focus);
@@ -351,6 +355,7 @@
 			function onBlur(self, event) {
 				var ui = self._ui,
 					target = event.target;
+
 				if (target === ui.elSelectWrapper ||
 					target.parentNode === ui.elOptionContainer) {
 					target.classList.remove(classes.focus);
@@ -368,6 +373,7 @@
 			 */
 			function setDisabledStatus(element, isDisabled) {
 				var classList = element.classList;
+
 				if (isDisabled) {
 					classList.add(classes.disabled);
 					classList.add(classes.widgetDisabled);
@@ -389,6 +395,7 @@
 			 */
 			function convertOptionToHTML(option, isDisabled) {
 				var className = option.className;
+
 				if (isDisabled) {
 					className += " " + classes.disabled;
 				}
@@ -409,6 +416,7 @@
 				var top = element.offsetTop,
 					left = element.offsetLeft,
 					offsetParent;
+
 				while (element.offsetParent) {
 					offsetParent = element.offsetParent;
 					top += offsetParent.offsetTop;
@@ -464,7 +472,7 @@
 						options += convertOptionToHTML(forElement, isDisabled);
 					} else if (tag === "OPTGROUP") {
 						// for <optgroup> tag
-						options += "<li class='" + classes.optionGroup + (isDisabled ? (" " + classes.disabled + "'") : "'" ) + ">" + forElement.label + "</li>";
+						options += "<li class='" + classes.optionGroup + (isDisabled ? (" " + classes.disabled + "'") : "'") + ">" + forElement.label + "</li>";
 						groupOptionArray = slice.call(forElement.children);
 						for (j = 0, groupOptCount = groupOptionArray.length; j < groupOptCount; j++) {
 							// If <optgroup> is disabled, all child of the optgroup are also disabled.
@@ -501,6 +509,7 @@
 			prototype._checkInline = function () {
 				var self = this,
 					ui = self._ui;
+
 				if (self.options.inline) {
 					ui.elSelectWrapper.classList.add(classes.inline);
 					ui.elPlaceHolder.removeAttribute("style");
@@ -635,6 +644,7 @@
 				var self = this,
 					ui = self._ui,
 					elementId = element.id;
+
 				if (!ui.elSelectWrapper) {
 					ui.elSelectWrapper = document.getElementById(elementId + "-dropdownmenu");
 					ui.elPlaceHolder = document.getElementById(elementId + "-placeholder");
@@ -687,6 +697,7 @@
 			 */
 			prototype.open = function () {
 				var self = this;
+
 				if (self._isOpen === false) {
 					self._toggleSelect();
 				}
@@ -699,6 +710,7 @@
 			 */
 			prototype.close = function () {
 				var self = this;
+
 				if (self._isOpen === true) {
 					self._toggleSelect();
 				}
@@ -859,6 +871,7 @@
 			 */
 			function showAnimationEndHandler(self) {
 				var ui = self._ui;
+
 				ui.elOptionWrapper.classList.add(classes.opened);
 				eventUtils.prefixedFastOff(ui.elOptionContainer, "animationEnd", self._callbacks.showAnimationEnd, false);
 				ui.elOptionWrapper.classList.remove(classes.opening);
@@ -875,6 +888,7 @@
 				var wrapper = self._ui.elOptionWrapper,
 					wrapperClassList = wrapper.classList,
 					optionContainer = self._ui.elOptionContainer;
+
 				wrapperClassList.remove(classes.active);
 				wrapper.removeAttribute("style");
 				eventUtils.prefixedFastOff(optionContainer, "animationEnd", self._callbacks.hideAnimationEnd, false);
@@ -893,6 +907,7 @@
 				var self = this,
 					ui = self._ui,
 					wrapper = ui.elOptionWrapper;
+
 				if (ui.screenFilter) {
 					ui.screenFilter.classList.add(classes.filterHidden);
 				}
@@ -910,6 +925,7 @@
 				var self = this,
 					ui = self._ui,
 					wrapper = ui.elOptionWrapper;
+
 				wrapper.setAttribute("style", self._coordinateOption());
 				if (ui.screenFilter) {
 					ui.screenFilter.classList.remove(classes.filterHidden);

@@ -289,6 +289,7 @@
 
 				Page = function () {
 					var self = this;
+
 					CorePage.call(self);
 					self._contentStyleAttributes = ["height", "width", "minHeight", "marginTop", "marginBottom"];
 				},
@@ -375,6 +376,7 @@
 			prototype.getScroller = function () {
 				var element = this.element,
 					scroller = element.querySelector("." + classes.uiScroller);
+
 				return scroller || element.querySelector("." + classes.uiContent) || element;
 			};
 

@@ -20,15 +20,15 @@
  * Creates instance of gesture manager on element.
  * @class ns.event.gesture.Instance
  */
-( function (ns) {
+(function (ns) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(["./core",
-			"./manager",
-			"./detector",
-			"../../event",
-			"../../util/object"
-		],
+		"./manager",
+		"./detector",
+		"../../event",
+		"../../util/object"
+	],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 			/**
@@ -107,6 +107,7 @@
 				_findGestureDetector: function (gesture) {
 					var detectors = Detector.plugin,
 						detector, name;
+
 					for (name in detectors) {
 						if (detectors.hasOwnProperty(name)) {
 							detector = detectors[name];
@@ -216,4 +217,4 @@
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
-}(ns) );
+}(ns));

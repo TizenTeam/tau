@@ -82,7 +82,7 @@
 			* @protected
 			* @member ns.widget.mobile.FloatingActions
 			*/
-			prototype._configure = function() {
+			prototype._configure = function () {
 				/**
 				 * @property {Object} options Object with default options
 				 * @property {number} [options.duration=300] animation duration for color and opacity (unit of time : millisecond)
@@ -102,7 +102,7 @@
 			* @protected
 			* @member ns.widget.mobile.FloatingActions
 			*/
-			prototype._init = function(element) {
+			prototype._init = function (element) {
 				var self = this;
 
 				self._style = element.style;
@@ -119,7 +119,7 @@
 			* @protected
 			* @member ns.widget.mobile.FloatingActions
 			*/
-			prototype._bindEvents = function() {
+			prototype._bindEvents = function () {
 				var self = this,
 					element = self.element;
 
@@ -140,7 +140,7 @@
 			* @protected
 			* @member ns.widget.mobile.FloatingActions
 			*/
-			prototype._unbindEvents = function() {
+			prototype._unbindEvents = function () {
 				utilsEvents.disableGesture(this.element);
 				utilsEvents.off(this.element, "drag dragstart dragend dragcancel touchstart touchend vmousedown vmouseup", this);
 			};
@@ -151,7 +151,7 @@
 			* @protected
 			* @member ns.widget.mobile.FloatingActions
 			*/
-			prototype._refresh = function() {
+			prototype._refresh = function () {
 				var self = this,
 					element = self.element;
 
@@ -167,8 +167,9 @@
 			* @protected
 			* @member ns.widget.mobile.FloatingActions
 			*/
-			prototype._destroy = function() {
+			prototype._destroy = function () {
 				var self = this;
+
 				if (self.isBound()) {
 					self._unbindEvents();
 					self._style = null;
@@ -184,7 +185,7 @@
 			* @protected
 			* @member ns.widget.mobile.FloatingActions
 			*/
-			prototype._positionCalculation = function() {
+			prototype._positionCalculation = function () {
 				var self = this,
 					element = self.element,
 					elementStyle = window.getComputedStyle(element),
@@ -217,7 +218,7 @@
 			* @protected
 			* @member ns.widget.mobile.FloatingActions
 			*/
-			prototype._setScope = function() {
+			prototype._setScope = function () {
 				var self = this,
 					position = self._position,
 					scope = self._scope,
@@ -239,7 +240,7 @@
 			* @protected
 			* @member ns.widget.mobile.FloatingActions
 			*/
-			prototype._start = function(event) {
+			prototype._start = function (event) {
 				var self = this,
 					element = self.element;
 
@@ -286,7 +287,7 @@
 			* @protected
 			* @member ns.widget.mobile.FloatingActions
 			*/
-			prototype._move = function(event) {
+			prototype._move = function (event) {
 				var self = this,
 					style = self._style,
 					moveX = event.detail.estimatedX - self._startX + self._currentX,
@@ -392,7 +393,7 @@
 					return "center";
 				} else if (positionX < scope.right) {
 					return "right-1st-icon";
-				} else if (!hasSingle && positionX < scope.rightOneButton){
+				} else if (!hasSingle && positionX < scope.rightOneButton) {
 					return "right-2nd-icon";
 				} else {
 					return "right-min";
@@ -419,7 +420,7 @@
 			* @protected
 			* @member ns.widget.mobile.FloatingActions
 			*/
-			prototype._end = function(event) {
+			prototype._end = function (event) {
 				var self = this;
 
 				self._moveTo(
@@ -434,7 +435,7 @@
 			 * @param {Event} event Event
 			 * @member ns.widget.mobile.FloatingActions
 			 */
-			prototype.handleEvent = function(event) {
+			prototype.handleEvent = function (event) {
 				var self = this;
 
 				switch (event.type) {

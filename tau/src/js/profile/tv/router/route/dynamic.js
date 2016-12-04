@@ -151,6 +151,7 @@
 			 */
 			routeDynamic.open = function (toDynamic) {
 				var activeDynamic = document.querySelector(".ui-dynamic-box-active");
+
 				if (activeDynamic) {
 					activeDynamic.classList.remove("ui-dynamic-box-active");
 				}

@@ -24,7 +24,7 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../util",
+			"../util"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");

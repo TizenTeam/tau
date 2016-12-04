@@ -48,6 +48,7 @@
 				 */
 				init: function () {
 					var router = ns.engine.getRouter();
+
 					if ($) {
 						object.merge($.support, support);
 						ns.support = $.support;

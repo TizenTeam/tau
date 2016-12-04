@@ -192,6 +192,7 @@
 			 */
 			routePopup.option = function () {
 				var defaults = object.merge({}, routePopup.defaults);
+
 				defaults.transition = ns.getConfig("popupTransition", defaults.transition);
 				return defaults;
 			};
@@ -262,6 +263,7 @@
 					openPopup = function () {
 						var positionTo = options["position-to"];
 						// add such option only if it exists
+
 						if (positionTo) {
 							options.positionTo = positionTo;
 						}
@@ -473,6 +475,7 @@
 			 */
 			routePopup.getActiveElement = function () {
 				var active = this.getActive();
+
 				return active && active.element;
 			};
 

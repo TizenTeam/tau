@@ -266,6 +266,7 @@
 				utilsDOM = ns.util.DOM,
 				Page = function () {
 					var self = this;
+
 					CorePage.call(self);
 					self.options = object.copy(Page.prototype.options);
 				},
@@ -437,6 +438,7 @@
 			 */
 			Page.prototype._bindEvents = function (element) {
 				var self = this;
+
 				CorePagePrototype._bindEvents.call(self, element);
 				element.addEventListener("pagebeforeshow", self.contentFillAfterResizeCallback, false);
 				element.addEventListener("updatelayout", self.contentFillAfterResizeCallback, false);
@@ -548,6 +550,7 @@
 			 */
 			Page.prototype._refresh = function () {
 				var self = this;
+
 				buildStructure(self.options, self.element);
 				CorePagePrototype._refresh.call(self);
 			};
@@ -561,6 +564,7 @@
 			Page.prototype._destroy = function () {
 				var self = this,
 					element = self.element;
+
 				CorePagePrototype._destroy.call(self);
 				element.removeEventListener("updatelayout", self.contentFillAfterResizeCallback, false);
 				element.removeEventListener("pageshow", self.contentFillAfterResizeCallback, false);

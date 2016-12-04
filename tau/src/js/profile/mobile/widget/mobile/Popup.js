@@ -531,6 +531,7 @@
 
 				Popup = function () {
 					var self = this;
+
 					CorePopup.call(this);
 					// set options
 					self.options = objectUtils.merge(self.options, Popup.defaults);
@@ -574,15 +575,16 @@
 			*/
 			Popup.prototype._build = function (element) {
 				var page = utilSelector.getClosestByClass(element, "ui-page") || document.body;
+
 				if (element.parentNode !== page) {
 					page.appendChild(element);
 				}
 				return CorePopupPrototype._build.call(this, element);
 			};
 
-			Popup.prototype._setDirectionPriority = function(element, value) {
+			Popup.prototype._setDirectionPriority = function (element, value) {
 				if (value) {
-					this.options.arrow = value.map(function(arrow) {
+					this.options.arrow = value.map(function (arrow) {
 						return arrow.charAt(0).toLowerCase();
 					}).join(",");
 				}
@@ -594,7 +596,7 @@
 			 * @protected
 			 * @member ns.widget.mobile.Popup
 			 */
-			Popup.prototype._refresh = function() {
+			Popup.prototype._refresh = function () {
 				var self = this;
 
 				if (this._isActive()) {
@@ -625,9 +627,10 @@
 			 * @protected
 			 * @member ns.widget.mobile.Popup
 			 */
-			Popup.prototype._findClickedElement = function(x, y) {
+			Popup.prototype._findClickedElement = function (x, y) {
 				var element = CorePopupPrototype._findClickedElement.call(this, x, y),
 					button = utilSelector.getClosestBySelector(element, engine.getWidgetDefinition("Button").selector);
+
 				return button || element;
 			};
 
@@ -637,7 +640,7 @@
 			 * @protected
 			 * @member ns.widget.mobile.Popup
 			 */
-			Popup.prototype._onShow = function() {
+			Popup.prototype._onShow = function () {
 				CorePopupPrototype._onShow.call(this);
 				this.trigger(Popup.events.AFTER_OPEN);
 			};
@@ -648,7 +651,7 @@
 			 * @protected
 			 * @member ns.widget.mobile.Popup
 			 */
-			Popup.prototype._onHide = function() {
+			Popup.prototype._onHide = function () {
 				CorePopupPrototype._onHide.call(this);
 				this.trigger(Popup.events.AFTER_CLOSE);
 			};

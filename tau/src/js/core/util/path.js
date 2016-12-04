@@ -141,6 +141,7 @@
 							hash = uri.hash,
 							search = uri.hashSearch;
 						// mimic the browser with an empty string when the hash and hashSearch are empty
+
 						hash = hash === "#" && !search ? "" : hash;
 						location = uri;
 						// Make sure to parse the url or the location object for the hash because using location.hash
@@ -202,6 +203,7 @@
 					 */
 					parseUrl: function (url) {
 						var matches;
+
 						if (typeof url === "object") {
 							return url;
 						}
@@ -249,6 +251,7 @@
 							relStack,
 							directory,
 							i;
+
 						if (relPath && relPath.charAt(0) === "/") {
 							return relPath;
 						}
@@ -384,6 +387,7 @@
 							paramsString = (typeof params === "object") ? path.getAsURIParameters(params) : params,
 							hash = urlObject.hash,
 							searchChar = hash ? (hash.indexOf("?") < 0 ? hash + "?" : hash + "&") : "#?";
+
 						return urlObject.hrefNoHash + searchChar + (searchChar.charAt(searchChar.length - 1) === "?" ? "" : "&") + paramsString;
 					},
 
@@ -502,6 +506,7 @@
 					 */
 					isExternal: function (url, documentUrl) {
 						var urlObject = path.parseUrl(url);
+
 						return urlObject.protocol && urlObject.domain !== documentUrl.domain ? true : false;
 					},
 
@@ -629,6 +634,7 @@
 					 */
 					hashToSelector: function (hash) {
 						var hasHash = (hash.substring(0, 1) === "#");
+
 						if (hasHash) {
 							hash = hash.substring(1);
 						}
@@ -707,6 +713,7 @@
 					getAsURIParameters: function (data) {
 						var url = "",
 							key;
+
 						for (key in data) {
 							if (data.hasOwnProperty(key)) {
 								url += encodeURIComponent(key) + "=" + encodeURIComponent(data[key]) + "&";
@@ -752,6 +759,7 @@
 					 */
 					getFilePath: function (path, dialogHashKey) {
 						var splitkey = "&" + ns.getConfig("subPageUrlKey", "");
+
 						return path && path.split(splitkey)[0].split(dialogHashKey)[0];
 					},
 
@@ -787,9 +795,9 @@
 						//document will be resolved against the document base.
 						if (urlObject.protocol !== "") {
 							return (urlObject.hash &&
-							( allowEmbeddedOnlyBaseDoc ?
+							(allowEmbeddedOnlyBaseDoc ?
 							urlObject.hrefNoHash === path.documentUrl.hrefNoHash :
-							urlObject.hrefNoHash === path.parseLocation().hrefNoHash ));
+							urlObject.hrefNoHash === path.parseLocation().hrefNoHash));
 						}
 						return (/^#/).test(urlObject.href);
 					}

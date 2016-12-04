@@ -86,6 +86,7 @@
 			 */
 			routeDrawer.open = function (drawerElement) {
 				var drawer = engine.instanceWidget(drawerElement, "Drawer");
+
 				drawer.open();
 			};
 

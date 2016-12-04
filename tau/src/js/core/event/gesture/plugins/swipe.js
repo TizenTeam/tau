@@ -21,13 +21,13 @@
  *
  * @class ns.event.gesture.Swipe
  */
-( function (ns) {
+(function (ns) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define([
-			"../core",
-			"../detector"
-		],
+		"../core",
+		"../detector"
+	],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 
@@ -94,8 +94,8 @@
 						return result;
 					}
 
-					if (( ge.deltaTime > options.timeThreshold ) ||
-						( options.orientation !== Gesture.utils.getOrientation(ge.direction) )) {
+					if ((ge.deltaTime > options.timeThreshold) ||
+						(options.orientation !== Gesture.utils.getOrientation(ge.direction))) {
 						result = Gesture.Result.FINISHED;
 						return result;
 					}
@@ -112,4 +112,4 @@
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
-}(ns) );
+}(ns));

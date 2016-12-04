@@ -48,6 +48,7 @@
 					var dataKey = "data-" + key,
 						data,
 						result;
+
 					if (element.hasAttribute(dataKey)) {
 						data = element.getAttribute(dataKey);
 						try {
@@ -68,6 +69,7 @@
 				 */
 				removeDom = function (element, key) {
 					var dataKey = "data-" + key;
+
 					if (element.hasAttribute(dataKey)) {
 						element.removeAttribute(dataKey);
 					}
@@ -117,6 +119,7 @@
 				 */
 				set: function (element, key, value) {
 					var hash = hashObject(element);
+
 					if (!hash) {
 						return false;
 					}
@@ -148,6 +151,7 @@
 				get: function (element, key, defaultValue) {
 					var hash = hashObject(element),
 						value;
+
 					if (hash) {
 						if (hashMap[hash] && hashMap[hash][key] !== undefined) {
 							value = hashMap[hash][key];

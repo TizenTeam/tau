@@ -95,6 +95,7 @@
 					 * @property {string} [options.orientation="horizontal"] Slider orientation. horizontal or vertical
 					 * @property {boolean} [options.expand=false] Slider expand mode. true or false
 					 **/
+
 					self.options = {
 						type: "normal",
 						orientation: DEFAULT.HORIZONTAL,
@@ -532,6 +533,7 @@
 					ui = self._ui,
 					validPosition,
 					value;
+
 				if (self._active) {
 					validPosition = self.options.orientation === DEFAULT.HORIZONTAL ?
 					event.detail.estimatedX - ui.barElement.offsetLeft :
@@ -581,6 +583,7 @@
 			prototype._onDragend = function () {
 				var self = this,
 					ui = self._ui;
+
 				ui.handlerElement.classList.remove(classes.SLIDER_HANDLER_ACTIVE);
 				self._active = false;
 				if (self._previousValue !== self.element.value) {
@@ -599,6 +602,7 @@
 			 */
 			prototype.value = function (value) {
 				var self = this;
+
 				if (value !== undefined) {
 					self._setValue(value);
 				}
@@ -626,6 +630,7 @@
 			prototype._destroy = function () {
 				var self = this,
 					barElement = self._ui.barElement;
+
 				unbindEvents(self);
 				barElement.parentNode.removeChild(barElement);
 				self._ui = null;

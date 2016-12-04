@@ -109,12 +109,14 @@
 			 */
 			routeDialog.option = function () {
 				var defaults = object.merge({}, routeDialog.defaults);
+
 				defaults.transition = ns.getConfig("pageTransition", defaults.transition);
 				return defaults;
 			};
 
 			routeDialog.init = function () {
 				var pages = [].slice.call(document.querySelectorAll(this.filter));
+
 				pages.forEach(function (page) {
 					if (!DOM.getNSData(page, "url")) {
 						DOM.setNSData(page, "url", (page.id && "#" + page.id) || location.pathname + location.search);

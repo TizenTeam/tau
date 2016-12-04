@@ -62,6 +62,7 @@
 				},
 				PanelChanger = function () {
 					var self = this;
+
 					self._ui = {};
 					self.options = {};
 					self.eventType = {};
@@ -87,6 +88,7 @@
 			 */
 			prototype._configure = function () {
 				var self = this;
+
 				object.merge(self.options, {
 					animationType: DEFAULT.ANIMATE,
 					manageHistory: true
@@ -119,6 +121,7 @@
 			prototype._init = function (element) {
 				var self = this,
 					ui = self._ui;
+
 				ui.page = selectors.getClosestByClass(element, classes.PAGE);
 				ui.header = ui.page.querySelector("." + classes.HEADER);
 				ui.footer = ui.page.querySelector("." + classes.FOOTER);
@@ -187,6 +190,7 @@
 				request.addEventListener("error", self._loadError);
 				request.addEventListener("load", function (event) {
 					var request = event.target;
+
 					if (request.readyState === 4) {
 						if (request.status === 200 || (request.status === 0 && request.responseXML)) {
 							self._loadSuccess(address, request.responseXML, direction);
@@ -296,6 +300,7 @@
 			 */
 			function bindEvents(element) {
 				var self = this;
+
 				events.on(element, "vclick", self, false);
 				events.prefixedFastOn(element, "animationEnd", self, false);
 			}
@@ -372,6 +377,7 @@
 			 */
 			prototype._onPagebeforeshow = function () {
 				var routePanel = engine.getRouter().getRoute("panel");
+
 				routePanel.setActive(this._ui._activePanel);
 			};
 
@@ -384,6 +390,7 @@
 			 */
 			function unBindEvents(element) {
 				var self = this;
+
 				events.off(element, "vclick", self, false);
 				events.prefixedFastOff(element, "animationEnd", self, false);
 			}
@@ -397,6 +404,7 @@
 			 */
 			prototype.handleEvent = function (event) {
 				var self = this;
+
 				switch (event.type) {
 					case "vclick":
 						self._onClick(event);
@@ -435,6 +443,7 @@
 			 */
 			prototype._destroy = function () {
 				var self = this;
+
 				self._ui = null;
 				self.options = null;
 				self._eventType = null;

@@ -182,6 +182,7 @@
 			 */
 			prototype.indexString = function (index) {
 				var self = this;
+
 				ns.warn("Deprecated method: indexString use instead option('index', string)");
 				self.indexScrollbar.option({
 					"index": index,
@@ -217,6 +218,7 @@
 			 */
 			function makeCharacterSet(divider, primaryCharacterSet) {
 				var content = divider.textContent;
+
 				return primaryCharacterSet + ((NUMBER_REGEXP.test(content)) ? "" : content);
 			}
 

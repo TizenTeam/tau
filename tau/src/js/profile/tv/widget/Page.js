@@ -149,6 +149,7 @@
 				object = util.object,
 				Page = function () {
 					var self = this;
+
 					BaseKeyboardSupport.call(self);
 					self._ui = self._ui || {};
 					self.options = object.copy(Page.prototype.options);
@@ -177,6 +178,7 @@
 			 */
 			prototype.onShow = function () {
 				var self = this;
+
 				self.saveKeyboardSupport();
 				self.enableKeyboardSupport();
 				WearablePagePrototype.onShow.call(self);
@@ -189,6 +191,7 @@
 			 */
 			prototype.onHide = function () {
 				var self = this;
+
 				self.disableKeyboardSupport();
 				self.restoreKeyboardSupport();
 				WearablePagePrototype.onHide.call(self);
@@ -205,6 +208,7 @@
 				var headerButtons = [].slice.call(header.querySelectorAll("[data-role='button']")),
 					headerButtonsLength = headerButtons.length,
 					i;
+
 				for (i = 0; i < headerButtonsLength; i++) {
 					engine.instanceWidget(headerButtons[i], "Button", {
 						inline: true
@@ -221,6 +225,7 @@
 			 */
 			prototype._buildTitleInHeader = function (header) {
 				var title = header.querySelector("h1,h2,h3,h4,h5,h6,h7,h8");
+
 				if (title) {
 					title.classList.add(classes.uiTitle);
 				}
@@ -235,6 +240,7 @@
 			 */
 			prototype._configure = function (element) {
 				var self = this;
+
 				WearablePagePrototype._configure.call(self, element);
 				self.options.content = true;
 			};
@@ -286,6 +292,7 @@
 			 */
 			prototype._clearHeaderFooterInfo = function (element) {
 				var elementClassList = element.classList;
+
 				elementClassList.remove(classes.uiHeaderEmpty);
 				elementClassList.remove(classes.uiFooterEmpty);
 			};
@@ -380,6 +387,7 @@
 			prototype._refresh = function () {
 				var self = this,
 					element = self.element;
+
 				WearablePagePrototype._refresh.call(self);
 				self._clearHeaderFooterInfo(element);
 				self._build(element);

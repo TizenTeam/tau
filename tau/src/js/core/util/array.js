@@ -126,6 +126,7 @@
 			function forEach(array, callback) {
 				var i,
 					length;
+
 				if (!(array instanceof Array)) {
 					array = [].slice.call(array);
 				}
@@ -149,6 +150,7 @@
 					i,
 					length,
 					value;
+
 				if (!(array instanceof Array)) {
 					array = [].slice.call(array);
 				}
@@ -175,6 +177,7 @@
 				var result = [],
 					i,
 					length;
+
 				if (!(array instanceof Array)) {
 					array = [].slice.call(array);
 				}
@@ -201,6 +204,7 @@
 					length,
 					value,
 					result = initialValue;
+
 				if (!(array instanceof Array)) {
 					array = [].slice.call(array);
 				}

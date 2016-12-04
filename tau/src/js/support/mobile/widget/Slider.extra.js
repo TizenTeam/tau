@@ -41,6 +41,7 @@
 				object = ns.util.object,
 				SliderExtra = function () {
 					var self = this;
+
 					CoreSlider.call(self);
 					self.options = object.copy(CoreSlider.prototype.options);
 				},

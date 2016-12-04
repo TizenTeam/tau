@@ -22,7 +22,7 @@
  * @author Tomasz Lukawski <t.lukawski@samsung.com>
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  * @author Piotr Karny <p.karny@samsung.com>
- */(function (window, document, ns) {
+*/(function (window, document, ns) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
@@ -83,14 +83,17 @@
 						 * @return {Object} returns a new promise
 						 * @member ns.util.deferred
 						 */
-						then: function () {/* fnDone, fnFail, fnProgress */
+						then: function () { /* fnDone, fnFail, fnProgress */
 							var functions = arguments;
+
 							return new Deferred(function (newDefer) {
 								tuples.forEach(function (tuple, i) {
 									var fn = (typeof functions[i] === "function") && functions[i];
 									// deferred[ done | fail | progress ] for forwarding actions to newDefer
+
 									deferred[tuple[1]](function () {
 										var returned = fn && fn.apply(this, arguments);
+
 										if (returned && (typeof returned.promise === "function")) {
 											returned.promise()
 												.done(newDefer.resolve)
@@ -165,6 +168,7 @@
 				// All done!
 				return deferred;
 			};
+
 			ns.util.deferred = Deferred;
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return ns.util.deferred;

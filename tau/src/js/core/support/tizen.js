@@ -62,7 +62,7 @@
 					tizen: isTizen
 				},
 				shape: {
-					circle: isTizen ? window.matchMedia("(-tizen-geometric-shape: circle)").matches : isCircleShape(),
+					circle: isTizen ? window.matchMedia("(-tizen-geometric-shape: circle)").matches : isCircleShape()
 				},
 				gradeA: function () {
 					return true;

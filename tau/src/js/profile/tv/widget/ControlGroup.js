@@ -53,6 +53,7 @@
 					controlElementsLength,
 					widthSize,
 					i;
+
 				controlElements = selectors.getChildrenByTag(groupControls, "a");
 				controlElementsLength = controlElements.length;
 				// because buttons have margin, we have to do correction of size

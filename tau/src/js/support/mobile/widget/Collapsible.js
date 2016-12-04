@@ -34,6 +34,7 @@
 			//>>excludeEnd("tauBuildExclude");
 			var Expandable = ns.widget.mobile.Expandable,
 				engine = ns.engine;
+
 			ns.widget.mobile.Collapsible = Expandable;
 			engine.defineWidget(
 				"Collapsible",

@@ -494,6 +494,7 @@
 			 */
 			Router.prototype.destroy = function () {
 				var self = this;
+
 				window.removeEventListener("popstate", self.popStateHandler, false);
 				if (body) {
 					body.removeEventListener("pagebeforechange", self.pagebeforechangeHandler, false);
@@ -540,6 +541,7 @@
 			 */
 			Router.prototype.register = function (container, firstPage) {
 				var self = this;
+
 				self.container = container;
 				self.firstPage = firstPage;
 
@@ -570,6 +572,7 @@
 			function getHTMLElement(idOrElement) {
 				var stringId,
 					toElement;
+
 				if (typeof idOrElement === "string") {
 					if (idOrElement[0] === "#") {
 						stringId = idOrElement.substr(1);
@@ -714,6 +717,7 @@
 				request.addEventListener("error", self._loadError.bind(self, absUrl, options, deferred));
 				request.addEventListener("load", function (event) {
 					var request = event.target;
+
 					if (request.readyState === 4) {
 						if (request.status === 200 || (request.status === 0 && request.responseXML)) {
 							self._loadSuccess(absUrl, options, rule, deferred, request.responseXML);
@@ -750,6 +754,7 @@
 				var detail = object.fastMerge({url: absUrl}, options),
 					self = this;
 				// Remove loading message.
+
 				if (options.showLoadMsg) {
 					self._showError(absUrl);
 				}
@@ -853,6 +858,7 @@
 			 */
 			Router.prototype.hasActivePopup = function () {
 				var popup = this.getRoute("popup");
+
 				return popup && popup.hasActive();
 			};
 

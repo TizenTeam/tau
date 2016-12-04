@@ -209,6 +209,7 @@
 				var diffTime = Date.now() - lastTime,
 					inBounds;
 				// only if the event touchmove was noticed before
+
 				if (isTouch) {
 					// update state of scrolling
 					scrollPosition += lastScrollPosition;
@@ -338,6 +339,7 @@
 				// calculate ne position of scrolling as sum of last scrolling state + move
 				var newRenderedPosition = scrollPosition + lastScrollPosition;
 				// is position was changed
+
 				if (newRenderedPosition !== lastRenderedPosition) {
 					// we update styles
 					lastRenderedPosition = newRenderedPosition;

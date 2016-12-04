@@ -173,6 +173,7 @@
 				var data = event.detail,
 					selector = data.selector,
 					index = -1;
+
 				if (selector.indexOf(FOCUS_SELECTOR) > -1) {
 					data.selector = selector = selector.replace(FOCUS_SELECTOR_PATTERN,
 						function (match, widgetMatch, indexMatch) {
@@ -193,6 +194,7 @@
 
 			prototype._bindEvents = function (element) {
 				var self = this;
+
 				parent_bindEvents.call(self, element);
 				self._onFocusQuery = onFocusQuery.bind(null, self);
 				self.element.addEventListener("focusquery", self._onFocusQuery);
@@ -200,6 +202,7 @@
 
 			prototype._destroy = function (element) {
 				var self = this;
+
 				parent_destroy.call(self, element);
 				self.element.removeEventListener("focusquery", self._onFocusQuery);
 			};
@@ -213,6 +216,7 @@
 			prototype._refreshScrollbar = function () {
 				var width = 0,
 					ui = this._ui;
+
 				parent_refreshScrollbar.call(this);
 				if (ui.container) {
 					width = this.element.clientWidth + ui.spacer.clientWidth;
@@ -280,6 +284,7 @@
 					options = this.options,
 					elementIStyle,
 					size;
+
 				element.innerHTML = "";
 				elementStyle.overflow = "hidden";
 				elementStyle.position = "relative";

@@ -50,6 +50,7 @@
 					var element = event.target,
 						tag = element.tagName.toLowerCase(),
 						type = element.type;
+
 					if ((tag !== "input" ||
 						(type !== "text" && type !== "email" && type !== "url" && type !== "search" && type !== "tel")) &&
 						tag !== "textarea") {
@@ -107,6 +108,7 @@
 				 */
 				scaleBaseFontSize: function (themeDefaultFontSize, ratio) {
 					var scaledFontSize = Math.max(themeDefaultFontSize * ratio | 0, 4);
+
 					documentElement.style.fontSize = scaledFontSize + "px";
 					document.body.style.fontSize = scaledFontSize + "px";
 				},
@@ -334,6 +336,7 @@
 
 			document.addEventListener("themeinit", function (evt) {
 				var router = evt.detail;
+
 				if (router && ns.getConfig("autoInitializePage", true)) {
 					ns.theme.init(router.getContainer().element);
 				}

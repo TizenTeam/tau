@@ -866,6 +866,7 @@
 			 */
 			function addThumbClassesToImg(img) {
 				var parentNode = selectors.getClosestByTag(img.parentNode, "li");
+
 				img.classList.add(classes.uiLiThumb);
 				if (parentNode) {
 					parentNode.classList.add(
@@ -886,6 +887,7 @@
 			 */
 			function addThumbClasses(container) {
 				var img;
+
 				img = selectors.getChildrenByTag(container, "img");
 				if (img.length) {
 					addThumbClassesToImg(img[0]);
@@ -934,6 +936,7 @@
 			function addHeadingClasses(container) {
 				var headings = [].slice.call(container.querySelectorAll("h1, h2, h3, h4, h5, h6")),
 					i = headings.length - 1;
+
 				while (i >= 0) {
 					headings[i].classList.add(classes.uiLiHeading);
 					i--;
@@ -950,6 +953,7 @@
 			 */
 			function addRightBtnClasses(container) {
 				var btnAttr = container.querySelector("[data-role='button'],input[type='button'],select[data-role='slider'],input[type='submit'],input[type='reset'],button");
+
 				if (btnAttr) {
 					if (DOM.getNSData(btnAttr, "style") === "circle") {
 						container.classList.add(classes.uiLiHasRightCircleBtn);
@@ -1069,6 +1073,7 @@
 			function refreshLinks(item) {
 				var links = selectors.getChildrenByTag(item, "a"),
 					itemClassList = item.classList;
+
 				if (links.length) {
 					addItemClasses(links[0]);
 					itemClassList.add(classes.uiLiAnchor);

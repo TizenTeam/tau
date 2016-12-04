@@ -312,6 +312,7 @@
 					 * @property {number} [options.delay=1500] Time in ms after which the scrollhandler disappears.
 					 * @member ns.widget.mobile.ScrollHandler
 					 */
+
 					self.options = {
 						handler: true,
 						handlerTheme: "s",
@@ -468,6 +469,7 @@
 			function translate(self, xOffset, yOffset) {
 				var style = null,
 					translateString = null;
+
 				if (self.options.handler) {
 					style = self.ui.handle.style;
 					translateString = "translate3d(" + (xOffset || 0) + "px, " + (yOffset || 0) + "px, 0px)";
@@ -622,6 +624,7 @@
 					touches = event.touches,
 					touch = touches && touches[0],
 					parent = self.element.parentNode;
+
 				self._dragging = true;
 				self._lastPointerEvents = CSSUtils.getCSSProperty(parent, "pointer-events");
 				// this is just for scroll speedup purposes
@@ -649,6 +652,7 @@
 					y = 0;
 				// check for exactly 1 touch event
 				// or a mouse event
+
 				if (self._dragging && (touches === undefined || touches.length <= 1)) {
 					event.stopImmediatePropagation();
 					event.preventDefault();
@@ -670,6 +674,7 @@
 			function handleTouchend(self, event) {
 				var lastPointerEvents = self._lastPointerEvents,
 					parentStyle = self.element.parentNode.style;
+
 				if (self._dragging) {
 					parentStyle.removeProperty("pointer-events");
 					if (lastPointerEvents !== "auto") {
@@ -841,6 +846,7 @@
 				var self = this,
 					callbacks = self._callbacks,
 					ui = self.ui;
+
 				ScrollviewBindEvents.call(self, element);
 
 				callbacks.scrollstart = handleScrollstart.bind(null, self);
@@ -931,6 +937,7 @@
 				var elementClassList = this.element.classList,
 					themePrefix = classes.themePrefix,
 					themeClass = themePrefix + theme;
+
 				if (elementClassList.contains(themeClass) === false) {
 					elementClassList.remove(themePrefix + this.options.handlerTheme);
 					elementClassList.add(themeClass);

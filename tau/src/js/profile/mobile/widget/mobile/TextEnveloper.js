@@ -198,12 +198,14 @@
 
 			function bindEvents(self) {
 				var ui = self._ui;
+
 				events.on(ui.inputElement, "keyup blur focus", self);
 				self.on("click", self);
 			}
 
 			function unbindEvents(self) {
 				var ui = self._ui;
+
 				events.off(ui.inputElement, "keyup blur focus", self);
 				self.off("click", self);
 			}
@@ -251,6 +253,7 @@
 			 */
 			prototype._init = function (element) {
 				var self = this;
+
 				self._btnActive = false;
 				self._isBlurred = false;
 
@@ -275,6 +278,7 @@
 			 */
 			prototype.handleEvent = function (event) {
 				var self = this;
+
 				switch (event.type) {
 					case "click":
 						self._onClick(event);
@@ -303,6 +307,7 @@
 					ui = self._ui,
 					length = ui.buttons.length,
 					i;
+
 				if (self._isBlurred && self.options.groupOnBlur) {
 					self._isBlurred = false;
 					if (length > 1 && ui.buttons[length - 2].classList.contains(classes.TEXT_ENVELOPER_BTN_BLUR)) {
@@ -439,7 +444,7 @@
 			 * @protected
 			 * @member ns.widget.mobile.TextEnveloper
 			 */
-			prototype._createButton = function(value) {
+			prototype._createButton = function (value) {
 				var self = this,
 					ui = self._ui,
 					element = self.element,
@@ -465,7 +470,7 @@
 			 * @protected
 			 * @member ns.widget.mobile.TextEnveloper
 			 */
-			prototype._createSlash = function() {
+			prototype._createSlash = function () {
 				var self = this,
 					ui = self._ui,
 					element = self.element,
@@ -603,6 +608,7 @@
 			 */
 			prototype._destroy = function () {
 				var self = this;
+
 				unbindEvents(self);
 				self._ui = null;
 			};

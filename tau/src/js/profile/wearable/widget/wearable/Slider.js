@@ -312,6 +312,7 @@
 			prototype._onClick = function (event) {
 				var self = this,
 					targetClassList = event.target.classList;
+
 				if (targetClassList.contains(classes.plus)) {
 					self.value(self.value() + self._step);
 				} else if (targetClassList.contains(classes.minus)) {

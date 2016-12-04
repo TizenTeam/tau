@@ -74,6 +74,7 @@
 				var self = this,
 					panelChangerElement = selectors.getClosestByClass(element, classes.PANEL_CHANGER),
 					panelChangerComponent = engine.instanceWidget(panelChangerElement, "PanelChanger");
+
 				self.active = true;
 				self._panelChangerElement = panelChangerElement;
 				self._panelChangerComponent = panelChangerComponent;

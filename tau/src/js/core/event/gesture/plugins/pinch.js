@@ -21,13 +21,13 @@
  *
  * @class ns.event.gesture.Pinch
  */
-( function (ns) {
+(function (ns) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define([
-			"../core",
-			"../detector"
-		],
+		"../core",
+		"../detector"
+	],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 
@@ -121,8 +121,8 @@
 								ge.preventDefault();
 								result = Gesture.Result.RUNNING;
 							} else if (this.triggerd) {
-								if (( ge.deltaTime < options.timeThreshold ) &&
-									( ge.velocityX > options.velocity || ge.velocityY > options.velocity )) {
+								if ((ge.deltaTime < options.timeThreshold) &&
+									(ge.velocityX > options.velocity || ge.velocityY > options.velocity)) {
 									if (ge.scale < 1) {
 										sender.sendEvent(event.in, gestureEvent);
 									} else {
@@ -164,4 +164,4 @@
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
-}(ns) );
+}(ns));

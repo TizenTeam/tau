@@ -97,6 +97,7 @@
 			var engine = ns.engine,
 				Slider = ns.widget.mobile.SliderExtra;
 			// definition
+
 			ns.widget.tv.Slider = Slider;
 
 			engine.defineWidget(

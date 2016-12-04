@@ -157,6 +157,7 @@
 				prototype = new CoreIndexScrollbar(),
 				IndexScrollbar = function () {
 					var self = this;
+
 					self._ui = {};
 					CoreIndexScrollbar.call(self);
 				},
@@ -177,6 +178,7 @@
 			function getIndices(elements) {
 				var indices = [],
 					i, len;
+
 				len = elements.length;
 				for (i = 0; i < len; i++) {
 					indices.push(elements[i].textContent);
@@ -190,7 +192,7 @@
 			 * @protected
 			 * @member ns.widget.mobile.IndexScrollbar
 			 */
-			prototype._configure = function(element) {
+			prototype._configure = function (element) {
 				var self = this,
 					page = selectors.getClosestByClass(element, classes.PAGE),
 					clip = page.querySelector("." + classes.CONTENT),
@@ -215,8 +217,9 @@
 			 * @protected
 			 * @member ns.widget.mobile.IndexScrollbar
 			 */
-			prototype._init = function(element) {
+			prototype._init = function (element) {
 				var self = this;
+
 				CoreISBPrototype._init.call(self, element);
 				self._fitHeight();
 			};
@@ -227,7 +230,7 @@
 			 * @protected
 			 * @member ns.widget.mobile.IndexScrollbar
 			 */
-			prototype._setInitialLayout = function() {
+			prototype._setInitialLayout = function () {
 				var self = this,
 					indexScrollbar = self.element,
 					options = self.options,
@@ -252,13 +255,14 @@
 			 * @protected
 			 * @member ns.widget.mobile.IndexScrollbar
 			 */
-			prototype._fitHeight = function() {
+			prototype._fitHeight = function () {
 				var self = this,
 					element = self.element,
 					wrapper = element.getElementsByTagName("ul")[0],
 					lastChild = wrapper.lastChild,
 					lastChildHeight = lastChild.offsetHeight,
 					space;
+
 				space = element.offsetHeight - wrapper.offsetHeight;
 				lastChild.style.height = lastChildHeight + space + "px";
 			};

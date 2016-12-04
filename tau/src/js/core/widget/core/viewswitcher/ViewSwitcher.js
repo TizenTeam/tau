@@ -239,6 +239,7 @@
 			 */
 			prototype.handleEvent = function (event) {
 				var self = this;
+
 				switch (event.type) {
 					case "drag":
 						self._onDrag(event);
@@ -325,6 +326,7 @@
 			prototype._triggerChange = function (estimatedDeltaX) {
 				var self = this,
 					absEx = Math.abs(estimatedDeltaX);
+
 				if (absEx > 50 && !self._changed) {
 					self.trigger(EVENT_TYPE.CHANGE, {
 						index: self._activeIndex + (estimatedDeltaX < 0 ? 1 : -1)
@@ -449,6 +451,7 @@
 			 */
 			prototype._destroy = function () {
 				var element = this.element;
+
 				events.disableGesture(element);
 				events.off(element, "drag dragstart dragend", this, false);
 				this.options = null;

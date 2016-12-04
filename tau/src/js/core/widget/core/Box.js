@@ -255,6 +255,7 @@
 			 */
 			prototype._refresh = function () {
 				var self = this;
+
 				if (typeof CoreLayoutWidget._refresh === TYPE_FUNCTION) {
 					CoreLayoutWidget._refresh.call(self);
 				}

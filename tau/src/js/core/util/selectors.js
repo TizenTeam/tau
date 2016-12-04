@@ -83,6 +83,7 @@
 			 */
 			function getDataSelector(selector) {
 				var namespace = ns.getConfig("namespace");
+
 				return "[data-" + (namespace ? namespace + "-" : "") + selector + "]";
 			}
 
@@ -115,6 +116,7 @@
 			function parents(element) {
 				var items = [],
 					current = element.parentNode;
+
 				while (current && current !== document) {
 					items.push(current);
 					current = current.parentNode;
@@ -134,6 +136,7 @@
 			 */
 			function closest(element, testFunction) {
 				var current = element;
+
 				while (current && current !== document) {
 					if (testFunction(current)) {
 						return current;

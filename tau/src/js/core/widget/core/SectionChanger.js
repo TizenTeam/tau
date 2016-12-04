@@ -124,6 +124,7 @@
 				var len = lastIndex !== undefined ? lastIndex : elements.length,
 					result = 0,
 					i;
+
 				for (i = 0; i < len; i++) {
 					result += direction === Scroller.Orientation.HORIZONTAL ? elements[i].offsetWidth : elements[i].offsetHeight;
 				}
@@ -132,6 +133,7 @@
 
 			function calculateCenter(direction, elements, index) {
 				var result = calculateCustomLayout(direction, elements, index + 1);
+
 				result -= direction === Scroller.Orientation.HORIZONTAL ? elements[index].offsetWidth / 2 : elements[index].offsetHeight / 2;
 				return result;
 			}
@@ -301,6 +303,7 @@
 
 				_initBouncingEffect: function () {
 					var o = this.options;
+
 					if (!o.circular) {
 						this._super();
 					}
@@ -336,6 +339,7 @@
 
 				_initTabIndicator: function () {
 					var elem = this.tabIndicatorElement = document.createElement("div");
+
 					this.element.parentNode.insertBefore(elem, this.element);
 
 					this.tabIndicator = new engine.instanceWidget(elem, "TabIndicator");
@@ -435,7 +439,8 @@
 				_notifyChanagedSection: function (index) {
 					var activeClass = this.options.activeClass,
 						sectionLength = this.sections.length,
-						i = 0, section;
+						i = 0,
+						section;
 
 					for (i = 0; i < sectionLength; i++) {
 						section = this.sections[i];

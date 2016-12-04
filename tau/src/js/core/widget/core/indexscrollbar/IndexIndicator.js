@@ -65,6 +65,7 @@
 					var self = this,
 						options = self.options,
 						element = self.element;
+
 					element.className = options.className;
 					element.innerHTML = "<span></span>";
 					events.on(element, ["touchstart", "touchmove"], blockEvent, false);

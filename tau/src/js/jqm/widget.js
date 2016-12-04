@@ -69,11 +69,13 @@
 						var name = (definition.widgetNameToLowercase) ?
 							definition.name.toLowerCase() :
 							definition.name;
+
 						if ($) {
 							document.addEventListener(name + "create", function (event) {
 								var element = event.target,
 									instance = event.detail,
 									data = $(element).data(name);
+
 								if (instance) {
 									instance.bindings = {};
 									instance.hoverable = {};
@@ -126,6 +128,7 @@
 				 * type Object
 				 */
 				var instance = null;
+
 				return function () {
 					/*
 					 * function arguments

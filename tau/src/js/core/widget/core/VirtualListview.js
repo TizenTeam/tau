@@ -153,6 +153,7 @@
 					 * vertically it's item width in other case it"s height of item element
 					 * @member ns.widget.core.VirtualListview
 					 */
+
 					self._ui = {
 						scrollview: null,
 						spacer: null,
@@ -621,6 +622,7 @@
 			function sumProperty(elements, property) {
 				var result = 0,
 					i = elements.length;
+
 				while (--i >= 0) {
 					result += elements[i][property];
 				}
@@ -760,6 +762,7 @@
 			 */
 			function _updateList(self, event) {
 				var _scroll = self._scroll;
+
 				_updateScrollInfo(self, event);
 				if (_scroll.lastJumpY > 0 || _scroll.lastJumpX > 0) {
 					if (!blockEvent) {
@@ -785,6 +788,7 @@
 				var scrollview = selectors.getClosestByClass(element, "ui-scroller") || element.parentElement,
 					scrollviewStyle;
 				//Get scrollview instance
+
 				scrollviewStyle = scrollview.style;
 
 				if (orientation === HORIZONTAL) {
@@ -1021,6 +1025,7 @@
 			prototype._addToRenderList = function () {
 				var self = this,
 					renderList = self._renderList;
+
 				renderList.push.apply(renderList, arguments);
 				requestFrame(self._render);
 
@@ -1091,6 +1096,7 @@
 			 */
 			prototype.scrollTo = function (position) {
 				var self = this;
+
 				if (utilScrolling.isElement(self._ui.scrollview)) {
 					utilScrolling.scrollTo(position);
 				} else {

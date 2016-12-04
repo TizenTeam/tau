@@ -266,6 +266,7 @@
 			function closestEnabledButtonInDiv(element) {
 				var div = selectorsUtils.getClosestBySelector(element, "." + classes.uiBtn + ":not(." + classes.uiDisabled + ")"),
 					button;
+
 				if (div) {
 					button = selectorsUtils.getChildrenByClass(div, classes.uiBtnHidden);
 					if (button.length) {
@@ -298,6 +299,7 @@
 			function getInstance(event) {
 				var button = closestEnabledButtonInDiv(event.target),
 					instance;
+
 				if (button) {
 					instance = engine.getBinding(button, "Button") || engine.getBinding(button, "buttonMarkup");
 				}
@@ -317,6 +319,7 @@
 			function changeClasses(instance, addedClassPrefix, removedClassPrefix) {
 				var theme = instance.options.theme,
 					buttonClassList = instance.ui.container.classList;
+
 				buttonClassList.remove(removedClassPrefix + theme);
 				buttonClassList.add(addedClassPrefix + theme);
 			}
@@ -329,6 +332,7 @@
 			// @member ns.widget.mobile.Button
 			function onFocus(event) {
 				var button = closestEnabledButton(event.target);
+
 				if (button) {
 					button.classList.add(classes.uiFocus);
 					button.classList.remove(classes.uiBlur);
@@ -343,6 +347,7 @@
 			// @member ns.widget.mobile.Button
 			function onBlur(event) {
 				var button = closestEnabledButton(event.target);
+
 				if (button) {
 					button.classList.add(classes.uiBlur);
 					button.classList.remove(classes.uiFocus);
@@ -495,6 +500,7 @@
 				 * @property {"span"|"div"} [options.wrapperEls="span"] wrapper tag name of button
 				 * @member ns.widget.mobile.Button
 				 */
+
 				ns.util.object.merge(this.options, prototypeOptions);
 
 				options = this.options;
@@ -516,6 +522,7 @@
 			function removePrefixesClasses(classList, prefix) {
 				var classListLength = classList.length,
 					className;
+
 				while (classListLength-- > 0) {
 					className = classList.item(classListLength);
 					if (className.indexOf(prefix) === 0) {
@@ -554,6 +561,7 @@
 			prototype._resetIcon = function () {
 				var ui = this.ui,
 					iconElement = ui.icon;
+
 				if (iconElement) {
 					iconElement.parentElement.removeChild(iconElement);
 					ui.icon = null;
@@ -606,6 +614,7 @@
 					options = self.options,
 					buttonText = self.ui.buttonText;
 				// Add title to element if button not has text.
+
 				if (options.iconpos === "notext" && !element.getAttribute("title")) {
 					element.setAttribute("title", element.textContent);
 				}
@@ -680,6 +689,7 @@
 				var innerText = element.value || element.textContent,
 					innerTextLength = innerText.length,
 					innerClassList = this.ui.inner.classList;
+
 				if (innerTextLength > 0) {
 					innerClassList.add(classes.uiBtnHastxt);
 				}
@@ -792,7 +802,7 @@
 
 				container.setAttribute("tabindex", 0);
 				if ((element.getAttribute("data-role") === "button" && !options.bar) ||
-					(elementTagName === "input" && ((elementTypeName === "submit") || (elementTypeName === "reset") || (elementTypeName === "button")) ) ||
+					(elementTagName === "input" && ((elementTypeName === "submit") || (elementTypeName === "reset") || (elementTypeName === "button"))) ||
 					(elementTagName === "button")) {
 					buttonClassArray.push(classes.uiBtnBoxThemePrefix + options.theme);
 				}
@@ -902,6 +912,7 @@
 			 */
 			prototype._init = function (element) {
 				var container = document.getElementById(element.id + "-div-container");
+
 				if (!container) {
 					container = element;
 				}
@@ -1105,6 +1116,7 @@
 					element = self.element,
 					container = self.ui.container,
 					tagName = element.tagName.toLowerCase();
+
 				if (element) {
 					if (element.getAttribute("disabled")) {
 						self.disable(element);

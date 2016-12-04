@@ -33,7 +33,7 @@
 			"../widget/wearable/Drawer",
 			"../widget/wearable/Selector"
 		],
-		function () {//>>excludeEnd("tauBuildExclude");
+		function () { //>>excludeEnd("tauBuildExclude");
 			var engine = ns.engine,
 				objectUtils = ns.util.object,
 				events = ns.event,
@@ -71,6 +71,7 @@
 
 			prototype.handleEvent = function (event) {
 				var self = this;
+
 				switch (event.type) {
 					case "touchstart":
 					case "mousedown":

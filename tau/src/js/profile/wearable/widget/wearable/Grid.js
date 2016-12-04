@@ -116,6 +116,7 @@
 				element: element,
 				propertyName: options && options.propertyName || "scrollTop"
 			};
+
 			state.render = render.bind(null, state);
 			anims.push(state);
 			return state;

@@ -582,6 +582,7 @@
 			Notification.prototype._refresh = function () {
 				var wrapperClassList = this._ui.wrapper.classList,
 					classes = Notification.classes;
+
 				wrapperClassList.add(classes.uiNotificationFix);
 				wrapperClassList.remove(classes.uiNotificationHide);
 				wrapperClassList.remove(classes.uiNotificationShow);
@@ -923,6 +924,7 @@
 			Notification.prototype._destroy = function (element) {
 				var wrapper = this._ui.wrapper,
 					nodeList;
+
 				if (element) {
 					wrapper = element.firstChild;
 				} else {

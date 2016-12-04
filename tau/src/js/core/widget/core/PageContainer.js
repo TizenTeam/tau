@@ -282,6 +282,7 @@
 			 */
 			prototype._include = function (page) {
 				var element = this.element;
+
 				if (page.parentNode !== element) {
 					page = util.importEvaluateAndAppendElement(page, element);
 				}
@@ -296,6 +297,7 @@
 			 */
 			prototype._setActivePage = function (page) {
 				var self = this;
+
 				if (self.activePage) {
 					self.activePage.setActive(false);
 				}
@@ -347,6 +349,7 @@
 			 */
 			prototype._removeExternalPage = function (fromPageWidget, options) {
 				var fromPage = fromPageWidget.element;
+
 				options = options || {};
 				if (options.reverse && DOM.hasNSData(fromPage, "external")) {
 					if (fromPage.parentNode) {

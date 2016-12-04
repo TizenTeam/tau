@@ -101,6 +101,7 @@
 				},
 				GridView = function () {
 					var self = this;
+
 					self.options = {};
 					self._direction = 0;
 					self._styleElement = null;
@@ -297,18 +298,18 @@
 			 * @param {Event} event Event
 			 * @member ns.widget.mobile.GridView
 			 */
-			prototype.handleEvent = function(event) {
+			prototype.handleEvent = function (event) {
 				var self = this;
 
 				switch (event.type) {
 					case "dragprepare":
-						if(event.detail.srcEvent.srcElement.classList.contains(classes.HANDLER)) {
+						if (event.detail.srcEvent.srcElement.classList.contains(classes.HANDLER)) {
 							break;
 						}
 						event.preventDefault();
 						break;
 					case "dragstart":
-						if(event.detail.srcEvent.srcElement.classList.contains(classes.HANDLER)) {
+						if (event.detail.srcEvent.srcElement.classList.contains(classes.HANDLER)) {
 							self._start(event);
 							break;
 						}
@@ -411,12 +412,12 @@
 				autoScrollDown = (element.offsetTop + moveY + helperElement.offsetHeight) - (scrollableParent.offsetHeight + scrollableParent.scrollTop);
 				autoScrollUp = scrollableParent.scrollTop - (element.offsetTop + moveY);
 				scrollUnit = helperElement.offsetHeight / 5;
-				if( autoScrollDown > 0 && ((helperElement.offsetTop + helperElement.offsetHeight) < element.offsetHeight)) {
+				if (autoScrollDown > 0 && ((helperElement.offsetTop + helperElement.offsetHeight) < element.offsetHeight)) {
 					scrollableParent.scrollTop += scrollUnit;
 					moveY += scrollUnit;
 					position.startTop += scrollUnit;
 				}
-				if( autoScrollUp > 0 && helperElement.offsetTop > 0) {
+				if (autoScrollUp > 0 && helperElement.offsetTop > 0) {
 					scrollableParent.scrollTop -= scrollUnit;
 					moveY -= scrollUnit;
 					position.startTop -= scrollUnit;
@@ -611,7 +612,7 @@
 			 * @protected
 			 * @member ns.widget.mobile.GridView
 			 */
-			prototype._setItemWidth = function() {
+			prototype._setItemWidth = function () {
 				var self = this,
 					options = self.options,
 					parentComputedStyle = window.getComputedStyle(self.element, null),
@@ -633,7 +634,7 @@
 
 				cols = minWidth ? Math.floor(parentWidth / minWidth) : options.cols;
 
-				self._itemSize = (parentWidth - (cols-1) * borderSize) / cols;
+				self._itemSize = (parentWidth - (cols - 1) * borderSize) / cols;
 				self._borderSize = borderSize;
 
 				width = self._itemSize + "px";
@@ -641,7 +642,7 @@
 				for (i = 0; i < length; i++) {
 					elementStyle = listElements[i].style;
 					// all without last in raw should have right border
-					if (i % cols < cols-1) {
+					if (i % cols < cols - 1) {
 						elementStyle.borderRightWidth = borderSize + "px";
 					}
 					// all should have top border
@@ -695,8 +696,9 @@
 					utilsEvents.off(element, "pinchin pinchout", self);
 					element.classList.add("ui-gridview-reorder");
 					// create handlers if not exists
-					self._ui.listElements.forEach(function(liItem) {
+					self._ui.listElements.forEach(function (liItem) {
 						var handler = null;
+
 						if (!liItem.querySelector("." + classes.HANDLER)) {
 							handler = document.createElement("div");
 							handler.classList.add(classes.HANDLER);
@@ -732,15 +734,16 @@
 					rows,
 					styleElement,
 					styles = [],
-					index = 0, row, col;
+					index = 0,
+					row, col;
 
 				styleElement = document.createElement("style");
 				styleElement.type = "text/css";
 
 				rows = Math.ceil(length / cols);
 
-				for(row = 0; row < rows; row++) {
-					for(col = 0; col < cols && index < length; col++) {
+				for (row = 0; row < rows; row++) {
+					for (col = 0; col < cols && index < length; col++) {
 						listElements[index].style.animation = "grid_show_item cubic-bezier(0.25, 0.46, 0.45, 1.00) 350ms " + (17 * index) + "ms";
 						styles.push(self._getTransformStyle(col, row, ++index));
 					}
@@ -777,7 +780,7 @@
 			 * @protected
 			 * @member ns.widget.mobile.GridView
 			 */
-			prototype._removeGridStyle = function() {
+			prototype._removeGridStyle = function () {
 				var styleElement = this._styleElement;
 
 				if (styleElement) {
@@ -855,7 +858,7 @@
 				var self = this,
 					options = self.options,
 					labelCheck;
-				
+
 				labelCheck = label || options.label;
 
 				element.classList.remove(classes.LABEL_IN);

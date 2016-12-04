@@ -92,6 +92,7 @@
 					var gridClassList = element.classList,
 						kids = slice.call(element.children),
 						iterator;
+
 					if (!gridType) {
 						gridType = gridTypes[kids.length];
 						if (!gridType) {

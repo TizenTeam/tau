@@ -125,6 +125,7 @@
 				findFirstLetter = function (listElement) {
 					// look for the text in the given element
 					var text = listElement.textContent || null;
+
 					if (!text) {
 						return null;
 					}
@@ -145,6 +146,7 @@
 					var liCollection = selectors.getChildrenBySelector(list, "li[data-role='list-divider']"),
 						i,
 						len = liCollection.length;
+
 					for (i = 0; i < len; i++) {
 						list.removeChild(liCollection[i]);
 					}
@@ -272,6 +274,7 @@
 				 */
 				initializeAutodividers = function initializeAutodividers(self, element) {
 					var onBeforeRefreshListItems = beforeRefreshListItems.bind(null, self, element);
+
 					beforeRefreshListItemsHandlers[self.id] = onBeforeRefreshListItems;
 					/**
 					 * Options object
@@ -309,6 +312,7 @@
 			 */
 			Listview.prototype._setAutodividers = function Listview_setAutodividers(element, enabled) {
 				var options = this.options;
+
 				if (options.autodividers === enabled) {
 					return false;
 				}
@@ -333,6 +337,7 @@
 			 */
 			Listview.prototype._configure = function Listview_configure() {
 				var options;
+
 				if (typeof parent_configure === "function") {
 					parent_configure.call(this);
 				}
@@ -373,6 +378,7 @@
 
 			Listview.prototype._init = function Listview_init(element) {
 				var autodividers = this.options.autodividers;
+
 				if (autodividers === undefined || autodividers === null) {
 					initializeAutodividers(this, element);
 				}
@@ -391,6 +397,7 @@
 			 */
 			Listview.prototype._destroy = function _destroy() {
 				var element = this.element;
+
 				element.removeEventListener("beforerefreshitems",
 					beforeRefreshListItemsHandlers[this.id]);
 				this.options.autodividers = null;

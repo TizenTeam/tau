@@ -159,6 +159,7 @@
 			 */
 			function prepareSelector() {
 				var length = selectors.length;
+
 				selectorsString = "";
 				utilArray.forEach(selectors, function (object, index) {
 					selectorsString += object.value;
@@ -188,6 +189,7 @@
 			function getRelativeAngle(context, referenceElement) {
 				var contextRect = context.getBoundingClientRect(),
 					referenceRect = referenceElement.getBoundingClientRect();
+
 				return atan2(contextRect.top - referenceRect.top, contextRect.left - referenceRect.left) * 180 / PI;
 			}
 
@@ -201,6 +203,7 @@
 			 */
 			function getDirectionFromAngle(angle) {
 				var a = Math.abs(angle);
+
 				if (a >= 0 && a < 45) { // motion right
 					return EVENT_POSITION.right;
 				}
@@ -252,6 +255,7 @@
 							differentX = Math.abs(currentLinkOffset.left - linkOffset.left),
 							differentY = Math.abs(currentLinkOffset.top - linkOffset.top),
 							xyProportion = differentY / differentX;
+
 						return {
 							offset: linkOffset,
 							element: link,
@@ -281,7 +285,7 @@
 							}).map(mapToElement);
 						case "right":
 							return linksOffset.filter(function (linkOffset) {
-								return filterNeighbors ? filterNeighbors("right", linkOffset, currentLink, currentLinkOffset) : (linkOffset.offset.left > currentLinkOffset.left );
+								return filterNeighbors ? filterNeighbors("right", linkOffset, currentLink, currentLinkOffset) : (linkOffset.offset.left > currentLinkOffset.left);
 							}).sort(function (linkOffset1, linkOffset2) {
 								return (linkOffset1.differentY === linkOffset2.differentY) ?
 									(linkOffset1.offset.left === linkOffset2.offset.left ? 0 :
@@ -313,6 +317,7 @@
 				}
 				linksOffset = utilArray.map(links, function (link) {
 					var linkOffset = offset(link);
+
 					return {
 						offset: linkOffset,
 						element: link,
@@ -322,7 +327,7 @@
 				});
 				return utilArray.map(linksOffset.sort(function (linkOffset1, linkOffset2) {
 					// sort elements
-					return ((linkOffset1.offset.top === linkOffset2.offset.top) ? (linkOffset1.offset.left < linkOffset2.offset.left ? -1 : 1 ) :
+					return ((linkOffset1.offset.top === linkOffset2.offset.top) ? (linkOffset1.offset.left < linkOffset2.offset.left ? -1 : 1) :
 						(linkOffset1.offset.top < linkOffset2.offset.top ? -1 : 1))
 						// sort elements, elements with shortest distance are on top of list
 						;
@@ -481,6 +486,7 @@
 			 */
 			prototype._onKeyup = function (event) {
 				var self = this;
+
 				if (self._supportKeyboard) {
 					if (!self.keydownEventRepeated) {
 						// short press was detected
@@ -503,6 +509,7 @@
 					element = null,
 					currentElement = self._focusedElement,
 					fromPosition = EVENT_POSITION.down;
+
 				if (self._supportKeyboard) {
 					// check matching or find matching parent
 					element = selectorUtils.matchesSelector(selectorsString, element)
@@ -670,6 +677,7 @@
 			 */
 			prototype._bindEventKey = function () {
 				var self = this;
+
 				if (!self._onKeyupHandler) {
 					self._onKeyupHandler = self._onKeyup.bind(self);
 					self._onKeydownHandler = self._onKeydown.bind(self);
@@ -686,6 +694,7 @@
 			 */
 			prototype._bindEventMouse = function () {
 				var self = this;
+
 				if (!self._onClickHandler) {
 					self._onClickHandler = self._onClick.bind(self);
 					//we resign from virtual events because of problems with enter event
@@ -797,6 +806,7 @@
 			 */
 			prototype.restoreKeyboardSupport = function () {
 				var previousKeyboardWidget = previousKeyboardWidgets.pop();
+
 				if (previousKeyboardWidget) {
 					previousKeyboardWidget.enableKeyboardSupport();
 				}

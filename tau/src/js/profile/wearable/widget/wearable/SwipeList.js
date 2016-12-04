@@ -414,6 +414,7 @@
 
 			prototype._fireEvent = function (eventName, detail) {
 				var target = this.activeTarget || this.listElement;
+
 				utilsEvents.trigger(target, eventName, detail);
 			};
 

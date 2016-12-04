@@ -40,6 +40,7 @@
 				 */
 				nearestInt: function (val) {
 					var theFloor = Math.floor(val);
+
 					return (((val - theFloor) > 0.5) ? (theFloor + 1) : theFloor);
 				},
 
@@ -81,6 +82,7 @@
 					rgb.map(function (val) {
 						var ret = val * 255,
 							theFloor = Math.floor(ret);
+
 						ret = ((ret - theFloor > 0.5) ? (theFloor + 1) : theFloor);
 						ret = (((ret < 16) ? "0" : "") + (ret & 0xff).toString(16));
 						return ret;
@@ -177,7 +179,10 @@
 				 * @static
 				 */
 				RGBToHSV: function (rgb) {
-					var min, max, delta, h, s, v, r = rgb[0], g = rgb[1], b = rgb[2];
+					var min, max, delta, h, s, v,
+						r = rgb[0],
+						g = rgb[1],
+						b = rgb[2];
 
 					min = Math.min(r, Math.min(g, b));
 					max = Math.max(r, Math.max(g, b));

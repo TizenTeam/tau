@@ -133,6 +133,7 @@
 				engine = ns.engine,
 				Drawer = function () {
 					var self = this;
+
 					CoreDrawer.call(self);
 				},
 				prototype = new CoreDrawer();
@@ -152,6 +153,7 @@
 				 * Widget options
 				 * @property {number} [options.width=0] If you set width is 0, drawer width will set as the css style.
 				 */
+
 				self.options.width = 0;
 			};
 			/**

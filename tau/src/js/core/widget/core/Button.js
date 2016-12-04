@@ -14,6 +14,7 @@
 				engine = ns.engine,
 				Button = function () {
 					var self = this;
+
 					self.options = {};
 				},
 				classes = {
@@ -51,7 +52,7 @@
 			prototype._configure = function () {
 				this.options = {
 					// common options
-					inline: false,//url
+					inline: false, //url
 					icon: null,
 					disabled: false,
 					// mobile options

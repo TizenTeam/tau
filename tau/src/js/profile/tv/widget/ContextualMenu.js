@@ -48,6 +48,7 @@
 				BaseKeyboardSupport = ns.widget.tv.BaseKeyboardSupport,
 				ContextualMenu = function () {
 					var self = this;
+
 					BaseWidget.call(self);
 					BaseKeyboardSupport.call(self);
 					self._ui = self._ui || {};
@@ -137,6 +138,7 @@
 			 */
 			function createBackground(self, element) {
 				var background = createElement(classes.background);
+
 				background.id = self.id + "-bg";
 				element.appendChild(background);
 				return background;
@@ -152,6 +154,7 @@
 			 */
 			function removeBackground(self) {
 				var background = self._ui.background;
+
 				if (background) {
 					background.parentNode.removeChild(background);
 				}
@@ -164,6 +167,7 @@
 			 */
 			prototype.open = function () {
 				var self = this;
+
 				self.element.classList.add(classes.open);
 				self._isOpen = true;
 				BaseKeyboardSupport.blurAll();
@@ -188,6 +192,7 @@
 			 */
 			prototype.close = function () {
 				var self = this;
+
 				self.element.classList.remove(classes.open);
 				self._isOpen = false;
 				BaseKeyboardSupport.blurAll();

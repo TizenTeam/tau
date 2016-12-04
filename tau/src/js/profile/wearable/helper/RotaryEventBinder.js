@@ -30,7 +30,7 @@
 			"../../../core/util/object",
 			"../../../core/util/selectors"
 		],
-		function () {//>>excludeEnd("tauBuildExclude");
+		function () { //>>excludeEnd("tauBuildExclude");
 			var objectUtils = ns.util.object,
 				selectors = ns.util.selectors,
 				animationTimer = null,
@@ -54,8 +54,16 @@
 
 			function cubicBezier(x1, y1, x2, y2) {
 				return function (t) {
-					var rp = 1 - t, rp3 = 3 * rp, p2 = t * t, p3 = p2 * t, a1 = rp3 * t * rp, a2 = rp3 * p2;
-					if (t > 1) return 1;
+					var rp = 1 - t,
+						rp3 = 3 * rp,
+						p2 = t * t,
+						p3 = p2 * t,
+						a1 = rp3 * t * rp,
+						a2 = rp3 * p2;
+
+					if (t > 1) {
+						return 1;
+					}
 					return a1 * y1 + a2 * y2 + p3;
 				};
 			}
@@ -72,6 +80,7 @@
 				startTime = window.performance.now();
 				animationTimer = window.requestAnimationFrame(function animation() {
 					var gap;
+
 					currentTime = window.performance.now();
 					progress = (currentTime - startTime) / duration;
 					easeProgress = easeOut(progress);

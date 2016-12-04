@@ -120,5 +120,5 @@
  * @seeMore layout.htm Application Page Layout
  */
 //>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
-define("profile/mobile/page/pageevents", function(){})
+define("profile/mobile/page/pageevents", function () {})
 //>>excludeEnd("tauBuildExclude");

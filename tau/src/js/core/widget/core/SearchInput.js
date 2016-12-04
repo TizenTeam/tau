@@ -71,6 +71,7 @@
 				engine = ns.engine,
 				SearchInput = function () {
 					var self = this;
+
 					self.options = {};
 				},
 				classes = {

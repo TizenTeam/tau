@@ -20,14 +20,14 @@
  * Main class controls all gestures.
  * @class ns.event.gesture.Manager
  */
-( function (ns, window, document) {
+(function (ns, window, document) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(["./core",
-			"./instance",
-			"./detector",
-			"../../util/object"
-		],
+		"./instance",
+		"./detector",
+		"../../util/object"
+	],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 
@@ -86,6 +86,7 @@
 					 */
 					_bindStartEvents: function (instance) {
 						var element = instance.getElement();
+
 						if (TOUCH_DEVICE) {
 							element.addEventListener("touchstart", this);
 						}
@@ -119,6 +120,7 @@
 					 */
 					_unbindStartEvents: function (instance) {
 						var element = instance.getElement();
+
 						if (TOUCH_DEVICE) {
 							element.removeEventListener("touchstart", this);
 						}
@@ -159,7 +161,7 @@
 						}
 
 						if (eventType.match(/mouse/) &&
-							( blockMouseEvent || event.which !== 1 )) {
+							(blockMouseEvent || event.which !== 1)) {
 							return;
 						}
 
@@ -363,6 +365,7 @@
 								var cancelEvent = objectMerge({}, event, {
 									eventType: Gesture.Event.BLOCKED
 								});
+
 								detector.detect(cancelEvent);
 							});
 							this.runningDetectors.length = 0;
@@ -413,7 +416,7 @@
 					_createDefaultEventData: function (type, event) {
 						var pointers = event.touches ?
 								event.touches :
-								event.type === "mouseup" ? [] : ( event.identifier = 1 && [event] ),
+								event.type === "mouseup" ? [] : (event.identifier = 1 && [event]),
 							pointer = pointers[0],
 							timeStamp = new Date().getTime();
 
@@ -497,8 +500,8 @@
 						}
 
 						estimated = {
-							x: Math.round(ev.pointer.clientX + ( timeDifference * velocity.x * (deltaFromLast.x < 0 ? -1 : 1) )),
-							y: Math.round(ev.pointer.clientY + ( timeDifference * velocity.y * (deltaFromLast.y < 0 ? -1 : 1) ))
+							x: Math.round(ev.pointer.clientX + (timeDifference * velocity.x * (deltaFromLast.x < 0 ? -1 : 1))),
+							y: Math.round(ev.pointer.clientY + (timeDifference * velocity.y * (deltaFromLast.y < 0 ? -1 : 1)))
 						};
 
 						// Prevent that point goes back even though direction is not changed.
@@ -549,6 +552,7 @@
 					 */
 					register: function (instance) {
 						var idx = this.instances.indexOf(instance);
+
 						if (idx < 0) {
 							this.instances.push(instance);
 							this._bindStartEvents(instance);
@@ -600,7 +604,7 @@
 
 				return {
 					getInstance: function () {
-						return instance ? instance : ( instance = new Manager() );
+						return instance ? instance : (instance = new Manager());
 					}
 				};
 			})();
@@ -608,4 +612,4 @@
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
-}(ns, window, window.document) );
+}(ns, window, window.document));

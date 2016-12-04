@@ -80,6 +80,7 @@
 				 */
 				Progress = function () {
 					var self = this;
+
 					self.options = utilsObject.merge({}, Progress.defaults);
 					self._ui = {};
 					self._type = null;

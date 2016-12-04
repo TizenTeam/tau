@@ -287,6 +287,7 @@
 			 */
 			function loading(self, index, container) {
 				var loadFunction = loading.bind(null, self, index, container);
+
 				if (self.images[index] === undefined) {
 					return;
 				}
@@ -317,7 +318,7 @@
 				uiGalleryBg: "ui-gallery-bg",
 				uiContent: "ui-content",
 				uiHeader: "ui-header",
-				uiFooter: "ui-footer",
+				uiFooter: "ui-footer"
 			};
 
 			/**
@@ -346,6 +347,7 @@
 				var i = 0,
 					length = images.length,
 					image;
+
 				while (i < length) {
 					image = images[0];
 					this.images[i] = image.parentNode.removeChild(image);
@@ -364,6 +366,7 @@
 			Gallery.prototype._detach = function (index, container) {
 				var images = this.images,
 					image = images[index];
+
 				if (container && index >= 0 && index < images.length && image.parentNode) {
 					container.style.display = "none";
 					images[index] = image.parentNode.removeChild(image);
@@ -424,6 +427,7 @@
 			Gallery.prototype._init = function (element) {
 				var images = element.getElementsByTagName("img"),
 					classes = Gallery.classes;
+
 				this.container = selectors.getChildrenByClass(element, classes.uiGalleryContainer)[0];
 				this._detachAll(images);
 

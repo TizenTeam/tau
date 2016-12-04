@@ -21,12 +21,12 @@
  *
  * @class ns.event.gesture.Detector
  */
-( function (ns) {
+(function (ns) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(["./core",
-			"../../util/object"
-		],
+		"../../util/object"
+	],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 			/**

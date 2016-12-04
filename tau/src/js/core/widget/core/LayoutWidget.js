@@ -87,6 +87,7 @@
 			 */
 			prototype._appendWidget = function (widget) {
 				var self = this;
+
 				if (!self.hasOwnProperty("_children")) {
 					self._children = {};
 				}
@@ -124,7 +125,8 @@
 			 * @member ns.widget.core.LayoutWidget
 			 */
 			prototype.append = function (widget) {
-				var i, len, self = this;
+				var i, len,
+					self = this;
 
 				if (!Array.isArray(widget)) {
 					widget = [widget];
@@ -158,6 +160,7 @@
 
 			prototype.getClientWidth = function () {
 				var self = this;
+
 				if (typeof self._getClientWidth === TYPE_FUNCTION) {
 					return self._getClientWidth();
 				}
@@ -166,6 +169,7 @@
 
 			prototype.getClientHeight = function () {
 				var self = this;
+
 				if (typeof self._getClientHeight === TYPE_FUNCTION) {
 					return self._getClientHeight();
 				}
@@ -174,6 +178,7 @@
 
 			prototype.getWidth = function () {
 				var self = this;
+
 				if (typeof self._getWidth === TYPE_FUNCTION) {
 					return self._getWidth();
 				}
@@ -182,6 +187,7 @@
 
 			prototype.getHeight = function () {
 				var self = this;
+
 				if (typeof self._getHeight === TYPE_FUNCTION) {
 					return self._getHeight();
 				}
@@ -199,6 +205,7 @@
 
 			prototype.setWidth = function (width) {
 				var self = this;
+
 				if (typeof self._setWidth === TYPE_FUNCTION) {
 					return self._setWidth(width);
 				}
@@ -206,6 +213,7 @@
 
 			prototype.setHeight = function (height) {
 				var self = this;
+
 				if (typeof self._setHeight === TYPE_FUNCTION) {
 					return self._setHeight(height);
 				}
@@ -213,6 +221,7 @@
 
 			prototype.setPosition = function (left, top) {
 				var self = this;
+
 				if (typeof self._setPosition === TYPE_FUNCTION) {
 					return self._setPosition(left, top);
 				}
@@ -220,6 +229,7 @@
 
 			prototype.getPosition = function () {
 				var self = this;
+
 				if (typeof self._getPosition === TYPE_FUNCTION) {
 					return self._getPosition();
 				}

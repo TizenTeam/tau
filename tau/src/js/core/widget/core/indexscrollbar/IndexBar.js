@@ -166,7 +166,8 @@
 						leftItems = totalLeft % parseInt(visibleIndexLen / 2, 10),
 						indexItemSize = [],
 						mergedIndices = [],
-						i, len, position = 0;
+						i, len,
+						position = 0;
 
 					for (i = 0, len = visibleIndexLen; i < len; i++) {
 						indexItemSize[i] = 1;
@@ -216,6 +217,7 @@
 					var nItem = this.indices.merged.length,
 						totalIndexLen = nItem * this.options.indexHeight,
 						vPadding = parseInt((this.container.offsetHeight - totalIndexLen) / 2, 10);
+
 					this.element.style.paddingTop = vPadding + "px";
 				},
 

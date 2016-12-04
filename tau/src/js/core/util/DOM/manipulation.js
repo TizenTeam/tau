@@ -84,6 +84,7 @@
 			DOM.appendNodes = function (context, elements) {
 				var i,
 					len;
+
 				if (context) {
 					if (elements instanceof Array || elements instanceof NodeList || elements instanceof HTMLCollection) {
 						elements = slice.call(elements);
@@ -143,6 +144,7 @@
 				var i,
 					len,
 					parent;
+
 				if (context) {
 					parent = context.parentNode;
 					if (elements instanceof Array || elements instanceof NodeList || elements instanceof HTMLCollection) {

@@ -85,7 +85,8 @@
 					width = this.width - margin * (len - 1),
 					std = Math.floor(width / len),
 					remain = width % len,
-					span, offset = 0;
+					span,
+					offset = 0;
 
 				for (i = 0; i < len; i++) {
 					widthTable[i] = std;

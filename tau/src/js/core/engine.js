@@ -208,6 +208,7 @@
 			function defineWidget(name, selector, methods, widgetClass, namespace, redefine, widgetNameToLowercase) {
 				var definition;
 				// Widget name is absolutely required
+
 				if (name) {
 					if (!widgetDefs[name] || redefine) {
 						//>>excludeStart("tauDebug", pragmas.tauDebug);
@@ -718,13 +719,14 @@
 				var name = (element && element.getAttribute(DATA_NAME)) ||
 					(definition && definition.name);
 				//>>excludeStart("tauDebug", pragmas.tauDebug);
+
 				if (!name) {
 					ns.error("Processing hollow widget without name on element:", element);
 				}
 				//>>excludeEnd("tauDebug");
 				definition = definition || (name && widgetDefs[name]) || {
-						"name": name
-					};
+					"name": name
+				};
 				return processWidget(element, definition, options);
 			}
 
@@ -930,6 +932,7 @@
 			 */
 			function getType(result, arg) {
 				var type = arg instanceof HTMLElement ? "HTMLElement" : typeof arg;
+
 				result[type] = arg;
 				return result;
 			}

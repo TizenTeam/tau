@@ -115,6 +115,7 @@
 					 * @property options.enable {boolean} Enable drawer component
 					 * @property options.dragEdge {number} Set the area that can open the drawer as drag gesture in drawer target element
 					 */
+
 					self.options = {
 						position: DEFAULT.POSITION,
 						width: DEFAULT.WIDTH,
@@ -198,6 +199,7 @@
 			 */
 			function bindDragEvents(self, element) {
 				var overlayElement = self._ui.drawerOverlay;
+
 				self._eventBoundElement = element;
 
 				events.enableGesture(
@@ -225,6 +227,7 @@
 			 */
 			prototype.handleEvent = function (event) {
 				var self = this;
+
 				switch (event.type) {
 					case "drag":
 						self._onDrag(event);
@@ -270,6 +273,7 @@
 			 */
 			prototype._onMouseup = function () {
 				var self = this;
+
 				if (self._state === STATE.SLIDING) {
 					self.close();
 				}
@@ -282,6 +286,7 @@
 			 */
 			prototype._onClick = function () {
 				var self = this;
+
 				if (self._state === STATE.OPENED) {
 					self.close();
 				}
@@ -296,6 +301,7 @@
 			prototype._onResize = function () {
 				var self = this;
 				// resize event handler
+
 				self._refresh();
 			};
 
@@ -365,6 +371,7 @@
 			 */
 			prototype._onDragStart = function (event) {
 				var self = this;
+
 				if (self._state === STATE.OPENED) {
 					return;
 				}
@@ -413,6 +420,7 @@
 				var self = this,
 					options = self.options,
 					detail = event.detail;
+
 				if (options.enable && self._isDrag) {
 					if (Math.abs(detail.deltaX) > options.width / 2) {
 						self.open();
@@ -431,6 +439,7 @@
 			 */
 			prototype._onDragCancel = function () {
 				var self = this;
+
 				if (self.options.enable && self._isDrag) {
 					self.close();
 				}
@@ -521,6 +530,7 @@
 					ui = self._ui,
 					options = self.options,
 					targetElement;
+
 				element.classList.add(classes.drawer);
 				element.style.top = 0;
 				targetElement = selectors.getClosestBySelector(element, options.drawerTarget);
@@ -553,6 +563,7 @@
 			prototype._init = function (element) {
 				var self = this,
 					ui = self._ui;
+
 				ui.drawerPage = selectors.getClosestByClass(element, classes.page);
 				ui.drawerPage.style.overflowX = "hidden";
 				self._initLayout();
@@ -603,6 +614,7 @@
 			prototype._translateRight = function () {
 				var self = this,
 					options = self.options;
+
 				if (options.position === "right") {
 					// If drawer position is right, drawer should be moved right side
 					if (self._state === STATE.OPENED) {
@@ -720,6 +732,7 @@
 					options = self.options,
 					drawerClassList = self.element.classList,
 					drawerOverlay = self._ui.drawerOverlay;
+
 				if (self._state !== STATE.OPENED) {
 					self._state = STATE.SETTLING;
 					self._settlingType = STATE.OPENED;
@@ -749,6 +762,7 @@
 					reverse = options ? options.reverse : false,
 					selfOptions = self.options,
 					drawerClassList = self.element.classList;
+
 				if (self._state !== STATE.CLOSED) {
 					if (!reverse && self._state === STATE.OPENED) {
 						// This method was fired by JS code or this widget.
@@ -777,6 +791,7 @@
 			 */
 			prototype.setDragHandler = function (element) {
 				var self = this;
+
 				self.options.dragEdge = 1;
 				unbindDragEvents(self, self._eventBoundElement);
 				bindDragEvents(self, element);
@@ -792,6 +807,7 @@
 			prototype.transition = function (position) {
 				var self = this,
 					options = self.options;
+
 				if (options.position === "left") {
 					self._translate(-options.width + position, options.duration);
 				} else {

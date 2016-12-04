@@ -63,6 +63,7 @@
 			 */
 			prototype._build = function (element) {
 				var optionsBackground = this.options.background;
+
 				if (CorePageContainerPrototype._build) {
 					element = CorePageContainerPrototype._build(element);
 				}
@@ -87,6 +88,7 @@
 				 * @property {string} [options.background=""] background image path
 				 * @member ns.widget.tv.PageContainer
 				 */
+
 				options.background = null;
 				this.options = options;
 			};

@@ -80,5 +80,5 @@
  * @seeMore ../index.htm Tizen Advanced UI Framework
  */
 //>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
-define("profile/mobile/page/layout", function(){})
+define("profile/mobile/page/layout", function () {})
 //>>excludeEnd("tauBuildExclude");

@@ -35,6 +35,7 @@
 				selectors = ns.util.selectors,
 				Bouncing = function (scrollerElement, options) {
 					var self = this;
+
 					self._orientation = null;
 					self._maxValue = null;
 
@@ -81,6 +82,7 @@
 			Bouncing.prototype = {
 				_create: function (scrollerElement, options) {
 					var self = this;
+
 					if (self.options.scrollEndEffectArea === endEffectAreaType.content) {
 						self._container = scrollerElement;
 					} else {
@@ -142,6 +144,7 @@
 				 */
 				dragEnd: function () {
 					var self = this;
+
 					if (self._isShow && !self._isShowAnimating && !self._isHideAnimating) {
 						self._beginHide();
 					}
@@ -156,6 +159,7 @@
 				 */
 				show: function () {
 					var self = this;
+
 					if (self._targetElement) {
 						self._isShow = true;
 						self._beginShow();
@@ -169,6 +173,7 @@
 				 */
 				hide: function () {
 					var self = this;
+
 					if (self._isShow) {
 						self._minEffectElement.style.display = "none";
 						self._maxEffectElement.style.display = "none";
@@ -184,6 +189,7 @@
 				_checkAndShow: function (x, y) {
 					var self = this,
 						val = self._getValue(x, y);
+
 					if (!self._isShow) {
 						if (val >= 0) {
 							self._targetElement = self._minEffectElement;
@@ -204,6 +210,7 @@
 
 				_beginShow: function () {
 					var self = this;
+
 					if (!self._targetElement || self._isShowAnimating) {
 						return;
 					}
@@ -219,6 +226,7 @@
 
 				_finishShow: function () {
 					var self = this;
+
 					self._isShowAnimating = false;
 					if (!self._isDrag) {
 						self._targetElement.classList.remove(classes.show);
@@ -228,6 +236,7 @@
 
 				_beginHide: function () {
 					var self = this;
+
 					if (self._isHideAnimating) {
 						return;
 					}
@@ -241,6 +250,7 @@
 
 				_finishHide: function () {
 					var self = this;
+
 					self._isHideAnimating = false;
 					self._targetElement.classList.remove(classes.hide);
 					self.hide();

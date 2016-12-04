@@ -64,6 +64,7 @@
 					var keyName = event.keyName,
 						elActiveSelectMenu,
 						activeSelectMenu;
+
 					if (ns.getConfig("enableHWKeyHandler", true) && (keyName === "menu" || keyName === "back")) {
 						elActiveSelectMenu = document.querySelector("div.ui-selectmenu-active select");
 						if (elActiveSelectMenu) {

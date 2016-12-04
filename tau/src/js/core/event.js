@@ -120,6 +120,7 @@
 						cancelable: typeof cancelable === "boolean" ? cancelable : true
 					});
 					//>>excludeStart("tauDebug", pragmas.tauDebug);
+
 					ns.log("triggered event " + type + " on:", element.tagName + "#" + (element.id || "--no--id--"));
 					//>>excludeEnd("tauDebug");
 					return element.dispatchEvent(evt);
@@ -135,6 +136,7 @@
 				preventDefault: function (event) {
 					var originalEvent = event._originalEvent;
 					// @todo this.isPropagationStopped = returnTrue;
+
 					if (originalEvent && originalEvent.preventDefault) {
 						originalEvent.preventDefault();
 					}
@@ -151,6 +153,7 @@
 				stopPropagation: function (event) {
 					var originalEvent = event._originalEvent;
 					// @todo this.isPropagationStopped = returnTrue;
+
 					if (originalEvent && originalEvent.stopPropagation) {
 						originalEvent.stopPropagation();
 					}
@@ -167,6 +170,7 @@
 				stopImmediatePropagation: function (event) {
 					var originalEvent = event._originalEvent;
 					// @todo this.isPropagationStopped = returnTrue;
+
 					if (originalEvent && originalEvent.stopImmediatePropagation) {
 						originalEvent.stopImmediatePropagation();
 					}
@@ -214,8 +218,7 @@
 					if (page.x || page.y) {
 						posX = page.x;
 						posY = page.y;
-					}
-					else if (client.x || client.y) {
+					} else if (client.x || client.y) {
 						posX = client.x + body.scrollLeft + documentElement.scrollLeft;
 						posY = client.y + body.scrollTop + documentElement.scrollTop;
 					}
@@ -370,6 +373,7 @@
 						typesLength,
 						elements,
 						listeners;
+
 					if (isArrayLike(element)) {
 						elements = element;
 					} else {
@@ -421,6 +425,7 @@
 							for (j = 0; j < typesLength; j++) {
 								callbacks[i][j] = (function (i, j) {
 									var args = arraySlice.call(arguments);
+
 									ns.event.fastOff(elements[i], listeners[j].type, callbacks[i][j], useCapture);
 									args.shift(); // remove the first argument of binding function
 									args.shift(); // remove the second argument of binding function

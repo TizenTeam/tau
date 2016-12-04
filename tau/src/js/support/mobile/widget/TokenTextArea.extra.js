@@ -350,6 +350,7 @@
 			 */
 			function _selectBlock(block) {
 				var blockClasses = block.classList;
+
 				blockClasses.add(classes.uiTokentextareaSblock);
 				blockClasses.remove(classes.uiTokentextareaBlock);
 			}
@@ -364,6 +365,7 @@
 			 */
 			function _unselectBlock(block) {
 				var blockClasses = block.classList;
+
 				blockClasses.remove(classes.uiTokentextareaSblock);
 				blockClasses.add(classes.uiTokentextareaBlock);
 			}
@@ -381,6 +383,7 @@
 			function setMaxSizeBlock(element) {
 				var parent = element.parentNode,
 					maxWidth;
+
 				maxWidth = parent.offsetWidth / 2;
 				element.style.maxWidth = maxWidth + "px";
 			}
@@ -399,6 +402,7 @@
 					block,
 					blockLength,
 					i;
+
 				if (arguments.length === 1) {
 					element.parentNode.removeChild(element);
 				} else {
@@ -436,7 +440,7 @@
 
 				if (widget._focusStatus) {
 					if (element.classList.contains(
-							classes.uiTokentextareaSblock)) {
+						classes.uiTokentextareaSblock)) {
 						_removeTextBlock(element);
 					} else {
 						lockBlock = parent.getElementsByClassName(
@@ -558,6 +562,7 @@
 			function _unlockTextBlock(element) {
 				var selectedBlock = element.getElementsByClassName(
 					classes.uiTokentextareaSblock)[0];
+
 				if (selectedBlock !== undefined) {
 					_unselectBlock(selectedBlock);
 				}
@@ -693,6 +698,7 @@
 			Tokentextarea.prototype.add = function (messages, blockIndex) {
 				var focusStatus = this._focusStatus,
 					element = this.element;
+
 				if (focusStatus) {
 					_addTextBlock(element, messages, blockIndex);
 				}
@@ -728,6 +734,7 @@
 			Tokentextarea.prototype.remove = function (blockIndex) {
 				var focusStatus = this._focusStatus,
 					element = this.element;
+
 				if (focusStatus) {
 					_removeTextBlock(element, blockIndex);
 				}
@@ -758,6 +765,7 @@
 			 */
 			Tokentextarea.prototype.length = function () {
 				var element = this.element;
+
 				return element.getElementsByClassName(
 					classes.uiTokentextareaSpanBlock).length;
 			};
@@ -974,10 +982,11 @@
 			 */
 			function _getElementWidth(element) {
 				var elementView;
+
 				elementView = document.defaultView
 					.getComputedStyle(element);
 				return parseInt(
-						elementView.getPropertyValue("margin-left"), 10) +
+					elementView.getPropertyValue("margin-left"), 10) +
 					parseInt(elementView.getPropertyValue("margin-right"), 10) +
 					element.offsetWidth;
 			}

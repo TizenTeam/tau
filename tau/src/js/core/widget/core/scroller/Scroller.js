@@ -191,6 +191,7 @@
 
 			prototype._initBouncingEffect = function () {
 				var o = this.options;
+
 				if (o.useBouncingEffect) {
 					this.bouncingEffect = new EffectBouncing(this.element, {
 						maxScrollX: this.maxScrollX,
@@ -278,6 +279,7 @@
 			 */
 			prototype.setOptions = function (options) {
 				var name;
+
 				for (name in options) {
 					if (options.hasOwnProperty(name) && !!options[name]) {
 						this.options[name] = options[name];

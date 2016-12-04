@@ -82,6 +82,7 @@
 				utilDOM = ns.util.DOM,
 				DateInput = function () {
 					var self = this;
+
 					BaseWidget.call(self);
 					BaseKeyboardSupport.call(self);
 					self._callbacks = {

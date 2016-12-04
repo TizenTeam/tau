@@ -53,6 +53,7 @@
 				FUNCTION_TYPE = "function",
 				Button = function () {
 					var self = this;
+
 					BaseButton.call(self);
 					BaseKeyboardSupport.call(self);
 					self._callbacks = {};
@@ -222,6 +223,7 @@
 			 */
 			prototype._buildBackground = function (element) {
 				var backgroundElement;
+
 				if (this.options.background) {
 					backgroundElement = createBackgroundElement(this.ui.container);
 					backgroundElement.id = element.id + "-background";
@@ -258,6 +260,7 @@
 					newChild,
 					child,
 					i;
+
 				if (this.options.marquee) {
 					for (i = 0; i < length; i++) {
 						child = children[i];

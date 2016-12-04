@@ -162,6 +162,7 @@
 				engine = ns.engine,
 				Drawer = function () {
 					var self = this;
+
 					CoreDrawer.call(self);
 					BaseKeyboardSupport.call(self);
 					self._pageSelector = Page.classes.uiPage;
@@ -222,6 +223,7 @@
 			prototype.open = function (duration) {
 				var self = this,
 					CorePrototypeOpen = CoreDrawerPrototype.open;
+
 				if (typeof CorePrototypeOpen === FUNCTION_TYPE) {
 					CorePrototypeOpen.call(self, duration);
 				}
@@ -238,6 +240,7 @@
 			prototype.close = function (duration) {
 				var self = this,
 					CorePrototypeClose = CoreDrawerPrototype.close;
+
 				if (typeof CorePrototypeClose === FUNCTION_TYPE) {
 					CorePrototypeClose.call(self, duration);
 				}
@@ -257,6 +260,7 @@
 				var self = this,
 					ui = self._ui,
 					dynamicListElement;
+
 				if ((element && element.dataset.rel === "dynamic") || id) {
 					if (ui.currentDynamic) {
 						ui.currentDynamic.classList.remove(classes.uiDynamicBoxActive);
@@ -286,6 +290,7 @@
 			prototype._closeActiveElement = function () {
 				var self = this,
 					ui = self._ui;
+
 				if (ui.currentDynamic) {
 					ui.currentDynamic.classList.remove(classes.uiDynamicBoxActive);
 				}
@@ -347,6 +352,7 @@
 			 */
 			prototype._bindEvents = function () {
 				var CorePrototypeBindEvents = CoreDrawerPrototype._bindEvents;
+
 				if (typeof CorePrototypeBindEvents === FUNCTION_TYPE) {
 					CorePrototypeBindEvents.call(this);
 				}
@@ -361,6 +367,7 @@
 			 */
 			prototype._destroy = function () {
 				var CorePrototypeDestroy = CoreDrawerPrototype._destroy;
+
 				this._destroyEventKey();
 				if (typeof CorePrototypeDestroy === FUNCTION_TYPE) {
 					CorePrototypeDestroy.call(this);

@@ -51,6 +51,7 @@
 					 * @property {string} [options.theme=null] theme of widget
 					 * @member ns.widget.mobile.ToggleSwitchExtra                 *
 					 */
+
 					self.options = {
 						trackTheme: null,
 						disabled: false,
@@ -198,6 +199,7 @@
 					handle = self._ui.handle;
 				// NOTE: we don't do this in refresh because we still want to
 				//	support programmatic alteration of disabled inputs
+
 				if (self._dragging && !self.options.disabled) {
 
 					// self.mouseMoved must be updated before refresh()
@@ -650,6 +652,7 @@
 			 */
 			ToggleSwitchExtra.prototype._refresh = function () {
 				var self = this;
+
 				if (self._ui.slider && self.value !== self._getValue()) {
 					refresh(self, self._getValue());
 				}

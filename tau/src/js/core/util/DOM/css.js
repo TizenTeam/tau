@@ -50,6 +50,7 @@
 				var style = window.getComputedStyle(element),
 					value = null,
 					result = def;
+
 				if (style) {
 					value = style.getPropertyValue(property);
 					if (value) {
@@ -144,6 +145,7 @@
 						"border-bottom-width": 0,
 						"box-sizing": ""
 					};
+
 				if (element) {
 					style = element.style;
 
@@ -302,6 +304,7 @@
 			function getElementOffset(element) {
 				var left = 0,
 					top = 0;
+
 				do {
 					top += element.offsetTop;
 					left += element.offsetLeft;

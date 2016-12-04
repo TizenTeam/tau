@@ -122,6 +122,7 @@
 						element = options.element,
 						onEnd = options.onEnd,
 						onPause = options.onPause;
+
 					if (event.animationName === self.keyframes.id) {
 						switch (self.state) {
 							case PLAYING:
@@ -396,6 +397,7 @@
 					keyframes = self.keyframes,
 					endCallback = self._endCallback,
 					propRegexp;
+
 				if (element) {
 					if (self._applied && keyframes) {
 						style = element.style;

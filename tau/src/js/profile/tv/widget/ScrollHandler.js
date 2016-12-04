@@ -43,6 +43,7 @@
 				BaseScrollHandlerPrototype = BaseScrollHandler.prototype,
 				ScrollHandler = function () {
 					var self = this;
+
 					self._callbacks = {};
 					BaseScrollHandler.call(self);
 					self.options = objectUtils.merge(self.options, defaults);
@@ -167,6 +168,7 @@
 					width = parseFloat(contentStyle.width),
 					paddingLeft = parseFloat(contentStyle.paddingLeft),
 					paddingRight = parseFloat(contentStyle.paddingRight);
+
 				view.style.width = Math.floor(width - paddingLeft - paddingRight) + "px";
 			};
 
@@ -209,6 +211,7 @@
 			 */
 			prototype._destroy = function (element) {
 				var callbacks = this._callbacks;
+
 				if (typeof BaseScrollHandlerPrototype._destroy === FUNCTION_TYPE) {
 					BaseScrollHandlerPrototype._destroy.call(this);
 				}

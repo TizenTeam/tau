@@ -29,7 +29,7 @@
 			"../core/engine",
 			"../core/event",
 			"../core/event/vmouse",
-			"../core/event/orientationchange",
+			"../core/event/orientationchange"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
@@ -105,6 +105,7 @@
 				proxyDispatch: function (event) {
 					var data = (event.originalEvent && event.originalEvent.detail) || event.detail,
 						args;
+
 					args = [].slice.call(arguments);
 					if (data) {
 						args.push(data);
@@ -125,6 +126,7 @@
 					$(root).on(name, function (event) {
 						var i,
 							property;
+
 						for (i = 0; i < properties.length; i++) {
 							property = properties[i];
 							if (!event[property]) {
@@ -190,6 +192,7 @@
 						$.mobile.tizen.targetRelativeCoordsFromEvent = null;
 						$.mobile.addEventBlocker = function () {
 							var i;
+
 							html.classList.add("ui-blocker");
 							for (i = 0; i < blockedEventsLength; i++) {
 								html.addEventListener(blockedEvents[i], removeEvents, true);
@@ -197,6 +200,7 @@
 						};
 						$.mobile.removeEventBlocker = function () {
 							var i;
+
 							html.classList.remove("ui-blocker");
 							for (i = 0; i < blockedEventsLength; i++) {
 								html.removeEventListener(blockedEvents[i], removeEvents, true);

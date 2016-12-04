@@ -76,6 +76,7 @@
 			function fetchSync(url, mime) {
 				var xhr = new XMLHttpRequest(),
 					status;
+
 				xhr.open("get", url, false);
 				if (mime) {
 					xhr.overrideMimeType(mime);
@@ -152,6 +153,7 @@
 			function batchCall(functionQueue) {
 				var i,
 					length = functionQueue.length;
+
 				for (i = 0; i < length; ++i) {
 					functionQueue[i].call(window);
 				}
@@ -242,6 +244,7 @@
 			 */
 			util.isNumber = function (query) {
 				var parsed = parseFloat(query);
+
 				return !isNaN(parsed) && isFinite(parsed);
 			};
 

@@ -37,6 +37,7 @@
 			//>>excludeEnd("tauBuildExclude");
 			var ColoredListview = function () {
 					var self = this;
+
 					self._ui = {};
 				},
 				slice = Array.prototype.slice,
@@ -106,6 +107,7 @@
 				var x2 = x + width;
 				var y1 = y;
 				var y2 = y + height;
+
 				gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([
 					x1, y1,
 					x2, y1,
@@ -180,7 +182,7 @@
 			 * @protected
 			 * @member ns.widget.mobile.ColoredListview
 			 */
-			prototype._initCanvasLayout = function() {
+			prototype._initCanvasLayout = function () {
 				var self = this,
 					element = self.element,
 					ui = self._ui,
@@ -210,7 +212,7 @@
 						return;
 					}
 
-					canvasElement.style.top = self._elementsDescriptions[self._ColoredListviewTop].offsetTop - DEFAULT.FIRST_SPACE  + "px";
+					canvasElement.style.top = self._elementsDescriptions[self._ColoredListviewTop].offsetTop - DEFAULT.FIRST_SPACE + "px";
 				} else {
 					clipElement = element.parentNode;
 					element.parentNode.insertBefore(canvasElement, element.parentNode.firstChild);
@@ -232,7 +234,7 @@
 			 * @protected
 			 * @member ns.widget.mobile.ColoredListview
 			 */
-			prototype._bindEvents = function() {
+			prototype._bindEvents = function () {
 				var self = this,
 					ui = self._ui,
 					page = ui.page;
@@ -252,7 +254,7 @@
 			 * @protected
 			 * @member ns.widget.mobile.ColoredListview
 			 */
-			prototype._unbindEvents = function() {
+			prototype._unbindEvents = function () {
 				var self = this,
 					ui = self._ui,
 					page = ui.page;
@@ -282,8 +284,9 @@
 			 * @public
 			 * @member ns.widget.mobile.ColoredListview
 			 */
-			prototype.handleEvent = function(event) {
+			prototype.handleEvent = function (event) {
 				var self = this;
+
 				switch (event.type) {
 					case "pagebeforeshow":
 						self._initCanvasLayout();
@@ -309,7 +312,7 @@
 			 * @protected
 			 * @member ns.widget.mobile.ColoredListview
 			 */
-			prototype._checkTop = function() {
+			prototype._checkTop = function () {
 				var self = this,
 					ui = self._ui,
 					scrollTop = self._ui.clipElement.scrollTop,
@@ -386,7 +389,7 @@
 					elementsDescriptions = self._elementsDescriptions,
 					element = null;
 
-				for (i = 0; i < len; i++){
+				for (i = 0; i < len; i++) {
 					currentItem = uiLiElements[i];
 					element = {
 						colorChange: true,
@@ -400,7 +403,7 @@
 						element.colorChange = false;
 						// If current element has a collapsible parent (element from sublist)
 						// offset from top will return invalid values, this is handled here
-					} else if(currentItem.collapsibleParent) {
+					} else if (currentItem.collapsibleParent) {
 						element.offsetTop += currentItem.collapsibleParent.offsetTop + widgetOffsetTop;
 					}
 
@@ -521,6 +524,7 @@
 					listTop,
 					top,
 					i;
+
 				if (!gl) {
 					return;
 				}
@@ -575,6 +579,7 @@
 			prototype._destroyColoredListview = function () {
 				var self = this,
 					ui = self._ui;
+
 				if (ui.canvasElement.parentNode) {
 					ui.canvasElement.parentNode.removeChild(ui.canvasElement);
 				}
@@ -586,7 +591,7 @@
 			 * @protected
 			 * @member ns.widget.mobile.ColoredListview
 			 */
-			prototype._refresh = function() {
+			prototype._refresh = function () {
 				var self = this;
 
 				ListviewPrototype._refresh.call(self);
@@ -601,6 +606,7 @@
 			 */
 			prototype._destroy = function () {
 				var self = this;
+
 				self._unbindEvents();
 				self._destroyColoredListview();
 				self._gl = null;

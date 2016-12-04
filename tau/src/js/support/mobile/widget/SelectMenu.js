@@ -34,6 +34,7 @@
 			//>>excludeEnd("tauBuildExclude");
 			var SelectMenu = ns.widget.mobile.DropdownMenu,
 				engine = ns.engine;
+
 			ns.widget.mobile.SelectMenu = SelectMenu;
 			engine.defineWidget(
 				"SelectMenu",

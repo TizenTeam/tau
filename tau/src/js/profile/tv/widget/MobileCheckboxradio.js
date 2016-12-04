@@ -121,6 +121,7 @@
 					 * @property {string} [options.theme='s'] Widget's theme
 					 * @member ns.widget.mobile.Checkboxradio
 					 */
+
 					self.options = {
 						theme: "s"
 					};
@@ -279,6 +280,7 @@
 			function setStyleForChecked(self) {
 				var labelClassList = self.label.classList,
 					iconClassList;
+
 				if (self.icon) {
 					iconClassList = self.icon.classList;
 					iconClassList.add(self.checkedIcon);
@@ -292,6 +294,7 @@
 			function setStyleForUnchecked(self) {
 				var labelClassList = self.label.classList,
 					iconClassList;
+
 				if (self.icon) {
 					iconClassList = self.icon.classList;
 					iconClassList.add(self.uncheckedIcon);
@@ -313,6 +316,7 @@
 			 */
 			function setCheckboxradioStatus(self, status) {
 				var element = self.element;
+
 				if (!element.getAttribute("disabled")) {
 					if (status) {
 						// checkbox is checked
@@ -340,6 +344,7 @@
 					selector = [],
 					definition,
 					label;
+
 				if (parent) { //1
 					parent.parentNode.replaceChild(parent.firstElementChild, parent);
 					return parent;
@@ -524,6 +529,7 @@
 			 */
 			Checkboxradio.prototype._init = function (element) {
 				var self = this;
+
 				self.label = self._findLabel();
 				self.icon = self.label.getElementsByClassName("ui-icon")[0];
 				self.wrapper = element.parentNode;
@@ -644,6 +650,7 @@
 			Checkboxradio.prototype._destroy = function () {
 				var self = this,
 					callbacks = self._callbacks;
+
 				self.label.removeEventListener("vclick", callbacks.onLabelClick, true);
 				self.element.removeEventListener("vclick", callbacks.onInputClick, false);
 			};
@@ -659,6 +666,7 @@
 				var radios = this._getInputSet(),
 					i,
 					max = radios.length;
+
 				for (i = 0; i < max; i++) {
 					if (radios[i].checked) {
 						return radios[i];

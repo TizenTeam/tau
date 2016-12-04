@@ -180,7 +180,7 @@
 					 * @member ns.widget.mobile.NavBar
 					 */
 					this.options = {
-						iconpos : "top",
+						iconpos: "top",
 						grid: null
 					};
 
@@ -282,6 +282,7 @@
 			proto._bindEvents = function (element) {
 				var buttons = element.getElementsByTagName("a"),
 					buttonClick = vclickHandler.bind(null, slice.call(buttons));
+
 				element.addEventListener("vclick", buttonClick, false);
 				this._callbacks.buttonClick = buttonClick;
 			};
@@ -294,6 +295,7 @@
 			 */
 			proto._destroy = function () {
 				var buttonClick = this._callbacks.buttonClick;
+
 				if (buttonClick) {
 					this.element.removeEventListener("vclick", buttonClick, false);
 				}

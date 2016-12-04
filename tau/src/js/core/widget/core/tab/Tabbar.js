@@ -188,6 +188,7 @@
 
 				TabBar = function () {
 					var self = this;
+
 					self._type = {
 						orientation: "portrait",
 						withIcon: false,
@@ -248,6 +249,7 @@
 			function findTitle(element) {
 				var parentNode = element.parentNode,
 					title;
+
 				while (parentNode && !parentNode.classList.contains(Page.classes.uiPage)) {
 					title = parentNode.querySelector("." + classes.TITLE);
 					if (title) {
@@ -419,6 +421,7 @@
 			 */
 			prototype.handleEvent = function (event) {
 				var self = this;
+
 				switch (event.type) {
 					case "drag":
 						self._onDrag(event);

@@ -111,6 +111,7 @@
 				BaseKeyboardSupport = ns.widget.tv.BaseKeyboardSupport,
 				HomeBar = function () {
 					var self = this;
+
 					BaseWidget.call(self);
 					BaseKeyboardSupport.call(self);
 					self._ui = self._ui || {};
@@ -154,6 +155,7 @@
 			 */
 			function setAbsolutePositionTop(element, top) {
 				var style = element.style;
+
 				style.top = top + "px";
 				style.position = "absolute";
 			}
@@ -186,6 +188,7 @@
 					headerULStyle.position = "absolute";
 					utilArray.forEach(headers, function (li) {
 						var height = utilDOM.getElementHeight(li);
+
 						li.classList.add(classes.block);
 						engine.instanceWidget(li.firstElementChild, "Button");
 						setAbsolutePositionTop(li, top);
@@ -215,6 +218,7 @@
 
 				utilArray.forEach(children, function (li) {
 					var height = utilDOM.getElementHeight(li);
+
 					li.classList.add(classes.block);
 					engine.instanceWidget(li.firstElementChild, "Button");
 					setAbsolutePositionTop(li, top);
@@ -255,6 +259,7 @@
 			 */
 			prototype._init = function (element) {
 				var drawerElement = utilsSelectors.getClosestByClass(element, drawerClasses.drawer);
+
 				this._drawerWidget = engine.instanceWidget(drawerElement, "Drawer");
 				return element;
 			};
@@ -287,6 +292,7 @@
 			function activateOnClick(self, event) {
 				var clickedElement = utilsSelectors.getClosestByTag(event.target, "li"),
 					pageWidget = self._drawerWidget;
+
 				if (!self._editMode && !clickedElement.classList.contains(classes.disableMove) &&
 					self._drawerWidget.isOpen()) {
 					// enable edit mode
@@ -341,6 +347,7 @@
 			function moveUpOnClick(self) {
 				var clickedElement = self._ui.clickedElement,
 					previous = clickedElement.previousElementSibling;
+
 				if (previous && !previous.classList.contains(classes.disableMove)) {
 					self._confirmDelete = false;
 					self.element.insertBefore(clickedElement, previous);
@@ -363,6 +370,7 @@
 			function moveDownOnClick(self) {
 				var clickedElement = self._ui.clickedElement,
 					next = clickedElement.nextElementSibling;
+
 				if (next && !next.classList.contains(classes.disableMove)) {
 					self._confirmDelete = false;
 					self.element.insertBefore(clickedElement, next.nextElementSibling);
@@ -385,6 +393,7 @@
 			function deleteElement(self) {
 				var clickedElement = self._ui.clickedElement,
 					nextElement;
+
 				if (clickedElement) {
 					nextElement = clickedElement.nextElementSibling ? clickedElement.nextElementSibling.firstElementChild :
 						clickedElement.previousElementSibling ? clickedElement.previousElementSibling.firstElementChild : null;
@@ -451,6 +460,7 @@
 			function createBackground(self) {
 				var background = createElement(classes.background),
 					parent = findPageContainer(self.element);
+
 				background.id = self.id + "-bg";
 				parent.appendChild(background);
 				self._ui.background = background;
@@ -468,6 +478,7 @@
 			 */
 			function removeBackground(self) {
 				var background = self._ui.background;
+
 				if (background) {
 					background.parentNode.removeChild(background);
 				}
@@ -483,6 +494,7 @@
 			 */
 			function showBackground(self) {
 				var background = self._ui.background || createBackground(self);
+
 				background.classList.add(classes.backgroundActive);
 			}
 
@@ -515,6 +527,7 @@
 					buttonDown = createElement(classes.editButtonDown),
 					buttonClose = createElement(classes.editButtonClose),
 					box = createElement(classes.editBox, "ul");
+
 				container.id = self.id + "edit";
 				container.appendChild(buttonUp);
 				container.appendChild(buttonDown);
@@ -551,6 +564,7 @@
 					clonedElement,
 					buttonSize,
 					newTop;
+
 				if (self._editMode) {
 					boxStyle = box.style,
 						containerStyle = container.style;
@@ -602,6 +616,7 @@
 					containerStyle,
 					offsetContainerElement,
 					height;
+
 				if (container) {
 					containerStyle = container.style;
 					offsetContainerElement = utilDOM.getElementOffset(container);
@@ -670,6 +685,7 @@
 			 */
 			prototype.add = function (liElement) {
 				var element = this.element;
+
 				element.insertBefore(liElement, placeToAdd(element));
 				liElement.classList.add(classes.block);
 				engine.instanceWidget(liElement.firstElementChild, "Button", {
@@ -730,6 +746,7 @@
 				var self = this,
 					element = self.element,
 					listeners = self._listeners;
+
 				listeners.click = activateOnClick.bind(null, self);
 				listeners.onKeydown = onKeydown.bind(null, self);
 				listeners.transitionend = positionBox.bind(null, self);
@@ -748,6 +765,7 @@
 			prototype._destroy = function (element) {
 				var self = this,
 					listeners = self._listeners;
+
 				element.removeEventListener("vclick", listeners.click, false);
 				document.removeEventListener("keydown", listeners.onKeydown, true);
 				tauEvent.prefixedFastOff(element, "transitionEnd", listeners.transitionend, false);

@@ -254,6 +254,7 @@
 			 */
 			ProgressBar.prototype._setValue = function (value) {
 				var options = this.options;
+
 				if (typeof value === "number") {
 					value = Math.min(options.max, Math.max(options.min, value));
 					if (value !== options.value) {

@@ -74,6 +74,7 @@
 				detectOrientationByDimensions = function (omitCustomEvent) {
 					var width = window.innerWidth,
 						height = window.innerHeight;
+
 					if (window.screen) {
 						width = window.screen.availWidth;
 						height = window.screen.availHeight;

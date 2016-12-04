@@ -305,6 +305,7 @@
 			function onTouchEnd(self) {
 				var scrollElement = self._ui.scrollableParent.element,
 					scrollTop = -scrollElement.firstElementChild.getBoundingClientRect().top;
+
 				self._isTouched = false;
 				if (scrollTop === 0 || scrollTop === scrollElement.scrollHeight - scrollElement.offsetHeight) {
 					setSelection(self);
@@ -543,6 +544,7 @@
 
 			function findClosestLink(target, listElement) {
 				var current = target;
+
 				while (current.parentNode && current !== listElement) {
 					if (current.nodeType === Node.ELEMENT_NODE && current.nodeName && current.nodeName === "A") {
 						return current;
@@ -555,6 +557,7 @@
 			function getIndexOfSnapListItem(targetListItem, targetList) {
 				var length = targetList.length,
 					i;
+
 				for (i = 0; i < length; i++) {
 					if (targetList[i].element === targetListItem) {
 						return i;
@@ -565,6 +568,7 @@
 
 			function getSnapListItem(target, listElement) {
 				var current = target;
+
 				while (current.parentNode && current !== listElement) {
 					if (current.classList.contains(classes.SNAP_LISTVIEW_ITEM)) {
 						return current;
@@ -621,7 +625,13 @@
 
 			function cubicBezier(x1, y1, x2, y2) {
 				return function (t) {
-					var rp = 1 - t, rp3 = 3 * rp, p2 = t * t, p3 = p2 * t, a1 = rp3 * t * rp, a2 = rp3 * p2;
+					var rp = 1 - t,
+						rp3 = 3 * rp,
+						p2 = t * t,
+						p3 = p2 * t,
+						a1 = rp3 * t * rp,
+						a2 = rp3 * p2;
+
 					return a1 * y1 + a2 * y2 + p3;
 				};
 			}
@@ -638,6 +648,7 @@
 				startTime = window.performance.now();
 				animationTimer = window.requestAnimationFrame(function animation() {
 					var gap;
+
 					currentTime = window.performance.now();
 					progress = (currentTime - startTime) / duration;
 					easeProgress = easeOut(progress);

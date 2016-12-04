@@ -323,6 +323,7 @@
 					 * @property {string} [options.page=""] Sets if of related page
 					 * @member ns.widget.mobile.Dialog
 					 */
+
 					self.options = {
 						closeBtn: "left",
 						closeBtnText: "Close",
@@ -402,6 +403,7 @@
 					elementClassList = self.element.classList,
 					dialogClasses = classes,
 					pageClasses = ns.widget.core.Page.classes;
+
 				if (value) {
 					elementClassList.remove(dialogClasses.uiDialogHidden);
 					elementClassList.add(pageClasses.uiPage);

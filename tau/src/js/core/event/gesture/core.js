@@ -25,8 +25,8 @@
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define([
-			"../gesture"
-		],
+		"../gesture"
+	],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 
@@ -147,4 +147,4 @@
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
-}(ns) );
+}(ns));

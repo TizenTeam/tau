@@ -158,6 +158,7 @@
 					 * @property {Object} options.fullScreen=false Defines whether the widget opens in the fullscreen view mode.
 					 * @property {Object} [options.theme] Sets the widget theme. If the value is not set, the parent control's theme is used.
 					 */
+
 					self.options = {
 						controls: true,
 						fullScreen: false,
@@ -429,6 +430,7 @@
 				var self = this,
 					control = self.ui.control,
 					fbClasses = self.ui.fullscreenButton.classList;
+
 				if (!self._isVideo) {
 					return;
 				}
@@ -555,6 +557,7 @@
 				var self = this,
 					control = self.ui.control;
 				// @todo: check binding;
+
 				self.ui = utilsObject.merge(self.ui, {
 					playpauseButton: control.querySelector("." + classes.PLAY_PAUSE),
 					seekBar: control.querySelector("." + classes.SEEK_BAR),
@@ -564,7 +567,7 @@
 					volumeControl: control.querySelector("." + classes.VOLUME_CONTROL),
 					volumeBar: control.querySelector("." + classes.VOLUME_BAR),
 					fullscreenButton: control.querySelector("." + classes.FULLSCREEN_BUTTON),
-					durationBar: control.querySelector("." + classes.DURATION),
+					durationBar: control.querySelector("." + classes.DURATION)
 				});
 				self.ui.progressBar = self.ui.durationBar.querySelector(selectors.PROGRESS_BAR_BG);
 			};
@@ -580,6 +583,7 @@
 			 */
 			MultimediaViewPrototype._init = function (element) {
 				var self = this;
+
 				if (self.ui === undefined) {
 					self.element = element;
 					self.ui = {};
@@ -615,6 +619,7 @@
 			 */
 			MultimediaViewPrototype._destroy = function () {
 				var self = this;
+
 				self._unbindEvents();
 			};
 
@@ -732,6 +737,7 @@
 			MultimediaViewPrototype._updateVolumeBarState = function () {
 				var self = this,
 					volume = engine.getBinding(self.ui.volumeBar);
+
 				volume.element.value = self.element.volume * 100;
 				volume.refresh();
 			};
@@ -751,6 +757,7 @@
 			 */
 			MultimediaViewPrototype._toggleControlPanel = function () {
 				var controlStyle = this.ui.control.style;
+
 				controlStyle.opacity = (parseFloat(controlStyle.opacity) | 0) === 0 ? 1.0 : 0;
 			};
 
@@ -778,6 +785,7 @@
 
 			function onTimeUpdate(self) {
 				var view = self.element;
+
 				self._updateSeekBar();
 				if (view.currentTime >= view.duration && !view.loop) {
 					view.pause();
@@ -786,12 +794,14 @@
 
 			function onPlay(self) {
 				var playpauseButtonClassList = self.ui.playpauseButton.classList;
+
 				playpauseButtonClassList.remove(classes.PLAY_ICON);
 				playpauseButtonClassList.add(classes.PAUSE_ICON);
 			}
 
 			function onPause(self) {
 				var playpauseButtonClassList = self.ui.playpauseButton.classList;
+
 				playpauseButtonClassList.remove(classes.PAUSE_ICON);
 				playpauseButtonClassList.add(classes.PLAY_ICON);
 			}
@@ -799,6 +809,7 @@
 			function onVolumeChange(self) {
 				var view = self.element,
 					volumeButtonClassList = self.ui.volumeButton.classList;
+
 				if (view.muted && view.volume > 0.1) {
 					volumeButtonClassList.remove(classes.VOLUME_ICON);
 					volumeButtonClassList.add(classes.MUTE_ICON);
@@ -823,6 +834,7 @@
 			function onDurationChange(self) {
 				var view = self.element,
 					durationLabel = self.ui.durationLabel;
+
 				if (!isNaN(view.duration)) {
 					durationLabel.querySelector(DURATION_LABEL_TAG_NAME).innerHTML = convertTimeFormat(view.duration);
 				}
@@ -872,12 +884,14 @@
 
 			function onVolumeBarChange(self) {
 				var volume = engine.getBinding(self.ui.volumeBar);
+
 				self._setVolume(volume.element.value / 100);
 			}
 
 			function setViewPositionFromEvent(self, event) {
 				var value = getProgressByPointerEvent(event),
 					progressBar = engine.getBinding(self.ui.durationBar);
+
 				progressBar.value(value);
 				//clearTimeout(self._changeMediaPositionTimeout);
 				//self._changeMediaPositionTimeout = setTimeout(function () {
@@ -887,11 +901,13 @@
 
 			function setViewPositionByPercent(self, percent) {
 				var view = self.element;
+
 				view.currentTime = view.duration * percent / 100;
 			}
 
 			function getProgressByPointerEvent(event) {
 				var target = event.target;
+
 				return (event.clientX - target.offsetLeft) / target.offsetWidth * 100;
 			}
 

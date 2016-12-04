@@ -61,6 +61,7 @@
 
 			function widgetFunction(parentarguments, mapItem, engine, name) {
 				var args = slice.call(parentarguments).map(mapItem);
+
 				engine[name].apply(engine, args);
 			}
 
@@ -164,6 +165,7 @@
 							closestPageData: function (target) {
 								var page = ns.util.selectors.getClosestBySelector($(target)[0],
 									"[data-" + ($.mobile.ns || "") + "role='page'], [data-" + ($.mobile.ns || "") + "role='dialog']");
+
 								return ns.engine.instanceWidget(page, "Page");
 							},
 							enhanceable: function ($set) {
@@ -296,6 +298,7 @@
 						 */
 						$.fn.jqmData = function (prop, value) {
 							var result;
+
 							if (prop !== undefined) {
 								if (prop) {
 									prop = $.mobile.nsNormalize(prop);
@@ -321,6 +324,7 @@
 
 						$.jqmData = function (context, prop, value) {
 							var result = $(context).jqmData(prop, value);
+
 							return value || result;
 						};
 
@@ -335,7 +339,7 @@
 						$.removeWithDependents = function (elem) {
 							var $elem = $(elem);
 
-							( $elem.jqmData("dependents") || $() ).remove();
+							($elem.jqmData("dependents") || $()).remove();
 							$elem.remove();
 						};
 
@@ -393,6 +397,7 @@
 							var originalEvent = event.originalEvent || event,
 								isPage = originalEvent.detail instanceof ns.widget.mobile.Page,
 								pageWidget;
+
 							if (!isPage) { // trigger create when the pagecrate trigger is from outside
 								pageWidget = engine.instanceWidget(originalEvent.target, "Page");
 								pageWidget.refresh();

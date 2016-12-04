@@ -72,6 +72,7 @@
 			 */
 			prototype._getWidth = function () {
 				var container = this.getContainer();
+
 				if (container) {
 					return container.offsetWidth;
 				}
@@ -84,6 +85,7 @@
 			 */
 			prototype._getHeight = function () {
 				var container = this.getContainer();
+
 				if (container) {
 					return container.offsetHeight;
 				}
@@ -107,6 +109,7 @@
 			 */
 			prototype._setHeight = function (height) {
 				var container = this.getContainer();
+
 				if (container) {
 					setStyle(container, "height", height);
 				}
@@ -118,6 +121,7 @@
 			 */
 			prototype._setWidth = function (width) {
 				var container = this.getContainer();
+
 				if (container) {
 					setStyle(container, "width", width);
 				}
@@ -131,6 +135,7 @@
 			 */
 			prototype._setPosition = function (left, top) {
 				var container = this.getContainer();
+
 				if (container) {
 					setStyle(container, "left", left);
 					setStyle(container, "top", top);
@@ -143,6 +148,7 @@
 			 */
 			prototype._getPosition = function () {
 				var container = this.getContainer();
+
 				if (container) {
 					return container.getBoundingClientRect();
 				}
@@ -154,6 +160,7 @@
 			 */
 			prototype._getClientWidth = function () {
 				var container = this.getContainer();
+
 				if (container) {
 					return container.getBoundingClientRect().width;
 				}
@@ -166,6 +173,7 @@
 			 */
 			prototype._getClientHeight = function () {
 				var container = this.getContainer();
+
 				if (container) {
 					return container.getBoundingClientRect().height;
 				}

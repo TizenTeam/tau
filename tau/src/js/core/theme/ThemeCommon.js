@@ -33,6 +33,7 @@
 				nsTheme = ns.theme,
 				ThemeCommon = function () {
 					var self = this;
+
 					self.enabled = false;
 					self.backup = null;
 				},
@@ -41,6 +42,7 @@
 			protoThemeCommon._enable = function () {
 				var self = this;
 				// disable it active theme
+
 				if (nsTheme._activeTheme) {
 					nsTheme._activeTheme.disable();
 				}
@@ -56,6 +58,7 @@
 				var self = this,
 					prop,
 					backupFrameworkData;
+
 				self.restoreAllWidgetOptions();
 
 				backupFrameworkData = self.backup.frameworkData;
@@ -85,6 +88,7 @@
 					i,
 					widgets = ns.engine.getDefinitions(),
 					widgetClass;
+
 				for (i in widgets) {
 					if (widgets.hasOwnProperty(i)) {
 						widgetClass = widgets[i].widgetClass;
@@ -107,6 +111,7 @@
 					i,
 					widgets = ns.engine.getDefinitions(),
 					backup = self.backup.widgetOptions;
+
 				for (i in backup) {
 					if (backup.hasOwnProperty(i)) {
 						widgets[i].widgetClass.prototype.options = utilsObject.copy(backup[i]);

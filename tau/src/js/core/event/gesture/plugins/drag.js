@@ -21,14 +21,14 @@
  *
  * @class ns.event.gesture.Drag
  */
-( function (ns, window, tizen) {
+(function (ns, window, tizen) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define([
-			"../core",
-			"../detector",
-			"../../../util/object"
-		],
+		"../core",
+		"../detector",
+		"../../../util/object"
+	],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 
@@ -59,17 +59,19 @@
 
 				// TODO UA test will move to support.
 				isTizenWebkit2Browser = !!window.navigator.userAgent.match(/tizen/i) && (function () {
-						var result = true, version;
-						if (tizen && tizen.systeminfo && tizen.systeminfo.getCapability) {
-							try {
-								version = tizen.systeminfo.getCapability("http://tizen.org/feature/platform.version");
-								return version < "3.0";
-							} catch (error) {
-								ns.error("Error name: " + error.name + ", message: " + error.message);
-							}
+					var result = true,
+						version;
+
+					if (tizen && tizen.systeminfo && tizen.systeminfo.getCapability) {
+						try {
+							version = tizen.systeminfo.getCapability("http://tizen.org/feature/platform.version");
+							return version < "3.0";
+						} catch (error) {
+							ns.error("Error name: " + error.name + ", message: " + error.message);
 						}
-						return result;
-					})();
+					}
+					return result;
+				})();
 
 			ns.event.gesture.Drag = Detector.plugin.create({
 
@@ -161,9 +163,9 @@
 						this.fixedStartPointX = 0;
 						this.fixedStartPointY = 0;
 						if (Gesture.utils.isHorizontal(ge.direction)) {
-							this.fixedStartPointX = ( ge.deltaX < 0 ? 1 : -1 ) * threshold;
+							this.fixedStartPointX = (ge.deltaX < 0 ? 1 : -1) * threshold;
 						} else {
-							this.fixedStartPointY = ( ge.deltaY < 0 ? 1 : -1 ) * threshold;
+							this.fixedStartPointY = (ge.deltaY < 0 ? 1 : -1) * threshold;
 						}
 					}
 
@@ -232,4 +234,4 @@
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
-}(ns, window, window.tizen) );
+}(ns, window, window.tizen));

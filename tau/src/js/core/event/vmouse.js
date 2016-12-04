@@ -268,6 +268,7 @@
 				var x = event.clientX,
 					y = event.clientY;
 				// event comes from keyboard
+
 				if (!x && !y) {
 					return preparePositionForEvent(event);
 				}
@@ -376,6 +377,7 @@
 			 */
 			function handleTouchEnd(evt) {
 				var touches = evt.touches;
+
 				if (touches && touches.length === 0) {
 					fireEvent("vmouseup", evt);
 					fireEvent("vmouseout", evt);
@@ -475,6 +477,7 @@
 			function preparePositionForEvent(event) {
 				var targetRect = event.target && event.target.getBoundingClientRect(),
 					properties = {};
+
 				if (targetRect) {
 					properties = {
 						"clientX": targetRect.left + targetRect.width / 2,
@@ -495,6 +498,7 @@
 			 */
 			function handleKeyUp(event) {
 				var properties;
+
 				if (event.keyCode === KEY_CODES.enter) {
 					properties = preparePositionForEvent(event);
 					fireEvent("vmouseup", event, properties);

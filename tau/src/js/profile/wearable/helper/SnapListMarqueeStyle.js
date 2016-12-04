@@ -30,7 +30,7 @@
 			"../../../core/engine",
 			"../../../core/util/object"
 		],
-		function () {//>>excludeEnd("tauBuildExclude");
+		function () { //>>excludeEnd("tauBuildExclude");
 			var engine = ns.engine,
 				objectUtils = ns.util.object,
 				defaults = {

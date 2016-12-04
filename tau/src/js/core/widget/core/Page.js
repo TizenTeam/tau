@@ -281,6 +281,7 @@
 					 * @private
 					 * @member ns.widget.core.Page
 					 */
+
 					self.contentFillAfterResizeCallback = null;
 					self._initialContentStyle = {};
 					/**
@@ -384,6 +385,7 @@
 				 * @member ns.widget.core.Page
 				 * @static
 				 */
+
 				options.header = null;
 				options.footer = null;
 				options.content = null;
@@ -590,6 +592,7 @@
 			 */
 			prototype._buildHeader = function (element) {
 				var self = this;
+
 				self._ui.header = utilSelectors.getChildrenBySelector(element, "header,[data-role='header'],." + classes.uiHeader)[0];
 				self._setHeader(element, self.options.header);
 			};
@@ -632,6 +635,7 @@
 			 */
 			prototype._build = function (element) {
 				var self = this;
+
 				element.classList.add(classes.uiPage);
 				self._buildHeader(element);
 				self._buildFooter(element);
@@ -647,6 +651,7 @@
 			 */
 			prototype.setActive = function (value) {
 				var elementClassList = this.element.classList;
+
 				if (value) {
 					this.focus();
 					elementClassList.add(classes.uiPageActive);
@@ -674,6 +679,7 @@
 			prototype.focus = function () {
 				var element = this.element,
 					focusable = element.querySelector("[autofocus]") || element;
+
 				focusable.focus();
 			};
 
@@ -685,6 +691,7 @@
 			prototype.blur = function () {
 				var element = this.element,
 					focusable = element.querySelector(":focus") || element;
+
 				focusable.blur();
 			};
 
@@ -696,6 +703,7 @@
 			 */
 			prototype._bindEvents = function () {
 				var self = this;
+
 				self.contentFillAfterResizeCallback = self._contentFill.bind(self);
 				window.addEventListener("resize", self.contentFillAfterResizeCallback, false);
 			};
@@ -785,6 +793,7 @@
 
 			Page.createEmptyElement = function () {
 				var div = document.createElement("div");
+
 				div.classList.add(classes.uiPage);
 				doms.setNSData(div, "role", "page");
 				return div;

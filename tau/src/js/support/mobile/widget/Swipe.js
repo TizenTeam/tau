@@ -275,6 +275,7 @@
 
 					covers.forEach(function (cover) {
 						var coverClassList = cover.classList;
+
 						coverClassList.remove(classes.uiSwipeItemCover);
 						coverClassList.remove(coverTheme);
 
@@ -443,6 +444,7 @@
 			prototype._build = function (element) {
 				var options = this.options,
 					protoOptions = Swipe.prototype.options;
+
 				options.theme = options.theme ||
 					ns.theme.getInheritedTheme(
 						element,
@@ -463,10 +465,11 @@
 				/* @TODO what is swipeSelectors? */
 				var swipeSelectors = {};
 				/* @TODO end */
+
 				this._ui = this._ui || {
-						covers: slice.call(element.querySelectorAll(selectorRoleSwipeItemCover)),
-						item: element.querySelector(swipeSelectors.swipeItem)
-					};
+					covers: slice.call(element.querySelectorAll(selectorRoleSwipeItemCover)),
+					item: element.querySelector(swipeSelectors.swipeItem)
+				};
 			};
 
 			/**

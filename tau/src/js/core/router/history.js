@@ -60,6 +60,7 @@
 							stateUrl: url,
 							stateTitle: stateTitle
 						});
+
 						windowHistory[historyVolatileMode ? "replaceState" : "pushState"](newState, stateTitle, url);
 						history.setActive(newState);
 					},
@@ -130,6 +131,7 @@
 						historyVolatileMode = false;
 					}
 				};
+
 			ns.router.history = history;
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 		}

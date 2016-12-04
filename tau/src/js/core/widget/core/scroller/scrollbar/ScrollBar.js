@@ -142,6 +142,7 @@
 
 			prototype._refresh = function () {
 				var self = this;
+
 				self._clear();
 				self._init();
 				self.translate(self.lastScrollPosition);
@@ -209,7 +210,7 @@
 				}
 
 				if (autoHidden) {
-					endDelay = ( duration || 0 ) + this.options.displayDelay;
+					endDelay = (duration || 0) + this.options.displayDelay;
 					this.displayDelayTimeoutId = window.setTimeout(this._end.bind(this), endDelay);
 				}
 			};

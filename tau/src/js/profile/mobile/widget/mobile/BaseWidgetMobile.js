@@ -63,6 +63,7 @@
 				var self = this,
 					definitionName,
 					widgetName;
+
 				parent_configure.call(self, definition, element, options);
 				if (definition) {
 					definitionName = definition.name;
@@ -174,7 +175,7 @@
 			prototype.enhance = function () {
 				ns.log("method enhance is deprecated");
 			};
-			
+
 
 			/**
 			* Returns element of widget.

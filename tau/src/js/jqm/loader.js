@@ -63,6 +63,7 @@
 							textonly = args[3],
 							element = document.querySelector("[data-role=loader]") || document.createElement("div"),
 							loader = ns.engine.instanceWidget(element, "Loader");
+
 						if (method === "show") {
 							loader.show(theme, msgText, textonly);
 						} else if (method === "hide") {

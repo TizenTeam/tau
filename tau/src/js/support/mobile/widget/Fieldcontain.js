@@ -174,6 +174,7 @@
 					childNode,
 					classes = FieldContain.classes;
 				// adding right classes
+
 				classList.add(classes.uiFieldContain);
 				classList.add(classes.uiBody);
 				classList.add(classes.uiBr);
@@ -230,6 +231,7 @@
 				var classList = element.classList,
 					classes = FieldContain.classes;
 				// removing classes added during building
+
 				classList.remove(classes.uiFieldContain);
 				classList.remove(classes.uiBody);
 				classList.remove(classes.uiBr);

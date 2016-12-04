@@ -96,6 +96,7 @@
 						}
 					}
 				};
+
 			ns.util.zoom = zoom;
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return ns.util.zoom;

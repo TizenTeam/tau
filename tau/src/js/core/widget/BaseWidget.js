@@ -236,6 +236,7 @@
 				 * @property {Object} [options={}]
 				 * @member ns.widget.BaseWidget
 				 */
+
 				self.options = self.options || {};
 				/**
 				 * Base element of widget
@@ -315,6 +316,7 @@
 			prototype._getCreateOptions = function (element) {
 				var options = this.options,
 					bigRegexp = /[A-Z]/g;
+
 				if (options !== undefined) {
 					Object.keys(options).forEach(function (option) {
 						// Get value from data-{namespace}-{name} element's attribute
@@ -404,6 +406,7 @@
 			 */
 			prototype.init = function (element) {
 				var self = this;
+
 				self.id = element.id;
 
 				if (typeof self._init === TYPE_FUNCTION) {
@@ -427,6 +430,7 @@
 			 */
 			prototype.getContainer = function () {
 				var self = this;
+
 				if (typeof self._getContainer === TYPE_FUNCTION) {
 					return self._getContainer();
 				}
@@ -561,6 +565,7 @@
 			 */
 			prototype.destroy = function (element) {
 				var self = this;
+
 				element = element || self.element;
 				if (typeof self._destroy === TYPE_FUNCTION) {
 					self._destroy(element);
@@ -611,6 +616,7 @@
 			 */
 			prototype.isDisabled = function () {
 				var self = this;
+
 				return self.element.getAttribute("disabled") || self.options.disabled === true;
 			};
 
@@ -661,6 +667,7 @@
 			 */
 			prototype.refresh = function () {
 				var self = this;
+
 				if (typeof self._refresh === TYPE_FUNCTION) {
 					self._refresh.apply(self, arguments);
 				}
@@ -694,6 +701,7 @@
 					result,
 					partResult,
 					refresh = false;
+
 				if (typeof firstArgument === "string") {
 					result = self._oneOption(firstArgument, secondArgument);
 					if (firstArgument !== undefined && secondArgument !== undefined) {
@@ -730,6 +738,7 @@
 				var self = this,
 					methodName,
 					refresh = false;
+
 				if (value === undefined) {
 					methodName = "_get" + (field[0].toUpperCase() + field.slice(1));
 					if (typeof self[methodName] === TYPE_FUNCTION) {
@@ -744,8 +753,8 @@
 					self.options[field] = value;
 					if (self.element) {
 						self.element.setAttribute("data-" + (field.replace(/[A-Z]/g, function (c) {
-								return "-" + c.toLowerCase();
-							})), value);
+							return "-" + c.toLowerCase();
+						})), value);
 						refresh = true;
 					}
 				}
@@ -765,6 +774,7 @@
 			 */
 			prototype.isBound = function (type) {
 				var element = this.element;
+
 				type = type || this.name;
 				return element && element.hasAttribute(engineDataTau.bound) && element.getAttribute(engineDataTau.bound).indexOf(type) > -1;
 			};
@@ -782,6 +792,7 @@
 			 */
 			prototype.isBuilt = function (type) {
 				var element = this.element;
+
 				type = type || this.name;
 				return element && element.hasAttribute(engineDataTau.built) && element.getAttribute(engineDataTau.built).indexOf(type) > -1;
 			};
@@ -813,6 +824,7 @@
 			 */
 			prototype.value = function (value) {
 				var self = this;
+
 				if (value !== undefined) {
 					if (typeof self._setValue === TYPE_FUNCTION) {
 						return self._setValue(value);

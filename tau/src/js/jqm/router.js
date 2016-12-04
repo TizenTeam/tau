@@ -33,6 +33,7 @@
 			//>>excludeEnd("tauBuildExclude");
 
 			var engine = ns.engine;
+
 			ns.jqm.router = {
 				/**
 				 * Enables support jQM before router init.
@@ -42,6 +43,7 @@
 				beforeinit: function () {
 					var container,
 						router = engine.getRouter();
+
 					if ($) {
 						if ($.mobile) {
 							if ($.mobile.pageContainer) {
@@ -63,6 +65,7 @@
 							}
 							$.mobile.changePage = function (toPage, options) {
 								var htmlElementToPage;
+
 								if (toPage instanceof $) {
 									htmlElementToPage = $(toPage).get(0);
 									return router.open(htmlElementToPage, options);
@@ -73,6 +76,7 @@
 								var route = router.getRoute("page"),
 									activePage = route && route.getActive(),
 									target = activePage && activePage.element;
+
 								$.mobile.activePage = $(target);
 							}, true);
 							$.mobile.activePage = $();
@@ -124,6 +128,7 @@
 						name,
 						router = engine.getRouter(),
 						containerWidget;
+
 					if ($) {
 						$.mobile.defaultPageTransition = "none";
 
@@ -147,6 +152,7 @@
 						$.mobile.focusPage = function (toPage) {
 							var page = $(toPage)[0],
 								pageWidget = engine.getBinding(page);
+
 							pageWidget.focus();
 						};
 

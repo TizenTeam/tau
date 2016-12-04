@@ -307,6 +307,7 @@
 				 * @property {?string} [options.defaultText=""] Default placeholder text
 				 * @member ns.widget.mobile.SearchBar
 				 */
+
 				options.theme = null;
 				options.cancelBtn = false;
 				options.clearBtn = true;
@@ -400,6 +401,7 @@
 			function findLabel(element) {
 				var elemParent = element.parentNode,
 					label = elemParent.querySelector("label[for='" + element.id + "']");
+
 				return label;
 			}
 
@@ -426,6 +428,7 @@
 			 */
 			SearchBar.prototype._buildButtonPosition = function (container) {
 				var elementClassList = container.classList;
+
 				elementClassList.remove(classes.uiSearchBarIconPositionLeft);
 				elementClassList.remove(classes.uiSearchBarIconPositionRight);
 				elementClassList.add(this.options.buttonPosition === "left" ? classes.uiSearchBarIconPositionLeft : classes.uiSearchBarIconPositionRight);
@@ -579,6 +582,7 @@
 			 */
 			function clearButtonClick(self, event) {
 				var input = self._ui.input;
+
 				if (!input.getAttribute("disabled")) {
 					clearInputAndTriggeerChange(input);
 					input.focus();
@@ -599,6 +603,7 @@
 				var ui = self._ui,
 					input = ui.input,
 					localClassList;
+
 				if (!input.getAttribute("disabled")) {
 					events.preventDefault(event);
 					events.stopPropagation(event);
@@ -630,6 +635,7 @@
 				var ui = self._ui,
 					input = ui.input,
 					localClassList;
+
 				if (!input.getAttribute("disabled")) {
 					localClassList = ui.searchBox.classList;
 					localClassList.add(classes.uiFocus);
@@ -660,6 +666,7 @@
 					inputedText = ui.input.value,
 					classes = SearchBar.classes,
 					labelDiv = ui.labelDiv;
+
 				ui.searchBox.classList.remove(classes.uiFocus);
 				if (labelDiv) {
 					if (inputedText.length > 0) {
@@ -680,6 +687,7 @@
 			 */
 			function labelClick(self) {
 				var input = self._ui.input;
+
 				input.blur();
 				input.focus();
 			}
@@ -695,6 +703,7 @@
 				var self = this,
 					ui = self._ui || {},
 					id = self.id;
+
 				self._ui = ui;
 				ui.input = element;
 				ui.clearButton = document.getElementById(id + "-clear-button");
@@ -714,6 +723,7 @@
 					self = this,
 					ui = self._ui,
 					input = ui.input;
+
 				self._callbacks = self._callbacks || {};
 				handlers = self._callbacks;
 				handlers.clearClick = clearButtonClick.bind(null, self);
@@ -744,6 +754,7 @@
 				var handlers,
 					ui = this._ui,
 					input = ui.input;
+
 				handlers = this._callbacks;
 				if (ui.clearButton) {
 					ui.clearButton.removeEventListener("vclick", handlers.clearClick, false);
