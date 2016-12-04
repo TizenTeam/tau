@@ -106,7 +106,8 @@
 				 */
 				_findGestureDetector: function (gesture) {
 					var detectors = Detector.plugin,
-						detector, name;
+						detector,
+						name;
 
 					for (name in detectors) {
 						if (detectors.hasOwnProperty(name)) {

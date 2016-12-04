@@ -125,7 +125,8 @@
 			 * @member ns.widget.core.LayoutWidget
 			 */
 			prototype.append = function (widget) {
-				var i, len,
+				var i,
+					len,
 					self = this;
 
 				if (!Array.isArray(widget)) {

@@ -20,7 +20,7 @@ module.exports = {
             "1tbs"
         ],
         "callback-return": "off",
-        "camelcase": "off",
+        "camelcase": "error",
         "capitalized-comments": "off",
         "class-methods-use-this": "error",
         "comma-dangle": [
@@ -227,7 +227,10 @@ module.exports = {
         "object-property-newline": "off",
         "object-shorthand": "off",
         "one-var": "error",
-        "one-var-declaration-per-line": "error",
+        "one-var-declaration-per-line": [
+            "error",
+            "always"
+        ],
         "operator-assignment": "off",
         "operator-linebreak": [
             "error",

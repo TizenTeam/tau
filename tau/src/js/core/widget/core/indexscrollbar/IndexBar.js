@@ -166,7 +166,8 @@
 						leftItems = totalLeft % parseInt(visibleIndexLen / 2, 10),
 						indexItemSize = [],
 						mergedIndices = [],
-						i, len,
+						i,
+						len,
 						position = 0;
 
 					for (i = 0, len = visibleIndexLen; i < len; i++) {
@@ -320,7 +321,9 @@
 				getIndexByPosition: function (posY) {
 					var table = this.indexLookupTable,
 						info,
-						i, len, range;
+						i,
+						len,
+						range;
 
 					// boundary check
 					if (table[0]) {

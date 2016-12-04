@@ -177,7 +177,8 @@
 
 			function getIndices(elements) {
 				var indices = [],
-					i, len;
+					i,
+					len;
 
 				len = elements.length;
 				for (i = 0; i < len; i++) {

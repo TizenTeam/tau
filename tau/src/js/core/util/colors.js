@@ -179,7 +179,12 @@
 				 * @static
 				 */
 				RGBToHSV: function (rgb) {
-					var min, max, delta, h, s, v,
+					var min,
+						max,
+						delta,
+						h,
+						s,
+						v,
 						r = rgb[0],
 						g = rgb[1],
 						b = rgb[2];

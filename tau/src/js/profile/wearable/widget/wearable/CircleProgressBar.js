@@ -241,7 +241,11 @@
 				var self = this,
 					ui = self._ui,
 					progressElement = element,
-					progressbarContainer, progressbarBg, progressbarValue, progressbarValueLeft, progressbarValueRight;
+					progressbarContainer,
+					progressbarBg,
+					progressbarValue,
+					progressbarValueLeft,
+					progressbarValueRight;
 
 				ui.progressContainer = progressbarContainer = document.createElement("div"),
 					ui.progressValueBg = progressbarBg = document.createElement("div"),

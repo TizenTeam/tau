@@ -217,7 +217,8 @@
 					eventType = self.eventType,
 					ui = self._ui,
 					panel = id.length > 1 ? element.querySelector(id) : null,
-					i, len;
+					i,
+					len;
 
 				if (!panel && id.length > 1) {
 					panel = xml.querySelector(id) || xml.querySelector("[data-role='panel'], .ui-panel");

@@ -196,7 +196,8 @@
 				var self = this,
 					ui = self._ui,
 					views = ui._views,
-					i, len;
+					i,
+					len;
 
 				len = views.length;
 				for (i = 0; i < len; i++) {
@@ -417,7 +418,9 @@
 				var self = this,
 					latestActiveIndex = self._activeIndex,
 					interval = latestActiveIndex - index,
-					direction, i, len;
+					direction,
+					i,
+					len;
 
 				if (!self._isAnimating && index < self._ui._views.length && index >= 0) {
 					self._lastDeltaX = 0;

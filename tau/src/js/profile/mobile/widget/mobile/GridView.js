@@ -401,7 +401,9 @@
 					helperElement = helper.element,
 					startX = helper.startX,
 					startY = helper.startY,
-					moveX, moveY, i,
+					moveX,
+					moveY,
+					i,
 					scrollableParent = self._ui.scrollableParent,
 					autoScrollDown,
 					autoScrollUp,
@@ -505,7 +507,8 @@
 				var self = this,
 					helper = self._ui.helper,
 					position = helper.position,
-					overlapWidth, overlapHeight;
+					overlapWidth,
+					overlapHeight;
 
 				if (helper.element === item.element) {
 					return false;
@@ -537,7 +540,8 @@
 			prototype._calculateListHeight = function () {
 				var self = this,
 					listElements = self._ui.listElements,
-					itemHeight, rows;
+					itemHeight,
+					rows;
 
 				window.setTimeout(function () {
 					var firstLiComputed = listElements.length && window.getComputedStyle(listElements[0], null);
@@ -621,7 +625,9 @@
 					listElements = self._ui.listElements,
 					length = listElements.length,
 					firstLiComputed = listElements.length && window.getComputedStyle(listElements[0], null),
-					cols, i, width,
+					cols,
+					i,
+					width,
 					borderSize = parentWidth / 360,
 					elementStyle = null;
 
@@ -735,7 +741,8 @@
 					styleElement,
 					styles = [],
 					index = 0,
-					row, col;
+					row,
+					col;
 
 				styleElement = document.createElement("style");
 				styleElement.type = "text/css";
@@ -766,7 +773,8 @@
 				var size = this._itemSize + this._borderSize,
 					x = col * size + "px",
 					y = row * (size + (this.options.label === labels.OUT ? 30 : 0)) + "px",
-					transform, style;
+					transform,
+					style;
 
 				transform = "{ -webkit-transform: translate3d(" + x + ", " + y + ", 0); transform: translate3d(" + x + ", " + y + ", 0) }";
 				style = STYLE_PATTERN.replace("{index}", index) + transform;
@@ -803,7 +811,9 @@
 					styles = styleElement.textContent,
 					element = self.element,
 					cols = self.options.cols,
-					col, row, length,
+					col,
+					row,
+					length,
 					firstLiComputed = listElements.length && window.getComputedStyle(listElements[0], null);
 
 				// append item

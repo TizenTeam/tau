@@ -266,7 +266,9 @@
 					validValue,
 					valueElementValidStyle,
 					barElementLength,
-					center, validStyle, inValidStyle;
+					center,
+					validStyle,
+					inValidStyle;
 
 				if (self.options.orientation === DEFAULT.HORIZONTAL) {
 					barElementLength = self._barElementWidth;

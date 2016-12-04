@@ -185,7 +185,9 @@
 					var o = this.options,
 						scroller = this.scroller,
 						offsetHeight,
-						sectionLength, i, className;
+						sectionLength,
+						i,
+						className;
 
 					scroller.style.position = "absolute";
 					offsetHeight = element.offsetHeight;
@@ -275,7 +277,8 @@
 					var sectionStyle = this.sections.style,
 						left = 0,
 						top = 0,
-						i, sectionLength;
+						i,
+						sectionLength;
 
 					//section element has absolute position
 					for (i = 0, sectionLength = this.sections.length; i < sectionLength; i++) {
@@ -365,7 +368,8 @@
 				_resetLayout: function () {
 					var //scrollerStyle = this.scroller.style,
 						sectionStyle = this.sections.style,
-						i, sectionLength;
+						i,
+						sectionLength;
 
 					//scrollerStyle.width = "";
 					//scrollerStyle.height = "";
@@ -600,7 +604,13 @@
 						circular = this.options.circular,
 						centerX = 0,
 						centerY = 0,
-						i, sectionStyle, sIdx, top, left, newX, newY;
+						i,
+						sectionStyle,
+						sIdx,
+						top,
+						left,
+						newX,
+						newY;
 
 					if (this.orientation === Scroller.Orientation.HORIZONTAL) {
 						newX = -(calculateCenter(this.orientation, this.sections, (circular ? centerPosition : this.activeIndex)));

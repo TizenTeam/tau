@@ -376,7 +376,9 @@
 			prototype._translate = function (activeElementStyle, translateX, anim) {
 				var deltaX = translateX / window.innerWidth * 100,
 					self = this,
-					fromColor, toColor, prefix;
+					fromColor,
+					toColor,
+					prefix;
 
 				if (this.swipeLeftElement && translateX >= 0) {
 					// left
@@ -420,7 +422,9 @@
 
 			prototype._start = function (e) {
 				var gesture = e.detail,
-					width, height, top;
+					width,
+					height,
+					top;
 
 				this._dragging = false;
 				this._cancelled = false;

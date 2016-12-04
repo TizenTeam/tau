@@ -96,7 +96,10 @@
 				build: function (progress, element) {
 					var ui = {},
 						progressElement = element,
-						progresscircleBg, progresscircleValue, progresscircleValueLeft, progresscircleValueRight;
+						progresscircleBg,
+						progresscircleValue,
+						progresscircleValueLeft,
+						progresscircleValueRight;
 
 					ui.progressContainer = progressElement;
 					ui.progressValueBg = progresscircleBg = document.createElement("div");

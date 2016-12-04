@@ -67,7 +67,10 @@
 						clipSize = orientation === Scroller.Orientation.VERTICAL ? clipHeight : clipWidth,
 						containerSize = orientation === Scroller.Orientation.VERTICAL ? containerHeight : containerWidth,
 						sectionSize = clipSize / containerSize,
-						height, barHeight, i, len;
+						height,
+						barHeight,
+						i,
+						len;
 
 					this.containerSize = containerWidth;
 					this.maxScrollOffset = clipSize - containerSize;

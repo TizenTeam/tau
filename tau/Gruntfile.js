@@ -221,7 +221,10 @@ module.exports = function (grunt) {
 			eslint: {
 				js: {
 					options: {
-						jshintrc: ".eslintrc"
+						jshintrc: ".eslintrc",
+						rules: {
+							camelcase: "off"
+						}
 					},
 					files: {
 						src: [path.join(srcJs, "**/*.js")]
@@ -1036,7 +1039,7 @@ module.exports = function (grunt) {
 
 	// Task list
 	grunt.registerTask("themesjs", "Generate themes files using requirejs", themesjs);  // Generate separate themes files
-	grunt.registerTask("lint", [/* "eslint:js", "lesslint:less", @TODO fix all errors and revert*/]);
+	grunt.registerTask("lint", ["eslint:js" /*"lesslint:less", @TODO fix all errors and revert*/]);
 	grunt.registerTask("jsmin", ["findFiles:js.setMinifiedFiles", "uglify"]);
 	grunt.registerTask("image", ["copy:wearableDefaultImages", "copy:mobileDefaultImages", "copy:tvDefaultImages"]);
 	grunt.registerTask("image-changeable", ["copy:wearableChangeableImages", "copy:wearableColorThemeImages", "copy:mobileChangeableImages"]);

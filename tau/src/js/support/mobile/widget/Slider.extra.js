@@ -102,7 +102,8 @@
 				var self = this,
 					options = self.options,
 					parentNode = element.parentNode,
-					textLeft, textRight;
+					textLeft,
+					textRight;
 
 				if (options.textLeft || options.textRight) {
 					if (options.textLeft) {

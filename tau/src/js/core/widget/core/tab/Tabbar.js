@@ -275,7 +275,11 @@
 					title = findTitle(element),
 					tabs = element.querySelectorAll("li"),
 					links = element.querySelectorAll("li a"),
-					innerText, i, liLength, link, text;
+					innerText,
+					i,
+					liLength,
+					link,
+					text;
 
 				element.classList.add(classes.TABBAR);
 				if (links.length === 0) {
@@ -470,7 +474,9 @@
 					ui = self._ui,
 					options = self.options,
 					selectTab = event.currentTarget.querySelector("A"),
-					index, i, tabLength;
+					index,
+					i,
+					tabLength;
 
 				for (i = 0, tabLength = ui.links.length; i < tabLength; i++) {
 					if (ui.links[i] === selectTab) {

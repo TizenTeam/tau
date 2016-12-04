@@ -75,7 +75,9 @@
 				 * @member ns.util.object
 				 */
 				merge: function (/* newObject, orgObject, override */) {
-					var newObject, orgObject, override,
+					var newObject,
+						orgObject,
+						override,
 						key,
 						args = [].slice.call(arguments),
 						argsLength = args.length,

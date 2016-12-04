@@ -179,7 +179,8 @@
 			function buildLayers(element, items, options) {
 				var layers = [],
 					layer,
-					i, len;
+					i,
+					len;
 
 				removeLayers(element, options);
 				len = items.length;
@@ -203,7 +204,10 @@
 			function removeLayers(element, options) {
 				var layers = element.getElementsByClassName(classes.LAYER),
 					items,
-					i, len, j, itemLength;
+					i,
+					len,
+					j,
+					itemLength;
 
 				if (layers.length) {
 					// Delete legacy layers
@@ -266,7 +270,8 @@
 			function removeLayerClasses(activeLayer) {
 				var activePrevLayer = activeLayer.previousElementSibling,
 					activeNextLayer = activeLayer.nextElementSibling,
-					ppLayer, nnLayer;
+					ppLayer,
+					nnLayer;
 
 				if (activePrevLayer) {
 					activePrevLayer.classList.remove(classes.LAYER_PREV);
@@ -293,8 +298,12 @@
 					validPrevLayer = validLayer.previousElementSibling,
 					validNextLayer = validLayer.nextElementSibling,
 					radius = options.itemRadius,
-					prevLayerDeg, ppLayerDeg, nextLayerDeg, nnLayerDeg,
-					ppLayer, nnLayer;
+					prevLayerDeg,
+					ppLayerDeg,
+					nextLayerDeg,
+					nnLayerDeg,
+					ppLayer,
+					nnLayer;
 
 				if (validPrevLayer && validPrevLayer.classList.contains(classes.LAYER)) {
 					validPrevLayer.classList.add(classes.LAYER_PREV);
@@ -461,7 +470,8 @@
 					activeLayerIndex = self._getActiveLayer(),
 					activeItemIndex = self._getActiveItem(),
 					validLayout = element.offsetWidth > element.offsetHeight ? element.offsetHeight : element.offsetWidth,
-					i, len;
+					i,
+					len;
 
 				self._started = false;
 				self._enabled = true;
@@ -494,7 +504,8 @@
 					options = self.options,
 					items = layer.querySelectorAll(options.itemSelector),
 					degree,
-					i, len;
+					i,
+					len;
 
 				len = items.length > options.maxItemNumber ? options.maxItemNumber : items.length;
 				for (i = 0; i < len; i++) {
@@ -557,7 +568,8 @@
 			prototype._getActiveLayer = function () {
 				var self = this,
 					ui = self._ui,
-					i, len;
+					i,
+					len;
 
 				len = ui.layers.length;
 				for (i = 0; i < len; i++) {
@@ -604,7 +616,8 @@
 			prototype._getActiveItem = function () {
 				var self = this,
 					ui = self._ui,
-					i, len;
+					i,
+					len;
 
 				len = ui.items.length;
 				for (i = 0; i < len; i++) {
@@ -860,7 +873,8 @@
 			prototype._hideItems = function (layer) {
 				var self = this,
 					items = layer.getElementsByClassName(classes.ITEM),
-					i, len;
+					i,
+					len;
 
 				layer.classList.add(classes.LAYER_HIDE);
 				len = items.length;

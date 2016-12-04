@@ -233,7 +233,9 @@
 					scrollableParent = ui.scrollableParent,
 					scrollCenter = -scrollableParent.element.firstElementChild.getBoundingClientRect().top + scrollableParent.height / 2,
 					listItemLength = listItems.length,
-					tempListItem, tempListItemCoord, i;
+					tempListItem,
+					tempListItemCoord,
+					i;
 
 				for (i = 0; i < listItemLength; i++) {
 					tempListItem = listItems[i];
@@ -334,7 +336,8 @@
 					ui = self._ui,
 					options = self.options,
 					listItems = [],
-					scroller, visiableOffset;
+					scroller,
+					visiableOffset;
 
 
 				ui.page = utilSelector.getClosestByClass(listview, "ui-page") || window;

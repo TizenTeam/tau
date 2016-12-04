@@ -738,7 +738,8 @@
 			function createWrapper(domSlider) {
 				var wrapper,
 					domSliderChildNode = domSlider.childNodes,
-					i, length;
+					i,
+					length;
 
 				wrapper = createElement("div");
 				wrapper.className = classes.sliderInneroffset;

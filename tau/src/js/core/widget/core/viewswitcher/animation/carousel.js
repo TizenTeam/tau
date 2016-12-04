@@ -90,7 +90,8 @@
 					var viewSwitcher = views[0].parentNode,
 						vsOffsetWidth = viewSwitcher.offsetWidth,
 						dimElement,
-						i, len;
+						i,
+						len;
 
 					viewSwitcher.classList.add(classes.CAROUSEL);
 					viewSwitcher.style.webkitPerspective = DEFAULT.PERSPECTIVE;
@@ -141,7 +142,10 @@
 						minusDeltaX = -vsHalfWidth - halfEx,
 						plusDeltaX = -vsHalfWidth + halfEx,
 						hidingDeltaX = -halfEx * 0.2,
-						prev, next, beforePrev, afterNext;
+						prev,
+						next,
+						beforePrev,
+						afterNext;
 
 					active.style.left = (vsWidth - active.offsetWidth) / 2 + "px";
 					active.style.zIndex = DEFAULT.ZINDEX_TOP;
@@ -197,7 +201,8 @@
 						active = views[index],
 						rightElements = viewSwitcher.querySelectorAll("." + classes.CAROUSEL_RIGHT),
 						leftElements = viewSwitcher.querySelectorAll("." + classes.CAROUSEL_LEFT),
-						i, len;
+						i,
+						len;
 
 					viewSwitcher.querySelector("." + classes.CAROUSEL_ACTIVE).classList.remove(classes.CAROUSEL_ACTIVE);
 					active.classList.add(classes.CAROUSEL_ACTIVE);

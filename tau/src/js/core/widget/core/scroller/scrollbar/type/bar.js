@@ -77,7 +77,8 @@
 				 * @member ns.widget.core.scroller.scrollbar.type.bar
 				 */
 				offset: function (orientation, offset) {
-					var x, y;
+					var x,
+						y;
 
 					offset = offset * this._clipLayout / this._viewLayout;
 
