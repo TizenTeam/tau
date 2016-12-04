@@ -103,10 +103,10 @@
 			 * @member ns.widget.mobile.ColoredListview
 			 */
 			function setRectangle(gl, x, y, width, height) {
-				var x1 = x;
-				var x2 = x + width;
-				var y1 = y;
-				var y2 = y + height;
+				var x1 = x,
+					x2 = x + width,
+					y1 = y,
+					y2 = y + height;
 
 				gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([
 					x1, y1,

@@ -59,49 +59,50 @@
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
-			/**
-			 * Helper function for generating css string from
-			 * @TODO the steps array could be propably be more
-			 * optimized (most usages will use maybe up to 3-5
-			 * array elements, when it has 100) but thats not
-			 * important for the moment
-			 * frames array
-			 * @param {string} prefix
-			 * @param {string} name
-			 * @param {Array} steps
-			 * @return {string}
-			 * @private
-			 * @static
-			 * @method keyframesToString
-			 * @member ns.utils.anim.Keyframes
-			 */
-			function keyframesToString(prefix, name, steps) {
-				var buff = "@" + prefix + "keyframes " + name + " {",
-					i,
-					l,
-					prop,
-					step;
-
-				for (i = 0, l = steps.length; i < l; ++i) {
-					step = steps[i];
-					if (!step) {
-						continue;
-					}
-					buff += i + "% { ";
-					for (prop in step) {
-						if (step.hasOwnProperty(prop)) {
-							buff += prop + ": " + step[prop] + "; ";
-						}
-					}
-					buff += "} ";
-				}
-				buff += "} ";
-				return buff;
-			}
-
 			// Reference to stylesheet
 			var styleContainer = null,
+				/**
+				 * Helper function for generating css string from
+				 * @TODO the steps array could be propably be more
+				 * optimized (most usages will use maybe up to 3-5
+				 * array elements, when it has 100) but thats not
+				 * important for the moment
+				 * frames array
+				 * @param {string} prefix
+				 * @param {string} name
+				 * @param {Array} steps
+				 * @return {string}
+				 * @private
+				 * @static
+				 * @method keyframesToString
+				 * @member ns.utils.anim.Keyframes
+				 */
+				keyframesToString = function (prefix, name, steps) {
+					var buff = "@" + prefix + "keyframes " + name + " {",
+						i,
+						l,
+						prop,
+						step;
+
+					for (i = 0, l = steps.length; i < l; ++i) {
+						step = steps[i];
+						if (!step) {
+							continue;
+						}
+						buff += i + "% { ";
+						for (prop in step) {
+							if (step.hasOwnProperty(prop)) {
+								buff += prop + ": " + step[prop] + "; ";
+							}
+						}
+						buff += "} ";
+					}
+					buff += "} ";
+					return buff;
+				},
+
 				cssPropertyPrefix = ns.support.cssAnimationPrefix,
+
 				Keyframes = function (steps) {
 					var id = ns.getUniqueId(),
 						element = null;

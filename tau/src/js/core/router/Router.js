@@ -331,9 +331,11 @@
 					i;
 
 				for (i in route) {
-					rule = route[i];
-					if (selectors.matchesSelector(to, rule.filter)) {
-						return i;
+					if (route.hasOwnProperty(i)) {
+						rule = route[i];
+						if (selectors.matchesSelector(to, rule.filter)) {
+							return i;
+						}
 					}
 				}
 			};

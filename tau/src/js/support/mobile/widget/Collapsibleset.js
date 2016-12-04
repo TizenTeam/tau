@@ -225,20 +225,29 @@
 			// @private
 			// @member ns.widget.mobile.CollapsibleSet
 			function roundCollapsibleSetBoundaries(collapsiblesInSet) {
+				var firstCollapsible = null,
+					classes = null,
+					dataAttributes = null,
+					firstCollapsibleHeading = null,
+					lastCollapsible = null,
+					lastCollapsibleHeading = null,
+					heading = null,
+					headingClassList = null;
+
 				if (collapsiblesInSet.length > 0) {
 
-					var firstCollapsible = collapsiblesInSet[0],
-						classes = CollapsibleSet.classes,
-						dataAttributes = CollapsibleSet.attributes,
-						firstCollapsibleHeading = selectors.getChildrenByClass(firstCollapsible, classes.uiCollapsibleHeading)[0],
+					firstCollapsible = collapsiblesInSet[0];
+					classes = CollapsibleSet.classes;
+					dataAttributes = CollapsibleSet.attributes;
+					firstCollapsibleHeading = selectors.getChildrenByClass(firstCollapsible, classes.uiCollapsibleHeading)[0];
 
-						lastCollapsible = collapsiblesInSet[collapsiblesInSet.length - 1],
-						lastCollapsibleHeading = selectors.getChildrenByClass(lastCollapsible, classes.uiCollapsibleHeading)[0];
+					lastCollapsible = collapsiblesInSet[collapsiblesInSet.length - 1];
+					lastCollapsibleHeading = selectors.getChildrenByClass(lastCollapsible, classes.uiCollapsibleHeading)[0];
 
 					//clean up borders
 					collapsiblesInSet.forEach(function (collapsibleElement) {
-						var heading = selectors.getChildrenByClass(collapsibleElement, classes.uiCollapsibleHeading)[0],
-							headingClassList = heading.classList;
+						heading = selectors.getChildrenByClass(collapsibleElement, classes.uiCollapsibleHeading)[0],
+						headingClassList = heading.classList;
 
 						domUtils.removeNSData(collapsibleElement, dataAttributes.last);
 						headingClassList.remove(classes.uiCornerBottom);

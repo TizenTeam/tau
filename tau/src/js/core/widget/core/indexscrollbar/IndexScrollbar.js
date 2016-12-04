@@ -544,11 +544,13 @@
 						i;
 
 					for (i in subObjs) {
-						subObj = subObjs[i];
-						if (subObj) {
-							el = subObj.element;
-							subObj.destroy();
-							el.parentNode.removeChild(el);
+						if (subObjs.hasOwnProperty(i)) {
+							subObj = subObjs[i];
+							if (subObj) {
+								el = subObj.element;
+								subObj.destroy();
+								el.parentNode.removeChild(el);
+							}
 						}
 					}
 				},
@@ -685,19 +687,25 @@
 				 * @member ns.widget.core.IndexScrollbar
 				 */
 				_onTouchStartHandler: function (event) {
+					var touches = event.touches || event._originalEvent && event._originalEvent.touches,
+						pos = null,
+						// At touchstart, only indexbar1 is shown.
+						iBar1 = null,
+						idx = 0,
+						val = 0;
+
 					pointerIsPressed = true;
-					var touches = event.touches || event._originalEvent && event._originalEvent.touches;
 
 					if (touches && (touches.length > 1)) {
 						event.preventDefault();
 						event.stopPropagation();
 						return;
 					}
-					var pos = this._getPositionFromEvent(event),
-						// At touchstart, only indexbar1 is shown.
-						iBar1 = this.indexBar1,
-						idx = iBar1.getIndexByPosition(pos.y),
-						val = iBar1.getValueByIndex(idx);
+					pos = this._getPositionFromEvent(event);
+					// At touchstart, only indexbar1 is shown.
+					iBar1 = this.indexBar1;
+					idx = iBar1.getIndexByPosition(pos.y);
+					val = iBar1.getValueByIndex(idx);
 
 					iBar1.select(idx);	// highlight selected value
 
@@ -716,7 +724,13 @@
 				 * @member ns.widget.core.IndexScrollbar
 				 */
 				_onTouchMoveHandler: function (event) {
-					var touches = event._originalEvent && event._originalEvent.touches;
+					var touches = event._originalEvent && event._originalEvent.touches,
+						pos = null,
+						iBar1 = null,
+						iBar2 = null,
+						idx,
+						iBar,
+						val;
 
 					if (touches && (touches.length > 1) || !pointerIsPressed) {
 						events.preventDefault(event);
@@ -724,12 +738,9 @@
 						return;
 					}
 
-					var pos = this._getPositionFromEvent(event),
-						iBar1 = this.indexBar1,
-						iBar2 = this.indexBar2,
-						idx,
-						iBar,
-						val;
+					pos = this._getPositionFromEvent(event);
+					iBar1 = this.indexBar1;
+					iBar2 = this.indexBar2;
 
 					// Check event receiver: ibar1 or ibar2
 					iBar = this._getEventReceiverByPosition(pos.x);
@@ -886,7 +897,9 @@
 					if (typeof key === "object") {
 						// Support data collection
 						for (idx in key) {
-							this._data(idx, key[idx]);
+							if (key.hasOwnProperty(idx)) {
+								this._data(idx, key[idx]);
+							}
 						}
 						return this;
 					} else {

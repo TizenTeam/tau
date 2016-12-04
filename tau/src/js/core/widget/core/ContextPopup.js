@@ -565,8 +565,8 @@
 				bestOffsetInfo[direction.fixedPositionField] +=
 					(direction.fixedPositionField === "x" ?
 					(popupWidth + clickElementOffsetWidth) * direction.fixedPositionFactor :
-					(popupHeight + clickElementOffsetHeight) * direction.fixedPositionFactor)
-					/ 2 + options.distance * direction.fixedPositionFactor;
+					(popupHeight + clickElementOffsetHeight) * direction.fixedPositionFactor) / 2 +
+					options.distance * direction.fixedPositionFactor;
 
 				// fix min/max position
 				bestOffsetInfo.x = bestOffsetInfo.x < 0 ? 0 : bestOffsetInfo.x + bestOffsetInfo.w > windowWidth ? windowWidth - bestOffsetInfo.w : bestOffsetInfo.x;
@@ -656,8 +656,8 @@
 						param.pos = wrapperRect[param.min] + arrowHalfWidth;
 					}
 				} else if (wrapperRect[param.max] < param.pos + arrowHalfWidth) {
-					surplus = (param.valField === "w" ? windowWidth : windowHeight)
-						- (bestRectangle[param.posField] + bestRectangle[param.valField]);
+					surplus = (param.valField === "w" ? windowWidth : windowHeight) -
+						(bestRectangle[param.posField] + bestRectangle[param.valField]);
 					if (surplus > 0) {
 						bestRectangle[param.posField] += Math.min(surplus, (param.pos + arrowHalfWidth) - wrapperRect[param.max]);
 						param.pos = bestRectangle[param.posField] + bestRectangle[param.valField] - arrowHalfWidth;

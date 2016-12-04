@@ -133,8 +133,9 @@
 								if (root instanceof window.screen.constructor) {
 									// In case of orientation change event the properties are set to window.screen object
 									// that's why we check if root is Screen in the first place
-									event[property] = event.originalEvent.detail && event.originalEvent.detail[property]
-										|| event.target[property];
+									event[property] = event.originalEvent.detail &&
+										event.originalEvent.detail[property] ||
+										event.target[property];
 								} else {
 									event[property] = event.originalEvent.detail && event.originalEvent.detail[property];
 								}

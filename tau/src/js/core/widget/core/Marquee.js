@@ -199,30 +199,30 @@
 
 				switch (marqueeStyle) {
 					case style.SLIDE:
-						customKeyFrame = "@-webkit-keyframes " + keyFrameName + " {"
-							+ "0% { -webkit-transform: translate3d(0, 0, 0);}"
-							+ "95%, 100% { -webkit-transform: translate3d(-" + (textWidth - containerWidth) + "px, 0, 0);} }";
+						customKeyFrame = "@-webkit-keyframes " + keyFrameName + " {" +
+							"0% { -webkit-transform: translate3d(0, 0, 0);}" +
+							"95%, 100% { -webkit-transform: translate3d(-" + (textWidth - containerWidth) + "px, 0, 0);} }";
 						break;
 					case style.SCROLL:
-						customKeyFrame = "@-webkit-keyframes " + keyFrameName + " {"
-							+ "0% { -webkit-transform: translate3d(0, 0, 0);}"
-							+ "95%, 100% { -webkit-transform: translate3d(-100%, 0, 0);} }";
+						customKeyFrame = "@-webkit-keyframes " + keyFrameName + " {" +
+							"0% { -webkit-transform: translate3d(0, 0, 0);}" +
+							"95%, 100% { -webkit-transform: translate3d(-100%, 0, 0);} }";
 						break;
 					case style.ALTERNATE:
-						customKeyFrame = "@-webkit-keyframes " + keyFrameName + " {"
-							+ "0% { -webkit-transform: translate3d(0, 0, 0);}"
-							+ "50% { -webkit-transform: translate3d(-" + (textWidth - containerWidth) + "px, 0, 0);}"
-							+ "100% { -webkit-transform: translate3d(0, 0, 0);} }";
+						customKeyFrame = "@-webkit-keyframes " + keyFrameName + " {" +
+							"0% { -webkit-transform: translate3d(0, 0, 0);}" +
+							"50% { -webkit-transform: translate3d(-" + (textWidth - containerWidth) + "px, 0, 0);}"	+
+							"100% { -webkit-transform: translate3d(0, 0, 0);} }";
 						break;
 					case style.ENDTOEND:
 						returnTimeFrame = parseInt((textWidth / (textWidth + containerWidth)) * 100, 10);
-						customKeyFrame = "@-webkit-keyframes " + keyFrameName + " {"
-							+ "0% { -webkit-transform: translate3d(0, 0, 0);}"
-							+ returnTimeFrame + "% { -webkit-transform: translate3d(-100%, 0, 0); opacity: 1;}"
-							+ (returnTimeFrame + 1) + "% { -webkit-transform: translate3d(-100%, 0, 0); opacity: 0; }"
-							+ (returnTimeFrame + 2) + "% { -webkit-transform: translate3d(" + containerWidth + "px, 0, 0); opacity: 0; }"
-							+ (returnTimeFrame + 3) + "% { -webkit-transform: translate3d(" + containerWidth + "px, 0, 0); opacity: 1; }"
-							+ "100% { -webkit-transform: translate3d(0, 0, 0);} }";
+						customKeyFrame = "@-webkit-keyframes " + keyFrameName + " {" +
+							"0% { -webkit-transform: translate3d(0, 0, 0);}" +
+							returnTimeFrame + "% { -webkit-transform: translate3d(-100%, 0, 0); opacity: 1;}" +
+							(returnTimeFrame + 1) + "% { -webkit-transform: translate3d(-100%, 0, 0); opacity: 0; }" +
+							(returnTimeFrame + 2) + "% { -webkit-transform: translate3d(" + containerWidth + "px, 0, 0); opacity: 0; }"	+
+							(returnTimeFrame + 3) + "% { -webkit-transform: translate3d(" + containerWidth + "px, 0, 0); opacity: 1; }"	+
+							"100% { -webkit-transform: translate3d(0, 0, 0);} }";
 						break;
 					default:
 						customKeyFrame = null;
@@ -253,18 +253,18 @@
 					case style.SLIDE:
 					case style.SCROLL:
 					case style.ALTERNATE:
-						customKeyFrame = "@-webkit-keyframes " + keyFrameName + " {"
-							+ "0% { -webkit-mask-image: -webkit-linear-gradient(left, transparent 0, rgba(255, 255, 255, 1) 15%, rgba(255, 255, 255, 1) 85%, transparent 100%)}"
-							+ "100% { -webkit-mask-image: -webkit-linear-gradient(left, transparent 0, rgba(255, 255, 255, 1) 15%, rgba(255, 255, 255, 1) 85%, transparent 100%)}";
+						customKeyFrame = "@-webkit-keyframes " + keyFrameName + " {" +
+							"0% { -webkit-mask-image: -webkit-linear-gradient(left, transparent 0, rgba(255, 255, 255, 1) 15%, rgba(255, 255, 255, 1) 85%, transparent 100%)}" +
+							"100% { -webkit-mask-image: -webkit-linear-gradient(left, transparent 0, rgba(255, 255, 255, 1) 15%, rgba(255, 255, 255, 1) 85%, transparent 100%)}";
 						break;
 					case style.ENDTOEND:
 						returnTimeFrame = parseInt((textWidth / (textWidth + containerWidth)) * 100, 10);
-						customKeyFrame = "@-webkit-keyframes " + keyFrameName + " {"
-							+ "0% { -webkit-mask-image: -webkit-linear-gradient(left, rgba(255, 255, 255, 1) 0, rgba(255, 255, 255, 1) 85%, transparent 100%)}"
-							+ "1% { -webkit-mask-image: -webkit-linear-gradient(left, transparent 0, rgba(255, 255, 255, 1) 15%, rgba(255, 255, 255, 1) 85%, transparent 100%)}"
-							+ returnTimeFrame + "% { -webkit-mask-image: -webkit-linear-gradient(left, transparent 0, rgba(255, 255, 255, 1) 15%, rgba(255, 255, 255, 1) 85%, transparent 100%)}"
-							+ (returnTimeFrame + 1) + "% { -webkit-mask-image: -webkit-linear-gradient(left, rgba(255, 255, 255, 1) 0, rgba(255, 255, 255, 1) 85%, transparent 100%)}"
-							+ "100% { -webkit-mask-image: -webkit-linear-gradient(left, rgba(255, 255, 255, 1) 0, rgba(255, 255, 255, 1) 85%, transparent 100%) } }";
+						customKeyFrame = "@-webkit-keyframes " + keyFrameName + " {" +
+							"0% { -webkit-mask-image: -webkit-linear-gradient(left, rgba(255, 255, 255, 1) 0, rgba(255, 255, 255, 1) 85%, transparent 100%)}" +
+							"1% { -webkit-mask-image: -webkit-linear-gradient(left, transparent 0, rgba(255, 255, 255, 1) 15%, rgba(255, 255, 255, 1) 85%, transparent 100%)}" +
+							returnTimeFrame + "% { -webkit-mask-image: -webkit-linear-gradient(left, transparent 0, rgba(255, 255, 255, 1) 15%, rgba(255, 255, 255, 1) 85%, transparent 100%)}" +
+							(returnTimeFrame + 1) + "% { -webkit-mask-image: -webkit-linear-gradient(left, rgba(255, 255, 255, 1) 0, rgba(255, 255, 255, 1) 85%, transparent 100%)}" +
+							"100% { -webkit-mask-image: -webkit-linear-gradient(left, rgba(255, 255, 255, 1) 0, rgba(255, 255, 255, 1) 85%, transparent 100%) } }";
 						break;
 					default:
 						customKeyFrame = null;

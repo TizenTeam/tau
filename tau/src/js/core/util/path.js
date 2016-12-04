@@ -328,19 +328,29 @@
 					 * @static
 					 */
 					makeUrlAbsolute: function (relUrl, absUrl) {
+						var relObj = null,
+							absObj = null,
+							protocol = "",
+							doubleSlash = "",
+							authority = "",
+							hasPath = "",
+							pathname = "",
+							search = "",
+							hash = "";
+
 						if (!path.isRelativeUrl(relUrl)) {
 							return relUrl;
 						}
 
-						var relObj = path.parseUrl(relUrl),
-							absObj = path.parseUrl(absUrl),
-							protocol = relObj.protocol || absObj.protocol,
-							doubleSlash = relObj.protocol ? relObj.doubleSlash : (relObj.doubleSlash || absObj.doubleSlash),
-							authority = relObj.authority || absObj.authority,
-							hasPath = relObj.pathname !== "",
-							pathname = path.makePathAbsolute(relObj.pathname || absObj.filename, absObj.pathname),
-							search = relObj.search || (!hasPath && absObj.search) || "",
-							hash = relObj.hash;
+						relObj = path.parseUrl(relUrl);
+						absObj = path.parseUrl(absUrl);
+						protocol = relObj.protocol || absObj.protocol;
+						doubleSlash = relObj.protocol ? relObj.doubleSlash : (relObj.doubleSlash || absObj.doubleSlash);
+						authority = relObj.authority || absObj.authority;
+						hasPath = relObj.pathname !== "";
+						pathname = path.makePathAbsolute(relObj.pathname || absObj.filename, absObj.pathname);
+						search = relObj.search || (!hasPath && absObj.search) || "";
+						hash = relObj.hash;
 
 						return protocol + doubleSlash + authority + pathname + search + hash;
 					},

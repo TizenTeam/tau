@@ -311,8 +311,10 @@
 					direction = event.detail.direction,
 					estimatedDeltaX = event.detail.estimatedDeltaX;
 
-				if (!self._dragging || self._isAnimating
-					|| (direction === "left" && !active.nextElementSibling) || (direction === "right" && !active.previousElementSibling)) {
+				if (!self._dragging ||
+					self._isAnimating ||
+					(direction === "left" && !active.nextElementSibling) ||
+					(direction === "right" && !active.previousElementSibling)) {
 					return;
 				}
 				self._lastDirection = direction;
@@ -363,8 +365,7 @@
 
 				if (direction === "backward") {
 					validDirection = lastDirection === "left" ? "right" : "left";
-					if (lastDirection === "left" && ex > 0
-						|| lastDirection === "right" && ex < 0) {
+					if (lastDirection === "left" && ex > 0 || lastDirection === "right" && ex < 0) {
 						isStop = true;
 						stopPosition = 0;
 					}

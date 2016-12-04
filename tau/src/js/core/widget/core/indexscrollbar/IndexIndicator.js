@@ -111,11 +111,14 @@
 				 * @member ns.widget.wearable.indexscrollbar.IndexIndicator
 				 */
 				setValue: function (value) {
+					var selected = "",
+						remained = "";
+
 					this.value = value;	// remember value
 					value = value.toUpperCase();
 
-					var selected = value.substr(value.length - 1),
-						remained = value.substr(0, value.length - 1);
+					selected = value.substr(value.length - 1);
+					remained = value.substr(0, value.length - 1);
 
 					this.element.firstChild.innerHTML = "<span>" + remained + "</span><span class=\"ui-selected\">" +
 						selected + "</span>";	// Set indicator text

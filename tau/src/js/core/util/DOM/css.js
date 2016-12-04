@@ -401,9 +401,11 @@
 					key;
 
 				for (key in prefixedProperties) {
-					value = styles[prefixedProperties[key]];
-					if (value && value !== "none") {
-						return value;
+					if (prefixedProperties.hasOwnProperty(key)) {
+						value = styles[prefixedProperties[key]];
+						if (value && value !== "none") {
+							return value;
+						}
 					}
 				}
 				return value;

@@ -85,12 +85,13 @@
 			 * @member ns.event.gesture.Detector.plugin
 			 */
 			Detector.plugin.create = function (gestureHandler) {
+				var detector = null;
 
 				if (!gestureHandler.types) {
 					gestureHandler.types = [gestureHandler.name];
 				}
 
-				var detector = Detector.plugin[gestureHandler.name] = function (options) {
+				detector = Detector.plugin[gestureHandler.name] = function (options) {
 					this.options = objectMerge({}, gestureHandler.defaults, options);
 				};
 

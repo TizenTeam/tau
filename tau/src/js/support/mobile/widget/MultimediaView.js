@@ -692,16 +692,21 @@
 			 * @static
 			 */
 			function convertTimeFormat(systime) {
+				var ss = "",
+					mm = "",
+					hh = "",
+					time = "";
+
 				if (!util.isNumber(systime)) {
 					return "Playback Error";
 				}
 
-				var ss = parseInt(systime % 60, 10).toString(),
-					mm = parseInt((systime / 60) % 60, 10).toString(),
-					hh = parseInt(systime / 3600, 10).toString(),
-					time = ((hh.length < 2) ? "0" + hh : hh) + ":" +
-						((mm.length < 2) ? "0" + mm : mm) + ":" +
-						((ss.length < 2) ? "0" + ss : ss);
+				ss = parseInt(systime % 60, 10).toString();
+				mm = parseInt((systime / 60) % 60, 10).toString();
+				hh = parseInt(systime / 3600, 10).toString();
+				time = ((hh.length < 2) ? "0" + hh : hh) + ":" +
+					((mm.length < 2) ? "0" + mm : mm) + ":" +
+					((ss.length < 2) ? "0" + ss : ss);
 
 				return time;
 			}

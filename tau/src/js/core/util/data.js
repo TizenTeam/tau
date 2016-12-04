@@ -84,6 +84,8 @@
 				 * @private
 				 */
 				hashObject = function (value) {
+					var h = "";
+
 					if (value === undefined ||
 						value === null ||
 						value === false) {
@@ -97,7 +99,7 @@
 					if (value instanceof Object) {
 						value.__tau_hash = value.__tau_hash || ns.getUniqueId();
 					}
-					var h = (typeof value) + "-" + (value instanceof Object ?
+					h = (typeof value) + "-" + (value instanceof Object ?
 							value.__tau_hash : value.toString());
 
 					if (value instanceof Element) {

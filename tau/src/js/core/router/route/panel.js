@@ -97,8 +97,8 @@
 					panelChangerComponent = self._panelChangerComponent,
 					activePanel = panelHistory[panelHistory.length - 1];
 
-				if (self._panelChangerElement.querySelector("#" + activePanel).classList.contains(panelChanger.classes.PRE_IN)
-					|| panelHistory.length === 0) {
+				if (self._panelChangerElement.querySelector("#" + activePanel)
+						.classList.contains(panelChanger.classes.PRE_IN) ||	panelHistory.length === 0) {
 					history.replace(prev, prev.stateTitle, prev.stateUrl);
 					return true;
 				}

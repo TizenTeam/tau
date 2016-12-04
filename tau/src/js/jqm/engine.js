@@ -175,17 +175,20 @@
 								return this.haveParents($set, "ajax");
 							},
 							haveParents: function ($set, attr) {
-								if (!$.mobile.ignoreContentEnabled) {
-									return $set;
-								}
-
-								var count = $set.length,
-									$newSet = $(),
+								var count = 0,
+									$newSet = null,
 									e,
 									$element,
 									excluded,
 									i,
 									c;
+
+								if (!$.mobile.ignoreContentEnabled) {
+									return $set;
+								}
+
+								count = $set.length;
+								$newSet = $();
 
 								for (i = 0; i < count; i++) {
 									$element = $set.eq(i);

@@ -512,9 +512,7 @@
 
 				if (self._supportKeyboard) {
 					// check matching or find matching parent
-					element = selectorUtils.matchesSelector(selectorsString, element)
-						? target
-						: null;
+					element = selectorUtils.matchesSelector(selectorsString, element) ? target : null;
 					// maybe some parent could be focused
 					if (!element) {
 						element = selectorUtils.getClosestBySelector(target, selectorsString);

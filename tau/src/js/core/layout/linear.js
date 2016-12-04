@@ -75,7 +75,10 @@
 			 * Styles support
 			 */
 			function applyRules(self) {
-				for (var i = 0, length = cssRules.length; i < length; i++) {
+				var i = 0,
+					length = cssRules.length;
+
+				for (i = 0; i < length; i++) {
 					self.insertCSSRule(cssRules[i]);
 				}
 			}

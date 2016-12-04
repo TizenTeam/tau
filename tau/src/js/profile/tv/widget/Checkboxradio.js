@@ -130,8 +130,8 @@
 				 * @static
 				 * @readonly
 				 */
-				activeSelector = "input[type='radio']:not([disabled]):not(." + classInListview + "), "
-					+ "[type='checkbox']:not([disabled]):not(." + classInListview + ")",
+				activeSelector = "input[type='radio']:not([disabled]):not(." + classInListview + "), " +
+					"[type='checkbox']:not([disabled]):not(." + classInListview + ")",
 				/**
 				 * {string} Focusable predecessor selector
 				 * @member ns.widget.tv.Checkboxradio
@@ -139,9 +139,9 @@
 				 * @static
 				 * @readonly
 				 */
-				focusablePredecessorSelector = "*[tabindex], "
-					+ "." + classes.listItemWithCheckbox + ", "
-					+ "." + classes.listItemWithRadio,
+				focusablePredecessorSelector = "*[tabindex], " +
+					"." + classes.listItemWithCheckbox + ", " +
+					"." + classes.listItemWithRadio,
 				/**
 				 * {string} Checkboxradio selector
 				 * @member ns.widget.tv.Checkboxradio

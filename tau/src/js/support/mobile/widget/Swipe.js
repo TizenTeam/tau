@@ -392,14 +392,21 @@
 			 * @member ns.widget.mobile.Swipe
 			 */
 			function refresh(self, element) {
+				var defaultCoverTheme = "",
+					covers = null,
+					coverTheme = "",
+					item = null,
+					itemHasThemeClass = null,
+					ui = null;
+
 				cleanupDom(self, element);
 
-				var defaultCoverTheme = classes.uiBodyPrefix + self.options.theme,
-					covers = slice.call(element.querySelectorAll(selectorRoleSwipeItemCover)),
-					coverTheme = defaultCoverTheme,
-					item = element.querySelector(selectorRoleSwipeItem),
-					itemHasThemeClass = element.className.match(/ui\-body\-[a-z]|ui\-bar\-[a-z]/),
-					ui = self._ui || {};
+				defaultCoverTheme = classes.uiBodyPrefix + self.options.theme;
+				covers = slice.call(element.querySelectorAll(selectorRoleSwipeItemCover));
+				coverTheme = defaultCoverTheme;
+				item = element.querySelector(selectorRoleSwipeItem);
+				itemHasThemeClass = element.className.match(/ui\-body\-[a-z]|ui\-bar\-[a-z]/);
+				ui = self._ui || {};
 
 				/*
 				 * @todo good support multicovers

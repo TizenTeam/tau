@@ -210,10 +210,12 @@
 				self._isAnimating = true;
 
 				util.requestAnimationFrame(function step(timeStamp) {
+					var currentTimeGap = 0;
+
 					if (startTime === null) {
 						startTime = timeStamp;
 					}
-					var currentTimeGap = timeStamp - startTime;
+					currentTimeGap = timeStamp - startTime;
 
 					progressCallback(currentTimeGap);
 

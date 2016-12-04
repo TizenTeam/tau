@@ -64,40 +64,41 @@
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 
-			/**
-			 * Simple helper for using trim in Array.map() function
-			 * @param {string} string
-			 * @return {string}
-			 * @private
-			 * @static
-			 * @method trim
-			 * @member ns.util.anim.Animation
-			 */
-			function trim(string) {
-				return string.trim();
-			}
-
-			/**
-			 * Helper for fetching animation index in animation list
-			 * @param {string|string[]} props
-			 * @param {string} name
-			 * @return {string}
-			 * @private
-			 * @static
-			 * @member ns.util.anim.Animation
-			 */
-			function getAnimationIndex(props, name) {
-				if (typeof props === "string") {
-					props = props.split(",").map(trim);
-				}
-				return props.indexOf(name);
-			}
-
 			var objectUtils = ns.util.object,
 				Keyframes = ns.util.anim.Keyframes,
 				CSSUtils = ns.util.DOM,
 				dateUtils = ns.util.date,
 				cssPropertyPrefix = ns.support.cssAnimationPrefix,
+
+				/**
+				 * Simple helper for using trim in Array.map() function
+				 * @param {string} string
+				 * @return {string}
+				 * @private
+				 * @static
+				 * @method trim
+				 * @member ns.util.anim.Animation
+				 */
+				trim = function (string) {
+					return string.trim();
+				},
+
+				/**
+				 * Helper for fetching animation index in animation list
+				 * @param {string|string[]} props
+				 * @param {string} name
+				 * @return {string}
+				 * @private
+				 * @static
+				 * @member ns.util.anim.Animation
+				 */
+				getAnimationIndex = function (props, name) {
+					if (typeof props === "string") {
+						props = props.split(",").map(trim);
+					}
+					return props.indexOf(name);
+				},
+
 				eventPrefix = cssPropertyPrefix.replace(/\-/gi, ""),
 				endEventName = eventPrefix.length > 0 ? eventPrefix +
 				"AnimationEnd" : "animationEnd",
@@ -149,24 +150,32 @@
 				 * @member ns.util.anim.Animation
 				 */
 				changeState = function (self, state) {
+					var options = null,
+						element = null,
+						onPlay = null,
+						style = null,
+						keyframes = null,
+						propString = "",
+						propsArray = null,
+						index = 0;
+
 					if (!self._applied) { // !set before keyframe fetch
 						self._apply();
 					}
 
-					var options = self.options,
-						element = options.element,
-						onPlay = options.onPlay,
-						style = element.style,
-						keyframes = self.keyframes,
-						propString = style.getPropertyValue(cssPropertyPrefix +
-							"animation-play-state"),
-						propsArray = (propString && propString.split(",")
-								.map(trim)) || [],
-						index = keyframes ? getAnimationIndex(
-							style.getPropertyValue(cssPropertyPrefix +
-								"animation-name"),
-							keyframes.id
-						) : -1;
+					options = self.options;
+					element = options.element;
+					onPlay = options.onPlay;
+					style = element.style;
+					keyframes = self.keyframes;
+					propString = style.getPropertyValue(cssPropertyPrefix +
+						"animation-play-state");
+					propsArray = (propString && propString.split(",").map(trim)) || [];
+					index = keyframes ? getAnimationIndex(
+						style.getPropertyValue(cssPropertyPrefix +
+							"animation-name"),
+						keyframes.id
+					) : -1;
 
 					if (index > -1) {
 						propsArray[index] = state || "running";
