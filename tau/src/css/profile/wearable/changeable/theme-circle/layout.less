@@ -146,17 +146,27 @@ body {
 			padding-right: 33 * @unit_base;
 		}
 	}
-	.ui-footer.ui-bottom-button{
+	.ui-footer.ui-bottom-button {
 		position: fixed !important;
 		bottom: 0;
 		z-index: 1000;
-		height: 100 * @unit_base;
+		max-height: 100 * @unit_base;
+		font-size: 32 * @px_base;
+		.display-flex();
+		.flex-direction(column);
+		.justify-content(flex-end);
+
 		.ui-btn {
-			line-height: 90 * @unit_base;
-			height: 100%;
+			.display-flex();
+			.flex-direction(column);
+			.justify-content(center);
+			.align-items(center);
+
+			line-height: 37 * @unit_base;
+			height: 78 * @unit_base;
 			position: relative;
 			margin: 0;
-			padding: 0 0 10 * @unit_base 0;
+			padding: 0 0 5 * @unit_base 0;
 			background-color: @color_footer_button_bg;
 			.mask-image("images/Bottom_button/tw_bottom_btn_bg.png");
 			.mask-size(100% 100%);
@@ -176,6 +186,9 @@ body {
 
 			&.ui-btn-active::after {
 				animation: btn-footer-opacity-press linear 565ms;
+			}
+			&.ui-btn-icon-only {
+				padding-bottom: 0;
 			}
 		}
 

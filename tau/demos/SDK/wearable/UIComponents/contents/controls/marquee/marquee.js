@@ -3,7 +3,6 @@
 	var page = document.getElementById("marqueeTest"),
 		marqueeEl = document.getElementById("marquee"),
 		startBtn = document.getElementById("start"),
-		resetBtn = document.getElementById("reset"),
 		startFlag = true,
 		marqueeWidget,
 		pageShowHandler,
@@ -16,7 +15,6 @@
 		page = null;
 		marqueeEl = null;
 		startBtn = null;
-		resetBtn = null;
 		marqueeWidget = null;
 	}
 
@@ -26,7 +24,6 @@
 	function marqueeEndHandler () {
 		startFlag = false;
 		startBtn.textContent = "START";
-		console.log("marquee end!");
 	}
 
 	/**
@@ -34,7 +31,6 @@
 	 */
 	function marqueeStartHandler () {
 		startFlag = true;
-		console.log("marquee Start!");
 	}
 
 	/**
@@ -42,7 +38,6 @@
 	 */
 	function marqueeStoppedHandler () {
 		startFlag = false;
-		console.log("marquee Stopped!");
 	}
 
 	/**
@@ -74,7 +69,6 @@
 		marqueeEl.addEventListener("marqueestart", marqueeStartHandler);
 		marqueeEl.addEventListener("marqueestopped", marqueeStoppedHandler);
 		startBtn.addEventListener("vclick", marqueeStartandStop);
-		resetBtn.addEventListener("vclick", marqueeReset);
 	}
 
 	/**
@@ -84,7 +78,6 @@
 		page.removeEventListener("pageshow", pageShowHandler);
 		page.removeEventListener("pagehide", pageHideHandler);
 		startBtn.removeEventListener("vclick", marqueeStartandStop);
-		resetBtn.removeEventListener("vclick", marqueeReset);
 		marqueeEl.removeEventListener("marqueeend", marqueeEndHandler);
 		marqueeEl.removeEventListener("marqueestart", marqueeStartHandler);
 		marqueeEl.removeEventListener("marqueestopped", marqueeStoppedHandler);
