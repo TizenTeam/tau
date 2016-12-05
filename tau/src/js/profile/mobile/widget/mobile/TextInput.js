@@ -190,26 +190,8 @@
 			 * @member ns.widget.mobile.TextInput
 			 */
 			function resizeTextArea(element) {
-				util.async(function () {
-					var computed = window.getComputedStyle(element, null),
-						paddingTopCSS = null,
-						paddingBottomCSS = null,
-						paddingTop = 0,
-						paddingBottom = 0;
-
-					if (computed) {
-						paddingTopCSS = computed.getPropertyValue("padding-top");
-						paddingBottomCSS = computed.getPropertyValue("padding-bottom");
-						if (typeof paddingTopCSS === "string") {
-							paddingTop = parseFloat(paddingTopCSS.replace("px", "")) || 0;
-						}
-						if (typeof paddingBottomCSS === "string") {
-							paddingBottom = parseFloat(paddingBottomCSS.replace("px", "")) || 0;
-						}
-					}
-
-					element.style.height = (element.scrollHeight - paddingTop - paddingBottom) + "px";
-				});
+				element.style.height = "auto"; // reset for the browser to recalculate scrollHeight
+				element.style.height = element.scrollHeight + "px"; // apply scrollHeight as new height
 			}
 			/**
 			 * Toggle visibility of the clear button
@@ -398,6 +380,9 @@
 				}
 
 				if (element.nodeName.toLowerCase() === "textarea") {
+					if (element.hasAttribute("rows") === false) {
+						element.rows = 1;
+					}
 					resizeTextArea(element);
 				}
 
