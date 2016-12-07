@@ -1,4 +1,22 @@
 %changelog
+* Wed Dec 07 2016 Tomasz Lukawski <t.lukawski@samsung.com> 0.13.20
+	- fix(wearable): Bottom button has wrong size
+	- fix(mobile): Textarea resizing problem fixed
+	- fix(all) Change of eslint rules + autofixing
+	- fix(all) Manual fixing of issues reported by eslint for TAU project
+	- fix(all) Automatic apply new eslint rules for TAU project
+	- feat(all) Configuration eslint rules for TAU project
+	- fix: corrections of issues reported by eslint (rest of source files)
+	- fix(wearable) corrections of errors reported by eslint (path: js/profile/wearable)
+	- fix(mobile) corrections of errors reported by eslint (path: js/mobile)
+	- fix(core) eslint fixes in TAU source (path: js/core)
+	- refactor(all): Remove unused demo apps
+	- refactor(all): Remove unused LESS files
+	- tool(all): Add LessLint tool to control quality of less files
+	- fix(all): Fix simple eslint errors with autofix feature
+	- tool(all): Change code quality tool from jshint to eslint
+	- doc(mobile) UIComponents: documentation for activity example
+
 * Wed Nov 30 2016 Tomasz Lukawski <t.lukawski@samsung.com> 0.13.19
 	- fix(mobile) Floating button covered
 	- fix(mobile): Fix layout of SearchBar
