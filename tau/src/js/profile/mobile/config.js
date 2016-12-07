@@ -34,6 +34,7 @@
 			ns.setConfig("popupTransition", "slideup");
 			ns.setConfig("pageTransition", "slide");
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
+			return ns;
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");

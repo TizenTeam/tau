@@ -22,18 +22,19 @@
  * @author Maciej Moczulski <m.moczulski@samsung.com>
  * @author Piotr Karny <p.karny@samsung.com>
  */
-(function (window, document, ns) {
+(function (window, ns) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../DOM"
+			"../DOM",
+			"../string"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 
 			var DOM = ns.util.DOM,
-				DASH_TO_UPPER_CASE_REGEXP = /-([a-z])/gi;
+				stringUtil = ns.util.string;
 
 			/**
 			 * Returns css property for element
@@ -329,31 +330,19 @@
 				return !(element.offsetWidth <= 0 && element.offsetHeight <= 0);
 			}
 
-			function toUpperCaseFn(match, value) {
-				return value.toLocaleUpperCase();
-			}
-
-			function dashesToCamelCase(str) {
-				return str.replace(DASH_TO_UPPER_CASE_REGEXP, toUpperCaseFn);
-			}
-
-			function firstToUpperCase(str) {
-				return str.charAt(0).toLocaleUpperCase() + str.substring(1);
-			}
-
 			/**
 			 * Set values for element with prefixes for browsers
 			 * @method setPrefixedStyle
-			 * @param {HTMLElement} element
+			 * @param {HTMLElement | CSSStyleRule} elementOrRule
 			 * @param {string} property
 			 * @param {string|Object|null} value
 			 * @member ns.util.DOM
 			 * @static
 			 */
-			function setPrefixedStyle(element, property, value) {
-				var style = element.style,
-					propertyForPrefix = firstToUpperCase(dashesToCamelCase(property)),
-					values = (typeof value === "string") ? {
+			function setPrefixedStyle(elementOrRule, property, value) {
+				var style = elementOrRule.style,
+					propertyForPrefix = property,
+					values = (typeof value !== "object") ? {
 						webkit: value,
 						moz: value,
 						o: value,
@@ -361,11 +350,11 @@
 						normal: value
 					} : value;
 
-				style[property] = values.normal;
-				style["webkit" + propertyForPrefix] = values.webkit;
-				style["moz" + propertyForPrefix] = values.moz;
-				style["o" + propertyForPrefix] = values.o;
-				style["ms" + propertyForPrefix] = values.ms;
+				style.setProperty(property, values.normal);
+				style.setProperty("-webkit-" + propertyForPrefix, values.webkit);
+				style.setProperty("-moz-" + propertyForPrefix, values.moz);
+				style.setProperty("-o-" + propertyForPrefix, values.o);
+				style.setProperty("-ms-" + propertyForPrefix, values.ms);
 			}
 
 			/**
@@ -411,6 +400,26 @@
 				return value;
 			}
 
+			/**
+			 * Returns size (width, height) as CSS string
+			 * @method toCSSSize
+			 * @param {string|Array} size has to be comma separated string (eg. "10,100") or array with 2 elements
+			 * @returns {string} if not enough arguments the method returns empty string
+			 * @member ns.util.DOM
+			 * @static
+			 */
+			function toCSSSize(size) {
+				var cssSize = "";
+
+				size = stringUtil.parseProperty(size);
+
+				if (size && size.length === 2) {
+					cssSize = "width: " + size[0] + "px;" +
+					"height: " + size[1] + "px;";
+				}
+
+				return cssSize;
+			}
 
 			// assign methods to namespace
 			DOM.getCSSProperty = getCSSProperty;
@@ -422,10 +431,11 @@
 			DOM.setPrefixedStyle = setPrefixedStyle;
 			DOM.getPrefixedValue = getPrefixedValue;
 			DOM.getPrefixedStyleValue = getPrefixedStyleValue;
+			DOM.toCSSSize = toCSSSize;
 
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return ns.util.DOM;
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
-}(window, window.document, ns));
+}(window, ns));

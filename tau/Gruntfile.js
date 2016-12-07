@@ -781,6 +781,10 @@ module.exports = function (grunt) {
 				guide: {
 					expand: true,
 					src: ["docs/guide/built", "docs/guide/source/inline"]
+				},
+				test: {
+					expand: true,
+					src: ["report", "temp"]
 				}
 			},
 
@@ -1057,9 +1061,11 @@ module.exports = function (grunt) {
 	grunt.registerTask("sdk-docs", ["docs-html:mobile", "docs-html:wearable", "docs-html:tv", "copy:sdk-docs"]);
 	grunt.registerTask("dld-docs", ["docs-html:mobile-dld", "docs-html:wearable-dld"]);
 
-	grunt.registerTask("build", ["clean", "lint", "css", "globalize", "js", "license", "version"]);
-	grunt.registerTask("build-mobile", ["clean", "lint", "css-mobile", "globalize", "js-mobile", "license", "version"]);
+	grunt.registerTask("build", ["lint", "css", "globalize", "js", "license", "version"]);
+	grunt.registerTask("build-mobile", ["lint", "css-mobile", "globalize", "js-mobile", "license", "version"]);
 	grunt.registerTask("release", ["build", "test", "sdk-docs"]);
 	grunt.registerTask("default", ["release"]);
-	grunt.registerTask("ci", ["test:wearable", "test:mobile", "test:mobile_support", "test:jqm", "test:jqm14ok", "eslint:js-ci", "lesslint:less-ci"]);
+	grunt.registerTask("ci-wearable", ["clean:test", "test:wearable"]);
+  grunt.registerTask("ci-mobile", ["clean:test", "test:mobile", "test:mobile_support", "test:jqm", "test:jqm14ok"]);
+  grunt.registerTask("ci", ["eslint:js-ci", "lesslint:less-ci"]);
 };

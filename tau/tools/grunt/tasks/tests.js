@@ -69,10 +69,6 @@ module.exports = function (grunt) {
 			"qunit-main": true,
 			default: true
 		},
-		tv: {
-			"qunit-main": true,
-			default: true
-		},
 		jqm: {
 			"qunit-main": false,
 			default: true
@@ -99,16 +95,16 @@ module.exports = function (grunt) {
 	// Update config for task; copy
 	configProperty = grunt.config.get("copy");
 	configProperty["test-libs-wearable"] = { files: [
-		{expand: true, cwd: path.join(buildFrameworkPath, "wearable", "js/"), src: "**", dest: path.join("tests", "libs", "dist", "js")},
-		{expand: true, cwd: path.join(buildFrameworkPath, "wearable", "theme/"), src: "**", dest: path.join("tests", "libs", "dist", "theme")}
+		{expand: true, cwd: path.join(buildFrameworkPath, "wearable", "js"), src: "**", dest: path.join("tests", "libs", "dist", "js")},
+		{expand: true, cwd: path.join(buildFrameworkPath, "wearable", "theme", "default"), src: "**", dest: path.join("tests", "libs", "dist", "theme", "default")}
 	]};
 	configProperty["test-libs-mobile"] = { files: [
-		{expand: true, cwd: path.join(buildFrameworkPath, "mobile", "js/"), src: "**", dest: path.join("tests", "libs", "dist", "js")},
-		{expand: true, cwd: path.join(buildFrameworkPath, "mobile", "theme/"), src: "**", dest: path.join("tests", "libs", "dist", "theme")}
+		{expand: true, cwd: path.join(buildFrameworkPath, "mobile", "js"), src: "**", dest: path.join("tests", "libs", "dist", "js")},
+		{expand: true, cwd: path.join(buildFrameworkPath, "mobile", "theme", "default"), src: "**", dest: path.join("tests", "libs", "dist", "theme", "default")}
 	]};
 	configProperty["test-libs-tv"] = { files: [
-		{expand: true, cwd: path.join(buildFrameworkPath, "tv", "js/"), src: "**", dest: path.join("tests", "libs", "dist", "js")},
-		{expand: true, cwd: path.join(buildFrameworkPath, "tv", "theme/"), src: "**", dest: path.join("tests", "libs", "dist", "theme")}
+		{expand: true, cwd: path.join(buildFrameworkPath, "tv", "js"), src: "**", dest: path.join("tests", "libs", "dist", "js")},
+		{expand: true, cwd: path.join(buildFrameworkPath, "tv", "theme", "default"), src: "**", dest: path.join("tests", "libs", "dist", "theme", "default")}
 	]};
 	configProperty["test-libs-mobile_support"] = configProperty["test-libs-mobile"];
 	configProperty["test-libs-jqm"] = configProperty["test-libs-mobile"];
@@ -156,6 +152,15 @@ module.exports = function (grunt) {
 		if (prepareOnly) {
 			grunt.task.run("prepare-runner:" + profile);
 		}
+
+		grunt.config.set("qunit.options.coverage", {
+			disposeCollector: false,
+			src: ['tests/libs/dist/js/tau.js'],
+			htmlReport: "report/coverage/html/" + profile +"/",
+			cloverReport: "report/coverage/clover/" + profile +"/",
+			instrumentedFiles: "temp/",
+			reportOnFail: true
+		});
 
 		if (options) {
 
@@ -219,7 +224,7 @@ module.exports = function (grunt) {
 		grunt.config.set("requirejs", configProperty);
 
 		//would be better to maintain separate build for tests purposes
-		grunt.task.run("build");
+		grunt.task.run("build:" + profile);
 
 		if (profile) {
 			grunt.config.set("qunit.options.coverage.src", "tests/libs/dist/js/tau.js");

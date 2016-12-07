@@ -495,6 +495,7 @@
 					contentStyle.top = top + "px";
 					contentStyle.bottom = bottom + "px";
 					contentStyle.height = window.innerHeight - top - bottom + "px";
+					contentStyle.width = window.innerWidth + "px";
 				}
 			};
 
@@ -685,6 +686,24 @@
 			engine.defineWidget(
 				"Page",
 				"[data-role='page'], .ui-page",
+				[
+					"focus",
+					"blur",
+					"setActive",
+					"keepNativeSelector",
+					"setContainerBackground",
+					"removeContainerBackground"
+				],
+				Page,
+				"mobile",
+				true
+			);
+
+			// definition
+			ns.widget.mobile.Page = Page;
+			engine.defineWidget(
+				"page",
+				"",
 				[
 					"focus",
 					"blur",

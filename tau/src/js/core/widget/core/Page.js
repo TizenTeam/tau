@@ -224,8 +224,6 @@
 	define(
 		[
 			"../../engine",
-			"../../util/DOM/css",
-			"../../util/DOM/attributes",
 			"../../util/selectors",
 			"../BaseWidget",
 			"../core"
@@ -249,14 +247,6 @@
 				 */
 				util = ns.util,
 				/**
-				 * Alias for {@link ns.util.DOM}
-				 * @property {Object} doms
-				 * @member ns.widget.core.Page
-				 * @private
-				 * @static
-				 */
-				doms = util.DOM,
-				/**
 				 * Alias for {@link ns.util.selectors}
 				 * @property {Object} utilSelectors
 				 * @member ns.widget.core.Page
@@ -277,12 +267,12 @@
 					var self = this;
 					/**
 					 * Callback on resize
-					 * @property {?Function} contentFillAfterResizeCallback
+					 * @property {?Function} _contentFillAfterResizeCallback
 					 * @private
 					 * @member ns.widget.core.Page
 					 */
 
-					self.contentFillAfterResizeCallback = null;
+					self._contentFillAfterResizeCallback = null;
 					self._initialContentStyle = {};
 					/**
 					 * Options for widget.
@@ -362,7 +352,11 @@
 					uiFooter: "ui-footer",
 					uiContent: "ui-content"
 				},
-
+				HEADER_SELECTOR = "header,[data-role='header'],." + classes.uiHeader,
+				FOOTER_SELECTOR = "footer,[data-role='footer'],." + classes.uiFooter,
+				CONTENT_SELECTOR = ((FOOTER_SELECTOR + "," + HEADER_SELECTOR).split(",").map(function (item) {
+					return ":not(" + item + ")";
+				}).join("")) + ",[data-role='content'],." + classes.uiContent,
 				prototype = new BaseWidget();
 
 			Page.classes = classes;
@@ -375,7 +369,7 @@
 			 * @member ns.widget.core.Page
 			 */
 			prototype._configure = function () {
-				var options = this.options || {};
+				var options = this.options;
 				/**
 				 * Object with default options
 				 * @property {Object} options
@@ -401,50 +395,19 @@
 			prototype._contentFill = function () {
 				var self = this,
 					element = self.element,
-					rect = document.body.getBoundingClientRect(),
-					screenWidth = rect.width,
-					screenHeight = rect.height,
-					contentSelector = classes.uiContent,
-					headerSelector = classes.uiHeader,
-					footerSelector = classes.uiFooter,
-					extraHeight = 0,
-					children = [].slice.call(element.children),
-					childrenLength = children.length,
-					elementStyle = element.style,
-					i,
-					node,
-					contentStyle,
-					marginTop,
-					marginBottom,
-					nodeStyle;
+					screenWidth = window.innerWidth,
+					screenHeight = window.innerHeight,
+					elementStyle = element.style;
 
 				elementStyle.width = screenWidth + "px";
 				elementStyle.height = screenHeight + "px";
-
-				for (i = 0; i < childrenLength; i++) {
-					node = children[i];
-					if (node.classList.contains(headerSelector) ||
-						node.classList.contains(footerSelector)) {
-						extraHeight += doms.getElementHeight(node);
-					}
-				}
-				for (i = 0; i < childrenLength; i++) {
-					node = children[i];
-					nodeStyle = node.style;
-					if (node.classList.contains(contentSelector)) {
-						contentStyle = window.getComputedStyle(node);
-						marginTop = parseFloat(contentStyle.marginTop);
-						marginBottom = parseFloat(contentStyle.marginBottom);
-						nodeStyle.height = (screenHeight - extraHeight - marginTop - marginBottom) + "px";
-						nodeStyle.width = screenWidth + "px";
-					}
-				}
 			};
 
 			prototype._storeContentStyle = function () {
-				var initialContentStyle = this._initialContentStyle,
-					contentStyleAttributes = this._contentStyleAttributes,
-					content = this.element.querySelector("." + classes.uiContent),
+				var self = this,
+					initialContentStyle = self._initialContentStyle,
+					contentStyleAttributes = self._contentStyleAttributes,
+					content = self.element.querySelector("." + classes.uiContent),
 					contentStyle = content ? content.style : {};
 
 				contentStyleAttributes.forEach(function (name) {
@@ -452,10 +415,16 @@
 				});
 			};
 
+			/**
+			 * Restore saved styles for content.
+			 * Callled on refresh or hide.
+			 * @private
+			 */
 			prototype._restoreContentStyle = function () {
-				var initialContentStyle = this._initialContentStyle,
-					contentStyleAttributes = this._contentStyleAttributes,
-					content = this.element.querySelector("." + classes.uiContent),
+				var self = this,
+					initialContentStyle = self._initialContentStyle,
+					contentStyleAttributes = self._contentStyleAttributes,
+					content = self.element.querySelector("." + classes.uiContent),
 					contentStyle = content ? content.style : {};
 
 				contentStyleAttributes.forEach(function (name) {
@@ -486,6 +455,7 @@
 					// remove child if footer does not exist and value is set to false
 					if (value === false) {
 						element.removeChild(footer);
+						ui.footer = null;
 					} else {
 						// if options is set to true, to string or not is set
 						// add class
@@ -523,6 +493,7 @@
 					// remove child if header does not exist and value is set to false
 					if (value === false) {
 						element.removeChild(header);
+						ui.header = null;
 					} else {
 						// if options is set to true, to string or not is set
 						// add class
@@ -568,6 +539,7 @@
 					// remove child if content exist and value is set to false
 					if (value === false) {
 						element.removeChild(content);
+						ui.content = null;
 					} else {
 						// if options is set to true, to string or not is set
 						// add class
@@ -593,7 +565,10 @@
 			prototype._buildHeader = function (element) {
 				var self = this;
 
-				self._ui.header = utilSelectors.getChildrenBySelector(element, "header,[data-role='header'],." + classes.uiHeader)[0];
+				self._ui.header = utilSelectors.getChildrenBySelector(element, HEADER_SELECTOR)[0] || null;
+				if (self.options.header === undefined) {
+					self.options.header = !!self._ui.header;
+				}
 				self._setHeader(element, self.options.header);
 			};
 
@@ -607,7 +582,10 @@
 			prototype._buildFooter = function (element) {
 				var self = this;
 
-				self._ui.footer = utilSelectors.getChildrenBySelector(element, "footer,[data-role='footer'],." + classes.uiFooter)[0];
+				self._ui.footer = utilSelectors.getChildrenBySelector(element, FOOTER_SELECTOR)[0] || null;
+				if (self.options.footer === undefined) {
+					self.options.footer = !!self._ui.footer;
+				}
 				self._setFooter(element, self.options.footer);
 			};
 
@@ -621,7 +599,10 @@
 			prototype._buildContent = function (element) {
 				var self = this;
 
-				self._ui.content = utilSelectors.getChildrenBySelector(element, "[data-role='content'],." + classes.uiContent)[0];
+				self._ui.content = utilSelectors.getChildrenBySelector(element, CONTENT_SELECTOR)[0] || null;
+				if (self.options.content === undefined) {
+					self.options.content = !!self._ui.content;
+				}
 				self._setContent(element, self.options.content);
 			};
 
@@ -690,7 +671,7 @@
 			 */
 			prototype.blur = function () {
 				var element = this.element,
-					focusable = element.querySelector(":focus") || element;
+					focusable = document.activeElement || element;
 
 				focusable.blur();
 			};
@@ -704,8 +685,8 @@
 			prototype._bindEvents = function () {
 				var self = this;
 
-				self.contentFillAfterResizeCallback = self._contentFill.bind(self);
-				window.addEventListener("resize", self.contentFillAfterResizeCallback, false);
+				self._contentFillAfterResizeCallback = self._contentFill.bind(self);
+				window.addEventListener("resize", self._contentFillAfterResizeCallback, false);
 			};
 
 			/**
@@ -745,7 +726,9 @@
 			 */
 			prototype.onShow = function () {
 				//>>excludeStart("tauPerformance", pragmas.tauPerformance);
-				window.tauPerf.get("framework", "Trigger: pageshow");
+				if (window.tauPerf) {
+					window.tauPerf.get("framework", "Trigger: pageshow");
+				}
 				//>>excludeEnd("tauPerformance");
 				this.trigger(EventType.SHOW);
 			};
@@ -775,16 +758,15 @@
 			 * @protected
 			 * @member ns.widget.core.Page
 			 */
-			prototype._destroy = function () {
-				var self = this,
-					element = self.element;
+			prototype._destroy = function (element) {
+				var self = this;
 
 				element = element || self.element;
 				//>>excludeStart("tauDebug", pragmas.tauDebug);
 				ns.log("Called _destroy in ns.widget.core.Page");
 				//>>excludeEnd("tauDebug");
 
-				window.removeEventListener("resize", self.contentFillAfterResizeCallback, false);
+				window.removeEventListener("resize", self._contentFillAfterResizeCallback, false);
 				// destroy widgets on children
 				engine.destroyAllWidgets(element, true);
 			};
@@ -795,46 +777,16 @@
 				var div = document.createElement("div");
 
 				div.classList.add(classes.uiPage);
-				doms.setNSData(div, "role", "page");
 				return div;
 			};
 
-			// definition
 			ns.widget.core.Page = Page;
-			engine.defineWidget(
-				"Page",
-				"[data-role=page],.ui-page",
-				[
-					"layout",
-					"focus",
-					"blur",
-					"setActive",
-					"isActive"
-				],
-				Page,
-				"core"
-			);
-
-			engine.defineWidget(
-				"page",
-				"",
-				[
-					"layout",
-					"focus",
-					"blur",
-					"setActive",
-					"isActive"
-				],
-				Page,
-				"core"
-			);
-
-			// @remove
-			// THIS IS ONLY FOR COMPATIBILITY
-			ns.widget.page = ns.widget.Page;
-
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
-			return Page;
+			// exports only for tests
+			return {
+				Page: Page,
+				engine: engine
+			};
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");

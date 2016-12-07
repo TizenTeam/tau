@@ -1,0 +1,37 @@
+@font-face {
+	font-family: "Tizen";
+	font-weight: 200;
+	font-stretch: condensed;
+	src: url(fonts/BreezeSans-LightCondensed_20150728.ttf) format('truetype')
+}
+@font-face {
+	font-family: "Tizen";
+	font-weight: normal;
+	font-stretch: condensed;
+	src: url(./fonts/BreezeSans-RegularCondensed_20150728.ttf) format('truetype')
+}
+@font-face {
+	font-family: "Tizen";
+	font-weight: bold;
+	font-stretch: condensed;
+	src: url(./fonts/BreezeSans-MediumCondensed_20150728.ttf) format('truetype')
+}
+
+@font-face {
+	font-family: "Tizen";
+	font-weight: 200;
+	font-stretch: normal;
+	src: url(./fonts/BreezeSans-Light_20150728.ttf) format('truetype')
+}
+@font-face {
+	font-family: "Tizen";
+	font-weight: normal;
+	font-stretch: normal;
+	src: url(./fonts/BreezeSans-Regular_20150728.ttf) format('truetype')
+}
+@font-face {
+	font-family: "Tizen";
+	font-weight: bold;
+	font-stretch: normal;
+	src: url(./fonts/BreezeSans-Medium_20150728.ttf) format('truetype')
+}

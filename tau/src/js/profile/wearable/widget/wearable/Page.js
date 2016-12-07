@@ -403,6 +403,21 @@
 				true
 			);
 
+			engine.defineWidget(
+				"page",
+				"",
+				[
+					"layout",
+					"focus",
+					"blur",
+					"setActive",
+					"isActive"
+				],
+				Page,
+				"wearable",
+				true
+			);
+
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return Page;
 		}

@@ -1,25 +1,135 @@
-/* global document, tau */
-(function (document, tau) {
-	var testElement1 = document.getElementById("test1"),
-		testElement2 = document.getElementById("test2"),
-		testElement3 = document.getElementById("test3"),
-		testList1 = document.getElementById("test4"),
-		testList1Li1 = testList1.querySelector("li"),
-		testList2 = document.getElementById("test5"),
-		testList2Li1 = testList2.querySelector("li"),
-		testElement6 = document.getElementById("test6"),
-		testElement7 = document.getElementById("test7"),
-		testElement8 = null,
-		testElement9 = document.getElementById("test9"),
-		testElement10 = document.getElementById("test10"),
-		testElement11 = document.getElementById("test11"),
-		testElement12 = document.getElementById("test12"),
-		dom = tau.util.DOM;
+/* global document, tau, define, module, test, equal, deepEqual, ok, initFixture, injectStyle */
 
-	module("core/util/DOM/css");
+function initHTML() {
+	var HTML = "<div id='util-dom-css-test1' style='width: 50px; height: 50px;'></div>" +
+			"<div id='util-dom-css-test2'></div>" +
+			"<div id='util-dom-css-test3'>" +
+			"<div class='spacer'></div>" +
+			"</div>" +
+			"<ul id='util-dom-css-test4'>" +
+			"<li>" +
+			"<span class='spacer'></span>" +
+			"</li>" +
+			"</ul>" +
+			"<ul id='util-dom-css-test5'>" +
+			"<li>" +
+			"Lorem ipsum dolor sit amet, consectetur adipiscing elit." +
+			"Etiam convallis nisl sit amet metus pulvinar, sed laoreet" +
+			"massa molestie. Phasellus dictum viverra mi a luctus. In" +
+			"massa erat, porta ut porta ut, consectetur ac magna. Mauris" +
+			"eu urna dolor. Ut tincidunt sapien quis nisi consequat, vel" +
+			"mollis ipsum mattis. Suspendisse a lectus vitae nisi blandit" +
+			"varius at ut erat. Sed consequat vehicula odio, a sagittis" +
+			"metus dignissim dignissim." +
+			"</li>" +
+			"</ul>" +
+			"<div id='util-dom-css-test6'></div>" +
+			"<div id='util-dom-css-test7' style='width: 50px; height: 50px; padding: 10px; border: 1px solid black; display: none'></div>" +
+			"<div id='util-dom-css-test9' ></div>" +
+			"<div style='height: 20px;'>" +
+			"<div id='util-dom-css-test10' ></div>" +
+			"</div>" +
+
+			"<div id='util-dom-css-test11' style='height: auto; width: auto;'>" +
+			"<div style='height: 50px;'></div>" +
+			"</div>" +
+
+			"<div id='util-dom-css-test12' style='height: 20px; width: 20px; padding: 20px; box-sizing: content-box'></div>",
+		parent = document.getElementById("qunit-fixture") || window.initFixture();
+
+	parent.innerHTML = HTML;
+
+	injectStyle("#util-dom-css-test1 {" +
+		"width: 100px;" +
+		"height: 10px;" +
+		"display: block;" +
+		"opacity: 0.3;" +
+		"}" +
+
+		"#util-dom-css-test2 {" +
+		"max-width: 40px;" +
+		"}" +
+
+		"#util-dom-css-test3 > .spacer {" +
+		"min-width: 120px;" +
+		"height: 200px;" +
+		"}" +
+
+		"#util-dom-css-test4 {" +
+		"width: 10px;" +
+		"margin: 20px;" +
+		"padding: 10px;" +
+		"max-height: 10px;" +
+		"height: 10px;" +
+		"border: 0;" +
+		"line-height: 10px;" +
+		"font-size: 8px;" +
+		"}" +
+
+		"#util-dom-css-test4 > li {" +
+		"max-width: 80px;" +
+		"height: 5px;" +
+		"margin: 10px;" +
+		"padding: 5px;" +
+		"border: 0;" +
+		"}" +
+
+		"#util-dom-css-test4 > li > .spacer {" +
+		"min-height: 10px;" +
+		"min-width: 100px;" +
+		"}" +
+
+		"#util-dom-css-test5 {" +
+		"margin: 0;" +
+		"padding: 0;" +
+		"list-style-type: none;" +
+		"}" +
+
+		"#util-dom-css-test5 > li {" +
+		"margin: 0;" +
+		"padding: 0;" +
+		"border: 1px solid black;" +
+		"max-width: 100px;" +
+		"min-height: 40px;" +
+		"text-overflow: clip;" +
+		"white-space: nowrap;" +
+		"overflow: hidden;" +
+		"}" +
+
+		"#util-dom-css-test9 {" +
+		"width: 50.5%;" +
+		"height: 10px;" +
+		"opacity: 0.3;" +
+		"}" +
+
+		"#util-dom-css-test10 {" +
+		"width: 100%;" +
+		"height: 100%;" +
+		"}");
+}
+
+function cssTests(dom) {
+
+	module("core/util/DOM/css", {
+		setup: initHTML
+	});
 
 	test("util.DOM.css", function () {
 		// basic props check
+		var testElement1 = document.getElementById("util-dom-css-test1"),
+			testElement2 = document.getElementById("util-dom-css-test2"),
+			testElement3 = document.getElementById("util-dom-css-test3"),
+			testList1 = document.getElementById("util-dom-css-test4"),
+			testList1Li1 = testList1.querySelector("li"),
+			testList2 = document.getElementById("util-dom-css-test5"),
+			testList2Li1 = testList2.querySelector("li"),
+			testElement6 = document.getElementById("util-dom-css-test6"),
+			testElement7 = document.getElementById("util-dom-css-test7"),
+			testElement9 = document.getElementById("util-dom-css-test9"),
+			testElement10 = document.getElementById("util-dom-css-test10"),
+			testElement11 = document.getElementById("util-dom-css-test11"),
+			testElement12 = document.getElementById("util-dom-css-test12"),
+			testElement8;
 		var props = {
 				"width": 0,
 				"height": 0,
@@ -27,7 +137,7 @@
 			},
 			floatValue = dom.getCSSProperty(testElement9, "opacity", 0, "float"),
 			floatValueRound = Math.round(floatValue),
-			$test8 = $("#test8");
+			$test8 = $("#util-dom-css-test8");
 		equal(dom.getCSSProperty(testElement1, "display", false), "block", "fetching css property value");
 		equal(dom.getCSSProperty(testElement1, "display", false), $(testElement1).css("display"), "compare with jquery");
 		deepEqual(dom.getCSSProperty(testElement1, "width", 0, "integer"), 50, "fetching css property value and matching types");
@@ -35,8 +145,8 @@
 		ok(floatValueRound !== floatValue, "checks if float");
 
 		dom.extractCSSProperties(testElement1, props);
-		equal(typeof props['opacity'], 'number', "Opacity is a typeof number");
-		props['opacity'] = Number(props['opacity'].toFixed(1));
+		equal(typeof props["opacity"], "number", "Opacity is a typeof number");
+		props["opacity"] = Number(props["opacity"].toFixed(1));
 		deepEqual(
 			props,
 			{
@@ -84,7 +194,7 @@
 		equal(parseInt(dom.getElementHeight(testElement7, "outer", false, true, null, true), 10), $(testElement7).outerHeight(true), "compare with jquery");
 		equal(testElement7.style.display, "none", "check testElement7 display style attribute modification");
 
-		$test8 = $("<div id='test8'></div>")
+		$test8 = $("<div id='util-dom-css-test8'></div>");
 		$("#qunit-fixture").append($test8);
 
 		$test8.css({
@@ -97,7 +207,7 @@
 			"line-height": "10px",
 			"font-size": "8px"
 		});
-		testElement8 = document.getElementById("test8");
+		testElement8 = document.getElementById("util-dom-css-test8");
 		equal(parseInt(dom.getElementHeight(testElement8, "outer", false, true), 10), $test8.outerHeight(true), "compare with jquery method 'outerWidth'");
 		equal(parseInt(dom.getElementWidth(testElement8, "outer", false, true), 10), $test8.outerWidth(true), "compare with jquery method 'outerWidth'");
 		equal(dom.getElementWidth(testElement8, "outer", false, true), 120, "check width of the created element");
@@ -117,21 +227,21 @@
 		});
 		equal(dom.getElementWidth(testElement8, false, true), 120, "check width of the created element with offset");
 		equal(dom.getElementHeight(testElement8, false, true), 30, "check height of the created element with offset");
-		equal(dom.getElementWidth(testElement8, 'outer', false), 120, "check width of the created element with outer");
-		equal(dom.getElementHeight(testElement8, 'outer', false), 30, "check height of the created element with outer");
+		equal(dom.getElementWidth(testElement8, "outer", false), 120, "check width of the created element with outer");
+		equal(dom.getElementHeight(testElement8, "outer", false), 30, "check height of the created element with outer");
 		equal(dom.getElementWidth(testElement8, false, false, true), 140, "check width of the created element with margin");
 		equal(dom.getElementHeight(testElement8, false, false, true), 50, "check height of the created element with margin");
 
 		// @TODO 50.5% width causes tests fail inside phantom (probably due to different rounding implementation)
-		equal(Math.round(dom.getElementWidth(testElement9)), Math.round(document.body.offsetWidth * 0.5057), "Percentage width to pixel (50.57%)");
-		equal(dom.getElementWidth(testElement10), document.body.offsetWidth, "Percentage width 2");
+		equal(Math.round(dom.getElementWidth(testElement9)), Math.floor(testElement9.parentElement.offsetWidth * 0.505), "Percentage width to pixel (50.5%)");
+		equal(dom.getElementWidth(testElement10), testElement10.parentElement.offsetWidth, "Percentage width 2");
 		equal(dom.getElementHeight(testElement10), 20, "Percentage height");
 
 		equal(dom.getElementHeight(testElement11), 50, "Auto height");
-		equal(dom.getElementWidth(testElement11), document.body.offsetWidth, "Auto width");
+		equal(dom.getElementWidth(testElement11), testElement11.parentElement.offsetWidth, "Auto width");
 
 		equal(dom.getElementOffset(testElement8).left, -9990, "Check offset left");
-		equal(dom.getElementOffset(testElement8).top, -9626, "Check offset top");
+		equal(dom.getElementOffset(testElement8).top, -9486, "Check offset top");
 
 		equal(dom.isOccupiedPlace(testElement8), true, "Check if element occupies place at view");
 
@@ -141,18 +251,34 @@
 	});
 
 	test("setPrefixedStyle", function () {
-		dom.setPrefixedStyle(testElement1, "transform", "translate3d(2px, 2px, 2px)");
-		equal(testElement1.style.webkitTransform, "translate3d(2px, 2px, 2px)", "style is set correctly");
-		equal(testElement1.style.transform, "translate3d(2px, 2px, 2px)", "style is set correctly");
+		var testElement1 = document.getElementById("util-dom-css-test1");
 
-		dom.setPrefixedStyle(testElement1, "transform", {webkit: "translate3d(2px, 2px, 2px)", normal: "translate3d(4px, 4px, 4px)"});
-		equal(testElement1.style.webkitTransform, "translate3d(2px, 2px, 2px)", "style is set correctly");
-		equal(testElement1.style.transform, "translate3d(4px, 4px, 4px)", "style is set correctly");
+		dom.setPrefixedStyle(testElement1, "transform", "translate3d(2px, 2px, 2px)");
+		equal(testElement1.style.transform || testElement1.style.webkitTransform, "translate3d(2px, 2px, 2px)", "style is set correctly");
+
+		// test when value is number
+		dom.setPrefixedStyle(testElement1, "zIndex", 0);
+		equal(testElement1.style.webkitZIndex || testElement1.style.zIndex, 0, "style is set correctly");
+
+		dom.setPrefixedStyle(testElement1, "mask", {
+			webkit: "url(\"a.png\")",
+			normal: "none"
+		});
+		equal(testElement1.style.webkitMask.substr(0, 3), "url", "style is set correctly");
+		equal(testElement1.style.mask, "none", "style is set correctly");
 	});
 
-	test("setPrefixedStyle", function () {
+	test("getPrefixedValue", function () {
 		var values = dom.getPrefixedValue("transform");
 		equal(values.normal, "transform", "return correct values");
 		equal(values.webkit, "-webkit-transform", "return correct values");
 	});
-}(document, tau));
+}
+
+if (typeof define === "function") {
+	define(function() {
+		return cssTests;
+	});
+} else {
+	cssTests(tau.util.DOM);
+}

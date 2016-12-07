@@ -49,6 +49,7 @@
 			// ns.setConfig('pageContainer', document.body); // defining application container for wearable
 
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
+			return ns;
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");

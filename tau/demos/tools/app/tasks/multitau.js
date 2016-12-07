@@ -48,6 +48,10 @@ module.exports = function (grunt) {
 	function mkdirRecursiveSync(dir) {
 		var dirs = dir.split(path.sep),
 			currentDir = dirs.shift();
+		if (!currentDir) {
+			// we have absolute pathm -rf 
+			currentDir = path.sep;
+		}
 		dirs.forEach(function (dirName) {
 			if (!fs.existsSync(currentDir)) {
 				fs.mkdirSync(currentDir);
@@ -325,6 +329,7 @@ module.exports = function (grunt) {
 			testToRun = grunt.option("test"),
 			async = require("async"),
 			debug = grunt.option("tau-debug"),
+			noCopy = grunt.option("no-copy-tau") || 0,
 			noRun = grunt.option("no-run"),
 			tizen_3_0 = grunt.option("tizen-3-0"),
 			app = options.app || "MediaQuriesUtilDemo",
@@ -338,10 +343,12 @@ module.exports = function (grunt) {
 		}
 		grunt.log.ok("delete " + dest);
 		fs.lstat(dest, function (error, stats) {
-			if (stats && stats.isSymbolicLink()) {
-				fs.unlinkSync(dest);
-			} else {
-				unlinkRecursiveSync(dest);
+			if (!noCopy) {
+				if (stats && stats.isSymbolicLink()) {
+					fs.unlinkSync(dest);
+				} else {
+					unlinkRecursiveSync(dest);
+				}
 			}
 			async.series([
 				function (callback) {
@@ -352,9 +359,11 @@ module.exports = function (grunt) {
 					}
 				},
 				function (callback) {
-					mkdirRecursiveSync(dest);
-					grunt.log.ok("copy " + src + profile + " -> " + dest);
-					copyRecursiveSync(src, dest);
+					if (!noCopy) {
+						mkdirRecursiveSync(dest);
+						grunt.log.ok("copy " + src + profile + " -> " + dest);
+						copyRecursiveSync(src, dest);
+					}
 					callback();
 				}
 			], getDeviceList.bind(null, profile,
@@ -374,13 +383,14 @@ module.exports = function (grunt) {
 											} else {
 												tasks.push(run.bind(null, device, app, debug));
 											}
-											fs.exists('../../../' + app + 'screenshots.json', function (exists) {
+											fs.exists(app + 'screenshots.json', function (exists) {
 												if (exists) {
-													var screenshots = require('../../../' + app + 'screenshots.json');
+													var screenshots = require('../../../' + app + 'screenshots.json'),
+														firstTime = 10000;
 													tasks.push(function (next) {
 														setTimeout(function () {
 															next();
-														}, 10000);
+														}, firstTime);
 													});
 													if (testToRun) {
 														screenshots = screenshots.filter(function (item) {
@@ -388,7 +398,7 @@ module.exports = function (grunt) {
 														});
 													}
 													screenshots.forEach(function (screenshotItem) {
-														tasks.push(function (next) {
+														tasks.push(function (screenshotItem, next) {
 															var startTime = Date.now();
 															if (tizen_3_0) {
 																screenshot_tizen_3_0(device, profile, app, globalAppId, screenshotItem, function () {
@@ -403,12 +413,12 @@ module.exports = function (grunt) {
 																	}, screenshotItem.time - (Date.now() - startTime));
 																});
 															}
-														});
+														}.bind(null, screenshotItem));
 													});
 												}
+                        async.series(tasks, done);
 											});
 										});
-										async.series(tasks, done);
 									} else {
 										done();
 									}

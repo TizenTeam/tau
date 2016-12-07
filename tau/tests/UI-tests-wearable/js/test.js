@@ -22,7 +22,7 @@ describe('ImageTest', function() {
             }, 'image not loaded.', 200);
 
             runs(function () {
-                expect(b).toImageDiffEqual(a);
+                expect(b).toImageDiffEqual(a, 150);
                 callback();
             });
         });
