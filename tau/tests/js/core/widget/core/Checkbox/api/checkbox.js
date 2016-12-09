@@ -1,6 +1,5 @@
 test ("API of Checkbox Widget", function() {
 	var widget;
-
 	equal(typeof tau, "object", "Class tau exists");
 	equal(typeof tau.widget, "object", "Class tau.widget exists");
 	equal(typeof tau.widget.core, "object", "Class tau.widget exists");

@@ -1,50 +1,13 @@
-var fs = require("fs"),
-	path = require("path"),
-	deviceMap = {
-		"SM-R380": "wearable",
-		"SM-R381": "wearable",
-		"SM-R750": "wearable",
-		"SM-R750A": "wearable",
-		"SM-V700": "wearable",
-		"SM-Z130H": "mobile",
-		"SM-Z300H": "mobile",
-		"device-1": "mobile",
-		"device-2": "mobile",
-		"tm1": "mobile",
-		"m-0912-1": "mobile",
-		"m-0913-1": "mobile",
-		"m-0914-1": "mobile",
-		"m-0916-1": "mobile",
-		"m-1015-1": "mobile",
-		"m-0923-1": "mobile",
-		"m-1030-1": "mobile",
-		"000011d200006469": "mobile",
-		"tw1": "wearable",
-		"TW1": "wearable",
-		"TM1": "mobile",
-		"<unknown>": "tv",
-		"Wearable-B2": "wearable"
-	},
-	deviceNames = {
-		"SM-R380": "gear2",
-		"SM-R381": "gear2",
-		"SM-R750": "gearS",
-		"SM-R750A": "gearS",
-		"SM-V700": "gear2",
-		"SM-Z130H": "kiran",
-		"SM-Z300H": "z3",
-		"tm1": "z3",
-		"device-1": "redwood",
-		"device-2": "redwood",
-		"SM-Z9005": "redwood",
-		"<unknown>": "tv",
-		"Wearable-B2": "gear"
-	},
-	devicesIds = {},
-	globalAppId = '';
-
+/*global module:false, require:false*/
 module.exports = function (grunt) {
 	"use strict";
+
+	var fs = require("fs"),
+		path = require("path"),
+		deviceMap = require("../data/deviceMap"),
+		deviceNames = require("../data/deviceNames"),
+		devicesIds = {},
+		globalAppId = '';
 
 	/**
 	 * Look ma, it"s cp -R.
@@ -117,6 +80,7 @@ module.exports = function (grunt) {
 					tv: []
 				},
 				count = 0;
+
 			stdout.split("\n").forEach(function (line) {
 				var portRegexp = /([0-9A-Za-z.:-]+)[ \t]+(device|online|offline)[ \t]+([^ ]+)/mi,
 					match = portRegexp.exec(line);
@@ -144,22 +108,27 @@ module.exports = function (grunt) {
 		});
 	}
 
-	function prepareWGT(dir, appId, profile, done) {
-		exec("tools/tizen-sdk/bin/web-build " + dir + " -e .gitignore .build* .settings .sdk_delta.info *.wgt", function () {
-			exec("cp " + dir + ".project " + dir + ".buildResult/", function () {
-				exec("tools/tizen-sdk/bin/web-signing " + dir + ".buildResult -n -p Developer:tools/" + (profile === "tv" ? "tv-" : "") + "profiles.xml", function () {
-					exec("tools/tizen-sdk/bin/web-packaging -n -o " + appId + ".wgt " + dir + "/.buildResult/", function () {
-						done();
+	function prepareWGT(dir, appId, profile, done, destDir) {
+		destDir = destDir || "";
+
+		exec("tools/tizen-sdk/bin/web-build " + dir + " -e .gitignore .build* .settings .sdk_delta.info *.wgt .idea", function () {
+			exec("mkdir " + dir + ".buildResult", function () {
+				exec("cp " + dir + ".project " + dir + ".buildResult/", function () {
+					exec("tools/tizen-sdk/bin/web-signing " + dir + ".buildResult -n -p Developer:tools/" + (profile === "tv" ? "tv-" : "") + "profiles.xml", function () {
+						exec("tools/tizen-sdk/bin/web-packaging -n -o " + path.join(destDir, appId) + ".wgt " + dir + "/.buildResult/", function () {
+							done();
+						});
 					});
 				});
 			});
 		});
 	}
 
-	function build(dir, profile, done) {
+	function build(dir, profile, done, destDir) {
 		var config,
 			appId,
 			packageId;
+
 		fs.exists(dir + "/config.xml", function (exists) {
 			if (exists) {
 				fs.readFile(dir + "/config.xml", function (err, data) {
@@ -169,7 +138,7 @@ module.exports = function (grunt) {
 						appId = result.widget["tizen:application"][0].$.id;
 						packageId = result.widget["tizen:application"][0].$.package;
 						fs.unlink(appId + ".wgt", function () {
-							prepareWGT(dir, appId, profile, done);
+							prepareWGT(dir, appId, profile, done, destDir);
 						});
 					});
 				});
@@ -361,7 +330,9 @@ module.exports = function (grunt) {
 			app = options.app || "MediaQuriesUtilDemo",
 			src = options["src"],
 			dest = options["dest"],
+			destDir = options["dest-dir"],
 			done = this.async();
+
 		if (src.substr(-1) !== "/") {
 			src += "/";
 		}
@@ -442,7 +413,7 @@ module.exports = function (grunt) {
 										done();
 									}
 								}
-							});
+							}, destDir);
 						});
 					} else {
 						done();

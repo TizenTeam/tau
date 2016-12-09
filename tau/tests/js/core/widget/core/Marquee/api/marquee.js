@@ -1,5 +1,6 @@
 (function (ns) {
     'use strict';
+
     test ( "API of core Marquee Widget" , function () {
         var widget, Marquee;
         equal(typeof ns, 'object', 'Class ns exists');

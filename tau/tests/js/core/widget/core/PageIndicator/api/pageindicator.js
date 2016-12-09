@@ -1,6 +1,6 @@
 module("tau.widget.wearable.PageIndicator", {});
 
-test("API" , function () {
+test("API", function () {
     var elPageIndicator = document.getElementById("pageIndicator"),
         widget;
     equal(typeof tau, 'object', 'Class tau exists');

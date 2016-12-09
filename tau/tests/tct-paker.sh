@@ -3,11 +3,11 @@
 # TCT tests
 #
 # Author: Michał Szepielak <m.szepielak@samsung.com>
-
+echo "tct-paker.sh"
 
 # Config params
-TEST_FILENAME=tct-webuifw-tests-2.2.1-1.zip
-TEST_NAME=tct-webuifw-tests
+TEST_FILENAME=tct-webuifw-tests01-3.0.zip
+TEST_NAME=tcttautest
 
 # Aliases
 TB=`tput bold`
@@ -41,8 +41,8 @@ case "$1" in
 	-n|--number)
 		PACK_ONLY=1
 		PACKAGE_NUMBER=$2
-		TEST_FILENAME=$TEST_NAME-p$PACKAGE_NUMBER-2.2.1-1.zip
-		TEST_NAME=$TEST_NAME-p$PACKAGE_NUMBER
+		TEST_FILENAME=${TEST_NAME}0${PACKAGE_NUMBER}-3.0.zip
+		TEST_NAME=${TEST_NAME}0${PACKAGE_NUMBER}
 		echo "Building package ${PACKAGE_NUMBER}   =>    ${TEST_NAME}"
 		;;
     *) echo "$USAGE_PROMPT"
@@ -58,14 +58,19 @@ mkdir tct-package/opt/$TEST_NAME/
 #/home/m.szepielak/tizen-sdk/tools/web-packaging /home/m.szepielak/workspace/SPIN/tau/tests/tct-package/opt/$TEST_NAME/$TEST_NAME.wgt /home/m.szepielak/workspace/SPIN/tau/tests/tau-runner/
 
 # Copy runner application to package
-cp tau-runner/tau-runner.wgt tct-package/opt/$TEST_NAME/$TEST_NAME.wgt
+#cp tau-runner/tau-runner.wgt tct-package/opt/$TEST_NAME/$TEST_NAME.wgt
+#echo "tct-package/opt/$TEST_NAME/$TEST_NAME.wgt"
+cp tct-packages/$PACKAGE_NUMBER/tcttautest.tctwebuifwtests.wgt tct-package/opt/$TEST_NAME/$TEST_NAME.wgt
 
 # Copy test pattern to package
 cp tau-runner/xml/tests-p$PACKAGE_NUMBER.xml tct-package/opt/$TEST_NAME/tests.xml
 echo "tau-runner/xml/tests-p$PACKAGE_NUMBER.xml tct-package/opt/$TEST_NAME/tests.xml"
 
 # Copy inst.sh
-cp tct-package/inst.sh tct-package/opt/$TEST_NAME/inst.sh
+# cp tct-package/inst.sh tct-package/opt/$TEST_NAME/inst.sh
+
+# Copy inst.py
+cp tct-package/inst.py tct-package/opt/$TEST_NAME/inst.py
 
 # Change working directory
 cd tct-package
@@ -90,10 +95,10 @@ if [ `sdb devices | awk '/List of devices/{getline; print}' | wc -l` -gt  ] ; th
 fi
 
 # Push package to device
-sdb push $TEST_FILENAME /tmp
-sdb root on
-sdb shell "unzip -o /tmp/${TEST_FILENAME} -d /opt/usr/media/tct/"
-sdb shell "/opt/usr/media/tct/opt/${TEST_NAME}/inst.sh"
+# sdb push $TEST_FILENAME /tmp
+# sdb root on
+# sdb shell "unzip -o /tmp/${TEST_FILENAME} -d /opt/usr/media/tct/"
+# sdb shell "/opt/usr/media/tct/opt/${TEST_NAME}/inst.py"
 
 # Run tests
-testkit-lite -f device:/opt/usr/media/tct/opt/$TEST_NAME/tests.xml -e "WRTLauncher" -o $TEST_NAME.results.xml
+# testkit-lite2.0 -f device:/opt/usr/media/tct/opt/$TEST_NAME/tests.xml -e "WRTLauncher" -o $TEST_NAME.results.xml

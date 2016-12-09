@@ -1,3 +1,4 @@
+/*global module, require*/
 /**
  * Tasks for framework testing
  *
@@ -16,21 +17,22 @@ module.exports = function (grunt) {
 		testConfig = {},
 		prepareForRunner = false,
 		prepareTestsList = function (profileName, done, output) {
-			var result = require('rjs-build-analysis').parse(output),
+			var result = require("rjs-build-analysis").parse(output),
 				slice = [].slice,
 				testModules = [],
-				jsAddTests = grunt.option('js_add_test') ? grunt.option('js_add_test').split(",") : ["api", "support", profileName],
-				singleTest = grunt.option('single_test') ? grunt.option('single_test') : '';
+				jsAddTests = grunt.option("js_add_test") ? grunt.option("js_add_test").split(",") : ["api", "support", profileName],
+				singleTest = grunt.option("single_test") ? grunt.option("single_test") : "";
 
 			if (profileName === "mobile") {
 				jsAddTests.push("jquery");
 			}
 
-			if (result && result.bundles.length > 0 && singleTest === '') {
+			if (result && result.bundles.length > 0 && singleTest === "") {
 				slice.call(result.bundles[0].children).forEach(function (modulePath) {
-					var testDirectory = path.relative('src/', modulePath).replace(/(\.js)+/gi, ''),
-						mainTestPattern = path.join('tests', testDirectory, '*.html'),
+					var testDirectory = path.relative("src/", modulePath).replace(/(\.js)+/gi, ""),
+						mainTestPattern = path.join("tests", testDirectory, "*.html"),
 						files = grunt.file.expand(mainTestPattern);
+
 					if (files.length) {
 						grunt.log.ok("Tests exist for module ", testDirectory);
 					} else {
@@ -38,18 +40,18 @@ module.exports = function (grunt) {
 					}
 
 					// Skip Date time picker tests
-					if (mainTestPattern.indexOf('Datetimepicker') < 0) {
+					if (mainTestPattern.indexOf("Datetimepicker") < 0) {
 						testModules.push(mainTestPattern);
 						jsAddTests.forEach(function (oneDirectory) {
-							testModules.push(path.join('tests', testDirectory, '/' + oneDirectory + '/*.html'));
+							testModules.push(path.join("tests", testDirectory, "/" + oneDirectory + "/*.html"));
 						});
 					}
 				});
-				grunt.config('qunit.main-'+ profileName, testModules);
-				grunt.config("qunit-tap.main-"+ profileName, {output: path.join("report/tap/" , profileName , "/")});
-			} else if (singleTest !== '') {
+				grunt.config("qunit.main-" + profileName, testModules);
+				grunt.config("qunit-tap.main-" + profileName, {output: path.join("report/tap/", profileName, "/")});
+			} else if (singleTest !== "") {
 				testModules.push(singleTest);
-				grunt.config('qunit.main-'+ profileName, testModules);
+				grunt.config("qunit.main-" + profileName, testModules);
 			}
 			done();
 		};
@@ -133,17 +135,17 @@ module.exports = function (grunt) {
 
 	// Update config for task; qunit
 	configProperty = grunt.config.get("qunit");
-	configProperty["jqm"] = [ "tests/js/**/jqm/*.html" ];
-	configProperty["jqm13"] = [ "tests/js/**/jqm1.3/*.html" ];
-	configProperty["jqm14"] = [ "tests/js/**/jqm1.4/*.html" ];
-	configProperty["jqm14ok"] = [ "tests/js/**/jqm1.4ok/*.html" ];
-	configProperty["webui"] = [ "tests/js/**/webui/*.html" ];
+	configProperty["jqm"] = ["tests/js/**/jqm/*.html"];
+	configProperty["jqm13"] = ["tests/js/**/jqm1.3/*.html"];
+	configProperty["jqm14"] = ["tests/js/**/jqm1.4/*.html"];
+	configProperty["jqm14ok"] = ["tests/js/**/jqm1.4ok/*.html"];
+	configProperty["webui"] = ["tests/js/**/webui/*.html"];
 	grunt.config.set("qunit", configProperty);
 
 	//grunt.loadNpmTasks( "grunt-contrib-qunit" );
-	grunt.loadNpmTasks( "grunt-qunit-tap" );
-	grunt.loadNpmTasks( "grunt-qunit-istanbul" );
-	grunt.loadNpmTasks( "grunt-qunit-junit" );
+	grunt.loadNpmTasks("grunt-qunit-tap");
+	grunt.loadNpmTasks("grunt-qunit-istanbul");
+	grunt.loadNpmTasks("grunt-qunit-junit");
 
 	function testProfile(profile, prepareOnly) {
 		var taskConf = grunt.config.get("test"),
@@ -201,7 +203,7 @@ module.exports = function (grunt) {
 		"options:\n" +
 		"--single_test : determines single test to run\n" +
 		"example:\n" +
-		'"grunt test:mobie --single_test=/path/test.html"';
+		"\"grunt test:mobie --single_test=/path/test.html\"";
 
 	grunt.registerTask("test", description, function (profile) {
 		var profileName;
@@ -221,7 +223,7 @@ module.exports = function (grunt) {
 
 		if (profile) {
 			grunt.config.set("qunit.options.coverage.src", "tests/libs/dist/js/tau.js");
-			grunt.config.set("qunit.options.coverage.coberturaReport", "report/coverage/" + profile +"/");
+			grunt.config.set("qunit.options.coverage.coberturaReport", "report/coverage/" + profile + "/");
 			grunt.config.set("qunit.options.coverage.instrumentedFiles", "temp/");
 			testProfile(profile, prepareForRunner);
 		} else {
@@ -240,20 +242,20 @@ module.exports = function (grunt) {
 		// Encapsulate this task
 		grunt.registerTask("prepare-runner", function (profile) {
 			var opt = {
-					filter: 'isFile'
+					filter: "isFile"
 				},
-				src = grunt.config.get('qunit.main-'+ profile),
+				src = grunt.config.get("qunit.main-" + profile),
 				filePaths;
 
 			if (src) {
-				grunt.log.ok("Write " + profile + " test list to tests/tests.js");
+				grunt.log.ok("Write " + profile + " test list to tests/tau-runner/tests.js");
 				filePaths = grunt.file.expand(opt, src);
 				grunt.file.write("tests/tau-runner/tests.js",
-								"var TESTS = " + JSON.stringify(filePaths) +
+					"var TESTS = " + JSON.stringify(filePaths) +
 										";\n" +
-										"var CURRENT_ITERATION = 0; " +
+										"var CURRENT_ITERATION = 0;" +
 										"\n" +
-										"var TESTS_PER_ITERATION = 15;"
+										"var TESTS_PER_ITERATION = 3;" + "\n"
 								);
 			} else {
 				grunt.log.error("Couldn't find configuration for profile: " + profile);
@@ -265,14 +267,14 @@ module.exports = function (grunt) {
 		grunt.task.run("test:" + profile);
 	});
 
-	grunt.registerTask('qunit-report',
-		'Generate QUnit report', function () {
+	grunt.registerTask("qunit-report",
+		"Generate QUnit report", function () {
 			var options = this.options({
-				dest: '_build/test-reports',
-				namer: function (url) {
-					return path.basename(url).replace(/\.html$/, '');
-				}
-			}),
+					dest: "_build/test-reports",
+					namer: function (url) {
+						return path.basename(url).replace(/\.html$/, "");
+					}
+				}),
 				modules = {},
 				file = "report/test.txt",
 				module = "",
@@ -282,9 +284,10 @@ module.exports = function (grunt) {
 				currentProfile,
 				errors = 0,
 				id = 0;
-			grunt.event.on('qunit.moduleStart', function (name) {
+
+			grunt.event.on("qunit.moduleStart", function (name) {
 				module = name;
-				if (url.indexOf("tests/js/" + name)!==0) {
+				if (url.indexOf("tests/js/" + name) !== 0) {
 					grunt.log.error("Wrong module name in ", url, name, " should be changed");
 					errors++;
 					if (errors > 30) {
@@ -292,21 +295,21 @@ module.exports = function (grunt) {
 					}
 				}
 			});
-			grunt.event.on('qunit.spawn', function (details) {
+			grunt.event.on("qunit.spawn", function (details) {
 				url = details;
 				module = "";
 			});
-			grunt.event.on('qunit.profile', function (details) {
+			grunt.event.on("qunit.profile", function (details) {
 				currentProfile = details;
 			});
-			grunt.event.on('qunit.testStart', function (name) {
+			grunt.event.on("qunit.testStart", function (name) {
 				if (!module && test != name) {
 					grunt.log.error(url, " ! ");
 					errors++;
 				}
 				test = name;
 			});
-			grunt.event.on('qunit.log', function (result, actual, expected, rawMessage, source) {
+			grunt.event.on("qunit.log", function (result, actual, expected, rawMessage, source) {
 				if (typeof expected === "object") {
 					expected = "[object]";
 				}
@@ -321,17 +324,20 @@ module.exports = function (grunt) {
 				}
 				expected = expected.split("\n").join(" ");
 				actual = actual.split("\n").join(" ");
-				var line  = test + "	" + currentProfile + "-" + id + "	" + rawMessage + "	" + "	" + expected +  "	" + actual + "	" + (result ? "PASS" : "FAIL");
+				var line = test + "	" + currentProfile + "-" + id + "	" + rawMessage + "	" + "	" + expected + "	" + actual + "	" + (result ? "PASS" : "FAIL");
+
 				modules[module] = modules[module] || "";
 				modules[module] += line + "\n";
 				id++;
 			});
-			grunt.event.on('qunit.done', function (result, actual, expected, rawMessage, source) {
-				var module, i;
+			grunt.event.on("qunit.done", function (result, actual, expected, rawMessage, source) {
+				var module,
+					i;
+
 				report = "";
 				for (i in modules) {
 					module = modules[i];
-					report += "Module Name	" + i  + "\n";
+					report += "Module Name	" + i + "\n";
 					report += "Function Name	TestCase ID	Test Case Description	Input	Expected Result	Execution Result	Pass/Fail" + "\n";
 					report += module;
 					report += "\n\n";

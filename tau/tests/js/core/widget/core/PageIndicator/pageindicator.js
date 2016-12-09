@@ -2,6 +2,7 @@ module("tau.widget.core.PageIndicator", {});
 
 var pageWidget = document.getElementById("pageIndicatorPage");
 pageWidget.addEventListener("pageshow", function() {
+
     test("tau.widget.core.PageIndicator Test", function() {
         var elPageIndicator1 = document.getElementById("pageIndicator1"),
             elPageIndicator2 = document.getElementById("pageIndicator2"),

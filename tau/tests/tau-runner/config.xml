@@ -1,15 +1,19 @@
-<widget id="http://tizen.org/tct-webuifw-tests" xmlns='http://www.w3.org/ns/widgets' xmlns:tizen='http://tizen.org/ns/widgets'> 
-  <access origin="*"/>
-  <icon src="custom.png" height="117" width="117"/>
-  <name>tct-webuifw-tests</name>
-  <content src="index.html"/>
-  <tizen:application id="webuifwtcs.tctwebuifwtests" package="webuifwtcs" required_version="2.1"/>
-  <tizen:setting screen-orientation="portrait" contextmenu="disable" background-support="enable"/>
-  <tizen:privilege name="http://tizen.org/privilege/content.read"/>
-	<tizen:privilege name="http://tizen.org/privilege/content.write"/>
-	<tizen:privilege name="http://tizen.org/privilege/systeminfo"/>
-	<tizen:privilege name="http://tizen.org/privilege/application.launch"/>
-	<tizen:privilege name="http://tizen.org/privilege/application.read"/>
-	<tizen:privilege name="http://tizen.org/privilege/filesystem.read"/>
-	<tizen:privilege name="http://tizen.org/privilege/filesystem.write"/>
+<?xml version="1.0" encoding="UTF-8"?>
+<widget xmlns:tizen="http://tizen.org/ns/widgets" xmlns="http://www.w3.org/ns/widgets" id="http://tizen.org/tcttautest" version="3.0.0" viewmodes="maximized">
+    <access origin="*"></access>
+    <tizen:application id="tcttautest.tctwebuifwtests" package="tcttautest" required_version="3.0"/>
+    <content src="run.html"/>
+    <icon src="custom.png" height="117" width="117"/>
+    <name>tcttautest</name>
+    <tizen:privilege name="http://tizen.org/privilege/bluetooth"/>
+    <tizen:privilege name="http://tizen.org/privilege/healthinfo"/>
+    <tizen:privilege name="http://tizen.org/privilege/notification"/>
+    <tizen:privilege name="http://tizen.org/privilege/package.info"/>
+    <tizen:privilege name="http://tizen.org/privilege/setting"/>
+    <tizen:privilege name="http://tizen.org/privilege/application.info"/>
+    <tizen:privilege name="http://tizen.org/privilege/application.launch"/>
+    <tizen:privilege name="http://tizen.org/privilege/system"/>
+    <tizen:privilege name="http://tizen.org/privilege/filesystem.read"/>
+    <tizen:privilege name="http://tizen.org/privilege/filesystem.write"/>
+    <tizen:profile name="wearable"/>
 </widget>

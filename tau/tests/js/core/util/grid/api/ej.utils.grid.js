@@ -1,3 +1,4 @@
+/*global ej, module, test*/
 (function (ns) {
 	'use strict';
 	var grid = ns.util.grid;

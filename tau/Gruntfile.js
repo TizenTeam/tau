@@ -1,3 +1,4 @@
+/*global module, require*/
 /* jshint -W088 */
 module.exports = function (grunt) {
 	"use strict";
@@ -261,8 +262,8 @@ module.exports = function (grunt) {
 					options: {
 						formatters: [
 							{
-								id: 'junit-xml',
-								dest: 'report/lesslint.xml'
+								id: "junit-xml",
+								dest: "report/lesslint.xml"
 							}
 						]
 					},
@@ -883,6 +884,7 @@ module.exports = function (grunt) {
 
 	grunt.registerTask("findFiles", "initialize target files.", function (name) {
 		var obj = files;
+
 		name = name.split(".");
 		name.forEach(function (key) {
 			obj = obj[key];
@@ -966,6 +968,7 @@ module.exports = function (grunt) {
 
 		function defineRequireForTheme(theme) {
 			var ver;
+
 			for (ver in themeVersion) {
 				if (themeVersion.hasOwnProperty(ver)) {
 					if (themeVersion[ver] === "changeable") {
@@ -1004,12 +1007,15 @@ module.exports = function (grunt) {
 		}
 
 		for (profileName in themes["device"]) {
-			themes["device"][profileName].forEach(defineRequireForTheme);
+			if (themes["device"].hasOwnProperty(profileName)) {
+				themes["device"][profileName].forEach(defineRequireForTheme);
+			}
 		}
 	})();
 
 	function themesjs() {
 		var task;
+
 		for (task in initConfig.requirejs) {
 			if (initConfig.requirejs.hasOwnProperty(task) && task.indexOf("themejs_") !== -1) {
 				grunt.task.run("requirejs:" + task);

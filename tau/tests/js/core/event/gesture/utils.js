@@ -1,7 +1,7 @@
 /*global window, module, test, ok, equal, deepEqual, expect, isNaN*/
 /*
-* Unit Test: ns.event.gesture.utils
-*/
+ * Unit Test: ns.event.gesture.utils
+ */
 
 (function (ns) {
 	"use strict";
@@ -73,7 +73,7 @@
 
 		expect(i);
 
-		while(i--) {
+		while (i--) {
 			key = keys[i];
 			equal(utils.isVertical(key), suites[key], "isVertical of '" + key + "' is " + suites[key]);
 		}
@@ -87,7 +87,7 @@
 
 		expect(i);
 
-		while(i--) {
+		while (i--) {
 			key = keys[i];
 			equal(utils.isHorizontal(key), suites[key], "isHorizontal of '" + key + "' is " + suites[key]);
 		}
@@ -103,7 +103,7 @@
 
 		expect(i);
 
-		while(i--) {
+		while (i--) {
 			key = keys[i];
 			equal(utils.getOrientation(key), suites[key], "getOrientation of '" + key + "' is " + suites[key]);
 		}
