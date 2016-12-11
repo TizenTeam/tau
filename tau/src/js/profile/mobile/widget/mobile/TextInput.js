@@ -110,6 +110,8 @@
 			"../../../../core/engine",
 			"../../../../core/util/DOM",
 			"../../../../core/util/object",
+			"../../../../core/util/selectors",
+			"../../../../core/widget/core/Button",
 			"../../../../core/event",
 			"./BaseWidgetMobile",
 			"../mobile"
@@ -120,7 +122,8 @@
 				engine = ns.engine,
 				util = ns.util,
 				domUtils = util.DOM,
-				objectUtils = ns.util.object,
+				utilSelector = util.selectors,
+				objectUtils = util.object,
 				utilEvent = ns.event,
 
 				TextInput = function () {
@@ -133,6 +136,7 @@
 					};
 					self._callbacks = {};
 				},
+				buttonClasses = ns.widget.core.Button.classes,
 
 				prototype = new BaseWidget(),
 
@@ -151,7 +155,10 @@
 					uiTextInputClearActive: CLASSES_PREFIX + "-clear-active",
 					uiTextInputTextLine: CLASSES_PREFIX + "-textline",
 					uiTextInputDisabled: CLASSES_PREFIX + "-disabled",
-					uiTextInputFocused: CLASSES_PREFIX + "-focused"
+					uiTextInputFocused: CLASSES_PREFIX + "-focused",
+					HEADER_WITH_SEARCH: "ui-header-searchbar",
+					SEARCHINPUT: "ui-search-input",
+					HEADER: "ui-header"
 				},
 				/**
 				 * Selector for clear button appended to TextInput
@@ -176,6 +183,9 @@
 				defaults = {
 					clearBtn: false,
 					textLine: true
+				},
+				eventName = {
+					SEARCH: "search"
 				};
 
 			TextInput.prototype = prototype;
@@ -266,13 +276,15 @@
 			* @static
 			* @member ns.widget.mobile.TextInput
 			*/
-			function onClear(self, event) {
+			function onClear(self) {
 				var clearButton = event.target,
 					inputElement = self.element;
 
 				inputElement.value = "";
 				toggleClearButton(clearButton, inputElement);
 				inputElement.focus();
+
+				self.trigger(eventName.SEARCH);
 			}
 
 			function setAria(element) {
@@ -289,13 +301,20 @@
 				return textLine;
 			}
 
-			function createClearButton(element) {
-				var clearButton = document.createElement("span");
+			function createClearButton(element, header) {
+				var clearButton = document.createElement("a");
 
+				clearButton.classList.add(buttonClasses.BTN);
+				clearButton.classList.add(buttonClasses.BTN_ICON);
+				clearButton.classList.add(buttonClasses.BTN_NOBG);
 				clearButton.classList.add(classes.uiTextInputClear);
-				clearButton.tabindex = 0;
 
-				element.parentNode.appendChild(clearButton);
+				clearButton.tabindex = 0;
+				if (header) {
+					element.parentNode.appendChild(clearButton);
+				} else {
+					element.parentNode.insertBefore(clearButton, element.nextSibling.nextSibling);
+				}
 
 				return clearButton;
 			}
@@ -312,7 +331,8 @@
 				var self = this,
 					options = self.options,
 					type = element.type,
-					ui = self._ui;
+					ui = self._ui,
+					header = null;
 
 				/* set Aria and TextLine */
 				switch (type) {
@@ -322,6 +342,7 @@
 					case "email":
 					case "url":
 					case "tel":
+					case "search":
 						setAria(element);
 						ui.textLineElement = createTextLine(element);
 						break;
@@ -339,6 +360,27 @@
 
 				if (options.clearBtn) {
 					ui.textClearButtonElement = createClearButton(element);
+				}
+
+				if (type === "search") {
+					header = utilSelector.getClosestByClass(element, classes.HEADER);
+					element.classList.add(classes.SEARCHINPUT);
+
+					if (header) {
+						header.classList.add(classes.HEADER_WITH_SEARCH);
+						if (element.nextElementSibling.classList.contains(classes.uiTextInputTextLine)) {
+							element.parentElement.removeChild(element.nextElementSibling);
+						}
+					}
+
+					if (!options.clearBtn) {
+						ui.textClearButtonElement = createClearButton(element, header);
+					}
+
+					if (!element.getAttribute("placeholder")) {
+						element.setAttribute("placeholder", "Search");
+					}
+
 				}
 
 				return element;
@@ -586,8 +628,17 @@
 					", input[type='email']:not([data-role])" +
 					", input[type='url']:not([data-role])" +
 					", input[type='tel']:not([data-role])" +
+					", input[type='search']:not([data-role]), .ui-search-input" +
 					", textarea" +
 					", input:not([type])." + classes.uiTextInput,
+				[],
+				TextInput,
+				"mobile"
+			);
+
+			engine.defineWidget(
+				"SearchInput",
+				"",
 				[],
 				TextInput,
 				"mobile"

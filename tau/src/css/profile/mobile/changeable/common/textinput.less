@@ -39,9 +39,14 @@ textarea.ui-text-input {
 	input,
 	textarea {
 		&.ui-text-input {
-			margin: 0 16 * @unit_base 0 0;
+			padding: 0 26 * @unit_base 0 10 * @unit_base;
+
 			+ .ui-text-input-textline {
-				margin: 11 * @unit_base 16 * @unit_base 0 0;
+				margin: 11 * @unit_base 16 * @unit_base 20 * @unit_base 0 * @unit_base;
+			}
+
+			~ .ui-text-input-clear{
+				margin-right: 0;
 			}
 		}
 	}
@@ -50,10 +55,10 @@ textarea.ui-text-input {
 input.ui-text-input,
 textarea.ui-text-input {
 	border: 0;
-	margin: 33 * @unit_base 32 * @unit_base 0 32 * @unit_base;
-	padding: 0 10 * @unit_base;
+	padding: 33 * @unit_base 42 * @unit_base 0 42 * @unit_base;
 	.appearance(none);
 	box-sizing: border-box;
+	display: block;
 	width: 100%;
 	line-height: 54 * @unit_base;
 	text-shadow: 0 0 0 @color_textinput_text;
@@ -70,6 +75,7 @@ textarea.ui-text-input {
 	& + .ui-text-input-textline {
 		height: 2 * @unit_base;
 		background: @color_textinput_textline_dim;
+
 		box-sizing: border-box;
 		display: block;
 		margin: 11 * @unit_base 32 * @unit_base 20 * @unit_base 32 * @unit_base;
@@ -82,16 +88,23 @@ textarea.ui-text-input {
 	& ~ .ui-text-input-clear {
 		display: block;
 		float: right;
-		position: relative;
-		top: -80 * @unit_base;
+		top: -100 * @unit_base;
 		box-sizing: border-box;
+		margin-right: 17 * @unit_base;
+		margin-left: 17 * @unit_base;
+		position: relative;
 		width: 80 * @unit_base;
 		height: 80 * @unit_base;
-		margin-right: -5 * @unit_base;
-		.mask-image("images/controls/core_button_icon_clear.png");
-		.mask-size(contain);
-		background-color: @color_textinput_clear_icon;
 	}
+	& ~ .ui-text-input-clear:after {
+		.mask-image("images/controls/core_button_icon_clear.png");
+		width: 80 * @unit_base;
+		height: 80 * @unit_base;
+    }
+	& ~ .ui-text-input-clear:after {
+		width: 80 * @unit_base;
+		height: 80 * @unit_base;
+    }
 	& ~ .ui-text-input-clear-hidden {
 		visibility: hidden;
 	}

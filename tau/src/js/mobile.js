@@ -80,7 +80,6 @@
 			"./core/widget/core/SectionChanger",
 			"./core/widget/core/PageIndicator",
 			"./core/widget/core/Slider",
-			"./core/widget/core/SearchInput",
 			"./core/widget/core/progress/Progress",
 			"./profile/mobile/widget/mobile/Page",
 			"./profile/mobile/widget/mobile/PageContainer",
