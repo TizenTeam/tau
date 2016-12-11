@@ -65,6 +65,25 @@
 	}
 }
 
+.ui-color-blue {
+	color: @color_button_blue_text;
+	background-color: @color_button_blue_normal_bg;
+
+	a&:active:hover, &:enabled:active:hover {
+		background-color: @color_button_blue_normal_bg;
+	}
+
+	&:enabled:focus {
+		background-color: @color_button_blue_normal_bg;
+	}
+
+	a&.ui-state-disabled, &:disabled {
+		color: @color_button_blue_text;
+		background-color: @color_button_blue_normal_bg;
+	}
+}
+
+
 .ui-grid-col-btn (@counter) when (@counter > 0) {
 	.ui-grid-col-btn((@counter - 1));
 
