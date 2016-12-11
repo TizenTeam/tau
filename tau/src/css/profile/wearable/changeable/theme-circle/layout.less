@@ -32,6 +32,15 @@ body {
 	&.ui-header-small {
 		margin-top: 2 * @unit_base;
 	}
+	&.ui-header-smaller {
+		margin-top: 2 * @unit_base;
+		height: 81 * @unit_base;
+		display: flex;
+		justify-content: flex-end;
+		.ui-title {
+			margin-bottom: 5 * @unit_base;
+		}
+	}
 
 	.ui-title {
 		color: @color_actionbar_title_text;
