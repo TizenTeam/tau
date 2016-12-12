@@ -1176,3 +1176,9 @@ input[type="checkbox"]#checkboxControl {
 .ui-empty-state-add-item .app-icon-add-item:after {
 	display: none;
 }
+
+/* ------------------------ Etc ----------------------- */
+
+#page_webkitui input {
+	max-width: 300px;
+}
