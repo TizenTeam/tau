@@ -35,7 +35,8 @@ textarea.ui-text-input {
 	.transition(height 200ms linear);
 }
 
-.ui-li-static {
+.ui-group-index {
++ .ui-li-static {
 	input,
 	textarea {
 		&.ui-text-input {
@@ -47,10 +48,30 @@ textarea.ui-text-input {
 
 			~ .ui-text-input-clear{
 				margin-right: 0;
+                right: 0;
 			}
 		}
 	}
 }
+}
+
+.ui-li-static {
+	input,
+	textarea {
+		&.ui-text-input {
+			padding: 0 10 * @unit_base 0 10 * @unit_base;
+
+			+ .ui-text-input-textline {
+				margin: 11 * @unit_base 0 20 * @unit_base 0;
+			}
+
+			~ .ui-text-input-clear {
+				right: -36 * @unit_base;
+			}
+		}
+	}
+}
+
 
 input.ui-text-input,
 textarea.ui-text-input {
@@ -100,11 +121,11 @@ textarea.ui-text-input {
 		.mask-image("images/controls/core_button_icon_clear.png");
 		width: 80 * @unit_base;
 		height: 80 * @unit_base;
-    }
+	}
 	& ~ .ui-text-input-clear:after {
 		width: 80 * @unit_base;
 		height: 80 * @unit_base;
-    }
+	}
 	& ~ .ui-text-input-clear-hidden {
 		visibility: hidden;
 	}

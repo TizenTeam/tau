@@ -185,7 +185,8 @@
 					textLine: true
 				},
 				eventName = {
-					SEARCH: "search"
+					SEARCH: "search",
+					ANIMATIONEND: "animationend"
 				};
 
 			TextInput.prototype = prototype;
@@ -208,14 +209,24 @@
 			 * @method toggleClearButton
 			 * @param {HTMLElement} clearBtn
 			 * @param {HTMLInputElement} inputElement
+			 * @param {Object} self
 			 * @member ns.widget.mobile.TextInput
 			 * @static
 			 * @private
 			 */
-			function toggleClearButton(clearBtn, inputElement) {
+			function toggleClearButton(clearBtn, inputElement, self) {
 				if (clearBtn) {
-					if (inputElement.value === "" || !inputElement.classList.contains(classes.uiTextInputFocused)) {
-						clearBtn.classList.add(classes.uiTextInputClearHidden);
+					if (!inputElement.classList.contains(classes.uiTextInputFocused)) {
+						document.addEventListener(eventName.ANIMATIONEND, function (event) {
+							if (event.animationName === "btn_pressup_animation") {
+								clearBtn.classList.add(classes.uiTextInputClearHidden);
+								self.trigger(eventName.SEARCH);
+							}
+						}, false);
+
+						inputElement.value = "";
+						inputElement.focus();
+
 						inputElement.classList.remove(classes.uiTextInputClearActive);
 					} else {
 						clearBtn.classList.remove(classes.uiTextInputClearHidden);
@@ -247,9 +258,16 @@
 			 * @member ns.widget.mobile.TextInput
 			 */
 			function onInput(self) {
-				var element = self.element;
+				var element = self.element,
+					btn = self._ui.textClearButtonElement;
 
-				toggleClearButton(self._ui.textClearButtonElement, element);
+				if (element.value === "") {
+					btn.classList.add(classes.uiTextInputClearHidden);
+					element.classList.remove(classes.uiTextInputClearActive);
+				} else {
+					toggleClearButton(self._ui.textClearButtonElement, element, self);
+				}
+
 				if (element.nodeName.toLowerCase() === "textarea") {
 					resizeTextArea(element);
 				}
@@ -266,25 +284,7 @@
 				var element = self.element;
 
 				element.classList.remove(classes.uiTextInputFocused);
-				toggleClearButton(self._ui.textClearButtonElement, element);
-			}
-			/**
-			* Handler for vclick events in clearButton
-			* @method onCancel
-			* @param {Event} event
-			* @private
-			* @static
-			* @member ns.widget.mobile.TextInput
-			*/
-			function onClear(self) {
-				var clearButton = event.target,
-					inputElement = self.element;
-
-				inputElement.value = "";
-				toggleClearButton(clearButton, inputElement);
-				inputElement.focus();
-
-				self.trigger(eventName.SEARCH);
+				toggleClearButton(self._ui.textClearButtonElement, element, self);
 			}
 
 			function setAria(element) {
@@ -445,21 +445,18 @@
 					clearBtn = self._ui.textClearButtonElement,
 					onInputCallback = onInput.bind(null, self),
 					onFocusCallback = onFocus.bind(null, self),
-					onBlurCallback = onBlur.bind(null, self),
-					onClearCallback = onClear.bind(null, self);
+					onBlurCallback = onBlur.bind(null, self);
 
 				self._callbacks = {
 					onInputCallback: onInputCallback,
 					onFocusCallback: onFocusCallback,
-					onBlurCallback: onBlurCallback,
-					onClearCallback: onClearCallback
+					onBlurCallback: onBlurCallback
 				};
 
 				utilEvent.on(element, "input", onInputCallback);
 				utilEvent.on(element, "focus", onFocusCallback);
 				utilEvent.on(element, "blur", onBlurCallback);
 				if (clearBtn) {
-					utilEvent.on(clearBtn, "vmousedown", onClearCallback);
 					clearBtn.classList.add(classes.uiTextInputClearHidden);
 				}
 
@@ -474,15 +471,11 @@
 			prototype._unbindEvents = function () {
 				var self = this,
 					element = self.element,
-					clearBtn = self._ui.textClearButtonElement,
 					callbacks = self._callbacks;
 
 				utilEvent.off(element, "input", callbacks.onInputCallback);
 				utilEvent.off(element, "focus", callbacks.onFocusCallback);
 				utilEvent.off(element, "blur", callbacks.onBlurCallback);
-				if (clearBtn) {
-					utilEvent.off(clearBtn, "vmousedown", callbacks.onClearCallback);
-				}
 			};
 
 			/**
