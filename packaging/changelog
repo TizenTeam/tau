@@ -1,4 +1,17 @@
 %changelog
+* Wed Dec 14 2016 Tomasz Lukawski <t.lukawski@samsung.com> 0.13.21
+	- fix (mobile) X icon not appearing
+	- fix(demos): Mobile toggle container in list fixed position of second instance
+	- fix(mobile): Tabbar background animation position fix
+	- fix(wearable): Fixes input max-width in UIComponents to prevent hscroll
+	- refactor(wearable): changed add button icon in circle wearable empty state
+	- fix(mobile) ToggleSwitch: on/off animations were fixed based on UI guideline (TSAM-11412)
+	- fix(wearable): Slider extended demo background image fixed
+	- fix(wearable) Wrong header size on list with group index (TSAM-11413)
+	- fix(wearable) UIComponents: wrong button backgorund color (TSAM-11414)
+	- fix(mobile) Expanded slider has wrong color in warning scope (TSAM-11397)
+	- fix(demos) UIComponents: wrong tab bar selection (TSAM-11398)
+
 * Wed Dec 07 2016 Tomasz Lukawski <t.lukawski@samsung.com> 0.13.20
 	- fix(wearable): Bottom button has wrong size
 	- fix(mobile): Textarea resizing problem fixed
