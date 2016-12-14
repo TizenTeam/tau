@@ -183,8 +183,12 @@
 	position: absolute;
 	top: 50%;
 	transform: translateY(-50%);
-	right: 14px;
+	right: 16px;
 	left: auto;
+}
+
+.li-has-right-btn .ui-toggle-container:first-child {
+	right: 60px;
 }
 
 /****************************************************************/
