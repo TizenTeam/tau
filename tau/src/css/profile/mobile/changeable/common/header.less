@@ -28,7 +28,8 @@
 		overflow: hidden;
 		white-space: nowrap;
 		text-align: center;
-		margin: 21.5 * @unit_base 32 * @unit_base 20 * @unit_base;
+		margin: 21.5 * @unit_base auto 20 * @unit_base auto;
+		max-width: 368 * @unit_base;
 		line-height: 67 * @unit_base;
 	}
 
@@ -127,22 +128,28 @@
 			margin: 8 * @unit_base;
 			text-indent: 0;
 			height: 94 * @unit_base;
-			width: 178 * @unit_base;
+			width: 167 * @unit_base;
 			box-sizing: border-box;
 			color: @color_button_text_normal;
 			line-height: 94 * @unit_base;
-			padding: 0 24 * @unit_base;
 			background-color: transparent;
 			top: 0;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
 
 			&.ui-header-btn-left, &.ui-btn-left {
 				left: 0;
 				text-align: left;
+				padding: 0 14 * @unit_base 0 24 * @unit_base;
+				margin-right: 0;
 			}
 
 			&.ui-header-btn-right, &.ui-btn-right {
 				right: 0;
 				text-align: right;
+				padding: 0 24 * @unit_base 0 14 * @unit_base;
+				margin-left: 0;
 			}
 
 			&.ui-btn-active {
