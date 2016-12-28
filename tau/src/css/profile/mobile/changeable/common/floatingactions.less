@@ -63,6 +63,7 @@ same as it appears in content*/
 				width: 80 * @unit_base;
 				height: 80 * @unit_base;
 				background-color: @color_floatingactions_out_icon;
+				z-index: -100;
 			}
 
 			&.ui-btn-active {
@@ -76,8 +77,10 @@ same as it appears in content*/
 			.mask-image("images/controls/core_floating_icon_add.png");
 		}
 
-		&.ui-icon-floating-search::after {
-			.mask-image("images/controls/core_floating_icon_search.png");
+		&.ui-icon-floating-search {
+			&::after {
+				.mask-image("images/controls/core_floating_icon_search.png");
+			}
 		}
 	}
 	.ui-btn ~ .ui-btn {
@@ -98,4 +101,3 @@ same as it appears in content*/
 	box-sizing: border-box;
 	border-bottom: 254 * @unit_base solid transparent;
 }
-

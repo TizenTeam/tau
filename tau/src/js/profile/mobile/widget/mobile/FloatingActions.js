@@ -107,6 +107,7 @@
 
 				self._style = element.style;
 				self._hasSingle = element.children.length <= 1;
+				self._buildInsideButtons();
 				self._positionCalculation();
 				self._setScope();
 				self._updatePosition();
@@ -156,6 +157,7 @@
 					element = self.element;
 
 				self._hasSingle = element.children.length <= 1;
+
 				self._positionCalculation();
 				self._setScope();
 				self._updatePosition();
@@ -176,6 +178,19 @@
 					self._position = null;
 					self._scope = null;
 					self._padding = null;
+				}
+			};
+
+			prototype._buildInsideButtons = function () {
+				var i = 0,
+					tau = window.tau,
+					self = this,
+					element = self.element,
+					elementChildren = element.children,
+					length = elementChildren.length;
+
+				for (; i < length; i++) {
+					tau.widget.Button(elementChildren[i]);
 				}
 			};
 
