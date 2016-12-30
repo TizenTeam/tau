@@ -1,4 +1,7 @@
 %changelog
+* Fri Dec 30 2016 Tomasz Lukawski <t.lukawski@samsung.com> 0.13.23
+	- fix (mobile) floating actions - GUI is not as per given doc
+
 * Wed Dec 21 2016 Tomasz Lukawski <t.lukawski@samsung.com> 0.13.22
 	- (fix) mobile bottom buttons - fix minor problems
 	- (fix) mobile fix few problems in the text buttons
