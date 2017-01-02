@@ -1034,15 +1034,8 @@ input[type="checkbox"]#checkboxControl {
 #pageSmallCircleProgressBar .ui-footer {
 	display: none;
 }
-
-#pageSmallCircleProgressBar .result {
-	-webkit-transform: translate(0, -70%);
-	transform: translate(0, -70%);
-}
-
-#pageSmallCircleProgressBar .ui-progressbar-small {
-	-webkit-transform: translate(0, -70%);
-	transform: translate(0, -70%);
+#pageSmallCircleProgressBar .ui-header {
+	display: none;
 }
 
 /* -------------Rotary Event-----------*/

@@ -4,20 +4,10 @@
 		progressBar = document.getElementById("circleprogress"),
 		minusBtn = document.getElementById("minus"),
 		plusBtn = document.getElementById("plus"),
-		resultDiv = document.getElementById("result"),
 		progressBarWidget,
-		resultText,
 		pageBeforeShowHandler,
 		pageHideHandler,
 		i;
-
-	/**
-	 * Updates the percentage of the progress
-	 */
-	function printResult() {
-		resultText = progressBarWidget.value();
-		resultDiv.innerHTML = resultText + "%";
-	}
 
 	/**
 	 * Rotary event handler
@@ -43,7 +33,6 @@
 			}
 		}
 		progressBarWidget.value(value);
-		printResult();
 	}
 
 	/**
@@ -66,7 +55,6 @@
 			i=0;
 		}
 		progressBarWidget.value(i);
-		printResult();
 	}
 
 	/**
@@ -78,7 +66,6 @@
 			i=100;
 		}
 		progressBarWidget.value(i);
-		printResult();
 	}
 
 	/**
@@ -108,9 +95,6 @@
 			minusBtn.addEventListener("click", minusBtnClickHandler);
 			plusBtn.addEventListener("click", plusBtnClickHandler);
 		}
-
-		i = parseInt(progressBarWidget.value(), 10);
-		resultDiv.innerHTML = i + "%";
 	};
 
 	/**
