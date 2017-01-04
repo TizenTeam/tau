@@ -1,4 +1,7 @@
 %changelog
+* Wed Jan 04 2017 Tomasz Lukawski <t.lukawski@samsung.com> 0.13.24
+	- fix(wearable) UIComponents: small progress has to be on screen center
+
 * Fri Dec 30 2016 Tomasz Lukawski <t.lukawski@samsung.com> 0.13.23
 	- fix (mobile) floating actions - GUI is not as per given doc
 
