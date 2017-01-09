@@ -1160,14 +1160,14 @@ input[type="checkbox"]#checkboxControl {
 /* ------------------------ Empty State ----------------------- */
 
 .ui-empty-state-add-item .app-icon-add-item {
-	background-color: rgba(255,255,255,1);
-	-webkit-mask-image: url(./images/b_more_option_show_on_device_icon.png);
-	-webkit-mask-position: center center;
-	-webkit-mask-repeat: no-repeat;
+	background-color: rgba(255,0,255,0.5);
 }
 
-.ui-empty-state-add-item .app-icon-add-item:after {
-	display: none;
+.ui-empty-state-add-item .app-icon-add-item::after {
+	background-color: rgba(255,255,255,1);
+	-webkit-mask-image: url(images/b_more_option_human_icon.png);
+	-webkit-mask-position: center center;
+	-webkit-mask-repeat: no-repeat;
 }
 
 /* ------------------------ Etc ----------------------- */
