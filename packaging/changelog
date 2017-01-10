@@ -1,4 +1,10 @@
 %changelog
+* Tue Jan 10 2017 Tomasz Lukawski <t.lukawski@samsung.com> 0.13.25
+	- fix(mobile,wearable) UIComponents: Change required_version in config.xml to 3.0
+	- fix(wearable) UIComponents: icon of empty state is not align to screen center (TSAM-12515)
+	- fix(wearable) UIComponents: List with Group Index - example change (TSAM-12516)
+	- fix(mobile) UIComponents: duplicated icons (TSAM-12489)
+
 * Wed Jan 04 2017 Tomasz Lukawski <t.lukawski@samsung.com> 0.13.24
 	- fix(wearable) UIComponents: small progress has to be on screen center
 
