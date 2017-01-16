@@ -54,7 +54,7 @@ def modifyFile(filePath, textParam):
 
 def main():
 	latestTag = subprocess.check_output("git describe --abbrev=0 --tags", shell=True).replace("\n", "")
-	gitLogCommand = 'git log --pretty=oneline --no-merges ' + latestTag + '..HEAD | sed -e "s/^\S* /- /g"'.replace("-", "\t-")
+	gitLogCommand = 'git log --pretty=oneline --no-merges ' + latestTag + '..HEAD | sed -e "s/\[OAPTAU-[0-9]*\]//g" | sed -e "s/^\S* /- /g"'.replace("-", "\t-")
 
 	gitLog = os.popen(gitLogCommand).read()
 	now = datetime.datetime.now().strftime("%a %b %d %Y")
