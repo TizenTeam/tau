@@ -797,7 +797,13 @@ module.exports = function (grunt) {
 				]
 			},
 
-			qunit_junit: {},
+			qunit_junit: {
+				options: {
+					fileNamer: function (url) {
+						return url.replace(/\.html(.*)$/, "");
+					}
+				}
+			},
 
 			"qunit-tap": {},
 
@@ -1066,6 +1072,6 @@ module.exports = function (grunt) {
 	grunt.registerTask("release", ["build", "test", "sdk-docs"]);
 	grunt.registerTask("default", ["release"]);
 	grunt.registerTask("ci-wearable", ["clean:test", "test:wearable"]);
-  grunt.registerTask("ci-mobile", ["clean:test", "test:mobile", "test:mobile_support", "test:jqm", "test:jqm14ok"]);
-  grunt.registerTask("ci", ["eslint:js-ci", "lesslint:less-ci"]);
+	grunt.registerTask("ci-mobile", ["clean:test", "test:mobile", "test:mobile_support", "test:jqm", "test:jqm14ok"]);
+	grunt.registerTask("ci", ["eslint:js-ci", "lesslint:less-ci"]);
 };
