@@ -11,34 +11,32 @@
 .ui-mobile-viewport {  margin: 0; overflow-x: hidden; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); }
 
 /* "page" containers - full-screen views, one should always be in view post-pageload */
-.ui-mobile {
-	[data-role=page],
-	[data-role=dialog],
-	.ui-page {
+[data-role=page],
+[data-role=dialog],
+.ui-page {
+	top: 0;
+	left: 0;
+	width: 100%;
+	position: absolute;
+	display: none;
+	border: 0;
+
+	&.ui-page-build {
+		display: block;
+		visibility: hidden;
+	}
+
+	&.ui-pre-in {
+		z-index: 100;
+		visibility: visible;
+		display: block;
 		top: 0;
 		left: 0;
-		width: 100%;
-		position: absolute;
-		display: none;
-		border: 0;
+	}
 
-		&.ui-page-build {
-			display: block;
-			visibility: hidden;
-		}
-
-		&.ui-pre-in {
-			z-index: 100;
-			visibility: visible;
-			display: block;
-			top: 0;
-			left: 0;
-		}
-
-		&.ui-page-active {
-			display: block;
-			overflow: hidden;
-		}
+	&.ui-page-active {
+		display: block;
+		overflow: hidden;
 	}
 }
 
