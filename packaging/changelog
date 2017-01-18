@@ -1,4 +1,14 @@
 %changelog
+* Wed Jan 18 2017 Krzysztof Antoszek <k.antoszek@samsung.com> 0.13.26
+	- feat(all) jsDoc plugin for eslint
+	- fix(all): fix destroying process of framework
+	- test(wearable): Fix duplicated test ids
+	- tool(all) compare tool
+	- tool(all): Remove internal issue id from commit message in release script
+	- test(mobile): Fix tests for IndexScrollbar
+	- tool(all): control test coverage
+	- TCT tests update
+
 * Tue Jan 10 2017 Tomasz Lukawski <t.lukawski@samsung.com> 0.13.25
 	- fix(mobile,wearable) UIComponents: Change required_version in config.xml to 3.0
 	- fix(wearable) UIComponents: icon of empty state is not align to screen center (TSAM-12515)
