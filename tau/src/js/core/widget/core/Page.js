@@ -354,9 +354,9 @@
 				},
 				HEADER_SELECTOR = "header,[data-role='header'],." + classes.uiHeader,
 				FOOTER_SELECTOR = "footer,[data-role='footer'],." + classes.uiFooter,
-				CONTENT_SELECTOR = ((FOOTER_SELECTOR + "," + HEADER_SELECTOR).split(",").map(function (item) {
+				CONTENT_SELECTOR = "[data-role='content'],." + classes.uiContent + "," + ((FOOTER_SELECTOR + "," + HEADER_SELECTOR).split(",").map(function (item) {
 					return ":not(" + item + ")";
-				}).join("")) + ",[data-role='content'],." + classes.uiContent,
+				}).join("")),
 				prototype = new BaseWidget();
 
 			Page.classes = classes;
