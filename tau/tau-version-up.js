@@ -1,11 +1,38 @@
 #!/usr/bin/env node
 
-var cmd = require("node-cmd"),
+var exec = require("child_process").exec,
 	moment = require("moment"),
 	fs = require("fs"),
 	FILE_CHANGELOG = "../packaging/changelog",
 	FILE_SPEC = "../packaging/web-ui-fw.spec",
-	FILE_PACKAGEJSON = "./package.json";
+	FILE_PACKAGEJSON = "./package.json",
+	cmd = {
+		/**
+		 * Run one command
+		 * @param command
+		 * @param callback
+		 */
+		get: function (command, callback) {
+			exec(
+				command,
+				function (err, data, stderr) {
+					if (err) {
+						console.error("exec error: " + err);
+					}
+					if (stderr) {
+						console.error(stderr);
+					}
+					callback(data);
+				}
+			);
+		},
+		/**
+		 * Run chain of commands and callbacks
+		 */
+		chain: function () {
+			// @TODO run chain of commands with callbacks
+		}
+	};
 
 console.log("Running git describe --abbrev=0 --tags");
 cmd.get(
@@ -19,16 +46,16 @@ cmd.get(
 				cmd.get(
 					"git describe --abbrev=0 --tags",
 					function (latestTag) {
-						var tauVersion = process.env.bamboo_deploy_release;
+						var tauVersion = process.env.bamboo_deploy_release || process.env.bamboo_jira_version;
 
 						console.log("Running git log --pretty=oneline --no-merges " + latestTag.trim() + "..HEAD | sed -e 's/\[OAPTAU-[0-9]*\]//g' | sed -e 's/^\S* /- /g'")
 						cmd.get(
-							"git log --pretty=oneline --no-merges " + latestTag.trim() + "..HEAD | sed -e 's/\\\ ?[OAPTAU-[0-9]*\\\]//g' | sed -e 's/^\\\S* /- /g'",
+							"git log --pretty=oneline --no-merges " + latestTag.trim() + "..HEAD | sed -e 's/ *\\\[OAPTAU-[0-9]*\\\]//g' | sed -e 's/^\\\S* /- /g'",
 							function (logLines) {
 								var now = moment().format("ddd MMM D YYYY");
 								logLines = "* " + now + " " + userName + " <" + gitAccount + "> " + tauVersion + "\n" + logLines.replace(/-/g, "\t-");
 								console.log(logLines);
-								fs.readFile(FILE_CHANGELOG, function(err, data) {
+								fs.readFile(FILE_CHANGELOG, function (err, data) {
 									if (err) {
 										console.error(err);
 										process.exit(1);
@@ -58,7 +85,7 @@ cmd.get(
 														console.error(err);
 														process.exit(1);
 													}
-													package = package.toString().replace(/"version":.*$/gm, "\"version\": \"" + tauVersion + "\", ");
+													package = package.toString().replace(/"version":.*$/gm, "\"version\": \"" + tauVersion + "\",");
 													fs.writeFile(FILE_PACKAGEJSON, package, function (err, data) {
 														if (err) {
 															console.error(err);
