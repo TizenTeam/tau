@@ -13,6 +13,20 @@
 	cursor: pointer;
 	.border-box();
 
+	/*
+		This styles are responsible for expanding the
+		clicable area
+	*/
+	&::before {
+		width: 40 * @unit_base;
+		display: block;
+		position: absolute;
+		right: 40 * @unit_base;
+		height: 100%;
+		content: " ";
+		background-color: transparent;
+	}
+
 	ul {
 		list-style-type: none;
 		margin: 0;
