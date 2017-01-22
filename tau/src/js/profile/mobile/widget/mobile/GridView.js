@@ -57,6 +57,7 @@
 	define(
 		[
 			"../../../../core/widget/BaseWidget",
+			"../../../../core/widget/core/Page",
 			"../../../../profile/mobile/widget/mobile/Popup",
 			"../../../../core/engine",
 			"../../../../core/event",
@@ -72,6 +73,7 @@
 				utilsEvents = ns.event,
 				utilsSelectors = ns.util.selectors,
 				utilsDom = ns.util.DOM,
+				pageEvents = ns.widget.core.Page.events,
 				Popup = ns.widget.mobile.Popup,
 				PopupConstructor = ns.widget.Popup,
 				popupSelector = Popup.selector,
@@ -198,7 +200,6 @@
 
 				ui.listElements = [].slice.call(self.element.getElementsByTagName("li"));
 				self._setItemWidth();
-				self._setGridStyle();
 				self._setLabel(element);
 				self._setReorder(element, self.options.reorder);
 				self._calculateListHeight();
@@ -219,6 +220,10 @@
 				}
 			}
 
+			function onSetGridStyle(self) {
+				self._setGridStyle();
+			}
+
 			/**
 			 * Bind events for GridView
 			 * @method _bindEvents
@@ -227,13 +232,17 @@
 			 */
 			prototype._bindEvents = function () {
 				var self = this,
+					page = self._getParentPage(self.element),
 					popup = this._inPopup;
 
+				self._onSetGridStyle = onSetGridStyle.bind(null, self);
 				if (popup) {
 					utilsEvents.on(popup.element, popupEvents.before_show, self._refreshSizesCallback);
 				}
 
 				self.on("animationend webkitAnimationEnd", animationEndCallback);
+
+				utilsEvents.on(page, pageEvents.SHOW, self._onSetGridStyle);
 			};
 
 			/**
@@ -245,6 +254,7 @@
 			prototype._unbindEvents = function () {
 				var self = this,
 					element = self.element,
+					page = self._getParentPage(element),
 					popup = self._inPopup;
 
 				utilsEvents.disableGesture(element);
@@ -255,6 +265,7 @@
 					utilsEvents.off(popup.element, popupEvents.before_show, this._refreshSizesCallback);
 				}
 				self.off("animationend webkitAnimationEnd", animationEndCallback);
+				utilsEvents.off(page, pageEvents.SHOW, self._onSetGridStyle);
 			};
 
 			/**
@@ -540,16 +551,13 @@
 			prototype._calculateListHeight = function () {
 				var self = this,
 					listElements = self._ui.listElements,
+					firstLiComputed = listElements.length && window.getComputedStyle(listElements[0], null),
 					itemHeight,
 					rows;
 
-				window.setTimeout(function () {
-					var firstLiComputed = listElements.length && window.getComputedStyle(listElements[0], null);
-
-					rows = Math.ceil(listElements.length / self.options.cols);
-					itemHeight = parseFloat(firstLiComputed.getPropertyValue("width")) || 0;
-					self.element.style.height = (itemHeight * rows) + "px";
-				}, 300);
+				rows = Math.ceil(listElements.length / self.options.cols);
+				itemHeight = parseFloat(firstLiComputed.getPropertyValue("width")) || 0;
+				self.element.style.height = (itemHeight * rows) + "px";
 			};
 
 			/**
@@ -735,7 +743,6 @@
 					listElements = self._ui.listElements,
 					length = listElements.length,
 					options = self.options,
-					page = self._getParentPage(),
 					cols = options.cols,
 					rows,
 					styleElement,
@@ -756,7 +763,8 @@
 					}
 				}
 				styleElement.textContent = styles.join("\n");
-				page.appendChild(styleElement);
+				styleElement.id = "GridView";
+				document.head.appendChild(styleElement);
 				self._styleElement = styleElement;
 			};
 
