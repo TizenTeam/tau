@@ -6,12 +6,13 @@
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  * Licensed under the MIT license.
  */
+var path = require("path"),
+	mu = require("mu2"),
+	dox = require("dox"),
+	async = require("async");
 
 module.exports = function (grunt) {
 	"use strict";
-	var mu = require("mu2"),
-		dox = require("dox"),
-		async = require("async");
 
 	grunt.registerMultiTask("docs-html", "", function () {
 		var done = this.async(),
@@ -27,7 +28,7 @@ module.exports = function (grunt) {
 			errorLogger = this.data.failOnError ? grunt.fail.fatal : grunt.log.error,
 			next;
 
-		mu.root = __dirname + "/templates";
+		mu.root = path.resolve("./templates");
 
 		function createWidgetDoc(newFile, file, name, docsStructure, callback) {
 			var string = "",
@@ -61,6 +62,7 @@ module.exports = function (grunt) {
 			description = docsStructure.description.replace(/(<h([2-4])>)(.*?)(<\/h[2-4]>)/ig, function (match, p1, p2, p3, p4) {
 				var name = p3.replace(" ", "-").toLowerCase() + (Math.random()),
 					level = parseInt(p2, 10);
+
 				parentToc[level] = {
 					href: name,
 					name: p3,
@@ -146,6 +148,7 @@ module.exports = function (grunt) {
 				inheritedMethods = docsStructure.methods.filter(function (method) {
 					return method.isPublic && method.inherited;
 				});
+
 			grunt.log.ok("Start generating file for class ", file);
 			methods.sort(function (a, b) {
 				return a.name > b.name ? 1 : -1;
@@ -162,6 +165,7 @@ module.exports = function (grunt) {
 			description = docsStructure.description.replace(/(<h([2-4])>)(.*?)(<\/h[2-4]>)/ig, function (match, p1, p2, p3, p4) {
 				var name = p3.replace(" ", "-").toLowerCase() + (Math.random()),
 					level = parseInt(p2, 10);
+
 				parentToc[level] = {
 					href: name,
 					name: p3,
@@ -258,6 +262,7 @@ module.exports = function (grunt) {
 		function createBlockIndex(newFile, docsStructure, type, rows, callback) {
 			var string = "",
 				widgetsDoc = docsStructure["ns." + type + "." + profile] || docsStructure["ns." + type];
+
 			rows.sort(function (a, b) {
 				return a.namespace > b.namespace ? 1 : -1;
 			});
@@ -302,7 +307,7 @@ module.exports = function (grunt) {
 				string += data.toString();
 			}).on("end", function () {
 				grunt.file.write(newFile + "html/" + file, string);
-				grunt.log.ok("Finished generating index for " + file +".");
+				grunt.log.ok("Finished generating index for " + file + ".");
 				callback();
 			});
 		}
@@ -384,14 +389,17 @@ module.exports = function (grunt) {
 			var newObject,
 				value,
 				i;
+
 			if (object instanceof Array) {
 				newObject = [];
 			} else {
 				newObject = {};
 			}
 			for (i in object) {
-				value = object[i];
-				newObject[i] = (typeof value === "object") ? copyObject(value) : value;
+				if (object.hasOwnProperty(i)) {
+					value = object[i];
+					newObject[i] = (typeof value === "object") ? copyObject(value) : value;
+				}
 			}
 			return newObject;
 		}
@@ -424,9 +432,10 @@ module.exports = function (grunt) {
 					return tag.type === "page";
 				}).forEach(function (tag) {
 					var pageObj = {
-						name: tag.string
-					},
+							name: tag.string
+						},
 						descriptionArray;
+
 					docsStructure[tag.string] = pageObj;
 					pageObj.authors = block.tags.filter(function (tag) {
 						return tag.type === "author";
@@ -450,6 +459,7 @@ module.exports = function (grunt) {
 						var valueArray = tag.string.split(" "),
 							file = valueArray.shift(),
 							name = valueArray.join(" ");
+
 						return {file: file, name: name};
 					});
 					pageObj.methods = [];
@@ -464,6 +474,7 @@ module.exports = function (grunt) {
 							name: tag.string
 						},
 						descriptionArray;
+
 					if (docsStructure[tag.string]) {
 						grunt.fail.error("double definition of class ", tag.string);
 					} else {
@@ -506,6 +517,7 @@ module.exports = function (grunt) {
 					if (classObj.extends && docsStructure[classObj.extends]) {
 						classObj.methods = docsStructure[classObj.extends].methods.map(function (method) {
 							var newMethod = copyObject(method);
+
 							newMethod.inherited = classObj.extends;
 							return newMethod;
 						});
@@ -528,7 +540,8 @@ module.exports = function (grunt) {
 					var classObj,
 						property,
 						name,
-						type, description,
+						type,
+						description,
 						propertiesArray,
 						defaultValue,
 						memberOf = block.tags.filter(function (tag) {
@@ -537,6 +550,7 @@ module.exports = function (grunt) {
 							return tag.string;
 						})[0],
 						canBeNull = false;
+
 					classObj = docsStructure[memberOf];
 					if (classObj) {
 						propertiesArray = tag.string.split(" ");
@@ -601,6 +615,7 @@ module.exports = function (grunt) {
 						}).map(function (tag) {
 							return tag.string;
 						})[0];
+
 					classObj = docsStructure[memberOf];
 					if (classObj) {
 						eventArray = tag.string.split(" ");
@@ -630,6 +645,7 @@ module.exports = function (grunt) {
 						}).map(function (tag) {
 							return tag.string;
 						})[0] || "";
+
 					classObj = docsStructure[memberOf];
 					inherited = block.tags.filter(function (tag) {
 						return tag.type === "inherited";
@@ -651,6 +667,7 @@ module.exports = function (grunt) {
 							canBeNull = false,
 							isOptional = false,
 							nameArray;
+
 						tag.types = type.replace(/\|/g, " | ").replace(/^\?/, function replacer() {
 							canBeNull = true;
 							return "";
@@ -666,6 +683,7 @@ module.exports = function (grunt) {
 						tag.name = nameArray.shift();
 						tag.defaultValue = nameArray.shift();
 						tag.isOptional = isOptional;
+						tag.canBeNull = canBeNull;
 						return tag;
 					});
 					if (method.params.length) {
@@ -742,51 +760,51 @@ module.exports = function (grunt) {
 							!(docsStructure[i].isInternal &&
 							(template !== "dld")) &&
 							docsStructure[i].type !== "page") {
-								file = name.replace(/\./g, "_") + ".htm";
-								filename = name.replace(/\./g, "/") + ".js";
-								description = docsStructure[i].brief || "";
-								if (name.match(widgetProfileRegExp)) {
-									rowsWidgets.push({
-										file: file,
-										namespace: name,
-										name: docsStructure[i].title,
-										filename: filename,
-										description: description
-									});
-								}
-								series.push(createWidgetDoc.bind(null, newFile,
-									file, name, docsStructure[i]));
+							file = name.replace(/\./g, "_") + ".htm";
+							filename = name.replace(/\./g, "/") + ".js";
+							description = docsStructure[i].brief || "";
+							if (name.match(widgetProfileRegExp)) {
+								rowsWidgets.push({
+									file: file,
+									namespace: name,
+									name: docsStructure[i].title,
+									filename: filename,
+									description: description
+								});
+							}
+							series.push(createWidgetDoc.bind(null, newFile,
+								file, name, docsStructure[i]));
 						} else if (name.match(/^tau\.event/) &&
 							!(docsStructure[i].isInternal &&
 							(template !== "dld")) &&
 							docsStructure[i].type !== "page") {
-								file = name.replace(/\./g, "_") + ".htm";
-								filename = name.replace(/\./g, "/") + ".js";
-								description = docsStructure[i].brief || "";
-								rowsEvents.push({file: "../class/" + file,
-									namespace: name,
-									name: docsStructure[i].title,
-									filename: filename,
-									description: description
-								});
-								series.push(createClassDoc.bind(null, newFile,
-									file, name, docsStructure[i]));
+							file = name.replace(/\./g, "_") + ".htm";
+							filename = name.replace(/\./g, "/") + ".js";
+							description = docsStructure[i].brief || "";
+							rowsEvents.push({file: "../class/" + file,
+								namespace: name,
+								name: docsStructure[i].title,
+								filename: filename,
+								description: description
+							});
+							series.push(createClassDoc.bind(null, newFile,
+								file, name, docsStructure[i]));
 						} else if (name.match(/^tau\.util/) &&
 							!(docsStructure[i].isInternal &&
 							(template !== "dld")) &&
 							docsStructure[i].type !== "page") {
-								file = name.replace(/\./g, "_") + ".htm";
-								filename = name.replace(/\./g, "/") + ".js";
-								name = docsStructure[i].title;
-								description = docsStructure[i].brief || "";
-								rowsUtil.push({file: "../class/" + file,
-									namespace: name,
-									name: docsStructure[i].title,
-									filename: filename,
-									description: description
-								});
-								series.push(createClassDoc.bind(null, newFile,
-									file, name, docsStructure[i]));
+							file = name.replace(/\./g, "_") + ".htm";
+							filename = name.replace(/\./g, "/") + ".js";
+							name = docsStructure[i].title;
+							description = docsStructure[i].brief || "";
+							rowsUtil.push({file: "../class/" + file,
+								namespace: name,
+								name: docsStructure[i].title,
+								filename: filename,
+								description: description
+							});
+							series.push(createClassDoc.bind(null, newFile,
+								file, name, docsStructure[i]));
 						} else if (name.match(/^tau\.page/) &&
 							!(docsStructure[i].isInternal &&
 							(template !== "dld"))) {
@@ -797,10 +815,10 @@ module.exports = function (grunt) {
 							filename = name.replace(/\./g, "/") + ".js";
 							description = docsStructure[i].brief || "";
 							rowsClasses.push({file: file,
-									name: docsStructure[i].title,
-									namespace: name,
-									filename: filename,
-									description: description}
+								name: docsStructure[i].title,
+								namespace: name,
+								filename: filename,
+								description: description}
 							);
 							series.push(createClassDoc.bind(null, newFile, file, name, docsStructure[i]));
 						}

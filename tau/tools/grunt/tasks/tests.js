@@ -1,23 +1,32 @@
 /*global module, require*/
+/*eslint camelcase: 0 */
 /**
  * Tasks for framework testing
  *
- * @author Michał Szepielak <m.szepielak@samsung.com>
- * @author Maciej Moczulski <m.moczulski@samsung.com>
- * @author Piotr Karny <p.karny@samsung.com>
- * Licensed under the MIT license.
+ * @author  Maciej Urbanski <m.urbanski@samsung.com>
+ * @author  Michał Szepielak <m.szepielak@samsung.com>
+ * @author  Hyunkook, Cho <hk0713.cho@samsung.com>
+ * @author  Junyoung Park <jy-.park@samsung.com>
+ * @author  Tomasz Lukawski <t.lukawski@samsung.com>
+ * @author  Hagun Kim <hagun.kim@samsung.com>
+ * @author  Maciej Moczulski <m.moczulski@samsung.com>
+ * @author  Piotr Karny <p.karny@samsung.com>
+ * @author  Hosup Choi <hosup83.choi@samsung.com>
  */
+
+var path = require("path"),
+	buildAnalysis = require("rjs-build-analysis");
 
 module.exports = function (grunt) {
 	"use strict";
 
 	var configProperty,
-		path = require("path"),
 		buildFrameworkPath = path.join("dist"),
 		testConfig = {},
+		lastBuild = "",
 		prepareForRunner = false,
 		prepareTestsList = function (profileName, done, output) {
-			var result = require("rjs-build-analysis").parse(output),
+			var result = buildAnalysis.parse(output),
 				slice = [].slice,
 				testModules = [],
 				jsAddTests = grunt.option("js_add_test") ? grunt.option("js_add_test").split(",") : ["api", "support", profileName],
@@ -34,9 +43,9 @@ module.exports = function (grunt) {
 						files = grunt.file.expand(mainTestPattern);
 
 					if (files.length) {
-						grunt.log.ok("Tests exist for module ", testDirectory);
+						grunt.verbose.ok("Tests exist for module ", testDirectory);
 					} else {
-						grunt.log.warn("Tests don't exist for module ", testDirectory);
+						grunt.verbose.warn("Tests don't exist for module ", testDirectory);
 					}
 
 					// Skip Date time picker tests
@@ -71,41 +80,66 @@ module.exports = function (grunt) {
 		},
 		jqm: {
 			"qunit-main": false,
-			default: true
+			default: true,
+			profile: "mobile"
 		},
 		jqm13: {
 			"qunit-main": false,
-			default: false
+			default: false,
+			profile: "mobile"
 		},
 		jqm14: {
 			"qunit-main": false,
-			default: false
+			default: false,
+			profile: "mobile"
 		},
 		jqm14ok: {
 			"qunit-main": false,
-			default: true
+			default: true,
+			profile: "mobile"
 		},
 		webui: {
 			"qunit-main": false,
-			default: false
+			default: false,
+			profile: "mobile"
 		}
 	};
 	grunt.config("test", testConfig);
 
 	// Update config for task; copy
 	configProperty = grunt.config.get("copy");
-	configProperty["test-libs-wearable"] = { files: [
-		{expand: true, cwd: path.join(buildFrameworkPath, "wearable", "js"), src: "**", dest: path.join("tests", "libs", "dist", "js")},
-		{expand: true, cwd: path.join(buildFrameworkPath, "wearable", "theme", "default"), src: "**", dest: path.join("tests", "libs", "dist", "theme", "default")}
-	]};
-	configProperty["test-libs-mobile"] = { files: [
-		{expand: true, cwd: path.join(buildFrameworkPath, "mobile", "js"), src: "**", dest: path.join("tests", "libs", "dist", "js")},
-		{expand: true, cwd: path.join(buildFrameworkPath, "mobile", "theme", "default"), src: "**", dest: path.join("tests", "libs", "dist", "theme", "default")}
-	]};
-	configProperty["test-libs-tv"] = { files: [
-		{expand: true, cwd: path.join(buildFrameworkPath, "tv", "js"), src: "**", dest: path.join("tests", "libs", "dist", "js")},
-		{expand: true, cwd: path.join(buildFrameworkPath, "tv", "theme", "default"), src: "**", dest: path.join("tests", "libs", "dist", "theme", "default")}
-	]};
+	configProperty["test-libs-wearable"] = {
+		files: [
+			{
+				expand: true,
+				cwd: path.join(buildFrameworkPath, "wearable", "js"),
+				src: "**",
+				dest: path.join("tests", "libs", "dist", "js")
+			},
+			{
+				expand: true,
+				cwd: path.join(buildFrameworkPath, "wearable", "theme", "default"),
+				src: "**",
+				dest: path.join("tests", "libs", "dist", "theme", "default")
+			}
+		]
+	};
+	configProperty["test-libs-mobile"] = {
+		files: [
+			{
+				expand: true,
+				cwd: path.join(buildFrameworkPath, "mobile", "js"),
+				src: "**",
+				dest: path.join("tests", "libs", "dist", "js")
+			},
+			{
+				expand: true,
+				cwd: path.join(buildFrameworkPath, "mobile", "theme", "default"),
+				src: "**",
+				dest: path.join("tests", "libs", "dist", "theme", "default")
+			}
+		]
+	};
 	configProperty["test-libs-mobile_support"] = configProperty["test-libs-mobile"];
 	configProperty["test-libs-jqm"] = configProperty["test-libs-mobile"];
 	configProperty["test-libs-jqm13"] = configProperty["test-libs-mobile"];
@@ -146,7 +180,6 @@ module.exports = function (grunt) {
 	function testProfile(profile, prepareOnly) {
 		var taskConf = grunt.config.get("test"),
 			qunitConf = grunt.config.get("qunit"),
-			bamboo = grunt.option("bamboo"),
 			options = taskConf[profile];
 
 		if (prepareOnly) {
@@ -155,9 +188,9 @@ module.exports = function (grunt) {
 
 		grunt.config.set("qunit.options.coverage", {
 			disposeCollector: false,
-			src: ['tests/libs/dist/js/tau.js'],
-			htmlReport: "report/coverage/html/" + profile +"/",
-			cloverReport: "report/coverage/clover/" + profile +"/",
+			src: ["tests/libs/dist/js/tau.js"],
+			htmlReport: "report/coverage/html/" + profile + "/",
+			cloverReport: "report/coverage/clover/" + profile + "/",
 			instrumentedFiles: "temp/",
 			reportOnFail: true
 		});
@@ -201,44 +234,51 @@ module.exports = function (grunt) {
 		grunt.event.emit("qunit.profile", profile);
 	});
 
-
-	var description = "Run tests. \n" +
-		"This task allows params:\n" +
-		"<profile> [default:all]\n" +
+	grunt.registerTask("test", "Run tests. \n" +
+		"This task requires params:\n" +
+		"<profile>\n" +
 		"options:\n" +
 		"--single_test : determines single test to run\n" +
 		"example:\n" +
-		"\"grunt test:mobie --single_test=/path/test.html\"";
+		"\"grunt test:mobie --single_test=/path/test.html\"",
+		function (profile) {
+			var profileName,
+				buildProfile = profile && (testConfig[profile].profile || profile);
 
-	grunt.registerTask("test", description, function (profile) {
-		var profileName;
-
-		// Inject require done callback
-		configProperty = grunt.config.get("requirejs");
-
-		for (profileName in testConfig) {
-			if (testConfig.hasOwnProperty(profileName) && testConfig[profileName]["qunit-main"]) {
-				configProperty[profileName].options.done = prepareTestsList.bind(null, profileName);
+			if (!profile) {
+				grunt.fail.warn("Task test requires profile name. Supported profiles: " + Object.keys(testConfig).join(", "));
 			}
-		}
-		grunt.config.set("requirejs", configProperty);
+			// Inject require done callback
+			configProperty = grunt.config.get("requirejs");
 
-		//would be better to maintain separate build for tests purposes
-		grunt.task.run("build:" + profile);
-
-		if (profile) {
-			grunt.config.set("qunit.options.coverage.src", "tests/libs/dist/js/tau.js");
-			grunt.config.set("qunit.options.coverage.coberturaReport", "report/coverage/" + profile + "/");
-			grunt.config.set("qunit.options.coverage.instrumentedFiles", "temp/");
-			testProfile(profile, prepareForRunner);
-		} else {
 			for (profileName in testConfig) {
-				if (testConfig.hasOwnProperty(profileName) && testConfig[profileName].default) {
-					testProfile(profileName);
+				if (testConfig.hasOwnProperty(profileName) && testConfig[profileName]["qunit-main"]) {
+					configProperty[profileName].options.done = prepareTestsList.bind(null, profileName);
 				}
 			}
-		}
-	});
+			grunt.config.set("requirejs", configProperty);
+
+			if (lastBuild !== buildProfile) {
+				//would be better to maintain separate build for tests purposes
+				grunt.task.run("build-" + buildProfile);
+				lastBuild = buildProfile;
+			} else {
+				grunt.task.run("requirejs:" + buildProfile);
+			}
+
+			if (profile) {
+				grunt.config.set("qunit.options.coverage.src", "tests/libs/dist/js/tau.js");
+				grunt.config.set("qunit.options.coverage.coberturaReport", "report/coverage/" + profile + "/");
+				grunt.config.set("qunit.options.coverage.instrumentedFiles", "temp/");
+				testProfile(profile, prepareForRunner);
+			} else {
+				for (profileName in testConfig) {
+					if (testConfig.hasOwnProperty(profileName) && testConfig[profileName].default) {
+						testProfile(profileName);
+					}
+				}
+			}
+		});
 
 	grunt.registerTask("test-runner-prepare", function (profile) {
 		// Set prepare test list for runner flag
@@ -257,11 +297,11 @@ module.exports = function (grunt) {
 				filePaths = grunt.file.expand(opt, src);
 				grunt.file.write("tests/tau-runner/tests.js",
 					"var TESTS = " + JSON.stringify(filePaths) +
-										";\n" +
-										"var CURRENT_ITERATION = 0;" +
-										"\n" +
-										"var TESTS_PER_ITERATION = 3;" + "\n"
-								);
+					";\n" +
+					"var CURRENT_ITERATION = 0;" +
+					"\n" +
+					"var TESTS_PER_ITERATION = 3;" + "\n"
+				);
 			} else {
 				grunt.log.error("Couldn't find configuration for profile: " + profile);
 				return false;
@@ -274,30 +314,19 @@ module.exports = function (grunt) {
 
 	grunt.registerTask("qunit-report",
 		"Generate QUnit report", function () {
-			var options = this.options({
-					dest: "_build/test-reports",
-					namer: function (url) {
-						return path.basename(url).replace(/\.html$/, "");
-					}
-				}),
-				modules = {},
+			var modules = {},
 				file = "report/test.txt",
 				module = "",
 				test = "",
 				report = "",
 				url,
 				currentProfile,
-				errors = 0,
 				id = 0;
 
 			grunt.event.on("qunit.moduleStart", function (name) {
 				module = name;
 				if (url.indexOf("tests/js/" + name) !== 0) {
 					grunt.log.error("Wrong module name in ", url, name, " should be changed");
-					errors++;
-					if (errors > 30) {
-						exit();
-					}
 				}
 			});
 			grunt.event.on("qunit.spawn", function (details) {
@@ -310,11 +339,12 @@ module.exports = function (grunt) {
 			grunt.event.on("qunit.testStart", function (name) {
 				if (!module && test != name) {
 					grunt.log.error(url, " ! ");
-					errors++;
 				}
 				test = name;
 			});
-			grunt.event.on("qunit.log", function (result, actual, expected, rawMessage, source) {
+			grunt.event.on("qunit.log", function (result, actual, expected, rawMessage) {
+				var line = "";
+
 				if (typeof expected === "object") {
 					expected = "[object]";
 				}
@@ -329,26 +359,27 @@ module.exports = function (grunt) {
 				}
 				expected = expected.split("\n").join(" ");
 				actual = actual.split("\n").join(" ");
-				var line = test + "	" + currentProfile + "-" + id + "	" + rawMessage + "	" + "	" + expected + "	" + actual + "	" + (result ? "PASS" : "FAIL");
+				line = test + "	" + currentProfile + "-" + id + "	" + rawMessage + "	" + "	" + expected + "	" + actual + "	" + (result ? "PASS" : "FAIL");
 
 				modules[module] = modules[module] || "";
 				modules[module] += line + "\n";
 				id++;
 			});
-			grunt.event.on("qunit.done", function (result, actual, expected, rawMessage, source) {
+			grunt.event.on("qunit.done", function () {
 				var module,
 					i;
 
 				report = "";
 				for (i in modules) {
-					module = modules[i];
-					report += "Module Name	" + i + "\n";
-					report += "Function Name	TestCase ID	Test Case Description	Input	Expected Result	Execution Result	Pass/Fail" + "\n";
-					report += module;
-					report += "\n\n";
+					if (modules.hasOwnProperty(i)) {
+						module = modules[i];
+						report += "Module Name	" + i + "\n";
+						report += "Function Name	TestCase ID	Test Case Description	Input	Expected Result	Execution Result	Pass/Fail" + "\n";
+						report += module;
+						report += "\n\n";
+					}
 				}
 				grunt.file.write(file, report);
 			});
-
 		});
 };

@@ -1,16 +1,16 @@
 /*jslint nomen: true, plusplus: true */
-/*global module, require, __dirname, mu, console */
+/*global module, require, __dirname */
+var path = require("path"),
+	mu = require("mu2"),
+	fs = require("fs"),
+	m = require("marked"),
+	dox = require("dox"),
+	customParser = require("./guide-custom-parser.js"),
+	tokenParser = require("./token-parser.js");
+
 module.exports = function (grunt) {
 	"use strict";
-
-	var path = require("path"),
-		mu = require("mu2"),
-		fs = require("fs"),
-		m = require("marked"),
-		sep = path.sep,
-		dox = require('dox'),
-		customParser = require(__dirname + sep + "guide-custom-parser.js"),
-		tokenParser = require(__dirname + sep + "token-parser.js"),
+	var sep = path.sep,
 		widgetFiles = {
 			tv: [],
 			mobile: [],
@@ -62,7 +62,7 @@ module.exports = function (grunt) {
 			done(true);
 			grunt.log.ok();
 
-			grunt.log.write("Finished. Check "+dst+" directory to see the result html.\n");
+			grunt.log.write("Finished. Check " + dst + " directory to see the result html.\n");
 		} catch (err) {
 			grunt.log.error(err);
 			done(false);
@@ -72,6 +72,7 @@ module.exports = function (grunt) {
 
 	function processDocument(file, destination, extraParams, success, fail) {
 		var buffer = "";
+
 		convertMarkdown(file, function (data) {
 			if (fs.existsSync(destination)) {
 				fs.unlinkSync(destination);
@@ -103,7 +104,7 @@ module.exports = function (grunt) {
 		});
 	}
 
-	grunt.registerMultiTask('developer-guide-extract', 'Extracts markdown comments from file headers', function () {
+	grunt.registerMultiTask("developer-guide-extract", "Extracts markdown comments from file headers", function () {
 		var files = [],
 			matchingTagName = "class",
 			filesGenerated = 0,
@@ -120,6 +121,7 @@ module.exports = function (grunt) {
 				rename: function (dest, matchedSrcPath) {
 					// We check first how the destination paths look like
 					var foundInPath = matchedSrcPath.indexOf(fileDestBase);
+
 					if (fileDestBase && foundInPath === 0) {
 						// if a match is found the begimning is removed
 						return path.join(dest, matchedSrcPath.substr(fileDestBase.length)).toLowerCase();
@@ -136,8 +138,9 @@ module.exports = function (grunt) {
 				content = grunt.file.read(srcFile),
 				docs,
 				interestingComments = [],
-				output = '',
+				output = "",
 				widget;
+
 			grunt.verbose.writeln("Parsing file [" + srcFile + "]");
 
 			// check if file is widget
@@ -158,7 +161,7 @@ module.exports = function (grunt) {
 				}
 			}
 
-			docs = dox.parseComments(content, { raw: true });
+			docs = dox.parseComments(content, {raw: true});
 
 			// Find only comments with 'class' tags within current file
 			docs.filter(function (comment) {
@@ -205,8 +208,9 @@ module.exports = function (grunt) {
 		var buffer = "",
 			i,
 			length;
+
 		for (i = 0, length = widgets.length; i < length; ++i) {
-			buffer += '<li><a href="' + widgets[i].file + '">' + widgets[i].name + '</a></li>';
+			buffer += "<li><a href=\"" + widgets[i].file + "\">" + widgets[i].name + "</a></li>";
 		}
 
 		return buffer;
@@ -257,7 +261,7 @@ module.exports = function (grunt) {
 			grunt.task.requires("developer-guide-extract");
 		}
 
-		mu.root = __dirname + "/guide-templates";
+		mu.root = path.resolve("./guide-templates");
 
 		files = grunt.file.expand(markdownFiles);
 		res = grunt.file.expand(resources);
@@ -285,7 +289,7 @@ module.exports = function (grunt) {
 			if (grunt.file.isFile(file)) {
 				fullFileName = path.basename(file);
 				fileName = path.basename(fullFileName, "md");
-				relativePathPrefix = path.relative(file, src).replace(/\.\.$/, '');
+				relativePathPrefix = path.relative(file, src).replace(/\.\.$/, "");
 				destination = file.replace(src, dest).replace(fullFileName, fileName + "html");
 
 
@@ -312,5 +316,5 @@ module.exports = function (grunt) {
 
 	// the following was disabled for now, please dont remove the comment
 	// grunt.registerTask("developer-guide", ['clean:guide', 'developer-guide-extract', 'developer-guide-build']);
-	grunt.registerTask("developer-guide", ['clean:guide', 'developer-guide-build']);
+	grunt.registerTask("developer-guide", ["clean:guide", "developer-guide-build"]);
 };

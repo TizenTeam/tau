@@ -1,18 +1,17 @@
-/*jslint nomen: true */
-/*global require, module, __dirname, process */
+/*global module */
 /*
- * Generating docs Ej
+ * Downloading globalize lib
  *
  * @author Hosup Choi <hosup83.choi@samsung.com>
  * Licensed under the MIT license.
  */
 module.exports = function (grunt) {
-	'use strict';
+	"use strict";
 	var copyTask,
 		srcCldrDataPath = "node_modules/cldr-data",
 		destCldrDataPath = "libs/cldr-data";
 
-	function getCldrData(){
+	function getCldrData() {
 		var rtn = [],
 			src = [],
 			expand = true,
@@ -27,8 +26,8 @@ module.exports = function (grunt) {
 			},
 			subdirectories = "**";
 
-		supportLanguages.forEach(function(item){
-			src.push(path.main+"/" + item + "/" + subdirectories);
+		supportLanguages.forEach(function (item) {
+			src.push(path.main + "/" + item + "/" + subdirectories);
 		});
 		src.push(path.supplemental + "/" + subdirectories);
 		rtn.push({
@@ -41,35 +40,36 @@ module.exports = function (grunt) {
 			expand: expand,
 			cwd: path.libs,
 			src: path.scriptMetaData,
-			dest: path.libs + "/" + path.cldrData +"/" + path.supplemental
+			dest: path.libs + "/" + path.cldrData + "/" + path.supplemental
 		});
 
 		return rtn;
-
-
 	}
+
 	copyTask = grunt.config.get("copy");
-	copyTask["cldr-data"] = { files: getCldrData() };
+	copyTask["cldr-data"] = {
+		files: getCldrData()
+	};
 	grunt.config.set("copy", copyTask);
 
-	grunt.registerTask('globalize', function() {
+	grunt.registerTask("globalize", function () {
 
-		if(grunt.file.exists(srcCldrDataPath)) {
-			if(!grunt.file.exists(destCldrDataPath)) {
+		if (grunt.file.exists(srcCldrDataPath)) {
+			if (!grunt.file.exists(destCldrDataPath)) {
 				grunt.task.run("copy:cldr-data");
 			}
 		} else {
-			console.log("downloading cldr-data...");
+			grunt.log.ok("downloading cldr-data...");
 			grunt.loadNpmTasks("grunt-auto-install");
 			grunt.config.set("auto_install", {
-				local:{},
-				rootGrunt:{
-					options:{
-						cwd:'./'
+				local: {},
+				rootGrunt: {
+					options: {
+						cwd: "./"
 					}
 				}
 			});
-			grunt.task.run('auto_install:rootGrunt');
+			grunt.task.run("auto_install:rootGrunt");
 			grunt.task.run("copy:cldr-data");
 		}
 	});

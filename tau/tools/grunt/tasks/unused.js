@@ -1,10 +1,10 @@
 /*jslint nomen: true, plusplus: true */
-/*global module, require, __dirname, mu, console */
+/*global module, require, __dirname, console */
+var path = require("path");
+
 module.exports = function (grunt) {
 	"use strict";
-
-	var path = require("path"),
-		sep = path.sep;
+	var sep = path.sep;
 
 	function onlyUnique(value, index, self) {
 		return self.indexOf(value) === index;
@@ -19,7 +19,7 @@ module.exports = function (grunt) {
 
 	// This task requires prebuild .css files
 	// Please remember to run `grunt build` task first
-	grunt.registerMultiTask('remove-unused', 'Finds unused files inside give paths. Run `build` first!', function () {
+	grunt.registerMultiTask("remove-unused", "Finds unused files inside give paths. Run `build` first!", function () {
 		var taskSettings = this.data,
 			imageFiles = grunt.file.expandMapping(taskSettings.imageFiles),
 			codeFiles = grunt.file.expandMapping(taskSettings.codeFiles),
@@ -29,6 +29,7 @@ module.exports = function (grunt) {
 
 		imageFiles = imageFiles.map(function (image) {
 			var pathSplit = image.src[0].split(sep);
+
 			return pathSplit[pathSplit.length - 1];
 		}).filter(onlyUnique);
 
@@ -50,8 +51,8 @@ module.exports = function (grunt) {
 		imageFiles.forEach(function (image) {
 			var expandedPath = grunt.file.expandMapping(taskSettings.resourcesPath + sep + "**" + sep + image);
 
-			expandedPath.forEach(function (themePaths){
-				if(grunt.file.delete(themePaths.dest)) {
+			expandedPath.forEach(function (themePaths) {
+				if (grunt.file.delete(themePaths.dest)) {
 					deleteCount++;
 				}
 			});
@@ -60,4 +61,4 @@ module.exports = function (grunt) {
 		grunt.log.ok(deleteCount + " files removed");
 	});
 
- };
+};

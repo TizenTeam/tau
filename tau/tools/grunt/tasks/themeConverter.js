@@ -1,25 +1,25 @@
 var xml2js = require("xml2js"),
 	fs = require("fs"),
-	path = require("path"),
+	path = require("path");
 
-	range = {
-		MAX_ANGLE: 360,
-		MIN_ANGLE: 0,
-		MAX_PERCENTAGE: 100,
-		MIN_PERCENTAGE: 0
-	},
+module.exports = function (grunt) {
+	var options,
+		range = {
+			MAX_ANGLE: 360,
+			MIN_ANGLE: 0,
+			MAX_PERCENTAGE: 100,
+			MIN_PERCENTAGE: 0
+		},
 
-	tableType = {
-		UNKNOWN_TABLE: 0,
-		INPUT_COLOR_TABLE: 1,
-		COLOR_TABLE: 2
-	};
+		tableType = {
+			UNKNOWN_TABLE: 0,
+			INPUT_COLOR_TABLE: 1,
+			COLOR_TABLE: 2
+		};
 
-module.exports = function(grunt) {
-	var options;
-	grunt.registerMultiTask("themeConverter", "tau changeable theme converter",function(){
+	grunt.registerMultiTask("themeConverter", "tau changeable theme converter", function () {
 		options = this.options();
-		this.files.forEach(function(file){
+		this.files.forEach(function (file) {
 			run(options.index, options.style, file.src[0], file.dest);
 		});
 	});
@@ -72,7 +72,10 @@ module.exports = function(grunt) {
 		}
 
 		data = fs.readFileSync(path);
-		parser.parseString(data, function(err, result) {
+		parser.parseString(data, function (err, result) {
+			if (err) {
+				grunt.log.error(err);
+			}
 			// result is parsing data
 			table = parseAttribute(result, table);
 		});
@@ -119,8 +122,9 @@ module.exports = function(grunt) {
 	}
 
 	function replaceColor(id, rgba, template) {
-		var reg = new RegExp("\\b"+id+"\\b", "g");
-		template = template.replace(reg,"rgba("+rgba.r+", "+rgba.g+", "+rgba.b+", "+rgba.a+")");
+		var reg = new RegExp("\\b" + id + "\\b", "g");
+
+		template = template.replace(reg, "rgba(" + rgba.r + ", " + rgba.g + ", " + rgba.b + ", " + rgba.a + ")");
 		return template;
 	}
 
@@ -132,19 +136,25 @@ module.exports = function(grunt) {
 		max = (maxInput > maxRange) ? maxRange : maxInput;
 		min = (minInput < minRange) ? minRange : minInput;
 
-		if (value > max)
+		if (value > max) {
 			result = max;
-		else if (value < min)
+		} else if (value < min) {
 			result = min;
-		else
+		} else {
 			result = value;
+		}
 		return result;
 	}
 
 	function HSVtoRGB(h, s, v, a) {
-		var r, g, b,
+		var r,
+			g,
+			b,
 			i,
-			f, p, q, t;
+			f,
+			p,
+			q,
+			t;
 
 		i = Math.floor(h * 6);
 		f = h * 6 - i;
@@ -153,12 +163,36 @@ module.exports = function(grunt) {
 		t = v * (1 - (1 - f) * s);
 
 		switch (i % 6) {
-			case 0: r = v; g = t; b = p; break;
-			case 1: r = q; g = v; b = p; break;
-			case 2: r = p; g = v; b = t; break;
-			case 3: r = p; g = q; b = v; break;
-			case 4: r = t; g = p; b = v; break;
-			case 5: r = v; g = p; b = q; break;
+			case 0:
+				r = v;
+				g = t;
+				b = p;
+				break;
+			case 1:
+				r = q;
+				g = v;
+				b = p;
+				break;
+			case 2:
+				r = p;
+				g = v;
+				b = t;
+				break;
+			case 3:
+				r = p;
+				g = q;
+				b = v;
+				break;
+			case 4:
+				r = t;
+				g = p;
+				b = v;
+				break;
+			case 5:
+				r = v;
+				g = p;
+				b = q;
+				break;
 		}
 		return {
 			r: Math.round(r * 255),
@@ -170,17 +204,14 @@ module.exports = function(grunt) {
 	}
 
 	function calculateColor(inputColorList, color) {
-		var hue, saturation, value,
+		var hue,
+			saturation,
+			value,
 			alpha,
 			inputColor = {
 				hue: 0,
 				saturation: 0,
 				value: 0
-			},
-			rgb = {
-				r: 0,
-				g: 0,
-				b: 0
 			},
 			maxHue = color.maxHue ? color.maxHue : 360,
 			minHue = color.minHue ? color.minHue : 0,
@@ -189,26 +220,28 @@ module.exports = function(grunt) {
 			maxValue = color.maxValue ? color.maxValue : 100,
 			minValue = color.minValue ? color.minValue : 0;
 
-		if (!color || !inputColorList)
+		if (!color || !inputColorList) {
 			return false;
+		}
 
 		if (color.inputColor) {
-			if (color.inputColor === "1")
+			if (color.inputColor === "1") {
 				inputColor = inputColorList[0].$;
-			else if (color.inputColor === "2")
+			} else if (color.inputColor === "2") {
 				inputColor = inputColorList[1].$;
-			else if (color.inputColor === "3")
+			} else if (color.inputColor === "3") {
 				inputColor = inputColorList[2].$;
-			else if (color.inputColor === "4")
+			} else if (color.inputColor === "4") {
 				inputColor = inputColorList[3].$;
-			else if (color.inputColor === "5")
+			} else if (color.inputColor === "5") {
 				inputColor = inputColorList[4].$;
-			else if (color.inputColor === "6")
+			} else if (color.inputColor === "6") {
 				inputColor = inputColorList[5].$;
-			else if (color.inputColor === "K")
-				inputColor = { hue: 0, saturation: 0, value: 3 };
-			else if (color.inputColor === "W")
-				inputColor = { hue: 0, saturation: 0, value: 96 };
+			} else if (color.inputColor === "K") {
+				inputColor = {hue: 0, saturation: 0, value: 3};
+			} else if (color.inputColor === "W") {
+				inputColor = {hue: 0, saturation: 0, value: 96};
+			}
 		}
 
 		// determine color's hue
@@ -224,12 +257,13 @@ module.exports = function(grunt) {
 		value = determineColorRange(value, range.MAX_PERCENTAGE, range.MIN_PERCENTAGE, parseInt(maxValue, 10), parseInt(minValue, 10));
 
 		// check the range of alpha
-		if (parseInt(color.alpha, 10) > range.MAX_PERCENTAGE)
+		if (parseInt(color.alpha, 10) > range.MAX_PERCENTAGE) {
 			alpha = range.MAX_PERCENTAGE;
-		else if (parseInt(color.alpha, 10) < range.MIN_PERCENTAGE)
+		} else if (parseInt(color.alpha, 10) < range.MIN_PERCENTAGE) {
 			alpha = range.MIN_PERCENTAGE;
-		else
+		} else {
 			alpha = color.alpha;
+		}
 
 		hue /= range.MAX_ANGLE;
 		saturation /= range.MAX_PERCENTAGE;

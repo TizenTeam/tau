@@ -1,11 +1,11 @@
 /*jslint nomen: true, plusplus: true */
 /*global module, require, __dirname */
+
+var tokenRules = require("./token-rules.js"),
+	renderTemplates = require("./token-templates.js");
+
 (function () {
 	"use strict";
-
-	var sep = require("path").sep,
-		tokenRules = require(__dirname + sep + "token-rules.js"),
-		renderTemplates = require(__dirname + sep + "token-templates.js");
 
 	/**
 	 * Matches tokens (and tokens as whole blocks) in given lines of text
@@ -28,7 +28,7 @@
 			};
 
 			// If we expect that a token may be a block
-			if (!!tokenRules[tokenName].end) {
+			if (tokenRules[tokenName].end) {
 				// Go to end of matching block
 				while (lines.length > 0) {
 					line = lines.pop();
@@ -58,7 +58,10 @@
 			token,
 			tokens = [],
 			tokenNames = Object.keys(tokenRules),
-			tokenFound;
+			tokenFound,
+			i = 0,
+			tokenName,
+			matchedToken;
 
 		while (lines.length > 0) {
 			line = lines.pop();
@@ -66,14 +69,16 @@
 
 			// for each defined token check if it exists in code
 			// this may alter the lines array
-			tokenNames.forEach(function (tokenName) {
-				var matchedToken = matchToken(tokenName, lines, line);
+			for (i = 0; i < tokenNames.length; i++) {
+				tokenName = tokenNames[i];
+
+				matchedToken = matchToken(tokenName, lines, line);
 
 				if (matchedToken) {
 					tokens.push(matchedToken);
 					tokenFound = true;
 				}
-			});
+			}
 
 			// Tokens not matched by the block above are considered as normal text
 			if (!tokenFound) {

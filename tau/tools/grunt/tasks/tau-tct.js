@@ -2,11 +2,11 @@
 /*
  * TAU TCT package automatic making module.
  */
+var shell = require("shelljs"),
+	path = require("path");
+
 module.exports = function (grunt) {
-	var shell = require("shelljs"),
-		path = require("path"),
-		// @todo: how to set proper directory by default?
-		DOWNLOAD_PATH = path.join(process.env.HOME, "Downloads"),
+	var DOWNLOAD_PATH = path.join(process.env.HOME, "Downloads"),
 		relativePath = path.relative("./", DOWNLOAD_PATH || "");
 
 	grunt.registerTask("prepare", "Prepare", function (profile) {

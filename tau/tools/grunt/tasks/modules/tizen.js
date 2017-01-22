@@ -1,22 +1,21 @@
 /*global module, console, require, __dirname, process */
+/**
+ * Module for installing, running and other development actions dedicated
+ * for Tizen platform
+ * @author Piotr Karny <p.karny@samsung.com>
+ */
+
+var os = require("os"),
+	path = require("path"),
+	grunt = require("grunt"),
+	spawn = require("child_process").spawn;
+
 (function () {
-	"use strict";
-
-	/**
-	 * Module for installing, running and other development actions dedicated
-	 * for Tizen platform
-	 * @author Piotr Karny <p.karny@samsung.com>
-	 */
-
-	var os = require('os'),
-		path = require("path"),
-		grunt = require("grunt"),
-		file = grunt.file,
-		spawn = require("child_process").spawn,
+	var file = grunt.file,
 		envConfiguration = {
 			sdkPath: path.join(process.env.HOME, "tizen-sdk"),
 			sdkWorkspacePath: path.join(process.env.HOME, "workspace"),
-			tempPath: 'tmp/_tizen_tools',
+			tempPath: "tmp/_tizen_tools",
 			devices: []
 		},
 		/**
@@ -48,7 +47,7 @@
 				deviceMatches = line.match(SDB_DEVICES_REGEX);
 
 				// Save only devices (that are not offline etc).
-				if(deviceMatches && deviceMatches[2] && deviceMatches[2] === 'device') {
+				if (deviceMatches && deviceMatches[2] && deviceMatches[2] === "device") {
 					grunt.log.debug("Adding device " + deviceMatches[1] + "\t" + deviceMatches[2] + "\t" + deviceMatches[3]);
 					devicesFound.push({
 						name: deviceMatches[3],
@@ -82,7 +81,7 @@
 			}
 		});
 
-		sdb.on("error", function(e) {
+		sdb.on("error", function (e) {
 			grunt.log.error("Something went wrong: " + e);
 		});
 	}
@@ -111,8 +110,9 @@
 		sdb = spawn("sdb", sdbArgs);
 		sdb.stdout.on("data", function (data) {
 			var cleanData;
+
 			data = data.toString();
-			grunt.verbose.debug("[" + targetName + "] SDB run output ["+ data.length + "]:\n" + data);
+			grunt.verbose.debug("[" + targetName + "] SDB run output [" + data.length + "]:\n" + data);
 
 			// Physical device returns from run method two times we need to handle only the case when we get "result" as data
 			if (data.indexOf("result:") > -1) {
@@ -140,7 +140,7 @@
 		});
 
 		sdb.stderr.on("data", function (data) {
-			grunt.verbose.debug("[stderr][" + targetName + "] SDB run output ["+ data.length + "]:\n" + data);
+			grunt.verbose.debug("[stderr][" + targetName + "] SDB run output [" + data.length + "]:\n" + data);
 		});
 
 		sdb.on("error", function (e) {
@@ -196,17 +196,18 @@
 
 			data = data.toString();
 
-			grunt.verbose.debug("[" + targetName + "] SDB install output ["+ data.length + "]:\n" + data);
+			grunt.verbose.debug("[" + targetName + "] SDB install output [" + data.length + "]:\n" + data);
 			packageMatches = data.match(SDB_PACKAGE_REGEX);
 			if (packageMatches) {
 				packageId = packageMatches[1];
 			}
 
+			grunt.log.ok("Package id: " + packageId);
 			// Here we get the application ID based on icon name
 			// @TODO As this approach is not very reliable consider changing it to `sdb shell wrt-launcher -l`
 			iconMatches = data.match(SDB_INSTALL_ICON);
 			if (iconMatches) {
-				applicationId = iconMatches[2].substring(iconMatches[2].lastIndexOf('/') + 1, iconMatches[2].lastIndexOf('.'));
+				applicationId = iconMatches[2].substring(iconMatches[2].lastIndexOf("/") + 1, iconMatches[2].lastIndexOf("."));
 			}
 
 			// @TODO Get application name via `sdb` command
@@ -218,7 +219,7 @@
 		});
 
 		sdb.stderr.on("data", function (data) {
-			grunt.verbose.debug("[stderr][" + targetName + "] SDB install output ["+ data.length + "]:\n" + data);
+			grunt.verbose.debug("[stderr][" + targetName + "] SDB install output [" + data.length + "]:\n" + data);
 		});
 
 		sdb.on("error", function (e) {
@@ -270,15 +271,16 @@
 	 */
 	function isRunning(target, targetName, applicationId, runningCallback, stoppedCallback) {
 		var sdb,
-			sdbArgs = ['-s', target, 'shell', 'wrt-launcher', '--is-running', applicationId];
+			sdbArgs = ["-s", target, "shell", "wrt-launcher", "--is-running", applicationId];
 
 		grunt.verbose.debug("[" + targetName + "] Spawning \"sdb " + sdbArgs.join(" ") + "\"");
 		sdb = spawn("sdb", sdbArgs);
 
 		sdb.stdout.on("data", function (data) {
 			var cleanData;
+
 			data = data.toString();
-			grunt.verbose.debug("[" + targetName + "] SDB is-running output ["+ data.length + "]:\n" + data);
+			grunt.verbose.debug("[" + targetName + "] SDB is-running output [" + data.length + "]:\n" + data);
 
 			// Physical device returns from run method two times we need to handle only the case when we get "result" as data
 			if (data.indexOf("result:") > -1) {
@@ -298,7 +300,7 @@
 		});
 
 		sdb.stderr.on("data", function (data) {
-			grunt.verbose.debug("[stderr][" + targetName + "] SDB is-running output ["+ data.length + "]:\n" + data);
+			grunt.verbose.debug("[stderr][" + targetName + "] SDB is-running output [" + data.length + "]:\n" + data);
 		});
 
 		sdb.on("error", function (e) {
@@ -352,25 +354,25 @@
 			}
 		}
 
-		sdbArgs = ['-s', target, 'pull', remotePath, localPath];
+		sdbArgs = ["-s", target, "pull", remotePath, localPath];
 
 		grunt.verbose.debug("[" + targetName + "] Spawning \"sdb " + sdbArgs.join(" ") + "\"");
 		sdb = spawn("sdb", sdbArgs);
 
 		sdb.stdout.on("data", function (data) {
 			data = data.toString();
-			grunt.verbose.debug("[" + targetName + "] SDB pull output ["+ data.length + "]:\n" + data);
+			grunt.verbose.debug("[" + targetName + "] SDB pull output [" + data.length + "]:\n" + data);
 		});
 
 		sdb.stderr.on("data", function (data) {
-			grunt.verbose.debug("[stderr][" + targetName + "] SDB pull output ["+ data.length + "]:\n" + data);
+			grunt.verbose.debug("[stderr][" + targetName + "] SDB pull output [" + data.length + "]:\n" + data);
 		});
 
 		sdb.on("error", function (e) {
 			grunt.log.error("[" + targetName + "] Error occurred during checking for running apps. " + e);
 		});
 
-		sdb.on("close", function (code, signal) {
+		sdb.on("close", function (code) {
 			var fileContent = null,
 				localFile = localPath + path.sep + remoteFile;
 
@@ -444,7 +446,7 @@
 	 * @returns {number} Returns 1 in case of problems
 	 */
 	function listenToExit(target, targetName, applicationId, exitCallback) {
-		if (!exitCallback || typeof exitCallback !== 'function') {
+		if (!exitCallback || typeof exitCallback !== "function") {
 			grunt.log.error("Exit callback for listenToExit must be set!");
 			return 1;
 		}
@@ -498,7 +500,7 @@
 		 * @param {Function} [successCallback]
 		 * @param {Function} [failureCallback]
 		 */
-		build: function(applicationPath, successCallback, failureCallback) {
+		build: function () {
 			// 1. config.xml check?
 			// 2. Privilege check?
 			// 3. Signature check
@@ -531,13 +533,13 @@
 
 			deviceCount = devices.length;
 
-			function successOrFailure(applicationId, wgtFilePath){
-				if(successCount + failureCount === deviceCount && successCount > 0 && typeof successCallback === "function") {
-					successCallback(applicationId, wgtFilePath, "Application was successfully installed " + successCount + " time" + (successCount > 1 ? 's' : ''));
+			function successOrFailure(applicationId, wgtFilePath) {
+				if (successCount + failureCount === deviceCount && successCount > 0 && typeof successCallback === "function") {
+					successCallback(applicationId, wgtFilePath, "Application was successfully installed " + successCount + " time" + (successCount > 1 ? "s" : ""));
 				}
 
-				if(successCount + failureCount === deviceCount && failureCount > 0 && typeof failureCallback === "function") {
-					failureCallback(applicationId, wgtFilePath, "Application failed to install " + failureCount + " time" + (failureCount > 1 ? 's' : ''));
+				if (successCount + failureCount === deviceCount && failureCount > 0 && typeof failureCallback === "function") {
+					failureCallback(applicationId, wgtFilePath, "Application failed to install " + failureCount + " time" + (failureCount > 1 ? "s" : ""));
 				}
 			}
 
@@ -660,4 +662,4 @@
 	};
 
 	module.exports = Tizen;
-}());
+})();

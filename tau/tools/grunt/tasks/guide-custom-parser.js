@@ -1,14 +1,13 @@
 /*jslint nomen: true, plusplus: true */
 /*global module, require, __dirname */
+var rules = require("./guide-rules.js"),
+	ruleHandlers = require("./guide-handlers.js");
+
 (function () {
 	"use strict";
-	var sep = require("path").sep,
-		rules = require(__dirname + sep + "guide-rules.js"),
-		ruleHandlers = require(__dirname + sep + "guide-handlers.js"),
-		ruleNames = Object.keys(rules),
+	var	ruleNames = Object.keys(rules),
 		i,
 		ruleName;
-
 
 	function parse(content) {
 		i = ruleNames.length;
