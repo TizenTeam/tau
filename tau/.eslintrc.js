@@ -162,7 +162,7 @@ module.exports = {
         "no-loop-func": "error",
         "no-magic-numbers": "off",
         "no-mixed-operators": "off",
-        "no-mixed-requires": "error",
+        "no-mixed-requires": "off",
         //"no-mixed-space-and-tabs": "off",
         "no-multi-spaces": "error",
         "no-multi-str": "error",
