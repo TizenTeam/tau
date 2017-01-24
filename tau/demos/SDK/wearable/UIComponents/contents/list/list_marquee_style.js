@@ -1,5 +1,5 @@
 /*global tau */
-(function() {
+(function () {
 	var page = document.getElementById("pageMarqueeList"),
 		elScroller,
 		listHelper;
@@ -8,7 +8,7 @@
 	 * pagebeforeshow event handler
 	 * Do preparatory works and adds event listeners
 	 */
-	page.addEventListener( "pagebeforeshow", function() {
+	page.addEventListener("pagebeforeshow", function () {
 		var list;
 
 		elScroller = page.querySelector(".ui-scroller");
@@ -29,7 +29,7 @@
 	 * pagehide event handler
 	 * Destroys and removes event listeners
 	 */
-	page.addEventListener( "pagebeforehide", function() {
+	page.addEventListener("pagebeforehide", function () {
 		if (listHelper) {
 			listHelper.destroy();
 			listHelper = null;

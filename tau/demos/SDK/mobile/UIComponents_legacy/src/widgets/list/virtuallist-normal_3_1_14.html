@@ -9,30 +9,32 @@
 		<h1>Virtual list - 1line-bigicon5</h1>
 	</div>
 	<style type="text/css">
-#virtuallist-normal_1line-bigicon5_ul li .ui-li-text-main {
-	max-width:75%;
-	display:inline-block;
-	overflow:hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
-}
+		#virtuallist-normal_1line-bigicon5_ul li .ui-li-text-main {
+			max-width: 75%;
+			display: inline-block;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+		}
 	</style>
 	<div data-role="content">
 		<script id="tmp-1line-bigicon5" type="text">
-            <img src=${TEAM_LOGO} alt="icon" class="ui-li-bigicon ui-li-thumb">
-            <span class="ui-li-text-main">${NAME}</span>
-            <div data-role="button" data-inline="true" data-icon="plus" data-style="box"></div>
+			<img src=${TEAM_LOGO} alt="icon" class="ui-li-bigicon ui-li-thumb">
+			<span class="ui-li-text-main">${NAME}</span>
+			<div data-role="button" data-inline="true" data-icon="plus" data-style="box"></div>
+
 		</script>
 		<ul id="virtuallist-normal_1line-bigicon5_ul"></ul>
 	</div>
-    <script>
-        var pageId = "virtuallist-normal_1line-bigicon5",
-            listId = "virtuallist-normal_1line-bigicon5_ul",
-            templateId = "tmp-1line-bigicon5",
-            itemClass = "ui-li-1line-bigicon5";
-    </script>
-    <script src="virtuallist-db-demo.js"></script>
-    <script src="virtuallist.js"></script>
+	<script>
+		/* eslint no-unused-vars: off */
+				var pageId = "virtuallist-normal_1line-bigicon5",
+					listId = "virtuallist-normal_1line-bigicon5_ul",
+					templateId = "tmp-1line-bigicon5",
+					itemClass = "ui-li-1line-bigicon5";
+	</script>
+	<script src="virtuallist-db-demo.js"></script>
+	<script src="virtuallist.js"></script>
 </div>
 </body>
 </html>

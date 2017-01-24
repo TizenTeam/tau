@@ -1,4 +1,4 @@
-(function(tau){
+(function (tau) {
 	/**
 	 * page - Progress bar page element
 	 * progressBar - Progress bar #1 element
@@ -29,18 +29,18 @@
 		progressBarWidget2 = new tau.widget.Progress(progressBar2);
 		progressBarWidget3 = new tau.widget.Progress(progressBar3);
 
-		timers[1] = setTimeout(function() {
+		timers[1] = setTimeout(function () {
 			progressBarWidget.value(100);
 		}, 1000);
-		timers[2] = setTimeout(function() {
+		timers[2] = setTimeout(function () {
 			progressBarWidget2.value(50);
 			progressBarWidget3.value(70);
 		}, 2000);
-		timers[3] = setTimeout(function() {
+		timers[3] = setTimeout(function () {
 			progressBarWidget2.value(70);
 			progressBarWidget3.value(30);
 		}, 300);
-		timers[4] = setTimeout(function() {
+		timers[4] = setTimeout(function () {
 			progressBarWidget2.value(100);
 			progressBarWidget3.value(100);
 		}, 4000);

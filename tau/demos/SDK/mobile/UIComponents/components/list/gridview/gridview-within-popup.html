@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<link rel="stylesheet"  href="../../../lib/tau/mobile/theme/default/tau.css">
+	<link rel="stylesheet" href="../../../lib/tau/mobile/theme/default/tau.css">
 	<link rel="stylesheet" href="../../../css/style.css">
 	<script type="text/javascript" src="../../../lib/tau/mobile/js/tau.js" data-build-remove="false"></script>
 </head>
@@ -53,27 +53,27 @@
 			</div>
 		</div>
 		<script>
-			(function(tau) {
-				/**
-				 * page - Panel page element
-				 * panelChanger - Panel changer element
-				 * panelChangerComponent - TAU panel changer instance
-				 * navigation - navigation element
-				 * navigationComponent - TAU navigation instance
-				 */
-				var page = document.querySelector("#popup_grid_page");
+					(function (tau) {
+						/**
+						 * page - Panel page element
+						 * panelChanger - Panel changer element
+						 * panelChangerComponent - TAU panel changer instance
+						 * navigation - navigation element
+						 * navigationComponent - TAU navigation instance
+						 */
+						var page = document.querySelector("#popup_grid_page");
 
-				/**
-				 * pagebeforeshow event handler
-				 * Do preparatory works and adds event listeners
-				 */
-				page.addEventListener("pageshow", function(){
-					tau.openPopup('2btn_popup');
-				});
+						/**
+						 * pagebeforeshow event handler
+						 * Do preparatory works and adds event listeners
+						 */
+						page.addEventListener("pageshow", function () {
+							tau.openPopup("2btn_popup");
+						});
 
-			}(window.tau));
+					}(window.tau));
 		</script>
 	</div>
-	</div>
+</div>
 </body>
 </html>

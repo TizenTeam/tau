@@ -3,7 +3,7 @@
 	 * Find HTML elements connected with page enveloper
 	 */
 	var page = document.querySelector(".textenveloper-page"),
-		textEnveloperElement = page.querySelector('.ui-text-enveloper'),
+		textEnveloperElement = page.querySelector(".ui-text-enveloper"),
 		textEnveloper = null,
 		newValueBound = null;
 

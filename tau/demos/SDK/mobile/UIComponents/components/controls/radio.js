@@ -1,4 +1,4 @@
-(function(){
+(function () {
 	/**
 	 * page - Radio page element
 	 * radios - NodeList object for radios
@@ -14,6 +14,7 @@
 	 */
 	function onChangeHandler(e) {
 		var target = e.target;
+
 		if (target.checked) {
 			radioresult.innerHTML = "The Active Radio is " + target.id;
 		}
@@ -23,12 +24,9 @@
 	 * pageshow event handler
 	 * Do preparatory works and adds event listeners
 	 */
-	page.addEventListener("pageshow", function(){
-		for ( idx = 0; idx < radios.length; idx++) {
+	page.addEventListener("pageshow", function () {
+		for (idx = 0; idx < radios.length; idx++) {
 			radios[idx].addEventListener("change", onChangeHandler);
 		}
 	});
 }());
-
-
-

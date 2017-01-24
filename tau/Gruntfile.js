@@ -246,7 +246,7 @@ module.exports = function (grunt) {
 						}
 					},
 					files: {
-						src: [path.join(srcJs, "**/*.js")]
+						src: [path.join(srcJs, "**/*.js"), "Gruntfile.js", "tools/grunt/tasks/**/*.js", "demos/SDK/**/*.js", "!demos/SDK/**/lib/**/*.js", "demos/SDK/**/*.html", "demos/SDK/**/*.htm"]
 					}
 				},
 				"js-ci": {
@@ -256,7 +256,7 @@ module.exports = function (grunt) {
 						outputFile: "report/eslint/junit-output.xml"
 					},
 					files: {
-						src: [path.join(srcJs, "**/*.js")]
+						src: [path.join(srcJs, "**/*.js"), "Gruntfile.js", "tools/grunt/tasks/**/*.js", "demos/SDK/**/*.js", "!demos/SDK/**/lib/**/*.js", "demos/SDK/**/*.html", "demos/SDK/**/*.htm"]
 					}
 				},
 				single: {

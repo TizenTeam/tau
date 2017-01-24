@@ -1,21 +1,18 @@
-( function () {
-	function onError(error){
-		console.warn( "An error occurred " + error.message );
-	}
-
+(function () {
 	var systeminfo = {
 
 		systeminfo: null,
 
-		lowThreshold : 0.04,
+		lowThreshold: 0.04,
 
-		listenBatteryLowState: function(){
+		listenBatteryLowState: function () {
 			var self = this;
-			try{
+
+			try {
 				this.systeminfo.addPropertyValueChangeListener(
-					'BATTERY',
-					function change(battery){
-						if(!battery.isCharging) {
+					"BATTERY",
+					function change(battery) {
+						if (!battery.isCharging) {
 							try {
 								tizen.application.getCurrentApplication().exit();
 							} catch (ignore) {
@@ -23,21 +20,24 @@
 						}
 					},
 					{
-						lowThreshold : self.lowThreshold
+						lowThreshold: self.lowThreshold
 					},
-					onError
+					function onError(error) {
+						console.warn("An error occurred " + error.message);
+					}
 				);
 			} catch (ignore) {
 			}
 		},
 
-		checkBatteryLowState: function(){
+		checkBatteryLowState: function () {
 			var self = this;
+
 			try {
 				this.systeminfo.getPropertyValue(
-					'BATTERY',
-					function(battery) {
-						if(battery.level < self.lowThreshold && !battery.isCharging) {
+					"BATTERY",
+					function (battery) {
+						if (battery.level < self.lowThreshold && !battery.isCharging) {
 							try {
 								tizen.application.getCurrentApplication().exit();
 							} catch (ignore) {
@@ -49,18 +49,16 @@
 			}
 		},
 
-		init: function(){
-			if (typeof tizen === 'object' && typeof tizen.systeminfo === 'object'){
+		init: function () {
+			if (typeof tizen === "object" && typeof tizen.systeminfo === "object") {
 				this.systeminfo = tizen.systeminfo;
 				this.checkBatteryLowState();
 				this.listenBatteryLowState();
-			}
-			else{
-				console.warn('tizen.systeminfo is not available.');
+			}			else {
+				console.warn("tizen.systeminfo is not available.");
 			}
 		}
 	};
 
 	systeminfo.init();
-
-} () );
+}());

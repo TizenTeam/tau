@@ -1,4 +1,4 @@
-(function(){
+(function () {
 	/**
 	 * page - Checkbox page element
 	 * checkone - Checkbox element
@@ -16,15 +16,17 @@
 	 * pageshow event handler
 	 * Do preparatory works and adds event listeners
 	 */
-	page.addEventListener("pageshow", function(){
+	page.addEventListener("pageshow", function () {
 
-		checkone.addEventListener("click", function(){
+		checkone.addEventListener("click", function () {
 			var value = checkone.checked;
+
 			checkboxResult.innerHTML = "The First Checkbox is " + value;
 		});
 
-		favortieone.addEventListener("click", function(){
+		favortieone.addEventListener("click", function () {
 			var value = favortieone.checked;
+
 			favoriteResult.innerHTML = "The First Favorite is " + value;
 		});
 	});

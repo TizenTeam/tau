@@ -1,11 +1,12 @@
-/*global $,tau,JSON_DATA,pageId,listId,templateId,itemClass */
+/*global tau,JSON_DATA,pageId,listId,templateId,itemClass */
 /*jslint unparam: true */
-(function(pageId, listId, templateId, itemClass) {
+(function (pageId, listId, templateId, itemClass) {
 	var page = document.getElementById(pageId),
 		vlist;
 
 	tau.event.one(page, "pageshow", function () {
 		var elList = document.getElementById(listId);
+
 		vlist = tau.widget.VirtualListview(elList, {
 			dataLength: JSON_DATA.length,
 			bufferSize: 40,

@@ -7,13 +7,14 @@
 <div data-role="page" id="list-sample">
 	<style>
 		#new .ui-btn-text {
-			font-size : 15px;
+			font-size: 15px;
 		}
+
 		#new span {
 			width: 83px;
 			display: block;
 			white-space: pre-line;
-			line-height : 14px;
+			line-height: 14px;
 			font-size: 15px;
 			height: 30px;
 		}
@@ -37,18 +38,19 @@
 		</div>
 	</div><!-- /footer -->
 	<script>
-	$( "#list-sample" ).on( "pageshow" , function() {
-		$( window ).on( "tizenhwkey", function ( ev ) {
-			if ( ev.originalEvent.keyName === "back" ) {
-				//bind callbacks to the H/W keys
-				window.history.back();
-			}
-		});
-	});
-	$( "#list-sample" ).on( "pagebeforehide" , function() {
-		//unbind callbacks to the H/W keys
-		$( window ).off( "tizenhwkey" );
-	});
+		/* global $ */
+				$("#list-sample").on("pageshow", function () {
+					$(window).on("tizenhwkey", function (ev) {
+						if (ev.originalEvent.keyName === "back") {
+							//bind callbacks to the H/W keys
+							window.history.back();
+						}
+					});
+				});
+				$("#list-sample").on("pagebeforehide", function () {
+					//unbind callbacks to the H/W keys
+					$(window).off("tizenhwkey");
+				});
 	</script>
 	<script src="list-sample.js"></script>
 </div><!-- /page -->

@@ -12,20 +12,22 @@
 		<ul id="virtuallist-normal_1line-btn1_ul"></ul>
 	</div>
 
-    <!-- sample list for virtual list -->
-    <script id="tmp-1line-btn1" type="text">
-        <span class="ui-li-text-main">${NAME}</span>
-        <div class="ui-btn" data-inline="true">${ACTIVE}</div>
-    </script>
-    <script>
-        var pageId = "virtuallist-normal_1line-btn1",
-            listId = "virtuallist-normal_1line-btn1_ul",
-            templateId = "tmp-1line-btn1",
-            itemClass = ["ui-li-static", "li-has-right-btn"];
-    </script>
-    <script src="virtuallist-db-demo.js"></script>
-    <script src="virtuallist.js"></script>
-    <link rel="stylesheet" href="virtuallist.css">
+	<!-- sample list for virtual list -->
+	<script id="tmp-1line-btn1" type="text">
+		<span class="ui-li-text-main">${NAME}</span>
+		<div class="ui-btn" data-inline="true">${ACTIVE}</div>
+
+
+	</script>
+	<script>
+			window.pageId = "virtuallist-normal_1line-btn1";
+			window.listId = "virtuallist-normal_1line-btn1_ul";
+			window.templateId = "tmp-1line-btn1";
+			window.itemClass = ["ui-li-static", "li-has-right-btn"];
+	</script>
+	<script src="virtuallist-db-demo.js"></script>
+	<script src="virtuallist.js"></script>
+	<link rel="stylesheet" href="virtuallist.css">
 </div>
 </body>
 </html>

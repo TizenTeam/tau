@@ -1,27 +1,27 @@
 /*global tau, Globalize */
-(function() {
+/* eslint no-console: off */
+(function () {
 	/**
 	 * globalize - TAU globalization utility
 	 * selector - Select element for choosing a language
 	 * list - List for test
-	 * current_language - Indicator for current language information
-	 * calendar_data - Calendar data element
-	 * calendar_data_area - Indicator for calendar data
+	 * currentLanguage - Indicator for current language information
+	 * calendarData - Calendar data element
+	 * calendarDataArea - Indicator for calendar data
 	 */
 	var globalize = tau.util.globalize,
 		selector,
 		list,
-		current_language,
-		current_date,
-		calendar_data,
-		calendar_data_area;
+		currentLanguage,
+		calendarData,
+		calendarDataArea;
 
 	/**
 	 * Inserts the calendar data elements
 	 * @private
 	 */
 	function output(inp) {
-		calendar_data.appendChild(calendar_data_area).innerHTML = inp;
+		calendarData.appendChild(calendarDataArea).innerHTML = inp;
 	}
 
 	/**
@@ -29,24 +29,25 @@
 	 * @private
 	 */
 	function syntaxHighlight(json) {
-		json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+		json = json.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 		/*jslint regexp: true*/
 		return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
 			/*jslint regexp: false*/
-			var cls = 'number';
+			var cls = "number";
 			/* Starting with " and Ending with : is key, or string */
+
 			if (/^"/.test(match)) {
 				if (/:$/.test(match)) {
-					cls = 'key';
+					cls = "key";
 				} else {
-					cls = 'string';
+					cls = "string";
 				}
 			} else if (/true|false/.test(match)) {
-				cls = 'boolean';
+				cls = "boolean";
 			} else if (/null/.test(match)) {
-				cls = 'null';
+				cls = "null";
 			}
-			return '<span class="' + cls + '">' + match + '</span>';
+			return "<span class=\"" + cls + "\">" + match + "</span>";
 		});
 	}
 
@@ -54,45 +55,47 @@
 	 * Updates the selected locale information to UI
 	 * @private
 	 */
-	function updateLocaleToUI(selectedLocaleInstance){
+	function updateLocaleToUI(selectedLocaleInstance) {
 		var number = selectedLocaleInstance.numberFormatter(),
-			calendar_data = JSON.stringify(selectedLocaleInstance.getCalendar().months.format.wide, undefined, 4 ),
-			currency_unit = null;
+			calendarData = JSON.stringify(selectedLocaleInstance.getCalendar().months.format.wide, undefined, 4),
+			currencyUnit = null;
+
 		list[0].innerText = selectedLocaleInstance.formatMessage("greeting/hello");
 		list[1].innerText = selectedLocaleInstance.formatMessage("greeting/bye");
-		list[2].innerText = selectedLocaleInstance.formatDate(new Date(),{ datetime:"medium"});
+		list[2].innerText = selectedLocaleInstance.formatDate(new Date(), { datetime: "medium"});
 		list[3].innerText = number(123456.789);
 		list[4].innerText = selectedLocaleInstance.formatMessage("longText");
-		switch(selectedLocaleInstance.getLocale()){
+		switch (selectedLocaleInstance.getLocale()) {
 			case "ko":
-				currency_unit = "KRW";
+				currencyUnit = "KRW";
 				break;
 			case "en":
-				currency_unit = "USD";
+				currencyUnit = "USD";
 				break;
 			case "ar":
-				currency_unit = "EGP";
+				currencyUnit = "EGP";
 				break;
 			case "zh":
-				currency_unit = "CNY";
+				currencyUnit = "CNY";
 				break;
 		}
-		list[5].innerText = Globalize.formatCurrency( 69900, currency_unit);
+		list[5].innerText = Globalize.formatCurrency(69900, currencyUnit);
 
 		/* Updates the text of current language element */
-		current_language.innerHTML = selectedLocaleInstance.getLocale();
-		output(syntaxHighlight(calendar_data));
+		currentLanguage.innerHTML = selectedLocaleInstance.getLocale();
+		output(syntaxHighlight(calendarData));
 	}
 
 	/**
 	 * Sets the locale information
 	 * @private
 	 */
-	function setLocale(selected){
+	function setLocale(selected) {
 		var locale = selected.value;
+
 		globalize.setLocale(locale)
 			.done(updateLocaleToUI)
-			.fail(function(){
+			.fail(function () {
 				console.log("failed");
 			});
 	}
@@ -100,12 +103,17 @@
 	/**
 	 * Back key event handler
 	 */
-	window.addEventListener( 'tizenhwkey', function( ev ) {
+	window.addEventListener("tizenhwkey", function (ev) {
+		var activePopup = null,
+			page = null,
+			pageid = "";
 
-		if( ev.keyName === "back" ) {
-			var page = document.getElementsByClassName( 'ui-page-active' )[0],
-				pageid = page ? page.id : "";
-			if( pageid === "main" ) {
+		if (ev.keyName === "back") {
+			activePopup = document.querySelector(".ui-popup-active");
+			page = document.getElementsByClassName("ui-page-active")[0];
+			pageid = page ? page.id : "";
+
+			if (pageid === "main" && !activePopup) {
 				try {
 					tizen.application.getCurrentApplication().exit();
 				} catch (ignore) {
@@ -114,20 +122,18 @@
 				window.history.back();
 			}
 		}
-
-	} );
+	});
 
 	/**
 	 * pageinit event handler
 	 * Do preparatory works
 	 */
-	document.addEventListener('pageinit', function(){
-		selector = document.querySelector( "#select-language" );
-		list = document.querySelectorAll( "li.test" );
-		current_language = document.querySelector( "#current_language" );
-		current_date = document.querySelector( "#current_date" );
-		calendar_data = document.querySelector( "#calendar_data" );
-		calendar_data_area = document.createElement('pre');
+	document.addEventListener("pageinit", function () {
+		selector = document.querySelector("#select-language");
+		list = document.querySelectorAll("li.test");
+		currentLanguage = document.querySelector("#currentLanguage");
+		calendarData = document.querySelector("#calendarData");
+		calendarDataArea = document.createElement("pre");
 
 	});
 
@@ -135,9 +141,9 @@
 	 * pageshow event handler
 	 * Do preparatory works and adds event listeners
 	 */
-	document.addEventListener('pageshow',function(){
+	document.addEventListener("pageshow", function () {
 		setLocale(selector);
-		selector.addEventListener("change",function(){
+		selector.addEventListener("change", function () {
 			setLocale(selector);
 		});
 	});

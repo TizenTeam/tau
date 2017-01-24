@@ -1,20 +1,20 @@
-/*global $, jQuery, JSON_DATA*/
+/*global jQuery*/
 /*jslint unparam: true */
-(function ($){
+(function ($) {
 	"use strict";
 
-	$( "div.virtualgrid_grid_demo" ).one( "pagecreate", function () {
-		$.getScript( "virtualgrid-db-demo.js", function ( data, textStatus, jqXHR ) {
-			$( ":jqmData(role='virtualgrid')" ).virtualgrid( "create", {
+	$("div.virtualgrid_grid_demo").one("pagecreate", function () {
+		$.getScript("virtualgrid-db-demo.js", function () {
+			$(":jqmData(role='virtualgrid')").virtualgrid("create", {
 				orientation: "x",
-				itemData: function ( idx ) {
-					return JSON_DATA[ idx ];
+				itemData: function (idx) {
+					return window.JSON_DATA[idx];
 				},
-				numItemData: JSON_DATA.length,
-				cacheItemData: function ( minIdx, maxIdx ) {
+				numItemData: window.JSON_DATA.length,
+				cacheItemData: function () {
 					return;
 				}
 			});
 		});
 	});
-} (jQuery));
+}(jQuery));

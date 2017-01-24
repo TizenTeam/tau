@@ -1,8 +1,8 @@
 /*global tau */
-(function() {
+(function () {
 
-	var page = document.getElementById( "hsectionchangerPage" ),
-		changer = document.getElementById( "hsectionchanger" ),
+	var page = document.getElementById("hsectionchangerPage"),
+		changer = document.getElementById("hsectionchanger"),
 		sectionLength = document.querySelectorAll("section").length,
 		elPageIndicator = document.getElementById("pageIndicator"),
 		sectionChanger,
@@ -13,9 +13,9 @@
 	 * pagebeforeshow event handler
 	 * Do preparatory works and adds event listeners
 	 */
-	page.addEventListener( "pagebeforeshow", function() {
+	page.addEventListener("pagebeforeshow", function () {
 		// make PageIndicator
-		pageIndicator =  tau.widget.PageIndicator(elPageIndicator, { numberOfPages: sectionLength });
+		pageIndicator = tau.widget.PageIndicator(elPageIndicator, {numberOfPages: sectionLength});
 		pageIndicator.setActive(2);
 		// make SectionChanger object
 		sectionChanger = tau.widget.SectionChanger(changer, {
@@ -29,7 +29,7 @@
 	 * pagehide event handler
 	 * Destroys and removes event listeners
 	 */
-	page.addEventListener( "pagehide", function() {
+	page.addEventListener("pagehide", function () {
 		// release object
 		sectionChanger.destroy();
 	});

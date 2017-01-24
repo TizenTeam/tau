@@ -1,7 +1,7 @@
-(function(tau) {
-	var page = document.querySelector( ".page-indicator-page" ),
-		changer = page.querySelector( ".ui-section-changer" ),
-		elPageIndicator = page.querySelector( ".ui-page-indicator" ),
+(function (tau) {
+	var page = document.querySelector(".page-indicator-page"),
+		changer = page.querySelector(".ui-section-changer"),
+		elPageIndicator = page.querySelector(".ui-page-indicator"),
 		pageIndicator,
 		pageIndicatorHandler;
 
@@ -9,8 +9,8 @@
 	 * pageshow event handler
 	 * Do preparatory works and adds event listeners
 	 */
-	page.addEventListener("pageshow", function() {
-		pageIndicator =  tau.widget.PageIndicator(elPageIndicator);
+	page.addEventListener("pageshow", function () {
+		pageIndicator = tau.widget.PageIndicator(elPageIndicator);
 		pageIndicator.setActive(0);
 	});
 

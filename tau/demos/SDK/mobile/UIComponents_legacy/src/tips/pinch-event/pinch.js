@@ -15,49 +15,49 @@
 */
 /*global $ */
 /*jslint unparam: true */
-$( document ).one( "pageshow", "#pinch_page", function () {
-	var last_ratio = 1,
-		current_ratio;
+$(document).one("pageshow", "#pinch_page", function () {
+	var lastRatio = 1,
+		currentRatio;
 
-	function get_ratio ( ratio ) {
-		var v = last_ratio + ratio - 1;
+	function getRatio(ratio) {
+		var v = lastRatio + ratio - 1;
 
-		if ( v < $.mobile.pinch.min ) {
+		if (v < $.mobile.pinch.min) {
 			v = $.mobile.pinch.min;
-		} else if ( v > $.mobile.pinch.max ) {
+		} else if (v > $.mobile.pinch.max) {
 			v = $.mobile.pinch.max;
 		}
 
 		return v;
 	}
 
-	$("#pinch_demo").on( "pinch", function ( e, p ) {
+	$("#pinch_demo").on("pinch", function (e, p) {
 		var ratio;
 
-		ratio = get_ratio( p.ratio );
+		ratio = getRatio(p.ratio);
 
-		if ( current_ratio === ratio ) {
+		if (currentRatio === ratio) {
 			return;
 		}
 
-		current_ratio = ratio;
+		currentRatio = ratio;
 
 		$("#pinch_demo").find("img")
 			.css({
-				"-webkit-transform": "scale(" + current_ratio + ")",
+				"-webkit-transform": "scale(" + currentRatio + ")",
 				"-webkit-transition": "-webkit-transform 0.15s ease"
 			});
 	});
 
-	$("#pinch_demo").on( "pinchstart", function ( e, p ) {
+	$("#pinch_demo").on("pinchstart", function () {
 		return;
 	});
 
-	$("#pinch_demo").on( "pinchend", function ( e, p ) {
-		last_ratio = get_ratio( p.ratio );
+	$("#pinch_demo").on("pinchend", function (e, p) {
+		lastRatio = getRatio(p.ratio);
 	});
 
-	$( window ).bind( "galleryorientationchanged", function ( e ) {
-		last_ratio = 1;
+	$(window).bind("galleryorientationchanged", function () {
+		lastRatio = 1;
 	});
 });

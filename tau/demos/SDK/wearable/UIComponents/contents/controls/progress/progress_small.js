@@ -1,6 +1,6 @@
 /*global tau */
-(function(){
-	var page = document.getElementById( "pageSmallCircleProgressBar" ),
+(function () {
+	var page = document.getElementById("pageSmallCircleProgressBar"),
 		progressBar = document.getElementById("circleprogress"),
 		minusBtn = document.getElementById("minus"),
 		plusBtn = document.getElementById("plus"),
@@ -15,7 +15,7 @@
 	function rotaryDetentHandler() {
 		// Get rotary direction
 		var direction = event.detail.direction,
-		value = parseInt(progressBarWidget.value(), 10);
+			value = parseInt(progressBarWidget.value(), 10);
 
 		if (direction === "CW") {
 			// Right direction
@@ -43,16 +43,15 @@
 		progressBar = null;
 		minusBtn = null;
 		plusBtn = null;
-		resultDiv = null;
 	}
 
 	/**
 	 * Click event handler for minus button
 	 */
 	function minusBtnClickHandler() {
-		i = i-10;
+		i = i - 10;
 		if (i < 0) {
-			i=0;
+			i = 0;
 		}
 		progressBarWidget.value(i);
 	}
@@ -61,9 +60,9 @@
 	 * Click event handler for plus button
 	 */
 	function plusBtnClickHandler() {
-		i = i+10;
+		i = i + 10;
 		if (i > 100) {
-			i=100;
+			i = 100;
 		}
 		progressBarWidget.value(i);
 	}
@@ -108,6 +107,6 @@
 		progressBarWidget.destroy();
 	};
 
-	page.addEventListener( "pagebeforeshow", pageBeforeShowHandler);
-	page.addEventListener( "pagehide", pageHideHandler);
+	page.addEventListener("pagebeforeshow", pageBeforeShowHandler);
+	page.addEventListener("pagehide", pageHideHandler);
 }());

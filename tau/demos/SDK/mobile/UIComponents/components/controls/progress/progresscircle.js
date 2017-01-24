@@ -1,5 +1,5 @@
 /*global tau */
-(function(){
+(function () {
 	/**
 	 * page - Circle progress page element
 	 * progressBar - Circle progress element
@@ -45,9 +45,9 @@
 	 * Click event handler for minus button
 	 */
 	function minusBtnClickHandler() {
-		i = i-10;
+		i = i - 10;
 		if (i < 0) {
-			i=0;
+			i = 0;
 		}
 		progressBarWidget.value(i);
 		printResult();
@@ -57,9 +57,9 @@
 	 * Click event handler for plus button
 	 */
 	function plusBtnClickHandler() {
-		i = i+10;
+		i = i + 10;
 		if (i > 100) {
-			i=100;
+			i = 100;
 		}
 		progressBarWidget.value(i);
 		printResult();

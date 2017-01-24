@@ -1,13 +1,13 @@
 /*global tau */
 /*jslint unparam: true */
-(function() {
+(function () {
 	var page = document.getElementById("selectModePage"),
-		listview = document.querySelector('#selectModePage .ui-listview'),
+		listview = document.querySelector("#selectModePage .ui-listview"),
 		list = listview.getElementsByTagName("li"),
 		listLength = list.length,
 		selectWrapper = document.querySelector(".select-mode"),
 		selectBtn = document.getElementById("select-btn"),
-		selectBtnText =  document.getElementById("select-btn-text"),
+		selectBtnText = document.getElementById("select-btn-text"),
 		selectAll = document.getElementById("select-all"),
 		deselectAll = document.getElementById("deselect-all"),
 		elPopup = page.querySelector("#moreoptionsPopupCircle"),
@@ -30,7 +30,7 @@
 	 */
 	function textRefresh() {
 		selectBtnText.innerHTML = selectCount;
-		selectBtn.classList.toggle('select-btn-disabled', selectCount === 0);
+		selectBtn.classList.toggle("select-btn-disabled", selectCount === 0);
 	}
 
 	/**
@@ -53,7 +53,7 @@
 		selectCount = 0;
 	}
 
-	popupHandler = function() {
+	popupHandler = function () {
 		tau.openPopup(elPopup);
 	};
 
@@ -100,9 +100,9 @@
 	 * Select/Deselects a list item
 	 * click event handler for list item
 	 */
-	addFunction = function(event){
+	addFunction = function (event) {
 		var target = event.target,
-						li = (target.nodeName.toLowerCase() === "span") ? target.parentElement : target;
+			li = (target.nodeName.toLowerCase() === "span") ? target.parentElement : target;
 
 		toggleSelectedItem(li);
 	};
@@ -111,7 +111,7 @@
 	 * Select all list items
 	 * click event handler for 'select all' button
 	 */
-	fnSelectAll = function(){
+	fnSelectAll = function () {
 		for (i = 0; i < listLength; i++) {
 			selectItem(list[i]);
 		}
@@ -123,7 +123,7 @@
 	 * Deselect all list items
 	 * click event handler for 'deselect all' button
 	 */
-	fnDeselectAll = function(){
+	fnDeselectAll = function () {
 		for (i = 0; i < listLength; i++) {
 			deselectItem(list[i]);
 		}
@@ -133,7 +133,7 @@
 	 * Shows a context popup that has select/deselect buttons
 	 * click event handler for button that displays the number of selected list items
 	 */
-	fnPopup = function() {
+	fnPopup = function () {
 		selectWrapper.classList.add("open");
 		event.preventDefault();
 		event.stopPropagation();
@@ -143,16 +143,17 @@
 	 * Closes a context popup that has select/deselect buttons
 	 * click event handler for closing the popup
 	 */
-	fnPopupClose = function() {
+	fnPopupClose = function () {
 		selectWrapper.classList.remove("open");
 	};
 
 	/**
 	 * Back key event handler
 	 */
-	fnBackKey = function() {
+	fnBackKey = function () {
 		var classList = selectWrapper.classList;
-		if( event.keyName === "back" && !elPopup.classList.contains("ui-popup-active") && classList.contains("show-btn")) {
+
+		if (event.keyName === "back" && !elPopup.classList.contains("ui-popup-active") && classList.contains("show-btn")) {
 			if (classList.contains("open")) {
 				classList.remove("open");
 			} else {
@@ -167,8 +168,8 @@
 	 * pageshow event handler
 	 * Do preparatory works and adds event listeners
 	 */
-	page.addEventListener("pageshow", function() {
-		listview.addEventListener('click', addFunction, false);
+	page.addEventListener("pageshow", function () {
+		listview.addEventListener("click", addFunction, false);
 		selectAll.addEventListener("click", fnSelectAll, false);
 		deselectAll.addEventListener("click", fnDeselectAll, false);
 		selectBtn.addEventListener("click", fnPopup, false);
@@ -181,12 +182,12 @@
 	 * pagehide event handler
 	 * Destroys and removes event listeners
 	 */
-	page.addEventListener("pagehide", function() {
-		listview.removeEventListener('click', addFunction, false);
+	page.addEventListener("pagehide", function () {
+		listview.removeEventListener("click", addFunction, false);
 		selectAll.removeEventListener("click", fnSelectAll, false);
 		deselectAll.removeEventListener("click", fnDeselectAll, false);
 		handler.removeEventListener("click", popupHandler, false);
-		document.removeEventListener('tizenhwkey', fnBackKey);
+		document.removeEventListener("tizenhwkey", fnBackKey);
 		modeHide();
 	}, false);
 
@@ -194,32 +195,33 @@
 	 * pagebeforeshow event handler
 	 * Do preparatory works and adds event listeners
 	 */
-	page.addEventListener( "pagebeforeshow", function() {
+	page.addEventListener("pagebeforeshow", function () {
 		var radius = window.innerHeight / 2 * 0.8;
+
 		selectorComponent = tau.widget.Selector(selector, {itemRadius: radius});
 		selectorComponent.disable();
 		handler.addEventListener("click", popupHandler, false);
-		document.addEventListener('tizenhwkey', fnBackKey);
+		document.addEventListener("tizenhwkey", fnBackKey);
 	});
 
 	/*
 	 * If you want to use Selector with Snaplistview, you should control to Selector enable status
 	 * because 'rotarydetent' event has been used in both Selector and Snaplistview.
 	 */
-	elPopup.addEventListener("popupshow", function() {
+	elPopup.addEventListener("popupshow", function () {
 		snapList = tau.widget.SnapListview(listview);
 		selectorComponent.enable();
 		snapList.disable();
 	});
 
-	elPopup.addEventListener("popuphide", function() {
+	elPopup.addEventListener("popuphide", function () {
 		selectorComponent.disable();
 		snapList.enable();
 	});
 	/*
 	 * When user click the indicator of Selector, popup will close.
 	 */
-	selector.addEventListener("click", function(event) {
+	selector.addEventListener("click", function (event) {
 		var target = event.target;
 
 		// 'ui-selector-indicator' is default indicator class name of Selector component

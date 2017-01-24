@@ -1,12 +1,12 @@
 /*global tau */
-(function(){
+(function () {
 	/**
 	 * page - Rotary event page element
 	 * progressBar - Circle progress element
 	 * progressBarWidget - TAU circle progress instance
 	 * rotaryDetentHandler - rotarydetent event handler
 	 */
-	var page = document.getElementById( "pageRotaryEvent" ),
+	var page = document.getElementById("pageRotaryEvent"),
 		progressBar,
 		progressBarWidget,
 		rotaryDetentHandler;
@@ -15,7 +15,7 @@
 	 * pagebeforeshow event handler
 	 * Do preparatory works and adds event listeners
 	 */
-	page.addEventListener("pagebeforeshow", function() {
+	page.addEventListener("pagebeforeshow", function () {
 		var resultDiv = document.getElementById("result"),
 			direction,
 			value;
@@ -25,7 +25,7 @@
 		resultDiv.innerText = progressBarWidget.value() + "%";
 
 		// "rotarydetent" event handler
-		rotaryDetentHandler = function(e) {
+		rotaryDetentHandler = function (e) {
 			// Get rotary direction
 			direction = e.detail.direction;
 
@@ -57,7 +57,7 @@
 	 * pagehide event handler
 	 * Destroys and removes event listeners
 	 */
-	page.addEventListener("pagehide", function() {
+	page.addEventListener("pagehide", function () {
 		progressBarWidget.destroy();
 		document.removeEventListener("rotarydetent", rotaryDetentHandler);
 	});

@@ -1,31 +1,31 @@
 /*global $ */
 /*jslint unparam: true */
-$( document ).one( "pagecreate", "#pageUpdateDemo", function () {
-	$( "#hideheader" ).on( "vclick", function ( e ) {
-		var $elPage = $( ".ui-page-active" );
+$(document).one("pagecreate", "#pageUpdateDemo", function () {
+	$("#hideheader").on("vclick", function () {
+		var $elPage = $(".ui-page-active");
 
-		$elPage.find( ".ui-header" ).hide();
-		$elPage.page( "refresh" );
+		$elPage.find(".ui-header").hide();
+		$elPage.page("refresh");
 	});
 
-	$( "#showheader" ).on( "vclick", function ( e ) {
-		var $elPage = $( ".ui-page-active" );
+	$("#showheader").on("vclick", function () {
+		var $elPage = $(".ui-page-active");
 
-		$elPage.find( ".ui-header" ).show();
-		$elPage.page( "refresh" );
+		$elPage.find(".ui-header").show();
+		$elPage.page("refresh");
 	});
 
-	$( "#hidefooter" ).on( "vclick", function ( e ) {
-		var $elPage = $( ".ui-page-active" );
+	$("#hidefooter").on("vclick", function () {
+		var $elPage = $(".ui-page-active");
 
-		$elPage.find( ".ui-footer" ).hide();
-		$elPage.page( "refresh" );
+		$elPage.find(".ui-footer").hide();
+		$elPage.page("refresh");
 	});
 
-	$( "#showfooter" ).on( "vclick", function ( e ) {
-		var $elPage = $( ".ui-page-active" );
+	$("#showfooter").on("vclick", function () {
+		var $elPage = $(".ui-page-active");
 
-		$elPage.find( ".ui-footer" ).show();
-		$elPage.page( "refresh" );
+		$elPage.find(".ui-footer").show();
+		$elPage.page("refresh");
 	});
 });

@@ -21,11 +21,11 @@
 				</p>
 			</div>
 
-			<div id="checkboxItems" ></div>
+			<div id="checkboxItems"></div>
 
 			<fieldset class="ui-grid-b">
 				<div data-role="controlgroup" data-type="horizontal">
-					<a id="bAdd" href="#" data-role="button" data-icon="plus" >Add new item</a>
+					<a id="bAdd" href="#" data-role="button" data-icon="plus">Add new item</a>
 				</div>
 			</fieldset>
 		</article>
@@ -40,7 +40,8 @@
 				<p style="padding:1em; background-color:whitesmoke; color:black;
 							border-width:3px; border-style:inset">
 					/* Append new button */<br>
-					var buttonTemplate = "&ltdiv data-role='button' data-inline='true' " + "data-icon='call' data-style='circle' " + "data-theme='s' class='newbutton'&gt&lt/div&gt"; <br>
+					var buttonTemplate = "&ltdiv data-role='button' data-inline='true' " + "data-icon='call'
+					data-style='circle' " + "data-theme='s' class='newbutton'&gt&lt/div&gt"; <br>
 					$( buttonTemplate ).buttonMarkup().appendTo( "#buttonItems" ); <br><br>
 
 					/* It's same to call ".buttonMarkup()". */<br>
@@ -53,7 +54,7 @@
 
 			<fieldset class="ui-grid-b">
 				<div data-role="controlgroup" data-type="horizontal">
-					<div id="ButtonAdd" data-role="button" data-icon="plus" >Add new Button item</div>
+					<div id="ButtonAdd" data-role="button" data-icon="plus">Add new Button item</div>
 				</div>
 			</fieldset>
 		</article>
@@ -78,24 +79,25 @@
 
 			<fieldset class="ui-grid-b">
 				<div data-role="controlgroup" data-type="horizontal">
-					<div id="ListAdd" data-role="button" data-icon="plus" >Add new item to Listview</div>
+					<div id="ListAdd" data-role="button" data-icon="plus">Add new item to Listview</div>
 				</div>
 			</fieldset>
 		</article>
 	</div>
 	<script>
-	$( "#dynamical-elements-demo" ).on( "pageshow" , function() {
-		$( window ).on( "tizenhwkey", function ( ev ) {
-			if ( ev.originalEvent.keyName === "back" ) {
-				//bind callbacks to the H/W keys
-				window.history.back();
-			}
-		});
-	});
-	$( "#dynamical-elements-demo" ).on( "pagebeforehide" , function() {
-		//unbind callbacks to the H/W keys
-		$( window ).off( "tizenhwkey" );
-	});
+		/* global $ */
+				$("#dynamical-elements-demo").on("pageshow", function () {
+					$(window).on("tizenhwkey", function (ev) {
+						if (ev.originalEvent.keyName === "back") {
+							//bind callbacks to the H/W keys
+							window.history.back();
+						}
+					});
+				});
+				$("#dynamical-elements-demo").on("pagebeforehide", function () {
+					//unbind callbacks to the H/W keys
+					$(window).off("tizenhwkey");
+				});
 	</script>
 	<script src="generate-elements-dynamically.js"></script>
 </div>

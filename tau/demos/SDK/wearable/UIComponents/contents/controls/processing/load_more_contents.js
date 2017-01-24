@@ -1,5 +1,5 @@
 /*global window*/
-(function(window, document) {
+(function (window, document) {
 	var page = document.getElementById("load-more-contents-page"),
 		activityIndicator = page.querySelector(".ui-processing"),
 		appContent = document.getElementById("app-content"),
@@ -27,7 +27,7 @@
 	 * pagebeforeshow event handler
 	 * Do preparatory works and adds event listeners
 	 */
-	page.addEventListener( "pagebeforeshow", function() {
+	page.addEventListener("pagebeforeshow", function () {
 		page.addEventListener("scrolledtoedge", onReachScrollEnd, true);
 	});
 
@@ -35,7 +35,7 @@
 	 * pagehide event handler
 	 * Destroys and removes event listeners
 	 */
-	page.addEventListener( "pagebeforehide", function() {
+	page.addEventListener("pagebeforehide", function () {
 		page.removeEventListener("scrolledtoedge", onReachScrollEnd, true);
 	});
 
