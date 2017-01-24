@@ -144,15 +144,17 @@
 					toRemoveLength = stack.length - 1 - position;
 
 				if (target) {
-					if (!target.classList.contains(classes.NAVIGATION_ACTIVE)) {
-						self.pop(toRemoveLength);
-						//not to trigger event on the last li vclick
-						self.trigger("navigate", {
-							id: id,
-							//element Id to move
-							position: position
-						});
-					}
+					setTimeout(function () {
+						if (!target.classList.contains(classes.NAVIGATION_ACTIVE)) {
+							self.pop(toRemoveLength);
+							//not to trigger event on the last li vclick
+							self.trigger("navigate", {
+								id: id,
+								//element Id to move
+								position: position
+							});
+						}
+					}, 0);
 				}
 			}
 
