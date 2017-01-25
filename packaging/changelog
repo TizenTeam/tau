@@ -1,4 +1,10 @@
 %changelog
+* Wed Jan 25 2017 Maciej Moczulski <m.moczulski@samsung.com> 0.13.27
+	- fix(mobile) IndexScrollBar - fix error with wrong content selector
+	- fix(all) fix selector in core Page
+	- tool(release): Fix bugs in script to release
+	- tool(release): Prepare new script to release
+
 * Wed Jan 18 2017 Krzysztof Antoszek <k.antoszek@samsung.com> 0.13.26
 	- feat(all) jsDoc plugin for eslint
 	- fix(all): fix destroying process of framework
