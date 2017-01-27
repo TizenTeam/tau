@@ -34,12 +34,12 @@ var unit_virtuallistview = function (element, templateName) {
 
 		//Check children
 		equal(widget.options.bufferSize, 100, '[HTML] Option.bufferSize set is correct');
-		equal(element.childElementCount, 100, '[HTML] Number of children in result set is correct');
+		equal(element.getElementsByTagName("li").length, 100, '[HTML] Number of children in result set is correct');
 
 		//Check LI structure with Template
 		testPass = true;
 		i = 100;
-		tmpElement = widget.element.firstElementChild;
+		tmpElement = widget.element.querySelector("li");
 		do {
 			if (templateName === 'tmp-2line-star1') {
 				testPass = tmpElement.classList.contains('ui-li-has-multiline') ? testPass : false;

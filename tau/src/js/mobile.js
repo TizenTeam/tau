@@ -107,7 +107,6 @@
 			"./profile/mobile/widget/mobile/FloatingActions",
 			"./profile/mobile/widget/mobile/ScrollHandler",
 			"./core/widget/core/Tabs",
-			"./profile/mobile/widget/mobile/ColoredListview",
 			"./profile/mobile/widget/mobile/GridView",
 			"./profile/mobile/expose",
 			// router modules

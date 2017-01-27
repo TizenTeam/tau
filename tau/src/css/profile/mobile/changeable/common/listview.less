@@ -26,6 +26,30 @@
 			color: @color_list_main_text_normal;
 		}
 	}
+
+	&.ui-listview-background-disabled {
+			.ui-listview-background {
+					display: none;
+			}
+	}
+
+	.ui-listview-background {
+		display: block;
+		box-sizing: border-box;
+		position: absolute;
+		top: 0;
+		left: 0;
+		pointer-events: none;
+
+		// this is feched from listview widget as values for
+    // base color and modifier (content value)
+    // format: BASE_COLOR::MODIFIER_COLOR
+    // color format: RRR,GGG,BBB,AAA
+		&::before {
+			content: "250,250,250,1::0,0,0,-0.04";
+			display: none;
+		}
+	}
 }
 
 /***************** Anchor listview common style ****************/
