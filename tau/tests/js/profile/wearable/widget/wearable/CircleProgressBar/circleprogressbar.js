@@ -7,7 +7,7 @@
     test("simple CircleProgressbar test", 6, function() {
         var progressBar = document.getElementById("circleprogress"),
             progressBarWidget = new tau.widget.CircleProgressBar(progressBar),
-            progressContainer = progressBar.nextSibling;
+            progressContainer = progressBar.previousElementSibling;
 
         ok(progressContainer.classList.contains("ui-progressbar"), 'container of CircleProgressBar has ui-progressbar classname');
         equal(progressBarWidget.option("size"), 'medium', 'Default size of CircleProgressBar is medium');
@@ -22,7 +22,7 @@
     test("CircleProgressbar with options", 3, function() {
         var progressBar = document.getElementById("circleprogress"),
             progressBarWidget = new tau.widget.CircleProgressBar(progressBar, {thickness: 30, size: "full", containerClassName:"ui-test-class"}),
-            progressContainer = progressBar.nextSibling,
+            progressContainer = progressBar.previousElementSibling,
             progressValueLeft = progressContainer.querySelector(".ui-progressbar-value-left");
 
         equal(progressBarWidget.option("size"), 'full', 'Progress Size is defined full');
