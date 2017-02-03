@@ -29,11 +29,16 @@ module.exports = function (grunt) {
 			var result = buildAnalysis.parse(output),
 				slice = [].slice,
 				testModules = [],
-				jsAddTests = grunt.option("js_add_test") ? grunt.option("js_add_test").split(",") : ["api", "support", profileName],
+				jsAddTests = grunt.option("js_add_test") ? grunt.option("js_add_test").split(",") : ["api", profileName],
 				singleTest = grunt.option("single_test") ? grunt.option("single_test") : "";
 
-			if (profileName === "mobile") {
+			if (profileName === "mobile_support") {
+				jsAddTests.push("support");
+			}
+			if (profileName === "mobile" || profileName === "mobile_support") {
 				jsAddTests.push("jquery");
+				jsAddTests.push("jqm");
+				jsAddTests.push("jqm14ok");
 			}
 
 			if (result && result.bundles.length > 0 && singleTest === "") {
@@ -78,26 +83,6 @@ module.exports = function (grunt) {
 			"qunit-main": true,
 			default: true
 		},
-		jqm: {
-			"qunit-main": false,
-			default: true,
-			profile: "mobile"
-		},
-		jqm13: {
-			"qunit-main": false,
-			default: false,
-			profile: "mobile"
-		},
-		jqm14: {
-			"qunit-main": false,
-			default: false,
-			profile: "mobile"
-		},
-		jqm14ok: {
-			"qunit-main": false,
-			default: true,
-			profile: "mobile"
-		},
 		webui: {
 			"qunit-main": false,
 			default: false,
@@ -141,11 +126,7 @@ module.exports = function (grunt) {
 		]
 	};
 	configProperty["test-libs-mobile_support"] = configProperty["test-libs-mobile"];
-	configProperty["test-libs-jqm"] = configProperty["test-libs-mobile"];
-	configProperty["test-libs-jqm13"] = configProperty["test-libs-mobile"];
-	configProperty["test-libs-jqm14"] = configProperty["test-libs-mobile"];
 	configProperty["test-libs-webui"] = configProperty["test-libs-mobile"];
-	configProperty["test-libs-jqm14ok"] = configProperty["test-libs-mobile"];
 	grunt.config.set("copy", configProperty);
 
 	// Update config for task; concat
@@ -165,10 +146,6 @@ module.exports = function (grunt) {
 
 	// Update config for task; qunit
 	configProperty = grunt.config.get("qunit");
-	configProperty["jqm"] = ["tests/js/**/jqm/*.html"];
-	configProperty["jqm13"] = ["tests/js/**/jqm1.3/*.html"];
-	configProperty["jqm14"] = ["tests/js/**/jqm1.4/*.html"];
-	configProperty["jqm14ok"] = ["tests/js/**/jqm1.4ok/*.html"];
 	configProperty["webui"] = ["tests/js/**/webui/*.html"];
 	grunt.config.set("qunit", configProperty);
 
