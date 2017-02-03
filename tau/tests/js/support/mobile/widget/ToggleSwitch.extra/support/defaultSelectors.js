@@ -1,5 +1,5 @@
 /*global module, test, asyncTest, ok, equal, tau, window */
-(function(document) {
+(function (document) {
 	"use strict";
 
 	module("toggleswitch", {
@@ -12,10 +12,11 @@
 	});
 	function isToggleSwitchExtra(element, selector) {
 		ok(!!(tau.engine.getBinding(element, "ToggleSwitchExtra")), "ToggleSwitch was created by selector: " + selector);
-		equal(element.getAttribute('data-tau-bound'), "ToggleSwitchExtra", "ToggleSwitch widget bound: " + selector);
+		equal(element.getAttribute("data-tau-bound"), "ToggleSwitchExtra", "ToggleSwitch widget bound: " + selector);
 	}
-	test("ToggleSwitch extra selectors" , function () {
-		isToggleSwitchExtra(document.getElementById('select-data-role-slider'), "select[data-role='slider']");
+
+	test("ToggleSwitch extra selectors", function () {
+		isToggleSwitchExtra(document.getElementById("select-data-role-slider"), "select[data-role='slider']");
 	});
 
 }(window.document));

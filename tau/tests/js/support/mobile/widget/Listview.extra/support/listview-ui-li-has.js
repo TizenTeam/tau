@@ -1,16 +1,16 @@
 /*jslint nomen: true */
 /*global window:false, document:false,
- test:false, ok:false, equal:false, module:false, deepEqual:false, expect:false,
+ test:false, ok:false, module:false,
  $:false, console:false */
 (function (document, ej) {
-	'use strict';
-	module('profile/mobile/widget/mobile/Listview', {
+	"use strict";
+	module("profile/mobile/widget/mobile/Listview", {
 		teardown: function () {
 			ej.engine._clearBindings();
 		}
 	});
 
-	test("Presence of ui-li-has- classes", function() {
+	test("Presence of ui-li-has- classes", function () {
 		var page = $("#ui-li-has-test"),
 			items = page.find("li");
 
