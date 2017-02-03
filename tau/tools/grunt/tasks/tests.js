@@ -38,7 +38,7 @@ module.exports = function (grunt) {
 			if (profileName === "mobile" || profileName === "mobile_support") {
 				jsAddTests.push("jquery");
 				jsAddTests.push("jqm");
-				jsAddTests.push("jqm14ok");
+				jsAddTests.push("jqm1.4ok");
 			}
 
 			if (result && result.bundles.length > 0 && singleTest === "") {

@@ -442,6 +442,14 @@ module.exports = function (grunt) {
 						{
 							src: path.join(srcCss, "mobile", "changeable", "theme-changeable", "theme.less"),
 							dest: path.join(buildRoot, "mobile", "theme", "changeable", "tau.template")
+						}
+					]
+				},
+				mobile_support: {
+					files: [
+						{
+							src: path.join(srcCss, "mobile", "changeable", "theme-changeable", "theme.less"),
+							dest: path.join(buildRoot, "mobile", "theme", "changeable", "tau.template")
 						},
 						{
 							src: path.join("src", "css", "support", "mobile", "changeable", "theme-changeable", "theme.support-2.3.less"),
@@ -476,6 +484,10 @@ module.exports = function (grunt) {
 						changeableColorTableXML: path.join(themeConverterXMLPath, "mobile", "ChangeableColorTable1.xml")
 					},
 					files: [
+						{
+							src: path.join(buildDir.mobile.theme, "changeable", "tau.template"),
+							dest: path.join(buildDir.mobile.theme, "changeable", "tau.css")
+						},
 						{
 							src: path.join(buildDir.mobile.theme, "changeable", "tau.support-2.3.template"),
 							dest: path.join(buildDir.mobile.theme, "changeable", "tau.support-2.3.css")
@@ -1067,7 +1079,7 @@ module.exports = function (grunt) {
 	grunt.registerTask("image-changeable", ["copy:wearableChangeableImages", "copy:wearableColorThemeImages", "copy:mobileChangeableImages"]);
 	grunt.registerTask("css", "Prepare full CSS for whole project", ["clean:theme", "less", "themeConverter", "cssmin", "image-changeable", "symlink"]);
 	grunt.registerTask("css-mobile", "Prepare CSS for mobile profile", ["clean:theme", "less:mobile", "themeConverter:mobile", "cssmin", "copy:mobileChangeableImages", "symlink:mobileDefaultTheme"]);
-	grunt.registerTask("css-mobile_support", "Prepare CSS for mobile 2.3 version", ["clean:theme", "less:mobile", "themeConverter:mobile_support", "cssmin", "copy:mobileChangeableImages", "symlink:mobileDefaultTheme"]);
+	grunt.registerTask("css-mobile_support", "Prepare CSS for mobile 2.3 version", ["clean:theme", "less:mobile_support", "themeConverter:mobile_support", "cssmin", "copy:mobileChangeableImages", "symlink:mobileDefaultTheme"]);
 	grunt.registerTask("css-wearable", "Prepare CSS for wearable", ["clean:theme", "less:wearable", "themeConverter:wearable", "cssmin", "copy:wearableChangeableImages", "copy:wearableColorThemeImages", "symlink:wearableDefaultTheme"]);
 	grunt.registerTask("js", "Prepare JS", ["clean:js", "requirejs:mobile", "requirejs:wearable", "requirejs:mobile_support", "jsmin", "themesjs", "copy:mobileJquery", "copy:animation"]);
 	grunt.registerTask("js-mobile", "Prepare JS for mobile", ["clean:js", "requirejs:mobile", "jsmin", "themesjs:mobile", "copy:mobileJquery"]);
