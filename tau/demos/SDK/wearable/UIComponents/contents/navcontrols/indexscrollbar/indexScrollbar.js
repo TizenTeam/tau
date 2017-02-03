@@ -1,6 +1,6 @@
 /*global tau */
 /*jslint unparam: true */
-(function() {
+(function () {
 	var page = document.getElementById("pageIndexScrollbar"),
 		listviewElement = document.getElementById("list1"),
 		isCircle = tau.support.shape.circle,
@@ -11,16 +11,17 @@
 	 * pageshow event handler
 	 * Do preparatory works and adds event listeners
 	 */
-	page.addEventListener("pageshow", function() {
+	page.addEventListener("pageshow", function () {
 		var indexScrollbarElement = document.getElementById("indexscrollbar"),
 			listDividers = listviewElement.getElementsByClassName("ui-listview-divider"),	// list dividers
 			dividers = {},	// collection of list dividers
 			indices = [],	// index list
 			divider,
-			i, idx;
+			i,
+			idx;
 
 		// For all list dividers,
-		for(i = 0; i < listDividers.length; i++) {
+		for (i = 0; i < listDividers.length; i++) {
 			// Add the list divider elements to the collection
 			divider = listDividers[i];
 			idx = divider.innerText;
@@ -40,6 +41,7 @@
 			// Add SnapListview item "selected" event handler.
 			listviewElement.addEventListener("selected", function (ev) {
 				var indexValue = ev.target.textContent[0];
+
 				indexScrollbar.value(indexValue);
 			});
 		}
@@ -61,7 +63,7 @@
 	 * pagehide event handler
 	 * Destroys and removes event listeners
 	 */
-	page.addEventListener("pagehide", function() {
+	page.addEventListener("pagehide", function () {
 		indexScrollbar.destroy();
 	});
-} ());
+}());

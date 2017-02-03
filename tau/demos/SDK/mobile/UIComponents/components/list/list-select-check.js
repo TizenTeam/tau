@@ -1,4 +1,4 @@
-(function(tau) {
+(function (tau) {
 	"use strict";
 	// get the page
 	var page = document.getElementById("select-all-page");

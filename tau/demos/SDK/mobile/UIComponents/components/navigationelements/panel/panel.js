@@ -1,4 +1,4 @@
-(function(tau) {
+(function (tau) {
 	/**
 	 * page - Panel page element
 	 * panelChanger - Panel changer element
@@ -17,8 +17,9 @@
 	 * pagebeforeshow event handler
 	 * Do preparatory works and adds event listeners
 	 */
-	page.addEventListener("pagebeforeshow", function(){
+	page.addEventListener("pagebeforeshow", function () {
 		var activePanel = page.querySelector(".ui-panel-active");
+
 		panelChangerComponent = tau.widget.PanelChanger(panelChanger);
 		navigationComponent = tau.widget.Navigation(navigation);
 		navigationComponent.push(activePanel.id);
@@ -28,7 +29,7 @@
 	 * panelchagne event handler
 	 * Manages navigation component
 	 */
-	panelChanger.addEventListener("panelchange", function(event) {
+	panelChanger.addEventListener("panelchange", function (event) {
 		var toPanel = event.detail.toPanel,
 			direction = event.detail.direction,
 			id = toPanel.id;
@@ -52,8 +53,9 @@
 	 * navigate event handler
 	 * Going to another page in navigation
 	 */
-	navigation.addEventListener("navigate", function(event) {
+	navigation.addEventListener("navigate", function (event) {
 		var id = event.detail.id;
+
 		navigated = true;
 		panelChangerComponent.changePanel("#" + id, "slide-reverse", "back");
 	});

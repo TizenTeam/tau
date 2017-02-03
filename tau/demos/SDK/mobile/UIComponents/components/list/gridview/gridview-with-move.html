@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<link rel="stylesheet"  href="../../../lib/tau/mobile/theme/default/tau.css">
+	<link rel="stylesheet" href="../../../lib/tau/mobile/theme/default/tau.css">
 	<link rel="stylesheet" href="../../../css/style.css">
 	<script type="text/javascript" src="../../../lib/tau/mobile/js/tau.js" data-build-remove="false"></script>
 </head>
@@ -132,27 +132,27 @@
 		</ul>
 	</div>
 	<script type="text/javascript">
-		(function(tau) {
-			/**
-			 * elPage - Grid view page element
-			 * elGrid - Grid view element
-			 * modeBtn - Mode toggle button element
-			 * gridList - TAU grid view instance
-			 */
-			var elPage = document.getElementById("grid-move-page"),
+			(function (tau) {
+				/**
+				 * elPage - Grid view page element
+				 * elGrid - Grid view element
+				 * modeBtn - Mode toggle button element
+				 * gridList - TAU grid view instance
+				 */
+				var elPage = document.getElementById("grid-move-page"),
 					elGrid = document.getElementById("gridview"),
 					gridList;
 
-			/**
-			 * pageshow event handler
-			 * Do preparatory works and adds event listeners
-			 */
-			elPage.addEventListener("pageshow", function() {
-				gridList = tau.widget.GridView(elGrid);
-				gridList.option("reorder", true);
-			});
+				/**
+				 * pageshow event handler
+				 * Do preparatory works and adds event listeners
+				 */
+				elPage.addEventListener("pageshow", function () {
+					gridList = tau.widget.GridView(elGrid);
+					gridList.option("reorder", true);
+				});
 
-		}(window.tau));
+			}(window.tau));
 	</script>
 </div>
 </div>

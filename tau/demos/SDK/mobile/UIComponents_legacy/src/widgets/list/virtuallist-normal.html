@@ -9,29 +9,31 @@
 		<h1>Virtual list - Normal style 1line</h1>
 	</div>
 	<style type="text/css">
-#virtuallist-normal_1line_ul li .ui-li-text-main {
-	max-width:95%;
-	display:inline-block;
-	overflow:hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
-	vertical-align: middle;
-}
+		#virtuallist-normal_1line_ul li .ui-li-text-main {
+			max-width: 95%;
+			display: inline-block;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			vertical-align: middle;
+		}
 	</style>
 	<div data-role="content">
-        <script id="tmp-li-1line" type="text">
-            <span class="ui-li-text-main">${NAME}</span>
+		<script id="tmp-li-1line" type="text">
+			<span class="ui-li-text-main">${NAME}</span>
+
 		</script>
-        <ul id="virtuallist-normal_1line_ul"></ul>
+		<ul id="virtuallist-normal_1line_ul"></ul>
 	</div>
-    <script>
-        var pageId = "virtuallist-normal_1line",
-            listId = "virtuallist-normal_1line_ul",
-            templateId = "tmp-li-1line",
-            itemClass = "ui-li-1line";
-    </script>
-    <script src="virtuallist-db-demo.js"></script>
-    <script src="virtuallist.js"></script>
+	<script>
+		/* eslint no-unused-vars: off */
+				var pageId = "virtuallist-normal_1line",
+					listId = "virtuallist-normal_1line_ul",
+					templateId = "tmp-li-1line",
+					itemClass = "ui-li-1line";
+	</script>
+	<script src="virtuallist-db-demo.js"></script>
+	<script src="virtuallist.js"></script>
 </div>
 </body>
 </html>

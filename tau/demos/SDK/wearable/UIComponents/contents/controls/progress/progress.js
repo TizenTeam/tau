@@ -1,5 +1,5 @@
 /*global tau */
-(function(){
+(function () {
 	/**
 	 * page - Progress page element
 	 * progressBar - Circle progress element
@@ -12,17 +12,17 @@
 	 * pageBeforeShowHandler - pagebeforeshow event handler
 	 * pageHideHandler - pagehide event handler
 	 */
-	var page = document.getElementById( "pageCircleProgressBar" ),
-	progressBar = document.getElementById("circleprogress"),
-	minusBtn = document.getElementById("minus"),
-	plusBtn = document.getElementById("plus"),
-	resultDiv = document.getElementById("result"),
-	isCircle = tau.support.shape.circle,
-	progressBarWidget,
-	resultText,
-	pageBeforeShowHandler,
-	pageHideHandler,
-	i;
+	var page = document.getElementById("pageCircleProgressBar"),
+		progressBar = document.getElementById("circleprogress"),
+		minusBtn = document.getElementById("minus"),
+		plusBtn = document.getElementById("plus"),
+		resultDiv = document.getElementById("result"),
+		isCircle = tau.support.shape.circle,
+		progressBarWidget,
+		resultText,
+		pageBeforeShowHandler,
+		pageHideHandler,
+		i;
 
 	/**
 	 * Updates the percentage of the progress
@@ -47,9 +47,9 @@
 	 * Click event handler for minus button
 	 */
 	function minusBtnClickHandler() {
-		i = i-10;
+		i = i - 10;
 		if (i < 0) {
-			i=0;
+			i = 0;
 		}
 		progressBarWidget.value(i);
 		printResult();
@@ -59,9 +59,9 @@
 	 * Click event handler for plus button
 	 */
 	function plusBtnClickHandler() {
-		i = i+10;
+		i = i + 10;
 		if (i > 100) {
-			i=100;
+			i = 100;
 		}
 		progressBarWidget.value(i);
 		printResult();
@@ -73,7 +73,7 @@
 	function rotaryDetentHandler() {
 		// Get rotary direction
 		var direction = event.detail.direction,
-		value = parseInt(progressBarWidget.value(), 10);
+			value = parseInt(progressBarWidget.value(), 10);
 
 		if (direction === "CW") {
 			// Right direction
@@ -115,7 +115,7 @@
 	 */
 	pageBeforeShowHandler = function () {
 		if (isCircle) {
-		// make Circle Progressbar object
+			// make Circle Progressbar object
 			progressBarWidget = new tau.widget.CircleProgressBar(progressBar, {size: "full"});
 			document.addEventListener("rotarydetent", rotaryDetentHandler);
 		} else {

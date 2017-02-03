@@ -14,18 +14,19 @@
 		</div>
 	</div> <!-- /content -->
 	<script>
-	$( "#pinch_page" ).on( "pageshow" , function() {
-		$( window ).on( "tizenhwkey", function ( ev ) {
-			if ( ev.originalEvent.keyName === "back" ) {
-				//bind callbacks to the H/W keys
-				window.history.back();
-			}
-		});
-	});
-	$( "#pinch_page" ).on( "pagebeforehide" , function() {
-		//unbind callbacks to the H/W keys
-		$( window ).off( "tizenhwkey" );
-	});
+		/* global $ */
+				$("#pinch_page").on("pageshow", function () {
+					$(window).on("tizenhwkey", function (ev) {
+						if (ev.originalEvent.keyName === "back") {
+							//bind callbacks to the H/W keys
+							window.history.back();
+						}
+					});
+				});
+				$("#pinch_page").on("pagebeforehide", function () {
+					//unbind callbacks to the H/W keys
+					$(window).off("tizenhwkey");
+				});
 	</script>
 	<script src="pinch.js"></script>
 </div> <!-- /page -->

@@ -6,12 +6,14 @@
 <body>
 <div data-role="page" id="list_vi_demo">
 	<script type="text/javascript">
-		var add = function() {
-			$("#listvi").listview( 'addItem', '<li>Test<div data-role="button" data-inline="true">TEST</div></li>', $("#listvi li").length );
-		}
-		var del = function() {
-			$("#listvi").listview( 'removeItem' , $("#listvi li").length - 1 );
-		}
+		/* global $ */
+		/* eslint no-unused-vars: off */
+				function add() {
+					$("#listvi").listview("addItem", "<li>Test<div data-role='button' data-inline='true'>TEST</div></li>", $("#listvi li").length);
+				}
+				function del() {
+					$("#listvi").listview("removeItem", $("#listvi li").length - 1);
+				}
 	</script>
 	<div data-role="header" data-position="fixed">
 		<h1>LIST VI</h1>

@@ -1,10 +1,11 @@
 /*global tau */
 /*jslint unparam: true */
-(function(tau) {
+(function (tau) {
 	var page,
 		list,
 		listHelper = [],
-		i, len;
+		i,
+		len;
 
 	if (tau.support.shape.circle) {
 		document.addEventListener("pagebeforeshow", function (e) {
@@ -18,7 +19,7 @@
 			}
 		});
 
-		document.addEventListener("pagebeforehide", function (e) {
+		document.addEventListener("pagebeforehide", function () {
 			len = listHelper.length;
 			if (len) {
 				for (i = 0; i < len; i++) {

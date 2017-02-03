@@ -9,23 +9,25 @@
 		<h1>Virtual list - Normal style 1line</h1>
 	</div>
 	<div class="ui-content">
-        <ul id="virtuallist-normal_1line_ul"></ul>
+		<ul id="virtuallist-normal_1line_ul"></ul>
 	</div>
 
-    <!-- sample list for virtual list -->
-    <script id="tmp-li-1line" type="text">
-        <span class="ui-li-text-main">${NAME}</span>
-    </script>
+	<!-- sample list for virtual list -->
+	<script id="tmp-li-1line" type="text">
+		<span class="ui-li-text-main">${NAME}</span>
 
-    <script>
-        var pageId = "virtuallist-normal_1line",
-            listId = "virtuallist-normal_1line_ul",
-            templateId = "tmp-li-1line",
-            itemClass = ["ui-li-static"];
-    </script>
-    <script src="virtuallist-db-demo.js"></script>
-    <script src="virtuallist.js"></script>
-    <link rel="stylesheet" href="virtuallist.css">
+
+	</script>
+
+	<script>
+			window.pageId = "virtuallist-normal_1line";
+			window.listId = "virtuallist-normal_1line_ul";
+			window.templateId = "tmp-li-1line";
+			window.itemClass = ["ui-li-static"];
+	</script>
+	<script src="virtuallist-db-demo.js"></script>
+	<script src="virtuallist.js"></script>
+	<link rel="stylesheet" href="virtuallist.css">
 </div>
 </body>
 </html>

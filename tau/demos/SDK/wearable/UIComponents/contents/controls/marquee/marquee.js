@@ -1,5 +1,5 @@
 /*global tau */
-(function() {
+(function () {
 	var page = document.getElementById("marqueeTest"),
 		marqueeEl = document.getElementById("marquee"),
 		startBtn = document.getElementById("start"),
@@ -11,7 +11,7 @@
 	/**
 	 * Initializes global variables
 	 */
-	function clearVariables () {
+	function clearVariables() {
 		page = null;
 		marqueeEl = null;
 		startBtn = null;
@@ -21,7 +21,7 @@
 	/**
 	 * marqueeend event handler
 	 */
-	function marqueeEndHandler () {
+	function marqueeEndHandler() {
 		startFlag = false;
 		startBtn.textContent = "START";
 	}
@@ -29,21 +29,21 @@
 	/**
 	 * marqueestart event handler
 	 */
-	function marqueeStartHandler () {
+	function marqueeStartHandler() {
 		startFlag = true;
 	}
 
 	/**
 	 * marqueestopped event handler
 	 */
-	function marqueeStoppedHandler () {
+	function marqueeStoppedHandler() {
 		startFlag = false;
 	}
 
 	/**
 	 * click event handler for start button
 	 */
-	function marqueeStartandStop () {
+	function marqueeStartandStop() {
 		if (startFlag) {
 			startBtn.textContent = "START";
 			marqueeWidget.stop();
@@ -54,17 +54,9 @@
 	}
 
 	/**
-	 * click event handler for reset button
-	 */
-	function marqueeReset () {
-		startBtn.textContent = "START";
-		marqueeWidget.reset();
-	}
-
-	/**
 	 * Adds event listeners
 	 */
-	function bindEvents () {
+	function bindEvents() {
 		marqueeEl.addEventListener("marqueeend", marqueeEndHandler);
 		marqueeEl.addEventListener("marqueestart", marqueeStartHandler);
 		marqueeEl.addEventListener("marqueestopped", marqueeStoppedHandler);
@@ -74,7 +66,7 @@
 	/**
 	 * Removes event listeners
 	 */
-	function unbindEvents () {
+	function unbindEvents() {
 		page.removeEventListener("pageshow", pageShowHandler);
 		page.removeEventListener("pagehide", pageHideHandler);
 		startBtn.removeEventListener("vclick", marqueeStartandStop);
@@ -96,7 +88,7 @@
 	 * pagehide event handler
 	 * Destroys and removes event listeners
 	 */
-	pageHideHandler = function() {
+	pageHideHandler = function () {
 		marqueeWidget.destroy();
 		unbindEvents();
 		clearVariables();

@@ -1,4 +1,5 @@
-(function() {
+/* global tau */
+(function () {
 	var page = document.getElementById("selectorPage"),
 		selector = document.getElementById("selector"),
 		selectorComponent,
@@ -9,6 +10,7 @@
 	 */
 	function onClick(event) {
 		var target = event.target;
+
 		//console.log(activeItem.getAttribute("data-title"));
 		/*
 		 * Default indicator class selector is "ui-selector-indicator".
@@ -25,7 +27,7 @@
 	 * pagebeforeshow event handler
 	 * Do preparatory works and adds event listeners
 	 */
-	page.addEventListener("pagebeforeshow", function() {
+	page.addEventListener("pagebeforeshow", function () {
 		clickBound = onClick.bind(null);
 		selectorComponent = tau.widget.Selector(selector);
 		selector.addEventListener("click", clickBound, false);
@@ -35,7 +37,7 @@
 	 * pagebeforehide event handler
 	 * Destroys and removes event listeners
 	 */
-	page.addEventListener("pagebeforehide", function() {
+	page.addEventListener("pagebeforehide", function () {
 		selector.removeEventListener("click", clickBound, false);
 		selectorComponent.destroy();
 	});

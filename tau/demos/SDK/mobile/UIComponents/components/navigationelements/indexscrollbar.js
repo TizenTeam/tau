@@ -1,4 +1,4 @@
-(function(tau) {
+(function (tau) {
 	/**
 	 * page - Index scroll bar page element
 	 * isbElement - Index scroll bar element
@@ -29,8 +29,11 @@
 	 * pagebeforeshow event handler
 	 * Do preparatory works and adds event listeners
 	 */
-	page.addEventListener("pagebeforeshow", function() {
-		var i, len, idx;
+	page.addEventListener("pagebeforeshow", function () {
+		var i,
+			len,
+			idx;
+
 		scroller = tau.util.selectors.getScrollableParent(document.getElementById("isbList"));
 		len = dividers.length;
 		for (i = 0; i < len; i++) {
@@ -46,7 +49,7 @@
 	 * pagehide event handler
 	 * Destroys and removes event listeners
 	 */
-	page.addEventListener("pagehide", function(){
+	page.addEventListener("pagehide", function () {
 		isb.removeEventListener("select", selectBound);
 		isb.destroy();
 	});

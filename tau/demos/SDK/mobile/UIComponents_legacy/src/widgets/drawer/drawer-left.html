@@ -26,18 +26,20 @@
 		</ul>
 	</div>
 	<script>
-		( function() {
+		/* global $ */
+		(function () {
 			var isOpen = false;
-			document.getElementById( "openBtn" ).addEventListener( "vclick", function() {
-				isOpen = $( "#leftdrawer" ).drawer( "isOpen" );
 
-				if ( !isOpen ) {
-					$( "#leftdrawer" ).drawer( "open" );
+			document.getElementById("openBtn").addEventListener("vclick", function () {
+				isOpen = $("#leftdrawer").drawer("isOpen");
+
+				if (!isOpen) {
+					$("#leftdrawer").drawer("open");
 				} else {
-					$( "#leftdrawer" ).drawer( "close" );
+					$("#leftdrawer").drawer("close");
 				}
-			} );
-		} ) ();
+			});
+		})();
 	</script>
 </div>
 </body>

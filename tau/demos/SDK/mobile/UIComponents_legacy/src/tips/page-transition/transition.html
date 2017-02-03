@@ -24,18 +24,19 @@
 		</ul>
 	</div><!-- /content -->
 	<script>
-	$( "#transition-list" ).on( "pageshow" , function() {
-		$( window ).on( "tizenhwkey", function ( ev ) {
-			if ( ev.originalEvent.keyName === "back" ) {
-				//bind callbacks to the H/W keys
-				window.history.back();
-			}
-		});
-	});
-	$( "#transition-list" ).on( "pagebeforehide" , function() {
-		//unbind callbacks to the H/W keys
-		$( window ).off( "tizenhwkey" );
-	});
+		/* global $ */
+				$("#transition-list").on("pageshow", function () {
+					$(window).on("tizenhwkey", function (ev) {
+						if (ev.originalEvent.keyName === "back") {
+							//bind callbacks to the H/W keys
+							window.history.back();
+						}
+					});
+				});
+				$("#transition-list").on("pagebeforehide", function () {
+					//unbind callbacks to the H/W keys
+					$(window).off("tizenhwkey");
+				});
 	</script>
 </div> <!-- /page -->
 </body>

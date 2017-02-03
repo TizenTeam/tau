@@ -1,5 +1,5 @@
 /*global pageId, listId, templateId, itemClass, tau, JSON_DATA */
-(function(pageId, listId, templateId, itemClass) {
+(function (pageId, listId, templateId, itemClass) {
 	var page = document.getElementById(pageId),
 		vlist;
 
@@ -7,7 +7,7 @@
 	 * pageshow event handler
 	 * Do preparatory works and adds event listeners
 	 */
-	page.addEventListener("pageshow", function() {
+	page.addEventListener("pageshow", function () {
 		/* Get HTML element reference */
 		var elList = document.getElementById(listId);
 
@@ -16,7 +16,7 @@
 			bufferSize: 40
 		});
 		/* Update list items */
-		vlist.setListItemUpdater( function (listElement, newIndex) {
+		vlist.setListItemUpdater(function (listElement, newIndex) {
 			var data = JSON_DATA[newIndex],
 				template = document.getElementById(templateId).innerHTML;
 
@@ -28,7 +28,7 @@
 
 			listElement.innerHTML = template;
 			if (itemClass.length) {
-				itemClass.forEach(function(value) {
+				itemClass.forEach(function (value) {
 					listElement.classList.add(value);
 				});
 			} else {

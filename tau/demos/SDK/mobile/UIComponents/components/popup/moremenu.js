@@ -1,4 +1,4 @@
-(function(tau) {
+(function (tau) {
 	/**
 	 * page - More menu page element
 	 * openBtn - Button element for opening a popup
@@ -20,7 +20,7 @@
 	 * tizenhwkey event handler
 	 */
 	menukeyHandler = function (ev) {
-		if( ev.keyName === "menu" ) {
+		if (ev.keyName === "menu") {
 			if (morePopup.classList.contains("ui-popup-active")) {
 				tau.closePopup();
 			} else {
@@ -41,8 +41,8 @@
 	 * Do preparatory works and adds event listeners
 	 */
 	pageShowHandler = function () {
-		window.addEventListener( 'tizenhwkey', menukeyHandler );
-		openBtn.addEventListener( 'vclick', openPopup );
+		window.addEventListener("tizenhwkey", menukeyHandler);
+		openBtn.addEventListener("vclick", openPopup);
 	};
 
 	/**
@@ -50,8 +50,8 @@
 	 * Destroys and removes event listeners
 	 */
 	pageHideHandler = function () {
-		window.removeEventListener( 'tizenhwkey', menukeyHandler );
-		openBtn.removeEventListener( 'vclick', openPopup );
+		window.removeEventListener("tizenhwkey", menukeyHandler);
+		openBtn.removeEventListener("vclick", openPopup);
 	};
 
 	page.addEventListener("pageshow", pageShowHandler, false);

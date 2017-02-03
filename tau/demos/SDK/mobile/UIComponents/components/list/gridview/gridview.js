@@ -1,4 +1,4 @@
-(function(tau) {
+(function (tau) {
 	/**
 	 * elPage - Grid view page element
 	 * elGrid - Grid view element
@@ -27,7 +27,7 @@
 	 * pageshow event handler
 	 * Do preparatory works and adds event listeners
 	 */
-	elPage.addEventListener("pageshow", function() {
+	elPage.addEventListener("pageshow", function () {
 		gridList = tau.widget.GridView(elGrid);
 		modeBtn.addEventListener("click", modeHandler);
 	});
@@ -36,7 +36,7 @@
 	 * pagebeforehide event handler
 	 * Destroys and removes event listeners
 	 */
-	elPage.addEventListener("pagebeforehide", function() {
+	elPage.addEventListener("pagebeforehide", function () {
 		modeBtn.removeEventListener("click", modeHandler);
 	});
 }(window.tau));

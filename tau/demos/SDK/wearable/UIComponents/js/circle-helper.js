@@ -1,6 +1,6 @@
 /*global tau */
 /*jslint unparam: true */
-(function(tau) {
+(function (tau) {
 	/**
 	 * page - Active page element
 	 * list - NodeList object for lists in the page
@@ -9,7 +9,8 @@
 	var page,
 		list,
 		listHelper = [],
-		i, len;
+		i,
+		len;
 
 	// This logic works only on circular device.
 	if (tau.support.shape.circle) {

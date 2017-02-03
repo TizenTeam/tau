@@ -1,6 +1,6 @@
 /*global tau */
 /*jslint unparam: true */
-(function(){
+(function () {
 	/**
 	 * page - More option page element
 	 * popup - More option popup element for rectangular devices
@@ -32,7 +32,7 @@
 	 * pagebeforeshow event handler
 	 * Do preparatory works and adds event listeners
 	 */
-	page.addEventListener( "pagebeforeshow", function() {
+	page.addEventListener("pagebeforeshow", function () {
 		var radius = window.innerHeight / 2 * 0.8;
 
 		clickHandlerBound = clickHandler.bind(null);
@@ -46,7 +46,7 @@
 	 * pagebeforehide event handler
 	 * Destroys and removes event listeners
 	 */
-	page.addEventListener( "pagebeforehide", function() {
+	page.addEventListener("pagebeforehide", function () {
 		handler.removeEventListener("click", clickHandlerBound);
 		if (tau.support.shape.circle) {
 			selector.destroy();
@@ -56,7 +56,7 @@
 	/**
 	 * When user click the indicator of Selector, drawer will close.
 	 */
-	elSelector.addEventListener("click", function(event) {
+	elSelector.addEventListener("click", function (event) {
 		var target = event.target;
 
 		if (tau.support.shape.circle) {

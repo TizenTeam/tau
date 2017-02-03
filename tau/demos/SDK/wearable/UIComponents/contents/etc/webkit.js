@@ -1,15 +1,16 @@
 /*jslint unparam: true */
-(function() {
+(function () {
 	var page = document.getElementById("page_webkitui");
 
-	page.addEventListener("pagecreate", function() {
+	page.addEventListener("pagecreate", function () {
 		var btn = document.getElementById("button_webkitui_hiddendateopener"),
 			itime = document.getElementById("input_webkitui_hiddentime"),
 			val = document.getElementById("webkitui_hiddentime_value");
-		btn.addEventListener("click", function() {
+
+		btn.addEventListener("click", function () {
 			itime.click();
 		});
-		itime.addEventListener("change", function() {
+		itime.addEventListener("change", function () {
 			val.innerText = itime.value;
 		});
 	});

@@ -1,130 +1,148 @@
+/* global tau */
 (function () {
-    var footer = document.getElementById('footer'),
-        page = document.getElementById("page"),
-        br = document.createElement('br'),
-        animations, information,
-        base,
-        index = 0, i = 0, len,
-        animationIndex = 0,
-        objects = [],
-        timer,
-        halfOfWidth = window.innerWidth / 2,
-        halfOfHeight = window.innerHeight / 2,
-        autoRotationDuration = 3000, duration = 1000,
-        t = tau.animation.target;
+	var footer = document.getElementById("footer"),
+		page = document.getElementById("page"),
+		br = document.createElement("br"),
+		animations,
+		information,
+		base,
+		index = 0,
+		i = 0,
+		len,
+		animationIndex = 0,
+		objects = [],
+		timer,
+		halfOfWidth = window.innerWidth / 2,
+		halfOfHeight = window.innerHeight / 2,
+		autoRotationDuration = 3000,
+		duration = 1000,
+		t = tau.animation.target;
 
-    function reset(target) {
-        for (var i = 0, len = target.length; i < len; i++) {
-            t(target[i]).transform({translateX: 0, translateY: 0, translateZ: 0, scaleX: 1, scaleY: 1, skewX: 0, skewY: 0, rotateX: 0, rotateY: 0, rotateZ: 0});
-            target[i].style.backgroundColor = 'purple';
-            target[i].innerText = '';
-        }
-    }
+	function reset(target) {
+		var i;
 
-    function run() {
-        base = Math.round(Math.max(halfOfWidth, halfOfHeight));
+		for (i = 0, len = target.length; i < len; i++) {
+			t(target[i]).transform({
+				translateX: 0,
+				translateY: 0,
+				translateZ: 0,
+				scaleX: 1,
+				scaleY: 1,
+				skewX: 0,
+				skewY: 0,
+				rotateX: 0,
+				rotateY: 0,
+				rotateZ: 0
+			});
+			target[i].style.backgroundColor = "purple";
+			target[i].innerText = "";
+		}
+	}
 
-        objects = t('.boxes');
+	function run() {
+		base = Math.round(Math.max(halfOfWidth, halfOfHeight));
 
-        for (i = 0, len = objects.length; i < len; i++) {
-            objects[i].style.width = (base / 4) + 'px';
-            objects[i].style.height = (base / 4) + 'px';
-            objects[i].style.backgroundColor = 'purple';
-            objects[i].style.opacity = 0.7;
-            objects[i].style.borderRadius = base / 25 + 'px';
-            objects[i].style.fontSize = (base / 4 / 5) + 'px';
-            objects[i].style.lineHeight = (base / 4) + 'px';
-            objects[i].style.verticalAlign = 'middle';
-            objects[i].style.display = 'inline-block';
-        }
+		objects = t(".boxes");
 
-        animations = [
-            function () {
-                objects.tween({translateY: 150, rotateZ: 180}, {duration: duration, ease: 'linear'});
-            },
-            function () {
-                objects.tween({translateY: 150, rotateZ: 180}, {duration: duration, ease: 'bounceInOut'});
-            },
-            function () {
-                t(objects[0]).tween({translateY: 150, rotateZ: 180}, {duration: duration, delay: 500});
-                t(objects[1]).tween({translateY: 150, rotateZ: 180}, duration);
-                t(objects[2]).tween({translateY: 150, rotateZ: 180}, duration);
-                t(objects[3]).tween({translateY: 150, rotateZ: 180}, duration);
-            },
-            function () {
-                objects.tween({translateY: 150, rotateZ: 180}, {duration: duration, stagger: 300});
-            },
-            function () {
-                objects.tween({translateY: 150, rotateZ: 180}, {
-                    duration: duration,
-                    onStart: function () {
-                        for (i = 0, len = objects.length; i < len; i++) {
-                            objects[i].innerText = (i + 1) + '';
-                        }
-                    },
-                    onComplete: function () {
-                        objects.tween({backgroundColor: 'silver'}, {duration: duration});
-                    }
-                });
-            }
-        ];
+		for (i = 0, len = objects.length; i < len; i++) {
+			objects[i].style.width = (base / 4) + "px";
+			objects[i].style.height = (base / 4) + "px";
+			objects[i].style.backgroundColor = "purple";
+			objects[i].style.opacity = 0.7;
+			objects[i].style.borderRadius = base / 25 + "px";
+			objects[i].style.fontSize = (base / 4 / 5) + "px";
+			objects[i].style.lineHeight = (base / 4) + "px";
+			objects[i].style.verticalAlign = "middle";
+			objects[i].style.display = "inline-block";
+		}
 
-        information = [
-            'Ease: linear', 'Ease: bounceInOut',
-            'Box1 delay',
-            'Stagger',
-            'Callback'
-        ];
+		animations = [
+			function () {
+				objects.tween({translateY: 150, rotateZ: 180}, {duration: duration, ease: "linear"});
+			},
+			function () {
+				objects.tween({translateY: 150, rotateZ: 180}, {duration: duration, ease: "bounceInOut"});
+			},
+			function () {
+				t(objects[0]).tween({translateY: 150, rotateZ: 180}, {duration: duration, delay: 500});
+				t(objects[1]).tween({translateY: 150, rotateZ: 180}, duration);
+				t(objects[2]).tween({translateY: 150, rotateZ: 180}, duration);
+				t(objects[3]).tween({translateY: 150, rotateZ: 180}, duration);
+			},
+			function () {
+				objects.tween({translateY: 150, rotateZ: 180}, {duration: duration, stagger: 300});
+			},
+			function () {
+				objects.tween({translateY: 150, rotateZ: 180}, {
+					duration: duration,
+					onStart: function () {
+						for (i = 0, len = objects.length; i < len; i++) {
+							objects[i].innerText = (i + 1) + "";
+						}
+					},
+					onComplete: function () {
+						objects.tween({backgroundColor: "silver"}, {duration: duration});
+					}
+				});
+			}
+		];
 
-        function animationChange(i, animationArray) {
-            if (i === -1) {
-                index = ( ((index + i) < 0) ? (animationArray.length - 1) : (index + i));
-            } else if (i === 1) {
-                index = (index + i) % animationArray.length;
-            }
+		information = [
+			"Ease: linear", "Ease: bounceInOut",
+			"Box1 delay",
+			"Stagger",
+			"Callback"
+		];
 
-            animationArray[index]();
+		function animationChange(i, animationArray) {
+			if (i === -1) {
+				index = (((index + i) < 0) ? (animationArray.length - 1) : (index + i));
+			} else if (i === 1) {
+				index = (index + i) % animationArray.length;
+			}
 
-            timer = window.setTimeout(function () {
-                reset(objects);
-                animationChange(1, animationArray);
-            }, autoRotationDuration);
+			animationArray[index]();
 
-            footer.innerText = information[index];
-            footer.appendChild(br);
-            footer.innerText += (index + 1) + ' / ' + animationArray.length;
-        }
+			timer = window.setTimeout(function () {
+				reset(objects);
+				animationChange(1, animationArray);
+			}, autoRotationDuration);
 
-        animationChange(index, animations);
+			footer.innerText = information[index];
+			footer.appendChild(br);
+			footer.innerText += (index + 1) + " / " + animationArray.length;
+		}
 
-        page.addEventListener('click', function (e) {
-            for (i = 0, len = objects.length; i < len; i++) {
-                t(objects[i]).stop();
-            }
+		animationChange(index, animations);
 
-            reset(objects);
+		page.addEventListener("click", function (e) {
+			for (i = 0, len = objects.length; i < len; i++) {
+				t(objects[i]).stop();
+			}
 
-            window.clearTimeout(timer);
+			reset(objects);
 
-            if (halfOfWidth < e.clientX) {
-                animationIndex = 1;
-            } else {
-                animationIndex = -1;
-            }
+			window.clearTimeout(timer);
 
-            animationChange(animationIndex, animations);
-        });
-    }
+			if (halfOfWidth < e.clientX) {
+				animationIndex = 1;
+			} else {
+				animationIndex = -1;
+			}
 
-    page.addEventListener("pageshow", function (ev) {
-        run();
-    });
+			animationChange(animationIndex, animations);
+		});
+	}
 
-    page.addEventListener("pagehide", function (ev) {
-        for (i = 0, len = objects.length; i < len; i++) {
-            t(objects[i]).stop();
-        }
-        reset(objects);
-        window.clearTimeout(timer);
-    });
+	page.addEventListener("pageshow", function () {
+		run();
+	});
+
+	page.addEventListener("pagehide", function () {
+		for (i = 0, len = objects.length; i < len; i++) {
+			t(objects[i]).stop();
+		}
+		reset(objects);
+		window.clearTimeout(timer);
+	});
 }());
