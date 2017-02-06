@@ -13,11 +13,12 @@
 		elPopup = page.querySelector("#moreoptionsPopupCircle"),
 		handler = page.querySelector(".ui-more"),
 		selector = page.querySelector("#selector"),
+		liPopupSelect = document.querySelector("#select-all").parentElement,
+		liPopupDeselect = document.querySelector("#deselect-all").parentElement,
 		selectorComponent,
 		snapList,
 		selectCount = 0,
 		popupHandler,
-		i,
 		addFunction,
 		fnSelectAll,
 		fnDeselectAll,
@@ -112,7 +113,9 @@
 	 * click event handler for 'select all' button
 	 */
 	fnSelectAll = function () {
-		for (i = 0; i < listLength; i++) {
+		var i = 0;
+
+		for (; i < listLength; i++) {
 			selectItem(list[i]);
 		}
 		selectCount = listLength;
@@ -124,10 +127,71 @@
 	 * click event handler for 'deselect all' button
 	 */
 	fnDeselectAll = function () {
-		for (i = 0; i < listLength; i++) {
+		var i = 0;
+
+		for (; i < listLength; i++) {
 			deselectItem(list[i]);
 		}
 	};
+
+	/**
+	 * Depending on how many items are on popup select
+	 * list only suitable options are displayed.
+	 **/
+	function handlePopupSelectOptions() {
+		if (selectCount === 0) {
+			displaySelectAll();
+		} else if (selectCount === listLength) {
+			displayDeselectAll();
+		} else {
+			displayBoth();
+		}
+
+	}
+
+	/**
+	 * Display only "Deselect All" option
+	 **/
+	function displayDeselectAll() {
+		var SelectClassList = liPopupSelect.classList,
+			DeselectClassList = liPopupDeselect.classList;
+
+		SelectClassList.remove("show-popup-li");
+		DeselectClassList.remove("hide-popup-li");
+		selectAll.classList.remove("show");
+
+		SelectClassList.add("hide-popup-li");
+		DeselectClassList.add("show-popup-li");
+		deselectAll.classList.add("show");
+	}
+
+	/**
+	 * Display only "Select All" option
+	 **/
+	function displaySelectAll() {
+		var SelectClassList = liPopupSelect.classList,
+			DeselectClassList = liPopupDeselect.classList;
+
+		SelectClassList.remove("hide-popup-li");
+		DeselectClassList.remove("show-popup-li");
+		deselectAll.classList.remove("show");
+
+		DeselectClassList.add("hide-popup-li");
+		SelectClassList.add("show-popup-li");
+		selectAll.classList.add("show");
+	}
+
+	/**
+	 * Display "Select All" and "DeselectAll" option
+	 **/
+	function displayBoth() {
+		liPopupSelect.classList.remove("show-popup-li");
+		liPopupSelect.classList.remove("hide-popup-li");
+		liPopupDeselect.classList.remove("hide-popup-li");
+		liPopupDeselect.classList.remove("show-popup-li");
+		selectAll.classList.remove("show");
+		deselectAll.classList.remove("show");
+	}
 
 	/**
 	 * Shows a context popup that has select/deselect buttons
@@ -135,6 +199,7 @@
 	 */
 	fnPopup = function () {
 		selectWrapper.classList.add("open");
+		handlePopupSelectOptions();
 		event.preventDefault();
 		event.stopPropagation();
 	};
@@ -143,6 +208,7 @@
 	 * Closes a context popup that has select/deselect buttons
 	 * click event handler for closing the popup
 	 */
+
 	fnPopupClose = function () {
 		selectWrapper.classList.remove("open");
 	};

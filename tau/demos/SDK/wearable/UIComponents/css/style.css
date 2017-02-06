@@ -831,3 +831,24 @@ input[type="checkbox"]#checkboxControl {
 	margin-top: 50%;
 	transform: translateY(-50%);
 }
+/* -------------------------SelectAll&DeselectAll Popup-------------------*/
+.hide-popup-li{
+	visibility: hidden;
+	display: none;
+	height:0;
+}
+.show-popup-li{
+	height:203px;
+	border-bottom-width: 0px;
+}
+#select-all.show {
+	padding-top: 5.125rem;
+	height: 120px;
+	padding-bottom: 0px;
+}
+
+#deselect-all.show {
+	padding-top: 5.125rem;
+	height: 120px;
+	padding-bottom: 0px;
+}
