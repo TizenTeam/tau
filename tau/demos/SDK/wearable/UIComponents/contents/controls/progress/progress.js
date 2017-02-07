@@ -12,11 +12,11 @@
 	 * pageBeforeShowHandler - pagebeforeshow event handler
 	 * pageHideHandler - pagehide event handler
 	 */
-	var page = document.getElementById("pageCircleProgressBar"),
-		progressBar = document.getElementById("circleprogress"),
-		minusBtn = document.getElementById("minus"),
-		plusBtn = document.getElementById("plus"),
-		resultDiv = document.getElementById("result"),
+	var page = document.querySelector(".circle-progress-page"),
+		progressBar = null,
+		minusBtn = null,
+		plusBtn = null,
+		resultDiv = null,
 		isCircle = tau.support.shape.circle,
 		progressBarWidget,
 		resultText,
@@ -28,8 +28,10 @@
 	 * Updates the percentage of the progress
 	 */
 	function printResult() {
-		resultText = progressBarWidget.value();
-		resultDiv.innerHTML = resultText + "%";
+		if (resultDiv) {
+			resultText = progressBarWidget.value();
+			resultDiv.innerHTML = resultText + "%";
+		}
 	}
 
 	/**
@@ -114,18 +116,26 @@
 	 * Do preparatory works and adds event listeners
 	 */
 	pageBeforeShowHandler = function () {
+		progressBar = page.querySelector(".ui-circle-progress");
+		minusBtn = page.querySelector(".minus");
+		plusBtn = page.querySelector(".plus");
+		resultDiv = page.querySelector(".result");
+
 		if (isCircle) {
 			// make Circle Progressbar object
-			progressBarWidget = new tau.widget.CircleProgressBar(progressBar, {size: "full"});
+			progressBarWidget = new tau.widget.CircleProgressBar(progressBar);
 			document.addEventListener("rotarydetent", rotaryDetentHandler);
 		} else {
-			progressBarWidget = new tau.widget.CircleProgressBar(progressBar, {size: "large"});
+			progressBarWidget = new tau.widget.CircleProgressBar(progressBar);
 			minusBtn.addEventListener("click", minusBtnClickHandler);
 			plusBtn.addEventListener("click", plusBtnClickHandler);
 		}
 
 		i = parseInt(progressBarWidget.value(), 10);
-		resultDiv.innerHTML = i + "%";
+
+		if (resultDiv) {
+			resultDiv.innerHTML = i + "%";
+		}
 	};
 
 	/**

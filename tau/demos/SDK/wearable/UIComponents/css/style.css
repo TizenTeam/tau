@@ -739,15 +739,24 @@ input[type="checkbox"]#checkboxControl {
 	-webkit-align-items:center;
 	-webkit-justify-content: center;
 }
-#pageCircleProgressBar .ui-progressbar-large {
+
+.circle-progress-page .ui-progressbar {
 	position: absolute;
 	top: 50%;
 	left: 50%;
 	-webkit-transform: translate(-50%, -50%);
 }
-#pageCircleProgressBar .result {
-	font-size:25px;
-	text-align:center;
+
+.circle-progress-page .result {
+	font-size: 20px;
+	text-align: center;
+	top: 50%;
+	left: 50%;
+	-webkit-transform: translate(-50%, -50%);
+	position: absolute;
+}
+
+.circle-progress-page .progress-buttons {
 	top: 50%;
 	left: 50%;
 	-webkit-transform: translate(-50%, -50%);

@@ -16,43 +16,117 @@
  */
 /*jslint nomen: true */
 /**
- * # Circle Progress Widget
+ * # Circle ProgressBar
  * Shows a control that indicates the progress percentage of an on-going operation by circular shape.
  *
- * The circle progress widget shows a control that indicates the progress percentage of an on-going operation. This widget can be scaled to be fit inside a parent container.
+ * ##How to Create CircleProgressBar
  *
- * ### Simple progress bar
- * If you don't make any widget "circleprogress" with <progress> element, you can show default progress style.
- * To add a circular shape(page size) progressbar in your application, you have to declare <progress> tag in "ui-page" element.
- * To add a CircleProgressBar widget to the application, use the following code:
+ * ###Default CircleProgressBar
+ *
+ * If you don't make any "circleprogress" with *progress* element, you can show default progress style.
+ * To add a CircleProgressBar component to the application, use the following code:
  *
  *      @example
- *    <div class="ui-page" id="pageCircleProgressBar">
- *        <header class="ui-header"></header>
- *        <div class="ui-content"></div>
+ *      <div class="ui-page" id="pageCircleProgressBar">
+ *        <div>
  *          <progress class="ui-circle-progress" id="circleprogress" max="20" value="2"></progress>
- *    </div>
- *    <script>
+ *        </div>
+ *      </div>
+ *      <script>
  *        (function(){
  *
- *		    var page = document.getElementById( "pageCircleProgressBar" ),
- *		        progressBar = document.getElementById("circleprogress"),
- *		        progressBarWidget;
+ *          var page = document.getElementById( "pageCircleProgressBar" ),
+ *              progressBar = document.getElementById("circleprogress"),
+ *              progressBarWidget;
  *
- *		    page.addEventListener( "pageshow", function() {
- *		        var i=0;
- *		        // make Circle Progressbar object
- *		        progressBarWidget = new tau.widget.CircleProgressBar(progressBar);
+ *          page.addEventListener( "pageshow", function() {
+ *             // make Circle Progressbar object
+ *             progressBarWidget = new tau.widget.CircleProgressBar(progressBar);
  *
- *	            });
+ *          });
  *
- *	            page.addEventListener( "pagehide", function() {
- *		        // release object
- *		        progressBarWidget.destroy();
- *		    });
- *              }());
- *    </script>
+ *          page.addEventListener( "pagehide", function() {
+ *             // release object
+ *             progressBarWidget.destroy();
+ *          });
+ *        }());
+ *      </script>
  *
+ * ###Full(screen) size CircleProgressBar
+ *
+ * To add a circular shape progressbar in your application, you have to declare _<progress>_ tag with attribute
+ * data-size="full" in "ui-page" element and in your javascript code add constructor of widget.
+ *
+ *      @example
+ *      <div class="ui-page" id="pageCircleProgressBar">
+ *        <div>
+ *          <progress class="ui-circle-progress" id="circleprogress" max="20" value="2" data-size="full"></progress>
+ *        </div>
+ *      </div>
+ *      <script>
+ *        (function(){
+ *          var page = document.getElementById("pageCircleProgressBar"),
+ *              progressBar = document.getElementById("circleprogress"),
+ *              progressBarWidget = null;
+ *
+ *          page.addEventListener("pageshow", function() {
+ *            // make Circle Progressbar object
+ *            progressBarWidget = new tau.widget.CircleProgressBar(progressBar);
+ *          });
+ *
+ *          page.addEventListener("pagehide", function() {
+ *            // release object
+ *            progressBarWidget.destroy();
+ *          });
+ *        }());
+ *      </script>
+ *
+ * You can also set options full directly from JavaScript:
+ *
+ *      @example
+ *      <div class="ui-page" id="pageCircleProgressBar">
+ *        <div>
+ *          <progress class="ui-circle-progress" id="circleprogress" max="20" value="2"></progress>
+ *        </div>
+ *      </div>
+ *      <script>
+ *        (function(){
+ *          var page = document.getElementById("pageCircleProgressBar"),
+ *              progressBar = document.getElementById("circleprogress"),
+ *              progressBarWidget = null;
+ *
+ *          page.addEventListener("pageshow", function() {
+ *            // make Circle Progressbar object
+ *            progressBarWidget = new tau.widget.CircleProgressBar(progressBar, {
+ *              size: "full"
+ *            });
+ *          });
+ *
+ *          page.addEventListener("pagehide", function() {
+ *            // release object
+ *            progressBarWidget.destroy();
+ *          });
+ *        }());
+ *      </script>
+ *
+ * ###Using event
+ *
+ * Circle progress bar triggers "progresschange" event. The description is <a href="#events-list">here</a>.
+ * The following shows how to use "progresschange" event.
+ *
+ *      @example
+ *      progressBar.addEventListener("progresschange", function() {
+ *        // do something when the value of progress changes
+ *        console.log(progressBarWidget.value());
+ *      });
+ *
+ * ### Customization
+ *
+ * This widget has few possibility of customization.
+ *
+ * First is set size of widget by option size. You can set one of predefined string value or number size.
+ *
+ * Second option gives possibility of set thickness of circle line.
  *
  * @class ns.widget.wearable.CircleProgressBar
  * @since 2.3
@@ -64,7 +138,6 @@
 	define(
 		[
 			"../../../../core/engine",
-			"../../../../core/event",
 			"../../../../core/util/DOM",
 			"../../../../core/widget/BaseWidget",
 			"../wearable"
@@ -73,12 +146,12 @@
 			//>>excludeEnd("tauBuildExclude");
 			var BaseWidget = ns.widget.BaseWidget,
 				engine = ns.engine,
-				utilEvent = ns.event,
-				doms = ns.util.DOM,
+				utilDOM = ns.util.DOM,
+				PI = Math.PI,
 
 				eventType = {
 					/**
-					 * Triggered when the section is changed.
+					 * Triggered when value is changed.
 					 * @event progresschange
 					 * @member ns.widget.wearable.CircleProgressBar
 					 */
@@ -90,10 +163,6 @@
 						ui = {};
 
 					ui.progressContainer = null;
-					ui.progressValue = null;
-					ui.progressValueLeft = null;
-					ui.progressValueRight = null;
-					ui.progressValueBg = null;
 
 					self.options = {};
 					self._ui = ui;
@@ -109,20 +178,11 @@
 				CLASSES_PREFIX = "ui-progressbar",
 
 				classes = {
-					uiProgressbar: CLASSES_PREFIX,
-					uiProgressbarBg: CLASSES_PREFIX + "-bg",
-					uiProgressbarValue: CLASSES_PREFIX + "-value",
-					uiProgressbarValueLeft: CLASSES_PREFIX + "-value-left",
-					uiProgressbarValueRight: CLASSES_PREFIX + "-value-right",
-					uiProgressbarHalf: CLASSES_PREFIX + "-half"
+					uiProgressbar: CLASSES_PREFIX
 				},
 
 				selectors = {
-					progressContainer: "." + classes.uiProgressbar,
-					progressBg: "." + classes.uiProgressbarBg,
-					progressValue: "." + classes.uiProgressbarValue,
-					progressValueLeft: "." + classes.uiProgressbarValueLeft,
-					progressValueRight: "." + classes.uiProgressbarValueRight
+					progressContainer: "." + classes.uiProgressbar
 				},
 
 				size = {
@@ -134,70 +194,104 @@
 
 			CircleProgressBar.classes = classes;
 
-			/* make widget refresh with new value */
+			/**
+			 * Build structure of circle progress bar
+			 * @param {ns.widget.wearable.CircleProgressBar} self
+			 * @param {number} value
+			 */
 			function refreshProgressBar(self, value) {
 				var percentValue = (value - self._minValue) / (self._maxValue - self._minValue) * 100,
-					rotateValue,
-					ui = self._ui;
+					ui = self._ui,
+					size = self._size,
+					thickness = self.options.thickness,
+					canvasContext = ui.canvasContext;
 
-				if (percentValue >= 50) {
-					ui.progressValue.classList.add(classes.uiProgressbarHalf);
-				} else {
-					ui.progressValue.classList.remove(classes.uiProgressbarHalf);
+				// draw background circle
+				drawBackground(canvasContext, size, thickness);
+
+				if (percentValue === 100) {
+					// in case of 100% we have to change start angle
+					drawLine(canvasContext,
+						0,
+						2 * PI,
+						size,
+						thickness
+					);
+				} else if (percentValue > 0) {
+					// if percent is different 0 then we draw arc
+					drawLine(canvasContext,
+						1.5 * PI,
+						2 * PI * (percentValue / 100) - 0.5 * PI,
+						size,
+						thickness
+					);
 				}
-
-				rotateValue = 360 * (percentValue / 100);
-				ui.progressValueLeft.style.webkitTransform = "rotate(" + rotateValue + "deg)";
 			}
 
-			function setThicknessStyle(self, value) {
-				var ui = self._ui;
-
-				ui.progressValueLeft.style.borderWidth = value + "px";
-				ui.progressValueRight.style.borderWidth = value + "px";
-				ui.progressValueBg.style.borderWidth = value + "px";
-			}
-
+			/**
+			 * Calculate size of progressbar
+			 * @param {ns.widget.wearable.CircleProgressBar} self
+			 * @param {string} progressSize
+			 */
 			function setProgressBarSize(self, progressSize) {
 				var sizeToNumber = parseFloat(progressSize),
-					ui = self._ui;
+					innerWidth = window.innerWidth,
+					ui = self._ui,
+					style = ui.progressContainer.style,
+					canvas = ui.canvas,
+					numberSize = 0;
 
 				if (!isNaN(sizeToNumber)) {
-					ui.progressContainer.style.fontSize = progressSize + "px";
-					ui.progressContainer.style.width = progressSize + "px";
-					ui.progressContainer.style.height = progressSize + "px";
+					numberSize = sizeToNumber / 2;
 				} else {
 					switch (progressSize) {
 						case size.FULL:
+							numberSize = innerWidth / 2;
+							break;
 						case size.LARGE:
+							numberSize = 0.15625 * innerWidth;
+							break;
 						case size.MEDIUM:
+							numberSize = 0.13125 * innerWidth;
+							break;
 						case size.SMALL:
-							ui.progressContainer.classList.add(CLASSES_PREFIX + "-" + progressSize);
+							numberSize = 0.0875 * innerWidth;
 							break;
 					}
-					ui.progressContainer.style.fontSize = doms.getCSSProperty(ui.progressContainer, "width", 0, "float") + "px";
+				}
+				numberSize = Math.floor(numberSize);
+				self._size = numberSize;
+				style.width = (2 * numberSize) + "px";
+				style.height = (2 * numberSize) + "px";
+				canvas.width = (2 * numberSize);
+				canvas.height = (2 * numberSize);
+			}
+
+			/**
+			 * Check options and convert to correct format
+			 * @param {ns.widget.wearable.CircleProgressBar} self
+			 * @param {Object} options
+			 */
+			function checkOptions(self, options) {
+				if (options.size) {
+					setProgressBarSize(self, options.size);
+				}
+
+				if (options.containerClassName) {
+					self._ui.progressContainer.classList.add(options.containerClassName);
 				}
 			}
 
-			function checkOptions(self, option) {
-				if (option.thickness) {
-					setThicknessStyle(self, option.thickness);
-				}
-
-				if (option.size) {
-					setProgressBarSize(self, option.size);
-				}
-
-				if (option.containerClassName) {
-					self._ui.progressContainer.classList.add(option.containerClassName);
-				}
-			}
-
+			/**
+			 * Calculate min, max and value
+			 * @param {ns.widget.wearable.CircleProgressBar} self
+			 */
 			function prepareValues(self) {
-				var element = self.element;
+				var element = self.element,
+					value = 0;
 
-				self._maxValue = doms.getNumberFromAttribute(element, "max", null, 100);
-				self._minValue = doms.getNumberFromAttribute(element, "min", null, 0);
+				self._maxValue = utilDOM.getNumberFromAttribute(element, "max", null, 100);
+				self._minValue = utilDOM.getNumberFromAttribute(element, "min", null, 0);
 
 				// max value must be positive number bigger than 0
 				if (self._maxValue <= self._minValue) {
@@ -205,30 +299,64 @@
 					self._maxValue = 100;
 				}
 
-				self._value = doms.getNumberFromAttribute(element, "value", null, (self._maxValue + self._minValue) / 2);
-				if (self._value > self._maxValue) {
-					self._value = self._maxValue;
-				} else if (self._value < self._minValue) {
-					self._value = self._minValue;
+				value = utilDOM.getNumberFromAttribute(element, "value", null, (self._maxValue + self._minValue) / 2);
+				if (value > self._maxValue) {
+					value = self._maxValue;
+				} else if (value < self._minValue) {
+					value = self._minValue;
 				}
-				doms.setAttribute(element, "value", self._value);
+				self._value = value;
+				utilDOM.setAttribute(element, "value", value);
 			}
 
 			prototype._configure = function () {
 				/**
 				 * Options for widget
 				 * @property {Object} options Options for widget
-				 * @property {number} [options.thickness=null] Sets the border width of CircleProgressBar.
-				 * @property {number|"full"|"large"|"medium"|"small"} [options.size="full"] Sets the size of CircleProgressBar.
-				 * @property {string} [options.containerClassName=null] Sets the class name of CircleProgressBar container.
+				 * @property {number} [options.thickness=8] Sets the border width of CircleProgressBar.
+				 * @property {number|"full"|"large"|"medium"|"small"|null} [options.size="full"] Sets the size of CircleProgressBar.
+				 * @property {?string} [options.containerClassName=null] Sets the class name of CircleProgressBar container.
 				 * @member ns.widget.wearable.CircleProgressBar
 				 */
 				this.options = {
-					thickness: null,
+					thickness: 8,
 					size: size.MEDIUM,
 					containerClassName: null
 				};
 			};
+
+			/**
+			 * Draw background line
+			 * @param {RenderingContext} canvasContext
+			 * @param {number} size Radius of arc
+			 * @param {number} thickness Thickness of line in pixels
+			 */
+			function drawBackground(canvasContext, size, thickness) {
+				canvasContext.clearRect(0, 0, 2 * size, 2 * size);
+				canvasContext.strokeStyle = "rgba(71,71,71,1)";
+				canvasContext.lineWidth = thickness;
+				canvasContext.beginPath();
+				canvasContext.arc(size, size, size - thickness / 2, 0, 2 * PI);
+				canvasContext.closePath();
+				canvasContext.stroke();
+			}
+
+			/**
+			 * Draw foreground line
+			 * @param {RenderingContext} canvasContext
+			 * @param {number} from starting angle
+			 * @param {number} to ending angle
+			 * @param {number} size Radius of arc
+			 * @param {number} thickness Thickness of line in pixels
+			 */
+			function drawLine(canvasContext, from, to, size, thickness) {
+				canvasContext.strokeStyle = "rgba(55,161,237,1)";
+				canvasContext.lineWidth = thickness;
+				canvasContext.beginPath();
+				canvasContext.arc(size, size, size - thickness / 2, from, to);
+				canvasContext.stroke();
+			}
+
 			/**
 			 * Build CircleProgressBar
 			 * @method _build
@@ -241,36 +369,28 @@
 				var self = this,
 					ui = self._ui,
 					progressElement = element,
-					progressbarContainer,
-					progressbarBg,
-					progressbarValue,
-					progressbarValueLeft,
-					progressbarValueRight;
+					progressbarContainer = document.createElement("div"),
+					canvas = document.createElement("canvas"),
+					canvasContext = canvas.getContext("2d");
 
-				ui.progressContainer = progressbarContainer = document.createElement("div"),
-					ui.progressValueBg = progressbarBg = document.createElement("div"),
-					ui.progressValue = progressbarValue = document.createElement("div"),
-					ui.progressValueLeft = progressbarValueLeft = document.createElement("div"),
-					ui.progressValueRight = progressbarValueRight = document.createElement("div");
+				ui.progressContainer = progressbarContainer;
+
+				ui.canvasContext = canvasContext;
+				ui.canvas = canvas;
 
 				// set classNames of progressbar DOMs.
 				progressbarContainer.className = classes.uiProgressbar;
-				progressbarBg.className = classes.uiProgressbarBg;
-				progressbarValue.className = classes.uiProgressbarValue;
-				progressbarValueLeft.className = classes.uiProgressbarValueLeft;
-				progressbarValueRight.className = classes.uiProgressbarValueRight;
 
 				// set id for progress container using "container" prefix
 				progressbarContainer.id = progressElement.id ? progressElement.id + "-container" : "";
 
-				progressbarValue.appendChild(progressbarValueLeft);
-				progressbarValue.appendChild(progressbarValueRight);
-				progressbarContainer.appendChild(progressbarValue);
-				progressbarContainer.appendChild(progressbarBg);
 				progressElement.parentNode.insertBefore(progressbarContainer, progressElement);
+
+				progressbarContainer.appendChild(canvas);
 
 				return element;
 			};
+
 			/**
 			 * Init CircleProgressBar
 			 * @method _init
@@ -286,13 +406,8 @@
 					options = self.options;
 
 				ui.progressContainer = ui.progressContainer || elementParent.querySelector(selectors.progressContainer);
-				ui.progressValueBg = ui.progressValueBg || elementParent.querySelector(selectors.progressValueBg);
-				ui.progressValue = ui.progressValue || elementParent.querySelector(selectors.progressValue);
-				ui.progressValueLeft = ui.progressValueLeft || elementParent.querySelector(selectors.progressValueLeft);
-				ui.progressValueRight = ui.progressValueRight || elementParent.querySelector(selectors.progressValueRight);
 
 				prepareValues(self);
-
 				checkOptions(self, options);
 				refreshProgressBar(self, self._value);
 
@@ -302,20 +417,26 @@
 			/**
 			 * Get or Set value of the widget
 			 *
-			 * Return element value or set the value
+			 * Return element value or set the value.
+			 *
+			 * If maethod is called without argument then work as getter. If you add one argument then this argument is set
+			 * as value of widget.
 			 *
 			 *        @example
 			 *        <progress class="ui-circle-progress" id="circleprogress" max="20" value="2"></progress>
 			 *        <script>
 			 *            var progressbar = document.getElementById("circleprogress"),
-			 progressbarWidget = tau.widget.CircleProgressBar(progressbar),
+			 *                progressbarWidget = tau.widget.CircleProgressBar(progressbar),
+			 *
 			 *            // return value in progress tag
 			 *            value = progressbarWidget.value();
+			 *
 			 *            // sets the value for the progress
-			 *            progressbarWidget.value("15");
+			 *            progressbarWidget.value(15);
 			 *        </script>
 			 * @method value
-			 * return {string} In get mode return element value
+			 * @param {string|number|null} value New value to set
+			 * @return {string} In get mode return element value
 			 * @since 2.3
 			 * @member ns.widget.wearable.CircleProgressBar
 			 */
@@ -330,10 +451,11 @@
 			prototype._getValue = function () {
 				return parseInt(this.element.getAttribute("value"), 10);
 			};
+
 			/**
 			 * Set value of Circle Progressbar
 			 * @method _setValue
-			 * @param {string} value
+			 * @param {string} inputValue
 			 * @protected
 			 * @member ns.widget.wearable.CircleProgressBar
 			 */
@@ -351,11 +473,11 @@
 					value = inputValue;
 				}
 
-				doms.setAttribute(self.element, "value", value);
+				utilDOM.setAttribute(self.element, "value", value);
 
 				if (self._value !== value) {
 					self._value = value;
-					utilEvent.trigger(self.element, eventType.CHANGE);
+					self.trigger(eventType.CHANGE);
 					refreshProgressBar(self, value);
 				}
 			};
@@ -369,32 +491,10 @@
 			prototype._refresh = function () {
 				var self = this;
 
-				if (typeof self._reset === "function") {
-					self._reset();
-				}
 				prepareValues(self);
 				checkOptions(self, self.options);
 				refreshProgressBar(self, self._value);
 				return null;
-			};
-
-			/**
-			 * Reset style of Value elements
-			 * @method _reset
-			 * @protected
-			 * @member ns.widget.wearable.CircleProgressBar
-			 */
-			prototype._reset = function () {
-				var self = this,
-					ui = self._ui;
-
-				ui.progressValue.classList.remove(classes.uiProgressbarHalf);
-				ui.progressValueLeft.style.webkitTransform = "";
-				if (self.options.thickness) {
-					ui.progressValueLeft.style.borderWidth = "";
-					ui.progressValueRight.style.borderWidth = "";
-					ui.progressValueBg.style.borderWidth = "";
-				}
 			};
 
 			/**
@@ -406,9 +506,7 @@
 			prototype._destroy = function () {
 				var self = this;
 
-				self._reset();
-
-				// remove doms
+				// remove utilDOM
 				self.element.parentNode.removeChild(self._ui.progressContainer);
 
 				// clear variables

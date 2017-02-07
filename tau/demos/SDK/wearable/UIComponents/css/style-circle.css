@@ -1022,19 +1022,20 @@ input[type="checkbox"]#checkboxControl {
 }
 
 /* -------------Progress sample page-----------*/
-#pageCircleProgressBar .ui-footer {
+.circle-progress-page .ui-footer {
 	display: none;
 }
 
-#pageCircleProgressBar .result {
+.circle-progress-page .result {
 	font-size: 35px;
 }
 
 /* -------------Small progress sample page-----------*/
-#pageSmallCircleProgressBar .ui-footer {
+.circle-progress-page .progress-buttons {
 	display: none;
 }
-#pageSmallCircleProgressBar .ui-header {
+
+.circle-progress-page .ui-header {
 	display: none;
 }
 
