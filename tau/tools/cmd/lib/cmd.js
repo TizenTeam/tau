@@ -37,7 +37,7 @@ var exec = require("child_process").exec,
 
 				// if command exists then run it
 				if (command) {
-					console.log("Runnig: " + command);
+					console.log("Running: " + command);
 					exec(
 						command,
 						function (err, data, stderr) {

@@ -33,7 +33,7 @@ function modifyFile(fileName, operation, callback) {
 		// prepare data to save
 		saveData = operation(data.toString());
 		// write to file
-		fs.writeFile(FILE_CHANGELOG, saveData, function (err) {
+		fs.writeFile(fileName, saveData, function (err) {
 			// on errors display it and finish working
 			if (err) {
 				console.error(err);
@@ -83,7 +83,7 @@ cmd.chain(
 			logLines = "* " + now + " " + userName + " <" + gitAccount + "> " + tauVersion + "\n" + logLines.replace(/-/g, "\t-");
 			// save changes to changelog
 			modifyFile(FILE_CHANGELOG, function (data) {
-				return data.replace("%changelog", "%changelog\n" + logLines);
+				return data.replace("%changelog", "%changelog\n" + logLines + "\n");
 			}, callback);
 		}
 	],
@@ -96,7 +96,7 @@ cmd.chain(
 	// Version up in package.json
 	function (callback) {
 		modifyFile(FILE_PACKAGEJSON, function (data) {
-			return data.replace(/^Version:.*$/gm, "Version:    " + tauVersion);
+			return data.replace(/"version": ".*"/gm, "\"version\": \"" + tauVersion + "\"");
 		}, callback);
 	},
 	// add files to git

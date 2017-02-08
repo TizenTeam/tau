@@ -32,7 +32,7 @@ cmd.chain(
 			});
 
 			if (codeReview && verified) {
-				commmitsForMerge.push("ssh -p 29418 165.213.149.170 gerrit review --code-review +2 --submit " + item.id);
+				commmitsForMerge.push("ssh -p 29418 165.213.149.170 gerrit review --code-review +2 --submit " + item.patchSets[item.patchSets.length - 1].revision);
 			}
 		});
 		commmitsForMerge.push(callback);
