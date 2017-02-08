@@ -1,4 +1,22 @@
 %changelog
+* Wed Feb 8 2017 Maciej Urbanski <m.urbanski@samsung.com> 0.13.28
+	- fix(tool): Fix release script
+	- feat(mobile): add opening more menu from button
+	- fix(wearable): Refactor of circle progress widget
+	- feat(wearable): Add conditional content in select popup
+	- fix(tests): Reenable tests for support version
+	- fix(build): Fix building process for mobile support
+	- fix(mobile): Reorganize test for mobile version
+	- tool(build): Optimize grunt task to do build process faster
+	- fix(tests): Fix tests for PageIndicator
+	- fix(sample): Fix eslint errors in samples
+	- tool(release): New script to start jenkins build
+	- tool(release): Refactor script to version up
+	- fix(sample): Fix permissions in sample files
+	- fix(sample): delete thumbnail page
+	- test(wearable) Fix tests for CircleProgressBar
+	- fix(mobile) Grid 	- animation should start on page showed
+
 * Wed Jan 25 2017 Maciej Moczulski <m.moczulski@samsung.com> 0.13.27
 	- fix(mobile) IndexScrollBar - fix error with wrong content selector
 	- fix(all) fix selector in core Page
