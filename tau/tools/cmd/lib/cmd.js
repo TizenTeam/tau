@@ -72,4 +72,4 @@ var exec = require("child_process").exec,
 		}
 	};
 
-module.export = cmd;
+module.exports = cmd;
