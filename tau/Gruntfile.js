@@ -313,6 +313,9 @@ module.exports = function (grunt) {
 				},
 				"less-ci": {
 					options: {
+						csslint: {
+							"adjoining-classes": true
+						},
 						formatters: [
 							{
 								id: "junit-xml",

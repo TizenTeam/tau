@@ -1,25 +1,27 @@
+/* global test, equal, tau */
 (function (ns) {
-    test("API of CircleProgressBar Widget", function () {
-        var widget, circleProgress;
-        equal(typeof ns, 'object', 'Class tau exists');
-        equal(typeof ns.widget, 'object', 'Class tau.widget exists');
-        equal(typeof ns.widget.wearable, 'object', 'Class tau.widget.wearable exists');
-        equal(typeof ns.widget.wearable.CircleProgressBar, 'function', 'Class tau.widget.wearable.CircleProgressBar exists');
+	test("API of CircleProgressBar Widget", function () {
+		var widget,
+			circleProgress;
 
-        widget = ns.engine.instanceWidget(document.getElementById("circleprogress"), "CircleProgressBar");
-        circleProgress = ns.widget.wearable.CircleProgressBar;
+		equal(typeof ns, "object", "Class tau exists");
+		equal(typeof ns.widget, "object", "Class tau.widget exists");
+		equal(typeof ns.widget.wearable, "object", "Class tau.widget.wearable exists");
+		equal(typeof ns.widget.wearable.CircleProgressBar, "function", "Class tau.widget.wearable.CircleProgressBar exists");
 
-        equal(typeof widget.configure, 'function', 'Method CircleProgressBar.configure exists');
-        equal(typeof widget.build, 'function', 'Method CircleProgressBar.build exists');
-        equal(typeof widget.init, 'function', 'Method CircleProgressBar.init exists');
-        equal(typeof widget.destroy, 'function', 'Method CircleProgressBar.destroy exists');
-        equal(typeof widget.refresh, 'function', 'Method CircleProgressBar.refresh exists');
-        equal(typeof widget.option, 'function', 'Method CircleProgressBar.option exists');
-        equal(typeof widget._reset, 'function', 'Method CircleProgressBar._reset exists');
-        equal(typeof widget._setValue, 'function', 'Method CircleProgressBar._setValue exists');
-        equal(typeof widget._getValue, 'function', 'Method CircleProgressBar._getValue exists');
+		widget = ns.engine.instanceWidget(document.getElementById("circleprogress"), "CircleProgressBar");
+		circleProgress = ns.widget.wearable.CircleProgressBar;
 
-        equal(typeof widget.options, 'object', 'Property CircleProgressBar.options exists');
-        equal(typeof circleProgress.classes, 'object', 'Property CircleProgressBar.classes exists');
-    });
-}(ej));
+		equal(typeof widget.configure, "function", "Method CircleProgressBar.configure exists");
+		equal(typeof widget.build, "function", "Method CircleProgressBar.build exists");
+		equal(typeof widget.init, "function", "Method CircleProgressBar.init exists");
+		equal(typeof widget.destroy, "function", "Method CircleProgressBar.destroy exists");
+		equal(typeof widget.refresh, "function", "Method CircleProgressBar.refresh exists");
+		equal(typeof widget.option, "function", "Method CircleProgressBar.option exists");
+		equal(typeof widget._setValue, "function", "Method CircleProgressBar._setValue exists");
+		equal(typeof widget._getValue, "function", "Method CircleProgressBar._getValue exists");
+
+		equal(typeof widget.options, "object", "Property CircleProgressBar.options exists");
+		equal(typeof circleProgress.classes, "object", "Property CircleProgressBar.classes exists");
+	});
+}(tau));
