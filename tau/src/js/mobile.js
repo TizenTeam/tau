@@ -46,8 +46,6 @@
 			"./jqm/all",
 			"./core/engine",
 			"./core/frameworkData",
-			"./core/theme",
-			"./core/theme/ThemeCommon",
 			"./core/util/anchorHighlight",
 			"./core/util/grid",
 			"./core/util/data",
@@ -106,8 +104,6 @@
 			"./profile/mobile/widget/mobile/ColoredListview",
 			"./profile/mobile/widget/mobile/GridView",
 			"./profile/mobile/expose",
-			// default theme
-			"../css/profile/mobile/changeable/theme-changeable/theme",
 			// router modules
 			"./core/router/Router",
 			"./core/router/route/page",

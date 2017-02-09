@@ -29,7 +29,7 @@
 
 			// Default configuration properties for mobile
 			ns.setConfig("autoBuildOnPageChange", true, true);
-			ns.setConfig("loader", true, true);
+			ns.setConfig("loader", false, true);
 			ns.setConfig("pageContainerBody", true, true);
 			ns.setConfig("popupTransition", "slideup");
 			ns.setConfig("pageTransition", "slide");

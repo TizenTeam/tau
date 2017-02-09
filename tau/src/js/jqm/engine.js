@@ -159,7 +159,6 @@
 								}, 150);
 							},
 							nsNormalizeDict: nsNormalizeDict,
-							getInheritedTheme: ns.theme.getInheritedTheme,
 							closestPageData: function (target) {
 								var page = ns.util.selectors.getClosestBySelector($(target)[0],
 									"[data-" + ($.mobile.ns || "") + "role='page'], [data-" + ($.mobile.ns || "") + "role='dialog']");
@@ -271,25 +270,17 @@
 						tizen.globalize = ns.util.globalize;
 						$.mobile.tizen = utilsObject.merge($.mobile.tizen, {
 							_widgetPrototypes: {},
-							disableSelection: function (elements) {
-								$(elements).each(function () {
-									ns.theme.enableSelection(this, "none");
-								});
+							disableSelection: function () {
+								ns.warn("Function $.mobile.tizen.disableSelection is deprecated");
 							},
-							enableSelection: function (elements, value) {
-								$(elements).each(function () {
-									ns.theme.enableSelection(this, value);
-								});
+							enableSelection: function () {
+								ns.warn("Function $.mobile.tizen.enableSelection is deprecated");
 							},
-							enableContextMenu: function (elements) {
-								$(elements).each(function () {
-									ns.theme.enableContextMenu(this);
-								});
+							enableContextMenu: function () {
+								ns.warn("Function $.mobile.tizen.enableContextMenu is deprecated");
 							},
-							disableContextMenu: function (elements) {
-								$(elements).each(function () {
-									ns.theme.disableContextMenu(this);
-								});
+							disableContextMenu: function () {
+								ns.warn("Function $.mobile.tizen.disableContextMenu is deprecated");
 							}
 						});
 						$.mobile.tizen.loadPrototype = null;
@@ -426,7 +417,9 @@
 						};
 						tizen.util = {
 							loadScriptSync: load.scriptSync,
-							isMobileBrowser: ns.theme.isMobileBrowser.bind(ns.theme)
+							isMobileBrowser: function () {
+								ns.warn("Function $.tizen.__tizen__.util.isMobileBrowser is deprecated");
+							}
 						};
 						tizen.css = {
 							cacheBust: load.cacheBust,
@@ -434,12 +427,20 @@
 							makeLink: load.makeLink.bind(load),
 							load: load.themeCSS
 						};
-						tizen.loadTheme = ns.theme.loadTheme.bind(ns.theme);
+						tizen.loadTheme = function () {
+							ns.warn("Function $.tizen.__tizen__.loadTheme is deprecated");
+						};
 						//tizen.loadGlobalizeCulture = ns.util.globalize.loadGlobalizeCulture.bind(ns.util.globalize);
 						tizen.setLocale = util.globalize.setLocale;
-						tizen.setViewport = ns.theme.setViewport.bind(ns.theme);
-						tizen.scaleBaseFontSize = ns.theme.scaleBaseFontSize.bind(ns.theme);
-						tizen.setScaling = ns.theme.setScaling.bind(ns.theme);
+						tizen.setViewport = function () {
+							ns.warn("Function $.tizen.__tizen__.setViewport is deprecated");
+						};
+						tizen.scaleBaseFontSize = function () {
+							ns.warn("Function $.tizen.__tizen__.scaleBaseFontSize is deprecated");
+						};
+						tizen.setScaling = function () {
+							ns.warn("Function $.tizen.__tizen__.setScaling is deprecated");
+						};
 						tizen.getParams = ns.frameworkData.getParams.bind(ns.frameworkData);
 
 						ns.setConfig("enableHWKeyHandler", $.mobile.tizen.enableHWKeyHandler);

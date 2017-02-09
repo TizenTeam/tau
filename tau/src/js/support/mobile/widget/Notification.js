@@ -176,7 +176,6 @@
 			"../../../core/engine",
 			"../../../core/util/selectors",
 			"../../../core/util/DOM",
-			"../../../core/theme",
 			"../../../core/widget/core/Page",
 			"../../../profile/mobile/widget/mobile/BaseWidgetMobile"
 		],
@@ -207,12 +206,6 @@
 				 */
 				selectors = ns.util.selectors,
 				doms = ns.util.DOM,
-				/**
-				 * @property {Object} themes Alias for class ns.theme
-				 * @member ns.widget.mobile.Notification
-				 * @private
-				 */
-				themes = ns.theme,
 
 				/**
 				 * Alias for class ns.widget.mobile.Notification
@@ -274,14 +267,12 @@
 					/**
 					 * Widget options
 					 * @property {Object} options
-					 * @property {string} [options.theme="s"] theme Theme of widget
 					 * @property {"smallpopup"|"ticker"} [options.type="smallpopup"] type of widget. Allowed types: <b>smallpopup</b> or <b>ticker</b>.
 					 * @property {number} [interval=0] interval value in milliseconds of widget. 0 - show widget infinitely
 					 * @member ns.widget.mobile.Notification
 					 * @protected
 					 */
 					this.options = {
-						theme: "s",
 						type: "smallpopup",
 						interval: 0
 					};
@@ -330,9 +321,6 @@
 					i,
 					l;
 
-				//Set theme
-				options.theme = themes.getInheritedTheme(element) || options.theme;
-
 				//Wrap it!
 				notifyWrapper = document.createElement(wrapperTag);
 				uiElements.wrapper = notifyWrapper;
@@ -373,7 +361,6 @@
 					//Instance Button widget
 					closeButton.textContent = "Close";
 					engine.instanceWidget(closeButton, "Button", {
-						theme: options.theme,
 						inline: true
 					});
 
@@ -413,9 +400,6 @@
 				//Set widget wrapper
 				uiElements.wrapper = element.firstElementChild;
 				wrapper = uiElements.wrapper;
-
-				//Set theme
-				options.theme = themes.getInheritedTheme(element) || options.theme;
 
 				//Set texts
 				uiElements.texts[0] = wrapper.getElementsByClassName(classes.uiTickerText1Bg)[0];

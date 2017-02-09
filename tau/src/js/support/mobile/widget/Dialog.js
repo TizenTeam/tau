@@ -283,9 +283,6 @@
 				 * @property {string} classes.uiDialog Main Dialog class name
 				 * @property {string} classes.uiDialogContain
 				 * Dialog container class name
-				 * @property {string} classes.uiOverlayShadow
-				 * Dialog overlay shadow
-				 * @property {string} classes.uiOverlayPrefix
 				 * @property {string} classes.uiCornerAll
 				 * Class for all Dialog corners
 				 * @property {string} classes.uiHeader
@@ -298,8 +295,6 @@
 				classes = {
 					uiDialog: "ui-dialog",
 					uiDialogContain: "ui-dialog-contain",
-					uiOverlayShadow: "ui-overlay-shadow",
-					uiOverlayPrefix: "ui-overlay-",
 					uiCornerAll: "ui-corner-all",
 					uiHeader: "ui-header",
 					uiContent: "ui-content",
@@ -399,7 +394,6 @@
 			 */
 			Dialog.prototype.setActive = function (value) {
 				var self = this,
-					options = self.options,
 					elementClassList = self.element.classList,
 					dialogClasses = classes,
 					pageClasses = ns.widget.core.Page.classes;
@@ -408,13 +402,9 @@
 					elementClassList.remove(dialogClasses.uiDialogHidden);
 					elementClassList.add(pageClasses.uiPage);
 					elementClassList.add(pageClasses.uiPageActive);
-					elementClassList.add(dialogClasses.uiOverlayPrefix +
-						options.overlayTheme);
 				} else {
 					elementClassList.remove(pageClasses.uiPage);
 					elementClassList.remove(pageClasses.uiPageActive);
-					elementClassList.remove(dialogClasses.uiOverlayPrefix +
-						options.overlayTheme);
 					elementClassList.add(dialogClasses.uiDialogHidden);
 				}
 			};
@@ -467,7 +457,6 @@
 				}
 
 				containerClassList.add(classes.uiDialogContain);
-				containerClassList.add(classes.uiOverlayShadow);
 
 				if (options.corners) {
 					containerClassList.add(classes.uiCornerAll);
@@ -574,20 +563,6 @@
 			};
 
 			/**
-			 * Handler function to add class on pagebeforeshow
-			 * @method pageBeforeShowHandler
-			 * @param {HTMLElement} element
-			 * @param {Object} options
-			 * @param {Object} classes
-			 * @static
-			 * @private
-			 */
-			function pageBeforeShowHandler(element, options, classes) {
-				document.body.classList.add(classes.uiOverlayPrefix +
-					options.overlayTheme);
-			}
-
-			/**
 			 * Layouting page structure
 			 * @method layout
 			 * @member ns.widget.core.Page
@@ -652,14 +627,11 @@
 			 */
 			Dialog.prototype._bindEvents = function (element) {
 				var self = this,
-					options = self.options,
 					eventHandlers = self._eventHandlers;
 
-				eventHandlers.pageBeforeShow = pageBeforeShowHandler.bind(null, element, options, classes);
 				eventHandlers.destroyOnEvent = self.destroy.bind(self, element);
 				eventHandlers.closeOnClick = closeOnClick.bind(null, self);
 
-				element.addEventListener("pagebeforeshow", eventHandlers.pageBeforeShow, true);
 				element.addEventListener("vclick", eventHandlers.closeOnClick, true);
 
 				if (self._ui.page) {
@@ -716,7 +688,6 @@
 					parentNode = element.parentNode,
 					eventHandlers = self._eventHandlers;
 
-				element.removeEventListener("pagebeforeshow", eventHandlers.pageBeforeShow, true);
 				element.removeEventListener("vclick", eventHandlers.closeOnClick, true);
 
 				if (self._ui.page) {

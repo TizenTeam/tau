@@ -299,7 +299,6 @@
 					options = self.options || {};
 				/**
 				 * @property {Object} options All possible widget options
-				 * @property {?string} [options.theme=null] theme of widget
 				 * @property {boolean} [options.cancelBtn=false] shows or not cancel button
 				 * @property {boolean} [options.clearButton=false] shows or not clear  button
 				 * @property {?string} [options.icon=null] type of icon on action button, possible values are the same as in button widget. If opition is not set then action button isn't showing
@@ -308,7 +307,6 @@
 				 * @member ns.widget.mobile.SearchBar
 				 */
 
-				options.theme = null;
 				options.cancelBtn = false;
 				options.clearBtn = true;
 				options.icon = null;

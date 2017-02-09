@@ -27,7 +27,7 @@
  * ###Create collapsibleset by data-role
  *
  *        @example
- *        <div data-role="collapsible-set" data-theme="c" data-content-theme="d">
+ *        <div data-role="collapsible-set">
  *            <div data-role="collapsible" data-inset="false">
  *                <h6>Collapsible head 1</h6>
  *                <div>Content</div>
@@ -41,7 +41,7 @@
  * ###Create collapsibleset by class
  *
  *        @example
- *        <div class="ui-collapsible-set" data-theme="c" data-content-theme="d">
+ *        <div class="ui-collapsible-set">
  *            <div data-role="collapsible" data-inset="false">
  *                <h6>Collapsible head 1</h6>
  *                <div>Content</div>
@@ -56,7 +56,7 @@
  * For manual creation of collapsibleset widget you can use constructor of widget:
  *
  *        @example
- *        <div id="collapsibleset" data-theme="c" data-content-theme="d">
+ *        <div id="collapsibleset">
  *            <div data-role="collapsible" data-inset="false">
  *                <h6>Collapsible head 1</h6>
  *                <div>Content</div>
@@ -74,7 +74,7 @@
  * If jQuery library is loaded, its method can be used:
  *
  *        @example
- *        <div id="collapsibleset" data-theme="c" data-content-theme="d">
+ *        <div id="collapsibleset">
  *            <div data-role="collapsible" data-inset="false">
  *                <h6>Collapsible head 1</h6>
  *                <div>Content</div>
@@ -102,7 +102,6 @@
 		[
 			"../../../core/engine",
 			"../../../profile/mobile/widget/mobile",
-			"../../../core/theme",
 			"../../../core/event",
 			"../../../core/util/DOM/attributes",
 			"../../../core/util/selectors",
@@ -155,8 +154,6 @@
 					/**
 					 * CollapsibleSet widget options
 					 * @property {Object} options
-					 * @property {?string} [options.theme=null] Sets the color scheme (swatch) for the collapsible set.
-					 * @property {?string} [options.contentTheme=null] Sets the color scheme (swatch) for the content of collapsible set.
 					 * @property {boolean} [options.inset=true] Determines if widget should be shown as inset.
 					 * @property {boolean} [options.mini=false] Sets the size of the collapsibles to a more compact, mini version.
 					 * @property {boolean} [options.collapsed=true] Determines if content should be collapsed on load.
@@ -165,8 +162,6 @@
 					 * @member ns.widget.mobile.CollapsibleSet
 					 */
 					this.options = {
-						theme: null,
-						contentTheme: null,
 						inset: null,
 						mini: null,
 						collapsed: true,
@@ -340,7 +335,7 @@
 			 * This method refreshes collapsibleset.
 			 *
 			 *        @example
-			 *        <div id="collapsibleset" data-role="collapsible-set" data-theme="c" data-content-theme="d">
+			 *        <div id="collapsibleset" data-role="collapsible-set">
 			 *            <div data-role="collapsible" data-inset="false">
 			 *                <h6>Collapsible head 1</h6>
 			 *                <div>Content</div>
@@ -359,7 +354,7 @@
 			 * If jQuery is loaded:
 			 *
 			 *        @example
-			 *        <div id="collapsibleset" data-role="collapsible-set" data-theme="c" data-content-theme="d">
+			 *        <div id="collapsibleset" data-role="collapsible-set">
 			 *            <div data-role="collapsible" data-inset="false">
 			 *                <h6>Collapsible head 1</h6>
 			 *                <div>Content</div>
@@ -407,7 +402,7 @@
 			 * This will return the element back to its pre-init state.
 			 *
 			 *        @example
-			 *        <div id="collapsibleset" data-role="collapsible-set" data-theme="c" data-content-theme="d">
+			 *        <div id="collapsibleset" data-role="collapsible-set">
 			 *            <div data-role="collapsible" data-inset="false">
 			 *                <h6>Collapsible head 1</h6>
 			 *                <div>Content</div>
@@ -426,7 +421,7 @@
 			 * If jQuery is loaded:
 			 *
 			 *        @example
-			 *        <div id="collapsibleset" data-role="collapsible-set" data-theme="c" data-content-theme="d">
+			 *        <div id="collapsibleset" data-role="collapsible-set">
 			 *            <div data-role="collapsible" data-inset="false">
 			 *                <h6>Collapsible head 1</h6>
 			 *                <div>Content</div>
@@ -471,7 +466,7 @@
 			 * If you give two arguments and first argument will be a string then second argument will be intemperate as value to set.
 			 *
 			 *        @example
-			 *        <div id="collapsibleset" data-role="collapsible-set" data-theme="c" data-content-theme="d">
+			 *        <div id="collapsibleset" data-role="collapsible-set">
 			 *            <div data-role="collapsible" data-inset="false">
 			 *                <h6>Collapsible head 1</h6>
 			 *                <div>Content</div>
@@ -493,7 +488,7 @@
 			 * If jQuery is loaded:
 			 *
 			 *        @example
-			 *        <div id="collapsibleset" data-role="collapsible-set" data-theme="c" data-content-theme="d">
+			 *        <div id="collapsibleset" data-role="collapsible-set">
 			 *            <div data-role="collapsible" data-inset="false">
 			 *                <h6>Collapsible head 1</h6>
 			 *                <div>Content</div>
@@ -532,7 +527,7 @@
 			 * Method adds disabled attribute on collapsibleset and changes look of collapsibleset to disabled state.
 			 *
 			 *        @example
-			 *        <div id="collapsibleset" data-role="collapsible-set" data-theme="c" data-content-theme="d">
+			 *        <div id="collapsibleset" data-role="collapsible-set">
 			 *            <div data-role="collapsible" data-inset="false">
 			 *                <h6>Collapsible head 1</h6>
 			 *                <div>Content</div>
@@ -551,7 +546,7 @@
 			 * If jQuery is loaded:
 			 *
 			 *        @example
-			 *        <div id="collapsibleset" data-role="collapsible-set" data-theme="c" data-content-theme="d">
+			 *        <div id="collapsibleset" data-role="collapsible-set">
 			 *            <div data-role="collapsible" data-inset="false">
 			 *                <h6>Collapsible head 1</h6>
 			 *                <div>Content</div>
@@ -577,7 +572,7 @@
 			 * Method removes disabled attribute on collapsibleset and changes look of collapsibleset to enabled state.
 			 *
 			 *        @example
-			 *        <div id="collapsibleset" data-role="collapsible-set" data-theme="c" data-content-theme="d">
+			 *        <div id="collapsibleset" data-role="collapsible-set">
 			 *            <div data-role="collapsible" data-inset="false">
 			 *                <h6>Collapsible head 1</h6>
 			 *                <div>Content</div>
@@ -596,7 +591,7 @@
 			 * If jQuery is loaded:
 			 *
 			 *        @example
-			 *        <div id="collapsibleset" data-role="collapsible-set" data-theme="c" data-content-theme="d">
+			 *        <div id="collapsibleset" data-role="collapsible-set">
 			 *            <div data-role="collapsible" data-inset="false">
 			 *                <h6>Collapsible head 1</h6>
 			 *                <div>Content</div>
@@ -620,7 +615,7 @@
 			 * Trigger an event on widget's element.
 			 *
 			 *		@example
-			 *		<div id="collapsibleset" data-role="collapsible-set" data-theme="c" data-content-theme="d">
+			 *		<div id="collapsibleset" data-role="collapsible-set">
 			 *			<div data-role="collapsible" data-inset="false">
 			 *				<h6>Collapsible head 1</h6>
 			 *				<div>Content</div>
@@ -639,7 +634,7 @@
 			 * If jQuery is loaded:
 			 *
 			 *		@example
-			 *		<div id="collapsibleset" data-role="collapsible-set" data-theme="c" data-content-theme="d">
+			 *		<div id="collapsibleset" data-role="collapsible-set">
 			 *			<div data-role="collapsible" data-inset="false">
 			 *				<h6>Collapsible head 1</h6>
 			 *				<div>Content</div>
@@ -667,7 +662,7 @@
 			 * Add event listener to widget's element.
 			 *
 			 *        @example
-			 *        <div id="collapsibleset" data-role="collapsible-set" data-theme="c" data-content-theme="d">
+			 *        <div id="collapsibleset" data-role="collapsible-set">
 			 *            <div data-role="collapsible" data-inset="false">
 			 *                <h6>Collapsible head 1</h6>
 			 *                <div>Content</div>
@@ -688,7 +683,7 @@
 			 * If jQuery is loaded:
 			 *
 			 *        @example
-			 *        <div id="collapsibleset" data-role="collapsible-set" data-theme="c" data-content-theme="d">
+			 *        <div id="collapsibleset" data-role="collapsible-set">
 			 *            <div data-role="collapsible" data-inset="false">
 			 *                <h6>Collapsible head 1</h6>
 			 *                <div>Content</div>
@@ -716,7 +711,7 @@
 			 * Remove event listener to widget's element.
 			 *
 			 *        @example
-			 *        <div id="collapsibleset" data-role="collapsible-set" data-theme="c" data-content-theme="d">
+			 *        <div id="collapsibleset" data-role="collapsible-set">
 			 *            <div data-role="collapsible" data-inset="false">
 			 *                <h6>Collapsible head 1</h6>
 			 *                <div>Content</div>
@@ -742,7 +737,7 @@
 			 * If jQuery is loaded:
 			 *
 			 *        @example
-			 *        <div id="collapsibleset" data-role="collapsible-set" data-theme="c" data-content-theme="d">
+			 *        <div id="collapsibleset" data-role="collapsible-set">
 			 *            <div data-role="collapsible" data-inset="false">
 			 *                <h6>Collapsible head 1</h6>
 			 *                <div>Content</div>

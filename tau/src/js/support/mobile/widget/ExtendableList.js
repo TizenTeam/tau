@@ -195,7 +195,6 @@
 			"../../../core/engine",
 			"../../../core/util",
 			"../../../core/util/DOM",
-			"../../../core/theme",
 			"../../../profile/mobile/widget/mobile", // fetch namespace
 			"../../../profile/mobile/widget/mobile/Listview",
 			"../../../profile/mobile/widget/mobile/BaseWidgetMobile"

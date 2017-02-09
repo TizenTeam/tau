@@ -22,7 +22,6 @@
 	define(
 		[
 			"../../../core/engine",
-			"../../../core/theme",
 			"../../../core/util/DOM/attributes",
 			"../../../core/util/DOM/manipulation",
 			"../../../core/event",
@@ -37,8 +36,6 @@
 					/**
 					 * All possible widget options
 					 * @property {Object} options
-					 * @property {?string} [options.trackTheme=null] sets
-					 * the color scheme (swatch) for the slider's track
 					 * @property {boolean} [options.disabled=false] start
 					 * widget as enabled / disabled
 					 * @property {?boolean} [options.mini=false] size
@@ -48,17 +45,14 @@
 					 * @property {?boolean} [options.inline=false] if value is
 					 * "true" then toggle switch has css property
 					 * display = "inline"
-					 * @property {string} [options.theme=null] theme of widget
 					 * @member ns.widget.mobile.ToggleSwitchExtra                 *
 					 */
 
 					self.options = {
-						trackTheme: null,
 						disabled: false,
 						mini: null,
 						highlight: true,
-						inline: null,
-						theme: null
+						inline: null
 					};
 					self._ui = {};
 				},
@@ -66,7 +60,6 @@
 				engine = ns.engine,
 				events = ns.event,
 				Button = ns.widget.core.Button,
-				themes = ns.theme,
 				/**
 				 * @property {Object} selectors Alias for class ns.util.selectors
 				 * @member ns.widget.mobile.ToggleSwitchExtra
@@ -663,19 +656,17 @@
 			 * Adding classes for slider
 			 * @method addClassesForSlider
 			 * @param {HTMLElement} domSlider
-			 * @param {String} sliderBtnDownTheme
 			 * @param {Object} btnClasses
 			 * @param {Object} options
 			 * @private
 			 * @static
 			 * @member ns.widget.mobile.ToggleSwitchExtra
 			 */
-			function addClassesForSlider(domSlider, sliderBtnDownTheme, btnClasses, options) {
+			function addClassesForSlider(domSlider, btnClasses, options) {
 				var domSliderClassList = domSlider.classList;
 
 				domSliderClassList.add(classes.slider);
 				domSliderClassList.add(classes.sliderSwitch);
-				domSliderClassList.add(sliderBtnDownTheme);
 				domSliderClassList.add(btnClasses.uiBtnCornerAll);
 
 				if (options.inline) {
@@ -691,38 +682,33 @@
 			 * @method buildOptions
 			 * @param {HTMLElement} element
 			 * @param {Object} btnClasses
-			 * @param {String} sliderBtnDownTheme
 			 * @param {HTMLElement} domSlider
 			 * @private
 			 * @static
 			 * @member ns.widget.mobile.ToggleSwitchExtra
 			 */
-			function buildOptions(element, btnClasses, sliderBtnDownTheme, domSlider) {
+			function buildOptions(element, btnClasses, domSlider) {
 				var i,
 					side,
 					sliderImg,
-					sliderTheme,
 					sliderImgClassList = null;
 
 				for (i = 0; i < element.length; i++) {
 					side = i ? "a" : "b";
-					sliderTheme = i ? btnClasses.uiBtnActive :
-						sliderBtnDownTheme;
+
 					/* TODO - check sliderlabel */
-					sliderImg =
-						createElement("span");
+					sliderImg = createElement("span");
 					sliderImgClassList = sliderImg.classList;
 					sliderImgClassList.add(classes.sliderLabel);
-					sliderImgClassList.add(classes.sliderLabelTheme +
-						side);
-					sliderImgClassList.add(sliderTheme);
+					sliderImgClassList.add(classes.sliderLabelTheme + side);
+					if (i) {
+						sliderImgClassList.add(btnClasses.uiBtnActive);
+					}
 					sliderImgClassList.add(btnClasses.uiBtnCornerAll);
 
 					sliderImg.setAttribute("role", "img");
-					sliderImg.appendChild(document.createTextNode(
-						element[i].innerHTML));
-					domSlider.insertBefore(
-						sliderImg, domSlider.firstChild);
+					sliderImg.appendChild(document.createTextNode(element[i].innerHTML));
+					domSlider.insertBefore(sliderImg, domSlider.firstChild);
 				}
 			}
 
@@ -762,29 +748,19 @@
 			 */
 			function buildSliderBasedOnSelectTag(self, element, sliderContainer) {
 				var domSlider = createElement("div"),
-					sliderBtnDownTheme,
 					options = self.options,
 					elementId = element.getAttribute("id"),
 					btnClasses = Button.classes,
-					protoOptions = ToggleSwitchExtra.prototype.options,
-					parentTheme = themes.getInheritedTheme(element,
-						(protoOptions && protoOptions.theme) || "s"),
-					domHandle = createElement("a"),
-					trackTheme;
+					domHandle = createElement("a");
 
 				ns.warn("Please use input[data-role='toggleswitch'] " +
 					"selector in order to define button like " +
 					"toggle, or select[data-role='toggleswitch']. " +
 					"select[data-role='slider'] is deprecated");
 
-				trackTheme = options.trackTheme = options.trackTheme ||
-					parentTheme;
-
 				domSlider.setAttribute("id", elementId + "-slider");
-				sliderBtnDownTheme = btnClasses.uiBtnDownThemePrefix +
-					trackTheme;
 
-				addClassesForSlider(domSlider, sliderBtnDownTheme, btnClasses, options);
+				addClassesForSlider(domSlider, btnClasses, options);
 
 				domHandle.className = classes.sliderHandle;
 				domSlider.appendChild(domHandle);
@@ -793,7 +769,7 @@
 				domSlider.appendChild(createWrapper(domSlider));
 				// make the handle move with a smooth transition
 				domHandle.classList.add(classes.sliderSnapping);
-				buildOptions(element, btnClasses, sliderBtnDownTheme, domSlider);
+				buildOptions(element, btnClasses, domSlider);
 				// to make a difference between slider and flip type toggle
 				domHandle.classList.add(classes.flipHandle);
 

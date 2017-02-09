@@ -74,7 +74,6 @@
 	define(
 		[
 			"../../../../core/engine",
-			"../../../../core/theme",
 			"../../../../core/util/DOM/attributes",
 			"../../../../core/util/DOM/manipulation",
 			"../../../../core/event",

@@ -79,14 +79,6 @@
 				 */
 				util = ns.util,
 				/**
-				 * Local alias for ns.utilsTheme
-				 * @property {Object} engine Alias for {@link ns.theme}
-				 * @member ns.widget.mobile.MultimediaView
-				 * @static
-				 * @private
-				 */
-				utilsTheme = ns.theme,
-				/**
 				 * Local alias for ns.util.object
 				 * @property {Object} utilsDOM Alias for {@link ns.util.object}
 				 * @member ns.widget.mobile.MultimediaView
@@ -201,7 +193,6 @@
 					VIEW: PREFIX,
 					VIDEO: PREFIX + "-video",
 					WRAP: PREFIX + "-wrap",
-					THEME_PREFIX: PREFIX + "-",
 					BAR: PREFIX + "-bar",
 					BAR_BACKGROUND: PREFIX + "-bar-bg",
 					BAR_HIGHLIGHT: PREFIX + "-bar-highlight",
@@ -491,8 +482,6 @@
 					viewClasslist = view.classList,
 					isVideo = (view.nodeName === VIDEO_TAG_NAME),
 					options = self.options,
-					parentTheme = utilsTheme.getInheritedTheme(view, utilsTheme.theme),
-					theme = options.theme || parentTheme,
 					wrap = null,
 					control = null;
 
@@ -518,7 +507,6 @@
 
 				wrap = document.createElement("div");
 				wrap.classList.add(classes.WRAP);
-				wrap.classList.add(classes.THEME_PREFIX + theme);
 				view.parentNode.replaceChild(wrap, view);
 				wrap.appendChild(view);
 				wrap.appendChild(control);

@@ -1,14 +1,14 @@
 /* some unsets - more probably needed */
-.ui-mobile, .ui-mobile body { height: 100%; font-size: @font_size_default; }
+.ui-page-container, .ui-page-container body { height: 100%; font-size: @font_size_default; }
 @media all and (max-width:359px) {
-	.ui-mobile, .ui-mobile body { font-size: floor(@font_size_default*320/360); }
+	.ui-page-container, .ui-page-container body { font-size: floor(@font_size_default*320/360); }
 }
 
-.ui-mobile fieldset, .ui-page { padding: 0; margin: 0; }
-.ui-mobile a img, .ui-mobile fieldset { border: 0; }
+.ui-page-container fieldset, .ui-page { padding: 0; margin: 0; }
+.ui-page-container a img, .ui-page-container fieldset { border: 0; }
 
 /* responsive page widths */
-.ui-mobile-viewport {  margin: 0; overflow-x: hidden; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); }
+.ui-page-container {  margin: 0; overflow-x: hidden; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); }
 
 /* "page" containers - full-screen views, one should always be in view post-pageload */
 [data-role=page],
@@ -45,7 +45,7 @@
 	display: none;
 }
 
-.ui-mobile, .ui-mobile .ui-page {
+.ui-page-container, .ui-page-container .ui-page {
 	color			:	@color_text;
 	background-image: url("images/page/core_theme_bg_01.png");
 	background-repeat: no-repeat;

@@ -193,7 +193,6 @@
 				classes = {
 					uiLoader: "ui-loader",
 					uiLoaderPrefix: "ui-loader-",
-					uiBodyPrefix: "ui-body-",
 					uiCorner: "ui-corner-all",
 					uiIcon: "ui-icon",
 					uiLoaderIcon: "ui-icon-loading",
@@ -226,8 +225,6 @@
 			/**
 			 * Object with default options
 			 * @property {Object} options
-			 * @property {string} [options.theme="a"] the theme for the loading
-			 * messages
 			 * @property {boolean} [options.textVisible=false] whether the text
 			 * in the loading message is shown
 			 * @property {?string} [options.html=""] custom html for the inner
@@ -237,7 +234,6 @@
 			 * @member ns.widget.mobile.Loader
 			 */
 			prototype.options = {
-				theme: "a",
 				textVisible: false,
 				html: "",
 				text: "loading"
@@ -266,7 +262,6 @@
 				element.appendChild(loaderElementTile);
 				elementClassList.add(classes.uiLoader);
 				elementClassList.add(classes.uiCorner);
-				elementClassList.add(classes.uiBodyPrefix + options.theme);
 				elementClassList.add(classes.uiLoaderPrefix + "default");
 
 				this.defaultHtml = element.innerHTML;

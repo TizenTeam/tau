@@ -97,7 +97,6 @@
 			"../../../../core/util/selectors",
 			"../../../../core/util/DOM",
 			"../../../../core/event",
-			"../../../../core/theme",
 			"../mobile", // fetch namespace
 			"./Scrollview",
 			"./Listview",
@@ -136,10 +135,6 @@
 
 				if (nsData(element, "template") !== null) {
 					ns.warn("Template option in VirtualListview is deprecated and not supported.");
-				}
-
-				if (nsData(element, "theme") !== null) {
-					ns.warn("Theme option in VirtualListview is deprecated and not supported.");
 				}
 
 				if (nsData(element, "numItemData") !== null) {

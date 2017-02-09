@@ -32,7 +32,6 @@
 			"../../../core/util/DOM",
 			"../../../core/util/object",
 			"../../../core/event",
-			"../../../core/theme",
 			"../../../profile/mobile/widget/mobile",
 			"../../../profile/mobile/widget/mobile/BaseWidgetMobile",
 			"../../../profile/mobile/widget/mobile/TextInput"
@@ -49,7 +48,6 @@
 				 * @static
 				 */
 				engine = ns.engine,
-				themes = ns.theme,
 				objectUtils = ns.util.object,
 				/**
 				 * Alias for class {@link ns.util.DOM}
@@ -59,14 +57,6 @@
 				 * @static
 				 */
 				selector = ".ui-textinput",
-
-				/**
-				 * Backup of _build methods for replacing it
-				 * @method parent_build
-				 * @member ns.widget.mobile.TextInputExtra
-				 * @private
-				 */
-				parent_build = TextInputExtra.prototype._build,
 
 				/**
 				 * Backup of _configure methods for replacing it
@@ -90,21 +80,8 @@
 				self.options = objectUtils.merge({}, TextInputExtra.defaults, {
 					clearSearchButtonText: "clear text",
 					disabled: false,
-					mini: null,
-					theme: "a"
+					mini: null
 				});
-			};
-
-			TextInputExtra.prototype._build = function (element) {
-				var self = this,
-					themeClass,
-					options = self.options;
-
-				options.theme = themes.getInheritedTheme(element) || options.theme;
-				themeClass = "ui-body-" + options.theme;
-				element.classList.add(themeClass);
-
-				return parent_build.call(this, element);
 			};
 
 			/**

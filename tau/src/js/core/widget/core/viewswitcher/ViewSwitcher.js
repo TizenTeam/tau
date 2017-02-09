@@ -34,7 +34,6 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../../../theme",
 			"../../../util/selectors",
 			"../../../util/DOM/css",
 			"../../../util/object",

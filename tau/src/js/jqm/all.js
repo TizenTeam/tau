@@ -23,7 +23,6 @@
 			"./widget",
 			"./engine",
 			"./event",
-			"./loader",
 			"./router",
 			"./support",
 			"./colors"

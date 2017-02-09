@@ -5,7 +5,7 @@ function runTests(tau) {
 
 	test("config (mobile)", function () {
 		equal(tau.getConfig("autoBuildOnPageChange"), true, "autoBuildOnPageChange is set correct");
-		equal(tau.getConfig("loader"), true, "loader is set correct");
+		equal(tau.getConfig("loader"), false, "loader is set correct");
 		equal(tau.getConfig("pageContainerBody"), true, "pageContainerBody is set correct");
 		equal(tau.getConfig("popupTransition"), "slideup", "popupTransition is set correct");
 		equal(tau.getConfig("pageTransition"), "slide", "pageTransition is set correct");

@@ -4,6 +4,7 @@
 		<title>Page tests</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<link rel="stylesheet" href="../../../../../../../libs/qunit-1.11.0.css">
+		<link rel="stylesheet" href="../../../../../../../libs/dist/theme/default/tau.css">
 	</head>
 	<body>
 		<div id="qunit"></div>
@@ -86,20 +87,6 @@
 
 				ok(header.classList.contains('ui-header-fixed'), 'Header has ui-header-fixed');
 				ok(footer.classList.contains('ui-footer-fixed'), 'Footer has ui-footer-fixed');
-			});
-
-			test('Changing active page causes ui-overlay- class change (on body)', function(){
-				var bodyClassList = document.body.classList,
-					page3 = ej.engine.getBinding($("#page3").page()[0]),
-					pageContainer;
-					ej.engine.run();
-					pageContainer =
-							ej.engine.getRouter().getContainer().element;
-
-					page3.setActive(true, pageContainer);
-					ok(bodyClassList.contains('ui-overlay-s'), 'Body has default theme class ui-overlay-s');
-					page3.setActive(false, pageContainer);
-					ok(!bodyClassList.contains('ui-overlay-s'), 'Body doesn\'t have default theme class ui-overlay-s');
 			});
 
 		var tauConfig = {

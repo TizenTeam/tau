@@ -54,7 +54,6 @@
 				DOM = ns.util.DOM,
 
 				classes = {
-					uiBarThemePrefix: "ui-bar-",
 					uiLiDivider: "ui-li-divider",
 					uiDividerNormalLine: "ui-divider-normal-line"
 				},
@@ -68,7 +67,6 @@
 
 			ListDivider.prototype._configure = function () {
 				this.options = {
-					theme: "s",
 					style: "normal",
 					folded: false,
 					line: true
@@ -81,7 +79,6 @@
 					classList = element.classList,
 					elementWithLine;
 
-				classList.add(classes.uiBarThemePrefix + options.theme);
 				classList.add(classes.uiLiDivider);
 
 				if (!options.style || options.style === "normal" || options.style === "check") {

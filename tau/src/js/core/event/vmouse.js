@@ -64,8 +64,7 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../event", // fetch namespace
-			"../theme"
+			"../event"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
@@ -120,8 +119,7 @@
 				touchEventProps = ["clientX", "clientY", "pageX", "pageY", "screenX", "screenY"],
 				KEY_CODES = {
 					enter: 13
-				},
-				theme = ns.theme;
+				};
 
 			/**
 			 * Extends objects with other objects
@@ -600,7 +598,6 @@
 			};
 
 			ns.event.vmouse = vmouse;
-			theme.disableContextMenu(document);
 
 			if (touchSupport) {
 				vmouse.bindTouch();

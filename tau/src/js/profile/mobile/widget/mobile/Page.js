@@ -307,7 +307,6 @@
 				uiTitleTextSub: "ui-title-text-sub",
 				uiTitleMultiline: "ui-title-multiline",
 				uiFooterBtn: "ui-footer-btn-",
-				uiOverlayPrefix: "ui-overlay-",
 				uiBtnLeft: "ui-btn-left",
 				uiBtnRight: "ui-btn-right",
 				uiBtnRightPrefix: "ui-btn-right-",
@@ -527,21 +526,6 @@
 			 * @param {HTMLElement} pageContainer
 			 * @member ns.widget.mobile.Page
 			 */
-			Page.prototype.setActive = function (value, pageContainer) {
-				var theme = this.options.theme,
-					themeClass = classes.uiOverlayPrefix + theme,
-					bodyClassList;
-
-				bodyClassList = pageContainer.classList;
-
-				CorePagePrototype.setActive.call(this, value);
-
-				if (value) {
-					bodyClassList.add(themeClass);
-				} else {
-					bodyClassList.remove(themeClass);
-				}
-			};
 
 			/**
 			 * Refresh widget structure
@@ -703,9 +687,12 @@
 
 			// definition
 			ns.widget.mobile.Page = Page;
+
+			// definition
+			ns.widget.mobile.Page = Page;
 			engine.defineWidget(
-				"Page",
-				"[data-role='page'], .ui-page",
+				"page",
+				"",
 				[
 					"focus",
 					"blur",
@@ -719,11 +706,9 @@
 				true
 			);
 
-			// definition
-			ns.widget.mobile.Page = Page;
 			engine.defineWidget(
-				"page",
-				"",
+				"Page",
+				"[data-role='page'], .ui-page",
 				[
 					"focus",
 					"blur",

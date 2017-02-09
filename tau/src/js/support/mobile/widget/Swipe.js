@@ -449,14 +449,6 @@
 			 * @member ns.widget.mobile.Swipe
 			 */
 			prototype._build = function (element) {
-				var options = this.options,
-					protoOptions = Swipe.prototype.options;
-
-				options.theme = options.theme ||
-					ns.theme.getInheritedTheme(
-						element,
-						(protoOptions && protoOptions.theme) || "s"
-					);
 				refresh(this, element);
 				return element;
 			};

@@ -108,6 +108,20 @@
 			PageContainer.classes = classes;
 
 			/**
+			 * Build widget structure
+			 * @method _build
+			 * @param {HTMLElement} element
+			 * @return {HTMLElement}
+			 * @member ns.widget.core.PageContainer
+			 * @protected
+			 */
+			prototype._build = function (element) {
+				element.classList.add(classes.pageContainer);
+				return element;
+			};
+
+
+			/**
 			 * This method changes active page to specified element.
 			 * @method change
 			 * @param {HTMLElement} toPage The element to set
@@ -272,6 +286,7 @@
 					window.setTimeout(deferred.resolve, 0);
 				}
 			};
+
 			/**
 			 * This method adds an element as a page.
 			 * @method _include
@@ -288,6 +303,7 @@
 				}
 				return page;
 			};
+
 			/**
 			 * This method sets currently active page.
 			 * @method _setActivePage

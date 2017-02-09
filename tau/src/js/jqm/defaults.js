@@ -93,9 +93,6 @@
 							// Error response message - appears when an Ajax page request fails
 							$.mobile.pageLoadErrorMessage = "Error Loading Page";
 
-							// For error messages; which theme does the box uses?
-							$.mobile.pageLoadErrorMessageTheme = "e";
-
 							// replace calls to window.history.back with phonegaps navigation helper
 							// where it is provided on the window object
 							$.mobile.phonegapNavigationEnabled = false;

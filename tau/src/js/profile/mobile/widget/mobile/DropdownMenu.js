@@ -124,7 +124,6 @@
 	define(
 		[
 			"../../../../core/engine",
-			"../../../../core/theme",
 			"../../../../core/util/selectors",
 			"../../../../core/event",
 			"../../../../core/util/DOM/manipulation",

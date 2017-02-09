@@ -28,21 +28,15 @@
 		[
 			"../../../../core/engine",
 			"../../../../core/widget/core/Button",
-			"../mobile",
-			"./BaseWidgetMobile"
+			"../mobile"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
-			var CoreButton = ns.widget.core.Button,
-				Button = function () {
-					CoreButton.call(this);
-				},
-				engine = ns.engine;
-
-			Button.prototype = new CoreButton();
+			var Button = ns.widget.core.Button;
 
 			ns.widget.mobile.Button = Button;
-			engine.defineWidget(
+
+			ns.engine.defineWidget(
 				"Button",
 				"button, [data-role='button'], .ui-btn, input[type='button']",
 				[],
