@@ -28,6 +28,7 @@ module.exports = function (config) {
 			{pattern: "tests/libs/require.js", included: false, served: true},
 			{pattern: "tests/karma/tests/**/*.js", included: false, served: true, watch: true},
 			{pattern: "tests/js/**/*.js", included: false, served: true, watch: true},
+			{pattern: "tests/js/**/*.html", included: false, served: true, watch: true},
 			{pattern: "src/js/**/*.js", included: false, served: true, watch: true},
 			{pattern: "dist/**/*", included: false, served: true, watch: true},
 			"tests/karma/runner.js"

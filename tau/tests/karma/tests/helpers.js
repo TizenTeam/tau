@@ -52,6 +52,24 @@
 	};
 
 	/**
+	 * Load content of HTML file
+	 * @param {string} file
+	 * @returns {string}
+	 */
+	helpers.loadHTMLFromFile = function (file) {
+		var xhrObj = new XMLHttpRequest();
+
+		if (!window.__karma__) {
+			file = file.split("/").slice(-2).join("/");
+		}
+		// open and send a synchronous request
+		xhrObj.open("GET", file, false);
+		xhrObj.send();
+		// add the returned content to a newly created script tag
+		return xhrObj.responseText
+	};
+
+	/**
 	 * Test real size of element based in getComputetStyle
 	 * @param window
 	 * @param element

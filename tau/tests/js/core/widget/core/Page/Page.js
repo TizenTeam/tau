@@ -6,23 +6,9 @@
 			Page = testedObjects.Page;
 
 		function initHTML() {
-			var HTML = "<div class='ui-page' id='first'>\
-		<div class='ui-header'>Header</div>\
-		<div class='ui-content'>Content<input id='input' autofocus='true' /></div>\
-		<div class='ui-footer'>Footer</div>\
-		</div>\
-		<div id='tags'>\
-		<header>Header</header>\
-		<div>Content</div>\
-		<footer>Footer</footer>\
-		</div>\
-		<div data-role='page' id='data'>\
-		<div data-role='header'>Header</div>\
-		<div data-role='content'>Content</div>\
-		<div data-role='footer'>Footer</div>\
-		</div>\
-		<div class='ui-page' id='second' tabindex='0'>Second</div>",
+			var HTML = helpers.loadHTMLFromFile("/base/tests/js/core/widget/core/Page/sample/sample.html"),
 				parent = document.getElementById("qunit-fixture") || initFixture();
+
 			parent.innerHTML = HTML;
 		}
 
@@ -179,7 +165,7 @@
 			pageWidget._setContent(pageElement, true);
 
 			strictEqual(pageElement.querySelector(".ui-content").tagName, "DIV", "content tag exists");
-			strictEqual(pageElement.querySelector(".ui-content").textContent, "				Content				", "content tag contains text");
+			strictEqual(pageElement.querySelector(".ui-content").textContent.indexOf("Content") > -1, true, "content tag contains text");
 		});
 
 		test("_buildHeader", function () {
