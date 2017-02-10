@@ -164,7 +164,6 @@
 
 					ui.progressContainer = null;
 
-					self.options = {};
 					self._ui = ui;
 
 					self._maxValue = null;
@@ -178,7 +177,8 @@
 				CLASSES_PREFIX = "ui-progressbar",
 
 				classes = {
-					uiProgressbar: CLASSES_PREFIX
+					uiProgressbar: CLASSES_PREFIX,
+					uiProgressbarFull: CLASSES_PREFIX + "-full"
 				},
 
 				selectors = {
@@ -238,8 +238,12 @@
 					innerWidth = window.innerWidth,
 					ui = self._ui,
 					style = ui.progressContainer.style,
+					containerClassList = ui.progressContainer.classList,
 					canvas = ui.canvas,
 					numberSize = 0;
+
+				// clear additional classes
+				containerClassList.remove(classes.uiProgressbarFull);
 
 				if (!isNaN(sizeToNumber)) {
 					numberSize = sizeToNumber / 2;
@@ -247,6 +251,7 @@
 					switch (progressSize) {
 						case size.FULL:
 							numberSize = innerWidth / 2;
+							containerClassList.add(classes.uiProgressbarFull);
 							break;
 						case size.LARGE:
 							numberSize = 0.15625 * innerWidth;
@@ -478,8 +483,9 @@
 				if (self._value !== value) {
 					self._value = value;
 					self.trigger(eventType.CHANGE);
-					refreshProgressBar(self, value);
 				}
+
+				refreshProgressBar(self, value);
 			};
 
 			/**

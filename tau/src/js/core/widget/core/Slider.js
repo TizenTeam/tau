@@ -336,6 +336,8 @@
 					intValue,
 					expendedClasses;
 
+				self._previousValue = self.element.value;
+
 				if (value < self._min) {
 					value = self._min;
 				} else if (value > self._max) {
@@ -592,24 +594,6 @@
 					events.trigger(self.element, "change");
 				}
 				self._previousValue = self.element.value;
-			};
-
-			/**
-			 * Get or Set value of Slider
-			 * @method value
-			 * @param {Number} value
-			 * @return {Number} value
-			 * @member ns.widget.core.Slider
-			 * @protected
-			 */
-			prototype.value = function (value) {
-				var self = this;
-
-				if (value !== undefined) {
-					self._setValue(value);
-				}
-				self._previousValue = self.element.value;
-				return self.element.getAttribute("value");
 			};
 
 			/**

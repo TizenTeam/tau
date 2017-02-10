@@ -20,6 +20,7 @@
  * ## JavaScript API
  *
  * @class ns.widget.wearable.Slider
+ * @extends ns.widget.core.Slider
  */
 (function (document, ns) {
 	"use strict";
@@ -29,7 +30,6 @@
 			"../../../../core/widget/core/Slider",
 			"./CircleProgressBar",
 			"../../../../core/engine",
-			"../../../../core/util/object",
 			"../../../../core/event"
 		],
 
@@ -37,8 +37,8 @@
 			//>>excludeEnd("tauBuildExclude");
 			var CoreSlider = ns.widget.core.Slider,
 				CoreSliderPrototype = CoreSlider.prototype,
-				CirclePB = ns.widget.wearable.CircleProgressBar,
-				CirclePBPrototype = CirclePB.prototype,
+				CircleProgressBar = ns.widget.wearable.CircleProgressBar,
+				CircleProgressBarPrototype = CircleProgressBar.prototype,
 				engine = ns.engine,
 				events = ns.event,
 				round = Math.round,
@@ -82,13 +82,7 @@
 
 			Slider.prototype = prototype;
 
-			function bindCircleEvents(self) {
-				events.on(document, "rotarydetent touchstart touchmove touchend click", self, false);
-			}
-
-			function unbindCircleEvents(self) {
-				events.off(document, "rotarydetent touchstart touchmove touchend click", self, false);
-			}
+			Slider.classes = classes;
 
 			/**
 			 * Configure Slider widget
@@ -98,8 +92,23 @@
 			 */
 			prototype._configure = function () {
 				var self = this,
-					options = self.options;
+					options;
 
+				CircleProgressBarPrototype._configure.call(self);
+
+				options = self.options;
+
+				/**
+				 * Options for widget
+				 * @property {Object} options Options for widget
+				 * @property {number} [options.thickness=8] Sets the border width of CircleProgressBar.
+				 * @property {number|"full"|"large"|"medium"|"small"|null} [options.size="full"] Sets the size of CircleProgressBar.
+				 * @property {?string} [options.containerClassName=null] Sets the class name of CircleProgressBar container.
+				 * @property {"circle"|"normal"} [options.type="circle"] Sets type of slider
+				 * @property {number} [options.touchableWidth=50] In circle slider define size of touchable area on border
+				 * @property {boolean} [options.buttons=false] Enable additional + / - buttons
+				 * @member ns.widget.wearable.Slider
+				 */
 				options.size = "full";
 				options.type = "circle";
 				options.touchableWidth = 50;
@@ -139,8 +148,9 @@
 					titles = null;
 
 				if (options.type === "circle") {
+					CircleProgressBar.call(this);
 					element.style.display = "none";
-					CirclePBPrototype._build.call(self, element);
+					CircleProgressBarPrototype._build.call(self, element);
 				} else {
 					CoreSliderPrototype._build.call(self, element);
 				}
@@ -185,7 +195,7 @@
 					options = self.options;
 
 				if (options.type === "circle") {
-					CirclePBPrototype._init.call(self, element);
+					CircleProgressBarPrototype._init.call(self, element);
 					self._circleInit();
 				} else {
 					CoreSliderPrototype._init.call(self, element);
@@ -229,7 +239,7 @@
 					options = self.options;
 
 				if (options.type === "circle") {
-					bindCircleEvents(self);
+					events.on(document, "rotarydetent touchstart touchmove touchend click", self, false);
 				} else {
 					CoreSliderPrototype._bindEvents.call(self);
 				}
@@ -352,7 +362,7 @@
 				value = self._convertCoordToValue(clientX, clientY);
 
 				if (value === 0 && clientX === self._middlePoint.x) {
-					if (CirclePBPrototype._getValue.call(self) > (self._maxValue + self._minValue) / 2) {
+					if (CircleProgressBarPrototype._getValue.call(self) > (self._maxValue + self._minValue) / 2) {
 						value = self._maxValue;
 					}
 				}
@@ -387,41 +397,51 @@
 			};
 
 			/**
-			 * Get/set slider value
-			 * @method value
+			 * Set slider value
+			 * @method _setValue
 			 * @param {Number} value
 			 * @member ns.widget.wearable.Slider
 			 * @return {number|null}
 			 * @public
 			 */
-			prototype.value = function (value) {
+			prototype._setValue = function (value) {
 				var self = this,
-					currentValue = self._value,
-					options = self.options;
+					currentValue = self._value;
 
-				if (value !== undefined) {
-					if (parseInt(value, 10) > self._maxValue) {
-						value = self._maxValue;
-					}
-					if (parseInt(value, 10) < self._minValue) {
-						value = self._minValue;
-					}
-					value = self._calibrateValue(value);
+				if (parseInt(value, 10) > self._maxValue) {
+					value = self._maxValue;
 				}
-				if (options.type === "circle") {
-					if (value !== undefined) {
-						CirclePBPrototype._setValue.call(self, value);
-						if (self._ui.valueField) {
-							self._ui.valueField.textContent = value;
-						}
-						if (value !== currentValue) {
-							self.trigger(eventType.CHANGE);
-						}
-					} else {
-						return CirclePBPrototype._getValue.call(self);
+				if (parseInt(value, 10) < self._minValue) {
+					value = self._minValue;
+				}
+				value = self._calibrateValue(value);
+				if (self.options.type === "circle") {
+					CircleProgressBarPrototype._setValue.call(self, value);
+					if (self._ui.valueField) {
+						self._ui.valueField.textContent = value;
+					}
+					if (value !== currentValue) {
+						self.trigger(eventType.CHANGE);
 					}
 				} else {
-					return CoreSliderPrototype.value.call(self, value);
+					return CoreSliderPrototype._setValue.call(self, value);
+				}
+			};
+
+			/**
+			 * Get slider value
+			 * @method value
+			 * @member ns.widget.wearable.Slider
+			 * @return {number}
+			 * @public
+			 */
+			prototype._getValue = function () {
+				var self = this;
+
+				if (self.options.type === "circle") {
+					return CircleProgressBarPrototype._getValue.call(self);
+				} else {
+					return CoreSliderPrototype._getValue.call(self);
 				}
 			};
 
@@ -436,7 +456,7 @@
 					options = self.options;
 
 				if (options.type === "circle") {
-					CirclePBPrototype._refresh.call(self);
+					CircleProgressBarPrototype._refresh.call(self);
 					self._circleInit();
 				} else {
 					CoreSliderPrototype.refresh.call(self);
@@ -454,11 +474,15 @@
 					options = self.options;
 
 				if (options.type === "circle") {
-					unbindCircleEvents(self);
+					events.off(document, "rotarydetent touchstart touchmove touchend click", self, false);
+
 					self.element.style.display = "inline-block";
-					self.element.parentNode.removeChild(self._ui.progressContainer);
+
+					CircleProgressBarPrototype._destroy.call(self);
+
 					self._ui = null;
-					self._options = null;
+					self.options = null;
+
 				} else {
 					CoreSliderPrototype._destroy.call(self);
 				}
