@@ -116,10 +116,6 @@
 			"./core/router/route/panel",
 			"./core/router/history",
 			"./profile/wearable/expose",
-			"./core/widget/core/Box",
-			"./core/layout/float",
-			"./core/layout/linear",
-			"./core/layout/relative",
 			// Modules to be loaded after
 			"./core/init",
 			//documentation pages
