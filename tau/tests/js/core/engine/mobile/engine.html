@@ -4,6 +4,7 @@
 		<title>Engine tests</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<link rel="stylesheet" href="../../../../libs/qunit-1.11.0.css">
+		<link rel="stylesheet" href="../../../../libs/dist/theme/default/tau.css">
 		<script src="../../../../libs/jquery.js"></script>
 		<script src="../../../../libs/qunit-1.11.0.js" type="text/javascript"></script>
 		<script src="../../../../libs/support.js"></script>
@@ -30,51 +31,7 @@
             </div>
 		</div>
 
-		<script type="text/javascript">
-			module("core/engine");
-			asyncTest("generating widgets", function () {
-				expect(6);
-				document.addEventListener("bound", function test1() {
-					// @NOTE: ACTUAL TESTS HERE!
-					document.removeEventListener("bound", test1);
-					var engine = ej.engine,
-						eventUtils = ej.event,
-						el1 = document.getElementById("test1-test-widget"),
-						el3 = document.body.querySelector(".test-widget-built"),
-						b1 = engine.getBinding(el1),
-						e1 = b1.element;
-
-					ok(b1, "binding for widget1 with def created");
-
-					equal(b1.id, el1.id, "DOM and binding ids are the same for widget1");
-
-					ok(e1.children.length, "widget1 child created");
-
-					ok(e1.classList.contains("test"), "Widget1 classes moved");
-
-					equal(b1.apiCall(2), 4, "Widget1 api call");
-
-					e1.addEventListener("test-event-bounce", function (evt1) {
-						var data = evt1.detail.testData;
-						equal(data, 4, "Widget1 event returning data");
-						start();
-					}, false);
-
-					eventUtils.trigger(e1, "test-event", {"testData": 2});
-				});
-				ej.engine.run();
-			});
-
-			asyncTest("Body and html classes", function () {
-				document.body.addEventListener("pageinit", function pagechanged () {
-					document.body.removeEventListener("pageinit", pagechanged);
-					ok(document.documentElement.classList.contains('ui-mobile'), 'HTML has proper class');
-					ok(document.body.classList.contains('ui-mobile-viewport'), 'BODY has proper class');
-					start();
-				});
-				ej.engine.run(); //just make sure that engine was run
-			});
-		</script>
+		<script type="text/javascript" src="engine.js"></script>
 		<script type="text/javascript">
 			var tauConfig = {
 				"autorun": false
