@@ -6,7 +6,7 @@ var shell = require("shelljs"),
 	path = require("path");
 
 module.exports = function (grunt) {
-	var DOWNLOAD_PATH = path.join(process.env.HOME, "Downloads"),
+	var DOWNLOAD_PATH = path.join(process.env.HOME, process.env.DOWNLOADS || "Downloads"),
 		relativePath = path.relative("./", DOWNLOAD_PATH || "");
 
 	grunt.registerTask("prepare", "Prepare", function (profile) {
@@ -42,8 +42,12 @@ module.exports = function (grunt) {
 					"tctPackaging",
 					"copyTctPackagesToTctMgr",
 					"tctUpdatePackagesInfo",
-					"clean:tct"
-				]
+					"clean:tct",
+					"exit"
+				],
+				options: {
+					spawn: false
+				}
 			},
 			wearablePackaging: {
 				files: [path.join(relativePath, "*.tct")],
@@ -54,8 +58,12 @@ module.exports = function (grunt) {
 					"tctPackaging",
 					"copyTctPackagesToTctMgr",
 					"tctUpdatePackagesInfo",
-					"clean:tct"
-				]
+					"clean:tct",
+					"exit"
+				],
+				options: {
+					spawn: false
+				}
 			}
 		},
 		copy: {
@@ -125,18 +133,31 @@ module.exports = function (grunt) {
 				src: [
 					path.join(relativePath, "tests-*.xml"),
 					path.join(relativePath, "*.tct"),
-					"tests/tau-runner/xml/*.xml"
+					"tests/tau-runner/xml/*.xml",
+					"tests/tct-packages",
+					"tests/tct-package/*.zip"
+				]
+			},
+			"tct-wearable-packages": {
+				options: {
+					force: true
+				},
+				src: [
+					"/opt/tct/tizen_web_3.0/packages/wearable/tcttautest*.zip"
+				]
+			},
+			"tct-mobile-packages": {
+				options: {
+					force: true
+				},
+				src: [
+					"/opt/tct/tizen_web_3.0/packages/mobile/tcttautest*.zip"
 				]
 			},
 			legacy: {
 				src: [
 					"tests/tau-runner/xml/*.xml",
 					"tests/tct-package/*.zip"
-				]
-			},
-			tempTctWgts: {
-				src: [
-					"tests/tct-packages"
 				]
 			}
 		}
@@ -206,11 +227,15 @@ module.exports = function (grunt) {
 		shell.exec("cp tests/tct-package/*.zip /opt/tct/tizen_web_3.0/packages/wearable");
 	});
 
+	grunt.registerTask("exit", "finish work", function () {
+		process.exit(0);
+	});
+
 	grunt.loadNpmTasks("grunt-contrib-connect");
 	grunt.loadNpmTasks("grunt-contrib-compress");
 	grunt.loadNpmTasks("grunt-exec");
 
-	grunt.registerTask("tau-tct:mobile", ["prepare:mobile", "copy:tests", "fake-tct", "connect:tct", "watch:mobilePackaging"]);
-	grunt.registerTask("tau-tct:wearable", ["prepare:wearable", "copy:tests", "fake-tct", "connect:tct", "watch:wearablePackaging"]);
+	grunt.registerTask("tau-tct:mobile", ["prepare:mobile", "copy:tests", "clean:tct", "clean:tct-mobile-packages", "fake-tct", "connect:tct", "watch:mobilePackaging"]);
+	grunt.registerTask("tau-tct:wearable", ["prepare:wearable", "copy:tests", "clean:tct", "clean:tct-wearable-packages", "fake-tct", "connect:tct", "watch:wearablePackaging"]);
 	grunt.registerTask("tau-tct", ["tau-tct:wearable"]);
 };
