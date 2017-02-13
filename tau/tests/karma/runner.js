@@ -10,7 +10,8 @@ var allTestFiles = [],
 	testPaths = [
 		"profile/mobile/config",
 		"profile/wearable/config",
-		"core/widget/core/Page"
+		"core/widget/core/Page",
+		"core/util"
 	];
 
 QUnit.test = window.test = function () {

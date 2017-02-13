@@ -38,32 +38,45 @@
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 			var currentFrame = null,
-				/**
-				 * requestAnimationFrame function
-				 * @method requestAnimationFrame
-				 * @static
-				 * @member ns.util
-				 */
-				requestAnimationFrame = (window.requestAnimationFrame ||
+				util = ns.util || {},
+				slice = [].slice;
+
+			util._requestAnimationFrameOnSetTimeout = function (callback) {
+				currentFrame = window.setTimeout(callback.bind(callback, +new Date()), 1000 / 60);
+			};
+
+			util._getRequestAnimationFrame = function () {
+				return (window.requestAnimationFrame ||
 				window.webkitRequestAnimationFrame ||
 				window.mozRequestAnimationFrame ||
 				window.oRequestAnimationFrame ||
 				window.msRequestAnimationFrame ||
-				function (callback) {
-					currentFrame = window.setTimeout(callback.bind(callback, +new Date()), 1000 / 60);
-				}).bind(window),
-				cancelAnimationFrame = (window.cancelAnimationFrame ||
+				util._requestAnimationFrameOnSetTimeout).bind(window);
+			};
+			/**
+			 * requestAnimationFrame function
+			 * @method requestAnimationFrame
+			 * @static
+			 * @member ns.util
+			 */
+			util.requestAnimationFrame = util._getRequestAnimationFrame();
+
+			util._cancelAnimationFrameOnSetTimeout = function () {
+				// propably wont work if there is any more than 1
+				// active animationFrame but we are trying anyway
+				window.clearTimeout(currentFrame);
+			};
+
+			util._getCancelAnimationFrame = function () {
+				return (window.cancelAnimationFrame ||
 				window.webkitCancelAnimationFrame ||
 				window.mozCancelAnimationFrame ||
 				window.oCancelAnimationFrame ||
 				window.msCancelAnimationFrame ||
-				function () {
-					// propably wont work if there is any more than 1
-					// active animationFrame but we are trying anyway
-					window.clearTimeout(currentFrame);
-				}).bind(window),
-				util = ns.util || {},
-				slice = [].slice;
+				util._cancelAnimationFrameOnSetTimeout).bind(window);
+			};
+
+			util.cancelAnimationFrame = util._getCancelAnimationFrame();
 
 			/**
 			 * fetchSync retrieves a text document synchronously, returns null on error
@@ -98,7 +111,7 @@
 			 * Removes all script tags with src attribute from document and returns them
 			 * @param {HTMLElement} container
 			 * @return {Array.<HTMLElement>}
-			 * @private
+			 * @protected
 			 * @static
 			 * @member ns.util
 			 */
@@ -115,6 +128,8 @@
 				return scripts;
 			}
 
+			util._removeExternalScripts = removeExternalScripts;
+
 			/**
 			 * Evaluates code, reason for a function is for an atomic call to evaluate code
 			 * since most browsers fail to optimize functions with try-catch blocks, so this
@@ -129,14 +144,12 @@
 					try {
 						window.eval(code);
 					} catch (e) {
-						if (typeof console !== "undefined") {
-							if (e.stack) {
-								ns.error(e.stack);
-							} else if (e.name && e.message) {
-								ns.error(e.name, e.message);
-							} else {
-								ns.error(e);
-							}
+						if (e.stack) {
+							ns.error(e.stack);
+						} else if (e.name && e.message) {
+							ns.error(e.name, e.message);
+						} else {
+							ns.error(e);
 						}
 					}
 				};
@@ -155,7 +168,7 @@
 					length = functionQueue.length;
 
 				for (i = 0; i < length; ++i) {
-					functionQueue[i].call(window);
+					functionQueue[i]();
 				}
 			}
 
@@ -168,7 +181,7 @@
 			 * @param {Array.<HTMLElement>} scripts
 			 * @param {HTMLElement} container
 			 * @return {Array.<Function>}
-			 * @private
+			 * @protected
 			 * @static
 			 * @member ns.util
 			 */
@@ -181,12 +194,12 @@
 
 				// proper order of execution
 				for (i = 0, length = scripts.length; i < length; ++i) {
-					scriptBody = fetchSync(scripts[i].src, "text/plain");
+					scriptBody = util.fetchSync(scripts[i].src, "text/plain");
 					if (scriptBody) {
 						scriptElement = document.adoptNode(scripts[i]);
 						scriptElement.setAttribute("data-src", scripts[i].src);
 						scriptElement.removeAttribute("src"); // block evaluation
-						queue.push(safeEvalWrap(scriptBody));
+						queue.push(util.safeEvalWrap(scriptBody));
 						if (container) {
 							container.appendChild(scriptElement);
 						}
@@ -196,16 +209,7 @@
 				return queue;
 			}
 
-			util.requestAnimationFrame = requestAnimationFrame;
-
-			/**
-			 * cancelAnimationFrame function
-			 * @method cancelAnimationFrame
-			 * @return {Function}
-			 * @member ns.util
-			 * @static
-			 */
-			util.cancelAnimationFrame = cancelAnimationFrame;
+			util._createScriptsSync = createScriptsSync;
 
 			/**
 			 * Method make asynchronous call of function
@@ -214,23 +218,24 @@
 			 * @member ns.util
 			 * @static
 			 */
-			util.async = requestAnimationFrame;
+			util.async = util.requestAnimationFrame;
 
 			/**
 			 * Appends element from different document instance to current document in the
 			 * container element and evaluates scripts (synchronously)
 			 * @param {HTMLElement} element
 			 * @param {HTMLElement} container
+			 * @return {HTMLElement}
 			 * @method importEvaluateAndAppendElement
 			 * @member ns.util
 			 * @static
 			 */
 			util.importEvaluateAndAppendElement = function (element, container) {
-				var externalScriptsQueue = createScriptsSync(removeExternalScripts(element), element),
+				var externalScriptsQueue = util._createScriptsSync(util._removeExternalScripts(element), element),
 					newNode = document.importNode(element, true);
 
 				container.appendChild(newNode); // append and eval inline
-				batchCall(externalScriptsQueue);
+				util.batchCall(externalScriptsQueue);
 
 				return newNode;
 			};
@@ -262,13 +267,12 @@
 					i,
 					scriptAttributes = slice.call(script.attributes),
 					src = script.getAttribute("src"),
-					path = util.path,
 					attribute,
 					status;
 
 				// 'src' may become null when none src attribute is set
 				if (src !== null) {
-					src = path.makeUrlAbsolute(src, baseUrl);
+					src = util.path.makeUrlAbsolute(src, baseUrl);
 				}
 
 				//Copy script tag attributes
@@ -283,7 +287,7 @@
 				}
 
 				if (src) {
-					scriptData = fetchSync(src, "text/plain");
+					scriptData = util.fetchSync(src, "text/plain");
 					//>>excludeStart("tauDebug", pragmas.tauDebug);
 					if (!scriptData) {
 						ns.warn("Failed to fetch and append external script. URL: " + src + "; response status: " + status);
@@ -295,7 +299,7 @@
 
 				if (scriptData) {
 					// add the returned content to a newly created script tag
-					newScript.src = URL.createObjectURL(new Blob([scriptData], {type: "text/javascript"}));
+					newScript.src = window.URL.createObjectURL(new Blob([scriptData], {type: "text/javascript"}));
 					newScript.textContent = scriptData; // for compatibility with some libs ex. templating systems
 				}
 				script.parentNode.replaceChild(newScript, script);
