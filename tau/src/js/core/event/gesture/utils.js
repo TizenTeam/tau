@@ -23,7 +23,8 @@
 (function (ns, Math) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
-	define(["./core"
+	define([
+		"../gesture"
 	],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
@@ -35,9 +36,9 @@
 			 * @private
 			 * @static
 			 */
-			var Gesture = ns.event.gesture;
+			var gesture = ns.event.gesture;
 
-			Gesture.utils = {
+			gesture.utils = {
 
 				/**
 				 * Get center from array of touches
@@ -67,18 +68,18 @@
 				/**
 				 * Get velocity
 				 * @method getVelocity
-				 * @param {number} delta_time Delta of time
-				 * @param {number} delta_x Position change on x axis
-				 * @param {number} delta_y Position change on y axis
+				 * @param {number} deltaTime Delta of time
+				 * @param {number} deltaX Position change on x axis
+				 * @param {number} deltaY Position change on y axis
 				 * @return {Object} velocity
 				 * @return {number} return.x velocity on X axis
 				 * @return {number} return.y velocity on Y axis
 				 * @member ns.event.gesture.utils
 				 */
-				getVelocity: function (delta_time, delta_x, delta_y) {
+				getVelocity: function (deltaTime, deltaX, deltaY) {
 					return {
-						x: Math.abs(delta_x / delta_time) || 0,
-						y: Math.abs(delta_y / delta_time) || 0
+						x: Math.abs(deltaX / deltaTime) || 0,
+						y: Math.abs(deltaY / deltaTime) || 0
 					};
 				},
 
@@ -110,9 +111,9 @@
 						y = Math.abs(touch1.clientY - touch2.clientY);
 
 					if (x >= y) {
-						return touch1.clientX - touch2.clientX > 0 ? Gesture.Direction.LEFT : Gesture.Direction.RIGHT;
+						return touch1.clientX - touch2.clientX > 0 ? gesture.Direction.LEFT : gesture.Direction.RIGHT;
 					}
-					return touch1.clientY - touch2.clientY > 0 ? Gesture.Direction.UP : Gesture.Direction.DOWN;
+					return touch1.clientY - touch2.clientY > 0 ? gesture.Direction.UP : gesture.Direction.DOWN;
 				},
 
 				/**
@@ -172,7 +173,7 @@
 				 * @member ns.event.gesture.utils
 				 */
 				isVertical: function (direction) {
-					return direction === Gesture.Direction.UP || direction === Gesture.Direction.DOWN;
+					return direction === gesture.Direction.UP || direction === gesture.Direction.DOWN;
 				},
 
 				/**
@@ -183,7 +184,7 @@
 				 * @member ns.event.gesture.utils
 				 */
 				isHorizontal: function (direction) {
-					return direction === Gesture.Direction.LEFT || direction === Gesture.Direction.RIGHT;
+					return direction === gesture.Direction.LEFT || direction === gesture.Direction.RIGHT;
 				},
 
 				/**
@@ -194,7 +195,7 @@
 				 * @member ns.event.gesture.utils
 				 */
 				getOrientation: function (direction) {
-					return this.isVertical(direction) ? Gesture.Orientation.VERTICAL : Gesture.Orientation.HORIZONTAL;
+					return this.isVertical(direction) ? gesture.Orientation.VERTICAL : gesture.Orientation.HORIZONTAL;
 				}
 			};
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);

@@ -25,8 +25,8 @@
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define([
-		"../core",
-		"../detector",
+		"../../gesture",
+		"../Detector",
 		"../../../util/object"
 	],
 		function () {
@@ -39,7 +39,7 @@
 			 * @private
 			 * @static
 			 */
-			var Gesture = ns.event.gesture,
+			var gesture = ns.event.gesture,
 				/**
 				 * Local alias for {@link ns.event.gesture.Detector}
 				 * @property {Object}
@@ -131,7 +131,7 @@
 				handler: function (gestureEvent, sender, options) {
 					var ge = gestureEvent,
 						threshold = options.threshold,
-						result = Gesture.Result.PENDING,
+						result = gesture.Result.PENDING,
 						event = {
 							drag: this.types[0],
 							start: this.types[1],
@@ -141,28 +141,28 @@
 						},
 						direction = ge.direction;
 
-					if (!this.triggerd && ge.eventType === Gesture.Event.MOVE) {
+					if (!this.triggerd && ge.eventType === gesture.Event.MOVE) {
 						if (Math.abs(ge.deltaX) < threshold && Math.abs(ge.deltaY) < threshold) {
 							// Branching statement for specifying Tizen 2.X and Tizen 3.0
 							if (window.navigator.userAgent.indexOf("Chrome") > -1) {
 								ge.preventDefault();
 							}
-							return Gesture.Result.PENDING;
+							return gesture.Result.PENDING;
 						}
 
 						if (options.delay && ge.deltaTime < options.delay) {
 							if (!isTizenWebkit2Browser) {
 								ge.preventDefault();
 							}
-							return Gesture.Result.PENDING;
+							return gesture.Result.PENDING;
 						}
-						if (options.blockHorizontal && Gesture.utils.isHorizontal(ge.direction) ||
-							options.blockVertical && Gesture.utils.isVertical(ge.direction)) {
-							return Gesture.Result.FINISHED;
+						if (options.blockHorizontal && gesture.utils.isHorizontal(ge.direction) ||
+							options.blockVertical && gesture.utils.isVertical(ge.direction)) {
+							return gesture.Result.FINISHED;
 						}
 						this.fixedStartPointX = 0;
 						this.fixedStartPointY = 0;
-						if (Gesture.utils.isHorizontal(ge.direction)) {
+						if (gesture.utils.isHorizontal(ge.direction)) {
 							this.fixedStartPointX = (ge.deltaX < 0 ? 1 : -1) * threshold;
 						} else {
 							this.fixedStartPointY = (ge.deltaY < 0 ? 1 : -1) * threshold;
@@ -170,11 +170,11 @@
 					}
 
 					if (options.blockHorizontal) {
-						direction = ge.deltaY < 0 ? Gesture.Direction.UP : Gesture.Direction.DOWN;
+						direction = ge.deltaY < 0 ? gesture.Direction.UP : gesture.Direction.DOWN;
 					}
 
 					if (options.blockVertical) {
-						direction = ge.deltaX < 0 ? Gesture.Direction.LEFT : Gesture.Direction.RIGHT;
+						direction = ge.deltaX < 0 ? gesture.Direction.LEFT : gesture.Direction.RIGHT;
 					}
 
 					ge = merge({}, ge, {
@@ -187,28 +187,28 @@
 					});
 
 					switch (ge.eventType) {
-						case Gesture.Event.START:
+						case gesture.Event.START:
 							this.triggerd = false;
 							if (sender.sendEvent(event.prepare, ge) === false) {
-								result = Gesture.Result.FINISHED;
+								result = gesture.Result.FINISHED;
 							}
 							break;
-						case Gesture.Event.MOVE:
+						case gesture.Event.MOVE:
 							if (!this.triggerd) {
 								if (sender.sendEvent(event.start, ge) === false) {
-									result = Gesture.Result.FINISHED;
+									result = gesture.Result.FINISHED;
 									ge.preventDefault();
 									break;
 								}
 							}
-							result = sender.sendEvent(event.drag, ge) ? Gesture.Result.RUNNING : Gesture.Result.FINISHED;
+							result = sender.sendEvent(event.drag, ge) ? gesture.Result.RUNNING : gesture.Result.FINISHED;
 							ge.preventDefault();
 							this.triggerd = true;
 							break;
 
-						case Gesture.Event.BLOCKED:
-						case Gesture.Event.END:
-							result = Gesture.Result.FINISHED;
+						case gesture.Event.BLOCKED:
+						case gesture.Event.END:
+							result = gesture.Result.FINISHED;
 							if (this.triggerd) {
 								sender.sendEvent(event.end, ge);
 								ge.preventDefault();
@@ -216,8 +216,8 @@
 							}
 							break;
 
-						case Gesture.Event.CANCEL:
-							result = Gesture.Result.FINISHED;
+						case gesture.Event.CANCEL:
+							result = gesture.Result.FINISHED;
 							if (this.triggerd) {
 								sender.sendEvent(event.cancel, ge);
 								ge.preventDefault();

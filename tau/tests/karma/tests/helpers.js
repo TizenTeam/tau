@@ -154,17 +154,25 @@
 	 * @param {?*} [data=null]
 	 * @param {boolean=} [bubbles=true]
 	 * @param {boolean=} [cancelable=true]
+	 * @param {Object} properties
 	 * @return {boolean}
 	 * @member ns.event
 	 * @static
 	 */
-	helpers.triggerEvent = function (element, type, data, bubbles, cancelable) {
+	helpers.triggerEvent = function (element, type, data, bubbles, cancelable, properties) {
 		var evt = new CustomEvent(type, {
-			"detail": data,
+				"detail": data,
 			//allow event to bubble up, required if we want to allow to listen fastOn document etc
-			bubbles: typeof bubbles === "boolean" ? bubbles : true,
-			cancelable: typeof cancelable === "boolean" ? cancelable : true
-		});
+				bubbles: typeof bubbles === "boolean" ? bubbles : true,
+				cancelable: typeof cancelable === "boolean" ? cancelable : true
+			}),
+			property;
+
+		for (property in properties) {
+			if (properties.hasOwnProperty(property)) {
+				evt[property] = properties[property];
+			}
+		}
 
 		return element.dispatchEvent(evt);
 	};

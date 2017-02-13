@@ -42,7 +42,8 @@
 			 * @private
 			 * @static
 			 */
-			var isArray = Array.isArray,
+			var instances = [],
+				isArray = Array.isArray,
 				isArrayLike = ns.util.array.isArrayLike,
 				/**
 				 * @property {RegExp} SPLIT_BY_SPACES_REGEXP
@@ -94,6 +95,43 @@
 					}
 					return result;
 				};
+
+			/**
+			 * Find instance by element
+			 * @method findInstance
+			 * @param {HTMLElement} element
+			 * @return {ns.event.gesture.Instance}
+			 * @member ns.event
+			 * @static
+			 * @private
+			 */
+			function findInstance(element) {
+				var instance;
+
+				instances.forEach(function (item) {
+					if (item.element === element) {
+						instance = item.instance;
+					}
+				});
+				return instance;
+			}
+
+			/**
+			 * Remove instance from instances by element
+			 * @method removeInstance
+			 * @param {HTMLElement} element
+			 * @member ns.event
+			 * @static
+			 * @private
+			 */
+			function removeInstance(element) {
+				instances.forEach(function (item, key) {
+					if (item.element === element) {
+						instances.splice(key, 1);
+					}
+				});
+			}
+
 
 			ns.event = {
 
@@ -435,8 +473,53 @@
 							}
 						}
 					}
-				}
+				},
 
+				/**
+				 * Enable gesture handling on given HTML element or object
+				 * @method enableGesture
+				 * @param {HTMLElement} element
+				 * @param {...Object} [gesture] Gesture object {@link ns.event.gesture}
+				 * @member ns.event
+				 */
+				enableGesture: function (element) {
+					var gestureInstance = findInstance(element),
+						length = arguments.length,
+						i = 1;
+
+					if (!gestureInstance) {
+						gestureInstance = new ns.event.gesture.Instance(element);
+						instances.push({element: element, instance: gestureInstance});
+					}
+
+					for (; i < length; i++) {
+						gestureInstance.addDetector(arguments[i]);
+					}
+				},
+
+				/**
+				 * Disable gesture handling from given HTML element or object
+				 * @method disableGesture
+				 * @param {HTMLElement} element
+				 * @param {...Object} [gesture] Gesture object {@link ns.event.gesture}
+				 * @member ns.event
+				 */
+				disableGesture: function (element) {
+					var gestureInstance = findInstance(element),
+						length = arguments.length,
+						i = 1;
+
+					if (!gestureInstance) {
+						return;
+					}
+
+					if (length > 1) {
+						gestureInstance.removeDetector(arguments[i]);
+					} else {
+						gestureInstance.destroy();
+						removeInstance(element);
+					}
+				}
 			};
 
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);

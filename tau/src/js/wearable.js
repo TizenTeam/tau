@@ -61,6 +61,12 @@
 			"./profile/wearable/backward",
 			// events
 			"./core/event/scrolledtoedge",
+			"./core/event/gesture/Manager",
+			"./core/event/gesture/Instance",
+			"./core/event/gesture/plugins/Drag",
+			"./core/event/gesture/plugins/Swipe",
+			"./core/event/gesture/plugins/Pinch",
+			"./core/event/gesture/plugins/LongPress",
 			// Modules to be loaded after
 			"./core/init"
 		],

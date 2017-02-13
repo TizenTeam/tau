@@ -11,7 +11,8 @@ var allTestFiles = [],
 		"profile/mobile/config",
 		"profile/wearable/config",
 		"core/widget/core/Page",
-		"core/util"
+		"core/util",
+		"core/event/gesture/Manager"
 	];
 
 QUnit.test = window.test = function () {

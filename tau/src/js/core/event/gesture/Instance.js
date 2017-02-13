@@ -23,9 +23,10 @@
 (function (ns) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
-	define(["./core",
-		"./manager",
-		"./detector",
+	define([
+		"../gesture",
+		"./Manager",
+		"./Detector",
 		"../../event",
 		"../../util/object"
 	],
@@ -38,7 +39,7 @@
 			 * @private
 			 * @static
 			 */
-			var Gesture = ns.event.gesture,
+			var gesture = ns.event.gesture,
 				/**
 				 * Local alias for {@link ns.event.gesture.Detector}
 				 * @property {Object}
@@ -72,18 +73,18 @@
 				 */
 				merge = ns.util.object.merge;
 
-			Gesture.Instance = function (element, options) {
+			gesture.Instance = function (element, options) {
 
 				this.element = element;
 				this.eventDetectors = [];
 
-				this.options = merge({}, Gesture.defaults, options);
+				this.options = merge({}, gesture.defaults, options);
 				this.gestureManager = null;
 
 				this._init();
 			};
 
-			Gesture.Instance.prototype = {
+			gesture.Instance.prototype = {
 				/**
 				 * Initialize gesture instance
 				 * @method _init

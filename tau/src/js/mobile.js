@@ -68,6 +68,12 @@
 			"./core/event/hwkey",
 			"./core/event/throttledresize",
 			"./core/event/orientationchange",
+			"./core/event/gesture/Manager",
+			"./core/event/gesture/Instance",
+			"./core/event/gesture/plugins/Drag",
+			"./core/event/gesture/plugins/Swipe",
+			"./core/event/gesture/plugins/Pinch",
+			"./core/event/gesture/plugins/LongPress",
 			"./core/widget/core/SectionChanger",
 			// widget list
 			"./core/widget/core/Checkbox",

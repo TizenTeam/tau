@@ -1,76 +1,83 @@
-/* 
+/*
  * Support checks for phantomjs
  */
+/* eslint no-inner-declarations: off, no-extend-native: off */
+var orgPushstate = window.history.pushState,
+	orgReplace = window.history.replaceState,
+	orgTokenListAdd = window.DOMTokenList.prototype.add,
+	orgTokenListRemove = window.DOMTokenList.prototype.remove;
 
 if (!Function.prototype.bind) {
-  Function.prototype.bind = function (oThis) {
-	if (typeof this !== "function") {
+	Function.prototype.bind = function (oThis) {
+		var aArgs = Array.prototype.slice.call(arguments, 1),
+			fToBind = this,
+			fNOP = function () {},
+			fBound = function () {
+				if (fNOP.prototype) {
+					return fToBind.apply(this instanceof fNOP && oThis ?
+							this :
+							oThis,
+						aArgs.concat(Array.prototype.slice.call(arguments)));
+				} else {
+					return fToBind.apply(oThis,
+						aArgs.concat(Array.prototype.slice.call(arguments)));
+				}
+			};
+
+		if (typeof this !== "function") {
 	// closest thing possible to the ECMAScript 5 internal IsCallable function
-	throw new TypeError("Function.prototype.bind - what is trying to be bound is not callable");
-	}
+			throw new TypeError("Function.prototype.bind - what is trying to be bound is not callable");
+		}
 
-	var aArgs = Array.prototype.slice.call(arguments, 1),
-		fToBind = this,
-		fNOP = function () {},
-		fBound = function () {
-		return fToBind.apply(this instanceof fNOP && oThis
-								? this
-								: oThis,
-							aArgs.concat(Array.prototype.slice.call(arguments)));
-		};
+		fNOP.prototype = this.prototype;
+		fBound.prototype = new fNOP();
 
-	fNOP.prototype = this.prototype;
-	fBound.prototype = new fNOP();
-
-	return fBound;
-  };
+		return fBound;
+	};
 }
 
 if (!CustomEvent) {
 	function CustomEvent(type, data) {
-		var evt = document.createEvent('Event');
+		var evt = document.createEvent("Event");
+
 		evt.initEvent(type, data.bubbles, data.cancelable);
 		evt.detail = data.detail;
 		return evt;
 	}
 }
-org_pushstate = window.history.pushState;
+
 window.history.pushState = function (state) {
 	try {
-		org_pushstate.apply(window.history, arguments);
-	}
-	catch (e) {
+		orgPushstate.apply(window.history, arguments);
+	}	catch (e) {
 	}
 	window.history.state = state;
 };
 
-org_replace = window.history.replaceState;
 window.history.replaceState = function (state) {
 	try {
-		org_replace.apply(window.history, arguments);
-	}
-	catch (e) {
+		orgReplace.apply(window.history, arguments);
+	}	catch (e) {
 	}
 	window.history.state = state;
 };
 
-
 Element.prototype.click = function () {
-var ev = document.createEvent("MouseEvent");
-ev.initMouseEvent(
-    "click",
-    true /* bubble */, true /* cancelable */,
-    window, null,
-    0, 0, 0, 0, /* coordinates */
-    false, false, false, false, /* modifier keys */
-    0 /*left*/, null
+	var ev = document.createEvent("MouseEvent");
+
+	ev.initMouseEvent(
+		"click",
+		true /* bubble */, true /* cancelable */,
+		window, null,
+		0, 0, 0, 0, /* coordinates */
+		false, false, false, false, /* modifier keys */
+		0 /*left*/, null
 );
-this.dispatchEvent(ev);
+	this.dispatchEvent(ev);
 }
 
 // Support for many arguments for .add method of classList
 
-orgTokenListAdd = window.DOMTokenList.prototype.add;
 window.DOMTokenList.prototype.add = function () {
 	var args = [].slice.call(arguments),
 		argsLength = args.length,
@@ -82,7 +89,6 @@ window.DOMTokenList.prototype.add = function () {
 };
 
 // Support for many arguments for .remove method of classList
-orgTokenListRemove = window.DOMTokenList.prototype.remove;
 window.DOMTokenList.prototype.remove = function () {
 	var args = [].slice.call(arguments),
 		argsLength = args.length,
@@ -107,29 +113,34 @@ window.DOMTokenList.prototype.remove = function () {
  * This library assumes ES5 functionality: Object.create, Object.defineProperty,
  * Array.indexOf, Function.bind and others.
  */
-(function(module) {
-	function Map(iterable) {
-		var _items = [];
-		var _keys = [];
-		var _values = [];
+(function (module) {
+	var notInNode = module == "undefined",
+		window = notInNode ? this : global,
+		nodeModule = notInNode ? {} : exports,
+		MapPrototype = Map.prototype;
 
+	function Map(iterable) {
+		var _items = [],
+			_keys = [],
+			_values = [],
 		// Object.is polyfill, courtesy of @WebReflection
-		var is = Object.is || function(a, b) {
+			is = Object.is || function (a, b) {
 				return a === b ?
 				a !== 0 || 1 / a == 1 / b :
 				a != a && b != b;
-			};
-
+			},
 		// More reliable indexOf, courtesy of @WebReflection
-		var betterIndexOf = function(value) {
-			if(value != value || value === 0) {
-				for(var i = this.length; i-- && !is(this[i], value););
-			} else {
-				i = [].indexOf.call(this, value);
-			}
-			return i;
-		};
+			betterIndexOf = function (value) {
+				var i;
 
+				if (value != value || value === 0) {
+					for (i = this.length; i-- && !is(this[i], value);) {
+						return i;
+					}
+				} else {
+					return [].indexOf.call(this, value);
+				}
+			},
 		/**
 		 * MapIterator used for iterating over all entries in given map.
 		 *
@@ -138,89 +149,88 @@ window.DOMTokenList.prototype.remove = function () {
 		 *      are 'keys', 'values' and 'keys+values'
 		 * @constructor
 		 */
-		var MapIterator = function MapIterator(map, kind) {
-			var _index = 0;
+			MapIterator = function MapIterator(map, kind) {
+				var _index = 0;
 
-			return Object.create({}, {
-				next: {
-					value: function() {
+				return Object.create({}, {
+					next: {
+						value: function () {
 						// check if index is within bounds
-						if (_index < map.items().length) {
-							switch(kind) {
-								case 'keys': return map.keys()[_index++];
-								case 'values': return map.values()[_index++];
-								case 'keys+values': return [].slice.call(map.items()[_index++]);
-								default: throw new TypeError('Invalid iterator type');
+							if (_index < map.items().length) {
+								switch (kind) {
+									case "keys": return map.keys()[_index++];
+									case "values": return map.values()[_index++];
+									case "keys+values": return [].slice.call(map.items()[_index++]);
+									default: throw new TypeError("Invalid iterator type");
+								}
 							}
-						}
 						// TODO: make sure I'm interpreting the spec correctly here
-						throw new Error('Stop Iteration');
+							throw new Error("Stop Iteration");
+						}
+					},
+					iterator: {
+						value: function () {
+							return this;
+						}
+					},
+					toString: {
+						value: function () {
+							return "[object Map Iterator]";
+						}
 					}
-				},
-				iterator: {
-					value: function() {
-						return this;
-					}
-				},
-				toString: {
-					value: function() {
-						return '[object Map Iterator]';
-					}
-				}
-			});
-		};
-
-		var _set = function(key, value) {
+				});
+			},
+			_set = function (key, value) {
 			// check if key exists and overwrite
-			var index = betterIndexOf.call(_keys, key);
-			if (index > -1) {
-				_items[index][1] = value;
-				_values[index] = value;
-			} else {
-				_items.push([key, value]);
-				_keys.push(key);
-				_values.push(value);
-			}
-		};
+				var index = betterIndexOf.call(_keys, key);
 
-		var setItem = function(item) {
-			if (item.length !== 2) {
-				throw new TypeError('Invalid iterable passed to Map constructor');
-			}
+				if (index > -1) {
+					_items[index][1] = value;
+					_values[index] = value;
+				} else {
+					_items.push([key, value]);
+					_keys.push(key);
+					_values.push(value);
+				}
+			},
+			setItem = function (item) {
+				if (item.length !== 2) {
+					throw new TypeError("Invalid iterable passed to Map constructor");
+				}
 
-			_set(item[0], item[1]);
-		};
+				_set(item[0], item[1]);
+			};
 
 		// FIXME: accommodate any class that defines an @@iterator method that returns
 		//      an iterator object that produces two element array-like objects
 		if (Array.isArray(iterable)) {
 			iterable.forEach(setItem);
 		} else if (iterable !== undefined) {
-			throw new TypeError('Invalid Map');
+			throw new TypeError("Invalid Map");
 		}
 
 		return Object.create(MapPrototype, {
 			/**
 			 * @return {Array} all entries in the Map, in order
 			 */
-			items:{
-				value:function() {
+			items: {
+				value: function () {
 					return [].slice.call(_items);
 				}
 			},
 			/**
 			 * @return {Array} all keys in the Map, in order
 			 */
-			keys:{
-				value:function() {
+			keys: {
+				value: function () {
 					return [].slice.call(_keys);
 				}
 			},
 			/**
 			 * @return {Array} all values in the Map, in order
 			 */
-			values:{
-				value:function() {
+			values: {
+				value: function () {
 					return [].slice.call(_values);
 				}
 			},
@@ -230,10 +240,11 @@ window.DOMTokenList.prototype.remove = function () {
 			 * @param key {Object} expected key
 			 * @return {Boolean} true if key in Map
 			 */
-			has:{
-				value:function(key) {
+			has: {
+				value: function (key) {
 					// TODO: double-check how spec reads about null values
 					var index = betterIndexOf.call(_keys, key);
+
 					return index > -1;
 				}
 			},
@@ -243,9 +254,10 @@ window.DOMTokenList.prototype.remove = function () {
 			 * @param key {Object}
 			 * @return {Object} value associated with key or undefined
 			 */
-			get:{
-				value:function(key) {
+			get: {
+				value: function (key) {
 					var index = betterIndexOf.call(_keys, key);
+
 					return index > -1 ? _values[index] : undefined;
 				}
 			},
@@ -255,7 +267,7 @@ window.DOMTokenList.prototype.remove = function () {
 			 * @param key {Object} anything
 			 * @param value {Object} also anything
 			 */
-			set:{
+			set: {
 				value: _set
 			},
 			/**
@@ -263,16 +275,16 @@ window.DOMTokenList.prototype.remove = function () {
 			 *
 			 * @return {Number} number of entries
 			 */
-			size:{
-				get:function() {
+			size: {
+				get: function () {
 					return _items.length;
 				}
 			},
 			/**
 			 * Remove all entries in this Map. Returns undefined.
 			 */
-			clear:{
-				value:function() {
+			clear: {
+				value: function () {
 					_keys.length = _values.length = _items.length = 0;
 				}
 			},
@@ -282,9 +294,10 @@ window.DOMTokenList.prototype.remove = function () {
 			 * @param key {Object} any possible key
 			 * @return {Boolean} true if an entry was deleted
 			 */
-			'delete':{
-				value:function(key) {
+			"delete": {
+				value: function (key) {
 					var index = betterIndexOf.call(_keys, key);
+
 					if (index > -1) {
 						_keys.splice(index, 1);
 						_values.splice(index, 1);
@@ -300,24 +313,25 @@ window.DOMTokenList.prototype.remove = function () {
 			 *
 			 * @param callbackFn {Function}
 			 */
-			forEach:{
-				value:function(callbackfn /*, thisArg*/) {
-					if (typeof callbackfn != 'function') {
-						throw new TypeError('Invalid callback function given to forEach');
+			forEach: {
+				value: function (callbackfn /*, thisArg*/) {
+					var iter = this.iterator(),
+						current = tryNext(),
+						next = tryNext();
+
+					if (typeof callbackfn != "function") {
+						throw new TypeError("Invalid callback function given to forEach");
 					}
 
 					function tryNext() {
 						try {
 							return iter.next();
-						} catch(e) {
+						} catch (e) {
 							return undefined;
 						}
 					}
 
-					var iter = this.iterator();
-					var current = tryNext();
-					var next = tryNext();
-					while(current !== undefined) {
+					while (current !== undefined) {
 						callbackfn.apply(arguments[1], [current[1], current[0], this]);
 						current = next;
 						next = tryNext();
@@ -327,25 +341,20 @@ window.DOMTokenList.prototype.remove = function () {
 			/**
 			 * Return a MapIterator object for this map.
 			 */
-			iterator:{
-				value: function() {
-					return new MapIterator(this, 'keys+values');
+			iterator: {
+				value: function () {
+					return new MapIterator(this, "keys+values");
 				}
 			},
-			toString:{
-				value: function() {
-					return '[Object Map]';
+			toString: {
+				value: function () {
+					return "[Object Map]";
 				}
 			}
 		});
 	}
 
-	var notInNode = module == 'undefined';
-	var window = notInNode ? this : global;
-	var module = notInNode ? {} : exports;
-	var MapPrototype = Map.prototype;
-
 	Map.prototype = MapPrototype = Map();
 
-	window.Map = module.Map = window.Map || Map;
+	window.Map = nodeModule.Map = window.Map || Map;
 }.call(this, typeof exports));

@@ -24,26 +24,14 @@
 (function (ns) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
-	define(["./core",
+	define([
+		"../gesture",
 		"../../util/object"
 	],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
-			/**
-			 * Local alias for {@link ns.event.gesture}
-			 * @property {Object}
-			 * @member ns.event.gesture.Manager
-			 * @private
-			 * @static
-			 */
-			var Gesture = ns.event.gesture,
-				/**
-				 * Alias for method {@link ns.util.object.merge}
-				 * @property {Function} objectMerge
-				 * @member ns.event.gesture.Detector
-				 * @private
-				 * @static
-				 */
+			var gesture = ns.event.gesture,
+
 				objectMerge = ns.util.object.merge,
 
 				Detector = function (strategy, sender) {
@@ -105,7 +93,7 @@
 			};
 
 			// definition
-			Gesture.Detector = Detector;
+			gesture.Detector = Detector;
 
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 		}

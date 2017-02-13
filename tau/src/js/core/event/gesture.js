@@ -22,107 +22,126 @@
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define([
-		"../event",
-		"./gesture/core",
-		"./gesture/utils",
-		"./gesture/instance",
-		"./gesture/manager",
-		"./gesture/plugins/drag",
-		"./gesture/plugins/swipe",
-		"./gesture/plugins/pinch",
-		"./gesture/plugins/longPress"],
+		"../event"
+	],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
-			var instances = [],
-				gesture = ns.event.gesture || {};
+			var event = ns.event,
+				gesture = function (elem, options) {
+					return new ns.event.gesture.Instance(elem, options);
+				};
 
 			/**
-			 * Find instance by element
-			 * @method findInstance
-			 * @param {HTMLElement} element
-			 * @return {ns.event.gesture.Instance}
-			 * @member ns.event
+			 * Default values for Gesture feature
+			 * @property {Object} defaults
+			 * @property {boolean} [defaults.triggerEvent=false]
+			 * @property {number} [defaults.updateVelocityInterval=16]
+			 * Interval in which Gesture recalculates current velocity in ms
+			 * @property {number} [defaults.estimatedPointerTimeDifference=15]
+			 * pause time threshold.. tune the number to up if it is slow
+			 * @member ns.event.gesture
 			 * @static
-			 * @private
 			 */
-			function findInstance(element) {
-				var instance;
-
-				instances.forEach(function (item) {
-					if (item.element === element) {
-						instance = item.instance;
-					}
-				});
-				return instance;
-			}
-
-			/**
-			 * Remove instance from instances by element
-			 * @method removeInstance
-			 * @param {HTMLElement} element
-			 * @member ns.event
-			 * @static
-			 * @private
-			 */
-			function removeInstance(element) {
-				instances.forEach(function (item, key) {
-					if (item.element === element) {
-						instances.splice(key, 1);
-					}
-				});
-			}
-
-			/**
-			 * Enable gesture handlingo on given HTML element or object
-			 * @method enableGesture
-			 * @param {HTMLElement} element
-			 * @param {...Object} [gesture] Gesture object {@link ns.event.gesture}
-			 * @member ns.event
-			 */
-			ns.event.enableGesture = function () {
-				var element = arguments[0],
-					gestureInstance = findInstance(element),
-					length = arguments.length,
-					i = 1;
-
-				if (!gestureInstance) {
-					gestureInstance = new gesture.Instance(element);
-					instances.push({element: element, instance: gestureInstance});
-				}
-
-				for (; i < length; i++) {
-					gestureInstance.addDetector(arguments[i]);
-				}
+			gesture.defaults = {
+				triggerEvent: false,
+				updateVelocityInterval: 16,
+				estimatedPointerTimeDifference: 15
 			};
 
 			/**
-			 * Disable gesture handling from given HTML element or object
-			 * @method disableGesture
-			 * @param {HTMLElement} element
-			 * @param {...Object} [gesture] Gesture object {@link ns.event.gesture}
-			 * @member ns.event
+			 * Dictionary of orientation
+			 * @property {Object} Orientation
+			 * @property {1} Orientation.VERTICAL vertical orientation
+			 * @property {2} Orientation.HORIZONTAL horizontal orientation
+			 * @member ns.event.gesture
+			 * @static
 			 */
-			ns.event.disableGesture = function () {
-				var element = arguments[0],
-					gestureInstance = findInstance(element),
-					length = arguments.length,
-					i = 1;
-
-				if (!gestureInstance) {
-					return;
-				}
-
-				if (length > 1) {
-					gestureInstance.removeDetector(arguments[i]);
-				} else {
-					gestureInstance.destroy();
-					removeInstance(element);
-				}
+			gesture.Orientation = {
+				VERTICAL: "vertical",
+				HORIZONTAL: "horizontal"
 			};
 
-			ns.event.gesture = gesture;
+			/**
+			 * Dictionary of direction
+			 * @property {Object} Direction
+			 * @property {1} Direction.UP up
+			 * @property {2} Direction.DOWN down
+			 * @property {3} Direction.LEFT left
+			 * @property {4} Direction.RIGHT right
+			 * @member ns.event.gesture
+			 * @static
+			 */
+			gesture.Direction = {
+				UP: "up",
+				DOWN: "down",
+				LEFT: "left",
+				RIGHT: "right"
+			};
+
+			/**
+			 * Dictionary of gesture events state
+			 * @property {Object} Event
+			 * @property {"start"} Event.START start
+			 * @property {"move"} Event.MOVE move
+			 * @property {"end"} Event.END end
+			 * @property {"cancel"} Event.CANCEL cancel
+			 * @property {"blocked"} Event.BLOCKED blocked
+			 * @member ns.event.gesture
+			 * @static
+			 */
+			gesture.Event = {
+				START: "start",
+				MOVE: "move",
+				END: "end",
+				CANCEL: "cancel",
+				BLOCKED: "blocked"
+			};
+
+			/**
+			 * Dictionary of gesture events flags
+			 * @property {Object} Result
+			 * @property {number} [Result.PENDING=1] is pending
+			 * @property {number} [Result.RUNNING=2] is running
+			 * @property {number} [Result.FINISHED=4] is finished
+			 * @property {number} [Result.BLOCK=8] is blocked
+			 * @member ns.event.gesture
+			 * @static
+			 */
+			gesture.Result = {
+				PENDING: 1,
+				RUNNING: 2,
+				FINISHED: 4,
+				BLOCK: 8
+			};
+
+			/**
+			 * Create plugin namespace.
+			 * @property {Object} plugin
+			 * @member ns.event.gesture
+			 * @static
+			 */
+			gesture.plugin = {};
+
+			/**
+			 * Create object of Detector
+			 * @method createDetector
+			 * @param {string} gesture
+			 * @param {HTMLElement} eventSender
+			 * @param {Object} options
+			 * @return {ns.event.gesture.Gesture}
+			 * @member ns.event.gesture
+			 * @static
+			 */
+			gesture.createDetector = function (gesture, eventSender, options) {
+				if (!gesture.plugin[gesture]) {
+					throw gesture + " gesture is not supported";
+				}
+				return new gesture.plugin[gesture](eventSender, options);
+			};
+
+			event.gesture = gesture;
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
-			return ns.event.gesture;
+			return event.gesture;
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");

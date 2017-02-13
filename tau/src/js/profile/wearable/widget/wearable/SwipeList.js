@@ -78,7 +78,8 @@
 		[
 			"../../../../core/engine",
 			"../../../../core/event",
-			"../../../../core/event/gesture",
+			"../../../../core/event/gesture/plugins/Drag",
+			"../../../../core/event/gesture/plugins/Swipe",
 			"../../../../core/util/selectors",
 			"../../../../core/util/DOM",
 			"../../../../core/widget/BaseWidget",
@@ -87,7 +88,7 @@
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
-			var Gesture = ns.event.gesture,
+			var gesture = ns.event.gesture,
 				utilsEvents = ns.event,
 				engine = ns.engine,
 				dom = ns.util.DOM,
@@ -329,13 +330,13 @@
 				ns.event.enableGesture(
 					this.element,
 
-					new Gesture.Drag({
+					new gesture.Drag({
 						threshold: this.options.threshold,
 						blockVertical: true
 					}),
 
-					new Gesture.Swipe({
-						orientation: Gesture.Orientation.HORIZONTAL
+					new gesture.Swipe({
+						orientation: gesture.Orientation.HORIZONTAL
 					})
 				);
 
@@ -453,22 +454,22 @@
 			};
 
 			prototype._move = function (e) {
-				var gesture = e.detail,
-					translateX = gesture.estimatedDeltaX,
+				var gestureInfo = e.detail,
+					translateX = gestureInfo.estimatedDeltaX,
 					activeElementStyle;
 
 				if (!this._dragging || this._cancelled) {
 					return;
 				}
 
-				if (this.swipeLeftElement && (gesture.direction === Gesture.Direction.RIGHT) && translateX >= 0) {
+				if (this.swipeLeftElement && (gestureInfo.direction === gesture.Direction.RIGHT) && translateX >= 0) {
 					if (this.swipeRightElementStyle) {
 						this.swipeRightElementStyle.display = "none";
 					}
 					this.activeElement = this.swipeLeftElement;
 					activeElementStyle = this.swipeLeftElementStyle;
 
-				} else if (this.swipeRightElement && (gesture.direction === Gesture.Direction.LEFT) && translateX < 0) {
+				} else if (this.swipeRightElement && (gestureInfo.direction === gesture.Direction.LEFT) && translateX < 0) {
 					if (this.swipeLeftElementStyle) {
 						this.swipeLeftElementStyle.display = "none";
 					}
@@ -505,15 +506,15 @@
 			};
 
 			prototype._swipe = function (e) {
-				var gesture = e.detail;
+				var gestureInfo = e.detail;
 
 				if (!this._dragging || this._cancelled) {
 					return;
 				}
 
-				if (this.swipeLeftElement && (gesture.direction === Gesture.Direction.RIGHT)) {
+				if (this.swipeLeftElement && (gestureInfo.direction === gesture.Direction.RIGHT)) {
 					this._fire(eventType.LEFT, e);
-				} else if (this.swipeRightElement && (gesture.direction === Gesture.Direction.LEFT)) {
+				} else if (this.swipeRightElement && (gestureInfo.direction === gesture.Direction.LEFT)) {
 					this._fire(eventType.RIGHT, e);
 				} else {
 					this._hide();
