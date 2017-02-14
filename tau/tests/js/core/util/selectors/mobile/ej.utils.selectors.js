@@ -9,8 +9,8 @@ test("ej.util.selectors - check functions with 'parent'", function () {
 
 	equal(typeof selectors.getParents(elem1), "object", "function getParents returns object");
 	ok(selectors.getParents(elem1) instanceof Array, "function getParents returns Array");
-	equal(selectors.getParents(child1).length, 6, "function getParents returns right value");
-	equal(selectors.getParents(elem1).length, 5, "function getParents returns right value");
+	equal(selectors.getParents(child1).length, 7, "function getParents returns right value");
+	equal(selectors.getParents(elem1).length, 6, "function getParents returns right value");
 	equal(selectors.getParents(child1)[0].id, elem1.id, "function getParents returns right value");
 
 	ok(selectors.getParentsBySelector(elem1, "[data-type='selector']") instanceof Array, "function getParentsBySelector returns Array");
@@ -22,7 +22,7 @@ test("ej.util.selectors - check functions with 'parent'", function () {
 
 	equal(typeof selectors.getParentsByTag(elem1, "div"), "object", "function getParentsByTag returns object");
 	ok(selectors.getParentsByTag(child1, "form") instanceof Array, "function getParentsByTag returns Array");
-	equal(selectors.getParentsByTag(child1, "div").length, 3, "function getParentsByTag returns right value");
+	equal(selectors.getParentsByTag(child1, "div").length, 4, "function getParentsByTag returns right value");
 	equal(selectors.getParentsByTag(child2, "a").length, 1, "function getParentsByTag returns right value");
 	equal(selectors.getParentsByTag(child2, "form").length, 0, "function getParentsByTag returns right value");
 });

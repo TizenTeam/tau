@@ -46,5 +46,5 @@ test("tau.util.selectors - check functions with 'closest'", function () {
 	equal(selectors.getClosestByTag(elem1, "div"), elem1, "function getClosestByTag returns itself");
 	equal(selectors.getClosestByTag(elem1, "form"), null, "function getClosestByTag returns null");
 	ok(selectors.getClosestByTag(elem1, "a") instanceof Element, "function getClosestByTag returns element");
-	equal(selectors.getClosestByTag(child2, "a"), elem1.parentNode.parentNode, "function getClosestByTag returns right element");
+	equal(selectors.getClosestByTag(child2, "ul"), elem1.parentNode, "function getClosestByTag returns right element");
 });
