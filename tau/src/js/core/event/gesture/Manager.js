@@ -304,6 +304,7 @@
 					/**
 					 * Detect gesture
 					 * @method _detect
+					 * @param {Array} detectors
 					 * @param {Event} event
 					 * @member ns.event.gesture.Manager
 					 * @protected

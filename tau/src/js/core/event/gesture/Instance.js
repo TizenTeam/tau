@@ -124,7 +124,7 @@
 				 * Set options
 				 * @method setOptions
 				 * @param {Object} options options
-				 * @chainable
+				 * @return {ns.event.gesture.Instance}
 				 * @member ns.event.gesture.Instance
 				 */
 				setOptions: function (options) {
@@ -136,7 +136,7 @@
 				 * Add detector
 				 * @method addDetector
 				 * @param {Object} detectorStrategy strategy
-				 * @chainable
+				 * @return {ns.event.gesture.Instance}
 				 * @member ns.event.gesture.Instance
 				 */
 				addDetector: function (detectorStrategy) {
@@ -156,7 +156,7 @@
 				 * Remove detector
 				 * @method removeDetector
 				 * @param {Object} detectorStrategy strategy
-				 * @chainable
+				 * @return {ns.event.gesture.Instance}
 				 * @member ns.event.gesture.Instance
 				 */
 				removeDetector: function (detectorStrategy) {

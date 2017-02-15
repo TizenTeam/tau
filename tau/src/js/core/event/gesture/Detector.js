@@ -79,7 +79,7 @@
 					gestureHandler.types = [gestureHandler.name];
 				}
 
-				detector = Detector.plugin[gestureHandler.name] = function (options) {
+				detector = function (options) {
 					this.options = objectMerge({}, gestureHandler.defaults, options);
 				};
 
@@ -88,6 +88,8 @@
 						options: this.options
 					}, gestureHandler);
 				};
+
+				Detector.plugin[gestureHandler.name] = detector;
 
 				return detector;
 			};

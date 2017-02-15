@@ -63,10 +63,10 @@
 			"./core/event/scrolledtoedge",
 			"./core/event/gesture/Manager",
 			"./core/event/gesture/Instance",
-			"./core/event/gesture/plugins/Drag",
-			"./core/event/gesture/plugins/Swipe",
-			"./core/event/gesture/plugins/Pinch",
-			"./core/event/gesture/plugins/LongPress",
+			"./core/event/gesture/Drag",
+			"./core/event/gesture/Swipe",
+			"./core/event/gesture/Pinch",
+			"./core/event/gesture/LongPress",
 			// Modules to be loaded after
 			"./core/init"
 		],

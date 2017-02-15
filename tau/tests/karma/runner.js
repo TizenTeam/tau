@@ -12,7 +12,8 @@ var allTestFiles = [],
 		"profile/wearable/config",
 		"core/widget/core/Page",
 		"core/util",
-		"core/event/gesture/Manager"
+		"core/event/gesture/Manager",
+		"core/event/gesture/Drag"
 	];
 
 QUnit.test = window.test = function () {

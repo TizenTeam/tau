@@ -78,8 +78,8 @@
 		[
 			"../../../../core/engine",
 			"../../../../core/event",
-			"../../../../core/event/gesture/plugins/Drag",
-			"../../../../core/event/gesture/plugins/Swipe",
+			"../../../../core/event/gesture/Drag",
+			"../../../../core/event/gesture/Swipe",
 			"../../../../core/util/selectors",
 			"../../../../core/util/DOM",
 			"../../../../core/widget/BaseWidget",

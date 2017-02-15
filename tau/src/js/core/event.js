@@ -475,6 +475,9 @@
 					}
 				},
 
+				// disable is required because method has changings arguments
+				/* eslint-disable jsdoc/check-param-names */
+
 				/**
 				 * Enable gesture handling on given HTML element or object
 				 * @method enableGesture
@@ -520,6 +523,8 @@
 						removeInstance(element);
 					}
 				}
+
+				/* eslint-disable jsdoc/check-param-names */
 			};
 
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);

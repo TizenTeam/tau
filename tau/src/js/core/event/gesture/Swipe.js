@@ -25,8 +25,8 @@
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define([
-		"../../gesture",
-		"../Detector"
+		"../gesture",
+		"./Detector"
 	],
 		function () {
 			//>>excludeEnd("tauBuildExclude");

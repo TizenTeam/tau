@@ -46,7 +46,7 @@ module.exports = function (grunt) {
 			// @TODO temporary remove, too many errors, good named parem not required description
 			"jsdoc/require-param-description": 0,
 			"jsdoc/require-param-type": 1,
-			"jsdoc/require-returns-description": 1,
+			"jsdoc/require-returns-description": 0,
 			"jsdoc/require-returns-type": 1
 		},
 
