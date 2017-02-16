@@ -407,7 +407,7 @@
 				 * if there is multi touch.
 				 */
 				if (firstTouch.identifier > 0) {
-					evt.preventDefault();
+					//evt.preventDefault(); // cant preventDefault passive events!!!
 					evt.stopPropagation();
 					return;
 				}
