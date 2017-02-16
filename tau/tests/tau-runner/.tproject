@@ -4,6 +4,9 @@
         <platform>
             <name>wearable-3.0</name>
         </platform>
+        <platform>
+            <name>mobile-3.0</name>
+        </platform>
     </platforms>
     <package>
         <blacklist/>
