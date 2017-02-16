@@ -38,7 +38,7 @@
 			 * @private
 			 * @static
 			 */
-			var Gesture = ns.event.gesture,
+			var gesture = ns.event.gesture,
 				/**
 				 * Local alias for {@link ns.event.gesture.Detector}
 				 * @property {Object}
@@ -46,121 +46,124 @@
 				 * @private
 				 * @static
 				 */
-				Detector = ns.event.gesture.Detector;
+				Result = gesture.Result,
 
-			ns.event.gesture.Pinch = Detector.plugin.create({
-				/**
-				 * Gesture name
-				 * @property {string} [name="pinch"]
-				 * @member ns.event.gesture.Pinch
-				 */
-				name: "pinch",
-
-				/**
-				 * Gesture Index
-				 * @property {number} [index=300]
-				 * @member ns.event.gesture.Pinch
-				 */
-				index: 300,
-
-				/**
-				 * Array of posible pinch events
-				 * @property {string[]} types
-				 * @member ns.event.gesture.Pinch
-				 */
-				types: ["pinchstart", "pinchmove", "pinchend", "pinchcancel", "pinchin", "pinchout"],
-
-				/**
-				 * Default values for pinch gesture
-				 * @property {Object} defaults
-				 * @property {number} [defaults.velocity=0.6]
-				 * @property {number} [defaults.timeThreshold=400]
-				 * @member ns.event.gesture.Pinch
-				 */
-				defaults: {
-					velocity: 0.6,
-					timeThreshold: 400
+				Detector = ns.event.gesture.Detector,
+				eventNames = {
+					start: "pinchstart",
+					move: "pinchmove",
+					end: "pinchend",
+					cancel: "pinchcancel",
+					in: "pinchin",
+					out: "pinchout"
 				},
 
-				/**
-				 * Triggered
-				 * @property {boolean} [triggerd=false]
-				 * @member ns.event.gesture.Pinch
-				 */
-				triggerd: false,
+				Pinch = Detector.plugin.create({
+					/**
+					 * Gesture name
+					 * @property {string} [name="pinch"]
+					 * @member ns.event.gesture.Pinch
+					 */
+					name: "pinch",
 
-				/**
-				 * Handler for pinch gesture
-				 * @method handler
-				 * @param {Event} gestureEvent gesture event
-				 * @param {Object} sender event's sender
-				 * @param {Object} options options
-				 * @return {ns.event.gesture.Result.PENDING|ns.event.gesture.Result.END|ns.event.gesture.Result.FINISHED|ns.event.gesture.Result.BLOCK}
-				 * @member ns.event.gesture.Pinch
-				 */
-				handler: function (gestureEvent, sender, options) {
-					var ge = gestureEvent,
-						result = Gesture.Result.PENDING,
-						event = {
-							start: this.types[0],
-							move: this.types[1],
-							end: this.types[2],
-							cancel: this.types[3],
-							in: this.types[4],
-							out: this.types[5]
-						};
+					/**
+					 * Gesture Index
+					 * @property {number} [index=300]
+					 * @member ns.event.gesture.Pinch
+					 */
+					index: 300,
 
-					switch (ge.eventType) {
-						case Gesture.Event.MOVE:
-							if (ge.pointers.length === 1 && ge.distance > 35) {
-								result = Gesture.Result.FINISHED;
-								return result;
-							} else if (!this.triggerd && ge.pointers.length >= 2) {
-								this.triggerd = true;
-								sender.sendEvent(event.start, ge);
-								ge.preventDefault();
-								result = Gesture.Result.RUNNING;
-							} else if (this.triggerd) {
-								if ((ge.deltaTime < options.timeThreshold) &&
-									(ge.velocityX > options.velocity || ge.velocityY > options.velocity)) {
-									if (ge.scale < 1) {
-										sender.sendEvent(event.in, gestureEvent);
+					/**
+					 * Array of posible pinch events
+					 * @property {Object} eventNames
+					 * @member ns.event.gesture.Pinch
+					 */
+					eventNames: eventNames,
+
+					/**
+					 * Default values for pinch gesture
+					 * @property {Object} defaults
+					 * @property {number} [defaults.velocity=0.6]
+					 * @property {number} [defaults.timeThreshold=400]
+					 * @member ns.event.gesture.Pinch
+					 */
+					defaults: {
+						velocity: 0.6,
+						timeThreshold: 400
+					},
+
+					/**
+					 * Triggered
+					 * @property {boolean} [triggered=false]
+					 * @member ns.event.gesture.Pinch
+					 */
+					triggered: false,
+
+					/**
+					 * Handler for pinch gesture
+					 * @method handler
+					 * @param {Event} gestureEvent gesture event
+					 * @param {Object} sender event's sender
+					 * @param {Object} options options
+					 * @return {ns.event.gesture.Result.PENDING|ns.event.gesture.Result.END|ns.event.gesture.Result.FINISHED|ns.event.gesture.Result.BLOCK}
+					 * @member ns.event.gesture.Pinch
+					 */
+					handler: function (gestureEvent, sender, options) {
+						var result = Result.PENDING;
+
+						switch (gestureEvent.eventType) {
+							case gesture.Event.MOVE:
+								if (gestureEvent.pointers.length === 1 && gestureEvent.distance > 35) {
+									result = Result.FINISHED;
+								} else if (!this.triggered && gestureEvent.pointers.length >= 2) {
+									this.triggered = true;
+									sender.sendEvent(eventNames.start, gestureEvent);
+									gestureEvent.preventDefault();
+									result = Result.RUNNING;
+								} else if (this.triggered) {
+									if ((gestureEvent.deltaTime < options.timeThreshold) &&
+										(gestureEvent.velocityX > options.velocity || gestureEvent.velocityY > options.velocity)) {
+										if (gestureEvent.scale < 1) {
+											sender.sendEvent(eventNames.in, gestureEvent);
+										} else {
+											sender.sendEvent(eventNames.out, gestureEvent);
+										}
+										gestureEvent.preventDefault();
+										this.triggered = false;
+										result = Result.FINISHED | Result.BLOCK;
+										return result;
 									} else {
-										sender.sendEvent(event.out, gestureEvent);
+										sender.sendEvent(eventNames.move, gestureEvent);
+										gestureEvent.preventDefault();
+										result = Result.RUNNING;
 									}
-									ge.preventDefault();
-									this.triggerd = false;
-									result = Gesture.Result.FINISHED | Gesture.Result.BLOCK;
-									return result;
-								} else {
-									sender.sendEvent(event.move, ge);
-									ge.preventDefault();
-									result = Gesture.Result.RUNNING;
 								}
-							}
-							break;
-						case Gesture.Event.BLOCKED:
-						case Gesture.Event.END:
-							if (this.triggerd) {
-								sender.sendEvent(event.end, ge);
-								ge.preventDefault();
-								this.triggerd = false;
-								result = Gesture.Result.FINISHED;
-							}
-							break;
-						case Gesture.Event.CANCEL:
-							if (this.triggerd) {
-								sender.sendEvent(event.cancel, ge);
-								ge.preventDefault();
-								this.triggerd = false;
-								result = Gesture.Result.FINISHED;
-							}
-							break;
+								break;
+							case gesture.Event.BLOCKED:
+							case gesture.Event.END:
+								if (this.triggered) {
+									sender.sendEvent(eventNames.end, gestureEvent);
+									gestureEvent.preventDefault();
+									this.triggered = false;
+									result = Result.FINISHED;
+								}
+								break;
+							case gesture.Event.CANCEL:
+								if (this.triggered) {
+									sender.sendEvent(eventNames.cancel, gestureEvent);
+									gestureEvent.preventDefault();
+									this.triggered = false;
+									result = Result.FINISHED;
+								}
+								break;
+						}
+						return result;
 					}
-					return result;
-				}
-			});
+				});
+
+			ns.event.gesture.Pinch = Pinch;
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
+			return Pinch;
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");

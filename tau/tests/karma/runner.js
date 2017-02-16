@@ -1,11 +1,12 @@
 /*global QUnit, define, require */
+/* eslint no-unused-vars: off */
 var allTestFiles = [],
 	TEST_REGEXP = /^\/base\/tests\/karma.*test\.js$/,
 	testCount = 0,
 	qunitTest = QUnit.test,
 	ns = {},
 	nsConfig = {
-		'autorun': false
+		"autorun": false
 	},
 	testPaths = [
 		"profile/mobile/config",
@@ -13,7 +14,8 @@ var allTestFiles = [],
 		"core/widget/core/Page",
 		"core/util",
 		"core/event/gesture/Manager",
-		"core/event/gesture/Drag"
+		"core/event/gesture/Drag",
+		"core/event/gesture/Pinch"
 	];
 
 QUnit.test = window.test = function () {
