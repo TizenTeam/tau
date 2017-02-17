@@ -357,9 +357,7 @@
 				//ui-indexscrollbar is needed as widget ads html markup at the
 				//same level as content, other wise page content is build on
 				//indexscrollbar element
-				CONTENT_SELECTOR = "[data-role='content'],." + classes.uiContent + "," + ((FOOTER_SELECTOR + "," + HEADER_SELECTOR + ", .ui-indexscrollbar").split(",").map(function (item) {
-					return ":not(" + item + ")";
-				}).join("")),
+				CONTENT_SELECTOR = "[data-role='content'],." + classes.uiContent,
 				prototype = new BaseWidget();
 
 			Page.classes = classes;

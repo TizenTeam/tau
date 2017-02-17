@@ -8,7 +8,7 @@ asyncTest("Enhance only first page", function () {
 			mock2 = document.getElementById("mock2");
 
 		equal(first.getAttribute("data-tau-bound"), "Page", "First page widget is created");
-		equal(mock1.getAttribute("data-tau-bound"), "Scrollview,Mock", "First mock widget is created");
+		equal(mock1.getAttribute("data-tau-bound"), "Mock", "First mock widget is created");
 		ok(!second.getAttribute("data-tau-bound"), "Second page widget wasn't created");
 		ok(!mock2.getAttribute("data-tau-bound"), "Second mock widget wasn't created");
 		document.removeEventListener("bound", checkFirstPageEnhanced);

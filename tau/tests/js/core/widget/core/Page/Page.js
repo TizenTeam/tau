@@ -294,9 +294,8 @@
 			pageWidget = new Page();
 			pageWidget._buildContent(tagsPageElement);
 
-			strictEqual(pageWidget.options.content, true, "Option content is set correct");
+			strictEqual(pageWidget.options.content, false, "Option content is set correct");
 			strictEqual(pageWidget._ui.content, tagsPageElement.querySelector(".ui-content"), "content tag exists");
-			strictEqual(tagsPageElement.querySelector(".ui-content").textContent, "Content", "content tag is empty");
 
 			pageWidget = new Page();
 			pageWidget._buildContent(dataPageElement);
