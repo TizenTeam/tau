@@ -38,7 +38,7 @@
 			 * @private
 			 * @static
 			 */
-			var Gesture = ns.event.gesture,
+			var gesture = ns.event.gesture,
 				/**
 				 * Local alias for {@link ns.event.gesture.Detector}
 				 * @property {Object}
@@ -46,99 +46,96 @@
 				 * @private
 				 * @static
 				 */
-				Detector = ns.event.gesture.Detector;
+				Detector = gesture.Detector,
 
-			ns.event.gesture.LongPress = Detector.plugin.create({
-				/**
-				 * Gesture name
-				 * @property {string} [name="longpress"]
-				 * @member ns.event.gesture.LongPress
-				 */
-				name: "longpress",
+				LongPress = Detector.plugin.create({
+					/**
+					 * Gesture name
+					 * @property {string} [name="longpress"]
+					 * @member ns.event.gesture.LongPress
+					 */
+					name: "longpress",
 
-				/**
-				 * Gesture Index
-				 * @property {number} [index=200]
-				 * @member ns.event.gesture.LongPress
-				 */
-				index: 600,
+					/**
+					 * Gesture Index
+					 * @property {number} [index=200]
+					 * @member ns.event.gesture.LongPress
+					 */
+					index: 600,
 
-				/**
-				 * Default values for longPress gesture
-				 * @property {Object} defaults
-				 * @property {number} [defaults.timeThreshold=400]
-				 * @property {number} [defaults.longPressDistanceThreshold=15]
-				 * @property {boolean} [defaults.preventClick]
-				 * @member ns.event.gesture.LongPress
-				 */
-				defaults: {
-					longPressTimeThreshold: 750,
-					longPressDistanceThreshold: 20,
-					preventClick: true
-				},
+					/**
+					 * Default values for longPress gesture
+					 * @property {Object} defaults
+					 * @property {number} [defaults.timeThreshold=400]
+					 * @property {number} [defaults.longPressDistanceThreshold=15]
+					 * @property {boolean} [defaults.preventClick]
+					 * @member ns.event.gesture.LongPress
+					 */
+					defaults: {
+						longPressTimeThreshold: 750,
+						longPressDistanceThreshold: 20,
+						preventClick: true
+					},
 
-				/**
-				 * IsTriggered
-				 * @property {boolean} [isTriggered=false]
-				 * @member ns.event.gesture.LongPress
-				 */
-				isTriggered: false,
+					/**
+					 * IsTriggered
+					 * @property {boolean} [isTriggered=false]
+					 * @member ns.event.gesture.LongPress
+					 */
+					isTriggered: false,
 
-				/**
-				 * longPressTimeOutId
-				 * @property {number} [longPressTimeOutId=0]
-				 * @member ns.event.gesture.LongPress
-				 */
-				longPressTimeOutId: 0,
+					/**
+					 * longPressTimeOutId
+					 * @property {number} [longPressTimeOutId=0]
+					 * @member ns.event.gesture.LongPress
+					 */
+					longPressTimeOutId: 0,
 
-				/**
-				 * Handler for longPress gesture
-				 * @method handler
-				 * @param {Event} gestureEvent gesture event
-				 * @param {Object} sender event's sender
-				 * @param {Object} options options
-				 * @return {ns.event.gesture.Result.PENDING|ns.event.gesture.Result.END|ns.event.gesture.Result.FINISHED|ns.event.gesture.Result.BLOCK}
-				 * @member ns.event.gesture.LongPress
-				 */
-				handler: function (gestureEvent, sender, options) {
-					var ge = gestureEvent,
-						result = Gesture.Result.PENDING;
+					/**
+					 * Handler for longPress gesture
+					 * @method handler
+					 * @param {Event} gestureEvent gesture event
+					 * @param {Object} sender event's sender
+					 * @param {Object} options options
+					 * @return {ns.event.gesture.Result.PENDING|ns.event.gesture.Result.END|ns.event.gesture.Result.FINISHED|ns.event.gesture.Result.BLOCK}
+					 * @member ns.event.gesture.LongPress
+					 */
+					handler: function (gestureEvent, sender, options) {
+						var result = gesture.Result.PENDING;
 
-					switch (ge.eventType) {
-						case Gesture.Event.START:
-							this.isTriggered = false;
-							this.longPressTimeOutId = setTimeout(function () {
-								this.isTriggered = true;
-								sender.sendEvent(this.name, gestureEvent);
-								result = Gesture.Result.FINISHED;
-								return result;
-							}.bind(this), options.longPressTimeThreshold);
-							break;
+						switch (gestureEvent.eventType) {
+							case gesture.Event.START:
+								this.isTriggered = false;
+								this.longPressTimeOutId = setTimeout(function () {
+									this.isTriggered = true;
+									sender.sendEvent(this.name, gestureEvent);
+								}.bind(this), options.longPressTimeThreshold);
+								break;
 
-						case Gesture.Event.MOVE:
-							if (ge.distance > options.longPressDistanceThreshold && !this.isTriggered) {
-								clearTimeout(this.longPressTimeOutId);
-								result = Gesture.Result.FINISHED;
-							}
-							break;
+							case gesture.Event.MOVE:
+								if (gestureEvent.distance > options.longPressDistanceThreshold && !this.isTriggered) {
+									clearTimeout(this.longPressTimeOutId);
+									result = gesture.Result.FINISHED;
+								}
+								break;
 
-						case Gesture.Event.END:
-							if (!this.isTriggered) {
-								clearTimeout(this.longPressTimeOutId);
-							} else if (options.preventClick) {
-								ge.preventDefault();
-							}
-							result = Gesture.Result.FINISHED;
-							break;
-
-						default:
-							break;
-
+							case gesture.Event.END:
+								if (!this.isTriggered) {
+									clearTimeout(this.longPressTimeOutId);
+								} else if (options.preventClick) {
+									gestureEvent.preventDefault();
+								}
+								result = gesture.Result.FINISHED;
+								break;
+						}
+						return result;
 					}
-					return result;
-				}
-			});
+				});
+
+			gesture.LongPress = LongPress;
+
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
+			return LongPress;
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");

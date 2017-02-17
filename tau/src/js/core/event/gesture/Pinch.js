@@ -94,10 +94,10 @@
 
 					/**
 					 * Triggered
-					 * @property {boolean} [triggered=false]
+					 * @property {boolean} [isTriggered=false]
 					 * @member ns.event.gesture.Pinch
 					 */
-					triggered: false,
+					isTriggered: false,
 
 					/**
 					 * Handler for pinch gesture
@@ -115,12 +115,12 @@
 							case gesture.Event.MOVE:
 								if (gestureEvent.pointers.length === 1 && gestureEvent.distance > 35) {
 									result = Result.FINISHED;
-								} else if (!this.triggered && gestureEvent.pointers.length >= 2) {
-									this.triggered = true;
+								} else if (!this.isTriggered && gestureEvent.pointers.length >= 2) {
+									this.isTriggered = true;
 									sender.sendEvent(eventNames.start, gestureEvent);
 									gestureEvent.preventDefault();
 									result = Result.RUNNING;
-								} else if (this.triggered) {
+								} else if (this.isTriggered) {
 									if ((gestureEvent.deltaTime < options.timeThreshold) &&
 										(gestureEvent.velocityX > options.velocity || gestureEvent.velocityY > options.velocity)) {
 										if (gestureEvent.scale < 1) {
@@ -129,7 +129,7 @@
 											sender.sendEvent(eventNames.out, gestureEvent);
 										}
 										gestureEvent.preventDefault();
-										this.triggered = false;
+										this.isTriggered = false;
 										result = Result.FINISHED | Result.BLOCK;
 										return result;
 									} else {
@@ -141,18 +141,18 @@
 								break;
 							case gesture.Event.BLOCKED:
 							case gesture.Event.END:
-								if (this.triggered) {
+								if (this.isTriggered) {
 									sender.sendEvent(eventNames.end, gestureEvent);
 									gestureEvent.preventDefault();
-									this.triggered = false;
+									this.isTriggered = false;
 									result = Result.FINISHED;
 								}
 								break;
 							case gesture.Event.CANCEL:
-								if (this.triggered) {
+								if (this.isTriggered) {
 									sender.sendEvent(eventNames.cancel, gestureEvent);
 									gestureEvent.preventDefault();
-									this.triggered = false;
+									this.isTriggered = false;
 									result = Result.FINISHED;
 								}
 								break;

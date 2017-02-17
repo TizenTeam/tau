@@ -76,7 +76,7 @@
 				}
 			}, senderStart, {}), 2, "handler return 1 (case when first move with 2 touches)");
 
-			strictEqual(pinchInstance.triggered, true, "Event was triggered (case when first move with 2 touches)");
+			strictEqual(pinchInstance.isTriggered, true, "Event was isTriggered (case when first move with 2 touches)");
 
 			// case when next move with 2 touches, scale in
 			equal(pinchInstance.handler({
@@ -95,10 +95,10 @@
 				velocity: 1
 			}), 12, "handler return 12 (case when next move with 2 touches, scale in)");
 
-			strictEqual(pinchInstance.triggered, false, "Event was triggered (case when next move with 2 touches, scale in)");
+			strictEqual(pinchInstance.isTriggered, false, "Event was isTriggered (case when next move with 2 touches, scale in)");
 
 			// case when next move with 2 touches, scale out
-			pinchInstance.triggered = true;
+			pinchInstance.isTriggered = true;
 
 			equal(pinchInstance.handler({
 				eventType: "move",
@@ -116,11 +116,11 @@
 				velocity: 1
 			}), 12, "handler return 12 (case when next move with 2 touches, scale out)");
 
-			strictEqual(pinchInstance.triggered, false, "Event was triggered (case when next move with 2 touches, scale in)");
+			strictEqual(pinchInstance.isTriggered, false, "Event was isTriggered (case when next move with 2 touches, scale in)");
 
 			// case when next move with 2 touches, bigger deltaTime
 
-			pinchInstance.triggered = true;
+			pinchInstance.isTriggered = true;
 
 			equal(pinchInstance.handler({
 				eventType: "move",
@@ -140,7 +140,7 @@
 
 			// case when event is blocked
 
-			pinchInstance.triggered = true;
+			pinchInstance.isTriggered = true;
 			equal(pinchInstance.handler({
 				eventType: "blocked",
 				preventDefault: function () {
@@ -150,7 +150,7 @@
 
 			// case when event is end
 
-			pinchInstance.triggered = true;
+			pinchInstance.isTriggered = true;
 			equal(pinchInstance.handler({
 				eventType: "end",
 				preventDefault: function () {
@@ -160,7 +160,7 @@
 
 			// case when event is cancel
 
-			pinchInstance.triggered = true;
+			pinchInstance.isTriggered = true;
 			equal(pinchInstance.handler({
 				eventType: "cancel",
 				preventDefault: function () {

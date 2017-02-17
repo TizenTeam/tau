@@ -122,10 +122,10 @@
 
 					/**
 					 * Triggered
-					 * @property {boolean} [triggered=false]
+					 * @property {boolean} [isTriggered=false]
 					 * @member ns.event.gesture.Drag
 					 */
-					triggered: false,
+					isTriggered: false,
 
 					/**
 					 * Handler for drag gesture
@@ -142,7 +142,7 @@
 							result = RESULTS.PENDING,
 							direction = gestureEvent.direction;
 
-						if (!this.triggered && gestureEvent.eventType === gesture.Event.MOVE) {
+						if (!this.isTriggered && gestureEvent.eventType === gesture.Event.MOVE) {
 							if (Math.abs(gestureEvent.deltaX) < threshold && Math.abs(gestureEvent.deltaY) < threshold) {
 								// Branching statement for specifying Tizen 2.X and Tizen 3.0
 								if (isChromeBrowser) {
@@ -191,37 +191,37 @@
 
 						switch (newGestureEvent.eventType) {
 							case gesture.Event.START:
-								this.triggered = false;
+								this.isTriggered = false;
 								if (sender.sendEvent(eventNames.prepare, newGestureEvent) === false) {
 									result = RESULTS.FINISHED;
 								}
 								break;
 							case gesture.Event.MOVE:
-								if (!this.triggered && sender.sendEvent(eventNames.start, newGestureEvent) === false) {
+								if (!this.isTriggered && sender.sendEvent(eventNames.start, newGestureEvent) === false) {
 									result = RESULTS.FINISHED;
 									newGestureEvent.preventDefault();
 								}
 								result = sender.sendEvent(eventNames.drag, newGestureEvent) ? RESULTS.RUNNING : RESULTS.FINISHED;
 								newGestureEvent.preventDefault();
-								this.triggered = true;
+								this.isTriggered = true;
 								break;
 
 							case gesture.Event.BLOCKED:
 							case gesture.Event.END:
 								result = RESULTS.FINISHED;
-								if (this.triggered) {
+								if (this.isTriggered) {
 									sender.sendEvent(eventNames.end, newGestureEvent);
 									newGestureEvent.preventDefault();
-									this.triggered = false;
+									this.isTriggered = false;
 								}
 								break;
 
 							case gesture.Event.CANCEL:
 								result = RESULTS.FINISHED;
-								if (this.triggered) {
+								if (this.isTriggered) {
 									sender.sendEvent(eventNames.cancel, newGestureEvent);
 									newGestureEvent.preventDefault();
-									this.triggered = false;
+									this.isTriggered = false;
 								}
 								break;
 						}

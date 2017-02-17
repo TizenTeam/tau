@@ -17,6 +17,7 @@ var allTestFiles = [],
 		"core/event/gesture/Manager",
 		"core/event/gesture/Instance",
 		"core/event/gesture/Drag",
+		"core/event/gesture/LongPress",
 		"core/event/gesture/Pinch"
 	];
 

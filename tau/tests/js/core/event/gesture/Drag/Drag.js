@@ -177,7 +177,7 @@
 				blockVertical: true
 			}), 1, "handler return 1 (test start event)");
 
-			equal(dragInstance.triggered, false, "triggered is correct set (test start event)");
+			equal(dragInstance.isTriggered, false, "isTriggered is correct set (test start event)");
 
 			// test start event, prevented
 			equal(dragInstance.handler({
@@ -199,7 +199,7 @@
 				blockVertical: true
 			}), 4, "handler return 4 (test start event, prevented)");
 
-			equal(dragInstance.triggered, false, "triggered is correct set (test start event, prevented)");
+			equal(dragInstance.isTriggered, false, "isTriggered is correct set (test start event, prevented)");
 
 			// test move event
 			equal(dragInstance.handler({
@@ -217,9 +217,9 @@
 				blockVertical: true
 			}), 4, "handler return 1 (test move event)");
 
-			equal(dragInstance.triggered, false, "triggered is correct set (test move event)");
+			equal(dragInstance.isTriggered, false, "isTriggered is correct set (test move event)");
 
-			dragInstance.triggered = false;
+			dragInstance.isTriggered = false;
 
 			// test move event, prevented
 			equal(dragInstance.handler({
@@ -240,9 +240,9 @@
 				delay: 0
 			}), 4, "handler return 1 (test move event, prevented)");
 
-			equal(dragInstance.triggered, true, "triggered is correct set (test move event, prevented)");
+			equal(dragInstance.isTriggered, true, "isTriggered is correct set (test move event, prevented)");
 
-			dragInstance.triggered = true;
+			dragInstance.isTriggered = true;
 
 			// test end event
 			equal(dragInstance.handler({
@@ -259,9 +259,9 @@
 				delay: 0
 			}), 4, "handler return 4 (test end event)");
 
-			equal(dragInstance.triggered, false, "triggered is correct set (test end event)");
+			equal(dragInstance.isTriggered, false, "isTriggered is correct set (test end event)");
 
-			dragInstance.triggered = true;
+			dragInstance.isTriggered = true;
 
 			// test cancel event
 			equal(dragInstance.handler({
@@ -282,7 +282,7 @@
 				delay: 0
 			}), 4, "handler return 4 (test cancel event)");
 
-			equal(dragInstance.triggered, false, "triggered is correct set (test cancel event)");
+			equal(dragInstance.isTriggered, false, "isTriggered is correct set (test cancel event)");
 		});
 	}
 
