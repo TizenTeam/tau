@@ -1,4 +1,5 @@
 /*global module, process, require*/
+/*eslint no-process-exit: "off"*/
 /*
  * TAU TCT package automatic making module.
  */
