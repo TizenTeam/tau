@@ -314,7 +314,8 @@ module.exports = function (grunt) {
 				"less-ci": {
 					options: {
 						csslint: {
-							"adjoining-classes": true
+							"adjoining-classes": false,
+							"overqualified-elements": false
 						},
 						formatters: [
 							{

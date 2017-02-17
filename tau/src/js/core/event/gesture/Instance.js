@@ -1,5 +1,4 @@
 /*global ns, window, define */
-/*jslint nomen: true */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
  *
@@ -14,11 +13,6 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */
-/**
- * #Gesture.Instance class
- * Creates instance of gesture manager on element.
- * @class ns.event.gesture.Instance
  */
 (function (ns) {
 	"use strict";
@@ -47,7 +41,7 @@
 				 * @private
 				 * @static
 				 */
-				Detector = ns.event.gesture.Detector,
+				Detector = gesture.Detector,
 				/**
 				 * Local alias for {@link ns.event.gesture.Manager}
 				 * @property {Object}
@@ -55,7 +49,7 @@
 				 * @private
 				 * @static
 				 */
-				Manager = ns.event.gesture.Manager,
+				Manager = gesture.Manager,
 				/**
 				 * Local alias for {@link ns.event}
 				 * @property {Object}
@@ -71,55 +65,27 @@
 				 * @private
 				 * @static
 				 */
-				merge = ns.util.object.merge;
+				merge = ns.util.object.merge,
 
-			gesture.Instance = function (element, options) {
-
-				this.element = element;
-				this.eventDetectors = [];
-
-				this.options = merge({}, gesture.defaults, options);
-				this.gestureManager = null;
-
-				this._init();
-			};
-
-			gesture.Instance.prototype = {
 				/**
-				 * Initialize gesture instance
-				 * @method _init
-				 * @member ns.event.gesture.Instance
-				 * @protected
+				 * #Gesture.Instance class
+				 * Creates instance of gesture manager on element.
+				 * @param {HTMLElement} element
+				 * @param {Object} options
+				 * @class ns.event.gesture.Instance
 				 */
-				_init: function () {
+				Instance = function (element, options) {
+					this.element = element;
+					this.eventDetectors = [];
+					this.options = merge({}, gesture.defaults, options);
+
 					this.gestureManager = Manager.getInstance();
 					this.eventSender = merge({}, Detector.Sender, {
 						sendEvent: this.trigger.bind(this)
 					});
-				},
+				};
 
-				/**
-				 * Find gesture detector
-				 * @method _findGestureDetector
-				 * @param {string} gesture gesture
-				 * @member ns.event.gesture.Instance
-				 * @protected
-				 */
-				_findGestureDetector: function (gesture) {
-					var detectors = Detector.plugin,
-						detector,
-						name;
-
-					for (name in detectors) {
-						if (detectors.hasOwnProperty(name)) {
-							detector = detectors[name];
-							if (detector.prototype.types.indexOf(gesture) > -1) {
-								return detector;
-							}
-						}
-					}
-				},
-
+			Instance.prototype = {
 				/**
 				 * Set options
 				 * @method setOptions
@@ -215,7 +181,11 @@
 					this.eventDetectors.length = 0;
 				}
 			};
+
+			gesture.Instance = Instance;
+
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
+			return Instance;
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
