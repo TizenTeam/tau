@@ -99,6 +99,10 @@ module.exports = function (grunt) {
 						cwd: "tests",
 						src: ["js/**", "libs/**"],
 						dest: "tests/tau-runner/tests/"
+					},
+					{
+						src: "tests/karma/tests/helpers.js",
+						dest: "tests/tau-runner/tests/karma/tests/helpers.js"
 					}
 				]
 			},
