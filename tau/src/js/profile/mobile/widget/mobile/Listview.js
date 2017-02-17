@@ -223,8 +223,8 @@
 			* Returns number from specified value (mixed) or
 			* 0 if no param is not a number
 			* @method toNumber
-			* @param {mixed} value
-			* @return {Number}
+			* @param {mixed} val
+			* @return {number}
 			* @member ns.widget.mobile.Listview
 			* @private
 			*/
@@ -325,6 +325,7 @@
 			/**
 			* Initalizes widget and async timers
 			* @method _init
+			* @param {HTMLElement} element
 			* @member ns.widget.mobile.Listview
 			* @protected
 			*/
