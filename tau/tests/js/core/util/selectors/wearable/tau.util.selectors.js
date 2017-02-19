@@ -1,3 +1,4 @@
+/*global tau, test, equal, ok*/
 var selectors = tau.util.selectors;
 
 module("core/util/selectors");
