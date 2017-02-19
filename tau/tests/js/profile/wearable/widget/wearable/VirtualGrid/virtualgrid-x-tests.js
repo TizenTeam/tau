@@ -1,5 +1,5 @@
 /* global ok, equal, test */
-(function() {
+(function () {
 	"use strict";
 
 	var list = document.getElementById("vgrid2");
@@ -9,7 +9,7 @@
 	list.addEventListener("draw", function drawHandler() {
 		list.removeEventListener("draw", drawHandler);
 
-		test("Testing drawing horizontal oriented grid", function() {
+		test("Testing drawing horizontal oriented grid", function () {
 			var children = list.children,
 				li = children[0],
 				card = li.querySelector(".ui-demo-rotation-namecard"),

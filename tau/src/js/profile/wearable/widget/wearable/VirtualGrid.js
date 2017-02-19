@@ -126,22 +126,22 @@
 				VirtualListPrototype = VirtualList.prototype,
 				/**
 				 * Alias for {@link ns.widget.wearable.VirtualListview#draw VirtualList.draw}
-				 * @method parent_draw
+				 * @method parentDraw
 				 * @member ns.widget.wearable.VirtualGrid
 				 * @private
 				 * @static
 				 */
-				parent_draw = VirtualListPrototype.draw,
+				parentDraw = VirtualListPrototype.draw,
 				/**
 				 * Alias for {@link ns.widget.wearable.VirtualListview#_refreshScrollbar VirtualList.\_refreshScrollbar}
-				 * @method parent_refreshScrollbar
+				 * @method parentRefreshScrollbar
 				 * @member ns.widget.wearable.VirtualGrid
 				 * @private
 				 * @static
 				 */
-				parent_refreshScrollbar = VirtualListPrototype._refreshScrollbar,
-				parent_bindEvents = VirtualListPrototype._bindEvents,
-				parent_destroy = VirtualListPrototype._destroy;
+				parentRefreshScrollbar = VirtualListPrototype._refreshScrollbar,
+				parentBindEvents = VirtualListPrototype._bindEvents,
+				parentDestroy = VirtualListPrototype._destroy;
 
 			/**
 			 * This method draws item.
@@ -166,7 +166,7 @@
 					ui.container = newDiv;
 				}
 				self._initListItem();
-				parent_draw.call(self);
+				parentDraw.call(self);
 			};
 
 			function onFocusQuery(self, event) {
@@ -195,7 +195,7 @@
 			prototype._bindEvents = function (element) {
 				var self = this;
 
-				parent_bindEvents.call(self, element);
+				parentBindEvents.call(self, element);
 				self._onFocusQuery = onFocusQuery.bind(null, self);
 				self.element.addEventListener("focusquery", self._onFocusQuery);
 			};
@@ -203,7 +203,7 @@
 			prototype._destroy = function (element) {
 				var self = this;
 
-				parent_destroy.call(self, element);
+				parentDestroy.call(self, element);
 				self.element.removeEventListener("focusquery", self._onFocusQuery);
 			};
 
@@ -217,7 +217,7 @@
 				var width = 0,
 					ui = this._ui;
 
-				parent_refreshScrollbar.call(this);
+				parentRefreshScrollbar.call(this);
 				if (ui.container) {
 					width = this.element.clientWidth + ui.spacer.clientWidth;
 					ui.container.style.width = width + "px";
