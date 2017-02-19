@@ -90,8 +90,11 @@
 					value = options.x + "px " + options.y + "px",
 					degrees = options.referenceDegree + options.arcStart;
 
-				// add class for transition
-				element.classList.add(classes.animated);
+				// phantom not support classList on SVG
+				if (element.classList) {
+					// add class for transition
+					element.classList.add(classes.animated);
+				}
 
 				// set transform
 				style.webkitTransformOrgin = value;
@@ -112,6 +115,7 @@
 				} else {
 					if (path) {
 						reference = parseInt(path.getAttribute("data-initial-degree"), 10) || options.referenceDegree;
+						path.setAttribute("data-initial-degree", reference);
 						path.setAttribute("d", describeArc(options.x, options.y, options.r,
 							reference + options.arcStart, reference + options.arcEnd));
 					}
@@ -124,9 +128,12 @@
 
 				createSVG: function (element) {
 					var svg = document.createElementNS(SVGNS, "svg");
-					// add class to svg element
 
-					svg.classList.add(classes.polar);
+					// phantom not support classList on SVG
+					if (svg.classList) {
+						// add class to svg element
+						svg.classList.add(classes.polar);
+					}
 					// if element is set, add svg as child node
 					if (element) {
 						element.appendChild(svg);
@@ -178,7 +185,7 @@
 
 			ns.util.polar = polar;
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
-			return ns.util.polar;
+			return polar;
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");

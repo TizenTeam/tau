@@ -13,6 +13,7 @@ var allTestFiles = [],
 		"profile/wearable/config",
 		"core/widget/core/Page",
 		"core/util",
+		"core/util/polar",
 		"core/event/gesture/Manager",
 		"core/event/gesture/Drag",
 		"core/event/gesture/Pinch"
