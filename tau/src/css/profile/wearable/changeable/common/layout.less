@@ -26,6 +26,8 @@ body {
 	display: none;
 	background: @color_bg;
 	&.ui-page-active {
+		// flex is not supported in phantom
+		display: block;
 		display: flex;
 		display: -webkit-flex;
 		flex-direction: column;

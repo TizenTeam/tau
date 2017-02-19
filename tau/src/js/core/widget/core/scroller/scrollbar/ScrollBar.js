@@ -93,7 +93,10 @@
 				});
 			};
 
-			prototype._init = function () {
+			prototype._init = function (scrollElement) {
+				this.clip = scrollElement;
+				this.view = scrollElement.children[0];
+				this.firstChild = this.view.children[0];
 				this.type = this.options.type;
 
 				if (!this.type) {

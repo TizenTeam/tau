@@ -30,7 +30,7 @@
 			"../../../../core/engine",
 			"../../../../core/util/object",
 			"../../../../core/event",
-			"../../../../core/event/gesture",
+			"../../../../core/event/gesture/Drag",
 			"./effect/Bouncing",
 			"../scroller"
 		],
@@ -41,7 +41,6 @@
 				engine = ns.engine,
 				utilsObject = ns.util.object,
 				utilsEvents = ns.event,
-				eventTrigger = utilsEvents.trigger,
 				prototype = new BaseWidget(),
 				EffectBouncing = ns.widget.core.scroller.effect.Bouncing,
 				eventType = {
@@ -86,32 +85,33 @@
 
 			prototype._build = function (element) {
 				if (element.children.length !== 1) {
-					throw "scroller has only one child.";
+					ns.error("[Scroller] Scroller should have only one child.");
+				} else {
+
+					this.scroller = element.children[0];
+					this.scrollerStyle = this.scroller.style;
+
+					this.bouncingEffect = null;
+					this.scrollbar = null;
+
+					this.scrollerWidth = 0;
+					this.scrollerHeight = 0;
+					this.scrollerOffsetX = 0;
+					this.scrollerOffsetY = 0;
+
+					this.maxScrollX = 0;
+					this.maxScrollY = 0;
+
+					this.startScrollerOffsetX = 0;
+					this.startScrollerOffsetY = 0;
+
+					this.orientation = null;
+
+					this.enabled = true;
+					this.scrolled = false;
+					this.dragging = false;
+					this.scrollCanceled = false;
 				}
-
-				this.scroller = element.children[0];
-				this.scrollerStyle = this.scroller.style;
-
-				this.bouncingEffect = null;
-				this.scrollbar = null;
-
-				this.scrollerWidth = 0;
-				this.scrollerHeight = 0;
-				this.scrollerOffsetX = 0;
-				this.scrollerOffsetY = 0;
-
-				this.maxScrollX = 0;
-				this.maxScrollY = 0;
-
-				this.startScrollerOffsetX = 0;
-				this.startScrollerOffsetY = 0;
-
-				this.orientation = null;
-
-				this.enabled = true;
-				this.scrolled = false;
-				this.dragging = false;
-				this.scrollCanceled = false;
 
 				return element;
 			};
@@ -136,17 +136,24 @@
 			};
 
 			prototype._init = function (element) {
-				var options = this.options,
-					scrollerChildren = this.scroller.children,
-					elementStyle = this.element.style,
-					scrollerStyle = this.scroller.style,
-					elementHalfWidth = this.element.offsetWidth / 2,
-					elementHalfHeight = this.element.offsetHeight / 2;
+				var scroller = null,
+					options = this.options,
+					scrollerChildren = null,
+					elementStyle = element.style,
+					scrollerStyle = null,
+					elementHalfWidth = element.offsetWidth / 2,
+					elementHalfHeight = element.offsetHeight / 2;
 
-				this.orientation = this.orientation ? this.orientation :
+				scroller = element.children[0];
+				this.scroller = scroller;
+				scrollerStyle = scroller.style,
+				this.scrollerStyle = scrollerStyle;
+				scrollerChildren = scroller.children;
+
+				this.orientation = this.orientation ||
 					(options.orientation === "horizontal" ? Scroller.Orientation.HORIZONTAL : Scroller.Orientation.VERTICAL);
-				this.scrollerWidth = this.scroller.offsetWidth;
-				this.scrollerHeight = this.scroller.offsetHeight;
+				this.scrollerWidth = scroller.offsetWidth;
+				this.scrollerHeight = scroller.offsetHeight;
 
 				this.maxScrollX = elementHalfWidth - this.scrollerWidth + scrollerChildren[scrollerChildren.length - 1].offsetWidth / 2;
 				this.maxScrollY = elementHalfHeight - this.scrollerHeight + scrollerChildren[scrollerChildren.length - 1].offsetHeight / 2;
@@ -263,7 +270,7 @@
 						this._end(event);
 						break;
 					case "dragcancel":
-						this.cancel(event);
+						this._cancel(event);
 						break;
 					case "resize":
 						this.refresh();
@@ -271,25 +278,9 @@
 				}
 			};
 
-			/**
-			 * Set options for widget.
-			 * @method setOptions
-			 * @param {Object} options
-			 * @member ns.widget.core.scroller.Scroller
-			 */
-			prototype.setOptions = function (options) {
-				var name;
-
-				for (name in options) {
-					if (options.hasOwnProperty(name) && !!options[name]) {
-						this.options[name] = options[name];
-					}
-				}
-			};
-
 			prototype._refresh = function () {
-				this._clear();
 				this._unbindEvents();
+				this._clear();
 				this._init(this.element);
 				this._bindEvents();
 			};
@@ -297,9 +288,9 @@
 			/**
 			 * Scrolls to new position.
 			 * @method scrollTo
-			 * @param x
-			 * @param y
-			 * @param duration
+			 * @param {number} x
+			 * @param {number} y
+			 * @param {number} duration
 			 * @member ns.widget.core.scroller.Scroller
 			 */
 			prototype.scrollTo = function (x, y, duration) {
@@ -350,15 +341,17 @@
 				this.scrollbar.translate(this.orientation === Scroller.Orientation.HORIZONTAL ? -x : -y, duration, autoHidden);
 			};
 
-			prototype._start = function (/* e */) {
-				this.scrolled = false;
-				this.dragging = true;
-				this.scrollCanceled = false;
-				this.startScrollerOffsetX = this.scrollerOffsetX;
-				this.startScrollerOffsetY = this.scrollerOffsetY;
+			prototype._start = function () {
+				var self = this;
+
+				self.scrolled = false;
+				self.dragging = true;
+				self.scrollCanceled = false;
+				self.startScrollerOffsetX = self.scrollerOffsetX;
+				self.startScrollerOffsetY = self.scrollerOffsetY;
 			};
 
-			prototype._move = function (e) {
+			prototype._move = function (event) {
 				var newX = this.startScrollerOffsetX,
 					newY = this.startScrollerOffsetY,
 					autoHide = !_keepShowingScrollbarOnTouch;
@@ -368,9 +361,9 @@
 				}
 
 				if (this.orientation === Scroller.Orientation.HORIZONTAL) {
-					newX += e.detail.estimatedDeltaX;
+					newX += event.detail.estimatedDeltaX;
 				} else {
-					newY += e.detail.estimatedDeltaY;
+					newY += event.detail.estimatedDeltaY;
 				}
 
 				if (newX > this.minScrollX || newX < this.maxScrollX) {
@@ -382,14 +375,14 @@
 
 				if (newX !== this.scrollerOffsetX || newY !== this.scrollerOffsetY) {
 					if (!this.scrolled) {
-						this._fireEvent(eventType.START);
+						this.trigger(eventType.START);
 					}
 					this.scrolled = true;
 
 					this._translate(newX, newY);
 					this._translateScrollbar(newX, newY, 0, autoHide);
 					// TODO to dispatch move event is too expansive. it is better to use callback.
-					this._fireEvent(eventType.MOVE);
+					this.trigger(eventType.MOVE);
 
 					if (this.bouncingEffect) {
 						this.bouncingEffect.hide();
@@ -402,27 +395,26 @@
 				}
 			};
 
-			prototype._end = function (/* e */) {
-				if (!this.dragging) {
-					return;
-				}
+			prototype._end = function () {
+				if (this.dragging) {
 
-				// bouncing effect
-				if (this.bouncingEffect) {
-					this.bouncingEffect.dragEnd();
-				}
+					// bouncing effect
+					if (this.bouncingEffect) {
+						this.bouncingEffect.dragEnd();
+					}
 
-				if (this.scrollbar) {
-					this.scrollbar.end();
-				}
+					if (this.scrollbar) {
+						this.scrollbar.end();
+					}
 
-				this._endScroll();
-				this.dragging = false;
+					this._endScroll();
+					this.dragging = false;
+				}
 			};
 
 			prototype._endScroll = function () {
 				if (this.scrolled) {
-					this._fireEvent(eventType.END);
+					this.trigger(eventType.END);
 				}
 
 				this.scrolled = false;
@@ -430,16 +422,17 @@
 
 			/**
 			 * Cancels scroll.
-			 * @method cancel
+			 * @method _cancel
+			 * @protected
 			 * @member ns.widget.core.scroller.Scroller
 			 */
-			prototype.cancel = function () {
+			prototype._cancel = function () {
 				this.scrollCanceled = true;
 
 				if (this.scrolled) {
 					this._translate(this.startScrollerOffsetX, this.startScrollerOffsetY);
 					this._translateScrollbar(this.startScrollerOffsetX, this.startScrollerOffsetY);
-					this._fireEvent(eventType.CANCEL);
+					this.trigger(eventType.CANCEL);
 				}
 
 				if (this.scrollbar) {
@@ -448,10 +441,6 @@
 
 				this.scrolled = false;
 				this.dragging = false;
-			};
-
-			prototype._fireEvent = function (eventName, detail) {
-				eventTrigger(this.element, eventName, detail);
 			};
 
 			prototype._clear = function () {
@@ -486,8 +475,8 @@
 			};
 
 			prototype._destroy = function () {
-				this._clear();
 				this._unbindEvents();
+				this._clear();
 				this.scrollerStyle = null;
 				this.scroller = null;
 			};

@@ -242,7 +242,7 @@
 
 						self._prepareLayout();
 						self._initLayout();
-						self._super();
+						self._super(element);
 						self._repositionSections(true);
 						self.setActiveSection(self.activeIndex);
 
@@ -473,7 +473,7 @@
 						}
 					}
 
-					this._fireEvent(eventType.CHANGE, {
+					this.trigger(eventType.CHANGE, {
 						active: index
 					});
 				},
@@ -510,7 +510,7 @@
 
 					if (newX !== this.scrollerOffsetX || newY !== this.scrollerOffsetY) {
 						if (direct !== false) {
-							this._fireEvent(eventType.START);
+							this.trigger(eventType.START);
 							this.scrolled = true;
 						}
 
