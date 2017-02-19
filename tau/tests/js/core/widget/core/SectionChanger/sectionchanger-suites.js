@@ -21,7 +21,7 @@ var suites = {
 					cord: {x: -300, y: 0},
 					sections: {
 						before: [false, true, false],
-						after:  [false, false, true]
+						after: [false, false, true]
 					}
 				},
 				{
@@ -29,7 +29,7 @@ var suites = {
 					cord: {x: 300, y: 0},
 					sections: {
 						before: [false, true, false],
-						after:  [true, false, false]
+						after: [true, false, false]
 					}
 				}
 			]
@@ -45,7 +45,7 @@ var suites = {
 					cord: {x: 0, y: -300},
 					sections: {
 						before: [false, true, false],
-						after:  [false, false, true]
+						after: [false, false, true]
 					}
 				},
 				{
@@ -53,7 +53,7 @@ var suites = {
 					cord: {x: 0, y: 300},
 					sections: {
 						before: [false, true, false],
-						after:  [true, false, false]
+						after: [true, false, false]
 					}
 				}
 			]
@@ -71,7 +71,7 @@ var suites = {
 				cord: {x: 300, y: 0},
 				sections: {
 					before: [false, true, false],
-					after:  [true, false, false]
+					after: [true, false, false]
 				}
 			},
 			{
@@ -79,7 +79,7 @@ var suites = {
 				cord: {x: 300, y: 0},
 				sections: {
 					before: [true, false, false],
-					after:  [false, false, true]
+					after: [false, false, true]
 				}
 			},
 			{
@@ -87,7 +87,7 @@ var suites = {
 				cord: {x: 300, y: 0},
 				sections: {
 					before: [false, false, true],
-					after:  [false, true, false]
+					after: [false, true, false]
 				}
 			},
 			{
@@ -95,7 +95,7 @@ var suites = {
 				cord: {x: -300, y: 0},
 				sections: {
 					before: [false, true, false],
-					after:  [false, false, true]
+					after: [false, false, true]
 				}
 			},
 			{
@@ -103,7 +103,7 @@ var suites = {
 				cord: {x: -300, y: 0},
 				sections: {
 					before: [false, false, true],
-					after:  [true, false, false]
+					after: [true, false, false]
 				}
 			}
 		]
@@ -120,7 +120,7 @@ var suites = {
 				cord: {x: 300, y: 0},
 				sections: {
 					before: [false, true, false],
-					after:  [true, false, false]
+					after: [true, false, false]
 				}
 			},
 			{
@@ -128,7 +128,7 @@ var suites = {
 				cord: {x: 300, y: 0},
 				sections: {
 					before: [true, false, false],
-					after:  [true, false, false]
+					after: [true, false, false]
 				}
 			}
 		]

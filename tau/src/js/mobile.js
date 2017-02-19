@@ -74,6 +74,8 @@
 			"./core/event/gesture/Swipe",
 			"./core/event/gesture/Pinch",
 			"./core/event/gesture/LongPress",
+			"./core/widget/core/scroller/Scroller",
+			"./core/widget/core/scroller/scrollbar/ScrollBar",
 			"./core/widget/core/SectionChanger",
 			// widget list
 			"./core/widget/core/Checkbox",
@@ -81,7 +83,6 @@
 			"./core/widget/core/Button",
 			"./core/widget/core/Listview",
 			"./core/widget/core/PanelChanger",
-			"./core/widget/core/SectionChanger",
 			"./core/widget/core/PageIndicator",
 			"./core/widget/core/Slider",
 			"./core/widget/core/progress/Progress",

@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Engine bound event test</title>
+		<title>SectionChanger test</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<link rel="stylesheet" href="../../../../../../libs/qunit-1.11.0.css">
+		<link rel="stylesheet" href="../../../../../libs/qunit-1.11.0.css">
 		<link rel="stylesheet"
-			href="../../../../../../libs/dist/theme/default/tau.css">
-		<script src="../../../../../../libs/qunit-1.11.0.js"></script>
-		<script src="../../../../../../libs/support.js"></script>
+			href="../../../../../libs/dist/theme/default/tau.css">
+		<script src="../../../../../libs/qunit-1.11.0.js"></script>
+		<script src="../../../../../libs/support.js"></script>
+		<script type="text/javascript" src="../../../../../karma/tests/helpers.js"></script>
 		<script>
 			var tauConfig = {
 				"autorun": false
@@ -16,7 +17,7 @@
 			window.ontouchstart = {};
 		</script>
 		<script type="text/javascript"
-				src="../../../../../../libs/dist/js/tau.js"></script>
+				src="../../../../../libs/dist/js/tau.js"></script>
 	</head>
 	<body>
 		<div id="qunit"></div>
@@ -39,6 +40,12 @@
 		</div>
 		<div id="sectiontest" style="width:360px; height:360px; visibility: hidden;">
 			<div id="sectionchanger" style="width:360px; height:360px;">
+			</div>
+			<div id="emptysectionchanger" style="width:360px; height:0px;">
+				<div>
+					<div></div>
+					<div></div>
+				</div>
 			</div>
 		</div>
 	<script type="text/javascript" src="sectionchanger-suites.js"></script>

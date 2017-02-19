@@ -31,6 +31,7 @@
 			"../../../../util/selectors",
 			"../scrollbar",
 			"./type/bar",
+			"./type/tab",
 			"../../../../../core/widget/core/Page",
 			"../../../../../core/widget/BaseWidget",
 			"../Scroller"
