@@ -28,7 +28,8 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"./selectors"
+			"./selectors",
+			"../event"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
@@ -158,6 +159,9 @@
 					 */
 					NAVIGATION_BUTTON: "ui-navigation-item"
 				},
+				events = {
+					ACTIVE_LI: "anchorhighlightactiveli"
+				},
 				/**
 				 * Alias for class {@link ns.util.selectors}
 				 * @property {Object} selectors
@@ -166,6 +170,14 @@
 				 * @static
 				 */
 				selectors = ns.util.selectors,
+				/**
+				 * Alias for class {@link ns.event}
+				 * @property {Object} event
+				 * @member ns.util.anchorHighlight
+				 * @private
+				 * @static
+				 */
+				event = ns.event,
 				// cache function
 				requestAnimationFrame = ns.util.requestAnimationFrame,
 				// cache function
@@ -316,6 +328,7 @@
 							liTarget = detectLiElement(target);
 							if (liTarget) {
 								liTarget.classList.add(classes.ACTIVE_LI);
+								event.trigger(liTarget, events.ACTIVE_LI, {});
 							}
 							liTarget = null;
 							if (buttonTarget) {
