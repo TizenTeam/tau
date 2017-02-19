@@ -106,51 +106,6 @@
 		ok(scrollview.scrollTop > 3 * height, "scrollTop is set to > 50");
 	});
 
-	// disabled in phantom because is some problem which are not easy to detect
-	// @TODO move this test to test of anchorhighlight, it is not connected with vlist
-	if (!window.navigator.userAgent.match('PhantomJS')) {
-		asyncTest("VirtualList tap methods", 3, function () {
-			var li = elList.children[0],
-				span = li.firstElementChild.firstElementChild,
-				tapholdThreshold = 300;
-
-			// Simulate tap
-			triggerTouchEvent(span, "touchstart");
-
-			setTimeout(function () {
-				triggerTouchEvent(span, "touchend");
-				ok(li.classList.contains("ui-li-active"), "touch hold works");
-
-				// Simulate scrolling
-				triggerTouchEvent(span, "touchstart");
-				triggerTouchEvent(span, "touchmove", [{clientX: 1000, clientY: 1000}]);
-
-				setTimeout(function () {
-					triggerTouchEvent(span, "touchend");
-
-					// Check if highlight is removed
-					ok(!li.classList.contains("ui-li-active"), "touch highlight remove works");
-
-					// Simulate TAP 2 - move but keep position in distance tolerance
-					triggerTouchEvent(span, "touchstart", [{clientX: 0, clientY: 0}]);
-					triggerTouchEvent(span, "touchmove", [{clientX: 3, clientY: 3}]);
-
-					setTimeout(function () {
-						triggerTouchEvent(span, "touchend");
-
-						// Check if item is highlighted
-						ok(li.classList.contains("ui-li-active"), "touch hold with tolerance distance works");
-
-						start();
-					}, tapholdThreshold);
-					// End of timeout
-				}, tapholdThreshold);
-				// End of scrolling simulation
-			}, tapholdThreshold);
-			// End of tap simulation
-		});
-	}
-
 	// RUN TEST 5
 	test("VirtualList scrollTo method", function () {
 		var scrollview = elList.parentNode,
