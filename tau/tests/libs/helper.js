@@ -3,37 +3,39 @@ var helper = {
 
 	path: location.pathname,
 
-	pageSequence: function ( sequence, autoStart ) {
-		if(!$("#main").hasClass("ui-page-active")) {
-			sequence.unshift(function() {
-				tau.changePage( helper.path );
+	pageSequence: function (sequence, autoStart) {
+		if (!$("#main").hasClass("ui-page-active")) {
+			sequence.unshift(function () {
+				tau.changePage(helper.path);
 			});
 		}
-		this.eventSequence( "pagechange changefailed", sequence, autoStart );
+		this.eventSequence("pagechange changefailed", sequence, autoStart);
 	},
 
-	popupSequence: function ( sequence, autoStart ) {
-		helper.eventSequence( "popupshow popuphide changefailed", sequence, autoStart );
+	popupSequence: function (sequence, autoStart) {
+		helper.eventSequence("popupshow popuphide changefailed", sequence, autoStart);
 	},
 
-	eventSequence: function ( eventName, sequence, autoStart ) {
+	eventSequence: function (eventName, sequence, autoStart) {
 		var seq = [],
 			timeout,
-			execute = function( event ) {
+			execute = function (event) {
 				window.clearTimeout(timeout);
-				if ( !seq.length ) return;
-
-				if ( seq.length > 1 ) {
-					timeout = window.setTimeout(execute, helper.timeout);
-					$(document).unbind( eventName, execute);
-					$(document).one( eventName, execute);
+				if (!seq.length) {
+					return;
 				}
-				(seq.shift())( event );
+
+				if (seq.length > 1) {
+					timeout = window.setTimeout(execute, helper.timeout);
+					$(document).unbind(eventName, execute);
+					$(document).one(eventName, execute);
+				}
+				(seq.shift())(event);
 			};
 
-		$.each(sequence, function( i, fn ) {
-			if(autoStart && i === sequence.length-1) {
-				seq.push(function() {
+		$.each(sequence, function (i, fn) {
+			if (autoStart && i === sequence.length - 1) {
+				seq.push(function () {
 					fn();
 					start();
 				});
@@ -45,17 +47,17 @@ var helper = {
 		execute();
 	},
 
-	one: function( elem, eventName, handler ) {
+	one: function (elem, eventName, handler) {
 		var timeoutId;
 
 		timeoutId = window.setTimeout(handler, helper.timeout);
-		$(elem).one(eventName, function(event) {
+		$(elem).one(eventName, function (event) {
 			window.clearTimeout(timeoutId);
 			handler(event);
 		});
 	},
 
-	assertUrlLocation: function( arg ) {
+	assertUrlLocation: function (arg) {
 		var loc = window.location,
 			path = loc.pathname,
 			hash = loc.hash,
@@ -66,8 +68,8 @@ var helper = {
 			active = false,
 			activePage = $(".ui-page-active");
 
-		if( activePage.length === 1 &&
-				activePage[0] === $("#"+id)[0] ) {
+		if (activePage.length === 1 &&
+				activePage[0] === $("#" + id)[0]) {
 			active = true;
 		}
 
@@ -75,41 +77,43 @@ var helper = {
 		ok(active, id + " page is active.");
 	},
 
-	makePathAbsolute: function( relPath, absPath ) {
+	makePathAbsolute: function (relPath, absPath) {
 		var absStack,
 			relStack,
-			i, d;
+			i,
+			d;
 
-		if ( relPath && relPath.charAt( 0 ) === "/" ) {
+		if (relPath && relPath.charAt(0) === "/") {
 			return relPath;
 		}
 
 		relPath = relPath || "";
-		absPath = absPath ? absPath.replace( /^\/|(\/[^\/]*|[^\/]+)$/g, "" ) : "";
+		absPath = absPath ? absPath.replace(/^\/|(\/[^\/]*|[^\/]+)$/g, "") : "";
 
-		absStack = absPath ? absPath.split( "/" ) : [];
-		relStack = relPath.split( "/" );
+		absStack = absPath ? absPath.split("/") : [];
+		relStack = relPath.split("/");
 
-		for ( i = 0; i < relStack.length; i++ ) {
-			d = relStack[ i ];
-			switch ( d ) {
+		for (i = 0; i < relStack.length; i++) {
+			d = relStack[i];
+			switch (d) {
 				case ".":
 					break;
 				case "..":
-					if ( absStack.length ) {
+					if (absStack.length) {
 						absStack.pop();
 					}
 					break;
 				default:
-					absStack.push( d );
+					absStack.push(d);
 					break;
 			}
 		}
-		return "/" + absStack.join( "/" );
+		return "/" + absStack.join("/");
 	},
 
-	virtualLinkClick: function( url ) {
-		var $link = $( '<a href="'+ url +'">go</a>' ).appendTo("body");
+	virtualLinkClick: function (url) {
+		var $link = $("<a href=\"" + url + "\">go</a>").appendTo("body");
+
 		$link[0].click()
 		$link.remove();
 	}

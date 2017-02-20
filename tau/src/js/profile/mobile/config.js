@@ -31,8 +31,8 @@
 			ns.setConfig("autoBuildOnPageChange", true, true);
 			ns.setConfig("loader", false, true);
 			ns.setConfig("pageContainerBody", true, true);
-			ns.setConfig("popupTransition", "slideup");
-			ns.setConfig("pageTransition", "slide");
+			ns.setConfig("popupTransition", "slideup", true);
+			ns.setConfig("pageTransition", "slide", true);
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return ns;
 		}

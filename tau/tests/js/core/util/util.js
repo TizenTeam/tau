@@ -316,7 +316,7 @@
 
 
 		test("removeExternalScripts", 7, function () {
-			var html = helpers.loadHTMLFromFile("/base/tests/js/core/util/sample/removeExternalScriptSample.html"),
+			var html = helpers.loadHTMLFromFile("/base/tests/js/core/util/test-data/removeExternalScriptSample.html"),
 				container = document.createElement("div"),
 				result = null;
 
@@ -441,7 +441,7 @@
 
 		test("runScript src and attributes", 9, function () {
 			var script = document.createElement("script"),
-				baseUrl = "sample/runScriptSample.js",
+				baseUrl = "test-data/runScriptSample.js",
 				parent = document.getElementById("qunit-fixture") || initFixture(),
 				newScript = null;
 
@@ -492,7 +492,7 @@
 
 		test("runScript src only", 6, function () {
 			var script = document.createElement("script"),
-				baseUrl = "sample/runScriptSample.js",
+				baseUrl = "test-data/runScriptSample.js",
 				parent = document.getElementById("qunit-fixture") || initFixture(),
 				newScript = null;
 
@@ -529,7 +529,7 @@
 
 		test("runScript without any attributes", 3, function () {
 			var script = document.createElement("script"),
-				baseUrl = "sample/runScriptSample.js",
+				baseUrl = "test-data/runScriptSample.js",
 				parent = document.getElementById("qunit-fixture") || initFixture(),
 				newScript = null;
 

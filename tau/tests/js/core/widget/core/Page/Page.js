@@ -6,7 +6,7 @@
 			Page = testedObjects.Page;
 
 		function initHTML() {
-			var HTML = helpers.loadHTMLFromFile("/base/tests/js/core/widget/core/Page/sample/sample.html"),
+			var HTML = helpers.loadHTMLFromFile("/base/tests/js/core/widget/core/Page/test-data/sample.html"),
 				parent = document.getElementById("qunit-fixture") || initFixture();
 
 			parent.innerHTML = HTML;

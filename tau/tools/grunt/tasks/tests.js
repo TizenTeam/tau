@@ -25,16 +25,15 @@ module.exports = function (grunt) {
 		testConfig = {},
 		lastBuild = "",
 		prepareForRunner = false,
+		testsFilesArray = grunt.file.expand([path.join("tests", "js", "**", "*.html"), "!" + path.join("**", "test-data", "**")]),
+		testFilesObject = {},
 		prepareTestsList = function (profileName, done, output) {
 			var result = buildAnalysis.parse(output),
 				slice = [].slice,
-				testModules = [],
+				testModules = grunt.config("qunit.main-" + profileName) || [],
 				jsAddTests = grunt.option("js_add_test") ? grunt.option("js_add_test").split(",") : ["api", profileName],
 				singleTest = grunt.option("single_test") ? grunt.option("single_test") : "";
 
-			if (profileName === "mobile_support") {
-				jsAddTests.push("support");
-			}
 			if (profileName === "mobile" || profileName === "mobile_support") {
 				jsAddTests.push("jquery");
 				jsAddTests.push("jqm");
@@ -45,12 +44,12 @@ module.exports = function (grunt) {
 				slice.call(result.bundles[0].children).forEach(function (modulePath) {
 					var testDirectory = path.relative("src/", modulePath).replace(/(\.js)+/gi, ""),
 						mainTestPattern = path.join("tests", testDirectory, "*.html"),
-						files = grunt.file.expand(mainTestPattern);
+						files = grunt.file.expand(testModules);
 
 					if (files.length) {
-						grunt.verbose.ok("Tests exist for module ", testDirectory);
+						grunt.log.ok("Tests exist for module ", testDirectory);
 					} else {
-						grunt.verbose.warn("Tests don't exist for module ", testDirectory);
+						grunt.log.warn("Tests don't exist for module ", testDirectory);
 					}
 
 					// Skip Date time picker tests
@@ -60,15 +59,27 @@ module.exports = function (grunt) {
 							testModules.push(path.join("tests", testDirectory, "/" + oneDirectory + "/*.html"));
 						});
 					}
+
+					files.forEach(function (file) {
+						testFilesObject[file] = false;
+					});
 				});
 				grunt.config("qunit.main-" + profileName, testModules);
 				grunt.config("qunit-tap.main-" + profileName, {output: path.join("report/tap/", profileName, "/")});
+				if (profileName === "mobile") {
+					grunt.config("qunit.main-mobile_support", testModules);
+					grunt.config("qunit-tap.main-mobile_support", {output: path.join("report/tap/", profileName, "/")});
+				}
 			} else if (singleTest !== "") {
 				testModules.push(singleTest);
 				grunt.config("qunit.main-" + profileName, testModules);
 			}
 			done();
 		};
+
+	testsFilesArray.forEach(function (file) {
+		testFilesObject[file] = true;
+	});
 
 	testConfig = {
 		wearable: {
@@ -157,7 +168,16 @@ module.exports = function (grunt) {
 	function testProfile(profile, prepareOnly) {
 		var taskConf = grunt.config.get("test"),
 			qunitConf = grunt.config.get("qunit"),
-			options = taskConf[profile];
+			options = taskConf[profile],
+			buildProfile = profile && (testConfig[profile].profile || profile);
+
+		if (lastBuild !== buildProfile) {
+			//would be better to maintain separate build for tests purposes
+			grunt.task.run("build-" + buildProfile);
+			lastBuild = buildProfile;
+		} else {
+			grunt.task.run("requirejs:" + buildProfile);
+		}
 
 		if (prepareOnly) {
 			grunt.task.run("prepare-runner:" + profile);
@@ -173,7 +193,6 @@ module.exports = function (grunt) {
 		});
 
 		if (options) {
-
 			// Clean test libs
 			grunt.task.run("clean:test-libs");
 
@@ -219,12 +238,8 @@ module.exports = function (grunt) {
 		"example:\n" +
 		"\"grunt test:mobie --single_test=/path/test.html\"",
 		function (profile) {
-			var profileName,
-				buildProfile = profile && (testConfig[profile].profile || profile);
+			var profileName;
 
-			if (!profile) {
-				grunt.fail.warn("Task test requires profile name. Supported profiles: " + Object.keys(testConfig).join(", "));
-			}
 			// Inject require done callback
 			configProperty = grunt.config.get("requirejs");
 
@@ -234,14 +249,6 @@ module.exports = function (grunt) {
 				}
 			}
 			grunt.config.set("requirejs", configProperty);
-
-			if (lastBuild !== buildProfile) {
-				//would be better to maintain separate build for tests purposes
-				grunt.task.run("build-" + buildProfile);
-				lastBuild = buildProfile;
-			} else {
-				grunt.task.run("requirejs:" + buildProfile);
-			}
 
 			if (profile) {
 				grunt.config.set("qunit.options.coverage.src", "tests/libs/dist/js/tau.js");
@@ -255,35 +262,45 @@ module.exports = function (grunt) {
 					}
 				}
 			}
+			grunt.task.run("test-print-unused");
 		});
+
+	grunt.registerTask("test-print-unused", "", function () {
+		grunt.log.subhead("Tests file not loaded");
+		testsFilesArray.forEach(function (file) {
+			if (testFilesObject[file]) {
+				grunt.log.warn("Test file not loaded:", file);
+			}
+		});
+	});
+
+	// Encapsulate this task
+	grunt.registerTask("prepare-runner", function (profile) {
+		var opt = {
+				filter: "isFile"
+			},
+			src = grunt.config.get("qunit.main-" + profile),
+			filePaths;
+
+		if (src) {
+			grunt.log.ok("Write " + profile + " test list to tests/tau-runner/tests.js");
+			filePaths = grunt.file.expand(opt, src);
+			grunt.file.write("tests/tau-runner/tests.js",
+				"var TESTS = " + JSON.stringify(filePaths) +
+				";\n" +
+				"var CURRENT_ITERATION = 0;" +
+				"\n" +
+				"var TESTS_PER_ITERATION = 3;" + "\n"
+			);
+		} else {
+			grunt.log.error("Couldn't find configuration for profile: " + profile);
+			return false;
+		}
+	});
 
 	grunt.registerTask("test-runner-prepare", function (profile) {
 		// Set prepare test list for runner flag
 		prepareForRunner = true;
-
-		// Encapsulate this task
-		grunt.registerTask("prepare-runner", function (profile) {
-			var opt = {
-					filter: "isFile"
-				},
-				src = grunt.config.get("qunit.main-" + profile),
-				filePaths;
-
-			if (src) {
-				grunt.log.ok("Write " + profile + " test list to tests/tau-runner/tests.js");
-				filePaths = grunt.file.expand(opt, src);
-				grunt.file.write("tests/tau-runner/tests.js",
-					"var TESTS = " + JSON.stringify(filePaths) +
-					";\n" +
-					"var CURRENT_ITERATION = 0;" +
-					"\n" +
-					"var TESTS_PER_ITERATION = 3;" + "\n"
-				);
-			} else {
-				grunt.log.error("Couldn't find configuration for profile: " + profile);
-				return false;
-			}
-		});
 
 		// Run test module
 		grunt.task.run("test:" + profile);

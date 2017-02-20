@@ -32,7 +32,7 @@
 
 			// Default configuration properties
 			ns.setConfig("rootDir", ns.getFrameworkPath(), true);
-			ns.setConfig("version", "");
+			ns.setConfig("version", "", true);
 			ns.setConfig("allowCrossDomainPages", false, true);
 			ns.setConfig("domCache", false, true);
 			// .. other possible options

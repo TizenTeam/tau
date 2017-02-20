@@ -32,17 +32,17 @@
 			ns.setConfig("autoBuildOnPageChange", false, true);
 
 			if (ns.support.shape.circle) {
-				ns.setConfig("pageTransition", "pop");
-				ns.setConfig("popupTransition", "pop");
+				ns.setConfig("pageTransition", "pop", true);
+				ns.setConfig("popupTransition", "pop", true);
 
-				ns.setConfig("popupFullSize", true);
-				ns.setConfig("scrollEndEffectArea", "screen");
-				ns.setConfig("enablePageScroll", true);
-				ns.setConfig("enablePopupScroll", true);
+				ns.setConfig("popupFullSize", true, true);
+				ns.setConfig("scrollEndEffectArea", "screen"), true;
+				ns.setConfig("enablePageScroll", true, true);
+				ns.setConfig("enablePopupScroll", true, true);
 			} else {
-				ns.setConfig("popupTransition", "slideup");
-				ns.setConfig("enablePageScroll", false);
-				ns.setConfig("enablePopupScroll", false);
+				ns.setConfig("popupTransition", "slideup", true);
+				ns.setConfig("enablePageScroll", false, true);
+				ns.setConfig("enablePopupScroll", false, true);
 			}
 			// .. other possible options
 			// ns.setConfig('autoInitializePage', true);
