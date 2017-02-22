@@ -84,7 +84,24 @@
 					 */
 					events: {
 						POPUP_HIDE: "popuphide"
-					}
+					},
+
+					/**
+					 * Alias for {@link ns.util.path}
+					 * @property {Object} path
+					 * @member ns.router.route.popup
+					 * @protected
+					 * @static
+					 */
+					_path: ns.util.path,
+					/**
+					 * Alias for {@link ns.router.history}
+					 * @property {Object} history
+					 * @member ns.router.route.popup
+					 * @protected
+					 * @static
+					 */
+					_history: ns.router.history
 				},
 				/**
 				 * Alias for {@link ns.engine}
@@ -95,14 +112,6 @@
 				 */
 				engine = ns.engine,
 				/**
-				 * Alias for {@link ns.util.path}
-				 * @property {Object} path
-				 * @member ns.router.route.popup
-				 * @private
-				 * @static
-				 */
-				path = ns.util.path,
-				/**
 				 * Alias for {@link ns.util.selectors}
 				 * @property {Object} utilSelector
 				 * @member ns.router.route.popup
@@ -110,14 +119,6 @@
 				 * @static
 				 */
 				utilSelector = ns.util.selectors,
-				/**
-				 * Alias for {@link ns.router.history}
-				 * @property {Object} history
-				 * @member ns.router.route.popup
-				 * @private
-				 * @static
-				 */
-				history = ns.router.history,
 				/**
 				 * Alias for {@link ns.util.DOM}
 				 * @property {Object} DOM
@@ -207,7 +208,7 @@
 			 */
 			routePopup.setActive = function (activePopup, options) {
 				var url,
-					pathLocation = path.getLocation(),
+					pathLocation = routePopup._path.getLocation(),
 					documentUrl = pathLocation.replace(popupHashKeyReg, "");
 
 				this.activePopup = activePopup;
@@ -215,8 +216,8 @@
 				if (activePopup) {
 					// If popup is being opened, the new state is added to history.
 					if (options && !options.fromHashChange && options.history) {
-						url = path.addHashSearchParams(documentUrl, popupHashKey);
-						history.replace(options, "", url);
+						url = routePopup._path.addHashSearchParams(documentUrl, popupHashKey);
+						routePopup._history.replace(options, "", url);
 					}
 					this.active = true;
 				} else if (pathLocation !== documentUrl) {
@@ -226,7 +227,7 @@
 					// the popup is closed before this animation and then the history.back
 					// could cause undesirable change of page.
 					this.active = false;
-					history.back();
+					routePopup._history.back();
 				}
 			};
 
@@ -267,12 +268,14 @@
 						if (positionTo) {
 							options.positionTo = positionTo;
 						}
-						if (event && event.touches) {
-							options.x = event.touches[0].clientX;
-							options.y = event.touches[0].clientY;
-						} else if (event) {
-							options.x = event.clientX;
-							options.y = event.clientY;
+						if (event) {
+							if (event.touches) {
+								options.x = event.touches[0].clientX;
+								options.y = event.touches[0].clientY;
+							} else {
+								options.x = event.clientX;
+								options.y = event.clientY;
+							}
 						}
 
 						document.removeEventListener(events.POPUP_HIDE, openPopup, false);
@@ -313,7 +316,7 @@
 			 */
 			routePopup.close = function (activePopup, options) {
 				var popupOptions,
-					pathLocation = path.getLocation(),
+					pathLocation = routePopup._path.getLocation(),
 					documentUrl = pathLocation.replace(popupHashKeyReg, "");
 
 				options = options || {};
@@ -336,7 +339,7 @@
 							engine.getRouter().unlock();
 						}
 						// and call history.back()
-						history.back();
+						routePopup._history.back();
 					} else {
 						// if popup did not change the history, we close it normally
 						activePopup.close(options || {});
@@ -397,7 +400,7 @@
 
 				popup = activePage.element.querySelector("[data-url='" + dataUrl + "']" + self.filter);
 
-				if (!popup && dataUrl && !path.isPath(dataUrl)) {
+				if (!popup && dataUrl && !routePopup._path.isPath(dataUrl)) {
 					popup = findPopupAndSetDataUrl(dataUrl, self.filter);
 				}
 
@@ -441,7 +444,7 @@
 			 * @static
 			 */
 			routePopup._createDataUrl = function (absoluteUrl) {
-				return path.convertUrlToDataUrl(absoluteUrl);
+				return routePopup._path.convertUrlToDataUrl(absoluteUrl);
 			};
 
 			/**

@@ -915,7 +915,11 @@
 						}
 					});
 				} else {
-					window.setTimeout(deferred.resolve, 0);
+					if (!ns.getConfig("noAsync", false)) {
+						window.setTimeout(deferred.resolve, 0);
+					} else {
+						deferred.resolve();
+					}
 				}
 				return deferred;
 			};
