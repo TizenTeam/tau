@@ -116,10 +116,6 @@
 				this.element.innerHTML = "";
 			};
 
-			prototype._fireEvent = function (eventName, detail) {
-				ns.fireEvent(this.element, eventName, detail);
-			};
-
 			prototype._refresh = function () {
 				this._removeIndicator();
 				this._createIndicator();
