@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			tau.engine._clearBindings();
 			router.destroy();
 		},
-		setup: function() {
+		setup: function () {
 
 		}
 	});
@@ -208,6 +208,27 @@ document.addEventListener('DOMContentLoaded', function () {
 		router.init();
 	});
 
+	test('close', function (assert) {
+		var popup = document.getElementById('secondPopup');
+
+		router.openPopup('#secondPopup');
+		router.close('#secondPopup', {rel: 'popup'});
+		equal(popup.classList.contains('ui-popup-active'), false, "closed popup should not contain ui-popup-active class");
+
+		router.openPopup('#secondPopup');
+		router.close('#secondPopup', {rel: 'back'});
+		equal(popup.classList.contains('ui-popup-active'), false,"closed popup should not contain ui-popup-active class");
+
+		assert.throws(
+			function () {
+				router.openPopup('#secondPopup');
+				router.close('#secondPopup', {rel: 'notDefinedRouterRule'});
+				equal(popup.classList.contains('ui-popup-active'), true,"error should be thrown when router rule does not exist");
+			},
+			'Error("Not defined router rule [notDefinedRouterRule]")'
+		);
+	});
+
 	if (!window.navigator.userAgent.match("PhantomJS")) {
 		asyncTest('open externalPage (load error)', function () {
 			var onChangeFailed = function () {
@@ -229,7 +250,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			document.addEventListener('changefailed', onChangeFailed, true);
 			router.open('#not-embedded-page')
 		});
-	}
+	};
 
 	test('open enbedded (unknown rule)', function () {
 		router.init();
@@ -245,6 +266,17 @@ document.addEventListener('DOMContentLoaded', function () {
 	test('(protected method) _getInitialContent', function () {
 		router.init();
 		equal(router._getInitialContent(), router.firstPage, 'router');
+	});
+
+	test('hasActivePopup', function () {
+		router.openPopup('#secondPopup');
+		deepEqual(router.hasActivePopup(),true);
+	});
+
+	test('detectRel', function () {
+		var divWithRelAttrEqBack = document.getElementById('fourthPage');
+
+		equal(router.detectRel(divWithRelAttrEqBack),undefined,"function should not return anything");
 	});
 
 });
