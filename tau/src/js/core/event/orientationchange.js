@@ -29,15 +29,23 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
+			"../engine",
 			"../event" // fetch namespace
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 			var body = document.body,
-				orientation = null,
 				eventUtils = ns.event,
 				eventType = ns.engine.eventType,
 				orientationchange = {
+					/**
+					 * Window alias
+					 * @property {Window} window
+					 * @member ns.event.orientationchange
+					 * @static
+					 * @protected
+					 */
+					_window: window,
 					/**
 					 * Informs about support orientation change event.
 					 * @property {boolean} supported
@@ -45,106 +53,134 @@
 					 */
 					supported: (window.orientation !== undefined) && (window.onorientationchange !== undefined),
 					/**
-					 * Returns current orientation.
-					 * @method getOrientation
-					 * @return {"landscape"|"portrait"}
-					 * @member ns.event.orientationchange
-					 * @static
-					 */
-					getOrientation: function () {
-						return orientation;
-					},
-					/**
-					 * Triggers event orientationchange on element
-					 * @method trigger
-					 * @param {HTMLElement} element
-					 * @member ns.event.orientationchange
-					 * @static
-					 */
-					trigger: function (element) {
-						eventUtils.trigger(element, "orientationchange", {"orientation": orientation});
-					},
-					/**
 					 * List of properties copied to event details object
 					 * @property {Array} properties
 					 * @member ns.event.orientationchange
 					 * @static
 					 */
 					properties: ["orientation"],
-					unbind: destroy
+
+					/**
+					 * Chosen orientation
+					 * @property {Window} [orientation=portrait]
+					 * @member ns.event.orientationchange
+					 * @protected
+					 * @static
+					 */
+					_orientation: "portrait"
 				},
 				detectOrientationByDimensions = function (omitCustomEvent) {
-					var width = window.innerWidth,
-						height = window.innerHeight;
+					var win = orientationchange._window,
+						width = win.innerWidth,
+						height = win.innerHeight;
 
-					if (window.screen) {
-						width = window.screen.availWidth;
-						height = window.screen.availHeight;
+					if (win.screen) {
+						width = win.screen.availWidth;
+						height = win.screen.availHeight;
 					}
 
 					if (width > height) {
-						orientation = "landscape";
+						orientationchange._orientation = "landscape";
 					} else {
-						orientation = "portrait";
+						orientationchange._orientation = "portrait";
 					}
 
 					if (!omitCustomEvent) {
-						eventUtils.trigger(window, "orientationchange", {"orientation": orientation});
+						eventUtils.trigger(window, "orientationchange", {"orientation": orientationchange._orientation});
 					}
 				},
 				checkReportedOrientation = function () {
-					if (window.orientation) {
-						switch (window.orientation) {
+					if (orientationchange._window.orientation) {
+						switch (orientationchange._window.orientation) {
 							case 90:
 							case -90:
-								orientation = "portrait";
+								orientationchange._orientation = "portrait";
 								break;
 							default:
-								orientation = "landscape";
+								orientationchange._orientation = "landscape";
 								break;
 						}
 					} else {
 						detectOrientationByDimensions(true);
 					}
 				},
-				matchMediaHandler = function (mediaQueryList) {
+					matchMediaHandler = function (mediaQueryList, ommitEvent) {
 					if (mediaQueryList.matches) {
-						orientation = "portrait";
+						orientationchange._orientation = "portrait";
 					} else {
-						orientation = "landscape";
+						orientationchange._orientation = "landscape";
 					}
-					eventUtils.trigger(window, "orientationchange", {"orientation": orientation});
+
+					if (!ommitEvent) {
+						eventUtils.trigger(window, "orientationchange", {"orientation": orientationchange._orientation});
+					}
 				},
-				portraitMatchMediaQueryList;
+				portraitMatchMediaQueryList = null;
 
-			if (orientationchange.supported) {
-				window.addEventListener("orientationchange", checkReportedOrientation, false);
-				checkReportedOrientation();
-				// try media queries
-			} else {
-				if (window.matchMedia) {
-					portraitMatchMediaQueryList = window.matchMedia("(orientation: portrait)");
-					if (portraitMatchMediaQueryList.matches) {
-						orientation = "portrait";
-					} else {
-						orientation = "landscape";
-					}
-					portraitMatchMediaQueryList.addListener(matchMediaHandler);
-				} else {
-					body.addEventListener("throttledresize", detectOrientationByDimensions, false);
-					detectOrientationByDimensions();
-				}
-			}
+			/**
+			* Returns current orientation.
+			* @method getOrientation
+			* @return {"landscape"|"portrait"}
+			* @member ns.event.orientationchange
+			* @static
+			*/
+			orientationchange.getOrientation = function () {
+				return orientationchange._orientation;
+			};
 
-			ns.event.orientationchange = orientationchange;
+			/**
+			* Triggers event orientationchange on element
+			* @method trigger
+			* @param {HTMLElement} element
+			* @member ns.event.orientationchange
+			* @static
+			*/
+			orientationchange.trigger = function (element) {
+				eventUtils.trigger(element, "orientationchange", {"orientation": orientationchange._orientation});
+			};
 
-			function destroy() {
+			/**
+			* Unbinds events
+			* @member ns.event.orientationchange
+			* @static
+			*/
+			orientationchange.unbind = function () {
 				window.removeEventListener("orientationchange", checkReportedOrientation, false);
 				body.removeEventListener("throttledresize", detectOrientationByDimensions, false);
-				document.removeEventListener(eventType.DESTROY, destroy, false);
-			}
+				document.removeEventListener(eventType.DESTROY, orientationchange.unbind, false);
+			};
 
-			document.addEventListener(eventType.DESTROY, destroy, false);
+			/**
+			* Performs orientation detection
+			* @member ns.event.orientationchange
+			* @static
+			*/
+			orientationchange.detect = function () {
+				if (orientationchange.supported) {
+					window.addEventListener("orientationchange", checkReportedOrientation, false);
+					checkReportedOrientation();
+					// try media queries
+				} else {
+					if (orientationchange._window.matchMedia) {
+						portraitMatchMediaQueryList = orientationchange._window.matchMedia("(orientation: portrait)");
+						if (portraitMatchMediaQueryList.matches) {
+							orientationchange._orientation = "portrait";
+						} else {
+							orientationchange._orientation = "landscape";
+						}
+						portraitMatchMediaQueryList.addListener(matchMediaHandler);
+					} else {
+						body.addEventListener("throttledresize", detectOrientationByDimensions, false);
+						detectOrientationByDimensions();
+					}
+				}
+			};
+
+			document.addEventListener(eventType.DESTROY, orientationchange.unbind, false);
+
+			orientationchange.detect();
+
+			ns.event.orientationchange = orientationchange;
 
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return ns.event.orientationchange;
