@@ -19,7 +19,7 @@
 		ok(slider.parentNode.classList.contains("ui-slider-with-icon"));
 		ok(slider.parentNode.querySelector(".ui-slider-icon"));
 		slider = document.getElementById("mySlider5");
-		ok(slider.getAttribute("data-center"));
+		ok(slider.getAttribute("data-type"));
 		ok(slider.getAttribute("data-text-left"));
 		ok(slider.getAttribute("data-text-right"));
 		ok(slider.parentNode.classList.contains("ui-slider-with-text-left"));

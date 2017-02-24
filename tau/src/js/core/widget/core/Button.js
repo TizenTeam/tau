@@ -270,8 +270,9 @@
 
 				if (element) {
 					if (element.tagName.toLowerCase() === "button") {
-						element.removeAttribute("disabled");
+						element.disabled = false;
 					}
+					element.removeAttribute("disabled");
 					element.classList.remove(classes.DISABLED);
 					options.disabled = false;
 				}
@@ -291,6 +292,7 @@
 					if (element.tagName.toLowerCase() === "button") {
 						element.disabled = true;
 					}
+					element.setAttribute("disabled", "disabled");
 					element.classList.add(classes.DISABLED);
 					options.disabled = true;
 				}

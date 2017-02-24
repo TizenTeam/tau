@@ -1,5 +1,5 @@
 /*jslint nomen: true */
-/*global window:false,
+/*global window:false, start, asyncTest,
  test:false, ok:false, equal:false, module:false, deepEqual:false, expect:false,
  listviewItemTests: false, dividerTests:false, dividerBuildTests:false,
  $:false, console:false, tau */
@@ -46,13 +46,14 @@ $().ready(function () {
 		dividerBuildTests(li);
 	});
 
-	test("Append new items to listview", function () {
+	asyncTest("Append new items to listview", function () {
 		var li3,
 			li4,
 			divider,
 			$li3,
 			$li4,
 			$divider,
+			page2 = document.getElementById("page2"),
 			list = document.querySelector("#listview2"),
 			ref = document.getElementById("ref2"),
 			eventsCalled = {},
@@ -62,40 +63,40 @@ $().ready(function () {
 			eventsCalled[e.type] = true;
 		});
 
+		page2.addEventListener("pageshow", function () {
+			// append new li element and refresh list;
+			$li3 = $("<li id=\"li3\">added li 3</li>");
+			$li4 = $("<li id=\"li4\">added li 4</li>");
+			$(list).append($li3);
+			$(list).append($li4);
+			$(list).listview();
+			$(list).listview("refresh");
+			li3 = $li3.get(0);
+			li4 = $li4.get(0);
+			listviewItemTests(li3);
+			listviewItemTests(li4);
+			ok(eventsCalled.listviewbeforecreate, "listviewbeforecreate called");
+			ok(eventsCalled.listviewcreate, "listviewcreate called");
+			$(document).off("listviewbeforecreate listviewcreate");
+
+			// append new divider li element and refresh list;
+			$divider = $("<li id=\"li_divider2\" data-role=\"list-divider\"><span id=\"ref2\">Divider</span></li>");
+			$(list).append($divider);
+			returnValue = $(list).listview("refresh");
+			deepEqual($(list), returnValue, "compare object listview and return value of method refresh on listview");
+			$(list).trigger("create");
+
+			ok(true, "After refresh, check newly added divider");
+			divider = $divider.get(0);
+			dividerTests(divider);
+			dividerBuildTests(divider);
+
+			equal(document.getElementById("ref2"), ref, "Earlier created reference not lost");
+			start();
+		});
+
 		// Open page
-		tau.engine.getRouter().open(document.getElementById("page2"));
-
-		// append new li element and refresh list;
-		$li3 = $("<li id=\"li3\">added li 3</li>");
-		$li4 = $("<li id=\"li4\">added li 4</li>");
-		$(list).append($li3);
-		$(list).append($li4);
-		$(list).listview();
-		$(list).listview("refresh");
-		li3 = $li3.get(0);
-		li4 = $li4.get(0);
-		listviewItemTests(li3);
-		listviewItemTests(li4);
-		ok(eventsCalled.listviewbeforecreate, "listviewbeforecreate called");
-		ok(eventsCalled.listviewcreate, "listviewcreate called");
-		$(document).off("listviewbeforecreate listviewcreate");
-
-		// Open page, to set listview size
-		tau.engine.getRouter().open(document.getElementById("page2"));
-
-		// append new divider li element and refresh list;
-		$divider = $("<li id=\"li_divider2\" data-role=\"list-divider\"><span id=\"ref2\">Divider</span></li>");
-		$(list).append($divider);
-		returnValue = $(list).listview("refresh");
-		deepEqual($(list), returnValue, "compare object listview and return value of method refresh on listview");
-		$(list).trigger("create");
-
-		ok(true, "After refresh, check newly added divider");
-		divider = $divider.get(0);
-		dividerTests(divider);
-		dividerBuildTests(divider);
-
-		equal(document.getElementById("ref2"), ref, "Earlier created reference not lost");
+		tau.engine.getRouter().open(page2);
 	});
 
 	test("Listview after refresh, test of event", function () {

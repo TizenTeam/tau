@@ -103,6 +103,7 @@
 						warningLevel: 0,
 						disabled: false
 					};
+
 					self._ui = {};
 				},
 				classes = {
@@ -602,7 +603,7 @@
 			 * @protected
 			 */
 			prototype.refresh = function () {
-				this._setDisabled();
+				this._setDisabled(this.element);
 				this._initLayout();
 			};
 

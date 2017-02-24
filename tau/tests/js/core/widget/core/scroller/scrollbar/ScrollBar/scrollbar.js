@@ -1,6 +1,5 @@
 /* global test, equal, tau  */
-module("core/widget/core/scroller/Scrollbar", {
-});
+module("core/widget/core/scroller/Scrollbar");
 
 test("API ns.widget.core.scroller.scrollbar.ScrollBar", function () {
 	var widget;

@@ -810,10 +810,6 @@ module.exports = function (grunt) {
 				guide: {
 					expand: true,
 					src: ["docs/guide/built", "docs/guide/source/inline"]
-				},
-				test: {
-					expand: true,
-					src: ["report", "temp"]
 				}
 			},
 
@@ -826,13 +822,7 @@ module.exports = function (grunt) {
 				]
 			},
 
-			qunit_junit: {
-				options: {
-					fileNamer: function (url) {
-						return url.replace(/\.html(.*)$/, "");
-					}
-				}
-			},
+			qunit_junit: {},
 
 			"qunit-tap": {},
 

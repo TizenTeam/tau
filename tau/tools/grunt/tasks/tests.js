@@ -31,6 +31,7 @@ module.exports = function (grunt) {
 			var result = buildAnalysis.parse(output),
 				slice = [].slice,
 				testModules = grunt.config("qunit.main-" + profileName) || [],
+				testSupportModules = (profileName === "mobile" && grunt.config("qunit.main-" + profileName + "_support")) || [],
 				jsAddTests = grunt.option("js_add_test") ? grunt.option("js_add_test").split(",") : ["api", profileName],
 				singleTest = grunt.option("single_test") ? grunt.option("single_test") : "";
 
@@ -44,31 +45,37 @@ module.exports = function (grunt) {
 				slice.call(result.bundles[0].children).forEach(function (modulePath) {
 					var testDirectory = path.relative("src/", modulePath).replace(/(\.js)+/gi, ""),
 						mainTestPattern = path.join("tests", testDirectory, "*.html"),
-						files = grunt.file.expand(testModules);
+						testPatterns = [mainTestPattern],
+						files = null,
+						subPattern = "";
+
+					testModules.push(mainTestPattern);
+					jsAddTests.forEach(function (oneDirectory) {
+						var subPattern = path.join("tests", testDirectory, oneDirectory, "*.html");
+
+						testModules.push(subPattern);
+						testPatterns.push(subPattern);
+					});
+
+					subPattern = path.join("tests", testDirectory, "mobile_support", "*.html");
+					testSupportModules.push(subPattern);
+					testPatterns.push(subPattern);
+
+					files = grunt.file.expand(testPatterns);
 
 					if (files.length) {
 						grunt.log.ok("Tests exist for module ", testDirectory);
+						files.forEach(function (file) {
+							testFilesObject[file] = false;
+						});
 					} else {
 						grunt.log.warn("Tests don't exist for module ", testDirectory);
 					}
-
-					// Skip Date time picker tests
-					if (mainTestPattern.indexOf("Datetimepicker") < 0) {
-						testModules.push(mainTestPattern);
-						jsAddTests.forEach(function (oneDirectory) {
-							testModules.push(path.join("tests", testDirectory, "/" + oneDirectory + "/*.html"));
-						});
-					}
-
-					files.forEach(function (file) {
-						testFilesObject[file] = false;
-					});
 				});
 				grunt.config("qunit.main-" + profileName, testModules);
-				grunt.config("qunit-tap.main-" + profileName, {output: path.join("report/tap/", profileName, "/")});
+				grunt.config("qunit-tap.main-" + profileName, {output: path.join("report", "tap", profileName) + path.sep});
 				if (profileName === "mobile") {
-					grunt.config("qunit.main-mobile_support", testModules);
-					grunt.config("qunit-tap.main-mobile_support", {output: path.join("report/tap/", profileName, "/")});
+					grunt.config("qunit.main-mobile_support", testSupportModules);
 				}
 			} else if (singleTest !== "") {
 				testModules.push(singleTest);
@@ -93,11 +100,6 @@ module.exports = function (grunt) {
 		mobile_support: {
 			"qunit-main": true,
 			default: true
-		},
-		webui: {
-			"qunit-main": false,
-			default: false,
-			profile: "mobile"
 		}
 	};
 	grunt.config("test", testConfig);
@@ -137,7 +139,6 @@ module.exports = function (grunt) {
 		]
 	};
 	configProperty["test-libs-mobile_support"] = configProperty["test-libs-mobile"];
-	configProperty["test-libs-webui"] = configProperty["test-libs-mobile"];
 	grunt.config.set("copy", configProperty);
 
 	// Update config for task; concat
@@ -151,14 +152,15 @@ module.exports = function (grunt) {
 	// Update config for task; clean
 	configProperty = grunt.config.get("clean");
 	configProperty["test-libs"] = {
+		expand: true,
 		src: [path.join("tests", "libs", "dist")]
 	};
-	grunt.config.set("clean", configProperty);
+	configProperty["test"] = {
+		expand: true,
+		src: ["report", "temp"]
+	};
 
-	// Update config for task; qunit
-	configProperty = grunt.config.get("qunit");
-	configProperty["webui"] = ["tests/js/**/webui/*.html"];
-	grunt.config.set("qunit", configProperty);
+	grunt.config.set("clean", configProperty);
 
 	//grunt.loadNpmTasks( "grunt-contrib-qunit" );
 	grunt.loadNpmTasks("grunt-qunit-tap");
@@ -172,25 +174,12 @@ module.exports = function (grunt) {
 			buildProfile = profile && (testConfig[profile].profile || profile);
 
 		if (lastBuild !== buildProfile) {
-			//would be better to maintain separate build for tests purposes
+			// would be better to maintain separate build for tests purposes
 			grunt.task.run("build-" + buildProfile);
 			lastBuild = buildProfile;
 		} else {
 			grunt.task.run("requirejs:" + buildProfile);
 		}
-
-		if (prepareOnly) {
-			grunt.task.run("prepare-runner:" + profile);
-		}
-
-		grunt.config.set("qunit.options.coverage", {
-			disposeCollector: false,
-			src: ["tests/libs/dist/js/tau.js"],
-			htmlReport: "report/coverage/html/" + profile + "/",
-			cloverReport: "report/coverage/clover/" + profile + "/",
-			instrumentedFiles: "temp/",
-			reportOnFail: true
-		});
 
 		if (options) {
 			// Clean test libs
@@ -203,11 +192,7 @@ module.exports = function (grunt) {
 			grunt.task.run("concat:ej-namespace");
 
 			if (!prepareOnly) {
-				grunt.task.run("set-profile:" + profile);
-
-				grunt.config.set("qunit_junit.options.dest", "report/" + profile + "/tests/unit");
-
-				grunt.task.run("qunit_junit");
+				grunt.task.run("set-profile:" + profile, "qunit_junit");
 
 				// Run qunit main tests. This tests are generated by qunitPrepare in main grunt file
 				if (options["qunit-main"] === true) {
@@ -227,6 +212,22 @@ module.exports = function (grunt) {
 	}
 
 	grunt.registerTask("set-profile", function (profile) {
+		var testReportPath = path.join("report", "test", profile);
+
+		grunt.config.set("qunit.options.coverage", {
+			disposeCollector: true,
+			src: ["tests/libs/dist/js/tau.js", "tests/libs/dist/js/tau.support-2.3.js"],
+			htmlReport: testReportPath + "/coverage/html/",
+			cloverReport: testReportPath + "/coverage/clover/",
+			instrumentedFiles: "temp/",
+			reportOnFail: true
+		});
+
+		grunt.config.set("qunit_junit.options.dest", testReportPath + "/unit/");
+		grunt.config.set("qunit_junit.options.fileNamer", function (url) {
+			return url.replace(/\.html(.*)$/, "");
+		});
+
 		grunt.event.emit("qunit.profile", profile);
 	});
 
@@ -250,10 +251,9 @@ module.exports = function (grunt) {
 			}
 			grunt.config.set("requirejs", configProperty);
 
+			grunt.task.run("clean:test");
+
 			if (profile) {
-				grunt.config.set("qunit.options.coverage.src", "tests/libs/dist/js/tau.js");
-				grunt.config.set("qunit.options.coverage.coberturaReport", "report/coverage/" + profile + "/");
-				grunt.config.set("qunit.options.coverage.instrumentedFiles", "temp/");
 				testProfile(profile, prepareForRunner);
 			} else {
 				for (profileName in testConfig) {
@@ -273,6 +273,7 @@ module.exports = function (grunt) {
 			}
 		});
 	});
+
 
 	// Encapsulate this task
 	grunt.registerTask("prepare-runner", function (profile) {
