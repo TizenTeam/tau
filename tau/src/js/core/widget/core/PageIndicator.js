@@ -213,7 +213,7 @@
 					dotIndex = position,
 					elPageIndicatorItems = self.element.children,
 					maxPage,
-					numberOfPages = self.options.numberOfPages,
+					numberOfPages = parseInt(self.options.numberOfPages, 10),
 					middle,
 					numberOfCentralDotPages = 0,
 					indicatorActive = classes.indicatorActive,
@@ -229,8 +229,8 @@
 
 				if (numberOfPages > maxPage) {
 					numberOfCentralDotPages = numberOfPages - maxPage;
-				} else if (numberOfPages === null) {
-					ns.error("setActive error: numberOfPages is null");
+				} else if (isNaN(numberOfPages)) {
+					ns.error("setActive error: numberOfPages is not a number");
 					return;
 				} else if (numberOfPages === 0) {
 					return;
