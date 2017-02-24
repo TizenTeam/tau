@@ -17,7 +17,7 @@ module.exports = function (config) {
 
 		coverageReporter: {
 			type: "html",
-			dir: "reports/coverage/"
+			dir: "report/test/karma/coverage/html/"
 		},
 
 		plugins: ["karma-requirejs", "karma-chrome-launcher", "karma-qunit", "karma-coverage"],

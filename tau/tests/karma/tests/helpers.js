@@ -220,6 +220,8 @@
 		return element;
 	}
 
+	helpers.initFixture = initFixture;
+
 	window.karmaHelpers = helpers;
 	window.injectStyle = injectStyle;
 	window.initFixture = initFixture;

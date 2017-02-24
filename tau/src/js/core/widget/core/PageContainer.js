@@ -120,7 +120,6 @@
 				return element;
 			};
 
-
 			/**
 			 * This method changes active page to specified element.
 			 * @method change
@@ -317,9 +316,12 @@
 				if (self.activePage) {
 					self.activePage.setActive(false);
 				}
+
 				self.activePage = page;
+
 				page.setActive(true);
 			};
+
 			/**
 			 * This method returns active page widget.
 			 * @method getActivePage
@@ -342,6 +344,7 @@
 				//>>excludeEnd("tauDebug");
 				return null;
 			};
+
 			/**
 			 * This method hides any active progress bar.
 			 * @method hideLoading
@@ -354,6 +357,7 @@
 				//>>excludeEnd("tauDebug");
 				return null;
 			};
+
 			/**
 			 * This method removes page element from the given widget and destroys it.
 			 * @method _removeExternalPage
@@ -364,12 +368,11 @@
 			 * @protected
 			 */
 			prototype._removeExternalPage = function (fromPageWidget, options) {
-				var fromPage = fromPageWidget.element;
+				var fromPageElement = fromPageWidget.element;
 
-				options = options || {};
-				if (options.reverse && DOM.hasNSData(fromPage, "external")) {
-					if (fromPage.parentNode) {
-						fromPage.parentNode.removeChild(fromPage);
+				if (options && options.reverse && DOM.hasNSData(fromPageElement, "external")) {
+					if (fromPageElement.parentNode) {
+						fromPageElement.parentNode.removeChild(fromPageElement);
 						this.trigger(EventType.PAGE_REMOVE);
 					}
 				}
@@ -388,6 +391,7 @@
 				"core"
 			);
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
+			return PageContainer;
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");

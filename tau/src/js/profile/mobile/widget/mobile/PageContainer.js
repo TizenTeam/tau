@@ -28,7 +28,7 @@
  *		<body class="ui-pagecontainer" data-background="bg.jpg">...
  *
  *
- * @class ns.widget.tv.PageContainer
+ * @class ns.widget.mobile.PageContainer
  * @extends ns.widget.core.PageContainer
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  */
@@ -60,7 +60,7 @@
 			 * @method _include
 			 * @param {HTMLElement} page an element to add
 			 * @return {HTMLElement}
-			 * @member ns.widget.core.PageContainer
+			 * @member ns.widget.mobile.PageContainer
 			 * @protected
 			 */
 			prototype._include = function (page) {
@@ -70,23 +70,6 @@
 					page = util.importEvaluateAndAppendElement(page, element);
 				}
 				return page;
-			};
-
-			/**
-			 * This method sets currently active page.
-			 * @method _setActivePage
-			 * @param {ns.widget.core.Page} page a widget to set as the active page
-			 * @member ns.widget.core.PageContainer
-			 * @protected
-			 */
-			prototype._setActivePage = function (page) {
-				var self = this;
-
-				if (self.activePage) {
-					self.activePage.setActive(false, this.element);
-				}
-				self.activePage = page;
-				page.setActive(true, this.element);
 			};
 
 			PageContainer.prototype = prototype;

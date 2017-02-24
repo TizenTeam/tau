@@ -1,4 +1,5 @@
 module.exports = {
+	"extends": "../.eslintrc.js",
 	"rules": {
 		"jsdoc/check-param-names": 1,
 		"jsdoc/check-tag-names": 1,
@@ -11,5 +12,6 @@ module.exports = {
 		"jsdoc/require-param-type": 1,
 		"jsdoc/require-returns-description": 0,
 		"jsdoc/require-returns-type": 1
-	}
+	},
+	"plugins": ["jsdoc"]
 };
