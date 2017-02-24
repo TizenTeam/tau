@@ -74,5 +74,76 @@
 		equal(widget.value(), "Change", "Set Value");
 	});
 
+	test("Button - refresh and style change", function (assert) {
+		var btn1 = document.getElementById("button10"),
+			btn2 = document.getElementById("button11"),
+			btn3 = document.getElementById("button12"),
+			btn4 = document.getElementById("button13"),
+			btn1Widget = null,
+			btn2Widget = null,
+			btn3Widget = null,
+			classes = tau.widget.core.Button.classes;
+
+		btn1Widget = tau.engine.instanceWidget(btn1, "Button");
+		assert.ok(btn1.classList.contains(classes.BTN_CIRCLE), "button contains circle style from data params");
+
+		btn2Widget = tau.engine.instanceWidget(btn2, "Button");
+		assert.equal(btn2.classList, classes.BTN, "button has no style set as default");
+
+		btn2Widget.option("style", "light");
+		assert.ok(btn2.classList.contains(classes.BTN_TEXT_LIGHT), "button has light style set after refresh");
+
+		btn3Widget = tau.engine.instanceWidget(btn3, "Button");
+		assert.equal(btn3.classList, classes.BTN, "button has no style set as default");
+
+		btn3Widget.option("style", "dark");
+		assert.ok(btn3.classList.contains(classes.BTN_TEXT_DARK), "button has dark style set after refresh");
+
+		btn1Widget.option("style", "nobg");
+		assert.ok(btn1.classList.contains(classes.BTN_NOBG), "button has nobg style set after refresh");
+		assert.ok(!btn1.classList.contains(classes.BTN_CIRCLE), "button has no circle style");
+	});
+
+	test("Button - setting title for icon", function (assert) {
+		var btn = document.getElementById("button14"),
+			widget = tau.engine.instanceWidget(btn, "Button"),
+			desiredTitle = "iconpos-desired-title";
+
+		assert.equal(btn.getAttribute("title"), null, "button has no title set");
+
+		btn.textContent = desiredTitle;
+		widget.option("icon", "call");
+
+		assert.equal(btn.getAttribute("title"), desiredTitle, "button has proper title set");
+	});
+
+	test("Button - disable", function (assert) {
+		var btn = document.getElementById("button15"),
+			widget = tau.engine.instanceWidget(btn, "Button");
+
+		assert.ok(!btn.classList.contains("ui-state-disabled"), "button has no disabled class");
+		assert.ok(!btn.hasAttribute("disabled", "button has no disabled attribute"));
+		assert.ok(!btn.disabled, "button disabled property is false");
+
+		widget.disable();
+
+		assert.ok(btn.classList.contains("ui-state-disabled"), "button has disabled class");
+		assert.ok(btn.hasAttribute("disabled", "button has disabled attribute"));
+		assert.ok(btn.disabled, "button disabled property is true");
+
+		widget.enable();
+
+		assert.ok(!btn.classList.contains("ui-state-disabled"), "button has no disabled class");
+		assert.ok(!btn.hasAttribute("disabled", "button has no disabled attribute"));
+		assert.ok(!btn.disabled, "button disabled property is false");
+
+		btn.disabled = true;
+		widget.refresh();
+
+		assert.ok(btn.classList.contains("ui-state-disabled"), "button has disabled class");
+		assert.ok(btn.hasAttribute("disabled", "button has disabled attribute"));
+		assert.ok(btn.disabled, "button disabled property is true");
+	});
+
 })(window, window.document);
 

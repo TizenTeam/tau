@@ -71,7 +71,8 @@
 			 */
 			prototype._setStyle = function (element, style) {
 				var options = this.options,
-					buttonClassList = element.classList;
+					buttonClassList = element.classList,
+					change = false;
 
 				style = style || options.style;
 
@@ -79,18 +80,26 @@
 					case buttonStyle.CIRCLE:
 						buttonClassList.remove(classes.BTN_NOBG);
 						buttonClassList.add(classes.BTN_CIRCLE);
+						change = true;
 						break;
 					case buttonStyle.NOBG:
 						buttonClassList.remove(classes.BTN_CIRCLE);
 						buttonClassList.add(classes.BTN_NOBG);
+						change = true;
 						break;
 					case buttonStyle.TEXTLIGHT:
 						buttonClassList.add(classes.BTN_TEXT_LIGHT);
+						change = true;
 						break;
 					case buttonStyle.TEXTDARK:
 						buttonClassList.add(classes.BTN_TEXT_DARK);
+						change = true;
 						break;
 					default:
+				}
+
+				if (change) {
+					options.style = style;
 				}
 			};
 
@@ -109,6 +118,7 @@
 
 				if (inline) {
 					element.classList.add(classes.INLINE);
+					options.inline = inline;
 				}
 			};
 
@@ -129,6 +139,8 @@
 				if (icon) {
 					element.classList.add(classes.BTN_ICON);
 					element.classList.add(classes.ICON_PREFIX + icon);
+
+					options.icon = icon;
 
 					self._setTitleForIcon(element);
 				}
@@ -155,6 +167,7 @@
 					} else {
 						element.classList.add(classes.BTN_ICON_ONLY);
 					}
+					options.iconpos = iconpos;
 				}
 			};
 
@@ -183,13 +196,16 @@
 			 * @param {HTMLElement} element
 			 * @protected
 			 */
-			prototype._setDisabled = function (element) {
+			prototype._setDisabled = function (element, state) {
 				var self = this,
 					options = self.options,
 					buttonClassList = element.classList;
 
-				if (options.disabled === true || element.disabled || buttonClassList.contains(classes.DISABLED)) {
+				if (state === true || options.disabled === true || element.disabled || buttonClassList.contains(classes.DISABLED)) {
+					options.disabled = true;
 					self._disable(element);
+				} else {
+					options.disabled = false;
 				}
 			};
 
