@@ -111,7 +111,7 @@
 						orientationchange._orientation = "landscape";
 					}
 
-					if (!ommitEvent) {
+					if (!ommitEvent) { // this was added explicit for testing
 						eventUtils.trigger(window, "orientationchange", {"orientation": orientationchange._orientation});
 					}
 				},
