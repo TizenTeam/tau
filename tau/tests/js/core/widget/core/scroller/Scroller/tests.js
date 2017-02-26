@@ -12,76 +12,79 @@ function fireEvent(el, type, detail) {
 }
 
 document.getElementById("first").addEventListener("pageshow", function () {
-	test("tau.widget.core.scroller.Scroller _build method", function () {
-		var scrollerElement = document.getElementById("scroller"),
-			scrollerInner = scrollerElement.children[0],
-			scrollerWidget = tau.widget.Scroller(scrollerElement),
-			scrollBarWidget = tau.engine.getBinding(scrollerElement, "ScrollBar"),
-			bar = scrollerWidget.option("scrollbar"),
-			orientation = scrollerWidget.option("orientation"),
-			useBouncingEffect = scrollerWidget.option("useBouncingEffect");
 
-		expect(16);
-		ok(scrollerWidget, "widget instance exists");
-		equal(scrollerElement.style.position, "relative", "position is set to relative");
-		equal(scrollerInner.style.position, "absolute", "position of first child is set to absolute");
-		equal(scrollerInner.style.top, "0px", "top of first child is set to 0px");
-		equal(scrollerInner.style.left, "0px", "top of first child is set to 0px");
-		if (bar) {
-			ok(scrollBarWidget, "widget ScrollBar instance exists");
-		} else {
-			ok(!scrollBarWidget, "widget ScrollBar instance not exists");
-		}
-		document.addEventListener("scrollstart", function () {
-			ok(true, "scrollstart was called");
-		});
+	if (!window.tizen) {
+		/**
+		 * @todo: disabled tests - TCT issues on device
+		 */
+		test("tau.widget.core.scroller.Scroller _build method", function () {
+			var scrollerElement = document.getElementById("scroller"),
+				scrollerInner = scrollerElement.children[0],
+				scrollerWidget = tau.widget.Scroller(scrollerElement),
+				scrollBarWidget = tau.engine.getBinding(scrollerElement, "ScrollBar"),
+				bar = scrollerWidget.option("scrollbar"),
+				orientation = scrollerWidget.option("orientation"),
+				useBouncingEffect = scrollerWidget.option("useBouncingEffect");
 
-		document.addEventListener("scrollend", function () {
-			ok(true, "scrollend was called");
-		});
+			expect(16);
+			ok(scrollerWidget, "widget instance exists");
+			equal(scrollerElement.style.position, "relative", "position is set to relative");
+			equal(scrollerInner.style.position, "absolute", "position of first child is set to absolute");
+			equal(scrollerInner.style.top, "0px", "top of first child is set to 0px");
+			equal(scrollerInner.style.left, "0px", "top of first child is set to 0px");
+			if (bar) {
+				ok(scrollBarWidget, "widget ScrollBar instance exists");
+			} else {
+				ok(!scrollBarWidget, "widget ScrollBar instance not exists");
+			}
+			document.addEventListener("scrollstart", function () {
+				ok(true, "scrollstart was called");
+			});
 
-		fireEvent(scrollerInner, "dragstart", {});
-		fireEvent(scrollerInner, "drag", {
-			estimatedDeltaX: 0,
-			estimatedDeltaY: -50
-		});
-		fireEvent(scrollerInner, "dragend", {});
-		if (orientation === "vertical") {
-			notEqual(scrollerInner.style.WebkitTransform, "", "element was scrolled (1)");
-		} else {
-			equal(scrollerInner.style.WebkitTransform, "", "element was scrolled (2)");
-		}
-		fireEvent(scrollerInner, "dragstart", {});
-		fireEvent(scrollerInner, "drag", {
-			estimatedDeltaX: 0,
-			estimatedDeltaY: 50
-		});
-		fireEvent(scrollerInner, "dragend", {});
+			document.addEventListener("scrollend", function () {
+				ok(true, "scrollend was called");
+			});
 
-		fireEvent(scrollerInner, "dragstart", {});
-		fireEvent(scrollerInner, "drag", {
-			estimatedDeltaX: -50,
-			estimatedDeltaY: 0
-		});
-		fireEvent(scrollerInner, "dragend", {});
-		if (orientation === "horizontal") {
-			notEqual(scrollerInner.style.WebkitTransform, "", "element was scrolled (3)");
-		} else {
-			equal(scrollerInner.style.WebkitTransform, "translate3d(0px, 0px, 0px)", "element was scrolled (4)");
-		}
-		fireEvent(scrollerInner, "dragstart", {});
-		fireEvent(scrollerInner, "drag", {
-			estimatedDeltaX: 50,
-			estimatedDeltaY: 0
-		});
-		fireEvent(scrollerInner, "dragend", {});
+			fireEvent(scrollerInner, "dragstart", {});
+			fireEvent(scrollerInner, "drag", {
+				estimatedDeltaX: 0,
+				estimatedDeltaY: -50
+			});
+			fireEvent(scrollerInner, "dragend", {});
 
-		equal(scrollerInner.style.WebkitTransform, "translate3d(0px, 0px, 0px)", "element was scrolled (5)");
+			if (orientation === "vertical") {
+				notEqual(scrollerInner.style.WebkitTransform, "", "element was scrolled (1)");
+			} else {
+				equal(scrollerInner.style.WebkitTransform, "", "element was scrolled (2)");
+			}
 
-		if (!window.tizen) {
-			/**
-			 * @todo: disabled tests - TCT issues on device
-			 */
+			fireEvent(scrollerInner, "dragstart", {});
+			fireEvent(scrollerInner, "drag", {
+				estimatedDeltaX: 0,
+				estimatedDeltaY: 50
+			});
+			fireEvent(scrollerInner, "dragend", {});
+
+			fireEvent(scrollerInner, "dragstart", {});
+			fireEvent(scrollerInner, "drag", {
+				estimatedDeltaX: -50,
+				estimatedDeltaY: 0
+			});
+			fireEvent(scrollerInner, "dragend", {});
+			if (orientation === "horizontal") {
+				notEqual(scrollerInner.style.WebkitTransform, "", "element was scrolled (3)");
+			} else {
+				equal(scrollerInner.style.WebkitTransform, "translate3d(0px, 0px, 0px)", "element was scrolled (4)");
+			}
+			fireEvent(scrollerInner, "dragstart", {});
+			fireEvent(scrollerInner, "drag", {
+				estimatedDeltaX: 50,
+				estimatedDeltaY: 0
+			});
+			fireEvent(scrollerInner, "dragend", {});
+
+			equal(scrollerInner.style.WebkitTransform, "translate3d(0px, 0px, 0px)", "element was scrolled (5)");
+
 			if (bar) {
 				equal(scrollerElement.children[1].className, "ui-scrollbar-bar-type ui-scrollbar-vertical", "bar has proper classes");
 				equal(scrollerElement.children[1].children[0].className, "ui-scrollbar-indicator", "inner bar has proper classes");
@@ -100,17 +103,18 @@ document.getElementById("first").addEventListener("pageshow", function () {
 				equal(scrollerElement.children[1].className, "ui-scrollbar-bouncing-effect ui-top", "top effect container has proper classes (none)");
 				expect(21);
 			}
-		}
 
-		scrollerWidget.disable();
+			scrollerWidget.disable();
 
-		equal(scrollerWidget.enabled, false, "widget is disabled");
+			equal(scrollerWidget.enabled, false, "widget is disabled");
 
-		fireEvent(scrollerInner, "dragcancel", {});
+			fireEvent(scrollerInner, "dragcancel", {});
 
-		equal(scrollerWidget.scrolled, false, "scrolled is set to false after cancel");
-		equal(scrollerWidget.dragging, false, "scrolled is set to false after cancel");
-	});
+			equal(scrollerWidget.scrolled, false, "scrolled is set to false after cancel");
+			equal(scrollerWidget.dragging, false, "scrolled is set to false after cancel");
+		});
+
+	}
 
 	// unit test
 	test("_refresh", 5, function test() {

@@ -27,6 +27,14 @@ module.exports = function (grunt) {
 		prepareForRunner = false,
 		testsFilesArray = grunt.file.expand([path.join("tests", "js", "**", "*.html"), "!" + path.join("**", "test-data", "**")]),
 		testFilesObject = {},
+		TCTConfig = {
+			mobile: {
+				"numberOfTestsPerPackage": 30
+			},
+			wearable: {
+				"numberOfTestsPerPackage": 3
+			}
+		},
 		prepareTestsList = function (profileName, done, output) {
 			var result = buildAnalysis.parse(output),
 				slice = [].slice,
@@ -291,7 +299,7 @@ module.exports = function (grunt) {
 				";\n" +
 				"var CURRENT_ITERATION = 0;" +
 				"\n" +
-				"var TESTS_PER_ITERATION = 3;" + "\n"
+				"var TESTS_PER_ITERATION = " + TCTConfig[profile].numberOfTestsPerPackage + ";" + "\n"
 			);
 		} else {
 			grunt.log.error("Couldn't find configuration for profile: " + profile);
