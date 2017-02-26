@@ -194,58 +194,62 @@ QUnit.config.reorder = false;
 			}
 		});
 
-		test("bouncing elements", 1, function test() {
-			equal(this.scrollbars.length, 2, "Scrollbar bouncing elements is 2");
-		});
-
-		suites.bouncing.moves.forEach(function each(move, step) {
-
-			asyncTest(move.name, function swipe() {
-				var clientMoveXY = {
-						clientX: this.left + move.cord.x,
-						clientY: this.top + move.cord.y
-					},
-					sections = move.sections.before;
-
-				expect(6);
-				if (step === 1) {
-					expect(7);
-				}
-
-
-				i = sections.length;
-
-				while (i--) {
-					equal(this.isActive(i), sections[i], "Section " + i + " before visible: " + sections[i]);
-				}
-
-				setTimeout(function setTimeout() {
-
-					// Simulate swiping
-					triggerTouchEvent(this.scroller, "touchstart", this.clientXY);
-					triggerTouchEvent(this.scroller, "touchmove", clientMoveXY);
-					triggerTouchEvent(this.scroller, "touchmove", clientMoveXY);
-					// End swiping
-					triggerTouchEvent(this.scroller, "touchend", clientMoveXY);
-
-					sections = move.sections.after;
-					i = sections.length;
-					while (i--) {
-						equal(this.isActive(i), sections[i], "Section " + i + " after visible: " + sections[i]);
-					}
-
-					if (step === 1) {
-						ok(this.scrollbars[0].classList.contains("ui-show"), "Left scrollbar bouncing is visibile");
-					}
-
-					start();
-
-				}.bind(this), tapholdThreshold);
-
+		if (!window.tizen) {
+			/**
+			 * @todo: disabled tests - TCT issues on device
+			 */
+			test("bouncing elements", 1, function test() {
+				equal(this.scrollbars.length, 2, "Scrollbar bouncing elements is 2");
 			});
 
-		});
+			suites.bouncing.moves.forEach(function each(move, step) {
 
+				asyncTest(move.name, function swipe() {
+					var clientMoveXY = {
+							clientX: this.left + move.cord.x,
+							clientY: this.top + move.cord.y
+						},
+						sections = move.sections.before;
+
+					expect(6);
+					if (step === 1) {
+						expect(7);
+					}
+
+
+					i = sections.length;
+
+					while (i--) {
+						equal(this.isActive(i), sections[i], "Section " + i + " before visible: " + sections[i]);
+					}
+
+					setTimeout(function setTimeout() {
+
+						// Simulate swiping
+						triggerTouchEvent(this.scroller, "touchstart", this.clientXY);
+						triggerTouchEvent(this.scroller, "touchmove", clientMoveXY);
+						triggerTouchEvent(this.scroller, "touchmove", clientMoveXY);
+						// End swiping
+						triggerTouchEvent(this.scroller, "touchend", clientMoveXY);
+
+						sections = move.sections.after;
+						i = sections.length;
+						while (i--) {
+							equal(this.isActive(i), sections[i], "Section " + i + " after visible: " + sections[i]);
+						}
+
+						if (step === 1) {
+							ok(this.scrollbars[0].classList.contains("ui-show"), "Left scrollbar bouncing is visibile");
+						}
+
+						start();
+
+					}.bind(this), tapholdThreshold);
+
+				});
+
+			});
+		}
 
 		suites.scrollbar.forEach(function each(suite) {
 
