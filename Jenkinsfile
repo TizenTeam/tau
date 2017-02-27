@@ -10,7 +10,7 @@ pipeline {
                 script {
                     if ("${GERRIT_CHANGE_URL}" != '') {
                         echo 'This is gerrit'
-                        git url: 'ssh://m.urbanski@165.213.149.170:29418/framework/web/web-ui-fw'
+                        git branch: 'devel/tizen_3.0', credentialsId: '0d0e7561-6f63-434a-9ca0-762d2d7aa4db', url: 'ssh://m.urbanski@165.213.149.170:29418/framework/web/web-ui-fw'
 
                         sh "git fetch origin ${GERRIT_CHANGE_URL}"
                         sh "git checkout FETCH_HEAD"
@@ -73,41 +73,33 @@ pipeline {
         }
     }
     post {
-        always {
-            steps {
-                echo 'Sending status to JIRA...'
+        success {
+            echo 'Sending status to JIRA...'
 
-                sh "env"
-                script {
-                    def jiraIDArray = (sh(returnStdout: true, script: "git log -1 --pretty=%B") =~ /\[(OAPTAU-[0-9]+)\]/)
-                    def JIRAID = jiraIDArray[0][1]
-                    def transitions = jiraGetIssueTransitions idOrKey: "${JIRAID}", site: "SRPOL"
+            sh "env"
+            script {
+                def jiraIDArray = (sh(returnStdout: true, script: "git log -1 --pretty=%B") =~ /\[(OAPTAU-[0-9]+)\]/)
+                def JIRAID = jiraIDArray[0][1]
+                try {
+                    jiraAddComment comment: 'Build success', idOrKey: "${JIRAID}", site: 'SRPOL'
+                    }
+                catch () {
 
-                    def transitionInput =
-                        [
-                            "update": [
-                                "comment": [
-                                    [
-                                        "add": [
-                                            "body": "Build was done."
-                                        ]
-                                    ]
-                                ]
-                            ],
-                            "transition": [
-                                "id": "5",
-                                "fields": [
-                                    "resolution": [
-                                        "name": "Fixed"
-                                    ],
-                                    "status": [
-                                        "name": "REOPENED"
-                                    ]
-                                ]
-                            ]
-                        ]
+                }
+            }
+        }
+        failure {
+            echo 'Sending status to JIRA...'
 
-                    jiraTransitionIssue idOrKey: JIRAID, input: transitionInput, site: "SRPOL"
+            sh "env"
+            script {
+                def jiraIDArray = (sh(returnStdout: true, script: "git log -1 --pretty=%B") =~ /\[(OAPTAU-[0-9]+)\]/)
+                def JIRAID = jiraIDArray[0][1]
+                try {
+                    jiraAddComment comment: 'Build failture', idOrKey: "${JIRAID}", site: 'SRPOL'
+                    }
+                catch () {
+
                 }
             }
         }
