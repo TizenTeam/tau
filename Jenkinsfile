@@ -1,7 +1,7 @@
 pipeline {
     agent any
     parameters {
-        string(name: 'GERRIT_CHANGE_URL', defaultValue: '', description: 'URL from Gerrit')
+        string(name: 'GERRIT_CHANGE_URL', defaultValue: 'xx/xxxxxx/x', description: 'URL from Gerrit')
     }
 
     stages {
@@ -10,7 +10,10 @@ pipeline {
                 script {
                     if ("${GERRIT_CHANGE_URL}" != '') {
                         echo 'This is gerrit'
-                        checkout([$class: 'GitSCM', branches: [[name: '${GERRIT_CHANGE_URL}']], browser: [$class: 'GitWeb', repoUrl: 'http://165.213.149.170/gerrit/gitweb?p=framework%2Fweb%2Fweb-ui-fw.git;a=commit;h='], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[name: 'origin', url: 'ssh://m.urbanski@165.213.149.170:29418/framework/web/web-ui-fw', refspec: 'refs/changes/*:refs/changes/*']]])
+                        git url: 'ssh://m.urbanski@165.213.149.170:29418/framework/web/web-ui-fw'
+
+                        sh "git fetch origin ${GERRIT_CHANGE_URL}"
+                        sh "git checkout FETCH_HEAD"
                     }
                 }
             }
