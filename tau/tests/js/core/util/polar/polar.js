@@ -57,47 +57,31 @@ function polarTests(polar) {
 	test("addCircle", function () {
 		var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg"),
 			svg2 = null,
-			path = null,
+			cricle = null,
 			options = {
-				classes: "a",
 				color: "red",
 				width: 5,
 				x: 0,
 				y: 1,
 				r: 3,
-				linecap: 6,
-				referenceDegree: 5
+				fill: "transparent"
 			};
 
 		ok(svg instanceof SVGElement, "Create correct SVG");
 
 		svg2 = polar.addCircle(svg, options);
 
-		path = svg2.firstChild;
+		circle = svg2.firstChild;
 
 		strictEqual(svg2, svg, "return SVG");
 
-		equal(path.getAttribute("class"), options.classes, "Classes on path is correct set (1)");
-		equal(path.getAttribute("fill"), "none", "fill on path is correct set (1)");
-		equal(path.getAttribute("stroke"), options.color, "stroke on path is correct set (1)");
-		equal(path.getAttribute("stroke-width"), options.width, "stroke-width on path is correct set (1)");
-		equal(path.getAttribute("d"), "M -0.26146722824297386 3.988584094275237 A 3 3 0 0 0 0.2614672282429745 -1.9885840942752369", "d on path is correct set (1)");
-		equal(path.getAttribute("data-initial-degree"), options.referenceDegree, "data-initial-degree on path is correct set (1)");
-		equal(path.getAttribute("stroke-linecap"), options.linecap, "stroke-linecap on path is correct set (1)");
-		ok(path instanceof SVGPathElement, "Create correct SVG", "Classes on path is correct set (1)");
-
-		path = path.nextSibling;
-
-		strictEqual(svg2, svg, "return SVG");
-
-		equal(path.getAttribute("class"), options.classes, "Classes on path is correct set (2)");
-		equal(path.getAttribute("fill"), "none", "fill on path is correct set (2)");
-		equal(path.getAttribute("stroke"), options.color, "stroke on path is correct set (2)");
-		equal(path.getAttribute("stroke-width"), options.width, "stroke-width on path is correct set (2)");
-		equal(path.getAttribute("d"), "M 0.26146722824297614 -1.9885840942752364 A 3 3 0 0 0 -0.26146722824297386 3.988584094275237", "d on path is correct set (2)");
-		equal(path.getAttribute("data-initial-degree"), options.referenceDegree, "data-initial-degree on path is correct set (2)");
-		equal(path.getAttribute("stroke-linecap"), options.linecap, "stroke-linecap on path is correct set (2)");
-		ok(path instanceof SVGPathElement, "Create correct SVG", "Classes on path is correct set (2)");
+		equal(circle.getAttribute("fill"), "transparent", "fill on path is correct set to transparent");
+		equal(circle.getAttribute("stroke"), options.color, "stroke on path is correct set (1)");
+		equal(circle.getAttribute("stroke-width"), options.width, "stroke-width on path is correct set (1)");
+		equal(circle.getAttribute("cx"), options.x, "start point x is correct");
+		equal(circle.getAttribute("cy"), options.y, "start point y is correct");
+		equal(circle.getAttribute("r"), options.r, "r for Circle is correct");
+		ok(circle instanceof SVGCircleElement, "Create correct SVG", "Classes on path is correct set (1)");
 	});
 
 	test("updatePosition", function () {

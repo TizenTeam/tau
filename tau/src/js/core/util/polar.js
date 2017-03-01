@@ -1,4 +1,4 @@
-/*global window, ns, define*/
+/*global window, ns, define */
 (function (window, document, ns) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
@@ -18,17 +18,40 @@
 					polar: "ui-polar",
 					animated: "ui-animated"
 				},
-				defaults = {
-					color: "black",
-					width: 5,
+				defaultsArc = {
 					x: 180,
 					y: 180,
 					r: 170,
 					arcStart: 0,
 					arcEnd: 90,
+					width: 5,
+					color: "black",
 					animation: false,
-					referenceDegree: 0,
-					linecap: "butt"
+					linecap: "butt",
+					referenceDegree: 0
+				},
+				defaultsRadius = {
+					x: 180,
+					y: 180,
+					r: 170,
+					degrees: 0,
+					length: 180,
+					direction: "in",
+					width: 5,
+					color: "black"
+				},
+				defaultsText = {
+					x: 180,
+					y: 180,
+					text: "Text",
+					position: "middle",
+					color: "white"
+				},
+				defaultsCircle = {
+					x: 180,
+					y: 180,
+					r: 170,
+					color: "white"
 				},
 				polar;
 
@@ -88,7 +111,7 @@
 			function addAnimation(element, options) {
 				var style = element.style,
 					value = options.x + "px " + options.y + "px",
-					degrees = options.referenceDegree + options.arcStart;
+					degrees = (options.referenceDegree + options.arcStart) || options.degrees;
 
 				// phantom not support classList on SVG
 				if (element.classList) {
@@ -107,8 +130,58 @@
 				style.transform = value;
 			}
 
+			function addRadius(svg, options) {
+				var line = document.createElementNS(SVGNS, "line"),
+					positionStart,
+					positionEnd;
+
+				line.setAttribute("class", options.classes);
+				line.setAttribute("stroke", options.color);
+				line.setAttribute("stroke-width", options.width);
+				if (options.direction === "out") {
+					positionStart = polarToCartesian(options.x, options.y, options.r, options.degrees);
+					positionEnd = polarToCartesian(options.x, options.y, options.r - options.length, options.degrees);
+				} else {
+					// TODO - from the center
+				}
+				line.setAttribute("x1", positionStart.x);
+				line.setAttribute("y1", positionStart.y);
+				line.setAttribute("x2", positionEnd.x);
+				line.setAttribute("y2", positionEnd.y);
+
+				svg.appendChild(line);
+				return line;
+			}
+
+			function addText(svg, options) {
+				var text = document.createElementNS(SVGNS, "text");
+
+				text.setAttribute("x", options.x);
+				text.setAttribute("y", options.y);
+				text.setAttribute("text-anchor", options.position);
+				text.setAttribute("fill", options.color);
+				text.setAttribute("transform", options.transform);
+				text.textContent = options.text;
+
+				svg.appendChild(text);
+			}
+
+			function addCircle(svg, options) {
+				var circle = document.createElementNS(SVGNS, "circle");
+
+				circle.setAttribute("stroke", options.color);
+				circle.setAttribute("stroke-width", options.width);
+				circle.setAttribute("cx", options.x);
+				circle.setAttribute("cy", options.y);
+				circle.setAttribute("r", options.r);
+				circle.setAttribute("fill", options.fill);
+
+				svg.appendChild(circle);
+				return circle;
+			}
+
 			function updatePathPosition(path, options) {
-				var reference = 0;
+				var reference;
 
 				if (options.animation) {
 					addAnimation(path, options);
@@ -122,10 +195,43 @@
 				}
 			}
 
+			function updateLinePosition(line, options) {
+				var positionStart,
+					positionEnd;
+
+				if (options.animation) {
+					addAnimation(line, options);
+				} else {
+					if (line) {
+						positionStart = polarToCartesian(options.x, options.y, options.r, options.degrees);
+						positionEnd = polarToCartesian(options.x, options.y, options.r - options.length, options.degrees);
+
+						line.setAttribute("x1", positionStart.x);
+						line.setAttribute("y1", positionStart.y);
+						line.setAttribute("x2", positionEnd.x);
+						line.setAttribute("y2", positionEnd.y);
+					}
+				}
+			}
+
 			polar = {
-				default: defaults,
+				default: {
+					arc: defaultsArc,
+					radius: defaultsRadius,
+					text: defaultsText
+				},
 				classes: classes,
 
+				polarToCartesian: polarToCartesian,
+
+				/**
+				 * creates SVG element
+				 * @method createSVG
+				 * @member ns.util.polar
+				 * @param {HTMLElement} element
+				 * @return {SVGElement}
+				 * @static
+				 */
 				createSVG: function (element) {
 					var svg = document.createElementNS(SVGNS, "svg");
 
@@ -141,43 +247,101 @@
 					return svg;
 				},
 
+				/**
+				 * draw arc on the svg element
+				 * @method addArc
+				 * @member ns.util.polar
+				 * @param {SVGElement} svg
+				 * @param {Object} options
+				 * @return {SVGElement}
+				 * @static
+				 */
 				addArc: function (svg, options) {
 					// read or create new svg
 					svg = svg || this.createSVG();
 					// set options
-					options = objectUtils.merge({}, defaults, options || {});
+					options = objectUtils.merge({}, defaultsArc, options || {});
 					// add path with arc
 					addPath(svg, options);
 
 					return svg;
 				},
 
+				/**
+				 * draw radius on the svg element
+				 * @method addRadius
+				 * @member ns.util.polar
+				 * @param {SVGElement} svg
+				 * @param {Object} options
+				 * @return {SVGElement}
+				 * @static
+				 */
+				addRadius: function (svg, options) {
+					// read or create new svg
+					svg = svg || this.createSVG();
+					// add path with radius
+					options = objectUtils.merge({}, defaultsRadius, options || {});
+					return addRadius(svg, options);
+				},
+
+				/**
+				 * draw text on the svg element
+				 * @method addText
+				 * @member ns.util.polar
+				 * @param {SVGElement} svg
+				 * @param {Object} options
+				 * @return {SVGElement}
+				 * @static
+				 */
+				addText: function (svg, options) {
+					// read or create new svg
+					svg = svg || this.createSVG();
+					// add path with radius
+					options = objectUtils.merge({}, defaultsText, options || {});
+					addText(svg, options);
+
+					return svg;
+				},
+
+				/**
+				 * updatePosition for path or for line drawings in svg
+				 * @method updatePosition
+				 * @member ns.util.polar
+				 * @param {SVGElement} svg
+				 * @param {string} selector
+				 * @param {Object} options
+				 * @static
+				 */
 				updatePosition: function (svg, selector, options) {
-					var path = svg && svg.querySelector("path" + selector);
+					var path = svg && svg.querySelector("path" + selector),
+						line = svg && svg.querySelector("line" + selector);
 
 					if (path) {
 						// set options
-						options = objectUtils.merge({}, defaults, options || {});
-
+						options = objectUtils.merge({}, defaultsArc, options || {});
 						updatePathPosition(path, options);
+					} else if (line) {
+						updateLinePosition(line, options);
 					}
 				},
 
+				/**
+				 * draw circle on the svg element
+				 * @method addCircle
+				 * @member ns.util.polar
+				 * @param {SVGElement} svg
+				 * @param {Object} options
+				 * @return {SVGElement}
+				 * @static
+				 */
 				addCircle: function (svg, options) {
 					var self = this;
 
 					// read or create svg
 					svg = svg || self.createSVG();
-					// set options
-					options = objectUtils.merge({}, defaults, options || {});
-					// add first part of circle
-					options.arcStart = 0;
-					options.arcEnd = 180;
-					self.addArc(svg, options);
-					// add second part of cicle
-					options.arcStart = 180;
-					options.arcEnd = 360;
-					self.addArc(svg, options);
+
+					options = objectUtils.merge({}, defaultsCircle, options || {});
+					addCircle(svg, options);
 
 					return svg;
 				}
