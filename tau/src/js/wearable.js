@@ -48,6 +48,7 @@
 			"./profile/wearable/widget/wearable/SwipeList",
 			"./profile/wearable/widget/wearable/Selector",
 			"./profile/wearable/widget/wearable/Grid",
+			"./profile/wearable/widget/wearable/CircleIndicator",
 			"./profile/wearable/helper/SnapListStyle",
 			"./profile/wearable/helper/SnapListMarqueeStyle",
 			"./profile/wearable/helper/DrawerMoreStyle",
