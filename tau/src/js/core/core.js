@@ -67,7 +67,6 @@
 		 * logs supplied messages/arguments
 		 * @method log
 		 * @static
-		 * @param {...*} argument
 		 * @member ns
 		 */
 		ns.log = function () {
@@ -83,7 +82,6 @@
 		 * logs supplied messages/arguments ad marks it as warning
 		 * @method warn
 		 * @static
-		 * @param {...*} argument
 		 * @member ns
 		 */
 		ns.warn = function () {
@@ -99,7 +97,6 @@
 		 * logs supplied messages/arguments and marks it as error
 		 * @method error
 		 * @static
-		 * @param {...*} argument
 		 * @member ns
 		 */
 		ns.error = function () {
@@ -142,7 +139,7 @@
 		/**
 		 * Return path for framework script file.
 		 * @method getFrameworkPath
-		 * @returns {?string}
+		 * @return {?string}
 		 * @member ns
 		 */
 		ns.getFrameworkPath = function () {

@@ -243,6 +243,7 @@
 			/**
 			 * Checks if specified string is a number or not
 			 * @method isNumber
+			 * @param {string} query
 			 * @return {boolean}
 			 * @member ns.util
 			 * @static

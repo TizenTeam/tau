@@ -104,7 +104,7 @@
 						detectOrientationByDimensions(true);
 					}
 				},
-					matchMediaHandler = function (mediaQueryList, ommitEvent) {
+				matchMediaHandler = function (mediaQueryList, ommitEvent) {
 					if (mediaQueryList.matches) {
 						orientationchange._orientation = "portrait";
 					} else {

@@ -227,6 +227,7 @@ module.exports = function (grunt) {
 			src: ["tests/libs/dist/js/tau.js", "tests/libs/dist/js/tau.support-2.3.js"],
 			htmlReport: testReportPath + "/coverage/html/",
 			cloverReport: testReportPath + "/coverage/clover/",
+			coberturaReport: testReportPath + "/coverage/cobertura/",
 			instrumentedFiles: "temp/",
 			reportOnFail: true
 		});
