@@ -1,0 +1,74 @@
+.ui-arc-listview {
+	width: 360 * @unit_base;
+	display: block;
+	overflow: hidden;
+	top: 0;
+	left: 0;
+
+	&-carousel {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+
+		&-item {
+			width: 360 * @unit_base;
+			height: 0;
+			position: absolute;
+		}
+	}
+	&-selection {
+		opacity: 0;
+		position: absolute;
+		transition: opacity 250ms;
+		pointer-events: none;
+		transform: translateY(-50%);
+		mask-image: url("images/List/b_list_focus_bg.png");
+		mask-size: 100% 100%;
+		top: 50%;
+		width: 360 * @unit_base;
+		height: 120 * @unit_base;
+		left: 0;
+		right: 0;
+		border-radius: 72 * @unit_base;
+		background-color: @color_listview_focus;
+		&-show {
+			opacity: 1;
+		}
+	}
+}
+
+.ui-arc-listview, .ui-arc-listview-carousel {
+	li {
+		justify-content: space-around;
+		display: flex;
+		align-items: center;
+
+		&:not(.ui-li-group-index) {
+			height: 108 * @unit_base;
+		}
+		&:first-child {
+			margin-top: 0;
+		}
+		&.ui-li-group-index {
+			margin-top: 0;
+		}
+		&.ui-li-group-index ~ li:not(.ui-li-group-index) {
+			margin-top: 0;
+		}
+		&:last-child {
+			margin-bottom: 11 * @unit_base;
+		}
+		~ li {
+			margin-top: 11 * @unit_base;
+		}
+		&.ui-li-group-index {
+			border: 0;
+		}
+	}
+}
+
+.ui-force-relative-li-children li {
+	position: relative !important;
+}

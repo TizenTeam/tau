@@ -51,6 +51,7 @@
 			"./profile/wearable/helper/SnapListMarqueeStyle",
 			"./profile/wearable/helper/DrawerMoreStyle",
 			"./profile/wearable/helper/RotaryEventBinder",
+			"./profile/wearable/widget/wearable/ArcListview",
 			"./core/router/Router",
 			"./core/router/history",
 			"./core/router/route/page",

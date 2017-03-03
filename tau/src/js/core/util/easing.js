@@ -92,7 +92,7 @@
 				 * @static
 				 */
 				linear: function (currentTime, startValue, changeInValue, duration) {
-					return startValue + duration * currentTime;
+					return startValue + changeInValue * currentTime / duration;
 				}
 			};
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
