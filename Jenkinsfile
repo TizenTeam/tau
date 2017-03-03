@@ -30,29 +30,34 @@ pipeline {
                 }
             }
         }
-        stage('Tests mobile') {
+        stage('Tests') {
             steps {
-                echo 'Testing mobile..'
+                echo 'Testing..'
                 dir ('tau') {
                     sh "npm install"
                     sh "npm install grunt-cli"
-                    sh "node_modules/grunt-cli/bin/grunt ci-mobile -f"
+                    sh "node_modules/grunt-cli/bin/grunt test -f"
                     junit 'report/**/*.xml'
-                    publishHTML(target: [allowMissing: true, alwaysLinkToLastBuild: true, keepAll: false, reportDir: 'report/test/mobile/coverage/html', reportFiles: 'index.html', reportName: 'HTML Report'])
-                    step([$class: 'CloverPublisher', cloverReportDir: 'report/test/mobile/coverage/clover', cloverReportFileName: 'clover.xml'])
                 }
             }
         }
-        stage('Tests wearable') {
+        stage('Clover') {
             steps {
-                echo 'Testing wearable..'
+                echo 'Collecting clover..'
+                dir ('tau') {
+                    sh "node tools/cmd/clover.js"
+                    step([$class: 'CloverPublisher', cloverReportDir: 'report/test/all/coverage/clover', cloverReportFileName: 'clover.xml'])
+                }
+            }
+        }
+        stage('Docs') {
+            steps {
+                echo 'Generating docs..'
                 dir ('tau') {
                     sh "npm install"
                     sh "npm install grunt-cli"
-                    sh "node_modules/grunt-cli/bin/grunt ci-wearable -f"
-                    junit 'report/**/*.xml'
-                    publishHTML(target: [allowMissing: true, alwaysLinkToLastBuild: true, keepAll: false, reportDir: 'report/test/wearable/coverage/html', reportFiles: 'index.html', reportName: 'HTML Report'])
-                    step([$class: 'CloverPublisher', cloverReportDir: 'report/test/wearable/coverage/clover', cloverReportFileName: 'clover.xml'])
+                    sh "node_modules/grunt-cli/bin/grunt docs -f"
+                    sh "mkdir -p docs/sdk"
                 }
             }
         }
@@ -60,6 +65,7 @@ pipeline {
             steps {
                 echo 'Getting artifacts....'
                 dir ('tau') {
+                    sh "node_modules/grunt-cli/bin/grunt build -f"
                     sh "rm -rf artifacts"
                     sh "mkdir -p artifacts/dist/mobile"
                     sh "mkdir -p artifacts/demos/SDK/mobile"
@@ -71,7 +77,8 @@ pipeline {
                     sh "cp -a demos/SDK/mobile/* artifacts/demos/SDK/wearable/"
                     sh "cp -a dist/wearable/* artifacts/dist/wearable/"
                     sh "cp -a dist/wearable/theme/changeable artifacts/dist/wearable/theme/default"
-                    archiveArtifacts artifacts: 'artifacts/**', fingerprint: true
+                    sh "cp -a docs/sdk artifacts/"
+                    sh "mv artifacts /usr/share/nginx/html/${BUILD_TAG}"
                 }
             }
         }
@@ -90,13 +97,14 @@ pipeline {
                     JIRAID = jiraIDArray[0][1]
                 }
                 echo "JIRAID: ${JIRAID}"
-                def JIRAMESSAGE = ""
+                def BUILD_URL = BUILD_TAG.replaceAll(~/%/, "%25");
+                def JIRAMESSAGE = "WWW: http://${HOSTNAME}:8080/${BUILD_URL}/ "
                 if ("${GERRIT_CHANGE_URL}" != 'refs/changes/xx/xxxxxx/x') {
                     def GERRITIDPARTS = ("${GERRIT_CHANGE_URL}" =~ /refs\/changes\/[0-9]+\/([0-9]+)\/[0-9]+/)
                     def GERRITID = GERRITIDPARTS[0][1]
                     echo "${GERRITID}"
                     def GERRITURL = "http://165.213.149.170/gerrit/#/c/${GERRITID}/"
-                    JIRAMESSAGE = "${GERRITURL}"
+                    JIRAMESSAGE += "${GERRITURL}"
                 }
                 def CAM = ""
                 if ("${JIRAID}" != "") {
@@ -134,13 +142,14 @@ pipeline {
                     JIRAID = jiraIDArray[0][1]
                 }
                 echo "JIRAID: ${JIRAID}"
-                def JIRAMESSAGE = ""
+                def BUILD_URL = BUILD_TAG.replaceAll(~/%/, "%25");
+                def JIRAMESSAGE = "WWW: http://${HOSTNAME}:8080/${BUILD_URL}/ "
                 if ("${GERRIT_CHANGE_URL}" != 'refs/changes/xx/xxxxxx/x') {
                     def GERRITIDPARTS = ("${GERRIT_CHANGE_URL}" =~ /refs\/changes\/[0-9]+\/([0-9]+)\/[0-9]+/)
                     def GERRITID = GERRITIDPARTS[0][1]
                     echo "${GERRITID}"
                     def GERRITURL = "http://165.213.149.170/gerrit/#/c/${GERRITID}/"
-                    JIRAMESSAGE = "${GERRITURL}"
+                    JIRAMESSAGE += "${GERRITURL}"
                 }
                 def CAM = ""
                 if ("${JIRAID}" != "") {
@@ -178,13 +187,14 @@ pipeline {
                     JIRAID = jiraIDArray[0][1]
                 }
                 echo "JIRAID: ${JIRAID}"
-                def JIRAMESSAGE = ""
+                def BUILD_URL = BUILD_TAG.replaceAll(~/%/, "%25");
+                def JIRAMESSAGE = "WWW: http://${HOSTNAME}:8080/${BUILD_URL}/ "
                 if ("${GERRIT_CHANGE_URL}" != 'refs/changes/xx/xxxxxx/x') {
                     def GERRITIDPARTS = ("${GERRIT_CHANGE_URL}" =~ /refs\/changes\/[0-9]+\/([0-9]+)\/[0-9]+/)
                     def GERRITID = GERRITIDPARTS[0][1]
                     echo "${GERRITID}"
                     def GERRITURL = "http://165.213.149.170/gerrit/#/c/${GERRITID}/"
-                    JIRAMESSAGE = "${GERRITURL}"
+                    JIRAMESSAGE += "${GERRITURL}"
                 }
                 def CAM = ""
                 if ("${JIRAID}" != "") {

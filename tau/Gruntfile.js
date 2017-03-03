@@ -1088,7 +1088,5 @@ module.exports = function (grunt) {
 	grunt.registerTask("build-wearable", "Build wearable project", ["css-wearable", "js-wearable", "license", "version"]);
 	grunt.registerTask("release", "Build, est and prepare docs", ["build", "test:mobile", "test:mobile_support", "test:jqm", "test:jqm14ok", "test:wearable", "sdk-docs"]);
 	grunt.registerTask("default", "-> release", ["release"]);
-	grunt.registerTask("ci-wearable", "Wearable tests for CI", ["clean:test", "test:wearable"]);
-	grunt.registerTask("ci-mobile", "Mobile tests for CI", ["clean:test", "test:mobile", "test:mobile_support"]);
 	grunt.registerTask("ci", "Code style validation for CI", ["eslint:js-ci", "lesslint:less-ci", "eslint:jsdoc-ci"]);
 };
