@@ -1089,14 +1089,17 @@ module.exports = function (grunt) {
 	grunt.registerTask("js-mobile_support", "Prepare JS for mobile 2.3", ["clean:js", "requirejs:mobile", "requirejs:mobile_support", "jsmin", "themesjs:mobile", "copy:mobileJquery"]);
 	grunt.registerTask("js-wearable", "Prepare JS wearable", ["clean:js", "requirejs:wearable", "jsmin", "themesjs:wearable"]);
 	grunt.registerTask("license", "Add licence information to files", ["concat:licenseJs", "concat:licenseDefaultCss", "concat:licenseChangeableCss", "concat:licenseWearableCss", "copy:license"]);
+
 	grunt.registerTask("docs-mobile", ["js-mobile", "analize-docs:mobile", "copy:sdk-docs"]);
 	grunt.registerTask("docs-mobile_support", ["js-mobile_support", "analize-docs:mobile_support", "copy:sdk-docs"]);
 	grunt.registerTask("docs-wearable", ["js-wearable", "analize-docs:wearable", "copy:sdk-docs"]);
+	grunt.registerTask("docs", ["docs-wearable", "docs-mobile_support", "docs-mobile"]);
 
-grunt.registerTask("docs", ["docs-wearable", "docs-mobile_support", "docs-mobile"]);	grunt.registerTask("build", "Build whole project", ["css", "globalize", "js", "license", "version"]);
+	grunt.registerTask("build", "Build whole project", ["css", "globalize", "js", "license", "version"]);
 	grunt.registerTask("build-mobile", "Build mobile project", ["css-mobile", "js-mobile", "license", "version"]);
 	grunt.registerTask("build-mobile_support", "Build mobile project for 2.3", ["css-mobile_support", "js-mobile_support", "license", "version"]);
 	grunt.registerTask("build-wearable", "Build wearable project", ["css-wearable", "js-wearable", "license", "version"]);
+
 	grunt.registerTask("release", "Build, est and prepare docs", ["lint", "build", "test:mobile", "test:mobile_support", "test:jqm", "test:jqm14ok", "test:wearable"]);
 	grunt.registerTask("default", "->release", ["release"]);
 	grunt.registerTask("ci", "Code style validation for CI", ["eslint:js-ci", "lesslint:less-ci", "eslint:jsdoc-ci"]);

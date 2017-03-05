@@ -507,9 +507,10 @@ module.exports = function (grunt) {
 		function prepareDescriptionAndExamples(method, block) {
 			var description = deleteBR(prepareNote(block)),
 				profiles = null,
-				found = null;
+				exampleRegex = /(<h[0-9]>(.*?)<\/h[0-9]>(\t|\r| |\n)*?)?<pre><code>[ \t]*(@example(.*))((.|\n)*?)<\/code><\/pre>/mg,
+				found = exampleRegex.exec(description);
 
-			while (found = /(<h[0-9]>(.*?)<\/h[0-9]>(\t|\r| |\n)*?)?<pre><code>[ \t]*(@example(.*))((.|\n)*?)<\/code><\/pre>/mg.exec(description)) {
+			while (found) {
 				// finding profile information after @example tag
 				profiles = found[5].split(" ").map(trimString).filter(stringLength);
 				// if example tag not have any information about profile or current profile is on profiles list
@@ -524,6 +525,7 @@ module.exports = function (grunt) {
 				}
 				// remove example from description
 				description = description.replace(found[0], "");
+				found = exampleRegex.exec(description);
 			}
 
 			// clear in description tags not matched to profile
