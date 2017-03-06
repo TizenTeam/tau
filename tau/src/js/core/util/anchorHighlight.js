@@ -60,47 +60,12 @@
 				 */
 				startY = 0,
 				/**
-				 * Did page scrolled
-				 * @property {boolean} didScroll
-				 * @member ns.util.anchorHighlight
-				 * @private
-				 * @static
-				 */
-				didScroll = false,
-				/**
-				 * Touch button target element
-				 * @property {HTMLElement} buttonTarget
-				 * @member ns.util.anchorHighlight
-				 * @private
-				 * @static
-				 */
-				buttonTarget = null,
-				/**
 				 * Touch target element
 				 * @property {HTMLElement} target
 				 * @member ns.util.anchorHighlight
 				 * @private
 				 * @static
 				 */
-				target = null,
-				/**
-				 * Object with default options
-				 * @property {Object} options
-				 * Treshold after which didScroll will be set
-				 * @property {number} [options.scrollThreshold=10]
-				 * Time to wait before adding activeClass
-				 * @property {number} [options.addActiveClassDelay=50]
-				 * Time to stay activeClass after touch end
-				 * @property {number} [options.keepActiveClassDelay=100]
-				 * @member ns.util.anchorHighlight
-				 * @private
-				 * @static
-				 */
-				options = {
-					scrollThreshold: 10,
-					addActiveClassDelay: 50,
-					keepActiveClassDelay: 100
-				},
 				classes = {
 					/**
 					 * Class used to mark element as active
@@ -178,16 +143,71 @@
 				 * @static
 				 */
 				event = ns.event,
-				// cache function
-				requestAnimationFrame = ns.util.requestAnimationFrame,
+
 				// cache function
 				abs = Math.abs,
-				startTime = 0,
-				startRemoveTime = 0,
-				// inform that touch was ended
-				touchEnd = false,
-				// inform that animation of button's activation was ended
-				activeAnimationFinished = false,
+
+				/**
+				 * Get closest li element
+				 * @method detectLiElement
+				 * @param {HTMLElement} target
+				 * @return {HTMLElement}
+				 * @member ns.util.anchorHighlight
+				 * @private
+				 * @static
+				 */
+				detectLiElement = function (target) {
+					return selectors.getClosestByTag(target, "li");
+				},
+
+				anchorHighlight = {
+					/**
+					 * Object with default options
+					 * @property {Object} options
+					 * Treshold after which didScroll will be set
+					 * @property {number} [options.scrollThreshold=10]
+					 * Time to wait before adding activeClass
+					 * @property {number} [options.addActiveClassDelay=50]
+					 * Time to stay activeClass after touch end
+					 * @property {number} [options.keepActiveClassDelay=100]
+					 * @member ns.util.anchorHighlight
+					 * @private
+					 * @static
+					 */
+					options: {
+						scrollThreshold: 10,
+						addActiveClassDelay: 50,
+						keepActiveClassDelay: 100
+					},
+					_startTime: 0,
+					_startRemoveTime: 0,
+					// inform that touch was ended
+					_touchEnd: false,
+					_liTarget: null,
+
+					/**
+					 * Touch button target element
+					 * @property {HTMLElement} buttonTarget
+					 * @member ns.util.anchorHighlight
+					 * @private
+					 * @static
+					 */
+					_target: null,
+					/**
+					 * Did page scrolled
+					 * @property {boolean} didScroll
+					 * @member ns.util.anchorHighlight
+					 * @private
+					 * @static
+					 */
+					_didScroll: false,
+					_buttonTarget: null,
+					// inform that animation of button's activation was ended
+					_activeAnimationFinished: false,
+					//cache function
+					_requestAnimationFrame: ns.util.requestAnimationFrame
+				},
+
 				// cache function
 				slice = Array.prototype.slice;
 
@@ -203,19 +223,6 @@
 			 */
 			function detectHighlightTarget(target) {
 				return selectors.getClosestBySelector(target, "a, label");
-			}
-
-			/**
-			 * Get closest li element
-			 * @method detectLiElement
-			 * @param {HTMLElement} target
-			 * @return {HTMLElement}
-			 * @member ns.util.anchorHighlight
-			 * @private
-			 * @static
-			 */
-			function detectLiElement(target) {
-				return selectors.getClosestByTag(target, "li");
 			}
 
 			/**
@@ -249,10 +256,10 @@
 
 				if (classList.contains(classes.ACTIVE_BTN) && !classList.contains(classes.INACTIVE_BTN)) {
 					// set that animation was ended (used in touch end)
-					activeAnimationFinished = true;
+					anchorHighlight._activeAnimationFinished = true;
 
 					// if touch end previously
-					if (touchEnd || target !== buttonTarget) {
+					if (anchorHighlight._touchEnd || target !== anchorHighlight._buttonTarget) {
 						// start inactivate animation
 						classList.add(classes.INACTIVE_BTN);
 					}
@@ -271,8 +278,8 @@
 			 * @static
 			 */
 			function addButtonInactiveClass() {
-				if (buttonTarget) {
-					buttonTarget.classList.add(classes.INACTIVE_BTN);
+				if (anchorHighlight._buttonTarget) {
+					anchorHighlight._buttonTarget.classList.add(classes.INACTIVE_BTN);
 				}
 			}
 
@@ -284,8 +291,8 @@
 			 * @static
 			 */
 			function addButtonActiveClass() {
-				buttonTarget.classList.add(classes.ACTIVE_BTN);
-				activeAnimationFinished = false;
+				anchorHighlight._buttonTarget.classList.add(classes.ACTIVE_BTN);
+				anchorHighlight._activeAnimationFinished = false;
 			}
 
 			/**
@@ -296,12 +303,14 @@
 			 * @static
 			 */
 			function hideClear() {
-				if (buttonTarget) {
-					buttonTarget.classList.remove(classes.ACTIVE_BTN);
-					buttonTarget.classList.remove(classes.INACTIVE_BTN);
+				var btnTarget = anchorHighlight._buttonTarget;
+
+				if (btnTarget) {
+					btnTarget.classList.remove(classes.ACTIVE_BTN);
+					btnTarget.classList.remove(classes.INACTIVE_BTN);
 				}
-				if (target) {
-					target.classList.remove(classes.ACTIVE_LI);
+				if (anchorHighlight._target) {
+					anchorHighlight._target.classList.remove(classes.ACTIVE_LI);
 				}
 			}
 
@@ -313,33 +322,32 @@
 			 * @static
 			 */
 			function addActiveClass() {
-				var liTarget = null,
-					btnTargetClassList = null,
+				var btnTargetClassList = null,
 					dTime = 0;
 
-				if (startTime) {
-					dTime = Date.now() - startTime;
+				if (anchorHighlight._startTime) {
+					dTime = Date.now() - anchorHighlight._startTime;
 
-					if (dTime > options.addActiveClassDelay) {
-						startTime = 0;
-						buttonTarget = detectBtnElement(target);
-						target = detectHighlightTarget(target);
-						if (!didScroll) {
-							liTarget = detectLiElement(target);
-							if (liTarget) {
-								liTarget.classList.add(classes.ACTIVE_LI);
-								event.trigger(liTarget, events.ACTIVE_LI, {});
+					if (dTime > anchorHighlight.options.addActiveClassDelay) {
+						anchorHighlight._startTime = 0;
+						anchorHighlight._buttonTarget = detectBtnElement(anchorHighlight._target);
+						anchorHighlight._target = detectHighlightTarget(anchorHighlight._target);
+						if (!anchorHighlight._didScroll) {
+							anchorHighlight.liTarget = anchorHighlight._detectLiElement(anchorHighlight._target);
+							if (anchorHighlight.liTarget) {
+								anchorHighlight.liTarget.classList.add(classes.ACTIVE_LI);
+								event.trigger(anchorHighlight.liTarget, events.ACTIVE_LI, {});
 							}
-							liTarget = null;
-							if (buttonTarget) {
-								btnTargetClassList = buttonTarget.classList;
+							anchorHighlight.liTarget = null;
+							if (anchorHighlight._buttonTarget) {
+								btnTargetClassList = anchorHighlight._buttonTarget.classList;
 								btnTargetClassList.remove(classes.ACTIVE_BTN);
 								btnTargetClassList.remove(classes.INACTIVE_BTN);
-								requestAnimationFrame(addButtonActiveClass);
+								anchorHighlight._requestAnimationFrame(addButtonActiveClass);
 							}
 						}
 					} else {
-						requestAnimationFrame(addActiveClass);
+						anchorHighlight._requestAnimationFrame(addActiveClass);
 					}
 				}
 			}
@@ -382,13 +390,13 @@
 			 * @static
 			 */
 			function removeActiveClassLoop() {
-				var dTime = Date.now() - startRemoveTime;
+				var dTime = Date.now() - anchorHighlight._startRemoveTime;
 
-				if (dTime > options.keepActiveClassDelay) {
+				if (dTime > anchorHighlight.options.keepActiveClassDelay) {
 					// after touchend
 					clearActiveClass();
 				} else {
-					requestAnimationFrame(removeActiveClassLoop);
+					anchorHighlight._requestAnimationFrame(removeActiveClassLoop);
 				}
 			}
 
@@ -402,16 +410,16 @@
 			 */
 			function touchmoveHandler(event) {
 				var touch = event.touches[0],
-					scrollThreshold = options.scrollThreshold;
+					scrollThreshold = anchorHighlight.options.scrollThreshold;
 
 				// if move looks like scroll
-				if (!didScroll &&
+				if (!anchorHighlight._didScroll &&
 					// if move is bigger then threshold
 					(abs(touch.clientX - startX) > scrollThreshold || abs(touch.clientY - startY) > scrollThreshold)) {
-					startTime = 0;
+					anchorHighlight._startTime = 0;
 					// we clear active classes
-					requestAnimationFrame(clearActiveClass);
-					didScroll = true;
+					anchorHighlight._requestAnimationFrame(clearActiveClass);
+					anchorHighlight._didScroll = true;
 				}
 				touch = null;
 			}
@@ -430,15 +438,15 @@
 
 				if (touches.length === 1) {
 					touch = touches[0];
-					didScroll = false;
+					anchorHighlight._didScroll = false;
 					startX = touch.clientX;
 					startY = touch.clientY;
-					target = event.target;
-					startTime = Date.now();
-					startRemoveTime = 0;
-					requestAnimationFrame(addActiveClass);
+					anchorHighlight._target = event.target;
+					anchorHighlight._startTime = Date.now();
+					anchorHighlight._startRemoveTime = 0;
+					anchorHighlight._requestAnimationFrame(addActiveClass);
 					touch = null;
-					touchEnd = false;
+					anchorHighlight._touchEnd = false;
 				}
 				touches = null;
 			}
@@ -453,19 +461,19 @@
 			 * @static
 			 */
 			function touchendHandler(event) {
-				startRemoveTime = event.timeStamp;
+				anchorHighlight._startRemoveTime = event.timeStamp;
 
 				if (event.touches.length === 0) {
-					if (!didScroll) {
-						startTime = 0;
-						requestAnimationFrame(removeActiveClassLoop);
+					if (!anchorHighlight._didScroll) {
+						anchorHighlight._startTime = 0;
+						anchorHighlight._requestAnimationFrame(removeActiveClassLoop);
 					}
 					// if we finished activate animation then start inactive animation
-					if (activeAnimationFinished) {
-						requestAnimationFrame(addButtonInactiveClass);
+					if (anchorHighlight._activeAnimationFinished) {
+						anchorHighlight._requestAnimationFrame(addButtonInactiveClass);
 					}
-					didScroll = false;
-					touchEnd = true;
+					anchorHighlight._didScroll = false;
+					anchorHighlight._touchEnd = true;
 				}
 			}
 
@@ -477,10 +485,31 @@
 			 * @static
 			 */
 			function checkPageVisibility() {
+				/* istanbul ignore if  */
 				if (document.visibilityState === "hidden") {
-					removeActiveClassLoop();
+					anchorHighlight._removeActiveClassLoop();
 				}
 			}
+
+			ns.util.anchorHighlight = anchorHighlight;
+			anchorHighlight.enable = enable;
+			anchorHighlight.disable = disable;
+			anchorHighlight._clearActiveClass = clearActiveClass;
+			anchorHighlight._detectHighlightTarget = detectHighlightTarget;
+			anchorHighlight._detectBtnElement = detectBtnElement;
+			anchorHighlight._clearBtnActiveClass = clearBtnActiveClass;
+			anchorHighlight._removeActiveClassLoop = removeActiveClassLoop;
+			anchorHighlight._addButtonInactiveClass = addButtonInactiveClass;
+			anchorHighlight._addButtonActiveClass = addButtonActiveClass;
+			anchorHighlight._hideClear = hideClear;
+			anchorHighlight._addActiveClass = addActiveClass;
+			anchorHighlight._detectLiElement = detectLiElement;
+			anchorHighlight._touchmoveHandler = touchmoveHandler;
+			anchorHighlight._touchendHandler = touchendHandler;
+			anchorHighlight._touchstartHandler = touchstartHandler;
+			anchorHighlight._checkPageVisibility = checkPageVisibility;
+			anchorHighlight._hideClear = hideClear;
+			anchorHighlight._clearBtnActiveClass = clearBtnActiveClass;
 
 			/**
 			 * Bind events to document
@@ -489,16 +518,16 @@
 			 * @static
 			 */
 			function enable() {
-				document.addEventListener("touchstart", touchstartHandler, false);
-				document.addEventListener("touchend", touchendHandler, false);
-				document.addEventListener("touchmove", touchmoveHandler, false);
+				document.addEventListener("touchstart", anchorHighlight._touchstartHandler, false);
+				document.addEventListener("touchend", anchorHighlight._touchendHandler, false);
+				document.addEventListener("touchmove", anchorHighlight._touchmoveHandler, false);
 
-				document.addEventListener("visibilitychange", checkPageVisibility, false);
-				document.addEventListener("pagehide", hideClear, false);
-				document.addEventListener("popuphide", hideClear, false);
-				document.addEventListener("animationend", clearBtnActiveClass, false);
-				document.addEventListener("animationEnd", clearBtnActiveClass, false);
-				document.addEventListener("webkitAnimationEnd", clearBtnActiveClass, false);
+				document.addEventListener("visibilitychange", anchorHighlight._checkPageVisibility, false);
+				document.addEventListener("pagehide", anchorHighlight._hideClear, false);
+				document.addEventListener("popuphide", anchorHighlight._hideClear, false);
+				document.addEventListener("animationend", anchorHighlight._clearBtnActiveClass, false);
+				document.addEventListener("animationEnd", anchorHighlight._clearBtnActiveClass, false);
+				document.addEventListener("webkitAnimationEnd", anchorHighlight._clearBtnActiveClass, false);
 			}
 
 			/**
@@ -508,27 +537,22 @@
 			 * @static
 			 */
 			function disable() {
-				document.removeEventListener("touchstart", touchstartHandler, false);
-				document.removeEventListener("touchend", touchendHandler, false);
-				document.removeEventListener("touchmove", touchmoveHandler, false);
+				document.removeEventListener("touchstart", anchorHighlight._touchstartHandler, false);
+				document.removeEventListener("touchend", anchorHighlight._touchendHandler, false);
+				document.removeEventListener("touchmove", anchorHighlight._touchmoveHandler, false);
 
-				document.removeEventListener("visibilitychange", checkPageVisibility, false);
-				document.removeEventListener("pagehide", hideClear, false);
-				document.removeEventListener("popuphide", hideClear, false);
-				document.removeEventListener("animationend", clearBtnActiveClass, false);
-				document.removeEventListener("animationEnd", clearBtnActiveClass, false);
-				document.removeEventListener("webkitAnimationEnd", clearBtnActiveClass, false);
+				document.removeEventListener("visibilitychange", anchorHighlight._checkPageVisibility, false);
+				document.removeEventListener("pagehide", anchorHighlight._hideClear, false);
+				document.removeEventListener("popuphide", anchorHighlight._hideClear, false);
+				document.removeEventListener("animationend", anchorHighlight._clearBtnActiveClass, false);
+				document.removeEventListener("animationEnd", anchorHighlight._clearBtnActiveClass, false);
+				document.removeEventListener("webkitAnimationEnd", anchorHighlight._clearBtnActiveClass, false);
 			}
 
 			enable();
 
-			ns.util.anchorHighlight = {
-				enable: enable,
-				disable: disable
-			};
-
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
-		}
-	);
+			return ns.util.anchorHighlight;
+		});
 	//>>excludeEnd("tauBuildExclude");
 }(document, window, ns));

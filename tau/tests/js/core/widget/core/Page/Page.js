@@ -526,7 +526,7 @@
 				firstPageElement = document.getElementById("first");
 
 			helpers.stub(engine, "destroyAllWidgets", function () {
-				ok(true, "Destroy widgets wass called");
+				ok(true, "Destroy widgets was called");
 			});
 			pageWidget._destroy(firstPageElement);
 			helpers.restoreStub(engine, "destroyAllWidgets");

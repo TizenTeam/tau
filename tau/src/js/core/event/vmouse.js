@@ -406,7 +406,8 @@
 				 * is triggered between touchend events
 				 * if there is multi touch.
 				 */
-				if (firstTouch.identifier > 0) {
+
+				if ((firstTouch === undefined) || firstTouch.identifier > 0) {
 					//evt.preventDefault(); // cant preventDefault passive events!!!
 					evt.stopPropagation();
 					return;
