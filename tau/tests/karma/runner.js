@@ -15,6 +15,7 @@ var allTestFiles = [],
 		"core/widget/core/PageContainer",
 		"core/util",
 		"core/util/polar",
+		"core/util/rotaryScrolling",
 		"core/event/gesture/Manager",
 		"core/event/gesture/Instance",
 		"core/event/gesture/Drag",
@@ -22,6 +23,7 @@ var allTestFiles = [],
 		"core/event/gesture/Pinch",
 		"core/event/gesture/Swipe"
 	];
+
 
 QUnit.test = window.test = function () {
 	testCount += 1;

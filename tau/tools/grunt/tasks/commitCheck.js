@@ -1,4 +1,3 @@
-/*jslint nomen: true, plusplus: true */
 /*global module, require */
 var path = require("path"),
 	buildAnalysis = require("rjs-build-analysis");
@@ -6,6 +5,11 @@ var path = require("path"),
 module.exports = function (grunt) {
 	"use strict";
 
+	/**
+	 * Get string with list of files from commit.
+	 * @param {Function} callback Function which will be called after get list of files
+	 * @param {Error} error error from previous step
+	 */
 	function getLastChangedFiles(callback, error) {
 		if (!error) {
 			grunt.util.spawn({
@@ -28,7 +32,7 @@ module.exports = function (grunt) {
 			var files = filesStr.split("\n"),
 				requireFiles,
 				subtasks = [
-					"jshint:commit"
+					"eslint:commit"
 				];
 
 			files = files.map(function (file) {
@@ -40,12 +44,12 @@ module.exports = function (grunt) {
 			}).filter(function (file) {
 				// take only js files
 				return file.indexOf(".js") > 0;
+			}).filter(function (file) {
+				// ignore eslintrc
+				return file.indexOf("eslintrc") == -1;
 			});
 			// configure jshit subtask
-			grunt.config("jshint.commit", {
-				options: {
-					jshintrc: path.join("src", "js", ".jshintrc")
-				},
+			grunt.config("eslint.commit", {
 				files: {
 					src: files
 				}

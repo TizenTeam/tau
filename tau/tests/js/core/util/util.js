@@ -468,8 +468,8 @@
 
 			// window.Blob Success mock
 			helpers.stub(window, "Blob", function () {
-					ok(true, "new Blob object was created");
-					return {};
+				ok(true, "new Blob object was created");
+				return {};
 			});
 
 			// with attributes other than "src"

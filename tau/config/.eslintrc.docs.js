@@ -5,7 +5,6 @@ module.exports = {
 	},
 	"extends": "../.eslintrc.js",
 	"rules": {
-		"jsdoc/require-description-complete-sentence": 1,
 		"jsdoc/require-param-description": 1,
 		"require-jsdoc": ["error", {
 			"require": {
