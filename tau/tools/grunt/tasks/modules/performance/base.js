@@ -23,7 +23,7 @@ module.exports = (function () {
 	proto = {
 		/**
 		 * Start running tests from prepared queue
-		 * @param {function} doneCallback Function called after all the tests are done
+		 * @param {Function} doneCallback Function called after all the tests are done
 		 */
 		run: function (doneCallback) {
 			this.doneCallback = doneCallback;
@@ -92,7 +92,7 @@ module.exports = (function () {
 		},
 		/**
 		 * Adds test to test list.
-		 * @param {object} app
+		 * @param {Object} app
 		 */
 		addTest: function (app) {
 			this.tests.push(app);
@@ -102,7 +102,7 @@ module.exports = (function () {
 		},
 		/**
 		 * Returns the whole object of test results
-		 * @returns {object}
+		 * @return {Object}
 		 */
 		getRawResults: function () {
 			return this.storage;

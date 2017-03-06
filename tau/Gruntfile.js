@@ -308,24 +308,36 @@ module.exports = function (grunt) {
 				less: {
 					options: {},
 					files: {
-						src: ["src/css/**/*.less"]
+						src: [
+							"src/css/profile/wearable/changeable/theme-changeable/theme.less",
+							"src/css/profile/wearable/changeable/theme-changeable/theme.circle.less",
+							"src/css/profile/mobile/changeable/theme-changeable/theme.less"
+						]
 					}
 				},
 				"less-ci": {
 					options: {
 						csslint: {
 							"adjoining-classes": false,
-							"overqualified-elements": false
+							"overqualified-elements": false,
+							"qualified-headings": false,
+							"box-sizing": false,
+							"fallback-colors": false,
+							"known-properties": false
 						},
 						formatters: [
 							{
 								id: "junit-xml",
-								dest: "report/lesslint.xml"
+								dest: "report/less/lint.xml"
 							}
 						]
 					},
 					files: {
-						src: ["src/css/**/*.less"]
+						src: [
+							"src/css/profile/wearable/changeable/theme-changeable/theme.less",
+							"src/css/profile/wearable/changeable/theme-changeable/theme.circle.less",
+							"src/css/profile/mobile/changeable/theme-changeable/theme.less"
+						]
 					}
 				}
 			},

@@ -7,6 +7,7 @@
 
 	/**
 	 * click event handler for the selector
+	 * @param {Event} event
 	 */
 	function onClick(event) {
 		var target = event.target;

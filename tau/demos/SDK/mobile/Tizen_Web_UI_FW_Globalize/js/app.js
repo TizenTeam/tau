@@ -19,6 +19,7 @@
 	/**
 	 * Inserts the calendar data elements
 	 * @private
+	 * @param {string} inp
 	 */
 	function output(inp) {
 		calendarData.appendChild(calendarDataArea).innerHTML = inp;
@@ -27,6 +28,7 @@
 	/**
 	 * Puts a class for syntax highlighting
 	 * @private
+	 * @param {string} json
 	 */
 	function syntaxHighlight(json) {
 		json = json.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
@@ -54,6 +56,7 @@
 	/**
 	 * Updates the selected locale information to UI
 	 * @private
+	 * @param {Object} selectedLocaleInstance
 	 */
 	function updateLocaleToUI(selectedLocaleInstance) {
 		var number = selectedLocaleInstance.numberFormatter(),
@@ -89,6 +92,7 @@
 	/**
 	 * Sets the locale information
 	 * @private
+	 * @param {Object} selected
 	 */
 	function setLocale(selected) {
 		var locale = selected.value;

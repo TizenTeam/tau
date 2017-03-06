@@ -35,6 +35,7 @@
 
 	/**
 	 * sectionchange event handler
+	 * @param {Event} e
 	 */
 	pageIndicatorHandler = function (e) {
 		pageIndicator.setActive(e.detail.active);

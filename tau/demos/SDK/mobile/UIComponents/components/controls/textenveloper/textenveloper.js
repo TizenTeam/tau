@@ -9,6 +9,7 @@
 
 	/**
 	 * Adds a new item
+	 * @param {Event} event
 	 */
 	function onNewValue(event) {
 		textEnveloper.add(event.detail.value);

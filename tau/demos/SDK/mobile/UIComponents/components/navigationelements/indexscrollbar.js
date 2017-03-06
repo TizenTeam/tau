@@ -16,6 +16,7 @@
 
 	/**
 	 * Moves the scroll to selected index
+	 * @param {Event} event
 	 */
 	function onSelect(event) {
 		var divider = dividerIndexObject[event.detail.index];

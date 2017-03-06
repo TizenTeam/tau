@@ -14,6 +14,7 @@
 
 	/**
 	 * tizenhwkey event handler
+	 * @param {Event} event
 	 */
 	menukeyHandler = function (event) {
 		if (event.keyName === "menu") {

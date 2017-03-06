@@ -13,7 +13,7 @@ var tokenRules = require("./token-rules.js"),
 	 * @param {string} tokenName
 	 * @param {Array<string>} lines
 	 * @param {string} line
-	 * @returns {object}
+	 * @return {Object}
 	 */
 	function matchToken(tokenName, lines, line) {
 		var parts,
@@ -50,7 +50,7 @@ var tokenRules = require("./token-rules.js"),
 	/**
 	 * Returns all matched tokens within given string
 	 * @param {string} markdownString
-	 * @returns {Array<Object>}
+	 * @return {Array<Object>}
 	 */
 	function findTokens(markdownString) {
 		var lines = markdownString.split("\n").reverse(),
@@ -97,7 +97,7 @@ var tokenRules = require("./token-rules.js"),
 	 * Renders given tokens with templates defined in `renderTemplates`
 	 * @param {Array<Object>} tokens
 	 * @param {string} profile
-	 * @returns {string}
+	 * @return {string}
 	 */
 	function renderTokens(tokens, profile) {
 		var buffer = "";
@@ -115,7 +115,7 @@ var tokenRules = require("./token-rules.js"),
 	 * structure
 	 * @param {string} markdownString
 	 * @param {string} profile
-	 * @returns {string}
+	 * @return {string}
 	 */
 	function reformatComment(markdownString, profile) {
 		var tokens = findTokens(markdownString);

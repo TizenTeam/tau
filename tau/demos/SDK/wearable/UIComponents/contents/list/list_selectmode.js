@@ -100,6 +100,7 @@
 	/**
 	 * Select/Deselects a list item
 	 * click event handler for list item
+	 * @param {Event} event
 	 */
 	addFunction = function (event) {
 		var target = event.target,

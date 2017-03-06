@@ -11,6 +11,7 @@
 
 	/**
 	 * Updates text for an selected radio
+	 * @param {Event} e
 	 */
 	function onChangeHandler(e) {
 		var target = e.target;

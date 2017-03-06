@@ -8,14 +8,11 @@
 	position: absolute;
 	pointer-events: none;
 
-	-webkit-transition: opacity 2.5s;
-	-moz-transition: opacity 2.5s;
 	transition: opacity 2.5s;
 	opacity: 0;
 
 	.scrolling-scrollthumb {
 		background-color: @scrollthumb_background;
-		stroke: @scrollthumb_background;
 		position: absolute;
 	}
 
@@ -68,8 +65,6 @@
 			}
 
 			.ui-animated {
-				-webkit-transition: all 0.5s;
-				-moz-transition: all 0.5s;
 				transition: all 0.5s;
 			}
 		}
@@ -77,8 +72,6 @@
 
 	&.fade-in {
 		opacity: 1;
-		-webkit-transition: opacity 0.5s;
-		-moz-transition: opacity 0.5s;
 		transition: opacity 0.5s;
 	}
 }

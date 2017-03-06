@@ -32,7 +32,7 @@ var os = require("os"),
 	/**
 	 * Retrieves the devices list using SDB command.
 	 * @param {Function} [doneCallback] Method called when the operation has finished. Array of found devices will be given as the first parameter
-	 * @param {array} doneCallback.devicesFound Array of found targets. Every element has and .uid and .name property
+	 * @param {Array} doneCallback.devicesFound Array of found targets. Every element has and .uid and .name property
 	 */
 	function getDeviceList(doneCallback) {
 		var sdb = spawn("sdb", ["devices"]),
@@ -165,7 +165,7 @@ var os = require("os"),
 	 * @param {string} failureCallback.applicationId Application ID
 	 * @param {string} failureCallback.wgtPath .wgt path for which the installation failed
 	 * @param {string} failureCallback.message Failure message
-	 * @returns {number} In case of error returns 1
+	 * @return {number} In case of error returns 1
 	 */
 	function installApp(target, targetName, wgtFilePath, successCallback, failureCallback) {
 		var sdb,
@@ -330,7 +330,7 @@ var os = require("os"),
 	 * @param {string} failureCallback.target Target device or emulator UID
 	 * @param {string} failureCallback.targetName Target device or emulator name
 	 * @param {string} failureCallback.message Failure message
-	 * @returns {number} Returns 1 in case of any problems
+	 * @return {number} Returns 1 in case of any problems
 	 */
 	function pullFile(target, targetName, remotePath, localPath, outputToString, successCallback, failureCallback) {
 		var sdb,
@@ -443,7 +443,7 @@ var os = require("os"),
 	 * @param {string} exitCallback.target Target device or emulator UID
 	 * @param {string} exitCallback.targetName Target device or emulator name
 	 * @param {string} exitCallback.applicationId Application ID
-	 * @returns {number} Returns 1 in case of problems
+	 * @return {number} Returns 1 in case of problems
 	 */
 	function listenToExit(target, targetName, applicationId, exitCallback) {
 		if (!exitCallback || typeof exitCallback !== "function") {
@@ -460,9 +460,9 @@ var os = require("os"),
 	Tizen = {
 		/**
 		 * Initialization method for the Tizen helper. Gets devices in case they are missing inside configuration
-		 * @param [config]
-		 * @param [doneCallback] Pass the doneCallback in case you do not give the config for that object
-		 * @returns {Tizen}
+		 * @param {Object} [config]
+		 * @param {Function} [doneCallback] Pass the doneCallback in case you do not give the config for that object
+		 * @return {Tizen}
 		 */
 		init: function (config, doneCallback) {
 			if (config) {
@@ -495,10 +495,6 @@ var os = require("os"),
 		},
 		/**
 		 * Builds .wgt file from application in given location
-		 * @TODO
-		 * @param {string} applicationPath
-		 * @param {Function} [successCallback]
-		 * @param {Function} [failureCallback]
 		 */
 		build: function () {
 			// 1. config.xml check?
@@ -510,8 +506,8 @@ var os = require("os"),
 		 * Installs the given WGT file on all attached devices.
 		 * Callbacks will fire after all installations.
 		 * @param {string} wgtFilePath Path to .wgt file
-		 * @param {function} [successCallback] Success callback fired after file is installed on some devices
-		 * @param {function} [failureCallback] Failure callback fired after file failed to install on some devices
+		 * @param {Function} [successCallback] Success callback fired after file is installed on some devices
+		 * @param {Function} [failureCallback] Failure callback fired after file failed to install on some devices
 		 * @param {string} [target] Device UID, when given file will installed only on that target
 		 * @param {string} [targetName] Device Name
 		 */
@@ -567,9 +563,9 @@ var os = require("os"),
 		 * Run application given by ID on all or only chosen target.
 		 * Callback given as second parameter will be called on application exit.
 		 * @param {string} applicationId
-		 * @param {function} [successCallback] Function called upon application starts
-		 * @param {function} [failureCallback] Function called upon application fails to run
-		 * @param {function} [exitCallback] Function called upon application exit, please refer to ".onExit" method for more details
+		 * @param {Function} [successCallback] Function called upon application starts
+		 * @param {Function} [failureCallback] Function called upon application fails to run
+		 * @param {Function} [exitCallback] Function called upon application exit, please refer to ".onExit" method for more details
 		 * @param {string} [target] Device UID, when given application will run only on that target
 		 * @param {string} [targetName] Device Name. Desired when passing "target" argument
 		 */
@@ -632,7 +628,7 @@ var os = require("os"),
 		 * Sets handler for application exit.
 		 * In case the application is not running this will call the handler rightaway.
 		 * @param {string} applicationId
-		 * @param {function} exitCallback
+		 * @param {Function} exitCallback
 		 * @param {string} [target]
 		 * @param {string} [targetName]
 		 */
@@ -649,7 +645,7 @@ var os = require("os"),
 		},
 		/**
 		 *
-		 * @param {function} doneCallback
+		 * @param {Function} doneCallback
 		 * @param {boolean} [force=false]
 		 */
 		getTargets: function (doneCallback, force) {
