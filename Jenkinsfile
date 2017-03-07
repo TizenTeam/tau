@@ -26,7 +26,7 @@ pipeline {
                     sh "npm install grunt-cli"
                     sh "npm install grunt-contrib-copy"
                     sh "node_modules/grunt-cli/bin/grunt ci -f"
-                    junit 'report/**/*.xml'
+                    step([$class: 'JUnitResultArchiver', allowEmptyResults: true, testResults: 'report/**/*.xml'])
                 }
             }
         }
@@ -203,9 +203,9 @@ pipeline {
                 echo "JIRAMESSAGE: ${JIRAMESSAGE}"
                 if ("${GERRIT_CHANGE_URL}" != 'refs/changes/xx/xxxxxx/x') {
                     def message = "Running ${env.BUILD_ID} on ${env.RUN_DISPLAY_URL} ${CAM}"
-                    echo "ssh -p 29418 165.213.149.170 gerrit review --verified +1 -m '\"${message}\"' \$(git rev-list --max-count=1 HEAD)"
+                    echo "ssh -p 29418 165.213.149.170 gerrit review --verified -1 -m '\"${message}\"' \$(git rev-list --max-count=1 HEAD)"
                     try {
-                        sh "ssh -p 29418 165.213.149.170 gerrit review --verified +1 -m '\"${message}\"' \$(git rev-list --max-count=1 HEAD)"
+                        sh "ssh -p 29418 165.213.149.170 gerrit review --verified -1 -m '\"${message}\"' \$(git rev-list --max-count=1 HEAD)"
                     }
                     catch (e) {
                         echo "${e}"
