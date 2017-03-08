@@ -37,7 +37,7 @@ jenkins.job.build({
 					name: "online_sample_copy_to_stable",
 					parameters: {
 						snapshot_name: "apps/wearable/web/sample/wearable-widget-sample",
-						branch_name: "apps/wearable/web/sample/wearable-widget-sample,tizen_3.0"
+						sample_list: "apps/wearable/web/sample/wearable-widget-sample,tizen_3.0"
 					}
 				}, function () {
 					waitForFinish(function () {
@@ -45,7 +45,7 @@ jenkins.job.build({
 							name: "online_sample_copy_to_stable",
 							parameters: {
 								snapshot_name: "apps/mobile/web/sample/tizen-winset",
-								branch_name: "apps/mobile/web/sample/tizen-winset,tizen_3.0"
+								sample_list: "apps/mobile/web/sample/tizen-winset,tizen_3.0"
 							}
 						}, function () {
 						});

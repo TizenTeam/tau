@@ -10,7 +10,7 @@ var moment = require("moment"),
 	FILE_PACKAGEJSON = "./package.json",
 	gitAccount = "",
 	userName = "",
-	lastTag = "",
+	lastTag = env.LASTTAG || "",
 	tauVersion = env.VERSION || env.bamboo_deploy_release || env.bamboo_jira_version,
 	commitMessage = "TAU " + tauVersion + " release",
 	commitId = "";
@@ -69,7 +69,9 @@ cmd.chain(
 	// get last tag
 	["git describe --abbrev=0 --tags",
 		function (result, callback) {
-			lastTag = result.trim();
+			if (!lastTag) {
+				lastTag = result.trim();
+			}
 			callback();
 		}],
 	// get last changes
