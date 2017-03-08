@@ -1,4 +1,71 @@
 %changelog
+* Wed Mar 8 2017 Maciej Urbanski <m.urbanski@samsung.com> 0.13.29
+	- test(mobile): fix TCT tests for js/jqm/router/router.html
+	- test(all): Add tests for util.rotaryEvent
+	- tool(jenkins): Move Jenkinsfile from jenkins branch
+	- fix(all): Fix lesslist/eslint errors
+	- fix(all): Fixes in code connected with documentation
+	- tool(docs): Fix eslint errors
+	- feat(core): Fixes in tool to generate documentation
+	- tool(all): Use autoprefixer module in grunt flow
+	- fix(all) prepare the polar util and fix tests
+	- tool(jenkins): Improvment in jenkins flow
+	- feature(core): Add support of scrolling on rotary event
+	- tool(jenkins) Fix Jenkinsfile and add tool to trigger
+	- tool(all): User performance reporter
+	- tool(jenkins) fix gerrit get
+	- tool(jenkins) Jenkinsfile
+	- test(mobile): Disabling of several invalid tests that cause TCT issue on device
+	- test(wearable): Disabling of several invalid tests that cause TCT issue on device
+	- test(all) Increase tests for ns.widget.core.PageIndicator
+	- test(core) Button additional tests
+	- test(all): adding tests to core module Router
+	- test(core) orientation detection additional tests
+	- test(core): add tests for core.PageContainer
+	- test(mobile_support): Reenable mobile_support tests in mobile widgets
+	- test(core) orientation detection tests
+	- test(wearable): Reenable wearable tests for Drawer
+	- test(all) Remove unused methods for TabIndicator
+	- fix(all): Reorganize test files
+	- test(all) enable tests for scroller.Scroller
+	- test(all) Enable and add tests for SectionChanger
+	- test(all) Add  tests for gesture.Swipe
+	- test(all) Add  tests for gesture.LongPress
+	- test(all) Add  tests for gesture.Instance
+	- test(core) Popup route unit tests
+	- fix(mobile): Fix building floating buttons on no -content page
+	- test(all) Add test for util.polar
+	- test(wearable) Fix for SwipeList TCT tests
+	- test(wearable) Removing duplicate test scenario for VirtualGrid and VirtualList
+	- test(mobile) Fix tests to wearable.VirtualGrid
+	- test(all) Fix tests to wearable.VirtualList
+	- test(all) TCT for core/util/anchorHighlight fails on wearable device
+	- test(all) Fix for util.selectors test
+	- fix(wearable) Fix TCT for circular wearable config test
+	- fix(all) fix TCT tests for tests/js/core/util/DOM/css/css.html
+	- doc(mobile): Fixed inline documentation in listview
+	- refactor(mobile): new colored Listview
+	- fix(all) TCT grunt task makes eslint issue
+	- test(all) Add  tests for gesture.Pinch
+	- test(all) Add tests for gesture.Drag
+	- test(all) Add  tests for gesture.Manager
+	- test(all): fix TCT grunt task for mobile profile
+	- test(core) tau.event.vemouse unit tests refactor and increase coverage
+	- test(core) tau.utils increase unit tests coverage
+	- fix(all): fix tests for util.selectors
+	- fix(all) Fix preparing TCT packages
+	- refactoring(all) Remove ns.theme module and dependencies
+	- fix(mobile) Fix engine tests
+	- fix(wearable) Fix working of circle Slider
+	- refactoring(mobile) Remove Box widget and dependencies
+	- feature(all): Fix tests for util selectors
+	- feature(tests) Add helper to load HTML in tests from files
+	- fix(tool): Fix release script
+	- feature(mobile): add opening more menu from button
+	- fix(tests) Fix tests for Marquee
+	- fix(tests) Fix tests for Navigation
+
+
 * Wed Feb 8 2017 Maciej Urbanski <m.urbanski@samsung.com> 0.13.28
 	- fix(tool): Fix release script
 	- feat(mobile): add opening more menu from button
