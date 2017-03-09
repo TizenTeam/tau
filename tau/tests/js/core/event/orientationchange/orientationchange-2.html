@@ -4,6 +4,7 @@
 		<title>orientationchange tests</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<link rel="stylesheet" href="../../../../libs/qunit-1.11.0.css">
+		<link rel="stylesheet" href="../../../../libs/dist/theme/default/tau.css"/>
 	</head>
 	<body>
 		<div id="qunit"></div>
@@ -20,7 +21,7 @@
 			module('core/event/orientationchange');
 
 			asyncTest('Test orientation change', function () {
-				notEqual(ej.event.orientationchange.getOrientation(), null, "Orientation detected");
+				notEqual(tau.event.orientationchange.getOrientation(), null, "Orientation detected");
 				start();
 			});
 		</script>
