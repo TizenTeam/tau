@@ -1,4 +1,3 @@
-/*global window, ns, define */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
  *
@@ -14,9 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+/*global window, ns, define */
 /**
  * #Array Utility
+ *
  * Utility helps work with arrays.
+ *
  * @class ns.util.array
  */
 (function (window, document, ns) {
@@ -24,10 +26,37 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../util" // fetch namespace
+			// fetch namespace
+			"../util"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
+
+			/**
+			 * Convert values to common type and return information about type string or not.
+			 * @param {number|string} low
+			 * @param {number|string} high
+			 * @return {{inival: *, endval: *, chars: boolean}}
+			 */
+			function convertTypes(low, high) {
+				var inival = low,
+					endval = high,
+					chars = false;
+
+				if (isNaN(low) && isNaN(high)) {
+					chars = true;
+					inival = low.charCodeAt(0);
+					endval = high.charCodeAt(0);
+				} else {
+					inival = (isNaN(low) ? 0 : low);
+					endval = (isNaN(high) ? 0 : high);
+				}
+				return {
+					inival: inival,
+					endval: endval,
+					chars: chars
+				}
+			}
 			/**
 			 * Create an array containing the range of integers or characters
 			 * from low to high (inclusive)
@@ -59,19 +88,13 @@
 					endval,
 					plus,
 					walker = step || 1,
-					chars = false;
+					chars = false,
+					typeData;
 
-				if (!isNaN(low) && !isNaN(high)) {
-					inival = low;
-					endval = high;
-				} else if (isNaN(low) && isNaN(high)) {
-					chars = true;
-					inival = low.charCodeAt(0);
-					endval = high.charCodeAt(0);
-				} else {
-					inival = (isNaN(low) ? 0 : low);
-					endval = (isNaN(high) ? 0 : high);
-				}
+				typeData = convertTypes(low, high);
+				inival = typeData.inival;
+				endval = typeData.endval;
+				chars = typeData.chars;
 
 				plus = inival <= endval;
 				if (plus) {
@@ -125,14 +148,15 @@
 			 */
 			function forEach(array, callback) {
 				var i,
-					length;
+					length,
+					convertedArray = array;
 
 				if (!(array instanceof Array)) {
-					array = [].slice.call(array);
+					convertedArray = [].slice.call(array);
 				}
-				length = array.length;
+				length = convertedArray.length;
 				for (i = 0; i < length; i++) {
-					callback(array[i], i, array);
+					callback(convertedArray[i], i, convertedArray);
 				}
 			}
 
@@ -149,15 +173,16 @@
 				var result = [],
 					i,
 					length,
-					value;
+					value,
+					convertedArray = array;
 
 				if (!(array instanceof Array)) {
-					array = [].slice.call(array);
+					convertedArray = [].slice.call(array);
 				}
-				length = array.length;
+				length = convertedArray.length;
 				for (i = 0; i < length; i++) {
-					value = array[i];
-					if (callback(value, i, array)) {
+					value = convertedArray[i];
+					if (callback(value, i, convertedArray)) {
 						result.push(value);
 					}
 				}
@@ -176,14 +201,15 @@
 			function map(array, callback) {
 				var result = [],
 					i,
-					length;
+					length,
+					convertedArray = array;
 
 				if (!(array instanceof Array)) {
-					array = [].slice.call(array);
+					convertedArray = [].slice.call(array);
 				}
-				length = array.length;
+				length = convertedArray.length;
 				for (i = 0; i < length; i++) {
-					result.push(callback(array[i], i, array));
+					result.push(callback(convertedArray[i], i, convertedArray));
 				}
 				return result;
 			}
@@ -203,18 +229,19 @@
 				var i,
 					length,
 					value,
-					result = initialValue;
+					result = initialValue,
+					convertedArray = array;
 
 				if (!(array instanceof Array)) {
-					array = [].slice.call(array);
+					convertedArray = [].slice.call(array);
 				}
-				length = array.length;
+				length = convertedArray.length;
 				for (i = 0; i < length; i++) {
-					value = array[i];
+					value = convertedArray[i];
 					if (result === undefined && i === 0) {
 						result = value;
 					} else {
-						result = callback(result, value, i, array);
+						result = callback(result, value, i, convertedArray);
 					}
 				}
 				return result;

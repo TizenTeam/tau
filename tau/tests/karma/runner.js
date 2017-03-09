@@ -17,6 +17,7 @@ var allTestFiles = [],
 		"core/widget/core/PageContainer",
 		"core/defaults",
 		"core/util",
+		"core/util/array",
 		"core/util/DOM/css",
 		"core/util/DOM/attributes",
 		"core/util/DOM/manipulation",
@@ -30,8 +31,7 @@ var allTestFiles = [],
 		"core/event/gesture/Drag",
 		"core/event/gesture/LongPress",
 		"core/event/gesture/Pinch",
-		"core/event/gesture/Swipe",
-		"core/widget/core/Page"
+		"core/event/gesture/Swipe"
 	];
 
 
