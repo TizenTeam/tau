@@ -9,9 +9,9 @@
 			"./tools/performance",
 			//>>excludeEnd("tauPerformance");
 			"./core/core",
+			"./profile/wearable/config",
 			"./core/config",
 			"./core/support/tizen",
-			"./profile/wearable/config",
 			"./core/info",
 			"./core/engine",
 			// widget list

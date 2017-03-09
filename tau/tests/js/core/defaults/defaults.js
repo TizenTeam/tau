@@ -1,19 +1,40 @@
-module("profile/wearable/defaults", {});
+/* global document, define, tau, test, window, equal */
+(function () {
+	"use strict";
+	function runTests(defaults) {
+		module("core/defaults", {});
 
-test("tau.defaults", function () {
-	equal(typeof tau.defaults, "object", 'tau.defaults is object');
-	equal(tau.defaults.autoInitializePage, true, 'tau.defaults.autoInitializePage');
-	equal(tau.defaults.dynamicBaseEnabled, true, 'tau.defaults.dynamicBaseEnabled');
+		test("defaults", function () {
+			equal(typeof defaults, "object", "defaults is object");
+			equal(defaults.autoInitializePage, true, "defaults.autoInitializePage");
+			equal(defaults.dynamicBaseEnabled, true, "defaults.dynamicBaseEnabled");
 
-	tau.defaults.autoInitializePage = false;
-	equal(tau.defaults.autoInitializePage, false, 'tau.defaults.autoInitializePage');
+			defaults.autoInitializePage = false;
+			equal(defaults.autoInitializePage, false, "defaults.autoInitializePage after change");
+			defaults.autoInitializePage = true;
 
-	tau.defaults.dynamicBaseEnabled = false;
-	equal(tau.defaults.dynamicBaseEnabled, false, 'tau.defaults.dynamicBaseEnabled');
+			defaults.dynamicBaseEnabled = false;
+			equal(defaults.dynamicBaseEnabled, false, "defaults.dynamicBaseEnabled after change");
+			defaults.dynamicBaseEnabled = true;
 
-	tau.defaults.pageTransition = "slidedown";
-	equal(tau.defaults.pageTransition, "slidedown", 'tau.defaults.pageTransition');
+			equal(defaults.pageTransition, "slide", "defaults.pageTransition");
+			defaults.pageTransition = "slidedown";
+			equal(defaults.pageTransition, "slidedown", "defaults.pageTransition after change");
+			defaults.pageTransition = "slide";
 
-	tau.defaults.popupTransition = "slidedown";
-	equal(tau.defaults.popupTransition, "slidedown", 'tau.defaults.popupTransition');
-});
+			equal(defaults.popupTransition, "slideup", "defaults.popupTransition");
+			defaults.popupTransition = "slidedown";
+			equal(defaults.popupTransition, "slidedown", "defaults.popupTransition after change");
+			defaults.popupTransition = "slideup";
+		});
+	}
+
+	if (typeof define === "function") {
+		define(function () {
+			return runTests;
+		});
+	} else {
+		runTests(tau.defaults,
+			window.helpers);
+	}
+}());

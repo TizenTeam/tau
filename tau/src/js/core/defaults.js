@@ -14,97 +14,104 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/*jslint plusplus: true, nomen: true */
-//  * @TODO add support of $.mobile.buttonMarkup.hoverDelay
 /*
- * Defaults settings object
+ * #Defaults settings object
+ *
+ * This module is deprecated, please use tau.setConfig and tau.getConfig functions or tauConfig object.
+ *
+ * @author Hyunkook Cho <hk0713.cho@samsung.com>
+ * @author Tomasz Lukawski <t.lukawski@samsung.com>
+ * @author junhyeonLee <juneh.lee@samsung.com>
+ * @author heeju Joo <heeju.joo@samsung.com>
  * @author Maciej Urbanski <m.urbanski@samsung.com>
+ * @author Piotr Karny <p.karny@samsung.com>
+ * @author hagun.kim <hagun.kim@samsung.com>
  * @class ns.defaults
+ * @since 2.0
+ * @deprecated 3.0
  */
 (function (ns) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"./core"
+			"./core",
+			"./config"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
+			var defaults = {};
 
-			ns.defaults = {};
+			/**
+			 * Helper function to define property on object defaults
+			 * @param {string} name Property name to define
+			 */
+			function defineProperty(name) {
+				Object.defineProperty(ns.defaults, name, {
+					get: function () {
+						ns.warn("tau.defaults are deprecated from Tizen 3.0, please use tau.getConfig.");
+						return ns.getConfig(name);
+					},
+					set: function (value) {
+						ns.warn("tau.defaults are deprecated from Tizen 3.0, please use tau.setConfig.");
+						return ns.setConfig(name, value);
+					}
+				});
+			}
 
-			Object.defineProperty(ns.defaults, "autoInitializePage", {
-				get: function () {
-					return ns.getConfig("autoInitializePage", true);
-				},
-				set: function (value) {
-					return ns.setConfig("autoInitializePage", value);
-				}
-			});
+			ns.defaults = defaults;
 
-			Object.defineProperty(ns.defaults, "dynamicBaseEnabled", {
-				get: function () {
-					return ns.getConfig("dynamicBaseEnabled", true);
-				},
-				set: function (value) {
-					return ns.setConfig("dynamicBaseEnabled", value);
-				}
-			});
+			/**
+			 * @property {boolean} autoInitializePage=true
+			 * @member ns.defaults
+			 * @static
+			 */
+			defineProperty("autoInitializePage");
+			/**
+			 * @property {boolean} dynamicBaseEnabled=true
+			 * @member ns.defaults
+			 * @static
+			 */
+			defineProperty("dynamicBaseEnabled");
+			/**
+			 * @property {string} pageTransition="none"
+			 * @member ns.defaults
+			 * @static
+			 */
+			defineProperty("pageTransition");
+			/**
+			 * @property {string} popupTransition="none"
+			 * @member ns.defaults
+			 * @static
+			 */
+			defineProperty("popupTransition");
+			/**
+			 * @property {boolean} popupFullSize=false
+			 * @member ns.defaults
+			 * @static
+			 */
+			defineProperty("popupFullSize");
+			/**
+			 * @property {boolean} enablePageScroll=false
+			 * @member ns.defaults
+			 * @static
+			 */
+			defineProperty("enablePageScroll");
+			/**
+			 * @property {string} scrollEndEffectArea="content
+			 * @member ns.defaults
+			 * @static
+			 */
+			defineProperty("scrollEndEffectArea");
+			/**
+			 * @property {boolean} enablePopupScroll=false
+			 * @member ns.defaults
+			 * @static
+			 */
+			defineProperty("enablePopupScroll");
 
-			Object.defineProperty(ns.defaults, "pageTransition", {
-				get: function () {
-					return ns.getConfig("pageTransition", "none");
-				},
-				set: function (value) {
-					return ns.setConfig("pageTransition", value);
-				}
-			});
-
-			Object.defineProperty(ns.defaults, "popupTransition", {
-				get: function () {
-					return ns.getConfig("popupTransition", "none");
-				},
-				set: function (value) {
-					return ns.setConfig("popupTransition", value);
-				}
-			});
-
-			Object.defineProperty(ns.defaults, "popupFullSize", {
-				get: function () {
-					return ns.getConfig("popupFullSize", false);
-				},
-				set: function (value) {
-					return ns.setConfig("popupFullSize", value);
-				}
-			});
-
-			Object.defineProperty(ns.defaults, "enablePageScroll", {
-				get: function () {
-					return ns.getConfig("enablePageScroll", false);
-				},
-				set: function (value) {
-					return ns.setConfig("enablePageScroll", value);
-				}
-			});
-
-			Object.defineProperty(ns.defaults, "scrollEndEffectArea", {
-				get: function () {
-					return ns.getConfig("scrollEndEffectArea", "content");
-				},
-				set: function (value) {
-					return ns.setConfig("scrollEndEffectArea", value);
-				}
-			});
-
-			Object.defineProperty(ns.defaults, "enablePopupScroll", {
-				get: function () {
-					return ns.getConfig("enablePopupScroll", false);
-				},
-				set: function (value) {
-					return ns.setConfig("enablePopupScroll", value);
-				}
-			});
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
+			return defaults;
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");

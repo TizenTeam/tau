@@ -24,8 +24,7 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"./core",
-			"./defaults"
+			"./core"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
@@ -36,10 +35,17 @@
 			ns.setConfig("allowCrossDomainPages", false, true);
 			ns.setConfig("domCache", false, true);
 			// .. other possible options
-			// ns.setConfig('autoBuildOnPageChange', true);
-			// ns.setConfig('autoInitializePage', true);
+			ns.setConfig("autoBuildOnPageChange", true, true);
+			ns.setConfig("autoInitializePage", true, true);
+			ns.setConfig("dynamicBaseEnabled", true, true);
+			ns.setConfig("pageTransition", "none", true);
+			ns.setConfig("popupTransition", "none", true);
+			ns.setConfig("popupFullSize", false, true);
+			ns.setConfig("enablePageScroll", false, true);
+			ns.setConfig("scrollEndEffectArea", "content", true);
+			ns.setConfig("enablePopupScroll", false, true);
 			// ns.setConfig('container', document.body); // for defining application container
-			// ns.setConfig('pageContainer', document.body); // same as above, but for wearable version
+			ns.setConfig("pageContainer", document.body, true); // same as above, but for wearable version
 
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 		}

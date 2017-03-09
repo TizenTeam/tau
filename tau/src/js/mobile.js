@@ -39,8 +39,9 @@
 			"./tools/performance",
 			//>>excludeEnd("tauPerformance")
 			"./core/core",
-			"./core/config",
 			"./profile/mobile/config",
+			"./core/config",
+			"./core/defaults",
 			"./core/support",
 			"./core/info",
 			"./jqm/all",

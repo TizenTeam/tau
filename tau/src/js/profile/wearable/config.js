@@ -36,7 +36,7 @@
 				ns.setConfig("popupTransition", "pop", true);
 
 				ns.setConfig("popupFullSize", true, true);
-				ns.setConfig("scrollEndEffectArea", "screen"), true;
+				ns.setConfig("scrollEndEffectArea", "screen", true);
 				ns.setConfig("enablePageScroll", true, true);
 				ns.setConfig("enablePopupScroll", true, true);
 			} else {
