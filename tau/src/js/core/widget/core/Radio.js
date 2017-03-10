@@ -36,11 +36,7 @@
 			//>>excludeEnd("tauBuildExclude");
 			var BaseWidget = ns.widget.BaseWidget,
 				engine = ns.engine,
-				Radio = function () {
-					var self = this;
-
-					self._inputtype = null;
-				},
+				Radio = function () {},
 				classes = {
 					radio: "ui-radio"
 				},
@@ -57,14 +53,9 @@
 			 * @instance
 			 */
 			prototype._build = function (element) {
-				var inputType = element.getAttribute("type");
-
-				if (inputType !== "radio") {
-					//_build should always return element
-					return element;
+				if (element.getAttribute("type") === "radio") {
+					element.classList.add(classes.radio);
 				}
-
-				element.classList.add(classes.radio);
 
 				return element;
 			};
