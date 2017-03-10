@@ -14,6 +14,7 @@ var allTestFiles = [],
 		"core/widget/core/Page",
 		"core/widget/core/PageContainer",
 		"core/util",
+		"core/util/easing",
 		"core/util/polar",
 		"core/util/rotaryScrolling",
 		"core/event/gesture/Manager",
@@ -21,7 +22,8 @@ var allTestFiles = [],
 		"core/event/gesture/Drag",
 		"core/event/gesture/LongPress",
 		"core/event/gesture/Pinch",
-		"core/event/gesture/Swipe"
+		"core/event/gesture/Swipe",
+		"core/widget/core/Page"
 	];
 
 
