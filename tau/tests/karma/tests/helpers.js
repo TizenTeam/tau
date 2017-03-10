@@ -222,6 +222,17 @@
 
 	helpers.initFixture = initFixture;
 
+	helpers.checkWidgetBuild = function (name, element, ns) {
+		var widget = ns.engine.instanceWidget(element, name),
+			widget2 = null;
+
+		equal(element.getAttribute("data-tau-bound"), name, name + " widget is created");
+
+		widget2 = ns.widget[name](element);
+
+		equal(widget, widget2, "Widget constructor is singleton.");
+	};
+
 	window.karmaHelpers = helpers;
 	window.injectStyle = injectStyle;
 	window.initFixture = initFixture;

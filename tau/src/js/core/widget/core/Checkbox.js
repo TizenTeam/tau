@@ -36,11 +36,7 @@
 			//>>excludeEnd("tauBuildExclude");
 			var BaseWidget = ns.widget.BaseWidget,
 				engine = ns.engine,
-				Checkbox = function () {
-					var self = this;
-
-					self._inputtype = null;
-				},
+				Checkbox = function () {},
 				classes = {
 					checkbox: "ui-checkbox"
 				},
@@ -57,13 +53,9 @@
 			 * @instance
 			 */
 			prototype._build = function (element) {
-				var inputType = element.getAttribute("type");
-
-				if (inputType !== "checkbox") {
-					//_build should always return element
-					return element;
+				if (element.getAttribute("type") === "checkbox") {
+					element.classList.add(classes.checkbox);
 				}
-				element.classList.add(classes.checkbox);
 				return element;
 			};
 
@@ -101,7 +93,7 @@
 				""
 			);
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
-			return ns.widget.core.Checkbox;
+			return Checkbox;
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
