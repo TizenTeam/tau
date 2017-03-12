@@ -1,10 +1,12 @@
-var dom = ej.util.DOM;
+/* global tau, equal, test */
+
+var dom = tau.util.DOM;
 
 module("core/util/DOM/attributes");
 
 test("util.DOM.attributes - check the existence of objects/functions", function () {
-	equal(typeof ej, "object", "ej exists");
-	equal(typeof ej.util, "object", "ej.util exists");
+	equal(typeof tau, "object", "tau exists");
+	equal(typeof tau.util, "object", "tau.util exists");
 	equal(typeof dom.inheritAttr, "function", "function inheritAttr");
 	equal(typeof dom.getNumberFromAttribute, "function", "function getNumberFromAttribute");
 	equal(typeof dom.setNSData, "function", "function setNSData");

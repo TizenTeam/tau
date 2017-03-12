@@ -1,5 +1,3 @@
-/*global window, ns, define, NodeList, HTMLCollection */
-/*jslint plusplus: true */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
  *
@@ -15,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+/*global window, ns, define, NodeList, HTMLCollection */
 /*
  * @author Jadwiga Sosnowska <j.sosnowska@partner.samsung.com>
  * @author Krzysztof Antoszek <k.antoszek@samsung.com>
@@ -46,7 +45,8 @@
 				 * @static
 				 */
 				slice = [].slice,
-				DOM = ns.util.DOM;
+				DOM = ns.util.DOM,
+				contentRegex = /(\$\{content\})/gi;
 
 			/**
 			 * Appends node or array-like node list array to context
@@ -59,19 +59,21 @@
 			 * @throws {string}
 			 */
 			DOM.appendNodes = function (context, elements) {
-				var i,
-					len;
+				var i = 0,
+					length = 0,
+					arrayElements = [];
 
 				if (context) {
 					if (elements instanceof Array || elements instanceof NodeList || elements instanceof HTMLCollection) {
-						elements = slice.call(elements);
-						for (i = 0, len = elements.length; i < len; ++i) {
-							context.appendChild(elements[i]);
+						arrayElements = slice.call(elements);
+						for (i = 0, length = arrayElements.length; i < length; i += 1) {
+							context.appendChild(arrayElements[i]);
 						}
 					} else {
 						context.appendChild(elements);
+						arrayElements = elements;
 					}
-					return elements;
+					return arrayElements;
 				}
 
 				throw "Context empty!";
@@ -87,13 +89,16 @@
 			 * @static
 			 */
 			DOM.replaceWithNodes = function (context, elements) {
+				var returnElements = null;
+
 				if (elements instanceof Array || elements instanceof NodeList || elements instanceof HTMLCollection) {
-					elements = this.insertNodesBefore(context, elements);
+					returnElements = this.insertNodesBefore(context, elements);
 					context.parentNode.removeChild(context);
 				} else {
 					context.parentNode.replaceChild(elements, context);
+					returnElements = elements;
 				}
-				return elements;
+				return returnElements;
 			};
 
 			/**
@@ -119,20 +124,22 @@
 			 */
 			DOM.insertNodesBefore = function (context, elements) {
 				var i,
-					len,
-					parent;
+					length,
+					parent,
+					returnElements = [];
 
 				if (context) {
 					parent = context.parentNode;
 					if (elements instanceof Array || elements instanceof NodeList || elements instanceof HTMLCollection) {
-						elements = slice.call(elements);
-						for (i = 0, len = elements.length; i < len; ++i) {
-							parent.insertBefore(elements[i], context);
+						returnElements = slice.call(elements);
+						for (i = 0, length = returnElements.length; i < length; ++i) {
+							parent.insertBefore(returnElements[i], context);
 						}
 					} else {
 						parent.insertBefore(elements, context);
+						returnElements = elements;
 					}
-					return elements;
+					return returnElements;
 				}
 
 				throw "Context empty!";
@@ -158,6 +165,52 @@
 			};
 
 			/**
+			 * Remove all children of node.
+			 * @param {Node} fragment
+			 */
+			function cleanFragment(fragment) {
+				// clean up
+				while (fragment.firstChild) {
+					fragment.removeChild(fragment.firstChild);
+				}
+			}
+
+			/**
+			 * Move nodes from one node to another.
+			 * @param {Node} fromNode
+			 * @param {Node} toNode
+			 */
+			function moveChilds(fromNode, toNode) {
+				// move the nodes
+				while (fromNode.firstChild) {
+					toNode.appendChild(fromNode.firstChild);
+				}
+			}
+
+			/**
+			 * Prepare container for filling template
+			 * @param {Node} fragment
+			 * @param {string} html
+			 * @return {{container: *, contentFlag: boolean}}
+			 */
+			function prepareContainer(fragment, html) {
+				var container = document.createElement("div"),
+					contentFlag = false;
+
+				fragment.appendChild(container);
+
+				container.innerHTML = html.replace(contentRegex, function () {
+					contentFlag = true;
+					return "<span id='temp-container-" + (++containerCounter) + "'></span>";
+				});
+
+				return {
+					container: container,
+					contentFlag: contentFlag
+				}
+			}
+
+			/**
 			 * Wraps element or array-like node list in html markup
 			 * @method wrapInHTML
 			 * @param {HTMLElement|NodeList|HTMLCollection|Array} elements
@@ -169,54 +222,37 @@
 			DOM.wrapInHTML = function (elements, html) {
 				var fragment = document.createDocumentFragment(),
 					fragment2 = document.createDocumentFragment(),
-					container = document.createElement("div"),
-					contentFlag = false,
 					elementsLen = elements.length,
 					//if elements is nodeList, retrieve parentNode of first node
 					originalParentNode = elementsLen ? elements[0].parentNode : elements.parentNode,
 					next = elementsLen ? elements[elementsLen - 1].nextSibling : elements.nextSibling,
-					innerContainer;
+					innerContainer,
+					resultElements = elements,
+					containerData = null;
 
-				fragment.appendChild(container);
-				html = html.replace(/(\$\{content\})/gi, function () {
-					contentFlag = true;
-					return "<span id='temp-container-" + (++containerCounter) + "'></span>";
-				});
-				container.innerHTML = html;
+				containerData = prepareContainer(fragment, html);
 
-				if (contentFlag === true) {
-					innerContainer = container.querySelector("span#temp-container-" + containerCounter);
-					elements = this.replaceWithNodes(innerContainer, elements);
+				if (containerData.contentFlag === true) {
+					innerContainer = containerData.container.querySelector("span#temp-container-" + containerCounter);
+					resultElements = this.replaceWithNodes(innerContainer, elements);
 				} else {
-					innerContainer = container.children[0];
-					elements = this.appendNodes(innerContainer || container, elements);
+					innerContainer = containerData.container.children[0];
+					resultElements = this.appendNodes(innerContainer || containerData.container, elements);
 				}
 
-				// move the nodes
-				while (fragment.firstChild.firstChild) {
-					fragment2.appendChild(fragment.firstChild.firstChild);
-				}
-
-				// clean up
-				while (fragment.firstChild) {
-					fragment.removeChild(fragment.firstChild);
-				}
+				moveChilds(fragment.firstChild, fragment2);
+				cleanFragment(fragment);
 
 				if (originalParentNode) {
-					if (next) {
-						originalParentNode.insertBefore(fragment2, next);
-					} else {
-						originalParentNode.appendChild(fragment2);
-					}
+					originalParentNode.insertBefore(fragment2, next);
 				} else {
-					// clean up
-					while (fragment2.firstChild) {
-						fragment2.removeChild(fragment2.firstChild);
-					}
+					cleanFragment(fragment2);
 				}
+
 				fragment = null;
 				fragment2 = null;
-				return elements;
+
+				return resultElements;
 			};
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return ns.util.DOM;

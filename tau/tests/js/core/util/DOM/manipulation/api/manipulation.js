@@ -1,10 +1,12 @@
-var dom = ej.util.DOM;
+/* global tau, test, equal */
+
+var dom = tau.util.DOM;
 
 module("core/util/DOM/manipulation");
 
 test("util.DOM.manipulation - check the existence of objects/functions", function () {
-	equal(typeof ej, "object", "ej exists");
-	equal(typeof ej.util, "object", "ej.util exists");
+	equal(typeof tau, "object", "ej exists");
+	equal(typeof tau.util, "object", "ej.util exists");
 	equal(typeof dom.appendNodes, "function", "function appendNodes");
 	equal(typeof dom.replaceWithNodes, "function", "function replaceWithNodes");
 	equal(typeof dom.removeAllChildren, "function", "function removeAllChildren");

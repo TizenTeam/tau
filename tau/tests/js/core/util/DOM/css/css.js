@@ -1,114 +1,81 @@
-/* global document, tau, define, module, test, equal, deepEqual, ok, initFixture, injectStyle */
+/* global document, tau, define, module, test, equal, deepEqual, ok, initFixture, injectStyle, $ */
 
-function initHTML() {
-	var HTML = "<div id='util-dom-css-test1' style='width: 50px; height: 50px;'></div>" +
-			"<div id='util-dom-css-test2'></div>" +
-			"<div id='util-dom-css-test3'>" +
-			"<div class='spacer'></div>" +
-			"</div>" +
-			"<ul id='util-dom-css-test4'>" +
-			"<li>" +
-			"<span class='spacer'></span>" +
-			"</li>" +
-			"</ul>" +
-			"<ul id='util-dom-css-test5'>" +
-			"<li>" +
-			"Lorem ipsum dolor sit amet, consectetur adipiscing elit." +
-			"Etiam convallis nisl sit amet metus pulvinar, sed laoreet" +
-			"massa molestie. Phasellus dictum viverra mi a luctus. In" +
-			"massa erat, porta ut porta ut, consectetur ac magna. Mauris" +
-			"eu urna dolor. Ut tincidunt sapien quis nisi consequat, vel" +
-			"mollis ipsum mattis. Suspendisse a lectus vitae nisi blandit" +
-			"varius at ut erat. Sed consequat vehicula odio, a sagittis" +
-			"metus dignissim dignissim." +
-			"</li>" +
-			"</ul>" +
-			"<div id='util-dom-css-test6'></div>" +
-			"<div id='util-dom-css-test7' style='width: 50px; height: 50px; padding: 10px; border: 1px solid black; display: none'></div>" +
-			"<div id='util-dom-css-test9' ></div>" +
-			"<div style='height: 20px;'>" +
-			"<div id='util-dom-css-test10' ></div>" +
-			"</div>" +
+function cssTests(dom, helpers) {
 
-			"<div id='util-dom-css-test11' style='height: auto; width: auto;'>" +
-			"<div style='height: 50px;'></div>" +
-			"</div>" +
+	function initHTML() {
+		var HTML = helpers.loadHTMLFromFile("/base/tests/js/core/util/DOM/css/test-data/sample.html"),
+			parent = document.getElementById("qunit-fixture") || initFixture();
 
-			"<div id='util-dom-css-test12' style='height: 20px; width: 20px; padding: 20px; box-sizing: content-box'></div>",
-		parent = document.getElementById("qunit-fixture") || window.initFixture();
+		parent.innerHTML = HTML;
 
-	parent.innerHTML = HTML;
+		injectStyle("#util-dom-css-test1 {" +
+			"width: 100px;" +
+			"height: 10px;" +
+			"display: block;" +
+			"opacity: 0.3;" +
+			"}" +
 
-	injectStyle("#util-dom-css-test1 {" +
-		"width: 100px;" +
-		"height: 10px;" +
-		"display: block;" +
-		"opacity: 0.3;" +
-		"}" +
+			"#util-dom-css-test2 {" +
+			"max-width: 40px;" +
+			"}" +
 
-		"#util-dom-css-test2 {" +
-		"max-width: 40px;" +
-		"}" +
+			"#util-dom-css-test3 > .spacer {" +
+			"min-width: 120px;" +
+			"height: 200px;" +
+			"}" +
 
-		"#util-dom-css-test3 > .spacer {" +
-		"min-width: 120px;" +
-		"height: 200px;" +
-		"}" +
+			"#util-dom-css-test4 {" +
+			"width: 10px;" +
+			"margin: 20px;" +
+			"padding: 10px;" +
+			"max-height: 10px;" +
+			"height: 10px;" +
+			"border: 0;" +
+			"line-height: 10px;" +
+			"font-size: 8px;" +
+			"}" +
 
-		"#util-dom-css-test4 {" +
-		"width: 10px;" +
-		"margin: 20px;" +
-		"padding: 10px;" +
-		"max-height: 10px;" +
-		"height: 10px;" +
-		"border: 0;" +
-		"line-height: 10px;" +
-		"font-size: 8px;" +
-		"}" +
+			"#util-dom-css-test4 > li {" +
+			"max-width: 80px;" +
+			"height: 5px;" +
+			"margin: 10px;" +
+			"padding: 5px;" +
+			"border: 0;" +
+			"}" +
 
-		"#util-dom-css-test4 > li {" +
-		"max-width: 80px;" +
-		"height: 5px;" +
-		"margin: 10px;" +
-		"padding: 5px;" +
-		"border: 0;" +
-		"}" +
+			"#util-dom-css-test4 > li > .spacer {" +
+			"min-height: 10px;" +
+			"min-width: 100px;" +
+			"}" +
 
-		"#util-dom-css-test4 > li > .spacer {" +
-		"min-height: 10px;" +
-		"min-width: 100px;" +
-		"}" +
+			"#util-dom-css-test5 {" +
+			"margin: 0;" +
+			"padding: 0;" +
+			"list-style-type: none;" +
+			"}" +
 
-		"#util-dom-css-test5 {" +
-		"margin: 0;" +
-		"padding: 0;" +
-		"list-style-type: none;" +
-		"}" +
+			"#util-dom-css-test5 > li {" +
+			"margin: 0;" +
+			"padding: 0;" +
+			"border: 1px solid black;" +
+			"max-width: 100px;" +
+			"min-height: 40px;" +
+			"text-overflow: clip;" +
+			"white-space: nowrap;" +
+			"overflow: hidden;" +
+			"}" +
 
-		"#util-dom-css-test5 > li {" +
-		"margin: 0;" +
-		"padding: 0;" +
-		"border: 1px solid black;" +
-		"max-width: 100px;" +
-		"min-height: 40px;" +
-		"text-overflow: clip;" +
-		"white-space: nowrap;" +
-		"overflow: hidden;" +
-		"}" +
+			"#util-dom-css-test9 {" +
+			"width: 50.5%;" +
+			"height: 10px;" +
+			"opacity: 0.3;" +
+			"}" +
 
-		"#util-dom-css-test9 {" +
-		"width: 50.5%;" +
-		"height: 10px;" +
-		"opacity: 0.3;" +
-		"}" +
-
-		"#util-dom-css-test10 {" +
-		"width: 100%;" +
-		"height: 100%;" +
-		"}");
-}
-
-function cssTests(dom) {
+			"#util-dom-css-test10 {" +
+			"width: 100%;" +
+			"height: 100%;" +
+			"}");
+	}
 
 	module("core/util/DOM/css", {
 		setup: initHTML
@@ -129,8 +96,9 @@ function cssTests(dom) {
 			testElement10 = document.getElementById("util-dom-css-test10"),
 			testElement11 = document.getElementById("util-dom-css-test11"),
 			testElement12 = document.getElementById("util-dom-css-test12"),
-			testElement8;
-		var props = {
+			testElement14 = document.getElementById("util-dom-css-test14"),
+			testElement8,
+			props = {
 				"width": 0,
 				"height": 0,
 				"opacity": 0
@@ -138,6 +106,7 @@ function cssTests(dom) {
 			floatValue = dom.getCSSProperty(testElement9, "opacity", 0, "float"),
 			floatValueRound = Math.round(floatValue),
 			$test8 = $("#util-dom-css-test8");
+
 		equal(dom.getCSSProperty(testElement1, "display", false), "block", "fetching css property value");
 		equal(dom.getCSSProperty(testElement1, "display", false), $(testElement1).css("display"), "compare with jquery");
 		deepEqual(dom.getCSSProperty(testElement1, "width", 0, "integer"), 50, "fetching css property value and matching types");
@@ -241,12 +210,15 @@ function cssTests(dom) {
 		equal(dom.getElementWidth(testElement11), testElement11.parentElement.offsetWidth, "Auto width");
 
 		equal(dom.getElementOffset(testElement8).left, -9990, "Check offset left");
-		equal(dom.getElementOffset(testElement8).top, -9486, "Check offset top");
+		equal(dom.getElementOffset(testElement8).top, -8986, "Check offset top");
 
 		equal(dom.isOccupiedPlace(testElement8), true, "Check if element occupies place at view");
 
 		equal(dom.getElementHeight(testElement12), 60, "Box-sizing=border-box height");
 		equal(dom.getElementWidth(testElement12), 60, "Box-sizing=border-box width");
+
+		equal(dom.getElementWidth(testElement14), 500, "check element with 50% width");
+		equal(dom.getElementHeight(testElement14), 500, "check element with 50% width");
 
 	});
 
@@ -270,15 +242,30 @@ function cssTests(dom) {
 
 	test("getPrefixedValue", function () {
 		var values = dom.getPrefixedValue("transform");
+
 		equal(values.normal, "transform", "return correct values");
 		equal(values.webkit, "-webkit-transform", "return correct values");
+	});
+
+	test("getPrefixedStyleValue", function () {
+		var testElement1 = document.getElementById("util-dom-css-test13");
+
+		equal(dom.getPrefixedStyleValue(window.getComputedStyle(testElement1), "transform"), "matrix(2, 0, 0, 2, 0, 0)", "return correct values");
+
+		equal(dom.getPrefixedStyleValue(window.getComputedStyle(testElement1), "mask"), "none", "return correct values");
+	});
+
+	test("toCSSSize", function () {
+		equal(dom.toCSSSize("10,20"), "width: 10px; height: 20px;", "return correct values");
+
+		equal(dom.toCSSSize(""), "", "return correct values");
 	});
 }
 
 if (typeof define === "function") {
-	define(function() {
+	define(function () {
 		return cssTests;
 	});
 } else {
-	cssTests(tau.util.DOM);
+	cssTests(tau.util.DOM, window.helpers);
 }

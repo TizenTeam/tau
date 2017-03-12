@@ -1,5 +1,3 @@
-/*global window, ns, define */
-/*jslint plusplus: true */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
  *
@@ -15,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+/*global window, ns, define */
 /*
  * @author Jadwiga Sosnowska <j.sosnowska@partner.samsung.com>
  * @author Krzysztof Antoszek <k.antoszek@samsung.com>
@@ -175,7 +174,6 @@
 			 * @member ns.util.DOM
 			 */
 			DOM.nsData = function (element, name, value) {
-				// @TODO add support for object in value
 				if (value === undefined) {
 					return DOM.getNSData(element, name);
 				} else {
@@ -207,19 +205,26 @@
 			DOM.getData = function (element) {
 				var dataPrefix = "data-",
 					data = {},
-					attrs = element.attributes,
-					attr,
+					attributes = element.attributes,
+					attribute,
 					nodeName,
 					value,
 					i,
-					length = attrs.length;
+					length = attributes.length,
+					lowerCaseValue;
 
 				for (i = 0; i < length; i++) {
-					attr = attrs.item(i);
-					nodeName = attr.nodeName;
+					attribute = attributes.item(i);
+					nodeName = attribute.nodeName;
 					if (nodeName.indexOf(dataPrefix) > -1) {
-						value = attr.value;
-						data[nodeName.replace(dataPrefix, "")] = value.toLowerCase() === "true" ? true : value.toLowerCase() === "false" ? false : value;
+						value = attribute.value;
+						lowerCaseValue = value.toLowerCase();
+						if (lowerCaseValue === "true") {
+							value = true;
+						} else if (lowerCaseValue === "false") {
+							value = false;
+						}
+						data[nodeName.replace(dataPrefix, "")] = value;
 					}
 				}
 

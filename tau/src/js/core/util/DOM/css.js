@@ -1,6 +1,3 @@
-/*global window, ns, define */
-/*jslint plusplus: true */
-/*jshint -W069 */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
  *
@@ -16,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+/*global window, ns, define */
 /*
  * @author Jadwiga Sosnowska <j.sosnowska@partner.samsung.com>
  * @author Krzysztof Antoszek <k.antoszek@samsung.com>
@@ -78,6 +76,18 @@
 			}
 
 			/**
+			 * Convert string to float or integer
+			 * @param {string} value
+			 * @return {number}
+			 */
+			function convertToNumber(value) {
+				if ((value + "").indexOf(".") > -1) {
+					return parseFloat(value);
+				}
+				return parseInt(value, 10);
+			}
+
+			/**
 			 * Extracts css properties from computed css for an element.
 			 * The properties values are applied to the specified
 			 * properties list (dictionary)
@@ -93,23 +103,49 @@
 				var style = window.getComputedStyle(element, pseudoSelector),
 					property,
 					value = null,
-					utils = ns.util;
+					newValue = 0;
 
-				// @TODO extractCSSProperties should rather return raw values (with units)
 				for (property in properties) {
 					if (properties.hasOwnProperty(property)) {
 						value = style.getPropertyValue(property);
-						if (utils.isNumber(value) && !noConversion) {
-							if (value.match(/\./gi)) {
-								properties[property] = parseFloat(value);
-							} else {
-								properties[property] = parseInt(value, 10);
-							}
-						} else {
-							properties[property] = value;
+						newValue = convertToNumber(value);
+
+						if (!isNaN(newValue) || noConversion) {
+							value = newValue;
 						}
+
+						properties[property] = value;
 					}
 				}
+			}
+
+			function getOffset(element, props, pseudoSelector, force, offsetProperty) {
+				var originalDisplay = null,
+					originalVisibility = null,
+					originalPosition = null,
+					offsetValue,
+					style = element.style;
+
+				if (style.display !== "none") {
+					extractCSSProperties(element, props, pseudoSelector, true);
+					offsetValue = element[offsetProperty];
+				} else if (force) {
+					originalDisplay = style.display;
+					originalVisibility = style.visibility;
+					originalPosition = style.position;
+
+					style.display = "block";
+					style.visibility = "hidden";
+					style.position = "relative";
+
+					extractCSSProperties(element, props, pseudoSelector, true);
+					offsetValue = element[offsetProperty];
+
+					style.display = originalDisplay;
+					style.visibility = originalVisibility;
+					style.position = originalPosition;
+				}
+				return offsetValue;
 			}
 
 			/**
@@ -128,11 +164,6 @@
 			 */
 			function getElementHeight(element, type, includeOffset, includeMargin, pseudoSelector, force) {
 				var height = 0,
-					style,
-					value,
-					originalDisplay = null,
-					originalVisibility = null,
-					originalPosition = null,
 					outer = (type && type === "outer") || false,
 					offsetHeight = 0,
 					property,
@@ -148,41 +179,11 @@
 					};
 
 				if (element) {
-					style = element.style;
-
-					if (style.display !== "none") {
-						extractCSSProperties(element, props, pseudoSelector, true);
-						offsetHeight = element.offsetHeight;
-					} else if (force) {
-						originalDisplay = style.display;
-						originalVisibility = style.visibility;
-						originalPosition = style.position;
-
-						style.display = "block";
-						style.visibility = "hidden";
-						style.position = "relative";
-
-						extractCSSProperties(element, props, pseudoSelector, true);
-						offsetHeight = element.offsetHeight;
-
-						style.display = originalDisplay;
-						style.visibility = originalVisibility;
-						style.position = originalPosition;
-					}
-
-					// We are extracting raw values to be able to check the units
-					if (typeof props["height"] === "string" && props["height"].indexOf("px") === -1) {
-						//ignore non px values such as auto or %
-						props["height"] = 0;
-					}
+					offsetHeight = getOffset(element, props, pseudoSelector, force, "offsetHeight");
 
 					for (property in props) {
 						if (props.hasOwnProperty(property) && property !== "box-sizing") {
-							value = parseFloat(props[property]);
-							if (isNaN(value)) {
-								value = 0;
-							}
-							props[property] = value;
+							props[property] = convertToNumber(props[property]);
 						}
 					}
 
@@ -221,11 +222,7 @@
 			 */
 			function getElementWidth(element, type, includeOffset, includeMargin, pseudoSelector, force) {
 				var width = 0,
-					style,
 					value,
-					originalDisplay = null,
-					originalVisibility = null,
-					originalPosition = null,
 					offsetWidth = 0,
 					property,
 					outer = (type && type === "outer") || false,
@@ -241,37 +238,11 @@
 					};
 
 				if (element) {
-					style = element.style;
+					offsetWidth = getOffset(element, props, pseudoSelector, force, "offsetWidth");
 
-					if (style.display !== "none") {
-						extractCSSProperties(element, props, pseudoSelector, true);
-						offsetWidth = element.offsetWidth;
-					} else if (force) {
-						originalDisplay = style.display;
-						originalVisibility = style.visibility;
-						originalPosition = style.position;
-
-						style.display = "block";
-						style.visibility = "hidden";
-						style.position = "relative";
-
-						extractCSSProperties(element, props, pseudoSelector, true);
-
-						style.display = originalDisplay;
-						style.visibility = originalVisibility;
-						style.position = originalPosition;
-					}
-
-					if (typeof props["width"] === "string" && props["width"].indexOf("px") === -1) {
-						//ignore non px values such as auto or %
-						props["width"] = 0;
-					}
 					for (property in props) {
 						if (props.hasOwnProperty(property) && property !== "box-sizing") {
 							value = parseFloat(props[property]);
-							if (isNaN(value)) {
-								value = 0;
-							}
 							props[property] = value;
 						}
 					}
@@ -304,13 +275,14 @@
 			 */
 			function getElementOffset(element) {
 				var left = 0,
-					top = 0;
+					top = 0,
+					loopElement = element;
 
 				do {
-					top += element.offsetTop;
-					left += element.offsetLeft;
-					element = element.offsetParent;
-				} while (element !== null);
+					top += loopElement.offsetTop;
+					left += loopElement.offsetLeft;
+					loopElement = loopElement.offsetParent;
+				} while (loopElement !== null);
 
 				return {
 					top: top,
@@ -409,13 +381,12 @@
 			 * @static
 			 */
 			function toCSSSize(size) {
-				var cssSize = "";
+				var cssSize = "",
+					arraySize = stringUtil.parseProperty(size);
 
-				size = stringUtil.parseProperty(size);
-
-				if (size && size.length === 2) {
-					cssSize = "width: " + size[0] + "px;" +
-					"height: " + size[1] + "px;";
+				if (arraySize && arraySize.length === 2) {
+					cssSize = "width: " + arraySize[0] + "px; " +
+					"height: " + arraySize[1] + "px;";
 				}
 
 				return cssSize;
