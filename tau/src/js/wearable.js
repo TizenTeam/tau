@@ -19,6 +19,7 @@
 			"./core/util/scrolling",
 			"./core/util/polar",
 			"./core/util/rotaryScrolling",
+			"./core/util/date",
 			"./core/widget/core/PageContainer",
 			"./core/widget/core/Button",
 			"./core/widget/core/Checkbox",

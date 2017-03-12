@@ -1,4 +1,3 @@
-/*global window, define, ns */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
  *
@@ -14,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+/*global window, define, ns */
 /**
  * #Date Utility
  * Object supports work with date and time
@@ -25,7 +25,8 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../util" // fetch namespace
+			// fetch namespace
+			"../util"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
@@ -51,13 +52,10 @@
 
 						if (parsed.length === 3) {
 							parsedNumber = parseFloat(parsed[1]) || 0;
-							switch (parsed[2]) {
-								case "ms":
-									miliseconds = parsedNumber;
-									break;
-								case "s":
-									miliseconds = parsedNumber * 1000;
-									break;
+							if (parsed[2] === "ms") {
+								miliseconds = parsedNumber;
+							} else if (parsed[2] === "s") {
+								miliseconds = parsedNumber * 1000;
 							}
 						}
 						return miliseconds;
@@ -66,6 +64,7 @@
 
 			ns.util.date = date;
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
+			return date;
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
