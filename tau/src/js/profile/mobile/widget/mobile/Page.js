@@ -27,51 +27,51 @@
  *
  * #### Create a page widget using the data-role attribute
  *
- *		@example
- *		<div data-role="page">
- *			<div data-role="content">
- *				page content
- *			</div>
- *		</div>
+ *    @example
+ *    <div data-role="page">
+ *      <div data-role="content">
+ *        page content
+ *      </div>
+ *    </div>
  *
  * #### Create page widget using data-role attribute with header and footer
  *
- *		@example
- *		<div data-role="page">
- *			<div data-role="header">
- *				My Page
- *			</div>
- *			<div data-role="content">
- *				page contents
- *			</div>
- *			<div data-role="footer">
- *				Status: OK
- *			</div>
- *		</div>
+ *    @example
+ *    <div data-role="page">
+ *      <div data-role="header">
+ *        My Page
+ *      </div>
+ *      <div data-role="content">
+ *        page contents
+ *      </div>
+ *      <div data-role="footer">
+ *        Status: OK
+ *      </div>
+ *    </div>
  *
  * #### Create a page widget using css classes
  *
- *		@example
- *		<div class="ui-page">
- *			<div class="ui-content">
- *				page content
- *			</div>
- *		</div>
+ *    @example
+ *    <div class="ui-page">
+ *      <div class="ui-content">
+ *        page content
+ *      </div>
+ *    </div>
  *
  * #### Create a page widget using css classes with header and footer
  *
- *		@example
- *		<div class="ui-page">
- *			<div class="ui-header">
- *				My Page
- *			</div>
- *			<div class="ui-content">
- *				page contents
- *			</div>
- *			<div class="ui-footer">
- *				Status: OK
- *			</div>
- *		</div>
+ *    @example
+ *    <div class="ui-page">
+ *      <div class="ui-header">
+ *        My Page
+ *      </div>
+ *      <div class="ui-content">
+ *        page contents
+ *      </div>
+ *      <div class="ui-footer">
+ *        Status: OK
+ *      </div>
+ *    </div>
  *
  * ### Manual constructor
  *
@@ -80,19 +80,19 @@
  *
  * #### Created using TAU api
  *
- *		@example
- *		<div id="myPage"></div>
- *		<script type="text/javascript">
- *			var page = tau.widget.Page(document.getElementById("myPage"));
- *		</script>
+ *    @example
+ *    <div id="myPage"></div>
+ *    <script type="text/javascript">
+ *      var page = tau.widget.Page(document.getElementById("myPage"));
+ *    </script>
  *
  * #### Created using jQuery api
  *
- *		@example
- *		<div id="myPage"></div>
- *		<script type="text/javascript">
- *			var page = $("#myPage").page();
- *		</script>
+ *    @example
+ *    <div id="myPage"></div>
+ *    <script type="text/javascript">
+ *      var page = $("#myPage").page();
+ *    </script>
  *
  * ## Options for Page widget
  *
@@ -112,32 +112,32 @@
  * and *headerTheme*. The default value for all of them is *"a"*.
  *
  * #### Using data-* attributes
- *		@example
- *		<div data-role="page" data-theme="s" data-content-theme="s" data-footer-theme="s"></div>
+ *    @example
+ *    <div data-role="page" data-theme="s" data-content-theme="s" data-footer-theme="s"></div>
  *
  * #### Using config object passed to constructor
  *
- *		@example
- *		<div id="myPage"></div>
- *		<script type="text/javascript">
- *			var page = tau.widget.Page(document.getElementById("myPage"), {
- *				"theme": "s",
- *				"footerTheme": "s",
- *				"contentTheme": "s"
- *			});
- *		</script>
+ *    @example
+ *    <div id="myPage"></div>
+ *    <script type="text/javascript">
+ *      var page = tau.widget.Page(document.getElementById("myPage"), {
+ *        "theme": "s",
+ *        "footerTheme": "s",
+ *        "contentTheme": "s"
+ *      });
+ *    </script>
  *
  * #### Using jQuery API
  *
- *		@example
- *		<div id="myPage"></div>
- *		<script type="text/javascript">
- *			var page = $("#myPage").page({
- *				"theme": "s",
- *				"footerTheme": "s",
- *				"contentTheme": "s"
- *			});
- *		</script>
+ *    @example
+ *    <div id="myPage"></div>
+ *    <script type="text/javascript">
+ *      var page = $("#myPage").page({
+ *        "theme": "s",
+ *        "footerTheme": "s",
+ *        "contentTheme": "s"
+ *      });
+ *    </script>
  *
  * ## Methods
  *
@@ -265,12 +265,8 @@
 				object = ns.util.object,
 				utilsDOM = ns.util.DOM,
 				Page = function () {
-					var self = this;
-
-					CorePage.call(self);
-					self.options = object.copy(Page.prototype.options);
+					CorePage.call(this);
 				},
-				buttonClasses = ns.widget.core.Button.classes,
 				classes,
 				prototype = new CorePage();
 
@@ -280,122 +276,81 @@
 			 * Dictionary for page related css class names
 			 * @property {Object} classes
 			 * @property {string} [classes.uiPrefix='ui-'] Main ui prefix
-			 * @property {string} [classes.uiBarPrefix='ui-bar-'] Ui bar prefix
-			 * @property {string} [classes.uiBodyPrefix='ui-body-'] Ui body prefix
-			 * @property {string} [classes.uiBtnBack='ui-btn-back'] Button class
-			 * @property {string} [classes.uiTabbarMargin-back='ui-tabbar-margin-back'] Tabbar margin class
 			 * @property {string} [classes.uiTitle='ui-title'] Title class
-			 * @property {string} [classes.uiTitleTextStub='ui-title-text-stub'] Title stub class
-			 * @property {string} [classes.uiTitleMultiline='ui-title-multiline'] Title multiline class
-			 * @property {string} [classes.uiPage='ui-page'] Main page class
-			 * @property {string} [classes.uiPageActive='ui-page-active'] Page active class
-			 * @property {string} [classes.uBtnLeft='ui-btn-left'] Left button class
-			 * @property {string} [classes.uiBtnRight='ui-btn-right'] Right button class
-			 * @property {string} [classes.uiBtnRightPrefix='ui-btn-right-'] Right button prefix
-			 * @property {string} [classes.fixedSuffix='-fixed'] Class fixed suffix
 			 * @member ns.widget.mobile.Page
 			 * @static
 			 * @readonly
 			 */
 			classes = object.merge({}, CorePage.classes, {
-				uiPrefix: "ui-",
-				uiBarPrefix: "ui-bar-",
-				uiBodyPrefix: "ui-body-",
-				uiBtnBack: "ui-btn-back",
-				uiTabbarMarginBack: "ui-tabbar-margin-back",
-				uiTitle: "ui-title",
-				uiTitleTextSub: "ui-title-text-sub",
-				uiTitleMultiline: "ui-title-multiline",
-				uiFooterBtn: "ui-footer-btn-",
-				uiBtnLeft: "ui-btn-left",
-				uiBtnRight: "ui-btn-right",
-				uiBtnRightPrefix: "ui-btn-right-",
-				fixedSuffix: "-fixed",
-				uiHeaderDivider: "ui-header-divider"
-				// @todo put all used classes here
+				uiTitle: "ui-title"
 			});
 
 			Page.classes = classes;
 
 			/**
-			 * Object with default options
-			 * @property {Object} options
-			 * @property {boolean} [options.domCache=false] Use DOM cache
+			 * Set ARIA attributes on page structure
+			 * @method _setAria
+			 * @protected
 			 * @member ns.widget.mobile.Page
 			 */
-			Page.prototype.options = {
-				domCache: false,
-				keepNativeDefault: ns.getConfig("keepNative")
+			prototype._setAria = function () {
+				var self = this,
+					ui = self._ui,
+					content = ui.content,
+					header = ui.header,
+					footer = ui.footer,
+					title = ui.title;
+
+				if (content) {
+					content.setAttribute("role", "main");
+				}
+
+				if (header) {
+					header.setAttribute("role", "header");
+				}
+
+				if (footer) {
+					footer.setAttribute("role", "footer");
+				}
+
+				if (title) {
+					title.setAttribute("role", "heading");
+					title.setAttribute("aria-level", 1);
+					title.setAttribute("aria-label", "title");
+				}
 			};
 
-			// Build header/footer/content
-			// @method buildSections
-			// @param {Object} options Object with options for widget
-			// @param {HTMLElement} pageElement main element of widget
-			function buildSections(options, pageElement) {
-				[].slice.call(pageElement.querySelectorAll("[data-role='header'],[data-role='content'],[data-role='footer'],." + classes.uiHeader +
-						",." + classes.uiContent +
-						",." + classes.uiFooter))
-					.forEach(function (section) {
-						var role = section.getAttribute("data-role"),
-							sectionClassList = section.classList;
-
-						if (!role) {
-							if (sectionClassList.contains(classes.uiHeader)) {
-								role = "header";
-							} else if (sectionClassList.contains(classes.uiContent)) {
-								role = "content";
-							} else {
-								role = "footer";
-							}
-							section.setAttribute("data-role", role);
-						}
-
-						sectionClassList.add(classes.uiPrefix + role);
-
-						if (role === "content") {
-							section.setAttribute("role", "main");
-						} else {
-							// We always set the ui-[header|footer]-fixed class to match Tizen design needs
-							sectionClassList.add(classes.uiPrefix + role + classes.fixedSuffix);
-
-							selectors.getChildrenBySelector(section, "h1, h2, h3, h4, h5, h6").forEach(function (title) {
-								title.classList.add(classes.uiTitle);
-								title.setAttribute("role", "heading");
-								title.setAttribute("aria-level", 1);
-								title.setAttribute("aria-label", "title");
-							});
-						}
-					});
-			}
-
-			// Method builds widget.
-			// @method buildStructure
-			// @param {Object} options object with options for create page
-			// @param {HTMLElement} element base element of page
-			function buildStructure(options, element) {
-				var dataPageTitle = utilsDOM.getNSData(element, "title"),
+			/**
+			 * Find title of page
+			 * @param {HTMLElement} element
+			 * @method _setTitle
+			 * @protected
+			 * @member ns.widget.mobile.Page
+			 */
+			prototype._setTitle = function (element) {
+				var self = this,
+					dataPageTitle = utilsDOM.getNSData(element, "title"),
+					header = self._ui.header,
 					pageTitle = dataPageTitle,
 					titleElement,
 					classes = Page.classes;
 
-				element.classList.add(classes.uiPage);
-
-				if (!pageTitle) {
-					titleElement = selectors.getChildrenByDataNS(element, "role=header")[0];
+				if (header) {
+					titleElement = selectors.getChildrenBySelector(header, "h1, h2, h3, h4, h5, h6")[0];
 					if (titleElement) {
-						titleElement = titleElement.getElementsByClassName(classes.uiTitle)[0];
-						if (titleElement) {
-							pageTitle = titleElement.innerText;
-						}
+						titleElement.classList.add(classes.uiTitle);
+					}
+
+					if (!pageTitle && titleElement) {
+						pageTitle = titleElement.innerText;
+						self._ui.title = titleElement;
+					}
+
+					if (!dataPageTitle && pageTitle) {
+						utilsDOM.setNSData(element, "title", pageTitle);
 					}
 				}
-
-				if (!dataPageTitle && pageTitle) {
-					utilsDOM.setNSData(element, "title", pageTitle);
-				}
-				buildSections(options, element);
-			}
+			};
 
 			/**
 			 * Build page
@@ -405,25 +360,13 @@
 			 * @protected
 			 * @member ns.widget.mobile.Page
 			 */
-			Page.prototype._build = function (element) {
-				CorePagePrototype._build.call(this, element);
-				buildStructure(this.options, element);
-				return element;
-			};
-
-			/**
-			 * Bind events to widget
-			 * @method _bindEvents
-			 * @param {HTMLElement} element
-			 * @protected
-			 * @member ns.widget.mobile.Page
-			 */
-			Page.prototype._bindEvents = function (element) {
+			prototype._build = function (element) {
 				var self = this;
 
-				CorePagePrototype._bindEvents.call(self, element);
-				element.addEventListener("pagebeforeshow", self.contentFillAfterResizeCallback, false);
-				element.addEventListener("updatelayout", self.contentFillAfterResizeCallback, false);
+				CorePagePrototype._build.call(self, element);
+				self._setTitle(element);
+				self._setAria();
+				return element;
 			};
 
 			/**
@@ -432,189 +375,52 @@
 			 * @method _contentFill
 			 * @member ns.widget.mobile.Page
 			 */
-			Page.prototype._contentFill = function () {
+			prototype._contentFill = function () {
 				var self = this,
-					content,
-					contentStyle,
+					ui = self._ui,
+					content = ui.content,
+					contentStyle = null,
 					element = self.element,
-					header,
-					headerDivider,
-					headerBtn,
-					headerBtnWidth = 0,
-					pageClasses = Page.classes,
+					header = ui.header,
 					top = 0,
 					bottom = 0,
-					i,
-					footer,
-					len;
+					footer = ui.footer;
 
 				CorePagePrototype._contentFill.call(self, element);
-				content = element.querySelector("." + pageClasses.uiContent);
+
 				if (content) {
+					contentStyle = content.style;
 					//>>excludeStart("tauDebug", pragmas.tauDebug);
 					ns.log("Page (contentFill) on ", self.id, " styles was recalculated");
 					//>>excludeEnd("tauDebug");
-					contentStyle = content.style;
-					header = element.querySelector("." + pageClasses.uiHeader);
 
 					if (header) {
-						headerDivider = header.getElementsByClassName(pageClasses.uiHeaderDivider);
-						len = headerDivider.length;
-						if (len) {
-							headerBtn = header.getElementsByClassName(buttonClasses.uiBtn);
-							// Header divider exist
-							for (i = 0; i < len; i++) {
-								headerBtnWidth += headerBtn[i].offsetWidth;
-								headerDivider[i].style.right = headerBtnWidth + "px";
-							}
-						}
 						top = utilsDOM.getElementHeight(header);
 					}
 
-					footer = element.querySelector("." + pageClasses.uiFooter);
-					bottom = utilsDOM.getElementHeight(footer);
+					if (footer) {
+						bottom = utilsDOM.getElementHeight(footer);
+					}
 
 					contentStyle.top = top + "px";
 					contentStyle.bottom = bottom + "px";
-					contentStyle.height = window.innerHeight - top - bottom + "px";
+					contentStyle.height = (window.innerHeight - top - bottom) + "px";
 					contentStyle.width = window.innerWidth + "px";
 				}
 			};
 
-			Page.prototype._storeContentStyle = function () {
-				return;
-			};
-
-			Page.prototype._restoreContentStyle = function () {
-				return;
-			};
-
-			/**
-			 * Set page active / unactive
-			 * Sets ui-overlay-... class on `body` depending on current theme
-			 *
-			 * !!!This method is only available through TAU API!!!
-			 *
-			 *		@example
-			 *		<div id="myPage"></div>
-			 *		<script type="text/javascript">
-			 *			var page = tau.widget.page(document.getElementById("myPage"));
-			 *			page.setActive(true, document.body);
-			 *		</script>
-			 *
-			 * @TODO make params optional (default action should be make page active if
-			 * its not in its own container)
-			 * @method setActive
-			 * @param {boolean} value if true then page will be active if false page will be unactive
-			 * @param {HTMLElement} pageContainer
-			 * @member ns.widget.mobile.Page
-			 */
-
-			/**
-			 * Refresh widget structure
-			 * @method _refresh
-			 * @protected
-			 * @member ns.widget.mobile.Page
-			 */
-			Page.prototype._refresh = function () {
-				var self = this;
-
-				buildStructure(self.options, self.element);
-				CorePagePrototype._refresh.call(self);
-			};
-
-			/**
-			 * Destroy widget
-			 * @method _destroy
-			 * @protected
-			 * @member ns.widget.mobile.Page
-			 */
-			Page.prototype._destroy = function () {
-				var self = this,
-					element = self.element;
-
-				CorePagePrototype._destroy.call(self);
-				element.removeEventListener("updatelayout", self.contentFillAfterResizeCallback, false);
-				element.removeEventListener("pageshow", self.contentFillAfterResizeCallback, false);
-			};
-
-			/**
-			 * Returns native selector
-			 *
-			 * #### TAU API
-			 *
-			 *		@example
-			 *		<div id="myPage"></div>
-			 *		<script type="text/javascript">
-			 *			var page = tau.widget.page(document.getElementById("myPage")),
-			 *				s = page.keepNativeSelector();
-			 *		</script>
-			 *
-			 * #### jQuery API
-			 *
-			 *		@example
-			 *		<div id="myPage"></div>
-			 *		<script type="text/javascript">
-			 *			var s = $("#myPage").page("keepNativeSelector");
-			 *		</script>
-			 *
-			 * @method keepNativeSelector
-			 * @return {string}
-			 * @member ns.widget.mobile.Page
-			 */
-			Page.prototype.keepNativeSelector = function () {
-				var options = this.options,
-					optionsKeepNative = options.keepNative,
-					optionsKeepNativeDefault = options.keepNativeDefault,
-					keepNativeDefined = optionsKeepNative && optionsKeepNative.trim();
-
-				if (keepNativeDefined && optionsKeepNative !== optionsKeepNativeDefault) {
-					return [optionsKeepNative, optionsKeepNativeDefault].join(", ");
-				}
-
-				return optionsKeepNativeDefault;
-			};
-
-			/**
-			 * Destroy widget
-			 * @method _destroy
-			 * @protected
-			 * @member ns.widget.mobile.Page
-			 */
-			Page.prototype._destroy = function () {
-				var self = this,
-					element = self.element;
-
-				CorePagePrototype._destroy.call(self);
-
-				if (element) {
-					element.removeEventListener("pagebeforeshow", self.contentFillAfterResizeCallback, false);
-					element.removeEventListener("updatelayout", self.contentFillAfterResizeCallback, false);
-				}
-
-				delete self.contentFillAfterResizeCallback;
-			};
-
-			prototype.bindEvents = function (element, onlyBuild) {
-				CorePagePrototype.bindEvents.call(this, element, onlyBuild);
-				this.trigger("pageinit");
-			};
+			Page.createEmptyElement = CorePage.createEmptyElement;
 
 			// definition
 			ns.widget.mobile.Page = Page;
 
-			// definition
-			ns.widget.mobile.Page = Page;
 			engine.defineWidget(
 				"page",
 				"",
 				[
 					"focus",
 					"blur",
-					"setActive",
-					"keepNativeSelector",
-					"setContainerBackground",
-					"removeContainerBackground"
+					"setActive"
 				],
 				Page,
 				"mobile",
@@ -627,10 +433,7 @@
 				[
 					"focus",
 					"blur",
-					"setActive",
-					"keepNativeSelector",
-					"setContainerBackground",
-					"removeContainerBackground"
+					"setActive"
 				],
 				Page,
 				"mobile",

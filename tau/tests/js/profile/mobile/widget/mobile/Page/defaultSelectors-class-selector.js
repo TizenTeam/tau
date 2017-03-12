@@ -1,5 +1,6 @@
-/*global module, test, asyncTest, ok, equal, tau, window */
-(function(window, document) {
+/*global module, test, ok, equal, tau, window */
+
+(function (window, document) {
 	"use strict";
 
 	/**
@@ -19,11 +20,11 @@
 	});
 
 	function isPage(element, selector) {
-		ok(!!(tau.engine.getBinding(element, 'Page')), "Page was created by selector: " + selector);
-		equal(element.getAttribute('data-tau-bound'), "Page", "Page widget bound: " + selector);
+		ok(!!(tau.engine.getBinding(element, "Page")), "Page was created by selector: " + selector);
+		equal(element.getAttribute("data-tau-bound"), "Page", "Page widget bound: " + selector);
 	}
-	test( "Page default selectors" , function () {
-		isPage(document.getElementById('by-data-role'), '[data-role="page"]');
+	test("Page default selectors", function () {
+		isPage(document.getElementById("by-class-selector"), ".ui-page");
 	});
 
 }(window, window.document));

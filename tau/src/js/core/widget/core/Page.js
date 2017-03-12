@@ -388,8 +388,7 @@
 			};
 
 			/**
-			 * Sets top-bottom css attributes for content element
-			 * to allow it to fill the page dynamically
+			 * Setup size of element to 100% of screen
 			 * @method _contentFill
 			 * @member ns.widget.core.Page
 			 */
@@ -625,16 +624,25 @@
 				return element;
 			};
 
+
 			/**
 			 * This method sets page active or inactive.
+			 *
+			 *    @example
+			 *    <div id="myPage"></div>
+			 *    <script type="text/javascript">
+			 *      var page = tau.widget.Page(document.getElementById("myPage"));
+			 *      page.setActive(true);
+			 *    </script>
+			 *
 			 * @method setActive
-			 * @param {boolean} value If true, then page will be active. Otherwise, page will be inactive.
+			 * @param {boolean} [value=true] If true, then page will be active. Otherwise, page will be inactive.
 			 * @member ns.widget.core.Page
 			 */
 			prototype.setActive = function (value) {
 				var elementClassList = this.element.classList;
 
-				if (value) {
+				if (value || value === undefined) {
 					this.focus();
 					elementClassList.add(classes.uiPageActive);
 				} else {
@@ -771,6 +779,8 @@
 				window.removeEventListener("resize", self._contentFillAfterResizeCallback, false);
 				// destroy widgets on children
 				engine.destroyAllWidgets(element, true);
+
+				self._contentFillAfterResizeCallback = null;
 			};
 
 			Page.prototype = prototype;

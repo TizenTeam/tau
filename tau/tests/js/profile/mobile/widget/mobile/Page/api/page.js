@@ -25,7 +25,6 @@
 		equal(typeof widget.option, "function", "Method page.option exists");
 
 		equal(typeof widget.options, "object", "Property page.options exists");
-		equal(typeof widget.options.domCache, "boolean", "Property page.options.domCache exists");
 
 		equal(typeof widget._build, "function", "Method page._build exists");
 		equal(typeof widget._bindEvents, "function", "Method page._bindEvents exists");

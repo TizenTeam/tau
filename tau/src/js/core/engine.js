@@ -168,6 +168,7 @@
 					WIDGET_BUILT: "widgetbuilt",
 					DESTROY: "taudestroy",
 					BOUND: "bound",
+					WIDGET_INIT: "init",
 					BEFORE_ROUTER_INIT: "beforerouterinit",
 					ROUTER_INIT: "routerinit"
 				},
@@ -616,7 +617,8 @@
 
 						widgetInstance.bindEvents(element, justBuild);
 
-						eventUtils.trigger(element, eventType.WIDGET_BOUND, widgetInstance, false);
+						widgetInstance.trigger(widgetInstance.widgetEventPrefix + eventType.WIDGET_INIT);
+						widgetInstance.trigger(eventType.WIDGET_BOUND, widgetInstance, false);
 						eventUtils.trigger(document, eventType.WIDGET_BOUND, widgetInstance);
 					} else {
 						//>>excludeStart("tauDebug", pragmas.tauDebug);
