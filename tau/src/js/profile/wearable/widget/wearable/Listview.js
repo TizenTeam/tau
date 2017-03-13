@@ -75,16 +75,22 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../../../../profile/wearable/widget/wearable",
-			"../../../../core/widget/BaseWidget"
+			"../wearable",
+			"../../../../core/widget/core/Listview",
+			"./ArcListview",
+			"../../../../core/support/tizen"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
-			var BaseWidget = ns.widget.BaseWidget,
+			var CoreListview = ns.widget.core.Listview,
+				ArcListview = ns.widget.wearable.ArcListview,
 				engine = ns.engine,
+				_isCircle = ns.support.shape.circle,
+				ParentClass = _isCircle ? ArcListview : CoreListview,
 				Listview = function () {
+					ParentClass.call(this);
 				},
-				prototype = new BaseWidget();
+				prototype = new ParentClass();
 
 			/**
 			 * Dictionary for listview related events.
@@ -93,49 +99,10 @@
 			 * @member ns.widget.wearable.Listview
 			 * @static
 			 */
-			Listview.events = {};
-
-			/**
-			 * Build Listview
-			 * @method _build
-			 * @param {HTMLElement} element
-			 * @return {HTMLElement}
-			 * @protected
-			 * @member ns.widget.wearable.Listview
-			 */
-			prototype._build = function (element) {
-				return element;
-			};
-
-			prototype._init = function (element) {
-				return element;
-			};
-
-			prototype._bindEvents = function (element) {
-				return element;
-			};
-
-			/**
-			 * Refresh structure
-			 * @method _refresh
-			 * @protected
-			 * @member ns.widget.wearable.Listview
-			 */
-			prototype._refresh = function () {
-				return null;
-			};
-
-			/**
-			 * Destroy widget
-			 * @method _destroy
-			 * @protected
-			 * @member ns.widget.wearable.Listview
-			 */
-			prototype._destroy = function () {
-				return null;
-			};
+			Listview.events = ParentClass.events;
 
 			Listview.prototype = prototype;
+
 			ns.widget.wearable.Listview = Listview;
 
 			engine.defineWidget(
@@ -143,7 +110,8 @@
 				".ui-listview",
 				[],
 				Listview,
-				"wearable"
+				"wearable",
+				true
 			);
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return Listview;

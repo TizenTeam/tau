@@ -1095,7 +1095,7 @@ module.exports = function (grunt) {
 	grunt.registerTask("css", "Prepare full CSS for whole project", ["clean:theme", "less", "themeConverter", "cssmin", "image-changeable", "symlink", "postcss"]);
 	grunt.registerTask("css-mobile", "Prepare CSS for mobile profile", ["clean:theme", "less:mobile", "themeConverter:mobile", "cssmin", "copy:mobileChangeableImages", "symlink:mobileDefaultTheme", "postcss"]);
 	grunt.registerTask("css-mobile_support", "Prepare CSS for mobile 2.3 version", ["clean:theme", "less:mobile_support", "themeConverter:mobile_support", "cssmin", "copy:mobileChangeableImages", "symlink:mobileDefaultTheme", "postcss"]);
-	grunt.registerTask("css-wearable", "Prepare CSS for wearable", ["clean:theme", "less:wearable", "themeConverter:wearable", "cssmin", "copy:wearableChangeableImages", "copy:wearableColorThemeImages", "symlink:wearableDefaultTheme", "postcss"]);
+	grunt.registerTask("css-wearable", "Prepare CSS for wearable", ["clean:theme", "less:wearable", "themeConverter:wearable", "themeConverter:wearable_circle", "cssmin", "copy:wearableChangeableImages", "copy:wearableColorThemeImages", "symlink:wearableDefaultTheme", "postcss"]);
 	grunt.registerTask("js", "Prepare JS", ["clean:js", "requirejs:mobile", "requirejs:wearable", "requirejs:mobile_support", "jsmin", "themesjs", "copy:mobileJquery", "copy:animation"]);
 	grunt.registerTask("js-mobile", "Prepare JS for mobile", ["clean:js", "requirejs:mobile", "jsmin", "themesjs:mobile", "copy:mobileJquery"]);
 	grunt.registerTask("js-mobile_support", "Prepare JS for mobile 2.3", ["clean:js", "requirejs:mobile", "requirejs:mobile_support", "jsmin", "themesjs:mobile", "copy:mobileJquery"]);

@@ -14,7 +14,6 @@
 
 		&-item {
 			width: 360 * @unit_base;
-			height: 0;
 			position: absolute;
 		}
 	}
@@ -45,26 +44,30 @@
 		display: flex;
 		align-items: center;
 
-		&:not(.ui-li-group-index) {
-			height: 108 * @unit_base;
+		&:not(.ui-li-group-index):not(.ui-listview-divider) {
+			min-height: 108 * @unit_base;
+			vertical-align: middle;
 		}
+
 		&:first-child {
 			margin-top: 0;
 		}
-		&.ui-li-group-index {
+
+		&.ui-li-group-index, &.ui-listview-divider {
 			margin-top: 0;
+			border: 0;
+
+			~ li:not(.ui-li-group-index):not(.ui-listview-divider) {
+				margin-top: 0;
+			}
 		}
-		&.ui-li-group-index ~ li:not(.ui-li-group-index) {
-			margin-top: 0;
-		}
+
 		&:last-child {
 			margin-bottom: 11 * @unit_base;
 		}
+
 		~ li {
 			margin-top: 11 * @unit_base;
-		}
-		&.ui-li-group-index {
-			border: 0;
 		}
 	}
 }

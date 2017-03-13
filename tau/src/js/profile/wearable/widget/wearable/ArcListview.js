@@ -30,28 +30,34 @@
 	define(
 		[
 			"../../../../core/engine",
+			"../../../../core/event",
 			"../../../../core/util/array",
-			"./Listview",
-			"../../../../core/widget/core/Page",
-			"../wearable" // fetch namespace
+			"../../../../core/util/selectors",
+			"../../../../core/widget/core/Listview",
+			"./Page",
+			// fetch namespace
+			"../wearable"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 
 			var nsWidget = ns.widget,
-				Listview = nsWidget.wearable.Listview,
+				Listview = nsWidget.core.Listview,
 				Page = nsWidget.core.Page,
+				eventUtils = ns.event,
 
 				// consts
 				ELLIPSIS_A = 180,
-				ELLIPSIS_B = 180, // VI: 333
+				ELLIPSIS_B = 180,
 				SCREEN_HEIGHT = 360,
-				SCROLL_DURATION = 400, // VI: 400
+				SCROLL_DURATION = 400,
 				MAX_SCROLL_DURATION = 2000,
-				MOMENTUM_VALUE = 50,
-				MOMENTUM_MAX_VALUE = 5000,
-				TOUCH_MOVE_TIME_THRESHOLD = 140, //ms
-				TOUCH_MOVE_Y_THRESHOLD = 10, //px
+				MOMENTUM_VALUE = 20,
+				MOMENTUM_MAX_VALUE = 500,
+				// in ms
+				TOUCH_MOVE_TIME_THRESHOLD = 140,
+				// in px
+				TOUCH_MOVE_Y_THRESHOLD = 10,
 
 				/**
 				 * Alias for class {@link ns.engine}
@@ -181,32 +187,7 @@
 					self._carousel = {
 						items: []
 					};
-					/**
-					 * Object with state of scroll animation
-					 * @property {Object} _state
-					 * @property {number} _state.startTime time of scroll animation start
-					 * @property {number} _state.duration duration time of scroll animation
-					 * @property {number} _state.progress current progress of scroll animation
-					 * @property {Object} _state.scroll scroll state and animation objectives
-					 * @property {number} _state.currentIndex current index of selected item
-					 * @property {number} _state.toIndex item index as target for scroll end
-					 * @property {Array} _state.items array of animated items
-					 * @memberof ns.widget.wearable.ArcListview
-					 * @protected
-					 */
-					self._state = {
-						startTime: Date.now(),
-						duration: 0,
-						progress: 0,
-						scroll: {
-							current: 0,
-							from: null,
-							to: null
-						},
-						currentIndex: 0,
-						toIndex: 0,
-						items: []
-					};
+					self._initializeState();
 					/**
 					 * Cache for widget UI HTMLElements
 					 * @property {Object} _ui
@@ -231,7 +212,10 @@
 					CAROUSEL: WIDGET_CLASS + "-carousel",
 					CAROUSEL_ITEM: WIDGET_CLASS + "-carousel-item",
 					GROUP_INDEX: "ui-li-group-index",
-					FORCE_RELATIVE: "ui-force-relative-li-children"
+					DIVIDER: "ui-listview-divider",
+					FORCE_RELATIVE: "ui-force-relative-li-children",
+					LISTVIEW: "ui-listview",
+					SELECTED: "ui-arc-listview-selected"
 				},
 				events = {
 					CHANGE: "change"
@@ -247,6 +231,8 @@
 
 				didScroll = false,
 				averageVelocity = 0,
+				sumTime = 0,
+				sumDistance = 0,
 				momentum = 0,
 				startTouchTime = 0,
 				lastTouchTime = 0,
@@ -292,67 +278,88 @@
 				}
 			}
 
+			prototype._initializeState = function () {
+				/**
+				 * Object with state of scroll animation
+				 * @property {Object} _state
+				 * @property {number} _state.startTime time of scroll animation start
+				 * @property {number} _state.duration duration time of scroll animation
+				 * @property {number} _state.progress current progress of scroll animation
+				 * @property {Object} _state.scroll scroll state and animation objectives
+				 * @property {number} _state.currentIndex current index of selected item
+				 * @property {number} _state.toIndex item index as target for scroll end
+				 * @property {Array} _state.items array of animated items
+				 * @memberof ns.widget.wearable.ArcListview
+				 * @protected
+				 */
+				this._state = {
+					startTime: Date.now(),
+					duration: 0,
+					progress: 0,
+					scroll: {
+						current: 0,
+						from: null,
+						to: null
+					},
+					currentIndex: 0,
+					toIndex: 0,
+					items: []
+				};
+			};
+
+			function prepareParentStyle(parentElement, parentRect) {
+				var parentStyle = parentElement.style;
+
+				parentStyle.height = parentRect.height + "px";
+				parentStyle.position = "relative";
+			}
+
 			prototype._setAnimatedItems = function () {
 				var self = this,
 					items = self._items,
-					from = 0,
-					to = items.length,
-					i = 0,
 					id = 0,
-					element = items[0],
+					itemElement = items[0],
 					item = null,
 					rect = null,
 					parentRect = null,
 					diffY = null,
 					scroller = self._ui.scroller,
 					state = self._state,
-					parentElement = element.parentElement,
+					parentElement = itemElement.parentElement,
 					parentClassList = parentElement.classList,
-					style = null,
-					parentStyle = null;
-
+					style = null;
 
 				// set parent size
 				parentRect = parentElement.getBoundingClientRect();
-				parentStyle = parentElement.style;
-				parentStyle.height = parentRect.height + "px";
-				parentStyle.position = "relative";
+				prepareParentStyle(parentElement, parentRect);
 
 				parentClassList.add(classes.FORCE_RELATIVE);
 
-				// add items to state
-				for (i = from; i < to; i++) {
-					if (i >= 0) {
-						if (!state.items[i]) {
-							element = items[i];
-							if (element !== undefined) {
-								rect = element.getBoundingClientRect();
-								style = element.style;
-								if (element.classList.contains(classes.GROUP_INDEX)) {
-									style.top = round(rect.top - parentRect.top + scroller.scrollTop) + "px";
-									style.width = rect.width + "px";
-								} else {
-									item = createItem();
-									item.element = element;
-									item.y = round(rect.top + rect.height / 2 + scroller.scrollTop);
-									item.height = rect.height;
-									item.rect = rect;
-									item.id = id++;
+				arrayUtil.forEach(items, function (itemElement, i) {
+					// add items to state
+					if (i >= 0 && !state.items[i] && itemElement !== undefined) {
+						rect = itemElement.getBoundingClientRect();
+						style = itemElement.style;
+						if (itemElement.classList.contains(classes.GROUP_INDEX) || itemElement.classList.contains(classes.DIVIDER)) {
+							style.top = round(rect.top - parentRect.top + scroller.scrollTop) + "px";
+							style.width = rect.width + "px";
+						} else {
+							item = createItem();
+							item.element = itemElement;
+							item.y = round(rect.top + rect.height / 2 + scroller.scrollTop);
+							item.height = rect.height;
+							item.rect = rect;
+							item.id = id;
+							id++;
 
-									if (diffY === null) {
-										diffY = rect.top - parentRect.top;
-									}
-
-									style.top = (diffY + item.y - SCREEN_HEIGHT / 2) + "px";
-									style.width = item.rect.width + "px";
-
-									state.items.push(item);
-								}
-								style.position = "absolute";
+							if (diffY === null) {
+								diffY = rect.top - parentRect.top;
 							}
+
+							state.items.push(item);
 						}
 					}
-				}
+				});
 
 				parentClassList.remove(classes.FORCE_RELATIVE);
 			};
@@ -360,40 +367,30 @@
 
 			prototype._updateScale = function (currentScroll) {
 				var self = this,
-					i = 0,
 					state = self._state,
 					items = state.items,
-					len = items.length,
-					item = null,
 					toScale = 0;
 
-				for (i = 0; i < len; i++) {
-					item = items[i];
+				arrayUtil.forEach(items, function (item) {
 					if (item !== null) {
 						toScale = self._getScaleByY(item.y - SCREEN_HEIGHT / 2 - currentScroll);
 						if (item.current.scale !== toScale) {
-							if (item.from === null) {
-								item.from = {};
-							}
+							item.from = item.from || {};
 							item.from.scale = item.current.scale;
 
-							if (item.to === null) {
-								item.to = {};
-							}
+							item.to = item.to || {};
 							item.to.scale = toScale;
 						} else {
 							item.to = null;
 						}
 					}
-				}
+				});
 			};
 
 			function calcItem(item) {
-				if (item !== null) {
-					if (item.to !== null) {
-						item.current.scale = item.to.scale;
-						item.repaint = true;
-					}
+				if (item !== null && item.to !== null) {
+					item.current.scale = item.to.scale;
+					item.repaint = true;
 				}
 			}
 
@@ -548,22 +545,17 @@
 					state = self._state,
 					currentTime = Date.now(),
 					deltaTime = currentTime - lastTouchTime,
-					currentVelocity = 0,
 					items = state.items,
 					currentItem = -1,
 					toY = 0,
 					scroll = state.scroll;
 
-				if (lastTouchTime !== 0) {
-					currentVelocity = (deltaTime > 0) ? (-1 * deltaTouchY) / deltaTime : 0;
-					averageVelocity += currentVelocity;
-					averageVelocity /= 2;
-				} else {
-					averageVelocity = 0;
-				}
+				sumTime += -1 * deltaTime;
+				sumDistance += deltaTouchY;
+				averageVelocity = sumDistance / sumTime;
 
 				if (momentum !== 0) {
-					momentum = momentum * averageVelocity;
+					momentum *= averageVelocity;
 					// momentum value has to be limited to defined max value
 					momentum = max(min(momentum, MOMENTUM_MAX_VALUE), -MOMENTUM_MAX_VALUE);
 
@@ -598,13 +590,13 @@
 			};
 
 			prototype._getScaleByY = function (y) {
-				var self = this;
+				var self = this,
+					roundY = round(y);
 
-				y = round(y);
-				if (y > self.options.ellipsisB || y < -self.options.ellipsisB) {
+				if (roundY > self.options.ellipsisB || roundY < -self.options.ellipsisB) {
 					return 0;
 				} else {
-					return factorsX[abs(y)];
+					return factorsX[abs(roundY)];
 				}
 			};
 
@@ -684,7 +676,9 @@
 			};
 
 			prototype._onTouchStart = function (event) {
-				var touch = event.changedTouches[0];
+				var self = this,
+					touch = event.changedTouches[0],
+					state = self._state;
 
 				deltaTouchY = 0;
 				lastTouchY = touch.clientY;
@@ -692,9 +686,13 @@
 				deltaSumTouchY = 0;
 				lastTouchTime = startTouchTime;
 				averageVelocity = 0;
+				sumTime = 0;
+				sumDistance = 0;
 				momentum = 0;
 				self._scrollAnimationEnd = true;
 				didScroll = false;
+
+				self._carouselUpdate(state.currentIndex);
 			};
 
 			prototype._onTouchMove = function (event) {
@@ -713,13 +711,12 @@
 				scroll.current += deltaTouchY;
 				deltaSumTouchY += deltaTouchY;
 
-				if (didScroll === false) {
-					if (deltaTouchTime > TOUCH_MOVE_TIME_THRESHOLD || abs(deltaSumTouchY) > TOUCH_MOVE_Y_THRESHOLD) {
-						didScroll = true;
-						self.trigger(events.CHANGE, {
-							"unselected": state.currentIndex
-						});
-					}
+				if (didScroll === false &&
+					(deltaTouchTime > TOUCH_MOVE_TIME_THRESHOLD || abs(deltaSumTouchY) > TOUCH_MOVE_Y_THRESHOLD)) {
+					didScroll = true;
+					self.trigger(events.CHANGE, {
+						"unselected": state.currentIndex
+					});
 				}
 
 				if (didScroll) {
@@ -767,65 +764,110 @@
 				}
 			};
 
+			prototype._selectItem = function (selectedIndex) {
+				this._ui.arcListviewSelection.style.height = this._state.items[selectedIndex].height + "px";
+				this._ui.arcListviewSelection.classList.add(classes.SELECTION_SHOW);
+				this._state.items[selectedIndex].element.classList.add(classes.SELECTED);
+			};
+
 			prototype._onChange = function (event) {
-				var classList = this._ui.arcListviewSelection.classList;
+				var selectedIndex = event.detail.selected,
+					unselectedIndex = event.detail.unselected,
+					classList = this._ui.arcListviewSelection.classList;
 
 				if (!event.defaultPrevented) {
-					if (event.detail.selected !== undefined) {
-						classList.add(classes.SELECTION_SHOW);
+					if (selectedIndex !== undefined) {
+						this._selectItem(selectedIndex);
 					} else {
 						classList.remove(classes.SELECTION_SHOW);
+						this._state.items[unselectedIndex].element.classList.remove(classes.SELECTED);
 					}
 				}
 			};
 
-			prototype._build = function (element) {
-				var carouselElement = null,
-					self = this,
-					arcListviewCarousel = null,
-					arcListviewSelection = null,
-					page = null,
-					scroller = null,
-					ui = self._ui,
-					carousel = self._carousel,
-					fragment = document.createDocumentFragment(),
-					i = 0;
+			prototype._onClick = function (event) {
+				var self = this,
+					target = event.target,
+					state = self._state,
+					li = selectorsUtil.getClosestByTag(target, "li"),
+					toIndex = state.items.map(function (item) {
+						return item.element;
+					}).indexOf(li);
 
-				// find outer parent elements
-				page = selectorsUtil.getClosestBySelector(element, selectors.PAGE);
-				scroller = selectorsUtil.getClosestBySelector(element, selectors.SCROLLER);
+				if (toIndex != state.currentIndex) {
+					self.trigger(events.CHANGE, {
+						"unselected": state.currentIndex
+					});
 
-				// find list elements with including group indexes
-				self._items = page.querySelectorAll(selectors.ITEMS);
+					if (toIndex >= 0 && toIndex < state.items.length) {
+						state.toIndex = toIndex;
+					}
 
+					self._roll();
+					eventUtils.preventDefault(event);
+					eventUtils.stopImmediatePropagation(event);
+				}
+			};
+
+			function buildArcListviewSelection(page) {
 				// find or add selection for current list element
-				arcListviewSelection = page.querySelector(selectors.SELECTION);
-				if (arcListviewSelection) {
+				var arcListviewSelection = page.querySelector(selectors.SELECTION);
+
+				if (!arcListviewSelection) {
 					arcListviewSelection = document.createElement("div");
 					arcListviewSelection.classList.add(classes.SELECTION);
 					page.appendChild(arcListviewSelection);
 				}
+				return arcListviewSelection;
+			}
 
+			function buildArcListviewCarousel(carousel) {
 				// create carousel
-				arcListviewCarousel = document.createElement("div");
+				var arcListviewCarousel = document.createElement("div"),
+					carouselElement = null,
+					fragment = document.createDocumentFragment(),
+					i = 0;
+
 				arcListviewCarousel.classList.add(classes.CAROUSEL);
-				for (i = 0; i < 5; i++) {
+				for (; i < 5; i++) {
 					carouselElement = document.createElement("ul");
 					carouselElement.classList.add(classes.CAROUSEL_ITEM);
+					carouselElement.classList.add(classes.LISTVIEW);
 					carousel.items[i] = {
 						carouselElement: carouselElement
 					};
 					fragment.appendChild(carouselElement);
 				}
 				arcListviewCarousel.appendChild(fragment);
+				return arcListviewCarousel;
+			}
+
+			prototype._build = function (element) {
+				var self = this,
+					arcListviewCarousel = null,
+					page = null,
+					scroller = null,
+					ui = self._ui,
+					carousel = self._carousel;
+
+				// find outer parent elements
+				page = selectorsUtil.getClosestBySelector(element, selectors.PAGE);
+				scroller = selectorsUtil.getClosestBySelector(element, selectors.SCROLLER);
+
+				element.classList.add(WIDGET_CLASS);
+
+				// find list elements with including group indexes
+				self._items = page.querySelectorAll(selectors.ITEMS);
+
+				ui.arcListviewSelection = buildArcListviewSelection(page);
+				arcListviewCarousel = buildArcListviewCarousel(carousel);
+				ui.arcListviewCarousel = arcListviewCarousel;
 
 				// append carousel outside scroller element
 				scroller.parentElement.appendChild(arcListviewCarousel);
 
 				// cache HTML elements
 				ui.page = page;
-				ui.arcListviewSelection = arcListviewSelection;
-				ui.arcListviewCarousel = arcListviewCarousel;
 				ui.scroller = scroller;
 
 				return element;
@@ -845,8 +887,11 @@
 
 				// init items;
 				self._setAnimatedItems();
+				if (self._items.length) {
+					this._selectItem(0);
+				}
 				self._refresh();
-				self._carouselUpdate(0);
+				self._scrollAnimationEnd = true;
 				self._scroll();
 			};
 
@@ -876,6 +921,9 @@
 					case "change" :
 						self._onChange(ev);
 						break;
+					case "vclick" :
+						self._onClick(ev);
+						break;
 				}
 			};
 
@@ -894,6 +942,7 @@
 				page.addEventListener("touchstart", self, true);
 				page.addEventListener("touchmove", self, true);
 				page.addEventListener("touchend", self, true);
+				self._ui.arcListviewCarousel.addEventListener("vclick", self, true);
 				document.addEventListener("rotarydetent", self, true);
 				element.addEventListener("change", self, true);
 			};
@@ -912,6 +961,7 @@
 				page.removeEventListener("touchstart", self, true);
 				page.removeEventListener("touchmove", self, true);
 				page.removeEventListener("touchend", self, true);
+				self._ui.arcListviewCarousel.removeEventListener("vclick", self, true);
 				document.removeEventListener("rotarydetent", self, true);
 				element.removeEventListener("change", self, true);
 			};
@@ -928,7 +978,10 @@
 
 				self._unbindEvents();
 
-				//@todo append item elements back to UL element
+				self._items.forEach(function (li) {
+					self.element.appendChild(li);
+					li.style = "";
+				});
 				self._items = [];
 
 				// remove added elements

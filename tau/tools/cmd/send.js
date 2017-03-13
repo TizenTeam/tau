@@ -50,7 +50,7 @@ cmd.chain(
 			token: "token"
 		}, function (error) {
 			if (error) {
-				console.eror("Jenkins Error: ", error);
+				console.error("Jenkins Error: ", error);
 			}
 		});
 	}

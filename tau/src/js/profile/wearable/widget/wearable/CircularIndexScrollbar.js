@@ -135,7 +135,8 @@
 			"../../../../core/engine",
 			"../../../../core/event",
 			"../../../../core/event/gesture",
-			"../../../../core/widget/BaseWidget"
+			"../../../../core/widget/BaseWidget",
+			"../wearable"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");

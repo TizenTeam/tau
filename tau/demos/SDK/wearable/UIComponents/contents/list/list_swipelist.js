@@ -15,7 +15,7 @@
 			swipeTarget: "li",
 			swipeElement: ".ui-swipelist"
 		});
-	});
+	}, true);
 
 	/**
 	 * pagebeforehide event handler

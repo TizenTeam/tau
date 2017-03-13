@@ -105,16 +105,6 @@
 				return element;
 			};
 
-			/**
-			 * refresh structure
-			 * @method _refresh
-			 * @return {HTMLElement}
-			 * @member ns.widget.core.Listview
-			 */
-			prototype._refresh = function () {
-				return this.element;
-			};
-
 			Listview.prototype = prototype;
 			ns.widget.core.Listview = Listview;
 
