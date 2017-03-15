@@ -1,5 +1,5 @@
-/*global window, define, ns, nsConfig */
-/*jslint plusplus:true */
+/*global window, define */
+/* eslint-disable no-console */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
  *
@@ -25,7 +25,7 @@
  * @author Piotr Karny <p.karny@samsung.com>
  * @author Tomasz Lukawski <t.lukawski@samsung.com>
  */
-(function (document, ns, nsConfig, console) {
+(function (document, console) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(function () {
@@ -33,15 +33,26 @@
 		var idNumberCounter = 0,
 			currentDate = +new Date(),
 			slice = [].slice,
-			rootNamespace = nsConfig.rootNamespace,
-			fileName = nsConfig.fileName,
+			rootNamespace = "",
+			fileName = "",
 			infoForLog = function (args) {
 				var dateNow = new Date();
 
 				args.unshift("[" + rootNamespace + "][" + dateNow.toLocaleString() + "]");
-			};
+			},
+			ns = window.ns || window.tau || {},
+			nsConfig = window.nsConfig || window.tauConfig || {};
 
-		/**
+		window.ns = ns;
+		window.nsConfig = nsConfig;
+
+		window.tau = ns;
+		window.tauConfig = nsConfig;
+
+		rootNamespace = nsConfig.rootNamespace;
+		fileName = nsConfig.fileName;
+
+			/**
 		 * Return unique id
 		 * @method getUniqueId
 		 * @static
@@ -165,4 +176,4 @@
 		return ns;
 	});
 	//>>excludeEnd("tauBuildExclude");
-}(window.document, ns, nsConfig, window.console));
+}(window.document, window.console));

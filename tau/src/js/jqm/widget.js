@@ -20,7 +20,7 @@
  * Object maps widgets from TAU namespace to jQuery Mobile namespace.
  * @class ns.jqm.widget
  */
-(function (window, document, ns, $) {
+(function (window, document) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
@@ -40,6 +40,7 @@
 			 * @static
 			 */
 			var slice = [].slice,
+				$ = ns.jqm.jQuery,
 				/**
 				 * Wrap function in closure and wrap first argument in jquery object
 				 * @param {Function} fn
@@ -302,4 +303,4 @@
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
-}(window, window.document, ns, ns.jqm.jQuery));
+}(window, window.document));

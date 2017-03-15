@@ -151,13 +151,13 @@
 			/**
 			 * This method changes active page to specified element.
 			 * @method change
-			 * @param {HTMLElement} toPage The element to set
+			 * @param {HTMLElement} toPageElement The element to set
 			 * @param {Object} [options] Additional options for the transition
 			 * @param {string} [options.transition=none] Specifies the type of transition
 			 * @param {boolean} [options.reverse=false] Specifies the direction of transition
 			 * @member ns.widget.core.PageContainer
 			 */
-			prototype.change = function (toPage, options) {
+			prototype.change = function (toPageElement, options) {
 				var self = this,
 					fromPageWidget = self.getActivePage(),
 					toPageWidget,
@@ -170,22 +170,22 @@
 
 				// The change should be made only if no active page exists
 				// or active page is changed to another one.
-				if (!fromPageWidget || (fromPageWidget.element !== toPage)) {
-					if (toPage.parentNode !== self.element) {
-						toPage = self._include(toPage);
+				if (!fromPageWidget || (fromPageWidget.element !== toPageElement)) {
+					if (toPageElement.parentNode !== self.element) {
+						toPageElement = self._include(toPageElement);
 					}
 
 					self.trigger(EventType.PAGE_BEFORE_CHANGE);
 
-					toPage.classList.add(classes.uiBuild);
+					toPageElement.classList.add(classes.uiBuild);
 
-					toPageWidget = engine.instanceWidget(toPage, calculatedOptions.widget);
+					toPageWidget = engine.instanceWidget(toPageElement, calculatedOptions.widget);
 
 					// set sizes of page for correct display
 					toPageWidget.layout();
 
 					if (ns.getConfig("autoBuildOnPageChange", false)) {
-						engine.createWidgets(toPage);
+						engine.createWidgets(toPageElement);
 					}
 
 					if (fromPageWidget) {
@@ -193,7 +193,7 @@
 					}
 					toPageWidget.onBeforeShow();
 
-					toPage.classList.remove(classes.uiBuild);
+					toPageElement.classList.remove(classes.uiBuild);
 
 					// if options is different that this mean that another change page was called and we need stop
 					// previous change page

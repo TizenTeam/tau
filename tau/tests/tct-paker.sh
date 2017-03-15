@@ -50,8 +50,8 @@ case "$1" in
 esac
 
 rm -rf tct-package/opt
-mkdir tct-package/opt/
-mkdir tct-package/opt/$TEST_NAME/
+mkdir -p tct-package/opt/
+mkdir -p tct-package/opt/$TEST_NAME/
 
 # Copy runner application to package
 cp tct-packages/$PACKAGE_NUMBER/webuifwtcs.tctwebuifwtest.wgt tct-package/opt/$TEST_NAME/$TEST_NAME.wgt

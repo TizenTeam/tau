@@ -1,4 +1,3 @@
-/*global window, ns, define*/
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
  *
@@ -14,10 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+/*global window, ns, define*/
 /*
  * @author Piotr Karny <p.karny@samsung.com>
  */
-(function (ns) {
+(function () {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
@@ -38,4 +38,4 @@
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
-}(ns));
+}());

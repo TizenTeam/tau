@@ -85,7 +85,7 @@
  * @class ns.util.anim.Chain
  * @author Krzysztof Antoszek <k.antoszek@samsung.com>
  */
-(function (ns) {
+(function () {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
@@ -308,4 +308,4 @@
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
-}(ns));
+}());

@@ -115,6 +115,57 @@
 			result = pageContainer._include(tempPageElement);
 
 			strictEqual(result, "result", "method return correct value");
+
+			helpers.restoreStub(ns.util, "importEvaluateAndAppendElement");
+		});
+
+		test("change", function () {
+			var pageContainer = new PageContainer(),
+				pageElement = document.getElementById("page6");
+
+			if (ns.getConfig("autoBuildOnPageChange", false)) {
+				expect(11);
+			} else {
+				expect(10);
+			}
+
+			helpers.stub(ns.engine, "instanceWidget", function (element, widgetName) {
+				strictEqual(element, pageElement, "page element is correct");
+				strictEqual(widgetName, "Page", "widget type is Page");
+				return {
+					layout: function () {
+						ok(1, "layout was called");
+					},
+					onBeforeShow: function () {
+						ok(1, "layout was onBeforeShow");
+					}
+				};
+			});
+
+			helpers.stub(ns.engine, "createWidgets", function () {
+				ok(1, "createWidgets was called");
+			});
+
+			pageContainer._transition = function (toPageWidget, fromPageWidget, calculatedOptions) {
+				equal(typeof toPageWidget, "object", "to page widget is object");
+				equal(fromPageWidget, null, "from page is null");
+				equal(calculatedOptions.widget, "Page", "options.widget is Page");
+				equal(typeof calculatedOptions.deferred.resolve, "function", "deferred.resolve is function");
+			};
+
+			pageContainer.trigger = function (eventName) {
+				equal(eventName, "pagebeforechange");
+			};
+
+			pageContainer._include = function (pageElement) {
+				ok(1, "_include was called");
+				return pageElement;
+			};
+
+			pageContainer.change(pageElement, {});
+
+			helpers.restoreStub(ns.engine, "instanceWidget");
+			helpers.restoreStub(ns.engine, "createWidgets");
 		});
 
 		test("_setActivePage", 3, function () {

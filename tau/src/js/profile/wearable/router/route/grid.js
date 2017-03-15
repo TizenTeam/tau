@@ -1,5 +1,3 @@
-/*global window*/
-/*jslint nomen: true */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
  *
@@ -15,49 +13,63 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+/*global window, define, ns */
 /**
  * #Route grid
  * Support class for router to control grid widget in profile Wearable.
  * @class ns.router.route.grid
  * @author Tomasz Lukawski <t.lukawski@samsung.com>
  */
-(function (document, ns) {
+(function () {
 	"use strict";
-	var history = ns.router.history,
-		routeGrid = {
-			orderNumber: 1000,
-			filter: ".ui-grid",
+//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
+	define(
+		[
+			"../../../../core/router/route",
+			"../../../../core/router/history"
+		],
+		function () {
+			//>>excludeEnd("tauBuildExclude");
+			var history = ns.router.history,
+				routeGrid = {
+					orderNumber: 1000,
+					filter: ".ui-grid",
 
-			/**
-			 * Returns default route options used inside Router.
-			 * But, grid router has not options.
-			 * @method option
-			 * @static
-			 * @member ns.router.route.grid
-			 * @return {null}
-			 */
-			option: function () {
-				return null;
-			},
+					/**
+					 * Returns default route options used inside Router.
+					 * But, grid router has not options.
+					 * @method option
+					 * @static
+					 * @member ns.router.route.grid
+					 * @return {null}
+					 */
+					option: function () {
+						return null;
+					},
 
-			open: function (toPage, options) {
-				history.replace({
-					url: options.url,
-					rel: options.rel
-				},
-					options.url,
-					options.title
-				);
-			},
-			onHashChange: function () {
-				return null;
-			},
-			find: function () {
-				return null;
-			}
+					open: function (toPage, options) {
+						history.replace({
+							url: options.url,
+							rel: options.rel
+						},
+							options.url,
+							options.title
+						);
+					},
 
-		};
+					onHashChange: function () {
+						return null;
+					},
 
-	ns.router.route.grid = routeGrid;
+					find: function () {
+						return null;
+					}
+				};
 
-}(window.document, window.tau));
+			ns.router.route.grid = routeGrid;
+			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
+			return routeGrid;
+		}
+	);
+//>>excludeEnd("tauBuildExclude");
+}());

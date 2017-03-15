@@ -30,8 +30,13 @@
  * @title Tizen Advanced UI Framework
  */
 //>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
-(function (ns) {
+(function () {
 	"use strict";
+
+	window.nsConfig = {
+		autostart: false
+	};
+
 	define(
 		[
 			"require",
@@ -61,10 +66,9 @@
 			"./core/util/path",
 			"./core/util/bezierCurve",
 			"./core/util/zoom",
-			"./core/util/anim",
-			"./core/util/anim/Keyframes.js",
-			"./core/util/anim/Animation.js",
-			"./core/util/anim/Chain.js",
+			"./core/util/anim/Keyframes",
+			"./core/util/anim/Animation",
+			"./core/util/anim/Chain",
 			"./core/event/vmouse",
 			"./core/event/hwkey",
 			"./core/event/throttledresize",
@@ -112,6 +116,7 @@
 			"./core/router/Router",
 			"./core/router/route/page",
 			"./core/router/route/popup",
+			"./core/router/route/popup",
 			"./core/router/route/drawer",
 			"./core/router/route/panel",
 			"./core/router/history",
@@ -125,7 +130,8 @@
 			//>>excludeEnd("tauBuildExclude");
 			ns.info.profile = "mobile";
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
+			ns.engine.run();
 		}
 	);
-}(ns));
+}());
 //>>excludeEnd("tauBuildExclude");

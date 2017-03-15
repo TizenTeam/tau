@@ -20,7 +20,7 @@
  * Object maps router from TAU namespace to jQuery Mobile namespace.
  * @class ns.jqm.router
  */
-(function (window, document, ns, $) {
+(function (window, document) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
@@ -33,6 +33,7 @@
 			//>>excludeEnd("tauBuildExclude");
 
 			var engine = ns.engine,
+				$ = ns.jqm.jQuery,
 				eventType = engine.eventType,
 				jqmRouter = {
 					/**
@@ -180,4 +181,4 @@
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
-}(window, window.document, ns, ns.jqm.jQuery));
+}(window, window.document));

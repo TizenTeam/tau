@@ -50,7 +50,7 @@
  * @class ns.util.anim.Animation
  * @author Krzysztof Antoszek <k.antoszek@samsung.com>
  */
-(function (document, ns) {
+(function () {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
@@ -99,7 +99,7 @@
 					return props.indexOf(name);
 				},
 
-				eventPrefix = cssPropertyPrefix.replace(/\-/gi, ""),
+				eventPrefix = (cssPropertyPrefix || "").replace(/\-/gi, ""),
 				endEventName = eventPrefix.length > 0 ? eventPrefix +
 				"AnimationEnd" : "animationEnd",
 				// paused state flag
@@ -442,4 +442,4 @@
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
-}(window.document, ns));
+}());

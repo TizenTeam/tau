@@ -21,7 +21,7 @@
  * jQuery Mobile namespace.
  * @class ns.jqm.colors
  */
-(function (document, ns, $) {
+(function (document) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
@@ -33,6 +33,7 @@
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 			var eventType = ns.engine.eventType,
+				$ = ns.jqm.jQuery,
 				colors = {
 					/**
 					 * Initializes colors util in jQueryMobile namespace
@@ -52,7 +53,7 @@
 						if ($) {
 							delete $.mobile.tizen.clrlib;
 						}
-						ns = null;
+						window.ns = null;
 						$ = null;
 						eventType = null;
 						colors = null;
@@ -67,4 +68,4 @@
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
-}(window.document, ns, ns.jqm.jQuery));
+}(window.document));

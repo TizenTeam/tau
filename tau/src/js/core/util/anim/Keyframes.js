@@ -49,7 +49,7 @@
  * @class ns.util.anim.Keyframes
  * @author Krzysztof Antoszek <k.antoszek@samsung.com>
  */
-(function (document, ns) {
+(function (document) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
@@ -161,4 +161,4 @@
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
-}(window.document, ns));
+}(window.document));

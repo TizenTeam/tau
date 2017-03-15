@@ -1,5 +1,3 @@
-/*global window, ns, define */
-/*jslint plusplus: true, nomen: true */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
  *
@@ -15,12 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+/*global window, ns, define */
 /**
  * #jQuery Mobile mapping defaults
  * Object maps default values from TAU namespace to jQuery Mobile namespace.
  * @class ns.jqm.defaults
  */
-(function (window, document, ns, $) {
+(function (window, document) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
@@ -31,6 +30,7 @@
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 			var engineEventsType = ns.engine.eventType,
+				$ = ns.jqm.jQuery,
 				eventType = {
 					INIT: engineEventsType.INIT,
 					DESTROY: engineEventsType.DESTROY
@@ -116,7 +116,6 @@
 					destroy: function () {
 						document.removeEventListener(eventType.INIT, defaults.init, false);
 						document.removeEventListener(eventType.DESTROY, defaults.destroy, false);
-						ns = null;
 						$ = null;
 					}
 				};
@@ -129,4 +128,4 @@
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
-}(window, window.document, ns, ns.jqm.jQuery));
+}(window, window.document));

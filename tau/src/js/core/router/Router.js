@@ -598,7 +598,8 @@
 			 * @member ns.router.Router
 			 */
 			Router.prototype.register = function (container, firstPage) {
-				var self = this;
+				var self = this,
+					routePopup = this.getRoute("popup");
 
 				self.container = container;
 				self.getRoute("page").setFirstElement(firstPage);
@@ -618,7 +619,10 @@
 				if (firstPage) {
 					self.open(firstPage, {transition: "none"});
 				}
-				this.getRoute("popup").setActive(null);
+
+				if (routePopup) {
+					this.getRoute("popup").setActive(null);
+				}
 			};
 
 			/**

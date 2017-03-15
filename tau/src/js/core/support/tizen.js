@@ -28,7 +28,7 @@
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
-			var isTizen = !(typeof tizen === "undefined");
+			var isTizen = !(typeof window.tizen === "undefined");
 
 			function isCircleShape() {
 				var testDivElement = document.createElement("div"),

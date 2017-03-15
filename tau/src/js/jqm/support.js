@@ -20,7 +20,7 @@
  * Object maps support object from TAU namespace to jQuery Mobile namespace.
  * @class ns.jqm.support
  */
-(function (window, document, ns, $) {
+(function (window, document) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
@@ -32,6 +32,7 @@
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 			var support = ns.support,
+				$ = ns.jqm.jQuery,
 				object = ns.util.object,
 				eventType = ns.engine.eventType,
 				jqmSupport = {
@@ -50,8 +51,7 @@
 						var router = ns.engine.getRouter();
 
 						if ($) {
-							object.merge($.support, support);
-							ns.support = $.support;
+							ns.support = object.merge($.support, support);
 							$.mobile = $.mobile || {};
 							$.mobile.support = $.mobile.support || {};
 							$.mobile.support.touch = support.touch;
@@ -83,4 +83,4 @@
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
-}(window, window.document, ns, ns.jqm.jQuery));
+}(window, window.document));

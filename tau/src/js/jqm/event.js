@@ -20,7 +20,7 @@
  * Object maps events from TAU namespace to jQuery Mobile namespace.
  * @class ns.jqm.event
  */
-(function (window, document, ns, $) {
+(function (window, document) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
@@ -35,6 +35,7 @@
 			//>>excludeEnd("tauBuildExclude");
 
 			var eventUtils = ns.event,
+				$ = ns.jqm.jQuery,
 				orginalTrigger,
 				orginalDispatch,
 				eventType = {
@@ -230,4 +231,4 @@
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
-}(window, window.document, ns, ns.jqm.jQuery));
+}(window, window.document));

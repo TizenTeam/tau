@@ -1,25 +1,55 @@
+/*
+ * Copyright (c) 2015 Samsung Electronics Co., Ltd
+ *
+ * Licensed under the Flora License, Version 1.1 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://floralicense.org/license/
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 /*global define, ns */
 //>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
-(function (ns) {
-	"use strict";
+(function () {
+	// configure TAU
+	window.nsConfig = {
+		autostart: false
+	};
+	// load dependencies
 	define(
 		[
-			"require",
 			//>>excludeStart("tauPerformance", pragmas.tauPerformance);
 			"./tools/performance",
 			//>>excludeEnd("tauPerformance");
+			// namespace
 			"./core/core",
+			// config
 			"./profile/wearable/config",
 			"./core/config",
+			// information about environment
 			"./core/support/tizen",
 			"./core/info",
+			// router
+			"./core/router/Router",
+			"./core/router/history",
+			"./core/router/route/page",
+			"./core/router/route/popup",
+			"./core/router/route/drawer",
+			// enigne
 			"./core/engine",
-			// widget list
+			// utilities
 			"./core/util/anchorHighlight",
 			"./core/util/scrolling",
 			"./core/util/polar",
 			"./core/util/rotaryScrolling",
 			"./core/util/date",
+			// widget list
+			// core widgets
 			"./core/widget/core/PageContainer",
 			"./core/widget/core/Button",
 			"./core/widget/core/Checkbox",
@@ -31,6 +61,8 @@
 			"./core/widget/core/scroller/scrollbar/ScrollBar",
 			"./core/widget/core/SectionChanger",
 			"./core/widget/core/Page",
+			"./core/widget/core/VirtualListviewSimple",
+			// profile widgets
 			"./profile/wearable/widget/wearable/Scrollview",
 			"./profile/wearable/widget/wearable/Popup",
 			"./profile/wearable/widget/wearable/Drawer",
@@ -44,31 +76,27 @@
 			"./profile/wearable/widget/wearable/ToggleSwitch",
 			"./profile/wearable/widget/wearable/VirtualListview",
 			"./profile/wearable/widget/wearable/VirtualGrid",
-			"./core/widget/core/VirtualListviewSimple",
 			"./profile/wearable/widget/wearable/SnapListview",
 			"./profile/wearable/widget/wearable/SwipeList",
 			"./profile/wearable/widget/wearable/Selector",
 			"./profile/wearable/widget/wearable/Grid",
-			"./profile/wearable/widget/wearable/CircleIndicator",
 			"./profile/wearable/widget/wearable/NumberPicker",
+			// helpers
 			"./profile/wearable/helper/SnapListStyle",
 			"./profile/wearable/helper/SnapListMarqueeStyle",
 			"./profile/wearable/helper/DrawerMoreStyle",
 			"./profile/wearable/helper/RotaryEventBinder",
-			"./profile/wearable/widget/wearable/ArcListview",
-			"./core/router/Router",
-			"./core/router/history",
-			"./core/router/route/page",
-			"./core/router/route/popup",
-			"./core/router/route/drawer",
+			// extended routes
 			"./profile/wearable/router/route/circularindexscrollbar",
 			"./profile/wearable/router/route/grid",
+			// API
 			"./profile/wearable/expose",
 			"./profile/wearable/backward",
 			// events
 			"./core/event/scrolledtoedge",
 			"./core/event/gesture/Manager",
 			"./core/event/gesture/Instance",
+			// gesture definitions
 			"./core/event/gesture/Drag",
 			"./core/event/gesture/Swipe",
 			"./core/event/gesture/Pinch",
@@ -78,9 +106,12 @@
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
+			// init profile info
 			ns.info.profile = "wearable";
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
+			// run engine
+			ns.engine.run();
 		}
 	);
-}(ns));
+}());
 //>>excludeEnd("tauBuildExclude");

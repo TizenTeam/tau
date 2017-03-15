@@ -33,7 +33,8 @@
 			"../../util/object",
 			"../route",
 			"../history",
-			"../../widget/core/Panel"
+			"../../widget/core/Panel",
+			"../../widget/core/PanelChanger"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");

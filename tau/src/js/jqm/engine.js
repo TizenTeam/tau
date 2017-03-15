@@ -20,7 +20,7 @@
  * Object maps engine object from TAU namespace to jQuery Mobile namespace.
  * @class ns.jqm.engine
  */
-(function (window, document, ns, $, console) {
+(function (window, document) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
@@ -52,6 +52,7 @@
 				 * @static
 				 */
 				nsNormalizeDict = {},
+				$ = ns.jqm.jQuery,
 				util = ns.util,
 				zoom = util.zoom,
 				events = ns.event,
@@ -407,7 +408,7 @@
 						tizen.log = {
 							debug: function (msg) {
 								if ($.tizen.frameworkData.debug) {
-									console.log(msg);
+									ns.log(msg);
 								}
 							},
 							warn: console.warn.bind(console),
@@ -475,4 +476,4 @@
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
-}(window, window.document, ns, ns.jqm.jQuery, window.console));
+}(window, window.document));

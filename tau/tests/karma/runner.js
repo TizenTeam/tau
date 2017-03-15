@@ -19,6 +19,8 @@ var allTestFiles = [],
 		"core/widget/core/Popup",
 		"core/widget/core/PanelChanger",
 		"core/widget/core/SectionChanger",
+		"core/event/vmouse",
+		"core/event/throttledresize",
 		"profile/mobile/widget/mobile/Popup",
 		"profile/mobile/widget/mobile/Listview",
 		"profile/mobile/widget/mobile/TextEnveloper",
@@ -46,7 +48,8 @@ var allTestFiles = [],
 		"core/event/gesture/Drag",
 		"core/event/gesture/LongPress",
 		"core/event/gesture/Pinch",
-		"core/event/gesture/Swipe"
+		"core/event/gesture/Swipe",
+		"profile/wearable/router/route/grid"
 	];
 
 window.tauPerf = {

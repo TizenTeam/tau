@@ -1,4 +1,3 @@
-/*global window, ns, define */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
  *
@@ -14,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+/*global window, ns, define */
 /**
  * #Event throttledresize
  * Object supports throttledresize event.
@@ -24,7 +24,7 @@
  * @event throttledresize
  * @member ns.event.throttledresize
  */
-(function (window, ns) {
+(function (window) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
@@ -71,6 +71,7 @@
 					}
 					window.addEventListener("resize", resizeHandler, true);
 				},
+
 				unbind = function () {
 					throttledresize.enabled = false;
 					window.removeEventListener("resize", resizeHandler, true);
@@ -90,4 +91,4 @@
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
-}(window, ns));
+}(window));

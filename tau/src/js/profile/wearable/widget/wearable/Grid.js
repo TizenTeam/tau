@@ -1,5 +1,3 @@
-/*global window*/
-/*jslint nomen: true, plusplus: true */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
  *
@@ -16,6 +14,7 @@
  * limitations under the License.
  *
  */
+/*global window, ns */
 /**
  * #Grid
  *
@@ -24,7 +23,7 @@
  * @extends ns.widget.wearable.Listview
  * @author Tomasz Lukawski <t.lukawski@samsung.com>
  */
-(function (window, document, ns) {
+(function (window, document) {
 	"use strict";
 
 	var Listview = ns.widget.wearable.Listview,
@@ -1312,4 +1311,4 @@
 		"wearable"
 	);
 
-}(window, window.document, window.tau));
+}(window, window.document));
