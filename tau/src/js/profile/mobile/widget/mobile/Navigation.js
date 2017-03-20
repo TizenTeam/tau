@@ -148,9 +148,8 @@
 
 				if (target) {
 					setTimeout(function () {
-						if (!target.classList.contains(classes.NAVIGATION_ACTIVE)) {
+						if (!target.classList.contains(classes.NAVIGATION_ACTIVE) && stack[stack.length - 1] != id) {
 							self.pop(toRemoveLength);
-							//not to trigger event on the last li vclick
 							self.trigger("navigate", {
 								id: id,
 								//element Id to move
@@ -222,7 +221,7 @@
 					stack = self._navigationStack,
 					lastChild = container.lastChild,
 					lastChildClassList = lastChild && lastChild.classList,
-					previousLastChildclassList = lastChild && lastChild.previousElementSibling && lastChild.previousElementSibling.classList;
+					previousLastChildClassList = lastChild && lastChild.previousElementSibling && lastChild.previousElementSibling.classList;
 
 				if (count === undefined) {
 					count = 1;
@@ -230,9 +229,9 @@
 
 				if (lastChildClassList) {
 					lastChildClassList.add(classes.NAVIGATION_HIDE);
-					if (previousLastChildclassList) {
-						previousLastChildclassList.add(classes.NAVIGATION_BACK);
-						previousLastChildclassList.add(classes.NAVIGATION_ACTIVE);
+					if (previousLastChildClassList) {
+						previousLastChildClassList.add(classes.NAVIGATION_BACK);
+						previousLastChildClassList.add(classes.NAVIGATION_ACTIVE);
 						events.one(lastChild, "animationend, webkitAnimationEnd", function () {
 							container.removeChild(container.lastChild);
 							lastChildClassList.remove(classes.NAVIGATION_BACK);
@@ -268,8 +267,12 @@
 				if (itemLength > 0) {
 					lastChildClassList.add(classes.NAVIGATION_BACK_HIDE);
 					events.one(lastChild, "animationend webkitAnimationEnd", function () {
-						lastChildClassList.remove(classes.NAVIGATION_BACK_HIDE);
-						lastChildClassList.remove(classes.NAVIGATION_ACTIVE);
+						//both animation end events should trigger right after push but often only one triggered
+						//and second triggered after using pop method and thus removed unintentionally useful classes
+						if (lastChild != self._ui.container.lastElementChild) {
+							lastChildClassList.remove(classes.NAVIGATION_BACK_HIDE);
+							lastChildClassList.remove(classes.NAVIGATION_ACTIVE);
+						}
 					});
 				}
 

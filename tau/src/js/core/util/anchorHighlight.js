@@ -264,6 +264,11 @@
 						classList.add(classes.INACTIVE_BTN);
 					}
 				} else {
+					//when target of animationend event is child of active element instead of active element itself
+					if (!classList.contains(classes.ACTIVE_BTN) && !classList.contains(classes.INACTIVE_BTN)) {
+						target.parentNode.classList.remove(classes.ACTIVE_BTN);
+						target.parentNode.classList.remove(classes.INACTIVE_BTN);
+					}
 					// this is callback for inactive animation end
 					classList.remove(classes.INACTIVE_BTN);
 					classList.remove(classes.ACTIVE_BTN);
