@@ -1,11 +1,9 @@
 .ui-listview .ui-group-index {
     box-sizing: border-box;
-    min-height: 58 * @unit_base;
-    padding: 14 * @unit_base 32 * @unit_base 15 * @unit_base 32 * @unit_base;
-    background-color: @color_list_divider_bg;
+    min-height: 64 * @unit_base;
+    padding: 14 * @unit_base 32 * @unit_base 14 * @unit_base 32 * @unit_base;
 
-    border-top: 2 * @unit_base solid @color_navigation_tab_divider; 
-    font-size: 33 * @unit_base;/*@font_size_list_divider_text;*/
+    font-size: 33 * @unit_base;
     color: @color_list_divider_text;
     line-height: 37 * @unit_base;
     vertical-align: middle;
@@ -14,12 +12,15 @@
     input[type=checkbox] {
         position: absolute;
         right: 32 * @unit_base;
-        top: 10 * @unit_base;
+        top: 7 * @unit_base;
     }
 
     + .ui-li-static {
         padding: 35 * @unit_base 17 * @unit_base 36 * @unit_base 32 * @unit_base;
 
+    }
+
+    ~ .ui-li-static {
         input[type=checkbox] {
             position: absolute;
             right: 32 * @unit_base;

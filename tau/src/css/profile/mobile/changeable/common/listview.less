@@ -19,19 +19,30 @@
 		text-align: left;
 		font-size: @font_size_list_main_text;
 		line-height: 54 * @unit_base;
-		padding: 32 * @unit_base 32 * @unit_base;
+		padding: 33 * @unit_base 32 * @unit_base;
 
 		box-shadow: none;
-		.LESSborder-radius-all(0);
 		.ui-link-inherit {
 			color: @color_list_main_text_normal;
 		}
-	}
 
-	&.ui-listview-background-disabled {
-			.ui-listview-background {
-					display: none;
-			}
+		&.ui-li-active {
+			background-color: @color_list_press;
+		}
+
+		& > a:not(.ui-btn) {
+			display: block;
+			width: 100%;
+			height: 100%;
+			margin: -33 * @unit_base -32 * @unit_base;
+			padding: 33 * @unit_base 32 * @unit_base;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			overflow: hidden;
+			color: @color_list_main_text_normal;
+			text-decoration: none;
+			box-sizing: border-box;
+		}
 	}
 
 	.ui-listview-background {
@@ -43,53 +54,22 @@
 		pointer-events: none;
 
 		// this is feched from listview widget as values for
-    // base color and modifier (content value)
-    // format: BASE_COLOR::MODIFIER_COLOR
-    // color format: RRR,GGG,BBB,AAA
+		// base color and modifier (content value)
+		// format: BASE_COLOR::MODIFIER_COLOR
+		// color format: RRR,GGG,BBB,AAA
 		&::before {
 			content: "250,250,250,1::0,0,0,-0.04";
 			display: none;
 		}
 	}
-}
 
-/***************** Anchor listview common style ****************/
-.ui-listview {
-	.ui-li-anchor {
-		padding: 0 0;
-		background-color: transparent;
-
-		&.ui-li-active {
-			background-color: @color_list_press;
-		}
-
-		& > a:not(.ui-btn) {
-			display: block;
-			width: 100%;
-			height: 100%;
-			padding: 36 * @unit_base 32 * @unit_base;
-			text-overflow: ellipsis;
-			white-space: nowrap;
-			overflow: hidden;
-			color: @color_list_main_text_normal;
-			text-decoration: none;
-			box-sizing: border-box;
+	&.ui-listview-background-disabled {
+		.ui-listview-background {
+			display: none;
 		}
 	}
 
-	.ui-li-anchor {
-		background-color: #fff;
-		border-bottom: 2 * @unit_base solid @color_list_border_bottom;
-	}
-}
-
-/*************** No Anchor listview common style ****************/
-.ui-listview {
 	.ui-li-static {
-		padding: 32 * @unit_base 32 * @unit_base;
-		background-color: @color_list_background;
-		border-bottom: 2 * @unit_base solid @color_list_border_bottom; // have to be 2 insted 1 because Tizen not render 0.5px border
-
 		&.ui-li-select-all {
 			color: @color_list_select_all;
 
@@ -110,15 +90,10 @@
 			}
 		}
 	}
-}
 
-/*************** No Anchor listview flex style ****************/
-.ui-listview {
 	li.ui-li-flex {
-		.display-flex();
-		padding: 0 * @unit_base 32 * @unit_base;
-		background-color: @color_list_background;
-		border-bottom: 2 * @unit_base solid @color_list_border_bottom; // have to be 2 insted 1 because Tizen not render 0.5px border
+		display: flex;
+		padding: 0 32 * @unit_base;
 
 		// no wrap text
 		overflow-x: hidden;
@@ -137,13 +112,13 @@
 		}
 
 		.ui-li-text {
-			.display-flex();
+			display: flex;
 			// no wrap text
 			overflow-x: hidden;
 			text-overflow: ellipsis;
 			white-space: nowrap;
 			> *:not(.ui-li-text-sub-2) {
-				.flex(1);
+				flex: 1;
 				// no wrap text
 				overflow-x: hidden;
 				text-overflow: ellipsis;
@@ -158,7 +133,7 @@
 			color: @color_list_secondary_text_normal;
 			line-height: 44 * @unit_base;
 			font-size: @font_size_list_secondary_text;
-			.display-flex();
+			display: flex;
 			// no wrap text
 			overflow-x: hidden;
 			text-overflow: ellipsis;
@@ -182,13 +157,13 @@
 			line-height: 44 * @unit_base;
 			font-size: @font_size_list_sub_text;
 			color: @color_list_sub_text_normal;
-			.display-flex();
+			display: flex;
 			// no wrap text
 			overflow-x: hidden;
 			text-overflow: ellipsis;
 			white-space: nowrap;
 			> *:not(.ui-li-text-sub-3) {
-				.flex(1);
+				flex: 1;
 				// no wrap text
 				overflow-x: hidden;
 				text-overflow: ellipsis;
@@ -223,44 +198,44 @@
 		}
 
 		.ui-li-area-a {
-			.display-flex();
-			.flex(1);
-			.order(1);
+			display: flex;
+			flex: 1;
+			order: 1;
 			min-width: 1%;
-			.flex-direction(row);
-			.justify-content(flex-start);
+			flex-direction: row;
+			justify-content: flex-start;
 			margin-top: 32 * @unit_base;
 			margin-bottom: 32 * @unit_base;
 		}
 		.ui-li-area-b {
-			.order(0);
+			order: 0;
 		}
 		.ui-li-area-c {
-			.order(3);
+			order: 3;
 		}
 		.ui-li-area-d {
-			.order(2);
+			order: 2;
 		}
 		input.ui-li-area-b, .ui-li-area-b {
 			margin: 0 32 * @unit_base 0 0;
-			.align-self(center);
+			align-self: center;
 		}
 
 		input.ui-li-area-c, .ui-li-area-c {
 			margin: 0 0 0 32 * @unit_base;
-			.align-self(center);
+			align-self: center;
 		}
 		input.ui-li-area-d, .ui-li-area-d {
 			margin: 0 0 0 32 * @unit_base;
-			.align-self(center);
+			align-self: center;
 		}
 		.ui-li-icon:after {
 			content: "";
 			position: absolute;
 			width: 100%;
 			height: 100%;
-			.mask-size(100%);
-			.mask-position(center center);
+			mask-size: 100%;
+			mask-position: center center;
 		}
 		.ui-li-area {
 			&.ui-li-image {
@@ -284,11 +259,11 @@
 					min-width: 50 * @unit_base;
 					max-width: 50 * @unit_base;
 					height: 50 * @unit_base;
-					.align-self(center);
+					align-self: center;
 					position: relative;
 					margin-left: 32 * @unit_base;
 					&.ui-li-icon-left {
-						.order(-1);
+						order: -1;
 						margin-right: 12 * @unit_base;
 						margin-left: 0;
 					}
@@ -303,9 +278,9 @@
 					width: 80 * @unit_base;
 					height: 80 * @unit_base;
 					margin-right: -15 * @unit_base;
-					.align-items(center);
-					.justify-content(center);
-					.display-flex();
+					align-items: center;
+					justify-content: center;
+					display: flex;
 					&:after {
 						width: 50 * @unit_base;
 						height: 50 * @unit_base;
@@ -322,8 +297,8 @@
 		&.ui-li-multilines .ui-li-area-a {
 			margin-top: 22 * @unit_base;
 			margin-bottom: 22 * @unit_base;
-			.flex-direction(column);
-			.justify-content(center);
+			flex-direction: column;
+			justify-content: center;
 			> .ui-li-icon {
 				position: absolute;
 				right: 32 * @unit_base;
@@ -331,48 +306,48 @@
 		}
 		&.ui-li-flex-reverse {
 			.ui-li-area {
-				.flex-direction(column-reverse);
+				flex-direction: column-reverse;
 			}
 		}
 	}
-}
 
-/*************** No Anchor listview details and transparent ****************/
-.ui-listview.ui-details {
-	.ui-li-static {
-		position: relative;
-		color: white;
-		background-color: transparent;
-		border: none;
-		padding: 24 * @unit_base 32 * @unit_base 23 * @unit_base 32 * @unit_base;
-		height: 97 * @unit_base;
-		line-height: 54 * @unit_base;
-
-		&.li-has_icon {
-			padding: 128 * @unit_base 32 * @unit_base 23 * @unit_base 32 * @unit_base;
-			img {
-				position: absolute;
-				top: 40 * @unit_base;
-				left: 32 * @unit_base;
-			}
-		}
-
-		.li-text-sub {
+	&.ui-details {
+		.ui-li-static {
 			color: white;
-			height: 43 * @unit_base;
-			position: initial;
-			float: none;
-			text-align: left;
-			display: block;
-			line-height: 43 * @unit_base;
+			padding: 24 * @unit_base 32 * @unit_base 23 * @unit_base 32 * @unit_base;
+			height: 97 * @unit_base;
+			line-height: 54 * @unit_base;
+
+			&.li-has_icon {
+				padding: 128 * @unit_base 32 * @unit_base 23 * @unit_base 32 * @unit_base;
+				img {
+					position: absolute;
+					top: 40 * @unit_base;
+					left: 32 * @unit_base;
+				}
+			}
+
+			.li-text-sub {
+				color: white;
+				height: 43 * @unit_base;
+				position: initial;
+				float: none;
+				text-align: left;
+				display: block;
+				line-height: 43 * @unit_base;
+			}
 		}
 	}
-}
 
-/********************* list have right button **********************/
-.li-has-right-btn .ui-btn {
-	position: absolute;
-	top: 50%;
-	right: 17 * @unit_base;
-	.transform(translate(0, -50%));
+	.li-has-right-btn .ui-btn {
+		position: absolute;
+		top: 50%;
+		right: 17 * @unit_base;
+		transform: translate(0, -50%);
+	}
+
+	&.ui-colored-list {
+		position: relative;
+		transform: translate3d(0, 0, 0);
+	}
 }

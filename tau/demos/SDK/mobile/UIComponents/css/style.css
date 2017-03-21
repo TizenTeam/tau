@@ -438,16 +438,6 @@
 .vertical-list {
 	height: 300px;
 }
-
-.app-icon-search {
-	background-color: blue;
-}
-.app-icon-search-2 {
-	background-color: rgba(0,0,0,0.1);
-}
-.app-icon-favorite {
-	background-color: rgba(255,255,255,0.4);
-}
 .app-icon-search:after {
 	-webkit-mask-image: url("images/00_icon_search.png");
 	mask-image: url("images/00_icon_search.png");

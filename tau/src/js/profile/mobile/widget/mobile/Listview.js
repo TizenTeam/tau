@@ -1,4 +1,3 @@
-/*global window, define, ns */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
  *
@@ -14,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/*jslint nomen: true, plusplus: true */
+/*global window, define, ns */
 /**
  * # List View
  * List view component is used to display, for example, navigation data, results, and data entries, in a list format.
@@ -56,18 +55,21 @@
 				colorDefinitionRegex = new RegExp("[^0-9\-\.:,]+", "gi"),
 				min = Math.min,
 				max = Math.max,
+				round = Math.round,
+				ceil = Math.ceil,
+				slice = [].slice,
 				isNumber = utils.isNumber,
 				colorTmp = [0, 0, 0, 0],
 				MAX_IDLE_TIME = 3 * 1000, //3s
 				Listview = function () {
 					var self = this;
 
-					CoreListview.apply(self, arguments);
+					CoreListview.call(self);
 
 					/**
-					* @property {Function} _async async function (requestAnimationFrame)
-					* @protected Kept here for easy test injection
-					*/
+					 * @property {Function} _async async function (requestAnimationFrame)
+					 * @protected Kept here for easy test injection
+					 */
 					self._async = utils.requestAnimationFrame;
 					/**
 					 * @property {CanvasRenderingContext2D} _context rendering context
@@ -85,9 +87,9 @@
 					 */
 					self._scrollableContainer = null;
 					/**
-					* @property {HTMLElement} _pageContainer detected parent page element
-					* @protected
-					*/
+					 * @property {HTMLElement} _pageContainer detected parent page element
+					 * @protected
+					 */
 					self._pageContainer = null;
 					/**
 					 * @property {HTMLElement} _popupContainer detected parent popup element
@@ -100,15 +102,15 @@
 					 */
 					self._drawCallback = null;
 					/**
-					*
+					 *
 					 * @property {Function} _scrollCallback
 					 * @protected
 					 */
 					self._scrollCallback = null;
 					/**
-					* @property {Function} _backgroundRenderCallback
-					* @protected
-					*/
+					 * @property {Function} _backgroundRenderCallback
+					 * @protected
+					 */
 					self._backgroundRenderCallback = null;
 					/**
 					 * @property {boolean} _running flag for async timers
@@ -139,44 +141,44 @@
 					 * @property {Number}
 					 * @protected
 					 */
-					self._topOffset = 20;
+					self._topOffset = window.innerHeight;
 					/**
-					 * @property {HTMLElement} _lastVisibleElement
+					 * @property {HTMLElement} _previousVisibleElement
 					 * @protected
 					 */
-					self._lastVisibleElement = null;
+					self._previousVisibleElement = null;
 					/**
-					 * @property {Number} _width
+					 * @property {Number} _canvasWidth
 					 * @protected
 					 */
-					self._width = 0;
+					self._canvasWidth = 0;
 					/**
-					 * @property {Number} _height
+					 * @property {Number} _canvasHeight
 					 * @protected
 					 */
-					self._height = 0;
+					self._canvasHeight = 0;
 				},
 				/**
-				* @property {Object} classes
-				* @property {string} classes.BACKGROUND_LAYER
-				* @property {string} classes.GRADIENT_BACKGROUND_DISABLED
-				* @member ns.widget.mobile.Listview
-				* @static
-				* @readonly
-				*/
+				 * @property {Object} classes
+				 * @property {string} classes.BACKGROUND_LAYER
+				 * @property {string} classes.GRADIENT_BACKGROUND_DISABLED
+				 * @member ns.widget.mobile.Listview
+				 * @static
+				 * @readonly
+				 */
 				classes = {
 					/**
-				  */
+					 */
 					"BACKGROUND_LAYER": "ui-listview-background",
 					"GRADIENT_BACKGROUND_DISABLED": "ui-listview-background-disabled"
 				},
 				/**
-				* @property {Object} events
-				* @property {string} events.BACKGROUND_RENDER
-				* @member ns.widget.mobile.Listview
-				* @static
-				* @readonly
-				*/
+				 * @property {Object} events
+				 * @property {string} events.BACKGROUND_RENDER
+				 * @member ns.widget.mobile.Listview
+				 * @static
+				 * @readonly
+				 */
 				events = {
 					"BACKGROUND_RENDER": "event-listview-background-render"
 				},
@@ -184,14 +186,15 @@
 				prototype = new CoreListview();
 
 			/**
-			* Modifies input color array (rgba) by a specified
-			* modifier color array (rgba)
-			* @method modifyColor
-			* @param {Array} color input array of color values (rgba)
-			* @param {Array} modifier array of color values (rgba)
-			* @member ns.widget.mobile.Listview
-			* @private
-			*/
+			 * Modifies input color array (rgba) by a specified
+			 * modifier color array (rgba)
+			 * @method modifyColor
+			 * @param {Array} color input array of color values (rgba)
+			 * @param {Array} modifier array of color values (rgba)
+			 * @member ns.widget.mobile.Listview
+			 * @return {number} Return opacity of color
+			 * @private
+			 */
 			function modifyColor(color, modifier) {
 				color[0] += modifier[0];
 				color[1] += modifier[1];
@@ -202,16 +205,18 @@
 				color[1] = min(max(0, color[1]), 255);
 				color[2] = min(max(0, color[2]), 255);
 				color[3] = min(max(0, color[3]), 1);
+
+				return color[3];
 			}
 
 			/**
-			* Copies values from one color array (rgba) to other
-			* @method copyColor
-			* @param {Array} inc color array (rgba)
-			* @param {Array} out color array (rgba)
-			* @member ns.widget.mobile.Listview
-			* @private
-			*/
+			 * Copies values from one color array (rgba) to other
+			 * @method copyColor
+			 * @param {Array} inc color array (rgba)
+			 * @param {Array} out color array (rgba)
+			 * @member ns.widget.mobile.Listview
+			 * @private
+			 */
 			function copyColor(inc, out) {
 				out[0] = inc[0];
 				out[1] = inc[1];
@@ -220,14 +225,14 @@
 			}
 
 			/**
-			* Returns number from specified value (mixed) or
-			* 0 if no param is not a number
-			* @method toNumber
-			* @param {mixed} val
-			* @return {number}
-			* @member ns.widget.mobile.Listview
-			* @private
-			*/
+			 * Returns number from specified value (mixed) or
+			 * 0 if no param is not a number
+			 * @method toNumber
+			 * @param {mixed} val
+			 * @return {number}
+			 * @member ns.widget.mobile.Listview
+			 * @private
+			 */
 			function toNumber(val) {
 				var res = parseFloat(val);
 
@@ -243,127 +248,156 @@
 			Listview.events = objectUtils.fastMerge(events, CoreListview.events || {});
 
 			/**
-			* Builds widget
-			* @method _build
-			* @member ns.widget.mobile.Listview
-			* @return {HTMLElement}
-			* @protected
-			*/
-			prototype._build = function () {
-				var element = CoreListviewProto._build.apply(this, arguments),
-					canvas = document.createElement("canvas"),
+			 * Builds widget
+			 * @method _build
+			 * @param {HTMLElement} element Main element of widget
+			 * @member ns.widget.mobile.Listview
+			 * @return {HTMLElement}
+			 * @protected
+			 */
+			prototype._build = function (element) {
+				var newElement = CoreListviewProto._build.call(this, element),
+					isChildListview = !!selectorUtils.getClosestByClass(element && element.parentElement, "ui-listview"),
+					canvas = null,
+					context = null;
+
+				this._isChildListview = isChildListview;
+
+				if (!isChildListview) {
+					canvas = document.createElement("canvas");
 					context = canvas.getContext("2d");
+					canvas.classList.add(classes.BACKGROUND_LAYER);
+					newElement.insertBefore(canvas, newElement.firstElementChild);
+					this._context = context;
+				}
 
-				canvas.classList.add(classes.BACKGROUND_LAYER);
-
-				element.insertBefore(canvas, element.firstElementChild);
-
-				this._context = context;
-
-				return element;
+				return newElement;
 			};
 
 			/**
-			* Refreshes widget, critical to call after changes (ex. in background color)
-			* @method _refresh
-			* @member ns.widget.mobile.Listview
-			* @protected
-			*/
-			prototype._refresh = function () {
-				var canvas = this._context.canvas,
-					canvasStyle = canvas.style,
-					rect = this.element.getBoundingClientRect(),
+			 * Init colors used to draw colored bars
+			 * @method _prepareColors
+			 * @member ns.widget.mobile.Listview
+			 * @protected
+			 * */
+			prototype._prepareColors = function () {
+				var self = this,
+					canvas = self._context.canvas,
 					computedAfter = window.getComputedStyle(canvas, ":before"),
 					colorCSSDefinition = computedAfter.getPropertyValue("content"),
 					baseColor = [255, 255, 255, 0],
 					modifierColor = [0, 0, 0, 0],
-					colors = ["", ""],
-					element = this.element,
-					pageContainer = selectorUtils.getClosestByClass(element, Page.classes.uiPage),
-					popupContianer = selectorUtils.getClosestByClass(element, Popup.classes.popup),
-					scrollableContainer = selectorUtils.getClosestByClass(element, Scrollview.classes.clip);
+					colors = ["", ""];
 
-				if (CoreListviewProto._refresh) {
-					CoreListviewProto._refresh.apply(this, arguments);
-				}
-
-				if (this.element.classList.contains(classes.GRADIENT_BACKGROUND_DISABLED) === false) {
-					this._redraw = true;
-					this._lastChange = now();
-
-					if (colorCSSDefinition.length > 0) {
-						colorCSSDefinition = colorCSSDefinition.replace(colorDefinitionRegex, "");
-						colors = colorCSSDefinition.split("::");
-						if (colors.length === 2) {
-							baseColor = colors[0].split(",").filter(isNumber).map(toNumber);
-							modifierColor = colors[1].split(",").filter(isNumber).map(toNumber);
-							if (baseColor.length > 0) {
-								copyColor(baseColor, this._colorBase);
-							}
-							if (modifierColor.length > 0) {
-								copyColor(modifierColor, this._colorStep);
-							}
+				if (colorCSSDefinition.length > 0) {
+					colorCSSDefinition = colorCSSDefinition.replace(colorDefinitionRegex, "");
+					colors = colorCSSDefinition.split("::");
+					if (colors.length === 2) {
+						baseColor = colors[0].split(",").filter(isNumber).map(toNumber);
+						modifierColor = colors[1].split(",").filter(isNumber).map(toNumber);
+						if (baseColor.length > 0) {
+							copyColor(baseColor, self._colorBase);
+						}
+						if (modifierColor.length > 0) {
+							copyColor(modifierColor, self._colorStep);
 						}
 					}
-
-					this._width = rect.width;
-					this._height = rect.height + this._topOffset;
-					// performance limit
-					if (this._height > 2 * window.innerHeight) {
-						this._height = 2 * window.innerHeight;
-					}
-
-					canvas.setAttribute("width", this._width);
-					canvas.setAttribute("height", this._height);
-					canvasStyle.width = this._width + "px";
-					canvasStyle.height = this._height + "px";
-
-					this._pageContainer = pageContainer;
-					this._popupContainer = popupContianer;
-					this._scrollableContainer = scrollableContainer;
-
-					this._frameCallback();
 				}
 			};
 
 			/**
-			* Initalizes widget and async timers
-			* @method _init
-			* @param {HTMLElement} element
-			* @member ns.widget.mobile.Listview
-			* @protected
-			*/
+			 * Refreshes widget, critical to call after changes (ex. in background color)
+			 * @method _refresh
+			 * @member ns.widget.mobile.Listview
+			 * @protected
+			 */
+			prototype._refresh = function () {
+				var self = this,
+					canvas = self._context.canvas,
+					canvasStyle = canvas.style,
+					element = self.element,
+					rect = element.getBoundingClientRect(),
+					pageContainer = selectorUtils.getClosestByClass(element, Page.classes.uiPage),
+					popupContainer = selectorUtils.getClosestByClass(element, Popup.classes.popup),
+					scrollableContainer = selectorUtils.getClosestByClass(element, Scrollview.classes.clip),
+					// canvasHeight of canvas element
+					canvasHeight = 0,
+					// canvasWidth of canvas element
+					canvasWidth = 0;
+
+				if (CoreListviewProto._refresh) {
+					CoreListviewProto._refresh.call(self);
+				}
+
+				if (self.element.classList.contains(classes.GRADIENT_BACKGROUND_DISABLED) === false) {
+					self._redraw = true;
+					self._lastChange = now();
+
+					self._prepareColors();
+
+					canvasWidth = rect.width;
+					// calculate canvasHeight of canvas
+					canvasHeight = rect.height + self._topOffset;
+					// limit canvas for better performance
+					canvasHeight = min(canvasHeight, 3 * window.innerHeight);
+
+					self._canvasHeight = canvasHeight;
+					self._canvasWidth = canvasWidth;
+
+					// init canvas
+					canvas.setAttribute("width", canvasWidth);
+					canvas.setAttribute("height", canvasHeight);
+					canvasStyle.width = canvasWidth + "px";
+					canvasStyle.height = canvasHeight + "px";
+
+					self._pageContainer = pageContainer;
+					self._popupContainer = popupContainer;
+					self._scrollableContainer = scrollableContainer;
+
+					self._frameCallback();
+				}
+			};
+
+			/**
+			 * Initalizes widget and async timers
+			 * @method _init
+			 * @param {HTMLElement} element
+			 * @member ns.widget.mobile.Listview
+			 * @protected
+			 */
 			prototype._init = function (element) {
 				var context = this._context,
 					canvas = null;
 
 				if (CoreListview._init) {
-					CoreListviewProto._init.apply(this, arguments);
+					CoreListviewProto._init.call(this, element);
 				}
 
-				if (!context) {
-					canvas = element.querySelector("." + classes.BACKGROUND_LAYER);
-					if (canvas) {
-						context = canvas.getContext("2d");
+				if (!this._isChildListview) {
+					if (!context) {
+						canvas = element.querySelector("." + classes.BACKGROUND_LAYER);
+						if (canvas) {
+							context = canvas.getContext("2d");
+						}
+					} else {
+						canvas = context.canvas;
 					}
-				} else {
-					canvas = context.canvas;
-				}
 
-				if (context) {
-					this._canvasStyle = canvas.style;
-					this._frameCallback = this._handleFrame.bind(this);
+					if (context) {
+						this._canvasStyle = canvas.style;
+						this._frameCallback = this._handleFrame.bind(this);
 
-					this.refresh();
+						this.refresh();
+					}
 				}
 			};
 
 			/**
-			* Handles scroll event data
-			* @method _init
-			* @member ns.widget.mobile.Listview
-			* @protected
-			*/
+			 * Handles scroll event data
+			 * @method _init
+			 * @member ns.widget.mobile.Listview
+			 * @protected
+			 */
 			prototype._handleScroll = function () {
 				this._lastChange = now();
 
@@ -374,44 +408,71 @@
 			};
 
 			/**
-			* Refresh event wrapper
-			* @method _backgroundRender
-			* @protected
-			* @member ns.widget.mobile.Listview
-			*/
+			 * Refresh event wrapper
+			 * @method _backgroundRender
+			 * @protected
+			 * @member ns.widget.mobile.Listview
+			 */
 			prototype._backgroundRender = function () {
 				this.refresh();
 			};
 
 			/**
-			* Handles frame computations and drawing (if necessary)
-			* @method _handleFrame
-			* @member ns.widget.mobile.Listview
-			* @protected
-			*/
+			 * Calculate element height as difference between top of current element and top of next element
+			 * @param {HTMLElement} nextVisibleLiElement
+			 * @param {DOMRect} rectangle
+			 * @return {number}
+			 */
+			function calculateElementHeight(nextVisibleLiElement, rectangle) {
+				// we need round to eliminate empty spaces between bars
+				if (nextVisibleLiElement) {
+					return round(nextVisibleLiElement.getBoundingClientRect().top - rectangle.top);
+				}
+				return round(rectangle.height);
+			}
+
+			/**
+			 * Handles frame computations and drawing (if necessary)
+			 * @method _handleFrame
+			 * @member ns.widget.mobile.Listview
+			 * @protected
+			 */
 			prototype._handleFrame = function () {
 				var self = this,
-					next = self.element.firstElementChild,
+					element = self.element,
+					// get all li liElements
+					liElements = slice.call(element.querySelectorAll("li")),
+					nextVisibleLiElement = null,
+					// scrollable container, connected with scrollview
 					scrollableContainer = self._scrollableContainer,
-					top = scrollableContainer && scrollableContainer.scrollTop || 0,
-					lastVisibleEl = self._lastVisibleElement,
-					topOffset = self._topOffset;
+					scrollTop = scrollableContainer && scrollableContainer.scrollTop || 0,
+					// top of element to calculate offset top
+					top = element.getBoundingClientRect().top,
+					previousVisibleElement = self._previousVisibleElement,
+					topOffset = self._topOffset,
+					rectangle = null,
+					currentVisibleLiElement = getNextVisible(liElements),
+					liOffsetTop = 0,
+					height;
 
-				while (next) {
-					if (next && next.tagName.toLowerCase() === "canvas") {
-						next = next.nextElementSibling;
-						continue;
-					}
-					if (next.offsetTop + next.offsetHeight >= top) {
-						if (next !== lastVisibleEl) {
-							self._lastVisibleEl = next;
-							self._canvasStyle.transform = "translateY(" + (next.offsetTop - topOffset) + "px)";
+				while (currentVisibleLiElement) {
+					// store size of current element
+					rectangle = getElementRectangle(currentVisibleLiElement);
+					liOffsetTop = rectangle.top - top;
+					// get next element to calculate difference
+					nextVisibleLiElement = getNextVisible(liElements);
+					height = calculateElementHeight(nextVisibleLiElement, rectangle);
+					if (liOffsetTop + height >= scrollTop) {
+						if (currentVisibleLiElement !== previousVisibleElement) {
+							self._previousVisibleElement = currentVisibleLiElement;
+							self._canvasStyle.transform = "translateY(" + (liOffsetTop - topOffset) + "px)";
 							self._redraw = true;
 						}
-						break;
+						currentVisibleLiElement = null;
+					} else {
+						// go to next element
+						currentVisibleLiElement = nextVisibleLiElement;
 					}
-
-					next = next.nextElementSibling;
 				}
 
 				if (self._redraw) {
@@ -428,92 +489,171 @@
 			};
 
 			/**
-			* Handles drawing of step-gradient background
-			* @method _handleDraw
-			* @member ns.widget.mobile.Listview
-			* @protected
-			*/
-			prototype._handleDraw = function () {
-				var next = this.element.firstElementChild,
-					context = this._context,
-					step = this._colorStep,
-					top = 0,
-					elementHeight = 0,
-					scrollableContainer = this._scrollableContainer,
-					scrollTop = scrollableContainer && scrollableContainer.scrollTop || 0,
-					topOffset = this._topOffset;
+			 * Get next visible element from list
+			 * @param {HTMLElement} liElements
+			 * @return {HTMLElement}
+			 */
+			function getNextVisible(liElements) {
+				var next = liElements.shift();
 
-				if (context) {
-					copyColor(this._colorBase, colorTmp);
-					context.clearRect(0, 0, this._width, this._height);
-
-					while (next) {
-						if (next.tagName.toLowerCase() === "canvas") {
-							next = next.nextElementSibling;
-							elementHeight = topOffset;
-							continue;
-						}
-
-						if (next.offsetTop + next.offsetHeight >= scrollTop) {
-							elementHeight += next.offsetHeight;
-							context.fillStyle = "rgba(" + colorTmp[0] + "," + colorTmp[1] + "," + colorTmp[2] + "," + colorTmp[3] + ")";
-							context.fillRect(0, top, next.offsetWidth, elementHeight);
-
-							modifyColor(colorTmp, step);
-							top += elementHeight;
-							elementHeight = 0;
-						}
-
-						next = next.nextElementSibling;
+				while (next) {
+					if (next.offsetHeight) {
+						return next;
 					}
+					next = liElements.shift();
 				}
 
-				this._redraw = false;
+				return null;
+			}
+
+			/**
+			 * Calculate rectangle and create new object which is not read-only
+			 * @param {HTMLElement} element
+			 * @return {{top: (number|*), height: (number|*), left, width}}
+			 */
+			function getElementRectangle(element) {
+				var rectangle = element.getBoundingClientRect();
+
+				return {
+					top: rectangle.top,
+					height: rectangle.height,
+					left: rectangle.left,
+					width: rectangle.width
+				};
+			}
+
+			/**
+			 * Draw bar on canvas
+			 * @param {CanvasRenderingContext2D} context
+			 * @param {DOMRect} rectangle
+			 */
+			function drawRectangle(context, rectangle) {
+				// set color
+				context.fillStyle = "rgba(" + colorTmp[0] + "," + colorTmp[1] + "," + colorTmp[2] + "," + colorTmp[3] + ")";
+				// first element is bigger by offset, to show color on scroll in up direction
+				context.fillRect(rectangle.left, rectangle.top, rectangle.width, rectangle.height);
+			}
+
+			/**
+			 * Init color variable and clear canvas
+			 * @method _prepareCanvas
+			 * @member ns.widget.mobile.Listview
+			 * @protected
+			 */
+			prototype._prepareCanvas = function () {
+				var self = this;
+
+				// prepare first color
+				copyColor(self._colorBase, colorTmp);
+				// clear canvas
+				self._context.clearRect(0, 0, self._canvasWidth, self._canvasHeight);
 			};
 
 			/**
-			* Bounds to events
-			* @method _bindEvents
-			* @member ns.widget.mobile.Listview
-			* @protected
-			*/
+			 * Handles drawing of step-gradient background
+			 * @method _handleDraw
+			 * @member ns.widget.mobile.Listview
+			 * @protected
+			 */
+			prototype._handleDraw = function () {
+				var self = this,
+					element = self.element,
+					// all li elements
+					elements = slice.call(element.querySelectorAll("li")),
+					// find only elements which are visible
+					liElement = getNextVisible(elements),
+					// get draw context
+					context = self._context,
+					// color step to modify colors
+					step = self._colorStep,
+					// top on screen of listview
+					top = element.getBoundingClientRect().top,
+					// get scroll top
+					scrollableContainer = self._scrollableContainer,
+					scrollTop = scrollableContainer ? scrollableContainer.scrollTop : 0,
+					// store dimensions of li
+					rectangle = null,
+					// top on each last element
+					previousTop = 0,
+					topOffset = self._topOffset;
+
+				if (context) {
+					self._prepareCanvas();
+
+					while (liElement) {
+						// calculate size of li element
+						rectangle = getElementRectangle(liElement);
+						// get liElement element
+						liElement = getNextVisible(elements);
+						rectangle.height = calculateElementHeight(liElement, rectangle);
+						// check that element is visible (can be partialy visible)
+						if (ceil(rectangle.top - top + rectangle.height) >= scrollTop) {
+							// adjust height for first element
+							rectangle.height += topOffset;
+							topOffset = 0;
+
+							rectangle.top = previousTop;
+							drawRectangle(context, rectangle);
+							previousTop += rectangle.height;
+
+							// calculate liElement step, stop when all done
+							if (!modifyColor(colorTmp, step)) {
+								liElement = null;
+							}
+						}
+					}
+				}
+				self._redraw = false;
+			};
+
+			/**
+			 * Bounds to events
+			 * @method _bindEvents
+			 * @member ns.widget.mobile.Listview
+			 * @protected
+			 */
 			prototype._bindEvents = function () {
 				var scrollableContainer = this._scrollableContainer,
 					pageContainer = this._pageContainer,
 					popupContainer = this._popupContainer;
 
 				if (CoreListviewProto._bindEvents) {
-					CoreListviewProto._bindEvents.apply(this, arguments);
+					CoreListviewProto._bindEvents.call(this);
 				}
 
-				if (scrollableContainer) {
-					this._scrollableContainer = scrollableContainer;
-					this._scrollCallback = this._handleScroll.bind(this);
-					eventUtils.on(scrollableContainer, "touchstart", this._scrollCallback);
-					eventUtils.on(scrollableContainer, "touchmove", this._scrollCallback);
-					eventUtils.on(scrollableContainer, "scroll", this._scrollCallback);
-				}
+				if (!this._isChildListview) {
+					if (scrollableContainer) {
+						this._scrollableContainer = scrollableContainer;
+						this._scrollCallback = this._handleScroll.bind(this);
+						eventUtils.on(scrollableContainer, "touchstart", this._scrollCallback);
+						eventUtils.on(scrollableContainer, "touchmove", this._scrollCallback);
+						eventUtils.on(scrollableContainer, "scroll", this._scrollCallback);
+					}
 
-				this._backgroundRenderCallback = this._backgroundRender.bind(this);
+					this._backgroundRenderCallback = this._backgroundRender.bind(this);
 
-				this.on("resize expand collapse", this._backgroundRenderCallback, false);
+					this.on("expand collapse", this._backgroundRenderCallback, false);
 
-				if (pageContainer) {
-					eventUtils.on(pageContainer, Page.events.BEFORE_SHOW, this._backgroundRenderCallback);
-				}
+					// support rotation
+					eventUtils.on(window, "resize", this._backgroundRenderCallback, false);
 
-				if (popupContainer) {
-					eventUtils.on(popupContainer, Popup.events.before_show, this._backgroundRenderCallback);
+					if (pageContainer) {
+						eventUtils.on(pageContainer, Page.events.BEFORE_SHOW, this._backgroundRenderCallback);
+					}
+
+					if (popupContainer) {
+						eventUtils.on(popupContainer, Popup.events.before_show, this._backgroundRenderCallback);
+					}
 				}
 			};
 
 			/**
-			* Destroys widget
-			* @method _destroy
-			* @param {HTMLelement} element
-			* @member ns.widget.mobile.Listview
-			* @protected
-			*/
+			 * Destroys widget
+			 * @method _destroy
+			 * @param {HTMLElement} element
+			 * @member ns.widget.mobile.Listview
+			 * @protected
+			 */
 			prototype._destroy = function (element) {
 				var self = this;
 
@@ -535,7 +675,8 @@
 				}
 
 				if (self._backgroundRenderCallback) {
-					this.off("resize expand collapse", this._backgroundRenderCallback, false);
+					this.off("expand collapse", this._backgroundRenderCallback, false);
+					eventUtils.off(window, "resize", this._backgroundRenderCallback, false);
 					if (element) {
 						eventUtils.off(element, events.BACKGROUND_RENDER, self._backgroundRenderCallback);
 					}

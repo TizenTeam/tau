@@ -1,104 +1,93 @@
 .ui-listview .ui-expandable {
 	padding: 0;
-	margin: 0;
-	border-top: 1 * @unit_base solid @color_navigation_tab_divider;
-	min-height: 64 * @unit_base;
-	.user-select(none);
-}
-
-.ui-listview .ui-expandable .ui-expandable-heading-toggle:active {
-	color: @color_list_divider_text_expandable_press;
-}
-
-.ui-expandable-heading {
-	font-size: 32 * @unit_base;
-	font-weight: normal;
-	display: block;
-	padding: 0;
-	margin: 0;
-	position: relative;
-
-	.ui-expandable-heading-toggle {
-		position: relative;
-		display: block;
-		color: @color_list_divider_text;
-		text-decoration: none;
-		padding-top: 12 * @unit_base;
-		padding-bottom: 12 * @unit_base;
-		padding-right: 113 * @unit_base;
-		padding-left: 32 * @unit_base;
-		height: 40 * @unit_base;
-
-		&::after {
-			content: "";
-			position: absolute;
-			right: 25 * @unit_base;
-			top: 0;
-			.mask-image('images/core_icon_expand_open.png');
-			.mask-repeat(no-repeat);
-			.mask-position(center);
-			.mask-size(100%);
-			background-color: @color_expandable_heading_arrow;
-			width: 66 * @unit_base;
-			height: 66 * @unit_base;
-			.transition(all 330ms ease);
-			.rotate(0);
-		}
-	}
-}
-
-.ui-expandable-heading.ui-expandable-heading-active {
-	.ui-expandable-heading-toggle::after {
-		background-color: @color_expandable_heading_arrow_pressed;
-	}
-}
-
-.ui-expandable-collapsed .ui-expandable-heading-toggle {
-	&::after {
-		.transition(all 330ms ease);
-		.rotate(180deg);
-		background-color: @color_expandable_heading_arrow;
-		right: 23 * @unit_base;
-		top: -4 * @unit_base;
-	}
-}
-
-.ui-expandable-content {
-	display: block;
-	border-left-width: 0;
-	border-right-width: 0;
-	border-top: none;	  /* Overrides ui-body-* */
-	background-image: none; /* Overrides ui-body-* */
-	max-height: 9999px;
-	overflow: visible;
-	.transition(all 300ms ease);
-	.ui-listview {
-		padding: 0;
-		margin: 0;
-	}
-}
-
-.ui-expandable-content-collapsed {
-	overflow: hidden;
-	max-height: 0 !important;
-	display: none;
-	.transition(all 300ms ease);
-}
-
-.ui-expandable.ui-state-disabled {
-	cursor: default !important;
-	pointer-events: none;
-	zoom: 1;
+	border-top: 2 * @unit_base solid W024;
+	box-sizing: border-box;
+	user-select: none;
 
 	.ui-expandable-heading {
-		.ui-expandable-heading-toggle::after{
-			background-color: @color_expandable_heading_arrow_dim;
+		font-size: 32 * @unit_base;
+		font-weight: normal;
+		padding: 0;
+		margin: 0;
+		position: relative;
+
+		.ui-expandable-heading-toggle {
+			position: relative;
+			display: block;
+			color: @color_list_divider_text;
+			text-decoration: none;
+			padding: 12 * @unit_base 113 * @unit_base 12 * @unit_base 32 * @unit_base;
+			height: 40 * @unit_base;
+			line-height: 40 * @unit_base;
+
+			&:active {
+				color: @color_list_divider_text_expandable_press;
+			}
+
+			&::after {
+				content: "";
+				position: absolute;
+				right: 17 * @unit_base;
+				top: -2 * @unit_base;
+				mask-image: url('images/core_icon_expand_open.png');
+				mask-repeat: no-repeat;
+				mask-position: center;
+				mask-size: 100%;
+				background-color: @color_expandable_heading_arrow;
+				width: 64 * @unit_base;
+				height: 64 * @unit_base;
+				transition: all 330ms ease;
+				transform: rotate(0);
+			}
+		}
+		&.ui-expandable-heading-active {
+			.ui-expandable-heading-toggle::after {
+				background-color: @color_expandable_heading_arrow_pressed;
+			}
 		}
 	}
-}
 
-.ui-expandable .ui-listview .ui-li-static {
-	height: 54 * @unit_base;
-	line-height: 54 * @unit_base;
-	padding: 33 * @unit_base;
+	&.ui-expandable-collapsed {
+		.ui-expandable-heading {
+			.ui-expandable-heading-toggle {
+				&::after {
+					transform: rotate(180deg);
+				}
+			}
+		}
+	}
+
+	.ui-expandable-content {
+		display: block;
+		border-left-width: 0;
+		border-right-width: 0;
+		border-top: none; /* Overrides ui-body-* */
+		background-image: none; /* Overrides ui-body-* */
+		max-height: 9999px;
+		overflow: visible;
+		transition: all 330ms ease;
+		.ui-listview {
+			padding: 0;
+			margin: 0;
+		}
+	}
+
+	.ui-expandable-content-collapsed {
+		overflow: hidden;
+		max-height: 0 !important;
+		display: none;
+		transition: all 330ms ease;
+	}
+
+	&.ui-state-disabled {
+		cursor: default !important;
+		pointer-events: none;
+		zoom: 1;
+
+		.ui-expandable-heading {
+			.ui-expandable-heading-toggle::after {
+				background-color: @color_expandable_heading_arrow_dim;
+			}
+		}
+	}
 }
