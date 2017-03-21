@@ -308,6 +308,10 @@
 
 					this._width = rect.width;
 					this._height = rect.height + this._topOffset;
+					// performance limit
+					if (this._height > 2 * window.innerHeight) {
+						this._height = 2 * window.innerHeight;
+					}
 
 					canvas.setAttribute("width", this._width);
 					canvas.setAttribute("height", this._height);
@@ -386,11 +390,12 @@
 			* @protected
 			*/
 			prototype._handleFrame = function () {
-				var next = this.element.firstElementChild,
-					scrollableContainer = this._scrollableContainer,
+				var self = this,
+					next = self.element.firstElementChild,
+					scrollableContainer = self._scrollableContainer,
 					top = scrollableContainer && scrollableContainer.scrollTop || 0,
-					lastVisibleEl = this._lastVisibleElement,
-					topOffset = this._topOffset;
+					lastVisibleEl = self._lastVisibleElement,
+					topOffset = self._topOffset;
 
 				while (next) {
 					if (next && next.tagName.toLowerCase() === "canvas") {
@@ -399,9 +404,9 @@
 					}
 					if (next.offsetTop + next.offsetHeight >= top) {
 						if (next !== lastVisibleEl) {
-							this._lastVisibleEl = next;
-							this._canvasStyle.transform = "translateY(" + (next.offsetTop - topOffset) + "px)";
-							this._redraw = true;
+							self._lastVisibleEl = next;
+							self._canvasStyle.transform = "translateY(" + (next.offsetTop - topOffset) + "px)";
+							self._redraw = true;
 						}
 						break;
 					}
@@ -409,16 +414,16 @@
 					next = next.nextElementSibling;
 				}
 
-				if (this._redraw) {
-					this._handleDraw();
+				if (self._redraw) {
+					self._handleDraw();
 				}
 
-				if (this._running && this._context) {
-					this._async(this._frameCallback);
+				if (self._running && self._context) {
+					self._async(self._frameCallback);
 				}
 
-				if (now() - this._lastChange >= MAX_IDLE_TIME) {
-					this._running = false;
+				if (now() - self._lastChange >= MAX_IDLE_TIME) {
+					self._running = false;
 				}
 			};
 

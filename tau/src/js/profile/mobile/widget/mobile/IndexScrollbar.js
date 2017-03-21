@@ -134,7 +134,7 @@
  * @extends ns.widget.core.IndexScrollbar
  * @since 2.0
  */
-(function (ns) {
+(function () {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
@@ -285,4 +285,4 @@
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
-}(ns));
+}());

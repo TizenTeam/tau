@@ -1,4 +1,5 @@
-(function (tau) {
+/* global tau */
+(function () {
 	/**
 	 * page - Index scroll bar page element
 	 * isbElement - Index scroll bar element
@@ -54,4 +55,4 @@
 		isb.removeEventListener("select", selectBound);
 		isb.destroy();
 	});
-}(window.tau));
+}());
