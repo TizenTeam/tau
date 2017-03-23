@@ -12,7 +12,6 @@ module.exports = function () {
 		"device-1": "redwood",
 		"device-2": "redwood",
 		"SM-Z9005": "redwood",
-		"<unknown>": "tv",
 		"Wearable-B2": "gear"
 	}
 };

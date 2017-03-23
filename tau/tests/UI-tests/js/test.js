@@ -1,31 +1,82 @@
+/* global describe, beforeEach, waitsFor, it, runs, expect, imagediff, jasmine */
+(function () {
+	var testData = window.location.hash.substr(1).split("/"),
+		profile = testData[0],
+		jasmineEnv = jasmine.getEnv(),
+		reporter = null,
+		currentWindowOnload = window.onload;
 
-describe('ImageTest', function() {
+	jasmineEnv.updateInterval = 1000;
 
+	reporter = new jasmine.HtmlReporter();
 
-    // Matchers
-    beforeEach(function () {
-        this.addMatchers(imagediff.jasmine);
-    });
+	jasmineEnv.addReporter(reporter);
 
-    it('should be the same image', function () {
-    async.forEachSeries(window.tests, function(testName, callback) {
-        // Test
+	jasmineEnv.specFilter = function (spec) {
+		return reporter.specFilter(spec);
+	};
 
-            var a = new Image(),
-                b = new Image();
-            a.src = 'images/' + testName.name + '.png';
-            b.src = 'result/' + testName.name + '.png';
+	window.onload = function () {
+		if (currentWindowOnload) {
+			currentWindowOnload();
+		}
+		execJasmine();
+	};
 
+	function readTextFile(file, callback) {
+		var rawFile = new XMLHttpRequest();
 
-            waitsFor(function () {
-                return a.complete & b.complete;
-            }, 'image not loaded.', 200);
+		rawFile.overrideMimeType("application/json");
+		rawFile.open("GET", file, true);
+		rawFile.onreadystatechange = function () {
+			if (rawFile.readyState === 4 && rawFile.status == "200") {
+				callback(rawFile.responseText);
+			}
+		};
+		rawFile.send(null);
+	}
 
-            runs(function () {
-                expect(b).toImageDiffEqual(a);
-                callback();
-            });
-        });
-    });
+	function execJasmine() {
+		readTextFile("app/" + profile + "/test.txt", function (testName) {
+			readTextFile("app/" + profile + "/screenshots.json", function (text) {
+				var tests = JSON.parse(text);
 
-});
+				if (testName) {
+					tests = tests.filter(function (item) {
+						return item.name === testName;
+					});
+				}
+				describe("ImageTest", function () {
+
+					// Matchers
+					beforeEach(function () {
+						this.addMatchers(imagediff.jasmine);
+					});
+
+					tests.forEach(function (testName) {
+						it("should be the same image" + testName.name, function () {
+							var a = new Image(),
+								b = new Image();
+
+							a.src = "images/" + profile + "/" + testName.name + ".png";
+							b.src = "result/" + profile + "/" + testName.name + ".png";
+
+							waitsFor(function () {
+								return a.complete & b.complete;
+							}, "image not loaded.", 200);
+
+							runs(function () {
+								var tolerance = a.width * a.height / 10000;
+
+								expect(b).toImageDiffEqual(a, tolerance);
+							});
+						});
+					});
+
+				});
+				jasmineEnv.execute();
+			});
+		});
+	}
+
+})();

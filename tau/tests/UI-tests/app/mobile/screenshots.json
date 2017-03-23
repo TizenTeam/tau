@@ -1,7 +1,7 @@
 [
   {
     "name": "19-list",
-    "time": 10000
+    "time": 3000
   },
   {
     "name": "11-list",
@@ -95,11 +95,18 @@
   },
   {
     "name": "84-group-index",
-    "time": 3000
+    "time": 3000,
+    "pass": true
   },
   {
     "name": "85-group-index-with-checkbox",
-    "time": 3000
+    "time": 3000,
+    "pass": true
+  },
+  {
+    "name": "85-group-index-with-checkbox-new",
+    "time": 3000,
+    "pass": true
   },
   {
     "name": "86-progress",
