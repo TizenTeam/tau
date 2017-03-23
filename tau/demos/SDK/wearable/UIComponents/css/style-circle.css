@@ -1170,7 +1170,39 @@ input[type="checkbox"]#checkboxControl {
 	-webkit-mask-position: center center;
 	-webkit-mask-repeat: no-repeat;
 }
+/* -------------------------styles used in multipleButton.html-------------------*/
+.popup-handler {
+	display: block;
+	width: 70px;
+	height: 70px;
+	position: fixed;
+	top: 50%;
+	right: 0;
+	color: transparent;
+	background-color: #a4a4a4;
+	transform: translate(0, -50%);
+	-webkit-mask-image: url(images/b_more_option.png);
+	-webkit-mask-repeat: no-repeat;
+	-webkit-mask-position: 46px 20px;
+}
 
+#moreButtonPopup {
+	background-color: rgba(255, 255, 255, 0.1);
+	-webkit-mask-image: -webkit-radial-gradient(black 71%,transparent 0);
+	background-image: none;
+}
+
+#moreButtonPopup .ui-popup-wrapper::after {
+	content: none;
+}
+
+#bottomButtonWithMorePage .ui-footer.ui-bottom-button a + a {
+	display: none;
+}
+
+.ui-grid-col-3.ui-bottom-button a {
+	width: 100%;
+}
 /* ------------------------ Etc ----------------------- */
 
 #page_webkitui input {
