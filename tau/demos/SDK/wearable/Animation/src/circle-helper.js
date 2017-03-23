@@ -1,60 +1,48 @@
 /*global tau */
 /*jslint unparam: true */
 (function (tau) {
+	/**
+	 * page - Active page element
+	 * list - NodeList object for lists in the page
+	 * listHelper - Array for TAU snap list helper instances
+	 */
 	var page,
-		elScroller,
 		list,
-		headerHelper,
 		listHelper = [],
-		snapList = [],
-		headerExpandHandler = [],
-		headerCollapseHandler = [],
 		i,
 		len;
 
+	// This logic works only on circular device.
 	if (tau.support.shape.circle) {
+		/**
+		 * pagebeforeshow event handler
+		 * Do preparatory works and adds event listeners
+		 */
 		document.addEventListener("pagebeforeshow", function (e) {
 			page = e.target;
-			elScroller = page.querySelector(".ui-scroller");
-			if (elScroller) {
-				list = elScroller.querySelectorAll(".ui-listview");
+			if (page.id !== "page-snaplistview" && page.id !== "page-swipelist") {
+				list = page.querySelector(".ui-listview");
 				if (list) {
-					if (page.id !== "pageMarqueeList" && page.id !== "pageTestVirtualList" && page.id !== "pageAnimation") {
-						len = list.length;
-						for (i = 0; i < len; i++) {
-							listHelper[i] = tau.helper.SnapListStyle.create(list[i]);
-						}
-						len = listHelper.length;
-						if (len) {
-							for (i = 0; i < len; i++) {
-								snapList[i] = listHelper[i].getSnapList();
-								headerCollapseHandler[i] = snapList[i].enable.bind(snapList[i]);
-								headerExpandHandler[i] = snapList[i].disable.bind(snapList[i]);
-								page.addEventListener("headercollapse", headerCollapseHandler[i], false);
-								page.addEventListener("headerexpand", headerExpandHandler[i], false);
-							}
-						}
-					}
-					elScroller.setAttribute("tizen-circular-scrollbar", "");
+					listHelper.push(tau.widget.Listview(list));
 				}
 			}
-			headerHelper = tau.helper.HeaderMarqueeStyle.create(page, {});
 		});
 
+		/**
+		 * pagebeforehide event handler
+		 * Destroys and removes event listeners
+		 */
 		document.addEventListener("pagebeforehide", function () {
 			len = listHelper.length;
-			headerHelper.destroy();
-			headerHelper = null;
+			/**
+			 * Since the snap list helper attaches rotary event listener,
+			 * you must destroy the helper before the page is closed.
+			 */
 			if (len) {
 				for (i = 0; i < len; i++) {
 					listHelper[i].destroy();
-					page.removeEventListener("headercollapse", headerCollapseHandler[i], false);
-					page.removeEventListener("headerexpand", headerExpandHandler[i], false);
 				}
 				listHelper = [];
-			}
-			if (elScroller) {
-				elScroller.removeAttribute("tizen-circular-scrollbar");
 			}
 		});
 	}
