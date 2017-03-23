@@ -472,6 +472,9 @@
 					element.id = "tau-custom-widget-" + Date.now();
 				}
 
+				// add widget class if not exists
+				element.classList.add(WIDGET_CLASS);
+
 				// set ui components
 				self._ui = {
 					element: element,

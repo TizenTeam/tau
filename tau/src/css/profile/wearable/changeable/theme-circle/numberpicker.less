@@ -1,0 +1,74 @@
+
+@keyframes ui-number-picker-number-blink {
+	0% {
+		color: @color_number_picker_blink_on;
+	}
+	24% {
+		color: @color_number_picker_blink_on;
+	}
+	25% {
+		color: @color_number_picker_blink_off;
+	}
+	49% {
+		color: @color_number_picker_blink_off;
+	}
+	50% {
+		color: @color_number_picker_blink_on;
+	}
+	74% {
+		color: @color_number_picker_blink_on;
+	}
+	75% {
+		color: @color_number_picker_blink_off;
+	}
+	99% {
+		color: @color_number_picker_blink_off;
+	}
+}
+
+.ui-number-picker-container {
+	display: flex;
+	width: 100%;
+	height: 100%;
+	justify-content: center;
+	flex-direction: column;
+
+	.ui-circleindicator {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		top: 0;
+		left: 0;
+		z-index: 1001;
+		pointer-events: none;
+	}
+	.ui-circleindicator .ui-animated {
+		transition-duration: 0.3s;
+	}
+	input[type="number"] {
+		display: none;
+	}
+	.ui-number-picker-label {
+		order: 1;
+		font-size: 24 * @unit_base;
+		line-height: 25 * @unit_base;
+		color: @color_number_picker_label;
+	}
+	.ui-number-picker-number {
+		order: 2;
+		font-size: 50 * @unit_base;
+		line-height: 85 * @unit_base;
+		margin-top: -6 * @unit_base;
+		color: @color_number_picker_number;
+	}
+	&.ui-number-picker-disabled .ui-number-picker-number {
+		color: @color_number_picker_number_disabled;
+	}
+	.ui-number-picker-number-pressed {
+		color: @color_number_picker_number_pressed;
+	}
+	.ui-number-picker-number-blink {
+		animation-name: ui-number-picker-number-blink;
+		animation-duration: 1s;
+	}
+}
