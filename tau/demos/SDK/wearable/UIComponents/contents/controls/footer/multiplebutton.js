@@ -8,18 +8,9 @@
 	 * selector - TAU selector instance
 	 */
 	var page = document.querySelector("#bottomButtonWithMorePage"),
-		handler = page.querySelector(".popup-handler"),
 		popup = page.querySelector("#moreButtonPopup"),
 		elSelector = page.querySelector("#selector"),
-		selector,
-		clickHandlerBound;
-
-	/**
-	 * function for opening a popup
-	 */
-	function clickHandler() {
-		tau.openPopup(popup);
-	}
+		selector;
 
 	/**
 	 * pagebeforeshow event handler
@@ -28,9 +19,7 @@
 	page.addEventListener("pagebeforeshow", function () {
 		var radius = window.innerHeight / 2 * 0.8;
 
-		clickHandlerBound = clickHandler.bind(null);
 		if (tau.support.shape.circle) {
-			handler.addEventListener("click", clickHandlerBound);
 			selector = tau.widget.Selector(elSelector, {itemRadius: radius});
 		}
 	});
@@ -41,7 +30,6 @@
 	 */
 	page.addEventListener("pagebehide", function () {
 		if (tau.support.shape.circle) {
-			handler.removeEventListener("click", clickHandlerBound);
 			selector.destroy();
 		}
 	});

@@ -3,10 +3,11 @@
 <head>
 	<meta name="viewport" content="width=device-width, user-scalable=no"/>
 	<title>Multiple Buttons</title>
-	<link rel="stylesheet"  href="../../../lib/tau/wearable/theme/default/tau.min.css">
-	<link rel="stylesheet"  href="../../../css/style.css">
-	<link rel="stylesheet"  media="all and (-tizen-geometric-shape: circle)" href="../../../lib/tau/wearable/theme/default/tau.circle.min.css">
-	<link rel="stylesheet"  media="all and (-tizen-geometric-shape: circle)" href="../../../css/style-circle.css">
+	<link rel="stylesheet" href="../../../lib/tau/wearable/theme/default/tau.min.css">
+	<link rel="stylesheet" href="../../../css/style.css">
+	<link rel="stylesheet" media="all and (-tizen-geometric-shape: circle)"
+		  href="../../../lib/tau/wearable/theme/default/tau.circle.min.css">
+	<link rel="stylesheet" media="all and (-tizen-geometric-shape: circle)" href="../../../css/style-circle.css">
 </head>
 
 <body>
@@ -15,11 +16,11 @@
 		<h2 class="ui-title">Multiple Buttons</h2>
 	</header>
 	<div class="ui-content ui-content-padding">
-		It was a real pleasure for me to finally get to meet you. My colleagues join me in sending you our holiday greetings.
+		This is example of multiple buttons.
 	</div>
 
 	<!-- Circle Profile -->
-	<a class="popup-handler"></a>
+	<a class="ui-more" href="#moreButtonPopup" data-rel="popup"></a>
 
 	<div id="moreButtonPopup" class="ui-popup">
 		<div id="selector" class="ui-selector">
@@ -33,6 +34,7 @@
 		<a href="#" class="ui-btn">2</a>
 		<a href="#" class="ui-btn">3</a>
 	</footer>
+
 	<script src="multiplebutton.js"></script>
 </div>
 <script src="../../../lib/tau/wearable/js/tau.min.js"></script>

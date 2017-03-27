@@ -970,7 +970,3 @@ input[type="checkbox"]#checkboxControl {
 	height: 120px;
 	padding-bottom: 0px;
 }
-/* -------------------------Style used in multipleButton.html-------------------*/
-.popup-handler {
-	display: none;
-}

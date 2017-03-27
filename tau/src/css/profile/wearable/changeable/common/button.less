@@ -1,12 +1,11 @@
 .ui-btn {
 	display: block;
-	padding-top: @fixed_button_padding_top;
 	padding-right: @fixed_button_padding_right;
-	padding-bottom: @fixed_button_padding_bottom;
 	padding-left: @fixed_button_padding_left;
 	margin: 0;
 	font-size: @fixed_button_font_size;
-	line-height: @fixed_button_line_height;
+	line-height: 85 * @unit_base;
+	height: 85 * @unit_base;
 	text-align: center;
 	white-space: nowrap;
 	cursor:pointer;
@@ -54,6 +53,30 @@
 			transform: translate3d(-50%, -50%, 0);
 			position: absolute;
 			-webkit-mask-image: none;
+		}
+	}
+
+	&.ui-btn-icon-only {
+		position: relative;
+		text-indent: -9999 * @unit_base;
+		&::before {
+			content: "";
+			position: absolute;
+			mask-size: 60 * @unit_base 60 * @unit_base;
+			mask-repeat: no-repeat;
+			width: 60 * @unit_base;
+			height: 60 * @unit_base;
+			top: 50%;
+			left: 50%;
+			transform: translate3d(-50%, -50%, 0);
+			background-color: @color_button_icon_bg;
+			transition: background 150ms;
+		}
+		&:active::before {
+			background-color: @color_button_icon_active_bg;
+		}
+		&:disabled::before {
+			background-color: @color_button_icon_disabled_bg;
 		}
 	}
 

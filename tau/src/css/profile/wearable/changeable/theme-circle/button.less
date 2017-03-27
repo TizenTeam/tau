@@ -3,7 +3,16 @@
 ***************************************************************************/
 
 .ui-btn {
-	.ui-default
+	.ui-default;
+	height: auto;
+
+	&.ui-btn-icon-only {
+		&::before {
+			mask-size: 50 * @unit_base 50 * @unit_base;
+			width: 50 * @unit_base;
+			height: 50 * @unit_base;
+		}
+	}
 }
 
 .ui-default {

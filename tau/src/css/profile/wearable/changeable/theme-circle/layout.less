@@ -12,142 +12,142 @@
 ***************************************************************************/
 body {
 	background: @color_bg_cover;
-	color : @color_text;
-}
-
-.ui-header {
-	.display-flex();
-	.flex-direction(column);
-	.justify-content(center);
-	height: 92 * @unit_base;
-	line-height: @fixed_header_line_height;
-	background-color: transparent;
-	text-align: center;
-	margin-top: 23 * @unit_base;
-
-	&.ui-header-medium {
-		margin-top: 12 * @unit_base;
-	}
-
-	&.ui-header-small {
-		margin-top: 2 * @unit_base;
-	}
-	&.ui-header-smaller {
-		margin-top: 2 * @unit_base;
-		height: 81 * @unit_base;
-		display: flex;
-		justify-content: flex-end;
-		.ui-title {
-			margin-bottom: 5 * @unit_base;
-		}
-	}
-	&.ui-header-big {
-		height: 94 * @unit_base;
-	}
-
-
-	.ui-title {
-		color: @color_actionbar_title_text;
-		margin: 14 * @unit_base 64 * @unit_base;
-		padding-left: 0;
-		padding-right: 0;
-		font-size: @fixed_header_title_font_size;
-		-webkit-mask-image: none;
-		&.ui-icon {
-			background: none !important;
-			padding-left: 24 * @unit_base;
-		}
-	}
-
-	.ui-subtitle {
-		overflow: hidden;
-		text-overflow: ellipsis;
-		white-space: nowrap;
-		color: @color_actionbar_subtitle_text;
-		font-size: 24 * @unit_base;
-		font-weight: normal;
-		margin: -7 * @unit_base 35 * @unit_base 0;
-		line-height: 32 * @unit_base;
-	}
-
-	&.ui-has-more {
-		.ui-title {
-			padding-right: 24 * @unit_base;
-			-webkit-mask-image: none;
-		}
-		.ui-more {
-			position: fixed;
-			top: 50%;
-			right: 0;
-			width: @fixed_header_more_width;
-			height: @fixed_header_more_height;
-			transform: translate(0, -50%);
-			border: 0 none;
-			padding: 0;
-			&.ui-icon-overflow {
-				.mask-image();
-				.mask-position(initial);
-				background-color: transparent;
-				&[disabled="disabled"] {
-					.mask-position(initial);
-				}
-				&:active {
-					background-color: transparent;
-				}
-				overflow: visible;
-			}
-		}
-	}
-}
-
-.ui-more {
-	position: fixed;
-	top: 50%;
-	right: 0;
-	width: @fixed_header_more_width;
-	height: @fixed_header_more_height;
-	transform: translate(0, -50%);
-	background-color: transparent;
-	overflow: visible;
-	border: 0 none;
-	padding: 0;
-	text-indent: -9999px;
-	&::before {
-		content: "";
-		position: absolute;
-		width: 200 * @unit_base;
-		height: 200 * @unit_base;
-		background-color: @color_moreoptions_handler;
-		border-radius: 50%;
-		opacity: 0;
-		.transform(scale(1));
-		top: 50%;
-		left: 50%;
-		margin-top: -100 * @unit_base;
-		margin-left: -100 * @unit_base;
-		.transition(all ease-out 200ms);
-		pointer-events: none;
-	}
-	&:active::before {
-		opacity: 1;
-		.transition(transform ease-out 300ms);
-		.transform(scale(1.1));
-	}
-	&::after {
-		content: "";
-		position: absolute;
-		width: 16 * @unit_base;
-		height: 36 * @unit_base;
-		.mask-box-image("images/Actionbar/b_more_option.png");
-		background-color: @color_moreoptions_bg;
-		border-radius: 50%;
-		top: 50%;
-		right: 6 * @unit_base;
-		.transform(translate(0, -50%));
-	}
+	color: @color_text;
 }
 
 .ui-page {
+
+	.ui-header {
+		.display-flex();
+		.flex-direction(column);
+		.justify-content(center);
+		height: 92 * @unit_base;
+		line-height: @fixed_header_line_height;
+		background-color: transparent;
+		text-align: center;
+		margin-top: 23 * @unit_base;
+
+		&.ui-header-medium {
+			margin-top: 12 * @unit_base;
+		}
+
+		&.ui-header-small {
+			margin-top: 2 * @unit_base;
+		}
+		&.ui-header-smaller {
+			margin-top: 2 * @unit_base;
+			height: 81 * @unit_base;
+			display: flex;
+			justify-content: flex-end;
+			.ui-title {
+				margin-bottom: 5 * @unit_base;
+			}
+		}
+		&.ui-header-big {
+			height: 94 * @unit_base;
+		}
+
+		.ui-title {
+			color: @color_actionbar_title_text;
+			margin: 14 * @unit_base 64 * @unit_base;
+			padding-left: 0;
+			padding-right: 0;
+			font-size: @fixed_header_title_font_size;
+			-webkit-mask-image: none;
+			&.ui-icon {
+				background: none !important;
+				padding-left: 24 * @unit_base;
+			}
+		}
+
+		.ui-subtitle {
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			color: @color_actionbar_subtitle_text;
+			font-size: 24 * @unit_base;
+			font-weight: normal;
+			margin: -7 * @unit_base 35 * @unit_base 0;
+			line-height: 32 * @unit_base;
+		}
+
+		&.ui-has-more {
+			.ui-title {
+				padding-right: 24 * @unit_base;
+				-webkit-mask-image: none;
+			}
+			.ui-more {
+				position: fixed;
+				top: 50%;
+				right: 0;
+				width: @fixed_header_more_width;
+				height: @fixed_header_more_height;
+				transform: translate(0, -50%);
+				border: 0 none;
+				padding: 0;
+				&.ui-icon-overflow {
+					.mask-image();
+					.mask-position(initial);
+					background-color: transparent;
+					&[disabled="disabled"] {
+						.mask-position(initial);
+					}
+					&:active {
+						background-color: transparent;
+					}
+					overflow: visible;
+				}
+			}
+		}
+	}
+
+	.ui-more {
+		position: fixed;
+		top: 50%;
+		right: 0;
+		width: @fixed_header_more_width;
+		height: @fixed_header_more_height;
+		transform: translate(0, -50%);
+		background-color: transparent;
+		overflow: visible;
+		border: 0 none;
+		padding: 0;
+		text-indent: -9999px;
+		&::before {
+			content: "";
+			position: absolute;
+			width: 200 * @unit_base;
+			height: 200 * @unit_base;
+			background-color: @color_moreoptions_handler;
+			border-radius: 50%;
+			opacity: 0;
+			.transform(scale(1));
+			top: 50%;
+			left: 50%;
+			margin-top: -100 * @unit_base;
+			margin-left: -100 * @unit_base;
+			.transition(all ease-out 200ms);
+			pointer-events: none;
+		}
+		&:active::before {
+			opacity: 1;
+			.transition(transform ease-out 300ms);
+			.transform(scale(1.1));
+		}
+		&::after {
+			content: "";
+			position: absolute;
+			width: 16 * @unit_base;
+			height: 36 * @unit_base;
+			.mask-box-image("images/Actionbar/b_more_option.png");
+			background-color: @color_moreoptions_bg;
+			border-radius: 50%;
+			top: 50%;
+			right: 6 * @unit_base;
+			.transform(translate(0, -50%));
+		}
+	}
+
 	background: @color_bg;
 	.ui-content {
 		text-align: center;
@@ -155,8 +155,6 @@ body {
 		line-height: 42 * @unit_base;
 
 		&.ui-content-padding {
-			padding-left: 12 * @unit_base;
-			padding-right: 12 * @unit_base;
 			font-stretch: ultra-condensed;
 			-webkit-font-stretch: ultra-condensed;
 		}
@@ -188,7 +186,7 @@ body {
 
 			&::after {
 				content: "";
-				position:absolute;
+				position: absolute;
 				width: 100%;
 				height: 100%;
 				left: 0;
@@ -222,7 +220,7 @@ body {
 		padding-bottom: 115 * @unit_base;
 		padding-top: 0;
 	}
-	.ui-header  {
+	.ui-header {
 		~ .ui-content {
 			margin-top: 0;
 		}
