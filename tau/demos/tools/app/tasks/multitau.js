@@ -218,7 +218,7 @@ module.exports = function (grunt) {
 
 		exec("sdb" + deviceParam + " root on", function () {
 			exec("sdb" + deviceParam + " shell xwd -root -out /tmp/screen.xwd", function () {
-				var dir = app + "/../result/" + profile + "/" + screen.name;
+				var dir = app + "/../../result/" + profile + "/" + screen.name;
 
 				exec("sdb" + deviceParam + " pull /tmp/screen.xwd " + dir + ".xwd", function () {
 					var width = screen.width || 257,
@@ -391,6 +391,11 @@ module.exports = function (grunt) {
 			src += "/";
 		}
 		grunt.log.ok("delete " + dest);
+
+		if (testToRun) {
+			grunt.log.ok("test to run:" + testToRun);
+		}
+
 		fs.lstat(dest, function (error, stats) {
 			if (!noCopy) {
 				if (stats && stats.isSymbolicLink()) {

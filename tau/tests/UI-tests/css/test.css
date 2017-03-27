@@ -1,0 +1,18 @@
+nav {
+    margin-top: 14px;
+    padding-left: 9px;
+    padding-right: 9px;
+    font-size: 11px;
+    font-family: Monaco, "Lucida Console", monospace;
+    color: #333333;
+    text-align: right;
+    background-color: #fff;
+    line-height: 28px;
+}
+
+nav a {
+    padding-left: 9px;
+    color: #333333;
+    font-weight: normal;
+    text-decoration: inherit;
+}

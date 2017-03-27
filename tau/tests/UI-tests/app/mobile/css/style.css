@@ -736,3 +736,7 @@
 	background-image: url(images/151-details.png);
 	background-size: 100%;
 }
+
+.app-introduction {
+	color: white;
+}

@@ -12,6 +12,7 @@ module.exports = function () {
 		"device-1": "redwood",
 		"device-2": "redwood",
 		"SM-Z9005": "redwood",
-		"Wearable-B2": "gear"
+		"Wearable-B2": "gear",
+		"M-3.0-x86": "mobile-emulator"
 	}
 };

@@ -329,5 +329,11 @@
     "time": 3000,
     "width": 589,
     "height": 1047
+  },
+  {
+    "name": "T01-single-page",
+    "time": 3000,
+    "width": 720,
+    "height": 1280
   }
 ]

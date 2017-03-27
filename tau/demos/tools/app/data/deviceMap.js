@@ -22,5 +22,6 @@ module.exports = {
 	"tw1": "wearable",
 	"TW1": "wearable",
 	"TM1": "mobile",
-	"W-3.0-circle-i386": "wearable"
+	"W-3.0-circle-i386": "wearable",
+	"M-3.0-x86": "mobile"
 };

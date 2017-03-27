@@ -23,6 +23,10 @@
 		execJasmine();
 	};
 
+	window.addEventListener("hashchange", function() {
+		window.location.reload();
+	}, false);
+
 	function readTextFile(file, callback) {
 		var rawFile = new XMLHttpRequest();
 
@@ -67,9 +71,10 @@
 							}, "image not loaded.", 200);
 
 							runs(function () {
-								var tolerance = a.width * a.height / 10000;
+								// 2% can be different
+								var pixeltolerance = a.width * a.height / 100 * 4 * 2;
 
-								expect(b).toImageDiffEqual(a, tolerance);
+								expect(b).toImageDiffEqual(a, pixeltolerance);
 							});
 						});
 					});
