@@ -74,7 +74,7 @@ pipeline {
                     sh "cp -a dist/mobile/theme/changeable artifacts/dist/mobile/theme/default"
                     sh "mkdir -p artifacts/dist/wearable"
                     sh "mkdir -p artifacts/demos/SDK/wearable"
-                    sh "cp -a demos/SDK/mobile/* artifacts/demos/SDK/wearable/"
+                    sh "cp -a demos/SDK/wearable/* artifacts/demos/SDK/wearable/"
                     sh "cp -a dist/wearable/* artifacts/dist/wearable/"
                     sh "cp -a dist/wearable/theme/changeable artifacts/dist/wearable/theme/default"
                     sh "cp -a docs/sdk artifacts/"

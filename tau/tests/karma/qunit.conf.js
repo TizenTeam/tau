@@ -16,8 +16,14 @@ module.exports = function (config) {
 		reporters: ["progress", "coverage"],
 
 		coverageReporter: {
-			type: "html",
-			dir: "report/test/karma/coverage/html/"
+				// specify a common output directory
+			dir: "report/test/karma/coverage",
+			reporters: [
+					// reporters not supporting the `file` property
+					{ type: "html", subdir: "html" },
+					{ type: "clover", subdir: "clover" },
+					{ type: "lcov", subdir: "lcov" }
+			]
 		},
 
 		plugins: ["karma-requirejs", "karma-chrome-launcher", "karma-qunit", "karma-coverage"],

@@ -174,6 +174,17 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks("grunt-qunit-tap");
 	grunt.loadNpmTasks("grunt-qunit-istanbul");
 	grunt.loadNpmTasks("grunt-qunit-junit");
+	grunt.loadNpmTasks("grunt-karma");
+
+	grunt.config.merge({
+		karma: {
+			unit: {
+				configFile: "tests/karma/qunit.conf.js",
+				runnerPort: 9999,
+				singleRun: true
+			}
+		}
+	});
 
 	function testProfile(profile, prepareOnly) {
 		var taskConf = grunt.config.get("test"),
@@ -270,6 +281,7 @@ module.exports = function (grunt) {
 						testProfile(profileName);
 					}
 				}
+				grunt.task.run("karma");
 			}
 			grunt.task.run("test-print-unused");
 		});

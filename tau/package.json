@@ -52,9 +52,12 @@
   },
   "main": "Gruntfile.js",
   "dependencies": {
+    "escomplex": "^2.0.0-alpha",
     "eslint": "^3.11.1",
     "eslint-plugin-html": "^1.7.0",
     "eslint-plugin-jsdoc": "^2.4.0",
-    "jenkins": "^0.20.0"
+    "grunt-karma": "^2.0.0",
+    "jenkins": "^0.20.0",
+    "sloc": "^0.2.0"
   }
 }
