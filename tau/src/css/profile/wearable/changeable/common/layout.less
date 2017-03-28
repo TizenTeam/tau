@@ -55,14 +55,25 @@ body {
 		}
 	}
 
-	.ui-header {
-		position: relative;
-		width: 100%;
-		height: @fixed_header_height;
-		line-height: @fixed_header_line_height;
-		background-color: @color_actionbar_title_bg;
+.ui-header {
+	position: relative;
+	width: 100%;
 
-		.ui-title {
+	line-height: @fixed_header_line_height;
+	background-color: @color_actionbar_title_bg;
+
+		.ui-subtitle {
+		height: @fixed_header_subtitle_height;
+		font-weight: normal;
+		line-height: @fixed_header_subtitle_line_height;
+		padding-left: @fixed_header_title_padding;
+		padding-right: @fixed_header_title_padding;
+		color: @color_actionbar_subtitle_text;
+		font-size: @fixed_header_subtitle_font_size;
+		margin: -10 * @unit_base 0 5 * @unit_base 0;
+	}
+
+	.ui-title {
 			color: @color_actionbar_title_text;
 			font-size: @fixed_header_title_font_size;
 			font-weight: bold;
