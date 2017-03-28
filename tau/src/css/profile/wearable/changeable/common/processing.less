@@ -1,34 +1,52 @@
 /***********************
 Processing
 ***********************/
-.sprite(@x, @xsize, @ysize, @count, @totalCount) when (@count > 0) {
-	.sprite(@x, @xsize, @ysize, (@count - 1), @totalCount);
+/**
+ * @count_of_cols - how many sprites in one row
+ * @xsize - size of transition on x axis to next sprite
+ * @ysize - size of transition on y axis to next row of sprites
+ * @count - counter variable for while loop, loop is ending when count = 0;
+ * @totalCount - count for 100% of animation
+ */
+.sprite(@count_of_cols, @xsize, @ysize, @count, @totalCount) when (@count > 0) {
+	.sprite(@count_of_cols, @xsize, @ysize, (@count - 1), @totalCount);
 	@timePercentage: round((100/(@totalCount - 1)) * (@count - 1)) * 1%;
 	@{timePercentage} {
-		-webkit-mask-position: (mod((@count - 1), @x) * @xsize)  (floor((@count - 1) / @x)) * @ysize;
+		mask-position: (mod((@count - 1), @count_of_cols) * @xsize)  (floor((@count - 1) / @count_of_cols)) * @ysize;
 	}
 }
 
-@-webkit-keyframes fullprocess {
-	.sprite(7, -100vw, -100vw, 60, 60);
+@keyframes smallprocess {
+	.sprite(7, -76 * @unit_base, -76 * @unit_base, 60, 60);
 }
 
-@-webkit-keyframes smallprocess {
-	.sprite(7, -76px, -76px, 60, 60);
+@keyframes fullprocess {
+	.sprite(1, 0, -6 * @unit_base, 5, 5);
 }
+
 
 .ui-processing {
 	background-color: @color_processing;
-	-webkit-mask-image: url("./images/Processing/processingsmall.png");
-	-webkit-mask-repeat: no-repeat;
-	-webkit-animation-duration: 1s;
-	-webkit-animation-iteration-count: infinite;
-	-webkit-animation-timing-function: step-start;
-	-webkit-animation-name: smallprocess;
+	mask-image: url("./images/Processing/processingsmall.png");
+	mask-repeat: no-repeat;
+	animation-duration: 1s;
+	animation-iteration-count: infinite;
+	animation-timing-function: step-start;
+	animation-name: smallprocess;
 
 	width: 76 * @unit_base;
 	height: 76 * @unit_base;
 	margin: 0 auto;
+
+	&.ui-processing-full-size {
+		mask-image: url("./images/Processing/processing_bar.png");
+		animation-name: fullprocess;
+		width: 100%;
+		height: 6 * @unit_base;
+		margin-top: 6 * @unit_base;
+		margin-bottom: 6 * @unit_base;
+		max-width: 316 * @unit_base;
+	}
 }
 .ui-processing-text {
 	margin: 0 auto;
@@ -38,19 +56,3 @@ Processing
 	color: @color_processing_text;
 }
 
-.ui-processing.ui-processing-full-size {
-	background-color: @color_processing;
-	-webkit-mask-image: url("./images/Processing/processingfull.png");
-	-webkit-mask-repeat: no-repeat;
-	-webkit-animation-duration: 1s;
-	-webkit-animation-iteration-count: infinite;
-	-webkit-animation-timing-function: step-start;
-	-webkit-animation-name: fullprocess;
-	pointer-events: none;
-	position: fixed;
-	width: 100vw;
-	height: 100vw;
-	top: 0;
-	left: 0;
-	margin: 0;
-}
