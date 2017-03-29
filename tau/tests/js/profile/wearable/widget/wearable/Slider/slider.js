@@ -1,7 +1,11 @@
 /* global module, test, ok, equal, tau */
-module("Slider tests", {
+module("Slider tests (circular)", {
+	setup: function () {
+		tau.support.shape.circle = true;
+	},
 	teardown: function () {
 		tau.engine._clearBindings();
+		tau.support.shape.circle = false;
 	}
 });
 
@@ -15,6 +19,7 @@ test("simple Slider test", 3, function () {
 	equal(sliderWidget.value(), progressBar.getAttribute("value"), "Value of Slider is equal with percent value from defined values");
 
 	sliderWidget.destroy();
+
 });
 
 test("Slider with options", 2, function () {

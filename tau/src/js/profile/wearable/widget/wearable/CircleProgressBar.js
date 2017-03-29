@@ -217,7 +217,8 @@
 				this.options = {
 					thickness: 8,
 					size: size.MEDIUM,
-					containerClassName: null
+					containerClassName: null,
+					type: "circle"
 				};
 			};
 

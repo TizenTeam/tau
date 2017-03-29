@@ -39,6 +39,7 @@
 				CoreSliderPrototype = CoreSlider.prototype,
 				CircleProgressBar = ns.widget.wearable.CircleProgressBar,
 				CircleProgressBarPrototype = CircleProgressBar.prototype,
+				shape = ns.support.shape,
 				engine = ns.engine,
 				events = ns.event,
 				round = Math.round,
@@ -51,6 +52,7 @@
 					var self = this;
 
 					CoreSlider.call(self);
+
 					self._step = 1;
 					self._middlePoint = {
 						x: 0,
@@ -94,7 +96,9 @@
 				var self = this,
 					options;
 
-				CircleProgressBarPrototype._configure.call(self);
+				if (shape.circle) {
+					CircleProgressBarPrototype._configure.call(self);
+				}
 
 				options = self.options;
 
@@ -110,7 +114,6 @@
 				 * @member ns.widget.wearable.Slider
 				 */
 				options.size = "full";
-				options.type = "circle";
 				options.touchableWidth = 50;
 				options.buttons = false;
 			};
@@ -151,33 +154,34 @@
 					CircleProgressBar.call(this);
 					element.style.display = "none";
 					CircleProgressBarPrototype._build.call(self, element);
-				} else {
-					CoreSliderPrototype._build.call(self, element);
-				}
 
-				if (options.buttons) {
-					self._buildButtons(element);
-				}
-
-				sliderElements = slice.call(
-					parentElement.querySelectorAll("." + classes.icon + ", ." +
-						classes.title + ", ." + classes.subtitle + ", ." + classes.buttons));
-
-				if (sliderElements.length) {
-					container = document.createElement("div");
-					container.classList.add(classes.container);
-					sliderElements.forEach(container.appendChild.bind(container));
-					parentElement.appendChild(container);
+					if (options.buttons) {
+						self._buildButtons(element);
+					}
 
 					sliderElements = slice.call(
-						parentElement.querySelectorAll("." + classes.subtitle + ", ." +
-							classes.title));
+						parentElement.querySelectorAll("." + classes.icon + ", ." +
+							classes.title + ", ." + classes.subtitle + ", ." + classes.buttons));
 
-					titles = document.createElement("div");
-					titles.classList.add(classes.titles);
-					sliderElements.forEach(titles.appendChild.bind(titles));
-					container.appendChild(titles);
-					self._ui.container = container;
+					if (sliderElements.length) {
+						container = document.createElement("div");
+						container.classList.add(classes.container);
+						sliderElements.forEach(container.appendChild.bind(container));
+						parentElement.appendChild(container);
+
+						sliderElements = slice.call(
+							parentElement.querySelectorAll("." + classes.subtitle + ", ." +
+								classes.title));
+
+						titles = document.createElement("div");
+						titles.classList.add(classes.titles);
+						sliderElements.forEach(titles.appendChild.bind(titles));
+						container.appendChild(titles);
+						self._ui.container = container;
+					}
+
+				} else {
+					CoreSliderPrototype._build.call(self, element);
 				}
 
 				return element;

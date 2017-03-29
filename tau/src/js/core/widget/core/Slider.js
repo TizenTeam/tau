@@ -210,7 +210,9 @@
 
 				self._min = attrMin ? attrMin : 0;
 				self._max = attrMax ? attrMax : 100;
-				self._value = attrValue ? attrValue : self.element.value;
+				self._minValue = self._min;
+				self._maxValue = self._max;
+				self._value = attrValue ? attrValue : parseInt(self.element.value, 10);
 				self._interval = self._max - self._min;
 				self._previousValue = self._value;
 				self._warningLevel = parseInt(self.options.warningLevel, 10);
