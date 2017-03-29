@@ -11,6 +11,26 @@ Listview
 	position: relative;
 	color: @color_listview_text;
 
+	input[type=text],
+	input[type=password] {
+		width: 328 * @unit_base;
+		height: 62 * @unit_base;
+		padding: 13 * @unit_base 0 13 * @unit_base 8 * @unit_base;
+		color: @color_listview_input_text;
+		font-size: 32 * @unit_base;
+		background-color: @color_listview_input_bg;
+		border: none;
+		outline: none;
+
+		&:focus {
+			border: @unit_base solid @color_listview_input_bg;
+		}
+
+		&:focus::-webkit-input-placeholder {
+			color: white;
+		}
+	}
+
 	> * {
 		white-space: nowrap;
 		text-overflow: ellipsis;
