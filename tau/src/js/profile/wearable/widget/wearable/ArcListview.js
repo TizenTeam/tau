@@ -437,8 +437,8 @@
 				var self = this,
 					state = self._state,
 					carousel = self._carousel,
-					itemElement = null,
-					itemStyle = null;
+					itemElement,
+					itemStyle;
 
 				if (item !== null) {
 					itemElement = item.element;
@@ -465,7 +465,7 @@
 					state = self._state,
 					items = state.items,
 					length = items.length,
-					i = 0;
+					i;
 
 				// draw items
 				for (i = 0; i < length; i++) {
@@ -481,9 +481,9 @@
 				var self = this,
 					carousel = self._carousel,
 					state = self._state,
-					item = null,
-					len = 0,
-					i = 0;
+					item,
+					len,
+					i;
 
 				for (i = -2, len = 2; i <= len; i++) {
 					item = state.items[currentIndex + i];
@@ -515,9 +515,9 @@
 					len = items.length,
 					minY = items[0].y,
 					maxY = items[len - 1].y,
-					prev = 0,
-					current = 0,
-					next = 0,
+					prev,
+					current,
+					next,
 					loop = true,
 					tempIndex = round((y - minY) / (maxY - minY) * len);
 
@@ -546,8 +546,8 @@
 					currentTime = Date.now(),
 					deltaTime = currentTime - lastTouchTime,
 					items = state.items,
-					currentItem = -1,
-					toY = 0,
+					currentItem,
+					toY,
 					scroll = state.scroll;
 
 				sumTime += -1 * deltaTime;
@@ -699,7 +699,7 @@
 				var self = this,
 					state = self._state,
 					touch = event.changedTouches[0],
-					deltaTouchTime = 0,
+					deltaTouchTime,
 					scroll = state.scroll;
 
 				// time
@@ -824,7 +824,7 @@
 			function buildArcListviewCarousel(carousel) {
 				// create carousel
 				var arcListviewCarousel = document.createElement("div"),
-					carouselElement = null,
+					carouselElement,
 					fragment = document.createDocumentFragment(),
 					i = 0;
 
@@ -844,9 +844,9 @@
 
 			prototype._build = function (element) {
 				var self = this,
-					arcListviewCarousel = null,
-					page = null,
-					scroller = null,
+					arcListviewCarousel,
+					page,
+					scroller,
 					ui = self._ui,
 					carousel = self._carousel;
 
@@ -923,6 +923,8 @@
 						break;
 					case "vclick" :
 						self._onClick(ev);
+						break;
+					default :
 						break;
 				}
 			};
