@@ -11,6 +11,40 @@ Listview
 	position: relative;
 	color: @color_listview_text;
 
+	&.ui-li-grid {
+		display: flex;
+		flex-direction: row;
+		padding: 0;
+		min-height: 85 * @unit_base;
+		overflow: hidden;
+
+		.ui-btn-description {
+			width: 100%;
+			margin: 0 -50%;
+			z-index: 2;
+			transform: translate(-50%, 0);
+			text-align: center;
+			line-height: 85 * @unit_base;
+			pointer-events: none;
+		}
+
+
+		.ui-btn {
+			background-position: center center;
+			height: 85 * @unit_base;
+			overflow: hidden;
+			background-repeat: no-repeat;
+			background-size: 88 * @unit_base 88 * @unit_base;
+			position: relative;
+			flex: 1 1 auto;
+			border-bottom: @unit_base solid B0553;
+			border-right: @unit_base solid B0553;
+
+		}
+
+
+	}
+
 	input[type=text],
 	input[type=password] {
 		width: 328 * @unit_base;

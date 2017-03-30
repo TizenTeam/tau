@@ -377,6 +377,7 @@ li.static::before {
 	margin: 0;
 	margin-right: 20px;
 }
+
 .li-has-action-icon .li-action-icon-button.li-action-delete {
 	-webkit-mask-image: url(../contents/list/images/tw_list_delete_holo_dark.png);
 	background-color: rgba(245, 245, 245, 1);
@@ -389,6 +390,17 @@ li.static::before {
 	-webkit-mask-image: url(../contents/list/images/tw_list_add_holo_dark.png);
 	background-color: rgba(245, 245, 245, 1);
 }
+
+.app-icon-add::before {
+	background-image: url(../contents/list/images/tw_list_add_holo_dark.png);
+}
+.app-icon-delete::before {
+	background-image: url(../contents/list/images/tw_list_delete_holo_dark.png);
+}
+.app-icon-setting::before {
+	background-image: url(../contents/list/images/tw_list_setting_holo_dark.png);
+}
+
 
 .ui-listview .li-has-action-icon.ui-li-active {
 	background-color: transparent;

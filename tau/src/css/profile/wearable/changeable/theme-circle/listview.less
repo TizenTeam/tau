@@ -194,10 +194,23 @@
 					}
 				}
 
+
+
+
 				> * {
 					&.ui-btn {
 						padding: 0;
 						margin: 0 18 * @unit_base 0 0;
+						flex: none;
+
+						&.ui-btn-circle {
+							border-radius: 50%;
+							width: 88 * @unit_base;
+
+							&.ui-btn-active {
+								animation: btn-circle-opacity-press linear 567ms;
+							}
+						}
 
 						&:last-child {
 							margin-right: 0;
@@ -206,6 +219,13 @@
 								margin-right: 20 * @unit_base;
 							}
 						}
+					}
+
+					&.ui-btn-description {
+						transform: none;
+						margin: 0;
+						width: auto;
+						transform: none;
 					}
 				}
 			}

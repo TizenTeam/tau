@@ -24,14 +24,6 @@
 		display: inline-block;
 	}
 
-	&.ui-btn-circle {
-		border-radius: 50%;
-
-		&.ui-btn-active {
-			animation: btn-circle-opacity-press linear 567ms;
-		}
-	}
-
 	&.ui-btn-icon {
 		background-position: center center;
 		height: @fixed_button_icon_bg_size;
@@ -53,6 +45,8 @@
 			transform: translate3d(-50%, -50%, 0);
 			position: absolute;
 			-webkit-mask-image: none;
+			background-position: center center;
+			background-repeat: no-repeat;
 		}
 	}
 
