@@ -1,5 +1,3 @@
-/*global window, define, XMLHttpRequest, Node, HTMLElement, ns */
-/*jslint nomen: true */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
  *
@@ -15,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+/*global window, define, XMLHttpRequest, Node, HTMLElement, ns */
 /**
  * #Router
  * Main class to navigate between pages and popups in profile Wearable.
@@ -255,7 +254,7 @@
 				var state = event.state,
 					prevState = history.activeState,
 					rules = routerMicro.route,
-					maxOrderNumber = 0,
+					maxOrderNumber,
 					orderNumberArray = [],
 					inTransition = router.getContainer().inTransition,
 					ruleKey,
@@ -285,10 +284,8 @@
 					url = path.getLocation();
 
 					for (ruleKey in rules) {
-						if (rules.hasOwnProperty(ruleKey)) {
-							if (rules[ruleKey].active) {
-								orderNumberArray.push(rules[ruleKey].orderNumber);
-							}
+						if (rules.hasOwnProperty(ruleKey) && rules[ruleKey].active) {
+							orderNumberArray.push(rules[ruleKey].orderNumber);
 						}
 					}
 					maxOrderNumber = Math.max.apply(null, orderNumberArray);
@@ -307,11 +304,9 @@
 					}
 				} else {
 					url = path.getLocation();
-					if (prevState) {
-						if (prevState.absUrl !== url && prevState.stateUrl !== url) {
-							history.enableVolatileRecord();
-							router.open(url);
-						}
+					if (prevState && prevState.absUrl !== url && prevState.stateUrl !== url) {
+						history.enableVolatileRecord();
+						router.open(url);
 					}
 				}
 			}
@@ -467,7 +462,6 @@
 						//>>excludeStart("tauDebug", pragmas.tauDebug);
 						ns.log("routerMicro.Router just build");
 						//>>excludeEnd("tauDebug");
-						//engine.createWidgets(containerElement, true);
 						container = engine.instanceWidget(containerElement, "pagecontainer");
 						if (firstPage) {
 							self.register(container, firstPage);
