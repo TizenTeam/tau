@@ -1,13 +1,14 @@
 /*global tau */
-(function () {
+(function (window) {
+
 	var page = document.getElementById("pageMarqueeList"),
 		elScroller,
 		listHelper;
 
-	/**
-	 * pagebeforeshow event handler
-	 * Do preparatory works and adds event listeners
-	 */
+		/**
+		 * pagebeforeshow event handler
+		 * Do preparatory works and adds event listeners
+		 */
 	page.addEventListener("pagebeforeshow", function () {
 		var list;
 
@@ -16,7 +17,7 @@
 			list = elScroller.querySelector(".ui-listview");
 		}
 
-		if (elScroller && list) {
+		if (elScroller && list || !window.tau.support.shape.circle) {
 			listHelper = tau.helper.SnapListMarqueeStyle.create(list, {
 				marqueeDelay: 1000,
 				marqueeStyle: "endToEnd",
@@ -24,11 +25,10 @@
 			});
 		}
 	});
-
 	/**
-	 * pagehide event handler
-	 * Destroys and removes event listeners
-	 */
+		 * pagehide event handler
+		 * Destroys and removes event listeners
+		 */
 	page.addEventListener("pagebeforehide", function () {
 		if (listHelper) {
 			listHelper.destroy();
@@ -36,4 +36,4 @@
 		}
 	});
 
-}());
+}(window));

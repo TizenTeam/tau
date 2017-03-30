@@ -634,23 +634,6 @@ li.static::before {
 	-webkit-justify-content: center;
 }
 
-/* -------------------------Marquee List------------------------ */
-#pageMarqueeList::after {
-	content: "This component is not supported in rectangular device";
-	position: absolute;
-	top: 0;
-	left: 0;
-	height: 100%;
-	display: -webkit-flex;
-	background-color: rgba(0, 0, 0, 0.6);
-	color: rgba(0,149,255,1);
-	text-align: center;
-	padding-left: 20px;
-	padding-right: 20px;
-	-webkit-align-items: center;
-	-webkit-justify-content: center;
-}
-
 /* -----------------------------------  OPTION POPUP------------------------------------ */
 .option-icon-action::before {
 	-webkit-mask-image:url(../contents/popup/images/b_option_list_icon_action.png);

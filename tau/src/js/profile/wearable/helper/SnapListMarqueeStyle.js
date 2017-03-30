@@ -48,14 +48,64 @@
 					var self = this;
 
 					self.options = objectUtils.merge({}, defaults);
-					self._snapListStyleHelper = null;
-					self._selectedMarqueeWidget = null;
+					objectUtils.fastMerge(self.options, options);
 					self._callbacks = {};
 
-					self.init(listDomElement, options);
+					if (window.tau.support.shape.circle) {
+						self._snapListStyleHelper = null;
+						self._selectedMarqueeWidget = null;
+						self.initCircular(listDomElement);
+					} else {
+						self._lastMarqueeWidget = null;
+						self.initRectangular();
+					}
 				},
 
 				prototype = SnapListMarqueeStyle.prototype;
+
+			function clickHandlerForRectangular(event) {
+				var self = this,
+					eventTarget = event.target,
+					lastMarqueeWidget;
+
+				if (self._lastMarqueeWidget) {
+					lastMarqueeWidget = self._lastMarqueeWidget;
+				}
+
+				if (eventTarget.parentElement.id && lastMarqueeWidget &&
+					eventTarget.parentElement.id === lastMarqueeWidget.id) {
+					if (lastMarqueeWidget._state == "running") {
+						lastMarqueeWidget.reset();
+					} else {
+						lastMarqueeWidget.start();
+					}
+				} else {
+					if (lastMarqueeWidget && lastMarqueeWidget._ui) {
+						lastMarqueeWidget.stop();
+						lastMarqueeWidget.reset();
+						lastMarqueeWidget.destroy();
+					}
+
+					if (eventTarget && eventTarget.classList.contains("ui-marquee")) {
+						self._lastMarqueeWidget = new window.tau.widget.Marquee(eventTarget, self.options);
+						self._lastMarqueeWidget.start();
+					}
+				}
+			}
+
+			function scrollHandlerForRectangular() {
+				var	lastMarqueeWidget;
+
+				if (this._lastMarqueeWidget) {
+					lastMarqueeWidget = this._lastMarqueeWidget;
+				}
+				if (lastMarqueeWidget && lastMarqueeWidget._ui) {
+					lastMarqueeWidget.stop();
+					lastMarqueeWidget.reset();
+					lastMarqueeWidget.destroy();
+					lastMarqueeWidget = null;
+				}
+			}
 
 			function destroyMarqueeWidget(self) {
 				if (self._selectedMarqueeWidget) {
@@ -86,15 +136,39 @@
 				}
 			}
 
-			prototype.init = function (listDomElement, options) {
+			prototype.initRectangular = function () {
+				var self = this,
+					clickCallbackForRectangular,
+					scrollCallbackForRectangular;
+
+				clickCallbackForRectangular = clickHandlerForRectangular.bind(self);
+				scrollCallbackForRectangular = scrollHandlerForRectangular.bind(self);
+
+				self._callbacks.click = clickHandlerForRectangular;
+				self._callbacks.scroll = scrollHandlerForRectangular;
+
+				document.addEventListener("click", clickCallbackForRectangular, false);
+				document.addEventListener("scroll", scrollCallbackForRectangular, true);
+			};
+
+			prototype.initCircular = function (listDomElement) {
 				var self = this;
 
-				objectUtils.fastMerge(self.options, options);
 				self.options.delay = self.options.delay || self.options.marqueeDelay;
 
 				self.bindEvents();
 				// create SnapListStyle helper
 				self._snapListStyleHelper = ns.helper.SnapListStyle.create(listDomElement, self.options);
+			};
+
+			prototype.unbindEventsForRectangular = function () {
+				var self = this;
+
+				document.removeEventListener("click", self._callbacks.click, false);
+				document.removeEventListener("scroll", self._callbacks.scroll, false);
+
+				self._callbacks.click = null;
+				self._callbacks.scroll = null;
 			};
 
 			prototype.bindEvents = function () {
@@ -117,7 +191,7 @@
 				document.addEventListener("selected", selectedCallback, false);
 			};
 
-			prototype.unbindEvents = function () {
+			prototype.unbindEventsForCircle = function () {
 				var self = this;
 
 				document.removeEventListener("touchstart", self._callbacks.touchStart, false);
@@ -132,7 +206,11 @@
 			prototype.destroy = function () {
 				var self = this;
 
-				self.unbindEvents();
+				if (ns.support.shape.circle) {
+					self.unbindEventsForCircle();
+				} else {
+					self.unbindEventsForRectangular();
+				}
 				destroyMarqueeWidget(self);
 				self._snapListStyleHelper.destroy();
 
