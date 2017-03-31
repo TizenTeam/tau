@@ -241,6 +241,59 @@
 				linkClickHandler(this, event);
 			};
 
+			function openUrlFromState(router, state) {
+				var rules = routerMicro.route,
+					prevState = history.activeState,
+					reverse = state && history.getDirection(state) === "back",
+					maxOrderNumber,
+					orderNumberArray = [],
+					ruleKey,
+					options,
+					url = path.getLocation(),
+					isContinue = true,
+					transition,
+					rule;
+
+				transition = reverse ? ((prevState && prevState.transition) || "none") : state.transition;
+				options = object.merge({}, state, {
+					reverse: reverse,
+					transition: transition,
+					fromHashChange: true
+				});
+
+				// find rule with max order number
+				for (ruleKey in rules) {
+					if (rules.hasOwnProperty(ruleKey) && rules[ruleKey].active) {
+						orderNumberArray.push(rules[ruleKey].orderNumber);
+					}
+				}
+				maxOrderNumber = Math.max.apply(null, orderNumberArray);
+				rule = rules[ORDER_NUMBER[maxOrderNumber]];
+
+				if (rule && rule.onHashChange(url, options, prevState)) {
+					if (maxOrderNumber === 10) {
+						// rule is panel
+						return;
+					}
+					isContinue = false;
+				}
+
+				history.setActive(state);
+				if (isContinue) {
+					router.open(state.url, options);
+				}
+			}
+
+			function openUrlFromLocation(router) {
+				var prevState = history.activeState,
+					url = path.getLocation();
+
+				if (prevState && prevState.absUrl !== url && prevState.stateUrl !== url) {
+					history.enableVolatileRecord();
+					router.open(url);
+				}
+			}
+
 			/**
 			 * Handle event for pop state
 			 * @method popStateHandler
@@ -253,61 +306,17 @@
 			function popStateHandler(router, event) {
 				var state = event.state,
 					prevState = history.activeState,
-					rules = routerMicro.route,
-					maxOrderNumber,
-					orderNumberArray = [],
 					inTransition = router.getContainer().inTransition,
-					ruleKey,
-					options,
-					to,
-					url,
-					isContinue = true,
-					reverse = state && history.getDirection(state) === "back",
-					transition,
-					rule;
+					reverse = state && history.getDirection(state) === "back";
 
 				if (_isLock || (inTransition && reverse)) {
+					// don't open any page, only history change in backward
 					history.disableVolatileMode();
 					history.replace(prevState, prevState.stateTitle, prevState.stateUrl);
-					return;
-				}
-
-				if (state) {
-					to = state.url;
-					transition = reverse ? ((prevState && prevState.transition) || "none") : state.transition;
-					options = object.merge({}, state, {
-						reverse: reverse,
-						transition: transition,
-						fromHashChange: true
-					});
-
-					url = path.getLocation();
-
-					for (ruleKey in rules) {
-						if (rules.hasOwnProperty(ruleKey) && rules[ruleKey].active) {
-							orderNumberArray.push(rules[ruleKey].orderNumber);
-						}
-					}
-					maxOrderNumber = Math.max.apply(null, orderNumberArray);
-					rule = rules[ORDER_NUMBER[maxOrderNumber]];
-					if (rule && rule.onHashChange(url, options, prevState)) {
-						if (maxOrderNumber === 10) {
-							// rule is panel
-							return;
-						}
-						isContinue = false;
-					}
-
-					history.setActive(state);
-					if (isContinue) {
-						router.open(to, options);
-					}
+				} else if (state) {
+					openUrlFromState(router, state);
 				} else {
-					url = path.getLocation();
-					if (prevState && prevState.absUrl !== url && prevState.stateUrl !== url) {
-						history.enableVolatileRecord();
-						router.open(url);
-					}
+					openUrlFromLocation(router);
 				}
 			}
 
