@@ -155,6 +155,8 @@
 					2000: "circularindexscrollbar"
 				},
 
+				HASH_REGEXP = /[#|\s]/g,
+
 				Page = ns.widget.core.Page,
 
 				Router = function () {
@@ -341,6 +343,50 @@
 			};
 
 			/**
+			 * Open given page with deferred
+			 * @method _openDeferred
+			 * @param {HTMLElement} to HTMLElement of page
+			 * @param {Object} [options]
+			 * @param {"page"|"popup"|"external"} [options.rel = "page"] Represents kind of link as "page" or "popup" or "external" for linking to another domain.
+			 * @param {string} [options.transition = "none"] Sets the animation used during change of page.
+			 * @param {boolean} [options.reverse = false] Sets the direction of change.
+			 * @param {boolean} [options.fromHashChange = false] Sets if will be changed after hashchange.
+			 * @param {boolean} [options.showLoadMsg = true] Sets if message will be shown during loading.
+			 * @param {number} [options.loadMsgDelay = 0] Sets delay time for the show message during loading.
+			 * @param {boolean} [options.volatileRecord = false] Sets if the current history entry will be modified or a new one will be created.
+			 * @param {boolean} [options.dataUrl] Sets if page has url attribute.
+			 * @param {?string} [options.container = null] It is used in RoutePopup as selector for container.
+			 * @param {Event} event
+			 * @member ns.router.Router
+			 * @protected
+			 */
+			Router.prototype._openDeferred = function (to, options, event) {
+				var self = this,
+					rule = route[options.rel],
+					deferred = {
+						resolve: function (options, content) {
+							rule.open(content, options, event);
+						},
+						reject: function (options) {
+							eventUtils.trigger(self.container.element, "changefailed", options);
+						}
+					};
+
+				if (typeof to === "string") {
+					if (to.replace(HASH_REGEXP, "")) {
+						self._loadUrl(to, options, rule, deferred);
+					}
+				} else {
+					// execute deferred object immediately
+					if (to && selectors.matchesSelector(to, rule.filter)) {
+						deferred.resolve(options, to);
+					} else {
+						deferred.reject(options);
+					}
+				}
+			};
+
+			/**
 			 * Change page to page given in parameter "to".
 			 * @method open
 			 * @param {string|HTMLElement} to Id of page or file url or HTMLElement of page
@@ -358,54 +404,105 @@
 			 * @member ns.router.Router
 			 */
 			Router.prototype.open = function (to, options, event) {
-				var rel,
-					rule,
-					deferred = {},
-					filter,
-					self = this;
+				var self = this,
+					rel,
+					rule;
 
-				to = getHTMLElement(to);
-				rel = ((options && options.rel) || (to instanceof HTMLElement && this.detectRel(to)) || "page");
-				rule = route[rel];
-				if (_isLock) {
-					return;
-				}
+				if (!_isLock) {
+					to = getHTMLElement(to);
+					rel = (options && options.rel) ||
+						(to instanceof HTMLElement && self.detectRel(to));
+					rel = rel || "page";
+					rule = route[rel];
 
-				if (rel === "back") {
-					history.back();
-					return;
-				}
-
-				if (rule) {
-					options = object.merge(
-						{
-							rel: rel
-						},
-						this.defaults,
-						rule.option(),
-						options
-					);
-					filter = rule.filter;
-					deferred.resolve = function (options, content) {
-						rule.open(content, options, event);
-					};
-					deferred.reject = function (options) {
-						eventUtils.trigger(self.container.element, "changefailed", options);
-					};
-					if (typeof to === "string") {
-						if (to.replace(/[#|\s]/g, "")) {
-							this._loadUrl(to, options, rule, deferred);
-						}
+					if (rel === "back") {
+						history.back();
+					} else if (rule) {
+						options = object.merge(
+							{
+								rel: rel
+							},
+							self.defaults,
+							rule.option(),
+							options
+						);
+						self._openDeferred(to, options, event);
 					} else {
-						if (to && selectors.matchesSelector(to, filter)) {
-							deferred.resolve(options, to);
-						} else {
-							deferred.reject(options);
-						}
+						throw new Error("Not defined router rule [" + rel + "]");
 					}
-				} else {
-					throw new Error("Not defined router rule [" + rel + "]");
 				}
+			};
+
+			/**
+			 * Init routes defined in router
+			 * @method _initRoutes
+			 * @member ns.router.Router
+			 */
+			Router.prototype._initRoutes = function () {
+				var ruleKey,
+					rules = routerMicro.route;
+
+				for (ruleKey in rules) {
+					if (rules.hasOwnProperty(ruleKey) && rules[ruleKey].init) {
+						rules[ruleKey].init();
+					}
+				}
+			};
+
+			function removeActivePageClass(containerElement) {
+				var PageClasses = Page.classes,
+					uiPageActiveSelector = "." + PageClasses.uiPageActive,
+					activePages = slice.call(containerElement.querySelectorAll(uiPageActiveSelector));
+
+				activePages.forEach(function (page) {
+					page.classList.remove(uiPageActiveSelector);
+				});
+			}
+
+			Router.prototype._autoInitializePage = function (containerElement, pages, pageSelector) {
+				var self = this,
+					page,
+					location = window.location,
+					uiPageActiveClass = Page.classes.uiPageActive,
+					firstPage = containerElement.querySelector("." + uiPageActiveClass);
+
+				if (!firstPage) {
+					firstPage = pages[0];
+				}
+
+				if (firstPage) {
+					removeActivePageClass(containerElement);
+				}
+
+				if (location.hash) {
+					//simple check to determine if we should show firstPage or other
+					page = document.getElementById(location.hash.replace("#", ""));
+					if (page && selectors.matchesSelector(page, pageSelector)) {
+						firstPage = page;
+					}
+				}
+
+				if (!firstPage && ns.getConfig("addPageIfNotExist", true)) {
+					firstPage = Page.createEmptyElement();
+					while (containerElement.firstChild) {
+						firstPage.appendChild(containerElement.firstChild);
+					}
+					containerElement.appendChild(firstPage);
+				}
+
+				if (self.justBuild) {
+					//>>excludeStart("tauDebug", pragmas.tauDebug);
+					ns.log("routerMicro.Router just build");
+					//>>excludeEnd("tauDebug");
+					if (firstPage) {
+						self.register(
+							engine.instanceWidget(containerElement, "pagecontainer"),
+							firstPage
+						);
+					}
+				}
+
+				return firstPage;
 			};
 
 			/**
@@ -415,78 +512,37 @@
 			 * @member ns.router.Router
 			 */
 			Router.prototype.init = function (justBuild) {
-				var page,
-					containerElement,
-					container,
+				var containerElement,
 					firstPage,
 					pages,
-					activePages,
-					ruleKey,
-					rules = routerMicro.route,
-					location = window.location,
-					PageClasses = Page.classes,
-					uiPageActiveClass = PageClasses.uiPageActive,
 					pageDefinition = ns.engine.getWidgetDefinition("Page"),
 					pageSelector = pageDefinition.selector,
 					self = this;
 
 				body = document.body;
+				self.justBuild = justBuild;
+
 				containerElement = ns.getConfig("pageContainer") || body;
 				pages = slice.call(containerElement.querySelectorAll(pageSelector));
+
 				if (!ns.getConfig("pageContainerBody", false)) {
 					containerElement = pages.length ? pages[0].parentNode : containerElement;
 				}
-				self.justBuild = justBuild;
 
 				if (ns.getConfig("autoInitializePage", true)) {
-					firstPage = containerElement.querySelector("." + uiPageActiveClass);
-					if (!firstPage) {
-						firstPage = pages[0];
-					}
-
-					if (firstPage) {
-						activePages = containerElement.querySelectorAll("." + uiPageActiveClass);
-						slice.call(activePages).forEach(function (page) {
-							page.classList.remove("." + uiPageActiveClass);
-						});
-					}
-
-					if (location.hash) {
-						//simple check to determine if we should show firstPage or other
-						page = document.getElementById(location.hash.replace("#", ""));
-						if (page && selectors.matchesSelector(page, pageSelector)) {
-							firstPage = page;
-						}
-					}
-
-					if (!firstPage && ns.getConfig("addPageIfNotExist", true)) {
-						firstPage = Page.createEmptyElement();
-						while (containerElement.firstChild) {
-							firstPage.appendChild(containerElement.firstChild);
-						}
-						containerElement.appendChild(firstPage);
-					}
-
+					firstPage = self._autoInitializePage(containerElement, pages, pageSelector);
 					if (justBuild) {
-						//>>excludeStart("tauDebug", pragmas.tauDebug);
-						ns.log("routerMicro.Router just build");
-						//>>excludeEnd("tauDebug");
-						container = engine.instanceWidget(containerElement, "pagecontainer");
-						if (firstPage) {
-							self.register(container, firstPage);
-						}
 						return;
 					}
 				}
 
-				for (ruleKey in rules) {
-					if (rules.hasOwnProperty(ruleKey) && rules[ruleKey].init) {
-						rules[ruleKey].init();
-					}
-				}
+				// init router's routes
+				self._initRoutes();
 
-				container = engine.instanceWidget(containerElement, "pagecontainer");
-				self.register(container, firstPage);
+				self.register(
+					engine.instanceWidget(containerElement, "pagecontainer"),
+					firstPage
+				);
 			};
 
 			/**
