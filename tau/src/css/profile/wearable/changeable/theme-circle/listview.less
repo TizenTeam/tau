@@ -120,7 +120,6 @@
 					background-color: @color_text;
 				}
 			}
-
 			.ui-action-delete {
 				background-color: @color_list_actionicon_image_normal;
 			}
@@ -179,8 +178,24 @@
 			&.ui-li-grid {
 				flex-direction: row;
 
+
+
 				&.ui-li-grid-full {
 					justify-content: space-between;
+
+					div {
+						text-align: inherit;
+
+						&::after {
+							opacity: 0;
+						}
+					}
+
+					.ui-btn.ui-btn-no-bg.ui-btn-icon {
+						width: 76 * @unit_base;
+						height: 76 * @unit_base;
+
+					}
 
 					* {
 						flex-grow: 1;
@@ -202,6 +217,13 @@
 						padding: 0;
 						margin: 0 18 * @unit_base 0 0;
 						flex: none;
+
+							&.ui-btn-no-bg.ui-btn-icon {
+								&::before {
+									border-radius: 50%;
+								}
+							}
+
 
 						&.ui-btn-circle {
 							border-radius: 50%;

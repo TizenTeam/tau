@@ -378,6 +378,16 @@ li.static::before {
 	margin-right: 20px;
 }
 
+.app-icon-add::before {
+	background-image: url(../contents/list/images/tw_list_add_holo_dark.png);
+}
+.app-icon-delete::before {
+	background-image: url(../contents/list/images/tw_list_delete_holo_dark.png);
+}
+.app-icon-setting::before {
+	background-image: url(../contents/list/images/tw_list_setting_holo_dark.png);
+}
+
 .li-has-action-icon .li-action-icon-button.li-action-delete {
 	-webkit-mask-image: url(../contents/list/images/tw_list_delete_holo_dark.png);
 	background-color: rgba(245, 245, 245, 1);
@@ -391,16 +401,15 @@ li.static::before {
 	background-color: rgba(245, 245, 245, 1);
 }
 
-.app-icon-add::before {
+.li-action-add {
 	background-image: url(../contents/list/images/tw_list_add_holo_dark.png);
 }
-.app-icon-delete::before {
+.li-action-delete {
 	background-image: url(../contents/list/images/tw_list_delete_holo_dark.png);
 }
-.app-icon-setting::before {
+.li-action-setting {
 	background-image: url(../contents/list/images/tw_list_setting_holo_dark.png);
 }
-
 
 .ui-listview .li-has-action-icon.ui-li-active {
 	background-color: transparent;
@@ -943,7 +952,6 @@ input[type="checkbox"]#checkboxControl {
 	margin-top: 50%;
 	transform: translateY(-50%);
 }
-
 /* -------------------------SelectAll&DeselectAll Popup-------------------*/
 .hide-popup-li{
 	visibility: hidden;
