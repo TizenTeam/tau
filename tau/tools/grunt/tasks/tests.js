@@ -81,7 +81,6 @@ module.exports = function (grunt) {
 					}
 				});
 				grunt.config("qunit.main-" + profileName, testModules);
-				grunt.config("qunit-tap.main-" + profileName, {output: path.join("report", "tap", profileName) + path.sep});
 				if (profileName === "mobile") {
 					grunt.config("qunit.main-mobile_support", testSupportModules);
 				}
@@ -171,7 +170,6 @@ module.exports = function (grunt) {
 	grunt.config.set("clean", configProperty);
 
 	//grunt.loadNpmTasks( "grunt-contrib-qunit" );
-	grunt.loadNpmTasks("grunt-qunit-tap");
 	grunt.loadNpmTasks("grunt-qunit-istanbul");
 	grunt.loadNpmTasks("grunt-qunit-junit");
 	grunt.loadNpmTasks("grunt-karma");

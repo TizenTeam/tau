@@ -13,7 +13,7 @@ module.exports = function (config) {
 		// available frameworks: https://npmjs.org/browse/keyword/karma-adapter
 		frameworks: ["requirejs", "qunit"],
 
-		reporters: ["progress", "coverage"],
+		reporters: ["progress", "coverage", "junit"],
 
 		coverageReporter: {
 				// specify a common output directory
@@ -26,7 +26,18 @@ module.exports = function (config) {
 			]
 		},
 
-		plugins: ["karma-requirejs", "karma-chrome-launcher", "karma-qunit", "karma-coverage"],
+		// the default configuration
+		junitReporter: {
+			outputDir: "report/test/karma/unit", // results will be saved as $outputDir/$browserName.xml
+			outputFile: undefined, // if included, results will be saved as $outputDir/$browserName/$outputFile
+			suite: "Karma", // suite will become the package name attribute in xml testsuite element
+			useBrowserName: false, // add browser name to report and classes names
+			nameFormatter: undefined, // function (browser, result) to customize the name attribute in xml testcase element
+			classNameFormatter: undefined, // function (browser, result) to customize the classname attribute in xml testcase element
+			properties: {} // key value pair of properties to add to the <properties> section of the report
+		},
+
+		plugins: ["karma-requirejs", "karma-chrome-launcher", "karma-qunit", "karma-coverage", "karma-junit-reporter"],
 		autoWatch: true,
 		// list of files / patterns to load in the browser
 		files: [

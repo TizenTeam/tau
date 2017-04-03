@@ -50,6 +50,15 @@ pipeline {
                 }
             }
         }
+        stage('SonarQube analysis') {
+            steps {
+                sh "node tau/tools/cmd/prepare-sonar.js ${GERRIT_CHANGE_URL}"
+                // requires SonarQube Scanner 2.8+
+                withSonarQubeEnv('Main') {
+                  sh "/home/m.urbanski/sonar-scanner-2.8/bin/sonar-scanner"
+                }
+            }
+        }
         stage('Docs') {
             steps {
                 echo 'Generating docs..'
