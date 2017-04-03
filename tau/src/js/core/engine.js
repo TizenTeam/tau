@@ -432,6 +432,71 @@
 			}
 
 			/**
+			 * Remove group of bindings for all types of widgets based on the same element
+			 * @method removeGroupBindingAllTypes
+			 * @param {Object} bindingGroup
+			 * @param {string} id widget element id
+			 * @return {boolean}
+			 * @static
+			 * @member ns.engine
+			 */
+			function removeGroupBindingAllTypes(bindingGroup, id) {
+				var singleSuccess,
+					widgetName,
+					fullSuccess = true;
+
+				// Iterate over group of created widgets
+				for (widgetName in bindingGroup) {
+					if (bindingGroup.hasOwnProperty(widgetName)) {
+						singleSuccess = _removeSingleBinding(bindingGroup, widgetName);
+						//>>excludeStart("tauDebug", pragmas.tauDebug);
+						if (!singleSuccess) {
+							ns.error("Not every widget binding has been removed. Failed for: " + widgetName);
+						}
+						//>>excludeEnd("tauDebug");
+
+						// As we iterate over keys we are sure we want to remove this element
+						// NOTE: Removing property by delete is slower than assigning null value
+						bindingGroup[widgetName] = null;
+
+						fullSuccess = (fullSuccess && singleSuccess);
+					}
+				}
+
+				// If the object bindingGroup is empty or every key has a null value
+				if (objectUtils.hasPropertiesOfValue(bindingGroup, null)) {
+					// NOTE: Removing property by delete is slower than assigning null value
+					widgetBindingMap[id] = null;
+				}
+
+				return fullSuccess;
+			}
+
+			/**
+			 * Remove group of bindings for widgets based on the same element
+			 * @method removeGroupBinding
+			 * @param {Object} bindingGroup
+			 * @param {string} type object name
+			 * @param {string} id widget element id
+			 * @return {boolean}
+			 * @static
+			 * @member ns.engine
+			 */
+			function removeGroupBinding(bindingGroup, type, id) {
+				var success;
+
+				if (!type) {
+					success = removeGroupBindingAllTypes(bindingGroup, id);
+				} else {
+					success = _removeSingleBinding(bindingGroup, type);
+					if (objectUtils.hasPropertiesOfValue(bindingGroup, null)) {
+						widgetBindingMap[id] = null;
+					}
+				}
+				return success;
+			}
+
+			/**
 			 * Remove binding for widget based on element.
 			 * @method removeBinding
 			 * @param {HTMLElement|string} element
@@ -443,10 +508,7 @@
 			function removeBinding(element, type) {
 				var id = (typeof element === TYPE_STRING) ? element : element.id,
 					binding = widgetBindingMap[id],
-					bindingGroup,
-					widgetName,
-					partialSuccess,
-					fullSuccess = false;
+					bindingGroup;
 
 				// [NOTICE] Due to backward compatibility calling removeBinding
 				// with one parameter should remove all bindings
@@ -463,45 +525,8 @@
 					}
 
 					bindingGroup = widgetBindingMap[id] && widgetBindingMap[id].instances;
-
 					if (bindingGroup) {
-						if (!type) {
-							fullSuccess = true;
-
-							// Iterate over group of created widgets
-							for (widgetName in bindingGroup) {
-								if (bindingGroup.hasOwnProperty(widgetName)) {
-									partialSuccess = _removeSingleBinding(bindingGroup, widgetName);
-									//>>excludeStart("tauDebug", pragmas.tauDebug);
-									if (!partialSuccess) {
-										ns.error("Not every widget binding has been removed. Failed for: " + widgetName);
-									}
-									//>>excludeEnd("tauDebug");
-
-									// As we iterate over keys we are sure we want to remove this element
-									// NOTE: Removing property by delete is slower than assigning null value
-									bindingGroup[widgetName] = null;
-
-									fullSuccess = (fullSuccess && partialSuccess);
-								}
-							}
-
-							// If the object bindingGroup is empty or every key has a null value
-							if (objectUtils.hasPropertiesOfValue(bindingGroup, null)) {
-								// NOTE: Removing property by delete is slower than assigning null value
-								widgetBindingMap[id] = null;
-							}
-
-							return fullSuccess;
-						}
-
-						partialSuccess = _removeSingleBinding(bindingGroup, type);
-
-						if (objectUtils.hasPropertiesOfValue(bindingGroup, null)) {
-							widgetBindingMap[id] = null;
-						}
-
-						return partialSuccess;
+						return removeGroupBinding(bindingGroup, type, id);
 					}
 
 					if (widgetBindingMap[id].instances && (Object.keys(widgetBindingMap[id].instances).length === 0)) {
@@ -785,7 +810,7 @@
 			 */
 			function createWidgets(context) {
 				var builtWithoutTemplates = slice.call(context.querySelectorAll(querySelectorWidgets)),
-					normal = [],
+					normal,
 					buildQueue = [],
 					selectorKeys = Object.keys(widgetDefs),
 					excludeSelector,
