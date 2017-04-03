@@ -244,6 +244,49 @@
 				return false;
 			}
 
+
+			/**
+			 * Get widget instance from binding for given element and type
+			 * @method getInstanceByElement
+			 * @static
+			 * @param {Object} binding
+			 * @param {HTMLElement} element
+			 * @param {string} [type] widget name
+			 * @return {?Object}
+			 * @member ns.engine
+			 */
+			function getInstanceByElement(binding, element, type) {
+				var widgetInstance,
+					bindingElement,
+					storedWidgetNames;
+
+				// If name is defined it's possible to fetch it instantly
+				if (type) {
+					widgetInstance = binding.instances[type];
+				} else {
+					storedWidgetNames = Object.keys(binding.instances);
+					widgetInstance = binding.instances[storedWidgetNames[0]];
+				}
+
+				// Return only it instance of the proper widget exists
+				if (widgetInstance) {
+					//>>excludeStart("tauDebug", pragmas.tauDebug);
+					// NOTE: element can exists outside document
+					bindingElement = widgetInstance.element;
+					if (bindingElement && !bindingElement.ownerDocument.getElementById(bindingElement.id)) {
+						ns.warn("Element ", bindingElement.id, " is outside DOM!");
+					}
+					//>>excludeEnd("tauDebug");
+
+					// Check if widget instance has that same object referenced
+					if (widgetInstance.element === element) {
+						return widgetInstance;
+					}
+				}
+
+				return null;
+			}
+
 			/**
 			 * Get binding for element
 			 * @method getBinding
@@ -255,41 +298,18 @@
 			 */
 			function getBinding(element, type) {
 				var id = !element || typeof element === TYPE_STRING ? element : element.id,
-					binding,
-					widgetInstance,
-					bindingElement,
-					storedWidgetNames;
+					binding;
 
 				if (typeof element === TYPE_STRING) {
 					element = document.getElementById(id);
 				}
 
-				// Fetch group of widget defined for this element
-				binding = widgetBindingMap[id];
+				if (element) {
+					// Fetch group of widget defined for this element
+					binding = widgetBindingMap[id];
 
-				if (binding && typeof binding === "object") {
-					// If name is defined it's possible to fetch it instantly
-					if (type) {
-						widgetInstance = binding.instances[type];
-					} else {
-						storedWidgetNames = Object.keys(binding.instances);
-						widgetInstance = binding.instances[storedWidgetNames[0]];
-					}
-
-					// Return only it instance of the proper widget exists
-					if (widgetInstance) {
-						//>>excludeStart("tauDebug", pragmas.tauDebug);
-						// NOTE: element can exists outside document
-						bindingElement = widgetInstance.element;
-						if (bindingElement && !bindingElement.ownerDocument.getElementById(bindingElement.id)) {
-							ns.warn("Element ", bindingElement.id, " is outside DOM!");
-						}
-						//>>excludeEnd("tauDebug");
-
-						// Check if widget instance has that same object referenced
-						if (widgetInstance.element === element) {
-							return widgetInstance;
-						}
+					if (binding && typeof binding === "object") {
+						return getInstanceByElement(binding, element, type);
 					}
 				}
 
@@ -714,6 +734,34 @@
 				}
 			}
 
+
+			/**
+			 * Calls destroy on group of widgets connected with given HTMLElement
+			 * @method destroyGroupWidgets
+			 * @param {HTMLElement|string} element
+			 * @static
+			 * @private
+			 * @member ns.engine
+			 */
+			function destroyGroupWidgets(element) {
+				var widgetName,
+					widgetInstance,
+					widgetGroup;
+
+				widgetGroup = getAllBindings(element);
+				for (widgetName in widgetGroup) {
+					if (widgetGroup.hasOwnProperty(widgetName)) {
+						widgetInstance = widgetGroup[widgetName];
+
+						//Destroy widget
+						if (widgetInstance) {
+							widgetInstance.destroy();
+							widgetInstance.trigger("widgetdestroyed");
+						}
+					}
+				}
+			}
+
 			/**
 			 * Calls destroy on widget (or widgets) connected with given HTMLElement
 			 * Removes child widgets as well.
@@ -724,10 +772,7 @@
 			 * @member ns.engine
 			 */
 			function destroyAllWidgets(element, childOnly) {
-				var widgetName,
-					widgetInstance,
-					widgetGroup,
-					childWidgets,
+				var childWidgets,
 					i;
 
 				if (typeof element === TYPE_STRING) {
@@ -741,18 +786,7 @@
 				if (!childOnly) {
 					// If type is not defined all widgets should be removed
 					// this is for backward compatibility
-					widgetGroup = getAllBindings(element);
-					for (widgetName in widgetGroup) {
-						if (widgetGroup.hasOwnProperty(widgetName)) {
-							widgetInstance = widgetGroup[widgetName];
-
-							//Destroy widget
-							if (widgetInstance) {
-								widgetInstance.destroy();
-								widgetInstance.trigger("widgetdestroyed");
-							}
-						}
-					}
+					destroyGroupWidgets(element);
 				}
 
 				//Destroy child widgets, if something left.
