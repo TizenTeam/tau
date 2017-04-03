@@ -573,6 +573,73 @@
 			}
 
 			/**
+			 * Process core widget method
+			 * - configure
+			 * - build
+			 * - init
+			 * - bindEvents
+			 * @method processWidget
+			 * @param {HTMLElement} element base element of widget
+			 * @param {Object} widgetInstance instance of widget
+			 * @param {Object} definition definition of widget
+			 * @param {ns.widget.BaseWidget} definition.widgetClass
+			 * @param {string} definition.name
+			 * @param {Object} [options] options for widget
+			 * @private
+			 * @static
+			 * @member ns.engine
+			 */
+			function coreProcessWidget(element, widgetInstance, definition, options) {
+				var widgetOptions = options || {},
+					createFunction = widgetOptions.create,
+					buildAttribute;
+
+				//>>excludeStart("tauDebug", pragmas.tauDebug);
+				ns.log("Processing widget:", definition.name, "on element:", element.tagName + "#" + (element.id || "--no--id--"));
+				//>>excludeEnd("tauDebug");
+
+				widgetInstance.configure(definition, element, options);
+
+				// Run .create method from widget options when a [widgetName]create event is triggered
+				if (typeof createFunction === TYPE_FUNCTION) {
+					eventUtils.one(element, definition.name.toLowerCase() + "create", createFunction);
+				}
+
+				if (element.id) {
+					widgetInstance.id = element.id;
+				}
+
+				// Check if this type of widget was build for this element before
+				buildAttribute = element.getAttribute(DATA_BUILT);
+				if (!buildAttribute ||
+					buildAttribute.split(NAMES_SEPARATOR).indexOf(widgetInstance.name) === -1) {
+					element = widgetInstance.build(element);
+				}
+
+				if (element) {
+					widgetInstance.element = element;
+
+					setBinding(widgetInstance);
+
+					widgetInstance.trigger(eventType.WIDGET_BUILT, widgetInstance, false);
+
+					if (!justBuild) {
+						widgetInstance.init(element);
+					}
+
+					widgetInstance.bindEvents(element, justBuild);
+
+					widgetInstance.trigger(widgetInstance.widgetEventPrefix + eventType.WIDGET_INIT);
+					widgetInstance.trigger(eventType.WIDGET_BOUND, widgetInstance, false);
+					eventUtils.trigger(document, eventType.WIDGET_BOUND, widgetInstance);
+				} else {
+					//>>excludeStart("tauDebug", pragmas.tauDebug);
+					ns.error("There was problem with building widget " + widgetInstance.widgetName + " on element with id " + widgetInstance.id + ".");
+					//>>excludeEnd("tauDebug");
+				}
+			}
+
+			/**
 			 * Load widget
 			 * @method processWidget
 			 * @param {HTMLElement} element base element of widget
@@ -585,19 +652,17 @@
 			 * @member ns.engine
 			 */
 			function processWidget(element, definition, options) {
-				var widgetOptions = options || {},
-					createFunction = widgetOptions.create,
-					Widget = definition.widgetClass,
+				var Widget = definition.widgetClass,
 					/**
 					 * @type {ns.widget.BaseWidget} widgetInstance
 					 */
 					widgetInstance,
-					buildAttribute,
 					parentEnhance,
 					existingBinding;
 
 				element = ensureElement(element, Widget);
 				widgetInstance = Widget ? new Widget(element) : false;
+
 				// if any parent has attribute data-enhance=false then stop building widgets
 				parentEnhance = selectors.getParentsBySelectorNS(element, "enhance=false");
 
@@ -605,53 +670,15 @@
 				// it reaches it's turn
 				existingBinding = getBinding(element, definition.name);
 				if (existingBinding && existingBinding.element === element) {
-					return existingBinding.element;
+					return element;
 				}
 
-				if (widgetInstance && !parentEnhance.length) {
-					//>>excludeStart("tauDebug", pragmas.tauDebug);
-					ns.log("Processing widget:", definition.name, "on element:", element.tagName + "#" + (element.id || "--no--id--"));
-					//>>excludeEnd("tauDebug");
-					widgetInstance.configure(definition, element, options);
-
-					// Run .create method from widget options when a [widgetName]create event is triggered
-					if (typeof createFunction === TYPE_FUNCTION) {
-						eventUtils.one(element, definition.name.toLowerCase() + "create", createFunction);
+				if (widgetInstance) {
+					if (!parentEnhance.length) {
+						coreProcessWidget(element, widgetInstance, definition, options);
 					}
-
-					if (element.id) {
-						widgetInstance.id = element.id;
-					}
-
-					// Check if this type of widget was build for this element before
-					buildAttribute = element.getAttribute(DATA_BUILT);
-					if (!buildAttribute || (buildAttribute && buildAttribute.split(NAMES_SEPARATOR).indexOf(widgetInstance.name) === -1)) {
-						element = widgetInstance.build(element);
-					}
-
-					if (element) {
-						widgetInstance.element = element;
-
-						setBinding(widgetInstance);
-
-						widgetInstance.trigger(eventType.WIDGET_BUILT, widgetInstance, false);
-
-						if (!justBuild) {
-							widgetInstance.init(element);
-						}
-
-						widgetInstance.bindEvents(element, justBuild);
-
-						widgetInstance.trigger(widgetInstance.widgetEventPrefix + eventType.WIDGET_INIT);
-						widgetInstance.trigger(eventType.WIDGET_BOUND, widgetInstance, false);
-						eventUtils.trigger(document, eventType.WIDGET_BOUND, widgetInstance);
-					} else {
-						//>>excludeStart("tauDebug", pragmas.tauDebug);
-						ns.error("There was problem with building widget " + widgetInstance.widgetName + " on element with id " + widgetInstance.id + ".");
-						//>>excludeEnd("tauDebug");
-					}
+					return widgetInstance.element;
 				}
-				return widgetInstance.element;
 			}
 
 			/**
