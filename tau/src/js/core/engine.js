@@ -135,7 +135,6 @@
 				 * @static
 				 * @member ns.engine
 				 */
-					// @TODO this selector is not valid ...
 				querySelectorWidgets = "*[" + DATA_BUILT + "][" + DATA_NAME + "]:not([" + DATA_BOUND + "])",
 				/**
 				 * @method excludeBuildAndBound
@@ -1113,9 +1112,6 @@
 				getBinding: getBinding,
 				getAllBindings: getAllBindings,
 				setBinding: setBinding,
-				// @TODO either rename or fix functionally because
-				// this method does not only remove binding but
-				// actually destroys widget
 				removeBinding: removeBinding,
 				removeAllBindings: removeAllBindings,
 
