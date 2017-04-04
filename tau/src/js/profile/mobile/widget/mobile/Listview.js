@@ -566,8 +566,12 @@
 					context = self._context,
 					// color step to modify colors
 					step = self._colorStep,
-					// top on screen of listview
-					top = element.getBoundingClientRect().top,
+					// list rectangle
+					rectangleList = element.getBoundingClientRect(),
+					// top position of listview on screen
+					listTop = rectangleList.top,
+					// left position of listview on screen
+					listLeft = rectangleList.left,
 					// get scroll top
 					scrollableContainer = self._scrollableContainer,
 					scrollTop = scrollableContainer ? scrollableContainer.scrollTop : 0,
@@ -587,9 +591,10 @@
 						liElement = getNextVisible(elements);
 						rectangle.height = calculateElementHeight(liElement, rectangle);
 						// check that element is visible (can be partialy visible)
-						if (ceil(rectangle.top - top + rectangle.height) >= scrollTop) {
+						if (ceil(rectangle.top - listTop + rectangle.height) >= scrollTop) {
 							// adjust height for first element
 							rectangle.height += topOffset;
+							rectangle.left -= listLeft;
 							topOffset = 0;
 
 							rectangle.top = previousTop;
