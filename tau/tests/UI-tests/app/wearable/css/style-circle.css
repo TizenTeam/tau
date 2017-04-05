@@ -1022,27 +1022,21 @@ input[type="checkbox"]#checkboxControl {
 }
 
 /* -------------Progress sample page-----------*/
-#pageCircleProgressBar .ui-footer {
+.circle-progress-page .ui-footer {
 	display: none;
 }
 
-#pageCircleProgressBar .result {
+.circle-progress-page .result {
 	font-size: 35px;
 }
 
 /* -------------Small progress sample page-----------*/
-#pageSmallCircleProgressBar .ui-footer {
+.circle-progress-page .progress-buttons {
 	display: none;
 }
 
-#pageSmallCircleProgressBar .result {
-	-webkit-transform: translate(0, -70%);
-	transform: translate(0, -70%);
-}
-
-#pageSmallCircleProgressBar .ui-progressbar-small {
-	-webkit-transform: translate(0, -70%);
-	transform: translate(0, -70%);
+.circle-progress-page .ui-header {
+	display: none;
 }
 
 /* -------------Rotary Event-----------*/
@@ -1080,86 +1074,43 @@ input[type="checkbox"]#checkboxControl {
 	background-color: rgba(22, 165, 217, 1);
 }
 
-.delete-icon::before {
-	position: absolute;
-	content: "";
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	-webkit-mask-image: url(./images/b_more_option_delete_icon.png);
-	mask-image: url(./images/b_more_option_delete_icon.png);
-	-webkit-mask-size: 100% 100%;
-	mask-size: 100% 100%;
-	background-color: rgba(15, 15, 15, 1);
-	-webkit-mask-repeat: no-repeat;
-	mask-repeat: no-repeat;
-}
-
-.human-icon::before {
-	position: absolute;
-	content: "";
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	-webkit-mask-image: url(./images/b_more_option_human_icon.png);
-	mask-image: url(./images/b_more_option_human_icon.png);
-	-webkit-mask-size: 100% 100%;
-	mask-size: 100% 100%;
-	background-color: rgba(15, 15, 15, 1);
-	-webkit-mask-repeat: no-repeat;
-	mask-repeat: no-repeat;
-}
-
-.show-icon::before {
-	position: absolute;
-	content: "";
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	-webkit-mask-image: url(./images/b_more_option_show_on_device_icon.png);
-	mask-image: url(./images/b_more_option_show_on_device_icon.png);
-	-webkit-mask-size: 100% 100%;
-	mask-size: 100% 100%;
-	background-color: rgba(15, 15, 15, 1);
-	-webkit-mask-repeat: no-repeat;
-	mask-repeat: no-repeat;
-}
-
-.x-icon::before {
-	position: absolute;
-	content: "";
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	-webkit-mask-image: url(./images/tw_toast_popup_delete.png);
-	mask-image: url(./images/tw_toast_popup_delete.png);
-	-webkit-mask-size: 100% 100%;
-	mask-size: 100% 100%;
-	background-color: rgba(15, 15, 15, 1);
-	-webkit-mask-repeat: no-repeat;
-	mask-repeat: no-repeat;
-}
-
-.fail-icon::before {
-	position: absolute;
-	content: "";
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	-webkit-mask-image: url(./images/tw_toast_popup_fail.png);
-	mask-image: url(./images/tw_toast_popup_fail.png);
-	-webkit-mask-size: 100% 100%;
-	mask-size: 100% 100%;
-	background-color: rgb(8, 8, 8);
-	-webkit-mask-repeat: no-repeat;
-	mask-repeat: no-repeat;
-}
-
 #slider-icon {
 	background: url(images/b_slider_btn_bg.png) no-repeat center center;
+}
+
+/* ------------------------ Empty State ----------------------- */
+
+.ui-empty-state-add-item .app-icon-add-item {
+	background-color: rgba(255,0,255,0.5);
+}
+
+.ui-empty-state-add-item .app-icon-add-item::after {
+	background-color: rgba(255,255,255,1);
+	-webkit-mask-image: url(images/b_more_option_human_icon.png);
+	-webkit-mask-position: center center;
+	-webkit-mask-repeat: no-repeat;
+}
+/* -------------------------styles used in multipleButton.html-------------------*/
+
+#moreButtonPopup {
+	background-color: rgba(255, 255, 255, 0.1);
+	-webkit-mask-image: -webkit-radial-gradient(black 71%,transparent 0);
+	background-image: none;
+}
+
+#moreButtonPopup .ui-popup-wrapper::after {
+	content: none;
+}
+
+#bottomButtonWithMorePage .ui-footer.ui-bottom-button a + a {
+	display: none;
+}
+
+.ui-grid-col-3.ui-bottom-button a {
+	width: 100%;
+}
+/* ------------------------ Etc ----------------------- */
+
+#page_webkitui input {
+	max-width: 300px;
 }

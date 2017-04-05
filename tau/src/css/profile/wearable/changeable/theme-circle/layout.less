@@ -18,9 +18,9 @@ body {
 .ui-page {
 
 	.ui-header {
-		.display-flex();
-		.flex-direction(column);
-		.justify-content(center);
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-end;
 		height: 92 * @unit_base;
 		line-height: @fixed_header_line_height;
 		background-color: transparent;
@@ -29,19 +29,28 @@ body {
 
 		&.ui-header-medium {
 			margin-top: 12 * @unit_base;
+			.ui-title {
+				margin-bottom: 14 * @unit_base;
+			}
+			.ui-subtitle {
+				margin-top: -7 * @unit_base;
+			}
 		}
 
 		&.ui-header-small {
 			margin-top: 2 * @unit_base;
+			.ui-title {
+				margin-bottom: 4 * @unit_base;
+			}
+			.ui-subtitle {
+				margin-top: 3 * @unit_base;
+			}
 		}
 		&.ui-header-smaller {
 			margin-top: 2 * @unit_base;
 			height: 81 * @unit_base;
 			display: flex;
 			justify-content: flex-end;
-			.ui-title {
-				margin-bottom: 5 * @unit_base;
-			}
 		}
 		&.ui-header-big {
 			height: 94 * @unit_base;
@@ -49,11 +58,11 @@ body {
 
 		.ui-title {
 			color: @color_actionbar_title_text;
-			margin: 14 * @unit_base 64 * @unit_base;
+			margin: 14 * @unit_base 64 * @unit_base 25 * @unit_base;
 			padding-left: 0;
 			padding-right: 0;
 			font-size: @fixed_header_title_font_size;
-			-webkit-mask-image: none;
+			mask-image: none;
 			&.ui-icon {
 				background: none !important;
 				padding-left: 24 * @unit_base;
@@ -67,14 +76,14 @@ body {
 			color: @color_actionbar_subtitle_text;
 			font-size: 24 * @unit_base;
 			font-weight: normal;
-			margin: -7 * @unit_base 35 * @unit_base 0;
+			margin: -18 * @unit_base 35 * @unit_base 0;
 			line-height: 32 * @unit_base;
 		}
 
 		&.ui-has-more {
 			.ui-title {
 				padding-right: 24 * @unit_base;
-				-webkit-mask-image: none;
+				mask-image: none;
 			}
 			.ui-more {
 				position: fixed;
@@ -86,11 +95,11 @@ body {
 				border: 0 none;
 				padding: 0;
 				&.ui-icon-overflow {
-					.mask-image();
-					.mask-position(initial);
+					mask-image: none;
+					mask-position: initial;
 					background-color: transparent;
 					&[disabled="disabled"] {
-						.mask-position(initial);
+						mask-position: initial;
 					}
 					&:active {
 						background-color: transparent;

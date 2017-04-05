@@ -41,6 +41,7 @@
 			readTextFile("app/" + profile + "/screenshots.json", function (text) {
 				var tests = JSON.parse(text);
 
+				// filter tests if defined
 				if (testName) {
 					tests = tests.filter(function (item) {
 						return item.name === testName;
@@ -53,13 +54,13 @@
 						this.addMatchers(imagediff.jasmine);
 					});
 
-					tests.forEach(function (testName) {
-						it("should be the same image" + testName.name, function () {
+					tests.forEach(function (testCase) {
+						it("should be the same image" + testCase.name, function () {
 							var a = new Image(),
 								b = new Image();
 
-							a.src = "images/" + profile + "/" + testName.name + ".png";
-							b.src = "result/" + profile + "/" + testName.name + ".png";
+							a.src = "images/" + profile + "/" + testCase.name + ".png";
+							b.src = "result/" + profile + "/" + testCase.name + ".png";
 
 							waitsFor(function () {
 								return a.complete & b.complete;

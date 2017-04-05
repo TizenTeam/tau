@@ -1,38 +1,38 @@
 [
   {
     "name": "18-header-title",
-    "time": 5000,
+    "time": 0,
     "width": 360,
     "height": 360
   },
   {
     "name": "18-header-title-sub",
-    "time": 5000,
+    "time": 3000,
     "width": 360,
     "height": 360
   },
   {
     "name": "19-header-title-3-lines",
-    "time": 5000,
+    "time": 3000,
     "width": 360,
     "height": 360
   },
   {
     "name": "19-header-title-4-lines",
-    "time": 5000,
+    "time": 3000,
     "width": 360,
     "height": 360
   },
   {
     "name": "19-header-title-sub-3-lines",
-    "time": 5000,
+    "time": 3000,
     "width": 360,
     "height": 360
   }
 ,
   {
     "name": "19-header-title-sub-4-lines",
-    "time": 5000,
+    "time": 3000,
     "width": 360,
     "height": 360
   }

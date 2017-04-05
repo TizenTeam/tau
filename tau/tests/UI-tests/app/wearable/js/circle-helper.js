@@ -1,6 +1,6 @@
 /*global tau */
 /*jslint unparam: true */
-(function(tau) {
+(function (tau) {
 	/**
 	 * page - Active page element
 	 * list - NodeList object for lists in the page
@@ -9,7 +9,8 @@
 	var page,
 		list,
 		listHelper = [],
-		i, len;
+		i,
+		len;
 
 	// This logic works only on circular device.
 	if (tau.support.shape.circle) {
@@ -19,16 +20,10 @@
 		 */
 		document.addEventListener("pagebeforeshow", function (e) {
 			page = e.target;
-			list = page.querySelectorAll(".ui-listview:not(.select-mode-btn-list)");
-			if (list) {
-				/**
-				 * Some pages don't use snap list.
-				 */
-				if (page.id !== "pageMarqueeList" && page.id !== "pageTestVirtualList" && page.id !== "pageAnimation") {
-					len = list.length;
-					for (i = 0; i < len; i++) {
-						listHelper[i] = tau.helper.SnapListStyle.create(list[i], {animate: "scale"});
-					}
+			if (page.id !== "page-snaplistview" && page.id !== "page-swipelist") {
+				list = page.querySelector(".ui-listview");
+				if (list) {
+					listHelper.push(tau.widget.Listview(list));
 				}
 			}
 		});

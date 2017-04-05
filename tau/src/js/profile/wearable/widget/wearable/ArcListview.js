@@ -297,7 +297,7 @@
 					duration: 0,
 					progress: 0,
 					scroll: {
-						current: 0,
+						current: 10,
 						from: null,
 						to: null
 					},

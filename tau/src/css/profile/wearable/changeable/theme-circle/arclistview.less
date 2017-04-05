@@ -36,6 +36,15 @@
 			opacity: 1;
 		}
 	}
+	li {
+		&:last-child {
+			margin-bottom: 11 * @unit_base;
+		}
+
+		~ li {
+			margin-top: 11 * @unit_base;
+		}
+	}
 }
 
 .ui-arc-listview, .ui-arc-listview-carousel {
@@ -61,14 +70,13 @@
 				margin-top: 0;
 			}
 		}
+	}
+}
 
-		&:last-child {
-			margin-bottom: 11 * @unit_base;
-		}
-
-		~ li {
-			margin-top: 11 * @unit_base;
-		}
+.ui-arc-listview-carousel {
+	/* disable some unnecessary listview styles */
+	.ui-listview {
+		padding-bottom: 0;
 	}
 }
 

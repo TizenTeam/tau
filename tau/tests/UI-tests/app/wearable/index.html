@@ -3,7 +3,7 @@
 <head>
 	<meta name="viewport" content="width=device-width,user-scalable=no"/>
 	<link rel="stylesheet" href="lib/tau/wearable/theme/default/tau.css">
-	<link rel="stylesheet" href="lib/tau/wearable/theme/default/tau.circle.min.css">
+	<link rel="stylesheet" href="lib/tau/wearable/theme/default/tau.circle.css">
 	<link rel="stylesheet" href="./css/fonts.css">
 	<link rel="stylesheet" href="./css/style.css">
 	<link rel="stylesheet" href="./css/style-circle.css">
@@ -29,28 +29,44 @@
 			rawFile.send(null);
 		}
 
-		var interval = 0;
+		var interval = 0,
+			timeoutHandler = 0,
+			FIRST_DELAY = 1000;
 
 		readTextFile("test.txt", function(testName) {
 			readTextFile("screenshots.json", function (text) {
 				var tests = JSON.parse(text),
-						first = true;
+					testCase = {},
+					first = true,
+					startTestCase = function () {
+						var dir = first ? '' : '../';
+
+						first = false;
+
+						if (testCase) {
+							tau.changePage(dir + 'tests/' + testCase.name +
+								'.html');
+							// prepare next test case
+							testCase = tests.shift();
+							if (testCase) {
+								timeoutHandler = setTimeout(
+									startTestCase,
+									parseInt(testCase.time, 10)
+								);
+							}
+						} else {
+							clearTimeout(timeoutHandler);
+						}
+					};
+
 				if (testName) {
 					tests = tests.filter(function (item) {
 						return item.name === testName;
 					});
 				}
-				interval = setInterval(function () {
-					var test = tests.shift(),
-							dir = first ? '' : '../';
-					first = false;
-					if (test) {
-						tau.changePage(dir + 'tests/' + test.name +
-								'.html');
-					} else {
-						clearInterval(interval);
-					}
-				}, 3000);
+
+				testCase = tests.shift();
+				timeoutHandler = setTimeout(startTestCase, FIRST_DELAY);
 			});
 		});
 
