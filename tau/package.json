@@ -59,6 +59,9 @@
     "eslint-plugin-jsdoc": "^2.4.0",
     "grunt-karma": "^2.0.0",
     "jenkins": "^0.20.0",
-    "sloc": "^0.2.0"
+    "jira-connector": "^2.6.0",
+    "moment": "^2.18.1",
+    "sloc": "^0.2.0",
+    "sonarqube-scanner": "^1.0.0"
   }
 }

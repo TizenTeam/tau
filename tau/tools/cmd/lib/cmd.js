@@ -41,14 +41,17 @@ var exec = require("child_process").exec,
 					exec(
 						command,
 						function (err, data, stderr) {
-							// when command return code different from 0 then display it and finish
-							if (err) {
-								console.error("exec error: " + err);
-								process.exit(err);
-							}
 							// if stderr is not empty then display it
 							if (stderr) {
 								console.error(stderr);
+							}
+							// when command return code different from 0 then display it and finish
+							if (err) {
+								if (data) {
+									console.log(data);
+								}
+								console.error("exec error: " + err);
+								process.exit(err);
 							}
 							// if process callback is defined then process it with stdout
 							if (processFunction) {
