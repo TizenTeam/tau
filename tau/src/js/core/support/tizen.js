@@ -19,7 +19,7 @@
  * @class ns.support
  * @author Maciej Urbanski <m.urbanski@samsung.com>
  */
-(function (window, document, ns) {
+(function (window, document) {
 	"use strict";
 //>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
@@ -31,17 +31,24 @@
 			var isTizen = !(typeof tizen === "undefined");
 
 			function isCircleShape() {
-				var testDiv = document.createElement("div"),
-					fakeBody = document.createElement("body"),
-					html = document.getElementsByTagName("html")[0],
-					style = getComputedStyle(testDiv),
+				var testDivElement = document.createElement("div"),
+					fakeBodyElement = document.createElement("body"),
+					htmlElement = document.getElementsByTagName("html")[0],
+					style = getComputedStyle(testDivElement),
 					isCircle;
 
-				testDiv.classList.add("is-circle-test");
-				fakeBody.appendChild(testDiv);
-				html.insertBefore(fakeBody, html.firstChild);
+				testDivElement.classList.add("is-circle-test");
+				fakeBodyElement.appendChild(testDivElement);
+				htmlElement.insertBefore(fakeBodyElement, htmlElement.firstChild);
 				isCircle = style.width === "1px";
-				html.removeChild(fakeBody);
+				htmlElement.removeChild(fakeBodyElement);
+
+				// to support circle in  browser by additionall parameter in url
+				/* istanbul ignore if */
+				if (window.location.search === "?circle") {
+					/* istanbul ignore next: we can't test this part because set location is unsuported in test envirinmnet */
+					isCircle = true;
+				}
 
 				return isCircle;
 			}
@@ -66,11 +73,12 @@
 				},
 				gradeA: function () {
 					return true;
-				}
+				},
+				isCircleShape: isCircleShape
 			};
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return ns.support;
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
-}(window, window.document, ns));
+}(window, window.document));
