@@ -17,10 +17,20 @@ Listview
 		padding: 0;
 		min-height: 85 * @unit_base;
 		overflow: hidden;
+		align-items: center;
 
+		.ui-processing {
+			padding: 0;
+			margin-right: 8 * @unit_base;
+		}
+
+		div:first-child {
+			width: calc(~"100% - "88 * @unit_base);
+			text-align: left;
+			height: 100%;
+			margin-left: 16 * @unit_base;
+		}
 		&.ui-li-grid-full {
-			align-items: center;
-
 			.ui-btn.ui-btn-no-bg.ui-btn-icon {
 				padding: 0;
 				margin-right: 8 * @unit_base;
@@ -30,23 +40,17 @@ Listview
 				width: 56 * @unit_base;
 				height: 56 * @unit_base;
 			}
-			div {
-				width: calc(~"100% - "88 * @unit_base);
-				text-align: left;
-				height: 100%;
-				margin-left: 16 * @unit_base;
-
-				&::after {
-					content: "";
-					position: absolute;
-					height: 56 * @unit_base;
-					width: 2 * @unit_base;
-					background-color: @color_listview_upright_line;
-					right: 72 * @unit_base;
-					top: 50%;
-					transform: translate3d(0, -50%, 0);
-				}
+			div::after {
+				content: "";
+				position: absolute;
+				height: 56 * @unit_base;
+				width: 2 * @unit_base;
+				background-color: @color_listview_upright_line;
+				right: 72 * @unit_base;
+				top: 50%;
+				transform: translate3d(0, -50%, 0);
 			}
+
 			> * {
 				flex-grow: 1;
 				flex-shrink: 0;
