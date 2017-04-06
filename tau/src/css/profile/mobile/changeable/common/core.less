@@ -91,7 +91,17 @@
 .ui-bar h1, .ui-bar h2, .ui-bar h3, .ui-bar h4, .ui-bar h5, .ui-bar h6 { margin: 0; padding: 0; font-size: 16px; display: inline-block; }
 
 /*content area*/
-.ui-content { border-width: 0; overflow: visible; overflow-x: hidden;}
+.ui-content {
+	&.ui-content-padding {
+		&, &.ui-scrollview-clip {
+			padding-left: 24 * @unit_base;
+			padding-right: 24 * @unit_base;
+		}
+	}
+	border-width: 0;
+	overflow: visible;
+	overflow-x: hidden;
+}
 .ui-page-fullscreen .ui-content { padding:0; }
 
 .ui-mobile-touch-overflow.ui-native-fixed .ui-content {
