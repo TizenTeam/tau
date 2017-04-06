@@ -13,8 +13,7 @@
 		selector,
 		list,
 		currentLanguage,
-		calendarData,
-		calendarDataArea;
+		calendarData;
 
 	/**
 	 * Inserts the calendar data elements
@@ -22,7 +21,7 @@
 	 * @param {string} inp
 	 */
 	function output(inp) {
-		calendarData.appendChild(calendarDataArea).innerHTML = inp;
+		calendarData.innerHTML = "<pre>" + inp + "</pre>";
 	}
 
 	/**
@@ -137,8 +136,6 @@
 		list = document.querySelectorAll("li.test");
 		currentLanguage = document.querySelector("#currentLanguage");
 		calendarData = document.querySelector("#calendarData");
-		calendarDataArea = document.createElement("pre");
-
 	});
 
 	/**
