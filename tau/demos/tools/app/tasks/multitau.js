@@ -427,6 +427,9 @@ module.exports = function (grunt) {
 									if (!noRun) {
 										devices[profile].forEach(function (device) {
 											tasks.push(run.bind(null, device, app, debug));
+
+											// UI Tests
+											/*
 											fs.exists(app + "screenshots.json", function (exists) {
 												if (exists) {
 													var screenshots = require("../../../" + app + "screenshots.json"),
@@ -453,6 +456,23 @@ module.exports = function (grunt) {
 															});
 														}.bind(null, screenshotItem));
 													});
+												}
+												async.series(tasks, done);
+											});
+											*/
+
+											// UI Tests
+											fs.exists(app + "screenshots.json", function (exists) {
+												if (exists) {
+													var	loopTimeout = 1000,
+														nextLoop = function () {
+															setTimeout(function () {
+																checkStatus();
+																tasks.push(nextLoop);
+															}, loopTimeout);
+														};
+
+													tasks.push(nextLoop);
 												}
 												async.series(tasks, done);
 											});

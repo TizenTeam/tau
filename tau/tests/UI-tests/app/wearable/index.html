@@ -15,63 +15,7 @@
 </head>
 
 <body>
-	<script>
-		function readTextFile(file, callback) {
-			var rawFile = new XMLHttpRequest();
-			rawFile.overrideMimeType("application/json");
-			rawFile.open("GET", file, true);
-			rawFile.onreadystatechange = function() {
-				if (rawFile.readyState === 4 && (rawFile.status == "200" ||
-						rawFile.status === 0)) {
-					callback(rawFile.responseText);
-				}
-			};
-			rawFile.send(null);
-		}
-
-		var interval = 0,
-			timeoutHandler = 0,
-			FIRST_DELAY = 1000;
-
-		readTextFile("test.txt", function(testName) {
-			readTextFile("screenshots.json", function (text) {
-				var tests = JSON.parse(text),
-					testCase = {},
-					first = true,
-					startTestCase = function () {
-						var dir = first ? '' : '../';
-
-						first = false;
-
-						if (testCase) {
-							tau.changePage(dir + 'tests/' + testCase.name +
-								'.html');
-							// prepare next test case
-							testCase = tests.shift();
-							if (testCase) {
-								timeoutHandler = setTimeout(
-									startTestCase,
-									parseInt(testCase.time, 10)
-								);
-							}
-						} else {
-							clearTimeout(timeoutHandler);
-						}
-					};
-
-				if (testName) {
-					tests = tests.filter(function (item) {
-						return item.name === testName;
-					});
-				}
-
-				testCase = tests.shift();
-				timeoutHandler = setTimeout(startTestCase, FIRST_DELAY);
-			});
-		});
-
-
-	</script>
+	<script type="text/javascript" src="lib/tau-test-engine.js"></script>
 	<script type="text/javascript" src="lib/tau/wearable/js/tau.js" data-build-remove="false"></script>
 	<script type="text/javascript" src="js/circle-helper.js"></script>
 </body>
