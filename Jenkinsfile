@@ -34,9 +34,7 @@ pipeline {
             steps {
                 echo 'Testing..'
                 dir ('tau') {
-                    sh "npm install"
-                    sh "npm install grunt-cli"
-                    sh "node_modules/grunt-cli/bin/grunt test -f"
+                    sh "node_modules/grunt-cli/bin/grunt test ui-tests-junit -f"
                     junit 'report/**/*.xml'
                 }
             }
@@ -63,8 +61,6 @@ pipeline {
             steps {
                 echo 'Generating docs..'
                 dir ('tau') {
-                    sh "npm install"
-                    sh "npm install grunt-cli"
                     sh "node_modules/grunt-cli/bin/grunt docs -f"
                     sh "mkdir -p docs/sdk"
                 }
@@ -87,6 +83,9 @@ pipeline {
                     sh "cp -a dist/wearable/* artifacts/dist/wearable/"
                     sh "cp -a dist/wearable/theme/changeable artifacts/dist/wearable/theme/default"
                     sh "cp -a docs/sdk artifacts/"
+                    sh "cp -a report artifacts/"
+                    sh "cp -a tests/UI-tests/diff artifacts/"
+                    sh "cp -a tests/UI-tests/result artifacts/"
                     sh "mv artifacts /usr/share/nginx/html/${BUILD_TAG}"
                 }
             }
@@ -132,6 +131,31 @@ pipeline {
                 }
                 try {
                     jiraAddComment comment: "Build success ${JIRAMESSAGE}", idOrKey: "${JIRAID}", site: 'SRPOL'
+                    def transitionInput =
+                        [
+                            "update": [
+                                "comment": [
+                                    [
+                                        "add": [
+                                            "body": "Bug has been fixed."
+                                        ]
+                                    ]
+                                ]
+                            ],
+                            "transition": [
+                                "id": "5",
+                                "fields": [
+                                    "assignee": [
+                                        "name": "unassigned"
+                                    ],
+                                    "resolution": [
+                                        "name": "Fixed"
+                                    ]
+                                ]
+                            ]
+                        ]
+
+                        jiraTransitionIssue idOrKey: "${JIRAID}", input: transitionInput
                 }
                 catch (e) {
                     echo "${e}"

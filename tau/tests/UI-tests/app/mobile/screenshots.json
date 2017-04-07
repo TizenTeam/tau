@@ -110,7 +110,8 @@
   },
   {
     "name": "86-progress",
-    "time": 3000
+    "time": 3000,
+    "pass": true
   },
   {
     "name": "88-activity",
@@ -181,7 +182,7 @@
     "height": 429
   },
   {
-    "name": "142-popup-2-buttons-list",
+    "name": "143-popup-2-buttons-list",
     "time": 3000,
     "width": 241,
     "height": 429
@@ -334,24 +335,25 @@
     "name": "T01-single-page",
     "time": 3000,
     "width": 720,
-    "height": 1280
+    "height": 1280,
+    "pass": true
   },
   {
     "name": "T02-navigation-view-1",
     "time": 3000,
-    "width": 720,
-    "height": 1280
+    "width": 360,
+    "height": 640
   },
   {
     "name": "T02-navigation-view-2",
     "time": 3000,
-    "width": 720,
-    "height": 1280
+    "width": 360,
+    "height": 640
   },
   {
-    "name": "T03-navigation-view-3",
+    "name": "T02-navigation-view-3",
     "time": 3000,
-    "width": 720,
-    "height": 1280
+    "width": 360,
+    "height": 640
   }
 ]

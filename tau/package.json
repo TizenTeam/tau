@@ -59,6 +59,7 @@
     "eslint-plugin-jsdoc": "^2.4.0",
     "grunt-karma": "^2.0.0",
     "grunt-run": "^0.6.0",
+    "image-diff": "^1.6.3",
     "jenkins": "^0.20.0",
     "jira-connector": "^2.6.0",
     "moment": "^2.18.1",

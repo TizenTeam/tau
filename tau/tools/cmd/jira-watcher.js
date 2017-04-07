@@ -156,7 +156,7 @@ function checkProgress(issue, cb) {
 						regexResult;
 
 					// search jenkins comment
-					if (comment.body.indexOf("Automatically created by: [~anonymous] from") > -1) {
+					if (comment.body.indexOf("Automatically created by: [~anonymous] from [Build URL|http://amdc2685:8000/job/TAUgerrit") > -1) {
 						// find existing links
 						jira.issue.getRemoteLinks({
 							issueKey: issue.key

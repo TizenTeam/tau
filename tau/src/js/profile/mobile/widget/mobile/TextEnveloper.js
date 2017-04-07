@@ -102,7 +102,8 @@
 			"../../../../core/event",
 			"../../../../core/widget/core/Page",
 			"../mobile",
-			"../mobile/BaseWidgetMobile"
+			"../mobile/BaseWidgetMobile",
+			"./TextInput"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
@@ -227,7 +228,8 @@
 					title = element.querySelector("." + classes.TEXT_ENVELOPER_START),
 					//if title is defined (usually its described as To, Cc, Bcc)
 					//then place it in the proper position
-					tempTitle = (title) ? title.cloneNode(true) : null;
+					tempTitle = (title) ? title.cloneNode(true) : null,
+					textLineElement;
 
 				element.classList.add(classes.TEXT_ENVELOPER);
 				input.classList.add(classes.TEXT_ENVELOPER_INPUT);
@@ -241,7 +243,10 @@
 				engine.instanceWidget(input, "TextInput");
 				ui.inputElement = input;
 				ui.buttons = [];
-				element.removeChild(document.querySelector("." + classes.TEXT_ENVELOPER_TEXTLINE));
+
+				textLineElement = element.querySelector("." + classes.TEXT_ENVELOPER_TEXTLINE);
+				textLineElement.parentElement.removeChild(textLineElement);
+
 				return element;
 			};
 
@@ -627,7 +632,7 @@
 			);
 
 //>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
-			return ns.widget.mobile.TextEnveloper;
+			return TextEnveloper;
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
