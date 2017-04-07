@@ -335,5 +335,23 @@
     "time": 3000,
     "width": 720,
     "height": 1280
+  },
+  {
+    "name": "T02-navigation-view-1",
+    "time": 3000,
+    "width": 720,
+    "height": 1280
+  },
+  {
+    "name": "T02-navigation-view-2",
+    "time": 3000,
+    "width": 720,
+    "height": 1280
+  },
+  {
+    "name": "T03-navigation-view-3",
+    "time": 3000,
+    "width": 720,
+    "height": 1280
   }
 ]
