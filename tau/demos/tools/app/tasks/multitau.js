@@ -6,6 +6,7 @@ var fs = require("fs"),
 	xml2js = require("xml2js"),
 	child = require("child_process"),
 	async = require("async"),
+	uiTest = require("../../../../tools/cmd/lib/ui-tests"),
 	deviceSizes = {
 		mobile: "720x1280",
 		wearable: "360x360"
@@ -464,15 +465,18 @@ module.exports = function (grunt) {
 											// UI Tests
 											fs.exists(app + "screenshots.json", function (exists) {
 												if (exists) {
-													var	loopTimeout = 1000,
-														nextLoop = function () {
-															setTimeout(function () {
-																checkStatus();
-																tasks.push(nextLoop);
-															}, loopTimeout);
-														};
+													var screenshots = require("../../../" + app + "screenshots.json");
 
-													tasks.push(nextLoop);
+													tasks.push(function (next) {
+														uiTest.config({
+															screenshots: screenshots,
+															app: app,
+															profile: profile,
+															globalAppId: globalAppId,
+															device: device
+														});
+														uiTest.run(next);
+													});
 												}
 												async.series(tasks, done);
 											});
@@ -490,5 +494,4 @@ module.exports = function (grunt) {
 			));
 		});
 	});
-}
-;
+};

@@ -266,7 +266,7 @@
   },
   {
     "name": "162-floating-button-6",
-    "time": 3000,
+    "time": 5000,
     "width": 156,
     "height": 277
   },
@@ -278,7 +278,7 @@
   },
   {
     "name": "163-floating-button-8",
-    "time": 3000,
+    "time": 5000,
     "width": 241,
     "height": 428
   },
