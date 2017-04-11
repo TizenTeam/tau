@@ -1,5 +1,3 @@
-/*global window, define, ns, Math*/
-/*jslint nomen: true, plusplus: true */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
  *
@@ -16,6 +14,7 @@
  * limitations under the License.
  *
  */
+/*global window, define, ns, Math*/
 /**
  * #ArcListview Widget
  *
@@ -45,7 +44,7 @@
 				Listview = nsWidget.core.Listview,
 				Page = nsWidget.core.Page,
 				eventUtils = ns.event,
-
+				slice = [].slice,
 				// consts
 				ELLIPSIS_A = 180,
 				ELLIPSIS_B = 180,
@@ -421,6 +420,7 @@
 						self.trigger(events.CHANGE, {
 							"selected": state.currentIndex
 						});
+						eventUtils.trigger(state.items[state.currentIndex].element, "selected");
 						state.toIndex = state.currentIndex;
 
 						scroll.to = null;
@@ -460,6 +460,12 @@
 				}
 			};
 
+			/**
+			 * Draw widget
+			 * @method _draw
+			 * @protected
+			 * @memberof ns.widget.wearable.ArcListview
+			 */
 			prototype._draw = function () {
 				var self = this,
 					state = self._state,
@@ -495,6 +501,12 @@
 				}
 			};
 
+			/**
+			 * Render widget
+			 * @method _render
+			 * @protected
+			 * @memberof ns.widget.wearable.ArcListview
+			 */
 			prototype._render = function () {
 				var self = this,
 					state = self._state;
@@ -509,7 +521,14 @@
 				}
 			};
 
-			// find closer item for given "y" position
+			/**
+			 * Find closer item for given "y" position
+			 * @method _findItemIndexByY
+			 * @param {number} y
+			 * @return {number}
+			 * @protected
+			 * @memberof ns.widget.wearable.ArcListview
+			 */
 			prototype._findItemIndexByY = function (y) {
 				var items = this._state.items,
 					len = items.length,
@@ -540,6 +559,12 @@
 				return tempIndex;
 			};
 
+			/**
+			 * Refresh method
+			 * @method _refresh
+			 * @memberof ns.widget.wearable.ArcListview
+			 * @protected
+			 */
 			prototype._refresh = function () {
 				var self = this,
 					state = self._state,
@@ -600,6 +625,12 @@
 				}
 			};
 
+			/**
+			 * Redraw list after roll down/up
+			 * @method _roll
+			 * @memberof ns.widget.wearable.ArcListview
+			 * @protected
+			 */
 			prototype._roll = function () {
 				var self = this,
 					state = self._state,
@@ -675,6 +706,13 @@
 				}
 			};
 
+			/**
+			 * Handler for event touch start
+			 * @method _onTouchStart
+			 * @param {Event} event
+			 * @memberof ns.widget.wearable.ArcListview
+			 * @protected
+			 */
 			prototype._onTouchStart = function (event) {
 				var self = this,
 					touch = event.changedTouches[0],
@@ -695,6 +733,13 @@
 				self._carouselUpdate(state.currentIndex);
 			};
 
+			/**
+			 * Handler for event touch move
+			 * @method _onTouchMove
+			 * @param {Event} event
+			 * @memberof ns.widget.wearable.ArcListview
+			 * @protected
+			 */
 			prototype._onTouchMove = function (event) {
 				var self = this,
 					state = self._state,
@@ -737,6 +782,13 @@
 				}
 			};
 
+			/**
+			 * Handler for event touch end
+			 * @method _onTouchEnd
+			 * @param {Event} event
+			 * @memberof ns.widget.wearable.ArcListview
+			 * @protected
+			 */
 			prototype._onTouchEnd = function (event) {
 				var touch = event.changedTouches[0],
 					self = this,
@@ -764,12 +816,26 @@
 				}
 			};
 
+			/**
+			 * Handler for event select
+			 * @method _selectItem
+			 * @param {number} selectedIndex
+			 * @memberof ns.widget.wearable.ArcListview
+			 * @protected
+			 */
 			prototype._selectItem = function (selectedIndex) {
 				this._ui.arcListviewSelection.style.height = this._state.items[selectedIndex].height + "px";
 				this._ui.arcListviewSelection.classList.add(classes.SELECTION_SHOW);
 				this._state.items[selectedIndex].element.classList.add(classes.SELECTED);
 			};
 
+			/**
+			 * Handler for change event
+			 * @method _onChange
+			 * @param {Event} event
+			 * @memberof ns.widget.wearable.ArcListview
+			 * @protected
+			 */
 			prototype._onChange = function (event) {
 				var selectedIndex = event.detail.selected,
 					unselectedIndex = event.detail.unselected,
@@ -785,6 +851,13 @@
 				}
 			};
 
+			/**
+			 * Handler for click event
+			 * @method _onClick
+			 * @param {Event} event
+			 * @memberof ns.widget.wearable.ArcListview
+			 * @protected
+			 */
 			prototype._onClick = function (event) {
 				var self = this,
 					target = event.target,
@@ -842,6 +915,13 @@
 				return arcListviewCarousel;
 			}
 
+			/**
+			 * Widget build method
+			 * @method _build
+			 * @param {HTMLElement} element
+			 * @memberof ns.widget.wearable.ArcListview
+			 * @protected
+			 */
 			prototype._build = function (element) {
 				var self = this,
 					arcListviewCarousel,
@@ -850,27 +930,32 @@
 					ui = self._ui,
 					carousel = self._carousel;
 
-				// find outer parent elements
-				page = selectorsUtil.getClosestBySelector(element, selectors.PAGE);
-				scroller = selectorsUtil.getClosestBySelector(element, selectors.SCROLLER);
+				if (!engine.getBinding(element, "SnapListview")) {
+					// find outer parent elements
+					page = selectorsUtil.getClosestBySelector(element, selectors.PAGE);
+					scroller = selectorsUtil.getClosestBySelector(element, selectors.SCROLLER);
 
-				element.classList.add(WIDGET_CLASS);
+					element.classList.add(WIDGET_CLASS);
 
-				// find list elements with including group indexes
-				self._items = page.querySelectorAll(selectors.ITEMS);
+					// find list elements with including group indexes
+					self._items = slice.call(page.querySelectorAll(selectors.ITEMS)) || [];
 
-				ui.arcListviewSelection = buildArcListviewSelection(page);
-				arcListviewCarousel = buildArcListviewCarousel(carousel);
-				ui.arcListviewCarousel = arcListviewCarousel;
+					ui.arcListviewSelection = buildArcListviewSelection(page);
+					arcListviewCarousel = buildArcListviewCarousel(carousel);
+					ui.arcListviewCarousel = arcListviewCarousel;
 
-				// append carousel outside scroller element
-				scroller.parentElement.appendChild(arcListviewCarousel);
+					// append carousel outside scroller element
+					scroller.parentElement.appendChild(arcListviewCarousel);
 
-				// cache HTML elements
-				ui.page = page;
-				ui.scroller = scroller;
+					// cache HTML elements
+					ui.page = page;
+					ui.scroller = scroller;
+					return element;
+				} else {
+					ns.warn("Can't create Listview on SnapListview element");
+					return null;
+				}
 
-				return element;
 			};
 
 			/**
@@ -982,7 +1067,7 @@
 
 				self._items.forEach(function (li) {
 					self.element.appendChild(li);
-					li.style = "";
+					li.setAttribute("style", "");
 				});
 				self._items = [];
 

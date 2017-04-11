@@ -1,4 +1,3 @@
-/*global window, define, ns */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
  *
@@ -14,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/*jslint nomen: true */
+/*global window, define, ns */
 /**
  * # SnapListview Widget
  * Shows a snap list view.
@@ -57,6 +56,7 @@
 			"../../../../core/event",
 			"../../../../core/util/DOM",
 			"../../../../core/util/selectors",
+			"../../../../core/util/scrolling",
 			"../../../../core/widget/BaseWidget",
 			"../wearable"
 		],
@@ -92,22 +92,28 @@
 				 */
 				utilSelector = ns.util.selectors,
 
-
+				/**
+				 * Triggered when scroll will be started
+				 * @event scrollstart
+				 * @member ns.widget.wearable.SnapListview
+				 */
+				/**
+				 * Triggered when scroll will be ended
+				 * @event scrollend
+				 * @member ns.widget.wearable.SnapListview
+				 */
+				/**
+				 * Triggered when selected element
+				 * @event selected
+				 * @member ns.widget.wearable.SnapListview
+				 */
 				eventType = {
-					/**
-					 * Dictionary for SnapListview related events.
-					 * @event scrollstart
-					 * @event scrollend
-					 * @event selected
-					 * @member ns.widget.wearable.SnapListview
-					 */
 					SCROLL_START: "scrollstart",
 					SCROLL_END: "scrollend",
 					SELECTED: "selected"
 				},
 
 				animationTimer = null,
-
 				SnapListview = function () {
 					var self = this;
 
@@ -120,6 +126,19 @@
 						childItems: {}
 					};
 
+					/**
+					 * Object with default options
+					 * @property {Object} options
+					 * @property {string} [options.selector=li:not(.ui-listview-divider)]
+					 * @property {string} [options.animate=none]
+					 * @property {Object} [options.scale]
+					 * @property {Object} [options.scale.from=0.67]
+					 * @property {Object} [options.scale.to=1]
+					 * @property {Object} [options.opacity]
+					 * @property {Object} [options.opacity.from=0.7]
+					 * @property {Object} [options.opacity.to=1]
+					 * @memberof ns.widget.wearable.ArcListview
+					 */
 					self.options = {
 						selector: "li:not(.ui-listview-divider)",
 						animate: "none",
@@ -160,6 +179,12 @@
 
 			SnapListview.classes = classes;
 
+			/**
+			 * Class represend one item in list
+			 * @param {HTMLElement} element list element
+			 * @param {number} visiableOffset top offset of list
+			 * @class ns.widget.wearable.SnapListview.ListItem
+			 */
 			SnapListview.ListItem = function (element, visiableOffset) {
 				var offsetTop = 0,
 					height = 0;
@@ -185,6 +210,13 @@
 			};
 
 			SnapListview.ListItem.prototype = {
+				/**
+				 * Class represent one item in list
+				 * @method animate
+				 * @param {number} offset
+				 * @param {Function} callback
+				 * @memberof ns.widget.wearable.SnapListview.ListItem
+				 */
 				animate: function (offset, callback) {
 					var element = this.element,
 						p = this.position,
@@ -252,8 +284,15 @@
 				}
 			}
 
-			function listItemAnimate(self) {
-				var anim = self.options.animate,
+			/**
+			 * Animate list items
+			 * @method _listItemAnimate
+			 * @protected
+			 * @member ns.widget.wearable.SnapListview
+			 */
+			prototype._listItemAnimate = function () {
+				var self = this,
+					anim = self.options.animate,
 					animateCallback = self._callbacks[anim],
 					scrollPosition;
 
@@ -263,7 +302,7 @@
 						item.animate(scrollPosition, animateCallback);
 					});
 				}
-			}
+			};
 
 			function scrollEndCallback(self) {
 				if (self._isTouched === false) {
@@ -291,7 +330,7 @@
 					removeSelectedClass(self);
 				}
 
-				listItemAnimate(self);
+				self._listItemAnimate();
 
 				// scrollend handler can be run only when all touches are released.
 				if (self._isTouched === false) {
@@ -331,7 +370,14 @@
 				return null;
 			}
 
-			function initSnapListview(listview) {
+			/**
+			 * Init snaplistview
+			 * @method _initSnapListview
+			 * @param {HTMLElement} listview
+			 * @protected
+			 * @member ns.widget.wearable.SnapListview
+			 */
+			prototype._initSnapListview = function (listview) {
 				var self = this,
 					ui = self._ui,
 					options = self.options,
@@ -340,33 +386,56 @@
 					visiableOffset;
 
 
-				ui.page = utilSelector.getClosestByClass(listview, "ui-page") || window;
+				// finding page  and scroller
+				ui.page = utilSelector.getClosestByClass(listview, "ui-page") || document.body;
 				scroller = getScrollableParent(listview) || ui.page;
 				scroller.classList.add(classes.SNAP_CONTAINER);
+
 				visiableOffset = scroller.clientHeight || ui.page.offsetHeight;
 
+				// init information about widget
 				ui.scrollableParent.element = scroller;
 				ui.scrollableParent.height = visiableOffset;
 
 				self._selectedIndex = null;
 
+				// init items on each element
 				[].slice.call(listview.querySelectorAll(options.selector)).forEach(function (element, index) {
 					listItems.push(new SnapListview.ListItem(element, visiableOffset, scroller));
+					// searching existing selected element
 					if (element.classList.contains(classes.SNAP_LISTVIEW_SELECTED)) {
 						self._selectedIndex = index;
 					}
 				});
 
 				self._listItems = listItems;
-				listItemAnimate(self);
-			}
+				self._listItemAnimate();
+			};
 
+			/**
+			 * Build widget
+			 * @method _build
+			 * @param {HTMLElement} element
+			 * @protected
+			 * @member ns.widget.wearable.SnapListview
+			 * return {HTMLElement}
+			 */
 			prototype._build = function (element) {
-				if (!element.classList.contains(classes.SNAP_LISTVIEW)) {
-					element.classList.add(classes.SNAP_LISTVIEW);
-				}
+				var classList = element.classList;
 
-				return element;
+				// build only if not exist listview on this element
+				if (!engine.getBinding(element, "Listview")) {
+					if (!classList.contains(classes.SNAP_LISTVIEW)) {
+						classList.add(classes.SNAP_LISTVIEW);
+					}
+					// return element to continue flow
+					return element;
+				} else {
+					// in another case display warning
+					ns.warn("Can't create SnapListview on Listview element");
+					// return element to stop flow
+					return null;
+				}
 			};
 
 			/**
@@ -408,7 +477,7 @@
 					}
 				};
 
-				initSnapListview.call(self, element);
+				self._initSnapListview(element);
 				setSelection(self);
 
 				return element;
@@ -427,12 +496,18 @@
 				var self = this,
 					element = self.element;
 
-				initSnapListview.call(self, element);
+				self._initSnapListview(element);
 				setSelection(self);
 
 				return null;
 			};
 
+			/**
+			 * Bind events
+			 * @method _bindEvents
+			 * @protected
+			 * @member ns.widget.wearable.SnapListview
+			 */
 			prototype._bindEvents = function () {
 				var self = this,
 					element = self.element,
@@ -450,6 +525,12 @@
 				element.addEventListener("vclick", self._callbacks.vclick, false);
 			};
 
+			/**
+			 * Unbind events
+			 * @method _unbindEvents
+			 * @protected
+			 * @member ns.widget.wearable.SnapListview
+			 */
 			prototype._unbindEvents = function () {
 				var self = this,
 					element = self.element,
@@ -488,6 +569,12 @@
 				return null;
 			};
 
+			/**
+			 * Enable widget
+			 * @method _enable
+			 * @protected
+			 * @member ns.widget.wearable.SnapListview
+			 */
 			prototype._enable = function () {
 				var self = this,
 					scrollableParent = self._ui.scrollableParent.element;
@@ -499,6 +586,12 @@
 				}
 			};
 
+			/**
+			 * Disable widget
+			 * @method _disable
+			 * @protected
+			 * @member ns.widget.wearable.SnapListview
+			 */
 			prototype._disable = function () {
 				var self = this,
 					scrollableParent = self._ui.scrollableParent.element;
@@ -593,6 +686,14 @@
 				return this._scrollToPosition(index);
 			};
 
+			/**
+			 * Scroll SnapList by index
+			 * @method _scrollToPosition
+			 * @param {number} index
+			 * @param {Function} callback
+			 * @protected
+			 * @member ns.widget.wearable.SnapListview
+			 */
 			prototype._scrollToPosition = function (index, callback) {
 				var self = this,
 					ui = self._ui,

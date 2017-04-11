@@ -24,7 +24,7 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../../wearable"
+			"../../core/core"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");

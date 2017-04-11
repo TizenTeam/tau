@@ -1,7 +1,7 @@
 /*global tau */
 (function (window) {
 
-	var page = document.getElementById("page-marquee-list"),
+	var page = document.getElementById("page-arc-marquee-list"),
 		elScroller,
 		listHelper;
 
@@ -21,7 +21,8 @@
 			listHelper = tau.helper.SnapListMarqueeStyle.create(list, {
 				marqueeDelay: 1000,
 				marqueeStyle: "endToEnd",
-				animate: "scale"
+				animate: "scale",
+				snapListview: false
 			});
 		}
 	});

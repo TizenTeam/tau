@@ -32,26 +32,25 @@
  *
  * ##Create widget container - list element
  *
-
- &lt;ul id=&quot;vlist&quot; class=&quot;ui-listview ui-virtuallistview&quot;&gt;&lt;/ul&gt;
-
+ *   &lt;ul id=&quot;vlist&quot; class=&quot;ui-listview ui-virtuallistview&quot;&gt;&lt;/ul&gt;
+ *
  *
  * ##Initialize widget
  *
- // Get HTML Element reference
- var elList = document.getElementById("vlist"),
- // Set up config. All config options can be found in virtual list reference
- vListConfig = {
-		dataLength: 2000,
-		bufferSize: 40,
-		listItemUpdater: function(elListItem, newIndex){
-			// NOTE: JSON_DATA is global object with all data rows.
-			var data = JSON_DATA["newIndex"];
-			elListItem.innerHTML = '<span class="ui-li-text-main">' +
-												data.NAME + '</span>';
-			}
-		};
- vlist = tau.widget.VirtualListview(elList, vListConfig);
+ *    // Get HTML Element reference
+ *    var elList = document.getElementById("vlist"),
+ *    // Set up config. All config options can be found in virtual list reference
+ *    vListConfig = {
+ *      dataLength: 2000,
+ *      bufferSize: 40,
+ *      listItemUpdater: function(elListItem, newIndex){
+ *      // NOTE: JSON_DATA is global object with all data rows.
+ *         var data = JSON_DATA["newIndex"];
+ *             elListItem.innerHTML = '<span class="ui-li-text-main">' +
+ *                       data.NAME + '</span>';
+ *      }
+ *    };
+ *    vlist = tau.widget.VirtualListview(elList, vListConfig);
  *
  * More config options can be found in {@link ns.widget.wearable.VirtualListview#options}
  *
@@ -61,13 +60,12 @@
  * pass list item update function by config option, you have to do it using following method.
  * Otherwise you will see an empty list.
  *
- *
- vlist.setListItemUpdater(function(elListItem, newIndex){
-		// NOTE: JSON_DATA is global object with all data rows.
-		var data = JSON_DATA["newIndex"];
-		elListItem.innerHTML = '<span class="ui-li-text-main">' +
-									data.NAME + '</span>';
-	});
+ *    vlist.setListItemUpdater(function(elListItem, newIndex){
+ *       // NOTE: JSON_DATA is global object with all data rows.
+ *       var data = JSON_DATA["newIndex"];
+ *           elListItem.innerHTML = '<span class="ui-li-text-main">' +
+ *                  data.NAME + '</span>';
+ *    });
  *
  * **Attention:** Virtual List manipulates DOM elements to be more efficient. It doesn’t remove or create list
  * elements before calling list item update function. It means that, you have to take care about list element
@@ -76,47 +74,48 @@
  * ##Draw child elements
  * If all configuration options are set, call draw method to draw child elements and make virtual list work.
  *
- vlist.draw();
+ *    vlist.draw();
  *
  * ##Destroy Virtual List
- * It’s highly recommended to destroy widgets, when they aren’t necessary. To destroy Virtual List call destroy method.
+ * It’s highly recommended to destroy widgets, when they aren’t necessary. To destroy Virtual List call destroy
+ * method.
  *
- vlist.destroy();
+ *    vlist.destroy();
  *
  * ##Full working code
  *
- var page = document.getElementById("pageTestVirtualList"),
- vlist,
- // Assing data.
- JSON_DATA = [
- {NAME:"Abdelnaby, Alaa", ACTIVE:"1990 - 1994", FROM:"College - Duke", TEAM_LOGO:"../test/1_raw.jpg"},
- {NAME:"Abdul-Aziz, Zaid", ACTIVE:"1968 - 1977", FROM:"College - Iowa State", TEAM_LOGO:"../test/2_raw.jpg"}
- // A lot of records.
- // These database can be found in Gear Sample Application Winset included to Tizen SDK
- ];
-
- page.addEventListener("pageshow", function() {
-			var elList = document.getElementById("vlist");
-
-			vlist = tau.widget.VirtualListview(elList, {
-					dataLength: JSON_DATA.length,
-					bufferSize: 40
-			});
-
-			// Set list item updater
-			vlist.setListItemUpdater(function(elListItem, newIndex) {
-				//TODO: Update listitem here
-				var data =  JSON_DATA[newIndex];
-				elListItem.innerHTML = '<span class="ui-li-text-main">' +
-											data.NAME + '</span>';
-			});
-			// Draw child elements
-			vlist.draw();
-		});
- page.addEventListener("pagehide", function() {
-			// Remove all children in the vlist
-			vlist.destroy();
-		});
+ *     var page = document.getElementById("pageTestVirtualList"),
+ *         vlist,
+ *         // Assing data.
+ *         JSON_DATA = [
+ *           {NAME:"Abdelnaby, Alaa", ACTIVE:"1990 - 1994", FROM:"College - Duke", TEAM_LOGO:"../test/1_raw.jpg"},
+ *           {NAME:"Abdul-Aziz, Zaid", ACTIVE:"1968 - 1977", FROM:"College - Iowa State", TEAM_LOGO:"../test/2_raw.jpg"}
+ *           // A lot of records.
+ *           // These database can be found in Gear Sample Application Winset included to Tizen SDK
+ *         ];
+ *
+ *     page.addEventListener("pageshow", function() {
+ *        var elList = document.getElementById("vlist");
+ *
+ *        vlist = tau.widget.VirtualListview(elList, {
+ *           dataLength: JSON_DATA.length,
+ *           bufferSize: 40
+ *        });
+ *
+ *        // Set list item updater
+ *        vlist.setListItemUpdater(function(elListItem, newIndex) {
+ *           //TODO: Update listitem here
+ *           var data =  JSON_DATA[newIndex];
+ *               elListItem.innerHTML = '<span class="ui-li-text-main">' +
+ *                  data.NAME + '</span>';
+ *        });
+ *        // Draw child elements
+ *        vlist.draw();
+ *     });
+ *     page.addEventListener("pagehide", function() {
+ *          // Remove all children in the vlist
+ *          vlist.destroy();
+ *        });
  *
  * @class ns.widget.wearable.VirtualListview
  * @since 2.2

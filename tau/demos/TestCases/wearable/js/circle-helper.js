@@ -20,7 +20,7 @@
 		 */
 		document.addEventListener("pagebeforeshow", function (e) {
 			page = e.target;
-			if (page.id !== "page-snaplistview" && page.id !== "page-swipelist" && page.id !== "page-marquee-list") {
+			if (page.id !== "page-marquee-list") {
 				list = page.querySelector(".ui-listview");
 				if (list) {
 					listHelper.push(tau.widget.Listview(list));

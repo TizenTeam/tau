@@ -49,7 +49,8 @@
 			"../../event",
 			"../../util/object",
 			"../../util/DOM",
-			"../BaseWidget"
+			"../BaseWidget",
+			"../core"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");

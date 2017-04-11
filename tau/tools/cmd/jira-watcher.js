@@ -78,11 +78,9 @@ function analyzeIssue(issue, cb) {
 function checkSonarCube(issue, cb) {
 	var labels = issue.fields.labels;
 	if (labels.indexOf("sonarcube-init") === -1) {
-		// @TODO run karma
-		// @TODO do project pull from git
 		sonarqubeScanner({
 			serverUrl: `http://${SERVER}:9000/`,
-			token: "1959453f4fa7c7ca1fa2e79f7afa9dd67f4bbdf3",
+			token: "b9090d13d00131fdb08527cdee02ee98e2c777fd",
 			options: {
 				"sonar.projectName": "TAU - " + issue.key,
 				"sonar.projectKey": "TAUG:" + issue.key,
@@ -156,7 +154,7 @@ function checkProgress(issue, cb) {
 						regexResult;
 
 					// search jenkins comment
-					if (comment.body.indexOf("Automatically created by: [~anonymous] from [Build URL|http://amdc2685:8000/job/TAUgerrit") > -1) {
+					if (comment.body.indexOf("Automatically created by:") > -1) {
 						// find existing links
 						jira.issue.getRemoteLinks({
 							issueKey: issue.key
@@ -183,11 +181,11 @@ function checkProgress(issue, cb) {
 								}
 
 								regexResult = gerritRegex.exec(comment.body);
-								gerritLink = regexResult[0];
+								gerritLink = regexResult ? regexResult[0] : "";
 								regexResult = artifactsRegex.exec(comment.body);
-								artifactsLink = regexResult[0];
+								artifactsLink = regexResult ? regexResult[0] : "";
 								regexResult = buildRegex.exec(comment.body);
-								buildLink = regexResult[0];
+								buildLink = regexResult ? regexResult[0] : "";
 								// add link to gerrit
 								jira.issue.updateRemoteLink({
 									issueKey: issue.key,
@@ -331,9 +329,11 @@ function searchInJIRA() {
 			if (error) {
 				console.error(error);
 			} else {
-				async.eachSeries(issues.issues, analyzeIssue, () => {
-					console.log(moment().format("MM-DD HH:mm:ss") + " Sleeping...");
-				});
+				if (issues) {
+					async.eachSeries(issues.issues, analyzeIssue, () => {
+						console.log(moment().format("MM-DD HH:mm:ss") + " Sleeping...");
+					});
+				}
 			}
 		});
 	} else {

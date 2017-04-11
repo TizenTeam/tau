@@ -1,4 +1,3 @@
-/*global window, define, ns */
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd
  *
@@ -14,8 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+/*global window, define, ns */
 /**
  * #SnapListMarqueeStyle Helper Script
+ *
  * Helper script using SnapListview and Marquee.
  * @class ns.helper.SnapListMarqueeStyle
  * @author Heeju Joo <heeju.joo@samsung.com>
@@ -28,7 +29,10 @@
 			"./SnapListStyle",
 			"../helper",
 			"../../../core/engine",
-			"../../../core/util/object"
+			"../../../core/util/object",
+			"../../../core/support/tizen",
+			"../../../core/widget/core/Marquee",
+			"../widget/wearable/Listview"
 		],
 		function () { //>>excludeEnd("tauBuildExclude");
 			var engine = ns.engine,
@@ -41,192 +45,264 @@
 					timingFunction: "linear",
 					ellipsisEffect: "gradient",
 					runOnlyOnEllipsisText: true,
-					autoRun: false
+					autoRun: false,
+					snapListview: true
 				},
 
-				SnapListMarqueeStyle = function (listDomElement, options) {
+				ListMarqueeStyle = function (listElement, options) {
 					var self = this;
 
-					self.options = objectUtils.merge({}, defaults);
+					self.options = objectUtils.fastMerge({}, defaults);
 					objectUtils.fastMerge(self.options, options);
-					self._callbacks = {};
 
-					if (window.tau.support.shape.circle) {
-						self._snapListStyleHelper = null;
-						self._selectedMarqueeWidget = null;
-						self.initCircular(listDomElement);
-					} else {
-						self._lastMarqueeWidget = null;
-						self.initRectangular();
-					}
+					self._snapListStyleHelper = null;
+					self._selectedMarqueeWidget = null;
+					self.element = listElement;
 				},
 
-				prototype = SnapListMarqueeStyle.prototype;
+				prototype = ListMarqueeStyle.prototype;
 
-			function clickHandlerForRectangular(event) {
+			/**
+			 * Handler for click event on rectangle version
+			 * @method _clickHandlerForRectangular
+			 * @param {Event} event
+			 * @protected
+			 * @member ns.helper.SnapListMarqueeStyle
+			 */
+			prototype._clickHandlerForRectangular = function (event) {
 				var self = this,
 					eventTarget = event.target,
-					lastMarqueeWidget;
+					selectedMarqueeWidget = self._selectedMarqueeWidget;
 
-				if (self._lastMarqueeWidget) {
-					lastMarqueeWidget = self._lastMarqueeWidget;
-				}
-
-				if (eventTarget.parentElement.id && lastMarqueeWidget &&
-					eventTarget.parentElement.id === lastMarqueeWidget.id) {
-					if (lastMarqueeWidget._state == "running") {
-						lastMarqueeWidget.reset();
+				if (selectedMarqueeWidget && eventTarget.parentElement === selectedMarqueeWidget.element) {
+					if (selectedMarqueeWidget._state === "running") {
+						selectedMarqueeWidget.reset();
 					} else {
-						lastMarqueeWidget.start();
+						selectedMarqueeWidget.start();
 					}
 				} else {
-					if (lastMarqueeWidget && lastMarqueeWidget._ui) {
-						lastMarqueeWidget.stop();
-						lastMarqueeWidget.reset();
-						lastMarqueeWidget.destroy();
-					}
+					this._destroyMarqueeWidget();
 
 					if (eventTarget && eventTarget.classList.contains("ui-marquee")) {
-						self._lastMarqueeWidget = new window.tau.widget.Marquee(eventTarget, self.options);
-						self._lastMarqueeWidget.start();
+						self._selectedMarqueeWidget = engine.instanceWidget(eventTarget, "Marquee", self.options);
+						self._selectedMarqueeWidget.start();
 					}
 				}
-			}
+			};
 
-			function scrollHandlerForRectangular() {
-				var	lastMarqueeWidget;
+			/**
+			 * Handler for scroll event on rectangular version
+			 * @method _scrollHandlerForRectangular
+			 * @member ns.helper.SnapListMarqueeStyle
+			 * @protected
+			 */
+			prototype._scrollHandlerForRectangular = function () {
+				this._destroyMarqueeWidget();
+			};
 
-				if (this._lastMarqueeWidget) {
-					lastMarqueeWidget = this._lastMarqueeWidget;
+			/**
+			 * Destroy Marquee widget on element
+			 * @method _destroyMarqueeWidget
+			 * @member ns.helper.SnapListMarqueeStyle
+			 * @protected
+			 */
+			prototype._destroyMarqueeWidget = function () {
+				var selectedMarqueeWidget = this._selectedMarqueeWidget;
+
+				if (selectedMarqueeWidget) {
+					selectedMarqueeWidget.stop();
+					selectedMarqueeWidget.reset();
+					selectedMarqueeWidget.destroy();
+					this._selectedMarqueeWidget = null;
 				}
-				if (lastMarqueeWidget && lastMarqueeWidget._ui) {
-					lastMarqueeWidget.stop();
-					lastMarqueeWidget.reset();
-					lastMarqueeWidget.destroy();
-					lastMarqueeWidget = null;
-				}
-			}
+			};
 
-			function destroyMarqueeWidget(self) {
-				if (self._selectedMarqueeWidget) {
-					self._selectedMarqueeWidget.destroy();
-					self._selectedMarqueeWidget = null;
-				}
-			}
-
-			function touchStartHandler() {
+			/**
+			 * Handler for touch start event
+			 * @method _touchStartHandler
+			 * @protected
+			 * @member ns.helper.SnapListMarqueeStyle
+			 */
+			prototype._touchStartHandler = function () {
 				if (this._selectedMarqueeWidget) {
 					this._selectedMarqueeWidget.reset();
 				}
-			}
-
-			function scrollEndHandler() {
-				destroyMarqueeWidget(this);
-			}
-
-			function selectedHandler(e) {
-				var self = this,
-					marquee = e.target.querySelector(".ui-marquee");
-
-				destroyMarqueeWidget(self);
-
-				if (marquee) {
-					self._selectedMarqueeWidget = engine.instanceWidget(marquee, "Marquee", self.options);
-					self._selectedMarqueeWidget.start();
-				}
-			}
-
-			prototype.initRectangular = function () {
-				var self = this,
-					clickCallbackForRectangular,
-					scrollCallbackForRectangular;
-
-				clickCallbackForRectangular = clickHandlerForRectangular.bind(self);
-				scrollCallbackForRectangular = scrollHandlerForRectangular.bind(self);
-
-				self._callbacks.click = clickHandlerForRectangular;
-				self._callbacks.scroll = scrollHandlerForRectangular;
-
-				document.addEventListener("click", clickCallbackForRectangular, false);
-				document.addEventListener("scroll", scrollCallbackForRectangular, true);
 			};
 
-			prototype.initCircular = function (listDomElement) {
+			/**
+			 * Handler for scrollend event
+			 * @method _scrollEndHandler
+			 * @member ns.helper.SnapListMarqueeStyle
+			 * @protected
+			 */
+			prototype._scrollEndHandler = function () {
+				this._destroyMarqueeWidget();
+			};
+
+			/**
+			 * Handler for selected event
+			 * @method _selectedHandler
+			 * @param {Event} event
+			 * @protected
+			 * @member ns.helper.SnapListMarqueeStyle
+			 */
+			prototype._selectedHandler = function (event) {
+				var self = this,
+					marqueeElement = event.target.querySelector(".ui-marquee");
+
+				self._destroyMarqueeWidget();
+
+				if (marqueeElement) {
+					self._selectedMarqueeWidget = engine.instanceWidget(marqueeElement, "Marquee", self.options);
+					self._selectedMarqueeWidget.start();
+				}
+			};
+
+			/**
+			 * Handler for all events
+			 * @method handleEvent
+			 * @param {Event} event
+			 * @member ns.helper.SnapListMarqueeStyle
+			 */
+			prototype.handleEvent = function (event) {
 				var self = this;
+
+				switch (event.type) {
+					case "click":
+						self._clickHandlerForRectangular(event);
+						break;
+					case "scroll":
+						self._scrollHandlerForRectangular(event);
+						break;
+					case "rotarydetent":
+					case "touchstart":
+						self._touchStartHandler(event);
+						break;
+					case "scrollend":
+						self._scrollEndHandler(event);
+						break;
+					case "selected":
+						self._selectedHandler(event);
+						break;
+				}
+			};
+
+			/**
+			 * Init helper
+			 * @method init
+			 * @member ns.helper.SnapListMarqueeStyle
+			 */
+			prototype.init = function () {
+				var self = this,
+					listElement = this.element;
 
 				self.options.delay = self.options.delay || self.options.marqueeDelay;
 
-				self.bindEvents();
+				if (ns.support.shape.circle) {
+					self._bindEventsForCircular();
+				} else {
+					self._bindEventsForRectangular();
+					self.options.snapListview = false;
+				}
 				// create SnapListStyle helper
-				self._snapListStyleHelper = ns.helper.SnapListStyle.create(listDomElement, self.options);
+				if (self.options.snapListview) {
+					self._snapListStyleHelper = ns.helper.SnapListStyle.create(listElement, self.options);
+				} else {
+					self._listviewWidget = engine.instanceWidget(listElement, "Listview", self.options);
+				}
 			};
 
-			prototype.unbindEventsForRectangular = function () {
+			/**
+			 * Bind events for rectangle version
+			 * @method _bindEventsForRectangular
+			 * @protected
+			 * @member ns.helper.SnapListMarqueeStyle
+			 */
+			prototype._bindEventsForRectangular = function () {
+				document.addEventListener("click", this, false);
+				document.addEventListener("scroll", this, true);
+			};
+
+			/**
+			 * Unbind events for rectangle version
+			 * @method _unbindEventsForRectangular
+			 * @protected
+			 * @member ns.helper.SnapListMarqueeStyle
+			 */
+			prototype._unbindEventsForRectangular = function () {
+				document.removeEventListener("click", this, false);
+				document.removeEventListener("scroll", this, true);
+			};
+
+			/**
+			 * Bind events for circular version
+			 * @method _bindEventsForCircular
+			 * @protected
+			 * @member ns.helper.SnapListMarqueeStyle
+			 */
+			prototype._bindEventsForCircular = function () {
 				var self = this;
 
-				document.removeEventListener("click", self._callbacks.click, false);
-				document.removeEventListener("scroll", self._callbacks.scroll, false);
-
-				self._callbacks.click = null;
-				self._callbacks.scroll = null;
+				document.addEventListener("touchstart", self, false);
+				document.addEventListener("scrollend", self, false);
+				document.addEventListener("rotarydetent", self, false);
+				document.addEventListener("selected", self, false);
 			};
 
-			prototype.bindEvents = function () {
-				var self = this,
-					touchStartCallback,
-					scrollEndCallback,
-					selectedCallback;
-
-				touchStartCallback = touchStartHandler.bind(self);
-				scrollEndCallback = scrollEndHandler.bind(self);
-				selectedCallback = selectedHandler.bind(self);
-
-				self._callbacks.touchStart = touchStartCallback;
-				self._callbacks.scrollEnd = scrollEndCallback;
-				self._callbacks.selected = selectedCallback;
-
-				document.addEventListener("touchstart", touchStartCallback, false);
-				document.addEventListener("scrollend", scrollEndCallback, false);
-				document.addEventListener("rotarydetent", touchStartCallback, false);
-				document.addEventListener("selected", selectedCallback, false);
-			};
-
-			prototype.unbindEventsForCircle = function () {
+			/**
+			 * Unbind events for circular version
+			 * @method _unbindEventsForCircular
+			 * @protected
+			 * @member ns.helper.SnapListMarqueeStyle
+			 */
+			prototype._unbindEventsForCircular = function () {
 				var self = this;
 
-				document.removeEventListener("touchstart", self._callbacks.touchStart, false);
-				document.removeEventListener("scrollend", self._callbacks.scrollEnd, false);
-				document.removeEventListener("rotarydetent", self._callbacks.touchStart, false);
-				document.removeEventListener("selected", self._callbacks.selected, false);
+				document.removeEventListener("touchstart", self, false);
+				document.removeEventListener("scrollend", self, false);
+				document.removeEventListener("rotarydetent", self, false);
+				document.removeEventListener("selected", self, false);
 
-				self._callbacks.touchStart = null;
-				self._callbacks.selected = null;
 			};
 
+			/**
+			 * Destroy helper and all widgets
+			 * @method destroy
+			 * @member ns.helper.SnapListMarqueeStyle
+			 */
 			prototype.destroy = function () {
 				var self = this;
 
 				if (ns.support.shape.circle) {
-					self.unbindEventsForCircle();
+					self._unbindEventsForCircular();
 				} else {
-					self.unbindEventsForRectangular();
+					self._unbindEventsForRectangular();
 				}
-				destroyMarqueeWidget(self);
-				self._snapListStyleHelper.destroy();
+				self._destroyMarqueeWidget();
+				if (self._snapListStyleHelper) {
+					self._snapListStyleHelper.destroy();
+				}
+
+				if (self._listviewWidget) {
+					self._listviewWidget.destroy();
+				}
 
 				self.options = null;
 				self._snapListStyleHelper = null;
-				self._selectedMarqueeWidget = null;
-				self._callbacks = null;
+				self._listviewWidget = null;
 			};
 
-			SnapListMarqueeStyle.create = function (listDomElement, options) {
-				return new SnapListMarqueeStyle(listDomElement, options);
+			ListMarqueeStyle.create = function (listElement, options) {
+				var instance = new ListMarqueeStyle(listElement, options);
+
+				instance.init();
+				return instance;
 			};
 
-			ns.helper.SnapListMarqueeStyle = SnapListMarqueeStyle;
+			ns.helper.SnapListMarqueeStyle = ListMarqueeStyle;
+			ns.helper.ListMarqueeStyle = ListMarqueeStyle;
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
-			return SnapListMarqueeStyle;
+			return ListMarqueeStyle;
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");

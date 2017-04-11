@@ -28,7 +28,8 @@
 			"../helper",
 			"../../../core/engine",
 			"../../../core/util/object",
-			"../../../core/util/selectors"
+			"../../../core/util/selectors",
+			"../widget/wearable/SnapListview"
 		],
 		function () { //>>excludeEnd("tauBuildExclude");
 			var engine = ns.engine,
@@ -43,6 +44,12 @@
 
 				prototype = SnapListStyle.prototype;
 
+			/**
+			 * Show edge effect
+			 * @method showEdgeEffect
+			 * @param {string} direction
+			 * @member ns.helper.SnapListStyle
+			 */
 			function showEdgeEffect(direction) {
 				if (window.addEdgeEffectONSCROLLTizenUIF) {
 					if (direction === "CW") {
@@ -53,6 +60,12 @@
 				}
 			}
 
+			/**
+			 * Handler for rotary event
+			 * @method rotaryDetentHandler
+			 * @param {Event} e
+			 * @member ns.helper.SnapListStyle
+			 */
 			function rotaryDetentHandler(e) {
 				var snapListviewWidget = this._snapListviewWidget,
 					selectedIndex = snapListviewWidget.getSelectedIndex(),
@@ -82,6 +95,13 @@
 				}
 			}
 
+			/**
+			 * Initialize helper
+			 * @method init
+			 * @param {HTMLElement} listDomElement
+			 * @param {Object} options
+			 * @member ns.helper.SnapListStyle
+			 */
 			prototype.init = function (listDomElement, options) {
 				var self = this;
 
@@ -90,6 +110,11 @@
 				self.bindEvents();
 			};
 
+			/**
+			 * Bind events
+			 * @method bindEvents
+			 * @member ns.helper.SnapListStyle
+			 */
 			prototype.bindEvents = function () {
 				var self = this,
 					rotaryDetentCallback;
@@ -101,6 +126,11 @@
 				window.addEventListener("rotarydetent", rotaryDetentCallback);
 			};
 
+			/**
+			 * Unbind events
+			 * @method unbindEvents
+			 * @member ns.helper.SnapListStyle
+			 */
 			prototype.unbindEvents = function () {
 				var self = this;
 
@@ -109,20 +139,40 @@
 				self._callbacks.rotarydetent = null;
 			};
 
+			/**
+			 * Destroy helper
+			 * @method destroy
+			 * @member ns.helper.SnapListStyle
+			 */
 			prototype.destroy = function () {
 				var self = this;
 
 				self.unbindEvents();
-				self._snapListviewWidget.destroy();
+				if (self._snapListviewWidget) {
+					self._snapListviewWidget.destroy();
+				}
 
 				self._snapListviewWidget = null;
 				self._callbacks = null;
 			};
 
+			/**
+			 * Return Snap list
+			 * @method getSnapList
+			 * @member ns.helper.SnapListStyle
+			 */
 			prototype.getSnapList = function () {
 				return this._snapListviewWidget;
 			};
 
+			/**
+			 * Create helper
+			 * @method create
+			 * @param {HTMLElement} listDomElement
+			 * @param {Object} options
+			 * @static
+			 * @member ns.helper.SnapListStyle
+			 */
 			SnapListStyle.create = function (listDomElement, options) {
 				return new SnapListStyle(listDomElement, options);
 			};
