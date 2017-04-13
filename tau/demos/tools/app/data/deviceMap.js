@@ -14,7 +14,7 @@ module.exports = {
 	"m-0913-1": "mobile",
 	"m-0914-1": "mobile",
 	"m-0916-1": "mobile",
-	"m-1015-1": "mobile",
+	"m-0329-1": "mobile",
 	"m-0923-1": "mobile",
 	"w-1220-1": "wearable",
 	"w-0109-3": "wearable",

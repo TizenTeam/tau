@@ -8,10 +8,16 @@
 
 	&.ui-tabbar-with-icon {
 		a {
-			.display-flex();
-			.justify-content(center);
-			.align-items(center);
-			.flex-direction(column);
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			flex-direction: column;
+			span {
+				// Height of Text including underline (4)
+				height: (42 + 4) * @unit_base;
+				padding-bottom: 3 * @unit_base;
+				margin-top: 3 * @unit_base;
+			}
 			&::after {
 				content: "";
 				display: inline-block;
@@ -19,15 +25,13 @@
 				width: 60 * @unit_base;
 				height: 60 * @unit_base;
 				background-color: @color_tabbar_icon_bg_normal;
-				.mask-position(0 0);
-				.mask-size(100% 100%);
-				.mask-repeat(no-repeat);
+				mask-position: 0 0;
+				mask-size: 100% 100%;
+				mask-repeat: no-repeat;
+				margin-top: 2 * @unit_base;
 			}
 			&.ui-tab-active::after {
 				background-color: @color_tabbar_icon_bg_press;
-			}
-			span:before {
-				bottom: -8 * @unit_base;
 			}
 		}
 	}
@@ -38,12 +42,14 @@
 			&.ui-tabbar-with-icon {
 				height: 80 * @unit_base;
 				a {
-					.align-items(flex-start);
-					.flex-direction(row);
+					align-items: flex-start;
+					flex-direction: row;
 					font-size: 38 * @unit_base;
 					line-height: 62 * @unit_base; // this value is calculated from Guideline
-					span:before {
-						bottom: 0;
+					span {
+						// guideline not defines proper space between text and underline
+						// because that added 4 @unit_base space
+						padding-bottom: (3 + 4) * @unit_base;
 					}
 					&::after {
 						width: 48 * @unit_base;
@@ -55,6 +61,10 @@
 			}
 			a {
 				font-size: 38 * @unit_base;
+				span {
+					align-self: flex-start;
+					top: 4 * @unit_base;
+				}
 			}
 		}
 	}
@@ -76,9 +86,9 @@
 
 	a {
 		font-size: 38 * @unit_base;
-		.display-flex();
-		.justify-content(center);
-		.align-items(center);
+		display: flex;
+		justify-content: center;
+		align-items: center;
 		position: absolute;
 		left: 0;
 		top: 0;
@@ -88,24 +98,33 @@
 		color: @color_tabbar_text_normal;
 		span {
 			position: relative;
-			.order(1);
+			order: 1;
+			// Height of Text including underline (4)
+			height: (52 + 4) * @unit_base;
+			padding-bottom: 3 * @unit_base;
+			overflow-x: hidden;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			margin-left: 8 * @unit_base;
+			margin-right: 8 * @unit_base;
 			margin-bottom: 9 * @unit_base;
+
 			&::before {
 				content: "";
 				position: absolute;
-				width: 92%;
+				width: 100%;
 				height: 4 * @unit_base;
 				background-color: @color_tabbar_border_active;
-				bottom: -6 * @unit_base;
-				.transform(scale(0));
-				left: 4%;
+				transform: scale(0);
+				bottom: 0;
 			}
 		}
 		&.ui-tab-active {
 			color: @color_tabbar_text_selected;
 			span::before {
-				.transform(scale(1));
-				.transition(-webkit-transform 100ms);
+				transform: scale(1);
+				transition: transform 100ms;
 			}
 		}
 		&::before {
@@ -122,7 +141,7 @@
 			color: @color_tabbar_text_press;
 			background-color: transparent;
 			&::before {
-				.animation(tabbar-press linear 615ms);
+				animation: tabbar-press linear 615ms;
 			}
 		}
 	}
