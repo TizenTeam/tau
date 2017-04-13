@@ -63,6 +63,9 @@ textarea.ui-text-input {
 
 			+ .ui-text-input-textline {
 				margin: 11 * @unit_base 0 20 * @unit_base 0;
+				position: absolute;
+				width: calc(~"100% - " 64 * @unit_base);
+
 			}
 
 			~ .ui-text-input-clear {
@@ -109,7 +112,7 @@ textarea.ui-text-input {
 	& ~ .ui-text-input-clear {
 		display: block;
 		float: right;
-		top: -100 * @unit_base;
+		top: -67 * @unit_base;
 		box-sizing: border-box;
 		margin-right: 17 * @unit_base;
 		margin-left: 17 * @unit_base;
