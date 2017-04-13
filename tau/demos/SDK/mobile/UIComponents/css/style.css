@@ -177,20 +177,6 @@
 .li-has-radio.li-has-right-radio .ui-radio {
 	margin-top: -20px;
 }
-
-/**************** right toggle switch ************/
-.li-has-right-btn .ui-toggle-container {
-	position: absolute;
-	top: 50%;
-	transform: translateY(-50%);
-	right: 16px;
-	left: auto;
-}
-
-.li-has-right-btn .ui-toggle-container:first-child {
-	right: 60px;
-}
-
 /****************************************************************/
 /*              Multiline List Style                            */
 /****************************************************************/

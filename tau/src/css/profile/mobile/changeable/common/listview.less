@@ -339,11 +339,20 @@
 		}
 	}
 
-	.li-has-right-btn .ui-btn {
-		position: absolute;
-		top: 50%;
-		right: 17 * @unit_base;
-		transform: translate(0, -50%);
+	.li-has-right-btn {
+		.ui-btn {
+			position: absolute;
+			top: 50%;
+			right: 17 * @unit_base;
+			transform: translate(0, -50%);
+		}
+
+		.ui-toggle-container {
+			position: absolute;
+			top: 50%;
+			right: 32 * @unit_base;
+			transform: translate(0, -50%);
+		}
 	}
 
 	&.ui-colored-list {
