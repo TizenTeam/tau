@@ -74,13 +74,13 @@
 			}
 
 			&.ui-btn-active {
-				::before {
+				&::before {
 					opacity: 1;
 					background-color: @color_enveloper_expanded_button_press;
 					.animation(navigation_press_animation linear 315ms);
 				}
 				&.ui-btn-inactive {
-					::before {
+					&::before {
 						.animation(navigation_pressup_animation linear 200ms);
 					}
 				}
