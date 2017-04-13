@@ -302,6 +302,12 @@
     "height": 948
   },
   {
+    "name": "170-tabbar-with-badge",
+    "time": 3000,
+    "width": 360,
+    "height": 640
+  },
+  {
     "name": "171-welcome-page",
     "time": 3000,
     "width": 720,
