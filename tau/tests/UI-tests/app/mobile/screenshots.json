@@ -335,8 +335,7 @@
     "name": "T01-single-page",
     "time": 3000,
     "width": 720,
-    "height": 1280,
-    "pass": true
+    "height": 1280
   },
   {
     "name": "T02-navigation-view-1",
