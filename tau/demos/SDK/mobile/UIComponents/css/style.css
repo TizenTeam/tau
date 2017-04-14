@@ -719,3 +719,28 @@
 	top: 80px;
 	background: white;
 }
+/******************************************************
+            List Styles - sliders
+******************************************************/
+
+#slider-description{
+	width: 328px;
+	padding-top: 12px;
+	padding-bottom: 8px;
+	height: 61px;
+}
+#slider-description .ui-slider.ui-slider-horizontal{
+	margin-left:0px;
+	margin-right:0px;
+	width:328px;
+	margin-top:14px;
+	margin-bottom:14px;
+}
+#slider-raw{
+	width:328px;
+}
+#slider-raw .ui-slider.ui-slider-horizontal{
+	margin-left:0px;
+	margin-right:0px;
+	width:328px;
+}
