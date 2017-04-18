@@ -279,7 +279,6 @@ module.exports = function (grunt) {
 						testProfile(profileName);
 					}
 				}
-				grunt.task.run("karma");
 			}
 			grunt.task.run("test-print-unused");
 		});

@@ -19,6 +19,25 @@ if (mode === "gerrit") {
 }
 
 cmd.chain(
+	function (cb) {
+		fs.readFile("tau/report/test/karma/coverage/lcov/lcov.info", "UTF-8", function (err, data) {
+			var lines = data.split("\n");
+
+			if (err) {
+				throw err;
+			}
+
+			lines = lines.map(function (line) {
+				return line.replace(/SF:\/.*\/tau\/src\/js/, "SF:tau/src/js");
+			}).join("\n");
+			fs.writeFile("tau/report/test/karma/coverage/lcov/lcov.info", lines, function (err) {
+				if (err) {
+					throw err;
+				}
+				cb();
+			});
+		});
+	},
 	// get commit id of last commit
 	["git rev-list --max-count=1 HEAD",
 		function (result, callback) {

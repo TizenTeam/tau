@@ -14,7 +14,7 @@ var uiTests = require("./lib/ui-tests"),
  *
  */
 uiTests.config({
-	screenshots: screenshots,
+	screenshots: screenshots.filter(item => item.pass),
 	app: app,
 	profile: profile,
 	globalAppId: globalAppId,

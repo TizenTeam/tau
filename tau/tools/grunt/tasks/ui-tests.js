@@ -47,7 +47,7 @@ module.exports = function (grunt) {
 					$: {
 						errors: 0,
 						failures: 0,
-						name: "UI Tests",
+						name: "UI",
 						tests: 0
 					},
 					testsuite: [
@@ -55,7 +55,7 @@ module.exports = function (grunt) {
 							$: {
 								errors: 0,
 								failures: 0,
-								name: "mobile",
+								name: "UI/" + profile,
 								tests: 0,
 								disabled: 0,
 								hostname: "",
@@ -177,6 +177,15 @@ module.exports = function (grunt) {
 			});
 		}
 
-		grunt.task.run("build", "run:uiTests", "ui-tests-report");
+		grunt.config.merge({
+			clean: {
+				"ui-test": {
+					expand: true,
+					src: ["report", "temp", "tests/UI-tests/result", "tests/UI-tests/diff"]
+				}
+			}
+		});
+
+		grunt.task.run("build", "clean:ui-test", "run:uiTests", "ui-tests-report");
 	});
 };
