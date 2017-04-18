@@ -45,7 +45,9 @@
 					align-items: flex-start;
 					flex-direction: row;
 					font-size: 38 * @unit_base;
-					line-height: 62 * @unit_base; // this value is calculated from Guideline
+					// this value is calculated from Guideline
+					line-height: 62 * @unit_base;
+
 					span {
 						// guideline not defines proper space between text and underline
 						// because that added 4 @unit_base space
@@ -81,6 +83,33 @@
 	&.ui-tabbar-landscape {
 		&.ui-tabbar-with-icon {
 			height: 110 * @unit_base;
+			a {
+				flex-direction: row;
+				align-items: center;
+				&::after {
+					width: 50 * @unit_base;
+					height: 50 * @unit_base;
+					// icon has the same baseline like text, because of that added bottom margin
+					margin-bottom: (9 + 4 + 3) * @unit_base;
+				}
+				span {
+					font-size: 38 * @unit_base;
+					margin-left: 16 * @unit_base;
+					// Height of Text including underline (4)
+					height: (52 + 4) * @unit_base;
+					padding-bottom: 3 * @unit_base;
+				}
+			}
+			&.ui-tabbar-with-title {
+				a {
+					span {
+						top: 0;
+						margin-top: 0;
+						margin-left: 9 * @unit_base;
+						padding-bottom: 3 * @unit_base;
+					}
+				}
+			}
 		}
 	}
 
