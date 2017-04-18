@@ -2,6 +2,7 @@
 	var page = document.getElementById("page-empty-state-search"),
 		search = document.getElementById("search-input"),
 		list = document.getElementById("searchList"),
+		listview = null,
 		listItems = list.querySelectorAll("[data-filtertext]"),
 		emptyStateStyle = document.querySelector(".ui-empty-state-content").style,
 		listItemsArray = [].slice.call(listItems),
@@ -9,7 +10,7 @@
 		searchClearBound;
 
 	function updateEmptyState() {
-		var itemsCount = list.querySelectorAll("li").length;
+		var itemsCount = list.querySelectorAll("li[data-filtertext]").length;
 
 		// show empty state if no results found
 		if (itemsCount > 0 &&
@@ -34,6 +35,9 @@
 				item.classList.remove("li-search-hidden");
 			}
 		});
+
+		// update colored listview
+		listview.refresh();
 
 		updateEmptyState();
 	}
@@ -63,6 +67,8 @@
 	});
 
 	page.addEventListener("pageshow", function () {
+		// get listview widget instance
+		listview = tau.widget.Listview(list);
 		tau.event.trigger(search, "keyup");
 	});
 
