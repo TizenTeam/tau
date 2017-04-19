@@ -113,6 +113,7 @@
 			"../../../../core/util/object",
 			"../../../../core/util/selectors",
 			"../../../../core/widget/core/Button",
+			"../../../../core/widget/core/Listview",
 			"../../../../core/event",
 			"./BaseWidgetMobile",
 			"../mobile"
@@ -138,6 +139,8 @@
 					self._callbacks = {};
 				},
 				buttonClasses = ns.widget.core.Button.classes,
+
+				listviewClasses = ns.widget.core.Listview.classes,
 
 				prototype = new BaseWidget(),
 
@@ -202,8 +205,20 @@
 			 * @member ns.widget.mobile.TextInput
 			 */
 			function resizeTextArea(element) {
+				var listviewElement,
+					listviewWidget;
+
 				element.style.height = "auto"; // reset for the browser to recalculate scrollHeight
 				element.style.height = element.scrollHeight + "px"; // apply scrollHeight as new height
+
+				listviewElement = util.selectors.getClosestByClass(element, listviewClasses.LISTVIEW);
+
+				if (listviewElement) {
+					listviewWidget = engine.getBinding(listviewElement);
+					if (listviewWidget) {
+						listviewWidget.refresh();
+					}
+				}
 			}
 			/**
 			 * Toggle visibility of the clear button
