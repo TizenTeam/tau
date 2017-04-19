@@ -85,6 +85,27 @@
 			}
 		}
 
+		&.li-has-thumb {
+			.li-thumb {
+				position: absolute;
+				left: 32 * @unit_base;
+				top: 50%;
+				margin-top: -26 * @unit_base;
+				width: 50 * @unit_base;
+				height: 50 * @unit_base;
+
+				&.li-thumb-circle {
+					border-radius: 100%;
+				}
+			}
+			&.li-thumbnail-right .li-thumb{
+					float: right;
+					left: auto;
+					right: 32 * @unit_base;
+			}
+
+		}
+
 		/**************** with progress bar ************/
 		&.li-has-progress {
 			// bottom padding is smaller because we have bottom border

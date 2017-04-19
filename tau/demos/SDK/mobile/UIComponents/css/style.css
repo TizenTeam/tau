@@ -78,8 +78,7 @@
 .ui-li-static.li-has-thumb {
 	padding-left: 51px;
 }
-.ui-li-anchor.li-has-thumb > a .li-thumb,
-.ui-li-static.li-has-thumb .li-thumb {
+.ui-li-anchor.li-has-thumb > a .li-thumb {
 	position: absolute;
 	left: 16px;
 	top: 50%;
@@ -93,8 +92,7 @@
 	padding-right: 51px;
 	padding-left: 16px;
 }
-.ui-li-anchor.li-has-thumb.li-thumbnail-right > a .li-thumb,
-.ui-li-static.li-has-thumb.li-thumbnail-right .li-thumb {
+.ui-li-anchor.li-has-thumb.li-thumbnail-right > a .li-thumb {
 	float: right;
 	left: auto;
 	right: 16px;
