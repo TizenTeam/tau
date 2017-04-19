@@ -5,7 +5,11 @@
 
 /******************** listview common style *********************/
 .ui-listview {
-	overflow: hidden;
+	/**
+	 * Listview cannot have style "overflow: hidden"
+	 * because this widget has canvas which has to be visible outside the listview
+	 */
+	// overflow: hidden;
 	margin: 0;
 	padding: 0;
 	list-style: none;

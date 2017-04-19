@@ -337,7 +337,12 @@
 
 					canvasWidth = rect.width;
 					// calculate canvasHeight of canvas
-					canvasHeight = rect.height + self._topOffset;
+					if (scrollableContainer) {
+						canvasHeight = scrollableContainer.getBoundingClientRect().height;
+					}
+
+					canvasHeight = max(rect.height, canvasHeight) + self._topOffset;
+
 					// limit canvas for better performance
 					canvasHeight = min(canvasHeight, 3 * window.innerHeight);
 
@@ -579,7 +584,10 @@
 					rectangle = null,
 					// top on each last element
 					previousTop = 0,
-					topOffset = self._topOffset;
+					// top offset of widget
+					topOffset = self._topOffset,
+					// canvas rectangle
+					canvasRect = null;
 
 				if (context) {
 					self._prepareCanvas();
@@ -605,6 +613,16 @@
 							if (!modifyColor(colorTmp, step)) {
 								liElement = null;
 							}
+						}
+					}
+
+					// fill rest of canvas by color of next item
+					if (rectangle !== null) {
+						canvasRect = context.canvas.getBoundingClientRect();
+						if (rectangle.height + rectangle.top < canvasRect.height) {
+							rectangle.top += rectangle.height;
+							rectangle.height = canvasRect.height - rectangle.top;
+							drawRectangle(context, rectangle);
 						}
 					}
 				}
