@@ -220,8 +220,10 @@
 					eventType = self.eventType,
 					ui = self._ui,
 					panel = id.length > 1 ? element.querySelector(id) : null,
+					panelStyle,
 					i,
-					len;
+					len,
+					transformCacheValue;
 
 				if (!panel && id.length > 1) {
 					panel = xml.querySelector(id) || xml.querySelector("[data-role='panel'], .ui-panel");
@@ -231,17 +233,23 @@
 				if (!panel) {
 					ns.warn("Panel is not existed");
 					return;
-				} else {
-					element.appendChild(panel);
 				}
+
+				panelStyle = panel.style;
+				panelStyle.display = "block";
+				transformCacheValue = panelStyle.transform;
+				panelStyle.transform = "translate(-9999px, -9999px)";
+
+				element.appendChild(panel);
 				ui.toPanel = panel;
 				events.trigger(panel, eventType.BEFORE_CREATE);
-				panel.style.display = "none";
 				engine.createWidgets(element);
 				events.trigger(panel, eventType.CREATE);
 				events.trigger(panel, eventType.BEFORE_SHOW);
 				events.trigger(ui.activePanel, eventType.BEFORE_HIDE);
 				panel.classList.add(classes.PRE_IN);
+				panelStyle.display = "none";
+				panelStyle.transform = transformCacheValue;
 
 				self.history = JSON.parse(localStorage[DEFAULT.STORAGE_NAME] || "[]");
 				if (direction === "forward") {
