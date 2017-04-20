@@ -40,7 +40,6 @@
 			}
 		});
 
-		// show or hide empty state on list
 		updateEmptyState();
 
 		// update colored listview

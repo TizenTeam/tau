@@ -44,7 +44,9 @@
 		[
 			"../../../../core/engine",
 			"../../../../core/event",
+			"../../../../core/util/selectors",
 			"../../../../core/event/gesture",
+			"../../../../core/widget/core/Page",
 			"../../../../core/widget/BaseWidget",
 			"../mobile"
 		],
@@ -52,8 +54,10 @@
 			//>>excludeEnd("tauBuildExclude");
 
 			var BaseWidget = ns.widget.BaseWidget,
+				PageClasses = ns.widget.core.Page.classes,
 				engine = ns.engine,
 				utilsEvents = ns.event,
+				selectorUtils = ns.util.selectors,
 				prototype = new BaseWidget(),
 				MATRIX_REGEXP = /matrix\((.*), (.*), (.*), (.*), (.*), (.*)\)/,
 				SNAP_WIDTH = 19,
@@ -73,7 +77,8 @@
 					WIDGET: WIDGET_CLASS,
 					TRANSITIONS: WIDGET_CLASS + "-transitions",
 					EXPAND_TO_LEFT: WIDGET_CLASS + "-expand-to-left",
-					EXPAND_TO_RIGHT: WIDGET_CLASS + "-expand-to-right"
+					EXPAND_TO_RIGHT: WIDGET_CLASS + "-expand-to-right",
+					PAGE_WITH_FLOATING_ACTIONS: "ui-page-floatingactions"
 				};
 
 
@@ -112,6 +117,7 @@
 				self._positionCalculation();
 				self._setScope();
 				self._updatePosition();
+				self._toggleParentClasses();
 				return element;
 			};
 
@@ -179,6 +185,7 @@
 					self._position = null;
 					self._scope = null;
 					self._padding = null;
+					self._toggleParentClasses(true);
 				}
 			};
 
@@ -365,6 +372,23 @@
 					case "right-2nd-icon": return position.rightOneButton;
 					case "right-min": return position.max;
 					default: return position.max;
+				}
+			};
+
+
+			/**
+			 * Find parent element and add/remove widget class
+			 * @method _updateParentClasses
+			 * @param {boolean} [remove=false] add or remove floating action class from page element
+			 * @protected
+			 * @member ns.widget.mobile.FloatingActions
+			 */
+			prototype._toggleParentClasses = function (remove) {
+				var self = this,
+					parentElement = selectorUtils.getClosestByClass(self.element, PageClasses.uiPage);
+
+				if (parentElement) {
+					parentElement.classList.toggle(classes.PAGE_WITH_FLOATING_ACTIONS, !remove);
 				}
 			};
 
