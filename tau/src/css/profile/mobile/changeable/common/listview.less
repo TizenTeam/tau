@@ -371,7 +371,7 @@
 		.ui-btn {
 			position: absolute;
 			top: 50%;
-			right: 17 * @unit_base;
+			right: 32 * @unit_base;
 			transform: translate(0, -50%);
 		}
 
@@ -380,6 +380,10 @@
 			top: 50%;
 			right: 32 * @unit_base;
 			transform: translate(0, -50%);
+
+			&:first-child {
+				right: 120 * @unit_base;
+			}
 		}
 	}
 
