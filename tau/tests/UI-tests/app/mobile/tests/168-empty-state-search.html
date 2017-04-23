@@ -1,45 +1,80 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<script type="text/javascript" src="../../../lib/tau/mobile/js/tau.js" data-build-remove="false"></script>
+	<meta name="viewport" content="width=device-width,user-scalable=no"/>
+	<link rel="stylesheet" href="../lib/tau/mobile/theme/default/tau.css">
+	<link rel="stylesheet" href="../css/style.css">
+	<script type="text/javascript" src="../lib/tau/mobile/js/tau.js"
+			data-build-remove="false"></script>
+	<title>Tizen ui</title>
+
+	<!-- for compatibility test -->
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
 </head>
 <body>
 	<div class="ui-page" id="page-empty-state-search">
-		<div class="ui-tabbar">
-			<ul>
-				<li class="ui-li-anchor"><a href="#">Keypad</a></li>
-				<li class="ui-li-anchor"><a href="#">Logs</a></li>
-				<li class="ui-li-anchor"><a href="#" class="ui-tab-active">Contacts</a></li>
-				<li class="ui-li-anchor"><a href="#">Life</a></li>
-			</ul>
-		</div>
-		<div class="ui-content">
-			<div class="search-input-area" >
-				<input type="search" name="search" id="search-input" value="Alexande "/>
+		<div class="ui-tabs">
+			<div class="ui-tabbar ui-tabbar-static">
+				<ul>
+					<li class="ui-li-anchor"><a href="#">Keypad</a></li>
+					<li class="ui-li-anchor"><a href="#">Logs</a></li>
+					<li class="ui-li-anchor"><a href="#" class="ui-tab-active">Contacts</a></li>
+					<li class="ui-li-anchor"><a href="#">Life</a></li>
+				</ul>
 			</div>
-			<ul id="searchList" class="ui-listview ui-colored-list">
-				<li data-filtertext="Hairston" class="ui-li-static">Hairston</li>
-				<li data-filtertext="Hansbrough" class="ui-li-static">Hansbrough</li>
-				<li data-filtertext="Allred" class="ui-li-static">Allred</li>
-				<li data-filtertext="Hanrahan" class="ui-li-static">Hanrahan</li>
-				<li data-filtertext="Egan" class="ui-li-static">Egan</li>
-				<li data-filtertext="Dare" class="ui-li-static">Dare</li>
-				<li data-filtertext="Edmonson" class="ui-li-static">Edmonson</li>
-				<li data-filtertext="Calip" class="ui-li-static">Calip</li>
-				<li data-filtertext="Baker" class="ui-li-static">Baker</li>
-				<li data-filtertext="Fazekas" class="ui-li-static">Fazekas</li>
-				<li data-filtertext="Garrity" class="ui-li-static">Garrity</li>
-				<li data-filtertext="Hansen" class="ui-li-static">Hansen</li>
-				<li data-filtertext="Feigenbaum" class="ui-li-static">Feigenbaum</li>
-			</ul>
+			<div class="ui-section-changer">
+				<div>
+					<section class="ui-section-active">
+						<ul id="searchList" class="ui-listview ui-colored-list">
+							<li class="ui-li-static">
+								<input type="search" name="search" id="search-input" value="Alexande "/>
+							</li>
+							<li data-filtertext="Hairston" class="ui-li-static">Hairston</li>
+							<li data-filtertext="Hansbrough" class="ui-li-static">Hansbrough</li>
+							<li data-filtertext="Allred" class="ui-li-static">Allred</li>
+							<li data-filtertext="Hanrahan" class="ui-li-static">Hanrahan</li>
+							<li data-filtertext="Egan" class="ui-li-static">Egan</li>
+							<li data-filtertext="Dare" class="ui-li-static">Dare</li>
+							<li data-filtertext="Edmonson" class="ui-li-static">Edmonson</li>
+							<li data-filtertext="Calip" class="ui-li-static">Calip</li>
+							<li data-filtertext="Baker" class="ui-li-static">Baker</li>
+							<li data-filtertext="Fazekas" class="ui-li-static">Fazekas</li>
+							<li data-filtertext="Garrity" class="ui-li-static">Garrity</li>
+							<li data-filtertext="Hansen" class="ui-li-static">Hansen</li>
+							<li data-filtertext="Feigenbaum" class="ui-li-static">Feigenbaum</li>
+							<li class="ui-li-empty-state">
+								<div class="ui-empty-state-content">
+									<h1>No result found</h1>
+									Lorem ipsum dolor sit amet, consec
+									tetur adiptiscing elit, seddoei usmed
+									tempore sit ipsum
+								</div>
+							</li>
+						</ul>
+					</section>
+					<section>
+						<ul class="ui-listview ui-colored-list">
+							<li class="ui-li-static">Hairston</li>
+							<li class="ui-li-static">Hansbrough</li>
+						</ul>
+					</section>
+					<section>
+						<ul class="ui-listview ui-colored-list">
+							<li class="ui-li-static">Edmonson</li>
+							<li class="ui-li-static">Calip</li>
+						</ul>
+					</section>
+					<section>
+						<ul class="ui-listview ui-colored-list">
+							<li class="ui-li-static">Hansen</li>
+							<li class="ui-li-static">Feigenbaum</li>
+						</ul>
+					</section>
+				</div>
+			</div>
 			<div class="ui-floatingactions">
 				<button class="ui-floatingactions-item" data-icon="floating-add"/>
-			</div>
-			<div class="ui-empty-state-content">
-				<h1>No result found</h1>
-				Lorem ipsum dolor sit amet, consec
-				tetur adiptiscing elit, seddoei usmed
-				tempore sit ipsum
 			</div>
 		</div>
 		<script type="text/javascript" src="168-empty-state-search.js"></script>
