@@ -172,22 +172,9 @@
 	margin-top: -20px;
 }
 
-/**************** right toggle switch ************/
-.li-has-right-btn .ui-toggle-container {
-	position: absolute;
-	top: 50%;
-	margin-top: -20px;
-	right: 14px;
-	left: auto;
-}
-
 /**************** with progress bar ************/
 .li-has-progress .ui-progress {
 	margin-top: 10px;
-}
-
-.li-has-right-btn .ui-toggle-container:first-child {
-	right: 58px;
 }
 
 /****************************************************************/
