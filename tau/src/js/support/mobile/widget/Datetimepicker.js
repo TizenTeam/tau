@@ -143,7 +143,7 @@
 						if (pat.charAt(0) === "h") {
 							if (hour > 12) {
 								hour -= 12;
-							} else if (hour === 0) {
+							} else if (hour === "0") {
 								hour = 12;
 							}
 						}

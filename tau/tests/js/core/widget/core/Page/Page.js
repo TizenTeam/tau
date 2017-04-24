@@ -13,7 +13,10 @@
 		}
 
 		module("core/widget/core/Page", {
-			setup: initHTML
+			setup: initHTML,
+			teardown: function () {
+				engine._clearBindings();
+			}
 		});
 
 		test("constructor", function () {

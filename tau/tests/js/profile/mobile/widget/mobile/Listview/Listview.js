@@ -1,63 +1,17 @@
-/* global expect, document, tau, define, module, test, strictEqual, initFixture, asyncTest, window, ok */
+/* global document, tau, define, module, test, strictEqual, asyncTest, window, ok, Promise */
 (function () {
 	"use strict";
-	function runTests(testedObjects, helpers) {
-		var engine = testedObjects.engine,
-				Listview = testedObjects.Listview,
-				Page = testedObjects.Page;
-
+	function runTests(engine, Page, Listview, helpers) {
 		function initHTML() {
-			// @IMPORTANT 42 list elements
-			var HTML = "<div class='ui-page'>\
-				<div class='ui-content'>\
-						<ul class='ui-listview'>\
-								<li>list element</li>\
-								<li>list element</li>\
-								<li>list element</li>\
-								<li>list element</li>\
-								<li>list element</li>\
-								<li>list element</li>\
-								<li>list element</li>\
-								<li>list element</li>\
-								<li>list element</li>\
-								<li>list element</li>\
-								<li>list element</li>\
-								<li>list element</li>\
-								<li>list element</li>\
-								<li>list element</li>\
-								<li>list element</li>\
-								<li>list element</li>\
-								<li>list element</li>\
-								<li>list element</li>\
-								<li>list element</li>\
-								<li>list element</li>\
-								<li>list element</li>\
-								<li>list element</li>\
-								<li>list element</li>\
-								<li>list element</li>\
-								<li>list element</li>\
-								<li>list element</li>\
-								<li>list element</li>\
-								<li>list element</li>\
-								<li>list element</li>\
-								<li>list element</li>\
-								<li>list element</li>\
-								<li>list element</li>\
-								<li>list element</li>\
-								<li>list element</li>\
-								<li>list element</li>\
-								<li>list element</li>\
-								<li>list element</li>\
-								<li>list element</li>\
-								<li>list element</li>\
-								<li>list element</li>\
-								<li>list element</li>\
-								<li>list element</li>\
-						</ul>\
-				</div>\
-				</div>",
-				parent = document.getElementById("qunit-fixture") || initFixture();
-			parent.innerHTML = HTML;
+			return new Promise(function (resolve) {
+				var HTML = helpers.loadHTMLFromFile("/base/tests/js/profile/mobile/widget/mobile/Listview/test-data/sample.html"),
+					parent = document.getElementById("qunit-fixture") || helpers.initFixture();
+
+				parent.innerHTML = HTML;
+				helpers.loadTAUStyle(document, "mobile", function () {
+					resolve();
+				});
+			});
 		}
 
 		module("mobile/widget/mobile/Listview", {
@@ -112,37 +66,47 @@
 			return listviewInstance._context;
 		}
 
-		asyncTest("scroll", function () {
-			engine.createWidgets(document.querySelector("." + Page.classes.uiPage));
-			var listview = engine.instanceWidget(document.querySelector("." + Listview.classes.LISTVIEW), "Listview"),
-				mockedContext = mockListview(listview);
+		asyncTest("scroll", function (assert) {
+			var pageElement = document.querySelector("." + Page.classes.uiPage),
+				pageWidget = engine.instanceWidget(pageElement, "Page"),
+				listview,
+				mockedContext;
+
+			pageWidget.layout(true);
+			pageWidget.setActive(true);
+			engine.createWidgets(pageElement);
+			listview = engine.instanceWidget(document.querySelector("." + Listview.classes.LISTVIEW), "Listview");
+			mockedContext = mockListview(listview);
 
 			listview.refresh();
+
 			setTimeout(function () {
-				ok(listview._scrollableContainer, "Scrollable container found");
+				assert.ok(listview._scrollableContainer, "Scrollable container found");
 				listview._scrollableContainer.scrollTop = 100;
 				listview.refresh();
 				setTimeout(function () {
-					ok(mockedContext._clearCalledNum, "Async calls were run");
-					ok(mockedContext._fillRectCalledNum, "Background rectes were drawn multiple times");
-					equal(mockedContext._firstFillRectCalledNum, 42, "42 background rects drawn");
-					ok(parseFloat(listview._context.canvas.style.transform.replace(/[^0-9\.]+/gi, "")), "Canvas position translated according to scroll");
+					assert.ok(mockedContext._clearCalledNum, "Async calls were run");
+					assert.ok(mockedContext._fillRectCalledNum, "Background rectes were drawn multiple times");
+					assert.equal(mockedContext._firstFillRectCalledNum, 25, "correct count of background rects drawn");
+					assert.ok(parseFloat(listview._context.canvas.style.transform.replace(/[^0-9\.]+/gi, "")), "Canvas position translated according to scroll");
 					start();
 				}, 1000);
 			}, 1000);
 		});
 
 	}
+
 	if (typeof define === "function") {
-		define(function () {
-			return runTests;
+		define([
+			"../../../../../../../src/js/core/engine",
+			"../../../../../../../src/js/profile/mobile/widget/mobile/Page"
+		], function (engine, Page) {
+			return runTests.bind(null, engine, Page);
 		});
 	} else {
-		runTests({
-			engine: tau.engine,
-			Listview: tau.widget.mobile.Listview,
-			Page: tau.widget.core.Page
-		},
+		runTests(tau.engine,
+			tau.widget.mobile.Page,
+			tau.widget.mobile.Listview,
 			window.helpers
 		);
 	}

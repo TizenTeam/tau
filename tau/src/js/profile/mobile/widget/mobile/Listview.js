@@ -33,18 +33,18 @@
 			"../../../../core/util/object",
 			"../../../../core/event",
 			"../../../../core/engine",
-			"../../../../core/widget/core/Page",
-			"../../../../core/widget/core/Popup",
-			"../../../../core/widget/core/Scrollview",
+			"./Page",
+			"./Popup",
+			"./Scrollview",
 			"../../../../core/widget/core/Listview",
 			"../mobile",
 			"./BaseWidgetMobile"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
-			var Page = ns.widget.core.Page,
-				Popup = ns.widget.core.Popup,
-				Scrollview = ns.widget.core.Scrollview,
+			var Page = ns.widget.mobile.Page,
+				Popup = ns.widget.mobile.Popup,
+				Scrollview = ns.widget.mobile.Scrollview,
 				CoreListview = ns.widget.core.Listview,
 				CoreListviewProto = CoreListview.prototype,
 				utils = ns.util,
@@ -66,96 +66,38 @@
 
 					CoreListview.call(self);
 
-					/**
-					 * @property {Function} _async async function (requestAnimationFrame)
-					 * @protected Kept here for easy test injection
-					 */
+					// async function (requestAnimationFrame)
 					self._async = utils.requestAnimationFrame;
-					/**
-					 * @property {CanvasRenderingContext2D} _context rendering context
-					 * @protected
-					 */
+					// rendering context
 					self._context = null;
-					/**
-					 * @property {CSSStyleDeclaration} _canvasStyle canvas elements style
-					 * @protected
-					 */
+					// canvas elements style
 					self._canvasStyle = null;
-					/**
-					 * @property {HTMLElement} _scrollableContainer detected parent scrollable element
-					 * @protected
-					 */
+					// detected parent scrollable element
 					self._scrollableContainer = null;
-					/**
-					 * @property {HTMLElement} _pageContainer detected parent page element
-					 * @protected
-					 */
+					// detected parent page element
 					self._pageContainer = null;
-					/**
-					 * @property {HTMLElement} _popupContainer detected parent popup element
-					 * @protected
-					 */
+					// detected parent popup element
 					self._popupContainer = null;
-					/**
-					 * @property {Function} _drawCallback
-					 * @protected
-					 */
+					// drawCallback
 					self._drawCallback = null;
-					/**
-					 *
-					 * @property {Function} _scrollCallback
-					 * @protected
-					 */
+					// scrollCallback
 					self._scrollCallback = null;
-					/**
-					 * @property {Function} _backgroundRenderCallback
-					 * @protected
-					 */
+					// _backgroundRenderCallback
 					self._backgroundRenderCallback = null;
-					/**
-					 * @property {boolean} _running flag for async timers
-					 * @protected
-					 */
+					// flag for async timers
 					self._running = false;
-					/**
-					 * @property {boolean} _redraw flag for drawing
-					 * @protected
-					 */
+					// flag for drawing
 					self._redraw = false;
-					/**
-					 * @property {Array} _colorBase starting default color for gradient background
-					 * @protected
-					 */
-					self._colorBase = [128, 255, 192, 0];
-					/**
-					 * @property {Array} _colorStep color modifier for each background gradient step
-					 * @protected
-					 */
-					self._colorStep = [0, 0, 0, 0.04];
-					/**
-					 * @property {Number} _lastChange
-					 * @protected
-					 */
+					// starting default color for gradient background
+					self._colorBase = [250, 250, 250, 1];
+					// color modifier for each background gradient step
+					self._colorStep = [0, 0, 0, -0.04];
+					// _lastChange
 					self._lastChange = 0;
-					/**
-					 * @property {Number}
-					 * @protected
-					 */
+
 					self._topOffset = window.innerHeight;
-					/**
-					 * @property {HTMLElement} _previousVisibleElement
-					 * @protected
-					 */
 					self._previousVisibleElement = null;
-					/**
-					 * @property {Number} _canvasWidth
-					 * @protected
-					 */
 					self._canvasWidth = 0;
-					/**
-					 * @property {Number} _canvasHeight
-					 * @protected
-					 */
 					self._canvasHeight = 0;
 				},
 				/**
@@ -244,8 +186,8 @@
 				return 0;
 			}
 
-			Listview.classes = objectUtils.fastMerge(classes, CoreListview.classes || {});
-			Listview.events = objectUtils.fastMerge(events, CoreListview.events || {});
+			Listview.classes = objectUtils.fastMerge(classes, CoreListview.classes);
+			Listview.events = events;
 
 			/**
 			 * Builds widget
@@ -258,8 +200,8 @@
 			prototype._build = function (element) {
 				var newElement = CoreListviewProto._build.call(this, element),
 					isChildListview = !!selectorUtils.getClosestByClass(element && element.parentElement, "ui-listview"),
-					canvas = null,
-					context = null;
+					canvas,
+					context;
 
 				this._isChildListview = isChildListview;
 
@@ -285,9 +227,9 @@
 					canvas = self._context.canvas,
 					computedAfter = window.getComputedStyle(canvas, ":before"),
 					colorCSSDefinition = computedAfter.getPropertyValue("content"),
-					baseColor = [255, 255, 255, 0],
-					modifierColor = [0, 0, 0, 0],
-					colors = ["", ""];
+					baseColor,
+					modifierColor,
+					colors;
 
 				if (colorCSSDefinition.length > 0) {
 					colorCSSDefinition = colorCSSDefinition.replace(colorDefinitionRegex, "");
@@ -323,11 +265,7 @@
 					// canvasHeight of canvas element
 					canvasHeight = 0,
 					// canvasWidth of canvas element
-					canvasWidth = 0;
-
-				if (CoreListviewProto._refresh) {
-					CoreListviewProto._refresh.call(self);
-				}
+					canvasWidth;
 
 				if (self.element.classList.contains(classes.GRADIENT_BACKGROUND_DISABLED) === false) {
 					self._redraw = true;
@@ -372,11 +310,7 @@
 			 */
 			prototype._init = function (element) {
 				var context = this._context,
-					canvas = null;
-
-				if (CoreListview._init) {
-					CoreListviewProto._init.call(this, element);
-				}
+					canvas;
 
 				if (!this._isChildListview) {
 					if (!context) {
@@ -447,17 +381,17 @@
 					element = self.element,
 					// get all li liElements
 					liElements = slice.call(element.querySelectorAll("li")),
-					nextVisibleLiElement = null,
+					nextVisibleLiElement,
 					// scrollable container, connected with scrollview
 					scrollableContainer = self._scrollableContainer,
-					scrollTop = scrollableContainer && scrollableContainer.scrollTop || 0,
+					scrollTop = scrollableContainer ? scrollableContainer.scrollTop : 0,
 					// top of element to calculate offset top
 					top = element.getBoundingClientRect().top,
 					previousVisibleElement = self._previousVisibleElement,
 					topOffset = self._topOffset,
-					rectangle = null,
+					rectangle,
 					currentVisibleLiElement = getNextVisible(liElements),
-					liOffsetTop = 0,
+					liOffsetTop,
 					height;
 
 				while (currentVisibleLiElement) {
@@ -480,7 +414,7 @@
 					}
 				}
 
-				if (self._redraw) {
+				if (self._redraw && self._context) {
 					self._handleDraw();
 				}
 
@@ -554,13 +488,20 @@
 				self._context.clearRect(0, 0, self._canvasWidth, self._canvasHeight);
 			};
 
+			function adjustRectangle(rectangle, topOffset, listLeft, previousTop) {
+				rectangle.height += topOffset;
+				rectangle.left -= listLeft;
+				rectangle.top = previousTop;
+				return rectangle;
+			}
 			/**
-			 * Handles drawing of step-gradient background
-			 * @method _handleDraw
+			 * Draw backgrounds on LI elements
+			 * @method _drawLiElements
 			 * @member ns.widget.mobile.Listview
+			 * @return {DOMRect}
 			 * @protected
 			 */
-			prototype._handleDraw = function () {
+			prototype._drawLiElements = function () {
 				var self = this,
 					element = self.element,
 					// all li elements
@@ -585,47 +526,66 @@
 					// top on each last element
 					previousTop = 0,
 					// top offset of widget
-					topOffset = self._topOffset,
-					// canvas rectangle
-					canvasRect = null;
+					topOffset = self._topOffset;
 
-				if (context) {
-					self._prepareCanvas();
 
-					while (liElement) {
-						// calculate size of li element
-						rectangle = getElementRectangle(liElement);
-						// get liElement element
-						liElement = getNextVisible(elements);
-						rectangle.height = calculateElementHeight(liElement, rectangle);
-						// check that element is visible (can be partialy visible)
-						if (ceil(rectangle.top - listTop + rectangle.height) >= scrollTop) {
-							// adjust height for first element
-							rectangle.height += topOffset;
-							rectangle.left -= listLeft;
-							topOffset = 0;
-
-							rectangle.top = previousTop;
-							drawRectangle(context, rectangle);
-							previousTop += rectangle.height;
-
-							// calculate liElement step, stop when all done
-							if (!modifyColor(colorTmp, step)) {
-								liElement = null;
-							}
-						}
-					}
-
-					// fill rest of canvas by color of next item
-					if (rectangle !== null) {
-						canvasRect = context.canvas.getBoundingClientRect();
-						if (rectangle.height + rectangle.top < canvasRect.height) {
-							rectangle.top += rectangle.height;
-							rectangle.height = canvasRect.height - rectangle.top;
-							drawRectangle(context, rectangle);
+				while (liElement) {
+					// calculate size of li element
+					rectangle = getElementRectangle(liElement);
+					// get liElement element
+					liElement = getNextVisible(elements);
+					rectangle.height = calculateElementHeight(liElement, rectangle);
+					// check that element is visible (can be partialy visible)
+					if (ceil(rectangle.top - listTop + rectangle.height) >= scrollTop) {
+						// adjust height for first element
+						rectangle = adjustRectangle(rectangle, topOffset, listLeft, previousTop);
+						topOffset = 0;
+						drawRectangle(context, rectangle);
+						previousTop += rectangle.height;
+						// calculate liElement step, stop when all done
+						if (!modifyColor(colorTmp, step)) {
+							liElement = null;
 						}
 					}
 				}
+				return rectangle;
+			};
+
+			/**
+			 * Draw rest of empty space
+			 * @method _drawEndOfList
+			 * @param {DOMRect} rectangle
+			 * @param {CanvasRenderingContext2D} context
+			 * @protected
+			 */
+			prototype._drawEndOfList = function (rectangle, context) {
+				var canvasRect;
+
+				// fill rest of canvas by color of next item
+				if (rectangle !== null) {
+					canvasRect = context.canvas.getBoundingClientRect();
+					if (rectangle.height + rectangle.top < canvasRect.height) {
+						rectangle.top += rectangle.height;
+						rectangle.height = canvasRect.height - rectangle.top;
+						drawRectangle(context, rectangle);
+					}
+				}
+			};
+
+			/**
+			 * Handles drawing of step-gradient background
+			 * @method _handleDraw
+			 * @member ns.widget.mobile.Listview
+			 * @protected
+			 */
+			prototype._handleDraw = function () {
+				var self = this,
+					// store dimensions of li
+					rectangle;
+
+				self._prepareCanvas();
+				rectangle = self._drawLiElements();
+				self._drawEndOfList(rectangle, self._context);
 				self._redraw = false;
 			};
 
@@ -639,10 +599,6 @@
 				var scrollableContainer = this._scrollableContainer,
 					pageContainer = this._pageContainer,
 					popupContainer = this._popupContainer;
-
-				if (CoreListviewProto._bindEvents) {
-					CoreListviewProto._bindEvents.call(this);
-				}
 
 				if (!this._isChildListview) {
 					if (scrollableContainer) {

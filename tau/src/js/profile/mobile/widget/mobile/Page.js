@@ -286,6 +286,7 @@
 			});
 
 			Page.classes = classes;
+			Page.events = CorePage.events;
 
 			/**
 			 * Set ARIA attributes on page structure

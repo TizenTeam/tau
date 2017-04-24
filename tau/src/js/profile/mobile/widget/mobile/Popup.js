@@ -538,6 +538,8 @@
 					self._positionCallback = null;
 				};
 
+			Popup.classes = CorePopup.classes;
+
 			/**
 			* @property {Object} options Object with default options
 			* @property {string} [options.transition="none"] Sets the default transition for the popup.

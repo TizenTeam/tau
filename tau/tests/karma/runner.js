@@ -16,6 +16,7 @@ var allTestFiles = [],
 		"core/widget/core/Radio",
 		"core/widget/core/PageContainer",
 		"profile/mobile/widget/mobile/Page",
+		"profile/mobile/widget/mobile/Listview",
 		"profile/mobile/widget/mobile/TextEnveloper",
 		"profile/wearable/helper/SnapListMarqueeStyle",
 		"profile/wearable/widget/wearable/SnapListview",
@@ -40,6 +41,14 @@ var allTestFiles = [],
 		"core/event/gesture/Swipe"
 	];
 
+window.tauPerf = {
+	start: function() {
+
+	},
+	get: function() {
+
+	}
+};
 
 QUnit.test = window.test = function () {
 	testCount += 1;
