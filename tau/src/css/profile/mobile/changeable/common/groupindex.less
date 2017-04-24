@@ -1,24 +1,30 @@
 .ui-listview .ui-group-index {
-    box-sizing: border-box;
-    min-height: 64 * @unit_base;
-    padding: 14 * @unit_base 32 * @unit_base 14 * @unit_base 32 * @unit_base;
+	box-sizing: border-box;
+	min-height: 64 * @unit_base;
+	padding: 14 * @unit_base 32 * @unit_base 14 * @unit_base 32 * @unit_base;
 
-    font-size: 33 * @unit_base;
-    color: @color_list_divider_text;
-    line-height: 37 * @unit_base;
-    vertical-align: middle;
-    position: relative;
+	font-size: 33 * @unit_base;
+	color: @color_list_divider_text;
+	line-height: 37 * @unit_base;
+	vertical-align: middle;
+	position: relative;
 
-    input[type=checkbox] {
-        position: absolute;
-        right: 32 * @unit_base;
-        top: 7 * @unit_base;
-    }
+	input[type=checkbox] {
+		position: absolute;
+		right: 32 * @unit_base;
+		top: 7 * @unit_base;
+	}
 
-    + .ui-li-static {
-        padding: 35 * @unit_base 17 * @unit_base 36 * @unit_base 32 * @unit_base;
+	+ .ui-li-static {
+		padding: 35 * @unit_base 17 * @unit_base 36 * @unit_base 32 * @unit_base;
 
-    }
-
+	}
+	~ .ui-li-static {
+		> input[type=checkbox] {
+			position: absolute;
+			right: 32 * @unit_base;
+			top: 32 * @unit_base;
+		}
+	}
 }
 
