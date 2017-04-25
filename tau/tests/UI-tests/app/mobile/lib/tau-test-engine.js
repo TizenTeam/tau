@@ -168,8 +168,11 @@ function onRequestSuccess(status) {
 function onPageChange() {
 	var path = tau.util.path.parseUrl(tau.router.history.activeState.url);
 
+	// wait 1s and take a screenshot
 	tau.log(path.filename);
-	sendRequest("take-screenshot:" + path.filename, onRequestSuccess);
+	setTimeout(function () {
+		sendRequest("take-screenshot:" + path.filename, onRequestSuccess);
+	}, 1000);
 }
 
 function main() {
