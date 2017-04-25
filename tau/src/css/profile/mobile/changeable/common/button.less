@@ -133,22 +133,31 @@ a.ui-btn {
 		.LESSui-btn-nobg();
 	}
 
-	&.ui-btn-circle,
-	&.ui-btn-nobg {
-		width: 78 * @unit_base;
-		height: 78 * @unit_base;
-		text-indent: -9999 * @unit_base;
-		padding: 20 * @unit_base 0;
-		border-radius: 50%;
+	&.ui-btn-icon {
+		&.ui-btn-circle {
+			width: 98 * @unit_base;
+			height: 98 * @unit_base;
 
-		&.ui-inline {
-			width: 78 * @unit_base;
+			&::after {
+				background-color: @color_button_icon;
+			}
 		}
 
-		&::after {
+		&.ui-btn-nobg {
 			width: 80 * @unit_base;
 			height: 80 * @unit_base;
-			background-color: @color_button_icon;
+			text-indent: -9999 * @unit_base;
+			padding: 20 * @unit_base 0;
+			border-radius: 50%;
+
+			&.ui-inline {
+				width: 80 * @unit_base;
+			}
+
+			&::after {
+				width: 80 * @unit_base;
+				height: 80 * @unit_base;
+			}
 		}
 	}
 
