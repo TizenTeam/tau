@@ -411,8 +411,8 @@
 									ns.log(msg);
 								}
 							},
-							warn: console.warn.bind(console),
-							error: console.error.bind(console),
+							warn: ns.warn.bind(ns),
+							error: ns.error.bind(ns),
 							alert: window.alert.bind(window)
 						};
 						tizen.util = {

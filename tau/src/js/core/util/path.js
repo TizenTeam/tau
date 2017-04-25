@@ -313,15 +313,15 @@
 					 * @static
 					 */
 					makeUrlAbsolute: function (relUrl, absUrl) {
-						var relObj = null,
-							absObj = null,
-							protocol = "",
-							doubleSlash = "",
-							authority = "",
-							hasPath = "",
-							pathname = "",
-							search = "",
-							hash = "";
+						var relObj,
+							absObj,
+							protocol,
+							doubleSlash,
+							authority,
+							hasPath,
+							pathname,
+							search,
+							hash;
 
 						if (!path.isRelativeUrl(relUrl)) {
 							return relUrl;
@@ -357,7 +357,7 @@
 					addSearchParams: function (url, params) {
 						var urlObject = path.parseUrl(url),
 							paramsString = (typeof params === "object") ? this.getAsURIParameters(params) : params,
-							searchChar = "",
+							searchChar,
 							urlObjectHash = urlObject.hash;
 
 						if (path.isEmbedded(url) && paramsString.length > 0) {

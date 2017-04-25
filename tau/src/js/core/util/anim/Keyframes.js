@@ -105,7 +105,7 @@
 
 				Keyframes = function (steps) {
 					var id = ns.getUniqueId(),
-						element = null;
+						element;
 
 					if (!styleContainer) {
 						element = document.createElement("style");

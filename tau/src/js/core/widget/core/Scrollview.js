@@ -439,7 +439,7 @@
 					ui = self._ui,
 					view = selectors.getChildrenByClass(element, classes.view)[0] || document.createElement("div"),
 					clipStyle = element.style,
-					node = null,
+					node,
 					child = element.firstChild,
 					options = self.options,
 					direction = options.scroll,
@@ -633,8 +633,6 @@
 
 				switch (self.options.scroll) {
 					case "x":
-						// @todo
-						break;
 					case "xy":
 						// @todo
 						break;
@@ -842,19 +840,24 @@
 				elementBottom = elementTop + elementHeight;
 				//elementRight = elementLeft + elementWidth;
 
+				/* C1) element fits in view is inside clip area
+				 * C2) element visible only at top; eg. partly visible textarea
+				 * C3) element visible only at bottom
+				 * C4) element fits in view but its visible only at top
+				 * C5) element fits in view but its visible only at bottom
+				 */
 				switch (_true) {
-					case elementFits && clipTop < elementTop && clipBottom > elementBottom: // element fits in view is inside clip area
-						// pass, element position is ok
+					case elementFits && clipTop < elementTop && clipBottom > elementBottom:
+					case clipTop < elementTop && elementTop < clipBottom && clipBottom < elementBottom:
+					case clipTop > elementTop && clipBottom > elementBottom:
+						// (1) pass, element position is ok
+						// (2, 3) pass, we cant do anything, if we move the scroll the user could lost view of
+						// something he scrolled to
 						break;
-					case elementFits && clipTop < elementTop && clipBottom < elementBottom: // element fits in view but its visible only at top
-					case elementFits && clipTop > elementTop && clipBottom > elementBottom: // element fits in view but its visible only at bottom
+					case elementFits && clipTop < elementTop && clipBottom < elementBottom:
+					case elementFits && clipTop > elementTop && clipBottom > elementBottom:
 					case elementFits: // element fits in view but is not visible
 						this.centerToElement(element);
-						break;
-					case clipTop < elementTop && elementTop < clipBottom && clipBottom < elementBottom: // element visible only at top; eg. partly visible textarea
-					case clipTop > elementTop && clipBottom > elementBottom: // element visible only at bottom
-						// pass, we cant do anything, if we move the scroll
-						// the user could lost view of something he scrolled to
 						break;
 					default: // element is not visible
 						anchor = findPositionAnchor(element);

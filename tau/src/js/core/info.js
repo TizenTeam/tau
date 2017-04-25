@@ -55,7 +55,7 @@
 					refreshTheme: function (done) {
 						var el = document.createElement("span"),
 							parent = document.body,
-							themeName = null;
+							themeName;
 
 						if (document.readyState !== "interactive" && document.readyState !== "complete") {
 							eventUtils.fastOn(document, "DOMContentLoaded", this.refreshTheme.bind(this, done));
