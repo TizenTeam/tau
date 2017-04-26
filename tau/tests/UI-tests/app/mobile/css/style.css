@@ -662,9 +662,6 @@
 /**************************************
             email-input
 ***************************************/
-#emailinput-demo .ui-scrollview-view div{
-    background-color: rgba(250, 250, 250, 1);
-}
 #emailinput-demo #select-custom-1-dropdownmenu {
     height: 58px;
 }
