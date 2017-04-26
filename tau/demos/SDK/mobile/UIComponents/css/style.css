@@ -159,22 +159,6 @@
 	margin-top: -20px;
 }
 
-/********************* list have right checkbox ********************/
-
-.li-has-radio.li-has-right-radio .ui-radio {
-	position: absolute !important;
-	top: 35px;
-	right: 13px;
-	left: auto !important;
-}
-
-.li-has-radio.li-has-right-radio .ui-radio:first-child {
-	right: 60px;
-}
-
-.li-has-radio.li-has-right-radio .ui-radio {
-	margin-top: -20px;
-}
 /****************************************************************/
 /*              Multiline List Style                            */
 /****************************************************************/
