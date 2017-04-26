@@ -72,6 +72,7 @@ a.ui-btn {
 	height: 78 * @unit_base;
 	line-height: 78 * @unit_base;
 	vertical-align: middle;
+	overflow: hidden;
 	text-overflow: ellipsis;
 	text-align: center;
 	color: @color_button_text_normal;
@@ -200,16 +201,16 @@ a.ui-btn {
 
 		&.ui-btn-icon {
 			&-left {
-				padding-left: 136 * @unit_base;
-				padding-right: 68 * @unit_base;
+				padding-left: 130 * @unit_base;
+				padding-right: 60 * @unit_base;
 				&::after {
 					left: 58 * @unit_base;
 				}
 			}
 
 			&-right {
-				padding-left: 68 * @unit_base;
-				padding-right: 136 * @unit_base;
+				padding-left: 60 * @unit_base;
+				padding-right: 130 * @unit_base;
 				&::after {
 					right: 58 * @unit_base;
 					left: auto;
@@ -281,8 +282,14 @@ a.ui-btn {
 
 }
 
+.ui-listview li.ui-li-has-btn {
+	box-sizing: border-box;
+}
+
 .ui-li-has-btn {
 	.display-flex();
+	height: 120 * @unit_base;
+
 	.ui-btn {
 		margin: -14 * @unit_base auto;
 		max-width: 496 * @unit_base;
