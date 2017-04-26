@@ -35,6 +35,12 @@
 		white-space: nowrap;
 		text-align: center;
 		margin: 21.5 * @unit_base auto 20 * @unit_base auto;
+
+		&:only-child {
+			max-width: none;
+			margin-left: 32 * @unit_base;
+			margin-right: 32 * @unit_base;
+		}
 	}
 
 	> .ui-title-text-main {
