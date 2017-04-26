@@ -26,7 +26,20 @@
 		</ul>
 	</div>
 	<script>
-		document.getElementById("search-bar").focus();
+		(function (tau) {
+			var page = document.getElementById("searchInputPage"),
+				search = document.getElementById("search-bar");
+
+			/**
+			 * pagebeforeshow event handler
+			 * Do preparatory works and adds event listeners
+			 */
+			page.addEventListener("pageshow", function () {
+				// get listview widget instance
+				search.focus();
+				tau.event.trigger(search, "keyup");
+			});
+		}(window.tau));
 	</script>
 </div>
 </body>
