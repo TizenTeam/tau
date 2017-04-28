@@ -112,7 +112,8 @@
 					/**
 					 */
 					"BACKGROUND_LAYER": "ui-listview-background",
-					"GRADIENT_BACKGROUND_DISABLED": "ui-listview-background-disabled"
+					"GRADIENT_BACKGROUND_DISABLED": "ui-listview-background-disabled",
+					"GROUP_INDEX": "ui-group-index"
 				},
 				/**
 				 * @property {Object} events
@@ -494,6 +495,7 @@
 				rectangle.top = previousTop;
 				return rectangle;
 			}
+
 			/**
 			 * Draw backgrounds on LI elements
 			 * @method _drawLiElements
@@ -526,15 +528,22 @@
 					// top on each last element
 					previousTop = 0,
 					// top offset of widget
-					topOffset = self._topOffset;
-
+					topOffset = self._topOffset,
+					// canvas rectangle
+					changeColor;
 
 				while (liElement) {
-					// calculate size of li element
+					// if li element is group index, the color of next element wont change
+					changeColor = !liElement.classList.contains(classes.GROUP_INDEX);
+					//calculate size of li element
 					rectangle = getElementRectangle(liElement);
 					// get liElement element
 					liElement = getNextVisible(elements);
 					rectangle.height = calculateElementHeight(liElement, rectangle);
+					//check if next element is group index, if yes then change its color
+					if (!changeColor && liElement && liElement.classList.contains(classes.GROUP_INDEX)) {
+						changeColor = true;
+					}
 					// check that element is visible (can be partialy visible)
 					if (ceil(rectangle.top - listTop + rectangle.height) >= scrollTop) {
 						// adjust height for first element
@@ -542,8 +551,9 @@
 						topOffset = 0;
 						drawRectangle(context, rectangle);
 						previousTop += rectangle.height;
+						// check if we want to change the bg color of next li element
 						// calculate liElement step, stop when all done
-						if (!modifyColor(colorTmp, step)) {
+						if (changeColor && !modifyColor(colorTmp, step)) {
 							liElement = null;
 						}
 					}
