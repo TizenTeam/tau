@@ -128,7 +128,7 @@
 			margin: 8 * @unit_base;
 			text-indent: 0;
 			height: 94 * @unit_base;
-			width: 176 * @unit_base;
+			width: 168 * @unit_base;
 			box-sizing: border-box;
 			color: @color_button_text_normal;
 			line-height: 94 * @unit_base;
@@ -155,17 +155,22 @@
 			&.ui-btn-active {
 				color: @color_button_text_press;
 			}
+
+			&::before {
+				width: 167 * @unit_base;
+				height: 94 * @unit_base;
+			}
 		}
 	}
 
 	&:not(.ui-header-searchbar) {
 		> .ui-header-btn, > .ui-btn:not(.ui-btn-nobg) {
-			&.ui-header-btn-left, &.ui-btn-left {
+			&.ui-header-btn-left:not(.ui-header-btn-text), &.ui-btn-left:not(.ui-btn-text) {
 				top: 15 * @unit_base;
 				left: 10 * @unit_base;
 			}
 
-			&.ui-header-btn-right, &.ui-btn-right {
+			&.ui-header-btn-right:not(.ui-header-btn-text), &.ui-btn-right:not(.ui-btn-text) {
 				top: 15 * @unit_base;
 				right: 10 * @unit_base;
 			}
