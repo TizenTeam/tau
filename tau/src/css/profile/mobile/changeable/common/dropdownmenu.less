@@ -60,7 +60,7 @@
 		overflow: hidden;
 		text-overflow: ellipsis;
 		font-size: @font_size_dropdownmenu_placeholder;
-		text-indent: 16 * @unit_base;
+		text-indent: 10 * @unit_base;
 		background-color: @color_dropdownmenu_placeholder_bg;
 		color: @color_dropdownmenu_placeholder_text;
 		&::before {
@@ -257,6 +257,10 @@
 .ui-listview li.ui-li-static.ui-li-has-dropdownmenu {
 	padding: 0;
 	.ui-dropdownmenu-placeholder {
-		line-height: 118 * @unit_base;
+		line-height: 120 * @unit_base;
 	}
+}
+
+.ui-li-static.ui-li-has-dropdownmenu {
+	height: 120 * @unit_base;
 }

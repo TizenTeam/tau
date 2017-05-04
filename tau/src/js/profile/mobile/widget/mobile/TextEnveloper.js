@@ -145,7 +145,8 @@
 					TEXT_ENVELOPER_START: "ui-text-enveloper-start",
 					TEXT_ENVELOPER_TEXTLINE: "ui-text-input-textline",
 					TEXT_ENVELOPER_SLASH: "ui-text-enveloper-slash",
-					TEXT_ENVELOPER_SLASH_HIDDEN: "ui-text-enveloper-slash-hidden"
+					TEXT_ENVELOPER_SLASH_HIDDEN: "ui-text-enveloper-slash-hidden",
+					TEXT_ENVELOPER_BTN_SLASH: "ui-text-enveloper-btn-separator"
 				},
 
 				keyCode = {
@@ -310,6 +311,16 @@
 			 * @member ns.widget.mobile.TextEnveloper
 			 */
 			prototype._onFocus = function () {
+				this.expandButtons();
+			};
+
+			/**
+			 * Method used to show Text Enveloper items
+			 * @method expandButtons
+			 * @since 3.0
+			 * @member ns.widget.mobile.TextEnveloper
+			 */
+			prototype.expandButtons = function () {
 				var self = this,
 					ui = self._ui,
 					length = ui.buttons.length,
@@ -326,7 +337,6 @@
 					self.trigger(eventName.RESIZE);
 				}
 			};
-
 
 			/**
 			 * Focus event handler of input element
@@ -385,17 +395,42 @@
 			 * @member ns.widget.mobile.TextEnveloper
 			 */
 			prototype._onBlur = function () {
+				this.foldButtons();
+			};
+
+			/**
+			 * Method used to hide Text Enveloper items
+			 * @method foldButtons
+			 * @since 3.0
+			 * @member ns.widget.mobile.TextEnveloper
+			 */
+			prototype.foldButtons = function () {
 				var self = this,
 					ui = self._ui,
 					length = ui.buttons.length,
 					firstButtonValue = ui.buttons[0] ? ui.buttons[0].textContent : "",
-					i;
+					i,
+					button,
+					firstButtonTextNode,
+					separatorNode,
+					lengthTextNode;
 
-				if (ui.buttons.length > 1 && self.options.groupOnBlur) {
+				if (length > 1 && self.options.groupOnBlur) {
 					for (i = 0; i < length; i++) {
 						ui.buttons[i].classList.add(classes.TEXT_ENVELOPER_BTN_BLUR);
 					}
-					self._createButton(firstButtonValue + " + " + (length - 1));
+
+					firstButtonTextNode = document.createTextNode(firstButtonValue);
+					lengthTextNode = document.createTextNode("+" + (length - 1));
+					separatorNode = document.createElement("span");
+
+					separatorNode.classList.add(classes.TEXT_ENVELOPER_BTN_SLASH);
+
+					button = self._createButton("");
+					button.appendChild(firstButtonTextNode);
+					button.appendChild(separatorNode);
+					button.appendChild(lengthTextNode);
+
 					self._isBlurred = true;
 					self.trigger(eventName.RESIZE);
 				}
@@ -435,6 +470,7 @@
 							}
 						}
 					}
+					self.trigger(eventName.RESIZE);
 				} else {
 					if (self._btnActive) {
 						ui.buttons[lastIndex].classList.remove(classes.TEXT_ENVELOPER_BTN_ACTIVE);
@@ -482,7 +518,6 @@
 					element = self.element,
 					span = document.createElement("span");
 
-				span.innerHTML = "/";
 				span.classList.add(classes.TEXT_ENVELOPER_SLASH);
 				element.insertBefore(span, ui.inputElement);
 				return span;

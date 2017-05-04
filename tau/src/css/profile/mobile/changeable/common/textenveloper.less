@@ -1,19 +1,20 @@
 .ui-text-enveloper {
 	z-index: 1;
 	position: relative;
-	min-height: 120 * @unit_base;
 	background-color: transparent;
 	display: flex;
+	outline: none;
 	.flex-wrap(wrap);
 
 	.ui-text-enveloper-start {
 		line-height: 54 * @unit_base;
 		height: 54 * @unit_base;
 		font-size: @font_size_enveloper;
-		margin-top: 24 * @unit_base;
+		margin-top: 13 * @unit_base;
 		color: @color_enveloper_start_text;
 		margin-right: 20 * @unit_base;
 		display: inline-block;
+		float: left;
 	}
 
 	.ui-btn:not(.ui-btn-circle):not(.ui-btn-nobg):not(.ui-floatingactions-item) {
@@ -24,13 +25,15 @@
 			height: 80 * @unit_base;
 			border-radius: 15 * @unit_base;
 			font-size: @font_size_enveloper;
-			margin-top: 10 * @unit_base;
+			margin-top: -2 * @unit_base;
 			padding: 14 * @unit_base 12 * @unit_base 12 * @unit_base;
+			margin-left: -12 * @unit_base;
 			min-height: 80 * @unit_base;
 			vertical-align :top;
 			.user-select(none);
 			background-color: transparent;
 			color: @color_enveloper_expanded_button_normal;
+			overflow: auto;
 
 			&::before {
 				top: 50%;
@@ -88,17 +91,68 @@
 		}
 	}
 
+	.ui-text-enveloper-btn.ui-btn.ui-text-enveloper-btn-blur ~ .ui-btn.ui-text-enveloper-btn {
+		margin-left: 6 * @unit_base;
+		padding-left: 10 * @unit_base;
+		border-bottom: 2 * @unit_base solid @color_textinput_outline;
+		overflow: hidden;
+		border-radius: 0;
+		flex: 1;
+		text-align: left;
+		margin-bottom: 2 * @unit_base;
+
+		+ .ui-text-enveloper-input {
+			display: block;
+			position: absolute;
+			width: 100%;
+			text-indent: 100%;
+			height: 54 * @unit_base;
+		}
+	}
+
+	.ui-text-enveloper-btn-separator {
+		display: inline-block;
+		margin: 0 12 * @unit_base;
+		width: 15 * @unit_base;
+
+		&::after {
+			content: "";
+			display: block;
+			position: absolute;
+			width: 15 * @unit_base;
+			height: 33 * @unit_base;
+			margin-top: -30 * @unit_base;
+			mask-size: 100%;
+			mask-image: url(images/core_contact_div.png);
+			background-color: @color_textenveloper_div;
+			mask-repeat: no-repeat;
+		}
+	}
+
 	.ui-text-enveloper-btn-expanded {
 		color: @color_enveloper_not_active_text;
 	}
 
 	.ui-text-enveloper-slash {
-		width: 15 * @unit_base;
-		margin: 28 * @unit_base 0 0;
-		color: @color_enveloper_expanded_button_normal;
+		margin-top: -2 * @unit_base;
+		width: 27 * @unit_base;
+		height: 80 * @unit_base;
 		opacity: 1;
-		.transition(opacity linear 200ms);
+		transition: opacity linear 200ms;
 		display: inline-block;
+		overflow: auto;
+
+		&::after {
+			content: "";
+			width: 15 * @unit_base;
+			margin-top: 24 * @unit_base;
+			height: 33 * @unit_base;
+			position: absolute;
+			mask-size: 100%;
+			mask-image: url(images/core_contact_div.png);
+			background-color: @color_textenveloper_div;
+			mask-repeat: no-repeat;
+		}
 
 		&.ui-text-enveloper-slash-hidden {
 			opacity: 0;
@@ -112,11 +166,12 @@
 		min-width: 120 * @unit_base;
 		line-height: 54 * @unit_base;
 		height: 54 * @unit_base;
-		margin-top: 24 * @unit_base;
+		margin-top: 12 * @unit_base;
 		font-size: @font_size_enveloper;
 		color: @color_enveloper_expanded_button_normal;
 		text-shadow: 0 0 0 @color_enveloper_expanded_button_normal;
 		background-color: transparent;
+		margin-left: -10 * @unit_base;
 
 		&:active {
 			color: @color_enveloper_expanded_button_normal;
@@ -133,6 +188,6 @@
 }
 
 .ui-listview .ui-li-static .ui-text-enveloper {
-	margin-top: -32 * @unit_base;
-	margin-bottom: -32 * @unit_base;
+	margin-top: -14 * @unit_base;
+	margin-bottom: -12 * @unit_base;
 }
