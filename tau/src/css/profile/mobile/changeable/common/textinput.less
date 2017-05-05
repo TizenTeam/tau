@@ -50,6 +50,10 @@ textarea.ui-text-input {
 				margin-right: 0;
                 right: 0;
 			}
+
+			&:focus.ui-text-input-clear-active {
+				padding-right: 80 * @unit_base;
+			}
 		}
 	}
 }
@@ -75,7 +79,6 @@ textarea.ui-text-input {
 	}
 }
 
-
 input.ui-text-input,
 textarea.ui-text-input {
 	border: 0;
@@ -94,6 +97,10 @@ textarea.ui-text-input {
 
 	&:focus {
 		outline: none;
+
+		&.ui-text-input-clear-active {
+			padding-right: 63 * @unit_base;
+		}
 	}
 
 	& + .ui-text-input-textline {
