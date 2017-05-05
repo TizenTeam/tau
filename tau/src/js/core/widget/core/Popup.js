@@ -158,6 +158,7 @@
 					footer: CLASSES_PREFIX + "-footer",
 					content: CLASSES_PREFIX + "-content",
 					wrapper: CLASSES_PREFIX + "-wrapper",
+					toast: CLASSES_PREFIX + "-toast",
 					build: "ui-build"
 				},
 				/**
@@ -421,11 +422,18 @@
 					// create overlay
 					if (!overlay) {
 						overlay = document.createElement("div");
+
 						if (element.parentNode) {
 							element.parentNode.insertBefore(overlay, element);
 						} else {
 							ns.warn("Popup is creating on element outside DOM");
 						}
+
+						//if this is a toast popup, remove dark background from overlay div
+						if (element.classList.contains(classes.toast)) {
+							overlay.style.backgroundImage = "none";
+						}
+
 						ui.overlay = overlay;
 					}
 					overlay.className = classes.overlay + (overlayClass ? " " + overlayClass : "");
