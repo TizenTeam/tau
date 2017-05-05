@@ -1,11 +1,12 @@
-(function () {
+(function (document, tau) {
 	var page = document.querySelector(".search-bar-page"),
 		search = page.querySelector("[type=search]"),
 		list = page.querySelector("ul"),
 		listItems = list.querySelectorAll("li"),
 		listItemsArray = [].slice.call(listItems),
 		searchHandlerBound,
-		searchClearBound;
+		searchClearBound,
+		listview;
 
 	/**
 	 * Shows items that match the entered value
@@ -21,6 +22,7 @@
 				item.classList.remove("li-search-hidden");
 			}
 		});
+		listview.refresh();
 	}
 
 	/**
@@ -32,6 +34,7 @@
 				item.classList.remove("li-search-hidden");
 			});
 		}
+		listview.refresh();
 	}
 
 	/**
@@ -43,6 +46,7 @@
 		searchClearBound = searchClear.bind(this);
 		search.addEventListener("keyup", searchHandlerBound, false);
 		search.addEventListener("search", searchClearBound, false);
+		listview = tau.widget.Listview(list);
 	});
 
 	/**
@@ -54,5 +58,5 @@
 		search.removeEventListener("search", searchClearBound, false);
 	});
 
-}());
+}(window.document, window.tau));
 
