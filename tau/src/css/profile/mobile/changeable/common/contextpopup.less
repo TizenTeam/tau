@@ -7,7 +7,6 @@
 
 	.ui-popup-content {
 		width: auto;
-		margin: 2 * @unit_base;
 		padding: 0;
 	}
 
@@ -41,7 +40,7 @@
 		}
 
 		.ui-li-anchor a {
-			font-size: 41 * @unit_base;
+			font-size: @font_size_ctxpopup_text;
 			line-height: 41 * @unit_base;
 			padding: 0 32 * @unit_base;
 			min-height: 72 * @unit_base;
@@ -78,7 +77,7 @@
 		border-right: 0;
 		border-left: 2 * @unit_base solid @color_ctxpopup_divider;
 
-		&:first-child {
+		&:first-of-type {
 			border-left-width: 0;
 		}
 
@@ -92,6 +91,49 @@
 			&.ui-li-active {
 				background-color: @color_ctxpopup_btn_press;
 			}
+
+
+		}
+	}
+
+	&.ui-ctxpopup-basic .ui-li-anchor{
+		padding: 0 32 * @unit_base;
+		height: 72 * @unit_base;
+
+		> a {
+			padding: 0;
+			margin:0;
+		}
+	}
+
+	&.ui-ctxpopup-icons .ui-li-anchor{
+		padding: 0;
+		height: 80 * @unit_base;
+		width: 106 * @unit_base;
+
+		> a {
+			padding: 0;
+			margin:0;
+
+			> span {
+				padding: 0;
+				margin:0;
+			}
+		}
+	}
+
+	&.ui-ctxpopup-icons-text .ui-li-anchor{
+		padding: 0 32 * @unit_base;
+		height: 118 * @unit_base;
+		> a {
+			padding: 0;
+			margin:0;
+			font-size: @font_size_ctxpopup_icons_text;
+			line-height: 40 * @unit_base;
+			> span {
+				padding: 0;
+				margin:0 0 4 * @unit_base 0;
+			}
 		}
 	}
 
@@ -103,10 +145,31 @@
 			border-right: 0;
 			border-left: 0;
 
-			&:first-child {
+			&:first-of-type {
 				border-top-width: 0;
 			}
+
+			&.ui-li-anchor {
+				padding: 0 24 * @unit_base;
+				height: 80 * @unit_base;
+
+				> a {
+					margin: 0;
+					padding: 0;
+					overflow: visible;
+				}
+			}
 		}
+
+		.ui-icon {
+			display: inline-block;
+			vertical-align: middle;
+			margin-top: 0;
+			margin-bottom: 0;
+			margin-right: 20 * @unit_base;
+			margin-left: -4 * @unit_base; // UX Guide 4.3.12 (to avoid setting container class we use negative margin here)
+		}
+
 	}
 
 	.ui-icon {
@@ -117,14 +180,4 @@
 		margin: 4 * @unit_base auto; // Margin from both to even up flex and give spacing from text
 	}
 
-	&.ui-ctxpopup-vertical {
-		.ui-icon {
-			display: inline-block;
-			vertical-align: middle;
-			margin-top: 0;
-			margin-bottom: 0;
-			margin-right: 20 * @unit_base;
-			margin-left: -4 * @unit_base; // UX Guide 4.3.12 (to avoid setting container class we use negative margin here)
-		}
-	}
 }
