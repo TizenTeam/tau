@@ -8,6 +8,27 @@
 	.ui-popup-content {
 		width: auto;
 		padding: 0;
+		overflow: hidden;
+		> ul {
+			overflow: auto;
+			&::-webkit-scrollbar {
+				height: 8 * @unit_base;
+			}
+
+			&::-webkit-scrollbar-thumb {
+				background-color: @color_ctxpopup_scrollbar;
+				border-radius: 3 * @unit_base;
+				border-bottom: 2 * @unit_base solid #fff;
+			}
+
+			&::-webkit-scrollbar-button {
+				width: 4 * @unit_base;
+				height: 8 * @unit_base;
+				background-color: transparent;
+			}
+
+		}
+
 	}
 
 	.ui-popup-wrapper {
