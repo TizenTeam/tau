@@ -558,7 +558,12 @@
 
 				rows = Math.ceil(listElements.length / self.options.cols);
 				itemHeight = parseFloat(firstLiComputed.getPropertyValue("height")) || 0;
-				self.element.style.height = (itemHeight * rows) + "px";
+
+				if (self.element.getAttribute("data-label") === "out") {
+					self.element.style.height = (itemHeight * rows) + "px";
+				} else {
+					self.element.style.height = (itemHeight + 1) * rows + 1 + "px";
+				}
 			};
 
 			/**
@@ -630,6 +635,7 @@
 					options = self.options,
 					parentComputedStyle = window.getComputedStyle(self.element, null),
 					parentWidth = parseFloat(parentComputedStyle.getPropertyValue("width")) || 0,
+					parentHeight = self.element.firstElementChild.offsetHeight || 0,
 					minWidth = options.minWidth,
 					listElements = self._ui.listElements,
 					length = listElements.length,
@@ -637,7 +643,7 @@
 					cols,
 					i,
 					width,
-					borderSize = parentWidth / 360,
+					borderSize = 1,
 					elementStyle = null;
 
 				if (minWidth === "auto") {
@@ -650,7 +656,8 @@
 				cols = minWidth ? Math.floor(parentWidth / minWidth) : options.cols;
 
 				self._itemSize = (parentWidth - (cols - 1) * borderSize) / cols;
-				self._borderSize = borderSize;
+				self._itemHeight = parentHeight;
+				self._borderSize = 1;
 
 				width = self._itemSize + "px";
 
@@ -781,7 +788,7 @@
 			prototype._getTransformStyle = function (col, row, index) {
 				var size = this._itemSize + this._borderSize,
 					x = col * size + "px",
-					y = row * (size + (this.options.label === labels.OUT ? 30 : 0)) + "px",
+					y = row * (this._itemHeight + this._borderSize + (this.options.label === labels.OUT ? 30 : 0)) + "px",
 					transform,
 					style;
 

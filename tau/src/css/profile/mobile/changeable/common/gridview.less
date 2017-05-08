@@ -1,6 +1,9 @@
 .ui-gridview {
 	position: relative;
-	width: 100%;
+	width: 720 * @unit_base;
+	@media(orientation: landscape){
+		width: 1280 * @unit_base;
+	}
 	height: 100%;
 	padding: 0;
 	margin: 0;
@@ -14,8 +17,8 @@
 		opacity: 0;
 
 		&.ui-gridview-item-active {
-		  -webkit-transition: -webkit-transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 1.00);
-		  transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 1.00);
+			-webkit-transition: -webkit-transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 1.00);
+			transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 1.00);
 			opacity: 1;
 		}
 
@@ -41,19 +44,19 @@
 			-webkit-transition: opacity 0.4s linear;
 		}
 
-		 > label {
+		> label {
 			position: absolute;
 			top: 0;
 			left: 0;
 			width: 100%;
 			height: 100%;
 
-			 > input[type="checkbox"] {
+			> input[type="checkbox"] {
 				position: absolute;
 				top: 9 * @unit_base;
 				right: 9 * @unit_base;
-			 }
-		 }
+			}
+		}
 
 		.ui-gridview-image {
 			display: block;
@@ -89,7 +92,6 @@
 			text-align: center;
 		}
 	}
-
 	&.ui-gridview-label-in .ui-gridview-label {
 		position: absolute;
 		bottom: 12 * @unit_base;
@@ -113,8 +115,20 @@
 	}
 }
 
-.ui-popup .ui-gridview .ui-gridview-item {
-	-webkit-transition: none;
+.ui-content:not(.ui-popup-content-gridview) {
+
+	.ui-gridview:not(.ui-gridview-label-out) {
+
+		box-sizing: content-box;
+
+		.ui-gridview-item {
+
+			height: 178 * @unit_base;
+			display: flex;
+			box-sizing: content-box;
+
+		}
+	}
 }
 
 @keyframes grid_show_item {
@@ -123,5 +137,43 @@
 	}
 	100% {
 		opacity: 1;
+	}
+}
+
+@media (orientation: portrait) {
+	.ui-content:not(.ui-popup-content-gridview) {
+		.ui-gridview {
+			min-height: 1018 * @unit_base;
+		}
+	}
+}
+
+.ui-popup:not(.ui-ctxpopup) {
+	.ui-popup-wrapper {
+		width: 720 * @unit_base;
+		left: 0;
+		.ui-popup-content.ui-popup-content-gridview {
+			padding: 0;
+			margin: 0;
+			height: 270 * @unit_base;
+		}
+
+		.ui-popup-content.ui-popup-content-gridview-multiple {
+			padding: 0;
+			margin: 0;
+			height: 504 * @unit_base;
+			@media (orientation: landscape) {
+
+			}
+		}
+
+	}
+
+}
+
+@media(orientation: landscape){
+	.ui-popup.ui-popup-gridview {
+		width: 720 * @unit_base;
+		left: 140 * @unit_base;
 	}
 }

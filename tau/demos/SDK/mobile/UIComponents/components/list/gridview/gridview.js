@@ -8,6 +8,8 @@
 	var elPage = document.getElementById("grid-page"),
 		elGrid = document.getElementById("gridview"),
 		modeBtn = document.getElementById("modeBtn"),
+		unbindEvents,
+		adjustColumns,
 		gridList;
 
 	/**
@@ -30,7 +32,25 @@
 	elPage.addEventListener("pageshow", function () {
 		gridList = tau.widget.GridView(elGrid);
 		modeBtn.addEventListener("click", modeHandler);
+		adjustColumns();
+		window.addEventListener("orientationchange", adjustColumns);
+		window.addEventListener("pagebeforehide", unbindEvents);
 	});
+
+	adjustColumns = function () {
+		if (window.screen.orientation.type === "landscape-primary") {
+			gridList.option("cols", 7);
+			gridList.refresh();
+		} else if (window.screen.orientation.type === "portrait-primary") {
+			gridList.option("cols", 4);
+			gridList.refresh();
+		}
+	};
+
+	unbindEvents = function () {
+		window.removeEventListener("orientationchange", adjustColumns);
+		window.removeEventListener("pagebeforehide", unbindEvents);
+	};
 
 	/**
 	 * pagebeforehide event handler

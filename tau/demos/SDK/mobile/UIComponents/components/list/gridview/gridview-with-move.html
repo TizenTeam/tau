@@ -132,27 +132,52 @@
 		</ul>
 	</div>
 	<script type="text/javascript">
-			(function (tau) {
-				/**
-				 * elPage - Grid view page element
-				 * elGrid - Grid view element
-				 * modeBtn - Mode toggle button element
-				 * gridList - TAU grid view instance
-				 */
-				var elPage = document.getElementById("grid-move-page"),
-					elGrid = document.getElementById("gridview"),
-					gridList;
+		(function (tau) {
+			/**
+			 * elPage - Grid view page element
+			 * elGrid - Grid view element
+			 * modeBtn - Mode toggle button element
+			 * gridList - TAU grid view instance
+			 */
+			var elPage = document.getElementById("grid-move-page"),
+				elGrid = document.getElementById("gridview"),
+				bindEvents,
+				unbindEvents,
+				gridList;
 
-				/**
-				 * pageshow event handler
-				 * Do preparatory works and adds event listeners
-				 */
-				elPage.addEventListener("pageshow", function () {
-					gridList = tau.widget.GridView(elGrid);
-					gridList.option("reorder", true);
-				});
+			/**
+			 * pageshow event handler
+			 * Do preparatory works and adds event listeners
+			 */
+			elPage.addEventListener("pageshow", function () {
+				gridList = tau.widget.GridView(elGrid);
+				if (window.screen.orientation.type === "portrait-primary") {
+					gridList.option("cols", 4);
+				} else {
+					gridList.option("cols", 7);
+				}
+				gridList.option("reorder", true);
+				window.addEventListener("orientationchange", bindEvents);
+				window.addEventListener("pagebeforehide", unbindEvents);
+			});
 
-			}(window.tau));
+			bindEvents = function () {
+
+				if (gridList.options.cols === 4) {
+					gridList.option("cols", 7);
+					gridList.refresh();
+				} else {
+					gridList.option("cols", 4);
+					gridList.refresh();
+				}
+			};
+
+			unbindEvents = function () {
+				window.removeEventListener("orientationchange", bindEvents);
+				window.removeEventListener("pagebeforehide", unbindEvents);
+			};
+
+		}(window.tau));
 	</script>
 </div>
 </div>
