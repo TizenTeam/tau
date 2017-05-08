@@ -177,7 +177,7 @@ function cssTests(dom, helpers) {
 			"font-size": "8px"
 		});
 		testElement8 = document.getElementById("util-dom-css-test8");
-		equal(parseInt(dom.getElementHeight(testElement8, "outer", false, true), 10), $test8.outerHeight(true), "compare with jquery method 'outerWidth'");
+		equal(parseInt(dom.getElementHeight(testElement8, "outer", false, true), 10), $test8.outerHeight(true), "compare with jquery method 'outerHeight'");
 		equal(parseInt(dom.getElementWidth(testElement8, "outer", false, true), 10), $test8.outerWidth(true), "compare with jquery method 'outerWidth'");
 		equal(dom.getElementWidth(testElement8, "outer", false, true), 120, "check width of the created element");
 		equal(dom.getElementHeight(testElement8, "outer", false, true), 30, "check height of the created element");

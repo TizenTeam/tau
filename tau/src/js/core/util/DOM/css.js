@@ -110,7 +110,7 @@
 						value = style.getPropertyValue(property);
 						newValue = convertToNumber(value);
 
-						if (!isNaN(newValue) || noConversion) {
+						if (!isNaN(newValue) || !noConversion) {
 							value = newValue;
 						}
 

@@ -122,7 +122,7 @@
 
 			//strictEqual(parseInt(content.style.top, 10), 67, "content top was set correct");
 			notEqual(content.style.top.indexOf("px"), -1, "content top was set correct (px)");
-			strictEqual(content.style.bottom, "100px", "content bottom was set correct");
+			strictEqual(content.style.bottom, "76px", "content bottom was set correct");
 			notEqual(content.style.bottom.indexOf("px"), -1, "content bottom was set correct (px)");
 			height = parseInt(content.style.height);
 			// ok(height === window.innerHeight - 67 - 100 ||
