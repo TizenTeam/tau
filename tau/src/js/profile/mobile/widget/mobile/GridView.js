@@ -557,7 +557,7 @@
 					rows;
 
 				rows = Math.ceil(listElements.length / self.options.cols);
-				itemHeight = parseFloat(firstLiComputed.getPropertyValue("width")) || 0;
+				itemHeight = parseFloat(firstLiComputed.getPropertyValue("height")) || 0;
 				self.element.style.height = (itemHeight * rows) + "px";
 			};
 
