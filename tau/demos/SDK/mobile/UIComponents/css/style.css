@@ -253,11 +253,11 @@
 /****************************************************************/
 /*              Selectable List Style                           */
 /****************************************************************/
-#select-list .li-select-all {
+#select-list .ui-li-select-all {
 	padding-left: 16px;
 }
 
-#select-list .li-select-all input[type="checkbox"].ui-checkbox {
+#select-list .ui-li-select-all input[type="checkbox"].ui-checkbox {
 	position: absolute;
 	left: auto;
 	right: 16px;
@@ -265,11 +265,11 @@
 	margin-top: -13px;
 }
 
-#select-list .li-select-all.li-check-all.ui-li-anchor a {
+#select-list .ui-li-select-all.li-check-all.ui-li-anchor a {
 	color: #348187;
 }
 
-#select-list .li-select-all label {
+#select-list .ui-li-select-all label {
 	display: block;
 	padding: 19px 16px;
 	margin: -19px -16px;
@@ -460,7 +460,7 @@
 	font-size: 13px;
 }
 
-#grid-check-page .li-select-all input[type="checkbox"].ui-checkbox {
+#grid-check-page .ui-li-select-all input[type="checkbox"].ui-checkbox {
 	position: absolute;
 	left: auto;
 	right: 16px;
