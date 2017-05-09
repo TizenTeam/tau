@@ -263,7 +263,8 @@
 					rect = element.getBoundingClientRect(),
 					pageContainer = selectorUtils.getClosestByClass(element, Page.classes.uiPage),
 					popupContainer = selectorUtils.getClosestByClass(element, Popup.classes.popup),
-					scrollableContainer = selectorUtils.getClosestByClass(element, Scrollview.classes.clip),
+					scrollableContainer = selectorUtils.getClosestByClass(element, Scrollview.classes.clip) ||
+						selectorUtils.getClosestByTag(element, "section"),
 					// canvasHeight of canvas element
 					canvasHeight = 0,
 					// canvasWidth of canvas element
