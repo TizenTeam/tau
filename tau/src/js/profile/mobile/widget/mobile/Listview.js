@@ -113,7 +113,8 @@
 					 */
 					"BACKGROUND_LAYER": "ui-listview-background",
 					"GRADIENT_BACKGROUND_DISABLED": "ui-listview-background-disabled",
-					"GROUP_INDEX": "ui-group-index"
+					"GROUP_INDEX": "ui-group-index",
+					"POPUP_LISTVIEW": "ui-popup-listview"
 				},
 				/**
 				 * @property {Object} events
@@ -275,6 +276,7 @@
 					self._prepareColors();
 
 					canvasWidth = rect.width;
+
 					// calculate canvasHeight of canvas
 					if (scrollableContainer) {
 						canvasHeight = scrollableContainer.getBoundingClientRect().height;
@@ -293,6 +295,11 @@
 					canvas.setAttribute("height", canvasHeight);
 					canvasStyle.width = canvasWidth + "px";
 					canvasStyle.height = canvasHeight + "px";
+
+					// if listview contains in popup then add specific class
+					if (popupContainer) {
+						popupContainer.classList.add(classes.POPUP_LISTVIEW);
+					}
 
 					self._pageContainer = pageContainer;
 					self._popupContainer = popupContainer;
@@ -631,7 +638,7 @@
 					}
 
 					if (popupContainer) {
-						eventUtils.on(popupContainer, Popup.events.before_show, this._backgroundRenderCallback);
+						eventUtils.on(popupContainer, Popup.events.transition_start, this._backgroundRenderCallback);
 					}
 				}
 			};
@@ -675,7 +682,7 @@
 					}
 
 					if (this._popupContainer) {
-						eventUtils.off(this._popupContainer, Popup.events.before_show, this._backgroundRenderCallback);
+						eventUtils.off(this._popupContainer, Popup.events.transition_start, this._backgroundRenderCallback);
 						this._popupContainer = null;
 					}
 					self._backgroundRenderCallback = null;

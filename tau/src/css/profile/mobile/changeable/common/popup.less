@@ -87,10 +87,12 @@ Normal Popup
 /************************
 Popup with listview
 *************************/
-.ui-popup.ui-popup-listview, .ui-popup.ui-popup-moremenu {
+.ui-popup.ui-popup-listview {
 	background-image: url("images/page/core_theme_bg_01.png");
 	background-repeat: no-repeat;
 	background-size: 100% 100%;
+	overflow: hidden;
+	background-color: transparent;
 
 	.ui-popup-header {
 		padding-top: 16 * @unit_base;
@@ -98,6 +100,7 @@ Popup with listview
 	}
 	.ui-popup-content {
 		padding: 0;
+		background-color: transparent;
 		&::before {
 			content: "";
 			background-color: @color_popup_list_overlay_bg;
@@ -107,14 +110,19 @@ Popup with listview
 			position: absolute;
 		}
 	}
+	.ui-listview {
+		position: relative;
+	}
 }
 
 /************************
 Popup MoreMenu
 *************************/
 .ui-popup.ui-popup-moremenu {
-	max-height: 600 * @unit_base;
+	max-height: 7 * 120 * @unit_base; // 7 list items
+	overflow: hidden;
 }
+
 
 /*************************
 Popup Overlay
@@ -214,7 +222,3 @@ Activity Popup
 	.mask-size(100% 100%);
 }
 
-/** Colored list **/
-.ui-popup.ui-popup-has-colored-list .ui-popup-content {
-	padding: 0;
-}
