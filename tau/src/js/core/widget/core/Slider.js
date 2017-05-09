@@ -204,15 +204,15 @@
 			 */
 			prototype._init = function (element) {
 				var self = this,
-					attrMin = parseInt(element.getAttribute("min"), 10),
-					attrMax = parseInt(element.getAttribute("max"), 10),
-					attrValue = parseInt(element.getAttribute("value"), 10);
+					attrMin = parseFloat(element.getAttribute("min")),
+					attrMax = parseFloat(element.getAttribute("max")),
+					attrValue = parseFloat(element.getAttribute("value"));
 
 				self._min = attrMin ? attrMin : 0;
 				self._max = attrMax ? attrMax : 100;
 				self._minValue = self._min;
 				self._maxValue = self._max;
-				self._value = attrValue ? attrValue : parseInt(self.element.value, 10);
+				self._value = attrValue ? attrValue : parseFloat(self.element.value);
 				self._interval = self._max - self._min;
 				self._previousValue = self._value;
 				self._warningLevel = parseInt(self.options.warningLevel, 10);
@@ -336,7 +336,7 @@
 					ui = self._ui,
 					options = self.options,
 					element = self.element,
-					intValue,
+					floatValue,
 					expendedClasses;
 
 				self._previousValue = self.element.value;
@@ -347,7 +347,7 @@
 					value = self._max;
 				}
 
-				intValue = parseInt(value, 10);
+				floatValue = parseFloat(value);
 
 				if (options.type === "center") {
 					self._setCenterValue(value);
@@ -360,16 +360,16 @@
 
 				if (self.options.expand) {
 					expendedClasses = classes.SLIDER_HANDLER_VALUE;
-					if (intValue > 99 || intValue < -10) {
+					if (floatValue > 99 || floatValue < -10) {
 						expendedClasses += " " + classes.SLIDER_HANDLER_SMALL;
 					}
-					ui.handlerElement.innerHTML = "<span class=" + expendedClasses + ">" + intValue + "</span>";
+					ui.handlerElement.innerHTML = "<span class=" + expendedClasses + ">" + floatValue + "</span>";
 				}
 
-				if (element.value - 0 !== intValue) {
-					element.setAttribute("value", intValue);
-					element.value = intValue;
-					self._value = intValue;
+				if (element.value - 0 !== floatValue) {
+					element.setAttribute("value", floatValue);
+					element.value = floatValue;
+					self._value = floatValue;
 					events.trigger(element, "input");
 				}
 			};
@@ -389,7 +389,7 @@
 			function setBackground(element, orientation, reverseOrientation, color1, level1, color2, level2, currentValue) {
 				// gradients on Tizen do not work in proper way, so this condition is workaround
 				// if gradients work properly, this should be removed!
-				if (parseInt(currentValue, 10) > parseInt(level1, 10)) {
+				if (parseFloat(currentValue) > parseFloat(level1)) {
 					element.style.background = "-webkit-linear-gradient(" + reverseOrientation + "," +
 						color1 + " " + level1 + ", " + color2 + " " + level2 + ")";
 				} else {
@@ -430,7 +430,7 @@
 					// set background for value bar and slider bar
 					setBackground(sliderValueElement, orientation, reverseOrientation, COLORS.ACTIVE, warningLevel, COLORS.WARNING, warningLevel, level);
 					setBackground(barElement, orientation, reverseOrientation, COLORS.BACKGROUND, warningLevel, COLORS.WARNING_BG, warningLevel,
-						parseInt(warningLevel) + 2);
+						parseInt(warningLevel, 10) + 2);
 				} else {
 					// gradients on Tizen do not work in proper way, so this is workaround
 					// if gradients work properly, this should be removed!
