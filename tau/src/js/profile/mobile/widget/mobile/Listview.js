@@ -114,7 +114,8 @@
 					"BACKGROUND_LAYER": "ui-listview-background",
 					"GRADIENT_BACKGROUND_DISABLED": "ui-listview-background-disabled",
 					"GROUP_INDEX": "ui-group-index",
-					"POPUP_LISTVIEW": "ui-popup-listview"
+					"POPUP_LISTVIEW": "ui-popup-listview",
+					"EXPANDABLE": "ui-expandable"
 				},
 				/**
 				 * @property {Object} events
@@ -547,14 +548,14 @@
 
 				while (liElement) {
 					// if li element is group index, the color of next element wont change
-					changeColor = !liElement.classList.contains(classes.GROUP_INDEX);
+					changeColor = (!liElement.classList.contains(classes.GROUP_INDEX) && !liElement.classList.contains(classes.EXPANDABLE));
 					//calculate size of li element
 					rectangle = getElementRectangle(liElement);
 					// get liElement element
 					liElement = getNextVisible(elements);
 					rectangle.height = calculateElementHeight(liElement, rectangle);
 					//check if next element is group index, if yes then change its color
-					if (!changeColor && liElement && liElement.classList.contains(classes.GROUP_INDEX)) {
+					if (!changeColor && liElement && (liElement.classList.contains(classes.GROUP_INDEX) || liElement.classList.contains(classes.EXPANDABLE))) {
 						changeColor = true;
 					}
 					// check that element is visible (can be partialy visible)
