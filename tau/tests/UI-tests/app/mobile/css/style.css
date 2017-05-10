@@ -253,31 +253,6 @@
 	padding-bottom: 55px;
 }
 
-/****************************************************************/
-/*              Selectable List Style                           */
-/****************************************************************/
-#select-list .ui-li-select-all {
-	padding-left: 16px;
-}
-
-#select-list .ui-li-select-all input[type="checkbox"].ui-checkbox {
-	position: absolute;
-	left: auto;
-	right: 16px;
-	top: 50%;
-	margin-top: -13px;
-}
-
-#select-list .ui-li-select-all.li-check-all.ui-li-anchor a {
-	color: #348187;
-}
-
-#select-list .ui-li-select-all label {
-	display: block;
-	padding: 19px 16px;
-	margin: -19px -16px;
-}
-
 .ui-tabbar-with-icon a[data-icon="naviframe-call"]::after {
 	-webkit-mask-image: url("images/00_button_add.png");
 	mask-image: url("images/00_button_add.png");
@@ -437,14 +412,6 @@
 	text-align: center;
 	padding: 2px 6px;
 	font-size: 13px;
-}
-
-#grid-check-page .ui-li-select-all input[type="checkbox"].ui-checkbox {
-	position: absolute;
-	left: auto;
-	right: 16px;
-	top: 50%;
-	margin-top: -13px;
 }
 
 #popup_grid_page .ui-popup .ui-gridview .ui-gridview-item .ui-gridview-image {
