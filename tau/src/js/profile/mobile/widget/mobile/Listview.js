@@ -268,7 +268,8 @@
 					// canvasHeight of canvas element
 					canvasHeight = 0,
 					// canvasWidth of canvas element
-					canvasWidth;
+					canvasWidth,
+					popupContent;
 
 				if (self.element.classList.contains(classes.GRADIENT_BACKGROUND_DISABLED) === false) {
 					self._redraw = true;
@@ -300,6 +301,10 @@
 					// if listview contains in popup then add specific class
 					if (popupContainer) {
 						popupContainer.classList.add(classes.POPUP_LISTVIEW);
+						popupContent = popupContainer.querySelector("." + Popup.classes.content);
+						if (popupContent) {
+							scrollableContainer = popupContent;
+						}
 					}
 
 					self._pageContainer = pageContainer;
