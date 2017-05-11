@@ -39,7 +39,9 @@
   },
   {
     "name": "35-list-tab-2-title",
-    "time": 3000
+    "time": 3000,
+    "width": 360,
+    "height": 640
   },
   {
     "name": "38-list-tab-long-title",
