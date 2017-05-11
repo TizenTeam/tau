@@ -27,7 +27,9 @@
   },
   {
     "name": "28-list-tab-3",
-    "time": 3000
+    "time": 3000,
+    "width": 360,
+    "height": 640
   },
   {
     "name": "29-list-tab-4-icons",
