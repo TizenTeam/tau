@@ -57,6 +57,7 @@
 			"../../../../core/util/DOM",
 			"../../../../core/util/selectors",
 			"../../../../core/util/scrolling",
+			"../../../../core/util/array",
 			"../../../../core/widget/BaseWidget",
 			"../wearable"
 		],
@@ -112,7 +113,7 @@
 					SCROLL_END: "scrollend",
 					SELECTED: "selected"
 				},
-
+				utilArray = ns.util.array,
 				animationTimer = null,
 				SnapListview = function () {
 					var self = this;
@@ -157,6 +158,7 @@
 					self._scrollEndTimeoutId = null;
 					self._isScrollStarted = false;
 					self._selectedIndex = null;
+					self._currentIndex = null;
 					self._enabled = true;
 					self._isTouched = false;
 					self._scrollEventCount = 0;
@@ -298,7 +300,7 @@
 
 				if (animateCallback) {
 					scrollPosition = -self._ui.scrollableParent.element.firstElementChild.getBoundingClientRect().top;
-					self._listItems.forEach(function (item) {
+					utilArray.forEach(self._listItems, function (item) {
 						item.animate(scrollPosition, animateCallback);
 					});
 				}
@@ -344,13 +346,8 @@
 			}
 
 			function onTouchEnd(self) {
-				var scrollElement = self._ui.scrollableParent.element,
-					scrollTop = -scrollElement.firstElementChild.getBoundingClientRect().top;
-
 				self._isTouched = false;
-				if (scrollTop === 0 || scrollTop === scrollElement.scrollHeight - scrollElement.offsetHeight) {
-					setSelection(self);
-				}
+				setSelection(self);
 			}
 
 			function getScrollableParent(element) {
@@ -400,11 +397,12 @@
 				self._selectedIndex = null;
 
 				// init items on each element
-				[].slice.call(listview.querySelectorAll(options.selector)).forEach(function (element, index) {
+				utilArray.forEach(listview.querySelectorAll(options.selector), function (element, index) {
 					listItems.push(new SnapListview.ListItem(element, visiableOffset, scroller));
 					// searching existing selected element
 					if (element.classList.contains(classes.SNAP_LISTVIEW_SELECTED)) {
 						self._selectedIndex = index;
+						self._currentIndex = index;
 					}
 				});
 
@@ -565,6 +563,7 @@
 				}
 				self._scrollEndTimeoutId = null;
 				self._selectedIndex = null;
+				self._currentIndex = null;
 
 				return null;
 			};
@@ -608,7 +607,7 @@
 			 * @member ns.widget.wearable.SnapListview
 			 */
 			prototype.getSelectedIndex = function () {
-				return this._selectedIndex;
+				return this._currentIndex || this._selectedIndex;
 			};
 
 			function vClickHandler(self, e) {
@@ -707,21 +706,17 @@
 
 				// if list is disabled or selected index is out of range, or item on selected index
 				// is not displayed, this function returns false
-				if (!enabled || index < 0 || index >= listItemLength || self._selectedIndex === index || !isListItemDisplayed(listItem)) {
+				if (!enabled || index < 0 || index >= listItemLength || self._currentIndex === index || !isListItemDisplayed(listItem)) {
 					return false;
 				}
+
+				self._currentIndex = index;
 
 				removeSelectedClass(self);
 
 				listItemIndex = listItems[index].coord;
 				dest = listItemIndex.top - scrollableParent.height / 2 + listItemIndex.height / 2;
 
-				self._selectedIndex = index;
-
-				if (animationTimer !== null) {
-					window.cancelAnimationFrame(animationTimer);
-					animationTimer = null;
-				}
 				scrollAnimation(scrollableParent.element, -scrollableParent.element.firstElementChild.getBoundingClientRect().top, dest, 450, callback);
 
 				return true;
@@ -747,9 +742,12 @@
 					progress = 0,
 					easeProgress = 0,
 					distance = to - from,
-					scrollTop = -element.firstElementChild.getBoundingClientRect().top;
+					scrollTop = element.scrollTop;
 
 				startTime = window.performance.now();
+				if (animationTimer !== null) {
+					window.cancelAnimationFrame(animationTimer);
+				}
 				animationTimer = window.requestAnimationFrame(function animation() {
 					var gap;
 
