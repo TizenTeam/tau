@@ -17,7 +17,9 @@
   },
   {
     "name": "25-list-with-2-tabs",
-    "time": 3000
+    "time": 3000,
+    "width": 360,
+    "height": 640
   },
   {
     "name": "27-list-tab-long",
