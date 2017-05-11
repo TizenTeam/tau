@@ -1,7 +1,9 @@
 [
   {
     "name": "19-list",
-    "time": 3000
+    "time": 3000,
+    "width": 360,
+    "height": 640
   },
   {
     "name": "11-list",
