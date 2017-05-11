@@ -123,8 +123,11 @@ Popup MoreMenu
 .ui-popup.ui-popup-moremenu {
 	max-height: 7 * 120 * @unit_base; // 7 list items
 	overflow: hidden;
+	@media (orientation: landscape) {
+		max-height: 5 * 120 * @unit_base; // 5 list items
+		width: 720 * @unit_base;
+	}
 }
-
 
 /*************************
 Popup Overlay
