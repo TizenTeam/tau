@@ -89,18 +89,18 @@ document.getElementById("first").addEventListener("pageshow", function () {
 			ok(scrollerElement.children[1].children[0].style.height !== "0px", "bar has proper height");
 			expect(19);
 		}
-		if (useBouncingEffect) {
-			equal(scrollerElement.children[1].className, "ui-scrollbar-bouncing-effect ui-top ui-show", "top effect container has proper classes");
-			equal(scrollerElement.children[2].className, "ui-scrollbar-bouncing-effect ui-bottom", "bottom effect container has proper classes");
-			fireEvent(scrollerInner, "dragstart", {});
-			fireEvent(scrollerInner, "drag", {
-				estimatedDeltaX: 0,
-				estimatedDeltaY: 50
-			});
-			fireEvent(scrollerInner, "dragend", {});
-			equal(scrollerElement.children[1].className, "ui-scrollbar-bouncing-effect ui-top", "top effect container has proper classes (none)");
-			expect(21);
-		}
+		// if (useBouncingEffect) {
+		// 	equal(scrollerElement.children[1].className, "ui-scrollbar-bouncing-effect ui-top ui-show", "top effect container has proper classes");
+		// 	equal(scrollerElement.children[2].className, "ui-scrollbar-bouncing-effect ui-bottom", "bottom effect container has proper classes");
+		// 	fireEvent(scrollerInner, "dragstart", {});
+		// 	fireEvent(scrollerInner, "drag", {
+		// 		estimatedDeltaX: 0,
+		// 		estimatedDeltaY: 50
+		// 	});
+		// 	fireEvent(scrollerInner, "dragend", {});
+		// 	equal(scrollerElement.children[1].className, "ui-scrollbar-bouncing-effect ui-top", "top effect container has proper classes (none)");
+		// 	expect(21);
+		// }
 
 		scrollerWidget.disable();
 

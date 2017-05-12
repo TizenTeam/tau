@@ -1,25 +1,7 @@
-/*global TESTS, CURRENT_ITERATION, TESTS_PER_ITERATION, $, QUnit, ok*/
-/*eslint camelcase: "off"*/
-
-var RESOURCE_DIR = "/home/owner/share";
-
-$.ajax({
-	url: "/opt/usr/home/owner/share/TCT_CONFIG",
-	data: {},
-	async: false,
-	success: function (data) {
-		var regEx = /DEVICE_SUITE_TARGET_30=(.+)/i,
-			path = regEx.exec(data);
-
-		RESOURCE_DIR = path[1];
-	}
-});
-
+/*global window, QUnit, document, $, ok, CURRENT_ITERATION, saveAs, TESTS, TESTS_PER_ITERATION*/
+/*eslint camelcase:"off"*/
 $(document).ready(function () {
-	var tizen = window.tizen,
-		_order = 1,
-		UnitTCRunner,
-		Runner = function () {
+	var Runner = function () {
 			var self = this,
 				currentModule,
 				currentTest,
@@ -50,9 +32,9 @@ $(document).ready(function () {
 						stderr: []
 					};
 
-				// Avoid duplicates, if module exists, return it
-				// It's important for generating tcresult files by runner.js
-				// Splited modules for file, generated one file instead few tcresult files
+			// Avoid duplicates, if module exists, return it
+			// It's important for generating tcresult files by runner.js
+			// Splited modules for file, generated one file instead few tcresult files
 				for (i = 0, l = modules.length; i < l; i++) {
 					if (modules[i].name === moduleName) {
 						return modules[i];
@@ -71,18 +53,18 @@ $(document).ready(function () {
 				onTimeout: QUnit.start,
 
 				onFrameLoad: function () {
-					// establish a timeout for a given suite in case of async tests hanging
+				// establish a timeout for a given suite in case of async tests hanging
 					self.testTimer = setTimeout(self.onTimeout, self.testTimeout);
 
-					// it might be a redirect with query params for push state
-					// tests skip this call and expect another
+				// it might be a redirect with query params for push state
+				// tests skip this call and expect another
 					if (!self.frame.QUnit) {
 						self.$frameElem.one("load", self.onFrameLoad);
 						return;
 					}
 
-					// when the QUnit object reports done in the iframe
-					// run the onFrameDone method
+				// when the QUnit object reports done in the iframe
+				// run the onFrameDone method
 					self.frame.QUnit.done = self.onFrameDone;
 					self.frame.QUnit.testDone = self.onTestDone;
 					self.frame.QUnit.log = self.onLog;
@@ -124,10 +106,10 @@ $(document).ready(function () {
 				},
 				onLog: function (data) {
 					assertCount++;
-					//if (!data.result) {
+				//if (!data.result) {
 					currentTest.failedAssertions.push(data);
 					currentModule.stdout.push("[" + currentModule.name + ", " + currentTest.name + ", " + assertCount + "] " + data.message);
-					//}
+				//}
 				},
 				onTestDone: function (result) {
 
@@ -146,29 +128,31 @@ $(document).ready(function () {
 					currentModule = null;
 				},
 
-				onFrameDone: function (result) {
-					// make result object
+			// @TODO fixme: Arguments of this function are fake, only first
+			// is passed.
+				onFrameDone: function (failed, passed, total, runtime) {
+				// make result object
 					var details = {};
 
-					details.failed = result.failed;
-					details.passed = result.passed;
-					details.total = result.total;
-					details.time = result.runtime;
+					details.failed = failed;
+					details.passed = passed;
+					details.total = total;
+					details.time = runtime;
 
-					// make sure we don't time out the tests
+				// make sure we don't time out the tests
 					clearTimeout(self.testTimer);
 
-					// TODO decipher actual cause of multiple test results firing twice
-					// clear the done call to prevent early completion of other test cases
+				// TODO decipher actual cause of multiple test results firing twice
+				// clear the done call to prevent early completion of other test cases
 					self.frame.QUnit.done = $.noop;
 					self.frame.QUnit.testDone = $.noop;
 
-					// hide the extra assertions made to propogate the count
-					// to the suite level test
+				// hide the extra assertions made to propogate the count
+				// to the suite level test
 					self.hideAssertionResults();
 
 					if (currentModule) {
-						// FIXME: this is wrong, check arguments variable
+					// FIXME: this is wrong, check arguments variable
 						pushTestModule(currentRun, currentModule.name);
 
 						currentModule = null;
@@ -198,45 +182,41 @@ $(document).ready(function () {
 				},
 
 				exec: function (data) {
-					var template = self.$frameElem.attr("data-src");
+					var template = self.$frameElem.attr("data-src"),
+						it_min,
+						it_max,
+						iteration = parseInt(location.search.replace("?", ""), 10) || 0;
+
+					if (location.search != "") {
+						CURRENT_ITERATION = iteration;
+					} else {
+						history.pushState({}, "", "?0");
+					}
+
+					it_min = CURRENT_ITERATION * TESTS_PER_ITERATION;
+					it_max = (CURRENT_ITERATION + 1) * TESTS_PER_ITERATION - 1;
 
 					$.each(data, function (i, dir) {
-						if (i >= CURRENT_ITERATION * TESTS_PER_ITERATION && i < (CURRENT_ITERATION + 1) * TESTS_PER_ITERATION) {
+
+						if (i >= it_min && i <= it_max) {
 							QUnit.asyncTest(dir, function () {
 								currentTestPath = dir;
 								self.dir = dir;
+								self.$frameElem = $("#testFrame");
 								self.$frameElem.one("load", self.onFrameLoad);
 								self.$frameElem.attr("src", template.replace("{{testfile}}", dir));
 							});
 						}
 					});
 
-					// having defined all suite level tests let QUnit run
+				// having defined all suite level tests let QUnit run
 					setTimeout(QUnit.start, 2000);
-
 				}
 			});
 		},
-		//Generate XML
+	//Generate XML
 		generateReport = function (results, run, end) {
-			var pad = function (n) {
-					return n < 10 ? "0" + n : n;
-				},
-
-				toISODateString = function (d) {
-					return d.getUTCFullYear() + "-" +
-						pad(d.getUTCMonth() + 1) + "-" +
-						pad(d.getUTCDate()) + "T" +
-						pad(d.getUTCHours()) + ":" +
-						pad(d.getUTCMinutes()) + ":" +
-						pad(d.getUTCSeconds()) + "Z";
-				},
-
-				convertMillisToSeconds = function (ms) {
-					return Math.round(ms * 1000) / 1000000;
-				},
-
-				xmlEncode = function (text) {
+			var xmlEncode = function (text) {
 					var baseEntities = {
 						"\"": "&quot;",
 						"'": "&apos;",
@@ -249,7 +229,6 @@ $(document).ready(function () {
 						return baseEntities[chr] || chr;
 					});
 				},
-
 				XmlWriter = function (settings) {
 					var data = [],
 						stack = [],
@@ -261,6 +240,7 @@ $(document).ready(function () {
 						};
 
 					settings = settings || {};
+
 
 					lineBreakAt = (function (items) {
 						var i,
@@ -285,9 +265,7 @@ $(document).ready(function () {
 						data.push("<" + name);
 
 						for (aname in attrs) {
-							if (attrs.hasOwnProperty(aname)) {
-								data.push(" " + xmlEncode(aname) + "=\"" + xmlEncode(attrs[aname]) + "\"");
-							}
+							data.push(" " + xmlEncode(aname) + "=\"" + xmlEncode(attrs[aname]) + "\"");
 						}
 
 						data.push(empty ? " />" : ">");
@@ -333,11 +311,11 @@ $(document).ready(function () {
 						stack.length = 0;
 					};
 
-					// Start by writing the XML declaration
+			// Start by writing the XML declaration
 					this.pi(settings.xmldecl || "xml version=\"1.0\" encoding=\"UTF-8\"");
 				},
 
-				// Generate JUnit XML report!
+		// Generate JUnit XML report!
 				m,
 				mLen,
 				module,
@@ -347,15 +325,11 @@ $(document).ready(function () {
 				a,
 				aLen,
 				assertion,
-				currentTest,
 				xmlWriter = new XmlWriter({
-					linebreak_at: ["testsuites", "testsuite", "testcase", "failure", "system-out", "system-err"]
+					linebreak_at: ["environment", "summary", "suite", "set", "testcase", "description"]
 				});
 
-			if (!end) {
-				currentTest = QUnit.config.current.testName;
-			}
-			xmlWriter.pi("xml-stylesheet type=\"text/xsl\"  href=\"testresult.xsl\"");
+			xmlWriter.pi("xml-stylesheet type=\"text/xsl\" href=\"./testcase.xsl\"");
 			xmlWriter.start("test_definition", {
 				name: "http://tempuri.org",
 				type: "",
@@ -389,26 +363,30 @@ $(document).ready(function () {
 			xmlWriter.end(); // summary
 
 			xmlWriter.start("suite", {
-				id: "suite" + Date.now(),
+				id: "suite123456",
+				category: "Web UI Framework",
 				name: "tct-webuifw-tests" + ((CURRENT_ITERATION > 9) ? "" : "0") + (CURRENT_ITERATION + 1),
-				hostname: "localhost",
-				tests: results.total,
-				failures: results.failed,
-				errors: 0,
-				time: convertMillisToSeconds(results.time),  // ms → sec
-				timestamp: toISODateString(run.start)
+				tests: results.total
 			});
 
 			for (m = 0, mLen = run.modules.length; m < mLen; m++) {
 				module = run.modules[m];
+
 				if (!end) {
-					if (currentTest.toLowerCase() != module.name.toLowerCase()) {
+					if (m !== run.modules.length - 1) {
 						continue;
 					}
 				}
+			/*if( !end ) {
+			 if( currentTest.toLowerCase() != module.name.toLowerCase() ) {
+			 continue;
+			 }
+			 }*/
 
 				xmlWriter.start("set", {
-					name: module.name + "_" + m
+					name: module.name + "_" + m,
+					launcher: "WRTLauncher " + (m > 0 ? "-r" : "-a"),
+					type: "uifw" + (m > 0 ? "r" : "")
 				});
 				for (t = 0, tLen = module.tests.length; t < tLen; t++) {
 					test = module.tests[t];
@@ -418,118 +396,49 @@ $(document).ready(function () {
 							component: module.name,
 							execution_type: "auto",
 							id: module.name + "_" + m + "_" + t + "_" + a,
-							priority: (assertion.priority) ? assertion.priority : "P1",
-							purpose: assertion.checktype + " " + (assertion.message) ? "-" + assertion.message : "",
-							status: (assertion.result) ? "PASS" : "FAIL",
-							result: (assertion.result) ? "PASS" : "FAIL",
-							type: "compliance"
+							purpose: assertion.checktype + " " + (assertion.message) ? "-" + assertion.message : ""
 						});
 						xmlWriter.start("description");
-						xmlWriter.start("pre_condition");
-						xmlWriter.end();
-						xmlWriter.start("post_condition");
-						xmlWriter.end();
-						xmlWriter.start("steps");
-						xmlWriter.start("step", {
-							order: "1"
-						});
-						xmlWriter.start("step_desc");
-						xmlWriter.cdata(assertion.checktype + " " + (assertion.message) ? " " + assertion.message : "");
-						xmlWriter.end();
-						xmlWriter.start("expected");
-						xmlWriter.cdata(assertion.expected);
-						xmlWriter.end();
-						xmlWriter.end();// step
-						xmlWriter.end(); //steps
-
-						xmlWriter.start("test_script_entry", {
-							test_script_expected_result: ""
-						});
+						xmlWriter.start("test_script_entry");
+						xmlWriter.cdata(module.name);
 						xmlWriter.end();
 						xmlWriter.end(); // description
-						xmlWriter.start("result_info");
-						xmlWriter.start("actual_result");
-						xmlWriter.cdata(assertion.actual);
-						xmlWriter.end();
-						xmlWriter.end();
-						xmlWriter.end();
+						xmlWriter.end(); // testcase
 					}
 				}
 
-				xmlWriter.end();
+				xmlWriter.end(); // set
 			}
 
-			xmlWriter.end(); //testsuite
+			xmlWriter.end(); //suite
 			xmlWriter.end(); //test_definition
-			// Invoke the user-defined callback
+		// Invoke the user-defined callback
 			QUnit.jUnitReport({
 				results: results,
 				xml: xmlWriter.getString(),
 				end: end
 			});
-		};
+		},
+		UnitTCRunner = new Runner();
 
-
-	/*
-	 Reporting section
-	 */
-	function exitAPP() {
-		var app;
-
-		if (tizen) {
-			app = tizen.application.getCurrentApplication();
-			app.exit();
-		}
-	}
-
-	function riseError(msg, e) {
-		console.error(msg, e);
-		setTimeout(exitAPP(), 5000);
-	}
-
-	function writeToFile(data, fs) {
-		fs.write(data.xml);
-		fs.close();
-
-		if (data.end) {
-			setTimeout(exitAPP(), 5000);
-		} else {
-			// continue on to the next suite
-			QUnit.start();
-		}
-	}
-
-	function saveReport(data, order, dir) {
-		var tempFile,
-			filename;
-
-		filename = data.end ? "tcresult.xml" : "tcresult_" + order + ".xml";
-
-		try {
-			tempFile = dir.createFile(filename);
-		} catch (err) {
-			tempFile = dir.resolve(filename);
-		}
-
-		if (tempFile !== null) {
-			tempFile.openStream("w",
-				writeToFile.bind(null, data),
-				riseError.bind(null, "There is a problem with opening stream to write"),
-				"UTF-8"
-			);
-		} else {
-			riseError("There was a problem with getting into " + filename);
-		}
-	}
 
 	QUnit.jUnitReport = function (data) {
-		if (tizen) {
-			// Save partial or final report to file.
-			tizen.filesystem.resolve("file://" + RESOURCE_DIR + "/Documents", saveReport.bind(null, data, _order));
-			_order = _order + 1;
+		var console = window.console,
+			href = location.href,
+			blob;
+
+		if (!data.end) {
+			QUnit.start();
 		} else {
-			if (!data.end) {
-				QUnit.start();
+			if (console) {
+				console.clear();
+				blob = new Blob([data.xml], {type: "text/xml;charset=utf-8"});
+				if (data.results.total) {
+					saveAs(blob, "tests-p" + (CURRENT_ITERATION + 1) + ".xml");
+					location.href = href.replace(/\?[0-9]*/g, "?" + (CURRENT_ITERATION + 1));
+				} else {
+					saveAs(blob, "finish.tct");
+				}
 			}
 		}
 	};
@@ -543,6 +452,5 @@ $(document).ready(function () {
 		generateReport(details, UnitTCRunner.getTestResult(), true);
 	};
 	// get the test directories
-	UnitTCRunner = new Runner();
 	UnitTCRunner.exec(TESTS);
 });

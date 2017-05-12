@@ -7,7 +7,7 @@ echo "tct-paker.sh"
 
 # Config params
 TEST_FILENAME=tct-webuifw-tests01-3.0.zip
-TEST_NAME=tcttautest
+TEST_NAME=tct-webuifw-tests
 
 # Aliases
 TB=`tput bold`
@@ -53,21 +53,10 @@ rm -rf tct-package/opt
 mkdir tct-package/opt/
 mkdir tct-package/opt/$TEST_NAME/
 
-# TODO: automatic wgt building using web-packagin
-# Create wgt
-#/home/m.szepielak/tizen-sdk/tools/web-packaging /home/m.szepielak/workspace/SPIN/tau/tests/tct-package/opt/$TEST_NAME/$TEST_NAME.wgt /home/m.szepielak/workspace/SPIN/tau/tests/tau-runner/
-
 # Copy runner application to package
-#cp tau-runner/tau-runner.wgt tct-package/opt/$TEST_NAME/$TEST_NAME.wgt
-#echo "tct-package/opt/$TEST_NAME/$TEST_NAME.wgt"
-cp tct-packages/$PACKAGE_NUMBER/tcttautest.tctwebuifwtests.wgt tct-package/opt/$TEST_NAME/$TEST_NAME.wgt
+cp tct-packages/$PACKAGE_NUMBER/webuifwtcs.tctwebuifwtest.wgt tct-package/opt/$TEST_NAME/$TEST_NAME.wgt
 
-# Copy test pattern to package
-cp tau-runner/xml/tests-p$PACKAGE_NUMBER.xml tct-package/opt/$TEST_NAME/tests.xml
-echo "tau-runner/xml/tests-p$PACKAGE_NUMBER.xml tct-package/opt/$TEST_NAME/tests.xml"
-
-# Copy inst.sh
-# cp tct-package/inst.sh tct-package/opt/$TEST_NAME/inst.sh
+cp tct-packages/$PACKAGE_NUMBER/tau-runner/tests.xml tct-package/opt/$TEST_NAME/tests.xml
 
 # Copy inst.py
 cp tct-package/inst.py tct-package/opt/$TEST_NAME/inst.py
@@ -93,12 +82,3 @@ if [ `sdb devices | awk '/List of devices/{getline; print}' | wc -l` -gt  ] ; th
 	echo "Package was created, but tests didn't run!"
 	exit
 fi
-
-# Push package to device
-# sdb push $TEST_FILENAME /tmp
-# sdb root on
-# sdb shell "unzip -o /tmp/${TEST_FILENAME} -d /opt/usr/media/tct/"
-# sdb shell "/opt/usr/media/tct/opt/${TEST_NAME}/inst.py"
-
-# Run tests
-# testkit-lite2.0 -f device:/opt/usr/media/tct/opt/$TEST_NAME/tests.xml -e "WRTLauncher" -o $TEST_NAME.results.xml

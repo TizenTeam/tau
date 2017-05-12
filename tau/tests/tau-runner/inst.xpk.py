@@ -20,15 +20,7 @@ tct_parser = ConfigParser.ConfigParser()
 tct_parser.read(TCT_CONFIG_FILE)
 SRC_DIR = tct_parser.get('DEVICE', 'DEVICE_SUITE_TARGET_30')
 PKG_SRC_DIR = "%s/tct/opt/%s" % (SRC_DIR, PKG_NAME)
-EXECUTION_MODE_30 = tct_parser.get('DEVICE', 'DEVICE_EXECUTION_MODE_30')
-ADMIN_USER_30 = tct_parser.get('DEVICE', 'DEVICE_ADMIN_USER_30')
 
-def userCheck():
-    global GLOVAL_OPT
-    if ADMIN_USER_30 == EXECUTION_MODE_30:
-        GLOVAL_OPT="--global"
-    else:
-        GLOVAL_OPT=""
 
 def doCMD(cmd):
     # Do not need handle timeout in this short script, let tool do it
@@ -48,6 +40,7 @@ def doCMD(cmd):
         output.append(output_line)
 
     return (cmd_return_code, output)
+
 
 def updateCMD(cmd=None):
     if "pkgcmd" in cmd:
@@ -118,13 +111,13 @@ def uninstPKGs():
             continue
 
         for file in files:
-            if file.endswith(".wgt"):
+            if file.endswith(".xpk"):
                 pkg_id = getPKGID(os.path.basename(os.path.splitext(file)[0]))
                 if not pkg_id:
                     action_status = False
                     continue
                 (return_code, output) = doRemoteCMD(
-                    "pkgcmd %s -u -t wgt -q -n %s" % (GLOVAL_OPT, pkg_id))
+                    "pkgcmd -u -t xpk -q -n %s" % pkg_id)
                 for line in output:
                     if "Failure" in line:
                         action_status = False
@@ -149,11 +142,11 @@ def instPKGs():
             continue
 
         for file in files:
-            if file.endswith(".wgt"):
+            if file.endswith(".xpk"):
                 if not doRemoteCopy(os.path.join(root, file), "%s/%s" % (SRC_DIR, file)):
                     action_status = False
                 (return_code, output) = doRemoteCMD(
-                    "pkgcmd %s -i -t wgt -q -p %s/%s" % (GLOVAL_OPT, SRC_DIR, file))
+                    "pkgcmd -i -t xpk -q -p %s/%s" % (SRC_DIR, file))
                 doRemoteCMD("rm -rf %s/%s" % (SRC_DIR, file))
                 for line in output:
                     if "Failure" in line:
@@ -195,12 +188,7 @@ def main():
         sys.exit(1)
 
     if not PARAMETERS.user:
-        PARAMETERS.user = EXECUTION_MODE_30
-
-    #global SRC_DIR, PKG_SRC_DIR
-    #SRC_DIR = "/home/%s/share" % PARAMETERS.user
-    #PKG_SRC_DIR = "%s/tct/opt/%s" % (SRC_DIR, PKG_NAME)
-
+        PARAMETERS.user = "owner"
     if not PARAMETERS.mode:
         PARAMETERS.mode = "SDB"
 
@@ -217,8 +205,6 @@ def main():
     if not PARAMETERS.device:
         print "No device provided"
         sys.exit(1)
-
-    userCheck()
 
     user_info = getUSERID()
     re_code = user_info[0]

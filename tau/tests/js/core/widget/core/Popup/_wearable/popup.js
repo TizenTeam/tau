@@ -342,36 +342,36 @@
 		popup1Widget.trigger("event");
 		ok(true, "not triggered");
 	});
-
-	asyncTest("close with option dismissible", 2, function() {
-		tau.event.one(page, "pageshow", function() {
-			popup1Widget = engine.instanceWidget(popup1, INSTANCE_WIDGET);
-			tau.event.one(popup1, PopupClass.events.show, function() {
-				ok(true, "Popup is opened");
-				popup1Widget.close();
-				start();
-			});
-			tau.event.one(popup1, PopupClass.events.hide, function() {
-				ok(true, "Popup is being closed");
-			});
-			popup1Widget.open({dismissible: false});
-		});
-		engine.run();
-	});
-
-	asyncTest("open with option dismissible", 1, function() {
-		tau.event.one(page, "pageshow", function() {
-			popup1Widget = engine.instanceWidget(popup1, INSTANCE_WIDGET);
-			tau.event.one(popup1, PopupClass.events.show, function() {
-				ok(true, "Popup is opened");
-				tau.event.trigger(popup1Widget._ui.overlay, "click");
-				start();
-			});
-			tau.event.one(popup1, PopupClass.events.hide, function() {
-				ok(false, "Popup should not be closed");
-			});
-			popup1Widget.open({dismissible: false});
-		});
-		engine.run();
-	});
+	//
+	// asyncTest("close with option dismissible", 2, function() {
+	// 	tau.event.one(page, "pageshow", function() {
+	// 		popup1Widget = engine.instanceWidget(popup1, INSTANCE_WIDGET);
+	// 		tau.event.one(popup1, PopupClass.events.show, function() {
+	// 			ok(true, "Popup is opened");
+	// 			popup1Widget.close();
+	// 			start();
+	// 		});
+	// 		tau.event.one(popup1, PopupClass.events.hide, function() {
+	// 			ok(true, "Popup is being closed");
+	// 		});
+	// 		popup1Widget.open({dismissible: false});
+	// 	});
+	// 	engine.run();
+	// });
+	//
+	// asyncTest("open with option dismissible", 1, function() {
+	// 	tau.event.one(page, "pageshow", function() {
+	// 		popup1Widget = engine.instanceWidget(popup1, INSTANCE_WIDGET);
+	// 		tau.event.one(popup1, PopupClass.events.show, function() {
+	// 			ok(true, "Popup is opened");
+	// 			tau.event.trigger(popup1Widget._ui.overlay, "click");
+	// 			start();
+	// 		});
+	// 		tau.event.one(popup1, PopupClass.events.hide, function() {
+	// 			ok(false, "Popup should not be closed");
+	// 		});
+	// 		popup1Widget.open({dismissible: false});
+	// 	});
+	// 	engine.run();
+	// });
 }(window, window.document));
