@@ -66,12 +66,13 @@ input[type="search"][disabled]{
 		box-sizing: border-box;
 		flex-grow: 1;
 
-		padding: 4 * @unit_base 80 * @unit_base 0 10 * @unit_base;
+		padding: 4 * @unit_base 10 * @unit_base 0 10 * @unit_base;
 		margin-right: 15 * @unit_base;
 
-		&:focus,
-		&:active {
+		&.ui-text-input-clear-active:focus,
+		&.ui-text-input-clear-active:active {
 			text-shadow: 0 0 0 @color_header_search_text_typing;
+			padding: 4 * @unit_base 82 * @unit_base 0 10 * @unit_base;
 		}
 
 		&[disabled],
