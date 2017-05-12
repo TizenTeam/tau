@@ -418,7 +418,7 @@
 				// we create overlay, which is invisible when
 				// the value of option overlay is false
 				/// @TODO: get class from widget
-				if (!element.classList.contains("ui-slider-popup")) {
+				if (!element.classList.contains("ui-slider-popup") && !element.classList.contains(classes.toast)) {
 					// create overlay
 					if (!overlay) {
 						overlay = document.createElement("div");
@@ -427,11 +427,6 @@
 							element.parentNode.insertBefore(overlay, element);
 						} else {
 							ns.warn("Popup is creating on element outside DOM");
-						}
-
-						//if this is a toast popup, remove dark background from overlay div
-						if (element.classList.contains(classes.toast)) {
-							overlay.style.backgroundImage = "none";
 						}
 
 						ui.overlay = overlay;
@@ -616,7 +611,17 @@
 					if (!newOptions.dismissible) {
 						engine.getRouter().lock();
 					}
-					self._show(newOptions);
+
+					if (self.element.classList.contains(classes.toast)) {
+						newOptions.transition = "fade";
+						self._show(newOptions);
+						window.setTimeout(function () {
+							self.close();
+							newOptions.transition = "slidein";
+						}, 3000);
+					} else {
+						self._show(newOptions);
+					}
 				}
 			};
 
@@ -904,9 +909,13 @@
 					transitionClass = transition + options.ext,
 					element = self.element,
 					elementClassList = element.classList,
-					overlayClassList = self._ui.overlay.classList,
+					overlayClassList,
 					deferred,
 					animationEndCallback;
+
+				if (self._ui.overlay) {
+					overlayClassList = self._ui.overlay.classList;
+				}
 
 				deferred = setTransitionDeferred(self, resolve);
 
@@ -926,7 +935,11 @@
 						currentClass = currentClass.trim();
 						if (currentClass.length > 0) {
 							elementClassList.add(currentClass);
-							overlayClassList.add(currentClass);
+
+							if (overlayClassList) {
+								overlayClassList.add(currentClass);
+							}
+
 						}
 					});
 				} else {
