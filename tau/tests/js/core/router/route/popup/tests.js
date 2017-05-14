@@ -7,7 +7,7 @@ module("core/router/route/popup");
 document.addEventListener("tauinit", function () {
 	if (!window.navigator.userAgent.match("PhantomJS")) {
 
-		asyncTest("test loading scripts in external files", 6, function () {
+		asyncTest("test loading scripts in external files", 7, function () {
 			var testExternalPopup = function () {
 				document.removeEventListener("popupshow", testExternalPopup, false);
 				equal(window.testVariableFromExternalFile, true, "varable from inline script is set");

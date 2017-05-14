@@ -32,7 +32,7 @@ module.exports = function (grunt) {
 				"numberOfTestsPerPackage": 30
 			},
 			wearable: {
-				"numberOfTestsPerPackage": 3
+				"numberOfTestsPerPackage": 20
 			}
 		},
 		prepareTestsList = function (profileName, done, output) {
