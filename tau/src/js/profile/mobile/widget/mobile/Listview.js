@@ -62,9 +62,21 @@
 				colorTmp = [0, 0, 0, 0],
 				MAX_IDLE_TIME = 3 * 1000, //3s
 				Listview = function () {
-					var self = this;
+					var self = this,
+						/**
+						 * @property {Object} options
+						 * @property {boolean} options.coloredBackground=true enables/disables colored background
+						 */
+						options = {
+							coloredBackground: true
+						};
 
 					CoreListview.call(self);
+
+					// merge options from prototype
+					self.options = (!self.options) ?
+						options :
+						objectUtils.fastMerge(self.options, options);
 
 					// async function (requestAnimationFrame)
 					self._async = utils.requestAnimationFrame;
@@ -193,6 +205,19 @@
 			Listview.events = events;
 
 			/**
+			 * Enebles / disables colored background
+			 * @method _setColoredBackground
+			 * @param {HTMLElement} element Main element of widget
+			 * @param {boolean} value option value
+			 * @member ns.widget.mobile.Listview
+			 * @protected
+			 */
+			prototype._setColoredBackground = function (element, value) {
+				element.classList.toggle(classes.GRADIENT_BACKGROUND_DISABLED, !value);
+				this.options.coloredBackground = value;
+			};
+
+			/**
 			 * Builds widget
 			 * @method _build
 			 * @param {HTMLElement} element Main element of widget
@@ -272,7 +297,7 @@
 					canvasWidth,
 					popupContent;
 
-				if (self.element.classList.contains(classes.GRADIENT_BACKGROUND_DISABLED) === false) {
+				if (self.options.coloredBackground) {
 					self._redraw = true;
 					self._lastChange = now();
 
@@ -313,6 +338,11 @@
 					self._scrollableContainer = scrollableContainer;
 
 					self._frameCallback();
+				} else {
+					// if listview contains in popup then remove specific class
+					if (popupContainer) {
+						popupContainer.classList.remove(classes.POPUP_LISTVIEW);
+					}
 				}
 			};
 
@@ -678,19 +708,20 @@
 				}
 
 				if (self._backgroundRenderCallback) {
-					this.off("expand collapse", this._backgroundRenderCallback, false);
-					eventUtils.off(window, "resize", this._backgroundRenderCallback, false);
+					self.off("expand collapse", self._backgroundRenderCallback, false);
+					eventUtils.off(window, "resize", self._backgroundRenderCallback, false);
 					if (element) {
 						eventUtils.off(element, events.BACKGROUND_RENDER, self._backgroundRenderCallback);
 					}
-					if (this._pageContainer) {
-						eventUtils.off(this._pageContainer, Page.events.BEFORE_SHOW, this._backgroundRenderCallback);
-						this._pageContainer = null;
+					if (self._pageContainer) {
+						eventUtils.off(self._pageContainer, Page.events.BEFORE_SHOW, self._backgroundRenderCallback);
+						self._pageContainer = null;
 					}
 
-					if (this._popupContainer) {
-						eventUtils.off(this._popupContainer, Popup.events.transition_start, this._backgroundRenderCallback);
-						this._popupContainer = null;
+					if (self._popupContainer) {
+						self._popupContainer.classList.remove(classes.POPUP_LISTVIEW);
+						eventUtils.off(self._popupContainer, Popup.events.transition_start, self._backgroundRenderCallback);
+						self._popupContainer = null;
 					}
 					self._backgroundRenderCallback = null;
 				}

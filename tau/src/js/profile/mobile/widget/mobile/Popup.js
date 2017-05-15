@@ -512,12 +512,15 @@
 			"../../../../core/util/selectors",
 			"../../../../core/util/DOM",
 			"../../../../core/widget/core/ContextPopup",
+			"../../../../core/widget/core/Listview",
 			"../mobile"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 			var CorePopup = ns.widget.core.ContextPopup,
 				CorePopupPrototype = CorePopup.prototype,
+
+				Listview = ns.widget.core.Listview,
 
 				engine = ns.engine,
 
@@ -634,6 +637,31 @@
 					button = utilSelector.getClosestBySelector(element, engine.getWidgetDefinition("Button").selector);
 
 				return button || element;
+			};
+
+			/**
+			 * Show popup
+			 * @method _show
+			 * @protected
+			 * @member ns.widget.mobile.Popup
+			 */
+			Popup.prototype._show = function () {
+				var self = this,
+					listviewElement,
+					listview;
+
+				// Disabled colored list for contextual popups
+				if (self.options.positionTo !== "window") {
+					listviewElement = self.element.querySelector("." + Listview.classes.LISTVIEW);
+					if (listviewElement) {
+						listview = engine.getBinding(listviewElement);
+						if (listview) {
+							listview.option("coloredBackground", false);
+						}
+					}
+				}
+
+				CorePopupPrototype._show.call(self);
 			};
 
 			/**
