@@ -372,8 +372,12 @@
 .ui-btn-icon.ui-icon-home:after {
 	-webkit-mask-image: url("images/00_button_home.png");
 }
-.vertical-list {
-	height: 300px;
+
+.ui-listview .ui-li-static.vertical-list {
+	box-sizing: border-box;
+	width: 60px;
+	background-color: white;
+	padding: 20px 14px;
 }
 
 /****************************************************************/
