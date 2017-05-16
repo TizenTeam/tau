@@ -59,18 +59,7 @@ module.exports = function (grunt) {
 				grunt.task.run("copy:cldr-data");
 			}
 		} else {
-			grunt.log.ok("downloading cldr-data...");
-			grunt.loadNpmTasks("grunt-auto-install");
-			grunt.config.set("auto_install", {
-				local: {},
-				rootGrunt: {
-					options: {
-						cwd: "./"
-					}
-				}
-			});
-			grunt.task.run("auto_install:rootGrunt");
-			grunt.task.run("copy:cldr-data");
+			grunt.log.warn("require download cldr-data...");
 		}
 	});
 };

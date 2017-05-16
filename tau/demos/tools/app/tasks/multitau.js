@@ -167,84 +167,6 @@ module.exports = function (grunt) {
 		});
 	}
 
-	function screenshotTizen3(device, profile, app, screen, done) {
-		var deviceParam = device ? " -s " + device + " " : "";
-
-		exec("sdb" + deviceParam + " root on", function () {
-			exec("sdb" + deviceParam + " shell enlightenment_info -reslist", function (error, result) {
-				var regexp = new RegExp("^.*" + globalAppId + ".*$", "gm"),
-					match = result.match(regexp)[0],
-					PID = match.split(/\s+/)[2];
-
-				exec("sdb" + deviceParam + " shell enlightenment_info -topvwins", function (error, result) {
-					var regexp = new RegExp("^.*\\\s" + PID + "\\\s.*$", "gm"),
-						match = result.match(regexp)[0],
-						winID = match.split(/\s+/)[2];
-
-					exec("sdb" + deviceParam + " shell 'cd /opt/usr/media;enlightenment_info -dump_topvwins'", function (error, result) {
-						var dir = app + "/../../result/" + profile + "/" + screen.name,
-							resultDir = result.replace("directory: ", "").replace(/[\r\n]/gm, "");
-
-						exec("sdb" + deviceParam + " pull " + resultDir + "/" + winID + ".png " + dir + "_raw.png", function () {
-							var width = screen.width || 257,
-								height = screen.height || 457;
-
-							exec("convert " + dir + "_raw.png -crop " + deviceSizes[profile] + " " + dir + "_crop.png", function () {
-								fs.exists(dir + "_crop-0.png", function (exists) {
-									var filename = dir + (exists ? "_crop-0.png" : "_crop.png");
-
-									exec("convert " + filename + " -resize " + width + "x" + height + "\\! " + dir + ".png", function () {
-										exec("sdb" + deviceParam + " root off", function () {
-											fs.unlink(filename, function () {
-												fs.unlink(dir + "_crop-1.png", function () {
-													fs.unlink(dir + "_raw.png", function () {
-														done();
-													});
-												});
-											});
-										});
-									});
-								});
-							});
-						});
-					});
-				});
-			});
-		});
-	}
-
-
-	function screenshotTizen2(device, profile, app, screen, done) {
-		var deviceParam = device ? " -s " + device + " " : "";
-
-		exec("sdb" + deviceParam + " root on", function () {
-			exec("sdb" + deviceParam + " shell xwd -root -out /tmp/screen.xwd", function () {
-				var dir = app + "/../../result/" + profile + "/" + screen.name;
-
-				exec("sdb" + deviceParam + " pull /tmp/screen.xwd " + dir + ".xwd", function () {
-					var width = screen.width || 257,
-						height = screen.height || 457;
-
-					exec("convert -resize " + width + "x" + height + "\\! " + dir + ".xwd " + dir + ".png", function () {
-						fs.unlink(dir + ".xwd", function () {
-							done();
-						});
-					});
-				});
-			});
-		});
-	}
-
-	function screenshot(device, profile, app, screen, done) {
-		// check tizen version
-		if (globalAppId) {
-			// if not exists than run tizen 3 commands
-			screenshotTizen3(device, profile, app, screen, done);
-		} else {
-			screenshotTizen2(device, profile, app, screen, done);
-		}
-	}
-
 	function openDebuger(device, port, done) {
 		var ip = /^([0-9.]+):/.exec(device),
 			host = (ip && ip[1]) || "localhost",
@@ -364,22 +286,12 @@ module.exports = function (grunt) {
 		});
 	}
 
-	function writeTestName(app, name, callback) {
-		grunt.log.subhead("Test to run: " + name);
-		fs.writeFile(app + "/test.txt", name || "", function (err) {
-			if (err) {
-				return grunt.log.error(err);
-			}
-
-			callback();
-		});
-	}
-
 	grunt.registerMultiTask("multitau", "", function () {
 		var options = this.options(),
 			profile = options["profile"],
 			testToRun = grunt.option("test"),
 			debug = grunt.option("tau-debug"),
+			onlyAccepted = grunt.option("only-accepted"),
 			noCopy = grunt.option("no-copy-tau") || 0,
 			noRun = grunt.option("no-run"),
 			app = options.app || "MediaQuriesUtilDemo",
@@ -393,9 +305,12 @@ module.exports = function (grunt) {
 		}
 		grunt.log.ok("delete " + dest);
 
-		if (testToRun) {
-			grunt.log.ok("test to run:" + testToRun);
+		if (testToRun !== undefined) {
+			grunt.log.ok("Test to run: " + testToRun);
 		}
+
+		grunt.log.ok("Only accepted: " + onlyAccepted);
+
 
 		fs.lstat(dest, function (error, stats) {
 			if (!noCopy) {
@@ -417,56 +332,35 @@ module.exports = function (grunt) {
 			], getDeviceList.bind(null, profile,
 				function (devices, count) {
 					if (count) {
-						writeTestName(app, testToRun, function () {
-							build(app, profile, function (error) {
-								var tasks = [];
+						fs.exists(app + "screenshots.json", function (exists) {
+							var screenshots;
 
-								if (error) {
-									grunt.log.error("Error on building");
-									done();
-								} else {
-									if (!noRun) {
-										devices[profile].forEach(function (device) {
-											tasks.push(run.bind(null, device, app, debug));
+							if (exists) {
+								screenshots = require("../../../" + app + "screenshots.json");
 
-											// UI Tests
-											/*
-											fs.exists(app + "screenshots.json", function (exists) {
-												if (exists) {
-													var screenshots = require("../../../" + app + "screenshots.json"),
-														firstTime = 5000;
+								if (onlyAccepted) {
+									screenshots = screenshots.filter(item => item.pass);
+								}
 
-													tasks.push(function (next) {
-														setTimeout(function () {
-															next();
-														}, firstTime);
-													});
-													if (testToRun) {
-														screenshots = screenshots.filter(function (item) {
-															return item.name === testToRun;
-														});
-													}
-													screenshots.forEach(function (screenshotItem) {
-														tasks.push(function (screenshotItem, next) {
-															var startTime = Date.now();
+								if (testToRun) {
+									screenshots = screenshots.filter(item => item.name === testToRun);
+								}
+							}
 
-															screenshot(device, profile, app, screenshotItem, function () {
-																setTimeout(function () {
-																	next();
-																}, screenshotItem.time - (Date.now() - startTime));
-															});
-														}.bind(null, screenshotItem));
-													});
-												}
-												async.series(tasks, done);
-											});
-											*/
+							if (exists && screenshots.length) {
+								grunt.log.ok("Writing: " + path.resolve(__dirname + "/../../../" + app + "_screenshots.json"));
+								fs.writeFile(__dirname + "/../../../" + app + "_screenshots.json", JSON.stringify(screenshots), function () {
+									build(app, profile, function (error) {
+										var tasks = [];
 
-											// UI Tests
-											fs.exists(app + "screenshots.json", function (exists) {
-												if (exists) {
-													var screenshots = require("../../../" + app + "screenshots.json");
-
+										if (error) {
+											grunt.log.error("Error on building");
+											done();
+										} else {
+											if (!noRun) {
+												devices[profile].forEach(function (device) {
+													tasks.push(run.bind(null, device, app, debug));
+													// UI Tests
 													tasks.push(function (next) {
 														uiTest.config({
 															screenshots: screenshots,
@@ -477,16 +371,24 @@ module.exports = function (grunt) {
 														});
 														uiTest.run(next);
 													});
-												}
-												async.series(tasks, done);
-											});
-										});
-									} else {
-										done();
-									}
-								}
-							}, destDir);
-						});
+
+												});
+											}
+										}
+										async.series(tasks, done);
+									});
+								});
+							} else {
+								build(app, profile, function (error) {
+									var tasks = [];
+
+									devices[profile].forEach(function (device) {
+										tasks.push(run.bind(null, device, app, debug));
+									});
+									async.series(tasks, done);
+								});
+							}
+						}, destDir);
 					} else {
 						done();
 					}

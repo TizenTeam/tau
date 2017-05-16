@@ -1,5 +1,5 @@
 /* eslint global-require: 0 */
-var imageDiff = require("image-diff"),
+var resemble = require("node-resemble-js"),
 	async = require("async"),
 	xml2js = require("xml2js"),
 	fs = require("fs"),
@@ -17,7 +17,7 @@ module.exports = function (grunt) {
 				options: {
 					port: 9001,
 					open: {
-						target: "http://localhost:9001/tests/UI-tests/test.html?" + Date.now() + "#mobile"
+						target: "http://localhost:9001/tests/UI-tests/test.html?" + Date.now()
 					},
 					keepalive: true
 				}
@@ -34,9 +34,8 @@ module.exports = function (grunt) {
 		}
 	});
 
-	grunt.registerTask("ui-tests-report", "Generate UI tests report in junit format", function () {
-		var profile = "mobile",
-			tests = require(path.join(__dirname, "..", "..", "..", "tests", "UI-tests", "app", profile, "screenshots.json")),
+	grunt.registerTask("ui-tests-report", "Generate UI tests report in junit format", function (profile) {
+		var tests = require(path.join(__dirname, "..", "..", "..", "tests", "UI-tests", "app", profile, "_screenshots.json")),
 			done = this.async(),
 			builder = new xml2js.Builder(),
 			testcase = [],
@@ -69,69 +68,75 @@ module.exports = function (grunt) {
 				}
 			};
 
-		async.eachSeries(tests, function (test, cb) {
-			imageDiff.getFullResult({
-				actualImage: path.join(__dirname, "..", "..", "..", "tests", "UI-tests", "images", profile, test.name + ".png"),
-				expectedImage: path.join(__dirname, "..", "..", "..", "tests", "UI-tests", "result", profile, test.name + ".png"),
-				diffImage: path.join(__dirname, "..", "..", "..", "tests", "UI-tests", "diff", profile, test.name + ".png")
-			}, function (err, result) {
-				var tc = {
-						$: {
-							assertions: 1,
-							classname: profile + "." + test.name,
-							name: test.name
-						}
+		fs.mkdir(path.join(__dirname, "..", "..", "..", "tests", "UI-tests", "diff"), function () {
+			fs.mkdir(path.join(__dirname, "..", "..", "..", "tests", "UI-tests", "diff", profile), function () {
+
+				resemble.outputSettings({
+					errorColor: {
+						red: 255,
+						green: 0,
+						blue: 0
 					},
-					value = null;
+					errorType: "floatDifferenceIntensity",
+					transparency: 1,
+					largeImageThreshold: 0,
+					useCrossOrigin: false
+				});
 
-				if (err) {
-					grunt.log.error(err);
-					errorsCount++;
-					tc.error = [{
-						$: {
-							message: err
-						}
-					}];
-				} else {
-					value = Math.round(result.percentage * 100);
+				async.eachSeries(tests, function (test, cb) {
+					resemble(path.join(__dirname, "..", "..", "..", "tests", "UI-tests", "images", profile, test.name + ".png"))
+						.compareTo(path.join(__dirname, "..", "..", "..", "tests", "UI-tests", "result", profile, test.name + ".png"))
+						.onComplete(function (result) {
+							var tc = {
+									$: {
+										assertions: 1,
+										classname: profile + "." + test.name,
+										name: test.name
+									}
+								},
+								value = parseFloat(result.misMatchPercentage);
 
-					if (value > 2) {
-						if (test.pass) {
-							tc.error = [{
-								$: {
-									message: "Not match, current diff: " + value + "%"
+							result.getDiffImage().pack().pipe(fs.createWriteStream(path.join(__dirname, "..", "..", "..", "tests", "UI-tests", "diff", profile, test.name + ".png")));
+
+							if (value > 0) {
+								if (test.pass) {
+									tc.error = [{
+										$: {
+											message: "Not match, current diff: " + value + "%"
+										}
+									}];
+									grunt.log.error("[error] Run test: " + test.name + " result, difference pixels: " + value + "%");
+									errorsCount++;
+								} else {
+									tc["system-out"] = ["Not match, current diff: " + value + "%"];
+									grunt.log.warn("[quarantine] Run test: " + test.name + " result, difference pixels: " + value + "%");
 								}
-							}];
-							grunt.log.error("[error] Run test: " + test.name + " result, difference pixels: " + value + "%");
-							errorsCount++;
-						} else {
-							tc["system-out"] = ["Not match, current diff: " + value + "%"];
-							grunt.log.warn("[quarantine] Run test: " + test.name + " result, difference pixels: " + value + "%");
-						}
-					} else {
-						grunt.log.ok("[ok] Run test: " + test.name + " result, difference pixels: " + value + "%");
-					}
-				}
-				count++;
-				testcase.push(tc);
-				cb();
-			});
-		}, function () {
-			var xml;
+							} else {
+								grunt.log.ok("[ok] Run test: " + test.name + " result, difference pixels: " + value + "%");
+							}
 
-			resultObject.testsuites.testsuite[0].testcase = testcase;
-			resultObject.testsuites.testsuite[0].$.tests = count;
-			resultObject.testsuites.testsuite[0].$.errors = errorsCount;
-			resultObject.testsuites.$.tests = count;
-			resultObject.testsuites.$.errors = errorsCount;
-			xml = builder.buildObject(resultObject);
+							count++;
+							testcase.push(tc);
+							cb();
+						});
+				}, function () {
+					var xml;
 
-			fs.mkdir(path.join(__dirname, "..", "..", "..", "report"), function () {
-				fs.mkdir(path.join(__dirname, "..", "..", "..", "report", "test"), function () {
-					fs.mkdir(path.join(__dirname, "..", "..", "..", "report", "test", "UI"), function () {
-						fs.mkdir(path.join(__dirname, "..", "..", "..", "report", "test", "UI", "unit"), function () {
-							fs.writeFile(path.join(__dirname, "..", "..", "..", "report", "test", "UI", "unit", "TESTS.xml"), xml, function () {
-								done();
+					resultObject.testsuites.testsuite[0].testcase = testcase;
+					resultObject.testsuites.testsuite[0].$.tests = count;
+					resultObject.testsuites.testsuite[0].$.errors = errorsCount;
+					resultObject.testsuites.$.tests = count;
+					resultObject.testsuites.$.errors = errorsCount;
+					xml = builder.buildObject(resultObject);
+
+					fs.mkdir(path.join(__dirname, "..", "..", "..", "report"), function () {
+						fs.mkdir(path.join(__dirname, "..", "..", "..", "report", "test"), function () {
+							fs.mkdir(path.join(__dirname, "..", "..", "..", "report", "test", "UI"), function () {
+								fs.mkdir(path.join(__dirname, "..", "..", "..", "report", "test", "UI", profile), function () {
+									fs.writeFile(path.join(__dirname, "..", "..", "..", "report", "test", "UI", profile, "TESTS.xml"), xml, function () {
+										done();
+									});
+								});
 							});
 						});
 					});
@@ -142,10 +147,15 @@ module.exports = function (grunt) {
 
 	grunt.registerTask("ui-tests", "Runner of UI tests", function () {
 		var test = grunt.option("test"),
+			profile = grunt.option("profile"),
 			tauDebug = grunt.option("tau-debug");
 
 		if (test) {
 			args.push("--test=" + test);
+		}
+
+		if (profile) {
+			args.push("--profile=" + profile);
 		}
 
 		if (tauDebug) {
@@ -164,18 +174,26 @@ module.exports = function (grunt) {
 	});
 
 	grunt.registerTask("ui-tests-junit", "Runner of UI tests", function () {
-		var test = grunt.option("test");
+		var test = grunt.option("test"),
+			profile = grunt.option("profile");
+
+		args.push("--only-accepted=1");
 
 		if (test) {
 			args.push("--test=" + test);
-			grunt.config.merge({
-				run: {
-					uiTests: {
-						args: args
-					}
-				}
-			});
 		}
+
+		if (profile) {
+			args.push("--profile=" + profile);
+		}
+
+		grunt.config.merge({
+			run: {
+				uiTests: {
+					args: args
+				}
+			}
+		});
 
 		grunt.config.merge({
 			clean: {
@@ -186,6 +204,6 @@ module.exports = function (grunt) {
 			}
 		});
 
-		grunt.task.run("build", "clean:ui-test", "run:uiTests", "ui-tests-report");
+		grunt.task.run("build", "clean:ui-test", "run:uiTests", "ui-tests-report:mobile", "ui-tests-report:wearable");
 	});
 };

@@ -3,13 +3,15 @@
     "name": "19-list",
     "time": 3000,
     "width": 360,
-    "height": 640
+    "height": 640,
+    "pass": true
   },
   {
     "name": "11-list",
     "time": 3000,
     "width": 360,
-    "height": 640
+    "height": 640,
+    "pass": true
   },
   {
     "name": "21-list-with-back",
@@ -19,37 +21,43 @@
     "name": "25-list-with-2-tabs",
     "time": 3000,
     "width": 360,
-    "height": 640
+    "height": 640,
+    "pass": true
   },
   {
     "name": "27-list-tab-long",
     "time": 3000,
     "width": 360,
-    "height": 640
+    "height": 640,
+    "pass": true
   },
   {
     "name": "28-list-tab-3",
     "time": 3000,
     "width": 360,
-    "height": 640
+    "height": 640,
+    "pass": true
   },
   {
     "name": "29-list-tab-4-icons",
     "time": 3000,
     "width": 360,
-    "height": 640
+    "height": 640,
+    "pass": true
   },
   {
     "name": "35-list-tab-2-title",
     "time": 3000,
     "width": 360,
-    "height": 640
+    "height": 640,
+    "pass": true
   },
   {
     "name": "38-list-tab-long-title",
     "time": 3000,
     "width": 360,
-    "height": 640
+    "height": 640,
+    "pass": true
   },
   {
     "name": "39-tabs-with-title-with-icons",
@@ -111,23 +119,19 @@
   },
   {
     "name": "84-group-index",
-    "time": 3000,
-    "pass": true
+    "time": 3000
   },
   {
     "name": "85-group-index-with-checkbox",
-    "time": 3000,
-    "pass": true
+    "time": 3000
   },
   {
     "name": "85-group-index-with-checkbox-new",
-    "time": 3000,
-    "pass": true
+    "time": 3000
   },
   {
     "name": "86-progress",
-    "time": 3000,
-    "pass": true
+    "time": 3000
   },
   {
     "name": "88-activity",

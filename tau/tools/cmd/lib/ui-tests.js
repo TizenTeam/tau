@@ -21,7 +21,7 @@ var TIME_TICK = 1000,
 
 	tempFolder = null,
 
-    uiTests = {},
+	uiTests = {},
 	i = 0,
 	doneCallback,
 	end = 1000,
@@ -83,8 +83,8 @@ function takeScreenshot(pageName, onDone) {
 	pageName = pageName.replace(".html", "");
 
 	var screenshotItem = screenshots.filter(function (item) {
-			return item.name === pageName;
-		});
+		return item.name === pageName;
+	});
 
 	screenshotItem = screenshotItem[0];
 	if (screenshotItem) {
@@ -121,6 +121,31 @@ function removeRemoteRequest(onSuccess) {
 	});
 }
 
+function setLongLife(onSuccess) {
+	exec(
+		`sdb ${deviceParam} root on`,
+		function (error, stdout, stderr) {
+			if (error) {
+				console.log("error: " + error);
+			}
+			exec(
+				`sdb ${deviceParam} shell vconftool set -t int db/setting/lcd_backlight_normal 6000 -f`,
+				function (error, stdout, stderr) {
+					if (error) {
+						console.log("error: " + error);
+					}
+					exec(
+						`sdb ${deviceParam} root off`,
+						function (error, stdout, stderr) {
+							if (error) {
+								console.log("error: " + error);
+							}
+							onSuccess();
+						});
+				});
+		});
+}
+
 function sendResponse(onSuccess) {
 	console.log(":sendResponse");
 	exec(
@@ -139,7 +164,7 @@ function prepareResponse(data, onSuccess) {
 	console.log(":prepareResponse");
 	localResponseFullFileName = path.join(tempFolder, responseFileName);
 
-	fs.writeFile(localResponseFullFileName, data, "utf8" , function (error) {
+	fs.writeFile(localResponseFullFileName, data, "utf8", function (error) {
 		if (error) {
 			// if file not exists
 			console.log("error", error);
@@ -353,17 +378,19 @@ uiTests.config = function (config) {
 uiTests.run = function (callback) {
 	i = 0;
 	doneCallback = callback;
-	fs.mkdir(__dirname + "/../../../temp", function (error) {
-		if (error) {
-			console.log("(fs.mkdtemp) " + error);
-		}
-		fs.mkdtemp(__dirname + "/../../../temp/ui-tests-", function (error, folder) {
+	setLongLife(function () {
+		fs.mkdir(__dirname + "/../../../temp", function (error) {
 			if (error) {
 				console.log("(fs.mkdtemp) " + error);
-				return;
 			}
-			tempFolder = folder;
-			setTimeout(tick.bind(null, done), TIME_TICK);
+			fs.mkdtemp(__dirname + "/../../../temp/ui-tests-", function (error, folder) {
+				if (error) {
+					console.log("(fs.mkdtemp) " + error);
+					return;
+				}
+				tempFolder = folder;
+				setTimeout(tick.bind(null, done), TIME_TICK);
+			});
 		});
 	});
 };

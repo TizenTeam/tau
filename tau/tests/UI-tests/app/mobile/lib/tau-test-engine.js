@@ -13,13 +13,17 @@ var timerHandler = 0,
 	testCase = {};
 
 function openComm(onSuccess) {
-	tizen.filesystem.resolve(TEST_REQUEST_DIR, function (resultDir) {
-		// set global variable
-		dir = resultDir;
-		// Remove old request file
-		dir.deleteFile(TEST_REQUEST_FILE_NAME);
+	if (window.tizen) {
+		tizen.filesystem.resolve(TEST_REQUEST_DIR, function (resultDir) {
+			// set global variable
+			dir = resultDir;
+			// Remove old request file
+			dir.deleteFile(TEST_REQUEST_FILE_NAME);
+			onSuccess();
+		});
+	} else {
 		onSuccess();
-	});
+	}
 }
 
 function getResponse(onSuccess) {
@@ -168,7 +172,7 @@ function onRequestSuccess(status) {
 function onPageChange() {
 	var path = tau.util.path.parseUrl(tau.router.history.activeState.url);
 
-	// wait 1s and take a screenshot
+	// wait 1s and take a screenshot, requered by gridview
 	tau.log(path.filename);
 	setTimeout(function () {
 		sendRequest("take-screenshot:" + path.filename, onRequestSuccess);
@@ -176,26 +180,21 @@ function onPageChange() {
 }
 
 function main() {
-	readTextFile("test.txt", function (testName) {
-		readTextFile("screenshots.json", function (text) {
+		readTextFile("_screenshots.json", function (text) {
 			openComm(function () {
 
 				tests = JSON.parse(text);
 				first = true;
 
-				if (testName) {
-					tests = tests.filter(function (item) {
-						return item.name === testName;
-					});
+				if (tests.length > 0) {
+					document.addEventListener("pagechange", onPageChange, true);
+					testCase = tests.shift();
+					timerHandler = setTimeout(startTestCase, FIRST_DELAY);
+				} else {
+					sendRequest("end!:Test case list is empty!", onEnd);
 				}
-
-				document.addEventListener("pagechange", onPageChange, true);
-
-				testCase = tests.shift();
-				timerHandler = setTimeout(startTestCase, FIRST_DELAY);
 			});
 		});
-	});
 }
 
 // start test;

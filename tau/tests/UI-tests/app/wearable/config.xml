@@ -7,4 +7,6 @@
     <tizen:privilege name="http://tizen.org/privilege/filesystem.read"/>
     <tizen:privilege name="http://tizen.org/privilege/filesystem.write"/>
     <tizen:profile name="wearable"/>
+    <tizen:setting background-support="enable" />
+    <tizen:background-category value="media" />
 </widget>
