@@ -101,6 +101,12 @@ Popup with listview
 	.ui-popup-content {
 		padding: 0;
 		background-color: transparent;
+		position: relative;
+	}
+	.ui-listview {
+		position: relative;
+		overflow: hidden;
+		transform: translate3d(0, 0, 0);
 		&::before {
 			content: "";
 			background-color: @color_popup_list_overlay_bg;
@@ -108,12 +114,10 @@ Popup with listview
 			height: 100%;
 			display: block;
 			position: absolute;
+			top: 0;
+			z-index: 1;
+			pointer-events: none;
 		}
-	}
-	.ui-listview {
-		position: relative;
-		overflow: hidden;
-		transform: translate3d(0, 0, 0);
 	}
 }
 
