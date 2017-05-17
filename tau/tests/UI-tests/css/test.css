@@ -77,11 +77,19 @@ footer {
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff555555', endColorstr='#ff000000', GradientType=0)
 }
 
+#list {
+    height: 100vh;
+    overflow: scroll;
+}
 #list > a {
     color: grey;
     padding-left: 0.5em;
     display: inline-block;
     margin: 0.2em;
+}
+
+#list > a.pass {
+    font-weight: bolder;
 }
 
 .flex-box {
@@ -92,4 +100,8 @@ nav {
 }
 section {
     flex: 0 0 auto;
+}
+
+.buttons {
+    padding-top: 15px;
 }

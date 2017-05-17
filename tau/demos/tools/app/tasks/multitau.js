@@ -2,21 +2,15 @@
 var fs = require("fs"),
 	path = require("path"),
 	deviceMap = require("../data/deviceMap"),
-	deviceNames = require("../data/deviceNames"),
+	deviceTypes = require("../data/deviceTypes"),
 	xml2js = require("xml2js"),
 	child = require("child_process"),
-	async = require("async"),
-	uiTest = require("../../../../tools/cmd/lib/ui-tests"),
-	deviceSizes = {
-		mobile: "720x1280",
-		wearable: "360x360"
-	};
+	async = require("async");
 
 module.exports = function (grunt) {
 	"use strict";
 
-	var devicesIds = {},
-		globalAppId = "";
+	var globalAppId = "";
 
 	/**
 	 * Look ma, it"s cp -R.
@@ -107,8 +101,10 @@ module.exports = function (grunt) {
 								grunt.log.warn("Offline device " + match[3]);
 							} else {
 								if (devices[deviceMap[match[3]]]) {
-									devices[deviceMap[match[3]]].push(match[1]);
-									devicesIds[match[1]] = deviceNames[match[3]];
+									devices[deviceMap[match[3]]].push({
+										id: match[1],
+										name: match[3],
+									});
 								} else {
 									grunt.log.warn("Unrecognized device " + match[3]);
 								}
@@ -168,7 +164,7 @@ module.exports = function (grunt) {
 	}
 
 	function openDebuger(device, port, done) {
-		var ip = /^([0-9.]+):/.exec(device),
+		var ip = /^([0-9.]+):/.exec(device.id),
 			host = (ip && ip[1]) || "localhost",
 			url = "http://" + host + ":" + port + "/";
 
@@ -180,7 +176,7 @@ module.exports = function (grunt) {
 	}
 
 	function runTizen3(device, dir, debug, done) {
-		var deviceParam = device ? " -s " + device + " " : "";
+		var deviceParam = device ? " -s " + device.id + " " : "";
 
 		fs.readFile(dir + "/config.xml", function (err, data) {
 			if (err) {
@@ -208,8 +204,8 @@ module.exports = function (grunt) {
 									match = portRegexp.exec(stdout);
 
 								if (debug) {
-									if (device.indexOf(":") > -1) {
-										openDebuger(device, match[1], done);
+									if (device.id.indexOf(":") > -1) {
+										openDebuger(device.id, match[1], done);
 									} else {
 										exec("sdb" + deviceParam + " forward tcp:" + match[1] + " tcp:" + match[1], function () {
 											openDebuger(device, match[1], done);
@@ -228,7 +224,7 @@ module.exports = function (grunt) {
 
 
 	function runTizen2(device, dir, debug, done) {
-		var deviceParam = device ? " -s " + device + " " : "";
+		var deviceParam = device ? " -s " + device.id + " " : "";
 
 		fs.readFile(dir + "/config.xml", function (err, data) {
 			if (err) {
@@ -273,7 +269,7 @@ module.exports = function (grunt) {
 
 	function run(device, dir, debug, done) {
 		// add device id
-		var deviceParam = device ? " -s " + device + " " : "";
+		var deviceParam = device ? " -s " + device.id + " " : "";
 		// check that wrt-launcher exists
 
 		exec("sdb" + deviceParam + " shell wrt-launcher", function (errorcode, stdout) {
@@ -290,14 +286,13 @@ module.exports = function (grunt) {
 		var options = this.options(),
 			profile = options["profile"],
 			testToRun = grunt.option("test"),
-			debug = grunt.option("tau-debug"),
+			tauDebug = grunt.option("tau-debug"),
 			onlyAccepted = grunt.option("only-accepted"),
 			noCopy = grunt.option("no-copy-tau") || 0,
-			noRun = grunt.option("no-run"),
+			type = grunt.option("type"),
 			app = options.app || "MediaQuriesUtilDemo",
 			src = options["src"],
 			dest = options["dest"],
-			destDir = options["dest-dir"],
 			done = this.async();
 
 		if (src.substr(-1) !== "/") {
@@ -310,6 +305,8 @@ module.exports = function (grunt) {
 		}
 
 		grunt.log.ok("Only accepted: " + onlyAccepted);
+
+		grunt.log.ok("Type: " + type);
 
 
 		fs.lstat(dest, function (error, stats) {
@@ -332,63 +329,20 @@ module.exports = function (grunt) {
 			], getDeviceList.bind(null, profile,
 				function (devices, count) {
 					if (count) {
-						fs.exists(app + "screenshots.json", function (exists) {
-							var screenshots;
-
-							if (exists) {
-								screenshots = require("../../../" + app + "screenshots.json");
-
-								if (onlyAccepted) {
-									screenshots = screenshots.filter(item => item.pass);
-								}
-
-								if (testToRun) {
-									screenshots = screenshots.filter(item => item.name === testToRun);
-								}
-							}
-
-							if (exists && screenshots.length) {
-								grunt.log.ok("Writing: " + path.resolve(__dirname + "/../../../" + app + "_screenshots.json"));
-								fs.writeFile(__dirname + "/../../../" + app + "_screenshots.json", JSON.stringify(screenshots), function () {
+						devices[profile].forEach(function (device) {
+							deviceTypes[profile].forEach(function (info) {
+								if (info.device === device.name && info.type === type) {
 									build(app, profile, function (error) {
-										var tasks = [];
-
 										if (error) {
 											grunt.log.error("Error on building");
-											done();
-										} else {
-											if (!noRun) {
-												devices[profile].forEach(function (device) {
-													tasks.push(run.bind(null, device, app, debug));
-													// UI Tests
-													tasks.push(function (next) {
-														uiTest.config({
-															screenshots: screenshots,
-															app: app,
-															profile: profile,
-															globalAppId: globalAppId,
-															device: device
-														});
-														uiTest.run(next);
-													});
-
-												});
-											}
 										}
-										async.series(tasks, done);
+										run(device, app, tauDebug, done);
 									});
-								});
-							} else {
-								build(app, profile, function (error) {
-									var tasks = [];
-
-									devices[profile].forEach(function (device) {
-										tasks.push(run.bind(null, device, app, debug));
-									});
-									async.series(tasks, done);
-								});
-							}
-						}, destDir);
+								} else {
+									grunt.log.ok("Device " + device.name + " not match to type " + type + " (" + JSON.stringify(info) + ")");
+								}
+							});
+						});
 					} else {
 						done();
 					}

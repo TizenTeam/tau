@@ -18,6 +18,7 @@ module.exports = function (grunt) {
 				dest: path.join(app, destination),
 				profile: profile,
 				app: app,
+				type: "landscape",
 				"dest-dir": destDir
 			});
 			done();

@@ -3,7 +3,10 @@ var TIME_TICK = 1000,
 	fs = require("fs"),
 	path = require("path"),
 	cmd = require("./cmd"),
+	xml2js = require("xml2js"),
 	child = require("child_process"),
+	deviceMap = require("../../../demos/tools/app/data/deviceMap.js"),
+	deviceTypes = require("../../../demos/tools/app/data/deviceTypes.js"),
 
 	requestFileName = "test-request.txt",
 	responseFileName = "test-response.txt",
@@ -13,9 +16,9 @@ var TIME_TICK = 1000,
 
 	screenshots = [],
 	profile,
+	type,
 	app,
 	globalAppId,
-	device,
 	localRequestFile = null,
 	deviceParam,
 
@@ -24,7 +27,7 @@ var TIME_TICK = 1000,
 	uiTests = {},
 	i = 0,
 	doneCallback,
-	end = 1000,
+	end = 30,
 	deviceSizes = {
 		mobile: "720x1280",
 		wearable: "360x360"
@@ -88,7 +91,7 @@ function takeScreenshot(pageName, onDone) {
 
 	screenshotItem = screenshotItem[0];
 	if (screenshotItem) {
-		screenshot(device, profile, app, screenshotItem, onDone);
+		screenshot(profile, type, app, screenshotItem, onDone);
 	}
 }
 
@@ -238,6 +241,8 @@ function tick(done) {
 
 							if (data.indexOf("end!") === 0) {
 								i = end;
+							} else {
+								i = 0;
 							}
 
 							// remove request file from temporary dir;
@@ -271,7 +276,7 @@ function tick(done) {
 }
 
 
-function screenshotTizen3(device, profile, app, screen, done) {
+function screenshotTizen3(profile, type, app, screen, done) {
 	console.log(":screenshotTizen3");
 
 	exec("sdb" + deviceParam + " root on &", function () {
@@ -294,7 +299,7 @@ function screenshotTizen3(device, profile, app, screen, done) {
 					winID = match.split(/\s+/)[2];
 					exec("sdb" + deviceParam + " shell 'cd /opt/usr/media;enlightenment_info -dump_topvwins'", function (error, result) {
 						console.log("shell 'cd /opt/usr/media;enlightenment_info -dump_topvwins'");
-						var dir = app + "/../../result/" + profile + "/" + screen.name,
+						var dir = app + "/../../result/" + profile + "/" + type + "/" + screen.name,
 							resultDir = result.replace("directory: ", "").replace(/[\r\n]/gm, "");
 
 						exec("sdb" + deviceParam + " pull " + resultDir + "/" + winID + ".png " + dir + "_raw.png", function () {
@@ -333,7 +338,7 @@ function screenshotTizen3(device, profile, app, screen, done) {
 }
 
 
-function screenshotTizen2(device, profile, app, screen, done) {
+function screenshotTizen2(profile, type, app, screen, done) {
 	console.log(":screenshotTizen2");
 
 	exec("sdb" + deviceParam + " root on &", function () {
@@ -354,25 +359,95 @@ function screenshotTizen2(device, profile, app, screen, done) {
 	});
 }
 
-function screenshot(device, profile, app, screen, done) {
+function screenshot(profile, type, app, screen, done) {
 	// check tizen version
 	if (globalAppId) {
 		// if not exists than run tizen 3 commands
-		screenshotTizen3(device, profile, app, screen, done);
+		screenshotTizen3(profile, type, app, screen, done);
 	} else {
-		screenshotTizen2(device, profile, app, screen, done);
+		screenshotTizen2(profile, type, app, screen, done);
 	}
 }
 
+function getDeviceList(profile, done) {
+	exec("sdb devices", function (error, stdout) {
+		var devices = {
+				wearable: [],
+				mobile: []
+			},
+			count = 0;
 
-uiTests.config = function (config) {
+		stdout.split("\n").forEach(function (line) {
+			var portRegexp = /([0-9A-Za-z.:-]+)[ \t]+(device|online|offline)[ \t]+([^ ]+)/mi,
+				match = portRegexp.exec(line);
+
+			if (match) {
+				if (match[2] === "offline") {
+					grunt.log.warn("Offline device " + match[3]);
+				} else {
+					if (deviceMap[match[3]] === profile) {
+						if (match[2] === "offline") {
+							grunt.log.warn("Offline device " + match[3]);
+						} else {
+							if (devices[deviceMap[match[3]]]) {
+								devices[deviceMap[match[3]]].push({
+									id: match[1],
+									name: match[3],
+								});
+							} else {
+								grunt.log.warn("Unrecognized device " + match[3]);
+							}
+							count++;
+						}
+					}
+				}
+			}
+		});
+		done(devices, count);
+	});
+}
+
+function getDevice(done) {
+	getDeviceList(profile,
+		function (devices, count) {
+			if (count) {
+				devices[profile].forEach(function (device) {
+					deviceTypes[profile].forEach(function (info) {
+						if (info.device === device.name && info.type === type) {
+							deviceParam = " -s " + device.id + " ";
+						}
+					});
+				});
+				console.log("device", deviceParam);
+			}
+			done();
+		});
+}
+
+uiTests.config = function (config, done) {
 	screenshots = config.screenshots;
 	profile = config.profile;
+	type = config.type;
 	app = config.app;
-	globalAppId = config.globalAppId;
-	device = config.device;
+	fs.readFile(app + "/config.xml", function (err, data) {
+		if (err) {
+			grunt.log.error(err);
+		}
 
-	deviceParam = device ? " -s " + device + " " : "";
+		xml2js.parseString(data, function (err, result) {
+			var appId,
+				packageId;
+
+			if (err) {
+				grunt.log.error(err);
+			}
+
+			appId = result.widget["tizen:application"][0].$.id;
+
+			globalAppId = appId;
+			getDevice(done);
+		});
+	});
 };
 
 uiTests.run = function (callback) {

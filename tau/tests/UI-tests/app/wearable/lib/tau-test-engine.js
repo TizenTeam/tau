@@ -176,7 +176,7 @@ function onPageChange() {
 	tau.log(path.filename);
 	setTimeout(function () {
 		sendRequest("take-screenshot:" + path.filename, onRequestSuccess);
-	}, 1000);
+	}, 2000);
 }
 
 function main() {
@@ -187,7 +187,7 @@ function main() {
 				first = true;
 
 				if (tests.length > 0) {
-					document.addEventListener("pagechange", onPageChange, true);
+					document.addEventListener("pageshow", onPageChange, true);
 					testCase = tests.shift();
 					timerHandler = setTimeout(startTestCase, FIRST_DELAY);
 				} else {
