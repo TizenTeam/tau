@@ -13,9 +13,20 @@
 
 	&.ui-header-navigation {
 		min-height: 100 * @unit_base;
+
 		> .ui-title {
-			margin: 21.5 * @unit_base auto 20 * @unit_base;
+			margin: 16.5 * @unit_base auto 16.5 * @unit_base auto;
+			height: 67 * @unit_base;
 		}
+		> .ui-btn.ui-btn-icon.ui-btn-left, > .ui-header-btn.ui-header-btn-icon.ui-header-btn-left {
+			top: 10 * @unit_base;
+			left: 10 * @unit_base;
+		}
+		> .ui-btn.ui-btn-icon.ui-btn-right, > .ui-header-btn.ui-header-btn-icon.ui-header-btn-right {
+			top: 10 * @unit_base;
+			right: 10 * @unit_base;
+		}
+
 	}
 
 	> .ui-title {
@@ -30,11 +41,12 @@
 		color: @color_bar_title_text;
 		font-size: @font_size_bar_title_text;
 		font-weight: 200; /* tizen font weight tuning */
+		line-height: 67 * @unit_base;
 		text-overflow: ellipsis;
 		overflow: hidden;
 		white-space: nowrap;
 		text-align: center;
-		margin: 21.5 * @unit_base auto 20 * @unit_base auto;
+		margin: 21.5 * @unit_base auto 21.5 * @unit_base auto;
 
 		&:only-child {
 			max-width: none;
@@ -44,15 +56,17 @@
 	}
 
 	> .ui-title-text-main {
-		margin-top: 6 * @unit_base;
+		line-height: 57 * @unit_base;
+		margin-top: 7.5 * @unit_base;
 		margin-bottom: 0;
 		font-size: 42 * @unit_base;
 	}
 
 	> .ui-title-text-sub {
+		line-height: 38 * @unit_base;
 		position: absolute;
 		left: 50%;
-		bottom: 9 * @unit_base;
+		bottom: 7.5 * @unit_base;
 		transform: translateX(-50%);
 		font-size: 28 * @unit_base;
 		text-overflow: ellipsis;
@@ -163,7 +177,7 @@
 		}
 	}
 
-	&:not(.ui-header-searchbar) {
+	&:not(.ui-header-searchbar):not(.ui-header-navigation) {
 		> .ui-header-btn, > .ui-btn:not(.ui-btn-nobg) {
 			&.ui-header-btn-left:not(.ui-header-btn-text), &.ui-btn-left:not(.ui-btn-text) {
 				top: 15 * @unit_base;
