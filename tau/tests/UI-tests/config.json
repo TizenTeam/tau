@@ -129,7 +129,10 @@
 			},
 			{
 				"name": "84-group-index",
-				"time": 3000
+				"time": 3000,
+				"width": 360,
+				"height": 640,
+				"pass": true
 			},
 			{
 				"name": "85-group-index-with-checkbox",
@@ -525,7 +528,10 @@
 			},
 			{
 				"name": "84-group-index",
-				"time": 3000
+				"time": 3000,
+				"width": 360,
+				"height": 640,
+				"pass": true
 			},
 			{
 				"name": "85-group-index-with-checkbox",
