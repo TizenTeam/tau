@@ -3,25 +3,23 @@
 <head>
     <link rel="stylesheet"  href="../lib/tau/mobile/theme/default/tau.css">
     <script type="text/javascript" src="../lib/tau/mobile/js/tau.js" data-build-remove="false"></script>
-
 </head>
 <body>
 <div class="ui-page" id="textinput-demo">
     <div class="ui-header" data-position="fixed">
         <h1>Title</h1>
-        <a class="ui-header-btn ui-header-btn-left ui-header-btn-icon btn-icon-back"></a>
+        <a class="ui-btn ui-btn-left ui-btn-icon btn-icon-back"></a>
     </div><!-- /header -->
     <div class="ui-content">
-        <div>
-            <input type="text" name="texttype" placeholder="Input text" disabled="disabled" data-clear-btn="false"/>
-        </div>
-        <div>
-            <textarea type="text" name="textarea2"  placeholder="text area"
-                data-clear-btn="false">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-            </textarea>
-        </div>
-    </div><!-- /content -->
-</div><!-- /page -->
+        <ul class="ui-listview">
+            <li class="ui-li-static">
+                <input type="text" name="texttype" placeholder="Input text" disabled="disabled" data-clear-btn="false"/>
+            </li>
+            <li class="ui-li-static">
+                <textarea type="text" name="textarea2"  placeholder="text area" data-clear-btn="false">Lorem ipsum dolor sit amet, consectetur adipiscing elit,&#13;&#10;sed do eiusmod tempor</textarea>
+            </li>
+        </ul>
+    </div>
+</div>
 </body>
 </html>
