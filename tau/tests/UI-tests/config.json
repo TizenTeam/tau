@@ -19,7 +19,10 @@
 			},
 			{
 				"name": "21-list-with-back",
-				"time": 3000
+				"time": 3000,
+				"width": 360,
+				"height": 640,
+				"pass": true
 			},
 			{
 				"name": "25-list-with-2-tabs",
@@ -406,7 +409,10 @@
 			},
 			{
 				"name": "21-list-with-back",
-				"time": 3000
+				"time": 3000,
+				"width": 360,
+				"height": 640,
+				"pass": true
 			},
 			{
 				"name": "25-list-with-2-tabs",
