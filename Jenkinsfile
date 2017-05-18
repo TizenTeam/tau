@@ -29,9 +29,9 @@ pipeline {
                 }
             }
         }
-        stage('Tests') {
+        stage('UI Tests') {
             agent {
-                label 'node'
+                label 'mobile-tests'
             }
             steps {
                 script {
@@ -47,10 +47,11 @@ pipeline {
                 dir ('tau') {
                     sh "npm install"
                     sh "npm install grunt-cli"
-                    sh "node_modules/grunt-cli/bin/grunt test -f"
+                    sh "node_modules/grunt-cli/bin/grunt ui-tests-junit -f"
                     step([$class: 'JUnitResultArchiver', allowEmptyResults: true, testResults: 'report/**/*.xml'])
                 }
-                stash includes: 'tau/report/**', name: 'test-result'
+                stash includes: 'tau/tests/UI-tests/diff/**', name: 'test-diff-ui'
+                stash includes: 'tau/tests/UI-tests/result/**', name: 'test-result-ui'
             }
         }
         stage('Karma Tests') {
@@ -75,6 +76,30 @@ pipeline {
                     step([$class: 'JUnitResultArchiver', allowEmptyResults: true, testResults: 'report/**/*.xml'])
                 }
                 stash includes: 'tau/report/**', name: 'test-result-karma'
+            }
+        }
+        stage('Tests') {
+            agent {
+                label 'node'
+            }
+            steps {
+                script {
+                    if ("${GERRIT_CHANGE_URL}" != 'refs/changes/xx/xxxxxx/x') {
+                        echo 'This is gerrit'
+                        git branch: 'devel/tizen_3.0', credentialsId: '0d0e7561-6f63-434a-9ca0-762d2d7aa4db', url: 'ssh://m.urbanski@165.213.149.170:29418/framework/web/web-ui-fw'
+
+                        sh "git fetch origin ${GERRIT_CHANGE_URL}"
+                        sh "git checkout FETCH_HEAD"
+                    }
+                }
+                echo 'Testing..'
+                dir ('tau') {
+                    sh "npm install"
+                    sh "npm install grunt-cli"
+                    sh "node_modules/grunt-cli/bin/grunt test -f"
+                    step([$class: 'JUnitResultArchiver', allowEmptyResults: true, testResults: 'report/**/*.xml'])
+                }
+                stash includes: 'tau/report/**', name: 'test-result'
             }
         }
         stage('Clover') {
@@ -158,6 +183,8 @@ pipeline {
                 echo 'Getting artifacts....'
                 unstash 'test-result'
                 unstash 'test-result-karma'
+                unstash 'test-result-ui'
+                unstash 'test-diff-ui'
                 unstash 'docs'
                 unstash 'dist'
                 dir ('tau') {
@@ -174,6 +201,8 @@ pipeline {
                     sh "cp -a dist/wearable/theme/changeable artifacts/dist/wearable/theme/default"
                     sh "cp -a docs/sdk artifacts/"
                     sh "cp -a report artifacts/"
+                    sh "cp -a tests/UI-tests/diff artifacts/"
+                    sh "cp -a tests/UI-tests/result artifacts/"
                     sh "mv artifacts /usr/share/nginx/html/${BUILD_TAG}"
                 }
             }
