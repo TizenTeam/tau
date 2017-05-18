@@ -152,7 +152,10 @@
 			},
 			{
 				"name": "90-list-with-circle-button",
-				"time": 3000
+				"time": 3000,
+				"width": 360,
+				"height": 640,
+				"pass": true
 			},
 			{
 				"name": "91-contact-card-with-circle-buttons",
@@ -545,7 +548,10 @@
 			},
 			{
 				"name": "90-list-with-circle-button",
-				"time": 3000
+				"time": 3000,
+				"width": 360,
+				"height": 640,
+				"pass": true
 			},
 			{
 				"name": "91-contact-card-with-circle-buttons",
