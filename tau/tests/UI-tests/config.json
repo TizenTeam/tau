@@ -145,7 +145,10 @@
 			},
 			{
 				"name": "88-activity",
-				"time": 3000
+				"time": 3000,
+				"width": 360,
+				"height": 640,
+				"pass": true
 			},
 			{
 				"name": "90-list-with-circle-button",
@@ -535,7 +538,10 @@
 			},
 			{
 				"name": "88-activity",
-				"time": 3000
+				"time": 3000,
+				"width": 360,
+				"height": 640,
+				"pass": true
 			},
 			{
 				"name": "90-list-with-circle-button",
