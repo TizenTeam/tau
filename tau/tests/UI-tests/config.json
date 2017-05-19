@@ -174,7 +174,10 @@
 			},
 			{
 				"name": "96-bottom-buttons",
-				"time": 3000
+				"time": 3000,
+				"width": 360,
+				"height": 640,
+				"pass": true
 			},
 			{
 				"name": "98-text-button",
@@ -574,7 +577,10 @@
 			},
 			{
 				"name": "96-bottom-buttons",
-				"time": 3000
+				"time": 3000,
+				"width": 360,
+				"height": 640,
+				"pass": true
 			},
 			{
 				"name": "98-text-button",
