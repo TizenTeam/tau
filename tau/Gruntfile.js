@@ -840,7 +840,8 @@ module.exports = function (grunt) {
 
 			qunit: {
 				options: {
-					"--web-security": "no"
+					"--web-security": "no",
+					timeout: 10000
 				},
 				"unit-docs": [
 					"tests/docs/unit/all.html"
