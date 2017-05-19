@@ -219,7 +219,10 @@
 			},
 			{
 				"name": "118-slider-vertical",
-				"time": 3000
+				"time": 3000,
+				"width": 360,
+				"height": 640,
+				"pass": true
 			},
 			{
 				"name": "119-slider-vertical-2",
