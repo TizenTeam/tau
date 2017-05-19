@@ -239,8 +239,9 @@
 			{
 				"name": "142-popup-2-buttons-image",
 				"time": 3000,
-				"width": 241,
-				"height": 429
+				"width": 360,
+				"height": 640,
+				"pass": true
 			},
 			{
 				"name": "143-popup-2-buttons-list",
