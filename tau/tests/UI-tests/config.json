@@ -182,7 +182,10 @@
 			},
 			{
 				"name": "93-box-buttons",
-				"time": 3000
+				"time": 3000,
+				"width": 360,
+				"height": 640,
+				"pass": true
 			},
 			{
 				"name": "96-bottom-buttons",
@@ -614,7 +617,10 @@
 			},
 			{
 				"name": "93-box-buttons",
-				"time": 3000
+				"time": 3000,
+				"width": 360,
+				"height": 640,
+				"pass": true
 			},
 			{
 				"name": "96-bottom-buttons",
