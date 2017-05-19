@@ -68,7 +68,10 @@
 			},
 			{
 				"name": "39-tabs-with-title-with-icons",
-				"time": 3000
+				"time": 3000,
+				"width": 360,
+				"height": 640,
+				"pass": true
 			},
 			{
 				"name": "41-navigation-bar-3",
@@ -452,7 +455,10 @@
 			},
 			{
 				"name": "39-tabs-with-title-with-icons",
-				"time": 3000
+				"time": 3000,
+				"width": 360,
+				"height": 640,
+				"pass": true
 			},
 			{
 				"name": "41-navigation-bar-3",
