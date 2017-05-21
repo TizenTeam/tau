@@ -224,7 +224,10 @@
 			},
 			{
 				"name": "120-slider-vertical-3",
-				"time": 3000
+				"time": 3000,
+				"width": 360,
+				"height": 640,
+				"pass": true
 			},
 			{
 				"name": "121-sliders",
