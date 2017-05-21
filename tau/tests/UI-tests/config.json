@@ -136,7 +136,10 @@
 			},
 			{
 				"name": "85-group-index-with-checkbox",
-				"time": 3000
+				"time": 3000,
+				"width": 360,
+				"height": 640,
+				"pass": true
 			},
 			{
 				"name": "85-group-index-with-checkbox-new",
