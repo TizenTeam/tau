@@ -330,8 +330,9 @@
 			{
 				"name": "162-floating-button-4",
 				"time": 3000,
-				"width": 156,
-				"height": 277
+				"width": 360,
+				"height": 640,
+				"pass": true
 			},
 			{
 				"name": "162-floating-button-5",
