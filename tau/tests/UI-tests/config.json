@@ -245,8 +245,9 @@
 			{
 				"name": "144-popup-2-buttons-checkbox",
 				"time": 3000,
-				"width": 241,
-				"height": 429
+				"width": 360,
+				"height": 640,
+				"pass": true
 			},
 			{
 				"name": "145-popup-toast",
