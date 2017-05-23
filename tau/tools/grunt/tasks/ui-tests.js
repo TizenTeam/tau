@@ -109,7 +109,7 @@ module.exports = function (grunt) {
 
 								result.getDiffImage().pack().pipe(fs.createWriteStream(path.join(__dirname, "..", "..", "..", "tests", "UI-tests", "diff", profile, type, test.name + ".png")));
 
-								if (value > 0.2) {
+								if (value > (test.threshold || 0.2)) {
 									if (test.pass) {
 										tc.error = [{
 											$: {

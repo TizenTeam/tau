@@ -154,7 +154,8 @@
 				"time": 3000,
 				"width": 360,
 				"height": 640,
-				"pass": true
+				"pass": true,
+				"threshold": 1
 			},
 			{
 				"name": "90-list-with-circle-button",
@@ -553,7 +554,8 @@
 				"time": 3000,
 				"width": 360,
 				"height": 640,
-				"pass": true
+				"pass": true,
+				"threshold": 1
 			},
 			{
 				"name": "90-list-with-circle-button",
