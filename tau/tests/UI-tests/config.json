@@ -199,6 +199,12 @@
 				"time": 3000
 			},
 			{
+				"name": "100-toggle-on-off-list",
+				"time": 3000,
+				"width": 360,
+				"height": 640
+			},
+			{
 				"name": "106-text-input",
 				"time": 3000
 			},
@@ -650,6 +656,12 @@
 			{
 				"name": "98-text-button",
 				"time": 3000
+			},
+			{
+				"name": "100-toggle-on-off-list",
+				"time": 3000,
+				"width": 360,
+				"height": 640
 			},
 			{
 				"name": "106-text-input",
