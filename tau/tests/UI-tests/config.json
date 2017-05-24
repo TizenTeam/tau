@@ -130,8 +130,8 @@
 			{
 				"name": "81-popup-with-grid-view",
 				"time": 3000,
-				"width": 227,
-				"height": 403
+				"width": 589,
+				"height": 1047
 			},
 			{
 				"name": "83-popup-with-multiline-grid-view",
@@ -543,8 +543,8 @@
 			{
 				"name": "81-popup-with-grid-view",
 				"time": 3000,
-				"width": 227,
-				"height": 403
+				"width": 923,
+				"height": 519
 			},
 			{
 				"name": "83-popup-with-multiline-grid-view",
