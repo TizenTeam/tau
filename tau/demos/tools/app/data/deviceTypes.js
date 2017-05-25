@@ -21,6 +21,10 @@ module.exports = {
 		{
 			"type": "c-3.0",
 			"device": "W-3.0-circle-x86"
+		},
+		{
+			"type": "c-3.0",
+			"device": "w-0424-1"
 		}
 	]
 };

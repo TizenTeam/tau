@@ -276,6 +276,104 @@
 			};
 
 			/**
+			 * Refresh background canvas
+			 * @method _refreshBackgroundCanvas
+			 * @param {HTMLElement} container
+			 * @param {HTMLElement} element
+			 * @member ns.widget.mobile.Listview
+			 * @protected
+			 */
+			prototype._refreshBackgroundCanvas = function (container, element) {
+				var self = this,
+					canvas = self._context.canvas,
+					canvasStyle = canvas.style,
+					rect = element.getBoundingClientRect(),
+					// canvasHeight of canvas element
+					canvasHeight = 0,
+					// canvasWidth of canvas element
+					canvasWidth = rect.width,
+					min = Math.min,
+					max = Math.max;
+
+				// calculate canvasHeight of canvas
+				if (container) {
+					canvasHeight = container.getBoundingClientRect().height;
+				}
+
+				canvasHeight = max(rect.height, canvasHeight) + self._topOffset;
+
+				// limit canvas for better performance
+				canvasHeight = min(canvasHeight, 3 * window.innerHeight);
+
+				self._canvasHeight = canvasHeight;
+				self._canvasWidth = canvasWidth;
+
+				// init canvas
+				canvas.setAttribute("width", canvasWidth);
+				canvas.setAttribute("height", canvasHeight);
+				canvasStyle.width = canvasWidth + "px";
+				canvasStyle.height = canvasHeight + "px";
+			};
+
+			/**
+			 * Find and store all possible containers which may contains the listview
+			 * @method _findContainers
+			 * @param {HTMLElement} element widget element
+			 * @member ns.widget.mobile.Listview
+			 * @protected
+			 */
+			prototype._findContainers = function (element) {
+				var self = this;
+
+				self._pageContainer = selectorUtils.getClosestByClass(element, Page.classes.uiPage);
+				self._popupContainer = selectorUtils.getClosestByClass(element, Popup.classes.popup);
+				self._scrollableContainer = selectorUtils.getClosestByClass(element, Scrollview.classes.clip) ||
+					selectorUtils.getClosestByTag(element, "section");
+			};
+
+			/**
+			 * Method checks if listview contains in popup then add specific class
+			 * @method _checkClossestPopup
+			 * @member ns.widget.mobile.Listview
+			 * @protected
+			 */
+			prototype._checkClossestPopup = function () {
+				var self = this,
+					popupContainer = self._popupContainer,
+					popupContent;
+
+				if (popupContainer) {
+					popupContainer.classList.add(classes.POPUP_LISTVIEW);
+					popupContent = popupContainer.querySelector("." + Popup.classes.content);
+					if (popupContent) {
+						self._scrollableContainer = popupContent;
+					}
+				}
+			};
+
+			/**
+			 * Refreshes colored list in widget background,
+			 * @method _refreshColoredBackground
+			 * @member ns.widget.mobile.Listview
+			 * @protected
+			 */
+			prototype._refreshColoredBackground = function () {
+				var self = this,
+					element = self.element;
+
+				// if listview contains in popup then add specific class
+				self._checkClossestPopup();
+
+				self._redraw = true;
+				self._lastChange = Date.now();
+
+				self._prepareColors();
+				self._refreshBackgroundCanvas(self._scrollableContainer, element);
+
+				self._frameCallback();
+			};
+
+			/**
 			 * Refreshes widget, critical to call after changes (ex. in background color)
 			 * @method _refresh
 			 * @member ns.widget.mobile.Listview
@@ -283,66 +381,18 @@
 			 */
 			prototype._refresh = function () {
 				var self = this,
-					canvas = self._context.canvas,
-					canvasStyle = canvas.style,
 					element = self.element,
-					rect = element.getBoundingClientRect(),
-					pageContainer = selectorUtils.getClosestByClass(element, Page.classes.uiPage),
-					popupContainer = selectorUtils.getClosestByClass(element, Popup.classes.popup),
-					scrollableContainer = selectorUtils.getClosestByClass(element, Scrollview.classes.clip) ||
-						selectorUtils.getClosestByTag(element, "section"),
-					// canvasHeight of canvas element
-					canvasHeight = 0,
-					// canvasWidth of canvas element
-					canvasWidth,
-					popupContent;
+					selectorUtils = utils.selectors,
+					popupContainer = selectorUtils.getClosestByClass(element, Popup.classes.popup);
+
+				self._findContainers(element);
 
 				if (self.options.coloredBackground) {
-					self._redraw = true;
-					self._lastChange = now();
-
-					self._prepareColors();
-
-					canvasWidth = rect.width;
-
-					// calculate canvasHeight of canvas
-					if (scrollableContainer) {
-						canvasHeight = scrollableContainer.getBoundingClientRect().height;
-					}
-
-					canvasHeight = max(rect.height, canvasHeight) + self._topOffset;
-
-					// limit canvas for better performance
-					canvasHeight = min(canvasHeight, 3 * window.innerHeight);
-
-					self._canvasHeight = canvasHeight;
-					self._canvasWidth = canvasWidth;
-
-					// init canvas
-					canvas.setAttribute("width", canvasWidth);
-					canvas.setAttribute("height", canvasHeight);
-					canvasStyle.width = canvasWidth + "px";
-					canvasStyle.height = canvasHeight + "px";
-
-					// if listview contains in popup then add specific class
-					if (popupContainer) {
-						popupContainer.classList.add(classes.POPUP_LISTVIEW);
-						popupContent = popupContainer.querySelector("." + Popup.classes.content);
-						if (popupContent) {
-							scrollableContainer = popupContent;
-						}
-					}
-
-					self._pageContainer = pageContainer;
-					self._popupContainer = popupContainer;
-					self._scrollableContainer = scrollableContainer;
-
-					self._frameCallback();
-				} else {
+					self._refreshColoredBackground();
+				} else if (popupContainer) {
 					// if listview contains in popup then remove specific class
-					if (popupContainer) {
-						popupContainer.classList.remove(classes.POPUP_LISTVIEW);
-					}
+					popupContainer.classList.remove(classes.POPUP_LISTVIEW);
+					self._popupContainer = popupContainer;
 				}
 			};
 
