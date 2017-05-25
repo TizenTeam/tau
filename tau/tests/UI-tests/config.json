@@ -817,6 +817,18 @@
 		"type": "c-3.0",
 		"screens": [
 			{
+				"name": "10-basic-grid",
+				"time": 3000,
+				"width": 360,
+				"height": 360
+			},
+			{
+				"name": "10-basic-list",
+				"time": 3000,
+				"width": 360,
+				"height": 360
+			},
+			{
 				"name": "18-header-title",
 				"time": 0,
 				"width": 360,
