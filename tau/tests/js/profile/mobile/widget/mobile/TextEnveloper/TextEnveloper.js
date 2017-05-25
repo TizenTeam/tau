@@ -52,6 +52,68 @@
 			assert.equal(element.querySelector(".ui-text-input-textline"), null, "Element hasn't line on TextInput");
 
 		});
+
+		QUnit.test("_onFocus", 1, function (assert) {
+			var widget = new TextEnveloper();
+
+			helpers.stub(widget, "expandButtons", function() {
+				assert.ok(true, "method: expandButtons was called sucessfully");
+			});
+			widget._onFocus();
+			helpers.restoreStub(widget, "trigger");
+		});
+
+		QUnit.test("_onBlur", 1, function (assert) {
+			var widget = new TextEnveloper();
+
+			helpers.stub(widget, "foldButtons", function() {
+				assert.ok(true, "method: expandButtons was called sucessfully");
+			});
+			widget._onBlur();
+			helpers.restoreStub(widget, "foldButtons");
+		});
+
+		QUnit.test("foldButtons", 3, function (assert) {
+			var length = 0,
+				widget = new TextEnveloper(),
+				element = document.getElementById("enveloper");
+
+			widget._build(element);
+			widget._isBlurred = false;
+			widget.element = element;
+
+			widget.add("Sunder Mohan");
+			widget.add("Marry");
+			widget.add("Sunde");
+
+			widget.foldButtons(widget);
+
+			assert.equal(widget._isBlurred, true, "widget is blurred and buttons hidden");
+			length = widget._ui.buttons.length;
+
+			assert.equal(element.querySelectorAll(".ui-text-enveloper-btn-blur").length, 3,
+					"there are three buttons with ui-text-enveloper-btn-blur class");
+
+			assert.ok(widget._ui.buttons[3].childNodes[1].classList.contains("ui-text-enveloper-btn-separator"),
+					"first button was moved to the last position and span element was added");
+
+		});
+
+		QUnit.test("_onKeyup", 2, function (assert) {
+			var widget = new TextEnveloper(),
+				event = {keyCode: 8},
+				element = document.getElementById("enveloper");
+
+			widget._build(element);
+			widget.element = element;
+
+			helpers.stub(widget, "trigger", function(eventType) {
+				assert.ok(true, "onKeyUp run trigger sucessfully");
+				assert.ok(eventType === "resize", "onKeyUp run trigger sucessfully");
+			});
+			widget._onKeyup(event);
+			helpers.restoreStub(widget, "trigger");
+		});
 	}
 
 	if (typeof define === "function") {
