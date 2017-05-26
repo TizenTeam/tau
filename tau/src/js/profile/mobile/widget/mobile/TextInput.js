@@ -199,12 +199,12 @@
 
 			/**
 			 * Resize textarea, called after text input
-			 * @method _resize
-			 * @private
+			 * @method _resizeTextArea
+			 * @protected
 			 * @param {HTMLElement} element
 			 * @member ns.widget.mobile.TextInput
 			 */
-			function resizeTextArea(element) {
+			prototype._resizeTextArea = function (element) {
 				var listviewElement,
 					listviewWidget;
 
@@ -219,16 +219,16 @@
 						listviewWidget.refresh();
 					}
 				}
-			}
+			};
 			/**
 			 * Toggle visibility of the clear button
-			 * @method toggleClearButton
+			 * @method _toggleClearButton
 			 * @param {HTMLElement} clearBtn
 			 * @param {HTMLInputElement} inputElement
 			 * @static
-			 * @private
+			 * @protected
 			 */
-			function toggleClearButton(clearBtn, inputElement) {
+			prototype._toggleClearButton = function (clearBtn, inputElement) {
 				if (clearBtn) {
 					if (!inputElement.classList.contains(classes.uiTextInputFocused)) {
 						if (!clearBtn.classList.contains("ui-btn-active")) {
@@ -239,61 +239,61 @@
 						inputElement.classList.add(classes.uiTextInputClearActive);
 					}
 				}
-			}
+			};
 			/**
 			 * Method clears text in input field and sets focus
-			 * @method onClearBtnClick
+			 * @method _onClearBtnClick
 			 * @param {ns.widget.core.Button} self
 			 * @static
-			 * @private
+			 * @protected
 			 * @member ns.widget.mobile.TextInput
 			 */
-			function onClearBtnClick(self) {
+			prototype._onClearBtnClick = function (self) {
 				self.element.focus();
 				self.element.value = "";
 				self.trigger(eventName.SEARCH);
-			}
+			};
 			/**
 			 * Method hides button after its animation ends
-			 * @method onClearBtnAnimationEnd
+			 * @method _onClearBtnAnimationEnd
 			 * @param {ns.widget.core.Button} self
 			 * @param {Event} event
 			 * @static
-			 * @private
+			 * @protected
 			 * @member ns.widget.mobile.TextInput
 			 */
-			function onClearBtnAnimationEnd(self, event) {
+			prototype._onClearBtnAnimationEnd = function (self, event) {
 				if (event.animationName === "btn_pressup_animation" && self.element.value === "") {
 					event.target.classList.add(classes.uiTextInputClearHidden);
 				}
-			}
+			};
 
 			/**
 			 * Method adds class ui-text-input-focused to target element of event.
-			 * @method onFocus
+			 * @method _onFocus
 			 * @param {ns.widget.mobile.TextInput} self
-			 * @private
+			 * @protected
 			 * @static
 			 * @member ns.widget.mobile.TextInput
 			 */
-			function onFocus(self) {
+			prototype._onFocus = function (self) {
 				var element = self.element;
 
 				element.classList.add(classes.uiTextInputFocused);
 				if (element.value !== "" && self._ui.textClearButtonElement) {
 					self._ui.textClearButtonElement.classList.remove(classes.uiTextInputClearHidden);
 				}
-			}
+			};
 
 			/**
 			 * Method adds event for showing clear button and optional resizing textarea.
-			 * @method onInput
+			 * @method _onInput
 			 * @param {ns.widget.mobile.TextInput} self
-			 * @private
+			 * @protected
 			 * @static
 			 * @member ns.widget.mobile.TextInput
 			 */
-			function onInput(self) {
+			prototype._onInput = function (self) {
 				var element = self.element,
 					btn = self._ui.textClearButtonElement;
 
@@ -301,27 +301,27 @@
 					btn.classList.add(classes.uiTextInputClearHidden);
 					element.classList.remove(classes.uiTextInputClearActive);
 				} else {
-					toggleClearButton(self._ui.textClearButtonElement, element);
+					self._toggleClearButton(self._ui.textClearButtonElement, element);
 				}
 
 				if (element.nodeName.toLowerCase() === "textarea") {
-					resizeTextArea(element);
+					self._resizeTextArea(element);
 				}
-			}
+			};
 			/**
 			 * Method removes class ui-text-input-focused from target element of event.
-			 * @method onBlur
+			 * @method _onBlur
 			 * @param {ns.widget.mobile.TextInput} self
 			 * @private
 			 * @static
 			 * @member ns.widget.mobile.TextInput
 			 */
-			function onBlur(self) {
+			prototype._onBlur = function (self) {
 				var element = self.element;
 
 				element.classList.remove(classes.uiTextInputFocused);
-				toggleClearButton(self._ui.textClearButtonElement, element);
-			}
+				self._toggleClearButton(self._ui.textClearButtonElement, element);
+			};
 
 			function setAria(element) {
 				element.setAttribute("role", "textinput");
@@ -337,7 +337,7 @@
 				return textLine;
 			}
 
-			function createClearButton(element, header) {
+			prototype._createClearButton = function (element, header) {
 				var clearButton = document.createElement("a");
 
 				clearButton.classList.add(buttonClasses.BTN);
@@ -354,7 +354,7 @@
 				}
 
 				return clearButton;
-			}
+			};
 
 			/**
 			* build TextInput Widget
@@ -396,7 +396,7 @@
 				element.tabindex = 0;
 
 				if (options.clearBtn) {
-					ui.textClearButtonElement = createClearButton(element);
+					ui.textClearButtonElement = self._createClearButton(element);
 				}
 
 				if (type === "search") {
@@ -411,7 +411,7 @@
 					}
 
 					if (!options.clearBtn) {
-						ui.textClearButtonElement = createClearButton(element, header);
+						ui.textClearButtonElement = self._createClearButton(element, header);
 					}
 
 					if (!element.getAttribute("placeholder")) {
@@ -462,7 +462,7 @@
 					if (element.hasAttribute("rows") === false) {
 						element.rows = 1;
 					}
-					resizeTextArea(element);
+					self._resizeTextArea(element);
 				}
 
 				return element;
@@ -479,11 +479,11 @@
 				var self = this,
 					element = self.element,
 					clearBtn = self._ui.textClearButtonElement,
-					onInputCallback = onInput.bind(null, self),
-					onFocusCallback = onFocus.bind(null, self),
-					onBlurCallback = onBlur.bind(null, self),
-					onClearBtnClickCallback = onClearBtnClick.bind(null, self),
-					onClearBtnAnimationEndCallback = onClearBtnAnimationEnd.bind(null, self);
+					onInputCallback = self._onInput.bind(null, self),
+					onFocusCallback = self._onFocus.bind(null, self),
+					onBlurCallback = self._onBlur.bind(null, self),
+					onClearBtnClickCallback = self._onClearBtnClick.bind(null, self),
+					onClearBtnAnimationEndCallback = self._onClearBtnAnimationEnd.bind(null, self);
 
 				self._callbacks = {
 					onInputCallback: onInputCallback,
