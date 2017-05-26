@@ -47,7 +47,7 @@
  * @class ns.widget.wearable.SnapListview
  * @extends ns.widget.BaseWidget
  */
-(function (document, ns) {
+(function (window, document, ns) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
@@ -114,7 +114,6 @@
 					SELECTED: "selected"
 				},
 				utilArray = ns.util.array,
-				animationTimer = null,
 				SnapListview = function () {
 					var self = this;
 
@@ -180,6 +179,7 @@
 				SCROLL_END_TIME_THRESHOLD = 0;
 
 			SnapListview.classes = classes;
+			SnapListview.animationTimer = null;
 
 			/**
 			 * Class represend one item in list
@@ -742,7 +742,8 @@
 					progress = 0,
 					easeProgress = 0,
 					distance = to - from,
-					scrollTop = element.scrollTop;
+					scrollTop = element.scrollTop,
+					animationTimer = SnapListview.animationTimer;
 
 				startTime = window.performance.now();
 				if (animationTimer !== null) {
@@ -782,4 +783,4 @@
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
-}(window.document, ns));
+}(window, window.document, ns));
