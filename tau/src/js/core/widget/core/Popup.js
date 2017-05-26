@@ -135,7 +135,8 @@
 					content: null,
 					overlayClass: "",
 					closeLinkSelector: "[data-rel='back']",
-					history: true
+					history: true,
+					closeAfter: null
 				},
 				states = {
 					DURING_OPENING: 0,
@@ -483,6 +484,12 @@
 
 				// @todo - use selector from page's definition in engine
 				ui.page = utilSelector.getClosestByClass(element, "ui-page") || window;
+
+				if (self.element.classList.contains(classes.toast)) {
+					self.options.closeAfter = 3000;
+				}
+
+
 			};
 
 			/**
@@ -531,9 +538,11 @@
 				var self = this,
 					closeButtons = self.element.querySelectorAll(self.options.closeLinkSelector);
 
+
 				self._ui.page.addEventListener("pagebeforehide", self, false);
 				window.addEventListener("resize", self, false);
 				eventUtils.on(closeButtons, "click", self, false);
+
 				self._bindOverlayEvents();
 			};
 
@@ -596,7 +605,9 @@
 			 */
 			prototype.open = function (options) {
 				var self = this,
-					newOptions;
+					newOptions,
+					onClose = self.close.bind(self);
+
 
 				if (!self._isActive()) {
 					/*
@@ -612,18 +623,20 @@
 						engine.getRouter().lock();
 					}
 
-					if (self.element.classList.contains(classes.toast)) {
-						newOptions.transition = "fade";
+
+					if (newOptions.closeAfter > 0) {
+						if (self.element.classList.contains(classes.toast)) {
+							newOptions.transition = "fade";
+						}
 						self._show(newOptions);
-						window.setTimeout(function () {
-							self.close();
-							newOptions.transition = "slidein";
-						}, 3000);
+
+						window.setTimeout(onClose, newOptions.closeAfter);
 					} else {
 						self._show(newOptions);
 					}
 				}
 			};
+
 
 			/**
 			 * Close the popup
