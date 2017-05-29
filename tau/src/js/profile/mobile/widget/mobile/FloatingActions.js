@@ -48,6 +48,7 @@
 			"../../../../core/event/gesture",
 			"../../../../core/widget/core/Page",
 			"../../../../core/widget/BaseWidget",
+			"../../../../core/widget/core/Button",
 			"../mobile"
 		],
 		function () {
@@ -191,14 +192,13 @@
 
 			prototype._buildInsideButtons = function () {
 				var i = 0,
-					tau = window.tau,
 					self = this,
 					element = self.element,
 					elementChildren = element.children,
 					length = elementChildren.length;
 
 				for (; i < length; i++) {
-					tau.widget.Button(elementChildren[i]);
+					ns.widget.Button(elementChildren[i]);
 				}
 			};
 
