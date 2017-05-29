@@ -947,6 +947,18 @@
 				"time": 3000,
 				"width": 360,
 				"height": 360
+			},
+			{
+				"name": "36-list-with-icon-and-multiline",
+				"time": 3000,
+				"width": 360,
+				"height": 360
+			},
+			{
+				"name": "36-list-with-icon-and-multiline-2",
+				"time": 3000,
+				"width": 360,
+				"height": 360
 			}
 		]
 	}
