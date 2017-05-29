@@ -931,6 +931,12 @@
 				"time": 3000,
 				"width": 360,
 				"height": 360
+			},
+			{
+				"name": "30-list-fadeout",
+				"time": 3000,
+				"width": 360,
+				"height": 360
 			}
 		]
 	}
