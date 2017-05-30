@@ -278,6 +278,12 @@
 				"height": 640
 			},
 			{
+				"name": "126-time-picker-1",
+				"time": 3000,
+				"width": 360,
+				"height": 640
+			},
+			{
 				"name": "136-popup-2-buttons",
 				"time": 3000,
 				"width": 360,
@@ -721,6 +727,12 @@
 			},
 			{
 				"name": "125-number-picker-1",
+				"time": 3000,
+				"width": 360,
+				"height": 640
+			},
+			{
+				"name": "126-time-picker-1",
 				"time": 3000,
 				"width": 360,
 				"height": 640
