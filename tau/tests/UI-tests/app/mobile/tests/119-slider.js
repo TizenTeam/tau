@@ -1,5 +1,5 @@
 (function(){
-	var page = document.getElementById("page-slider-118");
+	var page = document.getElementById("page-slider-119");
 	page.addEventListener("pageshow", function(){
 		var sliderContainers = page.querySelectorAll(".active .ui-slider-handler");
 
