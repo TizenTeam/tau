@@ -959,6 +959,12 @@
 				"time": 3000,
 				"width": 360,
 				"height": 360
+			},
+			{
+				"name": "37-list-groupindex",
+				"time": 3000,
+				"width": 360,
+				"height": 360
 			}
 		]
 	}
