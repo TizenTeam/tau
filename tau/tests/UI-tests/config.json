@@ -1002,6 +1002,24 @@
 				"height": 360
 			},
 			{
+				"name": "33-list-3-sublines",
+				"time": 3000,
+				"width": 360,
+				"height": 360
+			},
+			{
+				"name": "33-list-2-sublines",
+				"time": 3000,
+				"width": 360,
+				"height": 360
+			},
+			{
+				"name": "33-list-2-sublines-scrolled-down",
+				"time": 3000,
+				"width": 360,
+				"height": 360
+			},
+			{
 				"name": "36-list-with-icon-and-multiline",
 				"time": 3000,
 				"width": 360,
