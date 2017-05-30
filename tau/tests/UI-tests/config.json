@@ -1044,6 +1044,18 @@
 				"height": 360
 			},
 			{
+				"name": "34-list-left-icon",
+				"time": 3000,
+				"width": 360,
+				"height": 360
+			},
+			{
+				"name": "34-list-right-icon",
+				"time": 3000,
+				"width": 360,
+				"height": 360
+			},
+			{
 				"name": "35-list-with-icon-and-subtext",
 				"time": 3000,
 				"width": 360,
