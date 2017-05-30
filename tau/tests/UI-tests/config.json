@@ -1044,6 +1044,17 @@
 				"height": 360
 			},
 			{
+				"name": "35-list-with-icon-and-subtext",
+				"time": 3000,
+				"width": 360,
+				"height": 360
+			},
+			{
+				"name": "35-list-with-icon-and-subtext-2",
+				"time": 3000,
+				"width": 360,
+				"height": 360			},
+			{
 				"name": "36-list-with-icon-and-multiline",
 				"time": 3000,
 				"width": 360,
