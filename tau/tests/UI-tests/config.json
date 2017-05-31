@@ -290,6 +290,12 @@
 				"height": 640
 			},
 			{
+				"name": "130-date-picker-1",
+				"time": 3000,
+				"width": 360,
+				"height": 640
+			},
+			{
 				"name": "136-popup-2-buttons",
 				"time": 3000,
 				"width": 360,
@@ -739,6 +745,12 @@
 			},
 			{
 				"name": "126-time-picker-1",
+				"time": 3000,
+				"width": 360,
+				"height": 640
+			},
+			{
+				"name": "130-date-picker-1",
 				"time": 3000,
 				"width": 360,
 				"height": 640
