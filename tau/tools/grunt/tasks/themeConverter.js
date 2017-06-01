@@ -238,9 +238,9 @@ module.exports = function (grunt) {
 			} else if (color.inputColor === "6") {
 				inputColor = inputColorList[5].$;
 			} else if (color.inputColor === "K") {
-				inputColor = {hue: 0, saturation: 0, value: 3};
+				inputColor = {hue: 0, saturation: 0, value: 0};
 			} else if (color.inputColor === "W") {
-				inputColor = {hue: 0, saturation: 0, value: 96};
+				inputColor = {hue: 0, saturation: 0, value: 98};
 			}
 		}
 
