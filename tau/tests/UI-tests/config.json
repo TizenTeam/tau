@@ -1181,6 +1181,12 @@
 				"height": 360
 			},
 			{
+				"name": "49-sending-effect",
+				"time": 3000,
+				"width": 360,
+				"height": 360
+			},
+			{
 				"name": "53-text-button",
 				"time": 3000,
 				"width": 360,
