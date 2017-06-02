@@ -1121,6 +1121,12 @@
 				"height": 360
 			},
 			{
+				"name": "45-progress-indicator-full",
+				"time": 3000,
+				"width": 360,
+				"height": 360
+			},
+			{
 				"name": "42-grid-moved-at-right",
 				"time": 3000,
 				"width": 360,
