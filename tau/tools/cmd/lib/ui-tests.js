@@ -31,7 +31,9 @@ var TIME_TICK = 1000,
 	deviceSizes = {
 		mobile: "720x1280",
 		wearable: "360x360"
-	};
+	},
+	counterOfRepeatOnError = 0,
+	LIMIT_OF_REPEAT_ON_ERROR = 50;
 
 function exec(command, callback, options) {
 	options = options || {};
@@ -276,6 +278,34 @@ function tick(done) {
 }
 
 
+function saveWindow(deviceParam, app, profile, type, screen, onSuccess, onError) {
+	exec("sdb" + deviceParam + " shell 'cd /opt/usr/media;enlightenment_info -dump_topvwins'",
+		function (error, result) {
+			if (error) {
+				counterOfRepeatOnError++;
+				saveWindow(deviceParam, app, profile, type, screen, onSuccess, onError);
+			} else if (result.match(/^error:/)) {
+				counterOfRepeatOnError++;
+				console.log(result);
+				if (counterOfRepeatOnError < LIMIT_OF_REPEAT_ON_ERROR) {
+					console.log("attempt " + counterOfRepeatOnError);
+					saveWindow(deviceParam, app, profile, type, screen, onSuccess, onError);
+				} else {
+					// too many attempt
+					counterOfRepeatOnError = 0;
+					onError();
+				}
+			} else {
+				console.log("shell 'cd /opt/usr/media;enlightenment_info -dump_topvwins'");
+				var dir = app + "/../../result/" + profile + "/" + type + "/" + screen.name,
+					resultDir = result.replace("directory: ", "").replace(/[\r\n]/gm, "");
+
+				counterOfRepeatOnError = 0;
+				onSuccess(dir, resultDir);
+			}
+		});
+}
+
 function screenshotTizen3(profile, type, app, screen, done) {
 	console.log(":screenshotTizen3");
 
@@ -297,11 +327,8 @@ function screenshotTizen3(profile, type, app, screen, done) {
 				if (matches) {
 					match = matches[0];
 					winID = match.split(/\s+/)[2];
-					exec("sdb" + deviceParam + " shell 'cd /opt/usr/media;enlightenment_info -dump_topvwins'", function (error, result) {
-						console.log("shell 'cd /opt/usr/media;enlightenment_info -dump_topvwins'");
-						var dir = app + "/../../result/" + profile + "/" + type + "/" + screen.name,
-							resultDir = result.replace("directory: ", "").replace(/[\r\n]/gm, "");
 
+					saveWindow(deviceParam, app, profile, type, screen, function (dir, resultDir) {
 						exec("sdb" + deviceParam + " pull " + resultDir + "/" + winID + ".png " + dir + "_raw.png", function () {
 							var width = screen.width || 257,
 								height = screen.height || 457;
@@ -324,7 +351,11 @@ function screenshotTizen3(profile, type, app, screen, done) {
 								});
 							});
 						});
+					}, function () {
+						// onError
+						done();
 					});
+
 				} else {
 					console.log("Device issue: app window is not available! App PID(" + PID + ")");
 					exec("sdb" + deviceParam + " root off", function () {
