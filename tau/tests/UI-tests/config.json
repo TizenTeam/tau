@@ -1167,7 +1167,14 @@
 				"time": 3000,
 				"width": 360,
 				"height": 360
+			},
+			{
+				"name": "53-text-button",
+				"time": 3000,
+				"width": 360,
+				"height": 360
 			}
+
 		]
 	}
 ]
