@@ -1223,6 +1223,12 @@
 				"height": 360
 			},
 			{
+				"name": "58-on-off-switch-checked",
+				"time": 3000,
+				"width": 360,
+				"height": 360
+			},
+			{
 				"name": "74-time-picker",
 				"time": 3000,
 				"width": 360,
