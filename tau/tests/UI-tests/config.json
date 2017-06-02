@@ -1245,6 +1245,12 @@
 				"time": 3000,
 				"width": 360,
 				"height": 360
+			},
+			{
+				"name": "80-popup-2-buttons-and-small-checkbox",
+				"time": 3000,
+				"width": 360,
+				"height": 360
 			}
 		]
 	}
