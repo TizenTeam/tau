@@ -1121,6 +1121,12 @@
 				"height": 360
 			},
 			{
+				"name": "42-grid-moved-at-right",
+				"time": 3000,
+				"width": 360,
+				"height": 360
+			},
+			{
 				"name": "48-activity-indicator-at-list",
 				"time": 3000,
 				"width": 360,
