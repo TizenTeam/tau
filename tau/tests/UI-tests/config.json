@@ -1275,6 +1275,12 @@
 				"time": 3000,
 				"width": 360,
 				"height": 360
+			},
+			{
+				"name": "78-popup-general",
+				"time": 3000,
+				"width": 360,
+				"height": 360
 			}
 		]
 	}
