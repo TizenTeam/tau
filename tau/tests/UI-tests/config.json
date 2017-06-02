@@ -1026,6 +1026,12 @@
 				"height": 360
 			},
 			{
+				"name": "32-list-font-color",
+				"time": 3000,
+				"width": 360,
+				"height": 360
+			},
+			{
 				"name": "33-list-3-sublines",
 				"time": 3000,
 				"width": 360,
