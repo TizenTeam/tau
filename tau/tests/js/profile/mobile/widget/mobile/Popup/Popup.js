@@ -48,6 +48,8 @@
 			});
 
 			widget._show();
+			helpers.restoreStub(ns.engine, "getBinding");
+
 			helpers.stub(ns.engine, "getBinding", function () { //stub of getBinding is used second time here to cover else if statement
 				assert.ok(true, "getBinding works");
 				return false;

@@ -15,6 +15,12 @@
 		&-item {
 			width: 360 * @unit_base;
 			position: absolute;
+			height: 108 * @unit_base;
+
+			li {
+				top: 54 * @unit_base;
+				transform: translateY(-50%);
+			}
 		}
 	}
 	&-selection {
@@ -36,15 +42,6 @@
 			opacity: 1;
 		}
 	}
-	li {
-		&:last-child {
-			margin-bottom: 11 * @unit_base;
-		}
-
-		~ li {
-			margin-top: 11 * @unit_base;
-		}
-	}
 }
 
 .ui-arc-listview, .ui-arc-listview-carousel {
@@ -56,10 +53,6 @@
 		&:not(.ui-li-group-index):not(.ui-listview-divider) {
 			min-height: 108 * @unit_base;
 			vertical-align: middle;
-		}
-
-		&:first-child {
-			margin-top: 0;
 		}
 
 		&.ui-li-group-index, &.ui-listview-divider {

@@ -46,7 +46,7 @@
 				eventUtils = ns.event,
 				slice = [].slice,
 				// consts
-				ELLIPSIS_A = 180,
+				ELLIPSIS_A = 333,
 				ELLIPSIS_B = 180,
 				SCREEN_HEIGHT = 360,
 				SCROLL_DURATION = 400,
@@ -62,7 +62,7 @@
 				 * Alias for class {@link ns.engine}
 				 * @property {Object} engine
 				 * @memberof ns.widget.wearable.ArcListview
-				 * @private
+				 * @protected
 				 * @static
 				 */
 				engine = ns.engine,
@@ -70,7 +70,7 @@
 				 * Alias for class {@link ns.util}
 				 * @property {Object} util
 				 * @memberof ns.widget.wearable.ArcListview
-				 * @private
+				 * @protected
 				 * @static
 				 */
 				util = ns.util,
@@ -78,7 +78,7 @@
 				 * Alias for class {@link ns.util.selectors}
 				 * @property {Object} selectorsUtil
 				 * @memberof ns.widget.wearable.ArcListview
-				 * @private
+				 * @protected
 				 * @static
 				 */
 				selectorsUtil = util.selectors,
@@ -86,7 +86,7 @@
 				 * Alias for class {@link ns.util.easing.easeOutQuad}
 				 * @property {Object} timingFunction
 				 * @memberof ns.widget.wearable.ArcListview
-				 * @private
+				 * @protected
 				 * @static
 				 */
 				timingFunction = util.easing.easeOutQuad,
@@ -94,7 +94,7 @@
 				 * Alias for class {@link ns.util.requestAnimationFrame}
 				 * @property {Object} requestAnimationFrame
 				 * @memberof ns.widget.wearable.ArcListview
-				 * @private
+				 * @protected
 				 * @static
 				 */
 				requestAnimationFrame = util.requestAnimationFrame,
@@ -102,7 +102,7 @@
 				 * Alias for class {@link ns.util.cancelAnimationFrame}
 				 * @property {Object} cancelAnimationFrame
 				 * @memberof ns.widget.wearable.ArcListview
-				 * @private
+				 * @protected
 				 * @static
 				 */
 				cancelAnimationFrame = util.cancelAnimationFrame,
@@ -110,7 +110,7 @@
 				 * Alias for method {@link Math.round}
 				 * @property {Function} round
 				 * @memberof ns.widget.wearable.ArcListview
-				 * @private
+				 * @protected
 				 * @static
 				 */
 				round = Math.round,
@@ -118,7 +118,7 @@
 				 * Alias for method {@link Math.min}
 				 * @property {Function} min
 				 * @memberof ns.widget.wearable.ArcListview
-				 * @private
+				 * @protected
 				 * @static
 				 */
 				min = Math.min,
@@ -126,7 +126,7 @@
 				 * Alias for method {@link Math.max}
 				 * @property {Function} max
 				 * @memberof ns.widget.wearable.ArcListview
-				 * @private
+				 * @protected
 				 * @static
 				 */
 				max = Math.max,
@@ -134,7 +134,7 @@
 				 * Alias for method {@link Math.sqrt}
 				 * @property {Function} sqrt
 				 * @memberof ns.widget.wearable.ArcListview
-				 * @private
+				 * @protected
 				 * @static
 				 */
 				sqrt = Math.sqrt,
@@ -142,7 +142,7 @@
 				 * Alias for method {@link Math.abs}
 				 * @property {Function} sqrt
 				 * @memberof ns.widget.wearable.ArcListview
-				 * @private
+				 * @protected
 				 * @static
 				 */
 				abs = Math.abs,
@@ -150,7 +150,7 @@
 				 * Alias for method {@link ns.util.array}
 				 * @property {Object} arrayUtil
 				 * @memberof ns.widget.wearable.ArcListview
-				 * @private
+				 * @protected
 				 * @static
 				 */
 				arrayUtil = ns.util.array,
@@ -158,7 +158,7 @@
 				 * Alias for class ArcListview
 				 * @method ArcListview
 				 * @memberof ns.widget.wearable.ArcListview
-				 * @private
+				 * @protected
 				 * @static
 				 */
 				ArcListview = function () {
@@ -236,7 +236,6 @@
 				startTouchTime = 0,
 				lastTouchTime = 0,
 				factorsX = [],
-				factorsY = [],
 
 				animationHandle = null,
 
@@ -244,39 +243,46 @@
 				deltaTouchY = 0,
 				deltaSumTouchY = 0;
 
-			function createItem() {
+			/**
+			 * Create item object
+			 * @return {Object}
+			 */
+			ArcListview.createItem = function () {
 				return {
 					element: null,
 					id: 0,
 					y: 0,
 					rect: null,
 					current: {
-						scale: 1
+						scale: -1
 					},
 					from: null,
 					to: null,
 					repaint: false
 				};
-			}
+			};
 
 			/**
 			 * Pre calculation of factors for Y axis
 			 * @param {number} a factor X axis for ellipsis (see VI guide)
 			 * @param {number} b factor Y axis for ellipsis (see VI guide)
 			 * @memberof ns.widget.wearable.ArcListview
-			 * @private
+			 * @protected
 			 */
-			function calcFactors(a, b) {
-				var i = 0;
+			ArcListview.calcFactors = function (a, b) {
+				var i;
 
-				for (; i <= a; i++) {
-					factorsY[i] = sqrt(b * b * (1 - i * i / a / a)) / b;
-				}
 				for (i = 0; i <= b; i++) {
 					factorsX[i] = sqrt(a * a * (1 - i * i / b / b)) / a;
 				}
-			}
 
+				return factorsX;
+			};
+
+			/**
+			 * Initialize state
+			 * @protected
+			 */
 			prototype._initializeState = function () {
 				/**
 				 * Object with state of scroll animation
@@ -313,6 +319,10 @@
 				parentStyle.position = "relative";
 			}
 
+			/**
+			 * Set state for animation
+			 * @protected
+			 */
 			prototype._setAnimatedItems = function () {
 				var self = this,
 					items = self._items,
@@ -343,7 +353,7 @@
 							style.top = round(rect.top - parentRect.top + scroller.scrollTop) + "px";
 							style.width = rect.width + "px";
 						} else {
-							item = createItem();
+							item = ArcListview.createItem();
 							item.element = itemElement;
 							item.y = round(rect.top + rect.height / 2 + scroller.scrollTop);
 							item.height = rect.height;
@@ -363,16 +373,28 @@
 				parentClassList.remove(classes.FORCE_RELATIVE);
 			};
 
-
+			/**
+			 * Update scale
+			 * @param {number} currentScroll
+			 * @protected
+			 */
 			prototype._updateScale = function (currentScroll) {
 				var self = this,
 					state = self._state,
 					items = state.items,
-					toScale = 0;
+					toScale = 0,
+					y;
 
 				arrayUtil.forEach(items, function (item) {
 					if (item !== null) {
-						toScale = self._getScaleByY(item.y - SCREEN_HEIGHT / 2 - currentScroll);
+						y = item.y;
+						if (item.id < state.currentIndex) {
+							y -= item.height / 4;
+						}
+						if (item.id > state.currentIndex) {
+							y += item.height / 4;
+						}
+						toScale = self._getScaleByY(y - SCREEN_HEIGHT / 2 - currentScroll);
 						if (item.current.scale !== toScale) {
 							item.from = item.from || {};
 							item.from.scale = item.current.scale;
@@ -393,6 +415,10 @@
 				}
 			}
 
+			/**
+			 * Calculate state
+			 * @protected
+			 */
 			prototype._calc = function () {
 				var self = this,
 					state = self._state,
@@ -433,6 +459,12 @@
 				arrayUtil.forEach(state.items, calcItem);
 			};
 
+			/**
+			 * Draw one item
+			 * @param {Object} item
+			 * @param {number} index
+			 * @protected
+			 */
 			prototype._drawItem = function (item, index) {
 				var self = this,
 					state = self._state,
@@ -444,13 +476,11 @@
 					itemElement = item.element;
 					if (item.repaint) {
 						itemStyle = itemElement.style;
-						itemStyle.top = 0;
 						if (index - state.currentIndex < 3 && index - state.currentIndex > -3) {
 							carousel.items[index - state.currentIndex + 2].carouselElement.appendChild(item.element);
 						}
-
-						itemStyle.webkitTransform = "scale(" + item.current.scale + ")";
-						itemStyle.opacity = item.current.scale;
+						itemStyle.transform = "translateY(-50%) scale(" + item.current.scale + ")";
+						itemStyle.opacity = item.current.scale * 1.15;
 						item.repaint = false;
 					} else {
 						if (itemElement.parentNode !== null && item.current.scale === 0) {
@@ -483,6 +513,11 @@
 				self._ui.scroller.scrollTop = -1 * state.scroll.current;
 			};
 
+			/**
+			 * Update positions of items
+			 * @param {number} currentIndex
+			 * @protected
+			 */
 			prototype._carouselUpdate = function (currentIndex) {
 				var self = this,
 					carousel = self._carousel,
@@ -604,6 +639,10 @@
 				}
 			};
 
+			/**
+			 * Simulate scroll
+			 * @protected
+			 */
 			prototype._scroll = function () {
 				var self = this;
 
@@ -614,6 +653,12 @@
 				animationHandle = requestAnimationFrame(self._render.bind(self));
 			};
 
+			/**
+			 * Calculate scale for given Y position
+			 * @param {number} y
+			 * @return {number}
+			 * @protected
+			 */
 			prototype._getScaleByY = function (y) {
 				var self = this,
 					roundY = round(y);
@@ -695,6 +740,11 @@
 				self._roll();
 			};
 
+			/**
+			 * Callback for rotary event
+			 * @param {Event} event
+			 * @protected
+			 */
 			prototype._onRotary = function (event) {
 				var self = this;
 
@@ -824,9 +874,14 @@
 			 * @protected
 			 */
 			prototype._selectItem = function (selectedIndex) {
-				this._ui.arcListviewSelection.style.height = this._state.items[selectedIndex].height + "px";
-				this._ui.arcListviewSelection.classList.add(classes.SELECTION_SHOW);
-				this._state.items[selectedIndex].element.classList.add(classes.SELECTED);
+				var ui = this._ui,
+					state = this._state;
+
+				eventUtils.one(state.items[selectedIndex].element, "transitionend", function () {
+					ui.arcListviewSelection.style.height = state.items[selectedIndex].element.getBoundingClientRect().height + "px";
+					ui.arcListviewSelection.classList.add(classes.SELECTION_SHOW);
+				});
+				state.items[selectedIndex].element.classList.add(classes.SELECTED);
 			};
 
 			/**
@@ -968,15 +1023,13 @@
 				var self = this,
 					options = self.options;
 
-				calcFactors(options.ellipsisA, options.ellipsisB);
+				ArcListview.calcFactors(options.ellipsisA, options.ellipsisB);
 
 				// init items;
 				self._setAnimatedItems();
-				if (self._items.length) {
-					this._selectItem(0);
-				}
-				self._refresh();
 				self._scrollAnimationEnd = true;
+				momentum = 1;
+				self._refresh();
 				self._scroll();
 			};
 
@@ -1009,7 +1062,15 @@
 					case "vclick" :
 						self._onClick(ev);
 						break;
-					default :
+					case "pageshow":
+						if (self._items.length) {
+							// this should be called in next Rrequest animation frame
+							setTimeout(function () {
+								self._selectItem(0);
+							}, 10);
+						}
+						break;
+					default:
 						break;
 				}
 			};
@@ -1032,6 +1093,7 @@
 				self._ui.arcListviewCarousel.addEventListener("vclick", self, true);
 				document.addEventListener("rotarydetent", self, true);
 				element.addEventListener("change", self, true);
+				page.addEventListener("pageshow", self, true);
 			};
 
 			/**
@@ -1051,6 +1113,7 @@
 				self._ui.arcListviewCarousel.removeEventListener("vclick", self, true);
 				document.removeEventListener("rotarydetent", self, true);
 				element.removeEventListener("change", self, true);
+				page.removeEventListener("pageshow", self, true);
 			};
 
 			/**

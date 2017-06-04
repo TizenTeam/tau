@@ -26,6 +26,7 @@ var allTestFiles = [],
 		"profile/mobile/widget/mobile/FloatingActions",
 		"profile/wearable/helper/SnapListMarqueeStyle",
 		"profile/wearable/widget/wearable/SnapListview",
+		"profile/wearable/widget/wearable/ArcListview",
 		"core/defaults",
 		"core/support/tizen",
 		"core/util",
@@ -48,10 +49,10 @@ var allTestFiles = [],
 	];
 
 window.tauPerf = {
-	start: function() {
+	start: function () {
 
 	},
-	get: function() {
+	get: function () {
 
 	}
 };

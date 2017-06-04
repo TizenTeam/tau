@@ -14,18 +14,24 @@
 
 .ui-listview {
 	padding-bottom: 20 * @unit_base;
+	&.ui-arc-listview {
+		padding-bottom: 0;
+	}
 	li {
-		margin-top: 11 * @unit_base;
 		font-size: @font_size_list_item;
-		min-height: @list_item_min_height;
-		padding: @list_item_padding;
+		font-weight: 500;
+		min-height: 108 * @unit_base;
+		max-height: 360 * @unit_base;
+		padding: 0 30 * @unit_base;
 		border: 0 none;
-		border-bottom: 1.5px solid transparent;
+		border-bottom: 0 solid transparent;
 		border-image: linear-gradient(0deg, transparent, #245B85, transparent) 1;
 		color: @color_listview_text;
 		text-align: center;
 		line-height: 47 * @unit_base;
 		box-sizing: content-box;
+		transition-property: max-height;
+		transition-duration: 1ms;
 
 		&.ui-listview-divider, &.ui-li-group-index {
 			height: 33 * @unit_base;
@@ -83,12 +89,15 @@
 
 		> a, button {
 			&:first-child:last-child {
-				padding: @list_item_anchor_padding;
-				margin: @list_anchor_margin;
+				padding: 0;
+				margin: 0;
+				justify-content: space-around;
+				display: flex;
+				align-items: center;
 			}
 		}
 
-		&.li-has-multiline {
+		&.li-has-multiline.ui-arc-listview-selected {
 
 			&.li-has-2line-sub {
 				padding-top: 9 * @unit_base;
@@ -178,8 +187,6 @@
 			&.ui-li-grid {
 				flex-direction: row;
 
-
-
 				&.ui-li-grid-full {
 					justify-content: space-between;
 
@@ -194,7 +201,6 @@
 					.ui-btn.ui-btn-no-bg.ui-btn-icon {
 						width: 76 * @unit_base;
 						height: 76 * @unit_base;
-
 					}
 
 					* {
@@ -205,12 +211,8 @@
 							flex-grow: 0;
 							flex-shrink: 0;
 						}
-
 					}
 				}
-
-
-
 
 				> * {
 					&.ui-btn {
@@ -247,7 +249,6 @@
 						transform: none;
 						margin: 0;
 						width: auto;
-						transform: none;
 					}
 				}
 			}
@@ -258,7 +259,6 @@
 				display: block;
 				transition-property: opacity, line-height;
 				transition-timing-function: ease-in, ease-in;
-				transition-delay: 0;
 				transition-duration: 200ms, 150ms;
 				opacity: 0;
 				line-height: 0.01px;
@@ -266,13 +266,18 @@
 
 			&.ui-snap-listview-selected, &.ui-arc-listview-selected {
 				line-height: 47 * @unit_base;
+				max-height: 720 * @unit_base;
 
 				.ui-li-sub-text {
 					opacity: 1;
 					line-height: 32 * @unit_base;
+					white-space: nowrap;
+					text-overflow: ellipsis;
+					overflow: hidden;
+					max-width: 300 * @unit_base;
 				}
 
-				.ui-li-sub-text:nth-child(2) {
+				.ui-li-sub-text:last-child:not(:first-child) {
 					padding-top: 2 * @unit_base;
 				}
 
@@ -296,21 +301,12 @@
 					height: 100%;
 					left: 50%;
 					top: 50%;
-					.transform(translate(-50%, -50%));
+					transform: translate(-50%, -50%);
 					-webkit-mask-image: url("images/List/b_list_focus_bg.png");
 					-webkit-mask-size: 100% 100%;
 					background-color: @color_listview_focus;
 					border-radius: 20vw;
 					pointer-events: none;
-				}
-			}
-
-			&.li-has-2line-sub {
-				.ui-li-sub-text:nth-child(2) {
-					padding-top: 0;
-				}
-				.ui-li-sub-text:nth-child(3) {
-					padding-top: 2 * @unit_base;
 				}
 			}
 
