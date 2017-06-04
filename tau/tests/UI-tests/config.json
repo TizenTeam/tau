@@ -1185,6 +1185,12 @@
 				"time": 3000,
 				"width": 360,
 				"height": 360
+			},
+			{
+				"name": "67-slider",
+				"time": 3000,
+				"width": 360,
+				"height": 360
 			}
 		]
 	}
