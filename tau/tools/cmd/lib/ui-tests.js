@@ -134,7 +134,7 @@ function setLongLife(onSuccess) {
 				console.log("error: " + error);
 			}
 			exec(
-				`sdb ${deviceParam} shell vconftool set -t int db/setting/lcd_backlight_normal 6000 -f`,
+				`sdb ${deviceParam} shell vconftool set -t int db/setting/lcd_backlight_normal 0 -f`,
 				function (error, stdout, stderr) {
 					if (error) {
 						console.log("error: " + error);
