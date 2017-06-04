@@ -1197,6 +1197,12 @@
 				"time": 3000,
 				"width": 360,
 				"height": 360
+			},
+			{
+				"name": "56-select-mode-action-popup",
+				"time": 3000,
+				"width": 360,
+				"height": 360
 			}
 		]
 	}
