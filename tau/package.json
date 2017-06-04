@@ -53,6 +53,7 @@
   },
   "main": "Gruntfile.js",
   "dependencies": {
+    "easyimage": "^2.1.0",
     "escomplex": "^2.0.0-alpha",
     "eslint": "^3.11.1",
     "eslint-plugin-html": "^1.7.0",

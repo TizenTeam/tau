@@ -78,8 +78,14 @@ footer {
 }
 
 #list {
-    height: 100vh;
     overflow: scroll;
+    flex: 1;
+}
+#sumarize {
+    flex: 0;
+    padding: 0.5em;
+    font-weight: bolder;
+    font-size: 150%;
 }
 #list > a {
     color: grey;
@@ -97,6 +103,9 @@ footer {
 }
 nav {
     width: 570px;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
 }
 section {
     flex: 0 0 auto;

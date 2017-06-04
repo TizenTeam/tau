@@ -1,8 +1,9 @@
 /* global $, resemble */
 $(function () {
-	var testData = window.location.hash.substr(1).split("/"),
-		resembleControl,
-		buttons = $(".buttons button");
+	var resembleControl,
+		buttons = $(".buttons button"),
+		testCount = 0,
+		testDiff = 0;
 
 	function onComplete(mode, data) {
 		var diffImage = new Image(),
@@ -40,6 +41,9 @@ $(function () {
 			if (data.misMatchPercentage) {
 				document.getElementById(mode).innerHTML = data.misMatchPercentage;
 				document.getElementById(mode).style.backgroundColor = color;
+				testDiff += percent;
+				testCount++;
+				document.getElementById("sumarize").innerHTML = "Avg diff: " + Math.round(testDiff / testCount * 100) / 100 + "%";
 			} else {
 				document.getElementById(mode).parentElement.style.opacity = 0.3;
 			}

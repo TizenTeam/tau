@@ -5,8 +5,10 @@ var TIME_TICK = 1000,
 	cmd = require("./cmd"),
 	xml2js = require("xml2js"),
 	child = require("child_process"),
+	easyimg = require("easyimage"),
 	deviceMap = require("../../../demos/tools/app/data/deviceMap.js"),
 	deviceTypes = require("../../../demos/tools/app/data/deviceTypes.js"),
+
 
 	requestFileName = "test-request.txt",
 	responseFileName = "test-response.txt",
@@ -293,6 +295,36 @@ function removeAllScreenshots(deviceParam, done) {
 	});
 }
 
+function createCircle(path, size, outputTempFilePath, outputFilePath, callback) {
+	if (type === "c-3.0") {
+		easyimg.exec("convert " + path + " \\( -size " +
+			size + "x" + size + " xc:none -fill white -draw \"circle " +
+			(size / 2 -0.5) + "," + (size / 2 -0.5) + " " + (size / 2) + ",0\" \\) -compose copy_opacity -composite " +
+			outputTempFilePath).then(
+			function (file) {
+				easyimg.exec("composite " + outputTempFilePath + " -size " + size + "x" + size + " canvas:white " + outputFilePath).then(
+					function (file) {
+						fs.unlink(outputTempFilePath, function (err) {
+							if (err) {
+								console.log(err);
+							}
+							callback();
+						});
+					}, function (err) {
+						console.log(err);
+						callback();
+					}
+				);
+			}, function (err) {
+				console.log(err);
+				callback();
+			}
+		);
+	} else {
+		callback();
+	}
+}
+
 function saveWindow(deviceParam, app, profile, type, screen, onSuccess, onError) {
 	exec("sdb" + deviceParam + " shell 'cd /opt/usr/media;enlightenment_info -dump_topvwins'",
 		function (error, result) {
@@ -354,12 +386,14 @@ function screenshotTizen3(profile, type, app, screen, done) {
 
 									exec("convert " + filename + " -resize " + width + "x" + height + "\\! " + dir + ".png", function () {
 										exec("sdb" + deviceParam + " root off", function () {
-											fs.unlink(filename, function () {
-												fs.unlink(dir + "_crop-1.png", function () {
-													fs.unlink(dir + "_raw.png", function () {
-														done();
+											createCircle(dir + ".png", width, dir + "_.png", dir + ".png", function () {
+												fs.unlink(filename, function () {
+													fs.unlink(dir + "_crop-1.png", function () {
+														fs.unlink(dir + "_raw.png", function () {
+															done();
+														});
 													});
-												});
+												})
 											});
 										});
 									});
