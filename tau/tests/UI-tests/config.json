@@ -1227,6 +1227,12 @@
 				"time": 3000,
 				"width": 360,
 				"height": 360
+			},
+			{
+				"name": "61-radio-on",
+				"time": 3000,
+				"width": 360,
+				"height": 360
 			}
 		]
 	}
