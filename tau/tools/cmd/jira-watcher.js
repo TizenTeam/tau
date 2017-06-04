@@ -1,13 +1,14 @@
+/*eslint camelcase: 0, no-console: 0, no-octal-escape: 0 */
+
 const PHYSICAL_WORK_FIELD = "customfield_10400",
 	SERVER = "106.120.57.30",
 	readline = require("readline"),
 	moment = require("moment"),
-	fs = require("fs"),
 	sonarqubeScanner = require("sonarqube-scanner"),
 	async = require("async"),
 	JiraClient = require("jira-connector"),
 	cmd = require("./lib/cmd"),
-	package = require("../../package.json"),
+	packageJSON = require("../../package.json"),
 	rl = readline.createInterface({
 		input: process.stdin,
 		output: process.stdout
@@ -17,15 +18,13 @@ const PHYSICAL_WORK_FIELD = "customfield_10400",
 		port: "80",
 		protocol: "http",
 		basic_auth: {
-			username: process.env.USER
+			username: process.env.JIRA_USER || process.env.USER
 		}
 	},
 	gerritRegex = /http:\/\/165\.213\.149\.170\/gerrit\/#\/c\/[0-9]+\//,
 	artifactsRegex = /http:\/\/106\.120\.57\.30:8080\/([^/]+)\//,
 	buildRegex = /http:\/\/[^/]+:8000\/job\/[a-zA-Z0-9]+\/[0-9]+\//;
-let properties = "",
-	propertiesObject = {},
-	jira,
+let jira,
 	blockOperations = false;
 
 /**
@@ -62,7 +61,6 @@ function hidden(query, callback) {
  * @param {Function} cb
  */
 function analyzeIssue(issue, cb) {
-	var labels = issue.fields.labels;
 	checkSonarCube(issue, () => {
 		checkProgress(issue, () => {
 			cb();
@@ -77,6 +75,7 @@ function analyzeIssue(issue, cb) {
  */
 function checkSonarCube(issue, cb) {
 	var labels = issue.fields.labels;
+
 	if (labels.indexOf("sonarcube-init") === -1) {
 		sonarqubeScanner({
 			serverUrl: `http://${SERVER}:9000/`,
@@ -84,11 +83,11 @@ function checkSonarCube(issue, cb) {
 			options: {
 				"sonar.projectName": "TAU - " + issue.key,
 				"sonar.projectKey": "TAUG:" + issue.key,
-				"sonar.projectVersion": package.version,
+				"sonar.projectVersion": packageJSON.version,
 				"sonar.sources": "src",
 				"sonar.javascript.lcov.reportPaths": "report/test/karma/coverage/lcov/lcov.info"
 			}
-		}, (error, data) => {
+		}, () => {
 			labels.push("sonarcube-init");
 			// fill label inform that sonar was initialized
 			jira.issue.editIssue({
@@ -98,7 +97,7 @@ function checkSonarCube(issue, cb) {
 						labels
 					}
 				}
-			}, (error, issues) => {
+			}, (error) => {
 				if (error) {
 					console.error(error);
 					cb();
@@ -142,175 +141,176 @@ function checkProgress(issue, cb) {
 		issueKey: issue.key
 	}, (error, comments) => {
 		var status = "Success";
+
 		if (error) {
 			console.error(error);
 			cb();
 		} else {
 			// for each comment
 			async.eachSeries(comments.comments, (comment, commentCB) => {
-					var gerritLink,
-						buildLink,
-						artifactsLink,
-						regexResult;
+				var gerritLink,
+					buildLink,
+					artifactsLink,
+					regexResult;
 
 					// search jenkins comment
-					if (comment.body.indexOf("Automatically created by:") > -1) {
+				if (comment.body.indexOf("Automatically created by:") > -1) {
 						// find existing links
-						jira.issue.getRemoteLinks({
-							issueKey: issue.key
-						}, (error, links) => {
-							async.eachSeries(links, (link, linkCB) => {
+					jira.issue.getRemoteLinks({
+						issueKey: issue.key
+					}, (error, links) => {
+						async.eachSeries(links, (link, linkCB) => {
 								// remove old links
-								if (["quality", "CI", "artifacts"].indexOf(link.relationship)) {
-									jira.issue.deleteRemoteLinkById({
-										issueKey: issue.key,
-										linkId: link.id
-									}, (error, link) => {
-										if (error) {
-											console.error(error);
-										}
-										linkCB();
-									});
-								} else {
+							if (["quality", "CI", "artifacts"].indexOf(link.relationship)) {
+								jira.issue.deleteRemoteLinkById({
+									issueKey: issue.key,
+									linkId: link.id
+								}, (error) => {
+									if (error) {
+										console.error(error);
+									}
 									linkCB();
+								});
+							} else {
+								linkCB();
+							}
+						}, () => {
+								// find URLS in comment
+							if (comment.body.indexOf("Build success (unstable)") > -1) {
+								status = "Fail";
+							}
+
+							regexResult = gerritRegex.exec(comment.body);
+							gerritLink = regexResult ? regexResult[0] : "";
+							regexResult = artifactsRegex.exec(comment.body);
+							artifactsLink = regexResult ? regexResult[0] : "";
+							regexResult = buildRegex.exec(comment.body);
+							buildLink = regexResult ? regexResult[0] : "";
+								// add link to gerrit
+							jira.issue.updateRemoteLink({
+								issueKey: issue.key,
+								remoteLink: {
+									"application": {
+										"type": "com.gerrit",
+										"name": "Gerrit"
+									},
+									"relationship": "review",
+									"object": {
+										"url": gerritLink,
+										"title": "Gerrit",
+										"icon": {
+											"url16x16": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Gerrit_icon.svg/1024px-Gerrit_icon.svg.png",
+											"title": "Gerrit"
+										}
+									}
 								}
 							}, () => {
-								// find URLS in comment
-								if (comment.body.indexOf("Build success (unstable)") > -1) {
-									status = "Fail";
-								}
-
-								regexResult = gerritRegex.exec(comment.body);
-								gerritLink = regexResult ? regexResult[0] : "";
-								regexResult = artifactsRegex.exec(comment.body);
-								artifactsLink = regexResult ? regexResult[0] : "";
-								regexResult = buildRegex.exec(comment.body);
-								buildLink = regexResult ? regexResult[0] : "";
-								// add link to gerrit
+									// add link to demo
 								jira.issue.updateRemoteLink({
 									issueKey: issue.key,
 									remoteLink: {
-										"application": {
-											"type": "com.gerrit",
-											"name": "Gerrit"
-										},
-										"relationship": "review",
+										"relationship": "artifacts",
 										"object": {
-											"url": gerritLink,
-											"title": "Gerrit",
+											"url": `http://${SERVER}:8080/index.html#` + encodeURIComponent(artifactsLink + "demos/SDK/%profile%/UIComponents/"),
+											"title": "DevieceViewer",
 											"icon": {
-												"url16x16": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Gerrit_icon.svg/1024px-Gerrit_icon.svg.png",
-												"title": "Gerrit"
+												"url16x16": "https://download.tizen.org/misc/Tizen-Brand/01-Primary-Assets/Pinwheel/On-Light/01-RGB/Tizen-Pinwheel-On-Light-RGB.png",
+												"title": "Tizen"
 											}
 										}
 									}
 								}, () => {
-									// add link to demo
+										// add link to Jenkins
 									jira.issue.updateRemoteLink({
 										issueKey: issue.key,
 										remoteLink: {
-											"relationship": "artifacts",
+											"relationship": "CI",
 											"object": {
-												"url": `http://${SERVER}:8080/index.html#` + encodeURIComponent(artifactsLink + "demos/SDK/%profile%/UIComponents/"),
-												"title": "DevieceViewer",
+												"url": buildLink,
+												"title": "Jenkins",
+												"summary": status,
 												"icon": {
-													"url16x16": "https://download.tizen.org/misc/Tizen-Brand/01-Primary-Assets/Pinwheel/On-Light/01-RGB/Tizen-Pinwheel-On-Light-RGB.png",
-													"title": "Tizen"
+													"url16x16": "https://wiki.jenkins-ci.org/download/attachments/2916393/headshot.png?version=1&modificationDate=1302753947000&api=v2",
+													"title": "Jenkins"
 												}
 											}
 										}
 									}, () => {
-										// add link to Jenkins
-										jira.issue.updateRemoteLink({
-											issueKey: issue.key,
-											remoteLink: {
-												"relationship": "CI",
-												"object": {
-													"url": buildLink,
-													"title": "Jenkins",
-													"summary": status,
-													"icon": {
-														"url16x16": "https://wiki.jenkins-ci.org/download/attachments/2916393/headshot.png?version=1&modificationDate=1302753947000&api=v2",
-														"title": "Jenkins"
-													}
-												}
-											}
-										}, () => {
 											// delete comment to prevent next processing
-											jira.issue.deleteComment({
-												issueKey: issue.key,
-												commentId: comment.id
-											}, function (error, issues) {
-												if (error) {
-													console.error(error);
-												}
-												console.log("[" + issue.key + "] Processed Jenkins comment");
-												commentCB();
-											});
+										jira.issue.deleteComment({
+											issueKey: issue.key,
+											commentId: comment.id
+										}, function (error) {
+											if (error) {
+												console.error(error);
+											}
+											console.log("[" + issue.key + "] Processed Jenkins comment");
 											commentCB();
 										});
+										commentCB();
 									});
 								});
 							});
 						});
-					} else {
-						commentCB();
-					}
-				}, () => {
-					// change status
-					var data = {
-						issueKey: issue.key,
-						transition: "5"
-					};
-
-					console.log("[" + issue.key + "] Finish analizing comments");
-
-					if (issue.fields[PHYSICAL_WORK_FIELD].value === "100%") {
-						jira.issue.getRemoteLinks({
-							issueKey: issue.key
-						}, (error, links) => {
-							var status = "";
-							async.eachSeries(links, (link, linkCB) => {
-								if (link.object.summary === "Success") {
-									if (status !== "Fail") {
-										status = "Success";
-									}
-								} else if (link.object.summary === "Fail") {
-									status = "Fail";
-								}
-								linkCB();
-							}, () => {
-								if (status) {
-									if (status !== "Success") {
-										data.transition = "301";
-									}
-									data.update = {
-										comment: [
-											{
-												add: {
-													body: "Build " + status + " (automatic comment)"
-												}
-											}
-										]
-									};
-									jira.issue.transitionIssue(data, (error, links) => {
-										if (error) {
-											console.error(error);
-										} else {
-											console.log("[" + issue.key + "] Changed status");
-										}
-										cb();
-									});
-								} else {
-									cb();
-								}
-							});
-						});
-					}
-					else {
-						cb();
-					}
+					});
+				} else {
+					commentCB();
 				}
+			}, () => {
+					// change status
+				var data = {
+					issueKey: issue.key,
+					transition: "5"
+				};
+
+				console.log("[" + issue.key + "] Finish analizing comments");
+
+				if (issue.fields[PHYSICAL_WORK_FIELD].value === "100%") {
+					jira.issue.getRemoteLinks({
+						issueKey: issue.key
+					}, (error, links) => {
+						var status = "";
+
+						async.eachSeries(links, (link, linkCB) => {
+							if (link.object.summary === "Success") {
+								if (status !== "Fail") {
+									status = "Success";
+								}
+							} else if (link.object.summary === "Fail") {
+								status = "Fail";
+							}
+							linkCB();
+						}, () => {
+							if (status) {
+								if (status !== "Success") {
+									data.transition = "301";
+								}
+								data.update = {
+									comment: [
+										{
+											add: {
+												body: "Build " + status + " (automatic comment)"
+											}
+										}
+									]
+								};
+								jira.issue.transitionIssue(data, (error) => {
+									if (error) {
+										console.error(error);
+									} else {
+										console.log("[" + issue.key + "] Changed status");
+									}
+									cb();
+								});
+							} else {
+								cb();
+							}
+						});
+					});
+				}					else {
+					cb();
+				}
+			}
 			);
 		}
 	});
