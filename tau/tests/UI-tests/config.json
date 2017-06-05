@@ -1269,6 +1269,12 @@
 				"time": 3000,
 				"width": 360,
 				"height": 360
+			},
+			{
+				"name": "63-entry-input",
+				"time": 3000,
+				"width": 360,
+				"height": 360
 			}
 		]
 	}
