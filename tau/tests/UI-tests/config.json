@@ -1263,6 +1263,12 @@
 				"time": 3000,
 				"width": 360,
 				"height": 360
+			},
+			{
+				"name": "66-SDK-entry-input",
+				"time": 3000,
+				"width": 360,
+				"height": 360
 			}
 		]
 	}
