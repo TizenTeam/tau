@@ -1311,6 +1311,12 @@
 				"time": 3000,
 				"width": 360,
 				"height": 360
+			},
+			{
+				"name": "75-time-picker-24h",
+				"time": 3000,
+				"width": 360,
+				"height": 360
 			}
 		]
 	}
