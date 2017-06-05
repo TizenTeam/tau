@@ -1425,6 +1425,12 @@
 				"time": 3000,
 				"width": 360,
 				"height": 360
+			},
+			{
+				"name": "69-number-picker",
+				"time": 3000,
+				"width": 360,
+				"height": 360
 			}
 		]
 	}
