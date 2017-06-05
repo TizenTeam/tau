@@ -57,7 +57,9 @@ function done() {
 			console.log(error);
 		}
 		console.log("Success done");
-		doneCallback();
+		removeAllScreenshots(deviceParam, function () {
+			doneCallback();
+		});
 	});
 }
 
@@ -277,6 +279,19 @@ function tick(done) {
 	);
 }
 
+function removeAllScreenshots(deviceParam, done) {
+	console.log("removing all screenshots");
+	exec("sdb" + deviceParam + " root on &", function () {
+		console.log("root on");
+		exec("sdb" + deviceParam + " shell \"rm -r \\\`find /opt/usr/media -name topvwins-*\\\`\"", function () {
+			console.log("screenshots have deleted");
+			exec("sdb" + deviceParam + " root off &", function () {
+				console.log("root off");
+				done();
+			});
+		});
+	});
+}
 
 function saveWindow(deviceParam, app, profile, type, screen, onSuccess, onError) {
 	exec("sdb" + deviceParam + " shell 'cd /opt/usr/media;enlightenment_info -dump_topvwins'",
@@ -484,6 +499,7 @@ uiTests.config = function (config, done) {
 uiTests.run = function (callback) {
 	i = 0;
 	doneCallback = callback;
+
 	setLongLife(function () {
 		fs.mkdir(__dirname + "/../../../temp", function (error) {
 			if (error) {
