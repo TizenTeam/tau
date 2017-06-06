@@ -1317,6 +1317,12 @@
 				"time": 3000,
 				"width": 360,
 				"height": 360
+			},
+			{
+				"name": "99-empty-state-add-items-1-line",
+				"time": 3000,
+				"width": 360,
+				"height": 360
 			}
 		]
 	}
