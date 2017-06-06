@@ -1347,6 +1347,12 @@
 				"time": 3000,
 				"width": 360,
 				"height": 360
+			},
+			{
+				"name": "81-popup-btn-4-lines",
+				"time": 3000,
+				"width": 360,
+				"height": 360
 			}
 		]
 	}
