@@ -1521,6 +1521,12 @@
 				"time": 3000,
 				"width": 360,
 				"height": 360
+			},
+			{
+				"name": "108-popup-2-buttons-with-image-5-lines",
+				"time": 3000,
+				"width": 360,
+				"height": 360
 			}
 		]
 	}
