@@ -1377,6 +1377,12 @@
 				"time": 3000,
 				"width": 360,
 				"height": 360
+			},
+			{
+				"name": "96-more-options-open-with-icon-and-subtext",
+				"time": 3000,
+				"width": 360,
+				"height": 360
 			}
 		]
 	}
