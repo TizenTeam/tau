@@ -1485,6 +1485,12 @@
 				"time": 3000,
 				"width": 360,
 				"height": 360
+			},
+			{
+				"name": "84-graphic-toast-popup-2-lines",
+				"time": 3000,
+				"width": 360,
+				"height": 360
 			}
 		]
 	}
