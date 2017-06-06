@@ -1389,6 +1389,12 @@
 				"time": 3000,
 				"width": 360,
 				"height": 360
+			},
+			{
+				"name": "109-popup-2-buttons-with-btn-text-inside-btn-moved-bottom",
+				"time": 3000,
+				"width": 360,
+				"height": 360
 			}
 		]
 	}
