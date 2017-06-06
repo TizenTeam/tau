@@ -1157,6 +1157,12 @@
 				"height": 360
 			},
 			{
+				"name": "54-select-button-action-button-unchecked",
+				"time": 3000,
+				"width": 360,
+				"height": 360
+			},
+			{
 				"name": "60-checkbox-small",
 				"time": 3000,
 				"width": 360,
