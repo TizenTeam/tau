@@ -1546,6 +1546,12 @@
 				"time": 3000,
 				"width": 360,
 				"height": 360
+			},
+			{
+				"name": "98-empty-state-no-items-icon-and-1-line",
+				"time": 3000,
+				"width": 360,
+				"height": 360
 			}
 		]
 	}
