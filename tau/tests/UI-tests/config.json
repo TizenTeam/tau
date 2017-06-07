@@ -129,7 +129,9 @@
 			},
 			{
 				"name": "80-grid-view-with-move",
-				"time": 3000
+				"time": 3000,
+				"width": 360,
+				"height": 640
 			},
 			{
 				"name": "81-popup-with-grid-view",
@@ -637,7 +639,9 @@
 			},
 			{
 				"name": "80-grid-view-with-move",
-				"time": 3000
+				"time": 3000,
+				"width": 360,
+				"height": 640
 			},
 			{
 				"name": "81-popup-with-grid-view",
