@@ -5,31 +5,7 @@ pipeline {
     }
 
     stages {
-        stage('Quality Control') {
-            agent {
-                label 'node'
-            }
-            steps {
-                echo 'Building..'
-                script {
-                    if ("${GERRIT_CHANGE_URL}" != 'refs/changes/xx/xxxxxx/x') {
-                        echo 'This is gerrit'
-                        git branch: 'devel/tizen_3.0', credentialsId: '0d0e7561-6f63-434a-9ca0-762d2d7aa4db', url: 'ssh://m.urbanski@165.213.149.170:29418/framework/web/web-ui-fw'
-
-                        sh "git fetch origin ${GERRIT_CHANGE_URL}"
-                        sh "git checkout FETCH_HEAD"
-                    }
-                }
-                dir ('tau') {
-                    sh "npm install"
-                    sh "npm install grunt-cli"
-                    sh "npm install grunt-contrib-copy"
-                    sh "node_modules/grunt-cli/bin/grunt ci -f"
-                    step([$class: 'JUnitResultArchiver', allowEmptyResults: true, testResults: 'report/**/*.xml'])
-                }
-            }
-        }
-        stage('UI Tests') {
+        stage('UI & Karma Tests') {
             agent {
                 label 'mobile-tests'
             }
@@ -52,33 +28,15 @@ pipeline {
                 }
                 stash includes: 'tau/tests/UI-tests/diff/**', name: 'test-diff-ui'
                 stash includes: 'tau/tests/UI-tests/result/**', name: 'test-result-ui'
-            }
-        }
-        stage('Karma Tests') {
-            agent {
-                label 'mobile-tests'
-            }
-            steps {
-                script {
-                    if ("${GERRIT_CHANGE_URL}" != 'refs/changes/xx/xxxxxx/x') {
-                        echo 'This is gerrit'
-                        git branch: 'devel/tizen_3.0', credentialsId: '0d0e7561-6f63-434a-9ca0-762d2d7aa4db', url: 'ssh://m.urbanski@165.213.149.170:29418/framework/web/web-ui-fw'
-
-                        sh "git fetch origin ${GERRIT_CHANGE_URL}"
-                        sh "git checkout FETCH_HEAD"
-                    }
-                }
-                echo 'Testing..'
+                echo 'Karma testing..'
                 dir ('tau') {
-                    sh "npm install"
-                    sh "npm install grunt-cli"
                     sh "node_modules/grunt-cli/bin/grunt karma -f"
                     step([$class: 'JUnitResultArchiver', allowEmptyResults: true, testResults: 'report/**/*.xml'])
                 }
                 stash includes: 'tau/report/**', name: 'test-result-karma'
             }
         }
-        stage('Tests') {
+        stage('Eslint & Tests & Cover & SonarQube & docs') {
             agent {
                 label 'node'
             }
@@ -92,83 +50,34 @@ pipeline {
                         sh "git checkout FETCH_HEAD"
                     }
                 }
-                echo 'Testing..'
                 dir ('tau') {
                     sh "npm install"
                     sh "npm install grunt-cli"
+                    sh "npm install grunt-contrib-copy"
+                    sh "node_modules/grunt-cli/bin/grunt ci -f"
+                    step([$class: 'JUnitResultArchiver', allowEmptyResults: true, testResults: 'report/**/*.xml'])
+                }
+                echo 'Testing..'
+                dir ('tau') {
                     sh "node_modules/grunt-cli/bin/grunt test -f"
                     step([$class: 'JUnitResultArchiver', allowEmptyResults: true, testResults: 'report/**/*.xml'])
                 }
                 stash includes: 'tau/report/**', name: 'test-result'
-            }
-        }
-        stage('Clover') {
-            agent {
-                label 'node'
-            }
-            steps {
-                script {
-                    if ("${GERRIT_CHANGE_URL}" != 'refs/changes/xx/xxxxxx/x') {
-                        echo 'This is gerrit'
-                        git branch: 'devel/tizen_3.0', credentialsId: '0d0e7561-6f63-434a-9ca0-762d2d7aa4db', url: 'ssh://m.urbanski@165.213.149.170:29418/framework/web/web-ui-fw'
-
-                        sh "git fetch origin ${GERRIT_CHANGE_URL}"
-                        sh "git checkout FETCH_HEAD"
-                    }
-                }
-                unstash 'test-result'
                 unstash 'test-result-karma'
                 echo 'Collecting clover..'
                 dir ('tau') {
-                    sh "npm install"
-                    sh "npm install grunt-cli"
                     sh "node_modules/grunt-cli/bin/grunt build -f"
                     sh "node tools/cmd/clover.js"
                     step([$class: 'CloverPublisher', cloverReportDir: 'report/test/all/coverage/clover', cloverReportFileName: 'clover.xml'])
                 }
                 stash includes: 'tau/dist/**', name: 'dist'
-            }
-        }
-        stage('SonarQube analysis') {
-            agent {
-                label 'node'
-            }
-            steps {
-                script {
-                    if ("${GERRIT_CHANGE_URL}" != 'refs/changes/xx/xxxxxx/x') {
-                        echo 'This is gerrit'
-                        git branch: 'devel/tizen_3.0', credentialsId: '0d0e7561-6f63-434a-9ca0-762d2d7aa4db', url: 'ssh://m.urbanski@165.213.149.170:29418/framework/web/web-ui-fw'
-
-                        sh "git fetch origin ${GERRIT_CHANGE_URL}"
-                        sh "git checkout FETCH_HEAD"
-                    }
-                }
-                unstash 'test-result-karma'
                 sh "node tau/tools/cmd/prepare-sonar.js ${GERRIT_CHANGE_URL}"
                 // requires SonarQube Scanner 2.8+
                 withSonarQubeEnv('Main') {
                   sh "/home/m.urbanski/sonar-scanner-2.8/bin/sonar-scanner"
                 }
-            }
-        }
-        stage('Docs') {
-            agent {
-                label 'node'
-            }
-            steps {
-                script {
-                    if ("${GERRIT_CHANGE_URL}" != 'refs/changes/xx/xxxxxx/x') {
-                        echo 'This is gerrit'
-                        git branch: 'devel/tizen_3.0', credentialsId: '0d0e7561-6f63-434a-9ca0-762d2d7aa4db', url: 'ssh://m.urbanski@165.213.149.170:29418/framework/web/web-ui-fw'
-
-                        sh "git fetch origin ${GERRIT_CHANGE_URL}"
-                        sh "git checkout FETCH_HEAD"
-                    }
-                }
                 echo 'Generating docs..'
                 dir ('tau') {
-                    sh "npm install"
-                    sh "npm install grunt-cli"
                     sh "node_modules/grunt-cli/bin/grunt docs -f"
                     sh "mkdir -p docs/sdk"
                 }
