@@ -1431,6 +1431,12 @@
 				"time": 3000,
 				"width": 360,
 				"height": 360
+			},
+			{
+				"name": "103-end-effect-right",
+				"time": 3000,
+				"width": 360,
+				"height": 360
 			}
 		]
 	}
