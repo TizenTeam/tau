@@ -121,7 +121,9 @@
 			},
 			{
 				"name": "79-grid-view-with-badge",
-				"time": 3000
+				"time": 3000,
+				"width": 589,
+				"height": 1047
 			},
 			{
 				"name": "80-grid-view-with-move",
