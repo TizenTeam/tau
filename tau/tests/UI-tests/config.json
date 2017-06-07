@@ -93,6 +93,12 @@
 				"pass": true
 			},
 			{
+				"name": "48-index-scroll-with-floating-button",
+				"time": 3000,
+				"width": 360,
+				"height": 640
+			},
+			{
 				"name": "49-page-indicator",
 				"time": 3000
 			},
@@ -609,6 +615,12 @@
 			},
 			{
 				"name": "46-index-scroll-bar",
+				"time": 3000,
+				"width": 360,
+				"height": 640
+			},
+			{
+				"name": "48-index-scroll-with-floating-button",
 				"time": 3000,
 				"width": 360,
 				"height": 640
