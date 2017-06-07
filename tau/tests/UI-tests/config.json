@@ -222,6 +222,12 @@
 				"pass": true
 			},
 			{
+				"name": "110-dropdown-menu-small",
+				"time": 3000,
+				"width": 360,
+				"height": 640
+			},
+			{
 				"name": "111-dropdown-menu",
 				"time": 3000,
 				"width": 360,
