@@ -19,7 +19,6 @@
 		pageIndicator.setActive(0);
 		// make SectionChanger object
 		sectionChanger = new tau.widget.SectionChanger(changer, {
-			circular: true,
 			orientation: "horizontal",
 			useBouncingEffect: true
 		});

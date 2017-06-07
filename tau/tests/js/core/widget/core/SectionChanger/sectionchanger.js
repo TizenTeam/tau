@@ -341,23 +341,6 @@ QUnit.config.reorder = false;
 			helpers.restoreStub(ns, "error");
 		});
 
-		// unit test, one case
-		test("handleEvent", 1, function test() {
-			var element = document.getElementById("emptysectionchanger"),
-				sectionChanger = new ns.widget.SectionChanger(element),
-				event = {
-					type: "swipe"
-				};
-
-			helpers.stub(sectionChanger, "_swipe", function (_event) {
-				strictEqual(_event, event, "_swipe is called with event");
-			});
-
-			sectionChanger.handleEvent(event);
-
-			helpers.restoreStub(sectionChanger, "_swipe");
-		});
-
 		// unit test, some case
 		test("_translateScrollbar", 6, function test() {
 			var element = document.getElementById("emptysectionchanger"),
@@ -460,49 +443,6 @@ QUnit.config.reorder = false;
 			helpers.restoreStub(sectionChanger, "bouncingEffect");
 			helpers.restoreStub(sectionChanger, "setActiveSection");
 		});
-
-		// unit test
-		test("_swipe", 4, function test() {
-			var i = this.sections.length,
-				newActiveId = 1,
-				activeId = null,
-				sectionChanger = new ns.widget.SectionChanger(sectionContent, {
-					scrollbar: false
-				});
-
-			sectionChanger.enabled = true;
-			sectionChanger.scrollCanceled = false;
-			sectionChanger.dragging = true;
-			sectionChanger.beforeIndex = 0;
-			sectionChanger.activeIndex = 0;
-
-			sectionChanger.bouncingEffect = {
-				dragEnd: function () {
-					ok(true, "Called dragEnd");
-				},
-				destroy: function () {
-
-				}
-			};
-
-			sectionChanger._swipe({
-				detail: {
-					direction: "up"
-				}
-			});
-
-			while (i--) {
-				if (this.isActive(i)) {
-					activeId = i;
-					break;
-				}
-			}
-
-			equal(sectionChanger.getActiveSectionIndex(), activeId, "Active section has correct class");
-			equal(sectionChanger.getActiveSectionIndex(), newActiveId, "Active section index is correct");
-			equal(sectionChanger.dragging, false, "dragging is correct");
-		});
-
 
 		// unit test
 		test("_repositionSections", function test() {

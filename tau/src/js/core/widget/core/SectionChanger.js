@@ -407,30 +407,38 @@
 				},
 
 				_bindEvents: function () {
-					this._super();
+					var self = this;
+
+					self._super();
 
 					ns.event.enableGesture(
-						this.scroller,
+						self.scroller,
 
 						new ns.event.gesture.Swipe({
-							orientation: this.orientation === Orientation.HORIZONTAL ?
+							orientation: self.orientation === Orientation.HORIZONTAL ?
 								gesture.Orientation.HORIZONTAL :
 								gesture.Orientation.VERTICAL
 						})
 					);
 
-					utilsEvents.on(this.scroller,
-						"swipe transitionEnd webkitTransitionEnd mozTransitionEnd msTransitionEnd oTransitionEnd", this);
+					utilsEvents.on(self.scroller,
+						"swipe transitionEnd webkitTransitionEnd mozTransitionEnd msTransitionEnd oTransitionEnd", self);
+
+					document.addEventListener("rotarydetent", self, true);
 				},
 
 				_unbindEvents: function () {
-					this._super();
+					var self = this;
 
-					if (this.scroller) {
-						ns.event.disableGesture(this.scroller);
-						utilsEvents.off(this.scroller,
-							"swipe transitionEnd webkitTransitionEnd mozTransitionEnd msTransitionEnd oTransitionEnd", this);
+					self._super();
+
+					if (self.scroller) {
+						ns.event.disableGesture(self.scroller);
+						utilsEvents.off(self.scroller,
+							"swipe transitionEnd webkitTransitionEnd mozTransitionEnd msTransitionEnd oTransitionEnd", self);
 					}
+
+					document.removeEventListener("rotarydetent", self, true);
 				},
 
 				/**
@@ -444,7 +452,8 @@
 
 					switch (event.type) {
 						case "swipe":
-							this._swipe(event);
+						case "rotarydetent" :
+							this._change(event);
 							break;
 						case "webkitTransitionEnd":
 						case "mozTransitionEnd":
@@ -584,13 +593,13 @@
 					}
 				},
 
-				_swipe: function (event) {
+				_change: function (event) {
 					var self = this,
 						direction = event.detail.direction,
-						offset = direction === gesture.Direction.UP || direction === gesture.Direction.LEFT ? 1 : -1,
+						offset = direction === gesture.Direction.UP || direction === gesture.Direction.LEFT || direction === "CW" ? 1 : -1,
 						newIndex = self._calculateIndex(self.beforeIndex + offset);
 
-					if (self.enabled && !self.scrollCanceled && self.dragging) {
+					if (self.enabled && !self.scrollCanceled) {
 						// bouncing effect
 						if (self.bouncingEffect) {
 							self.bouncingEffect.dragEnd();
@@ -713,6 +722,8 @@
 				SectionChanger
 			);
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
+
+			return SectionChanger;
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
