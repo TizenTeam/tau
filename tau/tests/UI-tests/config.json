@@ -1419,6 +1419,12 @@
 				"time": 3000,
 				"width": 360,
 				"height": 360
+			},
+			{
+				"name": "101-load-more-content",
+				"time": 3000,
+				"width": 360,
+				"height": 360
 			}
 		]
 	}
