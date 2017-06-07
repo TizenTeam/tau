@@ -46,7 +46,7 @@
 				"pass": true
 			},
 			{
-				"name": "29-list-tab-4-icons",
+				"name": "30-tabs-with-icon",
 				"time": 3000,
 				"width": 360,
 				"height": 640,
@@ -541,7 +541,7 @@
 				"height": 640
 			},
 			{
-				"name": "29-list-tab-4-icons",
+				"name": "30-tabs-with-icon",
 				"time": 3000,
 				"width": 360,
 				"height": 640
