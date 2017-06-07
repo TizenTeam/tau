@@ -585,7 +585,9 @@
 			},
 			{
 				"name": "46-index-scroll-bar",
-				"time": 3000
+				"time": 3000,
+				"width": 360,
+				"height": 640
 			},
 			{
 				"name": "49-page-indicator",
