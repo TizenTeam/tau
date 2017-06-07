@@ -209,6 +209,12 @@
 				"time": 3000
 			},
 			{
+				"name": "107-text-input",
+				"time": 3000,
+				"width": 360,
+				"height": 640
+			},
+			{
 				"name": "108-email-input",
 				"time": 3000,
 				"width": 360,
@@ -700,6 +706,12 @@
 			{
 				"name": "106-text-input",
 				"time": 3000
+			},
+			{
+				"name": "107-text-input",
+				"time": 3000,
+				"width": 360,
+				"height": 640
 			},
 			{
 				"name": "108-email-input",
