@@ -1407,6 +1407,12 @@
 				"time": 3000,
 				"width": 360,
 				"height": 360
+			},
+			{
+				"name": "112-bottom-button-text-with-big-img",
+				"time": 3000,
+				"width": 360,
+				"height": 360
 			}
 		]
 	}
