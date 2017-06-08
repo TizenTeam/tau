@@ -404,6 +404,12 @@
 				"pass": true
 			},
 			{
+				"name": "155-light-view-camera",
+				"time": 5000,
+				"width": 360,
+				"height": 640
+			},
+			{
 				"name": "160-floating-button",
 				"time": 3000,
 				"width": 360,
@@ -905,6 +911,12 @@
 			},
 			{
 				"name": "153-more-menu",
+				"time": 5000,
+				"width": 360,
+				"height": 640
+			},
+			{
+				"name": "155-light-view-camera",
 				"time": 5000,
 				"width": 360,
 				"height": 640
