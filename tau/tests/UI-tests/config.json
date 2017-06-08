@@ -328,6 +328,12 @@
 				"height": 640
 			},
 			{
+				"name": "133-color-picker",
+				"time": 3000,
+				"width": 360,
+				"height": 640
+			},
+			{
 				"name": "136-popup-2-buttons",
 				"time": 3000,
 				"width": 360,
@@ -863,6 +869,12 @@
 			},
 			{
 				"name": "131-date-picker-2",
+				"time": 3000,
+				"width": 360,
+				"height": 640
+			},
+			{
+				"name": "133-color-picker",
 				"time": 3000,
 				"width": 360,
 				"height": 640
