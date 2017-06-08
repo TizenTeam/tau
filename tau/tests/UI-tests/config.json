@@ -884,8 +884,8 @@
 			{
 				"name": "153-more-menu",
 				"time": 5000,
-				"width": 241,
-				"height": 429
+				"width": 360,
+				"height": 640
 			},
 			{
 				"name": "160-floating-button",
