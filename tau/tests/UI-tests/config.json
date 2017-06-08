@@ -535,6 +535,12 @@
 				"height": 598
 			},
 			{
+				"name": "181-time-and-date-picker",
+				"time": 3000,
+				"width": 360,
+				"height": 640
+			},
+			{
 				"name": "182-three-bottom-buttons",
 				"time": 3000,
 				"width": 589,
@@ -1058,6 +1064,12 @@
 				"time": 3000,
 				"width": 336,
 				"height": 598
+			},
+			{
+				"name": "181-time-and-date-picker",
+				"time": 3000,
+				"width": 360,
+				"height": 640
 			},
 			{
 				"name": "182-three-bottom-buttons",
