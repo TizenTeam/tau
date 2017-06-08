@@ -410,6 +410,12 @@
 				"height": 640
 			},
 			{
+				"name": "157-light-view-more",
+				"time": 5000,
+				"width": 360,
+				"height": 640
+			},
+			{
 				"name": "160-floating-button",
 				"time": 3000,
 				"width": 360,
@@ -917,6 +923,12 @@
 			},
 			{
 				"name": "155-light-view-camera",
+				"time": 5000,
+				"width": 360,
+				"height": 640
+			},
+			{
+				"name": "157-light-view-more",
 				"time": 5000,
 				"width": 360,
 				"height": 640
