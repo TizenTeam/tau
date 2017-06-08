@@ -321,6 +321,12 @@
 				"pass": true
 			},
 			{
+				"name": "139-popup-2-buttons-keyboard",
+				"time": 3000,
+				"width": 360,
+				"height": 640
+			},
+			{
 				"name": "142-popup-2-buttons-image",
 				"time": 3000,
 				"width": 360,
@@ -799,6 +805,12 @@
 			},
 			{
 				"name": "136-popup-2-buttons",
+				"time": 3000,
+				"width": 360,
+				"height": 640
+			},
+			{
+				"name": "139-popup-2-buttons-keyboard",
 				"time": 3000,
 				"width": 360,
 				"height": 640
