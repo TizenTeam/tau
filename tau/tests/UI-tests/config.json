@@ -314,6 +314,12 @@
 				"height": 640
 			},
 			{
+				"name": "131-date-picker-within-popup",
+				"time": 3000,
+				"width": 360,
+				"height": 640
+			},
+			{
 				"name": "130-date-picker-1",
 				"time": 3000,
 				"width": 360,
@@ -811,6 +817,12 @@
 			},
 			{
 				"name": "131-date-picker-2",
+				"time": 3000,
+				"width": 360,
+				"height": 640
+			},
+			{
+				"name": "131-date-picker-within-popup",
 				"time": 3000,
 				"width": 360,
 				"height": 640
