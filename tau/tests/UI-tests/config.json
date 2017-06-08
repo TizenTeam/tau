@@ -121,7 +121,9 @@
 			},
 			{
 				"name": "77-grid-view-with-label-2",
-				"time": 3000
+				"time": 3000,
+				"width": 360,
+				"height": 640
 			},
 			{
 				"name": "78-grid-view-with-checkbox",
@@ -651,7 +653,9 @@
 			},
 			{
 				"name": "77-grid-view-with-label-2",
-				"time": 3000
+				"time": 3000,
+				"width": 360,
+				"height": 640
 			},
 			{
 				"name": "78-grid-view-with-checkbox",
