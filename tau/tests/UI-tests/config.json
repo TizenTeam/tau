@@ -513,8 +513,8 @@
 			{
 				"name": "173-search-bar-clear-button",
 				"time": 3000,
-				"width": 402,
-				"height": 714
+				"width": 360,
+				"height": 640
 			},
 			{
 				"name": "176-details",
@@ -1038,8 +1038,8 @@
 			{
 				"name": "173-search-bar-clear-button",
 				"time": 3000,
-				"width": 402,
-				"height": 714
+				"width": 360,
+				"height": 640
 			},
 			{
 				"name": "176-details",
