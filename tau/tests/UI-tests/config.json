@@ -493,6 +493,12 @@
 				"height": 948
 			},
 			{
+				"name": "169-device-option-popup",
+				"time": 3000,
+				"width": 360,
+				"height": 640
+			},
+			{
 				"name": "170-tabbar-with-badge",
 				"time": 3000,
 				"width": 360,
@@ -1010,6 +1016,12 @@
 				"time": 3000,
 				"width": 552,
 				"height": 948
+			},
+			{
+				"name": "169-device-option-popup",
+				"time": 3000,
+				"width": 360,
+				"height": 640
 			},
 			{
 				"name": "170-tabbar-with-badge",
