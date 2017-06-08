@@ -416,6 +416,12 @@
 				"height": 640
 			},
 			{
+				"name": "158-light-view-grid",
+				"time": 5000,
+				"width": 360,
+				"height": 640
+			},
+			{
 				"name": "160-floating-button",
 				"time": 3000,
 				"width": 360,
@@ -929,6 +935,12 @@
 			},
 			{
 				"name": "157-light-view-more",
+				"time": 5000,
+				"width": 360,
+				"height": 640
+			},
+			{
+				"name": "158-light-view-grid",
 				"time": 5000,
 				"width": 360,
 				"height": 640
