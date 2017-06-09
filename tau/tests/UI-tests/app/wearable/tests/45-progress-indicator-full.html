@@ -7,7 +7,7 @@
 	<link rel="stylesheet" href="../css/style-circle.css">
 </head>
 <body>
-<div class="ui-page circle-progress-page" data-enable-page-scroll="false">
+<div class="ui-page circle-progress-page" id="page-circle-progress1" data-enable-page-scroll="false">
 	<div class="ui-content ui-content-padding">
 		<div class="progress-buttons">
 			<a href="#" class="ui-btn minus">-10%</a>
@@ -29,7 +29,7 @@
 			 * pageBeforeShowHandler - pagebeforeshow event handler
 			 * pageHideHandler - pagehide event handler
 			 */
-			var page = document.querySelector(".circle-progress-page"),
+			var page = document.querySelector("#page-circle-progress1"),
 				progressBar = null,
 				minusBtn = null,
 				plusBtn = null,

@@ -7,7 +7,7 @@
 	<link rel="stylesheet" href="../css/style-circle.css">
 </head>
 <body>
-<div class="ui-page" id ="page-toastpopup">
+<div class="ui-page" id="page-toastpopup2l">
 	<header class="ui-header">
 		<h2 class="ui-title">Title</h2>
 	</header>
@@ -30,12 +30,13 @@
 	</div>
 	<script>
 		(function () {
-			var page = document.getElementById("page-toastpopup"),
+			var page = document.getElementById("page-toastpopup2l"),
 				popupElement = document.getElementById("popupToast2l"),
 				popup,
 
 				onPageShow = function () {
 					popup = tau.widget.Popup(popupElement);
+					popup.options.closeAfter = 20000;
 					popup.open();
 				},
 				onPageHide = function () {

@@ -12,8 +12,8 @@
 	 * elSelector - Selector element in the circular popup
 	 * selector - TAU selector instance
 	 */
-	var page = document.querySelector("#moreoptionsPage"),
-		popup = page.querySelector("#moreoptionsPopup"),
+	var page = document.querySelector("#moreoptionsPage4s"),
+		popup = page.querySelector("#moreoptionsPopupIs"),
 		handler = page.querySelector(".ui-more"),
 		popupCircle = page.querySelector("#moreoptionsPopupCircle"),
 		elSelector = page.querySelector("#selector"),

@@ -7,8 +7,8 @@
 	 * pageBeforeShowHandler - pagebeforeshow event handler
 	 * pageHideHandler - pagehide event handler
 	 */
-	var page = document.getElementById("pageSlider"),
-		elSlider = document.getElementById("slider"),
+	var page = document.getElementById("pageSlider0"),
+		elSlider = document.getElementById("slider0"),
 		slider,
 		pageBeforeShowHandler,
 		pageHideHandler;
