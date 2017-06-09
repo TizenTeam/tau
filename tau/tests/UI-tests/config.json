@@ -18,6 +18,30 @@
 				"pass": true
 			},
 			{
+				"name": "16-end-effect-left",
+				"time": 3000,
+				"width": 360,
+				"height": 640
+			},
+			{
+				"name": "16-end-effect-right",
+				"time": 3000,
+				"width": 360,
+				"height": 640
+			},
+			{
+				"name": "16-end-effect-top",
+				"time": 3000,
+				"width": 360,
+				"height": 640
+			},
+			{
+				"name": "16-end-effect-bottom",
+				"time": 3000,
+				"width": 360,
+				"height": 640
+			},
+			{
 				"name": "21-list-with-back",
 				"time": 3000,
 				"width": 360,
@@ -597,6 +621,30 @@
 			},
 			{
 				"name": "11-list",
+				"time": 3000,
+				"width": 360,
+				"height": 640
+			},
+			{
+				"name": "16-end-effect-left",
+				"time": 3000,
+				"width": 360,
+				"height": 640
+			},
+			{
+				"name": "16-end-effect-right",
+				"time": 3000,
+				"width": 360,
+				"height": 640
+			},
+			{
+				"name": "16-end-effect-top",
+				"time": 3000,
+				"width": 360,
+				"height": 640
+			},
+			{
+				"name": "16-end-effect-bottom",
 				"time": 3000,
 				"width": 360,
 				"height": 640
