@@ -328,8 +328,13 @@ module.exports = function (grunt) {
 				}
 			], getDeviceList.bind(null, profile,
 				function (devices, count) {
+					var device = null;
 					if (count) {
-						devices[profile].forEach(function (device) {
+						device = devices[profile][0];
+
+						//when we run application with more details, for example
+						//if its landscape or portrait
+						if (typeof type !== "undefined") {
 							deviceTypes[profile].forEach(function (info) {
 								if (info.device === device.name && info.type === type) {
 									build(app, profile, function (error) {
@@ -342,7 +347,16 @@ module.exports = function (grunt) {
 									grunt.log.ok("Device " + device.name + " not match to type " + type + " (" + JSON.stringify(info) + ")");
 								}
 							});
-						});
+						// more general, for example run on mobile with portrait
+						// and landscape, no need for additional settings
+						} else {
+							build(app, profile, function (error) {
+								if (error) {
+									grunt.log.error("Error on building");
+								}
+								run(device, app, tauDebug, done);
+							});
+						}
 					} else {
 						done();
 					}
