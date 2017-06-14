@@ -5,203 +5,203 @@
 		"screens": [
 			{
 				"name": "19-list",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 640,
 				"pass": true
 			},
 			{
 				"name": "11-list",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 640,
 				"pass": true
 			},
 			{
 				"name": "16-end-effect-left",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 640
 			},
 			{
 				"name": "16-end-effect-right",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 640
 			},
 			{
 				"name": "16-end-effect-top",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 640
 			},
 			{
 				"name": "16-end-effect-bottom",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 640
 			},
 			{
 				"name": "21-list-with-back",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 640,
 				"pass": true
 			},
 			{
 				"name": "25-list-with-2-tabs",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 640,
 				"pass": true
 			},
 			{
 				"name": "27-list-tab-long",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 640,
 				"pass": true
 			},
 			{
 				"name": "28-list-tab-3",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 640,
 				"pass": true
 			},
 			{
 				"name": "30-tabs-with-icon",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 640,
 				"pass": true
 			},
 			{
 				"name": "35-list-tab-2-title",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 640,
 				"pass": true
 			},
 			{
 				"name": "38-list-tab-long-title",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 640,
 				"pass": true
 			},
 			{
 				"name": "39-tabs-with-title-with-icons",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 640,
 				"pass": true
 			},
 			{
 				"name": "41-navigation-bar-3",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 640
 			},
 			{
 				"name": "44-scroll-bar",
-				"time": 3000,
+				"time": 0,
 				"width": 402,
 				"height": 714
 			},
 			{
 				"name": "46-index-scroll-bar",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 640,
 				"pass": true
 			},
 			{
 				"name": "48-index-scroll-with-floating-button",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 640
 			},
 			{
 				"name": "49-page-indicator",
-				"time": 3000
+				"time": 1000
 			},
 			{
 				"name": "53-normal-list",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 640,
 				"pass": true
 			},
 			{
 				"name": "74-grid-view",
-				"time": 3000,
+				"time": 0,
 				"width": 589,
 				"height":1047
 			},
 			{
 				"name": "76-grid-view-with-label",
-				"time": 3000
+				"time": 0
 			},
 			{
 				"name": "77-grid-view-with-label-2",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 640
 			},
 			{
 				"name": "78-grid-view-with-checkbox",
-				"time": 3000
+				"time": 0
 			},
 			{
 				"name": "79-grid-view-with-badge",
-				"time": 3000,
+				"time": 0,
 				"width": 589,
 				"height": 1047
 			},
 			{
 				"name": "80-grid-view-with-move",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 640
 			},
 			{
 				"name": "81-popup-with-grid-view",
-				"time": 3000,
+				"time": 1000,
 				"width": 589,
 				"height": 1047
 			},
 			{
 				"name": "83-popup-with-multiline-grid-view",
-				"time": 3000,
+				"time": 1000,
 				"width": 589,
 				"height": 1047
 			},
 			{
 				"name": "84-group-index",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 640,
 				"pass": true
 			},
 			{
 				"name": "85-group-index-with-checkbox",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 640,
 				"pass": true
 			},
 			{
 				"name": "85-group-index-with-checkbox-new",
-				"time": 3000
+				"time": 0
 			},
 			{
 				"name": "86-progress",
-				"time": 3000
+				"time": 0
 			},
 			{
 				"name": "88-activity",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 640,
 				"pass": true,
@@ -209,183 +209,183 @@
 			},
 			{
 				"name": "90-list-with-circle-button",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 640,
 				"pass": true
 			},
 			{
 				"name": "91-contact-card-with-circle-buttons",
-				"time": 3000
+				"time": 0
 			},
 			{
 				"name": "93-box-buttons",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 640,
 				"pass": true
 			},
 			{
 				"name": "96-bottom-buttons",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 640,
 				"pass": true
 			},
 			{
 				"name": "98-text-button",
-				"time": 3000
+				"time": 0
 			},
 			{
 				"name": "100-toggle-on-off-list",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 640
 			},
 			{
 				"name": "106-text-input",
-				"time": 3000
+				"time": 0
 			},
 			{
 				"name": "107-text-input",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 640
 			},
 			{
 				"name": "108-email-input",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 640,
 				"pass": true
 			},
 			{
 				"name": "110-dropdown-menu-small",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 640
 			},
 			{
 				"name": "111-dropdown-menu",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 640,
 				"pass": true
 			},
 			{
 				"name": "112-dropdown-menu-open",
-				"time": 3000
+				"time": 0
 			},
 			{
 				"name": "118-slider-vertical",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 640,
 				"pass": true
 			},
 			{
 				"name": "119-slider-vertical-2",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 640,
 				"pass": true
 			},
 			{
 				"name": "120-slider-vertical-3",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 640,
 				"pass": true
 			},
 			{
 				"name": "121-sliders",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 640
 			},
 			{
 				"name": "124-number-picker-vertical",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 640
 			},
 			{
 				"name": "124-number-picker-horizontal",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 640
 			},
 			{
 				"name": "129-time-picker-2",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 640
 			},
 			{
 				"name": "125-number-picker-1",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 640
 			},
 			{
 				"name": "126-time-picker-1",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 640
 			},
 			{
 				"name": "131-date-picker-2",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 640
 			},
 			{
 				"name": "131-date-picker-within-popup",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 640
 			},
 			{
 				"name": "130-date-picker-1",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 640
 			},
 			{
 				"name": "133-color-picker",
-				"time": 3000,
+				"time": 1000,
 				"width": 360,
 				"height": 640
 			},
 			{
 				"name": "136-popup-2-buttons",
-				"time": 3000,
+				"time": 1000,
 				"width": 360,
 				"height": 640,
 				"pass": true
 			},
 			{
 				"name": "139-popup-2-buttons-keyboard",
-				"time": 3000,
+				"time": 1000,
 				"width": 360,
 				"height": 640
 			},
 			{
 				"name": "142-popup-2-buttons-image",
-				"time": 3000,
+				"time": 1000,
 				"width": 360,
 				"height": 640,
 				"pass": true
 			},
 			{
 				"name": "143-popup-2-buttons-list",
-				"time": 3000,
+				"time": 0,
 				"width": 241,
 				"height": 429
 			},
 			{
 				"name": "144-popup-2-buttons-checkbox",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 640,
 				"pass": true
@@ -410,199 +410,199 @@
 			},
 			{
 				"name": "150-popup-contextual",
-				"time": 3000,
+				"time": 0,
 				"width": 241,
 				"height": 429
 			},
 			{
 				"name": "151-popup-contextual-with-icons",
-				"time": 3000,
+				"time": 0,
 				"width": 552,
 				"height": 981
 			},
 			{
 				"name": "152-popup-contextual-2",
-				"time": 3000,
+				"time": 1000,
 				"width": 241,
 				"height": 429
 			},
 			{
 				"name": "153-more-menu",
-				"time": 5000,
+				"time": 1000,
 				"width": 360,
 				"height": 640,
 				"pass": true
 			},
 			{
 				"name": "155-light-view-camera",
-				"time": 5000,
+				"time": 0,
 				"width": 360,
 				"height": 640
 			},
 			{
 				"name": "157-light-view-more",
-				"time": 5000,
+				"time": 0,
 				"width": 360,
 				"height": 640
 			},
 			{
 				"name": "158-light-view-grid",
-				"time": 5000,
+				"time": 0,
 				"width": 360,
 				"height": 640
 			},
 			{
 				"name": "160-floating-button",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 640,
 				"pass": true
 			},
 			{
 				"name": "161-floating-button-2",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 640,
 				"pass": true
 			},
 			{
 				"name": "162-floating-button-3",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 640,
 				"pass": true
 			},
 			{
 				"name": "162-floating-button-4",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 640,
 				"pass": true
 			},
 			{
 				"name": "162-floating-button-5",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 640,
 				"pass": true
 			},
 			{
 				"name": "162-floating-button-6",
-				"time": 5000,
+				"time": 0,
 				"width": 156,
 				"height": 277
 			},
 			{
 				"name": "162-floating-button-7",
-				"time": 3000,
+				"time": 0,
 				"width": 156,
 				"height": 277
 			},
 			{
 				"name": "163-floating-button-8",
-				"time": 5000,
+				"time": 0,
 				"width": 241,
 				"height": 428
 			},
 			{
 				"name": "165-empty-state",
-				"time": 3000,
+				"time": 0,
 				"width": 336,
 				"height": 598
 			},
 			{
 				"name": "166-empty-state-with-floating-action",
-				"time": 3000,
+				"time": 0,
 				"width": 552,
 				"height": 981
 			},
 			{
 				"name": "168-empty-state-search",
-				"time": 3000,
+				"time": 0,
 				"width": 552,
 				"height": 948
 			},
 			{
 				"name": "169-device-option-popup",
-				"time": 3000,
+				"time": 1000,
 				"width": 360,
 				"height": 640
 			},
 			{
 				"name": "170-tabbar-with-badge",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 640
 			},
 			{
 				"name": "171-welcome-page",
-				"time": 3000,
+				"time": 0,
 				"width": 720,
 				"height": 1240
 			},
 			{
 				"name": "173-search-bar-clear-button",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 640
 			},
 			{
 				"name": "176-details",
-				"time": 3000,
+				"time": 0,
 				"width": 552,
 				"height": 981
 			},
 			{
 				"name": "177-text-overflow",
-				"time": 3000,
+				"time": 0,
 				"width": 336,
 				"height": 598
 			},
 			{
 				"name": "178-matched-text",
-				"time": 3000,
+				"time": 0,
 				"width": 336,
 				"height": 598
 			},
 			{
 				"name": "179-matched-text-dropdown",
-				"time": 3000,
+				"time": 0,
 				"width": 336,
 				"height": 598
 			},
 			{
 				"name": "181-time-and-date-picker",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 640
 			},
 			{
 				"name": "182-three-bottom-buttons",
-				"time": 3000,
+				"time": 0,
 				"width": 589,
 				"height": 1047
 			},
 			{
 				"name": "T01-single-page",
-				"time": 3000,
+				"time": 0,
 				"width": 720,
 				"height": 1280
 			},
 			{
 				"name": "T02-navigation-view-1",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 640
 			},
 			{
 				"name": "T02-navigation-view-2",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 640
 			},
 			{
 				"name": "T02-navigation-view-3",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 640
 			}
@@ -614,132 +614,132 @@
 		"screens": [
 			{
 				"name": "19-list",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 640,
 				"pass": true
 			},
 			{
 				"name": "11-list",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 640
 			},
 			{
 				"name": "16-end-effect-left",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 640
 			},
 			{
 				"name": "16-end-effect-right",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 640
 			},
 			{
 				"name": "16-end-effect-top",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 640
 			},
 			{
 				"name": "16-end-effect-bottom",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 640
 			},
 			{
 				"name": "21-list-with-back",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 640,
 				"pass": true
 			},
 			{
 				"name": "25-list-with-2-tabs",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 640
 			},
 			{
 				"name": "27-list-tab-long",
-				"time": 3000,
+				"time": 0,
 				"width": 331,
 				"height": 589
 			},
 			{
 				"name": "28-list-tab-3",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 640
 			},
 			{
 				"name": "30-tabs-with-icon",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 640
 			},
 			{
 				"name": "29-list-tab-4",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 640
 			},
 			{
 				"name": "35-list-tab-2-title",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 640
 			},
 			{
 				"name": "38-list-tab-long-title",
-				"time": 3000,
+				"time": 0,
 				"width": 331,
 				"height": 589
 			},
 			{
 				"name": "39-tabs-with-title-with-icons",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 640,
 				"pass": true
 			},
 			{
 				"name": "41-navigation-bar-3",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 640
 			},
 			{
 				"name": "44-scroll-bar",
-				"time": 3000,
+				"time": 0,
 				"width": 402,
 				"height": 714
 			},
 			{
 				"name": "46-index-scroll-bar",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 640
 			},
 			{
 				"name": "48-index-scroll-with-floating-button",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 640
 			},
 			{
 				"name": "49-page-indicator",
-				"time": 3000
+				"time": 1000
 			},
 			{
 				"name": "53-normal-list",
-				"time": 3000
+				"time": 0
 			},
 			{
 				"name": "74-grid-view",
-				"time": 3000,
+				"time": 0,
 				"width": 331,
 				"height": 589
 			},
@@ -749,58 +749,58 @@
 			},
 			{
 				"name": "77-grid-view-with-label-2",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 640
 			},
 			{
 				"name": "78-grid-view-with-checkbox",
-				"time": 3000
+				"time": 0
 			},
 			{
 				"name": "79-grid-view-with-badge",
-				"time": 3000
+				"time": 0
 			},
 			{
 				"name": "80-grid-view-with-move",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 640
 			},
 			{
 				"name": "81-popup-with-grid-view",
-				"time": 3000,
+				"time": 1000,
 				"width": 923,
 				"height": 519
 			},
 			{
 				"name": "83-popup-with-multiline-grid-view",
-				"time": 3000,
+				"time": 1000,
 				"width": 923,
 				"height": 519
 			},
 			{
 				"name": "84-group-index",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 640,
 				"pass": true
 			},
 			{
 				"name": "85-group-index-with-checkbox",
-				"time": 3000
+				"time": 0
 			},
 			{
 				"name": "85-group-index-with-checkbox-new",
-				"time": 3000
+				"time": 0
 			},
 			{
 				"name": "86-progress",
-				"time": 3000
+				"time": 0
 			},
 			{
 				"name": "88-activity",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 640,
 				"pass": true,
@@ -808,158 +808,158 @@
 			},
 			{
 				"name": "90-list-with-circle-button",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 640,
 				"pass": true
 			},
 			{
 				"name": "91-contact-card-with-circle-buttons",
-				"time": 3000
+				"time": 0
 			},
 			{
 				"name": "93-box-buttons",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 640,
 				"pass": true
 			},
 			{
 				"name": "96-bottom-buttons",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 640,
 				"pass": true
 			},
 			{
 				"name": "98-text-button",
-				"time": 3000
+				"time": 0
 			},
 			{
 				"name": "100-toggle-on-off-list",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 640
 			},
 			{
 				"name": "106-text-input",
-				"time": 3000
+				"time": 0
 			},
 			{
 				"name": "107-text-input",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 640
 			},
 			{
 				"name": "108-email-input",
-				"time": 3000
+				"time": 0
 			},
 			{
 				"name": "111-dropdown-menu",
-				"time": 3000
+				"time": 0
 			},
 			{
 				"name": "112-dropdown-menu-open",
-				"time": 3000
+				"time": 0
 			},
 			{
 				"name": "118-slider-vertical",
-				"time": 3000
+				"time": 0
 			},
 			{
 				"name": "119-slider-vertical-2",
-				"time": 3000
+				"time": 0
 			},
 			{
 				"name": "120-slider-vertical-3",
-				"time": 3000
+				"time": 0
 			},
 			{
 				"name": "121-sliders",
-				"time": 3000
+				"time": 0
 			},
 			{
 				"name": "124-number-picker-vertical",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 640
 			},
 			{
 				"name": "124-number-picker-horizontal",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 640
 			},
 			{
 				"name": "129-time-picker-2",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 640
 			},
 			{
 				"name": "125-number-picker-1",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 640
 			},
 			{
 				"name": "126-time-picker-1",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 640
 			},
 			{
 				"name": "130-date-picker-1",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 640
 			},
 			{
 				"name": "131-date-picker-2",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 640
 			},
 			{
 				"name": "133-color-picker",
-				"time": 3000,
+				"time": 1000,
 				"width": 360,
 				"height": 640
 			},
 			{
 				"name": "131-date-picker-within-popup",
-				"time": 3000,
+				"time": 1000,
 				"width": 360,
 				"height": 640
 			},
 			{
 				"name": "136-popup-2-buttons",
-				"time": 3000,
+				"time": 1000,
 				"width": 360,
 				"height": 640
 			},
 			{
 				"name": "139-popup-2-buttons-keyboard",
-				"time": 3000,
+				"time": 1000,
 				"width": 360,
 				"height": 640
 			},
 			{
 				"name": "142-popup-2-buttons-image",
-				"time": 3000,
+				"time": 1000,
 				"width": 241,
 				"height": 429
 			},
 			{
 				"name": "143-popup-2-buttons-list",
-				"time": 3000,
+				"time": 0,
 				"width": 241,
 				"height": 429
 			},
 			{
 				"name": "144-popup-2-buttons-checkbox",
-				"time": 3000,
+				"time": 0,
 				"width": 241,
 				"height": 429
 			},
@@ -971,7 +971,7 @@
 			},
 			{
 				"name": "146-popup-toast-big",
-				"time": 3000,
+				"time": 2000,
 				"width": 241,
 				"height": 429
 			},
@@ -983,193 +983,193 @@
 			},
 			{
 				"name": "150-popup-contextual",
-				"time": 3000,
+				"time": 0,
 				"width": 241,
 				"height": 429
 			},
 			{
 				"name": "151-popup-contextual-with-icons",
-				"time": 3000,
+				"time": 0,
 				"width": 552,
 				"height": 981
 			},
 			{
 				"name": "152-popup-contextual-2",
-				"time": 3000,
+				"time": 1000,
 				"width": 241,
 				"height": 429
 			},
 			{
 				"name": "153-more-menu",
-				"time": 5000,
+				"time": 1000,
 				"width": 360,
 				"height": 640
 			},
 			{
 				"name": "155-light-view-camera",
-				"time": 5000,
+				"time": 0,
 				"width": 360,
 				"height": 640
 			},
 			{
 				"name": "157-light-view-more",
-				"time": 5000,
+				"time": 0,
 				"width": 360,
 				"height": 640
 			},
 			{
 				"name": "158-light-view-grid",
-				"time": 5000,
+				"time": 0,
 				"width": 360,
 				"height": 640
 			},
 			{
 				"name": "160-floating-button",
-				"time": 3000,
+				"time": 0,
 				"width": 241,
 				"height": 429
 			},
 			{
 				"name": "161-floating-button-2",
-				"time": 3000,
+				"time": 0,
 				"width": 241,
 				"height": 429
 			},
 			{
 				"name": "162-floating-button-3",
-				"time": 3000,
+				"time": 0,
 				"width": 156,
 				"height": 277
 			},
 			{
 				"name": "162-floating-button-4",
-				"time": 3000,
+				"time": 0,
 				"width": 156,
 				"height": 277
 			},
 			{
 				"name": "162-floating-button-5",
-				"time": 3000,
+				"time": 0,
 				"width": 156,
 				"height": 277
 			},
 			{
 				"name": "162-floating-button-6",
-				"time": 5000,
+				"time": 0,
 				"width": 156,
 				"height": 277
 			},
 			{
 				"name": "162-floating-button-7",
-				"time": 3000,
+				"time": 0,
 				"width": 156,
 				"height": 277
 			},
 			{
 				"name": "163-floating-button-8",
-				"time": 5000,
+				"time": 0,
 				"width": 241,
 				"height": 428
 			},
 			{
 				"name": "165-empty-state",
-				"time": 3000,
+				"time": 0,
 				"width": 336,
 				"height": 598
 			},
 			{
 				"name": "166-empty-state-with-floating-action",
-				"time": 3000,
+				"time": 0,
 				"width": 552,
 				"height": 981
 			},
 			{
 				"name": "168-empty-state-search",
-				"time": 3000,
+				"time": 0,
 				"width": 552,
 				"height": 948
 			},
 			{
 				"name": "169-device-option-popup",
-				"time": 3000,
+				"time": 1000,
 				"width": 360,
 				"height": 640
 			},
 			{
 				"name": "170-tabbar-with-badge",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 640
 			},
 			{
 				"name": "171-welcome-page",
-				"time": 3000,
+				"time": 0,
 				"width": 720,
 				"height": 1240
 			},
 			{
 				"name": "173-search-bar-clear-button",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 640
 			},
 			{
 				"name": "176-details",
-				"time": 3000,
+				"time": 0,
 				"width": 552,
 				"height": 981
 			},
 			{
 				"name": "177-text-overflow",
-				"time": 3000,
+				"time": 0,
 				"width": 336,
 				"height": 598
 			},
 			{
 				"name": "178-matched-text",
-				"time": 3000,
+				"time": 0,
 				"width": 336,
 				"height": 598
 			},
 			{
 				"name": "179-matched-text-dropdown",
-				"time": 3000,
+				"time": 0,
 				"width": 336,
 				"height": 598
 			},
 			{
 				"name": "181-time-and-date-picker",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 640
 			},
 			{
 				"name": "182-three-bottom-buttons",
-				"time": 3000,
+				"time": 0,
 				"width": 589,
 				"height": 1047
 			},
 			{
 				"name": "T01-single-page",
-				"time": 3000,
+				"time": 0,
 				"width": 720,
 				"height": 1280
 			},
 			{
 				"name": "T02-navigation-view-1",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 640
 			},
 			{
 				"name": "T02-navigation-view-2",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 640
 			},
 			{
 				"name": "T02-navigation-view-3",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 640
 			}
@@ -1181,726 +1181,726 @@
 		"screens": [
 			{
 				"name": "10-basic-grid",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "10-basic-list",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "11-basic-grid-2",
-				"time": 5000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "11-basic-grid-1",
-				"time": 5000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "18-header-title",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "18-header-title-sub",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "19-header-title-3-lines",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "19-header-title-4-lines",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "19-header-title-sub-3-lines",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "19-header-title-sub-4-lines",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
  			{
  				"name": "24-page-indicator-circularly-horizontal-18-dots",
- 				"time": 3000,
+ 				"time": 0,
  				"width": 360,
  				"height": 360
  			},
 			{
 				"name": "20-circularly-vertical-bar",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "21-circularly-horizontal-bar",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "22-index-scroll",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "23-page-indicator-circularly-horizontal-dot-19",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "25-page-indicator-horizontal-dot-7",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "26-page-indicator-horizontal-dot-6",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "28-list",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "29-list",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "29-list-sublines",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "30-list-fadeout",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "30-list-fadeout-2",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "31-list-font",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "32-list-font-color",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "33-list-3-sublines",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "33-list-2-sublines",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "33-list-2-sublines-scrolled-down",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "34-list-left-icon",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "34-list-right-icon",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "35-list-with-icon-and-subtext",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "35-list-with-icon-and-subtext-2",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360			},
 			{
 				"name": "36-list-with-icon-and-multiline",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "36-list-with-icon-and-multiline-2",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "37-list-groupindex",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "38-list-divider",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "39-list-button",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "39-list-button-2",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "39-list-button-3",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "41-grid",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "45-progress-indicator-full",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "42-grid-moved-at-right",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "44-grid-thumbnails-center",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "46-progress-indicator-small",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "48-activity-indicator-at-list",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "51-bottom-button",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "52-bottom-button-and-content",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "54-select-button-action-button-unchecked",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "60-checkbox-small",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "47-activity-indicator",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "49-sending-effect",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "53-text-button",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "62-text-input-placeholder",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "62-text-input-placeholder-disabled",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "67-slider",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "68-slider-zero",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "56-select-mode-action-popup",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "57-select-mode-action-popup-selectall",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "48-activity-indicator-small",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "54-select-button-action-button-checked",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "58-on-off-switch-checked",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "74-time-picker",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "61-radio-on",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "80-popup-2-buttons",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "76-color-picker",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "80-popup-2-buttons-and-small-checkbox",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "61-radio-off",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "65-SDK-entry-input",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "66-SDK-entry-input",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "63-entry-input",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "78-popup-general",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "58-on-off-switch-unchecked",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "99-empty-state-add-items-2-lines",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "59-checkbox-checked",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "59-checkbox-unchecked",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "75-time-picker-24h",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "99-empty-state-add-items-1-line",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "114-slider-with-2-lines",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "84-graphic-toast-popup-1-line",
-				"time": 3000,
+				"time": 2000,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "71-date-picker-29-day",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "83-text-toast-popup-3-lines",
-				"time": 3000,
+				"time": 2000,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "86-more-options-open",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "81-popup-btn-4-lines",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "96-more-options-open-with-icon",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "109-popup-2-buttons-with-btn-text-inside-btn",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "103-end-effect-bottom",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "110-bottom-button-text-position",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "96-more-options-open-with-icon-and-subtext",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "111-bottom-button-text-position-4-lines",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "109-popup-2-buttons-with-btn-text-inside-btn-moved-bottom",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "71-date-picker-28-day",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "112-bottom-button-text-position-with-image-74px-title",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "112-bottom-button-text-with-big-img",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "113-bottom-button-text-position-with-image-74px",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "101-load-more-content",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "69-number-picker",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "103-end-effect-right",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "116-hyper-link",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "89-more-options-open-with-subtext",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "113-bottom-button-text-position-with-image-100px",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "114-slider-with-1-line-text",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "103-end-effect-top",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "83-text-toast-popup-2-lines",
-				"time": 3000,
+				"time": 1000,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "81-popup-btn-2-lines",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "84-graphic-toast-popup-2-lines",
-				"time": 3000,
+				"time": 2000,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "85-more-options",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "81-popup-btn-6-lines",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "107-popup-2-buttons-8-lines",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "108-popup-2-buttons-with-image-3-lines",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "108-popup-2-buttons-with-image-and-title",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "82-popup-with-progress-2lines",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "108-popup-2-buttons-with-image-5-lines",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "72-date-picker-30-day",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "111-bottom-button-text-position-2-lines",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "82-popup-with-progress-1line",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "98-empty-state-no-items-icon-and-1-line",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "81-popup-btn-1-line",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "72-date-picker-31-day",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "70-date-picker",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "111-bottom-button-text-position-1-line",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "73-date-picker-year",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "103-end-effect-left",
-				"time": 3000,
+				"time": 0,
 				"width": 360,
 				"height": 360
 			}

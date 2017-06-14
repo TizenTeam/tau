@@ -1,8 +1,8 @@
 /*global tau, tizen */
 
 var timerHandler = 0,
-	FIRST_DELAY = 3000,
-	RESPONSE_INTERVAL = 3000,
+	FIRST_DELAY = 100,
+	RESPONSE_INTERVAL = 100,
 	TEST_REQUEST_DIR = "downloads",
 	// path on device: /opt/usr/home/owner/media/Downloads/test-status.txt
 	TEST_REQUEST_FILE_NAME = "test-request.txt",
@@ -148,7 +148,7 @@ function nextTestCase() {
 	} else {
 		setTimeout(function () {
 			sendRequest("end!", onEnd);
-		}, 1000);
+		}, 100);
 	}
 }
 
@@ -176,7 +176,7 @@ function onPageChange() {
 	tau.log(path.filename);
 	setTimeout(function () {
 		sendRequest("take-screenshot:" + path.filename, onRequestSuccess);
-	}, 2000);
+	}, 200);
 }
 
 function main() {

@@ -6,7 +6,7 @@
 	<script type="text/javascript" src="../lib/tau/mobile/js/tau.js" data-build-remove="false"></script>
 </head>
 <body>
-<div data-role="page" class="ui-page" id="popup_2btn_page">
+<div data-role="page" class="ui-page" id="popup_2btn_page_kbrd">
 	<div class="ui-header" data-position="fixed">
 		<h1>Title</h1>
 	</div>
@@ -24,7 +24,7 @@
 			<li class="ui-li-static">List Item 10</li>
 		</ul>
 
-		<div id="popup_2btn" class="ui-popup">
+		<div id="popup_2btn_kbrd" class="ui-popup">
 			<div class="ui-popup-header">Title</div>
 			<div class="ui-popup-content">
 				Lorem ipsum dolor sit amet, con- sectetur adipiscing elit, sed doei usmod tempore sit ipsum
@@ -43,14 +43,14 @@
 				 * navigation - navigation element
 				 * navigationComponent - TAU navigation instance
 				 */
-				var page = document.querySelector("#popup_2btn_page");
+				var page = document.querySelector("#popup_2btn_page_kbrd");
 
 				/**
 				 * pagebeforeshow event handler
 				 * Do preparatory works and adds event listeners
 				 */
 				page.addEventListener("pageshow", function () {
-					tau.openPopup("popup_2btn");
+					tau.openPopup("popup_2btn_kbrd");
 				});
 
 			}(window.tau));
