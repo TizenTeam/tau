@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://floralicense.org/license/
+ * http://floralicense.org/license/
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -16,7 +16,84 @@
 /*global window, define, ns */
 /**
  * # List View
- * List view component is used to display, for example, navigation data, results, and data entries, in a list format.
+ * List view component is used to display, for example, navigation data,
+ * results, and data entries, in a list format.
+ *
+ * ## Default selectors
+ * All elements which have a data-role [data-role="listview"] or class .ui-listview
+ * will become Listview widgets. It is recomended to use UL, LI tags for list creation
+ *
+ * ###HTML examples
+ *
+ * ####Create a page widget using the data-role attribute
+ *
+ *      @example
+ *      <ul data-role="listview">
+ *          <li>
+ *              ...some item
+ *          </li>
+ *      </ul>
+ *
+ * #### Create a listview widget using css classes
+ *
+ *      @example
+ *      <ul class="ui-listview">
+ *          <li>
+ *            ...some item
+ *          </li>
+ *      </ul>
+ *
+ * ### Manual constructor
+ *
+ * These examples show how to create a Listview widget by hand using
+ * JavaScript code
+ *
+ * #### Created using TAU api
+ *
+ *      @example
+ *      <ul class="ui-listview ui-colored-list" id="list">
+ *          <li class="ui-li-flex">
+ *               <span class="ui-li-area ui-li-area-a">
+ *                   <span class="ui-li-text">
+ *                        <span>1 text...</span>
+ *                   </span>
+ *               </span>
+ *           </li>
+ *      </ul>
+ *
+ *      <script type="text/javascript">
+ *          var listview = tau.widget.Listview(document.getElementById("list"));
+ *      </script>
+ *
+ * #### Create reorder list with TAU api
+ *
+ *      @example
+ *      <a class="ui-btn" id="dragButton">DRAG</a>
+ *      <ul class="ui-listview ui-colored-list" id="reorder">
+ *          <li class="ui-li-flex">
+ *              <span>1 text...</span>
+ *          </li>
+ *          <li class="ui-li-flex">
+ *              <span>2 text...</span>
+ *          </li>
+ *      </ul>
+ *
+ *      <script type="text/javascript">
+ *        var listview = tau.widget.Listview(document.getElementById("reorder"));
+ *        var dragButton = document.getElementById("dragButton");
+ *
+ *        tau.event.on(dragButton, "click", function(){
+ *            listview.toggleDragMode();
+ *        });
+ *      </script>
+ *
+ * ## Options for Listview widget
+ *
+ * Options can be set by using data-* attributes or by passing them
+ * to the constructor.
+ *
+ * There is also a method **option** for changing them after widget
+ * creation.
  *
  * @class ns.widget.mobile.Listview
  * @extends ns.widget.core.Listview
@@ -58,9 +135,15 @@
 				round = Math.round,
 				ceil = Math.ceil,
 				slice = [].slice,
+				utilsEvents = ns.event,
 				isNumber = utils.isNumber,
 				colorTmp = [0, 0, 0, 0],
 				MAX_IDLE_TIME = 3 * 1000, //3s
+				direction = {
+					PREV: -1,
+					HOLD: 0,
+					NEXT: 1
+				},
 				Listview = function () {
 					var self = this,
 						/**
@@ -107,10 +190,7 @@
 					// _lastChange
 					self._lastChange = 0;
 
-					self._topOffset = window.innerHeight;
-					self._previousVisibleElement = null;
-					self._canvasWidth = 0;
-					self._canvasHeight = 0;
+					initializeGlobalsForDrag(self);
 				},
 				/**
 				 * @property {Object} classes
@@ -127,7 +207,14 @@
 					"GRADIENT_BACKGROUND_DISABLED": "ui-listview-background-disabled",
 					"GROUP_INDEX": "ui-group-index",
 					"POPUP_LISTVIEW": "ui-popup-listview",
-					"EXPANDABLE": "ui-expandable"
+					"DRAG_ACTIVE": "ui-drag-active",
+					"EXPANDABLE": "ui-expandable",
+					"ITEM": "ui-listview-item",
+					"ITEM_ACTIVE": "ui-listview-item-active",
+					"HELPER": "ui-listview-helper",
+					"HOLDER": "ui-listview-holder",
+					"SNAPSHOT": "snapshot",
+					"HANDLER": "ui-listview-handler"
 				},
 				/**
 				 * @property {Object} events
@@ -141,6 +228,33 @@
 				},
 				engine = ns.engine,
 				prototype = new CoreListview();
+
+			/**
+			 * Set globals for drag functionality, constructor helper
+			 * @method initializeGlobalsForDrag
+			 * @param {Object} self
+			 * @member ns.widget.mobile.Listview
+			 * @private
+			 */
+			function initializeGlobalsForDrag(self) {
+				self._topOffset = window.innerHeight;
+				self._previousVisibleElement = null;
+				self._canvasWidth = 0;
+				self._canvasHeight = 0;
+
+				self._dragMode = false;
+				self.orginalListPosition = 0;
+				self.indexDragingElement = 0;
+
+				self._ui = {
+					helper: {},
+					holder: {}
+				};
+
+				self._snapshotItems = [];
+				self._liElements = [];
+				self.topValue = 0;
+			}
 
 			/**
 			 * Modifies input color array (rgba) by a specified
@@ -775,7 +889,483 @@
 					}
 					self._backgroundRenderCallback = null;
 				}
+
 			};
+
+			/**
+			 * Create holder element to help reordering
+			 * @method _createHolder
+			 * @protected
+			 * @member ns.widget.mobile.Listview
+			 */
+			prototype._createHolder = function () {
+				var holder = document.createElement("li"),
+					classList = holder.classList;
+
+				classList.add(classes.ITEM);
+				classList.add(classes.HOLDER);
+
+				return holder;
+			};
+
+			/**
+			 * set direction when moving
+			 * Based on the previous position defined as moveTop,
+			 * the new direction is set
+			 * @method _setDirection
+			 * @protected
+			 * @param {number} moveY new position
+			 * @param {number} moveTop previous position
+			 * @member ns.widget.mobile.Listview
+			 */
+			prototype._setDirection = function (moveY, moveTop) {
+				var self = this;
+
+				if (moveY < moveTop) {
+					self._direction = direction.PREV;
+				} else if (moveY === moveTop) {
+					self._direction = direction.HOLD;
+				} else {
+					self._direction = direction.NEXT;
+				}
+			}
+
+			/**
+			 * Relocate elements when "move down" event occur
+			 *
+			 * New position is calculated for holder element and for items
+			 * After setting the new position for item, holder change position in DOM
+			 * If we move the pointer for a great length then few items at once should
+			 * change location
+			 *
+			 * When going down we need to go over item for 70% (30% to bottom)
+			 * @method _changeLocationDown
+			 * @protected
+			 * @param {number} range new position for cursor
+			 * @param {HTMLElement} holder temporary replacement element
+			 * @param {Object} helper is a dragging element
+			 * @param {number} length number of items
+			 * @member ns.widget.mobile.Listview
+			 */
+			prototype._changeLocationDown = function (range, holder, helper, length) {
+				var item,
+					index = 1,
+					self = this,
+					element = self.element;
+
+				range = range + helper.height;
+
+				//skip first element, as it is canvas with gradient
+				for (; index < length; index++) {
+					item = element.children[index];
+
+					//to not go over same element
+					if (helper.element !== item && holder !== item) {
+						//when cursor is over the item for 70%
+						if (range > (self._snapshotItems[index - 1] + item.offsetHeight * 70 / 100) &&
+								//item top should be bigger then holder top when going down
+							(self._snapshotItems[index - 1] > holder.offsetTop + 15)) {
+
+							//set new top for the moved item, this will consider diferent height of the elements
+							self._snapshotItems[index - 1] = self._snapshotItems[index - 2] + item.offsetHeight;
+							self._appendLiStylesToElement(item, self._snapshotItems[index - 2]);
+							self._appendLiStylesToElement(holder, self._snapshotItems[index - 1]);
+							element.insertBefore(holder, element.children[index].nextSibling);
+						}
+					}
+				}
+			}
+
+			/**
+			 * Relocate elements when "move up" event occur
+			 *
+			 * New position is calculated for holder element and for items
+			 * After setting the new position for item, holder change position in DOM
+			 * If we move the pointer for a great length then few items at once should
+			 * change location
+			 *
+			 * When going up we need to go over item for 30% (70% to bottom)
+			 * @method _changeLocationUp
+			 * @protected
+			 * @param {number} range new position for cursor
+			 * @param {HTMLElement} holder temporary replacement element
+			 * @param {Object} helper is a dragging element
+			 * @param {number} length number of items
+			 * @member ns.widget.mobile.Listview
+			 */
+			prototype._changeLocationUp = function (range, holder, helper, length) {
+				var item,
+					self = this,
+					index = length - 1,
+					element = self.element;
+
+				for (; index > 0; index--) {
+					item = element.children[index];
+
+					//to not go over same element
+					if (helper.element !== item && holder !== item) {
+						//when cursor is over the item for 70%
+						if (range < (self._snapshotItems[index - 1] + (item.offsetHeight * 30 / 100)) &&
+								//item top should be smaller then holder top when going up
+							self._snapshotItems[index - 1] + item.offsetHeight < holder.offsetTop + holder.offsetHeight - 15) {
+
+							//set new top for the moved item, this will consider diferent height of the elements
+							self._snapshotItems[index] = self._snapshotItems[index - 1] + holder.offsetHeight;
+							element.insertBefore(holder, element.children[index]);
+							self._appendLiStylesToElement(holder, self._snapshotItems[index - 1]);
+							self._appendLiStylesToElement(item, self._snapshotItems[index]);
+						}
+					}
+				}
+			}
+
+			/**
+			 * Method for drag prepare event
+			 * @method _prepare
+			 * @protected
+			 * @member ns.widget.mobile.Listview
+			 */
+			prototype._prepare = function () {
+				var self = this,
+					element = self.element,
+					parentElement = element.parentElement;
+
+				//it means that dragend was not called and handler was just clicked
+				if (!element.classList.contains(classes.SNAPSHOT)) {
+					self._recalculateTop();
+					//save before dragging, the position for original list
+					self.orginalListPosition = parentElement.getBoundingClientRect().top - 55;
+					element.classList.add(classes.SNAPSHOT);
+					//change scrollTop as we use absolute and top positions now
+					parentElement.scrollTop = -self.orginalListPosition;
+				}
+			};
+
+			/**
+			 * Method for dragstart event
+			 *
+			 * Prepare holder element to replace the drag item
+			 * Drag item is represented as helper and it is replaced
+			 * by holder because we change the location of helper with top
+			 * @method _start
+			 * @protected
+			 * @param {Event} event Event
+			 * @member ns.widget.mobile.Listview
+			 */
+			prototype._start = function (event) {
+				var top = 0,
+					self = this,
+					holder = null,
+					element = self.element,
+					helper = self._ui.helper,
+					helperElement = event.detail.srcEvent.srcElement.parentElement,
+					helperElementComputed = window.getComputedStyle(helperElement, null),
+					helperStyle = helperElement.style;
+
+				top = parseInt(helperElementComputed.getPropertyValue("top"), 10);
+
+				helperElement.classList.add(classes.HELPER);
+				holder = self._createHolder();
+				holder.style.height = parseFloat(helperElementComputed.getPropertyValue("height")) + "px";
+				holder.style.top = helperElement.style.top;
+				holder.style.backgroundColor = "rgba(61, 185, 204, 1)";
+				element.insertBefore(holder, helperElement);
+				element.appendChild(helperElement);
+
+				self._appendLiStylesToElement(helperElement, top);
+
+				helper.element = helperElement;
+				helper.style = helperStyle;
+				helper.height = parseFloat(helperElementComputed.getPropertyValue("height")) || 0;
+				helper.startY = event.detail.estimatedY - 55 - helper.height / 2;
+				helper.position = {
+					startTop: top,
+					moveTop: helper.startY,
+					startIndex: [].indexOf.call(element.children, holder)
+				};
+
+				self._ui.holder = holder;
+				helper.element = helperElement;
+				self._ui.helper = helper;
+
+				self.topValue = event.detail.estimatedY;
+				helper.move = 0;
+			};
+
+
+			/**
+			 * callback when drag event
+			 * @method _move
+			 * @protected
+			 * @param {Event} event Event
+			 * @member ns.widget.mobile.Listview
+			 */
+			prototype._move = function (event) {
+				var moveY,
+					self = this,
+					ui = self._ui,
+					headerHeight = 0,
+					helper = ui.helper,
+					holder = ui.holder,
+					element = self.element,
+					position = helper.position,
+					helperElement = helper.element,
+					length = element.childElementCount - 1,
+					headerElement = document.querySelector(".ui-page-active .ui-header");
+
+				headerHeight = (headerElement) ? headerElement.offsetHeight : 0;
+				//move element only in Y axis
+				moveY = event.detail.estimatedY - headerHeight - helper.height / 2 +
+						-self.orginalListPosition;
+				self._appendLiStylesToElement(helperElement, moveY);
+
+				self._setDirection(moveY, position.moveTop);
+				helperElement.classList.add("ui-listview-item-moved");
+				position.moveTop = moveY;
+
+				if (self._direction > 0) {
+					self._changeLocationDown(moveY, holder, helper, length);
+				} else if (self._direction < 0) {
+					self._changeLocationUp(moveY, holder, helper, length);
+				} else {
+					return false;
+				}
+			};
+
+			/**
+			 * Method for dragend event
+			 *
+			 * Replace holder with the dragable item
+			 * @method _end
+			 * @protected
+			 * @member ns.widget.mobile.Listview
+			 */
+			prototype._end = function () {
+				var self = this,
+					element = self.element,
+					helper = self._ui.helper,
+					holder = self._ui.holder,
+					helperElement = helper.element;
+
+				helperElement.classList.remove("ui-listview-item-moved");
+				helperElement.classList.remove(classes.HELPER);
+				self._appendLiStylesToElement(helperElement, holder.offsetTop);
+
+				element.insertBefore(helperElement, holder);
+				element.removeChild(holder);
+				self._ui.helper = {};
+
+				self._removeTopOffsets();
+				element.classList.remove(classes.SNAPSHOT);
+
+				//change scrollTop as we use absolute and top positions now
+				element.parentElement.parentElement.scrollTop = -self.orginalListPosition;
+				//refresh cache
+				self._liElements = slice.call(element.querySelectorAll("li"));
+			};
+
+			/**
+			 * Method for click event
+			 *
+			 * Becasue "prepare drag" is run every time when we press handler
+			 * we need to use "click" to revert changes done by "prepare drag"
+			 * Click is not called if we start drag
+			 * @method _click
+			 * @protected
+			 * @member ns.widget.mobile.Listview
+			 */
+			prototype._click = function () {
+				var self = this;
+
+				self._removeTopOffsets();
+				self.element.classList.remove(classes.SNAPSHOT);
+
+				//change scrollTop as we use absolute and top positions now
+				self.element.parentElement.parentElement.scrollTop = -self.orginalListPosition;
+			};
+
+			/**
+			 * Handle events
+			 * @method handleEvent
+			 * @public
+			 * @param {Event} event Event
+			 * @member ns.widget.mobile.Listview
+			 */
+			prototype.handleEvent = function (event) {
+				var self = this;
+
+				switch (event.type) {
+					case "click":
+						if (event.srcElement.classList.contains(classes.HANDLER)) {
+							self._click(event);
+						}
+						event.preventDefault();
+						break;
+					case "dragprepare":
+						if (event.detail.srcEvent.srcElement.classList.contains(classes.HANDLER)) {
+							self._prepare(event);
+						}
+						break;
+					case "dragstart":
+						if (event.detail.srcEvent.srcElement.classList.contains(classes.HANDLER)) {
+							self._start(event);
+						}
+						event.preventDefault();
+						break;
+					case "drag":
+						if (event.detail.srcEvent.srcElement.classList.contains(classes.HANDLER)) {
+							self._move(event);
+						}
+						break;
+					case "dragend":
+						if (event.detail.srcEvent.srcElement.classList.contains(classes.HANDLER)) {
+							self._end(event);
+						}
+						break;
+				}
+			};
+
+			/**
+			 * add handlers for list elements
+			 * @method _appendHandlers
+			 * @protected
+			 * @member ns.widget.mobile.Listview
+			 */
+			prototype._appendHandlers = function () {
+				var i = 0,
+					self = this,
+					handler = null,
+					liElement = null,
+					liElements = self._liElements,
+					length = liElements.length;
+
+				for (; i < length; i++) {
+					liElement = liElements[i];
+					handler = document.createElement("div");
+					handler.classList.add(classes.HANDLER);
+					liElement.appendChild(handler);
+				}
+			}
+
+			/**
+			 * remove handlers from list elements
+			 * @method _removeHandlers
+			 * @protected
+			 * @member ns.widget.mobile.Listview
+			 */
+			prototype._removeHandlers = function () {
+				var i = 0,
+					self = this,
+					handler = null,
+					liElement = null,
+					liElements = self._liElements,
+					length = liElements.length;
+
+				for (; i < length; i++) {
+					liElement = liElements[i];
+					handler = liElement.querySelector("." + classes.HANDLER);
+					liElement.removeChild(handler);
+				}
+			}
+
+			/**
+			 * add new tops
+			 * @method _recalculateTop
+			 * @protected
+			 * @member ns.widget.mobile.Listview
+			 */
+			prototype._recalculateTop = function () {
+				var i = 0,
+					self = this,
+					offsetTop = 0,
+					liElement = null,
+					liElements = self._liElements,
+					length = liElements.length;
+
+				for (; i < length; i++) {
+					liElement = liElements[i];
+					offsetTop = liElement.offsetTop;
+					self._snapshotItems.push(offsetTop);
+					self._appendLiStylesToElement(liElements[i], self._snapshotItems[i]);
+				}
+			}
+
+			/**
+			 * remove top offsets when going back to standard list mode
+			 * @method _removeTopOffsets
+			 * @protected
+			 * @member ns.widget.mobile.Listview
+			 */
+			prototype._removeTopOffsets = function () {
+				var i = 0,
+					self = this,
+					liElements = self._liElements,
+					length = liElements.length;
+
+				for (; i < length; i++) {
+					liElements[i].style.top = "";
+				}
+			}
+
+			/**
+			 * adds top style to the elements
+			 * @method _appendLiStylesToElement
+			 * @protected
+			 * @param {HTMLElement} element
+			 * @param {number} Y distance form top
+			 * @member ns.widget.mobile.Listview
+			 */
+			prototype._appendLiStylesToElement = function (element, Y) {
+				element.style.top = Y + "px";
+			};
+
+			/**
+			 * switch list in drag mode, add draggabble handlers
+			 * @method toggleDragMode
+			 * @public
+			 * @member ns.widget.mobile.Listview
+			 */
+			prototype.toggleDragMode = function () {
+				var self = this,
+					element = self.element;
+
+				self._dragMode = !self._dragMode;
+
+				if (self._dragMode) {
+					element.classList.add("dragMode");
+					element.classList.add("activateHandlers");
+
+					self._liElements = slice.call(element.querySelectorAll("li"));
+					self._appendHandlers();
+					window.setTimeout(function () {
+						//disable animation, so it will not run when reorder
+						element.classList.add("cancelAnimation");
+						element.classList.remove("activateHandlers");
+					}, 200)
+
+					utilsEvents.on(element, "click drag dragstart dragend dragcancel dragprepare", self, true);
+					//support drag
+					utilsEvents.enableGesture(
+						element,
+						new utilsEvents.gesture.Drag({
+							blockVertical: false
+						})
+					);
+				} else {
+					element.classList.remove("cancelAnimation");
+					element.classList.add("deactivateHandlers");
+
+					//cannot remove handlers when animation is in progress
+					window.setTimeout(function () {
+						self._removeHandlers();
+						element.classList.remove("deactivateHandlers");
+						element.classList.remove("dragMode");
+					}, 200)
+
+					utilsEvents.off(element, "click drag dragstart dragend dragcancel dragprepare", self, true);
+					utilsEvents.disableGesture(element);
+				}
+			}
 
 			Listview.prototype = prototype;
 			ns.widget.mobile.Listview = Listview;

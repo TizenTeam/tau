@@ -408,4 +408,90 @@
 			right: 120 * @unit_base;
 		}
 	}
+
+	/*when set the list in drag mode before dragging*/
+	&.dragMode li {
+		/*align-items: center;*/
+		.ui-listview-handler {
+			-webkit-mask-image: url("images/core_grid_button_reorder.png");
+			-webkit-mask-size: 100%;
+			background-color: @color_button_add;
+			display: block;
+			width: 50 * @unit_base;
+			height: 50 * @unit_base;
+
+			flex: 0 1 auto;
+			order: 10;
+			margin: 33 * @unit_base;
+			margin-right: -80 * @unit_base;
+			max-width: 50 * @unit_base;
+		}
+	}
+
+	/*When dragging element*/
+	&.snapshot {
+		li {
+			position: absolute;
+			width: 100%;
+			box-sizing: border-box;
+			transition: top 0.2s linear;
+
+			&.ui-listview-helper {
+				transition: none;
+			}
+
+			&.ui-listview-item.ui-listview-holder {
+				background: none;
+			}
+
+			&.ui-listview-item-moved {
+				opacity: 0.75;
+				background-color: white;
+			}
+		}
+	}
+
+	&.activateHandlers {
+		li {
+			.ui-listview-handler {
+				.animation(button-handler-activate 200ms linear alternate);
+			}
+		}
+	}
+
+	&.deactivateHandlers {
+		li {
+			.ui-listview-handler {
+				.animation(button-handler-deactivate 200ms linear alternate);
+			}
+		}
+	}
+
+	&.cancelAnimation {
+		li {
+			.ui-listview-handler {
+				.animation(none);
+				animation: none;
+				margin-right: 0;
+			}
+		}
+	}
+}
+
+@keyframes button-handler-activate {
+	0% {
+		margin-right: -80 * @unit_base;
+	}
+	100% {
+		margin-right: 0;
+	}
+}
+
+@keyframes button-handler-deactivate {
+	0% {
+		margin-right: 0;
+	}
+	100% {
+		margin-right: -80 * @unit_base;
+	}
 }
