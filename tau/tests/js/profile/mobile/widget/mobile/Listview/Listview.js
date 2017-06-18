@@ -1,7 +1,10 @@
 /* global document, tau, define, module, test, strictEqual, asyncTest, window, ok, Promise, start */
 (function () {
 	"use strict";
-	function runTests(engine, selectors, Page, Listview, helpers) {
+	function runTests(engine, selectors, Page, Listview, helpers, ns) {
+
+		ns = ns || window.ns;
+
 		function initHTML() {
 			return new Promise(function (resolve) {
 				var HTML = helpers.loadHTMLFromFile("/base/tests/js/profile/mobile/widget/mobile/Listview/test-data/sample.html"),
@@ -353,7 +356,487 @@
 			);
 		});
 
+		test("_createHolder", function (assert) {
+			var element = document.getElementById("listview-1"),
+				holderElement,
+				listview;
+
+			listview = new Listview(element);
+			holderElement = listview._createHolder();
+
+			assert.ok(
+				holderElement.classList.contains(Listview.classes.ITEM),
+				"Holder element contains class ITEM"
+			);
+
+			assert.ok(
+				holderElement.classList.contains(Listview.classes.HOLDER),
+				"Holder element contains class HOLDER"
+			);
+		});
+
+		test("_setDirection", function (assert) {
+			var element = document.getElementById("listview-1"),
+				listview;
+
+			listview = new Listview(element);
+
+			listview._setDirection(0, 1);
+
+			assert.equal(
+				listview._direction,
+				-1,
+				"Listview direction is PREV"
+			);
+
+			listview._setDirection(1, 1);
+
+			assert.equal(
+				listview._direction,
+				0,
+				"Listview direction is HOLD"
+			);
+
+			listview._setDirection(1, 0);
+
+			assert.equal(
+				listview._direction,
+				1,
+				"Listview direction is NEXT"
+			);
+		});
+
+		test("_start", function (assert) {
+			var element = document.getElementById("listview-1"),
+				container = document.getElementById("content-1"),
+				listview,
+				stubEvent,
+				liElements,
+				helperStub;
+
+			listview = new Listview();
+			listview.element = element;
+
+			liElements = element.getElementsByTagName("li");
+
+			helperStub = document.createElement("li");
+			container.appendChild(helperStub);
+			listview._ui.helper.element = helperStub;
+
+			stubEvent = {
+				detail: {
+					srcEvent: {
+						srcElement: {
+							parentElement: liElements[0]
+						}
+					}
+				}
+			};
+
+			listview._start(stubEvent);
+
+			assert.ok(
+				listview._ui.helper.element.classList.contains(Listview.classes.HELPER),
+				"Helper element has HELPER class"
+			);
+		});
+
+		test("_move", function (assert) {
+			var element = document.getElementById("listview-1"),
+				container = document.getElementById("content-1"),
+				listview,
+				stubEvent,
+				helperStub;
+
+			listview = new Listview();
+			listview.element = element;
+
+			helperStub = document.createElement("li");
+			container.appendChild(helperStub);
+			listview._ui.helper.element = helperStub;
+
+			stubEvent = {
+				detail: {
+					srcEvent: {
+						srcElement: {}
+					}
+				}
+			};
+
+			helpers.stub(listview, "_appendLiStylesToElement", function () {
+				assert.ok(true, "Method: _appendLiStylesToElement was called.");
+			});
+
+			listview._ui.helper.position = {
+				startTop: 0,
+				moveTop: 0,
+				startIndex: 0
+			};
+
+			listview._move(stubEvent);
+
+			helpers.restoreStub(listview, "_appendLiStylesToElement");
+		});
+
+		test("_destroy", function (assert) {
+			var element = document.getElementById("listview-1"),
+				listview;
+
+			listview = new Listview(element);
+			listview._scrollCallback = {};
+			listview._scrollableContainer = {};
+			listview._pageContainer = {};
+			listview._popupContainer = {};
+			listview.tempUl = {};
+			listview._destroy(element);
+
+			assert.ok(!engine.getBinding("Listview", element), "Listview widget method _destroy was called.");
+			assert.equal(listview._scrollableContainer, null, "Listview scrollable container is set to null.");
+		});
+
+		test("_end", function (assert) {
+			var element = document.getElementById("listview-1"),
+				container = document.getElementById("content-1"),
+				listview,
+				helperStub,
+				liElements;
+
+			listview = new Listview();
+			listview.element = element;
+
+			liElements = element.getElementsByTagName("li");
+			helperStub = document.createElement("li");
+
+			container.appendChild(helperStub);
+
+			listview._ui.holder = liElements[0];
+			listview._ui.helper.element = helperStub;
+
+			listview._end();
+
+			assert.ok(Object.keys(listview._ui.helper).length === 0 && listview._ui.helper.constructor === Object, "Listview helper is empty.");
+		});
+
+		test("_hadleTouchStart", function (assert) {
+			var element = document.getElementById("listview-1"),
+				listview,
+				handlerStub,
+				eventStub;
+
+			handlerStub = document.createElement("div");
+			handlerStub.classList.add(Listview.classes.HANDLER);
+			element.appendChild(handlerStub);
+
+			eventStub = {
+				srcElement: handlerStub
+			};
+
+			listview = new Listview();
+			listview.element = element;
+
+			helpers.stub(ns.event, "off", function () {
+				assert.ok(true, "Method: eventUtils.off was called.");
+			});
+
+			listview._dragMode = true;
+			listview._handleTouchStart(eventStub);
+
+			assert.ok(true, "handleTouchStart method was called.");
+			helpers.restoreStub(ns.event, "off");
+		});
+
+		test("_hadleTouchEnd", function (assert) {
+			var element = document.getElementById("listview-1"),
+				listview,
+				handlerStub,
+				eventStub;
+
+			handlerStub = document.createElement("div");
+			handlerStub.classList.add(Listview.classes.HANDLER);
+			element.appendChild(handlerStub);
+
+			eventStub = {
+				srcElement: handlerStub
+			};
+
+			listview = new Listview();
+			listview.element = element;
+
+			helpers.stub(ns.event, "on", function () {
+				assert.ok(true, "Method: eventUtils.on was called.");
+			});
+
+			listview._dragMode = true;
+			listview._handleTouchEnd(eventStub);
+
+			assert.ok(true, "handleTouchEnd method was called.");
+			helpers.restoreStub(ns.event, "on");
+		});
+
+		test("_handleReorderScroll", function (assert) {
+			var element = document.getElementById("listview-1"),
+				listview,
+				liElements,
+				reorderElementsStub;
+
+			liElements = [].slice.call(element.querySelectorAll("li"));
+			reorderElementsStub = [1, 999];
+
+			listview = new Listview();
+			listview.element = element;
+			listview._reorderElements = reorderElementsStub;
+
+			listview._handleReorderScroll();
+
+			assert.ok(true, "_handleReorderScroll method was called.");
+			assert.equal(liElements[1].style.backgroundColor, "", "Background on element listview element is empty.");
+		});
+
+		test("_setReorderBackground", function (assert) {
+			var element = document.getElementById("listview-1"),
+				listview,
+				liElements;
+
+			listview = new Listview();
+			listview.element = element;
+
+			listview._setReorderBackground();
+			assert.ok(true, "_setReorderBackground method was called.");
+
+			liElements = [].slice.call(element.querySelectorAll("li"));
+
+			assert.equal(liElements[0].style.backgroundColor, "rgb(250, 250, 250)", "First element has proper background color.");
+		});
+
+		test("_appendHandlers", function (assert) {
+			var element = document.getElementById("listview-1"),
+				listview,
+				liElements;
+
+			liElements = [].slice.call(element.querySelectorAll("li"));
+
+			listview = new Listview();
+			listview.element = element;
+			listview._liElements = liElements;
+
+			listview._appendHandlers();
+
+			assert.ok(true, "_appendHandlers method was called.");
+			assert.ok(listview._liElements[liElements.length - 1].lastChild.classList.contains(Listview.classes.HANDLER), "Listview element containst HANDLER class.");
+
+		});
+
+		test("_removeHandlers", function (assert) {
+			var element = document.getElementById("listview-1"),
+				liElements,
+				listview;
+
+			listview = new Listview();
+			listview.element = element;
+
+			liElements = [].slice.call(element.querySelectorAll("li"));
+
+			listview._liElements = liElements;
+
+			listview._appendHandlers();
+			listview._removeHandlers();
+
+			assert.ok(!listview._liElements[0].querySelector("." + Listview.classes.HANDLER), "Handler was removed from listview item.");
+		});
+
+		test("_changeLocationDown", function (assert) {
+			var element = document.getElementById("listview-1"),
+				container = document.getElementById("content-1"),
+				listview,
+				range,
+				liElements,
+				length,
+				holder,
+				helperStub;
+
+			range = 123;
+			length = 4;
+
+			liElements = [].slice.call(element.querySelectorAll("li"));
+			helperStub = document.createElement("li");
+
+			container.appendChild(helperStub);
+
+			listview = new Listview();
+			listview.element = element;
+			listview._liElements = liElements;
+
+			holder = listview._createHolder();
+
+			listview._ui.helper.element = helperStub;
+			listview._recalculateTop();
+			listview._snapshotItems[0] = 50;
+
+			listview._changeLocationDown(range, holder, listview._ui.helper, length);
+
+			assert.ok(true, "_changeLocationDown method was called.");
+		});
+
+		test("_changeLocationUp", function (assert) {
+			var element = document.getElementById("listview-1"),
+				container = document.getElementById("content-1"),
+				listview,
+				range,
+				liElements,
+				length,
+				helperStub;
+
+			range = 123;
+			length = 2;
+
+			liElements = element.getElementsByTagName("li");
+			helperStub = document.createElement("li");
+
+			container.appendChild(helperStub);
+
+			listview = new Listview();
+			listview.element = element;
+
+			listview._ui.holder = liElements[0];
+			listview._ui.helper.element = helperStub;
+
+			listview._changeLocationUp(range, listview._ui.holder, listview._ui.helper, length);
+
+			assert.ok(true, "_changeLocationUp method was called.");
+		});
+
+		test("_prepare", function (assert) {
+			var element = document.getElementById("listview-1"),
+				listview;
+
+			assert.ok(!element.classList.contains(Listview.classes.SNAPSHOT), "Listview doesn't have SNAPSHOT class.");
+
+			listview = new Listview();
+			listview.element = element;
+
+			listview._prepare();
+
+			assert.ok(true, "_prepare method was called.");
+			assert.ok(element.classList.contains(Listview.classes.SNAPSHOT), "Listview has SNAPSHOT class.");
+
+		});
+
+		test("_recalculateTop", function (assert) {
+			var element = document.getElementById("listview-1"),
+				liElements,
+				listview;
+
+			liElements = [].slice.call(element.querySelectorAll("li"));
+
+			listview = new Listview();
+			listview.element = element;
+			listview._liElements = liElements;
+
+			listview._recalculateTop();
+
+			assert.equal(listview._liElements.length, listview._snapshotItems.length, "Offset values were created for each element.");
+			assert.equal(listview._liElements[0].style.top, listview._snapshotItems[0] + "px", "Top value was successfully added to element.");
+		});
+
+		test("_click", function (assert) {
+			var element = document.getElementById("listview-1"),
+				listview;
+
+			element.classList.add(Listview.classes.SNAPSHOT);
+			listview = new Listview();
+			listview.element = element;
+
+			listview._click();
+
+			assert.ok(true, "_click method was called.");
+			assert.ok(!listview.element.classList.contains(Listview.classes.SNAPSHOT), "Listview doesn't contain SNAPSHOT class.");
+		});
+
+		test("toggleDragMode", function (assert) {
+			var element = document.getElementById("listview-1"),
+				scrollableContainer = document.getElementById("page-1"),
+				length,
+				listview;
+
+			length = [].slice.call(element.querySelectorAll("li")).length;
+
+			listview = new Listview();
+			listview.element = element;
+
+			listview._scrollableContainer = scrollableContainer;
+
+			listview.toggleDragMode();
+			assert.ok(listview.element.classList.contains("dragMode"), "Listview contains class dragMode.");
+			assert.equal(listview._liElements.length, length, "liElements were properly created.");
+
+			listview.toggleDragMode();
+			assert.ok(listview.element.classList.contains("deactivateHandlers"), "Listview contains class deactivateHandlers.");
+			assert.ok(!listview.element.classList.contains("cancelAnimation"), "Listview doesn't contain cancelAnimation class.");
+		});
+
+		test("_handleEvent", function (assert) {
+			var element = document.getElementById("listview-1"),
+				listview,
+				elementStub,
+				eventStub;
+
+			elementStub = document.createElement("div");
+			elementStub.classList.add(Listview.classes.HANDLER);
+
+			listview = new Listview();
+			listview.element = element;
+
+
+			eventStub = {
+				type: "click",
+				srcElement: elementStub,
+				detail: {
+					srcEvent: {
+						srcElement: elementStub
+					}
+				},
+				preventDefault: function () {
+				}
+			};
+
+			helpers.stub(listview, "_click", function () {
+				assert.ok(true, "Method: _click was called.");
+			});
+			listview.handleEvent(eventStub);
+			helpers.restoreStub(listview, "_click");
+
+			eventStub.type = "dragprepare";
+			helpers.stub(listview, "_prepare", function () {
+				assert.ok(true, "Method: _prepare was called.");
+			});
+			listview.handleEvent(eventStub);
+			helpers.restoreStub(listview, "_prepare");
+
+			eventStub.type = "dragstart";
+			helpers.stub(listview, "_start", function () {
+				assert.ok(true, "Method: _prepare was called.");
+			});
+			listview.handleEvent(eventStub);
+			helpers.restoreStub(listview, "_start");
+
+			eventStub.type = "drag";
+			helpers.stub(listview, "_move", function () {
+				assert.ok(true, "Method: _prepare was called.");
+			});
+			listview.handleEvent(eventStub);
+			helpers.restoreStub(listview, "_move");
+
+			eventStub.type = "dragend";
+			helpers.stub(listview, "_end", function () {
+				assert.ok(true, "Method: _prepare was called.");
+			});
+			listview.handleEvent(eventStub);
+			helpers.restoreStub(listview, "_end");
+
+			helpers.restoreStub(ns.event, "preventDefault");
+		});
 	}
+
 
 	if (typeof define === "function") {
 		define([
@@ -369,7 +852,8 @@
 			tau.util.selectors,
 			tau.widget.mobile.Page,
 			tau.widget.mobile.Listview,
-			window.helpers
+			window.helpers,
+			tau
 		);
 	}
 }());

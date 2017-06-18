@@ -418,7 +418,6 @@
 
 				// limit canvas for better performance
 				canvasHeight = Math.min(canvasHeight, 3 * window.innerHeight);
-
 				self._canvasHeight = canvasHeight;
 				self._canvasWidth = canvasWidth;
 
@@ -553,7 +552,6 @@
 					this._async(this._frameCallback);
 				}
 			};
-
 
 			/**
 			 * Handles touch start event
@@ -693,11 +691,9 @@
 				if (self._redraw && self._context) {
 					self._handleDraw();
 				}
-
 				if (self._running && self._context) {
 					self._async(self._frameCallback);
 				}
-
 				if (now() - self._lastChange >= MAX_IDLE_TIME) {
 					self._running = false;
 				}
@@ -902,16 +898,13 @@
 					}
 
 					this._backgroundRenderCallback = this._backgroundRender.bind(this);
-
 					this.on("expand collapse", this._backgroundRenderCallback, false);
-
 					// support rotation
 					eventUtils.on(window, "resize", this._backgroundRenderCallback, false);
 
 					if (pageContainer) {
 						eventUtils.on(pageContainer, Page.events.BEFORE_SHOW, this._backgroundRenderCallback);
 					}
-
 					if (popupContainer) {
 						eventUtils.on(popupContainer, Popup.events.transition_start, this._backgroundRenderCallback);
 					}
@@ -957,7 +950,6 @@
 						eventUtils.off(self._pageContainer, Page.events.BEFORE_SHOW, self._backgroundRenderCallback);
 						self._pageContainer = null;
 					}
-
 					if (self._popupContainer) {
 						self._popupContainer.classList.remove(classes.POPUP_LISTVIEW);
 						eventUtils.off(self._popupContainer, Popup.events.transition_start, self._backgroundRenderCallback);
@@ -1034,7 +1026,6 @@
 				//skip first element, as it is canvas with gradient
 				for (; index < length; index++) {
 					item = element.children[index];
-
 					//to not go over same element and when cursor is over the item for 70%
 					if ((helper.element !== item && holder !== item) &&
 						range > (self._snapshotItems[index - 1] + item.offsetHeight * 70 / 100) &&
@@ -1075,7 +1066,6 @@
 
 				for (; index > 0; index--) {
 					item = element.children[index];
-
 					//to not go over same element
 					if ((helper.element !== item && holder !== item) &&
 						//when cursor is over the item for 70%
@@ -1250,19 +1240,24 @@
 				var self = this,
 					reorderElements = self._reorderElements,
 					element = self.element,
-					liElementRect = null,
-					headerHeight = (document.querySelector(".ui-page-active .ui-header").offsetHeight) || 0,
+					liElementRect,
+					headerElement,
+					headerHeight,
 					liElements = slice.call(element.querySelectorAll("li")),
 					opacity = 100,
 					i,
 					nextColor;
+
+				headerElement = document.querySelector(".ui-page-active .ui-header");
+				headerHeight = (headerElement) ? headerElement.offsetHeight : 0;
 
 				self._setColoredBackground(element, false);
 				reorderElements.length = 0;
 
 				for (i = 0; i < liElements.length; i++) {
 					liElementRect = liElements[i].getBoundingClientRect();
-					if ((liElementRect.bottom >= headerHeight) && (liElementRect.top <= (window.innerHeight || document.documentElement.clientHeight))) {
+					if ((liElementRect.bottom >= headerHeight) &&
+						(liElementRect.top <= (window.innerHeight || document.documentElement.clientHeight))) {
 						reorderElements.push(i);
 						nextColor = "rgba(250, 250, 250, " + (opacity / 100) + ")";
 						liElements[i].style.backgroundColor = nextColor;
@@ -1273,7 +1268,6 @@
 					reorderElements.push(reorderElements[reorderElements.length - 1] + 1);
 					liElements[reorderElements[reorderElements.length - 1]].style.backgroundColor = nextColor;
 				}
-
 				if (reorderElements[0] > 0) {
 					reorderElements.unshift(reorderElements[0] - 1);
 					liElements[reorderElements[0]].style.backgroundColor = "white";
