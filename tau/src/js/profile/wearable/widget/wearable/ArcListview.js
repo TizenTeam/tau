@@ -683,6 +683,7 @@
 
 				// increase scroll duration according to length of items
 				// one item more increase duration +25%
+				// scroll duration is set to 0 when animations are disabled
 				state.duration = SCROLL_DURATION * (1 + (abs(state.currentIndex - state.toIndex) - 1) / 4);
 
 				// start scroll animation from current scroll position
@@ -754,6 +755,46 @@
 				} else {
 					self._rollUp();
 				}
+			};
+
+			/**
+			 * Scroll list to index
+			 * @method scrollToPosition
+			 * @param {number} index
+			 * @public
+			 * @return {boolean} True if the list was scrolled, false - otherwise.
+			 * @member ns.widget.wearable.SnapListview
+			 */
+			prototype.scrollToPosition = function (index) {
+				var self = this,
+					state = self._state;
+
+				self.trigger(events.CHANGE, {
+					"unselected": state.currentIndex
+				});
+
+				state.toIndex = index;
+
+				if (state.toIndex > state.items.length - 1) {
+					state.toIndex = state.items.length - 1;
+				}
+
+				if (state.toIndex < 0) {
+					state.toIndex = 0;
+				}
+
+				self._roll();
+			};
+
+			/**
+			 * Get selected index
+			 * @method getSelectedIndex
+			 * @return {number} index
+			 * @public
+			 * @member ns.widget.wearable.SnapListview
+			 */
+			prototype.getSelectedIndex = function () {
+				return this._state.currentIndex;
 			};
 
 			/**
@@ -922,7 +963,7 @@
 						return item.element;
 					}).indexOf(li);
 
-				if (toIndex != state.currentIndex) {
+				if (toIndex !== state.currentIndex) {
 					self.trigger(events.CHANGE, {
 						"unselected": state.currentIndex
 					});
@@ -1063,10 +1104,10 @@
 						self._onClick(ev);
 						break;
 					case "pageshow":
-						if (self._items.length) {
-							// this should be called in next Rrequest animation frame
+						if (self._items.length > 0) {
+							// this should be called in next Request animation frame
 							setTimeout(function () {
-								self._selectItem(0);
+								self._selectItem(self.getSelectedIndex);
 							}, 10);
 						}
 						break;

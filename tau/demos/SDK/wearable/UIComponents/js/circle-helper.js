@@ -10,7 +10,11 @@
 		list,
 		listHelper = [],
 		i,
-		len;
+		len,
+		selectedItem,
+		listWidget,
+		itemStack = [],
+		pop = false;
 
 	// This logic works only on circular device.
 	if (tau.support.shape.circle) {
@@ -23,7 +27,13 @@
 			if (page.id !== "page-snaplistview" && page.id !== "page-swipelist" && page.id !== "page-marquee-list") {
 				list = page.querySelector(".ui-listview");
 				if (list) {
-					listHelper.push(tau.widget.Listview(list));
+					listWidget = tau.widget.ArcListview(list);
+					if (itemStack && pop) {
+						selectedItem = itemStack.pop();
+						listWidget._scrollToItem(selectedItem);
+						pop = false;
+					}
+					listHelper.push(listWidget);
 				}
 			}
 		});
@@ -32,7 +42,16 @@
 		 * pagebeforehide event handler
 		 * Destroys and removes event listeners
 		 */
-		document.addEventListener("pagebeforehide", function () {
+		document.addEventListener("pagebeforehide", function (e) {
+			page = e.target;
+			if (page.id !== "page-snaplistview" && page.id !== "page-swipelist" && page.id !== "page-marquee-list") {
+				list = page.querySelector(".ui-listview");
+				if (list && !pop) {
+					listWidget = tau.widget.ArcListview(list);
+					selectedItem = listWidget._state.currentIndex;
+					itemStack.push(selectedItem);
+				}
+			}
 			len = listHelper.length;
 			/**
 			 * Since the snap list helper attaches rotary event listener,
@@ -43,6 +62,12 @@
 					listHelper[i].destroy();
 				}
 				listHelper = [];
+			}
+		});
+
+		window.addEventListener("tizenhwkey", function (e) {
+			if (e.keyName === "back") {
+				pop = true;
 			}
 		});
 	}

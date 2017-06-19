@@ -61,6 +61,46 @@
 			assert.equal(factors[factors.length - 1], 0, "calcFactors return correct value at last position");
 		});
 
+		QUnit.test("getSelectedIndex", function (assert) {
+			var ArclistWidget = new ArcListview();
+
+			expect(1);
+
+			ArclistWidget._state.currentIndex = 3;
+
+			assert.equal(ArclistWidget.getSelectedIndex(), 3, "getSelectedIndex return correct value.");
+		});
+
+		QUnit.test("scrollToPosition", function (assert) {
+			var ArclistWidget = new ArcListview();
+
+			expect(12);
+
+			ArclistWidget._state.items.length = 3;
+			ArclistWidget._state.currentIndex = 4;
+
+			ArclistWidget.trigger = function (name, data) {
+				assert.equal(name, "change", "Triggered event change");
+				assert.equal(data.unselected, 4, "Triggered event with correct data");
+			};
+
+			ArclistWidget._roll = function () {
+				assert.ok(true, "_roll was called");
+			};
+
+			ArclistWidget.scrollToPosition(1);
+
+			assert.equal(ArclistWidget._state.toIndex, 1, "scrollToPosition change to index.");
+
+			ArclistWidget.scrollToPosition(20);
+
+			assert.equal(ArclistWidget._state.toIndex, 2, "scrollToPosition change to index.");
+
+			ArclistWidget.scrollToPosition(-2);
+
+			assert.equal(ArclistWidget._state.toIndex, 0, "scrollToPosition change to index.");
+		});
+
 		QUnit.test("_updateScale", function (assert) {
 			var listWidget = new ArcListview(),
 				element = document.getElementById("arc-list");
