@@ -82,7 +82,7 @@ cmd.chain(
 		function (logLines, callback) {
 			var now = moment().format("ddd MMM D YYYY");
 
-			logLines = "* " + now + " " + userName + " <" + gitAccount + "> " + tauVersion + "\n" + logLines.replace(/-/g, "\t-");
+			logLines = "* " + now + " " + userName + " <" + gitAccount + "> " + tauVersion + "\n\t" + logLines.replace(/\n-/g, "\n\t-");
 			// save changes to changelog
 			modifyFile(FILE_CHANGELOG, function (data) {
 				return data.replace("%changelog", "%changelog\n" + logLines + "\n");

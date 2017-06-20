@@ -45,11 +45,10 @@ cmd.chain(
 			callback();
 		}],
 	["git log --format=%B -n 1", function (result, callback) {
-		var regexData = result.match(/OAPTAU-[0-9]+/),
-			err = new Error("you didn't add tag like [OAPTAU-123]");
+		var regexData = result.match(/OAPTAU-[0-9]+/);
 
 		if (regexData === null) {
-			throw err;
+			propertiesObject.projectVersion = commitId;
 		} else {
 			if (mode === "gerrit") {
 				propertiesObject.projectName += " - " + regexData[0];
@@ -58,8 +57,8 @@ cmd.chain(
 			} else {
 				propertiesObject.projectVersion = regexData[0];
 			}
-			callback();
 		}
+		callback();
 	}], function (cb) {
 		Object.keys(propertiesObject).forEach(function (key) {
 			properties += "\nsonar." + key + "=" + propertiesObject[key];
