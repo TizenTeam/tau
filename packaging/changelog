@@ -1,4 +1,452 @@
 %changelog
+* Tue Jun 20 2017 Maciej Urbanski <m.urbanski@samsung.com> 0.13.30
+	- tool(jira-watcher): Change username in JIRA watcher
+	- test(wearable): ui-test:p.24 page-indicator
+	- tests(wearable): UI-Tests: 30-list-fadeout-2
+	- tests(mobile): UI-Tests - page 16 end effects
+	- tests(wearable): UI-Tests fix for 11-basic-grid
+	- test(wearable): 25-page-indicator-horizontal-7-dots
+	- test(wearable): ui-test 26-page-indicator-horizontal-dot-6
+	- fix(mobile): UI-Test add: 23-page-ind-circ-horizontal-dot-19
+	- test(mobile): ui-test 133-color-picker
+	- test(wearable): 22-index-scroll
+	- test(mobile): ui-test 177-text-overflow
+	- fix(wearable): Fixes some UI-tests that didn't run properly
+	- fix(mobile): UI-Test add: 181-time-and-date-picker
+	- tests(wearable): UI-Tests 21-circularly-horizontal-bar
+	- tests(wearable): UI-Tests 20-circularly-vertical-bar
+	- fix(mobile): UI-Test screen update: 173-search-bar-clear-btn
+	- fix(mobile): UI-Test add: 169-device-option-popup
+	- fix(mobile): UI-Test add: 158-light-view-grid
+	- fix(mobile): UI-Test add: 157-light-view-more
+	- fix(mobile): UI-Test add: 155-light-view-camera
+	- tests(mobile) UiTests: 182-three-bottom-buttons
+	- fix(mobile): UI-Test change tests for p.178-179
+	- test(mobile): ui-test 77-grid-view-with-label-2
+	- tests(mobile): UiTests - 131-date-picker-within-popup
+	- fix(mobile): UI-Test add: 153-more-menu landscape
+	- fix(mobile): UI-Test add: 48-index-scroll-with-floating-btn
+	- fix(mobile): UI-Test add: 139-popup-2-buttons-keyboard
+	- tests(mobile) 80-grid-view verify
+	- fix(wearable) Add support of rotary event in SectionChanger
+	- tests(mobile) 74-grid verify
+	- fix(mobile): UI-Tests: small config json fix
+	- tests(mobile): UI-Test Update: 136-popup-landscape
+	- tests(mobile): UI-Test Update: 129-timer-picker image
+	- tests(mobile) 79-grid-view-additional-elements verify
+	- fix(mobile): UI-Test add: 110-dropdown-menu
+	- tests(mobile): UI-Test Update: 107-text-input
+	- tests(mobile) 75-grid-view verify
+	- fix(mobile): UI-Test add: 30-tabs-with-icon
+	- tests(mobile): UI-Test Update: 46-index-scrollbar-landscape
+	- fix(mobile): UI-Test add: 29-list-tab-4-landscape
+	- tests(mobile): UI-Test Update: 35-list-tab-2-title
+	- fix(wearable): Fix elements position in listview
+	- tests(mobile): UI-Test Update: 130-date-picker-1
+	- tests(mobile): UI-Test Update: 100-toggle-html-fix
+	- tests(mobile): UI-Test Update: 131-date-picker-2
+	- tests(wearable): UI-Test Update: 49-sending-effect
+	- tests(wearable): UI-Test Update: 103-end-effect-left
+	- tests(wearable): UI-Test Update: 73-date-picker-year
+	- fix(wearable): UI-Test add: 45-progress-indicator-full
+	- fix(wearable): UI-Test add: 111-bottom-button-text-1l
+	- tests(mobile) 27-list-tab-long-landscape
+	- tests(mobile) 38-landscape
+	- test(wearable): ui-tests 54-button-unchecked
+	- tests(wearable): UI-Test Update: 70-date-picker
+	- tests(wearable): UI-Test Update: 72-date-picker-31-day
+	- tests(wearable): UI-tests - 81-popup-btn-1-line [OAPWAF-702]
+	- tests(wearable): 98-empty-state-no-items
+	- tests(wearable): UI-Test Update: 85-more-options
+	- fix(wearable): UI-Test add: 82-popup-with-progress-1line
+	- fix(wearable): UI-Test add: 111-bottom-button-text-2l
+	- tests(wearable): UI-Test Update: 72-date-picker-30-day
+	- fix(wearable): UI-Test add: 108-Popup-2-buttons-with-img-5l
+	- fix(wearable): UI-Test add: 82-popup-with-progress-2lines
+	- fix(wearable): UI-Test add: 108-popup-2-buttons-title
+	- fix(wearable): UI-Test add: 108-Popup-2-buttons-with-img-3l
+	- fix(wearable): UI-Test add: 107-popup-2-buttons-8-lines
+	- tests(wearable): UI-tests - 81-popup-btn-6-lines
+	- tests(wearable): UI-Test Update: 84-graphic-toast-popup-2-lines
+	- tests(wearable): UI-tests - 81-popup-btn-2-lines [OAPWAF-703]
+	- fix(wearable): UI-Test add: 83-text-toast-popup-2-lines
+	- tests(wearable): UI-Test Update: 71-date-picker-29-day
+	- tests(wearable): UI-Test Update: 103-end-effect-top
+	- tests(wearable): 114-slider-with-1-line-text
+	- fix(wearable): UI-Test add: 113-bottom-btn-txt-pos-with-img-100px
+	- tests(wearable): UI-Test Update: 89-more-options-open-with-subtext
+	- fix(wearable): UI-Test add: 116-hyper-link
+	- tests(wearable): UI-Test Update: 103-end-effect-right
+	- tests(wearable): UI-tests - 69-number-picker
+	- tests(wearable): UI-tests - 101-load-more-content
+	- fix(wearable): UI-Test add: 113-bottom-btn-txt-pos-with-img-74px
+	- tests(wearable): UI-Test Update: 112-bottom-button-big-img
+	- fix(wearable): UI-Test add: 112-bottom-btn-txt-pos-with-img-74px
+	- tests(wearable): UI-Test Update: 71-date-picker-28-day
+	- fix(wearable): UI-Test add: 109-popup-2-btn-with-text-btn2
+	- fix(wearable): UI-Test add: 111-bottom-button-text-4l
+	- tests(wearable): 96-options-with-icon-and-subtext
+	- fix(wearable): UI-Test add: 110-bottom-button-text-position
+	- tests(wearable): UI-Test Update: 103-end-effect-bottom
+	- fix(wearable): UI-Test add: 109-popup-2-btn-with-text-btn
+	- tests(wearable): 96-more-options-open-with-icon
+	- tests(wearable): UI-tests - 81-popup-btn-4-lines
+	- tests(wearable): UI-Test Update: 86-more-options-open
+	- fix(wearable): UI-Test add: 83-text-toast-popup-3-lines
+	- tool(UI-tests): Crop circle in wearable
+	- tool(Jenkins): Make jenkins process faster
+	- tests(wearable): UI-Test Update: 84-graphic-toast-popup-1-line
+	- tests(wearable): 114-slider-with-2-lines
+	- tests(wearable) karma tests for snaplistview
+	- tests(wearable): 99-empty-state-add-items-1-line
+	- tests(wearable): UI-tests - 75-time-picker-24h
+	- tests(wearable): UI-Test Update: 59-checkbox-unchecked
+	- tests(wearable): UI-Test Update: 59-checkbox-checked
+	- tests(wearable): 99-empty-state-add-items-2-lines
+	- tests(wearable): UI-Test Update: 58-on-off-switch-unchecked
+	- tests(wearable): UI-Test Update: 58-on-off-switch-checked
+	- fix(wearable) UI-Test add: 78-Popup-general
+	- tests(wearable): UI-tests - 63-entry-input
+	- tests(wearable): UI-tests - 66-SDK-entry-input
+	- tests(wearable): UI-tests - 65-SDK-entry-input
+	- tool(theme-converter): Fix main colors in color converter
+	- tests(wearable): UI-Tests add: 61-radio-off
+	- fix(wearable) UI-Test add: 80-Popup-2-buttons-and-small-checkbox
+	- tests(wearable): UI-tests - 76-color-picker
+	- fix(wearable) UI-Test add: 80-Popup-2-buttons
+	- tests(wearable): UI-Tests add: 61-radio-on
+	- tests(wearable): UI-tests - 74-time-picker
+	- fix(wearable): UI-Test add: 54-select-button-action-button-checked
+	- tests(wearable): UI-Test Update: 48-activity-indicator-small
+	- tests(wearable): UI-Tests add: 57-select-mode-action-popup-selectall
+	- tests(wearable) UI-Tests add: 56-select-mode-action-popup
+	- fix(all): UI-Tests - removing screenshots after test
+	- tests(wearable): UI-tests add: 68-slider-zero
+	- tests(wearable): UI-tests add: 67-slider
+	- tests(wearable): UI-tests add: 62-text-input-placeholder-disabled
+	- tests(wearable): UI-tests add: 62-text-input-placeholder
+	- tests(wearable): UI-Test Update: 53-text-button
+	- fix(wearable): UI-Test add: 47-activity-indicator
+	- fix(wearable): UI-Test add: 46-progress-indicator-small
+	- test(wearable): UI-Tests add: 44-grid-thumbnails-center
+	- tests(wearable): UI-tests add: 60-checkbox-small
+	- fix(wearable): UI-Test add: 42-grid-moved-at-right
+	- fix(all): UI-Tests - disable screen timeout
+	- fix(all): UITests engine - added error handler
+	- test(wearable): ui-tests 32-list-font-color
+	- fix(wearable) UI-Test add: 34-list-with-icon
+	- fix(wearable): UI-Test add: 35-list-with-icon-and-subtext
+	- fix(wearable): UI-Test add: 39-list-button
+	- tests(wearable): UI-Test Update: 48-activity-indicator-at-list
+	- tests(wearable): UI-Test Update: 51-bottom-button
+	- tests(wearable): UI-Test Update: 52-bottom-button-and-content
+	- fix(wearable): UI-Test add: 41-grid
+	- tests(mobile): UI-Test Update: 126-time-picker-1
+	- tests(mobile): UI Test Update: 125-number-picker-1
+	- fix(wearable) UI-Test add: 33-list-font-layout
+	- fix(wearable) UI-Test add: 18-header-title
+	- tests(mobile): Listview - increase covereage of unit tests
+	- fix(mobile): UI Test Update: 100-toggle-on-off-list
+	- tests(mobile): UI-Test Update: 129-time-picker-2
+	- fix(wearable): UI-Test add: 38-list-divider
+	- tests(mobile): UI-Test Update: 124-number-picker
+	- test(mobile): covering new lines in PanelChanger
+	- tests(mobile) cover tests for Slider
+	- tests(mobile): Popup mobile test coverage
+	- tests(mobile) cover tests for TextEnveloper
+	- fix(mobile): UI Test Screen Update: 93-box-buttons
+	- fix(wearable): UI-Test add: 37-list-groupindex
+	- tests(core): Popup test coverage
+	- tests(mobile): Unit tests for FloatingActions widget
+	- fix(wearable): UI-Test add: 36-list-with-icon-and-multiline
+	- fix(wearable) UI-Test add: 31-list-font
+	- fix(mobile): UI Test Screen Update: 136-popup-2-buttons
+	- fix(mobile): UI Test Screen Update: 119-slider-vertical-2
+	- fix(wearable) UI-Test add: 30-list-fadeout
+	- fix(wearable) UI-Test add: 29-list-sublines
+	- fix(wearable) UI-Test add: 28-list
+	- fix(mobile): Fix duplicated ids in sliders pages in UI tests
+	- fix(mobile): UI Test Screen Update: 118-slider-vertical
+	- fix(mobile): UI Test Screen Update: 160-floating-button
+	- fix(mobile): UI Test Screen Update: 162-floating-button-4
+	- fix(mobile): Wrong size of some of the larger colored list elements
+	- tool(tests) Copy TCT tests to tizen.org repository
+	- fix(mobile): UI Test Screen Update: 162-floating-button-3
+	- fix(mobile): UITests - update pattern image for 121-sliders
+	- fix(mobile): UI Test Screen Update: 108-email-input
+	- fix(mobile): UI Test Screen Update: 161-floating-button-2
+	- fix(mobile):UI Test Screen Update: 153-more-menu
+	- fix(mobile): UI Test Screen Update: 162-floating-button-5
+	- fix(mobile): UITests - update pattern image for 120-slider-vertical-3
+	- fix(mobile): UI Test Screen Update: 142-popup-2-buttons-image
+	- fix(mobile): add UI-Test for 81-gridview-within-popup
+	- fix(wearable) UI-Test add: 11-basic-grid
+	- fix(mobile) UI-Test add: 83-multiline-gridview-within-popup
+	- fix(mobile): UITests - update pattern image for 144-popup-2-buttons-checkbox
+	- fix(mobile): UITests - update pattern image for 46-index-scroll-bar
+	- fix(mobile): UITests - update pattern image for 53-normal-list
+	- fix(wearable) UI-Test add: 10-basic-grid
+	- fix(mobile): UI Test Screen Update: 96-bottom-buttons
+	- fix(mobile): Unit tests for TextInput widget
+	- tool(ui-test): Custom threshold for UI tests
+	- fix(mobile): fix background gridview
+	- fix(mobile): UITests - update pattern image for 85-group-index-with-checkbox
+	- fix(mobile): UI Test Screen Update: 84-group-index
+	- fix(mobile): UI Test Screen Update: 90-list-with-circle-button
+	- fix(mobile): UI Test Screen Update: 88-activity
+	- fix(mobile): UI Test Screen Update Screen: 111-dropdown-menu
+	- tool(grunt): Increase qunit timeout
+	- fix(mobile): UI Test Screen Update: 111-dropdown-menu
+	- fix(mobile): Matched text example layout - 179
+	- fix(mobile): Unnecessary border in dropdown menu items
+	- fix(mobile): UI-Tests: Check and fix layout in 106-text-input
+	- fix(mobile): Missing bottom background in Navigation Bar listview
+	- fix(mobile): UI Test Screen Update: 39-tabs-with-title-with-icons
+	- tool(jenkins): Update Jenkinsfile
+	- fix(mobile): UI-Tests: fixed layout of test 85
+	- fix(mobile): Toast Popup border too thick
+	- fix(mobile): UI Test Screen Update: 21-list-with-back
+	- tool(ui-tests): New tool to compare images - multi types
+	- tool(ui-tests): New tool to compare images
+	- fix(mobile): Popup with listview - wrong layout and colors
+	- fix(mobile): Header title isn't centered vertically
+	- fix(mobile): GroupIndex - add divider line
+	- fix(mobile): UI-Tests: Wrong font color in Details (176-details)
+	- fix(mobile): Checkboxes on listview 'on-off' have wrong top position
+	- fix(mobile): UI-Tests: Check and fix horizontal sliders (121-sliders.html)
+	- fix(mobile): UI-Tests: Check and fix vertical sliders' layout (118, 119, 120)
+	- fix(mobile): Toast Popup Animation
+	- fix(mobile): UITests - update pattern image for 41-navigation-bar-3
+	- fix(mobile): Disable colored listview in contextual popup
+	- fix(mobile): Missing bottom background in listview when navigating backwards
+	- test(all): Fix wrong number of assertions in route.popup test
+	- fix(mobile): SearchBar: remove right padding under clear button when clear button is not visible
+	- fix(mobile): UITests - update pattern images for listview
+	- fix(mobile): UI Test Screen Update: 29-list-tab-4-icons
+	- fix(wearable): Fix problem with not showing selected item
+	- fix(mobile): UIComponents - wrong icon for back button
+	- fix(mobile): Toggle - problem with icon color on deactive state
+	- fix(mobile): Tabs - wrong icon top position
+	- fix(mobile): Tabs - blinking rectangle on going to landscape mode in title with icon
+	- fix(mobile): MoreMenu in landscape mode - wrong layout
+	- fix(mobile): Check (& fix) Text Enveloper Layout
+	- fix(mobile): Contextual Popup Scrollbar Layout
+	- fix(mobile): UI Test Screen Update: 35-list-tab-2-title
+	- fix(mobile): UI Test Screen Update: 38-list-tab-long-title
+	- fix(mobile): UI Test Screen Update: 25-list-with-2-tabs
+	- fix(mobile): UI Test Screen Update: 28-list-tab-3
+	- fix(mobile): UI Test Screen Update: 27-list-tab-long
+	- fix(mobile): UI Test Screen Update: 19-list
+	- fix(mobile): UI Test Screen Update: 11-list
+	- fix(mobile): Expandable List - colored list problem
+	- fix(mobile) Remove unused Selectable List Style
+	- fix(mobile): Contextual Popup Layout
+	- fix(mobile): Bottom Button Label
+	- fix(mobile): Listview in popup - colored background doesn't work
+	- fix(mobile): fixed Slider range
+	- fix(mobile): Colored List: wrong background color of content bottom list in tabs
+	- fix(mobile): Listview with moremenu - no colored background
+	- fix(mobile) Grid - Select all - wrong color
+	- fix(core): fix content height calculation
+	- fix(mobile): UIComponents: Controls > SearchInput update colored list after search
+	- fix(mobile): UIComponents: Controls > SearchBar update colored list after search
+	- fix(mobile) Clear button is overlapped by text in Text Input
+	- fix(mobile): Gridview - scroll problem on case with outer labels
+	- fix(mobile): Virtuallist - support for colored list
+	- fix(mobile): Text buttons in Header should have correct position
+	- fix(mobile) Toast popup - wrong position
+	- fix(mobile): Toast Popup - shadow effect disabled
+	- fix(mobile) UI-Tests: wrong shape of image in test 98-text-button
+	- fix(mobile) Activity Bar wrong layout
+	- fix(mobile): UIComponents: GroupIndex has wrong color
+	- fix(mobile): Circle buttons on listview - wrong size in UI-Tests
+	- fix(mobile): UI-Test: wrong search bar input layout
+	- fix(mobile): Radio is not centered vertically in UIComponents > List OnOff
+	- fix(mobile): UIComponents - update IndexScrollBar example
+	- fix(mobile): Wrong header margins when no buttons
+	- fix(mobile): UI-Tests - increase timeout from change page to take a screenshot
+	- fix(mobile): Wrong email input layout
+	- fix(mobile): Radio Button list layout
+	- fix(mobile) Navigation Bar - colors like in UX guide
+	- fix(mobile): Box buttons on listview - wrong size of list item
+	- fix(mobile): UIComponents - OnOff List  Toggle layout issue
+	- fix(mobile) Fix SonarCube important errors in mobile
+	- fix(mobile): UIComponents - Listview with group index static version layout fixed
+	- fix(mobile): Navigation bar - wrong title position in header
+	- fix(mobile): UI-Tests: Index Scroll bar - check sizes of side bar
+	- fix(mobile): Empty state fixes
+	- fix(wearable): Fix and refactor of SnapListMarqueeStyle helper
+	- fix(mobile): List with circle button - wrong layout
+	- fix(mobile): Tabs - wrong space between text and icon
+	- fix(mobile): UIComponents - fixed wrong right margin of elements
+	- fix(mobile): Button in header - wrong width
+	- fix(mobile): Header - bug in .less causes layout issue
+	- fix(mobile): UI-Tests - empty state and navigation fixes
+	- fix(mobile): UIComponents: cannot exit from TextInput field
+	- fix(mobile): Tabs - layout issues in landscape mode
+	- fix(mobile): UI-Tests - wrong screenshot size for test 11-list
+	- fix(mobile): When write in textarea and textarea is extended then listview colors is not changed
+	- fix(mobile): making whole title visible in landscape
+	- fix(mobile) Recomendations/Details page - wrong background color
+	- fix(mobile): Removed background from images in list styles
+	- fix(mobile) Tabs - badge on tabbar was wrong layout
+	- fix(mobile): Page indicator, move the exmaple to navigation elements
+	- fix(mobile): Listview - unused spece below list has wrong color
+	- fix(mobile): Toggle Button - fixed wrong position
+	- fix(mobile): Fixed height of text input in search input page
+	- fix(mobile): improving List Styles sample
+	- fix(mobile): Welcome Page - Fixed color of bottom button
+	- fix(mobile): Tabs - fix in margin for texts in tabs
+	- fix(mobile): fix press effect in Text Enveloper
+	- fix(mobile): Empty state - wrong example layout
+	- fix(npm): Removed CLDR from package.json
+	- bug(mobile): Search bar bugs
+	- bug(mobile): Check size of icon in search bar
+	- tool(Jenkins): Fix general problems in Jenkins
+	- fix(mobile) Navigation Bar - remove colors on background, do list looks like in UX guide
+	- fix(mobile): UIComponents - cancel button does not work
+	- fix(mobile): Checkboxes - fixed label position
+	- tool(jenkins): UI tests in Jenkins
+	- feature(wearable): UI-Tests engine to connection with device by sdb
+	- fix(ui-tests) improvment of ui tests engine
+	- bug(mobile): Recommendation > Three Bottom Buttons, Disabled button has a wrong background
+	- fix(wearable): enable Marquee List for rectangular
+	- fix(mobile):   UI tests for NavigationView
+	- test(mobile) UI tests for Single page template
+	- tool(developmnet): Development tool to support workflow
+	- fix(wearable): Load more content - fixed UI
+	- fix(mobile): Improved Single Page template
+	- fix(wearable): Fixed UI of processing on list
+	- tests(wearable): UI tests - update images for wearable
+	- feature(core): Additional switcher to activate circle
+	- fix(wearable): Improved divide list layout
+	- fix(mobile): Fixed issue with color of text on Welcome Page
+	- fix(mobile): Fixed exception in Globalize App
+	- fix(mobile): Fixed UI of Globalize App
+	- fix(wearable): Fixed Button List
+	- fix(wearable): Improved Progress Component
+	- fix(wearable): Improved Header Title with Subtitle
+	- fix(mobile): UIComponents - content for more menu with button has wrong layout
+	- fix(mobile) Listview - colored list has been wrong drawing on navigation tabs
+	- tool(quality): Improve SonarCube analytics
+	- fix(mobile): UIComponents - fix tau symlink
+	- fix(core): Engine: some @todo comments are deprecated
+	- fix(core): Engine - reduce complexity of methods getBinding() and destroyAllWidgets
+	- fix(core): Engine - reduce complexity of method processWidget
+	- fix(core): Engine - issues reported by SonarQube
+	- fix(core): Router - reduce complexity of open method
+	- fix(core): Router - reduce complexity of popStateHandler
+	- fix(core): Router refactoring - fix minor issues detected by sonarQube
+	- fix(wearable): Fix SonarCube errors in ArcListview
+	- fix(wearable): Improved Input List Text Area
+	- fix(wearable): Slider for square wearable - layout issue
+	- fix(demos): Template TAUMultipage - back button issue
+	- tool(jenkins): Fix clover.xml generator
+	- fix(wearable): Full Processing UI fix for square profile
+	- fix(wearable): Layout of hyperlink in rectangle
+	- fix(mobile): Improved NavigationView Template
+	- fix(wearable): Fix button layout in rectangle
+	- fix(wearable): Selector - fix from icons issue
+	- refactor(core): Fix interface of Router/route
+	- test(mobile): Fix UI test for Expandable
+	- fix(mobile): Fix layout of Expandable
+	- feature(wearable): new widget NumberPicker
+	- fix(mobile): Improved MultiPage Template
+	- fix(mobile): Improved MasterDetail Template
+	- fix(wearable): fixing Multimple Buttons sample
+	- feat(wearable) New widget CircleIndicator and sample application
+	- fix(mobile) Fix height of listview
+	- fix(wearable): Animation Template fix
+	- fix(wearable): improving Template List structure
+	- fix(wearable): improving Template Basic structure
+	- fix(all): fix for "display: flex" in css prefixer.ext
+	- fix(mobile): fix NavigationBar
+	- demo(mobile) App to test that WebUI is put to /usr
+	- feature(wearable): Make ArcListview default in circle
+	- tests(core): Extend tests for mobile.Page
+	- fix(wearable) Fix TCT tests for SectionChanger
+	- tests(all): adding tests to core module AnchorHighlight
+	- sample(mobile): Expandable list from JS
+	- test(core): Add new tests for util.array
+	- clean(all): Remove unused old files
+	- refactor(core): Refactor of core.defaults module
+	- tests(core): Add tests for util.date
+	- tests(core): Tests for Radio
+	- tests(core): add tests for util.string
+	- tests(core): Tests for Checkbox
+	- tests(core): Extend tests for util.DOM
+	- tests(core): extend tests for util.easing
+	- test(wearable): fix orientationchange tests for TCT
+	- test(mobile) fix TCT test tau/tests/js/core/widget/core/scroller/Scroller
+	- tool(release): Add script to release
+	- feature(wearable): Listview - prototype of arc listview for wearable
+	- TAU 0.13.29 release
+	- tests(mobile): fix TCT tests for js/jqm/router/router.html
+	- tests(all): Add tests for util.rotaryEvent
+	- tool(jenkins): Move Jenkinsfile from jenkins branch
+	- fix(all): Fix lesslist/eslint errors
+	- fix(all): Fixes in code connected with documentation
+	- tool(docs): Fix eslint errors
+	- feat(core): Fixes in tool to generate documentation
+	- tool(all): Use autoprefixer module in grunt flow
+	- fix(all) prepare the polar util and fix tests
+	- tool(jenkins): Improvment in jenkins flow
+	- feature(core): Add support of scrolling on rotary event
+	- tool(jenkins) Fix Jenkinsfile and add tool to trigger
+	- tool(all): User performance reporter
+	- tool(jenkins) fix gerrit get
+	- tool(jenkins) Jenkinsfile
+	- tests(mobile): Disabling of several invalid tests that cause TCT issue on device
+	- tests(wearable): Disabling of several invalid tests that cause TCT issue on device
+	- tests(all) Increase tests for ns.widget.core.PageIndicator
+	- tests(core) Button additional tests
+	- tests(all): adding tests to core module Router
+	- tests(core) orientation detection additional tests
+	- test(core): add tests for core.PageContainer
+	- test(mobile_support): Reenable mobile_support tests in mobile widgets
+	- tests(core) orientation detection tests
+	- test(wearable): Reenable wearable tests for Drawer
+	- tests(all) Remove unused methods for TabIndicator
+	- fix(all): Reorganize test files
+	- tests(all) enable tests for scroller.Scroller
+	- tests(all) Enable and add tests for SectionChanger
+	- tests(all) Add  tests for gesture.Swipe
+	- tests(all) Add  tests for gesture.LongPress
+	- tests(all) Add  tests for gesture.Instance
+	- tests(core) Popup route unit tests
+	- fix(mobile): Fix building floating buttons on no-content page
+	- tests(all) Add test for util.polar
+	- test(wearable) Fix for SwipeList TCT tests (OAPTAU-237)
+	- test(wearable) Removing duplicate test scenario for VirtualGrid and VirtualList
+	- tests(mobile) Fix tests to wearable.VirtualGrid
+	- tests(all) Fix tests to wearable.VirtualList
+	- tests(all) TCT for core/util/anchorHighlight fails on wearable device
+	- test(all) Fix for util.selectors test
+	- fix(wearable) Fix TCT for circular wearable config test (OAPTAU-223)
+	- fix(all) fix TCT tests for tests/js/core/util/DOM/css/css.html
+	- doc(mobile): Fixed inline documentation in listview
+	- refactor(mobile): new colored Listview
+	- fix(all) TCT grunt task makes eslint issue
+	- tests(all) Add  tests for gesture.Pinch
+	- tests(all) Add tests for gesture.Drag
+	- tests(all) Add  tests for gesture.Manager
+	- tests(all): fix TCT grunt task for mobile profile
+	- tests(core) tau.event.vemouse unit tests refactor and increase coverage
+	- tests(core) tau.utils increase unit tests coverage
+	- fix(all): fix tests for util.selectors
+	- fix(all) Fix preparing TCT packages
+	- refactoring(all) Remove ns.theme module and dependencies
+	- fix(mobile) Fix engine tests
+	- fix(wearable) Fix working of circle Slider
+	- refactoring(mobile) Remove Box widget and dependencies
+	- feat(all): Fix tests for util selectors
+	- feature(tests) Add helper to load HTML in tests from files
+	- fix(tool): Fix release script
+	- feat(mobile): add opening more menu from button
+	- fix(tests) Fix tests for Marquee
+	- fix(tests) Fix tests for Navigation
+
+
 * Wed Mar 8 2017 Maciej Urbanski <m.urbanski@samsung.com> 0.13.29
 	- test(mobile): fix TCT tests for js/jqm/router/router.html
 	- test(all): Add tests for util.rotaryEvent
