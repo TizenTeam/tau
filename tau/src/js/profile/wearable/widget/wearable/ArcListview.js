@@ -57,6 +57,9 @@
 				TOUCH_MOVE_TIME_THRESHOLD = 140,
 				// in px
 				TOUCH_MOVE_Y_THRESHOLD = 10,
+				// time of animation in skip animation mode, this is one animation frame and animation is
+				// invisible
+				ONE_FRAME_TIME = 40,
 
 				/**
 				 * Alias for class {@link ns.engine}
@@ -673,10 +676,11 @@
 			/**
 			 * Redraw list after roll down/up
 			 * @method _roll
+			 * @param {number} duration Time of rolling
 			 * @memberof ns.widget.wearable.ArcListview
 			 * @protected
 			 */
-			prototype._roll = function () {
+			prototype._roll = function (duration) {
 				var self = this,
 					state = self._state,
 					scroll = state.scroll;
@@ -684,7 +688,8 @@
 				// increase scroll duration according to length of items
 				// one item more increase duration +25%
 				// scroll duration is set to 0 when animations are disabled
-				state.duration = SCROLL_DURATION * (1 + (abs(state.currentIndex - state.toIndex) - 1) / 4);
+				state.duration = duration !== undefined ? duration :
+					SCROLL_DURATION * (1 + (abs(state.currentIndex - state.toIndex) - 1) / 4);
 
 				// start scroll animation from current scroll position
 				scroll.from = scroll.current;
@@ -761,11 +766,12 @@
 			 * Scroll list to index
 			 * @method scrollToPosition
 			 * @param {number} index
+			 * @param {boolean} skipAnimation
 			 * @public
 			 * @return {boolean} True if the list was scrolled, false - otherwise.
 			 * @member ns.widget.wearable.SnapListview
 			 */
-			prototype.scrollToPosition = function (index) {
+			prototype.scrollToPosition = function (index, skipAnimation) {
 				var self = this,
 					state = self._state;
 
@@ -783,7 +789,11 @@
 					state.toIndex = 0;
 				}
 
-				self._roll();
+				if (skipAnimation) {
+					self._roll(ONE_FRAME_TIME);
+				} else {
+					self._roll();
+				}
 			};
 
 			/**
@@ -907,6 +917,11 @@
 				}
 			};
 
+			function showHighlight(arcListviewSelection, selectedElement) {
+				arcListviewSelection.style.height = selectedElement.getBoundingClientRect().height + "px";
+				arcListviewSelection.classList.add(classes.SELECTION_SHOW);
+			}
+
 			/**
 			 * Handler for event select
 			 * @method _selectItem
@@ -916,13 +931,17 @@
 			 */
 			prototype._selectItem = function (selectedIndex) {
 				var ui = this._ui,
-					state = this._state;
+					state = this._state,
+					selectedElement = state.items[selectedIndex].element;
 
-				eventUtils.one(state.items[selectedIndex].element, "transitionend", function () {
-					ui.arcListviewSelection.style.height = state.items[selectedIndex].element.getBoundingClientRect().height + "px";
-					ui.arcListviewSelection.classList.add(classes.SELECTION_SHOW);
-				});
-				state.items[selectedIndex].element.classList.add(classes.SELECTED);
+				if (selectedElement.classList.contains(classes.SELECTED)) {
+					showHighlight(ui.arcListviewSelection, selectedElement);
+				} else {
+					eventUtils.one(selectedElement, "transitionend", function () {
+						showHighlight(ui.arcListviewSelection, selectedElement);
+					});
+					selectedElement.classList.add(classes.SELECTED);
+				}
 			};
 
 			/**
@@ -963,7 +982,7 @@
 						return item.element;
 					}).indexOf(li);
 
-				if (toIndex !== state.currentIndex) {
+				if (toIndex && toIndex !== state.currentIndex) {
 					self.trigger(events.CHANGE, {
 						"unselected": state.currentIndex
 					});
@@ -1102,14 +1121,6 @@
 						break;
 					case "vclick" :
 						self._onClick(ev);
-						break;
-					case "pageshow":
-						if (self._items.length > 0) {
-							// this should be called in next Request animation frame
-							setTimeout(function () {
-								self._selectItem(self.getSelectedIndex);
-							}, 10);
-						}
 						break;
 					default:
 						break;

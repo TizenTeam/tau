@@ -347,7 +347,7 @@
 					assert.ok("Called event callback function");
 				};
 
-			expect(7);
+			expect(6);
 			listWidget.element = element;
 			listWidget._onTouchMove = testStub;
 			listWidget._onRotary = testStub;
@@ -377,9 +377,6 @@
 			});
 			listWidget.handleEvent({
 				type: "vclick"
-			});
-			listWidget.handleEvent({
-				type: "pageshow"
 			});
 			listWidget.handleEvent({
 				type: "click"
@@ -465,6 +462,46 @@
 			assert.equal(element2.classList.contains("ui-arc-listview"), false, "class ui-arc-listview is added ");
 
 			helpers.restoreStub(ns, "warn");
+		});
+
+		QUnit.test("getSelectedIndex", function (assert) {
+			var ArclistWidget = new ArcListview();
+
+			expect(1);
+
+			ArclistWidget._state.currentIndex = 3;
+
+			assert.equal(ArclistWidget.getSelectedIndex(), 3, "getSelectedIndex return correct value.");
+		});
+
+		QUnit.test("scrollToPosition", function (assert) {
+			var ArclistWidget = new ArcListview();
+
+			expect(12);
+
+			ArclistWidget._state.items.length = 3;
+			ArclistWidget._state.currentIndex = 4;
+
+			ArclistWidget.trigger = function (name, data) {
+				assert.equal(name, "change", "Triggered event change");
+				assert.equal(data.unselected, 4, "Triggered event with correct data");
+			};
+
+			ArclistWidget._roll = function () {
+				assert.ok(true, "_roll was called");
+			};
+
+			ArclistWidget.scrollToPosition(1);
+
+			assert.equal(ArclistWidget._state.toIndex, 1, "scrollToPosition change to index.");
+
+			ArclistWidget.scrollToPosition(20);
+
+			assert.equal(ArclistWidget._state.toIndex, 2, "scrollToPosition change to index.");
+
+			ArclistWidget.scrollToPosition(-2);
+
+			assert.equal(ArclistWidget._state.toIndex, 0, "scrollToPosition change to index.");
 		});
 	}
 
