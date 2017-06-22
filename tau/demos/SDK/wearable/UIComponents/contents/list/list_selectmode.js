@@ -1,9 +1,9 @@
 /*global tau */
 /*jslint unparam: true */
-(function () {
+(function (window) {
 	var page = document.getElementById("selectModePage"),
-		listview = document.querySelector("#selectModePage .ui-listview"),
-		list = listview.getElementsByTagName("li"),
+		listview = document.querySelector("#selectModePage .ui-selectmode-list"),
+		list = page.querySelectorAll(".ui-selectmode-item"),
 		listLength = list.length,
 		selectWrapper = document.querySelector(".select-mode"),
 		selectBtn = document.getElementById("select-btn"),
@@ -236,7 +236,14 @@
 	 * Do preparatory works and adds event listeners
 	 */
 	page.addEventListener("pageshow", function () {
-		listview.addEventListener("click", addFunction, false);
+
+		if (tau.support.shape.circle) {
+			document.querySelector("#selectModePage .ui-arc-listview-carousel").addEventListener("click",
+				addFunction,
+				false);
+		} else {
+			listview.addEventListener(listview, addFunction, false);
+		}
 		selectAll.addEventListener("click", fnSelectAll, false);
 		deselectAll.addEventListener("click", fnDeselectAll, false);
 		selectBtn.addEventListener("click", fnPopup, false);
@@ -269,6 +276,7 @@
 		selectorComponent.disable();
 		handler.addEventListener("click", popupHandler, false);
 		document.addEventListener("tizenhwkey", fnBackKey);
+		listview.addEventListener("click", addFunction, false);
 	});
 
 	/*
@@ -296,4 +304,4 @@
 			tau.closePopup(elPopup);
 		}
 	});
-}());
+}(window));
