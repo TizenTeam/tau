@@ -8,7 +8,7 @@ var TIME_TICK = 1000,
 	easyimg = require("easyimage"),
 	deviceMap = require("../../../demos/tools/app/data/deviceMap.js"),
 	deviceTypes = require("../../../demos/tools/app/data/deviceTypes.js"),
-
+	newEmulatorDeviceName = "emulator-mobile",
 
 	requestFileName = "test-request.txt",
 	responseFileName = "test-response.txt",
@@ -23,6 +23,7 @@ var TIME_TICK = 1000,
 	globalAppId,
 	localRequestFile = null,
 	deviceParam,
+	deviceName,
 
 	tempFolder = null,
 
@@ -369,14 +370,17 @@ function screenshotTizen3(profile, type, app, screen, done) {
 				var regexp = new RegExp("^.*\\\s" + PID + "\\\s.*$", "gm"),
 					matches = result.match(regexp),
 					match = "",
+					extension = "",		//new Tizen emulator requires "_0" added to the filename
 					winID;
 
 				if (matches) {
-					match = matches[0];
+					match = matches[matches.length - 1];
 					winID = match.split(/\s+/)[2];
 
+					extension = (deviceName === newEmulatorDeviceName) ? "_0.png " : ".png ";
+
 					saveWindow(deviceParam, app, profile, type, screen, function (dir, resultDir) {
-						exec("sdb" + deviceParam + " pull " + resultDir + "/" + winID + ".png " + dir + "_raw.png", function () {
+						exec("sdb" + deviceParam + " pull " + resultDir + "/" + winID + extension + dir + "_raw.png", function () {
 							var width = screen.width || 257,
 								height = screen.height || 457;
 
@@ -495,6 +499,7 @@ function getDevice(done) {
 					deviceTypes[profile].forEach(function (info) {
 						if (info.device === device.name && info.type === type) {
 							deviceParam = " -s " + device.id + " ";
+							deviceName = info.device;
 						}
 					});
 				});
@@ -523,7 +528,6 @@ uiTests.config = function (config, done) {
 			}
 
 			appId = result.widget["tizen:application"][0].$.id;
-
 			globalAppId = appId;
 			getDevice(done);
 		});

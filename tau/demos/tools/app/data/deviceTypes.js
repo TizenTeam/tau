@@ -7,6 +7,13 @@ module.exports = {
 		}, {
 			"type": "l-3.0",
 			"device": "M-3.0-x86"
+		},
+		{
+			"type": "p-3.0",
+			"device": "emulator-mobile"
+		}, {
+			"type": "l-3.0",
+			"device": "emulator-mobile"
 		}
 	],
 	"wearable": [
