@@ -142,9 +142,10 @@ pipeline {
                     sh "git checkout FETCH_HEAD"
                 }
                 def status = "-1"
-                if ("${currentBuild.result}" == 'SUCCESS') {
+                if ("${currentBuild.currentResult}" == 'SUCCESS') {
                     status = "+1"
                 }
+                echo "Result ${currentBuild.currentResult}"
                 def commit = sh returnStdout: true, script: "git log -1 --pretty=%B"
                 echo "${commit}"
                 def JIRAID = JIRAID(commit)
