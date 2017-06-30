@@ -1,3 +1,13 @@
+@NonCPS
+def JIRAID(commit) {
+  def jiraIDArray = ( "${commit}" =~ /\[(OAPTAU-[0-9]+)\]/)
+  def JIRAID = ""
+  if (jiraIDArray) {
+      JIRAID = jiraIDArray[0][1]
+  }
+  JIRAID
+}
+
 pipeline {
     agent any
     parameters {
@@ -118,8 +128,9 @@ pipeline {
         }
     }
     post {
-        success {
-            echo 'Sending status to JIRA failure...'
+        always {
+
+            echo 'Sending status...'
 
             sh "env"
             script {
@@ -130,13 +141,13 @@ pipeline {
                     sh "git fetch origin ${GERRIT_CHANGE_URL}"
                     sh "git checkout FETCH_HEAD"
                 }
-                def commit = sh(returnStdout: true, script: "git log -1 --pretty=%B")
-                echo "${commit}"
-                def jiraIDArray = ( "${commit}" =~ /\[(OAPTAU-[0-9]+)\]/)
-                def JIRAID = ""
-                if (jiraIDArray) {
-                    JIRAID = jiraIDArray[0][1]
+                def status = "-1"
+                if ("${currentBuild.result}" == 'SUCCESS') {
+                    status = "+1"
                 }
+                def commit = sh returnStdout: true, script: "git log -1 --pretty=%B"
+                echo "${commit}"
+                def JIRAID = JIRAID(commit)
                 echo "JIRAID: ${JIRAID}"
                 def HOSTNAME = JENKINS_URL.replaceAll(~/:8000\//, "")
                 def BUILD_URL = BUILD_TAG.replaceAll(~/%/, "%25");
@@ -154,148 +165,21 @@ pipeline {
                 }
                 echo "JIRAMESSAGE: ${JIRAMESSAGE}"
                 if ("${GERRIT_CHANGE_URL}" != 'refs/changes/xx/xxxxxx/x') {
+                    def commitid = sh returnStdout: true, script: "git rev-list --max-count=1 HEAD"
+                    echo "${commitid}"
                     def message = "Running ${env.BUILD_ID} on ${env.RUN_DISPLAY_URL} ${CAM}"
-                    echo "ssh -p 29418 m.urbanski@165.213.149.170 gerrit review --verified +1 -m '\"${message}\"' \$(git rev-list --max-count=1 HEAD)"
+                    echo "ssh -p 29418 m.urbanski@165.213.149.170 gerrit review --verified ${status} -m '\"${message}\"' ${commitid} 2>&1"
+                    def result = ""
                     try {
-                        sh "ssh -p 29418 m.urbanski@165.213.149.170 gerrit review --verified +1 -m '\"${message}\"' \$(git rev-list --max-count=1 HEAD)"
+                        result = sh returnStdout: true, script: "ssh -p 29418 m.urbanski@165.213.149.170 gerrit review --verified ${status} -m '\"${message}\"' ${commitid} 2>&1"
                     }
                     catch (e) {
-                        echo "${e}"
+                        echo "Script exception ${e}"
                     }
+                    echo "Result of script (with stderr) ${result}"
                 }
                 try {
-                    jiraAddComment comment: "Build success ${JIRAMESSAGE}", idOrKey: "${JIRAID}", site: 'SRPOL'
-                    def transitionInput =
-                        [
-                            "update": [
-                                "comment": [
-                                    [
-                                        "add": [
-                                            "body": "Bug has been fixed."
-                                        ]
-                                    ]
-                                ]
-                            ],
-                            "transition": [
-                                "id": "5",
-                                "fields": [
-                                    "assignee": [
-                                        "name": "unassigned"
-                                    ],
-                                    "resolution": [
-                                        "name": "Fixed"
-                                    ]
-                                ]
-                            ]
-                        ]
-
-                        jiraTransitionIssue idOrKey: "${JIRAID}", input: transitionInput
-                }
-                catch (e) {
-                    echo "${e}"
-                }
-            }
-        }
-        failure {
-            echo 'Sending status to JIRA failure...'
-
-            sh "env"
-            script {
-                if ("${GERRIT_CHANGE_URL}" != 'refs/changes/xx/xxxxxx/x') {
-                    echo 'This is gerrit'
-                    git branch: 'devel/tizen_3.0', credentialsId: '0d0e7561-6f63-434a-9ca0-762d2d7aa4db', url: 'ssh://m.urbanski@165.213.149.170:29418/framework/web/web-ui-fw'
-
-                    sh "git fetch origin ${GERRIT_CHANGE_URL}"
-                    sh "git checkout FETCH_HEAD"
-                }
-                def commit = sh(returnStdout: true, script: "git log -1 --pretty=%B")
-                echo "${commit}"
-                def jiraIDArray = ( "${commit}" =~ /\[(OAPTAU-[0-9]+)\]/)
-                def JIRAID = ""
-                if (jiraIDArray) {
-                    JIRAID = jiraIDArray[0][1]
-                }
-                echo "JIRAID: ${JIRAID}"
-                def HOSTNAME = JENKINS_URL.replaceAll(~/:8000\//, "")
-                def BUILD_URL = BUILD_TAG.replaceAll(~/%/, "%25");
-                def JIRAMESSAGE = "WWW: ${HOSTNAME}:8080/${BUILD_URL}/ "
-                if ("${GERRIT_CHANGE_URL}" != 'refs/changes/xx/xxxxxx/x') {
-                    def GERRITIDPARTS = ("${GERRIT_CHANGE_URL}" =~ /refs\/changes\/[0-9]+\/([0-9]+)\/[0-9]+/)
-                    def GERRITID = GERRITIDPARTS[0][1]
-                    echo "${GERRITID}"
-                    def GERRITURL = "http://165.213.149.170/gerrit/#/c/${GERRITID}/"
-                    JIRAMESSAGE += "${GERRITURL}"
-                }
-                def CAM = ""
-                if ("${JIRAID}" != "") {
-                    CAM = "CAM: https://cam.sprc.samsung.pl/browse/${JIRAID}"
-                }
-                echo "JIRAMESSAGE: ${JIRAMESSAGE}"
-                if ("${GERRIT_CHANGE_URL}" != 'refs/changes/xx/xxxxxx/x') {
-                    def message = "Running ${env.BUILD_ID} on ${env.RUN_DISPLAY_URL} ${CAM}"
-                    echo "ssh -p 29418 m.urbanski@165.213.149.170 gerrit review --verified -1 -m '\"${message}\"' \$(git rev-list --max-count=1 HEAD)"
-                    try {
-                        sh "ssh -p 29418 m.urbanski@165.213.149.170 gerrit review --verified -1 -m '\"${message}\"' \$(git rev-list --max-count=1 HEAD)"
-                    }
-                    catch (e) {
-                        echo "${e}"
-                    }
-                }
-                try {
-                    jiraAddComment comment: "Build failure ${JIRAMESSAGE}", idOrKey: "${JIRAID}", site: 'SRPOL'
-                }
-                catch (e) {
-                    echo "${e}"
-                }
-            }
-        }
-        unstable {
-            echo 'Sending status to JIRA unstable...'
-
-            sh "env"
-            script {
-                if ("${GERRIT_CHANGE_URL}" != 'refs/changes/xx/xxxxxx/x') {
-                    echo 'This is gerrit'
-                    git branch: 'devel/tizen_3.0', credentialsId: '0d0e7561-6f63-434a-9ca0-762d2d7aa4db', url: 'ssh://m.urbanski@165.213.149.170:29418/framework/web/web-ui-fw'
-
-                    sh "git fetch origin ${GERRIT_CHANGE_URL}"
-                    sh "git checkout FETCH_HEAD"
-                }
-                def commit = sh(returnStdout: true, script: "git log -1 --pretty=%B")
-                echo "${commit}"
-                def jiraIDArray = ( "${commit}" =~ /\[(OAPTAU-[0-9]+)\]/)
-                def JIRAID = ""
-                if (jiraIDArray) {
-                    JIRAID = jiraIDArray[0][1]
-                }
-                echo "JIRAID: ${JIRAID}"
-                def HOSTNAME = JENKINS_URL.replaceAll(~/:8000\//, "")
-                def BUILD_URL = BUILD_TAG.replaceAll(~/%/, "%25");
-                def JIRAMESSAGE = "WWW: ${HOSTNAME}:8080/${BUILD_URL}/ "
-                if ("${GERRIT_CHANGE_URL}" != 'refs/changes/xx/xxxxxx/x') {
-                    def GERRITIDPARTS = ("${GERRIT_CHANGE_URL}" =~ /refs\/changes\/[0-9]+\/([0-9]+)\/[0-9]+/)
-                    def GERRITID = GERRITIDPARTS[0][1]
-                    echo "${GERRITID}"
-                    def GERRITURL = "http://165.213.149.170/gerrit/#/c/${GERRITID}/"
-                    JIRAMESSAGE += "${GERRITURL}"
-                }
-                def CAM = ""
-                if ("${JIRAID}" != "") {
-                    CAM = "CAM: https://cam.sprc.samsung.pl/browse/${JIRAID}"
-                }
-                echo "JIRAMESSAGE: ${JIRAMESSAGE}"
-                if ("${GERRIT_CHANGE_URL}" != 'refs/changes/xx/xxxxxx/x') {
-                    def message = "Running ${env.BUILD_ID} on ${env.RUN_DISPLAY_URL} ${CAM}"
-                    echo "ssh -p 29418 m.urbanski@165.213.149.170 gerrit review --verified -1 -m '\"${message}\"' \$(git rev-list --max-count=1 HEAD)"
-                    try {
-                        sh "ssh -p 29418 m.urbanski@165.213.149.170 gerrit review --verified -1 -m '\"${message}\"' \$(git rev-list --max-count=1 HEAD)"
-                    }
-                    catch (e) {
-                        echo "${e}"
-                    }
-                }
-                try {
-                    jiraAddComment comment: "Build success (unstable) ${JIRAMESSAGE}", idOrKey: "${JIRAID}", site: 'SRPOL'
+                    jiraAddComment comment: "Build ${currentBuild.result} ${JIRAMESSAGE}", idOrKey: "${JIRAID}", site: 'SRPOL'
                 }
                 catch (e) {
                     echo "${e}"
@@ -304,3 +188,4 @@ pipeline {
         }
     }
 }
+
