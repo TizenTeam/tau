@@ -254,6 +254,8 @@
 				self._snapshotItems = [];
 				self._liElements = [];
 				self.topValue = 0;
+				self.isScrolling = null;
+				self._reorderElements = [];
 			}
 
 			/**
@@ -405,19 +407,17 @@
 					// canvasHeight of canvas element
 					canvasHeight = 0,
 					// canvasWidth of canvas element
-					canvasWidth = rect.width,
-					min = Math.min,
-					max = Math.max;
+					canvasWidth = rect.width;
 
 				// calculate canvasHeight of canvas
 				if (container) {
 					canvasHeight = container.getBoundingClientRect().height;
 				}
 
-				canvasHeight = max(rect.height, canvasHeight) + self._topOffset;
+				canvasHeight = Math.max(rect.height, canvasHeight) + self._topOffset;
 
 				// limit canvas for better performance
-				canvasHeight = min(canvasHeight, 3 * window.innerHeight);
+				canvasHeight = Math.min(canvasHeight, 3 * window.innerHeight);
 
 				self._canvasHeight = canvasHeight;
 				self._canvasWidth = canvasWidth;
@@ -496,7 +496,6 @@
 			prototype._refresh = function () {
 				var self = this,
 					element = self.element,
-					selectorUtils = utils.selectors,
 					popupContainer = selectorUtils.getClosestByClass(element, Popup.classes.popup);
 
 				self._findContainers(element);
@@ -542,7 +541,7 @@
 
 			/**
 			 * Handles scroll event data
-			 * @method _init
+			 * @method _handleScroll
 			 * @member ns.widget.mobile.Listview
 			 * @protected
 			 */
@@ -553,6 +552,74 @@
 					this._running = true;
 					this._async(this._frameCallback);
 				}
+			};
+
+
+			/**
+			 * Handles touch start event
+			 * Used to disable scroll event listener on reorder
+			 * @method _handleTouchStart
+			 * @member ns.widget.mobile.Listview
+			 * @param {Event} event Event
+			 * @protected
+			 */
+			prototype._handleTouchStart = function (event) {
+				var self = this,
+					scrollableContainer = self._scrollableContainer;
+
+				if (self._dragMode && event.srcElement.classList.contains(classes.HANDLER)) {
+					eventUtils.off(scrollableContainer, "scroll", self._reorderCallback);
+				}
+			};
+
+			/**
+			 * Handles touch end event
+			 * Used to re-enable scroll event listener when reorder ends
+			 * @method _handleTouchEnd
+			 * @member ns.widget.mobile.Listview
+			 * @param {Event} event Event
+			 * @protected
+			 */
+			prototype._handleTouchEnd = function (event) {
+				var self = this,
+					scrollableContainer = self._scrollableContainer;
+
+				if (self._dragMode && event.srcElement.classList.contains(classes.HANDLER)) {
+					eventUtils.on(scrollableContainer, "scroll", self._reorderCallback);
+				}
+			};
+
+			/**
+			 * Handles scroll and scroll end
+			 * This method re-enables canvas on listview and removes backgrounds
+			 * added on reorder
+			 * It also adds timeout that is triggered on scroll end
+			 * @method _handleReorderScroll
+			 * @member ns.widget.mobile.Listview
+			 * @protected
+			 */
+			prototype._handleReorderScroll = function () {
+				var self = this,
+					reorderElements = self._reorderElements,
+					liElement,
+					liElements;
+
+				self._setColoredBackground(self.element, true);
+
+				liElements = slice.call(self.element.querySelectorAll("li"));
+
+				while (reorderElements.length > 0) {
+					liElement = reorderElements.pop();
+					if (liElements[liElement]) {
+						liElements[liElement].style.backgroundColor = "";
+					}
+				}
+
+				window.clearTimeout(self.isScrolling);
+
+				self.isScrolling = setTimeout(function () {
+					self._setReorderBackground();
+				}, 70);
 			};
 
 			/**
@@ -568,7 +635,7 @@
 			/**
 			 * Calculate element height as difference between top of current element and top of next element
 			 * @param {HTMLElement} nextVisibleLiElement
-			 * @param {DOMRect} rectangle
+			 * @param {Object} rectangle
 			 * @return {number}
 			 */
 			function calculateElementHeight(nextVisibleLiElement, rectangle) {
@@ -673,7 +740,7 @@
 			/**
 			 * Draw bar on canvas
 			 * @param {CanvasRenderingContext2D} context
-			 * @param {DOMRect} rectangle
+			 * @param {Object} rectangle
 			 */
 			function drawRectangle(context, rectangle) {
 				// set color
@@ -708,7 +775,7 @@
 			 * Draw backgrounds on LI elements
 			 * @method _drawLiElements
 			 * @member ns.widget.mobile.Listview
-			 * @return {DOMRect}
+			 * @return {Object}
 			 * @protected
 			 */
 			prototype._drawLiElements = function () {
@@ -742,14 +809,16 @@
 
 				while (liElement) {
 					// if li element is group index, the color of next element wont change
-					changeColor = (!liElement.classList.contains(classes.GROUP_INDEX) && !liElement.classList.contains(classes.EXPANDABLE));
+					changeColor = (!liElement.classList.contains(classes.GROUP_INDEX) &&
+								!liElement.classList.contains(classes.EXPANDABLE));
 					//calculate size of li element
 					rectangle = getElementRectangle(liElement);
 					// get liElement element
 					liElement = getNextVisible(elements);
 					rectangle.height = calculateElementHeight(liElement, rectangle);
 					//check if next element is group index, if yes then change its color
-					if (!changeColor && liElement && (liElement.classList.contains(classes.GROUP_INDEX) || liElement.classList.contains(classes.EXPANDABLE))) {
+					if (!changeColor && liElement && (liElement.classList.contains(classes.GROUP_INDEX) ||
+						liElement.classList.contains(classes.EXPANDABLE))) {
 						changeColor = true;
 					}
 					// check that element is visible (can be partialy visible)
@@ -772,7 +841,7 @@
 			/**
 			 * Draw rest of empty space
 			 * @method _drawEndOfList
-			 * @param {DOMRect} rectangle
+			 * @param {Object} rectangle
 			 * @param {CanvasRenderingContext2D} context
 			 * @protected
 			 */
@@ -822,8 +891,13 @@
 					if (scrollableContainer) {
 						this._scrollableContainer = scrollableContainer;
 						this._scrollCallback = this._handleScroll.bind(this);
+						this._reorderCallback = this._handleReorderScroll.bind(this);
+						this._touchStartCallback = this._handleTouchStart.bind(this);
+						this._touchEndCallback = this._handleTouchEnd.bind(this);
 						eventUtils.on(scrollableContainer, "touchstart", this._scrollCallback);
 						eventUtils.on(scrollableContainer, "touchmove", this._scrollCallback);
+						eventUtils.on(scrollableContainer, "touchstart", this._touchStartCallback);
+						eventUtils.on(scrollableContainer, "touchend", this._touchEndCallback);
 						eventUtils.on(scrollableContainer, "scroll", this._scrollCallback);
 					}
 
@@ -866,6 +940,8 @@
 						eventUtils.off(self._scrollableContainer, "touchstart", self._scrollCallback);
 						eventUtils.off(self._scrollableContainer, "touchmove", self._scrollCallback);
 						eventUtils.off(self._scrollableContainer, "scroll", self._scrollCallback);
+						eventUtils.off(self._scrollableContainer, "touchstart", this._touchStartCallback);
+						eventUtils.off(self._scrollableContainer, "touchend", this._touchEndCallback);
 						self._scrollableContainer = null;
 					}
 					self._scrollCallback = null;
@@ -928,7 +1004,7 @@
 				} else {
 					self._direction = direction.NEXT;
 				}
-			}
+			};
 
 			/**
 			 * Relocate elements when "move down" event occur
@@ -959,22 +1035,20 @@
 				for (; index < length; index++) {
 					item = element.children[index];
 
-					//to not go over same element
-					if (helper.element !== item && holder !== item) {
-						//when cursor is over the item for 70%
-						if (range > (self._snapshotItems[index - 1] + item.offsetHeight * 70 / 100) &&
-								//item top should be bigger then holder top when going down
-							(self._snapshotItems[index - 1] > holder.offsetTop + 15)) {
+					//to not go over same element and when cursor is over the item for 70%
+					if ((helper.element !== item && holder !== item) &&
+						range > (self._snapshotItems[index - 1] + item.offsetHeight * 70 / 100) &&
+						//item top should be bigger then holder top when going down
+						(self._snapshotItems[index - 1] > holder.offsetTop + 15)) {
 
-							//set new top for the moved item, this will consider diferent height of the elements
-							self._snapshotItems[index - 1] = self._snapshotItems[index - 2] + item.offsetHeight;
-							self._appendLiStylesToElement(item, self._snapshotItems[index - 2]);
-							self._appendLiStylesToElement(holder, self._snapshotItems[index - 1]);
-							element.insertBefore(holder, element.children[index].nextSibling);
-						}
+						//set new top for the moved item, this will consider diferent height of the elements
+						self._snapshotItems[index - 1] = self._snapshotItems[index - 2] + item.offsetHeight;
+						self._appendLiStylesToElement(item, self._snapshotItems[index - 2]);
+						self._appendLiStylesToElement(holder, self._snapshotItems[index - 1]);
+						element.insertBefore(holder, element.children[index].nextSibling);
 					}
 				}
-			}
+			};
 
 			/**
 			 * Relocate elements when "move up" event occur
@@ -1003,21 +1077,20 @@
 					item = element.children[index];
 
 					//to not go over same element
-					if (helper.element !== item && holder !== item) {
+					if ((helper.element !== item && holder !== item) &&
 						//when cursor is over the item for 70%
-						if (range < (self._snapshotItems[index - 1] + (item.offsetHeight * 30 / 100)) &&
-								//item top should be smaller then holder top when going up
-							self._snapshotItems[index - 1] + item.offsetHeight < holder.offsetTop + holder.offsetHeight - 15) {
+						range < (self._snapshotItems[index - 1] + (item.offsetHeight * 30 / 100)) &&
+						//item top should be smaller then holder top when going up
+						self._snapshotItems[index - 1] + item.offsetHeight < holder.offsetTop + holder.offsetHeight - 15) {
 
-							//set new top for the moved item, this will consider diferent height of the elements
-							self._snapshotItems[index] = self._snapshotItems[index - 1] + holder.offsetHeight;
-							element.insertBefore(holder, element.children[index]);
-							self._appendLiStylesToElement(holder, self._snapshotItems[index - 1]);
-							self._appendLiStylesToElement(item, self._snapshotItems[index]);
-						}
+						//set new top for the moved item, this will consider diferent height of the elements
+						self._snapshotItems[index] = self._snapshotItems[index - 1] + holder.offsetHeight;
+						element.insertBefore(holder, element.children[index]);
+						self._appendLiStylesToElement(holder, self._snapshotItems[index - 1]);
+						self._appendLiStylesToElement(item, self._snapshotItems[index]);
 					}
 				}
-			}
+			};
 
 			/**
 			 * Method for drag prepare event
@@ -1053,9 +1126,9 @@
 			 * @member ns.widget.mobile.Listview
 			 */
 			prototype._start = function (event) {
-				var top = 0,
-					self = this,
-					holder = null,
+				var self = this,
+					top,
+					holder,
 					element = self.element,
 					helper = self._ui.helper,
 					helperElement = event.detail.srcEvent.srcElement.parentElement,
@@ -1068,7 +1141,7 @@
 				holder = self._createHolder();
 				holder.style.height = parseFloat(helperElementComputed.getPropertyValue("height")) + "px";
 				holder.style.top = helperElement.style.top;
-				holder.style.backgroundColor = "rgba(61, 185, 204, 1)";
+
 				element.insertBefore(holder, helperElement);
 				element.appendChild(helperElement);
 
@@ -1103,8 +1176,8 @@
 			prototype._move = function (event) {
 				var moveY,
 					self = this,
+					headerHeight,
 					ui = self._ui,
-					headerHeight = 0,
 					helper = ui.helper,
 					holder = ui.holder,
 					element = self.element,
@@ -1162,6 +1235,49 @@
 				element.parentElement.parentElement.scrollTop = -self.orginalListPosition;
 				//refresh cache
 				self._liElements = slice.call(element.querySelectorAll("li"));
+				self.trigger("scroll");
+			};
+
+			/**
+			 * Method for setting item background on reorder
+			 * Ir disables canvas and manually sets background of visible items
+			 * It disables canvas on
+			 * @method _setReorderBackground
+			 * @protected
+			 * @member ns.widget.mobile.GridView
+			 */
+			prototype._setReorderBackground = function () {
+				var self = this,
+					reorderElements = self._reorderElements,
+					element = self.element,
+					liElementRect = null,
+					headerHeight = (document.querySelector(".ui-page-active .ui-header").offsetHeight) || 0,
+					liElements = slice.call(element.querySelectorAll("li")),
+					opacity = 100,
+					i,
+					nextColor;
+
+				self._setColoredBackground(element, false);
+				reorderElements.length = 0;
+
+				for (i = 0; i < liElements.length; i++) {
+					liElementRect = liElements[i].getBoundingClientRect();
+					if ((liElementRect.bottom >= headerHeight) && (liElementRect.top <= (window.innerHeight || document.documentElement.clientHeight))) {
+						reorderElements.push(i);
+						nextColor = "rgba(250, 250, 250, " + (opacity / 100) + ")";
+						liElements[i].style.backgroundColor = nextColor;
+						opacity -= 4;
+					}
+				}
+				if (reorderElements[reorderElements.length - 1] < liElements.length - 1) {
+					reorderElements.push(reorderElements[reorderElements.length - 1] + 1);
+					liElements[reorderElements[reorderElements.length - 1]].style.backgroundColor = nextColor;
+				}
+
+				if (reorderElements[0] > 0) {
+					reorderElements.unshift(reorderElements[0] - 1);
+					liElements[reorderElements[0]].style.backgroundColor = "white";
+				}
 			};
 
 			/**
@@ -1234,8 +1350,8 @@
 			prototype._appendHandlers = function () {
 				var i = 0,
 					self = this,
-					handler = null,
-					liElement = null,
+					handler,
+					liElement,
 					liElements = self._liElements,
 					length = liElements.length;
 
@@ -1245,7 +1361,7 @@
 					handler.classList.add(classes.HANDLER);
 					liElement.appendChild(handler);
 				}
-			}
+			};
 
 			/**
 			 * remove handlers from list elements
@@ -1256,8 +1372,8 @@
 			prototype._removeHandlers = function () {
 				var i = 0,
 					self = this,
-					handler = null,
-					liElement = null,
+					handler,
+					liElement,
 					liElements = self._liElements,
 					length = liElements.length;
 
@@ -1266,7 +1382,7 @@
 					handler = liElement.querySelector("." + classes.HANDLER);
 					liElement.removeChild(handler);
 				}
-			}
+			};
 
 			/**
 			 * add new tops
@@ -1277,8 +1393,8 @@
 			prototype._recalculateTop = function () {
 				var i = 0,
 					self = this,
-					offsetTop = 0,
-					liElement = null,
+					offsetTop,
+					liElement,
 					liElements = self._liElements,
 					length = liElements.length;
 
@@ -1288,7 +1404,7 @@
 					self._snapshotItems.push(offsetTop);
 					self._appendLiStylesToElement(liElements[i], self._snapshotItems[i]);
 				}
-			}
+			};
 
 			/**
 			 * remove top offsets when going back to standard list mode
@@ -1305,7 +1421,7 @@
 				for (; i < length; i++) {
 					liElements[i].style.top = "";
 				}
-			}
+			};
 
 			/**
 			 * adds top style to the elements
@@ -1327,7 +1443,8 @@
 			 */
 			prototype.toggleDragMode = function () {
 				var self = this,
-					element = self.element;
+					element = self.element,
+					scrollableContainer = self._scrollableContainer;
 
 				self._dragMode = !self._dragMode;
 
@@ -1341,9 +1458,10 @@
 						//disable animation, so it will not run when reorder
 						element.classList.add("cancelAnimation");
 						element.classList.remove("activateHandlers");
-					}, 200)
-
+					}, 200);
 					utilsEvents.on(element, "click drag dragstart dragend dragcancel dragprepare", self, true);
+					eventUtils.on(scrollableContainer, "scroll", self._reorderCallback);
+					self.trigger("scroll");
 					//support drag
 					utilsEvents.enableGesture(
 						element,
@@ -1360,12 +1478,12 @@
 						self._removeHandlers();
 						element.classList.remove("deactivateHandlers");
 						element.classList.remove("dragMode");
-					}, 200)
+					}, 200);
 
 					utilsEvents.off(element, "click drag dragstart dragend dragcancel dragprepare", self, true);
 					utilsEvents.disableGesture(element);
 				}
-			}
+			};
 
 			Listview.prototype = prototype;
 			ns.widget.mobile.Listview = Listview;

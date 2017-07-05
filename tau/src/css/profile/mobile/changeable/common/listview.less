@@ -434,7 +434,7 @@
 			position: absolute;
 			width: 100%;
 			box-sizing: border-box;
-			transition: top 0.2s linear;
+		  	transition: top 0.1s linear;
 
 			&.ui-listview-helper {
 				transition: none;
@@ -444,9 +444,13 @@
 				background: none;
 			}
 
-			&.ui-listview-item-moved {
-				opacity: 0.75;
-				background-color: white;
+		  	&.ui-listview-item-moved {
+			  	opacity: 0.75;
+			  	transition: opacity 0.1s;
+		  	}
+
+			&:nth-last-child(2) {
+				transition: none;
 			}
 		}
 	}
