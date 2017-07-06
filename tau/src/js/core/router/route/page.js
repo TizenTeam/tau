@@ -75,9 +75,6 @@
 					// reset page to null
 					page = null;
 				}
-				// @TODO ... else
-				// probably there is a need for running onHashChange while going back to a history entry
-				// without state, eg. manually entered #fragment. This may not be a problem on target device
 				return page;
 			}
 
@@ -252,7 +249,6 @@
 					dataUrl = self._createDataUrl(absUrl);
 
 				// write base element
-				// @TODO shouldn't base be set if a page was found?
 				self._setBase(absUrl);
 
 				// Finding matching page inside created element
@@ -260,9 +256,6 @@
 
 				// If a page exists...
 				if (page) {
-					// TODO tagging a page with external to make sure that embedded pages aren't
-					// removed by the various page handling code is bad. Having page handling code
-					// in many places is bad. Solutions post 1.0
 					DOM.setNSData(page, "url", dataUrl);
 					DOM.setNSData(page, "external", true);
 				}
