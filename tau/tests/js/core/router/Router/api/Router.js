@@ -9,6 +9,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 		ok(typeof router, "Object", "router");
 		ok(router instanceof Router, "router instance of Router");
+
 		equal(typeof router.open, "function", "router.open");
 		equal(typeof router.init, "function", "router.init");
 		equal(typeof router.destroy, "function", "router.destroy");
@@ -20,8 +21,6 @@ document.addEventListener("DOMContentLoaded", function () {
 		equal(typeof router._loadError, "function", "(protected method) router._loadError");
 		equal(typeof router._loadSuccess, "function", "(protected method) router._loadSuccess");
 		equal(typeof router._getInitialContent, "function", "(protected method) router._getInitialContent");
-		equal(typeof router._showLoading, "function", "(protected method) router._showLoading");
 		equal(typeof router._showError, "function", "(protected method) router._showError");
-		equal(typeof router._hideLoading, "function", "(protected method) router._hideLoading");
 	});
 });

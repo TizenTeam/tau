@@ -19,14 +19,7 @@
 	// temporary if for disable errors in karma, @TODO reorganize tests in if to karma UT
 		if (qunitFuxturesElement) {
 			qunitFuxturesElement.addEventListener("widgetbuilt", function () {
-				test("ns.widget.core.PageContainer showLoading/hideLoading method", function (assert) {
-					var element = document.getElementById("qunit-fixture"),
-						widget = ns.engine.instanceWidget(element, "pagecontainer");
-				//console.log(widget.getActivePage());
 
-					assert.equal(widget.showLoading(), null, "PageContainer showLoading");
-					assert.equal(widget.hideLoading(), null, "PageContainer showLoading");
-				});
 				asyncTest("ns.widget.core.PageContainer change page", 1, function (assert) {
 					var element = document.getElementById("qunit-fixture"),
 						nextPage = document.getElementById("page2"),

@@ -19,8 +19,6 @@
  * # PageContainer Widget
  * PageContainer is a widget, which is supposed to have multiple child pages but display only one at a time.
  *
- * It allows for adding new pages, switching between them and displaying progress bars indicating loading process.
- *
  * @class ns.widget.core.PageContainer
  * @extends ns.widget.BaseWidget
  * @author Maciej Urbanski <m.urbanski@samsung.com>
@@ -353,32 +351,6 @@
 			};
 
 			/**
-			 * This method displays a progress bar indicating loading process.
-			 * @method showLoading
-			 * @member ns.widget.core.PageContainer
-			 * @return {null}
-			 */
-			prototype.showLoading = function () {
-				//>>excludeStart("tauDebug", pragmas.tauDebug);
-				ns.warn("PageContainer.prototype.showLoading not yet implemented");
-				//>>excludeEnd("tauDebug");
-				return null;
-			};
-
-			/**
-			 * This method hides any active progress bar.
-			 * @method hideLoading
-			 * @member ns.widget.core.PageContainer
-			 * @return {null}
-			 */
-			prototype.hideLoading = function () {
-				//>>excludeStart("tauDebug", pragmas.tauDebug);
-				ns.warn("PageContainer.prototype.hideLoading not yet implemented");
-				//>>excludeEnd("tauDebug");
-				return null;
-			};
-
-			/**
 			 * This method removes page element from the given widget and destroys it.
 			 * @method _removeExternalPage
 			 * @param {ns.widget.core.Page} fromPageWidget the widget to destroy
@@ -406,7 +378,7 @@
 			engine.defineWidget(
 				"pagecontainer",
 				"",
-				["change", "getActivePage", "showLoading", "hideLoading"],
+				["change", "getActivePage"],
 				PageContainer,
 				"core"
 			);

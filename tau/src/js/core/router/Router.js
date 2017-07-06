@@ -743,8 +743,6 @@
 			 * @param {string} [options.transition = "none"] Sets the animation used during change of page.
 			 * @param {boolean} [options.reverse = false] Sets the direction of change.
 			 * @param {boolean} [options.fromHashChange = false] Sets if will be changed after hashchange.
-			 * @param {boolean} [options.showLoadMsg = true] Sets if message will be shown during loading.
-			 * @param {number} [options.loadMsgDelay = 0] Sets delay time for the show message during loading.
 			 * @param {boolean} [options.volatileRecord = false] Sets if the current history entry will be modified or a new one will be created.
 			 * @param {boolean} [options.dataUrl] Sets if page has url attribute.
 			 * @param {?string} [options.container = null] It is used in RoutePopup as selector for container.
@@ -785,10 +783,6 @@
 					return;
 				}
 
-				if (options.showLoadMsg) {
-					self._showLoading(options.loadMsgDelay);
-				}
-
 				// Load the new content.
 				eventUtils.trigger(self.getContainer().element, options.rel + "beforeload");
 				request = new XMLHttpRequest();
@@ -820,7 +814,6 @@
 			 * @param {string} [options.transition = "none"] Sets the animation used during change of page.
 			 * @param {boolean} [options.reverse = false] Sets the direction of change.
 			 * @param {boolean} [options.fromHashChange = false] Sets if will be changed after hashchange.
-			 * @param {boolean} [options.showLoadMsg = true] Sets if message will be shown during loading.
 			 * @param {number} [options.loadMsgDelay = 0] Sets delay time for the show message during loading.
 			 * @param {boolean} [options.volatileRecord = false] Sets if the current history entry will be modified or a new one will be created.
 			 * @param {boolean} [options.dataUrl] Sets if page has url attribute.
@@ -874,11 +867,6 @@
 				var detail = object.fastMerge({url: absUrl}, options),
 					content = rule.parse(html, absUrl);
 
-				// Remove loading message.
-				if (options.showLoadMsg) {
-					this._hideLoading();
-				}
-
 				if (content) {
 					deferred.resolve(detail, content);
 				} else {
@@ -900,17 +888,6 @@
 			};
 
 			/**
-			 * Show the loading indicator
-			 * @method _showLoading
-			 * @param {number} delay
-			 * @member ns.router.Router
-			 * @protected
-			 */
-			Router.prototype._showLoading = function (delay) {
-				this.container.showLoading(delay);
-			};
-
-			/**
 			 * Report an error loading
 			 * @method _showError
 			 * @param {string} absUrl
@@ -919,16 +896,6 @@
 			 */
 			Router.prototype._showError = function (absUrl) {
 				ns.error("load error, file: ", absUrl);
-			};
-
-			/**
-			 * Hide the loading indicator
-			 * @method _hideLoading
-			 * @member ns.router.Router
-			 * @protected
-			 */
-			Router.prototype._hideLoading = function () {
-				this.container.hideLoading();
 			};
 
 			/**
