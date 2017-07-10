@@ -105,20 +105,21 @@
 			}, false);
 		}
 
-		test("_include", 3, function () {
+		test("_include", 2, function () {
 			var pageContainer = new PageContainer(),
 				pageElement = document.getElementById("page-not-in-container"),
 				pageContainerElement = document.getElementById("qunit-fixture"),
-				result = null;
+				result = null,
+				tempPageElement;
 
 			pageContainer.element = pageContainerElement;
 			helpers.stub(ns.util, "importEvaluateAndAppendElement", function (page, element) {
 				strictEqual(pageContainerElement, element, "PageContainer is pass");
-				strictEqual(pageElement, page, "Page is pass");
 				return "result";
 			});
 
-			result = pageContainer._include(pageElement);
+			tempPageElement = pageElement.cloneNode(true);
+			result = pageContainer._include(tempPageElement);
 
 			strictEqual(result, "result", "method return correct value");
 		});
