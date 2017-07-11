@@ -31,6 +31,7 @@
 			"./core/widget/core/scroller/scrollbar/ScrollBar",
 			"./core/widget/core/SectionChanger",
 			"./profile/wearable/widget/wearable/Page",
+			"./profile/wearable/widget/wearable/Scrollview",
 			"./profile/wearable/widget/wearable/Popup",
 			"./profile/wearable/widget/wearable/Drawer",
 			"./profile/wearable/widget/wearable/Slider",

@@ -384,6 +384,7 @@
 				options.header = null;
 				options.footer = null;
 				options.content = null;
+				options.enablePageScroll = ns.getConfig("enablePageScroll");
 				this.options = options;
 			};
 
@@ -621,6 +622,11 @@
 				self._buildHeader(element);
 				self._buildFooter(element);
 				self._buildContent(element);
+
+				//it means that we are in wearable profile and we want to make a scrollview on page element (not content)
+				if (self.options.enablePageScroll === true && !element.querySelector("." + classes.uiScroller)) {
+					engine.instanceWidget(element, "Scrollview");
+				}
 				return element;
 			};
 
@@ -794,7 +800,7 @@
 
 			engine.defineWidget(
 				"Page",
-				".ui-page",
+				"[data-role=page],.ui-page",
 				[
 					"focus",
 					"blur",

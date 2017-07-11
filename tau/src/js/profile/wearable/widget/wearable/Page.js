@@ -222,11 +222,7 @@
 	define(
 		[
 			"../../../../core/engine",
-			"../../../../core/util/DOM/css",
 			"../../../../core/util/object",
-			"../../../../core/util/selectors",
-			"../../../../core/util/DOM/attributes",
-			"../../../../core/util/DOM/manipulation",
 			"../../../../core/event",
 			"../../../../core/event/gesture",
 			"../../../../core/widget/core/Page",
@@ -243,30 +239,6 @@
 			 */
 			var CorePage = ns.widget.core.Page,
 				/**
-				 * Alias for {@link ns.util}
-				 * @property {Object} util
-				 * @member ns.widget.wearable.Page
-				 * @private
-				 * @static
-				 */
-				util = ns.util,
-				/**
-				 * Alias for {@link ns.util.DOM}
-				 * @property {Object} doms
-				 * @member ns.widget.wearable.Page
-				 * @private
-				 * @static
-				 */
-				doms = util.DOM,
-				/**
-				 * Alias for {@link ns.util.selectors}
-				 * @property {Object} selectors
-				 * @member ns.widget.wearable.Page
-				 * @private
-				 * @static
-				 */
-				selectors = util.selectors,
-				/**
 				 * Alias for {@link ns.util.object}
 				 * @property {Object} object
 				 * @member ns.widget.wearable.Page
@@ -282,10 +254,6 @@
 				 * @static
 				 */
 				engine = ns.engine,
-
-				scrollBarType = {
-					CIRCLE: "tizen-circular-scrollbar"
-				},
 
 				Page = function () {
 					var self = this;
@@ -304,74 +272,10 @@
 					uiHeader: "ui-header",
 					uiContent: "ui-content",
 					uiPageScroll: "ui-scroll-on",
-					uiScroller: "ui-scroller",
-					uiFixed: "ui-fixed"
+					uiScroller: "ui-scroller"
 				}, CorePage.classes),
 
 				prototype = new CorePage();
-
-			/**
-			 * Configure Page Widget
-			 * @method _configure
-			 * @member ns.widget.wearable.Page
-			 */
-			prototype._configure = function () {
-				CorePage.prototype._configure.call(this);
-				this.options.enablePageScroll = ns.getConfig("enablePageScroll");
-			};
-			/**
-			 * Sets top-bottom css attributes for content element
-			 * to allow it to fill the page dynamically
-			 * @method _contentFill
-			 * @member ns.widget.wearable.Page
-			 */
-			prototype._contentFill = function () {
-				var self = this,
-					option = self.options,
-					element = self.element,
-					screenWidth = window.innerWidth,
-					screenHeight = window.innerHeight,
-					pageScrollSelector = classes.uiPageScroll,
-					children = [].slice.call(element.children),
-					elementStyle = element.style,
-					scroller,
-					content,
-					fragment;
-
-				elementStyle.width = screenWidth + "px";
-				elementStyle.height = screenHeight + "px";
-
-				if (option.enablePageScroll === true && !element.querySelector("." + classes.uiScroller)) {
-					element.classList.add(pageScrollSelector);
-					scroller = document.createElement("div");
-					scroller.classList.add(classes.uiScroller);
-					fragment = document.createDocumentFragment();
-
-					children.forEach(function (value) {
-						if (selectors.matchesSelector(value, ".ui-header:not(.ui-fixed), .ui-content, .ui-footer:not(.ui-fixed)")) {
-							fragment.appendChild(value);
-						}
-					});
-
-					if (element.children.length > 0 && element.children[0].classList.contains(classes.uiHeader)) {
-						doms.insertNodeAfter(element.children[0], scroller);
-					} else {
-						element.insertBefore(scroller, element.firstChild);
-					}
-
-					scroller.appendChild(fragment);
-				}
-
-				if (ns.support.shape.circle) {
-					if (scroller) {
-						scroller.setAttribute(scrollBarType.CIRCLE, "");
-					}
-					content = element.querySelector("." + classes.uiContent);
-					if (content) {
-						content.setAttribute(scrollBarType.CIRCLE, "");
-					}
-				}
-			};
 
 			prototype.getScroller = function () {
 				var element = this.element,
