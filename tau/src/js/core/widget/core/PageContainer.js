@@ -160,10 +160,13 @@
 			prototype.change = function (toPage, options) {
 				var self = this,
 					fromPageWidget = self.getActivePage(),
-					toPageWidget;
+					toPageWidget,
+					calculatedOptions = options || {};
 
-				options = options || {};
-				options.widget = options.widget || "Page";
+				// store options to detect that option was changed before process finish
+				self._options = calculatedOptions;
+
+				calculatedOptions.widget = calculatedOptions.widget || "Page";
 
 				// The change should be made only if no active page exists
 				// or active page is changed to another one.
@@ -176,7 +179,7 @@
 
 					toPage.classList.add(classes.uiBuild);
 
-					toPageWidget = engine.instanceWidget(toPage, options.widget);
+					toPageWidget = engine.instanceWidget(toPage, calculatedOptions.widget);
 
 					// set sizes of page for correct display
 					toPageWidget.layout();
@@ -192,10 +195,14 @@
 
 					toPage.classList.remove(classes.uiBuild);
 
-					options.deferred = {
-						resolve: deferredFunction
-					};
-					self._transition(toPageWidget, fromPageWidget, options);
+					// if options is different that this mean that another change page was called and we need stop
+					// previous change page
+					if (calculatedOptions === self._options) {
+						calculatedOptions.deferred = {
+							resolve: deferredFunction
+						};
+						self._transition(toPageWidget, fromPageWidget, calculatedOptions);
+					}
 				}
 			};
 
