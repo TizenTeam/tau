@@ -92,7 +92,30 @@
 					msAnimationEnd,
 					oAnimationEnd
 				],
+				deferredFunction,
 				prototype = new BaseWidget();
+			//When resolved deferred function is responsible for triggering events related to page change as well as
+			//destroying unused widgets from last page and/or removing last page
+
+			deferredFunction = function (fromPageWidget, toPageWidget, self, options) {
+				if (fromPageWidget) {
+					fromPageWidget.onHide();
+					if (options.reverse) {
+						fromPageWidget.destroy();
+					}
+					self._removeExternalPage(fromPageWidget, options);
+				}
+				toPageWidget.onShow();
+				//>>excludeStart("tauPerformance", pragmas.tauPerformance);
+				window.tauPerf.get("framework", "Trigger: pagechange");
+				//>>excludeEnd("tauPerformance");
+				self.trigger(EventType.PAGE_CHANGE);
+				//>>excludeStart("tauPerformance", pragmas.tauPerformance);
+				window.tauPerf.get("framework", "After trigger: pagechange");
+				window.tauPerf.finish();
+				//>>excludeEnd("tauPerformance");
+			};
+
 
 			/**
 			 * Dictionary for PageContainer related event types.
@@ -170,24 +193,7 @@
 					toPage.classList.remove(classes.uiBuild);
 
 					options.deferred = {
-						resolve: function () {
-							if (fromPageWidget) {
-								fromPageWidget.onHide();
-								if (options.reverse) {
-									fromPageWidget.destroy();
-								}
-								self._removeExternalPage(fromPageWidget, options);
-							}
-							toPageWidget.onShow();
-							//>>excludeStart("tauPerformance", pragmas.tauPerformance);
-							window.tauPerf.get("framework", "Trigger: pagechange");
-							//>>excludeEnd("tauPerformance");
-							self.trigger(EventType.PAGE_CHANGE);
-							//>>excludeStart("tauPerformance", pragmas.tauPerformance);
-							window.tauPerf.get("framework", "After trigger: pagechange");
-							window.tauPerf.finish();
-							//>>excludeEnd("tauPerformance");
-						}
+						resolve: deferredFunction
 					};
 					self._transition(toPageWidget, fromPageWidget, options);
 				}
@@ -227,7 +233,7 @@
 
 					self._setActivePage(toPageWidget);
 					self._clearTransitionClasses(clearClasses, fromPageWidgetClassList, toPageWidgetClassList);
-					oldDeferredResolve();
+					oldDeferredResolve(fromPageWidget, toPageWidget, self, options);
 				};
 
 				if (transition !== "none") {
