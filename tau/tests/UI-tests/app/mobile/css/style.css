@@ -635,3 +635,9 @@
 .app-introduction {
 	color: white;
 }
+
+.app-icon-video:after {
+	mask-image: url(images/start_my_files_video.png);
+	-webkit-mask-image: url(images/start_my_files_video.png);
+	background-color: #3DB9CC;
+}

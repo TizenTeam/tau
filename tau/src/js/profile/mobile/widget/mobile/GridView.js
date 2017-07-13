@@ -156,12 +156,12 @@
 				/**
 				 * Options for widget.
 				 * @property {Object} options
-				 * @property {number} [options.cols=4] the number of columns to be displayed
+				 * @property {number} [options.cols=4] the number of columns to be displayed (for landscape 7)
 				 * @property {boolean} [options.reorder=false] represents whether grid view is reorder mode
 				 * @property {string} [options.label="none"] type of label to be attatched to grid item("none", "in", "out")
 				 * @property {number} [options.minWidth=null] minimum width px of grid item(number or "auto")
 				 * @property {number} [options.minCols=1] the minimum number of columns
-				 * @property {number} [options.maxCols=5] the maximum number of columns
+				 * @property {number} [options.maxCols=5] the maximum number of columns (for landscape 7)
 				 * @member ns.widget.mobile.GridView
 				 */
 				this.options = {
@@ -172,6 +172,11 @@
 					minCols: 1,
 					maxCols: 5
 				};
+				// for landscape 7
+				if (window.innerWidth > window.innerHeight) {
+					this.options.cols = 7;
+					this.options.maxCols = 7;
+				}
 				this._direction = direction.NEXT;
 			};
 
@@ -909,7 +914,7 @@
 				"mobile"
 			);
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
-			return ns.widget.mobile.GridView;
+			return GridView;
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");

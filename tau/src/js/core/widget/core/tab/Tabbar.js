@@ -16,14 +16,14 @@
  */
 /*jslint nomen: true, plusplus: true */
 /**
- * #Tab Bar Widget
+ * # Tab Bar Widget
  * The tabbar widget shows an unordered list of tabs on the screen wrapped
  * together in a single group.
  *
- * This widget can be placed in the header or footer of page.
+ * This widget can be placed in at top of page inside Tabs widget.
  *
  * ## Default selectors
- * In default elements matches to :
+ * In default elements matches to:
  *
  *  - HTML elements with data-role="tabbar"
  *  - HTML elements with class ui-tabbar
@@ -195,7 +195,10 @@
 						withTitle: false,
 						static: false
 					};
-					self._ui = {};
+					self._ui = {
+						tabs: [],
+						links: []
+					};
 					/**
 					 * Object with default options
 					 * @property {Object} options
@@ -224,6 +227,7 @@
 					TITLE: "ui-title",
 					TABS_WITH_TITLE: "ui-tabs-with-title",
 					TABBAR_WITH_TITLE: CLASS_PREFIX + "-with-title",
+					TABBAR_BEFORE_TITLE: CLASS_PREFIX + "-before-title",
 					TABBAR_WITH_ICON: CLASS_PREFIX + "-with-icon",
 					TABBAR_PORTRAIT: CLASS_PREFIX + "-portrait",
 					TABBAR_LANDSCAPE: CLASS_PREFIX + "-landscape",
@@ -261,47 +265,81 @@
 			}
 
 			/**
-			 * Build method
-			 * @method _build
+			 * Configure widget options, detect active item based on classes
+			 * @method _configure
 			 * @param {HTMLElement} element
 			 * @return {HTMLElement}
 			 * @protected
 			 * @member ns.widget.core.TabBar
 			 */
-			prototype._build = function (element) {
+			prototype._configure = function (element) {
+				var links = element.querySelectorAll("li a"),
+					activeIndex = -1;
+
+				[].forEach.call(links, function (linkElement, index) {
+					if (linkElement.classList.contains(classes.TAB_ACTIVE)) {
+						activeIndex = index;
+					}
+				});
+				if (activeIndex > -1) {
+					this.options.active = activeIndex;
+				}
+			};
+
+			/**
+			 * Detect structure and add base classes for element
+			 * @method _detectType
+			 * @param {HTMLElement} element
+			 * @protected
+			 * @member ns.widget.core.TabBar
+			 */
+			prototype._detectType = function (element) {
 				var self = this,
 					type = self._type,
-					ui = self._ui,
 					title = findTitle(element),
-					tabs = element.querySelectorAll("li"),
-					links = element.querySelectorAll("li a"),
-					innerText,
-					i,
-					liLength,
-					link,
-					text;
+					link = element.querySelector("li a");
 
-				element.classList.add(classes.TABBAR);
-				if (links.length === 0) {
-					links = element.querySelectorAll("li div");
-					if (links.length === 0) {
-						ns.warn("There is no tab element");
-						ui.links = links;
-						ui.tabs = tabs;
-						return element;
-					}
-				}
 				if (title) {
 					title.parentNode.classList.add(classes.TABS_WITH_TITLE);
 					element.classList.add(classes.TABBAR_WITH_TITLE);
 					type.withTitle = true;
 				}
-				if (links[0].hasAttribute("data-icon")) {
+				if (element.nextElementSibling === title || element.nextElementSibling === title.parentNode) {
+					element.classList.add(classes.TABBAR_BEFORE_TITLE);
+				}
+				if (link && link.hasAttribute("data-icon")) {
 					element.classList.add(classes.TABBAR_WITH_ICON);
 					type.withIcon = true;
 				}
+			};
 
-				for (i = 0, liLength = tabs.length; i < liLength; i++) {
+			/**
+			 * Build tabs and links, add classes, create span labels
+			 * @method _buildTabsAndLinks
+			 * @param {HTMLElement} element
+			 * @return {boolean}
+			 * @protected
+			 * @member ns.widget.core.TabBar
+			 */
+			prototype._buildTabsAndLinks = function (element) {
+				var self = this,
+					ui = self._ui,
+					tabs = element.querySelectorAll("li"),
+					links = element.querySelectorAll("li a"),
+					innerText,
+					i,
+					linksLength,
+					link,
+					text;
+
+				if (links.length === 0) {
+					links = element.querySelectorAll("li div");
+				}
+				if (links.length === 0) {
+					ns.warn("There is no tab element, TabBar wasn't build.");
+					return false;
+				}
+				for (i = 0, linksLength = links.length; i < linksLength; i++) {
 					link = links[i];
 					text = link.firstChild;
 					if (text) {
@@ -314,10 +352,101 @@
 					}
 					link.classList.add(classes.ANCHOR);
 				}
-
 				ui.links = links;
 				ui.tabs = tabs;
+				return true;
+			};
+
+			/**
+			 * Build method
+			 * @method _build
+			 * @param {HTMLElement} element
+			 * @return {HTMLElement|null}
+			 * @protected
+			 * @member ns.widget.core.TabBar
+			 */
+			prototype._build = function (element) {
+				var self = this;
+
+				element.classList.add(classes.TABBAR);
+
+				if (!self._buildTabsAndLinks(element)) {
+					return null;
+				}
+
+				self._detectType(element);
+
 				return element;
+			};
+
+			/**
+			 * Method read current orientation and set state of widget for correct state;
+			 * @param {HTMLElement} element
+			 * @method _initOrientation
+			 * @member ns.widget.core.TabBar
+			 * @protected
+			 */
+			prototype._initOrientation = function (element) {
+				var type = this._type,
+					classList = element.classList;
+
+				if (window.innerWidth < window.innerHeight) {
+					classList.remove(classes.TABBAR_LANDSCAPE);
+					classList.add(classes.TABBAR_PORTRAIT);
+					type.orientation = "portrait";
+				} else {
+					classList.remove(classes.TABBAR_PORTRAIT);
+					classList.add(classes.TABBAR_LANDSCAPE);
+					type.orientation = "landscape";
+				}
+			};
+
+			/**
+			 * Method init all width of elements and update state of widget.
+			 * @param {HTMLElement} element
+			 * @method _initStaticAndWidths
+			 * @private
+			 */
+			prototype._initStaticAndWidths = function (element) {
+				var self = this,
+					isStatic,
+					tabs = self._ui.tabs,
+					offsetWidth = element.getBoundingClientRect().width,
+					length = tabs.length,
+					wholeWidth = 0,
+					elementWidth,
+					i;
+
+				// check that element is visible
+				if (offsetWidth) {
+					// get from class
+					isStatic = element.classList.contains(classes.TABBAR_STATIC);
+
+					// check if we have enough elements to make the list dynamic again
+					if (!isStatic && tabs[0]) {
+						elementWidth = domUtils.getElementWidth(tabs[0]);
+						// check NaN
+						if (elementWidth === elementWidth && (elementWidth * length < offsetWidth)) {
+							isStatic = true;
+						}
+					}
+
+					self._type.static = isStatic;
+
+					for (i = 0; i < length; i++) {
+						// make the elements "fit"
+						if (isStatic) {
+							elementWidth = parseInt(offsetWidth / length, 10) || 0;
+							tabs[i].style.width = elementWidth + "px";
+						} else {
+							// just get each element with for scroll support
+							elementWidth = domUtils.getElementWidth(tabs[i]);
+						}
+						wholeWidth += elementWidth;
+					}
+
+					self._wholeWidth = wholeWidth;
+				}
 			};
 
 			/**
@@ -328,51 +457,15 @@
 			 * @protected
 			 */
 			prototype._init = function (element) {
-				var self = this,
-					type = self._type,
-					tabs = self._ui.tabs,
-					options = self.options,
-					offsetWidth = element.offsetWidth,
-					length = tabs.length,
-					wholeWidth = 0,
-					elementWidth = 0,
-					i = 0,
-					isStatic = false;
+				var self = this;
 
-				// get from class
-				isStatic = type.static = element.classList.contains(classes.TABBAR_STATIC);
-				// check if we have enough elements to make the list dynamic again
-				if (tabs[0]) {
-					elementWidth = domUtils.getElementWidth(tabs[0]);
-					if (elementWidth === elementWidth && (elementWidth * length < offsetWidth) && !isStatic) { // check NaN
-						isStatic = true;
-					}
-				}
+				self._initOrientation(element);
+				self._initStaticAndWidths(element);
 
-				if (window.innerWidth < window.innerHeight) {
-					element.classList.remove(classes.TABBAR_LANDSCAPE);
-					element.classList.add(classes.TABBAR_PORTRAIT);
-					type.orientation = "portrait";
-				} else {
-					element.classList.remove(classes.TABBAR_PORTRAIT);
-					element.classList.add(classes.TABBAR_LANDSCAPE);
-					type.orientation = "landscape";
-				}
-
-				for (i = 0; i < length; i++) {
-					if (isStatic) { // make the elements "fit"
-						elementWidth = parseInt(offsetWidth / length, 10) || 0;
-						tabs[i].style.width = elementWidth + "px";
-					} else { // just get each element with for scroll support
-						elementWidth = domUtils.getElementWidth(tabs[i]);
-					}
-					wholeWidth += elementWidth;
-				}
-				self._wholeWidth = wholeWidth;
 				self._translatedX = 0;
 				self._lastX = 0;
 
-				self._setActive(options.active);
+				self._setActive(self.options.active);
 
 				return element;
 			};
@@ -594,8 +687,7 @@
 					"setActive",
 					"getActive"
 				],
-				TabBar,
-				"tizen"
+				TabBar
 			);
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return ns.widget.core.TabBar;

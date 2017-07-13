@@ -25,6 +25,7 @@ var allTestFiles = [],
 		"profile/mobile/widget/mobile/Listview",
 		"profile/mobile/widget/mobile/TextEnveloper",
 		"profile/mobile/widget/mobile/TextInput",
+		"profile/mobile/widget/mobile/GridView",
 		"profile/mobile/widget/mobile/FloatingActions",
 		"profile/wearable/helper/SnapListMarqueeStyle",
 		"profile/wearable/widget/wearable/SnapListview",
@@ -49,7 +50,8 @@ var allTestFiles = [],
 		"core/event/gesture/LongPress",
 		"core/event/gesture/Pinch",
 		"core/event/gesture/Swipe",
-		"profile/wearable/router/route/grid"
+		"profile/wearable/router/route/grid",
+		"core/widget/core/tab/Tabbar"
 	];
 
 window.tauPerf = {

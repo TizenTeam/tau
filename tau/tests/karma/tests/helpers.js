@@ -222,15 +222,18 @@
 
 	helpers.initFixture = initFixture;
 
-	helpers.checkWidgetBuild = function (name, element, ns) {
+	helpers.checkWidgetBuild = function (name, element, ns, shouldBeFail) {
 		var widget = ns.engine.instanceWidget(element, name),
 			widget2 = null;
 
-		equal(element.getAttribute("data-tau-bound"), name, name + " widget is created");
+		if (shouldBeFail) {
+			equal(element.getAttribute("data-tau-bound"), null, name + " widget isn't created");
+		} else {
+			equal(element.getAttribute("data-tau-bound"), name, name + " widget is created");
 
-		widget2 = ns.widget[name](element);
-
-		equal(widget, widget2, "Widget constructor is singleton.");
+			widget2 = ns.widget[name](element);
+			equal(widget, widget2, "Widget constructor is singleton.");
+		}
 	};
 
 	window.karmaHelpers = helpers;

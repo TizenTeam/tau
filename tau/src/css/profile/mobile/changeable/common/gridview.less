@@ -60,7 +60,8 @@
 
 		.ui-gridview-image {
 			display: block;
-			width: 100%;
+			width: 178 * @unit_base;
+			height: 178 * @unit_base;
 			pointer-events: none;
 		}
 
@@ -116,17 +117,13 @@
 }
 
 .ui-content:not(.ui-popup-content-gridview) {
-
 	.ui-gridview:not(.ui-gridview-label-out) {
-
 		box-sizing: content-box;
 
 		.ui-gridview-item {
-
 			height: 178 * @unit_base;
 			display: flex;
 			box-sizing: content-box;
-
 		}
 	}
 }
@@ -175,5 +172,12 @@
 	.ui-popup.ui-popup-gridview {
 		width: 720 * @unit_base;
 		left: 140 * @unit_base;
+	}
+
+	.ui-gridview-image {
+		display: block;
+		width: 181 * @unit_base;
+		height: 181 * @unit_base;
+		pointer-events: none;
 	}
 }

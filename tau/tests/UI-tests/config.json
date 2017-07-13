@@ -605,6 +605,16 @@
 				"time": 0,
 				"width": 360,
 				"height": 640
+			},
+			{
+				"name": "ext-sample-active-view-1",
+				"width": 720,
+				"height": 1280
+			},
+			{
+				"name": "ext-sample-active-view-2",
+				"width": 720,
+				"height": 1280
 			}
 		]
 	},
@@ -1172,6 +1182,16 @@
 				"time": 0,
 				"width": 360,
 				"height": 640
+			},
+			{
+				"name": "ext-sample-active-view-1",
+				"width": 720,
+				"height": 1280
+			},
+			{
+				"name": "ext-sample-active-view-2",
+				"width": 720,
+				"height": 1280
 			}
 		]
 	},

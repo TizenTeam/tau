@@ -1,5 +1,6 @@
 /*global module:false, require:false*/
 var TIME_TICK = 1000,
+	FIRST_TIME_TICK = 3000,
 	fs = require("fs"),
 	path = require("path"),
 	cmd = require("./cmd"),
@@ -105,7 +106,14 @@ function takeScreenshot(pageName, onDone) {
 function next(done) {
 	// end of watching
 	if (i >= end) {
-		done();
+		exec(
+			`sdb ${deviceParam} dlog -d | grep vUf39tzQ3t`,
+			function (error, stdout, stderr) {
+				console.log("status: ", error);
+				console.log("stdout: ", stdout);
+				console.log("stderr: ", stderr);
+				done();
+			});
 	} else {
 		setTimeout(tick.bind(null, done), TIME_TICK);
 	}
@@ -235,7 +243,7 @@ function tick(done) {
 					console.log("(fs.readFile)");
 					if (error) {
 						// if file not exists
-						console.log("error", error);
+						console.log("error1", error);
 						next(done);
 					} else if (data === "") {
 						// wait for full data
@@ -300,7 +308,7 @@ function createCircle(path, size, outputTempFilePath, outputFilePath, callback) 
 	if (type === "c-3.0") {
 		easyimg.exec("convert " + path + " \\( -size " +
 			size + "x" + size + " xc:none -fill white -draw \"circle " +
-			(size / 2 -0.5) + "," + (size / 2 -0.5) + " " + (size / 2) + ",0\" \\) -compose copy_opacity -composite " +
+			(size / 2 - 0.5) + "," + (size / 2 - 0.5) + " " + (size / 2) + ",0\" \\) -compose copy_opacity -composite " +
 			outputTempFilePath).then(
 			function (file) {
 				easyimg.exec("composite " + outputTempFilePath + " -size " + size + "x" + size + " canvas:white " + outputFilePath).then(
@@ -549,7 +557,7 @@ uiTests.run = function (callback) {
 					return;
 				}
 				tempFolder = folder;
-				setTimeout(tick.bind(null, done), TIME_TICK);
+				setTimeout(tick.bind(null, done), FIRST_TIME_TICK);
 			});
 		});
 	});
