@@ -2,7 +2,7 @@
 (function () {
 	var ns = window.ns || window.tau;
 
-	function runTests(PageContainer, helpers) {
+	function runTests(PageContainer, helpers, perf) {
 		var qunitFuxturesElement = document.getElementById("qunit-fixture");
 
 		function initHTML() {
@@ -143,7 +143,7 @@
 
 			pageContainer._setActivePage(newPageWidget);
 
-			strictEqual(pageContainer.activePage, newPageWidget, "Active page is changed")
+			strictEqual(pageContainer.activePage, newPageWidget, "Active page is changed");
 		});
 
 
@@ -168,6 +168,59 @@
 
 			strictEqual(pageElement.parentNode, null, "Page is removed");
 		});
+
+		test("_transition", function () {
+			var pageContainer,
+				pageSource,
+				pageDestination,
+				pageContainerElement = document.getElementById("qunit-fixture"),
+				pageSourceElement = document.getElementById("page1"),
+				pageDestinationElement = document.getElementById("page2"),
+				options = {
+					reverse: true,
+					deferred: {
+						resolve: function () {}
+					},
+					transition: "slide"
+				};
+
+			pageContainer = new PageContainer();
+			pageContainer.element = pageContainerElement;
+
+			pageSource = {
+				element: pageSourceElement,
+				setActive: function () { }
+			};
+
+			pageDestination = {
+				element: pageDestinationElement,
+				setActive: function () { }
+			};
+
+			pageContainer._transition(pageDestination, pageSource, options);
+
+			ok(pageContainer.inTransition, "inTransition was set to true.");
+			ok(pageContainer.element.classList.contains(PageContainer.classes.uiViewportTransitioning), "PageContainer element contains uiViewportTransitioning class.")
+		});
+
+		test("_clearTransitionClasses", function () {
+			var pageContainer,
+				clearClasses,
+				pageContainerElement = document.getElementById("qunit-fixture"),
+				pageSourceElement = document.getElementById("page1"),
+				pageDestinationElement = document.getElementById("page2");
+
+			pageContainer = new PageContainer();
+			pageContainer.element = pageContainerElement;
+
+			clearClasses = [PageContainer.classes.in, PageContainer.classes.out];
+			pageSourceElement.classList.add(PageContainer.classes.in, PageContainer.classes.out);
+			pageDestinationElement.classList.add(PageContainer.classes.in, PageContainer.classes.out);
+
+			pageContainer._clearTransitionClasses(clearClasses, pageSourceElement.classList, pageDestinationElement.classList);
+			ok(!pageSourceElement.classList.contains(PageContainer.classes.in, PageContainer.classes.out), "Classes were successfully removed from source Page element.");
+			ok(!pageDestinationElement.classList.contains(PageContainer.classes.in, PageContainer.classes.out), "Classes were successfully removed from destination Page element.");
+		});
 	}
 
 	if (typeof define === "function") {
@@ -175,6 +228,6 @@
 			return runTests;
 		});
 	} else {
-		runTests(ns.widget.core.PageContainer, window.helpers);
+		runTests(ns.widget.core.PageContainer, window.helpers, window.tauPerf);
 	}
 }());

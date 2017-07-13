@@ -87,6 +87,13 @@
 				mozAnimationEnd = "mozAnimationEnd",
 				msAnimationEnd = "msAnimationEnd",
 				oAnimationEnd = "oAnimationEnd",
+				animationEndNames = [
+					animationend,
+					webkitAnimationEnd,
+					mozAnimationEnd,
+					msAnimationEnd,
+					oAnimationEnd
+				],
 				prototype = new BaseWidget();
 
 			/**
@@ -208,7 +215,6 @@
 					deferred = options.deferred,
 					clearClasses = [classes.in, classes.out, classes.uiPreIn, transition],
 					oldDeferredResolve,
-					classlist,
 					oneEvent;
 
 				if (options.reverse) {
@@ -222,17 +228,7 @@
 						toPageWidgetClassList = toPageWidget.element.classList;
 
 					self._setActivePage(toPageWidget);
-
-					elementClassList.remove(classes.uiViewportTransitioning);
-					self.inTransition = false;
-					clearClasses.forEach(function (className) {
-						toPageWidgetClassList.remove(className);
-					});
-					if (fromPageWidgetClassList) {
-						clearClasses.forEach(function (className) {
-							fromPageWidgetClassList.remove(className);
-						});
-					}
+					self._clearTransitionClasses(clearClasses, fromPageWidgetClassList, toPageWidgetClassList);
 					oldDeferredResolve();
 				};
 
@@ -240,13 +236,7 @@
 					oneEvent = function () {
 						eventUtils.off(
 							toPageWidget.element,
-							[
-								animationend,
-								webkitAnimationEnd,
-								mozAnimationEnd,
-								msAnimationEnd,
-								oAnimationEnd
-							],
+							animationEndNames,
 							oneEvent,
 							false
 						);
@@ -254,35 +244,65 @@
 					};
 					eventUtils.on(
 						toPageWidget.element,
-						[
-							animationend,
-							webkitAnimationEnd,
-							mozAnimationEnd,
-							msAnimationEnd,
-							oAnimationEnd
-						],
+						animationEndNames,
 						oneEvent,
 						false
 					);
-
-					if (fromPageWidget) {
-						classlist = fromPageWidget.element.classList;
-						classlist.add(transition);
-						classlist.add(classes.out);
-						if (options.reverse) {
-							classlist.add(classes.reverse);
-						}
-					}
-
-					classlist = toPageWidget.element.classList;
-					classlist.add(transition);
-					classlist.add(classes.in);
-					classlist.add(classes.uiPreIn);
-					if (options.reverse) {
-						classlist.add(classes.reverse);
-					}
+					self._appendTransitionClasses(fromPageWidget, toPageWidget, transition, options.reverse);
 				} else {
 					window.setTimeout(deferred.resolve, 0);
+				}
+			};
+
+			/**
+			 * This method adds proper transition classes to specified page widgets.
+			 * @param {ns.widget.core.Page} fromPageWidget Page widget from which transition will occur
+			 * @param {ns.widget.core.Page} toPageWidget Destination page widget for transition
+			 * @param {string} transition Specifies the type of transition
+			 * @param {boolean} reverse Specifies the direction of transition
+			 * @member ns.widget.core.PageContainer
+			 * @protected
+			 */
+			prototype._appendTransitionClasses = function (fromPageWidget, toPageWidget, transition, reverse) {
+				var classlist;
+
+				if (fromPageWidget) {
+					classlist = fromPageWidget.element.classList;
+					classlist.add(transition, classes.out);
+					if (reverse) {
+						classlist.add(classes.reverse);
+					}
+				}
+
+				classlist = toPageWidget.element.classList;
+				classlist.add(transition, classes.in, classes.uiPreIn);
+				if (reverse) {
+					classlist.add(classes.reverse);
+				}
+			};
+
+			/**
+			 * This method removes transition classes from classLists of page widget elements.
+			 * @param {Object} clearClasses An array containing classes to be removed
+			 * @param {Object} fromPageWidgetClassList classList object from source page element
+			 * @param {Object} toPageWidgetClassList classList object from destiation page element
+			 * @member ns.widget.core.PageContainer
+			 * @protected
+			 */
+			prototype._clearTransitionClasses = function (clearClasses, fromPageWidgetClassList, toPageWidgetClassList) {
+				var self = this,
+					element = self.element,
+					elementClassList = element.classList;
+
+				elementClassList.remove(classes.uiViewportTransitioning);
+				self.inTransition = false;
+				clearClasses.forEach(function (className) {
+					toPageWidgetClassList.remove(className);
+				});
+				if (fromPageWidgetClassList) {
+					clearClasses.forEach(function (className) {
+						fromPageWidgetClassList.remove(className);
+					});
 				}
 			};
 
