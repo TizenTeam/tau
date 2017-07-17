@@ -127,25 +127,9 @@
  *      });
  *    </script>
  *
- * #### Using jQuery API
- *
- *    @example
- *    <div id="myPage"></div>
- *    <script type="text/javascript">
- *      var page = $("#myPage").page({
- *        "theme": "s",
- *        "footerTheme": "s",
- *        "contentTheme": "s"
- *      });
- *    </script>
- *
  * ## Methods
  *
- * Page methods can be can be accessed trough 2 APIs: TAU API and jQuery
- * API (jQuery Mobile-like API)
- *
- * **WARNING** Some methods are not accessible through jQuery API
- * since jQuery already supplies functionalities for them (ex. focus).
+ * Page methods can be can be accessed trough TAU API
  *
  * @class ns.widget.mobile.Page
  * @extends ns.widget.core.Page
