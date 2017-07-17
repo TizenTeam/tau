@@ -232,7 +232,8 @@
 					"translateTo"
 				],
 				Scrollview,
-				"tizen"
+				"tizen",
+				true
 			);
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return Scrollview;
