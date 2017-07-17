@@ -324,6 +324,9 @@ module.exports = {
 			"tagNamePreference": {
 				"returns": "return",
 				"function": "method"
+			},
+			"additionalTagNames": {
+				"customTags": ["internal"]
 			}
 		}
 	},

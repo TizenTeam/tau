@@ -1,6 +1,6 @@
 /* global tau, ok, equal, test, $ */
 
-module("profile/mobile/widget/mobile/Page", {
+module("core/widget/core/Page", {
 	teardown: function () {
 		tau.engine._clearBindings();
 	}

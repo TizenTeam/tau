@@ -82,7 +82,7 @@
 								$.mobile.activePage = $();
 								$.mobile.firstPage = $(router.getRoute("page").getFirstElement());
 								$.mobile.pageContainer = $();
-								$.mobile.subPageUrlKey = ns.widget.mobile.Page.classes.uiPage;
+								$.mobile.subPageUrlKey = ns.widget.core.Page.classes.uiPage;
 								$.mobile.ajaxEnabled = true;
 								$.mobile.hashListeningEnabled = true;
 								$.mobile.linkBindingEnabled = true;

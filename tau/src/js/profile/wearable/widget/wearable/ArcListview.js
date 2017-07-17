@@ -33,7 +33,7 @@
 			"../../../../core/util/array",
 			"../../../../core/util/selectors",
 			"../../../../core/widget/core/Listview",
-			"./Page",
+			"../../../../core/widget/core/Page",
 			// fetch namespace
 			"../wearable"
 		],

@@ -222,7 +222,7 @@
 			"../../../core/util/DOM/attributes",
 			"../../../core/widget/core/Button",
 			"../../../profile/mobile/widget/mobile/BaseWidgetMobile",
-			"../../../profile/mobile/widget/mobile/Page"
+			"../../../core/widget/core/Page"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
@@ -426,7 +426,6 @@
 					content = getChildrenBySelector(element, "[data-role='content']"),
 					footers = getChildrenBySelector(element, "[data-role='footer']"),
 					options = self.options,
-					pageOptions = ns.widget.mobile.Page.prototype.options,
 					containerClassList = container.classList,
 					headersClassList,
 					dataTheme,
@@ -446,7 +445,6 @@
 
 				dataTheme = element.getAttribute("data-theme");
 				elementTheme = dataTheme ? dataTheme : options.overlayTheme;
-				contentTheme = dataTheme ? dataTheme : pageOptions.contentTheme;
 
 				element.classList.add(classes.uiDialog);
 				element.classList.add(classes.uiBodyPrefix +
@@ -465,8 +463,6 @@
 				for (i = 0, l = headers.length; i < l; i++) {
 					headersClassList = headers[i].classList;
 					headersClassList.add(classes.uiHeader);
-					headersClassList.add(classes.uiBarPrefix +
-						pageOptions.headerTheme);
 				}
 
 				for (i = 0, l = content.length; i < l; i++) {
@@ -477,8 +473,6 @@
 
 				for (i = 0, l = footers.length; i < l; i++) {
 					footers[i].classList.add(classes.uiFooter);
-					footers[i].classList.add(classes.uiBarPrefix +
-						pageOptions.footerTheme);
 				}
 
 				element.appendChild(container);

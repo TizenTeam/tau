@@ -9,7 +9,7 @@
 	 */
 	var startLocation = window.location.href;
 
-	module("page", {
+	module("core/widget/core/Page", {
 		setup: function () {
 			tau.engine.run();
 		},

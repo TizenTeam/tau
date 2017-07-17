@@ -142,13 +142,6 @@
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
-			/**
-			 * Alias to Array.slice function
-			 * @method slice
-			 * @member ns.widget.BaseWidget
-			 * @inner
-			 * @static
-			 */
 			var slice = [].slice,
 				/**
 				 * Alias to ns.engine

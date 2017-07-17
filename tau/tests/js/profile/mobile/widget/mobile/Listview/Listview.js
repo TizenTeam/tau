@@ -842,7 +842,7 @@
 		define([
 			"../../../../../../../src/js/core/engine",
 			"../../../../../../../src/js/core/util/selectors",
-			"../../../../../../../src/js/profile/mobile/widget/mobile/Page"
+			"../../../../../../../src/js/core/widget/core/Page"
 		], function (engine, selectors, Page) {
 			return runTests.bind(null, engine, selectors, Page);
 		});
@@ -850,7 +850,7 @@
 		runTests(
 			tau.engine,
 			tau.util.selectors,
-			tau.widget.mobile.Page,
+			tau.widget.core.Page,
 			tau.widget.mobile.Listview,
 			window.helpers,
 			tau

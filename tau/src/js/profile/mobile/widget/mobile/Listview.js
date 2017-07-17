@@ -110,7 +110,7 @@
 			"../../../../core/util/object",
 			"../../../../core/event",
 			"../../../../core/engine",
-			"./Page",
+			"../../../../core/widget/core/Page",
 			"./Popup",
 			"./Scrollview",
 			"../../../../core/widget/core/Listview",
@@ -119,7 +119,7 @@
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
-			var Page = ns.widget.mobile.Page,
+			var Page = ns.widget.core.Page,
 				Popup = ns.widget.mobile.Popup,
 				Scrollview = ns.widget.mobile.Scrollview,
 				CoreListview = ns.widget.core.Listview,

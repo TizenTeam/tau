@@ -125,7 +125,7 @@
 								return nsNormalizeDict[prop];
 							},
 							activeBtnClass: ns.widget.core.Button.classes.uiBtnActive,
-							activePageClass: ns.widget.mobile.Page.classes.uiPageActive,
+							activePageClass: ns.widget.core.Page.classes.uiPageActive,
 							focusClass: ns.widget.core.Button.classes.uiFocus,
 							version: "1.2.0",
 							getAttrFixed: function (element, key) {
@@ -386,7 +386,7 @@
 						// support creating widgets by triggering pagecreate
 						$(document).bind("pagecreate", function (event) {
 							var originalEvent = event.originalEvent || event,
-								isPage = originalEvent.detail instanceof ns.widget.mobile.Page,
+								isPage = originalEvent.detail instanceof ns.widget.core.Page,
 								pageWidget;
 
 							if (!isPage) { // trigger create when the pagecrate trigger is from outside

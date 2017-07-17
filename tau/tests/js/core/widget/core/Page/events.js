@@ -1,6 +1,6 @@
 /* global asyncTest, ok, equal, tau, $, start */
 
-module("profile/mobile/widget/mobile/Page");
+module("core/widget/core/Page");
 
 asyncTest("Events listener in correct order", 27, function () {
 	var page = document.getElementById("first"),
@@ -10,7 +10,7 @@ asyncTest("Events listener in correct order", 27, function () {
 	$(document).one("pagechange", function () {
 		$(document).on("pagebeforechange", function (e) {
 			ok(true, "pagebeforechange event called");
-			equal(e.target, document.body, "pagebeforechange target is body");
+			equal(e.target, document.querySelector(".ui-page-container"), "pagebeforechange target is page container");
 			equal(order++, 1, "Order correct pagebeforechange");
 		}).on("pagebeforecreate", function (e) {
 			ok(true, "pagebeforecreate event called");
@@ -42,7 +42,7 @@ asyncTest("Events listener in correct order", 27, function () {
 			equal(order++, 8, "Order correct pageshow");
 		}).on("pagechange", function (e) {
 			ok(true, "pagechange event called");
-			equal(e.target, document.body, "pagechange target is body");
+			equal(e.target, document.querySelector(".ui-page-container"), "pagechange target is page container");
 			equal(order, 9, "Order correct pagechange");
 			start();
 		});

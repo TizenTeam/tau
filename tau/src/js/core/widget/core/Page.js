@@ -52,7 +52,7 @@
  *          speed up the application launch. The start page with the ui-page-active class can be displayed before
  *          the framework is fully loaded.
  *
- *If this class is not used, the framework inserts the class automatically to the first page of the application.
+ *  If this class is not used, the framework inserts the class automatically to the first page of the application.
  *  However, this has a slowing effect on the application launch, because the page is displayed only after
  *  the framework is fully loaded.</td>
  *      </tr>
@@ -105,7 +105,7 @@
  *
  *        @example
  *        var pageElement = document.getElementById("page"),
- *            page = tau.widget.page(buttonElement);
+ *            page = tau.widget.Page(buttonElement);
  *
  * Constructor has one require parameter **element** which are base **HTMLElement** to create widget.
  * We recommend get this element by method *document.getElementById*.
@@ -209,9 +209,6 @@
  *             });
  *         </script>
  *
- * ## Options for Page Widget
- *
- * Page widget hasn't any options.
  *
  * ## Methods
  *
@@ -219,7 +216,7 @@
  *
  *        @example
  *        var pageElement = document.getElementById("page"),
- *            page = tau.widget.page(buttonElement);
+ *            page = tau.widget.Page(buttonElement);
  *
  *        page.methodName(methodArgument1, methodArgument2, ...);
  *
@@ -236,6 +233,7 @@
 		[
 			"../../engine",
 			"../../util/selectors",
+			"../../util/DOM/attributes",
 			"../BaseWidget",
 			"../core"
 		],
@@ -257,6 +255,7 @@
 				 * @static
 				 */
 				util = ns.util,
+				utilsDOM = util.DOM,
 				/**
 				 * Alias for {@link ns.util.selectors}
 				 * @property {Object} utilSelectors
@@ -361,7 +360,10 @@
 					uiSection: "ui-section",
 					uiHeader: "ui-header",
 					uiFooter: "ui-footer",
-					uiContent: "ui-content"
+					uiContent: "ui-content",
+					uiTitle: "ui-title",
+					uiPageScroll: "ui-scroll-on",
+					uiScroller: "ui-scroller"
 				},
 				HEADER_SELECTOR = "header,[data-role='header'],." + classes.uiHeader,
 				FOOTER_SELECTOR = "footer,[data-role='footer'],." + classes.uiFooter,
@@ -402,6 +404,7 @@
 			/**
 			 * Setup size of element to 100% of screen
 			 * @method _contentFill
+			 * @protected
 			 * @member ns.widget.core.Page
 			 */
 			prototype._contentFill = function () {
@@ -409,10 +412,37 @@
 					element = self.element,
 					screenWidth = window.innerWidth,
 					screenHeight = window.innerHeight,
-					elementStyle = element.style;
+					elementStyle = element.style,
+					ui = self._ui,
+					content = ui.content,
+					contentStyle,
+					header = ui.header,
+					top = 0,
+					bottom = 0,
+					footer = ui.footer;
 
 				elementStyle.width = screenWidth + "px";
 				elementStyle.height = screenHeight + "px";
+
+				if (content) {
+					contentStyle = content.style;
+					//>>excludeStart("tauDebug", pragmas.tauDebug);
+					ns.log("Page (contentFill) on ", self.id, " styles was recalculated");
+					//>>excludeEnd("tauDebug");
+
+					if (header) {
+						top = utilsDOM.getElementHeight(header);
+					}
+
+					if (footer) {
+						bottom = utilsDOM.getElementHeight(footer);
+					}
+
+					contentStyle.top = top + "px";
+					contentStyle.bottom = bottom + "px";
+					contentStyle.height = (screenHeight - top - bottom) + "px";
+					contentStyle.width = screenWidth + "px";
+				}
 			};
 
 			prototype._storeContentStyle = function () {
@@ -429,8 +459,8 @@
 
 			/**
 			 * Restore saved styles for content.
-			 * Callled on refresh or hide.
-			 * @private
+			 * Called on refresh or hide.
+			 * @protected
 			 */
 			prototype._restoreContentStyle = function () {
 				var self = this,
@@ -618,6 +648,71 @@
 				self._setContent(element, self.options.content);
 			};
 
+
+			/**
+			 * Set ARIA attributes on page structure
+			 * @method _setAria
+			 * @protected
+			 * @member ns.widget.core.Page
+			 */
+			prototype._setAria = function () {
+				var self = this,
+					ui = self._ui,
+					content = ui.content,
+					header = ui.header,
+					footer = ui.footer,
+					title = ui.title;
+
+				if (content) {
+					content.setAttribute("role", "main");
+				}
+
+				if (header) {
+					header.setAttribute("role", "header");
+				}
+
+				if (footer) {
+					footer.setAttribute("role", "footer");
+				}
+
+				if (title) {
+					title.setAttribute("role", "heading");
+					title.setAttribute("aria-level", 1);
+					title.setAttribute("aria-label", "title");
+				}
+			};
+
+			/**
+			 * Find title of page
+			 * @param {HTMLElement} element
+			 * @method _setTitle
+			 * @protected
+			 * @member ns.widget.core.Page
+			 */
+			prototype._setTitle = function (element) {
+				var self = this,
+					dataPageTitle = utilsDOM.getNSData(element, "title"),
+					header = self._ui.header,
+					pageTitle = dataPageTitle,
+					titleElement;
+
+				if (header) {
+					titleElement = utilSelectors.getChildrenBySelector(header, "h1, h2, h3, h4, h5, h6")[0];
+					if (titleElement) {
+						titleElement.classList.add(classes.uiTitle);
+					}
+
+					if (!pageTitle && titleElement) {
+						pageTitle = titleElement.innerText;
+						self._ui.title = titleElement;
+					}
+
+					if (!dataPageTitle && pageTitle) {
+						utilsDOM.setNSData(element, "title", pageTitle);
+					}
+				}
+			};
+
 			/**
 			 * Build page
 			 * @method _build
@@ -633,6 +728,8 @@
 				self._buildHeader(element);
 				self._buildFooter(element);
 				self._buildContent(element);
+				self._setTitle(element);
+				self._setAria();
 
 				//it means that we are in wearable profile and we want to make a scrollview on page element (not content)
 				if (self.options.enablePageScroll === true && !element.querySelector("." + classes.uiScroller)) {
@@ -729,6 +826,7 @@
 			/**
 			 * Layouting page structure
 			 * @method layout
+			 * @internal
 			 * @member ns.widget.core.Page
 			 */
 			prototype.layout = function () {
@@ -739,6 +837,7 @@
 			/**
 			 * This method triggers BEFORE_SHOW event.
 			 * @method onBeforeShow
+			 * @internal
 			 * @member ns.widget.core.Page
 			 */
 			prototype.onBeforeShow = function () {
@@ -748,6 +847,7 @@
 			/**
 			 * This method triggers SHOW event.
 			 * @method onShow
+			 * @internal
 			 * @member ns.widget.core.Page
 			 */
 			prototype.onShow = function () {
@@ -762,6 +862,7 @@
 			/**
 			 * This method triggers BEFORE_HIDE event.
 			 * @method onBeforeHide
+			 * @internal
 			 * @member ns.widget.core.Page
 			 */
 			prototype.onBeforeHide = function () {
@@ -771,6 +872,7 @@
 			/**
 			 * This method triggers HIDE event.
 			 * @method onHide
+			 * @internal
 			 * @member ns.widget.core.Page
 			 */
 			prototype.onHide = function () {
@@ -800,6 +902,18 @@
 				self._contentFillAfterResizeCallback = null;
 			};
 
+			/**
+			 * Return scroller
+			 * @method getScroller
+			 * @member ns.widget.core.Page
+			 */
+			prototype.getScroller = function () {
+				var element = this.element,
+					scroller = element.querySelector("." + classes.uiScroller);
+
+				return scroller || element.querySelector("." + classes.uiContent) || element;
+			};
+
 			Page.prototype = prototype;
 
 			Page.createEmptyElement = function () {
@@ -817,16 +931,15 @@
 					"blur",
 					"setActive"
 				],
-				Page
+				Page,
+				// for register in jQuery Mobile space
+				"mobile"
 			);
 
 			ns.widget.core.Page = Page;
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			// exports only for tests
-			return {
-				Page: Page,
-				engine: engine
-			};
+			return Page;
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");

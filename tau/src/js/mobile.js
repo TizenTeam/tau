@@ -85,7 +85,7 @@
 			"./core/widget/core/PageIndicator",
 			"./core/widget/core/Slider",
 			"./core/widget/core/progress/Progress",
-			"./profile/mobile/widget/mobile/Page",
+			"./core/widget/core/Page",
 			"./profile/mobile/widget/mobile/Popup",
 			"./profile/mobile/widget/mobile/Scrollview",
 			"./profile/mobile/widget/mobile/Expandable",

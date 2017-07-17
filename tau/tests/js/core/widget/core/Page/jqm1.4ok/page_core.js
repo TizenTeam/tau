@@ -2,8 +2,7 @@
  * mobile page unit tests
  */
 (function ($) {
-	var libName = "jquery.mobile.page",
-		themedefault = $.mobile.page.prototype.options.theme;
+	var libName = "jquery.mobile.page";
 
 	module(libName);
 
