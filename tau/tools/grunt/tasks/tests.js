@@ -148,26 +148,31 @@ module.exports = function (grunt) {
 	configProperty["test-libs-mobile_support"] = configProperty["test-libs-mobile"];
 	grunt.config.set("copy", configProperty);
 
-	// Update config for task; concat
 	configProperty = grunt.config.get("concat");
-	configProperty["ej-namespace"] = {
-		src: [path.join("tests", "libs", "dist", "js", "tau.js"), path.join("tests", "libs", "namespace.js")],
-		dest: path.join("tests", "libs", "dist", "js", "tau.js")
-	};
-	grunt.config.set("concat", configProperty);
+	// Update config for task; concat
+	if (configProperty) {
+		configProperty["ej-namespace"] = {
+			src: [path.join("tests", "libs", "dist", "js", "tau.js"), path.join("tests", "libs", "namespace.js")],
+			dest: path.join("tests", "libs", "dist", "js", "tau.js")
+		};
+		grunt.config.set("concat", configProperty);
+	}
 
 	// Update config for task; clean
 	configProperty = grunt.config.get("clean");
-	configProperty["test-libs"] = {
-		expand: true,
-		src: [path.join("tests", "libs", "dist")]
-	};
-	configProperty["test"] = {
-		expand: true,
-		src: ["report", "temp"]
-	};
 
-	grunt.config.set("clean", configProperty);
+	if (configProperty) {
+		configProperty["test-libs"] = {
+			expand: true,
+			src: [path.join("tests", "libs", "dist")]
+		};
+		configProperty["test"] = {
+			expand: true,
+			src: ["report", "temp"]
+		};
+
+		grunt.config.set("clean", configProperty);
+	}
 
 	//grunt.loadNpmTasks( "grunt-contrib-qunit" );
 	grunt.loadNpmTasks("grunt-qunit-istanbul");

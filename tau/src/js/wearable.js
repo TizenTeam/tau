@@ -37,6 +37,7 @@
 			// router
 			"./core/router/Router",
 			"./core/router/history",
+			// routes
 			"./core/router/route/page",
 			"./core/router/route/popup",
 			"./core/router/route/drawer",
@@ -60,9 +61,9 @@
 			"./core/widget/core/scroller/Scroller",
 			"./core/widget/core/scroller/scrollbar/ScrollBar",
 			"./core/widget/core/SectionChanger",
-			"./core/widget/core/Page",
 			"./core/widget/core/VirtualListviewSimple",
-			// profile widgets
+			"./core/widget/core/Page",
+			// wearable widgets
 			"./profile/wearable/widget/wearable/Scrollview",
 			"./profile/wearable/widget/wearable/Popup",
 			"./profile/wearable/widget/wearable/Drawer",
@@ -81,6 +82,7 @@
 			"./profile/wearable/widget/wearable/Selector",
 			"./profile/wearable/widget/wearable/Grid",
 			"./profile/wearable/widget/wearable/NumberPicker",
+			"./profile/wearable/widget/wearable/ArcListview",
 			// helpers
 			"./profile/wearable/helper/SnapListStyle",
 			"./profile/wearable/helper/SnapListMarqueeStyle",
@@ -94,9 +96,10 @@
 			"./profile/wearable/backward",
 			// events
 			"./core/event/scrolledtoedge",
+			// gesture tool
 			"./core/event/gesture/Manager",
 			"./core/event/gesture/Instance",
-			// gesture definitions
+			// gestures detectors
 			"./core/event/gesture/Drag",
 			"./core/event/gesture/Swipe",
 			"./core/event/gesture/Pinch",
@@ -106,7 +109,7 @@
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
-			// init profile info
+			// setup profile info
 			ns.info.profile = "wearable";
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			// run engine

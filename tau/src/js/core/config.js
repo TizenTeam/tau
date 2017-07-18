@@ -41,7 +41,6 @@
 			ns.setConfig("pageTransition", "none", true);
 			ns.setConfig("popupTransition", "none", true);
 			ns.setConfig("popupFullSize", false, true);
-			ns.setConfig("enablePageScroll", false, true);
 			ns.setConfig("scrollEndEffectArea", "content", true);
 			ns.setConfig("enablePopupScroll", false, true);
 			// ns.setConfig('container', document.body); // for defining application container
