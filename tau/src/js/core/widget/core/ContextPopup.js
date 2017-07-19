@@ -363,7 +363,7 @@
 				 * @static
 				 */
 				/* eslint-disable camelcase */
-				// @TODO we can't change this in this moment because this is part of API
+				// we can't change this in this moment because this is part of API
 				events = objectUtils.merge({}, Popup.events, {
 					before_position: "beforeposition"
 				}),

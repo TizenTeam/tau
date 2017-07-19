@@ -44,7 +44,8 @@
 			ns.setConfig("scrollEndEffectArea", "content", true);
 			ns.setConfig("enablePopupScroll", false, true);
 			// ns.setConfig('container', document.body); // for defining application container
-			ns.setConfig("pageContainer", document.body, true); // same as above, but for wearable version
+			// same as above, but for wearable version
+			ns.setConfig("pageContainer", document.body, true);
 
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 		}

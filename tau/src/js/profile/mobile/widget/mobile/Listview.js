@@ -1190,8 +1190,6 @@
 					self._changeLocationDown(moveY, holder, helper, length);
 				} else if (self._direction < 0) {
 					self._changeLocationUp(moveY, holder, helper, length);
-				} else {
-					return false;
 				}
 			};
 
@@ -1302,36 +1300,29 @@
 			 * @member ns.widget.mobile.Listview
 			 */
 			prototype.handleEvent = function (event) {
-				var self = this;
+				var self = this,
+					srcElement = event.srcElement || event.detail.srcEvent.srcElement;
 
-				switch (event.type) {
-					case "click":
-						if (event.srcElement.classList.contains(classes.HANDLER)) {
+				if (srcElement.classList.contains(classes.HANDLER)) {
+					switch (event.type) {
+						case "click":
 							self._click(event);
-						}
-						event.preventDefault();
-						break;
-					case "dragprepare":
-						if (event.detail.srcEvent.srcElement.classList.contains(classes.HANDLER)) {
+							event.preventDefault();
+							break;
+						case "dragprepare":
 							self._prepare(event);
-						}
-						break;
-					case "dragstart":
-						if (event.detail.srcEvent.srcElement.classList.contains(classes.HANDLER)) {
+							break;
+						case "dragstart":
 							self._start(event);
-						}
-						event.preventDefault();
-						break;
-					case "drag":
-						if (event.detail.srcEvent.srcElement.classList.contains(classes.HANDLER)) {
+							event.preventDefault();
+							break;
+						case "drag":
 							self._move(event);
-						}
-						break;
-					case "dragend":
-						if (event.detail.srcEvent.srcElement.classList.contains(classes.HANDLER)) {
+							break;
+						case "dragend":
 							self._end(event);
-						}
-						break;
+							break;
+					}
 				}
 			};
 

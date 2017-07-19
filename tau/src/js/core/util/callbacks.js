@@ -125,7 +125,7 @@
 						 * @member ns.util.callbacks
 						 */
 						add: function () {
-							var start = 0;
+							var start;
 
 							if (list) {
 								// First, we save the current length

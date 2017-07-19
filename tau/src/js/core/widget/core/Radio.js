@@ -36,7 +36,9 @@
 			//>>excludeEnd("tauBuildExclude");
 			var BaseWidget = ns.widget.BaseWidget,
 				engine = ns.engine,
-				Radio = function () {},
+				Radio = function () {
+					this.element = null;
+				},
 				classes = {
 					radio: "ui-radio"
 				},

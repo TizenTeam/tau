@@ -126,7 +126,7 @@
 			 * @static
 			 */
 			function parseProperty(property) {
-				var arrayProperty = [];
+				var arrayProperty;
 
 				if (typeof property === "string") {
 					arrayProperty = property.split(",");

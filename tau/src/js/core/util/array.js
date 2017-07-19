@@ -39,8 +39,8 @@
 			 * @return {{inival: *, endval: *, chars: boolean}}
 			 */
 			function convertTypes(low, high) {
-				var inival = low,
-					endval = high,
+				var inival,
+					endval,
 					chars = false;
 
 				if (isNaN(low) && isNaN(high)) {
@@ -55,7 +55,7 @@
 					inival: inival,
 					endval: endval,
 					chars: chars
-				}
+				};
 			}
 			/**
 			 * Create an array containing the range of integers or characters
@@ -88,7 +88,7 @@
 					endval,
 					plus,
 					walker = step || 1,
-					chars = false,
+					chars,
 					typeData;
 
 				typeData = convertTypes(low, high);

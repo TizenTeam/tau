@@ -199,7 +199,7 @@
 					 * @member ns.widget.core.Popup
 					 */
 					/* eslint-disable camelcase */
-					// @TODO we can't change this in this moment because this is part of API
+					// we can't change this in this moment because this is part of API
 					before_show: EVENTS_PREFIX + "beforeshow",
 					/**
 					 * Triggered on the popup we are transitioning to, before the actual transition animation is kicked off, animation has started.

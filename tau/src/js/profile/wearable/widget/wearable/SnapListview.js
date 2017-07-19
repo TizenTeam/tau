@@ -188,8 +188,8 @@
 			 * @class ns.widget.wearable.SnapListview.ListItem
 			 */
 			SnapListview.ListItem = function (element, visiableOffset) {
-				var offsetTop = 0,
-					height = 0;
+				var offsetTop,
+					height;
 
 				element.classList.add(classes.SNAP_LISTVIEW_ITEM);
 				offsetTop = element.offsetTop;
@@ -706,7 +706,8 @@
 
 				// if list is disabled or selected index is out of range, or item on selected index
 				// is not displayed, this function returns false
-				if (!enabled || index < 0 || index >= listItemLength || self._currentIndex === index || !isListItemDisplayed(listItem)) {
+				if (!enabled || index < 0 || index >= listItemLength || self._currentIndex === index ||
+					!isListItemDisplayed(listItem)) {
 					return false;
 				}
 

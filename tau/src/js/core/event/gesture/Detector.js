@@ -73,7 +73,7 @@
 			 * @member ns.event.gesture.Detector.plugin
 			 */
 			Detector.plugin.create = function (gestureHandler) {
-				var detector = null;
+				var detector;
 
 				if (!gestureHandler.types) {
 					gestureHandler.types = [gestureHandler.name];

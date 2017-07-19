@@ -95,7 +95,7 @@
 			 * @memberof ns.util.rotaryScrolling
 			 */
 			function setScrollStep(newScrollStep) {
-				scrollStep = newScrollStep
+				scrollStep = newScrollStep;
 			}
 
 			rotaryScrolling.enable = enable;

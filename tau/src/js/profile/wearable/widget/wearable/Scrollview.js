@@ -101,6 +101,7 @@
 					CIRCLE: "tizen-circular-scrollbar"
 				},
 				Scrollview = function () {
+					this.options = {};
 				},
 				/**
 				 * Dictionary for page related css class names

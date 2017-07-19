@@ -327,7 +327,7 @@
 			 * @static
 			 */
 			function addActiveClass() {
-				var btnTargetClassList = null,
+				var btnTargetClassList,
 					dTime = 0;
 
 				if (anchorHighlight._startTime) {

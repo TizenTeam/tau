@@ -375,11 +375,10 @@
 			prototype._removeExternalPage = function (fromPageWidget, options) {
 				var fromPageElement = fromPageWidget.element;
 
-				if (options && options.reverse && DOM.hasNSData(fromPageElement, "external")) {
-					if (fromPageElement.parentNode) {
-						fromPageElement.parentNode.removeChild(fromPageElement);
-						this.trigger(EventType.PAGE_REMOVE);
-					}
+				if (options && options.reverse && DOM.hasNSData(fromPageElement, "external") &&
+					fromPageElement.parentNode) {
+					fromPageElement.parentNode.removeChild(fromPageElement);
+					this.trigger(EventType.PAGE_REMOVE);
 				}
 			};
 

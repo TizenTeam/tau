@@ -389,8 +389,8 @@
 			 * @member ns.util.scrolling
 			 */
 			function enable(element, setDirection, setVirtualMode) {
-				var parentRectangle = null,
-					contentRectangle = null;
+				var parentRectangle,
+					contentRectangle;
 
 				virtualMode = setVirtualMode;
 				bounceBack = false;
@@ -444,10 +444,6 @@
 					document.addEventListener("touchstart", touchStart, false);
 					document.addEventListener("touchmove", touchMove, false);
 					document.addEventListener("touchend", touchEnd, false);
-
-					// clean
-					parentRectangle = null;
-					contentRectangle = null;
 				}
 			}
 

@@ -9,7 +9,8 @@
  * The following table describes the supported button classes.
  *
  * ## Default selectors
- * The button widget shows a control on the screen that you can use to generate an action event when it is pressed and released.
+ * The button widget shows a control on the screen that you can use to generate an action event when it is pressed and
+ * released.
  * This widget is coded with standard HTML anchor and input elements.
  *
  * Default selector for buttons is class *ui-btn*

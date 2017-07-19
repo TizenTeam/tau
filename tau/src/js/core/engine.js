@@ -666,6 +666,7 @@
 			 * @param {ns.widget.BaseWidget} definition.widgetClass
 			 * @param {string} definition.name
 			 * @param {Object} [options] options for widget
+			 * @return {?HTMLElement}
 			 * @private
 			 * @static
 			 * @member ns.engine
@@ -698,6 +699,8 @@
 					}
 					return widgetInstance.element;
 				}
+
+				return null;
 			}
 
 			/**

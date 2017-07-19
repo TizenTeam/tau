@@ -369,7 +369,7 @@
 					options = self.options,
 					type = element.type,
 					ui = self._ui,
-					header = null;
+					header;
 
 				/* set Aria and TextLine */
 				switch (type) {

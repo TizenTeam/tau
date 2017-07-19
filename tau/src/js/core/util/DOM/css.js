@@ -103,7 +103,7 @@
 				var style = window.getComputedStyle(element, pseudoSelector),
 					property,
 					value = null,
-					newValue = 0;
+					newValue;
 
 				for (property in properties) {
 					if (properties.hasOwnProperty(property)) {
@@ -120,9 +120,9 @@
 			}
 
 			function getOffset(element, props, pseudoSelector, force, offsetProperty) {
-				var originalDisplay = null,
-					originalVisibility = null,
-					originalPosition = null,
+				var originalDisplay,
+					originalVisibility,
+					originalPosition,
 					offsetValue,
 					style = element.style;
 

@@ -241,7 +241,7 @@
 					 * @protected
 					 */
 				_move: function (event) {
-					var newEvent = null;
+					var newEvent;
 
 					if (this._isReadyDetecting) {
 						newEvent = this._createGestureEvent(gesture.Event.MOVE, event);

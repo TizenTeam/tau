@@ -137,7 +137,7 @@
 					 * @member ns.event.gesture.Drag
 					 */
 					handler: function (gestureEvent, sender, options) {
-						var newGestureEvent = gestureEvent,
+						var newGestureEvent,
 							threshold = options.threshold,
 							result = RESULTS.PENDING,
 							direction = gestureEvent.direction;
@@ -198,7 +198,6 @@
 								break;
 							case gesture.Event.MOVE:
 								if (!this.isTriggered && sender.sendEvent(eventNames.start, newGestureEvent) === false) {
-									result = RESULTS.FINISHED;
 									newGestureEvent.preventDefault();
 								}
 								result = sender.sendEvent(eventNames.drag, newGestureEvent) ? RESULTS.RUNNING : RESULTS.FINISHED;

@@ -36,7 +36,9 @@
 			//>>excludeEnd("tauBuildExclude");
 			var BaseWidget = ns.widget.BaseWidget,
 				engine = ns.engine,
-				Checkbox = function () {},
+				Checkbox = function () {
+					this.element = null;
+				},
 				classes = {
 					checkbox: "ui-checkbox"
 				},

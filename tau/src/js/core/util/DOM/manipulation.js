@@ -59,9 +59,9 @@
 			 * @throws {string}
 			 */
 			DOM.appendNodes = function (context, elements) {
-				var i = 0,
-					length = 0,
-					arrayElements = [];
+				var i,
+					length,
+					arrayElements;
 
 				if (context) {
 					if (elements instanceof Array || elements instanceof NodeList || elements instanceof HTMLCollection) {
@@ -89,7 +89,7 @@
 			 * @static
 			 */
 			DOM.replaceWithNodes = function (context, elements) {
-				var returnElements = null;
+				var returnElements;
 
 				if (elements instanceof Array || elements instanceof NodeList || elements instanceof HTMLCollection) {
 					returnElements = this.insertNodesBefore(context, elements);
@@ -126,7 +126,7 @@
 				var i,
 					length,
 					parent,
-					returnElements = [];
+					returnElements;
 
 				if (context) {
 					parent = context.parentNode;
@@ -207,7 +207,7 @@
 				return {
 					container: container,
 					contentFlag: contentFlag
-				}
+				};
 			}
 
 			/**
@@ -227,8 +227,8 @@
 					originalParentNode = elementsLen ? elements[0].parentNode : elements.parentNode,
 					next = elementsLen ? elements[elementsLen - 1].nextSibling : elements.nextSibling,
 					innerContainer,
-					resultElements = elements,
-					containerData = null;
+					resultElements,
+					containerData;
 
 				containerData = prepareContainer(fragment, html);
 
@@ -248,9 +248,6 @@
 				} else {
 					cleanFragment(fragment2);
 				}
-
-				fragment = null;
-				fragment2 = null;
 
 				return resultElements;
 			};
