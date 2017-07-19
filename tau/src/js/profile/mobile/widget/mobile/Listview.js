@@ -1190,6 +1190,8 @@
 					self._changeLocationDown(moveY, holder, helper, length);
 				} else if (self._direction < 0) {
 					self._changeLocationUp(moveY, holder, helper, length);
+				} else {
+					return false;
 				}
 			};
 
@@ -1301,7 +1303,7 @@
 			 */
 			prototype.handleEvent = function (event) {
 				var self = this,
-					srcElement = event.srcElement || event.detail.srcEvent.srcElement;
+					srcElement = (event.detail.srcEvent && event.detail.srcEvent.srcElement) || event.srcElement;
 
 				if (srcElement.classList.contains(classes.HANDLER)) {
 					switch (event.type) {
