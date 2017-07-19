@@ -517,6 +517,42 @@
 			assert.ok(Object.keys(listview._ui.helper).length === 0 && listview._ui.helper.constructor === Object, "Listview helper is empty.");
 		});
 
+		test("_animationend", function (assert) {
+			var element = document.getElementById("listview-1"),
+				listview,
+				eventStub,
+				elementClasses = element.classList;
+
+			eventStub = {
+				target: {
+					parentElement: {
+						parentElement: element
+					}
+				},
+				stopImmediatePropagation: function(){},
+				preventDefault: function(){}
+			};
+
+			listview = new Listview();
+			listview.element = element;
+
+			elementClasses.add(Listview.classes.ACTIVATE_HANDLERS);
+			listview._animationEnd(eventStub);
+			assert.equal(elementClasses.contains(Listview.classes.ACTIVATE_HANDLERS), false,
+				"Listview scrollable container is set to null.");
+			assert.equal(elementClasses.contains(Listview.classes.CANCEL_ANIMATION), true,
+				"Listview scrollable container is set to null.");
+			elementClasses.remove(Listview.classes.CANCEL_ANIMATION)
+
+			elementClasses.add(Listview.classes.DEACTIVATE_HANDLERS);
+			elementClasses.add(Listview.classes.DRAG_MODE);
+			listview._animationEnd(eventStub);
+			assert.equal(elementClasses.contains(Listview.classes.DEACTIVATE_HANDLERS), false,
+				"Listview scrollable container is set to null.");
+			assert.equal(elementClasses.contains(Listview.classes.DRAG_MODE), false,
+				"Listview scrollable container is set to null.");
+		});
+
 		test("_hadleTouchStart", function (assert) {
 			var element = document.getElementById("listview-1"),
 				listview,

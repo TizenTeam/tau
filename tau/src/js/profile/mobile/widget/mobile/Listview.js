@@ -214,8 +214,13 @@
 					"HELPER": "ui-listview-helper",
 					"HOLDER": "ui-listview-holder",
 					"SNAPSHOT": "snapshot",
-					"HANDLER": "ui-listview-handler"
+					"HANDLER": "ui-listview-handler",
+					"DRAG_MODE": "dragMode",
+					"ACTIVATE_HANDLERS": "activateHandlers",
+					"CANCEL_ANIMATION": "cancelAnimation",
+					"DEACTIVATE_HANDLERS": "deactivateHandlers"
 				},
+
 				/**
 				 * @property {Object} events
 				 * @property {string} events.BACKGROUND_RENDER
@@ -908,6 +913,8 @@
 					if (popupContainer) {
 						eventUtils.on(popupContainer, Popup.events.transition_start, this._backgroundRenderCallback);
 					}
+
+					utilsEvents.on(this.element, "animationend", this, true);
 				}
 			};
 
@@ -920,6 +927,11 @@
 			 */
 			prototype._destroy = function (element) {
 				var self = this;
+
+				//phantom hack
+				if (element) {
+					utilsEvents.off(element, "animationend", self, true);
+				}
 
 				if (self._context) {
 					if (self._context.canvas.parentElement) {
@@ -1295,6 +1307,37 @@
 			};
 
 			/**
+			 * Method for animationEnd event
+			 *
+			 * Controls the behavor for 2 animations:
+			 * -sliding from righ to left
+			 * -sliding from left to right
+			 * @method _animationEnd
+			 * @protected
+			 * @param {Event} event Event
+			 * @member ns.widget.mobile.Listview
+			 */
+			prototype._animationEnd = function (event) {
+				var self = this,
+					listContainer = event.target.parentElement.parentElement,
+					listContainerClasses = listContainer.classList;
+
+				if (listContainerClasses.contains(classes.ACTIVATE_HANDLERS)) {
+					listContainerClasses.remove(classes.ACTIVATE_HANDLERS);
+
+					//disable animation, so it will not run when reorder
+					listContainerClasses.add(classes.CANCEL_ANIMATION);
+				} else if (listContainerClasses.contains(classes.DEACTIVATE_HANDLERS)) {
+					//remove handlers after animation end
+					self._removeHandlers();
+					listContainerClasses.remove(classes.DEACTIVATE_HANDLERS);
+					listContainerClasses.remove(classes.DRAG_MODE);
+				}
+				event.stopImmediatePropagation();
+				event.preventDefault();
+			};
+
+			/**
 			 * Handle events
 			 * @method handleEvent
 			 * @public
@@ -1323,6 +1366,9 @@
 							break;
 						case "dragend":
 							self._end(event);
+							break;
+						case "animationend":
+							self._animationEnd(event);
 							break;
 					}
 				}
@@ -1436,16 +1482,11 @@
 				self._dragMode = !self._dragMode;
 
 				if (self._dragMode) {
-					element.classList.add("dragMode");
-					element.classList.add("activateHandlers");
-
+					element.classList.add(classes.DRAG_MODE);
 					self._liElements = slice.call(element.querySelectorAll("li"));
 					self._appendHandlers();
-					window.setTimeout(function () {
-						//disable animation, so it will not run when reorder
-						element.classList.add("cancelAnimation");
-						element.classList.remove("activateHandlers");
-					}, 200);
+					element.classList.add(classes.ACTIVATE_HANDLERS);
+
 					utilsEvents.on(element, "click drag dragstart dragend dragcancel dragprepare", self, true);
 					eventUtils.on(scrollableContainer, "scroll", self._reorderCallback);
 					self.trigger("scroll");
@@ -1457,15 +1498,8 @@
 						})
 					);
 				} else {
-					element.classList.remove("cancelAnimation");
-					element.classList.add("deactivateHandlers");
-
-					//cannot remove handlers when animation is in progress
-					window.setTimeout(function () {
-						self._removeHandlers();
-						element.classList.remove("deactivateHandlers");
-						element.classList.remove("dragMode");
-					}, 200);
+					element.classList.remove(classes.CANCEL_ANIMATION);
+					element.classList.add(classes.DEACTIVATE_HANDLERS);
 
 					utilsEvents.off(element, "click drag dragstart dragend dragcancel dragprepare", self, true);
 					utilsEvents.disableGesture(element);

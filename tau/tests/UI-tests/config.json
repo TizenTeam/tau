@@ -205,7 +205,7 @@
 				"width": 360,
 				"height": 640,
 				"pass": true,
-				"threshold": 1
+				"threshold": 2
 			},
 			{
 				"name": "90-list-with-circle-button",
