@@ -185,6 +185,7 @@
 
 		test("_refreshColoredBackground", function (assert) {
 			var element = document.createElement("div"),
+				canvas = null,
 				listview;
 
 			listview = new Listview(element);
@@ -213,12 +214,21 @@
 			listview.element = element;
 			listview._scrollableContainer = document.createElement("div");
 
+			canvas = document.createElement("canvas");
+			listview.element.appendChild(canvas);
 			// call tested method
 			listview._refreshColoredBackground();
 
 			// Check property
 			assert.ok(listview._redraw, "Listview property: _redraw has changed on true");
 			assert.ok(listview._lastChange, "Listview property: _lastChange has changed");
+
+			listview._context = {};
+			listview._context.canvas = canvas;
+			listview.element.removeChild(listview.element.firstElementChild);
+			// call tested method
+			listview._refreshColoredBackground();
+			assert.ok(listview.element.firstElementChild.tagName.toLowerCase() === "canvas", "bring back canvas successfully");
 
 			// Remove stubs
 			helpers.restoreStub(listview, "_checkClossestPopup");

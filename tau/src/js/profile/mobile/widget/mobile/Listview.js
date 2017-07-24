@@ -488,6 +488,13 @@
 				self._prepareColors();
 				self._refreshBackgroundCanvas(self._scrollableContainer, element);
 
+				if (element.firstElementChild &&
+						element.firstElementChild.tagName.toLowerCase() !== "canvas") {
+					element.insertBefore(self._context.canvas, element.firstElementChild);
+				} else if (!(element.firstElementChild instanceof HTMLElement)) {
+					element.appendChild(self._context.canvas);
+				}
+
 				self._frameCallback();
 			};
 
