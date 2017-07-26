@@ -124,6 +124,7 @@
 
 					 * @property {number} [options.bigTick = 180] start point for drawing bigTick
 					 * @property {number} [options.bigTickHeight = 10] height for bigTick
+					 * @property {number} [options.bigTickWidth = 10] width for bigTick
 					 * @property {number} [options.bigTickR = 0] radius for bigThick
 
 					 * @property {number} [options.smallTick = 180] start point for drawing smallTick
@@ -156,6 +157,7 @@
 
 						bigTick: 0,
 						bigTickHeight: 10,
+						bigTickWidth: 3,
 						bigTickR: 0,
 
 						smallTick: 0,
@@ -345,10 +347,12 @@
 						"tickHeight": options.bigTickHeight,
 						"classes": "big",
 						"color": "white",
-						"strokeWidth": 3,
+						"strokeWidth": options.bigTickWidth,
 						"r": options.bigTickR
 					});
-					prepareTickText(self, index, width, height, degrees);
+					if (self.options.text !== "none") {
+						prepareTickText(self, index, width, height, degrees);
+					}
 				}
 
 				//s, if circle === 0 then don't draw smallTick parameter lets you draw with the given degree step

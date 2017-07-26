@@ -60,7 +60,7 @@
 
 				self.options = {
 					min: 0,
-					max: 100,
+					max: 12,
 					step: 1,
 					disabled: false
 				};
@@ -78,6 +78,7 @@
 					footer: null
 				};
 			}
+			NumberPicker.classes = classes;
 
 			/**
 			 * Method trying find label for number element or create label element if not found it
@@ -152,18 +153,29 @@
 			 */
 			prototype._createWidgets = function () {
 				var self = this,
-					ui = self._ui;
+					ui = self._ui,
+					options = self.options;
 
 				// Create circle indicator widget
 				self._circleIndicator = ns.widget.CircleIndicator(ui.indicator, {
-					circleR: 0,
-					from: 0,
-					to: 360,
+					text: options.circleType || "none",
+					circleR: options.circleR || 0,
+					from: options.from || 0,
+					to: options.to || 360,
 					indicatorType: "line",
 					indicatorHeight: 25,
 					indicatorColor: "rgba(249,123,47,1)",
 					indicatorWidth: 5,
-					indicatorR: 180
+					indicatorR: 180,
+
+					bigTick: options.bigTick || 0,
+					bigTickR: options.bigTickR || 0,
+					bigTickHeight: options.bigTickHeight || 0,
+					bigTickWidth: options.bigTickWidth,
+
+					smallTick: options.smallTick || 0,
+					smallTickR: options.smallTickR || 0,
+					smallTickHeight: options.smallTickHeight || 0
 				});
 			};
 
@@ -327,23 +339,22 @@
 				label = self._extractLabel(element);
 				footer = self._findFooter(element);
 
-				// create button set
-				buttonSet.innerHTML = "SET";
-
 				// add classes
 				container.classList.add(classes.CONTAINER);
 				number.classList.add(classes.NUMBER);
 				label.classList.add(classes.LABEL);
+
+				// create button set
+				buttonSet.innerHTML = "SET";
 				buttonSet.classList.add("ui-btn");
 				buttonSet.classList.add(classes.BUTTON_SET);
+				// add "set" button to the footer
+				footer.appendChild(buttonSet);
 
 				// build DOM structure
 				container.appendChild(number);
 				container.appendChild(indicator);
 				container.appendChild(label);
-
-				// add "set" button to the footer
-				footer.appendChild(buttonSet);
 
 				// add widget container
 				element.parentElement.appendChild(container);
