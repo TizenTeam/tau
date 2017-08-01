@@ -50,7 +50,10 @@
 				classes = {
 					HOURS_CONTAINER: WIDGET_CLASS + "-container-hours",
 					MINUTES_CONTAINER: WIDGET_CLASS + "-container-minutes",
-					AMPM_CONTAINER: WIDGET_CLASS + "-container-ampm"
+					AMPM_CONTAINER: WIDGET_CLASS + "-container-ampm",
+					COLON: WIDGET_CLASS + "-colon-container",
+					AMPM: WIDGET_CLASS + "-am-pm",
+					NO_AMPM: WIDGET_CLASS + "-no-am-pm"
 				},
 				WIDGET_SELECTOR = "." + WIDGET_CLASS;
 
@@ -126,7 +129,9 @@
 					indicator = document.createElement("div"),
 					indicatorMinutes = document.createElement("div"),
 					buttonSet = document.createElement("button"),
+					numberPickerColon = document.createElement("span"),
 					numberPickerHoursContainer = self._addIndicator("Hours"),
+					numberPickerColonContainer = document.createElement("div"),
 					numberPickerMinutesContainer = self._addIndicator("Minutes");
 
 				footer = self._findFooter(element);
@@ -138,17 +143,24 @@
 				buttonSet.classList.add("ui-btn");
 				buttonSet.classList.add(NumberPicker.classes.BUTTON_SET);
 
-				numberPickerHoursContainer.classList.add(classes.HOURS_CONTAINER) ;
-				numberPickerMinutesContainer.classList.add(classes.MINUTES_CONTAINER);
+				numberPickerHoursContainer.classList.add(classes.HOURS_CONTAINER);
 
+				numberPickerColonContainer.classList.add(classes.COLON) ;
+				numberPickerMinutesContainer.classList.add(classes.MINUTES_CONTAINER);
+				numberPickerColon.innerHTML = ":";
 				// build DOM structure
 				element.appendChild(numberPickerHoursContainer);
+				element.appendChild(numberPickerColonContainer);
 				element.appendChild(numberPickerMinutesContainer);
+				numberPickerColonContainer.appendChild(numberPickerColon);
 				if (!self.options.display24) {
-					amPmBlock = document.createElement("span");
+					amPmBlock = document.createElement("div");
 					amPmBlock.classList.add(classes.AMPM_CONTAINER);
 					amPmBlock.innerText = "AM";
 					element.appendChild(amPmBlock);
+					numberPickerHoursContainer.classList.add(classes.AMPM);
+				} else {
+					numberPickerHoursContainer.classList.add(classes.NO_AMPM);
 				}
 				element.appendChild(indicatorMinutes);
 				element.appendChild(indicator);
@@ -269,8 +281,8 @@
 				numberPickerInput.min = "0";
 				numberPickerInput.step = "1";
 				numberPickerInput.value = "0";
-				numberPickerContainer.appendChild(number);
 				numberPickerContainer.appendChild(numberPickerLabel);
+				numberPickerContainer.appendChild(number);
 				numberPickerContainer.appendChild(numberPickerInput);
 
 				ui["number" + name] = number;

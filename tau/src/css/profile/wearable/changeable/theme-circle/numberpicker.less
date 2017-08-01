@@ -50,9 +50,11 @@
 	}
 	.ui-number-picker-label {
 		order: 1;
-		font-size: 24 * @unit_base;
+		font-size: 21 * @unit_base;
 		line-height: 25 * @unit_base;
 		color: @color_number_picker_label;
+		display:block;
+		width: 80px;
 	}
 	.ui-number-picker-number {
 		order: 2;
@@ -60,6 +62,8 @@
 		line-height: 85 * @unit_base;
 		margin-top: -6 * @unit_base;
 		color: @color_number_picker_number;
+		width: 80px;
+		display:block;
 	}
 	&.ui-number-picker-disabled .ui-number-picker-number {
 		color: @color_number_picker_number_disabled;
