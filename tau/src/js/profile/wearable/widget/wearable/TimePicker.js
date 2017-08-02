@@ -53,7 +53,8 @@
 					AMPM_CONTAINER: WIDGET_CLASS + "-container-ampm",
 					COLON: WIDGET_CLASS + "-colon-container",
 					AMPM: WIDGET_CLASS + "-am-pm",
-					NO_AMPM: WIDGET_CLASS + "-no-am-pm"
+					NO_AMPM: WIDGET_CLASS + "-no-am-pm",
+					ACTIVE_LABEL: WIDGET_CLASS + "-active-label"
 				},
 				WIDGET_SELECTOR = "." + WIDGET_CLASS;
 
@@ -62,14 +63,19 @@
 
 				// other widgets instances using by number picker
 				self._circleIndicator = null;
-				// widget will just draw minutes on the board
+				// circle indicator widget will just draw minutes on the board
 				self._circleIndicatorSupporter = null;
+				// hours and minutes input have different max values, holds active input max value
+				self._actualMax = 0;
+				// store timer id
+				self.rotaryControler = 0;
 
 				NumberPicker.call(self);
 			}
 
 			/**
-			 * Collect attributes of input element when widget is creating
+			 * Collect options from DOM
+			 * curently only display 24 or 12 format can be picked up
 			 * @protected
 			 * @method _configure
 			 * @member ns.widget.core.TimePicker
@@ -112,6 +118,7 @@
 
 				utilsEvents.on(ui.numberHours, "click", self, true);
 				utilsEvents.on(ui.numberMinutes, "click", self, true);
+				utilsEvents.on(document, "rotarydetent", self, true);
 			};
 
 			/**
@@ -176,10 +183,43 @@
 
 				//add circular background with minutes on the scale
 				self._createBackgroundScaleForMinutes();
-				// Create widget, defined by Number Picker
+				// Create circle widget, defined by Number Picker,
+				// main indicator will work on this widget
 				self._createWidgets();
 
 				return element;
+			};
+
+			/**
+			 * Method for rotary detent event
+			 *
+			 * Method sets the new value after rotary event
+			 * @method _onRotary
+			 * @param {Event} event
+			 * @protected
+			 * @member ns.widget.mobile.TimePicker
+			 */
+			prototype._onRotary = function (event) {
+				var self = this,
+					currentValue = 0,
+					activeInput = null,
+					activeNumber = document.querySelector("." + classes.ACTIVE_LABEL);
+
+				if (activeNumber) {
+					activeInput = activeNumber.parentElement.children[2];
+					currentValue = parseInt(activeInput.value, 10);
+					if (event.detail.direction === "CW") {
+						self.value(currentValue + self.options.step);
+					} else {
+						self.value(currentValue - self.options.step);
+					}
+
+					//remove active class after rotary stops and 1.5 seconds pass
+					window.clearTimeout(self.rotaryControler);
+					self.rotaryControler = window.setTimeout(function () {
+						activeNumber.classList.remove(classes.ACTIVE_LABEL);
+					}, 1500);
+				}
 			};
 
 			/**
@@ -195,10 +235,29 @@
 			 */
 			prototype._click = function (event) {
 				var self = this,
+					ui = self._ui,
 					labelTarget = event.target,
+					uiNumberHours = ui.numberHours,
+					uiNumberMinutes = ui.numberMinutes,
+					uiInputHours = ui.numberPickerHoursInput,
 					currentValue = parseInt(labelTarget.textContent, 10);
 
-				///if (labelTarget.classList.contains())
+				//hours
+				if (labelTarget.parentElement.classList.contains(classes.HOURS_CONTAINER)) {
+					uiNumberHours.classList.add(classes.ACTIVE_LABEL);
+					uiNumberMinutes.classList.remove(classes.ACTIVE_LABEL);
+					self._actualMax = parseInt(uiInputHours.max, 10);
+					// move indicator to the selected hours value
+					self._updateValue(currentValue);
+				//minutes
+				} else if (labelTarget.parentElement.classList.contains(classes.MINUTES_CONTAINER)) {
+					uiNumberHours.classList.remove(classes.ACTIVE_LABEL);
+					uiNumberMinutes.classList.add(classes.ACTIVE_LABEL);
+					self._actualMax = 60;
+					// move indicator to the selected minutes value
+					self._updateValue(currentValue);
+				//AM PM
+				}
 			};
 
 			/**
@@ -215,6 +274,10 @@
 					case "click":
 						event.preventDefault();
 						self._click(event);
+						break;
+					case "rotarydetent":
+						event.preventDefault();
+						self._onRotary(event);
 						break;
 				}
 			};
@@ -303,26 +366,43 @@
 			prototype._setValue = function (value) {
 				var self = this,
 					ui = self._ui,
-					element = self.element,
+					getHoursValue = 0,
+					activeInput = null,
+					getMinutesValue = 0,
+					activeNumber = null,
 					options = self.options;
 
 				if (value instanceof Date) {
-					ui.numberPickerHoursInput.setAttribute("value", value.getHours() > 12 ? value.getHours() - 12 : value.getHours());
-					ui.numberPickerHoursInput.value = value.getHours() > 12 ? value.getHours() - 12 : value.getHours();
-					ui.numberPickerMinutesInput.setAttribute("value", value.getMinutes());
-					ui.numberPickerMinutesInput.value = value.getMinutes();
-					ui.numberHours.innerHTML = value.getHours() > 12 ? value.getHours() - 12 : value.getHours();
-					ui.numberMinutes.innerHTML = value.getMinutes();
+					getHoursValue = value.getHours();
+					getMinutesValue = value.getMinutes();
+					if (!self.options.display24) {
+						if (getHoursValue > 12) {
+							getHoursValue -= 12;
+						}
+					}
+					ui.numberPickerHoursInput.setAttribute("value", getHoursValue);
+					ui.numberPickerHoursInput.value = getHoursValue;
+					ui.numberPickerMinutesInput.setAttribute("value", getMinutesValue);
+					ui.numberPickerMinutesInput.value = getMinutesValue;
+					ui.numberHours.innerHTML = getHoursValue;
+					ui.numberMinutes.innerHTML = getMinutesValue;
+
 					//by default set the indicator on hours value
+					self._actualMax = parseInt(ui.numberPickerHoursInput.max, 10);
 					self._updateValue(ui.numberPickerHoursInput.value);
 				} else {
 					value = parseInt(value, 10);
-					value = Math.max(Math.min(value, options.max), options.min);
+					value = Math.max(Math.min(value, self._actualMax), options.min);
 
-					element.setAttribute("value", value);
-					element.value = value;
+					activeNumber = document.querySelector("." + classes.ACTIVE_LABEL);
+					if (activeNumber) {
+						activeInput = activeNumber.parentElement.children[2];
+						activeInput.setAttribute("value", value);
+						activeInput.value = value;
+						activeNumber.innerHTML = activeInput.value;
+						self._updateValue(activeInput.value);
+					}
 
-					self._updateValue(element.value);
 				}
 			};
 
@@ -335,7 +415,7 @@
 			 */
 			prototype._updateValue = function (value) {
 				var self = this,
-					delta = self.options.max - self.options.min;
+					delta = parseInt(self._actualMax, 10) - self.options.min;
 
 				/**
 				 * Cirecle indicator showing radius value.
@@ -348,8 +428,6 @@
 				}
 			};
 
-			prototype._toggle = function () {
-			};
 			/**
 			 * Destroy widget instance
 			 * @protected
@@ -357,10 +435,29 @@
 			 * @member ns.widget.core.TimePicker
 			 */
 			prototype._destroy = function () {
+				var self = this,
+					ui = self._ui,
+					element = self.element;
+
+				utilsEvents.off(ui.numberHours, "click", self, true);
+				utilsEvents.off(ui.numberMinutes, "click", self, true);
+				utilsEvents.off(document, "rotarydetent", self, true);
+
+				// destroy widgets
+				self._circleIndicator.destroy();
+				self._circleIndicatorSupporter.destroy();
+
+				// recovery DOM structure
+				while (element.firstChild) {
+					element.removeChild(element.firstChild);
+				}
+
+				ui.footer.classList.remove("ui-bottom-button");
+				ui.footer.removeChild(ui.buttonSet);
 			};
 
 			/**
-			 * Bind widget event handlers
+			 * Bind widget event handlers override NumberPicker to not call
 			 * @protected
 			 * @method _bindEvents
 			 * @member ns.widget.core.TimePicker
@@ -369,7 +466,7 @@
 			};
 
 			/**
-			 * Unbind widget event handlers
+			 * Unbind widget event handlers override NumberPicker to not call
 			 * @protected
 			 * @method _unbindEvents
 			 * @member ns.widget.core.TimePicker
