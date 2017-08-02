@@ -1,37 +1,16 @@
 /* global tau */
 (function () {
 	var page = document.getElementById("colorpickerPage"),
-		selector = document.getElementById("selector"),
-		selectorComponent,
+		colorpicker = document.getElementById("colorpicker"),
+		colorpickerComponent,
 		clickBound;
-
-	/**
-	 * click event handler for the selector
-	 * @param {Event} event
-	 */
-	function onClick(event) {
-		var target = event.target;
-
-		//console.log(activeItem.getAttribute("data-title"));
-		/*
-		 * Default indicator class selector is "ui-selector-indicator".
-		 * If you want to show custom indicator sample code,
-		 * check the 'customIndicator.js' please.
-		 */
-		if (target.classList.contains("ui-selector-indicator")) {
-			//console.log("Indicator clicked");
-			return;
-		}
-	}
 
 	/**
 	 * pagebeforeshow event handler
 	 * Do preparatory works and adds event listeners
 	 */
 	page.addEventListener("pagebeforeshow", function () {
-		clickBound = onClick.bind(null);
-		selectorComponent = tau.widget.ColorPicker(selector);
-		selector.addEventListener("click", clickBound, false);
+		colorpickerComponent = tau.widget.ColorPicker(colorpicker);
 	});
 
 	/**
@@ -39,7 +18,6 @@
 	 * Destroys and removes event listeners
 	 */
 	page.addEventListener("pagebeforehide", function () {
-		selector.removeEventListener("click", clickBound, false);
-		selectorComponent.destroy();
+		colorpickerComponent.destroy();
 	});
 }());

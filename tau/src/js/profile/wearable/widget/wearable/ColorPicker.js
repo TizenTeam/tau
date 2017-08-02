@@ -40,7 +40,6 @@
  *
  *                  function onClick(event) {
  *                      var activeItem = selector.querySelector(".ui-item-active");
- *                      //console.log(activeItem.getAttribute("data-title"));
  *                  }
  *                  page.addEventListener("pagebeforeshow", function() {
  *                      clickBound = onClick.bind(null);
@@ -74,6 +73,7 @@
 				ColorPicker = function () {
 					var self = this;
 
+					self.options = {};
 					Selector.call(self);
 				},
 
@@ -109,7 +109,7 @@
 			 * Dictionary for ColorPicker related events.
 			 * For color picker, it is an empty object.
 			 * @property {Object} events
-			 * @member ns.widget.wearable.Button
+			 * @member ns.widget.wearable.ColorPicker
 			 * @static
 			 */
 			ColorPicker.events = {};
@@ -120,7 +120,7 @@
 			 * @param {HTMLElement} element
 			 * @return {HTMLElement}
 			 * @protected
-			 * @member ns.widget.wearable.Button
+			 * @member ns.widget.wearable.ColorPicker
 			 */
 			prototype._build = function (element) {
 				var self = this;
@@ -149,19 +149,6 @@
 					item.setAttribute("data-title", color);
 					element.appendChild(item);
 				});
-			};
-
-			/**
-			 * Init ColorPicker component
-			 * @method _init
-			 * @param {HTMLElement} element
-			 * @return {HTMLElement} element
-			 * @protected
-			 */
-			prototype._init = function (element) {
-				Selector.prototype._init.call(this, element);
-
-				return element;
 			};
 
 			/**
@@ -196,23 +183,17 @@
 			};
 
 			/**
-			 * Refresh structure
-			 * @method _refresh
-			 * @protected
-			 * @member ns.widget.wearable.Button
-			 */
-			prototype._refresh = function () {
-				return null;
-			};
-
-			/**
 			 * Destroy widget
 			 * @method _destroy
 			 * @protected
-			 * @member ns.widget.wearable.Button
+			 * @member ns.widget.wearable.ColorPicker
 			 */
 			prototype._destroy = function () {
-				return null;
+				var self = this,
+					element = self.element;
+
+				Selector.prototype._destroy.call(self);
+				element.innerHTML = "";
 			};
 
 			ColorPicker.prototype = prototype;
@@ -224,8 +205,7 @@
 				[
 					"getSelectedColor"
 				],
-				ColorPicker,
-				"wearable"
+				ColorPicker
 			);
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return ColorPicker;
