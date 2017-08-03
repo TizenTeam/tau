@@ -54,7 +54,8 @@
 					COLON: WIDGET_CLASS + "-colon-container",
 					AMPM: WIDGET_CLASS + "-am-pm",
 					NO_AMPM: WIDGET_CLASS + "-no-am-pm",
-					ACTIVE_LABEL: WIDGET_CLASS + "-active-label"
+					ACTIVE_LABEL: WIDGET_CLASS + "-active-label",
+					ACTIVE_LABEL_ANIMATION: WIDGET_CLASS + "-active-label-animation"
 				},
 				WIDGET_SELECTOR = "." + WIDGET_CLASS;
 
@@ -206,6 +207,7 @@
 					activeNumber = document.querySelector("." + classes.ACTIVE_LABEL);
 
 				if (activeNumber) {
+					activeNumber.classList.remove(classes.ACTIVE_LABEL_ANIMATION);
 					activeInput = activeNumber.parentElement.children[2];
 					currentValue = parseInt(activeInput.value, 10);
 					if (event.detail.direction === "CW") {
@@ -214,11 +216,11 @@
 						self.value(currentValue - self.options.step);
 					}
 
-					//remove active class after rotary stops and 1.5 seconds pass
+					//remove active class after rotary stops and 0.5 seconds pass
 					window.clearTimeout(self.rotaryControler);
 					self.rotaryControler = window.setTimeout(function () {
 						activeNumber.classList.remove(classes.ACTIVE_LABEL);
-					}, 1500);
+					}, 500);
 				}
 			};
 
@@ -246,6 +248,8 @@
 				if (labelTarget.parentElement.classList.contains(classes.HOURS_CONTAINER)) {
 					uiNumberHours.classList.add(classes.ACTIVE_LABEL);
 					uiNumberMinutes.classList.remove(classes.ACTIVE_LABEL);
+					uiNumberHours.classList.add(classes.ACTIVE_LABEL_ANIMATION);
+					uiNumberMinutes.classList.remove(classes.ACTIVE_LABEL_ANIMATION);
 					self._actualMax = parseInt(uiInputHours.max, 10);
 					// move indicator to the selected hours value
 					self._updateValue(currentValue);
@@ -253,6 +257,8 @@
 				} else if (labelTarget.parentElement.classList.contains(classes.MINUTES_CONTAINER)) {
 					uiNumberHours.classList.remove(classes.ACTIVE_LABEL);
 					uiNumberMinutes.classList.add(classes.ACTIVE_LABEL);
+					uiNumberHours.classList.remove(classes.ACTIVE_LABEL_ANIMATION);
+					uiNumberMinutes.classList.add(classes.ACTIVE_LABEL_ANIMATION);
 					self._actualMax = 60;
 					// move indicator to the selected minutes value
 					self._updateValue(currentValue);

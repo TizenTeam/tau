@@ -14,6 +14,9 @@
 			font-size: 1rem;
 		}
 	}
+	.ui-time-picker-active-label-animation {
+		animation: changeColor 1s infinite;
+	}
 }
 .ui-time-picker-colon-container {
 	float: left;
@@ -51,4 +54,19 @@
 }
 .ui-time-picker-no-am-pm {
 	margin-left: 86 * @unit_base;
+}
+
+@keyframes changeColor {
+	0% {
+		color: blue;
+	}
+	49% {
+		color: blue;
+	}
+	51% {
+		color: dimgrey;
+	}
+	100% {
+		color: dimgrey;
+	}
 }
