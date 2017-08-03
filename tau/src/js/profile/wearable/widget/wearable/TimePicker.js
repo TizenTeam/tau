@@ -15,7 +15,27 @@
  */
 /* global window, define */
 /**
- * #TimePicker Widget
+ * # TimePicker Widget
+ * Shows a control that can be used to set hours and minutes.
+ * It support 12/24 hours format. It contains two inputs which control the values
+ *
+ * ## Default selectors
+ *
+ * Default selector for timepicker is class *ui-time-picker*
+ *
+ * ### HTML Examples
+ *
+ * #### 12 hours format
+ * To add a timepicker widget to the application, use the following code:
+ *
+ *      @example
+ *      <div class="ui-time-picker" data-display24="false">
+ *
+ * #### 24 hours format
+ * To add a timepicker widget to the application, use the following code:
+ *
+ *      @example
+ *      <div class="ui-time-picker" data-display24="true">
  *
  * @class ns.widget.wearable.TimePicker
  * @since 4.0
@@ -104,7 +124,6 @@
 
 			/**
 			 * Init method
-			 * @protected
 			 * @method _init
 			 * @member ns.widget.core.TimePicker
 			 * @protected
@@ -172,7 +191,6 @@
 				}
 				element.appendChild(indicatorMinutes);
 				element.appendChild(indicator);
-				// add "set" button to the footer
 				footer.appendChild(buttonSet);
 
 				// main indicator used for both hours, minutes inputs
@@ -244,21 +262,12 @@
 						}
 						self.value(currentValue - self.options.step);
 					}
-
-					//remove active class after rotary stops and 0.5 seconds pass
-					window.clearTimeout(self.rotaryControler);
-					self.rotaryControler = window.setTimeout(function () {
-						activeNumber.classList.remove(classes.ACTIVE_LABEL);
-					}, 500);
 				}
 			};
 
 			/**
 			 * Method for click event
 			 *
-			 * Becasue "prepare drag" is run every time when we press handler
-			 * we need to use "click" to revert changes done by "prepare drag"
-			 * Click is not called if we start drag
 			 * @method _click
 			 * @param {Event} event
 			 * @protected
@@ -318,8 +327,9 @@
 			};
 
 			/**
-			 * Create dependent widgetes
-			 * @method _createWidgets
+			 * Add instance of CircleIndicator class which will represent minutes scale
+			 *
+			 * @method _createBackgroundScaleForMinutes
 			 * @member ns.widget.core.NumberPicker
 			 * @protected
 			 */
