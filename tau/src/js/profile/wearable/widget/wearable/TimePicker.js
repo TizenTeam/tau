@@ -204,15 +204,44 @@
 				var self = this,
 					currentValue = 0,
 					activeInput = null,
+					activeNumberType = null,
 					activeNumber = document.querySelector("." + classes.ACTIVE_LABEL);
+
 
 				if (activeNumber) {
 					activeNumber.classList.remove(classes.ACTIVE_LABEL_ANIMATION);
 					activeInput = activeNumber.parentElement.children[2];
-					currentValue = parseInt(activeInput.value, 10);
+					activeNumberType = activeInput.parentElement.classList.contains(classes.HOURS_CONTAINER) ? "hours" : "minutes"
+
 					if (event.detail.direction === "CW") {
+						currentValue = parseInt(activeInput.value, 10);
+						if (activeNumberType === "hours") {
+							if (currentValue === 12) {
+								currentValue = 0;
+								activeInput.value = 0;
+							}
+						}
+						if (activeNumberType === "minutes") {
+							if (currentValue === 60) {
+								activeInput.value = 0;
+								currentValue = 0;
+							}
+						}
 						self.value(currentValue + self.options.step);
 					} else {
+						currentValue = parseInt(activeInput.value, 10);
+						if (activeNumberType === "hours") {
+							if (currentValue === 0) {
+								currentValue = 12;
+								activeInput.value = 12;
+							}
+						}
+						if (activeNumberType === "minutes") {
+							if (currentValue === 0) {
+								activeInput.value = 60;
+								currentValue = 60;
+							}
+						}
 						self.value(currentValue - self.options.step);
 					}
 
@@ -376,6 +405,7 @@
 					activeInput = null,
 					getMinutesValue = 0,
 					activeNumber = null,
+					activeNumberType,
 					options = self.options;
 
 				if (value instanceof Date) {
@@ -398,11 +428,19 @@
 					self._updateValue(ui.numberPickerHoursInput.value);
 				} else {
 					value = parseInt(value, 10);
-					value = Math.max(Math.min(value, self._actualMax), options.min);
-
+					///value = Math.max(Math.min(value, self._actualMax), options.min);
 					activeNumber = document.querySelector("." + classes.ACTIVE_LABEL);
 					if (activeNumber) {
 						activeInput = activeNumber.parentElement.children[2];
+						activeNumberType = activeInput.parentElement.classList.contains(classes.HOURS_CONTAINER) ? "hours" : "minutes"
+						// fix for minutes, we don't display 60 but 0
+						if (activeNumberType === "minutes" && value === 60) {
+							value = 0;
+						}
+						// fix for hours, we don't display 0 but 12
+						if (activeNumberType === "hours" && value === 0) {
+							value = 12;
+						}
 						activeInput.setAttribute("value", value);
 						activeInput.value = value;
 						activeNumber.innerHTML = activeInput.value;
