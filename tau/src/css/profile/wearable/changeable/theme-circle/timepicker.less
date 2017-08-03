@@ -1,13 +1,20 @@
-.ui-time-picker.ui-number-picker-container {
-	height: 110 * @unit_base;
-	display: block;
-}
-.ui-time-picker-container-hours {
-	float: left;
-	height: inherit;
-	width: 80 * @unit_base;
-}
 .ui-time-picker {
+	&.ui-number-picker-container {
+		height: 110 * @unit_base;
+		display: block;
+	}
+	.ui-time-picker-container-hours {
+		float: left;
+		height: inherit;
+		width: 80 * @unit_base;
+	}
+	.ui-time-picker-colon-container {
+		float: left;
+		height: inherit;
+		width: 12 * @unit_base;
+		margin-left: 8 * @unit_base;
+		padding-top: 35 * @unit_base;
+	}
 	div {
 	  font-size: 40 * @unit_base;
 		label {
@@ -17,38 +24,42 @@
 	.ui-time-picker-active-label-animation {
 		animation: changeColor 1s infinite;
 	}
-}
-.ui-time-picker-colon-container {
-	float: left;
-	height: inherit;
-	width: 12 * @unit_base;
-	margin-left: 8 * @unit_base;
-	padding-top: 35 * @unit_base;
-	span {
-		content: ":";
+	.ui-time-picker-container-minutes {
+		float: left;
+		height: inherit;
+		margin-left: 8 * @unit_base;
+		width: 80 * @unit_base;
+	}
+	.ui-time-picker-container-ampm {
+		float: left;
+		height: 39 * @unit_base;
+		margin-top: 40 * @unit_base;
+		margin-left: 8 * @unit_base;
+		width: 100 * @unit_base;
+		overflow-y: hidden;
+		div{
+			width:inherit;
+			height: 158 * @unit_base;
+			position: relative;
+			span{
+				height: 79 * @unit_base;
+				width: 100 * @unit_base;
+				display: inline-block;
+				position: relative;
+			}
+		}
+	}
+	.ui-number-picker-label {
+		display: block;
+		width: 80 * @unit_base;
+	}
+	.ui-number-picker-number {
+		width: 80 * @unit_base;
+		display: block;
 	}
 }
-.ui-time-picker-container-minutes {
-	float: left;
-	height: inherit;
-	margin-left: 8 * @unit_base;
-	width: 80 * @unit_base;
-}
-.ui-time-picker-container-ampm {
-	float: left;
-	height: inherit;
-	margin-left: 8 * @unit_base;
-	width: 100 * @unit_base;
-	padding-top: 40 * @unit_base;
-}
-.ui-number-picker-label {
-	display: block;
-	width: 80 * @unit_base;
-}
-.ui-number-picker-number {
-	width: 80 * @unit_base;
-	display: block;
-}
+
+
 .ui-time-picker-am-pm {
 	margin-left: 32 * @unit_base;
 }
@@ -69,4 +80,29 @@
 	100% {
 		color: dimgrey;
 	}
+}
+
+@keyframes showPM {
+	0% {
+		transform: translateY(0px);
+	}
+	100% {
+		transform: translateY(-79px);
+	}
+}
+@keyframes hidePM {
+	0% {
+		transform: translateY(-79px);
+	}
+	100% {
+		transform: translateY(0px);
+	}
+}
+.ui-time-picker-hide-pm{
+	animation: hidePM 300ms ease-out 0ms;
+	animation-fill-mode: forwards;
+}
+.ui-time-picker-show-pm{
+	animation: showPM 300ms ease-out 0ms;
+	animation-fill-mode: forwards;
 }

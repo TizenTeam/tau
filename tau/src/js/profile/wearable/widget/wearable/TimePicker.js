@@ -73,9 +73,12 @@
 					AMPM_CONTAINER: WIDGET_CLASS + "-container-ampm",
 					COLON: WIDGET_CLASS + "-colon-container",
 					AMPM: WIDGET_CLASS + "-am-pm",
+					AMPM_INNER_CONTAINER: WIDGET_CLASS + "-am-pm-inner-container",
 					NO_AMPM: WIDGET_CLASS + "-no-am-pm",
 					ACTIVE_LABEL: WIDGET_CLASS + "-active-label",
-					ACTIVE_LABEL_ANIMATION: WIDGET_CLASS + "-active-label-animation"
+					ACTIVE_LABEL_ANIMATION: WIDGET_CLASS + "-active-label-animation",
+					SHOW_PM_ANIMATION: WIDGET_CLASS + "-show-pm",
+					HIDE_PM_ANIMATION: WIDGET_CLASS + "-hide-pm"
 				},
 				WIDGET_SELECTOR = "." + WIDGET_CLASS;
 
@@ -138,6 +141,7 @@
 
 				utilsEvents.on(ui.numberHours, "click", self, true);
 				utilsEvents.on(ui.numberMinutes, "click", self, true);
+				utilsEvents.on(ui.amOrPmContainer, "click", self, true);
 				utilsEvents.on(document, "rotarydetent", self, true);
 			};
 
@@ -153,6 +157,9 @@
 					ui = self._ui,
 					footer = null,
 					amPmBlock = null,
+					amPmInnerContainer = null,
+					amSpan = null,
+					pmSpan = null,
 					indicator = document.createElement("div"),
 					indicatorMinutes = document.createElement("div"),
 					buttonSet = document.createElement("button"),
@@ -183,11 +190,31 @@
 				if (!self.options.display24) {
 					amPmBlock = document.createElement("div");
 					amPmBlock.classList.add(classes.AMPM_CONTAINER);
-					amPmBlock.innerText = "AM";
 					element.appendChild(amPmBlock);
 					numberPickerHoursContainer.classList.add(classes.AMPM);
+
+					amPmInnerContainer = document.createElement("div");
+					amPmInnerContainer.classList.add(classes.AMPM_INNER_CONTAINER);
+					amPmBlock.appendChild(amPmInnerContainer);
+
+					amSpan = document.createElement("span");
+					pmSpan = document.createElement("span");
+
+					amSpan.innerHTML = "AM";
+					pmSpan.innerHTML = "PM";
+
+					amPmInnerContainer.appendChild(amSpan);
+					amPmInnerContainer.appendChild(pmSpan);
+
+
+                    //instance variable storing information whether it is am or pm, default value is pm
+					self.options.amOrPm = "AM";
+					self._ui.amOrPmContainer = amPmBlock;
+
+
 				} else {
 					numberPickerHoursContainer.classList.add(classes.NO_AMPM);
+
 				}
 				element.appendChild(indicatorMinutes);
 				element.appendChild(indicator);
@@ -276,14 +303,15 @@
 			prototype._click = function (event) {
 				var self = this,
 					ui = self._ui,
-					labelTarget = event.target,
+					eventTargetElement = event.target,
 					uiNumberHours = ui.numberHours,
 					uiNumberMinutes = ui.numberMinutes,
 					uiInputHours = ui.numberPickerHoursInput,
-					currentValue = parseInt(labelTarget.textContent, 10);
+					uiAmPmContainer = ui.amOrPmContainer,
+					currentValue = parseInt(eventTargetElement.textContent, 10);
 
 				//hours
-				if (labelTarget.parentElement.classList.contains(classes.HOURS_CONTAINER)) {
+				if (eventTargetElement.parentElement.classList.contains(classes.HOURS_CONTAINER)) {
 					uiNumberHours.classList.add(classes.ACTIVE_LABEL);
 					uiNumberMinutes.classList.remove(classes.ACTIVE_LABEL);
 					uiNumberHours.classList.add(classes.ACTIVE_LABEL_ANIMATION);
@@ -292,7 +320,7 @@
 					// move indicator to the selected hours value
 					self._updateValue(currentValue);
 				//minutes
-				} else if (labelTarget.parentElement.classList.contains(classes.MINUTES_CONTAINER)) {
+				} else if (eventTargetElement.parentElement.classList.contains(classes.MINUTES_CONTAINER)) {
 					uiNumberHours.classList.remove(classes.ACTIVE_LABEL);
 					uiNumberMinutes.classList.add(classes.ACTIVE_LABEL);
 					uiNumberHours.classList.remove(classes.ACTIVE_LABEL_ANIMATION);
@@ -301,6 +329,17 @@
 					// move indicator to the selected minutes value
 					self._updateValue(currentValue);
 				//AM PM
+				} else if (eventTargetElement.parentElement.classList.contains(classes.AMPM_INNER_CONTAINER)) {
+					if (self.options.amOrPm === "AM") {
+						uiAmPmContainer.firstElementChild.classList.remove(classes.HIDE_PM_ANIMATION);
+						uiAmPmContainer.firstElementChild.classList.add(classes.SHOW_PM_ANIMATION);
+						self.options.amOrPm = "PM";
+					} else {
+						uiAmPmContainer.firstElementChild.classList.remove(classes.SHOW_PM_ANIMATION);
+						uiAmPmContainer.firstElementChild.classList.add(classes.HIDE_PM_ANIMATION);
+						self.options.amOrPm = "AM";
+					}
+
 				}
 			};
 
