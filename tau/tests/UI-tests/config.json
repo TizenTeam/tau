@@ -1383,7 +1383,8 @@
 				"name": "35-list-with-icon-and-subtext-2",
 				"time": 0,
 				"width": 360,
-				"height": 360			},
+				"height": 360
+			},
 			{
 				"name": "36-list-with-icon-and-multiline",
 				"time": 0,
@@ -1770,6 +1771,12 @@
 			},
 			{
 				"name": "103-end-effect-right",
+				"time": 0,
+				"width": 360,
+				"height": 360
+			},
+			{
+				"name": "105-colorpicker",
 				"time": 0,
 				"width": 360,
 				"height": 360

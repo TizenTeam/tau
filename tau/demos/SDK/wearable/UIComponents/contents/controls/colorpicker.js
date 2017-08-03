@@ -2,8 +2,7 @@
 (function () {
 	var page = document.getElementById("colorpickerPage"),
 		colorpicker = document.getElementById("colorpicker"),
-		colorpickerComponent,
-		clickBound;
+		colorpickerComponent;
 
 	/**
 	 * pagebeforeshow event handler
