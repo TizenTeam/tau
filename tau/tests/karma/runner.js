@@ -55,6 +55,7 @@ var allTestFiles = [],
 		"core/event/gesture/Pinch",
 		"core/event/gesture/Swipe",
 		"profile/wearable/router/route/grid",
+		"core/router/Router",
 		"core/widget/core/tab/Tabbar",
 		"profile/wearable/widget/wearable/Grid",
 		"profile/wearable/widget/wearable/CircleIndicator",
@@ -105,7 +106,6 @@ testPaths.forEach(function (testPath) {
 			"src/js/" + testPath
 		],
 		function (helpers, runTests, object) {
-			console.log(testPath);
 			runTests(object, helpers);
 		});
 	allTestFiles.push(testPath);

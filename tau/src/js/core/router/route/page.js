@@ -125,7 +125,8 @@
 
 				pages.forEach(function (page) {
 					if (!DOM.getNSData(page, "url")) {
-						DOM.setNSData(page, "url", (page.id && "#" + page.id) || location.pathname + location.search);
+						DOM.setNSData(page, "url",
+							(page.id && "#" + page.id) || location.pathname + location.search);
 					}
 				});
 			};
@@ -142,7 +143,7 @@
 			routePage.open = function (toPage, options) {
 				var pageTitle = document.title,
 					url,
-					state = {};
+					state;
 
 				if (toPage === this.getFirstElement() && !options.dataUrl) {
 					url = path.documentUrl.hrefNoHash;
@@ -150,7 +151,9 @@
 					url = DOM.getNSData(toPage, "url");
 				}
 
-				pageTitle = DOM.getNSData(toPage, "title") || utilSelector.getChildrenBySelector(toPage, ".ui-header > .ui-title").textContent || pageTitle;
+				pageTitle = DOM.getNSData(toPage, "title") ||
+					utilSelector.getChildrenBySelector(toPage, ".ui-header > .ui-title").textContent ||
+					pageTitle;
 				if (!DOM.getNSData(toPage, "title")) {
 					DOM.setNSData(toPage, "title", pageTitle);
 				}

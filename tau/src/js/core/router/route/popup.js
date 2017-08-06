@@ -50,9 +50,11 @@
 					/**
 					 * Object with default options
 					 * @property {Object} defaults
-					 * @property {string} [defaults.transition='none'] Sets the animation used during change of popup.
+					 * @property {string} [defaults.transition='none'] Sets the animation used during change
+					 * of popup.
 					 * @property {?HTMLElement} [defaults.container=null] Sets container of element.
-					 * @property {boolean} [defaults.volatileRecord=true] Sets if the current history entry will be modified or a new one will be created.
+					 * @property {boolean} [defaults.volatileRecord=true] Sets if the current history entry
+					 * will be modified or a new one will be created.
 					 * @member ns.router.route.popup
 					 * @static
 					 */
@@ -177,7 +179,6 @@
 					// reset page to null
 					popup = null;
 				}
-				// @TODO ... else
 				// probably there is a need for running onHashChange while going back to a history entry
 				// without state, eg. manually entered #fragment. This may not be a problem on target device
 				return popup;
@@ -238,15 +239,19 @@
 			 * @method open
 			 * @param {HTMLElement|string} toPopup
 			 * @param {Object} options
-			 * @param {"page"|"popup"|"external"} [options.rel = 'popup'] Represents kind of link as 'page' or 'popup' or 'external' for linking to another domain.
-			 * @param {string} [options.transition = 'none'] Sets the animation used during change of popup.
+			 * @param {"page"|"popup"|"external"} [options.rel = 'popup'] Represents kind of link as
+			 * 'page' or 'popup' or 'external' for linking to another domain.
+			 * @param {string} [options.transition = 'none'] Sets the animation used during change of
+			 * popup.
 			 * @param {boolean} [options.reverse = false] Sets the direction of change.
 			 * @param {boolean} [options.fromHashChange = false] Sets if will be changed after hashchange.
 			 * @param {boolean} [options.showLoadMsg = true] Sets if message will be shown during loading.
-			 * @param {number} [options.loadMsgDelay = 0] Sets delay time for the show message during loading.
+			 * @param {number} [options.loadMsgDelay = 0] Sets delay time for the show message during
+			 * loading.
 			 * @param {boolean} [options.dataUrl] Sets if page has url attribute.
 			 * @param {string} [options.container = null] Selector for container.
-			 * @param {boolean} [options.volatileRecord=true] Sets if the current history entry will be modified or a new one will be created.
+			 * @param {boolean} [options.volatileRecord=true] Sets if the current history entry will be
+			 * modified or a new one will be created.
 			 * @param {Event} event
 			 * @member ns.router.route.popup
 			 * @static
@@ -262,20 +267,17 @@
 						self.activePopup = null;
 					},
 					openPopup = function () {
-						var positionTo = options["position-to"];
+						var positionTo = options["position-to"],
+							touch;
 						// add such option only if it exists
 
 						if (positionTo) {
 							options.positionTo = positionTo;
 						}
 						if (event) {
-							if (event.touches) {
-								options.x = event.touches[0].clientX;
-								options.y = event.touches[0].clientY;
-							} else {
-								options.x = event.clientX;
-								options.y = event.clientY;
-							}
+							touch = event.touches ? event.touches[0] : event;
+							options.x = touch.clientX;
+							options.y = touch.clientY;
 						}
 
 						document.removeEventListener(events.POPUP_HIDE, openPopup, false);
@@ -288,7 +290,8 @@
 					container;
 
 				if (DOM.getNSData(toPopup, "external") === true) {
-					container = options.container ? activePage.element.querySelector(options.container) : activePage.element;
+					container = options.container ?
+						activePage.element.querySelector(options.container) : activePage.element;
 					if (toPopup.parentNode !== container) {
 						toPopup = util.importEvaluateAndAppendElement(toPopup, container);
 					}
@@ -345,7 +348,7 @@
 						routePopup._history.back();
 					} else {
 						// if popup did not change the history, we close it normally
-						activePopup.close(options || {});
+						activePopup.close(options);
 					}
 					return true;
 				}

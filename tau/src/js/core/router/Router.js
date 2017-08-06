@@ -35,7 +35,9 @@
 			"../util/path",
 			"../util/object",
 			"../router",
+			// fetch namespace
 			"./route",
+			"./route/page",
 			"./history",
 			"../widget/core/Page",
 			"../widget/core/PageContainer"
@@ -187,7 +189,8 @@
 			 * @property {number} [defaults.loadMsgDelay = 0] Sets delay time for the show message during
 			 * loading.
 			 * @property {boolean} [defaults.volatileRecord = false] Sets if the current history entry
-			 * will be modified or a new one will be created.
+			 * will be modified
+			 * or a new one will be created.
 			 * @member ns.router.Router
 			 */
 			Router.prototype.defaults = {
@@ -330,6 +333,7 @@
 			 * Detect rel attribute from HTMLElement
 			 * @param {HTMLElement} to
 			 * @member ns.router.Router
+			 * @return {string|null}
 			 * @method detectRel
 			 */
 			Router.prototype.detectRel = function (to) {
@@ -351,15 +355,22 @@
 			 * @method _openDeferred
 			 * @param {HTMLElement} to HTMLElement of page
 			 * @param {Object} [options]
-			 * @param {"page"|"popup"|"external"} [options.rel = "page"] Represents kind of link as "page" or "popup" or "external" for linking to another domain.
-			 * @param {string} [options.transition = "none"] Sets the animation used during change of page.
+			 * @param {"page"|"popup"|"external"} [options.rel = "page"] Represents kind of link as "page"
+			 * or "popup"
+			 * or "external" for linking to another domain.
+			 * @param {string} [options.transition = "none"] Sets the animation used during change of
+			 * page.
 			 * @param {boolean} [options.reverse = false] Sets the direction of change.
 			 * @param {boolean} [options.fromHashChange = false] Sets if will be changed after hashchange.
 			 * @param {boolean} [options.showLoadMsg = true] Sets if message will be shown during loading.
-			 * @param {number} [options.loadMsgDelay = 0] Sets delay time for the show message during loading.
-			 * @param {boolean} [options.volatileRecord = false] Sets if the current history entry will be modified or a new one will be created.
+			 * @param {number} [options.loadMsgDelay = 0] Sets delay time for the show message during
+			 * loading.
+			 * @param {boolean} [options.volatileRecord = false] Sets if the current history entry will
+			 * be modified or
+			 * a new one will be created.
 			 * @param {boolean} [options.dataUrl] Sets if page has url attribute.
-			 * @param {?string} [options.container = null] It is used in RoutePopup as selector for container.
+			 * @param {?string} [options.container = null] It is used in RoutePopup as selector for
+			 * container.
 			 * @param {Event} event
 			 * @member ns.router.Router
 			 * @protected
@@ -368,11 +379,11 @@
 				var self = this,
 					rule = route[options.rel],
 					deferred = {
-						resolve: function (options, content) {
-							rule.open(content, options, event);
+						resolve: function (_options, content) {
+							rule.open(content, _options, event);
 						},
-						reject: function (options) {
-							eventUtils.trigger(self.container.element, "changefailed", options);
+						reject: function (_options) {
+							eventUtils.trigger(self.container.element, "changefailed", _options);
 						}
 					};
 
@@ -395,15 +406,22 @@
 			 * @method open
 			 * @param {string|HTMLElement} to Id of page or file url or HTMLElement of page
 			 * @param {Object} [options]
-			 * @param {"page"|"popup"|"external"} [options.rel = "page"] Represents kind of link as "page" or "popup" or "external" for linking to another domain.
-			 * @param {string} [options.transition = "none"] Sets the animation used during change of page.
+			 * @param {"page"|"popup"|"external"} [options.rel = "page"] Represents kind of link as "page"
+			 * or "popup"
+			 * or "external" for linking to another domain.
+			 * @param {string} [options.transition = "none"] Sets the animation used during change of
+			 * page.
 			 * @param {boolean} [options.reverse = false] Sets the direction of change.
 			 * @param {boolean} [options.fromHashChange = false] Sets if will be changed after hashchange.
 			 * @param {boolean} [options.showLoadMsg = true] Sets if message will be shown during loading.
-			 * @param {number} [options.loadMsgDelay = 0] Sets delay time for the show message during loading.
-			 * @param {boolean} [options.volatileRecord = false] Sets if the current history entry will be modified or a new one will be created.
+			 * @param {number} [options.loadMsgDelay = 0] Sets delay time for the show message during
+			 * loading.
+			 * @param {boolean} [options.volatileRecord = false] Sets if the current history entry will
+			 * be modified or
+			 * a new one will be created.
 			 * @param {boolean} [options.dataUrl] Sets if page has url attribute.
-			 * @param {?string} [options.container = null] It is used in RoutePopup as selector for container.
+			 * @param {?string} [options.container = null] It is used in RoutePopup as selector for
+			 * container.
 			 * @param {Event} event
 			 * @member ns.router.Router
 			 */
@@ -510,7 +528,8 @@
 			};
 
 			/**
-			 * Method initializes page container and builds the first page if flag autoInitializePage is set.
+			 * Method initializes page container and builds the first page if flag autoInitializePage is
+			 * set.
 			 * @method init
 			 * @param {boolean} justBuild
 			 * @member ns.router.Router
@@ -658,7 +677,8 @@
 			 * @method close
 			 * @param {string|HTMLElement} to Id of page or file url or HTMLElement of page
 			 * @param {Object} [options]
-			 * @param {"page"|"popup"|"external"} [options.rel = "page"] Represents kind of link as "page" or "popup" or "external" for linking to another domain
+			 * @param {"page"|"popup"|"external"} [options.rel = "page"] Represents kind of link as "page"
+			  * or "popup" or "external" for linking to another domain
 			 * @member ns.router.Router
 			 */
 			Router.prototype.close = function (to, options) {
@@ -681,14 +701,18 @@
 			 * @method openPopup
 			 * @param {HTMLElement|string} to Id or HTMLElement of popup.
 			 * @param {Object} [options]
-			 * @param {string} [options.transition = "none"] Sets the animation used during change of page.
+			 * @param {string} [options.transition = "none"] Sets the animation used during change of
+			 * page.
 			 * @param {boolean} [options.reverse = false] Sets the direction of change.
 			 * @param {boolean} [options.fromHashChange = false] Sets if will be changed after hashchange.
 			 * @param {boolean} [options.showLoadMsg = true] Sets if message will be shown during loading.
-			 * @param {number} [options.loadMsgDelay = 0] Sets delay time for the show message during loading.
-			 * @param {boolean} [options.volatileRecord = false] Sets if the current history entry will be modified or a new one will be created.
+			 * @param {number} [options.loadMsgDelay = 0] Sets delay time for the show message during
+			 * loading.
+			 * @param {boolean} [options.volatileRecord = false] Sets if the current history entry will
+			 * be modified or a new one will be created.
 			 * @param {boolean} [options.dataUrl] Sets if page has url attribute.
-			 * @param {?string} [options.container = null] It is used in RoutePopup as selector for container.
+			 * @param {?string} [options.container = null] It is used in RoutePopup as selector for
+			 * container.
 			 * @member ns.router.Router
 			 */
 			Router.prototype.openPopup = function (to, options) {
@@ -711,29 +735,6 @@
 				}
 			};
 
-			/**
-			 * Method close route element, eg page or popup.
-			 * @method close
-			 * @param {string|HTMLElement} to Id of page or file url or HTMLElement of page
-			 * @param {Object} [options]
-			 * @param {"page"|"popup"|"external"} [options.rel = "page"] Represents kind of link as "page" or "popup" or "external" for linking to another domain
-			 * @member ns.router.Router
-			 */
-			Router.prototype.close = function (to, options) {
-				var rel = ((options && options.rel) || "page"),
-					rule = route[rel];
-
-				if (rel === "back") {
-					history.back();
-				} else {
-					if (rule) {
-						rule.close(to, options);
-					} else {
-						throw new Error("Not defined router rule [" + rel + "]");
-					}
-				}
-			};
-
 			Router.prototype.lock = function () {
 				_isLock = true;
 			};
@@ -747,13 +748,17 @@
 			 * @method _loadUrl
 			 * @param {string} url
 			 * @param {Object} options
-			 * @param {"page"|"popup"|"external"} [options.rel = "page"] Represents kind of link as "page" or "popup" or "external" for linking to another domain.
-			 * @param {string} [options.transition = "none"] Sets the animation used during change of page.
+			 * @param {"page"|"popup"|"external"} [options.rel = "page"] Represents kind of link as "page"
+			 * or "popup" or "external" for linking to another domain.
+			 * @param {string} [options.transition = "none"] Sets the animation used during change of
+			 * page.
 			 * @param {boolean} [options.reverse = false] Sets the direction of change.
 			 * @param {boolean} [options.fromHashChange = false] Sets if will be changed after hashchange.
-			 * @param {boolean} [options.volatileRecord = false] Sets if the current history entry will be modified or a new one will be created.
+			 * @param {boolean} [options.volatileRecord = false] Sets if the current history entry will
+			 * be modified or a new one will be created.
 			 * @param {boolean} [options.dataUrl] Sets if page has url attribute.
-			 * @param {?string} [options.container = null] It is used in RoutePopup as selector for container.
+			 * @param {?string} [options.container = null] It is used in RoutePopup as selector for
+			 * container.
 			 * @param {string} [options.absUrl] Absolute Url for content used by deferred object.
 			 * @param {Object} rule
 			 * @param {Object} deferred
@@ -818,14 +823,19 @@
 			 * @method _loadError
 			 * @param {string} absUrl
 			 * @param {Object} options
-			 * @param {"page"|"popup"|"external"} [options.rel = "page"] Represents kind of link as "page" or "popup" or "external" for linking to another domain.
-			 * @param {string} [options.transition = "none"] Sets the animation used during change of page.
+			 * @param {"page"|"popup"|"external"} [options.rel = "page"] Represents kind of link as "page"
+			 * or "popup" or "external" for linking to another domain.
+			 * @param {string} [options.transition = "none"] Sets the animation used during change of
+			 * page.
 			 * @param {boolean} [options.reverse = false] Sets the direction of change.
 			 * @param {boolean} [options.fromHashChange = false] Sets if will be changed after hashchange.
-			 * @param {number} [options.loadMsgDelay = 0] Sets delay time for the show message during loading.
-			 * @param {boolean} [options.volatileRecord = false] Sets if the current history entry will be modified or a new one will be created.
+			 * @param {number} [options.loadMsgDelay = 0] Sets delay time for the show message during
+			 * loading.
+			 * @param {boolean} [options.volatileRecord = false] Sets if the current history entry will
+			 * be modified or a new one will be created.
 			 * @param {boolean} [options.dataUrl] Sets if page has url attribute.
-			 * @param {?string} [options.container = null] It is used in RoutePopup as selector for container.
+			 * @param {?string} [options.container = null] It is used in RoutePopup as selector for
+			 * container.
 			 * @param {string} [options.absUrl] Absolute Url for content used by deferred object.
 			 * @param {Object} deferred
 			 * @param {Function} deferred.reject
@@ -853,15 +863,20 @@
 			 * @method _loadSuccess
 			 * @param {string} absUrl
 			 * @param {Object} options
-			 * @param {"page"|"popup"|"external"} [options.rel = "page"] Represents kind of link as "page" or "popup" or "external" for linking to another domain.
-			 * @param {string} [options.transition = "none"] Sets the animation used during change of page.
+			 * @param {"page"|"popup"|"external"} [options.rel = "page"] Represents kind of link as "page"
+			 * or "popup" or "external" for linking to another domain.
+			 * @param {string} [options.transition = "none"] Sets the animation used during change of
+			 * page.
 			 * @param {boolean} [options.reverse = false] Sets the direction of change.
 			 * @param {boolean} [options.fromHashChange = false] Sets if will be changed after hashchange.
 			 * @param {boolean} [options.showLoadMsg = true] Sets if message will be shown during loading.
-			 * @param {number} [options.loadMsgDelay = 0] Sets delay time for the show message during loading.
-			 * @param {boolean} [options.volatileRecord = false] Sets if the current history entry will be modified or a new one will be created.
+			 * @param {number} [options.loadMsgDelay = 0] Sets delay time for the show message during
+			 * loading.
+			 * @param {boolean} [options.volatileRecord = false] Sets if the current history entry will
+			 * be modified or a new one will be created.
 			 * @param {boolean} [options.dataUrl] Sets if page has url attribute.
-			 * @param {?string} [options.container = null] It is used in RoutePopup as selector for container.
+			 * @param {?string} [options.container = null] It is used in RoutePopup as selector for
+			 * container.
 			 * @param {string} [options.absUrl] Absolute Url for content used by deferred object.
 			 * @param {Object} rule
 			 * @param {Object} deferred
