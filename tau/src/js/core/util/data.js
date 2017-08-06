@@ -84,7 +84,7 @@
 				 * @private
 				 */
 				hashObject = function (value) {
-					var h = "";
+					var hash;
 
 					if (value === undefined ||
 						value === null ||
@@ -99,13 +99,13 @@
 					if (value instanceof Object) {
 						value.__tauHash = value.__tauHash || ns.getUniqueId();
 					}
-					h = (typeof value) + "-" + (value instanceof Object ?
+					hash = (typeof value) + "-" + (value instanceof Object ?
 							value.__tauHash : value.toString());
 
 					if (value instanceof Element) {
-						value.setAttribute("data-ns-hash", h);
+						value.setAttribute("data-ns-hash", hash);
 					}
-					return h;
+					return hash;
 				};
 
 			ns.util.data = {
