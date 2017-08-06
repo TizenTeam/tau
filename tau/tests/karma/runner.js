@@ -59,7 +59,8 @@ var allTestFiles = [],
 		"profile/wearable/widget/wearable/Grid",
 		"profile/wearable/widget/wearable/CircleIndicator",
 		"profile/wearable/widget/wearable/NumberPicker",
-		"profile/wearable/widget/wearable/DatePicker"
+		"profile/wearable/widget/wearable/DatePicker",
+		"core/core"
 	];
 
 window.tauPerf = {

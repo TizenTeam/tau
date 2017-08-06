@@ -137,12 +137,13 @@
 		 * @method setConfig
 		 * @param {string} key
 		 * @param {*} value
-		 * @param {boolean} [asDefault=false] value should be treated as default (doesn't overwrites the config[key] if it already exists)
+		 * @param {boolean} [asDefault=false] value should be treated as default (doesn't overwrites
+		 * the config[key] if it already exists)
 		 * @static
 		 * @member ns
 		 */
 		ns.setConfig = function (key, value, asDefault) {
-			if (!asDefault || (asDefault && nsConfig[key] === undefined)) {
+			if (!asDefault || nsConfig[key] === undefined) {
 				nsConfig[key] = value;
 			}
 		};
@@ -165,7 +166,8 @@
 				url = scripts[i].src;
 				arrayUrl = url.split("/");
 				count = arrayUrl.length;
-				if (arrayUrl[count - 1] === fileName + ".js" || arrayUrl[count - 1] === fileName + ".min.js") {
+				if (arrayUrl[count - 1] === fileName + ".js" ||
+					arrayUrl[count - 1] === fileName + ".min.js") {
 					return arrayUrl.slice(0, count - 1).join("/");
 				}
 			}
