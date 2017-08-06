@@ -140,9 +140,12 @@
 				line.setAttribute("stroke-width", options.width);
 				if (options.direction === "out") {
 					positionStart = polarToCartesian(options.x, options.y, options.r, options.degrees);
-					positionEnd = polarToCartesian(options.x, options.y, options.r - options.length, options.degrees);
+					positionEnd = polarToCartesian(options.x, options.y, options.r - options.length,
+						options.degrees);
 				} else {
-					// TODO - from the center
+					positionStart = polarToCartesian(options.x, options.y, options.r - options.length,
+						options.degrees);
+					positionEnd = polarToCartesian(options.x, options.y, options.r, options.degrees);
 				}
 				line.setAttribute("x1", positionStart.x);
 				line.setAttribute("y1", positionStart.y);

@@ -57,7 +57,7 @@ function polarTests(polar) {
 	test("addCircle", function () {
 		var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg"),
 			svg2 = null,
-			cricle = null,
+			circle = null,
 			options = {
 				color: "red",
 				width: 5,
@@ -82,6 +82,36 @@ function polarTests(polar) {
 		equal(circle.getAttribute("cy"), options.y, "start point y is correct");
 		equal(circle.getAttribute("r"), options.r, "r for Circle is correct");
 		ok(circle instanceof SVGCircleElement, "Create correct SVG", "Classes on path is correct set (1)");
+	});
+
+	test("addRadius", function () {
+		var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg"),
+			svg2 = null,
+			radius = null,
+			options = {
+				color: "red",
+				width: 5,
+				x: 0,
+				y: 1,
+				r: 3,
+				class: "transparent"
+			};
+
+		ok(svg instanceof SVGElement, "Create correct SVG");
+
+		svg2 = polar.addRadius(svg, options);
+
+		radius = svg.firstChild;
+
+		strictEqual(svg2, radius, "return SVG");
+
+		equal(radius.getAttribute("stroke"), options.color, "stroke on path is correct set (1)");
+		equal(radius.getAttribute("stroke-width"), options.width, "stroke-width on path is correct set (1)");
+		equal(radius.getAttribute("x1"), 0, "start point x1 is correct");
+		equal(radius.getAttribute("y1"), 178, "start point y1 is correct");
+		equal(radius.getAttribute("x2"), 0, "end point x2 is correct");
+		equal(radius.getAttribute("y2"), -2, "end point y2 is correct");
+		ok(radius instanceof SVGLineElement, "Create correct SVG", "Classes on path is correct set (1)");
 	});
 
 	test("updatePosition", function () {
