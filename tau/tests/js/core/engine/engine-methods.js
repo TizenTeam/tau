@@ -35,7 +35,7 @@
 		}
 	});
 
-	test('Checking engine.justBuild method', function () {
+	test("Checking engine.justBuild method", function () {
 		equal(engine.getJustBuild(), false, "Default justBuild value is 'false'");
 
 		engine.setJustBuild(true);
@@ -67,8 +67,8 @@
 		ok(tempBinding2 instanceof ns.test.widget2, "New widget on that same HTMLElement is an instance of Test2");
 	});
 
-	test('Checking .instanceWidget method with empty element', function() {
-		var widget = engine.instanceWidget('Button');
+	test("Checking .instanceWidget method with empty element", function () {
+		var widget = engine.instanceWidget("Button");
 
 		ok(widget, "Widget was created");
 		ok(widget.element, "Widget has element");
@@ -121,7 +121,7 @@
 		ok(tempBinding === tempBinding2, "Passing HTMLElement reference and string ID returns that same object reference");
 	});
 
-	test("Checking .getAllBindings method", function (){
+	test("Checking .getAllBindings method", function () {
 		var tempBindings,
 			tempBindings2;
 
@@ -171,7 +171,6 @@
 	test("Checking .setBinding method", function () {
 		var tempElement = document.getElementById("future-widget"),
 			tempBinding,
-			tempBinding2,
 			widgetInstance,
 			widgetInstance2;
 
@@ -210,4 +209,4 @@
 //		// 3. Check if all references were cleared
 //	});
 
-} (window.document, window.console, window.ej));
+}(window.document, window.console, window.ej));

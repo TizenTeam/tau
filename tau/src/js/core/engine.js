@@ -38,7 +38,8 @@
 			"./core",
 			"./event",
 			"./util/selectors",
-			"./util/object"
+			"./util/object",
+			"./util/array"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
@@ -663,7 +664,8 @@
 					eventUtils.trigger(document, eventType.WIDGET_BOUND, widgetInstance);
 				} else {
 					//>>excludeStart("tauDebug", pragmas.tauDebug);
-					ns.error("There was problem with building widget " + widgetInstance.widgetName + " on element with id " + widgetInstance.id + ".");
+					ns.error("There was problem with building widget " + widgetInstance.widgetName + " on element with id " +
+						widgetInstance.id + ".");
 					//>>excludeEnd("tauDebug");
 				}
 			}
@@ -899,7 +901,8 @@
 				//>>excludeEnd("tauPerformance");
 
 				//>>excludeStart("tauDebug", pragmas.tauDebug);
-				ns.log("Start creating widgets on:", (context.tagName || (context.documentElement && "document")) + "#" + (context.id || "--no-id--"));
+				ns.log("Start creating widgets on:", (context.tagName || (context.documentElement && "document")) +
+					"#" + (context.id || "--no-id--"));
 				//>>excludeEnd("tauDebug");
 
 				// @TODO EXPERIMENTAL WIDGETS WITHOUT TEMPLATE DEFINITION
@@ -914,7 +917,8 @@
 						if (definitionSelectors.length) {
 							excludeSelector = excludeBuiltAndBound(widgetName);
 
-							normal = slice.call(context.querySelectorAll(definitionSelectors.join(excludeSelector + ",") + excludeSelector));
+							normal = slice.call(context.querySelectorAll(definitionSelectors.join(excludeSelector + ",") +
+							excludeSelector));
 							j = normal.length;
 
 							while (--j >= 0) {
@@ -947,7 +951,8 @@
 				eventUtils.trigger(document, "built");
 				eventUtils.trigger(document, eventType.BOUND);
 				//>>excludeStart("tauDebug", pragmas.tauDebug);
-				ns.log("Finish creating widgets on:", context.tagName || (context.documentElement && "document") + "#" + (context.id || "--no-id--"));
+				ns.log("Finish creating widgets on:", context.tagName || (context.documentElement && "document") + "#" +
+					(context.id || "--no-id--"));
 				//>>excludeEnd("tauDebug");
 			}
 
@@ -1073,12 +1078,6 @@
 				return arrayUtils.reduce(args, getType, {});
 			}
 
-			/*
-			 document.addEventListener(eventType.BOUND, function () {
-			 //@TODO dump it to file for faster binding by ids
-			 nsWidgetBindingMap = widgetBindingMap;
-			 }, false);
-			 */
 			ns.widgetDefinitions = {};
 			engine = {
 				justBuild: location.hash === "#build",
