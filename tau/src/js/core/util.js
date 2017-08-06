@@ -264,7 +264,7 @@
 			 */
 			util.runScript = function (baseUrl, script) {
 				var newScript = document.createElement("script"),
-					scriptData = null,
+					scriptData,
 					i,
 					scriptAttributes = slice.call(script.attributes),
 					src = script.getAttribute("src"),

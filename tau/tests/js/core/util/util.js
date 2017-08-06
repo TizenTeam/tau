@@ -436,7 +436,7 @@
 			helpers.restoreStub(util, "_removeExternalScripts");
 			helpers.restoreStub(util, "_createScriptsSync");
 			helpers.restoreStub(util, "batchCall");
-			helpers.restoreStub(document, "adoptNode");
+			helpers.restoreStub(document, "importNode");
 		});
 
 		test("runScript src and attributes", 9, function () {
