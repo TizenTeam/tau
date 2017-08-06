@@ -1,8 +1,8 @@
-/* global test, asyncTest, start, define, strictEqual, notStrictEqual, equal */
+/* global test, asyncTest, start, define, strictEqual, equal, expect */
 (function () {
 	var ns = window.ns || window.tau;
 
-	function runTests(PageContainer, helpers, perf) {
+	function runTests(PageContainer, helpers) {
 		var qunitFuxturesElement = document.getElementById("qunit-fixture");
 
 		function initHTML() {
@@ -119,45 +119,109 @@
 			helpers.restoreStub(ns.util, "importEvaluateAndAppendElement");
 		});
 
-		test("change", function () {
+		test("_include", function (assert) {
+			var pageContainer = new PageContainer(),
+				pageElement = document.getElementById("page-not-in-container"),
+				pageContainerElement = document.getElementById("qunit-fixture"),
+				tempPageElement;
+
+			expect(2);
+
+			pageContainer.element = pageContainerElement;
+			helpers.stub(ns.util, "importEvaluateAndAppendElement", function (page, element) {
+				assert.strictEqual(pageContainerElement, element, "PageContainer is pass");
+				return "result";
+			});
+
+			tempPageElement = pageElement.cloneNode(true);
+
+			assert.strictEqual(pageContainer._include(tempPageElement), "result", "method return correct value");
+
+			helpers.restoreStub(ns.util, "importEvaluateAndAppendElement");
+		});
+
+		test("change", function (assert) {
 			var pageContainer = new PageContainer(),
 				pageElement = document.getElementById("page6");
 
-			expect(11);
+			expect(22);
 
 			helpers.stub(ns.engine, "instanceWidget", function (element, widgetName) {
-				strictEqual(element, pageElement, "page element is correct");
-				strictEqual(widgetName, "Page", "widget type is Page");
+				assert.strictEqual(element, pageElement, "page element is correct");
+				assert.strictEqual(widgetName, "Page", "widget type is Page");
 				return {
 					layout: function () {
-						ok(1, "layout was called");
+						assert.ok(1, "layout was called");
 					},
 					option: function () {
-						ok(1, "options was called");
+						assert.ok(1, "options was called");
 					},
 					onBeforeShow: function () {
-						ok(1, "layout was onBeforeShow");
+						assert.ok(1, "layout was onBeforeShow");
 					}
 				};
 			});
 
 			helpers.stub(ns.engine, "createWidgets", function () {
-				ok(1, "createWidgets was called");
+				assert.ok(1, "createWidgets was called");
 			});
 
 			pageContainer._transition = function (toPageWidget, fromPageWidget, calculatedOptions) {
-				equal(typeof toPageWidget, "object", "to page widget is object");
-				equal(fromPageWidget, null, "from page is null");
-				equal(calculatedOptions.widget, "Page", "options.widget is Page");
-				equal(typeof calculatedOptions.deferred.resolve, "function", "deferred.resolve is function");
+				assert.equal(typeof toPageWidget, "object", "to page widget is object");
+				assert.equal(fromPageWidget, null, "from page is null");
+				assert.equal(calculatedOptions.widget, "Page", "options.widget is Page");
+				assert.equal(typeof calculatedOptions.deferred.resolve, "function", "options.deferred.resolve is function");
+
+				calculatedOptions.deferred.resolve({
+					onHide: function () {
+						assert.ok(1, "called onHide");
+					}
+				}, {
+					onShow: function () {
+						assert.ok(1, "called onShow");
+					}
+				}, {
+					_removeExternalPage: function (_fromPage, _options) {
+						assert.equal(typeof _fromPage, "object", "_fromPage is correct");
+						assert.deepEqual(_options, {}, "_options is correct");
+					},
+					trigger: function (eventName) {
+						assert.equal(eventName, "pagechange", "pagechange event was trigger");
+					}
+				}, {});
+
+				calculatedOptions.deferred.resolve({
+					onHide: function () {
+						assert.ok(1, "called onHide");
+					},
+					destroy: function () {
+						assert.ok(1, "called destroy");
+					}
+				}, {
+					onShow: function () {
+						assert.ok(1, "called onShow");
+					}
+				}, {
+					_removeExternalPage: function (_fromPage, _options) {
+						assert.equal(typeof _fromPage, "object", "_fromPage is correct");
+						assert.deepEqual(_options, {
+							reverse: true
+						}, "_options is correct");
+					},
+					trigger: function (eventName) {
+						assert.equal(eventName, "pagechange", "pagechange event was trigger");
+					}
+				}, {
+					reverse: true
+				});
 			};
 
 			pageContainer.trigger = function (eventName) {
-				equal(eventName, "pagebeforechange");
+				assert.equal(eventName, "pagebeforechange");
 			};
 
 			pageContainer._include = function (pageElement) {
-				ok(1, "_include was called");
+				assert.ok(1, "_include was called");
 				return pageElement;
 			};
 
@@ -165,6 +229,18 @@
 
 			helpers.restoreStub(ns.engine, "instanceWidget");
 			helpers.restoreStub(ns.engine, "createWidgets");
+		});
+
+		test("_build", function (assert) {
+			var pageContainer = new PageContainer(),
+				pageContainerElement = document.getElementById("qunit-fixture");
+
+			pageContainerElement.classList.remove("ui-page-container");
+
+			pageContainer._build(pageContainerElement);
+
+			assert.strictEqual(pageContainerElement.classList.contains("ui-page-container"), true,
+				"page container class was added");
 		});
 
 		test("_setActivePage", 3, function () {
@@ -212,20 +288,32 @@
 			strictEqual(pageElement.parentNode, null, "Page is removed");
 		});
 
-		test("_transition", function () {
+		asyncTest("_transition", function (assert) {
 			var pageContainer,
 				pageSource,
 				pageDestination,
 				pageContainerElement = document.getElementById("qunit-fixture"),
 				pageSourceElement = document.getElementById("page1"),
 				pageDestinationElement = document.getElementById("page2"),
+				count = 0,
 				options = {
 					reverse: true,
 					deferred: {
-						resolve: function () {}
+						resolve: function (fromPageWidget, toPageWidget, self, options) {
+							assert.ok(fromPageWidget);
+							assert.ok(toPageWidget);
+							assert.ok(self);
+							assert.ok(options);
+							if (count === 1) {
+								start();
+							}
+							count++;
+						}
 					},
 					transition: "slide"
 				};
+
+			expect(27);
 
 			pageContainer = new PageContainer();
 			pageContainer.element = pageContainerElement;
@@ -237,16 +325,104 @@
 
 			pageDestination = {
 				element: pageDestinationElement,
-				setActive: function () { }
+				setActive: function () {
+					assert.ok(2);
+				},
+				on: function (name, callback) {
+					assert.deepEqual(name, [
+						"animationend",
+						"webkitAnimationEnd",
+						"mozAnimationEnd",
+						"msAnimationEnd",
+						"oAnimationEnd"
+					], "events names are correct in on");
+					assert.ok(pageContainer.inTransition, "inTransition was set to true.");
+					assert.ok(pageContainer.element.classList.contains(PageContainer.classes.uiViewportTransitioning), "PageContainer element contains uiViewportTransitioning class.");
+
+					callback();
+				},
+				off: function (name) {
+					assert.deepEqual(name, [
+						"animationend",
+						"webkitAnimationEnd",
+						"mozAnimationEnd",
+						"msAnimationEnd",
+						"oAnimationEnd"
+					], "events names are correct in off");
+				}
+			};
+
+			pageContainer._appendTransitionClasses = function (fromPageWidget, toPageWidget, transition, optionsReverse) {
+				assert.strictEqual(fromPageWidget, pageSource, "fromPageWidget is correct object");
+				assert.strictEqual(toPageWidget, pageDestination, "toPageWidget is correct object");
+				assert.equal(transition, "slide", "transition is slide");
+				assert.equal(optionsReverse, true, "options.reverse is true");
 			};
 
 			pageContainer._transition(pageDestination, pageSource, options);
 
-			ok(pageContainer.inTransition, "inTransition was set to true.");
-			ok(pageContainer.element.classList.contains(PageContainer.classes.uiViewportTransitioning), "PageContainer element contains uiViewportTransitioning class.")
+			options.transition = "none";
+
+			pageContainer._setActivePage = function (toPageWidget) {
+				assert.equal(toPageWidget, pageDestination, "toPageWidget is correct object");
+			};
+
+			pageContainer._clearTransitionClasses = function (clearClasses, fromPageWidgetClassList, toPageWidgetClassList) {
+				assert.deepEqual(clearClasses.length, 5, "clearClasses has correct length");
+				assert.strictEqual(fromPageWidgetClassList, pageSource.element.classList,
+					"fromPageWidgetClassList is correct");
+				assert.strictEqual(toPageWidgetClassList, pageDestination.element.classList,
+					"toPageWidgetClassList is correct");
+			};
+
+			pageContainer._transition(pageDestination, pageSource, options);
+
+			assert.ok(pageContainer.inTransition, "inTransition was set to true.");
+			assert.ok(pageContainer.element.classList.contains(PageContainer.classes.uiViewportTransitioning),
+				"PageContainer element contains uiViewportTransitioning class.")
 		});
 
-		test("_clearTransitionClasses", function () {
+		test("_appendTransitionClasses", function (assert) {
+			var pageContainer,
+				count = 0,
+				fromPageWidget = {
+					element: {
+						classList: {
+							add: function () {
+								if (count === 0 || count === 2) {
+									assert.equal(arguments[0], "transition", "(from) arguments[0] is transition");
+									assert.equal(arguments[1], "out", "(from) arguments[1] is out");
+								} else {
+									assert.equal(arguments[0], "reverse", "(from) arguments[0] is reverse");
+								}
+								count++;
+							}
+						}
+					}
+				},
+				toPageWidget = {
+					element: {
+						classList: {
+							add: function () {
+								if (count === 1 || count === 4) {
+									assert.equal(arguments[0], "transition", "(to) arguments[0] is transition");
+									assert.equal(arguments[1], "in", "(to) arguments[1] is in");
+									assert.equal(arguments[2], "ui-pre-in", "(to) arguments[2] is ui-pre-in");
+								} else {
+									assert.equal(arguments[0], "reverse", "(to) arguments[0] is reverse");
+								}
+								count++;
+							}
+						}
+					}
+				};
+
+			pageContainer = new PageContainer();
+			pageContainer._appendTransitionClasses(fromPageWidget, toPageWidget, "transition");
+			pageContainer._appendTransitionClasses(fromPageWidget, toPageWidget, "transition", true);
+		});
+
+		test("_clearTransitionClasses", function (assert) {
 			var pageContainer,
 				clearClasses,
 				pageContainerElement = document.getElementById("qunit-fixture"),
@@ -261,15 +437,18 @@
 			pageDestinationElement.classList.add(PageContainer.classes.in, PageContainer.classes.out);
 
 			pageContainer._clearTransitionClasses(clearClasses, pageSourceElement.classList, pageDestinationElement.classList);
-			ok(!pageSourceElement.classList.contains(PageContainer.classes.in, PageContainer.classes.out), "Classes were successfully removed from source Page element.");
-			ok(!pageDestinationElement.classList.contains(PageContainer.classes.in, PageContainer.classes.out), "Classes were successfully removed from destination Page element.");
+			assert.ok(!pageSourceElement.classList.contains(PageContainer.classes.in, PageContainer.classes.out), "Classes were successfully removed from source Page element.");
+			assert.ok(!pageDestinationElement.classList.contains(PageContainer.classes.in, PageContainer.classes.out), "Classes were successfully removed from destination Page element.");
 		});
 	}
 
 	if (typeof define === "function") {
-		define(function () {
-			return runTests;
-		});
+		define([
+			"../../../../../../src/js/tools/performance"
+		],
+			function () {
+				return runTests;
+			});
 	} else {
 		runTests(ns.widget.core.PageContainer, window.helpers, window.tauPerf);
 	}

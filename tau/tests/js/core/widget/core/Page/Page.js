@@ -40,6 +40,15 @@
 			// we test that method not throw exception
 		});
 
+		test("getScroller", function (assert) {
+			var pageElement = document.getElementById("first"),
+				pageWidget = new Page();
+
+			pageWidget.element = pageElement;
+			// children[1] is content
+			assert.equal(pageWidget.getScroller(), pageElement.children[1], "getScroller return element in base case");
+		});
+
 		test("_storeContentStyle/_restoreContentStyle", function () {
 			var pageElement = document.getElementById("first"),
 				contentElement = pageElement.querySelector(".ui-content"),

@@ -52,9 +52,11 @@
  *          speed up the application launch. The start page with the ui-page-active class can be displayed before
  *          the framework is fully loaded.
  *
- *  If this class is not used, the framework inserts the class automatically to the first page of the application.
- *  However, this has a slowing effect on the application launch, because the page is displayed only after
- *  the framework is fully loaded.</td>
+ *          If this class is not used, the framework inserts the class automatically to the first page of the
+ *          application.
+ *
+ *          However, this has a slowing effect on the application launch, because the page is displayed only after
+ *          *the* framework is fully loaded.</td>
  *      </tr>
  *      <tr>
  *          <td>Header</td>
@@ -108,20 +110,26 @@
  *            page = tau.widget.Page(buttonElement);
  *
  * Constructor has one require parameter **element** which are base **HTMLElement** to create widget.
- * We recommend get this element by method *document.getElementById*.
+ * We recommend get
+ * this element by method *document.getElementById*.
  *
  * ## Multi-page Layout
  *
  * You can implement a template containing multiple page containers in the application index.html file.
  *
  * In the multi-page layout, the main page is defined with the ui-page-active class.
- * If no page has the ui-page-active class, the framework automatically sets up the first page in the source order
- * as the main page. You can improve the launch performance by explicitly defining the main page to be displayed first.
- * If the application has to wait for the framework to set up the main page, the page is displayed with some delay
- * only after the framework is fully loaded.
+ * If no page has the ui-page-active
+ * class, the framework automatically sets up the first page in the source order
+ * as the main page. You can improve the
+ * launch performance by explicitly defining the main page to be displayed first.
+ * If the application has to wait for
+ * the framework to set up the main page, the page is displayed with some delay
+ * only after the framework is fully
+ * loaded.
  *
  * You can link to internal pages by referring to the ID of the page. For example, to link to the page with an ID
- * of two, the link element needs the href="#two" attribute in the code, as in the following example.
+ * of
+ * two, the link element needs the href="#two" attribute in the code, as in the following example.
  *
  *      @example
  *         <!--Main page-->
@@ -158,7 +166,8 @@
  * When changing the active page, you can use a page transition.
  *
  * Tizen Web UI Framework does not apply transitions by default. To set a custom transition effect,
- * you must add the data-transition attribute to a link:
+ * you must add the
+ * data-transition attribute to a link:
  *
  *      @example
  *      <a href="index.html" data-transition="slideup">I'll slide up</a>

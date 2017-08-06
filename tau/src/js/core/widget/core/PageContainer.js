@@ -31,7 +31,6 @@
 	define(
 		[
 			"../../engine",
-			"../../event",
 			"../../util/DOM/attributes",
 			"../BaseWidget",
 			"../core",
@@ -41,7 +40,6 @@
 			//>>excludeEnd("tauBuildExclude");
 			var BaseWidget = ns.widget.BaseWidget,
 				util = ns.util,
-				eventUtils = ns.event,
 				DOM = util.DOM,
 				engine = ns.engine,
 				classes = {
@@ -92,12 +90,11 @@
 					msAnimationEnd,
 					oAnimationEnd
 				],
-				deferredFunction,
 				prototype = new BaseWidget();
 			//When resolved deferred function is responsible for triggering events related to page change as well as
 			//destroying unused widgets from last page and/or removing last page
 
-			deferredFunction = function (fromPageWidget, toPageWidget, self, options) {
+			function deferredFunction(fromPageWidget, toPageWidget, self, options) {
 				if (fromPageWidget) {
 					fromPageWidget.onHide();
 					if (options.reverse) {
@@ -114,8 +111,7 @@
 				window.tauPerf.get("framework", "After trigger: pagechange");
 				window.tauPerf.finish();
 				//>>excludeEnd("tauPerformance");
-			};
-
+			}
 
 			/**
 			 * Dictionary for PageContainer related event types.
@@ -245,16 +241,14 @@
 
 				if (transition !== "none") {
 					oneEvent = function () {
-						eventUtils.off(
-							toPageWidget.element,
+						toPageWidget.off(
 							animationEndNames,
 							oneEvent,
 							false
 						);
 						deferred.resolve();
 					};
-					eventUtils.on(
-						toPageWidget.element,
+					toPageWidget.on(
 						animationEndNames,
 						oneEvent,
 						false
