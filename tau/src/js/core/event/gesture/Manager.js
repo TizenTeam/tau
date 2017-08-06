@@ -41,13 +41,8 @@
 			 */
 			var gesture = ns.event.gesture,
 
-				/**
-				 * Alias for method {@link ns.util.object.merge}
-				 * @property {Function} objectMerge
-				 * @member ns.event.gesture.Manager
-				 * @private
-				 * @static
-				 */
+				gestureUtils = gesture.utils,
+
 				utilObject = ns.util.object,
 
 				instance = null,
@@ -55,20 +50,21 @@
 				touchCheck = /touch/,
 
 				Manager = function () {
+					var self = this;
 
-					this.instances = [];
-					this.gestureDetectors = [];
-					this.runningDetectors = [];
-					this.detectorRequestedBlock = null;
+					self.instances = [];
+					self.gestureDetectors = [];
+					self.runningDetectors = [];
+					self.detectorRequestedBlock = null;
 
-					this.unregisterBlockList = [];
+					self.unregisterBlockList = [];
 
-					this.gestureEvents = {};
-					this.velocity = null;
+					self.gestureEvents = {};
+					self.velocity = null;
 
-					this._isReadyDetecting = false;
-					this._blockMouseEvent = false;
-					this.touchSupport = "ontouchstart" in window;
+					self._isReadyDetecting = false;
+					self._blockMouseEvent = false;
+					self.touchSupport = "ontouchstart" in window;
 				};
 
 			function sortInstances(a, b) {
@@ -81,15 +77,15 @@
 			}
 
 			Manager.prototype = {
-					/**
-					 * Bind start events
-					 * @method _bindStartEvents
-					 * @param {ns.event.gesture.Instance} instance gesture instance
-					 * @member ns.event.gesture.Manager
-					 * @protected
-					 */
-				_bindStartEvents: function (instance) {
-					var element = instance.getElement();
+				/**
+				 * Bind start events
+				 * @method _bindStartEvents
+				 * @param {ns.event.gesture.Instance} _instance gesture instance
+				 * @member ns.event.gesture.Manager
+				 * @protected
+				 */
+				_bindStartEvents: function (_instance) {
+					var element = _instance.getElement();
 
 					if (this.touchSupport) {
 						element.addEventListener("touchstart", this, false);
@@ -98,32 +94,34 @@
 					}
 				},
 
-					/**
-					 * Bind move, end and cancel events
-					 * @method _bindEvents
-					 * @member ns.event.gesture.Manager
-					 * @protected
-					 */
+				/**
+				 * Bind move, end and cancel events
+				 * @method _bindEvents
+				 * @member ns.event.gesture.Manager
+				 * @protected
+				 */
 				_bindEvents: function () {
-					if (this.touchSupport) {
-						document.addEventListener("touchmove", this);
-						document.addEventListener("touchend", this);
-						document.addEventListener("touchcancel", this);
+					var self = this;
+
+					if (self.touchSupport) {
+						document.addEventListener("touchmove", self);
+						document.addEventListener("touchend", self);
+						document.addEventListener("touchcancel", self);
 					} else {
-						document.addEventListener("mousemove", this);
-						document.addEventListener("mouseup", this);
+						document.addEventListener("mousemove", self);
+						document.addEventListener("mouseup", self);
 					}
 				},
 
-					/**
-					 * Unbind start events
-					 * @method _unbindStartEvents
-					 * @param {ns.event.gesture.Instance} instance gesture instance
-					 * @member ns.event.gesture.Manager
-					 * @protected
-					 */
-				_unbindStartEvents: function (instance) {
-					var element = instance.getElement();
+				/**
+				 * Unbind start events
+				 * @method _unbindStartEvents
+				 * @param {ns.event.gesture.Instance} _instance gesture instance
+				 * @member ns.event.gesture.Manager
+				 * @protected
+				 */
+				_unbindStartEvents: function (_instance) {
+					var element = _instance.getElement();
 
 					if (this.touchSupport) {
 						element.removeEventListener("touchstart", this, false);
@@ -132,288 +130,307 @@
 					}
 				},
 
-					/**
-					 * Unbind move, end and cancel events
-					 * @method _bindEvents
-					 * @member ns.event.gesture.Manager
-					 * @protected
-					 */
+				/**
+				 * Unbind move, end and cancel events
+				 * @method _bindEvents
+				 * @member ns.event.gesture.Manager
+				 * @protected
+				 */
 				_unbindEvents: function () {
-					if (this.touchSupport) {
-						document.removeEventListener("touchmove", this, false);
-						document.removeEventListener("touchend", this, false);
-						document.removeEventListener("touchcancel", this, false);
+					var self = this;
+
+					if (self.touchSupport) {
+						document.removeEventListener("touchmove", self, false);
+						document.removeEventListener("touchend", self, false);
+						document.removeEventListener("touchcancel", self, false);
 					} else {
-						document.removeEventListener("mousemove", this, false);
-						document.removeEventListener("mouseup", this, false);
+						document.removeEventListener("mousemove", self, false);
+						document.removeEventListener("mouseup", self, false);
 					}
 				},
 
-					/**
-					 * Handle event
-					 * @method handleEvent
-					 * @param {Event} event
-					 * @member ns.event.gesture.Manager
-					 * @protected
-					 */
-					/* jshint -W086 */
-				handleEvent: function (event) {
+				/**
+				 * Detect that event should be processed by handleEvent
+				 * @param {Event} event Input event object
+				 * @return {null|string}
+				 * @member ns.event.gesture.Manager
+				 * @protected
+				 */
+				_detectEventType: function (event) {
 					var eventType = event.type;
 
 					if (eventType.match(touchCheck)) {
 						this._blockMouseEvent = true;
 					} else {
 						if (this._blockMouseEvent || event.which !== 1) {
-							return;
+							return null;
 						}
 					}
+					return eventType;
+				},
+
+				/**
+				 * Handle event
+				 * @method handleEvent
+				 * @param {Event} event
+				 * @member ns.event.gesture.Manager
+				 * @protected
+				 */
+				handleEvent: function (event) {
+					var self = this,
+						eventType = self._detectEventType(event);
 
 					switch (eventType) {
 						case "mousedown":
 						case "touchstart":
-							this._start(event);
+							self._start(event);
 							break;
 						case "mousemove":
 						case "touchmove":
-							this._move(event);
+							self._move(event);
 							break;
 						case "mouseup":
 						case "touchend":
-							this._end(event);
+							self._end(event);
 							break;
 						case "touchcancel":
-							this._cancel(event);
+							self._cancel(event);
 							break;
 					}
 				},
 
-					/**
-					 * Handler for gesture start
-					 * @method _start
-					 * @param {Event} event
-					 * @member ns.event.gesture.Manager
-					 * @protected
-					 */
+				/**
+				 * Handler for gesture start
+				 * @method _start
+				 * @param {Event} event
+				 * @member ns.event.gesture.Manager
+				 * @protected
+				 */
 				_start: function (event) {
-					var element = event.currentTarget,
+					var self = this,
+						element = event.currentTarget,
 						startEvent = {},
 						detectors = [];
 
-					if (!this._isReadyDetecting) {
-						this._resetDetecting();
-						this._bindEvents();
+					if (!self._isReadyDetecting) {
+						self._resetDetecting();
+						self._bindEvents();
 
-						startEvent = this._createDefaultEventData(gesture.Event.START, event);
+						startEvent = self._createDefaultEventData(gesture.Event.START, event);
 
-						this.gestureEvents = {
+						self.gestureEvents = {
 							start: startEvent,
 							last: startEvent
 						};
 
-						this.velocity = {
+						self.velocity = {
 							event: startEvent,
 							x: 0,
 							y: 0
 						};
 
-						startEvent = utilObject.fastMerge(startEvent, this._createGestureEvent(gesture.Event.START, event));
-						this._isReadyDetecting = true;
+						startEvent = utilObject.fastMerge(startEvent,
+							self._createGestureEvent(gesture.Event.START, event));
+						self._isReadyDetecting = true;
 					}
 
-					this.instances.forEach(function (instance) {
-						if (instance.getElement() === element) {
-							detectors = detectors.concat(instance.getGestureDetectors());
+					self.instances.forEach(function (_instance) {
+						if (_instance.getElement() === element) {
+							detectors = detectors.concat(_instance.getGestureDetectors());
 						}
-					}, this);
+					}, self);
 
 					detectors.sort(sortInstances);
 
-					this.gestureDetectors = this.gestureDetectors.concat(detectors);
+					self.gestureDetectors = self.gestureDetectors.concat(detectors);
 
-					this._detect(detectors, startEvent);
+					self._detect(detectors, startEvent);
 				},
 
-					/**
-					 * Handler for gesture move
-					 * @method _move
-					 * @param {Event} event
-					 * @member ns.event.gesture.Manager
-					 * @protected
-					 */
+				/**
+				 * Handler for gesture move
+				 * @method _move
+				 * @param {Event} event
+				 * @member ns.event.gesture.Manager
+				 * @protected
+				 */
 				_move: function (event) {
-					var newEvent;
+					var newEvent,
+						self = this;
 
-					if (this._isReadyDetecting) {
-						newEvent = this._createGestureEvent(gesture.Event.MOVE, event);
-						this._detect(this.gestureDetectors, newEvent);
-						this.gestureEvents.last = newEvent;
+					if (self._isReadyDetecting) {
+						newEvent = self._createGestureEvent(gesture.Event.MOVE, event);
+						self._detect(self.gestureDetectors, newEvent);
+						self.gestureEvents.last = newEvent;
 					}
 				},
 
-					/**
-					 * Handler for gesture end
-					 * @method _end
-					 * @param {Event} event
-					 * @member ns.event.gesture.Manager
-					 * @protected
-					 */
+				/**
+				 * Handler for gesture end
+				 * @method _end
+				 * @param {Event} event
+				 * @member ns.event.gesture.Manager
+				 * @protected
+				 */
 				_end: function (event) {
-					var newEvent = utilObject.merge(
+					var self = this,
+						newEvent = utilObject.merge(
 							{},
-						this.gestureEvents.last,
-						this._createDefaultEventData(gesture.Event.END, event)
+							self.gestureEvents.last,
+							self._createDefaultEventData(gesture.Event.END, event)
 						);
 
 					if (newEvent.pointers.length === 0) {
-						this._detect(this.gestureDetectors, newEvent);
+						self._detect(self.gestureDetectors, newEvent);
 
-						this.unregisterBlockList.forEach(function (instance) {
-							this.unregister(instance);
-						}, this);
+						self.unregisterBlockList.forEach(function (_instance) {
+							this.unregister(_instance);
+						}, self);
 
-						this._resetDetecting();
-						this._blockMouseEvent = false;
+						self._resetDetecting();
+						self._blockMouseEvent = false;
 					}
 				},
 
-					/**
-					 * Handler for gesture cancel
-					 * @method _cancel
-					 * @param {Event} event
-					 * @member ns.event.gesture.Manager
-					 * @protected
-					 */
+				/**
+				 * Handler for gesture cancel
+				 * @method _cancel
+				 * @param {Event} event
+				 * @member ns.event.gesture.Manager
+				 * @protected
+				 */
 				_cancel: function (event) {
+					var self = this;
 
 					event = utilObject.merge(
-							{},
-						this.gestureEvents.last,
-						this._createDefaultEventData(gesture.Event.CANCEL, event)
-						);
+						{},
+						self.gestureEvents.last,
+						self._createDefaultEventData(gesture.Event.CANCEL, event)
+					);
 
-					this._detect(this.gestureDetectors, event);
+					self._detect(self.gestureDetectors, event);
 
-					this.unregisterBlockList.forEach(function (instance) {
-						this.unregister(instance);
-					}, this);
+					self.unregisterBlockList.forEach(function (_instance) {
+						this.unregister(_instance);
+					}, self);
 
-					this._resetDetecting();
-					this._blockMouseEvent = false;
+					self._resetDetecting();
+					self._blockMouseEvent = false;
 				},
 
-					/**
-					 * Detect gesture
-					 * @method _detect
-					 * @param {Array} detectors
-					 * @param {Event} event
-					 * @member ns.event.gesture.Manager
-					 * @protected
-					 */
+				/**
+				 * Detect gesture
+				 * @method _detect
+				 * @param {Array} detectors
+				 * @param {Event} event
+				 * @member ns.event.gesture.Manager
+				 * @protected
+				 */
 				_detect: function (detectors, event) {
-					var finishedDetectors = [];
+					var self = this,
+						finishedDetectors = [];
 
 					detectors.forEach(function (detector) {
 						var result;
 
-						if (!this.detectorRequestedBlock) {
+						if (!self.detectorRequestedBlock) {
 							result = detector.detect(event);
-							if (result & gesture.Result.RUNNING) {
-								if (this.runningDetectors.indexOf(detector) < 0) {
-									this.runningDetectors.push(detector);
-								}
+							if ((result & gesture.Result.RUNNING) &&
+								self.runningDetectors.indexOf(detector) < 0) {
+								self.runningDetectors.push(detector);
 							}
-
 							if (result & gesture.Result.FINISHED) {
 								finishedDetectors.push(detector);
 							}
-
 							if (result & gesture.Result.BLOCK) {
-								this.detectorRequestedBlock = detector;
+								self.detectorRequestedBlock = detector;
 							}
 						}
-					}, this);
+					});
 
-						// remove finished detectors.
+					// remove finished detectors.
 					finishedDetectors.forEach(function (detector) {
-						var idx;
+						var idx = self.gestureDetectors.indexOf(detector);
 
-						idx = this.gestureDetectors.indexOf(detector);
 						if (idx > -1) {
-							this.gestureDetectors.splice(idx, 1);
+							self.gestureDetectors.splice(idx, 1);
 						}
-
-						idx = this.runningDetectors.indexOf(detector);
+						idx = self.runningDetectors.indexOf(detector);
 						if (idx > -1) {
-							this.runningDetectors.splice(idx, 1);
+							self.runningDetectors.splice(idx, 1);
 						}
-					}, this);
+					});
 
-						// remove all detectors except the detector that return block result
-					if (this.detectorRequestedBlock) {
-							// send to cancel event.
-						this.runningDetectors.forEach(function (detector) {
+					// remove all detectors except the detector that return block result
+					if (self.detectorRequestedBlock) {
+						// send to cancel event.
+						self.runningDetectors.forEach(function (detector) {
 							var cancelEvent = utilObject.fastMerge({}, event);
 
 							cancelEvent.eventType = gesture.Event.BLOCKED;
-
 							detector.detect(cancelEvent);
 						});
-						this.runningDetectors.length = 0;
-
-							// remove all detectors.
-						this.gestureDetectors.length = 0;
-						if (finishedDetectors.indexOf(this.detectorRequestedBlock) < 0) {
-							this.gestureDetectors.push(this.detectorRequestedBlock);
+						self.runningDetectors.length = 0;
+						self.gestureDetectors.length = 0;
+						if (finishedDetectors.indexOf(self.detectorRequestedBlock) < 0) {
+							self.gestureDetectors.push(self.detectorRequestedBlock);
 						}
 					}
 				},
 
-					/**
-					 * Reset of gesture manager detector
-					 * @method _resetDetecting
-					 * @member ns.event.gesture.Manager
-					 * @protected
-					 */
+				/**
+				 * Reset of gesture manager detector
+				 * @method _resetDetecting
+				 * @member ns.event.gesture.Manager
+				 * @protected
+				 */
 				_resetDetecting: function () {
-					this._isReadyDetecting = false;
+					var self = this;
 
-					this.gestureDetectors.length = 0;
-					this.runningDetectors.length = 0;
-					this.detectorRequestedBlock = null;
+					self._isReadyDetecting = false;
 
-					this.gestureEvents = {};
-					this.velocity = null;
+					self.gestureDetectors.length = 0;
+					self.runningDetectors.length = 0;
+					self.detectorRequestedBlock = null;
 
-					this._unbindEvents();
+					self.gestureEvents = {};
+					self.velocity = null;
+
+					self._unbindEvents();
 				},
 
-					/**
-					 * Create default event data
-					 * @method _createDefaultEventData
-					 * @param {string} type event type
-					 * @param {Event} event source event
-					 * @return {Object} default event data
-					 * @return {string} return.eventType
-					 * @return {number} return.timeStamp
-					 * @return {Touch} return.pointer
-					 * @return {TouchList} return.pointers
-					 * @return {Event} return.srcEvent
-					 * @return {Function} return.preventDefault
-					 * @return {Function} return.stopPropagation
-					 * @member ns.event.gesture.Manager
-					 * @protected
-					 */
+				/**
+				 * Create default event data
+				 * @method _createDefaultEventData
+				 * @param {string} type event type
+				 * @param {Event} event source event
+				 * @return {Object} default event data
+				 * @return {string} return.eventType
+				 * @return {number} return.timeStamp
+				 * @return {Touch} return.pointer
+				 * @return {TouchList} return.pointers
+				 * @return {Event} return.srcEvent
+				 * @return {Function} return.preventDefault
+				 * @return {Function} return.stopPropagation
+				 * @member ns.event.gesture.Manager
+				 * @protected
+				 */
 				_createDefaultEventData: function (type, event) {
-					var pointers = event.touches ?
-								event.touches :
-								event.type === "mouseup" ? [] : (event.identifier = 1 && [event]),
-						pointer = pointers[0],
-						timeStamp = Date.now();
+					var pointers = event.touches;
+
+					if (!pointers) {
+						if (event.type === "mouseup") {
+							pointers = [];
+						} else {
+							event.identifier = 1;
+							pointers = [event];
+						}
+					}
 
 					return {
 						eventType: type,
-						timeStamp: timeStamp,
-						pointer: pointer,
+						timeStamp: Date.now(),
+						pointer: pointers[0],
 						pointers: pointers,
 
 						srcEvent: event,
@@ -422,80 +439,85 @@
 					};
 				},
 
-					/**
-					 * Create gesture event
-					 * @method _createGestureEvent
-					 * @param {string} type event type
-					 * @param {Event} event source event
-					 * @return {Object} gesture event consist from Event class and additional properties
-					 * @return {number} return.deltaTime
-					 * @return {number} return.deltaX
-					 * @return {number} return.deltaY
-					 * @return {number} return.velocityX
-					 * @return {number} return.velocityY
-					 * @return {number} return.estimatedX
-					 * @return {number} return.estimatedY
-					 * @return {number} return.estimatedDeltaX
-					 * @return {number} return.estimatedDeltaY
-					 * @return {number} return.distance
-					 * @return {number} return.angle
-					 * @return {ns.event.gesture.Direction.LEFT|ns.event.gesture.Direction.RIGHT|ns.event.gesture.Direction.UP|ns.event.gesture.Direction.DOWN} return.direction
-					 * @return {number} return.scale
-					 * @return {number} return.rotation (deg)
-					 * @return {Event} return.startEvent
-					 * @return {Event} return.lastEvent
-					 * @member ns.event.gesture.Manager
-					 * @protected
-					 */
+				/**
+				 * Create gesture event
+				 * @method _createGestureEvent
+				 * @param {string} type event type
+				 * @param {Event} event source event
+				 * @return {Object} gesture event consist from Event class and additional properties
+				 * @return {number} return.deltaTime
+				 * @return {number} return.deltaX
+				 * @return {number} return.deltaY
+				 * @return {number} return.velocityX
+				 * @return {number} return.velocityY
+				 * @return {number} return.estimatedX
+				 * @return {number} return.estimatedY
+				 * @return {number} return.estimatedDeltaX
+				 * @return {number} return.estimatedDeltaY
+				 * @return {number} return.distance
+				 * @return {number} return.angle
+				 * @return {number} return.direction
+				 * @return {number} return.scale
+				 * @return {number} return.rotation (deg)
+				 * @return {Event} return.startEvent
+				 * @return {Event} return.lastEvent
+				 * @member ns.event.gesture.Manager
+				 * @protected
+				 */
 				_createGestureEvent: function (type, event) {
-					var ev = this._createDefaultEventData(type, event),
-						startEvent = this.gestureEvents.start,
-						lastEvent = this.gestureEvents.last,
-						velocity = this.velocity,
+					var self = this,
+						defaultEvent = self._createDefaultEventData(type, event),
+						startEvent = self.gestureEvents.start,
+						lastEvent = self.gestureEvents.last,
+						velocity = self.velocity,
 						velocityEvent = velocity.event,
 						delta = {
-							time: ev.timeStamp - startEvent.timeStamp,
-							x: ev.pointer.clientX - startEvent.pointer.clientX,
-							y: ev.pointer.clientY - startEvent.pointer.clientY
+							time: defaultEvent.timeStamp - startEvent.timeStamp,
+							x: defaultEvent.pointer.clientX - startEvent.pointer.clientX,
+							y: defaultEvent.pointer.clientY - startEvent.pointer.clientY
 						},
 						deltaFromLast = {
-							x: ev.pointer.clientX - lastEvent.pointer.clientX,
-							y: ev.pointer.clientY - lastEvent.pointer.clientY
+							x: defaultEvent.pointer.clientX - lastEvent.pointer.clientX,
+							y: defaultEvent.pointer.clientY - lastEvent.pointer.clientY
 						},
-						timeDifference = gesture.defaults.estimatedPointerTimeDifference, /* pause time threshold.util. tune the number to up if it is slow */
+						/* pause time threshold.util. tune the number to up if it is slow */
+						timeDifference = gesture.defaults.estimatedPointerTimeDifference,
 						estimated;
 
-						// reset start event for multi touch
-					if (startEvent && ev.pointers.length !== startEvent.pointers.length) {
-						startEvent.pointers = Array.prototype.slice.call(ev.pointers);
+					// reset start event for multi touch
+					if (startEvent && defaultEvent.pointers.length !== startEvent.pointers.length) {
+						startEvent.pointers = Array.prototype.slice.call(defaultEvent.pointers);
 					}
 
-					if (ev.timeStamp - velocityEvent.timeStamp > gesture.defaults.updateVelocityInterval) {
-						utilObject.fastMerge(velocity, gesture.utils.getVelocity(
-							ev.timeStamp - velocityEvent.timeStamp,
-							ev.pointer.clientX - velocityEvent.pointer.clientX,
-							ev.pointer.clientY - velocityEvent.pointer.clientY
+					if (defaultEvent.timeStamp - velocityEvent.timeStamp >
+						gesture.defaults.updateVelocityInterval) {
+						utilObject.fastMerge(velocity, gestureUtils.getVelocity(
+							defaultEvent.timeStamp - velocityEvent.timeStamp,
+							defaultEvent.pointer.clientX - velocityEvent.pointer.clientX,
+							defaultEvent.pointer.clientY - velocityEvent.pointer.clientY
 						));
-						velocity.event = ev;
+						velocity.event = defaultEvent;
 					}
 
 					estimated = {
-						x: Math.round(ev.pointer.clientX + (timeDifference * velocity.x * (deltaFromLast.x < 0 ? -1 : 1))),
-						y: Math.round(ev.pointer.clientY + (timeDifference * velocity.y * (deltaFromLast.y < 0 ? -1 : 1)))
+						x: Math.round(defaultEvent.pointer.clientX +
+							(timeDifference * velocity.x * (deltaFromLast.x < 0 ? -1 : 1))),
+						y: Math.round(defaultEvent.pointer.clientY +
+							(timeDifference * velocity.y * (deltaFromLast.y < 0 ? -1 : 1)))
 					};
 
-						// Prevent that point goes back even though direction is not changed.
+					// Prevent that point goes back even though direction is not changed.
 					if ((deltaFromLast.x < 0 && estimated.x > lastEvent.estimatedX) ||
-							(deltaFromLast.x > 0 && estimated.x < lastEvent.estimatedX)) {
+						(deltaFromLast.x > 0 && estimated.x < lastEvent.estimatedX)) {
 						estimated.x = lastEvent.estimatedX;
 					}
 
 					if ((deltaFromLast.y < 0 && estimated.y > lastEvent.estimatedY) ||
-							(deltaFromLast.y > 0 && estimated.y < lastEvent.estimatedY)) {
+						(deltaFromLast.y > 0 && estimated.y < lastEvent.estimatedY)) {
 						estimated.y = lastEvent.estimatedY;
 					}
 
-					utilObject.fastMerge(ev, {
+					utilObject.fastMerge(defaultEvent, {
 						deltaTime: delta.time,
 						deltaX: delta.x,
 						deltaY: delta.y,
@@ -508,74 +530,76 @@
 						estimatedDeltaX: estimated.x - startEvent.pointer.clientX,
 						estimatedDeltaY: estimated.y - startEvent.pointer.clientY,
 
-						distance: gesture.utils.getDistance(startEvent.pointer, ev.pointer),
+						distance: gestureUtils.getDistance(startEvent.pointer, defaultEvent.pointer),
 
-						angle: gesture.utils.getAngle(startEvent.pointer, ev.pointer),
+						angle: gestureUtils.getAngle(startEvent.pointer, defaultEvent.pointer),
 
-						direction: gesture.utils.getDirection(startEvent.pointer, ev.pointer),
+						direction: gestureUtils.getDirection(startEvent.pointer, defaultEvent.pointer),
 
-						scale: gesture.utils.getScale(startEvent.pointers, ev.pointers),
-						rotation: gesture.utils.getRotation(startEvent.pointers, ev.pointers),
+						scale: gestureUtils.getScale(startEvent.pointers, defaultEvent.pointers),
+						rotation: gestureUtils.getRotation(startEvent.pointers, defaultEvent.pointers),
 
 						startEvent: startEvent,
 						lastEvent: lastEvent
 					});
 
-					return ev;
+					return defaultEvent;
 				},
 
-					/**
-					 * Register instance of gesture
-					 * @method register
-					 * @param {ns.event.gesture.Instance} instance gesture instance
-					 * @member ns.event.gesture.Manager
-					 */
+				/**
+				 * Register instance of gesture
+				 * @method register
+				 * @param {ns.event.gesture.Instance} instance gesture instance
+				 * @member ns.event.gesture.Manager
+				 */
 				register: function (instance) {
-					var idx = this.instances.indexOf(instance);
+					var self = this,
+						idx = self.instances.indexOf(instance);
 
 					if (idx < 0) {
-						this.instances.push(instance);
-						this._bindStartEvents(instance);
+						self.instances.push(instance);
+						self._bindStartEvents(instance);
 					}
 				},
 
-					/**
-					 * Unregister instance of gesture
-					 * @method unregister
-					 * @param {ns.event.gesture.Instance} instance gesture instance
-					 * @member ns.event.gesture.Manager
-					 */
+				/**
+				 * Unregister instance of gesture
+				 * @method unregister
+				 * @param {ns.event.gesture.Instance} instance gesture instance
+				 * @member ns.event.gesture.Manager
+				 */
 				unregister: function (instance) {
-					var idx;
+					var idx,
+						self = this;
 
-					if (this.gestureDetectors.length) {
-						this.unregisterBlockList.push(instance);
+					if (self.gestureDetectors.length) {
+						self.unregisterBlockList.push(instance);
 					} else {
-						idx = this.instances.indexOf(instance);
+						idx = self.instances.indexOf(instance);
 						if (idx > -1) {
-							this.instances.splice(idx, 1);
-							this._unbindStartEvents(instance);
+							self.instances.splice(idx, 1);
+							self._unbindStartEvents(instance);
 						}
 
-						if (!this.instances.length) {
-							this._destroy();
+						if (!self.instances.length) {
+							self._destroy();
 						}
 					}
 				},
 
-					/**
-					 * Destroy instance of Manager
-					 * @method _destroy
-					 * @member ns.event.gesture.Manager
-					 * @protected
-					 */
+				/**
+				 * Destroy instance of Manager
+				 * @method _destroy
+				 * @member ns.event.gesture.Manager
+				 * @protected
+				 */
 				_destroy: function () {
-					this._resetDetecting();
+					var self = this;
 
-					this.instances.length = 0;
-					this.unregisterBlockList.length = 0;
-
-					this._blockMouseEvent = false;
+					self._resetDetecting();
+					self.instances.length = 0;
+					self.unregisterBlockList.length = 0;
+					self._blockMouseEvent = false;
 					instance = null;
 				}
 

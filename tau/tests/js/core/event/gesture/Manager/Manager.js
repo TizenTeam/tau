@@ -455,6 +455,69 @@
 			});
 		});
 
+		test("_createDefaultEventData", 21, function () {
+			var manager = new Manager(),
+				event = {
+					type: "mouseup",
+					preventDefault: function () {},
+					stopPropagation: function () {}
+				},
+				result = manager._createDefaultEventData("type", event);
+
+			equal(result.eventType, "type",
+				"_createDefaultEventData created correct object (eventType)");
+			deepEqual(result.pointer, undefined,
+				"_createDefaultEventData created correct object (pointer)");
+			deepEqual(result.pointers, [],
+				"_createDefaultEventData created correct object (pointers)");
+			deepEqual(result.srcEvent, event,
+				"_createDefaultEventData created correct object (srcEvent)");
+			equal(typeof result.timeStamp, "number",
+				"_createDefaultEventData created correct object (timeStamp)");
+			equal(typeof result.preventDefault, "function",
+				"_createDefaultEventData created correct object (preventDefault)");
+			equal(typeof result.stopPropagation, "function",
+				"_createDefaultEventData created correct object (stopPropagation)");
+
+			event.type = "mousedown";
+
+			result = manager._createDefaultEventData("type", event);
+
+			equal(result.eventType, "type",
+				"_createDefaultEventData created correct object (eventType)[2]");
+			deepEqual(result.pointer, event,
+				"_createDefaultEventData created correct object (pointer)[2]");
+			deepEqual(result.pointers, [event],
+				"_createDefaultEventData created correct object (pointers)[2]");
+			deepEqual(result.srcEvent, event,
+				"_createDefaultEventData created correct object (srcEvent)[2]");
+			equal(typeof result.timeStamp, "number",
+				"_createDefaultEventData created correct object (timeStamp)[2]");
+			equal(typeof result.preventDefault, "function",
+				"_createDefaultEventData created correct object (preventDefault)[2]");
+			equal(typeof result.stopPropagation, "function",
+				"_createDefaultEventData created correct object (stopPropagation)[2]");
+
+			event.touches = [{}];
+			result = manager._createDefaultEventData("type", event);
+
+			equal(result.eventType, "type",
+				"_createDefaultEventData created correct object (eventType)[3]");
+			deepEqual(result.pointer, {},
+				"_createDefaultEventData created correct object (pointer)[3]");
+			deepEqual(result.pointers, [{}],
+				"_createDefaultEventData created correct object (pointers)[3]");
+			deepEqual(result.srcEvent, event,
+				"_createDefaultEventData created correct object (srcEvent)[3]");
+			equal(typeof result.timeStamp, "number",
+				"_createDefaultEventData created correct object (timeStamp)[3]");
+			equal(typeof result.preventDefault, "function",
+				"_createDefaultEventData created correct object (preventDefault)[3]");
+			equal(typeof result.stopPropagation, "function",
+				"_createDefaultEventData created correct object (stopPropagation)[3]");
+
+		});
+
 		test("_detect", 16, function () {
 			var manager = new Manager(),
 				touchEvent = {
