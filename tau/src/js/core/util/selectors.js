@@ -28,7 +28,8 @@
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
-			"../util" // fetch namespace
+			// fetch namespace
+			"../util"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
@@ -69,7 +70,7 @@
 						return "matches";
 					}
 
-					return false;
+					return "";
 				}());
 
 			/**
@@ -383,12 +384,13 @@
 					var overflow,
 						style;
 
-					while (element && element != document.body) {
+					while (element && element !== document.body) {
 						style = window.getComputedStyle(element);
 
 						if (style) {
 							overflow = style.getPropertyValue("overflow-y");
-							if (overflow === "scroll" || (overflow === "auto" && element.scrollHeight > element.clientHeight)) {
+							if (overflow === "scroll" || (overflow === "auto" &&
+								element.scrollHeight > element.clientHeight)) {
 								return element;
 							}
 						}
