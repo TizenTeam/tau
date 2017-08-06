@@ -57,6 +57,7 @@
 					chars: chars
 				};
 			}
+
 			/**
 			 * Create an array containing the range of integers or characters
 			 * from low to high (inclusive)
@@ -112,6 +113,16 @@
 				return matrix;
 			}
 
+			function isCorrectType(object) {
+				return Array.isArray(object) || object instanceof NodeList || typeof object === "function";
+			}
+
+			function hasCorrectLength(object) {
+				var length = object.length;
+
+				return (length === 0 || typeof length === "number" && length > 0 && (length - 1) in object);
+			}
+
 			/**
 			 * Check object is arraylike (arraylike include array and
 			 * collection)
@@ -122,8 +133,6 @@
 			 * @static
 			 */
 			function isArrayLike(object) {
-				var type = typeof object,
-					length = object && object.length;
 
 				// if object exists and is different from window
 				// window object has length property
@@ -131,8 +140,7 @@
 					// If length value is not number, object is not array and collection.
 					// Collection type is not array but has length value.
 					// e.g) Array.isArray(document.childNodes) ==> false
-					return Array.isArray(object) || object instanceof NodeList || type === "function" &&
-						(length === 0 || typeof length === "number" && length > 0 && (length - 1) in object);
+					return isCorrectType(object) && hasCorrectLength(object);
 				}
 				return false;
 			}

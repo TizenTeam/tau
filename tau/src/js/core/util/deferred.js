@@ -141,7 +141,7 @@
 							// state = [ resolved | rejected ]
 							state = stateString;
 
-							// [ reject_list | resolve_list ].disable; progress_list.lock
+							// mapping of values [ reject_list | resolve_list ].disable; progress_list.lock
 						}, tuples[i ^ 1][2].disable, tuples[2][2].lock);
 					}
 

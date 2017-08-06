@@ -142,7 +142,7 @@
 				 * @private
 				 * @static
 				 */
-				event = ns.event,
+				eventUtil = ns.event,
 
 				// cache function
 				abs = Math.abs,
@@ -328,7 +328,7 @@
 			 */
 			function addActiveClass() {
 				var btnTargetClassList,
-					dTime = 0;
+					dTime;
 
 				if (anchorHighlight._startTime) {
 					dTime = Date.now() - anchorHighlight._startTime;
@@ -341,7 +341,7 @@
 							anchorHighlight.liTarget = anchorHighlight._detectLiElement(anchorHighlight._target);
 							if (anchorHighlight.liTarget) {
 								anchorHighlight.liTarget.classList.add(classes.ACTIVE_LI);
-								event.trigger(anchorHighlight.liTarget, events.ACTIVE_LI, {});
+								eventUtil.trigger(anchorHighlight.liTarget, events.ACTIVE_LI, {});
 							}
 							anchorHighlight.liTarget = null;
 							if (anchorHighlight._buttonTarget) {
@@ -384,7 +384,6 @@
 				for (; i < activeALength; i++) {
 					activeA[i].classList.remove(classes.ACTIVE_LI);
 				}
-				activeA = null;
 			}
 
 			/**
@@ -426,7 +425,6 @@
 					anchorHighlight._requestAnimationFrame(clearActiveClass);
 					anchorHighlight._didScroll = true;
 				}
-				touch = null;
 			}
 
 			/**
@@ -439,7 +437,7 @@
 			 */
 			function touchstartHandler(event) {
 				var touches = event.touches,
-					touch = null;
+					touch;
 
 				if (touches.length === 1) {
 					touch = touches[0];
@@ -450,10 +448,8 @@
 					anchorHighlight._startTime = Date.now();
 					anchorHighlight._startRemoveTime = 0;
 					anchorHighlight._requestAnimationFrame(addActiveClass);
-					touch = null;
 					anchorHighlight._touchEnd = false;
 				}
-				touches = null;
 			}
 
 

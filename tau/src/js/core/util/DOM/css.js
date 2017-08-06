@@ -48,7 +48,7 @@
 			 */
 			function getCSSProperty(element, property, def, type) {
 				var style = window.getComputedStyle(element),
-					value = null,
+					value,
 					result = def;
 
 				if (style) {
@@ -103,7 +103,7 @@
 			function extractCSSProperties(element, properties, pseudoSelector, noConversion) {
 				var style = window.getComputedStyle(element, pseudoSelector),
 					property,
-					value = null,
+					value,
 					newValue;
 
 				for (property in properties) {
@@ -166,7 +166,7 @@
 			function getElementHeight(element, type, includeOffset, includeMargin, pseudoSelector, force) {
 				var height = 0,
 					outer = (type && type === "outer") || false,
-					offsetHeight = 0,
+					offsetHeight,
 					property,
 					props = {
 						"height": 0,
@@ -224,7 +224,7 @@
 			function getElementWidth(element, type, includeOffset, includeMargin, pseudoSelector, force) {
 				var width = 0,
 					value,
-					offsetWidth = 0,
+					offsetWidth,
 					property,
 					outer = (type && type === "outer") || false,
 					props = {
