@@ -54,7 +54,8 @@
 			};
 
 			Detector.Sender = {
-				sendEvent: function (/* eventName, detail */) {
+				sendEvent: function () {
+					// Empty function for creating interface
 				}
 			};
 
@@ -101,4 +102,4 @@
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
-}(ns, window));
+}(ns));

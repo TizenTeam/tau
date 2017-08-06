@@ -97,7 +97,7 @@
 					 * @param {Event} gestureEvent gesture event
 					 * @param {Object} sender event's sender
 					 * @param {Object} options options
-					 * @return {ns.event.gesture.Result.PENDING|ns.event.gesture.Result.END|ns.event.gesture.Result.FINISHED|ns.event.gesture.Result.BLOCK}
+					 * @return {number}
 					 * @member ns.event.gesture.LongPress
 					 */
 					handler: function (gestureEvent, sender, options) {

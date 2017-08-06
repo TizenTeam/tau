@@ -142,12 +142,12 @@
 				/**
 				 * Triggers the gesture event
 				 * @method trigger
-				 * @param {string} gesture gesture name
+				 * @param {string} gestureName gestureName name
 				 * @param {Object} eventInfo data provided to event object
 				 * @member ns.event.gesture.Instance
 				 */
-				trigger: function (gesture, eventInfo) {
-					return events.trigger(this.element, gesture, eventInfo, false);
+				trigger: function (gestureName, eventInfo) {
+					return events.trigger(this.element, gestureName, eventInfo, false);
 				},
 
 				/**
