@@ -415,8 +415,7 @@
 					activeInput = null,
 					getMinutesValue = 0,
 					activeNumber = null,
-					activeNumberType,
-					options = self.options;
+					activeNumberType;
 
 				if (value instanceof Date) {
 					getHoursValue = value.getHours();

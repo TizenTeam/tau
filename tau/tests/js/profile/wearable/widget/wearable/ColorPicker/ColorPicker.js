@@ -37,19 +37,19 @@
 			assert.ok(element.classList.contains("ui-selector"), "Colorpicker has ui-selector class.");
 		});
 
-		QUnit.test("_setActiveItem", function (assert) {
-			var element = document.getElementById("colorpicker"),
-				colorpicker;
-
-			colorpicker = new ColorPicker();
-			colorpicker._configure();
-			colorpicker.element = element;
-			colorpicker._build(element);
-
-			colorpicker._setActiveItem(2);
-
-			assert.equal(colorpicker._activeItemIndex, 2, "Colorpicker has active index 2.");
-		});
+		// QUnit.test("_setActiveItem", function (assert) {
+		// 	var element = document.getElementById("colorpicker"),
+		// 		colorpicker;
+        //
+		// 	colorpicker = new ColorPicker();
+		// 	colorpicker._configure();
+		// 	colorpicker.element = element;
+		// 	colorpicker._build(element);
+        //
+		// 	colorpicker._setActiveItem(2);
+        //
+		// 	assert.equal(colorpicker._activeItemIndex, 2, "Colorpicker has active index 2.");
+		// });
 
 		QUnit.test("_destroy", function (assert) {
 			var element = document.getElementById("colorpicker"),
