@@ -347,19 +347,21 @@
 			 * @protected
 			 */
 			prototype._build = function (element) {
-				var newElement = CoreListviewProto._build.call(this, element),
-					isChildListview = !!selectorUtils.getClosestByClass(element && element.parentElement, "ui-listview"),
+				var self = this,
+					newElement = CoreListviewProto._build.call(self, element),
+					isChildListview = element &&
+						selectorUtils.getClosestByClass(element.parentElement, "ui-listview"),
 					canvas,
 					context;
 
-				this._isChildListview = isChildListview;
+				self._isChildListview = isChildListview;
 
 				if (!isChildListview) {
 					canvas = document.createElement("canvas");
 					context = canvas.getContext("2d");
 					canvas.classList.add(classes.BACKGROUND_LAYER);
 					newElement.insertBefore(canvas, newElement.firstElementChild);
-					this._context = context;
+					self._context = context;
 				}
 
 				return newElement;
@@ -528,10 +530,11 @@
 			 * @protected
 			 */
 			prototype._init = function (element) {
-				var context = this._context,
+				var self = this,
+					context = self._context,
 					canvas;
 
-				if (!this._isChildListview) {
+				if (!self._isChildListview) {
 					if (!context) {
 						canvas = element.querySelector("." + classes.BACKGROUND_LAYER);
 						if (canvas) {
@@ -542,10 +545,10 @@
 					}
 
 					if (context) {
-						this._canvasStyle = canvas.style;
-						this._frameCallback = this._handleFrame.bind(this);
+						self._canvasStyle = canvas.style;
+						self._frameCallback = self._handleFrame.bind(self);
 
-						this.refresh();
+						self.refresh();
 					}
 				}
 			};
@@ -557,11 +560,13 @@
 			 * @protected
 			 */
 			prototype._handleScroll = function () {
-				this._lastChange = now();
+				var self = this;
 
-				if (!this._running) {
-					this._running = true;
-					this._async(this._frameCallback);
+				self._lastChange = now();
+
+				if (!self._running) {
+					self._running = true;
+					self._async(self._frameCallback);
 				}
 			};
 
@@ -789,19 +794,12 @@
 			prototype._drawLiElements = function () {
 				var self = this,
 					element = self.element,
-					// all li elements
 					elements = slice.call(element.querySelectorAll("li")),
-					// find only elements which are visible
-					liElement = getNextVisible(elements),
-					// get draw context
+					visibleLiElement = getNextVisible(elements),
 					context = self._context,
-					// color step to modify colors
 					step = self._colorStep,
-					// list rectangle
 					rectangleList = element.getBoundingClientRect(),
-					// top position of listview on screen
 					listTop = rectangleList.top,
-					// left position of listview on screen
 					listLeft = rectangleList.left,
 					// get scroll top
 					scrollableContainer = self._scrollableContainer,
@@ -812,21 +810,21 @@
 					previousTop = 0,
 					// top offset of widget
 					topOffset = self._topOffset,
-					// canvas rectangle
 					changeColor;
 
-				while (liElement) {
+				while (visibleLiElement) {
 					// if li element is group index, the color of next element wont change
-					changeColor = (!liElement.classList.contains(classes.GROUP_INDEX) &&
-								!liElement.classList.contains(classes.EXPANDABLE));
+					changeColor = (!visibleLiElement.classList.contains(classes.GROUP_INDEX) &&
+						!visibleLiElement.classList.contains(classes.EXPANDABLE));
 					//calculate size of li element
-					rectangle = getElementRectangle(liElement);
-					// get liElement element
-					liElement = getNextVisible(elements);
-					rectangle.height = calculateElementHeight(liElement, rectangle);
+					rectangle = getElementRectangle(visibleLiElement);
+					// get visibleLiElement element
+					visibleLiElement = getNextVisible(elements);
+					rectangle.height = calculateElementHeight(visibleLiElement, rectangle);
 					//check if next element is group index, if yes then change its color
-					if (!changeColor && liElement && (liElement.classList.contains(classes.GROUP_INDEX) ||
-						liElement.classList.contains(classes.EXPANDABLE))) {
+					if (!changeColor && visibleLiElement &&
+						(visibleLiElement.classList.contains(classes.GROUP_INDEX) ||
+						visibleLiElement.classList.contains(classes.EXPANDABLE))) {
 						changeColor = true;
 					}
 					// check that element is visible (can be partialy visible)
@@ -836,10 +834,9 @@
 						topOffset = 0;
 						drawRectangle(context, rectangle);
 						previousTop += rectangle.height;
-						// check if we want to change the bg color of next li element
-						// calculate liElement step, stop when all done
+						// check if we want to change the bg color of next li element, stop when all done
 						if (changeColor && !modifyColor(colorTmp, step)) {
-							liElement = null;
+							visibleLiElement = null;
 						}
 					}
 				}
@@ -891,37 +888,38 @@
 			 * @protected
 			 */
 			prototype._bindEvents = function () {
-				var scrollableContainer = this._scrollableContainer,
-					pageContainer = this._pageContainer,
-					popupContainer = this._popupContainer;
+				var self = this,
+					scrollableContainer = self._scrollableContainer,
+					pageContainer = self._pageContainer,
+					popupContainer = self._popupContainer;
 
-				if (!this._isChildListview) {
+				if (!self._isChildListview) {
 					if (scrollableContainer) {
-						this._scrollableContainer = scrollableContainer;
-						this._scrollCallback = this._handleScroll.bind(this);
-						this._reorderCallback = this._handleReorderScroll.bind(this);
-						this._touchStartCallback = this._handleTouchStart.bind(this);
-						this._touchEndCallback = this._handleTouchEnd.bind(this);
-						eventUtils.on(scrollableContainer, "touchstart", this._scrollCallback);
-						eventUtils.on(scrollableContainer, "touchmove", this._scrollCallback);
-						eventUtils.on(scrollableContainer, "touchstart", this._touchStartCallback);
-						eventUtils.on(scrollableContainer, "touchend", this._touchEndCallback);
-						eventUtils.on(scrollableContainer, "scroll", this._scrollCallback);
+						self._scrollableContainer = scrollableContainer;
+						self._scrollCallback = self._handleScroll.bind(self);
+						self._reorderCallback = self._handleReorderScroll.bind(self);
+						self._touchStartCallback = self._handleTouchStart.bind(self);
+						self._touchEndCallback = self._handleTouchEnd.bind(self);
+						eventUtils.on(scrollableContainer, "touchstart", self._scrollCallback);
+						eventUtils.on(scrollableContainer, "touchmove", self._scrollCallback);
+						eventUtils.on(scrollableContainer, "touchstart", self._touchStartCallback);
+						eventUtils.on(scrollableContainer, "touchend", self._touchEndCallback);
+						eventUtils.on(scrollableContainer, "scroll", self._scrollCallback);
 					}
 
-					this._backgroundRenderCallback = this._backgroundRender.bind(this);
-					this.on("expand collapse", this._backgroundRenderCallback, false);
+					self._backgroundRenderCallback = self._backgroundRender.bind(self);
+					self.on("expand collapse", self._backgroundRenderCallback, false);
 					// support rotation
-					eventUtils.on(window, "resize", this._backgroundRenderCallback, false);
+					eventUtils.on(window, "resize", self._backgroundRenderCallback, false);
 
 					if (pageContainer) {
-						eventUtils.on(pageContainer, Page.events.BEFORE_SHOW, this._backgroundRenderCallback);
+						eventUtils.on(pageContainer, Page.events.BEFORE_SHOW, self._backgroundRenderCallback);
 					}
 					if (popupContainer) {
-						eventUtils.on(popupContainer, Popup.events.transition_start, this._backgroundRenderCallback);
+						eventUtils.on(popupContainer, Popup.events.transition_start, self._backgroundRenderCallback);
 					}
 
-					utilsEvents.on(this.element, "animationend", this, true);
+					utilsEvents.on(self.element, "animationend", self, true);
 				}
 			};
 
@@ -1198,7 +1196,7 @@
 				headerHeight = (headerElement) ? headerElement.offsetHeight : 0;
 				//move element only in Y axis
 				moveY = event.detail.estimatedY - headerHeight - helper.height / 2 +
-						-self.orginalListPosition;
+					-self.orginalListPosition;
 				self._appendLiStylesToElement(helperElement, moveY);
 
 				self._setDirection(moveY, position.moveTop);
@@ -1209,8 +1207,6 @@
 					self._changeLocationDown(moveY, holder, helper, length);
 				} else if (self._direction < 0) {
 					self._changeLocationUp(moveY, holder, helper, length);
-				} else {
-					return false;
 				}
 			};
 
