@@ -119,9 +119,6 @@
 
 				parentDisable.apply(self, args);
 				elementClasses.add(self.widgetFullName + "-disabled");
-				// @TODO
-				//this.hoverable.removeClass( "ui-state-hover" );
-				//this.focusable.removeClass( "ui-state-focus" );
 			};
 
 			/**
@@ -138,9 +135,6 @@
 
 				parentEnable.apply(self, args);
 				elementClasses.remove(self.widgetFullName + "-disabled");
-				// @TODO
-				//this.hoverable.removeClass( "ui-state-hover" );
-				//this.focusable.removeClass( "ui-state-focus" );
 			};
 
 			/**
