@@ -14,6 +14,10 @@
 		width: 12 * @unit_base;
 		margin-left: 8 * @unit_base;
 		padding-top: 35 * @unit_base;
+
+		span {
+			font-size: 65 * @unit_base;
+		}
 	}
 	div {
 	  font-size: 40 * @unit_base;
@@ -42,6 +46,7 @@
 			height: 158 * @unit_base;
 			position: relative;
 			span{
+				font-size: 50 * @unit_base;
 				height: 79 * @unit_base;
 				width: 100 * @unit_base;
 				display: inline-block;
@@ -52,11 +57,21 @@
 	.ui-number-picker-label {
 		display: block;
 		width: 80 * @unit_base;
+		font-size: 24 * @unit_base;
 	}
+
 	.ui-number-picker-number {
 		width: 80 * @unit_base;
+		font-size: 65 * @unit_base;
 		display: block;
 	}
+
+	.ui-number-picker-number {
+		width: 80 * @unit_base;
+		font-size: 65 * @unit_base;
+		display: block;
+	}
+
 }
 
 
@@ -69,16 +84,16 @@
 
 @keyframes changeColor {
 	0% {
-		color: blue;
+		color: @color_time_picker_number_blink_on;
 	}
 	49% {
-		color: blue;
+		color: @color_time_picker_number_blink_on;
 	}
 	51% {
-		color: dimgrey;
+		color: @color_time_picker_number_blink_off;
 	}
 	100% {
-		color: dimgrey;
+		color: @color_time_picker_number_blink_off;
 	}
 }
 

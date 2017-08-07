@@ -155,7 +155,7 @@
 			prototype._build = function (element) {
 				var self = this,
 					ui = self._ui,
-					footer = null,
+					footer,
 					amPmBlock = null,
 					amPmInnerContainer = null,
 					amSpan = null,
@@ -256,7 +256,7 @@
 				if (activeNumber) {
 					activeNumber.classList.remove(classes.ACTIVE_LABEL_ANIMATION);
 					activeInput = activeNumber.parentElement.children[2];
-					activeNumberType = activeInput.parentElement.classList.contains(classes.HOURS_CONTAINER) ? "hours" : "minutes"
+					activeNumberType = activeInput.parentElement.classList.contains(classes.HOURS_CONTAINER) ? "hours" : "minutes";
 
 					if (event.detail.direction === "CW") {
 						currentValue = parseInt(activeInput.value, 10);
@@ -480,7 +480,7 @@
 					activeNumber = document.querySelector("." + classes.ACTIVE_LABEL);
 					if (activeNumber) {
 						activeInput = activeNumber.parentElement.children[2];
-						activeNumberType = activeInput.parentElement.classList.contains(classes.HOURS_CONTAINER) ? "hours" : "minutes"
+						activeNumberType = activeInput.parentElement.classList.contains(classes.HOURS_CONTAINER) ? "hours" : "minutes";
 						// fix for minutes, we don't display 60 but 0
 						if (activeNumberType === "minutes" && value === 60) {
 							value = 0;
@@ -507,12 +507,15 @@
 			 */
 			prototype._updateValue = function (value) {
 				var self = this,
-					delta = parseInt(self._actualMax, 10) - self.options.min;
+					max = parseInt(self._actualMax, 10),
+					min = self.options.min,
+					delta = max - min;
 
 				/**
 				 * Cirecle indicator showing radius value.
 				 * Number Picker value has to be calculated as proportion of full angle
 				 */
+
 				if (delta > 0) {
 					self._circleIndicator.value(360 * value / delta);
 				} else {
