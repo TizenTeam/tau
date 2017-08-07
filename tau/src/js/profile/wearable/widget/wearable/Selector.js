@@ -641,9 +641,13 @@
 					element = self.element,
 					ui = self._ui,
 					items = ui.items,
+					transform,
+					newTransformStyle,
 					active = element.querySelector("." + classes.ITEM_ACTIVE);
 
 				index = index !== undefined ? index : 0;
+
+				transform = items[index].style.transform || items[index].style.webkitTransform;
 
 				if (active) {
 					active.style.transform = active.style.transform.replace(DEFAULT.ITEM_ACTIVE_SCALE, DEFAULT.ITEM_NORMAL_SCALE);
@@ -651,7 +655,9 @@
 				}
 				if (items.length) {
 					items[index].classList.add(classes.ITEM_ACTIVE);
-					items[index].style.transform = items[index].style.transform.replace(DEFAULT.ITEM_NORMAL_SCALE, DEFAULT.ITEM_ACTIVE_SCALE);
+					newTransformStyle = transform.replace(DEFAULT.ITEM_NORMAL_SCALE, DEFAULT.ITEM_ACTIVE_SCALE);
+					items[index].style.transform = newTransformStyle;
+					items[index].style.webkitTransform = newTransformStyle;
 					if (self.options.indicatorAutoControl) {
 						self._setIndicatorIndex(index);
 					}
