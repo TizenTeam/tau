@@ -1428,10 +1428,10 @@
 				"height": 360
 			},
 			{
-				"name": "41-grid",
-				"time": 0,
-				"width": 189,
-				"height": 189
+				"name": "45-grid",
+				"pass": true,
+				"width": 360,
+				"height": 360
 			},
 			{
 				"name": "44a-grid-thumbnails-indicator",
