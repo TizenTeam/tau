@@ -143,7 +143,7 @@ function nextTestCase() {
 	if (testCase) {
 		timerHandler = setTimeout(
 			startTestCase,
-			parseInt(testCase.time, 10)
+			200
 		);
 	} else {
 		setTimeout(function () {
@@ -176,25 +176,25 @@ function onPageChange() {
 	tau.log(path.filename);
 	setTimeout(function () {
 		sendRequest("take-screenshot:" + path.filename, onRequestSuccess);
-	}, 200);
+	}, testCase.time || 200);
 }
 
 function main() {
-		readTextFile("_screenshots.json", function (text) {
-			openComm(function () {
+	readTextFile("_screenshots.json", function (text) {
+		openComm(function () {
 
-				tests = JSON.parse(text);
-				first = true;
+			tests = JSON.parse(text);
+			first = true;
 
-				if (tests.length > 0) {
-					document.addEventListener("pageshow", onPageChange, true);
-					testCase = tests.shift();
-					timerHandler = setTimeout(startTestCase, FIRST_DELAY);
-				} else {
-					sendRequest("end!:Test case list is empty!", onEnd);
-				}
-			});
+			if (tests.length > 0) {
+				document.addEventListener("pageshow", onPageChange, true);
+				testCase = tests.shift();
+				timerHandler = setTimeout(startTestCase, FIRST_DELAY);
+			} else {
+				sendRequest("end!:Test case list is empty!", onEnd);
+			}
 		});
+	});
 }
 
 // start test;

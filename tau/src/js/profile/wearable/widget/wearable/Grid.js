@@ -747,7 +747,7 @@
 			}
 
 			prototype._findChildIndex = function (target) {
-				findChildIndex(this, target);
+				return findChildIndex(this, target);
 			};
 
 			/**

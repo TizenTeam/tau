@@ -13,7 +13,7 @@
 		<ul id="grid-grid-indicator" class="ui-grid">
 			<li><a href="#"><img src="images/default/gallery_default_image_01.jpg"/></a></li>
 			<li><a href="#"><img src="images/default/gallery_default_image_02.jpg"/></a></li>
-			<li><a href="#"><img src="images/default/gallery_default_image_03.jpg" id="img"/></a></li>
+			<li><a href="#"><img src="images/default/gallery_default_image_03.jpg" id="img-indicator"/></a></li>
 			<li><a href="#"><img src="images/default/gallery_default_image_04.jpg"/></a></li>
 			<li><a href="#"><img src="images/default/gallery_default_image_05.jpg"/></a></li>
 			<li><a href="#"><img src="images/default/gallery_default_image_06.jpg"/></a></li>
@@ -46,9 +46,9 @@
 		(function (tau) {
 			var page = document.getElementById("grid-page-indicator"),
 				element = document.getElementById("grid-grid-indicator"),
-				img = document.getElementById("img"),
+				img = document.getElementById("img-indicator"),
 				elPageIndicator = document.getElementById("grid-indicator"),
-				images = document.querySelectorAll(".ui-grid img"),
+				images = element.querySelectorAll(".ui-grid img"),
 				pageIndicator,
 				grid;
 

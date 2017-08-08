@@ -9,12 +9,12 @@
 </head>
 <body>
 <!-- Start of first page: #one -->
-<div class="ui-page" id="grid-page3" data-enable-page-scroll="false">
+<div class="ui-page" id="grid-page-center" data-enable-page-scroll="false">
 	<div class="ui-content">
-		<ul id="grid3" class="ui-grid">
+		<ul id="grid-center" class="ui-grid">
 			<li><a href="#"><img src="images/default/gallery_default_image_01.jpg"/></a></li>
 			<li><a href="#"><img src="images/default/gallery_default_image_02.jpg"/></a></li>
-			<li><a href="#"><img src="images/default/gallery_default_image_03.jpg" id="img"/></a></li>
+			<li><a href="#"><img src="images/default/gallery_default_image_03.jpg" id="img-center"/></a></li>
 			<li><a href="#"><img src="images/default/gallery_default_image_04.jpg"/></a></li>
 			<li><a href="#"><img src="images/default/gallery_default_image_05.jpg"/></a></li>
 			<li><a href="#"><img src="images/default/gallery_default_image_06.jpg"/></a></li>
@@ -47,9 +47,9 @@
 	-->
 	<script>
 		(function (tau) {
-			var page = document.getElementById("grid-page3"),
-				element = document.getElementById("grid3"),
-                img = document.getElementById("img"),
+			var page = document.getElementById("grid-page-center"),
+				element = document.getElementById("grid-center"),
+				img = document.getElementById("img-center"),
 				grid;
 
 			/**
@@ -60,12 +60,12 @@
 				grid = tau.widget.Grid(element);
 			});
 
-            page.addEventListener("pageshow", function () {
-               img.click();
-               setTimeout(function() {
-                   img.click();
-			   }, 1000);
-            });
+			page.addEventListener("pageshow", function () {
+				img.click();
+				setTimeout(function () {
+					img.click();
+				}, 1000);
+			});
 
 			/**
 			 * pagebeforehide event handler

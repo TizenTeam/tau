@@ -1437,7 +1437,8 @@
 				"name": "44a-grid-thumbnails-indicator",
 				"time": 5000,
 				"width": 360,
-				"height": 360
+				"height": 360,
+				"pass": true
 			},
 			{
 				"name": "45-progress-indicator-full",
@@ -1453,9 +1454,10 @@
 			},
 			{
 				"name": "44-grid-thumbnails-center",
-				"time": 0,
-				"width": 189,
-				"height": 189
+				"time": 5000,
+				"width": 360,
+				"height": 360,
+				"pass": true
 			},
 			{
 				"name": "46-progress-indicator-small",
