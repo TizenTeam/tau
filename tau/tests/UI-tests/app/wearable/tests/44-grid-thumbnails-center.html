@@ -5,6 +5,7 @@
 	<link rel="stylesheet" href="../lib/tau/wearable/theme/default/tau.circle.css">
 	<link rel="stylesheet" href="../css/style.css">
 	<link rel="stylesheet" href="../css/style-circle.css">
+	<script type="text/javascript" src="../lib/tau/wearable/js/tau.js" data-build-remove="false"></script>
 </head>
 <body>
 <!-- Start of first page: #one -->
@@ -13,7 +14,7 @@
 		<ul id="grid3" class="ui-grid">
 			<li><a href="#"><img src="images/default/gallery_default_image_01.jpg"/></a></li>
 			<li><a href="#"><img src="images/default/gallery_default_image_02.jpg"/></a></li>
-			<li><a href="#"><img src="images/default/gallery_default_image_03.jpg"/></a></li>
+			<li><a href="#"><img src="images/default/gallery_default_image_03.jpg" id="img"/></a></li>
 			<li><a href="#"><img src="images/default/gallery_default_image_04.jpg"/></a></li>
 			<li><a href="#"><img src="images/default/gallery_default_image_05.jpg"/></a></li>
 			<li><a href="#"><img src="images/default/gallery_default_image_06.jpg"/></a></li>
@@ -42,12 +43,13 @@
 		</ul>
 	</div>
 	<!--
-        Main application.
-    -->
+		Main application.
+	-->
 	<script>
 		(function (tau) {
 			var page = document.getElementById("grid-page3"),
 				element = document.getElementById("grid3"),
+                img = document.getElementById("img"),
 				grid;
 
 			/**
@@ -57,6 +59,13 @@
 			page.addEventListener("pagebeforeshow", function () {
 				grid = tau.widget.Grid(element);
 			});
+
+            page.addEventListener("pageshow", function () {
+               img.click();
+               setTimeout(function() {
+                   img.click();
+			   }, 1000);
+            });
 
 			/**
 			 * pagebeforehide event handler
@@ -68,7 +77,6 @@
 		}(window.tau));
 	</script>
 </div><!-- /page one -->
-<script type="text/javascript" src="../lib/tau/wearable/js/tau.js" data-build-remove="false"></script>
 <script type="text/javascript" src="../js/circle-helper.js"></script>
 </body>
 </html>

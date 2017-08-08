@@ -5,6 +5,7 @@
 	<link rel="stylesheet" href="../lib/tau/wearable/theme/default/tau.circle.css">
 	<link rel="stylesheet" href="../css/style.css">
 	<link rel="stylesheet" href="../css/style-circle.css">
+	<script type="text/javascript" src="../lib/tau/wearable/js/tau.js" data-build-remove="false"></script>
 </head>
 <body>
 <div class="ui-page" id="grid-page2" data-enable-page-scroll="false">
@@ -52,6 +53,7 @@
 			 */
 			page.addEventListener("pagebeforeshow", function () {
 				grid = tau.widget.Grid(element);
+				grid.changeIndex(4);
 			});
 
 			/**
@@ -64,7 +66,6 @@
 		}(window.tau));
 	</script>
 </div>
-<script type="text/javascript" src="../lib/tau/wearable/js/tau.js" data-build-remove="false"></script>
 <script type="text/javascript" src="../js/circle-helper.js"></script>
 </body>
 </html>
