@@ -1674,12 +1674,6 @@
 				"height": 360
 			},
 			{
-				"name": "71-date-picker-29-day",
-				"time": 0,
-				"width": 360,
-				"height": 360
-			},
-			{
 				"name": "83-text-toast-popup-3-lines",
 				"time": 2000,
 				"width": 360,
@@ -1735,12 +1729,6 @@
 			},
 			{
 				"name": "109-popup-2-buttons-with-btn-text-inside-btn-moved-bottom",
-				"time": 0,
-				"width": 360,
-				"height": 360
-			},
-			{
-				"name": "71-date-picker-28-day",
 				"time": 0,
 				"width": 360,
 				"height": 360
@@ -1878,12 +1866,6 @@
 				"height": 360
 			},
 			{
-				"name": "72-date-picker-30-day",
-				"time": 0,
-				"width": 360,
-				"height": 360
-			},
-			{
 				"name": "111-bottom-button-text-position-2-lines",
 				"time": 0,
 				"width": 360,
@@ -1908,25 +1890,43 @@
 				"height": 360
 			},
 			{
-				"name": "72-date-picker-31-day",
-				"time": 0,
-				"width": 360,
-				"height": 360
-			},
-			{
-				"name": "70-date-picker",
-				"time": 0,
-				"width": 360,
-				"height": 360
-			},
-			{
 				"name": "111-bottom-button-text-position-1-line",
 				"time": 0,
 				"width": 360,
 				"height": 360
 			},
 			{
-				"name": "73-date-picker-year",
+				"name": "75-date-picker",
+				"time": 0,
+				"width": 360,
+				"height": 360
+			},
+			{
+				"name": "76-date-picker-1",
+				"time": 0,
+				"width": 360,
+				"height": 360
+			},
+			{
+				"name": "76-date-picker-2",
+				"time": 0,
+				"width": 360,
+				"height": 360
+			},
+			{
+				"name": "77-date-picker-1",
+				"time": 0,
+				"width": 360,
+				"height": 360
+			},
+			{
+				"name": "77-date-picker-2",
+				"time": 0,
+				"width": 360,
+				"height": 360
+			},
+			{
+				"name": "78-date-picker",
 				"time": 0,
 				"width": 360,
 				"height": 360
