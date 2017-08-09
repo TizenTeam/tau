@@ -498,11 +498,7 @@
 
 		// thumbnail mode is accessible only from image mode
 		if (self.options.mode === "image" && self._currentIndex !== -1) {
-
 			element.classList.add(CLASSES.THUMBNAIL);
-
-			// set proper mode in options
-			self.options.mode = "thumbnail";
 		}
 	}
 
@@ -1011,6 +1007,8 @@
 	function setGridSize(self, mode) {
 		var element = self.element;
 
+		// set proper mode in options
+		self.options.mode = "image";
 		element.style.width = getGridSize(self, mode) + "px";
 		element.parentElement.scrollLeft = getGridScrollPosition(self, mode);
 	}
@@ -1069,6 +1067,9 @@
 
 		moveItemsToThumbnails(self);
 		transformItems(self);
+
+		// set proper mode in options
+		self.options.mode = "thumbnail";
 
 		element.parentElement.scrollLeft = getGridScrollPosition(self, "thumbnail");
 
@@ -1217,6 +1218,15 @@
 		}
 	}
 
+	prototype._onScroll = function () {
+		var self = this,
+			currentIndex = findItemIndexByScroll(self, self._ui.container);
+
+		self.trigger("change", {
+			active: currentIndex
+		});
+	};
+
 	/**
 	 * Event handler for widget
 	 * @param {Event} ev
@@ -1238,6 +1248,8 @@
 			case "popstate" :
 				onPopState(this, ev);
 				break;
+			case "scroll":
+				this._onScroll();
 		}
 	};
 
@@ -1258,6 +1270,7 @@
 		// @todo wearable not supported taphold
 		// element.addEventListener("taphold", self, true);
 		window.addEventListener("tizenhwkey", self, true);
+		self._ui.container.addEventListener("scroll", self, true);
 	};
 
 	/**
@@ -1276,6 +1289,7 @@
 		// @todo wearable not supported taphold
 		// element.addEventListener("taphold", this, true);
 		window.removeEventListener("tizenhwkey", self, true);
+		self._ui.container.removeEventListener("scroll", self, true);
 	};
 
 	/**
