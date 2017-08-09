@@ -205,7 +205,8 @@
 			 */
 			this.options = {
 				// default Grid mode is Thumbnail 3x3
-				mode: "3x3"
+				mode: "3x3",
+				scrollbar: true
 			};
 			this._ui = {
 				container: null
@@ -516,20 +517,35 @@
 		switch (toMode) {
 			case "3x3" :
 				if (currentMode === "image") {
+					self.trigger("modechange", {
+						mode: toMode
+					});
 					imageToGrid(self);
 				} else {
+					self.trigger("modechange", {
+						mode: toMode
+					});
 					changeModeTo3x3(self);
 				}
 				break;
 			case "image" :
 				if (currentMode === "3x3") {
+					self.trigger("modechange", {
+						mode: toMode
+					});
 					gridToImage(self);
 				} else if (currentMode === "thumbnail") {
+					self.trigger("modechange", {
+						mode: toMode
+					});
 					thumbnailToImage(self);
 				}
 				break;
 			case "thumbnail" :
 				if (currentMode === "image") {
+					self.trigger("modechange", {
+						mode: toMode
+					});
 					imageToThumbnail(self);
 				} else if (currentMode === "3x3") {
 					ns.warn("thumbnail mode is not allowed directly from 3x3 mode, change to image mode before");
@@ -649,14 +665,22 @@
 		var self = this,
 			container = document.createElement("div");
 
+		self._ui.container = container;
 		container.setAttribute("class", "ui-grid-container");
-		container.setAttribute("tizen-circular-scrollbar", "");
+		self._setScrollbar(element, self.options.scrollbar);
 		element.parentElement.replaceChild(container, element);
 
 		container.appendChild(element);
-		self._ui.container = container;
 
 		return element;
+	};
+
+	prototype._setScrollbar = function (element, value) {
+		if (value) {
+			this._ui.container.setAttribute("tizen-circular-scrollbar", "");
+		} else {
+			this._ui.container.removeAttribute("tizen-circular-scrollbar");
+		}
 	};
 
 	/**
@@ -832,19 +856,14 @@
 			width = 115,
 			height = 101,
 			to = null,
-			pattern = [[width / 2, -height], [width, 0], [width / 2, height]];
+			pattern = [[width / 2, -height], [0, 0], [width / 2, height]];
 
 		for (; i < len; ++i) {
 			to = items[i].to;
 
-			if (i === 0) {
-				left = MARGIN_LEFT;
-				top = MARGIN_TOP;
-			} else {
-				index = (i - 1) % 3;
-				left = pattern[index][0] + (((i - 1) / 3) | 0) * width + MARGIN_LEFT;
-				top = pattern[index][1] + MARGIN_TOP;
-			}
+			index = (i) % 3;
+			left = pattern[index][0] + (((i) / 3) | 0) * width + MARGIN_LEFT;
+			top = pattern[index][1] + MARGIN_TOP;
 
 			to.position = {
 				left: left,
@@ -967,7 +986,7 @@
 		switch (mode) {
 			case "3x3" :
 				width = max(
-					(ceil(items.length / 3)) * ceil(GALLERY_WIDTH * SCALE.GALLERY) + MARGIN_LEFT,
+					(ceil(items.length / 3) + 1.5) * ceil(GALLERY_WIDTH * SCALE.GALLERY) + MARGIN_LEFT,
 					GALLERY_WIDTH
 				);
 				break;
@@ -1072,7 +1091,6 @@
 		self.options.mode = "thumbnail";
 
 		element.parentElement.scrollLeft = getGridScrollPosition(self, "thumbnail");
-
 		updateItemsFrom(items);
 		scaleItemsToThumbnails(self);
 
