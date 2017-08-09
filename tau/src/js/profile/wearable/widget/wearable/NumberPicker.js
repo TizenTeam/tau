@@ -163,9 +163,9 @@
 					from: options.from || 0,
 					to: options.to || 360,
 					indicatorType: "line",
-					indicatorHeight: 25,
+					indicatorHeight: 21,
 					indicatorColor: "rgba(249,123,47,1)",
-					indicatorWidth: 5,
+					indicatorWidth: 6,
 					indicatorR: 180,
 
 					bigTick: options.bigTick || 0,

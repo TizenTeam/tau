@@ -29,7 +29,7 @@
 .ui-number-picker-container {
 	display: flex;
 	width: 100%;
-	height: 100%;
+	height: 110 * @unit_base;
 	justify-content: center;
 	flex-direction: column;
 
@@ -50,7 +50,7 @@
 	}
 	.ui-number-picker-label {
 		order: 1;
-		font-size: 21 * @unit_base;
+		font-size: 24 * @unit_base;
 		line-height: 25 * @unit_base;
 		color: @color_number_picker_label;
 		display:block;
@@ -64,6 +64,7 @@
 		color: @color_number_picker_number;
 		width: 80px;
 		display:block;
+		padding-top: 7 * @unit_base;
 	}
 	&.ui-number-picker-disabled .ui-number-picker-number {
 		color: @color_number_picker_number_disabled;
@@ -77,8 +78,9 @@
 	}
 }
 .ui-number-picker-container:not(.ui-time-picker) span {
-		margin-left: 140 * @unit_base;
+	margin-left: 140 * @unit_base;
 }
 .ui-number-picker-container:not(.ui-time-picker) label {
-	margin-left: 140 * @unit_base;
+	margin-left: 142 * @unit_base;
+	margin-top: 4 * @unit_base;
 }
