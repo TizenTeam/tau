@@ -52,7 +52,8 @@ var allTestFiles = [],
 		"core/event/gesture/Pinch",
 		"core/event/gesture/Swipe",
 		"profile/wearable/router/route/grid",
-		"core/widget/core/tab/Tabbar"
+		"core/widget/core/tab/Tabbar",
+		"profile/wearable/widget/wearable/Grid"
 	];
 
 window.tauPerf = {
@@ -96,6 +97,7 @@ testPaths.forEach(function (testPath) {
 			"src/js/" + testPath
 		],
 		function (helpers, runTests, object) {
+			console.log(testPath);
 			runTests(object, helpers);
 		});
 	allTestFiles.push(testPath);
