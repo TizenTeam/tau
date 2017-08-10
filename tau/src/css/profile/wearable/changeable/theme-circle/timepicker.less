@@ -71,9 +71,26 @@
 		font-size: 65 * @unit_base;
 		display: block;
 	}
-
+	.ui-polar {
+		.disable-transform {
+			&.pointer {
+				transition: none;
+			}
+		}
+	}
+	.ui-circleindicator {
+		.ui-animated.ui-time-picker-disable-animation {
+			transition: none;
+			display: none;
+		}
+	}
 }
 
+.ui-circleindicator.ui-time-picker-background {
+	background-image: url("./images/TimePicker/time_picker_bg.png");
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+}
 
 .ui-time-picker-am-pm {
 	margin-left: 32 * @unit_base;
