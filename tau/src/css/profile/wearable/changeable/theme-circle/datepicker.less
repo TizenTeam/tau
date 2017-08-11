@@ -22,7 +22,10 @@
 			font-size: 50 * @unit_base;
 			width: inherit;
 		}
+	}
 
+	.ui-date-picker-active-label-animation {
+		animation: changeColor 1s infinite;
 	}
 
 	.ui-date-picker-container-month {
@@ -55,5 +58,20 @@
 		line-height: 32 * @unit_base;
 		height: 32 * @unit_base;
 		padding: 0 45 * @unit_base;
+	}
+}
+
+@keyframes changeColor {
+	0% {
+		color: @color_time_picker_number_blink_on;
+	}
+	49% {
+		color: @color_time_picker_number_blink_on;
+	}
+	51% {
+		color: @color_time_picker_number_blink_off;
+	}
+	100% {
+		color: @color_time_picker_number_blink_off;
 	}
 }
