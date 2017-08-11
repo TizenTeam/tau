@@ -157,8 +157,8 @@
 					ui = self._ui,
 					footer,
 					amPmBlock,
-					amSpan = null,
-					pmSpan = null,
+					amSpan,
+					pmSpan,
 					amPmInnerContainer,
 					indicator = document.createElement("div"),
 					indicatorMinutes = document.createElement("div"),
@@ -243,8 +243,9 @@
 			 */
 			prototype._onRotary = function (event) {
 				var self = this,
-					currentValue = 0,
-					activeInput = null,
+					currentValue,
+					activeInput,
+					activeNumberType = "",
 					activeNumber = document.querySelector("." + classes.ACTIVE_LABEL);
 
 				if (activeNumber) {
@@ -264,7 +265,9 @@
 					//it force user to select hours and minuts again before editing
 					window.clearTimeout(self.rotaryControler);
 					self.rotaryControler = window.setTimeout(function () {
+						activeNumberType = activeInput.parentElement.classList.contains(classes.HOURS_CONTAINER) ? "hours" : "minutes";
 						activeNumber.classList.remove(classes.ACTIVE_LABEL);
+						self._scaleInputValue(activeInput, activeNumberType);
 					}, 1000);
 				}
 			};
@@ -280,7 +283,7 @@
 			prototype._click = function (event) {
 				var self = this,
 					ui = self._ui,
-					activeNumber = null,
+					activeNumber,
 					eventTargetElement = event.target,
 					uiNumberHours = ui.numberHours,
 					uiNumberMinutes = ui.numberMinutes,
@@ -403,10 +406,10 @@
 			prototype._setValue = function (value) {
 				var self = this,
 					ui = self._ui,
-					getHoursValue = 0,
-					activeInput = null,
-					getMinutesValue = 0,
-					activeNumber = null,
+					getHoursValue,
+					activeInput,
+					getMinutesValue,
+					activeNumber,
 					activeNumberType;
 
 				if (value instanceof Date) {
@@ -444,16 +447,56 @@
 							activeNumber.innerHTML = 0;
 						} else {
 							if (activeNumberType === "hours") {
-								// depends on display 12/24 or minutes 60
-								activeNumber.innerHTML = Math.abs(value % ui.numberPickerHoursInput.max);
+								if (value >= 0) {
+									activeNumber.innerHTML = Math.abs(value % ui.numberPickerHoursInput.max); ///depends on display 12/24 or minutes 60}
+								} else {
+									activeNumber.innerHTML = ui.numberPickerHoursInput.max - Math.abs(value % ui.numberPickerHoursInput.max); ///depends on display 12/24 or minutes 60}
+								}
 							} else {
-								activeNumber.innerHTML = Math.abs(value % 60);
+								if (value >= 0) {
+									activeNumber.innerHTML = Math.abs(value % 60); ///depends on display 12/24 or minutes 60
+								} else {
+									activeNumber.innerHTML = 60 - Math.abs(value % 60); ///depends on display 12/24 or minutes 60
+								}
 							}
 						}
 						self._updateValue(activeInput.value);
 					}
 
 				}
+			};
+
+			/**
+			 * Update inputs and circleindicator values
+			 * @param {HTMLElement} activeInput
+			 * @param {string} activeNumberType
+			 * @protected
+			 * @method _scaleInputValue
+			 * @member ns.widget.core.TimePicker
+			 */
+			prototype._scaleInputValue = function (activeInput, activeNumberType) {
+				var self = this,
+					value = 0,
+					ui = self._ui,
+					pointer = document.querySelector(".ui-animated");
+
+				///disable animation
+				pointer.classList.add(classes.DISABLE_ANIMATION);
+				if (activeNumberType === "hours") {
+					value = parseInt(activeInput.value % ui.numberPickerHoursInput.max, 10);
+					if (value < 0) {
+						value = parseInt(ui.numberPickerHoursInput.max, 10) + value;
+					}
+				} else {
+					value = parseInt(activeInput.value % 60, 10);
+					if (value < 0) {
+						value = 60 + value;
+					}
+				}
+				activeInput.value = value;
+				self._updateValue(value);
+				///enable animation
+				pointer.classList.remove(classes.DISABLE_ANIMATION);
 			};
 
 			/**
