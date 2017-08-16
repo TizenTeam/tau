@@ -215,7 +215,7 @@
 					 * @member ns.widget.wearable.Grid
 					 */
 					self.options = {
-						// default Grid mode is Thumbnail 3x3
+					// default Grid mode is Thumbnail 3x3
 						mode: "3x3",
 						scrollbar: true
 					};
@@ -235,6 +235,7 @@
 				GALLERY_WIDTH = 360,
 				MARGIN_TOP = 0,
 				MARGIN_LEFT = 11,
+				GRID_MARGIN = 5,
 				THUMBNAIL_MARGIN = 26,
 				SCROLL_DURATION = 250,
 				TRANSFORM_DURATION = 450, // [ms]
@@ -284,7 +285,7 @@
 			function getItemWidth(self, mode) {
 				switch (mode || self.options.mode) {
 					case "3x3":
-						return GALLERY_WIDTH * SCALE.GALLERY;
+						return GALLERY_WIDTH * SCALE.GALLERY + GRID_MARGIN;
 					case "image":
 						return GALLERY_WIDTH; // full screen
 					case "thumbnail":
