@@ -5,17 +5,43 @@
 	<link rel="stylesheet" href="../lib/tau/wearable/theme/default/tau.circle.css">
 	<link rel="stylesheet" href="../css/style.css">
 	<link rel="stylesheet" href="../css/style-circle.css">
+	<script type="text/javascript" src="../lib/tau/wearable/js/tau.js" data-build-remove="false"></script>
 </head>
 <body>
-<div class="ui-page">
+<div class="ui-page" id="number-picker-page">
+	<header class="ui-header ui-header-big">
+		<h2 class="ui-title">Set time</h2>
+	</header>
 	<div class="ui-content">
-		<input type="time" id="time-picker"/>
+		<div class="ui-time-picker" data-format="h"></div>
 	</div>
 	<script>
-		document.getElementById("time-picker").click();
+		(function () {
+			var page = document.getElementById("number-picker-page"),
+				element = page.querySelector(".ui-time-picker"),
+				widget = null;
+
+			function init() {
+				var date = new Date();
+
+				date.setHours(20);
+				date.setMinutes(20);
+				widget = tau.widget.TimePicker(element);
+				widget.value(date);
+				widget._onClick({
+					target: element.querySelector(".ui-time-picker-am-pm-inner-container span")
+				});
+			}
+
+			function onPageHide() {
+				widget.destroy();
+			}
+
+			page.addEventListener("pagebeforeshow", init);
+			page.addEventListener("pagehide", onPageHide);
+		}());
 	</script>
 </div>
 </body>
-<script type="text/javascript" src="../lib/tau/wearable/js/tau.js" data-build-remove="false"></script>
 <script type="text/javascript" src="../js/circle-helper.js"></script>
 </html>

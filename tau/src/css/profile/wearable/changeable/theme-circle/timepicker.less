@@ -10,13 +10,13 @@
 	}
 	.ui-time-picker-colon-container {
 		float: left;
-		height: inherit;
+		height: 85 * @unit_base;
 		width: 12 * @unit_base;
 		margin-left: 8 * @unit_base;
-		padding-top: 35 * @unit_base;
+		padding-top: 40 * @unit_base;
 
 		span {
-			font-size: 65 * @unit_base;
+			font-size: 40 * @unit_base;
 		}
 	}
 	div {
@@ -36,21 +36,22 @@
 	}
 	.ui-time-picker-container-ampm {
 		float: left;
-		height: 39 * @unit_base;
-		margin-top: 40 * @unit_base;
+		height: 65 * @unit_base;
+		margin-top: 33 * @unit_base;
 		margin-left: 8 * @unit_base;
 		width: 100 * @unit_base;
 		overflow-y: hidden;
 		div{
-			width:inherit;
-			height: 158 * @unit_base;
+			height: 130 * @unit_base;
 			position: relative;
 			span{
 				font-size: 50 * @unit_base;
-				height: 79 * @unit_base;
+				height: 65 * @unit_base;
+				line-height: 65 * @unit_base;
 				width: 100 * @unit_base;
 				display: inline-block;
 				position: relative;
+				color: @color_time_picker_ampm;
 			}
 		}
 	}
@@ -58,19 +59,18 @@
 		display: block;
 		width: 80 * @unit_base;
 		font-size: 24 * @unit_base;
+		height: 33 * @unit_base;
 	}
 
 	.ui-number-picker-number {
 		width: 80 * @unit_base;
 		font-size: 65 * @unit_base;
 		display: block;
+		height: 85 * @unit_base;
+		margin-top: -11 * @unit_base;
+		padding-top: 0;
 	}
 
-	.ui-number-picker-number {
-		width: 80 * @unit_base;
-		font-size: 65 * @unit_base;
-		display: block;
-	}
 	.ui-polar {
 		.disable-transform {
 			&.pointer {
@@ -119,12 +119,12 @@
 		transform: translateY(0px);
 	}
 	100% {
-		transform: translateY(-79px);
+		transform: translateY(-65px);
 	}
 }
 @keyframes hidePM {
 	0% {
-		transform: translateY(-79px);
+		transform: translateY(-65px);
 	}
 	100% {
 		transform: translateY(0px);
