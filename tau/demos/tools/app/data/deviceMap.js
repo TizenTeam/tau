@@ -25,6 +25,7 @@ module.exports = {
 	"W-3.0-circle-i386": "wearable",
 	"W-3.0-circle-x86": "wearable",
 	"W-2.3.2-circle": "wearable",
+	"w-0424-1": "wearable",
 	"M-3.0-x86": "mobile",
 	"m-0413-1": "mobile",
 	"SM-R760": "wearable",
