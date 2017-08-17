@@ -9,12 +9,14 @@
 			"../../../../core/engine",
 			"../../../../core/widget/BaseWidget",
 			"./NumberPicker",
+			"./CircleIndicator",
 			"../wearable"
 		],
 
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 			var BaseWidget = ns.widget.BaseWidget,
+				engine = ns.engine,
 				utilsEvents = ns.event,
 				NumberPicker = ns.widget.wearable.NumberPicker,
 				prototype = new BaseWidget(),
@@ -50,7 +52,16 @@
 					footer: null
 				};
 
+				self.options = {
+					min: 0,
+					max: 12,
+					step: 1,
+					disabled: false
+				};
+
+				self._circleIndicatorSupporter = null;
 				self._activeSelector = null;
+				self._rotation = 0;
 			}
 
 			prototype._init = function () {
@@ -58,6 +69,8 @@
 					initialDate = new Date();
 
 				self._setValue(initialDate);
+				self._showMonthIndicator();
+				self._setIndicatorValue(initialDate.getMonth());
 			};
 
 			prototype._bindEvents = function () {
@@ -68,6 +81,13 @@
 				utilsEvents.on(ui.dayDisplay, "click", self, true);
 				utilsEvents.on(ui.yearDisplay, "click", self, true);
 				utilsEvents.on(document, "rotarydetent", self, true);
+				utilsEvents.on(document, "mousewheel", self, true);
+			};
+
+			prototype._configure = function () {
+				var options = this.options;
+
+				options.display24 = options.display24 || true;
 			};
 
 			prototype._unbindEvents = function () {
@@ -109,12 +129,66 @@
 				element.appendChild(dayNameContainer);
 				element.appendChild(footer);
 
+
 				footer.appendChild(buttonSet);
 
 				ui.dayNameContainer = dayNameContainer;
 				ui.footer = footer;
 
+				self._buildIndicator(element);
 				return element;
+			};
+
+			prototype._buildIndicator = function (element) {
+				var circleIndicator = this._circleIndicator,
+					indicator = document.createElement("div");
+
+				if (circleIndicator) {
+					circleIndicator.destroy();
+					circleIndicator.element.parentElement.removeChild(circleIndicator.element);
+				}
+
+				element.appendChild(indicator);
+
+				circleIndicator = engine.instanceWidget(indicator, "CircleIndicator", {
+					text: "none",
+					circleR: 0,
+					from: 0,
+					to: 12,
+					indicatorType: "line",
+					indicatorHeight: 21,
+					indicatorColor: "rgba(249,123,47,1)",
+					indicatorWidth: 6,
+					indicatorR: 180,
+
+					bigTick: 1,
+					bigTickColor: "#848484",
+					bigTickR: 180,
+					bigTickHeight: 20,
+					bigTickWidth: 1,
+
+					smallTick: 0,
+					smallTickR: 0,
+					smallTickHeight: 0
+				});
+
+				this._circleIndicator = circleIndicator;
+			};
+
+			prototype._showMonthIndicator = function () {
+				this._circleIndicator.option("to", 12);
+			};
+
+			prototype._showDayIndicator = function (number) {
+				this._circleIndicator.option("to", number);
+			};
+
+			prototype._showYearIndicator = function () {
+				this._circleIndicator.option("to", 50);
+			};
+
+			prototype._setIndicatorValue = function (value) {
+				this._circleIndicator.value(value);
 			};
 
 			prototype._createContainter = function (name, maxValue) {
@@ -206,6 +280,7 @@
 						self._onClick(event);
 						break;
 					case "rotarydetent":
+					case "mousewheel":
 						event.preventDefault();
 						self._onRotary(event);
 						break;
@@ -214,9 +289,13 @@
 
 			prototype._onClick = function (event) {
 				var self = this,
+					value = self.value(),
 					animationClass = classes.ACTIVE_LABEL_ANIMATION,
 					ui = self._ui,
 					target = event.target,
+					indicatorValue,
+					rotation = self._rotation,
+					daysInMonth,
 					parentClassList = target.parentElement.classList,
 					monthClassList = ui.monthDisplay.classList,
 					dayClassList = ui.dayDisplay.classList,
@@ -227,18 +306,29 @@
 					monthClassList.add(animationClass);
 					dayClassList.remove(animationClass);
 					yearClassList.remove(animationClass);
-
+					self._showMonthIndicator();
+					indicatorValue = value.getMonth() + 1;
+					indicatorValue += rotation * 12;
+					self._setIndicatorValue(indicatorValue);
 				} else if (parentClassList.contains(classes.DAY_CONTAINER)) {
 					self._activeSelector = "day";
 					dayClassList.add(animationClass);
 					monthClassList.remove(animationClass);
 					yearClassList.remove(animationClass);
-
+					daysInMonth = self._daysInMonth(value.getYear(), value.getMonth());
+					self._showDayIndicator(daysInMonth);
+					indicatorValue = value.getDate();
+					indicatorValue += rotation * daysInMonth;
+					self._setIndicatorValue(indicatorValue);
 				} else if (parentClassList.contains(classes.YEAR_CONTAINER)) {
 					self._activeSelector = "year";
 					yearClassList.add(animationClass);
 					dayClassList.remove(animationClass);
 					monthClassList.remove(animationClass);
+					self._showYearIndicator();
+					indicatorValue = value.getFullYear() % 50;
+					indicatorValue += rotation * 50;
+					self._setIndicatorValue(indicatorValue);
 				}
 			};
 
@@ -254,30 +344,40 @@
 				var self = this,
 					value = self.value(),
 					month = value.getMonth(),
-					newMonth,
+					newValue,
+					indicatorValue,
 					day = value.getDate(),
-					year = value.getFullYear();
+					year = value.getFullYear(),
+					rotation = self._rotation,
+					circleValue,
+					direction = event.detail.direction;
+
+				if (event.deltaY > 0) {
+					direction = "CW";
+				}
 
 				switch (self._activeSelector) {
 					case "month":
-						if (event.detail.direction === "CW") {
-							newMonth = month + 1;
+						if (direction === "CW") {
+							newValue = month + 1;
 						} else {
-							newMonth = month - 1;
+							newValue = month - 1;
 						}
-						value.setMonth(newMonth);
+						value.setMonth(newValue);
 						if (year !== value.getFullYear()) {
 							value.setFullYear(year);
 						}
-						if (day > self._daysInMonth(year, newMonth) &&
-							(self._daysInMonth(year, month) > self._daysInMonth(year, newMonth))) {
-							value = new Date(year, newMonth, self._daysInMonth(year, newMonth));
+						if (day > self._daysInMonth(year, newValue) &&
+							(self._daysInMonth(year, month) > self._daysInMonth(year, newValue))) {
+							value = new Date(year, newValue, self._daysInMonth(year, newValue));
 						}
-						self._setValue(value);
+						indicatorValue = value.getMonth() + 1;
+						newValue += 1;
+						circleValue = 12;
 						break;
-
 					case "day":
-						if (event.detail.direction === "CW") {
+						if (direction === "CW") {
+							newValue = day + 1;
 							value.setDate(day + 1);
 							if (month !== value.getMonth()) {
 								value.setMonth(month);
@@ -286,28 +386,43 @@
 								value.setFullYear(year);
 							}
 						} else {
+							newValue = day - 1;
 							if (day === 1) {
 								value.setDate(self._daysInMonth(year, month));
 							} else {
 								value.setDate(day - 1);
 							}
 						}
-						self._setValue(value);
+						indicatorValue = value.getDate();
+						circleValue = self._daysInMonth(year, month);
 						break;
-
 					case "year":
-						if (event.detail.direction === "CW") {
+						if (direction === "CW") {
+							newValue = year % 50 + 1;
 							value.setFullYear(year + 1);
 						} else {
+							newValue = year % 50 - 1;
 							value.setFullYear(year - 1);
 						}
 						if ((month === 1) && (self._daysInMonth(year, 1) > self._daysInMonth(value.getFullYear(), 1))) {
 							value.setMonth(1);
 							value.setDate(self._daysInMonth(value.getFullYear(), 1));
 						}
-						self._setValue(value);
+						indicatorValue = value.getFullYear() % 50;
+						circleValue = 50;
 						break;
 				}
+				self._setValue(value);
+				if (indicatorValue !== newValue) {
+					if (direction === "CW") {
+						rotation++;
+					} else {
+						rotation--;
+					}
+				}
+				indicatorValue += rotation * circleValue;
+				self._setIndicatorValue(indicatorValue);
+				self._rotation = rotation;
 			};
 
 			DatePicker.prototype = prototype;
@@ -315,7 +430,7 @@
 
 			ns.widget.wearable.DatePicker = DatePicker;
 
-			ns.engine.defineWidget(
+			engine.defineWidget(
 				"DatePicker",
 				WIDGET_SELECTOR,
 				[],

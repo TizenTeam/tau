@@ -156,6 +156,7 @@
 						textDigits: 0,
 
 						bigTick: 0,
+						bigTickColor: "white",
 						bigTickHeight: 10,
 						bigTickWidth: 3,
 						bigTickR: 0,
@@ -346,7 +347,7 @@
 						"height": height,
 						"tickHeight": options.bigTickHeight,
 						"classes": "big",
-						"color": "white",
+						"color": options.bigTickColor,
 						"strokeWidth": options.bigTickWidth,
 						"r": options.bigTickR
 					});
@@ -559,6 +560,21 @@
 				while (itemContainer.firstChild) {
 					itemContainer.removeChild(itemContainer.firstChild);
 				}
+			};
+
+			prototype._removeTicksCircle = function () {
+				var bigs = this._ui.svg.querySelectorAll(".big"),
+					length = bigs.length,
+					i;
+
+				for (i = 0; i < length; i++) {
+					bigs[i].parentElement.removeChild(bigs[i]);
+				}
+			};
+
+			prototype._refresh = function () {
+				this._removeTicksCircle();
+				this._prepareTicksCircle(this.element);
 			};
 
 			/**
