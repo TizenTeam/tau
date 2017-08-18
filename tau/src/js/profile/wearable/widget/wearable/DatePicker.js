@@ -40,15 +40,9 @@
 
 				self._ui = {
 					monthDisplay: null,
-					monthInput: null,
-
 					dayDisplay: null,
-					dayInput: null,
 					dayNameContainer: null,
-
 					yearDisplay: null,
-					yearInput: null,
-
 					footer: null
 				};
 
@@ -82,12 +76,7 @@
 				utilsEvents.on(ui.yearDisplay, "click", self, true);
 				utilsEvents.on(document, "rotarydetent", self, true);
 				utilsEvents.on(document, "mousewheel", self, true);
-			};
-
-			prototype._configure = function () {
-				var options = this.options;
-
-				options.display24 = options.display24 || true;
+				utilsEvents.on(ui.buttonSet, "click", self, true);
 			};
 
 			prototype._unbindEvents = function () {
@@ -98,6 +87,7 @@
 				utilsEvents.off(ui.dayDisplay, "click", self, true);
 				utilsEvents.off(ui.yearDisplay, "click", self, true);
 				utilsEvents.off(document, "rotarydetent", self, true);
+				utilsEvents.off(ui.buttonSet, "click", self, true);
 			};
 
 			prototype._build = function (element) {
@@ -105,9 +95,9 @@
 					ui = self._ui,
 					footer = document.createElement("footer"),
 					buttonSet = document.createElement("button"),
-					monthContainer = self._createContainter("Month", 12),
-					dayContainer = self._createContainter("Day", 31),
-					yearContainer = self._createContainter("Year", 2999),
+					monthContainer = self._createContainter("month", 12),
+					dayContainer = self._createContainter("day", 31),
+					yearContainer = self._createContainter("year", 2999),
 					dayNameContainer = document.createElement("div");
 
 				// create button set
@@ -129,9 +119,9 @@
 				element.appendChild(dayNameContainer);
 				element.appendChild(footer);
 
-
 				footer.appendChild(buttonSet);
 
+				ui.buttonSet = buttonSet;
 				ui.dayNameContainer = dayNameContainer;
 				ui.footer = footer;
 
@@ -208,42 +198,22 @@
 				this._circleIndicator.value(value);
 			};
 
-			prototype._createContainter = function (name, maxValue) {
+			prototype._createContainter = function (name) {
 				var self = this,
 					ui = self._ui,
 					number = document.createElement("span"),
-					numberPickerInput = document.createElement("input"),
 					numberPickerLabel = document.createElement("label"),
 					numberPickerContainer = document.createElement("div");
 
 				number.classList.add(NumberPicker.classes.NUMBER);
 				numberPickerLabel.classList.add(NumberPicker.classes.LABEL);
-				numberPickerInput.setAttribute("type", "number");
 
 				numberPickerLabel.innerText = name;
-				numberPickerInput.max = maxValue;
-
-				numberPickerInput.min = "1";
-				numberPickerInput.step = "1";
 
 				numberPickerContainer.appendChild(numberPickerLabel);
 				numberPickerContainer.appendChild(number);
-				numberPickerContainer.appendChild(numberPickerInput);
 
-				switch (name) {
-					case "Month":
-						ui.monthInput = numberPickerInput;
-						ui.monthDisplay = number;
-						break;
-					case "Day":
-						ui.dayInput = numberPickerInput;
-						ui.dayDisplay = number;
-						break;
-					case "Year":
-						ui.yearInput = numberPickerInput;
-						ui.yearDisplay = number;
-						break;
-				}
+				ui[name + "Display"] = number;
 
 				return numberPickerContainer;
 			};
@@ -252,36 +222,28 @@
 				var self = this,
 					ui = self._ui,
 					monthElement = ui.monthDisplay,
-					monthInput = ui.monthInput,
 					dayElement = ui.dayDisplay,
-					dayInput = ui.dayInput,
 					yearElement = ui.yearDisplay,
-					yearInput = ui.yearInput,
 					dayNameElement = ui.dayNameContainer,
 					day = value.getDate(),
 					year = value.getFullYear(),
 					dayName = DAY_NAMES[value.getDay()];
 
 				monthElement.innerHTML = MONTH_NAMES[value.getMonth()];
-				monthInput.value = value.getMonth() + 1;
+				self._monthValue = value.getMonth() + 1;
 
 				dayElement.innerHTML = day;
-				dayInput.value = day;
-				dayInput.max = self._daysInMonth(year, value.getMonth());
+				self._dayValue = day;
 				dayNameElement.innerHTML = dayName;
 
 				yearElement.innerHTML = year;
-				yearInput.value = year;
+				self._yearValue = year;
 			};
 
 			prototype._getValue = function () {
-				var self = this,
-					ui = self._ui,
-					monthInput = ui.monthInput,
-					dayInput = ui.dayInput,
-					yearInput = ui.yearInput;
+				var self = this;
 
-				return new Date(yearInput.value, monthInput.value - 1, dayInput.value);
+				return new Date(self._yearValue, self._monthValue - 1, self._dayValue);
 			};
 
 			prototype._daysInMonth = function (year, month) {
@@ -332,7 +294,7 @@
 					dayClassList.add(animationClass);
 					monthClassList.remove(animationClass);
 					yearClassList.remove(animationClass);
-					daysInMonth = self._daysInMonth(value.getYear(), value.getMonth());
+					daysInMonth = self._daysInMonth(value.getFullYear(), value.getMonth());
 					self._showDayIndicator(daysInMonth);
 					indicatorValue = value.getDate();
 					indicatorValue += rotation * daysInMonth;
@@ -346,15 +308,17 @@
 					indicatorValue = value.getFullYear() % 50;
 					indicatorValue += rotation * 50;
 					self._setIndicatorValue(indicatorValue);
+				} else if (target.classList.contains("ui-number-picker-set")) {
+					self.trigger("change", {
+						value: self.value()
+					});
+					history.back();
 				}
 			};
 
 			prototype._destroy = function () {
-				var self = this,
-					element = self.element;
-
-				self._unbindEvents();
-				element.removeAllChildren();
+				this._unbindEvents();
+				this.element.innerHTML = "";
 			};
 
 			prototype._onRotary = function (event) {
