@@ -8,7 +8,7 @@
 	<script type="text/javascript" src="../lib/tau/wearable/js/tau.js" data-build-remove="false"></script>
 </head>
 <body>
-<div class="ui-page" id="number-picker-page">
+<div class="ui-page" id="time-picker-page-24">
 	<header class="ui-header ui-header-big">
 		<h2 class="ui-title">Set time</h2>
 	</header>
@@ -17,7 +17,7 @@
 	</div>
 	<script>
 		(function () {
-			var page = document.getElementById("number-picker-page"),
+			var page = document.getElementById("time-picker-page-24"),
 				element = page.querySelector(".ui-time-picker"),
 				widget = null;
 
@@ -31,6 +31,7 @@
 				widget._onClick({
 					target: element.querySelector(".ui-time-picker-container-minutes span")
 				});
+				page.querySelector(".ui-time-picker-active-label-animation").style["animation-play-state"] = "paused";
 			}
 
 			function onPageHide() {

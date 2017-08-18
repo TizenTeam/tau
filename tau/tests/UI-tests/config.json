@@ -1571,7 +1571,8 @@
 				"name": "74-time-picker",
 				"time": 0,
 				"width": 360,
-				"height": 360
+				"height": 360,
+				"pass": true
 			},
 			{
 				"name": "61-radio-on",
@@ -1655,7 +1656,8 @@
 				"name": "75-time-picker-24h",
 				"time": 0,
 				"width": 360,
-				"height": 360
+				"height": 360,
+				"pass": true
 			},
 			{
 				"name": "99-empty-state-add-items-1-line",
