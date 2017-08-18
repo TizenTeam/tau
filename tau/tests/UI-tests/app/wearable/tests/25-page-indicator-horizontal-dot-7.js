@@ -15,8 +15,8 @@
 	 */
 	page.addEventListener("pagebeforeshow", function () {
 		// make PageIndicator
-		pageIndicator = tau.widget.PageIndicator(elPageIndicator, {numberOfPages: sections.length});
-		pageIndicator.setActive(0);
+		pageIndicator = tau.widget.PageIndicator(elPageIndicator, {numberOfPages: sections.length, maxPage: 7});
+		pageIndicator.setActive(4);
 		// make SectionChanger object
 		sectionChanger = new tau.widget.SectionChanger(changer, {
 			orientation: "horizontal",

@@ -1259,12 +1259,30 @@
 				"width": 360,
 				"height": 360
 			},
+			{
+				"name": "23-page-indicator-circularly-horizontal-dot-19",
+				"time": 0,
+				"width": 360,
+				"height": 360
+			},
  			{
  				"name": "24-page-indicator-circularly-horizontal-18-dots",
  				"time": 0,
  				"width": 360,
  				"height": 360
  			},
+			{
+				"name": "25-page-indicator-horizontal-dot-7",
+				"time": 0,
+				"width": 360,
+				"height": 360
+			},
+			{
+				"name": "26-page-indicator-horizontal-dot-6",
+				"time": 0,
+				"width": 360,
+				"height": 360
+			},
 			{
 				"name": "20-circularly-vertical-bar",
 				"time": 0,
@@ -1279,24 +1297,6 @@
 			},
 			{
 				"name": "22-index-scroll",
-				"time": 0,
-				"width": 360,
-				"height": 360
-			},
-			{
-				"name": "23-page-indicator-circularly-horizontal-dot-19",
-				"time": 0,
-				"width": 360,
-				"height": 360
-			},
-			{
-				"name": "25-page-indicator-horizontal-dot-7",
-				"time": 0,
-				"width": 360,
-				"height": 360
-			},
-			{
-				"name": "26-page-indicator-horizontal-dot-6",
 				"time": 0,
 				"width": 360,
 				"height": 360

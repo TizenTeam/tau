@@ -58,7 +58,7 @@
 					LINEAR: "linear",
 					CIRCULAR: "circular"
 				},
-				DISTANCE_FROM_EDGE = 15,
+				DISTANCE_FROM_EDGE = 8,
 
 				prototype = new BaseWidget();
 
