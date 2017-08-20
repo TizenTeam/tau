@@ -167,24 +167,41 @@
 					bigTickHeight: 20,
 					bigTickWidth: 1,
 
+					smallTickColor: "#848484",
 					smallTick: 0,
-					smallTickR: 0,
-					smallTickHeight: 0
+					smallTickR: 180,
+					smallTickHeight: 10,
+					smallTickWidth: 1
 				});
 
 				this._circleIndicator = circleIndicator;
 			};
 
 			prototype._showMonthIndicator = function () {
-				this._circleIndicator.option("to", 12);
+				this._circleIndicator.option({
+					to: 12,
+					bigTick: 1,
+					bigTickHeight: 20,
+					smallTick: 0
+				});
 			};
 
 			prototype._showDayIndicator = function (number) {
-				this._circleIndicator.option("to", number);
+				this._circleIndicator.option({
+					to: number,
+					bigTickHeight: 13,
+					bigTick: 2,
+					smallTick: 1
+				});
 			};
 
 			prototype._showYearIndicator = function () {
-				this._circleIndicator.option("to", 50);
+				this._circleIndicator.option({
+					to: 50,
+					bigTickHeight: 13,
+					bigTick: 5,
+					smallTick: 1
+				});
 			};
 
 			prototype._setIndicatorValue = function (value) {

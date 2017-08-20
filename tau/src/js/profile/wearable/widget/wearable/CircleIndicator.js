@@ -124,11 +124,12 @@
 
 					 * @property {number} [options.bigTick = 180] start point for drawing bigTick
 					 * @property {number} [options.bigTickHeight = 10] height for bigTick
-					 * @property {number} [options.bigTickWidth = 10] width for bigTick
+					 * @property {number} [options.bigTickWidth = 3] width for bigTick
 					 * @property {number} [options.bigTickR = 0] radius for bigThick
 
 					 * @property {number} [options.smallTick = 180] start point for drawing smallTick
 					 * @property {number} [options.smallTickHeight = 10] height for smallTick
+					 * * @property {number} [options.bigTickWidth = 1] width for smallTick
 					 * @property {number} [options.smallTickR = 0] radius for smallThick
 
 					 * @property {string} [options.indicatorType = "arc"] radius for text
@@ -163,7 +164,9 @@
 
 						smallTick: 0,
 						smallTickHeight: 5,
+						smallTickWidth: 1,
 						smallTickR: 0,
+						smallTickColor: "white",
 
 						indicatorType: "arc",
 						indicatorColor: "red",
@@ -339,14 +342,14 @@
 					width = elementRect.width,
 					height = elementRect.height;
 
-				//bigTick parameter lets you draw with the given degree step
+				// bigTick parameter lets you draw with the given degree step
 				if (options.bigTick && index % options.bigTick === 0) {
 					prepareTick(svg, {
 						"degrees": degrees,
 						"width": width,
 						"height": height,
 						"tickHeight": options.bigTickHeight,
-						"classes": "big",
+						"classes": "ui-big",
 						"color": options.bigTickColor,
 						"strokeWidth": options.bigTickWidth,
 						"r": options.bigTickR
@@ -354,16 +357,16 @@
 					if (self.options.text !== "none") {
 						prepareTickText(self, index, width, height, degrees);
 					}
-				}
-
-				//s, if circle === 0 then don't draw smallTick parameter lets you draw with the given degree step
-				if (options.smallTick && index % options.smallTick === 0) {
+				} else if (options.smallTick && index % options.smallTick === 0) {
+					//s, if circle === 0 then don't draw smallTick parameter lets you draw with the given degree step
 					prepareTick(svg, {
 						"degrees": degrees,
 						"width": width,
 						"height": height,
 						"tickHeight": options.smallTickHeight,
-						"color": "white",
+						"classes": "ui-small",
+						"color": options.smallTickColor,
+						"strokeWidth": options.smallTickWidth,
 						"r": options.smallTickR
 					});
 				}
@@ -412,7 +415,7 @@
 							"height": height,
 							"tickHeight": options.indicatorHeight,
 							"r": options.indicatorR,
-							"classes": "pointer",
+							"classes": "ui-pointer",
 							"color": options.indicatorColor,
 							"animation": true
 						});
@@ -530,7 +533,7 @@
 
 				if (indicatorType === "line") {
 					//polar api force me to add all the options again
-					polar.updatePosition(svg, ".pointer", {
+					polar.updatePosition(svg, ".ui-pointer", {
 						degrees: inputValue * (width / to),
 						classes: pointer.getAttribute("class"),
 						color: pointer.getAttribute("stroke"),
@@ -563,18 +566,21 @@
 			};
 
 			prototype._removeTicksCircle = function () {
-				var bigs = this._ui.svg.querySelectorAll(".big"),
-					length = bigs.length,
+				var ticks = this._ui.svg.querySelectorAll(".ui-big, .ui-small"),
+					length = ticks.length,
 					i;
 
 				for (i = 0; i < length; i++) {
-					bigs[i].parentElement.removeChild(bigs[i]);
+					ticks[i].parentElement.removeChild(ticks[i]);
 				}
 			};
 
 			prototype._refresh = function () {
+				var pointer = this._ui.pointer;
+
 				this._removeTicksCircle();
 				this._prepareTicksCircle(this.element);
+				pointer.parentElement.appendChild(pointer);
 			};
 
 			/**
