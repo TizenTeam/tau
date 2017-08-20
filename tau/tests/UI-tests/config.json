@@ -1909,37 +1909,49 @@
 				"name": "75-date-picker",
 				"time": 0,
 				"width": 360,
-				"height": 360
+				"height": 360,
+				"pass": true,
+				"threshold": 0.76
 			},
 			{
 				"name": "76-date-picker-1",
 				"time": 0,
 				"width": 360,
-				"height": 360
+				"height": 360,
+				"pass": true,
+				"threshold": 0.76
 			},
 			{
 				"name": "76-date-picker-2",
 				"time": 0,
 				"width": 360,
-				"height": 360
+				"height": 360,
+				"pass": true,
+				"threshold": 0.76
 			},
 			{
 				"name": "77-date-picker-1",
 				"time": 0,
 				"width": 360,
-				"height": 360
+				"height": 360,
+				"pass": true,
+				"threshold": 0.76
 			},
 			{
 				"name": "77-date-picker-2",
 				"time": 0,
 				"width": 360,
-				"height": 360
+				"height": 360,
+				"pass": true,
+				"threshold": 0.76
 			},
 			{
 				"name": "78-date-picker",
 				"time": 0,
 				"width": 360,
-				"height": 360
+				"height": 360,
+				"pass": true,
+				"threshold": 0.76
 			},
 			{
 				"name": "103-end-effect-left",
