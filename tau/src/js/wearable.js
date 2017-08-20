@@ -99,6 +99,7 @@
 			"./profile/wearable/backward",
 			// events
 			"./core/event/scrolledtoedge",
+			"./core/event/rotaryemulation",
 			// gesture tool
 			"./core/event/gesture/Manager",
 			"./core/event/gesture/Instance",

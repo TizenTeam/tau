@@ -75,7 +75,6 @@
 				utilsEvents.on(ui.display.Day, "click", self, true);
 				utilsEvents.on(ui.display.Year, "click", self, true);
 				utilsEvents.on(document, "rotarydetent", self, true);
-				utilsEvents.on(document, "mousewheel", self, true);
 				utilsEvents.on(ui.buttonSet, "click", self, true);
 			};
 
@@ -255,7 +254,6 @@
 						self._onClick(event);
 						break;
 					case "rotarydetent":
-					case "mousewheel":
 						event.preventDefault();
 						self._onRotary(event);
 						break;
@@ -399,10 +397,6 @@
 				var self = this,
 					direction = event.detail.direction,
 					changeValue;
-
-				if (event.deltaY > 0) {
-					direction = "CW";
-				}
 
 				if (direction === "CW") {
 					changeValue = 1;
