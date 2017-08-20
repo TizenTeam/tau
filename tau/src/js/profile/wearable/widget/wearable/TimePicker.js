@@ -95,6 +95,7 @@
 				self._actualMax = 0;
 				// store timer id
 				self.rotaryControler = 0;
+				self._rotation = 0;
 
 				NumberPicker.call(self);
 			}
@@ -119,7 +120,7 @@
 				options.circleType = "none";
 				options.circleR = 0;
 				options.from = 0;
-				options.to = 360;
+				options.to = 12;
 				options.format = options.format || "H";
 			};
 
@@ -135,6 +136,12 @@
 
 				//set the initial hours value, based on time stamp
 				self._setValue(initDate);
+
+				if (self.options.format === "H") {
+					self._maxHour = 24;
+				} else {
+					self._maxHour = 12;
+				}
 			};
 
 			prototype._buildAMPM = function (numberPickerHoursContainer, element) {
@@ -252,10 +259,15 @@
 					currentValue = parseInt(activeInput.value, 10);
 					if (event.detail.direction === "CW") {
 						currentValue++;
+						if (currentValue % self._circleIndicator.options.to === 0) {
+							self._rotation++;
+						}
 					} else {
 						currentValue--;
+						if ((currentValue - self._circleIndicator.options.to) % self._circleIndicator.options.to === -1) {
+							self._rotation--;
+						}
 					}
-					activeInput.value = currentValue;
 					self.value(currentValue);
 				}
 			};
@@ -286,6 +298,7 @@
 					uiNumberMinutes.classList.remove(classes.ACTIVE_LABEL_ANIMATION);
 					self._actualMax = parseInt(uiInputHours.max, 10);
 					// move indicator to the selected hours value
+					self._circleIndicator.option("to", 12);
 					self._updateValue(uiInputHours.value);
 					self._showIndicator();
 				//minutes
@@ -296,6 +309,7 @@
 					uiNumberMinutes.classList.add(classes.ACTIVE_LABEL_ANIMATION);
 					self._actualMax = 60;
 					// move indicator to the selected minutes value
+					self._circleIndicator.option("to", 60);
 					self._updateValue(uiInputMinutes.value);
 					self._showIndicator();
 				//AM PM
@@ -406,34 +420,6 @@
 				return numberPickerContainer;
 			};
 
-			prototype._calculateActiveNumber = function (activeInput, value) {
-				var self = this,
-					ui = self._ui,
-					activeNumber,
-					activeNumberType = activeInput.parentElement.classList.contains(classes.HOURS_CONTAINER) ? "hours" : "minutes";
-
-				if (activeNumberType === "hours" && value % ui.numberPickerHoursInput.max === 0) {
-					activeNumber.innerHTML = ui.numberPickerHoursInput.max;
-					// fix for minutes, we don't display 60 but 0
-				} else if (activeNumberType === "minutes" && value % 60 === 0) {
-					activeNumber.innerHTML = 0;
-				} else {
-					if (activeNumberType === "hours") {
-						if (value >= 0) {
-							activeNumber.innerHTML = Math.abs(value % ui.numberPickerHoursInput.max);
-						} else {
-							activeNumber.innerHTML = ui.numberPickerHoursInput.max - Math.abs(value % ui.numberPickerHoursInput.max);
-						}
-					} else {
-						if (value >= 0) {
-							activeNumber.innerHTML = Math.abs(value % 60);
-						} else {
-							activeNumber.innerHTML = 60 - Math.abs(value % 60);
-						}
-					}
-				}
-			};
-
 			/**
 			 * Set value of number picker
 			 * @param {number} value
@@ -447,7 +433,8 @@
 					getHoursValue,
 					activeInput,
 					getMinutesValue,
-					activeNumber;
+					activeNumber,
+					visibleValue;
 
 				if (value instanceof Date) {
 					getHoursValue = value.getHours();
@@ -469,54 +456,28 @@
 
 					//by default set the indicator on hours value
 					self._actualMax = parseInt(ui.numberPickerHoursInput.max, 10);
-					self._updateValue(ui.numberPickerHoursInput.value);
+					self._updateValue(getHoursValue % 12);
 				} else {
 					value = parseInt(value, 10);
 					activeNumber = document.querySelector("." + classes.ACTIVE_LABEL);
 					if (activeNumber) {
 						activeInput = activeNumber.parentElement.children[2];
 						activeInput.setAttribute("value", value);
-						activeInput.value = value;
-						// fix for hours, we don't display 0 but 12
-						self._calculateActiveNumber(activeInput, value);
-						self._updateValue(activeInput.value);
+						if (self._circleIndicator.options.to === 12) {
+							visibleValue = (self._maxHour + value) % self._maxHour;
+						} else {
+							visibleValue = (self._circleIndicator.options.to + value) % self._circleIndicator.options.to;
+						}
+						self._updateValue(visibleValue % self._circleIndicator.options.to);
+						if (self.options.format === "h" && self._circleIndicator.options.to === 12 && visibleValue === 0) {
+							visibleValue = 12;
+						}
+						activeInput.value = visibleValue;
+						activeNumber.innerHTML = visibleValue;
 					}
-
 				}
 			};
 
-			/**
-			 * Update inputs and circleindicator values
-			 * @param {HTMLElement} activeInput
-			 * @param {string} activeNumberType
-			 * @protected
-			 * @method _scaleInputValue
-			 * @member ns.widget.core.TimePicker
-			 */
-			prototype._scaleInputValue = function (activeInput, activeNumberType) {
-				var self = this,
-					value,
-					ui = self._ui,
-					pointer = document.querySelector(".ui-animated");
-
-				///disable animation
-				pointer.classList.add(classes.DISABLE_ANIMATION);
-				if (activeNumberType === "hours") {
-					value = parseInt(activeInput.value % ui.numberPickerHoursInput.max, 10);
-					if (value < 0) {
-						value = parseInt(ui.numberPickerHoursInput.max, 10) + value;
-					}
-				} else {
-					value = parseInt(activeInput.value % 60, 10);
-					if (value < 0) {
-						value = 60 + value;
-					}
-				}
-				activeInput.value = value;
-				self._updateValue(value);
-				///enable animation
-				pointer.classList.remove(classes.DISABLE_ANIMATION);
-			};
 
 			/**
 			 * Update visual representation of value of number picker
@@ -526,22 +487,15 @@
 			 * @member ns.widget.core.TimePicker
 			 */
 			prototype._updateValue = function (value) {
-				var self = this,
-					max = parseInt(self._actualMax, 10),
-					min = self.options.min,
-					delta = max - min;
+				var self = this;
 
-				value = parseInt(value, 10);
+				value = parseInt(value, 10) % self._circleIndicator.options.to;
 				/**
 				 * Cirecle indicator showing radius value.
 				 * Number Picker value has to be calculated as proportion of full angle
 				 */
 
-				if (delta > 0) {
-					self._circleIndicator.value(360 * value / delta);
-				} else {
-					self._circleIndicator.value(0);
-				}
+				self._circleIndicator.value(value + this._rotation * self._circleIndicator.options.to);
 			};
 
 			/**
@@ -601,7 +555,7 @@
 			 * @member ns.widget.core.TimePicker
 			 */
 			prototype._unbindEvents = function () {
-				this._ui.buttonSet.removeEventListener("click", self, true);
+				this._ui.buttonSet.removeEventListener("click", this, true);
 			};
 
 			TimePicker.prototype = prototype;
