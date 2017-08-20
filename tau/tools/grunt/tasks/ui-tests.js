@@ -158,16 +158,20 @@ module.exports = function (grunt) {
 		});
 	});
 
-	grunt.registerTask("ui-tests-prepare-app", "Runner of UI tests", function (index) {
-		var task = tasks[index],
-			screenshots = [];
-
-		grunt.file.copy("tests/UI-tests/app/" + task.profile + "/config/" + task.type + ".xml", "tests/UI-tests/app/" + task.profile + "/config.xml");
+	function prepareScreenShots(task) {
+		var screenshots = [];
 
 		task.screens.forEach(function (item) {
 			if (testName) {
-				if (testName === item.name) {
-					screenshots.push(item);
+				// we can give testname as regex but we have to begin string from ~
+				if (testName[0] === "~") {
+					if (item.name.match(new RegExp(testName.substr(1)))) {
+						screenshots.push(item);
+					}
+				} else {
+					if (testName === item.name) {
+						screenshots.push(item);
+					}
 				}
 			} else if (onlyAccepted) {
 				if (item.pass) {
@@ -177,6 +181,17 @@ module.exports = function (grunt) {
 				screenshots.push(item);
 			}
 		});
+
+		return screenshots;
+	}
+
+	grunt.registerTask("ui-tests-prepare-app", "Runner of UI tests", function (index) {
+		var task = tasks[index],
+			screenshots;
+
+		grunt.file.copy("tests/UI-tests/app/" + task.profile + "/config/" + task.type + ".xml", "tests/UI-tests/app/" + task.profile + "/config.xml");
+
+		screenshots = prepareScreenShots(task);
 
 		fs.writeFileSync(path.join(__dirname, "..", "..", "..", "tests", "UI-tests", "app", task.profile, "_screenshots.json"), JSON.stringify(screenshots));
 
@@ -187,22 +202,10 @@ module.exports = function (grunt) {
 
 	grunt.registerTask("ui-tests-screens", "Runner of UI tests", function (index) {
 		var task = tasks[index],
-			screenshots = [],
+			screenshots,
 			done = this.async();
 
-		task.screens.forEach(function (item) {
-			if (testName) {
-				if (testName === item.name) {
-					screenshots.push(item);
-				}
-			} else if (onlyAccepted) {
-				if (item.pass) {
-					screenshots.push(item);
-				}
-			} else {
-				screenshots.push(item);
-			}
-		});
+		screenshots = prepareScreenShots(task);
 
 		if (!screenshots.length) {
 			grunt.log.warn("Empty tests for " + task.profile + " - " + task.type);

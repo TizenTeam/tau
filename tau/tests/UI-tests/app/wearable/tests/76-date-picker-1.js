@@ -7,7 +7,7 @@
 
 	function init() {
 		widget = tau.widget.DatePicker(element);
-		widget.value(new Date(2017, 1, 28));
+		widget.value(new Date(2015, 1, 28));
 		daySpan = page.querySelector(".ui-date-picker-container-day .ui-number-picker-number");
 		daySpan.click();
 		daySpan.style["animationPlayState"] = "paused";
