@@ -39,10 +39,8 @@
 				var self = this;
 
 				self._ui = {
-					monthDisplay: null,
-					dayDisplay: null,
+					display: {},
 					dayNameContainer: null,
-					yearDisplay: null,
 					footer: null
 				};
 
@@ -71,9 +69,9 @@
 				var self = this,
 					ui = self._ui;
 
-				utilsEvents.on(ui.monthDisplay, "click", self, true);
-				utilsEvents.on(ui.dayDisplay, "click", self, true);
-				utilsEvents.on(ui.yearDisplay, "click", self, true);
+				utilsEvents.on(ui.display.Month, "click", self, true);
+				utilsEvents.on(ui.display.Day, "click", self, true);
+				utilsEvents.on(ui.display.Year, "click", self, true);
 				utilsEvents.on(document, "rotarydetent", self, true);
 				utilsEvents.on(document, "mousewheel", self, true);
 				utilsEvents.on(ui.buttonSet, "click", self, true);
@@ -83,9 +81,9 @@
 				var self = this,
 					ui = self._ui;
 
-				utilsEvents.off(ui.monthDisplay, "click", self, true);
-				utilsEvents.off(ui.dayDisplay, "click", self, true);
-				utilsEvents.off(ui.yearDisplay, "click", self, true);
+				utilsEvents.off(ui.display.Month, "click", self, true);
+				utilsEvents.off(ui.display.Day, "click", self, true);
+				utilsEvents.off(ui.display.Year, "click", self, true);
 				utilsEvents.off(document, "rotarydetent", self, true);
 				utilsEvents.off(ui.buttonSet, "click", self, true);
 			};
@@ -95,9 +93,9 @@
 					ui = self._ui,
 					footer = document.createElement("footer"),
 					buttonSet = document.createElement("button"),
-					monthContainer = self._createContainter("month", 12),
-					dayContainer = self._createContainter("day", 31),
-					yearContainer = self._createContainter("year", 2999),
+					monthContainer = self._createContainter("Month", 12),
+					dayContainer = self._createContainter("Day", 31),
+					yearContainer = self._createContainter("Year", 2999),
 					dayNameContainer = document.createElement("div");
 
 				// create button set
@@ -213,7 +211,7 @@
 				numberPickerContainer.appendChild(numberPickerLabel);
 				numberPickerContainer.appendChild(number);
 
-				ui[name + "Display"] = number;
+				ui.display[name] = number;
 
 				return numberPickerContainer;
 			};
@@ -225,14 +223,14 @@
 					year = value.getFullYear(),
 					dayName = DAY_NAMES[value.getDay()];
 
-				ui.monthDisplay.innerHTML = MONTH_NAMES[value.getMonth()];
+				ui.display.Month.innerHTML = MONTH_NAMES[value.getMonth()];
 				self._monthValue = value.getMonth() + 1;
 
-				ui.dayDisplay.innerHTML = day;
+				ui.display.Day.innerHTML = day;
 				self._dayValue = day;
 				ui.dayNameContainer.innerHTML = dayName;
 
-				ui.yearDisplay.innerHTML = year;
+				ui.display.Year.innerHTML = year;
 				self._yearValue = year;
 			};
 
@@ -272,12 +270,12 @@
 					rotation = self._rotation,
 					daysInMonth,
 					parentClassList = target.parentElement.classList,
-					monthClassList = ui.monthDisplay.classList,
-					dayClassList = ui.dayDisplay.classList,
-					yearClassList = ui.yearDisplay.classList;
+					monthClassList = ui.display.Month.classList,
+					dayClassList = ui.display.Day.classList,
+					yearClassList = ui.display.Year.classList;
 
 				if (parentClassList.contains(classes.MONTH_CONTAINER)) {
-					self._activeSelector = "month";
+					self._activeSelector = "Month";
 					monthClassList.add(animationClass);
 					dayClassList.remove(animationClass);
 					yearClassList.remove(animationClass);
@@ -286,7 +284,7 @@
 					indicatorValue += rotation * 12;
 					self._setIndicatorValue(indicatorValue);
 				} else if (parentClassList.contains(classes.DAY_CONTAINER)) {
-					self._activeSelector = "day";
+					self._activeSelector = "Day";
 					dayClassList.add(animationClass);
 					monthClassList.remove(animationClass);
 					yearClassList.remove(animationClass);
@@ -296,7 +294,7 @@
 					indicatorValue += rotation * daysInMonth;
 					self._setIndicatorValue(indicatorValue);
 				} else if (parentClassList.contains(classes.YEAR_CONTAINER)) {
-					self._activeSelector = "year";
+					self._activeSelector = "Year";
 					yearClassList.add(animationClass);
 					dayClassList.remove(animationClass);
 					monthClassList.remove(animationClass);
@@ -411,13 +409,13 @@
 				}
 
 				switch (self._activeSelector) {
-					case "month":
+					case "Month":
 						self._changeMonth(changeValue);
 						break;
-					case "day":
+					case "Day":
 						self._changeDay(changeValue);
 						break;
-					case "year":
+					case "Year":
 						self._changeYear(changeValue);
 						break;
 				}
