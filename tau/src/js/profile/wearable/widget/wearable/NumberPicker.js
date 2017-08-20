@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/* global window, define */
+/* global window, define, ns */
 /**
  * #NumberPicker Widget
  *
@@ -22,7 +22,7 @@
  * @extends ns.widget.core.BaseWidget
  * @author Tomasz Lukawski <t.lukawski@samsung.com>
  */
-(function (window, document, ns) {
+(function (window, document) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
@@ -486,4 +486,4 @@
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
-}(window, window.document, window.tau));
+}(window, window.document));
