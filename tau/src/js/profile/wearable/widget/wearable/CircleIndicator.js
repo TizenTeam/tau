@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/* global window, define */
+/* global window, define, ns */
 /**
  * # CircleIndicator Widget
  *
@@ -64,13 +64,15 @@
  * @extends ns.widget.core.BaseWidget
  * @author Maciej Moczulski <m.moczulski@samsung.com>
  */
-(function (window, document, ns) {
+(function () {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 	define(
 		[
 			"../wearable",
-			"../../../../core/widget/BaseWidget"
+			"../../../../core/widget/BaseWidget",
+			"../../../../core/util/polar",
+			"../../../../core/util/array"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
@@ -610,4 +612,4 @@
 		}
 	);
 	//>>excludeEnd("tauBuildExclude");
-}(window, window.document, window.tau));
+}());

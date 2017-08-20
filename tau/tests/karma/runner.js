@@ -53,7 +53,8 @@ var allTestFiles = [],
 		"core/event/gesture/Swipe",
 		"profile/wearable/router/route/grid",
 		"core/widget/core/tab/Tabbar",
-		"profile/wearable/widget/wearable/Grid"
+		"profile/wearable/widget/wearable/Grid",
+		"profile/wearable/widget/wearable/CircleIndicator"
 	];
 
 window.tauPerf = {
