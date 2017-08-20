@@ -221,22 +221,18 @@
 			prototype._setValue = function (value) {
 				var self = this,
 					ui = self._ui,
-					monthElement = ui.monthDisplay,
-					dayElement = ui.dayDisplay,
-					yearElement = ui.yearDisplay,
-					dayNameElement = ui.dayNameContainer,
 					day = value.getDate(),
 					year = value.getFullYear(),
 					dayName = DAY_NAMES[value.getDay()];
 
-				monthElement.innerHTML = MONTH_NAMES[value.getMonth()];
+				ui.monthDisplay.innerHTML = MONTH_NAMES[value.getMonth()];
 				self._monthValue = value.getMonth() + 1;
 
-				dayElement.innerHTML = day;
+				ui.dayDisplay.innerHTML = day;
 				self._dayValue = day;
-				dayNameElement.innerHTML = dayName;
+				ui.dayNameContainer.innerHTML = dayName;
 
-				yearElement.innerHTML = year;
+				ui.yearDisplay.innerHTML = year;
 				self._yearValue = year;
 			};
 
@@ -321,89 +317,110 @@
 				this.element.innerHTML = "";
 			};
 
-			prototype._onRotary = function (event) {
+			prototype._changeMonth = function (changeValue) {
+				var self = this,
+					value = self.value(),
+					month = value.getMonth(),
+					newValue,
+					day = value.getDate(),
+					year = value.getFullYear(),
+					daysInMonth;
+
+				newValue = month + changeValue;
+				value.setMonth(newValue);
+				value.setFullYear(year);
+				daysInMonth = self._daysInMonth(year, newValue);
+				if (day > daysInMonth && (self._daysInMonth(year, month) > daysInMonth)) {
+					value = new Date(year, newValue, daysInMonth);
+				}
+				// months are in range 0-11] we need add 1 to get range [1-12]
+				newValue += 1;
+				self._changeValue(value, newValue, value.getMonth() + 1, changeValue, 12);
+			};
+
+			prototype._changeDay = function (changeValue) {
+				var self = this,
+					value = self.value(),
+					month = value.getMonth(),
+					newValue,
+					day = value.getDate(),
+					year = value.getFullYear(),
+					daysInMonth = self._daysInMonth(year, month);
+
+				newValue = day + changeValue;
+
+				if (changeValue < 0 && day === 1) {
+					value.setDate(daysInMonth);
+				} else {
+					value.setDate(newValue);
+				}
+				value.setMonth(month);
+				value.setFullYear(year);
+				self._changeValue(value, newValue, value.getDate(), changeValue, daysInMonth);
+			};
+
+			prototype._changeYear = function (changeValue) {
 				var self = this,
 					value = self.value(),
 					month = value.getMonth(),
 					newValue,
 					indicatorValue,
-					day = value.getDate(),
 					year = value.getFullYear(),
-					rotation = self._rotation,
-					circleValue,
-					direction = event.detail.direction;
+					circleValue = 0,
+					daysInMonth = self._daysInMonth(year, month);
+
+				newValue = year % 50 + changeValue;
+				value.setFullYear(year + changeValue);
+				// last day in Feb case, month = 1 => Feb
+				daysInMonth = self._daysInMonth(value.getFullYear(), 1);
+				if ((month === 1) && (self._daysInMonth(year, 1) > daysInMonth)) {
+					value.setMonth(1);
+					value.setDate(daysInMonth);
+				}
+				indicatorValue = value.getFullYear() % 50;
+				circleValue = 50;
+				self._changeValue(value, newValue, indicatorValue, changeValue, circleValue);
+			};
+
+			prototype._changeValue = function (value, newValue, indicatorValue, changeValue, circleValue) {
+				var self = this,
+					rotation = self._rotation;
+
+				self._setValue(value);
+				if (indicatorValue !== newValue) {
+					rotation += changeValue;
+				}
+				indicatorValue += rotation * circleValue;
+				self._setIndicatorValue(indicatorValue);
+				self._rotation = rotation;
+			};
+
+			prototype._onRotary = function (event) {
+				var self = this,
+					direction = event.detail.direction,
+					changeValue;
 
 				if (event.deltaY > 0) {
 					direction = "CW";
 				}
 
+				if (direction === "CW") {
+					changeValue = 1;
+				} else {
+					changeValue = -1;
+				}
+
 				switch (self._activeSelector) {
 					case "month":
-						if (direction === "CW") {
-							newValue = month + 1;
-						} else {
-							newValue = month - 1;
-						}
-						value.setMonth(newValue);
-						if (year !== value.getFullYear()) {
-							value.setFullYear(year);
-						}
-						if (day > self._daysInMonth(year, newValue) &&
-							(self._daysInMonth(year, month) > self._daysInMonth(year, newValue))) {
-							value = new Date(year, newValue, self._daysInMonth(year, newValue));
-						}
-						indicatorValue = value.getMonth() + 1;
-						newValue += 1;
-						circleValue = 12;
+						self._changeMonth(changeValue);
 						break;
 					case "day":
-						if (direction === "CW") {
-							newValue = day + 1;
-							value.setDate(day + 1);
-							if (month !== value.getMonth()) {
-								value.setMonth(month);
-							}
-							if (year !== value.getFullYear()) {
-								value.setFullYear(year);
-							}
-						} else {
-							newValue = day - 1;
-							if (day === 1) {
-								value.setDate(self._daysInMonth(year, month));
-							} else {
-								value.setDate(day - 1);
-							}
-						}
-						indicatorValue = value.getDate();
-						circleValue = self._daysInMonth(year, month);
+						self._changeDay(changeValue);
 						break;
 					case "year":
-						if (direction === "CW") {
-							newValue = year % 50 + 1;
-							value.setFullYear(year + 1);
-						} else {
-							newValue = year % 50 - 1;
-							value.setFullYear(year - 1);
-						}
-						if ((month === 1) && (self._daysInMonth(year, 1) > self._daysInMonth(value.getFullYear(), 1))) {
-							value.setMonth(1);
-							value.setDate(self._daysInMonth(value.getFullYear(), 1));
-						}
-						indicatorValue = value.getFullYear() % 50;
-						circleValue = 50;
+						self._changeYear(changeValue);
 						break;
 				}
-				self._setValue(value);
-				if (indicatorValue !== newValue) {
-					if (direction === "CW") {
-						rotation++;
-					} else {
-						rotation--;
-					}
-				}
-				indicatorValue += rotation * circleValue;
-				self._setIndicatorValue(indicatorValue);
-				self._rotation = rotation;
 			};
 
 			DatePicker.prototype = prototype;
