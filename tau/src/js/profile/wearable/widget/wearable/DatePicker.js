@@ -23,17 +23,35 @@
 
 				WIDGET_CLASS = "ui-date-picker",
 				classes = {
-					MONTH_CONTAINER: WIDGET_CLASS + "-container-month",
-					DAY_CONTAINER: WIDGET_CLASS + "-container-day",
-					YEAR_CONTAINER: WIDGET_CLASS + "-container-year",
+					CONTAINER_PREFIX: WIDGET_CLASS + "-container-",
 					DAYNAME_CONTAINER: WIDGET_CLASS + "-containter-dayname",
 					ACTIVE_LABEL_ANIMATION: WIDGET_CLASS + "-active-label-animation"
 				},
 
 				DAY_NAMES = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
 				MONTH_NAMES = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-
-				WIDGET_SELECTOR = "." + WIDGET_CLASS;
+				WIDGET_SELECTOR = "." + WIDGET_CLASS,
+				INDICATOR_OPTIONS = {
+					month: {
+						to: 12,
+						bigTick: 1,
+						bigTickHeight: 20,
+						smallTick: 0
+					},
+					year: {
+						to: 50,
+						bigTickHeight: 13,
+						bigTick: 5,
+						smallTick: 1
+					},
+					day: {
+						to: 30,
+						bigTickHeight: 13,
+						bigTick: 2,
+						smallTick: 1
+					}
+				},
+				CONTAINERS = ["month", "day", "year"];
 
 			function DatePicker() {
 				var self = this;
@@ -57,23 +75,17 @@
 			}
 
 			prototype._init = function () {
-				var self = this,
-					initialDate = new Date();
-
-				self._setValue(initialDate);
-				self._showMonthIndicator();
-				self._activeSelector = "Month";
-				self._ui.display.Month.classList.add(classes.ACTIVE_LABEL_ANIMATION);
-				self._setIndicatorValue(initialDate.getMonth() + 1);
+				this._setValue(new Date());
+				this._setActiveSelector("month");
 			};
 
 			prototype._bindEvents = function () {
 				var self = this,
 					ui = self._ui;
 
-				utilsEvents.on(ui.display.Month, "click", self, true);
-				utilsEvents.on(ui.display.Day, "click", self, true);
-				utilsEvents.on(ui.display.Year, "click", self, true);
+				Object.keys(ui.display).forEach(function (name) {
+					utilsEvents.on(ui.display[name], "click", self, true);
+				});
 				utilsEvents.on(document, "rotarydetent", self, true);
 				utilsEvents.on(ui.buttonSet, "click", self, true);
 			};
@@ -82,9 +94,9 @@
 				var self = this,
 					ui = self._ui;
 
-				utilsEvents.off(ui.display.Month, "click", self, true);
-				utilsEvents.off(ui.display.Day, "click", self, true);
-				utilsEvents.off(ui.display.Year, "click", self, true);
+				Object.keys(ui.display).forEach(function (name) {
+					utilsEvents.off(ui.display[name], "click", self, true);
+				});
 				utilsEvents.off(document, "rotarydetent", self, true);
 				utilsEvents.off(ui.buttonSet, "click", self, true);
 			};
@@ -94,9 +106,6 @@
 					ui = self._ui,
 					footer = document.createElement("footer"),
 					buttonSet = document.createElement("button"),
-					monthContainer = self._createContainter("Month", 12),
-					dayContainer = self._createContainter("Day", 31),
-					yearContainer = self._createContainter("Year", 2999),
 					dayNameContainer = document.createElement("div");
 
 				// create button set
@@ -106,15 +115,13 @@
 				buttonSet.classList.add("ui-btn", NumberPicker.classes.BUTTON_SET);
 				footer.classList.add("ui-footer", "ui-bottom-button", "ui-fixed");
 
-				monthContainer.classList.add(classes.MONTH_CONTAINER);
-				dayContainer.classList.add(classes.DAY_CONTAINER);
-				yearContainer.classList.add(classes.YEAR_CONTAINER);
 				dayNameContainer.classList.add(classes.DAYNAME_CONTAINER);
 
 				// build DOM structure
-				element.appendChild(monthContainer);
-				element.appendChild(dayContainer);
-				element.appendChild(yearContainer);
+				CONTAINERS.forEach(function (name) {
+					element.appendChild(self._createContainter(name));
+				});
+
 				element.appendChild(dayNameContainer);
 				element.appendChild(footer);
 
@@ -166,31 +173,13 @@
 				this._circleIndicator = circleIndicator;
 			};
 
-			prototype._showMonthIndicator = function () {
-				this._circleIndicator.option({
-					to: 12,
-					bigTick: 1,
-					bigTickHeight: 20,
-					smallTick: 0
-				});
-			};
+			prototype._showIndicator = function (type, number) {
+				var options = INDICATOR_OPTIONS[type];
 
-			prototype._showDayIndicator = function (number) {
-				this._circleIndicator.option({
-					to: number,
-					bigTickHeight: 13,
-					bigTick: 2,
-					smallTick: 1
-				});
-			};
-
-			prototype._showYearIndicator = function () {
-				this._circleIndicator.option({
-					to: 50,
-					bigTickHeight: 13,
-					bigTick: 5,
-					smallTick: 1
-				});
+				if (number) {
+					options.to = number;
+				}
+				this._circleIndicator.option(options);
 			};
 
 			prototype._setIndicatorValue = function (value) {
@@ -207,10 +196,11 @@
 				number.classList.add(NumberPicker.classes.NUMBER);
 				numberPickerLabel.classList.add(NumberPicker.classes.LABEL);
 
-				numberPickerLabel.innerText = name;
+				numberPickerLabel.innerText = name[0].toUpperCase() + name.substr(1);
 
 				numberPickerContainer.appendChild(numberPickerLabel);
 				numberPickerContainer.appendChild(number);
+				numberPickerContainer.classList.add(classes.CONTAINER_PREFIX + name);
 
 				ui.display[name] = number;
 
@@ -220,28 +210,70 @@
 			prototype._setValue = function (value) {
 				var self = this,
 					ui = self._ui,
-					day = value.getDate(),
-					year = value.getFullYear(),
 					dayName = DAY_NAMES[value.getDay()];
 
-				ui.display.Month.innerHTML = MONTH_NAMES[value.getMonth()];
-				self._monthValue = value.getMonth() + 1;
+				self._value = value;
 
-				ui.display.Day.innerHTML = day;
-				self._dayValue = day;
+				Object.keys(ui.display).forEach(function (name) {
+					ui.display[name].innerHTML = self._getTextValue(name);
+				});
+
 				ui.dayNameContainer.innerHTML = dayName;
-
-				ui.display.Year.innerHTML = year;
-				self._yearValue = year;
 			};
 
-			prototype._getValue = function () {
-				var self = this;
+			prototype._getValue = function (type) {
+				var value = this._value;
 
-				return new Date(self._yearValue, self._monthValue - 1, self._dayValue);
+				switch (type) {
+					case "month":
+						return value.getMonth() + 1;
+					case "day":
+						return value.getDate();
+					case "year":
+						return value.getFullYear();
+					default:
+						return value;
+				}
 			};
+
+			prototype._getTextValue = function (type) {
+				var value = this._value;
+
+				switch (type) {
+					case "month":
+						return MONTH_NAMES[value.getMonth()];
+					case "day":
+						return value.getDate();
+					case "year":
+						return value.getFullYear();
+					default:
+						return value;
+				}
+			};
+
+			prototype._getIndicatorValue = function (type) {
+				var value = this._value;
+
+				switch (type) {
+					case "month":
+						return value.getMonth() + 1;
+					case "day":
+						return value.getDate();
+					case "year":
+						return value.getFullYear() % 50;
+					default:
+						return value;
+				}
+			};
+
 
 			prototype._daysInMonth = function (year, month) {
+				if (year === undefined) {
+					year = this._getValue("year");
+				}
+				if (month === undefined) {
+					month = this._getValue("month") - 1;
+				}
 				return new Date(year, month + 1, 0).getDate();
 			};
 
@@ -260,48 +292,43 @@
 				}
 			};
 
-			prototype._onClick = function (event) {
+			prototype._getCircleValue = function (activeName) {
+				switch (activeName) {
+					case "month":
+						return 12;
+					case "day":
+						return this._daysInMonth();
+					case "year":
+						return 50;
+				}
+			};
+
+			prototype._setActiveSelector = function (activeName) {
 				var self = this,
-					value = self.value(),
 					animationClass = classes.ACTIVE_LABEL_ANIMATION,
 					ui = self._ui,
-					target = event.target,
-					indicatorValue,
 					rotation = self._rotation,
-					daysInMonth,
-					parentClassList = target.parentElement.classList,
-					monthClassList = ui.display.Month.classList,
-					dayClassList = ui.display.Day.classList,
-					yearClassList = ui.display.Year.classList;
+					indicatorValue = self._getIndicatorValue(activeName),
+					circleValue = self._getCircleValue(activeName);
 
-				if (parentClassList.contains(classes.MONTH_CONTAINER)) {
-					self._activeSelector = "Month";
-					monthClassList.add(animationClass);
-					dayClassList.remove(animationClass);
-					yearClassList.remove(animationClass);
-					self._showMonthIndicator();
-					indicatorValue = value.getMonth() + 1;
-					indicatorValue += rotation * 12;
-					self._setIndicatorValue(indicatorValue);
-				} else if (parentClassList.contains(classes.DAY_CONTAINER)) {
-					self._activeSelector = "Day";
-					dayClassList.add(animationClass);
-					monthClassList.remove(animationClass);
-					yearClassList.remove(animationClass);
-					daysInMonth = self._daysInMonth(value.getFullYear(), value.getMonth());
-					self._showDayIndicator(daysInMonth);
-					indicatorValue = value.getDate();
-					indicatorValue += rotation * daysInMonth;
-					self._setIndicatorValue(indicatorValue);
-				} else if (parentClassList.contains(classes.YEAR_CONTAINER)) {
-					self._activeSelector = "Year";
-					yearClassList.add(animationClass);
-					dayClassList.remove(animationClass);
-					monthClassList.remove(animationClass);
-					self._showYearIndicator();
-					indicatorValue = value.getFullYear() % 50;
-					indicatorValue += rotation * 50;
-					self._setIndicatorValue(indicatorValue);
+				self._showIndicator(activeName, circleValue);
+				self._activeSelector = activeName;
+				Object.keys(ui.display).forEach(function (name) {
+					ui.display[name].classList.remove(animationClass);
+				});
+				ui.display[activeName].classList.add(animationClass);
+				indicatorValue += rotation * circleValue;
+				self._setIndicatorValue(indicatorValue);
+			};
+
+			prototype._onClick = function (event) {
+				var self = this,
+					target = event.target,
+					parentClassName = target.parentElement.className,
+					activeName = parentClassName.replace(classes.CONTAINER_PREFIX, "");
+
+				if (CONTAINERS.indexOf(activeName) > -1) {
+					self._setActiveSelector(activeName);
 				} else if (target.classList.contains("ui-number-picker-set")) {
 					self.trigger("change", {
 						value: self.value()
@@ -364,7 +391,6 @@
 					newValue,
 					indicatorValue,
 					year = value.getFullYear(),
-					circleValue = 0,
 					daysInMonth = self._daysInMonth(year, month);
 
 				newValue = year % 50 + changeValue;
@@ -376,8 +402,7 @@
 					value.setDate(daysInMonth);
 				}
 				indicatorValue = value.getFullYear() % 50;
-				circleValue = 50;
-				self._changeValue(value, newValue, indicatorValue, changeValue, circleValue);
+				self._changeValue(value, newValue, indicatorValue, changeValue, 50);
 			};
 
 			prototype._changeValue = function (value, newValue, indicatorValue, changeValue, circleValue) {
@@ -405,13 +430,13 @@
 				}
 
 				switch (self._activeSelector) {
-					case "Month":
+					case "month":
 						self._changeMonth(changeValue);
 						break;
-					case "Day":
+					case "day":
 						self._changeDay(changeValue);
 						break;
-					case "Year":
+					case "year":
 						self._changeYear(changeValue);
 						break;
 				}
