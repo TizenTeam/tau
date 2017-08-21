@@ -452,7 +452,7 @@
 					ui.numberPickerMinutesInput.setAttribute("value", getMinutesValue);
 					ui.numberPickerMinutesInput.value = getMinutesValue;
 					ui.numberHours.innerHTML = getHoursValue;
-					ui.numberMinutes.innerHTML = getMinutesValue;
+					ui.numberMinutes.innerHTML = (getMinutesValue < 10 ? "0" : "") + getMinutesValue;
 
 					//by default set the indicator on hours value
 					self._actualMax = parseInt(ui.numberPickerHoursInput.max, 10);
@@ -473,7 +473,11 @@
 							visibleValue = 12;
 						}
 						activeInput.value = visibleValue;
-						activeNumber.innerHTML = visibleValue;
+						if (self._circleIndicator.options.to === 60) {
+							activeNumber.innerHTML = (visibleValue < 10 ? "0" : "") + visibleValue;
+						} else {
+							activeNumber.innerHTML = visibleValue;
+						}
 					}
 				}
 			};
