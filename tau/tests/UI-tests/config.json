@@ -1662,7 +1662,8 @@
 				"time": 0,
 				"width": 360,
 				"height": 360,
-				"pass": true
+				"pass": true,
+				"threshold": 0.76
 			},
 			{
 				"name": "99-empty-state-add-items-1-line",
@@ -1771,7 +1772,8 @@
 				"time": 0,
 				"width": 360,
 				"height": 360,
-				"pass": true
+				"pass": true,
+				"threshold": 0.3
 			},
 			{
 				"name": "103-end-effect-right",
@@ -1951,7 +1953,7 @@
 				"width": 360,
 				"height": 360,
 				"pass": true,
-				"threshold": 0.76
+				"threshold": 1.1
 			},
 			{
 				"name": "103-end-effect-left",
