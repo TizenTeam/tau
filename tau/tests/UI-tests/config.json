@@ -1263,25 +1263,29 @@
 				"name": "23-page-indicator-circularly-horizontal-dot-19",
 				"time": 0,
 				"width": 360,
-				"height": 360
+				"height": 360,
+				"pass": true
 			},
  			{
  				"name": "24-page-indicator-circularly-horizontal-18-dots",
  				"time": 0,
  				"width": 360,
- 				"height": 360
+ 				"height": 360,
+			    "pass": true
  			},
 			{
 				"name": "25-page-indicator-horizontal-dot-7",
 				"time": 0,
 				"width": 360,
-				"height": 360
+				"height": 360,
+				"pass": true
 			},
 			{
 				"name": "26-page-indicator-horizontal-dot-6",
 				"time": 0,
 				"width": 360,
-				"height": 360
+				"height": 360,
+				"pass": true
 			},
 			{
 				"name": "20-circularly-vertical-bar",
@@ -1431,7 +1435,8 @@
 				"name": "45-grid",
 				"pass": true,
 				"width": 360,
-				"height": 360
+				"height": 360,
+				"time": 5000
 			},
 			{
 				"name": "44a-grid-thumbnails-indicator",
