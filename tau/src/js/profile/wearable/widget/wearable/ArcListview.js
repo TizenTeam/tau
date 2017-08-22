@@ -240,8 +240,6 @@
 				lastTouchTime = 0,
 				factorsX = [],
 
-				animationHandle = null,
-
 				lastTouchY = 0,
 				deltaTouchY = 0,
 				deltaSumTouchY = 0;
@@ -554,8 +552,8 @@
 
 				if (!self._scrollAnimationEnd) {
 					state.currentIndex = self._findItemIndexByY(-1 * (state.scroll.current - SCREEN_HEIGHT / 2 + 1));
-					cancelAnimationFrame(animationHandle);
-					animationHandle = requestAnimationFrame(self._render.bind(self));
+					cancelAnimationFrame(self._animationHandle);
+					self._animationHandle = requestAnimationFrame(self._render.bind(self));
 				}
 			};
 
@@ -638,7 +636,7 @@
 				if (self._scrollAnimationEnd) {
 					state.startTime = Date.now();
 					self._scrollAnimationEnd = false;
-					animationHandle = requestAnimationFrame(self._render.bind(self));
+					self._animationHandle = requestAnimationFrame(self._render.bind(self));
 				}
 			};
 
@@ -652,8 +650,8 @@
 				momentum = (momentum === undefined) ? 0 : momentum;
 
 				self._refresh();
-				cancelAnimationFrame(animationHandle);
-				animationHandle = requestAnimationFrame(self._render.bind(self));
+				cancelAnimationFrame(self._animationHandle);
+				self._animationHandle = requestAnimationFrame(self._render.bind(self));
 			};
 
 			/**
@@ -699,7 +697,7 @@
 				if (self._scrollAnimationEnd) {
 					state.startTime = Date.now();
 					self._scrollAnimationEnd = false;
-					animationHandle = requestAnimationFrame(self._render.bind(self));
+					self._animationHandle = requestAnimationFrame(self._render.bind(self));
 				}
 			};
 
