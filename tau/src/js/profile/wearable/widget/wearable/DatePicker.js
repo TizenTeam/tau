@@ -295,26 +295,23 @@
 			prototype.handleEvent = function (event) {
 				var self = this;
 
-				switch (event.type) {
-					case "click":
-						event.preventDefault();
-						self._onClick(event);
-						break;
-					case "rotarydetent":
-						event.preventDefault();
-						self._onRotary(event);
-						break;
+				if (event.type === "click") {
+					event.preventDefault();
+					self._onClick(event);
+				} else if (event.type === "rotarydetent") {
+					event.preventDefault();
+					self._onRotary(event);
 				}
 			};
 
-			prototype._getCircleValue = function (activeName) {
+			prototype._getMaxCircleValue = function (activeName) {
 				switch (activeName) {
-					case "month":
-						return 12;
 					case "day":
 						return this._daysInMonth();
 					case "year":
 						return 50;
+					default:
+						return 12;
 				}
 			};
 
@@ -324,7 +321,7 @@
 					ui = self._ui,
 					rotation = self._rotation,
 					indicatorValue = self._getIndicatorValue(activeName),
-					circleValue = self._getCircleValue(activeName);
+					circleValue = self._getMaxCircleValue(activeName);
 
 				self._showIndicator(activeName, circleValue);
 				self._activeSelector = activeName;
@@ -406,7 +403,7 @@
 					newValue,
 					indicatorValue,
 					year = value.getFullYear(),
-					daysInMonth = self._daysInMonth(year, month);
+					daysInMonth;
 
 				newValue = year % 50 + changeValue;
 				value.setFullYear(year + changeValue);
