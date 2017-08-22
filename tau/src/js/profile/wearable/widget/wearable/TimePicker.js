@@ -427,6 +427,34 @@
 				return numberPickerContainer;
 			};
 
+			prototype._setDateValue = function (value) {
+				var self = this,
+					ui = self._ui,
+					hours,
+					minutes;
+
+				hours = value.getHours();
+				minutes = value.getMinutes();
+				if (self.options.format === "h") {
+					if (hours > 12) {
+						hours -= 12;
+						self.options.amOrPm = "PM";
+					} else {
+						self.options.amOrPm = "AM";
+					}
+				}
+				ui.numberPickerHoursInput.setAttribute("value", hours);
+				ui.numberPickerHoursInput.value = hours;
+				ui.numberPickerMinutesInput.setAttribute("value", minutes);
+				ui.numberPickerMinutesInput.value = minutes;
+				ui.numberHours.innerHTML = hours;
+				ui.numberMinutes.innerHTML = (minutes < 10 ? "0" : "") + minutes;
+
+				//by default set the indicator on hours value
+				self._actualMax = parseInt(ui.numberPickerHoursInput.max, 10);
+				self._updateValue(hours % 12);
+			};
+
 			/**
 			 * Set value of number picker
 			 * @param {number} value
@@ -436,34 +464,12 @@
 			 */
 			prototype._setValue = function (value) {
 				var self = this,
-					ui = self._ui,
-					getHoursValue,
 					activeInput,
-					getMinutesValue,
 					activeNumber,
 					visibleValue;
 
 				if (value instanceof Date) {
-					getHoursValue = value.getHours();
-					getMinutesValue = value.getMinutes();
-					if (self.options.format === "h") {
-						if (getHoursValue > 12) {
-							getHoursValue -= 12;
-							self.options.amOrPm = "PM";
-						} else {
-							self.options.amOrPm = "AM";
-						}
-					}
-					ui.numberPickerHoursInput.setAttribute("value", getHoursValue);
-					ui.numberPickerHoursInput.value = getHoursValue;
-					ui.numberPickerMinutesInput.setAttribute("value", getMinutesValue);
-					ui.numberPickerMinutesInput.value = getMinutesValue;
-					ui.numberHours.innerHTML = getHoursValue;
-					ui.numberMinutes.innerHTML = (getMinutesValue < 10 ? "0" : "") + getMinutesValue;
-
-					//by default set the indicator on hours value
-					self._actualMax = parseInt(ui.numberPickerHoursInput.max, 10);
-					self._updateValue(getHoursValue % 12);
+					self._setDateValue(value);
 				} else {
 					value = parseInt(value, 10);
 					activeNumber = document.querySelector("." + classes.ACTIVE_LABEL);
