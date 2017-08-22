@@ -62,7 +62,9 @@
 
 				self._setValue(initialDate);
 				self._showMonthIndicator();
-				self._setIndicatorValue(initialDate.getMonth());
+				self._activeSelector = "Month";
+				self._ui.display.Month.classList.add(classes.ACTIVE_LABEL_ANIMATION);
+				self._setIndicatorValue(initialDate.getMonth() + 1);
 			};
 
 			prototype._bindEvents = function () {
