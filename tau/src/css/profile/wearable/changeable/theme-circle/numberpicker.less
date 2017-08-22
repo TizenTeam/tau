@@ -1,28 +1,15 @@
-
 @keyframes ui-number-picker-number-blink {
 	0% {
-		color: @color_number_picker_blink_on;
-	}
-	24% {
-		color: @color_number_picker_blink_on;
-	}
-	25% {
-		color: @color_number_picker_blink_off;
+		color: @color_time_picker_number_blink_on;
 	}
 	49% {
-		color: @color_number_picker_blink_off;
+		color: @color_time_picker_number_blink_on;
 	}
-	50% {
-		color: @color_number_picker_blink_on;
+	51% {
+		color: @color_time_picker_number_blink_off;
 	}
-	74% {
-		color: @color_number_picker_blink_on;
-	}
-	75% {
-		color: @color_number_picker_blink_off;
-	}
-	99% {
-		color: @color_number_picker_blink_off;
+	100% {
+		color: @color_time_picker_number_blink_off;
 	}
 }
 
@@ -73,8 +60,7 @@
 		color: @color_number_picker_number_pressed;
 	}
 	.ui-number-picker-number-blink {
-		animation-name: ui-number-picker-number-blink;
-		animation-duration: 1s;
+		animation: ui-number-picker-number-blink 1s infinite;
 	}
 }
 .ui-number-picker-container:not(.ui-time-picker) span {

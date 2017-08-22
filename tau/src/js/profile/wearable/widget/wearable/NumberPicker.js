@@ -418,23 +418,11 @@
 				}
 			}
 
-			function onBlinkEnd(ev) {
-				var target = ev.target;
-
-				if (target) {
-					target.classList.remove(classes.NUMBER_BLINK);
-					target.removeEventListener("animationend", onBlinkEnd);
-					target.removeEventListener("webkitAnimationEnd", onBlinkEnd);
-				}
-			}
-
 			function onNumberClick(ev) {
 				var target = ev.target;
 
 				if (target) {
 					target.classList.add(classes.NUMBER_BLINK);
-					target.addEventListener("animationend", onBlinkEnd);
-					target.addEventListener("webkitAnimationEnd", onBlinkEnd);
 				}
 			}
 
