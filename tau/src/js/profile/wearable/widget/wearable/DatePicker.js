@@ -14,8 +14,13 @@
  * limitations under the License.
  */
 /*global window, define, ns*/
-/*jslint nomen: true */
-
+/**
+ * #DatePicker Widget
+ *
+ * @class ns.widget.wearable.DatePicker
+ * @since 4.0
+ * @extends ns.widget.BaseWidget
+ */
 (function (window, document) {
 	"use strict";
 	//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
@@ -89,33 +94,50 @@
 				self._rotation = 0;
 			}
 
+			/**
+			 * Initialize widget state, set current date and init month indicator
+			 * @method _init
+			 * @memberof ns.widget.wearable.DatePicker
+			 * @protected
+			 */
 			prototype._init = function () {
 				this._setValue(new Date());
 				this._setActiveSelector("month");
 			};
 
+			/**
+			 * Bind events click and rotarydetent
+			 * @method _bindEvents
+			 * @memberof ns.widget.wearable.DatePicker
+			 * @protected
+			 */
 			prototype._bindEvents = function () {
-				var self = this,
-					ui = self._ui;
+				var self = this;
 
-				Object.keys(ui.display).forEach(function (name) {
-					utilsEvents.on(ui.display[name], "click", self, true);
-				});
+				self.on("click", self, true);
 				utilsEvents.on(document, "rotarydetent", self, true);
-				utilsEvents.on(ui.buttonSet, "click", self, true);
 			};
 
+			/**
+			 * Unbind events click and rotarydetent
+			 * @method _unbindEvents
+			 * @memberof ns.widget.wearable.DatePicker
+			 * @protected
+			 */
 			prototype._unbindEvents = function () {
-				var self = this,
-					ui = self._ui;
+				var self = this;
 
-				Object.keys(ui.display).forEach(function (name) {
-					utilsEvents.off(ui.display[name], "click", self, true);
-				});
 				utilsEvents.off(document, "rotarydetent", self, true);
-				utilsEvents.off(ui.buttonSet, "click", self, true);
+				self.off("click", self, true);
 			};
 
+			/**
+			 * Build full widget structure
+			 * @method _build
+			 * @param {HTMLElement} element
+			 * @memberof ns.widget.wearable.DatePicker
+			 * @protected
+			 */
 			prototype._build = function (element) {
 				var self = this,
 					ui = self._ui,
@@ -150,14 +172,16 @@
 				return element;
 			};
 
+			/**
+			 * Build indicator
+			 * @method _buildIndicator
+			 * @param {HTMLElement} element
+			 * @memberof ns.widget.wearable.DatePicker
+			 * @protected
+			 */
 			prototype._buildIndicator = function (element) {
-				var circleIndicator = this._circleIndicator,
+				var circleIndicator,
 					indicator = document.createElement("div");
-
-				if (circleIndicator) {
-					circleIndicator.destroy();
-					circleIndicator.element.parentElement.removeChild(circleIndicator.element);
-				}
 
 				element.appendChild(indicator);
 
@@ -188,6 +212,14 @@
 				this._circleIndicator = circleIndicator;
 			};
 
+			/**
+			 * Show indicator
+			 * @method _showIndicator
+			 * @param {string} type
+			 * @param {number} number
+			 * @memberof ns.widget.wearable.DatePicker
+			 * @protected
+			 */
 			prototype._showIndicator = function (type, number) {
 				var options = INDICATOR_OPTIONS[type];
 
@@ -197,10 +229,24 @@
 				this._circleIndicator.option(options);
 			};
 
+			/**
+			 * Set value of indicator
+			 * @method _setIndicatorValue
+			 * @param {number|Date} value
+			 * @memberof ns.widget.wearable.DatePicker
+			 * @protected
+			 */
 			prototype._setIndicatorValue = function (value) {
 				this._circleIndicator.value(value);
 			};
 
+			/**
+			 * Create one container with children
+			 * @method _createContainter
+			 * @param {string} name
+			 * @memberof ns.widget.wearable.DatePicker
+			 * @protected
+			 */
 			prototype._createContainter = function (name) {
 				var self = this,
 					ui = self._ui,
@@ -222,6 +268,13 @@
 				return numberPickerContainer;
 			};
 
+			/**
+			 * Set value of widget
+			 * @method _setValue
+			 * @param {Date} value
+			 * @memberof ns.widget.wearable.DatePicker
+			 * @protected
+			 */
 			prototype._setValue = function (value) {
 				var self = this,
 					ui = self._ui,
@@ -236,6 +289,14 @@
 				ui.dayNameContainer.innerHTML = dayName;
 			};
 
+			/**
+			 * Return Date value or value of one field
+			 * @method _getValue
+			 * @param {string} type
+			 * @memberof ns.widget.wearable.DatePicker
+			 * @return {Date|number}
+			 * @protected
+			 */
 			prototype._getValue = function (type) {
 				var value = this._value;
 
@@ -282,6 +343,14 @@
 			};
 
 
+			/**
+			 * Return days in month
+			 * @method _daysInMonth
+			 * @param {number} year
+			 * @param {number} month
+			 * @memberof ns.widget.wearable.DatePicker
+			 * @protected
+			 */
 			prototype._daysInMonth = function (year, month) {
 				if (year === undefined) {
 					year = this._getValue("year");
@@ -292,6 +361,12 @@
 				return new Date(year, month + 1, 0).getDate();
 			};
 
+			/**
+			 * Handle events
+			 * @method handleEvent
+			 * @param {Event} event
+			 * @memberof ns.widget.wearable.DatePicker
+			 */
 			prototype.handleEvent = function (event) {
 				var self = this;
 
@@ -304,6 +379,14 @@
 				}
 			};
 
+			/**
+			 * Get value of number of ticks on full rotation
+			 * @method _getMaxCircleValue
+			 * @param {string} activeName
+			 * @memberof ns.widget.wearable.DatePicker
+			 * @return {number}
+			 * @protected
+			 */
 			prototype._getMaxCircleValue = function (activeName) {
 				switch (activeName) {
 					case "day":
@@ -315,6 +398,13 @@
 				}
 			};
 
+			/**
+			 * Change indicator after click in value
+			 * @method _setActiveSelector
+			 * @param {string} activeName
+			 * @memberof ns.widget.wearable.DatePicker
+			 * @protected
+			 */
 			prototype._setActiveSelector = function (activeName) {
 				var self = this,
 					animationClass = classes.ACTIVE_LABEL_ANIMATION,
@@ -333,6 +423,13 @@
 				self._setIndicatorValue(indicatorValue);
 			};
 
+			/**
+			 * On click change current indicator or exit page on set click
+			 * @method _onClick
+			 * @param {Event} event
+			 * @memberof ns.widget.wearable.DatePicker
+			 * @protected
+			 */
 			prototype._onClick = function (event) {
 				var self = this,
 					target = event.target,
@@ -349,11 +446,24 @@
 				}
 			};
 
+			/**
+			 * Destroy widget
+			 * @method _destroy
+			 * @memberof ns.widget.wearable.DatePicker
+			 * @protected
+			 */
 			prototype._destroy = function () {
 				this._unbindEvents();
 				this.element.innerHTML = "";
 			};
 
+			/**
+			 * Change month value on rotary event
+			 * @method _changeMonth
+			 * @param {number} changeValue
+			 * @memberof ns.widget.wearable.DatePicker
+			 * @protected
+			 */
 			prototype._changeMonth = function (changeValue) {
 				var self = this,
 					value = self.value(),
@@ -375,6 +485,13 @@
 				self._changeValue(value, newValue, value.getMonth() + 1, changeValue, 12);
 			};
 
+			/**
+			 * Change day value on rotary event
+			 * @method _changeDay
+			 * @param {number} changeValue
+			 * @memberof ns.widget.wearable.DatePicker
+			 * @protected
+			 */
 			prototype._changeDay = function (changeValue) {
 				var self = this,
 					value = self.value(),
@@ -396,6 +513,13 @@
 				self._changeValue(value, newValue, value.getDate(), changeValue, daysInMonth);
 			};
 
+			/**
+			 * Change year value on rotary event
+			 * @method _changeYear
+			 * @param {number} changeValue
+			 * @memberof ns.widget.wearable.DatePicker
+			 * @protected
+			 */
 			prototype._changeYear = function (changeValue) {
 				var self = this,
 					value = self.value(),
@@ -417,6 +541,17 @@
 				self._changeValue(value, newValue, indicatorValue, changeValue, 50);
 			};
 
+			/**
+			 * Update indicator value based on many parameters
+			 * @method _changeValue
+			 * @param {number} value
+			 * @param {number} newValue
+			 * @param {number} indicatorValue
+			 * @param {number} changeValue
+			 * @param {number} circleValue
+			 * @memberof ns.widget.wearable.DatePicker
+			 * @protected
+			 */
 			prototype._changeValue = function (value, newValue, indicatorValue, changeValue, circleValue) {
 				var self = this,
 					rotation = self._rotation;
@@ -430,6 +565,13 @@
 				self._rotation = rotation;
 			};
 
+			/**
+			 * Change indicator on rotary
+			 * @method _onRotary
+			 * @param {Event} event
+			 * @memberof ns.widget.wearable.DatePicker
+			 * @protected
+			 */
 			prototype._onRotary = function (event) {
 				var self = this,
 					direction = event.detail.direction,
