@@ -31,6 +31,7 @@
 				widget._onClick({
 					target: element.querySelector(".ui-time-picker-am-pm-inner-container span")
 				});
+				page.querySelector(".ui-time-picker-active-label-animation").style["animation-play-state"] = "paused";
 			}
 
 			function onPageHide() {

@@ -132,7 +132,10 @@
 			 */
 			prototype._init = function () {
 				var self = this,
-					initDate = new Date();
+					initDate = new Date(),
+					ui = self._ui,
+					uiNumberHours = ui.numberHours,
+					uiInputHours = ui.numberPickerHoursInput;
 
 				//set the initial hours value, based on time stamp
 				self._setValue(initDate);
@@ -142,6 +145,13 @@
 				} else {
 					self._maxHour = 12;
 				}
+				uiNumberHours.classList.add(classes.ACTIVE_LABEL);
+				uiNumberHours.classList.add(classes.ACTIVE_LABEL_ANIMATION);
+				self._actualMax = parseInt(uiInputHours.max, 10);
+				// move indicator to the selected hours value
+				self._circleIndicator.option("to", 12);
+				self._updateValue(uiInputHours.value);
+				self._showIndicator();
 			};
 
 			prototype._buildAMPM = function (numberPickerHoursContainer, element) {
@@ -300,7 +310,6 @@
 					// move indicator to the selected hours value
 					self._circleIndicator.option("to", 12);
 					self._updateValue(uiInputHours.value);
-					self._showIndicator();
 				//minutes
 				} else if (eventTargetElement.parentElement.classList.contains(classes.MINUTES_CONTAINER)) {
 					uiNumberHours.classList.remove(classes.ACTIVE_LABEL);
@@ -311,7 +320,6 @@
 					// move indicator to the selected minutes value
 					self._circleIndicator.option("to", 60);
 					self._updateValue(uiInputMinutes.value);
-					self._showIndicator();
 				//AM PM
 				} else if (eventTargetElement.parentElement.classList.contains(classes.AMPM_INNER_CONTAINER)) {
 					if (self.options.amOrPm === "AM") {
@@ -323,7 +331,6 @@
 						uiAmPmContainer.firstElementChild.classList.add(classes.HIDE_PM_ANIMATION);
 						self.options.amOrPm = "AM";
 					}
-					self._hideIndicator();
 				} else if (eventTargetElement.classList.contains("ui-number-picker-set")) {
 					self.trigger("change", {
 						value: self.value()
