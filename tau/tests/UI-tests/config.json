@@ -1696,7 +1696,7 @@
 				"height": 360
 			},
 			{
-				"name": "86-more-options-open",
+				"name": "92-more-options-open",
 				"time": 0,
 				"width": 360,
 				"height": 360
@@ -1708,7 +1708,7 @@
 				"height": 360
 			},
 			{
-				"name": "96-more-options-open-with-icon",
+				"name": "101-rotary-selector-with-icon",
 				"time": 0,
 				"width": 360,
 				"height": 360
@@ -1732,7 +1732,7 @@
 				"height": 360
 			},
 			{
-				"name": "96-more-options-open-with-icon-and-subtext",
+				"name": "101-rotary-selector-with-icon-and-subtext",
 				"time": 0,
 				"width": 360,
 				"height": 360
@@ -1800,7 +1800,7 @@
 				"height": 360
 			},
 			{
-				"name": "89-more-options-open-with-subtext",
+				"name": "95-more-options-open-with-subtext",
 				"time": 0,
 				"width": 360,
 				"height": 360
@@ -1842,7 +1842,7 @@
 				"height": 360
 			},
 			{
-				"name": "85-more-options",
+				"name": "91-more-options",
 				"time": 0,
 				"width": 360,
 				"height": 360
