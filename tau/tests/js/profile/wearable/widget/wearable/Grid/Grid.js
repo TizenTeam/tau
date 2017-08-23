@@ -1,4 +1,4 @@
-/* global QUnit, ns, define, tau, Promise, expect, start */
+/* global QUnit, define, tau, Promise, expect */
 (function () {
 	"use strict";
 	function runTests(Grid, helpers) {
@@ -32,7 +32,8 @@
 
 			assert.deepEqual(gridWidget.options, {
 				mode: "3x3",
-				scrollbar: true
+				scrollbar: true,
+				lines: 3
 			}, "options was correct initialized");
 
 			assert.equal(gridWidget._currentIndex, -1, "_currentIndex was initialized")
@@ -198,6 +199,7 @@
 			var gridWidget = new Grid();
 
 			gridWidget._items = new Array(7);
+			gridWidget._setLines(3);
 
 			assert.equal(gridWidget._getGridSize("3x3"), 501.5, "aaa");
 			assert.equal(gridWidget._getGridSize("image"), 2520, "aaa");
@@ -299,7 +301,7 @@
 
 			expect(4);
 			gridWidget.element = element;
-			gridWidget._getGridSize = function(type) {
+			gridWidget._getGridSize = function (type) {
 				assert.equal(type, "3x3", "_getGridSize was called with 3x3");
 				return 123
 			};
@@ -321,6 +323,7 @@
 					{ to: {} }
 				];
 
+			gridWidget._setLines(3);
 			gridWidget._assembleItemsTo3x3(items);
 			assert.deepEqual(items, [
 				{

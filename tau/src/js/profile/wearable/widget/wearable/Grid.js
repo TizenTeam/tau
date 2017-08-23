@@ -215,14 +215,16 @@
 					 * @member ns.widget.wearable.Grid
 					 */
 					self.options = {
-					// default Grid mode is Thumbnail 3x3
+						// default Grid mode is Thumbnail 3x3
 						mode: "3x3",
-						scrollbar: true
+						scrollbar: true,
+						lines: 3
 					};
 					self._ui = {
 						container: null
 					};
 					self._currentIndex = -1;
+					self._settings = null;
 				},
 				CLASS_PREFIX = "ui-grid",
 				CLASSES = {
@@ -233,16 +235,31 @@
 					POSITIONED: "ui-positioned"
 				},
 				GALLERY_WIDTH = 360,
-				MARGIN_TOP = 0,
-				MARGIN_LEFT = 11,
+				HEIGHT_IN_GRID_MODE = 101,
+				// setting for Grich which depend from options
+				GRID_SETTINGS = {
+					// setting for lines = 2
+					2: {
+						marginTop: -75,
+						marginLeft: 38,
+						scale: 0.3833,
+						size: 146
+					},
+					// setting for lines = 3
+					3: {
+						marginTop: 0,
+						marginLeft: 11,
+						scale: 0.3027,
+						size: 115
+					}
+				},
 				GRID_MARGIN = 5,
 				THUMBNAIL_MARGIN = 26,
 				SCROLL_DURATION = 250,
 				TRANSFORM_DURATION = 450, // [ms]
 				SCALE = {
-					"GALLERY": 0.3027,
-					"IMAGE": 1,
-					"THUMBNAIL": 0.6
+					IMAGE: 1,
+					THUMBNAIL: 0.6
 				},
 				prototype = new Listview();
 
@@ -285,7 +302,7 @@
 			function getItemWidth(self, mode) {
 				switch (mode || self.options.mode) {
 					case "3x3":
-						return GALLERY_WIDTH * SCALE.GALLERY + GRID_MARGIN;
+						return GALLERY_WIDTH * self._settings.scale + GRID_MARGIN;
 					case "image":
 						return GALLERY_WIDTH; // full screen
 					case "thumbnail":
@@ -366,7 +383,7 @@
 				switch (self.options.mode) {
 					case "3x3" :
 						updateItemsFrom(items);
-						assembleItemsTo3x3(items);
+						self._assembleItemsTo3x3(items);
 						anim(items, TRANSFORM_DURATION, changeItems, transformItem, function () {
 							element.style.width = getGridSize(self, "3x3") + "px";
 						});
@@ -423,7 +440,7 @@
 
 							// refresh grid 3x3
 							updateItemsFrom(items);
-							assembleItemsTo3x3(items);
+							self._assembleItemsTo3x3(items);
 
 							anim(items, TRANSFORM_DURATION, changeItems, transformItem, function () {
 								updateSnapPointPositions(self);
@@ -644,12 +661,14 @@
 					delta = 0,
 					interval = 3,
 					point = null,
-					i = 0;
+					i = 0,
+					settings = self._settings,
+					scale = settings.scale;
 
 				switch (self.options.mode) {
 					case "3x3" :
-						start = GALLERY_WIDTH * SCALE.GALLERY / 2 + MARGIN_LEFT;
-						delta = GALLERY_WIDTH * SCALE.GALLERY / 3;
+						start = GALLERY_WIDTH * scale / 2 + settings.marginLeft;
+						delta = GALLERY_WIDTH * scale / 3;
 						interval = 3;
 						break;
 					case "image" :
@@ -701,11 +720,32 @@
 					container.removeAttribute("tizen-circular-scrollbar");
 				}
 			};
+
+			/**
+			 * Parse, validate and set lines option and set correct settings for option
+			 * @param {HTMLElement} element
+			 * @param {number|string} value
+			 * @protected
+			 * @method _init
+			 * @memberof ns.widget.wearable.Grid
+			 */
+			prototype._setLines = function (element, value) {
+				var linesCount = parseInt(value, 10);
+
+				// validation: possible values 2 or 3, all values different from 2 will be change to 3 (default)
+				if (linesCount !== 2) {
+					linesCount = 3;
+				}
+				this._settings = GRID_SETTINGS[linesCount];
+
+				this.options.lines = linesCount;
+			};
+
 			/**
 			 * Widget init method
 			 * @protected
 			 * @method _init
-			 * @member ns.widget.wearable.Grid
+			 * @memberof ns.widget.wearable.Grid
 			 */
 			prototype._init = function () {
 				var self = this,
@@ -715,11 +755,13 @@
 
 				self.element.classList.add("ui-children-positioned");
 
+				self._setLines(self.element, self.options.lines);
+
 				// collect grid items from DOM
 				getItems(self);
 
 				//updateItemsFrom(items);
-				assembleItemsTo3x3(items);
+				self._assembleItemsTo3x3(items);
 				// apply transformations to items immediately
 				transformItems(self);
 
@@ -869,34 +911,37 @@
 				}
 			}
 
-			function assembleItemsTo3x3(items) {
-				var len = items.length,
+			prototype._assembleItemsTo3x3 = function (items) {
+				var self = this,
+					length = items.length,
 					i = 0,
 					index,
 					left,
 					top,
-					width = 115,
-					height = 101,
 					to,
-					pattern = [[width / 2, -height], [0, 0], [width / 2, height]];
+					settings = self._settings,
+					size = settings.size,
+					// pattern of positioning elements in 3x3 mode, relative position [x, y] in column
+					pattern = [[size / 2, -HEIGHT_IN_GRID_MODE], [0, 0], [size / 2, HEIGHT_IN_GRID_MODE]];
 
-				for (; i < len; ++i) {
+				for (; i < length; ++i) {
 					to = items[i].to;
 
-					index = i % 3;
-					left = pattern[index][0] + ((i / 3) | 0) * width + MARGIN_LEFT;
-					top = pattern[index][1] + MARGIN_TOP;
-
-
+					if (self.options.lines === 3) {
+						index = i % 3;
+						left = pattern[index][0] + ((i / 3) | 0) * size;
+						top = pattern[index][1];
+					} else {
+						left = ((i / 2) | 0) * size;
+						top = (i % 2) * size;
+					}
+					to.scale = settings.scale;
 					to.position = {
-						left: left,
-						top: top
+						left: left + settings.marginLeft,
+						top: top + settings.marginTop
 					};
-					to.scale = SCALE.GALLERY;
 				}
-			}
-
-			prototype._assembleItemsTo3x3 = assembleItemsTo3x3;
+			};
 
 			function assembleItemsToImages(self) {
 				var items = self._items,
@@ -1006,12 +1051,13 @@
 
 			function getGridSize(self, mode) {
 				var width,
-					length = self._items.length;
+					length = self._items.length,
+					settings = self._settings;
 
 				switch (mode) {
 					case "3x3" :
 						width = max(
-							(ceil(length / 3) + 1.5) * ceil(GALLERY_WIDTH * SCALE.GALLERY) + MARGIN_LEFT,
+							(ceil(length / 3) + 1.5) * ceil(GALLERY_WIDTH * settings.scale) + settings.marginLeft,
 							GALLERY_WIDTH
 						);
 						break;
@@ -1160,7 +1206,7 @@
 					items = self._items,
 					scrollLeft = getGridScrollPosition(self, "3x3");
 
-				assembleItemsTo3x3(items);
+				self._assembleItemsTo3x3(items);
 				transformItems(self);
 
 				self._dispersionItems(self._currentIndex);
@@ -1172,7 +1218,7 @@
 				items[self._currentIndex].position.left = min(scrollLeft, getGridSize(self, "3x3") - GALLERY_WIDTH);
 
 				updateItemsFrom(items);
-				assembleItemsTo3x3(items);
+				self._assembleItemsTo3x3(items);
 
 				anim(items, TRANSFORM_DURATION, changeItems, transformItem, function onTransitionEnd() {
 					element.style.width = getGridSize(self, "3x3") + "px";
@@ -1224,7 +1270,7 @@
 								left: state.left + 2.2 * (state.left - center.position.left),
 								top: state.top + 2.2 * (state.top - center.position.top)
 							},
-							scale: SCALE.GALLERY
+							scale: self._settings.scale
 						};
 					} else {
 						item.to = {
