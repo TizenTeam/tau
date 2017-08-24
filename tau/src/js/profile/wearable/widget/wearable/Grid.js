@@ -249,12 +249,18 @@
 							marginTop: -75,
 							marginLeft: 38,
 							scale: 0.3833,
+							scaleThumbnail: 0.6,
+							scaleThumbnailX: 0.6,
+							marginThumbnail: 26,
 							size: 146
 						},
 						rectangle: {
 							marginTop: -66,
 							marginLeft: 57,
 							scale: 0.325,
+							scaleThumbnail: 0.7055,
+							scaleThumbnailX: 0.4722,
+							marginThumbnail: -8,
 							size: 130
 						}
 					},
@@ -264,6 +270,9 @@
 							marginTop: 0,
 							marginLeft: 11,
 							scale: 0.3027,
+							scaleThumbnail: 0.6,
+							scaleThumbnailX: 0.6,
+							marginThumbnail: 26,
 							size: 115
 						},
 						rectangle: {
@@ -272,12 +281,10 @@
 					}
 				},
 				GRID_MARGIN = 5,
-				THUMBNAIL_MARGIN = 26,
 				SCROLL_DURATION = 250,
 				TRANSFORM_DURATION = 450, // [ms]
 				SCALE = {
-					IMAGE: 1,
-					THUMBNAIL: 0.6
+					IMAGE: 1
 				},
 				prototype = new Listview();
 
@@ -318,13 +325,15 @@
 			}
 
 			function getItemWidth(self, mode) {
+				var settings = self._settings;
+
 				switch (mode || self.options.mode) {
 					case "3x3":
-						return GALLERY_WIDTH * self._settings.scale + GRID_MARGIN;
+						return GALLERY_WIDTH * settings.scale + GRID_MARGIN;
 					case "image":
 						return GALLERY_WIDTH; // full screen
 					case "thumbnail":
-						return GALLERY_WIDTH * SCALE.THUMBNAIL + THUMBNAIL_MARGIN;
+						return GALLERY_WIDTH * settings.scaleThumbnailX + settings.marginThumbnail;
 					default:
 						return 0;
 				}
@@ -413,7 +422,7 @@
 						});
 						break;
 					case "thumbnail" :
-						prepareInsertItem(items, index, getItemWidth(self), SCALE.THUMBNAIL);
+						prepareInsertItem(items, index, getItemWidth(self), self.settings.scaleThumbnailX);
 						anim(items, TRANSFORM_DURATION, changeItems, transformItem, function () {
 							element.style.width = getGridSize(self, "thumbnail") + "px";
 						});
@@ -550,7 +559,7 @@
 				var element = self.element;
 
 				// thumbnail mode is accessible only from image mode
-				if (self.options.mode === "image" && self._currentIndex !== -1) {
+				if (self._currentIndex !== -1) {
 					element.classList.add(CLASSES.THUMBNAIL);
 				}
 			}
@@ -696,7 +705,7 @@
 						break;
 					case "thumbnail" :
 						start = GALLERY_WIDTH / 2;
-						delta = GALLERY_WIDTH * SCALE.THUMBNAIL + THUMBNAIL_MARGIN;
+						delta = GALLERY_WIDTH * settings.scaleThumbnailX + settings.marginThumbnail;
 						interval = 1;
 						break;
 				}
@@ -849,7 +858,7 @@
 				var element = item.element,
 					style = element.style,
 					transform = "translate3d(" + item.position.left + "px, " + item.position.top + "px, 0)",
-					scale = "scale(" + item.scale + ", " + item.scale + ")";
+					scale = "scale(" + item.scale + ")";
 
 				style.transform = transform + " " + scale;
 				style.webkitTransform = transform + " " + scale;
@@ -1011,7 +1020,8 @@
 					len = items.length,
 					to = null,
 					width = getItemWidth(self, "thumbnail"),
-					i = 0;
+					i = 0,
+					settings = self._settings;
 
 				for (; i < len; ++i) {
 					to = items[i].to;
@@ -1019,7 +1029,11 @@
 						left: i * width,
 						top: 0
 					};
-					to.scale = SCALE.THUMBNAIL;
+					if (i === self._currentIndex) {
+						to.scale = settings.scaleThumbnail;
+					} else {
+						to.scale = settings.scaleThumbnailX;
+					}
 				}
 			}
 
@@ -1060,7 +1074,7 @@
 						left: i * getItemWidth(self, "image"),
 						top: 0
 					};
-					to.scale = SCALE.THUMBNAIL;
+					to.scale = self._settings.scaleThumbanil;
 				}
 			}
 
@@ -1111,9 +1125,9 @@
 						width = length * GALLERY_WIDTH;
 						break;
 					case "thumbnail" :
-						width = length * GALLERY_WIDTH * SCALE.THUMBNAIL +
-							(length - 1.5) * THUMBNAIL_MARGIN +
-							GALLERY_WIDTH * (1 - SCALE.THUMBNAIL);
+						width = length * GALLERY_WIDTH * settings.scaleThumbnailX +
+							(length - 1.5) * settings.marginThumbnail +
+							GALLERY_WIDTH * (1 - settings.scaleThumbnailX);
 						break;
 					default:
 						width = GALLERY_WIDTH;
@@ -1166,7 +1180,7 @@
 						);
 					case "thumbnail" :
 						return min(
-							round((scroll - THUMBNAIL_MARGIN) / itemWidth),
+							round((scroll - self._settings.marginThumbnail) / itemWidth),
 							items.length - 1
 						);
 					default :
@@ -1394,10 +1408,18 @@
 
 			prototype._onScroll = function () {
 				var self = this,
-					currentIndex = self._findItemIndexByScroll(self._ui.container);
+					newIndex = self._findItemIndexByScroll(self._ui.container);
+
+				if (self._currentIndex !== newIndex && self.options.mode === "thumbnail") {
+					self._currentIndex = newIndex;
+					scaleItemsToThumbnails(self);
+					anim(self._items, 0, changeItems, transformItem, function () {
+						updateSnapPointPositions(self);
+					});
+				}
 
 				self.trigger("change", {
-					active: currentIndex
+					active: newIndex
 				});
 			};
 

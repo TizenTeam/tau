@@ -78,7 +78,6 @@
 			transform-origin: center center;
 			width: 360 * @unit_base;
 			height: 360 * @unit_base;
-			border-radius: 100%;
 			overflow: hidden;
 			a {
 				display: inline-block;
@@ -92,6 +91,15 @@
 	}
 	&.ui-grid-thumbnail {
 		background-color: @color_grid_thumbnail_bg;
+
+		&.ui-grid-rectangle {
+			li {
+				mask-image: url(images/Grid/tw_basic_grid_horizontal.png);
+				mask-size: 224 * @unit_base;
+				mask-position: center;
+				mask-repeat: no-repeat;
+			}
+		}
 	}
 	/* --------------- */
 }
