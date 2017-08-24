@@ -3,23 +3,38 @@
 <head>
 	<link rel="stylesheet" href="../lib/tau/wearable/theme/default/tau.css">
 	<link rel="stylesheet" href="../lib/tau/wearable/theme/default/tau.circle.css">
+	<link rel="stylesheet" href="../css/fonts.css">
 	<link rel="stylesheet" href="../css/style.css">
 	<link rel="stylesheet" href="../css/style-circle.css">
 </head>
-
 <body>
-<div id="moreoptionsPage4s" class="ui-page">
-	<header class="ui-header ui-has-more">
-		<h2 class="ui-title">More Options</h2>
-	</header>
-	<div class="ui-content ui-content-padding">
-		<button type="button" class="ui-more">More Options</button>
-	</div>
-
-	<!-- Circle Profile -->
-	<div id="moreoptionsPopupCircleIs" class="ui-popup">
-		<div id="selector" class="ui-selector">
-			<div class="ui-item show-icon" data-icon="./images/1.jpg" data-subtitle="Kkkkkkkkk"></div>
+<div id="101-rotary-selector-with-icon-and-subtext-page" class="ui-page" data-enable-page-scroll="false">
+	<div class="ui-content">
+		<div id="101-rotary-selector-with-icon-and-subtext-selector" class="ui-selector">
+			<div class="ui-item show-icon" data-title="This is invisible title"
+				 data-subtitle="go to phone"
+				 data-icon="../../../css/images/b_more_option_show_on_device_icon.png"
+			></div>
+			<div class="ui-item human-icon" data-title="Human"></div>
+			<div class="ui-item delete-icon" data-title="Delete"
+				 data-icon="../../../css/images/b_more_option_delete_icon.png"></div>
+			<div class="ui-item show-icon" data-title="Show" data-subtitle="action"></div>
+			<div class="ui-item human-icon" data-title="Human"></div>
+			<div class="ui-item delete-icon" data-title="Delete"></div>
+			<div class="ui-item x-icon" data-title="X Icon"></div>
+			<div class="ui-item fail-icon" data-title="Fail"></div>
+			<div class="ui-item show-icon" data-title="Show on phone"></div>
+			<div class="ui-item human-icon" data-title="Human"></div>
+			<div class="ui-item delete-icon" data-title="Delete"></div>
+			<div class="ui-item show-icon" data-title="Show"></div>
+			<div class="ui-item human-icon" data-title="Human"></div>
+			<div class="ui-item delete-icon" data-title="Delete"
+				 data-icon="images/default/gallery_default_image_10.jpg"
+				 data-subtitle="Kkkkkkkkk"
+			></div>
+			<div class="ui-item x-icon" data-title="X Icon"></div>
+			<div class="ui-item fail-icon" data-title="Fail"></div>
+			<div class="ui-item show-icon" data-title="Show"></div>
 			<div class="ui-item human-icon" data-title="Human"></div>
 			<div class="ui-item delete-icon" data-title="Delete"></div>
 			<div class="ui-item show-icon" data-title="Show"></div>
@@ -33,27 +48,11 @@
 			<div class="ui-item show-icon" data-title="Show"></div>
 			<div class="ui-item human-icon" data-title="Human"></div>
 			<div class="ui-item delete-icon" data-title="Delete"></div>
+			<div class="ui-item x-icon" data-title="X Icon"></div>
+			<div class="ui-item fail-icon" data-title="Fail"></div>
 		</div>
 	</div>
-
-	<script type="text/javascript" src="96-more-options-open-with-icon-and-subtext.js"></script>
-	<script>
-		(function () {
-			var page = document.getElementById("moreoptionsPage4s"),
-				popupElement = document.getElementById("moreoptionsPopupCircleIs"),
-				popup,
-				onPageShow = function () {
-					popup = tau.widget.Popup(popupElement);
-					popup.open();
-				},
-				onPageHide = function () {
-					popup.destroy();
-				};
-
-			page.addEventListener("pageshow", onPageShow);
-			page.addEventListener("pagebeforehide", onPageHide);
-		}());
-	</script>
+	<script type="text/javascript" src="./101-rotary-selector-with-icon-and-subtext.js"></script>
 </div>
 <script type="text/javascript" src="../lib/tau/wearable/js/tau.js" data-build-remove="false"></script>
 <script type="text/javascript" src="../js/circle-helper.js"></script>

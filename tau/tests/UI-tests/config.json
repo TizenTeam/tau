@@ -1708,12 +1708,6 @@
 				"height": 360
 			},
 			{
-				"name": "101-rotary-selector-with-icon",
-				"time": 0,
-				"width": 360,
-				"height": 360
-			},
-			{
 				"name": "109-popup-2-buttons-with-btn-text-inside-btn",
 				"time": 0,
 				"width": 360,
@@ -1727,12 +1721,6 @@
 			},
 			{
 				"name": "110-bottom-button-text-position",
-				"time": 0,
-				"width": 360,
-				"height": 360
-			},
-			{
-				"name": "101-rotary-selector-with-icon-and-subtext",
 				"time": 0,
 				"width": 360,
 				"height": 360
@@ -1806,8 +1794,27 @@
 				"height": 360
 			},
 			{
+				"name": "98-rotary-selector",
+				"width": 360,
+				"height": 360
+			},
+			{
+				"name": "100-rotary-selector-with-subtext",
+				"width": 360,
+				"height": 360
+			},
+			{
+				"name": "101-rotary-selector-with-icon",
+				"width": 360,
+				"height": 360
+			},
+			{
+				"name": "101-rotary-selector-with-icon-and-subtext",
+				"width": 360,
+				"height": 360
+			},
+			{
 				"name": "113-bottom-button-text-position-with-image-100px",
-				"time": 0,
 				"width": 360,
 				"height": 360
 			},

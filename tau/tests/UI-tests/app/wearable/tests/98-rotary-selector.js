@@ -1,7 +1,7 @@
 /* global tau */
 (function () {
-	var page = document.getElementById("101-rotary-selector-with-icon-page"),
-		selector = document.getElementById("101-rotary-selector-with-icon-selector"),
+	var page = document.getElementById("98-rotary-selector-page"),
+		selector = document.getElementById("98-rotary-selector"),
 		selectorComponent;
 
 	/**
