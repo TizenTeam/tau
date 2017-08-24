@@ -1468,7 +1468,8 @@
 			{
 				"name": "48-grid-rectangle-horizontal",
 				"width": 360,
-				"height": 360
+				"height": 360,
+				"pass": true
 			},
 			{
 				"name": "49-grid-rectangle-horizontal",
