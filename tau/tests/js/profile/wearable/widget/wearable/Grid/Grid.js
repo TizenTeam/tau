@@ -33,7 +33,8 @@
 			assert.deepEqual(gridWidget.options, {
 				mode: "3x3",
 				scrollbar: true,
-				lines: 3
+				lines: 3,
+				shape: "circle"
 			}, "options was correct initialized");
 
 			assert.equal(gridWidget._currentIndex, -1, "_currentIndex was initialized")

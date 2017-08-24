@@ -12,7 +12,6 @@
 	li {
 		transform-origin: left center;
 		position: absolute;
-		border-radius: 100%;
 		overflow: hidden;
 		transform-style: preserve-3d;
 		a {
@@ -26,6 +25,19 @@
 			}
 		}
 	}
+
+	&.ui-grid-circle {
+		li {
+			border-radius: 100%;
+		}
+	}
+
+	&.ui-grid-rectangle {
+		li {
+			border-radius: 18 * @unit_base;
+		}
+	}
+
 	/**
 	 * Gallery mode: Thumbnail 3x3
 	 */

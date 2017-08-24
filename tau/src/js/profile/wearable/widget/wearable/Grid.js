@@ -212,13 +212,17 @@
 					 * Object with default options
 					 * @property {Object} options
 					 * @property {string} [options.mode="3x3"] grid mode
+					 * @property {boolean} [options.scrollbar=true] enable/disable scrollbar
+					 * @property {number} [options.lines=3] number of lines in grid view: 2 or 3
+					 * @property {string} [options.mode="circle"] shape of block: circle or rectangle
 					 * @member ns.widget.wearable.Grid
 					 */
 					self.options = {
 						// default Grid mode is Thumbnail 3x3
 						mode: "3x3",
 						scrollbar: true,
-						lines: 3
+						lines: 3,
+						shape: "circle"
 					};
 					self._ui = {
 						container: null
@@ -228,6 +232,7 @@
 				},
 				CLASS_PREFIX = "ui-grid",
 				CLASSES = {
+					SHAPE_PREFIX: CLASS_PREFIX + "-",
 					MODE3X3: CLASS_PREFIX + "-3x3",
 					THUMBNAIL: CLASS_PREFIX + "-thumbnail",
 					IMAGE: CLASS_PREFIX + "-image",
@@ -240,17 +245,30 @@
 				GRID_SETTINGS = {
 					// setting for lines = 2
 					2: {
-						marginTop: -75,
-						marginLeft: 38,
-						scale: 0.3833,
-						size: 146
+						circle: {
+							marginTop: -75,
+							marginLeft: 38,
+							scale: 0.3833,
+							size: 146
+						},
+						rectangle: {
+							marginTop: -66,
+							marginLeft: 57,
+							scale: 0.325,
+							size: 130
+						}
 					},
 					// setting for lines = 3
 					3: {
-						marginTop: 0,
-						marginLeft: 11,
-						scale: 0.3027,
-						size: 115
+						circle: {
+							marginTop: 0,
+							marginLeft: 11,
+							scale: 0.3027,
+							size: 115
+						},
+						rectangle: {
+
+						}
 					}
 				},
 				GRID_MARGIN = 5,
@@ -726,19 +744,44 @@
 			 * @param {HTMLElement} element
 			 * @param {number|string} value
 			 * @protected
-			 * @method _init
+			 * @method _setLines
 			 * @memberof ns.widget.wearable.Grid
 			 */
 			prototype._setLines = function (element, value) {
-				var linesCount = parseInt(value, 10);
+				var linesCount = parseInt(value, 10),
+					options = this.options;
 
 				// validation: possible values 2 or 3, all values different from 2 will be change to 3 (default)
 				if (linesCount !== 2) {
 					linesCount = 3;
 				}
-				this._settings = GRID_SETTINGS[linesCount];
+				this._settings = GRID_SETTINGS[linesCount][options.shape];
+				options.lines = linesCount;
+			};
 
-				this.options.lines = linesCount;
+			/**
+			 * Validate and set shape style option
+			 * @param {HTMLElement} element
+			 * @param {string} value
+			 * @protected
+			 * @method _setShape
+			 * @memberof ns.widget.wearable.Grid
+			 */
+			prototype._setShape = function (element, value) {
+				var shape = value,
+					options = this.options,
+					classList = element.classList;
+
+				// validation
+				if (shape !== "rectangle") {
+					shape = "circle";
+				}
+
+				classList.remove(CLASSES.SHAPE_PREFIX + options.shape);
+				classList.add(CLASSES.SHAPE_PREFIX + shape);
+
+				this._settings = GRID_SETTINGS[options.lines][shape];
+				options.shape = shape;
 			};
 
 			/**
@@ -749,13 +792,16 @@
 			 */
 			prototype._init = function () {
 				var self = this,
-					items = [];
+					items = [],
+					element = self.element,
+					options = self.options;
 
 				self._items = items;
 
-				self.element.classList.add("ui-children-positioned");
+				element.classList.add("ui-children-positioned");
 
-				self._setLines(self.element, self.options.lines);
+				self._setLines(element, options.lines);
+				self._setShape(element, options.shape);
 
 				// collect grid items from DOM
 				getItems(self);
@@ -770,7 +816,7 @@
 				updateSnapPointPositions(self);
 
 				// set proper grid look
-				self.mode(self.options.mode);
+				self.mode(options.mode);
 			};
 
 			function findChildIndex(self, target) {
