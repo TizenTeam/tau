@@ -1,31 +1,14 @@
 <!DOCTYPE html>
 <html>
-<!--
-	Template contains one page with Gallery widget.
-	The Gallery widget has three modes:
-	 - gallery
-	 - view
-	 - thumbnail
-	The Gallery widget has public methods:
-	 - add(url, index)
-	 - remove(index)
-	 - mode(type)
-	 - changeIndex(index)
-	 - getIndex()
--->
 <head>
 	<meta name="viewport" content="width=device-width,user-scalable=no"/>
-	<link rel="stylesheet"  href="../../lib/tau/wearable/theme/default/tau.css">
-	<link rel="stylesheet"
-		  media="all and (-tizen-geometric-shape: circle)"
-		  href="../../lib/tau/wearable/theme/default/tau.circle.min.css">
-
-	<title>Tizen Web IDE - Template - Tizen Web UI Framework - Image Gallery</title>
-	<link rel="stylesheet" type="text/css" href="../../css/style.css"/>
+	<link rel="stylesheet" href="../../lib/tau/wearable/theme/default/tau.css">
+	<link rel="stylesheet" media="all and (-tizen-geometric-shape: circle)" href="../../lib/tau/wearable/theme/default/tau.circle.css">
+	<link rel="stylesheet" href="../../css/style.css">
+	<link rel="stylesheet" media="all and (-tizen-geometric-shape: circle)" href="../../css/style.circle.css">
 </head>
 
 <body>
-	<!-- Start of first page: #one -->
 	<div class="ui-page">
 		<header>
 			<h2 class="ui-title">Grid</h2>
@@ -35,10 +18,13 @@
 				<li><a href="simple.html">Simple</a></li>
 				<li><a href="indicator.html">With indicator</a></li>
 				<li><a href="2-lines.html">2 lines</a></li>
+				<li><a href="2-lines-rectangle-horizontal.html">2 lines rectangle horizontal</a></li>
 			</ul>
 		</div>
 	</div>
-
+	<script src="../../js/circle-helper.js"></script>
+	<script src="../../js/app.js"></script>
+	<script src="../../js/lowBatteryCheck.js"></script>
 	<script src="../../lib/tau/wearable/js/tau.js"></script>
 </body>
 </html>
