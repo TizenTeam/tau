@@ -1475,7 +1475,8 @@
 				"name": "49-grid-rectangle-horizontal",
 				"time": 5000,
 				"width": 360,
-				"height": 360
+				"height": 360,
+				"pass": true
 			},
 			{
 				"name": "45-progress-indicator-full",
