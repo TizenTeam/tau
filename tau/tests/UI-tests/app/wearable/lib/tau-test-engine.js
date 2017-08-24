@@ -169,8 +169,9 @@ function onRequestSuccess(status) {
 	nextTestCase();
 }
 
-function onPageChange() {
-	var path = tau.util.path.parseUrl(tau.router.history.activeState.url);
+function onPageChange(event) {
+	var target = event.target,
+		path = tau.util.path.parseUrl(target.dataset.url);
 
 	// wait 1s and take a screenshot, requered by gridview
 	tau.log(path.filename);

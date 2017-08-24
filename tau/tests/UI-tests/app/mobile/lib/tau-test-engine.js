@@ -4,7 +4,7 @@ var timerHandler = 0,
 	FIRST_DELAY = 100,
 	RESPONSE_INTERVAL = 100,
 	TEST_REQUEST_DIR = "downloads",
-    // path on device: /opt/usr/home/owner/media/Downloads/test-status.txt
+	// path on device: /opt/usr/home/owner/media/Downloads/test-status.txt
 	TEST_REQUEST_FILE_NAME = "test-request.txt",
 	TEST_RESPONSE_FILE_NAME = "test-response.txt",
 	dir = null,
@@ -15,9 +15,9 @@ var timerHandler = 0,
 function openComm(onSuccess) {
 	if (window.tizen) {
 		tizen.filesystem.resolve(TEST_REQUEST_DIR, function (resultDir) {
-            // set global variable
+			// set global variable
 			dir = resultDir;
-            // Remove old request file
+			// Remove old request file
 			dir.deleteFile(TEST_REQUEST_FILE_NAME);
 			onSuccess();
 		});
@@ -33,8 +33,8 @@ function getResponse(onSuccess) {
 			fileHandle = null,
 			i;
 
-        // important!
-        // wait on request file delete
+		// important!
+		// wait on request file delete
 		for (i = 0; i < length; i++) {
 			if (list[i].name === TEST_REQUEST_FILE_NAME) {
 				console.log("Request file exists. Wait for remove file");
@@ -44,13 +44,13 @@ function getResponse(onSuccess) {
 		}
 
 		if (fileHandle) {
-            // Wait for remove request file
+			// Wait for remove request file
 			setTimeout(getResponse.bind(null, onSuccess), RESPONSE_INTERVAL);
 		} else {
-            // IF REQUEST FILE NAME HAS BEEN DELETED THEN GET RESPONSE
+			// IF REQUEST FILE NAME HAS BEEN DELETED THEN GET RESPONSE
 			if (!fileHandle) {
 				console.log("Request file not exists");
-                // check if response file exists;
+				// check if response file exists;
 				for (i = 0; i < length; i++) {
 					if (list[i].name === TEST_RESPONSE_FILE_NAME) {
 						fileHandle = list[i];
@@ -76,7 +76,7 @@ function getResponse(onSuccess) {
 						tau.log(err);
 					});
 			} else {
-                // Wait for remove response file
+				// Wait for remove response file
 				setTimeout(getResponse.bind(null, onSuccess), RESPONSE_INTERVAL);
 			}
 		}
@@ -91,7 +91,7 @@ function sendRequest(status, onSuccess) {
 	dir.listFiles(function (list) {
 		length = list.length;
 
-        // check request
+		// check request
 		for (i = 0; i < length; i++) {
 			if (list[i].name === TEST_REQUEST_FILE_NAME) {
 				fileHandle = list[i];
@@ -108,7 +108,7 @@ function sendRequest(status, onSuccess) {
 				fileStream.write(status);
 				fileStream.close();
 
-                // wait for response from server;
+				// wait for response from server;
 				getResponse(onSuccess);
 			},
 			function (err) {
@@ -124,7 +124,7 @@ function readTextFile(file, callback) {
 	rawFile.open("GET", file, true);
 	rawFile.onreadystatechange = function () {
 		if (rawFile.readyState === 4 && (rawFile.status == "200" ||
-            rawFile.status === 0)) {
+			rawFile.status === 0)) {
 			callback(rawFile.responseText);
 		}
 	};
@@ -137,14 +137,14 @@ function onEnd() {
 
 
 function nextTestCase() {
-    // prepare next test case
+	// prepare next test case
 	testCase = tests.shift();
 
 	if (testCase) {
 		timerHandler = setTimeout(
 			startTestCase,
 			200
-        );
+		);
 	} else {
 		setTimeout(function () {
 			sendRequest("end!", onEnd);
@@ -169,10 +169,11 @@ function onRequestSuccess(status) {
 	nextTestCase();
 }
 
-function onPageChange() {
-	var path = tau.util.path.parseUrl(tau.router.history.activeState.url);
+function onPageChange(event) {
+	var target = event.target,
+		path = tau.util.path.parseUrl(target.dataset.url);
 
-    // wait 1s and take a screenshot, requered by gridview
+	// wait 1s and take a screenshot, requered by gridview
 	tau.log(path.filename);
 	setTimeout(function () {
 		sendRequest("take-screenshot:" + path.filename, onRequestSuccess);
