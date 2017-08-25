@@ -1611,12 +1611,6 @@
 				"height": 360
 			},
 			{
-				"name": "76-color-picker",
-				"time": 0,
-				"width": 360,
-				"height": 360
-			},
-			{
 				"name": "80-popup-2-buttons-and-small-checkbox",
 				"time": 0,
 				"width": 360,
@@ -1812,6 +1806,16 @@
 				"height": 360
 			},
 			{
+				"name": "100-rotary-selector-2-lines",
+				"width": 360,
+				"height": 360
+			},
+			{
+				"name": "100-rotary-selector-2-lines-subtext",
+				"width": 360,
+				"height": 360
+			},
+			{
 				"name": "100-rotary-selector-with-subtext",
 				"width": 360,
 				"height": 360
@@ -1822,7 +1826,7 @@
 				"height": 360
 			},
 			{
-				"name": "101-rotary-selector-with-icon-and-subtext",
+				"name": "101-rotary-selector-with-icon-and-text",
 				"width": 360,
 				"height": 360
 			},

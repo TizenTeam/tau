@@ -128,6 +128,7 @@
 					INDICATOR_TEXT: "ui-selector-indicator-text",
 					INDICATOR_ICON: "ui-selector-indicator-icon",
 					INDICATOR_ICON_ACTIVE: "ui-selector-indicator-icon-active",
+					INDICATOR_ICON_ACTIVE_WITH_TEXT: "ui-selector-indicator-icon-active-with-text",
 					INDICATOR_SUBTEXT: "ui-selector-indicator-subtext",
 					INDICATOR_WITH_SUBTITLE: "ui-selector-indicator-with-subtext",
 					INDICATOR_NEXT_END: "ui-selector-indicator-next-end",
@@ -135,7 +136,7 @@
 					INDICATOR_ARROW: "ui-selector-indicator-arrow"
 				},
 				STATIC = {
-					RADIUS_RATIO: 0.78
+					RADIUS_RATIO: 0.8
 				},
 				DEFAULT = {
 					ITEM_SELECTOR: "." + classes.ITEM,
@@ -295,38 +296,24 @@
 			 * @member ns.widget.wearable.Selector
 			 */
 			function addLayerClasses(self, validLayer) {
-				var options = self.options,
-					validPrevLayer = validLayer.previousElementSibling,
+				var validPrevLayer = validLayer.previousElementSibling,
 					validNextLayer = validLayer.nextElementSibling,
-					radius = options.itemRadius,
-					prevLayerDeg,
-					ppLayerDeg,
-					nextLayerDeg,
-					nnLayerDeg,
 					ppLayer,
 					nnLayer;
 
 				if (validPrevLayer && validPrevLayer.classList.contains(classes.LAYER)) {
 					validPrevLayer.classList.add(classes.LAYER_PREV);
-					prevLayerDeg = DEFAULT.ITEM_START_DEGREE - DEFAULT.ITEM_DEGREE / 6;
-					setItemTransform(validPrevLayer, prevLayerDeg, radius, -prevLayerDeg, DEFAULT.ITEM_NORMAL_SCALE);
 					ppLayer = validPrevLayer.previousElementSibling;
-					ppLayerDeg = DEFAULT.ITEM_START_DEGREE - DEFAULT.ITEM_DEGREE / 4;
 					if (ppLayer && ppLayer.classList.contains(classes.LAYER)) {
 						ppLayer.classList.add(classes.LAYER_PREV_PREV);
-						setItemTransform(ppLayer, ppLayerDeg, radius, -ppLayerDeg, DEFAULT.ITEM_NORMAL_SCALE);
 					}
 				}
 
 				if (validNextLayer && validNextLayer.classList.contains(classes.LAYER)) {
 					validNextLayer.classList.add(classes.LAYER_NEXT);
-					nextLayerDeg = DEFAULT.ITEM_END_DEGREE + DEFAULT.ITEM_DEGREE / 6;
-					setItemTransform(validNextLayer, nextLayerDeg, radius, -nextLayerDeg, DEFAULT.ITEM_NORMAL_SCALE);
 					nnLayer = validNextLayer.nextElementSibling;
-					nnLayerDeg = DEFAULT.ITEM_END_DEGREE + DEFAULT.ITEM_DEGREE / 4;
 					if (nnLayer && nnLayer.classList.contains(classes.LAYER)) {
 						nnLayer.classList.add(classes.LAYER_NEXT_NEXT);
-						setItemTransform(nnLayer, nnLayerDeg, radius, -nnLayerDeg, DEFAULT.ITEM_NORMAL_SCALE);
 					}
 				}
 				validLayer.classList.add(classes.LAYER_ACTIVE);
@@ -385,14 +372,14 @@
 				indicator = document.createElement("div");
 				indicator.classList.add(classes.INDICATOR);
 				ui.indicator = indicator;
-				indicatorText = document.createElement("div");
-				indicatorText.classList.add(classes.INDICATOR_TEXT);
-				ui.indicatorText = indicatorText;
-				ui.indicator.appendChild(ui.indicatorText);
 				indicatorIcon = document.createElement("div");
 				indicatorIcon.classList.add(classes.INDICATOR_ICON);
 				ui.indicatorIcon = indicatorIcon;
 				ui.indicator.appendChild(ui.indicatorIcon);
+				indicatorText = document.createElement("div");
+				indicatorText.classList.add(classes.INDICATOR_TEXT);
+				ui.indicatorText = indicatorText;
+				indicator.appendChild(indicatorText);
 				indicatorSubText = document.createElement("div");
 				indicatorSubText.classList.add(classes.INDICATOR_SUBTEXT);
 				ui.indicatorSubText = indicatorSubText;
@@ -477,6 +464,7 @@
 				self._started = false;
 				self._enabled = true;
 				self._activeItemIndex = activeItemIndex === null ? 0 : activeItemIndex;
+
 				options.itemRadius = options.itemRadius < 0 ? validLayout / 2 * STATIC.RADIUS_RATIO : options.itemRadius;
 				len = items.length;
 				for (i = 0; i < len; i++) {
@@ -605,7 +593,7 @@
 				self._initItems(validLayer);
 				events.trigger(validLayer, EVENT_TYPE, {
 					index: index
-				})
+				});
 			};
 
 			/**
@@ -685,32 +673,42 @@
 					title = utilDom.getNSData(item, "title"),
 					icon = utilDom.getNSData(item, "icon"),
 					subtext = utilDom.getNSData(item, "subtitle"),
+					iconActiveClass = classes.INDICATOR_ICON_ACTIVE,
+					iconActiveWithTextClass = classes.INDICATOR_ICON_ACTIVE_WITH_TEXT,
+					indicatorWithSubtitleClass = classes.INDICATOR_WITH_SUBTITLE,
 					indicator = ui.indicator,
 					indicatorText = ui.indicatorText,
 					indicatorIcon = ui.indicatorIcon,
 					indicatorSubText = ui.indicatorSubText,
 					indicatorArrow = ui.indicatorArrow,
+					indicatorClassList = indicator.classList,
+					indicatorIconClassList = indicatorIcon.classList,
 					idcIndex = index % self.options.maxItemNumber;
 
-				if (!title && !icon) {
-					indicatorText.textContent = "ITEM";
-				}
-				if (icon) {
-					indicatorIcon.classList.add(classes.INDICATOR_ICON_ACTIVE);
-					indicatorIcon.style.backgroundImage = "url(" + icon + ")";
-					indicatorText.textContent = "";
-				} else {
-					if (title) {
-						indicatorText.textContent = title;
+				if (title) {
+					indicatorText.textContent = title;
+					if (subtext) {
+						indicatorClassList.add(indicatorWithSubtitleClass);
+						indicatorSubText.textContent = subtext;
+					} else {
+						indicatorClassList.remove(indicatorWithSubtitleClass);
+						indicatorSubText.textContent = "";
 					}
-					indicatorIcon.classList.remove(classes.INDICATOR_ICON_ACTIVE);
-				}
-				if (subtext) {
-					indicator.classList.add(classes.INDICATOR_WITH_SUBTITLE);
-					indicatorSubText.textContent = subtext;
+					if (icon) {
+						indicatorIconClassList.add(iconActiveWithTextClass);
+					}
 				} else {
-					indicator.classList.remove(classes.INDICATOR_WITH_SUBTITLE);
+					indicatorText.textContent = "";
+					indicatorIconClassList.remove(iconActiveWithTextClass);
+				}
+
+				if (icon) {
+					indicatorIconClassList.add(iconActiveClass);
+					indicatorIcon.style.backgroundImage = "url(" + icon + ")";
 					indicatorSubText.textContent = "";
+				} else {
+					indicatorIconClassList.remove(iconActiveClass);
+					indicatorIconClassList.remove(iconActiveWithTextClass);
 				}
 
 				utilDom.setNSData(indicator, "index", index);
@@ -793,15 +791,24 @@
 			 */
 			prototype._onClick = function (event) {
 				var self = this,
+					ui = self._ui,
 					pointedElement = document.elementFromPoint(event.pageX, event.pageY),
 					indicatorClassList = self._ui.indicator.classList,
+					targetElement = event.target,
+					activeLayer = ui.layers[self._activeLayerIndex],
+					prevLayer = activeLayer.previousElementSibling,
+					nextLayer = activeLayer.nextElementSibling,
 					index;
 
-				if (self._enabled) {
+				if (targetElement.classList.contains(classes.LAYER_PREV) && prevLayer) {
+					self._setItemAndLayer(self._activeLayerIndex - 1, self._activeLayerIndex * 11 - 1);
+				} else if (targetElement.classList.contains(classes.LAYER_NEXT) && nextLayer) {
+					self._setItemAndLayer(self._activeLayerIndex + 1, (self._activeLayerIndex + 1) * 11);
+				} else if (self._enabled) {
 					if (pointedElement && (pointedElement.classList.contains(classes.INDICATOR) || pointedElement.parentElement.classList.contains(classes.INDICATOR))) {
 						indicatorClassList.remove(classes.INDICATOR_ACTIVE);
 						requestAnimationFrame(function () {
-							indicatorClassList.add(classes.INDICATOR_ACTIVE)
+							indicatorClassList.add(classes.INDICATOR_ACTIVE);
 						});
 					}
 					if (pointedElement && pointedElement.classList.contains(classes.ITEM)) {
@@ -809,6 +816,17 @@
 						self._setActiveItem(index);
 					}
 				}
+			};
+
+			/**
+			 * Sets active layer and item
+			 * @param {number} layerIndex
+			 * @param {number} itemIndex
+			 * @private
+			 */
+			prototype._setItemAndLayer = function (layerIndex, itemIndex) {
+				this._activeItemIndex = itemIndex;
+				this._changeLayer(layerIndex);
 			};
 
 			/**
@@ -838,14 +856,13 @@
 					// check length
 					if (self._activeItemIndex === (activeLayerItemsLength + self._activeLayerIndex * options.maxItemNumber) - 1) {
 						if (nextLayer && nextLayer.classList.contains(classes.LAYER_NEXT)) {
-							self._activeItemIndex = self._activeItemIndex + 1;
-							self._changeLayer(self._activeLayerIndex + 1);
+							self._setItemAndLayer(self._activeLayerIndex + 1, self._activeItemIndex + 1);
 						} else {
 							bounceDegree = DEFAULT.ITEM_START_DEGREE + options.itemDegree * (self._activeItemIndex % options.maxItemNumber);
 							setIndicatorTransform(ui.indicatorArrow, bounceDegree + options.itemDegree / 3);
 							setTimeout(function () {
 								setIndicatorTransform(ui.indicatorArrow, bounceDegree);
-							}, 100)
+							}, 100);
 						}
 					} else {
 						self._changeItem(self._activeItemIndex + 1);
@@ -854,13 +871,12 @@
 					// check 0
 					if (self._activeItemIndex % options.maxItemNumber === 0) {
 						if (prevLayer && prevLayer.classList.contains(classes.LAYER_PREV)) {
-							self._activeItemIndex = self._activeItemIndex - 1;
-							self._changeLayer(self._activeLayerIndex - 1);
+							self._setItemAndLayer(self._activeLayerIndex - 1, self._activeItemIndex - 1);
 						} else {
 							setIndicatorTransform(ui.indicatorArrow, DEFAULT.ITEM_START_DEGREE - DEFAULT.ITEM_START_DEGREE / 3);
 							setTimeout(function () {
 								setIndicatorTransform(ui.indicatorArrow, DEFAULT.ITEM_START_DEGREE);
-							}, 100)
+							}, 100);
 						}
 					} else {
 						self._changeItem(self._activeItemIndex - 1);

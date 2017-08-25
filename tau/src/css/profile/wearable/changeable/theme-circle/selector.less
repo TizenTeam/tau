@@ -1,30 +1,24 @@
 .ui-selector {
 	background-color: @color_selector_layer_bg;
 	.ui-layer {
-		&.ui-layer-prev {
-			background-color: @color_selector_layer_sub1_bg;
-		}
-
-		&.ui-layer-prev-prev {
-			background-color: @color_selector_layer_sub2_bg;
-		}
-
-		&.ui-layer-next {
-			background-color: @color_selector_layer_sub1_bg;
-		}
-
-		&.ui-layer-next-next {
-			background-color: @color_selector_layer_sub2_bg;
-		}
 
 		.ui-item {
 			background-color: @color_selector_icon_bg;
+
 			&:active {
 				background-color: @color_selector_icon_bg_press;
 			}
 			&.ui-item-active:active {
 				background-color: @color_selector_icon_bg;
 			}
+		}
+
+		&.ui-layer-prev,  &.ui-layer-next {
+			background-color: @color_selector_btn;
+		}
+
+		&.ui-layer-prev:active, &.ui-layer-next:active {
+			background-color: @color_selector_btn_press;
 		}
 	}
 	.ui-selector-indicator {
@@ -35,6 +29,10 @@
 
 		.ui-selector-indicator-subtext {
 			color: @color_selector_subtext;
+		}
+
+		&:active + .ui-selector-indicator-arrow::before {
+			background-color: @color_selector_handler_bg_pressed;
 		}
 	}
 

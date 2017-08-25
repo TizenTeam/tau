@@ -5,6 +5,7 @@
 	height: 100%;
 	width: 100%;
 	background-color: @color_selector_layer_bg;
+
 	.ui-layer {
 		position: absolute;
 		display: none;
@@ -22,46 +23,38 @@
 				.transition(transform 300ms ease-out);
 			}
 		}
+
 		&.ui-layer-hide {
 			.ui-item {
 				visibility: visible;
 				.transition(transform 100ms ease-out);
 			}
 		}
+
 		&.ui-layer-prev {
 			display: block;
-			top: 50%;
+			width: 48 * @unit_base;
+			height: 48 * @unit_base;
 			left: 50%;
-			margin: -34 * @unit_base;
-			z-index: 2;
-			background-color: @color_selector_layer_sub1_bg;
-		}
-
-		&.ui-layer-prev-prev {
-			display: block;
-			top: 50%;
-			left: 50%;
-			margin: -34 * @unit_base;
-			z-index: 1;
-			background-color: @color_selector_layer_sub2_bg;
+			margin-left: 6 * @unit_base;
+			margin-top: 12 * @unit_base;
+			z-index: 5;
+			mask-image: url("./images/Common/b_more_option_btn_previous_page.png");
 		}
 
 		&.ui-layer-next {
 			display: block;
-			top: 50%;
-			left: 50%;
-			margin: -34 * @unit_base;
-			z-index: 2;
-			background-color: @color_selector_layer_sub1_bg;
+			width: 48 * @unit_base;
+			height: 48 * @unit_base;
+			right: 50%;
+			margin-right: 6 * @unit_base;
+			margin-top: 12 * @unit_base;
+			z-index: 5;
+			mask-image: url("./images/Common/b_more_option_btn_next_page.png");
 		}
 
-		&.ui-layer-next-next {
-			display: block;
-			top: 50%;
-			left: 50%;
-			margin: -34 * @unit_base;
-			z-index: 1;
-			background-color: @color_selector_layer_sub2_bg;
+		&.ui-layer-prev-prev,  &.ui-layer-next-next{
+			display: none;
 		}
 
 		.ui-item {
@@ -83,17 +76,7 @@
 			}
 		}
 	}
-	.ui-selector-indicator-arrow {
-		position: absolute;
-		width: 210 * @unit_base;
-		height: 210 * @unit_base;
-		top: 50%;
-		left: 50%;
-		margin: -105 * @unit_base;
-		text-align: center;
-		line-height: 210 * @unit_base;
-		font-size: 28 * @unit_base;
-	}
+
 	.ui-selector-indicator {
 		display: flex;
 		justify-content: center;
@@ -107,6 +90,7 @@
 		top: 50%;
 		.transform(translate(-50%, -50%));
 		.user-select(none);
+
 		&::before {
 			content: "";
 			position: absolute;
@@ -119,12 +103,14 @@
 			transform: translate(-50%, -50%);
 			opacity: 0;
 		}
+
 		&.ui-selector-indicator-active::before {
 			z-index: -1;
 			background-color: white;
 			transform: translate(-50%, -50%) scale(1.1);
 			animation: touch-text-btn-scale cubic-bezier(0.25,0.46,0.45,1.0) 300ms, touch-text-btn-opacity linear 733ms;
 		}
+
 		.ui-selector-indicator-text{
 			font-size: 30 * @unit_base;
 			pointer-events: none;
@@ -134,13 +120,26 @@
 			text-align: center;
 			overflow: hidden;
 		}
+
 		.ui-selector-indicator-icon-active {
 			background-repeat: no-repeat;
 			background-position: 50% 50%;
 			width: 140 * @unit_base;
 			height: 140 * @unit_base;
 			overflow: hidden;
+
+			&-with-text {
+				margin-top: -4 * @unit_base;
+				width: 94 * @unit_base;
+				height: 94 * @unit_base;
+			}
+
+			+ .ui-selector-indicator-text:not(:empty) {
+				margin-top: 5 * @unit_base;
+				width: 138 * @unit_base;
+			}
 		}
+
 		.ui-selector-indicator-subtext {
 			font-size: 29 * @unit_base;
 			pointer-events: none;
@@ -155,21 +154,24 @@
 			.ui-selector-indicator-text{
 				width: 150 * @unit_base;
 			}
-			.ui-selector-indicator-icon-active{
-				width: 94 * @unit_base;
-				height: 95 * @unit_base;
-			}
+
 			.ui-selector-indicator-subtext {
+				color: @color_selector_text;
 				width: 150 * @unit_base;
-			}
-			.ui-selector-indicator-icon-active + .ui-selector-indicator-subtext {
-				margin-top: 5 * @unit_base;
-				width: 138 * @unit_base;
 			}
 		}
 	}
 
 	.ui-selector-indicator-arrow {
+		position: absolute;
+		width: 210 * @unit_base;
+		height: 210 * @unit_base;
+		top: 50%;
+		left: 50%;
+		margin: -105 * @unit_base;
+		text-align: center;
+		line-height: 210 * @unit_base;
+		font-size: 28 * @unit_base;
 		z-index: 0;
 		&::before {
 			position: absolute;
