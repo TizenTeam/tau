@@ -60,36 +60,6 @@
 				 */
 				anims = [],
 
-				/**
-				 * Method scroll element content with animation
-				 * Extension for TAU (animated-scroll.js)
-				 * @method scrollTo
-				 * @param {HTMLElement} element
-				 * @param {number} changeValue
-				 * @param {number} duration
-				 * @param {Object} [options=null]
-				 * @param {string} [options.propertyName=scrollTop] element property name to animate
-				 */
-				scrollTo = function (element, changeValue, duration, options) {
-					var propertyName = options.propertyName || "scrollTop",
-						state = find(element) ||
-							createState(element[propertyName], changeValue, element, duration, options);
-
-					state.startTime = Date.now();
-
-					if (!state.end) {
-						state.from = state.current;
-						// snap to multiplication of change value
-						state.to += 2 * changeValue - (state.current + state.to) % changeValue;
-					} else {
-						state.end = false;
-						state.from = element[propertyName];
-						state.to = changeValue;
-						state.duration = duration;
-						state.render();
-					}
-				},
-
 				render = function (state) {
 					var dTime = Date.now() - state.startTime,
 						progress = dTime / state.duration;
@@ -197,52 +167,7 @@
 
 					return state;
 				},
-
-				/**
-				 * Alias for class Grid
-				 * @method Grid
-				 * @member ns.widget.wearable.Grid
-				 * @private
-				 * @static
-				 */
-				Grid = function () {
-					var self = this;
-
-					/**
-					 * Object with default options
-					 * @property {Object} options
-					 * @property {string} [options.mode="3x3"] grid mode
-					 * @property {boolean} [options.scrollbar=true] enable/disable scrollbar
-					 * @property {number} [options.lines=3] number of lines in grid view: 2 or 3
-					 * @property {string} [options.mode="circle"] shape of block: circle or rectangle
-					 * @member ns.widget.wearable.Grid
-					 */
-					self.options = {
-						// default Grid mode is Thumbnail 3x3
-						mode: "3x3",
-						scrollbar: true,
-						lines: 3,
-						shape: "circle",
-						orientation: "horizontal"
-					};
-					self._ui = {
-						container: null
-					};
-					self._currentIndex = -1;
-					self._settings = null;
-				},
-				CLASS_PREFIX = "ui-grid",
-				CLASSES = {
-					SHAPE_PREFIX: CLASS_PREFIX + "-",
-					MODE3X3: CLASS_PREFIX + "-3x3",
-					THUMBNAIL: CLASS_PREFIX + "-thumbnail",
-					IMAGE: CLASS_PREFIX + "-image",
-					THUMB: "thumb",
-					POSITIONED: "ui-positioned"
-				},
-				GALLERY_SIZE = 360,
-				HEIGHT_IN_GRID_MODE = 101,
-				// setting for Grich which depend from options
+				// setting for Grid which depend from options
 				GRID_SETTINGS = {
 					// setting for lines = 2
 					2: {
@@ -284,6 +209,50 @@
 						}
 					}
 				},
+				/**
+				 * Alias for class Grid
+				 * @method Grid
+				 * @member ns.widget.wearable.Grid
+				 * @private
+				 * @static
+				 */
+				Grid = function () {
+					var self = this;
+
+					/**
+					 * Object with default options
+					 * @property {Object} options
+					 * @property {string} [options.mode="3x3"] grid mode
+					 * @property {boolean} [options.scrollbar=true] enable/disable scrollbar
+					 * @property {number} [options.lines=3] number of lines in grid view: 2 or 3
+					 * @property {string} [options.mode="circle"] shape of block: circle or rectangle
+					 * @member ns.widget.wearable.Grid
+					 */
+					self.options = {
+						// default Grid mode is Thumbnail 3x3
+						mode: "3x3",
+						scrollbar: true,
+						lines: 3,
+						shape: "circle",
+						orientation: "horizontal"
+					};
+					self._ui = {
+						container: null
+					};
+					self._currentIndex = -1;
+					self._settings = GRID_SETTINGS[3].circle;
+				},
+				CLASS_PREFIX = "ui-grid",
+				CLASSES = {
+					SHAPE_PREFIX: CLASS_PREFIX + "-",
+					MODE3X3: CLASS_PREFIX + "-3x3",
+					THUMBNAIL: CLASS_PREFIX + "-thumbnail",
+					IMAGE: CLASS_PREFIX + "-image",
+					THUMB: "thumb",
+					POSITIONED: "ui-positioned"
+				},
+				GALLERY_SIZE = 360,
+				HEIGHT_IN_GRID_MODE = 101,
 				GRID_MARGIN = 5,
 				SCROLL_DURATION = 250,
 				TRANSFORM_DURATION = 450, // [ms]
@@ -293,6 +262,38 @@
 				THUMBNAIL_OPACITY = 0.75,
 				IMAGE_OPACITY = 1,
 				prototype = new Listview();
+
+			/**
+			 * Method scroll element content with animation
+			 * Extension for TAU (animated-scroll.js)
+			 * @method scrollTo
+			 * @param {HTMLElement} element
+			 * @param {number} changeValue
+			 * @param {number} duration
+			 * @param {Object} [options=null]
+			 * @param {string} [options.propertyName=scrollTop] element property name to animate
+			 * @member ns.widget.wearable.Grid
+			 * @protected
+			 */
+			prototype._scrollTo = function (element, changeValue, duration, options) {
+				var propertyName = options.propertyName || "scrollTop",
+					state = find(element) ||
+						createState(element[propertyName], changeValue, element, duration, options);
+
+				state.startTime = Date.now();
+
+				if (!state.end) {
+					state.from = state.current;
+					// snap to multiplication of change value
+					state.to += 2 * changeValue - (state.current + state.to) % changeValue;
+				} else {
+					state.end = false;
+					state.from = element[propertyName];
+					state.to = changeValue;
+					state.duration = duration;
+					state.render();
+				}
+			};
 
 			/**
 			 * Toggle selected item by changing class
@@ -330,23 +331,33 @@
 				return li;
 			}
 
-			function getItemSize(self, mode) {
-				var settings = self._settings;
+			/**
+			 * Return size of item for given mode
+			 * @param {string} mode
+			 * @return {number}
+			 * @member ns.widget.wearable.Grid
+			 * @protected
+			 */
+			prototype._getItemSize = function (mode) {
+				var self = this,
+					settings = self._settings;
 
 				switch (mode || self.options.mode) {
 					case "3x3":
 						return GALLERY_SIZE * settings.scale + GRID_MARGIN;
 					case "image":
-						return GALLERY_SIZE; // full screen
+						// full screen
+						return GALLERY_SIZE;
 					case "thumbnail":
 						return GALLERY_SIZE * settings.scaleThumbnailX + settings.marginThumbnail;
 					default:
 						return 0;
 				}
-			}
+			};
 
-			function prepareInsertItem(items, index, size, scale, self) {
-				var newItem = items[index],
+			prototype._prepareInsertItem = function (items, index, size, scale) {
+				var self = this,
+					newItem = items[index],
 					beforeItems = items.filter(function (item, key) {
 						return key < index;
 					}),
@@ -374,16 +385,17 @@
 
 				// prepare items.from
 				updateItemsFrom(items);
-			}
+			};
 
-			function prepareRemoveItem(items, index, size) {
-				var afterItems = items.filter(function (item, key) {
-					return key > index;
-				});
+			prototype._prepareRemoveItem = function (items, index, size) {
+				var self = this,
+					afterItems = items.filter(function (item, key) {
+						return key > index;
+					});
 
 				// set how to items after removed item will be moved on left
 				setItemsPositionTo(afterItems, -1 * size, self._scrollDimension, self._nonScrollDimension);
-			}
+			};
 
 			/**
 			 * Add image to grid
@@ -411,7 +423,7 @@
 					element.appendChild(thumb);
 				}
 
-				updateSnapPointPositions(self);
+				self._updateSnapPointPositions();
 
 				// Add thumbnail HTMLElement to grid with animation
 				switch (self.options.mode) {
@@ -420,10 +432,10 @@
 						self._assembleItemsTo3x3(items);
 						break;
 					case "image" :
-						prepareInsertItem(items, index, getItemSize(self), SCALE.IMAGE);
+						self._prepareInsertItem(items, index, self._getItemSize(), SCALE.IMAGE);
 						break;
 					case "thumbnail" :
-						prepareInsertItem(items, index, getItemSize(self), self.settings.scaleThumbnailX);
+						self._prepareInsertItem(items, index, self._getItemSize(), self.settings.scaleThumbnailX);
 						break;
 				}
 				anim(items, TRANSFORM_DURATION, changeItems, transformItem, function () {
@@ -463,7 +475,7 @@
 							// move to center of item during disappearing
 							itemTo.position = {};
 							itemTo.position[self._scrollDimension] = item.position[self._scrollDimension] +
-								getItemSize(self) / 2;
+								self._getItemSize() / 2;
 							itemTo.position[self._nonScrollDimension] = item.position[self._nonScrollDimension];
 
 							anim(item, TRANSFORM_DURATION, changeItems, transformItem);
@@ -476,42 +488,25 @@
 							self._assembleItemsTo3x3(items);
 
 							anim(items, TRANSFORM_DURATION, changeItems, transformItem, function () {
-								updateSnapPointPositions(self);
+								self._updateSnapPointPositions();
 								element.removeChild(thumb);
 								style[self._scrollSize] = getGridSize(self, "3x3") + "px";
 							});
 							break;
 						case "image" :
-							// hide item with animation
-							itemTo.scale = 0;
-
-							// move items after removed item to left
-							updateItemsFrom(items);
-							prepareRemoveItem(items, index, getItemSize(self));
-
-							// transformation
-							anim(items, TRANSFORM_DURATION, changeItems, transformItem, function () {
-								updateSnapPointPositions(self);
-								element.removeChild(thumb);
-								style[self._scrollSize] = getGridSize(self, "image") + "px";
-
-								items.splice(index, 1);
-								snapPoints.splice(index, 1);
-							});
-							break;
 						case "thumbnail" :
 							// hide item with animation
 							itemTo.scale = 0;
 
 							// move items after removed item to left
 							updateItemsFrom(items);
-							prepareRemoveItem(items, index, getItemSize(self));
+							self._prepareRemoveItem(items, index, self._getItemSize());
 
 							// transformation
 							anim(items, TRANSFORM_DURATION, changeItems, transformItem, function () {
-								updateSnapPointPositions(self);
+								self._updateSnapPointPositions();
 								element.removeChild(thumb);
-								style[self._scrollSize] = getGridSize(self, "thumbnail") + "px";
+								style[self._scrollSize] = getGridSize(self, self.options.mode) + "px";
 
 								items.splice(index, 1);
 								snapPoints.splice(index, 1);
@@ -524,8 +519,9 @@
 				return self;
 			};
 
-			function changeModeTo3x3(self) {
-				var element = self.element,
+			prototype._changeModeTo3x3 = function () {
+				var self = this,
+					element = self.element,
 					classList = element.classList;
 
 				// remove previous classes;
@@ -538,10 +534,6 @@
 				self.options.mode = "3x3";
 
 				element.style[self._scrollSize] = self._getGridSize("3x3") + "px";
-			}
-
-			prototype._changeModeTo3x3 = function () {
-				changeModeTo3x3(this);
 			};
 
 			function changeModeToImage(self) {
@@ -561,14 +553,12 @@
 				}
 			}
 
-			function changeModeToThumbnail(self) {
-				var element = self.element;
-
+			prototype._changeModeToThumbnail = function () {
 				// thumbnail mode is accessible only from image mode
-				if (self._currentIndex !== -1) {
-					element.classList.add(CLASSES.THUMBNAIL);
+				if (this._currentIndex !== -1) {
+					this.element.classList.add(CLASSES.THUMBNAIL);
 				}
-			}
+			};
 
 			/**
 			 * Change grid mode
@@ -641,10 +631,11 @@
 					scrollProperty = self._scrollProperty;
 
 				self._currentIndex = index;
-				scrollTo(
+				self._scrollTo(
 					container,
-					getGridScrollPosition(self, self.options.mode) - container[scrollProperty],
-					SCROLL_DURATION, {
+					self._getGridScrollPosition(self.options.mode) - container[scrollProperty],
+					SCROLL_DURATION,
+					{
 						propertyName: scrollProperty
 					}
 				);
@@ -662,7 +653,7 @@
 			prototype.getIndex = function () {
 				var self = this;
 
-				return self._currentIndex = findItemIndexByScroll(self, self._ui.container);
+				return self._currentIndex = self._findItemIndexByScroll(self._ui.container);
 			};
 
 			function createSnapPoint() {
@@ -689,13 +680,14 @@
 				self._snapPoints = snapPoints;
 			}
 
-			function updateSnapPointPositions(self) {
-				var snapPoints = self._snapPoints,
+			prototype._updateSnapPointPositions = function () {
+				var self = this,
+					snapPoints = self._snapPoints,
 					len = snapPoints.length,
 					start = 0,
 					delta = 0,
 					interval = 3,
-					point = null,
+					point,
 					i = 0,
 					settings = self._settings,
 					scale = settings.scale;
@@ -722,7 +714,7 @@
 					point = snapPoints[i];
 					point.style[self._scrollDimension] = start + delta * (i - i % interval) + "px";
 				}
-			}
+			};
 
 			/**
 			 * Widget build method
@@ -858,14 +850,13 @@
 				// collect grid items from DOM
 				getItems(self);
 
-				//updateItemsFrom(items);
 				self._assembleItemsTo3x3(items);
 				// apply transformations to items immediately
 				transformItems(self);
 
 				// snap points are used as places where scroll will be stopped
 				createSnapPoints(self);
-				updateSnapPointPositions(self);
+				self._updateSnapPointPositions();
 
 				// set proper grid look
 				self.mode(options.mode);
@@ -1051,12 +1042,13 @@
 				}
 			};
 
-			function assembleItemsToImages(self) {
-				var items = self._items,
+			prototype._assembleItemsToImages = function () {
+				var self = this,
+					items = self._items,
 					len = items.length,
 					to = null,
 					i = 0,
-					size = getItemSize(self, "image");
+					size = self._getItemSize("image");
 
 				for (; i < len; ++i) {
 					to = items[i].to;
@@ -1066,14 +1058,14 @@
 
 					to.scale = SCALE.IMAGE;
 				}
-			}
+			};
 
 			function scaleItemsToThumbnails(self) {
 				var items = self._items,
 					currentIndex = self._currentIndex,
 					itemsLength = items.length,
 					targetState = null,
-					size = getItemSize(self, "thumbnail"),
+					size = self._getItemSize("thumbnail"),
 					settings = self._settings,
 					scaleThumbnailX = settings.scaleThumbnailX,
 					// is used to calculate scrolled position between items, this value is used to calculate
@@ -1137,7 +1129,7 @@
 				for (; i < len; ++i) {
 					to = items[i].to;
 					to.position = {};
-					to.position[self._scrollDimension] = i * getItemSize(self, "image");
+					to.position[self._scrollDimension] = i * self._getItemSize("image");
 					to.position[self._nonScrollDimension] = 0;
 					to.scale = self._settings.scaleThumbanil;
 					to.opacity = IMAGE_OPACITY;
@@ -1153,7 +1145,7 @@
 				for (; i < len; ++i) {
 					to = items[i].to;
 					to.position = {};
-					to.position[self._scrollDimension] = i * getItemSize(self, "thumbnail") +
+					to.position[self._scrollDimension] = i * self._getItemSize("thumbnail") +
 						(i - self._currentIndex) * 200;
 					to.position[self._nonScrollDimension] = 0;
 					to.scale = SCALE.IMAGE;
@@ -1206,9 +1198,10 @@
 				return getGridSize(this, mode);
 			};
 
-			function getGridScrollPosition(self, mode) {
-				var scroll = 0,
-					itemSize = getItemSize(self, mode),
+			prototype._getGridScrollPosition = function (mode) {
+				var self = this,
+					scroll = 0,
+					itemSize = self._getItemSize(mode),
 					currentIndex = self._currentIndex;
 
 				switch (mode) {
@@ -1223,20 +1216,22 @@
 						scroll = 0;
 				}
 				return scroll;
-			}
+			};
 
-			function setGridSize(self, mode) {
-				var element = self.element;
+			prototype._setGridSize = function (mode) {
+				var self = this,
+					element = self.element;
 
 				// set proper mode in options
 				self.options.mode = "image";
 				element.style[self._scrollSize] = getGridSize(self, mode) + "px";
-				element.parentElement[self._scrollProperty] = getGridScrollPosition(self, mode);
-			}
+				element.parentElement[self._scrollProperty] = self._getGridScrollPosition(mode);
+			};
 
-			function findItemIndexByScroll(self, element) {
-				var scroll = element[self._scrollProperty],
-					itemSize = getItemSize(self),
+			prototype._findItemIndexByScroll = function (element) {
+				var self = this,
+					scroll = element[self._scrollProperty],
+					itemSize = self._getItemSize(),
 					items = self._items;
 
 				switch (self.options.mode) {
@@ -1253,22 +1248,11 @@
 					default :
 						return -1;
 				}
-			}
-
-			/**
-			 * Temporary method for testing, in future findItemIndexByScroll should be
-			 * only prototype
-			 * @param {HTMLElement} element
-			 * @method _findItemIndexByScroll
-			 * @member ns.widget.wearable.Grid
-			 * @protected
-			 */
-			prototype._findItemIndexByScroll = function (element) {
-				return findItemIndexByScroll(this, element);
 			};
 
-			function gridToImage(self) {
-				var element = self.element;
+			prototype._gridToImage = function () {
+				var self = this,
+					element = self.element;
 
 				if (self._currentIndex === -1) {
 					self._currentIndex = 0;
@@ -1280,26 +1264,22 @@
 				anim(self._items, TRANSFORM_DURATION, changeItems, transformItem, function () {
 					changeModeToImage(self);
 
-					assembleItemsToImages(self);
+					self._assembleItemsToImages();
 					transformItems(self);
 
-					setGridSize(self, "image");
-					updateSnapPointPositions(self);
+					self._setGridSize("image");
+					self._updateSnapPointPositions();
 				});
 
 				// change history
 				ns.engine.getRouter().open(element, {
 					url: "#image", rel: "grid"
 				});
-
-			}
-
-			prototype._gridToImage = function () {
-				gridToImage(this);
 			};
 
-			function imageToThumbnail(self) {
-				var element = self.element,
+			prototype._imageToThumbnail = function () {
+				var self = this,
+					element = self.element,
 					items = self._items;
 
 				moveItemsToThumbnails(self);
@@ -1307,31 +1287,28 @@
 
 				// set proper mode in options
 				self.options.mode = "thumbnail";
-				changeModeToThumbnail(self);
+				self._changeModeToThumbnail();
 
-				element.parentElement[self._scrollProperty] = getGridScrollPosition(self, "thumbnail");
+				element.parentElement[self._scrollProperty] = self._getGridScrollPosition("thumbnail");
 				updateItemsFrom(items);
 				scaleItemsToThumbnails(self);
 
 				anim(items, TRANSFORM_DURATION, changeItems, transformItem, function () {
 					element.style[self._scrollSize] = getGridSize(self, "thumbnail") + "px";
-					updateSnapPointPositions(self);
+					self._updateSnapPointPositions();
 				});
 
 				// change history
 				ns.engine.getRouter().open(element, {
 					url: "#thumbnail", rel: "grid"
 				});
-			}
-
-			prototype._imageToThumbnail = function () {
-				imageToThumbnail(this);
 			};
 
-			function imageToGrid(self) {
-				var element = self.element,
+			prototype._imageToGrid = function () {
+				var self = this,
+					element = self.element,
 					items = self._items,
-					scrollValue = getGridScrollPosition(self, "3x3");
+					scrollValue = self._getGridScrollPosition("3x3");
 
 				self._assembleItemsTo3x3(items);
 				transformItems(self);
@@ -1339,7 +1316,7 @@
 				self._dispersionItems(self._currentIndex);
 				transformItems(self);
 
-				changeModeTo3x3(self);
+				self._changeModeTo3x3();
 
 				element.parentElement[self._scrollProperty] = min(scrollValue, getGridSize(self, "3x3") -
 					GALLERY_SIZE);
@@ -1351,33 +1328,26 @@
 
 				anim(items, TRANSFORM_DURATION, changeItems, transformItem, function onTransitionEnd() {
 					element.style[self._scrollSize] = getGridSize(self, "3x3") + "px";
-					updateSnapPointPositions(self);
+					self._updateSnapPointPositions();
 				});
-			}
-
-			prototype._imageToGrid = function () {
-				imageToGrid(this);
 			};
 
-			function thumbnailToImage(self) {
-				var items = self._items;
+			prototype._thumbnailToImage = function () {
+				var self = this,
+					items = self._items;
 
 				moveItemsToImages(self);
 				transformItems(self);
 
-				setGridSize(self, "image");
+				self._setGridSize("image");
 
-				assembleItemsToImages(self);
+				self._assembleItemsToImages();
 				updateItemsFrom(items);
 				changeModeToImage(self);
 
 				anim(items, TRANSFORM_DURATION, changeItems, transformItem, function () {
-					updateSnapPointPositions(self);
+					self._updateSnapPointPositions();
 				});
-			}
-
-			prototype._thumbnailToImage = function () {
-				thumbnailToImage(this);
 			};
 
 			prototype._dispersionItems = function (fromItemIndex) {
@@ -1458,20 +1428,17 @@
 				}
 			};
 
-			function onRotary(self, ev) {
-				var itemSize = getItemSize(self),
+			prototype._onRotary = function (ev) {
+				var self = this,
+					itemSize = self._getItemSize(),
 					direction = (ev.detail.direction === "CW") ? 1 : -1,
 					container = self._ui.container;
 
 				if (itemSize !== 0) {
-					scrollTo(container, direction * itemSize, SCROLL_DURATION, {
+					self._scrollTo(container, direction * itemSize, SCROLL_DURATION, {
 						propertyName: self._scrollProperty
 					});
 				}
-			}
-
-			prototype._onRotary = function (ev) {
-				onRotary(this, ev);
 			};
 
 			prototype._onScroll = function () {
@@ -1483,7 +1450,7 @@
 					self._currentIndex = newIndex;
 					scaleItemsToThumbnails(self);
 					anim(self._items, 0, changeItems, transformItem, function () {
-						updateSnapPointPositions(self);
+						self._updateSnapPointPositions();
 					});
 				}
 
