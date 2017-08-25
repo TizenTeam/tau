@@ -10,6 +10,9 @@
 		display: none;
 	}
 	li {
+		transition-property: border-radius, -webkit-mask-size, mask-size;
+		transition-duration: 450ms;
+		transition-timing-function: linear;
 		transform-origin: left center;
 		position: absolute;
 		overflow: hidden;
@@ -35,6 +38,10 @@
 	&.ui-grid-rectangle {
 		li {
 			border-radius: 18 * @unit_base;
+			mask-image: url(images/Grid/tw_basic_grid_horizontal.png);
+			mask-size: 360 * @unit_base;
+			mask-position: center;
+			mask-repeat: no-repeat;
 		}
 	}
 
@@ -94,10 +101,7 @@
 
 		&.ui-grid-rectangle {
 			li {
-				mask-image: url(images/Grid/tw_basic_grid_horizontal.png);
 				mask-size: 224 * @unit_base;
-				mask-position: center;
-				mask-repeat: no-repeat;
 			}
 		}
 	}

@@ -258,7 +258,7 @@
 							marginTop: -66,
 							marginLeft: 57,
 							scale: 0.325,
-							scaleThumbnail: 0.7055,
+							scaleThumbnail: 0.715,
 							scaleThumbnailX: 0.4722,
 							marginThumbnail: -8,
 							size: 130
@@ -1017,22 +1017,33 @@
 
 			function scaleItemsToThumbnails(self) {
 				var items = self._items,
-					len = items.length,
-					to = null,
+					currentIndex = self._currentIndex,
+					itemsLength = items.length,
+					targetState = null,
 					width = getItemWidth(self, "thumbnail"),
-					i = 0,
-					settings = self._settings;
+					settings = self._settings,
+					scaleThumbnailX = settings.scaleThumbnailX,
+					// is used to calculate scrolled position between items, this value is used to calculate scale of items
+					scrolledModPosition = 2 * ((self._ui.container.scrollLeft - settings.marginThumbnail) % width) / width - 1,
+					scrolledAbsModPosition = Math.abs(scrolledModPosition) / 2,
+					itemScale,
+					i = 0;
 
-				for (; i < len; ++i) {
-					to = items[i].to;
-					to.position = {
+				for (; i < itemsLength; ++i) {
+					targetState = items[i].to;
+					targetState.position = {
 						left: i * width,
 						top: 0
 					};
-					if (i === self._currentIndex) {
-						to.scale = settings.scaleThumbnail;
-					} else {
-						to.scale = settings.scaleThumbnailX;
+					targetState.scale = scaleThumbnailX;
+					itemScale = settings.scaleThumbnail - scaleThumbnailX;
+
+					if (i === currentIndex) {
+						targetState.scale += itemScale * (0.5 + scrolledAbsModPosition);
+					} else if ((i - currentIndex) === 1 && scrolledModPosition < 0) {
+						targetState.scale += itemScale * (0.5 - scrolledAbsModPosition);
+					} else if ((i - currentIndex) === -1 && scrolledModPosition >= 0) {
+						targetState.scale += itemScale * (0.5 - scrolledAbsModPosition);
 					}
 				}
 			}
@@ -1240,6 +1251,7 @@
 
 				// set proper mode in options
 				self.options.mode = "thumbnail";
+				changeModeToThumbnail(self);
 
 				element.parentElement.scrollLeft = getGridScrollPosition(self, "thumbnail");
 				updateItemsFrom(items);
@@ -1247,7 +1259,6 @@
 
 				anim(items, TRANSFORM_DURATION, changeItems, transformItem, function () {
 					element.style.width = getGridSize(self, "thumbnail") + "px";
-					changeModeToThumbnail(self);
 					updateSnapPointPositions(self);
 				});
 
@@ -1300,9 +1311,9 @@
 
 				assembleItemsToImages(self);
 				updateItemsFrom(items);
+				changeModeToImage(self);
 
 				anim(items, TRANSFORM_DURATION, changeItems, transformItem, function () {
-					changeModeToImage(self);
 					updateSnapPointPositions(self);
 				});
 			}
@@ -1408,9 +1419,10 @@
 
 			prototype._onScroll = function () {
 				var self = this,
-					newIndex = self._findItemIndexByScroll(self._ui.container);
+					newIndex = self._findItemIndexByScroll(self._ui.container),
+					options = self.options;
 
-				if (self._currentIndex !== newIndex && self.options.mode === "thumbnail") {
+				if (options.shape === "rectangle" && options.mode === "thumbnail") {
 					self._currentIndex = newIndex;
 					scaleItemsToThumbnails(self);
 					anim(self._items, 0, changeItems, transformItem, function () {
