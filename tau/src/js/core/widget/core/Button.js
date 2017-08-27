@@ -185,13 +185,15 @@
 					BTN_ICON_ONLY: "ui-btn-icon-only",
 					BTN_TEXT_LIGHT: "ui-btn-text-light",
 					BTN_TEXT_DARK: "ui-btn-text-dark",
-					BTN_ICON_POSITION_PREFIX: "ui-btn-icon-"
+					BTN_ICON_POSITION_PREFIX: "ui-btn-icon-",
+					BTN_ICON_MIDDLE: "ui-btn-icon-middle"
 				},
 				buttonStyle = {
 					CIRCLE: "circle",
 					TEXTLIGHT: "light",
 					TEXTDARK: "dark",
-					NOBG: "nobg"
+					NOBG: "nobg",
+					ICON_MIDDLE: "icon-middle"
 				},
 
 				prototype = new BaseWidget();
@@ -224,7 +226,8 @@
 					disabled: false,
 					// mobile options
 					style: null,
-					iconpos: "left"
+					iconpos: "left",
+					size: null
 				};
 			};
 
@@ -260,6 +263,10 @@
 						break;
 					case buttonStyle.TEXTDARK:
 						buttonClassList.add(classes.BTN_TEXT_DARK);
+						change = true;
+						break;
+					case buttonStyle.ICON_MIDDLE:
+						buttonClassList.add(classes.BTN_ICON_MIDDLE);
 						change = true;
 						break;
 					default:
@@ -299,17 +306,21 @@
 			 */
 			prototype._setIcon = function (element, icon) {
 				var self = this,
-					options = self.options;
+					options = self.options,
+					style = element.style;
 
 				icon = icon || options.icon;
 
-				if (icon) {
+				if (icon && options.style !== buttonStyle.ICON_MIDDLE) {
 					element.classList.add(classes.BTN_ICON);
 					element.classList.add(classes.ICON_PREFIX + icon);
 
 					options.icon = icon;
 
 					self._setTitleForIcon(element);
+				} else if (options.style === buttonStyle.ICON_MIDDLE) {
+					style["-webkit-mask-image"] = "url(\"" + options.icon + "\")";
+					style["mask-image"] = "url(\"" + options.icon + "\")";
 				}
 			};
 
@@ -328,7 +339,8 @@
 
 				iconpos = iconpos || options.iconpos;
 
-				if (options.icon && style !== buttonStyle.CIRCLE && style !== buttonStyle.NOBG) {
+				if (options.icon && style !== buttonStyle.CIRCLE &&
+					style !== buttonStyle.NOBG & options.style !== buttonStyle.ICON_MIDDLE) {
 					if (innerTextLength > 0) {
 						element.classList.add(classes.BTN_ICON_POSITION_PREFIX + iconpos);
 					} else {
@@ -376,7 +388,6 @@
 					options.disabled = false;
 				}
 			};
-
 			/**
 			 * Build Button
 			 * @method _build
@@ -397,6 +408,7 @@
 				self._setInline(element);
 				self._setIconpos(element);
 				self._setIcon(element);
+				self._setSize(element);
 				self._setDisabled(element);
 
 				return element;
@@ -416,6 +428,7 @@
 				self._setInline(element);
 				self._setIconpos(element);
 				self._setIcon(element);
+				self._setSize(element);
 				self._setDisabled(element);
 
 				return null;
@@ -429,6 +442,22 @@
 			 */
 			prototype._getValue = function () {
 				return this.element.textContent;
+			};
+            /**
+             * Set size of button
+             * @method _setValue
+             * @param {HTMLElement} element
+             * @protected
+             * @member ns.widget.core.Button
+             */
+			prototype._setSize = function (element) {
+				var style = element.style,
+					options = this.options;
+
+				if (options.style === buttonStyle.ICON_MIDDLE) {
+					style.height = options.size;
+					style.width = options.size;
+				}
 			};
 
 			/**
