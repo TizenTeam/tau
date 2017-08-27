@@ -32,7 +32,6 @@
 		overflow: hidden;
 		background-repeat: no-repeat;
 		background-size: @fixed_button_icon_bg_size @fixed_button_icon_bg_size;
-		position: relative;
 
 		&::before {
 			content: "";
@@ -52,7 +51,6 @@
 	}
 
 	&.ui-btn-icon-only {
-		position: relative;
 		text-indent: -9999 * @unit_base;
 		&::before {
 			content: "";
@@ -75,8 +73,7 @@
 		}
 	}
 
-	&.ui-btn-text, &.ui-btn-no-bg.ui-btn-icon {
-		position: relative;
+	&.ui-btn-text, &.ui-btn-nobg.ui-btn-icon, &.ui-btn-no-bg.ui-btn-icon {
 		background-color: transparent;
 		height: 33vh;
 		&::before {
@@ -101,15 +98,64 @@
 		}
 	}
 
-	&.ui-btn-no-bg.ui-btn-icon {
+	/* class .ui-btn-no-bg is only for backward compatibility, now should be used only .ui-btn-nobg */
+	&.ui-btn-nobg.ui-btn-icon, &.ui-btn-no-bg.ui-btn-icon {
 		width: 76 * @unit_base;
 		height: 76 * @unit_base;
 		overflow: visible;
+		background-color: transparent;
+
+		&::after {
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			left: 50%;
+			top: 50%;
+			transform: translate(-50%, -50%);
+			content: '';
+			background-color: @color_button_icon_bg;
+			mask-repeat: no-repeat;
+			mask-position: center;
+			mask-size: cover;
+
+			&:enabled:active:hover {
+				background-color: @color_button_icon_active_bg;
+			}
+
+			&:enabled:focus {
+				background-color: @color_button_icon_active_bg;
+			}
+
+			&:disabled {
+				background-color: @color_button_icon_disabled_bg;
+				cursor: default;
+			}
+		}
+
 		&::before {
 			height: 141%;
 			width: 141%;
 		}
 
+		&:enabled:active:hover {
+			background-color: transparent;
+		}
+
+		&:enabled:focus {
+			background-color: transparent;
+		}
+
+		&:disabled {
+			background-color: transparent;
+			cursor: default;
+		}
+	}
+
+	&.ui-btn-middle {
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		transform: translate(-50%, -50%);
 	}
 }
 

@@ -102,29 +102,3 @@
 }
 
 .ui-grid-col-btn(3);
-
-.ui-btn-icon-middle {
-
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	background-color: @color_button_icon_bg;
-	mask-repeat: no-repeat;
-	mask-clip: fill-box;
-	mask-position: center;
-	mask-size: cover;
-	overflow: visible;
-
-	&:active:hover, &:enabled:active:hover {
-		background-color: @color_popup_button_icon_bg_press;
-	}
-
-	&:disabled {
-		background-color: @color_button_icon_disabled_bg;
-	}
-
-	&.ui-btn:enabled:focus{
-		background-color: @color_popup_button_icon_bg_press;
-	}
-}

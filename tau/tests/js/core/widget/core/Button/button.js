@@ -78,7 +78,6 @@
 		var btn1 = document.getElementById("button10"),
 			btn2 = document.getElementById("button11"),
 			btn3 = document.getElementById("button12"),
-			btn4 = document.getElementById("button13"),
 			btn1Widget = null,
 			btn2Widget = null,
 			btn3Widget = null,
@@ -88,13 +87,13 @@
 		assert.ok(btn1.classList.contains(classes.BTN_CIRCLE), "button contains circle style from data params");
 
 		btn2Widget = tau.engine.instanceWidget(btn2, "Button");
-		assert.equal(btn2.classList, classes.BTN, "button has no style set as default");
+		assert.equal(btn2.className, classes.BTN, "button has no style set as default");
 
 		btn2Widget.option("style", "light");
 		assert.ok(btn2.classList.contains(classes.BTN_TEXT_LIGHT), "button has light style set after refresh");
 
 		btn3Widget = tau.engine.instanceWidget(btn3, "Button");
-		assert.equal(btn3.classList, classes.BTN, "button has no style set as default");
+		assert.equal(btn3.className, classes.BTN, "button has no style set as default");
 
 		btn3Widget.option("style", "dark");
 		assert.ok(btn3.classList.contains(classes.BTN_TEXT_DARK), "button has dark style set after refresh");

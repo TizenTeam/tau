@@ -39,6 +39,7 @@ body {
 	.w-layout-no-tap-color();
 
 	.ui-content {
+		position: relative;
 		width: 100%;
 		height: auto;
 		overflow: auto;
@@ -48,6 +49,12 @@ body {
 		&.ui-content-padding {
 			padding-left: 12 * @unit_base;
 			padding-right: 12 * @unit_base;
+		}
+
+		&.ui-content-fixed-middle {
+			position: fixed;
+			top: 50%;
+			transform: translate(0, -50%);
 		}
 	}
 

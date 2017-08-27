@@ -389,6 +389,7 @@
 				 * @property {Object} options
 				 * @property {boolean|string|null} [options.header=false] Sets content of header.
 				 * @property {boolean|string|null} [options.footer=false] Sets content of footer.
+				 * @property {boolean} [options.autoBuildWidgets=false] Automaticaly build widgets inside page.
 				 * @property {string} [options.content=null] Sets content of popup.
 				 * @member ns.widget.core.Page
 				 * @static
@@ -398,6 +399,7 @@
 				options.footer = null;
 				options.content = null;
 				options.enablePageScroll = ns.getConfig("enablePageScroll");
+				options.autoBuildWidgets = ns.getConfig("autoBuildOnPageChange");
 				this.options = options;
 			};
 
@@ -436,12 +438,11 @@
 
 					if (footer) {
 						bottom = utilsDOM.getElementHeight(footer);
+						contentStyle.marginBottom = bottom + "px";
+						contentStyle.paddingBottom = (-bottom) + "px";
 					}
 
-					contentStyle.top = top + "px";
-					contentStyle.bottom = bottom + "px";
 					contentStyle.height = (screenHeight - top - bottom) + "px";
-					contentStyle.width = screenWidth + "px";
 				}
 			};
 

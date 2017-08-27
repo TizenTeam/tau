@@ -163,16 +163,19 @@
 		[
 			"../../engine",
 			"../core",
+			"../../util/DOM/css",
 			"../BaseWidget"
 		],
 		function () {
 			//>>excludeEnd("tauBuildExclude");
 			var BaseWidget = ns.widget.BaseWidget,
 				engine = ns.engine,
+				utilDOM = ns.util.DOM,
 				Button = function () {
 					var self = this;
 
 					self.options = {};
+					self._classesPrefix = classes.BTN + "-";
 				},
 				classes = {
 					BTN: "ui-btn",
@@ -227,7 +230,8 @@
 					// mobile options
 					style: null,
 					iconpos: "left",
-					size: null
+					size: null,
+					middle: false
 				};
 			};
 
@@ -263,10 +267,6 @@
 						break;
 					case buttonStyle.TEXTDARK:
 						buttonClassList.add(classes.BTN_TEXT_DARK);
-						change = true;
-						break;
-					case buttonStyle.ICON_MIDDLE:
-						buttonClassList.add(classes.BTN_ICON_MIDDLE);
 						change = true;
 						break;
 					default:
@@ -306,21 +306,34 @@
 			 */
 			prototype._setIcon = function (element, icon) {
 				var self = this,
+					classList = element.classList,
 					options = self.options,
-					style = element.style;
+					styles = {},
+					urlIcon,
+					iconCSSRule = self._iconCSSRule;
 
 				icon = icon || options.icon;
+				options.icon = icon;
 
-				if (icon && options.style !== buttonStyle.ICON_MIDDLE) {
-					element.classList.add(classes.BTN_ICON);
-					element.classList.add(classes.ICON_PREFIX + icon);
-
-					options.icon = icon;
-
-					self._setTitleForIcon(element);
-				} else if (options.style === buttonStyle.ICON_MIDDLE) {
-					style["-webkit-mask-image"] = "url(\"" + options.icon + "\")";
-					style["mask-image"] = "url(\"" + options.icon + "\")";
+				if (icon) {
+					classList.add(classes.BTN_ICON);
+					if (icon.indexOf(".") === -1) {
+						classList.add(classes.ICON_PREFIX + icon);
+						self._setTitleForIcon(element);
+						if (iconCSSRule) {
+							utilDOM.removeCSSRule(iconCSSRule);
+						}
+					} else {
+						// if icon is filepath
+						urlIcon = "url(\"" + icon + "\")";
+						styles["-webkit-mask-image"] = urlIcon;
+						styles["mask-image"] = urlIcon;
+						self._iconCSSRule = utilDOM.setStylesForPseudoClass("#" + element.id, "after", styles);
+					}
+				} else {
+					if (iconCSSRule) {
+						utilDOM.removeCSSRule(iconCSSRule);
+					}
 				}
 			};
 
@@ -339,8 +352,7 @@
 
 				iconpos = iconpos || options.iconpos;
 
-				if (options.icon && style !== buttonStyle.CIRCLE &&
-					style !== buttonStyle.NOBG & options.style !== buttonStyle.ICON_MIDDLE) {
+				if (options.icon && style !== buttonStyle.CIRCLE && style !== buttonStyle.NOBG) {
 					if (innerTextLength > 0) {
 						element.classList.add(classes.BTN_ICON_POSITION_PREFIX + iconpos);
 					} else {
@@ -443,21 +455,28 @@
 			prototype._getValue = function () {
 				return this.element.textContent;
 			};
-            /**
-             * Set size of button
-             * @method _setValue
-             * @param {HTMLElement} element
-             * @protected
-             * @member ns.widget.core.Button
-             */
-			prototype._setSize = function (element) {
-				var style = element.style,
-					options = this.options;
 
-				if (options.style === buttonStyle.ICON_MIDDLE) {
-					style.height = options.size;
-					style.width = options.size;
+			/**
+			 * Set size of button
+			 * @method _setSize
+			 * @param {HTMLElement} element
+			 * @param {string|number} value
+			 * @protected
+			 * @member ns.widget.core.Button
+			 */
+			prototype._setSize = function (element, value) {
+				var style = element.style,
+					options = this.options,
+					size = parseInt(value || options.size, 10);
+
+				if (size < 32) {
+					size = 32;
 				}
+				if (size > 230) {
+					size = 230;
+				}
+				style.height = size + "px";
+				style.width = size + "px";
 			};
 
 			/**

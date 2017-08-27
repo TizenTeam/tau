@@ -88,6 +88,25 @@ window.DOMTokenList.prototype.add = function () {
 	}
 };
 
+// Function to correct support toggle method in classList, in Phantom toggle hasn't second parameter
+window.DOMTokenList.prototype.toggle = function (className, state) {
+	var args = [].slice.call(arguments),
+		argsLength = args.length,
+		i,
+		newState;
+
+	if (state !== undefined) {
+		newState = !!state;
+	} else {
+		newState = !this.contains(className);
+	}
+	if (newState) {
+		this.add(className);
+	} else {
+		this.remove(className);
+	}
+};
+
 // Support for many arguments for .remove method of classList
 window.DOMTokenList.prototype.remove = function () {
 	var args = [].slice.call(arguments),

@@ -32,7 +32,8 @@
 			//>>excludeEnd("tauBuildExclude");
 
 			var DOM = ns.util.DOM,
-				stringUtil = ns.util.string;
+				stringUtil = ns.util.string,
+				appStyleSheet;
 
 			/**
 			 * Returns css property for element
@@ -392,6 +393,58 @@
 				return cssSize;
 			}
 
+			/**
+			 * Set CSS styles for pseudoclass selector.
+			 * @method setStylesForPseudoClass
+			 * @param {string} selector selector of elements
+			 * @param {string} pseudoClassName CSS pseudoclass name to set, for example after, before
+			 * @param {Object} cssValues object with styles to set
+			 * @return {number?} return index of inserted rule
+			 * @member ns.util.DOM
+			 * @static
+			 */
+			function setStylesForPseudoClass(selector, pseudoClassName, cssValues) {
+				var cssValuesArray = [],
+					headElement,
+					styleElement,
+					name;
+
+				// create style element on first use
+				if (!appStyleSheet) {
+					headElement = document.head || document.getElementsByTagName("head")[0];
+					styleElement = document.createElement("style");
+					styleElement.type = "text/css";
+					headElement.appendChild(styleElement);
+					appStyleSheet = styleElement.sheet;
+				}
+
+				for (name in cssValues) {
+					if (cssValues.hasOwnProperty(name)) {
+						cssValuesArray.push(name + ": " + cssValues[name]);
+					}
+				}
+
+				if (cssValuesArray.length) {
+					return appStyleSheet.addRule(selector + "::" + pseudoClassName, cssValuesArray.join("; "));
+				}
+
+				return null;
+			}
+
+			/**
+			 * Remove CSS rule from sheet.
+			 * @method removeCSSRule
+			 * @param {number} ruleIndex Index of rule to remove
+			 * @static
+			 */
+			function removeCSSRule(ruleIndex) {
+
+				// create style element on first use
+				if (appStyleSheet) {
+					appStyleSheet.deleteRule(ruleIndex);
+				}
+			}
+
 			// assign methods to namespace
 			DOM.getCSSProperty = getCSSProperty;
 			DOM.extractCSSProperties = extractCSSProperties;
@@ -403,6 +456,8 @@
 			DOM.getPrefixedValue = getPrefixedValue;
 			DOM.getPrefixedStyleValue = getPrefixedStyleValue;
 			DOM.toCSSSize = toCSSSize;
+			DOM.setStylesForPseudoClass = setStylesForPseudoClass;
+			DOM.removeCSSRule = removeCSSRule;
 
 			//>>excludeStart("tauBuildExclude", pragmas.tauBuildExclude);
 			return ns.util.DOM;

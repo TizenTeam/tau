@@ -184,7 +184,7 @@
 					// set sizes of page for correct display
 					toPageWidget.layout();
 
-					if (ns.getConfig("autoBuildOnPageChange", false)) {
+					if (toPageWidget.option("autoBuildWidgets")) {
 						engine.createWidgets(toPageElement);
 					}
 

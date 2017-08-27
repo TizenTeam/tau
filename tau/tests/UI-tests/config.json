@@ -1540,7 +1540,16 @@
 			},
 			{
 				"name": "56-icon-button",
-				"time": 0,
+				"width": 360,
+				"height": 360
+			},
+			{
+				"name": "56-icon-button-small",
+				"width": 360,
+				"height": 360
+			},
+			{
+				"name": "56-icon-button-big",
 				"width": 360,
 				"height": 360
 			},

@@ -16,7 +16,6 @@ Listview
 		flex-direction: row;
 		padding: 0;
 		min-height: 85 * @unit_base;
-		overflow: hidden;
 		align-items: center;
 
 		.ui-processing {
@@ -39,6 +38,10 @@ Listview
 				background-repeat: no-repeat;
 				width: 56 * @unit_base;
 				height: 56 * @unit_base;
+
+				&::after {
+					background-color: transparent;
+				}
 			}
 			div::after {
 				content: "";

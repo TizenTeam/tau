@@ -654,15 +654,9 @@
 			pageWidget.element = pageElement;
 			pageWidget._contentFill();
 
-			//strictEqual(parseInt(content.style.top, 10), 67, "content top was set correct");
-			notEqual(content.style.top.indexOf("px"), -1, "content top was set correct (px)");
-			strictEqual(content.style.bottom, ui.footer.getBoundingClientRect().height + "px", "content bottom was set correct");
-			notEqual(content.style.bottom.indexOf("px"), -1, "content bottom was set correct (px)");
 			// ok(height === window.innerHeight - 67 - 100 ||
 			// 	height === window.innerHeight - 68 - 100, "content height was set correct");
 			notEqual(content.style.height.indexOf("px"), -1, "content height was set correct (px)");
-			strictEqual(parseInt(content.style.width), window.innerWidth, "content width was set correct");
-			notEqual(content.style.width.indexOf("px"), -1, "content width was set correct (px)");
 		});
 
 		test("createEmptyElement", function () {

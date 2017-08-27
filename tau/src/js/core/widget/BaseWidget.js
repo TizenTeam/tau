@@ -137,6 +137,7 @@
 			"../engine",
 			"../event",
 			"../util/object",
+			"../util/string",
 			"../util/DOM/attributes",
 			"../widget"
 		],
@@ -168,6 +169,7 @@
 				 * @static
 				 */
 				domUtils = util.DOM,
+				utilString = util.string,
 				/**
 				 * Alias to {@link ns.util.object}
 				 * @property {Object} objectUtils
@@ -304,24 +306,27 @@
 			 * @protected
 			 */
 			prototype._getCreateOptions = function (element) {
-				var options = this.options,
-					bigRegexp = /[A-Z]/g;
+				var self = this,
+					options = self.options;
 
 				if (options !== undefined) {
 					Object.keys(options).forEach(function (option) {
 						// Get value from data-{namespace}-{name} element's attribute
 						// based on widget.options property keys
-						var value = domUtils.getNSData(element, (option.replace(bigRegexp, function (c) {
-							return "-" + c.toLowerCase();
-						})));
+						var value = domUtils.getNSData(element, utilString.camelCaseToDashes(option));
 
 						if (value !== null) {
 							options[option] = value;
+						} else {
+							if (typeof options[option] === "boolean") {
+								self._readBooleanOptionFromElement(element, option);
+							}
 						}
 					});
 				}
 				return options;
 			};
+
 			/**
 			 * Protected method building the widget
 			 * @method _build
@@ -365,6 +370,8 @@
 				} else {
 					node = element;
 				}
+
+				self._setBooleanOptions(element);
 
 				// Append current widget name to data-tau-built and data-tau-name attributes
 				dataBuilt = !dataBuilt ? self.name : dataBuilt + engineDataTau.separator + self.name;
@@ -674,6 +681,81 @@
 				return self;
 			};
 
+			/**
+			 * Reads class based on name conversion option value, for all options which have boolean value
+			 * we can read option value by check that exists classname connected with option name. To correct use this
+			 * method is required define in widget property _classesPrefix.
+			 *
+			 * For example for option middle in Button widget we will check existing of class ui-btn-middle.
+			 *
+			 * @method _readBooleanOptionFromElement
+			 * @param {HTMLElement} element Main element of widget
+			 * @param {string} name Name of option which should be used
+			 * @return {boolean}
+			 * @member ns.widget.BaseWidget
+			 * @protected
+			 */
+			prototype._readBooleanOptionFromElement = function (element, name) {
+				var classesPrefix = this._classesPrefix,
+					className;
+
+				if (classesPrefix) {
+					className = classesPrefix + utilString.camelCaseToDashes(name);
+					this.options[name] = element.classList.contains(className);
+				}
+			};
+
+			/**
+			 * Sets or removes class based on name conversion option, for all options which have boolean value
+			 * we can just set classname which is converted from camel case to dash style. To correct use this method
+			 * is required define in widget property _classesPrefix.
+			 *
+			 * For example for option middle in Button widget we will set or remove class ui-btn-middle.
+			 *
+			 * @method _setBooleanOption
+			 * @param {HTMLElement} element Main element of widget
+			 * @param {string} name Name of option which should be used
+			 * @param {boolean} value New value of option to set
+			 * @member ns.widget.BaseWidget
+			 * @protected
+			 * @return {false} always return false to block refreshing
+			 */
+			prototype._setBooleanOption = function (element, name, value) {
+				var classesPrefix = this._classesPrefix,
+					className;
+
+				if (classesPrefix) {
+					className = classesPrefix + utilString.camelCaseToDashes(name);
+					element.classList.toggle(className, value);
+				}
+
+				// we don't need refresh, always can return false
+				return false;
+			};
+
+			/**
+			 * For each options which has boolean value set or remove connected class.
+			 *
+			 * @method _setBooleanOptions
+			 * @param {HTMLElement} element Base element of the widget
+			 * @return {Object}
+			 * @member ns.widget.BaseWidget
+			 * @protected
+			 */
+			prototype._setBooleanOptions = function (element) {
+				var self = this,
+					classesPrefix = self._classesPrefix,
+					options = self.options;
+
+				if (classesPrefix && options !== undefined) {
+					Object.keys(options).forEach(function (option) {
+						if (typeof options[option] === "boolean") {
+							options[option] = self._setBooleanOption(element, option, options[option]);
+						}
+					});
+				}
+				return options;
+			};
 
 			/**
 			 * Gets or sets options of the widget.
@@ -748,6 +830,8 @@
 				methodName = "_set" + (field[0].toUpperCase() + field.slice(1));
 				if (typeof self[methodName] === TYPE_FUNCTION) {
 					self[methodName](self.element, value);
+				} else if (typeof value === "boolean") {
+					self._setBooleanOption(self.element, field, value);
 				} else {
 					self.options[field] = value;
 					if (self.element) {

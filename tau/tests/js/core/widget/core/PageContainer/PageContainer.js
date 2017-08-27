@@ -123,11 +123,7 @@
 			var pageContainer = new PageContainer(),
 				pageElement = document.getElementById("page6");
 
-			if (ns.getConfig("autoBuildOnPageChange", false)) {
-				expect(11);
-			} else {
-				expect(10);
-			}
+			expect(11);
 
 			helpers.stub(ns.engine, "instanceWidget", function (element, widgetName) {
 				strictEqual(element, pageElement, "page element is correct");
@@ -135,6 +131,9 @@
 				return {
 					layout: function () {
 						ok(1, "layout was called");
+					},
+					option: function () {
+						ok(1, "options was called");
 					},
 					onBeforeShow: function () {
 						ok(1, "layout was onBeforeShow");
