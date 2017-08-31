@@ -117,9 +117,7 @@
 					LAYER: "ui-layer",
 					LAYER_ACTIVE: "ui-layer-active",
 					LAYER_PREV: "ui-layer-prev",
-					LAYER_PREV_PREV: "ui-layer-prev-prev",
 					LAYER_NEXT: "ui-layer-next",
-					LAYER_NEXT_NEXT: "ui-layer-next-next",
 					LAYER_HIDE: "ui-layer-hide",
 					ITEM: "ui-item",
 					ITEM_ACTIVE: "ui-item-active",
@@ -270,19 +268,13 @@
 			 */
 			function removeLayerClasses(activeLayer) {
 				var activePrevLayer = activeLayer.previousElementSibling,
-					activeNextLayer = activeLayer.nextElementSibling,
-					ppLayer,
-					nnLayer;
+					activeNextLayer = activeLayer.nextElementSibling;
 
 				if (activePrevLayer) {
 					activePrevLayer.classList.remove(classes.LAYER_PREV);
-					ppLayer = activePrevLayer.previousElementSibling;
-					ppLayer && ppLayer.classList.remove(classes.LAYER_PREV_PREV);
 				}
 				if (activeNextLayer) {
 					activeNextLayer.classList.remove(classes.LAYER_NEXT);
-					nnLayer = activeNextLayer.nextElementSibling;
-					nnLayer && nnLayer.classList.remove(classes.LAYER_NEXT_NEXT);
 				}
 				activeLayer.classList.remove(classes.LAYER_ACTIVE);
 			}
@@ -290,31 +282,20 @@
 			/**
 			 * Add ordering classes of layers base on parameter.
 			 * @method addLayerClasses
-			 * @param {ns.widget.wearable.Selector} self
 			 * @param {HTMLElement} validLayer
 			 * @private
 			 * @member ns.widget.wearable.Selector
 			 */
-			function addLayerClasses(self, validLayer) {
+			function addLayerClasses(validLayer) {
 				var validPrevLayer = validLayer.previousElementSibling,
-					validNextLayer = validLayer.nextElementSibling,
-					ppLayer,
-					nnLayer;
+					validNextLayer = validLayer.nextElementSibling;
 
 				if (validPrevLayer && validPrevLayer.classList.contains(classes.LAYER)) {
 					validPrevLayer.classList.add(classes.LAYER_PREV);
-					ppLayer = validPrevLayer.previousElementSibling;
-					if (ppLayer && ppLayer.classList.contains(classes.LAYER)) {
-						ppLayer.classList.add(classes.LAYER_PREV_PREV);
-					}
 				}
 
 				if (validNextLayer && validNextLayer.classList.contains(classes.LAYER)) {
 					validNextLayer.classList.add(classes.LAYER_NEXT);
-					nnLayer = validNextLayer.nextElementSibling;
-					if (nnLayer && nnLayer.classList.contains(classes.LAYER)) {
-						nnLayer.classList.add(classes.LAYER_NEXT_NEXT);
-					}
 				}
 				validLayer.classList.add(classes.LAYER_ACTIVE);
 				validLayer.style.transform = "none";
@@ -587,7 +568,7 @@
 					removeLayerClasses(activeLayer);
 				}
 				if (validLayer) {
-					addLayerClasses(self, validLayer);
+					addLayerClasses(validLayer);
 				}
 				self._activeLayerIndex = index;
 				self._initItems(validLayer);
