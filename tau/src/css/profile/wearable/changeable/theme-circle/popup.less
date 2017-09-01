@@ -6,7 +6,7 @@
 @font_size_popup_body: 34 * @unit_base;
 
 .ui-popup {
-	width:100%;
+	width: 100%;
 	height: 100%;
 	overflow: hidden;
 	border: 0;
@@ -42,14 +42,15 @@
 		.ui-inline-listview {
 			margin: -25 * @unit_base -55 * @unit_base -16 * @unit_base -55 * @unit_base;
 		}
+
 	}
 
-	&.ui-has-side-buttons .ui-popup-content{
+	&.ui-has-side-buttons .ui-popup-content {
 		padding-left: 64 * @unit_base;
 		padding-right: 64 * @unit_base;
 	}
 
-	.ui-popup-footer.ui-side-button{
+	.ui-popup-footer.ui-side-button {
 		.ui-btn {
 			top: 0;
 			height: 100%;
@@ -102,7 +103,7 @@
 		}
 	}
 
-	.ui-popup-footer.ui-bottom-button{
+	.ui-popup-footer.ui-bottom-button {
 		.ui-btn {
 			position: fixed;
 			bottom: 0;
@@ -117,7 +118,7 @@
 
 			&::after {
 				content: "";
-				position:absolute;
+				position: absolute;
 				width: 100%;
 				height: 100%;
 				left: 0;
@@ -128,6 +129,48 @@
 			}
 			&.ui-btn-active::after {
 				animation: btn-footer-opacity-press linear 565ms;
+			}
+		}
+	}
+
+	&-more-options {
+		background-color: transparent;
+
+		.ui-selector {
+			background-color: @color_more_options_bg;
+
+			.ui-selector-indicator-text {
+				color: @color_more_options_indicator_text;
+			}
+
+			.ui-selector-indicator-subtext {
+				color: @color_more_options_indicator_subtext;
+			}
+
+			.ui-layer {
+				.ui-item {
+					background-color: @color_more_options_icon_bg;
+
+					&:active {
+						background-color: @color_more_options_icon_bg_press;
+					}
+
+					&.ui-item-active:active {
+						background-color: @color_more_options_icon_bg_active;
+					}
+
+					&::before {
+						background-color: @color_more_options_icon;
+
+						&:active {
+							background-color: @color_more_options_icon_press;
+						}
+					}
+
+					&.ui-item-active::before {
+						background-color: @color_more_options_icon_active
+					}
+				}
 			}
 		}
 	}

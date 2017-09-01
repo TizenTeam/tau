@@ -1,8 +1,8 @@
 /*global tau */
 (function () {
-	var page = document.getElementById("95-more-options-open-with-subtext-page"),
-		popup = document.getElementById("95-more-options-open-with-subtext-popup"),
-		selector = document.getElementById("95-more-options-open-with-subtext-selector"),
+	var page = document.getElementById("95-more-options-open-2-lines-page"),
+		popup = document.getElementById("95-more-options-open-2-lines-popup"),
+		selector = document.getElementById("95-more-options-open-2-lines-selector"),
 		selectorComponent;
 
 	/**

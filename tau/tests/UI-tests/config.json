@@ -1703,12 +1703,6 @@
 				"height": 360
 			},
 			{
-				"name": "92-more-options-open",
-				"time": 0,
-				"width": 360,
-				"height": 360
-			},
-			{
 				"name": "81-popup-btn-4-lines",
 				"time": 0,
 				"width": 360,
@@ -1795,8 +1789,27 @@
 				"height": 360
 			},
 			{
+				"name": "91-more-options",
+				"width": 360,
+				"height": 360
+			},
+			{
+				"name": "92-more-options-open",
+				"width": 360,
+				"height": 360
+			},
+			{
 				"name": "95-more-options-open-with-subtext",
-				"time": 0,
+				"width": 360,
+				"height": 360
+			},
+			{
+				"name": "95-more-options-open-2-lines",
+				"width": 360,
+				"height": 360
+			},
+			{
+				"name": "95-more-options-open-2-lines-subtext",
 				"width": 360,
 				"height": 360
 			},
@@ -1862,12 +1875,6 @@
 			{
 				"name": "84-graphic-toast-popup-2-lines",
 				"time": 2000,
-				"width": 360,
-				"height": 360
-			},
-			{
-				"name": "91-more-options",
-				"time": 0,
 				"width": 360,
 				"height": 360
 			},

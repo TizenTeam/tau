@@ -1059,26 +1059,6 @@ input[type="checkbox"]#checkboxControl {
 	display: none;
 }
 
-/* -------------More Options-----------*/
-#moreoptionsPopupCircle {
-	background-color: rgba(255, 255, 255, 0.1);
-	-webkit-mask-image: -webkit-radial-gradient(black 71%, transparent 0);
-	mask-image: -webkit-radial-gradient(black 71%, transparent 0);
-	background-image: none;
-}
-
-#moreoptionsPopupCircle .ui-popup-wrapper::after {
-	content: none;
-}
-
-.ui-item.ui-item-active::before {
-	background-color: rgba(22, 165, 217, 1);
-}
-
-#slider-icon {
-	background: url(images/b_slider_btn_bg.png) no-repeat center center;
-}
-
 /* ------------------------ Empty State ----------------------- */
 
 .ui-empty-state-add-item .app-icon-add-item {
