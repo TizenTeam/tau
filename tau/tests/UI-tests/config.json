@@ -1817,32 +1817,38 @@
 			{
 				"name": "98-rotary-selector",
 				"width": 360,
-				"height": 360
+				"height": 360,
+				"pass": true
 			},
 			{
 				"name": "100-rotary-selector-2-lines",
 				"width": 360,
-				"height": 360
+				"height": 360,
+				"pass": true
 			},
 			{
 				"name": "100-rotary-selector-2-lines-subtext",
 				"width": 360,
-				"height": 360
+				"height": 360,
+				"pass": true
 			},
 			{
 				"name": "100-rotary-selector-with-subtext",
 				"width": 360,
-				"height": 360
+				"height": 360,
+				"pass": true
 			},
 			{
 				"name": "101-rotary-selector-with-icon",
 				"width": 360,
-				"height": 360
+				"height": 360,
+				"pass": true
 			},
 			{
 				"name": "101-rotary-selector-with-icon-and-text",
 				"width": 360,
-				"height": 360
+				"height": 360,
+				"pass": true
 			},
 			{
 				"name": "113-bottom-button-text-position-with-image-100px",
