@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <widget xmlns:tizen="http://tizen.org/ns/widgets" xmlns="http://www.w3.org/ns/widgets" id="http://yourdomain/Test" version="0.1.0" viewmodes="fullscreen">
-    <tizen:application id="1234567999.UITestsWearable" package="1234567999" required_version="3.0"/>
+    <tizen:application id="vUf39tzQ3t.UITests" package="vUf39tzQ3t" required_version="3.0"/>
     <content src="index.html"/>
     <icon src="icon.png"/>
     <name>UITestsWearable</name>
