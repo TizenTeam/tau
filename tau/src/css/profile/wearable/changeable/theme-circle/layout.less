@@ -181,7 +181,6 @@ body {
 		bottom: 0;
 		z-index: 1000;
 		max-height: 100 * @unit_base;
-		font-size: 28 * @px_base;
 		.display-flex();
 		.flex-direction(column);
 		.justify-content(flex-end);
@@ -197,6 +196,8 @@ body {
 			position: relative;
 			margin: 0;
 			padding: 18 * @unit_base 0 23 * @unit_base 0;
+			font-size: 28 * @unit_base;
+			color: @color_button_bottom_text;
 			background-color: @color_footer_button_bg;
 			.mask-image("images/Bottom_button/tw_bottom_btn_bg.png");
 			.mask-size(100% 100%);
@@ -214,9 +215,17 @@ body {
 				z-index: -1;
 			}
 
-			&.ui-btn-active::after {
-				animation: btn-footer-opacity-press linear 565ms;
+			&.ui-btn-active{
+				color: @color_button_bottom_text_pressed;
+				&::after {
+					animation: btn-footer-opacity-press linear 565ms;
+				}
 			}
+
+			&.ui-state-disabled, &:disabled {
+				color: @color_button_bottom_text_disable;
+			}
+
 			&.ui-btn-icon-only {
 				padding: 14 * @unit_base 0 14 * @unit_base 0;
 			}

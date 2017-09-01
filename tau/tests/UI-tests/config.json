@@ -106,7 +106,7 @@
 			{
 				"name": "44-scroll-bar",
 				"time": 0,
-				"width": 402,
+				"width": 4.102,
 				"height": 714
 			},
 			{
@@ -381,7 +381,7 @@
 				"name": "143-popup-2-buttons-list",
 				"time": 0,
 				"width": 241,
-				"height": 429
+				"height": 4.129
 			},
 			{
 				"name": "144-popup-2-buttons-checkbox",
@@ -394,25 +394,25 @@
 				"name": "145-popup-toast",
 				"time": 3000,
 				"width": 241,
-				"height": 429
+				"height": 4.129
 			},
 			{
 				"name": "146-popup-toast-big",
 				"time": 3000,
 				"width": 241,
-				"height": 429
+				"height": 4.129
 			},
 			{
 				"name": "147-popup-toast-button",
 				"time": 3000,
 				"width": 241,
-				"height": 429
+				"height": 4.129
 			},
 			{
 				"name": "150-popup-contextual",
 				"time": 0,
 				"width": 241,
-				"height": 429
+				"height": 4.129
 			},
 			{
 				"name": "151-popup-contextual-with-icons",
@@ -424,7 +424,7 @@
 				"name": "152-popup-contextual-2",
 				"time": 1000,
 				"width": 241,
-				"height": 429
+				"height": 4.129
 			},
 			{
 				"name": "153-more-menu",
@@ -502,7 +502,7 @@
 				"name": "163-floating-button-8",
 				"time": 0,
 				"width": 241,
-				"height": 428
+				"height": 4.128
 			},
 			{
 				"name": "165-empty-state",
@@ -724,7 +724,7 @@
 			{
 				"name": "44-scroll-bar",
 				"time": 0,
-				"width": 402,
+				"width": 4.102,
 				"height": 714
 			},
 			{
@@ -959,43 +959,43 @@
 				"name": "142-popup-2-buttons-image",
 				"time": 1000,
 				"width": 241,
-				"height": 429
+				"height": 4.129
 			},
 			{
 				"name": "143-popup-2-buttons-list",
 				"time": 0,
 				"width": 241,
-				"height": 429
+				"height": 4.129
 			},
 			{
 				"name": "144-popup-2-buttons-checkbox",
 				"time": 0,
 				"width": 241,
-				"height": 429
+				"height": 4.129
 			},
 			{
 				"name": "145-popup-toast",
 				"time": 3000,
 				"width": 241,
-				"height": 429
+				"height": 4.129
 			},
 			{
 				"name": "146-popup-toast-big",
 				"time": 2000,
 				"width": 241,
-				"height": 429
+				"height": 4.129
 			},
 			{
 				"name": "147-popup-toast-button",
 				"time": 3000,
 				"width": 241,
-				"height": 429
+				"height": 4.129
 			},
 			{
 				"name": "150-popup-contextual",
 				"time": 0,
 				"width": 241,
-				"height": 429
+				"height": 4.129
 			},
 			{
 				"name": "151-popup-contextual-with-icons",
@@ -1007,7 +1007,7 @@
 				"name": "152-popup-contextual-2",
 				"time": 1000,
 				"width": 241,
-				"height": 429
+				"height": 4.129
 			},
 			{
 				"name": "153-more-menu",
@@ -1037,13 +1037,13 @@
 				"name": "160-floating-button",
 				"time": 0,
 				"width": 241,
-				"height": 429
+				"height": 4.129
 			},
 			{
 				"name": "161-floating-button-2",
 				"time": 0,
 				"width": 241,
-				"height": 429
+				"height": 4.129
 			},
 			{
 				"name": "162-floating-button-3",
@@ -1079,7 +1079,7 @@
 				"name": "163-floating-button-8",
 				"time": 0,
 				"width": 241,
-				"height": 428
+				"height": 4.128
 			},
 			{
 				"name": "165-empty-state",
@@ -1533,10 +1533,21 @@
 				"height": 360
 			},
 			{
-				"name": "53-text-button",
-				"time": 0,
+				"name": "59-text-button",
 				"width": 360,
 				"height": 360
+			},
+			{
+				"name": "59-text-button-short",
+				"width": 360,
+				"height": 360,
+				"pass": true
+			},
+			{
+				"name": "59-text-button-long",
+				"width": 360,
+				"height": 360,
+				"pass": true
 			},
 			{
 				"name": "56-icon-button",
@@ -1816,28 +1827,28 @@
 				"width": 360,
 				"height": 360,
 				"pass": true,
-				"threshold": 3.7
+				"threshold": 4.1
 			},
 			{
 				"name": "95-more-options-open-with-subtext",
 				"width": 360,
 				"height": 360,
 				"pass": true,
-				"threshold": 3.7
+				"threshold": 4.1
 			},
 			{
 				"name": "95-more-options-open-2-lines",
 				"width": 360,
 				"height": 360,
 				"pass": true,
-				"threshold": 3.7
+				"threshold": 4.1
 			},
 			{
 				"name": "95-more-options-open-2-lines-subtext",
 				"width": 360,
 				"height": 360,
 				"pass": true,
-				"threshold": 3.7
+				"threshold": 4.1
 			},
 			{
 				"name": "98-rotary-selector",

@@ -73,7 +73,7 @@
 		}
 	}
 
-	&.ui-btn-text, &.ui-btn-nobg.ui-btn-icon, &.ui-btn-no-bg.ui-btn-icon {
+	&.ui-btn-nobg.ui-btn-icon, &.ui-btn-no-bg.ui-btn-icon {
 		background-color: transparent;
 		height: 33vh;
 		&::before {
@@ -95,6 +95,23 @@
 		&.ui-btn-active::before {
 			transform: translate(-50%, -50%) scale(1.1);
 			animation: touch-text-btn-scale cubic-bezier(0.25,0.46,0.45,1.0) 300ms, touch-text-btn-opacity linear 733ms;
+		}
+	}
+
+	&.ui-btn-text {
+		height: 53 * @unit_base;
+		line-height: 43 * @unit_base;
+		padding: 5 * @unit_base;
+		margin: auto;
+		max-width: 258 * @unit_base;
+		min-width: 66 * @unit_base;
+
+		&:enabled:active:hover, &:enabled:focus {
+			background-color: transparent;
+		}
+
+		&.ui-btn-active {
+			animation: btn-circle-opacity-press cubic-bezier(0.25,0.46,0.45,1.0) 300ms;
 		}
 	}
 
