@@ -1535,7 +1535,8 @@
 			{
 				"name": "59-text-button",
 				"width": 360,
-				"height": 360
+				"height": 360,
+				"pass": true
 			},
 			{
 				"name": "59-text-button-short",
@@ -1552,17 +1553,20 @@
 			{
 				"name": "56-icon-button",
 				"width": 360,
-				"height": 360
+				"height": 360,
+				"pass": true
 			},
 			{
 				"name": "56-icon-button-small",
 				"width": 360,
-				"height": 360
+				"height": 360,
+				"pass": true
 			},
 			{
 				"name": "56-icon-button-big",
 				"width": 360,
-				"height": 360
+				"height": 360,
+				"pass": true
 			},
 			{
 				"name": "62-text-input-placeholder",
