@@ -1816,25 +1816,28 @@
 				"width": 360,
 				"height": 360,
 				"pass": true,
-				"threshold": 2.3
+				"threshold": 3.7
 			},
 			{
 				"name": "95-more-options-open-with-subtext",
 				"width": 360,
 				"height": 360,
-				"pass": true
+				"pass": true,
+				"threshold": 3.7
 			},
 			{
 				"name": "95-more-options-open-2-lines",
 				"width": 360,
 				"height": 360,
-				"pass": true
+				"pass": true,
+				"threshold": 3.7
 			},
 			{
 				"name": "95-more-options-open-2-lines-subtext",
 				"width": 360,
 				"height": 360,
-				"pass": true
+				"pass": true,
+				"threshold": 3.7
 			},
 			{
 				"name": "98-rotary-selector",
