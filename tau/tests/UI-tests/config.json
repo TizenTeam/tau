@@ -1432,6 +1432,26 @@
 				"height": 360
 			},
 			{
+				"name": "40-multiline-list",
+				"width": 360,
+				"height": 360
+			},
+			{
+				"name": "41-multiline-list-with-subtext",
+				"width": 360,
+				"height": 360
+			},
+			{
+				"name": "42-multiline-list-subtext-icon-left",
+				"width": 360,
+				"height": 360
+			},
+			{
+				"name": "42-multiline-list-subtext-icon-right",
+				"width": 360,
+				"height": 360
+			},
+			{
 				"name": "44-grid-thumbnails-center",
 				"time": 5000,
 				"width": 360,
@@ -1799,7 +1819,7 @@
 				"width": 360,
 				"height": 360,
 				"pass": true,
-				"threshold": 0.3
+				"threshold": 0.4
 			},
 			{
 				"name": "103-end-effect-right",

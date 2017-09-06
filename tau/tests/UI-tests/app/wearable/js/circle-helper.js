@@ -7,6 +7,7 @@
 	 * listHelper - Array for TAU snap list helper instances
 	 */
 	var page,
+		pageId,
 		list,
 		listHelper = [],
 		i,
@@ -20,7 +21,9 @@
 		 */
 		document.addEventListener("pagebeforeshow", function (e) {
 			page = e.target;
-			if (page.id !== "page-snaplistview" && page.id !== "page-swipelist") {
+			pageId = page.id;
+
+			if (pageId !== "page-snaplistview" && pageId !== "page-swipelist" && !pageId.includes("multiline-list")) {
 				list = page.querySelector(".ui-listview");
 				if (list) {
 					listHelper.push(tau.widget.Listview(list));
