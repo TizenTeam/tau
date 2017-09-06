@@ -1760,13 +1760,31 @@
 				"height": 360
 			},
 			{
-				"name": "109-popup-2-buttons-with-btn-text-inside-btn",
-				"time": 0,
+				"name": "103-end-effect-bottom",
+				"time": 500,
 				"width": 360,
 				"height": 360
 			},
 			{
-				"name": "103-end-effect-bottom",
+				"name": "103-end-effect-left",
+				"time": 500,
+				"width": 360,
+				"height": 360
+			},
+			{
+				"name": "103-end-effect-right",
+				"time": 500,
+				"width": 360,
+				"height": 360
+			},
+			{
+				"name": "103-end-effect-top",
+				"time": 500,
+				"width": 360,
+				"height": 360
+			},
+			{
+				"name": "109-popup-2-buttons-with-btn-text-inside-btn",
 				"time": 0,
 				"width": 360,
 				"height": 360
@@ -1819,12 +1837,6 @@
 				"height": 360,
 				"pass": true,
 				"threshold": 0.4
-			},
-			{
-				"name": "103-end-effect-right",
-				"time": 0,
-				"width": 360,
-				"height": 360
 			},
 			{
 				"name": "105-colorpicker",
@@ -1916,12 +1928,6 @@
 			},
 			{
 				"name": "114-slider-with-1-line-text",
-				"time": 0,
-				"width": 360,
-				"height": 360
-			},
-			{
-				"name": "103-end-effect-top",
 				"time": 0,
 				"width": 360,
 				"height": 360
@@ -2057,12 +2063,6 @@
 				"height": 360,
 				"pass": true,
 				"threshold": 1.1
-			},
-			{
-				"name": "103-end-effect-left",
-				"time": 0,
-				"width": 360,
-				"height": 360
 			}
 		]
 	}

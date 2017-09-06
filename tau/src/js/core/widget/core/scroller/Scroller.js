@@ -122,7 +122,7 @@
 				 * @property {number} [options.scrollDelay=0]
 				 * @property {number} [options.threshold=10]
 				 * @property {""|"bar"|"tab"} [options.scrollbar=""]
-				 * @property {boolean} [options.useBouncingEffect=false]
+				 * @property {boolean} [options.useBouncingEffect=true]
 				 * @property {"vertical"|"horizontal"} [options.orientation="vertical"]
 				 * @member ns.widget.core.Scroller
 				 */
@@ -130,7 +130,7 @@
 					scrollDelay: 0,
 					threshold: 30,
 					scrollbar: "",
-					useBouncingEffect: false,
+					useBouncingEffect: true,
 					orientation: "vertical"	// vertical or horizontal,
 				});
 			};
