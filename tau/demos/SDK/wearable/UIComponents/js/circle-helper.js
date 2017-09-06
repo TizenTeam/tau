@@ -13,11 +13,12 @@ document.addEventListener("tauinit", function () {
 			 * page - Active page element
 			 * list - NodeList object for lists in the page
 			 */
-			var page,
+			var page = event.target,
+				pageId = page.id,
 				list;
 
-			page = event.target;
-			if (page.id !== "page-snaplistview" && page.id !== "page-swipelist" && page.id !== "page-marquee-list") {
+			if (pageId !== "page-snaplistview" && pageId !== "page-swipelist" && pageId !== "page-marquee-list" &&
+				pageId !== "page-multiline-list") {
 				list = page.querySelector(".ui-listview");
 				if (list) {
 					tau.widget.ArcListview(list);
