@@ -17,6 +17,7 @@
 	&.ui-arc-listview {
 		padding-bottom: 0;
 	}
+
 	li {
 		font-size: @font_size_list_item;
 		font-weight: 500;
@@ -341,5 +342,32 @@
 				}
 			}
 		}
+	}
+
+	&:not(.ui-arc-listview):not(.ui-arc-listview-carousel-item) {
+		li {
+			padding: 25 * @unit_base 30 * @unit_base 26 * @unit_base;
+			min-height: auto;
+			color: @color_multiline_list_item;
+			overflow: hidden;
+
+			&::before {
+				display: block;
+				position: absolute;
+				bottom: 0;
+				left: 50%;
+				transform: translateX(-50%);
+				content: "";
+				width: 260 * @unit_base;
+				height: 1 * @unit_base;
+				background-color: @color_multiline_list_item_divider;
+				mask-image: url("images/List/tw_list_divider.png");
+			}
+
+			&:active, &:active a, &.ui-li-active, &.ui-li-active a{
+				color: @color_multiline_list_item_press;
+			}
+		}
+
 	}
 }
