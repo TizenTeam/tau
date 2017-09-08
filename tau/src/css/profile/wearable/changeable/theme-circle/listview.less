@@ -380,6 +380,28 @@
 					color: @color_multiline_list_text_press;
 				}
 			}
+
+			&.ui-li-has-multiline {
+				padding-top: 9 * @unit_base;
+				padding-bottom: 10 * @unit_base;
+
+				& ,a {
+					display: flex;
+					flex-direction: column;
+				}
+
+				.ui-li-sub-text, a .ui-li-sub-text{
+					color: @color_multiline_list_subtext;
+					font-size: 24 * @unit_base;
+					line-height: 32 * @unit_base;
+				}
+
+				&.ui-li-active {
+					.ui-li-sub-text, a .ui-li-sub-text {
+						color: @color_multiline_list_subtext_press;
+					}
+				}
+			}
 		}
 
 	}
