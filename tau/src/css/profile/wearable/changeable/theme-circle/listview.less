@@ -350,6 +350,7 @@
 			min-height: auto;
 			color: @color_multiline_list_item;
 			overflow: hidden;
+			line-height: 48 * @unit_base;
 
 			&::before {
 				display: block;
@@ -399,6 +400,31 @@
 				&.ui-li-active {
 					.ui-li-sub-text, a .ui-li-sub-text {
 						color: @color_multiline_list_subtext_press;
+					}
+				}
+			}
+
+			&.ui-li-has-thumb {
+				&-left {
+					padding-left: 100 * @unit_base;
+				}
+
+				&-right {
+					padding-right: 100 * @unit_base;
+				}
+
+				&-left img, &-right img{
+					background-color: unset;
+					position: absolute;
+					top: calc(50% - 0.5px); // Can't use unit_base here because it doesn't work with calc
+					transform: translateY(-50%);
+
+					&.ui-li-thumb-left {
+						left: 16 * @unit_base;
+					}
+
+					&.ui-li-thumb-right {
+						right: 16 * @unit_base;
 					}
 				}
 			}
