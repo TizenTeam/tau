@@ -59,6 +59,10 @@
 
 					self._create(scrollerElement, options);
 				},
+				Orientation = {
+					VERTICAL: "vertical",
+					HORIZONTAL: "horizontal"
+				},
 				endEffectAreaType = {
 					content: "content",
 					screen: "screen"
@@ -77,6 +81,8 @@
 					hide: "ui-hide",
 					show: "ui-show"
 				};
+
+			Bouncing.Orientation = Orientation;
 
 			Bouncing.defaults = defaults;
 
@@ -102,7 +108,7 @@
 						maxElement = self._maxEffectElement = document.createElement("DIV"),
 						className = classes.bouncingEffect;
 
-					if (self._orientation === ns.widget.core.scroller.Scroller.Orientation.HORIZONTAL) {
+					if (self._orientation === Orientation.HORIZONTAL) {
 						minElement.className = className + " " + classes.left;
 						maxElement.className = className + " " + classes.right;
 					} else {
@@ -206,7 +212,7 @@
 				},
 
 				_getValue: function (x, y) {
-					return this._orientation === ns.widget.core.scroller.Scroller.Orientation.HORIZONTAL ? x : y;
+					return this._orientation === Orientation.HORIZONTAL ? x : y;
 				},
 
 				_beginShow: function () {

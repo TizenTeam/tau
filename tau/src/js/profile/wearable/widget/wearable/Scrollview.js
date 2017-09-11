@@ -51,7 +51,8 @@
 		[
 			"../../../../core/engine",
 			"../../../../core/util/selectors",
-			"../../../../core/widget/BaseWidget",
+			"../../../../core/event",
+			"../../../../core/widget/core/scroller/effect/Bouncing",
 			"../../../../core/util/DOM/manipulation",
 			"../wearable"
 		],
@@ -65,6 +66,7 @@
 				 * @private
 				 * @static
 				 */
+				utilsEvents = ns.event,
 				engine = ns.engine,
 				/**
 				 * Alias for {@link ns.util}
@@ -100,6 +102,7 @@
 				scrollBarType = {
 					CIRCLE: "tizen-circular-scrollbar"
 				},
+				EffectBouncing = ns.widget.core.scroller.effect.Bouncing,
 				Scrollview = function () {
 					this.options = {};
 				},
@@ -109,7 +112,7 @@
 				 * @member ns.widget.core.Page
 				 * @static
 				 * @readonly
-				*/
+				 */
 				classes = {
 					uiHeader: "ui-header",
 					uiContent: "ui-content",
@@ -154,7 +157,96 @@
 					}
 				}
 
+				this.scroller = scroller;
+
 				return element;
+			};
+
+
+			prototype._init = function () {
+				this.maxScrollX = 0;
+				this.maxScrollY = 0;
+				if (this.scroller) {
+					this.maxScrollY = this.scroller.scrollHeight - window.innerHeight;
+				}
+				this.minScrollX = 0;
+				this.minScrollY = 0;
+				this.bouncingEffect = new EffectBouncing(this.element, {
+					maxScrollX: this.maxScrollX,
+					maxScrollY: this.maxScrollY,
+					orientation: "vertical"
+				});
+				this.scrollerOffsetX = 0;
+				this.scrollerOffsetY = 0;
+			};
+
+
+			prototype._start = function () {
+				var self = this;
+
+				self.scrolled = false;
+				self.dragging = true;
+				self.scrollCanceled = false;
+				self.startScrollerOffsetX = self.scrollerOffsetX;
+				self.startScrollerOffsetY = self.scrollerOffsetY;
+			};
+
+			prototype._end = function () {
+				if (this.dragging) {
+
+					// bouncing effect
+					if (this.bouncingEffect) {
+						this.bouncingEffect.dragEnd();
+					}
+
+					this.dragging = false;
+				}
+			};
+
+			/* jshint -W086 */
+			prototype.handleEvent = function (event) {
+				switch (event.type) {
+					case "dragstart":
+						this._start(event);
+						break;
+					case "drag":
+						this._move(event);
+						break;
+					case "dragend":
+						this._end(event);
+						break;
+				}
+			};
+
+
+			prototype._bindEvents = function () {
+				ns.event.enableGesture(
+					this.scroller,
+
+					new ns.event.gesture.Drag({
+						threshold: 30,
+						delay: this.options.scrollDelay,
+						blockVertical: this.orientation === EffectBouncing.Orientation.HORIZONTAL,
+						blockHorizontal: this.orientation === EffectBouncing.Orientation.VERTICAL
+					})
+				);
+
+				utilsEvents.on(this.scroller, "drag dragstart dragend", this);
+			};
+
+			prototype._move = function (event) {
+				var newX = this.startScrollerOffsetX,
+					newY = this.startScrollerOffsetY;
+
+				if ((this.scroller.scrollTop === 0 && event.detail.deltaY > 0) ||
+					(this.scroller.scrollTop === this.maxScrollY && event.detail.deltaY < 0)) {
+					if (this.bouncingEffect) {
+						this.bouncingEffect.drag(0, -this.scroller.scrollTop);
+					}
+				}
+
+				this.scrollerOffsetX = newX;
+				this.scrollerOffsetY = newY;
 			};
 
 			Scrollview.prototype = prototype;

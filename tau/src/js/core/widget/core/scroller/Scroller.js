@@ -155,10 +155,15 @@
 				this.scrollerWidth = scroller.offsetWidth;
 				this.scrollerHeight = scroller.offsetHeight;
 
-				this.maxScrollX = elementHalfWidth - this.scrollerWidth + scrollerChildren[scrollerChildren.length - 1].offsetWidth / 2;
-				this.maxScrollY = elementHalfHeight - this.scrollerHeight + scrollerChildren[scrollerChildren.length - 1].offsetHeight / 2;
-				this.minScrollX = elementHalfWidth - scrollerChildren[0].offsetWidth / 2;
-				this.minScrollY = elementHalfHeight - scrollerChildren[0].offsetHeight / 2;
+				if (scrollerChildren.length) {
+					this.maxScrollX = elementHalfWidth - this.scrollerWidth + scrollerChildren[scrollerChildren.length - 1].offsetWidth / 2;
+					this.maxScrollY = elementHalfHeight - this.scrollerHeight + scrollerChildren[scrollerChildren.length - 1].offsetHeight / 2;
+					this.minScrollX = elementHalfWidth - scrollerChildren[0].offsetWidth / 2;
+					this.minScrollY = elementHalfHeight - scrollerChildren[0].offsetHeight / 2;
+				} else {
+					this.maxScrollY = 360;
+					this.minScrollY = 0;
+				}
 
 				this.scrolled = false;
 				this.touching = true;

@@ -8,10 +8,7 @@
 		.animation-fill-mode(forwards);
 		background-color: @color_scroller_bouncing_effect_edge;
 	}
-	&.ui-top {
-		display: none;
-	}
-	&.ui-bottom {
+	&.ui-top, &.ui-bottom {
 		width: 100%;
 		height: 88 * @unit_base;
 		left: 0;
@@ -32,6 +29,13 @@
 			width: 88 * @unit_base;
 			height: 100%;
 			-webkit-mask-size: 100% 100%;
+		}
+	}
+	&.ui-top {
+		top: 0;
+		-webkit-mask-image: url(@bg_scroller_bouncing_effect_top_glow);
+		&::before {
+			-webkit-mask-image: url(@bg_scroller_bouncing_effect_top_edge);
 		}
 	}
 	&.ui-bottom {
