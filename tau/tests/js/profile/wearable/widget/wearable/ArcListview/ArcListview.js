@@ -32,6 +32,7 @@
 			}, "_ui was correct initialized");
 
 			assert.deepEqual(arclistWidget.options, {
+				bouncingTimeout: 1000,
 				ellipsisA: 333,
 				ellipsisB: 180,
 				selectedIndex: 0
@@ -319,6 +320,7 @@
 		QUnit.test("_init", function (assert) {
 			var listWidget = new ArcListview(),
 				element = document.getElementById("arc-list"),
+				pageElement = document.getElementById("arc-list-page"),
 				testStub = function () {
 					assert.ok("Called function from flow");
 				};
@@ -334,6 +336,7 @@
 			listWidget._setAnimatedItems = testStub;
 			listWidget._refresh = testStub;
 			listWidget._scroll = testStub;
+			listWidget._ui.page = pageElement;
 
 			listWidget._init();
 

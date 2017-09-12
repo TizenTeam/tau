@@ -7,12 +7,12 @@
 	<link rel="stylesheet" href="../css/style-circle.css">
 </head>
 <body>
-<div class="ui-page">
+<div class="ui-page" id="103-end-effect-top-page">
 	<header class="ui-header">
 		<h2 class="ui-title">Mobile Network</h2>
 	</header>
 	<div class="ui-content">
-		<ul class="ui-listview">
+		<ul class="ui-listview" id="103-end-effect-top" data-bouncing-timeout="10000">
 			<li class="li-has-multiline">
 				<a>
 					Use mobile network
@@ -33,6 +33,25 @@
 			</li>
 		</ul>
 	</div>
+	<script>
+		(function () {
+			var pageElement = document.getElementById("103-end-effect-top-page"),
+				arcListviewElement = document.getElementById("103-end-effect-top"),
+				arcListview;
+
+			pageElement.addEventListener("pageshow", function () {
+				// make ArcListview object
+				arcListview = tau.widget.Listview(arcListviewElement);
+				// simulate rotary to enable top end-effect
+				arcListview._rollUp();
+			});
+
+			pageElement.addEventListener("pagehide", function () {
+				// release object
+				arcListview.destroy();
+			});
+		}());
+	</script>
 </div>
 </body>
 <script type="text/javascript" src="../lib/tau/wearable/js/tau.js" data-build-remove="false"></script>

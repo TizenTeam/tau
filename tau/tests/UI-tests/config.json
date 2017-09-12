@@ -1787,37 +1787,37 @@
 			},
 			{
 				"name": "103-end-effect-left",
-				"time": 500,
+				"time": 1000,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "103-end-effect-right",
-				"time": 500,
+				"time": 1000,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "103-end-effect-top",
-				"time": 500,
+				"time": 1000,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "103-end-effect-bottom",
-				"time": 500,
+				"time": 1000,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "103-end-effect-top-scroll",
-				"time": 500,
+				"time": 1000,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "103-end-effect-bottom-scroll",
-				"time": 500,
+				"time": 1000,
 				"width": 360,
 				"height": 360
 			},

@@ -31,7 +31,7 @@
 		});
 
 		test("building", function () {
-			var listview = engine.instanceWidget(document.querySelector("." + Listview.classes.LISTVIEW), "Listview"),
+			var listview = engine.instanceWidget(document.getElementById("mobile-listview-1"), "Listview"),
 				listviewEl = listview.element,
 				canvas = listviewEl.querySelector("canvas");
 
@@ -238,7 +238,7 @@
 		});
 
 		test("_findContainers", function (assert) {
-			var element = document.getElementById("listview-1"),
+			var element = document.getElementById("mobile-listview-1"),
 				listview;
 
 			listview = new Listview();
@@ -259,7 +259,7 @@
 		});
 
 		test("_refreshBackgroundCanvas", function (assert) {
-			var element = document.getElementById("listview-1"),
+			var element = document.getElementById("mobile-listview-1"),
 				container = document.getElementById("content-1"),
 				canvas = document.createElement("canvas"),
 				listview;
@@ -367,7 +367,7 @@
 		});
 
 		test("_createHolder", function (assert) {
-			var element = document.getElementById("listview-1"),
+			var element = document.getElementById("mobile-listview-1"),
 				holderElement,
 				listview;
 
@@ -386,7 +386,7 @@
 		});
 
 		test("_setDirection", function (assert) {
-			var element = document.getElementById("listview-1"),
+			var element = document.getElementById("mobile-listview-1"),
 				listview;
 
 			listview = new Listview(element);
@@ -417,7 +417,7 @@
 		});
 
 		test("_start", function (assert) {
-			var element = document.getElementById("listview-1"),
+			var element = document.getElementById("mobile-listview-1"),
 				container = document.getElementById("content-1"),
 				listview,
 				stubEvent,
@@ -452,7 +452,7 @@
 		});
 
 		test("_move", function (assert) {
-			var element = document.getElementById("listview-1"),
+			var element = document.getElementById("mobile-listview-1"),
 				container = document.getElementById("content-1"),
 				listview,
 				stubEvent,
@@ -489,7 +489,7 @@
 		});
 
 		test("_destroy", function (assert) {
-			var element = document.getElementById("listview-1"),
+			var element = document.getElementById("mobile-listview-1"),
 				listview;
 
 			listview = new Listview(element);
@@ -505,7 +505,7 @@
 		});
 
 		test("_end", function (assert) {
-			var element = document.getElementById("listview-1"),
+			var element = document.getElementById("mobile-listview-1"),
 				container = document.getElementById("content-1"),
 				listview,
 				helperStub,
@@ -528,7 +528,7 @@
 		});
 
 		test("_animationend", function (assert) {
-			var element = document.getElementById("listview-1"),
+			var element = document.getElementById("mobile-listview-1"),
 				listview,
 				eventStub,
 				elementClasses = element.classList;
@@ -564,7 +564,7 @@
 		});
 
 		test("_hadleTouchStart", function (assert) {
-			var element = document.getElementById("listview-1"),
+			var element = document.getElementById("mobile-listview-1"),
 				listview,
 				handlerStub,
 				eventStub;
@@ -592,7 +592,7 @@
 		});
 
 		test("_hadleTouchEnd", function (assert) {
-			var element = document.getElementById("listview-1"),
+			var element = document.getElementById("mobile-listview-1"),
 				listview,
 				handlerStub,
 				eventStub;
@@ -620,7 +620,7 @@
 		});
 
 		test("_handleReorderScroll", function (assert) {
-			var element = document.getElementById("listview-1"),
+			var element = document.getElementById("mobile-listview-1"),
 				listview,
 				liElements,
 				reorderElementsStub;
@@ -639,7 +639,7 @@
 		});
 
 		test("_setReorderBackground", function (assert) {
-			var element = document.getElementById("listview-1"),
+			var element = document.getElementById("mobile-listview-1"),
 				listview,
 				liElements;
 
@@ -655,7 +655,7 @@
 		});
 
 		test("_appendHandlers", function (assert) {
-			var element = document.getElementById("listview-1"),
+			var element = document.getElementById("mobile-listview-1"),
 				listview,
 				liElements;
 
@@ -673,7 +673,7 @@
 		});
 
 		test("_removeHandlers", function (assert) {
-			var element = document.getElementById("listview-1"),
+			var element = document.getElementById("mobile-listview-1"),
 				liElements,
 				listview;
 
@@ -691,7 +691,7 @@
 		});
 
 		test("_changeLocationDown", function (assert) {
-			var element = document.getElementById("listview-1"),
+			var element = document.getElementById("mobile-listview-1"),
 				container = document.getElementById("content-1"),
 				listview,
 				range,
@@ -724,7 +724,7 @@
 		});
 
 		test("_changeLocationUp", function (assert) {
-			var element = document.getElementById("listview-1"),
+			var element = document.getElementById("mobile-listview-1"),
 				container = document.getElementById("content-1"),
 				listview,
 				range,
@@ -752,7 +752,7 @@
 		});
 
 		test("_prepare", function (assert) {
-			var element = document.getElementById("listview-1"),
+			var element = document.getElementById("mobile-listview-1"),
 				listview;
 
 			assert.ok(!element.classList.contains(Listview.classes.SNAPSHOT), "Listview doesn't have SNAPSHOT class.");
@@ -768,7 +768,7 @@
 		});
 
 		test("_recalculateTop", function (assert) {
-			var element = document.getElementById("listview-1"),
+			var element = document.getElementById("mobile-listview-1"),
 				liElements,
 				listview;
 
@@ -785,7 +785,7 @@
 		});
 
 		test("_click", function (assert) {
-			var element = document.getElementById("listview-1"),
+			var element = document.getElementById("mobile-listview-1"),
 				listview;
 
 			element.classList.add(Listview.classes.SNAPSHOT);
@@ -799,7 +799,7 @@
 		});
 
 		test("toggleDragMode", function (assert) {
-			var element = document.getElementById("listview-1"),
+			var element = document.getElementById("mobile-listview-1"),
 				scrollableContainer = document.getElementById("page-1"),
 				length,
 				listview;
@@ -821,7 +821,7 @@
 		});
 
 		test("_handleEvent", function (assert) {
-			var element = document.getElementById("listview-1"),
+			var element = document.getElementById("mobile-listview-1"),
 				listview,
 				elementStub,
 				eventStub;

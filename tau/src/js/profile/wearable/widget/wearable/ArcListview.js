@@ -34,6 +34,7 @@
 			"../../../../core/util/selectors",
 			"../../../../core/widget/core/Listview",
 			"../../../../core/widget/core/Page",
+			"../../../../core/widget/core/scroller/effect/Bouncing",
 			// fetch namespace
 			"../wearable"
 		],
@@ -41,6 +42,7 @@
 			//>>excludeEnd("tauBuildExclude");
 
 			var nsWidget = ns.widget,
+				EffectBouncing = ns.widget.core.scroller.effect.Bouncing,
 				Listview = nsWidget.core.Listview,
 				Page = nsWidget.core.Page,
 				eventUtils = ns.event,
@@ -60,7 +62,8 @@
 				// time of animation in skip animation mode, this is one animation frame and animation is
 				// invisible
 				ONE_FRAME_TIME = 40,
-
+				// half of screen height - center element height (112)
+				BOTTOM_MARGIN = (window.innerHeight - 112) / 2,
 				/**
 				 * Alias for class {@link ns.engine}
 				 * @property {Object} engine
@@ -173,13 +176,15 @@
 					 * @property {number} [options.ellipsisA] a parameter of ellipsis equation
 					 * @property {number} [options.ellipsisB] b parameter of ellipsis equation
 					 * @property {number} [options.selectedIndex=0] index current selected item begins from 0
+					 * @property {number} [options.bouncingTimeout=1000] time when bound effect will be hidden
 					 * @memberof ns.widget.wearable.ArcListview
 					 */
 					self.options = {
 						// selected index
 						selectedIndex: 0,
 						ellipsisA: ELLIPSIS_A,
-						ellipsisB: ELLIPSIS_B
+						ellipsisB: ELLIPSIS_B,
+						bouncingTimeout: 1000
 					};
 					// items table on start is empty
 					self._items = [];
@@ -460,6 +465,15 @@
 				arrayUtil.forEach(state.items, calcItem);
 			};
 
+			prototype._setBouncingTimeout = function () {
+				var self = this;
+
+				// hide after timeout
+				setTimeout(function () {
+					self._bouncingEffect.dragEnd();
+				}, self.options.bouncingTimeout);
+			};
+
 			/**
 			 * Draw one item
 			 * @param {Object} item
@@ -709,7 +723,8 @@
 			 */
 			prototype._rollDown = function () {
 				var self = this,
-					state = self._state;
+					state = self._state,
+					bouncingEffect = self._bouncingEffect;
 
 				self.trigger(events.CHANGE, {
 					"unselected": state.currentIndex
@@ -717,6 +732,13 @@
 
 				if (state.toIndex < state.items.length - 1) {
 					state.toIndex++;
+					// hide end effect
+					bouncingEffect.dragEnd();
+				} else {
+					// show bottom end effect
+					bouncingEffect.drag(0, -self._maxScrollY);
+					// hide after timeout
+					self._setBouncingTimeout();
 				}
 
 				self._roll();
@@ -730,7 +752,8 @@
 			 */
 			prototype._rollUp = function () {
 				var self = this,
-					state = self._state;
+					state = self._state,
+					bouncingEffect = self._bouncingEffect;
 
 				self.trigger(events.CHANGE, {
 					"unselected": state.currentIndex
@@ -739,6 +762,13 @@
 
 				if (state.toIndex > 0) {
 					state.toIndex--;
+					// hide end effect
+					bouncingEffect.dragEnd();
+				} else {
+					// show top end effect
+					bouncingEffect.drag(0, 0);
+					// hide after timeout
+					self._setBouncingTimeout();
 				}
 
 				self._roll();
@@ -844,7 +874,9 @@
 					state = self._state,
 					touch = event.changedTouches[0],
 					deltaTouchTime,
-					scroll = state.scroll;
+					scroll = state.scroll,
+					current = scroll.current,
+					bouncingEffect = self._bouncingEffect;
 
 				// time
 				lastTouchTime = Date.now();
@@ -852,7 +884,7 @@
 
 				// move
 				deltaTouchY = touch.clientY - lastTouchY;
-				scroll.current += deltaTouchY;
+				current += deltaTouchY;
 				deltaSumTouchY += deltaTouchY;
 
 				if (didScroll === false &&
@@ -865,19 +897,29 @@
 
 				if (didScroll) {
 					lastTouchY = touch.clientY;
-					if (scroll.current > 0) {
-						scroll.current = 0;
+					// set current to correct range
+					if (current > 0) {
+						current = 0;
+						// enable top end effect
+						bouncingEffect.drag(0, 0);
+						self._setBouncingTimeout();
+					} else if (current < -self._maxScrollY) {
+						current = -self._maxScrollY;
+						// enable bottom end effect
+						bouncingEffect.drag(0, current);
+						self._setBouncingTimeout();
+					} else {
+						// hide end effect
+						bouncingEffect.dragEnd();
 					}
+					scroll.current = current;
 
-					state.currentIndex = self._findItemIndexByY(-1 * (scroll.current - SCREEN_HEIGHT / 2 + 1));
+					state.currentIndex = self._findItemIndexByY(-1 * (current - SCREEN_HEIGHT / 2 + 1));
 					self._carouselUpdate(state.currentIndex);
 
 					momentum = 0;
 					self._scroll();
 					lastTouchTime = Date.now();
-
-					event.stopImmediatePropagation();
-					event.preventDefault();
 				}
 			};
 
@@ -892,7 +934,8 @@
 				var touch = event.changedTouches[0],
 					self = this,
 					state = self._state,
-					scroll = state.scroll;
+					scroll = state.scroll,
+					bouncingEffect = self._bouncingEffect;
 
 				if (didScroll) {
 					deltaTouchY = touch.clientY - lastTouchY;
@@ -910,8 +953,10 @@
 					self._scroll();
 					lastTouchTime = 0;
 
-					event.stopImmediatePropagation();
-					event.preventDefault();
+					// bouncing effect
+					if (bouncingEffect) {
+						bouncingEffect.dragEnd();
+					}
 				}
 			};
 
@@ -990,8 +1035,6 @@
 					}
 
 					self._roll();
-					eventUtils.preventDefault(event);
-					eventUtils.stopImmediatePropagation(event);
 				}
 			};
 
@@ -1089,6 +1132,7 @@
 				momentum = 1;
 				self._refresh();
 				self._scroll();
+				self._initBouncingEffect();
 			};
 
 			/**
@@ -1187,6 +1231,17 @@
 				// remove added elements
 				ui.page.removeChild(ui.arcListviewSelection);
 				ui.scroller.parentElement.removeChild(ui.arcListviewCarousel);
+			};
+
+			prototype._initBouncingEffect = function () {
+				var self = this;
+
+				self._maxScrollY = self.element.getBoundingClientRect().height - BOTTOM_MARGIN;
+				self._bouncingEffect = new EffectBouncing(self._ui.page, {
+					maxScrollX: 0,
+					maxScrollY: self._maxScrollY,
+					orientation: "vertical"
+				});
 			};
 
 			ArcListview.prototype = prototype;
