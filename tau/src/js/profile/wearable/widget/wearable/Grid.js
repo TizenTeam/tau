@@ -289,6 +289,8 @@
 				SCALE = {
 					IMAGE: 1
 				},
+				THUMBNAIL_OPACITY = 0.75,
+				IMAGE_OPACITY = 1,
 				prototype = new Listview();
 
 			/**
@@ -865,6 +867,7 @@
 
 				style.transform = transform + " " + scale;
 				style.webkitTransform = transform + " " + scale;
+				style.opacity = item.opacity;
 			}
 
 			function transformItems(self) {
@@ -904,6 +907,9 @@
 					item.scale = easeOutQuad(
 						progress, from.scale, to.scale - from.scale, 1
 					);
+					item.opacity = easeOutQuad(
+						progress, from.opacity, to.opacity - from.opacity, 1
+					);
 				}
 			}
 
@@ -922,13 +928,16 @@
 					top: 0
 				};
 				item.scale = 0;
+				item.opacity = 1;
 				item.to = {
 					position: {},
-					scale: 1
+					scale: 1,
+					opacity: 1
 				};
 				item.from = {
 					position: {},
-					scale: 0
+					scale: 0,
+					opacity: 1
 				};
 				return item;
 			}
@@ -949,6 +958,9 @@
 					if (to.scale) {
 						item.scale = to.scale;
 					}
+					if (to.opacity) {
+						item.opacity = to.opacity;
+					}
 				}
 			}
 
@@ -966,6 +978,7 @@
 						top: item.position.top
 					};
 					from.scale = item.scale;
+					from.opacity = item.opacity;
 				}
 			}
 
@@ -1040,13 +1053,15 @@
 					};
 					targetState.scale = scaleThumbnailX;
 					itemScale = settings.scaleThumbnail - scaleThumbnailX;
+					targetState.opacity = THUMBNAIL_OPACITY;
 
 					if (i === currentIndex) {
 						targetState.scale += itemScale * (0.5 + scrolledAbsModPosition);
-					} else if ((i - currentIndex) === 1 && scrolledModPosition < 0) {
+						targetState.opacity += (1 - THUMBNAIL_OPACITY) * (0.5 + scrolledAbsModPosition);
+					} else if (((i - currentIndex) === 1 && scrolledModPosition < 0) ||
+						((i - currentIndex) === -1 && scrolledModPosition >= 0)) {
 						targetState.scale += itemScale * (0.5 - scrolledAbsModPosition);
-					} else if ((i - currentIndex) === -1 && scrolledModPosition >= 0) {
-						targetState.scale += itemScale * (0.5 - scrolledAbsModPosition);
+						targetState.opacity += (1 - THUMBNAIL_OPACITY) * (0.5 - scrolledAbsModPosition);
 					}
 				}
 			}
@@ -1089,6 +1104,7 @@
 						top: 0
 					};
 					to.scale = self._settings.scaleThumbanil;
+					to.opacity = IMAGE_OPACITY;
 				}
 			}
 
@@ -1106,6 +1122,9 @@
 						top: 0
 					};
 					to.scale = SCALE.IMAGE;
+					if (self.options.shape === "rectangle") {
+						to.opacity = (i === self._currentIndex) ? IMAGE_OPACITY : THUMBNAIL_OPACITY;
+					}
 				}
 			}
 
