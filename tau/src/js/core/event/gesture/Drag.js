@@ -201,7 +201,9 @@
 									newGestureEvent.preventDefault();
 								}
 								result = sender.sendEvent(eventNames.drag, newGestureEvent) ? RESULTS.RUNNING : RESULTS.FINISHED;
-								newGestureEvent.preventDefault();
+								if (result === false) {
+									newGestureEvent.preventDefault();
+								}
 								this.isTriggered = true;
 								break;
 
@@ -209,8 +211,9 @@
 							case gesture.Event.END:
 								result = RESULTS.FINISHED;
 								if (this.isTriggered) {
-									sender.sendEvent(eventNames.end, newGestureEvent);
-									newGestureEvent.preventDefault();
+									if (sender.sendEvent(eventNames.end, newGestureEvent) === false) {
+										newGestureEvent.preventDefault();
+									}
 									this.isTriggered = false;
 								}
 								break;
@@ -218,8 +221,9 @@
 							case gesture.Event.CANCEL:
 								result = RESULTS.FINISHED;
 								if (this.isTriggered) {
-									sender.sendEvent(eventNames.cancel, newGestureEvent);
-									newGestureEvent.preventDefault();
+									if (sender.sendEvent(eventNames.cancel, newGestureEvent) === false) {
+										newGestureEvent.preventDefault();
+									}
 									this.isTriggered = false;
 								}
 								break;

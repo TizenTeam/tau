@@ -59,9 +59,9 @@
 
 			// in phantom one prevent is not called bacause in code this prevent is do only in chrome
 			if (window.navigator.userAgent.match("PhantomJS")) {
-				expect(44);
+				expect(39);
 			} else {
-				expect(45);
+				expect(40);
 			}
 
 			// case when move is smaller then threshold

@@ -109,7 +109,8 @@
 					 * @member ns.event.gesture.Pinch
 					 */
 					handler: function (gestureEvent, sender, options) {
-						var result = Result.PENDING;
+						var result = Result.PENDING,
+							prevented;
 
 						switch (gestureEvent.eventType) {
 							case gesture.Event.MOVE:
@@ -117,24 +118,28 @@
 									result = Result.FINISHED;
 								} else if (!this.isTriggered && gestureEvent.pointers.length >= 2) {
 									this.isTriggered = true;
-									sender.sendEvent(eventNames.start, gestureEvent);
-									gestureEvent.preventDefault();
+									if (sender.sendEvent(eventNames.start, gestureEvent) === false) {
+										gestureEvent.preventDefault();
+									}
 									result = Result.RUNNING;
 								} else if (this.isTriggered) {
 									if ((gestureEvent.deltaTime < options.timeThreshold) &&
 										(gestureEvent.velocityX > options.velocity || gestureEvent.velocityY > options.velocity)) {
 										if (gestureEvent.scale < 1) {
-											sender.sendEvent(eventNames.in, gestureEvent);
+											prevented = sender.sendEvent(eventNames.in, gestureEvent);
 										} else {
-											sender.sendEvent(eventNames.out, gestureEvent);
+											prevented = sender.sendEvent(eventNames.out, gestureEvent);
 										}
-										gestureEvent.preventDefault();
+										if (prevented === false) {
+											gestureEvent.preventDefault();
+										}
 										this.isTriggered = false;
 										result = Result.FINISHED | Result.BLOCK;
 										return result;
 									} else {
-										sender.sendEvent(eventNames.move, gestureEvent);
-										gestureEvent.preventDefault();
+										if (sender.sendEvent(eventNames.move, gestureEvent) === false) {
+											gestureEvent.preventDefault();
+										}
 										result = Result.RUNNING;
 									}
 								}
@@ -142,16 +147,18 @@
 							case gesture.Event.BLOCKED:
 							case gesture.Event.END:
 								if (this.isTriggered) {
-									sender.sendEvent(eventNames.end, gestureEvent);
-									gestureEvent.preventDefault();
+									if (sender.sendEvent(eventNames.end, gestureEvent) === false) {
+										gestureEvent.preventDefault();
+									}
 									this.isTriggered = false;
 									result = Result.FINISHED;
 								}
 								break;
 							case gesture.Event.CANCEL:
 								if (this.isTriggered) {
-									sender.sendEvent(eventNames.cancel, gestureEvent);
-									gestureEvent.preventDefault();
+									if (sender.sendEvent(eventNames.cancel, gestureEvent) === false) {
+										gestureEvent.preventDefault();
+									}
 									this.isTriggered = false;
 									result = Result.FINISHED;
 								}
