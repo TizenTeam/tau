@@ -372,6 +372,20 @@
 .ui-btn-icon.ui-icon-home:after {
 	-webkit-mask-image: url("images/00_button_home.png");
 }
+.ui-icon-contact::after {
+	-webkit-mask-image: url("images/icon_multiple.png");
+	background-color: #3db9cc;
+}
+.ui-btn.ui-btn-icon.ui-btn-nobg.ui-icon-send::after {
+	-webkit-mask-image: url("images/messages_btn_send.png");
+	background-color: hsl(228, 38%, 50%);
+	width: 36px;
+	height: 34px;
+}
+.ui-btn.ui-btn-icon.ui-btn-nobg.ui-icon-paperclip::after, .ui-icon-paperclip::after {
+	-webkit-mask-image: url("images/attachment.png");
+	background-color: hsl(228, 38%, 50%);
+}
 
 .ui-listview .ui-li-static.vertical-list {
 	box-sizing: border-box;

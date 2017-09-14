@@ -137,7 +137,7 @@
 				"name": "74-grid-view",
 				"time": 0,
 				"width": 589,
-				"height":1047
+				"height": 1047
 			},
 			{
 				"name": "76-grid-view-with-label",
@@ -615,6 +615,120 @@
 				"name": "ext-sample-active-view-2",
 				"width": 720,
 				"height": 1280
+			}
+		]
+	},
+	{
+		"profile": "mobile",
+		"type": "p-bar-3.0",
+		"screens": [
+			{
+				"name": "text-enveloper-empty-state-1",
+				"width": 720,
+				"height": 1280,
+				"time": 500
+			},
+			{
+				"name": "text-enveloper-empty-state-1-UX",
+				"width": 189,
+				"height": 336,
+				"time": 500
+			},
+			{
+				"name": "text-enveloper-empty-state-keyboard",
+				"width": 720,
+				"height": 1280,
+				"time": 500
+			},
+			{
+				"name": "text-enveloper-recipients-1-added",
+				"width": 720,
+				"height": 1280,
+				"time": 500
+			},
+			{
+				"name": "text-enveloper-recipients-1-added-typing",
+				"width": 720,
+				"height": 1280,
+				"time": 500
+			},
+			{
+				"name": "text-enveloper-recipients-2-added",
+				"width": 720,
+				"height": 1280,
+				"time": 500
+			},
+			{
+				"name": "text-enveloper-recipients-4-added",
+				"width": 720,
+				"height": 1280,
+				"time": 500
+			},
+			{
+				"name": "text-enveloper-recipients-removed",
+				"width": 720,
+				"height": 1280,
+				"time": 500
+			},
+			{
+				"name": "text-enveloper-recipients-sms-typing-on",
+				"width": 720,
+				"height": 1280,
+				"time": 500
+			},
+			{
+				"name": "text-enveloper-recipients-typing",
+				"width": 720,
+				"height": 1280,
+				"time": 500
+			},
+			{
+				"name": "text-enveloper-recpients-select-effect-1",
+				"width": 720,
+				"height": 1280,
+				"time": 1000
+			},
+			{
+				"name": "email-2-recipients-typing",
+				"width": 720,
+				"height": 1280,
+				"time": 1000
+			},
+			{
+				"name": "email-3-recipients-typing",
+				"width": 720,
+				"height": 1280,
+				"time": 1000
+			},
+			{
+				"name": "email-4-recipients-typing",
+				"width": 720,
+				"height": 1280,
+				"time": 1000
+			},
+			{
+				"name": "email-5-recipients-typing",
+				"width": 720,
+				"height": 1280,
+				"time": 1000
+			},
+			{
+				"name": "email-7-recipients-typing",
+				"width": 720,
+				"height": 1280,
+				"time": 1000
+			},
+			{
+				"name": "email-9-recipients-CC",
+				"width": 720,
+				"height": 1280,
+				"time": 1000
+			},
+			{
+				"name": "email-empty-state-1",
+				"width": 720,
+				"height": 1280,
+				"time": 1000
 			}
 		]
 	},
