@@ -248,6 +248,7 @@
 						circle: {
 							marginTop: -75,
 							marginLeft: 38,
+							marginRight: 140,
 							scale: 0.3833,
 							scaleThumbnail: 0.6,
 							scaleThumbnailX: 0.6,
@@ -257,6 +258,7 @@
 						rectangle: {
 							marginTop: -66,
 							marginLeft: 57,
+							marginRight: 230,
 							scale: 0.325,
 							scaleThumbnail: 0.715,
 							scaleThumbnailX: 0.4722,
@@ -269,6 +271,7 @@
 						circle: {
 							marginTop: 0,
 							marginLeft: 11,
+							marginRight: 179,
 							scale: 0.3027,
 							scaleThumbnail: 0.6,
 							scaleThumbnailX: 0.6,
@@ -1123,14 +1126,13 @@
 			function getGridSize(self, mode) {
 				var width,
 					length = self._items.length,
+					options = self.options,
 					settings = self._settings;
 
 				switch (mode) {
 					case "3x3" :
-						width = max(
-							(ceil(length / 3) + 1.5) * ceil(GALLERY_WIDTH * settings.scale) + settings.marginLeft,
-							GALLERY_WIDTH
-						);
+						width = max(ceil(length / options.lines) * ceil(GALLERY_WIDTH * settings.scale) +
+							settings.marginLeft + settings.marginRight, GALLERY_WIDTH);
 						break;
 					case "image" :
 						width = length * GALLERY_WIDTH;

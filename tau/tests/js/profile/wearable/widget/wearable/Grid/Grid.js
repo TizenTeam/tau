@@ -202,7 +202,7 @@
 			gridWidget._items = new Array(7);
 			gridWidget._setLines(3);
 
-			assert.equal(gridWidget._getGridSize("3x3"), 501.5, "aaa");
+			assert.equal(gridWidget._getGridSize("3x3"), 517, "aaa");
 			assert.equal(gridWidget._getGridSize("image"), 2520, "aaa");
 			assert.equal(gridWidget._getGridSize("thumbnail"), 1799, "aaa");
 			assert.equal(gridWidget._getGridSize(""), 360, "aaa");
