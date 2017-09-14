@@ -1446,6 +1446,12 @@
 				"pass": true
 			},
 			{
+				"name": "41-multiline-list-with-subtext-bottom",
+				"time": 2000,
+				"width": 360,
+				"height": 360
+			},
+			{
 				"name": "42-multiline-list-subtext-icon-left",
 				"time": 2000,
 				"width": 360,
@@ -1453,11 +1459,23 @@
 				"pass": true
 			},
 			{
+				"name": "42-multiline-list-subtext-icon-left-bottom",
+				"time": 2000,
+				"width": 360,
+				"height": 360
+			},
+			{
 				"name": "42-multiline-list-subtext-icon-right",
 				"time": 2000,
 				"width": 360,
 				"height": 360,
 				"pass": true
+			},
+			{
+				"name": "42-multiline-list-subtext-icon-right-bottom",
+				"time": 2000,
+				"width": 360,
+				"height": 360
 			},
 			{
 				"name": "44-grid-thumbnails-center",
