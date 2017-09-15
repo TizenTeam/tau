@@ -136,6 +136,8 @@
 				 */
 				classes = {
 					TEXT_ENVELOPER: "ui-text-enveloper",
+					WITH_CONTAINER: "ui-text-enveloper-with-container",
+					CONTAINER: "ui-text-enveloper-container",
 					TEXT_ENVELOPER_INPUT: "ui-text-enveloper-input",
 					TEXT_ENVELOPER_BTN: "ui-text-enveloper-btn",
 					TEXT_ENVELOPER_BTN_SELECTED: "ui-text-enveloper-btn-selected",
@@ -146,7 +148,9 @@
 					TEXT_ENVELOPER_TEXTLINE: "ui-text-input-textline",
 					TEXT_ENVELOPER_SLASH: "ui-text-enveloper-slash",
 					TEXT_ENVELOPER_SLASH_HIDDEN: "ui-text-enveloper-slash-hidden",
-					TEXT_ENVELOPER_BTN_SLASH: "ui-text-enveloper-btn-separator"
+					TEXT_ENVELOPER_BTN_SLASH: "ui-text-enveloper-btn-separator",
+					INPUT_STYLE_PREFIX: "ui-text-enveloper-input-",
+					INPUT_BLUR: "ui-text-enveloper-input-blur"
 				},
 
 				keyCode = {
@@ -160,7 +164,9 @@
 					REMOVED: "removed",
 					SELECT: "select",
 					UNSELECT: "unselect",
-					RESIZE: "resize"
+					RESIZE: "resize",
+					EXPAND: "expand",
+					FOLD: "fold"
 				},
 				/**
 				 * Local constructor function
@@ -173,23 +179,26 @@
 					/**
 					 * Object with default options
 					 * @property {Object} options
-					 * @property {string} [options.label="To : "] Sets a label
-					 * as a guide for the user
-					 * @property {string} [options.link=""] Sets the ID of the page or
-					 * the URL of other HTML file
-					 * @property {string} [options.description="+ {0}"] Manages
-					 * the message format
-					 * @property {boolean} [options.groupOnBlur = true] Group elements when blur form input
-					 * @property {boolean} [options.selectable = false] Give possibility of select elements
+					 * @property {boolean} [options.groupOnBlur=true] Group elements when blur form input
+					 * @property {string} [options.label=null] Sets a label as a guide for the user
+					 * @property {string} [options.link=""] Sets the ID of the page or the URL of other HTML file
+					 * @property {string} [options.description="+ {0}"] Manages the message format
+					 * @property {boolean} [options.selectable=false] Give possibility of select elements
+					 * @property {boolean|string} [options.input=true] Set input or define input style
+					 * @property {string} [options.placeholder=null] Input placeholder
+					 * @property {string} [options.labelPosition=null] Position of label: "indent" | null
 					 * @member ns.widget.mobile.TextEnveloper
 					 */
 
 					self.options = {
 						groupOnBlur: true,
-						label: "To : ",
+						label: null,
 						link: "",
 						description: "+ {0}",
-						selectable: false
+						selectable: false,
+						input: true,
+						placeholder: null,
+						labelPosition: null
 					};
 					self._ui = {};
 				},
@@ -201,16 +210,26 @@
 			TextEnveloper.classes = classes;
 
 			function bindEvents(self) {
-				var ui = self._ui;
+				var inputElement = self._ui.inputElement;
 
-				events.on(ui.inputElement, "keyup blur focus", self);
+				if (inputElement) {
+					events.on(inputElement, "keyup", self);
+					if (self.options.groupOnBlur) {
+						events.on(inputElement, "blur focus", self);
+					}
+				}
 				self.on("click", self);
 			}
 
 			function unbindEvents(self) {
-				var ui = self._ui;
+				var inputElement = self._ui.inputElement;
 
-				events.off(ui.inputElement, "keyup blur focus", self);
+				if (inputElement) {
+					events.off(inputElement, "keyup", self);
+					if (self.options.groupOnBlur) {
+						events.off(inputElement, "blur focus", self);
+					}
+				}
 				self.off("click", self);
 			}
 
@@ -225,30 +244,58 @@
 			prototype._build = function (element) {
 				var self = this,
 					ui = self._ui,
-					input = document.createElement("input"),
-					title = element.querySelector("." + classes.TEXT_ENVELOPER_START),
-					//if title is defined (usually its described as To, Cc, Bcc)
-					//then place it in the proper position
-					tempTitle = (title) ? title.cloneNode(true) : null,
-					textLineElement;
+					options = self.options;
 
 				element.classList.add(classes.TEXT_ENVELOPER);
-				input.classList.add(classes.TEXT_ENVELOPER_INPUT);
+
+				self._setLabel(element, options.label);
+				self._setLabelPosition(element, options.labelPosition);
+
+				ui.container.classList.add(classes.CONTAINER);
+				ui.buttons = [];
+
+				self._setInput(element, options.input);
+				self._setPlaceholder(element, options.placeholder);
+
+				return element;
+			};
+
+			prototype._setLabelPosition = function (element, labelPosition) {
+				var self = this,
+					ui = self._ui,
+					containerElement;
+
+				if (labelPosition === "indent") {
+					containerElement = document.createElement("div");
+					element.appendChild(containerElement);
+					ui.container = containerElement;
+					element.classList.add(classes.WITH_CONTAINER);
+				} else {
+					ui.container = element;
+				}
+
+				self.options.labelPostion = labelPosition;
+			};
+
+			prototype._setLabel = function (element, label) {
+				var title = element.querySelector("." + classes.TEXT_ENVELOPER_START),
+					//if title is defined (usually its described as To, Cc, Bcc)
+					//then place it in the proper position
+					tempTitle = (title) ? title.cloneNode(true) : null;
 
 				if (tempTitle) {
 					element.removeChild(title);
 					element.appendChild(tempTitle);
 				}
 
-				element.appendChild(input);
-				engine.instanceWidget(input, "TextInput");
-				ui.inputElement = input;
-				ui.buttons = [];
+				if (label) {
+					tempTitle = tempTitle || document.createElement("div");
+					tempTitle.innerText = label;
+					tempTitle.classList.add(classes.TEXT_ENVELOPER_START);
+					element.appendChild(tempTitle);
+				}
 
-				textLineElement = element.querySelector("." + classes.TEXT_ENVELOPER_TEXTLINE);
-				textLineElement.parentElement.removeChild(textLineElement);
-
-				return element;
+				this.options.label = label;
 			};
 
 			/**
@@ -323,18 +370,21 @@
 			prototype.expandButtons = function () {
 				var self = this,
 					ui = self._ui,
-					length = ui.buttons.length,
+					length,
 					i;
 
-				if (self._isBlurred && self.options.groupOnBlur) {
+				if (self._isBlurred) {
 					self._isBlurred = false;
-					if (length > 1 && ui.buttons[length - 2].classList.contains(classes.TEXT_ENVELOPER_BTN_BLUR)) {
-						self._remove(length - 1);
-					}
-					for (i = 0; i < length - 1; i++) {
+					self.remove(self._btnToRemoveIndex);
+					ui.inputContainer.classList.remove(classes.INPUT_BLUR);
+					length = ui.buttons.length;
+
+					for (i = 0; i < length; i++) {
 						ui.buttons[i].classList.remove(classes.TEXT_ENVELOPER_BTN_BLUR);
 					}
+
 					self.trigger(eventName.RESIZE);
+					self.trigger(eventName.EXPAND);
 				}
 			};
 
@@ -355,34 +405,40 @@
 					previousElementSiblingClassList = null,
 					nextElementSiblingClassList = null;
 
-				if (self.options.selectable && targetClassList.contains(classes.TEXT_ENVELOPER_BTN)) {
-					previousElementSiblingClassList = previousElementSibling && previousElementSibling.classList;
-					nextElementSiblingClassList = nextElementSibling && nextElementSibling.classList;
-					if (targetClassList.contains(classes.TEXT_ENVELOPER_BTN_SELECTED)) {
-						event.target.classList.remove(classes.TEXT_ENVELOPER_BTN_SELECTED);
-						if (previousElementSibling && previousElementSibling.previousElementSibling && !previousElementSibling.previousElementSibling.classList.contains(classes.TEXT_ENVELOPER_BTN_SELECTED)) {
-							previousElementSiblingClassList.remove(classes.TEXT_ENVELOPER_SLASH_HIDDEN);
+				if (!self._isBlurred) {
+					if (self.options.selectable && targetClassList.contains(classes.TEXT_ENVELOPER_BTN)) {
+						previousElementSiblingClassList = previousElementSibling && previousElementSibling.classList;
+						nextElementSiblingClassList = nextElementSibling && nextElementSibling.classList;
+						if (targetClassList.contains(classes.TEXT_ENVELOPER_BTN_SELECTED)) {
+							event.target.classList.remove(classes.TEXT_ENVELOPER_BTN_SELECTED);
+							if (previousElementSibling && previousElementSibling.previousElementSibling && !previousElementSibling.previousElementSibling.classList.contains(classes.TEXT_ENVELOPER_BTN_SELECTED)) {
+								previousElementSiblingClassList.remove(classes.TEXT_ENVELOPER_SLASH_HIDDEN);
+							}
+							if (nextElementSibling && nextElementSibling.nextElementSibling && !nextElementSibling.nextElementSibling.classList.contains(classes.TEXT_ENVELOPER_BTN_SELECTED)) {
+								nextElementSiblingClassList.remove(classes.TEXT_ENVELOPER_SLASH_HIDDEN);
+							}
+							self.trigger(eventName.SELECT, {
+								value: target.textContent,
+								index: buttons.indexOf(target)
+							}, false);
+						} else {
+							targetClassList.add(classes.TEXT_ENVELOPER_BTN_SELECTED);
+							if (previousElementSiblingClassList && previousElementSiblingClassList.contains(classes.TEXT_ENVELOPER_SLASH)) {
+								previousElementSiblingClassList.add(classes.TEXT_ENVELOPER_SLASH_HIDDEN);
+							}
+							if (nextElementSiblingClassList && nextElementSiblingClassList.contains(classes.TEXT_ENVELOPER_SLASH)) {
+								nextElementSiblingClassList.add(classes.TEXT_ENVELOPER_SLASH_HIDDEN);
+							}
+							self.trigger(eventName.UNSELECT, {
+								value: target.textContent,
+								index: buttons.indexOf(target)
+							}, false);
 						}
-						if (nextElementSibling && nextElementSibling.nextElementSibling && !nextElementSibling.nextElementSibling.classList.contains(classes.TEXT_ENVELOPER_BTN_SELECTED)) {
-							nextElementSiblingClassList.remove(classes.TEXT_ENVELOPER_SLASH_HIDDEN);
-						}
-						self.trigger(eventName.SELECT, {
-							value: target.textContent,
-							index: buttons.indexOf(target)
-						}, false);
-					} else {
-						targetClassList.add(classes.TEXT_ENVELOPER_BTN_SELECTED);
-						if (previousElementSiblingClassList && previousElementSiblingClassList.contains(classes.TEXT_ENVELOPER_SLASH)) {
-							previousElementSiblingClassList.add(classes.TEXT_ENVELOPER_SLASH_HIDDEN);
-						}
-						if (nextElementSiblingClassList && nextElementSiblingClassList.contains(classes.TEXT_ENVELOPER_SLASH)) {
-							nextElementSiblingClassList.add(classes.TEXT_ENVELOPER_SLASH_HIDDEN);
-						}
-						self.trigger(eventName.UNSELECT, {
-							value: target.textContent,
-							index: buttons.indexOf(target)
-						}, false);
+						event.preventDefault();
+						event.stopPropagation();
 					}
+				} else {
+					self.expandButtons();
 					event.preventDefault();
 					event.stopPropagation();
 				}
@@ -407,32 +463,36 @@
 			prototype.foldButtons = function () {
 				var self = this,
 					ui = self._ui,
-					length = ui.buttons.length,
-					firstButtonValue = ui.buttons[0] ? ui.buttons[0].textContent : "",
+					buttons = ui.buttons,
+					length = buttons.length,
+					firstButtonValue = buttons[0] ? buttons[0].textContent : "",
 					i,
 					button,
-					firstButtonTextNode,
 					separatorNode,
 					lengthTextNode;
 
-				if (length > 1 && self.options.groupOnBlur) {
+				if (!self._isBlurred) {
 					for (i = 0; i < length; i++) {
-						ui.buttons[i].classList.add(classes.TEXT_ENVELOPER_BTN_BLUR);
+						buttons[i].classList.add(classes.TEXT_ENVELOPER_BTN_BLUR);
 					}
 
-					firstButtonTextNode = document.createTextNode(firstButtonValue);
-					lengthTextNode = document.createTextNode("+" + (length - 1));
-					separatorNode = document.createElement("span");
+					ui.inputContainer.classList.add(classes.INPUT_BLUR);
+					button = self._createButton(firstButtonValue, false);
+					self._btnToRemoveIndex = buttons.indexOf(button);
 
-					separatorNode.classList.add(classes.TEXT_ENVELOPER_BTN_SLASH);
+					if (length > 1) {
+						separatorNode = document.createElement("span");
+						separatorNode.classList.add(classes.TEXT_ENVELOPER_BTN_SLASH);
 
-					button = self._createButton("");
-					button.appendChild(firstButtonTextNode);
-					button.appendChild(separatorNode);
-					button.appendChild(lengthTextNode);
+						lengthTextNode = document.createTextNode("+" + (length - 1));
+
+						button.appendChild(separatorNode);
+						button.appendChild(lengthTextNode);
+					}
 
 					self._isBlurred = true;
 					self.trigger(eventName.RESIZE);
+					self.trigger(eventName.FOLD);
 				}
 			};
 
@@ -461,7 +521,7 @@
 				} else if (keyValue === keyCode.BACKSPACE) {
 					if (value === "") {
 						if (self._btnActive) {
-							self._remove(lastIndex);
+							self.remove(lastIndex);
 							self._btnActive = false;
 						} else {
 							if (ui.buttons.length) {
@@ -483,25 +543,29 @@
 			 * Create button as used to word block
 			 * @method _onKeyup
 			 * @param {string} value
+			 * @param {boolean} [inline=true] set inline in button
 			 * @protected
 			 * @member ns.widget.mobile.TextEnveloper
 			 */
-			prototype._createButton = function (value) {
+			prototype._createButton = function (value, inline) {
 				var self = this,
 					ui = self._ui,
-					element = self.element,
-					button = document.createElement("div");
+					button = document.createElement("div"),
+					buttons = ui.buttons;
 
+				if (inline === undefined) {
+					inline = true;
+				}
 				button.innerText = value;
 				button.classList.add(classes.TEXT_ENVELOPER_BTN);
 				engine.instanceWidget(button, "Button", {
-					inline: true
+					inline: inline
 				});
-				element.insertBefore(button, self._ui.inputElement);
-				ui.buttons.push(button);
-				events.trigger(element, eventName.ADDED, {
+				ui.container.insertBefore(button, self._ui.inputContainer);
+				buttons.push(button);
+				self.trigger(eventName.ADDED, {
 					value: value,
-					index: ui.buttons.length - 1
+					index: buttons.length - 1
 				}, false);
 				return button;
 			};
@@ -513,13 +577,11 @@
 			 * @member ns.widget.mobile.TextEnveloper
 			 */
 			prototype._createSlash = function () {
-				var self = this,
-					ui = self._ui,
-					element = self.element,
+				var ui = this._ui,
 					span = document.createElement("span");
 
 				span.classList.add(classes.TEXT_ENVELOPER_SLASH);
-				element.insertBefore(span, ui.inputElement);
+				ui.container.insertBefore(span, ui.inputContainer);
 				return span;
 			};
 
@@ -580,35 +642,35 @@
 			 * @member ns.widget.mobile.TextEnveloper
 			 */
 			prototype.remove = function (index) {
-				this._remove(index);
-			};
-
-			prototype._remove = function (index) {
 				var self = this,
-					element = self.element,
-					buttons = self._ui.buttons,
+					ui = self._ui,
+					buttons = ui.buttons,
+					length = buttons.length,
 					innerText = buttons[index].innerText,
-					validLength = self._isBlurred ? buttons.length - 2 : buttons.length - 1;
+					container = ui.container,
+					validLength = self._isBlurred ? length - 2 : length - 1;
 
 				if (index < 0 || index > validLength) {
 					ns.warn("You insert incorrect index, please check your index value");
-				} else if (self._isBlurred) {
-					if (buttons.length > 2) {
-						buttons[buttons.length - 1].textContent = buttons[0].textContent + " + " + (buttons.length - 2);
-					} else if (buttons.length === 2) {
-						element.removeChild(buttons[buttons.length - 1]);
-						buttons.pop();
-						buttons[0].classList.remove(classes.TEXT_ENVELOPER_BTN_BLUR);
-					}
 				} else {
-					if (buttons[index].nextElementSibling.classList.contains(classes.TEXT_ENVELOPER_SLASH)) {
-						element.removeChild(buttons[index].nextElementSibling);
+					if (self._isBlurred) {
+						if (length > 2) {
+							buttons[length - 1].textContent = buttons[0].textContent + " + " + (length - 2);
+						} else if (length === 2) {
+							container.removeChild(buttons[length - 1]);
+							buttons.pop();
+							buttons[0].classList.remove(classes.TEXT_ENVELOPER_BTN_BLUR);
+						}
+					} else {
+						if (buttons[index].nextElementSibling.classList.contains(classes.TEXT_ENVELOPER_SLASH)) {
+							container.removeChild(buttons[index].nextElementSibling);
+						}
+						container.removeChild(buttons[index]);
+						buttons.splice(index, 1);
 					}
-					element.removeChild(buttons[index]);
-					buttons.splice(index, 1);
 				}
 
-				events.trigger(element, eventName.REMOVED, {
+				self.trigger(eventName.REMOVED, {
 					value: innerText,
 					index: index
 				});
@@ -640,6 +702,49 @@
 				return this._ui.buttons.length;
 			};
 
+			prototype._setInput = function (element, addInput) {
+				var self = this,
+					ui = self._ui,
+					input,
+					textLineElement,
+					inputContainer;
+
+				if (addInput) {
+					inputContainer = document.createElement("div");
+					input = document.createElement("input");
+					input.classList.add(classes.TEXT_ENVELOPER_INPUT);
+
+					inputContainer.appendChild(input);
+					ui.container.appendChild(inputContainer);
+
+					engine.instanceWidget(input, "TextInput", {
+						clearBtn: true
+					});
+					ui.inputElement = input;
+					ui.inputContainer = inputContainer;
+
+					if (typeof addInput === "string") {
+						inputContainer.classList.add(classes.INPUT_STYLE_PREFIX + addInput);
+					} else {
+						textLineElement = element.querySelector("." + classes.TEXT_ENVELOPER_TEXTLINE);
+						textLineElement.parentElement.removeChild(textLineElement);
+					}
+				}
+
+				self.options.input = addInput;
+			};
+
+			prototype._setPlaceholder = function (element, placeholder) {
+				var input = this._ui.inputElement;
+
+				if (input) {
+					input.setAttribute("placeholder", placeholder || "");
+				}
+
+				this.options.placeholder = placeholder;
+			};
+
+
 			/**
 			 * Destroy component
 			 * @method _destroy
@@ -647,10 +752,12 @@
 			 * @member ns.widget.mobile.TextEnveloper
 			 */
 			prototype._destroy = function () {
-				var self = this;
+				unbindEvents(this);
+				this._ui = null;
+			};
 
-				unbindEvents(self);
-				self._ui = null;
+			prototype.getInput = function () {
+				return this._ui.inputElement;
 			};
 
 			ns.widget.mobile.TextEnveloper = TextEnveloper;

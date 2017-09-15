@@ -4,7 +4,22 @@
 	background-color: transparent;
 	display: flex;
 	outline: none;
-	.flex-wrap(wrap);
+	flex-wrap: wrap;
+	overflow-x: visible;
+
+	&.ui-text-enveloper-with-container {
+		flex-wrap: nowrap;
+		align-content: stretch;
+
+		.ui-text-enveloper-container {
+			flex-grow: 0;
+			flex-shrink: 1;
+			flex-basis: 100%;
+			flex-wrap: wrap;
+			white-space: pre-wrap;
+			overflow: visible;
+		}
+	}
 
 	.ui-text-enveloper-start {
 		line-height: 54 * @unit_base;
@@ -14,13 +29,14 @@
 		color: @color_enveloper_start_text;
 		margin-right: 20 * @unit_base;
 		display: inline-block;
-		float: left;
+		flex-grow: 0;
+		flex-shrink: 0;
 	}
 
-	.ui-btn:not(.ui-btn-circle):not(.ui-btn-nobg):not(.ui-floatingactions-item) {
+	.ui-btn {
 		&.ui-text-enveloper-btn-expanded,
 		&.ui-text-enveloper-btn {
-			position: inherit;
+			position: relative;
 			line-height: 54 * @unit_base;
 			height: 80 * @unit_base;
 			border-radius: 15 * @unit_base;
@@ -91,11 +107,11 @@
 		}
 	}
 
-	.ui-text-enveloper-btn.ui-btn.ui-text-enveloper-btn-blur ~ .ui-btn.ui-text-enveloper-btn {
+	.ui-text-enveloper-btn.ui-btn:not(.ui-inline) {
 		margin-left: 6 * @unit_base;
 		padding-left: 10 * @unit_base;
 		border-bottom: 2 * @unit_base solid @color_textinput_outline;
-		overflow: hidden;
+		overflow: visible;
 		border-radius: 0;
 		flex: 1;
 		text-align: left;
@@ -168,26 +184,36 @@
 		height: 54 * @unit_base;
 		margin-top: 12 * @unit_base;
 		font-size: @font_size_enveloper;
-		color: @color_enveloper_expanded_button_normal;
-		text-shadow: 0 0 0 @color_enveloper_expanded_button_normal;
 		background-color: transparent;
 		margin-left: -10 * @unit_base;
+		margin-bottom: 0;
+	}
 
-		&:active {
-			color: @color_enveloper_expanded_button_normal;
-			text-shadow: 0 0 0 @color_enveloper_expanded_button_normal;
-			-webkit-text-fill-color: transparent;
+	.ui-text-enveloper-input-new-line {
+		clear: left;
+		width: 100%;
+
+		.ui-text-enveloper-input {
+			margin-left: 0;
 		}
 
-		&:focus {
-			color: @color_enveloper_expanded_button_normal;
-			text-shadow: 0 0 0 @color_enveloper_expanded_button_normal;
-			-webkit-text-fill-color: transparent;
+		&.ui-text-enveloper-input-blur {
+			display: none;
 		}
 	}
 }
 
-.ui-listview .ui-li-static .ui-text-enveloper {
-	margin-top: -14 * @unit_base;
-	margin-bottom: -12 * @unit_base;
+.ui-listview {
+	.ui-li-static, .ui-li-flex {
+		.ui-text-enveloper {
+			margin-top: -14 * @unit_base;
+			margin-bottom: -12 * @unit_base;
+			margin-right: 17 * @unit_base;
+			width: 100%;
+
+			input.ui-text-input + .ui-text-input-textline {
+				margin-bottom: 0;
+			}
+		}
+	}
 }
