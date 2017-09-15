@@ -435,7 +435,7 @@
 				elementStyle.width = screenWidth + "px";
 				elementStyle.height = screenHeight + "px";
 
-				if (content) {
+				if (content && !element.classList.contains("ui-page-flex")) {
 					contentStyle = content.style;
 					//>>excludeStart("tauDebug", pragmas.tauDebug);
 					ns.log("Page (contentFill) on ", self.id, " styles was recalculated");

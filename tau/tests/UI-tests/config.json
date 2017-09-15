@@ -434,18 +434,6 @@
 				"pass": true
 			},
 			{
-				"name": "155-light-view-camera",
-				"time": 0,
-				"width": 360,
-				"height": 640
-			},
-			{
-				"name": "157-light-view-more",
-				"time": 0,
-				"width": 360,
-				"height": 640
-			},
-			{
 				"name": "158-light-view-grid",
 				"time": 0,
 				"width": 360,
@@ -622,6 +610,18 @@
 		"profile": "mobile",
 		"type": "p-bar-3.0",
 		"screens": [
+			{
+				"name": "155-light-view-camera",
+				"time": 0,
+				"width": 360,
+				"height": 640
+			},
+			{
+				"name": "157-light-view-more",
+				"time": 0,
+				"width": 360,
+				"height": 640
+			},
 			{
 				"name": "text-enveloper-empty-state-1",
 				"width": 720,

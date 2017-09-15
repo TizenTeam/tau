@@ -1,20 +1,17 @@
 .LESSui-footer {
 	box-sizing: border-box;
-	height: 152 * @unit_base;
 	padding: 24 * @unit_base 32 * @unit_base;
 	text-align: center;
-	.display-flex();
+	display: flex;
+	align-items: center;
+	flex-shrink: 0;
+	flex-grow: 0;
 
 	.ui-btn {
 		height: 104 * @unit_base;
 		line-height: 104 * @unit_base;
 		margin: 0 auto;
 		max-width: 496 * @unit_base;
-
-		&.ui-inline {
-			width: 100%;
-		}
-
 	}
 
 	.ui-btn:not(.ui-btn-circle):not(.ui-btn-nobg):not(.ui-floatingactions-item):not(.ui-btn-welcome) {
@@ -33,11 +30,33 @@
 	.ui-btn ~ .ui-btn {
 		margin-left: 32 * @unit_base;
 	}
+
+	&.ui-grid-col {
+		&-1, &-2, &-3 {
+			.ui-btn.ui-inline {
+				display: block;
+				width: 100%;
+			}
+		}
+	}
 }
 
 .ui-footer {
-	position: absolute;
-	bottom: 0;
 	width: 100%;
 	.LESSui-footer();
+}
+
+.ui-page:not(.ui-page-flex) {
+	.ui-footer {
+		position: fixed;
+		bottom: 0;
+		height: 152 * @unit_base;
+	}
+}
+
+.ui-page.ui-page-flex {
+	.ui-footer {
+		min-height: 152 * @unit_base;
+		overflow: visible;
+	}
 }

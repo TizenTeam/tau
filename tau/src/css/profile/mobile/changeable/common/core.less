@@ -37,6 +37,21 @@
 	&.ui-page-active {
 		display: block;
 		overflow: hidden;
+
+		&.ui-page-flex {
+			display: flex;
+			flex-direction: column;
+			align-content: stretch;
+
+			.ui-header {
+				position: static;
+			}
+
+			.ui-content {
+				position: static;
+				flex-basis: 100vh;
+			}
+		}
 	}
 }
 
@@ -46,10 +61,15 @@
 }
 
 .ui-page-container, .ui-page-container .ui-page {
-	color			:	@color_text;
+	color: @color_text;
 	background-image: url("images/page/core_theme_bg_01.png");
 	background-repeat: no-repeat;
 	background-size: 100% 100%;
+
+	&.ui-page-light {
+		background-image: none;
+		background-color: @color_bg_light;
+	}
 }
 
 /* native overflow scrolling */
@@ -92,15 +112,17 @@
 
 /*content area*/
 .ui-content {
+	border-width: 0;
+	overflow-y: visible;
+	overflow-x: hidden;
+	flex-shrink: 1;
+
 	&.ui-content-padding {
 		&, &.ui-scrollview-clip {
 			padding-left: 24 * @unit_base;
 			padding-right: 24 * @unit_base;
 		}
 	}
-	border-width: 0;
-	overflow: visible;
-	overflow-x: hidden;
 }
 .ui-page-fullscreen .ui-content { padding:0; }
 

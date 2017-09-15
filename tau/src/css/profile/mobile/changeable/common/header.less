@@ -9,6 +9,8 @@
 	background: @color_bar_header_bg; /* Header Background */
 	color: @color_bar_title_text;
 	transform: translateZ(0);
+	flex-shrink: 0;
+	flex-grow: 0;
 
 	&.ui-header-navigation {
 		min-height: 100 * @unit_base;
@@ -41,6 +43,7 @@
 		font-size: @font_size_bar_title_text;
 		font-weight: 200; /* tizen font weight tuning */
 		line-height: 67 * @unit_base;
+		font-stretch: condensed;
 		text-overflow: ellipsis;
 		overflow: hidden;
 		white-space: nowrap;
@@ -186,6 +189,24 @@
 			&.ui-header-btn-right:not(.ui-header-btn-text), &.ui-btn-right:not(.ui-btn-text) {
 				top: 15 * @unit_base;
 				right: 10 * @unit_base;
+			}
+		}
+	}
+}
+
+.ui-page-light {
+	.ui-header, header {
+		background-color: transparent;
+
+		> .ui-title {
+			color: @color_bar_title_text_light;
+		}
+
+		> .ui-header-btn, > .ui-btn:not(.ui-btn-nobg) {
+			&:not(.ui-header-btn-text):not(.ui-btn-text), &.ui-btn-icon {
+				&::after {
+					background-color: @color_bar_title_text_light;
+				}
 			}
 		}
 	}
