@@ -162,7 +162,8 @@
 					uiTextInputFocused: CLASSES_PREFIX + "-focused",
 					HEADER_WITH_SEARCH: "ui-header-searchbar",
 					SEARCHINPUT: "ui-search-input",
-					HEADER: "ui-header"
+					HEADER: "ui-header",
+					CONTAINER: CLASSES_PREFIX + "-container"
 				},
 				/**
 				 * Selector for clear button appended to TextInput
@@ -182,11 +183,15 @@
 				 * @property {Object} options
 				 * @property {boolean} [options.clearBtn=false] option indicates that the clear button will be shown
 				 * @property {boolean} [options.textLine=true] option indicates that the text underline will be shown
+				 * @property {boolean} [options.maxHeight=null] set max height for textarea
+				 * @property {boolean} [options.outsideDiv=false] created outsider div as container of input elements
 				 * @member ns.widget.mobile.TextInput
 				 */
 				defaults = {
 					clearBtn: false,
-					textLine: true
+					textLine: true,
+					maxHeight: null,
+					outsideDiv: false
 				},
 				eventName = {
 					SEARCH: "search",
@@ -206,10 +211,19 @@
 			 */
 			prototype._resizeTextArea = function (element) {
 				var listviewElement,
-					listviewWidget;
+					listviewWidget,
+					maxHeight = parseInt(this.options.maxHeight, 10),
+					newHeight,
+					style = element.style;
 
-				element.style.height = "auto"; // reset for the browser to recalculate scrollHeight
-				element.style.height = element.scrollHeight + "px"; // apply scrollHeight as new height
+				style.height = "auto"; // reset for the browser to recalculate scrollHeight
+				newHeight = element.scrollHeight; // apply scrollHeight as new height
+
+				element.scrollTop = newHeight;
+				if (maxHeight && newHeight > maxHeight) {
+					newHeight = maxHeight;
+				}
+				style.height = newHeight + "px";
 
 				listviewElement = util.selectors.getClosestByClass(element, listviewClasses.LISTVIEW);
 
@@ -371,6 +385,9 @@
 					ui = self._ui,
 					header;
 
+
+				self._setOutsideDiv(element, options.outsideDiv);
+
 				/* set Aria and TextLine */
 				switch (type) {
 					case "text":
@@ -417,10 +434,21 @@
 					if (!element.getAttribute("placeholder")) {
 						element.setAttribute("placeholder", "Search");
 					}
-
 				}
 
 				return element;
+			};
+
+			prototype._setOutsideDiv = function (element, newDiv) {
+				var container = document.createElement("div");
+
+				if (newDiv) {
+					container.className = classes.CONTAINER;
+					element.parentElement.replaceChild(container, element);
+					container.appendChild(element);
+				}
+
+				this.options.outsideDiv = newDiv;
 			};
 
 			/**

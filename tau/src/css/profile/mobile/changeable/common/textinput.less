@@ -28,6 +28,10 @@ input, textarea {
 	}
 }
 
+.ui-text-input-container {
+	width: 100%;
+}
+
 textarea.ui-text-input {
 	resize: none;
 	overflow: hidden;
@@ -36,27 +40,27 @@ textarea.ui-text-input {
 }
 
 .ui-group-index {
-+ .ui-li-static {
-	input,
-	textarea {
-		&.ui-text-input {
-			padding: 0 26 * @unit_base 0 10 * @unit_base;
+	+ .ui-li-static {
+		input,
+		textarea {
+			&.ui-text-input {
+				padding: 0 26 * @unit_base 0 10 * @unit_base;
 
-			+ .ui-text-input-textline {
-				margin: 11 * @unit_base 16 * @unit_base 20 * @unit_base 0 * @unit_base;
-			}
+				+ .ui-text-input-textline {
+					margin: 11 * @unit_base 16 * @unit_base 20 * @unit_base 0 * @unit_base;
+				}
 
-			~ .ui-text-input-clear{
-				margin-right: 0;
-                right: 0;
-			}
+				~ .ui-text-input-clear {
+					margin-right: 0;
+					right: 0;
+				}
 
-			&:focus.ui-text-input-clear-active {
-				padding-right: 80 * @unit_base;
+				&:focus.ui-text-input-clear-active {
+					padding-right: 80 * @unit_base;
+				}
 			}
 		}
 	}
-}
 }
 
 .ui-li-static {
@@ -68,7 +72,7 @@ textarea.ui-text-input {
 			+ .ui-text-input-textline {
 				margin: 11 * @unit_base 0 20 * @unit_base 0;
 				position: absolute;
-				width: calc(~"100% - " 64 * @unit_base);
+				width: calc(~"100% - "64 * @unit_base);
 
 			}
 
@@ -79,6 +83,27 @@ textarea.ui-text-input {
 	}
 }
 
+.ui-li-flex {
+	input,
+	textarea {
+		&.ui-text-input {
+			padding: 0 10 * @unit_base;
+
+			+ .ui-text-input-textline {
+				margin: 11 * @unit_base 0 -12 * @unit_base 0;
+			}
+
+			~ .ui-text-input-clear {
+				top: 0;
+				margin-top: -70 * @unit_base;
+				margin-bottom: -12 * @unit_base;
+				right: 0;
+			}
+		}
+	}
+}
+
+
 input.ui-text-input,
 textarea.ui-text-input {
 	border: 0;
@@ -88,18 +113,21 @@ textarea.ui-text-input {
 	display: block;
 	width: 100%;
 	line-height: 54 * @unit_base;
+
+	color: @color_textinput_cursor;
 	text-shadow: 0 0 0 @color_textinput_text;
 	-webkit-text-fill-color: transparent;
 	font-size: @font_size_textinput_text;
 	background-color: transparent;
 	border: none;
-	color: @color_textinput_textline;
 
 	&:focus {
 		outline: none;
+		color: @color_textinput_cursor;
+		text-shadow: 0 0 0 @color_textinput_text_edit;
 
 		&.ui-text-input-clear-active {
-			padding-right: 63 * @unit_base;
+			padding-right: 23 * @unit_base;
 		}
 	}
 
@@ -121,21 +149,18 @@ textarea.ui-text-input {
 		float: right;
 		top: -67 * @unit_base;
 		box-sizing: border-box;
-		margin-right: 17 * @unit_base;
+		margin-right: -17 * @unit_base;
 		margin-left: 17 * @unit_base;
 		position: relative;
 		width: 80 * @unit_base;
 		height: 80 * @unit_base;
 	}
-	& ~ .ui-text-input-clear:after {
+	& ~ .ui-text-input-clear.ui-btn.ui-btn-icon.ui-btn-nobg::after {
 		.mask-image("images/controls/core_button_icon_clear.png");
 		width: 80 * @unit_base;
 		height: 80 * @unit_base;
 	}
-	& ~ .ui-text-input-clear:after {
-		width: 80 * @unit_base;
-		height: 80 * @unit_base;
-	}
+
 	& ~ .ui-text-input-clear-hidden {
 		visibility: hidden;
 	}
