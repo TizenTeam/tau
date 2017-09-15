@@ -72,7 +72,6 @@ a.ui-btn {
 	height: 78 * @unit_base;
 	line-height: 78 * @unit_base;
 	vertical-align: middle;
-	overflow: hidden;
 	text-overflow: ellipsis;
 	text-align: center;
 	color: @color_button_text_normal;
@@ -148,15 +147,15 @@ a.ui-btn {
 			height: 80 * @unit_base;
 			text-indent: -9999 * @unit_base;
 			padding: 20 * @unit_base 0;
-			border-radius: 50%;
+			border-radius: 0;
 
 			&.ui-inline {
 				width: 80 * @unit_base;
 			}
 
 			&::after {
-				width: 80 * @unit_base;
-				height: 80 * @unit_base;
+				width: 50 * @unit_base;
+				height: 50 * @unit_base;
 			}
 		}
 	}
@@ -236,14 +235,14 @@ a.ui-btn {
 
 			&-top {
 				padding-top: 130 * @unit_base;
-				padding-bottom: 72 * @unit_base;
+				padding-bottom: 80 * @unit_base;
 				&::after {
 					top: 56 * @unit_base;
 				}
 			}
 
 			&-bottom {
-				padding-top: 72 * @unit_base;
+				padding-top: 80 * @unit_base;
 				padding-bottom: 130 * @unit_base;
 				&::after {
 					bottom: 56 * @unit_base;
