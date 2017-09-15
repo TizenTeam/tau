@@ -1553,6 +1553,13 @@
 				"pass": true
 			},
 			{
+				"name": "40-multiline-list-bottom",
+				"time": 2000,
+				"width": 360,
+				"height": 360,
+				"pass": true
+			},
+			{
 				"name": "41-multiline-list-with-subtext",
 				"time": 2000,
 				"width": 360,
