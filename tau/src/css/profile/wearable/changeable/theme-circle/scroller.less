@@ -73,6 +73,18 @@
 	}
 }
 
+@-webkit-keyframes ui-bouncing-show-top {
+	0% {
+		-webkit-transform: translate3d(0, -100%, 0);
+	}
+	42% {
+		-webkit-transform: translate3d(0, 0, 0);
+	}
+	100% {
+		-webkit-transform: translate3d(0, 0, 0);
+	}
+}
+
 @-webkit-keyframes ui-bouncing-show-left {
 	0% {
 		-webkit-transform: translate3d(-100%, 0, 0);
@@ -157,6 +169,18 @@
 	}
 }
 
+@-webkit-keyframes ui-bouncing-hide-top {
+	0% {
+		-webkit-transform: translate3d(0, 0, 0);
+	}
+	42% {
+		-webkit-transform: translate3d(0, 0, 0);
+	}
+	100% {
+		-webkit-transform: translate3d(0, -100%, 0);
+	}
+}
+
 .ui-scrollbar-bouncing-effect.ui-show {
 	display: block;
 	&.ui-left {
@@ -168,12 +192,16 @@
 	&.ui-bottom {
 		.animation-name(ui-bouncing-show-bottom);
 	}
+	&.ui-top {
+		.animation-name(ui-bouncing-show-top);
+	}
 	&::before {
 		.animation-name(-ui-bouncing-show-additional);
 	}
 }
 
 .ui-scrollbar-bouncing-effect.ui-hide {
+	.animation-duration(0.3s);
 	display: block;
 	&.ui-left {
 		.animation-name(ui-bouncing-hide-left);
@@ -184,7 +212,11 @@
 	&.ui-bottom {
 		.animation-name(ui-bouncing-hide-bottom);
 	}
+	&.ui-top {
+		.animation-name(ui-bouncing-hide-top);
+	}
 	&::before {
+		.animation-duration(0.3s);
 		.animation-name(-ui-bouncing-hide-additional);
 	}
 }
