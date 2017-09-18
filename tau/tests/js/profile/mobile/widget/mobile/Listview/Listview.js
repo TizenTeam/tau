@@ -31,12 +31,12 @@
 		});
 
 		test("building", function () {
-			var listview = engine.instanceWidget(document.getElementById("mobile-listview-1"), "Listview"),
+			var listview = engine.instanceWidget(document.getElementById("mobile-listview-1"), "mobile.Listview"),
 				listviewEl = listview.element,
 				canvas = listviewEl.querySelector("canvas");
 
 			ok(canvas, "Canvas background created");
-			ok(canvas.classList.contains(Listview.classes.BACKGROUND_LAYER), "Proper class for canvas created");
+			ok(canvas.classList && canvas.classList.contains(Listview.classes.BACKGROUND_LAYER), "Proper class for canvas created");
 			strictEqual(canvas, listview._context.canvas, "Saved context is of the created canvas");
 		});
 
@@ -70,15 +70,15 @@
 		}
 
 		asyncTest("scroll", function (assert) {
-			var pageElement = document.querySelector("." + Page.classes.uiPage),
+			var pageElement = document.getElementById("mobile-listview-page-1"),
 				pageWidget = engine.instanceWidget(pageElement, "Page"),
 				listview,
 				mockedContext;
 
 			pageWidget.layout(true);
 			pageWidget.setActive(true);
+			listview = engine.instanceWidget(pageElement.querySelector("." + Listview.classes.LISTVIEW), "mobile.Listview");
 			engine.createWidgets(pageElement);
-			listview = engine.instanceWidget(document.querySelector("." + Listview.classes.LISTVIEW), "Listview");
 			mockedContext = mockListview(listview);
 
 			listview.refresh();
@@ -248,7 +248,7 @@
 			listview._findContainers(element);
 			assert.equal(
 				listview._pageContainer,
-				document.getElementById("page-1"),
+				document.getElementById("mobile-listview-page-1"),
 				"Page container found properly"
 			);
 			assert.equal(
@@ -260,7 +260,7 @@
 
 		test("_refreshBackgroundCanvas", function (assert) {
 			var element = document.getElementById("mobile-listview-1"),
-				container = document.getElementById("content-1"),
+				container = document.getElementById("mobile-listview-content-1"),
 				canvas = document.createElement("canvas"),
 				listview;
 
@@ -418,7 +418,7 @@
 
 		test("_start", function (assert) {
 			var element = document.getElementById("mobile-listview-1"),
-				container = document.getElementById("content-1"),
+				container = document.getElementById("mobile-listview-content-1"),
 				listview,
 				stubEvent,
 				liElements,
@@ -453,7 +453,7 @@
 
 		test("_move", function (assert) {
 			var element = document.getElementById("mobile-listview-1"),
-				container = document.getElementById("content-1"),
+				container = document.getElementById("mobile-listview-content-1"),
 				listview,
 				stubEvent,
 				helperStub;
@@ -500,13 +500,13 @@
 			listview.tempUl = {};
 			listview._destroy(element);
 
-			assert.ok(!engine.getBinding("Listview", element), "Listview widget method _destroy was called.");
+			assert.ok(!engine.getBinding("mobile.Listview", element), "Listview widget method _destroy was called.");
 			assert.equal(listview._scrollableContainer, null, "Listview scrollable container is set to null.");
 		});
 
 		test("_end", function (assert) {
 			var element = document.getElementById("mobile-listview-1"),
-				container = document.getElementById("content-1"),
+				container = document.getElementById("mobile-listview-content-1"),
 				listview,
 				helperStub,
 				liElements;
@@ -552,7 +552,7 @@
 				"Listview scrollable container is set to null.");
 			assert.equal(elementClasses.contains(Listview.classes.CANCEL_ANIMATION), true,
 				"Listview scrollable container is set to null.");
-			elementClasses.remove(Listview.classes.CANCEL_ANIMATION)
+			elementClasses.remove(Listview.classes.CANCEL_ANIMATION);
 
 			elementClasses.add(Listview.classes.DEACTIVATE_HANDLERS);
 			elementClasses.add(Listview.classes.DRAG_MODE);
@@ -692,7 +692,7 @@
 
 		test("_changeLocationDown", function (assert) {
 			var element = document.getElementById("mobile-listview-1"),
-				container = document.getElementById("content-1"),
+				container = document.getElementById("mobile-listview-content-1"),
 				listview,
 				range,
 				liElements,
@@ -725,7 +725,7 @@
 
 		test("_changeLocationUp", function (assert) {
 			var element = document.getElementById("mobile-listview-1"),
-				container = document.getElementById("content-1"),
+				container = document.getElementById("mobile-listview-content-1"),
 				listview,
 				range,
 				liElements,
@@ -800,7 +800,7 @@
 
 		test("toggleDragMode", function (assert) {
 			var element = document.getElementById("mobile-listview-1"),
-				scrollableContainer = document.getElementById("page-1"),
+				scrollableContainer = document.getElementById("mobile-listview-page-1"),
 				length,
 				listview;
 

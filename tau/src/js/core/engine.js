@@ -231,6 +231,9 @@
 						};
 
 						widgetDefs[name] = definition;
+						if (namespace) {
+							widgetDefs[namespace + "." + name] = definition;
+						}
 						eventUtils.trigger(document, "widgetdefined", definition, false);
 						return true;
 					}
@@ -257,14 +260,21 @@
 			function getInstanceByElement(binding, element, type) {
 				var widgetInstance,
 					bindingElement,
-					storedWidgetNames;
+					storedWidgetNames,
+					names = type ? type.split(".") : [],
+					name = names.pop(),
+					namespace = names.pop();
 
 				// If name is defined it's possible to fetch it instantly
-				if (type) {
-					widgetInstance = binding.instances[type];
+				if (name) {
+					widgetInstance = binding.instances[name];
 				} else {
 					storedWidgetNames = Object.keys(binding.instances);
 					widgetInstance = binding.instances[storedWidgetNames[0]];
+				}
+
+				if (namespace && widgetInstance && widgetInstance.namespace !== namespace) {
+					widgetInstance = null;
 				}
 
 				// Return only it instance of the proper widget exists
@@ -898,19 +908,21 @@
 				/* NORMAL */
 				for (i = 0; i < len; ++i) {
 					widgetName = selectorKeys[i];
-					definition = widgetDefs[widgetName];
-					definitionSelectors = definition.selectors;
-					if (definitionSelectors.length) {
-						excludeSelector = excludeBuiltAndBound(widgetName);
+					if (widgetName.indexOf(".") === -1) {
+						definition = widgetDefs[widgetName];
+						definitionSelectors = definition.selectors;
+						if (definitionSelectors.length) {
+							excludeSelector = excludeBuiltAndBound(widgetName);
 
-						normal = slice.call(context.querySelectorAll(definitionSelectors.join(excludeSelector + ",") + excludeSelector));
-						j = normal.length;
+							normal = slice.call(context.querySelectorAll(definitionSelectors.join(excludeSelector + ",") + excludeSelector));
+							j = normal.length;
 
-						while (--j >= 0) {
-							buildQueue.push({
-								element: normal[j],
-								widgetName: widgetName
-							});
+							while (--j >= 0) {
+								buildQueue.push({
+									element: normal[j],
+									widgetName: widgetName
+								});
+							}
 						}
 					}
 				}
