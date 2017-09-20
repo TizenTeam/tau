@@ -2087,6 +2087,11 @@
 				"pass": true
 			},
 			{
+				"name": "103-rotary-selector-edit-mode",
+				"width": 360,
+				"height": 360
+			},
+			{
 				"name": "113-bottom-button-text-position-with-image-100px",
 				"width": 360,
 				"height": 360
