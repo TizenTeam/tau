@@ -21,12 +21,4 @@
 		tau.openPopup(popup);
 	});
 
-	/**
-	 * pagebeforehide event handler
-	 * Destroys and removes event listeners
-	 */
-	page.addEventListener("pagebeforehide", function () {
-		selector.destroy();
-	});
-
 }());

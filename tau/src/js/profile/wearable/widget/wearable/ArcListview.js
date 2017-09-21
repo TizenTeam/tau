@@ -1229,7 +1229,7 @@
 				self._items = [];
 
 				// remove added elements
-				ui.page.removeChild(ui.arcListviewSelection);
+				ui.arcListviewSelection.parentElement.removeChild(ui.arcListviewSelection);
 				ui.scroller.parentElement.removeChild(ui.arcListviewCarousel);
 			};
 

@@ -13,12 +13,4 @@
 		selectorComponent._changeLayer(1);
 		selectorComponent.changeItem(13);
 	});
-
-	/**
-	 * pagebeforehide event handler
-	 * Destroys and removes event listeners
-	 */
-	page.addEventListener("pagebeforehide", function () {
-		selectorComponent.destroy();
-	});
 }());

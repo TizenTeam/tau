@@ -26,7 +26,7 @@
 	 * Destroys and removes event listeners
 	 */
 	page.addEventListener("pagebeforehide", function () {
-		selector.destroy();
+		selectorComponent.destroy();
 	});
 
 }());

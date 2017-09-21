@@ -27,7 +27,7 @@ function openComm(onSuccess) {
 }
 
 function getResponse(onSuccess) {
-	console.log("getResponse");
+	//console.log("getResponse");
 	dir.listFiles(function (list) {
 		var length = list.length,
 			fileHandle = null,
@@ -37,7 +37,7 @@ function getResponse(onSuccess) {
 		// wait on request file delete
 		for (i = 0; i < length; i++) {
 			if (list[i].name === TEST_REQUEST_FILE_NAME) {
-				console.log("Request file exists. Wait for remove file");
+				//console.log("Request file exists. Wait for remove file");
 				fileHandle = list[i];
 				break;
 			}
@@ -49,7 +49,7 @@ function getResponse(onSuccess) {
 		} else {
 			// IF REQUEST FILE NAME HAS BEEN DELETED THEN GET RESPONSE
 			if (!fileHandle) {
-				console.log("Request file not exists");
+				//console.log("Request file not exists");
 				// check if response file exists;
 				for (i = 0; i < length; i++) {
 					if (list[i].name === TEST_RESPONSE_FILE_NAME) {
@@ -60,14 +60,14 @@ function getResponse(onSuccess) {
 			}
 
 			if (fileHandle) {
-				console.log("Read response");
+				//console.log("Read response");
 				fileHandle.openStream("r",
 					function (fileStream) {
 						var status = fileStream.read(fileHandle.fileSize);
 
 						fileStream.close();
 
-						console.log("Remove response file");
+						//console.log("Remove response file");
 						fileHandle = dir.deleteFile(TEST_RESPONSE_FILE_NAME);
 
 						onSuccess(status);
@@ -165,7 +165,7 @@ function startTestCase() {
 }
 
 function onRequestSuccess(status) {
-	console.log(status);
+	//console.log(status);
 	nextTestCase();
 }
 
@@ -174,7 +174,7 @@ function onPageChange(event) {
 		path = tau.util.path.parseUrl(target.dataset.url);
 
 	// wait 1s and take a screenshot, requered by gridview
-	tau.log(path.filename);
+	//tau.log(path.filename);
 	setTimeout(function () {
 		sendRequest("take-screenshot:" + path.filename, onRequestSuccess);
 	}, testCase.time || 200);

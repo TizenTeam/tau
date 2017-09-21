@@ -547,17 +547,32 @@ uiTests.run = function (callback) {
 	doneCallback = callback;
 
 	setLongLife(function () {
-		fs.mkdir(__dirname + "/../../../temp", function (error) {
+		fs.mkdir(app + "/../../result", function (error) {
 			if (error) {
-				console.log("(fs.mkdtemp) " + error);
+				console.log("(fs.mkdir result 1) " + error);
 			}
-			fs.mkdtemp(__dirname + "/../../../temp/ui-tests-", function (error, folder) {
+			fs.mkdir(app + "/../../result/" + profile, function (error) {
 				if (error) {
-					console.log("(fs.mkdtemp) " + error);
-					return;
+					console.log("(fs.mkdir result 2) " + error);
 				}
-				tempFolder = folder;
-				setTimeout(tick.bind(null, done), FIRST_TIME_TICK);
+				fs.mkdir(app + "/../../result/" + profile + "/" + type, function (error) {
+					if (error) {
+						console.log("(fs.mkdir result 3) " + error);
+					}
+					fs.mkdir(__dirname + "/../../../temp", function (error) {
+						if (error) {
+							console.log("(fs.mkdtemp) " + error);
+						}
+						fs.mkdtemp(__dirname + "/../../../temp/ui-tests-", function (error, folder) {
+							if (error) {
+								console.log("(fs.mkdtemp) " + error);
+								return;
+							}
+							tempFolder = folder;
+							setTimeout(tick.bind(null, done), FIRST_TIME_TICK);
+						});
+					});
+				});
 			});
 		});
 	});

@@ -41,7 +41,7 @@ module.exports = function (grunt) {
 			"jsdoc/newline-after-description": 0,
 			"jsdoc/require-description-complete-sentence": 0,
 			"jsdoc/require-hyphen-before-param-description": 0,
-			"jsdoc/require-param": 1,
+			"jsdoc/require-param": 0,
 			// @TODO temporary remove, too many errors, good named parem not required description
 			"jsdoc/require-param-description": 0,
 			"jsdoc/require-param-type": 1,

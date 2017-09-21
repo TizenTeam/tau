@@ -313,7 +313,7 @@ module.exports = {
 		"jsdoc/newline-after-description": 0,
 		"jsdoc/require-description-complete-sentence": 0,
 		"jsdoc/require-hyphen-before-param-description": 0,
-		"jsdoc/require-param": 1,
+		"jsdoc/require-param": 0,
 		"jsdoc/require-param-description": 0,
 		"jsdoc/require-param-type": 1,
 		"jsdoc/require-returns-description": 0,
