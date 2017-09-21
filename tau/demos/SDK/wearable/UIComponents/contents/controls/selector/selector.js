@@ -1,6 +1,6 @@
 /* global tau */
 (function () {
-	var page = document.getElementById("selectorPage"),
+	var page = document.getElementById("selector-page"),
 		selector = document.getElementById("selector"),
 		selectorComponent,
 		clickBound;
