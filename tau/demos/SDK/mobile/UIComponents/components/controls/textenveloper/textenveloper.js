@@ -30,6 +30,9 @@
 		textEnveloper.add("Joe Peters");
 		textEnveloper.add("Ann");
 		textEnveloper.add("Park");
+		textEnveloper.on("select unselect", function (event) {
+			tau.log(event);
+		})
 	});
 
 	/**

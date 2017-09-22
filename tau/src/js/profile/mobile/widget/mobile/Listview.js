@@ -1353,7 +1353,8 @@
 			 */
 			prototype.handleEvent = function (event) {
 				var self = this,
-					srcElement = (event.detail.srcEvent && event.detail.srcEvent.srcElement) || event.srcElement;
+					srcElement = (event.detail && event.detail.srcEvent &&
+						event.detail.srcEvent.srcElement) || event.srcElement;
 
 				if (srcElement.classList.contains(classes.HANDLER)) {
 					switch (event.type) {

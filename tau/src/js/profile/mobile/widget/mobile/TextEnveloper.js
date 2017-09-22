@@ -140,14 +140,14 @@
 					CONTAINER: "ui-text-enveloper-container",
 					TEXT_ENVELOPER_INPUT: "ui-text-enveloper-input",
 					TEXT_ENVELOPER_BTN: "ui-text-enveloper-btn",
-					TEXT_ENVELOPER_BTN_SELECTED: "ui-text-enveloper-btn-selected",
+					BTN_SELECTED: "ui-text-enveloper-btn-selected",
 					TEXT_ENVELOPER_BTN_ACTIVE: "ui-text-enveloper-btn-active",
 					TEXT_ENVELOPER_BTN_BLUR: "ui-text-enveloper-btn-blur",
 					TEXT_ENVELOPER_BTN_EXPANDED: "ui-text-enveloper-btn-expanded",
 					TEXT_ENVELOPER_START: "ui-text-enveloper-start",
 					TEXT_ENVELOPER_TEXTLINE: "ui-text-input-textline",
-					TEXT_ENVELOPER_SLASH: "ui-text-enveloper-slash",
-					TEXT_ENVELOPER_SLASH_HIDDEN: "ui-text-enveloper-slash-hidden",
+					SLASH: "ui-text-enveloper-slash",
+					SLASH_HIDDEN: "ui-text-enveloper-slash-hidden",
 					TEXT_ENVELOPER_BTN_SLASH: "ui-text-enveloper-btn-separator",
 					INPUT_STYLE_PREFIX: "ui-text-enveloper-input-",
 					INPUT_BLUR: "ui-text-enveloper-input-blur"
@@ -397,43 +397,44 @@
 			 */
 			prototype._onClick = function (event) {
 				var self = this,
-					buttons = self._ui.buttons,
 					target = event.target,
 					targetClassList = target.classList,
-					previousElementSibling = target.previousElementSibling,
-					nextElementSibling = target.nextElementSibling,
-					previousElementSiblingClassList = null,
-					nextElementSiblingClassList = null;
+					previousElement = target.previousElementSibling,
+					nextElement = target.nextElementSibling,
+					nextButtonElement = nextElement && nextElement.nextElementSibling,
+					previousButtonElement = previousElement && previousElement.previousElementSibling,
+					previousElementClassList,
+					nextElementClassList,
+					eventNameForTrigger;
 
 				if (!self._isBlurred) {
 					if (self.options.selectable && targetClassList.contains(classes.TEXT_ENVELOPER_BTN)) {
-						previousElementSiblingClassList = previousElementSibling && previousElementSibling.classList;
-						nextElementSiblingClassList = nextElementSibling && nextElementSibling.classList;
-						if (targetClassList.contains(classes.TEXT_ENVELOPER_BTN_SELECTED)) {
-							event.target.classList.remove(classes.TEXT_ENVELOPER_BTN_SELECTED);
-							if (previousElementSibling && previousElementSibling.previousElementSibling && !previousElementSibling.previousElementSibling.classList.contains(classes.TEXT_ENVELOPER_BTN_SELECTED)) {
-								previousElementSiblingClassList.remove(classes.TEXT_ENVELOPER_SLASH_HIDDEN);
+						previousElementClassList = previousElement && previousElement.classList;
+						nextElementClassList = nextElement && nextElement.classList;
+						if (targetClassList.contains(classes.BTN_SELECTED)) {
+							if (previousButtonElement &&
+								!previousButtonElement.classList.contains(classes.BTN_SELECTED)) {
+								previousElementClassList.remove(classes.SLASH_HIDDEN);
 							}
-							if (nextElementSibling && nextElementSibling.nextElementSibling && !nextElementSibling.nextElementSibling.classList.contains(classes.TEXT_ENVELOPER_BTN_SELECTED)) {
-								nextElementSiblingClassList.remove(classes.TEXT_ENVELOPER_SLASH_HIDDEN);
+							if (nextButtonElement &&
+								!nextButtonElement.classList.contains(classes.BTN_SELECTED)) {
+								nextElementClassList.remove(classes.SLASH_HIDDEN);
 							}
-							self.trigger(eventName.SELECT, {
-								value: target.textContent,
-								index: buttons.indexOf(target)
-							}, false);
+							eventNameForTrigger = eventName.UNSELECT;
 						} else {
-							targetClassList.add(classes.TEXT_ENVELOPER_BTN_SELECTED);
-							if (previousElementSiblingClassList && previousElementSiblingClassList.contains(classes.TEXT_ENVELOPER_SLASH)) {
-								previousElementSiblingClassList.add(classes.TEXT_ENVELOPER_SLASH_HIDDEN);
+							if (previousElementClassList) {
+								previousElementClassList.add(classes.SLASH_HIDDEN);
 							}
-							if (nextElementSiblingClassList && nextElementSiblingClassList.contains(classes.TEXT_ENVELOPER_SLASH)) {
-								nextElementSiblingClassList.add(classes.TEXT_ENVELOPER_SLASH_HIDDEN);
+							if (nextElementClassList) {
+								nextElementClassList.add(classes.SLASH_HIDDEN);
 							}
-							self.trigger(eventName.UNSELECT, {
-								value: target.textContent,
-								index: buttons.indexOf(target)
-							}, false);
+							eventNameForTrigger = eventName.SELECT;
 						}
+						targetClassList.toggle(classes.BTN_SELECTED);
+						self.trigger(eventNameForTrigger, {
+							value: target.textContent,
+							index: self._ui.buttons.indexOf(target)
+						}, false);
 						event.preventDefault();
 						event.stopPropagation();
 					}
@@ -580,7 +581,7 @@
 				var ui = this._ui,
 					span = document.createElement("span");
 
-				span.classList.add(classes.TEXT_ENVELOPER_SLASH);
+				span.classList.add(classes.SLASH);
 				ui.container.insertBefore(span, ui.inputContainer);
 				return span;
 			};
@@ -662,7 +663,7 @@
 							buttons[0].classList.remove(classes.TEXT_ENVELOPER_BTN_BLUR);
 						}
 					} else {
-						if (buttons[index].nextElementSibling.classList.contains(classes.TEXT_ENVELOPER_SLASH)) {
+						if (buttons[index].nextElementSibling.classList.contains(classes.SLASH)) {
 							container.removeChild(buttons[index].nextElementSibling);
 						}
 						container.removeChild(buttons[index]);
