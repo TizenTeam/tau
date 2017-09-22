@@ -1,7 +1,7 @@
 (function(tau) {
-	var page = document.getElementById("page-empty-state-search"),
-		search =  document.getElementById("search-input"),
-		list = document.getElementById("searchList"),
+	var page = document.getElementById("178-matched-text-page"),
+		search =  document.getElementById("178-matched-text"),
+		list = document.getElementById("178-matched-text-list"),
 		listItems = list.querySelectorAll("[data-filtertext]"),
 		listItemsArray = [].slice.call(listItems),
 		searchHandlerBound,

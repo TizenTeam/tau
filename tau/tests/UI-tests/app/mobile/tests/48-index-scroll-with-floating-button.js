@@ -6,10 +6,9 @@
 	 * isb - TAU index scroll bar instance
 	 * scroller - Scrollable element
 	 */
-	var page = document.getElementById("indexscrollbarPage"),
-		isbElement = document.getElementById("indexscrollbar"),
+	var page = document.getElementById("48-index-scroll-with-floating-button-page"),
+		isbElement = document.getElementById("48-index-scroll-with-floating-button"),
 		dividers = page.getElementsByClassName("ui-group-index"),
-		testedIndex = document.getElementById("tested-index"),
 		isb,
 		scroller,
 		dividerIndexObject = {},
@@ -34,7 +33,8 @@
 		var i,
 			len,
 			idx;
-		scroller = tau.util.selectors.getScrollableParent(document.getElementById("isbList"));
+
+		scroller = tau.util.selectors.getScrollableParent(document.getElementById("48-index-scroll-with-floating-button-list"));
 		len = dividers.length;
 		for (i = 0; i < len; i++) {
 			idx = dividers[i].textContent;
@@ -42,15 +42,15 @@
 		}
 		isb = new tau.widget.IndexScrollbar(isbElement);
 		selectBound = onSelect.bind();
-		isb.addEventListener("select", selectBound);
+		isb.on("select", selectBound);
 	});
 
 	page.addEventListener("pageshow", function () {
 		var element = document.getElementById("indexscrollbar"),
 			evt = new CustomEvent("vmousedown", {}),
 			liElements = [].slice.call(document.querySelectorAll(".ui-indexscrollbar li")),
-			testedIndex = null,
-			rect = null;
+			testedIndex,
+			rect;
 
 		liElements.some(function (element) {
 			if (element.textContent === "N") {
@@ -60,12 +60,14 @@
 			return false;
 		});
 
-		rect = testedIndex.getBoundingClientRect();
+		if (testedIndex) {
+			rect = testedIndex.getBoundingClientRect();
 
-		evt.clientX = rect.left + rect.width / 2;
-		evt.clientY = rect.top + rect.height / 2;
+			evt.clientX = rect.left + rect.width / 2;
+			evt.clientY = rect.top + rect.height / 2;
 
-		element.dispatchEvent(evt);
+			element.dispatchEvent(evt);
+		}
 	});
 
 	/**
@@ -73,7 +75,7 @@
 	 * Destroys and removes event listeners
 	 */
 	page.addEventListener("pagehide", function () {
-		isb.removeEventListener("select", selectBound);
+		isb.off("select", selectBound);
 		isb.destroy();
 	});
 }(window.tau));
