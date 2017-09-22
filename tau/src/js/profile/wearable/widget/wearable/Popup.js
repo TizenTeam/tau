@@ -392,7 +392,9 @@
 					ui = self._ui,
 					wrapper = ui.wrapper;
 
-				wrapper.removeAttribute("style");
+				if (wrapper) {
+					wrapper.removeAttribute("style");
+				}
 				self._unblockPageScroll();
 				CorePopupPrototype._onHide.call(self);
 			};

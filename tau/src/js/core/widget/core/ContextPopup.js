@@ -944,8 +944,12 @@
 
 				// we remove styles for element, which are changed
 				// styles for container, header and footer are left unchanged
-				element.removeAttribute("style");
-				arrow.removeAttribute("style");
+				if (element) {
+					element.removeAttribute("style");
+				}
+				if (arrow) {
+					arrow.removeAttribute("style");
+				}
 
 				PopupPrototype._onHide.call(self);
 			};
