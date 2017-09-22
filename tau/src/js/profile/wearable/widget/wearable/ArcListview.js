@@ -588,7 +588,8 @@
 					current,
 					next,
 					loop = true,
-					tempIndex = round((y - minY) / (maxY - minY) * len);
+					diffY = maxY - minY,
+					tempIndex = diffY !== 0 ? round((y - minY) / (diffY) * len) : 0;
 
 				tempIndex = min(len - 1, max(0, tempIndex));
 
@@ -1218,7 +1219,9 @@
 			 */
 			prototype._destroy = function () {
 				var self = this,
-					ui = self._ui;
+					ui = self._ui,
+					arcListviewSelection = ui.arcListviewSelection,
+					arcListviewCarousel = ui.arcListviewCarousel;
 
 				self._unbindEvents();
 
@@ -1229,8 +1232,12 @@
 				self._items = [];
 
 				// remove added elements
-				ui.arcListviewSelection.parentElement.removeChild(ui.arcListviewSelection);
-				ui.scroller.parentElement.removeChild(ui.arcListviewCarousel);
+				if (arcListviewSelection && arcListviewSelection.parentElement) {
+					arcListviewSelection.parentElement.removeChild(arcListviewSelection);
+				}
+				if (arcListviewCarousel && arcListviewCarousel.parentElement) {
+					arcListviewCarousel.parentElement.removeChild(arcListviewCarousel);
+				}
 			};
 
 			prototype._initBouncingEffect = function () {
