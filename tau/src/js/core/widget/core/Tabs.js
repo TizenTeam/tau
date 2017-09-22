@@ -215,16 +215,19 @@
 			 */
 			prototype._initSectionChanger = function () {
 				var self = this,
-					element = self.element,
 					ui = self._ui,
 					sectionChanger = ui.sectionChanger,
-					sectionChangerStyle = sectionChanger.style,
-					tabbar = ui.tabbar,
-					tabbarOffsetHeight = tabbar.offsetHeight;
+					sectionChangerStyle,
+					tabbarOffsetHeight = ui.tabbar.offsetHeight,
+					title = ui.title;
 
-				sectionChangerStyle.width = window.innerWidth + "px";
-				sectionChangerStyle.height = element.offsetHeight - tabbarOffsetHeight - (ui.title ? ui.title.offsetHeight : 0) + "px";
-				self._component.sectionChanger = ns.widget.SectionChanger(sectionChanger);
+				if (sectionChanger) {
+					sectionChangerStyle = sectionChanger.style;
+					sectionChangerStyle.width = window.innerWidth + "px";
+					sectionChangerStyle.height = (self.element.offsetHeight - tabbarOffsetHeight -
+						(title ? title.offsetHeight : 0)) + "px";
+					self._component.sectionChanger = engine.instanceWidget(sectionChanger, "SectionChanger");
+				}
 
 			};
 
