@@ -181,6 +181,37 @@
 				}
 			], "Get selected return correct array");
 		});
+
+		QUnit.test("_setItems", 2, function (assert) {
+			var widget = new TextEnveloper(),
+				element = document.getElementById("enveloper"),
+				addCount = 0,
+				removeCount = 0;
+
+			widget._ui.buttons = [0, 1, 2];
+			widget.remove = function () {
+				removeCount++;
+			};
+			widget.add = function () {
+				addCount++;
+			};
+			widget._setItems(element, ["a", "b"]);
+			assert.equal(removeCount, 3, "Remove method was called 3 times");
+			assert.equal(addCount, 2, "Add method was called 2 times");
+		});
+
+		QUnit.test("_getItems", 1, function (assert) {
+			var widget = new TextEnveloper();
+
+			widget._ui.buttons = [
+				new ButtonMock("", "a"),
+				new ButtonMock("", "b"),
+				new ButtonMock("", "c")
+			];
+			assert.deepEqual(widget._getItems(), [
+				"a", "b", "c"
+			], "Get items return correct array");
+		});
 	}
 
 	if (typeof define === "function") {

@@ -188,6 +188,7 @@
 					 * @property {string} [options.placeholder=null] Input placeholder
 					 * @property {string} [options.labelPosition=null] Position of label: "indent" | null
 					 * @property {string} [options.selectedItems=null] List with indexes of selected items
+					 * @property {string} [options.items=null] List of items
 					 * @member ns.widget.mobile.TextEnveloper
 					 */
 
@@ -200,7 +201,8 @@
 						input: true,
 						placeholder: null,
 						labelPosition: null,
-						selectedItems: null
+						selectedItems: null,
+						items: null
 					};
 					self._ui = {};
 				},
@@ -447,6 +449,26 @@
 				}
 			};
 
+			prototype._getItems = function () {
+				return this._ui.buttons.map(function (item) {
+					return item.textContent;
+				});
+			};
+
+			prototype._setItems = function (element, value) {
+				var self = this,
+					itemsArray = typeof value === "string" ? value.split(",") : value;
+
+				if (itemsArray) {
+					this._ui.buttons.forEach(function () {
+						self.remove(0);
+					});
+					itemsArray.forEach(function (item) {
+						self.add(item);
+					});
+				}
+			};
+
 			prototype._getSelectedItems = function () {
 				var result = [];
 
@@ -635,12 +657,17 @@
 			 *			</script>
 			 *
 			 * @method add
-			 * @param {string} messages
+			 * @param {string} itemText
 			 * @member ns.widget.mobile.TextEnveloper
 			 */
-			prototype.add = function (messages) {
-				this._createButton(messages);
-				this._createSlash();
+			prototype.add = function (itemText) {
+				var self = this,
+					items = self._getItems(self.element);
+
+				if (items.indexOf(itemText) === -1) {
+					self._createButton(itemText);
+					self._createSlash();
+				}
 			};
 
 			/**
