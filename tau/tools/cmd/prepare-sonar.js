@@ -6,7 +6,7 @@ var cmd = require("./lib/cmd"),
 	properties = "",
 	propertiesObject = {},
 	package = require("../../package.json"),
-	mode = process.argv[2] === "refs/changes/xx/xxxxxx/x" ? "git" : "gerrit",
+	mode = !process.argv[2] ? "git" : "gerrit",
 	commitId = "";
 
 if (mode === "gerrit") {
