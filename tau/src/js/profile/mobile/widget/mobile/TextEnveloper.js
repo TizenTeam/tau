@@ -187,6 +187,7 @@
 					 * @property {boolean|string} [options.input=true] Set input or define input style
 					 * @property {string} [options.placeholder=null] Input placeholder
 					 * @property {string} [options.labelPosition=null] Position of label: "indent" | null
+					 * @property {string} [options.selectedItems=null] List with indexes of selected items
 					 * @member ns.widget.mobile.TextEnveloper
 					 */
 
@@ -198,7 +199,8 @@
 						selectable: false,
 						input: true,
 						placeholder: null,
-						labelPosition: null
+						labelPosition: null,
+						selectedItems: null
 					};
 					self._ui = {};
 				},
@@ -442,6 +444,32 @@
 					self.expandButtons();
 					event.preventDefault();
 					event.stopPropagation();
+				}
+			};
+
+			prototype._getSelectedItems = function () {
+				var result = [];
+
+				this._ui.buttons.forEach(function (item, index) {
+					if (item.classList.contains(classes.TEXT_ENVELOPER_BTN_SELECTED)) {
+						result.push({
+							value: item.textContent,
+							index: index
+						});
+					}
+				});
+
+				return result;
+			};
+
+			prototype._setSelectedItems = function (element, value) {
+				var selectedArray = typeof value === "string" ? value.split(",") : value;
+
+				if (selectedArray) {
+					this._ui.buttons.forEach(function (item, index) {
+						item.classList.toggle(classes.TEXT_ENVELOPER_BTN_SELECTED,
+							selectedArray.indexOf(index) !== -1);
+					});
 				}
 			};
 

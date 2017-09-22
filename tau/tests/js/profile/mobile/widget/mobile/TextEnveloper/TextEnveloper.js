@@ -56,7 +56,7 @@
 		QUnit.test("_onFocus", 1, function (assert) {
 			var widget = new TextEnveloper();
 
-			helpers.stub(widget, "expandButtons", function() {
+			helpers.stub(widget, "expandButtons", function () {
 				assert.ok(true, "method: expandButtons was called sucessfully");
 			});
 			widget._onFocus();
@@ -66,7 +66,7 @@
 		QUnit.test("_onBlur", 1, function (assert) {
 			var widget = new TextEnveloper();
 
-			helpers.stub(widget, "foldButtons", function() {
+			helpers.stub(widget, "foldButtons", function () {
 				assert.ok(true, "method: expandButtons was called sucessfully");
 			});
 			widget._onBlur();
@@ -92,10 +92,10 @@
 			length = widget._ui.buttons.length;
 
 			assert.equal(element.querySelectorAll(".ui-text-enveloper-btn-blur").length, 3,
-					"there are three buttons with ui-text-enveloper-btn-blur class");
+				"there are three buttons with ui-text-enveloper-btn-blur class");
 
 			assert.ok(widget._ui.buttons[3].childNodes[1].classList.contains("ui-text-enveloper-btn-separator"),
-					"first button was moved to the last position and span element was added");
+				"first button was moved to the last position and span element was added");
 
 		});
 
@@ -107,12 +107,79 @@
 			widget._build(element);
 			widget.element = element;
 
-			helpers.stub(widget, "trigger", function(eventType) {
+			helpers.stub(widget, "trigger", function (eventType) {
 				assert.ok(true, "onKeyUp run trigger sucessfully");
 				assert.ok(eventType === "resize", "onKeyUp run trigger sucessfully");
 			});
 			widget._onKeyup(event);
 			helpers.restoreStub(widget, "trigger");
+		});
+
+		function ButtonMock(className, text) {
+			var self = this;
+
+			self.className = className;
+			self.textContent = text;
+
+			self.classList = {
+				contains: function (className) {
+					return self.className === className;
+				}
+			}
+		}
+
+		QUnit.test("_setSelectedItems", 5, function (assert) {
+			var widget = new TextEnveloper(),
+				element = document.getElementById("enveloper"),
+				calledTrue = 0,
+				calledFalse = 0,
+				toggleClass = function (className, state) {
+					assert.equal(className, TextEnveloper.classes.TEXT_ENVELOPER_BTN_SELECTED,
+						"Correct added class");
+					if (state) {
+						calledTrue++;
+					} else {
+						calledFalse++;
+					}
+				};
+
+			widget._ui.buttons = [{
+				classList: {
+					toggle: toggleClass
+				}
+			}, {
+				classList: {
+					toggle: toggleClass
+				}
+			}, {
+				classList: {
+					toggle: toggleClass
+				}
+			}];
+			widget._setSelectedItems(element, [0, 2]);
+			assert.equal(calledTrue, 2, "2 items are selected");
+			assert.equal(calledFalse, 1, "1 item is not selected");
+		});
+
+		QUnit.test("_getSelectedItems", 1, function (assert) {
+			var widget = new TextEnveloper(),
+				SELECTED_CLASS = TextEnveloper.classes.TEXT_ENVELOPER_BTN_SELECTED;
+
+			widget._ui.buttons = [
+				new ButtonMock(SELECTED_CLASS, "a"),
+				new ButtonMock("", "b"),
+				new ButtonMock(SELECTED_CLASS, "c")
+			];
+			assert.deepEqual(widget._getSelectedItems(), [
+				{
+					"index": 0,
+					"value": "a"
+				},
+				{
+					"index": 2,
+					"value": "c"
+				}
+			], "Get selected return correct array");
 		});
 	}
 
