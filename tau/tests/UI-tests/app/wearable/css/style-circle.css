@@ -273,7 +273,7 @@
 	display: block;
 	height: 100%;
 	line-height: 60px;
-	background: url(../contents/list/images/tw_list_number_icon.png) no-repeat 50% 100%;
+	background: url(images/tw_list_number_icon.png) no-repeat 50% 100%;
 	color: rgb(245, 245, 245);
 }
 
@@ -283,8 +283,8 @@
 
 li.static::before {
 	content: "";
-	-webkit-mask-image: url(../contents/list/images/tw_list_check_ic.png);
-	mask-image: url(../contents/list/images/tw_list_check_ic.png);
+	-webkit-mask-image: url(images/tw_list_check_ic.png);
+	mask-image: url(images/tw_list_check_ic.png);
 	-webkit-mask-repeat: no-repeat;
 	mask-repeat: no-repeat;
 	background-color: rgba(112, 186, 15, 1);
@@ -331,15 +331,15 @@ li.static::before {
 /* -------------------------Action Icon------------------------------- */
 
  .li-action-icon-button.li-action-delete {
-	background-image: url(../contents/list/images/tw_list_delete_holo_dark.png);
+	background-image: url(images/tw_list_delete_holo_dark.png);
 }
 
  .li-action-icon-button.li-action-setting {
-	background-image: url(../contents/list/images/tw_list_setting_holo_dark.png);
+	background-image: url(images/tw_list_setting_holo_dark.png);
 }
 
  .li-action-icon-button.li-action-add {
-	background-image: url(../contents/list/images/tw_list_add_holo_dark.png);
+	background-image: url(images/tw_list_add_holo_dark.png);
 }
 
 /* ------------------------------------------------------------------------------ */
@@ -389,15 +389,15 @@ li.static::before {
 }
 
 #selectModePage li.select span::after {
-	-webkit-mask-image: url(../contents/list/images/tw_list_check_line.png);
-	mask-image: url(../contents/list/images/tw_list_check_line.png);
+	-webkit-mask-image: url(images/tw_list_check_line.png);
+	mask-image: url(images/tw_list_check_line.png);
 	background-color: white;
 }
 
 #selectModePage li.select span::before {
 	content: "";
-	-webkit-mask-image: url(../contents/list/images/tw_list_check_ic.png);
-	mask-image: url(../contents/list/images/tw_list_check_ic.png);
+	-webkit-mask-image: url(images/tw_list_check_ic.png);
+	mask-image: url(images/tw_list_check_ic.png);
 	background-color: rgba(77, 207, 255, 1);
 }
 
@@ -984,18 +984,18 @@ input[type="checkbox"]#checkboxControl {
 }
 
 .li-has-action-icon .li-action-icon-button.li-action-delete::after {
-	-webkit-mask-image: url(../contents/list/images/tw_list_delete_holo_dark.png);
-	mask-image: url(../contents/list/images/tw_list_delete_holo_dark.png);
+	-webkit-mask-image: url(images/tw_list_delete_holo_dark.png);
+	mask-image: url(images/tw_list_delete_holo_dark.png);
 }
 
 .li-has-action-icon .li-action-icon-button.li-action-setting::after {
-	-webkit-mask-image: url(../contents/list/images/tw_list_setting_holo_dark.png);
-	mask-image: url(../contents/list/images/tw_list_setting_holo_dark.png);
+	-webkit-mask-image: url(images/tw_list_setting_holo_dark.png);
+	mask-image: url(images/tw_list_setting_holo_dark.png);
 }
 
 .li-has-action-icon .li-action-icon-button.li-action-add::after {
-	-webkit-mask-image: url(../contents/list/images/tw_list_add_holo_dark.png);
-	mask-image: url(../contents/list/images/tw_list_add_holo_dark.png);
+	-webkit-mask-image: url(images/tw_list_add_holo_dark.png);
+	mask-image: url(images/tw_list_add_holo_dark.png);
 }
 
 .li-has-action-icon .li-action-icon-button {

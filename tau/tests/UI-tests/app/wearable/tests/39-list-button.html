@@ -7,12 +7,12 @@
 	<link rel="stylesheet" href="../css/style-circle.css">
 </head>
 <body>
-<div class="ui-page" id="buttonlistpage">
+<div class="ui-page" id="39-list-button-page">
 	<header>
 		<h2 class="ui-title">Buttons List</h2>
 	</header>
 	<div class="ui-content">
-		<ul class="ui-listview" id="buttonlist">
+		<ul class="ui-listview" id="39-list-button">
 			<li class="ui-li-grid">
 				<a href="#" class="ui-btn ui-btn-icon ui-btn-circle ui-color-blue"></a>
 				<a href="#" class="ui-btn ui-btn-icon ui-btn-circle ui-color-blue"></a>
@@ -25,20 +25,22 @@
 			</li>
 		</ul>
 	</div>
-</div>
-<script type="text/javascript" src="../lib/tau/wearable/js/tau.js" data-build-remove="false"></script>
-<script type="text/javascript" src="../js/circle-helper.js"></script>
-<script>
-	(function (tau) {
-		var page = document.getElementById("buttonlistpage"),
-			buttonlist = document.getElementById("buttonlist"),
-			widget;
+	<script>
+		(function () {
+			/* global tau */
+			var page = document.getElementById("39-list-button-page"),
+				buttonlist = document.getElementById("39-list-button"),
+				widget;
 
-		page.addEventListener("pagebeforeshow", function () {
-			widget = tau.widget.Listview(buttonlist);
-			widget._rollDown();
-		});
-	}(window.tau));
-</script>
+			page.addEventListener("pagebeforeshow", function () {
+				widget = tau.widget.Listview(buttonlist);
+				widget._rollDown();
+			});
+		}());
+	</script>
+</div>
+<script type="text/javascript" src="../lib/tau/wearable/js/tau.js"
+	data-build-remove="false"></script>
+<script type="text/javascript" src="../js/circle-helper.js"></script>
 </body>
 </html>

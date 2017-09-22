@@ -5,13 +5,13 @@
 	<link rel="stylesheet" href="../lib/tau/wearable/theme/default/tau.circle.css">
 	<link rel="stylesheet" href="../css/style.css">
 	<link rel="stylesheet" href="../css/style-circle.css">
+	<script type="text/javascript" src="../lib/tau/wearable/js/tau.js"></script>
 </head>
 <body>
-<div class="ui-page" id="selectModePage">
+<div class="ui-page" id="54-select-button-action-button-checked-page">
 	<header class="ui-header">
 	</header>
 	<div class="ui-content">
-		<div class="ui-more">handler</div>
 		<ul class="ui-listview">
 			<li class="select">Display</li>
 			<li>Connections</li>
@@ -27,49 +27,18 @@
 		<div class="select-btn" id="select-btn">
 			<a class="select-btn-text" id="select-btn-text"></a>
 		</div>
-		<!-- select option popup -->
-		<div class="select-popup">
-			<ul class="ui-listview select-mode-btn-list">
-				<li><a href="#" id="select-all">Select all</a></li>
-				<li><a href="#" id="deselect-all">Deselect all</a></li>
-			</ul>
-		</div>
 	</div>
 
-	<!-- Circle Profile -->
-	<div id="moreoptionsPopupCircle" class="ui-popup">
-		<div id="selector" class="ui-selector">
-			<div class="ui-item show-icon" data-title="Show"></div>
-			<div class="ui-item human-icon" data-title="Human"></div>
-			<div class="ui-item delete-icon" data-title="Delete"></div>
-			<div class="ui-item show-icon" data-title="Show"></div>
-			<div class="ui-item human-icon" data-title="Human"></div>
-			<div class="ui-item delete-icon" data-title="Delete"></div>
-		</div>
-	</div>
 	<script>
-		(function (tau) {
-			var page = document.getElementById("selectModePage"),
-				listview = document.querySelector("#selectModePage .ui-listview"),
+		(function () {
+			var page = document.getElementById("54-select-button-action-button-checked-page"),
+				listview = page.querySelector(".ui-listview"),
 				list = listview.getElementsByTagName("li"),
-				listLength = list.length,
 				selectWrapper = document.querySelector(".select-mode"),
 				selectBtn = document.getElementById("select-btn"),
 				selectBtnText = document.getElementById("select-btn-text"),
-				selectAll = document.getElementById("select-all"),
-				deselectAll = document.getElementById("deselect-all"),
-				elPopup = page.querySelector("#moreoptionsPopupCircle"),
-				handler = page.querySelector(".ui-more"),
-				selector = page.querySelector("#selector"),
-				liPopupSelect = document.querySelector("#select-all").parentElement,
-				liPopupDeselect = document.querySelector("#deselect-all").parentElement,
-				selectorComponent,
-				snapList,
-				selectCount = 2,
-				popupHandler,
+				selectCount = 0,
 				addFunction,
-				fnSelectAll,
-				fnDeselectAll,
 				fnPopup,
 				fnPopupClose,
 				fnBackKey;
@@ -87,24 +56,9 @@
 			 */
 			function modeShow() {
 				selectWrapper.classList.remove("open");
-				handler.style.display = "block";
 				selectWrapper.classList.add("show-btn");
 				textRefresh();
 			}
-
-			/**
-			 * Hides select mode
-			 */
-			function modeHide() {
-				selectWrapper.classList.remove("open");
-				handler.style.display = "none";
-				selectWrapper.classList.remove("show-btn");
-				selectCount = 0;
-			}
-
-			popupHandler = function () {
-				tau.openPopup(elPopup);
-			};
 
 			/**
 			 * Select particular item
@@ -158,137 +112,16 @@
 			};
 
 			/**
-			 * Select all list items
-			 * click event handler for 'select all' button
-			 */
-			fnSelectAll = function () {
-				var i = 0;
-
-				for (; i < listLength; i++) {
-					selectItem(list[i]);
-				}
-				selectCount = listLength;
-				modeShow();
-			};
-
-			/**
-			 * Deselect all list items
-			 * click event handler for 'deselect all' button
-			 */
-			fnDeselectAll = function () {
-				var i = 0;
-
-				for (; i < listLength; i++) {
-					deselectItem(list[i]);
-				}
-			};
-
-			/**
-			 * Depending on how many items are on popup select
-			 * list only suitable options are displayed.
-			 **/
-			function handlePopupSelectOptions() {
-				if (selectCount === 0) {
-					displaySelectAll();
-				} else if (selectCount === listLength) {
-					displayDeselectAll();
-				} else {
-					displayBoth();
-				}
-
-			}
-
-			/**
-			 * Display only "Deselect All" option
-			 **/
-			function displayDeselectAll() {
-				var SelectClassList = liPopupSelect.classList,
-					DeselectClassList = liPopupDeselect.classList;
-
-				SelectClassList.remove("show-popup-li");
-				DeselectClassList.remove("hide-popup-li");
-				selectAll.classList.remove("show");
-
-				SelectClassList.add("hide-popup-li");
-				DeselectClassList.add("show-popup-li");
-				deselectAll.classList.add("show");
-			}
-
-			/**
-			 * Display only "Select All" option
-			 **/
-			function displaySelectAll() {
-				var SelectClassList = liPopupSelect.classList,
-					DeselectClassList = liPopupDeselect.classList;
-
-				SelectClassList.remove("hide-popup-li");
-				DeselectClassList.remove("show-popup-li");
-				deselectAll.classList.remove("show");
-
-				DeselectClassList.add("hide-popup-li");
-				SelectClassList.add("show-popup-li");
-				selectAll.classList.add("show");
-			}
-
-			/**
-			 * Display "Select All" and "DeselectAll" option
-			 **/
-			function displayBoth() {
-				liPopupSelect.classList.remove("show-popup-li");
-				liPopupSelect.classList.remove("hide-popup-li");
-				liPopupDeselect.classList.remove("hide-popup-li");
-				liPopupDeselect.classList.remove("show-popup-li");
-				selectAll.classList.remove("show");
-				deselectAll.classList.remove("show");
-			}
-
-			/**
-			 * Shows a context popup that has select/deselect buttons
-			 * click event handler for button that displays the number of selected list items
-			 */
-			fnPopup = function () {
-				selectWrapper.classList.add("open");
-				handlePopupSelectOptions();
-				event.preventDefault();
-				event.stopPropagation();
-			};
-
-			/**
-			 * Closes a context popup that has select/deselect buttons
-			 * click event handler for closing the popup
-			 */
-
-			fnPopupClose = function () {
-				selectWrapper.classList.remove("open");
-			};
-
-			/**
-			 * Back key event handler
-			 */
-			fnBackKey = function () {
-				var classList = selectWrapper.classList;
-
-				if (event.keyName === "back" && !elPopup.classList.contains("ui-popup-active") && classList.contains("show-btn")) {
-					if (classList.contains("open")) {
-						classList.remove("open");
-					} else {
-						fnDeselectAll();
-					}
-					event.preventDefault();
-					event.stopPropagation();
-				}
-			};
-
-			/**
 			 * pageshow event handler
 			 * Do preparatory works and adds event listeners
 			 */
 			page.addEventListener("pageshow", function () {
+				list = page.getElementsByTagName("li"),
 				listview.addEventListener("click", addFunction, false);
-				selectAll.addEventListener("click", fnSelectAll, false);
-				deselectAll.addEventListener("click", fnDeselectAll, false);
 				selectBtn.addEventListener("click", fnPopup, false);
 				selectWrapper.addEventListener("click", fnPopupClose, false);
+				toggleSelectedItem(list[0]);
+				toggleSelectedItem(list[1]);
 				modeShow();
 				textRefresh();
 			}, false);
@@ -299,56 +132,21 @@
 			 */
 			page.addEventListener("pagehide", function () {
 				listview.removeEventListener("click", addFunction, false);
-				selectAll.removeEventListener("click", fnSelectAll, false);
-				deselectAll.removeEventListener("click", fnDeselectAll, false);
-				handler.removeEventListener("click", popupHandler, false);
 				document.removeEventListener("tizenhwkey", fnBackKey);
-				modeHide();
 			}, false);
 
 			/**
-			 * pagebeforeshow event handler
+			 * pagebeforeshow event handle
 			 * Do preparatory works and adds event listeners
 			 */
 			page.addEventListener("pagebeforeshow", function () {
-				var radius = window.innerHeight / 2 * 0.8;
-
-				selectorComponent = tau.widget.Selector(selector, {itemRadius: radius});
-				selectorComponent.disable();
-				handler.addEventListener("click", popupHandler, false);
 				document.addEventListener("tizenhwkey", fnBackKey);
 			});
 
-			/*
-			 * If you want to use Selector with Snaplistview, you should control to Selector enable status
-			 * because 'rotarydetent' event has been used in both Selector and Snaplistview.
-			 */
-			elPopup.addEventListener("popupshow", function () {
-				snapList = tau.widget.SnapListview(listview);
-				selectorComponent.enable();
-				snapList.disable();
-			});
-
-			elPopup.addEventListener("popuphide", function () {
-				selectorComponent.disable();
-				snapList.enable();
-			});
-			/*
-			 * When user click the indicator of Selector, popup will close.
-			 */
-			selector.addEventListener("click", function (event) {
-				var target = event.target;
-
-				// 'ui-selector-indicator' is default indicator class name of Selector component
-				if (target.classList.contains("ui-selector-indicator")) {
-					tau.closePopup(elPopup);
-				}
-			});
-		}(window.tau));
+		}());
 	</script>
 
 </div>
-<script type="text/javascript" src="../lib/tau/wearable/js/tau.js" data-build-remove="false"></script>
 <script type="text/javascript" src="../js/circle-helper.js"></script>
 </body>
 </html>
