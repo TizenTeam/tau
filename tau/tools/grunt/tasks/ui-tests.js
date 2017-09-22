@@ -28,135 +28,174 @@ module.exports = function (grunt) {
 		}
 	});
 
-	grunt.registerTask("ui-tests-report", "Generate UI tests report in junit format", function (index) {
-		var done = this.async(),
-			builder = new xml2js.Builder(),
-			testcase = [],
-			count = 0,
-			errorsCount = 0,
-			task = tasks[index],
-			screenshots = [],
-			profile = task.profile,
-			type = task.type,
-			resultObject = {
-				testsuites: {
-					$: {
-						errors: 0,
-						failures: 0,
-						name: "UI",
-						tests: 0
-					},
-					testsuite: [
-						{
-							$: {
-								errors: 0,
-								failures: 0,
-								name: "UI/" + profile,
-								tests: 0,
-								disabled: 0,
-								hostname: "",
-								id: "",
-								package: "",
-								skipped: 0,
-								timestamp: Date.now()
-							}
-						}
-					]
-				}
-			};
-
-		task.screens.forEach(function (item) {
-			if (testName) {
-				if (testName === item.id) {
-					screenshots.push(item);
-				}
-			} else if (onlyAccepted) {
-				if (item.pass) {
-					screenshots.push(item);
-				}
-			} else {
-				screenshots.push(item);
-			}
-		});
-
-		fs.mkdir(path.join(__dirname, "..", "..", "..", "tests", "UI-tests", "diff"), function () {
-			fs.mkdir(path.join(__dirname, "..", "..", "..", "tests", "UI-tests", "diff", profile), function () {
-				fs.mkdir(path.join(__dirname, "..", "..", "..", "tests", "UI-tests", "diff", profile, type), function () {
-					resemble.outputSettings({
-						errorColor: {
-							red: 255,
-							green: 0,
-							blue: 0
+	grunt.registerTask("ui-tests-report", "Generate UI tests report in junit format",
+		function (index) {
+			var done = this.async(),
+				builder = new xml2js.Builder(),
+				testcases = [],
+				count = 0,
+				errorsCount = 0,
+				task = tasks[index],
+				screenshots = [],
+				profile = task.profile,
+				type = task.type,
+				diffPathArray = [__dirname, "..", "..", "..", "tests", "UI-tests", "diff"],
+				reportPathArray = [__dirname, "..", "..", "..", "report"],
+				resultObject = {
+					testsuites: {
+						$: {
+							errors: 0,
+							failures: 0,
+							name: "UI",
+							tests: 0
 						},
-						errorType: "floatDifferenceIntensity",
-						transparency: 1,
-						largeImageThreshold: 0,
-						useCrossOrigin: false
-					});
-
-					async.eachSeries(screenshots, function (test, cb) {
-						resemble(path.join(__dirname, "..", "..", "..", "tests", "UI-tests", "images", profile, type, test.name + ".png"))
-							.compareTo(path.join(__dirname, "..", "..", "..", "tests", "UI-tests", "result", profile, type, test.name + ".png"))
-							.onComplete(function (result) {
-								var tc = {
-										$: {
-											assertions: 1,
-											classname: profile + "." + type + "." + test.name,
-											name: test.name
-										}
-									},
-									value = parseFloat(result.misMatchPercentage);
-
-								result.getDiffImage().pack().pipe(fs.createWriteStream(path.join(__dirname, "..", "..", "..", "tests", "UI-tests", "diff", profile, type, test.name + ".png")));
-
-								if (value > (test.threshold || 0.2)) {
-									if (test.pass) {
-										tc.error = [{
-											$: {
-												message: "Not match, current diff: " + value + "%"
-											}
-										}];
-										grunt.log.error("[error] Run test: " + test.name + " result, difference pixels: " + value + "%");
-										errorsCount++;
-									} else {
-										tc["system-out"] = ["Not match, current diff: " + value + "%"];
-										grunt.log.warn("[quarantine] Run test: " + test.name + " result, difference pixels: " + value + "%");
-									}
-								} else {
-									grunt.log.ok("[ok] Run test: " + test.name + " result, difference pixels: " + value + "%");
+						testsuite: [
+							{
+								$: {
+									errors: 0,
+									failures: 0,
+									name: "UI/" + profile,
+									tests: 0,
+									disabled: 0,
+									hostname: "",
+									id: "",
+									package: "",
+									skipped: 0,
+									timestamp: Date.now()
 								}
+							}
+						]
+					}
+				};
 
-								count++;
-								testcase.push(tc);
-								cb();
-							});
-					}, function () {
-						var xml;
+			task.screens.forEach(function (item) {
+				if (testName) {
+					if (testName === item.id) {
+						screenshots.push(item);
+					}
+				} else if (onlyAccepted) {
+					if (item.pass) {
+						screenshots.push(item);
+					}
+				} else {
+					screenshots.push(item);
+				}
+			});
 
-						resultObject.testsuites.testsuite[0].testcase = testcase;
-						resultObject.testsuites.testsuite[0].$.tests = count;
-						resultObject.testsuites.testsuite[0].$.errors = errorsCount;
-						resultObject.testsuites.$.tests = count;
-						resultObject.testsuites.$.errors = errorsCount;
-						xml = builder.buildObject(resultObject);
+			fs.mkdir(path.join(diffPathArray),
+				function () {
+					fs.mkdir(path.join(diffPathArray.concat(profile)),
+						function () {
+							fs.mkdir(path.join(diffPathArray.concat([profile, type])),
+								function () {
+									resemble.outputSettings({
+										errorColor: {
+											red: 255,
+											green: 0,
+											blue: 0
+										},
+										errorType: "floatDifferenceIntensity",
+										transparency: 1,
+										largeImageThreshold: 0,
+										useCrossOrigin: false
+									});
 
-						fs.mkdir(path.join(__dirname, "..", "..", "..", "report"), function () {
-							fs.mkdir(path.join(__dirname, "..", "..", "..", "report", "test"), function () {
-								fs.mkdir(path.join(__dirname, "..", "..", "..", "report", "test", "UI"), function () {
-									fs.mkdir(path.join(__dirname, "..", "..", "..", "report", "test", "UI", profile), function () {
-										fs.writeFile(path.join(__dirname, "..", "..", "..", "report", "test", "UI", profile, type + ".xml"), xml, function () {
-											done();
+									async.eachSeries(screenshots, function (test, callback) {
+										var resultFile = path.join(__dirname, "..", "..", "..", "tests", "UI-tests",
+											"result", profile, type, test.name + ".png");
+
+										fs.access(resultFile, fs.constants.R_OK, function (err) {
+											var testcase = {
+												$: {
+													assertions: 1,
+													classname: profile + "." + type + "." + test.name,
+													name: test.name
+												}
+											};
+
+											if (!err) {
+												resemble(path.join(__dirname, "..", "..", "..", "tests", "UI-tests",
+													"images", profile, type, test.name + ".png"))
+													.compareTo(resultFile)
+													.onComplete(function (result) {
+														var tc = {
+																$: {
+																	assertions: 1,
+																	classname: profile + "." + type + "." + test.name,
+																	name: test.name
+																}
+															},
+															value = parseFloat(result.misMatchPercentage);
+
+														result.getDiffImage().pack().pipe(fs.createWriteStream(
+															path.joindiffPathArray.concat([profile, type, test.name + ".png"])));
+
+														if (value > (test.threshold || 0.2)) {
+															if (test.pass) {
+																tc.error = [{
+																	$: {
+																		message: "Not match, current diff: " + value + "%"
+																	}
+																}];
+																grunt.log.error("[error] Run test: " + test.name +
+																	" result, difference pixels: " + value + "%");
+																errorsCount++;
+															} else {
+																tc["system-out"] = ["Not match, current diff: " + value + "%"];
+																grunt.log.warn("[quarantine] Run test: " + test.name +
+																	" result, difference pixels: " + value + "%");
+															}
+														} else {
+															grunt.log.ok("[ok] Run test: " + test.name +
+																" result, difference pixels: " + value + "%");
+														}
+
+														count++;
+														testcases.push(tc);
+														callback();
+													});
+											} else {
+												testcase.error = [{
+													$: {
+														message: "File not exists"
+													}
+												}];
+												grunt.log.error("[error] Run test: " + test.name + ", File not exists");
+												count++;
+												errorsCount++;
+												testcases.push(testcase);
+												callback();
+											}
+										});
+									}, function () {
+										var xml;
+
+										resultObject.testsuites.testsuite[0].testcase = testcases;
+										resultObject.testsuites.testsuite[0].$.tests = count;
+										resultObject.testsuites.testsuite[0].$.errors = errorsCount;
+										resultObject.testsuites.$.tests = count;
+										resultObject.testsuites.$.errors = errorsCount;
+										xml = builder.buildObject(resultObject);
+
+										fs.mkdir(path.join(reportPathArray), function () {
+											fs.mkdir(path.join(reportPathArray.concat("test")), function () {
+												fs.mkdir(path.join(reportPathArray.concat(["test", "UI"])), function () {
+													fs.mkdir(path.join(reportPathArray.concat(["test", "UI", profile])),
+														function () {
+															fs.writeFile(path.join(reportPathArray.concat(["test", "UI", profile,
+																type + ".xml"])), xml, function () {
+																	done();
+																});
+														});
+												});
+											});
 										});
 									});
-								});
-							});
-						});
-					});
 
+								});
+						});
 				});
-			});
 		});
-	});
 
 	function prepareScreenShots(task) {
 		var screenshots = [];

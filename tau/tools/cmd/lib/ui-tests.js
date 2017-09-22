@@ -1,9 +1,9 @@
 /*global module:false, require:false*/
-var TIME_TICK = 1000,
+/* eslint no-console: 0 */
+var TIME_TICK = 0,
 	FIRST_TIME_TICK = 3000,
 	fs = require("fs"),
 	path = require("path"),
-	cmd = require("./cmd"),
 	xml2js = require("xml2js"),
 	child = require("child_process"),
 	easyimg = require("easyimage"),
@@ -15,6 +15,7 @@ var TIME_TICK = 1000,
 	responseFileName = "test-response.txt",
 	remoteFolder = "/opt/usr/home/owner/media/Downloads",
 	requestFullFileName = path.join(remoteFolder, requestFileName),
+	responseFullFileName = path.join(remoteFolder, responseFileName),
 	localResponseFullFileName,
 
 	screenshots = [],
@@ -31,30 +32,24 @@ var TIME_TICK = 1000,
 	uiTests = {},
 	i = 0,
 	doneCallback,
-	end = 30,
+	end = 150,
 	deviceSizes = {
 		mobile: "720x1280",
 		wearable: "360x360"
 	},
 	counterOfRepeatOnError = 0,
-	LIMIT_OF_REPEAT_ON_ERROR = 50;
+	LIMIT_OF_REPEAT_ON_ERROR = 50,
+	lastScreen;
 
 function exec(command, callback, options) {
 	options = options || {};
 	//console.log.subhead(command);
 	child.exec(command, options, function (error, stdout, stderr) {
-		if (stderr) {
-			console.error(stderr);
-		}
-		if (stdout) {
-			console.log(stdout);
-		}
 		callback(error, stdout, stderr);
 	});
 }
 
 function done() {
-	console.log(":done");
 	// clear temp dir
 	fs.rmdir(tempFolder, function (error) {
 		if (error) {
@@ -68,7 +63,6 @@ function done() {
 }
 
 function removeLocalRequestFile(file, onSuccess, onError) {
-	console.log(":removeLocalRequestFile");
 	fs.unlink(file, function (error) {
 		if (error) {
 			onError();
@@ -78,7 +72,6 @@ function removeLocalRequestFile(file, onSuccess, onError) {
 	});
 }
 function removeLocalResponseFile(file, onSuccess, onError) {
-	console.log(":removeLocalResponseFile");
 	fs.unlink(file, function (error) {
 		if (error) {
 			onError();
@@ -89,11 +82,11 @@ function removeLocalResponseFile(file, onSuccess, onError) {
 }
 
 function takeScreenshot(pageName, onDone) {
-	console.log(":takeScreenshot", pageName);
+	var screenshotItem;
 
 	pageName = pageName.replace(".html", "");
 
-	var screenshotItem = screenshots.filter(function (item) {
+	screenshotItem = screenshots.filter(function (item) {
 		return item.name === pageName;
 	});
 
@@ -101,6 +94,12 @@ function takeScreenshot(pageName, onDone) {
 	if (screenshotItem) {
 		screenshot(profile, type, app, screenshotItem, onDone);
 	}
+}
+
+function runApp(done) {
+	exec("sdb" + deviceParam + " shell app_launcher -s " + globalAppId, function () {
+		done();
+	});
 }
 
 function next(done) {
@@ -112,7 +111,16 @@ function next(done) {
 				console.log("status: ", error);
 				console.log("stdout: ", stdout);
 				console.log("stderr: ", stderr);
-				done();
+				if (stdout.indexOf("CRASH_MANAGER") > -1) {
+					console.log("Was crash!!!", lastScreen);
+					runApp(function () {
+						prepareResponse(lastScreen, function () {
+							setTimeout(tick.bind(null, done), TIME_TICK);
+						});
+					});
+				} else {
+					done();
+				}
 			});
 	} else {
 		setTimeout(tick.bind(null, done), TIME_TICK);
@@ -120,16 +128,15 @@ function next(done) {
 }
 
 function removeRemoteRequest(onSuccess) {
-	console.log(":removeRemoteRequest");
-	exec(`sdb ${deviceParam} root on`, function (error, stdout, stderr) {
+	exec(`sdb ${deviceParam} root on`, function (error) {
 		if (error) {
 			console.log("error: " + error);
 		}
-		exec(`sdb ${deviceParam} shell 'rm ${requestFullFileName}'`, function (error, stdout, stderr) {
+		exec(`sdb ${deviceParam} shell 'rm ${requestFullFileName}'`, function (error) {
 			if (error) {
 				console.log("error: " + error);
 			}
-			exec(`sdb ${deviceParam} root off`, function (error, stdout, stderr) {
+			exec(`sdb ${deviceParam} root off`, function (error) {
 				if (error) {
 					console.log("error: " + error);
 				}
@@ -139,49 +146,48 @@ function removeRemoteRequest(onSuccess) {
 	});
 }
 
-function setLongLife(onSuccess) {
-	exec(
-		`sdb ${deviceParam} root on`,
-		function (error, stdout, stderr) {
-			if (error) {
-				console.log("error: " + error);
-			}
-			exec(
-				`sdb ${deviceParam} shell vconftool set -t int db/setting/lcd_backlight_normal 0 -f`,
-				function (error, stdout, stderr) {
-					if (error) {
-						console.log("error: " + error);
-					}
-					exec(
-						`sdb ${deviceParam} root off`,
-						function (error, stdout, stderr) {
-							if (error) {
-								console.log("error: " + error);
-							}
-							onSuccess();
-						});
-				});
-		});
+function setLongLife() {
+	return new Promise(function (resolve) {
+		exec(
+			`sdb ${deviceParam} root on`,
+			function (error) {
+				if (error) {
+					console.log("error: " + error);
+				}
+				exec(
+					`sdb ${deviceParam} shell vconftool set -t int db/setting/lcd_backlight_normal 0 -f`,
+					function (error) {
+						if (error) {
+							console.log("error: " + error);
+						}
+						exec(
+							`sdb ${deviceParam} root off`,
+							function (error) {
+								if (error) {
+									console.log("error: " + error);
+								}
+								resolve();
+							});
+					});
+			});
+	});
 }
 
 function sendResponse(onSuccess) {
-	console.log(":sendResponse");
 	exec(
 		`sdb ${deviceParam} push ${localResponseFullFileName} ${remoteFolder}`,
-		function (error, stdout, stderr) {
+		function (error) {
 			if (error) {
 				console.log("error: " + error);
-			} else {
-
 			}
 			removeRemoteRequest(onSuccess);
 		});
 }
 
 function prepareResponse(data, onSuccess) {
-	console.log(":prepareResponse");
 	localResponseFullFileName = path.join(tempFolder, responseFileName);
 
+	console.log("Sent: " + data);
 	fs.writeFile(localResponseFullFileName, data, "utf8", function (error) {
 		if (error) {
 			// if file not exists
@@ -194,16 +200,16 @@ function prepareResponse(data, onSuccess) {
 
 
 function parseData(data, onSuccess) {
-	console.log("data: ", data);
+	var onDone,
+		matched,
+		cmd,
+		param;
 
-	var onDone = function () {
-		console.log("onDone");
+	onDone = function () {
 		prepareResponse(`done(${param})`, onSuccess);
 	};
 
-	var matched = data.match(/^[^:]+/gi),
-		cmd,
-		param;
+	matched = data.match(/^[^:]+/gi);
 
 	if (matched) {
 		cmd = matched[0];
@@ -213,6 +219,7 @@ function parseData(data, onSuccess) {
 	if (cmd) {
 		switch (cmd) {
 			case "take-screenshot" :
+				lastScreen = param;
 				takeScreenshot(param, onDone);
 				break;
 			default :
@@ -226,8 +233,6 @@ function parseData(data, onSuccess) {
 }
 
 function tick(done) {
-	console.log(":tick", i);
-
 	exec(
 		`sdb ${deviceParam} pull ${requestFullFileName} ${tempFolder}`,
 		function (error, stdout, stderr) {
@@ -240,7 +245,6 @@ function tick(done) {
 				localRequestFile = path.join(tempFolder, requestFileName);
 
 				fs.readFile(localRequestFile, "utf8", function (error, data) {
-					console.log("(fs.readFile)");
 					if (error) {
 						// if file not exists
 						console.log("error1", error);
@@ -263,7 +267,6 @@ function tick(done) {
 							// remove request file from temporary dir;
 							removeLocalRequestFile(localRequestFile,
 								function () {
-									console.log("onSuccess remove local request file");
 									removeLocalResponseFile(localResponseFullFileName,
 										function () {
 											next(done);
@@ -293,11 +296,8 @@ function tick(done) {
 function removeAllScreenshots(deviceParam, done) {
 	console.log("removing all screenshots");
 	exec("sdb" + deviceParam + " root on &", function () {
-		console.log("root on");
 		exec("sdb" + deviceParam + " shell \"rm -r \\\`find /opt/usr/media -name topvwins-*\\\`\"", function () {
-			console.log("screenshots have deleted");
 			exec("sdb" + deviceParam + " root off &", function () {
-				console.log("root off");
 				done();
 			});
 		});
@@ -310,22 +310,17 @@ function createCircle(path, size, outputTempFilePath, outputFilePath, callback) 
 			size + "x" + size + " xc:none -fill white -draw \"circle " +
 			(size / 2 - 0.5) + "," + (size / 2 - 0.5) + " " + (size / 2) + ",0\" \\) -compose copy_opacity -composite " +
 			outputTempFilePath).then(
-			function (file) {
+			function () {
 				easyimg.exec("composite " + outputTempFilePath + " -size " + size + "x" + size + " canvas:white " + outputFilePath).then(
-					function (file) {
-						fs.unlink(outputTempFilePath, function (err) {
-							if (err) {
-								console.log(err);
-							}
+					function () {
+						fs.unlink(outputTempFilePath, function () {
 							callback();
 						});
-					}, function (err) {
-						console.log(err);
+					},
+					function () {
 						callback();
-					}
-				);
-			}, function (err) {
-				console.log(err);
+					});
+			}, function () {
 				callback();
 			}
 		);
@@ -337,12 +332,14 @@ function createCircle(path, size, outputTempFilePath, outputFilePath, callback) 
 function saveWindow(deviceParam, app, profile, type, screen, onSuccess, onError) {
 	exec("sdb" + deviceParam + " shell 'cd /opt/usr/media;enlightenment_info -dump_topvwins'",
 		function (error, result) {
+			var dir,
+				resultDir;
+
 			if (error) {
 				counterOfRepeatOnError++;
 				saveWindow(deviceParam, app, profile, type, screen, onSuccess, onError);
 			} else if (result.match(/^error:/)) {
 				counterOfRepeatOnError++;
-				console.log(result);
 				if (counterOfRepeatOnError < LIMIT_OF_REPEAT_ON_ERROR) {
 					console.log("attempt " + counterOfRepeatOnError);
 					saveWindow(deviceParam, app, profile, type, screen, onSuccess, onError);
@@ -352,9 +349,8 @@ function saveWindow(deviceParam, app, profile, type, screen, onSuccess, onError)
 					onError();
 				}
 			} else {
-				console.log("shell 'cd /opt/usr/media;enlightenment_info -dump_topvwins'");
-				var dir = app + "/../../result/" + profile + "/" + type + "/" + screen.name,
-					resultDir = result.replace("directory: ", "").replace(/[\r\n]/gm, "");
+				dir = app + "/../../result/" + profile + "/" + type + "/" + screen.name;
+				resultDir = result.replace("directory: ", "").replace(/[\r\n]/gm, "");
 
 				counterOfRepeatOnError = 0;
 				onSuccess(dir, resultDir);
@@ -362,23 +358,28 @@ function saveWindow(deviceParam, app, profile, type, screen, onSuccess, onError)
 		});
 }
 
-function screenshotTizen3(profile, type, app, screen, done) {
-	console.log(":screenshotTizen3");
+function clean(filename, dir, done) {
+	fs.unlink(filename, function () {
+		fs.unlink(dir + "_crop-1.png", function () {
+			fs.unlink(dir + "_raw.png", function () {
+				done();
+			});
+		});
+	})
+}
 
+function screenshotTizen3(profile, type, app, screen, done) {
 	exec("sdb" + deviceParam + " root on &", function () {
-		console.log("root on");
 		exec("sdb" + deviceParam + " shell enlightenment_info -reslist", function (error, result) {
-			console.log("shell enlightenment_info -reslist");
 			var regexp = new RegExp("^.*" + globalAppId + ".*$", "gm"),
 				match = result.match(regexp)[0],
 				PID = match.split(/\s+/)[2];
 
 			exec("sdb" + deviceParam + " shell enlightenment_info -topvwins", function (error, result) {
-				console.log("shell enlightenment_info -topvwins");
 				var regexp = new RegExp("^.*\\\s" + PID + "\\\s.*$", "gm"),
 					matches = result.match(regexp),
 					match = "",
-					extension = "",		//new Tizen emulator requires "_0" added to the filename
+					extension = "", //new Tizen emulator requires "_0" added to the filename
 					winID;
 
 				if (matches) {
@@ -399,13 +400,7 @@ function screenshotTizen3(profile, type, app, screen, done) {
 									exec("convert " + filename + " -resize " + width + "x" + height + "\\! " + dir + ".png", function () {
 										exec("sdb" + deviceParam + " root off", function () {
 											createCircle(dir + ".png", width, dir + "_.png", dir + ".png", function () {
-												fs.unlink(filename, function () {
-													fs.unlink(dir + "_crop-1.png", function () {
-														fs.unlink(dir + "_raw.png", function () {
-															done();
-														});
-													});
-												})
+												clean(filename, dir, done);
 											});
 										});
 									});
@@ -431,8 +426,6 @@ function screenshotTizen3(profile, type, app, screen, done) {
 
 
 function screenshotTizen2(profile, type, app, screen, done) {
-	console.log(":screenshotTizen2");
-
 	exec("sdb" + deviceParam + " root on &", function () {
 		exec("sdb" + deviceParam + " shell xwd -root -out /tmp/screen.xwd", function () {
 			var dir = app + "/../../result/" + profile + "/" + screen.name;
@@ -475,19 +468,19 @@ function getDeviceList(profile, done) {
 
 			if (match) {
 				if (match[2] === "offline") {
-					grunt.log.warn("Offline device " + match[3]);
+					console.warn("Offline device " + match[3]);
 				} else {
 					if (deviceMap[match[3]] === profile) {
 						if (match[2] === "offline") {
-							grunt.log.warn("Offline device " + match[3]);
+							console.warn("Offline device " + match[3]);
 						} else {
 							if (devices[deviceMap[match[3]]]) {
 								devices[deviceMap[match[3]]].push({
 									id: match[1],
-									name: match[3],
+									name: match[3]
 								});
 							} else {
-								grunt.log.warn("Unrecognized device " + match[3]);
+								console.warn("Unrecognized device " + match[3]);
 							}
 							count++;
 						}
@@ -511,7 +504,6 @@ function getDevice(done) {
 						}
 					});
 				});
-				console.log("device", deviceParam);
 			}
 			done();
 		});
@@ -524,15 +516,14 @@ uiTests.config = function (config, done) {
 	app = config.app;
 	fs.readFile(app + "/config.xml", function (err, data) {
 		if (err) {
-			grunt.log.error(err);
+			console.error(err);
 		}
 
 		xml2js.parseString(data, function (err, result) {
-			var appId,
-				packageId;
+			var appId;
 
 			if (err) {
-				grunt.log.error(err);
+				console.error(err);
 			}
 
 			appId = result.widget["tizen:application"][0].$.id;
@@ -542,40 +533,54 @@ uiTests.config = function (config, done) {
 	});
 };
 
-uiTests.run = function (callback) {
-	i = 0;
-	doneCallback = callback;
-
-	setLongLife(function () {
-		fs.mkdir(app + "/../../result", function (error) {
-			if (error) {
-				console.log("(fs.mkdir result 1) " + error);
-			}
-			fs.mkdir(app + "/../../result/" + profile, function (error) {
-				if (error) {
-					console.log("(fs.mkdir result 2) " + error);
-				}
-				fs.mkdir(app + "/../../result/" + profile + "/" + type, function (error) {
-					if (error) {
-						console.log("(fs.mkdir result 3) " + error);
-					}
-					fs.mkdir(__dirname + "/../../../temp", function (error) {
-						if (error) {
-							console.log("(fs.mkdtemp) " + error);
-						}
-						fs.mkdtemp(__dirname + "/../../../temp/ui-tests-", function (error, folder) {
-							if (error) {
-								console.log("(fs.mkdtemp) " + error);
-								return;
-							}
-							tempFolder = folder;
-							setTimeout(tick.bind(null, done), FIRST_TIME_TICK);
-						});
-					});
+function makeResultDirectories() {
+	return new Promise(function (resolve) {
+		fs.mkdir(app + "/../../result", function () {
+			fs.mkdir(app + "/../../result/" + profile, function () {
+				fs.mkdir(app + "/../../result/" + profile + "/" + type, function () {
+					resolve();
 				});
 			});
 		});
 	});
-};
+}
+
+function clearRequestResponseFiles() {
+	return new Promise(function (resolve) {
+		exec(`sdb ${deviceParam} shell rm ${requestFullFileName}`, function () {
+			exec(`sdb ${deviceParam} shell rm ${responseFullFileName}`, function () {
+				resolve();
+			});
+		});
+	});
+}
+
+function makeTmpFolder() {
+	return new Promise(function (resolve) {
+		fs.mkdir(path.join(__dirname, "../../../temp"), function () {
+			fs.mkdtemp(path.join(__dirname, "../../../temp/ui-tests-"),
+				function (error, folder) {
+					if (error) {
+						console.log("(fs.mkdtemp) " + error);
+						return;
+					}
+					tempFolder = folder;
+					resolve();
+				});
+		});
+	});
+}
+
+uiTests.run = function (callback) {
+	i = 0;
+	doneCallback = callback;
+	clearRequestResponseFiles()
+		.then(setLongLife)
+		.then(makeResultDirectories)
+		.then(makeTmpFolder)
+		.then(function () {
+			setTimeout(tick.bind(null, done), FIRST_TIME_TICK);
+		});
+}
 
 module.exports = uiTests;

@@ -78,7 +78,7 @@
 			},
 			{
 				"name": "35-list-tab-2-title",
-				"time": 0,
+				"time": 200,
 				"width": 360,
 				"height": 640,
 				"pass": true
@@ -111,7 +111,7 @@
 			},
 			{
 				"name": "46-index-scroll-bar",
-				"time": 0,
+				"time": 200,
 				"width": 360,
 				"height": 640,
 				"pass": true
@@ -179,7 +179,7 @@
 			},
 			{
 				"name": "84-group-index",
-				"time": 0,
+				"time": 200,
 				"width": 360,
 				"height": 640,
 				"pass": true
@@ -201,7 +201,7 @@
 			},
 			{
 				"name": "88-activity",
-				"time": 0,
+				"time": 200,
 				"width": 360,
 				"height": 640,
 				"pass": true,
@@ -278,28 +278,28 @@
 			},
 			{
 				"name": "118-slider-vertical",
-				"time": 0,
+				"time": 200,
 				"width": 360,
 				"height": 640,
 				"pass": true
 			},
 			{
 				"name": "119-slider-vertical-2",
-				"time": 0,
+				"time": 200,
 				"width": 360,
 				"height": 640,
 				"pass": true
 			},
 			{
 				"name": "120-slider-vertical-3",
-				"time": 0,
+				"time": 200,
 				"width": 360,
 				"height": 640,
 				"pass": true
 			},
 			{
 				"name": "121-sliders",
-				"time": 0,
+				"time": 200,
 				"width": 360,
 				"height": 640
 			},
@@ -843,7 +843,7 @@
 			},
 			{
 				"name": "46-index-scroll-bar",
-				"time": 0,
+				"time": 200,
 				"width": 360,
 				"height": 640
 			},
@@ -1125,7 +1125,7 @@
 			},
 			{
 				"name": "153-more-menu",
-				"time": 1000,
+				"time": 2000,
 				"width": 360,
 				"height": 640
 			},
@@ -1791,7 +1791,7 @@
 			},
 			{
 				"name": "74-time-picker",
-				"time": 0,
+				"time": 1000,
 				"width": 360,
 				"height": 360,
 				"pass": true,
@@ -1871,7 +1871,7 @@
 			},
 			{
 				"name": "75-time-picker-24h",
-				"time": 0,
+				"time": 1000,
 				"width": 360,
 				"height": 360,
 				"pass": true,
@@ -1923,28 +1923,28 @@
 			},
 			{
 				"name": "103-end-effect-top",
-				"time": 1000,
+				"time": 2000,
 				"width": 360,
 				"height": 360,
 				"pass": true
 			},
 			{
 				"name": "103-end-effect-bottom",
-				"time": 1000,
+				"time": 2000,
 				"width": 360,
 				"height": 360,
 				"pass": true
 			},
 			{
 				"name": "103-end-effect-top-scroll",
-				"time": 1000,
+				"time": 2000,
 				"width": 360,
 				"height": 360,
 				"pass": true
 			},
 			{
 				"name": "103-end-effect-bottom-scroll",
-				"time": 1000,
+				"time": 2000,
 				"width": 360,
 				"height": 360,
 				"pass": true

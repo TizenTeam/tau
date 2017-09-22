@@ -2,7 +2,6 @@
 
 var timerHandler = 0,
 	FIRST_DELAY = 100,
-	RESPONSE_INTERVAL = 100,
 	TEST_REQUEST_DIR = "downloads",
 	// path on device: /opt/usr/home/owner/media/Downloads/test-status.txt
 	TEST_REQUEST_FILE_NAME = "test-request.txt",
@@ -12,22 +11,29 @@ var timerHandler = 0,
 	tests,
 	testCase = {};
 
-function openComm(onSuccess) {
+function openCommunication(onSuccess) {
 	if (window.tizen) {
 		tizen.filesystem.resolve(TEST_REQUEST_DIR, function (resultDir) {
 			// set global variable
 			dir = resultDir;
-			// Remove old request file
-			dir.deleteFile(TEST_REQUEST_FILE_NAME);
-			onSuccess();
+			getResponse(function (response) {
+				var lastIndex = tests.indexOf(response);
+
+				if (lastIndex > -1) {
+					tests = tests.slice(lastIndex);
+				}
+
+				// Remove old request file
+				dir.deleteFile(TEST_REQUEST_FILE_NAME);
+				onSuccess();
+			}, true);
 		});
 	} else {
 		onSuccess();
 	}
 }
 
-function getResponse(onSuccess) {
-	console.log("getResponse");
+function getResponse(onSuccess, doNotWait) {
 	dir.listFiles(function (list) {
 		var length = list.length,
 			fileHandle = null,
@@ -37,7 +43,6 @@ function getResponse(onSuccess) {
 		// wait on request file delete
 		for (i = 0; i < length; i++) {
 			if (list[i].name === TEST_REQUEST_FILE_NAME) {
-				console.log("Request file exists. Wait for remove file");
 				fileHandle = list[i];
 				break;
 			}
@@ -45,11 +50,14 @@ function getResponse(onSuccess) {
 
 		if (fileHandle) {
 			// Wait for remove request file
-			setTimeout(getResponse.bind(null, onSuccess), RESPONSE_INTERVAL);
+			if (doNotWait !== true) {
+				requestAnimationFrame(getResponse.bind(null, onSuccess));
+			} else {
+				onSuccess("");
+			}
 		} else {
 			// IF REQUEST FILE NAME HAS BEEN DELETED THEN GET RESPONSE
 			if (!fileHandle) {
-				console.log("Request file not exists");
 				// check if response file exists;
 				for (i = 0; i < length; i++) {
 					if (list[i].name === TEST_RESPONSE_FILE_NAME) {
@@ -60,24 +68,28 @@ function getResponse(onSuccess) {
 			}
 
 			if (fileHandle) {
-				console.log("Read response");
 				fileHandle.openStream("r",
 					function (fileStream) {
 						var status = fileStream.read(fileHandle.fileSize);
 
 						fileStream.close();
 
-						console.log("Remove response file");
 						fileHandle = dir.deleteFile(TEST_RESPONSE_FILE_NAME);
 
-						onSuccess(status);
+						if (onSuccess) {
+							onSuccess(status);
+						}
 					},
 					function (err) {
 						tau.log(err);
 					});
 			} else {
 				// Wait for remove response file
-				setTimeout(getResponse.bind(null, onSuccess), RESPONSE_INTERVAL);
+				if (doNotWait !== true) {
+					requestAnimationFrame(getResponse.bind(null, onSuccess));
+				} else {
+					onSuccess("");
+				}
 			}
 		}
 	});
@@ -131,11 +143,6 @@ function readTextFile(file, callback) {
 	rawFile.send(null);
 }
 
-function onEnd() {
-	console.log("end");
-}
-
-
 function nextTestCase() {
 	// prepare next test case
 	testCase = tests.shift();
@@ -147,7 +154,7 @@ function nextTestCase() {
 		);
 	} else {
 		setTimeout(function () {
-			sendRequest("end!", onEnd);
+			sendRequest("end!");
 		}, 100);
 	}
 }
@@ -164,35 +171,32 @@ function startTestCase() {
 	}
 }
 
-function onRequestSuccess(status) {
-	console.log(status);
+function onRequestSuccess() {
 	nextTestCase();
 }
 
 function onPageChange(event) {
 	var target = event.target,
-		path = tau.util.path.parseUrl(target.dataset.url);
+		path = tau.util.path.parseUrl(target.dataset.url),
+		timeoutFunction = testCase.time ? setTimeout : requestAnimationFrame;
 
 	// wait 1s and take a screenshot, requered by gridview
-	tau.log(path.filename);
-	setTimeout(function () {
+	timeoutFunction(function () {
 		sendRequest("take-screenshot:" + path.filename, onRequestSuccess);
-	}, testCase.time || 200);
+	}, testCase.time);
 }
 
 function main() {
 	readTextFile("_screenshots.json", function (text) {
-		openComm(function () {
-
-			tests = JSON.parse(text);
-			first = true;
-
+		tests = JSON.parse(text);
+		first = true;
+		openCommunication(function () {
 			if (tests.length > 0) {
 				document.addEventListener("pageshow", onPageChange, true);
 				testCase = tests.shift();
 				timerHandler = setTimeout(startTestCase, FIRST_DELAY);
 			} else {
-				sendRequest("end!:Test case list is empty!", onEnd);
+				sendRequest("end!:Test case list is empty!");
 			}
 		});
 	});
@@ -200,3 +204,10 @@ function main() {
 
 // start test;
 main();
+
+window.onerror = function (messageOrEvent, source, lineno, colno, error) {
+	console.log("[E] " + source + " " + lineno + ":" + colno + " " + (error.stack || error || messageOrEvent));
+	if (window.tizen !== undefined) {
+		tizen.application.getCurrentApplication().exit();
+	}
+};
