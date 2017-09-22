@@ -41,4 +41,32 @@
 			background-color: @color_selector_handler_bg;
 		}
 	}
+
+	&.ui-selector-edit-mode {
+
+		.ui-selector-indicator {
+
+			> :not(.ui-selector-indicator-text) {
+				display: none;
+			}
+
+			&-arrow::before {
+				background: none;
+			}
+		}
+
+		.ui-item-removable {
+			.ui-item-icon-remove-left, .ui-item-icon-remove-right {
+				position: absolute;
+				width: 30 * @unit_base;
+				height: 30 * @unit_base;
+				background-color: @color_selector_edit_icon_bg;
+			}
+
+			.ui-item-icon-remove-right {
+				right: 0;
+			}
+
+		}
+	}
 }

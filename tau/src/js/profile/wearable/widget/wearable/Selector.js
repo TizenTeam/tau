@@ -94,7 +94,8 @@
 			"../../../../core/util/object",
 			"../../../../core/widget/BaseWidget",
 			"../../../../core/event",
-			"../../../../core/event/gesture",
+			"../../../../core/event/gesture/Drag",
+			"../../../../core/event/gesture/LongPress",
 			"../wearable"
 		],
 
@@ -110,7 +111,11 @@
 					var self = this;
 
 					self._ui = {};
-					self.options = {};
+					self.options = {
+						editable: true
+					};
+
+					self._editModeEnabled = false;
 				},
 				classes = {
 					SELECTOR: "ui-selector",
@@ -121,6 +126,8 @@
 					LAYER_HIDE: "ui-layer-hide",
 					ITEM: "ui-item",
 					ITEM_ACTIVE: "ui-item-active",
+					ITEM_REMOVABLE: "ui-item-removable",
+					ITEM_ICON_REMOVE: "ui-item-icon-remove",
 					INDICATOR: "ui-selector-indicator",
 					INDICATOR_ACTIVE: "ui-selector-indicator-active",
 					INDICATOR_TEXT: "ui-selector-indicator-text",
@@ -131,7 +138,8 @@
 					INDICATOR_WITH_SUBTITLE: "ui-selector-indicator-with-subtext",
 					INDICATOR_NEXT_END: "ui-selector-indicator-next-end",
 					INDICATOR_PREV_END: "ui-selector-indicator-prev-end",
-					INDICATOR_ARROW: "ui-selector-indicator-arrow"
+					INDICATOR_ARROW: "ui-selector-indicator-arrow",
+					EDIT_MODE: "ui-selector-edit-mode"
 				},
 				STATIC = {
 					RADIUS_RATIO: 0.8
@@ -235,11 +243,13 @@
 				events.enableGesture(
 					element,
 
-					new Gesture.Drag()
+					new Gesture.Drag(),
+					new Gesture.LongPress()
 				);
+
 				events.on(document, "rotarydetent", self, false);
 				events.on(self._ui.indicator, "animationend webkitAnimationEnd", self, false);
-				self.on("dragstart drag dragend click", self, false);
+				self.on("dragstart drag dragend click longpress", self, false);
 			}
 
 			/**
@@ -256,7 +266,7 @@
 					element
 				);
 				events.off(document, "rotarydetent", self, false);
-				events.off(element, "dragstart drag dragend click", self, false);
+				self.off("dragstart drag dragend click longpress", self, false);
 			}
 
 			/**
@@ -482,10 +492,55 @@
 					degree = DEFAULT.ITEM_START_DEGREE + (options.itemDegree * i);
 					setItemTransform(items[i], degree, options.itemRadius, -degree, DEFAULT.ITEM_NORMAL_SCALE);
 				}
-
-				self._setActiveItem(self._activeItemIndex);
+				if (!self._editModeEnabled) {
+					self._setActiveItem(self._activeItemIndex);
+				}
 			};
 
+			prototype._addIconRemove = function (item, index) {
+				var removeIconPosition,
+					maxItemNumber = this.options.maxItemNumber,
+					leftItemsCount,
+					iconElement = document.createElement("div");
+
+				leftItemsCount = parseInt(maxItemNumber / 2, 10) - 1;
+				removeIconPosition = (index % maxItemNumber) > leftItemsCount ? "right" : "left";
+				item.classList.add(classes.ITEM_REMOVABLE);
+				iconElement.classList.add(classes.ITEM_ICON_REMOVE + "-" + removeIconPosition);
+
+				item.appendChild(iconElement);
+			};
+
+			prototype._addRemoveIcons = function () {
+				var self = this,
+					isRemovable,
+					item,
+					items = self._ui.items,
+					i;
+
+				for (i = 0; i < items.length; i++) {
+					item = items[i];
+					isRemovable = utilDom.getNSData(item, "removable");
+					if (isRemovable !== false) {
+						self._addIconRemove(item, i);
+					}
+				}
+			};
+
+			prototype._removeRemoveIcons = function () {
+				var self = this,
+					i,
+					items = self._ui.items,
+					item;
+
+				for (i = 0; i < items.length; i++) {
+					item = items[i];
+					if (item.classList.contains(classes.ITEM_REMOVABLE)) {
+						item.innerHTML = "";
+						item.classList.remove(classes.ITEM_REMOVABLE);
+					}
+				}
+			};
 			/**
 			 * Bind events on Selector component
 			 * @method _bindEvents
@@ -525,6 +580,13 @@
 					case "animationend":
 					case "webkitAnimationEnd":
 						self._onAnimationEnd(event);
+						break;
+					case "longpress":
+						self._onLongPress(event);
+						break;
+					case "tizenhwkey":
+						event.stopPropagation();
+						self._onHWKey(event);
 						break;
 				}
 			};
@@ -707,7 +769,6 @@
 				this._started = true;
 			};
 
-
 			/**
 			 * Clear active class on animation end
 			 * @method _onAnimationEnd
@@ -717,7 +778,6 @@
 			prototype._onAnimationEnd = function () {
 				this._ui.indicator.classList.remove(classes.INDICATOR_ACTIVE);
 			};
-
 
 			/**
 			 * Drag event handler
@@ -776,6 +836,7 @@
 					pointedElement = document.elementFromPoint(event.pageX, event.pageY),
 					indicatorClassList = self._ui.indicator.classList,
 					targetElement = event.target,
+					targetClassList = targetElement.classList,
 					activeLayer = ui.layers[self._activeLayerIndex],
 					prevLayer = activeLayer.previousElementSibling,
 					nextLayer = activeLayer.nextElementSibling,
@@ -785,7 +846,7 @@
 					self._setItemAndLayer(self._activeLayerIndex - 1, self._activeLayerIndex * 11 - 1);
 				} else if (targetElement.classList.contains(classes.LAYER_NEXT) && nextLayer) {
 					self._setItemAndLayer(self._activeLayerIndex + 1, (self._activeLayerIndex + 1) * 11);
-				} else if (self._enabled) {
+				} else if (self._enabled && !self._editModeEnabled) {
 					if (pointedElement && (pointedElement.classList.contains(classes.INDICATOR) || pointedElement.parentElement.classList.contains(classes.INDICATOR))) {
 						indicatorClassList.remove(classes.INDICATOR_ACTIVE);
 						requestAnimationFrame(function () {
@@ -795,6 +856,17 @@
 					if (pointedElement && pointedElement.classList.contains(classes.ITEM)) {
 						index = parseInt(utilDom.getNSData(pointedElement, "index"), 10);
 						self._setActiveItem(index);
+					}
+				}
+
+				if (self._editModeEnabled) {
+					event.stopPropagation();
+
+					if (targetClassList.contains(classes.ITEM_ICON_REMOVE + "-left") ||
+						targetClassList.contains(classes.ITEM_ICON_REMOVE + "-right")) {
+						index = parseInt(utilDom.getNSData(targetElement.parentElement,
+							"index"), 10);
+						self.removeItem(index);
 					}
 				}
 			};
@@ -902,10 +974,19 @@
 			prototype._refresh = function () {
 				var self = this,
 					ui = self._ui,
+					items = ui.items,
 					options = self.options,
-					element = self.element;
+					element = self.element,
+					i;
 
-				ui.layers = buildLayers(element, ui.items, options);
+				self._removeRemoveIcons();
+
+				for (i = 0; i < ui.items.length; i++) {
+					utilDom.setNSData(items[i], "index", i);
+				}
+
+				self._addRemoveIcons();
+				ui.layers = buildLayers(element, items, options);
 				self._setActiveLayer(self._activeLayerIndex);
 			};
 
@@ -932,6 +1013,58 @@
 					self._enabled = true;
 				}, 150);
 
+			};
+
+			prototype._onLongPress = function () {
+				var self = this;
+
+				if (self.options.editable && self._editModeEnabled === false) {
+					self._enableEditMode();
+				} else {
+					self._disableEditMode(); //TODO: Remove this when implementing reorder
+				}
+			};
+
+			prototype._onHWKey = function (event) {
+				var self = this;
+
+				if (event.keyName === "back" && self.options.editable && self._editModeEnabled) {
+					self._disableEditMode();
+				}
+			};
+
+			prototype._enableEditMode = function () {
+				var self = this,
+					ui = self._ui,
+					activeItem = ui.items[self._activeItemIndex];
+
+				self.element.classList.add(classes.EDIT_MODE);
+				self._addRemoveIcons();
+				ui.indicatorText.textContent = "Edit mode";
+				activeItem.classList.remove(classes.ITEM_ACTIVE);
+				activeItem.style.transform = activeItem.style.transform.replace(DEFAULT.ITEM_ACTIVE_SCALE, DEFAULT.ITEM_NORMAL_SCALE);
+
+				events.off(document, "rotarydetent", self, false);
+				self.off("dragstart drag dragend", self, false);
+				events.on(window, "tizenhwkey", self, true);
+
+				self._editModeEnabled = true;
+			};
+
+			prototype._disableEditMode = function () {
+				var self = this,
+					elementClassList = self.element.classList;
+
+				elementClassList.remove(classes.EDIT_MODE);
+				self._ui.items[self._activeItemIndex].classList.add(classes.ITEM_ACTIVE);
+				self._removeRemoveIcons();
+				self._setActiveItem(self._activeItemIndex);
+
+				events.on(document, "rotarydetent", self, false);
+				self.on("dragstart drag dragend", self, false);
+				events.off(window, "tizenhwkey", self, true);
+
+				self._editModeEnabled = false;
 			};
 
 			/**
@@ -990,11 +1123,16 @@
 			prototype.removeItem = function (index) {
 				var self = this,
 					ui = self._ui,
-					element = self.element;
+					element = self.element,
+					length;
 
 				removeLayers(self.element, self.options);
 				element.removeChild(ui.items[index]);
 				ui.items = element.querySelectorAll(self.options.itemSelector);
+				length = ui.items.length;
+				if (self._activeItemIndex >= length) {
+					self._activeItemIndex = length - 1;
+				}
 				self._refresh();
 			};
 
