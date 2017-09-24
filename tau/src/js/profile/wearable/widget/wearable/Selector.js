@@ -112,7 +112,8 @@
 
 					self._ui = {};
 					self.options = {
-						editable: true
+						editable: true,
+						plusButton: true
 					};
 
 					self._editModeEnabled = false;
@@ -139,7 +140,8 @@
 					INDICATOR_NEXT_END: "ui-selector-indicator-next-end",
 					INDICATOR_PREV_END: "ui-selector-indicator-prev-end",
 					INDICATOR_ARROW: "ui-selector-indicator-arrow",
-					EDIT_MODE: "ui-selector-edit-mode"
+					EDIT_MODE: "ui-selector-edit-mode",
+					PLUS_BUTTON: "ui-item-plus"
 				},
 				STATIC = {
 					RADIUS_RATIO: 0.8
@@ -155,7 +157,8 @@
 					ITEM_START_DEGREE: 30,
 					ITEM_END_DEGREE: 330,
 					ITEM_NORMAL_SCALE: "scale(0.8235)",
-					ITEM_ACTIVE_SCALE: "scale(1)"
+					ITEM_ACTIVE_SCALE: "scale(1)",
+					EMPTY_STATE_TEXT: "Selector is empty"
 				},
 				EVENT_TYPE = {
 					/**
@@ -344,7 +347,8 @@
 					itemDegree: DEFAULT.ITEM_DEGREE,
 					itemRadius: DEFAULT.ITEM_RADIUS,
 					maxItemNumber: DEFAULT.MAX_ITEM_NUMBER,
-					indicatorAutoControl: true
+					indicatorAutoControl: true,
+					emptyStateText: DEFAULT.EMPTY_STATE_TEXT
 				});
 			};
 
@@ -492,7 +496,12 @@
 					degree = DEFAULT.ITEM_START_DEGREE + (options.itemDegree * i);
 					setItemTransform(items[i], degree, options.itemRadius, -degree, DEFAULT.ITEM_NORMAL_SCALE);
 				}
-				if (!self._editModeEnabled) {
+
+				if (self.options.plusButton) {
+					len--;
+				}
+
+				if (!self._editModeEnabled && len > 0) {
 					self._setActiveItem(self._activeItemIndex);
 				}
 			};
@@ -633,10 +642,12 @@
 					addLayerClasses(validLayer);
 				}
 				self._activeLayerIndex = index;
-				self._initItems(validLayer);
-				events.trigger(validLayer, EVENT_TYPE, {
-					index: index
-				});
+				if (ui.items.length > 0) {
+					self._initItems(validLayer);
+					events.trigger(validLayer, EVENT_TYPE, {
+						index: index
+					});
+				}
 			};
 
 			/**
@@ -681,7 +692,9 @@
 				transform = items[index].style.transform || items[index].style.webkitTransform;
 
 				if (active) {
-					active.style.transform = active.style.transform.replace(DEFAULT.ITEM_ACTIVE_SCALE, DEFAULT.ITEM_NORMAL_SCALE);
+					active.style.transform =
+						active.style.transform.replace(DEFAULT.ITEM_ACTIVE_SCALE,
+							DEFAULT.ITEM_NORMAL_SCALE);
 					active.classList.remove(classes.ITEM_ACTIVE);
 				}
 				if (items.length) {
@@ -837,10 +850,16 @@
 					indicatorClassList = self._ui.indicator.classList,
 					targetElement = event.target,
 					targetClassList = targetElement.classList,
-					activeLayer = ui.layers[self._activeLayerIndex],
-					prevLayer = activeLayer.previousElementSibling,
-					nextLayer = activeLayer.nextElementSibling,
+					activeLayer,
+					prevLayer,
+					nextLayer,
 					index;
+
+				if (ui.items.length > 0) {
+					activeLayer = ui.layers[self._activeLayerIndex];
+					prevLayer = activeLayer.previousElementSibling;
+					nextLayer = activeLayer.nextElementSibling;
+				}
 
 				if (targetElement.classList.contains(classes.LAYER_PREV) && prevLayer) {
 					self._setItemAndLayer(self._activeLayerIndex - 1, self._activeLayerIndex * 11 - 1);
@@ -895,12 +914,13 @@
 					options = self.options,
 					direction = event.detail.direction,
 					activeLayer = ui.layers[self._activeLayerIndex],
-					activeLayerItemsLength = activeLayer.querySelectorAll(options.itemSelector).length,
-					prevLayer = activeLayer.previousElementSibling,
-					nextLayer = activeLayer.nextElementSibling,
+					activeLayerItemsLength = activeLayer &&
+						activeLayer.querySelectorAll(options.itemSelector).length,
+					prevLayer = activeLayer && activeLayer.previousElementSibling,
+					nextLayer = activeLayer && activeLayer.nextElementSibling,
 					bounceDegree;
 
-				if (!options.indicatorAutoControl || !self._enabled) {
+				if (!options.indicatorAutoControl || !self._enabled || ui.items.length === 0) {
 					return;
 				}
 				event.stopPropagation();
@@ -1033,17 +1053,45 @@
 				}
 			};
 
+			prototype._addPlusButton = function () {
+				var plusButtonElement;
+
+				plusButtonElement = document.createElement("div");
+				plusButtonElement.classList.add(classes.ITEM, classes.PLUS_BUTTON);
+				setItemTransform(plusButtonElement, DEFAULT.ITEM_END_DEGREE,
+					this.options.itemRadius, -DEFAULT.ITEM_END_DEGREE, DEFAULT.ITEM_NORMAL_SCALE);
+				utilDom.setNSData(plusButtonElement, "removable", "false");
+
+				this.addItem(plusButtonElement);
+			};
+
+			prototype._removePlusButton = function () {
+				var self = this,
+					items = self._ui.items,
+					lastItemIndex = items.length - 1;
+
+				if (items[lastItemIndex].classList.contains(classes.PLUS_BUTTON)) {
+					self.removeItem(lastItemIndex);
+				}
+			};
+
 			prototype._enableEditMode = function () {
 				var self = this,
 					ui = self._ui,
+					length = ui.items.length,
 					activeItem = ui.items[self._activeItemIndex];
+
+				if (self.options.plusButton) {
+					self._addPlusButton();
+				}
 
 				self.element.classList.add(classes.EDIT_MODE);
 				self._addRemoveIcons();
 				ui.indicatorText.textContent = "Edit mode";
-				activeItem.classList.remove(classes.ITEM_ACTIVE);
-				activeItem.style.transform = activeItem.style.transform.replace(DEFAULT.ITEM_ACTIVE_SCALE, DEFAULT.ITEM_NORMAL_SCALE);
-
+				if (length > 0) {
+					activeItem.classList.remove(classes.ITEM_ACTIVE);
+					activeItem.style.transform = activeItem.style.transform.replace(DEFAULT.ITEM_ACTIVE_SCALE, DEFAULT.ITEM_NORMAL_SCALE);
+				}
 				events.off(document, "rotarydetent", self, false);
 				self.off("dragstart drag dragend", self, false);
 				events.on(window, "tizenhwkey", self, true);
@@ -1053,13 +1101,27 @@
 
 			prototype._disableEditMode = function () {
 				var self = this,
+					items,
+					ui = self._ui,
 					elementClassList = self.element.classList;
 
-				elementClassList.remove(classes.EDIT_MODE);
-				self._ui.items[self._activeItemIndex].classList.add(classes.ITEM_ACTIVE);
-				self._removeRemoveIcons();
-				self._setActiveItem(self._activeItemIndex);
+				if (self.options.plusButton) {
+					self._removePlusButton();
+				}
 
+				elementClassList.remove(classes.EDIT_MODE);
+
+				items = ui.items;
+				if (items.length > 0) {
+					items[self._activeItemIndex].classList.add(classes.ITEM_ACTIVE);
+					self._removeRemoveIcons();
+					self._setActiveItem(self._activeItemIndex);
+				} else {
+					ui.indicatorText.textContent = self.options.emptyStateText;
+					ui.indicatorSubText.textContent = "";
+					ui.indicatorIcon.classList.remove(classes.INDICATOR_ICON_ACTIVE,
+						classes.INDICATOR_ICON_ACTIVE_WITH_TEXT);
+				}
 				events.on(document, "rotarydetent", self, false);
 				self.on("dragstart drag dragend", self, false);
 				events.off(window, "tizenhwkey", self, true);
@@ -1124,12 +1186,21 @@
 				var self = this,
 					ui = self._ui,
 					element = self.element,
-					length;
+					length,
+					itemsOnLayer = self.options.maxItemNumber;
 
 				removeLayers(self.element, self.options);
 				element.removeChild(ui.items[index]);
 				ui.items = element.querySelectorAll(self.options.itemSelector);
 				length = ui.items.length;
+
+				/** This block checks if the removed item is last on active layer, and if this
+				/** condition is true, it changes active layer to previous one.
+				 */
+				if ((index % itemsOnLayer === 0) && (index === ui.items.length - 1)) {
+					self._changeLayer(self._activeLayerIndex - 1);
+				}
+
 				if (self._activeItemIndex >= length) {
 					self._activeItemIndex = length - 1;
 				}
