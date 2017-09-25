@@ -52,7 +52,7 @@ pipeline {
                 }
                 archive 'tau/dist/**'
                 stash includes: 'tau/dist/**', name: 'dist'
-                sh "node tau/tools/cmd/prepare-sonar.js ${GERRIT_CHANGE_URL}"
+                sh "node tau/tools/cmd/prepare-sonar.js"
                 // requires SonarQube Scanner 2.8+
                 withSonarQubeEnv('Main') {
                   sh "/home/m.urbanski/sonar-scanner-2.8/bin/sonar-scanner"
