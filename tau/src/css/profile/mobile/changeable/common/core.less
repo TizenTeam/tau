@@ -28,13 +28,9 @@
 
 	&.ui-pre-in {
 		z-index: 100;
-		visibility: visible;
-		display: block;
-		top: 0;
-		left: 0;
 	}
 
-	&.ui-page-active {
+	&.ui-pre-in, &.ui-page-active {
 		display: block;
 		overflow: hidden;
 
@@ -53,11 +49,6 @@
 			}
 		}
 	}
-}
-
-/* on ios4, setting focus on the page element causes flashing during transitions when there is an outline, so we turn off outlines */
-.ui-page {
-	display: none;
 }
 
 .ui-page-container, .ui-page-container .ui-page {
