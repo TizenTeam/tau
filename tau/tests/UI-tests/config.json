@@ -1494,7 +1494,8 @@
 			{
 				"name": "35-list-5-items",
 				"width": 360,
-				"height": 360
+				"height": 360,
+				"time": 500
 			},
 			{
 				"name": "35-list-with-icon-and-subtext",

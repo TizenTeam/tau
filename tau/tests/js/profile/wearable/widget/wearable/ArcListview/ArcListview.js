@@ -33,6 +33,7 @@
 
 			assert.deepEqual(arclistWidget.options, {
 				bouncingTimeout: 1000,
+				visibleItems: 3,
 				ellipsisA: 333,
 				ellipsisB: 180,
 				selectedIndex: 0

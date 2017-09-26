@@ -184,7 +184,8 @@
 						selectedIndex: 0,
 						ellipsisA: ELLIPSIS_A,
 						ellipsisB: ELLIPSIS_B,
-						bouncingTimeout: 1000
+						bouncingTimeout: 1000,
+						visibleItems: 3
 					};
 					// items table on start is empty
 					self._items = [];
@@ -214,6 +215,7 @@
 				 */
 				classes = {
 					WIDGET: WIDGET_CLASS,
+					PREFIX: WIDGET_CLASS + "-",
 					SELECTION: WIDGET_CLASS + "-selection",
 					SELECTION_SHOW: WIDGET_CLASS + "-selection-show",
 					CAROUSEL: WIDGET_CLASS + "-carousel",
@@ -484,6 +486,7 @@
 				var self = this,
 					state = self._state,
 					carousel = self._carousel,
+					middleItemIndex = Math.ceil(self.options.visibleItems / 2) + 1,
 					itemElement,
 					itemStyle;
 
@@ -491,8 +494,10 @@
 					itemElement = item.element;
 					if (item.repaint) {
 						itemStyle = itemElement.style;
-						if (index - state.currentIndex < 3 && index - state.currentIndex > -3) {
-							carousel.items[index - state.currentIndex + 2].carouselElement.appendChild(item.element);
+						if (index - state.currentIndex < middleItemIndex &&
+							index - state.currentIndex > -middleItemIndex) {
+							carousel.items[index - state.currentIndex + middleItemIndex - 1]
+								.carouselElement.appendChild(item.element);
 						}
 						itemStyle.transform = "translateY(-50%) scale(" + item.current.scale + ")";
 						itemStyle.opacity = item.current.scale * 1.15;
@@ -537,17 +542,20 @@
 				var self = this,
 					carousel = self._carousel,
 					state = self._state,
+					halfItemsCount = Math.ceil(self.options.visibleItems / 2),
 					item,
 					len,
-					i;
+					i,
+					top;
 
-				for (i = -2, len = 2; i <= len; i++) {
+				for (i = -halfItemsCount, len = halfItemsCount; i <= len; i++) {
 					item = state.items[currentIndex + i];
 					if (item !== undefined) {
-						carousel.items[i + 2].carouselElement.style.top = (state.scroll.current + item.y - item.height / 2) + "px";
+						top = (state.scroll.current + item.y - item.height / 2) + "px";
 					} else {
-						carousel.items[i + 2].carouselElement.style.top = 0;
+						top = 0;
 					}
+					carousel.items[i + halfItemsCount].carouselElement.style.top = top;
 				}
 			};
 
@@ -1051,15 +1059,15 @@
 				return arcListviewSelection;
 			}
 
-			function buildArcListviewCarousel(carousel) {
+			function buildArcListviewCarousel(carousel, count) {
 				// create carousel
 				var arcListviewCarousel = document.createElement("div"),
 					carouselElement,
 					fragment = document.createDocumentFragment(),
 					i = 0;
 
-				arcListviewCarousel.classList.add(classes.CAROUSEL);
-				for (; i < 5; i++) {
+				arcListviewCarousel.classList.add(classes.CAROUSEL, classes.PREFIX + count);
+				for (; i < count + 2; i++) {
 					carouselElement = document.createElement("ul");
 					carouselElement.classList.add(classes.CAROUSEL_ITEM);
 					carouselElement.classList.add(classes.LISTVIEW);
@@ -1085,20 +1093,21 @@
 					page,
 					scroller,
 					ui = self._ui,
-					carousel = self._carousel;
+					carousel = self._carousel,
+					visibleItensCount = parseInt(self.options.visibleItems, 10);
 
 				if (!engine.getBinding(element, "SnapListview")) {
 					// find outer parent elements
 					page = selectorsUtil.getClosestBySelector(element, selectors.PAGE);
 					scroller = selectorsUtil.getClosestBySelector(element, selectors.SCROLLER);
 
-					element.classList.add(WIDGET_CLASS);
+					element.classList.add(WIDGET_CLASS, classes.PREFIX + visibleItensCount);
 
 					// find list elements with including group indexes
 					self._items = slice.call(page.querySelectorAll(selectors.ITEMS)) || [];
 
 					ui.arcListviewSelection = buildArcListviewSelection(page);
-					arcListviewCarousel = buildArcListviewCarousel(carousel);
+					arcListviewCarousel = buildArcListviewCarousel(carousel, visibleItensCount);
 					ui.arcListviewCarousel = arcListviewCarousel;
 
 					// append carousel outside scroller element
