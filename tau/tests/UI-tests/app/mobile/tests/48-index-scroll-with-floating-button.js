@@ -46,8 +46,7 @@
 	});
 
 	page.addEventListener("pageshow", function () {
-		var element = document.getElementById("indexscrollbar"),
-			evt = new CustomEvent("vmousedown", {}),
+		var evt = new CustomEvent("vmousedown", {}),
 			liElements = [].slice.call(document.querySelectorAll(".ui-indexscrollbar li")),
 			testedIndex,
 			rect;
@@ -66,7 +65,7 @@
 			evt.clientX = rect.left + rect.width / 2;
 			evt.clientY = rect.top + rect.height / 2;
 
-			element.dispatchEvent(evt);
+			isbElement.dispatchEvent(evt);
 		}
 	});
 
