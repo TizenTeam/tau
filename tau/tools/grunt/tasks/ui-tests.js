@@ -82,11 +82,11 @@ module.exports = function (grunt) {
 				}
 			});
 
-			fs.mkdir(path.join(diffPathArray),
+			fs.mkdir(path.join.apply(path, diffPathArray),
 				function () {
-					fs.mkdir(path.join(diffPathArray.concat(profile)),
+					fs.mkdir(path.join.apply(path, diffPathArray.concat(profile)),
 						function () {
-							fs.mkdir(path.join(diffPathArray.concat([profile, type])),
+							fs.mkdir(path.join.apply(path, diffPathArray.concat([profile, type])),
 								function () {
 									resemble.outputSettings({
 										errorColor: {
@@ -128,7 +128,8 @@ module.exports = function (grunt) {
 															value = parseFloat(result.misMatchPercentage);
 
 														result.getDiffImage().pack().pipe(fs.createWriteStream(
-															path.joindiffPathArray.concat([profile, type, test.name + ".png"])));
+															path.join.apply(path,
+																diffPathArray.concat([profile, type, test.name + ".png"]))));
 
 														if (value > (test.threshold || 0.2)) {
 															if (test.pass) {
@@ -177,12 +178,12 @@ module.exports = function (grunt) {
 										resultObject.testsuites.$.errors = errorsCount;
 										xml = builder.buildObject(resultObject);
 
-										fs.mkdir(path.join(reportPathArray), function () {
-											fs.mkdir(path.join(reportPathArray.concat("test")), function () {
-												fs.mkdir(path.join(reportPathArray.concat(["test", "UI"])), function () {
-													fs.mkdir(path.join(reportPathArray.concat(["test", "UI", profile])),
+										fs.mkdir(path.join.apply(path, reportPathArray), function () {
+											fs.mkdir(path.join.apply(path, reportPathArray.concat("test")), function () {
+												fs.mkdir(path.join.apply(path, reportPathArray.concat(["test", "UI"])), function () {
+													fs.mkdir(path.join.apply(path, reportPathArray.concat(["test", "UI", profile])),
 														function () {
-															fs.writeFile(path.join(reportPathArray.concat(["test", "UI", profile,
+															fs.writeFile(path.join.apply(path, reportPathArray.concat(["test", "UI", profile,
 																type + ".xml"])), xml, function () {
 																	done();
 																});
@@ -191,7 +192,6 @@ module.exports = function (grunt) {
 											});
 										});
 									});
-
 								});
 						});
 				});
