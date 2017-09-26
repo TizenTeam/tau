@@ -64,6 +64,7 @@
 			border-radius: 50%;
 			margin: -34 * @unit_base;
 			z-index: 100;
+
 			&:active {
 				background-color: @color_selector_icon_bg_press;
 			}
@@ -180,6 +181,12 @@
 			.mask-size(100% 100%);
 			.mask-repeat(no-repeat);
 			background-color: @color_selector_dot;
+		}
+	}
+
+	&.ui-selector-edit-mode .ui-layer {
+		.ui-item-removable:active {
+			background-color: @color_selector_icon_bg;
 		}
 	}
 }

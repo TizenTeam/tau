@@ -129,6 +129,7 @@
 					ITEM_ACTIVE: "ui-item-active",
 					ITEM_REMOVABLE: "ui-item-removable",
 					ITEM_ICON_REMOVE: "ui-item-icon-remove",
+					ITEM_ICON_REMOVE_BG: "ui-item-icon-remove-bg",
 					INDICATOR: "ui-selector-indicator",
 					INDICATOR_ACTIVE: "ui-selector-indicator-active",
 					INDICATOR_TEXT: "ui-selector-indicator-text",
@@ -144,7 +145,8 @@
 					PLUS_BUTTON: "ui-item-plus"
 				},
 				STATIC = {
-					RADIUS_RATIO: 0.8
+					RADIUS_RATIO: 0.8,
+					SCALE_FACTOR: 0.8235
 				},
 				DEFAULT = {
 					ITEM_SELECTOR: "." + classes.ITEM,
@@ -156,7 +158,7 @@
 					ITEM_RADIUS: -1,
 					ITEM_START_DEGREE: 30,
 					ITEM_END_DEGREE: 330,
-					ITEM_NORMAL_SCALE: "scale(0.8235)",
+					ITEM_NORMAL_SCALE: "scale(" + STATIC.SCALE_FACTOR + ")",
 					ITEM_ACTIVE_SCALE: "scale(1)",
 					EMPTY_STATE_TEXT: "Selector is empty"
 				},
@@ -507,16 +509,22 @@
 			};
 
 			prototype._addIconRemove = function (item, index) {
-				var removeIconPosition,
-					maxItemNumber = this.options.maxItemNumber,
+				var maxItemNumber = this.options.maxItemNumber,
+					iconScaleFactor = 1 / STATIC.SCALE_FACTOR,
+					iconElement = document.createElement("div"),
+					iconBgElement = document.createElement("div"),
 					leftItemsCount,
-					iconElement = document.createElement("div");
+					removeIconPosition;
 
 				leftItemsCount = parseInt(maxItemNumber / 2, 10) - 1;
 				removeIconPosition = (index % maxItemNumber) > leftItemsCount ? "right" : "left";
-				item.classList.add(classes.ITEM_REMOVABLE);
-				iconElement.classList.add(classes.ITEM_ICON_REMOVE + "-" + removeIconPosition);
+				iconBgElement.classList.add(classes.ITEM_ICON_REMOVE_BG);
 
+				iconElement.classList.add(classes.ITEM_ICON_REMOVE + "-" + removeIconPosition);
+				iconElement.style.transform = "scale(" + iconScaleFactor + ")";
+				iconElement.appendChild(iconBgElement);
+
+				item.classList.add(classes.ITEM_REMOVABLE);
 				item.appendChild(iconElement);
 			};
 
@@ -879,7 +887,7 @@
 				}
 
 				if (self._editModeEnabled) {
-					event.stopPropagation();
+					event.stopImmediatePropagation();
 
 					if (targetClassList.contains(classes.ITEM_ICON_REMOVE + "-left") ||
 						targetClassList.contains(classes.ITEM_ICON_REMOVE + "-right")) {
@@ -997,15 +1005,21 @@
 					items = ui.items,
 					options = self.options,
 					element = self.element,
+					editModeEnabled = self._editModeEnabled,
 					i;
 
-				self._removeRemoveIcons();
+				if (editModeEnabled) {
+					self._removeRemoveIcons();
+				}
 
 				for (i = 0; i < ui.items.length; i++) {
 					utilDom.setNSData(items[i], "index", i);
 				}
 
-				self._addRemoveIcons();
+				if (editModeEnabled) {
+					self._addRemoveIcons();
+				}
+
 				ui.layers = buildLayers(element, items, options);
 				self._setActiveLayer(self._activeLayerIndex);
 			};
@@ -1085,8 +1099,9 @@
 					self._addPlusButton();
 				}
 
-				self.element.classList.add(classes.EDIT_MODE);
 				self._addRemoveIcons();
+
+				self.element.classList.add(classes.EDIT_MODE);
 				ui.indicatorText.textContent = "Edit mode";
 				if (length > 0) {
 					activeItem.classList.remove(classes.ITEM_ACTIVE);
