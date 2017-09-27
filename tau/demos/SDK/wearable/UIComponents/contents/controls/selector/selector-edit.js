@@ -10,14 +10,23 @@
 	 */
 	page.addEventListener("pagebeforeshow", function () {
 		selectorComponent = tau.widget.Selector(selector);
-		//TODO: Add code for enabling Edit Mode
+		selector.addEventListener("add", onAdd);
 	});
+
+	function onAdd() {
+		var newItem = document.createElement("div");
+
+		newItem.setAttribute("data-title", "New item");
+		selectorComponent.addItem(newItem);
+	}
 
 	/**
 	 * pagebeforehide event handler
 	 * Destroys and removes event listeners
 	 */
+
 	page.addEventListener("pagebeforehide", function () {
 		selectorComponent.destroy();
+		selector.removeEventListener("add", onAdd);
 	});
 }());

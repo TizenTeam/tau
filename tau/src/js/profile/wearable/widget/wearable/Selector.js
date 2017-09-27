@@ -112,7 +112,7 @@
 
 					self._ui = {};
 					self.options = {
-						editable: true,
+						editable: false,
 						plusButton: true
 					};
 
@@ -203,7 +203,6 @@
 						element.appendChild(layer);
 						layers.push(layer);
 					}
-					items[i].classList.add(classes.ITEM);
 					layer.appendChild(items[i]);
 					if (utilDom.getNSData(items[i], "active")) {
 						items[i].classList.add(classes.ITEM_ACTIVE);
@@ -886,6 +885,10 @@
 					}
 				}
 
+				if (targetElement.classList.contains(classes.PLUS_BUTTON)) {
+					self.trigger("add");
+				}
+
 				if (self._editModeEnabled) {
 					event.stopImmediatePropagation();
 
@@ -896,6 +899,7 @@
 						self.removeItem(index);
 					}
 				}
+
 			};
 
 			/**
@@ -1054,8 +1058,6 @@
 
 				if (self.options.editable && self._editModeEnabled === false) {
 					self._enableEditMode();
-				} else {
-					self._disableEditMode(); //TODO: Remove this when implementing reorder
 				}
 			};
 
@@ -1071,9 +1073,7 @@
 				var plusButtonElement;
 
 				plusButtonElement = document.createElement("div");
-				plusButtonElement.classList.add(classes.ITEM, classes.PLUS_BUTTON);
-				setItemTransform(plusButtonElement, DEFAULT.ITEM_END_DEGREE,
-					this.options.itemRadius, -DEFAULT.ITEM_END_DEGREE, DEFAULT.ITEM_NORMAL_SCALE);
+				plusButtonElement.classList.add(classes.PLUS_BUTTON);
 				utilDom.setNSData(plusButtonElement, "removable", "false");
 
 				this.addItem(plusButtonElement);
@@ -1105,7 +1105,9 @@
 				ui.indicatorText.textContent = "Edit mode";
 				if (length > 0) {
 					activeItem.classList.remove(classes.ITEM_ACTIVE);
-					activeItem.style.transform = activeItem.style.transform.replace(DEFAULT.ITEM_ACTIVE_SCALE, DEFAULT.ITEM_NORMAL_SCALE);
+					activeItem.style.transform =
+						activeItem.style.transform.replace(DEFAULT.ITEM_ACTIVE_SCALE,
+							DEFAULT.ITEM_NORMAL_SCALE);
 				}
 				events.off(document, "rotarydetent", self, false);
 				self.off("dragstart drag dragend", self, false);
@@ -1178,11 +1180,20 @@
 				var self = this,
 					element = self.element,
 					items = element.querySelectorAll(self.options.itemSelector),
-					ui = self._ui;
+					plusBtnIndex = items.length - 1,
+					plusBtnEnabled = items[plusBtnIndex].classList.contains(classes.PLUS_BUTTON),
+					ui = self._ui,
+					length = plusBtnEnabled ? ui.items.length : ui.items.length - 1;
 
 				removeLayers(self.element, self.options);
-				if (index >= 0 && index < ui.items.length) {
+				setItemTransform(item, DEFAULT.ITEM_END_DEGREE,
+					self.options.itemRadius, -DEFAULT.ITEM_END_DEGREE, DEFAULT.ITEM_NORMAL_SCALE);
+				item.classList.add(classes.ITEM);
+
+				if (index >= 0 && index < length) {
 					element.insertBefore(item, items[index]);
+				} else if (plusBtnEnabled) {
+					element.insertBefore(item, items[plusBtnIndex]);
 				} else {
 					element.appendChild(item);
 				}
