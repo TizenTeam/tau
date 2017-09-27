@@ -10,7 +10,7 @@
 	 */
 	page.addEventListener("pagebeforeshow", function () {
 		selectorComponent = tau.widget.Selector(selector);
-		selectorComponent.changeItem(4);
+		selectorComponent._enableEditMode();
 	});
 
 	/**
