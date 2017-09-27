@@ -2095,7 +2095,9 @@
 			{
 				"name": "103-rotary-selector-edit-mode",
 				"width": 360,
-				"height": 360
+				"height": 360,
+				"pass": true,
+				"threshold": 0.5
 			},
 			{
 				"name": "113-bottom-button-text-position-with-image-100px",
