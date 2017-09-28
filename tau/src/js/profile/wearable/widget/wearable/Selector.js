@@ -493,6 +493,7 @@
 					len;
 
 				len = items.length > options.maxItemNumber ? options.maxItemNumber : items.length;
+
 				for (i = 0; i < len; i++) {
 					degree = DEFAULT.ITEM_START_DEGREE + (options.itemDegree * i);
 					setItemTransform(items[i], degree, options.itemRadius, -degree, DEFAULT.ITEM_NORMAL_SCALE);
@@ -1105,14 +1106,15 @@
 				ui.indicatorText.textContent = "Edit mode";
 				if (length > 0) {
 					activeItem.classList.remove(classes.ITEM_ACTIVE);
-					activeItem.style.transform =
-						activeItem.style.transform.replace(DEFAULT.ITEM_ACTIVE_SCALE,
-							DEFAULT.ITEM_NORMAL_SCALE);
+					requestAnimationFrame(function () {
+						activeItem.style.transform =
+							activeItem.style.transform.replace(DEFAULT.ITEM_ACTIVE_SCALE,
+								DEFAULT.ITEM_NORMAL_SCALE);
+					});
 				}
 				events.off(document, "rotarydetent", self, false);
 				self.off("dragstart drag dragend", self, false);
 				events.on(window, "tizenhwkey", self, true);
-
 				self._editModeEnabled = true;
 			};
 
@@ -1132,7 +1134,9 @@
 				if (items.length > 0) {
 					items[self._activeItemIndex].classList.add(classes.ITEM_ACTIVE);
 					self._removeRemoveIcons();
-					self._setActiveItem(self._activeItemIndex);
+					requestAnimationFrame(function () {
+						self._setActiveItem(self._activeItemIndex);
+					});
 				} else {
 					ui.indicatorText.textContent = self.options.emptyStateText;
 					ui.indicatorSubText.textContent = "";
