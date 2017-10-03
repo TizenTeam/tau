@@ -71,7 +71,7 @@
 			},
 			{
 				"name": "30-tabs-with-icon",
-				"time": 0,
+				"time": 200,
 				"width": 360,
 				"height": 640,
 				"pass": true
@@ -800,7 +800,7 @@
 			},
 			{
 				"name": "30-tabs-with-icon",
-				"time": 0,
+				"time": 200,
 				"width": 360,
 				"height": 640
 			},
