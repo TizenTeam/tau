@@ -43,7 +43,7 @@
 			},
 			{
 				"name": "21-list-with-back",
-				"time": 0,
+				"time": 200,
 				"width": 360,
 				"height": 640,
 				"pass": true
@@ -92,7 +92,7 @@
 			},
 			{
 				"name": "39-tabs-with-title-with-icons",
-				"time": 0,
+				"time": 200,
 				"width": 360,
 				"height": 640,
 				"pass": true
@@ -220,7 +220,7 @@
 			},
 			{
 				"name": "93-box-buttons",
-				"time": 0,
+				"time": 200,
 				"width": 360,
 				"height": 640,
 				"pass": true
@@ -775,7 +775,7 @@
 			},
 			{
 				"name": "21-list-with-back",
-				"time": 0,
+				"time": 200,
 				"width": 360,
 				"height": 640,
 				"pass": true
@@ -824,7 +824,7 @@
 			},
 			{
 				"name": "39-tabs-with-title-with-icons",
-				"time": 0,
+				"time": 200,
 				"width": 360,
 				"height": 640,
 				"pass": true
@@ -924,7 +924,7 @@
 			},
 			{
 				"name": "88-activity",
-				"time": 0,
+				"time": 200,
 				"width": 360,
 				"height": 640,
 				"pass": true,
@@ -943,7 +943,7 @@
 			},
 			{
 				"name": "93-box-buttons",
-				"time": 0,
+				"time": 200,
 				"width": 360,
 				"height": 640,
 				"pass": true
