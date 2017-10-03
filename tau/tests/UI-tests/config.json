@@ -1920,6 +1920,24 @@
 				"height": 360
 			},
 			{
+				"name": "89-popup-toast-small-text",
+				"time": 1000,
+				"width": 360,
+				"height": 360
+			},
+			{
+				"name": "89-popup-toast-small-text-icon",
+				"time": 1000,
+				"width": 360,
+				"height": 360
+			},
+			{
+				"name": "90-popup-toast-small-icon",
+				"time": 1000,
+				"width": 360,
+				"height": 360
+			},
+			{
 				"name": "103-end-effect-left",
 				"time": 1000,
 				"width": 360,
