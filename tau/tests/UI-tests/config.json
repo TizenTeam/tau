@@ -1499,7 +1499,9 @@
 				"name": "35-list-5-items",
 				"width": 360,
 				"height": 360,
-				"time": 2000
+				"time": 2000,
+				"pass": true,
+				"threshold": 1.2
 			},
 			{
 				"name": "35-list-with-icon-and-subtext",
