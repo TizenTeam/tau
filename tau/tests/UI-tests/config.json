@@ -1321,9 +1321,10 @@
 			},
 			{
 				"name": "10-basic-list",
-				"time": 0,
+				"time": 1400,
 				"width": 360,
-				"height": 360
+				"height": 360,
+				"pass": true
 			},
 			{
 				"name": "11-basic-grid-2",
@@ -1380,13 +1381,13 @@
 				"height": 360,
 				"pass": true
 			},
- 			{
- 				"name": "24-page-indicator-circularly-horizontal-18-dots",
- 				"time": 0,
- 				"width": 360,
- 				"height": 360,
+			{
+				"name": "24-page-indicator-circularly-horizontal-18-dots",
+				"time": 0,
+				"width": 360,
+				"height": 360,
 			    "pass": true
- 			},
+			},
 			{
 				"name": "25-page-indicator-horizontal-dot-7",
 				"time": 0,
@@ -1421,73 +1422,76 @@
 			},
 			{
 				"name": "28-list",
-				"time": 0,
+				"time": 1400,
 				"width": 360,
-				"height": 360
+				"height": 360,
+				"pass": true
 			},
 			{
 				"name": "29-list",
-				"time": 0,
+				"time": 1400,
 				"width": 360,
-				"height": 360
+				"height": 360,
+				"pass": true
 			},
 			{
 				"name": "29-list-sublines",
-				"time": 0,
+				"time": 1400,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "30-list-fadeout",
-				"time": 0,
+				"time": 1400,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "30-list-fadeout-2",
-				"time": 0,
+				"time": 1400,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "31-list-font",
-				"time": 0,
+				"time": 1400,
 				"width": 360,
-				"height": 360
+				"height": 360,
+				"pass": true
 			},
 			{
 				"name": "32-list-font-color",
-				"time": 0,
+				"time": 1400,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "33-list-3-sublines",
-				"time": 0,
+				"time": 1400,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "33-list-2-sublines",
-				"time": 0,
+				"time": 1400,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "33-list-2-sublines-scrolled-down",
-				"time": 0,
+				"time": 1400,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "34-list-left-icon",
-				"time": 0,
+				"time": 1400,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "34-list-right-icon",
-				"time": 0,
+				"time": 1400,
 				"width": 360,
 				"height": 360
 			},
@@ -1495,112 +1499,112 @@
 				"name": "35-list-5-items",
 				"width": 360,
 				"height": 360,
-				"time": 500
+				"time": 2000
 			},
 			{
 				"name": "35-list-with-icon-and-subtext",
-				"time": 0,
+				"time": 1400,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "35-list-with-icon-and-subtext-2",
-				"time": 0,
+				"time": 1400,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "36-list-with-icon-and-multiline",
-				"time": 0,
+				"time": 1400,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "36-list-with-icon-and-multiline-2",
-				"time": 0,
+				"time": 1400,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "37-list-groupindex",
-				"time": 0,
+				"time": 1400,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "38-list-divider",
-				"time": 0,
+				"time": 1400,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "39-list-button",
-				"time": 1000,
+				"time": 1400,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "39-list-button-2",
-				"time": 1000,
+				"time": 1200,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "39-list-button-3",
-				"time": 1000,
+				"time": 1400,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "40-multiline-list",
-				"time": 2000,
+				"time": 1400,
 				"width": 360,
 				"height": 360,
 				"pass": true
 			},
 			{
 				"name": "40-multiline-list-bottom",
-				"time": 2000,
+				"time": 1400,
 				"width": 360,
 				"height": 360,
 				"pass": true
 			},
 			{
 				"name": "41-multiline-list-with-subtext",
-				"time": 2000,
+				"time": 1400,
 				"width": 360,
 				"height": 360,
 				"pass": true
 			},
 			{
 				"name": "41-multiline-list-with-subtext-bottom",
-				"time": 2000,
+				"time": 1400,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "42-multiline-list-subtext-icon-left",
-				"time": 2000,
+				"time": 1400,
 				"width": 360,
 				"height": 360,
 				"pass": true
 			},
 			{
 				"name": "42-multiline-list-subtext-icon-left-bottom",
-				"time": 2000,
+				"time": 1400,
 				"width": 360,
 				"height": 360
 			},
 			{
 				"name": "42-multiline-list-subtext-icon-right",
-				"time": 2000,
+				"time": 1400,
 				"width": 360,
 				"height": 360,
 				"pass": true
 			},
 			{
 				"name": "42-multiline-list-subtext-icon-right-bottom",
-				"time": 2000,
+				"time": 1400,
 				"width": 360,
 				"height": 360
 			},
