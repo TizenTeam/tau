@@ -1,16 +1,25 @@
 /***************************************************************************
-				  popup
+                                  Popup
 ***************************************************************************/
 
-@font_size_popup_toast: 24 * @unit_base;
-@font_size_popup_body: 34 * @unit_base;
+.sprite(@x, @xsize, @ysize, @count, @totalCount) when (@count > 0) {
+	.sprite(@x, @xsize, @ysize, (@count - 1), @totalCount);
+	@timePercentage: round((100/(@totalCount - 1)) * (@count - 1)) * 1%;
+	@{timePercentage} {
+		mask-position: (mod((@count - 1), @x) * @xsize)  (floor((@count - 1) / @x)) * @ysize;
+	}
+}
+
+@keyframes toastCheck {
+	.sprite(4, -82 * @unit_base, -82 * @unit_base, 19, 19);
+}
 
 .ui-popup {
 	width: 100%;
 	height: 100%;
 	overflow: hidden;
 	border: 0;
-	border-radius: 50% 50%;
+	border-radius: 50%;
 	background-color: @color_popup_bg;
 
 	& ::-webkit-scrollbar {
@@ -60,8 +69,8 @@
 			text-indent: -9999px;
 			&::before {
 				content: "";
-				-webkit-mask-size: @fixed_popup_icon_width @fixed_popup_icon_height;
-				-webkit-mask-repeat: no-repeat;
+				mask-size: @fixed_popup_icon_width @fixed_popup_icon_height;
+				mask-repeat: no-repeat;
 				width: @fixed_popup_icon_width;
 				height: @fixed_popup_icon_height;
 				position: absolute;
@@ -78,12 +87,12 @@
 
 		.ui-btn {
 			background-color: @color_footer_button_bg;
-			.mask-size(100% 100%);
+			mask-size: 100%;
 
 			&::before {
 				left: 50%;
 				top: 50%;
-				-webkit-transform: translate3d(-50%, -50%, 0);
+				transform: translate(-50%, -50%);
 			}
 			&::after {
 				background-color: @color_footer_button_bg_press;
@@ -174,98 +183,140 @@
 			}
 		}
 	}
-}
-/***********************
-Popup Container Scroll
-***********************/
-.ui-popup.ui-scroll-on:not(.ui-ctxpopup):not(.ui-popup-toast) {
-	.ui-popup-wrapper::after {
-		content: "";
-		position: fixed;
-		left: 0;
-		top: 0;
-		width: 100%;
-		height: 100%;
-		pointer-events: none;
-		background-color: @color_popup_edge_inner_glow;
-		-webkit-mask-image: url(./images/Popup/b_popup_edge_inner_glow.png);
-		-webkit-mask-size: 100% 100%;
-	}
 
-	.ui-popup-content {
-		margin-top: 76 * @unit_base;
-		margin-bottom: 76 * @unit_base;
-		padding-top: 0;
-	}
+	/***********************
+	Popup Container Scroll
+	***********************/
+	&.ui-scroll-on:not(.ui-ctxpopup):not(.ui-popup-toast) {
+		.ui-popup-wrapper::after {
+			content: "";
+			position: fixed;
+			left: 0;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			pointer-events: none;
+			background-color: @color_popup_edge_inner_glow;
+			mask-image: url(./images/Popup/b_popup_edge_inner_glow.png);
+			mask-size: 100% 100%;
+		}
 
-	.ui-popup-header + .ui-popup-content {
-		margin-top: 0;
-		padding-top: 8 * @px_base;
-	}
+		.ui-popup-content {
+			margin-top: 76 * @unit_base;
+			margin-bottom: 76 * @unit_base;
+			padding-top: 0;
+		}
 
-	.ui-popup-footer {
-		margin-top: -76 * @unit_base;
-	}
-}
+		.ui-popup-header + .ui-popup-content {
+			margin-top: 0;
+			padding-top: 8 * @px_base;
+		}
 
-/****************************************
-Popup Toast
-****************************************/
-.sprite(@x, @xsize, @ysize, @count, @totalCount) when (@count > 0) {
-	.sprite(@x, @xsize, @ysize, (@count - 1), @totalCount);
-	@timePercentage: round((100/(@totalCount - 1)) * (@count - 1)) * 1%;
-	@{timePercentage} {
-		-webkit-mask-position: (mod((@count - 1), @x) * @xsize)  (floor((@count - 1) / @x)) * @ysize;
-	}
-}
-
-@-webkit-keyframes toastCheck {
-	.sprite(4, -82px, -82px, 19, 19);
-}
-
-.ui-popup.ui-popup-toast {
-	min-height: 100%;
-	background-color: @color_toast_popup_bg;
-	background-image: none;
-	border: none;
-	margin: 0;
-	.ui-popup-wrapper {
-		height: 100vh !important;
-	}
-	.ui-popup-content {
-		height: auto;
-		position: relative;
-		top: 50%;
-		transform: translateY(-50%);
-		background-color: transparent;
-		color: @color_toast_text;
-		font-size: 32 * @px_base;
-		text-align: center;
-		line-height: 43 * @px_base;
-	}
-}
-
-.ui-popup.ui-popup-toast.ui-popup-toast-graphic {
-	.ui-popup-toast-check-icon {
-		width: 82 * @unit_base;
-		height: 82 * @unit_base;
-		-webkit-mask-image: url("./images/Popup/toast_check.png");
-		-webkit-mask-repeat: no-repeat;
-		-webkit-animation-name: toastCheck;
-		-webkit-animation-duration: 300ms;
-		-webkit-animation-delay: 300ms;
-		-webkit-animation-iteration-count: 1;
-		-webkit-animation-timing-function: step-start;
-		-webkit-animation-fill-mode: forwards;
-		background-color: @color_popup_toast_check;
-		&::after {
-			content: none;
+		.ui-popup-footer {
+			margin-top: -76 * @unit_base;
 		}
 	}
-}
-/***********************
-Option Popup
-***********************/
-.ui-popup.ui-ctxpopup {
-	height: auto;
+
+	/****************************************
+	Popup Toast
+	****************************************/
+
+	&.ui-popup-toast {
+		min-height: 100%;
+		background-color: @color_toast_popup_bg;
+		background-image: none;
+		border: none;
+		margin: 0;
+		align-items: center;
+
+		&.ui-popup-active, &.in, &.ui-build {
+			display: flex;
+		}
+
+		.ui-popup-wrapper {
+			width: 100%;
+
+			.ui-popup-content {
+				padding: 0 43 * @unit_base;
+				height: auto;
+				background-color: transparent;
+				color: @color_toast_text;
+				font-size: 32 * @px_base;
+				text-align: center;
+				line-height: 37 * @px_base;
+			}
+		}
+
+		.ui-popup-toast-check-icon {
+			width: 82 * @unit_base;
+			height: 82 * @unit_base;
+			mask-image: url("./images/Popup/toast_check.png");
+			mask-repeat: no-repeat;
+			animation-name: toastCheck;
+			animation-duration: 300ms;
+			animation-delay: 300ms;
+			animation-iteration-count: 1;
+			animation-timing-function: step-start;
+			animation-fill-mode: forwards;
+			background-color: @color_popup_toast_check;
+			&::after {
+				content: none;
+			}
+		}
+
+		/****************************************
+		Popup Toast Small
+		****************************************/
+
+		&.ui-popup-toast-small {
+			height: 160 * @unit_base;
+			min-height: 86 * @unit_base;
+			width: 160 * @unit_base;
+			position: fixed;
+			margin-bottom: 5 * @unit_base;
+			background-color: @color_toast_popup_small_bg;
+			border: solid 1 * @unit_base @color_toast_popup_small_stroke;
+			border-radius: 50%;
+
+			.ui-popup-wrapper {
+				.ui-popup-content {
+					padding: 0 20 * @unit_base;
+					max-height: 96 * @unit_base;
+					color: @color_toast_popup_small_text;
+					font-size: 24 * @unit_base;
+					line-height: 32 * @unit_base;
+					text-overflow: ellipsis;
+					overflow: hidden;
+					white-space: nowrap;
+				}
+			}
+
+			.ui-popup-toast-check-icon {
+				transform: translateX(-50%) scale(50/82);
+				margin: -16 * @unit_base 0;
+				background-color: @color_toast_popup_icon;
+			}
+
+			&.ui-popup-toast-graphic-only {
+				width: 86 * @unit_base;
+				height: 86 * @unit_base;
+			}
+
+			&.ui-popup-toast-graphic {
+				.ui-popup-wrapper {
+					.ui-popup-content {
+						padding-bottom: 6 * @unit_base;
+					}
+				}
+			}
+		}
+	}
+
+	/***********************
+	Option Popup
+	***********************/
+	&.ui-ctxpopup {
+		height: auto;
+	}
+
 }

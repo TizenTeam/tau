@@ -331,8 +331,11 @@ Popup Toast
 	border-right: 0;
 	position: absolute;
 	bottom: 0;
-	top: auto !important;
-	height: auto;
+
+	&:not(.ui-popup-toast) {
+		top: auto;
+		height: auto;
+	}
 
 	.ui-popup-content {
 		min-height: initial;
@@ -341,7 +344,7 @@ Popup Toast
 	}
 }
 
-.ui-popup.ui-popup-toast.ui-popup-toast-graphic {
+.ui-popup.ui-popup-toast {
 	.ui-popup-toast-icon {
 		width: 56 * @unit_base;
 		height: 56 * @unit_base;

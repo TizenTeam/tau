@@ -160,6 +160,7 @@
 					content: CLASSES_PREFIX + "-content",
 					wrapper: CLASSES_PREFIX + "-wrapper",
 					toast: CLASSES_PREFIX + "-toast",
+					toastSmall: CLASSES_PREFIX + "-toast-small",
 					build: "ui-build"
 				},
 				/**
@@ -372,10 +373,15 @@
 				var self = this,
 					ui = self._ui,
 					wrapper,
-					child = element.firstChild;
+					child = element.firstChild,
+					elementClassList = element.classList;
 
 				// set class for element
-				element.classList.add(classes.popup);
+				elementClassList.add(classes.popup);
+
+				if (elementClassList.contains(classes.toastSmall)) {
+					elementClassList.add(classes.toast);
+				}
 
 				// create wrapper
 				wrapper = document.createElement("div");
@@ -391,12 +397,12 @@
 				element.appendChild(wrapper);
 
 				// build header, footer and content
-				this._buildHeader(ui.container);
-				this._buildFooter(ui.container);
-				this._buildContent(ui.container);
+				self._buildHeader(ui.container);
+				self._buildFooter(ui.container);
+				self._buildContent(ui.container);
 
 				// set overlay
-				this._setOverlay(element, this.options.overlay);
+				self._setOverlay(element, self.options.overlay);
 
 				return element;
 			};
@@ -474,7 +480,8 @@
 			prototype._init = function (element) {
 				var self = this,
 					selectors = self.selectors,
-					ui = self._ui;
+					ui = self._ui,
+					options = self.options;
 
 				ui.header = ui.header || element.querySelector(selectors.header);
 				ui.footer = ui.footer || element.querySelector(selectors.footer);
@@ -486,7 +493,7 @@
 				ui.page = utilSelector.getClosestByClass(element, "ui-page") || window;
 
 				if (self.element.classList.contains(classes.toast)) {
-					self.options.closeAfter = 3000;
+					options.closeAfter = options.closeAfter || 2000;
 				}
 
 

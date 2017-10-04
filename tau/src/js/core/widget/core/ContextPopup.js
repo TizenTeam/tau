@@ -687,7 +687,8 @@
 					elementWidth = element.offsetWidth,
 					elementHeight = element.offsetHeight,
 					elementMarginTop = domUtils.getCSSProperty(element, "margin-top", 0, "float"),
-					elementTop = window.innerHeight - elementHeight - elementMarginTop;
+					elementMarginBottom = domUtils.getCSSProperty(element, "margin-bottom", 0, "float"),
+					elementTop = window.innerHeight - elementHeight - elementMarginTop - elementMarginBottom;
 
 				elementStyle.top = elementTop + "px";
 				elementStyle.left = "50%";

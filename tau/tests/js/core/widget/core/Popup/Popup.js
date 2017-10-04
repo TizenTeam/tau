@@ -38,7 +38,7 @@
 				widget.element = element;
 				widget.element.classList.add("ui-popup-toast");
 				widget._init();
-				assert.equal(widget.options.closeAfter, 3000, "clearAfter set properly");
+				assert.equal(widget.options.closeAfter, 2000, "clearAfter set properly");
 
 		});
 
