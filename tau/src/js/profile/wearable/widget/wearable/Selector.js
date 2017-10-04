@@ -650,7 +650,7 @@
 					addLayerClasses(validLayer);
 				}
 				self._activeLayerIndex = index;
-				if (ui.items.length > 0) {
+				if (ui.items.length > 0 && ui.layers[index]) {
 					self._initItems(validLayer);
 					events.trigger(validLayer, EVENT_TYPE, {
 						index: index
@@ -1083,7 +1083,16 @@
 			prototype._removePlusButton = function () {
 				var self = this,
 					items = self._ui.items,
-					lastItemIndex = items.length - 1;
+					lastItemIndex = items.length - 1,
+					itemsOnLayer = self.options.maxItemNumber,
+					activeLayerIndex = self._activeLayerIndex,
+					firstItemOnLayerIndex;
+
+				firstItemOnLayerIndex = activeLayerIndex * itemsOnLayer;
+
+				if (lastItemIndex === firstItemOnLayerIndex) {
+					self._changeLayer(activeLayerIndex - 1);
+				}
 
 				if (items[lastItemIndex].classList.contains(classes.PLUS_BUTTON)) {
 					self.removeItem(lastItemIndex);
