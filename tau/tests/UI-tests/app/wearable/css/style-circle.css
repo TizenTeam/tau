@@ -1114,3 +1114,8 @@ input[type="checkbox"]#checkboxControl {
 #page_webkitui input {
 	max-width: 300px;
 }
+
+.red-border {
+	border: solid 1px red;
+	border-radius: 50%
+}
