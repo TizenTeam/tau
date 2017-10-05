@@ -1,19 +1,18 @@
 .ui-selector {
 	background-color: @color_selector_layer_bg;
 
-	.ui-layer {
+	.ui-item {
+		background-color: @color_selector_icon_bg;
 
-		.ui-item {
-			background-color: @color_selector_icon_bg;
-
-			&:active {
-				background-color: @color_selector_icon_bg_press;
-			}
-			&.ui-item-active:active {
-				background-color: @color_selector_icon_bg;
-			}
+		&:active {
+			background-color: @color_selector_icon_bg_press;
 		}
+		&.ui-item-active:active {
+			background-color: @color_selector_icon_bg;
+		}
+	}
 
+	.ui-layer {
 		&.ui-layer-prev,  &.ui-layer-next {
 			background-color: @color_selector_btn;
 		}
@@ -22,6 +21,7 @@
 			background-color: @color_selector_btn_press;
 		}
 	}
+
 	.ui-selector-indicator {
 		font-size: 30 * @unit_base;
 		.ui-selector-indicator-text {
@@ -55,6 +55,33 @@
 
 			&:active + .ui-selector-indicator-arrow::before {
 				background: none;
+			}
+		}
+
+		.ui-item {
+			&.ui-item-placeholder, &.ui-item-removable.ui-item-placeholder {
+				box-sizing: border-box;
+				border: 1 * @unit_base solid @color_selector_edit_icon_empty_bg;
+				background: none;
+
+				.ui-item-icon-remove-left, .ui-item-icon-remove-right {
+					display: none;
+				}
+
+				&::before, &::after {
+					display: none;
+				}
+			}
+
+			&.ui-item-moved {
+				position: fixed;
+				z-index: 101;
+				visibility: visible;
+				opacity: 0.7;
+
+				.ui-item-icon-remove-left, .ui-item-icon-remove-right {
+					display: none;
+				}
 			}
 		}
 

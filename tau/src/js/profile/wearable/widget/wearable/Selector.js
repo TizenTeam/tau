@@ -117,6 +117,7 @@
 					};
 
 					self._editModeEnabled = false;
+					self._movedElementIndex = null;
 				},
 				classes = {
 					SELECTOR: "ui-selector",
@@ -142,7 +143,9 @@
 					INDICATOR_PREV_END: "ui-selector-indicator-prev-end",
 					INDICATOR_ARROW: "ui-selector-indicator-arrow",
 					EDIT_MODE: "ui-selector-edit-mode",
-					PLUS_BUTTON: "ui-item-plus"
+					PLUS_BUTTON: "ui-item-plus",
+					ITEM_PLACEHOLDER: "ui-item-placeholder",
+					ITEM_MOVED: "ui-item-moved"
 				},
 				STATIC = {
 					RADIUS_RATIO: 0.8,
@@ -160,6 +163,7 @@
 					ITEM_END_DEGREE: 330,
 					ITEM_NORMAL_SCALE: "scale(" + STATIC.SCALE_FACTOR + ")",
 					ITEM_ACTIVE_SCALE: "scale(1)",
+					ITEM_MOVED_SCALE: "scale(0.92)",
 					EMPTY_STATE_TEXT: "Selector is empty"
 				},
 				EVENT_TYPE = {
@@ -253,7 +257,7 @@
 
 				events.on(document, "rotarydetent", self, false);
 				events.on(self._ui.indicator, "animationend webkitAnimationEnd", self, false);
-				self.on("dragstart drag dragend click longpress", self, false);
+				self.on("dragstart drag dragend click longpress mouseup touchend", self, false);
 			}
 
 			/**
@@ -270,7 +274,7 @@
 					element
 				);
 				events.off(document, "rotarydetent", self, false);
-				self.off("dragstart drag dragend click longpress", self, false);
+				self.off("dragstart drag dragend click longpress mouseup touchend", self, false);
 			}
 
 			/**
@@ -538,6 +542,7 @@
 				for (i = 0; i < items.length; i++) {
 					item = items[i];
 					isRemovable = utilDom.getNSData(item, "removable");
+					item.setAttribute("draggable", "true");
 					if (isRemovable !== false) {
 						self._addIconRemove(item, i);
 					}
@@ -600,6 +605,10 @@
 						break;
 					case "longpress":
 						self._onLongPress(event);
+						break;
+					case "mouseup":
+					case "touchend":
+						self._onTouchEnd(event);
 						break;
 					case "tizenhwkey":
 						event.stopPropagation();
@@ -809,16 +818,35 @@
 			 */
 			prototype._onDrag = function (event) {
 				var self = this,
-					ex = event.detail.estimatedX,
-					ey = event.detail.estimatedY,
-					pointedElement = document.elementFromPoint(ex, ey),
+					x = event.detail.estimatedX,
+					y = event.detail.estimatedY,
+					movedItemStyle,
+					pointedElement = document.elementFromPoint(x, y),
 					index;
 
 				if (this._started) {
-					if (pointedElement && pointedElement.classList.contains(classes.ITEM)) {
+					if (!self._editModeEnabled && pointedElement &&
+						pointedElement.classList.contains(classes.ITEM)) {
 						index = parseInt(utilDom.getNSData(pointedElement, "index"), 10);
 						self._setActiveItem(index);
 					}
+					if (self._movedElementIndex !== null) {
+						movedItemStyle = self._ui.movedItem.style;
+						movedItemStyle.top = y + "px";
+						movedItemStyle.left = x + "px";
+					}
+				}
+			};
+
+			prototype._onTouchEnd = function () {
+				var self = this,
+					movedElement;
+
+				if (self._movedElementIndex !== null) {
+					movedElement = self._ui.items[self._movedElementIndex];
+					movedElement.classList.remove(classes.ITEM_PLACEHOLDER);
+					self.element.removeChild(self._ui.movedItem);
+					self._movedElementIndex = null;
 				}
 			};
 
@@ -831,17 +859,16 @@
 			 */
 			prototype._onDragend = function (event) {
 				var self = this,
-					ex = event.detail.estimatedX,
-					ey = event.detail.estimatedY,
-					pointedElement = document.elementFromPoint(ex, ey),
+					pointedElement = self._getPointedElement(event.detail),
 					index;
 
-				if (pointedElement && pointedElement.classList.contains(classes.ITEM)) {
+				if (!self._editModeEnabled && pointedElement &&
+					pointedElement.classList.contains(classes.ITEM)) {
 					index = parseInt(utilDom.getNSData(pointedElement, "index"), 10);
 					self._setActiveItem(index);
 				}
 
-				this._started = false;
+				self._started = false;
 			};
 
 			/**
@@ -1054,12 +1081,54 @@
 
 			};
 
-			prototype._onLongPress = function () {
-				var self = this;
+			prototype._onLongPress = function (event) {
+				var self = this,
+					pointedElement = self._getPointedElement(event.detail),
+					pointedClassList = pointedElement.classList,
+					index = parseInt(utilDom.getNSData(pointedElement, "index"), 10),
+					movedElement;
 
 				if (self.options.editable && self._editModeEnabled === false) {
 					self._enableEditMode();
 				}
+
+				if (self._editModeEnabled && pointedClassList.contains(classes.ITEM) &&
+					!pointedClassList.contains(classes.PLUS_BUTTON)) {
+					movedElement = self._ui.items[index];
+					self._cloneMovedItem(index);
+					movedElement.classList.add(classes.ITEM_PLACEHOLDER);
+					self._movedElementIndex = index;
+				}
+			};
+
+			prototype._getPointedElement = function (detail) {
+				var x = detail.estimatedX,
+					y = detail.estimatedY;
+
+				return document.elementFromPoint(x, y);
+			};
+
+			prototype._cloneMovedItem = function (index) {
+				var self = this,
+					element = self.element,
+					clonedElement,
+					clonedElementRect,
+					movedElement,
+					initialPosX,
+					initialPosY;
+
+				clonedElement = self._ui.items[index];
+				movedElement = clonedElement.cloneNode(true);
+				clonedElementRect = clonedElement.getBoundingClientRect();
+				// This sets moved item in the middle of cloned item
+				// Additional operations are needed due to margins set on items
+				initialPosX = clonedElementRect.left + clonedElementRect.height / 2;
+				initialPosY = clonedElementRect.top + clonedElementRect.width / 2;
+				movedElement.classList.add(classes.ITEM_MOVED);
+				movedElement.setAttribute("style", "left:" + initialPosX + "px; top:" +
+					initialPosY + "px");
+				element.appendChild(movedElement);
+				self._ui.movedItem = element.querySelector("." + classes.ITEM_MOVED);
 			};
 
 			prototype._onHWKey = function (event) {
@@ -1122,7 +1191,6 @@
 					});
 				}
 				events.off(document, "rotarydetent", self, false);
-				self.off("dragstart drag dragend", self, false);
 				events.on(window, "tizenhwkey", self, true);
 				self._editModeEnabled = true;
 			};
@@ -1153,7 +1221,6 @@
 						classes.INDICATOR_ICON_ACTIVE_WITH_TEXT);
 				}
 				events.on(document, "rotarydetent", self, false);
-				self.on("dragstart drag dragend", self, false);
 				events.off(window, "tizenhwkey", self, true);
 
 				self._editModeEnabled = false;
