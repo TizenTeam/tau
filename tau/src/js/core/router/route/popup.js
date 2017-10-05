@@ -218,8 +218,8 @@
 					if (options && !options.fromHashChange && options.history) {
 						url = routePopup._path.addHashSearchParams(documentUrl, popupHashKey);
 						routePopup._history.replace(options, "", url);
+						this.active = true;
 					}
-					this.active = true;
 				} else if (pathLocation !== documentUrl) {
 					// If popup is being closed, the history.back() is called
 					// but only if url has special hash.
@@ -282,6 +282,7 @@
 						popup = engine.instanceWidget(toPopup, "Popup", options);
 						popup.open(options);
 						self.activePopup = popup;
+						self.active = popup.options.history;
 					},
 					activePage = router.container.getActivePage(),
 					container;
@@ -300,7 +301,6 @@
 				} else {
 					openPopup();
 				}
-				this.active = true;
 			};
 
 			/**
@@ -368,8 +368,10 @@
 					// even if popup has been closed
 					// To prevent this onHashChange after closing popup we need to change
 					// disable volatile mode to allow pushing new history elements
-					this.active = false;
-					return true;
+					if (this.active) {
+						this.active = false;
+						return true;
+					}
 				}
 				return false;
 			};

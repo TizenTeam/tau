@@ -158,7 +158,7 @@
 
 			route.setActive(popupMock);
 			assert.deepEqual(route.getActiveElement().id, popupMock.element.id, "the active popup is mock data");
-			assert.ok(route.active, "route is active");
+			assert.ok(!route.active, "route is not active");
 			assert.ok(route.hasActive(), "route has active popup");
 
 			// deactivate

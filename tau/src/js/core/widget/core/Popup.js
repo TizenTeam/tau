@@ -135,7 +135,7 @@
 					content: null,
 					overlayClass: "",
 					closeLinkSelector: "[data-rel='back']",
-					history: true,
+					history: null,
 					closeAfter: null
 				},
 				states = {
@@ -481,7 +481,8 @@
 				var self = this,
 					selectors = self.selectors,
 					ui = self._ui,
-					options = self.options;
+					options = self.options,
+					elementClassList = self.element.classList;
 
 				ui.header = ui.header || element.querySelector(selectors.header);
 				ui.footer = ui.footer || element.querySelector(selectors.footer);
@@ -492,8 +493,13 @@
 				// @todo - use selector from page's definition in engine
 				ui.page = utilSelector.getClosestByClass(element, "ui-page") || window;
 
-				if (self.element.classList.contains(classes.toast)) {
+				if (elementClassList.contains(classes.toast)) {
 					options.closeAfter = options.closeAfter || 2000;
+				}
+				// if option history is not set in costructor or in HTML
+				if (options.history === null) {
+					// for toast we set false for other true
+					options.history = !elementClassList.contains(classes.toast);
 				}
 
 
@@ -637,7 +643,7 @@
 						}
 						self._show(newOptions);
 
-						window.setTimeout(onClose, newOptions.closeAfter);
+						self._closeTimeout = window.setTimeout(onClose, newOptions.closeAfter);
 					} else {
 						self._show(newOptions);
 					}
@@ -657,6 +663,7 @@
 					newOptions = objectUtils.merge(self.options, options);
 
 				if (self._isActive()) {
+					clearTimeout(self._closeTimeout);
 					if (!newOptions.dismissible) {
 						engine.getRouter().unlock();
 					}
