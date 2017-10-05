@@ -501,8 +501,6 @@
 					// for toast we set false for other true
 					options.history = !elementClassList.contains(classes.toast);
 				}
-
-
 			};
 
 			/**
@@ -548,44 +546,13 @@
 			 * @member ns.widget.core.Popup
 			 */
 			prototype._bindEvents = function () {
-				var self = this,
-					closeButtons = self.element.querySelectorAll(self.options.closeLinkSelector);
+				var self = this;
 
-
-				self._ui.page.addEventListener("pagebeforehide", self, false);
-				window.addEventListener("resize", self, false);
-				eventUtils.on(closeButtons, "click", self, false);
-
-				self._bindOverlayEvents();
+				eventUtils.on(self._ui.page, "pagebeforehide", self, false);
+				eventUtils.on(window, "resize", self, false);
+				eventUtils.on(document, "click touchstart", self, false);
 			};
 
-			/**
-			 * Bind "click" event for overlay
-			 * @method _bindOverlayEvents
-			 * @protected
-			 * @member ns.widget.core.Popup
-			 */
-			prototype._bindOverlayEvents = function () {
-				var overlay = this._ui.overlay;
-
-				if (overlay) {
-					overlay.addEventListener("click", this, false);
-				}
-			};
-
-			/**
-			 * Unbind "click" event for overlay
-			 * @method _bindOverlayEvents
-			 * @protected
-			 * @member ns.widget.core.Popup
-			 */
-			prototype._unbindOverlayEvents = function () {
-				var overlay = this._ui.overlay;
-
-				if (overlay) {
-					overlay.removeEventListener("click", this, false);
-				}
-			};
 
 			/**
 			 * Unbind events
@@ -596,9 +563,9 @@
 			prototype._unbindEvents = function () {
 				var self = this;
 
-				self._ui.page.removeEventListener("pagebeforehide", self, false);
-				window.removeEventListener("resize", self, false);
-				self._unbindOverlayEvents();
+				eventUtils.off(self._ui.page, "pagebeforehide", self, false);
+				eventUtils.off(window, "resize", self, false);
+				eventUtils.off(document, "click touchstart", self, false);
 			};
 
 			/**
@@ -816,12 +783,13 @@
 			 * @member ns.widget.core.Popup
 			 */
 			prototype.handleEvent = function (event) {
-				var self = this;
+				var self = this,
+					router = engine.getRouter();
 
 				switch (event.type) {
 					case "pagebeforehide":
 						// we need close active popup if exists
-						engine.getRouter().close(null, {transition: "none", rel: "popup"});
+						router.close(null, {transition: "none", rel: "popup"});
 						break;
 					case "resize":
 						self._onResize(event);
@@ -829,6 +797,11 @@
 					case "click":
 						if (event.target === self._ui.overlay) {
 							self._onClickOverlay(event);
+						}
+						break;
+					case "touchstart":
+						if (self.element.classList.contains(classes.toast) && self._isActive()) {
+							router.close(null, {rel: "popup"});
 						}
 						break;
 				}
