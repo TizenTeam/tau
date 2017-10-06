@@ -9,13 +9,14 @@
 		data-build-remove="false"></script>
 </head>
 <body>
-<div class="ui-page" id="grid-page-center" data-enable-page-scroll="false">
+<div class="ui-page" id="49-grid-vertical-thumbnail-page" data-enable-page-scroll="false">
 	<div class="ui-content">
-		<ul id="grid-center" class="ui-grid">
+		<ul id="49-grid-vertical-thumbnail" class="ui-grid" data-lines="2" data-shape="rectangle"
+			data-orientation="vertical">
 			<li><a href="#"><img src="images/default/gallery_default_image_01.jpg"/></a></li>
 			<li><a href="#"><img src="images/default/gallery_default_image_02.jpg"/></a></li>
 			<li><a href="#"><img src="images/default/gallery_default_image_03.jpg"
-				id="img-center"/></a></li>
+				id="49-grid-vertical-thumbnail-img"/></a></li>
 			<li><a href="#"><img src="images/default/gallery_default_image_04.jpg"/></a></li>
 			<li><a href="#"><img src="images/default/gallery_default_image_05.jpg"/></a></li>
 			<li><a href="#"><img src="images/default/gallery_default_image_06.jpg"/></a></li>
@@ -45,9 +46,9 @@
 	</div>
 	<script>
 		(function (tau) {
-			var page = document.getElementById("grid-page-center"),
-				element = document.getElementById("grid-center"),
-				img = document.getElementById("img-center"),
+			var page = document.getElementById("49-grid-vertical-thumbnail-page"),
+				element = document.getElementById("49-grid-vertical-thumbnail"),
+				img = document.getElementById("49-grid-vertical-thumbnail-img"),
 				grid;
 
 			/**

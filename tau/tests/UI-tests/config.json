@@ -1618,6 +1618,12 @@
 				"pass": true
 			},
 			{
+				"name": "44-grid-thumbnails-center-vertical",
+				"time": 5000,
+				"width": 360,
+				"height": 360
+			},
+			{
 				"name": "44-grid-thumbnails-indicator",
 				"time": 5000,
 				"width": 360,
@@ -1632,11 +1638,23 @@
 				"time": 5000
 			},
 			{
+				"name": "45-grid-vertical",
+				"width": 360,
+				"height": 360,
+				"time": 5000
+			},
+			{
 				"name": "46-grid-moved-at-right",
 				"time": 5000,
 				"width": 360,
 				"height": 360,
 				"pass": true
+			},
+			{
+				"name": "46-grid-vertical-moved-at-bottom",
+				"time": 5000,
+				"width": 360,
+				"height": 360
 			},
 			{
 				"name": "47-grid-2lines",
@@ -1645,10 +1663,20 @@
 				"pass": true
 			},
 			{
+				"name": "47-grid-2lines-vertical",
+				"width": 360,
+				"height": 360
+			},
+			{
 				"name": "48-grid-rectangle-horizontal",
 				"width": 360,
 				"height": 360,
 				"pass": true
+			},
+			{
+				"name": "48-grid-rectangle-vertical",
+				"width": 360,
+				"height": 360
 			},
 			{
 				"name": "49-grid-rectangle-horizontal",
@@ -1656,6 +1684,12 @@
 				"width": 360,
 				"height": 360,
 				"pass": true
+			},
+			{
+				"name": "49-grid-rectangle-vertical",
+				"time": 5000,
+				"width": 360,
+				"height": 360
 			},
 			{
 				"name": "45-progress-indicator-full",
