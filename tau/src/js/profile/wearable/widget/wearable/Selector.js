@@ -118,6 +118,7 @@
 
 					self._editModeEnabled = false;
 					self._movedElementIndex = null;
+					self._destinationIndex = null;
 				},
 				classes = {
 					SELECTOR: "ui-selector",
@@ -143,6 +144,7 @@
 					INDICATOR_PREV_END: "ui-selector-indicator-prev-end",
 					INDICATOR_ARROW: "ui-selector-indicator-arrow",
 					EDIT_MODE: "ui-selector-edit-mode",
+					REORDER: "ui-selector-reorder",
 					PLUS_BUTTON: "ui-item-plus",
 					ITEM_PLACEHOLDER: "ui-item-placeholder",
 					ITEM_MOVED: "ui-item-moved"
@@ -818,24 +820,60 @@
 			 */
 			prototype._onDrag = function (event) {
 				var self = this,
-					x = event.detail.estimatedX,
-					y = event.detail.estimatedY,
+					x,
+					y,
 					movedItemStyle,
-					pointedElement = document.elementFromPoint(x, y),
-					index;
+					pointedElement,
+					index = null;
 
 				if (this._started) {
-					if (!self._editModeEnabled && pointedElement &&
-						pointedElement.classList.contains(classes.ITEM)) {
+					x = event.detail.estimatedX;
+					y = event.detail.estimatedY;
+					pointedElement = document.elementFromPoint(x, y);
+
+					if (pointedElement && pointedElement.classList.contains(classes.ITEM) &&
+						!pointedElement.classList.contains(classes.ITEM_PLACEHOLDER) &&
+						!pointedElement.classList.contains(classes.PLUS_BUTTON)) {
 						index = parseInt(utilDom.getNSData(pointedElement, "index"), 10);
+					}
+
+					if (!self._editModeEnabled && index !== null) {
 						self._setActiveItem(index);
 					}
+
 					if (self._movedElementIndex !== null) {
 						movedItemStyle = self._ui.movedItem.style;
 						movedItemStyle.top = y + "px";
 						movedItemStyle.left = x + "px";
+
+						if (index !== null && index !== self._destinationIndex) {
+							self._setNewItemDestination(index);
+						}
 					}
 				}
+			};
+
+			prototype._setNewItemDestination = function (index) {
+				var self = this,
+					element = self.element,
+					destinationIndex = self._destinationIndex,
+					items = self._ui.items,
+					destinationParent;
+
+				removeLayers(element, self.options);
+				destinationParent = items[destinationIndex].parentNode;
+
+				if (index + 1 > self._destinationIndex) {
+					destinationParent.insertBefore(items[destinationIndex], items[index + 1]);
+				} else {
+					destinationParent.insertBefore(items[destinationIndex], items[index]);
+				}
+
+				self._ui.items = element.querySelectorAll("." + classes.ITEM + ":not(." +
+					classes.ITEM_MOVED + ")");
+				self._refresh();
+
+				self._destinationIndex = index;
 			};
 
 			prototype._onTouchEnd = function () {
@@ -843,10 +881,12 @@
 					movedElement;
 
 				if (self._movedElementIndex !== null) {
-					movedElement = self._ui.items[self._movedElementIndex];
+					movedElement = self._ui.items[self._destinationIndex];
 					movedElement.classList.remove(classes.ITEM_PLACEHOLDER);
 					self.element.removeChild(self._ui.movedItem);
+					self.element.classList.remove(classes.REORDER);
 					self._movedElementIndex = null;
+					self._destinationIndex = null;
 				}
 			};
 
@@ -1098,6 +1138,8 @@
 					self._cloneMovedItem(index);
 					movedElement.classList.add(classes.ITEM_PLACEHOLDER);
 					self._movedElementIndex = index;
+					self._destinationIndex = index;
+					self.element.classList.add(classes.REORDER);
 				}
 			};
 

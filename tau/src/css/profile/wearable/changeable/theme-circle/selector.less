@@ -44,6 +44,15 @@
 	}
 
 	&.ui-selector-edit-mode {
+
+		&.ui-selector-reorder {
+			.ui-item {
+				.ui-item-icon-remove-left, .ui-item-icon-remove-right {
+					pointer-events: none;
+				}
+			}
+		}
+
 		.ui-selector-indicator {
 			> :not(.ui-selector-indicator-text) {
 				display: none;
@@ -78,6 +87,7 @@
 				z-index: 101;
 				visibility: visible;
 				opacity: 0.7;
+				pointer-events: none;
 
 				.ui-item-icon-remove-left, .ui-item-icon-remove-right {
 					display: none;
