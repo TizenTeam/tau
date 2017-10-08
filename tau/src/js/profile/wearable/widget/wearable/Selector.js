@@ -119,6 +119,8 @@
 					self._editModeEnabled = false;
 					self._movedElementIndex = null;
 					self._destinationIndex = null;
+					self._pointedLayer = null;
+					self._changeLayerInterval = null;
 				},
 				classes = {
 					SELECTOR: "ui-selector",
@@ -259,7 +261,8 @@
 
 				events.on(document, "rotarydetent", self, false);
 				events.on(self._ui.indicator, "animationend webkitAnimationEnd", self, false);
-				self.on("dragstart drag dragend click longpress mouseup touchend", self, false);
+				self.on("dragstart drag dragend click longpress mouseup touchend transitionend",
+					self, false);
 			}
 
 			/**
@@ -276,7 +279,8 @@
 					element
 				);
 				events.off(document, "rotarydetent", self, false);
-				self.off("dragstart drag dragend click longpress mouseup touchend", self, false);
+				self.off("dragstart drag dragend click longpress mouseup touchend transitionend",
+					self, false);
 			}
 
 			/**
@@ -601,6 +605,9 @@
 					case "rotarydetent":
 						self._onRotary(event);
 						break;
+					case "transitionend":
+						self._onTransitionEnd(event);
+						break;
 					case "animationend":
 					case "webkitAnimationEnd":
 						self._onAnimationEnd(event);
@@ -811,6 +818,12 @@
 				this._ui.indicator.classList.remove(classes.INDICATOR_ACTIVE);
 			};
 
+			prototype._onTransitionEnd = function (event) {
+				if (!this._enabled && event.target.classList.contains(classes.ITEM)) {
+					this._enable();
+				}
+			};
+
 			/**
 			 * Drag event handler
 			 * @method _onDrag
@@ -824,16 +837,17 @@
 					y,
 					movedItemStyle,
 					pointedElement,
+					pointedClassList,
 					index = null;
 
 				if (this._started) {
 					x = event.detail.estimatedX;
 					y = event.detail.estimatedY;
 					pointedElement = document.elementFromPoint(x, y);
+					pointedClassList = pointedElement && pointedElement.classList;
 
 					if (pointedElement && pointedElement.classList.contains(classes.ITEM) &&
-						!pointedElement.classList.contains(classes.ITEM_PLACEHOLDER) &&
-						!pointedElement.classList.contains(classes.PLUS_BUTTON)) {
+						!pointedElement.classList.contains(classes.ITEM_PLACEHOLDER)) {
 						index = parseInt(utilDom.getNSData(pointedElement, "index"), 10);
 					}
 
@@ -846,10 +860,61 @@
 						movedItemStyle.top = y + "px";
 						movedItemStyle.left = x + "px";
 
+						if (pointedElement) {
+							if (pointedClassList.contains(classes.LAYER_PREV)) {
+								self._pointedLayer = "prev";
+							} else if (pointedClassList.contains(classes.LAYER_NEXT)) {
+								self._pointedLayer = "next";
+							} else {
+								self._pointedLayer = null;
+								clearInterval(self._changeLayerInterval);
+								self._changeLayerInterval = null;
+							}
+						}
+
+						if (self._enabled && pointedElement && self._pointedLayer !== null) {
+							self._moveItemToLayer();
+						}
+
 						if (index !== null && index !== self._destinationIndex) {
 							self._setNewItemDestination(index);
 						}
 					}
+				}
+			};
+
+			prototype._moveItemToLayer = function () {
+				var self = this,
+					layer = self._pointedLayer;
+
+				if (self._changeLayerInterval === null) {
+					self._changeLayerInterval = setInterval(function () {
+						if (self._pointedLayer !== null && layer === self._pointedLayer) {
+							if (layer === "prev") {
+								self._setPreviousLayer();
+							} else {
+								self._setNextLayer();
+							}
+						}
+					}, 1000);
+				}
+			};
+
+			prototype._setNextLayer = function () {
+				var self = this;
+
+				if (self._enabled) {
+					self._setItemAndLayer(self._activeLayerIndex + 1,
+						(self._activeLayerIndex + 1) * self.options.maxItemNumber);
+				}
+			};
+
+			prototype._setPreviousLayer = function () {
+				var self = this;
+
+				if (self._enabled) {
+					self._setItemAndLayer(self._activeLayerIndex - 1,
+						self._activeLayerIndex * self.options.maxItemNumber - 1);
 				}
 			};
 
@@ -887,6 +952,9 @@
 					self.element.classList.remove(classes.REORDER);
 					self._movedElementIndex = null;
 					self._destinationIndex = null;
+					self._pointedLayer = null;
+					clearInterval(self._changeLayerInterval);
+					self._changeLayerInterval = null;
 				}
 			};
 
@@ -937,9 +1005,9 @@
 				}
 
 				if (targetElement.classList.contains(classes.LAYER_PREV) && prevLayer) {
-					self._setItemAndLayer(self._activeLayerIndex - 1, self._activeLayerIndex * 11 - 1);
+					self._setPreviousLayer();
 				} else if (targetElement.classList.contains(classes.LAYER_NEXT) && nextLayer) {
-					self._setItemAndLayer(self._activeLayerIndex + 1, (self._activeLayerIndex + 1) * 11);
+					self._setNextLayer();
 				} else if (self._enabled && !self._editModeEnabled) {
 					if (pointedElement && (pointedElement.classList.contains(classes.INDICATOR) || pointedElement.parentElement.classList.contains(classes.INDICATOR))) {
 						indicatorClassList.remove(classes.INDICATOR_ACTIVE);
@@ -1114,11 +1182,9 @@
 				}
 				self._enabled = false;
 				self._hideItems(activeLayer);
-				setTimeout(function () {
+				requestAnimationFrame(function () {
 					self._setActiveLayer(index);
-					self._enabled = true;
-				}, 150);
-
+				});
 			};
 
 			prototype._onLongPress = function (event) {
