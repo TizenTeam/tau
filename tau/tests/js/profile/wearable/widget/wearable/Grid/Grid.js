@@ -34,6 +34,7 @@
 				mode: "3x3",
 				scrollbar: true,
 				lines: 3,
+				orientation: "horizontal",
 				shape: "circle"
 			}, "options was correct initialized");
 
@@ -302,6 +303,8 @@
 
 			expect(4);
 			gridWidget.element = element;
+			gridWidget._ui.container = element.parentElement;
+			gridWidget._setOrientation(element, "horizontal");
 			gridWidget._getGridSize = function (type) {
 				assert.equal(type, "3x3", "_getGridSize was called with 3x3");
 				return 123
@@ -309,13 +312,14 @@
 
 			gridWidget._changeModeTo3x3(event);
 
-			assert.equal(element.className, "ui-grid-3x3", "_onPopState was called with argunet event");
+			assert.equal(element.className, "ui-grid-horizontal ui-grid-3x3", "_onPopState was called with argunet event");
 			assert.equal(gridWidget.options.mode, "3x3", "options.mode is set to 3x3");
 			assert.equal(element.style.width, "123px", "element.style.width is set to 3x3");
 		});
 
 		QUnit.test("_assembleItemsTo3x3", function (assert) {
 			var gridWidget = new Grid(),
+				element = document.getElementById("grid"),
 				items = [
 					{ to: {} },
 					{ to: {} },
@@ -324,7 +328,9 @@
 					{ to: {} }
 				];
 
-			gridWidget._setLines(3);
+			gridWidget._setLines(element, 3);
+			gridWidget._ui.container = element.parentElement;
+			gridWidget._setOrientation(element, "horizontal");
 			gridWidget._assembleItemsTo3x3(items);
 			assert.deepEqual(items, [
 				{

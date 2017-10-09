@@ -175,7 +175,7 @@
 				 * @param {Function} timingFn
 				 * @param {Function} drawFn
 				 * @param {Function} onEnd
-				 * @return {{end: boolean, startTime: number, duration: number, timingFn: Function, drawFn: Function, onEnd: Function}}
+				 * @return {Object}
 				 */
 				anim = function anim(items, duration, timingFn, drawFn, onEnd) {
 					// item (or items) should has properties: from, to
@@ -222,7 +222,8 @@
 						mode: "3x3",
 						scrollbar: true,
 						lines: 3,
-						shape: "circle"
+						shape: "circle",
+						orientation: "horizontal"
 					};
 					self._ui = {
 						container: null
@@ -239,7 +240,7 @@
 					THUMB: "thumb",
 					POSITIONED: "ui-positioned"
 				},
-				GALLERY_WIDTH = 360,
+				GALLERY_SIZE = 360,
 				HEIGHT_IN_GRID_MODE = 101,
 				// setting for Grich which depend from options
 				GRID_SETTINGS = {
@@ -329,22 +330,22 @@
 				return li;
 			}
 
-			function getItemWidth(self, mode) {
+			function getItemSize(self, mode) {
 				var settings = self._settings;
 
 				switch (mode || self.options.mode) {
 					case "3x3":
-						return GALLERY_WIDTH * settings.scale + GRID_MARGIN;
+						return GALLERY_SIZE * settings.scale + GRID_MARGIN;
 					case "image":
-						return GALLERY_WIDTH; // full screen
+						return GALLERY_SIZE; // full screen
 					case "thumbnail":
-						return GALLERY_WIDTH * settings.scaleThumbnailX + settings.marginThumbnail;
+						return GALLERY_SIZE * settings.scaleThumbnailX + settings.marginThumbnail;
 					default:
 						return 0;
 				}
 			}
 
-			function prepareInsertItem(items, index, width, scale) {
+			function prepareInsertItem(items, index, size, scale, self) {
 				var newItem = items[index],
 					beforeItems = items.filter(function (item, key) {
 						return key < index;
@@ -357,10 +358,11 @@
 				applyItemsTo(beforeItems);
 
 				// set how to items after insert position will be moved on right
-				setItemsPositionTo(afterItems, width, 0);
+				setItemsPositionTo(afterItems, size, self._scrollDimension, self._nonScrollDimension);
 
 				// prepare starting position for new item
-				setItemsPositionTo([newItem], width * index, 0);
+				setItemsPositionTo([newItem], size * index, self._scrollDimension,
+					self._nonScrollDimension);
 
 				// apply "to" properties at new item
 				applyItemsTo([newItem]);
@@ -374,13 +376,13 @@
 				updateItemsFrom(items);
 			}
 
-			function prepareRemoveItem(items, index, width) {
+			function prepareRemoveItem(items, index, size) {
 				var afterItems = items.filter(function (item, key) {
 					return key > index;
 				});
 
 				// set how to items after removed item will be moved on left
-				setItemsPositionTo(afterItems, -1 * width, 0);
+				setItemsPositionTo(afterItems, -1 * size, self._scrollDimension, self._nonScrollDimension);
 			}
 
 			/**
@@ -416,23 +418,17 @@
 					case "3x3" :
 						updateItemsFrom(items);
 						self._assembleItemsTo3x3(items);
-						anim(items, TRANSFORM_DURATION, changeItems, transformItem, function () {
-							element.style.width = getGridSize(self, "3x3") + "px";
-						});
 						break;
 					case "image" :
-						prepareInsertItem(items, index, getItemWidth(self), SCALE.IMAGE);
-						anim(items, TRANSFORM_DURATION, changeItems, transformItem, function () {
-							element.style.width = getGridSize(self, "image") + "px";
-						});
+						prepareInsertItem(items, index, getItemSize(self), SCALE.IMAGE);
 						break;
 					case "thumbnail" :
-						prepareInsertItem(items, index, getItemWidth(self), self.settings.scaleThumbnailX);
-						anim(items, TRANSFORM_DURATION, changeItems, transformItem, function () {
-							element.style.width = getGridSize(self, "thumbnail") + "px";
-						});
+						prepareInsertItem(items, index, getItemSize(self), self.settings.scaleThumbnailX);
 						break;
 				}
+				anim(items, TRANSFORM_DURATION, changeItems, transformItem, function () {
+					element.style[self._scrollSize] = getGridSize(self, self.options.mode) + "px";
+				});
 
 				// chain
 				return self;
@@ -448,27 +444,32 @@
 			prototype.remove = function (index) {
 				var self = this,
 					element = self.element,
+					style = element.style,
 					items = self._items,
 					item = items[index],
-					thumb = item.element;
+					itemTo = item.to,
+					thumb = item.element,
+					snapPoints = self._snapPoints;
 
 				if (index !== undefined && index < element.children.length) {
 
 					updateItemsFrom([item]);
 
+
 					switch (self.options.mode) {
 						case "3x3" :
 							// hide item with animation
-							item.to.scale = 0;
+							itemTo.scale = 0;
 							// move to center of item during disappearing
-							item.to.position = {
-								left: item.position.left + getItemWidth(self) / 2,
-								top: item.position.top
-							};
+							itemTo.position = {};
+							itemTo.position[self._scrollDimension] = item.position[self._scrollDimension] +
+								getItemSize(self) / 2;
+							itemTo.position[self._nonScrollDimension] = item.position[self._nonScrollDimension];
+
 							anim(item, TRANSFORM_DURATION, changeItems, transformItem);
 
 							items.splice(index, 1);
-							self._snapPoints.splice(index, 1);
+							snapPoints.splice(index, 1);
 
 							// refresh grid 3x3
 							updateItemsFrom(items);
@@ -477,43 +478,43 @@
 							anim(items, TRANSFORM_DURATION, changeItems, transformItem, function () {
 								updateSnapPointPositions(self);
 								element.removeChild(thumb);
-								element.style.width = getGridSize(self, "3x3") + "px";
+								style[self._scrollSize] = getGridSize(self, "3x3") + "px";
 							});
 							break;
 						case "image" :
 							// hide item with animation
-							item.to.scale = 0;
+							itemTo.scale = 0;
 
 							// move items after removed item to left
 							updateItemsFrom(items);
-							prepareRemoveItem(items, index, getItemWidth(self));
+							prepareRemoveItem(items, index, getItemSize(self));
 
 							// transformation
 							anim(items, TRANSFORM_DURATION, changeItems, transformItem, function () {
 								updateSnapPointPositions(self);
 								element.removeChild(thumb);
-								element.style.width = getGridSize(self, "image") + "px";
+								style[self._scrollSize] = getGridSize(self, "image") + "px";
 
 								items.splice(index, 1);
-								self._snapPoints.splice(index, 1);
+								snapPoints.splice(index, 1);
 							});
 							break;
 						case "thumbnail" :
 							// hide item with animation
-							item.to.scale = 0;
+							itemTo.scale = 0;
 
 							// move items after removed item to left
 							updateItemsFrom(items);
-							prepareRemoveItem(items, index, getItemWidth(self));
+							prepareRemoveItem(items, index, getItemSize(self));
 
 							// transformation
 							anim(items, TRANSFORM_DURATION, changeItems, transformItem, function () {
 								updateSnapPointPositions(self);
 								element.removeChild(thumb);
-								element.style.width = getGridSize(self, "thumbnail") + "px";
+								style[self._scrollSize] = getGridSize(self, "thumbnail") + "px";
 
 								items.splice(index, 1);
-								self._snapPoints.splice(index, 1);
+								snapPoints.splice(index, 1);
 							});
 							break;
 					}
@@ -536,7 +537,7 @@
 				// set proper mode in options
 				self.options.mode = "3x3";
 
-				element.style.width = self._getGridSize("3x3") + "px";
+				element.style[self._scrollSize] = self._getGridSize("3x3") + "px";
 			}
 
 			prototype._changeModeTo3x3 = function () {
@@ -614,7 +615,8 @@
 							});
 							self._imageToThumbnail();
 						} else if (currentMode === "3x3") {
-							ns.warn("thumbnail mode is not allowed directly from 3x3 mode, change to image mode before");
+							ns.warn("thumbnail mode is not allowed directly from 3x3 mode," +
+								"change to image mode before");
 						}
 						break;
 					default:
@@ -635,14 +637,15 @@
 			 */
 			prototype.changeIndex = function (index) {
 				var self = this,
-					container = self._ui.container;
+					container = self._ui.container,
+					scrollProperty = self._scrollProperty;
 
 				self._currentIndex = index;
 				scrollTo(
 					container,
-					getGridScrollPosition(self, self.options.mode) - container.scrollLeft,
+					getGridScrollPosition(self, self.options.mode) - container[scrollProperty],
 					SCROLL_DURATION, {
-						propertyName: "scrollLeft"
+						propertyName: scrollProperty
 					}
 				);
 
@@ -699,25 +702,25 @@
 
 				switch (self.options.mode) {
 					case "3x3" :
-						start = GALLERY_WIDTH * scale / 2 + settings.marginLeft;
-						delta = GALLERY_WIDTH * scale / 3;
+						start = GALLERY_SIZE * scale / 2 + settings.marginLeft;
+						delta = GALLERY_SIZE * scale / 3;
 						interval = 3;
 						break;
 					case "image" :
-						start = GALLERY_WIDTH / 2;
-						delta = GALLERY_WIDTH;
+						start = GALLERY_SIZE / 2;
+						delta = GALLERY_SIZE;
 						interval = 1;
 						break;
 					case "thumbnail" :
-						start = GALLERY_WIDTH / 2;
-						delta = GALLERY_WIDTH * settings.scaleThumbnailX + settings.marginThumbnail;
+						start = GALLERY_SIZE / 2;
+						delta = GALLERY_SIZE * settings.scaleThumbnailX + settings.marginThumbnail;
 						interval = 1;
 						break;
 				}
 
 				for (; i < len; i++) {
 					point = snapPoints[i];
-					point.style.left = start + delta * (i - i % interval) + "px";
+					point.style[self._scrollDimension] = start + delta * (i - i % interval) + "px";
 				}
 			}
 
@@ -765,12 +768,46 @@
 				var linesCount = parseInt(value, 10),
 					options = this.options;
 
-				// validation: possible values 2 or 3, all values different from 2 will be change to 3 (default)
+				// validation: possible values 2 or 3, all values different from 2 will be change to 3
+				// (default)
 				if (linesCount !== 2) {
 					linesCount = 3;
 				}
 				this._settings = GRID_SETTINGS[linesCount][options.shape];
 				options.lines = linesCount;
+			};
+
+			/**
+			 *
+			 * @param {HTMLElement} element
+			 * @param {number|string} value
+			 * @protected
+			 * @method _setOrientation
+			 * @memberof ns.widget.wearable.Grid
+			 */
+			prototype._setOrientation = function (element, value) {
+				var self = this,
+					options = self.options;
+
+				// validation: possible values vertical or horizontal, all values different from vertical
+				// will be change to horizontal (default)
+				if (value !== "vertical") {
+					value = "horizontal";
+				}
+				if (value === "horizontal") {
+					self._scrollProperty = "scrollLeft";
+					self._scrollDimension = "left";
+					self._nonScrollDimension = "top";
+					self._scrollSize = "width";
+				} else {
+					self._scrollProperty = "scrollTop";
+					self._scrollDimension = "top";
+					self._nonScrollDimension = "left";
+					self._scrollSize = "height";
+				}
+				options.orientation = value;
+				element.classList.add(CLASS_PREFIX + "-" + value);
+				self._ui.container.classList.add(CLASS_PREFIX + "-" + value);
 			};
 
 			/**
@@ -816,6 +853,7 @@
 
 				self._setLines(element, options.lines);
 				self._setShape(element, options.shape);
+				self._setOrientation(element, options.orientation);
 
 				// collect grid items from DOM
 				getItems(self);
@@ -987,8 +1025,8 @@
 					length = items.length,
 					i = 0,
 					index,
-					left,
-					top,
+					scrollDimension,
+					nonScrollDimension,
 					to,
 					settings = self._settings,
 					size = settings.size,
@@ -1000,17 +1038,16 @@
 
 					if (self.options.lines === 3) {
 						index = i % 3;
-						left = pattern[index][0] + ((i / 3) | 0) * size;
-						top = pattern[index][1];
+						scrollDimension = pattern[index][0] + ((i / 3) | 0) * size;
+						nonScrollDimension = pattern[index][1];
 					} else {
-						left = ((i / 2) | 0) * size;
-						top = (i % 2) * size;
+						scrollDimension = ((i / 2) | 0) * size;
+						nonScrollDimension = (i % 2) * size;
 					}
 					to.scale = settings.scale;
-					to.position = {
-						left: left + settings.marginLeft,
-						top: top + settings.marginTop
-					};
+					to.position = {};
+					to.position[self._scrollDimension] = scrollDimension + settings.marginLeft;
+					to.position[self._nonScrollDimension] = nonScrollDimension + settings.marginTop
 				}
 			};
 
@@ -1019,14 +1056,14 @@
 					len = items.length,
 					to = null,
 					i = 0,
-					width = getItemWidth(self, "image");
+					size = getItemSize(self, "image");
 
 				for (; i < len; ++i) {
 					to = items[i].to;
-					to.position = {
-						left: i * width,
-						top: 0
-					};
+					to.position = {};
+					to.position[self._scrollDimension] = i * size;
+					to.position[self._nonScrollDimension] = 0;
+
 					to.scale = SCALE.IMAGE;
 				}
 			}
@@ -1036,21 +1073,22 @@
 					currentIndex = self._currentIndex,
 					itemsLength = items.length,
 					targetState = null,
-					width = getItemWidth(self, "thumbnail"),
+					size = getItemSize(self, "thumbnail"),
 					settings = self._settings,
 					scaleThumbnailX = settings.scaleThumbnailX,
-					// is used to calculate scrolled position between items, this value is used to calculate scale of items
-					scrolledModPosition = 2 * ((self._ui.container.scrollLeft - settings.marginThumbnail) % width) / width - 1,
+					// is used to calculate scrolled position between items, this value is used to calculate
+					// scale of items
+					scrolledModPosition = 2 * ((self._ui.container[self._scrollProperty] -
+						settings.marginThumbnail) % size) / size - 1,
 					scrolledAbsModPosition = Math.abs(scrolledModPosition) / 2,
 					itemScale,
 					i = 0;
 
 				for (; i < itemsLength; ++i) {
 					targetState = items[i].to;
-					targetState.position = {
-						left: i * width,
-						top: 0
-					};
+					targetState.position = {};
+					targetState.position[self._scrollDimension] = i * size;
+					targetState.position[self._nonScrollDimension] = 0;
 					targetState.scale = scaleThumbnailX;
 					itemScale = settings.scaleThumbnail - scaleThumbnailX;
 					targetState.opacity = THUMBNAIL_OPACITY;
@@ -1066,7 +1104,7 @@
 				}
 			}
 
-			function setItemsPositionTo(items, deltaX, deltaY) {
+			function setItemsPositionTo(items, deltaX, scrollDimension, nonScrollDimension) {
 				var len = items.length,
 					item = null,
 					i = 0,
@@ -1075,10 +1113,9 @@
 				for (; i < len; ++i) {
 					item = items[i];
 					to = item.to;
-					to.position = {
-						left: item.position.left + deltaX,
-						top: item.position.top + deltaY
-					};
+					to.position = {};
+					to.position[scrollDimension] = item.position[scrollDimension] + deltaX;
+					to.position[nonScrollDimension] = item.position[nonScrollDimension];
 				}
 			}
 
@@ -1099,10 +1136,9 @@
 
 				for (; i < len; ++i) {
 					to = items[i].to;
-					to.position = {
-						left: i * getItemWidth(self, "image"),
-						top: 0
-					};
+					to.position = {};
+					to.position[self._scrollDimension] = i * getItemSize(self, "image");
+					to.position[self._nonScrollDimension] = 0;
 					to.scale = self._settings.scaleThumbanil;
 					to.opacity = IMAGE_OPACITY;
 				}
@@ -1116,11 +1152,10 @@
 
 				for (; i < len; ++i) {
 					to = items[i].to;
-					to.position = {
-						left: i * getItemWidth(self, "thumbnail") +
-						(i - self._currentIndex) * 200,
-						top: 0
-					};
+					to.position = {};
+					to.position[self._scrollDimension] = i * getItemSize(self, "thumbnail") +
+						(i - self._currentIndex) * 200;
+					to.position[self._nonScrollDimension] = 0;
 					to.scale = SCALE.IMAGE;
 					if (self.options.shape === "rectangle") {
 						to.opacity = (i === self._currentIndex) ? IMAGE_OPACITY : THUMBNAIL_OPACITY;
@@ -1143,28 +1178,28 @@
 			}
 
 			function getGridSize(self, mode) {
-				var width,
+				var size,
 					length = self._items.length,
 					options = self.options,
 					settings = self._settings;
 
 				switch (mode) {
 					case "3x3" :
-						width = max(ceil(length / options.lines) * ceil(GALLERY_WIDTH * settings.scale) +
-							settings.marginLeft + settings.marginRight, GALLERY_WIDTH);
+						size = max(ceil(length / options.lines) * ceil(GALLERY_SIZE * settings.scale) +
+							settings.marginLeft + settings.marginRight, GALLERY_SIZE);
 						break;
 					case "image" :
-						width = length * GALLERY_WIDTH;
+						size = length * GALLERY_SIZE;
 						break;
 					case "thumbnail" :
-						width = length * GALLERY_WIDTH * settings.scaleThumbnailX +
+						size = length * GALLERY_SIZE * settings.scaleThumbnailX +
 							(length - 1.5) * settings.marginThumbnail +
-							GALLERY_WIDTH * (1 - settings.scaleThumbnailX);
+							GALLERY_SIZE * (1 - settings.scaleThumbnailX);
 						break;
 					default:
-						width = GALLERY_WIDTH;
+						size = GALLERY_SIZE;
 				}
-				return width;
+				return size;
 			}
 
 			prototype._getGridSize = function (mode) {
@@ -1173,16 +1208,16 @@
 
 			function getGridScrollPosition(self, mode) {
 				var scroll = 0,
-					itemWidth = getItemWidth(self, mode),
+					itemSize = getItemSize(self, mode),
 					currentIndex = self._currentIndex;
 
 				switch (mode) {
 					case "3x3" :
-						scroll = (((currentIndex - 1) / 3) | 0) * ceil(itemWidth);
+						scroll = (((currentIndex - 1) / 3) | 0) * ceil(itemSize);
 						break;
 					case "image" :
 					case "thumbnail" :
-						scroll = currentIndex * itemWidth;
+						scroll = currentIndex * itemSize;
 						break;
 					default:
 						scroll = 0;
@@ -1195,24 +1230,24 @@
 
 				// set proper mode in options
 				self.options.mode = "image";
-				element.style.width = getGridSize(self, mode) + "px";
-				element.parentElement.scrollLeft = getGridScrollPosition(self, mode);
+				element.style[self._scrollSize] = getGridSize(self, mode) + "px";
+				element.parentElement[self._scrollProperty] = getGridScrollPosition(self, mode);
 			}
 
 			function findItemIndexByScroll(self, element) {
-				var scroll = element.scrollLeft,
-					itemWidth = getItemWidth(self),
+				var scroll = element[self._scrollProperty],
+					itemSize = getItemSize(self),
 					items = self._items;
 
 				switch (self.options.mode) {
 					case "image" :
 						return min(
-							round(scroll / itemWidth),
+							round(scroll / itemSize),
 							items.length - 1
 						);
 					case "thumbnail" :
 						return min(
-							round((scroll - self._settings.marginThumbnail) / itemWidth),
+							round((scroll - self._settings.marginThumbnail) / itemSize),
 							items.length - 1
 						);
 					default :
@@ -1274,12 +1309,12 @@
 				self.options.mode = "thumbnail";
 				changeModeToThumbnail(self);
 
-				element.parentElement.scrollLeft = getGridScrollPosition(self, "thumbnail");
+				element.parentElement[self._scrollProperty] = getGridScrollPosition(self, "thumbnail");
 				updateItemsFrom(items);
 				scaleItemsToThumbnails(self);
 
 				anim(items, TRANSFORM_DURATION, changeItems, transformItem, function () {
-					element.style.width = getGridSize(self, "thumbnail") + "px";
+					element.style[self._scrollSize] = getGridSize(self, "thumbnail") + "px";
 					updateSnapPointPositions(self);
 				});
 
@@ -1296,7 +1331,7 @@
 			function imageToGrid(self) {
 				var element = self.element,
 					items = self._items,
-					scrollLeft = getGridScrollPosition(self, "3x3");
+					scrollValue = getGridScrollPosition(self, "3x3");
 
 				self._assembleItemsTo3x3(items);
 				transformItems(self);
@@ -1306,14 +1341,16 @@
 
 				changeModeTo3x3(self);
 
-				element.parentElement.scrollLeft = min(scrollLeft, getGridSize(self, "3x3") - GALLERY_WIDTH);
-				items[self._currentIndex].position.left = min(scrollLeft, getGridSize(self, "3x3") - GALLERY_WIDTH);
+				element.parentElement[self._scrollProperty] = min(scrollValue, getGridSize(self, "3x3") -
+					GALLERY_SIZE);
+				items[self._currentIndex].position[self._scrollDimension] = min(scrollValue,
+					getGridSize(self, "3x3") - GALLERY_SIZE);
 
 				updateItemsFrom(items);
 				self._assembleItemsTo3x3(items);
 
 				anim(items, TRANSFORM_DURATION, changeItems, transformItem, function onTransitionEnd() {
-					element.style.width = getGridSize(self, "3x3") + "px";
+					element.style[self._scrollSize] = getGridSize(self, "3x3") + "px";
 					updateSnapPointPositions(self);
 				});
 			}
@@ -1366,12 +1403,11 @@
 						};
 					} else {
 						item.to = {
-							position: {
-								left: element.parentElement.scrollLeft,
-								top: 0
-							},
+							position: {},
 							scale: SCALE.IMAGE
 						};
+						item.to.position[self._scrollDimension] = element.parentElement[self._scrollProperty];
+						item.to.position[self._nonScrollDimension] = 0;
 					}
 				}
 			};
@@ -1423,13 +1459,13 @@
 			};
 
 			function onRotary(self, ev) {
-				var itemWidth = getItemWidth(self),
+				var itemSize = getItemSize(self),
 					direction = (ev.detail.direction === "CW") ? 1 : -1,
 					container = self._ui.container;
 
-				if (itemWidth !== 0) {
-					scrollTo(container, direction * itemWidth, SCROLL_DURATION, {
-						propertyName: "scrollLeft"
+				if (itemSize !== 0) {
+					scrollTo(container, direction * itemSize, SCROLL_DURATION, {
+						propertyName: self._scrollProperty
 					});
 				}
 			}
