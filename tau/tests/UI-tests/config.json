@@ -1966,43 +1966,50 @@
 				"name": "87-text-toast-popup-2-lines",
 				"time": 2000,
 				"width": 360,
-				"height": 360
+				"height": 360,
+				"pass": true
 			},
 			{
 				"name": "87-text-toast-popup-3-lines",
 				"time": 2000,
 				"width": 360,
-				"height": 360
+				"height": 360,
+				"pass": true
 			},
 			{
 				"name": "88-graphic-toast-popup-1-line",
 				"time": 2000,
 				"width": 360,
-				"height": 360
+				"height": 360,
+				"pass": true
 			},
 			{
 				"name": "88-graphic-toast-popup-2-lines",
 				"time": 2000,
 				"width": 360,
-				"height": 360
+				"height": 360,
+				"pass": true
 			},
 			{
 				"name": "89-popup-toast-small-text",
 				"time": 1000,
 				"width": 360,
-				"height": 360
+				"height": 360,
+				"pass": true
 			},
 			{
 				"name": "89-popup-toast-small-text-icon",
 				"time": 1000,
 				"width": 360,
-				"height": 360
+				"height": 360,
+				"pass": true
 			},
 			{
 				"name": "90-popup-toast-small-icon",
 				"time": 1000,
 				"width": 360,
-				"height": 360
+				"height": 360,
+				"pass": true
 			},
 			{
 				"name": "103-end-effect-left",
