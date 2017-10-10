@@ -60,6 +60,7 @@ var allTestFiles = [],
 		"profile/wearable/widget/wearable/CircleIndicator",
 		"profile/wearable/widget/wearable/NumberPicker",
 		"profile/wearable/widget/wearable/DatePicker",
+		"profile/mobile/widget/mobile/DropdownMenu",
 		"core/core"
 	];
 
