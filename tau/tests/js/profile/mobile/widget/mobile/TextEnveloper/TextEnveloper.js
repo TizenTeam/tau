@@ -212,6 +212,19 @@
 				"a", "b", "c"
 			], "Get items return correct array");
 		});
+
+		QUnit.test("_destroy", 1, function (assert) {
+			var widget = new TextEnveloper(),
+				element = document.getElementById("enveloper-destroy"),
+				elementOuterHMTL = element.outerHTML;
+
+			widget.element = element;
+			widget._build(element);
+			widget._init(element);
+			widget._destroy();
+			assert.equal(element.outerHTML, elementOuterHMTL, "Destroy revert all changes from _build" +
+				" and _init");
+		});
 	}
 
 	if (typeof define === "function") {

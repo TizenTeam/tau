@@ -763,7 +763,8 @@
 					ui = self._ui,
 					input,
 					textLineElement,
-					inputContainer;
+					inputContainer,
+					container = ui.container;
 
 				if (addInput) {
 					inputContainer = document.createElement("div");
@@ -771,7 +772,7 @@
 					input.classList.add(classes.TEXT_ENVELOPER_INPUT);
 
 					inputContainer.appendChild(input);
-					ui.container.appendChild(inputContainer);
+					container.appendChild(inputContainer);
 
 					engine.instanceWidget(input, "TextInput", {
 						clearBtn: true
@@ -784,6 +785,16 @@
 					} else {
 						textLineElement = element.querySelector("." + classes.TEXT_ENVELOPER_TEXTLINE);
 						textLineElement.parentElement.removeChild(textLineElement);
+					}
+				} else {
+					inputContainer = ui.inputContainer;
+					if (inputContainer) {
+						container.removeChild(inputContainer);
+
+						engine.destroyWidget(ui.inputElement, "TextInput");
+
+						ui.inputContainer = null;
+						ui.inputElement = null;
 					}
 				}
 
@@ -808,8 +819,13 @@
 			 * @member ns.widget.mobile.TextEnveloper
 			 */
 			prototype._destroy = function () {
-				unbindEvents(this);
-				this._ui = null;
+				var self = this,
+					ui = self._ui;
+
+				ui.container.classList.remove(classes.CONTAINER);
+				self._setInput(self.element, false);
+				unbindEvents(self);
+				self._ui = null;
 			};
 
 			prototype.getInput = function () {
