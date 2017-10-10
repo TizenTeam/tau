@@ -502,7 +502,17 @@
 			 * @member ns.widget.mobile.TextEnveloper
 			 */
 			prototype._onBlur = function () {
-				this.foldButtons();
+				var self = this,
+					input = self._ui.inputElement;
+
+				if (input && input.value) {
+					self.trigger(eventName.NEW_VALUE, {
+						value: input.value
+					}, false);
+
+					input.value = "";
+				}
+				self.foldButtons();
 			};
 
 			/**
@@ -556,7 +566,6 @@
 			 */
 			prototype._onKeyup = function (event) {
 				var self = this,
-					element = self.element,
 					ui = self._ui,
 					input = ui.inputElement,
 					value = input.value,
@@ -564,7 +573,7 @@
 					lastIndex = ui.buttons.length - 1;
 
 				if (keyValue === keyCode.ENTER) {
-					events.trigger(element, eventName.NEW_VALUE, {
+					self.trigger(eventName.NEW_VALUE, {
 						value: value
 					}, false);
 					input.value = "";
