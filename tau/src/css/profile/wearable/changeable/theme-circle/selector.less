@@ -165,6 +165,11 @@
 				transform-origin: top left;
 				left: -3 * @unit_base;
 			}
+
+			&.ui-item-removed.ui-item {
+				opacity: 0;
+				transition: opacity 200ms;
+			}
 		}
 
 		.ui-item-plus {

@@ -121,6 +121,8 @@
 					self._destinationIndex = null;
 					self._pointedLayer = null;
 					self._changeLayerInterval = null;
+					self._itemsToReorder = [];
+					self._removedItemIndex = null;
 				},
 				classes = {
 					SELECTOR: "ui-selector",
@@ -149,7 +151,8 @@
 					REORDER: "ui-selector-reorder",
 					PLUS_BUTTON: "ui-item-plus",
 					ITEM_PLACEHOLDER: "ui-item-placeholder",
-					ITEM_MOVED: "ui-item-moved"
+					ITEM_MOVED: "ui-item-moved",
+					ITEM_REMOVED: "ui-item-removed"
 				},
 				STATIC = {
 					RADIUS_RATIO: 0.8,
@@ -469,6 +472,7 @@
 
 				self._started = false;
 				self._enabled = true;
+
 				self._activeItemIndex = activeItemIndex === null ? 0 : activeItemIndex;
 
 				options.itemRadius = options.itemRadius < 0 ? validLayout / 2 * STATIC.RADIUS_RATIO : options.itemRadius;
@@ -505,8 +509,15 @@
 				len = items.length > options.maxItemNumber ? options.maxItemNumber : items.length;
 
 				for (i = 0; i < len; i++) {
-					degree = DEFAULT.ITEM_START_DEGREE + (options.itemDegree * i);
-					setItemTransform(items[i], degree, options.itemRadius, -degree, DEFAULT.ITEM_NORMAL_SCALE);
+					if (self._itemsToReorder.indexOf(i) === -1) {
+						degree = DEFAULT.ITEM_START_DEGREE + (options.itemDegree * i);
+						setItemTransform(items[i], degree, options.itemRadius, -degree,
+							DEFAULT.ITEM_NORMAL_SCALE);
+					}
+				}
+
+				if (self._editModeEnabled) {
+					self._animateReorderedItems();
 				}
 
 				if (self.options.plusButton) {
@@ -515,6 +526,30 @@
 
 				if (!self._editModeEnabled && len > 0) {
 					self._setActiveItem(self._activeItemIndex);
+				}
+			};
+
+			prototype._animateReorderedItems = function () {
+				var self = this,
+					options = self.options,
+					layer = self._ui.layers[self._activeLayerIndex],
+					items = layer.querySelectorAll(options.itemSelector),
+					reorderedItems = self._itemsToReorder,
+					length = reorderedItems.length,
+					degree,
+					i;
+
+				if (length) {
+					self._disable();
+					setTimeout(function () {
+						for (i = 0; i < length; i++) {
+							degree = DEFAULT.ITEM_START_DEGREE + (options.itemDegree *
+								reorderedItems[i]);
+							setItemTransform(items[reorderedItems[i]], degree, options.itemRadius,
+								-degree, DEFAULT.ITEM_NORMAL_SCALE);
+						}
+						self._itemsToReorder = [];
+					}, 30);
 				}
 			};
 
@@ -819,8 +854,16 @@
 			};
 
 			prototype._onTransitionEnd = function (event) {
-				if (!this._enabled && event.target.classList.contains(classes.ITEM)) {
-					this._enable();
+				var self = this,
+					targetElement = event.target,
+					classList = targetElement.classList;
+
+				if (!self._enabled && classList.contains(classes.ITEM)) {
+					if (classList.contains(classes.ITEM_REMOVED)) {
+						self.removeItem(parseInt(utilDom.getNSData(targetElement, "index"), 10));
+					} else {
+						self._enable();
+					}
 				}
 			};
 
@@ -872,12 +915,13 @@
 							}
 						}
 
-						if (self._enabled && pointedElement && self._pointedLayer !== null) {
-							self._moveItemToLayer();
-						}
-
-						if (index !== null && index !== self._destinationIndex) {
-							self._setNewItemDestination(index);
+						if (self._enabled) {
+							if (pointedElement && self._pointedLayer !== null) {
+								self._moveItemToLayer();
+							}
+							if (index !== null && index !== self._destinationIndex) {
+								self._setNewItemDestination(index);
+							}
 						}
 					}
 				}
@@ -1028,11 +1072,11 @@
 				if (self._editModeEnabled) {
 					event.stopImmediatePropagation();
 
-					if (targetClassList.contains(classes.ITEM_ICON_REMOVE + "-left") ||
-						targetClassList.contains(classes.ITEM_ICON_REMOVE + "-right")) {
-						index = parseInt(utilDom.getNSData(targetElement.parentElement,
-							"index"), 10);
-						self.removeItem(index);
+					if (self._enabled &&
+						(targetClassList.contains(classes.ITEM_ICON_REMOVE + "-left") ||
+						targetClassList.contains(classes.ITEM_ICON_REMOVE + "-right"))) {
+						self._disable();
+						targetElement.parentElement.classList.add(classes.ITEM_REMOVED);
 					}
 				}
 
@@ -1145,7 +1189,14 @@
 					items = ui.items,
 					options = self.options,
 					element = self.element,
+					reorderedItems = self._itemsToReorder,
 					editModeEnabled = self._editModeEnabled,
+					maxItemNumber = options.maxItemNumber,
+					activeLayerIndex = self._activeLayerIndex,
+					lastOnLayerIndex = (activeLayerIndex + 1) * maxItemNumber,
+					firstOnLayerIndex = activeLayerIndex * maxItemNumber,
+					index,
+					additionalDegree,
 					i;
 
 				if (editModeEnabled) {
@@ -1153,14 +1204,31 @@
 				}
 
 				for (i = 0; i < ui.items.length; i++) {
+					if (editModeEnabled) {
+						index = parseInt(utilDom.getNSData(items[i], "index"), 10);
+						if (i !== index && !Number.isNaN(index) &&
+							(i < lastOnLayerIndex) &&
+							(i >= firstOnLayerIndex) &&
+							!items[i].classList.contains(classes.ITEM_PLACEHOLDER)) {
+							if (i < lastOnLayerIndex && index >= lastOnLayerIndex) {
+								additionalDegree = DEFAULT.ITEM_START_DEGREE +
+									(options.itemDegree * maxItemNumber);
+								setItemTransform(items[i], additionalDegree, options.itemRadius,
+									-additionalDegree, DEFAULT.ITEM_NORMAL_SCALE);
+							}
+							reorderedItems.push(i % maxItemNumber);
+						}
+					}
 					utilDom.setNSData(items[i], "index", i);
 				}
+
 
 				if (editModeEnabled) {
 					self._addRemoveIcons();
 				}
 
 				ui.layers = buildLayers(element, items, options);
+
 				self._setActiveLayer(self._activeLayerIndex);
 			};
 
@@ -1409,7 +1477,7 @@
 				length = ui.items.length;
 
 				/** This block checks if the removed item is last on active layer, and if this
-				/** condition is true, it changes active layer to previous one.
+				 *  condition is true, it changes active layer to previous one.
 				 */
 				if ((index % itemsOnLayer === 0) && (index === ui.items.length - 1)) {
 					self._changeLayer(self._activeLayerIndex - 1);
@@ -1418,6 +1486,7 @@
 				if (self._activeItemIndex >= length) {
 					self._activeItemIndex = length - 1;
 				}
+
 				self._refresh();
 			};
 
