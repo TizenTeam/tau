@@ -297,7 +297,10 @@
 
 				if (self.hasActive()) {
 					document.addEventListener(events.POPUP_HIDE, openPopup, false);
-					self.close();
+					if (!self.close()) {
+						document.removeEventListener(events.POPUP_HIDE, openPopup, false);
+						openPopup();
+					}
 				} else {
 					openPopup();
 				}
@@ -457,7 +460,7 @@
 			 * @static
 			 */
 			routePopup.hasActive = function () {
-				return !!this.activePopup;
+				return this.active;
 			};
 
 			/**
