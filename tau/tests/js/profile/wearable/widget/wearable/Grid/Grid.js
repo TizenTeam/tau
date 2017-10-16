@@ -28,7 +28,7 @@
 
 			assert.deepEqual(gridWidget._ui, {
 				container: null
-			}, "_ui was correct initialized");
+			}, "_ui was correctly initialized");
 
 			assert.deepEqual(gridWidget.options, {
 				mode: "3x3",
@@ -36,7 +36,7 @@
 				lines: 3,
 				orientation: "horizontal",
 				shape: "circle"
-			}, "options was correct initialized");
+			}, "options was correctly initialized");
 
 			assert.equal(gridWidget._currentIndex, -1, "_currentIndex was initialized")
 		});
@@ -428,6 +428,283 @@
 			gridWidget.mode("3x3");
 			gridWidget.options.mode = "image";
 			gridWidget.mode("thumbnail");
+		});
+
+		QUnit.test("_getItemSize", 5, function (assert) {
+			var gridWidget = new Grid();
+
+			assert.equal(gridWidget._getItemSize("3x3"), 113.97200000000001,
+				"return correct item size (3x3)");
+			assert.equal(gridWidget._getItemSize("image"), 360, "return correctly item size (image)");
+			assert.equal(gridWidget._getItemSize("thumbnail"), 242,
+				"return correctly item size (thumbnail)");
+			assert.equal(gridWidget._getItemSize("h"), 0, "return correctly item size (wrong)");
+			assert.equal(gridWidget._getItemSize(), 113.97200000000001,
+				"return correctly item size (without argument)");
+		});
+
+		QUnit.test("_changeModeTo3x3", 5, function (assert) {
+			var gridWidget = new Grid(),
+				element = document.getElementById("grid");
+
+			gridWidget.element = element;
+			gridWidget._scrollSize = "width";
+			gridWidget._getGridSize = function (mode) {
+				assert.equal(mode, "3x3", "");
+				return 100;
+			};
+			gridWidget._changeModeTo3x3();
+			assert.equal(gridWidget.options.mode, "3x3", "options.mode is set");
+			assert.ok(element.classList.contains("ui-grid-3x3"), "class ui-grid-3x3 is set");
+			assert.ok(!element.classList.contains("ui-grid-image"), "class ui-grid-image is not set");
+			assert.equal(element.style.width, "100px", "style width is set");
+		});
+
+		QUnit.test("_changeModeToThumbnail", 1, function (assert) {
+			var gridWidget = new Grid(),
+				element = document.getElementById("grid");
+
+			gridWidget._currentIndex = 5;
+			gridWidget.element = element;
+			gridWidget._changeModeToThumbnail();
+			assert.ok(element.classList.contains("ui-grid-thumbnail"), "class ui-grid-thumbnail is set");
+		});
+
+		QUnit.test("_updateSnapPointPositions", 3, function (assert) {
+			var gridWidget = new Grid();
+
+			gridWidget._snapPoints = [{style: {}}, {style: {}}, {style: {}}];
+			gridWidget._scrollDimension = "left";
+			gridWidget.options.mode = "3x3";
+			gridWidget._updateSnapPointPositions();
+			assert.deepEqual(gridWidget._snapPoints, [
+				{
+					"style": {
+						"left": "65.486px"
+					}
+				},
+				{
+					"style": {
+						"left": "65.486px"
+					}
+				},
+				{
+					"style": {
+						"left": "65.486px"
+					}
+				}], "_snapPoints was updated");
+			gridWidget.options.mode = "image";
+			gridWidget._updateSnapPointPositions();
+			assert.deepEqual(gridWidget._snapPoints, [
+				{
+					"style": {
+						"left": "180px"
+					}
+				},
+				{
+					"style": {
+						"left": "540px"
+					}
+				},
+				{
+					"style": {
+						"left": "900px"
+					}
+				}], "thumbnail");
+			gridWidget.options.mode = "thumbnail";
+			gridWidget._updateSnapPointPositions();
+			assert.deepEqual(gridWidget._snapPoints, [
+				{
+					"style": {
+						"left": "180px"
+					}
+				},
+				{
+					"style": {
+						"left": "422px"
+					}
+				},
+				{
+					"style": {
+						"left": "664px"
+					}
+				}], "_snapPoints was updated");
+		});
+
+		QUnit.test("_setShape", 6, function (assert) {
+			var gridWidget = new Grid(),
+				element = document.getElementById("grid");
+
+			gridWidget._ui.container = element.parentElement;
+			gridWidget.options.lines = 2;
+			gridWidget._setShape(element, "circle");
+			assert.deepEqual(gridWidget._settings, {
+				"marginLeft": 38,
+				"marginRight": 140,
+				"marginThumbnail": 26,
+				"marginTop": -75,
+				"scale": 0.3833,
+				"scaleThumbnail": 0.6,
+				"scaleThumbnailX": 0.6,
+				"size": 146
+			}, "_settings was changed");
+			assert.ok(element.classList.contains("ui-grid-circle"), "class ui-grid-circle is correctly" +
+				" set");
+			assert.ok(!element.classList.contains("ui-grid-rectangle"), "class ui-grid-rectangle" +
+				" is not set");
+			gridWidget._setShape(element, "rectangle");
+			assert.deepEqual(gridWidget._settings, {
+				"marginLeft": 57,
+				"marginRight": 230,
+				"marginThumbnail": -8,
+				"marginTop": -66,
+				"scale": 0.325,
+				"scaleThumbnail": 0.715,
+				"scaleThumbnailX": 0.4722,
+				"size": 130
+			}, "_settings was changed");
+			assert.ok(element.classList.contains("ui-grid-rectangle"), "class ui-grid-rectangle is set");
+			assert.ok(!element.classList.contains("ui-grid-circle"), "class ui-grid-circle is not set");
+		});
+
+		QUnit.test("changeIndex", 7, function (assert) {
+			var gridWidget = new Grid(),
+				element = document.getElementById("grid"),
+				container = {
+					scrollLeft: 6
+				};
+
+			gridWidget._currentIndex = 5;
+			gridWidget._ui = {
+				container: container
+			};
+			gridWidget._scrollProperty = "scrollLeft";
+			gridWidget.elemet = element;
+			gridWidget._getGridScrollPosition = function () {
+				assert.ok(1);
+				return 6;
+			};
+			gridWidget._scrollTo = function (element, changeValue, duration, options) {
+				assert.equal(element, container, "_scrollTo, element is correct");
+				assert.equal(changeValue, 0, "_scrollTo, changeValue is correct");
+				assert.equal(duration, 250, "_scrollTo, duration is correct");
+				assert.deepEqual(options, {
+					propertyName: "scrollLeft"
+				}, "_scrollTo, options is correct");
+			};
+			assert.equal(gridWidget.changeIndex(5), gridWidget, "return this");
+			assert.equal(gridWidget._currentIndex, 5, "correctly set _currentIndex");
+		});
+
+		QUnit.test("_setOrientation", 14, function (assert) {
+			var gridWidget = new Grid(),
+				element = document.getElementById("grid");
+
+			gridWidget._ui.container = element.parentElement;
+			gridWidget._setOrientation(element, "horizontal");
+			assert.equal(gridWidget._scrollProperty, "scrollLeft", "correctly set _scrollProperty");
+			assert.equal(gridWidget._scrollDimension, "left", "correctly set _scrollDimension");
+			assert.equal(gridWidget._nonScrollDimension, "top", "correctly set _nonScrollDimension");
+			assert.equal(gridWidget._scrollSize, "width", "correctly set _scrollSize");
+			assert.equal(gridWidget.options.orientation, "horizontal", "correctly set options.orientation");
+			assert.ok(element.classList.contains("ui-grid-horizontal"), "class ui-grid-horizontal is" +
+				" set");
+			assert.ok(element.parentElement.classList.contains("ui-grid-horizontal"), "class" +
+				" ui-grid-horizontal is set on container");
+			gridWidget._setOrientation(element, "vertical");
+			assert.equal(gridWidget._scrollProperty, "scrollTop", "correctly set _scrollProperty");
+			assert.equal(gridWidget._scrollDimension, "top", "correctly set _scrollDimension");
+			assert.equal(gridWidget._nonScrollDimension, "left", "correctly set _nonScrollDimension");
+			assert.equal(gridWidget._scrollSize, "height", "correctly set _scrollSize");
+			assert.equal(gridWidget.options.orientation, "vertical", "correctly set options.orientation");
+			assert.ok(element.classList.contains("ui-grid-vertical"), "class ui-grid-horizontal is" +
+				" set");
+			assert.ok(element.parentElement.classList.contains("ui-grid-vertical"), "class" +
+				" ui-grid-vertical is set on container");
+		});
+
+		QUnit.test("_assembleItemsToImages", 2, function (assert) {
+			var gridWidget = new Grid();
+
+			gridWidget._getItemSize = function (mode) {
+				assert.equal(mode, "image");
+				return 20;
+			};
+			gridWidget._scrollDimension = "left";
+			gridWidget._nonScrollDimension = "top";
+			gridWidget._items = [{to: {}}, {to: {}}, {to: {}}];
+			gridWidget._assembleItemsToImages();
+			assert.deepEqual(gridWidget._items,
+				[
+					{
+						"to": {
+							"position": {
+								"left": 0,
+								"top": 0
+							},
+							"scale": 1
+						}
+					},
+					{
+						"to": {
+							"position": {
+								"left": 20,
+								"top": 0
+							},
+							"scale": 1
+						}
+					},
+					{
+						"to": {
+							"position": {
+								"left": 40,
+								"top": 0
+							},
+							"scale": 1
+						}
+					}
+				], "correctly set _items");
+		});
+
+		QUnit.test("_getGridScrollPosition", 2, function (assert) {
+			var gridWidget = new Grid();
+
+			gridWidget._getItemSize = function (mode) {
+				assert.equal(mode, "image", "_getItemSize, mode is correct");
+				return 20;
+			};
+			gridWidget._currentIndex = 10;
+			// 200 = 10 * 20  = _currentIndex * _getItemSize()
+			assert.equal(gridWidget._getGridScrollPosition("image"), 200, "_getGridScrollPosition" +
+				" returns correct value");
+		});
+
+
+		QUnit.test("_onRotary", 5, function (assert) {
+			var gridWidget = new Grid(),
+				element = document.getElementById("grid");
+
+			gridWidget._ui = {
+				container: element
+			};
+			gridWidget._scrollProperty = "scrollLeft";
+			gridWidget._getItemSize = function (mode) {
+				assert.equal(mode, undefined, "mode is not set");
+				return 20;
+			};
+			gridWidget._scrollTo = function (_element, changeValue, duration, options) {
+				assert.equal(_element, element, "_scrollTo, element");
+				assert.equal(changeValue, 20, "_scrollTo, changeValue");
+				assert.equal(duration, 250, "_scrollTo, duration");
+				assert.deepEqual(options, {
+					propertyName: "scrollLeft"
+				}, "_scrollTo, options");
+			};
+			gridWidget._onRotary({
+				detail: {
+					direction: "CW"
+				}
+			});
 		});
 	}
 
