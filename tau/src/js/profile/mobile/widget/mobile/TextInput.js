@@ -114,6 +114,7 @@
 			"../../../../core/util/selectors",
 			"../../../../core/widget/core/Button",
 			"../../../../core/widget/core/Listview",
+			"../../../../core/widget/core/Popup",
 			"../../../../core/event",
 			"./BaseWidgetMobile",
 			"../mobile"
@@ -141,6 +142,7 @@
 				buttonClasses = ns.widget.core.Button.classes,
 
 				listviewClasses = ns.widget.core.Listview.classes,
+				popupClasses = ns.widget.core.Popup.classes,
 
 				prototype = new BaseWidget(),
 
@@ -212,9 +214,12 @@
 			prototype._resizeTextArea = function (element) {
 				var listviewElement,
 					listviewWidget,
+					popupElement = util.selectors.getClosestByClass(element, popupClasses.popup),
+					popupWidget,
 					maxHeight = parseInt(this.options.maxHeight, 10),
 					newHeight,
-					style = element.style;
+					style = element.style,
+					previousHeight = style.height;
 
 				style.height = "auto"; // reset for the browser to recalculate scrollHeight
 				newHeight = element.scrollHeight; // apply scrollHeight as new height
@@ -227,6 +232,11 @@
 
 				listviewElement = util.selectors.getClosestByClass(element, listviewClasses.LISTVIEW);
 
+				if ((previousHeight !== (newHeight + "px")) && popupElement && previousHeight !== "" &&
+				previousHeight !== "0px") {
+					popupWidget = engine.getBinding(popupElement);
+					popupWidget.refresh();
+				}
 				if (listviewElement) {
 					listviewWidget = engine.getBinding(listviewElement);
 					if (listviewWidget) {

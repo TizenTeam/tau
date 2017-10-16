@@ -816,9 +816,7 @@
 			prototype._refresh = function () {
 				var self = this;
 
-				self._unbindOverlayEvents();
 				self._setOverlay(self.element, self.options.overlay);
-				self._bindOverlayEvents();
 			};
 
 			/**

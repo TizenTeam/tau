@@ -24,7 +24,7 @@
 			assert.ok(element.classList.contains("ui-text-input"), "TextInput contains ui-text-input class.");
 		});
 
-		test("_resizeTextArea", 4, function (assert) {
+		test("_resizeTextArea", 5, function (assert) {
 			var widget = new TextInput(),
 				element = document.getElementById("textinput1");
 
