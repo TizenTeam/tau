@@ -123,6 +123,7 @@
 					self._changeLayerInterval = null;
 					self._itemsToReorder = [];
 					self._removedItemIndex = null;
+					self._reorderEnd = null;
 				},
 				classes = {
 					SELECTOR: "ui-selector",
@@ -152,7 +153,8 @@
 					PLUS_BUTTON: "ui-item-plus",
 					ITEM_PLACEHOLDER: "ui-item-placeholder",
 					ITEM_MOVED: "ui-item-moved",
-					ITEM_REMOVED: "ui-item-removed"
+					ITEM_REMOVED: "ui-item-removed",
+					ITEM_END: "ui-item-moved-end"
 				},
 				STATIC = {
 					RADIUS_RATIO: 0.8,
@@ -861,10 +863,33 @@
 				if (!self._enabled && classList.contains(classes.ITEM)) {
 					if (classList.contains(classes.ITEM_REMOVED)) {
 						self.removeItem(parseInt(utilDom.getNSData(targetElement, "index"), 10));
-					} else {
+					} else if (classList.contains(classes.ITEM_END)) {
+						self._clearReorder();
+					} else if (classList.contains(classes.ITEM_MOVED)) {
+						requestAnimationFrame(function () {
+							classList.add(classes.ITEM_END);
+						});
+					} else if (!self._reorderEnd) {
 						self._enable();
 					}
 				}
+			};
+
+			prototype._clearReorder = function () {
+				var self = this,
+					ui = self._ui;
+
+				ui.items[self._destinationIndex].classList.remove(classes.ITEM_PLACEHOLDER);
+				self.element.removeChild(self._ui.movedItem);
+				ui.movedItem = null;
+				self.element.classList.remove(classes.REORDER);
+				self._movedElementIndex = null;
+				self._destinationIndex = null;
+				self._pointedLayer = null;
+				clearInterval(self._changeLayerInterval);
+				self._changeLayerInterval = null;
+				self._enable();
+				self._reorderEnd = false;
 			};
 
 			/**
@@ -987,18 +1012,27 @@
 
 			prototype._onTouchEnd = function () {
 				var self = this,
-					movedElement;
+					ui = self._ui,
+					movedElement,
+					movedStyle,
+					destinationRect;
 
-				if (self._movedElementIndex !== null) {
-					movedElement = self._ui.items[self._destinationIndex];
-					movedElement.classList.remove(classes.ITEM_PLACEHOLDER);
-					self.element.removeChild(self._ui.movedItem);
-					self.element.classList.remove(classes.REORDER);
-					self._movedElementIndex = null;
-					self._destinationIndex = null;
-					self._pointedLayer = null;
-					clearInterval(self._changeLayerInterval);
-					self._changeLayerInterval = null;
+				if (self._movedElementIndex !== null && !self._reorderEnd) {
+					self.disable();
+					self._reorderEnd = true;
+					movedElement = ui.movedItem;
+					movedStyle = movedElement.style;
+					movedStyle.transition = "top 200ms, left 200ms, opacity 200ms, transform 200ms";
+					destinationRect = ui.items[self._destinationIndex].getBoundingClientRect();
+					if (!self._started) {
+						requestAnimationFrame(function () {
+							movedElement.classList.add(classes.ITEM_END);
+						});
+					} else {
+						movedStyle.top = (destinationRect.top + destinationRect.width / 2) + "px";
+						movedStyle.left = (destinationRect.left + destinationRect.height / 2) +
+						"px";
+					}
 				}
 			};
 
@@ -1071,7 +1105,6 @@
 
 				if (self._editModeEnabled) {
 					event.stopImmediatePropagation();
-
 					if (self._enabled &&
 						(targetClassList.contains(classes.ITEM_ICON_REMOVE + "-left") ||
 						targetClassList.contains(classes.ITEM_ICON_REMOVE + "-right"))) {

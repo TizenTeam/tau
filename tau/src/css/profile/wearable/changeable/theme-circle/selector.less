@@ -94,12 +94,34 @@
 				}
 			}
 
+			@keyframes dragItem {
+				0% {
+					transform: scale(1.0);
+					opacity: 1;
+				}
+
+				100% {
+					transform: scale(68 / 56);
+					opacity: 0.7;
+				}
+			}
+
 			&.ui-item-moved {
 				position: fixed;
+				width: 56 * @unit_base;
+				height: 56 * @unit_base;
 				z-index: 101;
 				visibility: visible;
 				opacity: 0.7;
+				transform: scale(68 / 56);
 				pointer-events: none;
+				margin: -28 * @unit_base;
+				animation: 333ms dragItem;
+
+				&-end {
+					opacity: 1;
+					transform: scale(1);
+				}
 
 				.ui-item-icon-remove-left, .ui-item-icon-remove-right {
 					display: none;
