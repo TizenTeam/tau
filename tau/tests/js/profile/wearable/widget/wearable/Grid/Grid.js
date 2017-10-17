@@ -679,7 +679,6 @@
 				" returns correct value");
 		});
 
-
 		QUnit.test("_onRotary", 5, function (assert) {
 			var gridWidget = new Grid(),
 				element = document.getElementById("grid");
@@ -705,6 +704,119 @@
 					direction: "CW"
 				}
 			});
+		});
+
+		QUnit.test("getIndex", function (assert) {
+			var gridWidget = new Grid(),
+				element = document.getElementById("grid");
+
+			gridWidget._ui = {
+				container: element
+			};
+			gridWidget._findItemIndexByScroll = function (_element) {
+				assert.equal(_element, element, "element is set");
+				return 20;
+			};
+			assert.equal(gridWidget.getIndex(), 20, "return correct value");
+			assert.equal(gridWidget._currentIndex, 20, "set correct _currentIndex");
+		});
+
+		QUnit.test("_init", function (assert) {
+			var gridWidget = new Grid(),
+				element = document.getElementById("grid");
+
+			gridWidget.element = element;
+			gridWidget._setLines = function (_element, value) {
+				assert.equal(_element, element, "element is set (_setLines)");
+				assert.equal(value, 3, "value is set (_setLines)");
+			};
+			gridWidget._setShape = function (_element, value) {
+				assert.equal(_element, element, "element is set (_setShape)");
+				assert.equal(value, "circle", "value is set (_setShape)");
+			};
+			gridWidget._setOrientation = function (_element, value) {
+				assert.equal(_element, element, "element is set (_setOrientation)");
+				assert.equal(value, "horizontal", "value is set (_setOrientation)");
+			};
+			gridWidget._getItems = function () {
+				assert.ok(true, "_getItems");
+			};
+			gridWidget._assembleItemsTo3x3 = function (items) {
+				assert.deepEqual(items, [], "items is set");
+			};
+			gridWidget._transformItems = function () {
+				assert.ok(true, "_transformItems");
+			};
+			gridWidget._createSnapPoints = function () {
+				assert.ok(true, "_createSnapPoints");
+			};
+			gridWidget._updateSnapPointPositions = function () {
+				assert.ok(true, "_updateSnapPointPositions");
+			};
+			gridWidget.mode = function (mode) {
+				assert.equal(mode, "3x3", "mode is set");
+			};
+			gridWidget._init();
+			assert.ok(element.classList.contains("ui-children-positioned"),
+				"class ui-children-positioned is set");
+		});
+
+		QUnit.test("_scaleItemsToThumbnails", function (assert) {
+			var gridWidget = new Grid(),
+				element = document.getElementById("grid");
+
+			gridWidget._currentIndex = 5;
+			gridWidget.element = element;
+			gridWidget._items = [{to: {}}, {to: {}}, {to: {}}];
+			gridWidget._settings = {
+				scaleThumbnail: 0.5,
+				scaleThumbnailX: 0.3
+			};
+			gridWidget._scrollDimension = "a";
+			gridWidget._nonScrollDimension = "b";
+			gridWidget._scrollProperty = "left";
+			gridWidget._ui = {
+				container: {
+					left: 100
+				}
+			};
+			gridWidget._getItemSize = function (mode) {
+				assert.equal(mode, "thumbnail", "mode is correct)");
+				return 5;
+			};
+			gridWidget._scaleItemsToThumbnails();
+			assert.deepEqual(gridWidget._items, [
+				{
+					"to": {
+						"opacity": 0.75,
+						"position": {
+							"a": 0,
+							"b": 0
+						},
+						"scale": 0.3
+					}
+				},
+				{
+					"to": {
+						"opacity": 0.75,
+						"position": {
+							"a": 5,
+							"b": 0
+						},
+						"scale": 0.3
+					}
+				},
+				{
+					"to": {
+						"opacity": 0.75,
+						"position": {
+							"a": 10,
+							"b": 0
+						},
+						"scale": 0.3
+					}
+				}
+			], "_items are modified");
 		});
 	}
 

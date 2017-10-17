@@ -653,7 +653,9 @@
 			prototype.getIndex = function () {
 				var self = this;
 
-				return self._currentIndex = self._findItemIndexByScroll(self._ui.container);
+				self._currentIndex = self._findItemIndexByScroll(self._ui.container);
+
+				return self._currentIndex;
 			};
 
 			function createSnapPoint() {
@@ -663,8 +665,9 @@
 				return point;
 			}
 
-			function createSnapPoints(self) {
-				var frag = document.createDocumentFragment(),
+			prototype._createSnapPoints = function () {
+				var self = this,
+					frag = document.createDocumentFragment(),
 					items = self._items,
 					len = items.length,
 					i = 0,
@@ -678,7 +681,7 @@
 				}
 				self._ui.container.appendChild(frag);
 				self._snapPoints = snapPoints;
-			}
+			};
 
 			prototype._updateSnapPointPositions = function () {
 				var self = this,
@@ -848,14 +851,14 @@
 				self._setOrientation(element, options.orientation);
 
 				// collect grid items from DOM
-				getItems(self);
+				self._getItems();
 
 				self._assembleItemsTo3x3(items);
 				// apply transformations to items immediately
-				transformItems(self);
+				self._transformItems();
 
 				// snap points are used as places where scroll will be stopped
-				createSnapPoints(self);
+				self._createSnapPoints();
 				self._updateSnapPointPositions();
 
 				// set proper grid look
@@ -899,12 +902,13 @@
 				style.opacity = item.opacity;
 			}
 
-			function transformItems(self) {
-				var items = self._items;
+			prototype._transformItems = function () {
+				var self = this,
+					items = self._items;
 
 				applyItemsTo(items);
 				items.forEach(transformItem);
-			}
+			};
 
 			/**
 			 * Calculation of item position
@@ -1046,7 +1050,7 @@
 				var self = this,
 					items = self._items,
 					len = items.length,
-					to = null,
+					to,
 					i = 0,
 					size = self._getItemSize("image");
 
@@ -1060,8 +1064,9 @@
 				}
 			};
 
-			function scaleItemsToThumbnails(self) {
-				var items = self._items,
+			prototype._scaleItemsToThumbnails = function () {
+				var self = this,
+					items = self._items,
 					currentIndex = self._currentIndex,
 					itemsLength = items.length,
 					targetState = null,
@@ -1094,7 +1099,7 @@
 						targetState.opacity += (1 - THUMBNAIL_OPACITY) * (0.5 - scrolledAbsModPosition);
 					}
 				}
-			}
+			};
 
 			function setItemsPositionTo(items, deltaX, scrollDimension, nonScrollDimension) {
 				var len = items.length,
@@ -1155,8 +1160,9 @@
 				}
 			}
 
-			function getItems(self) {
-				var children = slice.call(self.element.children),
+			prototype._getItems = function () {
+				var self = this,
+					children = slice.call(self.element.children),
 					len = children.length,
 					child = null,
 					items = self._items,
@@ -1200,7 +1206,7 @@
 
 			prototype._getGridScrollPosition = function (mode) {
 				var self = this,
-					scroll = 0,
+					scroll,
 					itemSize = self._getItemSize(mode),
 					currentIndex = self._currentIndex;
 
@@ -1265,7 +1271,7 @@
 					changeModeToImage(self);
 
 					self._assembleItemsToImages();
-					transformItems(self);
+					self._transformItems();
 
 					self._setGridSize("image");
 					self._updateSnapPointPositions();
@@ -1283,7 +1289,7 @@
 					items = self._items;
 
 				moveItemsToThumbnails(self);
-				transformItems(self);
+				self._transformItems();
 
 				// set proper mode in options
 				self.options.mode = "thumbnail";
@@ -1291,7 +1297,7 @@
 
 				element.parentElement[self._scrollProperty] = self._getGridScrollPosition("thumbnail");
 				updateItemsFrom(items);
-				scaleItemsToThumbnails(self);
+				self._scaleItemsToThumbnails();
 
 				anim(items, TRANSFORM_DURATION, changeItems, transformItem, function () {
 					element.style[self._scrollSize] = getGridSize(self, "thumbnail") + "px";
@@ -1311,10 +1317,10 @@
 					scrollValue = self._getGridScrollPosition("3x3");
 
 				self._assembleItemsTo3x3(items);
-				transformItems(self);
+				self._transformItems();
 
 				self._dispersionItems(self._currentIndex);
-				transformItems(self);
+				self._transformItems();
 
 				self._changeModeTo3x3();
 
@@ -1337,7 +1343,7 @@
 					items = self._items;
 
 				moveItemsToImages(self);
-				transformItems(self);
+				self._transformItems();
 
 				self._setGridSize("image");
 
@@ -1448,7 +1454,7 @@
 
 				if (options.shape === "rectangle" && options.mode === "thumbnail") {
 					self._currentIndex = newIndex;
-					scaleItemsToThumbnails(self);
+					self._scaleItemsToThumbnails();
 					anim(self._items, 0, changeItems, transformItem, function () {
 						self._updateSnapPointPositions();
 					});
