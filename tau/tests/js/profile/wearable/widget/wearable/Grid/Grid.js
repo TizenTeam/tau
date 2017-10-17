@@ -321,11 +321,11 @@
 			var gridWidget = new Grid(),
 				element = document.getElementById("grid"),
 				items = [
-					{ to: {} },
-					{ to: {} },
-					{ to: {} },
-					{ to: {} },
-					{ to: {} }
+					{to: {}},
+					{to: {}},
+					{to: {}},
+					{to: {}},
+					{to: {}}
 				];
 
 			gridWidget._setLines(element, 3);
@@ -814,6 +814,97 @@
 							"b": 0
 						},
 						"scale": 0.3
+					}
+				}
+			], "_items are modified");
+		});
+
+		QUnit.test("_createSnapPoint", function (assert) {
+			var gridWidget = new Grid();
+
+			assert.equal(gridWidget._createSnapPoint().outerHTML, "<div class=\"snap-point\"></div>");
+		});
+
+		QUnit.test("_createSnapPoints", 4, function (assert) {
+			var gridWidget = new Grid(),
+				element = document.getElementById("grid");
+
+			gridWidget._ui = {
+				container: element
+			};
+			gridWidget._createSnapPoint = function () {
+				assert.ok(true, "_createSnapPoint was called");
+				return document.createElement("div");
+			};
+			gridWidget._items = [1, 2, 3];
+			gridWidget._createSnapPoints();
+			assert.equal(gridWidget._snapPoints.length, 3, "_snapPoints has 3 elements");
+		});
+
+		QUnit.test("_dispersionItems", 1, function (assert) {
+			var gridWidget = new Grid(),
+				element = document.getElementById("grid");
+
+			gridWidget.element = element;
+			gridWidget._settings = {
+				scale: 1
+			};
+			gridWidget._items = [
+				{
+					position: {
+						left: 1,
+						top: 2
+					}
+				}, {
+					position: {
+						left: 3,
+						top: 4
+					}
+				}, {
+					position: {
+						left: 5,
+						top: 6
+					}
+				}
+			];
+			gridWidget._dispersionItems(1);
+			assert.deepEqual(gridWidget._items, [
+				{
+					"position": {
+						"left": 1,
+						"top": 2
+					},
+					"to": {
+						"position": {
+							"left": -3.4000000000000004,
+							"top": -2.4000000000000004
+						},
+						"scale": 1
+					}
+				},
+				{
+					"position": {
+						"left": 3,
+						"top": 4
+					},
+					"to": {
+						"position": {
+							"undefined": 0
+						},
+						"scale": 1
+					}
+				},
+				{
+					"position": {
+						"left": 5,
+						"top": 6
+					},
+					"to": {
+						"position": {
+							"left": 9.4,
+							"top": 10.4
+						},
+						"scale": 1
 					}
 				}
 			], "_items are modified");

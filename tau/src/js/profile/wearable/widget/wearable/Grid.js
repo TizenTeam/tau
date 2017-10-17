@@ -409,7 +409,7 @@
 				var self = this,
 					element = self.element,
 					thumb = createThumbnail(url),
-					snapPoint = createSnapPoint(),
+					snapPoint = self._createSnapPoint(),
 					items = self._items;
 
 				// Add new item to "items" array in grid widget
@@ -658,28 +658,28 @@
 				return self._currentIndex;
 			};
 
-			function createSnapPoint() {
+			prototype._createSnapPoint = function () {
 				var point = document.createElement("div");
 
-				point.setAttribute("class", "snap-point");
+				point.className = "snap-point";
 				return point;
-			}
+			};
 
 			prototype._createSnapPoints = function () {
 				var self = this,
-					frag = document.createDocumentFragment(),
+					fragment = document.createDocumentFragment(),
 					items = self._items,
-					len = items.length,
+					length = items.length,
 					i = 0,
-					point = null,
+					point,
 					snapPoints = [];
 
-				for (; i < len; i++) {
-					point = createSnapPoint();
+				for (; i < length; i++) {
+					point = self._createSnapPoint();
 					snapPoints.push(point);
-					frag.appendChild(point);
+					fragment.appendChild(point);
 				}
-				self._ui.container.appendChild(frag);
+				self._ui.container.appendChild(fragment);
 				self._snapPoints = snapPoints;
 			};
 
@@ -1361,12 +1361,12 @@
 					element = self.element,
 					items = self._items,
 					center = items[fromItemIndex],
-					item = null,
-					len = items.length,
+					item,
+					length = items.length,
 					i = 0,
 					state;
 
-				for (; i < len; ++i) {
+				for (; i < length; ++i) {
 					item = items[i];
 					state = item.position;
 					if (i !== fromItemIndex) {
