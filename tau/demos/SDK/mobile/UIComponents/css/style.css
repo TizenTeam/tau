@@ -27,10 +27,6 @@
 	background-image: url(test.png);
 }
 
-.popup-content-padding {
-	padding: 18px 24px;
-}
-
 .ui-popup-header.popup-2line-title,
 .ui-popup-listview .ui-popup-header.popup-2line-title {
 	height: 62px;
